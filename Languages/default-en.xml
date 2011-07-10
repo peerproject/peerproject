@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default English Skin File -->
 
-<!-- Translation based on default-en.xml r67 -->
+<!-- Translation based on default-en.xml r68 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1043,7 +1043,7 @@
 		</menu>
 		<separator/>
 		<item id="ID_HOSTCACHE_IMPORT" text="_Import MET File..."/>
-		<item id="ID_HOSTCACHE_ED2K_DOWNLOAD" text="Download MET..."/>
+		<item id="ID_HOSTCACHE_FILE_DOWNLOAD" text="Download MET/Hublist..."/>
 	</menu>
 	<!-- SEARCH WINDOW -->
 	<menu name="CSearchWnd.Basic">
@@ -2584,7 +2584,7 @@
 	<tip id="ID_HOSTCACHE_CONNECT" message="Connect to selected hosts."/>
 	<tip id="ID_HOSTCACHE_DISCONNECT" message="Disconnect from the selected neighbor."/>
 	<tip id="ID_HOSTCACHE_ED2K_CACHE" message="Show eDonkey servers."/>
-	<tip id="ID_HOSTCACHE_ED2K_DOWNLOAD" message="Download an eDonkey &quot;server.met&quot; file..."/>
+	<tip id="ID_HOSTCACHE_FILE_DOWNLOAD" message="Download an eDonkey &quot;server.met&quot; or DC++ &quot;hublist.xml.bz2&quot; file..."/>
 	<tip id="ID_HOSTCACHE_G1_CACHE" message="Show Gnutella1 cached hosts."/>
 	<tip id="ID_HOSTCACHE_G2_CACHE" message="Show Gnutella2 cached hosts."/>
 	<tip id="ID_HOSTCACHE_G2_HORIZON" message="Show Gnutella2 horizon hubs."/>
@@ -3346,7 +3346,7 @@
 	<string id="20594" value="Deny"/>
 	<string id="20595" value="Never"/>
 	<string id="20596" value="Default Policy"/>
-	<string id="20597" value="Are you sure you want to delete the selected security rules?\n\nThis cannot be undone."/>
+	<string id="20597" value="Are you sure you wish to delete selected security rules?"/>
 	<string id="20598" value="Failed to load Library metadata schemas. Please reinstall application. Continue loading?"/>
 	<string id="20599" value="&amp;Schemas"/>
 	<string id="20600" value="Bandwidth: Full"/>
@@ -3367,6 +3367,7 @@
 	<string id="20615" value="Done Today"/>
 	<string id="20616" value="Done"/>
 	<string id="20618" value="No tasks scheduled."/>
+	<string id="20619" value="Last number is 254,252,248,240,224,192,128, or 0.  Others must be 255.\n\n(For Netmasked IP ranges.)"/>
 	<string id="20620" value="PeerProject is actively searching the network..."/>
 	<string id="20621" value="Click here to search again"/>
 	<string id="20622" value="All Networks"/>
@@ -3590,7 +3591,7 @@
 	<string id="20883" value="UPnP Device Host Service is not running. This service is required to perform the setup.\nYou need to set the startup type of the service to automatic."/>
 	<string id="20884" value="This option uses services provided by ShareMonkey.com for recognizing information about selected files.\n\nPeerProject will transmit file details and your location in order to query the ShareMonkey database.\nIf you are concerned about privacy, you may wish to consult ShareMonkey.com policies.\n\nWould you like to proceed?"/>
 	<string id="20885" value="Changing view will close any windows you have open. Would you like to change now?"/>
-	<string id="20886" value="Changing interface direction requires restart.\nYou will need to start PeerProject manually.\n\nExit now ?"/>
+	<string id="20886" value="Changing interface direction requires restart.\n\nExit now?"/>
 	<string id="20890" value="Welcome to PeerProject"/>
 	<string id="20891" value="E&amp;xit"/>
 	<string id="20892" value="Please wait: Updating eDonkey server list..."/>
@@ -3859,7 +3860,7 @@
 		<control caption="Connect to Gnutella2 (G2)"/>
 		<control caption="Configure Gnutella2"/>
 		<control caption="Gnutella Network:"/>
-		<control caption="The original Gnutella network is less feature-rich than G2, and has fewer files than eDonkey, yet remains a valuable resource. (Limewire)"/>
+		<control caption="The original Gnutella network is less feature-rich than G2, and returns search spam, yet remains a valuable resource. (Limewire)"/>
 		<control caption="Connect to Gnutella (G1)"/>
 		<control caption="Configure Gnutella"/>
 		<control caption="eDonkey Network:"/>
@@ -4059,7 +4060,7 @@
 		<control caption="Connect to Gnutella2 (Default)"/>
 		<control caption="The Gnutella2 network (G2) is PeerProject&apos;s premiere network, offering more features and performance than any other P2P net. (Shareaza)"/>
 		<control caption="Connect to Gnutella"/>
-		<control caption="The original Gnutella network (G1) is less feature-rich than Gnutella2, with less files than ED2K, yet remains a valuable source. (LimeWire)"/>
+		<control caption="The original Gnutella network (G1) is less feature-rich than G2, with more unwanted spam, yet remains a valuable resource. (LimeWire)"/>
 		<control caption="Connect to eDonkey2000"/>
 		<control caption="The eDonkey network (ED2K) is a popular server-based network. While not as feature-rich or fast as G2, ED2K has a vast file collection. (eMule)"/>
 		<control caption="Handle BitTorrent by default (Associate .torrent files)"/>
@@ -4597,8 +4598,8 @@
 		<control caption="OK"/>
 		<control caption="Cancel"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="Download Server.met File">
-		<control caption="You can download an eDonkey server.met file from the web to refresh your local list of servers."/>
+	<dialog name="CUpdateServersDlg" cookie="StEdmsBuBu" caption="Download Server List File">
+		<control caption="You can download a file from the web to refresh your local list of servers.\nSuch as eDonkey server.met, DC++ hublist.xml.bz2, etc."/>
 		<control/>
 		<control/>
 		<control caption="OK"/>
@@ -4853,12 +4854,12 @@
 		<column from="Address" to=""/>
 		<column from="Port" to=""/>
 		<column from="Last Seen" to=""/>
-		<column from="Client" to=""/>
-		<column from="Name" to=""/>
-		<column from="Description" to=""/>
 		<column from="Failures" to=""/>
 		<column from="CurUsers" to=""/>
 		<column from="MaxUsers" to=""/>
+		<column from="Name" to=""/>
+		<column from="Description" to=""/>
+		<column from="Client" to=""/>
 		<column from="Country" to=""/>
 	</list>
 	<list name="CDiscoveryWnd">

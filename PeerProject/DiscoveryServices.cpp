@@ -95,7 +95,7 @@ DWORD CDiscoveryServices::GetCount(int nType, PROTOCOLID nProtocol) const
 			if ( ( nProtocol == PROTOCOL_NULL ) ||									// If we're counting all protocols
 			   ( ( nProtocol == PROTOCOL_G1   ) && ptr->m_bGnutella1 ) ||			// Or we're counting G1 and it matches
 			   ( ( nProtocol == PROTOCOL_G2   ) && ptr->m_bGnutella2 ) ||			// Or we're counting G2 and it matches
-			   ( ( nProtocol == PROTOCOL_ED2K ) && ptr->m_nType == CDiscoveryService::dsServerMet ) ) // Or we're counting ED2K
+			   ( ( nProtocol == PROTOCOL_ED2K ) && ptr->m_nType == CDiscoveryService::dsServerList ) )	// Or we're counting ED2K
 			{
 			   nCount++;
 			}
@@ -139,9 +139,9 @@ BOOL CDiscoveryServices::Add(LPCTSTR pszAddress, int nType, PROTOCOLID nProtocol
 			pService = new CDiscoveryService( CDiscoveryService::dsWebCache, strAddress );
 		break;
 
-	case CDiscoveryService::dsServerMet:
+	case CDiscoveryService::dsServerList:
 		if ( CheckWebCacheValid( pszAddress ) )
-			pService = new CDiscoveryService( CDiscoveryService::dsServerMet, strAddress );
+			pService = new CDiscoveryService( CDiscoveryService::dsServerList, strAddress );
 		break;
 
 	case CDiscoveryService::dsGnutella:
@@ -549,7 +549,7 @@ BOOL CDiscoveryServices::EnoughServices() const
 			if ( pService->m_bGnutella1 ) nG1Count++;
 			if ( pService->m_bGnutella2 ) nG2Count++;
 		}
-		else if ( pService->m_nType == CDiscoveryService::dsServerMet )
+		else if ( pService->m_nType == CDiscoveryService::dsServerList )
 		{
 			nServerMetCount ++;
 		}
@@ -605,7 +605,7 @@ void CDiscoveryServices::AddDefaults()
 					break;
 				case 'M': Add( strService, CDiscoveryService::dsWebCache );					// Multinetwork service
 					break;
-				case 'D': Add( strService, CDiscoveryService::dsServerMet, PROTOCOL_ED2K );	// eDonkey service
+				case 'D': Add( strService, CDiscoveryService::dsServerList, PROTOCOL_ED2K );	// eDonkey service
 					break;
 				case 'U': Add( strService, CDiscoveryService::dsGnutella );					// Bootstrap and UDP Discovery Service
 					break;
@@ -639,7 +639,7 @@ void CDiscoveryServices::AddDefaults()
 		//		if ( _tcsistr( strService, _T("server.met") ) == NULL )
 		//			Add( strService, CDiscoveryService::dsWebCache );
 		//		else
-		//			Add( strService, CDiscoveryService::dsServerMet, PROTOCOL_ED2K );
+		//			Add( strService, CDiscoveryService::dsServerList, PROTOCOL_ED2K );
 		//	}
 		//}
 	}
@@ -885,39 +885,46 @@ BOOL CDiscoveryServices::Execute(BOOL bDiscovery, PROTOCOLID nProtocol, USHORT n
 		if ( m_pRequest.IsPending() )
 			return FALSE;
 
-		DWORD tNow = static_cast< DWORD >( time( NULL ) );
+		const DWORD tNow = static_cast< DWORD >( time( NULL ) );
 		if ( m_tExecute != 0 && tNow - m_tExecute < 5 && nForceDiscovery < 2 ) return FALSE;
 		if ( m_tQueried != 0 && tNow - m_tQueried < 60 && nForceDiscovery == 0 ) return FALSE;
 		if ( nForceDiscovery > 0 && nProtocol == PROTOCOL_NULL ) return FALSE;
 
 		m_tExecute = tNow;
 
-#ifdef LAN_MODE
-		BOOL bG1Required = FALSE;
+		BOOL bG1Required;
+		BOOL bG2Required;
+		BOOL bEdRequired;
 
-		BOOL bG2Required =
-			( nProtocol == PROTOCOL_NULL || nProtocol == PROTOCOL_G2) &&
-			( nForceDiscovery == 1 || HostCache.Gnutella2.CountHosts(TRUE) < 1 );
+		if ( Settings.Experimental.LAN_Mode )
+		{
+			bG2Required = Settings.Gnutella2.Enabled &&
+				( nProtocol == PROTOCOL_NULL || nProtocol == PROTOCOL_G2) &&
+				( nForceDiscovery == 1 || HostCache.Gnutella2.CountHosts(TRUE) < 1 );
+			bG1Required = FALSE;
+			bEdRequired = FALSE;
+		}
+		else
+		{
+			bG1Required = Settings.Gnutella1.Enabled &&
+				( nProtocol == PROTOCOL_NULL || nProtocol == PROTOCOL_G1) &&
+				( nForceDiscovery == 1 || HostCache.Gnutella1.CountHosts(TRUE) < 20 ) &&
+				! Settings.Experimental.LAN_Mode;
 
-		BOOL bEdRequired = FALSE;
-#else // No LAN_MOD
-		BOOL bG1Required = Settings.Gnutella1.Enabled &&
-			( nProtocol == PROTOCOL_NULL || nProtocol == PROTOCOL_G1) &&
-			( nForceDiscovery == 1 || HostCache.Gnutella1.CountHosts(TRUE) < 20 );
+			bG2Required = Settings.Gnutella2.Enabled &&
+				( nProtocol == PROTOCOL_NULL || nProtocol == PROTOCOL_G2) &&
+				( nForceDiscovery == 1 || HostCache.Gnutella2.CountHosts(TRUE) < 25 ||
+				( Settings.Experimental.LAN_Mode && HostCache.Gnutella2.CountHosts(TRUE) < 1 ) );
 
-		BOOL bG2Required = Settings.Gnutella2.Enabled &&
-			( nProtocol == PROTOCOL_NULL || nProtocol == PROTOCOL_G2) &&
-			( nForceDiscovery == 1 || HostCache.Gnutella2.CountHosts(TRUE) < 25 );
+			 bEdRequired = Settings.eDonkey.Enabled &&
+				( nProtocol == PROTOCOL_NULL || nProtocol == PROTOCOL_ED2K ) &&
+				Settings.eDonkey.MetAutoQuery && ! Settings.Experimental.LAN_Mode &&
+				( m_tMetQueried == 0 || tNow - m_tMetQueried >= 60 * 60 ) &&
+				( nForceDiscovery == 1 || ! HostCache.EnoughED2KServers() );
 
-		BOOL bEdRequired = Settings.eDonkey.Enabled &&
-			( nProtocol == PROTOCOL_NULL || nProtocol == PROTOCOL_ED2K ) &&
-			Settings.eDonkey.MetAutoQuery &&
-			( m_tMetQueried == 0 || tNow - m_tMetQueried >= 60 * 60 ) &&
-			( nForceDiscovery == 1 || ! HostCache.EnoughED2KServers() );
-#endif // LAN_MOD
-
-		if ( bEdRequired )
-			m_tMetQueried = tNow;	// Execute this maximum one time each 60 min only when the number of eDonkey servers is too low (Very important).
+			 if ( bEdRequired )
+				m_tMetQueried = tNow;		// Execute this maximum one time each 60 min only when the number of eDonkey servers is too low (Very important).
+		}
 
 		pLock.Unlock();
 
@@ -946,17 +953,16 @@ BOOL CDiscoveryServices::Execute(BOOL bDiscovery, PROTOCOLID nProtocol, USHORT n
 
 		return TRUE;	// No Discovery needed
 	}
-	else
-	{
-		theApp.Message( MSG_NOTICE, IDS_DISCOVERY_BOOTSTRAP );
-		// TCP bootstraps
-		if ( Settings.Gnutella1.Enabled && Settings.Gnutella2.Enabled && nProtocol == PROTOCOL_NULL )
-			ExecuteBootstraps( Settings.Discovery.BootstrapCount, FALSE, PROTOCOL_NULL );
-		else if ( Settings.Gnutella2.Enabled && nProtocol == PROTOCOL_G2 )
-			ExecuteBootstraps( Settings.Discovery.BootstrapCount, FALSE, PROTOCOL_G2 );
-		else if ( Settings.Gnutella1.Enabled && nProtocol == PROTOCOL_G1 )
-			ExecuteBootstraps( Settings.Discovery.BootstrapCount, FALSE, PROTOCOL_G1 );
-	}
+
+	// TCP bootstraps
+	theApp.Message( MSG_NOTICE, IDS_DISCOVERY_BOOTSTRAP );
+
+	if ( Settings.Gnutella1.Enabled && Settings.Gnutella2.Enabled && nProtocol == PROTOCOL_NULL )
+		ExecuteBootstraps( Settings.Discovery.BootstrapCount, FALSE, PROTOCOL_NULL );
+	else if ( Settings.Gnutella2.Enabled && nProtocol == PROTOCOL_G2 )
+		ExecuteBootstraps( Settings.Discovery.BootstrapCount, FALSE, PROTOCOL_G2 );
+	else if ( Settings.Gnutella1.Enabled && nProtocol == PROTOCOL_G1 )
+		ExecuteBootstraps( Settings.Discovery.BootstrapCount, FALSE, PROTOCOL_G1 );
 
 	return FALSE;
 }
@@ -1026,7 +1032,7 @@ BOOL CDiscoveryServices::RequestRandomService(PROTOCOLID nProtocol)
 		if ( pService->m_nType == CDiscoveryService::dsGnutella )
 			return pService->ResolveGnutella();
 
-		if ( pService->m_nType == CDiscoveryService::dsServerMet )
+		if ( pService->m_nType == CDiscoveryService::dsServerList )
 			return RequestWebCache( pService, wcmServerMet, nProtocol );
 
 		return RequestWebCache( pService, wcmHosts, nProtocol );
@@ -1071,7 +1077,7 @@ CDiscoveryService* CDiscoveryServices::GetRandomService(PROTOCOLID nProtocol)
 				pServices.Add( pService );
 			break;
 		case PROTOCOL_ED2K:
-			if ( pService->m_nType == CDiscoveryService::dsServerMet  &&
+			if ( pService->m_nType == CDiscoveryService::dsServerList  &&
 				( tNow - pService->m_tAccessed > pService->m_nAccessPeriod ) )
 				pServices.Add( pService );
 			break;
@@ -1083,8 +1089,8 @@ CDiscoveryService* CDiscoveryServices::GetRandomService(PROTOCOLID nProtocol)
 	// Select a random service from the list of possible ones.
 	if ( pServices.GetSize() > 0 )	// If the list of possible ones isn't empty
 		return pServices.GetAt( GetRandomNum< INT_PTR >( 0, pServices.GetSize() - 1 ) );	// A random service
-	else							// else (No services available)
-		return NULL;				// return NULL to indicate none available
+
+	return NULL;		// None available
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -1875,7 +1881,7 @@ BOOL CDiscoveryServices::RunServerMet()
 	if ( ! pLock.Lock( 250 ) )
 		return FALSE;
 
-	if ( ! Check( m_pWebCache, CDiscoveryService::dsServerMet ) )
+	if ( ! Check( m_pWebCache, CDiscoveryService::dsServerList ) )
 		return FALSE;
 
 	m_pWebCache->OnAccess();
@@ -1900,7 +1906,7 @@ BOOL CDiscoveryServices::RunServerMet()
 	if ( ! pLock.Lock( 250 ) )
 		return FALSE;
 
-	if ( ! Check( m_pWebCache, CDiscoveryService::dsServerMet ) )
+	if ( ! Check( m_pWebCache, CDiscoveryService::dsServerList ) )
 		return FALSE;
 
 	int nCount = HostCache.ImportMET( &pFile );
@@ -1924,12 +1930,12 @@ BOOL CDiscoveryServices::Execute(CDiscoveryService* pService, Mode nMode)
 		return pService->ResolveGnutella();
 
 	if ( pService->m_nType == CDiscoveryService::dsWebCache )
-		return RequestWebCache( pService,
-			nMode, pService->m_bGnutella2 ? PROTOCOL_G2 : PROTOCOL_G1 );
+		return RequestWebCache( pService, nMode,
+			pService->m_bGnutella2 ? PROTOCOL_G2 : PROTOCOL_G1 );
 
-	if ( pService->m_nType == CDiscoveryService::dsServerMet )
-		return RequestWebCache( pService,
-			CDiscoveryServices::wcmServerMet, PROTOCOL_ED2K );
+	if ( pService->m_nType == CDiscoveryService::dsServerList )
+		return RequestWebCache( pService, CDiscoveryServices::wcmServerMet,
+			pService->m_sAddress.Find( _T(".xml.bz2") ) > 1 ? PROTOCOL_DC : PROTOCOL_ED2K );
 
 	return FALSE;
 }
@@ -2215,7 +2221,7 @@ void CDiscoveryService::OnSuccess()
 {
 	m_nFailures = 0;
 
-	if ( m_nType == dsWebCache || m_nType == dsServerMet )
+	if ( m_nType == dsWebCache || m_nType == dsServerList )
 	{
 		theApp.Message( MSG_INFO, IDS_DISCOVERY_WEB_SUCCESS,
 			(LPCTSTR)m_sAddress );

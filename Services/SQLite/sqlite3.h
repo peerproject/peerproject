@@ -1,5 +1,5 @@
 /*
-** sqlite3.h  (3.7.4)(Dec.2010)
+** sqlite3.h  (3.7.6)(May.2011)
 **
 ** This file is part of PeerProject (peerproject.org) © 2008-2011
 ** The original author disclaimed copyright to this source code.
@@ -83,9 +83,9 @@ extern "C" {
 /*
 ** Compile-Time Library Version Numbers
 */
-#define SQLITE_VERSION        "3.7.4"
-#define SQLITE_VERSION_NUMBER 3007004
-#define SQLITE_SOURCE_ID      "2010-12-07 20:14:09 a586a4deeb25330037a49df295b36aaf624d0f45"
+#define SQLITE_VERSION        "3.7.6"
+#define SQLITE_VERSION_NUMBER 3007006
+#define SQLITE_SOURCE_ID      "2011-05-19 13:26:54 ed1da510a239ea767a01dc332b667119fa3c908e"
 
 /*
 ** Run-Time Library Version Numbers
@@ -174,7 +174,7 @@ SQLITE_API int sqlite3_exec(
 #define SQLITE_INTERRUPT    9   /* Operation terminated by sqlite3_interrupt()*/
 #define SQLITE_IOERR       10   /* Some kind of disk I/O error occurred */
 #define SQLITE_CORRUPT     11   /* The database disk image is malformed */
-#define SQLITE_NOTFOUND    12   /* NOT USED. Table or record not found */
+#define SQLITE_NOTFOUND    12   /* Unknown opcode in sqlite3_file_control() */
 #define SQLITE_FULL        13   /* Insertion failed because database is full */
 #define SQLITE_CANTOPEN    14   /* Unable to open the database file */
 #define SQLITE_PROTOCOL    15   /* Database lock protocol error */
@@ -241,6 +241,8 @@ SQLITE_API int sqlite3_exec(
 #define SQLITE_OPEN_SHAREDCACHE      0x00020000  /* Ok for sqlite3_open_v2() */
 #define SQLITE_OPEN_PRIVATECACHE     0x00040000  /* Ok for sqlite3_open_v2() */
 #define SQLITE_OPEN_WAL              0x00080000  /* VFS only */
+
+/* Reserved:                         0x00F00000 */
 
 /*
 ** Device Characteristics
@@ -319,6 +321,7 @@ struct sqlite3_io_methods {
 #define SQLITE_FCNTL_SIZE_HINT        5
 #define SQLITE_FCNTL_CHUNK_SIZE       6
 #define SQLITE_FCNTL_FILE_POINTER     7
+#define SQLITE_FCNTL_SYNC_OMITTED     8
 
 
 /*
@@ -330,14 +333,16 @@ typedef struct sqlite3_mutex sqlite3_mutex;
 ** OS Interface Object
 */
 typedef struct sqlite3_vfs sqlite3_vfs;
+typedef void (*sqlite3_syscall_ptr)(void);
 struct sqlite3_vfs {
-  int iVersion;            /* Structure version number (currently 2) */
+  int iVersion;            /* Structure version number (currently 3) */
   int szOsFile;            /* Size of subclassed sqlite3_file */
   int mxPathname;          /* Maximum file pathname length */
   sqlite3_vfs *pNext;      /* Next registered VFS */
   const char *zName;       /* Name of this virtual file system */
   void *pAppData;          /* Pointer to application-specific data */
-  int (*xOpen)(sqlite3_vfs*, const char *zName, sqlite3_file*, int flags, int *pOutFlags);
+  int (*xOpen)(sqlite3_vfs*, const char *zName, sqlite3_file*,
+               int flags, int *pOutFlags);
   int (*xDelete)(sqlite3_vfs*, const char *zName, int syncDir);
   int (*xAccess)(sqlite3_vfs*, const char *zName, int flags, int *pResOut);
   int (*xFullPathname)(sqlite3_vfs*, const char *zName, int nOut, char *zOut);
@@ -356,8 +361,15 @@ struct sqlite3_vfs {
   int (*xCurrentTimeInt64)(sqlite3_vfs*, sqlite3_int64*);
   /*
   ** The methods above are in versions 1 and 2 of the sqlite_vfs object.
-  ** New fields may be appended in figure versions.
-  ** The iVersion value will increment whenever this happens.
+  ** Those below are for version 3 and greater.
+  */
+  int (*xSetSystemCall)(sqlite3_vfs*, const char *zName, sqlite3_syscall_ptr);
+  sqlite3_syscall_ptr (*xGetSystemCall)(sqlite3_vfs*, const char *zName);
+  const char *(*xNextSystemCall)(sqlite3_vfs*, const char *zName);
+  /*
+  ** The methods above are in versions 1 through 3 of the sqlite_vfs object.
+  ** New fields may be appended in figure versions.  The iVersion
+  ** value will increment whenever this happens.
   */
 };
 
@@ -438,7 +450,9 @@ struct sqlite3_mem_methods {
 /*
 ** Database Connection Configuration Options
 */
-#define SQLITE_DBCONFIG_LOOKASIDE    1001  /* void* int int */
+#define SQLITE_DBCONFIG_LOOKASIDE       1001  /* void* int int */
+#define SQLITE_DBCONFIG_ENABLE_FKEY     1002  /* int int* */
+#define SQLITE_DBCONFIG_ENABLE_TRIGGER  1003  /* int int* */
 
 
 /*
@@ -501,6 +515,7 @@ SQLITE_API void sqlite3_free_table(char **result);
 SQLITE_API char *sqlite3_mprintf(const char*,...);
 SQLITE_API char *sqlite3_vmprintf(const char*, va_list);
 SQLITE_API char *sqlite3_snprintf(int,char*,const char*, ...);
+SQLITE_API char *sqlite3_vsnprintf(int,char*,const char*, va_list);
 
 /*
 ** Memory Allocation Subsystem
@@ -1289,7 +1304,8 @@ SQLITE_API int sqlite3_mutex_notheld(sqlite3_mutex*);
 #define SQLITE_MUTEX_STATIC_OPEN      4  /* sqlite3BtreeOpen() */
 #define SQLITE_MUTEX_STATIC_PRNG      5  /* sqlite3_random() */
 #define SQLITE_MUTEX_STATIC_LRU       6  /* lru page list */
-#define SQLITE_MUTEX_STATIC_LRU2      7  /* lru page list */
+#define SQLITE_MUTEX_STATIC_LRU2      7  /* NOT USED */
+#define SQLITE_MUTEX_STATIC_PMEM      7  /* sqlite3PageMalloc() */
 
 /*
 ** Retrieve the mutex for a database connection
@@ -1354,11 +1370,14 @@ SQLITE_API int sqlite3_db_status(sqlite3*, int op, int *pCur, int *pHiwtr, int r
 /*
 ** Status Parameters for database connections
 */
-#define SQLITE_DBSTATUS_LOOKASIDE_USED     0
-#define SQLITE_DBSTATUS_CACHE_USED         1
-#define SQLITE_DBSTATUS_SCHEMA_USED        2
-#define SQLITE_DBSTATUS_STMT_USED          3
-#define SQLITE_DBSTATUS_MAX                3   /* Largest defined DBSTATUS */
+#define SQLITE_DBSTATUS_LOOKASIDE_USED       0
+#define SQLITE_DBSTATUS_CACHE_USED           1
+#define SQLITE_DBSTATUS_SCHEMA_USED          2
+#define SQLITE_DBSTATUS_STMT_USED            3
+#define SQLITE_DBSTATUS_LOOKASIDE_HIT        4
+#define SQLITE_DBSTATUS_LOOKASIDE_MISS_SIZE  5
+#define SQLITE_DBSTATUS_LOOKASIDE_MISS_FULL  6
+#define SQLITE_DBSTATUS_MAX                  6   /* Largest defined DBSTATUS */
 
 
 /*
@@ -1453,6 +1472,34 @@ SQLITE_API int sqlite3_wal_autocheckpoint(sqlite3 *db, int N);
 ** Checkpoint a database
 */
 SQLITE_API int sqlite3_wal_checkpoint(sqlite3 *db, const char *zDb);
+
+/*
+** Checkpoint a database
+*/
+SQLITE_API int sqlite3_wal_checkpoint_v2(
+  sqlite3 *db,                    /* Database handle */
+  const char *zDb,                /* Name of attached database (or NULL) */
+  int eMode,                      /* SQLITE_CHECKPOINT_* value */
+  int *pnLog,                     /* OUT: Size of WAL log in frames */
+  int *pnCkpt                     /* OUT: Total number of frames checkpointed */
+);
+
+/*
+** Checkpoint operation parameters
+*/
+#define SQLITE_CHECKPOINT_PASSIVE 0
+#define SQLITE_CHECKPOINT_FULL    1
+#define SQLITE_CHECKPOINT_RESTART 2
+
+
+/*
+** Undo the hack that converts floating point types to integer for
+** builds on processors without floating point support.
+**
+**#ifdef SQLITE_OMIT_FLOATING_POINT
+**# undef double
+**#endif
+*/
 
 #ifdef __cplusplus
 }  /* End of the 'extern "C"' block */

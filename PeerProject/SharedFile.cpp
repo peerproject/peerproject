@@ -27,13 +27,16 @@
 #include "LibraryFolders.h"
 #include "LibraryHistory.h"
 #include "HashDatabase.h"
+#include "Plugins.h"
+#include "WndChild.h"
+#include "WndMain.h"
 
+#include "Buffer.h"
 #include "Network.h"
 #include "Download.h"
 #include "Downloads.h"
 #include "PeerProjectURL.h"
 #include "FileExecutor.h"
-#include "Buffer.h"
 #include "ThumbCache.h"
 
 #include "XML.h"
@@ -74,10 +77,10 @@ CLibraryFile::CLibraryFile(CLibraryFolder* pFolder, LPCTSTR pszName)
 	, m_nListCookie		( 0ul )
 	, m_pFolder			( pFolder )
 	, m_nIndex			( 0ul )
-	, m_bShared			( TRI_UNKNOWN )
 	, m_nVirtualBase	( 0ull )
 	, m_nVirtualSize	( 0ull )
 	, m_bVerify			( TRI_UNKNOWN )
+	, m_bShared			( TRI_UNKNOWN )
 	, m_pSchema			( NULL )
 	, m_pMetadata		( NULL )
 	, m_bMetadataAuto	( FALSE )
@@ -96,11 +99,15 @@ CLibraryFile::CLibraryFile(CLibraryFolder* pFolder, LPCTSTR pszName)
 	, m_nCollIndex		( 0ul )
 	, m_nIcon16			( -1 )
 	, m_bNewFile		( FALSE )
+	, m_tCreateTime		( 0 )
 {
 	ZeroMemory( &m_pTime, sizeof(m_pTime) );
 	ZeroMemory( &m_pMetadataTime, sizeof(m_pMetadataTime) );
 	if ( pszName )
+	{
 		m_sName = pszName;
+		m_pSchema = SchemaCache.GuessByFilename( m_sName );
+	}
 	if ( pFolder )
 		m_sPath = pFolder->m_sPath;
 
@@ -122,20 +129,28 @@ CLibraryFile::~CLibraryFile()
 //////////////////////////////////////////////////////////////////////
 // CLibraryFile path computation
 
-CString CLibraryFile::GetPath() const
+const CLibraryFolder* CLibraryFile::GetFolderPtr() const
 {
-	if ( IsAvailable() )
-		return m_pFolder->m_sPath + '\\' + m_sName;
-	else
-		return m_sName;
+	ASSUME_LOCK( Library.m_pSection );
+	ASSERT_VALID( this );
+
+	return m_pFolder;
 }
 
 CString CLibraryFile::GetFolder() const
 {
-	if ( IsAvailable() )
+	if ( m_pFolder )
 		return m_pFolder->m_sPath;
-	else
-		return CString();
+
+	return CString();
+}
+
+CString CLibraryFile::GetPath() const
+{
+	if ( m_pFolder )
+		return m_pFolder->m_sPath + '\\' + m_sName;
+
+	return m_sName;
 }
 
 CString CLibraryFile::GetSearchName() const
@@ -143,9 +158,9 @@ CString CLibraryFile::GetSearchName() const
 	int nBase = 0;
 	CString str;
 
-	if ( IsAvailable() && m_pFolder->m_pParent != NULL )
+	if ( m_pFolder && m_pFolder->m_pParent )
 	{
-		for ( CLibraryFolder* pFolder = m_pFolder ; ; pFolder = pFolder->m_pParent )
+		for ( const CLibraryFolder* pFolder = m_pFolder ; ; pFolder = pFolder->m_pParent )
 		{
 			if ( pFolder->m_pParent == NULL )
 			{
@@ -162,7 +177,7 @@ CString CLibraryFile::GetSearchName() const
 	else
 	{
 		ASSERT( m_pFolder->m_sPath.GetLength() > nBase );
-		str = m_pFolder->m_sPath.Mid( nBase + 1 ) + '\\' + m_sName;
+		str = m_pFolder->m_sPath.Mid( nBase + 1 ) + _T('\\') + m_sName;
 	}
 
 	ToLower( str );
@@ -174,27 +189,22 @@ CString CLibraryFile::GetSearchName() const
 
 bool CLibraryFile::IsShared(bool bIgnoreOverride) const
 {
+	ASSUME_LOCK( Library.m_pSection );
+
 	// Don't share offline files
-	if ( IsAvailable() && m_pFolder->IsOffline() )
+	if ( m_pFolder && m_pFolder->IsOffline() )
 		return false;
 
 	// Don't share private torrents
-	if ( m_pSchema != NULL &&
-		m_pSchema->CheckURI( CSchema::uriBitTorrent ) &&
-		m_pMetadata != NULL &&
-		m_pMetadata->GetAttributeValue( L"privateflag", L"true" ).CompareNoCase( L"true" ) == 0 )
+	if ( IsPrivateTorrent() )
 		return false;
 
 	// Use override shared flag of file
 	if ( m_bShared != TRI_UNKNOWN && ! bIgnoreOverride )
 		return ( m_bShared == TRI_TRUE );
 
-	// Ghost files by default shared
-	if ( ! IsAvailable() )
-		return true;
-
-	// Use folder shared flag
-	return ( m_pFolder->IsShared() != FALSE );
+	// Ghost files by default shared, then use folder shared flag
+	return ! m_pFolder || m_pFolder->IsShared();
 }
 
 void CLibraryFile::SetShared(bool bShared, bool bOverride)
@@ -212,7 +222,7 @@ void CLibraryFile::SetShared(bool bShared, bool bOverride)
 		m_pMetadata->GetAttributeValue( L"privateflag", L"true" ).CompareNoCase( L"true" ) == 0 )
 		bNewShare = TRI_FALSE;
 
-	bool bFolderShared = ! IsAvailable() || m_pFolder->IsShared();
+	bool bFolderShared = ! m_pFolder || m_pFolder->IsShared();
 
 	// Use folder default shared flag
 	if ( bNewShare == TRI_UNKNOWN )
@@ -229,11 +239,69 @@ void CLibraryFile::SetShared(bool bShared, bool bOverride)
 	}
 }
 
+bool CLibraryFile::IsPrivateTorrent() const
+{
+	return ( m_pSchema && m_pMetadata &&
+		m_pSchema->CheckURI( CSchema::uriBitTorrent ) &&
+		m_pMetadata->GetAttributeValue( _T("privateflag"), _T("true") ).CompareNoCase( _T("true") ) == 0 );
+}
+
+DWORD CLibraryFile::GetCreationTime()
+{
+	if ( m_tCreateTime )
+		return m_tCreateTime;
+
+	if ( m_pFolder && m_pFolder->IsOffline() )
+		return 0;
+
+	HANDLE hFile = CreateFile( GetPath(), FILE_READ_ATTRIBUTES,
+		FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE, NULL,
+		OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL );
+	if ( hFile == INVALID_HANDLE_VALUE )
+		return 0;
+
+	FILETIME ftLastWriteTime;
+	BOOL bResult = GetFileTime( hFile, NULL, NULL, &ftLastWriteTime );
+
+	CloseHandle( hFile );
+
+	if ( ! bResult )
+		return 0;
+
+	return m_tCreateTime = ( ( MAKEQWORD( ftLastWriteTime.dwLowDateTime,
+		ftLastWriteTime.dwHighDateTime ) ) / 10000000ui64 - 11644473600ui64 );
+}
+
+BOOL CLibraryFile::SetCreationTime(DWORD tTime)
+{
+	if ( tTime > static_cast< DWORD >( time( NULL ) ) )
+		return FALSE;
+
+	m_tCreateTime = tTime;
+
+	if ( m_pFolder && m_pFolder->IsOffline() )
+		return FALSE;
+
+	HANDLE hFile = CreateFile( GetPath(), FILE_WRITE_ATTRIBUTES,
+		FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE, NULL,
+		OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL );
+	if ( hFile == INVALID_HANDLE_VALUE )
+		return FALSE;
+
+	QWORD t = ( (QWORD)m_tCreateTime + 11644473600ui64 ) * 10000000ui64;
+	FILETIME ftLastWriteTime = { (DWORD)t, (DWORD)( t >> 32 ) };
+	BOOL bResult = SetFileTime( hFile, NULL, NULL, &ftLastWriteTime );
+
+	CloseHandle( hFile );
+
+	return bResult;
+}
+
 BOOL CLibraryFile::CheckFileAttributes(QWORD nSize, BOOL bSharedOnly, BOOL bAvailableOnly) const
 {
 	return ( nSize == SIZE_UNKNOWN || nSize == 0 || nSize == m_nSize ) &&
-		( ! bSharedOnly || IsShared() ) &&
-		( ! bAvailableOnly || IsAvailable() );
+		( ! bAvailableOnly || m_pFolder ) &&
+		( ! bSharedOnly || IsShared() );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -281,7 +349,7 @@ BOOL CLibraryFile::IsNewFile() const
 
 BOOL CLibraryFile::Rebuild()
 {
-	if ( ! IsAvailable() ) return FALSE;
+	if ( ! m_pFolder ) return FALSE;	// Ghost file
 
 	Library.RemoveFile( this );
 
@@ -291,10 +359,9 @@ BOOL CLibraryFile::Rebuild()
 	m_oED2K.clear();
 	m_nVirtualBase = m_nVirtualSize = 0;
 
-	if ( m_pMetadata != NULL && m_bMetadataAuto )
+	if ( m_pMetadata && m_bMetadataAuto )
 	{
 		delete m_pMetadata;
-		m_pSchema	= NULL;
 		m_pMetadata	= NULL;
 	}
 
@@ -308,7 +375,7 @@ BOOL CLibraryFile::Rebuild()
 
 BOOL CLibraryFile::Rename(LPCTSTR pszName)
 {
-	if ( ! IsAvailable() ) return FALSE;
+	if ( ! m_pFolder ) return FALSE;	// Ghost file
 	if ( ! pszName || ! *pszName ) return FALSE;
 	if ( _tcschr( pszName, '\\' ) ) return FALSE;
 
@@ -354,7 +421,7 @@ BOOL CLibraryFile::Rename(LPCTSTR pszName)
 
 BOOL CLibraryFile::Delete(BOOL bDeleteGhost)
 {
-	if ( IsAvailable() )
+	if ( m_pFolder )
 	{
 		// Delete file
 		BOOL bToRecycleBin = ( ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) == 0 );
@@ -426,6 +493,9 @@ BOOL CLibraryFile::SetMetadata(CXMLElement*& pXML, BOOL bMerge, BOOL bOverwrite)
 		{
 			// Then try short version, for example <video ... />
 			pSchema = SchemaCache.Guess( pXML->GetName() );
+			if ( ! pSchema )
+				pSchema = SchemaCache.GuessByFilename( m_sName );
+
 			if ( pSchema )
 			{
 				// Recreate full XML
@@ -448,6 +518,10 @@ BOOL CLibraryFile::SetMetadata(CXMLElement*& pXML, BOOL bMerge, BOOL bOverwrite)
 		if ( m_pMetadata && m_pSchema == pSchema &&
 			m_pMetadata->Equals( pXML->GetFirstElement() ) )
 			return TRUE;	// No need
+	}
+	else
+	{
+		pSchema = SchemaCache.GuessByFilename( m_sName );
 	}
 
 	Library.RemoveFile( this );
@@ -535,7 +609,7 @@ CTigerTree* CLibraryFile::GetTigerTree()
 CED2K* CLibraryFile::GetED2K()
 {
 	if ( ! m_oED2K ) return NULL;
-	if ( ! IsAvailable() ) return NULL;
+	if ( ! m_pFolder ) return NULL;
 
 	CED2K* pED2K = new CED2K();
 
@@ -788,21 +862,9 @@ void CLibraryFile::Serialize(CArchive& ar, int nVersion)
 		//}
 
 		SerializeIn( ar, m_oSHA1, nVersion );
-
-		//if ( nVersion >= 8 )
-			SerializeIn( ar, m_oTiger, nVersion );
-		//else
-		//	m_oTiger.clear();
-
-		//if ( nVersion >= 11 )
-			SerializeIn( ar, m_oMD5, nVersion );
-		//else
-		//	m_oMD5.clear();
-
-		//if ( nVersion >= 11 )
-			SerializeIn( ar, m_oED2K, nVersion );
-		//else
-		//	m_oED2K.clear();
+		SerializeIn( ar, m_oTiger, nVersion );
+		SerializeIn( ar, m_oMD5,  nVersion );
+		SerializeIn( ar, m_oED2K, nVersion );
 
 		//if ( nVersion >= 26 )
 			SerializeIn( ar, m_oBTH, nVersion );
@@ -823,6 +885,8 @@ void CLibraryFile::Serialize(CArchive& ar, int nVersion)
 			//		ReadArchive( ar, &m_pMetadataTime, sizeof(m_pMetadataTime) );
 			//}
 			m_pMetadata = new CXMLElement();
+			if ( ! m_pMetadata )
+				AfxThrowMemoryException();
 			m_pMetadata->Serialize( ar );
 			m_pSchema = SchemaCache.Get( strURI );
 			if ( m_pSchema == NULL )
@@ -830,7 +894,11 @@ void CLibraryFile::Serialize(CArchive& ar, int nVersion)
 				delete m_pMetadata;
 				m_pMetadata = NULL;
 			}
+			// else schema URI changed
 		}
+		if ( m_pSchema == NULL )
+			m_pSchema = SchemaCache.GuessByFilename( m_sName );
+
 
 		ar >> m_nRating;
 		ar >> m_sComments;
@@ -900,7 +968,7 @@ void CLibraryFile::Serialize(CArchive& ar, int nVersion)
 
 BOOL CLibraryFile::ThreadScan(CSingleLock& pLock, DWORD nScanCookie, QWORD nSize, FILETIME* pTime/*, LPCTSTR pszMetaData*/)
 {
-	ASSERT( IsAvailable() );
+	ASSERT( m_pFolder );	// No ghosts
 
 	m_nScanCookie = nScanCookie;
 
@@ -944,7 +1012,7 @@ BOOL CLibraryFile::ThreadScan(CSingleLock& pLock, DWORD nScanCookie, QWORD nSize
 
 BOOL CLibraryFile::IsReadable() const
 {
-	if ( ! IsAvailable() )
+	if ( ! m_pFolder )
 		return FALSE;
 
 	HANDLE hFile = CreateFile( GetPath(), GENERIC_READ,
@@ -964,7 +1032,7 @@ BOOL CLibraryFile::IsReadable() const
 
 void CLibraryFile::OnDelete(BOOL bDeleteGhost, TRISTATE bCreateGhost)
 {
-	if ( IsAvailable() )
+	if ( m_pFolder )
 	{
 		CThumbCache::Delete( GetPath() );
 
@@ -985,7 +1053,8 @@ void CLibraryFile::OnDelete(BOOL bDeleteGhost, TRISTATE bCreateGhost)
 			Ghost();
 			return;
 		}
-		else if ( IsRated() && bCreateGhost != TRI_FALSE )
+
+		if ( IsRated() && bCreateGhost != TRI_FALSE )
 		{
 			Ghost();
 			return;
@@ -1006,6 +1075,8 @@ void CLibraryFile::OnDelete(BOOL bDeleteGhost, TRISTATE bCreateGhost)
 
 void CLibraryFile::Ghost()
 {
+	ASSUME_LOCK( Library.m_pSection );
+
 	SYSTEMTIME pTime;
 	GetSystemTime( &pTime );
 	SystemTimeToFileTime( &pTime, &m_pTime );
@@ -1038,7 +1109,8 @@ BOOL CLibraryFile::OnVerifyDownload(
 	const Hashes::Md5ManagedHash& oMD5,
 	LPCTSTR pszSources)
 {
-	if ( ! IsAvailable() ) return FALSE;
+	ASSERT( IsAvailable() );
+	ASSERT( IsHashed() );
 
 	if ( Settings.Downloads.VerifyFiles && m_bVerify == TRI_UNKNOWN && m_nVirtualSize == 0 )
 	{
@@ -1073,14 +1145,180 @@ BOOL CLibraryFile::OnVerifyDownload(
 		}
 	}
 
-	if ( m_oSHA1 && m_nVirtualSize == 0 )
-		VersionChecker.CheckUpgradeHash( m_oSHA1, GetPath() );
-
 	AddAlternateSources( pszSources );
+
+	// Notify library plugins
+	if ( Plugins.OnNewFile( this ) )
+		return TRUE;
+
+	// Notify all windows about this file
+	if ( CMainWnd* pMainWnd = theApp.SafeMainWnd() )
+	{
+		CChildWnd* pChildWnd = NULL;
+		while ( ( pChildWnd = pMainWnd->m_pWindows.Find( NULL, pChildWnd ) ) != NULL )
+		{
+			if ( pChildWnd->OnNewFile( this ) )		// ILibraryFile plugin notification
+				return TRUE;
+		}
+	}
+
+	// Notify version checker
+	if ( VersionChecker.CheckUpgradeHash( this ) )
+		return TRUE;
 
 	return TRUE;
 }
 
+//BOOL CLibraryFile::PrepareDoc(LPCTSTR pszTemplate, CArray< CString >& oDocs)
+//{
+//	ASSUME_LOCK( Library.m_pSection );
+//
+//	CString strDoc( pszTemplate );
+//
+//	if ( m_pMetadata && m_pSchema )
+//	{
+//		// Should be all meta data replacement
+//		CXMLElement* pMetadata = m_pMetadata;
+//		for ( POSITION pos = pMetadata->GetAttributeIterator() ; pos ; )
+//		{
+//			CString str;
+//			CXMLNode* pNode = pMetadata->GetNextAttribute( pos );
+//			str = pNode->GetName();
+//			CString strReplace = pNode->GetValue();
+//			if ( str == _T("seconds") || str == _T("minutes") )
+//			{
+//				double nTotalSecs = ( str == _T("minutes") ) ?
+//					_tstof( (LPCTSTR)strReplace ) * 60 : _tstof( (LPCTSTR)strReplace );
+//				int nSecs = int( nTotalSecs );
+//				int nHours = nSecs / 3600;
+//				nSecs -= nHours * 3600;
+//				int nMins = nSecs / 60;
+//				nSecs -= nMins * 60;
+//
+//				str.Format( _T("%d"), nHours );
+//				ReplaceNoCase( strDoc, _T("$meta:hours$"), str );
+//				str.Format( _T("%d"), nMins );
+//				ReplaceNoCase( strDoc, _T("$meta:minutes$"), str );
+//				str.Format( _T("%d"), nSecs );
+//				ReplaceNoCase( strDoc, _T("$meta:seconds$"), str );
+//
+//				if ( nHours )
+//					str.Format( _T("%d:%d:%.2d"), nHours, nMins, nSecs );
+//				else
+//					str.Format( _T("%d:%.2d"), nMins, nSecs );
+//				ReplaceNoCase( strDoc, _T("$meta:time$"), str );
+//			}
+//			else if ( str == "track" )
+//			{
+//				int nTrack = _ttoi( (LPCTSTR)strReplace );
+//				str.Format( _T("%d"), nTrack );
+//				ReplaceNoCase( strDoc, _T("$meta:track$"), str );
+//			}
+//			else
+//			{
+//				CString strOld;
+//				strOld.Format( _T("$meta:%s$"), (LPCTSTR)str );
+//				ReplaceNoCase( strDoc, strOld, strReplace );
+//			}
+//		}
+//	}
+//
+//	CString strFileName, strNameURI, strSize, strMagnet;
+//
+//	if ( m_sName )
+//	{
+//		strFileName = m_sName;
+//		strNameURI = URLEncode( m_sName );
+//	}
+//
+//	if ( m_nSize != SIZE_UNKNOWN )
+//	{
+//		strSize.Format( _T("%I64u"), m_nSize ); // bytes
+//		ReplaceNoCase( strDoc, _T("$meta:sizebytes$"), strSize );
+//
+//		CString strHumanSize;
+//		if ( m_nSize / ( 1024*1024 ) > 1 )
+//			strHumanSize.Format( _T("%.2f MB"), (float)m_nSize / 1024 / 1024 );
+//		else
+//			strHumanSize.Format( _T("%.2f KB"), (float)m_nSize / 1024 );
+//		ReplaceNoCase( strDoc, _T("$meta:size$"), strHumanSize );
+//	}
+//
+//	if ( m_oSHA1 )
+//	{
+//		strMagnet = _T("xt=urn:sha1:") + m_oSHA1.toString();
+//
+//		ReplaceNoCase( strDoc, _T("$meta:sha1$"), m_oSHA1.toString() );
+//
+//		ReplaceNoCase( strDoc, _T("$meta:gnutella$"), _T("gnutella://urn:sha1:") + m_oSHA1.toString() + _T('/') + strNameURI + _T('/') );
+//	}
+//
+//	if ( m_oTiger )
+//	{
+//		strMagnet = _T("xt=urn:tree:tiger/:") + m_oTiger.toString();
+//
+//		ReplaceNoCase( strDoc, _T("$meta:tiger$"), m_oTiger.toString() );
+//	}
+//
+//	if ( m_oSHA1 && m_oTiger )
+//	{
+//		strMagnet = _T("xt=urn:bitprint:") + m_oSHA1.toString() + _T('.') + m_oTiger.toString();
+//
+//		ReplaceNoCase( strDoc, _T("$meta:bitprint$"), m_oSHA1.toString() + _T('.') + m_oTiger.toString() );
+//	}
+//
+//	if ( m_oED2K )
+//	{
+//		if ( strMagnet.GetLength() ) strMagnet += _T("&amp;");
+//		strMagnet += _T("xt=urn:ed2khash:") + m_oED2K.toString();
+//
+//		ReplaceNoCase( strDoc, _T("$meta:ed2khash$"), m_oED2K.toString() );
+//
+//		if ( strSize.GetLength() )
+//			ReplaceNoCase( strDoc, _T("$meta:ed2k$"), _T("ed2k://|file|") + strNameURI + _T('|') + strSize + _T('|') + m_oED2K.toString() + _T("|/") );
+//	}
+//
+//	if ( m_oMD5 )
+//	{
+//		if ( strMagnet.GetLength() ) strMagnet += _T("&amp;");
+//		strMagnet += _T("xt=urn:md5:") + m_oMD5.toString();
+//
+//		ReplaceNoCase( strDoc, _T("$meta:md5$"), m_oMD5.toString() );
+//	}
+//
+//	if ( m_oBTH )
+//	{
+//		if ( strMagnet.GetLength() ) strMagnet += _T("&amp;");
+//		strMagnet += _T("xt=urn:btih:") + m_oMD5.toString();
+//
+//		ReplaceNoCase( strDoc, _T("$meta:btih$"), m_oBTH.toString() );
+//	}
+//
+//	if ( strSize.GetLength() ) strMagnet += _T("&amp;xl=") + strSize;
+//	strMagnet = _T("magnet:?") + strMagnet + _T("&amp;dn=") + strNameURI;
+//	ReplaceNoCase( strDoc, _T("$meta:magnet$"), strMagnet );
+//
+//	ReplaceNoCase( strDoc, _T("$meta:name$"), strFileName );
+//	if ( ! m_sComments.IsEmpty() )
+//		ReplaceNoCase( strDoc, _T("$meta:comments$"), m_sComments );
+//
+//	CString strNumber;
+//	strNumber.Format( _T("%d"), oDocs.GetCount() + 1 );
+//	ReplaceNoCase( strDoc, _T("$meta:number$"), strNumber );
+//
+//	// Replace all "$meta:xxx$" which were left in the file to "N/A"
+//	while ( LPCTSTR szStart = StrStrI( strDoc, _T("$meta:") ) )
+//	{
+//		if ( LPCTSTR szEnd = StrChr( szStart + 6, _T('$') ) )
+//			strDoc.Replace( CString( szStart, szEnd - szStart + 1 ), _T("N/A") );
+//		else
+//			break;
+//	}
+//
+//	oDocs.Add( strDoc );
+//
+//	return TRUE;
+//}
 
 //////////////////////////////////////////////////////////////////////
 // CSharedSource construction
@@ -1179,7 +1417,7 @@ STDMETHODIMP CLibraryFile::XLibraryFile::get_Library(ILibrary FAR* FAR* ppLibrar
 STDMETHODIMP CLibraryFile::XLibraryFile::get_Folder(ILibraryFolder FAR* FAR* ppFolder)
 {
 	METHOD_PROLOGUE( CLibraryFile, LibraryFile )
-	if ( ! pThis->IsAvailable() )
+	if ( ! pThis->m_pFolder )
 		*ppFolder = NULL;
 	else
 		*ppFolder = (ILibraryFolder*)pThis->m_pFolder->GetInterface( IID_ILibraryFolder, TRUE );
@@ -1254,13 +1492,14 @@ STDMETHODIMP CLibraryFile::XLibraryFile::get_Metadata(ISXMLElement FAR* FAR* ppX
 
 	CQuickLock oLock( Library.m_pSection );
 
-	if ( pThis->m_pSchema == NULL || pThis->m_pMetadata == NULL )
+	if ( pThis->m_pSchema == NULL )
 		return S_OK;
 
 	CXMLElement* pXML	= pThis->m_pSchema->Instantiate( TRUE );
 	*ppXML				= (ISXMLElement*)CXMLCOM::Wrap( pXML, IID_ISXMLElement );
 
-	pXML->AddElement( pThis->m_pMetadata->Clone() );
+	if ( pThis->m_pMetadata )
+		pXML->AddElement( pThis->m_pMetadata->Clone() );
 
 	return S_OK;
 }
@@ -1278,15 +1517,10 @@ STDMETHODIMP CLibraryFile::XLibraryFile::put_Metadata(ISXMLElement FAR* pXML)
 	return S_OK;
 }
 
+// Note no SmartExecute needed
+
 STDMETHODIMP CLibraryFile::XLibraryFile::Execute()
 {
-	METHOD_PROLOGUE( CLibraryFile, LibraryFile )
-	return CFileExecutor::Execute( pThis->GetPath() ) ? S_OK : E_FAIL;
-}
-
-STDMETHODIMP CLibraryFile::XLibraryFile::SmartExecute()
-{
-	// ToDo: Remove this redundant function
 	METHOD_PROLOGUE( CLibraryFile, LibraryFile )
 	return CFileExecutor::Execute( pThis->GetPath() ) ? S_OK : E_FAIL;
 }

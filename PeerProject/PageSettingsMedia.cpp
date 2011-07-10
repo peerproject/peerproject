@@ -58,9 +58,9 @@ END_MESSAGE_MAP()
 
 CMediaSettingsPage::CMediaSettingsPage()
 	: CSettingsPage(CMediaSettingsPage::IDD)
-	, m_sType		( _T("") )
-	, m_bEnablePlay ( FALSE )
-	, m_bEnableEnqueue ( FALSE )
+	, m_sType			( _T("") )
+	, m_bEnablePlay 	( FALSE )
+	, m_bEnableEnqueue	( FALSE )
 {
 	//{{AFX_DATA_INIT(CMediaSettingsPage)
 	//}}AFX_DATA_INIT
@@ -82,7 +82,6 @@ void CMediaSettingsPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Check(pDX, IDC_MEDIA_PLAY, m_bEnablePlay);
 	DDX_Check(pDX, IDC_MEDIA_ENQUEUE, m_bEnableEnqueue);
 	//}}AFX_DATA_MAP
-
 }
 
 void CMediaSettingsPage::Update()

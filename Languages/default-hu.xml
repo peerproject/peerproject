@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hungarian Skin File -->
 
-<!-- Translation based on default-en.xml r67 -->
+<!-- Translation based on default-en.xml r68 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -945,7 +945,7 @@
 		</menu>
 		<separator/>
 		<item id="ID_HOSTCACHE_IMPORT" text="MET fájl _importálása..."/>
-		<item id="ID_HOSTCACHE_ED2K_DOWNLOAD" text="MET _letöltése..."/>
+		<item id="ID_HOSTCACHE_FILE_DOWNLOAD" text="MET _letöltése..."/>
 	</menu>
 	<!-- SEARCH WINDOW -->
 	<menu name="CSearchWnd.Basic">
@@ -2380,7 +2380,7 @@
 	<tip id="ID_HOSTCACHE_CONNECT" message="Kapcsolódik a kiválasztott kiszolgáló(k)hoz."/>
 	<tip id="ID_HOSTCACHE_DISCONNECT" message="Lekapcsolódik a kiválasztott szomszéd(ok)ról."/>
 	<tip id="ID_HOSTCACHE_ED2K_CACHE" message="eDonkey szerverek megjelenítése."/>
-	<tip id="ID_HOSTCACHE_ED2K_DOWNLOAD" message="eDonkey &quot;server.met&quot; fájl letöltése..."/>
+	<tip id="ID_HOSTCACHE_FILE_DOWNLOAD" message="eDonkey &quot;server.met&quot; fájl letöltése..."/>
 	<tip id="ID_HOSTCACHE_G1_CACHE" message="Gnutella1 kiszolgálók megjelenítése."/>
 	<tip id="ID_HOSTCACHE_G2_CACHE" message="Gnutella2 kiszolgálók megjelenítése."/>
 	<tip id="ID_HOSTCACHE_G2_HORIZON" message="Gnutella2 hubok megjelenítése."/>
@@ -3106,7 +3106,7 @@
 	<string id="20590" value="Távoli használat kikapcsolva."/>
 	<string id="20591" value="http://%s:%i/remote - Egy felhasználónevet és egy jelszót kell választania."/>
 	<string id="20592" value="Nem tudom fogadni a kapcsolatokat, URL érvénytelen."/>
-	<string id="20597" value="Biztosan törölni akarja a kiválasztott biztonsági szabályokat? Később már nem lehet visszavonni."/>
+	<string id="20597" value="Biztosan törölni akarja a kiválasztott biztonsági szabályokat?"/>
 	<string id="20599" value="&amp;Sémák"/>
 	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="Aktív keresés folyamatban..."/>
@@ -4333,7 +4333,7 @@
 		<control caption="OK"/>
 		<control caption="Mégse"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="Server.met letöltése">
+	<dialog name="CUpdateServersDlg" cookie="StEdmsBuBu" caption="Server.met letöltése">
 		<control caption="eDonkey server.met fájl letöltése a netről."/>
 		<control/>
 		<control/>

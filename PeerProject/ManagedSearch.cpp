@@ -57,6 +57,7 @@ CManagedSearch::CManagedSearch(CQuerySearch* pSearch, int nPriority)
 	, m_nHubs		( 0 )
 	, m_nLeaves		( 0 )
 	, m_nQueryCount	( 0 )
+	, m_tLastG1		( 0 )
 	, m_tLastG2		( 0 )
 	, m_tLastED2K	( 0 )
 	, m_tMoreResults( 0 )
@@ -181,9 +182,17 @@ BOOL CManagedSearch::Execute(int nPriorityClass)
 	// Search local neighbours: hubs, servers and ultrapeers. (TCP)
 	BOOL bSuccess = ExecuteNeighbours( tTicks, tSecs );
 
+	// G1 multicast search. (UDP)
+	if ( Settings.Gnutella1.Enabled && m_bAllowG1 &&
+		 tTicks >= m_tLastG1 + Settings.Gnutella1.QueryGlobalThrottle &&
+		 Network.IsListening() )
+	{
+		bSuccess |= ExecuteG1Mesh( tTicks, tSecs );
+		m_tLastG1 = tTicks;
+	}
+
 	// G2 global search. (UDP)
-	if ( Settings.Gnutella2.Enabled &&
-		 m_bAllowG2 &&
+	if ( Settings.Gnutella2.Enabled && m_bAllowG2 &&
 		 tTicks >= m_tLastG2 + Settings.Gnutella2.QueryGlobalThrottle &&
 		 Network.IsListening() )
 	{
@@ -367,6 +376,20 @@ BOOL CManagedSearch::ExecuteNeighbours(const DWORD tTicks, const DWORD tSecs)
 	}
 
 	return ( nCount > 0 );
+}
+
+//////////////////////////////////////////////////////////////////////
+// CManagedSearch execute the search on the G1 multicast
+
+BOOL CManagedSearch::ExecuteG1Mesh(const DWORD /*tTicks*/, const DWORD /*tSecs*/)
+{
+	ASSUME_LOCK( SearchManager.m_pSection );
+
+	theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("Multicast querying Gnutella 1 neighbours") );
+
+	Neighbours.SendQuery( m_pSearch );
+
+	return TRUE;
 }
 
 //////////////////////////////////////////////////////////////////////

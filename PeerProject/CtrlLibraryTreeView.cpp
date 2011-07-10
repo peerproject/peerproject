@@ -481,7 +481,7 @@ void CLibraryTreeView::NotifySelection()
 /////////////////////////////////////////////////////////////////////////////
 // CLibraryTreeView search
 
-CLibraryTreeItem* CLibraryTreeView::GetFolderItem(void* pSearch, CLibraryTreeItem* pParent)
+CLibraryTreeItem* CLibraryTreeView::GetFolderItem(LPCVOID pSearch, CLibraryTreeItem* pParent)
 {
 	if ( pParent == NULL ) pParent = m_pRoot;
 
@@ -1537,7 +1537,7 @@ BOOL CLibraryTreeView::Update(CAlbumFolder* pFolder, CLibraryTreeItem* pItem, CL
 /////////////////////////////////////////////////////////////////////////////
 // CLibraryTreeView folder selection
 
-BOOL CLibraryTreeView::SelectFolder(LPVOID pSearch)
+BOOL CLibraryTreeView::SelectFolder(LPCVOID pSearch)
 {
 	CLibraryTreeItem* pItem = GetFolderItem( pSearch );
 	if ( pItem == NULL ) return FALSE;

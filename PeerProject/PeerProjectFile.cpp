@@ -177,12 +177,12 @@ CString CPeerProjectFile::GetBitprint() const
 {
 	if ( m_oSHA1 && m_oTiger )
 		return CString( _T("urn:bitprint:") ) + m_oSHA1.toString() + _T(".") + m_oTiger.toString();
-	else if ( m_oSHA1 )
+	if ( m_oSHA1 )
 		return m_oSHA1.toUrn();
-	else if ( m_oTiger )
+	if ( m_oTiger )
 		return m_oTiger.toUrn();
-	else
-		return CString();
+
+	return CString();
 }
 
 CString CPeerProjectFile::GetFilename() const

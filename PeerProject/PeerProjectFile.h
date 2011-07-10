@@ -62,7 +62,7 @@ public:
 	// Are files sufficiently equal?
 	bool operator==(const CPeerProjectFile& pFile) const;
 
-	// Are files sufficiently unequal? (diffrent sizes or hashes)
+	// Are files sufficiently unequal? (different sizes or hashes)
 	bool operator!=(const CPeerProjectFile& pFile) const;
 
 	// Are any hashes available?

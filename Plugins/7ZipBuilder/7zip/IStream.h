@@ -1,7 +1,7 @@
 //
 // IStream.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions Copyright 7Zip (7-zip.org)
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -39,7 +39,7 @@ STREAM_INTERFACE(ISequentialInStream, 0x01)
   if (size > 0) && there are bytes in stream,
   this function must read at least 1 byte.
   This function is allowed to read less than number of remaining bytes in stream.
-  You must call Read function in loop, if you need exact amount of data
+  You must call Read function in loop, if you need exact amount of data.
   */
 };
 
@@ -49,7 +49,7 @@ STREAM_INTERFACE(ISequentialOutStream, 0x02)
   /*
   if (size > 0) this function must write at least 1 byte.
   This function is allowed to write less than "size".
-  You must call Write function in loop, if you need to write exact amount of data
+  You must call Write function in loop, if you need to write exact amount of data.
   */
 };
 
@@ -61,7 +61,7 @@ STREAM_INTERFACE_SUB(IInStream, ISequentialInStream, 0x03)
 STREAM_INTERFACE_SUB(IOutStream, ISequentialOutStream, 0x04)
 {
   STDMETHOD(Seek)(Int64 offset, UInt32 seekOrigin, UInt64 *newPosition) PURE;
-  STDMETHOD(SetSize)(Int64 newSize) PURE;
+  STDMETHOD(SetSize)(UInt64 newSize) PURE;
 };
 
 STREAM_INTERFACE(IStreamGetSize, 0x06)

@@ -1,7 +1,7 @@
 //
 // CtrlLibraryTileView.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -178,10 +178,10 @@ void CLibraryTileView::Update()
 
 	for ( iterator pTile = begin(); pTile != end(); )
 	{
-		if ( pFolder && pFolder->CheckFolder( pTile->m_pFolder ) )
+		if ( pFolder && pFolder->CheckFolder( pTile->m_pAlbum ) )
 		{
 			bChanged = pTile->Update() || bChanged;
-			pTile->m_pFolder->m_nListCookie = nCookie;
+			pTile->m_pAlbum->m_nListCookie = nCookie;
 			++pTile;
 		}
 		else
@@ -293,12 +293,12 @@ bool CLibraryTileView::Select(iterator pTile, TRISTATE bSelect)
 	{
 		m_nSelected++;
 		m_oSelTile.push_back( pTile );
-		SelAdd( pTile->m_pFolder );
+		SelAdd( pTile->m_pAlbum );
 	}
 	else
 	{
 		m_nSelected--;
-		SelRemove( pTile->m_pFolder );
+		SelRemove( pTile->m_pAlbum );
 		m_oSelTile.remove( pTile );
 	}
 
@@ -568,7 +568,7 @@ void CLibraryTileView::OnPaint()
 		{
 			pBuffer->FillSolidRect( &rcBuffer, Colors.m_crWindow );
 			bool bSelected = pTile->m_bSelected;
-			if ( m_oDropItem == CLibraryListItem ( pTile->m_pFolder ) )
+			if ( m_oDropItem == CLibraryListItem ( pTile->m_pAlbum ) )
 				pTile->m_bSelected = true;
 
 			pTile->Paint( pBuffer, rcBuffer, &dcMem, pTile == m_pFocus );
@@ -622,7 +622,7 @@ CLibraryTileView::iterator CLibraryTileView::HitTest(const CPoint& point)
 DWORD_PTR CLibraryTileView::HitTestIndex(const CPoint& point) const
 {
 	const_iterator pTile = const_cast< CLibraryTileView* >( this )->HitTest( point );
-	return ( pTile != end() ) ? (DWORD_PTR)pTile->m_pFolder : 0;
+	return ( pTile != end() ) ? (DWORD_PTR)pTile->m_pAlbum : 0;
 }
 
 CLibraryListItem CLibraryTileView::DropHitTest( const CPoint& point )
@@ -631,7 +631,7 @@ CLibraryListItem CLibraryTileView::DropHitTest( const CPoint& point )
 
 	const_iterator pTile = HitTest( point );
 	if ( pTile != end() )
-		return pTile->m_pFolder;
+		return pTile->m_pAlbum;
 
 	return CLibraryListItem();
 }
@@ -730,7 +730,8 @@ void CLibraryTileView::OnRButtonDown(UINT nFlags, CPoint point)
 
 	iterator pHit = HitTest( point );
 
-	if ( SelectTo( pHit ) ) Invalidate();
+	if ( SelectTo( pHit ) )
+		Invalidate();
 
 	SetFocus();
 
@@ -915,23 +916,23 @@ HBITMAP CLibraryTileView::CreateDragImage(const CPoint& ptMouse, CPoint& ptMiddl
 
 bool CLibraryTileItem::Update()
 {
-	if ( m_pFolder->m_nUpdateCookie == m_nCookie ) return false;
+	if ( m_pAlbum->m_nUpdateCookie == m_nCookie ) return false;
 
-	m_nCookie		= m_pFolder->m_nUpdateCookie;
-	m_sTitle		= m_pFolder->m_sName;
-	m_nIcon32		= m_pFolder->m_pSchema ? m_pFolder->m_pSchema->m_nIcon32 : -1;
-	m_nIcon48		= m_pFolder->m_pSchema ? m_pFolder->m_pSchema->m_nIcon48 : -1;
-	m_bCollection	= m_pFolder->m_oCollSHA1.isValid();
+	m_nCookie		= m_pAlbum->m_nUpdateCookie;
+	m_sTitle		= m_pAlbum->m_sName;
+	m_nIcon32		= m_pAlbum->m_pSchema ? m_pAlbum->m_pSchema->m_nIcon32 : -1;
+	m_nIcon48		= m_pAlbum->m_pSchema ? m_pAlbum->m_pSchema->m_nIcon48 : -1;
+	m_bCollection	= m_pAlbum->m_oCollSHA1.isValid();
 
-	CSchemaPtr pSchema = m_pFolder->m_pSchema;
+	CSchemaPtr pSchema = m_pAlbum->m_pSchema;
 
-	if ( pSchema != NULL && m_pFolder->m_pXML != NULL )
+	if ( pSchema != NULL && m_pAlbum->m_pXML != NULL )
 	{
-		m_sSubtitle1	= pSchema->m_sTileLine1;
-		m_sSubtitle2	= pSchema->m_sTileLine2;
+		m_sSubtitle1 = pSchema->m_sTileLine1;
+		m_sSubtitle2 = pSchema->m_sTileLine2;
 
-		pSchema->ResolveTokens( m_sSubtitle1, m_pFolder->m_pXML );
-		pSchema->ResolveTokens( m_sSubtitle2, m_pFolder->m_pXML );
+		pSchema->ResolveTokens( m_sSubtitle1, m_pAlbum->m_pXML );
+		pSchema->ResolveTokens( m_sSubtitle2, m_pAlbum->m_pXML );
 	}
 	else
 	{
@@ -1116,7 +1117,7 @@ void CLibraryTileView::OnUpdateLibraryAlbumOpen(CCmdUI* pCmdUI)
 void CLibraryTileView::OnLibraryAlbumOpen()
 {
 	if ( m_oSelTile.empty() ) return;
-	GetFrame()->Display( m_oSelTile.front()->m_pFolder );
+	GetFrame()->Display( m_oSelTile.front()->m_pAlbum );
 }
 
 void CLibraryTileView::OnUpdateLibraryAlbumDelete(CCmdUI* pCmdUI)
@@ -1141,7 +1142,7 @@ void CLibraryTileView::OnLibraryAlbumDelete()
 
 		for ( std::list< iterator >::iterator pTile = m_oSelTile.begin(); pTile != m_oSelTile.end(); ++pTile )
 		{
-			CAlbumFolder* pFolder = ( *pTile )->m_pFolder;
+			CAlbumFolder* pFolder = ( *pTile )->m_pAlbum;
 			if ( LibraryFolders.CheckAlbum( pFolder ) )
 			{
 				if ( pItem && pFolder == pItem->m_pVirtual )
@@ -1165,7 +1166,7 @@ void CLibraryTileView::OnLibraryAlbumProperties()
 	if ( m_oSelTile.empty() ) return;
 	iterator pItem = m_oSelTile.front();
 
-	CAlbumFolder* pFolder = pItem->m_pFolder;
+	CAlbumFolder* pFolder = pItem->m_pAlbum;
 	CFolderPropertiesDlg dlg( NULL, pFolder );
 
 	if ( dlg.DoModal() == IDOK )

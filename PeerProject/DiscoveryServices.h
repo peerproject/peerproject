@@ -1,7 +1,7 @@
 //
 // DiscoveryServices.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -30,7 +30,7 @@ class CDiscoveryService
 public:
 	enum Type
 	{
-		dsNull, dsGnutella, dsWebCache, dsServerMet, dsBlocked
+		dsNull, dsGnutella, dsWebCache, dsServerList, dsBlocked
 	};
 
 	enum SubType
@@ -57,10 +57,11 @@ public:
 	DWORD		m_nFailures;
 	DWORD		m_nAccessPeriod;
 	DWORD		m_nUpdatePeriod;
-	SubType		m_nSubType;
 	IN_ADDR		m_pAddress;
 	WORD		m_nPort;
 	CString		m_sPong;
+	SubType		m_nSubType;
+	PROTOCOLID	m_nProtocolID;
 
 	void		Remove(BOOL bCheck = TRUE);
 	void		OnSuccess();
@@ -123,10 +124,10 @@ public:
 	BOOL				Execute(CDiscoveryService* pService, Mode nMode);
 
 protected:
+	void				Clear();
 	void				Remove(CDiscoveryService* pService, BOOL bCheck = TRUE);
 	DWORD				GetCount(int nType = 0, PROTOCOLID nProtocol = PROTOCOL_NULL) const;
 	BOOL				CheckWebCacheValid(LPCTSTR pszAddress);
-	void				Clear();
 	int					ExecuteBootstraps( int nCount, BOOL bUDP = FALSE, PROTOCOLID nProtocol = PROTOCOL_NULL );
 	void				Serialize(CArchive& ar);
 	BOOL				RequestRandomService(PROTOCOLID nProtocol);

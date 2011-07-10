@@ -667,7 +667,8 @@ int CBTInfo::NextInfoPiece() const
 {
 	if ( m_pSource.m_nLength == 0 )
 		return 0;
-	else if ( ! m_nInfoSize && ( m_pSource.m_nLength - m_nInfoStart ) > 0 )
+
+	if ( ! m_nInfoSize && ( m_pSource.m_nLength - m_nInfoStart ) > 0 )
 		return ( m_pSource.m_nLength - m_nInfoStart ) / MAX_PIECE_SIZE;
 
 	return -1;
@@ -675,14 +676,14 @@ int CBTInfo::NextInfoPiece() const
 
 DWORD CBTInfo::GetInfoPiece(DWORD nPiece, BYTE **pInfoPiece) const
 {
-	DWORD nPiceStart = MAX_PIECE_SIZE * nPiece;
+	const DWORD nPieceStart = MAX_PIECE_SIZE * nPiece;
 	if ( m_nInfoSize && m_nInfoStart &&
 		m_pSource.m_nLength - m_nInfoStart > m_nInfoSize &&
-		nPiceStart < m_nInfoSize )
+		nPieceStart < m_nInfoSize )
 	{
-		*pInfoPiece = &m_pSource.m_pBuffer[ m_nInfoStart + nPiceStart ];
-		DWORD nPiceSize = m_nInfoSize - nPiceStart;
-		return nPiceSize > MAX_PIECE_SIZE ? MAX_PIECE_SIZE : nPiceSize;
+		*pInfoPiece = &m_pSource.m_pBuffer[ m_nInfoStart + nPieceStart ];
+		DWORD nPieceSize = m_nInfoSize - nPieceStart;
+		return nPieceSize > MAX_PIECE_SIZE ? MAX_PIECE_SIZE : nPieceSize;
 	}
 	return 0;
 }
@@ -782,28 +783,28 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 
 			if ( strEncoding.GetLength() < 3 )
 				theApp.Message( MSG_ERROR, _T("Torrent 'encoding' node too short") );
-			else if ( _tcsistr( strEncoding.GetString() , _T("UTF-8") ) != NULL ||
-					  _tcsistr( strEncoding.GetString() , _T("UTF8") ) != NULL )
+			else if ( _tcsistr( strEncoding.GetString(), _T("UTF-8") ) != NULL ||
+					  _tcsistr( strEncoding.GetString(), _T("UTF8") ) != NULL )
 				m_nEncoding = CP_UTF8;
-			else if ( _tcsistr( strEncoding.GetString() , _T("ANSI") ) != NULL )
+			else if ( _tcsistr( strEncoding.GetString(), _T("ANSI") ) != NULL )
 				m_nEncoding = CP_ACP;
-			else if ( _tcsistr( strEncoding.GetString() , _T("BIG5") ) != NULL )
+			else if ( _tcsistr( strEncoding.GetString(), _T("BIG5") ) != NULL )
 				m_nEncoding = 950;
-			else if ( _tcsistr( strEncoding.GetString() , _T("Korean") ) != NULL )
+			else if ( _tcsistr( strEncoding.GetString(), _T("Korean") ) != NULL )
 				m_nEncoding = 949;
-			else if ( _tcsistr( strEncoding.GetString() , _T("UHC") ) != NULL )
+			else if ( _tcsistr( strEncoding.GetString(), _T("UHC") ) != NULL )
 				m_nEncoding = 949;
-			else if ( _tcsistr( strEncoding.GetString() , _T("Chinese") ) != NULL )
+			else if ( _tcsistr( strEncoding.GetString(), _T("Chinese") ) != NULL )
 				m_nEncoding = 936;
-			else if ( _tcsistr( strEncoding.GetString() , _T("GB2312") ) != NULL )
+			else if ( _tcsistr( strEncoding.GetString(), _T("GB2312") ) != NULL )
 				m_nEncoding = 936;
-			else if ( _tcsistr( strEncoding.GetString() , _T("GBK") ) != NULL )
+			else if ( _tcsistr( strEncoding.GetString(), _T("GBK") ) != NULL )
 				m_nEncoding = 936;
-			else if ( _tcsistr( strEncoding.GetString() , _T("Japanese") ) != NULL )
+			else if ( _tcsistr( strEncoding.GetString(), _T("Japanese") ) != NULL )
 				m_nEncoding = 932;
-			else if ( _tcsistr( strEncoding.GetString() , _T("Shift-JIS") ) != NULL )
+			else if ( _tcsistr( strEncoding.GetString(), _T("Shift-JIS") ) != NULL )
 				m_nEncoding = 932;
-			else if ( _tcsnicmp( strEncoding.GetString() , _T("Windows-"), 8 ) == 0 )
+			else if ( _tcsnicmp( strEncoding.GetString(), _T("Windows-"), 8 ) == 0 )
 			{
 				UINT nEncoding = 0;
 				strEncoding = strEncoding.Mid( 8 );
@@ -839,7 +840,7 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 	{
 		m_nTrackerMode = tMultiFinding;
 
-		bool bUnsupported = false;	// UDP tracker display
+		BOOL bUnsupported = FALSE;	// UDP tracker display
 
 		// Loop through all the tiers
 		for ( int nTier = 0 ; nTier < pAnnounceList->GetCount() ; nTier++ )
@@ -847,26 +848,29 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 			CBENode* pSubList = pAnnounceList->GetNode( nTier );
 			if ( ( pSubList ) && ( pSubList->IsType( CBENode::beList ) ) )
 			{
-				CList< CString > pTrackers;
 				// Read in the trackers
+				CList< CString > pTrackers;
 				for ( int nTracker = 0 ; nTracker < pSubList->GetCount() ; nTracker++ )
 				{
 					CBENode* pTracker = pSubList->GetNode( nTracker );
 					if ( pTracker && pTracker->IsType( CBENode::beString ) )
 					{
-						CString strTracker = pTracker->GetString();	// Get the tracker
+						CString strTracker = pTracker->GetString();		// Get the tracker
 
 						// Check tracker is valid
 						if ( strTracker == _T("http://tracker.thepiratebay.org/announce") )
-							bUnsupported = true;		// Skip dead trackers, but store below for display
+							bUnsupported = TRUE;						// Skip dead trackers, but store below for display
 						else if ( _tcsncicmp( (LPCTSTR)strTracker, _T("http://"), 7 ) == 0 )
-							pTrackers.AddTail( strTracker );		// Store HTTP tracker
+							pTrackers.AddTail( strTracker );			// Store HTTP tracker
 						else if ( _tcsncicmp( (LPCTSTR)strTracker, _T("udp://"), 6 ) == 0 )
-							bUnsupported = true;		// Store below for display, ToDo: Add UDP tracker support
+							bUnsupported = TRUE;						// Store below for display, ToDo: Add UDP tracker support
 						else if ( _tcsncicmp( (LPCTSTR)strTracker, _T("https://"), 8 ) == 0 )
-							bUnsupported = true;		// Store below, ToDo: Verify rare https or try converting to http?
+							bUnsupported = TRUE;						// Store below for display, ToDo: Verify rare https or try converting to http?
 						else
+						{
+							bUnsupported = TRUE;
 							theApp.Message( MSG_DEBUG, _T("Unknown torrent tracker protocol:  %s"), strTracker );
+						}
 					}
 				}
 
@@ -906,7 +910,7 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 
 		// ToDo: Remove this when UDP trackers are supported!
 		// Catch unsupported trackers for display at end of list.
-		if ( bUnsupported == true )
+		if ( bUnsupported )
 		{
 			// Loop through all tiers again
 			for ( int nTier = 0 ; nTier < pAnnounceList->GetCount() ; nTier++ )
@@ -914,7 +918,6 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 				CBENode* pSubList = pAnnounceList->GetNode( nTier );
 				if ( ( pSubList ) && ( pSubList->IsType( CBENode::beList ) ) )
 				{
-					CList< CString > pTrackers;
 					for ( int nTracker = 0 ; nTracker < pSubList->GetCount() ; nTracker++ )
 					{
 						CBENode* pTracker = pSubList->GetNode( nTracker );
@@ -922,25 +925,19 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 						{
 							CString strTracker = pTracker->GetString();
 
-							if ( strTracker == _T("http://tracker.thepiratebay.org/announce") )
-								pTrackers.AddTail( strTracker );		// Store dead trackers for display
-							else if ( _tcsncicmp( (LPCTSTR)strTracker, _T("udp://"), 6 ) == 0 )
-								pTrackers.AddTail( strTracker );		// Store for display, ToDo: Add UDP tracker support
-							else if ( _tcsncicmp( (LPCTSTR)strTracker, _T("https://"), 8 ) == 0 )
-								pTrackers.AddTail( strTracker );		// Rare for display, ToDo: Verify https or try converting to http?
+							if ( _tcsncicmp( (LPCTSTR)strTracker, _T("udp://"), 6 ) == 0 ||			// ToDo: Add UDP tracker support
+								 _tcsncicmp( (LPCTSTR)strTracker, _T("https://"), 8 ) == 0 ||		// ToDo: Verify rare https or try converting to http?
+								 strTracker == _T("http://tracker.thepiratebay.org/announce") ||	// Store common dead trackers for display
+								 _tcsncicmp( (LPCTSTR)strTracker, _T("http://"), 7 ) != 0 )			// Catch unknkowns
+							{
+								CBTTracker oTracker;
+								oTracker.m_sAddress	= _T("*") + strTracker;							// Mark for display only: *udp://...
+								oTracker.m_nFailures = 1;
+								oTracker.m_nTier = 99;
+								AddTracker( oTracker );
+							}
 						}
 					}
-
-					// Store unsupported trackers at end of list
-					for ( POSITION pos = pTrackers.GetHeadPosition() ; pos ; )
-					{
-						CBTTracker oTracker;
-						oTracker.m_sAddress	= pTrackers.GetNext( pos );
-						oTracker.m_nTier = nTier + 10;
-						AddTracker( oTracker );
-					}
-					// Delete temporary storage again
-					pTrackers.RemoveAll();
 				}
 			}
 		}
@@ -1034,10 +1031,8 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 
 	if ( CBENode* pMD5 = pInfo->GetNode( "md5sum" ) )
 	{
-		if ( ! pMD5->IsType( CBENode::beString ) )
-		{
-			return FALSE;
-		}
+		if ( ! pMD5->IsType( CBENode::beString ) ) return FALSE;
+
 		else if ( pMD5->m_nValue == Hashes::Md5Hash::byteCount )
 		{
 			m_oMD5 = *static_cast< const Hashes::Md5Hash::RawStorage* >( pMD5->m_pValue );
@@ -1123,7 +1118,7 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 
 			strPath.Empty();
 
-			// Try path.utf8 if it's set  (was Settings.BitTorrent.TorrentExtraKeys)
+			// Try path.utf8 if it's set  (Was Settings.BitTorrent.TorrentExtraKeys)
 			CBENode* pPath = pFile->GetNode( "path.utf-8" );
 			if ( pPath )
 			{
@@ -1448,10 +1443,12 @@ void CBTInfo::SetTrackerNext(DWORD tTime)
 	// Start with the first tracker in the list
 	m_nTrackerIndex = 0;
 
-	// Search through the list for an available tracker
-	// or the first one that will become available
+	// Search through the list for an available tracker, or the first one that will become available
 	for ( int nTracker = 0 ; nTracker < m_oTrackers.GetCount() ; ++nTracker )
 	{
+		if ( m_oTrackers[ nTracker ].m_sAddress.GetAt( 0 ) == _T('*') )
+			break;	// Reached bad trackers displayed at end of list
+
 		// Get the next tracker in the list
 		CBTTracker& oTracker = m_oTrackers[ nTracker ];
 
@@ -1459,8 +1456,7 @@ void CBTInfo::SetTrackerNext(DWORD tTime)
 		if ( oTracker.m_tNextTry < tTime )
 			oTracker.m_tNextTry = 0;
 
-		// If this tracker will become available before the current one,
-		// make it the current tracker
+		// If this tracker will become available before the current one, make it the current tracker
 		if ( m_oTrackers[ m_nTrackerIndex ].m_tNextTry > oTracker.m_tNextTry )
 			m_nTrackerIndex = nTracker;
 	}

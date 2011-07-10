@@ -1,7 +1,7 @@
 //
 // MatchObjects.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -17,6 +17,11 @@
 //
 
 #pragma once
+
+#define MATCHLIST_SER_VERSION	1000	// 15	// Use INTERNAL_VERSION ?
+// History:
+// 15 - Added CQueryHit::m_sNick for DC++ hits (ryo-oh-ki) (Shareaza 2.5.5.0)
+// 1000 - PeerProject 1.0 (15)
 
 #include "PeerProjectFile.h"
 #include "Schema.h"
@@ -122,8 +127,8 @@ public:
 	void		UpdateRange(DWORD nMin = 0, DWORD nMax = 0xFFFFFFFF);
 	void		ClearUpdated();
 	void		ClearNew();
-	void		Serialize(CArchive& ar);
 	void		SanityCheck();
+	void		Serialize(CArchive& ar);	// int nVersion = MATCHLIST_SER_VERSION (or INTERNAL_VERSION?)
 
 	CBaseMatchWnd* GetParent() const
 	{
@@ -188,7 +193,7 @@ public:
 	BOOL		Expand(BOOL bExpand = TRUE);
 	inline int	Compare(CMatchFile* pFile) const;
 	CString		GetURN() const;
-	void		Serialize(CArchive& ar, int nVersion);
+	void		Serialize(CArchive& ar, int nVersion);	// MATCHLIST_SER_VERSION
 	void		Ban(int nBanLength);	// Ban by hashes and by hit host IPs
 
 	inline DWORD GetFilteredCount()
@@ -207,10 +212,10 @@ public:
 		DWORD nFiltered = GetFilteredCount();
 		if ( nFiltered == 0 )
 			return 0;
-		else if ( nFiltered == 1 || ! m_bExpanded )
+		if ( nFiltered == 1 || ! m_bExpanded )
 			return 1;
-		else
-			return nFiltered + 1;
+
+		return nFiltered + 1;
 	}
 
 //	int			GetRating() const;
@@ -232,7 +237,7 @@ public:
 	IN_ADDR		GetBestAddress() const;		// Get address of best Hit
 	LPCTSTR		GetBestVendorName() const;	// Get vendor name of best Hit
 	LPCTSTR		GetBestCountry() const;		// Get country code of best Hit
-	LPCTSTR		GetBestSchemaURI() const;	// Get schema of best Hit
+	CSchemaPtr	GetBestSchema() const;		// Get schema of best Hit
 	TRISTATE	GetBestMeasured() const;	// Get measured of best Hit
 	BOOL		GetBestBrowseHost() const;	// Get browse host flag of best Hit
 

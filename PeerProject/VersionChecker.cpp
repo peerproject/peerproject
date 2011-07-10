@@ -1,7 +1,7 @@
 //
 // VersionChecker.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -256,42 +256,26 @@ void CVersionChecker::SetNextCheck(int nDays)
 //////////////////////////////////////////////////////////////////////
 // CVersionChecker check if a download is an upgrade
 
-BOOL CVersionChecker::CheckUpgradeHash(const Hashes::Sha1Hash& oHash, LPCTSTR pszPath)
+BOOL CVersionChecker::CheckUpgradeHash(const CLibraryFile* pFile)
 {
-	if ( IsUpgradeAvailable() )
-	{
-		if ( oHash.toString() == Settings.VersionCheck.UpgradeSHA1 )
-		{
-			if ( _tcsstr( pszPath, _T(".exe") ) )
-			{
-				m_sUpgradePath = pszPath;
-				PostMainWndMessage( WM_VERSIONCHECK, VC_UPGRADE );
-				return TRUE;
-			}
-		}
-	}
-	return FALSE;
-}
+	if ( ! IsUpgradeAvailable() )
+		return FALSE;
 
-BOOL CVersionChecker::CheckUpgradeHash()
-{
-	if ( IsUpgradeAvailable() )
+	Hashes::Sha1Hash oSHA1;
+	if ( oSHA1.fromString( Settings.VersionCheck.UpgradeSHA1 ) )
 	{
-		Hashes::Sha1Hash oSHA1;
-		if ( oSHA1.fromString( Settings.VersionCheck.UpgradeSHA1 ) )
+		CQuickLock oLock( Library.m_pSection );
+		if ( ! pFile )
+			pFile = LibraryMaps.LookupFileBySHA1( oSHA1 );
+
+		if ( pFile && validAndEqual( pFile->m_oSHA1, oSHA1 ) &&
+			_tcsicmp( PathFindExtension( pFile->GetPath() ), _T(".exe") ) )
 		{
-			CQuickLock oLock( Library.m_pSection );
-			CLibraryFile* pFile = LibraryMaps.LookupFileBySHA1( oSHA1 );
-			if ( pFile )
-			{
-				if ( _tcsstr( pFile->GetPath(), _T(".exe") ) )
-				{
-					m_sUpgradePath = pFile->GetPath();
-					PostMainWndMessage( WM_VERSIONCHECK, VC_UPGRADE );
-					return TRUE;
-				}
-			}
+			m_sUpgradePath = pFile->GetPath();
+			PostMainWndMessage( WM_VERSIONCHECK, VC_UPGRADE );
+			return TRUE;
 		}
 	}
+
 	return FALSE;
 }

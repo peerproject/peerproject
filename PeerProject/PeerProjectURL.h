@@ -36,7 +36,7 @@ public:
 public:
 	enum URI_TYPE
 	{
-		uriNull, uriSource, uriDownload, uriSearch,
+		uriNull, uriDownload, uriSource, uriSearch,
 		uriHost, uriBrowse, uriDonkeyServer, uriDiscovery
 	};
 
@@ -45,9 +45,9 @@ public:
 	CBTInfo*	m_pTorrent;
 	CString		m_sAddress;
 	IN_ADDR		m_pAddress;
+	WORD		m_nPort;
 	IN_ADDR		m_pServerAddress;
 	WORD		m_nServerPort;
-	WORD		m_nPort;
 	BOOL		m_bSize;
 	CString		m_sLogin;
 	CString		m_sPassword;
@@ -68,7 +68,7 @@ protected:
 	BOOL	ParseED2KFTP(LPCTSTR pszURL, BOOL bResolve);	// ed2kftp://[client_id@]address:port/md4_hash/size/
 	BOOL	ParseDCFile(LPCTSTR pszURL, BOOL bResolve); 	// dcfile://address:port/login/TTH:tiger_hash/size/
 	BOOL	ParseDCHub(LPCTSTR pszURL, BOOL bResolve);  	// dchub://address:port	 (adc://)
-	BOOL	ParseBTC(LPCTSTR pszURL, BOOL bResolve);
+	BOOL	ParseBTC(LPCTSTR pszURL, BOOL bResolve);		// btc://address:port/[node_guid]/btih_hash/
 	BOOL	ParseMagnet(LPCTSTR pszURL);
 	BOOL	ParsePeerProject(LPCTSTR pszURL);
 	BOOL	ParsePeerProjectHost(LPCTSTR pszURL, BOOL bBrows);
@@ -85,11 +85,11 @@ protected:
 
 // Registration Operations
 public:
-	static void	Register(BOOL bOnStartup = FALSE);
-	static BOOL	RegisterShellType(LPCTSTR pszRoot, LPCTSTR pszProtocol,
-		LPCTSTR pszName, LPCTSTR pszType, LPCTSTR pszApplication, LPCTSTR pszTopic, UINT nIDIcon, BOOL bOverwrite = TRUE);
+	static void	Register(/*BOOL bRegister = TRUE,*/ BOOL bOnStartup = FALSE);
+
+protected:
 	static BOOL	RegisterMagnetHandler(LPCTSTR pszID, LPCTSTR pszName, LPCTSTR pszDescription, LPCTSTR pszApplication, UINT nIDIcon);
-	static BOOL	IsRegistered(LPCTSTR pszProtocol);
-	static BOOL	UnregisterShellType(LPCTSTR pszRoot, LPCTSTR pszProtocol);
-	static void DeleteKey(HKEY hParent, LPCTSTR pszKey);
+	static BOOL	RegisterShellType(LPCTSTR pszRoot, LPCTSTR pszProtocol, LPCTSTR pszName, LPCTSTR pszType, LPCTSTR pszApplication, LPCTSTR pszTopic, UINT nIDIcon, BOOL bOverwrite = TRUE);
+	static BOOL	UnregisterShellType(LPCTSTR pszRoot, LPCTSTR pszProtocol = NULL);
+//	static void DeleteKey(HKEY hParent, LPCTSTR pszKey);	// Moved to CRegistry::DeleteKey
 };

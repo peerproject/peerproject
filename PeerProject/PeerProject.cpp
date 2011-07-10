@@ -81,7 +81,7 @@ static char THIS_FILE[] = __FILE__;
 CPeerProjectCommandLineInfo::CPeerProjectCommandLineInfo()
 	: m_bTray		( FALSE )
 	, m_bHelp		( FALSE )
-//	, m_bWait		( FALSE )
+	, m_bWait		( FALSE )
 	, m_bNoSplash	( FALSE )
 	, m_bNoAlphaWarning ( FALSE )
 	, m_nGUIMode	( -1 )
@@ -92,48 +92,53 @@ void CPeerProjectCommandLineInfo::ParseParam(const TCHAR* pszParam, BOOL bFlag, 
 {
 	if ( bFlag )
 	{
-		if ( ! lstrcmpi( pszParam, _T("tray") ) )
+		if ( ! _tcsicmp( pszParam, _T("tray") ) )	// lstrcmpi()
 		{
 			m_bTray = TRUE;
 			m_bNoSplash = TRUE;
 			return;
 		}
-		if ( ! lstrcmpi( pszParam, _T("nosplash") ) )
+		if ( ! _tcsicmp( pszParam, _T("nosplash") ) )
 		{
 			m_bNoSplash = TRUE;
 			return;
 		}
-		if ( ! lstrcmpi( pszParam, _T("nowarn") ) )
+		if ( ! _tcsicmp( pszParam, _T("nowarn") ) )
 		{
 			m_bNoAlphaWarning = TRUE;
 			return;
 		}
-	//	if ( ! lstrcmpi( pszParam, _T("noskin") ) )
-	//	{
-	//		ClearSkins();
-	//		return;
-	//	}
-		if ( ! lstrcmpi( pszParam, _T("basic") ) )
+		if ( ! _tcsicmp( pszParam, _T("noskin") ) )
+		{
+			ClearSkins();
+			return;
+		}
+		if ( ! _tcsicmp( pszParam, _T("basic") ) )
 		{
 			m_nGUIMode = GUI_BASIC;
 			return;
 		}
-		if ( ! lstrcmpi( pszParam, _T("tabbed") ) )
+		if ( ! _tcsicmp( pszParam, _T("tabbed") ) )
 		{
 			m_nGUIMode = GUI_TABBED;
 			return;
 		}
-		if ( ! lstrcmpi( pszParam, _T("windowed") ) )
+		if ( ! _tcsicmp( pszParam, _T("windowed") ) )
 		{
 			m_nGUIMode = GUI_WINDOWED;
 			return;
 		}
-	//	if ( ! lstrcmpi( pszParam, _T("wait") ) )
-	//	{
-	//		m_bWait = TRUE;
-	//		return;
-	//	}
-		if ( ! lstrcmpi( pszParam, _T("help") ) || ! lstrcmpi( pszParam, _T("?") ) )
+		if ( ! _tcsicmp( pszParam, _T("wait") ) )
+		{
+			m_bWait = TRUE;
+			return;
+		}
+		if ( ! _tcsncicmp( pszParam, _T("task"), 4 ) )
+		{
+			m_sTask = pszParam + 4;
+			return;
+		}
+		if ( ! _tcsicmp( pszParam, _T("help") ) || ! _tcsicmp( pszParam, _T("?") ) )
 		{
 			m_bHelp = TRUE;
 			return;
@@ -246,6 +251,9 @@ BOOL CPeerProjectApp::InitInstance()
 
 	SetRegistryKey( CLIENT_NAME );
 
+	if ( ! ParseCommandLine() )	// Handle -flags, create mutex.
+		return FALSE;
+
 	AfxOleInit();				// Initializes OLE support for the application.
 
 	GetVersionNumber();
@@ -261,74 +269,34 @@ BOOL CPeerProjectApp::InitInstance()
 	EnableShellOpen();
 //	RegisterShellFileTypes();
 
-	ParseCommandLine( m_cmdInfo );
-	if ( m_cmdInfo.m_bHelp )
-	{
-		// Unskinned Banner Workaround:
-		Skin.m_bmBanner.Attach( CImageFile::LoadBitmapFromResource( IDB_BANNER ) );
-		Skin.m_nBanner = 50;
-
-		AfxMessageBox( //IDS_COMMANDLINE,	// No translation
-			_T("\nPeerProject command-line options:\n\n")
-			_T(" -help   -? \tDisplay this help screen\n")
-			_T(" -tray\t\tStart application quietly in system tray\n")
-			_T(" -nosplash\tDisable startup splash screen\n")
-			_T(" -nowarn\t\tSkip debug version warning dialog\n")
-		//	_T(" -noskin\t\tDisable all skins and languages\n")
-			_T(" -basic\t\tStart application in Basic mode\n")
-			_T(" -tabbed\t\tStart application in Tabbed mode\n")
-			_T(" -windowed\tStart application in Windowed mode\n")
-			_T(" -regserver\tRegister application internal components\n")
-			_T(" -unregserver\tUn-register application internal components\n\n"),
-			MB_ICONINFORMATION | MB_OK );
-		return FALSE;
-	}
-	if ( m_cmdInfo.m_nShellCommand == CCommandLineInfo::AppUnregister )
-	{
-		// Do not call this ->
-		// ProcessShellCommand( m_cmdInfo );
-		// ... else all INI settings will be deleted (by design)
-
-		// Do not call this ->
-		// AfxOleUnregisterTypeLib( _tlid, _wVerMajor, _wVerMinor );
-		// COleTemplateServer::UnregisterAll();
-		// COleObjectFactory::UpdateRegistryAll( FALSE );
-		// ... else OLE interface settings may be deleted (bug in MFC?)
-		return FALSE;
-	}
-	if ( m_cmdInfo.m_nShellCommand == CCommandLineInfo::AppRegister )
-		ProcessShellCommand( m_cmdInfo );
-
 	AfxOleRegisterTypeLib( AfxGetInstanceHandle(), _tlid );
 	COleTemplateServer::RegisterAll();
 	COleObjectFactory::UpdateRegistryAll( TRUE );
-	if ( m_cmdInfo.m_nShellCommand == CCommandLineInfo::AppRegister )
-		return FALSE;
 
-	m_pMutex = CreateMutex( NULL, FALSE, _T("Global\\PeerProject") );
-	if ( m_pMutex == NULL )
-		return FALSE;		// Mutex probably created in another multi-user session
-
-	if ( GetLastError() == ERROR_ALREADY_EXISTS )
-	{
-		CloseHandle( m_pMutex );
-		m_pMutex = NULL;
-
-		// Show first instance instead
-		if ( CWnd* pWnd = CWnd::FindWindow( _T("PeerProjectMainWnd"), NULL ) )
-		{
-			pWnd->SendMessage( WM_SYSCOMMAND, SC_RESTORE );
-			pWnd->ShowWindow( SW_SHOWNORMAL );
-			pWnd->BringWindowToTop();
-			pWnd->SetForegroundWindow();
-		}
-
-		return FALSE;
-	}
-	// else only app instance, continue.
+// Obsolete single check, moved to ParseCommandLine()
+//	m_pMutex = CreateMutex( NULL, FALSE, _T("Global\\PeerProject") );
+//	if ( m_pMutex == NULL )
+//		return FALSE;		// Mutex probably created in another multi-user session
+//
+//	if ( GetLastError() == ERROR_ALREADY_EXISTS )
+//	{
+//		CloseHandle( m_pMutex );
+//		m_pMutex = NULL;
+//
+//		// Show first instance instead
+//		if ( CWnd* pWnd = CWnd::FindWindow( _T("PeerProjectMainWnd"), NULL ) )
+//		{
+//			pWnd->SendMessage( WM_SYSCOMMAND, SC_RESTORE );
+//			pWnd->ShowWindow( SW_SHOWNORMAL );
+//			pWnd->BringWindowToTop();
+//			pWnd->SetForegroundWindow();
+//		}
+//		return FALSE;
+//	}
+//	// else only app instance, continue.
 
 	if ( m_pRegisterApplicationRestart )
-		m_pRegisterApplicationRestart( NULL, 0 );
+		m_pRegisterApplicationRestart( _T("-nowarn"), 0 );
 
 	ShowStartupText();
 
@@ -445,11 +413,11 @@ BOOL CPeerProjectApp::InitInstance()
 		if ( ! Flags.Load() )
 			Message( MSG_ERROR, _T("Failed to load Flags.") );
 	SplashStep( L"Metadata Schemas" );
-		if ( SchemaCache.Load() < 48 )	// Presumed number of .xsd files in Schemas folder
+		if ( SchemaCache.Load() < 48 &&		// Presumed number of .xsd files in Schemas folder
+			 AfxMessageBox( IDS_SCHEMA_LOAD_ERROR, MB_ICONWARNING|MB_OKCANCEL ) != IDOK )
 		{
 			SplashAbort();
-			if ( AfxMessageBox( IDS_SCHEMA_LOAD_ERROR, MB_ICONWARNING|MB_OKCANCEL ) != IDOK )
-				return FALSE;
+			return FALSE;
 		}
 		if ( ! Settings.MediaPlayer.FileTypes.size() )
 		{
@@ -463,9 +431,8 @@ BOOL CPeerProjectApp::InitInstance()
 			for ( int i = 0 ; szTypes[ i ] ; ++ i )
 			{
 				if ( CSchemaPtr pSchema = SchemaCache.Get( szTypes[ i ] ) )
-					sTypeFilter += pSchema->m_sTypeFilter;
+					sTypeFilter += pSchema->GetFilterSet();
 			}
-			sTypeFilter.Replace( _T("|."), _T("|") );
 			CSettings::LoadSet( &Settings.MediaPlayer.FileTypes, sTypeFilter );
 		}
 		if ( ! Settings.Library.SafeExecute.size() )
@@ -485,9 +452,8 @@ BOOL CPeerProjectApp::InitInstance()
 			for ( int i = 0 ; szTypes[ i ] ; ++ i )
 			{
 				if ( CSchemaPtr pSchema = SchemaCache.Get( szTypes[ i ] ) )
-					sTypeFilter += pSchema->m_sTypeFilter;
+					sTypeFilter += pSchema->GetFilterSet();
 			}
-			sTypeFilter.Replace( _T("|."), _T("|") );
 			CSettings::LoadSet( &Settings.Library.SafeExecute, sTypeFilter );
 		}
 
@@ -685,92 +651,6 @@ int CPeerProjectApp::ExitInstance()
 	return CWinApp::ExitInstance();
 }
 
-//BOOL CPeerProjectApp::ParseCommandLine()
-//{
-//	CWinApp::ParseCommandLine( m_cmdInfo );
-//
-//	AfxSetPerUserRegistration( m_cmdInfo.m_bRegisterPerUser );	// || ! IsRunAsAdmin()
-//
-//	if ( m_cmdInfo.m_nShellCommand == CCommandLineInfo::AppUnregister ||
-//		 m_cmdInfo.m_nShellCommand == CCommandLineInfo::AppRegister )
-//	{
-//		m_cmdInfo.m_bRunEmbedded = TRUE;	// Suppress dialog
-//
-//		ProcessShellCommand( m_cmdInfo );
-//
-//		return FALSE;
-//	}
-//
-//	BOOL bFirst = FALSE;
-//	HWND hwndFirst = NULL;
-//	for (;;)
-//	{
-//		m_pMutex = CreateMutex( NULL, FALSE, _T("Global\\") CLIENT_NAME );
-//		if ( m_pMutex != NULL )
-//		{
-//			if ( GetLastError() == ERROR_ALREADY_EXISTS )
-//			{
-//				CloseHandle( m_pMutex );
-//				m_pMutex = NULL;
-//				hwndFirst = FindWindow( _T("PeerProjectMainWnd"), NULL );
-//			}
-//			else
-//				bFirst = TRUE;	// We are first!
-//		}
-//		// else Likely mutex created in another user's session
-//
-//		if ( ! m_cmdInfo.m_bWait || bFirst )
-//			break;
-//
-//		Sleep( 250 );	// Wait for first instance exit
-//	}
-//
-//	if ( ! m_cmdInfo.m_sTask.IsEmpty() )
-//	{
-//		// Pass scheduler task to existing instance (Note Windows scheduling not implemented)
-//		//CScheduler::Execute( hwndFirst, m_cmdInfo.m_sTask );
-//
-//		return FALSE;	// Don't start second instance
-//	}
-//
-//	if ( ! bFirst )
-//	{
-//		if ( hwndFirst )
-//		{
-//			if ( m_cmdInfo.m_nShellCommand == CCommandLineInfo::FileOpen )
-//			{
-//				// Pass command line to first instance
-//				m_cmdInfo.m_strFileName.Trim( _T(" \t\r\n\"") );
-//				COPYDATASTRUCT cd =
-//				{
-//					COPYDATA_OPEN,
-//					m_cmdInfo.m_strFileName.GetLength() * sizeof( TCHAR ),
-//					(PVOID)(LPCTSTR)m_cmdInfo.m_strFileName
-//				};
-//				DWORD_PTR dwResult;
-//				SendMessageTimeout( hwndFirst, WM_COPYDATA, NULL, (WPARAM)&cd, SMTO_NORMAL, 250, &dwResult );
-//			}
-//			else
-//			{
-//				// Popup first instance
-//				DWORD_PTR dwResult;
-//				SendMessageTimeout( hwndFirst, WM_COMMAND, ID_TRAY_OPEN, 0, SMTO_NORMAL, 250, &dwResult );
-//				ShowWindow( hwndFirst, SW_SHOWNA );
-//				BringWindowToTop( hwndFirst );
-//				SetForegroundWindow( hwndFirst );
-//			}
-//		}
-//		// else Likely window created in another user's session
-//
-//		return FALSE;	// Don't start second instance
-//	}
-//
-//	if ( m_cmdInfo.m_bWait )
-//		Sleep( 1000 );	// Wait for other instance complete exit
-//
-//	return TRUE;		// Continue PeerProject execution
-//}
-
 void CPeerProjectApp::SplashStep(LPCTSTR pszMessage, int nMax, bool bClosing)
 {
 	if ( ! pszMessage )
@@ -799,6 +679,167 @@ void CPeerProjectApp::SplashAbort()
 		m_dlgSplash->Hide( TRUE );
 		m_dlgSplash = NULL;
 	}
+}
+
+BOOL CPeerProjectApp::KeepAlive()
+{
+	// Call in potentially lengthy loop operations to avoid Windows "Program Not Responding"
+	static DWORD tKeepAlive;
+	const DWORD tNow = GetTickCount();
+	if ( tNow < tKeepAlive + 5000 )
+		return FALSE;		// ~5 seconds minimum
+	tKeepAlive = tNow;
+
+	MSG msg = { 0 };
+	while( PeekMessage( &msg, NULL, 0, 0, PM_REMOVE ) )
+	{
+		TranslateMessage( &msg );
+		DispatchMessage( &msg );
+	}
+
+	return TRUE;
+}
+
+BOOL CPeerProjectApp::ParseCommandLine()
+{
+	CWinApp::ParseCommandLine( m_cmdInfo );
+
+	if ( m_cmdInfo.m_bHelp )
+	{
+		// Unskinned Banner/Font Workaround:
+		Skin.m_bmBanner.Attach( CImageFile::LoadBitmapFromResource( IDB_BANNER ) );
+		Skin.m_nBanner = 50;
+
+		OSVERSIONINFOEX pVersion = { sizeof( OSVERSIONINFOEX ) };
+		GetVersionEx( (OSVERSIONINFO*)&pVersion );
+		const BOOL bVistaOrNewer = pVersion.dwMajorVersion > 5;
+
+		CoolInterface.m_fntNormal.CreateFont( -11, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
+		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
+		DEFAULT_PITCH|FF_DONTCARE, bVistaOrNewer ? _T("Segoe UI") : _T("Tahoma") );
+
+		AfxMessageBox( //IDS_COMMANDLINE,	// No translation available yet
+			L"\nPeerProject command-line options:\n\n"
+			L" -help   -? \tDisplay this help screen\n"
+			L" -tray\t\tStart quietly in system tray\n"
+			L" -nosplash\tDisable startup splash screen\n"
+			L" -nowarn\t\tSkip debug version warning dialog\n"
+			L" -noskin\t\tDisable all skins and languages\n"
+			L" -wait\t\tWait for any prior instance to finish\n"
+			L" -basic\t\tStart application in Basic mode\n"
+			L" -tabbed\t\tStart application in Tabbed mode\n"
+			L" -windowed\tStart application in Windowed mode\n"
+			L" -regserver\tRegister application components\n"
+			L" -unregserver\tUn-register application components ----------\n",	// Layout workaround
+			MB_ICONINFORMATION | MB_OK );
+
+		return FALSE;
+	}
+
+//	AfxSetPerUserRegistration( m_cmdInfo.m_bRegisterPerUser || ! IsRunAsAdmin() );
+
+	if ( m_cmdInfo.m_nShellCommand == CCommandLineInfo::AppUnregister ||
+		 m_cmdInfo.m_nShellCommand == CCommandLineInfo::AppRegister )
+	{
+		m_cmdInfo.m_bRunEmbedded = TRUE;	// Suppress dialog
+
+		ProcessShellCommand( m_cmdInfo );
+
+		return FALSE;
+	}
+
+	HWND hWndPrior = NULL;
+	for (;;)	// Loop if "wait"
+	{
+		m_pMutex = CreateMutex( NULL, FALSE, _T("Global\\PeerProject") );	//CLIENT_NAME
+
+		if ( m_pMutex == NULL )
+		{
+			// Mutex likely created in another multi-user session
+			Skin.m_bmBanner.Attach( CImageFile::LoadBitmapFromResource( IDB_BANNER ) );
+			Skin.m_nBanner = 50;
+			AfxMessageBox(
+				L"PeerProject appears to be open in another user session."
+				L"\n\nPlease close it before continuing.",
+				MB_ICONEXCLAMATION | MB_OK );
+			return FALSE;
+		}
+
+		if ( GetLastError() == ERROR_ALREADY_EXISTS )
+		{
+			CloseHandle( m_pMutex );
+			m_pMutex = NULL;
+			hWndPrior = FindWindow( _T("PeerProjectMainWnd"), NULL );
+		}
+		// else we are first instance
+
+		if ( ! m_cmdInfo.m_bWait || ! hWndPrior || m_pMutex == NULL )
+			break;
+
+		Sleep( 500 );	// Wait for first instance exit, and try again
+	}
+
+	if ( hWndPrior )
+	{
+		// Windows scheduling not implemented!
+		//if ( ! m_cmdInfo.m_sTask.IsEmpty() )
+		//{
+		//	// Pass scheduler task to existing instance
+		//	//CScheduler::Execute( hWndPrior, m_cmdInfo.m_sTask );
+		//
+		//	return FALSE;	// Don't start second instance or show first
+		//}
+
+		if ( m_cmdInfo.m_nShellCommand == CCommandLineInfo::FileOpen )
+		{
+			// Pass command line to first instance
+			m_cmdInfo.m_strFileName.Trim( _T(" \t\r\n\"") );
+			COPYDATASTRUCT cd =
+			{
+				COPYDATA_OPEN,
+				m_cmdInfo.m_strFileName.GetLength() * sizeof( TCHAR ),
+				(PVOID)(LPCTSTR)m_cmdInfo.m_strFileName
+			};
+			DWORD_PTR dwResult;
+			SendMessageTimeout( hWndPrior, WM_COPYDATA, NULL, (WPARAM)&cd, SMTO_NORMAL, 250, &dwResult );
+		}
+
+		// Popup first instance
+		DWORD_PTR dwResult;
+		SendMessageTimeout( hWndPrior, WM_COMMAND, ID_TRAY_OPEN, 0, SMTO_NORMAL, 250, &dwResult );
+		ShowWindow( hWndPrior, SW_SHOWNA );
+		BringWindowToTop( hWndPrior );
+		SetForegroundWindow( hWndPrior );
+
+		return FALSE;	// Don't start second instance
+	}
+
+	if ( m_cmdInfo.m_bWait )
+		Sleep( 1000 );	// Wait for other instance complete exit
+
+	return TRUE;		// Continue PeerProject execution
+}
+
+BOOL CPeerProjectApp::Register()
+{
+	COleObjectFactory::UpdateRegistryAll();
+	AfxOleRegisterTypeLib( AfxGetInstanceHandle(), LIBID_PeerProject );
+
+	return CWinApp::Register();
+}
+
+BOOL CPeerProjectApp::Unregister()
+{
+	CPeerProjectURL::Register( /*FALSE,*/ TRUE );
+
+	AfxOleUnregisterTypeLib( LIBID_PeerProject );
+	AfxOleUnregisterTypeLib( LIBID_PeerProject );
+	AfxOleUnregisterTypeLib( LIBID_PeerProject );
+	COleObjectFactory::UpdateRegistryAll( FALSE );
+	COleObjectFactory::UpdateRegistryAll( FALSE );
+	COleObjectFactory::UpdateRegistryAll( FALSE );
+
+	return TRUE;	// Don't call CWinApp::Unregister(), it removes PeerProject settings
 }
 
 void CPeerProjectApp::WinHelp(DWORD /*dwData*/, UINT /*nCmd*/)
@@ -868,10 +909,10 @@ BOOL CPeerProjectApp::Open(LPCTSTR lpszFileName)		// Note: No BOOL bDoIt needed
 //		return OpenCollection( lpszFileName );
 //	if ( nLength > 16 &&  ! _tcsicmp( lpszFileName + nLength - 16, _T(".emulecollection") ) )
 //		return OpenCollection( lpszFileName );
-//	if ( nLength > 8  &&  ! _tcsicmp( lpszFileName + nLength - 8,  _T(".xml.bz2") ) )
-//		return OpenCollection( lpszFileName );
 //	if ( nLength > 14 &&  ! _tcsicmp( lpszFileName + nLength - 15, _T("hublist.xml.bz2") ) )
 //		return OpenImport( lpszFileName );
+//	if ( nLength > 8  &&  ! _tcsicmp( lpszFileName + nLength - 8,  _T(".xml.bz2") ) )
+//		return OpenCollection( lpszFileName );
 //	if (/*nLength > 4 &&*/! _tcsicmp( lpszFileName + nLength - 4,  _T(".met") ) )
 //		return OpenImport( lpszFileName );
 //	if (/*nLength > 4 &&*/! _tcsicmp( lpszFileName + nLength - 4,  _T(".dat") ) )
@@ -1033,8 +1074,6 @@ void CPeerProjectApp::GetVersionNumber()
 #endif
 #ifdef __MODAUTHOR__
 	_T("  ") _T(__MODAUTHOR__);	// YOUR NAME (Edit in Revision.h)
-#elif defined(LAN_MODE)
-	_T("  LAN Mod");
 #elif defined(_DEBUG)
 	_T("  Debug");
 #else
@@ -1175,7 +1214,7 @@ void CPeerProjectApp::InitResources()
 	LoadCountry();	// GeoIP
 
 	// Load LibGFL in a custom way, so PeerProject plugins can use this library too when not in their search path (From Plugins folder, and when running inside Visual Studio)
-	m_hLibGFL = CustomLoadLibrary( _T("LibGFL290.dll") );
+	m_hLibGFL = CustomLoadLibrary( _T("LibGFL340.dll") );
 
 
 	//
@@ -1499,6 +1538,13 @@ CString GetErrorString(DWORD dwError)
 	return CString();
 }
 
+//void ReportError(DWORD dwError)
+//{
+//	CString sError = GetErrorString( dwError );
+//	theApp.Message( MSG_ERROR, _T("%s"), sError );
+//	AfxMessageBox( sError, MB_OK | MB_ICONEXCLAMATION );
+//}
+
 /////////////////////////////////////////////////////////////////////////////
 // CPeerProjectApp GeoIP Countries
 
@@ -1680,6 +1726,25 @@ BOOL CPeerProjectApp::InternalURI(LPCTSTR pszURI)
 
 	theApp.Message( MSG_ERROR, _T("Unknown internal command:  ") + CString( pszURI ) );
 	return FALSE;
+}
+
+BOOL IsRunAsAdmin()
+{
+	PSID pAdministratorsGroup = NULL;
+	SID_IDENTIFIER_AUTHORITY NtAuthority = SECURITY_NT_AUTHORITY;
+	if ( ! AllocateAndInitializeSid( &NtAuthority, 2, SECURITY_BUILTIN_DOMAIN_RID,
+		DOMAIN_ALIAS_RID_ADMINS, 0, 0, 0, 0, 0, 0, &pAdministratorsGroup ) )
+	{
+		return FALSE;
+	}
+
+	BOOL bIsRunAsAdmin = FALSE;
+	if ( ! CheckTokenMembership( NULL, pAdministratorsGroup, &bIsRunAsAdmin ) )
+		bIsRunAsAdmin = FALSE;
+
+	FreeSid( pAdministratorsGroup );
+
+	return bIsRunAsAdmin;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -3013,6 +3078,47 @@ void SafeMessageLoop()
 	InterlockedDecrement( &theApp.m_bBusy );
 }
 
+//BOOL AreServiceHealthy(LPCTSTR szService)
+//{
+//	BOOL bResult = TRUE;	// Ok or unknown state
+//
+//	// Open a handle to the Service Control Manager database
+//	SC_HANDLE schSCManager = OpenSCManager(
+//		NULL,				// local machine
+//		NULL,				// ServicesActive database
+//		GENERIC_READ );		// for enumeration and status lookup
+//	if ( schSCManager )
+//	{
+//		SC_HANDLE schServiceRead = OpenService( schSCManager, szService, GENERIC_READ );
+//		if ( schServiceRead )
+//		{
+//			SERVICE_STATUS_PROCESS ssStatus = {};
+//			DWORD nBytesNeeded = 0;
+//			if ( QueryServiceStatusEx( schServiceRead, SC_STATUS_PROCESS_INFO,
+//				(LPBYTE)&ssStatus, sizeof( SERVICE_STATUS_PROCESS ), &nBytesNeeded ) )
+//			{
+//				bResult = ( ssStatus.dwCurrentState == SERVICE_RUNNING );
+//			}
+//			CloseServiceHandle( schServiceRead );
+//
+//			if ( ! bResult )
+//			{
+//				SC_HANDLE schServiceStart = OpenService( schSCManager, szService, SERVICE_START );
+//				if ( schServiceStart )
+//				{
+//					// Power users have only right to start service, thus try to start it here
+//					bResult = StartService( schServiceStart, 0, NULL );
+//
+//					CloseServiceHandle( schServiceStart );
+//				}
+//			}
+//		}
+//		CloseServiceHandle( schSCManager );
+//	}
+//
+//	return bResult;
+//}
+
 BOOL IsUserFullscreen()
 {
 	// Detect system availability
@@ -3039,37 +3145,18 @@ BOOL IsUserFullscreen()
 	return FALSE;
 }
 
-//void ClearSkins()
-//{
-//	// Commandline "-noskin" reset
-//	HKEY hRoot;
-//	if ( RegOpenKeyEx( HKEY_LOCAL_MACHINE, REGISTRY_KEY, 0, KEY_ALL_ACCESS, &hRoot ) != ERROR_SUCCESS )
-//		return;
-//	RegDeleteKey( hRoot, _T("\\Settings\\Language") );
-//	RegDeleteKey( hRoot, _T("\\Settings\\LanguageRTL") );
-//
-//	// Prefer native Vista+ way
-//	OSVERSIONINFOEX pVersion = { sizeof( OSVERSIONINFOEX ) };
-//	GetVersionEx( (OSVERSIONINFO*)&pVersion );
-//	if ( pVersion.dwMajorVersion > 5 )
-//	{
-//		RegDeleteTree( hRoot, _T("\\Skins") );
-//		RegDeleteTree( hRoot, _T("\\Toolbars") );
-//		RegDeleteTree( hRoot, _T("\\Windows") );
-//		RegDeleteTree( hRoot, _T("\\ListStates") );
-//		RegDeleteTree( hRoot, _T("\\Interface") );
-//	}
-//	else // XP/2000
-//	{
-//		SHDeleteKey( hRoot, _T("\\Skins") );
-//		SHDeleteKey( hRoot, _T("\\Toolbars") );
-//		SHDeleteKey( hRoot, _T("\\Windows") );
-//		SHDeleteKey( hRoot, _T("\\ListStates") );
-//		SHDeleteKey( hRoot, _T("\\Interface") );
-//	}
-//
-//	RegCloseKey( hRoot );
-//}
+void ClearSkins()
+{
+	// Commandline "-noskin" registry reset
+	CRegistry::DeleteKey( HKEY_CURRENT_USER, REGISTRY_KEY _T("\\Skins") );
+	CRegistry::DeleteKey( HKEY_CURRENT_USER, REGISTRY_KEY _T("\\Settings") );
+	CRegistry::DeleteKey( HKEY_CURRENT_USER, REGISTRY_KEY _T("\\Toolbars") );
+	CRegistry::DeleteKey( HKEY_CURRENT_USER, REGISTRY_KEY _T("\\Windows") );
+	CRegistry::DeleteKey( HKEY_CURRENT_USER, REGISTRY_KEY _T("\\ListStates") );
+
+	// Reskin if not startup
+	//PostMainWndMessage( WM_SKINCHANGED );
+}
 
 
 template <>

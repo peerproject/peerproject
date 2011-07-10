@@ -51,28 +51,35 @@ public:
 	CString				m_sG2Keywords;	// Query string for G2, containing Positive keywords and Minus Prefixed negative keywords.
 	CSchemaPtr			m_pSchema;		// G1,G2,ED2K: Metadata schema
 	CXMLElement*		m_pXML;			// G1,G2,ED2K: Metadata
+	Hashes::Ed2kHash	m_oSimilarED2K;	// ED2K: Search for Similar Files
 	QWORD				m_nMinSize;		// G2,ED2K: Minimal file size
 	QWORD				m_nMaxSize;		// G2,ED2K: Maximal file size
-	Hashes::Ed2kHash	m_oSimilarED2K;	// ED2K: Search for Similar Files
 	BOOL				m_bWantURL;		// G2: Sources, preview URL request
 	BOOL				m_bWantDN;		// G2: Descriptive name request
 	BOOL				m_bWantXML;		// G1,G2: Metadata request
 	BOOL				m_bWantCOM;		// G2: Comments request
 	BOOL				m_bWantPFS;		// G2: Partial Files Search request
 	BOOL				m_bAndG1;		// Settings.Gnutella1.Enabled
-	BYTE				m_nTTL;			// G1: Suggested TTL for answer
+	BYTE				m_nHops;		// G1: Received packet hops	(TTL)
 	BOOL				m_bUDP;			// G2: Packet received over UDP
-	SOCKADDR_IN			m_pEndpoint;	// G2: Packet received from this host
+	SOCKADDR_IN			m_pEndpoint;	// G1,G2: Packet received from this host
 	DWORD				m_nKey;			// G2: Hub query key
 	bool				m_bFirewall;	// G1: Firewalled host
 	bool				m_bDynamic;		// G1: Leaf Guided Dynamic Query
 	bool				m_bBinHash;		// G1: GGEP "H" allowed
 	bool				m_bOOB;			// G1: Out of Band Query
 	bool				m_bOOBv3;		// G1: OOB v3 Security Token support
-	BYTE				m_nMeta;		// G1: MetaType query mask
 	bool				m_bPartial;		// G1: Partial results support
 	bool				m_bNoProxy;		// G1: Disable OOB proxying
 	bool				m_bExtQuery;	// G1: Extended query (long query)
+	bool				m_bWhatsNew;	// G1: "Whats New?" request
+	bool				m_bDropMe;		// Silently drop this packet (to avoid overflow)
+
+//	SOCKADDR_IN			m_pMyHub;		// DC: Hub address
+//	CString				m_sMyHub;		// DC: Hub name
+//	CString				m_sMyNick;		// DC: Name
+//	CString				m_sUserNick;	// DC: Passive user name
+
 	PROTOCOLID			m_nProtocol;	// Pass network for convenience (SearchMonitor)
 
 	typedef std::vector<DWORD>	Hash32List;
@@ -89,16 +96,17 @@ private:
 			return cmp < 0 || cmp == 0 && lhs.second < rhs.second;
 		}
 	};
-	struct FindStr
-	{
-		const WordEntry& m_entry;
-		FindStr(const WordEntry& entry) : m_entry( entry ) {}
-		bool operator()(const LPCTSTR& arg) const
-		{
-			// ToDo: Verify this - it will succeed for every arg that starts with the search string, not an exact match
-			return _tcsnicmp( arg, m_entry.first, m_entry.second ) == 0;
-		}
-	};
+
+	// Obsolete (Old common word array)
+	//struct FindStr
+	//{
+	//	const WordEntry& m_entry;
+	//	FindStr(const WordEntry& entry) : m_entry( entry ) {}
+	//	bool operator()(const LPCTSTR& arg) const
+	//	{
+	//		return _tcsnicmp( arg, m_entry.first, m_entry.second ) == 0;	// Partial matches, not exact
+	//	}
+	//};
 
 public:
 	typedef std::set< WordEntry, CompareWordEntries > WordTable;
@@ -120,9 +128,13 @@ public:
 	// Hashed keywords (Positive words only)
 	const_hash_iterator		keywordBegin() const { return m_oKeywordHashList.begin(); }
 	const_hash_iterator		keywordEnd()   const { return m_oKeywordHashList.end(); }
+
 private:
-	WordTable m_oWords;
-	WordTable m_oNegWords;
+	WordTable				m_oWords;
+	WordTable				m_oNegWords;
+
+	typedef CMap< CString, const CString&, DWORD, DWORD& > CHistoryMap;
+	static CHistoryMap		m_oSearchHistory;
 
 // Packet Operations
 public:
@@ -131,20 +143,20 @@ public:
 	CEDPacket*				ToEDPacket(BOOL bUDP, DWORD nServerFlags = 0) const;
 	CDCPacket*				ToDCPacket() const;
 private:
-	BOOL					ReadG1Packet(CG1Packet* pPacket);
+	BOOL					ReadG1Packet(CG1Packet* pPacket, const SOCKADDR_IN* pEndpoint = NULL);
 	void					ReadGGEP(CG1Packet* pPacket);
-	void					ReadExtension(CG1Packet* pPacket);
 	BOOL					ReadG2Packet(CG2Packet* pPacket, const SOCKADDR_IN* pEndpoint = NULL);
+//	BOOL					ReadDCPacket(CDCPacket* pPacket, const SOCKADDR_IN* pEndpoint = NULL);
 
 // Operations
 public:
-	BOOL					Match(LPCTSTR pszFilename, LPCTSTR pszSchemaURI, CXMLElement* pXML, const CPeerProjectFile* pFile ) const;
-	TRISTATE				MatchMetadata(LPCTSTR pszSchemaURI, CXMLElement* pXML) const;
-	BOOL					MatchMetadataShallow(LPCTSTR pszSchemaURI, CXMLElement* pXML, bool* bReject=NULL) const;
-	void					BuildWordList(bool bExpression=true, bool bLocal=false);
-	void					Serialize(CArchive& ar);
-	BOOL					CheckValid(bool bExpression=true);
+	BOOL					Match(LPCTSTR pszFilename, LPCTSTR pszSchemaURI, const CXMLElement* pXML, const CPeerProjectFile* pFile ) const;
+	TRISTATE				MatchMetadata(LPCTSTR pszSchemaURI, const CXMLElement* pXML) const;
+	BOOL					MatchMetadataShallow(LPCTSTR pszSchemaURI, const CXMLElement* pXML, bool* bReject = NULL) const;
+	void					BuildWordList(bool bExpression = true, bool bLocal=false);
+	BOOL					CheckValid(bool bExpression = true);
 	void					PrepareCheck();
+	void					Serialize(CArchive& ar);
 private:
 	void					BuildWordTable();
 	void					BuildG2PosKeywords();
@@ -153,10 +165,11 @@ private:
 
 // Utilities
 public:
-	static CQuerySearchPtr	FromPacket(CPacket* pPacket, const SOCKADDR_IN* pEndpoint = NULL);
+	static CQuerySearchPtr	FromPacket(CPacket* pPacket, const SOCKADDR_IN* pEndpoint = NULL, BOOL bGUID = FALSE);
 	static CSearchWnd*		OpenWindow(CQuerySearch* pSearch);
-	static BOOL 			WordMatch(LPCTSTR pszString, LPCTSTR pszFind, bool* bReject=NULL);
+	static BOOL 			WordMatch(LPCTSTR pszString, LPCTSTR pszFind, bool* bReject = NULL);
 	static BOOL 			NumberMatch(const CString& strValue, const CString& strRange);
-	static void 			MakeKeywords(CString& strPhrase, bool bExpression=true);
-	static void 			SearchHelp();	// Shows some search help dialogs
+	static CString			MakeKeywords(const CString& strPhrase, bool bExpression = true);
+	static BOOL				CheckOverflow(const CString& sSearch);
+	static void 			SearchHelp();		// Shows some search help dialogs
 };

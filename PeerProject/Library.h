@@ -27,7 +27,7 @@ class CQuerySearch;
 class CLibraryFolder;
 class CAlbumFolder;
 
-#define LIBRARY_SER_VERSION		1000	//29
+#define LIBRARY_SER_VERSION		1000	// 29
 // nVersion History:
 // 27 - Changed CLibraryFile metadata saving order (ryo-oh-ki)
 // 28 - Added CLibraryMaps m_pIndexMap, m_pNameMap and m_pPathMap counts (ryo-oh-ki)
@@ -50,7 +50,7 @@ public:
 	mutable CMutexEx m_pSection;
 
 protected:
-	int				m_nFileSwitch;			// Library next save slot number
+	int				m_nFileSwitch;			// Library next save .dat/.bak
 	volatile LONG	m_nUpdateCookie;		// Library cookie (ms)
 	volatile LONG	m_nScanCookie;			// Used by CLibraryFolder::ThreadScan()
 	volatile DWORD	m_nScanCount;			// Library scan counter
@@ -101,20 +101,20 @@ protected:
 // General Operations
 public:
 	// Update library files alternate sources
-	bool			OnQueryHits(const CQueryHit* pHits);
-	CFileList*		Search(const CQuerySearch* pSearch, int nMaximum = 0, bool bLocal = false, bool bAvailableOnly = false);
 	void			Clear();
 	BOOL			Load();
 	BOOL			Save();
 	void			StopThread();
+	bool			OnQueryHits(const CQueryHit* pHits);
 	static BOOL		IsBadFile(LPCTSTR szFilenameOnly, LPCTSTR szPathOnly = NULL, DWORD dwFileAttributes = 0);
+	CFileList*		Search(const CQuerySearch* pSearch, int nMaximum = 0, bool bLocal = false, bool bAvailableOnly = false);
 
 protected:
 	void			OnRun();
 	void			Serialize(CArchive& ar);
-	BOOL			ThreadScan();
 	BOOL			SafeReadTime(CFile& pFile, FILETIME* pFileTime) throw();
 	BOOL			SafeSerialize(CArchive& ar) throw();
+	BOOL			ThreadScan();
 
 // Automation
 protected:

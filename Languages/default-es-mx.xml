@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Spanish (Mexican) Skin File -->
 
-<!-- Translation based on default-en.xml r67 -->
+<!-- Translation based on default-en.xml r68 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -350,10 +350,10 @@
 		<separator/>
 		<button id="ID_IRC_CLOSETAB" text="Cerrar" tip="Exit Current Channel Window"/>
 		<rightAlign/>
-		<button id="ID_IRC_CONNECT" text="Conectar" tip="Connect to IRC"/>
-		<button id="ID_IRC_DISCONNECT" text="Desconectar" tip="Disconnect from IRC"/>
+		<button id="ID_IRC_CONNECT" text="Conectar" tip="Conectar a IRC"/>
+		<button id="ID_IRC_DISCONNECT" text="Desconectar" tip="Desconectar de IRC"/>
 		<separator/>
-		<button id="ID_IRC_SETTINGS" text="Configuración" tip="Configure IRC Settings"/>
+		<button id="ID_IRC_SETTINGS" text="Configuración" tip="Configurar las opciones de IRC"/>
 	</toolbar>
 	<!-- NEIGHBOURS WINDOW -->
 	<toolbar name="CNeighboursWnd.Basic">
@@ -938,7 +938,7 @@
 		</menu>
 		<separator/>
 		<item id="ID_HOSTCACHE_IMPORT" text="_Importar Archivo MET..."/>
-		<item id="ID_HOSTCACHE_ED2K_DOWNLOAD" text="_Descargar Archivo MET..."/>
+		<item id="ID_HOSTCACHE_FILE_DOWNLOAD" text="_Descargar Archivo MET..."/>
 	</menu>
 	<!-- SEARCH WINDOW -->
 	<menu name="CSearchWnd.Basic">
@@ -1496,7 +1496,13 @@
 	</menu>
 	<!-- SYSTEM WINDOW -->
 	<menu name="CSystemWnd">
-		<item id="ID_SYSTEM_VERBOSE" text="_Mostrar Detalles"/>
+		<menu id="ID_SYSTEM_VERBOSE" text="_Mostrar Detalles">
+			<item id="ID_SYSTEM_VERBOSE_ERROR" text="_Error"/>
+			<item id="ID_SYSTEM_VERBOSE_WARNING" text="_Advertencia"/>
+			<item id="ID_SYSTEM_VERBOSE_NOTICE" text="A_viso"/>
+			<item id="ID_SYSTEM_VERBOSE_INFO" text="_Información"/>
+			<item id="ID_SYSTEM_VERBOSE_DEBUG" text="_Depuración"/>
+		</menu>
 		<item id="ID_SYSTEM_TIMESTAMP" text="Estampar _hora"/>
 		<separator/>
 		<item id="ID_SYSTEM_COPY" text="_Copiar" shortcut="Ctrl+C"/>
@@ -1601,7 +1607,7 @@
 		<separator/>
 		<item id="ID_CHAT_BROWSE" text="_Explorar"/>
 		<item id="ID_CHAT_PRIORITY" text="_Prioridad"/>
-		<!-- <item id="ID_CHAT_SEND_FILE" text="E_nivar Archivo..."/> -->
+		<!-- <item id="ID_CHAT_SEND_FILE" text="E_nviar Archivo..."/> -->
 		<separator/>
 		<menu text="_Formato">
 			<item id="ID_CHAT_BOLD" text="_Negrita"/>
@@ -1613,6 +1619,35 @@
 		<separator/>
 		<item id="ID_CHAT_TIMESTAMP" text="Marca del _Tiempo"/>
 		<item id="ID_CHAT_CLEAR" text="Eliminar"/>
+	</menu>
+	<!-- IRC WINDOW -->
+	<menu name="CIRCTabRClick">
+		<item id="ID_IRC_CLOSETAB" text="_Cerrar"/>
+	</menu>
+	<menu name="CIRCUserList">
+		<item id="ID_IRC_WHOIS" text="_Whois"/>
+		<item id="ID_IRC_QUERY" text="_Solicitud"/>
+		<separator/>
+		<menu text="Actions">
+			<item id="ID_IRC_TIME" text="_Hora"/>
+			<item id="ID_IRC_VERSION" text="_Versión"/>
+			<item id="ID_IRC_BROWSE" text="_Explorar (G2)"/>
+		</menu>
+		<separator/>
+		<menu text="Control">
+			<item id="ID_IRC_IGNORE" text="_Ignorar"/>
+			<item id="ID_IRC_UNIGNORE" text="_No ignorar"/>
+			<item id="ID_IRC_OP" text="_Op"/>
+			<item id="ID_IRC_DEOP" text="_Deop"/>
+			<item id="ID_IRC_VOICE" text="_Voz"/>
+			<item id="ID_IRC_DEVOICE" text="D_evoice"/>
+			<item id="ID_IRC_KICK" text="_Expulsar"/>
+			<item id="ID_IRC_KICKWHY" text="Expulsar (¿por qué?)"/>
+			<item id="ID_IRC_BAN" text="_Bloquear"/>
+			<item id="ID_IRC_UNBAN" text="_Desbloquear"/>
+			<item id="ID_IRC_BANKICK" text="Expulsar+bloquear"/>
+			<item id="ID_IRC_BANKICKWHY" text="Expulsar+bloquear (¿por qué?)"/>
+		</menu>
 	</menu>
 	<!-- PLUGIN MENUS -->
 	<menu name="ImageViewer_Context">
@@ -1690,7 +1725,7 @@
 		</group>
 		<group id="6">
 			<icon res="180" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">Cuidado: Tu Puerto TCP Esta Firewalled</heading>
+			<heading align="middle">Cuidado: Tu Puerto TCP Esta Firewall</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject ha detectado que estas detrás de un NAT, router o un firewall,
 			y no puedes recibir conexiones TCP desde Internet. &#160;</text>
@@ -1701,7 +1736,7 @@
 		</group>
 		<group id="7">
 			<icon res="180" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">Cuidado: Tu Puerto UDP Esta Firewalled</heading>
+			<heading align="middle">Cuidado: Tu Puerto UDP Esta Firewall</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject ha detectado que estas detrás de un NAT router o un firewall,
 			y no puedes recibir conexiones UDP desde Internet. &#160;</text>
@@ -1900,7 +1935,7 @@
 		<link target="page:CMediaSettingsPage" format="b">Reproductor:</link>
 		<text>&#160;Cuando y como usar el Centro de Media de PeerProject.</text>
 		<newline gap="10"/>
-		<link target="page:CIRCSettingsPage" format="b">Chat:</link>
+		<link target="page:CIRCSettingsPage" format="b">Platicar:</link>
 		<text>&#160;IRC chatroom connection settings and display options.</text>
 		<newline gap="10"/>
 		<link target="page:CCommunitySettingsPage" format="b">Comunidad:</link>
@@ -2315,7 +2350,7 @@
 	<tip id="ID_DOWNLOADS_CLEAR" message="Eliminar las transferencias seleccionadas."/>
 	<tip id="ID_DOWNLOADS_CLEAR_COMPLETE" message="Borrar el/las siguiente(s) descarga(s) de tu lista."/>
 	<tip id="ID_DOWNLOADS_CLEAR_COMPLETED" message="Limpiar la lista de archivos descargados."/>
-	<tip id="ID_DOWNLOADS_CLEAR_INCOMPLETE" message="Cancelar el/lasl siguiente(s) descarga(s) seleccionadas."/>
+	<tip id="ID_DOWNLOADS_CLEAR_INCOMPLETE" message="Cancelar el/las siguiente(s) descarga(s) seleccionadas."/>
 	<tip id="ID_DOWNLOADS_CLEAR_PAUSED" message="Eliminar las transferencias en pausa."/>
 	<tip id="ID_DOWNLOADS_URI" message="Copiar el URI del archivo seleccionado."/>
 	<tip id="ID_DOWNLOADS_EDIT" message="Mostrar el diálogo de edición avanzada..."/>
@@ -2368,7 +2403,7 @@
 	<tip id="ID_HOSTCACHE_CONNECT" message="Conectar a los usuarios seleccionados."/>
 	<tip id="ID_HOSTCACHE_DISCONNECT" message="Desconetar de los usuarios seleccionados."/>
 	<tip id="ID_HOSTCACHE_ED2K_CACHE" message="Mostrar servidores de eDonkey2000."/>
-	<tip id="ID_HOSTCACHE_ED2K_DOWNLOAD" message="Descargar lista de servidores de eDonkey2000, &quot;server.met&quot;..."/>
+	<tip id="ID_HOSTCACHE_FILE_DOWNLOAD" message="Descargar lista de servidores de eDonkey2000, &quot;server.met&quot;..."/>
 	<tip id="ID_HOSTCACHE_G1_CACHE" message="Mostrar Gnutella1."/>
 	<tip id="ID_HOSTCACHE_G2_CACHE" message="Mostrar Gnutella2 de GWebCaches."/>
 	<tip id="ID_HOSTCACHE_G2_HORIZON" message="Mostrar Gnutella2."/>
@@ -2729,7 +2764,7 @@
 	<string id="20172" value="Inicio de sesión falló, el usuario remoto puede no soportar chat."/>
 	<string id="20173" value="Inicio de sesión completada, usando el protocolo %s de chat."/>
 	<string id="20174" value="Intercambiando información de perfil..."/>
-	<string id="20175" value="Todavía no ha llenado tu perfil su usuario. Es necesario que lo llene, para poder platicar con otros.nn¿Quieres hacerlo ahora?"/>
+	<string id="20175" value="Todavía no ha llenado tu perfil su usuario. Es necesario que lo llene, para poder platicar con otros.\n\n¿Quieres hacerlo ahora?"/>
 	<string id="20176" value="No estas conectado, el mensaje no pudo ser enviado. PeerProject está tratando de establecer la conexión..."/>
 	<string id="20177" value="El mensaje no pudo ser enviado, porque la comunicación no ha sido establecida."/>
 	<string id="20178" value="%s ahora se llama %s."/>
@@ -2816,7 +2851,7 @@
 	<string id="20272" value="Pausando descarga de &quot;%s&quot;."/>
 	<string id="20273" value="Resumiendo descarga de &quot;%s&quot;."/>
 	<string id="20274" value="Resolviendo %s para descargar %s..."/>
-	<string id="20275" value="Buscando más fuentes para %s en %i connexión(es)..."/>
+	<string id="20275" value="Buscando más fuentes para %s en %i conexión(es)..."/>
 	<string id="20276" value="No se pudieron buscar más fuentes para %s, no hay conexión a la red."/>
 	<string id="20280" value="La fuente de descarga envió datos tiger-tree corruptos o internamente incosistente, ignorandolo."/>
 	<string id="20281" value="El tiger-tree de la fuente de descarga tiger-tree no coincide con el valor esperado."/>
@@ -2960,7 +2995,7 @@
 	<string id="20430" value="Estás seguro(a) que quieres ejecutar el archivo %s?\nAlgunos archivos pueden ser peligrosos para la computadora, y es recomendado tener el antivirus funcionando y actualizado."/>
 	<string id="20431" value="¿Estás seguro(a) de eliminar los %i archivos seleccionados de forma permanente ?\n\nEllos van a ser movidos a la Papelera de reciclaje si esta esta activada."/>
 	<string id="20432" value="PeerProject no pudo eliminar:\n\n%s"/>
-	<string id="20433" value="Tu carpeta de archivos descargados &quot;%s&quot; todavia no se encuentra en Mi Colección.\n\nIncluyendo tu carpeta de archivos descargados en Mi Colección hace más fácil ver y organizar tus nuevas descargas, y hay que tomar las ventajas de las avanzadas características de PeerProject.orgo verificación de descarga y actualización automatica.  Poniendo los archivos descargados en Mi Colección no necesariamente requiere que los compartas: puedes Seleccionar si deseas o no compartir los archivos independientemente.nn¿Deseas agregar tu carpeta de descargas a Mi Colección ahora?"/>
+	<string id="20433" value="Tu carpeta de archivos descargados &quot;%s&quot; todavia no se encuentra en Mi Colección.\n\nIncluyendo tu carpeta de archivos descargados en Mi Colección hace más fácil ver y organizar tus nuevas descargas, y hay que tomar las ventajas de las avanzadas características de PeerProject.orgo verificación de descarga y actualización automatica.  Poniendo los archivos descargados en Mi Colección no necesariamente requiere que los compartas: puedes Seleccionar si deseas o no compartir los archivos independientemente.\n\n¿Deseas agregar tu carpeta de descargas a Mi Colección ahora?"/>
 	<string id="20434" value="La carpeta de archivos descargados fué agregada a mi Colección. ¿Quieres compartirla también?"/>
 	<string id="20435" value="No ha seleccionado un reproductor para los archivos de media. ¿Quieres seleccionar uno ahora?\n\nEl archivo va a ser pasado con el argumento &quot;/ADD&quot;."/>
 	<string id="20436" value="¿Estás seguro(a) de eliminar %i carpetas virtuales con información sobre albums?\n\nEsto no elimina los archivos fisicamente del disco duro, solo elimina la carpeta seleccionada de Mi Colección."/>
@@ -2976,7 +3011,7 @@
 	<string id="20446" value="El archivo %s falló la verificación, y puede no ser el correcto. ¿Estás seguro(a) de abrirlo?"/>
 	<string id="20447" value="¿Quieres quitar el atributo de potencialmente inseguro de este archivo?"/>
 	<string id="20448" value="El archivo %s no ha sido escaneado. Por favor espere a que sea escaneado, e intente más tarde."/>
-	<string id="20449" value="Esto usa un servicio ofrecido por Bitzi, para adquirir metadata acerca del archivo.\n\nPeerProject va a enviar una pequeña información sobre la hueya digital 'bitprint' del archivo para que Bitzi lo pueda reconocer. Si tienes alguna duda sobre la privacidad de este servicio, visita bitzi.com para más información.nn¿Quieres continuar?"/>
+	<string id="20449" value="Esto usa un servicio ofrecido por Bitzi, para adquirir metadata acerca del archivo.\n\nPeerProject va a enviar una pequeña información sobre la hueya digital 'bitprint' del archivo para que Bitzi lo pueda reconocer. Si tienes alguna duda sobre la privacidad de este servicio, visita bitzi.com para más información.\n\n¿Quieres continuar?"/>
 	<string id="20450" value="Las carpetas Completas e Incompletas deben de no ser las mismas"/>
 	<string id="20451" value="No hay ningún archivo reproduciendose.  Haz doble click a un archivo de media en tu librería para reproducirlo."/>
 	<string id="20452" value="Todos los archivos de Media|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Playlists|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Audio Files|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Video Files|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD Audio Tracks|*.cda|MIDI Files|*.mid;*.rmi;*.midi|All Files|*.*||"/>
@@ -3012,8 +3047,8 @@
 	<string id="20485" value="Limitar la velocidad de Subida"/>
 	<string id="20490" value="Múltiple"/>
 	<string id="20491" value="Valores Multiple"/>
-	<string id="20494" value="No ha sido especificada su ubicación en su perfil.\n\nPara otros usuarios podría ser interesante de donde usted es, para crear un mejor sentido de comunidad.nn¿Estás seguro(a) de continuar sin especificar la ubicación?"/>
-	<string id="20495" value="No se ha especificado un nick en su perfil.\n\nEs buena idea especificar uno, para que los demás usuarios sepan de forma agradable a quien están conectados.nn¿Estás seguro(a) de continuar sin sobre-nombre?"/>
+	<string id="20494" value="No ha sido especificada su ubicación en su perfil.\n\nPara otros usuarios podría ser interesante de donde usted es, para crear un mejor sentido de comunidad.\n\n¿Estás seguro(a) de continuar sin especificar la ubicación?"/>
+	<string id="20495" value="No se ha especificado un nick en su perfil.\n\nEs buena idea especificar uno, para que los demás usuarios sepan de forma agradable a quien están conectados.\n\n¿Estás seguro(a) de continuar sin sobre-nombre?"/>
 	<string id="20496" value="No has seleccionado tu edad y sexo. ¿Estas seguro que deseas continuar sin hacer esto?"/>
 	<string id="20499" value="Nueva Carpeta"/>
 	<string id="20500" value="Haz click en Conectar, para empezar."/>
@@ -3095,7 +3130,7 @@
 	<string id="20590" value="El Acceso Remoto esta deshabilitado."/>
 	<string id="20591" value="http://%s:%i/remote - ¿Nombre de usuario y contraseña?"/>
 	<string id="20592" value="No se puede aceptar conexiones, URL no disponible."/>
-	<string id="20597" value="Estas seguro que quieres borrar las reglas de seguridad seleccionadas? Esto no se puede deshacer."/>
+	<string id="20597" value="¿Estas seguro que quieres borrar las reglas de seguridad seleccionadas?"/>
 	<string id="20599" value="&amp;Schemas"/>
 	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="PeerProject esta buscando activamente en la red..."/>
@@ -3148,19 +3183,19 @@
 	<string id="20672" value="Selecciona la carpeta temporal de eDonkey/eMule:"/>
 	<string id="20673" value="Automatico"/>
 	<string id="20674" value="La carpeta de archivos incompletos no debe de estar en la librera, porque reduce velocidad. Archivos incompletos pueden ser compartidos directamente de la ventana de transferencias."/>
-	<string id="20675" value="Windows no soporta nomres ms grandes que 256 caracteres.\nPor favor selecciona un nombre con un tamao ms pequeo."/>
-	<string id="20676" value="Una subcarpeta de la carpeta seleccionada &quot;%s&quot; ya es parte de tu librera.\n\nDeseas agregar la carpeta seleccionada a tu librera ?nn La carpeta existente va a ser un subfolder de la nueva carpeta. Esto va a causar re-hashing re-hashing de todos los archivos en esta carpeta."/>
+	<string id="20675" value="Windows no soporta nombres más grandes que 256 caracteres.\nPor favor selecciona un nombre con un tamaño más pequeño."/>
+	<string id="20676" value="Una subcarpeta de la carpeta seleccionada &quot;%s&quot; ya es parte de tu librera.\n\nDeseas agregar la carpeta seleccionada a tu librera ?\n\n La carpeta existente va a ser un subfolder de la nueva carpeta. Esto va a causar re-hashing re-hashing de todos los archivos en esta carpeta."/>
 	<string id="20677" value="Por favor incluya la unidades para el límite del ancho de bada de la siguiente forma &quot;123 kb/s&quot; para kilobits por segundo, o &quot;123 KB/s&quot; para kiloBytes por segundo."/>
 	<string id="20678" value="La red eDonkey utiliza largas colas con tiempos largos de espera. Limitando tu máxima cola de posición puede que te de problemas para iniciar las descargas.nEstas seguro que deseas limitar las posiciones de cola que vas a aceptar?"/>
 	<string id="20680" value="Configuración de PeerProject"/>
 	<string id="20684" value="¿Estas seguro que deseas eliminar &quot;%s&quot; skin?  Esto no se puede deshacer."/>
 	<string id="20700" value="Activo"/>
 	<string id="20701" value="%s entra : %s sale (d:%I64i/u:%I64i)"/>
-	<string id="20702" value="Conectado a %lu vecinos.  Tienes %s en mi Colección."/>
-	<string id="20703" value="Modo Hub/Ultrapeer %lu en redes.  %s en mi Colección."/>
-	<string id="20704" value="Modo Hub %lu en redes.  %s en mi Colección."/>
+	<string id="20702" value="Conectado a %lu vecinos. Tienes %s en mi Colección."/>
+	<string id="20703" value="Modo Hub %lu en redes. %s en mi Colección."/>
+	<string id="20704" value="Modo Hub/Ultrapeer %lu en redes. %s en mi Colección."/>
 	<string id="20705" value="Conectado. %s en mi Colección."/>
-	<string id="20706" value="Modo Ultrapeer en %lu vecinos.  %s en mi Colección."/>
+	<string id="20706" value="Modo Ultrapeer en %lu vecinos. %s en mi Colección."/>
 	<string id="20707" value="Conectando a la red..."/>
 	<string id="20708" value="PeerProject no esta conectado a la red."/>
 	<string id="20710" value="Aclarar"/>
@@ -3315,9 +3350,9 @@
 	<string id="20880" value="Editar Mi Perfil"/>
 	<string id="20881" value="%u Archivos seleccionados. ¿Estás seguro?"/>
 	<string id="20882" value="No hay URN disponible"/>
-	<string id="20883" value="El servicio de red para Dispositivo UPnP no está ejecutado. Este servicio es requerido completar la configuración.nNecesitas completar el inicio del servicio como automático."/>
+	<string id="20883" value="El servicio de red para Dispositivo UPnP no está ejecutado. Este servicio es requerido completar la configuración.\nNecesitas completar el inicio del servicio como automático."/>
 	<string id="20885" value="Cambiado de vista va a cerrar todas las ventanas que tienes abiertas. ¿Deseas cambiar ahora?"/>
-	<string id="20886" value="Cambiando la dirección de interface requiere reiniciar.\nVas a necesitar reiniciar PeerProject manualmente. \n\n¿ Salir ahora ?"/>
+	<string id="20886" value="Cambiando la dirección de interface requiere reiniciar.\n\n¿ Salir ahora ?"/>
 	<string id="20890" value="Bienvenido a PeerProject"/>
 	<string id="20891" value="Salir"/>
 	<string id="20892" value="Por favor espera: Actualizando lista de servidores eDonkey..."/>
@@ -3379,7 +3414,7 @@
 		<control caption="Permitir exploración de usuario"/>
 		<control caption="Ver carpetas de Colección"/>
 		<control caption="Hash rápido (más CPU)"/>
-		<control caption="Mostrar vistas de hash/>
+		<control caption="Mostrar vistas de hash"/>
 		<control caption="Detección de la serie de media"/>
 		<control caption="Crear huellas de archivos (fantasmas)"/>
 		<control caption="Archivos _Recientes:"/>
@@ -3390,7 +3425,7 @@
 		<control caption="Por hasta:"/>
 		<control/>
 		<control/>
-		<control caption="dias"/>
+		<control caption="días"/>
 		<control caption="Borrar Historial"/>
 		<control caption="Borrar Fantasmas"/>
 		<control caption="_Seguros de abrir:"/>
@@ -4324,7 +4359,7 @@
 		<control caption="Aceptar"/>
 		<control caption="Cancelar"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="Descargar el archivo Server.met">
+	<dialog name="CUpdateServersDlg" cookie="StEdmsBuBu" caption="Descargar el archivo Server.met">
 		<control caption="Descargar el Server.met para eDonkey2000 de la web para actualizar el cache local."/>
 		<control/>
 		<control/>
@@ -4611,7 +4646,7 @@
 		<column from="#" to="#"/>
 		<column from="Action" to="Acción"/>
 		<column from="Expires" to="Expira"/>
-		<column from="Match" to=""/>
+		<column from="Match" to="Coincidencia"/>
 		<column from="Comment" to="Comentario"/>
 	</list>
 	<list name="CSchedulerWnd">

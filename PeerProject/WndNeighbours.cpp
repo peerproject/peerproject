@@ -423,7 +423,6 @@ void CNeighboursWnd::OnNeighboursDisconnect()
 void CNeighboursWnd::OnUpdateNeighboursCopy(CCmdUI* pCmdUI)
 {
 	pCmdUI->Enable( m_wndList.GetSelectedCount() == 1 );
-
 }
 
 void CNeighboursWnd::OnNeighboursCopy()

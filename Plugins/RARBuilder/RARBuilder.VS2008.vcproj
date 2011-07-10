@@ -30,8 +30,6 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				Description="Pre-Build Dependencies"
-				CommandLine="copy &quot;unrar.dll&quot; &quot;$(TargetDir)&quot; /b /y"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -113,6 +111,8 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				Description="Copy unrar.dll..."
+				CommandLine="copy &quot;Unrar.dll&quot; &quot;$(TargetDir)&quot; /b /y"
 			/>
 		</Configuration>
 		<Configuration
@@ -126,8 +126,6 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				Description="Pre-Build Dependencies"
-				CommandLine="copy &quot;unrar.dll&quot; &quot;$(TargetDir)&quot; /b /y"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -207,6 +205,8 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				Description="Pre-Build Dependencies"
+				CommandLine="copy &quot;Unrar64.dll&quot; &quot;$(TargetDir)&quot; /b /y"
 			/>
 		</Configuration>
 		<Configuration

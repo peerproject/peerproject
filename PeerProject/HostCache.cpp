@@ -799,7 +799,7 @@ int CHostCache::Import(LPCTSTR pszFile, BOOL bFreshOnly)
 
 		nImported = ImportNodes( &pFile );
 	}
-//	else if ( ! _tcsicmp( szExt, _T(".xml") ) ) 	// ToDo: G2/Gnutella import/export
+//	else if ( ! _tcsicmp( szExt, _T(".xml") ) || ! _tcsicmp( szExt, _T(".dat") ) ) 	// ToDo: G2/Gnutella import/export
 //	{
 //		theApp.Message( MSG_NOTICE, _T("Importing cache file: %s ..."), pszFile );
 //
@@ -811,6 +811,11 @@ int CHostCache::Import(LPCTSTR pszFile, BOOL bFreshOnly)
 
 	return nImported;
 }
+
+//int CHostCache::ImportCache(CFile* pFile)
+//{
+//	// ToDo: Import/Export G2/Gnutella .xml/.dat
+//}
 
 int CHostCache::ImportHubList(CFile* pFile)
 {
@@ -997,7 +1002,9 @@ int CHostCache::ImportNodes(CFile* pFile)
 
 bool CHostCache::CheckMinimumED2KServers()
 {
-#ifndef LAN_MODE
+	if ( Settings.Experimental.LAN_Mode )
+		return true;
+
 	if ( ! EnoughED2KServers() )
 	{
 		// Load default ed2k server list (if necessary)
@@ -1018,7 +1025,7 @@ bool CHostCache::CheckMinimumED2KServers()
 
 		return false;
 	}
-#endif // LAN_MOD
+
 	return true;
 }
 

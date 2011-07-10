@@ -1,7 +1,7 @@
 //
 // LibraryDictionary.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -60,7 +60,7 @@ CLibraryDictionary::~CLibraryDictionary()
 //////////////////////////////////////////////////////////////////////
 // CLibraryDictionary add and remove
 
-void CLibraryDictionary::AddFile(const CLibraryFile& oFile)
+void CLibraryDictionary::AddFile(CLibraryFile& oFile)
 {
 	ASSUME_LOCK( Library.m_pSection );
 
@@ -72,7 +72,7 @@ void CLibraryDictionary::AddFile(const CLibraryFile& oFile)
 		m_pTable->AddHashes( oFile );
 }
 
-void CLibraryDictionary::RemoveFile(const CLibraryFile& oFile)
+void CLibraryDictionary::RemoveFile(CLibraryFile& oFile)
 {
 	ASSUME_LOCK( Library.m_pSection );
 
@@ -87,8 +87,7 @@ void CLibraryDictionary::RemoveFile(const CLibraryFile& oFile)
 //////////////////////////////////////////////////////////////////////
 // CLibraryDictionary process file
 
-void CLibraryDictionary::ProcessFile(
-	const CLibraryFile& oFile, bool bAdd, bool bCanUpload)
+void CLibraryDictionary::ProcessFile(CLibraryFile& oFile, bool bAdd, bool bCanUpload)
 {
 	ProcessPhrase( oFile, oFile.GetSearchName(), bAdd, bCanUpload );
 	ProcessPhrase( oFile, oFile.GetMetadataWords(), bAdd, bCanUpload );
@@ -97,8 +96,7 @@ void CLibraryDictionary::ProcessFile(
 //////////////////////////////////////////////////////////////////////
 // CLibraryDictionary phrase parser
 
-void CLibraryDictionary::ProcessPhrase(
-	const CLibraryFile& oFile, const CString& strPhrase, bool bAdd,
+void CLibraryDictionary::ProcessPhrase(CLibraryFile& oFile, const CString& strPhrase, bool bAdd,
 	bool bCanUpload)
 {
 	if ( strPhrase.IsEmpty() )
@@ -115,8 +113,7 @@ void CLibraryDictionary::ProcessPhrase(
 //////////////////////////////////////////////////////////////////////
 // CLibraryDictionary word add and remove
 
-void CLibraryDictionary::ProcessWord(
-	const CLibraryFile& oFile, const CString& strWord, bool bAdd, bool bCanUpload)
+void CLibraryDictionary::ProcessWord(CLibraryFile& oFile, const CString& strWord, bool bAdd, bool bCanUpload)
 {
 	ASSUME_LOCK( Library.m_pSection );
 
@@ -273,8 +270,7 @@ void CLibraryDictionary::Clear()
 //////////////////////////////////////////////////////////////////////
 // CLibraryDictionary search
 
-CFileList* CLibraryDictionary::Search(
-	const CQuerySearch* pSearch, const int nMaximum, const bool bLocal,	const bool bAvailableOnly)
+CFileList* CLibraryDictionary::Search(const CQuerySearch* pSearch, const int nMaximum, const bool bLocal,	const bool bAvailableOnly)
 {
 	ASSUME_LOCK( Library.m_pSection );
 
@@ -290,7 +286,7 @@ CFileList* CLibraryDictionary::Search(
 		return NULL;
 
 	++m_nSearchCookie;
-	const CLibraryFile* pHit = NULL;
+	CLibraryFile* pHit = NULL;
 
 	CQuerySearch::const_iterator pWordEntry = pSearch->begin();
 	const CQuerySearch::const_iterator pLastWordEntry = pSearch->end();
@@ -305,7 +301,7 @@ CFileList* CLibraryDictionary::Search(
 		{
 			for ( POSITION pos = pList->GetHeadPosition() ; pos ; )
 			{
-				const CLibraryFile* pFile = pList->GetNext( pos );
+				CLibraryFile* pFile = pList->GetNext( pos );
 
 				if ( bAvailableOnly && ! pFile->IsAvailable() )
 					continue;
@@ -328,8 +324,8 @@ CFileList* CLibraryDictionary::Search(
 		}
 	}
 
-	size_t nLowerBound = ( pSearch->tableSize() >= 3 )
-		? ( pSearch->tableSize() * 2 / 3 ) : pSearch->tableSize();
+	size_t nLowerBound = ( pSearch->tableSize() >= 3 ) ?
+		( pSearch->tableSize() * 2 / 3 ) : pSearch->tableSize();
 
 	CFileList* pHits = NULL;
 	for ( ; pHit ; pHit = pHit->m_pNextHit )
@@ -356,7 +352,7 @@ CFileList* CLibraryDictionary::Search(
 
 			if ( pHit->m_nCollIndex )
 			{
-				const CLibraryFile* pCollection = LibraryMaps.LookupFile(
+				CLibraryFile* pCollection = LibraryMaps.LookupFile(
 					pHit->m_nCollIndex, !bLocal, bAvailableOnly );
 
 				if ( pCollection )
@@ -382,21 +378,21 @@ CFileList* CLibraryDictionary::Search(
 	return pHits;
 }
 
-void CLibraryDictionary::Serialize(CArchive& ar, const int nVersion)
+void CLibraryDictionary::Serialize(CArchive& ar, const int /*nVersion*/)
 {
 	ASSUME_LOCK( Library.m_pSection );
 
 	if ( ar.IsStoring() )
 	{
-		ar << (UINT)m_oWordMap.GetCount();
+		ar << (DWORD)m_oWordMap.GetCount();
 	}
 	else // Loading
 	{
-		if ( nVersion > 28 )
-		{
-			UINT nWordsCount = 0u;
-			ar >> nWordsCount;
-			m_oWordMap.InitHashTable( GetBestHashTableSize( nWordsCount ) );
-		}
+	//	if ( nVersion > 28 )
+	//	{
+		DWORD nWordsCount = 0u;
+		ar >> nWordsCount;
+		m_oWordMap.InitHashTable( GetBestHashTableSize( nWordsCount ) );
+	//	}
 	}
 }

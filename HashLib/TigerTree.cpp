@@ -1229,7 +1229,7 @@ BOOL CTigerTree::CheckIntegrity()
 			{
 				TIGEROOT pTemp;
 				Tiger( NULL, TIGER_SIZE * 2, pTemp.w, pIn[0].value, pIn[1].value );
-				
+
 				if ( ! pOut->bValid )
 				{
 					memcpy( pOut->value, pTemp.w, TIGER_SIZE );

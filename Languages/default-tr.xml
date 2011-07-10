@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Turkish Skin File -->
 
-<!-- Translation based on default-en.xml r67 -->
+<!-- Translation based on default-en.xml r68 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -944,7 +944,7 @@
 		</menu>
 		<separator/>
 		<item id="ID_HOSTCACHE_IMPORT" text="_MET Dosyası Aktar..."/>
-		<item id="ID_HOSTCACHE_ED2K_DOWNLOAD" text="MET İndir..."/>
+		<item id="ID_HOSTCACHE_FILE_DOWNLOAD" text="MET İndir..."/>
 	</menu>
 	<!-- SEARCH WINDOW -->
 	<menu name="CSearchWnd.Basic">
@@ -2386,7 +2386,7 @@
 	<tip id="ID_HOSTCACHE_CONNECT" message="Seçilmiş hostlara bağlan."/>
 	<tip id="ID_HOSTCACHE_DISCONNECT" message="Seçilmiş komşularla bağlantıyı kes."/>
 	<tip id="ID_HOSTCACHE_ED2K_CACHE" message="eDonkey2000 sunucularını göster."/>
-	<tip id="ID_HOSTCACHE_ED2K_DOWNLOAD" message="eDonkey2000 &quot;server.met&quot; dosyası indir..."/>
+	<tip id="ID_HOSTCACHE_FILE_DOWNLOAD" message="eDonkey2000 &quot;server.met&quot; dosyası indir..."/>
 	<tip id="ID_HOSTCACHE_G1_CACHE" message="Gnutella1 host bellek sunucularını göster."/>
 	<tip id="ID_HOSTCACHE_G2_CACHE" message="Gnutella2 host bellek sunucularını göster."/>
 	<tip id="ID_HOSTCACHE_G2_HORIZON" message="Gnutella2 çevre hubları göster."/>
@@ -3121,7 +3121,7 @@
 	<string id="20590" value="Uzaktan erişim engellendi."/>
 	<string id="20591" value="http://%s:%i/remote - Bir kullanıcı adı ve şifresi seçmelisiniz."/>
 	<string id="20592" value="Bağlantı onaylanılamaz, URL kullanılamaz."/>
-	<string id="20597" value="Seçilen güvenlik kuralını silmek istediğinizden emin misiniz? Geri dönüş mümkün olmayacaktır."/>
+	<string id="20597" value="Seçilen güvenlik kuralını silmek istediğinizden emin misiniz?"/>
 	<string id="20599" value="Şemalar"/>
 	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="PeerProject etkin ağ arıyor..."/>
@@ -3342,7 +3342,7 @@
 	<string id="20882" value="URN kullanılamaz"/>
 	<string id="20883" value="UPnP Cihazları Host Servisi etkin değildir. Bu hizmet cihazların kurulumu için gereklidir.\nHizmetin başlama biçimini automatiğe ayarlamanız gerekmektedir.utomatic."/>
 	<string id="20885" value="Görüntü Değiştirme açıldığında pencereler kapanacaktır. Şimdi değiştirmek ister misin?"/>
-	<string id="20886" value="Arayüz yönetimi değiştirildiğinde yeniden başlama gerekir. \nPeerProject elle başlatmanız gerekecek. Şimdi çık?"/>
+	<string id="20886" value="Arayüz yönetimi değiştirildiğinde yeniden başlama gerekir.\n\nŞimdi çık?"/>
 	<string id="20890" value="PeerProject'ya Hoşgeldiniz"/>
 	<string id="20891" value="Çıkış"/>
 	<string id="20892" value="Lütfen bekleyiniz: eDonkey sunucu listesi güncellenmektedir..."/>
@@ -4350,7 +4350,7 @@
 		<control caption="Tamam"/>
 		<control caption="İptal"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="Server.met İndirme Dosyası">
+	<dialog name="CUpdateServersDlg" cookie="StEdmsBuBu" caption="Server.met İndirme Dosyası">
 		<control caption="Yerel Server listenizdeki güncel webden eDonkey2000 server.met dosyalasını indirebilirsiniz."/>
 		<control/>
 		<control/>

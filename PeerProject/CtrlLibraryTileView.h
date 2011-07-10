@@ -1,7 +1,7 @@
 //
 // CtrlLibraryTileView.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -27,14 +27,14 @@ class CLibraryTileItem
 // Construction
 public:
 	CLibraryTileItem(CAlbumFolder* pFolder)
-	: m_pFolder( pFolder ), m_nCookie( ~0ul ), m_bSelected()
+	: m_pAlbum( pFolder ), m_nCookie( ~0ul ), m_bSelected()
 	{
 		Update();
 	}
 
 // Attributes
 public:
-	CAlbumFolder* const m_pFolder;
+	CAlbumFolder*	m_pAlbum;
 	DWORD			m_nCookie;
 	CString			m_sTitle;
 	CString			m_sSubtitle1;
@@ -136,8 +136,8 @@ protected:
 	//{{AFX_MSG(CLibraryTileView)
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
-	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnPaint();
+	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar = NULL);
 	afx_msg BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);

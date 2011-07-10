@@ -1036,8 +1036,8 @@ msgstr "_Kademlia Cache"
 msgid "_Import MET File..."
 msgstr "_Trek MET Lêer In..."
 
-#: chostcachewnd;item;id_hostcache_ed2k_download
-msgid "Download MET..."
+#: chostcachewnd;item;id_hostcache_file_download
+msgid "Download MET/Hublist..."
 msgstr "Laai MET Af..."
 
 #: csearchwnd.basic;item;id_search_download csearchwnd;item;id_search_download cbrowsehostwnd.basic;item;id_search_download cbrowsehostwnd;item;id_search_download chitmonitorwnd;item;id_search_download cdownloaddlg;control;6
@@ -3160,8 +3160,8 @@ msgstr "Diskonnekteer die geselekteerde gasheer konneksie(s)."
 msgid "Show eDonkey servers."
 msgstr "Vertoon eDonkey2000 bedieners."
 
-#: message;id_hostcache_ed2k_download
-msgid "Download an eDonkey \"server.met\" file..."
+#: message;id_hostcache_file_download
+msgid "Download an eDonkey \"server.met\" or DC++ \"hublist.xml.bz2\" file..."
 msgstr "Laai 'n eDonkey2000 \"server.met\" lêer af..."
 
 #: message;id_hostcache_g1_cache
@@ -3206,11 +3206,11 @@ msgstr "Vertoon of verander die kenmerke van die geselekteerde albumgids..."
 
 #: message;id_library_bitzi_download
 msgid "Download metadata for selected files from Bitzi™..."
-msgstr "Laai metadata vir die geselekteerde lêer(s) af vanaf Bitzi(TM)..."
+msgstr "Laai metadata vir die geselekteerde lêer(s) af vanaf Bitzi™..."
 
 #: message;id_library_bitzi_web
 msgid "View Bitzi™ ticket for the selected file on the web."
-msgstr "Vertoon die Bitzi(TM) kaartjie vir die geselekteerde lêer op die web."
+msgstr "Vertoon die Bitzi™ kaartjie vir die geselekteerde lêer op die web."
 
 #: message;id_library_columns message;id_search_columns
 msgid "Select metadata columns to be displayed..."
@@ -4108,11 +4108,11 @@ msgstr "Ja"
 msgid "No"
 msgstr "Nee"
 
-#: string;20003 csettingsheet;control;2 cqueuepropertiesdlg;control;37 cprofilemanagerdlg;control;2 csavefilterasdlg;control;2 cdiscoveryservicedlg;control;5 cfilecopydlg;control;7 cfolderpropertiesdlg;control;7 cgraphlistdlg;control;16 cgraphitemdlg;control;1 csecureruledlg;control;33 cscheduletaskdlg;control;1 cschemacolumnsdlg;control;3 csharemanagerdlg;control;5 cpromotedlg;control;7 cexistingfiledlg;control;8 cclosemodedlg;control;5 cdonkeyserversdlg;control;4 cdownloadgroupdlg;control;14 cmediavisdlg;control;5 cdecodemetadatadlg;control;8 cselectdialog;control;3 circinputdlg;control;2 cdownloadreviewdlg;control;1 caboutdlg;control;7
+#: string;20003 csettingsheet;control;2 cqueuepropertiesdlg;control;37 cprofilemanagerdlg;control;2 csavefilterasdlg;control;2 cdiscoveryservicedlg;control;5 cfilecopydlg;control;7 cfolderpropertiesdlg;control;7 cgraphlistdlg;control;16 cgraphitemdlg;control;1 csecureruledlg;control;33 cscheduletaskdlg;control;1 cschemacolumnsdlg;control;3 csharemanagerdlg;control;5 cpromotedlg;control;7 cexistingfiledlg;control;8 cclosemodedlg;control;5 cupdateserversdlg;control;4 cdownloadgroupdlg;control;14 cmediavisdlg;control;5 cdecodemetadatadlg;control;8 cselectdialog;control;3 circinputdlg;control;2 cdownloadreviewdlg;control;1 caboutdlg;control;7
 msgid "OK"
 msgstr "OK"
 
-#: string;20004 string;20470 csettingsheet;control;3 cqueuepropertiesdlg;control;38 cprofilemanagerdlg;control;3 cconnecttodlg;control;8 cnewsearchdlg;control;4 cfiltersearchdlg;control;30 csavefilterasdlg;control;3 cdiscoveryservicedlg;control;6 cdownloadmonitordlg;control;14 cfilecopydlg;control;8 cfolderpropertiesdlg;control;8 cgraphlistdlg;control;17 cgraphitemdlg;control;2 csecureruledlg;control;34 cscheduletaskdlg;control;2 cschemacolumnsdlg;control;4 csharemanagerdlg;control;6 curlcopydlg;control;6 curlexportdlg;control;10 curlactiondlg;control;12 cbitzidownloaddlg;control;4 cfilepreviewdlg;control;6 cexistingfiledlg;control;9 cclosemodedlg;control;6 cdonkeyserversdlg;control;5 cdeletefiledlg;control;5 ctorrentseeddlg;control;4 cdownloadgroupdlg;control;15 cmediavisdlg;control;6 cdecodemetadatadlg;control;9 cselectdialog;control;4 circinputdlg;control;3
+#: string;20004 string;20470 csettingsheet;control;3 cqueuepropertiesdlg;control;38 cprofilemanagerdlg;control;3 cconnecttodlg;control;8 cnewsearchdlg;control;4 cfiltersearchdlg;control;30 csavefilterasdlg;control;3 cdiscoveryservicedlg;control;6 cdownloadmonitordlg;control;14 cfilecopydlg;control;8 cfolderpropertiesdlg;control;8 cgraphlistdlg;control;17 cgraphitemdlg;control;2 csecureruledlg;control;34 cscheduletaskdlg;control;2 cschemacolumnsdlg;control;4 csharemanagerdlg;control;6 curlcopydlg;control;6 curlexportdlg;control;10 curlactiondlg;control;12 cbitzidownloaddlg;control;4 cfilepreviewdlg;control;6 cexistingfiledlg;control;9 cclosemodedlg;control;6 cupdateserversdlg;control;5 cdeletefiledlg;control;5 ctorrentseeddlg;control;4 cdownloadgroupdlg;control;15 cmediavisdlg;control;6 cdecodemetadatadlg;control;9 cselectdialog;control;4 circinputdlg;control;3
 msgid "Cancel"
 msgstr "Kanselleer"
 
@@ -4596,35 +4596,35 @@ msgstr "Geldige gebruiker"
 msgid "Accepted push connection from %s, handshaking..."
 msgstr "Drukkonneksie van %s goedgekeur, besig om blad te skud..."
 
-#: string;20188
+#: string;20187
 msgid "Requesting a firewalled push connection from %s..."
 msgstr "Versoek 'n drukkonneksie agter 'n netskans vanaf %s..."
 
-#: string;20190
+#: string;20188
 msgid "Connection failed due to invalid data on the wire."
 msgstr "Konneksie het misluk as gevolg van foutiewe data op die lyn."
 
-#: string;20191
+#: string;20189
 msgid "Received an unknown response: %s"
 msgstr "Onbekende antwoord ontvang: %s"
 
-#: string;20192
+#: string;20190
 msgid "You're not connected."
 msgstr "Jy is nie gekonnekteer nie."
 
-#: string;20193
+#: string;20191
 msgid "Unrecognised command \"%s\"."
 msgstr "Onherkenbare bevel \"%s\"."
 
-#: string;20194
+#: string;20196
 msgid "This template does not have any customizations."
 msgstr "This template does not have any customizations."
 
-#: string;20195
+#: string;20197
 msgid "This template is invalid."
 msgstr "This template is invalid."
 
-#: string;20196
+#: string;20198
 msgid "Text copied to Clipboard:"
 msgstr ""
 
@@ -5276,35 +5276,35 @@ msgstr "Gnutella Ratio of Received/Sent Pongs"
 msgid "Gnutella Local Queries"
 msgstr "Gnutella Lokale Navrae"
 
-#: string;20375
+#: string;20376
 msgid "Gnutella Packets Routed"
 msgstr "Gnutella Pakkies Geroeteer"
 
-#: string;20376
+#: string;20377
 msgid "Total Generic Receive Bandwidth"
 msgstr "Totale Generiese Ontvangsbandwydte"
 
-#: string;20377
+#: string;20378
 msgid "Total Generic Transmit Bandwidth"
 msgstr "Totale Generiese Stuurbandwydte"
 
-#: string;20378
+#: string;20379
 msgid "Total TCP Receive Bandwidth"
 msgstr "Totale TCP Ontvang Bandwydte"
 
-#: string;20379
+#: string;20380
 msgid "Total TCP Transmit Bandwidth"
 msgstr "Totale TCP Stuur Bandwydte"
 
-#: string;20380
+#: string;20381
 msgid "Total UDP Receive Bandwidth"
 msgstr "Totale UDP Ontvang Bandwydte"
 
-#: string;20381
+#: string;20382
 msgid "Total UDP Transmit Bandwidth"
 msgstr "Totale UDP Stuur Bandwydte"
 
-#: string;20382
+#: string;20383
 msgid "Upload Bandwidth"
 msgstr "Oplaai Bandwydte"
 
@@ -5980,11 +5980,11 @@ msgstr "Gasheer %s het 'n druk-pakkie met 'n foutiewe lengte aangestuur, oorgesi
 msgid "Neighbor %s forwarded a packet of excessive size, dropping connection."
 msgstr "Gasheer %s het 'n te groot pakkie aangestuur, konneksie word gesluit."
 
-#: string;20585
+#: string;20586
 msgid "Neighbor %s forwarded an unrecognised packet (0x%.2x), ignoring."
 msgstr "Gasheer %s het 'n vreemde pakkie aangestuur (0x%.2x), oorgesien."
 
-#: string;20586
+#: string;20587
 msgid "Neighbor %s forwarded a pong with invalid address data, ignoring."
 msgstr "Gasheer %s het 'n pong pakkie met foutiewe adresdata aangestuur, oorgesien."
 
@@ -6021,7 +6021,7 @@ msgid "Default Policy"
 msgstr ""
 
 #: string;20597
-msgid "Are you sure you want to delete the selected security rules?\\n\\nThis cannot be undone."
+msgid "Are you sure you wish to delete selected security rules?"
 msgstr ""
 
 #: string;20598
@@ -6913,7 +6913,7 @@ msgid "No URN available"
 msgstr "Geen URN beskikbaar"
 
 #: string;20885
-msgid "Changing interface direction requires restart.\\nYou will need to start PeerProject manually.\\n\\nExit now ?"
+msgid "Changing interface direction requires restart.\\n\\nExit now?"
 msgstr "Verandering van die koppelvlak rigting vereis die oorbegin van PeerProject. \\nJy sal weer PeerProject met die hand moet begin. Verlaat PeerProject nou?"
 
 #: string;20890
@@ -7533,7 +7533,7 @@ msgid "Gnutella Network:"
 msgstr "Oorspronklike Gnutella Netwerk:"
 
 #: cnetworkssettingspage;control;7
-msgid "The original Gnutella network is less feature-rich than G2, and has fewer files than eDonkey, yet remains a valuable resource. (Limewire)"
+msgid "The original Gnutella network is less feature-rich than G2, and returns search spam, yet remains a valuable resource. (Limewire)"
 msgstr "Alhoewel die oorspronklike Gnutella netwerk minder funksieryk as Gnutella2 is en ook minder lêers het as eDonkey2000, bly dit 'n waardevolle hulpbron."
 
 #: cnetworkssettingspage;control;8
@@ -7981,7 +7981,7 @@ msgid "Connect to Gnutella"
 msgstr "Koppel aan Gnutella"
 
 #: cwizardnetworkspage;control;5
-msgid "The original Gnutella network (G1) is less feature-rich than Gnutella2, with less files than ED2K, yet remains a valuable source. (LimeWire)"
+msgid "The original Gnutella network (G1) is less feature-rich than G2, with more unwanted spam, yet remains a valuable resource. (LimeWire)"
 msgstr "Alhoewel die oorspronklike Gnutella netwerk minder funksieryk as Gnutella2 is en ook minder lêers het as eDonkey2000, bly dit 'n waardevolle hulpbron."
 
 #: cwizardnetworkspage;control;6
@@ -9016,12 +9016,12 @@ msgstr "Verlaat PeerProject dadelik"
 msgid "Shut down PeerProject after any downloads and uploads finish"
 msgstr "Verlaat PeerProject nadat enige aflaai- of oplaaioordragte voltooi is"
 
-#: dialog;cdonkeyserversdlg
-msgid "Download Server.met File"
+#: dialog;cupdateserversdlg
+msgid "Download Server List File"
 msgstr "Laai Server.met Lêer af"
 
-#: cdonkeyserversdlg;control;1
-msgid "You can download an eDonkey server.met file from the web to refresh your local list of servers."
+#: cupdateserversdlg;control;1
+msgid "You can download a file from the web to refresh your local list of servers.\\nSuch as eDonkey server.met, DC++ hublist.xml.bz2, etc."
 msgstr "Jy kan 'n eDonkey2000 server.met lêer van die web aflaai om jou lokale lys van bedienders te verfris."
 
 #: cdeletefiledlg;control;1
@@ -9509,8 +9509,8 @@ msgid "Protocol"
 msgstr "Protokol"
 
 #: column;t/h
-msgid "T/H"
-msgstr "T/H"
+msgid "TTL/Hops"
+msgstr "TTL/Hops"
 
 #: column;hex
 msgid "Hex"
@@ -9521,8 +9521,8 @@ msgid "ASCII"
 msgstr "ASCII"
 
 #: column;g1-id
-msgid "G1-ID"
-msgstr "G1-ID"
+msgid "GUID"
+msgstr "GUID"
 
 #: column;urn
 msgid "URN"

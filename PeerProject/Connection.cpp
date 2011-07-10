@@ -72,8 +72,8 @@ void CConnection::AttachTo(CConnection* pConnection)
 	ASSERT( pConnection != NULL );						// Make sure we got a CConnection object
 	ASSERT( AfxIsValidAddress( pConnection, sizeof( *pConnection ) ) );
 	ASSERT( pConnection->IsValid() );					// And make sure its socket exists
-	ASSERT( m_pInput == NULL );
-	ASSERT( m_pOutput == NULL );
+
+	DestroyBuffers();
 
 	CQuickLock oOutputLock( *pConnection->m_pOutputSection );
 	CQuickLock oInputLock( *pConnection->m_pInputSection );
@@ -596,8 +596,9 @@ BOOL CConnection::ReadHeaders()
 	CString strLine;
 	while ( Read( strLine ) )	// ReadLine will return false when there are no more lines
 	{
-		// If the line is more than 256 KB, change it to the line too long error code
-		if ( strLine.GetLength() > 256 * 1024 ) strLine = _T("#LINE_TOO_LONG#");
+		// If the line is more than 256 KB, change it to the long line error code
+		if ( strLine.GetLength() > HTTP_HEADER_MAX_LINE )
+			strLine = _T("#LINE_TOO_LONG#");
 
 		// Find the first colon in the line
 		int nPos = strLine.Find( _T(":") );

@@ -1020,7 +1020,7 @@
 		</menu>
 		<separator/>
 		<item id="ID_HOSTCACHE_IMPORT" text="_Import MET/Hublist File..."/>
-		<item id="ID_HOSTCACHE_ED2K_DOWNLOAD" text="Download MET..."/>
+		<item id="ID_HOSTCACHE_FILE_DOWNLOAD" text="Download MET/Hublist..."/>
 	</menu>
 	<!-- SEARCH WINDOW -->
 	<menu name="CSearchWnd.Basic">

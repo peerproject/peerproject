@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Catalan Skin File -->
 
-<!-- Translation based on default-en.xml r67 -->
+<!-- Translation based on default-en.xml r68 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -958,7 +958,7 @@
 		</menu>
 		<separator/>
 		<item id="ID_HOSTCACHE_IMPORT" text="_Importa arxiu MET..."/>
-		<item id="ID_HOSTCACHE_ED2K_DOWNLOAD" text="_Descarrega Arxiu MET..."/>
+		<item id="ID_HOSTCACHE_FILE_DOWNLOAD" text="_Descarrega Arxiu MET..."/>
 	</menu>
 	<!-- SEARCH WINDOW -->
 	<menu name="CSearchWnd.Basic">
@@ -2391,7 +2391,7 @@
 	<tip id="ID_HOSTCACHE_CONNECT" message="Connecta als servidors seleccionats."/>
 	<tip id="ID_HOSTCACHE_DISCONNECT" message="Desconnecta dels servidors seleccionats."/>
 	<tip id="ID_HOSTCACHE_ED2K_CACHE" message="Mostra servidors d'eDonkey."/>
-	<tip id="ID_HOSTCACHE_ED2K_DOWNLOAD" message="Descarrega una llista de servidors de eDonkey, &quot;server.met&quot;..."/>
+	<tip id="ID_HOSTCACHE_FILE_DOWNLOAD" message="Descarrega una llista de servidors de eDonkey, &quot;server.met&quot;..."/>
 	<tip id="ID_HOSTCACHE_G1_CACHE" message="Mostra servidors al caxè de Gnutella1."/>
 	<tip id="ID_HOSTCACHE_G2_CACHE" message="Mostra servidors al caxè de Gnutella2."/>
 	<tip id="ID_HOSTCACHE_G2_HORIZON" message="Mostra el límit de servidors per cerca de la xarxa Gnutella2."/>
@@ -3111,7 +3111,7 @@
 	<string id="20590" value="L'accès remot està deshabilitat."/>
 	<string id="20591" value="http://%s:%i/remote - Nom d'usuari i contrasenya?"/>
 	<string id="20592" value="No es poden acceptar connexions, URL no disponible."/>
-	<string id="20597" value="Estàs segur de esborrar les normes de seguretat seleccionades? Aquesta operació no pot ser desfeta."/>
+	<string id="20597" value="Estàs segur de esborrar les normes de seguretat seleccionades?"/>
 	<string id="20599" value="&amp;Esquemes"/>
 	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="PeerProject està cercant activament a la xarxa..."/>
@@ -3333,7 +3333,7 @@
 	<string id="20882" value="No hi ha URN disponible"/>
 	<string id="20883" value="El servei UPnP Device Host Service no està sent executat. Aquest servei està re requerit per la instal·lació.\nHas de configurar el llançament d'aquest servei del Windows al mode automàtic."/>
 	<string id="20885" value="El canvi de vista tancarà totes les finestres que tens obertes. Vols canviar ara?"/>
-	<string id="20886" value="El canvi de direcció de la interfície requereix un reinici de l'aplicació.\nols sortir ara? (Necessitaràs tornar a inciar PeerProject manualment)"/>
+	<string id="20886" value="El canvi de direcció de la interfície requereix un reinici de l'aplicació.\nols sortir ara?"/>
 	<string id="20890" value="Benvingut/uda a PeerProject"/>
 	<string id="20891" value="Sortir"/>
 	<string id="20892" value="Si us plau, esperi: Actualitzant la llista de servidors d'eDonkey..."/>
@@ -4297,7 +4297,7 @@
 		<control caption="Accepta"/>
 		<control caption="Cancel·la"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="Descarrega l'arxiu Server.met">
+	<dialog name="CUpdateServersDlg" cookie="StEdmsBuBu" caption="Descarrega l'arxiu Server.met">
 		<control caption="Descarrega el Server.met per a eDonkey de la web per a actualitzar el caxè de servidors."/>
 		<control/>
 		<control/>

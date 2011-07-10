@@ -334,15 +334,17 @@ void CSettings::Load()
 	Add( _T("Gnutella"), _T("DeflateHub2Hub"), &Gnutella.DeflateHub2Hub, true );
 	Add( _T("Gnutella"), _T("DeflateHub2Leaf"), &Gnutella.DeflateHub2Leaf, true );
 	Add( _T("Gnutella"), _T("DeflateLeaf2Hub"), &Gnutella.DeflateLeaf2Hub, true );
-	Add( _T("Gnutella"), _T("HitsPerPacket"), &Gnutella.HitsPerPacket, 64, 1, 1, 1024, _T(" files") );
 	Add( _T("Gnutella"), _T("HostCacheSize"), &Gnutella.HostCacheSize, 1024, 1, 32, 16384, _T(" hosts") );
 	Add( _T("Gnutella"), _T("HostCacheView"), &Gnutella.HostCacheView, PROTOCOL_ED2K );
-	Add( _T("Gnutella"), _T("MaxHits"), &Gnutella.MaxHits, 64, 1, 0, 4096, _T(" files") );
-	Add( _T("Gnutella"), _T("MaximumPacket"), &Gnutella.MaximumPacket, 64*KiloByte, KiloByte, 32, 256, _T(" KB") );
+	Add( _T("Gnutella"), _T("HitsPerPacket"), &Gnutella.HitsPerPacket, 8, 1, 1, 255, _T(" files") );
 	Add( _T("Gnutella"), _T("MaxResults"), &Gnutella.MaxResults, 150, 1, 1, 300, _T(" hits") );
+	Add( _T("Gnutella"), _T("MaxHits"), &Gnutella.MaxHits, 64, 1, 0, 4096, _T(" files") );
+	Add( _T("Gnutella"), _T("MaxHitWords"), &Gnutella.MaxHitWords, 30, 1, 2, 100, _T(" words") );
+	Add( _T("Gnutella"), _T("MaximumPacket"), &Gnutella.MaximumPacket, 64*KiloByte, KiloByte, 32, 256, _T(" KB") );
 	Add( _T("Gnutella"), _T("RouteCache"), &Gnutella.RouteCache, 600, 60, 1, 120, _T(" m") );
 	Add( _T("Gnutella"), _T("SpecifyProtocol"), &Gnutella.SpecifyProtocol, true );
 
+	Add( _T("Gnutella1"), _T("ShowInterface"), &Gnutella1.ShowInterface, true );
 	Add( _T("Gnutella1"), _T("ClientMode"), &Gnutella1.ClientMode, MODE_LEAF, 1, MODE_AUTO, MODE_HUB );		// ToDo: MODE_LEAF until Ultrapeer updated/validated
 	Add( _T("Gnutella1"), _T("DefaultTTL"), &Gnutella1.DefaultTTL, 3, 1, 1, 3 );
 	Add( _T("Gnutella1"), _T("EnableAlways"), &Gnutella1.EnableAlways, true );
@@ -350,6 +352,7 @@ void CSettings::Load()
 	Add( _T("Gnutella1"), _T("EnableOOB"), &Gnutella1.EnableOOB, false );	// ToDo: Set true when OOB fully implemented/verified (out of band query hits)
 	Add( _T("Gnutella1"), _T("HostCount"), &Gnutella1.HostCount, 15, 1, 1, 50 );
 	Add( _T("Gnutella1"), _T("HostExpire"), &Gnutella1.HostExpire, 2*24*60*60, 24*60*60, 1, 100, _T(" d") );
+	Add( _T("Gnutella1"), _T("MulticastPingRate"), &Gnutella1.MulticastPingRate, 60*1000, 1000, 60, 60*60, _T(" s") );
 	Add( _T("Gnutella1"), _T("MaxHostsInPongs"), &Gnutella1.MaxHostsInPongs, 10, 1, 5, 30 );
 	Add( _T("Gnutella1"), _T("MaximumQuery"), &Gnutella1.MaximumQuery, 256, 1, 32, 262144 );
 	Add( _T("Gnutella1"), _T("MaximumTTL"), &Gnutella1.MaximumTTL, 10, 1, 1, 10 );
@@ -365,10 +368,10 @@ void CSettings::Load()
 	Add( _T("Gnutella1"), _T("QueryHitUTF8"), &Gnutella1.QueryHitUTF8, true );
 	Add( _T("Gnutella1"), _T("QuerySearchUTF8"), &Gnutella1.QuerySearchUTF8, true );
 	Add( _T("Gnutella1"), _T("QueryThrottle"), &Gnutella1.QueryThrottle, 60, 1, 20, 30*60, _T(" s") );
+	Add( _T("Gnutella1"), _T("QueryGlobalThrottle"), &Gnutella1.QueryGlobalThrottle, 60*1000, 1000, 60, 60*60, _T(" s") );
 //	Add( _T("Gnutella1"), _T("QueueLimiter"), &Gnutella1.HitQueueLimit, 100 );	// Currently unused
 	Add( _T("Gnutella1"), _T("RequeryDelay"), &Gnutella1.RequeryDelay, 30, 1, 5, 60, _T(" s") );
 	Add( _T("Gnutella1"), _T("SearchTTL"), &Gnutella1.SearchTTL, 3, 1, 1, 3 );
-	Add( _T("Gnutella1"), _T("StrictPackets"), &Gnutella1.StrictPackets, false );
 	Add( _T("Gnutella1"), _T("TranslateTTL"), &Gnutella1.TranslateTTL, 2, 1, 1, 2 );
 	Add( _T("Gnutella1"), _T("VendorMsg"), &Gnutella1.VendorMsg, true );
 
@@ -383,15 +386,18 @@ void CSettings::Load()
 	Add( _T("Gnutella2"), _T("KHLHubCount"), &Gnutella2.KHLHubCount, 50, 1, 1, 256 );
 	Add( _T("Gnutella2"), _T("KHLPeriod"), &Gnutella2.KHLPeriod, 60*1000, 1000, 1, 60*60, _T(" s") );
 	Add( _T("Gnutella2"), _T("LNIPeriod"), &Gnutella2.LNIPeriod, 60*1000, 1000, 1, 60*60, _T(" s") );
-#ifdef LAN_MODE
-	Add( _T("Gnutella2"), _T("NumHubs"), &Gnutella2.NumHubs, 1, 1, 1, 3 );
-	Add( _T("Gnutella2"), _T("NumLeafs"), &Gnutella2.NumLeafs, 1024, 1, 50, 1024 );
-	Add( _T("Gnutella2"), _T("NumPeers"), &Gnutella2.NumPeers, 1, 1, 0, 64 );
-#else // No LAN Mod
-	Add( _T("Gnutella2"), _T("NumHubs"), &Gnutella2.NumHubs, 2, 1, 1, 3 );
-	Add( _T("Gnutella2"), _T("NumLeafs"), &Gnutella2.NumLeafs, 300, 1, 50, 1024 );
-	Add( _T("Gnutella2"), _T("NumPeers"), &Gnutella2.NumPeers, 6, 1, 4, 64 );
-#endif // LAN_MODE
+	if ( Experimental.LAN_Mode )	// #ifdef LAN_MODE
+	{
+		Add( _T("Gnutella2"), _T("NumHubs"),  &Gnutella2.NumHubs, 1, 1, 1, 3 );
+		Add( _T("Gnutella2"), _T("NumLeafs"), &Gnutella2.NumLeafs, 1024, 1, 50, 1024 );
+		Add( _T("Gnutella2"), _T("NumPeers"), &Gnutella2.NumPeers, 1, 1, 0, 64 );
+	}
+	else // Default
+	{
+		Add( _T("Gnutella2"), _T("NumHubs"),  &Gnutella2.NumHubs, 2, 1, 1, 3 );
+		Add( _T("Gnutella2"), _T("NumLeafs"), &Gnutella2.NumLeafs, 300, 1, 50, 1024 );
+		Add( _T("Gnutella2"), _T("NumPeers"), &Gnutella2.NumPeers, 6, 1, 2, 64 );
+	}
 	Add( _T("Gnutella2"), _T("PingRate"), &Gnutella2.PingRate, 15000, 1000, 5, 180, _T(" s") );
 	Add( _T("Gnutella2"), _T("PingRelayLimit"), &Gnutella2.PingRelayLimit, 10, 1, 10, 30 );
 	Add( _T("Gnutella2"), _T("QueryThrottle"), &Gnutella2.QueryThrottle, 120, 1, 20, 30*60, _T(" s") );
@@ -408,6 +414,7 @@ void CSettings::Load()
 	Add( _T("Gnutella2"), _T("UdpOutResend"), &Gnutella2.UdpOutResend, 6000, 1000, 1, 300, _T(" s") );
 	Add( _T("Gnutella2"), _T("UdpMTU"), &Gnutella2.UdpMTU, 500, 1, 16, 10*KiloByte );
 
+	Add( _T("eDonkey"), _T("ShowInterface"), &eDonkey.ShowInterface, true );
 	Add( _T("eDonkey"), _T("DefaultServerFlags"), &eDonkey.DefaultServerFlags, 0xFFFFFFFF );
 	Add( _T("eDonkey"), _T("DequeueTime"), &eDonkey.DequeueTime, 3600, 60, 2, 512, _T(" m") );
 	Add( _T("eDonkey"), _T("EnableAlways"), &eDonkey.EnableAlways, true );
@@ -444,10 +451,11 @@ void CSettings::Load()
 
 	Add( _T("DC"), _T("ShowInterface"), &DC.ShowInterface, true );
 	Add( _T("DC"), _T("EnableAlways"), &DC.EnableAlways, false );
-	Add( _T("DC"), _T("NumServers"), &DC.NumServers, 1, 1, 0, 5 );
+	Add( _T("DC"), _T("NumServers"), &DC.NumServers, 1, 1, 1, 5 );
 	Add( _T("DC"), _T("QueryThrottle"), &DC.QueryThrottle, 2*60, 1, 30, 60*60, _T(" s") );
 	Add( _T("DC"), _T("ReAskTime"), &DC.ReAskTime, 60*1000, 1000, 30, 60*60, _T(" s") );
 	Add( _T("DC"), _T("DequeueTime"), &DC.DequeueTime, 5*60*1000, 1000, 2*60, 60*60, _T(" s") );
+	Add( _T("DC"), _T("HubListURL"), &DC.HubListURL, _T("http://dchublist.com/hublist.xml.bz2") );
 
 	Add( _T("BitTorrent"), _T("AutoClear"), &BitTorrent.AutoClear, false );
 	Add( _T("BitTorrent"), _T("AutoSeed"), &BitTorrent.AutoSeed, true );
@@ -590,8 +598,8 @@ void CSettings::Load()
 	Add( _T("Security"), _T("DefaultBan"), &Security.DefaultBan, 100*24*3600, 24*3600, 1, 1000, _T(" d") );
 	Add( _T("Scheduler"), _T("ValidityPeriod"), &Scheduler.ValidityPeriod, 60, 1, 1, 1400, _T(" m") );
 
-	Add( _T("Experimental"), _T("EnableDIPPSupport"), &Experimental.EnableDIPPSupport, false );
-	Add( _T("Experimental"), _T("TestBTPartials"), &Experimental.TestBTPartials, false );
+	Add( _T("Experimental"), _T("EnableDIPPSupport (GDNA)"), &Experimental.EnableDIPPSupport, true );
+	Add( _T("Experimental"), _T("LAN_Mode"), &Experimental.LAN_Mode, false );		// #ifdef LAN_MODE
 
 
 	// Load settings
@@ -719,14 +727,15 @@ void CSettings::Load()
 	else if ( Connection.InPort == 0 )
 		Connection.RandomPort = true;
 
-#ifdef LAN_MODE
-	Connection.IgnoreLocalIP = false;
-	Gnutella2.Enabled = Gnutella2.EnableAlways = true;
-	eDonkey.Enabled = eDonkey.EnableAlways = false;
-	Gnutella1.Enabled = Gnutella1.EnableAlways = false;
-	BitTorrent.Enabled = BitTorrent.EnableAlways = false;
-	Gnutella.MaxHits = 0;
-#endif // LAN_MODE
+	if ( Experimental.LAN_Mode )	// #ifdef LAN_MODE
+	{
+		Connection.IgnoreLocalIP = false;
+		Gnutella2.Enabled = Gnutella2.EnableAlways = true;
+		eDonkey.Enabled = eDonkey.EnableAlways = false;
+		Gnutella1.Enabled = Gnutella1.EnableAlways = false;
+		BitTorrent.Enabled = BitTorrent.EnableAlways = false;
+		Gnutella.MaxHits = 0;
+	}
 
 	if ( Live.FirstRun )
 		OnChangeConnectionSpeed();	// This helps if the QuickStart Wizard is skipped.
@@ -913,7 +922,7 @@ void CSettings::SmartUpgrade()
 	//	{
 	//		Downloads.RequestHash = true;
 	//		Gnutella.SpecifyProtocol = true;
-	//		Search.FilterMask = Search.FilterMask | 0x140; // Turn on DRM and Suspicious filters
+	//		Search.FilterMask = Search.FilterMask | 0x140;	// Turn on DRM and Suspicious filters
 	//	}
 
 	//	if ( General.SmartVersion < 39 )
@@ -1199,7 +1208,7 @@ void CSettings::OnChangeConnectionSpeed()
 		Connection.RequireForTransfers	= true;
 		Downloads.MaxConnectingSources	= 8;
 		Gnutella1.EnableAlways			= false;
-		Gnutella1.Enabled			= false;
+		Gnutella1.Enabled				= false;
 
 		General.ItWasLimited			= true;
 	}
@@ -1362,8 +1371,7 @@ BOOL CSettings::CheckStartup()
 	BOOL bStartup;
 	HKEY hKey;
 
-	if ( RegOpenKeyEx( HKEY_CURRENT_USER,
-		_T("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"), 0, KEY_QUERY_VALUE, &hKey )
+	if ( RegOpenKeyEx( HKEY_CURRENT_USER, _T("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"), 0, KEY_QUERY_VALUE, &hKey )
 		!= ERROR_SUCCESS ) return FALSE;
 
 	bStartup = ( RegQueryValueEx( hKey, _T("PeerProject"), NULL, NULL, NULL, NULL ) == ERROR_SUCCESS );
@@ -1377,8 +1385,7 @@ void CSettings::SetStartup(BOOL bStartup)
 {
 	HKEY hKey;
 
-	if ( RegOpenKeyEx( HKEY_CURRENT_USER,
-		_T("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"), 0, KEY_ALL_ACCESS, &hKey )
+	if ( RegOpenKeyEx( HKEY_CURRENT_USER, _T("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"), 0, KEY_ALL_ACCESS, &hKey )
 		!= ERROR_SUCCESS ) return;
 
 	if ( bStartup )

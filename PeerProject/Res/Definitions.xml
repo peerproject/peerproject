@@ -260,7 +260,7 @@
 	<resource code="40136" id="ID_HOSTCACHE_BT_CACHE"/>
 	<resource code="40137" id="ID_HOSTCACHE_KAD_CACHE"/>
 	<resource code="40138" id="ID_HOSTCACHE_ED2K_CACHE"/>
-	<resource code="40139" id="ID_HOSTCACHE_ED2K_DOWNLOAD"/>
+	<resource code="40139" id="ID_HOSTCACHE_FILE_DOWNLOAD"/>
 	<resource code="40140" id="ID_HOSTCACHE_IMPORT"/>
 	<resource code="40141" id="ID_HOSTCACHE_REMOVE"/>
 	<resource code="40142" id="ID_HOSTCACHE_PRIORITY"/>

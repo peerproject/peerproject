@@ -1,7 +1,7 @@
 //
 // LibraryList.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -48,13 +48,6 @@ CLibraryListItem::CLibraryListItem(DWORD val)
 	ASSERT( val > 0 && val < 0x00100000 );
 }
 
-CLibraryListItem::CLibraryListItem(CLibraryFile* val)
-	: Type( CLibraryListItem::LibraryFile )
-	, dwLibraryFile( val->m_nIndex )
-{
-	ASSERT_VALID( val );
-}
-
 CLibraryListItem::CLibraryListItem(CAlbumFolder* val)
 	: Type( CLibraryListItem::AlbumFolder )
 	, pAlbumFolder( val )
@@ -65,6 +58,13 @@ CLibraryListItem::CLibraryListItem(CLibraryFolder* val)
 	: Type( CLibraryListItem::LibraryFolder )
 	, pLibraryFolder( val )
 {
+}
+
+CLibraryListItem::CLibraryListItem(const CLibraryFile* val)
+	: Type( CLibraryListItem::LibraryFile )
+	, dwLibraryFile( val->m_nIndex )
+{
+	ASSERT_VALID( val );
 }
 
 CLibraryListItem::CLibraryListItem(const CLibraryListItem& val)

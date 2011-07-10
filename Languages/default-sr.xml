@@ -3,7 +3,7 @@
 
 <!-- PeerProject/ПеерПројецт Default Serbian Skin File -->
 
-<!-- Translation based on default-en.xml r67 -->
+<!-- Translation based on default-en.xml r68 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -899,7 +899,7 @@
 		</menu>
 		<separator/>
 		<item id="ID_HOSTCACHE_IMPORT" text="Uvezi MET Datoteku..."/>
-		<item id="ID_HOSTCACHE_ED2K_DOWNLOAD" text="Skini MET..."/>
+		<item id="ID_HOSTCACHE_FILE_DOWNLOAD" text="Skini MET..."/>
 	</menu>
 	<!-- SEARCH WINDOW -->
 	<menu name="CSearchWnd.Basic">
@@ -1458,7 +1458,13 @@
 	</menu>
 	<!-- SYSTEM WINDOW -->
 	<menu name="CSystemWnd">
-		<item id="ID_SYSTEM_VERBOSE" text="_Verbose Mode"/>
+		<menu id="ID_SYSTEM_VERBOSE" text="_Verbose Mode"/>
+			<item id="ID_SYSTEM_VERBOSE_ERROR" text="_Error"/>
+			<item id="ID_SYSTEM_VERBOSE_WARNING" text="_Warning"/>
+			<item id="ID_SYSTEM_VERBOSE_NOTICE" text="_Notice"/>
+			<item id="ID_SYSTEM_VERBOSE_INFO" text="_Info"/>
+			<item id="ID_SYSTEM_VERBOSE_DEBUG" text="_Debug"/>
+		</menu>
 		<item id="ID_SYSTEM_TIMESTAMP" text="Timestam_p"/>
 		<separator/>
 		<item id="ID_SYSTEM_COPY" text="_Copy" shortcut="Ctrl+C"/>
@@ -2291,7 +2297,7 @@
 	<tip id="ID_HOSTCACHE_CONNECT" message="Spoji se na označeni komp."/>
 	<tip id="ID_HOSTCACHE_DISCONNECT" message="Isključi se od suseda."/>
 	<tip id="ID_HOSTCACHE_ED2K_CACHE" message="Pokazuje eDonkey2000 servere."/>
-	<tip id="ID_HOSTCACHE_ED2K_DOWNLOAD" message="Skini eDonkey2000 &quot;server.met&quot; datoteku..."/>
+	<tip id="ID_HOSTCACHE_FILE_DOWNLOAD" message="Skini eDonkey2000 &quot;server.met&quot; datoteku..."/>
 	<tip id="ID_HOSTCACHE_G1_CACHE" message="Pokaži Gnutella1 cached hosts."/>
 	<tip id="ID_HOSTCACHE_G2_CACHE" message="Pokaži Gnutella2 cached hosts."/>
 	<tip id="ID_HOSTCACHE_G2_HORIZON" message="Pokaži Gnutella2 horizon hubs."/>
@@ -3139,7 +3145,7 @@
 	<string id="20881" value="Додадени фајлови: %u изабрана. Јесте ли сигурни?"/>
 	<string id="20882" value="Nema dostupnog URN-a"/>
 	<string id="20885" value="Menjanje pogleda zatvara sve otvorene prozore. Želite li nastaviti s promenom pogleda?"/>
-	<string id="20886" value="Changing interface direction requires restart. \nYou will need to start PeerProject manually. Exit now?"/>
+	<string id="20886" value="Changing interface direction requires restart.\n\nExit now?"/>
 	<string id="20890" value="Dobrodošli u PeerProject"/>
 	<string id="20891" value="Izlaz"/>
 	<string id="20895" value="Još mi niste zadali brzinu spajanja.Molim Vas da odaberete tip veze prema internetu, ili ručno upišete brzinu."/>
@@ -4094,7 +4100,7 @@
 		<control caption="OK"/>
 		<control caption="Odustani"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="Download Server.met File">
+	<dialog name="CUpdateServersDlg" cookie="StEdmsBuBu" caption="Download Server List File">
 		<control caption="Možete skinuti eDonkey2000 server.met datoteku sa neta da bi obnovili vašu listu servera."/>
 		<control/>
 		<control/>

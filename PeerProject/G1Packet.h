@@ -23,6 +23,9 @@
 
 #include "Packet.h"
 #include "GGEP.h"
+#include "Schema.h"
+
+class CPeerProjectFile;		// Compilation Fix
 
 // Instruct compiler to align bytes and DWORDs on a 1 byte boundary (No spaces)
 #pragma pack(1)
@@ -31,56 +34,54 @@
 typedef struct
 {
 	// These are the parts of a Gnutella packet header, in the right order, with each part the right size
-	Hashes::Guid::RawStorage m_oGUID; // At  0, length 16, the globally unique identifier of this packet
-	BYTE  m_nType;   // At 16, the byte that identifies what kind of packet this is, like ping or pong
-	BYTE  m_nTTL;    // At 17, the number of hops this packet can travel across the Internet from here
-	BYTE  m_nHops;   // At 18, the number of hops this packet has traveled across the Internet to get here
-	LONG  m_nLength; // At 19, length 4, for a total size 23 bytes, the length of the packet payload
+	Hashes::Guid::RawStorage m_oGUID;	// At 0, length 16, the globally unique identifier of this packet
+	BYTE  m_nType;			// At 16, the byte that identifies what kind of packet this is, like ping or pong
+	BYTE  m_nTTL;			// At 17, the number of hops this packet can travel across the Internet from here
+	BYTE  m_nHops;			// At 18, the number of hops this packet has traveled across the Internet to get here
+	LONG  m_nLength;		// At 19, length 4, for a total size 23 bytes, the length of the packet payload
 
 } GNUTELLAPACKET;
 
 // Each CG1Packet object represents a received or preparing to send Gnutella packet
-class CG1Packet : public CPacket // Inherit from CPacket to get memory management, and methods to read/write ASCII text, bytes, and DWORDs
+class CG1Packet : public CPacket	// Inherit from CPacket to get memory management, and methods to read/write ASCII text, bytes, and DWORDs
 {
 
 protected:
 	// Make a new CG1Packet object, and delete this one
 	CG1Packet();
-	virtual ~CG1Packet(); // Why is this virtual, it's at the top of the inheritance tree (do)
+	virtual ~CG1Packet();	// Why is this virtual, it's at the top of the inheritance tree? (do)
 
 public:
 	// Data in the packet
-	Hashes::Guid m_oGUID; // The globally unique identifier of this packet
-	BYTE  m_nType;	// The type of this packet, like ping or pong
-	BYTE  m_nTTL;	// The number of hops this packet can travel across the Internet from here
-	BYTE  m_nHops;	// The number of hops this packet has travelled across the Internet to get here
+	Hashes::Guid m_oGUID;	// The globally unique identifier of this packet
+	BYTE  m_nType;			// The type of this packet, like ping or pong
+	BYTE  m_nTTL;			// The number of hops this packet can travel across the Internet from here
+	BYTE  m_nHops;			// The number of hops this packet has traveled across the Internet to get here
 
 	// Data about the packet
-	int   m_nTypeIndex; // Packet type like ping or pong, except as an enumeration this program defines instead of the byte code used by the packet itself
-	DWORD m_nHash;      // Used by CacheHash, but doesn't seem to ever get a hash written into it (do)
+	int   m_nTypeIndex; 	// Packet type like ping or pong, except as an enumeration this program defines instead of the byte code used by the packet itself
+	DWORD m_nHash;			// Used by CacheHash, but doesn't seem to ever get a hash written into it (do)
 
 public:
 	// Change the packet's TTL and hop counts
-	BOOL Hop();		// Make sure the TTL is 2 or more, and then make it one less and the hops count one more
+	BOOL Hop();				// Make sure the TTL is 2 or more, and then make it one less and the hops count one more
 
 	// Hash the packet
-	void         CacheHash();                                       // Calculate a simple hash of the packet payload in m_nHash
-	// ?????????? Redefinition of default Parameter!
-	virtual BOOL	GetRazaHash(Hashes::Sha1Hash& oHash, DWORD nLength = 0) const; // Compute the SHA hash of the packet GUID, type byte, and payload
+	void			CacheHash();					// Calculate a simple hash of the packet payload in m_nHash
+	//virtual BOOL	GetPacketHash(Hashes::Sha1Hash& oHash, DWORD nLength = 0) const;	// Obsolete: Compute the SHA hash of the packet GUID, type byte, and payload
 
 	// Get the packet's type, GUID, and all its bytes
 	virtual CString GetType() const;				// Returns a pointer to a text literal like "Ping" or "Pong"
 	CString         GetGUID() const;				// Returns the packet's GUID encoded into text in base 16
 
 	virtual void	Reset();
-	virtual void    ToBuffer(CBuffer* pBuffer, bool bTCP = true) const; // Adds the Gnutella packet header and payload into the given CBuffer object
+	virtual void    ToBuffer(CBuffer* pBuffer, bool bTCP = true) const; 	// Adds the Gnutella packet header and payload into the given CBuffer object
 
 #ifdef _DEBUG
 	// Record information about the packet for debugging purposes
 	virtual void	Debug(LPCTSTR pszReason) const;	// Writes debug information about the packet into the PeerProject.log file
 #endif
 
-public:
 	// Convert between the various ways the program expresses packet types, like ping and pong
 	static int     GnutellaTypeToIndex(BYTE nType);	// Turn a type byte, like 0x30, into index 4, both describe a query route packet
 	static LPCTSTR m_pszPackets[9];					// Turn a type index, like 4, into text like "QRP" for query route packet
@@ -91,13 +92,14 @@ public:
 
 	// Received SCP GGEP, send 5 random hosts from the cache
 	// Since we do not provide leaves, ignore the preference data
-	static int GGEPWriteRandomCache(CGGEPItem* pItem);
+	static void GGEPWriteRandomCache(CGGEPBlock& pGGEP, LPCTSTR pszID);
 
-	// Are Out of Band queries enabled?
-	static bool IsOOBEnabled();
+	bool ReadHUGE(CPeerProjectFile* pFile);			// Read Gnutella HUGE extension
+	bool ReadXML(CSchemaPtr& pSchema, CXMLElement*& pXML);	// Read Gnutella XML extension
 
-	// Are we firewalled in terms of Gnutella 1?
-	static bool IsFirewalled();
+	// Decode metadata and Schema from text or XML deflated or plain
+	static CXMLElement* AutoDetectSchema(LPCTSTR pszInfo);
+	static CXMLElement* AutoDetectAudio(LPCTSTR pszInfo);
 
 protected:
 	// Create a nested class, CG1PacketPool, that holds arrays of Gnutella packets we can use quickly
@@ -139,9 +141,10 @@ public:
 		pPacket->m_nTypeIndex = GnutellaTypeToIndex( pPacket->m_nType );
 
 		// Copy the bytes of the payload from beyond the gnutella packet structure into the buffer of the packet object
-		pPacket->Write(                  // Have the packet write these bytes into its buffer for the packet payload
-			&pSource[1],                 // The 1 moves forward 1 structure size, to the bytes beyond the structure
-			(DWORD)pSource->m_nLength ); // The number of bytes there is the payload size according to the header structure
+		pPacket->Write( &pSource[1], (DWORD)pSource->m_nLength );
+			// Have the packet write these bytes into its buffer for the packet payload
+			// The 1 moves forward 1 structure size, to the bytes beyond the structure
+			// The number of bytes there is the payload size according to the header structure
 
 		// Return a pointer to the packet, sitting in the pool, filled with the given header values and payload
 		return pPacket;
@@ -161,6 +164,9 @@ protected:
 	BOOL OnPing(const SOCKADDR_IN* pHost);
 	BOOL OnPong(const SOCKADDR_IN* pHost);
 	BOOL OnVendor(const SOCKADDR_IN* pHost);
+	BOOL OnQuery(const SOCKADDR_IN* pHost);
+	BOOL OnCommonHit(const SOCKADDR_IN* pHost);
+	BOOL OnPush(const SOCKADDR_IN* pHost);
 
 	// Let the nested CG1PacketPool class access the private members of this CG1Packet class
 	friend class CG1Packet::CG1PacketPool;
@@ -217,23 +223,26 @@ inline void CG1Packet::CG1PacketPool::FreePoolImpl(CPacket* pPacket)
 #define G1_PACKTYPE_MAX			9		// There are 9 packet type indices, with values 0 through 8
 
 // MinSpeed Flags (do)
-#define G1_QF_TAG				0x8000	// If the bit 15 is 0, then this is a query with the deprecated minspeed semantic. If the bit 15 is set to 1, then this is a query with the new minimum speed semantic.
-#define G1_QF_FIREWALLED		0x4000	// Firewalled indicator. This flag can be used by the remote servent to avoid returning queryHits if it is itself firewalled, as the requesting servent won't be able to download the files.
-#define G1_QF_XML				0x2000	// XML Metadata. Set this bit to 1 if you want the servent to receive XML Metadata. This flag has been set to spare bandwidth, returning metadata in queryHits only if the requester asks for it.
-#define G1_QF_DYNAMIC			0x1000	// Leaf Guided Dynamic Query. When bit is set to 1, the query is sent by a leaf that wants to control the dynamic query mechanism. This is part of the Leaf guidance of dynamic queries proposal. This information is only used by the ultrapeers shielding this leave if they implement leaf guidance of dynamic queries.
-#define G1_QF_BIN_HASH			0x0800	// GGEP "H" allowed. If this bit is set to 1, then the sender is able to parse the GGEP "H" extension which is a replacement for the legacy HUGE GEM extension. This is meant to start replacing the GEM mechanism with GGEP extensions, as GEM extensions are now deprecated.
-#define G1_QF_OOB				0x0400	// OOB v2. Out of Band Query. This flag is used to recognize a Query which was sent using the Out Of Band query extension.
-#define G1_QF_FWTRANS			0x0200	// Firewalled transfers supported.
+#define G1_QF_FWTRANS			0x02	// Firewalled transfers supported.
+#define G1_QF_OOB				0x04	// OOB v2. Out of Band Query. This flag is used to recognize a Query which was sent using the Out Of Band query extension.
+#define G1_QF_BIN_HASH			0x08	// GGEP "H" allowed. If this bit is set to 1, then the sender is able to parse the GGEP "H" extension which is a replacement for the legacy HUGE GEM extension. This is meant to start replacing the GEM mechanism with GGEP extensions, as GEM extensions are now deprecated.
+#define G1_QF_DYNAMIC			0x10	// Leaf Guided Dynamic Query. When bit is set to 1, the query is sent by a leaf that wants to control the dynamic query mechanism. This is part of the Leaf guidance of dynamic queries proposal. This info is only used by the ultrapeers shielding this leave if they implement leaf guidance of dynamic queries.
+#define G1_QF_XML				0x20	// XML Metadata. Set this bit to 1 if you want the servent to receive XML Metadata. This flag has been set to spare bandwidth, returning metadata in queryHits only if the requester asks for it.
+#define G1_QF_FIREWALLED		0x40	// Firewalled indicator. This flag can be used by the remote servent to avoid returning queryHits if it is itself firewalled, as the requesting servent won't be able to download the files.
+#define G1_QF_TAG				0x80	// If the bit 15 is 0, then this is a query with the deprecated minspeed semantic. If the bit 15 is set to 1, then this is a query with the new minimum speed semantic.
 
 #define OLD_LW_MAX_QUERY_FIELD_LEN	30
-#define WHAT_IS_NEW_QUERY_STRING	"WhatIsNewXOXO"
+#define WHAT_IS_NEW_QUERY_STRING	"whatisnewxoxo"	// "WhatIsNewXOXO" ?
+#define DEFAULT_G1_MCAST_ADDRESS	"234.21.81.1"	// Experimental Multicast
+#define DEFAULT_G1_MCAST_PORT		6347			// Experimental Multicast
 #define DEFAULT_URN_QUERY			"\\"
 
 #define QUERY_KEY_LIFETIME		2 * 60 * 60
 #define MIN_QK_SIZE_IN_BYTES	4
 #define MAX_QK_SIZE_IN_BYTES	16
 
-// QHD Flags (do)
+// QueryHit Flags (inside Public data)
+#define G1_QHD_CHAT				0x01	// Chat flag
 #define G1_QHD_PUSH				0x01
 #define G1_QHD_BAD				0x02
 #define G1_QHD_BUSY				0x04
@@ -241,5 +250,120 @@ inline void CG1Packet::CG1PacketPool::FreePoolImpl(CPacket* pPacket)
 #define G1_QHD_SPEED			0x10
 #define G1_QHD_GGEP				0x20
 #define G1_QHD_MASK				0x3D
-
 #define G1_PACKET_HIT_SEP		0x1C	// Query hit extension separator
+
+// Known GGEP Extension Blocks table:
+// http://gnutella-specs.rakjar.de/index.php/Known_GGEP_Extension_Blocks
+// http://limewire.negatis.com/index.php?title=Known_GGEP_Extension_Blocks
+
+// Browse Host (no value)
+const LPCTSTR GGEP_HEADER_BROWSE_HOST			= _T("BH");
+// Average daily uptime (seconds, 1-3 bytes)
+const LPCTSTR GGEP_HEADER_DAILY_AVERAGE_UPTIME	= _T("DU");
+// Unicast protocol support
+const LPCTSTR GGEP_HEADER_UNICAST_SUPPORT		= _T("GUE");
+// Vendor info.  A value like "LIME#".  First 4 bytes are the vendor code ASCII characters, 5th byte has major and minor version number squashed into a single byte.
+const LPCTSTR GGEP_HEADER_VENDOR_INFO			= _T("VC");
+// Ultrapeer support
+const LPCTSTR GGEP_HEADER_UP_SUPPORT			= _T("UP");
+// AddressSecurityToken support
+const LPCTSTR GGEP_HEADER_QUERY_KEY_SUPPORT 	= _T("QK");
+// OOB v3 Security Token support
+const LPCTSTR GGEP_HEADER_SECURE_OOB			= _T("SO");
+// AddressSecurityToken support
+const LPCTSTR GGEP_HEADER_MULTICAST_RESPONSE	= _T("MCAST");
+// PushProxy support
+const LPCTSTR GGEP_HEADER_PUSH_PROXY			= _T("PUSH");
+// PushProxy TLS indexes
+const LPCTSTR GGEP_HEADER_PUSH_PROXY_TLS		= _T("PUSH_TLS");
+// AlternateLocation support
+const LPCTSTR GGEP_HEADER_ALTS					= _T("ALT");
+// AlternateLocations that support TLS
+const LPCTSTR GGEP_HEADER_ALTS_TLS				= _T("ALT_TLS");
+// IpPort request
+const LPCTSTR GGEP_HEADER_IPPORT				= _T("IP");
+// UDP HostCache pongs
+const LPCTSTR GGEP_HEADER_UDP_HOST_CACHE		= _T("UDPHC");
+// Indicating support for packed ip/ports & udp host caches
+const LPCTSTR GGEP_HEADER_SUPPORT_CACHE_PONGS	= _T("SCP");
+// Packed IP/Ports
+const LPCTSTR GGEP_HEADER_PACKED_IPPORTS		= _T("IPP");
+// Packed IP/Ports that support TLS
+const LPCTSTR GGEP_HEADER_PACKED_IPPORTS_TLS	= _T("IPP_TLS");
+// Packed UDP Host Caches
+const LPCTSTR GGEP_HEADER_PACKED_HOSTCACHES 	= _T("PHC");
+// SHA1 URNs
+const LPCTSTR GGEP_HEADER_SHA1					= _T("S1");
+// Tiger Tree Root URNs (24 bytes)
+const LPCTSTR GGEP_HEADER_TTROOT				= _T("TT");
+// Determine if a SHA1 is valid
+const LPCTSTR GGEP_HEADER_SHA1_VALID			= _T("SV");
+// TLS support
+const LPCTSTR GGEP_HEADER_TLS_SUPPORT			= _T("TLS");
+// DHT support
+const LPCTSTR GGEP_HEADER_DHT_SUPPORT			= _T("DHT");
+// DHT IPP requests
+const LPCTSTR GGEP_HEADER_DHT_IPPORTS			= _T("DHTIPP");
+// A feature query. This is 'WH' for legacy reasons, because 'What is New' was the first
+const LPCTSTR GGEP_HEADER_FEATURE_QUERY			= _T("WH");
+// The extension header disabling OOB proxying
+const LPCTSTR GGEP_HEADER_NO_PROXY				= _T("NP");
+// MetaType query support
+const LPCTSTR GGEP_HEADER_META					= _T("M");
+// Client locale
+const LPCTSTR GGEP_HEADER_CLIENT_LOCALE			= _T("LOC");
+// Network-wide file creation time, in seconds (4 bytes)
+const LPCTSTR GGEP_HEADER_CREATE_TIME			= _T("CT");
+// Firewalled Transfer support in Hits (1 byte - version, supported if version > 0)
+const LPCTSTR GGEP_HEADER_FW_TRANS				= _T("FW");
+// The extension header (key) indicating the GGEP block is the 'secure' block
+const LPCTSTR GGEP_HEADER_SECURE_BLOCK			= _T("SB");
+// The extension header (key) indicating the value has a signature in it
+const LPCTSTR GGEP_HEADER_SIGNATURE				= _T("SIG");
+// Chat support
+const LPCTSTR GGEP_HEADER_CHAT					= _T("CHAT");
+// Equivalent of GGEP SCP but for GnucDNA peers only.  Unlike SCP, also used as acknowledgment
+const LPCTSTR GGEP_HEADER_SUPPORT_GDNA			= _T("DNA");
+// Legacy buggy version of GnucDNA DIPP
+const LPCTSTR GGEP_HEADER_GDNA_PACKED_IPPORTS_x	= _T("DIP");
+// Equivalent of GGEP IPP but contains GnucDNA peers only
+const LPCTSTR GGEP_HEADER_GDNA_PACKED_IPPORTS	= _T("DIPP");
+// File hash. SHA1 only or SHA1 + Tiger
+const LPCTSTR GGEP_HEADER_HASH					= _T("H");
+// URN but without "urn:" prefix
+const LPCTSTR GGEP_HEADER_URN					= _T("u");
+// Indicating the size of the file is 64 bit
+const LPCTSTR GGEP_HEADER_LARGE_FILE			= _T("LF");
+// The prefix of the extension header indicating support for partial results
+const LPCTSTR GGEP_HEADER_PARTIAL_RESULT_PREFIX	= _T("PR");
+// Determine if the encoded ranges are unverified
+const LPCTSTR GGEP_HEADER_PARTIAL_RESULT_UNVERIFIED = _T("PRU");
+// To support queries longer than previous length limit on query string fields
+const LPCTSTR GGEP_HEADER_EXTENDED_QUERY		= _T("XQ");
+// Various information contained in a return path entry GGEP block
+const LPCTSTR GGEP_HEADER_RETURN_PATH_SOURCE	= _T("RPS");
+const LPCTSTR GGEP_HEADER_RETURN_PATH_HOPS		= _T("RPH");
+const LPCTSTR GGEP_HEADER_RETURN_PATH_ME		= _T("RPI");
+const LPCTSTR GGEP_HEADER_RETURN_PATH_TTL		= _T("RPT");
+
+// GGEP_HEADER_SUPPORT_CACHE_PONGS - Support Cache Pongs(SCP)
+#define GGEP_SCP_LEAF		0x00	// If we are a leaf
+#define GGEP_SCP_ULTRAPEER	0x01	// If we are a ultrapeer
+#define GGEP_SCP_TLS		0x02	// If we support incoming TLS
+// GGEP_HEADER_HASH - Hash query
+#define GGEP_H_SHA1			0x01	// Binary SHA1
+#define GGEP_H_BITPRINT		0x02	// Bitprint (SHA1 + Tiger tree root)
+#define GGEP_H_MD5			0x03	// Binary MD5
+#define GGEP_H_UUID			0x04	// Binary UUID (GUID-like)
+#define GGEP_H_MD4			0x05	// Binary MD4
+// GGEP_HEADER_META - MetaType query support
+#define GGEP_META_RESERVED1	0x01	// Reserved
+#define GGEP_META_RESERVED2	0x02	// Reserved
+#define GGEP_META_AUDIO		0x04	// Audio
+#define GGEP_META_VIDEO		0x08	// Video
+#define GGEP_META_DOCUMENTS	0x10	// Documents
+#define GGEP_META_IMAGES	0x20	// Images
+#define GGEP_META_WINDOWS	0x40	// Windows Programs/Packages
+#define GGEP_META_UNIX		0x80	// Linux/Unix/Mac Programs/Packages
+
+// Few other defines in GGEP.h

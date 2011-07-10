@@ -16,6 +16,8 @@
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
+// See eMule opcodes.h http://www.koders.com/c/fidA35361F7667536FD1EE7EE0DABCCDF8D9BF01082.aspx
+
 #pragma once
 
 #include "Packet.h"
@@ -440,7 +442,7 @@ public:
 #define ED2K_FT_PERMISSIONS			0x16	// <uint32>
 //#define ED2K_FT_ULPRIORITY		0x17	// <uint32> (Not used anymore)
 #define ED2K_FT_DLPRIORITY			0x18	// (Was ED2K_FT_PRIORITY)
-#define ED2K_FT_ULPRIORITY			0x19	// (Was ED2K_FT_ULPRIORITY)
+#define ED2K_FT_ULPRIORITY			0x19
 #define ED2K_FT_COMPRESSION			0x1A
 #define ED2K_FT_CORRUPTED			0x1B
 #define ED2K_FT_KADLASTPUBLISHKEY	0x20	// <uint32>

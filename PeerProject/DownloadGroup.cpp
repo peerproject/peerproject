@@ -108,36 +108,61 @@ BOOL CDownloadGroup::Link(CDownload* pDownload)
 {
 	//ASSUME_LOCK( Transfers.m_pSection );
 
-	if ( ! m_pFilters.IsEmpty() )
+	// Possible re-link clearing
+	if ( DownloadGroups.GetSuperGroup() != this )
 	{
-		for ( POSITION pos = m_pFilters.GetHeadPosition() ; pos ; )
+		if ( POSITION pos = m_pDownloads.Find( pDownload ) )
 		{
-			CString strFilter = m_pFilters.GetNext( pos );
-
-			if ( strFilter.GetAt( 0 ) == _T('.') )
-			{
-				int nPos( pDownload->m_sName.ReverseFind( _T('.') ) );
-				if ( nPos != -1 && ! strFilter.CompareNoCase( pDownload->m_sName.Mid( nPos ) ) )
-				{
-					// Filter by extension
-					Add( pDownload );
-					return TRUE;
-				}
-			}
-			else if ( CQuerySearch::WordMatch( pDownload->m_sName, strFilter ) )
-			{
-				// Filter by keywords
-				Add( pDownload );
-				return TRUE;
-			}
+			m_pDownloads.RemoveAt( pos );
+			DownloadGroups.IncBaseCookie();
 		}
 	}
 
 	if ( pDownload->IsMultiFileTorrent() && CheckURI( m_sSchemaURI, CSchema::uriBitTorrent ) )
 	{
-		// Filter by BitTorrent flag last  (Multifile Torrent Package addition to Schema, was m_bTorrent)
+		// Filter by BitTorrent flag  (Multifile Torrent Package addition to Schema, was m_bTorrent)
 		Add( pDownload );
 		return TRUE;
+	}
+
+	if ( m_pFilters.IsEmpty() )
+		return FALSE;
+
+	CString strTrackers;
+	if ( pDownload->IsTorrent() )
+	{
+		for ( int i = 0 ; i < pDownload->m_pTorrent.GetTrackerCount() ; i++ )
+		{
+			strTrackers += pDownload->m_pTorrent.GetTrackerAddress( i ).MakeLower() + L" ";
+		}
+	}
+
+	for ( POSITION pos = m_pFilters.GetHeadPosition() ; pos ; )
+	{
+		CString strFilter = m_pFilters.GetNext( pos );
+
+		if ( strFilter.GetAt( 0 ) == _T('.') )
+		{
+			int nPos( pDownload->m_sName.ReverseFind( _T('.') ) );
+			if ( nPos != -1 && ! strFilter.CompareNoCase( pDownload->m_sName.Mid( nPos ) ) )
+			{
+				// Filter by extension
+				Add( pDownload );
+				return TRUE;
+			}
+		}
+		else if ( CQuerySearch::WordMatch( pDownload->m_sName, strFilter ) )
+		{
+			// Filter by keywords
+			Add( pDownload );
+			return TRUE;
+		}
+		else if ( ! strTrackers.IsEmpty() && strFilter.Find( _T('.') ) > 2 && strTrackers.Find( strFilter.MakeLower() ) >= 0 )
+		{
+			// Filter by tracker
+			Add( pDownload );
+			return TRUE;
+		}
 	}
 
 	return FALSE;
@@ -193,15 +218,16 @@ void CDownloadGroup::SetSchema(LPCTSTR pszURI, BOOL bRemoveOldFilters)
 		{
 			if ( CSchemaPtr pOldSchema = SchemaCache.Get( m_sSchemaURI ) )
 			{
-				for ( LPCTSTR start = pOldSchema->m_sTypeFilter ; *start ; start++ )
+				for ( POSITION pos = pOldSchema->GetFilterIterator() ; pos ; )
 				{
-					LPCTSTR c = _tcschr( start, _T('|') );
-					int len = c ? (int) ( c - start ) : (int) _tcslen( start );
-					if ( len > 0 )
-						RemoveFilter( CString( start, len ) );
-					if ( ! c )
-						break;
-					start = c;
+					CString strFilter;
+					BOOL bResult;
+					pOldSchema->GetNextFilter( pos, strFilter, bResult );
+					if ( bResult )
+					{
+						strFilter.Insert( 0, _T('.') );
+						RemoveFilter( strFilter );
+					}
 				}
 			}
 		}
@@ -236,15 +262,16 @@ void CDownloadGroup::SetDefaultFilters()
 {
 	if ( CSchemaPtr pSchema = SchemaCache.Get( m_sSchemaURI ) )
 	{
-		for ( LPCTSTR start = pSchema->m_sTypeFilter ; *start ; start++ )
+		for ( POSITION pos = pSchema->GetFilterIterator() ; pos ; )
 		{
-			LPCTSTR c = _tcschr( start, _T('|') );
-			int len = c ? (int) ( c - start ) : (int) _tcslen( start );
-			if ( len > 0 )
-				AddFilter( CString( start, len ) );
-			if ( ! c )
-				break;
-			start = c;
+			CString strFilter;
+			BOOL bResult;
+			pSchema->GetNextFilter( pos, strFilter, bResult );
+			if ( bResult )
+			{
+				strFilter.Insert( 0, _T('.') );
+				AddFilter( strFilter );
+			}
 		}
 	}
 }

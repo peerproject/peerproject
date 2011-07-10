@@ -786,8 +786,8 @@ void CFragmentedFile::Serialize(CArchive& ar, int nVersion)
 			ar >> nPriority;
 
 			if ( strPath.IsEmpty() || strName.IsEmpty() ||
-				bWrite < FALSE || bWrite > TRUE ||
-				nPriority < prUnwanted || nPriority > prHigh )
+				 bWrite < FALSE || bWrite > TRUE ||
+				 nPriority < prUnwanted || nPriority > prHigh )
 				AfxThrowArchiveException( CArchiveException::genericException );
 
 			if ( ! StartsWith( strPath, Settings.Downloads.IncompletePath ) )
@@ -801,8 +801,11 @@ void CFragmentedFile::Serialize(CArchive& ar, int nVersion)
 			if ( ! Open( strPath, nOffset, nLength, bWrite, strName, nPriority ) )
 			{
 				theApp.Message( MSG_ERROR, IDS_DOWNLOAD_FILE_OPEN_ERROR, strPath );
-				AfxThrowFileException( CFileException::fileNotFound );
+				if ( nPriority != prUnwanted )		// Allow partial seeds
+					AfxThrowFileException( CFileException::fileNotFound );
 			}
+
+			theApp.KeepAlive();		// Large torrents otherwise get "Program Not Responding"
 		}
 
 		ASSERT_VALID( this );

@@ -40,18 +40,6 @@ static char THIS_FILE[] = __FILE__;
 //	NULL
 //};
 
-// Set Column Order
-enum {
-	COL_CONTENT,
-	COL_HITS,
-	COL_NUM,
-	COL_ACTION,
-	COL_EXPIRES,
-	COL_TYPE,
-	COL_COMMENT,
-	COL_LAST	// Column Count
-};
-
 IMPLEMENT_SERIAL(CSecurityWnd, CPanelWnd, 0)
 
 BEGIN_MESSAGE_MAP(CSecurityWnd, CPanelWnd)
@@ -111,13 +99,13 @@ int CSecurityWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndList.Create( WS_VISIBLE|LVS_ICON|LVS_AUTOARRANGE|LVS_REPORT|LVS_SHOWSELALWAYS, rectDefault, this, IDC_RULES );
 	m_wndList.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_HEADERDRAGDROP|LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP );
 
-	m_wndList.InsertColumn( COL_CONTENT, _T("Address / Content"), LVCFMT_LEFT, 200 );
-	m_wndList.InsertColumn( COL_HITS, _T("Hits"), LVCFMT_CENTER, 60 );
-	m_wndList.InsertColumn( COL_NUM, _T("#"), LVCFMT_CENTER, 30 );
-	m_wndList.InsertColumn( COL_ACTION, _T("Action"), LVCFMT_CENTER, 60 );
-	m_wndList.InsertColumn( COL_EXPIRES, _T("Expires"), LVCFMT_CENTER, 60 );
-	m_wndList.InsertColumn( COL_TYPE, _T("Match"), LVCFMT_CENTER, 60 );
-	m_wndList.InsertColumn( COL_COMMENT, _T("Comment"), LVCFMT_LEFT, 200 );
+	m_wndList.InsertColumn( COL_SECURITY_CONTENT, _T("Address / Content"), LVCFMT_LEFT, 200 );
+	m_wndList.InsertColumn( COL_SECURITY_HITS, _T("Hits"), LVCFMT_CENTER, 60 );
+	m_wndList.InsertColumn( COL_SECURITY_NUM, _T("#"), LVCFMT_CENTER, 30 );
+	m_wndList.InsertColumn( COL_SECURITY_ACTION, _T("Action"), LVCFMT_CENTER, 60 );
+	m_wndList.InsertColumn( COL_SECURITY_EXPIRES, _T("Expires"), LVCFMT_CENTER, 60 );
+	m_wndList.InsertColumn( COL_SECURITY_TYPE, _T("Match"), LVCFMT_CENTER, 60 );
+	m_wndList.InsertColumn( COL_SECURITY_COMMENT, _T("Comment"), LVCFMT_LEFT, 200 );
 
 	m_pSizer.Attach( &m_wndList );
 
@@ -158,112 +146,17 @@ void CSecurityWnd::OnDestroy()
 
 void CSecurityWnd::Update(int nColumn, BOOL bSort)
 {
-	CQuickLock oLock( Security.m_pSection );
-
-	CLiveList pLiveList( COL_LAST, Security.GetCount() + Security.GetCount() / 4u );
-
-	CLiveItem* pDefault = pLiveList.Add( (LPVOID)0 );
-	pDefault->Set( COL_NUM, _T(" - ") );								// Need leading space for proper sort priority (until sorting is fixed)
-	pDefault->Set( COL_CONTENT, LoadString( IDS_SECURITY_DEFAULT ) );	// "Default Policy"
-	pDefault->Set( COL_ACTION, LoadString( Security.m_bDenyPolicy ? IDS_SECURITY_DENY : IDS_SECURITY_ACCEPT ) );
-	pDefault->SetImage( Security.m_bDenyPolicy ? Settings.General.LanguageRTL ? 0 : 2 : 1 );
-
 	Security.Expire();
 
-	const DWORD nNow = static_cast< DWORD >( time( NULL ) );
-	int nCount = 1;
-
-	for ( POSITION pos = Security.GetIterator() ; pos ; nCount++ )
-	{
-		CSecureRule* pRule = Security.GetNext( pos );
-
-		CLiveItem* pItem = pLiveList.Add( pRule );
-
-		pItem->SetImage( pRule->m_nAction );
-
-		if ( pRule->m_nType == CSecureRule::srAddress )
-		{
-			if ( *(DWORD*)pRule->m_nMask == 0xFFFFFFFF )
-			{
-				pItem->Format( COL_CONTENT, _T("%u.%u.%u.%u"),
-					unsigned( pRule->m_nIP[0] ), unsigned( pRule->m_nIP[1] ),
-					unsigned( pRule->m_nIP[2] ), unsigned( pRule->m_nIP[3] ) );
-			}
-			else
-			{
-				pItem->Format( COL_CONTENT, _T("%u.%u.%u.%u/%u.%u.%u.%u"),
-					unsigned( pRule->m_nIP[0] ), unsigned( pRule->m_nIP[1] ),
-					unsigned( pRule->m_nIP[2] ), unsigned( pRule->m_nIP[3] ),
-					unsigned( pRule->m_nMask[0] ), unsigned( pRule->m_nMask[1] ),
-					unsigned( pRule->m_nMask[2] ), unsigned( pRule->m_nMask[3] ) );
-			}
-		}
-		else
-		{
-			pItem->Set( COL_CONTENT, pRule->GetContentWords() );
-		}
-
-		switch ( pRule->m_nAction )
-		{
-		case CSecureRule::srNull:
-			pItem->Set( COL_ACTION, LoadString( IDS_TIP_NA ) );
-			break;
-		case CSecureRule::srAccept:
-			pItem->Set( COL_ACTION, LoadString( IDS_SECURITY_ACCEPT ) );
-			break;
-		case CSecureRule::srDeny:
-			pItem->Set( COL_ACTION, LoadString( IDS_SECURITY_DENY ) );
-			break;
-		}
-
-		switch ( pRule->m_nType )
-		{
-		case CSecureRule::srAddress:
-			pItem->Set( COL_TYPE, _T("IP") );
-			break;
-		case CSecureRule::srContentAny:
-			pItem->Set( COL_TYPE, _T("Any") );
-			break;
-		case CSecureRule::srContentAll:
-			pItem->Set( COL_TYPE, _T("All") );
-			break;
-		case CSecureRule::srContentRegExp:
-			pItem->Set( COL_TYPE, _T("RegExp") );
-			break;
-		case CSecureRule::srContentHash:
-			pItem->Set( COL_TYPE, _T("Hash") );
-			break;
-		case CSecureRule::srSizeType:
-			pItem->Set( COL_TYPE, _T("Size") );
-			break;
-		}
-
-		if ( pRule->m_nExpire == CSecureRule::srIndefinite )
-		{
-			pItem->Set( COL_EXPIRES, LoadString( IDS_SECURITY_NOEXPIRE ) );	// "Never"
-		}
-		else if ( pRule->m_nExpire == CSecureRule::srSession )
-		{
-			pItem->Set( COL_EXPIRES, _T("Session") );
-		}
-		else if ( pRule->m_nExpire >= nNow )
-		{
-			const DWORD nTime = ( pRule->m_nExpire - nNow );
-			pItem->Format( COL_EXPIRES, _T("%ud %uh %um"), nTime / 86400u, (nTime % 86400u) / 3600u, ( nTime % 3600u ) / 60u );
-			//pItem->Format( COL_EXPIRES, _T("%i:%.2i:%.2i"), nTime / 3600, ( nTime % 3600 ) / 60, nTime % 60 );
-		}
-
-		pItem->Format( COL_HITS, _T("%u (%u)"), pRule->m_nToday, pRule->m_nEver );
-		pItem->Format( COL_NUM, _T("%i"), nCount );
-		pItem->Set( COL_COMMENT, pRule->m_sComment );
-	}
+	// Columns set in CSecureRule::ToList()
+	CAutoPtr< CLiveList > pLiveList( Security.GetList() );
 
 	if ( nColumn >= 0 )
 		SetWindowLongPtr( m_wndList.GetSafeHwnd(), GWLP_USERDATA, 0 - nColumn - 1 );
 
-	pLiveList.Apply( &m_wndList, bSort );
+	pLiveList->Apply( &m_wndList, bSort );
 
-	tLastUpdate = GetTickCount();		// Update time after it's done doing its work
+	m_tLastUpdate = GetTickCount();		// Update time after it's done doing work
 }
 
 CSecureRule* CSecurityWnd::GetItem(int nItem)
@@ -296,7 +189,7 @@ void CSecurityWnd::OnTimer(UINT_PTR nIDEvent)
 		const DWORD tTicks = GetTickCount();
 		const DWORD tDelay = max( ( 2 * (DWORD)Security.GetCount() ), 1000ul );	// Delay based on size of list
 
-		if ( ( tTicks - tLastUpdate ) > tDelay )
+		if ( ( tTicks - m_tLastUpdate ) > tDelay )
 		{
 			if ( tDelay < 2000 )		// Sort if list is under 1000
 				Update();

@@ -138,7 +138,7 @@ BOOL CGnutellaSettingsPage::OnInitDialog()
 	m_wndG2ClientMode.SetItemData( 2, MODE_HUB );
 
 	//********************
-	// Uncomment to temp disable UltraPeer mode:
+	// Uncomment to disable UltraPeer mode:
 	//Settings.Gnutella1.ClientMode = MODE_LEAF;
 	//m_wndG1ClientMode.EnableWindow( FALSE );
 	//m_wndG1ClientMode.SetCurSel( MODE_LEAF );
@@ -146,19 +146,20 @@ BOOL CGnutellaSettingsPage::OnInitDialog()
 
 	m_wndG2ClientMode.SetCurSel( Settings.Gnutella2.ClientMode );
 
-#ifdef LAN_MODE
-	GetDlgItem( IDC_G2_TODAY )->EnableWindow( FALSE );
-	GetDlgItem( IDC_G2_ALWAYS )->EnableWindow( FALSE );
-	GetDlgItem( IDC_G1_TODAY )->EnableWindow( FALSE );
-	GetDlgItem( IDC_G1_ALWAYS )->EnableWindow( FALSE );
-	m_wndG1Peers.EnableWindow( FALSE );
-	m_wndG1Leafs.EnableWindow( FALSE );
-	m_wndG1Hubs.EnableWindow( FALSE );
-	m_wndG1ClientMode.EnableWindow( FALSE );
-	GetDlgItem( IDC_G1_HUBS )->EnableWindow( FALSE );
-	GetDlgItem( IDC_G1_LEAFS )->EnableWindow( FALSE );
-	GetDlgItem( IDC_G1_PEERS )->EnableWindow( FALSE );
-#endif // LAN_MODE
+	if ( Settings.Experimental.LAN_Mode )	// #ifdef LAN_MODE
+	{
+		GetDlgItem( IDC_G2_TODAY )->EnableWindow( FALSE );
+		GetDlgItem( IDC_G2_ALWAYS )->EnableWindow( FALSE );
+		GetDlgItem( IDC_G1_TODAY )->EnableWindow( FALSE );
+		GetDlgItem( IDC_G1_ALWAYS )->EnableWindow( FALSE );
+		m_wndG1Peers.EnableWindow( FALSE );
+		m_wndG1Leafs.EnableWindow( FALSE );
+		m_wndG1Hubs.EnableWindow( FALSE );
+		m_wndG1ClientMode.EnableWindow( FALSE );
+		GetDlgItem( IDC_G1_HUBS )->EnableWindow( FALSE );
+		GetDlgItem( IDC_G1_LEAFS )->EnableWindow( FALSE );
+		GetDlgItem( IDC_G1_PEERS )->EnableWindow( FALSE );
+	}
 
 	UpdateData( FALSE );
 

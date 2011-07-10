@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default French Skin File -->
 
-<!-- Translation based on default-en.xml r67 -->
+<!-- Translation based on default-en.xml r68 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1011,7 +1011,7 @@
 		</menu>
 		<separator/>
 		<item id="ID_HOSTCACHE_IMPORT" text="_Importer un fichier MET..."/>
-		<item id="ID_HOSTCACHE_ED2K_DOWNLOAD" text="Télécharger un fichier MET..."/>
+		<item id="ID_HOSTCACHE_FILE_DOWNLOAD" text="Télécharger un fichier MET..."/>
 	</menu>
 	<!-- SEARCH WINDOW -->
 	<menu name="CSearchWnd.Basic">
@@ -2518,7 +2518,7 @@
 	<tip id="ID_HOSTCACHE_CONNECT" message="Se connecter à cette sélection d'hôtes."/>
 	<tip id="ID_HOSTCACHE_DISCONNECT" message="Se déconnecter de cette sélection d'hôtes."/>
 	<tip id="ID_HOSTCACHE_ED2K_CACHE" message="Afficher ou masquer les serveurs eDonkey."/>
-	<tip id="ID_HOSTCACHE_ED2K_DOWNLOAD" message="Télécharger un fichier &#171;&#160;server.met&#160;&#187;..."/>
+	<tip id="ID_HOSTCACHE_FILE_DOWNLOAD" message="Télécharger un fichier &#171;&#160;server.met&#160;&#187;..."/>
 	<tip id="ID_HOSTCACHE_G1_CACHE" message="Afficher les hôtes Gnutella en cache."/>
 	<tip id="ID_HOSTCACHE_G2_CACHE" message="Afficher les hôtes Gnutella2 en cache."/>
 	<tip id="ID_HOSTCACHE_G2_HORIZON" message="Afficher les hubs d'horizon de Gnutella2."/>
@@ -3475,7 +3475,7 @@
 	<string id="20882" value="Pas d'URN disponible"/>
 	<string id="20883" value="Le service UPnP n'est pas actif sur votre ordinateur.\nVeuillez régler le service pour qu'il démarre automatiquement (Windows Service Startup type)."/>
 	<string id="20885" value="Changer de vue fermera toutes les fenêtres ouvertes actuellement. Voulez-vous changer la vue maintenant ?"/>
-	<string id="20886" value="Changer la direction de l'interface exige un redémarrage. \nVous aurez besoin de redémarrer manuellement. Quitter maintenant ?"/>
+	<string id="20886" value="Changer la direction de l'interface exige un redémarrage.\n\nQuitter maintenant ?"/>
 	<string id="20890" value="PeerProject vous souhaite la bienvenue !"/>
 	<string id="20891" value="&amp;Quitter"/>
 	<string id="20892" value="Veuillez patienter : mise à jour de la liste d'hôtes eDonkey ..."/>
@@ -4482,7 +4482,7 @@
 		<control caption="Valider"/>
 		<control caption="Annuler"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="Télécharger un fichier Server.met">
+	<dialog name="CUpdateServersDlg" cookie="StEdmsBuBu" caption="Télécharger un fichier Server.met">
 		<control caption="Vous pouvez télécharger un fichier server.met eDonkey afin de mettre à jour votre liste de serveurs."/>
 		<control/>
 		<control/>

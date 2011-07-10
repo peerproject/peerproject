@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Traditional) Skin File -->
 
-<!-- Translation based on default-en.xml r67 (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r68 (Shareaza 2.2.2.12) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -918,7 +918,7 @@
 		</menu>
 		<separator/>
 		<item id="ID_HOSTCACHE_IMPORT" text="匯入 MET 檔..."/>
-		<item id="ID_HOSTCACHE_ED2K_DOWNLOAD" text="下載 MET..."/>
+		<item id="ID_HOSTCACHE_FILE_DOWNLOAD" text="下載 MET..."/>
 	</menu>
 	<!-- SEARCH WINDOW -->
 	<menu name="CSearchWnd.Basic">
@@ -1052,7 +1052,7 @@
 		<item id="ID_DOWNLOADS_HELP" text="說明..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Download">
-		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="預覽 Copy"/>
+		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="預覽 複製"/>
 		<item id="ID_DOWNLOADS_LAUNCH" text="預覽"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="新增至播放清單"/>
 		<separator/>
@@ -1475,8 +1475,16 @@
 	</menu>
 	<!-- SYSTEM WINDOW -->
 	<menu name="CSystemWnd">
-		<item id="ID_SYSTEM_VERBOSE" text="Verbose 模式"/>
+		<menu id="ID_SYSTEM_VERBOSE" text="Verbose 模式"/>
+			<item id="ID_SYSTEM_VERBOSE_ERROR" text="_Error"/>
+			<item id="ID_SYSTEM_VERBOSE_WARNING" text="_Warning"/>
+			<item id="ID_SYSTEM_VERBOSE_NOTICE" text="_Notice"/>
+			<item id="ID_SYSTEM_VERBOSE_INFO" text="_Info"/>
+			<item id="ID_SYSTEM_VERBOSE_DEBUG" text="_Debug"/>
+		</menu>
 		<item id="ID_SYSTEM_TIMESTAMP" text="時間郵戳"/>
+		<separator/>
+		<item id="ID_SYSTEM_COPY" text="複製" shortcut="Ctrl+C"/>
 		<separator/>
 		<item id="ID_SYSTEM_CLEAR" text="清除緩衝"/>
 	</menu>
@@ -2267,7 +2275,7 @@
 	<tip id="ID_HOSTCACHE_CONNECT" message="連線至選擇的主機."/>
 	<tip id="ID_HOSTCACHE_DISCONNECT" message="與選擇的鄰居中斷連線."/>
 	<tip id="ID_HOSTCACHE_ED2K_CACHE" message="顯示 eDonkey2000 伺服器."/>
-	<tip id="ID_HOSTCACHE_ED2K_DOWNLOAD" message="下載 eDonkey2000 &quot;server.met&quot; 檔..."/>
+	<tip id="ID_HOSTCACHE_FILE_DOWNLOAD" message="下載 eDonkey2000 &quot;server.met&quot; 檔..."/>
 	<tip id="ID_HOSTCACHE_G1_CACHE" message="顯示 Gnutella1 已快取的主機."/>
 	<tip id="ID_HOSTCACHE_G2_CACHE" message="顯示 Gnutella2 已快取的主機."/>
 	<tip id="ID_HOSTCACHE_G2_HORIZON" message="顯示 Gnutella2 horizon hubs."/>
@@ -3176,7 +3184,7 @@
 	<string id="20882" value="沒有可用的 URN"/>
 	<string id="20883" value="UPnP Device Host 服务未运行.请重新设置该服务.\n您需要将该服务的启动类型设置为&quot;自动&quot;."/>
 	<string id="20885" value="切換檢視方式將關閉任何已開啟的視窗. 您確定要切換嗎?"/>
-	<string id="20886" value="改變介面顯示方向需要重新啟動 PeerProject.\n您必須要手動啟動. 現在要離開嗎?"/>
+	<string id="20886" value="改變介面顯示方向需要重新啟動 PeerProject.\n\n現在要離開嗎?"/>
 	<string id="20890" value="歡迎使用 PeerProject"/>
 	<string id="20891" value="離開"/>
 	<string id="20892" value="请稍候: 更新 edonkey 服务器列表..."/>
@@ -4140,7 +4148,7 @@
 		<control caption="確定"/>
 		<control caption="取消"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="下載 Server.met 檔">
+	<dialog name="CUpdateServersDlg" cookie="StEdmsBuBu" caption="下載 Server.met 檔">
 		<control caption="您可從網際網路下載 eDonkey2000 server.met 檔以更新您本地的伺服器清單."/>
 		<control/>
 		<control/>

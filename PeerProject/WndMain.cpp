@@ -1711,17 +1711,22 @@ void CMainWnd::OnNetworkG2()
 
 void CMainWnd::OnUpdateNetworkG1(CCmdUI* pCmdUI)
 {
+	if ( Settings.Experimental.LAN_Mode || ! Settings.Gnutella1.ShowInterface && ! Settings.Gnutella1.Enabled )
+	{
+		if ( CCoolBarItem* pcCmdUI = CCoolBarItem::FromCmdUI( pCmdUI ) )
+			pcCmdUI->Show( FALSE );
+		return;
+	}
+
 	pCmdUI->SetCheck( Settings.Gnutella1.Enabled );
-#ifdef LAN_MODE
-	pCmdUI->Enable( FALSE );
-#else // No LAN_MODE
 	pCmdUI->Enable( Settings.GetOutgoingBandwidth() >= 2 );
-#endif // LAN_MODE
 }
 
 void CMainWnd::OnNetworkG1()
 {
-#ifndef LAN_MODE
+	if ( Settings.Experimental.LAN_Mode )	// #ifndef LAN_MODE
+		return;
+
 	Settings.Gnutella1.Enabled = ! Settings.Gnutella1.Enabled;
 
 	if ( ! Settings.Gnutella1.Enabled )
@@ -1737,22 +1742,26 @@ void CMainWnd::OnNetworkG1()
 		Network.Connect( TRUE );
 	else
 		DiscoveryServices.Execute( FALSE, PROTOCOL_G1, FALSE );
-#endif // No LAN_MOD
 }
 
 void CMainWnd::OnUpdateNetworkED2K(CCmdUI* pCmdUI)
 {
+	if ( Settings.Experimental.LAN_Mode || ! Settings.eDonkey.ShowInterface && ! Settings.eDonkey.Enabled )
+	{
+		if ( CCoolBarItem* pcCmdUI = CCoolBarItem::FromCmdUI( pCmdUI ) )
+			pcCmdUI->Show( FALSE );
+		return;
+	}
+
 	pCmdUI->SetCheck( Settings.eDonkey.Enabled );
-#ifdef LAN_MODE
-	pCmdUI->Enable( FALSE );
-#else  // No LAN_MOD
 	pCmdUI->Enable( Settings.GetOutgoingBandwidth() >= 2 );
-#endif // LAN_MOD
 }
 
 void CMainWnd::OnNetworkED2K()
 {
-#ifndef LAN_MODE
+	if ( Settings.Experimental.LAN_Mode )	// #ifndef LAN_MODE
+		return;
+
 	Settings.eDonkey.Enabled = ! Settings.eDonkey.Enabled;
 
 	if ( ! Settings.eDonkey.Enabled )
@@ -1766,12 +1775,11 @@ void CMainWnd::OnNetworkED2K()
 
 	if ( ! Network.IsConnected() )
 		Network.Connect( TRUE );
-#endif // No LAN_MOD
 }
 
 void CMainWnd::OnUpdateNetworkDC(CCmdUI* pCmdUI)
 {
-	if ( ! Settings.DC.ShowInterface )
+	if ( Settings.Experimental.LAN_Mode || ! Settings.DC.ShowInterface && ! Settings.DC.Enabled )
 	{
 		if ( CCoolBarItem* pcCmdUI = CCoolBarItem::FromCmdUI( pCmdUI ) )
 			pcCmdUI->Show( FALSE );
@@ -1779,16 +1787,14 @@ void CMainWnd::OnUpdateNetworkDC(CCmdUI* pCmdUI)
 	}
 
 	pCmdUI->SetCheck( Settings.DC.Enabled );
-#ifdef LAN_MODE
-	pCmdUI->Enable( FALSE );
-#else
 	pCmdUI->Enable( Settings.GetOutgoingBandwidth() >= 2 );
-#endif
 }
 
 void CMainWnd::OnNetworkDC()
 {
-#ifndef LAN_MODE
+	if ( Settings.Experimental.LAN_Mode )	// #ifndef LAN_MODE
+		return;
+
 	Settings.DC.Enabled = ! Settings.DC.Enabled;
 
 	if ( ! Settings.DC.Enabled )
@@ -1802,7 +1808,6 @@ void CMainWnd::OnNetworkDC()
 
 	if ( ! Network.IsConnected() )
 		Network.Connect( TRUE );
-#endif // No LAN_MOD
 }
 
 void CMainWnd::OnUpdateNetworkAutoClose(CCmdUI* pCmdUI)
@@ -2333,25 +2338,35 @@ void CMainWnd::OnToolsSkin()
 
 void CMainWnd::OnToolsLanguage()
 {
-	if ( ! IsWindowEnabled() ) return;
+	if ( ! IsWindowEnabled() )
+		return;
 	theApp.WriteProfileInt( _T("Windows"), _T("RunLanguage"), TRUE );
 
 	CLanguageDlg dlg;
-	if ( dlg.DoModal() == IDOK )
+	if ( dlg.DoModal() != IDOK )
+		 return;
+
+	bool bRestart = Settings.General.LanguageRTL != dlg.m_bLanguageRTL &&
+		AfxMessageBox( IDS_WARNING_RTL, MB_ICONQUESTION | MB_YESNO ) == IDYES;
+
+	CWaitCursor pCursor;
+
+	Settings.General.Language = dlg.m_sLanguage;
+	Settings.General.LanguageRTL = dlg.m_bLanguageRTL;
+	Settings.Save();
+
+	if ( bRestart )
 	{
-		bool bRestart = Settings.General.LanguageRTL != dlg.m_bLanguageRTL &&
-			AfxMessageBox( IDS_WARNING_RTL, MB_ICONQUESTION | MB_YESNO ) == IDYES;
-
-		CWaitCursor pCursor;
-
-		Settings.General.Language = dlg.m_sLanguage;
-		Settings.General.LanguageRTL = dlg.m_bLanguageRTL;
-
-		if ( bRestart )
+		HINSTANCE hResult = ShellExecute( AfxGetMainWnd()->GetSafeHwnd(), NULL,
+			theApp.m_strBinaryPath, _T("-wait -nowarn"), Settings.General.Path, SW_SHOWNORMAL );
+		if ( hResult > (HINSTANCE)32 )
+		{
 			PostMessage( WM_CLOSE );
-		else
-			SetGUIMode( Settings.General.GUIMode );
+			return;
+		}
 	}
+
+	PostMessage( WM_SKINCHANGED );
 }
 
 void CMainWnd::OnToolsSeedTorrent()

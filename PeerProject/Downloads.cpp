@@ -333,18 +333,19 @@ CDownload* CDownloads::Add(const CPeerProjectURL& oURL)
 
 	if ( oURL.m_pTorrent )
 	{
-		pDownload->SetTorrent( *oURL.m_pTorrent );
+		pDownload->SetTorrent( oURL.m_pTorrent );
 
-		// Add sources from torrents - DWK
-		if ( oURL.m_pTorrent->m_sURLs.GetCount() > 0 )
-		{
-			for ( POSITION pos = oURL.m_pTorrent->m_sURLs.GetHeadPosition() ; pos ; )
-			{
-				CString pCurrentUrl = oURL.m_pTorrent->m_sURLs.GetNext( pos );
-				pDownload->AddSourceURLs( (LPCTSTR)pCurrentUrl , FALSE  );
-			}
-			oURL.m_pTorrent->m_sURLs.RemoveAll();
-		}
+	// Obsolete (Moved to DownloadWithTorrent)
+	//	// Add sources from torrents
+	//	if ( oURL.m_pTorrent->m_sURLs.GetCount() )
+	//	{
+	//		for ( POSITION pos = oURL.m_pTorrent->m_sURLs.GetHeadPosition() ; pos ; )
+	//		{
+	//			CString pCurrentUrl = oURL.m_pTorrent->m_sURLs.GetNext( pos );
+	//			pDownload->AddSourceURLs( (LPCTSTR)pCurrentUrl , FALSE  );
+	//		}
+	//		oURL.m_pTorrent->m_sURLs.RemoveAll();
+	//	}
 	}
 
 	if ( bNew )
@@ -1280,6 +1281,7 @@ void CDownloads::Save(BOOL bForce)
 		CDownload* pDownload = GetNext( pos );
 		if ( bForce || pDownload->IsModified() )
 			pDownload->Save( TRUE );
+		theApp.KeepAlive();
 	}
 }
 

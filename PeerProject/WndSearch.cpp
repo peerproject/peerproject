@@ -53,13 +53,13 @@ IMPLEMENT_DYNCREATE(CSearchWnd, CBaseMatchWnd)
 BEGIN_MESSAGE_MAP(CSearchWnd, CBaseMatchWnd)
 	ON_WM_CREATE()
 	ON_WM_DESTROY()
-	ON_WM_CONTEXTMENU()
 	ON_WM_TIMER()
-	ON_WM_NCLBUTTONUP()
 	ON_WM_SIZE()
 	ON_WM_PAINT()
-	ON_WM_SYSCOMMAND()
 	ON_WM_SETCURSOR()
+	ON_WM_SYSCOMMAND()
+	ON_WM_CONTEXTMENU()
+	ON_WM_NCLBUTTONUP()
 	ON_WM_LBUTTONDOWN()
 	ON_WM_MDIACTIVATE()
 	ON_LBN_SELCHANGE(IDC_MATCHES, OnSelChangeMatches)
@@ -829,14 +829,14 @@ BOOL CSearchWnd::OnQueryHits(const CQueryHit* pHits)
 					(*pManaged)->m_tLastED2K = 0xFFFFFFFF;
 					theApp.Message( MSG_DEBUG, _T("ED2K Search Reached Maximum Number of Files") );
 				}
-#ifndef LAN_MODE
-				if ( ! m_bWaitMore && ( m_pMatches->m_nGnutellaHits >= m_nMaxResults ) )
+
+				if ( ! m_bWaitMore && ( m_pMatches->m_nGnutellaHits >= m_nMaxResults ) && ! Settings.Experimental.LAN_Mode )
 				{
 					m_bWaitMore = TRUE;
 					(*pManaged)->SetActive( FALSE );
 					theApp.Message( MSG_DEBUG, _T("Gnutella Search Reached Maximum Number of Files") );
 				}
-#endif // LAN_MODE
+
 				return TRUE;
 			}
 		}
@@ -965,7 +965,7 @@ void CSearchWnd::OnUpdateFilters(CCmdUI* pCmdUI)
 
 void CSearchWnd::OnFilters(UINT nID)
 {
-	int nFilter = nID - 3000;
+	const int nFilter = nID - 3000;
 	if ( nFilter < 0 || (DWORD)nFilter > m_pMatches->m_pResultFilters->m_nFilters - 1 ) return;
 
 	m_pMatches->m_bFilterBusy		= m_pMatches->m_pResultFilters->m_pFilters[ nFilter ]->m_bFilterBusy;

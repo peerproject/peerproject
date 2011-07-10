@@ -45,12 +45,11 @@ public:
 	int			m_nAvailability;
 	BOOL		m_bPrivate;
 
-	CList< CSchemaMember* >	m_pMembers;
 	CList< CString >		m_pExtends;
+	CList< CSchemaMember* >	m_pMembers;
 	CList< CSchemaChild* >	m_pContains;
 	CList< CSchemaBitzi* >	m_pBitziMap;
 	CString		m_sDefaultColumns;
-	CString		m_sTypeFilter;
 	CString		m_sBitziTest;
 	CString		m_sLibraryView;
 	CString		m_sHeaderTitle;
@@ -66,15 +65,17 @@ public:
 	enum { stFile, stFolder };
 	enum { saDefault, saAdvanced, saSystem, saMax };
 
-protected:
-	CString		m_sURI;
-
 // Operations
 public:
 	void			Clear();
 	BOOL			Load(LPCTSTR pszName);
 	CXMLElement*	Instantiate(BOOL bNamespace = FALSE) const;
 	BOOL			Validate(CXMLElement* pXML, BOOL bFix) const;
+
+	BOOL			FilterType(LPCTSTR pszFile) const;
+	CString			GetFilterSet() const;
+	POSITION		GetFilterIterator() const;
+	void			GetNextFilter(POSITION& pos, CString& sType, BOOL& bResult) const;
 	POSITION		GetMemberIterator() const;
 	CSchemaMember*	GetNextMember(POSITION& pos) const;
 	CSchemaMember*	GetMember(LPCTSTR pszName) const;
@@ -85,10 +86,15 @@ public:
 	CString			GetIndexedWords(CXMLElement* pXML) const;
 	CString			GetVisibleWords(CXMLElement* pXML) const;
 	void			ResolveTokens(CString& str, CXMLElement* pXML) const;
+
 protected:
+	typedef CMap < CString, const CString&, BOOL, BOOL& > CStringBoolMap;
+	CStringBoolMap	m_pTypeFilters;
+	CString			m_sURI;
+
+	CXMLElement*	GetType(CXMLElement* pRoot, LPCTSTR pszName) const;
 	BOOL			LoadSchema(LPCTSTR pszFile);
 	BOOL			LoadPrimary(CXMLElement* pRoot, CXMLElement* pType);
-	CXMLElement*	GetType(CXMLElement* pRoot, LPCTSTR pszName) const;
 	BOOL			LoadDescriptor(LPCTSTR pszFile);
 	void			LoadDescriptorTitles(CXMLElement* pElement);
 	void			LoadDescriptorIcons(CXMLElement* pElement);
@@ -124,22 +130,6 @@ public:
 		}
 		return false;
 	}
-
-	inline bool FilterType(LPCTSTR pszFile, bool bDefault = false) const
-	{
-		if ( m_sTypeFilter.IsEmpty() ) return bDefault;
-
-		LPCTSTR pszExt = _tcsrchr( pszFile, '.' );
-		if ( pszExt == NULL ) return false;
-
-		CString strExt = _T("|");
-		strExt += pszExt;
-		strExt += '|';
-		ToLower( strExt );
-
-		return m_sTypeFilter.Find( strExt ) >= 0;
-	}
-
 
 // Common Schemas
 public:

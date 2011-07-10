@@ -22,12 +22,14 @@
 #include "LiveListSizer.h"
 
 class CMainWnd;
+class CSkinWindow;
 class CWindowManager;
-class CQuerySearch;
-class CQueryHit;
+
 class CBuffer;
 class CConnection;
-class CSkinWindow;
+class CLibraryFile;
+class CQueryHit;
+class CQuerySearch;
 
 
 class CChildWnd : public CMDIChildWnd
@@ -56,6 +58,8 @@ protected:
 public:
 	CMainWnd*		GetMainWnd();
 	CWindowManager*	GetManager();
+//	void			GetWindowText(CString& rString);
+//	void			SetWindowText(LPCTSTR lpszString);
 	BOOL			IsActive(BOOL bFocused = FALSE);
 	BOOL			IsPartiallyVisible();
 	BOOL			TestPoint(const CPoint& ptScreen);
@@ -65,13 +69,21 @@ public:
 	void			SizeListAndBar(CWnd* pList, CWnd* pBar);
 	void			RemoveSkin();
 
+	// Notify window about skin change
 	virtual void	OnSkinChange();
-	virtual void	OnQuerySearch(const CQuerySearch* pSearch);
-	virtual BOOL	OnQueryHits(const CQueryHit* pHits);
-	virtual BOOL	OnPush(const Hashes::Guid& pClientID, CConnection* pConnection);
+	// Notify window about arrived query search
+	virtual void	OnQuerySearch(const CQuerySearch* /*pSearch*/) {}
+	// Notify window about arrived query hits
+	virtual BOOL	OnQueryHits(const CQueryHit* /*pHits*/) { return FALSE; }
+	// Notify window about security rules changed
+	virtual void	SanityCheck() {}
+	// Notify window about new push connection available
+	virtual BOOL	OnPush(const Hashes::Guid& /*pClientID*/, CConnection* /*pConnection*/) { return FALSE; }
+	// Notify window about new library file (return TRUE to cancel event route)
+	virtual BOOL	OnNewFile(CLibraryFile* /*pFile*/) { return FALSE; }
+
 	virtual HRESULT	GetGenericView(IGenericView** ppView);
 	virtual BOOL    DestroyWindow();
-	virtual void	SanityCheck();
 
 protected:
 	virtual BOOL	Create(UINT nID, BOOL bVisible = TRUE);
@@ -85,15 +97,15 @@ protected:
 	afx_msg void	OnSize(UINT nType, int cx, int cy);
 	afx_msg void	OnSysCommand(UINT nID, LPARAM lParam);
 	afx_msg void	OnMDIActivate(BOOL bActivate, CWnd* pActivateWnd, CWnd* pDeactivateWnd);
-	afx_msg void	OnNcRButtonUp(UINT nHitTest, CPoint point);
-	afx_msg void	OnNcCalcSize(BOOL bCalcValidRects, NCCALCSIZE_PARAMS FAR* lpncsp);
 	afx_msg void	OnNcPaint();
-	afx_msg LRESULT	OnNcHitTest(CPoint point);
+	afx_msg void	OnNcCalcSize(BOOL bCalcValidRects, NCCALCSIZE_PARAMS FAR* lpncsp);
 	afx_msg BOOL	OnNcActivate(BOOL bActive);
-	afx_msg void	OnNcLButtonDown(UINT nHitTest, CPoint point);
-	afx_msg void	OnNcLButtonUp(UINT nHitTest, CPoint point);
+	afx_msg LRESULT	OnNcHitTest(CPoint point);
 	afx_msg void	OnNcMouseMove(UINT nHitTest, CPoint point);
 	afx_msg void	OnNcLButtonDblClk(UINT nHitTest, CPoint point);
+	afx_msg void	OnNcLButtonDown(UINT nHitTest, CPoint point);
+	afx_msg void	OnNcLButtonUp(UINT nHitTest, CPoint point);
+	afx_msg void	OnNcRButtonUp(UINT nHitTest, CPoint point);
 	afx_msg BOOL	OnHelpInfo(HELPINFO* pHelpInfo);
 	afx_msg LRESULT	OnSetText(WPARAM wParam, LPARAM lParam);
 	//}}AFX_MSG

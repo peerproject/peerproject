@@ -127,7 +127,7 @@
     </PostBuildEvent>
     <PreBuildEvent>
       <Message>Pre-Build Dependencies</Message>
-      <Command>copy "7zxr.dll" "$(TargetDir)" /b /y</Command>
+      <Command>copy "7zxa.dll" "$(TargetDir)" /b /y</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -180,7 +180,7 @@
     </PostBuildEvent>
     <PreBuildEvent>
       <Message>Pre-Build Dependencies</Message>
-      <Command>copy "7zxr.dll" "$(TargetDir)" /b /y</Command>
+      <Command>copy "7zxa-x64.dll" "$(TargetDir)/7zxa.dll" /b /y</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

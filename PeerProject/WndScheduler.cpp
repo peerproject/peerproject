@@ -248,7 +248,6 @@ void CSchedulerWnd::Update(int nColumn, BOOL bSort)
 	pLiveList.Apply( &m_wndList, bSort );	// Put items in the main list
 
 	tLastUpdate = GetTickCount();			// Update time after done doing work
-
 }
 
 CScheduleTask* CSchedulerWnd::GetItem(int nItem)

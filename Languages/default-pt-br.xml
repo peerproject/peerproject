@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Brazilian Portuguese Skin File -->
 
-<!-- Translation based on default-en.xml r67 -->
+<!-- Translation based on default-en.xml r68 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -980,7 +980,7 @@
 		</menu>
 		<separator/>
 		<item id="ID_HOSTCACHE_IMPORT" text="_Importar Arquivo MET..."/>
-		<item id="ID_HOSTCACHE_ED2K_DOWNLOAD" text="Baixar MET..."/>
+		<item id="ID_HOSTCACHE_FILE_DOWNLOAD" text="Baixar MET..."/>
 	</menu>
 	<!-- SEARCH WINDOW -->
 	<menu name="CSearchWnd.Basic">
@@ -2472,7 +2472,7 @@
 	<tip id="ID_HOSTCACHE_CONNECT" message="Conectar ao(s) host(s) selecionado(s)."/>
 	<tip id="ID_HOSTCACHE_DISCONNECT" message="Desconectado do(s) vizinho(s) selecionado(s)."/>
 	<tip id="ID_HOSTCACHE_ED2K_CACHE" message="Mostrar servidores do eDonkey."/>
-	<tip id="ID_HOSTCACHE_ED2K_DOWNLOAD" message="Baixar um arquivo &quot;server.met&quot; para o eDonkey..."/>
+	<tip id="ID_HOSTCACHE_FILE_DOWNLOAD" message="Baixar um arquivo &quot;server.met&quot; para o eDonkey..."/>
 	<tip id="ID_HOSTCACHE_G1_CACHE" message="Mostrar hosts armazenados da Gnutella 1."/>
 	<tip id="ID_HOSTCACHE_G2_CACHE" message="Mostrar hosts armazenados da Gnutella 2."/>
 	<tip id="ID_HOSTCACHE_G2_HORIZON" message="Mostrar o horizonte dos Hubs Gnutella 2."/>
@@ -3210,7 +3210,7 @@
 	<string id="20590" value="O acesso remoto está desativado."/>
 	<string id="20591" value="http://%s:%i/remote - Escolher um nome de usuário e senha."/>
 	<string id="20592" value="Incapaz de aceitar conexões, URL indisponível."/>
-	<string id="20597" value="Você tem certeza de que você quer apagar as regras de segurança selecionadas? Isto não pode ser desfeito."/>
+	<string id="20597" value="Você tem certeza de que você quer apagar as regras de segurança selecionadas?"/>
 	<string id="20599" value="&amp;Schemas"/>
 	<string id="20600" value="Banda: Completa"/>
 	<string id="20601" value="Banda: Reduzida"/>
@@ -3449,7 +3449,7 @@
 	<string id="20882" value="Nenhuma URN disponível"/>
 	<string id="20883" value="O serviço de host de Dispositivo UPnP não está rodando. Este serviço é requerido para fazer a configuração.\nVocê precisa configurar o tipo de inicialização do serviço para automático."/>
 	<string id="20885" value="Mudar a visualização fechará quaisquer janelas que estejam abertas. Você gostaria de mudar agora?"/>
-	<string id="20886" value="Mudar a direção da interface requer reiniciar. \nVocê precisará iniciar o PeerProject manualmente. Sair agora?"/>
+	<string id="20886" value="Mudar a direção da interface requer reiniciar.\n\nSair agora?"/>
 	<string id="20890" value="Bem-vindo ao PeerProject"/>
 	<string id="20891" value="Sair"/>
 	<string id="20892" value="Por favor espere: Atualizando a lista de servidores do eDonkey..."/>
@@ -4455,7 +4455,7 @@
 		<control caption="OK"/>
 		<control caption="Cancelar"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="Baixar Arquivo Server.met">
+	<dialog name="CUpdateServersDlg" cookie="StEdmsBuBu" caption="Baixar Arquivo Server.met">
 		<control caption="Você pode baixar um Server.met do eDonkey para atualizar a sua lista local de servidores."/>
 		<control/>
 		<control/>

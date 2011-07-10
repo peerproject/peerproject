@@ -157,9 +157,12 @@ BOOL CLibraryFolder::CheckFolder(CLibraryFolder* pFolder, BOOL bRecursive) const
 	return FALSE;
 }
 
-INT_PTR CLibraryFolder::GetFolderCount() const
+DWORD CLibraryFolder::GetFolderCount() const
 {
-	return m_pFolders.GetCount();
+	ASSUME_LOCK( Library.m_pSection );
+	ASSERT_VALID( this );
+
+	return (DWORD)m_pFolders.GetCount();
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -167,11 +170,17 @@ INT_PTR CLibraryFolder::GetFolderCount() const
 
 POSITION CLibraryFolder::GetFileIterator() const
 {
+	ASSUME_LOCK( Library.m_pSection );
+	ASSERT_VALID( this );
+
 	return m_pFiles.GetStartPosition();
 }
 
 CLibraryFile* CLibraryFolder::GetNextFile(POSITION& pos) const
 {
+	ASSUME_LOCK( Library.m_pSection );
+	ASSERT_VALID( this );
+
 	CLibraryFile* pOutput = NULL;
 	CString strName;
 	m_pFiles.GetNextAssoc( pos, strName, pOutput );
@@ -180,24 +189,31 @@ CLibraryFile* CLibraryFolder::GetNextFile(POSITION& pos) const
 
 CLibraryFile* CLibraryFolder::GetFile(LPCTSTR pszName) const
 {
+	ASSUME_LOCK( Library.m_pSection );
+	ASSERT_VALID( this );
+
 	CLibraryFile* pOutput = NULL;
 	CString strName( pszName );
 	ToLower( strName );
 	return ( m_pFiles.Lookup( strName, pOutput ) ) ? pOutput : NULL;
 }
 
-INT_PTR CLibraryFolder::GetFileCount() const
+DWORD CLibraryFolder::GetFileCount() const
 {
-	return m_pFiles.GetCount();
+	ASSUME_LOCK( Library.m_pSection );
+	ASSERT_VALID( this );
+
+	return (DWORD)m_pFiles.GetCount();
 }
 
-int CLibraryFolder::GetFileList(CLibraryList* pList, BOOL bRecursive) const
+DWORD CLibraryFolder::GetFileList(CLibraryList* pList, BOOL bRecursive) const
 {
-	int nCount = 0;
+	DWORD nCount = 0;
 
 	for ( POSITION pos = GetFileIterator() ; pos ; )
 	{
-		pList->CheckAndAdd( GetNextFile( pos ) );
+		const CLibraryFile* pFile = GetNextFile( pos );
+		pList->CheckAndAdd( pFile );
 		nCount++;
 	}
 
@@ -205,26 +221,34 @@ int CLibraryFolder::GetFileList(CLibraryList* pList, BOOL bRecursive) const
 	{
 		for ( POSITION pos = GetFolderIterator() ; pos ; )
 		{
-			GetNextFolder( pos )->GetFileList( pList, bRecursive );
+			const CLibraryFolder* pFolder = GetNextFolder( pos );
+			nCount += pFolder->GetFileList( pList, bRecursive );
 		}
 	}
 
 	return nCount;
 }
 
-int CLibraryFolder::GetSharedCount() const
+DWORD CLibraryFolder::GetSharedCount(BOOL bRecursive) const
 {
-	int nCount = 0;
+	ASSUME_LOCK( Library.m_pSection );
+	ASSERT_VALID( this );
+
+	DWORD nCount = 0;
 
 	for ( POSITION pos = GetFileIterator() ; pos ; )
 	{
-		CLibraryFile* pFile = GetNextFile( pos );
+		const CLibraryFile* pFile = GetNextFile( pos );
 		if ( pFile->IsShared() ) nCount++;
 	}
 
-	for ( POSITION pos = GetFolderIterator() ; pos ; )
+	if ( bRecursive )
 	{
-		nCount += GetNextFolder( pos )->GetSharedCount();
+		for ( POSITION pos = GetFolderIterator() ; pos ; )
+		{
+			const CLibraryFolder* pFolder = GetNextFolder( pos );
+			nCount += pFolder->GetSharedCount( bRecursive );
+		}
 	}
 
 	return nCount;
@@ -312,17 +336,15 @@ void CLibraryFolder::Serialize(CArchive& ar, int nVersion)
 		for ( ; nCount > 0 ; nCount-- )
 		{
 			CLibraryFolder* pFolder = new CLibraryFolder( this );
-			if ( pFolder == NULL )
-			{
-			//	theApp.Message( MSG_DEBUG, _T("Memory allocation error in CLibraryFolder::Serialize") );
-				break;
-			}
+			if ( ! pFolder )
+				break;		// theApp.Message( MSG_DEBUG, _T("Memory allocation error in CLibraryFolder::Serialize") );
+
 			pFolder->Serialize( ar, nVersion );
 
 			m_pFolders.SetAt( pFolder->m_sNameLC, pFolder );
 
-			m_nFiles	+= pFolder->m_nFiles;
-			m_nVolume	+= pFolder->m_nVolume;
+			m_nFiles  += pFolder->m_nFiles;
+			m_nVolume += pFolder->m_nVolume;
 		}
 
 		nCount = ar.ReadCount();
@@ -331,17 +353,17 @@ void CLibraryFolder::Serialize(CArchive& ar, int nVersion)
 		for ( ; nCount > 0 ; nCount-- )
 		{
 			CLibraryFile* pFile = new CLibraryFile( this );
-			if ( pFile == NULL )
-			{
-			//	theApp.Message( MSG_DEBUG, _T("Memory allocation error in CLibraryFolder::Serialize") );
-				break;
-			}
+			if ( ! pFile )
+				break;		// theApp.Message( MSG_DEBUG, _T("Memory allocation error in CLibraryFolder::Serialize") );
+
 			pFile->Serialize( ar, nVersion );
 
 			m_pFiles.SetAt( pFile->GetNameLC(), pFile );
 
 			m_nFiles++;
-			m_nVolume	+= pFile->m_nSize;
+			m_nVolume += pFile->m_nSize;
+
+			theApp.KeepAlive();
 		}
 	}
 }
@@ -491,7 +513,7 @@ BOOL CLibraryFolder::ThreadScan(DWORD nScanCookie)
 
 		if ( pFile->m_nScanCookie != nScanCookie )
 		{
-			pFile->OnDelete();
+			pFile->OnDelete( TRUE );
 			bChanged = TRUE;
 		}
 	}
@@ -931,7 +953,7 @@ STDMETHODIMP CLibraryFolder::XLibraryFolders::get_Item(VARIANT vIndex, ILibraryF
 
 		if ( FAILED( VariantChangeType( &va, (VARIANT FAR*)&vIndex, 0, VT_I4 ) ) )
 			return E_INVALIDARG;
-		if ( va.lVal < 0 || va.lVal >= pThis->GetFolderCount() )
+		if ( va.lVal < 0 || va.lVal >= (LONG)pThis->GetFolderCount() )
 			return E_INVALIDARG;
 
 		for ( POSITION pos = pThis->GetFolderIterator() ; pos ; )
@@ -1003,7 +1025,7 @@ STDMETHODIMP CLibraryFolder::XLibraryFiles::get_Item(VARIANT vIndex, ILibraryFil
 
 		if ( FAILED( VariantChangeType( &va, (VARIANT FAR*)&vIndex, 0, VT_I4 ) ) )
 			return E_INVALIDARG;
-		if ( va.lVal < 0 || va.lVal >= pThis->GetFileCount() )
+		if ( va.lVal < 0 || va.lVal >= (LONG)pThis->GetFileCount() )
 			return E_INVALIDARG;
 
 		for ( POSITION pos = pThis->GetFileIterator() ; pos ; )

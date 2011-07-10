@@ -629,116 +629,164 @@ BOOL StartsWith(const CString& sInput, LPCTSTR pszText, size_t nLen)
 		! _tcsnicmp( (LPCTSTR)sInput, pszText, nLen );
 }
 
-//CString LoadFile(LPCTSTR pszPath)
-//{
-//	CString strXML;
-//
-//	CFile pFile;
-//	if ( ! pFile.Open( pszPath, CFile::modeRead ) )
-//		return strXML;	// File open error
-//
-//	DWORD nByte = (DWORD)pFile.GetLength();
-//	if ( nByte > 4096 * 1024 )
-//		return strXML;	// File too big (>4MB)
-//
-//	BYTE* pBuf = new BYTE[ nByte ];
-//	try
-//	{
-//		pFile.Read( pBuf, nByte );
-//	}
-//	catch ( CException* pException )
-//	{
-//		// File read error
-//		pFile.Abort();
-//		pException->Delete();
-//		delete [] pBuf;
-//		return strXML;
-//	}
-//	pFile.Close();
-//
-//	BYTE* pByte = pBuf;
-//	if ( nByte >= 2 &&
-//		( ( pByte[0] == 0xFE && pByte[1] == 0xFF ) ||
-//		  ( pByte[0] == 0xFF && pByte[1] == 0xFE ) ) )
-//	{
-//		nByte = nByte / 2 - 1;
-//		if ( pByte[0] == 0xFE && pByte[1] == 0xFF )
-//		{
-//			pByte += 2;
-//			for ( DWORD nSwap = 0 ; nSwap < nByte ; nSwap ++ )
-//			{
-//				register CHAR nTemp = pByte[ ( nSwap << 1 ) + 0 ];
-//				pByte[ ( nSwap << 1 ) + 0 ] = pByte[ ( nSwap << 1 ) + 1 ];
-//				pByte[ ( nSwap << 1 ) + 1 ] = nTemp;
-//			}
-//		}
-//		else
-//		{
-//			pByte += 2;
-//		}
-//
-//		CopyMemory( strXML.GetBuffer( nByte ), pByte, nByte * sizeof( TCHAR ) );
-//		strXML.ReleaseBuffer( nByte );
-//	}
-//	else
-//	{
-//		if ( nByte >= 3 && pByte[0] == 0xEF && pByte[1] == 0xBB && pByte[2] == 0xBF )
-//		{
-//			pByte += 3;
-//			nByte -= 3;
-//		}
-//
-//		strXML = UTF8Decode( (LPCSTR)pByte, nByte );
-//	}
-//	delete [] pBuf;
-//
-//	return strXML;
-//}
-//
-//BOOL ReplaceNoCase(CString& sInStr, LPCTSTR pszOldStr, LPCTSTR pszNewStr)
-//{
-//	BOOL bModified = FALSE;
-//	DWORD nInLength = sInStr.GetLength();
-//	LPCTSTR pszInStr = sInStr;
-//
-//	CString result;
-//	result.Preallocate( nInLength );
-//
-//	TCHAR nOldChar = pszOldStr[ 0 ];
-//	for ( DWORD nPos = 0 ; nPos < nInLength ; )
-//	{
-//		TCHAR nChar = pszInStr[ nPos ];
-//		if ( ToLower( nChar ) == nOldChar )
-//		{
-//			DWORD nOffset = 0;
-//			while ( TCHAR nChar2 = pszOldStr[ ++nOffset ] )
-//			{
-//				if ( nChar2 != ToLower( pszInStr[ nPos + nOffset ] ) )
-//				{
-//					result.AppendChar( nChar );
-//					++nPos;
-//					break;
-//				}
-//			}
-//			nPos += nOffset;
-//			result.Append( pszNewStr );
-//			bModified = TRUE;
-//		}
-//		else
-//		{
-//			result.AppendChar( nChar );
-//			++nPos;
-//		}
-//	}
-//
-//	sInStr = result;
-//
-//	return bModified;
-//}
-//
-//CString HostToString(const SOCKADDR_IN* pHost)
-//{
-//	CString sHost;
-//	sHost.Format( _T("%s:%hu"), CString( inet_ntoa( pHost->sin_addr ) ), ntohs( pHost->sin_port ) );
-//	return sHost;
-//}
+CString LoadFile(LPCTSTR pszPath)
+{
+	CString strXML;
+
+	CFile pFile;
+	if ( ! pFile.Open( pszPath, CFile::modeRead ) )
+		return strXML;	// File open error
+
+	DWORD nByte = (DWORD)pFile.GetLength();
+	if ( nByte > 4096 * 1024 )
+		return strXML;	// File too big (>4MB)
+
+	BYTE* pBuf = new BYTE[ nByte ];
+	try
+	{
+		pFile.Read( pBuf, nByte );
+	}
+	catch ( CException* pException )
+	{
+		// File read error
+		pFile.Abort();
+		pException->Delete();
+		delete [] pBuf;
+		return strXML;
+	}
+	pFile.Close();
+
+	BYTE* pByte = pBuf;
+	if ( nByte >= 2 &&
+		( ( pByte[0] == 0xFE && pByte[1] == 0xFF ) ||
+		  ( pByte[0] == 0xFF && pByte[1] == 0xFE ) ) )
+	{
+		nByte = nByte / 2 - 1;
+		if ( pByte[0] == 0xFE && pByte[1] == 0xFF )
+		{
+			pByte += 2;
+			for ( DWORD nSwap = 0 ; nSwap < nByte ; nSwap ++ )
+			{
+				register CHAR nTemp = pByte[ ( nSwap << 1 ) + 0 ];
+				pByte[ ( nSwap << 1 ) + 0 ] = pByte[ ( nSwap << 1 ) + 1 ];
+				pByte[ ( nSwap << 1 ) + 1 ] = nTemp;
+			}
+		}
+		else
+		{
+			pByte += 2;
+		}
+
+		CopyMemory( strXML.GetBuffer( nByte ), pByte, nByte * sizeof( TCHAR ) );
+		strXML.ReleaseBuffer( nByte );
+	}
+	else
+	{
+		if ( nByte >= 3 && pByte[0] == 0xEF && pByte[1] == 0xBB && pByte[2] == 0xBF )
+		{
+			pByte += 3;
+			nByte -= 3;
+		}
+
+		strXML = UTF8Decode( (LPCSTR)pByte, nByte );
+	}
+	delete [] pBuf;
+
+	return strXML;
+}
+
+BOOL ReplaceNoCase(CString& sInStr, LPCTSTR pszOldStr, LPCTSTR pszNewStr)
+{
+	BOOL bModified = FALSE;
+	DWORD nInLength = sInStr.GetLength();
+	LPCTSTR pszInStr = sInStr;
+
+	CString result;
+	result.Preallocate( nInLength );
+
+	TCHAR nOldChar = pszOldStr[ 0 ];
+	for ( DWORD nPos = 0 ; nPos < nInLength ; )
+	{
+		TCHAR nChar = pszInStr[ nPos ];
+		if ( ToLower( nChar ) == nOldChar )
+		{
+			DWORD nOffset = 0;
+			while ( TCHAR nChar2 = pszOldStr[ ++nOffset ] )
+			{
+				if ( nChar2 != ToLower( pszInStr[ nPos + nOffset ] ) )
+					goto fail;
+			}
+			nPos += nOffset;
+			result.Append( pszNewStr );
+			bModified = TRUE;
+		}
+		else
+		{
+fail:
+			result.AppendChar( nChar );
+			++nPos;
+		}
+	}
+
+	sInStr = result;
+
+	return bModified;
+}
+
+CString HostToString(const SOCKADDR_IN* pHost)
+{
+	CString sHost;
+	sHost.Format( _T("%s:%hu"), CString( inet_ntoa( pHost->sin_addr ) ), ntohs( pHost->sin_port ) );
+	return sHost;
+}
+
+BOOL IsValidIP(const CString& sInput)
+{
+	const int nLength = sInput.GetLength();
+	if ( nLength > 21 || nLength < 8 )
+		return FALSE;
+
+//	int nIP[5] = { 0 };
+//	if ( _stscanf( sInput, _T("%i.%i.%i.%i:%i"), &nIP[0], &nIP[1], &nIP[2], &nIP[3], &nIP[4] ) == 5 ||
+//		 _stscanf( sInput, _T("%i.%i.%i.%i"), &nIP[0], &nIP[1], &nIP[2], &nIP[3] ) == 4 )
+//		return nIP[0] < 256 && nIP[1] < 256 && nIP[2] < 256 && nIP[3] < 256 && nIP[4] < 65000;
+//	return FALSE;
+
+	CString strIP;
+	for ( int i = 0, d = 0 ; i < nLength ; i++ )
+	{
+		TCHAR Ch = sInput.GetAt( i );
+		if ( _istdigit( Ch ) )
+		{
+			strIP.AppendChar( Ch );
+			if ( d == 4 )
+			{
+				if ( strIP.GetLength() > 5 || strIP.GetLength() == 5 && _tstoi( strIP ) > 65000 )
+					return FALSE;
+				continue;
+			}
+			if ( strIP.GetLength() > 3 || strIP.GetLength() == 3 && _tstoi( strIP ) > 255 )
+				return FALSE;
+			continue;
+		}
+		if ( Ch == _T('.') )
+		{
+			if ( d++ > 3 || strIP.IsEmpty() )
+				return FALSE;
+			strIP.Empty();
+			continue;
+		}
+		if ( Ch == _T(':') )
+		{
+			if ( d != 3 || strIP.IsEmpty() )
+				return FALSE;
+			d = 4;
+			strIP.Empty();
+			continue;
+		}
+
+		return FALSE;
+	}
+
+	return TRUE;
+}

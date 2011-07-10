@@ -19,6 +19,7 @@
 #pragma once
 
 #include "PeerProjectFile.h"
+#include "Schema.h"
 
 class CVendor;
 class CMatchFile;
@@ -68,19 +69,18 @@ public:
 	int				m_nUpQueue;
 	BOOL			m_bCollection;
 
-	CString			m_sSchemaURI;
-	CString			m_sSchemaPlural;
+	CSchemaPtr		m_pSchema;
 	CXMLElement*	m_pXML;
-	int				m_nRating;
 	CString			m_sComments;
+	int				m_nRating;
 
 	BOOL			m_bBogus;
 	BOOL			m_bMatched;
 	BOOL			m_bExactMatch;
 	BOOL			m_bFiltered;
 	BOOL			m_bDownload;
-	BOOL			m_bNew;
 	BOOL			m_bSelected;
+	BOOL			m_bNew;
 protected:
 	BOOL			m_bResolveURL;
 	DWORD			m_nHitSources;
@@ -89,10 +89,9 @@ protected:
 public:
 	static CQueryHit*	FromG1Packet(CG1Packet* pPacket, int* pnHops = NULL);
 	static CQueryHit*	FromG2Packet(CG2Packet* pPacket, int* pnHops = NULL);
-	static CQueryHit*	FromEDPacket(CEDPacket* pPacket, const SOCKADDR_IN* pServer, BOOL bUnicode, const Hashes::Guid& pSearchID = Hashes::Guid()) throw();
+	static CQueryHit*	FromEDPacket(CEDPacket* pPacket, const SOCKADDR_IN* pServer, BOOL bUnicode, const Hashes::Guid& pSearchID = Hashes::Guid());
 	static CQueryHit*	FromDCPacket(CDCPacket* pPacket);
 protected:
-	static BOOL			CheckBogus(CQueryHit* pFirstHit);
 	static CXMLElement*	ReadXML(CG1Packet* pPacket, int nSize);
 
 // Operations
@@ -100,7 +99,7 @@ public:
 	CQueryHit&	operator=(const CQueryHit& pOther);
 	void		Delete();
 	int			GetRating();
-	void		Serialize(CArchive& ar, int nVersion);
+	void		Serialize(CArchive& ar, int nVersion);	// MATCHLIST_SER_VERSION
 	void		Ban(int nBanLength);	// Ban by host IP only
 	void		Resolve();
 	void		ReadEDPacket(CEDPacket* pPacket, const SOCKADDR_IN* pServer, BOOL bUnicode);
@@ -108,14 +107,10 @@ protected:
 	void		ParseAttributes(const Hashes::Guid& pClientID, CVendor* pVendor, BYTE* nFlags, BOOL bChat, BOOL bBrowseHost);
 	void		ReadG1Packet(CG1Packet* pPacket);
 	void		ReadGGEP(CG1Packet* pPacket);
-	void		ReadExtension(CG1Packet* pPacket);
 	BOOL		CheckValid() const;
-	bool		ReadG2Packet(CG2Packet* pPacket, DWORD nLength);
+	void		ReadG2Packet(CG2Packet* pPacket, DWORD nLength);
 	void		ReadEDAddress(CEDPacket* pPacket, const SOCKADDR_IN* pServer);
 	BOOL		ParseXML(CXMLElement* pXML, DWORD nRealIndex);
-	BOOL		HasBogusMetadata();
-	BOOL		AutoDetectSchema(LPCTSTR pszInfo);
-	BOOL		AutoDetectAudio(LPCTSTR pszInfo);
 
 // Inlines
 public:

@@ -28,12 +28,12 @@
 #include "SchemaCache.h"
 #include "Security.h"
 #include "ShellIcons.h"
-#include "VendorCache.h"
+#include "Colors.h"
 #include "Download.h"
 #include "Downloads.h"
 #include "Transfers.h"
+#include "VendorCache.h"
 #include "RegExp.h"
-#include "Colors.h"
 #include "XML.h"
 
 #include "CtrlMatch.h"
@@ -246,18 +246,18 @@ void CMatchList::AddHits(const CQueryHit* pHits, const CQuerySearch* pFilter)
 			if ( BOOL bName = _tcsistr( pFilter->m_sKeywords, pHit->m_sName ) == 0 )
 				pHit->m_bExactMatch = TRUE;
 
-			pHit->m_bMatched = pFilter->Match(
-				pHit->m_sName, pHit->m_sSchemaURI, pHit->m_pXML, pHit );
+			pHit->m_bMatched = pFilter->Match( pHit->m_sName,
+				( pHit->m_pSchema ? pHit->m_pSchema->GetURI() : NULL ), pHit->m_pXML, pHit );
 
 			// ToDo: Change to pHit->m_bMatched when we will be able to get folder name from hits.
 			// PeerProject/Shareaza sends hits if folder name matches the search keywords too.
 			// For now, just move such files to bogus. (Unwise?)
 			if ( Settings.Search.SchemaTypes && pFilter->m_pSchema )
 			{
-				if ( ! pHit->m_bMatched && pFilter->m_pSchema->CheckURI( pHit->m_sSchemaURI ) )
+				if ( !pHit->m_bMatched && pFilter->m_pSchema->Equals( pHit->m_pSchema ) )
 					pHit->m_bBogus = TRUE;
 				else
-					pHit->m_bBogus = ! pFilter->m_pSchema->FilterType( pHit->m_sName, TRUE );
+					pHit->m_bBogus = ! pFilter->m_pSchema->FilterType( pHit->m_sName );
 			}
 		}
 		else
@@ -678,80 +678,78 @@ bool CMatchList::CreateRegExpFilter(CString strPattern, CString& strFilter)
 	ASSERT( pParent );
 	CQuerySearchPtr pQuery = pParent->GetLastSearch();
 
-	if ( pQuery )
+	if ( ! pQuery )
+		return false;
+
+	LPCTSTR pszPattern = strPattern.GetBuffer();
+	int nTotal = 0;
+
+	while ( *pszPattern )
 	{
-		LPCTSTR pszPattern = strPattern.GetBuffer();
-		int nTotal = 0;
-
-		while ( *pszPattern )
+		if ( *pszPattern == '<' )
 		{
-			if ( *pszPattern == '<' )
+			pszPattern++;
+			bool bEnds = false;
+			bool bAll = ( *pszPattern == '%' || *pszPattern == '$'  || *pszPattern == '_' || *pszPattern == '>' );
+
+			for ( ; *pszPattern ; pszPattern++ )
 			{
-				pszPattern++;
-				bool bAll = ( *pszPattern == '%' || *pszPattern == '$'  || *pszPattern == '_' || *pszPattern == '>' );
-				bool bEnds = false;
-
-				for ( ; *pszPattern ; pszPattern++ )
+				if ( *pszPattern == '>' )
 				{
-					if ( *pszPattern == '>' )
-					{
-						bEnds = true;
-						break;
-					}
+					bEnds = true;
+					break;
 				}
+			}
 
-				if ( bEnds ) // Closed '>'
+			if ( bEnds )	// Closed '>'
+			{
+				CQuerySearch::const_iterator itWord = pQuery->begin();
+				CQuerySearch::const_iterator itWordEnd = pQuery->end();
+
+				if ( bAll )	// <%>,<$>,<_>,<>
 				{
-					CQuerySearch::const_iterator itWord = pQuery->begin();
-					CQuerySearch::const_iterator itWordEnd = pQuery->end();
-
-					if ( bAll ) // <%>,<$>,<_>,<>
+					// Add all keywords at the "< >" position
+					for ( ; itWord != itWordEnd ; itWord++ )
 					{
-						// Add all keywords at the "< >" position
-						for ( ; itWord != itWordEnd ; itWord++ )
+						strNewPattern.AppendFormat( L"%s\\s*",
+							(LPCTSTR)CString( itWord->first, int(itWord->second) ) );
+					}
+					bReplaced = true;
+				}
+				else		// <1>,<2>,<3>,<4>,<5>,<6>,<7>,<8>,<9>
+				{
+					pszPattern--;	// Go back
+					int nNumber = 0;
+
+					// Numbers from 1 to 9, no more
+					if ( _stscanf( &pszPattern[0], L"%i", &nNumber ) != 1 )
+						nNumber = ++nTotal;
+
+					// Add specified keyword at the "< >" position
+					for ( int nWord = 1 ; itWord != itWordEnd ; itWord++, nWord++ )
+					{
+						if ( nWord == nNumber )
 						{
 							strNewPattern.AppendFormat( L"%s\\s*",
 								(LPCTSTR)CString( itWord->first, int(itWord->second) ) );
+							bReplaced = true;
+							break;
 						}
-						bReplaced = true;
 					}
-					else // <1>,<2>,<3>,<4>,<5>,<6>,<7>,<8>,<9>
-					{
-						pszPattern--; // Go back
-						int nNumber = 0;
-
-						// Numbers from 1 to 9, no more
-						if ( _stscanf( &pszPattern[0], L"%i", &nNumber ) != 1 )
-							nNumber = ++nTotal;
-
-						// Add specified keyword at the "< >" position
-						for ( int nWord = 1 ; itWord != itWordEnd ; itWord++, nWord++ )
-						{
-							if ( nWord == nNumber )
-							{
-								strNewPattern.AppendFormat( L"%s\\s*",
-									(LPCTSTR)CString( itWord->first, int(itWord->second) ) );
-								bReplaced = true;
-								break;
-							}
-						}
-						pszPattern++; // return to the last position
-					}
-				}
-				else // No closing '>'
-				{
-					return false;
+					pszPattern++;	// return to the last position
 				}
 			}
-			else // No replacing
+			else	// No closing '>'
 			{
-				strNewPattern += *pszPattern;
+				return false;
 			}
-			pszPattern++;
 		}
+		else	// No replacing
+		{
+			strNewPattern += *pszPattern;
+		}
+		pszPattern++;
 	}
-	else
-		return false;
 
 	strFilter = strNewPattern;
 
@@ -760,7 +758,7 @@ bool CMatchList::CreateRegExpFilter(CString strPattern, CString& strFilter)
 
 	m_pszRegexPattern = new TCHAR[ strNewPattern.GetLength() + 1 ];
 	CopyMemory( m_pszRegexPattern, (LPCTSTR)strNewPattern,
-				sizeof(TCHAR) * ( strNewPattern.GetLength() + 1 ) );
+		sizeof(TCHAR) * ( strNewPattern.GetLength() + 1 ) );
 
 	return bReplaced;
 }
@@ -785,9 +783,9 @@ void CMatchList::Filter()
 	if ( m_bFilterRestricted )	Settings.Search.FilterMask |= ( 1 << 8 );	// 0;
 	if ( m_bFilterSuspicious )	Settings.Search.FilterMask |= ( 1 << 9 );	// 1;
 	if ( m_bFilterAdult	)		Settings.Search.FilterMask |= ( 1 << 10 );	// 0;
+//	if ( m_nFilterSources > 0 )	Settings.Search.FilterMask |= ( 1 << 12 );	// 1;
 //	if ( m_nFilterMinSize > 0 )	Settings.Search.FilterMask |= ( 1 << 10 );	// 1;
 //	if ( m_nFilterMaxSize > m_nFilterMinSize )	Settings.Search.FilterMask |= ( 1 << 11 );	// 0;
-//	if ( m_nFilterSources > 0 )	Settings.Search.FilterMask |= ( 1 << 12 );	// 1;
 
 	delete [] m_pszFilter;
 	m_pszFilter = NULL;
@@ -1146,12 +1144,12 @@ void CMatchList::ClearNew()
 // nVersion History:
 // 12 - Shareaza 2.2 (Rolandas)
 // 13 - Shareaza 2.3 (ryo-oh-ki)
-// 14 - Share1za 2.4 (ryo-oh-ki)
+// 14 - Shareaza 2.4 (ryo-oh-ki)
 // 1000 - (PeerProject 1.0) (14)
 
 void CMatchList::Serialize(CArchive& ar)
 {
-	int nVersion = MATCHLIST_SER_VERSION;	// ToDo: INTERNAL_VERSION
+	int nVersion = MATCHLIST_SER_VERSION;	// ToDo: INTERNAL_VERSION ?
 
 	if ( ar.IsStoring() )
 	{
@@ -1752,7 +1750,7 @@ void CMatchFile::Added(CQueryHit* pHit)
 	BOOL bSchema;
 
 	if ( m_pList->m_pSchema &&
-		 ( bSchema = m_pList->m_pSchema->CheckURI( pHit->m_sSchemaURI ) || pHit->m_oSHA1 ) != FALSE )
+		 ( bSchema = m_pList->m_pSchema->Equals( pHit->m_pSchema ) || pHit->m_oSHA1 ) != FALSE )
 	{
 		if ( m_pColumns == NULL )
 		{
@@ -1828,22 +1826,23 @@ void CMatchFile::Added(CQueryHit* pHit)
 	// Cross-packet spam filtering
 	DWORD nBogusCount = 0;
 	DWORD nTotal = 0;
-#ifndef LAN_MODE
-	for ( CQueryHit* pFileHits = m_pHits ; pFileHits ; pFileHits = pFileHits->m_pNext, nTotal++ )
+	if ( ! Settings.Experimental.LAN_Mode )
 	{
-		if ( pFileHits->m_pNext && validAndEqual( pFileHits->m_oClientID, pFileHits->m_pNext->m_oClientID ) )
-			pFileHits->m_bBogus = TRUE;
-		if ( pFileHits->m_bBogus )
-			nBogusCount++;
+		for ( CQueryHit* pFileHits = m_pHits ; pFileHits ; pFileHits = pFileHits->m_pNext, nTotal++ )
+		{
+			if ( pFileHits->m_pNext && validAndEqual( pFileHits->m_oClientID, pFileHits->m_pNext->m_oClientID ) )
+				pFileHits->m_bBogus = TRUE;
+			if ( pFileHits->m_bBogus )
+				nBogusCount++;
+		}
+
+		// Mark/unmark a file as suspicious depending on the percentage of the spam hits
+		m_bSuspicious = (float)nBogusCount / nTotal > Settings.Search.SpamFilterThreshold / 100.0f;
+
+		// Unshared files are suspicious. (A user is assumed to want to exclude these entirely)
+		if ( CLibrary::IsBadFile( m_sName ) )
+			m_bSuspicious = TRUE;
 	}
-#endif // LAN_MODE
-
-	// Mark/unmark a file as suspicious depending on the percentage of the spam hits
-	m_bSuspicious = (float)nBogusCount / nTotal > Settings.Search.SpamFilterThreshold / 100.0f;
-
-	// Unshared files are suspicious. (A user is assumed to want to exclude these entirely)
-	if ( CLibrary::IsBadFile( m_sName ) )
-		m_bSuspicious = TRUE;
 
 	// Get extention
 	if ( int nExt = pHit->m_sName.ReverseFind( _T('.') ) + 1 )
@@ -1851,7 +1850,8 @@ void CMatchFile::Added(CQueryHit* pHit)
 		LPCTSTR pszExt = (LPCTSTR)pHit->m_sName + nExt;
 
 		// Set torrent bool
-		if ( ( _tcsicmp( pszExt, _T("torrent") ) == 0 ) ) m_bTorrent = TRUE;
+		if ( ( _tcsicmp( pszExt, _T("torrent") ) == 0 ) )
+			m_bTorrent = TRUE;
 
 		// BASIC SPAM DETECTION:
 		// Check if file is suspicious
@@ -1864,15 +1864,15 @@ void CMatchFile::Added(CQueryHit* pHit)
 			{
 				m_bSuspicious = TRUE;
 			}
-
 			// Small filesize spam/viral
-			if ( m_nSize < 90 * 1024 )
+			else if ( m_nSize < 90 * 1024 )
 			{
 				if ( ( _tcsicmp( pszExt, _T("exe") ) == 0 ) ||
 					( _tcsicmp( pszExt, _T("com") ) == 0 ) ||
 					( _tcsicmp( pszExt, _T("scr") ) == 0 ) ||
 					( _tcsicmp( pszExt, _T("avi") ) == 0 ) ||
 					( _tcsicmp( pszExt, _T("mpg") ) == 0 ) ||
+					( _tcsicmp( pszExt, _T("mov") ) == 0 ) ||
 					( _tcsicmp( pszExt, _T("wmv") ) == 0 ) ||
 					( _tcsicmp( pszExt, _T("wma") ) == 0 ) )
 				{
@@ -1881,56 +1881,54 @@ void CMatchFile::Added(CQueryHit* pHit)
 			}
 
 			// Common exact search hit basic spam detection  (ToDo: Move most to filters + Keep updated)
-			if ( pHit->m_bExactMatch && m_nFiltered < 12 )
+			if ( ! m_bSuspicious && pHit->m_bExactMatch && m_nFiltered < 12 )
 			{
-				if ( _tcsicmp( pszExt, _T("zip") ) == 0 )						//.zip
+				if ( _tcsicmp( pszExt, _T("zip") ) == 0 )						// .zip
 				{
-					if ( m_nFiltered > 1 && pHit->GetSources() > 4 && pHit->GetSources() < 10 &&
-						m_nSize > 200 * 1024 && m_nSize < 501 * 1024 )			//Cluster
+					if ( m_nSize > 200 * 1024 && m_nSize < 501 * 1024 &&
+						m_nFiltered > 1 && pHit->GetSources() > 4 && pHit->GetSources() < 10 )		// Cluster
 					{
 						m_bSuspicious = TRUE;
 					}
 
-					if ( ( m_nSize < 4 * 1024 ) ||
-						( m_nSize > 210 * 1024 && m_nSize < 215 * 1024 ) ||		//211kb
-						( m_nSize > 396 * 1024 && m_nSize < 404 * 1024 ) ||		//397kb-402kb
-						( m_nSize > 426 * 1024 && m_nSize < 428 * 1024 ) ||		//427kb
-						( m_nSize > 501 * 1024 && m_nSize < 503 * 1024 ) ||		//501kb
-						( m_nSize > 648 * 1024 && m_nSize < 652 * 1024 ) ||		//651kb
-						( m_nSize > 656 * 1024 && m_nSize < 659 * 1024 ) ||		//657kb
-						( m_nSize > 697 * 1024 && m_nSize < 699 * 1024 ) ||		//698kb
-						( m_nSize > 735 * 1024 && m_nSize < 737 * 1024 ) ||		//736kb
-						( m_nSize > 3490 * 1024 && m_nSize < 3500 * 1024 ) )	//3.41mb
+					if ( ( m_nSize < 4 * 1024 )	//||
+			//			( m_nSize > 210 * 1024 && m_nSize < 215 * 1024 ) ||		// 211kb
+			//			( m_nSize > 501 * 1024 && m_nSize < 503 * 1024 ) ||		// 501kb
+			//			( m_nSize > 648 * 1024 && m_nSize < 652 * 1024 ) ||		// 651kb
+			//			( m_nSize > 697 * 1024 && m_nSize < 699 * 1024 ) ||		// 698kb
+			//			( m_nSize > 735 * 1024 && m_nSize < 737 * 1024 ) ||		// 736kb
+			//			( m_nSize > 3490 * 1024 && m_nSize < 3500 * 1024 ) )	// 3.41mb
+						)
 					{
 						m_bSuspicious = TRUE;
 					}
 				}
-				else if ( _tcsicmp( pszExt, _T("wma") ) == 0 )					//.wma
-				{
-					if ( ( m_nSize > 525 * 1024 && m_nSize < 530 * 1024 ) ||	//528kb
-						( m_nSize > 1054 * 1024 && m_nSize < 1064 * 1024 ) ||	//1.03mb
-						( m_nSize > 1088 * 1024 && m_nSize < 1092 * 1024 ) ||	//1.06mb
-						( m_nSize > 4690 * 1024 && m_nSize < 4694 * 1024 ) )	//4.58mb
-					{
-						m_bSuspicious = TRUE;
-					}
-				}
-				else if ( _tcsicmp( pszExt, _T("mov") ) == 0 )					//.mov
-				{
-					if ( ( m_nSize > 206 * 1024 && m_nSize < 208 * 1024 ) ||	//207kb
-						( m_nSize > 3333 * 1024 && m_nSize < 3344 * 1024 ) )	//3.26mb
-					{
-						m_bSuspicious = TRUE;
-					}
-				}
-				else if ( ( _tcsicmp( pszExt, _T("au") ) == 0 ) ||				//.au
-					( _tcsicmp( pszExt, _T("snd") ) == 0 ) )					//.snd
-				{
-					if ( m_nSize > 4400 * 1024 && m_nSize < 5800 * 1024 )		//4-5 mb
-					{
-						m_bSuspicious = TRUE;
-					}
-				}
+			//	else if ( _tcsicmp( pszExt, _T("wma") ) == 0 )					//.wma
+			//	{
+			//		if ( ( m_nSize > 525 * 1024 && m_nSize < 530 * 1024 ) ||	// 528kb
+			//			( m_nSize > 1054 * 1024 && m_nSize < 1064 * 1024 ) ||	// 1.03mb
+			//			( m_nSize > 1088 * 1024 && m_nSize < 1092 * 1024 ) ||	// 1.06mb
+			//			( m_nSize > 4690 * 1024 && m_nSize < 4694 * 1024 ) )	// 4.58mb
+			//		{
+			//			m_bSuspicious = TRUE;
+			//		}
+			//	}
+			//	else if ( _tcsicmp( pszExt, _T("mov") ) == 0 )					//.mov
+			//	{
+			//		if ( ( m_nSize > 206 * 1024 && m_nSize < 208 * 1024 ) ||	// 207kb
+			//			( m_nSize > 3333 * 1024 && m_nSize < 3344 * 1024 ) )	// 3.26mb
+			//		{
+			//			m_bSuspicious = TRUE;
+			//		}
+			//	}
+			//	else if ( ( _tcsicmp( pszExt, _T("au") ) == 0 ) ||				//.au
+			//		( _tcsicmp( pszExt, _T("snd") ) == 0 ) )					//.snd
+			//	{
+			//		if ( m_nSize > 4400 * 1024 && m_nSize < 5800 * 1024 )		// 4-5 mb
+			//		{
+			//			m_bSuspicious = TRUE;
+			//		}
+			//	}
 			}
 		}
 	}
@@ -2272,7 +2270,7 @@ CSchemaPtr CMatchFile::GetHitsSchema() const
 	CSchemaPtr pSchema = NULL;
 	for ( CQueryHit* pHit = m_pHits ; pHit ; pHit = pHit->m_pNext )
 	{
-		pSchema = SchemaCache.Get( pHit->m_sSchemaURI );
+		pSchema = pHit->m_pSchema;
 		if ( pSchema ) break;
 	}
 	return pSchema;
@@ -2287,7 +2285,7 @@ CSchemaPtr CMatchFile::AddHitsToMetadata(CMetaList& oMetadata) const
 
 		for ( CQueryHit* pHit = m_pHits ; pHit ; pHit = pHit->m_pNext )
 		{
-			if ( pHit->m_pXML && pSchema->CheckURI( pHit->m_sSchemaURI ) )
+			if ( pHit->m_pXML && pSchema->Equals( pHit->m_pSchema ) )
 				oMetadata.Combine( pHit->m_pXML );
 		}
 	}
@@ -2396,9 +2394,9 @@ LPCTSTR CMatchFile::GetBestCountry() const
 	return ( m_pBest ? m_pBest->m_sCountry : _T("") );
 }
 
-LPCTSTR CMatchFile::GetBestSchemaURI() const
+CSchemaPtr CMatchFile::GetBestSchema() const
 {
-	return ( m_pBest ? m_pBest->m_sSchemaURI : _T("") );
+	return ( m_pBest ? m_pBest->m_pSchema : NULL );
 }
 
 TRISTATE CMatchFile::GetBestMeasured() const

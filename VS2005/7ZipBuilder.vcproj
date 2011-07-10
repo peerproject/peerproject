@@ -27,9 +27,9 @@
 			>
 			<Tool
 				Name="VCCustomBuildTool"
-				Description="Copying 7zxr dll..."
-				CommandLine="xcopy &quot;$(SolutionDir)..\Plugins\$(ProjectName)\7zxr.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;"
-				Outputs="$(OutDir)7zxr.dll"
+				Description="Copying 7zxa dll..."
+				CommandLine="xcopy &quot;$(SolutionDir)..\Plugins\$(ProjectName)\7zxa.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;"
+				Outputs="$(OutDir)7zxa.dll"
 				ExecutionBucket="1"
 			/>
 			<Tool
@@ -125,9 +125,9 @@
 			>
 			<Tool
 				Name="VCCustomBuildTool"
-				Description="Copying 7zxr dll..."
-				CommandLine="if not exist &quot;$(OutDir)7zxr.dll&quot; (&#x0D;&#x0A;	xcopy &quot;$(SolutionDir)..\Plugins\$(ProjectName)\7zxr.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;)"
-				Outputs="$(OutDir)7zxr.dll"
+				Description="Copying 7zxa dll..."
+				CommandLine="if not exist &quot;$(OutDir)7zxa.dll&quot; (&#x0D;&#x0A;	xcopy &quot;$(SolutionDir)..\Plugins\$(ProjectName)\7zxa-x64.dll&quot; &quot;$(OutDir)\7zxa.dll&quot; /y /q&#x0D;&#x0A;)"
+				Outputs="$(OutDir)7zxa.dll"
 				ExecutionBucket="1"
 			/>
 			<Tool
@@ -162,8 +162,8 @@
 				RuntimeTypeInfo="false"
 				UsePrecompiledHeader="2"
 				ProgramDataBaseFileName="$(TargetDir)$(TargetName).pdb"
-				WarningLevel="4"
 				DebugInformationFormat="3"
+				WarningLevel="4"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -221,9 +221,9 @@
 			>
 			<Tool
 				Name="VCCustomBuildTool"
-				Description="Copying 7zxr dll..."
-				CommandLine="if not exist &quot;$(OutDir)7zxr.dll&quot; (&#x0D;&#x0A;	xcopy &quot;$(SolutionDir)..\Plugins\$(ProjectName)\7zxr.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;)"
-				Outputs="$(OutDir)7zxr.dll"
+				Description="Copying 7zxa dll..."
+				CommandLine="if not exist &quot;$(OutDir)7zxa.dll&quot; (&#x0D;&#x0A; xcopy &quot;$(SolutionDir)..\Plugins\$(ProjectName)\7zxa-x64.dll&quot; &quot;$(OutDir)\7zxa.dll&quot; /y /q&#x0D;&#x0A;)"
+				Outputs="$(OutDir)7zxa.dll"
 				ExecutionBucket="1"
 			/>
 			<Tool
@@ -254,9 +254,9 @@
 				RuntimeTypeInfo="false"
 				UsePrecompiledHeader="2"
 				ProgramDataBaseFileName="$(TargetDir)$(TargetName).pdb"
-				WarningLevel="4"
 				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="3"
+				WarningLevel="4"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -315,9 +315,9 @@
 			>
 			<Tool
 				Name="VCCustomBuildTool"
-				Description="Copying 7zxr dll..."
-				CommandLine="if not exist &quot;$(OutDir)7zxr.dll&quot; (&#x0D;&#x0A;	xcopy &quot;$(SolutionDir)..\Plugins\$(ProjectName)\7zxr.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;)"
-				Outputs="$(OutDir)7zxr.dll"
+				Description="Copying 7zxa dll..."
+				CommandLine="if not exist &quot;$(OutDir)7zxa.dll&quot; (&#x0D;&#x0A; xcopy &quot;$(SolutionDir)..\Plugins\$(ProjectName)\7zxa-x64.dll&quot; &quot;$(OutDir)\7zxa.dll&quot; /y /q&#x0D;&#x0A;)"
+				Outputs="$(OutDir)7zxa.dll"
 				ExecutionBucket="1"
 			/>
 			<Tool
@@ -349,8 +349,8 @@
 				RuntimeTypeInfo="false"
 				UsePrecompiledHeader="2"
 				ProgramDataBaseFileName="$(TargetDir)$(TargetName).pdb"
-				WarningLevel="4"
 				DebugInformationFormat="3"
+				WarningLevel="4"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -540,7 +540,7 @@
 			Name="Generated Files"
 			>
 			<File
-				RelativePath=".\DebugWin32\Plugins\7ZipBuilder\7ZipBuilder_i.c"
+				RelativePath="DebugWin32\Plugins\7ZipBuilder\7ZipBuilder_i.c"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -576,7 +576,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\Debugx64\Plugins\7ZipBuilder\7ZipBuilder_i.c"
+				RelativePath="Debugx64\Plugins\7ZipBuilder\7ZipBuilder_i.c"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -612,7 +612,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\ReleaseWin32\Plugins\7ZipBuilder\7ZipBuilder_i.c"
+				RelativePath="ReleaseWin32\Plugins\7ZipBuilder\7ZipBuilder_i.c"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -648,7 +648,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\Releasex64\Plugins\7ZipBuilder\7ZipBuilder_i.c"
+				RelativePath="Releasex64\Plugins\7ZipBuilder\7ZipBuilder_i.c"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"

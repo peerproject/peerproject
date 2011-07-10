@@ -1,7 +1,7 @@
 //
 // SharedFolder.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -60,18 +60,15 @@ public:
 	CLibraryFolder*	GetFolderByName(LPCTSTR pszName) const;
 	CLibraryFolder*	GetFolderByPath(LPCTSTR pszPath) const;
 	BOOL			CheckFolder(CLibraryFolder* pFolder, BOOL bRecursive = FALSE) const;
-	INT_PTR			GetFolderCount() const;
-	// Add new or get existing file
-	CLibraryFile*	AddFile(LPCTSTR szName, BOOL& bNew);
-	// Remove existing file recursively
-	// Returns: TRUE - file found and removed, FALSE - not found
-	BOOL			OnFileDelete(CLibraryFile* pRemovingFile);
+	DWORD			GetFolderCount() const;
+	CLibraryFile*	AddFile(LPCTSTR szName, BOOL& bNew);		// Add new or get existing file
+	BOOL			OnFileDelete(CLibraryFile* pRemovingFile);	// Remove existing file recursively.  TRUE if file found and removed, FALSE when not found
 	POSITION		GetFileIterator() const;
 	CLibraryFile*	GetNextFile(POSITION& pos) const;
 	CLibraryFile*	GetFile(LPCTSTR pszName) const;
-	INT_PTR			GetFileCount() const;
-	int				GetFileList(CLibraryList* pList, BOOL bRecursive) const;
-	int				GetSharedCount() const;
+	DWORD			GetFileCount() const;
+	DWORD			GetFileList(CLibraryList* pList, BOOL bRecursive) const;
+	DWORD			GetSharedCount(BOOL bRecursive = TRUE) const;
 	CString			GetRelativeName() const;
 
 	void			Scan();

@@ -234,7 +234,7 @@ void CSearchPanel::ShowSearch(const CManagedSearch* pManaged)
 	if ( m_bAdvanced )
 	{
 		m_boxAdvanced.m_wndCheckBoxG2.SetCheck( pManaged->m_bAllowG2 ? BST_CHECKED : BST_UNCHECKED);
-		m_boxAdvanced.m_wndCheckBoxG1.SetCheck( pManaged->m_bAllowG1 ? BST_CHECKED : BST_UNCHECKED );
+		m_boxAdvanced.m_wndCheckBoxG1.SetCheck( /*pManaged->m_bAllowG1 ? BST_CHECKED :*/ BST_UNCHECKED );	// Avoid spam by default until a solution
 		m_boxAdvanced.m_wndCheckBoxED2K.SetCheck( pManaged->m_bAllowED2K ? BST_CHECKED : BST_UNCHECKED );
 		m_boxAdvanced.m_wndCheckBoxDC.SetCheck( pManaged->m_bAllowDC ? BST_CHECKED : BST_UNCHECKED );
 
@@ -551,7 +551,7 @@ void CSearchInputBox::OnSize(UINT nType, int cx, int cy)
 
 	HDWP hDWP = BeginDeferWindowPos( 4 );
 
-	int width = ( cx - BOX_MARGIN * 3 ) / 2;		// Equal Button Size
+	const int width = ( cx - BOX_MARGIN * 3 ) / 2;	// Equal button size
 
 	DeferWindowPos( hDWP, m_wndSearch, NULL,
 		BOX_MARGIN, 25, cx - BOX_MARGIN * 2, 20,	// Search Bar
@@ -885,7 +885,7 @@ void CSearchAdvancedBox::OnSize(UINT nType, int cx, int cy)
 			SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOZORDER );
 	}
 
-	const int nY = Settings.DC.ShowInterface ? 8 : 26;
+	const int nY = ( Settings.DC.ShowInterface && Settings.eDonkey.ShowInterface && Settings.Gnutella1.ShowInterface ) ? 8 : 26;
 	const int nX = ( cx / 2 ) + BOX_MARGIN + 25;
 	const int nWidth = ( cx - BOX_MARGIN * 3 ) / 2 - 26;
 
@@ -945,7 +945,7 @@ void CSearchAdvancedBox::OnPaint()
 	pDC->ExtTextOut( rct.left, rct.top, nFlags, &rct, strControlTitle, NULL );
 	pDC->ExcludeClipRect( &rct );
 
-	if ( ! Settings.DC.ShowInterface )
+	if ( ! Settings.DC.ShowInterface || ! Settings.eDonkey.ShowInterface || ! Settings.Gnutella1.ShowInterface )
 	{
 		LoadString( strControlTitle, IDS_SEARCH_PANEL_INPUT_3 );	// "Network:"
 		rct.SetRect( rc.right / 2 + BOX_MARGIN, BOX_MARGIN, rc.right - BOX_MARGIN, BOX_MARGIN + 16 );
@@ -958,13 +958,15 @@ void CSearchAdvancedBox::OnPaint()
 	if ( pDC == &dc )
 		pDC->FillSolidRect( &rc, Colors.m_crTaskBoxClient );		// Paint remaining background for unskinned Advanced box
 
-	const int nY = Settings.DC.ShowInterface ? 6 : 24;
 	const int nX = rc.right / 2 + BOX_MARGIN + 1;
-	m_gdiProtocols.Draw( pDC, PROTOCOL_G2, CPoint( nX, nY ), ILD_NORMAL );			// G2 Icon
-	m_gdiProtocols.Draw( pDC, PROTOCOL_G1, CPoint( nX, nY + 20 ), ILD_NORMAL );		// G1 Icon
-	m_gdiProtocols.Draw( pDC, PROTOCOL_ED2K, CPoint( nX, nY + 40 ), ILD_NORMAL );	// ED2K Icon
+	const int nY = ( Settings.DC.ShowInterface && Settings.eDonkey.ShowInterface && Settings.Gnutella1.ShowInterface ) ? 6 : 24;
+	m_gdiProtocols.Draw( pDC, PROTOCOL_G2, CPoint( nX, nY ), ILD_NORMAL );				// G2 Icon
+	if ( Settings.Gnutella1.ShowInterface )
+		m_gdiProtocols.Draw( pDC, PROTOCOL_G1, CPoint( nX, nY + 20 ), ILD_NORMAL );		// G1 Icon
+	if ( Settings.eDonkey.ShowInterface )
+		m_gdiProtocols.Draw( pDC, PROTOCOL_ED2K, CPoint( nX, nY + 40 ), ILD_NORMAL );	// ED2K Icon
 	if ( Settings.DC.ShowInterface )
-		m_gdiProtocols.Draw( pDC, PROTOCOL_DC, CPoint( nX, nY + 60 ), ILD_NORMAL );	// DC++ Icon
+		m_gdiProtocols.Draw( pDC, PROTOCOL_DC, CPoint( nX, nY + 60 ), ILD_NORMAL ); 	// DC++ Icon
 
 	if ( pDC != &dc )
 		dc.BitBlt( 0, 0, rc.Width(), rc.Height(), pDC, 0, 0, SRCCOPY );
@@ -972,15 +974,22 @@ void CSearchAdvancedBox::OnPaint()
 	m_wndCheckBoxG2.EnableWindow( Settings.Gnutella2.Enabled );
 	m_wndCheckBoxG1.EnableWindow( Settings.Gnutella1.Enabled );
 	m_wndCheckBoxED2K.EnableWindow( Settings.eDonkey.Enabled );
-	if ( Settings.DC.ShowInterface )
-	{
-		m_wndCheckBoxDC.EnableWindow( Settings.DC.Enabled );
-		m_wndCheckBoxDC.ModifyStyle( 0 , WS_VISIBLE );
-	}
+	m_wndCheckBoxDC.EnableWindow( Settings.DC.Enabled );
+
+	if ( Settings.Gnutella1.ShowInterface || Settings.Gnutella1.Enabled )
+		m_wndCheckBoxG1.ModifyStyle( 0 , WS_VISIBLE );
 	else
-	{
+		m_wndCheckBoxG1.ModifyStyle( WS_VISIBLE, 0 );
+
+	if ( Settings.eDonkey.ShowInterface || Settings.eDonkey.Enabled )
+		m_wndCheckBoxED2K.ModifyStyle( 0 , WS_VISIBLE );
+	else
+		m_wndCheckBoxED2K.ModifyStyle( WS_VISIBLE, 0 );
+
+	if ( Settings.DC.ShowInterface || Settings.DC.Enabled )
+		m_wndCheckBoxDC.ModifyStyle( 0 , WS_VISIBLE );
+	else
 		m_wndCheckBoxDC.ModifyStyle( WS_VISIBLE, 0 );
-	}
 }
 
 LRESULT CSearchAdvancedBox::OnCtlColorStatic(WPARAM wParam, LPARAM /*lParam*/)

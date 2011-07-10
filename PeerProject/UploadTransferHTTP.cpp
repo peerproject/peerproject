@@ -92,11 +92,11 @@ void CUploadTransferHTTP::AttachTo(CConnection* pConnection)
 
 	theApp.Message( MSG_INFO, IDS_UPLOAD_ACCEPTED, (LPCTSTR)m_sAddress );
 
-	m_mInput.pLimit		= &Settings.Bandwidth.Request;
-	m_mOutput.pLimit	= &m_nBandwidth;
+	m_mInput.pLimit  = &Settings.Bandwidth.Request;
+	m_mOutput.pLimit = &m_nBandwidth;
 
-	m_nState	= upsRequest;
-	m_tRequest	= m_tConnected;
+	m_nState = upsRequest;
+	m_tRequest = m_tConnected;
 
 	OnRead();
 }
@@ -137,9 +137,7 @@ BOOL CUploadTransferHTTP::ReadRequest()
 
 	if ( m_nState == upsQueued && m_pQueue != NULL )
 	{
-		DWORD tLimit = Settings.Uploads.QueuePollMin;
-
-		tLimit *= m_nReaskMultiplier;
+		const DWORD tLimit = Settings.Uploads.QueuePollMin * m_nReaskMultiplier;
 
 		if ( GetTickCount() - m_tRequest < tLimit )
 		{
@@ -148,7 +146,7 @@ BOOL CUploadTransferHTTP::ReadRequest()
 		}
 	}
 
-	int nChar = strLine.Find( _T(" HTTP/") );
+	const int nChar = strLine.Find( _T(" HTTP/") );
 
 	if ( strLine.GetLength() < 14 || nChar < 5 ||
 		 ( strLine.Left( 4 ) != _T("GET ") && strLine.Left( 5 ) != _T("HEAD ") ) )
@@ -327,7 +325,7 @@ BOOL CUploadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 		m_nGnutella |= 1;
 		break;
 	default:		// Unknown Header
-		// ToDo: System message?
+		theApp.Message( MSG_DEBUG, _T("Unknown G1/G2 Header:  %s"), (LPCTSTR)strCase );
 		break;
 	}
 
@@ -344,14 +342,14 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 	if ( Security.IsClientBanned( m_sUserAgent ) )
 	{
 		SendResponse( IDR_HTML_BROWSER );
-		theApp.Message( MSG_ERROR, _T("Client %s has a prohibited user agent \"%s\", banning"), (LPCTSTR)m_sAddress, (LPCTSTR)m_sUserAgent );
-		Security.Ban( &m_pHost.sin_addr, ban5Mins, FALSE, CString( _T("Prohibited user agent: ") ) + m_sUserAgent );
+		theApp.Message( MSG_ERROR, _T("Client %s has prohibited user agent \"%s\", banning"), (LPCTSTR)m_sAddress, (LPCTSTR)m_sUserAgent );
+		Security.Ban( &m_pHost.sin_addr, ban5Mins, FALSE, CString( _T("Blocked user agent: ") ) + m_sUserAgent );
 		Remove( FALSE );
 		return FALSE;
 	}
 	else if ( m_bClientExtended )
 	{
-		// Assume certain capabilitites for various Shareaza/PeerProject versions.
+		// Assume certain capabilities for various Shareaza/PeerProject versions.
 		m_nGnutella |= 3;
 
 		// Check for non-PeerProject clients spoofing a PeerProject user agent
@@ -365,6 +363,12 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 			return FALSE;
 		}
 	}
+	else if ( _tcsistr( m_sUserAgent, _T("limewire") ) != NULL ||	// LimeWire/FrostWire
+			  _tcsistr( m_sUserAgent, _T("phex") ) != NULL )
+	{
+		// Assume Gnutella1 ONLY capability for certain user-agents
+		m_nGnutella = 1;
+	}
 	else if ( _tcsistr( m_sUserAgent, _T("trustyfiles") ) != NULL ||
 			  _tcsistr( m_sUserAgent, _T("gnucdna") ) != NULL ||
 			  _tcsistr( m_sUserAgent, _T("adagio") ) != NULL )
@@ -372,27 +376,27 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 		// Assume Gnutella2 capability for certain user-agents
 		m_nGnutella |= 3;
 	}
-	else if ( m_nGnutella & 2 )
-	{
-		// Check for clients spoofing a G2 header
-		if ( _tcsistr( m_sUserAgent, _T("phex") ) != NULL )
-		{
-			// This is actually a G1-only client sending a fake header,
-			// so they can download from (but not upload to) clients connected to G2.
-			m_nGnutella = 1;
-
-			if ( ! Settings.Gnutella1.Enabled )
-			{
-				// Terminate the connection and do not try to download from them.
-				SendResponse( IDR_HTML_FILENOTFOUND );
-				theApp.Message( MSG_ERROR, _T("Client %s has a fake G2 header, banning"), (LPCTSTR)m_sAddress );
-
-				Security.Ban( &m_pHost.sin_addr, banWeek, FALSE );
-				Remove( FALSE );
-				return FALSE;
-			}
-		}
-	}
+	//else if ( m_nGnutella & 2 )
+	//{
+	//	// Check for clients spoofing a G2 header
+	//	if ( _tcsistr( m_sUserAgent, _T("phex") ) != NULL )
+	//	{
+	//		// This is actually a G1-only client sending a fake header,
+	//		// so they can download from (but not upload to) clients connected to G2.
+	//		m_nGnutella = 1;
+	//
+	//		if ( ! Settings.Gnutella1.Enabled )
+	//		{
+	//			// Terminate the connection and do not try to download from them.
+	//			SendResponse( IDR_HTML_FILENOTFOUND );
+	//			theApp.Message( MSG_ERROR, _T("Client %s has a fake G2 header, banning"), (LPCTSTR)m_sAddress );
+	//
+	//			Security.Ban( &m_pHost.sin_addr, banWeek, FALSE );
+	//			Remove( FALSE );
+	//			return FALSE;
+	//		}
+	//	}
+	//}
 
 	CBuffer pResponse;
 	CString sHeader;
@@ -434,8 +438,7 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 	}
 	else if ( ::StartsWith( m_sRequest, _PT("/remote") ) )
 	{
-		// A web client can start requesting remote pages on the same keep-alive
-		// connection after previously requesting other system objects
+		// A web client can start requesting remote pages on the same keep-alive connection after previously requesting other system objects
 
 		if ( Settings.Remote.Enable )
 		{
@@ -494,7 +497,7 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 			SendResponse( IDR_HTML_DISABLED );
 		}
 		theApp.Message( MSG_ERROR, IDS_UPLOAD_DISABLED, (LPCTSTR)m_sAddress, (LPCTSTR)m_sUserAgent );
-		Security.Ban( &m_pHost.sin_addr, ban2Hours, FALSE ); // Anti-hammer protection if client doesn't understand 403
+		Security.Ban( &m_pHost.sin_addr, ban2Hours, FALSE );	// Anti-hammer protection if client doesn't understand 403
 		Remove( FALSE );
 		return FALSE;
 	}
@@ -504,26 +507,24 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 
 		{
 			CSingleLock oLock( &Library.m_pSection );
-			if ( oLock.Lock( 1000 ) )
-			{
-				if ( CLibraryFile* pShared = LibraryMaps.LookupFileByURN( pszURN, TRUE, TRUE ) )
-				{
-					if ( pShared->m_pMetadata != NULL )
-					{
-						m_sName	= pShared->m_sName;
-						if ( CXMLElement* pMetadata	= pShared->m_pSchema->Instantiate( TRUE ) )
-						{
-							pMetadata->AddElement( pShared->m_pMetadata->Clone() );
-							return RequestMetadata( pMetadata );
-						}
-					}
-				}
-			}
-			else
+			if ( ! oLock.Lock( 1000 ) )
 			{
 				theApp.Message( MSG_ERROR, _T("Refusing request from %s, Library is busy."), (LPCTSTR)m_sAddress );
 				SendResponse( IDR_HTML_BUSY );
 				return TRUE;
+			}
+
+			if ( CLibraryFile* pShared = LibraryMaps.LookupFileByURN( pszURN, TRUE, TRUE ) )
+			{
+				if ( pShared->m_pMetadata != NULL )
+				{
+					m_sName	= pShared->m_sName;
+					if ( CXMLElement* pMetadata	= pShared->m_pSchema->Instantiate( TRUE ) )
+					{
+						pMetadata->AddElement( pShared->m_pMetadata->Clone() );
+						return RequestMetadata( pMetadata );
+					}
+				}
 			}
 		}
 
@@ -543,20 +544,18 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 
 		{
 			CSingleLock oLock( &Library.m_pSection );
-			if ( oLock.Lock( 1000 ) )
-			{
-				if ( CLibraryFile* pShared = LibraryMaps.LookupFileByURN( pszURN, TRUE, TRUE ) )
-				{
-					CTigerTree* pTigerTree = pShared->GetTigerTree();
-					m_sName = pShared->m_sName;
-					return RequestTigerTreeRaw( pTigerTree, TRUE );
-				}
-			}
-			else
+			if ( ! oLock.Lock( 1000 ) )
 			{
 				theApp.Message( MSG_ERROR, _T("Refusing request from %s, Library is busy."), (LPCTSTR)m_sAddress );
 				SendResponse( IDR_HTML_BUSY );
 				return TRUE;
+			}
+
+			if ( CLibraryFile* pShared = LibraryMaps.LookupFileByURN( pszURN, TRUE, TRUE ) )
+			{
+				CTigerTree* pTigerTree = pShared->GetTigerTree();
+				m_sName = pShared->m_sName;
+				return RequestTigerTreeRaw( pTigerTree, TRUE );
 			}
 		}
 
@@ -581,22 +580,20 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 
 		{
 			CSingleLock oLock( &Library.m_pSection );
-			if ( oLock.Lock( 1000 ) )
-			{
-				if ( CLibraryFile* pShared = LibraryMaps.LookupFileByURN( pszURN, TRUE, TRUE ) )
-				{
-					CTigerTree* pTigerTree	= pShared->GetTigerTree();
-					CED2K* pHashset			= bHashset ? pShared->GetED2K() : NULL;
-					m_sName = pShared->m_sName;
-					m_nSize = pShared->GetSize();
-					return RequestTigerTreeDIME( pTigerTree, nDepth, pHashset, TRUE );
-				}
-			}
-			else
+			if ( ! oLock.Lock( 1000 ) )
 			{
 				theApp.Message( MSG_ERROR, _T("Refusing request from %s, Library is busy."), (LPCTSTR)m_sAddress );
 				SendResponse( IDR_HTML_BUSY );
 				return TRUE;
+			}
+
+			if ( CLibraryFile* pShared = LibraryMaps.LookupFileByURN( pszURN, TRUE, TRUE ) )
+			{
+				CTigerTree* pTigerTree	= pShared->GetTigerTree();
+				CED2K* pHashset			= bHashset ? pShared->GetED2K() : NULL;
+				m_sName = pShared->m_sName;
+				m_nSize = pShared->GetSize();
+				return RequestTigerTreeDIME( pTigerTree, nDepth, pHashset, TRUE );
 			}
 		}
 
@@ -616,17 +613,15 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 		LPCTSTR pszURN = (LPCTSTR)m_sRequest + 21;
 
 		CSingleLock oLock( &Library.m_pSection );
-		if ( oLock.Lock( 1000 ) )
-		{
-			if ( CLibraryFile* pShared = LibraryMaps.LookupFileByURN( pszURN, TRUE, TRUE ) )
-				return RequestPreview( pShared, oLock );
-		}
-		else
+		if ( ! oLock.Lock( 1000 ) )
 		{
 			theApp.Message( MSG_ERROR, _T("Refusing request from %s, Library is busy."), (LPCTSTR)m_sAddress );
 			SendResponse( IDR_HTML_BUSY );
 			return TRUE;
 		}
+
+		if ( CLibraryFile* pShared = LibraryMaps.LookupFileByURN( pszURN, TRUE, TRUE ) )
+			return RequestPreview( pShared, oLock );
 	}
 	else if ( ::StartsWith( m_sRequest, _PT("/uri-res/N2R?urn:") ) )
 	{
@@ -634,17 +629,15 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 
 		{
 			CSingleLock oLock( &Library.m_pSection );
-			if ( oLock.Lock( 1000 ) )
-			{
-				if ( CLibraryFile* pShared = LibraryMaps.LookupFileByURN( pszURN, TRUE, TRUE ) )
-					return RequestSharedFile( pShared, oLock );
-			}
-			else
+			if ( ! oLock.Lock( 1000 ) )
 			{
 				theApp.Message( MSG_ERROR, _T("Refusing request from %s, Library is busy."), (LPCTSTR)m_sAddress );
 				SendResponse( IDR_HTML_BUSY );
 				return TRUE;
 			}
+
+			if ( CLibraryFile* pShared = LibraryMaps.LookupFileByURN( pszURN, TRUE, TRUE ) )
+				return RequestSharedFile( pShared, oLock );
 		}
 
 		CDownload* pDownload = Downloads.FindByURN( pszURN );
@@ -661,43 +654,39 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 		strFile = strFile.Mid( nChar + 1 );
 
 		CSingleLock oLock( &Library.m_pSection );
-		if ( oLock.Lock( 1000 ) )
-		{
-			CLibraryFile* pFile = NULL;
-			if ( bByIndex )
-			{
-				pFile = Library.LookupFile( nIndex, TRUE, TRUE );
-				if ( pFile && pFile->m_sName.CompareNoCase( strFile ) )
-					pFile = NULL;
-			}
-			if ( ! pFile )
-				pFile = LibraryMaps.LookupFileByName( strFile, m_nSize, TRUE, TRUE );
-			if ( pFile )
-				return RequestSharedFile( pFile, oLock );
-		}
-		else
+		if ( ! oLock.Lock( 1000 ) )
 		{
 			theApp.Message( MSG_ERROR, _T("Refusing request from %s, Library is busy."), (LPCTSTR)m_sAddress );
 			SendResponse( IDR_HTML_BUSY );
 			return TRUE;
 		}
+
+		CLibraryFile* pFile = NULL;
+		if ( bByIndex )
+		{
+			pFile = Library.LookupFile( nIndex, TRUE, TRUE );
+			if ( pFile && pFile->m_sName.CompareNoCase( strFile ) )
+				pFile = NULL;
+		}
+		if ( ! pFile )
+			pFile = LibraryMaps.LookupFileByName( strFile, m_nSize, TRUE, TRUE );
+		if ( pFile )
+			return RequestSharedFile( pFile, oLock );
 	}
 	else
 	{
 		CString strFile = m_sRequest.Mid( 1 );
 
 		CSingleLock oLock( &Library.m_pSection );
-		if ( oLock.Lock( 1000 ) )
-		{
-			if ( CLibraryFile* pFile = LibraryMaps.LookupFileByName( strFile, m_nSize, TRUE, TRUE ) )
-				return RequestSharedFile( pFile, oLock );
-		}
-		else
+		if ( ! oLock.Lock( 1000 ) )
 		{
 			theApp.Message( MSG_ERROR, _T("Refusing request from %s, Library is busy."), (LPCTSTR)m_sAddress );
 			SendResponse( IDR_HTML_BUSY );
 			return TRUE;
 		}
+
+		if ( CLibraryFile* pFile = LibraryMaps.LookupFileByName( strFile, m_nSize, TRUE, TRUE ) )
+			return RequestSharedFile( pFile, oLock );
 	}
 
 	if ( m_sName.IsEmpty() )
@@ -764,6 +753,8 @@ BOOL CUploadTransferHTTP::RequestSharedFile(CLibraryFile* pFile, CSingleLock& oL
 	if ( ! HasHash() )
 		m_sLocations.Empty();
 
+	if ( m_nOffset == SIZE_UNKNOWN )
+		m_nOffset = 0;
 	if ( m_nLength == SIZE_UNKNOWN )
 		m_nLength = m_nSize - m_nOffset;
 
@@ -783,8 +774,7 @@ BOOL CUploadTransferHTTP::RequestSharedFile(CLibraryFile* pFile, CSingleLock& oL
 
 	if ( Settings.Library.SourceMesh && m_nGnutella > 1 )
 	{
-		m_sLocations = pFile->GetAlternateSources( &m_pSourcesSent,
-			15, PROTOCOL_HTTP );
+		m_sLocations = pFile->GetAlternateSources( &m_pSourcesSent, 15, PROTOCOL_HTTP );
 	}
 
 	oLibraryLock.Unlock();
@@ -829,6 +819,8 @@ BOOL CUploadTransferHTTP::RequestPartialFile(CDownload* pDownload)
 	if ( ! m_bRange || ( m_nOffset == 0 && m_nLength == SIZE_UNKNOWN ) )
 		pDownload->GetRandomRange( m_nOffset, m_nLength );
 
+	if ( m_nOffset == SIZE_UNKNOWN )
+		m_nOffset = 0;
 	if ( m_nLength == SIZE_UNKNOWN )
 		m_nLength = m_nSize - m_nOffset;
 
@@ -1020,7 +1012,7 @@ void CUploadTransferHTTP::SendDefaultHeaders()
 	}
 
 	if ( IsNetworkDisabled() )
-		Write( _P("Retry-After: 3600\r\n") ); // Ask to retry after 1 hour delay
+		Write( _P("Retry-After: 3600\r\n") );	// Ask to retry after 1 hour delay
 	else if ( m_bKeepAlive )
 		Write( _P("Connection: Keep-Alive\r\n") );
 	else
@@ -1208,8 +1200,8 @@ BOOL CUploadTransferHTTP::OpenFileSendHeaders()
 			theApp.Message( MSG_NOTICE, IDS_UPLOAD_FILE,
 				(LPCTSTR)m_sName, (LPCTSTR)m_sAddress );
 
-			ASSERT( ! m_pBaseFile->m_sPath.IsEmpty() );
-			PostMainWndMessage( WM_NOWUPLOADING, 0, (LPARAM)new CString( m_sPath ) );
+			ASSERT( ! m_pBaseFile->m_sPath.IsEmpty() );		// Fails occasionally!
+			PostMainWndMessage( WM_NOWUPLOADING, 0, (LPARAM)new CString( m_pBaseFile->m_sPath ) );
 		}
 
 		theApp.Message( MSG_INFO,
@@ -1297,7 +1289,7 @@ BOOL CUploadTransferHTTP::OnRun()
 {
 	CUploadTransfer::OnRun();
 
-	DWORD tNow = GetTickCount();
+	const DWORD tNow = GetTickCount();
 
 	switch ( m_nState )
 	{
@@ -1309,7 +1301,7 @@ BOOL CUploadTransferHTTP::OnRun()
 		}
 
 	case upsHeaders:
-		if ( tNow - m_tRequest > Settings.Connection.TimeoutHandshake )
+		if ( tNow > m_tRequest + Settings.Connection.TimeoutHandshake )
 		{
 			Close( IDS_UPLOAD_REQUEST_TIMEOUT );
 			return FALSE;
@@ -1317,7 +1309,7 @@ BOOL CUploadTransferHTTP::OnRun()
 		break;
 
 	case upsQueued:
-		if ( tNow - m_tRequest > ( Settings.Uploads.QueuePollMax * m_nReaskMultiplier ) )
+		if ( tNow > m_tRequest + ( Settings.Uploads.QueuePollMax * m_nReaskMultiplier ) )
 		{
 			Close( IDS_UPLOAD_REQUEST_TIMEOUT );
 			return FALSE;
@@ -1331,7 +1323,7 @@ BOOL CUploadTransferHTTP::OnRun()
 	case upsMetadata:
 	case upsPreview:
 	case upsPreQueue:
-		if ( tNow - m_mOutput.tLast > Settings.Connection.TimeoutTraffic )
+		if ( tNow > m_mOutput.tLast + Settings.Connection.TimeoutTraffic )
 		{
 			Close( IDS_UPLOAD_TRAFFIC_TIMEOUT );
 			return FALSE;
@@ -1709,7 +1701,7 @@ BOOL CUploadTransferHTTP::RequestHostBrowse()
 	{
 		if ( Settings.Community.ServeFiles )
 		{
-			CLocalSearch pSearch( NULL, &pBuffer, PROTOCOL_G1 );
+			CLocalSearch pSearch( &pBuffer, PROTOCOL_G1 );
 			pSearch.Execute( 0 );
 		}
 	}
@@ -1728,9 +1720,8 @@ BOOL CUploadTransferHTTP::RequestHostBrowse()
 
 		if ( Settings.Community.ServeFiles )
 		{
-			CLocalSearch pSearch( NULL, &pBuffer, PROTOCOL_G2 );
+			CLocalSearch pSearch( &pBuffer, PROTOCOL_G2 );
 			pSearch.Execute( 0 );
-			pSearch.WriteVirtualTree();
 		}
 
 		if ( Settings.Community.ServeProfile && MyProfile.IsValid() )
@@ -1768,6 +1759,7 @@ BOOL CUploadTransferHTTP::RequestHostBrowse()
 	Write( strLength );
 
 	LogOutgoing();
+	CTransfer::OnWrite();
 
 	if ( ! m_bHead )
 		Write( &pBuffer );
@@ -1775,8 +1767,6 @@ BOOL CUploadTransferHTTP::RequestHostBrowse()
 	StartSending( upsBrowse );
 
 	theApp.Message( MSG_NOTICE, IDS_UPLOAD_BROWSE, (LPCTSTR)m_sAddress, (LPCTSTR)m_sUserAgent );
-
-	CTransfer::OnWrite();
 
 	return TRUE;
 }

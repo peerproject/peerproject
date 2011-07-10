@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default German Skin File -->
 
-<!-- Translation based on default-en.xml r67 -->
+<!-- Translation based on default-en.xml r68 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1000,7 +1000,7 @@
 		</menu>
 		<separator/>
 		<item id="ID_HOSTCACHE_IMPORT" text="MET-Datei _importieren..."/>
-		<item id="ID_HOSTCACHE_ED2K_DOWNLOAD" text="MET-Datei herunterladen..."/>
+		<item id="ID_HOSTCACHE_FILE_DOWNLOAD" text="MET-Datei herunterladen..."/>
 	</menu>
 	<!-- SEARCH WINDOW -->
 	<menu name="CSearchWnd.Basic">
@@ -1576,7 +1576,7 @@
 			<item id="ID_SYSTEM_VERBOSE_NOTICE" text="_Notice"/>
 			<item id="ID_SYSTEM_VERBOSE_INFO" text="_Info"/>
 			<item id="ID_SYSTEM_VERBOSE_DEBUG" text="_Debug"/>
-			</menu>
+		</menu>
 		<item id="ID_SYSTEM_TIMESTAMP" text="Zeitstem_pel"/>
 		<separator/>
 		<item id="ID_SYSTEM_COPY" text="_Kopieren" shortcut="Ctrl+C"/>
@@ -2504,7 +2504,7 @@
 	<tip id="ID_HOSTCACHE_CONNECT" message="Mit markierten Host(s) verbinden." tip="Jetzt verbinden"/>
 	<tip id="ID_HOSTCACHE_DISCONNECT" message="Verbindung zu markierten Host(s) beenden." tip="Verbindung beenden"/>
 	<tip id="ID_HOSTCACHE_ED2K_CACHE" message="eDonkey-Server anzeigen."/>
-	<tip id="ID_HOSTCACHE_ED2K_DOWNLOAD" message="Ein &quot;server.met&quot;-Datei für eDonkey herunterladen..."/>
+	<tip id="ID_HOSTCACHE_FILE_DOWNLOAD" message="Ein &quot;server.met&quot;-Datei für eDonkey herunterladen..."/>
 	<tip id="ID_HOSTCACHE_G1_CACHE" message="Gecachte Hosts anzeigen (G1)."/>
 	<tip id="ID_HOSTCACHE_G2_CACHE" message="Gecachte Hosts anzeigen (G2)."/>
 	<tip id="ID_HOSTCACHE_G2_HORIZON" message="Horizont anzeigen (G2)."/>
@@ -3236,7 +3236,7 @@
 	<string id="20590" value="Remote-Zugriff ist deaktiviert."/>
 	<string id="20591" value="http://%s:%i/remote - Benutzername und Passwort angeben."/>
 	<string id="20592" value="Kann keine eingehenden Verbindungen akzeptieren, URL nicht verfügbar."/>
-	<string id="20597" value="Sind Sie sicher, dass Sie die ausgewählten Sicherheitsregeln löschen möchten? Dieser Schritt kann nicht rückgängig gemacht werden."/>
+	<string id="20597" value="Sind Sie sicher, dass Sie die ausgewählten Sicherheitsregeln löschen möchten?"/>
 	<string id="20599" value="&amp;Schemas"/>
 	<string id="20600" value="Bandbreite: Volle"/>
 	<string id="20601" value="Bandbreite: Reduzieren"/>
@@ -3314,7 +3314,7 @@
 	<string id="20684" value="Wollen Sie den Skin &quot;%s&quot; wirklich löschen?  Dies kann nicht rückgängig gemacht werden."/>
 	<string id="20700" value="Aktiv"/>
 	<string id="20701" value="%s ein : %s aus (d:%I64i/u:%I64i)"/>
-	<string id="20702" value="Verbunden mit %lu Host(s), %s in der lokalen Bibliothek."/>
+	<string id="20702" value="Verbunden mit %lu Hosts, %s in der lokalen Bibliothek."/>
 	<string id="20703" value="Hub-Modus mit %lu Leaves.  %s in ihrer Bibliothek."/>
 	<string id="20704" value="Hub/Ultrapeer-Modus mit %lu Leaves.  %s in ihrer Bibliothek."/>
 	<string id="20705" value="Verbunden. %s in lokaler Bibliothek."/>
@@ -3506,7 +3506,7 @@
 		<control caption="PeerProjekt mit Windows starten"/>
 		<control caption="Bei Programmstart verbinden"/>
 		<control caption="Dialog vor dem Öffnen von URIs"/>
-		<control caption="Check for updates"/>
+		<control caption="Nach Updates suchen"/>
 		<control caption="_Downloads:"/>
 		<control caption="Neue Downloads automatisch erweitern"/>
 		<control caption="Einfache Fortschrittsanzeige verwenden"/>
@@ -4481,7 +4481,7 @@
 		<control caption="OK"/>
 		<control caption="Abbrechen"/>
 	</dialog>
-	<dialog name="CDonkeyServersDlg" cookie="StEdmsBuBu" caption="Server.met-Datei herunterladen">
+	<dialog name="CUpdateServersDlg" cookie="StEdmsBuBu" caption="Server.met-Datei herunterladen">
 		<control caption="Sie können eine server.met-Datei aus dem Internet herunterladen, um Ihre lokale Serverliste zu aktualisieren."/>
 		<control/>
 		<control/>

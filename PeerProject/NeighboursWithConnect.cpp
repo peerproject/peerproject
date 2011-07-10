@@ -124,17 +124,17 @@ CNeighbour* CNeighboursWithConnect::ConnectTo(
 		switch ( nProtocol )
 		{
 		case PROTOCOL_G1:
-			Settings.Gnutella1.Enabled = TRUE;
+			Settings.Gnutella1.Enabled = true;
 			break;
 		case PROTOCOL_G2:
-			Settings.Gnutella2.Enabled = TRUE;
+			Settings.Gnutella2.Enabled = true;
 			break;
 		case PROTOCOL_ED2K:
-			Settings.eDonkey.Enabled = TRUE;
+			Settings.eDonkey.Enabled = true;
 			CloseDonkeys();		// Reset the eDonkey2000 network (do)
 			break;
 		case PROTOCOL_DC:
-			Settings.DC.Enabled = TRUE;
+			Settings.DC.Enabled = true;
 			break;
 		default:
 			ASSERT( ! nProtocol );
@@ -337,7 +337,7 @@ DWORD CNeighboursWithConnect::IsG2HubCapable(BOOL bIgnoreTime, BOOL bDebug) cons
 		}
 
 		// Make sure we are not also a forced ultrapeer on gnutella
-		if ( IsG1Ultrapeer() ) 
+		if ( IsG1Ultrapeer() )
 		{
 			// Already ultrapeer mode overhead
 			if ( bDebug ) theApp.Message( MSG_DEBUG, _T("NO: Gnutella ultrapeer active") );
@@ -867,8 +867,7 @@ void CNeighboursWithConnect::Maintain()
 			else if ( pNeighbour->m_nNodeType != ntLeaf )
 			{
 				// This connection is to a hub above us, or a hub just like us:
-				// If we've been connected for more than 8 seconds,
-				// Count one more hub for this connection's protocol
+				// Count one more hub for this connection's protocol only if we've been connected for several seconds.
 				if ( tNow - pNeighbour->m_tConnected > 8000 )
 					nCount[ pNeighbour->m_nProtocol ][ ntHub ]++;
 			}
@@ -930,7 +929,7 @@ void CNeighboursWithConnect::Maintain()
 	}
 	else if ( m_bG2Leaf )	// We're a leaf on the Gnutella2 network
 	{
-		// Set the limit for Gnutella2 hub connections as whichever is smaller, the number from settings, or 3
+		// Set the limit for Gnutella2 hub connections from settings, should be no more than 3
 		nLimit[ PROTOCOL_G2 ][ ntHub ] = Settings.Gnutella2.NumHubs;		// 2 hubs by default
 	}
 	else	// We're a hub on the Gnutella2 network
@@ -952,7 +951,7 @@ void CNeighboursWithConnect::Maintain()
 	nCount[ PROTOCOL_G2 ][0] += nCount[ PROTOCOL_NULL ][0];
 
 	// Connect to more computers or disconnect from some to get the connection counts where settings wants them to be
-	for ( PROTOCOLID nProtocol = PROTOCOL_NULL ; nProtocol < PROTOCOL_LAST ; ++nProtocol )	// Loop once for each protocol, eDonkey2000, Gnutella2, then Gnutella
+	for ( PROTOCOLID nProtocol = PROTOCOL_NULL ; nProtocol < PROTOCOL_LAST ; ++nProtocol )		// Loop once for each protocol
 	{
 		// If we're connected to a hub of this protocol, store the tick count now in m_tPresent for this protocol
 		if ( nCount[ nProtocol ][ ntHub ] > 0 ) m_tPresent[ nProtocol ] = tNow;
@@ -1223,7 +1222,7 @@ DWORD CNeighboursWithConnect::CalculateSystemPerformanceScore(BOOL bDebug) const
 	}
 
 	// 64-bit benefit
-#ifdef _WIN64
+#ifdef WIN64
 	{
 		nRating++;
 		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("Mode: 64-bit") );
