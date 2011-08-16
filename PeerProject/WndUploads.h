@@ -1,7 +1,7 @@
 //
 // WndUploads.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -24,12 +24,12 @@
 
 class CUploadsWnd : public CPanelWnd
 {
+	DECLARE_SERIAL(CUploadsWnd)
+
 // Construction
 public:
 	CUploadsWnd();
 	virtual ~CUploadsWnd();
-
-	DECLARE_SERIAL(CUploadsWnd)
 
 // Operations
 public:
@@ -53,6 +53,7 @@ protected:
 	BOOL			m_bSelBrowse;
 	BOOL			m_bSelPartial;
 	BOOL			m_bSelSourceAcceptConnections;
+	DWORD			m_nSelected;
 
 // Overrides
 public:
@@ -62,7 +63,7 @@ public:
 // Implementation
 protected:
 	DECLARE_MESSAGE_MAP()
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
@@ -87,6 +88,8 @@ protected:
 	afx_msg void OnBrowseLaunch();
 	afx_msg void OnUpdateUploadsStart(CCmdUI* pCmdUI);
 	afx_msg void OnUploadsStart();
+	afx_msg void OnUpdateUploadsPriority(CCmdUI* pCmdUI);
+	afx_msg void OnUploadsPriority();
 	afx_msg void OnUploadsHelp();
 	afx_msg void OnUploadsSettings();
 	afx_msg void OnUpdateUploadsFilterAll(CCmdUI* pCmdUI);

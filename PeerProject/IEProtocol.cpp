@@ -1,7 +1,7 @@
 //
 // IEProtocol.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -18,20 +18,20 @@
 
 #include "StdAfx.h"
 #include "PeerProject.h"
-#include "IEProtocol.h"
 #include "Buffer.h"
+#include "IEProtocol.h"
+#include "Connection.h"
 #include "Library.h"
 #include "SharedFile.h"
 #include "AlbumFolder.h"
 #include "LibraryFolders.h"
 #include "CollectionFile.h"
-#include "XML.h"
 #include "ZIPFile.h"
 #include "ShellIcons.h"
-#include "Connection.h"
 #include "ImageServices.h"
 #include "ImageFile.h"
 #include "ThumbCache.h"
+#include "XML.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -176,7 +176,7 @@ HRESULT CIEProtocolRequest::OnStart(LPCTSTR pszURL, IInternetProtocolSink* pSink
 	HRESULT hr = IEProtocol.OnRequest( pszURL, m_oBuffer, m_strMimeType,
 		( dwFlags & PI_PARSE_URL ) != 0 );
 
-	if ( ( dwFlags & PI_PARSE_URL ) || ( hr == INET_E_INVALID_URL ) )
+	if ( ( dwFlags & PI_PARSE_URL ) || hr == INET_E_INVALID_URL )
 		return hr;
 
 	m_pSink = pSink;
@@ -367,10 +367,11 @@ HRESULT CIEProtocol::OnRequest(LPCTSTR pszURL, CBuffer& oBuffer, CString& sMimeT
 
 	if ( _tcsnicmp( pszURL, _T("p2p-col://"), 10 ) == 0 )		// p2p-col://{SHA1}/{relative path inside zip}
 		return OnRequestRAZACOL( pszURL + 10, oBuffer, sMimeType, bParseOnly );
-	else if ( _tcsnicmp( pszURL, _T("p2p-file://"), 11 ) == 0 )	// p2p-file://{SHA1}/{preview|meta}
+
+	if ( _tcsnicmp( pszURL, _T("p2p-file://"), 11 ) == 0 )		// p2p-file://{SHA1}/{preview|meta}
 		return OnRequestRAZAFILE( pszURL + 11, oBuffer, sMimeType, bParseOnly );
-	else
-		return INET_E_INVALID_URL;
+
+	return INET_E_INVALID_URL;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -424,13 +425,11 @@ HRESULT CIEProtocol::OnRequestRAZACOL(LPCTSTR pszURL, CBuffer& oBuffer, CString&
 		( bDir ? ( strPath + _T("index.htm") ) : strPath ).Mid( 1 ), TRUE );
 	if ( ! pFile )
 	{
-		if ( bDir )
-		{
-			pFile = oCollZIP.GetFile( ( strPath + _T("collection.xml") ).Mid( 1 ), TRUE );
-			if ( ! pFile )
-				return INET_E_OBJECT_NOT_FOUND;
-		}
-		else
+		if ( ! bDir )
+			return INET_E_OBJECT_NOT_FOUND;
+
+		pFile = oCollZIP.GetFile( ( strPath + _T("collection.xml") ).Mid( 1 ), TRUE );
+		if ( ! pFile )
 			return INET_E_OBJECT_NOT_FOUND;
 	}
 

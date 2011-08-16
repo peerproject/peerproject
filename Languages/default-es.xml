@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Spanish (International) Skin File -->
 
-<!-- Translation based on default-en.xml r68 -->
+<!-- Translation based on default-en.xml r69 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -153,10 +153,10 @@
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Vista Previa"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Borrar Archivo"/>
-		<button id="ID_DOWNLOADS_RESUME" text="Resumir Descarga"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="Pausar Descarga"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Cancelar Descarga"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Limpiar Descarga"/>
+		<button id="ID_DOWNLOADS_RESUME" text="Resumir Descarga"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="Pausar Descarga"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Información"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Mostrar Monitor"/>
@@ -168,10 +168,10 @@
 		<button id="ID_DOWNLOADS_LAUNCH" text="Vista Previa"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Borrar Archivo"/>
-		<button id="ID_DOWNLOADS_RESUME" text="Resumir Descarga"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="Pausar Descarga"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Cancelar Descarga"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Limpiar Descarga"/>
+		<button id="ID_DOWNLOADS_RESUME" text="Resumir Descarga"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="Pausar Descarga"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Información"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Mostrar Monitor"/>
@@ -189,10 +189,11 @@
 		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="Limpiar Completados"/>
 	</toolbar>
 	<toolbar name="CUploadsWnd">
-		<button id="ID_UPLOADS_LAUNCH" text="Abrir o Reproducir"/>
+		<button id="ID_UPLOADS_LAUNCH" text="Abrir"/>
 		<separator/>
-		<button id="ID_UPLOADS_START" text="Empezar Ahora"/>
-		<button id="ID_UPLOADS_CLEAR" text="Limpiar Subida"/>
+		<button id="ID_UPLOADS_CLEAR" text="Limpiar"/>
+		<button id="ID_UPLOADS_START" text="Empezar"/>
+		<button id="ID_UPLOADS_PRIORITY" text="Prioridad" visible="false"/>
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Explorar Usuario"/>
 		<button id="ID_UPLOADS_CHAT" text="Chatear con Usuario"/>
@@ -1188,11 +1189,16 @@
 	<menu name="CUploadsWnd.Upload.Basic">
 		<item id="ID_BROWSE_LAUNCH" text="_Explorar Usuario"/>
 		<item id="ID_UPLOADS_CHAT" text="_Chatear con Usuario"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="_Ayuda..."/>
 	</menu>
 	<menu name="CUploadsWnd.Upload">
-		<item id="ID_UPLOADS_START" text="_Empezar Ahora"/>
+		<item id="ID_UPLOADS_LAUNCH" text="Mostrar en _Coleccio"/>
+		<item id="ID_UPLOADS_FOLDER" text="Abrir _Compartido"/>
+		<separator/>
 		<item id="ID_UPLOADS_CLEAR" text="_Limpiar"/>
-		<item id="ID_UPLOADS_FOLDER" text="Abrir _Folder"/>
+		<item id="ID_UPLOADS_START" text="_Empezar Ahora"/>
+		<item id="ID_UPLOADS_PRIORITY" text="Prioridad"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="_Explorar Usuario"/>
 		<item id="ID_UPLOADS_CHAT" text="_Platicar con Usuario"/>
@@ -1593,19 +1599,19 @@
 	</menu>
 	<!-- DISCOVERY SERVICES WINDOW -->
 	<menu name="CDiscoveryWnd">
-		<item id="ID_DISCOVERY_QUERY" text="_Acceder"/>
-		<item id="ID_DISCOVERY_ADVERTISE" text="P_ublicar"/>
+		<item id="ID_DISCOVERY_ADD" text="_Agregar Servicio..."/>
+		<separator/>
+		<item id="ID_DISCOVERY_EDIT" text="_Propiedades"/>
 		<item id="ID_DISCOVERY_REMOVE" text="_Eliminar"/>
 		<separator/>
+		<item id="ID_DISCOVERY_QUERY" text="_Acceder"/>
+		<item id="ID_DISCOVERY_ADVERTISE" text="P_ublicar"/>
 		<item id="ID_DISCOVERY_BROWSE" text="E_stadísticas"/>
 		<separator/>
 		<item id="ID_DISCOVERY_GNUTELLA" text="Mostrar _Bootstraps"/>
 		<item id="ID_DISCOVERY_WEBCACHE" text="Mostrar _GWebCaches"/>
-		<item id="ID_DISCOVERY_SERVERMET" text="Mostrar Ser_ver.met"/>
-		<separator/>
-		<item id="ID_DISCOVERY_ADD" text="_Agregar Servicio..."/>
-		<separator/>
-		<item id="ID_DISCOVERY_EDIT" text="_Propiedades"/>
+		<item id="ID_DISCOVERY_SERVERLIST" text="Mostrar Ser_ver.met"/>
+		<item id="ID_DISCOVERY_BLOCKED" text="Mostrar Bloqueado"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
 	<menu name="CPrivateChatFrame">
@@ -2344,7 +2350,7 @@
 	<tip id="ID_DISCOVERY_GNUTELLA" message="Mostrar servicio de bootstrap (puesta en marcha)."/>
 	<tip id="ID_DISCOVERY_QUERY" message="Preguntar ahora, para adquirir más usuarios."/>
 	<tip id="ID_DISCOVERY_REMOVE" message="Eliminar este servicio de descubrimiento."/>
-	<tip id="ID_DISCOVERY_SERVERMET" message="Mostrar servicios Server.met de eDonkey en la ventana de descubrimiento."/>
+	<tip id="ID_DISCOVERY_SERVERLIST" message="Mostrar servicios Server.met de eDonkey en la ventana de descubrimiento."/>
 	<tip id="ID_DISCOVERY_WEBCACHE" message="Mostrar GWebCaches."/>
 	<tip id="ID_DOWNLOAD_GROUP_CLEAR" message="Cancelar y eliminar todas las transferencias de este grupo."/>
 	<tip id="ID_DOWNLOAD_GROUP_NEW" message="Crear un grupo nuevo de descarga..."/>
@@ -2603,7 +2609,8 @@
 	<tip id="ID_UPLOADS_FILTER_TORRENT" message="Mostrar las subidas BitTorrent."/>
 	<tip id="ID_UPLOADS_LAUNCH" message="Abrir el archivo seleccionado."/>
 	<tip id="ID_UPLOADS_SETTINGS" message="Configurar opciones de subidas..."/>
-	<tip id="ID_UPLOADS_START" message="Empezar con prioridad."/>
+	<tip id="ID_UPLOADS_START" message="Empezar ahora."/>
+	<tip id="ID_UPLOADS_PRIORITY" message="Prioridad."/>
 	<tip id="ID_VIEW_BASIC" message="Usar PeerProject en el modo Sencillo."/>
 	<tip id="ID_VIEW_DISCOVERY" message="Mostrar u ocultar los SERVICIOS DE DESCUBRIMIENTO."/>
 	<tip id="ID_VIEW_DOWNLOADS" message="Muestra u oculta la ventana de DESCARGAS."/>
@@ -2676,6 +2683,7 @@
 	<string id="20012" value="Personalizado"/>
 	<string id="20013" value="Por defecto"/>
 	<string id="20014" value="Finalizar"/>
+	<string id="20019" value="Por favor espera..."/>
 	<string id="20020" value="Archivo"/>
 	<string id="20021" value="Archivos"/>
 	<string id="20022" value="Todos Los Archivos"/>
@@ -3197,15 +3205,16 @@
 	<string id="20678" value="La red eDonkey utiliza largas colas con tiempos largos de espera. Limitando la posición máxima de cola de espera,puede que te de problemas para iniciar las descargas.nEstas seguro que deseas limitar las posiciones de cola que vas a aceptar?"/>
 	<string id="20680" value="Configuración de PeerProject"/>
 	<string id="20684" value="¿Estas seguro que deseas eliminar &quot;%s&quot; skin?  Esto no se puede deshacer."/>
-	<string id="20700" value="Activo"/>
-	<string id="20701" value="%s entra : %s sale (d:%I64i/u:%I64i)"/>
-	<string id="20702" value="Conectado a %lu vecinos. Tienes %s en Colección."/>
-	<string id="20703" value="Modo Hub %lu en redes. %s en Colección."/>
-	<string id="20704" value="Modo Hub/Ultrapeer %lu en redes. %s en Colección."/>
-	<string id="20705" value="Conectado. %s en Colección."/>
-	<string id="20706" value="Modo Ultrapeer en %lu vecinos. %s en Colección."/>
-	<string id="20707" value="Conectando a la red..."/>
-	<string id="20708" value="PeerProject no esta conectado a la red."/>
+	<string id="20700" value="%s entra : %s sale (d:%I64i/u:%I64i)"/>
+	<string id="20701" value="Conectado a %lu vecinos. Tienes %s en Colección."/>
+	<string id="20702" value="Modo Hub %lu en redes. %s en Colección."/>
+	<string id="20703" value="Modo Hub/Ultrapeer %lu en redes. %s en Colección."/>
+	<string id="20704" value="Modo Ultrapeer en %lu vecinos. %s en Colección."/>
+	<string id="20705" value="Conectado. %s en mi Colección."/>
+	<string id="20706" value="Conectando a la red..."/>
+	<string id="20707" value="PeerProject no esta conectado a la red."/>
+	<string id="20708" value="Activo"/>
+	<string id="20709" value="Inactivo"/>
 	<string id="20710" value="Aclarar"/>
 	<string id="20711" value="No se puede mover"/>
 	<string id="20712" value="Cortado"/>
@@ -3246,8 +3255,7 @@
 	<string id="20751" value="No hay búsquedas activas.  Haz click aquí para empezar."/>
 	<string id="20752" value="No estas conectado.  Haz click a conectar para empezar."/>
 	<string id="20755" value="Estás seguro que deseas borrar el template &quot;%s&quot;? \nEsto no se puede deshacer."/>
-	<string id="20760" value="Activo"/>
-	<string id="20761" value="Inactivo"/>
+	<string id="20760" value="Prioridad"/>
 	<string id="20762" value="Este archivo parece spam."/>
 	<string id="20763" value="Marcado en Negfro:"/>
 	<string id="20764" value="Tu has descargado y borrado este archivo."/>

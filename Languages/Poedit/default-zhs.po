@@ -432,7 +432,7 @@ msgstr ""
 msgid "Bootstraps"
 msgstr ""
 
-#: button;id_discovery_servermet
+#: button;id_discovery_serverlist
 msgid "Server.met's"
 msgstr ""
 
@@ -1808,7 +1808,7 @@ msgstr "显示引导程序(_B)"
 msgid "Show _GWebCaches"
 msgstr "显示 G 网缓存(_G)"
 
-#: cdiscoverywnd;item;id_discovery_servermet
+#: cdiscoverywnd;item;id_discovery_serverlist
 msgid "Show Ser_ver.met's"
 msgstr "显示 eDonkey 服务器(_V)"
 
@@ -2884,7 +2884,7 @@ msgstr "马上查询选定的探索服务。"
 msgid "Remove the selected discovery services."
 msgstr "移除选定的探索服务。"
 
-#: message;id_discovery_servermet
+#: message;id_discovery_serverlist
 msgid "Show eDonkey Server.met services in the Discovery window."
 msgstr "在探索窗口中显示 edonkey 服务器服务。"
 
@@ -3841,7 +3841,7 @@ msgid "Access the selected download sources and attempt to download."
 msgstr "进入选定的下载并且尝试下载。"
 
 #: message;id_transfers_disconnect
-msgid "Disconnect the selected download transfer(s)."
+msgid "Disconnect the selected download transfers."
 msgstr "断开选定的下载传输。"
 
 #: message;id_transfers_forget
@@ -3857,15 +3857,15 @@ msgid "Automatically clear uploads which have been completed."
 msgstr "自动清除完成的上传。"
 
 #: message;id_uploads_clear
-msgid "Clear the selected uploads from the list."
+msgid "Cancel selected uploads and remove from list."
 msgstr "清除列表中选定的上传。"
 
 #: message;id_uploads_clear_completed
-msgid "Clear uploads which have been completed."
+msgid "Clear uploads that have completed."
 msgstr "清除完成文件的上传。"
 
 #: message;id_uploads_disconnect
-msgid "Disconnect the selected upload transfer(s)."
+msgid "Disconnect the selected upload transfers."
 msgstr "断开选定上传的传送。"
 
 #: message;id_uploads_filter_active
@@ -3893,7 +3893,7 @@ msgid "Show BitTorrent uploads."
 msgstr "显示 BitTorrent 上传。"
 
 #: message;id_uploads_launch
-msgid "Launch the selected shared file(s)."
+msgid "Show selected shared files in the Library. (Or hold Shift to open.)s)."
 msgstr "启动选定的共享文件。"
 
 #: message;id_uploads_settings
@@ -3901,7 +3901,7 @@ msgid "Configure upload settings..."
 msgstr "配置上传设置..."
 
 #: message;id_uploads_start
-msgid "Start the selected queued upload(s)."
+msgid "Force start selected queued uploads."
 msgstr "开始选定的上传队列。"
 
 #: message;id_view_basic
@@ -6080,11 +6080,11 @@ msgstr ""
 msgid "No scheduled event. Please select a task."
 msgstr ""
 
-#: string;20612 string;20700 string;20760
+#: string;20707 string;20760
 msgid "Active"
 msgstr "活动"
 
-#: string;20613 string;20761
+#: string;20709
 msgid "Inactive"
 msgstr "停止"
 
@@ -6324,19 +6324,19 @@ msgstr ""
 msgid "Are you sure you want to delete the \"%s\" skin? This cannot be undone."
 msgstr "您确定要删除 \"%s\" 皮肤吗？ 此操作不可逆。"
 
-#: string;20701
+#: string;20700
 msgid "%s in : %s out  (d:%I64i/u:%I64i)"
 msgstr "%s传入:%s传出 (下载:%I64i/上传:%I64i)"
 
-#: string;20702
+#: string;20701
 msgid "Connected to %lu neighbors. %s in local library."
 msgstr "连接到 %lu 个邻居。%s 处于本地收藏中。"
 
-#: string;20703
+#: string;20702
 msgid "Hub mode with %lu neighbors. %s in local library."
 msgstr "集端模式有 %lu 个邻居。%s 处于本地收藏中。"
 
-#: string;20704
+#: string;20703
 msgid "Hub/Ultrapeer mode with %lu neighbors. %s in local library."
 msgstr "集端/超对等模式有 %lu 个邻居。%s 处于本地收藏中。"
 
@@ -6344,15 +6344,15 @@ msgstr "集端/超对等模式有 %lu 个邻居。%s 处于本地收藏中。"
 msgid "Connected. %s in local library."
 msgstr "已连接。%s 于本地收藏夹。"
 
-#: string;20706
+#: string;20704
 msgid "Ultrapeer mode with %lu neighbors. %s in local library."
 msgstr "超对等模式有 %lu 个邻居。%s 处于本地收藏中。"
 
-#: string;20707
+#: string;20706
 msgid "Connecting to the network..."
 msgstr "连接网络..."
 
-#: string;20708
+#: string;20707
 msgid "Not connected to the network."
 msgstr "尚未连接网络。"
 

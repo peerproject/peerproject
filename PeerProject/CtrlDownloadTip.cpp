@@ -349,6 +349,12 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownload* pDownload)
 
 		strSpeed = Settings.SmartSpeed( pDownload->GetAverageSpeed() );
 
+		if ( pDownload->IsBoosted() )
+		{
+			LoadString( strFormat, IDS_TIP_PRIORITY );
+			strSpeed += _T("   ") + strFormat;
+		}
+
 		strSources.Format( _T("%i %s %i"), nTransferCount, strOf, nSourceCount );
 		if ( Settings.General.LanguageRTL ) strSources = _T("\x202B") + strSources;
 	}
@@ -882,7 +888,7 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownloadSource* pSource)
 	}
 	else
 	{
-		LoadString( strStatus, IDS_TIP_INACTIVE );
+		LoadString( strStatus, IDS_STATUS_INACTIVE );
 		LoadString( strSpeed, IDS_TIP_NA );
 	}
 

@@ -86,7 +86,7 @@ CLibraryFolder* CLibraryFolders::GetNextFolder(POSITION& pos) const
 
 CLibraryFolder* CLibraryFolders::GetFolder(LPCTSTR pszPath) const
 {
-	ASSUME_LOCK( Library.m_pSection );
+	//ASSUME_LOCK( Library.m_pSection );
 
 	for ( POSITION pos = GetFolderIterator() ; pos ; )
 	{
@@ -99,7 +99,7 @@ CLibraryFolder* CLibraryFolders::GetFolder(LPCTSTR pszPath) const
 
 BOOL CLibraryFolders::CheckFolder(CLibraryFolder* pFolder, BOOL bRecursive) const
 {
-	ASSUME_LOCK( Library.m_pSection );
+	//ASSUME_LOCK( Library.m_pSection );
 
 	if ( m_pFolders.Find( pFolder ) != NULL ) return TRUE;
 	if ( ! bRecursive ) return FALSE;
@@ -114,10 +114,10 @@ BOOL CLibraryFolders::CheckFolder(CLibraryFolder* pFolder, BOOL bRecursive) cons
 
 CLibraryFolder* CLibraryFolders::GetFolderByName(LPCTSTR pszName) const
 {
-	ASSUME_LOCK( Library.m_pSection );
+	//ASSUME_LOCK( Library.m_pSection );
 
 	CString strName( pszName );
-	ToLower( strName );
+	strName.MakeLower();		// Was ToLower()
 
 	CString strNextName;
 	const int nPos = strName.FindOneOf( _T("\\/") );
@@ -127,7 +127,7 @@ CLibraryFolder* CLibraryFolders::GetFolderByName(LPCTSTR pszName) const
 		strName = strName.Left( nPos );
 	}
 
-	for ( POSITION pos = GetFolderIterator() ; pos; )
+	for ( POSITION pos = GetFolderIterator() ; pos ; )
 	{
 		CLibraryFolder* pFolder = GetNextFolder( pos );
 

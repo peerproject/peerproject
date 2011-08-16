@@ -3,7 +3,7 @@
 
 <!-- PeerProject Korean Language Skin File -->
 
-<!-- Translation based on default-en.xml r68 --> <!--Machine Translated!-->
+<!-- Translation based on default-en.xml r69 --> <!--Machine Translated!-->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -153,10 +153,10 @@
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="미리보기 파일"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="파일 삭제"/>
-		<button id="ID_DOWNLOADS_RESUME" text="이력서 다운로드"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="일시 중지 다운로"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="취소 다운로드"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="지우기 다운로드"/>
+		<button id="ID_DOWNLOADS_RESUME" text="이력서 다운로드"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="일시 중지 다운로"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="세부 사항"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="모니터보기"/>
@@ -195,6 +195,7 @@
 		<separator/>
 		<button id="ID_UPLOADS_CLEAR" text="취소 파일 버튼 아이디"/>
 		<button id="ID_UPLOADS_START" text="시작하세요"/>
+		<button id="ID_UPLOADS_PRIORITY" text="우선" visible="false"/>
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="찾아보기 사용자"/>
 		<button id="ID_UPLOADS_CHAT" text="Chat 사용자"/>
@@ -1228,34 +1229,37 @@
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="_Properties..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Filter">
-		<item id="ID_DOWNLOADS_FILTER_ALL" text="Show _All"/>
+		<item id="ID_DOWNLOADS_FILTER_ALL" text="모두보기"/>
 		<separator/>
-		<item id="ID_DOWNLOADS_FILTER_ACTIVE" text="Show A_ctive"/>
-		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="Show _Paused"/>
-		<item id="ID_DOWNLOADS_FILTER_QUEUED" text="Show _Queued"/>
-		<item id="ID_DOWNLOADS_FILTER_SOURCES" text="Show _No Sources"/>
-		<item id="ID_DOWNLOADS_FILTER_SEEDS" text="Show See_ds"/>
+		<item id="ID_DOWNLOADS_FILTER_ACTIVE" text="보기 A_ctive"/>
+		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="보기 _Paused"/>
+		<item id="ID_DOWNLOADS_FILTER_QUEUED" text="보기 _Queued"/>
+		<item id="ID_DOWNLOADS_FILTER_SOURCES" text="보기 _No Sources"/>
+		<item id="ID_DOWNLOADS_FILTER_SEEDS" text="보기 See_ds"/>
 		<separator/>
-		<item id="ID_DOWNLOADS_SHOW_SOURCES" text="Show All _Sources"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="_Auto Clear"/>
+		<item id="ID_DOWNLOADS_SHOW_SOURCES" text="모두보기 _Sources"/>
+		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="_Auto 맑은"/>
 		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_SHOW" text="Show _Groups"/>
+		<item id="ID_DOWNLOAD_GROUP_SHOW" text="보기 _Groups"/>
 	</menu>
 	<!-- UPLOADS WINDOW -->
 	<menu name="CUploadsWnd.Upload.Basic">
 		<item id="ID_BROWSE_LAUNCH" text="찾아보기 사용자"/>
 		<item id="ID_UPLOADS_CHAT" text="채팅 사용자에게"/>
 		<separator/>
-		<item id="ID_UPLOADS_HELP" text="_도움..."/>
+		<item id="ID_UPLOADS_HELP" text="도움..."/>
 	</menu>
 	<menu name="CUploadsWnd.Upload">
-		<item id="ID_UPLOADS_START" text="_Start Now"/>
-		<item id="ID_UPLOADS_CLEAR" text="_Clear"/>
-		<item id="ID_UPLOADS_FOLDER" text="Open _Folder"/>
+		<item id="ID_UPLOADS_LAUNCH" text="라이브러리에서보기"/>
+		<item id="ID_UPLOADS_FOLDER" text="폴더 열기"/>
 		<separator/>
-		<item id="ID_BROWSE_LAUNCH" text="_Browse User"/>
-		<item id="ID_UPLOADS_CHAT" text="_Chat to User"/>
-		<item id="ID_SECURITY_BAN" text="Ba_n User"/>
+		<item id="ID_UPLOADS_CLEAR" text="맑은"/>
+		<item id="ID_UPLOADS_START" text="지금 시작"/>
+		<item id="ID_UPLOADS_PRIORITY" text="우선"/>
+		<separator/>
+		<item id="ID_BROWSE_LAUNCH" text="찾아보기 사용자"/>
+		<item id="ID_UPLOADS_CHAT" text="채팅 사용자에게"/>
+		<item id="ID_SECURITY_BAN" text="B_an 사용자"/>
 	</menu>
 	<menu name="CUploadsWnd.Default">
 		<item id="ID_LIBRARY_FOLDERS" text="파일을 공유..."/>
@@ -1629,9 +1633,9 @@
 	</menu>
 	<!-- SECURITY WINDOW -->
 	<menu name="CSecurityWnd">
-		<item id="ID_SECURITY_ADD" text="_Add Rule..."/>
+		<item id="ID_SECURITY_ADD" text="추가 Rule..."/>
 		<separator/>
-		<item id="ID_SECURITY_REMOVE" text="_Remove"/>
+		<item id="ID_SECURITY_REMOVE" text="삭제"/>
 		<item id="ID_SECURITY_RESET" text="Rese_t"/>
 		<separator/>
 		<item id="ID_SECURITY_MOVE_UP" text="Move _Up" shortcut="Ctrl+Up"/>
@@ -1649,19 +1653,19 @@
 	</menu>
 	<!-- DISCOVERY SERVICES WINDOW -->
 	<menu name="CDiscoveryWnd">
+		<item id="ID_DISCOVERY_ADD" text="추가..."/>
+		<separator/>
+		<item id="ID_DISCOVERY_EDIT" text="_Edit"/>
+		<item id="ID_DISCOVERY_REMOVE" text="삭제"/>
+		<separator/>
 		<item id="ID_DISCOVERY_QUERY" text="_Query Now"/>
 		<item id="ID_DISCOVERY_ADVERTISE" text="A_dvertise"/>
-		<item id="ID_DISCOVERY_REMOVE" text="_Remove"/>
-		<separator/>
 		<item id="ID_DISCOVERY_BROWSE" text="Browse _Statistics"/>
 		<separator/>
-		<item id="ID_DISCOVERY_GNUTELLA" text="Show _Bootstraps"/>
-		<item id="ID_DISCOVERY_WEBCACHE" text="Show _GWebCaches"/>
-		<item id="ID_DISCOVERY_SERVERMET" text="Show Ser_ver.met's"/>
-		<separator/>
-		<item id="ID_DISCOVERY_ADD" text="_Add Service..."/>
-		<separator/>
-		<item id="ID_DISCOVERY_EDIT" text="_Properties"/>
+		<item id="ID_DISCOVERY_GNUTELLA" text="보기 _Bootstraps"/>
+		<item id="ID_DISCOVERY_WEBCACHE" text="보기 _GWebCaches"/>
+		<item id="ID_DISCOVERY_SERVERLIST" text="보기 Ser_ver.met's"/>
+		<item id="ID_DISCOVERY_BLOCKED" text="보기 차단된"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
 	<!-- IRC WINDOW -->
@@ -1994,6 +1998,7 @@
 	<string id="20016" value="다시 시도"/>
 	<string id="20017" value="을 중단하라"/>
 	<string id="20018" value="다시 시도"/>
+	<string id="20019" value="Please Wait..."/>
 	<string id="20020" value="파일"/>
 	<string id="20021" value="파일"/>
 	<string id="20022" value="모든 파일"/>
@@ -2511,15 +2516,16 @@
 	<string id="20678" value="The eDonkey network uses large queues with long wait times. By limiting the maximum queue position you will accept so strictly, you may have trouble getting downloads to begin.nAre you sure you want to limit what queue positions you will accept?"/>
 	<string id="20680" value="PeerProject 설정"/>
 	<string id="20684" value="Are you sure you want to delete the &quot;%s&quot; skin? This cannot be undone."/>
-	<string id="20700" value="액티브"/>
-	<string id="20701" value="%s in : %s out (d:%I64i/u:%I64i)"/>
-	<string id="20702" value="  %lu 이웃에 연결됨.   %s 지방 컬렉션."/>
-	<string id="20703" value="Hub mode with %lu neighbours. %s 개 지역 도서관에."/>
-	<string id="20704" value="Hub/Ultrapeer mode with %lu neighbours. %s 개 지역 도서관에."/>
+	<string id="20700" value="%s in : %s out (d:%I64i/u:%I64i)"/>
+	<string id="20701" value=" %lu 이웃에 연결됨.  %s 지방 컬렉션."/>
+	<string id="20702" value="Hub mode with %lu neighbours. %s 개 지역 도서관에."/>
+	<string id="20703" value="Hub/Ultrapeer mode with %lu neighbours. %s 개 지역 도서관에."/>
+	<string id="20704" value="Ultrapeer mode with %lu neighbours. %s 개 지역 도서관에."/>
 	<string id="20705" value="연결. %s 개 지역 도서관에."/>
-	<string id="20706" value="Ultrapeer mode with %lu neighbours. %s 개 지역 도서관에."/>
-	<string id="20707" value="네트워크에 연결하기..."/>
-	<string id="20708" value="아니라 네트워크에 연결."/>
+	<string id="20706" value="네트워크에 연결하기..."/>
+	<string id="20707" value="아니라 네트워크에 연결."/>
+	<string id="20708" value="액티브"/>
+	<string id="20709" value="Inactive"/>
 	<string id="20710" value="갤거야"/>
 	<string id="20711" value="Can't Move"/>
 	<string id="20712" value="숨막혀"/>
@@ -2560,8 +2566,7 @@
 	<string id="20751" value="There are no active searches. Click here to search for files."/>
 	<string id="20752" value="You're not connected. Click the Connect button to get started."/>
 	<string id="20755" value="Are you sure you want to delete the &quot;%s&quot; template?nThis cannot be undone."/>
-	<string id="20760" value="Active"/>
-	<string id="20761" value="Inactive"/>
+	<string id="20760" value="우선"/>
 	<string id="20762" value="This file appears to be spam."/>
 	<string id="20763" value="Blacklisted:"/>
 	<string id="20764" value="You have downloaded and deleted this file before."/>

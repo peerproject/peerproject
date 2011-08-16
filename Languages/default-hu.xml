@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hungarian Skin File -->
 
-<!-- Translation based on default-en.xml r68 -->
+<!-- Translation based on default-en.xml r69 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -151,10 +151,10 @@
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Előnézet"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Törlés"/>
-		<button id="ID_DOWNLOADS_RESUME" text="Letöltés folytatása"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="Letöltés szüneteltetése"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Letöltés leállítása"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Letöltés törlése"/>
+		<button id="ID_DOWNLOADS_RESUME" text="Letöltés folytatása"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="Letöltés szüneteltetése"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Infó"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Monitor megjelenítése"/>
@@ -166,10 +166,10 @@
 		<button id="ID_DOWNLOADS_LAUNCH" text="Előnézet"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Törlés"/>
-		<button id="ID_DOWNLOADS_RESUME" text="Letöltés folytatása"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="Letöltés szüneteltetése"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Letöltés leállítása"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Letöltés törlése"/>
+		<button id="ID_DOWNLOADS_RESUME" text="Letöltés folytatása"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="Letöltés szüneteltetése"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Infó"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Monitor megjelenítése"/>
@@ -189,8 +189,9 @@
 	<toolbar name="CUploadsWnd">
 		<button id="ID_UPLOADS_LAUNCH" text="Megnyitás-Lejátszás"/>
 		<separator/>
-		<button id="ID_UPLOADS_START" text="Kezdés most"/>
 		<button id="ID_UPLOADS_CLEAR" text="Feltöltés törlése"/>
+		<button id="ID_UPLOADS_START" text="Kezdés most"/>
+		<button id="ID_UPLOADS_PRIORITY" text="Prioritás" visible="false"/>
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Fájllista és adatlap"/>
 		<button id="ID_UPLOADS_CHAT" text="Csevegés"/>
@@ -1189,11 +1190,16 @@
 	<menu name="CUploadsWnd.Upload.Basic">
 		<item id="ID_BROWSE_LAUNCH" text="_Fájllista és adatlap"/>
 		<item id="ID_UPLOADS_CHAT" text="_Csevegés"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="_Súgó..."/>
 	</menu>
 	<menu name="CUploadsWnd.Upload">
-		<item id="ID_UPLOADS_START" text="_Kezdés most"/>
-		<item id="ID_UPLOADS_CLEAR" text="_Töröl"/>
+		<item id="ID_UPLOADS_LAUNCH" text="Show in _Library"/>
 		<item id="ID_UPLOADS_FOLDER" text="Megnyitás _Folder"/>
+		<separator/>
+		<item id="ID_UPLOADS_CLEAR" text="_Töröl"/>
+		<item id="ID_UPLOADS_START" text="_Kezdés most"/>
+		<item id="ID_UPLOADS_PRIORITY" text="Prioritás"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="_Fájllista és adatlap"/>
 		<item id="ID_UPLOADS_CHAT" text="_Csevegés"/>
@@ -1600,19 +1606,19 @@
 	</menu>
 	<!-- DISCOVERY SERVICES WINDOW -->
 	<menu name="CDiscoveryWnd">
-		<item id="ID_DISCOVERY_QUERY" text="_Lekérdez"/>
-		<item id="ID_DISCOVERY_ADVERTISE" text="_Reklámoz"/>
+		<item id="ID_DISCOVERY_ADD" text="S_zolgáltatás hozzáadása..."/>
+		<separator/>
+		<item id="ID_DISCOVERY_EDIT" text="_Tulajdonságok"/>
 		<item id="ID_DISCOVERY_REMOVE" text="_Eltávolít"/>
 		<separator/>
+		<item id="ID_DISCOVERY_QUERY" text="_Lekérdez"/>
+		<item id="ID_DISCOVERY_ADVERTISE" text="_Reklámoz"/>
 		<item id="ID_DISCOVERY_BROWSE" text="_Statisztika böngészése"/>
 		<separator/>
 		<item id="ID_DISCOVERY_GNUTELLA" text="_Bootstrapek megjelenítése"/>
 		<item id="ID_DISCOVERY_WEBCACHE" text="_GWebCache-ek megjelenítése"/>
-		<item id="ID_DISCOVERY_SERVERMET" text="Se_rver.met-ek megjelenítése"/>
-		<separator/>
-		<item id="ID_DISCOVERY_ADD" text="S_zolgáltatás hozzáadása..."/>
-		<separator/>
-		<item id="ID_DISCOVERY_EDIT" text="_Tulajdonságok"/>
+		<item id="ID_DISCOVERY_SERVERLIST" text="Se_rver.met-ek megjelenítése"/>
+		<item id="ID_DISCOVERY_BLOCKED" text="Zárolt megjelenítése"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
 	<menu name="CPrivateChatFrame">
@@ -2313,7 +2319,7 @@
 	<tip id="ID_DISCOVERY_GNUTELLA" message="Bootstrap szolgáltatás megjelenítése."/>
 	<tip id="ID_DISCOVERY_QUERY" message="A kiválasztott szolgáltatás lekérdezése."/>
 	<tip id="ID_DISCOVERY_REMOVE" message="A kiválasztott szolgáltatás eltávolítása."/>
-	<tip id="ID_DISCOVERY_SERVERMET" message="eDonkey Server.met letöltöhelyek megjelenítése."/>
+	<tip id="ID_DISCOVERY_SERVERLIST" message="eDonkey Server.met letöltöhelyek megjelenítése."/>
 	<tip id="ID_DISCOVERY_WEBCACHE" message="GWebCache szolgáltatás megjelenítése."/>
 	<tip id="ID_DOWNLOAD_GROUP_CLEAR" message="Minden letöltés törlése a csoportban."/>
 	<tip id="ID_DOWNLOAD_GROUP_NEW" message="Új letöltési csoport létrehozása..."/>
@@ -2574,6 +2580,7 @@
 	<tip id="ID_UPLOADS_LAUNCH" message="Megnyitás."/>
 	<tip id="ID_UPLOADS_SETTINGS" message="Feltöltési beállítások..."/>
 	<tip id="ID_UPLOADS_START" message="A kiválasztott feltöltés(ek) indítása."/>
+	<tip id="ID_UPLOADS_PRIORITY" message="Prioritás."/>
 	<tip id="ID_VIEW_BASIC" message="A PeerProject egyszerű nézete."/>
 	<tip id="ID_VIEW_DISCOVERY" message="A SZERVERKERESŐ ablak elrejtése, megjelenítése."/>
 	<tip id="ID_VIEW_DOWNLOADS" message="A LETÖLTÉSEK ablak elrejtése, megjelenítése."/>
@@ -2649,6 +2656,7 @@
 	<string id="20012" value="Saját"/>
 	<string id="20013" value="Alapértelmezett"/>
 	<string id="20014" value="Befejezve"/>
+	<string id="20019" value="Várakozás..."/>
 	<string id="20020" value="Fájl"/>
 	<string id="20021" value="Fájlok"/>
 	<string id="20022" value="Minden Fájl"/>
@@ -3165,15 +3173,16 @@
 	<string id="20678" value="Az eDonkey hálózaton sokáig kell sorbanállni és várakozni egy fájlért. Ha csökkenti a sorok maximális számát, valószínűleg nem fognak elidulni a letöltések.\nBiztos csökkenteni akarja a számodra kirendelt sorszámot?"/>
 	<string id="20680" value="Beállítások"/>
 	<string id="20684" value="Biztos, hogy törölni akarja a(z) &quot;%s&quot; kinézetet? Ezt már nem lehet később visszavonni."/>
-	<string id="20700" value="Aktív"/>
-	<string id="20701" value="Le: %s | Fel: %s  (d:%I64i/u:%I64i)"/>
-	<string id="20702" value="Kapcsolódva %lu szomszéddal.  %s a megosztás mérete."/>
-	<string id="20703" value="Hub mód %lu szomszéddal.  %s a helyi könyvtárban."/>
-	<string id="20704" value="Hub/Ultrapeer mód %lu szomszéddal.  %s a helyi könyvtárban."/>
+	<string id="20700" value="Le: %s | Fel: %s  (d:%I64i/u:%I64i)"/>
+	<string id="20701" value="Kapcsolódva %lu szomszéddal.  %s a megosztás mérete."/>
+	<string id="20702" value="Hub mód %lu szomszéddal.  %s a helyi könyvtárban."/>
+	<string id="20703" value="Hub/Ultrapeer mód %lu szomszéddal.  %s a helyi könyvtárban."/>
+	<string id="20704" value="Ultrapeer mód %lu szomszéddal.  %s a helyi könyvtárban."/>
 	<string id="20705" value="Kapcsolódva. %s a helyi könyvtárban."/>
-	<string id="20706" value="Ultrapeer mód %lu szomszéddal.  %s a helyi könyvtárban."/>
-	<string id="20707" value="Kapcsolódás..."/>
-	<string id="20708" value="Nincs kapcsolat."/>
+	<string id="20706" value="Kapcsolódás..."/>
+	<string id="20707" value="Nincs kapcsolat."/>
+	<string id="20708" value="Aktív"/>
+	<string id="20709" value="Inaktív"/>
 	<string id="20710" value="Klíring"/>
 	<string id="20711" value="Nem mozgatható"/>
 	<string id="20712" value="Elakadva"/>
@@ -3214,8 +3223,7 @@
 	<string id="20751" value="Nincsen aktív keresés. Kattintson ide a fájlok kereséséhez."/>
 	<string id="20752" value="Nincs kapcsolat. Kattintson a Kapcsolódás gombra a kezdéshez."/>
 	<string id="20755" value="Biztos törölni akarja a(z) &quot;%s&quot; sablont?nKésőbb már nem lehet visszavonni."/>
-	<string id="20760" value="Aktív"/>
-	<string id="20761" value="Inaktív"/>
+	<string id="20760" value="Prioritás"/>
 	<string id="20762" value="Ez a fájl spamnek néz ki."/>
 	<string id="20763" value="Feketelistán van:"/>
 	<string id="20764" value="Egyszer már letöltötte és utána törölte ezt a fájlt."/>

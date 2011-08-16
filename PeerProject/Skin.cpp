@@ -2398,7 +2398,7 @@ BOOL CSkin::LoadCommandIcon(CXMLElement* pXML, const CString& strPath)
 	}
 
 	// Is this a RTL-enabled icon? (default: "0" - no)
-	BOOL bRTL = ( pXML->GetAttributeValue( _T("rtl"), _T("0") ) == _T("1") );
+	const BOOL bRTL = Settings.General.LanguageRTL && pXML->GetAttributeValue( _T("rtl"), _T("0") ) == _T("1");
 
 	// Icon types (default: "16" - 16x16 icon only)
 	CString strTypes = pXML->GetAttributeValue( _T("types"), _T("16") );
@@ -2443,7 +2443,7 @@ BOOL CSkin::LoadCommandIcon(CXMLElement* pXML, const CString& strPath)
 		}
 		if ( hIcon )
 		{
-			if ( bRTL && Settings.General.LanguageRTL )
+			if ( bRTL )
 				hIcon = CreateMirroredIcon( hIcon );
 			CoolInterface.AddIcon( nID, hIcon, nType );
 			VERIFY( DestroyIcon( hIcon ) );

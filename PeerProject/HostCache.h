@@ -291,13 +291,13 @@ class CHostCache
 public:
 	CHostCache();
 
-	CHostCacheList		Gnutella1;
 	CHostCacheList		Gnutella2;
-	CHostCacheList		eDonkey;
+	CHostCacheList		Gnutella1;
 	CHostCacheList		G1DNA;
-	CHostCacheList		BitTorrent;
-	CHostCacheList		Kademlia;
+	CHostCacheList		eDonkey;
 	CHostCacheList		DC;
+	CHostCacheList		Kademlia;
+	CHostCacheList		BitTorrent;
 
 	BOOL				Load();
 	BOOL				Save();
@@ -321,7 +321,7 @@ public:
 
 	inline bool EnoughED2KServers() const throw()
 	{
-		return ( eDonkey.CountHosts( TRUE ) >= 8 );
+		return ( eDonkey.CountHosts( TRUE ) >= 6 );
 	}
 
 	inline CHostCacheList* ForProtocol(PROTOCOLID nProtocol) throw()

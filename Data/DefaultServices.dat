@@ -46,7 +46,8 @@ D http://peerates.net/servers.php
 D http://www.gruk.org/server.met
 D http://www.emule-server.de/server.met/max/server.met
 D http://ocbmaurice.dyndns.org/pl/slist.pl/server.met?download/server-best.met
-# http://dchublist.com/hublist.xml.bz2
+H http://dchublist.com/hublist.xml.bz2
+H http://hublist.openhublist.org/hublist.xml.bz2
 
 X http://gwebcache.spearforensics.com/
 X http://bbs.robertwoolley.co.uk/gwebcache/gcache.php
@@ -61,13 +62,14 @@ X http://www.lo7.wroc.pl/~stash/g2-moved/bazooka.php
 #
 # Last updated July 2011
 #
-# Keep at least four gwebcache links and one link to a .met file
+# Keep at least four gwebcache links and one link to a .met/hublist file
 # or they'll keep getting added every time they're removed
 #
 # A letter and space must precede each link to indicate the type of service:
-# D = eDonkey server.met file, M = multinetwork gwebcache,
-# 2 = Gnutella2 gwebcache, 1 = Gnutella gwebcache (obsolete)
-# X = banned, U = BootStrap (uhc, ukhl, gnutella1 host, gnutella2 host)
+# X = Banned,  M = Multinetwork gwebcache,
+# 2 = Gnutella2 gwebcache,  1 = Gnutella gwebcache (obsolete),
+# U = BootStrap (uhc, ukhl, gnutella1 host, gnutella2 host),
+# D = eDonkey server.met file,  H = DC++ Hublist.xml.bz2 file
 #
 # Delete this file and PeerProject will use internal defaults.
 #

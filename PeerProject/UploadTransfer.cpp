@@ -45,11 +45,12 @@ CUploadTransfer::CUploadTransfer(PROTOCOLID nProtocol)
 	: CTransfer			( nProtocol )
 	, m_pQueue			( NULL )
 	, m_pBaseFile		( NULL )
-	, m_nUserRating		( urNew )
 	, m_nFileBase		( 0 )
 	, m_bFilePartial	( FALSE )
-	, m_bLive			( TRUE )
 	, m_bStopTransfer	( FALSE )
+	, m_bPriority		( FALSE )
+	, m_bLive			( TRUE )
+	, m_nUserRating		( urNew )
 	, m_nRequests		( 0 )
 	, m_nUploaded		( 0 )
 	, m_tContent		( 0 )
@@ -62,7 +63,7 @@ CUploadTransfer::CUploadTransfer(PROTOCOLID nProtocol)
 {
 	m_nProtocol			= nProtocol;
 	m_nBandwidth		= Settings.Bandwidth.Request;
-	m_nOffset			= 0; // ?
+	m_nOffset			= 0;	// ?
 	ZeroMemory( m_nAverageRate, sizeof( m_nAverageRate ) );
 
 	Uploads.Add( this );
@@ -83,10 +84,7 @@ void CUploadTransfer::Remove(BOOL bMessage)
 	ASSERT( this != NULL );
 
 	if ( bMessage && ! m_sName.IsEmpty() )
-	{
-		theApp.Message( MSG_NOTICE, IDS_UPLOAD_REMOVE,
-			(LPCTSTR)m_sName, (LPCTSTR)m_sAddress );
-	}
+		theApp.Message( MSG_NOTICE, IDS_UPLOAD_REMOVE, (LPCTSTR)m_sName, (LPCTSTR)m_sAddress );
 
 	m_nUploaded = 1;
 	Close();
@@ -106,17 +104,23 @@ void CUploadTransfer::Close(UINT nError)
 	UploadQueues.Dequeue( this );
 	CloseFile();
 
-	if ( m_nUploaded == 0 ) Remove( FALSE );
+	if ( m_nUploaded == 0 )
+		Remove( FALSE );
 }
 
 //////////////////////////////////////////////////////////////////////
 // CUploadTransfer promotion
 
-BOOL CUploadTransfer::Promote()
+BOOL CUploadTransfer::Promote(BOOL bPriority)
 {
+	m_bPriority = bPriority;
+
+	// ToDo: Toggle unhandled bandwidth limit for torrents?
+
 	if ( m_nState != upsQueued ) return FALSE;
+
 	UploadQueues.Dequeue( this );
-	return UploadQueues.Enqueue( this, true );
+	return UploadQueues.Enqueue( this, TRUE );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -191,7 +195,7 @@ DWORD CUploadTransfer::GetMeasuredSpeed()
 void CUploadTransfer::SetSpeedLimit(DWORD nLimit)
 {
 	ZeroMemory( m_nAverageRate, sizeof m_nAverageRate );
-	m_nBandwidth	= nLimit;
+	m_nBandwidth	= m_bPriority ? Settings.Bandwidth.Uploads : nLimit;
 	m_tAverageTime	= 0;
 	m_nAveragePos	= 0;
 }
@@ -201,7 +205,7 @@ void CUploadTransfer::SetSpeedLimit(DWORD nLimit)
 
 BOOL CUploadTransfer::OnRun()
 {
-	DWORD tNow = GetTickCount();
+	const DWORD tNow = GetTickCount();
 
 	LongTermAverage( tNow );
 	RotatingQueue( tNow );
@@ -258,7 +262,7 @@ void CUploadTransfer::LongTermAverage(DWORD tNow)
 
 	m_nAverageRate[ m_nAveragePos ] = max( m_nAverageRate[ m_nAveragePos ], nSpeed );
 
-	if ( tNow - m_tAverageTime < 2000 || m_nAverageRate[ m_nAveragePos ] == 0 ) return;
+	if ( tNow < m_tAverageTime + 2000 || m_nAverageRate[ m_nAveragePos ] == 0 ) return;
 
 	m_tAverageTime = tNow;
 	m_nAveragePos = ( m_nAveragePos + 1 ) % ULA_SLOTS;
@@ -275,9 +279,13 @@ void CUploadTransfer::LongTermAverage(DWORD tNow)
 	nAverage = nAverage / ULA_SLOTS * 9 / 8;
 	nAverage = max( nAverage, Settings.Uploads.ClampdownFloor );
 
-	if ( nAverage < m_nBandwidth * ( 100 - Settings.Uploads.ClampdownFactor ) / 100 )
+	if ( m_bPriority )
 	{
-		DWORD nOld = m_nBandwidth;	// Save
+		m_nBandwidth = NULL; 	// User-unlimited
+	}
+	else if ( nAverage < m_nBandwidth * ( 100 - Settings.Uploads.ClampdownFactor ) / 100 )
+	{
+		DWORD nOld = m_nBandwidth;
 
 		m_nBandwidth = min( nAverage, m_nBandwidth );
 
@@ -288,10 +296,11 @@ void CUploadTransfer::LongTermAverage(DWORD tNow)
 	}
 	else if ( m_pQueue && m_pQueue->GetAvailableBandwidth() )
 	{
-		DWORD nOld = m_nBandwidth;	// Save
 		ZeroMemory( m_nAverageRate, sizeof( m_nAverageRate ) );
 
+		DWORD nOld = m_nBandwidth;
 		DWORD nIncrease = m_pQueue->GetAvailableBandwidth() / ( m_pQueue->GetTransferCount() + 1 );
+
 		if ( nIncrease + m_nBandwidth < m_nMaxRate )
 			m_nBandwidth += nIncrease;
 		else
@@ -309,11 +318,14 @@ void CUploadTransfer::LongTermAverage(DWORD tNow)
 
 void CUploadTransfer::RotatingQueue(DWORD tNow)
 {
+	if ( m_bPriority )	// Do not rotate user-unlimited upload
+		return;
+		
 	CSingleLock pLock( &UploadQueues.m_pSection );
 	if ( ! pLock.Lock( 350 ) )
-		 return;
+		return;
 
-	if ( m_pQueue != NULL && UploadQueues.Check( m_pQueue ) &&	// Is this queue able to rotate?
+	if ( m_pQueue != NULL && UploadQueues.Check( m_pQueue ) && 	// Is this queue able to rotate?
 		 m_pQueue->m_bRotate && m_pQueue->IsActive( this ) && ! m_bStopTransfer )
 	{
 		DWORD tRotationLength = m_pQueue->m_nRotateTime * 1000;
@@ -329,7 +341,7 @@ void CUploadTransfer::RotatingQueue(DWORD tNow)
 			if ( m_nState == upsUploading )
 				m_tRotateTime = tNow;							// Set the upload as having started
 		}
-		else if ( tNow - m_tRotateTime >= tRotationLength )		// Otherwise check if it should rotate
+		else if ( tNow >= m_tRotateTime + tRotationLength ) 	// Otherwise check if it should rotate
 		{
 			m_bStopTransfer	= TRUE;
 		}
@@ -356,7 +368,7 @@ void CUploadTransfer::CalculateRating(DWORD tNow)
 	if ( nDownloaded > 128 * 1024)			// They have uploaded to us. (Transfers < 128k are ignored)
 	{
 		if ( nDownloaded > m_nUploaded )	// If they have sent more to us than we have to them
-			m_nUserRating = urCredit;		// They get the highest rating
+			m_nUserRating = urCredit;		// They get the highest rating  (longer rotation)
 		else
 			m_nUserRating = urSharing;		// Otherwise still known sharer
 	}

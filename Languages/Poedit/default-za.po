@@ -432,7 +432,7 @@ msgstr ""
 msgid "Bootstraps"
 msgstr ""
 
-#: button;id_discovery_servermet
+#: button;id_discovery_serverlist
 msgid "Server.met's"
 msgstr ""
 
@@ -1808,7 +1808,7 @@ msgstr "Vertoon _Bootstraps"
 msgid "Show _GWebCaches"
 msgstr "Vertoon _GWebCaches"
 
-#: cdiscoverywnd;item;id_discovery_servermet
+#: cdiscoverywnd;item;id_discovery_serverlist
 msgid "Show Ser_ver.met's"
 msgstr "Vertoon Ser_ver.met's"
 
@@ -2884,7 +2884,7 @@ msgstr "Raadpleeg die geselekteerde ontdekkingsdienste nou."
 msgid "Remove the selected discovery services."
 msgstr "Verwyder die geselekteerde ontdekkingsdienste."
 
-#: message;id_discovery_servermet
+#: message;id_discovery_serverlist
 msgid "Show eDonkey Server.met services in the Discovery window."
 msgstr "Vertoon eDonkey2000 Server.met dienste in die Ontdekkings-venster."
 
@@ -3841,7 +3841,7 @@ msgid "Access the selected download sources and attempt to download."
 msgstr "Kontak die geselekteerde bron(ne) en probeer aflaai."
 
 #: message;id_transfers_disconnect
-msgid "Disconnect the selected download transfer(s)."
+msgid "Disconnect the selected download transfers."
 msgstr "Diskonnekteer die geselekteerde oordrag(te)."
 
 #: message;id_transfers_forget
@@ -3857,15 +3857,15 @@ msgid "Automatically clear uploads which have been completed."
 msgstr "Verwyder volledige oplaaie outomaties."
 
 #: message;id_uploads_clear
-msgid "Clear the selected uploads from the list."
+msgid "Cancel selected uploads and remove from list."
 msgstr "Verwyder die geselekteerde oplaai(e) van die lys."
 
 #: message;id_uploads_clear_completed
-msgid "Clear uploads which have been completed."
+msgid "Clear uploads that have completed."
 msgstr "Verwyder volledige oplaaie."
 
 #: message;id_uploads_disconnect
-msgid "Disconnect the selected upload transfer(s)."
+msgid "Disconnect the selected upload transfers."
 msgstr "Diskonnekteer die geselekteerde oplaai oordrag(te)."
 
 #: message;id_uploads_filter_active
@@ -3893,7 +3893,7 @@ msgid "Show BitTorrent uploads."
 msgstr "Vertoon BitTorrent oplaaie."
 
 #: message;id_uploads_launch
-msgid "Launch the selected shared file(s)."
+msgid "Show selected shared files in the Library. (Or hold Shift to open.)s)."
 msgstr "Open die geselekteerde gedeelde lêer(s)."
 
 #: message;id_uploads_settings
@@ -3901,7 +3901,7 @@ msgid "Configure upload settings..."
 msgstr "Verander oplaai verstellings..."
 
 #: message;id_uploads_start
-msgid "Start the selected queued upload(s)."
+msgid "Force start selected queued uploads."
 msgstr "Begin die geselekteerde oplaai(e) op die waglys dadelik."
 
 #: message;id_view_basic
@@ -6080,11 +6080,11 @@ msgstr ""
 msgid "No scheduled event. Please select a task."
 msgstr ""
 
-#: string;20612 string;20700 string;20760
+#: string;20707 string;20760
 msgid "Active"
 msgstr "Aktief"
 
-#: string;20613 string;20761
+#: string;20709
 msgid "Inactive"
 msgstr "Nie Aktief"
 
@@ -6324,19 +6324,19 @@ msgstr ""
 msgid "Are you sure you want to delete the \"%s\" skin? This cannot be undone."
 msgstr "Is jy seker jy wil die \"%s\" omslag skrap?  Dit kan nie herroep word nie."
 
-#: string;20701
+#: string;20700
 msgid "%s in : %s out  (d:%I64i/u:%I64i)"
 msgstr "%s in : %s uit (a:%I64i/o:%I64i)"
 
-#: string;20702
+#: string;20701
 msgid "Connected to %lu neighbors. %s in local library."
 msgstr "Gekonnekteer aan %lu gashere.  %s in lokale biblioteek."
 
-#: string;20703
+#: string;20702
 msgid "Hub mode with %lu neighbors. %s in local library."
 msgstr "Hub modus met %lu kliënt(e).  %s in lokale biblioteek."
 
-#: string;20704
+#: string;20703
 msgid "Hub/Ultrapeer mode with %lu neighbors. %s in local library."
 msgstr "Hub/Ultrapeer modus met %lu kliënt(e).  %s in lokale biblioteek."
 
@@ -6344,15 +6344,15 @@ msgstr "Hub/Ultrapeer modus met %lu kliënt(e).  %s in lokale biblioteek."
 msgid "Connected. %s in local library."
 msgstr "Gekonnekteer. %s in lokale biblioteek."
 
-#: string;20706
+#: string;20704
 msgid "Ultrapeer mode with %lu neighbors. %s in local library."
 msgstr "Ultrapeer modus met %lu kliënt(e).  %s in lokale biblioteek."
 
-#: string;20707
+#: string;20706
 msgid "Connecting to the network..."
 msgstr "Besig om aan die netwerk te konnekteer..."
 
-#: string;20708
+#: string;20707
 msgid "Not connected to the network."
 msgstr "Nie aan die netwerk gekonnekteer nie."
 

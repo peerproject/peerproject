@@ -165,15 +165,15 @@
 	<resource code="40033" id="ID_CHILD_RESTORE"/>
 	<resource code="40034" id="ID_CHECKMARK"/>
 	<resource code="40040" id="ID_DISCOVERY_ADD"/>
-	<resource code="40041" id="ID_DISCOVERY_REMOVE"/>
-	<resource code="40042" id="ID_DISCOVERY_EDIT"/>
+	<resource code="40041" id="ID_DISCOVERY_EDIT"/>
+	<resource code="40042" id="ID_DISCOVERY_REMOVE"/>
 	<resource code="40043" id="ID_DISCOVERY_QUERY"/>
 	<resource code="40044" id="ID_DISCOVERY_ADVERTISE"/>
-	<resource code="40045" id="ID_DISCOVERY_BLOCKED"/>
-	<resource code="40046" id="ID_DISCOVERY_BROWSE"/>
+	<resource code="40045" id="ID_DISCOVERY_BROWSE"/>
+	<resource code="40046" id="ID_DISCOVERY_BLOCKED"/>
 	<resource code="40047" id="ID_DISCOVERY_GNUTELLA"/>
-	<resource code="40048" id="ID_DISCOVERY_SERVERMET"/>
-	<resource code="40049" id="ID_DISCOVERY_WEBCACHE"/>
+	<resource code="40048" id="ID_DISCOVERY_WEBCACHE"/>
+	<resource code="40049" id="ID_DISCOVERY_SERVERLIST"/>
 	<resource code="40050" id="ID_DOWNLOADS_ADD_SOURCE"/>
 	<resource code="40051" id="ID_DOWNLOADS_AUTO_CLEAR"/>
 	<resource code="40052" id="ID_DOWNLOADS_BOOST"/>
@@ -487,12 +487,13 @@
 	<resource code="40419" id="ID_TRANSFERS_FORGET"/>
 	<resource code="40420" id="ID_TRAY_OPEN"/>
 	<resource code="40421" id="ID_UPLOADS_START"/>
-	<resource code="40422" id="ID_UPLOADS_LAUNCH"/>
-	<resource code="40423" id="ID_UPLOADS_CHAT"/>
-	<resource code="40424" id="ID_UPLOADS_CLEAR"/>
-	<resource code="40425" id="ID_UPLOADS_CLEAR_COMPLETED"/>
-	<resource code="40426" id="ID_UPLOADS_AUTO_CLEAR"/>
-	<resource code="40428" id="ID_UPLOADS_DISCONNECT"/>
+	<resource code="40422" id="ID_UPLOADS_PRIORITY"/>
+	<resource code="40424" id="ID_UPLOADS_LAUNCH"/>
+	<resource code="40425" id="ID_UPLOADS_CHAT"/>
+	<resource code="40426" id="ID_UPLOADS_CLEAR"/>
+	<resource code="40427" id="ID_UPLOADS_CLEAR_COMPLETED"/>
+	<resource code="40428" id="ID_UPLOADS_AUTO_CLEAR"/>
+	<resource code="40429" id="ID_UPLOADS_DISCONNECT"/>
 	<resource code="40430" id="ID_UPLOADS_FILTER_ALL"/>
 	<resource code="40431" id="ID_UPLOADS_FILTER_ACTIVE"/>
 	<resource code="40432" id="ID_UPLOADS_FILTER_HISTORY"/>

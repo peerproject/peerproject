@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Swedish Skin File -->
 
-<!-- Translation based on default-en.xml r68 -->
+<!-- Translation based on default-en.xml r69 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -151,10 +151,10 @@
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Förhandsvisa fil"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Radera fil"/>
-		<button id="ID_DOWNLOADS_RESUME" text="Återuppta nedladdning"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="Gör paus i nedladdning"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Avbryt nedladdning"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Rensa nedladdning"/>
+		<button id="ID_DOWNLOADS_RESUME" text="Återuppta nedladdning"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="Gör paus i nedladdning"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Information"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Visa monitor"/>
@@ -166,10 +166,10 @@
 		<button id="ID_DOWNLOADS_LAUNCH" text="Förhandsvisa fil"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Radera fil"/>
-		<button id="ID_DOWNLOADS_RESUME" text="Återuppta nedladdning"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="Gör paus i nedladdning"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Avbryt nedladdning"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Rensa nedladdning"/>
+		<button id="ID_DOWNLOADS_RESUME" text="Återuppta nedladdning"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="Gör paus i nedladdning"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Information"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Visa monitor"/>
@@ -187,10 +187,11 @@
 		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="Rensa färdiga"/>
 	</toolbar>
 	<toolbar name="CUploadsWnd">
-		<button id="ID_UPLOADS_LAUNCH" text="Öppna eller spela upp"/>
+		<button id="ID_UPLOADS_LAUNCH" text="Öppna/Spela"/>
 		<separator/>
+		<button id="ID_UPLOADS_CLEAR" text="Rensa"/>
 		<button id="ID_UPLOADS_START" text="Starta nu"/>
-		<button id="ID_UPLOADS_CLEAR" text="Rensa uppladdning"/>
+		<button id="ID_UPLOADS_PRIORITY" text="Prioritet" visible="false"/>
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Visa användarens filer"/>
 		<button id="ID_UPLOADS_CHAT" text="Chatta med användare"/>
@@ -1162,11 +1163,16 @@
 	<menu name="CUploadsWnd.Upload.Basic">
 		<item id="ID_BROWSE_LAUNCH" text="_Visa användarens filer"/>
 		<item id="ID_UPLOADS_CHAT" text="_Chatta med användaren"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="_Hjälp"/>
 	</menu>
 	<menu name="CUploadsWnd.Upload">
-		<item id="ID_UPLOADS_START" text="_Starta nu"/>
-		<item id="ID_UPLOADS_CLEAR" text="_Rensa"/>
+		<item id="ID_UPLOADS_LAUNCH" text="Visa _Library"/>
 		<item id="ID_UPLOADS_FOLDER" text="Öppna _Folder"/>
+		<separator/>
+		<item id="ID_UPLOADS_CLEAR" text="_Rensa uppladdning"/>
+		<item id="ID_UPLOADS_START" text="_Starta nu"/>
+		<item id="ID_UPLOADS_PRIORITY" text="Prioritet"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="_Visa användarens filer"/>
 		<item id="ID_UPLOADS_CHAT" text="_Chatta med användaren"/>
@@ -1573,19 +1579,19 @@
 	</menu>
 	<!-- DISCOVERY SERVICES WINDOW -->
 	<menu name="CDiscoveryWnd">
-		<item id="ID_DISCOVERY_QUERY" text="_Fråga nu"/>
-		<item id="ID_DISCOVERY_ADVERTISE" text="_Annonsera"/>
+		<item id="ID_DISCOVERY_ADD" text="_Lägg till tjänst…"/>
+		<separator/>
+		<item id="ID_DISCOVERY_EDIT" text="_Egenskaper"/>
 		<item id="ID_DISCOVERY_REMOVE" text="_Radera"/>
 		<separator/>
+		<item id="ID_DISCOVERY_QUERY" text="_Fråga nu"/>
+		<item id="ID_DISCOVERY_ADVERTISE" text="_Annonsera"/>
 		<item id="ID_DISCOVERY_BROWSE" text="Visa _statistik"/>
 		<separator/>
 		<item id="ID_DISCOVERY_GNUTELLA" text="Visa _Bootstraptjänster"/>
 		<item id="ID_DISCOVERY_WEBCACHE" text="Visa _GWebCachertjänster"/>
-		<item id="ID_DISCOVERY_SERVERMET" text="Visa Ser_ver.mets"/>
-		<separator/>
-		<item id="ID_DISCOVERY_ADD" text="_Lägg till tjänst…"/>
-		<separator/>
-		<item id="ID_DISCOVERY_EDIT" text="_Egenskaper"/>
+		<item id="ID_DISCOVERY_SERVERLIST" text="Visa Ser_ver.mets"/>
+		<item id="ID_DISCOVERY_BLOCKED" text="Visa Blockerade"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
 	<menu name="CPrivateChatFrame">
@@ -2310,7 +2316,7 @@
 	<tip id="ID_DISCOVERY_GNUTELLA" message="Visa Bootstraptjänster i upptäcksfönstret."/>
 	<tip id="ID_DISCOVERY_QUERY" message="Fråga de valda upptäckstjänsterna nu."/>
 	<tip id="ID_DISCOVERY_REMOVE" message="Radera de valda upptäckstjänsterna."/>
-	<tip id="ID_DISCOVERY_SERVERMET" message="Visa eDonkey Server.met-tjänster i upptäcksfönstret."/>
+	<tip id="ID_DISCOVERY_SERVERLIST" message="Visa eDonkey Server.met-tjänster i upptäcksfönstret."/>
 	<tip id="ID_DISCOVERY_WEBCACHE" message="Visa GWebCachetjänster i upptäcksfönstret."/>
 	<tip id="ID_DOWNLOAD_GROUP_CLEAR" message="Avbryt och radera alla nedladdningar för denna grupp."/>
 	<tip id="ID_DOWNLOAD_GROUP_NEW" message="Skapa en ny nedladdningsgrupp…"/>
@@ -2570,6 +2576,7 @@
 	<tip id="ID_UPLOADS_LAUNCH" message="Kör de valda utdelade filerna"/>
 	<tip id="ID_UPLOADS_SETTINGS" message="Ändra uppladdningsinställningar…"/>
 	<tip id="ID_UPLOADS_START" message="Starta uppladdning av de kölagda filerna."/>
+	<tip id="ID_UPLOADS_PRIORITY" message="Prioritet."/>
 	<tip id="ID_VIEW_BASIC" message="Använd PeerProject i normalt läge."/>
 	<tip id="ID_VIEW_DISCOVERY" message="Visa eller dölj fönstret UPPTÄCKSTJÄNSTER."/>
 	<tip id="ID_VIEW_DOWNLOADS" message="Visa eller dölj fönstret NEDLADDNINGAR."/>
@@ -2644,6 +2651,7 @@
 	<string id="20012" value="Anpassat"/>
 	<string id="20013" value="Standard"/>
 	<string id="20014" value="Avsluta"/>
+	<string id="20019" value="Var god vänta..."/>
 	<string id="20020" value="Fil"/>
 	<string id="20021" value="Filer"/>
 	<string id="20022" value="Alla Filer"/>
@@ -3158,15 +3166,16 @@
 	<string id="20678" value="Nätverket eDonkey använder långa köer med långa väntetider. Om du begränsar den maximala köpositionen kan du få problem med att ladda ner filer.\nÄr du säker på att du vill begränsa köpositioner?"/>
 	<string id="20680" value="Inställningar"/>
 	<string id="20684" value="Är du säker på att du vill radera skinnet &quot;%s&quot;. Detta kan inte ångras."/>
-	<string id="20700" value="Aktiv"/>
-	<string id="20701" value="%s in : %s ut (d:%I64i/u:%I64i)"/>
-	<string id="20702" value="Ansluten till %lu grannar. %s i ditt lokala bibliotek."/>
-	<string id="20703" value="Navläge med %lu grannar. %s i ditt lokala bibliotek."/>
-	<string id="20704" value="Nav/Ultralikeläge med %lu grannar. %s i ditt lokala bibliotek."/>
+	<string id="20700" value="%s in : %s ut (d:%I64i/u:%I64i)"/>
+	<string id="20701" value="Ansluten till %lu grannar. %s i ditt lokala bibliotek."/>
+	<string id="20702" value="Navläge med %lu grannar. %s i ditt lokala bibliotek."/>
+	<string id="20703" value="Nav/Ultralikeläge med %lu grannar. %s i ditt lokala bibliotek."/>
+	<string id="20704" value="Ultralikeläge med %lu grannar. %s i ditt lokala bibliotek."/>
 	<string id="20705" value="Ansluten. %s i ditt lokala bibliotek."/>
-	<string id="20706" value="Ultralikeläge med %lu grannar. %s i ditt lokala bibliotek."/>
-	<string id="20707" value="Ansluter till nätverket…"/>
-	<string id="20708" value="Ej ansluten till nätverket."/>
+	<string id="20706" value="Ansluter till nätverket…"/>
+	<string id="20707" value="Ej ansluten till nätverket."/>
+	<string id="20708" value="Aktiv"/>
+	<string id="20709" value="Inaktiv"/>
 	<string id="20710" value="Rensa"/>
 	<string id="20711" value="Kan inte flytta"/>
 	<string id="20712" value="Kvävd"/>
@@ -3207,8 +3216,7 @@
 	<string id="20751" value="Det finns inga aktiva sökningar. Klicka här för att söka efter filer."/>
 	<string id="20752" value="Du är inte ansluten. Klicka på Anslut för att börja."/>
 	<string id="20755" value="Är du säker på att du vill radera &quot;%s&quot; mallen?\n Du kan inte ångra det senare."/>
-	<string id="20760" value="Aktiv"/>
-	<string id="20761" value="Inaktiv"/>
+	<string id="20760" value="Prioritet"/>
 	<string id="20762" value="Denna fil verkar vara spam."/>
 	<string id="20763" value="Svartlistad:"/>
 	<string id="20764" value="Du har laddat ned och raderat denna fil förut."/>

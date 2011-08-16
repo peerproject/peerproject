@@ -974,7 +974,7 @@ BOOL CPeerProjectURL::ParsePeerProjectFile(LPCTSTR pszURL)
 		m_nAction = uriDownload;
 		return TRUE;
 	}
-	else if ( ! m_sName.IsEmpty() )
+	if ( ! m_sName.IsEmpty() )
 	{
 		m_nAction = uriSearch;
 		return TRUE;
@@ -1564,13 +1564,13 @@ BOOL CPeerProjectURL::RegisterMagnetHandler(LPCTSTR pszID, LPCTSTR pszName, LPCT
 	DWORD dwDisposition;
 	LONG lResult;
 
-	lResult = RegOpenKeyEx( HKEY_CURRENT_USER, _T("Software"), 0, KEY_ALL_ACCESS,
-		&hSoftware );
+	lResult = RegOpenKeyEx( HKEY_CURRENT_USER, _T("Software"),
+		0, KEY_ALL_ACCESS, &hSoftware );
 
 	if ( lResult != ERROR_SUCCESS ) return FALSE;
 
-	lResult = RegCreateKeyEx( hSoftware, _T("Magnet"), 0, NULL, 0, KEY_ALL_ACCESS,
-		NULL, &hMagnetRoot, &dwDisposition );
+	lResult = RegCreateKeyEx( hSoftware, _T("Magnet"),
+		0, NULL, 0, KEY_ALL_ACCESS, NULL, &hMagnetRoot, &dwDisposition );
 
 	if ( lResult != ERROR_SUCCESS )
 	{
@@ -1578,8 +1578,8 @@ BOOL CPeerProjectURL::RegisterMagnetHandler(LPCTSTR pszID, LPCTSTR pszName, LPCT
 		return FALSE;
 	}
 
-	lResult = RegCreateKeyEx( hMagnetRoot, _T("Handlers"), 0, NULL, 0, KEY_ALL_ACCESS,
-		NULL, &hHandlers, &dwDisposition );
+	lResult = RegCreateKeyEx( hMagnetRoot, _T("Handlers"),
+		0, NULL, 0, KEY_ALL_ACCESS, NULL, &hHandlers, &dwDisposition );
 
 	if ( lResult != ERROR_SUCCESS )
 	{
@@ -1588,8 +1588,8 @@ BOOL CPeerProjectURL::RegisterMagnetHandler(LPCTSTR pszID, LPCTSTR pszName, LPCT
 		return FALSE;
 	}
 
-	lResult = RegCreateKeyEx( hHandlers, pszID, 0, NULL, 0, KEY_ALL_ACCESS,
-		NULL, &hHandler, &dwDisposition );
+	lResult = RegCreateKeyEx( hHandlers, pszID,
+		0, NULL, 0, KEY_ALL_ACCESS, NULL, &hHandler, &dwDisposition );
 
 	if ( lResult != ERROR_SUCCESS )
 	{

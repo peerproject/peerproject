@@ -188,6 +188,7 @@ void CSettings::Load()
 	Add( _T("Library"), _T("SourceMesh"), &Library.SourceMesh, true );
 	Add( _T("Library"), _T("SourceExpire"), &Library.SourceExpire, 24*60*60, 60, 60, 7*24*60*60, _T(" m") );
 	Add( _T("Library"), _T("TigerHeight"), &Library.TigerHeight, 9, 1, 1, 64 );
+	Add( _T("Library"), _T("ThumbQuality"), &Library.ThumbQuality, 75, 1, 10, 99, _T(" %") );
 	Add( _T("Library"), _T("ThumbSize"), &Library.ThumbSize, 128, 1, 16, 256, _T(" px") );
 	Add( _T("Library"), _T("TreeSize"), &Library.TreeSize, 200, 1, 0, 1024, _T(" px") );
 	Add( _T("Library"), _T("PanelSize"), &Library.PanelSize, 120, 1, 0, 1024, _T(" px") );
@@ -296,12 +297,13 @@ void CSettings::Load()
 	Add( _T("Connection"), _T("TimeoutConnect"), &Connection.TimeoutConnect, 15*1000, 1000, 1, 2*60, _T(" s") );
 	Add( _T("Connection"), _T("TimeoutHandshake"), &Connection.TimeoutHandshake, 40*1000, 1000, 1, 5*60, _T(" s") );
 	Add( _T("Connection"), _T("TimeoutTraffic"), &Connection.TimeoutTraffic, 140*1000, 1000, 10, 60*60, _T(" s") );
+	Add( _T("Connection"), _T("UPnPRefreshTime"), &Connection.UPnPRefreshTime, 30*60*1000, 60*1000, 5, 24*60, _T(" m") );
 	Add( _T("Connection"), _T("ZLibCompressionLevel"), &Connection.ZLibCompressionLevel, 7, 1, 0, 9 );
 
 	Add( _T("Bandwidth"), _T("Downloads"), &Bandwidth.Downloads, 0 );
 	Add( _T("Bandwidth"), _T("HubIn"), &Bandwidth.HubIn, 0, 128, 0, 8192, _T(" Kb/s") );
 	Add( _T("Bandwidth"), _T("HubOut"), &Bandwidth.HubOut, 0, 128, 0, 8192, _T(" Kb/s") );
-	Add( _T("Bandwidth"), _T("HubUploads"), &Bandwidth.HubUploads, 50, 1, 1, 100, _T(" %") );
+	Add( _T("Bandwidth"), _T("HubUploads"), &Bandwidth.HubUploads, 50, 1, 1, 90, _T(" %") );
 	Add( _T("Bandwidth"), _T("LeafIn"), &Bandwidth.LeafIn, 0, 128, 0, 8192, _T(" Kb/s") );
 	Add( _T("Bandwidth"), _T("LeafOut"), &Bandwidth.LeafOut, 0, 128, 0, 8192, _T(" Kb/s") );
 	Add( _T("Bandwidth"), _T("PeerIn"), &Bandwidth.PeerIn, 0, 128, 0, 8192, _T(" Kb/s") );
@@ -459,9 +461,9 @@ void CSettings::Load()
 
 	Add( _T("BitTorrent"), _T("AutoClear"), &BitTorrent.AutoClear, false );
 	Add( _T("BitTorrent"), _T("AutoSeed"), &BitTorrent.AutoSeed, true );
-	Add( _T("BitTorrent"), _T("BandwidthPercentage"), &BitTorrent.BandwidthPercentage, 80, 1, 50, 95, _T(" %") );
+	Add( _T("BitTorrent"), _T("BandwidthPercentage"), &BitTorrent.BandwidthPercentage, 90, 1, 40, 99, _T(" %") );
 	Add( _T("BitTorrent"), _T("ClearRatio"), &BitTorrent.ClearRatio, 120, 1, 100, 999, _T(" %") );
-	Add( _T("BitTorrent"), _T("DefaultTracker"), &BitTorrent.DefaultTracker, _T("http://tracker.openbittorrent.com/announce") );
+	Add( _T("BitTorrent"), _T("DefaultTracker"), &BitTorrent.DefaultTracker, _T("http://tracker.publicbt.com/announce") );
 	Add( _T("BitTorrent"), _T("DefaultTrackerPeriod"), &BitTorrent.DefaultTrackerPeriod, 5*60000, 60000, 2, 120, _T(" m") );
 	Add( _T("BitTorrent"), _T("DhtPruneTime"), &BitTorrent.DhtPruneTime, 30*60, 60, 10, 7*24*60*60, _T(" m") );
 	Add( _T("BitTorrent"), _T("DownloadConnections"), &BitTorrent.DownloadConnections, 40, 1, 1, 800 );

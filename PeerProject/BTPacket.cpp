@@ -337,10 +337,7 @@ BOOL CBTPacket::OnPacket(const SOCKADDR_IN* pHost)
 	// Get version
 	CBENode* pVersion = m_pNode->GetNode( BT_DICT_VENDOR );			// "v"
 	if ( pVersion && pVersion->IsType( CBENode::beString ) )
-	{
-		pCache->m_sName = CBTClient::GetUserAgentAzureusStyle(
-			(LPBYTE)pVersion->m_pValue, 4 );
-	}
+		pCache->m_sName = CBTClient::GetUserAgentAzureusStyle( (LPBYTE)pVersion->m_pValue, 4 );
 
 	CString sType = pType->GetString();
 	if ( sType == BT_DICT_QUERY )

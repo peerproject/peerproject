@@ -20,47 +20,59 @@
 
 #include "ThreadImpl.h"
 
-class CNeighbour;
-class CLocalSearch;
 class CBuffer;
 class CPacket;
 class CG2Packet;
+class CNeighbour;
+class CLocalSearch;
 class CRouteCache;
 class CQueryKeys;
 class CQuerySearch;
 class CQueryHit;
+class CFirewall;
+class CUPnPFinder;
 
 enum	// Used from CNetwork::IsFirewalled
 {
-	CHECK_BOTH, CHECK_TCP, CHECK_UDP
+	CHECK_BOTH, CHECK_TCP, CHECK_UDP, CHECK_IP
 };
 
-class CNetwork :
-	public CThreadImpl
+class CNetwork : public CComObject, public CThreadImpl
 {
-// Construction
+//	DECLARE_DYNCREATE(CNetwork)		// Breaks build?
+
 public:
 	CNetwork();
 	virtual ~CNetwork();
 
 // Attributes
 public:
-	CRouteCache*	NodeRoute;
-	CRouteCache*	QueryRoute;
-	CQueryKeys*		QueryKeys;
+	CAutoPtr< CRouteCache >	NodeRoute;
+	CAutoPtr< CRouteCache >	QueryRoute;
+	CAutoPtr< CQueryKeys >	QueryKeys;
+	CAutoPtr< CUPnPFinder >	UPnPFinder;			// Control Point UPnP
+	CAutoPtr< CFirewall >	Firewall;			// Windows Firewall
 
 	CMutexEx		m_pSection;
-	SOCKADDR_IN		m_pHost;				// Structure (Windows Sockets) which holds address of the local machine
-	volatile bool	m_bConnected;			// Network has finished initializing and is connected
+	SOCKADDR_IN		m_pHost;					// Structure (Windows Sockets) which holds address of the local machine
+	volatile bool	m_bConnected;				// Network has finished initializing and is connected
 	BOOL			m_bAutoConnect;
-	DWORD			m_tStartedConnecting;	// Time PeerProject started trying to connect
-	DWORD			m_tLastConnect;			// Last time a neighbor connection attempt was made
-	DWORD			m_tLastED2KServerHop;	// Last time ed2k server was changed
+	DWORD			m_tStartedConnecting;		// Time PeerProject started trying to connect
+	DWORD			m_tLastConnect;				// Last time a neighbor connection attempt was made
+	DWORD			m_tLastED2KServerHop;		// Last time ed2k server was changed
+	TRISTATE		m_bUPnPPortsForwarded;		// UPnP values are assigned when the discovery is complete
+
 protected:
 	mutable CCriticalSection m_pHostAddressSection;
 	CStringA		m_sHostName;
 	CList< ULONG >	m_pHostAddresses;
 	DWORD			m_nSequence;
+
+	CComPtr< IUPnPNAT >			m_pNat;			// NAT UPnP
+	CComPtr< INATEventManager >	m_pNatManager;	// NAT Manager interface
+	IN_ADDR			m_nUPnPExternalAddress;		// UPnP current external address
+	DWORD			m_tUPnPMap;					// Time of last UPnP port mapping
+
 	typedef struct
 	{
 		CString		m_sAddress;
@@ -147,11 +159,18 @@ protected:
 	void		OnRun();
 	void		PostRun();
 
+	// Create port mapping
+	static BOOL MapPort(IStaticPortMappingCollection* pCollection, LPCWSTR szLocalIP, long nPort, LPCWSTR szProtocol, LPCWSTR szDescription);
+	void		MapPorts(); 	// Create TCP and UDP port mappings
+	void		DeletePorts();	// Remove TCP and UDP port mappings
+
 // Operations
 public:
+	BOOL		Init(); 		// Initialize network: Windows Sockets, Windows Firewall, UPnP NAT.
+	void		Clear();		// Shutdown network
 	BOOL		IsSelfIP(const IN_ADDR& nAddress) const;
 	bool		IsAvailable() const;
-	bool		IsConnected() const throw();
+	bool		IsConnected() const;
 	bool		IsListening() const;
 	bool		IsWellConnected() const;
 	BOOL		IsConnectedTo(const IN_ADDR* pAddress) const;
@@ -181,6 +200,7 @@ public:
 	void		OnWinsock(WPARAM wParam, LPARAM lParam);
 	void		OnQuerySearch(CLocalSearch* pSearch);	// Add query search to queue
 	void		OnQueryHits(CQueryHit* pHits);			// Add query hit to queue
+//	BOOL		OnPush(const Hashes::Guid& oGUID, CConnection* pConnection);	// Handle push for downloads, chats and browsers
 
 	void		UDPHostCache(IN_ADDR* pAddress, WORD nPort);
 	void		UDPKnownHubCache(IN_ADDR* pAddress, WORD nPort);
@@ -188,11 +208,34 @@ public:
 	// Safe ways to: accept/close socket, send/recieve data
 	static SOCKET AcceptSocket(SOCKET hSocket, SOCKADDR_IN* addr, LPCONDITIONPROC lpfnCondition, DWORD_PTR dwCallbackData = 0);
 	static void	CloseSocket(SOCKET& hSocket, const bool bForce);
-	static int Send(SOCKET s, const char* buf, int len);  // TCP
-	static int SendTo(SOCKET s, const char* buf, int len, const SOCKADDR_IN* pTo);  // UDP
-	static int Recv(SOCKET s, char* buf, int len);  // TCP
-	static int RecvFrom(SOCKET s, char* buf, int len, SOCKADDR_IN* pFrom);  // UDP
+	static int	Send(SOCKET s, const char* buf, int len);  // TCP
+	static int	SendTo(SOCKET s, const char* buf, int len, const SOCKADDR_IN* pTo);  // UDP
+	static int	Recv(SOCKET s, char* buf, int len);  // TCP
+	static int	RecvFrom(SOCKET s, char* buf, int len, SOCKADDR_IN* pFrom);  // UDP
 	static HINTERNET InternetOpenUrl(HINTERNET hInternet, LPCWSTR lpszUrl, LPCWSTR lpszHeaders, DWORD dwHeadersLength, DWORD dwFlags);	// HTTP
+	static void Cleanup();	// Safe way to call WSACleanup
+
+	// Update TCP/UDP port mappings using UPnP
+	inline void UpdatePortMapping()
+	{
+		m_tUPnPMap = 0;
+	}
+
+	void OnNewExternalIPAddress(const IN_ADDR& pAddress);	// Got new external IP address (called by UPnP-services)
+	void OnMapSuccess();	// UPnP success (called by UPnP-services)
+	void OnMapFailed(); 	// UPnP error (called by UPnP-services)
+
+	// INATNumberOfEntriesCallback interface
+	BEGIN_INTERFACE_PART(NATNumberOfEntriesCallback, INATNumberOfEntriesCallback)
+		STDMETHOD(NewNumberOfEntries)(/*[in]*/ long lNewNumberOfEntries);
+	END_INTERFACE_PART(NATNumberOfEntriesCallback)
+
+	// INATExternalIPAddressCallback interface
+	BEGIN_INTERFACE_PART(NATExternalIPAddressCallback, INATExternalIPAddressCallback)
+		STDMETHOD(NewExternalIPAddress)(/*[in]*/ BSTR bstrNewExternalIPAddress);
+	END_INTERFACE_PART(NATExternalIPAddressCallback)
+
+	DECLARE_INTERFACE_MAP()
 
 	friend class CHandshakes;
 	friend class CNeighbours;

@@ -575,12 +575,12 @@ void CDownloadsWnd::Prepare()
 	m_bSelNotPausedOrMoving = m_bSelNoPreview = m_bSelNotCompleteAndNoPreview = FALSE;
 	m_bSelCompletedAndNoPreview = m_bSelStartedAndNotMoving = m_bSelCompleted = FALSE;
 	m_bSelNotMoving = m_bSelBoostable = m_bSelSHA1orTTHorED2KorName = FALSE;
-	m_bSelTorrent = m_bSelIdleSource = m_bSelActiveSource = FALSE;
+	m_bSelIdleSource = m_bSelActiveSource = m_bSelMoreSourcesOK = FALSE;
+	m_bSelTorrent = m_bSelSeeding = FALSE;
 	m_bSelBrowse = m_bSelChat = m_bSelShareState = FALSE;
-	m_bSelShareConsistent = TRUE;
-	m_bSelMoreSourcesOK = FALSE;
 	m_bSelSourceAcceptConnections = m_bSelSourceExtended = m_bSelHasReviews = FALSE;
 	m_bSelRemotePreviewCapable = FALSE;
+	m_bSelShareConsistent = TRUE;
 
 	m_bConnectOkay = FALSE;
 
@@ -597,21 +597,25 @@ void CDownloadsWnd::Prepare()
 
 		if ( pDownload->m_bSelected )
 		{
-			m_nSelectedDownloads ++;
+			m_nSelectedDownloads++;
 			m_bSelAny = TRUE;
 			m_bSelDownload = TRUE;
 			if ( pDownload->IsCompleted() )
 				m_bSelCompleted = TRUE;
 			if ( ! pDownload->IsMoving() )
 				m_bSelNotMoving = TRUE;
-			if ( ! pDownload->IsBoosted() )
-				m_bSelBoostable = TRUE;
-			if ( pDownload->m_oSHA1 || pDownload->m_oTiger || pDownload->m_oED2K || pDownload->m_oBTH || pDownload->m_oMD5 || ! pDownload->m_sName.IsEmpty() )
-				m_bSelSHA1orTTHorED2KorName = TRUE;
-			if ( pDownload->IsTorrent() )
-				m_bSelTorrent = TRUE;
 			if ( pDownload->IsTrying() )
 				m_bSelTrying = TRUE;
+			if ( ! pDownload->IsBoosted() )
+				m_bSelBoostable = TRUE;
+			if ( pDownload->IsTorrent() )
+			{
+				m_bSelTorrent = TRUE;
+				if ( pDownload->IsSeeding() )
+					m_bSelSeeding = TRUE;
+			}
+			if ( pDownload->m_oSHA1 || pDownload->m_oTiger || pDownload->m_oED2K || pDownload->m_oBTH || pDownload->m_oMD5 || ! pDownload->m_sName.IsEmpty() )
+				m_bSelSHA1orTTHorED2KorName = TRUE;
 			if ( pDownload->IsPaused() )
 				m_bSelPaused = TRUE;
 			else if ( ! pDownload->IsMoving() )
@@ -702,7 +706,7 @@ void CDownloadsWnd::OnUpdateDownloadsResume(CCmdUI* pCmdUI)
 	Prepare();
 	if ( CCoolBarItem* pcCmdUI = CCoolBarItem::FromCmdUI( pCmdUI ) )
 		pcCmdUI->Show( m_bSelPaused || ( m_bSelDownload && ! m_bSelTrying && ! m_bSelCompleted ) );
-	pCmdUI->Enable( m_bSelPaused || ( m_bSelDownload && ! m_bSelTrying && ! m_bSelCompleted ) );
+	pCmdUI->Enable(    m_bSelPaused || ( m_bSelDownload && ! m_bSelTrying && ! m_bSelCompleted ) );
 }
 
 void CDownloadsWnd::OnDownloadsResume()
@@ -724,8 +728,8 @@ void CDownloadsWnd::OnUpdateDownloadsPause(CCmdUI* pCmdUI)
 {
 	Prepare();
 	if ( CCoolBarItem* pcCmdUI = CCoolBarItem::FromCmdUI( pCmdUI ) )
-		pcCmdUI->Show( ! m_bSelCompletedAndNoPreview && ( m_bSelNotPausedOrMoving || ! m_bSelDownload ) );
-	pCmdUI->Enable( ! m_bSelCompletedAndNoPreview && m_bSelNotPausedOrMoving );
+		pcCmdUI->Show( ( m_bSelSeeding && ! m_bSelPaused ) || ! m_bSelCompletedAndNoPreview && ( m_bSelNotPausedOrMoving || ! m_bSelDownload ) );
+	pCmdUI->Enable(    ( m_bSelSeeding && ! m_bSelPaused ) || ! m_bSelCompletedAndNoPreview && m_bSelNotPausedOrMoving );
 }
 
 void CDownloadsWnd::OnDownloadsPause()
@@ -1371,7 +1375,8 @@ void CDownloadsWnd::OnUpdateDownloadsBoost(CCmdUI* pCmdUI)
 	}
 
 	Prepare();
-	pCmdUI->Enable( m_bSelBoostable );
+	pCmdUI->Enable( m_bSelDownload );	// Allow toggling
+	pCmdUI->SetCheck( m_bSelDownload && ! m_bSelBoostable );
 }
 
 void CDownloadsWnd::OnDownloadsBoost()
@@ -1382,8 +1387,8 @@ void CDownloadsWnd::OnDownloadsBoost()
 	{
 		if ( CDownload* pDownload = Downloads.GetNext( pos ) )
 		{
-			if ( pDownload->m_bSelected && pDownload->HasActiveTransfers() && ! pDownload->IsBoosted() )
-				pDownload->Boost();
+			if ( pDownload->m_bSelected && pDownload->HasActiveTransfers() )
+				pDownload->Boost( ! pDownload->IsBoosted() );
 		}
 	}
 
@@ -1519,37 +1524,42 @@ void CDownloadsWnd::OnUpdateDownloadsEdit(CCmdUI *pCmdUI)
 
 void CDownloadsWnd::OnDownloadsEdit()
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! pLock.Lock( 500 ) ) return;
 
 	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
 	{
 		CDownload* pDownload = Downloads.GetNext( pos );
 
-		if ( pDownload->m_bSelected && ! pDownload->IsMoving() )
+		if ( ! pDownload->m_bSelected )
+			continue;
+
+		if ( pDownload->IsMoving() )
+			return;
+
+		if ( ! pDownload->IsCompleted() || pDownload->IsSeeding() )
 		{
-			if ( ! pDownload->IsCompleted() || pDownload->IsSeeding() )
-			{
-				CDownloadSheet dlg( pDownload );
-				pLock.Unlock();
-				dlg.DoModal();
-				break;
-			}
-			else if ( m_bSelCompleted )
-			{
-				CFilePropertiesSheet dlg;
+			CDownloadSheet dlg( pDownload );
+			pLock.Unlock();
+			dlg.DoModal();
+			break;
+		}
+		
+		if ( m_bSelCompleted )
+		{
+			CFilePropertiesSheet dlg;
 
-				for ( DWORD i = 0 ; i < pDownload->GetFileCount() ; ++i )
-				{
-					CString strPath	= pDownload->GetPath( i );
-					CQuickLock oLibraryLock( Library.m_pSection );
-					if ( CLibraryFile* pFile = LibraryMaps.LookupFileByPath( strPath ) )
-						dlg.Add( pFile );
-				}
-
-				pLock.Unlock();
-				dlg.DoModal( 0 );
-				break;
+			for ( DWORD i = 0 ; i < pDownload->GetFileCount() ; i++ )
+			{
+				CString strPath	= pDownload->GetPath( i );
+				CQuickLock oLibraryLock( Library.m_pSection );
+				if ( CLibraryFile* pFile = LibraryMaps.LookupFileByPath( strPath ) )
+					dlg.Add( pFile );
 			}
+
+			pLock.Unlock();
+			dlg.DoModal( 0 );
+			break;
 		}
 	}
 

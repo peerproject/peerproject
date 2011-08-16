@@ -3,7 +3,7 @@
 
 <!-- PeerProject Arabic Language Skin File -->
 
-<!-- Translation based on default-en.xml r68 -->
+<!-- Translation based on default-en.xml r69 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -157,10 +157,10 @@
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="عرض الملف" />
 		<separator />
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="حذف ملف" />
-		<button id="ID_DOWNLOADS_RESUME" text="متابعة التحميل" />
-		<button id="ID_DOWNLOADS_PAUSE" text="إيقاف التحميل مؤقتا" />
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="إلغاء التحميل" />
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="إزالة التحميل" />
+		<button id="ID_DOWNLOADS_RESUME" text="متابعة التحميل" />
+		<button id="ID_DOWNLOADS_PAUSE" text="إيقاف التحميل مؤقتا" />
 		<separator />
 		<button id="ID_DOWNLOADS_EDIT" text="معلومات" />
 		<button id="ID_DOWNLOADS_MONITOR" text="إظهار الشاشة" />
@@ -172,10 +172,10 @@
 		<button id="ID_DOWNLOADS_LAUNCH" text="عرض الملف" />
 		<separator />
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="حذف ملف" />
-		<button id="ID_DOWNLOADS_RESUME" text="متابعة التحميل" />
-		<button id="ID_DOWNLOADS_PAUSE" text="إيقاف التحميل مؤقتا" />
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="إلغاء التحميل" />
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="إزالة التحميل" />
+		<button id="ID_DOWNLOADS_RESUME" text="متابعة التحميل" />
+		<button id="ID_DOWNLOADS_PAUSE" text="إيقاف التحميل مؤقتا" />
 		<separator />
 		<button id="ID_DOWNLOADS_EDIT" text="معلومات" />
 		<button id="ID_DOWNLOADS_MONITOR" text="إظهار الشاشة" />
@@ -195,8 +195,9 @@
 	<toolbar name="CUploadsWnd">
 		<button id="ID_UPLOADS_LAUNCH" text="فتح او تشغيل" />
 		<separator />
-		<button id="ID_UPLOADS_START" text="ابداء الان" />
 		<button id="ID_UPLOADS_CLEAR" text="إزالة رفع الملفات" />
+		<button id="ID_UPLOADS_START" text="ابداء الان" />
+		<button id="ID_UPLOADS_PRIORITY" text="الأولوية" visible="false"/>
 		<separator />
 		<button id="ID_BROWSE_LAUNCH" text="معلومات عن المستخدم" />
 		<button id="ID_UPLOADS_CHAT" text="محادثة المستخدم" />
@@ -1190,15 +1191,20 @@
 	<menu name="CUploadsWnd.Upload.Basic">
 		<item id="ID_BROWSE_LAUNCH" text="ت_صفح المستخدم" />
 		<item id="ID_UPLOADS_CHAT" text="الم_حادثة مع المستخدم" />
+		<separator />
+		<item id="ID_UPLOADS_HELP" text="_تعليمات..." />
 	</menu>
 	<menu name="CUploadsWnd.Upload">
-		<item id="ID_UPLOADS_START" text="_ابداء الان" />
-		<item id="ID_UPLOADS_CLEAR" text="_إزالة" />
+		<item id="ID_UPLOADS_LAUNCH" text="فتح _Library"/>
 		<item id="ID_UPLOADS_FOLDER" text="فتح _Folder"/>
+		<separator />
+		<item id="ID_UPLOADS_CLEAR" text="_إزالة" />
+		<item id="ID_UPLOADS_START" text="_ابداء الان" />
+		<item id="ID_UPLOADS_PRIORITY" text="الأولوية"/>
 		<separator />
 		<item id="ID_BROWSE_LAUNCH" text="ت_صفح المستخدم" />
 		<item id="ID_UPLOADS_CHAT" text="الم_حادثة مع المستخدم" />
-		<item id="ID_SECURITY_BAN" text="مستخدم B_an" />
+		<item id="ID_SECURITY_BAN" text="مستخدم _Ban" />
 	</menu>
 	<menu name="CUploadsWnd.Default">
 		<item id="ID_LIBRARY_FOLDERS" text="مشاركة الملفات..." />
@@ -1599,19 +1605,19 @@
 	</menu>
 	<!-- DISCOVERY SERVICES WINDOW -->
 	<menu name="CDiscoveryWnd">
-		<item id="ID_DISCOVERY_QUERY" text="_استعلم الان" />
-		<item id="ID_DISCOVERY_ADVERTISE" text="أ_علن" />
+		<item id="ID_DISCOVERY_ADD" text="_إضافة خدمة..." />
+		<separator />
+		<item id="ID_DISCOVERY_EDIT" text="_خصائص" />
 		<item id="ID_DISCOVERY_REMOVE" text="_إزالة" />
 		<separator />
+		<item id="ID_DISCOVERY_QUERY" text="_استعلم الان" />
+		<item id="ID_DISCOVERY_ADVERTISE" text="أ_علن" />
 		<item id="ID_DISCOVERY_BROWSE" text="تصفّح_ الإحصائيات" />
 		<separator />
 		<item id="ID_DISCOVERY_GNUTELLA" text="_إظهار Bootstraps" />
 		<item id="ID_DISCOVERY_WEBCACHE" text="_إظهار GWebCaches" />
-		<item id="ID_DISCOVERY_SERVERMET" text="إظهار Ser_ver.met's" />
-		<separator />
-		<item id="ID_DISCOVERY_ADD" text="_إضافة خدمة..." />
-		<separator />
-		<item id="ID_DISCOVERY_EDIT" text="_خصائص" />
+		<item id="ID_DISCOVERY_SERVERLIST" text="إظهار Ser_ver.met's" />
+		<item id="ID_DISCOVERY_BLOCKED" text="_إظهار حظر"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
 	<menu name="CPrivateChatFrame">
@@ -2332,7 +2338,7 @@
 	<tip id="ID_DISCOVERY_GNUTELLA" message="إظهار خدمات البادئة في نافذة الإكتشاف" />
 	<tip id="ID_DISCOVERY_QUERY" message="إستعلام عن خدمات الإكتشاف المحددة الآن" />
 	<tip id="ID_DISCOVERY_REMOVE" message="إزالة خدمات الإكتشاف المحددة" />
-	<tip id="ID_DISCOVERY_SERVERMET" message="في نافذة الإكتشاف eDonkey Server.met إظهار خدمات" />
+	<tip id="ID_DISCOVERY_SERVERLIST" message="في نافذة الإكتشاف eDonkey Server.met إظهار خدمات" />
 	<tip id="ID_DISCOVERY_WEBCACHE" message="في نافذة الإكتشاف GWebCache إظهار خدمات" />
 	<tip id="ID_DOWNLOAD_GROUP_CLEAR" message="إلغاء و إزالة جميع التحميلات في هذه المجموعة" />
 	<tip id="ID_DOWNLOAD_GROUP_NEW" message="إمشاء مجموعة تحميل جديدة..." />
@@ -2594,6 +2600,7 @@
 	<tip id="ID_UPLOADS_LAUNCH" message="فتح الملف/ات المشتركة المحددة" />
 	<tip id="ID_UPLOADS_SETTINGS" message="تكوين إعدادات عمليات الرفع..." />
 	<tip id="ID_UPLOADS_START" message="بدء عمليات الرفع المحددة التي في قائمة الإنتظار" />
+	<tip id="ID_UPLOADS_PRIORITY" message="الأولوية"/>
 	<tip id="ID_VIEW_BASIC" message="إستخدام PeerProject في النمط الأساسي" />
 	<tip id="ID_VIEW_DISCOVERY" message="إظهار أو إخفاء نافذة خدمات الإكتشاف" />
 	<tip id="ID_VIEW_DOWNLOADS" message="إظهار أو إخفاء نافذة عمليات التحميل" />
@@ -2668,6 +2675,7 @@
 	<string id="20012" value="مخصص" />
 	<string id="20013" value="Default" />
 	<string id="20014" value="Finish" />
+	<string id="20019" value="يرجى الانتظار." />
 	<string id="20020" value="ملف" />
 	<string id="20021" value="الملفات" />
 	<string id="20022" value="جميع الملفات" />
@@ -2925,47 +2933,8 @@
 	<string id="20355" value="هل تريد فعلا حذف هذا المرشح ؟" />
 	<string id="20356" value="هناك مرشح بالإسم &quot;%s&quot; ، هل تريد إستبداله ؟" />
 	<string id="20358" value="الرجاء وضع إسم للمرشح" />
-<!--	<string id="20360" value="Connection Errors (%)" />
-	<string id="20361" value="Download Bandwidth" />
-	<string id="20362" value="Download File Count" />
-	<string id="20363" value="Download Transfer Count" />
-	<string id="20364" value="Gnutella Receive Bandwidth" />
-	<string id="20365" value="Gnutella Transmit Bandwidth" />
-	<string id="20366" value="Gnutella Connections (Total)" />
-	<string id="20367" value="Gnutella Connections (Active)" />
-	<string id="20368" value="Gnutella Packets Dropped" />
-	<string id="20369" value="Gnutella Packets Lost" />
-	<string id="20370" value="Gnutella Packets Received" />
-	<string id="20371" value="Gnutella Packets Transmitted" />
-	<string id="20372" value="Gnutella Ratio of Received/Sent Pings" />
-	<string id="20373" value="Gnutella Ratio of Received/Sent Pongs" />
-	<string id="20374" value="Gnutella Queries Incoming" />
-	<string id="20375" value="Gnutella Queries Processed" />
-	<string id="20376" value="Gnutella Packets Routed" />
-	<string id="20377" value="Total Generic Receive Bandwidth" />
-	<string id="20378" value="Total Generic Transmit Bandwidth" />
-	<string id="20379" value="Total TCP Receive Bandwidth" />
-	<string id="20380" value="Total TCP Transmit Bandwidth" />
-	<string id="20381" value="Total UDP Receive Bandwidth" />
-	<string id="20382" value="Total UDP Transmit Bandwidth" />
-	<string id="20383" value="Upload Bandwidth" />
-	<string id="20384" value="Upload Transfer Count" />
-	<string id="20385" value="Connecting neighbour %s falling back to shielded leaf mode." />
-	<string id="20386" value="Closing surplus connection from %s with host hint (%s port %i)." />
-	<string id="20387" value="Hub neighbour %s won't accept us as a hub, closing connection." />
-	<string id="20388" value="Handshake with %s failed due to invalid data on the wire." />
-	<string id="20389" value="Acting as a hub for leaf neighbour %s." />
-	<string id="20390" value="Hub connection established, closing peer connections." />
-	<string id="20391" value="Refusing connection from %s because this is a shielded leaf node." />
-	<string id="20392" value="Neighbour %s is not a hub, closing connection." />
-	<string id="20393" value="Closing connection to non-Gnutella2 neighbour %s." />
-	<string id="20394" value="Neighbour %s wants to be a hub, closing connection." />
-	<string id="20395" value="Gnutella connection with neighbour %s established successfully (G%i.%i : %s)." />
-	<string id="20396" value="Gnutella2 connection with neighbour %s established successfully (%s)." />
-	<string id="20397" value="Connection to %s rejected (%s)." />
-	<string id="20398" value="Closing surplus connection from %s." />
-	<string id="20399" value="Timed out handshaking with %s." />
-	<string id="20400" value="PeerProject is creating hashes for %Iu files:" />
+	<!-- Missing Connection Strings -->
+<!--	<string id="20400" value="PeerProject is creating hashes for %Iu files:" />
 	<string id="20402" value="Add..."/>
 	<string id="20403" value="Channels"/>
 	<string id="20404" value="Chat:"/>
@@ -3183,15 +3152,16 @@
 	<string id="20678" value="The eDonkey network uses large queues with long wait times. By limiting the maximum queue position you will accept so strictly, you may have trouble getting downloads to begin.nAre you sure you want to limit what queue positions you will accept?" />
 	<string id="20680" value="إعدادات شير-أزا" />
 	<string id="20684" value="هل تريد فعلا حذف غلاف &quot;%s&quot; ؟ هذا لا يمكن التراجع عنه" />
-	<string id="20700" value="نشط" />
-	<string id="20701" value="%s in : %s out (d:%I64i/u:%I64i)" />
-	<string id="20702" value="Connected to %lu neighbours.  %s in local library." />
-	<string id="20703" value="Hub mode with %lu neighbours.  %s in local library." />
-	<string id="20704" value="Hub/Ultrapeer mode with %lu neighbours.  %s in local library." />
-	<string id="20705" value="Connected. %s in local library." />
-	<string id="20706" value="Ultrapeer mode with %lu neighbours.  %s in local library." />
-	<string id="20707" value="Connecting to the network..." />
-	<string id="20708" value="Not connected to the network." />
+	<string id="20700" value="%s in : %s out (d:%I64i/u:%I64i)" />
+	<string id="20701" value="Connected to %lu neighbours. %s in local library." />
+	<string id="20702" value="Hub mode with %lu neighbours. %s in local library." />
+	<string id="20703" value="Hub/Ultrapeer mode with %lu neighbours. %s in local library." />
+	<string id="20704" value="Ultrapeer mode with %lu neighbours. %s in local library." />
+	<string id="20705" value="Connected. %s in your library." />
+	<string id="20706" value="Connecting to the network..." />
+	<string id="20707" value="Not connected to the network." />
+	<string id="20708" value="نشط" />
+	<string id="20709" value="Inactive" />
 	<string id="20710" value="ازالة"/>
 	<string id="20711" value="لاتستطيع النقل" />
 	<string id="20712" value="Choked"/>
@@ -3232,8 +3202,7 @@
 	<string id="20751" value="ليس هناك عمليات بحث نشطة . أنقر هنا للبحث عن ملفات" />
 	<string id="20752" value="أنت غير متصل . أنقر زر إتصال لتبدأ" />
 	<string id="20755" value="هل تريد فعلا حذف قالب &quot;%s&quot; ؟nهذا لا يمكن التراجع عنه" />
-	<string id="20760" value="Active" />
-	<string id="20761" value="Inactive" />
+	<string id="20760" value="الأولوية" />
 	<string id="20762" value="This file appears to be spam." />
 	<string id="20763" value="مدرج في القائمة السوداء: " />
 	<string id="20764" value="You have downloaded and deleted this file before." />
@@ -3269,65 +3238,8 @@
 	<string id="20795" value="%s in : %s out (d:%I64i/u:%I64i/s:%I64i)" />
 	<string id="20796" value="Files shared over the Internet" />
 	<string id="20798" value="أنتهى PeerProject من تحميل نسخة PeerProject التالية (%s). هل تريد الترقية الآن ؟nnعند إختيار نعم ، PeerProject سيغلق بشكل مؤقت حتى يتم تثبيت الترقية" />
-	<string id="20800" value="Sending default HTML response to upload host %s (%s)." />
-	<string id="20801" value="Incoming connection from %s is a HTTP upload request." />
-	<string id="20802" value="Upload host %s (%s) sent a browse user request, responding..." />
-	<string id="20803" value="Upload host %s is on the user-agent block list, denying request." />
-	<string id="20804" value="Refusing browse user request from %s, too many browse connections." />
-	<string id="20805" value="Denied browse user request from %s." />
-	<string id="20806" value="Queued upload %s is re-requesting too fast, closing connection." />
-	<string id="20807" value="Refusing upload of &quot;%s&quot; to %s (%s), too many concurrent from host." />
-	<string id="20808" value="Refusing upload of &quot;%s&quot; to %s (%s), busy and client does not support queues." />
-	<string id="20809" value="Refusing upload of &quot;%s&quot; to %s (%s), all matching queues are full." />
-	<string id="20810" value="Upload host %s requested an unsatisfiable range of file &quot;%s&quot;." />
-	<string id="20811" value="eDonkey uploads should not be cancelled. Are you sure you want to cancel this upload?" />
-	<string id="20812" value="Can't open &quot;%s&quot; to upload to host %s, disk/file error." />
-	<string id="20813" value="Initiating a push connection to %s. %s" />
-	<string id="20814" value="Unable to connect to host %s for push." />
-	<string id="20815" value="Sending upload content range %I64i-%I64i from &quot;%s&quot; to host %s (%s)." />
-	<string id="20816" value="Upload connection to %s was closed." />
-	<string id="20817" value="Refusing new upload to %s because an earlier connection is still pending." />
-	<string id="20818" value="Closing older upload to %s because it has made a fresh connection." />
-	<string id="20819" value="Refusing upload to %s (%s), network disabled." />
-	<string id="20820" value="Stopped uploading &quot;%s&quot; to %s because the file was deleted." />
-	<string id="20821" value="Uploading file &quot;%s&quot; to host %s..." />
-	<string id="20822" value="Upload host %s requested unknown or unavailable object &quot;%s&quot;." />
-	<string id="20823" value="Finished uploading part of &quot;%s&quot; to %s." />
-	<string id="20824" value="Push connection to %s established, waiting for handshake..." />
-	<string id="20825" value="Upload host %s requested &quot;%s&quot; with different SHA1." />
-	<string id="20826" value="Sending upload headers from &quot;%s&quot; to host %s (%s)." />
-	<string id="20827" value="Uploading metadata for &quot;%s&quot; to %s." />
-	<string id="20828" value="Upload host %s sent an invalid HTTP request." />
-	<string id="20830" value="Sending upload content range %I64i-%I64i from partial file &quot;%s&quot; to host %s (%s)." />
-	<string id="20832" value="Refusing to upload a preview of &quot;%s&quot; to %s, too many preview connections." />
-	<string id="20833" value="Scheduling a dynamic preview of &quot;%s&quot; for upload to %s." />
-	<string id="20834" value="Upload host %s requested a preview of &quot;%s&quot;, but no preview is available." />
-	<string id="20835" value="Uploading a preview of &quot;%s&quot; to %s." />
-	<string id="20836" value="Refusing push request to %s because it has too many upload connections." />
-	<string id="20837" value="Legacy push request from %s requested an unknown file, connecting anyway..." />
-	<string id="20838" value="Too busy to upload &quot;%s&quot; to %s, queued at #%i of %i (&quot;%s&quot;.." />
-	<string id="20840" value="Upload connection to %s was lost, preserving queue position." />
-<!--	<string id="20841" value="New Queue" />
-	<string id="20842" value="All Files" />
-	<string id="20844" value="eDonkey Core" />
-	<string id="20845" value="eDonkey Guard" />
-	<string id="20846" value="eDonkey Partials" />
-	<string id="20847" value="Completed Uploads" />
-	<string id="20848" value="HTTP Guard" />
-	<string id="20849" value="Library Files" />
-	<string id="20850" value="Large Files" />
-	<string id="20851" value="Medium Files" />
-	<string id="20852" value="Small Files" />
-	<string id="20853" value="Partial Files" />
-	<string id="20854" value="Partial" />
-	<string id="20855" value="Queue" />
-	<string id="20856" value="Torrent Uploads" />
-	<string id="20857" value="Offline queued upload host %s expired, removing." />
-	<string id="20858" value="Timed out waiting for request from upload host %s." />
-	<string id="20859" value="Closing upload connection %s due to lack of traffic." />
-	<string id="20860" value="Uploading tiger-tree data for &quot;%s&quot; to %s." />
-	<string id="20861" value="Removed upload of &quot;%s&quot; to %s." />
--->	<string id="20862" value="إضافة" />
+	<!-- Missing Upload Queue Strings -->
+	<string id="20862" value="إضافة" />
 	<string id="20864" value="إستعراض" />
 	<string id="20865" value="إتصال" />
 	<string id="20866" value="اسم الملف:" />
@@ -3343,6 +3255,9 @@
 	<string id="20881" value="الملفات المختارة. هل أنت متأكد؟ %u"/>
 	<string id="20886" value=" تغيير الاتجاه واجهة يتطلب إعادة التشغيل. \n\n الخروج الآن؟ \n\n\nChanging interface direction requires restart.\n\nExit now?"/>
 	<string id="20890" value="مرحبا بك مع PeerProject" />
+	<string id="20892" value="يرجى الانتظار: Updating eDonkey server list..." />
+	<string id="20893" value="يرجى الانتظار: Updating discovery services..." />
+	<string id="20894" value="يرجى الانتظار: Finding UPnP devices and setting them up..." />
 	<!-- Missing Warning Messages -->
 	<!-- Missing Wizard Strings -->
 </strings>

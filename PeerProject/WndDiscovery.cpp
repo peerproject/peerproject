@@ -70,8 +70,8 @@ BEGIN_MESSAGE_MAP(CDiscoveryWnd, CPanelWnd)
 	ON_COMMAND(ID_DISCOVERY_GNUTELLA, OnDiscoveryGnutella)
 	ON_UPDATE_COMMAND_UI(ID_DISCOVERY_WEBCACHE, OnUpdateDiscoveryWebcache)
 	ON_COMMAND(ID_DISCOVERY_WEBCACHE, OnDiscoveryWebcache)
-	ON_UPDATE_COMMAND_UI(ID_DISCOVERY_SERVERMET, OnUpdateDiscoveryServerMet)
-	ON_COMMAND(ID_DISCOVERY_SERVERMET, OnDiscoveryServerMet)
+	ON_UPDATE_COMMAND_UI(ID_DISCOVERY_SERVERLIST, OnUpdateDiscoveryServerList)
+	ON_COMMAND(ID_DISCOVERY_SERVERLIST, OnDiscoveryServerList)
 	ON_UPDATE_COMMAND_UI(ID_DISCOVERY_BLOCKED, OnUpdateDiscoveryBlocked)
 	ON_COMMAND(ID_DISCOVERY_BLOCKED, OnDiscoveryBlocked)
 	ON_UPDATE_COMMAND_UI(ID_DISCOVERY_ADVERTISE, OnUpdateDiscoveryAdvertise)
@@ -134,7 +134,7 @@ int CDiscoveryWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	m_bShowGnutella		= TRUE;
 	m_bShowWebCache		= TRUE;
-	m_bShowServerMet	= TRUE;
+	m_bShowServerList	= TRUE;
 	m_bShowBlocked		= TRUE;
 
 	CWaitCursor pCursor;
@@ -198,9 +198,9 @@ void CDiscoveryWnd::Update()
 		}
 		else if ( pService->m_nType == CDiscoveryService::dsServerList )
 		{
-			if ( ! m_bShowServerMet ) continue;
+			if ( ! m_bShowServerList ) continue;
 			pItem = pLiveList.Add( pService );
-			pItem->Set( COL_TYPE, _T("Server.met") );
+			pItem->Set( COL_TYPE, pService->m_nProtocolID == PROTOCOL_DC ? _T("Hublist") : _T("Server.met") );
 			pItem->SetImage( 3 );
 		}
 		else if ( pService->m_nType == CDiscoveryService::dsBlocked )
@@ -455,14 +455,14 @@ void CDiscoveryWnd::OnDiscoveryWebcache()
 	Update();
 }
 
-void CDiscoveryWnd::OnUpdateDiscoveryServerMet(CCmdUI* pCmdUI)
+void CDiscoveryWnd::OnUpdateDiscoveryServerList(CCmdUI* pCmdUI)
 {
-	pCmdUI->SetCheck( m_bShowServerMet );
+	pCmdUI->SetCheck( m_bShowServerList );
 }
 
-void CDiscoveryWnd::OnDiscoveryServerMet()
+void CDiscoveryWnd::OnDiscoveryServerList()
 {
-	m_bShowServerMet = ! m_bShowServerMet;
+	m_bShowServerList = ! m_bShowServerList;
 	Update();
 }
 

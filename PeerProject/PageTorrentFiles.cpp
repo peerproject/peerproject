@@ -53,6 +53,7 @@ BEGIN_MESSAGE_MAP(CTorrentFilesPage, CPropertyPageAdv)
 	ON_WM_PAINT()
 	ON_WM_TIMER()
 	ON_WM_DESTROY()
+	ON_WM_SHOWWINDOW()
 	ON_NOTIFY(NM_DBLCLK, IDC_TORRENT_FILES, &CTorrentFilesPage::OnNMDblclkTorrentFiles)
 	ON_NOTIFY(NM_CUSTOMDRAW, IDC_TORRENT_FILES, &CTorrentFilesPage::OnCustomDrawList)
 	ON_NOTIFY(LVN_ITEMCHANGED, IDC_TORRENT_FILES, &CTorrentFilesPage::OnCheckbox)
@@ -89,11 +90,13 @@ BOOL CTorrentFilesPage::OnInitDialog()
 
 	CSingleLock oLock( &Transfers.m_pSection );
 	if ( ! oLock.Lock( 250 ) )
-		return FALSE;
+		return FALSE;	// Overloaded?
 
 	CDownload* pDownload = ((CDownloadSheet*)GetParent())->m_pDownload;
 	if ( ! Downloads.Check( pDownload ) || ! pDownload->IsTorrent() )
-		return FALSE;
+		return FALSE;	// Abort
+
+	oLock.Unlock();
 
 	auto_ptr< CLibraryTipCtrl > pTip( new CLibraryTipCtrl );
 	pTip->Create( this, &Settings.Interface.TipDownloads );
@@ -102,13 +105,15 @@ BOOL CTorrentFilesPage::OnInitDialog()
 	CRect rc;
 	m_wndFiles.GetClientRect( &rc );
 	rc.right -= GetSystemMetrics( SM_CXVSCROLL );
-	m_wndFiles.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_HEADERDRAGDROP|LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP|LVS_EX_CHECKBOXES );
-	m_wndFiles.SetImageList( ShellIcons.GetObject( 16 ), LVSIL_SMALL );
 	m_wndFiles.InsertColumn( COL_NAME,	_T("Filename"),	LVCFMT_LEFT,	rc.right - 66 - 54, -1 );
 	m_wndFiles.InsertColumn( COL_SIZE,	_T("Size"), 	LVCFMT_RIGHT,	66, 0 );
 	m_wndFiles.InsertColumn( COL_STATUS, _T("Status"),	LVCFMT_RIGHT,	54, 0 );
 	m_wndFiles.InsertColumn( COL_INDEX,	_T("Index"),	LVCFMT_CENTER,	0, 0 );		// Workaround for internal use
 //	m_wndFiles.InsertColumn( COL_PRIORITY, _T("Priority"), LVCFMT_RIGHT, 52, 0 );	// Obsolete
+
+	m_wndFiles.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_HEADERDRAGDROP|LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP|LVS_EX_CHECKBOXES );
+	m_wndFiles.SetImageList( ShellIcons.GetObject( 16 ), LVSIL_SMALL );
+
 	Skin.Translate( _T("CTorrentFileList"), m_wndFiles.GetHeaderCtrl() );
 
 	if ( m_wndFiles.SetBkImage( Skin.GetWatermark( _T("CListCtrl") ) ) )
@@ -118,49 +123,71 @@ BOOL CTorrentFilesPage::OnInitDialog()
 
 // Priority Column Combobox:	(Unused custom ComboListCtrl)
 //	BEGIN_COLUMN_MAP()
-//		COLUMN_MAP( CFragmentedFile::prHigh,		LoadString( IDS_PRIORITY_HIGH ) )
-//		COLUMN_MAP( CFragmentedFile::prNormal,		LoadString( IDS_PRIORITY_NORMAL ) )
-//		COLUMN_MAP( CFragmentedFile::prLow,			LoadString( IDS_PRIORITY_LOW ) )
-//		COLUMN_MAP( CFragmentedFile::prUnwanted,	LoadString( IDS_PRIORITY_OFF ) )
+//		COLUMN_MAP( CFragmentedFile::prHigh,	LoadString( IDS_PRIORITY_HIGH ) )
+//		COLUMN_MAP( CFragmentedFile::prNormal,	LoadString( IDS_PRIORITY_NORMAL ) )
+//		COLUMN_MAP( CFragmentedFile::prLow,		LoadString( IDS_PRIORITY_LOW ) )
+//		COLUMN_MAP( CFragmentedFile::prUnwanted, LoadString( IDS_PRIORITY_OFF ) )
 //	END_COLUMN_MAP( m_wndFiles, COL_PRIORITY )
+
+	// Note list populating & timer moved to async OnShowWindow below
+
+	return TRUE;
+}
+
+void CTorrentFilesPage::OnShowWindow(BOOL bShow, UINT nStatus)
+{
+	CSingleLock oLock( &Transfers.m_pSection );
+	if ( ! oLock.Lock( 500 ) )
+		return;
+
+	CDownload* pDownload = ((CDownloadSheet*)GetParent())->m_pDownload;
+	if ( ! Downloads.Check( pDownload ) || ! pDownload->IsTorrent() )
+		return;
 
 	if ( CComPtr< CFragmentedFile > pFragFile = pDownload->GetFile() )
 	{
-		if ( pDownload->IsSeeding() || pFragFile->GetCount() < 2  )
-			m_wndFiles.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_HEADERDRAGDROP|LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP );	// No checkboxes needed
-		if ( pFragFile->GetCount() < 2 )
-			m_wndFiles.DeleteColumn( COL_INDEX );
+		const DWORD nCount = pFragFile->GetCount();
 
-		for ( DWORD i = 0 ; i < pFragFile->GetCount() ; ++i )
+		if ( nCount < 2 || pDownload->IsSeeding() )
+			m_wndFiles.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_HEADERDRAGDROP|LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP );	// No checkboxes needed
+		if ( nCount < 2 )
+			m_wndFiles.DeleteColumn( COL_INDEX );
+		//else if ( nCount > 500 )
+		//	theApp.Message( MSG_TRAY, IDS_GENERAL_PLEASEWAIT );		// Do L"Verifying large torrent.\nPlease wait." ?
+
+		CString strText;
+
+		for ( DWORD i = 0 ; i < nCount ; i++ )
 		{
-			CString sText	= pFragFile->GetName( i );
-			sText			= sText.Mid( sText.Find( '\\' ) + 1 );
+			strText = pFragFile->GetName( i );
+			strText = strText.Mid( strText.Find( '\\' ) + 1 );
 
 			LV_ITEM pItem	= {};
 			pItem.mask		= LVIF_TEXT|LVIF_IMAGE|LVIF_PARAM;
-			pItem.iItem		= i;
 			pItem.lParam	= (LPARAM)pFragFile->GetAt( i );
-			pItem.iImage	= ShellIcons.Get( sText, 16 );
-			pItem.pszText	= (LPTSTR)(LPCTSTR)sText;
+			pItem.pszText	= (LPTSTR)(LPCTSTR)strText;
+			pItem.iImage	= ShellIcons.Get( strText, 16 );
+			pItem.iItem		= i;
 			pItem.iItem		= m_wndFiles.InsertItem( &pItem );
 			m_wndFiles.SetItemText( pItem.iItem, COL_SIZE, Settings.SmartVolume( pFragFile->GetLength( i ) ) );
-			sText.Format( _T("%i"), i );
-			m_wndFiles.SetItemText( pItem.iItem, COL_INDEX, sText );
+			strText.Format( _T("%i"), i );
+			m_wndFiles.SetItemText( pItem.iItem, COL_INDEX, strText );
 			m_wndFiles.SetItemState( i,
 				UINT( ( pFragFile->GetPriority( i ) == CFragmentedFile::prUnwanted ? 1 : 2 ) << 12 ), LVIS_STATEIMAGEMASK );
 		//	m_wndFiles.SetColumnData( pItem.iItem, COL_PRIORITY, pFragFile->GetPriority( i ) );		// Legacy Priority Column:
+
+		//	if ( i > 400 )		// No longer applies. Very large torrents made app non-responding in OnInitDialog (~180/sec, 10,000/minute)
+		//		theApp.KeepAlive();
 		}
+
+		oLock.Unlock();
+
+		UpdateCount();
+
+		Update();
+
+		SetTimer( 1, 100, NULL );	// Rapid Refresh (10 chances per second)
 	}
-
-	oLock.Unlock();
-
-	UpdateCount();
-
-	Update();
-
-	SetTimer( 1, 100, NULL );	// Rapid Refresh (10 chances per second)
-
-	return TRUE;
 }
 
 void CTorrentFilesPage::OnCheckbox(NMHDR* pNMHDR, LRESULT* pResult)
@@ -169,11 +196,11 @@ void CTorrentFilesPage::OnCheckbox(NMHDR* pNMHDR, LRESULT* pResult)
 	*pResult = 0;
 
 	BOOL bPrevState = (BOOL)( ( ( pNMListView->uOldState & LVIS_STATEIMAGEMASK) >> 12 ) - 1 );
-	if ( bPrevState < 0 )	// No previous state at startup
+	if ( bPrevState < 0 )		// No previous state at startup
 		return;
 
 	BOOL bChecked = (BOOL)( ( ( pNMListView->uNewState & LVIS_STATEIMAGEMASK ) >> 12 ) - 1 );
-	if ( bChecked < 0 ) 	// Non-checkbox notifications
+	if ( bChecked < 0 ) 		// Non-checkbox notifications
 		return;
 
 	if ( bChecked == bPrevState )	// No change

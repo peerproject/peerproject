@@ -1,7 +1,7 @@
 //
 // CtrlPrivateChatFrame.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -17,18 +17,18 @@
 //
 
 #include "StdAfx.h"
+#include "Settings.h"
 #include "PeerProject.h"
+#include "CtrlPrivateChatFrame.h"
 #include "ChatSession.h"
 #include "RichElement.h"
 #include "Transfers.h"
 #include "Uploads.h"
 #include "UploadTransfer.h"
-#include "CtrlPrivateChatFrame.h"
 #include "WndBrowseHost.h"
 #include "Colors.h"
 #include "Skin.h"
 #include "Security.h"
-#include "Settings.h"
 #include "Plugins.h"	// IChatPlugin Capture
 
 #ifdef _DEBUG
@@ -275,10 +275,7 @@ void CPrivateChatFrame::OnUpdateChatBrowse(CCmdUI* pCmdUI)
 void CPrivateChatFrame::OnChatBrowse()
 {
 	if ( m_pSession != NULL )
-	{
-		new CBrowseHostWnd( m_pSession->m_nProtocol,
-			&m_pSession->m_pHost, m_pSession->m_oGUID );
-	}
+		new CBrowseHostWnd( m_pSession->m_nProtocol, &m_pSession->m_pHost, m_pSession->m_oGUID );
 }
 
 void CPrivateChatFrame::OnUpdateChatPriority(CCmdUI* pCmdUI)
@@ -291,19 +288,18 @@ void CPrivateChatFrame::OnChatPriority()
 	CSingleLock pLock( &Transfers.m_pSection );
 	if ( ! pLock.Lock( 500 ) ) return;
 
-	DWORD nAddress = m_pSession->m_pHost.sin_addr.S_un.S_addr;
+	const DWORD nAddress = m_pSession->m_pHost.sin_addr.S_un.S_addr;
+	int nCount = 0;
 
 	for ( POSITION pos = Uploads.GetIterator() ; pos ; )
 	{
 		CUploadTransfer* pUpload = Uploads.GetNext( pos );
 
-		if ( pUpload->m_pHost.sin_addr.S_un.S_addr == nAddress &&
-				pUpload->m_nState == upsQueued )
-		{
-			pUpload->Promote();
-		}
+		if ( pUpload->m_pHost.sin_addr.S_un.S_addr == nAddress && pUpload->m_nState == upsQueued )
+			pUpload->Promote( nCount < 2 ); 	// First couple get unlimited, others dequeued
+
+		nCount++;
 	}
 
-	m_pSession->StatusMessage( 2, IDS_CHAT_PRIORITY_GRANTED,
-		(LPCTSTR)m_pSession->m_sAddress );
+	m_pSession->StatusMessage( 2, IDS_CHAT_PRIORITY_GRANTED, (LPCTSTR)m_pSession->m_sAddress, nCount );
 }

@@ -46,10 +46,10 @@ public:
 	BOOL    SaveToFile(LPCTSTR pszFile, int nQuality, DWORD* pnLength = NULL);
 	DWORD	GetSerialSize() const;
 	void	Serialize(CArchive& ar);
-	BOOL	FitTo(int nNewWidth, int nNewHeight);
-	BOOL	Resample(int nNewWidth, int nNewHeight);
-//	BOOL	FastResample(int nNewWidth, int nNewHeight);
 	HBITMAP	CreateBitmap(HDC hUseDC = 0);
+	BOOL	FitTo(int nNewWidth, int nNewHeight = 0);
+	BOOL	Resample(int nNewWidth, int nNewHeight = 0);
+//	BOOL	FastResample(int nNewWidth, int nNewHeight);
 	BOOL	EnsureRGB(COLORREF crBack = 0xFFFFFFFF);
 	BOOL	SwapRGB();
 

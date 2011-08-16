@@ -432,7 +432,7 @@ msgstr ""
 msgid "Bootstraps"
 msgstr ""
 
-#: button;id_discovery_servermet
+#: button;id_discovery_serverlist
 msgid "Server.met's"
 msgstr ""
 
@@ -1808,7 +1808,7 @@ msgstr "Mostrar _Bootstraps"
 msgid "Show _GWebCaches"
 msgstr "Mostrar _GWebCaches"
 
-#: cdiscoverywnd;item;id_discovery_servermet
+#: cdiscoverywnd;item;id_discovery_serverlist
 msgid "Show Ser_ver.met's"
 msgstr "Mostrar Ser_ver.met"
 
@@ -2884,7 +2884,7 @@ msgstr "Preguntar ahora, para adquirir más usuarios."
 msgid "Remove the selected discovery services."
 msgstr "Eliminar este servicio de descubrimiento."
 
-#: message;id_discovery_servermet
+#: message;id_discovery_serverlist
 msgid "Show eDonkey Server.met services in the Discovery window."
 msgstr "Mostrar servicios Server.met de eDonkey en la ventana de descubrimiento."
 
@@ -3841,7 +3841,7 @@ msgid "Access the selected download sources and attempt to download."
 msgstr "Acceder la fuente seleccionada."
 
 #: message;id_transfers_disconnect
-msgid "Disconnect the selected download transfer(s)."
+msgid "Disconnect the selected download transfers."
 msgstr "Desconectar las transferencias seleccionadas."
 
 #: message;id_transfers_forget
@@ -3857,15 +3857,15 @@ msgid "Automatically clear uploads which have been completed."
 msgstr "Limpiar los archivos subidos automáticamente."
 
 #: message;id_uploads_clear
-msgid "Clear the selected uploads from the list."
+msgid "Cancel selected uploads and remove from list."
 msgstr "Eliminar las transferencias seleccionadas."
 
 #: message;id_uploads_clear_completed
-msgid "Clear uploads which have been completed."
+msgid "Clear uploads that have completed."
 msgstr "Limpiar la lista de transferencias."
 
 #: message;id_uploads_disconnect
-msgid "Disconnect the selected upload transfer(s)."
+msgid "Disconnect the selected upload transfers."
 msgstr "Cancelar la transferencia."
 
 #: message;id_uploads_filter_active
@@ -3893,7 +3893,7 @@ msgid "Show BitTorrent uploads."
 msgstr "Mostrar las subidas BitTorrent."
 
 #: message;id_uploads_launch
-msgid "Launch the selected shared file(s)."
+msgid "Show selected shared files in the Library. (Or hold Shift to open.)s)."
 msgstr "Abrir el archivo seleccionado."
 
 #: message;id_uploads_settings
@@ -3901,7 +3901,7 @@ msgid "Configure upload settings..."
 msgstr "Configurar opciones de subidas..."
 
 #: message;id_uploads_start
-msgid "Start the selected queued upload(s)."
+msgid "Force start selected queued uploads."
 msgstr "Empezar con prioridad."
 
 #: message;id_view_basic
@@ -6080,11 +6080,11 @@ msgstr ""
 msgid "No scheduled event. Please select a task."
 msgstr ""
 
-#: string;20612 string;20700 string;20760
+#: string;20707 string;20760
 msgid "Active"
 msgstr "Activo"
 
-#: string;20613 string;20761
+#: string;20709
 msgid "Inactive"
 msgstr "Inactivo"
 
@@ -6324,19 +6324,19 @@ msgstr ""
 msgid "Are you sure you want to delete the \"%s\" skin? This cannot be undone."
 msgstr "¿Estas seguro que deseas eliminar \"%s\" skin?  Esto no se puede deshacer."
 
-#: string;20701
+#: string;20700
 msgid "%s in : %s out  (d:%I64i/u:%I64i)"
 msgstr "%s entra : %s sale (d:%I64i/u:%I64i)"
 
-#: string;20702
+#: string;20701
 msgid "Connected to %lu neighbors. %s in local library."
 msgstr "Conectado a %lu vecinos.  Tienes %s en Colección."
 
-#: string;20703
+#: string;20702
 msgid "Hub mode with %lu neighbors. %s in local library."
 msgstr "Modo Hub %lu en redes.  %s en Colección."
 
-#: string;20704
+#: string;20703
 msgid "Hub/Ultrapeer mode with %lu neighbors. %s in local library."
 msgstr "Modo Hub/Ultrapeer %lu en redes.  %s en Colección."
 
@@ -6344,15 +6344,15 @@ msgstr "Modo Hub/Ultrapeer %lu en redes.  %s en Colección."
 msgid "Connected. %s in local library."
 msgstr "Conectado. %s en Colección."
 
-#: string;20706
+#: string;20704
 msgid "Ultrapeer mode with %lu neighbors. %s in local library."
 msgstr "Modo Ultrapeer en %lu vecinos.  %s en Colección."
 
-#: string;20707
+#: string;20706
 msgid "Connecting to the network..."
 msgstr "Conectando a la red..."
 
-#: string;20708
+#: string;20707
 msgid "Not connected to the network."
 msgstr "PeerProject no esta conectado a la red."
 

@@ -278,9 +278,12 @@ BOOL CFileExecutor::Execute(LPCTSTR pszFile, LPCTSTR pszExt)
 	}
 
 	// Internal list exceptions
-	if ( ( strType == L".bz2" && CString( PathFindFileName( pszFile ) ).MakeLower() == L"hublist.xml.bz2" ) || strType == L".met" )
+	if ( strType == L".met" ||
+		( strType == L".bz2" && CString( PathFindFileName( pszFile ) ).Find( L"hublist.xml.bz2" ) >= 0 ) )
+	{
 		if ( theApp.OpenImport( pszFile ) )
 			return TRUE;	// Skip file
+	}
 
 	// Open known file types (links)
 	if ( theApp.Open( pszFile ) )

@@ -373,9 +373,10 @@ void CLibraryBuilder::OnRun()
 
 	while ( IsThreadEnabled() )
 	{
+		// Delay thread load at startup
 		if ( ! theApp.m_bLive )
 		{
-			Sleep( 4000 );	// Delay load at startup	Sleep(0)?
+			Sleep( 0 );
 			continue;
 		}
 

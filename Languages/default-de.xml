@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default German Skin File -->
 
-<!-- Translation based on default-en.xml r68 -->
+<!-- Translation based on default-en.xml r69 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -154,10 +154,10 @@
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Vorschau"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Datei löschen"/>
-		<button id="ID_DOWNLOADS_RESUME" text="Download wiederaufnehmen"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="Download anhalten"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Download abbrechen"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Download entfernen"/>
+		<button id="ID_DOWNLOADS_RESUME" text="Download wiederaufnehmen"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="Download anhalten"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Info"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Monitor anzeigen"/>
@@ -169,10 +169,10 @@
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Vorschau"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Löschen"/>
-		<button id="ID_DOWNLOADS_RESUME" text="Wiederaufnehmen"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="Anhalten"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Abbrechen"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Entfernen"/>
+		<button id="ID_DOWNLOADS_RESUME" text="Wiederaufnehmen"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="Anhalten"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Info"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Monitor anzeigen"/>
@@ -196,6 +196,7 @@
 		<separator/>
 		<button id="ID_UPLOADS_CLEAR" text="Abbrechen"/>
 		<button id="ID_UPLOADS_START" text="Starten"/>
+		<button id="ID_UPLOADS_PRIORITY" text="Priorität" visible="false"/>
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Benutzer durchsuchen"/>
 		<button id="ID_UPLOADS_CHAT" text="Mit Benutzer chatten"/>
@@ -365,7 +366,6 @@
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
-		<button id="ID_NETWORK_DC" text="DC++"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Einstellungen"/>
 	</toolbar>
@@ -378,6 +378,7 @@
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
+		<button id="ID_NETWORK_DC" text="DC++"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Netzwerkeinstellungen"/>
 	</toolbar>
@@ -670,7 +671,7 @@
 				<item id="ID_VIEW_RESULTS_MONITOR" text="_Treffermonitor" shortcut="Strg+F3"/>
 			</menu>
 			<separator/>
-			<item id="ID_VIEW_BASIC" text="No_rmaler Modus"/>
+			<item id="ID_VIEW_BASIC" text="_Vereinfachter-Modus"/>
 			<item id="ID_VIEW_TABBED" text="T_ab-Modus"/>
 			<item id="ID_VIEW_WINDOWED" text="_Fenster-Modus"/>
 		</menu>
@@ -680,7 +681,7 @@
 			<item id="ID_IMPORT_DOWNLOADS" text="Laufende eMule-Downloads _importieren..."/>
 			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Downloadordner öffnen"/>
 			<separator/>
-			<item id="ID_TOOLS_SKIN" text="_Skin(s) wählen..."/>
+			<item id="ID_TOOLS_SKIN" text="_Skins wählen..."/>
 			<item id="ID_TOOLS_LANGUAGE" text="S_prache wählen..."/>
 			<separator/>
 			<item id="ID_TOOLS_PROFILE" text="Mein P_rofil..."/>
@@ -754,7 +755,7 @@
 				<item id="ID_VIEW_DISCOVERY" text="Service-_Provider"/>
 			</menu>
 			<separator/>
-			<item id="ID_VIEW_BASIC" text="_Normalmodus"/>
+			<item id="ID_VIEW_BASIC" text="_Vereinfachter"/>
 			<item id="ID_VIEW_TABBED" text="_Powermodus"/>
 		</menu>
 		<menu text="_Extras">
@@ -834,7 +835,7 @@
 			<item id="ID_VIEW_RESULTS_MONITOR" text="_Treffermonitor" shortcut="Strg+F3"/>
 			<item id="ID_TAB_SEARCH" text="New _Search" shortcut="Ctrl+S"/>
 			<separator/>
-			<item id="ID_VIEW_BASIC" text="No_rmaler Modus"/>
+			<item id="ID_VIEW_BASIC" text="_Vereinfachter-Modus"/>
 			<item id="ID_VIEW_TABBED" text="T_ab-Modus"/>
 			<item id="ID_VIEW_WINDOWED" text="_Fenster-Modus"/>
 		</menu>
@@ -844,7 +845,7 @@
 			<item id="ID_IMPORT_DOWNLOADS" text="Laufende eMule-Downloads _importieren..."/>
 			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="D_ownloadordner öffnen"/>
 			<separator/>
-			<item id="ID_TOOLS_SKIN" text="_Skin(s) wählen..."/>
+			<item id="ID_TOOLS_SKIN" text="_Skins wählen..."/>
 			<item id="ID_TOOLS_LANGUAGE" text="S_prache wählen..."/>
 			<separator/>
 			<item id="ID_TOOLS_PROFILE" text="Mein P_rofil..."/>
@@ -1247,11 +1248,16 @@
 	<menu name="CUploadsWnd.Basic">
 		<item id="ID_BROWSE_LAUNCH" text="Benutzer _durchsuchen"/>
 		<item id="ID_UPLOADS_CHAT" text="Mit Benutzer _chatten"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="_Hilfe..."/>
 	</menu>
 	<menu name="CUploadsWnd.Upload">
-		<item id="ID_UPLOADS_START" text="_Jetzt starten"/>
-		<item id="ID_UPLOADS_CLEAR" text="_Abbrechen"/>
+		<item id="ID_UPLOADS_LAUNCH" text="Show in _Library"/>
 		<item id="ID_UPLOADS_FOLDER" text="Öffnen _Folder"/>
+		<separator/>
+		<item id="ID_UPLOADS_CLEAR" text="_Abbrechen"/>
+		<item id="ID_UPLOADS_START" text="_Jetzt starten"/>
+		<item id="ID_UPLOADS_PRIORITY" text="Priorität"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="Benutzer _durchsuchen"/>
 		<item id="ID_UPLOADS_CHAT" text="Mit Benutzer _chatten"/>
@@ -1664,19 +1670,19 @@
 	</menu>
 	<!-- DISCOVERY SERVICES WINDOW -->
 	<menu name="CDiscoveryWnd">
-		<item id="ID_DISCOVERY_QUERY" text="_Jetzt abfragen"/>
-		<item id="ID_DISCOVERY_ADVERTISE" text="_Bekannt machen"/>
+		<item id="ID_DISCOVERY_ADD" text="_Dienst hinzufügen..."/>
+		<separator/>
+		<item id="ID_DISCOVERY_EDIT" text="Ei_genschaften"/>
 		<item id="ID_DISCOVERY_REMOVE" text="_Entfernen"/>
 		<separator/>
+		<item id="ID_DISCOVERY_QUERY" text="_Jetzt abfragen"/>
+		<item id="ID_DISCOVERY_ADVERTISE" text="_Bekannt machen"/>
 		<item id="ID_DISCOVERY_BROWSE" text="_Statistik anzeigen"/>
 		<separator/>
 		<item id="ID_DISCOVERY_GNUTELLA" text="_Bootstraps anzeigen"/>
 		<item id="ID_DISCOVERY_WEBCACHE" text="_GWebCaches anzeigen"/>
-		<item id="ID_DISCOVERY_SERVERMET" text="Ser_ver.met's anzeigen"/>
-		<separator/>
-		<item id="ID_DISCOVERY_ADD" text="_Dienst hinzufügen..."/>
-		<separator/>
-		<item id="ID_DISCOVERY_EDIT" text="Ei_genschaften"/>
+		<item id="ID_DISCOVERY_SERVERLIST" text="Ser_ver.met's anzeigen"/>
+		<item id="ID_DISCOVERY_BLOCKED" text="Verstopft anzeigen"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
 	<menu name="CPrivateChatFrame">
@@ -2436,7 +2442,7 @@
 	<tip id="ID_DISCOVERY_GNUTELLA" message="Bootstrap-Dienste im Service Provider-Fenster anzeigen." tip="Bootstraps anzeigen"/>
 	<tip id="ID_DISCOVERY_QUERY" message="Den markierten Service-Provider jetzt abfragen." tip="Jetzt abfragen"/>
 	<tip id="ID_DISCOVERY_REMOVE" message="Den markierten Service-Provider entfernen." tip="Entfernen"/>
-	<tip id="ID_DISCOVERY_SERVERMET" message="eDonkey-Server.met-URLs im Service Provider-Fenster anzeigen."/>
+	<tip id="ID_DISCOVERY_SERVERLIST" message="eDonkey-Server.met-URLs im Service Provider-Fenster anzeigen."/>
 	<tip id="ID_DISCOVERY_WEBCACHE" message="GWebCache-Dienste im Service Provider-Fenster anzeigen." tip="GWebCaches anzeigen"/>
 	<tip id="ID_DOWNLOAD_GROUP_CLEAR" message="Alle Downloads dieser Gruppe abbrechen und entfernen."/>
 	<tip id="ID_DOWNLOAD_GROUP_NEW" message="Eine neue Downloadgruppe erstellen..."/>
@@ -2696,8 +2702,9 @@
 	<tip id="ID_UPLOADS_FILTER_TORRENT" message="BitTorrent-Uploads anzeigen."/>
 	<tip id="ID_UPLOADS_LAUNCH" message="Die markierte(n) Datei(en) öffnen." tip="Öffnen"/>
 	<tip id="ID_UPLOADS_SETTINGS" message="Uploads konfigurieren..."/>
-	<tip id="ID_UPLOADS_START" message="Upload zum markierten Client starten" tip="Upload starten"/>
-	<tip id="ID_VIEW_BASIC" message="PeerProjekt im Normalmodus verwenden und erweiterte Funktionen ausblenden."/>
+	<tip id="ID_UPLOADS_START" message="Upload zum markierten Client starten." tip="Upload starten"/>
+	<tip id="ID_UPLOADS_PRIORITY" message="Priorität."/>
+	<tip id="ID_VIEW_BASIC" message="PeerProjekt im Vereinfachter verwenden und erweiterte Funktionen ausblenden." tip="Vereinfachter-Modus"/>
 	<tip id="ID_VIEW_DISCOVERY" message="Das Service-Provider-Fenster ein- oder ausblenden." tip="Service-Provider-Fenster"/>
 	<tip id="ID_VIEW_DOWNLOADS" message="Das Download-Fenster ein- oder ausblenden." tip="Download-Fenster"/>
 	<tip id="ID_VIEW_HELP" message="Das Hilfefenster ein- oder ausblenden."/>
@@ -2710,7 +2717,7 @@
 	<tip id="ID_VIEW_SEARCH_MONITOR" message="Das Suchmonitor-Fenster ein- oder ausblenden." tip="Suchmonitor-Fenster"/>
 	<tip id="ID_VIEW_SECURITY" message="Das Sicherheitsfenster ein- oder ausblenden." tip="Sicherheitsfenster"/>
 	<tip id="ID_VIEW_SYSTEM" message="Die Konsole ein- oder ausblenden." tip="Konsole"/>
-	<tip id="ID_VIEW_TABBED" message="PeerProjekt im Tab-Modus benutzen (Home, Bibliothek, Transfer, Netzwerk)." tip="Tab-Modus"/>
+	<tip id="ID_VIEW_TABBED" message="PeerProjekt im Tab-Modus benutzen. (Home, Transfer, Netzwerk, Bibliothek, Media)" tip="Tab-Modus"/>
 	<tip id="ID_VIEW_TRAFFIC" message="Das Diagramm-Fenster ein- oder ausblenden." tip="Diagramm-Fenster"/>
 	<tip id="ID_VIEW_UPLOADS" message="Das Upload-Fenster ein- oder ausblenden." tip="Upload-Fenster"/>
 	<tip id="ID_VIEW_WINDOWED" message="PeerProjekt im Fenster-Modus benutzen." tip="Fenster-Modus"/>
@@ -2773,6 +2780,7 @@
 	<string id="20012" value="Benutzerdefiniert"/>
 	<string id="20013" value="Vorgabe"/>
 	<string id="20014" value="Abschließen"/>
+	<string id="20019" value="Bitte warten..."/>
 	<string id="20020" value="Datei"/>
 	<string id="20021" value="Dateien"/>
 	<string id="20022" value="Alle Dateien"/>
@@ -3250,8 +3258,6 @@
 	<string id="20609" value="Scheduled time has passed. Please select a new time."/>
 	<string id="20610" value="Keine Termine Tag. Wählen Sie einen oder mehrere Tage oder ein Datum."/>
 	<string id="20611" value="Kein geplantes Ereignis. Bitte wählen Sie eine Aufgabe."/>
-	<string id="20612" value="Aktiv"/>
-	<string id="20613" value="Inaktiv"/>
 	<string id="20614" value="Warte"/>
 	<string id="20615" value="Fertig Heute"/>
 	<string id="20616" value="Fertig"/>
@@ -3312,15 +3318,16 @@
 	<string id="20678" value="Das eDonkey-Netzwerk benutzt lange Warteschlangen mit langen Wartezeiten. Wenn Sie die Maximale Warteschlangenlänge zu strikt einstellen, könnten Sie Probleme bekommen, Dateien herunterzuladen.nSind Sie sicher, dass Sie die Maximale Warteschlangenposition auf diesen Wert setzen wollen?"/>
 	<string id="20680" value="Einstellungen"/>
 	<string id="20684" value="Wollen Sie den Skin &quot;%s&quot; wirklich löschen?  Dies kann nicht rückgängig gemacht werden."/>
-	<string id="20700" value="Aktiv"/>
-	<string id="20701" value="%s ein : %s aus (d:%I64i/u:%I64i)"/>
-	<string id="20702" value="Verbunden mit %lu Hosts, %s in der lokalen Bibliothek."/>
-	<string id="20703" value="Hub-Modus mit %lu Leaves.  %s in ihrer Bibliothek."/>
-	<string id="20704" value="Hub/Ultrapeer-Modus mit %lu Leaves.  %s in ihrer Bibliothek."/>
+	<string id="20700" value="%s ein : %s aus (d:%I64i/u:%I64i)"/>
+	<string id="20701" value="Verbunden mit %lu Hosts, %s in der lokalen Bibliothek."/>
+	<string id="20702" value="Hub-Modus mit %lu Leaves.  %s in ihrer Bibliothek."/>
+	<string id="20703" value="Hub/Ultrapeer-Modus mit %lu Leaves.  %s in ihrer Bibliothek."/>
+	<string id="20704" value="Ultrapeer-Modus mit %lu Leaves.  %s in ihrer Bibliothek."/>
 	<string id="20705" value="Verbunden. %s in lokaler Bibliothek."/>
-	<string id="20706" value="Ultrapeer-Modus mit %lu Leaves.  %s in ihrer Bibliothek."/>
-	<string id="20707" value="Verbindung mit Netzwerken herstellen..."/>
-	<string id="20708" value="Mit keinem Netzwerk verbunden."/>
+	<string id="20706" value="Verbindung mit Netzwerken herstellen..."/>
+	<string id="20707" value="Mit keinem Netzwerk verbunden."/>
+	<string id="20708" value="Aktiv"/>
+	<string id="20709" value="Inaktiv"/>
 	<string id="20710" value="Clearing"/>
 	<string id="20711" value="Verschieben nicht möglich"/>
 	<string id="20712" value="Choked"/>
@@ -3361,8 +3368,7 @@
 	<string id="20751" value="Es läuft kein Suche. Klicken Sie auf &quot;Suchen&quot; um nach Dateien zu suchen."/>
 	<string id="20752" value="Sie sind nicht verbunden. Klicken Sie auf &quot;Verbinden&quot; um Verbindungen zu den gewählten Netzwerken herzustellen."/>
 	<string id="20755" value="Sind Sie sicher, dass Sie die &quot;%s&quot;.Vorlage löschen wollen?nDieser Schritt kann nicht rückgängig gemacht werden."/>
-	<string id="20760" value="Aktiv"/>
-	<string id="20761" value="Inaktiv"/>
+	<string id="20760" value="Priorität"/>
 	<string id="20762" value="Diese Datei scheint SPAM zu sein."/>
 	<string id="20763" value="Gesperrte Liste: "/>
 	<string id="20764" value="Sie haben diese Datei schon einmal heruntergeladen und gelöscht."/>
@@ -4402,7 +4408,7 @@
 		<control caption="Sie haben %lu Dateien zum Exportieren als URI-Referenz gewählt. Bitte wählen Sie das gewünschte Format und klicken Sie auf speichern:"/>
 		<control/>
 		<control caption="Einfügen:"/>
-		<control caption="Tiger Root|SHA1|MD5|eD2k (CMD4)|Dateiname|Dateiname (URI)|Basis Dateiname|Dateierweiterung|Dateigröße|Dateigröße (bytes)|Verzeichnispfad|Lokaler Host|Lokaler Port"/>
+		<control caption="Tiger Root|SHA1|MD5|ED2K (MD4)|Dateiname|Dateiname (URI)|Basis Dateiname|Dateierweiterung|Dateigröße|Dateigröße (bytes)|Verzeichnispfad|Lokaler Host|Lokaler Port"/>
 		<control caption="Vorlage:"/>
 		<control caption="Magnet|eDonkey|Magnet HTML|eDonkey HTML"/>
 		<control caption="_Kopieren"/>

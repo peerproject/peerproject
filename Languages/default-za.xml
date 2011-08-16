@@ -4,7 +4,7 @@
 <!-- PeerProject Default Afrikaans Skin File -->
 <!-- Weergawe: 27 Oktober 2005 vir Shareaza 2.2.0.2 -->
 
-<!-- Translation based on default-en.xml r68 -->
+<!-- Translation based on default-en.xml r69 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -152,10 +152,10 @@
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Kyk Voorskou van Lêer"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Skrap Lêer"/>
-		<button id="ID_DOWNLOADS_RESUME" text="Hervat Aflaai"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="Vries Aflaai"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Kanselleer Aflaai"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Verwyder Aflaai"/>
+		<button id="ID_DOWNLOADS_RESUME" text="Hervat Aflaai"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="Vries Aflaai"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Properties"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Vertoon Monitor"/>
@@ -167,10 +167,10 @@
 		<button id="ID_DOWNLOADS_LAUNCH" text="Kyk Voorskou van Lêer"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Skrap Lêer"/>
-		<button id="ID_DOWNLOADS_RESUME" text="Hervat Aflaai"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="Vries Aflaai"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Kanselleer Aflaai"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Verwyder Aflaai"/>
+		<button id="ID_DOWNLOADS_RESUME" text="Hervat Aflaai"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="Vries Aflaai"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Properties"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Vertoon Monitor"/>
@@ -190,8 +190,9 @@
 	<toolbar name="CUploadsWnd">
 		<button id="ID_UPLOADS_LAUNCH" text="Open of Speel"/>
 		<separator/>
-		<button id="ID_UPLOADS_START" text="Begin Dadelik Oplaai"/>
-		<button id="ID_UPLOADS_CLEAR" text="Kanselleer Oplaai"/>
+		<button id="ID_UPLOADS_CLEAR" text="Kanselleer"/>
+		<button id="ID_UPLOADS_START" text="Begin Dadelik"/>
+		<button id="ID_UPLOADS_PRIORITY" text="Prioriteit" visible="false"/>
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Blaai deur Gebruikersinligting"/>
 		<button id="ID_UPLOADS_CHAT" text="Gesels met Gebruiker"/>
@@ -1191,11 +1192,16 @@
 	<menu name="CUploadsWnd.Upload.Basic">
 		<item id="ID_BROWSE_LAUNCH" text="_Blaai deur Gebruikersinligting"/>
 		<item id="ID_UPLOADS_CHAT" text="_Gesels met Gebruiker"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="_Hulp..."/>
 	</menu>
 	<menu name="CUploadsWnd.Upload">
-		<item id="ID_UPLOADS_START" text="_Begin Dadelik Oplaai"/>
-		<item id="ID_UPLOADS_CLEAR" text="_Kanselleer Oplaai"/>
+		<item id="ID_UPLOADS_LAUNCH" text="Vertoon _Library"/>
 		<item id="ID_UPLOADS_FOLDER" text="Open _Folder"/>
+		<separator/>
+		<item id="ID_UPLOADS_CLEAR" text="_Kanselleer Oplaai"/>
+		<item id="ID_UPLOADS_START" text="_Begin Dadelik Oplaai"/>
+		<item id="ID_UPLOADS_PRIORITY" text="Prioriteit"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="_Blaai deur Gebruikersinligting"/>
 		<item id="ID_UPLOADS_CHAT" text="_Gesels met Gebruiker"/>
@@ -1602,19 +1608,19 @@
 	</menu>
 	<!-- DISCOVERY SERVICES WINDOW -->
 	<menu name="CDiscoveryWnd">
-		<item id="ID_DISCOVERY_QUERY" text="_Doen Nou Navraag"/>
-		<item id="ID_DISCOVERY_ADVERTISE" text="A_dverteer"/>
+		<item id="ID_DISCOVERY_ADD" text="_Voeg Diens By..."/>
+		<separator/>
+		<item id="ID_DISCOVERY_EDIT" text="_Eienskappe"/>
 		<item id="ID_DISCOVERY_REMOVE" text="_Verwyder"/>
 		<separator/>
+		<item id="ID_DISCOVERY_QUERY" text="_Doen Nou Navraag"/>
+		<item id="ID_DISCOVERY_ADVERTISE" text="A_dverteer"/>
 		<item id="ID_DISCOVERY_BROWSE" text="Blaai deur _Statistieke"/>
 		<separator/>
 		<item id="ID_DISCOVERY_GNUTELLA" text="Vertoon _Bootstraps"/>
 		<item id="ID_DISCOVERY_WEBCACHE" text="Vertoon _GWebCaches"/>
-		<item id="ID_DISCOVERY_SERVERMET" text="Vertoon Ser_ver.met's"/>
-		<separator/>
-		<item id="ID_DISCOVERY_ADD" text="_Voeg Diens By..."/>
-		<separator/>
-		<item id="ID_DISCOVERY_EDIT" text="_Eienskappe"/>
+		<item id="ID_DISCOVERY_SERVERLIST" text="Vertoon Ser_ver.met's"/>
+		<item id="ID_DISCOVERY_BLOCKED" text="Vertoon Geblokkeerde"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
 	<menu name="CPrivateChatFrame">
@@ -2348,7 +2354,7 @@
 	<tip id="ID_DISCOVERY_GNUTELLA" message="Vertoon bootstrap dienste in die Ontdekkings-venster."/>
 	<tip id="ID_DISCOVERY_QUERY" message="Raadpleeg die geselekteerde ontdekkingsdienste nou."/>
 	<tip id="ID_DISCOVERY_REMOVE" message="Verwyder die geselekteerde ontdekkingsdienste."/>
-	<tip id="ID_DISCOVERY_SERVERMET" message="Vertoon eDonkey2000 Server.met dienste in die Ontdekkings-venster."/>
+	<tip id="ID_DISCOVERY_SERVERLIST" message="Vertoon eDonkey2000 Server.met dienste in die Ontdekkings-venster."/>
 	<tip id="ID_DISCOVERY_WEBCACHE" message="Vertoon GWebCache dienste in die Ontdekkings-venster."/>
 	<tip id="ID_DOWNLOAD_GROUP_CLEAR" message="Kanselleer en verwyder alle aflaaie in hierdie groep."/>
 	<tip id="ID_DOWNLOAD_GROUP_NEW" message="Skep 'n nuwe aflaaigroep..."/>
@@ -2607,6 +2613,7 @@
 	<tip id="ID_UPLOADS_LAUNCH" message="Open die geselekteerde gedeelde lêer(s)."/>
 	<tip id="ID_UPLOADS_SETTINGS" message="Verander oplaai verstellings..."/>
 	<tip id="ID_UPLOADS_START" message="Begin die geselekteerde oplaai(e) op die waglys dadelik."/>
+	<tip id="ID_UPLOADS_PRIORITY" message="Oplaai Prioriteit."/>
 	<tip id="ID_VIEW_BASIC" message="Gebruik PeerProject in Normale modus."/>
 	<tip id="ID_VIEW_DISCOVERY" message="Vertoon of verwyder die ONTDEKKINGSDIENSTE venster."/>
 	<tip id="ID_VIEW_DOWNLOADS" message="Vertoon of verwyder die AFLAAIE venster."/>
@@ -2674,6 +2681,7 @@
 	<string id="20012" value="Aanpas"/>
 	<string id="20013" value="Default"/>
 	<string id="20014" value="Finish"/>
+	<string id="20019" value="Please Wait..."/>
 	<string id="20020" value="Lêer"/>
 	<string id="20021" value="Lêers"/>
 	<string id="20022" value="Alle Lêers"/>
@@ -3188,15 +3196,16 @@
 	<string id="20678" value="Die eDonkey netwerk gebruik groot waglyste met lang wagtye. Deur die maksimum aanvaarde waglysposisie so streng te beperk, mag jou aflaaie dalk sukkel om te begin.\nIs jy seker jy wil die waglysposisies beperk?"/>
 	<string id="20680" value="PeerProject Verstellings"/>
 	<string id="20684" value="Is jy seker jy wil die &quot;%s&quot; omslag skrap?  Dit kan nie herroep word nie."/>
-	<string id="20700" value="Aktief"/>
-	<string id="20701" value="%s in : %s uit (a:%I64i/o:%I64i)"/>
-	<string id="20702" value="Gekonnekteer aan %lu gashere.  %s in lokale biblioteek."/>
-	<string id="20703" value="Hub modus met %lu kliënt(e).  %s in lokale biblioteek."/>
-	<string id="20704" value="Hub/Ultrapeer modus met %lu kliënt(e).  %s in lokale biblioteek."/>
+	<string id="20700" value="%s in : %s uit (a:%I64i/o:%I64i)"/>
+	<string id="20701" value="Gekonnekteer aan %lu gashere.  %s in lokale biblioteek."/>
+	<string id="20702" value="Hub modus met %lu kliënt(e).  %s in lokale biblioteek."/>
+	<string id="20703" value="Hub/Ultrapeer modus met %lu kliënt(e).  %s in lokale biblioteek."/>
+	<string id="20704" value="Ultrapeer modus met %lu kliënt(e).  %s in lokale biblioteek."/>
 	<string id="20705" value="Gekonnekteer. %s in lokale biblioteek."/>
-	<string id="20706" value="Ultrapeer modus met %lu kliënt(e).  %s in lokale biblioteek."/>
-	<string id="20707" value="Besig om aan die netwerk te konnekteer..."/>
-	<string id="20708" value="Nie aan die netwerk gekonnekteer nie."/>
+	<string id="20706" value="Besig om aan die netwerk te konnekteer..."/>
+	<string id="20707" value="Nie aan die netwerk gekonnekteer nie."/>
+	<string id="20708" value="Aktief"/>
+	<string id="20709" value="Nie Aktief"/>
 	<string id="20710" value="Skoonmaak"/>
 	<string id="20711" value="Kan nie Skuif"/>
 	<string id="20712" value="Beset"/>
@@ -3237,8 +3246,7 @@
 	<string id="20751" value="Daar is geen aktiewe soektogte nie.  Kliek hier om vir lêers te soek."/>
 	<string id="20752" value="Jy is nie gekonnekteer nie.  Kliek die Konnekteer-knoppie om te begin."/>
 	<string id="20755" value="Are you sure you want to delete the &quot;%s&quot; template?\nThis cannot be undone."/>
-	<string id="20760" value="Aktief"/>
-	<string id="20761" value="Nie Aktief"/>
+	<string id="20760" value="Prioriteit"/>
 	<string id="20762" value="Hierdie lêer blyk gemors (spam) te wees."/>
 	<string id="20763" value="Op die swartlys:"/>
 	<string id="20764" value="Jy het voorheen hierdie lêer afgelaai en geskrap."/>

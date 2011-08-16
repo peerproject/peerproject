@@ -3227,15 +3227,15 @@ END
 STRINGTABLE
 BEGIN
 	ID_DISCOVERY_ADD			"Add a new discovery service..."
-	ID_DISCOVERY_ADVERTISE		"Advertise the selected GWebCache service to a random existing GWebCache."
-	ID_DISCOVERY_BLOCKED		"Show blocked services in the Discovery window."
-	ID_DISCOVERY_BROWSE			"Browse statistics for the selected GWebCache service on the Web."
 	ID_DISCOVERY_EDIT			"View the properties for the selected discovery service."
-	ID_DISCOVERY_GNUTELLA		"Show bootstrap services in the Discovery window."
-	ID_DISCOVERY_QUERY			"Query the selected discovery services now."
 	ID_DISCOVERY_REMOVE			"Remove the selected discovery services."
-	ID_DISCOVERY_SERVERMET		"Show eDonkey Server.met services in the Discovery window."
+	ID_DISCOVERY_ADVERTISE		"Advertise the selected GWebCache service to a random existing GWebCache."
+	ID_DISCOVERY_QUERY			"Query the selected discovery services now."
+	ID_DISCOVERY_BROWSE			"Browse statistics for the selected GWebCache service on the Web."
+	ID_DISCOVERY_BLOCKED		"Show blocked services in the Discovery window."
+	ID_DISCOVERY_GNUTELLA		"Show bootstrap services in the Discovery window."
 	ID_DISCOVERY_WEBCACHE		"Show GWebCache services in the Discovery window."
+	ID_DISCOVERY_SERVERLIST		"Show eDonkey Server.met and DC++ Hublist services in the Discovery window."
 END
 
 STRINGTABLE
@@ -3339,7 +3339,7 @@ BEGIN
 	ID_HOSTCACHE_G2_CACHE		"Show Gnutella2 cached hosts."
 	ID_HOSTCACHE_G2_HORIZON		"Show Gnutella2 horizon hubs."
 	ID_HOSTCACHE_KAD_CACHE		"Show Kademlia cached hosts."
-	ID_HOSTCACHE_IMPORT			"Import a list of known hosts, such as a ""server.met"" file..."
+	ID_HOSTCACHE_IMPORT			"Import a list of known hosts, such as a ""server.met"" or ""hublist.xml.bz2"" file..."
 	ID_HOSTCACHE_PRIORITY		"Try to connect to this server before other servers."
 	ID_HOSTCACHE_REMOVE			"Remove the selected hosts from the host cache."
 END
@@ -3577,18 +3577,20 @@ STRINGTABLE
 BEGIN
 	ID_UPLOADS_AUTO_CLEAR		"Automatically clear uploads which have been completed."
 	ID_UPLOADS_CHAT				"Open a chat session with the selected user."
-	ID_UPLOADS_CLEAR			"Clear selected uploads from the list."
-	ID_UPLOADS_CLEAR_COMPLETED	"Clear uploads which have been completed."
+	ID_UPLOADS_CLEAR			"Cancel selected uploads and remove from list."
+	ID_UPLOADS_CLEAR_COMPLETED	"Clear uploads that have completed."
 	ID_UPLOADS_DISCONNECT		"Disconnect selected upload transfers."
-	ID_UPLOADS_FILTER_ACTIVE	"Show all uploads which are actively sending."
 	ID_UPLOADS_FILTER_ALL		"Show all uploads."
+	ID_UPLOADS_FILTER_ACTIVE	"Show all uploads which are actively sending."
 	ID_UPLOADS_FILTER_HISTORY	"Show uploads which are no longer connected."
 	ID_UPLOADS_FILTER_MENU		"Choose which types of uploads to show and which types to hide in this view."
 	ID_UPLOADS_FILTER_QUEUED	"Show uploads which are waiting in your queues."
 	ID_UPLOADS_FILTER_TORRENT	"Show BitTorrent uploads."
-	ID_UPLOADS_LAUNCH			"Launch the selected shared file."
+	ID_UPLOADS_FOLDER			"Show selected shared files in Windows."
+	ID_UPLOADS_LAUNCH			"Show selected shared files in the Library.  (Or hold Shift to open.)"
 	ID_UPLOADS_SETTINGS			"Configure upload settings..."
-	ID_UPLOADS_START			"Start selected queued uploads."
+	ID_UPLOADS_START			"Force start selected queued uploads."
+	ID_UPLOADS_PRIORITY			"Select one upload to remove limits."
 END
 
 STRINGTABLE
@@ -3599,16 +3601,16 @@ BEGIN
 	ID_VIEW_MEDIA				"Show or hide the MEDIA PLAYER window."
 	ID_VIEW_NEIGHBOURS			"Show or hide the NEIGHBORS window."
 	ID_VIEW_DISCOVERY			"Show or hide the network DISCOVERY SERVICES window."
+	ID_VIEW_HOSTS				"Show or hide the network HOST CACHE window."
 	ID_VIEW_PACKETS				"Show or hide the PACKET DUMP window."
 	ID_VIEW_RESULTS_MONITOR		"Show or hide the HIT MONITOR window."
 	ID_VIEW_SEARCH_MONITOR		"Show or hide the SEARCH MONITOR window."
-	ID_VIEW_SCHEDULER			"Show or hide SCHEDULER window."
+	ID_VIEW_SCHEDULER			"Show or hide the SCHEDULER window."
 	ID_VIEW_SECURITY			"Show or hide the SECURITY window."
 	ID_VIEW_SYSTEM				"Show or hide the SYSTEM window."
-	ID_VIEW_HOSTS				"Show or hide the HOST CACHE window."
 	ID_VIEW_TRAFFIC				"Show or hide a GRAPH window."
 	ID_VIEW_BASIC				"Use PeerProject in easier Basic mode."
-	ID_VIEW_TABBED				"Use PeerProject in standard Tabbed mode. (Home, Transfers, Network, Library, Media, IRC, Search)"
+	ID_VIEW_TABBED				"Use PeerProject in standard Tabbed mode."
 	ID_VIEW_WINDOWED			"Use PeerProject in Windowed power mode."
 END
 
@@ -3663,6 +3665,7 @@ BEGIN
 	IDS_GENERAL_IGNORE			"Ignore"
 	IDS_GENERAL_RETRY			"Retry"
 	IDS_GENERAL_TRYAGAIN		"Try Again"
+	IDS_GENERAL_PLEASEWAIT		"Please Wait..."
 END
 
 STRINGTABLE
@@ -3810,7 +3813,7 @@ BEGIN
 	IDS_CHAT_NICK_X				"%s is now known as %s."
 	IDS_CHAT_NOT_CONNECTED_1	"Cannot send message, you are not connected.  PeerProject is trying to connect..."
 	IDS_CHAT_NOT_CONNECTED_2	"Cannot send message, a connection has not been established yet."
-	IDS_CHAT_PRIORITY_GRANTED	"Granted upload priority to host %s."
+	IDS_CHAT_PRIORITY_GRANTED	"Granted upload priority to host %s. (%i files)"
 	IDS_CHAT_PRIVATE_AWAY		"%s is away: %s"
 	IDS_CHAT_PRIVATE_ONLINE		"Private conversation granted, you are now chatting with %s."
 	IDS_CHAT_PRIVATE_REFUSED	"%s is not accepting private conversations, sorry."
@@ -4302,12 +4305,10 @@ BEGIN
 	IDS_SCHEDULER_SYSTEM_EXIT	"System: Exit PeerProject"
 	IDS_SCHEDULER_SYSTEM_NOTICE "System: Reminder Notice"
 	IDS_SCHEDULER_SYSTEM_SHUTDOWN "System: Shut-down Computer"
-	IDS_SCHEDULER_TASK_ACTIVE	"Active"
+	IDS_SCHEDULER_TASK_WAITING	"Waiting"
 	IDS_SCHEDULER_TASK_DONETODAY "Done Today"
 	IDS_SCHEDULER_TASK_DONE		"Done"
-	IDS_SCHEDULER_TASK_INACTIVE	"Inactive"
 	IDS_SCHEDULER_TASK_NONE		"No Tasks scheduled."
-	IDS_SCHEDULER_TASK_WAITING	"Waiting"
 	IDS_SCHEDULER_TIME_PASSED	"Scheduled time has passed.\n\nPlease select a new time."
 END
 
@@ -4394,6 +4395,7 @@ END
 STRINGTABLE
 BEGIN
 	IDS_STATUS_ACTIVE			"Active"
+	IDS_STATUS_INACTIVE 		"Inactive"
 	IDS_STATUS_BUSY				"Busy"
 	IDS_STATUS_CANTMOVE			"Can't Move"
 	IDS_STATUS_CHOKED			"Choked"
@@ -4442,8 +4444,8 @@ BEGIN
 	IDS_STATUS_BAR_CONNECTED	"Connected to %lu neighbors.  %s in local library."
 	IDS_STATUS_BAR_CONNECTED_HUB "Hub mode with %lu neighbors.  %s in local library."
 	IDS_STATUS_BAR_CONNECTED_HUB_UP "Hub/Peer modes with %lu neighbors.  %s in local library."
-	IDS_STATUS_BAR_CONNECTED_SIMPLE "Connected.  %s in local library."
 	IDS_STATUS_BAR_CONNECTED_UP "Ultrapeer mode with %lu neighbors.  %s in local library."
+	IDS_STATUS_BAR_CONNECTED_SIMPLE "Connected.  %s in local library."
 	IDS_STATUS_BAR_CONNECTING	"Connecting to the network..."
 	IDS_STATUS_BAR_DISCONNECTED	"Not connected to the network."
 	IDS_SYSTEM_MESSAGE			"!Welcome to PeerProject (version) !\n.\nPeerProject is completely free software.\nPlease use it responsibly and respect local laws.\n."
@@ -4454,7 +4456,6 @@ END
 
 STRINGTABLE
 BEGIN
-	IDS_TIP_ACTIVE				"Active"
 	IDS_TIP_BOGUS				"This file appears to be spam."
 	IDS_TIP_EXISTS_BLACKLISTED	"Blacklisted: "
 	IDS_TIP_EXISTS_DELETED		"You have downloaded and deleted this file before."
@@ -4465,9 +4466,9 @@ BEGIN
 	IDS_TIP_FILE_UNSTABLE		"Sources for this file may be unstable"
 	IDS_TIP_FOLDER				"Folder"
 	IDS_TIP_HITS				"Hits"
-	IDS_TIP_INACTIVE			"Inactive"
 	IDS_TIP_LIBRARY_PERCENT		"of your library"
 	IDS_TIP_LOCATION			"Location"
+	IDS_TIP_PRIORITY			"Priority"
 	IDS_TIP_NA					"N/A"
 END
 

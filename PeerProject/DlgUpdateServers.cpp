@@ -24,6 +24,7 @@
 #include "Settings.h"
 #include "DlgUpdateServers.h"
 #include "HostCache.h"
+#include "Buffer.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -139,9 +140,9 @@ void CUpdateServersDlg::OnTimer(UINT_PTR nIDEvent)
 		if ( m_pRequest.GetStatusSuccess() )
 		{
 			const CString strExt = CString( PathFindExtension( m_sURL ) ).MakeLower();
-			if ( strExt == L".met" || strExt == L".php" )
+			if ( strExt == L".met" || m_sURL.Find( _T("//server"), 8 ) > 8 )		// || strExt == L".php"
 				Settings.eDonkey.ServerListURL = m_sURL;
-			else if ( strExt == L".bz2" )
+			else if ( strExt == L".bz2" || m_sURL.Find( _T("hublist"), 8 ) > 8 )
 				Settings.DC.HubListURL = m_sURL;
 		//	else if ( strExt == L".xml" )
 		//		Settings.Gnutella.CacheURL = m_sURL;
@@ -156,7 +157,7 @@ void CUpdateServersDlg::OnTimer(UINT_PTR nIDEvent)
 
 			if ( ( strExt == L".bz2" && HostCache.ImportHubList( &pFile ) ) ||
 				 HostCache.ImportMET( &pFile ) )
-			//	 HostCache.ImportCache( &pFile ) ||	// ToDo: G2/Gnutella loading
+			//	 HostCache.ImportCache( &pFile ) || 	// ToDo: G2/Gnutella loading
 			//	 HostCache.ImportNodes( &pFile ) )		// ToDo: KAD
 			{
 				HostCache.Save();

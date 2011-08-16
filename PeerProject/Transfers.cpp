@@ -132,8 +132,9 @@ void CTransfers::OnRun()
 
 	while ( IsThreadEnabled() )
 	{
-		Sleep( Settings.General.MinTransfersRest );		// Doze?
+		Doze( Settings.General.MinTransfersRest );
 
+		// Delay thread load at startup
 		if ( ! theApp.m_bLive )
 		{
 			Sleep( 0 );

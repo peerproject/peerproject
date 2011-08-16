@@ -1208,17 +1208,17 @@ BOOL CImages::DrawButton(CDC* pDC, const CRect rc, CBitmap* bmButton, CBitmap* b
 
 	CDC dcMark;
 	dcMark.CreateCompatibleDC( pDC );
-	if ( Settings.General.LanguageRTL )
-		SetLayout( dcMark.m_hDC, LAYOUT_BITMAPORIENTATIONPRESERVED );
+	//if ( Settings.General.LanguageRTL )
+	//	SetLayout( dcMark.m_hDC, LAYOUT_BITMAPORIENTATIONPRESERVED );	// No effect?  ToDo: Fix RTL
 
 	CBitmap* pOld;
 	pOld = (CBitmap*)dcMark.SelectObject( bmButton );
 
 	BLENDFUNCTION bf;				// Set now if needed
-	bf.BlendOp = AC_SRC_OVER;		// Must be defined
 	bf.BlendFlags = 0;				// Must be zero
-	bf.SourceConstantAlpha = 0xFF;	// Opaque (Bitmap alpha only)
+	bf.BlendOp = AC_SRC_OVER;		// Must be defined
 	bf.AlphaFormat = AC_SRC_ALPHA;	// Use bitmap alpha
+	bf.SourceConstantAlpha = 0xFF;	// Opaque (Bitmap alpha only)
 
 	const int nEdge = ( bmButtonEdge && bmButtonEdge->m_hObject ) ? bmButtonEdge->GetBitmapDimension().cx : 0;
 

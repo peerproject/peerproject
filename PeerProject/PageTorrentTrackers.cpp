@@ -20,13 +20,13 @@
 #include "Settings.h"
 #include "PeerProject.h"
 
-#include "BENode.h"
 #include "DlgDownloadSheet.h"
 #include "PageTorrentTrackers.h"
 #include "CoolInterface.h"
-#include "Network.h"
+#include "BENode.h"
 #include "Transfers.h"
 #include "Downloads.h"
+#include "Network.h"
 
 #include "Skin.h"
 #include "Colors.h"
@@ -122,8 +122,7 @@ BOOL CTorrentTrackersPage::OnInitDialog()
 	else
 		m_wndTrackers.SetBkColor( Colors.m_crWindow );
 
-	int nTracker = 0;
-	for ( nTracker = 0 ; nTracker < nCount; nTracker++ )
+	for ( int nTracker = 0 ; nTracker < nCount ; nTracker++ )
 	{
 		LV_ITEM pItem = {};
 		pItem.mask		= LVIF_TEXT|LVIF_IMAGE|LVIF_PARAM;
@@ -132,6 +131,8 @@ BOOL CTorrentTrackersPage::OnInitDialog()
 
 		if ( oInfo.GetTrackerIndex() == nTracker )
 			pItem.iImage = CoolInterface.ImageForID( ID_MEDIA_SELECT );
+		else if ( oInfo.GetTrackerAddress( nTracker ).GetAt( 0 ) == BAD_TRACKER_TOKEN )
+			pItem.iImage = CoolInterface.ImageForID( ID_DISCOVERY_BLOCKED );
 		else
 			pItem.iImage = CoolInterface.ImageForID( ID_DOWNLOADS_URI );
 
@@ -140,9 +141,9 @@ BOOL CTorrentTrackersPage::OnInitDialog()
 
 		// Display status
 		CString sStatus, sType = _T("Announce");
-		if ( oInfo.GetTrackerAddress( nTracker ).GetAt( 0 ) == _T('*') )	// Tagged for display only (udp:// etc.)
+		if ( oInfo.GetTrackerAddress( nTracker ).GetAt( 0 ) == BAD_TRACKER_TOKEN )	// Tagged for display only (*udp:// etc.)
 		{
-			if ( oInfo.GetTrackerAddress( nTracker ).Left( 7 ) == _T("*udp://") )
+			if ( oInfo.GetTrackerAddress( nTracker ).Left( 7 ) == BAD_TRACKER_TOKEN + _T("udp://") )
 				sType = _T("UDP");
 
 			// ToDo: Add UDP tracker support
@@ -178,8 +179,7 @@ BOOL CTorrentTrackersPage::OnInitDialog()
 	UpdateData( FALSE );
 
 	if ( Network.IsConnected() )
-		PostMessage( WM_COMMAND, MAKELONG( IDC_TORRENT_REFRESH, BN_CLICKED ),
-			(LPARAM)m_wndRefresh.GetSafeHwnd() );
+		PostMessage( WM_COMMAND, MAKELONG( IDC_TORRENT_REFRESH, BN_CLICKED ), (LPARAM)m_wndRefresh.GetSafeHwnd() );
 
 	return TRUE;
 }
@@ -243,7 +243,7 @@ BOOL CTorrentTrackersPage::OnApply()
 		return FALSE;
 
 	CSingleLock oLock( &Transfers.m_pSection );
-	if ( ! oLock.Lock( 250 ) )
+	if ( ! oLock.Lock( 500 ) )
 		return FALSE;
 
 	if ( ! Downloads.Check( m_pDownload ) || ! m_pDownload->IsTorrent() )
@@ -251,9 +251,9 @@ BOOL CTorrentTrackersPage::OnApply()
 
 	CBTInfo& oInfo = m_pDownload->m_pTorrent;
 
-	int nTrackerMode = m_wndTrackerMode.GetCurSel();
-	bool bAddressChanged = oInfo.GetTrackerAddress() != m_sTracker;
-	bool bModeChanged = oInfo.GetTrackerMode() != nTrackerMode;
+	const int nTrackerMode = m_wndTrackerMode.GetCurSel();
+	const BOOL bModeChanged = oInfo.GetTrackerMode() != nTrackerMode;
+	const BOOL bAddressChanged = oInfo.GetTrackerAddress() != m_sTracker;
 	if ( bAddressChanged || bModeChanged )
 	{
 		oLock.Unlock();
@@ -288,16 +288,14 @@ void CTorrentTrackersPage::OnRun()
 			m_pRequest.Clear();
 
 			CString strURL = m_sTracker;
-			if ( strURL.Find( _T("http") ) == 0 &&	// ToDo: Support UDP Trackers
+			if ( strURL.Left( 4 ) == _T("http") &&	// ToDo: Support UDP Trackers
 				strURL.Replace( _T("/announce"), _T("/scrape") ) == 1 )
 			{
 				// Fetch scrape only for the given info hash
 				strURL = strURL.TrimRight( _T('&') ) +
 					( ( strURL.Find( _T('?') ) != -1 ) ? _T('&') : _T('?') ) +
-					_T("info_hash=") +
-						CBTTrackerRequest::Escape( m_pDownload->m_pTorrent.m_oBTH ) +
-					_T("&peer_id=") +
-						CBTTrackerRequest::Escape( m_pDownload->m_pPeerID );
+					_T("info_hash=") + CBTTrackerRequest::Escape( m_pDownload->m_pTorrent.m_oBTH ) +
+					_T("&peer_id=")  + CBTTrackerRequest::Escape( m_pDownload->m_pPeerID );
 
 				oLock.Unlock();
 
@@ -360,8 +358,8 @@ BOOL CTorrentTrackersPage::OnTree(CBENode* pNode)
 	CBENode* pFile = pFiles->GetNode( nKey, Hashes::BtHash::byteCount );
 	if ( ! pFile->IsType( CBENode::beDict ) ) return FALSE;
 
-	m_nComplete		= 0;
-	m_nIncomplete	= 0;
+	m_nComplete = 0;
+	m_nIncomplete = 0;
 
 	if ( CBENode* pComplete = pFile->GetNode( "complete" ) )
 	{
@@ -421,7 +419,7 @@ void CTorrentTrackersPage::OnNMClickTorrentTrackers(NMHDR *pNMHDR, LRESULT *pRes
 
 void CTorrentTrackersPage::OnCbnSelchangeTorrentTrackermode()
 {
-	int nMode = m_wndTrackerMode.GetCurSel();
+	const int nMode = m_wndTrackerMode.GetCurSel();
 
 	GetDlgItem( IDC_TORRENT_TRACKER )->EnableWindow( nMode != CBTInfo::tNull );
 }

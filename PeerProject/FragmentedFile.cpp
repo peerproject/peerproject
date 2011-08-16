@@ -182,8 +182,9 @@ BOOL CFragmentedFile::Open(LPCTSTR pszFile, QWORD nOffset, QWORD nLength, BOOL b
 
 	CTransferFile* pFile = NULL;
 	QWORD nRealLength = SIZE_UNKNOWN;
-	for ( int nMethod = 0 ; nMethod < 2 ; ++nMethod )
-	{
+	// Allow fallback loading methods, currently none available  (Previously checked non-default path)
+	//for ( int nMethod = 0 ; nMethod < 2 ; ++nMethod )
+	//{
 		pFile = TransferFiles.Open( (*pItr).m_sPath, bWrite );
 		if ( pFile )
 		{
@@ -200,25 +201,26 @@ BOOL CFragmentedFile::Open(LPCTSTR pszFile, QWORD nOffset, QWORD nLength, BOOL b
 				pFile = NULL;
 				m_nFileError = ERROR_FILE_INVALID;
 			}
-			break;
+			//break;
 		}
-
-		m_nFileError = ::GetLastError();
-		if ( ! bWrite )
-			break;	// Do nothing for read only files
-
-		CString strPath( pszFile );
-		switch( nMethod )
+		else
 		{
-		case 0:
-			// Try to open file for write from current incomplete folder (in case of changed folder)
-			(*pItr).m_sPath = Settings.Downloads.IncompletePath +
-				strPath.Mid( strPath.ReverseFind( _T('\\') ) );
-			break;
-
-		// ToDo: Other methods
+			m_nFileError = ::GetLastError();
+	//		if ( ! bWrite )
+	//			break;	// Do nothing for read only files
 		}
-	}
+
+	//	CString strPath( pszFile );
+	//	switch( nMethod )
+	//	{
+	//	case 0:
+	//		// Redundant: Try to open file for write from current incomplete folder (in case of changed folder)
+	//		(*pItr).m_sPath = Settings.Downloads.IncompletePath + strPath.Mid( strPath.ReverseFind( _T('\\') ) );
+	//		break;
+	//	
+	//	// ToDo: Other methods
+	//	}
+	//}
 
 	(*pItr).m_nSize = nLength;
 	(*pItr).m_pFile = pFile;
@@ -768,10 +770,10 @@ void CFragmentedFile::Serialize(CArchive& ar, int nVersion)
 			return;		// Old Shareaza import?
 
 		DWORD count = 0;
-		CString strPath;
 		QWORD nOffset = 0;
 		QWORD nLength = 0;
 		BOOL bWrite = FALSE;
+		CString strPath;
 		CString strName( m_pDownload ? m_pDownload->m_sName : CString() );
 		int nPriority = prNormal;
 

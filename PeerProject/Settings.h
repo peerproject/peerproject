@@ -138,16 +138,17 @@ public:
 		DWORD		QueryRouteSize;
 		DWORD		HistoryTotal;
 		DWORD		HistoryDays;
-		bool		ShowVirtual;
+		DWORD		ThumbQuality;
+		DWORD		ThumbSize;
 		DWORD		TreeSize;
 		DWORD		PanelSize;
 		bool		ShowPanel;
+		bool		ShowVirtual;
 		bool		ShowCoverArt;
 		CString		SchemaURI;
 		CString		FilterURI;
 		string_set	SafeExecute;
 		string_set	PrivateTypes;
-		DWORD		ThumbSize;
 		bool		CreateGhosts;			// Default action in the delete file dialog
 		bool		HashWindow;				// Display annoying hashing window
 		bool		HighPriorityHash;		// Use high priority hashing or not
@@ -286,6 +287,7 @@ public:
 		bool		DeleteFirewallException;// Delete Firewall exception on shutdown
 		bool		EnableUPnP;
 		bool		DeleteUPnPPorts;		// Delete forwarded ports on shutdown (UPnP)
+		DWORD		UPnPRefreshTime;		// Refresh time of port mappings (UPnP)
 		bool		SkipWANPPPSetup;		// Skip WANPPPConn1 device setup (UPnP)
 		bool		SkipWANIPSetup;			// Skip WANIPConn1 device setup (UPnP)
 		DWORD		ZLibCompressionLevel;	// ZLib compression level: 0-9
@@ -440,7 +442,7 @@ public:
 		DWORD		QueryThrottle;			// Max rate at which an individual server can be queried (sec) (was QueryServerThrottle)
 		DWORD		PacketThrottle;			// ED2K packet rate limiter
 		DWORD		SourceThrottle;			// ED2K source rate limiter
-		DWORD		MetAutoQuery;			// Auto query for a new server list
+		bool		MetAutoQuery;			// Auto query for a new server list
 		bool		LearnNewServers;		// Get new servers from servers
 		bool		LearnNewServersClient;	// Get new servers from clients
 		CString		ServerListURL;
@@ -467,6 +469,8 @@ public:
 		DWORD		QueryThrottle;			// Throttle for DC++ neighbor searches (s), default 2 min delay
 		DWORD		ReAskTime;				// How often to re-ask a remote client about download (ms), default every minute
 		DWORD		DequeueTime;			// Timeout for remote client confirmation of upload queue (ms), default 5 min
+	//	DWORD		HubListQueryPeriod; 	// Auto-update hublist fetching (d), default should be ~weeks
+		bool		HubListAutoQuery;		// Auto query for a new server list
 		CString		HubListURL;				// Default hublist.xml.bz2 location
 	} DC;
 

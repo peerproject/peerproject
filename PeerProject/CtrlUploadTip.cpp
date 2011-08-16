@@ -1,7 +1,7 @@
 //
 // CtrlUploadTip.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -19,8 +19,9 @@
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
-#include "Colors.h"
+#include "CtrlUploadTip.h"
 #include "CoolInterface.h"
+#include "Colors.h"
 #include "Transfers.h"
 #include "UploadFile.h"
 #include "UploadFiles.h"
@@ -29,10 +30,9 @@
 #include "UploadTransfer.h"
 #include "GraphLine.h"
 #include "GraphItem.h"
-#include "Flags.h"
 #include "FragmentedFile.h"
 #include "FragmentBar.h"
-#include "CtrlUploadTip.h"
+#include "Flags.h"
 
 // Torrent Scrape:
 #include "Download.h"
@@ -118,8 +118,8 @@ void CUploadTipCtrl::OnCalcSize(CDC* pDC)
 	{
 		for ( int nHeader = 0 ; nHeader < pUpload->m_pHeaderName.GetSize() ; nHeader++ )
 		{
-			CString strName		= pUpload->m_pHeaderName.GetAt( nHeader );
-			CString strValue	= pUpload->m_pHeaderValue.GetAt( nHeader );
+			CString strName  = pUpload->m_pHeaderName.GetAt( nHeader );
+			CString strValue = pUpload->m_pHeaderValue.GetAt( nHeader );
 
 			if ( strValue.GetLength() > 64 ) strValue = strValue.Left( 64 ) + _T("...");
 
@@ -184,7 +184,7 @@ void CUploadTipCtrl::OnPaint(CDC* pDC)
 	pDC->SelectObject( &CoolInterface.m_fntNormal );
 	pt.y += TIP_TEXTHEIGHT;
 
-	int nFlagIndex = Flags.GetFlagIndex( pUpload->m_sCountry );
+	const int nFlagIndex = Flags.GetFlagIndex( pUpload->m_sCountry );
 	if ( nFlagIndex >= 0 )
 	{
 		Flags.Draw( nFlagIndex, pDC->GetSafeHdc(), pt.x, pt.y,
@@ -236,7 +236,7 @@ void CUploadTipCtrl::OnPaint(CDC* pDC)
 	int nQueue = UploadQueues.GetPosition( pUpload, FALSE );
 	if ( m_pUploadFile != pUpload->m_pBaseFile || pUpload->m_nState == upsNull )
 	{
-		LoadString( strStatus, IDS_TIP_INACTIVE );
+		LoadString( strStatus, IDS_STATUS_INACTIVE );
 	}
 	else if ( nQueue == 0 )
 	{
@@ -248,7 +248,7 @@ void CUploadTipCtrl::OnPaint(CDC* pDC)
 		}
 		else
 		{
-			LoadString( strText, IDS_TIP_ACTIVE );
+			LoadString( strText, pUpload->m_bPriority ? IDS_TIP_PRIORITY : IDS_STATUS_ACTIVE );
 			strStatus.Format( _T("%s: %s"),
 				(LPCTSTR)pUpload->m_pQueue->m_sName, (LPCTSTR)strText );
 		}
@@ -259,9 +259,9 @@ void CUploadTipCtrl::OnPaint(CDC* pDC)
 			(LPCTSTR)pUpload->m_pQueue->m_sName,
 			nQueue, (LPCTSTR)strOf, pUpload->m_pQueue->GetQueuedCount() );
 	}
-	else
+	else // ?
 	{
-		LoadString( strStatus, IDS_TIP_ACTIVE );
+		LoadString( strStatus, pUpload->m_bPriority ? IDS_TIP_PRIORITY : IDS_STATUS_ACTIVE );
 	}
 
 	// Add Torrent Seeds/Peers from last Tracker Scrape

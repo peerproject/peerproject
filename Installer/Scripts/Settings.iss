@@ -117,7 +117,8 @@ Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar10"; V
 ; Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Plugins"; ValueType: string; ValueName: "{C9314782-CB91-40B8-B375-F631FF30C1C8}"; ValueData: "|-.pdf||.bmp||.png||.jpg|"; Flags: createvalueifdoesntexist uninsdeletekey
 
 ; Set Defaults
-Root: HKCU; Subkey: "Software\PeerProject\PeerProject\BitTorrent"; ValueType: string; ValueName: "DefaultTracker"; ValueData: "http://tracker.openbittorrent.com:80/announce" ;  Flags: createvalueifdoesntexist uninsdeletekey
-Root: HKCU; Subkey: "Software\PeerProject\TorrentWizard\Trackers"; ValueType: string; ValueName: "001.URL"; ValueData: "http://tracker.openbittorrent.com:80/announce" ;  Flags: createvalueifdoesntexist uninsdeletekey
-Root: HKCU; Subkey: "Software\PeerProject\TorrentWizard\Trackers"; ValueType: string; ValueName: "002.URL"; ValueData: "http://tracker.publicbt.com:80/announce" ;  Flags: createvalueifdoesntexist uninsdeletekey
-Root: HKCU; Subkey: "Software\PeerProject\TorrentWizard\Trackers"; ValueType: dword;  ValueName: "Count"; ValueData: 2 ;  Flags: createvalueifdoesntexist uninsdeletekey
+Root: HKCU; Subkey: "Software\PeerProject\PeerProject\BitTorrent"; ValueType: string; ValueName: "DefaultTracker"; ValueData: "http://tracker.publicbt.com:80/announce" ;  Flags: createvalueifdoesntexist uninsdeletekey
+Root: HKCU; Subkey: "Software\PeerProject\TorrentWizard\Trackers"; ValueType: string; ValueName: "001.URL"; ValueData: "http://tracker.publicbt.com:80/announce" ;  Flags: createvalueifdoesntexist uninsdeletekey
+Root: HKCU; Subkey: "Software\PeerProject\TorrentWizard\Trackers"; ValueType: string; ValueName: "002.URL"; ValueData: "http://tracker.istole.it/announce" ;  Flags: createvalueifdoesntexist uninsdeletekey
+Root: HKCU; Subkey: "Software\PeerProject\TorrentWizard\Trackers"; ValueType: string; ValueName: "003.URL"; ValueData: "udp://tracker.openbittorrent.com:80/announce" ;  Flags: createvalueifdoesntexist uninsdeletekey
+Root: HKCU; Subkey: "Software\PeerProject\TorrentWizard\Trackers"; ValueType: dword;  ValueName: "Count"; ValueData: 3 ;  Flags: createvalueifdoesntexist uninsdeletekey

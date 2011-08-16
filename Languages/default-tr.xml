@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Turkish Skin File -->
 
-<!-- Translation based on default-en.xml r68 -->
+<!-- Translation based on default-en.xml r69 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -151,10 +151,10 @@
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Dosya Ön İzleme"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Dosya Silme"/>
-		<button id="ID_DOWNLOADS_RESUME" text="İndirmeyi Sürdür"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="İndirmeyi Duraklat"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="İndirmeden Vazgeç"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="İndirmeyi Temizle"/>
+		<button id="ID_DOWNLOADS_RESUME" text="İndirmeyi Sürdür"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="İndirmeyi Duraklat"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Torrent Bilgisi"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Ekranı Göster"/>
@@ -166,10 +166,10 @@
 		<button id="ID_DOWNLOADS_LAUNCH" text="Dosya Ön İzleme"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Dosya Silme"/>
-		<button id="ID_DOWNLOADS_RESUME" text="İndirmeyi Sürdür"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="İndirmeyi Duraklat"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="İndirmeden Vazgeç"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="İndirmeyi Temizle"/>
+		<button id="ID_DOWNLOADS_RESUME" text="İndirmeyi Sürdür"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="İndirmeyi Duraklat"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Torrent Bilgisi"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Ekranı Göster"/>
@@ -189,8 +189,9 @@
 	<toolbar name="CUploadsWnd">
 		<button id="ID_UPLOADS_LAUNCH" text="Aç/Oynat"/>
 		<separator/>
-		<button id="ID_UPLOADS_START" text="Başlat"/>
 		<button id="ID_UPLOADS_CLEAR" text="Aktarımı Temizle"/>
+		<button id="ID_UPLOADS_START" text="Başlat"/>
+		<button id="ID_UPLOADS_PRIORITY" text="Öncelik" visible="false"/>
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Kullanıcı Ara"/>
 		<button id="ID_UPLOADS_CHAT" text="Sohbet"/>
@@ -1188,11 +1189,16 @@
 	<menu name="CUploadsWnd.Upload.Basic">
 		<item id="ID_BROWSE_LAUNCH" text="_Kullanıcı Ara"/>
 		<item id="ID_UPLOADS_CHAT" text="_Sohbet"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="_Yardım..."/>
 	</menu>
 	<menu name="CUploadsWnd.Upload">
-		<item id="ID_UPLOADS_START" text="Şi_mdi Başla"/>
-		<item id="ID_UPLOADS_CLEAR" text="_Temizle"/>
+		<item id="ID_UPLOADS_LAUNCH" text="_Library Göster"/>
 		<item id="ID_UPLOADS_FOLDER" text="Aç _Folder"/>
+		<separator/>
+		<item id="ID_UPLOADS_CLEAR" text="_Temizle"/>
+		<item id="ID_UPLOADS_START" text="Şi_mdi Başla"/>
+		<item id="ID_UPLOADS_PRIORITY" text="Öncelik"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="_Kullanıcı Ara"/>
 		<item id="ID_UPLOADS_CHAT" text="_Sohbet"/>
@@ -1593,19 +1599,19 @@
 	</menu>
 	<!-- DISCOVERY SERVICES WINDOW -->
 	<menu name="CDiscoveryWnd">
-		<item id="ID_DISCOVERY_QUERY" text="Şimdi _Sırala"/>
-		<item id="ID_DISCOVERY_ADVERTISE" text="_Bildir"/>
+		<item id="ID_DISCOVERY_ADD" text="S_ervis Ekle..."/>
+		<separator/>
+		<item id="ID_DISCOVERY_EDIT" text="Ö_zellikler"/>
 		<item id="ID_DISCOVERY_REMOVE" text="_Kaldır"/>
 		<separator/>
+		<item id="ID_DISCOVERY_QUERY" text="Şimdi _Sırala"/>
+		<item id="ID_DISCOVERY_ADVERTISE" text="_Bildir"/>
 		<item id="ID_DISCOVERY_BROWSE" text="İs_tatistiklere Gözat"/>
 		<separator/>
 		<item id="ID_DISCOVERY_GNUTELLA" text="Ö_n Yüklemeleri Göster"/>
 		<item id="ID_DISCOVERY_WEBCACHE" text="_Web Arabelleği Göster"/>
-		<item id="ID_DISCOVERY_SERVERMET" text="Ser_ver.met's Göster"/>
-		<separator/>
-		<item id="ID_DISCOVERY_ADD" text="S_ervis Ekle..."/>
-		<separator/>
-		<item id="ID_DISCOVERY_EDIT" text="Ö_zellikler"/>
+		<item id="ID_DISCOVERY_SERVERLIST" text="Ser_ver.met's Göster"/>
+		<item id="ID_DISCOVERY_BLOCKED" text="Engellenen Göster"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
 	<menu name="CPrivateChatFrame">
@@ -2319,7 +2325,7 @@
 	<tip id="ID_DISCOVERY_GNUTELLA" message="Keşif penceresindeki önyükleme servislerini göster."/>
 	<tip id="ID_DISCOVERY_QUERY" message="Seçilmiş keşif servislerini şimdi sorgula."/>
 	<tip id="ID_DISCOVERY_REMOVE" message="Seçilmiş keşif servislerini kaldır."/>
-	<tip id="ID_DISCOVERY_SERVERMET" message="Keşif penceresindeki eDonkey2000 Server.met servislerini göster."/>
+	<tip id="ID_DISCOVERY_SERVERLIST" message="Keşif penceresindeki eDonkey2000 Server.met servislerini göster."/>
 	<tip id="ID_DISCOVERY_WEBCACHE" message="Keşif penceresindeki GWebCache servislerini göster."/>
 	<tip id="ID_DOWNLOAD_GROUP_CLEAR" message="Gruptan çık ve tüm indirmeleri kaldır."/>
 	<tip id="ID_DOWNLOAD_GROUP_NEW" message="Yeni bir indirme grubu oluştur..."/>
@@ -2581,6 +2587,7 @@
 	<tip id="ID_UPLOADS_LAUNCH" message="Seçilen dosyaların paylaştırılmasına başla."/>
 	<tip id="ID_UPLOADS_SETTINGS" message="Yükleme ayarlarını biçimlendir..."/>
 	<tip id="ID_UPLOADS_START" message="Yüklemeleri belirlenen sırayla başlat."/>
+	<tip id="ID_UPLOADS_PRIORITY" message="Öncelik."/>
 	<tip id="ID_VIEW_BASIC" message="PeerProject'yı Normal modda kullan."/>
 	<tip id="ID_VIEW_DISCOVERY" message="KEŞİF SERVİSLERİ penceresini göster/gizle."/>
 	<tip id="ID_VIEW_DOWNLOADS" message="İNDİRMELER penceresini göster/gizle."/>
@@ -2657,6 +2664,7 @@
 	<string id="20012" value="Kişisel"/>
 	<string id="20013" value="Temel"/>
 	<string id="20014" value="Sona erdir"/>
+	<string id="20019" value="Lütfen bekleyiniz..."/>
 	<string id="20020" value="Dosya"/>
 	<string id="20021" value="Dosyaları"/>
 	<string id="20022" value="Tüm Dosyalar"/>
@@ -3180,15 +3188,16 @@
 	<string id="20678" value="eDonkey ağı uzun zamanla uzun sıra kullanılır. Maksimum sıra pozisyonu limitini kabul ederken dikkatli olmalısınız, indirmelere başlamak zor olabilir.\nKabul edeceğin sıra pozisyonunu kısıtlamak istediğinden emin misin?"/>
 	<string id="20680" value="PeerProject Ayarları"/>
 	<string id="20684" value="&quot;%s&quot; arayüzünü silmek istediğinizden emin misiniz? Bu yapılamaz."/>
-	<string id="20700" value="Aktif"/>
-	<string id="20701" value="%s içeride : %s dışarıda (d:%I64i/u:%I64i)"/>
-	<string id="20702" value="Komşu(lar)ya %lu bağlandı.  %s yerel kütüphane."/>
-	<string id="20703" value="%lu komşu(lar)la Hub modu.  %s yerel kütüphane."/>
-	<string id="20704" value="%lu komşusu ile Hub/Ultrapeer mod.  %s yerel kütüphanede."/>
+	<string id="20700" value="%s içeride : %s dışarıda (d:%I64i/u:%I64i)"/>
+	<string id="20701" value="Komşu(lar)ya %lu bağlandı.  %s yerel kütüphane."/>
+	<string id="20702" value="%lu komşu(lar)la Hub modu.  %s yerel kütüphane."/>
+	<string id="20703" value="%lu komşusu ile Hub/Ultrapeer mod.  %s yerel kütüphanede."/>
+	<string id="20704" value="%lu komşusu ile Ultrapeer mod. %s yerel kütüphanede."/>
 	<string id="20705" value="Bağlandı. %s yerel kütüphane."/>
-	<string id="20706" value="%lu komşusu ile Ultrapeer mod. %s yerel kütüphanede."/>
-	<string id="20707" value="Ağa bağlanıyor..."/>
-	<string id="20708" value="Ağa bağlanmadı."/>
+	<string id="20706" value="Ağa bağlanıyor..."/>
+	<string id="20707" value="Ağa bağlanmadı."/>
+	<string id="20708" value="Aktif"/>
+	<string id="20709" value="Pasif"/>
 	<string id="20710" value="Temizlenmesi"/>
 	<string id="20711" value="Oynatılamaz"/>
 	<string id="20712" value="Tıkandı"/>
@@ -3229,8 +3238,7 @@
 	<string id="20751" value="Etkin bir arama yok. Dosya aramak için tıklayınız."/>
 	<string id="20752" value="Bağlı değilsiniz. Başlamak için Bağlan butonunu tıklayınız."/>
 	<string id="20755" value="&quot;%s&quot; template'i silmek istediğinizden emin misiniz?\nGeri dönüş mümkün olmayacaktır."/>
-	<string id="20760" value="Aktif"/>
-	<string id="20761" value="Pasif"/>
+	<string id="20760" value="öncelik"/>
 	<string id="20762" value="Bu dosya spam gibi görünüyor."/>
 	<string id="20763" value="Karalisteye alındı:"/>
 	<string id="20764" value="Bu dosyayı daha önce indirdiniz ve sildiniz."/>

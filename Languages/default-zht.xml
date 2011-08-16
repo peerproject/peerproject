@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Traditional) Skin File -->
 
-<!-- Translation based on default-en.xml r68 (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r69 (Shareaza 2.2.2.12) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -152,10 +152,10 @@
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="預覽檔案"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="刪除檔案"/>
-		<button id="ID_DOWNLOADS_RESUME" text="繼續下載"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="暫停下載"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="取消下載"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="清除下載"/>
+		<button id="ID_DOWNLOADS_RESUME" text="繼續下載"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="暫停下載"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="資訊"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="顯示監視器"/>
@@ -167,10 +167,10 @@
 		<button id="ID_DOWNLOADS_LAUNCH" text="預覽檔案"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="刪除檔案"/>
-		<button id="ID_DOWNLOADS_RESUME" text="繼續下載"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="暫停下載"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="取消下載"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="清除已完成下載"/>
+		<button id="ID_DOWNLOADS_RESUME" text="繼續下載"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="暫停下載"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="資訊"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="顯示監視器"/>
@@ -190,8 +190,9 @@
 	<toolbar name="CUploadsWnd">
 		<button id="ID_UPLOADS_LAUNCH" text="開啟或播放"/>
 		<separator/>
-		<button id="ID_UPLOADS_START" text="立刻開始"/>
 		<button id="ID_UPLOADS_CLEAR" text="清除上傳"/>
+		<button id="ID_UPLOADS_START" text="立刻開始"/>
+		<button id="ID_UPLOADS_PRIORITY" text="優先" visible="false"/>
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="瀏覽使用者"/>
 		<button id="ID_UPLOADS_CHAT" text="與使用者聊天"/>
@@ -1162,11 +1163,16 @@
 	<menu name="CUploadsWnd.Upload.Basic">
 		<item id="ID_BROWSE_LAUNCH" text="瀏覽使用者"/>
 		<item id="ID_UPLOADS_CHAT" text="與使用者聊天"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="說明..."/>
 	</menu>
 	<menu name="CUploadsWnd.Upload">
-		<item id="ID_UPLOADS_START" text="立刻開始"/>
-		<item id="ID_UPLOADS_CLEAR" text="清除"/>
+		<item id="ID_UPLOADS_LAUNCH" text="顯示 _Library"/>
 		<item id="ID_UPLOADS_FOLDER" text="開啟 _Folder"/>
+		<separator/>
+		<item id="ID_UPLOADS_CLEAR" text="清除"/>
+		<item id="ID_UPLOADS_START" text="立刻開始"/>
+		<item id="ID_UPLOADS_PRIORITY" text="優先"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="瀏覽使用者"/>
 		<item id="ID_UPLOADS_CHAT" text="與使用者聊天"/>
@@ -1580,19 +1586,19 @@
 	</menu>
 	<!-- DISCOVERY SERVICES WINDOW -->
 	<menu name="CDiscoveryWnd">
-		<item id="ID_DISCOVERY_QUERY" text="立刻詢問"/>
-		<item id="ID_DISCOVERY_ADVERTISE" text="公告(通知)"/>
+		<item id="ID_DISCOVERY_ADD" text="新增服務..."/>
+		<separator/>
+		<item id="ID_DISCOVERY_EDIT" text="屬性"/>
 		<item id="ID_DISCOVERY_REMOVE" text="移除"/>
 		<separator/>
+		<item id="ID_DISCOVERY_QUERY" text="立刻詢問"/>
+		<item id="ID_DISCOVERY_ADVERTISE" text="公告(通知)"/>
 		<item id="ID_DISCOVERY_BROWSE" text="瀏覽統計資料"/>
 		<separator/>
 		<item id="ID_DISCOVERY_GNUTELLA" text="顯示 Bootstraps"/>
 		<item id="ID_DISCOVERY_WEBCACHE" text=" 顯示 GWeb快取"/>
-		<item id="ID_DISCOVERY_SERVERMET" text="顯示 Server.METs"/>
-		<separator/>
-		<item id="ID_DISCOVERY_ADD" text="新增服務..."/>
-		<separator/>
-		<item id="ID_DISCOVERY_EDIT" text="屬性"/>
+		<item id="ID_DISCOVERY_SERVERLIST" text="顯示 Server.METs"/>
+		<item id="ID_DISCOVERY_BLOCKED" text="顯示 封鎖"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
 	<menu name="CPrivateChatFrame">
@@ -2210,7 +2216,7 @@
 	<tip id="ID_DISCOVERY_GNUTELLA" message="在揭示視窗顯示 bootstrap 服務."/>
 	<tip id="ID_DISCOVERY_QUERY" message="立刻詢問選擇的揭示服務."/>
 	<tip id="ID_DISCOVERY_REMOVE" message="移除選擇的揭示服務."/>
-	<tip id="ID_DISCOVERY_SERVERMET" message="在揭示視窗顯示 eDonkey2000 Server.met 服務."/>
+	<tip id="ID_DISCOVERY_SERVERLIST" message="在揭示視窗顯示 eDonkey2000 Server.met 服務."/>
 	<tip id="ID_DISCOVERY_WEBCACHE" message="在揭示視窗顯示 Gweb 快取服務."/>
 	<tip id="ID_DOWNLOAD_GROUP_CLEAR" message="取消並且移除這個群組裡所有的下載."/>
 	<tip id="ID_DOWNLOAD_GROUP_NEW" message="新增一個下載群組..."/>
@@ -2466,7 +2472,8 @@
 	<tip id="ID_UPLOADS_FILTER_TORRENT" message="顯示 BitTorrent 上傳."/>
 	<tip id="ID_UPLOADS_LAUNCH" message="啟動選擇的分享檔."/>
 	<tip id="ID_UPLOADS_SETTINGS" message="規劃上傳設定..."/>
-	<tip id="ID_UPLOADS_START" message="Start the selected queued upload(s)."/>
+	<tip id="ID_UPLOADS_START" message="部隊開始選擇排隊上傳."/>
+	<tip id="ID_UPLOADS_PRIORITY" message="選擇一個上傳去除限制."/>
 	<tip id="ID_VIEW_BASIC" message="使用 PeerProject 的標準模式."/>
 	<tip id="ID_VIEW_DISCOVERY" message="顯示或隱藏揭示服務視窗."/>
 	<tip id="ID_VIEW_DOWNLOADS" message="顯示或隱藏 下載視窗."/>
@@ -2527,6 +2534,7 @@
 	<string id="20011" value="自動"/>
 	<string id="20012" value="自訂"/>
 	<string id="20013" value="預設"/>
+	<string id="20019" value="请稍候..."/>
 	<string id="20020" value="文件"/>
 	<string id="20021" value="文件"/>
 	<string id="20022" value="所有的檔案"/>
@@ -3024,15 +3032,16 @@
 	<string id="20678" value="eDonkey 網路實施漫長的排隊長度與很長的等待時間. 如果您限制您能接受的排隊隊伍的長度, 您可能無法開始下載.\n您確定要限制您能夠接受的排隊隊伍的長度嗎?"/>
 	<string id="20680" value="PeerProject 設定"/>
 	<string id="20684" value="您確定要刪除 &quot;%s&quot; 外觀嗎?  這個動作將不能回復."/>
-	<string id="20700" value="活躍中"/>
-	<string id="20701" value="%s in : %s out (d:%I64i/u:%I64i)"/>
-	<string id="20702" value="已連線至 %lu 鄰居.  %s 在本地收藏."/>
-	<string id="20703" value="結點模式 with %lu 鄰居.  %s 在本地的收藏."/>
-	<string id="20704" value="結點/超級用戶模式 with %lu 鄰居.  %s 在本地的收藏."/>
+	<string id="20700" value="%s in : %s out (d:%I64i/u:%I64i)"/>
+	<string id="20701" value="已連線至 %lu 鄰居.  %s 在本地收藏."/>
+	<string id="20702" value="結點模式 %lu 鄰居.  %s 在本地的收藏."/>
+	<string id="20703" value="結點/超級用戶模式 %lu 鄰居.  %s 在本地的收藏."/>
+	<string id="20704" value="超級用戶模式 %lu 鄰居.  %s 在本地的收藏."/>
 	<string id="20705" value="已連線. %s 在本地的收藏."/>
-	<string id="20706" value="超級用戶模式 with %lu 鄰居.  %s 在本地的收藏."/>
-	<string id="20707" value="連線到網路中..."/>
-	<string id="20708" value="還沒連線到網路."/>
+	<string id="20706" value="連線到網路中..."/>
+	<string id="20707" value="還沒連線到網路."/>
+	<string id="20708" value="活躍中"/>
+	<string id="20709" value="不在活躍中"/>
 	<string id="20710" value="放晴了"/>
 	<string id="20711" value="無法移動"/>
 	<string id="20712" value="組塞"/>
@@ -3073,8 +3082,7 @@
 	<string id="20751" value="目前沒有活躍中的搜尋.  點選這裡搜尋檔案."/>
 	<string id="20752" value="您還尚未連線.  點選連線鈕開始."/>
 	<string id="20755" value="您確定要刪除樣版 &quot;%s&quot; ?\n 此動作不能回復."/>
-	<string id="20760" value="活動中"/>
-	<string id="20761" value="不在活躍中"/>
+	<string id="20760" value="優先"/>
 	<string id="20762" value="這個檔案看起來是垃圾(spam)."/>
 	<string id="20763" value="已加入黑名單:"/>
 	<string id="20764" value="您曾經下載過並且刪除這個檔案."/>

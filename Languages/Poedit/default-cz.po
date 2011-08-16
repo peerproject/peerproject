@@ -432,7 +432,7 @@ msgstr ""
 msgid "Bootstraps"
 msgstr ""
 
-#: button;id_discovery_servermet
+#: button;id_discovery_serverlist
 msgid "Server.met's"
 msgstr ""
 
@@ -1808,7 +1808,7 @@ msgstr "Ukázat _Bootstraps"
 msgid "Show _GWebCaches"
 msgstr "Ukázat _GWebCaches"
 
-#: cdiscoverywnd;item;id_discovery_servermet
+#: cdiscoverywnd;item;id_discovery_serverlist
 msgid "Show Ser_ver.met's"
 msgstr "Ukázat Ser_ver.met's"
 
@@ -2884,7 +2884,7 @@ msgstr "Dotaz na vybranou službu vyhledávání."
 msgid "Remove the selected discovery services."
 msgstr "Odstranit označené služby vyhledávání."
 
-#: message;id_discovery_servermet
+#: message;id_discovery_serverlist
 msgid "Show eDonkey Server.met services in the Discovery window."
 msgstr "Ukázat server eDonkey.met službu v okně vyhledávání."
 
@@ -3841,7 +3841,7 @@ msgid "Access the selected download sources and attempt to download."
 msgstr "Zpřístupnit zdroje označených stahování a pokusit se stahovat."
 
 #: message;id_transfers_disconnect
-msgid "Disconnect the selected download transfer(s)."
+msgid "Disconnect the selected download transfers."
 msgstr "Odpojit stahování."
 
 #: message;id_transfers_forget
@@ -3857,15 +3857,15 @@ msgid "Automatically clear uploads which have been completed."
 msgstr "Automaticky vymazat odesílání které bylo dokončeno."
 
 #: message;id_uploads_clear
-msgid "Clear the selected uploads from the list."
+msgid "Cancel selected uploads and remove from list."
 msgstr "Vymazat označené odesílání ze seznamu."
 
 #: message;id_uploads_clear_completed
-msgid "Clear uploads which have been completed."
+msgid "Clear uploads that have completed."
 msgstr "Vymazat dokončené odesílání."
 
 #: message;id_uploads_disconnect
-msgid "Disconnect the selected upload transfer(s)."
+msgid "Disconnect the selected upload transfers."
 msgstr "Odpojit označené přenosy odesílání."
 
 #: message;id_uploads_filter_active
@@ -3893,7 +3893,7 @@ msgid "Show BitTorrent uploads."
 msgstr "Ukázat odesílání BitTorrent."
 
 #: message;id_uploads_launch
-msgid "Launch the selected shared file(s)."
+msgid "Show selected shared files in the Library. (Or hold Shift to open.)s)."
 msgstr "Spustit označený sdílený soubor(y)."
 
 #: message;id_uploads_settings
@@ -3901,7 +3901,7 @@ msgid "Configure upload settings..."
 msgstr "Konfigurovat nastavení pro odesílání..."
 
 #: message;id_uploads_start
-msgid "Start the selected queued upload(s)."
+msgid "Force start selected queued uploads."
 msgstr "Spustit odesílání ve vybrané frontě."
 
 #: message;id_view_basic
@@ -6080,11 +6080,11 @@ msgstr ""
 msgid "No scheduled event. Please select a task."
 msgstr ""
 
-#: string;20612 string;20700 string;20760
+#: string;20707 string;20760
 msgid "Active"
 msgstr "Aktivní"
 
-#: string;20613 string;20761
+#: string;20709
 msgid "Inactive"
 msgstr "Neaktivní"
 
@@ -6324,19 +6324,19 @@ msgstr ""
 msgid "Are you sure you want to delete the \"%s\" skin? This cannot be undone."
 msgstr "Opravdu chcete vymazat skin \"%s\". Tento skin nemůže být odstraněný."
 
-#: string;20701
+#: string;20700
 msgid "%s in : %s out  (d:%I64i/u:%I64i)"
 msgstr "%s přích : %s odch (St:%I64i/Od:%I64i)"
 
-#: string;20702
+#: string;20701
 msgid "Connected to %lu neighbors. %s in local library."
 msgstr "Připojeno ke %lu uzlům. %s v místní knihovně."
 
-#: string;20703
+#: string;20702
 msgid "Hub mode with %lu neighbors. %s in local library."
 msgstr "Režim uzle se sousedem(y) %lu. %s v místní knihovně."
 
-#: string;20704
+#: string;20703
 msgid "Hub/Ultrapeer mode with %lu neighbors. %s in local library."
 msgstr "Režim Hub/Ultrapeer s uživatelem %lu. %s v místní knihovně."
 
@@ -6344,15 +6344,15 @@ msgstr "Režim Hub/Ultrapeer s uživatelem %lu. %s v místní knihovně."
 msgid "Connected. %s in local library."
 msgstr "Připojeno. %s v místní knihovně."
 
-#: string;20706
+#: string;20704
 msgid "Ultrapeer mode with %lu neighbors. %s in local library."
 msgstr "Režim Ultrapeer s uživatelem %lu. %s v místní knihovně."
 
-#: string;20707
+#: string;20706
 msgid "Connecting to the network..."
 msgstr "Připojuji se do sítě..."
 
-#: string;20708
+#: string;20707
 msgid "Not connected to the network."
 msgstr "Nejste připojeni do sítě."
 

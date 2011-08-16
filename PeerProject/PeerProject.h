@@ -20,10 +20,9 @@
 
 #include "Resource.h"
 #include "ComObject.h"
-#include "Buffer.h"
-
 
 class CMainWnd;
+class CBuffer;
 class CDatabase;
 class CSplashDlg;
 class CFontManager;
@@ -291,7 +290,7 @@ CString BrowseForFolder(LPCTSTR szTitle, LPCTSTR szInitialPath = NULL, HWND hWnd
 void	SafeMessageLoop();
 
 // Start Windows service
-//BOOL AreServiceHealthy(LPCTSTR szService);
+BOOL	IsServiceHealthy(LPCTSTR szService);	// Was AreServicesHealthy()
 
 // Detect external fullscreen application
 BOOL	IsUserFullscreen();
@@ -404,7 +403,7 @@ const LPCTSTR RT_GZIP = _T("GZIP");
 // Set Default Sizes in Pixels					// Skinnable Options:
 //#define PANEL_WIDTH			200				// Skin.m_nSidebarWidth
 //#define TOOLBAR_HEIGHT		28				// Skin.m_nToolbarHeight
-#define THUMB_STORE_SIZE		128
+//#define THUMB_STORE_SIZE		128				// Settings.Library.ThumbSize
 
 
 // Saved-State Serialization:

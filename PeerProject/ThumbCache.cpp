@@ -58,10 +58,13 @@ void CThumbCache::InitDatabase()
 			 L"CREATE INDEX IDX_MD5 ON Files(MD5 ASC);" ) )
 	{
 		// Cleanup existing
+		//TIMER_START
 		theApp.KeepAlive();
-		db->Exec( L"PRAGMA journal_mode=OFF" );		// No temp "-journal" rollback file (slow if large)
-		db->Exec( L"VACUUM;");
+		db->Exec( L"PRAGMA synchronous=OFF" );		// Async return (15% faster, ~1sec)
+		db->Exec( L"PRAGMA journal_mode=OFF" );		// No temp "-journal" rollback file created (2X time)
+		db->Exec( L"VACUUM;" );						// Several seconds if large
 		theApp.KeepAlive();
+		//TIMER_STOP
 	}
 }
 
@@ -185,7 +188,7 @@ BOOL CThumbCache::Store(LPCTSTR pszPath, CImageFile* pImage)
 	// Save to memory as JPEG image
 	BYTE* buf = NULL;
 	DWORD data_len = 0;
-	if ( ! pImage->SaveToMemory( _T(".jpg"), 75, &buf, &data_len ) )
+	if ( ! pImage->SaveToMemory( _T(".jpg"), Settings.Library.ThumbQuality, &buf, &data_len ) )		// ~75% JPEG
 	{
 		TRACE( _T("CThumbCache::Store : Can't save thumbnail to JPEG for %s\n"), pszPath );
 		return FALSE;
@@ -249,7 +252,7 @@ BOOL CThumbCache::Cache(LPCTSTR pszPath, CImageFile* pImage, BOOL bLoadFromFile)
 		return FALSE;	// Failed
 
 	// Resample to desired size
-	if ( ! pImage->FitTo( THUMB_STORE_SIZE, THUMB_STORE_SIZE ) )
+	if ( ! pImage->FitTo( Settings.Library.ThumbSize, Settings.Library.ThumbSize ) )	// Was THUMB_STORE_SIZE
 		return FALSE;	// Failed
 
 	// Save to cache

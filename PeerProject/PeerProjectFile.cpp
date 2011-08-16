@@ -1,7 +1,7 @@
 //
 // PeerProjectFile.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -18,8 +18,8 @@
 
 #include "StdAfx.h"
 #include "PeerProject.h"
-#include "Network.h"
 #include "PeerProjectFile.h"
+#include "Network.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -82,10 +82,10 @@ CPeerProjectFile& CPeerProjectFile::operator=(const CPeerProjectFile& pFile)
 	m_oSHA1 = pFile.m_oSHA1;
 	m_oTiger = pFile.m_oTiger;
 	m_oED2K = pFile.m_oED2K;
-	m_oBTH = pFile.m_oBTH;
-	m_oMD5 = pFile.m_oMD5;
+	m_oBTH  = pFile.m_oBTH;
+	m_oMD5  = pFile.m_oMD5;
 	m_sPath = pFile.m_sPath;
-	m_sURL = pFile.m_sURL;
+	m_sURL  = pFile.m_sURL;
 	return *this;
 }
 
@@ -143,32 +143,27 @@ CString CPeerProjectFile::GetURL(const IN_ADDR& nAddress, WORD nPort) const
 	if ( m_oSHA1 )
 	{
 		strURL.Format( _T("http://%s:%i/uri-res/N2R?%s"),
-			(LPCTSTR)CString( inet_ntoa( nAddress ) ),
-			nPort, (LPCTSTR)m_oSHA1.toUrn() );
+			(LPCTSTR)CString( inet_ntoa( nAddress ) ), nPort, (LPCTSTR)m_oSHA1.toUrn() );
 	}
 	else if ( m_oTiger )
 	{
 		strURL.Format( _T("http://%s:%i/uri-res/N2R?%s"),
-			(LPCTSTR)CString( inet_ntoa( nAddress ) ),
-			nPort, (LPCTSTR)m_oTiger.toUrn() );
+			(LPCTSTR)CString( inet_ntoa( nAddress ) ), nPort, (LPCTSTR)m_oTiger.toUrn() );
 	}
 	else if ( m_oED2K )
 	{
 		strURL.Format( _T("http://%s:%i/uri-res/N2R?%s"),
-			(LPCTSTR)CString( inet_ntoa( nAddress ) ),
-			nPort, (LPCTSTR)m_oED2K.toUrn() );
+			(LPCTSTR)CString( inet_ntoa( nAddress ) ), nPort, (LPCTSTR)m_oED2K.toUrn() );
 	}
 	else if ( m_oMD5 )
 	{
 		strURL.Format( _T("http://%s:%i/uri-res/N2R?%s"),
-			(LPCTSTR)CString( inet_ntoa( nAddress ) ),
-			nPort, (LPCTSTR)m_oMD5.toUrn() );
+			(LPCTSTR)CString( inet_ntoa( nAddress ) ), nPort, (LPCTSTR)m_oMD5.toUrn() );
 	}
 	else if ( m_oBTH )
 	{
 		strURL.Format( _T("http://%s:%i/uri-res/N2R?%s"),
-			(LPCTSTR)CString( inet_ntoa( nAddress ) ),
-			nPort, (LPCTSTR)m_oBTH.toUrn() );
+			(LPCTSTR)CString( inet_ntoa( nAddress ) ), nPort, (LPCTSTR)m_oBTH.toUrn() );
 	}
 	return strURL;
 }

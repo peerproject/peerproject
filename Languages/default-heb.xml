@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hebrew Skin File -->
 
-<!-- Translation based on default-en.xml r68 -->
+<!-- Translation based on default-en.xml r69 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -157,10 +157,10 @@ gap i newline
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="‪תצוגה מקדימה"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="‪מחק קובץ"/>
-		<button id="ID_DOWNLOADS_RESUME" text="‪המשך הורדה"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="‪השהה הורדה"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="‪בטל הורדה"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="‪נקה הורדה"/>
+		<button id="ID_DOWNLOADS_RESUME" text="‪המשך הורדה"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="‪השהה הורדה"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="‪מידע הטורנט"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="‪(הצג משגוח (מוניטור"/>
@@ -172,10 +172,10 @@ gap i newline
 		<button id="ID_DOWNLOADS_LAUNCH" text="‪תצוגה מקדימה"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="‪מחק קובץ"/>
-		<button id="ID_DOWNLOADS_RESUME" text="‪המשך הורדה"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="‪השהה הורדה"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="‪בטל הורדה"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="‪נקה הורדה"/>
+		<button id="ID_DOWNLOADS_RESUME" text="‪המשך הורדה"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="‪השהה הורדה"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="‪מידע הטורנט"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="‪(הצג משגוח (מוניטור"/>
@@ -195,8 +195,9 @@ gap i newline
 	<toolbar name="CUploadsWnd">
 		<button id="ID_UPLOADS_LAUNCH" text="‪פתח או הפעל"/>
 		<separator/>
-		<button id="ID_UPLOADS_START" text="‪התחל כעת"/>
 		<button id="ID_UPLOADS_CLEAR" text="‪נקה העלאה"/>
+		<button id="ID_UPLOADS_START" text="‪התחל כעת"/>
+		<button id="ID_UPLOADS_PRIORITY" text="עדיפות" visible="false"/>
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="‪עיין במשתמש"/>
 		<button id="ID_UPLOADS_CHAT" text="‪שוחח עם משתמש"/>
@@ -1242,11 +1243,16 @@ gap i newline
 	<menu name="CUploadsWnd.Upload.Basic">
 		<item id="ID_BROWSE_LAUNCH" text="‪_עיין בקבצי המשתמש"/>
 		<item id="ID_UPLOADS_CHAT" text="‪_שוחח עם המשתמש"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="‪...ע_זרה"/>
 	</menu>
 	<menu name="CUploadsWnd.Upload">
-		<item id="ID_UPLOADS_START" text="‪_התחל כעת"/>
-		<item id="ID_UPLOADS_CLEAR" text="‪_נקה"/>
+		<item id="ID_UPLOADS_LAUNCH" text="_Library הצג "/>
 		<item id="ID_UPLOADS_FOLDER" text="פתח _Folder"/>
+		<separator/>
+		<item id="ID_UPLOADS_CLEAR" text="‪_נקה"/>
+		<item id="ID_UPLOADS_START" text="‪_התחל כעת"/>
+		<item id="ID_UPLOADS_PRIORITY" text="עדיפות"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="‪_עיין בקבצי המשתמש"/>
 		<item id="ID_UPLOADS_CHAT" text="‪_שוחח עם המשתמש"/>
@@ -1653,19 +1659,19 @@ gap i newline
 	</menu>
 	<!-- DISCOVERY SERVICES WINDOW -->
 	<menu name="CDiscoveryWnd">
-		<item id="ID_DISCOVERY_QUERY" text="‪_שלח בקשה כעת"/>
-		<item id="ID_DISCOVERY_ADVERTISE" text="‪פרסם"/>
+		<item id="ID_DISCOVERY_ADD" text="‪...הוסף שירות"/>
+		<separator/>
+		<item id="ID_DISCOVERY_EDIT" text="‪מ_אפיינים"/>
 		<item id="ID_DISCOVERY_REMOVE" text="‪_הסר"/>
 		<separator/>
+		<item id="ID_DISCOVERY_QUERY" text="‪_שלח בקשה כעת"/>
+		<item id="ID_DISCOVERY_ADVERTISE" text="‪פרסם"/>
 		<item id="ID_DISCOVERY_BROWSE" text="‪סייר בסטטיסטיקות"/>
 		<separator/>
 		<item id="ID_DISCOVERY_GNUTELLA" text="‪הצג רצועת אתחול"/>
 		<item id="ID_DISCOVERY_WEBCACHE" text="‪GWebCaches הצג"/>
-		<item id="ID_DISCOVERY_SERVERMET" text="‪של השרת Met's הצג"/>
-		<separator/>
-		<item id="ID_DISCOVERY_ADD" text="‪...הוסף שירות"/>
-		<separator/>
-		<item id="ID_DISCOVERY_EDIT" text="‪מ_אפיינים"/>
+		<item id="ID_DISCOVERY_SERVERLIST" text="‪של השרת Met's הצג"/>
+		<item id="ID_DISCOVERY_BLOCKED" text="חסום הצג"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
 	<menu name="CPrivateChatFrame">
@@ -2253,7 +2259,7 @@ gap i newline
 	<tip id="ID_DISCOVERY_GNUTELLA" message="בחלון שירות המשאבי חיבור bootstrap הראה שירותי"/>
 	<tip id="ID_DISCOVERY_QUERY" message="שלח בקשה לשירותי המשאבי חיבור הנבחרים"/>
 	<tip id="ID_DISCOVERY_REMOVE" message="הסר את שירותי המשאבי חיבור הנבחרים"/>
-	<tip id="ID_DISCOVERY_SERVERMET" message="Show eDonkey2000 Server.met services in the Discovery window."/>
+	<tip id="ID_DISCOVERY_SERVERLIST" message="Show eDonkey2000 Server.met services in the Discovery window."/>
 	<tip id="ID_DISCOVERY_WEBCACHE" message="Show GWebCache services in the Discovery window."/>
 	<tip id="ID_DOWNLOAD_GROUP_CLEAR" message="בטל והסר את כל ההורדות בקבוצה זו"/>
 	<tip id="ID_DOWNLOAD_GROUP_NEW" message="צור קבוצת הורדות חדשה"/>
@@ -2495,7 +2501,7 @@ gap i newline
 	<tip id="ID_TRAFFIC_SETUP" message="Select and configure items to graph..."/>
 	<tip id="ID_TRAFFIC_WINDOW" message="פתח חלון גרף חדש"/>
 	<tip id="ID_TRANSFERS_CHAT" message="פתח חלון צ'אט עם המשתמש הנבחר"/>
-	<tip id="ID_TRANSFERS_CONNECT" message="Access the selected download source(s) and attempt to download."/>
+	<tip id="ID_TRANSFERS_CONNECT" message="Access the selected download sources and attempt to download."/>
 	<tip id="ID_TRANSFERS_DISCONNECT" message="התנתק מהעברת ההורדה הנבחרת"/>
 	<tip id="ID_TRANSFERS_FORGET" message="התנתק ושכח את  ההורדה הנבחרת"/>
 	<tip id="ID_TRAY_OPEN" message="פתח את החלון של שרזה"/>
@@ -2507,12 +2513,13 @@ gap i newline
 	<tip id="ID_UPLOADS_FILTER_ACTIVE" message="הצג את כל ההעלאות שבאופן פעיל נשלחות"/>
 	<tip id="ID_UPLOADS_FILTER_ALL" message="הצג את כל ההעלאות"/>
 	<tip id="ID_UPLOADS_FILTER_HISTORY" message="הצג העלאות שכבר אינן מחוברות"/>
-	<tip id="ID_UPLOADS_FILTER_MENU" message="Choose which types of uploads to show and which types to hide in this view."/>
+	<tip id="ID_UPLOADS_FILTER_MENU" message="בחר אילו סוגי קבצים להראות אילו סוגי להסתיר בתצוגה זו."/>
 	<tip id="ID_UPLOADS_FILTER_QUEUED" message="הצג העלאות שממתינות בתור אצלך"/>
 	<tip id="ID_UPLOADS_FILTER_TORRENT" message="הצג העלאות של ביט-טורנט"/>
-	<tip id="ID_UPLOADS_LAUNCH" message="Launch the selected shared file(s)."/>
-	<tip id="ID_UPLOADS_SETTINGS" message="Configure upload settings..."/>
-	<tip id="ID_UPLOADS_START" message="Start the selected queued upload(s)."/>
+	<tip id="ID_UPLOADS_LAUNCH" message="הפעל את הקבצים המשותפים שנבחר."/>
+	<tip id="ID_UPLOADS_SETTINGS" message="הגדר להעלות הגדרות..."/>
+	<tip id="ID_UPLOADS_START" message="כוח להתחיל שנוספו בתור נבחרת."/>
+	<tip id="ID_UPLOADS_PRIORITY" message="בחר אחד להעלות להסיר מגבלות."/>
 	<tip id="ID_VIEW_BASIC" message="השתמש בשרזה במצב רגיל"/>
 	<tip id="ID_VIEW_DISCOVERY" message="הצג או הסתר את חלון משאבי החיבור"/>
 	<tip id="ID_VIEW_DOWNLOADS" message="הצג או הסתר את חלון ההורדות"/>
@@ -2588,6 +2595,7 @@ gap i newline
 	<string id="20012" value="מנהג"/>
 	<string id="20013" value="ברירת מחדל"/>
 	<string id="20014" value="לגמור"/>
+	<string id="20019" value="Please Wait..."/>
 	<string id="20020" value="קובץ"/>
 	<string id="20021" value="קבצים"/>
 	<string id="20022" value="‪כל הקבצים"/>
@@ -2864,15 +2872,16 @@ gap i newline
 	<string id="20677" value="‪Please type the bandwidth limit you wish to set in the form &quot;123 kb/s&quot; for kilobits per second, or &quot;123 KB/s&quot; for kilobytes per second."/>
 	<string id="20680" value="‪‪הגדרות שרזה"/>
 	<string id="20684" value="‪.המעטפת תימחק לקיבעון &quot;%s&quot; האם אתה בטוח שברצונך למחוק את המעטפת"/>
-	<string id="20700" value="‪פעיל"/>
-	<string id="20701" value="‪‪%s :‏נכנס‎ %s :‏יוצא‎ (D:%I64i/U:%I64i)"/>
-	<string id="20702" value="‪‏‪‏שכנים‎ %lu ‏אל‎ ‏מחובר‎ , %s ‏מקומית‎ ‏בספריה"/>
-	<string id="20703" value="‪‪%lu ‏מצב‎: ‏מוקד‎ ‏עם‎ ‏שכנים‎ , %s ‏מקומית‎ ‏בספריה"/>
-	<string id="20704" value="‪‏‪‏מצב‎ ULTRAPEER/‏מוקד‎ ‏עם‎ %lu ‏שכנים‎: , %s ‏מקומית‎ ‏בספריה"/>
+	<string id="20700" value="‪‪%s :‏נכנס‎ %s :‏יוצא‎ (D:%I64i/U:%I64i)"/>
+	<string id="20701" value="‪‏‪‏שכנים‎ %lu ‏אל‎ ‏מחובר‎ , %s ‏מקומית‎ ‏בספריה"/>
+	<string id="20702" value="‪‪%lu ‏מצב‎: ‏מוקד‎ ‏עם‎ ‏שכנים‎ , %s ‏מקומית‎ ‏בספריה"/>
+	<string id="20703" value="‪‏‪‏מצב‎ Ultrapeer/‏מוקד‎ ‏עם‎ %lu ‏שכנים‎: , %s ‏מקומית‎ ‏בספריה"/>
+	<string id="20704" value="‪‏‪Ultrapeer ‏עם‎ %lu ‏שכנים‎: , %s ‏מקומית‎ ‏בספריה"/>
 	<string id="20705" value="‪‪‏מחובר‎ , %s ‏מקומית‎ ‏בספריה"/>
-	<string id="20706" value="‪‏‪ULTRAPEER ‏עם‎ %lu ‏שכנים‎: , %s ‏מקומית‎ ‏בספריה"/>
-	<string id="20707" value="‪...מתחבר לרשת"/>
-	<string id="20708" value="‪.לא מחובר לרשת"/>
+	<string id="20706" value="‪...מתחבר לרשת"/>
+	<string id="20707" value="‪.לא מחובר לרשת"/>
+	<string id="20708" value="‪פעיל"/>
+	<string id="20709" value="‪לא פעיל"/>
 	<string id="20710" value="מתבהרים"/>
 	<string id="20711" value="‪לא ניתן להעביר"/>
 	<string id="20712" value="‪Choked"/>
@@ -2912,8 +2921,7 @@ gap i newline
 	<string id="20750" value="‪!(version) ברוכים הבאים לשרזה !n.nשרזה היא תוכנה חופשית.nאנא השתמש בה בצורה אחראית, כבד את חוקי הרכוש וזכויות היוצרים.n."/>
 	<string id="20751" value="‪.אין חיפושים פעילים, אנא לחץ כאן בכדי לחפש"/>
 	<string id="20752" value="‪.אינך מחובר, אנא לחץ על כפתור התחבר בכדי להתחיל"/>
-	<string id="20760" value="‪פעיל"/>
-	<string id="20761" value="‪לא פעיל"/>
+	<string id="20760" value="עדיפות"/>
 	<string id="20762" value="‪קובץ זה נראה כקובץ זדוני להצפה"/>
 	<string id="20763" value="‪‪:ברשימה שחורה"/>
 	<string id="20764" value="‪אתה הורדת ומחקת את קובץ זה בעבר"/>

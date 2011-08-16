@@ -432,7 +432,7 @@ msgstr ""
 msgid "Bootstraps"
 msgstr ""
 
-#: button;id_discovery_servermet
+#: button;id_discovery_serverlist
 msgid "Server.met's"
 msgstr ""
 
@@ -1808,7 +1808,7 @@ msgstr "_Bootstrapek megjelenítése"
 msgid "Show _GWebCaches"
 msgstr "_GWebCache-ek megjelenítése"
 
-#: cdiscoverywnd;item;id_discovery_servermet
+#: cdiscoverywnd;item;id_discovery_serverlist
 msgid "Show Ser_ver.met's"
 msgstr "Se_rver.met-ek megjelenítése"
 
@@ -2884,7 +2884,7 @@ msgstr "A kiválasztott szolgáltatás lekérdezése."
 msgid "Remove the selected discovery services."
 msgstr "A kiválasztott szolgáltatás eltávolítása."
 
-#: message;id_discovery_servermet
+#: message;id_discovery_serverlist
 msgid "Show eDonkey Server.met services in the Discovery window."
 msgstr "eDonkey Server.met letöltöhelyek megjelenítése."
 
@@ -3841,7 +3841,7 @@ msgid "Access the selected download sources and attempt to download."
 msgstr "Az elérhető források használata."
 
 #: message;id_transfers_disconnect
-msgid "Disconnect the selected download transfer(s)."
+msgid "Disconnect the selected download transfers."
 msgstr "A kiválasztott letöltés(ek) szétkapcsolása."
 
 #: message;id_transfers_forget
@@ -3857,15 +3857,15 @@ msgid "Automatically clear uploads which have been completed."
 msgstr "Automatikusan törli a kész feltöltéseket."
 
 #: message;id_uploads_clear
-msgid "Clear the selected uploads from the list."
+msgid "Cancel selected uploads and remove from list."
 msgstr "A kijelölt feltöltés(ek) törlése."
 
 #: message;id_uploads_clear_completed
-msgid "Clear uploads which have been completed."
+msgid "Clear uploads that have completed."
 msgstr "Kész feltöltés(ek) törlése."
 
 #: message;id_uploads_disconnect
-msgid "Disconnect the selected upload transfer(s)."
+msgid "Disconnect the selected upload transfers."
 msgstr "A feltöltés(ek) szétkapcsolása."
 
 #: message;id_uploads_filter_active
@@ -3893,7 +3893,7 @@ msgid "Show BitTorrent uploads."
 msgstr "BitTorrent feltöltések megjelenítése."
 
 #: message;id_uploads_launch
-msgid "Launch the selected shared file(s)."
+msgid "Show selected shared files in the Library. (Or hold Shift to open.)s)."
 msgstr "Megnyitás."
 
 #: message;id_uploads_settings
@@ -3901,7 +3901,7 @@ msgid "Configure upload settings..."
 msgstr "Feltöltési beállítások..."
 
 #: message;id_uploads_start
-msgid "Start the selected queued upload(s)."
+msgid "Force start selected queued uploads."
 msgstr "A kiválasztott feltöltés(ek) indítása."
 
 #: message;id_view_basic
@@ -6080,11 +6080,11 @@ msgstr ""
 msgid "No scheduled event. Please select a task."
 msgstr ""
 
-#: string;20612 string;20700 string;20760
+#: string;20707 string;20760
 msgid "Active"
 msgstr "Aktív"
 
-#: string;20613 string;20761
+#: string;20709
 msgid "Inactive"
 msgstr "Inaktív"
 
@@ -6324,19 +6324,19 @@ msgstr ""
 msgid "Are you sure you want to delete the \"%s\" skin? This cannot be undone."
 msgstr "Biztos, hogy törölni akarja a(z) \"%s\" kinézetet? Ezt már nem lehet később visszavonni."
 
-#: string;20701
+#: string;20700
 msgid "%s in : %s out  (d:%I64i/u:%I64i)"
 msgstr "Le: %s | Fel: %s  (d:%I64i/u:%I64i)"
 
-#: string;20702
+#: string;20701
 msgid "Connected to %lu neighbors. %s in local library."
 msgstr "Kapcsolódva %lu szomszéddal.  %s a megosztás mérete."
 
-#: string;20703
+#: string;20702
 msgid "Hub mode with %lu neighbors. %s in local library."
 msgstr "Hub mód %lu szomszéddal.  %s a helyi könyvtárban."
 
-#: string;20704
+#: string;20703
 msgid "Hub/Ultrapeer mode with %lu neighbors. %s in local library."
 msgstr "Hub/Ultrapeer mód %lu szomszéddal.  %s a helyi könyvtárban."
 
@@ -6344,15 +6344,15 @@ msgstr "Hub/Ultrapeer mód %lu szomszéddal.  %s a helyi könyvtárban."
 msgid "Connected. %s in local library."
 msgstr "Kapcsolódva. %s a helyi könyvtárban."
 
-#: string;20706
+#: string;20704
 msgid "Ultrapeer mode with %lu neighbors. %s in local library."
 msgstr "Ultrapeer mód %lu szomszéddal.  %s a helyi könyvtárban."
 
-#: string;20707
+#: string;20706
 msgid "Connecting to the network..."
 msgstr "Kapcsolódás..."
 
-#: string;20708
+#: string;20707
 msgid "Not connected to the network."
 msgstr "Nincs kapcsolat."
 

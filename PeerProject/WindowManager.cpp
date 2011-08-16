@@ -448,7 +448,7 @@ void CWindowManager::SaveWindowStates() const
 
 void CWindowManager::LoadSearchWindows()
 {
-	CString strFile = Settings.General.UserPath + _T("\\Data\\Searches.dat");
+	const CString strFile = Settings.General.UserPath + _T("\\Data\\Searches.dat");
 
 	try
 	{
@@ -456,7 +456,7 @@ void CWindowManager::LoadSearchWindows()
 		if ( ! pFile.Open( strFile, CFile::modeRead ) )
 			return;
 
-		CArchive ar( &pFile, CArchive::load, 262144 );	// 256 KB buffer
+		CArchive ar( &pFile, CArchive::load, 262144 );		// 256 KB buffer
 		while ( ar.ReadCount() == 1 )
 		{
 			CSearchWnd* pWnd = new CSearchWnd();
@@ -474,9 +474,9 @@ void CWindowManager::LoadSearchWindows()
 
 BOOL CWindowManager::SaveSearchWindows() const
 {
-	CFile pFile;
-	CString strFile = Settings.General.UserPath + _T("\\Data\\Searches.dat");
+	const CString strFile = Settings.General.UserPath + _T("\\Data\\Searches.dat");
 
+	CFile pFile;
 	if ( ! pFile.Open( strFile, CFile::modeWrite | CFile::modeCreate ) )
 		return FALSE;
 
@@ -484,7 +484,7 @@ BOOL CWindowManager::SaveSearchWindows() const
 
 	try
 	{
-		CArchive ar( &pFile, CArchive::store, 262144 );	// 256 KB buffer
+		CArchive ar( &pFile, CArchive::store, 262144 );		// 256 KB buffer
 		try
 		{
 			for ( POSITION pos = GetIterator() ; pos ; )
@@ -530,7 +530,7 @@ BOOL CWindowManager::SaveSearchWindows() const
 
 void CWindowManager::LoadBrowseHostWindows()
 {
-	CString strFile = Settings.General.UserPath + _T("\\Data\\BrowseHosts.dat");
+	const CString strFile = Settings.General.UserPath + _T("\\Data\\BrowseHosts.dat");
 
 	try
 	{
@@ -538,7 +538,7 @@ void CWindowManager::LoadBrowseHostWindows()
 		if ( ! pFile.Open( strFile, CFile::modeRead ) )
 			return;
 
-		CArchive ar( &pFile, CArchive::load, 262144 );	// 256 KB buffer
+		CArchive ar( &pFile, CArchive::load, 262144 );		// 256 KB buffer
 		while ( ar.ReadCount() == 1 )
 		{
 			CBrowseHostWnd* pWnd = new CBrowseHostWnd();
@@ -556,9 +556,9 @@ void CWindowManager::LoadBrowseHostWindows()
 
 BOOL CWindowManager::SaveBrowseHostWindows() const
 {
-	CFile pFile;
-	CString strFile = Settings.General.UserPath + _T("\\Data\\BrowseHosts.dat");
+	const CString strFile = Settings.General.UserPath + _T("\\Data\\BrowseHosts.dat");
 
+	CFile pFile;
 	if ( ! pFile.Open( strFile, CFile::modeWrite | CFile::modeCreate ) )
 		return FALSE;
 
@@ -566,7 +566,7 @@ BOOL CWindowManager::SaveBrowseHostWindows() const
 
 	try
 	{
-		CArchive ar( &pFile, CArchive::store, 262144 );	// 256 KB buffer
+		CArchive ar( &pFile, CArchive::store, 262144 );		// 256 KB buffer
 		try
 		{
 			for ( POSITION pos = GetIterator() ; pos ; )

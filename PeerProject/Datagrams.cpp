@@ -19,8 +19,8 @@
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
-#include "Buffer.h"
 #include "Statistics.h"
+#include "Buffer.h"
 #include "Network.h"
 #include "Datagrams.h"
 #include "Datagram.h"
@@ -197,14 +197,14 @@ void CDatagrams::Disconnect()
 	CNetwork::CloseSocket( m_hSocket, false );
 
 	delete [] m_pOutputBuffer;
-	m_pOutputBuffer = NULL;
-	m_nOutputBuffer = 0;
-	m_pOutputFirst = m_pOutputLast = m_pOutputFree = NULL;
+	m_pOutputBuffer	= NULL;
+	m_nOutputBuffer	= 0;
+	m_pOutputFirst	= m_pOutputLast	= m_pOutputFree	= NULL;
 
 	delete [] m_pInputBuffer;
-	m_pInputBuffer = NULL;
-	m_nInputBuffer = 0;
-	m_pInputFirst = m_pInputLast = m_pInputFree = NULL;
+	m_pInputBuffer	= NULL;
+	m_nInputBuffer	= 0;
+	m_pInputFirst	= m_pInputLast	= m_pInputFree	= NULL;
 
 	delete [] m_pBufferBuffer;
 	m_pBufferBuffer = NULL;
@@ -411,8 +411,8 @@ void CDatagrams::Measure()
 		pOutHistory++, pOutTime++;
 	}
 
-	m_nInBandwidth	= m_mInput.nMeasure		= nInput * 1000 / METER_PERIOD;
-	m_nOutBandwidth	= m_mOutput.nMeasure	= nOutput * 1000 / METER_PERIOD;
+	m_nInBandwidth	= m_mInput.nMeasure  = nInput  * 1000 / METER_PERIOD;
+	m_nOutBandwidth	= m_mOutput.nMeasure = nOutput * 1000 / METER_PERIOD;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -420,9 +420,9 @@ void CDatagrams::Measure()
 
 BOOL CDatagrams::TryWrite()
 {
-	DWORD tNow		= GetTickCount();
-	DWORD nLimit	= 0xFFFFFFFF;
-	DWORD nTotal	= 0;
+	const DWORD tNow = GetTickCount();
+	DWORD nLimit = 0xFFFFFFFF;
+	DWORD nTotal = 0;
 
 	if ( Settings.Live.BandwidthScaleOut <= 100 )
 	{
@@ -495,15 +495,15 @@ BOOL CDatagrams::TryWrite()
 
 	if ( m_mOutput.pHistory && nTotal )
 	{
-		if ( tNow - m_mOutput.tLastSlot < METER_MINIMUM )
+		if ( tNow < m_mOutput.tLastSlot + METER_MINIMUM )
 		{
 			m_mOutput.pHistory[ m_mOutput.nPosition ]	+= nTotal;
 		}
 		else
 		{
 			m_mOutput.nPosition = ( m_mOutput.nPosition + 1 ) % METER_LENGTH;
-			m_mOutput.pTimes[ m_mOutput.nPosition ]		= tNow;
 			m_mOutput.pHistory[ m_mOutput.nPosition ]	= nTotal;
+			m_mOutput.pTimes[ m_mOutput.nPosition ]		= tNow;
 			m_mOutput.tLastSlot = tNow;
 		}
 	}
@@ -910,9 +910,9 @@ BOOL CDatagrams::OnAcknowledgeSGP(const SOCKADDR_IN* pHost, const SGP_HEADER* pH
 
 	for ( CDatagramOut* pDG = *pHash ; pDG ; pDG = pDG->m_pNextHash )
 	{
-		if (	pDG->m_pHost.sin_addr.S_un.S_addr == pHost->sin_addr.S_un.S_addr &&
-				pDG->m_pHost.sin_port == pHost->sin_port &&
-				pDG->m_nSequence == pHeader->nSequence )
+		if ( pDG->m_pHost.sin_addr.S_un.S_addr == pHost->sin_addr.S_un.S_addr &&
+			 pDG->m_pHost.sin_port == pHost->sin_port &&
+			 pDG->m_nSequence == pHeader->nSequence )
 		{
 			if ( pDG->Acknowledge( pHeader->nPart ) )
 				Remove( pDG );

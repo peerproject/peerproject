@@ -95,6 +95,11 @@ CString CUploadQueue::GetCriteriaString() const
 			if ( ! str.IsEmpty() ) str += _T(", ");
 			str += _T("ED2K");
 		}
+		if ( m_nProtocols & (1<<PROTOCOL_DC) )
+		{
+			if ( ! str.IsEmpty() ) str += _T(", ");
+			str += _T("DC++");
+		}
 		if ( m_nProtocols & (1<<PROTOCOL_BT) )
 		{
 			if ( ! str.IsEmpty() ) str += _T(", ");
@@ -140,8 +145,7 @@ BOOL CUploadQueue::CanAccept(PROTOCOLID nProtocol, LPCTSTR pszName, QWORD nSize,
 	if ( nSize < m_nMinSize ) return FALSE;
 	if ( nSize > m_nMaxSize ) return FALSE;
 
-	if ( m_nProtocols != 0 &&
-		 ( m_nProtocols & ( 1 << nProtocol ) ) == 0 ) return FALSE;
+	if ( m_nProtocols != 0 && ( m_nProtocols & ( 1 << nProtocol ) ) == 0 ) return FALSE;
 
 	if ( ( m_nFileStateFlag & nFileState ) == 0 ) return FALSE;
 
@@ -168,7 +172,7 @@ BOOL CUploadQueue::Enqueue(CUploadTransfer* pUpload, BOOL bForce, BOOL bStart)
 	ASSERT( pUpload != NULL );
 	ASSERT( pUpload->m_pQueue == NULL );
 
-	if ( ! bForce && ! bStart )	//If this upload isn't forced, check to see if it's valid to queue
+	if ( ! bForce && ! bStart )		// If this upload isn't forced, check to see if it's valid to queue
 	{
 		if ( m_bRewardUploaders && ( pUpload->m_nUserRating > urSharing  ) )
 		{
@@ -384,8 +388,7 @@ DWORD CUploadQueue::GetAvailableBandwidth() const
 	for ( POSITION pos = m_pActive.GetHeadPosition() ; pos ; )
 	{
 		CUploadTransfer* pActive = m_pActive.GetNext( pos );
-		// If newly queued host is set as "Next", don't count allocated bandwidth
-		// Max speed in such case is zero.
+		// If newly queued host is set as "Next" don't count allocated bandwidth, max speed in such case is zero.
 		nUsed += pActive->GetMaxSpeed();
 	}
 
@@ -413,7 +416,7 @@ void CUploadQueue::SpreadBandwidth()
 {
 	const DWORD nCount = GetTransferCount();
 	if ( nCount == 0 )
-		return;	// Nothing to do
+		return;		// Nothing to do
 
 	const DWORD nLimit = GetBandwidthLimit() / nCount;
 	for ( POSITION pos = m_pActive.GetHeadPosition() ; pos ; )
@@ -427,7 +430,7 @@ void CUploadQueue::RescaleBandwidth()
 {
 	const DWORD nCount = GetTransferCount();
 	if ( nCount == 0 )
-		return;	// Nothing to do
+		return;		// Nothing to do
 
 	if ( nCount <= m_nMinTransfers )
 	{
@@ -443,8 +446,7 @@ void CUploadQueue::RescaleBandwidth()
 	for ( POSITION pos = m_pActive.GetHeadPosition() ; pos ; )
 	{
 		CUploadTransfer* pActive = m_pActive.GetNext( pos );
-		// If newly queued host is set as "Next", don't count allocated bandwidth
-		// Max speed in such case is zero.
+		// If newly queued host is set as "Next" don't count allocated bandwidth, max speed in such case is zero.
 		nAllocated += pActive->GetMaxSpeed();
 	}
 
@@ -519,10 +521,7 @@ void CUploadQueue::Serialize(CArchive& ar, int /*nVersion*/)
 	//	{
 	//		BOOL bPartial;
 	//		ar >> bPartial;
-	//		if ( bPartial )
-	//			m_nFileStateFlag = ulqPartial;
-	//		else
-	//			m_nFileStateFlag = ulqBoth;
+	//		m_nFileStateFlag = bPartial ? ulqPartial : ulqBoth;
 	//	}
 
 		ar >> m_sShareTag;

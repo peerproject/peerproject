@@ -162,7 +162,8 @@ BOOL CURLActionDlg::OnInitDialog()
 			m_sHashValue = _T("GWebCache");
 			break;
 		case CDiscoveryService::dsServerList:
-			m_sHashValue = _T("Server.met URL");
+			m_sHashValue = m_pURL->m_nProtocol == PROTOCOL_DC ?
+				_T("Hublist URL") :_T("Server.met URL");
 			break;
 		}
 

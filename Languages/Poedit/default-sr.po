@@ -432,7 +432,7 @@ msgstr ""
 msgid "Bootstraps"
 msgstr ""
 
-#: button;id_discovery_servermet
+#: button;id_discovery_serverlist
 msgid "Server.met's"
 msgstr ""
 
@@ -1808,7 +1808,7 @@ msgstr "Pokaži _Bootstraps"
 msgid "Show _GWebCaches"
 msgstr "Pokaži _GWebCaches"
 
-#: cdiscoverywnd;item;id_discovery_servermet
+#: cdiscoverywnd;item;id_discovery_serverlist
 msgid "Show Ser_ver.met's"
 msgstr "Pokaži Ser_ver.met's"
 
@@ -2884,7 +2884,7 @@ msgstr "Query the selected discovery services now."
 msgid "Remove the selected discovery services."
 msgstr "Remove the selected discovery services."
 
-#: message;id_discovery_servermet
+#: message;id_discovery_serverlist
 msgid "Show eDonkey Server.met services in the Discovery window."
 msgstr "Show eDonkey2000 Server.met services in the Discovery window."
 
@@ -3841,7 +3841,7 @@ msgid "Access the selected download sources and attempt to download."
 msgstr "Pristupi selektovanom download izvoru(ima) i pokušaj da skineš."
 
 #: message;id_transfers_disconnect
-msgid "Disconnect the selected download transfer(s)."
+msgid "Disconnect the selected download transfers."
 msgstr "Isključi selektovani download transfer(e)."
 
 #: message;id_transfers_forget
@@ -3857,15 +3857,15 @@ msgid "Automatically clear uploads which have been completed."
 msgstr "Automatski očisti davanja koja su se završila."
 
 #: message;id_uploads_clear
-msgid "Clear the selected uploads from the list."
+msgid "Cancel selected uploads and remove from list."
 msgstr "Očisti selektovano davanje(a) sa liste."
 
 #: message;id_uploads_clear_completed
-msgid "Clear uploads which have been completed."
+msgid "Clear uploads that have completed."
 msgstr "Očisti davanja koja su se završila."
 
 #: message;id_uploads_disconnect
-msgid "Disconnect the selected upload transfer(s)."
+msgid "Disconnect the selected upload transfers."
 msgstr "Isključi selektovani upload transfer(e)."
 
 #: message;id_uploads_filter_active
@@ -3893,7 +3893,7 @@ msgid "Show BitTorrent uploads."
 msgstr "Pokaži BitTorrent davanja."
 
 #: message;id_uploads_launch
-msgid "Launch the selected shared file(s)."
+msgid "Show selected shared files in the Library. (Or hold Shift to open.)s)."
 msgstr "Pokreni selektovani deljenu datoteku(e)."
 
 #: message;id_uploads_settings
@@ -3901,7 +3901,7 @@ msgid "Configure upload settings..."
 msgstr "Konfiguriši upload podešavanja..."
 
 #: message;id_uploads_start
-msgid "Start the selected queued upload(s)."
+msgid "Force start selected queued uploads."
 msgstr "Pokreni selektovano davanje(a) u redu(queued)."
 
 #: message;id_view_basic
@@ -6080,11 +6080,11 @@ msgstr ""
 msgid "No scheduled event. Please select a task."
 msgstr ""
 
-#: string;20612 string;20700 string;20760
+#: string;20707 string;20760
 msgid "Active"
 msgstr "Aktivno"
 
-#: string;20613 string;20761
+#: string;20709
 msgid "Inactive"
 msgstr "Neaktivno"
 
@@ -6324,19 +6324,19 @@ msgstr ""
 msgid "Are you sure you want to delete the \"%s\" skin? This cannot be undone."
 msgstr "Jeste li sigurni da želite izbrisati \"%s\" skin?Ne može se povratiti."
 
-#: string;20701
+#: string;20700
 msgid "%s in : %s out  (d:%I64i/u:%I64i)"
 msgstr "%s primljeno : %s poslano (d:%I64i/u:%I64i)"
 
-#: string;20702
+#: string;20701
 msgid "Connected to %lu neighbors. %s in local library."
 msgstr "Spojeno na %lu suseda.%s u vašoj kolekciji."
 
-#: string;20703
+#: string;20702
 msgid "Hub mode with %lu neighbors. %s in local library."
 msgstr "Hub način sa %lu suseda.%s u vašoj kolekciji."
 
-#: string;20704
+#: string;20703
 msgid "Hub/Ultrapeer mode with %lu neighbors. %s in local library."
 msgstr "Hub/Ultrapeer način sa %lu suseda.%s u vašoj kolekciji."
 
@@ -6344,15 +6344,15 @@ msgstr "Hub/Ultrapeer način sa %lu suseda.%s u vašoj kolekciji."
 msgid "Connected. %s in local library."
 msgstr "Spojeno. %s u vašoj kolekciji."
 
-#: string;20706
+#: string;20704
 msgid "Ultrapeer mode with %lu neighbors. %s in local library."
 msgstr "Ultrapeer način sa %lu suseda.%s u vašoj kolekciji."
 
-#: string;20707
+#: string;20706
 msgid "Connecting to the network..."
 msgstr "Spajam se na mrežu..."
 
-#: string;20708
+#: string;20707
 msgid "Not connected to the network."
 msgstr "Nije spojeno."
 

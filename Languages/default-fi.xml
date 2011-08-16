@@ -152,10 +152,10 @@
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Esikatsele Tiedosto"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Poista Tiedosto"/>
-		<button id="ID_DOWNLOADS_RESUME" text="Palaa Lataukseen"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="Pysäytä Lataus"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Peruuta Lataus"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Poista Latauslistalta"/>
+		<button id="ID_DOWNLOADS_RESUME" text="Palaa Lataukseen"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="Pysäytä Lataus"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Torrentin Tiedot"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Näytä Monitori"/>
@@ -167,10 +167,10 @@
 		<button id="ID_DOWNLOADS_LAUNCH" text="Esikatsele Tiedosto"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Poista Tiedosto"/>
-		<button id="ID_DOWNLOADS_RESUME" text="Palaa Lataukseen"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="Pysäytä Lataus"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Peruuta Lataus"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Poista Latauslistalta"/>
+		<button id="ID_DOWNLOADS_RESUME" text="Palaa Lataukseen"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="Pysäytä Lataus"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Torrentin Tiedot"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Näytä Monitori"/>
@@ -190,8 +190,9 @@
 	<toolbar name="CUploadsWnd">
 		<button id="ID_UPLOADS_LAUNCH" text="Avaa tai Toista"/>
 		<separator/>
-		<button id="ID_UPLOADS_START" text="Aloita Nyt"/>
 		<button id="ID_UPLOADS_CLEAR" text="Poista Lähetys"/>
+		<button id="ID_UPLOADS_START" text="Aloita Nyt"/>
+		<button id="ID_UPLOADS_PRIORITY" text="Prioriteetti" visible="false"/>
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Selaa Käyttäjää"/>
 		<button id="ID_UPLOADS_CHAT" text="Keskustele Käyttäjän kanssa"/>
@@ -1116,15 +1117,20 @@
 	<menu name="CUploadsWnd.Upload.Basic">
 		<item id="ID_BROWSE_LAUNCH" text="_Selaa Käyttäjää"/>
 		<item id="ID_UPLOADS_CHAT" text="_Keskustele Käyttäjän Kanssa"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="_Ohje..."/>
 	</menu>
 	<menu name="CUploadsWnd.Upload">
-		<item id="ID_UPLOADS_START" text="_Aloita Nyt"/>
-		<item id="ID_UPLOADS_CLEAR" text="_Tyhjennä"/>
+		<item id="ID_UPLOADS_LAUNCH" text="Näytä _Library"/>
 		<item id="ID_UPLOADS_FOLDER" text="Avaa _Folder"/>
+		<separator/>
+		<item id="ID_UPLOADS_CLEAR" text="_Tyhjennä"/>
+		<item id="ID_UPLOADS_START" text="_Aloita Nyt"/>
+		<item id="ID_UPLOADS_PRIORITY" text="_Prioriteetti"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="_Selaa Käyttäjää"/>
 		<item id="ID_UPLOADS_CHAT" text="_Keskustele Käyttäjän Kanssa"/>
-		<item id="ID_SECURITY_BAN" text="E_stä Käyttäjä"/>
+		<item id="ID_SECURITY_BAN" text="_Estä Käyttäjä"/>
 	</menu>
 	<menu name="CUploadsWnd.Default">
 		<item id="ID_LIBRARY_FOLDERS" text="Jaa Tiedostoja..."/>
@@ -1521,19 +1527,19 @@
 	</menu>
 	<!-- DISCOVERY SERVICES WINDOW -->
 	<menu name="CDiscoveryWnd">
-		<item id="ID_DISCOVERY_QUERY" text="_Kysele Nyt"/>
-		<item id="ID_DISCOVERY_ADVERTISE" text="M_Mainosta"/>
+		<item id="ID_DISCOVERY_ADD" text="_Lisaa Palvelu..."/>
+		<separator/>
+		<item id="ID_DISCOVERY_EDIT" text="_Ominaisuudet"/>
 		<item id="ID_DISCOVERY_REMOVE" text="_Poista"/>
 		<separator/>
+		<item id="ID_DISCOVERY_QUERY" text="_Kysele Nyt"/>
+		<item id="ID_DISCOVERY_ADVERTISE" text="M_Mainosta"/>
 		<item id="ID_DISCOVERY_BROWSE" text="Selaa _Statistiikkaa"/>
 		<separator/>
 		<item id="ID_DISCOVERY_GNUTELLA" text="Näytä _Booststraps"/>
 		<item id="ID_DISCOVERY_WEBCACHE" text="Näytä _GWebCaches"/>
-		<item id="ID_DISCOVERY_SERVERMET" text="Näytä Pal_velin.met:it"/>
-		<separator/>
-		<item id="ID_DISCOVERY_ADD" text="_Lisaa Palvelu..."/>
-		<separator/>
-		<item id="ID_DISCOVERY_EDIT" text="_Ominaisuudet"/>
+		<item id="ID_DISCOVERY_SERVERLIST" text="Näytä Pal_velin.met:it"/>
+		<item id="ID_DISCOVERY_BLOCKED" text="Näytä _Tukossa"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
 	<menu name="CPrivateChatFrame">

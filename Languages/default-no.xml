@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Norwegian Skin File -->
 
-<!-- Translation based on default-en.xml r68 (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r69 (Shareaza 2.2.0.2) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -149,10 +149,10 @@
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Forhåndsvis"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Slett fil"/>
-		<button id="ID_DOWNLOADS_RESUME" text="Fortsett nedlasting"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="Pause nedlasting"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Avbryt nedlasting"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Fjern nedlasting"/>
+		<button id="ID_DOWNLOADS_RESUME" text="Fortsett nedlasting"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="Pause nedlasting"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Info"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Vis monitor"/>
@@ -164,10 +164,10 @@
 		<button id="ID_DOWNLOADS_LAUNCH" text="Forhåndsvis"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Slett fil"/>
-		<button id="ID_DOWNLOADS_RESUME" text="Fortsett nedlasting"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="Pause nedlasting"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Avbryt nedlasting"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Fjern nedlasting"/>
+		<button id="ID_DOWNLOADS_RESUME" text="Fortsett nedlasting"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="Pause nedlasting"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Info"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Vis monitor"/>
@@ -187,8 +187,9 @@
 	<toolbar name="CUploadsWnd">
 		<button id="ID_UPLOADS_LAUNCH" text="Åpne eller spill av"/>
 		<separator/>
-		<button id="ID_UPLOADS_START" text="Start nå"/>
 		<button id="ID_UPLOADS_CLEAR" text="Fjern opplasting"/>
+		<button id="ID_UPLOADS_START" text="Start nå"/>
+		<button id="ID_UPLOADS_PRIORITY" text="Prioritet" visible="false"/>
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Utforsk bruker"/>
 		<button id="ID_UPLOADS_CHAT" text="Snakk med bruker"/>
@@ -1032,11 +1033,16 @@
 	<menu name="CUploadsWnd.Upload.Basic">
 		<item id="ID_BROWSE_LAUNCH" text="Utforsk bruker"/>
 		<item id="ID_UPLOADS_CHAT" text="Chat med bruker"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="_Hjelp..."/>
 	</menu>
 	<menu name="CUploadsWnd.Upload">
-		<item id="ID_UPLOADS_START" text="Start nå"/>
-		<item id="ID_UPLOADS_CLEAR" text="Fjern"/>
+		<item id="ID_UPLOADS_LAUNCH" text="Vis _Library"/>
 		<item id="ID_UPLOADS_FOLDER" text="Åpne _Folder"/>
+		<separator/>
+		<item id="ID_UPLOADS_CLEAR" text="Fjern"/>
+		<item id="ID_UPLOADS_START" text="Start nå"/>
+		<item id="ID_UPLOADS_PRIORITY" text="Prioritet"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="Utforsk bruker"/>
 		<item id="ID_UPLOADS_CHAT" text="Snakk med bruker"/>
@@ -1434,19 +1440,19 @@
 	</menu>
 	<!-- DISCOVERY SERVICES WINDOW -->
 	<menu name="CDiscoveryWnd">
-		<item id="ID_DISCOVERY_QUERY" text="Oppdater"/>
-		<item id="ID_DISCOVERY_ADVERTISE" text="Start"/>
+		<item id="ID_DISCOVERY_ADD" text="Legg til tjeneste..."/>
+		<separator/>
+		<item id="ID_DISCOVERY_EDIT" text="Egenskaper"/>
 		<item id="ID_DISCOVERY_REMOVE" text="Fjern"/>
 		<separator/>
+		<item id="ID_DISCOVERY_QUERY" text="Oppdater"/>
+		<item id="ID_DISCOVERY_ADVERTISE" text="Start"/>
 		<item id="ID_DISCOVERY_BROWSE" text="Vis statistikk"/>
 		<separator/>
 		<item id="ID_DISCOVERY_GNUTELLA" text="Vis bootstraps"/>
 		<item id="ID_DISCOVERY_WEBCACHE" text="Vis GWebCaches"/>
-		<item id="ID_DISCOVERY_SERVERMET" text="Vis server.METs"/>
-		<separator/>
-		<item id="ID_DISCOVERY_ADD" text="Legg til tjeneste..."/>
-		<separator/>
-		<item id="ID_DISCOVERY_EDIT" text="Egenskaper"/>
+		<item id="ID_DISCOVERY_SERVERLIST" text="Vis server.METs"/>
+		<item id="ID_DISCOVERY_BLOCKED" text="Vis Blokkerte"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
 	<menu name="CPrivateChatFrame">
@@ -2116,7 +2122,7 @@
 	<tip id="ID_DISCOVERY_GNUTELLA" message="Vis bootstrap-tjeneste i oppdagelsesvinduet."/>
 	<tip id="ID_DISCOVERY_QUERY" message="Oppdater valgte oppdagelsestjeneste nå."/>
 	<tip id="ID_DISCOVERY_REMOVE" message="Fjern valgte oppdagelsestjeneste."/>
-	<tip id="ID_DISCOVERY_SERVERMET" message="Vis eDonkey2000 server.met tjeneste i oppdagelsesvinduet."/>
+	<tip id="ID_DISCOVERY_SERVERLIST" message="Vis eDonkey2000 server.met tjeneste i oppdagelsesvinduet."/>
 	<tip id="ID_DISCOVERY_WEBCACHE" message="Vis GWebCache-tjeneste i oppdagelsesvinduet."/>
 	<tip id="ID_DOWNLOAD_GROUP_CLEAR" message="Avbryt og fjern alle nedlastingene i denne gruppen."/>
 	<tip id="ID_DOWNLOAD_GROUP_NEW" message="Lag en ny nedlastings-gruppe..."/>
@@ -2372,6 +2378,7 @@
 	<tip id="ID_UPLOADS_LAUNCH" message="Åpne valgte delte fil(er)."/>
 	<tip id="ID_UPLOADS_SETTINGS" message="Endre innstillinger for opplasting..."/>
 	<tip id="ID_UPLOADS_START" message="Start valgte opplastinger i kø."/>
+	<tip id="ID_UPLOADS_PRIORITY" message="Prioritet."/>
 	<tip id="ID_VIEW_BASIC" message="Bruk PeerProject i normalmodus."/>
 	<tip id="ID_VIEW_DISCOVERY" message="Vis eller skjul oppdagelses-vinduet."/>
 	<tip id="ID_VIEW_DOWNLOADS" message="Vis eller skjul nedlastings-vinduet."/>
@@ -2434,6 +2441,7 @@
 	<string id="20016" value="Prøv på nytt"/>
 	<string id="20017" value="Abortere"/>
 	<string id="20018" value="Prøv Igjen"/>
+	<string id="20019" value="Please Wait..."/>
 	<string id="20020" value="Fil"/>
 	<string id="20021" value="Filer"/>
 	<string id="20022" value="Alle Filer"/>
@@ -2920,15 +2928,16 @@
 	<string id="20678" value="eDonkey-nettverket har lange køer med lange ventetider. Ved å begrense den maksimale akseptable køposisjonen så strengt, kan du få problemer med å få nedlastinger til å begynne.\nEr du sikker på at du vil begrense hvilken køposisjon du vil akseptere?"/>
 	<string id="20680" value="Innstillinger"/>
 	<string id="20684" value="Er du sikker på at du vil slette dette &quot;%s&quot; skinnet? Det kan ikke gjenopprettes."/>
-	<string id="20700" value="Aktiv"/>
-	<string id="20701" value="%s inn : %s ut (d:%I64i/u:%I64i)"/>
-	<string id="20702" value="Koblet til %lu nabo(er).  %s lokalt."/>
-	<string id="20703" value="Hub-modus med %lu nabo(er). %s i lokalt bibliotek."/>
-	<string id="20704" value="Hub/Ultrapeer-modus med %lu nabo(er).  %s in local library."/>
+	<string id="20700" value="%s inn : %s ut (d:%I64i/u:%I64i)"/>
+	<string id="20701" value="Koblet til %lu nabo(er).  %s lokalt."/>
+	<string id="20702" value="Hub-modus med %lu nabo(er). %s i lokalt bibliotek."/>
+	<string id="20703" value="Hub/Ultrapeer-modus med %lu nabo(er).  %s in local library."/>
+	<string id="20704" value="Ultrapeer-modus med %lu nabo(er).  %s in local library."/>
 	<string id="20705" value="Tilkoblet. %s i lokalt bibliotek."/>
-	<string id="20706" value="Ultrapeer-modus med %lu nabo(er).  %s in local library."/>
-	<string id="20707" value="Kobler til nettverket..."/>
-	<string id="20708" value="Ikke koblet til nettverket."/>
+	<string id="20706" value="Kobler til nettverket..."/>
+	<string id="20707" value="Ikke koblet til nettverket."/>
+	<string id="20708" value="Aktiv"/>
+	<string id="20709" value="Inaktiv"/>
 	<string id="20710" value="Oppklaring"/>
 	<string id="20711" value="Kan ikke flytte"/>
 	<string id="20712" value="Kvalt"/>
@@ -2968,8 +2977,7 @@
 	<string id="20750" value="!Velkommen til PeerProject (version) !\n.\nPeerProject er helt gratis software.\nVennligst vis ansvar og respekt for materiell opphavsrett.\n."/>
 	<string id="20751" value="Det er ingen aktive søk. Klikk her for å søke etter filer."/>
 	<string id="20752" value="Du er ikke koblet til. Trykk på Koble til knappen for å starte."/>
-	<string id="20760" value="Aktiv"/>
-	<string id="20761" value="Inaktiv"/>
+	<string id="20760" value="Prioritet"/>
 	<string id="20762" value="Denne filen ser ut til å være spam."/>
 	<string id="20763" value="Svartelistet:"/>
 	<string id="20764" value="Du har lastet ned og slettet denne filen før."/>
