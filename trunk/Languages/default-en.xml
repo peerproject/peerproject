@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default English Skin File -->
 
-<!-- Translation based on default-en.xml r68 -->
+<!-- Translation based on default-en.xml r69 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -159,10 +159,10 @@
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Preview File"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Delete File"/>
-		<button id="ID_DOWNLOADS_RESUME" text="Resume Download"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="Pause Download"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Cancel Download"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Clear Download"/>
+		<button id="ID_DOWNLOADS_RESUME" text="Resume Download"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="Pause Download"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Details"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Show Monitor"/>
@@ -201,6 +201,7 @@
 		<separator/>
 		<button id="ID_UPLOADS_CLEAR" text="Cancel File"/>
 		<button id="ID_UPLOADS_START" text="Start Now"/>
+		<button id="ID_UPLOADS_PRIORITY" text="Priority" visible="false"/>
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Browse User"/>
 		<button id="ID_UPLOADS_CHAT" text="Chat User"/>
@@ -431,7 +432,8 @@
 			<rightAlign/>
 		<button id="ID_DISCOVERY_WEBCACHE" text="GWebCaches"/>
 		<button id="ID_DISCOVERY_GNUTELLA" text="Bootstraps"/>
-		<button id="ID_DISCOVERY_SERVERMET" text="Server.METs"/>
+		<button id="ID_DISCOVERY_SERVERLIST" text="Server.met/Hublists"/>
+		<button id="ID_DISCOVERY_BLOCKED" text="Blocked"/>
 	</toolbar>
 	<!-- HOST CACHE WINDOW -->
 	<toolbar name="CHostCacheWnd">
@@ -708,7 +710,7 @@
 			<item id="ID_TOOLS_DOWNLOAD" text="_Download File/Torrent..."/>
 			<item id="ID_TOOLS_SEEDTORRENT" text="_Seed New Torrent..."/>
 			<item id="ID_TOOLS_CREATETORRENT" text="_Create New .Torrent..."/>
-			<item id="ID_IMPORT_DOWNLOADS"	text="_Import eMule Partials..."/>
+			<item id="ID_IMPORT_DOWNLOADS" text="_Import eMule Partials..."/>
 			<separator/>
 			<item id="ID_TOOLS_LANGUAGE" text="Choose a _Language..."/>
 			<item id="ID_TOOLS_SKIN" text="Choose a S_kin..."/>
@@ -881,7 +883,7 @@
 			<item id="ID_TOOLS_DOWNLOAD" text="_Download File/Torrent..."/>
 			<item id="ID_TOOLS_SEEDTORRENT" text="_Seed New Torrent..."/>
 			<item id="ID_TOOLS_CREATETORRENT" text="_Create New .Torrent..."/>
-			<item id="ID_IMPORT_DOWNLOADS"	text="_Import eMule Partials..."/>
+			<item id="ID_IMPORT_DOWNLOADS" text="_Import eMule Partials..."/>
 			<separator/>
 			<item id="ID_TOOLS_LANGUAGE" text="Choose a _Language..."/>
 			<item id="ID_TOOLS_SKIN" text="Choose a S_kin..."/>
@@ -944,9 +946,9 @@
 		<menu text="_Advanced">
 			<item id="ID_VIEW_NEIGHBOURS" text="_Neighbors"/>
 			<item id="ID_VIEW_UPLOADS" text="_Uploads"/>
-			<item id="ID_VIEW_HOSTS" text="_Host Cache"/>
 			<item id="ID_VIEW_SECURITY" text="_Security"/>
 			<item id="ID_VIEW_SCHEDULER" text="Schedule_r"/>
+			<item id="ID_VIEW_HOSTS" text="_Host Cache"/>
 		</menu>
 	</menu>
 	<menu name="CMainWnd.View.Tabbed">
@@ -999,9 +1001,9 @@
 		<menu text="_Advanced">
 			<item id="ID_VIEW_NEIGHBOURS" text="_Neighbors"/>
 			<item id="ID_VIEW_UPLOADS" text="_Uploads"/>
-			<item id="ID_VIEW_HOSTS" text="_Host Cache"/>
 			<item id="ID_VIEW_SECURITY" text="_Security"/>
 			<item id="ID_VIEW_SCHEDULER" text="Schedule_r"/>
+			<item id="ID_VIEW_HOSTS" text="_Host Cache"/>
 		</menu>
 	</menu>
 	<menu name="CHomeWnd.Tabbed">
@@ -1037,12 +1039,12 @@
 			<item id="ID_HOSTCACHE_G2_CACHE" text="Gnutella_2 Cache"/>
 			<item id="ID_HOSTCACHE_G1_CACHE" text="_Gnutella Cache"/>
 			<item id="ID_HOSTCACHE_ED2K_CACHE" text="_eDonkey Servers"/>
-			<item id="ID_HOSTCACHE_DC_CACHE" text="_DC++ Hubs"/>
+			<item id="ID_HOSTCACHE_DC_CACHE" text="DC++ _Hubs"/>
 		<!--	<item id="ID_HOSTCACHE_BT_CACHE" text="_BitTorrent Cache"/> -->
 		<!--	<item id="ID_HOSTCACHE_KAD_CACHE" text="_Kademlia Cache"/> -->
 		</menu>
 		<separator/>
-		<item id="ID_HOSTCACHE_IMPORT" text="_Import MET File..."/>
+		<item id="ID_HOSTCACHE_IMPORT" text="_Import MET/Hublist File..."/>
 		<item id="ID_HOSTCACHE_FILE_DOWNLOAD" text="Download MET/Hublist..."/>
 	</menu>
 	<!-- SEARCH WINDOW -->
@@ -1246,9 +1248,12 @@
 	<menu name="CDownloadsWnd.Seeding">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Open File"/>
 		<item id="ID_DOWNLOADS_FOLDER" text="Open _Folder"/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Stop Seeding"/>
-		<separator/>
 		<item id="ID_DOWNLOADS_FILE_DELETE" text="_Delete Files"/>
+		<separator/>
+		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Stop Seeding"/>
+		<item id="ID_DOWNLOADS_PAUSE" text="Pa_use Seeding"/>
+		<item id="ID_DOWNLOADS_RESUME" text="_Resume Seeding"/>
+		<separator/>
 		<item id="ID_DOWNLOADS_URI" text="Get Magnet Link (_URI)"/>
 		<item id="ID_DOWNLOADS_HELP" text="_Help..."/>
 		<separator/>
@@ -1295,20 +1300,22 @@
 		<item id="ID_UPLOADS_LAUNCH" text="Show File in _Library"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="_Browse User"/>
-		<item id="ID_UPLOADS_CHAT" text="_Chat to User"/>
-		<item id="ID_SECURITY_BAN" text="Ba_n User"/>
+		<item id="ID_UPLOADS_CHAT" text="_Chat with User"/>
+		<item id="ID_SECURITY_BAN" text="B_an User"/>
 		<separator/>
 		<item id="ID_UPLOADS_HELP" text="_Help..."/>
 	</menu>
 	<menu name="CUploadsWnd.Upload">
-		<item id="ID_UPLOADS_START" text="_Start Now"/>
-		<item id="ID_UPLOADS_CLEAR" text="_Clear"/>
-		<item id="ID_UPLOADS_LAUNCH" text="Show _Library"/>
+		<item id="ID_UPLOADS_LAUNCH" text="Show in _Library"/>
 		<item id="ID_UPLOADS_FOLDER" text="Open _Folder"/>
 		<separator/>
+		<item id="ID_UPLOADS_CLEAR" text="_Clear"/>
+		<item id="ID_UPLOADS_START" text="_Start Now"/>
+		<item id="ID_UPLOADS_PRIORITY" text="Grant _Priority"/>
+		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="_Browse User"/>
-		<item id="ID_UPLOADS_CHAT" text="_Chat to User"/>
-		<item id="ID_SECURITY_BAN" text="Ba_n User"/>
+		<item id="ID_UPLOADS_CHAT" text="_Chat User"/>
+		<item id="ID_SECURITY_BAN" text="B_an User"/>
 	</menu>
 	<menu name="CUploadsWnd.Default">
 		<item id="ID_LIBRARY_FOLDERS" text="_Shared Folders..."/>
@@ -1655,7 +1662,7 @@
 			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
 			<item id="ID_NETWORK_DC" text="_DC++"/>
 			<separator/>
-			<item id="ID_VIEW_DISCOVERY" text="_Discovery Services"/>
+			<item id="ID_VIEW_DISCOVERY" text="Discovery _Services"/>
 			<item id="ID_VIEW_HOSTS" text="_Host/Server Cache"/>
 		</menu>
 		<menu text="_Monitor">
@@ -1712,7 +1719,7 @@
 		<item id="ID_SCHEDULER_ADD" text="_Add Scheduled Task"/>
 		<separator/>
 		<item id="ID_SCHEDULER_EDIT" text="_Edit"/>
-		<item id="ID_SCHEDULER_REMOVE" text="Re_move"/>
+		<item id="ID_SCHEDULER_REMOVE" text="_Remove"/>
 		<separator/>
 		<item id="ID_SCHEDULER_ACTIVATE" text="A_ctivate"/>
 		<item id="ID_SCHEDULER_DEACTIVATE" text="_Deactivate"/>
@@ -1720,23 +1727,23 @@
 		<item id="ID_SCHEDULER_IMPORT" text="_Import..."/>
 		<item id="ID_SCHEDULER_EXPORT" text="E_xport..."/>
 		<separator/>
-		<item id="ID_SCHEDULER_REMOVE_ALL" text="Remove Al_l"/>
+		<item id="ID_SCHEDULER_REMOVE_ALL" text="Re_move All"/>
 	</menu>
 	<!-- DISCOVERY SERVICES WINDOW -->
 	<menu name="CDiscoveryWnd">
-		<item id="ID_DISCOVERY_QUERY" text="_Query Now"/>
-		<item id="ID_DISCOVERY_ADVERTISE" text="A_dvertise"/>
-		<item id="ID_DISCOVERY_REMOVE" text="_Remove"/>
-		<separator/>
-		<item id="ID_DISCOVERY_BROWSE" text="Browse _Statistics"/>
-		<separator/>
-		<item id="ID_DISCOVERY_GNUTELLA" text="Show _Bootstraps"/>
-		<item id="ID_DISCOVERY_WEBCACHE" text="Show _GWebCaches"/>
-		<item id="ID_DISCOVERY_SERVERMET" text="Show Ser_ver.met's"/>
-		<separator/>
 		<item id="ID_DISCOVERY_ADD" text="_Add Service..."/>
 		<separator/>
-		<item id="ID_DISCOVERY_EDIT" text="_Properties"/>
+		<item id="ID_DISCOVERY_EDIT" text="_Edit"/>
+		<item id="ID_DISCOVERY_REMOVE" text="_Remove"/>
+		<separator/>
+		<item id="ID_DISCOVERY_QUERY" text="_Query Now"/>
+		<item id="ID_DISCOVERY_ADVERTISE" text="A_dvertise"/>
+		<item id="ID_DISCOVERY_BROWSE" text="Browse _Statistics"/>
+		<separator/>
+		<item id="ID_DISCOVERY_WEBCACHE" text="Show _GWebCaches"/>
+		<item id="ID_DISCOVERY_GNUTELLA" text="Show _Bootstraps"/>
+		<item id="ID_DISCOVERY_SERVERLIST" text="Show Server.met/_Hublists"/>
+		<item id="ID_DISCOVERY_BLOCKED" text="Show Bl_ocked"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
 	<menu name="CPrivateChatFrame">
@@ -2079,7 +2086,7 @@
 		<text>Adjust common user interface behaviors, etc.</text>
 		<newline gap="10"/>
 		<link target="page:CLibrarySettingsPage" format="b">Library: </link>
-		<text>Presentation, file access, and management of the file library.</text>
+		<text>File access, management and presentation of the file library.</text>
 		<newline gap="10"/>
 		<link target="page:CMediaSettingsPage" format="b">Media Player: </link>
 		<text>Set when to use the internal PeerProject Media System.</text>
@@ -2504,14 +2511,15 @@
 	<tip id="ID_CHILD_MINIMISE" message="Minimize the selected window to the tab bar."/>
 	<tip id="ID_CHILD_RESTORE" message="Open the selected window."/>
 	<tip id="ID_DISCOVERY_ADD" message="Add a new discovery service..."/>
-	<tip id="ID_DISCOVERY_ADVERTISE" message="Advertise the selected GWebCache service to a random existing GWebCache."/>
-	<tip id="ID_DISCOVERY_BROWSE" message="Browse statistics for the selected GWebCache service on the Web."/>
 	<tip id="ID_DISCOVERY_EDIT" message="View the properties for the selected discovery service."/>
-	<tip id="ID_DISCOVERY_GNUTELLA" message="Show bootstrap services in the Discovery window."/>
-	<tip id="ID_DISCOVERY_QUERY" message="Query the selected discovery services now."/>
 	<tip id="ID_DISCOVERY_REMOVE" message="Remove the selected discovery services."/>
-	<tip id="ID_DISCOVERY_SERVERMET" message="Show eDonkey Server.met services in the Discovery window."/>
+	<tip id="ID_DISCOVERY_ADVERTISE" message="Advertise the selected GWebCache service to a random existing GWebCache."/>
+	<tip id="ID_DISCOVERY_QUERY" message="Query the selected discovery services now."/>
+	<tip id="ID_DISCOVERY_BROWSE" message="Browse statistics for the selected GWebCache service on the Web."/>
+	<tip id="ID_DISCOVERY_BLOCKED" message="Show blocked services in the Discovery window."/>
+	<tip id="ID_DISCOVERY_GNUTELLA" message="Show bootstrap services in the Discovery window."/>
 	<tip id="ID_DISCOVERY_WEBCACHE" message="Show GWebCache services in the Discovery window."/>
+	<tip id="ID_DISCOVERY_SERVERLIST" message="Show eDonkey Server.met and DC++ hublist services in the Discovery window."/>
 	<tip id="ID_DOWNLOAD_GROUP_MOVELEFT" message="Reposition tab to the left. (More filter priority)"/>
 	<tip id="ID_DOWNLOAD_GROUP_MOVERIGHT" message="Reposition tab to the right. (Less filter priority)"/>
 	<tip id="ID_DOWNLOAD_GROUP_NEW" message="Create a new download group..."/>
@@ -2762,23 +2770,25 @@
 	<tip id="ID_TRAFFIC_WINDOW" message="Open a new graph window..."/>
 	<tip id="ID_TRANSFERS_CHAT" message="Open a chat session with the selected user."/>
 	<tip id="ID_TRANSFERS_CONNECT" message="Access the selected download sources and attempt to download."/>
-	<tip id="ID_TRANSFERS_DISCONNECT" message="Disconnect the selected download transfer(s)."/>
-	<tip id="ID_TRANSFERS_FORGET" message="Disconnect and forget the selected download source(s)."/>
+	<tip id="ID_TRANSFERS_DISCONNECT" message="Disconnect the selected download transfers."/>
+	<tip id="ID_TRANSFERS_FORGET" message="Disconnect and forget the selected download sources."/>
 	<tip id="ID_TRAY_OPEN" message="Open the PeerProject window."/>
 	<tip id="ID_UPLOADS_AUTO_CLEAR" message="Automatically clear uploads which have been completed."/>
 	<tip id="ID_UPLOADS_CHAT" message="Open a chat session with the selected user."/>
-	<tip id="ID_UPLOADS_CLEAR" message="Clear the selected uploads from the list."/>
-	<tip id="ID_UPLOADS_CLEAR_COMPLETED" message="Clear uploads which have been completed."/>
-	<tip id="ID_UPLOADS_DISCONNECT" message="Disconnect the selected upload transfer(s)."/>
+	<tip id="ID_UPLOADS_CLEAR" message="Cancel selected uploads and remove from list."/>
+	<tip id="ID_UPLOADS_CLEAR_COMPLETED" message="Clear uploads that have completed."/>
+	<tip id="ID_UPLOADS_DISCONNECT" message="Disconnect the selected upload transfers."/>
 	<tip id="ID_UPLOADS_FILTER_ACTIVE" message="Show all uploads which are actively sending."/>
 	<tip id="ID_UPLOADS_FILTER_ALL" message="Show all uploads."/>
 	<tip id="ID_UPLOADS_FILTER_HISTORY" message="Show uploads which are no longer connected."/>
 	<tip id="ID_UPLOADS_FILTER_MENU" message="Choose which types of uploads to show and which types to hide in this view."/>
 	<tip id="ID_UPLOADS_FILTER_QUEUED" message="Show uploads which are waiting in your queues."/>
 	<tip id="ID_UPLOADS_FILTER_TORRENT" message="Show BitTorrent uploads."/>
-	<tip id="ID_UPLOADS_LAUNCH" message="Launch the selected shared file(s)."/>
+	<tip id="ID_UPLOADS_FOLDER" message="Show selected shared files in Windows. (Open folder.)"/>
+	<tip id="ID_UPLOADS_LAUNCH" message="Show selected shared files in the Library. (Or hold Shift to open.)"/>
 	<tip id="ID_UPLOADS_SETTINGS" message="Configure upload settings..."/>
-	<tip id="ID_UPLOADS_START" message="Start the selected queued upload(s)."/>
+	<tip id="ID_UPLOADS_START" message="Force start selected queued uploads."/>
+	<tip id="ID_UPLOADS_PRIORITY" message="Select one upload to remove limits."/>
 	<tip id="ID_VIEW_BASIC" message="Use PeerProject in Basic mode."/>
 	<tip id="ID_VIEW_DISCOVERY" message="Show or hide the DISCOVERY SERVICES window."/>
 	<tip id="ID_VIEW_DOWNLOADS" message="Show or hide the DOWNLOADS window."/>
@@ -2860,6 +2870,7 @@
 	<string id="20016" value="Retry"/>
 	<string id="20017" value="Abort"/>
 	<string id="20018" value="Try Again"/>
+	<string id="20019" value="Please Wait..."/>
 	<string id="20020" value="File"/>
 	<string id="20021" value="Files"/>
 	<string id="20022" value="All Files"/>
@@ -3361,8 +3372,6 @@
 	<string id="20609" value="Scheduled time has passed. Please select a new time."/>
 	<string id="20610" value="No scheduled day. Select one or more days or date."/>
 	<string id="20611" value="No scheduled event. Please select a task."/>
-	<string id="20612" value="Active"/>
-	<string id="20613" value="Inactive"/>
 	<string id="20614" value="Waiting"/>
 	<string id="20615" value="Done Today"/>
 	<string id="20616" value="Done"/>
@@ -3426,16 +3435,17 @@
 	<string id="20680" value="PeerProject Settings"/>
 	<string id="20681" value="Loading skin: %s"/>
 	<string id="20682" value="Skin load error: %s. Element: %s"/>
-	<string id="20684" value="Are you sure you want to delete the &quot;%s&quot; skin? This cannot be undone."/>
-	<string id="20700" value="Active"/>
-	<string id="20701" value="%s in : %s out  (d:%I64i/u:%I64i)"/>
-	<string id="20702" value="Connected to %lu neighbors. %s in local library."/>
-	<string id="20703" value="Hub mode with %lu neighbors. %s in local library."/>
-	<string id="20704" value="Hub/Ultrapeer mode with %lu neighbors. %s in local library."/>
-	<string id="20705" value="Connected. %s in local library."/>
-	<string id="20706" value="Ultrapeer mode with %lu neighbors. %s in local library."/>
-	<string id="20707" value="Connecting to the network..."/>
-	<string id="20708" value="Not connected to the network."/>
+	<string id="20684" value="Are you sure you wish to delete the &quot;%s&quot; skin? This cannot be undone."/>
+	<string id="20700" value="%s in : %s out  (d:%I64i/u:%I64i)"/>
+	<string id="20701" value="Connected to %lu neighbors. %s in local library."/>
+	<string id="20702" value="Hub mode with %lu neighbors. %s in local library."/>
+	<string id="20703" value="Hub/Ultrapeer mode with %lu neighbors. %s in local library."/>
+	<string id="20704" value="Ultrapeer mode with %lu neighbors. %s in local library."/>
+	<string id="20705" value="Connected. %s in your library."/>
+	<string id="20706" value="Connecting to the network..."/>
+	<string id="20707" value="Not connected to the network."/>
+	<string id="20708" value="Active"/>
+	<string id="20709" value="Inactive"/>
 	<string id="20710" value="Clearing"/>
 	<string id="20711" value="Can't Move"/>
 	<string id="20712" value="Choked"/>
@@ -3476,8 +3486,8 @@
 	<string id="20751" value="There are no active searches. Click here to search for files."/>
 	<string id="20752" value="You're not connected. Click the Connect button to get started."/>
 	<string id="20755" value="Are you sure you want to delete the &quot;%s&quot; template?\nThis cannot be undone."/>
-	<string id="20760" value="Active"/>
-	<string id="20761" value="Inactive"/>
+	<string id="20760" value="Priority
+"/>
 	<string id="20762" value="This file appears to be spam."/>
 	<string id="20763" value="Blacklisted:"/>
 	<string id="20764" value="You have downloaded and deleted this file before."/>

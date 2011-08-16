@@ -26,14 +26,15 @@
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
-#include "DlgHelp.h"
 #include "Scheduler.h"
+#include "Buffer.h"
+#include "DlgHelp.h"
 #include "Network.h"
 #include "XML.h"
 
 #include "atltime.h"
-#include "Reason.h"
-#include "Ras.h"
+#include "Reason.h"	// Shutdown code define
+#include "Ras.h"	// Dialup disconnect
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -62,6 +63,7 @@ CScheduler::~CScheduler()
 BOOL CScheduler::Load()
 {
 	CQuickLock oLock( Scheduler.m_pSection );
+
 	CFile pFile;
 	CString strFile = Settings.General.UserPath + _T("\\Data\\Scheduler.dat");
 
@@ -418,17 +420,17 @@ BOOL CScheduleTask::FromXML(CXMLElement* pXML)
 	wchar_t wcTmp;
 	wcTmp = strValue[0];
 	if ( _wtoi( &wcTmp ) )	m_nDays |= ( bLegacy ? SUNDAY : MONDAY );
-	wcTmp =strValue[2];
+	wcTmp = strValue[2];
 	if ( _wtoi( &wcTmp ) )	m_nDays |= ( bLegacy ? MONDAY : TUESDAY );
-	wcTmp =strValue[4];
+	wcTmp = strValue[4];
 	if ( _wtoi( &wcTmp ) )	m_nDays |= ( bLegacy ? TUESDAY : WEDNESDAY );
 	wcTmp =	strValue[6];
 	if ( _wtoi( &wcTmp ) )	m_nDays |= ( bLegacy ? WEDNESDAY : THURSDAY );
 	wcTmp =	strValue[8];
 	if ( _wtoi( &wcTmp ) )	m_nDays |= ( bLegacy ? THURSDAY : FRIDAY );
-	wcTmp =strValue[10];
+	wcTmp = strValue[10];
 	if ( _wtoi( &wcTmp ) )	m_nDays |= ( bLegacy ? FRIDAY : SATURDAY );
-	wcTmp =strValue[12];
+	wcTmp = strValue[12];
 	if ( _wtoi( &wcTmp ) )	m_nDays |= ( bLegacy ? SATURDAY : SUNDAY );
 
 	return TRUE;
@@ -950,8 +952,7 @@ BOOL CScheduler::Import(LPCTSTR pszFile)
 
 	BOOL bResult = FALSE;
 
-	CXMLElement* pXML = CXMLElement::FromBytes( pBuffer.m_pBuffer, pBuffer.m_nLength, TRUE );
-	if ( pXML )
+	if ( CXMLElement* pXML = CXMLElement::FromBytes( pBuffer.m_pBuffer, pBuffer.m_nLength, TRUE ) )
 	{
 		bResult = FromXML( pXML );
 		delete pXML;

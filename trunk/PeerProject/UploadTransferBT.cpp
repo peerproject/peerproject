@@ -24,10 +24,11 @@
 #include "Download.h"
 #include "Downloads.h"
 #include "DownloadTransferBT.h"
+#include "UploadTransferBT.h"
+//#include "UploadTransfer.h"
 #include "Uploads.h"
 #include "UploadFile.h"
 #include "UploadFiles.h"
-#include "UploadTransferBT.h"
 #include "FragmentedFile.h"
 #include "TransferFile.h"
 #include "Statistics.h"
@@ -154,7 +155,7 @@ DWORD CUploadTransferBT::GetMeasuredSpeed()
 
 BOOL CUploadTransferBT::OnConnected()
 {
-	m_pClient->m_mOutput.pLimit = &Uploads.m_nTorrentSpeed;
+	m_pClient->m_mOutput.pLimit = m_bPriority ? NULL : &Uploads.m_nTorrentSpeed;
 	return TRUE;
 }
 
@@ -198,6 +199,12 @@ BOOL CUploadTransferBT::OnRequest(CBTPacket* pPacket)
 {
 	if ( pPacket->GetRemaining() < 4 * 3 ) return TRUE;
 	if ( m_bChoked ) return TRUE;
+
+	// Toggle bandwidth for unhandled torrent Priority uploads
+	if ( m_bPriority && m_pClient->m_mOutput.pLimit != NULL )
+		m_pClient->m_mOutput.pLimit = NULL;
+	else if ( ! m_bPriority && m_pClient->m_mOutput.pLimit == NULL )
+		m_pClient->m_mOutput.pLimit = &Uploads.m_nTorrentSpeed;
 
 	QWORD nIndex	= pPacket->ReadLongBE();
 	QWORD nOffset	= pPacket->ReadLongBE();

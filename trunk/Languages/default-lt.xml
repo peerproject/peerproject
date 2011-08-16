@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Lithuanian Skin File -->
 
-<!-- Translation based on default-en.xml r68 -->
+<!-- Translation based on default-en.xml r69 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -151,10 +151,10 @@
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Peržiūra"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Trinti failą"/>
-		<button id="ID_DOWNLOADS_RESUME" text="Tęsti siuntimą"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="Pristabdyti siuntimą"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Nutraukti siuntimą"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Valyti failą"/>
+		<button id="ID_DOWNLOADS_RESUME" text="Tęsti siuntimą"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="Pristabdyti siuntimą"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Savybės"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Rodyti monitorių"/>
@@ -163,13 +163,13 @@
 	</toolbar>
 	<toolbar name="CDownloadsWnd">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Atverti ar vykdyti"/>
-		<button id="ID_DOWNLOADS_FILE_DELETE" text="Trinti failą"/>
 		<button id="ID_DOWNLOADS_LAUNCH" text="Peržiūra"/>
 		<separator/>
-		<button id="ID_DOWNLOADS_RESUME" text="Tęsti"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="Stabdyti"/>
+		<button id="ID_DOWNLOADS_FILE_DELETE" text="Trinti failą"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Šalinti"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Valyti"/>
+		<button id="ID_DOWNLOADS_RESUME" text="Tęsti"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="Stabdyti"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Savybės"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Rodyti monitorių"/>
@@ -189,8 +189,9 @@
 	<toolbar name="CUploadsWnd">
 		<button id="ID_UPLOADS_LAUNCH" text="Atverti ar vykdyti"/>
 		<separator/>
-		<button id="ID_UPLOADS_START" text="Leisti dabar"/>
 		<button id="ID_UPLOADS_CLEAR" text="Atšaukti"/>
+		<button id="ID_UPLOADS_START" text="Leisti dabar"/>
+		<button id="ID_UPLOADS_PRIORITY" text="Prioritetas" visible="false"/>
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Rodyti naudotojo duomenis"/>
 		<button id="ID_UPLOADS_CHAT" text="Kalbėtis su naudotoju"/>
@@ -1216,11 +1217,16 @@
 	<menu name="CUploadsWnd.Upload.Basic">
 		<item id="ID_BROWSE_LAUNCH" text="_Rodyti naudotojo duomenis"/>
 		<item id="ID_UPLOADS_CHAT" text="_Kalbėtis su naudotoju"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="Ži_nynas..."/>
 	</menu>
 	<menu name="CUploadsWnd.Upload">
-		<item id="ID_UPLOADS_START" text="_Leisti dabar"/>
-		<item id="ID_UPLOADS_CLEAR" text="Š_alinti"/>
+		<item id="ID_UPLOADS_LAUNCH" text="Rodyti _Library"/>
 		<item id="ID_UPLOADS_FOLDER" text="Atverti _Folder"/>
+		<separator/>
+		<item id="ID_UPLOADS_CLEAR" text="Š_alinti"/>
+		<item id="ID_UPLOADS_START" text="_Leisti dabar"/>
+		<item id="ID_UPLOADS_PRIORITY" text="Prioritetas"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="_Rodyti naudotojo duomenis"/>
 		<item id="ID_UPLOADS_CHAT" text="_Kalbėtis su naudotoju"/>
@@ -1627,19 +1633,19 @@
 	</menu>
 	<!-- DISCOVERY SERVICES WINDOW -->
 	<menu name="CDiscoveryWnd">
-		<item id="ID_DISCOVERY_QUERY" text="_Kreiptis"/>
-		<item id="ID_DISCOVERY_ADVERTISE" text="A_nonsuoti"/>
+		<item id="ID_DISCOVERY_ADD" text="_Pridėti tarnybą..."/>
+		<separator/>
+		<item id="ID_DISCOVERY_EDIT" text="_Ypatybės"/>
 		<item id="ID_DISCOVERY_REMOVE" text="Š_alinti"/>
 		<separator/>
+		<item id="ID_DISCOVERY_QUERY" text="_Kreiptis"/>
+		<item id="ID_DISCOVERY_ADVERTISE" text="A_nonsuoti"/>
 		<item id="ID_DISCOVERY_BROWSE" text="Peržvelgti _statistiką"/>
 		<separator/>
 		<item id="ID_DISCOVERY_GNUTELLA" text="Rodyti _Bootstraps"/>
 		<item id="ID_DISCOVERY_WEBCACHE" text="Rodyti _GWebCaches"/>
-		<item id="ID_DISCOVERY_SERVERMET" text="Rodyti ser_ver.mets"/>
-		<separator/>
-		<item id="ID_DISCOVERY_ADD" text="_Pridėti tarnybą..."/>
-		<separator/>
-		<item id="ID_DISCOVERY_EDIT" text="_Ypatybės"/>
+		<item id="ID_DISCOVERY_SERVERLIST" text="Rodyti ser_ver.mets"/>
+		<item id="ID_DISCOVERY_BLOCKED" text="Rodyti Užblokuoti"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
 	<menu name="CPrivateChatFrame">
@@ -2379,7 +2385,7 @@
 	<tip id="ID_DISCOVERY_GNUTELLA" message="Rodyti savikėlos („bootstrap“) tarnybas paslaugų radimo tarnybų lange."/>
 	<tip id="ID_DISCOVERY_QUERY" message="Nusiųsti tuoj pat užklausą pasirinktai paslaugų radimo tarnybai."/>
 	<tip id="ID_DISCOVERY_REMOVE" message="Pašalinti pasirinktas paslaugų radimo tarnybas."/>
-	<tip id="ID_DISCOVERY_SERVERMET" message="Rodyti eDonkey Server.met tarnybas paslaugų radimo tarnybų lange."/>
+	<tip id="ID_DISCOVERY_SERVERLIST" message="Rodyti eDonkey Server.met tarnybas paslaugų radimo tarnybų lange."/>
 	<tip id="ID_DISCOVERY_WEBCACHE" message="Rodyti GWebCache tarnybas paslaugų radimo tarnybų lange."/>
 	<tip id="ID_DOWNLOAD_GROUP_CLEAR" message="Atšaukti visų šios grupės failų parsisiuntimą ir pašalinti failus."/>
 	<tip id="ID_DOWNLOAD_GROUP_NEW" message="Sukurti naują parsisiuntimų grupę..."/>
@@ -2641,6 +2647,7 @@
 	<tip id="ID_UPLOADS_LAUNCH" message="Atverti/vykdyti pasirinktą bendrintą failą(-us)."/>
 	<tip id="ID_UPLOADS_SETTINGS" message="Keisti išsiuntimų nuostatas..."/>
 	<tip id="ID_UPLOADS_START" message="Tęsti pasirinkto siunčiamo failo(-ų) išsiuntimą."/>
+	<tip id="ID_UPLOADS_PRIORITY" message="Prioritetas."/>
 	<tip id="ID_VIEW_BASIC" message="Naudoti „PeerProject“ įprastinėje veiksenoje."/>
 	<tip id="ID_VIEW_DISCOVERY" message="Rodyti ar paslėpti „PASLAUGŲ RADIMO TARNYBŲ“ langą."/>
 	<tip id="ID_VIEW_DOWNLOADS" message="Rodyti arba paslėpti „ATSISIUNTIMŲ“ langą."/>
@@ -2717,6 +2724,7 @@
 	<string id="20012" value="Pasirinktina"/>
 	<string id="20013" value="Numatyta"/>
 	<string id="20014" value="Baigti"/>
+	<string id="20019" value="Prašome palaukti..."/>
 	<string id="20020" value="Failą"/>
 	<string id="20021" value="Failai"/>
 	<string id="20022" value="Visi Failai"/>
@@ -3238,15 +3246,16 @@
 	<string id="20678" value="eDonkey tinkle naudojamos didelės eilės, ir jose laukiama ilgai. Sumažinę eilės dydį Jūs priimsite susijungimus labai griežtomis sąlygomis ir galite turėti problemų su atsisiuntimu.\nAr įsitikinę, kad norite apriboti eilės numerius?"/>
 	<string id="20680" value="„PeerProject“ nuostatos"/>
 	<string id="20684" value="Ar tikrai norite ištrinti „%s“ apvalkalą? Atstatyti vėliau bus neįmanoma."/>
-	<string id="20700" value="Aktyvus"/>
-	<string id="20701" value="%s įein. : %s išein. (a:%I64i/i:%I64i)"/>
-	<string id="20702" value="Prisijungta prie %lu kaimynų(-o). %s asmeninėje kolekcijoje."/>
-	<string id="20703" value="Mazgo veiksena su %lu kaimynais(-ų). %s asmeninėje kolekcijoje."/>
-	<string id="20704" value="Mazgas/Vedančiojo veiksena su %lu kaimynais(-ų). %s asmeninėje kolekcijoje."/>
+	<string id="20700" value="%s įein. : %s išein. (a:%I64i/i:%I64i)"/>
+	<string id="20701" value="Prisijungta prie %lu kaimynų(-o). %s asmeninėje kolekcijoje."/>
+	<string id="20702" value="Mazgo veiksena su %lu kaimynais(-ų). %s asmeninėje kolekcijoje."/>
+	<string id="20703" value="Mazgas/Vedančiojo veiksena su %lu kaimynais(-ų). %s asmeninėje kolekcijoje."/>
+	<string id="20704" value="Vedančiojo veiksena su %lu kaimynais(-ų). %s asmeninėje kolekcijoje."/>
 	<string id="20705" value="Prisijungta. Jūsų kolekcijoje yra %s."/>
-	<string id="20706" value="Vedančiojo veiksena su %lu kaimynais(-ų). %s asmeninėje kolekcijoje."/>
-	<string id="20707" value="Jungiamasi prie tinklo..."/>
-	<string id="20708" value="Neprisijungta prie tinklo."/>
+	<string id="20706" value="Jungiamasi prie tinklo..."/>
+	<string id="20707" value="Neprisijungta prie tinklo."/>
+	<string id="20708" value="Aktyvus"/>
+	<string id="20709" value="Neaktyvus"/>
 	<string id="20710" value="Kliringas"/>
 	<string id="20711" value="Neįmanoma perkelti"/>
 	<string id="20712" value="Apkrautas"/>
@@ -3287,8 +3296,7 @@
 	<string id="20751" value="Nėra aktyvių paieškos procesų. Pradėkite paiešką paspaudę čia."/>
 	<string id="20752" value="Jūs nesate prisijungę. Pradėkite paspaudę „Jungtis“ mygtuką."/>
 	<string id="20755" value="Ar tikrai norite pašalinti šabloną „%s“?\nŠio žingsnio negalėsite atšaukti."/>
-	<string id="20760" value="Aktyvus"/>
-	<string id="20761" value="Neaktyvus"/>
+	<string id="20760" value="Prioritetas"/>
 	<string id="20762" value="Šis failas, atrodo, yra reklaminė šiukšlė."/>
 	<string id="20763" value="Įtraukta į juodajį sąrašą:"/>
 	<string id="20764" value="Jūs anksčiau buvote parsisiuntę šį failą ir jį ištrynėte."/>

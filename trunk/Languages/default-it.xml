@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Italian Skin File -->
 
-<!-- Translation based on default-en.xml r68 -->
+<!-- Translation based on default-en.xml r69 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -152,10 +152,10 @@
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Anteprima file"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Elimina file"/>
-		<button id="ID_DOWNLOADS_RESUME" text="Riprendi"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="Pausa"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Annulla"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Rimuovi"/>
+		<button id="ID_DOWNLOADS_RESUME" text="Riprendi"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="Pausa"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Informazioni"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Mostra monitor"/>
@@ -167,10 +167,10 @@
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Anteprima file"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Elimina file"/>
-		<button id="ID_DOWNLOADS_RESUME" text="Riprendi"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="Pausa"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Annulla"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Rimuovi download"/>
+		<button id="ID_DOWNLOADS_RESUME" text="Riprendi"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="Pausa"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Informazioni"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Mostra monitor"/>
@@ -190,8 +190,9 @@
 	<toolbar name="CUploadsWnd">
 		<button id="ID_UPLOADS_LAUNCH" text="Apri/Play"/>
 		<separator/>
-		<button id="ID_UPLOADS_START" text="Avvia"/>
 		<button id="ID_UPLOADS_CLEAR" text="Rimuovi upload"/>
+		<button id="ID_UPLOADS_START" text="Avvia"/>
+		<button id="ID_UPLOADS_PRIORITY" text="Priorità" visible="false"/>
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Esplora utente"/>
 		<button id="ID_UPLOADS_CHAT" text="Chat"/>
@@ -1196,11 +1197,16 @@
 	<menu name="CUploadsWnd.Upload.Basic">
 		<item id="ID_BROWSE_LAUNCH" text="Esplora utente"/>
 		<item id="ID_UPLOADS_CHAT" text="Chat"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="_Aiuto..."/>
 	</menu>
 	<menu name="CUploadsWnd.Upload">
-		<item id="ID_UPLOADS_START" text="Avvia"/>
-		<item id="ID_UPLOADS_CLEAR" text="Rimuovi"/>
+		<item id="ID_UPLOADS_LAUNCH" text="Mostra _Library"/>
 		<item id="ID_UPLOADS_FOLDER" text="Apri _Folder"/>
+		<separator/>
+		<item id="ID_UPLOADS_CLEAR" text="Rimuovi"/>
+		<item id="ID_UPLOADS_START" text="Avvia"/>
+		<item id="ID_UPLOADS_PRIORITY" text="Priorità"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="Esplora utente"/>
 		<item id="ID_UPLOADS_CHAT" text="Chat"/>
@@ -1604,19 +1610,19 @@
 	</menu>
 	<!-- DISCOVERY SERVICES WINDOW -->
 	<menu name="CDiscoveryWnd">
-		<item id="ID_DISCOVERY_QUERY" text="Richiedi ora"/>
-		<item id="ID_DISCOVERY_ADVERTISE" text="Annuncia"/>
+		<item id="ID_DISCOVERY_ADD" text="Aggiungi servizio..."/>
+		<separator/>
+		<item id="ID_DISCOVERY_EDIT" text="Proprietà"/>
 		<item id="ID_DISCOVERY_REMOVE" text="Rimuovi"/>
 		<separator/>
+		<item id="ID_DISCOVERY_QUERY" text="Richiedi ora"/>
+		<item id="ID_DISCOVERY_ADVERTISE" text="Annuncia"/>
 		<item id="ID_DISCOVERY_BROWSE" text="Esplora statistiche"/>
 		<separator/>
 		<item id="ID_DISCOVERY_GNUTELLA" text="Mostra bootstrap"/>
 		<item id="ID_DISCOVERY_WEBCACHE" text="Mostra GWebCache"/>
-		<item id="ID_DISCOVERY_SERVERMET" text="Mostra server.met"/>
-		<separator/>
-		<item id="ID_DISCOVERY_ADD" text="Aggiungi servizio..."/>
-		<separator/>
-		<item id="ID_DISCOVERY_EDIT" text="Proprietà"/>
+		<item id="ID_DISCOVERY_SERVERLIST" text="Mostra server.met"/>
+		<item id="ID_DISCOVERY_BLOCKED" text="Mostra Bloccato"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
 	<menu name="CPrivateChatFrame">
@@ -2368,7 +2374,7 @@
 	<tip id="ID_DISCOVERY_GNUTELLA" message="Mostra i servizi bootstrap nella finestra Servizi di connessione."/>
 	<tip id="ID_DISCOVERY_QUERY" message="Consulta il servizio di connessione selezionato."/>
 	<tip id="ID_DISCOVERY_REMOVE" message="Rimuovi il servizio di connessione selezionato."/>
-	<tip id="ID_DISCOVERY_SERVERMET" message="Mostra i servizi server.met di eDonkey nella finestra Servizi di connessione."/>
+	<tip id="ID_DISCOVERY_SERVERLIST" message="Mostra i servizi server.met di eDonkey nella finestra Servizi di connessione."/>
 	<tip id="ID_DISCOVERY_WEBCACHE" message="Mostra i servizi GWebCache nella finestra Servizi di connessione."/>
 	<tip id="ID_DOWNLOAD_GROUP_CLEAR" message="Annulla e rimuovi tutti i download di questo gruppo."/>
 	<tip id="ID_DOWNLOAD_GROUP_NEW" message="Crea un nuovo gruppo di download ..."/>
@@ -2629,6 +2635,7 @@
 	<tip id="ID_UPLOADS_LAUNCH" message="Apri i file condivisi selezionati."/>
 	<tip id="ID_UPLOADS_SETTINGS" message="Configura le impostazioni di upload..."/>
 	<tip id="ID_UPLOADS_START" message="Avvia gli upload in coda che hai selezionato."/>
+	<tip id="ID_UPLOADS_PRIORITY" message="Priorità."/>
 	<tip id="ID_VIEW_BASIC" message="Usa PeerProject in modalità normale."/>
 	<tip id="ID_VIEW_DISCOVERY" message="Mostra o nascondi la finestra dei servizi di connessione."/>
 	<tip id="ID_VIEW_DOWNLOADS" message="Mostra o nascondi la finestra dei download."/>
@@ -2709,6 +2716,7 @@
 	<string id="20016" value="Vai Indietro"/>
 	<string id="20017" value="Fermat"/>
 	<string id="20018" value="Riprova"/>
+	<string id="20019" value="Attendere..."/>
 	<string id="20020" value="File"/>
 	<string id="20021" value="Files"/>
 	<string id="20022" value="Tutti i File"/>
@@ -3234,15 +3242,16 @@
 	<string id="20678" value="La rete eDonkey usa grandi code con lunghi tempi di attesa. Limitando la posizione massima in coda puoi avere problemi nella partenza dei download.nSei sicuro di voler limitare la posizione massima in coda da accettare?"/>
 	<string id="20680" value="Opzioni di PeerProject"/>
 	<string id="20684" value="Desideri eliminare la skin &quot;%s&quot;. Quest'azione non potrà essere annullata."/>
-	<string id="20700" value="Attivo"/>
-	<string id="20701" value="%s in : %s out (d:%I64i/u:%I64i)"/>
-	<string id="20702" value="Connesso con %lu host. %s nella libreria locale."/>
-	<string id="20703" value="Modalità Hub con %lu vicino(i). %s nella tua libreria locale."/>
-	<string id="20704" value="Modalità Hub/Ultrapeer con %lu vicino(i). %s nella libreria locale."/>
+	<string id="20700" value="%s in : %s out (d:%I64i/u:%I64i)"/>
+	<string id="20701" value="Connesso con %lu host. %s nella libreria locale."/>
+	<string id="20702" value="Modalità Hub con %lu vicino(i). %s nella tua libreria locale."/>
+	<string id="20703" value="Modalità Hub/Ultrapeer con %lu vicino(i). %s nella libreria locale."/>
+	<string id="20704" value="Modalità Ultrapeer con %lu vicino(i). %s nella libreria locale."/>
 	<string id="20705" value="Connesso. %s nella tua libreria locale."/>
-	<string id="20706" value="Modalità Ultrapeer con %lu vicino(i). %s nella libreria locale."/>
-	<string id="20707" value="Connessione alla rete in corso..."/>
-	<string id="20708" value="Non connesso alla rete."/>
+	<string id="20706" value="Connessione alla rete in corso..."/>
+	<string id="20707" value="Non connesso alla rete."/>
+	<string id="20708" value="Attivo"/>
+	<string id="20709" value="Inattivo"/>
 	<string id="20710" value="Schiarendo"/>
 	<string id="20711" value="Impossissibile spostare"/>
 	<string id="20712" value="Occupato"/>
@@ -3283,8 +3292,7 @@
 	<string id="20751" value="Nessuna ricerca attiva. Clicca su Nuova ricerca per iniziare."/>
 	<string id="20752" value="Non sei connesso. Clicca sul pulsante Connetti per iniziare."/>
 	<string id="20755" value="Sei sicuro di voler cancellare il template &quot;%s&quot;.nNon può essere annullato."/>
-	<string id="20760" value="Attivo"/>
-	<string id="20761" value="Inattivo"/>
+	<string id="20760" value="Priorità"/>
 	<string id="20762" value="Questo file sembra essere spam."/>
 	<string id="20763" value="Inserito nella lista nera:"/>
 	<string id="20764" value="Hai già scaricato ed eliminato questo file."/>

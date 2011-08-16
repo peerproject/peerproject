@@ -72,18 +72,20 @@ BEGIN_MESSAGE_MAP(CUploadsWnd, CPanelWnd)
 	ON_UPDATE_COMMAND_UI(ID_UPLOADS_CLEAR, OnUpdateUploadsClear)
 	ON_COMMAND(ID_UPLOADS_CLEAR, OnUploadsClear)
 	ON_COMMAND(ID_UPLOADS_CLEAR_COMPLETED, OnUploadsClearCompleted)
-	ON_UPDATE_COMMAND_UI(ID_UPLOADS_CHAT, OnUpdateUploadsChat)
-	ON_COMMAND(ID_UPLOADS_CHAT, OnUploadsChat)
 	ON_UPDATE_COMMAND_UI(ID_UPLOADS_AUTO_CLEAR, OnUpdateUploadsAutoClear)
 	ON_COMMAND(ID_UPLOADS_AUTO_CLEAR, OnUploadsAutoClear)
+	ON_UPDATE_COMMAND_UI(ID_UPLOADS_CHAT, OnUpdateUploadsChat)
+	ON_COMMAND(ID_UPLOADS_CHAT, OnUploadsChat)
 	ON_UPDATE_COMMAND_UI(ID_SECURITY_BAN, OnUpdateSecurityBan)
 	ON_COMMAND(ID_SECURITY_BAN, OnSecurityBan)
 	ON_UPDATE_COMMAND_UI(ID_BROWSE_LAUNCH, OnUpdateBrowseLaunch)
 	ON_COMMAND(ID_BROWSE_LAUNCH, OnBrowseLaunch)
 	ON_UPDATE_COMMAND_UI(ID_UPLOADS_START, OnUpdateUploadsStart)
 	ON_COMMAND(ID_UPLOADS_START, OnUploadsStart)
-	ON_COMMAND(ID_UPLOADS_HELP, OnUploadsHelp)
+	ON_UPDATE_COMMAND_UI(ID_UPLOADS_PRIORITY, OnUpdateUploadsPriority)
+	ON_COMMAND(ID_UPLOADS_PRIORITY, OnUploadsPriority)
 	ON_COMMAND(ID_UPLOADS_SETTINGS, OnUploadsSettings)
+	ON_COMMAND(ID_UPLOADS_HELP, OnUploadsHelp)
 	ON_UPDATE_COMMAND_UI(ID_UPLOADS_FILTER_ALL, OnUpdateUploadsFilterAll)
 	ON_COMMAND(ID_UPLOADS_FILTER_ALL, OnUploadsFilterAll)
 	ON_UPDATE_COMMAND_UI(ID_UPLOADS_FILTER_ACTIVE, OnUpdateUploadsFilterActive)
@@ -283,7 +285,7 @@ BOOL CUploadsWnd::IsSelected(CUploadFile* pFile)
 
 void CUploadsWnd::Prepare()
 {
-	if ( GetTickCount() - m_tSel < 250 )
+	if ( GetTickCount() < m_tSel + 250 )
 		return;
 
 	CSingleLock pLock( &Transfers.m_pSection, FALSE );
@@ -291,6 +293,8 @@ void CUploadsWnd::Prepare()
 		return;
 
 	m_tSel = GetTickCount();
+	m_nSelected = 0;
+
 	m_bSelFile = m_bSelUpload = FALSE;
 	m_bSelActive = m_bSelQueued = FALSE;
 	m_bSelChat = m_bSelBrowse = FALSE;
@@ -301,48 +305,62 @@ void CUploadsWnd::Prepare()
 	{
 		CUploadFile* pFile = UploadFiles.GetNext( posFile );
 
-		if ( pFile->m_bSelected && IsSelected( pFile ) )
+		if ( ! pFile->m_bSelected || ! IsSelected( pFile ) )
+			continue;
+
+		m_bSelFile = TRUE;
+
+		if ( CUploadTransfer* pTransfer = pFile->GetActive() )
 		{
-			m_bSelFile = TRUE;
+			m_nSelected++;
+			m_bSelUpload = TRUE;
 
-			if ( CUploadTransfer* pTransfer = pFile->GetActive() )
+			if ( pTransfer->m_bClientExtended )
 			{
-				m_bSelUpload = TRUE;
-
-				if ( pTransfer->m_bClientExtended )
-				{
-					m_bSelChat = TRUE;
+				m_bSelChat = TRUE;
+				m_bSelBrowse = TRUE;
+			}
+			else if ( pTransfer->m_nProtocol == PROTOCOL_ED2K )
+			{
+				m_bSelChat = TRUE;
+				CUploadTransferED2K* pTransferED2K = static_cast< CUploadTransferED2K* >( pTransfer );
+				if ( pTransferED2K->m_pClient && pTransferED2K->m_pClient->m_bEmBrowse )
 					m_bSelBrowse = TRUE;
-				}
-				else if ( pTransfer->m_nProtocol == PROTOCOL_ED2K )
-				{
-					m_bSelChat = TRUE;
-					CUploadTransferED2K* pTransferED2K = static_cast< CUploadTransferED2K* >( pTransfer );
-					if ( pTransferED2K->m_pClient && pTransferED2K->m_pClient->m_bEmBrowse )
-						m_bSelBrowse = TRUE;
-				}
+			}
 
-				if ( pTransfer->m_pQueue != NULL )
-				{
-					if ( pTransfer->m_pQueue->IsActive( pTransfer ) )
-						m_bSelActive = TRUE;
-					else
-						m_bSelQueued = TRUE;
-				}
-				else if ( pTransfer->m_nState != upsNull )
-				{
+			if ( pTransfer->m_pQueue != NULL )
+			{
+				if ( pTransfer->m_pQueue->IsActive( pTransfer ) )
 					m_bSelActive = TRUE;
-				}
+				else
+					m_bSelQueued = TRUE;
+			}
+			else if ( pTransfer->m_nState != upsNull )
+			{
+				m_bSelActive = TRUE;
+			}
 
-				if ( m_bSelPartial == TRUE )
-				{
-					CPeerProjectFile oFile = *pFile;
-					CSingleLock pLibraryLock( &Library.m_pSection, TRUE );
-					if ( CLibraryFile* pLibFile = LibraryMaps.LookupFileByHash( &oFile, FALSE, TRUE ) )
-						m_bSelPartial = FALSE;
-					else if ( PathIsDirectory( Settings.Downloads.TorrentPath + _T("\\") + pFile->m_sName ) )	// Try multifile torrent
-						m_bSelPartial = FALSE;
-				}
+			if ( m_bSelPartial == TRUE )
+			{
+				if ( StartsWith( pFile->m_sPath, Settings.Downloads.IncompletePath ) )
+					continue;
+
+				if ( ! pFile->m_sPath.IsEmpty() )	// Not multifile torrent
+					m_bSelPartial = FALSE;
+				else if ( PathIsDirectory( Settings.Downloads.TorrentPath + _T("\\") + pFile->m_sName ) )		// Try multifile torrent default,  ToDo: Need better detection
+					m_bSelPartial = FALSE;
+
+				//CPeerProjectFile oFile = *pFile;
+				//CSingleLock pLibraryLock( &Library.m_pSection );
+				//if ( pLibraryLock.Lock( 100 ) )
+				//{
+				//	if ( CLibraryFile* pLibFile = LibraryMaps.LookupFileByHash( &oFile, FALSE, TRUE ) )
+				//		m_bSelPartial = FALSE;
+				//	else if ( pFile->m_sPath.Find( pFile->m_sName ) > 3 )	// Not multifile torrent  (Not in library, but shared seed from untracked download group)
+				//		m_bSelPartial = FALSE;
+				//	else if ( PathIsDirectory( Settings.Downloads.TorrentPath + _T("\\") + pFile->m_sName ) ) 	// Try multifile torrent default, need better detection
+				//		m_bSelPartial = FALSE;
+				//}
 			}
 		}
 	}
@@ -398,6 +416,10 @@ void CUploadsWnd::OnUploadsDisconnect()
 void CUploadsWnd::OnUpdateUploadsStart(CCmdUI* pCmdUI)
 {
 	Prepare();
+
+	if ( CCoolBarItem* pItem = CCoolBarItem::FromCmdUI( pCmdUI ) )
+		pItem->Show( ! m_bSelActive || m_bSelQueued );
+
 	pCmdUI->Enable( m_bSelQueued );
 }
 
@@ -411,6 +433,52 @@ void CUploadsWnd::OnUploadsStart()
 
 		if ( IsSelected( pFile ) && pFile->GetActive() != NULL )
 			pFile->GetActive()->Promote();
+	}
+}
+
+void CUploadsWnd::OnUpdateUploadsPriority(CCmdUI* pCmdUI)
+{
+	Prepare();
+
+	// Default skin visible="false"
+	if ( CCoolBarItem* pItem = CCoolBarItem::FromCmdUI( pCmdUI ) )
+		pItem->Show( m_bSelActive && ! m_bSelQueued );
+
+	BOOL bPriority = FALSE;
+
+	if ( m_bSelActive && ! m_bSelQueued )
+	{
+		for ( POSITION pos = UploadFiles.GetIterator() ; pos ; )
+		{
+			CUploadFile* pFile = UploadFiles.GetNext( pos );
+
+			if ( IsSelected( pFile ) && pFile->GetActive()->m_bPriority && pFile->GetActive()->m_nState != upsNull )
+			{
+				bPriority = TRUE;
+				break;
+			}
+		}
+	}
+
+	pCmdUI->Enable( ( m_bSelActive && m_nSelected == 1 ) || bPriority );
+	pCmdUI->SetCheck( bPriority );
+}
+
+void CUploadsWnd::OnUploadsPriority()
+{
+	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+
+	for ( POSITION pos = UploadFiles.GetIterator() ; pos ; )
+	{
+		CUploadFile* pFile = UploadFiles.GetNext( pos );
+
+		if ( pFile->GetActive() != NULL )
+		{
+			if ( m_nSelected == 1 && IsSelected( pFile ) && ! pFile->GetActive()->m_bPriority )
+				pFile->GetActive()->Promote( TRUE );
+			else if ( pFile->GetActive()->m_nState != upsNull )
+				pFile->GetActive()->m_bPriority = FALSE;
+		}
 	}
 }
 
@@ -470,8 +538,8 @@ void CUploadsWnd::OnUploadsLaunch()
 	CSingleLock pTransfersLock( &Transfers.m_pSection, TRUE );
 
 	// Shift key opens files directly
-	//if ( ! ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) != 0 )
-	//{
+	if ( ! ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) != 0 )
+	{
 		// Show file in Libray:
 		for ( POSITION pos = UploadFiles.GetIterator() ; pos ; )
 		{
@@ -498,34 +566,35 @@ void CUploadsWnd::OnUploadsLaunch()
 				}
 			}
 		}
-	//}
-	//else // Alternately launch files
-	//{
-	//	CList<CUploadFile*> pList;
-	//
-	//	for ( POSITION pos = UploadFiles.GetIterator() ; pos ; )
-	//	{
-	//		CUploadFile* pFile = UploadFiles.GetNext( pos );
-	//		if ( IsSelected( pFile ) ) pList.AddTail( pFile );
-	//	}
-	//
-	//	while ( ! pList.IsEmpty() )
-	//	{
-	//		CUploadFile* pFile = pList.RemoveHead();
-	//
-	//		if ( UploadFiles.Check( pFile ) )
-	//		{
-	//			CString strPath = pFile->m_sPath;
-	//
-	//			if ( strPath.Find( pFile->m_sName ) > 3 )	// Not Torrent
-	//			{
-	//				pTransfersLock.Unlock();
-	//				if ( CFileExecutor::Execute( strPath ) )
-	//					pTransfersLock.Lock();
-	//			}
-	//		}
-	//	}
-	//}
+	}
+	else // Alternately launch files
+	{
+		CList<CUploadFile*> pList;
+	
+		for ( POSITION pos = UploadFiles.GetIterator() ; pos ; )
+		{
+			CUploadFile* pFile = UploadFiles.GetNext( pos );
+			if ( IsSelected( pFile ) )
+				pList.AddTail( pFile );
+		}
+	
+		while ( ! pList.IsEmpty() )
+		{
+			CUploadFile* pFile = pList.RemoveHead();
+	
+			if ( UploadFiles.Check( pFile ) )
+			{
+				CString strPath = pFile->m_sPath;
+	
+				if ( strPath.Find( pFile->m_sName ) > 3 )	// Not multifile torrent
+				{
+					pTransfersLock.Unlock();
+					CFileExecutor::Execute( strPath );
+					pTransfersLock.Lock();
+				}
+			}
+		}
+	}
 }
 
 void CUploadsWnd::OnUpdateUploadsFolder(CCmdUI* pCmdUI)

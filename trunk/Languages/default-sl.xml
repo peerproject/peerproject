@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Slovenian Skin File -->
 
-<!-- Translation based on default-en.xml r68 (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r69 (Shareaza 2.2.2.12) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -151,10 +151,10 @@
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Predogled datoteke"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Briši datoteke"/>
-		<button id="ID_DOWNLOADS_RESUME" text="Nadaljevanje prenosa"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="Prekinitev prenosa"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Preklic prenosa"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Počisti prenos"/>
+		<button id="ID_DOWNLOADS_RESUME" text="Nadaljevanje prenosa"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="Prekinitev prenosa"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Informacije"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Pokaži nadzornik"/>
@@ -166,10 +166,10 @@
 		<button id="ID_DOWNLOADS_LAUNCH" text="Predogled datoteke"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Briši datoteko"/>
-		<button id="ID_DOWNLOADS_RESUME" text="Nadaljevanje prenosa"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="Prekinitev prenosa"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Preklic prenosa"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Počisti prenos"/>
+		<button id="ID_DOWNLOADS_RESUME" text="Nadaljevanje prenosa"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="Prekinitev prenosa"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Informacije"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Pokaži nadzornik"/>
@@ -189,8 +189,9 @@
 	<toolbar name="CUploadsWnd">
 		<button id="ID_UPLOADS_LAUNCH" text="Odpri ali predvajaj"/>
 		<separator/>
-		<button id="ID_UPLOADS_START" text="Začni takoj"/>
 		<button id="ID_UPLOADS_CLEAR" text="Počisti naložek (upload)"/>
+		<button id="ID_UPLOADS_START" text="Začni takoj"/>
+		<button id="ID_UPLOADS_PRIORITY" text="Prednost" visible="false"/>
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Brskanje po uporabniku"/>
 		<button id="ID_UPLOADS_CHAT" text="Kramljaj z uporabnikom"/>
@@ -1123,11 +1124,16 @@
 	<menu name="CUploadsWnd.Upload.Basic">
 		<item id="ID_BROWSE_LAUNCH" text="_Brskanje po uporabniku"/>
 		<item id="ID_UPLOADS_CHAT" text="_Kramljaj z uporabnikom"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="_Pomoč..."/>
 	</menu>
 	<menu name="CUploadsWnd.Upload">
-		<item id="ID_UPLOADS_START" text="_Začni takoj"/>
-		<item id="ID_UPLOADS_CLEAR" text="_Počisti"/>
+		<item id="ID_UPLOADS_LAUNCH" text="Pokaži _Library"/>
 		<item id="ID_UPLOADS_FOLDER" text="Odpri _Folder"/>
+		<separator/>
+		<item id="ID_UPLOADS_CLEAR" text="_Počisti"/>
+		<item id="ID_UPLOADS_START" text="_Začni takoj"/>
+		<item id="ID_UPLOADS_PRIORITY" text="Prednost"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="_Brskanje po uporabniku"/>
 		<item id="ID_UPLOADS_CHAT" text="_Kramljaj z uporabnikom"/>
@@ -1526,19 +1532,19 @@
 	</menu>
 	<!-- DISCOVERY SERVICES WINDOW -->
 	<menu name="CDiscoveryWnd">
-		<item id="ID_DISCOVERY_QUERY" text="_Poizvedi takoj"/>
-		<item id="ID_DISCOVERY_ADVERTISE" text="_Objavi"/>
+		<item id="ID_DISCOVERY_ADD" text="_Dodaj storitev..."/>
+		<separator/>
+		<item id="ID_DISCOVERY_EDIT" text="_Lastnosti"/>
 		<item id="ID_DISCOVERY_REMOVE" text="O_dstrani"/>
 		<separator/>
+		<item id="ID_DISCOVERY_QUERY" text="_Poizvedi takoj"/>
+		<item id="ID_DISCOVERY_ADVERTISE" text="_Objavi"/>
 		<item id="ID_DISCOVERY_BROWSE" text="Brskaj po _statistiki"/>
 		<separator/>
 		<item id="ID_DISCOVERY_GNUTELLA" text="Pokaži _Bootstraps"/>
 		<item id="ID_DISCOVERY_WEBCACHE" text="Pokaži _GWebCaches"/>
-		<item id="ID_DISCOVERY_SERVERMET" text="Pokaži Ser_ver.met's"/>
-		<separator/>
-		<item id="ID_DISCOVERY_ADD" text="_Dodaj storitev..."/>
-		<separator/>
-		<item id="ID_DISCOVERY_EDIT" text="_Lastnosti"/>
+		<item id="ID_DISCOVERY_SERVERLIST" text="Pokaži Ser_ver.met's"/>
+		<item id="ID_DISCOVERY_BLOCKED" text="Pokaži Blokirani"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
 	<menu name="CPrivateChatFrame">
@@ -2210,7 +2216,7 @@
 	<tip id="ID_DISCOVERY_GNUTELLA" message="Ogled storitev za začetno nalaganje (bootstrap) v oknu Discovery."/>
 	<tip id="ID_DISCOVERY_QUERY" message="Poizveduj po izbranih storitvah discovery takoj!"/>
 	<tip id="ID_DISCOVERY_REMOVE" message="Odstrani izbrane storitve discovery."/>
-	<tip id="ID_DISCOVERY_SERVERMET" message="Ogled storitev eDonkey2000 Server.met v Discovery oknu."/>
+	<tip id="ID_DISCOVERY_SERVERLIST" message="Ogled storitev eDonkey2000 Server.met v Discovery oknu."/>
 	<tip id="ID_DISCOVERY_WEBCACHE" message="Ogled storitev GWebCache v Discovery oknu."/>
 	<tip id="ID_DOWNLOAD_GROUP_CLEAR" message="Preklic in odstranitev vseh prenosov v tej skupini."/>
 	<tip id="ID_DOWNLOAD_GROUP_NEW" message="Ustvari novo prenosno skupino (download group)..."/>
@@ -2467,6 +2473,7 @@
 	<tip id="ID_UPLOADS_LAUNCH" message="Zaženi izbrane deljene datoteke."/>
 	<tip id="ID_UPLOADS_SETTINGS" message="Konfiguriraj nalagalne (upload) nastavitve..."/>
 	<tip id="ID_UPLOADS_START" message="Začni izbrane naložke v čakalni vrsti."/>
+	<tip id="ID_UPLOADS_PRIORITY" message="Prednost."/>
 	<tip id="ID_VIEW_BASIC" message="Uporabi PeerProject v normalnem načinu."/>
 	<tip id="ID_VIEW_DISCOVERY" message="Pokaži ali skrij okno z DISCOVERY STORITVAMI."/>
 	<tip id="ID_VIEW_DOWNLOADS" message="Pokaži ali skrij okno s PRENOSI (downloads)."/>
@@ -2526,6 +2533,7 @@
 	<string id="20011" value="samodejno"/>
 	<string id="20012" value="Po meri"/>
 	<string id="20013" value="Privzeto"/>
+	<string id="20019" value="Please Wait..."/>
 	<string id="20020" value="Datoteka"/>
 	<string id="20021" value="Datoteke"/>
 	<string id="20022" value="Vse Datoteke"/>
@@ -3023,15 +3031,16 @@
 	<string id="20678" value="eDonkey omrežje uporablja dolge čakalne vrste z dolgimi čakalnimi dobami. Z omejevanjem največjega mesta v čakalni vrsti boste lahko imeli težave pri pridobivanju rež za prenose saj se lahko zgodi, da nikakor ne boste mogli priti na vrsto.\nSte prepričani, da želite omejiti največjo dovoljeno mesto v čakalni vrsti?"/>
 	<string id="20680" value="PeerProject nastavitve"/>
 	<string id="20684" value="Ste prepričani, da želite brisati preobleko &quot;%s&quot;.  Dejanja ne bo mogoče razveljaviti."/>
-	<string id="20700" value="Aktivni"/>
-	<string id="20701" value="%s not : %s ven (d:%I64i/u:%I64i)"/>
-	<string id="20702" value="Povezan s sosedi: %lu. V lokalni knjižnici: %s."/>
-	<string id="20703" value="Način vozlišča s številom sosedov: %lu. V lokalni knjižnici: %s."/>
-	<string id="20704" value="Način Hub/Ultrapeer s številom sosedov: %lu.  V lokalni knjižnici: %s."/>
+	<string id="20700" value="%s not : %s ven (d:%I64i/u:%I64i)"/>
+	<string id="20701" value="Povezan s sosedi: %lu. V lokalni knjižnici: %s."/>
+	<string id="20702" value="Način vozlišča s številom sosedov: %lu. V lokalni knjižnici: %s."/>
+	<string id="20703" value="Način Hub/Ultrapeer s številom sosedov: %lu.  V lokalni knjižnici: %s."/>
+	<string id="20704" value="Način Ultrapeer s številom sosedov: %lu. V lokalni knjižnici: %s."/>
 	<string id="20705" value="Povezan. V lokalni knjižnici: %s."/>
-	<string id="20706" value="Način Ultrapeer s številom sosedov: %lu. V lokalni knjižnici: %s."/>
-	<string id="20707" value="Povezujem na omrežje..."/>
-	<string id="20708" value="Ni povezave v omrežje."/>
+	<string id="20706" value="Povezujem na omrežje..."/>
+	<string id="20707" value="Ni povezave v omrežje."/>
+	<string id="20708" value="Aktivni"/>
+	<string id="20709" value="Neaktiven"/>
 	<string id="20710" value="Klirinških"/>
 	<string id="20711" value="Premik ni mogoč"/>
 	<string id="20712" value="Zadušen (choked)"/>
@@ -3072,8 +3081,7 @@
 	<string id="20751" value="Trenutno ni aktivnih iskanj. Kliknite sem za iskanje datotek."/>
 	<string id="20752" value="Niste povezani. Za povezavo kliknite na gumb Poveži se."/>
 	<string id="20755" value="Ste prepričani, da želite brisati predlogo &quot;%s&quot;.\nDejanja ne bo mogoče razveljaviti."/>
-	<string id="20760" value="Aktiven"/>
-	<string id="20761" value="Neaktiven"/>
+	<string id="20760" value="Prednost"/>
 	<string id="20762" value="Ta datoteka je, ko kaže, e-slama (spam)."/>
 	<string id="20763" value="Na črni listi:"/>
 	<string id="20764" value="To datoteko ste že poprej že prenesli in nato zbrisali."/>

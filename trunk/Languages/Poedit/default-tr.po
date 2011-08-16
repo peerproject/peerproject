@@ -432,7 +432,7 @@ msgstr ""
 msgid "Bootstraps"
 msgstr ""
 
-#: button;id_discovery_servermet
+#: button;id_discovery_serverlist
 msgid "Server.met's"
 msgstr ""
 
@@ -1808,7 +1808,7 @@ msgstr "Ö_n Yüklemeleri Göster"
 msgid "Show _GWebCaches"
 msgstr "_Web Arabelleği Göster"
 
-#: cdiscoverywnd;item;id_discovery_servermet
+#: cdiscoverywnd;item;id_discovery_serverlist
 msgid "Show Ser_ver.met's"
 msgstr "Ser_ver.met's Göster"
 
@@ -2884,7 +2884,7 @@ msgstr "Seçilmiş keşif servislerini şimdi sorgula."
 msgid "Remove the selected discovery services."
 msgstr "Seçilmiş keşif servislerini kaldır."
 
-#: message;id_discovery_servermet
+#: message;id_discovery_serverlist
 msgid "Show eDonkey Server.met services in the Discovery window."
 msgstr "Keşif penceresindeki eDonkey2000 Server.met servislerini göster."
 
@@ -3841,7 +3841,7 @@ msgid "Access the selected download sources and attempt to download."
 msgstr "Seçilen indirme kaynağına eriş ve indirmeyi dene."
 
 #: message;id_transfers_disconnect
-msgid "Disconnect the selected download transfer(s)."
+msgid "Disconnect the selected download transfers."
 msgstr "Seçilen indirim aktarımlarıyla bağlantıyı kes."
 
 #: message;id_transfers_forget
@@ -3857,15 +3857,15 @@ msgid "Automatically clear uploads which have been completed."
 msgstr "Tamamlanan yüklemeleri otomatik temizle."
 
 #: message;id_uploads_clear
-msgid "Clear the selected uploads from the list."
+msgid "Cancel selected uploads and remove from list."
 msgstr "Listeden seçilen yüklemeleri temizle."
 
 #: message;id_uploads_clear_completed
-msgid "Clear uploads which have been completed."
+msgid "Clear uploads that have completed."
 msgstr "Tamamlanan yüklemeleri temizle."
 
 #: message;id_uploads_disconnect
-msgid "Disconnect the selected upload transfer(s)."
+msgid "Disconnect the selected upload transfers."
 msgstr "Seçilen yükleme aktarımlarıyla bağlantıyı kes."
 
 #: message;id_uploads_filter_active
@@ -3893,7 +3893,7 @@ msgid "Show BitTorrent uploads."
 msgstr "BitTorrent yüklemelerini göster."
 
 #: message;id_uploads_launch
-msgid "Launch the selected shared file(s)."
+msgid "Show selected shared files in the Library. (Or hold Shift to open.)s)."
 msgstr "Seçilen dosyaların paylaştırılmasına başla."
 
 #: message;id_uploads_settings
@@ -3901,7 +3901,7 @@ msgid "Configure upload settings..."
 msgstr "Yükleme ayarlarını biçimlendir..."
 
 #: message;id_uploads_start
-msgid "Start the selected queued upload(s)."
+msgid "Force start selected queued uploads."
 msgstr "Yüklemeleri belirlenen sırayla başlat."
 
 #: message;id_view_basic
@@ -6080,11 +6080,11 @@ msgstr ""
 msgid "No scheduled event. Please select a task."
 msgstr ""
 
-#: string;20612 string;20700 string;20760
+#: string;20707 string;20760
 msgid "Active"
 msgstr "Aktif"
 
-#: string;20613 string;20761
+#: string;20709
 msgid "Inactive"
 msgstr "Pasif"
 
@@ -6324,19 +6324,19 @@ msgstr ""
 msgid "Are you sure you want to delete the \"%s\" skin? This cannot be undone."
 msgstr "\"%s\" arayüzünü silmek istediğinizden emin misiniz? Bu yapılamaz."
 
-#: string;20701
+#: string;20700
 msgid "%s in : %s out  (d:%I64i/u:%I64i)"
 msgstr "%s içeride : %s dışarıda (d:%I64i/u:%I64i)"
 
-#: string;20702
+#: string;20701
 msgid "Connected to %lu neighbors. %s in local library."
 msgstr "Komşu(lar)ya %lu bağlandı.  %s yerel kütüphane."
 
-#: string;20703
+#: string;20702
 msgid "Hub mode with %lu neighbors. %s in local library."
 msgstr "%lu komşu(lar)la Hub modu.  %s yerel kütüphane."
 
-#: string;20704
+#: string;20703
 msgid "Hub/Ultrapeer mode with %lu neighbors. %s in local library."
 msgstr "%lu komşusu ile Hub/Ultrapeer mod.  %s yerel kütüphanede."
 
@@ -6344,15 +6344,15 @@ msgstr "%lu komşusu ile Hub/Ultrapeer mod.  %s yerel kütüphanede."
 msgid "Connected. %s in local library."
 msgstr "Bağlandı. %s yerel kütüphane."
 
-#: string;20706
+#: string;20704
 msgid "Ultrapeer mode with %lu neighbors. %s in local library."
 msgstr "%lu komşusu ile Ultrapeer mod. %s yerel kütüphanede."
 
-#: string;20707
+#: string;20706
 msgid "Connecting to the network..."
 msgstr "Ağa bağlanıyor..."
 
-#: string;20708
+#: string;20707
 msgid "Not connected to the network."
 msgstr "Ağa bağlanmadı."
 

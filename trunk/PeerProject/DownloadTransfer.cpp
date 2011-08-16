@@ -1,7 +1,7 @@
 //
 // DownloadTransfer.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -72,8 +72,8 @@ CDownloadTransfer::~CDownloadTransfer()
 // TRI_FALSE	- the source will be added to m_pFailedSources in CDownloadWithSources,
 //					removed from the sources and can be distributed in the Source Mesh as X-Nalt
 // TRI_TRUE 	- keeps the source and will be distributed as X-Alt
-// TRI_UNKNOWN	- keeps the source and will be dropped after several retries, will be
-//				- added to m_pFailedSources when removed
+// TRI_UNKNOWN	- keeps the source and will be dropped after several retries,
+//					will be added to m_pFailedSources when removed
 
 void CDownloadTransfer::Close(TRISTATE bKeepSource, DWORD nRetryAfter)
 {
@@ -112,9 +112,12 @@ void CDownloadTransfer::Close(TRISTATE bKeepSource, DWORD nRetryAfter)
 //////////////////////////////////////////////////////////////////////
 // CDownloadTransfer speed controls
 
-void CDownloadTransfer::Boost()
+void CDownloadTransfer::Boost(BOOL bBoost)
 {
-	m_mInput.pLimit = m_mOutput.pLimit = NULL;
+	if ( bBoost )
+		m_mInput.pLimit = m_mOutput.pLimit = NULL;
+	else
+		m_mInput.pLimit = m_mOutput.pLimit = &m_nBandwidth;		// Any value should be recalculated
 }
 
 DWORD CDownloadTransfer::GetAverageSpeed()
@@ -328,7 +331,7 @@ void CDownloadTransfer::ChunkifyRequest(QWORD* pnOffset, QWORD* pnLength, DWORD 
 		if ( *pnLength % nChunk ) nCount++;
 		nCount = GetRandomNum( 0ui64, nCount - 1 );
 	// ToDo: Streaming Download and Rarest Piece Selection
-	//	nCount = (Settings.Downloads.NoRandomFragments ? 0ui64 : GetRandomNum( 0ui64, nCount - 1 ));
+	//	nCount = ( Settings.Downloads.NoRandomFragments ? 0ui64 : GetRandomNum( 0ui64, nCount - 1 ) );
 
 		QWORD nStart = *pnOffset + nChunk * nCount;
 		*pnLength = min( nChunk, *pnOffset + *pnLength - nStart );

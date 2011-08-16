@@ -432,7 +432,7 @@ msgstr ""
 msgid "Bootstraps"
 msgstr ""
 
-#: button;id_discovery_servermet
+#: button;id_discovery_serverlist
 msgid "Server.met's"
 msgstr ""
 
@@ -1808,7 +1808,7 @@ msgstr "Rodyti _Bootstraps"
 msgid "Show _GWebCaches"
 msgstr "Rodyti _GWebCaches"
 
-#: cdiscoverywnd;item;id_discovery_servermet
+#: cdiscoverywnd;item;id_discovery_serverlist
 msgid "Show Ser_ver.met's"
 msgstr "Rodyti ser_ver.mets"
 
@@ -2884,7 +2884,7 @@ msgstr "Nusiųsti tuoj pat užklausą pasirinktai paslaugų radimo tarnybai."
 msgid "Remove the selected discovery services."
 msgstr "Pašalinti pasirinktas paslaugų radimo tarnybas."
 
-#: message;id_discovery_servermet
+#: message;id_discovery_serverlist
 msgid "Show eDonkey Server.met services in the Discovery window."
 msgstr "Rodyti eDonkey Server.met tarnybas paslaugų radimo tarnybų lange."
 
@@ -3841,7 +3841,7 @@ msgid "Access the selected download sources and attempt to download."
 msgstr "Susijungti su pasirinktu šaltiniu(-ais) ir pamėginti parsisiųsti failą."
 
 #: message;id_transfers_disconnect
-msgid "Disconnect the selected download transfer(s)."
+msgid "Disconnect the selected download transfers."
 msgstr "Atjungti pasirinktą atsisiuntimo srautą(-us)."
 
 #: message;id_transfers_forget
@@ -3857,15 +3857,15 @@ msgid "Automatically clear uploads which have been completed."
 msgstr "Automatiškai šalinti užbaigtus failus iš išsiunčiamų failų sąrašo."
 
 #: message;id_uploads_clear
-msgid "Clear the selected uploads from the list."
+msgid "Cancel selected uploads and remove from list."
 msgstr "Pašalinti iš išsiunčiamų failų sąrašo pasirinktą failą(-us)."
 
 #: message;id_uploads_clear_completed
-msgid "Clear uploads which have been completed."
+msgid "Clear uploads that have completed."
 msgstr "Pašalinti iš sąrašo failus, kurių išsiuntimas baigtas."
 
 #: message;id_uploads_disconnect
-msgid "Disconnect the selected upload transfer(s)."
+msgid "Disconnect the selected upload transfers."
 msgstr "Nutraukti pasirinktą išsiuntimą(-us)."
 
 #: message;id_uploads_filter_active
@@ -3893,7 +3893,7 @@ msgid "Show BitTorrent uploads."
 msgstr "Rodyti BitTorrent išsiuntimus."
 
 #: message;id_uploads_launch
-msgid "Launch the selected shared file(s)."
+msgid "Show selected shared files in the Library. (Or hold Shift to open.)s)."
 msgstr "Atverti/vykdyti pasirinktą bendrintą failą(-us)."
 
 #: message;id_uploads_settings
@@ -3901,7 +3901,7 @@ msgid "Configure upload settings..."
 msgstr "Keisti išsiuntimų nuostatas..."
 
 #: message;id_uploads_start
-msgid "Start the selected queued upload(s)."
+msgid "Force start selected queued uploads."
 msgstr "Tęsti pasirinkto siunčiamo failo(-ų) išsiuntimą."
 
 #: message;id_view_basic
@@ -6080,11 +6080,11 @@ msgstr ""
 msgid "No scheduled event. Please select a task."
 msgstr ""
 
-#: string;20612 string;20700 string;20760
+#: string;20707 string;20760
 msgid "Active"
 msgstr "Aktyvus"
 
-#: string;20613 string;20761
+#: string;20709
 msgid "Inactive"
 msgstr "Neaktyvus"
 
@@ -6324,19 +6324,19 @@ msgstr ""
 msgid "Are you sure you want to delete the \"%s\" skin? This cannot be undone."
 msgstr "Ar tikrai norite ištrinti „%s“ apvalkalą? Atstatyti vėliau bus neįmanoma."
 
-#: string;20701
+#: string;20700
 msgid "%s in : %s out  (d:%I64i/u:%I64i)"
 msgstr "%s įein. : %s išein. (a:%I64i/i:%I64i)"
 
-#: string;20702
+#: string;20701
 msgid "Connected to %lu neighbors. %s in local library."
 msgstr "Prisijungta prie %lu kaimynų(-o). %s asmeninėje kolekcijoje."
 
-#: string;20703
+#: string;20702
 msgid "Hub mode with %lu neighbors. %s in local library."
 msgstr "Mazgo veiksena su %lu kaimynais(-ų). %s asmeninėje kolekcijoje."
 
-#: string;20704
+#: string;20703
 msgid "Hub/Ultrapeer mode with %lu neighbors. %s in local library."
 msgstr "Mazgas/Vedančiojo veiksena su %lu kaimynais(-ų). %s asmeninėje kolekcijoje."
 
@@ -6344,15 +6344,15 @@ msgstr "Mazgas/Vedančiojo veiksena su %lu kaimynais(-ų). %s asmeninėje kolekc
 msgid "Connected. %s in local library."
 msgstr "Prisijungta. Jūsų kolekcijoje yra %s."
 
-#: string;20706
+#: string;20704
 msgid "Ultrapeer mode with %lu neighbors. %s in local library."
 msgstr "Vedančiojo veiksena su %lu kaimynais(-ų). %s asmeninėje kolekcijoje."
 
-#: string;20707
+#: string;20706
 msgid "Connecting to the network..."
 msgstr "Jungiamasi prie tinklo..."
 
-#: string;20708
+#: string;20707
 msgid "Not connected to the network."
 msgstr "Neprisijungta prie tinklo."
 

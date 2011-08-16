@@ -142,8 +142,8 @@ DWORD CUploads::GetTorrentCount(int nState) const
 
 void CUploads::SetStable(DWORD nSpeed)
 {
-	m_bStable		= TRUE;
-	m_nBestSpeed	= max( m_nBestSpeed, nSpeed );
+	m_bStable = TRUE;
+	m_nBestSpeed = max( m_nBestSpeed, nSpeed );
 }
 
 DWORD CUploads::GetBandwidth() const
@@ -160,16 +160,16 @@ DWORD CUploads::GetBandwidth() const
 
 DWORD CUploads::GetBandwidthLimit() const
 {
-	DWORD nTotal = Settings.Connection.OutSpeed * 128;	// Kilobits/s to Bytes/s
+	DWORD nTotal = Settings.Connection.OutSpeed * 128;		// Kilobits/s to Bytes/s
 	DWORD nLimit = Settings.Bandwidth.Uploads;
 	if ( nLimit == 0 || nLimit > nTotal )
 		nLimit = nTotal;
 
-	// Limit if hub mode
+	// Limit if hub mode (~50%)
 	if ( Settings.Uploads.HubUnshare && ( Neighbours.IsG2Hub() || Neighbours.IsG1Ultrapeer() ) )
 		nLimit = nLimit * Settings.Bandwidth.HubUploads / 100;
 
-	// Limit if torrents are active
+	// Limit if torrents are active (~90%)	Note same cap value given to both torrents and others!  Deceptive simple headroom.
 	if ( UploadQueues.m_pTorrentQueue->m_nMinTransfers )	// ( Uploads.m_nTorrentSpeed > 0 )
 		nLimit = nLimit * Settings.BitTorrent.BandwidthPercentage / 100;
 

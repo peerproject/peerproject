@@ -1,7 +1,7 @@
 //
 // PageProfileProfile.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -20,6 +20,7 @@
 #include "Settings.h"
 #include "PeerProject.h"
 #include "PageProfileProfile.h"
+#include "Buffer.h"
 #include "GProfile.h"
 #include "WorldGPS.h"
 #include "XML.h"
@@ -309,14 +310,13 @@ void CProfileProfilePage::OnOK()
 	{
 		if ( CXMLElement* pPolitical = pLocation->GetElementByName( _T("political"), TRUE ) )
 		{
-			if ( m_sLocCountry.GetLength() )
+			if ( ! m_sLocCountry.IsEmpty() )
 			{
 				pPolitical->AddAttribute( _T("country"), m_sLocCountry );
 			}
-			else
+			else if ( CXMLAttribute* pAttr = pPolitical->GetAttribute( _T("country") ) )
 			{
-				if ( CXMLAttribute* pAttr = pPolitical->GetAttribute( _T("country") ) )
-					pAttr->Delete();
+				pAttr->Delete();
 			}
 
 			int nPos = m_sLocCity.Find( _T(", ") );
@@ -381,7 +381,8 @@ void CProfileProfilePage::OnOK()
 			pInterest->SetValue( str );
 		}
 
-		if ( pInterests->GetElementCount() == 0 ) pInterests->Delete();
+		if ( pInterests->GetElementCount() == 0 )
+			pInterests->Delete();
 	}
 
 	CSettingsPage::OnOK();

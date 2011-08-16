@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Brazilian Portuguese Skin File -->
 
-<!-- Translation based on default-en.xml r68 -->
+<!-- Translation based on default-en.xml r69 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -152,10 +152,10 @@
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Prever Arquivo"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Apagar Arquivo"/>
-		<button id="ID_DOWNLOADS_RESUME" text="Resumir"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="Pausar"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Cancelar"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Limpar Download"/>
+		<button id="ID_DOWNLOADS_RESUME" text="Resumir"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="Pausar"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Propriedades"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Mostrar Monitor"/>
@@ -167,10 +167,10 @@
 		<button id="ID_DOWNLOADS_LAUNCH" text="Prever Arquivo"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Apagar Arquivo"/>
-		<button id="ID_DOWNLOADS_RESUME" text="Resumir"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="Pausar"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Cancelar"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Limpar Download"/>
+		<button id="ID_DOWNLOADS_RESUME" text="Resumir"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="Pausar"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Propriedades"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Mostrar Monitor"/>
@@ -190,7 +190,8 @@
 	<toolbar name="CUploadsWnd">
 		<button id="ID_UPLOADS_LAUNCH" text="Abrir/Tocar"/>
 		<separator/>
-		<button id="ID_UPLOADS_START" text="Iniciar Agora"/>
+		<button id="ID_UPLOADS_START" text="Iniciar"/>
+		<button id="ID_UPLOADS_PRIORITY" text="Prioridade" visible="false"/>
 		<button id="ID_UPLOADS_CLEAR" text="Limpar Upload"/>
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Navegar"/>
@@ -1224,11 +1225,16 @@
 	<menu name="CUploadsWnd.Upload.Basic">
 		<item id="ID_BROWSE_LAUNCH" text="_Navegar Usuário"/>
 		<item id="ID_UPLOADS_CHAT" text="_Conversar com Usuário"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="_Ajuda..."/>
 	</menu>
 	<menu name="CUploadsWnd.Upload">
-		<item id="ID_UPLOADS_START" text="_Iniciar Agora"/>
-		<item id="ID_UPLOADS_CLEAR" text="_Limpar"/>
+		<item id="ID_UPLOADS_LAUNCH" text="Mostrar _Library"/>
 		<item id="ID_UPLOADS_FOLDER" text="Abrir _Folder"/>
+		<separator/>
+		<item id="ID_UPLOADS_CLEAR" text="_Limpar"/>
+		<item id="ID_UPLOADS_START" text="_Iniciar Agora"/>
+		<item id="ID_UPLOADS_PRIORITY" text="Prioridade"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="_Navegar Usuário"/>
 		<item id="ID_UPLOADS_CHAT" text="_Conversar com Usuário"/>
@@ -1636,19 +1642,19 @@
 	</menu>
 	<!-- DISCOVERY SERVICES WINDOW -->
 	<menu name="CDiscoveryWnd">
-		<item id="ID_DISCOVERY_QUERY" text="_Inquirir Agora"/>
-		<item id="ID_DISCOVERY_ADVERTISE" text="A_nunciar"/>
+		<item id="ID_DISCOVERY_ADD" text="_Adicionar Serviço..."/>
+		<separator/>
+		<item id="ID_DISCOVERY_EDIT" text="_Propriedades"/>
 		<item id="ID_DISCOVERY_REMOVE" text="_Remover"/>
 		<separator/>
+		<item id="ID_DISCOVERY_QUERY" text="_Inquirir Agora"/>
+		<item id="ID_DISCOVERY_ADVERTISE" text="A_nunciar"/>
 		<item id="ID_DISCOVERY_BROWSE" text="Navegar _Estatísticas"/>
 		<separator/>
 		<item id="ID_DISCOVERY_GNUTELLA" text="Mostrar _Bootstraps"/>
 		<item id="ID_DISCOVERY_WEBCACHE" text="Mostrar _GWebCaches"/>
-		<item id="ID_DISCOVERY_SERVERMET" text="Mostrar Ser_ver.mets"/>
-		<separator/>
-		<item id="ID_DISCOVERY_ADD" text="_Adicionar Serviço..."/>
-		<separator/>
-		<item id="ID_DISCOVERY_EDIT" text="_Propriedades"/>
+		<item id="ID_DISCOVERY_SERVERLIST" text="Mostrar Ser_ver.mets"/>
+		<item id="ID_DISCOVERY_BLOCKED" text="Mostrar Bloqueado"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
 	<menu name="CPrivateChatFrame">
@@ -2404,7 +2410,7 @@
 	<tip id="ID_DISCOVERY_GNUTELLA" message="Mostrar os serviços de bootstrap na janela de Descobrimento."/>
 	<tip id="ID_DISCOVERY_QUERY" message="Procurar os serviços de descobrimento selecionados agora."/>
 	<tip id="ID_DISCOVERY_REMOVE" message="Remover os serviços de descobrimento selecionado."/>
-	<tip id="ID_DISCOVERY_SERVERMET" message="Mostrar os serviços da server.met do eDonkey na janela de Descobrimento."/>
+	<tip id="ID_DISCOVERY_SERVERLIST" message="Mostrar os serviços da server.met do eDonkey na janela de Descobrimento."/>
 	<tip id="ID_DISCOVERY_WEBCACHE" message="Mostrar os serviços de GWebCache na janela de Descobrimento."/>
 	<tip id="ID_DOWNLOAD_GROUP_CLEAR" message="Cancelar e remover todos os downloads neste grupo."/>
 	<tip id="ID_DOWNLOAD_GROUP_NEW" message="Criar um novo grupo de download..."/>
@@ -2662,9 +2668,10 @@
 	<tip id="ID_UPLOADS_FILTER_MENU" message="Escolher que tipos de uploads mostrar e que tipos esconder nesta visualização."/>
 	<tip id="ID_UPLOADS_FILTER_QUEUED" message="Mostrar todos os uploads que estão esperando na fila de espera."/>
 	<tip id="ID_UPLOADS_FILTER_TORRENT" message="Mostra os uploads do BitTorrent."/>
-	<tip id="ID_UPLOADS_LAUNCH" message="Iniciar o(s) arquivo(s) compartilhado(s) selecionado(s)."/>
+	<tip id="ID_UPLOADS_LAUNCH" message="Iniciar os arquivos compartilhados selecionados."/>
 	<tip id="ID_UPLOADS_SETTINGS" message="Configurar as opções de upload..."/>
-	<tip id="ID_UPLOADS_START" message="Iniciar o(s) upload(s) enfileirado(s) selecionado(s)."/>
+	<tip id="ID_UPLOADS_START" message="Iniciar os uploads enfileirados selecionados."/>
+	<tip id="ID_UPLOADS_PRIORITY" message="Prioridade."/>
 	<tip id="ID_VIEW_BASIC" message="Usar PeerProject no modo Normal."/>
 	<tip id="ID_VIEW_DISCOVERY" message="Mostrar ou esconder a janela dos SERVIÇOS DE DESCOBRIMENTO."/>
 	<tip id="ID_VIEW_DOWNLOADS" message="Mostrar ou esconder a janela de DOWNLOADS."/>
@@ -2745,6 +2752,7 @@
 	<string id="20016" value="Tentar de Novo"/>
 	<string id="20017" value="Abortar"/>
 	<string id="20018" value="Tentar de Novo"/>
+	<string id="20019" value="Por favor espere..."/>
 	<string id="20020" value="Arquivo"/>
 	<string id="20021" value="Arquivos"/>
 	<string id="20022" value="Todos os Arquivos"/>
@@ -3224,8 +3232,6 @@
 	<string id="20609" value="Programado tempo passou. Por favor, selecione um novo tempo."/>
 	<string id="20610" value="Nenhum dia agendado. Selecione um ou mais dias ou data."/>
 	<string id="20611" value="Nenhum evento programado. Por favor, selecione uma tarefa."/>
-	<string id="20612" value="Ativa"/>
-	<string id="20613" value="Inativa"/>
 	<string id="20614" value="Esperando"/>
 	<string id="20615" value="Feito Hoy"/>
 	<string id="20616" value="Feito"/>
@@ -3286,15 +3292,16 @@
 	<string id="20678" value="A rede eDonkey faz uso de longas filas com longos tempos de espera. Em limitar a posição máxima na fila que você aceitará tão estritamente, você pode ter problemas para iniciar seu downloads.\nVocê tem certeza que você quer limitar quais as posições máximas na fila que você aceitará?"/>
 	<string id="20680" value="Configurações do PeerProject"/>
 	<string id="20684" value="Você tem certeza que você quer apagar a &quot;%s&quot; skin? Isto não pode ser desfeito."/>
-	<string id="20700" value="Ativo"/>
-	<string id="20701" value="%s entram : %s saem (d:%I64i/u:%I64i)"/>
-	<string id="20702" value="Conectado com %lu vizinhos. %s na biblioteca local."/>
-	<string id="20703" value="Modo Hub com %lu vizinhos. %s na biblioteca local."/>
-	<string id="20704" value="Modo Hub/Ultrapeer com %lu vizinhos. %s na sua biblioteca local."/>
+	<string id="20700" value="%s entram : %s saem (d:%I64i/u:%I64i)"/>
+	<string id="20701" value="Conectado com %lu vizinhos. %s na biblioteca local."/>
+	<string id="20702" value="Modo Hub com %lu vizinhos. %s na biblioteca local."/>
+	<string id="20703" value="Modo Hub/Ultrapeer com %lu vizinhos. %s na sua biblioteca local."/>
+	<string id="20704" value="Modo Ultrapeer com %lu vizinhos. %s na sua biblioteca Local."/>
 	<string id="20705" value="Conectado. %s na sua biblioteca local."/>
-	<string id="20706" value="Modo Ultrapeer com %lu vizinhos. %s na sua biblioteca Local."/>
-	<string id="20707" value="Conectando a rede..."/>
-	<string id="20708" value="Não conectado a rede."/>
+	<string id="20706" value="Conectando a rede..."/>
+	<string id="20707" value="Não conectado a rede."/>
+	<string id="20708" value="Ativo"/>
+	<string id="20709" value="Inativo"/>
 	<string id="20710" value="Esclarecimento"/>
 	<string id="20711" value="Não Pôde Mover"/>
 	<string id="20712" value="Ocupado"/>
@@ -3335,8 +3342,7 @@
 	<string id="20751" value="Não há buscas ativas. Clique aqui para procurar arquivos."/>
 	<string id="20752" value="Você não está conectado. Clique no botão Conectar para começar."/>
 	<string id="20755" value="Você tem certeza de que quer apagar o &quot;%s&quot; template?\nIsto não pode ser desfeito."/>
-	<string id="20760" value="Ativ(o)a"/>
-	<string id="20761" value="Inativ(o)a"/>
+	<string id="20760" value="Prioridade"/>
 	<string id="20762" value="Este arquivo aparenta ser spam."/>
 	<string id="20763" value="Na Lista Negra:"/>
 	<string id="20764" value="Você já baixou e apagou este arquivo antes."/>

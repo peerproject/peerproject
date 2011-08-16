@@ -225,10 +225,10 @@ void CSchedulerWnd::Update(int nColumn, BOOL bSort)
 		if ( pSchTask->m_bActive)
 			pItem->Set( COL_STATUS, LoadString( pSchTask->m_bExecuted ? IDS_SCHEDULER_TASK_DONETODAY : IDS_SCHEDULER_TASK_WAITING ) );
 		else
-			pItem->Set( COL_STATUS, LoadString( pSchTask->m_bExecuted ? IDS_SCHEDULER_TASK_DONE : IDS_SCHEDULER_TASK_INACTIVE ) );
+			pItem->Set( COL_STATUS, LoadString( pSchTask->m_bExecuted ? IDS_SCHEDULER_TASK_DONE : IDS_STATUS_INACTIVE ) );
 
 		// Active column
-		pItem->Set( COL_ACTIVITY, LoadString( pSchTask->m_bActive ? IDS_SCHEDULER_TASK_ACTIVE : IDS_SCHEDULER_TASK_INACTIVE ) );
+		pItem->Set( COL_ACTIVITY, LoadString( pSchTask->m_bActive ? IDS_STATUS_ACTIVE : IDS_STATUS_INACTIVE ) );
 
 		// Description column
 		pItem->Set( COL_COMMENT, pSchTask->m_sDescription );

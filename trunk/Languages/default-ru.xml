@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Russian Skin File -->
 
-<!-- Translation based on default-en.xml r68 -->
+<!-- Translation based on default-en.xml r69 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -153,10 +153,10 @@
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Просмотр"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Удалить файл"/>
-		<button id="ID_DOWNLOADS_RESUME" text="Продолжить"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="Приостановить"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Отменить"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Убрать"/>
+		<button id="ID_DOWNLOADS_RESUME" text="Продолжить"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="Приостановить"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Свойства"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Монитор"/>
@@ -168,10 +168,10 @@
 		<button id="ID_DOWNLOADS_LAUNCH" text="Открыть"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Удалить файл"/>
-		<button id="ID_DOWNLOADS_RESUME" text="Продолжить"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="Приостановить"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Отменить"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Убрать"/>
+		<button id="ID_DOWNLOADS_RESUME" text="Продолжить"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="Приостановить"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Свойства"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Монитор"/>
@@ -191,8 +191,9 @@
 	<toolbar name="CUploadsWnd">
 		<button id="ID_UPLOADS_LAUNCH" text="Открыть"/>
 		<separator/>
-		<button id="ID_UPLOADS_START" text="Начать сейчас"/>
 		<button id="ID_UPLOADS_CLEAR" text="Очистить"/>
+		<button id="ID_UPLOADS_START" text="Начать сейчас"/>
+		<button id="ID_UPLOADS_PRIORITY" text="приоритет" visible="false"/>
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Просмотр хоста"/>
 		<button id="ID_UPLOADS_CHAT" text="Чат"/>
@@ -1232,11 +1233,16 @@
 	<menu name="CUploadsWnd.Upload.Basic">
 		<item id="ID_BROWSE_LAUNCH" text="Просмотр _хоста"/>
 		<item id="ID_UPLOADS_CHAT" text="_Чат"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="_Справка..."/>
 	</menu>
 	<menu name="CUploadsWnd.Upload">
-		<item id="ID_UPLOADS_START" text="_Начать сейчас"/>
-		<item id="ID_UPLOADS_CLEAR" text="_Убрать"/>
+		<item id="ID_UPLOADS_LAUNCH" text="Показывать _Library"/>
 		<item id="ID_UPLOADS_FOLDER" text="Открыть _Folder"/>
+		<separator/>
+		<item id="ID_UPLOADS_CLEAR" text="_Убрать"/>
+		<item id="ID_UPLOADS_START" text="_Начать сейчас"/>
+		<item id="ID_UPLOADS_PRIORITY" text="приоритет"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="Просмотр _хоста"/>
 		<item id="ID_UPLOADS_CHAT" text="_Чат"/>
@@ -1655,19 +1661,19 @@
 	</menu>
 	<!-- DISCOVERY SERVICES WINDOW -->
 	<menu name="CDiscoveryWnd">
-		<item id="ID_DISCOVERY_QUERY" text="_Опросить сейчас"/>
-		<item id="ID_DISCOVERY_ADVERTISE" text="_Рекламировать"/>
+		<item id="ID_DISCOVERY_ADD" text="_Добавить сервис..."/>
+		<separator/>
+		<item id="ID_DISCOVERY_EDIT" text="_Свойства"/>
 		<item id="ID_DISCOVERY_REMOVE" text="_Удалить"/>
 		<separator/>
+		<item id="ID_DISCOVERY_QUERY" text="_Опросить сейчас"/>
+		<item id="ID_DISCOVERY_ADVERTISE" text="_Рекламировать"/>
 		<item id="ID_DISCOVERY_BROWSE" text="_Просмотр статистики"/>
 		<separator/>
 		<item id="ID_DISCOVERY_GNUTELLA" text="Показывать _Bootstraps"/>
 		<item id="ID_DISCOVERY_WEBCACHE" text="Показывать _GWebCaches"/>
-		<item id="ID_DISCOVERY_SERVERMET" text="Показывать Ser_ver.met's"/>
-		<separator/>
-		<item id="ID_DISCOVERY_ADD" text="_Добавить сервис..."/>
-		<separator/>
-		<item id="ID_DISCOVERY_EDIT" text="_Свойства"/>
+		<item id="ID_DISCOVERY_SERVERLIST" text="Показывать Ser_ver.met's"/>
+		<item id="ID_DISCOVERY_BLOCKED" text="Показывать блокированный"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
 	<menu name="CPrivateChatFrame">
@@ -2401,7 +2407,7 @@
 	<tip id="ID_DISCOVERY_GNUTELLA" message="Показывать bootstrap службы в окне Ресурсов Соединений."/>
 	<tip id="ID_DISCOVERY_QUERY" message="Запросить помеченную службу соединений ресурсов сейчас."/>
 	<tip id="ID_DISCOVERY_REMOVE" message="Удалить помеченную службу ресурсов соединений."/>
-	<tip id="ID_DISCOVERY_SERVERMET" message="Показывать службы eDonkey Server.met в окне Ресурсов Соединений."/>
+	<tip id="ID_DISCOVERY_SERVERLIST" message="Показывать службы eDonkey Server.met в окне Ресурсов Соединений."/>
 	<tip id="ID_DISCOVERY_WEBCACHE" message="Показывать GWebCache службы в окне Ресурсов Соединений."/>
 	<tip id="ID_DOWNLOAD_GROUP_CLEAR" message="Отменить и удалить все загрузки из этой группы."/>
 	<tip id="ID_DOWNLOAD_GROUP_NEW" message="Создать новую группу загрузок..."/>
@@ -2662,6 +2668,7 @@
 	<tip id="ID_UPLOADS_LAUNCH" message="Запустить помеченный файл."/>
 	<tip id="ID_UPLOADS_SETTINGS" message="Конфигурировать установки раздач..."/>
 	<tip id="ID_UPLOADS_START" message="Начать раздачу помеченного файла(ов), стоящего(их) в очереди."/>
+	<tip id="ID_UPLOADS_PRIORITY" message="приоритет."/>
 	<tip id="ID_VIEW_BASIC" message="Использовать программу PeerProject в обычном режиме."/>
 	<tip id="ID_VIEW_DISCOVERY" message="Показать или скрыть окно Ресурсов Соединений."/>
 	<tip id="ID_VIEW_DOWNLOADS" message="Показать или скрыть окно Загрузок."/>
@@ -2742,6 +2749,7 @@
 	<string id="20016" value="Повторить"/>
 	<string id="20017" value="Прервать"/>
 	<string id="20018" value="Повторить снова"/>
+	<string id="20019" value="Подождите..."/>
 	<string id="20020" value="Файл"/>
 	<string id="20021" value="Файлы"/>
 	<string id="20022" value="Все файлы"/>
@@ -3267,15 +3275,16 @@
 	<string id="20678" value="В сети eDonkey используются длинные очереди, и в них приходится ждать долго. Если уменьшите величину, Вы начнете принимать соединения очень ограниченно и у Вас могут возникнуть проблемы с загрузкой.\nУверены, что хотите уменьшить число очередей?"/>
 	<string id="20680" value="Установки PeerProject"/>
 	<string id="20684" value="Уверены, что хотите удалить шкурку «%s»?  Действие будет необратимое."/>
-	<string id="20700" value="Активный"/>
-	<string id="20701" value="%s-Вх. %s-Исх. (З:%I64i/В:%I64i)"/>
-	<string id="20702" value="Соединено с %lu хостом(ами).  %s в собсвенном хранилище."/>
-	<string id="20703" value="Режим узла с %lu хостом(ами).  %s в собсвенном хранилище."/>
-	<string id="20704" value="Узел/режим Ведущего с %lu хостом(ами).  %s в собсвенном хранилище."/>
+	<string id="20700" value="%s-Вх. %s-Исх. (З:%I64i/В:%I64i)"/>
+	<string id="20701" value="Соединено с %lu хостом(ами).  %s в собсвенном хранилище."/>
+	<string id="20702" value="Режим узла с %lu хостом(ами).  %s в собсвенном хранилище."/>
+	<string id="20703" value="Узел/режим Ведущего с %lu хостом(ами).  %s в собсвенном хранилище."/>
+	<string id="20704" value="Режим Ведущего с %lu хостом(ами).  %s в собсвенном хранилище."/>
 	<string id="20705" value="Подключено. %s в собсвенном хранилище."/>
-	<string id="20706" value="Режим Ведущего с %lu хостом(ами).  %s в собсвенном хранилище."/>
-	<string id="20707" value="Подключаюсь к сети..."/>
-	<string id="20708" value="Нет соединения с сетью."/>
+	<string id="20706" value="Подключаюсь к сети..."/>
+	<string id="20707" value="Нет соединения с сетью."/>
+	<string id="20708" value="Активный"/>
+	<string id="20709" value="Неактивный"/>
 	<string id="20710" value="Уборка"/>
 	<string id="20711" value="Не перемещается!"/>
 	<string id="20712" value="Заморожен"/>
@@ -3316,8 +3325,7 @@
 	<string id="20751" value="Нет активных процессов поиска.  Щелкните здесь, чтобы начать поиск файлов."/>
 	<string id="20752" value="Вы не подключены.  Щелкните кнопку «Подключиться», чтобы начать работу."/>
 	<string id="20755" value="Уверены, что хотите удалить шаблон «%s»?\nДействие будет необратимое."/>
-	<string id="20760" value="Активный"/>
-	<string id="20761" value="Неактивный"/>
+	<string id="20760" value="приоритет"/>
 	<string id="20762" value="Этот файл выглядит как спам."/>
 	<string id="20763" value="В черном списке:"/>
 	<string id="20764" value="Вы было раньше загружали и удалили этот файл."/>

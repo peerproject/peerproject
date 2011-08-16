@@ -51,6 +51,8 @@ public:
 	QWORD			m_nUploaded;	// Bytes uploaded
 	DWORD			m_tContent;		// Send start timestamp
 
+	BOOL			m_bPriority;	// User unlimited upload
+
 protected:
 	BOOL			m_bStopTransfer; // Should this transfer stop? (to allow queue rotation, etc)
 	DWORD			m_tRotateTime;
@@ -66,8 +68,8 @@ private:
 public:
 	virtual void	Remove(BOOL bMessage = TRUE);
 	virtual void	Close(UINT nError = 0);
-	virtual BOOL	Promote();
-	virtual BOOL	OnRename(LPCTSTR pszSource, LPCTSTR pszTarget);	// pszTarget: 0 = delete file, 1 = release file
+	virtual BOOL	Promote(BOOL bPriority = FALSE);
+	virtual BOOL	OnRename(LPCTSTR pszSource, LPCTSTR pszTarget); 	// pszTarget: 0 = delete file, 1 = release file
 
 	virtual float	GetProgress() const;
 	virtual DWORD	GetAverageSpeed();
@@ -97,7 +99,7 @@ protected:
 	virtual void	CloseFile();
 	virtual BOOL	WriteFile(QWORD nOffset, LPCVOID pData, QWORD nLength, QWORD* pnWritten = NULL);
 	virtual BOOL	ReadFile(QWORD nOffset, LPVOID pData, QWORD nLength, QWORD* pnRead = NULL);
-	void	AttachFile(auto_ptr< CFragmentedFile >& pFile);
+	void			AttachFile(auto_ptr< CFragmentedFile >& pFile);
 };
 
 enum UserRating

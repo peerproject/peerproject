@@ -432,7 +432,7 @@ msgstr ""
 msgid "Bootstraps"
 msgstr ""
 
-#: button;id_discovery_servermet
+#: button;id_discovery_serverlist
 msgid "Server.met's"
 msgstr ""
 
@@ -1808,7 +1808,7 @@ msgstr "Pokaż Bootstrap'y"
 msgid "Show _GWebCaches"
 msgstr "Pokaż GWebCache'e"
 
-#: cdiscoverywnd;item;id_discovery_servermet
+#: cdiscoverywnd;item;id_discovery_serverlist
 msgid "Show Ser_ver.met's"
 msgstr "Pokaż Server.met'y"
 
@@ -2884,7 +2884,7 @@ msgstr "Zapytaj teraz zaznaczone serwisy discovery."
 msgid "Remove the selected discovery services."
 msgstr "Usuń zaznaczone serwisy discovery."
 
-#: message;id_discovery_servermet
+#: message;id_discovery_serverlist
 msgid "Show eDonkey Server.met services in the Discovery window."
 msgstr "Pokaż Server.met'y eDonkey2000 w oknie Discovery."
 
@@ -3841,7 +3841,7 @@ msgid "Access the selected download sources and attempt to download."
 msgstr "Dostań się do Wybranego żródła aaby spróbować ściągać."
 
 #: message;id_transfers_disconnect
-msgid "Disconnect the selected download transfer(s)."
+msgid "Disconnect the selected download transfers."
 msgstr "Wyłącz wybrane transfery ściągania."
 
 #: message;id_transfers_forget
@@ -3857,15 +3857,15 @@ msgid "Automatically clear uploads which have been completed."
 msgstr "Automatycznie wyczyść liste z transferów które zostały zakończone."
 
 #: message;id_uploads_clear
-msgid "Clear the selected uploads from the list."
+msgid "Cancel selected uploads and remove from list."
 msgstr "Wyczyść wybrany upload z listy."
 
 #: message;id_uploads_clear_completed
-msgid "Clear uploads which have been completed."
+msgid "Clear uploads that have completed."
 msgstr "Wyczyść zakończone uploady."
 
 #: message;id_uploads_disconnect
-msgid "Disconnect the selected upload transfer(s)."
+msgid "Disconnect the selected upload transfers."
 msgstr "Odłącz wybrany upload."
 
 #: message;id_uploads_filter_active
@@ -3893,7 +3893,7 @@ msgid "Show BitTorrent uploads."
 msgstr "Pokaż uploady z sieci Bit Torrent."
 
 #: message;id_uploads_launch
-msgid "Launch the selected shared file(s)."
+msgid "Show selected shared files in the Library. (Or hold Shift to open.)s)."
 msgstr "Uruchom wybrany współdzielony Plik(i)."
 
 #: message;id_uploads_settings
@@ -3901,7 +3901,7 @@ msgid "Configure upload settings..."
 msgstr "Skonfiguruj ustawienia wysyłania..."
 
 #: message;id_uploads_start
-msgid "Start the selected queued upload(s)."
+msgid "Force start selected queued uploads."
 msgstr "Uruchom wybrany upload(y) w kolejce."
 
 #: message;id_view_basic
@@ -6080,11 +6080,11 @@ msgstr ""
 msgid "No scheduled event. Please select a task."
 msgstr ""
 
-#: string;20612 string;20700 string;20760
+#: string;20707 string;20760
 msgid "Active"
 msgstr "Aktywne"
 
-#: string;20613 string;20761
+#: string;20709
 msgid "Inactive"
 msgstr "Nieaktywne"
 
@@ -6324,19 +6324,19 @@ msgstr ""
 msgid "Are you sure you want to delete the \"%s\" skin? This cannot be undone."
 msgstr "Czy jesteś pewien że chcesz usunąć skórę \"%s\" ? Ta operacja jest nieodwracalna."
 
-#: string;20701
+#: string;20700
 msgid "%s in : %s out  (d:%I64i/u:%I64i)"
 msgstr "%s do : %s z (Pob:%I64i/Wys:%I64i)"
 
-#: string;20702
+#: string;20701
 msgid "Connected to %lu neighbors. %s in local library."
 msgstr "Połączony do %lu host(ów). %s w lokalnej bibliotece (zasobów)."
 
-#: string;20703
+#: string;20702
 msgid "Hub mode with %lu neighbors. %s in local library."
 msgstr "Tryb Hub z %lu Sąsiadem(ami).  %s w lokalnej bibliotece."
 
-#: string;20704
+#: string;20703
 msgid "Hub/Ultrapeer mode with %lu neighbors. %s in local library."
 msgstr "Tryb Hub/Ultrapeer z %lu Sąsiadem(ami).  %s w lokalnej bibliotece."
 
@@ -6344,15 +6344,15 @@ msgstr "Tryb Hub/Ultrapeer z %lu Sąsiadem(ami).  %s w lokalnej bibliotece."
 msgid "Connected. %s in local library."
 msgstr "Połączony. %s w lokalnej bibliotece (zasobów)."
 
-#: string;20706
+#: string;20704
 msgid "Ultrapeer mode with %lu neighbors. %s in local library."
 msgstr "Tryb Ultrapeer z %lu Sąsiadem(ami).  %s w lokalnej bibliotece."
 
-#: string;20707
+#: string;20706
 msgid "Connecting to the network..."
 msgstr "Łączenie do sieci..."
 
-#: string;20708
+#: string;20707
 msgid "Not connected to the network."
 msgstr "Nie połączony do sieci."
 

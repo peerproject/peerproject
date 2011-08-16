@@ -432,7 +432,7 @@ msgstr ""
 msgid "Bootstraps"
 msgstr ""
 
-#: button;id_discovery_servermet
+#: button;id_discovery_serverlist
 msgid "Server.met's"
 msgstr ""
 
@@ -1808,7 +1808,7 @@ msgstr "ブートストラップを表示(_B)"
 msgid "Show _GWebCaches"
 msgstr "GWebCacheを表示(_G)"
 
-#: cdiscoverywnd;item;id_discovery_servermet
+#: cdiscoverywnd;item;id_discovery_serverlist
 msgid "Show Ser_ver.met's"
 msgstr "Server.metを表示(_V)"
 
@@ -2884,7 +2884,7 @@ msgstr "選択したディスカバリサービスに今すぐ問い合わせま
 msgid "Remove the selected discovery services."
 msgstr "選択したディスカバリサービスを削除します"
 
-#: message;id_discovery_servermet
+#: message;id_discovery_serverlist
 msgid "Show eDonkey Server.met services in the Discovery window."
 msgstr "ディスカバリウィンドウ内のeDonkey2000 Server.metを表示します"
 
@@ -3841,7 +3841,7 @@ msgid "Access the selected download sources and attempt to download."
 msgstr "選択したダウンロードソースにアクセスし、ダウンロードを試行します"
 
 #: message;id_transfers_disconnect
-msgid "Disconnect the selected download transfer(s)."
+msgid "Disconnect the selected download transfers."
 msgstr "選択したダウンロードの転送を切断します"
 
 #: message;id_transfers_forget
@@ -3857,15 +3857,15 @@ msgid "Automatically clear uploads which have been completed."
 msgstr "アップロードが完了時にリストから自動的にクリアします"
 
 #: message;id_uploads_clear
-msgid "Clear the selected uploads from the list."
+msgid "Cancel selected uploads and remove from list."
 msgstr "選択したアップロードをリストからクリアします"
 
 #: message;id_uploads_clear_completed
-msgid "Clear uploads which have been completed."
+msgid "Clear uploads that have completed."
 msgstr "完了したアップロードをクリアします"
 
 #: message;id_uploads_disconnect
-msgid "Disconnect the selected upload transfer(s)."
+msgid "Disconnect the selected upload transfers."
 msgstr "選択したアップロードを切断します"
 
 #: message;id_uploads_filter_active
@@ -3893,7 +3893,7 @@ msgid "Show BitTorrent uploads."
 msgstr "BitTorrentアップロードを表示します"
 
 #: message;id_uploads_launch
-msgid "Launch the selected shared file(s)."
+msgid "Show selected shared files in the Library. (Or hold Shift to open.)s)."
 msgstr "選択した共有ファイルを開きます"
 
 #: message;id_uploads_settings
@@ -3901,7 +3901,7 @@ msgid "Configure upload settings..."
 msgstr "アップロード設定を構成します..."
 
 #: message;id_uploads_start
-msgid "Start the selected queued upload(s)."
+msgid "Force start selected queued uploads."
 msgstr "選択したアップロードキューを開始します"
 
 #: message;id_view_basic
@@ -6080,11 +6080,11 @@ msgstr ""
 msgid "No scheduled event. Please select a task."
 msgstr ""
 
-#: string;20612 string;20700 string;20760
+#: string;20707 string;20760
 msgid "Active"
 msgstr "有効"
 
-#: string;20613 string;20761
+#: string;20709
 msgid "Inactive"
 msgstr "無効"
 
@@ -6324,19 +6324,19 @@ msgstr ""
 msgid "Are you sure you want to delete the \"%s\" skin? This cannot be undone."
 msgstr "\"%s\" スキンを削除してよろしいですか?  この作業は元に戻せません"
 
-#: string;20701
+#: string;20700
 msgid "%s in : %s out  (d:%I64i/u:%I64i)"
 msgstr "入 %s : 出 %s (d:%I64i/u:%I64i)"
 
-#: string;20702
+#: string;20701
 msgid "Connected to %lu neighbors. %s in local library."
 msgstr "近隣接続 %lu, 共有 %s"
 
-#: string;20703
+#: string;20702
 msgid "Hub mode with %lu neighbors. %s in local library."
 msgstr "ハブモード 近隣接続 %lu, 共有 %s"
 
-#: string;20704
+#: string;20703
 msgid "Hub/Ultrapeer mode with %lu neighbors. %s in local library."
 msgstr "ハブ/ウルトラピアモード 近隣接続 %lu, 共有 %s"
 
@@ -6344,15 +6344,15 @@ msgstr "ハブ/ウルトラピアモード 近隣接続 %lu, 共有 %s"
 msgid "Connected. %s in local library."
 msgstr "接続済み, 共有 %s"
 
-#: string;20706
+#: string;20704
 msgid "Ultrapeer mode with %lu neighbors. %s in local library."
 msgstr "ウルトラピアモード 近隣接続 %lu, 共有 %s"
 
-#: string;20707
+#: string;20706
 msgid "Connecting to the network..."
 msgstr "ネットワークに接続中..."
 
-#: string;20708
+#: string;20707
 msgid "Not connected to the network."
 msgstr "ネットワーク未接続です"
 

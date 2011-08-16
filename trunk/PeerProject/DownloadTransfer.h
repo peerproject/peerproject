@@ -1,7 +1,7 @@
 //
 // DownloadTransfer.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -70,7 +70,7 @@ private:
 public:
 	virtual BOOL	Initiate() = 0;
 	virtual void	Close(TRISTATE bKeepSource, DWORD nRetryAfter = 0);
-	virtual void	Boost();
+	virtual void	Boost(BOOL bBoost = TRUE);
 	virtual DWORD	GetAverageSpeed();
 	virtual DWORD	GetMeasuredSpeed();
 	virtual BOOL	SubtractRequested(Fragments::List& ppFragments) = 0;

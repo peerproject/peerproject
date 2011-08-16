@@ -440,14 +440,13 @@ void CBTInfo::ConvertOldTorrents()
 		AfxThrowFileException( CFileException::diskFull );
 
 	CString strSource;
-	strSource.Format( _T("\\\\?\\%s\\%s.partial"),
-		Settings.Downloads.IncompletePath, GetFilename());
+	strSource.Format( _T("%s\\%s.partial"), Settings.Downloads.IncompletePath, GetFilename() );
+	if ( strSource.GetLength() > MAX_PATH ) strSource = L"\\\\?\\" + strSource;
 
 	if ( GetFileAttributes( strSource ) == INVALID_FILE_ATTRIBUTES )
 		return;
 
-	CFile oSource( strSource,
-		CFile::modeRead | CFile::osSequentialScan | CFile::shareDenyNone);
+	CFile oSource( strSource, CFile::modeRead | CFile::osSequentialScan | CFile::shareDenyNone );
 
 	const DWORD BUFFER_SIZE = 8ul * 1024ul * 1024ul;
 	BYTE* pBuffer = new BYTE[ BUFFER_SIZE ];
@@ -455,8 +454,8 @@ void CBTInfo::ConvertOldTorrents()
 		AfxThrowMemoryException();
 
 	CString strTargetTemplate;
-	strTargetTemplate.Format( _T("\\\\?\\%s\\%s"),
-		Settings.Downloads.IncompletePath, GetFilename() );
+	strTargetTemplate.Format( _T("%s\\%s"), Settings.Downloads.IncompletePath, GetFilename() );
+	if ( strTargetTemplate.GetLength() > MAX_PATH ) strTargetTemplate = L"\\\\?\\" + strTargetTemplate;
 
 	CString strText;
 	CProgressBarDlg oProgress( CWnd::GetDesktopWindow() );
@@ -482,11 +481,9 @@ void CBTInfo::ConvertOldTorrents()
 		CString strTarget;
 		strTarget.Format( _T("%s_%lu.partial"), strTargetTemplate, nCount );
 
-		CFile oTarget( strTarget,
-			CFile::modeCreate | CFile::modeWrite | CFile::osSequentialScan );
+		CFile oTarget( strTarget, CFile::modeCreate | CFile::modeWrite | CFile::osSequentialScan );
 
-		strText.Format( _T("%lu %s %i"), nCount + 1ul, strOf,
-			m_pFiles.GetCount() );
+		strText.Format( _T("%lu %s %i"), nCount + 1ul, strOf, m_pFiles.GetCount() );
 
 		if ( Settings.General.LanguageRTL )
 			strText = _T("\x202B") + strText;
@@ -494,7 +491,7 @@ void CBTInfo::ConvertOldTorrents()
 		oProgress.SetSubActionText( strText );
 		oProgress.SetSubEventText( pFile->m_sPath );
 		oProgress.SetSubEventRange( 0, int( pFile->m_nSize / 1024ull ) );
-		oProgress.UpdateData( FALSE);
+		oProgress.UpdateData( FALSE );
 		oProgress.UpdateWindow();
 
 		QWORD nLength = pFile->m_nSize;
@@ -840,7 +837,7 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 	{
 		m_nTrackerMode = tMultiFinding;
 
-		BOOL bUnsupported = FALSE;	// UDP tracker display
+		CList< CString > pTrackers, pBadTrackers;
 
 		// Loop through all the tiers
 		for ( int nTier = 0 ; nTier < pAnnounceList->GetCount() ; nTier++ )
@@ -849,7 +846,6 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 			if ( ( pSubList ) && ( pSubList->IsType( CBENode::beList ) ) )
 			{
 				// Read in the trackers
-				CList< CString > pTrackers;
 				for ( int nTracker = 0 ; nTracker < pSubList->GetCount() ; nTracker++ )
 				{
 					CBENode* pTracker = pSubList->GetNode( nTracker );
@@ -858,19 +854,15 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 						CString strTracker = pTracker->GetString();		// Get the tracker
 
 						// Check tracker is valid
-						if ( strTracker == _T("http://tracker.thepiratebay.org/announce") )
-							bUnsupported = TRUE;						// Skip dead trackers, but store below for display
-						else if ( _tcsncicmp( (LPCTSTR)strTracker, _T("http://"), 7 ) == 0 )
-							pTrackers.AddTail( strTracker );			// Store HTTP tracker
-						else if ( _tcsncicmp( (LPCTSTR)strTracker, _T("udp://"), 6 ) == 0 )
-							bUnsupported = TRUE;						// Store below for display, ToDo: Add UDP tracker support
-						else if ( _tcsncicmp( (LPCTSTR)strTracker, _T("https://"), 8 ) == 0 )
-							bUnsupported = TRUE;						// Store below for display, ToDo: Verify rare https or try converting to http?
-						else
-						{
-							bUnsupported = TRUE;
-							theApp.Message( MSG_DEBUG, _T("Unknown torrent tracker protocol:  %s"), strTracker );
-						}
+						if ( _tcsncicmp( (LPCTSTR)strTracker, _T("http://"), 7 ) != 0 )		// ToDo: Handle UDP/HTTPS	_T("udp://") _T("https://")
+							pBadTrackers.AddTail( BAD_TRACKER_TOKEN + strTracker );			// Store Non-HTTP tracker for display (*udp://)
+						else if ( strTracker.Find( _T(".openbittorrent."), 14 ) > 14 ||
+								  strTracker.Find( _T("denis.stalker.h3q.com"), 7 ) > 7 ||
+								  strTracker.Find( _T("piratebay.org"), 7 ) > 7 ||
+								  strTracker.Find( _T(".1337x."), 8 ) > 8 )
+							pBadTrackers.AddTail( BAD_TRACKER_TOKEN + strTracker );			// Store common dead trackers for display
+						else //if ( _tcsncicmp( (LPCTSTR)strTracker, _T("http://"), 7 ) == 0 )
+							pTrackers.AddTail( strTracker );								// Store TCP tracker
 					}
 				}
 
@@ -883,8 +875,7 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 						{
 							if ( GetRandomNum( 0, 1 ) )
 							{
-								CString strTemp;
-								strTemp = pTrackers.GetAt( pos );
+								CString strTemp = pTrackers.GetAt( pos );
 								pTrackers.RemoveAt( pos );
 
 								if ( GetRandomNum( 0, 1 ) )
@@ -908,37 +899,19 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 			}
 		}
 
-		// ToDo: Remove this when UDP trackers are supported!
-		// Catch unsupported trackers for display at end of list.
-		if ( bUnsupported )
+		// Catch unsupported trackers for display at end of list.	ToDo: Update this when UDP trackers are supported! (Also check HTTPS etc.)
+		if ( ! pBadTrackers.IsEmpty() )
 		{
-			// Loop through all tiers again
-			for ( int nTier = 0 ; nTier < pAnnounceList->GetCount() ; nTier++ )
+			for ( POSITION pos = pBadTrackers.GetHeadPosition() ; pos ; )
 			{
-				CBENode* pSubList = pAnnounceList->GetNode( nTier );
-				if ( ( pSubList ) && ( pSubList->IsType( CBENode::beList ) ) )
-				{
-					for ( int nTracker = 0 ; nTracker < pSubList->GetCount() ; nTracker++ )
-					{
-						CBENode* pTracker = pSubList->GetNode( nTracker );
-						if ( ( pTracker ) && ( pTracker->IsType( CBENode::beString ) ) )
-						{
-							CString strTracker = pTracker->GetString();
+				// Create the tracker and add it to the list
+				AddTracker( CBTTracker( pTrackers.GetNext( pos ), 99 ) );
 
-							if ( _tcsncicmp( (LPCTSTR)strTracker, _T("udp://"), 6 ) == 0 ||			// ToDo: Add UDP tracker support
-								 _tcsncicmp( (LPCTSTR)strTracker, _T("https://"), 8 ) == 0 ||		// ToDo: Verify rare https or try converting to http?
-								 strTracker == _T("http://tracker.thepiratebay.org/announce") ||	// Store common dead trackers for display
-								 _tcsncicmp( (LPCTSTR)strTracker, _T("http://"), 7 ) != 0 )			// Catch unknkowns
-							{
-								CBTTracker oTracker;
-								oTracker.m_sAddress	= _T("*") + strTracker;							// Mark for display only: *udp://...
-								oTracker.m_nFailures = 1;
-								oTracker.m_nTier = 99;
-								AddTracker( oTracker );
-							}
-						}
-					}
-				}
+			//	CBTTracker oTracker;
+			//	oTracker.m_sAddress	= BAD_TRACKER_TOKEN + pTrackers.GetNext( pos );				// Mark for display only: *udp://...
+			//	oTracker.m_nFailures = 1;
+			//	oTracker.m_nTier = 99;
+			//	AddTracker( oTracker );
 			}
 		}
 
@@ -958,8 +931,9 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 			// Store it if it's valid. (Some torrents have invalid trackers)
 			if ( _tcsncicmp( (LPCTSTR)strTracker, _T("http://"), 7 ) == 0 )
 			{
-				if ( strTracker.Find( _T("piratebay"), 7 ) > 7 )	// Catch defunct trackers
-					strTracker = _T("http://tracker.openbittorrent.com/announce");
+				// Catch common defunct TCP trackers
+				if ( strTracker.Find( _T("openbittorrent"), 14 ) > 14 || strTracker.Find( _T("piratebay.org"), 7 ) > 7 )
+					strTracker = _T("http://tracker.publicbt.com/announce");	// Settings.BitTorrent.DefaultTracker ?
 
 				// Set the torrent to be a single-tracker torrent
 				m_nTrackerMode = tSingle;
@@ -967,12 +941,18 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 
 				// Backup tracker
 				//CBTTracker oTracker;
-				//oTracker.m_sAddress = _T("http://tracker.openbittorrent.com/announce");
+				//oTracker.m_sAddress = _T("http://tracker.publicbt.com/announce");
 				//oTracker.m_nTier = 0;
 				//m_nTrackerMode = tMultiFinding;
 				//AddTracker( oTracker );
 			}
-			//else	// Torrents should always have a valid announce node, udp:// is unlikely.
+			else //if ( _tcsncicmp( (LPCTSTR)strTracker, _T("udp://"), 6 ) == 0 )
+			{
+				// Torrents should always have a valid announce node, only udp:// is unlikely.  Try PublicBT as only TCP tracker. (Should get Private tag first...)
+				strTracker = _T("http://tracker.publicbt.com/announce");	// Settings.BitTorrent.DefaultTracker ?
+				SetTracker( strTracker );
+				m_nTrackerMode = tSingle;
+			}
 		}
 	}
 
@@ -982,7 +962,7 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 
 	// Get the private flag (if present)
 	CBENode* pPrivate = pInfo->GetNode( "private" );
-	if ( ( pPrivate ) &&  ( pPrivate->IsType( CBENode::beInt )  ) )
+	if ( ( pPrivate ) && ( pPrivate->IsType( CBENode::beInt ) ) )
 		m_bPrivate = pPrivate->GetInt() > 0;
 
 	// Get the name
@@ -1446,8 +1426,8 @@ void CBTInfo::SetTrackerNext(DWORD tTime)
 	// Search through the list for an available tracker, or the first one that will become available
 	for ( int nTracker = 0 ; nTracker < m_oTrackers.GetCount() ; ++nTracker )
 	{
-		if ( m_oTrackers[ nTracker ].m_sAddress.GetAt( 0 ) == _T('*') )
-			break;	// Reached bad trackers displayed at end of list
+		if ( m_oTrackers[ nTracker ].m_sAddress.GetAt( 0 ) == BAD_TRACKER_TOKEN )	// *udp://
+			continue;	//break;	// Reached bad trackers displayed at end of list (but user-added may follow)
 
 		// Get the next tracker in the list
 		CBTTracker& oTracker = m_oTrackers[ nTracker ];

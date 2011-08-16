@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Albanian Skin File -->
 
-<!-- Translation based on default-en.xml r68 -->
+<!-- Translation based on default-en.xml r69 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -151,10 +151,10 @@
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Parashiko"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Fshije"/>
-		<button id="ID_DOWNLOADS_RESUME" text="Rimerre"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="Pusho"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Anulo"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Pastro"/>
+		<button id="ID_DOWNLOADS_RESUME" text="Rimerre"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="Pusho"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Info"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Monitoro"/>
@@ -166,10 +166,10 @@
 		<button id="ID_DOWNLOADS_LAUNCH" text="Parashiko"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Fshije"/>
-		<button id="ID_DOWNLOADS_RESUME" text="Rimerre"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="Pusho"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Anulo"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Pastro"/>
+		<button id="ID_DOWNLOADS_RESUME" text="Rimerre"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="Pusho"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Info"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Monitoro"/>
@@ -189,8 +189,9 @@
 	<toolbar name="CUploadsWnd">
 		<button id="ID_UPLOADS_LAUNCH" text="Hape/Lexo"/>
 		<separator/>
-		<button id="ID_UPLOADS_START" text="Nise Tani"/>
 		<button id="ID_UPLOADS_CLEAR" text="Pastro"/>
+		<button id="ID_UPLOADS_START" text="Nise Tani"/>
+		<button id="ID_UPLOADS_PRIORITY" text="Prioritet" visible="false"/>
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Shfleto"/>
 		<button id="ID_UPLOADS_CHAT" text="Bisedo"/>
@@ -1204,11 +1205,16 @@
 	<menu name="CUploadsWnd.Upload.Basic">
 		<item id="ID_BROWSE_LAUNCH" text="_Shfleto"/>
 		<item id="ID_UPLOADS_CHAT" text="_Bisedo"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="_Ndihmë..."/>
 	</menu>
 	<menu name="CUploadsWnd.Upload">
-		<item id="ID_UPLOADS_START" text="_Fillo Tani"/>
-		<item id="ID_UPLOADS_CLEAR" text="_Pastro"/>
+		<item id="ID_UPLOADS_LAUNCH" text="Trego _Library"/>
 		<item id="ID_UPLOADS_FOLDER" text="Aç _Folder"/>
+		<separator/>
+		<item id="ID_UPLOADS_CLEAR" text="_Pastro"/>
+		<item id="ID_UPLOADS_START" text="_Fillo Tani"/>
+		<item id="ID_UPLOADS_PRIORITY" text="Prioritet"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="_Shfleto"/>
 		<item id="ID_UPLOADS_CHAT" text="_Bisedo"/>
@@ -1617,19 +1623,19 @@
 	</menu>
 	<!-- DISCOVERY SERVICES WINDOW -->
 	<menu name="CDiscoveryWnd">
-		<item id="ID_DISCOVERY_QUERY" text="_Pyete Tani"/>
-		<item id="ID_DISCOVERY_ADVERTISE" text="R_eklamo"/>
+		<item id="ID_DISCOVERY_ADD" text="_Shto Shërbim..."/>
+		<separator/>
+		<item id="ID_DISCOVERY_EDIT" text="_Veti"/>
 		<item id="ID_DISCOVERY_REMOVE" text="_Fshije"/>
 		<separator/>
+		<item id="ID_DISCOVERY_QUERY" text="_Pyete Tani"/>
+		<item id="ID_DISCOVERY_ADVERTISE" text="R_eklamo"/>
 		<item id="ID_DISCOVERY_BROWSE" text="_Statistikat"/>
 		<separator/>
 		<item id="ID_DISCOVERY_GNUTELLA" text="Trego _Bootstrap-et"/>
 		<item id="ID_DISCOVERY_WEBCACHE" text="Trego _GWebDepot"/>
-		<item id="ID_DISCOVERY_SERVERMET" text="Trego Ser_ver.met-et"/>
-		<separator/>
-		<item id="ID_DISCOVERY_ADD" text="_Shto Shërbim..."/>
-		<separator/>
-		<item id="ID_DISCOVERY_EDIT" text="_Veti"/>
+		<item id="ID_DISCOVERY_SERVERLIST" text="Trego Ser_ver.met-et"/>
+		<item id="ID_DISCOVERY_BLOCKED" text="Trego Bllokuar"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
 	<menu name="CPrivateChatFrame">
@@ -2379,7 +2385,7 @@
 	<tip id="ID_DISCOVERY_GNUTELLA" message="Tregon shërbimet bootstrap në dritaren Zbulimi."/>
 	<tip id="ID_DISCOVERY_QUERY" message="Heton menjëherë shërbimin zbulues të zgjedhur."/>
 	<tip id="ID_DISCOVERY_REMOVE" message="Fshin shërbimin zbulues të zgjedhur."/>
-	<tip id="ID_DISCOVERY_SERVERMET" message="Tregon shërbimet e Server.met të eDonkey në dritaren Zbulimi."/>
+	<tip id="ID_DISCOVERY_SERVERLIST" message="Tregon shërbimet e Server.met të eDonkey në dritaren Zbulimi."/>
 	<tip id="ID_DISCOVERY_WEBCACHE" message="Tregon shërbimet GWebDepo në dritaren Zbulimi."/>
 	<tip id="ID_DOWNLOAD_GROUP_CLEAR" message="Anulon dhe heq gjithë shkarkesat në grup."/>
 	<tip id="ID_DOWNLOAD_GROUP_NEW" message="Krijon një grup të ri shkarkimi..."/>
@@ -2640,6 +2646,7 @@
 	<tip id="ID_UPLOADS_LAUNCH" message="Lëshon skedën e zgjedhur që shpërndahet."/>
 	<tip id="ID_UPLOADS_SETTINGS" message="Konfiguron vendosjet e ngarkesës..."/>
 	<tip id="ID_UPLOADS_START" message="Nis ngarkesën e zgjedhur në radhën e pritjes."/>
+	<tip id="ID_UPLOADS_PRIORITY" message="Prioritet."/>
 	<tip id="ID_VIEW_BASIC" message="Përdor PeerProject-n në mënyrën e Thjeshtë."/>
 	<tip id="ID_VIEW_DISCOVERY" message="Tregon ose fsheh dritaren SHËRBIMET ZBULUESE."/>
 	<tip id="ID_VIEW_DOWNLOADS" message="Tregon ose fsheh dritaren SHKARKIMI."/>
@@ -2720,6 +2727,7 @@
 	<string id="20016" value="Riprovo"/>
 	<string id="20017" value="Ndërprite"/>
 	<string id="20018" value="Provo Përsëri"/>
+	<string id="20019" value="Palun oodake..."/>
 	<string id="20020" value="Skedë"/>
 	<string id="20021" value="Skedë"/>
 	<string id="20022" value="Të Gjitha Skedë"/>
@@ -3026,15 +3034,16 @@
 	<string id="20678" value="The eDonkey network uses large queues with long wait times. By limiting the maximum queue position you will accept so strictly, you may have trouble getting downloads to begin.\nAre you sure you want to limit what queue positions you will accept?"/>
 	<string id="20680" value="Vendosjet e PeerProject-s"/>
 	<string id="20684" value="A jeni i sigurt se doni të fshini lëvoren &quot;%s&quot;. Këtë nuk mund ta ktheni."/>
-	<string id="20700" value="Aktiv"/>
-	<string id="20701" value="%s brenda : %s jashtë (s:%I64i/n:%I64i)"/>
-	<string id="20702" value="I lidhur te %lu fqinjë.  %s në librarinë lokale."/>
-	<string id="20703" value="Mënyrë Nyje me %lu hoste.  %s në librarinë lokale."/>
-	<string id="20704" value="Mënyrë Nyje/Ultrapikë me %lu hoste.  %s në librarinë lokale."/>
+	<string id="20700" value="%s brenda : %s jashtë (s:%I64i/n:%I64i)"/>
+	<string id="20701" value="I lidhur te %lu fqinjë.  %s në librarinë lokale."/>
+	<string id="20702" value="Mënyrë Nyje me %lu hoste.  %s në librarinë lokale."/>
+	<string id="20703" value="Mënyrë Nyje/Ultrapikë me %lu hoste.  %s në librarinë lokale."/>
+	<string id="20704" value="Mënyrë Ultrapikë me %lu hoste.  %s në librarinë lokale."/>
 	<string id="20705" value="I lidhur. %s në librarinë lokale."/>
-	<string id="20706" value="Mënyrë Ultrapikë me %lu hoste.  %s në librarinë lokale."/>
-	<string id="20707" value="Lidhje në rrjet..."/>
-	<string id="20708" value="Nuk jeni i Lidhur në Rrjet."/>
+	<string id="20706" value="Lidhje në rrjet..."/>
+	<string id="20707" value="Nuk jeni i Lidhur në Rrjet."/>
+	<string id="20708" value="Aktiv"/>
+	<string id="20709" value="Joaktiv"/>
 	<string id="20710" value="Pastër"/>
 	<string id="20711" value="Nuk Lëviz"/>
 	<string id="20712" value="I Mbytur"/>
@@ -3075,8 +3084,7 @@
 	<string id="20751" value="Nuk ka asnjë kërkim aktiv. Klikoni që të kërkoni për një skedë."/>
 	<string id="20752" value="Nuk jeni i lidhur. Që të nisni, shtypni butonin Lidhu."/>
 	<string id="20755" value="A jeni i sigurt se doni të fshini tempujkën &quot;%s&quot;.\nKjo nuk mund të kthehet!"/>
-	<string id="20760" value="Aktiv"/>
-	<string id="20761" value="Joaktiv"/>
+	<string id="20760" value="Prioritet"/>
 	<string id="20762" value="Kjo skedë duket si spam."/>
 	<string id="20763" value="Në Listën e Zezë:"/>
 	<string id="20764" value="Këtë skedë e keni shkarkuar e fshirë më parë."/>

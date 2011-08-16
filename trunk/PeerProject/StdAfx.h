@@ -828,7 +828,7 @@ inline QWORD GetFileSize(LPCTSTR pszFile)
 // MB_CANCELTRYCONTINUE	| 0 - ask, 1 - IDCANCEL, 2 - IDTRYAGAIN, 3 - IDCONTINUE
 INT_PTR MsgBox(LPCTSTR lpszText, UINT nType = MB_OK, UINT nIDHelp = 0, DWORD* pnDefault = NULL);
 INT_PTR MsgBox(UINT nIDPrompt, UINT nType = MB_OK, UINT nIDHelp = 0, DWORD* pnDefault = NULL);
-#undef AfxMessageBox
+#undef  AfxMessageBox
 #define AfxMessageBox MsgBox
 
 #undef  _stscanf
@@ -839,6 +839,12 @@ INT_PTR MsgBox(UINT nIDPrompt, UINT nType = MB_OK, UINT nIDHelp = 0, DWORD* pnDe
 	((hr)==CO_E_OBJNOTCONNECTED)|| \
 	((hr)==RPC_E_SERVERFAULT)|| \
 	((hr)==RPC_E_INVALID_OBJECT))
+
+#define TIMER_START			DWORD tTest = GetTickCount();		// Temporary testing purposes [PPD]
+#define TIMER_STOP			tTest = GetTickCount() - tTest; CString strTest; strTest.Format( L"\r\n %.3f seconds", tTest / 1000.000 ); \
+	CFile pFile; if ( pFile.Open( Settings.General.Path + L"\\Timer.txt", CFile::modeReadWrite ) ) pFile.Seek( 0, CFile::end ); \
+	else if ( pFile.Open( Settings.General.Path + L"\\Timer.txt", CFile::modeWrite|CFile::modeCreate ) ) /*pFile.Write( (WORD)0xFEFF, 2 );*/ pFile.Write( L"Timer:", 6*2 ); \
+	pFile.Write( strTest, strTest.GetLength()*2 ); pFile.Close(); theApp.m_bLive && theApp.m_bInteractive ? theApp.Message( MSG_TRAY, strTest ) : MsgBox( strTest );
 
 #define SwitchMap(name) 	static std::map < const CString, char > name; if ( name.empty() )	// Switch on text by proxy [PPD]
 

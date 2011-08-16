@@ -49,22 +49,22 @@ public:
 	DWORD		m_tCompleted;
 	int			m_nRunCookie;
 	int			m_nGroupCookie;
-	BOOL		m_bClearing;	// Briefly marked for removal or deletion (rarely visible, but may take longer than expected)
+	BOOL		m_bClearing;			// Briefly marked for removal or deletion (rarely visible, but may take longer than expected)
 private:
 	BOOL		m_bTempPaused;
 	BOOL		m_bPaused;
 	BOOL		m_bBoosted;
 	BOOL		m_bShared;
 	bool		m_bComplete;
-	bool		m_bDownloading;	// Store if a download is downloading, as performance tweak. Count transfers for 100% current answer.
-	DWORD		m_tBegan;		// Time when this download began trying to download (Started searching, etc). 0 means not tried this session.
+	bool		m_bDownloading; 		// Store if a download is downloading, as performance tweak. Count transfers for 100% current answer.
+	DWORD		m_tBegan;				// Time when this download began trying to download (Started searching, etc). 0 means not tried this session.
 	DWORD		m_tSaved;
 // Operations
 public:
 	void		Pause(BOOL bRealPause = TRUE);
 	void		Resume();
 	void		Remove();
-	void		Boost();
+	void		Boost(BOOL bBoost = TRUE);
 	void		Share(BOOL bShared);
 	bool		IsStarted() const;		// Has the download actually downloaded anything?
 	bool		IsDownloading() const;	// Is the download receiving data?
@@ -93,7 +93,7 @@ public:
 	virtual bool IsPaused(bool bRealState = false) const;
 	virtual bool IsCompleted() const;
 	virtual bool IsTrying() const;		// Is the download currently trying to download?
-	virtual void Serialize(CArchive& ar, int nVersion);	// DOWNLOAD_SER_VERSION
+	virtual void Serialize(CArchive& ar, int nVersion); 	// DOWNLOAD_SER_VERSION
 
 	friend class CDownloadTransfer;		// GetVerifyLength
 	friend class CDownloadWithTorrent;	// m_bComplete

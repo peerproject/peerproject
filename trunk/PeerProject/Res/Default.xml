@@ -133,10 +133,10 @@
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Preview File"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Delete File"/>
-		<button id="ID_DOWNLOADS_RESUME" text="Resume Download"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="Pause Download"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Cancel Download"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Clear Download"/>
+		<button id="ID_DOWNLOADS_RESUME" text="Resume Download"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="Pause Download"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Details"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Show Monitor"/>
@@ -159,7 +159,7 @@
 		<button id="ID_TOOLS_DOWNLOAD" text="Add Download"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Clear List"/>
 		<separator/>
-		<button id="ID_DOWNLOADS_FILTER_MENU" text="Filter"/>
+		<button id="ID_DOWNLOADS_FILTER_MENU" text="Filters"/>
 	</toolbar>
 	<!-- UPLOADS WINDOW -->
 	<toolbar name="CUploadsWnd.Basic">
@@ -175,6 +175,7 @@
 		<separator/>
 		<button id="ID_UPLOADS_CLEAR" text="Cancel File"/>
 		<button id="ID_UPLOADS_START" text="Start Now"/>
+		<button id="ID_UPLOADS_PRIORITY" text="Priority " visible="false"/>
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Browse User"/>
 		<button id="ID_UPLOADS_CHAT" text="Chat User"/>
@@ -182,7 +183,7 @@
 			<rightAlign/>
 		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="Clear List"/>
 		<separator/>
-		<button id="ID_UPLOADS_FILTER_MENU" text="Filter"/>
+		<button id="ID_UPLOADS_FILTER_MENU" text="Filters"/>
 	</toolbar>
 	<!-- LIBRARY FRAME -->
 	<toolbar name="CLibraryTree.Top">
@@ -405,18 +406,10 @@
 			<rightAlign/>
 		<button id="ID_DISCOVERY_WEBCACHE" text="GWebCaches"/>
 		<button id="ID_DISCOVERY_GNUTELLA" text="Bootstraps"/>
-		<button id="ID_DISCOVERY_SERVERMET" text="Server.METs"/>
+		<button id="ID_DISCOVERY_SERVERLIST" text="Server.met/Hublists"/>
+		<button id="ID_DISCOVERY_BLOCKED" text="Blocked"/>
 	</toolbar>
 	<!-- HOST CACHE WINDOW -->
-	<toolbar name="CHostCacheWnd.Basic">
-		<button id="ID_HOSTCACHE_CONNECT" text="Connect To"/>
-		<button id="ID_HOSTCACHE_DISCONNECT" text="Disconnect"/>
-		<button id="ID_HOSTCACHE_REMOVE" text="Remove"/>
-			<rightAlign/>
-		<button id="ID_HOSTCACHE_G2_CACHE" text="Cache"/>
-		<button id="ID_HOSTCACHE_G1_CACHE" text="Cache"/>
-		<button id="ID_HOSTCACHE_ED2K_CACHE" text="Servers"/>
-	</toolbar>
 	<toolbar name="CHostCacheWnd">
 		<button id="ID_HOSTCACHE_CONNECT" text="Connect To"/>
 		<button id="ID_HOSTCACHE_DISCONNECT" text="Disconnect"/>
@@ -928,11 +921,11 @@
 	</menu>
 	<menu name="CMainWnd.View.Tabbed">
 		<item id="ID_TAB_HOME" text="_Home"/>
-		<item id="ID_TAB_LIBRARY" text="_Library"/>
-		<item id="ID_TAB_MEDIA" text="_Media Player"/>
 		<item id="ID_TAB_SEARCH" text="_Search"/>
 		<item id="ID_TAB_TRANSFERS" text="_Transfers"/>
 		<item id="ID_TAB_NETWORK" text="_Network"/>
+		<item id="ID_TAB_LIBRARY" text="_Library"/>
+		<item id="ID_TAB_MEDIA" text="_Media Player"/>
 		<item id="ID_TAB_IRC" text="IRC _Chat"/>
 		<separator/>
 		<item id="ID_VIEW_SECURITY" text="Se_curity"/>
@@ -1014,7 +1007,7 @@
 			<item id="ID_HOSTCACHE_G2_CACHE" text="Gnutella_2 Cache"/>
 			<item id="ID_HOSTCACHE_G1_CACHE" text="_Gnutella Cache"/>
 			<item id="ID_HOSTCACHE_ED2K_CACHE" text="_eDonkey Servers"/>
-			<item id="ID_HOSTCACHE_DC_CACHE" text="D_C++ Hubs"/>
+			<item id="ID_HOSTCACHE_DC_CACHE" text="DC++ _Hubs"/>
 		<!--	<item id="ID_HOSTCACHE_BT_CACHE" text="_BitTorrent Cache"/> -->
 		<!--	<item id="ID_HOSTCACHE_KAD_CACHE" text="_Kademlia Cache"/> -->
 		</menu>
@@ -1223,9 +1216,12 @@
 	<menu name="CDownloadsWnd.Seeding">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Open File"/>
 		<item id="ID_DOWNLOADS_FOLDER" text="Open _Folder"/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Stop Seeding"/>
-		<separator/>
 		<item id="ID_DOWNLOADS_FILE_DELETE" text="_Delete Files"/>
+		<separator/>
+		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Stop Seeding"/>
+		<item id="ID_DOWNLOADS_PAUSE" text="Pa_use Seeding"/>
+		<item id="ID_DOWNLOADS_RESUME" text="_Resume Seeding"/>
+		<separator/>
 		<item id="ID_DOWNLOADS_URI" text="Get Magnet Link (_URI)"/>
 		<item id="ID_DOWNLOADS_HELP" text="_Help..."/>
 		<separator/>
@@ -1272,20 +1268,22 @@
 		<item id="ID_UPLOADS_LAUNCH" text="Show File in _Library"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="_Browse User"/>
-		<item id="ID_UPLOADS_CHAT" text="_Chat to User"/>
-		<item id="ID_SECURITY_BAN" text="Ba_n User"/>
+		<item id="ID_UPLOADS_CHAT" text="_Chat with User"/>
+		<item id="ID_SECURITY_BAN" text="B_an User"/>
 		<separator/>
 		<item id="ID_UPLOADS_HELP" text="_Help..."/>
 	</menu>
 	<menu name="CUploadsWnd.Upload">
-		<item id="ID_UPLOADS_START" text="_Start Now"/>
-		<item id="ID_UPLOADS_CLEAR" text="_Clear"/>
-		<item id="ID_UPLOADS_LAUNCH" text="Show _Library"/>
+		<item id="ID_UPLOADS_LAUNCH" text="Show in _Library"/>
 		<item id="ID_UPLOADS_FOLDER" text="Open _Folder"/>
 		<separator/>
+		<item id="ID_UPLOADS_CLEAR" text="_Clear"/>
+		<item id="ID_UPLOADS_START" text="_Start Now"/>
+		<item id="ID_UPLOADS_PRIORITY" text="Grant _Priority"/>
+		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="_Browse User"/>
-		<item id="ID_UPLOADS_CHAT" text="_Chat to User"/>
-		<item id="ID_SECURITY_BAN" text="Ba_n User"/>
+		<item id="ID_UPLOADS_CHAT" text="_Chat User"/>
+		<item id="ID_SECURITY_BAN" text="B_an User"/>
 	</menu>
 	<menu name="CUploadsWnd.Default">
 		<item id="ID_LIBRARY_FOLDERS" text="_Shared Folders..."/>
@@ -1615,9 +1613,9 @@
 		<item id="ID_NEIGHBOURS_URI" text="Get P2P Link (_URI)"/>
 	</menu>
 	<menu name="CNeighboursWnd">
-		<item id="ID_BROWSE_LAUNCH" text="B_rowse User"/>
+		<item id="ID_BROWSE_LAUNCH" text="_Browse User"/>
 		<item id="ID_NEIGHBOURS_CHAT" text="_Chat to User"/>
-		<item id="ID_SECURITY_BAN" text="_Ban User"/>
+		<item id="ID_SECURITY_BAN" text="B_an User"/>
 		<separator/>
 		<item id="ID_NEIGHBOURS_DISCONNECT" text="_Disconnect"/>
 		<separator/>
@@ -1630,7 +1628,7 @@
 			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
 			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
-			<item id="ID_NETWORK_DC" text="D_C++"/>
+			<item id="ID_NETWORK_DC" text="_DC++"/>
 			<separator/>
 			<item id="ID_VIEW_DISCOVERY" text="Discovery _Services"/>
 			<item id="ID_VIEW_HOSTS" text="_Host/Server Cache"/>
@@ -1689,7 +1687,7 @@
 		<item id="ID_SCHEDULER_ADD" text="_Add Scheduled Task"/>
 		<separator/>
 		<item id="ID_SCHEDULER_EDIT" text="_Edit"/>
-		<item id="ID_SCHEDULER_REMOVE" text="Re_move"/>
+		<item id="ID_SCHEDULER_REMOVE" text="_Remove"/>
 		<separator/>
 		<item id="ID_SCHEDULER_ACTIVATE" text="A_ctivate"/>
 		<item id="ID_SCHEDULER_DEACTIVATE" text="_Deactivate"/>
@@ -1697,23 +1695,23 @@
 		<item id="ID_SCHEDULER_IMPORT" text="_Import..."/>
 		<item id="ID_SCHEDULER_EXPORT" text="E_xport..."/>
 		<separator/>
-		<item id="ID_SCHEDULER_REMOVE_ALL" text="Remove Al_l"/>
+		<item id="ID_SCHEDULER_REMOVE_ALL" text="Re_move All"/>
 	</menu>
 	<!-- DISCOVERY SERVICES WINDOW -->
 	<menu name="CDiscoveryWnd">
-		<item id="ID_DISCOVERY_QUERY" text="_Query Now"/>
-		<item id="ID_DISCOVERY_ADVERTISE" text="A_dvertise"/>
-		<item id="ID_DISCOVERY_REMOVE" text="_Remove"/>
-		<separator/>
-		<item id="ID_DISCOVERY_BROWSE" text="Browse _Statistics"/>
-		<separator/>
-		<item id="ID_DISCOVERY_GNUTELLA" text="Show _Bootstraps"/>
-		<item id="ID_DISCOVERY_WEBCACHE" text="Show _GWebCaches"/>
-		<item id="ID_DISCOVERY_SERVERMET" text="Show Ser_ver.met's"/>
-		<separator/>
 		<item id="ID_DISCOVERY_ADD" text="_Add Service..."/>
 		<separator/>
-		<item id="ID_DISCOVERY_EDIT" text="_Properties"/>
+		<item id="ID_DISCOVERY_EDIT" text="_Edit"/>
+		<item id="ID_DISCOVERY_REMOVE" text="_Remove"/>
+		<separator/>
+		<item id="ID_DISCOVERY_QUERY" text="_Query Now"/>
+		<item id="ID_DISCOVERY_ADVERTISE" text="A_dvertise"/>
+		<item id="ID_DISCOVERY_BROWSE" text="Browse _Statistics"/>
+		<separator/>
+		<item id="ID_DISCOVERY_WEBCACHE" text="Show _GWebCaches"/>
+		<item id="ID_DISCOVERY_GNUTELLA" text="Show _Bootstraps"/>
+		<item id="ID_DISCOVERY_SERVERLIST" text="Show Server.met/_Hublists"/>
+		<item id="ID_DISCOVERY_BLOCKED" text="Show Bl_ocked"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
 	<menu name="CPrivateChatFrame">
@@ -2048,7 +2046,7 @@
 		<text>&#160;Adjust common user interface behaviors, etc.</text>
 		<newline gap="10"/>
 		<link target="page:CLibrarySettingsPage" format="b">Library: </link>
-		<text>&#160;File access, management, and presentation of the local library.</text>
+		<text>&#160;File access, presentation and management of your local library.</text>
 		<newline gap="10"/>
 		<link target="page:CMediaSettingsPage" format="b">Media Player: </link>
 		<text>&#160;Set when to use the internal PeerProject Media System.</text>
@@ -2480,16 +2478,16 @@
 		<image type="alpha" language="en" res="304"/>
 		<target window="CMainTabBarCtrl.Basic"/>
 		<anchors>
-			<anchor name="Background" 			  	rect="0,0,576,44"/>
-			<anchor name="_ID_TAB_HOME" 		  	rect="4,1,90,38"/>
+			<anchor name="Background" 				rect="0,0,576,44"/>
+			<anchor name="_ID_TAB_HOME" 			rect="4,1,90,38"/>
 			<anchor name="_ID_TAB_SEARCH"			rect="95,1,90,38"/>
 			<anchor name="_ID_TAB_TRANSFERS"		rect="186,1,112,38"/>
 			<anchor name="_ID_TAB_LIBRARY"			rect="299,1,94,38"/>
-			<anchor name="_ID_TAB_MEDIA"		  	rect="394,1,90,38"/>
-			<anchor name="_ID_TAB_IRC"		  		rect="485,1,80,38"/>
+			<anchor name="_ID_TAB_MEDIA"			rect="394,1,90,38"/>
+			<anchor name="_ID_TAB_IRC"				rect="485,1,80,38"/>
 		</anchors>
 		<parts>
-			<part name="_ID_TAB_HOME.Up"		  	rect="0,0,90,38"/>
+			<part name="_ID_TAB_HOME.Up"			rect="0,0,90,38"/>
 			<part name="_ID_TAB_HOME.Checked"		rect="0,38,90,38"/>
 			<part name="_ID_TAB_HOME.Hover"			rect="0,38,90,38"/>
 			<part name="_ID_TAB_HOME.Down"			rect="0,76,90,38"/>
@@ -2509,10 +2507,10 @@
 			<part name="_ID_TAB_MEDIA.Checked"		rect="494,38,90,38"/>
 			<part name="_ID_TAB_MEDIA.Hover"		rect="494,38,90,38"/>
 			<part name="_ID_TAB_MEDIA.Down"			rect="494,76,90,38"/>
-			<part name="_ID_TAB_IRC.Up" 	  		rect="584,0,80,38"/>
+			<part name="_ID_TAB_IRC.Up" 			rect="584,0,80,38"/>
 			<part name="_ID_TAB_IRC.Checked"		rect="584,38,80,38"/>
 			<part name="_ID_TAB_IRC.Hover"			rect="584,38,80,38"/>
-			<part name="_ID_TAB_IRC.Down"		  	rect="584,76,80,38"/>
+			<part name="_ID_TAB_IRC.Down"			rect="584,76,80,38"/>
 		</parts>
 	</windowSkin>
 	<windowSkin>
@@ -2569,24 +2567,24 @@
 	<target window="CRemoteWnd"/>
 	<caption fontFace="Segoe UI" fontSize="11" fontWeight="Normal" color="EDF2F6" outlineColor="5A5856" />
 	<region>
-		<shape type="roundRect" size="12,12"	rect="2,2,426,91"/>
-		<shape type="rectangle" combine="or"	rect="0,0,8,2"/>
-		<shape type="rectangle" combine="or"	rect="4,1,10,3"/>
-		<shape type="rectangle" combine="or"	rect="1,2,5,14"/>
-		<shape type="rectangle" combine="or"	rect="0,14,3,16"/>
-		<shape type="rectangle" combine="or"	rect="40,0,48,2"/>
-		<shape type="rectangle" combine="or"	rect="48,1,50,2"/>
-		<shape type="rectangle" combine="or"	rect="73,1,76,2"/>
+		<shape type="roundRect" size="12,12"		rect="2,2,426,91"/>
+		<shape type="rectangle" combine="or"		rect="0,0,8,2"/>
+		<shape type="rectangle" combine="or"		rect="4,1,10,3"/>
+		<shape type="rectangle" combine="or"		rect="1,2,5,14"/>
+		<shape type="rectangle" combine="or"		rect="0,14,3,16"/>
+		<shape type="rectangle" combine="or"		rect="40,0,48,2"/>
+		<shape type="rectangle" combine="or"		rect="48,1,50,2"/>
+		<shape type="rectangle" combine="or"		rect="73,1,76,2"/>
 	</region>
 	<anchors>
-		<anchor name="StatusText"				rect="86,8,254,11"/>
+		<anchor name="StatusText"					rect="86,8,254,11"/>
 		<anchor name="MediaSeekTrack" 				rect="16,28,396,5"/>
 		<anchor name="MediaVolTrack"				rect="330,52,70,13"/>
-		<!--anchor name="MediaStatePlaying"		rect=""-->
-		<!--anchor name="MediaStatePaused"		rect=""-->
-		<!--anchor name="MediaStateStopped"		rect=""-->
+		<!--anchor name="MediaStatePlaying" 		rect=""-->
+		<!--anchor name="MediaStatePaused"			rect=""-->
+		<!--anchor name="MediaStateStopped" 		rect=""-->
 		<!--anchor name="ScalerTrack" 				rect=""-->
-		<!--anchor name="History" 				  	rect=""-->
+		<!--anchor name="History" 					rect=""-->
 		<anchor name="_ID_MONITOR_CLOSE"			rect="370,2,52,22"/>
 		<anchor name="_ID_MEDIA_PLAY" 				rect="190,34,46,48"/>
 		<anchor name="_ID_MEDIA_PAUSE"				rect="190,34,46,48"/>
@@ -2599,37 +2597,37 @@
 		<anchor name="_ID_MEDIA_ADD"				rect="4,1,82,20"/>
 	</anchors>
 	<parts>
-		<part name="Background" 				  	rect="0,0,426,90"/>
-		<part name="MediaSeekBar" 				  	rect="17,118,396,5"/>
-		<part name="MediaSeekTab" 				  	rect="402,118,10,5"/>
-		<part name="MediaVolBar"  				  	rect="330,142,70,13"/>
-		<part name="MediaVolTab"  					rect="389,142,12,13"/>
+		<part name="Background" 					rect="0,0,426,90"/>
+		<part name="MediaSeekBar" 					rect="17,118,396,5"/>
+		<part name="MediaSeekTab" 					rect="402,118,10,5"/>
+		<part name="MediaVolBar"					rect="330,142,70,13"/>
+		<part name="MediaVolTab"					rect="389,142,12,13"/>
 		<!--part name="MediaStatePlaying"			rect=""-->
 		<!--part name="MediaStatePaused"			rect=""-->
 		<!--part name="MediaStateStopped"			rect=""-->
-		<!--part name="HistoryTx1"				  	rect=""-->
-		<!--part name="HistoryRx1"				  	rect=""-->
+		<!--part name="HistoryTx1"					rect=""-->
+		<!--part name="HistoryRx1"					rect=""-->
 		<!--part name="ScalerTab"					rect=""-->
-		<part name="_ID_MONITOR_CLOSE.Hover"	rect="370,92,52,22"/>
-		<part name="_ID_MONITOR_CLOSE.Down"		rect="318,92,52,22"/>
+		<part name="_ID_MONITOR_CLOSE.Hover"		rect="370,92,52,22"/>
+		<part name="_ID_MONITOR_CLOSE.Down" 		rect="318,92,52,22"/>
 		<part name="_ID_MEDIA_PLAY.Up"				rect="190,34,46,48"/>
 		<part name="_ID_MEDIA_PLAY.Hover"			rect="190,124,46,48"/>
 		<part name="_ID_MEDIA_PLAY.Down"			rect="380,158,46,48"/>
 		<part name="_ID_MEDIA_PAUSE.Up"				rect="46,158,45,48"/>
-		<part name="_ID_MEDIA_PAUSE.Hover"		rect="0,158,46,48"/>
+		<part name="_ID_MEDIA_PAUSE.Hover"			rect="0,158,46,48"/>
 		<part name="_ID_MEDIA_PAUSE.Down"			rect="334,158,46,48"/>
 		<part name="_ID_MEDIA_STOP.Hover"			rect="116,136,25,25"/>
 		<part name="_ID_MEDIA_STOP.Down"			rect="200,181,25,25"/>
-		<part name="_ID_MEDIA_STOP.Disabled"	rect="91,136,25,25"/>
-		<part name="_ID_MEDIA_PREVIOUS.Hover"	rect="144,181,49,25"/>
-		<part name="_ID_MEDIA_PREVIOUS.Down"	rect="92,181,49,25"/>
+		<part name="_ID_MEDIA_STOP.Disabled"		rect="91,136,25,25"/>
+		<part name="_ID_MEDIA_PREVIOUS.Hover"		rect="144,181,49,25"/>
+		<part name="_ID_MEDIA_PREVIOUS.Down"		rect="92,181,49,25"/>
 		<part name="_ID_MEDIA_PREVIOUS.Disabled"	rect="141,136,49,25"/>
 		<part name="_ID_MEDIA_NEXT.Hover"			rect="233,181,49,25"/>
 		<part name="_ID_MEDIA_NEXT.Down"			rect="285,181,49,25"/>
-		<part name="_ID_MEDIA_NEXT.Disabled"	rect="236,136,49,25"/>
-		<part name="_ID_MEDIA_MUTE.Checked"		rect="300,141,20,15"/>
-		<part name="_ID_MEDIA_RANDOM.Checked"	rect="36,140,17,17"/>
-		<part name="_ID_MEDIA_REPEAT.Checked"	rect="66,140,17,17"/>
+		<part name="_ID_MEDIA_NEXT.Disabled"		rect="236,136,49,25"/>
+		<part name="_ID_MEDIA_MUTE.Checked" 		rect="300,141,20,15"/>
+		<part name="_ID_MEDIA_RANDOM.Checked"		rect="36,140,17,17"/>
+		<part name="_ID_MEDIA_REPEAT.Checked"		rect="66,140,17,17"/>
 		<part name="_ID_MEDIA_ADD.Hover"			rect="4,91,82,20"/>
 	</parts>
 	</windowSkin>
@@ -2641,8 +2639,8 @@
 		<image /> <!--Logo-->
 		<image id="ID_MEDIA_PREVIOUS" id1="ID_SHAREMONKEY_PREVIOUS" id2="ID_LIBRARY_PARENT"/>
 		<image id="ID_MEDIA_NEXT" id1="ID_SHAREMONKEY_NEXT" id2="ID_CHAT_PRIORITY"/>
-		<image id="ID_SEARCH_DOWNLOAD" id1="ID_DOWNLOADS_RESUME" id2="ID_DOWNLOAD_GROUP_RESUME" id3="ID_UPLOADS_START" id4="ID_DISCOVERY_QUERY"
-			id5="ID_HOSTCACHE_CONNECT" id6="ID_NETWORK_CONNECT" id7="ID_NETWORK_CONNECT_TO" id8="ID_TRANSFERS_CONNECT" id9="ID_TOOLS_SETTINGS"/>
+		<image id="ID_SEARCH_DOWNLOAD" id1="ID_DOWNLOADS_RESUME" id2="ID_DOWNLOAD_GROUP_RESUME" id3="ID_UPLOADS_START" id4="ID_UPLOADS_PRIORITY"
+			id5="ID_HOSTCACHE_CONNECT" id6="ID_NETWORK_CONNECT" id7="ID_NETWORK_CONNECT_TO" id8="ID_TRANSFERS_CONNECT" id9="ID_DISCOVERY_QUERY"/>
 		<image id="ID_CHAT_CONNECT" id1="ID_IRC_CONNECT" id2="ID_SEARCH_DOWNLOADNOW" id3="ID_DOWNLOADS_BOOST" id4="ID_SHAREMONKEY_BUY"/>
 		<image id="ID_MEDIA_PLAY" id1="ID_MEDIA_SELECT" id2="ID_DOWNLOADS_LAUNCH" id3="ID_DOWNLOADS_LAUNCH_COPY" id4="ID_DOWNLOADS_LAUNCH_COMPLETE"
 			id5="ID_UPLOADS_LAUNCH" id6="ID_LIBRARY_LAUNCH" id7="ID_LIBRARY_ALBUM_OPEN" id8="ID_LIBRARY_EXPLORE" id9="ID_LIBRARY_FOLDER_ENQUEUE"/>
@@ -2662,7 +2660,7 @@
 		<image id="PluginID_ImageViewer_Close"/> <!--Delete-->
 		<image id="ID_SEARCH_STOP" id1="ID_BROWSE_STOP" id2="ID_NETWORK_DISCONNECT" id3="ID_UPLOADS_DISCONNECT"
 			id4="ID_IRC_DISCONNECT" id5="ID_CHAT_DISCONNECT" id6="ID_HOSTCACHE_DISCONNECT" id7="ID_SCHEDULER_REMOVE_ALL"/>
-		<image id="ID_SECURITY_BAN" id1="ID_TRANSFERS_FORGET" id2="ID_DOWNLOAD_GROUP_REMOVE"/>
+		<image id="ID_SECURITY_BAN" id1="ID_TRANSFERS_FORGET" id2="ID_DOWNLOAD_GROUP_REMOVE" id3="ID_DISCOVERY_BLOCKED"/>
 		<image id="ID_LIBRARY_UNLINK" /> <!--IDI_RATING_FAKE-->
 		<image /> <!--IDI_RATING_AVERAGE-->
 		<image /> <!--IDI_RATING_GOOD-->
@@ -2734,7 +2732,7 @@
 		<!--MediaOptions-->
 		<image id="PluginID_ImageViewer_BestFit" id1="ID_MEDIA_SIZE_ONE"/>
 		<image id="PluginID_ImageViewer_FullSize" id1="ID_MEDIA_SIZE_FILL"/>
-		<image id="PluginID_ImageViewer_Refresh" id1="ID_BROWSE_REFRESH" id2="ID_LIBRARY_REFRESH" id3="ID_LIBRARY_REFRESH_METADATA"/>
+		<image id="PluginID_ImageViewer_Refresh" id1="ID_BROWSE_REFRESH" id2="ID_LIBRARY_REFRESH" id3="ID_LIBRARY_REFRESH_METADATA" id4="ID_DISCOVERY_ADVERTISE"/>
 		<image id="ID_MEDIA_REPEAT"/>
 		<image id="ID_MEDIA_RANDOM"/>
 		<image id="ID_MEDIA_ZOOM"/>
@@ -2806,7 +2804,7 @@
 		<image />
 		<image />
 		<image id="ID_NETWORK_DC" id1="ID_HOSTCACHE_DC_CACHE"/>
-		<image id="ID_NETWORK_ED2K" id1="ID_HOSTCACHE_ED2K_CACHE" id2="ID_IMPORT_DOWNLOADS" id3="ID_DISCOVERY_SERVERMET"/>
+		<image id="ID_NETWORK_ED2K" id1="ID_HOSTCACHE_ED2K_CACHE" id2="ID_IMPORT_DOWNLOADS" id3="ID_DISCOVERY_SERVERLIST"/>
 		<image id="ID_NETWORK_KAD" id1="ID_HOSTCACHE_KAD_CACHE"/>
 		<image id="ID_NETWORK_BT" id1="ID_LIBRARY_CREATETORRENT" id2="ID_TOOLS_CREATETORRENT" id3="ID_TOOLS_SEEDTORRENT" id4="ID_TOOLS_RESEEDTORRENT"/>
 	</bitmap>

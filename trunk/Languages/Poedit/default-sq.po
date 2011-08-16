@@ -432,7 +432,7 @@ msgstr ""
 msgid "Bootstraps"
 msgstr ""
 
-#: button;id_discovery_servermet
+#: button;id_discovery_serverlist
 msgid "Server.met's"
 msgstr ""
 
@@ -1808,7 +1808,7 @@ msgstr "Trego _Bootstrap-et"
 msgid "Show _GWebCaches"
 msgstr "Trego _GWebDepot"
 
-#: cdiscoverywnd;item;id_discovery_servermet
+#: cdiscoverywnd;item;id_discovery_serverlist
 msgid "Show Ser_ver.met's"
 msgstr "Trego Ser_ver.met-et"
 
@@ -2884,7 +2884,7 @@ msgstr "Heton menjëherë shërbimin zbulues të zgjedhur."
 msgid "Remove the selected discovery services."
 msgstr "Fshin shërbimin zbulues të zgjedhur."
 
-#: message;id_discovery_servermet
+#: message;id_discovery_serverlist
 msgid "Show eDonkey Server.met services in the Discovery window."
 msgstr "Tregon shërbimet e Server.met të eDonkey në dritaren Zbulimi."
 
@@ -3841,7 +3841,7 @@ msgid "Access the selected download sources and attempt to download."
 msgstr "Hyn në burimet e shkarkesës së zgjedhur dhe orvatet të shkarkojë."
 
 #: message;id_transfers_disconnect
-msgid "Disconnect the selected download transfer(s)."
+msgid "Disconnect the selected download transfers."
 msgstr "Shkëput transferimin për shkarkesën e zgjedhur."
 
 #: message;id_transfers_forget
@@ -3857,15 +3857,15 @@ msgid "Automatically clear uploads which have been completed."
 msgstr "Pastron automatikisht ngarkesat që kanë përfunduar."
 
 #: message;id_uploads_clear
-msgid "Clear the selected uploads from the list."
+msgid "Cancel selected uploads and remove from list."
 msgstr "Pastron nga lista ngarkesën e zgjedhur."
 
 #: message;id_uploads_clear_completed
-msgid "Clear uploads which have been completed."
+msgid "Clear uploads that have completed."
 msgstr "Pastron ngarkesat që kanë përfunduar."
 
 #: message;id_uploads_disconnect
-msgid "Disconnect the selected upload transfer(s)."
+msgid "Disconnect the selected upload transfers."
 msgstr "Shkëput transferimin për ngarkesën e zgjedhur."
 
 #: message;id_uploads_filter_active
@@ -3893,7 +3893,7 @@ msgid "Show BitTorrent uploads."
 msgstr "Tregon ngarkesat e BitTorrent."
 
 #: message;id_uploads_launch
-msgid "Launch the selected shared file(s)."
+msgid "Show selected shared files in the Library. (Or hold Shift to open.)s)."
 msgstr "Lëshon skedën e zgjedhur që shpërndahet."
 
 #: message;id_uploads_settings
@@ -3901,7 +3901,7 @@ msgid "Configure upload settings..."
 msgstr "Konfiguron vendosjet e ngarkesës..."
 
 #: message;id_uploads_start
-msgid "Start the selected queued upload(s)."
+msgid "Force start selected queued uploads."
 msgstr "Nis ngarkesën e zgjedhur në radhën e pritjes."
 
 #: message;id_view_basic
@@ -6080,11 +6080,11 @@ msgstr ""
 msgid "No scheduled event. Please select a task."
 msgstr ""
 
-#: string;20612 string;20700 string;20760
+#: string;20707 string;20760
 msgid "Active"
 msgstr "Aktiv"
 
-#: string;20613 string;20761
+#: string;20709
 msgid "Inactive"
 msgstr "Joaktiv"
 
@@ -6324,19 +6324,19 @@ msgstr ""
 msgid "Are you sure you want to delete the \"%s\" skin? This cannot be undone."
 msgstr "A jeni i sigurt se doni të fshini lëvoren \"%s\". Këtë nuk mund ta ktheni."
 
-#: string;20701
+#: string;20700
 msgid "%s in : %s out  (d:%I64i/u:%I64i)"
 msgstr "%s brenda : %s jashtë (s:%I64i/n:%I64i)"
 
-#: string;20702
+#: string;20701
 msgid "Connected to %lu neighbors. %s in local library."
 msgstr "I lidhur te %lu fqinjë.  %s në librarinë lokale."
 
-#: string;20703
+#: string;20702
 msgid "Hub mode with %lu neighbors. %s in local library."
 msgstr "Mënyrë Nyje me %lu hoste.  %s në librarinë lokale."
 
-#: string;20704
+#: string;20703
 msgid "Hub/Ultrapeer mode with %lu neighbors. %s in local library."
 msgstr "Mënyrë Nyje/Ultrapikë me %lu hoste.  %s në librarinë lokale."
 
@@ -6344,15 +6344,15 @@ msgstr "Mënyrë Nyje/Ultrapikë me %lu hoste.  %s në librarinë lokale."
 msgid "Connected. %s in local library."
 msgstr "I lidhur. %s në librarinë lokale."
 
-#: string;20706
+#: string;20704
 msgid "Ultrapeer mode with %lu neighbors. %s in local library."
 msgstr "Mënyrë Ultrapikë me %lu hoste.  %s në librarinë lokale."
 
-#: string;20707
+#: string;20706
 msgid "Connecting to the network..."
 msgstr "Lidhje në rrjet..."
 
-#: string;20708
+#: string;20707
 msgid "Not connected to the network."
 msgstr "Nuk jeni i Lidhur në Rrjet."
 

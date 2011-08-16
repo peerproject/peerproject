@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Polish Skin File -->
 
-<!-- Translation based on default-en.xml r68 (Shareaza 2.1.2.7) -->
+<!-- Translation based on default-en.xml r69 (Shareaza 2.1.2.7) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -150,10 +150,10 @@
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Podgląd pliku"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Usuń plik"/>
-		<button id="ID_DOWNLOADS_RESUME" text="Wznów pobieranie"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="Wstrzymaj pobieranie"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Anuluj pobieranie"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Wyczyść pobieranie"/>
+		<button id="ID_DOWNLOADS_RESUME" text="Wznów pobieranie"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="Wstrzymaj pobieranie"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Info"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Pokaż monitor"/>
@@ -165,10 +165,10 @@
 		<button id="ID_DOWNLOADS_LAUNCH" text="Podgląd pliku"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Usuń plik"/>
-		<button id="ID_DOWNLOADS_RESUME" text="Wznów pobieranie"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="Wstrzymaj pobieranie"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Anuluj pobieranie"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Wyczyść pobieranie"/>
+		<button id="ID_DOWNLOADS_RESUME" text="Wznów pobieranie"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="Wstrzymaj pobieranie"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Info"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Pokaż monitor pobierania"/>
@@ -188,8 +188,9 @@
 	<toolbar name="CUploadsWnd">
 		<button id="ID_UPLOADS_LAUNCH" text="Otwórz lub odtwarzaj"/>
 		<separator/>
-		<button id="ID_UPLOADS_START" text="Zacznij wysyłanie"/>
 		<button id="ID_UPLOADS_CLEAR" text="Anuluj wysyłanie"/>
+		<button id="ID_UPLOADS_START" text="Zacznij wysyłanie"/>
+		<button id="ID_UPLOADS_PRIORITY" text="Priorytet" visible="false"/>
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Przegladaj użytkownika"/>
 		<button id="ID_UPLOADS_CHAT" text="Rozmowa z użytkownikiem"/>
@@ -1033,11 +1034,16 @@
 	<menu name="CUploadsWnd.Upload.Basic">
 		<item id="ID_BROWSE_LAUNCH" text="Przegladaj użytkownika"/>
 		<item id="ID_UPLOADS_CHAT" text="Rozmowa z użytkownikiem"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="Pomoc..."/>
 	</menu>
 	<menu name="CUploadsWnd.Upload">
-		<item id="ID_UPLOADS_START" text="Zacznij wysyłanie"/>
-		<item id="ID_UPLOADS_CLEAR" text="Wyczyść"/>
+		<item id="ID_UPLOADS_LAUNCH" text="Pokaż _Library"/>
 		<item id="ID_UPLOADS_FOLDER" text="Otwórz _Folder"/>
+		<separator/>
+		<item id="ID_UPLOADS_CLEAR" text="Wyczyść"/>
+		<item id="ID_UPLOADS_START" text="Zacznij wysyłanie"/>
+		<item id="ID_UPLOADS_PRIORITY" text="Priorytet"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="Przegladaj użytkownika"/>
 		<item id="ID_UPLOADS_CHAT" text="Rozmowa z użytkownikiem"/>
@@ -1434,19 +1440,19 @@
 	</menu>
 	<!-- DISCOVERY SERVICES WINDOW -->
 	<menu name="CDiscoveryWnd">
-		<item id="ID_DISCOVERY_QUERY" text="Spytaj teraz"/>
-		<item id="ID_DISCOVERY_ADVERTISE" text="Ogłaszaj"/>
+		<item id="ID_DISCOVERY_ADD" text="Dodaj serwis..."/>
+		<separator/>
+		<item id="ID_DISCOVERY_EDIT" text="Właściwości"/>
 		<item id="ID_DISCOVERY_REMOVE" text="Usuń"/>
 		<separator/>
+		<item id="ID_DISCOVERY_QUERY" text="Spytaj teraz"/>
+		<item id="ID_DISCOVERY_ADVERTISE" text="Ogłaszaj"/>
 		<item id="ID_DISCOVERY_BROWSE" text="Przeglądaj statystyki"/>
 		<separator/>
 		<item id="ID_DISCOVERY_GNUTELLA" text="Pokaż Bootstrap'y"/>
 		<item id="ID_DISCOVERY_WEBCACHE" text="Pokaż GWebCache'e"/>
-		<item id="ID_DISCOVERY_SERVERMET" text="Pokaż Server.met'y"/>
-		<separator/>
-		<item id="ID_DISCOVERY_ADD" text="Dodaj serwis..."/>
-		<separator/>
-		<item id="ID_DISCOVERY_EDIT" text="Właściwości"/>
+		<item id="ID_DISCOVERY_SERVERLIST" text="Pokaż Server.met'y"/>
+		<item id="ID_DISCOVERY_BLOCKED" text="Pokaż Zablokowany"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
 	<menu name="CPrivateChatFrame">
@@ -2109,7 +2115,7 @@
 	<tip id="ID_DISCOVERY_GNUTELLA" message="Pokaż bootstrap'y w oknie Discovery."/>
 	<tip id="ID_DISCOVERY_QUERY" message="Zapytaj teraz zaznaczone serwisy discovery."/>
 	<tip id="ID_DISCOVERY_REMOVE" message="Usuń zaznaczone serwisy discovery."/>
-	<tip id="ID_DISCOVERY_SERVERMET" message="Pokaż Server.met'y eDonkey2000 w oknie Discovery."/>
+	<tip id="ID_DISCOVERY_SERVERLIST" message="Pokaż Server.met'y eDonkey2000 w oknie Discovery."/>
 	<tip id="ID_DISCOVERY_WEBCACHE" message="Pokaż GWebCache'e w oknie Discovery."/>
 	<tip id="ID_DOWNLOAD_GROUP_CLEAR" message="Anuluj i usuń wszystkie pobierania z tej grupy."/>
 	<tip id="ID_DOWNLOAD_GROUP_NEW" message="Utwórz nową grupę pobierań..."/>
@@ -2365,6 +2371,7 @@
 	<tip id="ID_UPLOADS_LAUNCH" message="Uruchom wybrany współdzielony Plik(i)."/>
 	<tip id="ID_UPLOADS_SETTINGS" message="Skonfiguruj ustawienia wysyłania..."/>
 	<tip id="ID_UPLOADS_START" message="Uruchom wybrany upload(y) w kolejce."/>
+	<tip id="ID_UPLOADS_PRIORITY" message="Priorytet."/>
 	<tip id="ID_VIEW_BASIC" message="Użyj PeerProject w normalnym trybie."/>
 	<tip id="ID_VIEW_DISCOVERY" message="Pokaż lub ukryj okno usług DISCOVERY."/>
 	<tip id="ID_VIEW_DOWNLOADS" message="Pokaż lub uryj okno pobierania."/>
@@ -2441,6 +2448,7 @@
 	<string id="20012" value="do potrzeb"/> <!-- oryg.: "Custom" ? -->
 	<string id="20013" value="Domyślnie"/>
 	<string id="20014" value="Finisz"/> <!-- oryg.: "Finish" ? -->
+	<string id="20019" value="Proszę czekać..."/>
 	<string id="20020" value="Plik"/>
 	<string id="20021" value="Pliki"/>
 	<string id="20022" value="Wszystkie Pliki"/>
@@ -2835,15 +2843,16 @@
 	<string id="20678" value="The eDonkey network uses large queues with long wait times. By limiting the maximum queue position you will accept so strictly, you may have trouble getting downloads to begin.\nAre you sure you want to limit what queue positions you will accept?"/>
 	<string id="20680" value="Ustawienia PeerProject"/>
 	<string id="20684" value="Czy jesteś pewien że chcesz usunąć skórę &quot;%s&quot; ? Ta operacja jest nieodwracalna."/>
-	<string id="20700" value="Aktywne"/>
-	<string id="20701" value="%s do : %s z (Pob:%I64i/Wys:%I64i)"/>
-	<string id="20702" value="Połączony do %lu host(ów). %s w lokalnej bibliotece (zasobów)."/>
-	<string id="20703" value="Tryb Hub z %lu Sąsiadem(ami).  %s w lokalnej bibliotece."/>
-	<string id="20704" value="Tryb Hub/Ultrapeer z %lu Sąsiadem(ami).  %s w lokalnej bibliotece."/>
+	<string id="20700" value="%s do : %s z (Pob:%I64i/Wys:%I64i)"/>
+	<string id="20701" value="Połączony do %lu host(ów). %s w lokalnej bibliotece (zasobów)."/>
+	<string id="20702" value="Tryb Hub z %lu Sąsiadem(ami).  %s w lokalnej bibliotece."/>
+	<string id="20703" value="Tryb Hub/Ultrapeer z %lu Sąsiadem(ami).  %s w lokalnej bibliotece."/>
+	<string id="20704" value="Tryb Ultrapeer z %lu Sąsiadem(ami).  %s w lokalnej bibliotece."/>
 	<string id="20705" value="Połączony. %s w lokalnej bibliotece (zasobów)."/>
-	<string id="20706" value="Tryb Ultrapeer z %lu Sąsiadem(ami).  %s w lokalnej bibliotece."/>
-	<string id="20707" value="Łączenie do sieci..."/>
-	<string id="20708" value="Nie połączony do sieci."/>
+	<string id="20706" value="Łączenie do sieci..."/>
+	<string id="20707" value="Nie połączony do sieci."/>
+	<string id="20708" value="Aktywne"/>
+	<string id="20709" value="Nieaktywne"/>
 	<string id="20710" value="Usuwanie"/>
 	<string id="20711" value="Nie można przenieść"/>
 	<string id="20712" value="Zdławiony"/>
@@ -2884,8 +2893,7 @@
 	<string id="20751" value="Brak aktywnych wyszukiwań. Kliknij tutaj, aby wyszukać pliki."/>
 	<string id="20752" value="Nie jesteś połączony. Kliknij przycisk Połącz aby uruchomić."/>
 	<string id="20755" value="Czy jesteś pewien, że chcesz usunąć szablon &quot;%s&quot; ?\nTo działanie nie może być cofnięte."/>
-	<string id="20760" value="Aktywne"/>
-	<string id="20761" value="Nieaktywne"/>
+	<string id="20760" value="Priorytet"/>
 	<string id="20762" value="Ten plik wygląda na spam."/>
 	<string id="20763" value="Na Czarnej liście:"/>
 	<string id="20764" value="Ten plik już był ściągnięty ale został usunięty."/>

@@ -495,7 +495,7 @@ CUploadQueue* CUploadsCtrl::GetNextQueue(POSITION& pos)
 		pos = NULL;
 		return UploadQueues.m_pHistoryQueue;
 	}
-	else
+	else // Normal queue
 	{
 		CUploadQueue* pQueue = UploadQueues.GetNext( pos );
 
@@ -521,8 +521,6 @@ POSITION CUploadsCtrl::GetFileIterator(CUploadQueue* pQueue)
 			if ( pTransfer->m_nProtocol != PROTOCOL_BT ) continue;
 			return posThis;
 		}
-
-		return NULL;
 	}
 	else if ( pQueue == UploadQueues.m_pHistoryQueue )
 	{
@@ -538,10 +536,8 @@ POSITION CUploadsCtrl::GetFileIterator(CUploadQueue* pQueue)
 			}
 			return posThis;
 		}
-
-		return NULL;
 	}
-	else
+	else // Normal queue
 	{
 		if ( Settings.Uploads.FilterMask & ULF_ACTIVE )
 		{
@@ -554,9 +550,9 @@ POSITION CUploadsCtrl::GetFileIterator(CUploadQueue* pQueue)
 			if ( pQueue->GetQueuedCount() > 0 )
 				return (POSITION)1;
 		}
-
-		return NULL;
 	}
+
+	return NULL;
 }
 
 CUploadFile* CUploadsCtrl::GetNextFile(CUploadQueue* pQueue, POSITION& pos, int* pnPosition)

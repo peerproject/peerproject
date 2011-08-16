@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Simplified) Skin File -->
 
-<!-- Translation based on default-en.xml r68 (Shareaza r6092) -->
+<!-- Translation based on default-en.xml r69 (Shareaza r6092) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -152,10 +152,10 @@
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="预览文件"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="删除文件"/>
-		<button id="ID_DOWNLOADS_RESUME" text="续传"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="暂停"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="取消"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="清除下载"/>
+		<button id="ID_DOWNLOADS_RESUME" text="续传"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="暂停"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="信息"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="显示监视器"/>
@@ -167,10 +167,10 @@
 		<button id="ID_DOWNLOADS_LAUNCH" text="预览文件"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="删除文件"/>
-		<button id="ID_DOWNLOADS_RESUME" text="续传"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="暂停"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="取消"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="清除下载"/>
+		<button id="ID_DOWNLOADS_RESUME" text="续传"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="暂停"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="信息"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="显示监视器"/>
@@ -190,8 +190,9 @@
 	<toolbar name="CUploadsWnd">
 		<button id="ID_UPLOADS_LAUNCH" text="打开或播放"/>
 		<separator/>
-		<button id="ID_UPLOADS_START" text="立即开始"/>
 		<button id="ID_UPLOADS_CLEAR" text="清除上传"/>
+		<button id="ID_UPLOADS_START" text="立即开始"/>
+		<button id="ID_UPLOADS_PRIORITY" text="优先" visible="false"/>
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="浏览用户"/>
 		<button id="ID_UPLOADS_CHAT" text="与用户聊天"/>
@@ -1164,11 +1165,16 @@
 	<menu name="CUploadsWnd.Upload.Basic">
 		<item id="ID_BROWSE_LAUNCH" text="浏览用户(_B)"/>
 		<item id="ID_UPLOADS_CHAT" text="与用户聊天(_C)"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="帮助(_H)..."/>
 	</menu>
 	<menu name="CUploadsWnd.Upload">
-		<item id="ID_UPLOADS_START" text="立即开始(_S)"/>
-		<item id="ID_UPLOADS_CLEAR" text="清除(_C)"/>
+		<item id="ID_UPLOADS_LAUNCH" text="显示 _Library"/>
 		<item id="ID_UPLOADS_FOLDER" text="打开 Folder(_F)"/>
+		<separator/>
+		<item id="ID_UPLOADS_CLEAR" text="清除(_C)"/>
+		<item id="ID_UPLOADS_START" text="立即开始(_S)"/>
+		<item id="ID_UPLOADS_PRIORITY" text="优先(_P)"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="浏览用户(_B)"/>
 		<item id="ID_UPLOADS_CHAT" text="与用户聊天(_C)"/>
@@ -1578,23 +1584,23 @@
 		<item id="ID_SCHEDULER_IMPORT" text="导入(_I)..."/>
 		<item id="ID_SCHEDULER_EXPORT" text="导出(_E)..."/>
 		<separator/>
-		<item id="ID_SCHEDULER_REMOVE_ALL" text="Remove Al_l"/>
+		<item id="ID_SCHEDULER_REMOVE_ALL" text="移除 All"/>
 	</menu>
 	<!-- DISCOVERY SERVICES WINDOW -->
 	<menu name="CDiscoveryWnd">
-		<item id="ID_DISCOVERY_QUERY" text="查询(_Q)"/>
-		<item id="ID_DISCOVERY_ADVERTISE" text="公告(_D)"/>
+		<item id="ID_DISCOVERY_ADD" text="添加服务(_A)..."/>
+		<separator/>
+		<item id="ID_DISCOVERY_EDIT" text="属性(_P)"/>
 		<item id="ID_DISCOVERY_REMOVE" text="移除(_R)"/>
 		<separator/>
+		<item id="ID_DISCOVERY_QUERY" text="查询(_Q)"/>
+		<item id="ID_DISCOVERY_ADVERTISE" text="公告(_D)"/>
 		<item id="ID_DISCOVERY_BROWSE" text="浏览统计信息(_S)"/>
 		<separator/>
 		<item id="ID_DISCOVERY_GNUTELLA" text="显示引导程序(_B)"/>
 		<item id="ID_DISCOVERY_WEBCACHE" text="显示 G 网缓存(_G)"/>
-		<item id="ID_DISCOVERY_SERVERMET" text="显示 eDonkey 服务器(_V)"/>
-		<separator/>
-		<item id="ID_DISCOVERY_ADD" text="添加服务(_A)..."/>
-		<separator/>
-		<item id="ID_DISCOVERY_EDIT" text="属性(_P)"/>
+		<item id="ID_DISCOVERY_SERVERLIST" text="显示 eDonkey 服务器(_V)"/>
+		<item id="ID_DISCOVERY_BLOCKED" text="显示 被阻止(_K)"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
 	<menu name="CPrivateChatFrame">
@@ -2276,7 +2282,7 @@
 	<tip id="ID_DISCOVERY_GNUTELLA" message="显示引导服务于探索服务窗口。"/>
 	<tip id="ID_DISCOVERY_QUERY" message="马上查询选定的探索服务。"/>
 	<tip id="ID_DISCOVERY_REMOVE" message="移除选定的探索服务。"/>
-	<tip id="ID_DISCOVERY_SERVERMET" message="在探索窗口中显示 edonkey 服务器服务。"/>
+	<tip id="ID_DISCOVERY_SERVERLIST" message="在探索窗口中显示 edonkey 服务器服务。"/>
 	<tip id="ID_DISCOVERY_WEBCACHE" message="显示 G网缓存 服务于探索服务窗口。"/>
 	<tip id="ID_DOWNLOAD_GROUP_CLEAR" message="取消和移除此群组中的下载。"/>
 	<tip id="ID_DOWNLOAD_GROUP_NEW" message="创建新的下载组..."/>
@@ -2532,6 +2538,7 @@
 	<tip id="ID_UPLOADS_LAUNCH" message="启动选定的共享文件。"/>
 	<tip id="ID_UPLOADS_SETTINGS" message="配置上传设置..."/>
 	<tip id="ID_UPLOADS_START" message="开始选定的上传队列。"/>
+	<tip id="ID_UPLOADS_PRIORITY" message="优先。"/>
 	<tip id="ID_VIEW_BASIC" message="使用 PeerProject 的普通模式。"/>
 	<tip id="ID_VIEW_DISCOVERY" message="显示或隐藏探索服务窗口。"/>
 	<tip id="ID_VIEW_DOWNLOADS" message="显示或隐藏下载窗口。"/>
@@ -2592,6 +2599,7 @@
 	<string id="20011" value="自动"/>
 	<string id="20012" value="自定义"/>
 	<string id="20013" value="默认"/>
+	<string id="20019" value="请稍候..."/>
 	<string id="20020" value="文件"/>
 	<string id="20021" value="文件"/>
 	<string id="20022" value="所有文件"/>
@@ -3049,8 +3057,6 @@
 	<string id="20609" value="预定的时间已经过去了。请选择一个新的时间。"/>
 	<string id="20610" value="没有计划的日期。选择一个或多个天或日期。"/>
 	<string id="20611" value="没有预定的事件。请选择一个任务。"/>
-	<string id="20612" value="活跃"/>
-	<string id="20613" value="无效"/>
 	<string id="20614" value="等待"/>
 	<string id="20615" value="完成 今天"/>
 	<string id="20616" value="完成"/>
@@ -3109,15 +3115,16 @@
 	<string id="20678" value="eDonkey 网络使用需要等待很长时间的队列。限制最大可接受的队列位置如果非常严格的话，您可能难以开始下载。\n您确定要限制您能接受的队列位置吗？"/>
 	<string id="20680" value="PeerProject 设置"/>
 	<string id="20684" value="您确定要删除 &quot;%s&quot; 皮肤吗？ 此操作不可逆。"/>
-	<string id="20700" value="活动"/>
-	<string id="20701" value="%s传入:%s传出 (下载:%I64i/上传:%I64i)"/>
-	<string id="20702" value="连接到 %lu 个邻居。%s 处于本地收藏中。"/>
-	<string id="20703" value="集端模式有 %lu 个邻居。%s 处于本地收藏中。"/>
-	<string id="20704" value="集端/超对等模式有 %lu 个邻居。%s 处于本地收藏中。"/>
+	<string id="20700" value="%s传入:%s传出 (下载:%I64i/上传:%I64i)"/>
+	<string id="20701" value="连接到 %lu 个邻居。%s 处于本地收藏中。"/>
+	<string id="20702" value="集端模式有 %lu 个邻居。%s 处于本地收藏中。"/>
+	<string id="20703" value="集端/超对等模式有 %lu 个邻居。%s 处于本地收藏中。"/>
+	<string id="20704" value="超对等模式有 %lu 个邻居。%s 处于本地收藏中。"/>
 	<string id="20705" value="已连接。%s 于本地收藏夹。"/>
-	<string id="20706" value="超对等模式有 %lu 个邻居。%s 处于本地收藏中。"/>
-	<string id="20707" value="连接网络..."/>
-	<string id="20708" value="尚未连接网络。"/>
+	<string id="20706" value="连接网络..."/>
+	<string id="20707" value="尚未连接网络。"/>
+	<string id="20708" value="活动"/>
+	<string id="20709" value="停止"/>
 	<string id="20710" value="放晴了"/>
 	<string id="20711" value="不能移动"/>
 	<string id="20712" value="通道已满"/>
@@ -3158,8 +3165,7 @@
 	<string id="20751" value="没有活动的搜索。请单击搜索开始。"/>
 	<string id="20752" value="您还未连接。请单击连接按钮开始。"/>
 	<string id="20755" value="您确定要删除 &quot;%s&quot; 模板？\n此操作无法恢复。"/>
-	<string id="20760" value="活动"/>
-	<string id="20761" value="停止"/>
+	<string id="20760" value="优先"/>
 	<string id="20762" value="此文件可能是广告。"/>
 	<string id="20763" value="黑名单:"/>
 	<string id="20764" value="您以前已经下载过并删除了此文件。"/>

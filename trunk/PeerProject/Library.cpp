@@ -501,10 +501,10 @@ void CLibrary::OnRun()
 	{
 		Doze( 1000 );
 
-		// Delay load at startup
+		// Delay thread load at startup
 		if ( ! theApp.m_bLive )
 		{
-			Sleep( 100 );	// Sleep(0)?
+			Sleep( 0 );
 			continue;
 		}
 

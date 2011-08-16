@@ -51,12 +51,12 @@ public:
 	BOOL		CanUploadFileTo(IN_ADDR* pAddress, const CPeerProjectFile* pFile) const;
 	BOOL		EnforcePerHostLimit(CUploadTransfer* pUpload, BOOL bRequest = FALSE);
 
-	void		SetStable(DWORD nSpeed);
+	void		OnRun();
 	DWORD		GetBandwidth() const;
 	DWORD		GetBandwidthLimit() const;			// Calculate upload speed (Bytes/s)
-	void		OnRun();
+	void		SetStable(DWORD nSpeed);
 	BOOL		OnAccept(CConnection* pConnection);
-	void		OnRename(LPCTSTR pszSource, LPCTSTR pszTarget);	// pszTarget: 0 = delete file, 1 = release file
+	void		OnRename(LPCTSTR pszSource, LPCTSTR pszTarget);		// pszTarget: 0 = delete file, 1 = release file
 
 	void		Add(CUploadTransfer* pUpload);
 	void		Remove(CUploadTransfer* pUpload);

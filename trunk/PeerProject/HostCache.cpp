@@ -460,8 +460,7 @@ bool CHostCacheList::Remove(CHostCacheHostPtr pHost)
 	{
 		if ( (*i).second == pHost )
 		{
-			m_HostsTime.erase(
-				std::find( m_HostsTime.begin(), m_HostsTime.end(), pHost ) );
+			m_HostsTime.erase( std::find( m_HostsTime.begin(), m_HostsTime.end(), pHost ) );
 			m_Hosts.erase( i );
 			delete pHost;
 			m_nCookie++;
@@ -479,8 +478,7 @@ bool CHostCacheList::Remove(const IN_ADDR* pAddress)
 	if ( i != m_Hosts.end() )
 	{
 		CHostCacheHostPtr pHost = (*i).second;
-		m_HostsTime.erase(
-			std::find( m_HostsTime.begin(), m_HostsTime.end(), pHost ) );
+		m_HostsTime.erase( std::find( m_HostsTime.begin(), m_HostsTime.end(), pHost ) );
 		m_Hosts.erase( i );
 		delete pHost;
 		m_nCookie++;

@@ -432,7 +432,7 @@ msgstr ""
 msgid "Bootstraps"
 msgstr ""
 
-#: button;id_discovery_servermet
+#: button;id_discovery_serverlist
 msgid "Server.met's"
 msgstr ""
 
@@ -1808,7 +1808,7 @@ msgstr "Προβολή _Bootstraps"
 msgid "Show _GWebCaches"
 msgstr "Προβολή _GWebCaches"
 
-#: cdiscoverywnd;item;id_discovery_servermet
+#: cdiscoverywnd;item;id_discovery_serverlist
 msgid "Show Ser_ver.met's"
 msgstr "Προβολή Ser_ver.met's"
 
@@ -2884,7 +2884,7 @@ msgstr "Άμεση αίτηση στις επιλεγμένες υπηρεσίε
 msgid "Remove the selected discovery services."
 msgstr "Αφαίρεση επιλεγμένων υπηρεσιών ανακάλυψης."
 
-#: message;id_discovery_servermet
+#: message;id_discovery_serverlist
 msgid "Show eDonkey Server.met services in the Discovery window."
 msgstr "Προβολή υπηρεσιών Server.met του ED2K στο παράθυρο ανακάλυψης."
 
@@ -3841,7 +3841,7 @@ msgid "Access the selected download sources and attempt to download."
 msgstr "Άμεση σύνδεση στις επιλεγμένες πηγές και προσπάθεια λήψης."
 
 #: message;id_transfers_disconnect
-msgid "Disconnect the selected download transfer(s)."
+msgid "Disconnect the selected download transfers."
 msgstr "Αποσύνδεση των επιλεγμένων πηγών."
 
 #: message;id_transfers_forget
@@ -3857,15 +3857,15 @@ msgid "Automatically clear uploads which have been completed."
 msgstr "Αυτόματη απόσυρση ολοκληρωμένων αποστολών."
 
 #: message;id_uploads_clear
-msgid "Clear the selected uploads from the list."
+msgid "Cancel selected uploads and remove from list."
 msgstr "Αφαίρεση των επιλεγμένων αποστολών από τη λίστα."
 
 #: message;id_uploads_clear_completed
-msgid "Clear uploads which have been completed."
+msgid "Clear uploads that have completed."
 msgstr "Απόσυρση ολοκληρωμένων αποστολών."
 
 #: message;id_uploads_disconnect
-msgid "Disconnect the selected upload transfer(s)."
+msgid "Disconnect the selected upload transfers."
 msgstr "Αποσύνδεση των επιλεγμένων παραληπτών."
 
 #: message;id_uploads_filter_active
@@ -3893,7 +3893,7 @@ msgid "Show BitTorrent uploads."
 msgstr "Προβολή αποστολών τύπου torrent."
 
 #: message;id_uploads_launch
-msgid "Launch the selected shared file(s)."
+msgid "Show selected shared files in the Library. (Or hold Shift to open.)s)."
 msgstr "Άνοιγμα των επιλεγμένων αρχείων."
 
 #: message;id_uploads_settings
@@ -3901,7 +3901,7 @@ msgid "Configure upload settings..."
 msgstr "Παραμετροποίηση ρυθμίσεων αποστολών..."
 
 #: message;id_uploads_start
-msgid "Start the selected queued upload(s)."
+msgid "Force start selected queued uploads."
 msgstr "Αγνόηση ουρών και άμεση εκκίνηση επιλεγμένων αποστολών."
 
 #: message;id_view_basic
@@ -6080,11 +6080,11 @@ msgstr ""
 msgid "No scheduled event. Please select a task."
 msgstr ""
 
-#: string;20612 string;20700 string;20760
+#: string;20707 string;20760
 msgid "Active"
 msgstr "Ενεργό"
 
-#: string;20613 string;20761
+#: string;20709
 msgid "Inactive"
 msgstr "Ανεργό"
 
@@ -6324,19 +6324,19 @@ msgstr ""
 msgid "Are you sure you want to delete the \"%s\" skin? This cannot be undone."
 msgstr "Θέλετε σίγουρα να διαγράψετε τον φλοιό \"%s\". Αυτό δεν μπορεί να αναιρεθεί!"
 
-#: string;20701
+#: string;20700
 msgid "%s in : %s out  (d:%I64i/u:%I64i)"
 msgstr "%s μέσα : %s έξω (D:%I64i/U:%I64i)"
 
-#: string;20702
+#: string;20701
 msgid "Connected to %lu neighbors. %s in local library."
 msgstr "Ενωμένο σε %lu γείτονες. %s στην τοπική Βιβλιοθήκη."
 
-#: string;20703
+#: string;20702
 msgid "Hub mode with %lu neighbors. %s in local library."
 msgstr "Λειτουργία Κόμβου με %lu γείτονες. %s στην τοπική Βιβλιοθήκη."
 
-#: string;20704
+#: string;20703
 msgid "Hub/Ultrapeer mode with %lu neighbors. %s in local library."
 msgstr "Λειτουργία Κόμβου/Ultrapeer με %lu γείτονες. %s στην τοπική Βιβλιοθήκη."
 
@@ -6344,15 +6344,15 @@ msgstr "Λειτουργία Κόμβου/Ultrapeer με %lu γείτονες. %
 msgid "Connected. %s in local library."
 msgstr "Ενωμένο. %s στην τοπική Βιβλιοθήκη."
 
-#: string;20706
+#: string;20704
 msgid "Ultrapeer mode with %lu neighbors. %s in local library."
 msgstr "Λειτουργία Ultrapeer με %lu γείτονες. %s στην τοπική Βιβλιοθήκη."
 
-#: string;20707
+#: string;20706
 msgid "Connecting to the network..."
 msgstr "Σύνδεση με το δίκτυο..."
 
-#: string;20708
+#: string;20707
 msgid "Not connected to the network."
 msgstr "Μη ενωμένο στο δίκτυο."
 

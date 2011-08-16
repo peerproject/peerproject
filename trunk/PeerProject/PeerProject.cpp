@@ -367,7 +367,7 @@ BOOL CPeerProjectApp::InitInstance()
 		if ( m_cmdInfo.m_nGUIMode != -1 )
 			Settings.General.GUIMode = m_cmdInfo.m_nGUIMode;
 		if ( Settings.General.GUIMode != GUI_WINDOWED && Settings.General.GUIMode != GUI_TABBED && Settings.General.GUIMode != GUI_BASIC )
-			Settings.General.GUIMode = GUI_BASIC;
+			Settings.General.GUIMode = GUI_TABBED;
 
 		if ( Settings.Live.FirstRun )
 			Plugins.Register();
@@ -460,11 +460,11 @@ BOOL CPeerProjectApp::InitInstance()
 	//CWaitCursor pCursor;
 
 	SplashStep( L"Thumb Database" );
-		CThumbCache::InitDatabase();	// Lengthy if large
+		CThumbCache::InitDatabase();	// Several seconds if large (~5s)
 	SplashStep( L"Library" );
-		Library.Load();					// Lengthy if very large
+		Library.Load();					// Lengthy if very large (~20s)
 	SplashStep( L"Download Manager" );
-		Downloads.Load();				// Lengthy if many
+		Downloads.Load();				// Very lengthy if many (~1min)
 	SplashStep( L"Upload Manager" );
 		UploadQueues.Load();
 
@@ -472,7 +472,7 @@ BOOL CPeerProjectApp::InitInstance()
 	{
 		SplashStep( L"Windows Firewall Setup" );
 		CFirewall firewall;
-		if ( firewall.AccessWindowsFirewall() && firewall.AreExceptionsAllowed() )
+		if ( firewall.Init() && firewall.AreExceptionsAllowed() )
 		{
 			// Add to firewall exception list if necessary
 			// and enable UPnP Framework if disabled
@@ -539,6 +539,7 @@ int CPeerProjectApp::ExitInstance()
 		// Continue Shutdown Splash Screen (from WndMain)
 
 		CWaitCursor pCursor;
+		m_bInteractive = false;
 
 		const int nSplashSteps = 5
 			+ ( Settings.Connection.DeleteFirewallException ? 1 : 0 )
@@ -594,7 +595,7 @@ int CPeerProjectApp::ExitInstance()
 		{
 			SplashStep( L"Closing Windows Firewall Access" );
 			CFirewall firewall;
-			if ( firewall.AccessWindowsFirewall() )
+			if ( firewall.Init() )
 				firewall.SetupProgram( m_strBinaryPath, theApp.m_pszAppName, TRUE );
 		}
 
@@ -2109,22 +2110,20 @@ HICON CreateMirroredIcon(HICON hIconOrig, BOOL bDestroyOriginal)
 
 HBITMAP CreateMirroredBitmap(HBITMAP hbmOrig)
 {
-	HDC hdc, hdcMem1, hdcMem2;
-	HBITMAP hbm = NULL, hOld_bm1, hOld_bm2;
 	BITMAP bm;
+	HBITMAP hbm = NULL, hOld_bm1, hOld_bm2;
 	if ( ! hbmOrig ) return NULL;
 	if ( ! GetObject( hbmOrig, sizeof(BITMAP), &bm ) ) return NULL;
 
-	hdc = GetDC( NULL );
-	if ( hdc )
+	if ( HDC hdc = GetDC( NULL ) )
 	{
-		hdcMem1 = CreateCompatibleDC( hdc );
+		HDC hdcMem1 = CreateCompatibleDC( hdc );
 		if ( ! hdcMem1 )
 		{
 			ReleaseDC( NULL, hdc );
 			return NULL;
 		}
-		hdcMem2 = CreateCompatibleDC( hdc );
+		HDC hdcMem2 = CreateCompatibleDC( hdc );
 		if ( ! hdcMem2 )
 		{
 			DeleteDC( hdcMem1 );
@@ -2132,7 +2131,7 @@ HBITMAP CreateMirroredBitmap(HBITMAP hbmOrig)
 			return NULL;
 		}
 		hbm = CreateCompatibleBitmap( hdc, bm.bmWidth, bm.bmHeight );
-		if (! hbm)
+		if ( ! hbm )
 		{
 			DeleteDC( hdcMem1 );
 			DeleteDC( hdcMem2 );
@@ -2150,6 +2149,7 @@ HBITMAP CreateMirroredBitmap(HBITMAP hbmOrig)
 		DeleteDC( hdcMem2 );
 		ReleaseDC( NULL, hdc );
 	}
+
 	return hbm;
 }
 
@@ -3078,46 +3078,46 @@ void SafeMessageLoop()
 	InterlockedDecrement( &theApp.m_bBusy );
 }
 
-//BOOL AreServiceHealthy(LPCTSTR szService)
-//{
-//	BOOL bResult = TRUE;	// Ok or unknown state
-//
-//	// Open a handle to the Service Control Manager database
-//	SC_HANDLE schSCManager = OpenSCManager(
-//		NULL,				// local machine
-//		NULL,				// ServicesActive database
-//		GENERIC_READ );		// for enumeration and status lookup
-//	if ( schSCManager )
-//	{
-//		SC_HANDLE schServiceRead = OpenService( schSCManager, szService, GENERIC_READ );
-//		if ( schServiceRead )
-//		{
-//			SERVICE_STATUS_PROCESS ssStatus = {};
-//			DWORD nBytesNeeded = 0;
-//			if ( QueryServiceStatusEx( schServiceRead, SC_STATUS_PROCESS_INFO,
-//				(LPBYTE)&ssStatus, sizeof( SERVICE_STATUS_PROCESS ), &nBytesNeeded ) )
-//			{
-//				bResult = ( ssStatus.dwCurrentState == SERVICE_RUNNING );
-//			}
-//			CloseServiceHandle( schServiceRead );
-//
-//			if ( ! bResult )
-//			{
-//				SC_HANDLE schServiceStart = OpenService( schSCManager, szService, SERVICE_START );
-//				if ( schServiceStart )
-//				{
-//					// Power users have only right to start service, thus try to start it here
-//					bResult = StartService( schServiceStart, 0, NULL );
-//
-//					CloseServiceHandle( schServiceStart );
-//				}
-//			}
-//		}
-//		CloseServiceHandle( schSCManager );
-//	}
-//
-//	return bResult;
-//}
+BOOL IsServiceHealthy(LPCTSTR szService)
+{
+	BOOL bResult = TRUE;	// Ok or unknown state
+
+	// Open a handle to the Service Control Manager database
+	SC_HANDLE schSCManager = OpenSCManager(
+		NULL,				// Local machine
+		NULL,				// ServicesActive database
+		GENERIC_READ );		// Enumeration and status lookup
+	if ( schSCManager )
+	{
+		SC_HANDLE schServiceRead = OpenService( schSCManager, szService, GENERIC_READ );
+		if ( schServiceRead )
+		{
+			SERVICE_STATUS_PROCESS ssStatus = {};
+			DWORD nBytesNeeded = 0;
+			if ( QueryServiceStatusEx( schServiceRead, SC_STATUS_PROCESS_INFO,
+				(LPBYTE)&ssStatus, sizeof( SERVICE_STATUS_PROCESS ), &nBytesNeeded ) )
+			{
+				bResult = ( ssStatus.dwCurrentState == SERVICE_RUNNING );
+			}
+			CloseServiceHandle( schServiceRead );
+
+			if ( ! bResult )
+			{
+				SC_HANDLE schServiceStart = OpenService( schSCManager, szService, SERVICE_START );
+				if ( schServiceStart )
+				{
+					// Power users have only right to start service, thus try to start it here
+					bResult = StartService( schServiceStart, 0, NULL );
+
+					CloseServiceHandle( schServiceStart );
+				}
+			}
+		}
+		CloseServiceHandle( schSCManager );
+	}
+
+	return bResult;
+}
 
 BOOL IsUserFullscreen()
 {

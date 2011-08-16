@@ -432,7 +432,7 @@ msgstr ""
 msgid "Bootstraps"
 msgstr ""
 
-#: button;id_discovery_servermet
+#: button;id_discovery_serverlist
 msgid "Server.met's"
 msgstr ""
 
@@ -1808,7 +1808,7 @@ msgstr "Afficher les _Bootstraps"
 msgid "Show _GWebCaches"
 msgstr "Afficher les _GWebCaches"
 
-#: cdiscoverywnd;item;id_discovery_servermet
+#: cdiscoverywnd;item;id_discovery_serverlist
 msgid "Show Ser_ver.met's"
 msgstr "Afficher les ser_veurs .met"
 
@@ -2884,7 +2884,7 @@ msgstr "Interroger maintenant cette sélection de services de « Découverte �
 msgid "Remove the selected discovery services."
 msgstr "Supprimer cette sélection de services de « Découverte »."
 
-#: message;id_discovery_servermet
+#: message;id_discovery_serverlist
 msgid "Show eDonkey Server.met services in the Discovery window."
 msgstr "Afficher les services Server.met eDonkey dans la fenêtre « Découverte »."
 
@@ -3841,7 +3841,7 @@ msgid "Access the selected download sources and attempt to download."
 msgstr "Accéder à cette sélection de sources et essayer de télécharger."
 
 #: message;id_transfers_disconnect
-msgid "Disconnect the selected download transfer(s)."
+msgid "Disconnect the selected download transfers."
 msgstr "Déconnecter du téléchargement cette sélection de transferts."
 
 #: message;id_transfers_forget
@@ -3857,15 +3857,15 @@ msgid "Automatically clear uploads which have been completed."
 msgstr "Nettoyer automatiquement les envois lorsqu'ils sont terminés."
 
 #: message;id_uploads_clear
-msgid "Clear the selected uploads from the list."
+msgid "Cancel selected uploads and remove from list."
 msgstr "Supprimer de la liste cette sélection d'envois."
 
 #: message;id_uploads_clear_completed
-msgid "Clear uploads which have been completed."
+msgid "Clear uploads that have completed."
 msgstr "Nettoyer les envois terminés."
 
 #: message;id_uploads_disconnect
-msgid "Disconnect the selected upload transfer(s)."
+msgid "Disconnect the selected upload transfers."
 msgstr "Déconnecter cette sélection d'envois."
 
 #: message;id_uploads_filter_active
@@ -3893,7 +3893,7 @@ msgid "Show BitTorrent uploads."
 msgstr "Afficher les envois BitTorrent."
 
 #: message;id_uploads_launch
-msgid "Launch the selected shared file(s)."
+msgid "Show selected shared files in the Library. (Or hold Shift to open.)s)."
 msgstr "Lancer cette sélection de fichiers partagés."
 
 #: message;id_uploads_settings
@@ -3901,7 +3901,7 @@ msgid "Configure upload settings..."
 msgstr "Configurer les réglages des envois..."
 
 #: message;id_uploads_start
-msgid "Start the selected queued upload(s)."
+msgid "Force start selected queued uploads."
 msgstr "Démarrer cette sélection d'envois en file d'attente."
 
 #: message;id_view_basic
@@ -6080,11 +6080,11 @@ msgstr ""
 msgid "No scheduled event. Please select a task."
 msgstr ""
 
-#: string;20612 string;20700 string;20760
+#: string;20707 string;20760
 msgid "Active"
 msgstr "Actif"
 
-#: string;20613 string;20761
+#: string;20709
 msgid "Inactive"
 msgstr "Inactif"
 
@@ -6324,19 +6324,19 @@ msgstr ""
 msgid "Are you sure you want to delete the \"%s\" skin? This cannot be undone."
 msgstr "Êtes-vous certain de vouloir supprimer le thème « %s »? Ceci est irréversible."
 
-#: string;20701
+#: string;20700
 msgid "%s in : %s out  (d:%I64i/u:%I64i)"
 msgstr "%s e. : %s s. (t:%I64i/e:%I64i)"
 
-#: string;20702
+#: string;20701
 msgid "Connected to %lu neighbors. %s in local library."
 msgstr "Connecté à %lu voisin(s). %s dans votre bibliothèque locale."
 
-#: string;20703
+#: string;20702
 msgid "Hub mode with %lu neighbors. %s in local library."
 msgstr "En mode Hub avec %lu voisin(s). %s dans votre bibliothèque locale."
 
-#: string;20704
+#: string;20703
 msgid "Hub/Ultrapeer mode with %lu neighbors. %s in local library."
 msgstr "En mode Hub/Ultrapeer avec %lu voisin(s). %s dans votre bibliothèque locale."
 
@@ -6344,15 +6344,15 @@ msgstr "En mode Hub/Ultrapeer avec %lu voisin(s). %s dans votre bibliothèque lo
 msgid "Connected. %s in local library."
 msgstr "Connecté. %s dans la bibliothèque locale."
 
-#: string;20706
+#: string;20704
 msgid "Ultrapeer mode with %lu neighbors. %s in local library."
 msgstr "En mode Ultrapeer avec %lu voisin(s). %s dans votre bibliothèque locale."
 
-#: string;20707
+#: string;20706
 msgid "Connecting to the network..."
 msgstr "Connexion au réseau..."
 
-#: string;20708
+#: string;20707
 msgid "Not connected to the network."
 msgstr "Non connecté au réseau."
 

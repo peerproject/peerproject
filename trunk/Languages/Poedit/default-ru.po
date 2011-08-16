@@ -432,7 +432,7 @@ msgstr ""
 msgid "Bootstraps"
 msgstr ""
 
-#: button;id_discovery_servermet
+#: button;id_discovery_serverlist
 msgid "Server.met's"
 msgstr ""
 
@@ -1808,7 +1808,7 @@ msgstr "Показывать _Bootstraps"
 msgid "Show _GWebCaches"
 msgstr "Показывать _GWebCaches"
 
-#: cdiscoverywnd;item;id_discovery_servermet
+#: cdiscoverywnd;item;id_discovery_serverlist
 msgid "Show Ser_ver.met's"
 msgstr "Показывать Ser_ver.met's"
 
@@ -2884,7 +2884,7 @@ msgstr "Запросить помеченную службу соединени�
 msgid "Remove the selected discovery services."
 msgstr "Удалить помеченную службу ресурсов соединений."
 
-#: message;id_discovery_servermet
+#: message;id_discovery_serverlist
 msgid "Show eDonkey Server.met services in the Discovery window."
 msgstr "Показывать службы eDonkey Server.met в окне Ресурсов Соединений."
 
@@ -3841,7 +3841,7 @@ msgid "Access the selected download sources and attempt to download."
 msgstr "Обратиться к помеченному источнику и попытаться начать загрузку с него."
 
 #: message;id_transfers_disconnect
-msgid "Disconnect the selected download transfer(s)."
+msgid "Disconnect the selected download transfers."
 msgstr "Отключить помеченную загрузку(и)."
 
 #: message;id_transfers_forget
@@ -3857,15 +3857,15 @@ msgid "Automatically clear uploads which have been completed."
 msgstr "Автоматически убирать из списка завершенные раздачи."
 
 #: message;id_uploads_clear
-msgid "Clear the selected uploads from the list."
+msgid "Cancel selected uploads and remove from list."
 msgstr "Удалить из списка помеченную загрузку(и)."
 
 #: message;id_uploads_clear_completed
-msgid "Clear uploads which have been completed."
+msgid "Clear uploads that have completed."
 msgstr "Удалить из списка завершенные раздачи."
 
 #: message;id_uploads_disconnect
-msgid "Disconnect the selected upload transfer(s)."
+msgid "Disconnect the selected upload transfers."
 msgstr "Отключить пересылку помеченной раздачи(ок)."
 
 #: message;id_uploads_filter_active
@@ -3893,7 +3893,7 @@ msgid "Show BitTorrent uploads."
 msgstr "Показывать раздачи BitTorrent."
 
 #: message;id_uploads_launch
-msgid "Launch the selected shared file(s)."
+msgid "Show selected shared files in the Library. (Or hold Shift to open.)s)."
 msgstr "Запустить помеченный файл."
 
 #: message;id_uploads_settings
@@ -3901,7 +3901,7 @@ msgid "Configure upload settings..."
 msgstr "Конфигурировать установки раздач..."
 
 #: message;id_uploads_start
-msgid "Start the selected queued upload(s)."
+msgid "Force start selected queued uploads."
 msgstr "Начать раздачу помеченного файла(ов), стоящего(их) в очереди."
 
 #: message;id_view_basic
@@ -6080,11 +6080,11 @@ msgstr ""
 msgid "No scheduled event. Please select a task."
 msgstr ""
 
-#: string;20612 string;20700 string;20760
+#: string;20707 string;20760
 msgid "Active"
 msgstr "Активный"
 
-#: string;20613 string;20761
+#: string;20709
 msgid "Inactive"
 msgstr "Неактивный"
 
@@ -6324,19 +6324,19 @@ msgstr ""
 msgid "Are you sure you want to delete the \"%s\" skin? This cannot be undone."
 msgstr "Уверены, что хотите удалить шкурку «%s»?  Действие будет необратимое."
 
-#: string;20701
+#: string;20700
 msgid "%s in : %s out  (d:%I64i/u:%I64i)"
 msgstr "%s-Вх. %s-Исх. (З:%I64i/В:%I64i)"
 
-#: string;20702
+#: string;20701
 msgid "Connected to %lu neighbors. %s in local library."
 msgstr "Соединено с %lu хостом(ами).  %s в собсвенном хранилище."
 
-#: string;20703
+#: string;20702
 msgid "Hub mode with %lu neighbors. %s in local library."
 msgstr "Режим узла с %lu хостом(ами).  %s в собсвенном хранилище."
 
-#: string;20704
+#: string;20703
 msgid "Hub/Ultrapeer mode with %lu neighbors. %s in local library."
 msgstr "Узел/режим Ведущего с %lu хостом(ами).  %s в собсвенном хранилище."
 
@@ -6344,15 +6344,15 @@ msgstr "Узел/режим Ведущего с %lu хостом(ами).  %s в
 msgid "Connected. %s in local library."
 msgstr "Подключено. %s в собсвенном хранилище."
 
-#: string;20706
+#: string;20704
 msgid "Ultrapeer mode with %lu neighbors. %s in local library."
 msgstr "Режим Ведущего с %lu хостом(ами).  %s в собсвенном хранилище."
 
-#: string;20707
+#: string;20706
 msgid "Connecting to the network..."
 msgstr "Подключаюсь к сети..."
 
-#: string;20708
+#: string;20707
 msgid "Not connected to the network."
 msgstr "Нет соединения с сетью."
 

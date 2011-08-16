@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Czech Skin File -->
 
-<!-- Translation based on default-en.xml r68 (Shareaza 2.2.5.7) -->
+<!-- Translation based on default-en.xml r69 (Shareaza 2.2.5.7) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -152,13 +152,12 @@
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Náhled souboru"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Odstranit soubor"/>
-		<button id="ID_DOWNLOADS_RESUME" text="Obnovit stahování"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="Pozastavit stahování"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Zrušit stahování"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Vymazat stažené"/>
+		<button id="ID_DOWNLOADS_RESUME" text="Obnovit stahování"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="Pozastavit stahování"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Vlastnosti"/>
-		<button id="ID_DOWNLOADS_MONITOR" text="Zobrazit monitorování"/>
 		<rightAlign/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Vymazat dokončené"/>
 	</toolbar>
@@ -167,10 +166,10 @@
 		<button id="ID_DOWNLOADS_LAUNCH" text="Náhled souboru"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Odstranit soubor"/>
-		<button id="ID_DOWNLOADS_RESUME" text="Obnovit stahování"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="Pozastavit stahování"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Zrušit stahování"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Vymazat stažené"/>
+		<button id="ID_DOWNLOADS_RESUME" text="Obnovit stahování"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="Pozastavit stahování"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Vlastnosti"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Zobrazit monitorování"/>
@@ -190,8 +189,9 @@
 	<toolbar name="CUploadsWnd">
 		<button id="ID_UPLOADS_LAUNCH" text="Otevřít nebo přehrát"/>
 		<separator/>
-		<button id="ID_UPLOADS_START" text="Upřednostnit"/>
 		<button id="ID_UPLOADS_CLEAR" text="Vymazat odesílané"/>
+		<button id="ID_UPLOADS_START" text="Upřednostnit"/>
+		<button id="ID_UPLOADS_PRIORITY" text="Priorita" visible="false"/>
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Prohlédnout uživatele"/>
 		<button id="ID_UPLOADS_CHAT" text="Pokec s uživatelem"/>
@@ -1152,11 +1152,16 @@
 	<menu name="CUploadsWnd.Upload.Basic">
 		<item id="ID_BROWSE_LAUNCH" text="P_rohlédnout uživatele"/>
 		<item id="ID_UPLOADS_CHAT" text="_Pokec s uživatelem"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="_Nápověda..."/>
 	</menu>
 	<menu name="CUploadsWnd.Upload">
-		<item id="ID_UPLOADS_START" text="_Upřednostnit"/>
-		<item id="ID_UPLOADS_CLEAR" text="_Smazat"/>
+		<item id="ID_UPLOADS_LAUNCH" text="Ukázat _Library"/>
 		<item id="ID_UPLOADS_FOLDER" text="Otevřít _Folder"/>
+		<separator/>
+		<item id="ID_UPLOADS_CLEAR" text="_Smazat"/>
+		<item id="ID_UPLOADS_START" text="_Upřednostnit"/>
+		<item id="ID_UPLOADS_PRIORITY" text="Priorita"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="P_rohlédnout uživatele"/>
 		<item id="ID_UPLOADS_CHAT" text="_Pokec s uživatelem"/>
@@ -1564,19 +1569,19 @@
 	</menu>
 	<!-- DISCOVERY SERVICES WINDOW -->
 	<menu name="CDiscoveryWnd">
-		<item id="ID_DISCOVERY_QUERY" text="_Dotaz"/>
-		<item id="ID_DISCOVERY_ADVERTISE" text="O_známení"/>
+		<item id="ID_DISCOVERY_ADD" text="Přid_at službu..."/>
+		<separator/>
+		<item id="ID_DISCOVERY_EDIT" text="_Vlastnosti"/>
 		<item id="ID_DISCOVERY_REMOVE" text="Odst_ranit"/>
 		<separator/>
+		<item id="ID_DISCOVERY_QUERY" text="_Dotaz"/>
+		<item id="ID_DISCOVERY_ADVERTISE" text="O_známení"/>
 		<item id="ID_DISCOVERY_BROWSE" text="Prohlížet _statistiky"/>
 		<separator/>
 		<item id="ID_DISCOVERY_GNUTELLA" text="Ukázat _Bootstraps"/>
 		<item id="ID_DISCOVERY_WEBCACHE" text="Ukázat _GWebCaches"/>
-		<item id="ID_DISCOVERY_SERVERMET" text="Ukázat Ser_ver.met's"/>
-		<separator/>
-		<item id="ID_DISCOVERY_ADD" text="Přid_at službu..."/>
-		<separator/>
-		<item id="ID_DISCOVERY_EDIT" text="_Vlastnosti"/>
+		<item id="ID_DISCOVERY_SERVERLIST" text="Ukázat Ser_ver.met's"/>
+		<item id="ID_DISCOVERY_BLOCKED" text="Ukázat Blokované"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
 	<menu name="CPrivateChatFrame">
@@ -2282,7 +2287,7 @@
 	<tip id="ID_DISCOVERY_GNUTELLA" message="Zobrazit zaváděcí služby v okně Vyhledávání."/>
 	<tip id="ID_DISCOVERY_QUERY" message="Dotaz na vybranou službu vyhledávání."/>
 	<tip id="ID_DISCOVERY_REMOVE" message="Odstranit označené služby vyhledávání."/>
-	<tip id="ID_DISCOVERY_SERVERMET" message="Ukázat server eDonkey.met službu v okně vyhledávání."/>
+	<tip id="ID_DISCOVERY_SERVERLIST" message="Ukázat server eDonkey.met službu v okně vyhledávání."/>
 	<tip id="ID_DISCOVERY_WEBCACHE" message="Zobrazit služby GWebCache v okně Vyhledávání."/>
 	<tip id="ID_DOWNLOAD_GROUP_CLEAR" message="Zrušit a odstranit všechna stahování v této skupině."/>
 	<tip id="ID_DOWNLOAD_GROUP_NEW" message="Vytvořte novou skupinu pro stahování..."/>
@@ -2541,6 +2546,7 @@
 	<tip id="ID_UPLOADS_LAUNCH" message="Spustit označený sdílený soubor(y)."/>
 	<tip id="ID_UPLOADS_SETTINGS" message="Konfigurovat nastavení pro odesílání..."/>
 	<tip id="ID_UPLOADS_START" message="Spustit odesílání ve vybrané frontě."/>
+	<tip id="ID_UPLOADS_PRIORITY" message="Priorita."/>
 	<tip id="ID_VIEW_BASIC" message="Používat PeerProject v normálním režimu."/>
 	<tip id="ID_VIEW_DISCOVERY" message="Ukázat se nebo skrýt okno SLUŽBY VYHLEDÁVÁNÍ."/>
 	<tip id="ID_VIEW_DOWNLOADS" message="Ukázat se nebo skrýt okno STAHOVÁNÍ."/>
@@ -2613,6 +2619,7 @@
 	<string id="20012" value="Vlastní"/>
 	<string id="20013" value="Výchozí"/>
 	<string id="20014" value="Ukončit"/>
+	<string id="20019" value="Prosím čekejte..."/>
 	<string id="20020" value="Soubor"/>
 	<string id="20021" value="Soubory"/>
 	<string id="20022" value="Všechny Soubory"/>
@@ -3126,15 +3133,16 @@
 	<string id="20678" value="Síť eDonkey používá velké fronty a dlouhé čekání. Striktní omezení délky fronty může způsobit problém se stahováním souborů.nOpravdu chcete omezit délku fronty?"/>
 	<string id="20680" value="Nastavení PeerProject"/>
 	<string id="20684" value="Opravdu chcete vymazat skin &quot;%s&quot;. Tento skin nemůže být odstraněný."/>
-	<string id="20700" value="Aktivní"/>
-	<string id="20701" value="%s přích : %s odch (St:%I64i/Od:%I64i)"/>
-	<string id="20702" value="Připojeno ke %lu uzlům. %s v místní knihovně."/>
-	<string id="20703" value="Režim uzle se sousedem(y) %lu. %s v místní knihovně."/>
-	<string id="20704" value="Režim Hub/Ultrapeer s uživatelem %lu. %s v místní knihovně."/>
+	<string id="20700" value="%s přích : %s odch (St:%I64i/Od:%I64i)"/>
+	<string id="20701" value="Připojeno ke %lu uzlům. %s v místní knihovně."/>
+	<string id="20702" value="Režim uzle se sousedem(y) %lu. %s v místní knihovně."/>
+	<string id="20703" value="Režim Hub/Ultrapeer s uživatelem %lu. %s v místní knihovně."/>
+	<string id="20704" value="Režim Ultrapeer s uživatelem %lu. %s v místní knihovně."/>
 	<string id="20705" value="Připojeno. %s v místní knihovně."/>
-	<string id="20706" value="Režim Ultrapeer s uživatelem %lu. %s v místní knihovně."/>
-	<string id="20707" value="Připojuji se do sítě..."/>
-	<string id="20708" value="Nejste připojeni do sítě."/>
+	<string id="20706" value="Připojuji se do sítě..."/>
+	<string id="20707" value="Nejste připojeni do sítě."/>
+	<string id="20708" value="Aktivní"/>
+	<string id="20709" value="Neaktivní"/>
 	<string id="20710" value="Uklízet"/>
 	<string id="20711" value="Nelze přesunout"/>
 	<string id="20712" value="Přetížený"/>
@@ -3175,8 +3183,7 @@
 	<string id="20751" value="Nejsou spuštěna žádná aktivní hledání. Klikněte zde pro vyhledání souborů."/>
 	<string id="20752" value="Nejste připojení. Pro spuštění klikněte na tlačítko Připojit se."/>
 	<string id="20755" value="Smazat šablonu &quot;%s&quot; ?nTato operace je nevratná."/>
-	<string id="20760" value="Aktivní"/>
-	<string id="20761" value="Neaktivní"/>
+	<string id="20760" value="Priorita"/>
 	<string id="20762" value="Tento soubor se zdá být spamem."/>
 	<string id="20763" value="Černá listina: "/>
 	<string id="20764" value="Tento soubor jste již jednou stáhli a vymazali."/>

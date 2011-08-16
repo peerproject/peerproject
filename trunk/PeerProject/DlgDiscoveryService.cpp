@@ -43,8 +43,8 @@ END_MESSAGE_MAP()
 CDiscoveryServiceDlg::CDiscoveryServiceDlg(CWnd* pParent, CDiscoveryService* pService) : CSkinDialog(CDiscoveryServiceDlg::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(CDiscoveryServiceDlg)
-	m_sAddress = _T("");
-	m_nType = -1;
+	m_sAddress	= _T("");
+	m_nType 	= -1;
 	m_pService	= pService;
 	m_bNew		= FALSE;
 	//}}AFX_DATA_INIT
@@ -130,7 +130,8 @@ void CDiscoveryServiceDlg::OnOK()
 	if ( ! m_bNew && ! DiscoveryServices.Check( m_pService ) )
 		m_pService = new CDiscoveryService();
 
-	m_pService->m_sAddress	= m_sAddress;
+	m_pService->m_sAddress = m_sAddress;
+
 	switch( m_nType )
 	{
 	case 0:
@@ -140,49 +141,62 @@ void CDiscoveryServiceDlg::OnOK()
 		m_pService->m_nType = CDiscoveryService::dsWebCache;
 		m_pService->m_bGnutella1 = TRUE;
 		m_pService->m_bGnutella2 = FALSE;
+		m_pService->m_nProtocolID = PROTOCOL_G1;
 		break;
 	case 2:
 		m_pService->m_nType = CDiscoveryService::dsWebCache;
 		m_pService->m_bGnutella1 = FALSE;
 		m_pService->m_bGnutella2 = TRUE;
+		m_pService->m_nProtocolID = PROTOCOL_G2;
 		break;
 	case 3:
 		m_pService->m_nType = CDiscoveryService::dsWebCache;
 		m_pService->m_bGnutella1 = TRUE;
 		m_pService->m_bGnutella2 = TRUE;
+		m_pService->m_nProtocolID = PROTOCOL_ANY;
 		break;
 	case 4:
 		m_pService->m_nType = CDiscoveryService::dsServerList;
+		m_pService->m_nProtocolID =
+			( m_sAddress.Find( _T("hublist"), 6 ) > 6 || m_sAddress.Find( _T(".xml.bz2"), 8 ) > 8 ) ?
+			PROTOCOL_DC : PROTOCOL_ED2K;
 		break;
 	default:
 		m_pService->m_nType = CDiscoveryService::dsBlocked;
+		m_pService->m_nProtocolID = PROTOCOL_NULL;
 	}
 
 	if ( m_pService->m_nType == CDiscoveryService::dsGnutella )
 	{
-		if ( _tcsnicmp( m_sAddress, _T("gnutella1:host:"),  15 ) == 0 )
+		if ( _tcsnicmp( m_sAddress, _T("gnutella2:host:"), 15 ) == 0 ||
+			 _tcsnicmp( m_sAddress, _T("g2:host:"), 8 ) == 0 )
 		{
-			m_pService->m_bGnutella1 = TRUE;
-			m_pService->m_bGnutella2 = FALSE;
-			m_pService->m_nSubType = CDiscoveryService::dsGnutellaTCP;
+			m_pService->m_bGnutella2	= TRUE;
+			m_pService->m_bGnutella1	= FALSE;
+			m_pService->m_nProtocolID	= PROTOCOL_G2;
+			m_pService->m_nSubType		= CDiscoveryService::dsGnutella2TCP;
 		}
-		else if ( _tcsnicmp( m_sAddress, _T("gnutella2:host:"), 15 ) == 0 )
+		else if ( _tcsnicmp( m_sAddress, _T("gnutella1:host:"), 15 ) == 0 ||
+			 _tcsnicmp( m_sAddress, _T("gnutella:host:"), 14 ) == 0 )
 		{
-			m_pService->m_bGnutella1 = FALSE;
-			m_pService->m_bGnutella2 = TRUE;
-			m_pService->m_nSubType = CDiscoveryService::dsGnutella2TCP;
+			m_pService->m_bGnutella2	= FALSE;
+			m_pService->m_bGnutella1	= TRUE;
+			m_pService->m_nProtocolID	= PROTOCOL_G1;
+			m_pService->m_nSubType		= CDiscoveryService::dsGnutellaTCP;
 		}
 		else if ( _tcsnicmp( m_sAddress, _T("uhc:"), 4 ) == 0 )
 		{
-			m_pService->m_bGnutella1 = TRUE;
-			m_pService->m_bGnutella2 = FALSE;
-			m_pService->m_nSubType = CDiscoveryService::dsGnutellaUDPHC;
+			m_pService->m_bGnutella2	= FALSE;
+			m_pService->m_bGnutella1	= TRUE;
+			m_pService->m_nProtocolID	= PROTOCOL_G1;
+			m_pService->m_nSubType		= CDiscoveryService::dsGnutellaUDPHC;
 		}
 		else if ( _tcsnicmp( m_sAddress, _T("ukhl:"), 5 ) == 0 )
 		{
-			m_pService->m_bGnutella1 = FALSE;
-			m_pService->m_bGnutella2 = TRUE;
-			m_pService->m_nSubType = CDiscoveryService::dsGnutella2UDPKHL;
+			m_pService->m_bGnutella2	= TRUE;
+			m_pService->m_bGnutella1	= FALSE;
+			m_pService->m_nProtocolID	= PROTOCOL_G2;
+			m_pService->m_nSubType		= CDiscoveryService::dsGnutella2UDPKHL;
 		}
 	}
 

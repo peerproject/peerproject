@@ -38,7 +38,7 @@ public:
 		dsOldBootStrap, dsGnutellaTCP, dsGnutella2TCP, dsGnutellaUDPHC, dsGnutella2UDPKHL
 	};
 
-	CDiscoveryService(Type nType = dsNull, LPCTSTR pszAddress = NULL);
+	CDiscoveryService(Type nType = dsNull, LPCTSTR pszAddress = NULL, PROTOCOLID nProtocol = PROTOCOL_NULL);
 	virtual ~CDiscoveryService();
 
 	Type		m_nType;
@@ -79,8 +79,7 @@ protected:
 	friend class CDiscoveryServices;
 };
 
-class CDiscoveryServices :
-	public CThreadImpl
+class CDiscoveryServices : public CThreadImpl
 {
 public:
 	CDiscoveryServices();
@@ -88,7 +87,7 @@ public:
 
 	enum Mode
 	{
-		wcmHosts, wcmCaches, wcmUpdate, wcmSubmit, wcmServerMet
+		wcmHosts, wcmCaches, wcmUpdate, wcmSubmit, wcmServerList
 	};
 
 protected:
@@ -99,11 +98,12 @@ protected:
 	Mode				m_nWebCache;
 	PROTOCOLID			m_nLastQueryProtocol;		// Protocol that was queried most recently
 	PROTOCOLID			m_nLastUpdateProtocol;		// Protocol that had a service update most recently
-	DWORD				m_tUpdated;					// Time a webcache was last updated
 	BOOL				m_bFirstTime;
 	DWORD				m_tExecute;					// Time the Execute() function was last run
+	DWORD				m_tUpdated;					// Time a webcache was last updated
 	DWORD				m_tQueried;					// Time a webcache/MET was last queried
-	DWORD				m_tMetQueried;				// Time a MET was last queried
+//	DWORD				m_tMetQueried;				// Time a MET was last queried, currently using static
+//	DWORD				m_tHubsQueried;				// Time a hublist was last queried, currently using static
 
 public:
 	POSITION			GetIterator() const;
@@ -112,7 +112,7 @@ public:
 	BOOL				Add(CDiscoveryService* pService);
 	BOOL				Add(LPCTSTR pszAddress, int nType, PROTOCOLID nProtocol = PROTOCOL_NULL);
 	BOOL				CheckMinimumServices();
-//	DWORD				MetQueried() const;
+//	DWORD				MetQueried() const; 		// Obsolete: Unused
 	DWORD				LastExecute() const;
 	CDiscoveryService*	GetByAddress(LPCTSTR pszAddress) const;
 	CDiscoveryService*	GetByAddress(const IN_ADDR* pAddress, WORD nPort, CDiscoveryService::SubType nSubType );
@@ -137,7 +137,7 @@ protected:
 	void				OnRun();
 	BOOL				RunWebCacheGet(BOOL bCache);
 	BOOL				RunWebCacheUpdate();
-	BOOL				RunServerMet();
+	BOOL				RunServerList();	// Was RunServerMet()
 	BOOL				SendWebCacheRequest(CString strURL, CString& strOutput);
 	BOOL				EnoughServices() const;
 	void				AddDefaults();

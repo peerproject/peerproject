@@ -3,7 +3,7 @@
 
 <!-- PeerProject/ПеерПројецт Default Serbian Skin File -->
 
-<!-- Translation based on default-en.xml r68 -->
+<!-- Translation based on default-en.xml r69 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -150,10 +150,10 @@
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Преглед фајла"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Обриши фајл"/>
-		<button id="ID_DOWNLOADS_RESUME" text="Настави преузимање"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="Паузирај преузимање"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Прекини преузимање"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Очисти завршено"/>
+		<button id="ID_DOWNLOADS_RESUME" text="Настави преузимање"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="Паузирај преузимање"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Информације"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Прикажи преузимање"/>
@@ -165,10 +165,10 @@
 		<button id="ID_DOWNLOADS_LAUNCH" text="Преглед фајла"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Обриши фајл"/>
-		<button id="ID_DOWNLOADS_RESUME" text="Настави преузимање"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="Паузирај преузимање"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Прекини преузимање"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Очисти завршено"/>
+		<button id="ID_DOWNLOADS_RESUME" text="Настави преузимање"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="Паузирај преузимање"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Информације"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Прикажи преузимање"/>
@@ -188,8 +188,9 @@
 	<toolbar name="CUploadsWnd">
 		<button id="ID_UPLOADS_LAUNCH" text="Отвори или пусти"/>
 		<separator/>
-		<button id="ID_UPLOADS_START" text="Стартуј одмах"/>
 		<button id="ID_UPLOADS_CLEAR" text="Очисти послато"/>
+		<button id="ID_UPLOADS_START" text="Стартуј одмах"/>
+		<button id="ID_UPLOADS_PRIORITY" text="приоритет" visible="false"/>
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Претражи корисника"/>
 		<button id="ID_UPLOADS_CHAT" text="Ћаскај са корисником"/>
@@ -1143,11 +1144,16 @@
 	<menu name="CUploadsWnd.Upload.Basic">
 		<item id="ID_BROWSE_LAUNCH" text="_Pogledaj Šta Ima"/>
 		<item id="ID_UPLOADS_CHAT" text="_Popričaj sa Osobom"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="Pomoć..."/>
 	</menu>
 	<menu name="CUploadsWnd.Upload">
-		<item id="ID_UPLOADS_START" text="Odmah Kreni"/>
-		<item id="ID_UPLOADS_CLEAR" text="Očisti"/>
+		<item id="ID_UPLOADS_LAUNCH" text="Pokaži _Library"/>
 		<item id="ID_UPLOADS_FOLDER" text="Pokreni _Folder"/>
+		<separator/>
+		<item id="ID_UPLOADS_CLEAR" text="Očisti"/>
+		<item id="ID_UPLOADS_START" text="Odmah Kreni"/>
+		<item id="ID_UPLOADS_PRIORITY" text="приоритет"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="Pogledaj Šta Ima"/>
 		<item id="ID_UPLOADS_CHAT" text="_Popričaj sa Osobom"/>
@@ -1548,19 +1554,19 @@
 	</menu>
 	<!-- DISCOVERY SERVICES WINDOW -->
 	<menu name="CDiscoveryWnd">
-		<item id="ID_DISCOVERY_QUERY" text="Sad se Raspitaj"/>
-		<item id="ID_DISCOVERY_ADVERTISE" text="Oglasi"/>
+		<item id="ID_DISCOVERY_ADD" text="Dod_aj Uslugu..."/>
+		<separator/>
+		<item id="ID_DISCOVERY_EDIT" text="_Podešavanja"/>
 		<item id="ID_DISCOVERY_REMOVE" text="Ukloni"/>
 		<separator/>
+		<item id="ID_DISCOVERY_QUERY" text="Sad se Raspitaj"/>
+		<item id="ID_DISCOVERY_ADVERTISE" text="Oglasi"/>
 		<item id="ID_DISCOVERY_BROWSE" text="Pogledaj _Statistiku"/>
 		<separator/>
 		<item id="ID_DISCOVERY_GNUTELLA" text="Pokaži _Bootstraps"/>
 		<item id="ID_DISCOVERY_WEBCACHE" text="Pokaži _GWebCaches"/>
-		<item id="ID_DISCOVERY_SERVERMET" text="Pokaži Ser_ver.met's"/>
-		<separator/>
-		<item id="ID_DISCOVERY_ADD" text="Dod_aj Uslugu..."/>
-		<separator/>
-		<item id="ID_DISCOVERY_EDIT" text="_Podešavanja"/>
+		<item id="ID_DISCOVERY_SERVERLIST" text="Pokaži Ser_ver.met's"/>
+		<item id="ID_DISCOVERY_BLOCKED" text="Pokaži блокиран"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
 	<menu name="CPrivateChatFrame">
@@ -2231,7 +2237,7 @@
 	<tip id="ID_DISCOVERY_GNUTELLA" message="Show bootstrap services in the Discovery window."/>
 	<tip id="ID_DISCOVERY_QUERY" message="Query the selected discovery services now."/>
 	<tip id="ID_DISCOVERY_REMOVE" message="Remove the selected discovery services."/>
-	<tip id="ID_DISCOVERY_SERVERMET" message="Show eDonkey2000 Server.met services in the Discovery window."/>
+	<tip id="ID_DISCOVERY_SERVERLIST" message="Show eDonkey2000 Server.met services in the Discovery window."/>
 	<tip id="ID_DISCOVERY_WEBCACHE" message="Show GWebCache services in the Discovery window."/>
 	<tip id="ID_DOWNLOAD_GROUP_CLEAR" message="Otkaži i ukloni sva skidanja iz ove grupe."/>
 	<tip id="ID_DOWNLOAD_GROUP_NEW" message="Radi novu grupu skidanja..."/>
@@ -2488,6 +2494,7 @@
 	<tip id="ID_UPLOADS_LAUNCH" message="Pokreni selektovani deljenu datoteku(e)."/>
 	<tip id="ID_UPLOADS_SETTINGS" message="Konfiguriši upload podešavanja..."/>
 	<tip id="ID_UPLOADS_START" message="Pokreni selektovano davanje(a) u redu(queued)."/>
+	<tip id="ID_UPLOADS_PRIORITY" message="приоритет."/>
 	<tip id="ID_VIEW_BASIC" message="Koristi PeerProject-u u Normal modu - Normalni Prikaz."/>
 	<tip id="ID_VIEW_DISCOVERY" message="Prikaži ili sakrij DISCOVERY SERVICES prozor."/>
 	<tip id="ID_VIEW_DOWNLOADS" message="Prikaži ili sakrij SKIDAM prozor."/>
@@ -2546,6 +2553,7 @@
 	<string id="20009" value="od"/> <!-- "1 of 10" -->
 	<string id="20011" value="Auto"/>
 	<string id="20012" value="Прилагоди"/>
+	<string id="20019" value="Please Wait..."/>
 	<string id="20020" value="фајл"/>
 	<string id="20021" value="фајлова"/>
 	<string id="20022" value="Sve фајлова"/>
@@ -2989,15 +2997,16 @@
 	<string id="20678" value="The eDonkey network uses large queues with long wait times. By limiting the maximum queue position you will accept so strictly, you may have trouble getting downloads to begin.\nAre you sure you want to limit what queue positions you will accept?"/>
 	<string id="20680" value="PeerProject Podešavanja"/>
 	<string id="20684" value="Jeste li sigurni da želite izbrisati &quot;%s&quot; skin?Ne može se povratiti."/>
-	<string id="20700" value="Aktivno"/>
-	<string id="20701" value="%s primljeno : %s poslano (d:%I64i/u:%I64i)"/>
-	<string id="20702" value="Spojeno na %lu suseda.%s u vašoj kolekciji."/>
-	<string id="20703" value="Hub način sa %lu suseda.%s u vašoj kolekciji."/>
-	<string id="20704" value="Hub/Ultrapeer način sa %lu suseda.%s u vašoj kolekciji."/>
+	<string id="20700" value="%s primljeno : %s poslano (d:%I64i/u:%I64i)"/>
+	<string id="20701" value="Spojeno na %lu suseda.%s u vašoj kolekciji."/>
+	<string id="20702" value="Hub način sa %lu suseda.%s u vašoj kolekciji."/>
+	<string id="20703" value="Hub/Ultrapeer način sa %lu suseda.%s u vašoj kolekciji."/>
+	<string id="20704" value="Ultrapeer način sa %lu suseda.%s u vašoj kolekciji."/>
 	<string id="20705" value="Spojeno. %s u vašoj kolekciji."/>
-	<string id="20706" value="Ultrapeer način sa %lu suseda.%s u vašoj kolekciji."/>
-	<string id="20707" value="Spajam se na mrežu..."/>
-	<string id="20708" value="Nije spojeno."/>
+	<string id="20706" value="Spajam se na mrežu..."/>
+	<string id="20707" value="Nije spojeno."/>
+	<string id="20708" value="Aktivno"/>
+	<string id="20709" value="Neaktivno"/>
 	<string id="20710" value="Разведрава"/>
 	<string id="20711" value="Ne mogu Pomaknuti"/>
 	<string id="20712" value="Zagušen"/>
@@ -3037,8 +3046,7 @@
 	<string id="20750" value="!Dobrodošli u PeerProject (version) !\n.\nPeerProject je potpuno besplatan program.\nMolimo da ga koristite odgovorno i poštujte zakone o autorskim pravima.\n."/>
 	<string id="20751" value="Nema aktivnih traženja. Stisni ovde ako želiš započeti traženje"/>
 	<string id="20752" value="PeerProject nije spojena.Stisni Spoji dugme."/>
-	<string id="20760" value="Aktivno"/>
-	<string id="20761" value="Neaktivno"/>
+	<string id="20760" value="приоритет"/>
 	<string id="20762" value="Ovo izgleda kao smeće ."/>
 	<string id="20763" value="Na Crnoj Listi:"/>
 	<string id="20764" value="Ovu datoteku ste već skinuli i obrisali."/>

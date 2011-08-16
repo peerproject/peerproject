@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Greek Skin File -->
 
-<!-- Translation based on default-en.xml r68 -->
+<!-- Translation based on default-en.xml r69 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -151,10 +151,10 @@
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Προεπισκόπηση"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Διαγραφή Αρχείου!"/>
-		<button id="ID_DOWNLOADS_RESUME" text="Συνέχιση Λήψης"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="Παύση Λήψης"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Διαγραφή Λήψης"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Απόσυρση Αρχείου"/>
+		<button id="ID_DOWNLOADS_RESUME" text="Συνέχιση Λήψης"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="Παύση Λήψης"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Ιδιότητες"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Προβολή Εποπτείας"/>
@@ -166,10 +166,10 @@
 		<button id="ID_DOWNLOADS_LAUNCH" text="Προεπισκόπηση"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Διαγραφή Αρχείου!"/>
-		<button id="ID_DOWNLOADS_RESUME" text="Συνέχιση Λήψης"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="Παύση Λήψης"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Διαγραφή Λήψης"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Απόσυρση Αρχείου"/>
+		<button id="ID_DOWNLOADS_RESUME" text="Συνέχιση Λήψης"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="Παύση Λήψης"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Ιδιότητες"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Προβολή Εποπτείας"/>
@@ -189,8 +189,9 @@
 	<toolbar name="CUploadsWnd">
 		<button id="ID_UPLOADS_LAUNCH" text="Άνοιγμα"/>
 		<separator/>
-		<button id="ID_UPLOADS_START" text="Άμεση Εκκίνηση"/>
 		<button id="ID_UPLOADS_CLEAR" text="Αφαίρεση"/>
+		<button id="ID_UPLOADS_START" text="Άμεση Εκκίνηση"/>
+		<button id="ID_UPLOADS_PRIORITY" text="προτεραιότητα " visible="false"/>
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Περιήγηση Χρήστη"/>
 		<button id="ID_UPLOADS_CHAT" text="Συνομιλία με Χρήστη"/>
@@ -1215,11 +1216,16 @@
 	<menu name="CUploadsWnd.Upload.Basic">
 		<item id="ID_BROWSE_LAUNCH" text="Περι_ήγηση Χρήστη"/>
 		<item id="ID_UPLOADS_CHAT" text="_Συνομιλία με Χρήστη"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="_Βοήθεια..."/>
 	</menu>
 	<menu name="CUploadsWnd.Upload">
-		<item id="ID_UPLOADS_START" text="Άμεση _Εκκίνηση"/>
-		<item id="ID_UPLOADS_CLEAR" text="_Αφαίρεση Αποστολής"/>
+		<item id="ID_UPLOADS_LAUNCH" text="Προβολή _Library"/>
 		<item id="ID_UPLOADS_FOLDER" text="Άνοιγμα _Folder"/>
+		<separator/>
+		<item id="ID_UPLOADS_CLEAR" text="_Αφαίρεση Αποστολής"/>
+		<item id="ID_UPLOADS_START" text="Άμεση _Εκκίνηση"/>
+		<item id="ID_UPLOADS_PRIORITY" text="προτεραιότητα "/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="Περι_ήγηση Χρήστη"/>
 		<item id="ID_UPLOADS_CHAT" text="_Συνομιλία με Χρήστη"/>
@@ -1626,19 +1632,19 @@
 	</menu>
 	<!-- DISCOVERY SERVICES WINDOW -->
 	<menu name="CDiscoveryWnd">
-		<item id="ID_DISCOVERY_QUERY" text="_Άμεση Αίτηση"/>
-		<item id="ID_DISCOVERY_ADVERTISE" text="_Διαφήμιση"/>
+		<item id="ID_DISCOVERY_ADD" text="_Προσθήκη Υπηρεσίας..."/>
+		<separator/>
+		<item id="ID_DISCOVERY_EDIT" text="_Ιδιότητες"/>
 		<item id="ID_DISCOVERY_REMOVE" text="Α_φαίρεση"/>
 		<separator/>
+		<item id="ID_DISCOVERY_QUERY" text="_Άμεση Αίτηση"/>
+		<item id="ID_DISCOVERY_ADVERTISE" text="_Διαφήμιση"/>
 		<item id="ID_DISCOVERY_BROWSE" text="Παράθεση _Στατιστικών"/>
 		<separator/>
 		<item id="ID_DISCOVERY_GNUTELLA" text="Προβολή _Bootstraps"/>
 		<item id="ID_DISCOVERY_WEBCACHE" text="Προβολή _GWebCaches"/>
-		<item id="ID_DISCOVERY_SERVERMET" text="Προβολή Ser_ver.met's"/>
-		<separator/>
-		<item id="ID_DISCOVERY_ADD" text="_Προσθήκη Υπηρεσίας..."/>
-		<separator/>
-		<item id="ID_DISCOVERY_EDIT" text="_Ιδιότητες"/>
+		<item id="ID_DISCOVERY_SERVERLIST" text="Προβολή Ser_ver.met's"/>
+		<item id="ID_DISCOVERY_BLOCKED" text="Προβολή Αποκλεισμένοι"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
 	<menu name="CPrivateChatFrame">
@@ -2390,7 +2396,7 @@
 	<tip id="ID_DISCOVERY_GNUTELLA" message="Προβολή υπηρεσιών bootstrap στο παράθυρο ανακάλυψης."/>
 	<tip id="ID_DISCOVERY_QUERY" message="Άμεση αίτηση στις επιλεγμένες υπηρεσίες ανακάλυψης."/>
 	<tip id="ID_DISCOVERY_REMOVE" message="Αφαίρεση επιλεγμένων υπηρεσιών ανακάλυψης."/>
-	<tip id="ID_DISCOVERY_SERVERMET" message="Προβολή υπηρεσιών Server.met του ED2K στο παράθυρο ανακάλυψης."/>
+	<tip id="ID_DISCOVERY_SERVERLIST" message="Προβολή υπηρεσιών Server.met του ED2K στο παράθυρο ανακάλυψης."/>
 	<tip id="ID_DISCOVERY_WEBCACHE" message="Προβολή υπηρεσιών GWebCache στο παράθυρο ανακάλυψης."/>
 	<tip id="ID_DOWNLOAD_GROUP_CLEAR" message="Διαγραφή όλων των λήψεων σε αυτήν την ομάδα!"/>
 	<tip id="ID_DOWNLOAD_GROUP_NEW" message="Δημιουργία νέας ομάδας λήψεων..."/>
@@ -2649,6 +2655,7 @@
 	<tip id="ID_UPLOADS_LAUNCH" message="Άνοιγμα των επιλεγμένων αρχείων."/>
 	<tip id="ID_UPLOADS_SETTINGS" message="Παραμετροποίηση ρυθμίσεων αποστολών..."/>
 	<tip id="ID_UPLOADS_START" message="Αγνόηση ουρών και άμεση εκκίνηση επιλεγμένων αποστολών."/>
+	<tip id="ID_UPLOADS_PRIORITY" message="προτεραιότητα ."/>
 	<tip id="ID_VIEW_BASIC" message="Εμφάνιση του PeerProject στη Βασική μορφή."/>
 	<tip id="ID_VIEW_DISCOVERY" message="Εναλλαγή παραθύρου Υπηρεσιών Ανακάλυψης."/>
 	<tip id="ID_VIEW_DOWNLOADS" message="Εναλλαγή παραθύρου Λήψεων."/>
@@ -2725,6 +2732,7 @@
 	<string id="20012" value="Προσαρμογή"/>
 	<string id="20013" value="Προεπιλογή"/>
 	<string id="20014" value="Τέλος"/>
+	<string id="20019" value="Παρακαλώ περιμένετε..."/>
 	<string id="20020" value="Αρχείο"/>
 	<string id="20021" value="Αρχεία"/>
 	<string id="20022" value="Όλα τα Αρχεία"/>
@@ -3240,15 +3248,16 @@
 	<string id="20678" value="Το δίκτυο ED2K χρησιμοποιεί μακριές ουρές με μεγάλους χρόνους αναμονής. Περιορίζοντας τη μέγιστη θέση αναμονής σε ουρά, ίσως δυσκολευτείται να ξεκινήσετε λήψεις!nΘέλετε σίγουρα να περιορίσετε τη θέση αναμονής σε ουρά που θα ανέχεστε;"/>
 	<string id="20680" value="Οι ρυθμίσεις του PeerProject"/>
 	<string id="20684" value="Θέλετε σίγουρα να διαγράψετε τον φλοιό &quot;%s&quot;. Αυτό δεν μπορεί να αναιρεθεί!"/>
-	<string id="20700" value="Ενεργό"/>
-	<string id="20701" value="%s μέσα : %s έξω (D:%I64i/U:%I64i)"/>
-	<string id="20702" value="Ενωμένο σε %lu γείτονες. %s στην τοπική Βιβλιοθήκη."/>
-	<string id="20703" value="Λειτουργία Κόμβου με %lu γείτονες. %s στην τοπική Βιβλιοθήκη."/>
-	<string id="20704" value="Λειτουργία Κόμβου/Ultrapeer με %lu γείτονες. %s στην τοπική Βιβλιοθήκη."/>
+	<string id="20700" value="%s μέσα : %s έξω (D:%I64i/U:%I64i)"/>
+	<string id="20701" value="Ενωμένο σε %lu γείτονες. %s στην τοπική Βιβλιοθήκη."/>
+	<string id="20702" value="Λειτουργία Κόμβου με %lu γείτονες. %s στην τοπική Βιβλιοθήκη."/>
+	<string id="20703" value="Λειτουργία Κόμβου/Ultrapeer με %lu γείτονες. %s στην τοπική Βιβλιοθήκη."/>
+	<string id="20704" value="Λειτουργία Ultrapeer με %lu γείτονες. %s στην τοπική Βιβλιοθήκη."/>
 	<string id="20705" value="Ενωμένο. %s στην τοπική Βιβλιοθήκη."/>
-	<string id="20706" value="Λειτουργία Ultrapeer με %lu γείτονες. %s στην τοπική Βιβλιοθήκη."/>
-	<string id="20707" value="Σύνδεση με το δίκτυο..."/>
-	<string id="20708" value="Μη ενωμένο στο δίκτυο."/>
+	<string id="20706" value="Σύνδεση με το δίκτυο..."/>
+	<string id="20707" value="Μη ενωμένο στο δίκτυο."/>
+	<string id="20708" value="Ενεργό"/>
+	<string id="20709" value="Ανεργό"/>
 	<string id="20710" value="Διαλεύκανση"/>
 	<string id="20711" value="Αδυναμία Μετακίνησης"/>
 	<string id="20712" value="Πλήρες"/>
@@ -3289,8 +3298,7 @@
 	<string id="20751" value="Δεν υπάρχουν ενεργές αναζητήσεις.  Κλικ εδώ για να αναζητήσετε αρχεία."/>
 	<string id="20752" value="Δεν είστε ενωμένοι. Κλικ στο κουμπί Σύνδεση για να αρχίσετε."/>
 	<string id="20755" value="Θέλετε σίγουρα να διαγράψετε το πρότυπο &quot;%s&quot;.nΑυτό δεν μπορεί να αναιρεθεί!"/>
-	<string id="20760" value="Ενεργό"/>
-	<string id="20761" value="Ανεργό"/>
+	<string id="20760" value="προτεραιότητα"/>
 	<string id="20762" value="Αυτό το αρχείο φαίνετε να είναι βρόμα."/>
 	<string id="20763" value="Μαύρη λίστα:"/>
 	<string id="20764" value="Έχετε λάβει και διαγράψει αυτό το αρχείο παλαιότερα."/>

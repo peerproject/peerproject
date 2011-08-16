@@ -79,7 +79,7 @@ CDownload::~CDownload()
 
 void CDownload::Pause(BOOL bRealPause)
 {
-	if ( m_bComplete || m_bPaused )
+	if ( m_bPaused || m_bComplete && ! IsSeeding() )
 		return;
 
 	theApp.Message( MSG_NOTICE, IDS_DOWNLOAD_PAUSED, GetDisplayName() );
@@ -98,7 +98,7 @@ void CDownload::Pause(BOOL bRealPause)
 
 void CDownload::Resume()
 {
-	if ( IsCompleted() )
+	if ( IsCompleted() && ! IsSeeding() )
 		return;
 
 	if ( ! IsPaused() )
@@ -175,20 +175,20 @@ void CDownload::Remove()
 }
 
 //////////////////////////////////////////////////////////////////////
-// CDownload control : boost
+// CDownload control : boost toggle
 
-void CDownload::Boost()
+void CDownload::Boost(BOOL bBoost)
 {
-	if ( ! IsFileOpen() || m_bBoosted ) return;
+	if ( ! IsFileOpen() || m_bBoosted == bBoost ) return;
 
 	theApp.Message( MSG_NOTICE, IDS_DOWNLOAD_BOOST, (LPCTSTR)GetDisplayName() );
 
 	for ( CDownloadTransfer* pTransfer = GetFirstTransfer() ; pTransfer ; pTransfer = pTransfer->m_pDlNext )
 	{
-		pTransfer->Boost();
+		pTransfer->Boost( bBoost );
 	}
 
-	m_bBoosted = TRUE;
+	m_bBoosted = bBoost;
 	SetModified();
 }
 
@@ -311,19 +311,19 @@ CString CDownload::GetDownloadStatus() const
 	{
 		LoadString( strText, IDS_STATUS_CLEARING );
 	}
-	else if ( IsCompleted() )
-	{
-		if ( IsSeeding() )
-			LoadString( strText, m_bTorrentTrackerError ? IDS_STATUS_TRACKERDOWN : IDS_STATUS_SEEDING );
-		else
-			LoadString( strText, IDS_STATUS_COMPLETED );
-	}
 	else if ( IsPaused() )
 	{
 		if ( GetFileError() == ERROR_SUCCESS )
 			LoadString( strText, IDS_STATUS_PAUSED );
 		else
 			LoadString( strText, IsMoving() ? IDS_STATUS_CANTMOVE : IDS_STATUS_FILEERROR );
+	}
+	else if ( IsCompleted() )
+	{
+		if ( IsSeeding() )
+			LoadString( strText, m_bTorrentTrackerError ? IDS_STATUS_TRACKERDOWN : IDS_STATUS_SEEDING );
+		else
+			LoadString( strText, IDS_STATUS_COMPLETED );
 	}
 	else if ( IsMoving() )
 	{

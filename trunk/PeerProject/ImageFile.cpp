@@ -20,10 +20,11 @@
 
 #include "StdAfx.h"
 #include "PeerProject.h"
-#include "ImageServices.h"
-#include "ImageFile.h"
-#include "HttpRequest.h"
 #include "Settings.h"
+#include "ImageFile.h"
+#include "ImageServices.h"
+#include "HttpRequest.h"
+#include "Buffer.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -389,6 +390,8 @@ HBITMAP CImageFile::CreateBitmap(HDC hUseDC)
 
 BOOL CImageFile::FitTo(int nNewWidth, int nNewHeight)
 {
+	if ( ! nNewHeight ) nNewHeight = nNewWidth;
+
 	int nSize = ( nNewHeight * m_nWidth ) / m_nHeight;
 	if ( nSize > nNewWidth )
 	{
@@ -403,13 +406,15 @@ BOOL CImageFile::FitTo(int nNewWidth, int nNewHeight)
 
 BOOL CImageFile::Resample(int nNewWidth, int nNewHeight)
 {
-	if ( m_nWidth <= 0 || m_nHeight <= 0 )
+	if ( ! nNewHeight ) nNewHeight = nNewWidth;
+
+	if ( m_nWidth < 1 || m_nHeight < 1 )
 		return FALSE;
-	if ( nNewWidth <= 0 || nNewHeight <= 0 )
+	if ( nNewWidth < 1 || nNewHeight < 1 )
 		return FALSE;
 	if ( ! m_bLoaded )
 		return FALSE;
-	if ( m_nComponents != 3 && ! EnsureRGB() ) // ToDo: Support Alpha channel?
+	if ( m_nComponents != 3 && ! EnsureRGB() )	// ToDo: Support Alpha channel?
 		return FALSE;
 	if ( nNewWidth == m_nWidth && nNewHeight == m_nHeight )
 		return TRUE;

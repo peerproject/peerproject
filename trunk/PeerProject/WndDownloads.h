@@ -1,7 +1,7 @@
 //
 // WndDownloads.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -25,16 +25,15 @@
 
 class CDownloadsWnd : public CPanelWnd
 {
+	DECLARE_SERIAL(CDownloadsWnd)
+
 // Construction
 public:
 	CDownloadsWnd();
 	virtual ~CDownloadsWnd();
 
-	DECLARE_SERIAL(CDownloadsWnd)
-
 // Operations
 public:
-	virtual void	OnSkinChange();
 	void			Update();
 	BOOL			Select(CDownload* pDownload);	// From DownloadMonitor
 	void			DragDownloads(CList< CDownload* >* pList, CImageList* pImage, const CPoint& ptScreen);
@@ -70,14 +69,15 @@ protected:
 	BOOL			m_bSelStartedAndNotMoving;
 	BOOL			m_bSelCompleted;
 	BOOL			m_bSelNotMoving;
-	BOOL			m_bSelBoostable;
 	BOOL			m_bSelSHA1orTTHorED2KorName;
 	BOOL			m_bSelShareState;
+	BOOL			m_bSelSeeding;
 	BOOL			m_bSelTorrent;
 	BOOL			m_bSelIdleSource;
 	BOOL			m_bSelActiveSource;
-	BOOL			m_bSelChat;
+	BOOL			m_bSelBoostable;
 	BOOL			m_bSelBrowse;
+	BOOL			m_bSelChat;
 	BOOL			m_bSelShareConsistent;
 	BOOL			m_bSelMoreSourcesOK;
 	BOOL			m_bSelSourceAcceptConnections;
@@ -88,13 +88,13 @@ protected:
 
 // Overrides
 public:
+	virtual void OnSkinChange();
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	virtual BOOL OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO* pHandlerInfo);
 
 // Implementation
 protected:
-	DECLARE_MESSAGE_MAP()
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
@@ -191,6 +191,8 @@ protected:
 	afx_msg void OnUpdateDownloadsEdit(CCmdUI *pCmdUI);
 	afx_msg void OnDownloadsEdit();
 	afx_msg void OnCaptureChanged(CWnd *pWnd);
+
+	DECLARE_MESSAGE_MAP()
 };
 
 #define IDC_DOWNLOADS	100
