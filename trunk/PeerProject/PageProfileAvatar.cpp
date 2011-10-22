@@ -17,12 +17,12 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "GProfile.h"
+#include "PeerProject.h"
 #include "PageProfileAvatar.h"
 #include "ImageServices.h"
 #include "ImageFile.h"
+#include "GProfile.h"
 #include "Colors.h"
 #include "XML.h"
 

@@ -17,10 +17,10 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "Library.h"
+#include "PeerProject.h"
 #include "DlgFolderScan.h"
+#include "Library.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -136,7 +136,7 @@ void CFolderScanDlg::InstanceUpdate(LPCTSTR pszName, DWORD nVolume)
 	m_nFiles++;
 	m_nVolume += nVolume;
 
-	if ( m_bActive && tNow - m_tLastUpdate > 250 )
+	if ( m_bActive && tNow > m_tLastUpdate + 250 )
 	{
 		m_tLastUpdate = tNow;
 

@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "Registry.h"
 #include "Schema.h"
 #include "Skin.h"
@@ -90,9 +90,9 @@ void CSettings::Load()
 	Add( _T(""), _T("MinTransfersRest"), &General.MinTransfersRest, 40, 1, 1, 100, _T(" ms") );
 	Add( _T(""), _T("MultiUser"), &General.MultiUser, false, true );
 	Add( _T(""), _T("Path"), &General.Path );
+	Add( _T(""), _T("UserPath"), &General.UserPath );
 	Add( _T(""), _T("LogLevel"), &General.LogLevel, MSG_INFO, 1, MSG_ERROR, MSG_DEBUG, _T(" level") );
 	Add( _T(""), _T("SearchLog"), &General.SearchLog, true );
-	Add( _T(""), _T("UserPath"), &General.UserPath );
 	Add( _T(""), _T("DialogScan"), &General.DialogScan, false );
 
 	Add( _T("Settings"), _T("AlwaysOpenURLs"), &General.AlwaysOpenURLs, false );
@@ -168,8 +168,8 @@ void CSettings::Load()
 	Add( _T("Library"), _T("MaliciousFileCount"), &Library.MaliciousFileCount, 5, 1, 2, 50, _T(" files") );
 	Add( _T("Library"), _T("MaliciousFileSize"), &Library.MaliciousFileSize, 2*MegaByte, KiloByte, KiloByte, 10*MegaByte, _T(" KB") );
 	Add( _T("Library"), _T("MaliciousFileTypes"), &Library.MaliciousFileTypes, _T("|exe|com|bat|vbs|scr|zip|rar|ace|7z|cab|lzh|tar|tgz|bz2|wmv|") );
-	Add( _T("Library"), _T("PrivateTypes"), &Library.PrivateTypes, _T("|vbs|js|jc!|fb!|bc!|!ut|db3|dbx|part|partial|pst|reget|getright|pif|lnk|url|pd|sd|wab|m4p|infodb|racestats|svn|chk|tmp|temp|ini|inf|log|old|manifest|met|bak|$$$|---|~~~|###|__incomplete___|") );
-	Add( _T("Library"), _T("SafeExecute"), &Library.SafeExecute, _T("|3gp|7z|aac|ace|ape|asf|avi|bmp|cbr|cbz|co|collection|divx|flv|gif|iso|jpg|jpeg|lit|mid|mov|m1v|m2v|m3u|m4a|mka|mkv|mp2|mp3|mp4|mpa|mpe|mpg|mpeg|ogg|ogm|pdf|png|psk|qt|rar|rm|sks|swf|rtf|tar|tgz|torrent|txt|wav|zip|") );
+	Add( _T("Library"), _T("PrivateTypes"), &Library.PrivateTypes, _T("|vbs|js|jc!|fb!|bc!|!ut|db3|dbx|part|partial|pst|reget|getright|crdownload|pif|lnk|url|pd|sd|wab|m4p|infodb|racestats|svn|chk|tmp|temp|ini|inf|log|old|manifest|met|bak|$$$|---|~~~|###|__incomplete___|") );
+	Add( _T("Library"), _T("SafeExecute"), &Library.SafeExecute, _T("|3gp|7z|aac|ace|ape|asf|avi|bmp|cbr|cbz|co|collection|divx|flv|flac|gif|iso|jpg|jpeg|lit|mid|mov|m1v|m2v|m3u|m4a|mka|mkv|mp2|mp3|mp4|mpa|mpe|mpg|mpeg|ogg|ogm|pdf|png|psk|qt|rar|rm|sks|swf|rtf|tar|tgz|torrent|txt|wav|zip|") );
 	Add( _T("Library"), _T("SchemaURI"), &Library.SchemaURI, CSchema::uriAudio );
 	Add( _T("Library"), _T("ScanAPE"), &Library.ScanAPE, true );
 	Add( _T("Library"), _T("ScanASF"), &Library.ScanASF, true );
@@ -182,7 +182,7 @@ void CSettings::Load()
 	Add( _T("Library"), _T("ScanMSI"), &Library.ScanMSI, true );
 	Add( _T("Library"), _T("ScanOGG"), &Library.ScanOGG, true );
 	Add( _T("Library"), _T("ScanPDF"), &Library.ScanPDF, true );
-	Add( _T("Library"), _T("ShowCoverArt"), &Library.ShowCoverArt, true );
+//	Add( _T("Library"), _T("ShowCoverArt"), &Library.ShowCoverArt, true );
 	Add( _T("Library"), _T("ShowPanel"), &Library.ShowPanel, true );
 	Add( _T("Library"), _T("ShowVirtual"), &Library.ShowVirtual, true );
 	Add( _T("Library"), _T("SourceMesh"), &Library.SourceMesh, true );
@@ -236,15 +236,11 @@ void CSettings::Load()
 	Add( _T("Search"), _T("ClearPrevious"), &Search.ClearPrevious, 0, 1, 0, 2 );
 
 	Add( _T("MediaPlayer"), _T("Aspect"), &MediaPlayer.Aspect, smaDefault );
-	Add( _T("MediaPlayer"), _T("AviPreviewCLSID"), &MediaPlayer.AviPreviewCLSID, _T("{394011F0-6D5C-42a3-96C6-24B9AD6B010C}") );
 	Add( _T("MediaPlayer"), _T("EnableEnqueue"), &MediaPlayer.EnableEnqueue, true );
 	Add( _T("MediaPlayer"), _T("EnablePlay"), &MediaPlayer.EnablePlay, true );
 	Add( _T("MediaPlayer"), _T("FileTypes"), &MediaPlayer.FileTypes, _T("|aac|asx|wax|m3u|wvx|wmx|asf|wav|snd|au|aif|aifc|aiff|flac|mp3|ogg|wma|cda|mid|rmi|midi|avi|flv|mkv|mpeg|mpg|m1v|mp2|mp4|mpa|mpe|ogm|wmv|") );
 	Add( _T("MediaPlayer"), _T("ListSize"), &MediaPlayer.ListSize, 200 );
 	Add( _T("MediaPlayer"), _T("ListVisible"), &MediaPlayer.ListVisible, true );
-	Add( _T("MediaPlayer"), _T("MediaServicesCLSID"), &MediaPlayer.MediaServicesCLSID, _T("{CCE7B109-15D6-4223-B6FF-0C6C851B6680}") );
-	Add( _T("MediaPlayer"), _T("Mp3PreviewCLSID"), &MediaPlayer.Mp3PreviewCLSID, _T("{BF00DBCC-90A2-4f46-8171-7D4F929D035F}") );
-	Add( _T("MediaPlayer"), _T("Mpeg1PreviewCLSID"), &MediaPlayer.Mpeg1PreviewCLSID, _T("{9AA8DF47-B8FE-47da-AB1A-2DAA0DA0B646}") );
 	Add( _T("MediaPlayer"), _T("Random"), &MediaPlayer.Random, false );
 	Add( _T("MediaPlayer"), _T("Repeat"), &MediaPlayer.Repeat, false );
 	Add( _T("MediaPlayer"), _T("ServicePath"), &MediaPlayer.ServicePath, _T(""));
@@ -252,11 +248,16 @@ void CSettings::Load()
 	Add( _T("MediaPlayer"), _T("StatusVisible"), &MediaPlayer.StatusVisible, true );
 	Add( _T("MediaPlayer"), _T("VisPath"), &MediaPlayer.VisPath );
 	Add( _T("MediaPlayer"), _T("VisSize"), &MediaPlayer.VisSize, 1 );
-	Add( _T("MediaPlayer"), _T("VisCLSID"), &MediaPlayer.VisCLSID, _T("{591A5CFF-3172-4020-A067-238542DDE9C2}") );
-	Add( _T("MediaPlayer"), _T("VisWrapperCLSID"), &MediaPlayer.VisWrapperCLSID, _T("{C3B7B25C-6B8B-481A-BC48-59F9A6F7B69A}") );
-//	Add( _T("MediaPlayer"), _T("VisSoniqueCLSID"), &MediaPlayer.VisSoniqueCLSID, _T("{D07E630D-A850-4f11-AD29-3D3848B67EFE}") );
 	Add( _T("MediaPlayer"), _T("Volume"), &MediaPlayer.Volume, 1.0f );
 	Add( _T("MediaPlayer"), _T("Zoom"), (DWORD*)&MediaPlayer.Zoom, smzOne );
+
+	Add( _T("MediaPlayer"), _T("MediaServicesCLSID"), &MediaPlayer.MediaServicesCLSID, _T("{CCE7B109-15D6-4223-B6FF-0C6C851B6680}") );
+//	Add( _T("MediaPlayer"), _T("AviPreviewCLSID"), &MediaPlayer.AviPreviewCLSID, _T("{394011F0-6D5C-42a3-96C6-24B9AD6B010C}") );
+//	Add( _T("MediaPlayer"), _T("Mp3PreviewCLSID"), &MediaPlayer.Mp3PreviewCLSID, _T("{BF00DBCC-90A2-4f46-8171-7D4F929D035F}") );
+//	Add( _T("MediaPlayer"), _T("Mpeg1PreviewCLSID"), &MediaPlayer.Mpeg1PreviewCLSID, _T("{9AA8DF47-B8FE-47da-AB1A-2DAA0DA0B646}") );
+//	Add( _T("MediaPlayer"), _T("VisWrapperCLSID"), &MediaPlayer.VisWrapperCLSID, _T("{C3B7B25C-6B8B-481A-BC48-59F9A6F7B69A}") );
+//	Add( _T("MediaPlayer"), _T("VisSoniqueCLSID"), &MediaPlayer.VisSoniqueCLSID, _T("{D07E630D-A850-4f11-AD29-3D3848B67EFE}") );
+	Add( _T("MediaPlayer"), _T("VisCLSID"), &MediaPlayer.VisCLSID, _T("{591A5CFF-3172-4020-A067-238542DDE9C2}") );
 
 	Add( _T("Web"), _T("Torrent"), &Web.Torrent, ( CRegistry::GetString( _T("Software\\Classes\\.torrent"), NULL, NULL, NULL ).GetLength() < 4 ) );
 //	Add( _T("Web"), _T("Metalink"), &Web.Metalink, true );
@@ -1018,7 +1019,7 @@ void CSettings::SmartUpgrade()
 	//		}
 	//		else
 	//		{
-	//			// the value is missing or it was REG_DWORD as in earlier versions
+	//			// The value is missing or it was REG_DWORD as in earlier versions
 	//			strExts = L"|.asf||.asx||.avi||.divx||.m2v||.m2p||.mkv||.mov||.mpeg||.mpg||.ogm||.qt||.ram||.rm||.vob||.wmv||.xvid||.mp4||.rmvb||.3gp||.3gpp||.3g2||.dv||.flv||.ivf||.gvi||.mpe||.nsv||.wm|";
 	//			theApp.WriteProfileString( L"Plugins", L"{C88A4A9E-17C4-429D-86BA-3327CED6DE62}", strExts );
 	//		}
@@ -1427,7 +1428,7 @@ const CString CSettings::SmartSpeed(QWORD nVolume, int nVolumeUnits, bool bTrunc
 
 	switch ( General.RatesUnit )
 	{
-	// smart units
+	// Smart units
 	case 0:
 		return SmartVolume( nVolume, nUnits, bTruncate ) + _T("/s");
 

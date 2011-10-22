@@ -24,8 +24,8 @@
 // DlgScheduleTask: The dialog to create or edit a ScheduleTask.
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "Scheduler.h"
 #include "Buffer.h"
 #include "DlgHelp.h"
@@ -571,7 +571,7 @@ void CScheduler::ExecuteScheduledTask(CScheduleTask *pSchTask)
 
 	switch ( pSchTask->m_nAction )
 	{
-	case BANDWIDTH_FULL:			// Set the bandwidth to full speed
+	case BANDWIDTH_FULL:				// Set the bandwidth to full speed
 		theApp.Message( MSG_NOTICE, _T("Scheduler| Bandwidth: Full") );
 		Settings.Live.BandwidthScaleIn	= 101;
 		Settings.Live.BandwidthScaleOut	= 101;
@@ -586,7 +586,7 @@ void CScheduler::ExecuteScheduledTask(CScheduleTask *pSchTask)
 			Network.Connect( TRUE );
 		break;
 
-	case BANDWIDTH_LIMITED:			// Set the bandwidth to limited speeds
+	case BANDWIDTH_LIMITED:				// Set the bandwidth to limited speeds
 		theApp.Message( MSG_NOTICE, _T("Scheduler| Bandwidth: Limited") );
 		Settings.Live.BandwidthScaleIn	= pSchTask->m_nLimitDown;
 		Settings.Live.BandwidthScaleOut	= pSchTask->m_nLimitUp;
@@ -601,7 +601,7 @@ void CScheduler::ExecuteScheduledTask(CScheduleTask *pSchTask)
 			Network.Connect( TRUE );
 		break;
 
-	case BANDWIDTH_STOP:			// Set the bandwidth to 0 and disconnect all networks
+	case BANDWIDTH_STOP:				// Set the bandwidth to 0 and disconnect all networks
 		theApp.Message( MSG_NOTICE, _T("Scheduler| Bandwidth: Stop") );
 		Settings.Live.BandwidthScaleIn	= 0;
 		Settings.Live.BandwidthScaleOut	= 0;
@@ -614,16 +614,16 @@ void CScheduler::ExecuteScheduledTask(CScheduleTask *pSchTask)
 			Network.Disconnect();
 		break;
 
-	case SYSTEM_EXIT:				// Exit PeerProject
+	case SYSTEM_EXIT:					// Exit PeerProject
 		theApp.Message( MSG_DEBUG, _T("Scheduler| System: Exit PeerProject") );
 		if ( ! PostMainWndMessage( WM_CLOSE ) )
 			theApp.Message( MSG_ERROR, _T("Scheduler failed to send CLOSE message") );
 		break;
 
-	case SYSTEM_SHUTDOWN:			// Shut down the computer
+	case SYSTEM_SHUTDOWN:				// Shut down the computer
 		theApp.Message( MSG_NOTICE, _T("Scheduler| System: Shut Down Computer") );
 
-		if ( ! SetShutdownRights() ) // If we dont have shutdown rights
+		if ( ! SetShutdownRights() )	// If we dont have shutdown rights
 		{
 			theApp.Message( MSG_DEBUG, _T("Insufficient rights to shut down the system") );
 			return;
@@ -638,7 +638,7 @@ void CScheduler::ExecuteScheduledTask(CScheduleTask *pSchTask)
 		}
 		break;
 
-	case SYSTEM_DISCONNECT:			// Dial-Up Connection
+	case SYSTEM_DISCONNECT:				// Dial-Up Connection
 		theApp.Message( MSG_NOTICE, _T("Scheduler| System: Disconnect Dial-Up") );
 		Settings.Live.BandwidthScaleIn	= 0;
 		Settings.Live.BandwidthScaleOut	= 0;
@@ -649,10 +649,10 @@ void CScheduler::ExecuteScheduledTask(CScheduleTask *pSchTask)
 	//	Settings.BitTorrent.Enabled		= false;
 		if ( Network.IsConnected() )
 			Network.Disconnect();
-		HangUpConnection();			// Close
+		HangUpConnection();				// Close
 		break;
 
-	case SYSTEM_NOTICE:				// Reminder Notes
+	case SYSTEM_NOTICE:					// Reminder Notes
 		LoadString( IDS_SCHEDULER_REMINDER_NOTICE );
 		theApp.Message( MSG_NOTICE, _T("Scheduler| System: Reminder Notice | ") + pSchTask->m_sDescription );
 		theApp.Message( MSG_TRAY, LoadString( IDS_SCHEDULER_REMINDER_NOTICE ) );

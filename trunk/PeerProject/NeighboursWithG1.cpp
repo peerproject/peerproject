@@ -20,8 +20,8 @@
 // http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CNeighboursWithG1
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "Datagrams.h"
 #include "G1Packet.h"
 #include "G1Neighbour.h"
@@ -172,7 +172,7 @@ void CNeighboursWithG1::OnG1Pong(CG1Neighbour* pFrom, IN_ADDR* pAddress, WORD nP
 	// Add the information from the pong packet to the pong cache (do)
 	CPongItem* pPongCache = AddPong( pFrom, pAddress, nPort, nHops, nFiles, nVolume );
 	if ( pPongCache == NULL )
-		return; // If Add didn't return a CPongItem, (do)
+		return;		// If Add didn't return a CPongItem, (do)
 
 	// Loop through each neighbour we're connected to
 	for ( POSITION pos = GetIterator() ; pos ; )

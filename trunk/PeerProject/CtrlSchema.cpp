@@ -1,7 +1,7 @@
 //
 // CtrlSchema.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -17,13 +17,14 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "CtrlSchema.h"
+
 #include "Schema.h"
-#include "XML.h"
 #include "Skin.h"
 #include "Colors.h"
+#include "XML.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -51,11 +52,11 @@ END_MESSAGE_MAP()
 // CSchemaCtrl construction
 
 CSchemaCtrl::CSchemaCtrl()
-	: m_nCaptionWidth	(120)
-	, m_nItemHeight 	(32)
-	, m_bShowBorder 	(TRUE)
-	, m_pSchema 		(NULL)
-	, m_nScroll 		(0)
+	: m_nCaptionWidth	( 120 )
+	, m_nItemHeight 	( 32 )
+	, m_bShowBorder 	( TRUE )
+	, m_pSchema 		( NULL )
+	, m_nScroll 		( 0 )
 {
 	CString strText;
 	LoadString( strText, IDS_MULTIPLE_VALUES );
@@ -196,13 +197,10 @@ BOOL CSchemaCtrl::UpdateData(CXMLElement* pBase, BOOL bSaveAndValidate)
 
 			CString strOldValue = pMember->GetValueFrom( pBase, NO_VALUE, FALSE, TRUE );
 
-			// If value was changed
-			if ( strNewValue != strMultipleString &&
-				// ... but don't set empty value if there is no original value
-				! ( strNewValue.IsEmpty() && ( strOldValue == NO_VALUE ) ) &&
-				( strNewValue != strOldValue ) )
+			// If value was changed, save it (but don't set empty value if there is no original value)
+			if ( strNewValue != strMultipleString && strNewValue != strOldValue &&
+				! ( strNewValue.IsEmpty() && strOldValue == NO_VALUE ) )
 			{
-				// ... save it
 				pMember->SetValueTo( pBase, strNewValue );
 			}
 		}
@@ -247,13 +245,13 @@ void CSchemaCtrl::Layout()
 		{
 			if ( Settings.General.LanguageRTL )
 			{
-				rcNew.left		= m_nCaptionWidth;
-				rcNew.right		= rcClient.right - 10;
+				rcNew.left  = m_nCaptionWidth;
+				rcNew.right = rcClient.right - 10;
 			}
 			else
 			{
-				rcNew.left		= m_nCaptionWidth;
-				rcNew.right		= rcClient.right - 10;
+				rcNew.left  = m_nCaptionWidth;
+				rcNew.right = rcClient.right - 10;
 			}
 			rcNew.top		= nTop + m_nItemHeight / 2 - 9;
 			rcNew.bottom	= nTop + m_nItemHeight / 2 + 9;
@@ -268,7 +266,7 @@ void CSchemaCtrl::Layout()
 
 		if ( pControl->IsKindOf( RUNTIME_CLASS( CComboBox ) ) )
 		{
-			rcNew.top --;
+			rcNew.top--;
 			rcNew.bottom += 128;
 		}
 
@@ -329,8 +327,8 @@ void CSchemaCtrl::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar*/)
 {
 	SCROLLINFO pScroll = {};
 
-	pScroll.cbSize	= sizeof(pScroll);
-	pScroll.fMask	= SIF_ALL;
+	pScroll.cbSize = sizeof(pScroll);
+	pScroll.fMask  = SIF_ALL;
 
 	GetScrollInfo( SB_VERT, &pScroll );
 
@@ -508,7 +506,7 @@ BOOL CSchemaCtrl::OnCommand(WPARAM wParam, LPARAM lParam)
 void CSchemaCtrl::OnControlSetFocus()
 {
 	CWnd* pFocus = GetFocus();
-	for ( int i = 0; i < m_pControls.GetCount(); i++)
+	for ( int i = 0 ; i < m_pControls.GetCount() ; i++ )
 	{
 		CWnd* pControl = m_pControls.GetAt( i );
 		if ( pControl == pFocus || pControl == pFocus->GetParent() )

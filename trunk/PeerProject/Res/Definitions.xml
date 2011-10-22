@@ -97,7 +97,6 @@
 	<resource code="191" id="IDI_RATING_GOOD"/>
 	<resource code="192" id="IDI_RATING_AVERAGE"/>
 	<resource code="193" id="IDI_RATING_FAKE"/>
-	<resource code="194" id="IDI_SEARCH_ARTIST"/>
 	<resource code="195" id="IDI_SEARCH_FOLDER"/>
 	<resource code="196" id="IDI_SKIN"/>
 	<resource code="197" id="IDI_STAR"/>

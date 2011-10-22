@@ -8,7 +8,7 @@
  */
 
 #include "StdAfx.h"
-#include "resource.h"
+#include "Resource.h"
 #include "BugTrap.h"
 #include "BugTrapUtils.h"
 #include "BugTrapUI.h"
@@ -1029,7 +1029,6 @@ static UINT CALLBACK TransferThreadProc(PVOID pParam)
 	__try
 	{
 		CTransferThreadParams* pTransferThreadParams = (CTransferThreadParams*)pParam;
-		_ASSERTE(pTransferThreadParams != NULL);
 		DWORD dwErrorCode = ERROR_SUCCESS;
 		if (*g_szSupportHost == _T('\0'))
 			dwErrorCode = ERROR_BAD_NETPATH;
@@ -1209,7 +1208,6 @@ void InitAbout(HWND hwnd)
  */
 static PCTSTR GetReportFileName(PCTSTR pszFileName, PTSTR szFileNameBuffer)
 {
-	_ASSERTE(g_pSymEngine != NULL);
 	bool bGenerateFileName = pszFileName == NULL || *pszFileName == _T('\0');
 	if (bGenerateFileName || ! PathIsRoot(pszFileName))
 	{

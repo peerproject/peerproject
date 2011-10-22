@@ -48,7 +48,10 @@ namespace std{ namespace tr1{
 
 namespace std{ namespace tr1{
 
-   using ::boost::result_of;
+   template<class F>
+   struct result_of
+     : ::boost::tr1_result_of<F>
+   {};
 
 } }
 
@@ -125,7 +128,12 @@ template <class T> struct hash;
 }
 
 namespace std{ namespace tr1{
-   using ::boost::hash;
+   //using ::boost::hash;
+
+   template <class T>
+   struct hash : public boost::hash<T>
+   {
+   };
 
 }}
 
@@ -134,4 +142,3 @@ namespace std{ namespace tr1{
 #endif
 
 #endif
-

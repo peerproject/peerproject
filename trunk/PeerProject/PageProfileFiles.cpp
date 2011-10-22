@@ -17,15 +17,15 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "PageProfileFiles.h"
 #include "Library.h"
 #include "LibraryFolders.h"
 #include "AlbumFolder.h"
 #include "SharedFile.h"
 #include "Schema.h"
 #include "ShellIcons.h"
-#include "PageProfileFiles.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE

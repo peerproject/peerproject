@@ -133,7 +133,7 @@
 			<title language="af">Uitgewers Notas</title>
 			<title language="ca">Notes dels publicadors</title>
 			<title language="cz">Poznámky k vydání:</title>
-			<title language="de">Release Notes</title>
+			<title language="de">Herausgebernotizen</title>
 			<title language="ee">Väljalaske Info</title>
 			<title language="es">Release Notes</title>
 			<title language="es-mx">Release Notes</title>
@@ -515,7 +515,7 @@
 			<title language="af">Uitgewers Groep</title>
 			<title language="ca">Grup de publicació</title>
 			<title language="cz">Vydala skupina:</title>
-			<title language="de">Release Group</title>
+			<title language="de">Releasegruppe</title>
 			<title language="ee">Väljalaske Grupp</title>
 			<title language="es">Release Group</title>
 			<title language="es-mx">Release Group</title>
@@ -544,7 +544,7 @@
 			<title language="af">Uitgewers Skakel</title>
 			<title language="ca">Drecera del publicador</title>
 			<title language="cz">Odkaz na vydavatele:</title>
-			<title language="de">Release Group Link</title>
+			<title language="de">Link der Releasegruppe</title>
 			<title language="ee">Väljalaske Grupi Link</title>
 			<title language="es">Release Group Link</title>
 			<title language="es-mx">Release Group Link</title>
@@ -603,6 +603,7 @@
 		<type extension="collection"/>
 		<type extension="emulecollection"/>
 		<type extension="magma"/>
+		<type extension="metalink"/>
 		<type extension="torrent"/>
 	</typeFilter>
 

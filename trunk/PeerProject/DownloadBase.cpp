@@ -17,11 +17,11 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "Downloads.h"
+#include "PeerProject.h"
 #include "DownloadBase.h"
 #include "DownloadTask.h"
+#include "Downloads.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE

@@ -4,20 +4,20 @@
 ;
 ; Tradotto da ale5000 (ale5000 AT tiscali.it)
 ;
-; http://www.jrsoftware.org/files/istrans/ (user-contributed translations) 
+; http://www.jrsoftware.org/files/istrans/ (user-contributed translations)
 ;
 ; Note: Do not add periods (.) to messages that don't have them already,
 ; because for those messages Inno Setup adds the periods automatically.
 ; (appending a period will result in two periods being displayed.)
 
 [LangOptions]
-; The following three entries are very important. Be sure to read and 
+; The following three entries are very important. Be sure to read and
 ; understand the '[LangOptions] section' topic in the help file.
 LanguageName=Italiano
 LanguageID=$0410
 LanguageCodePage=1252
-; If the language you are translating to requires special font faces or
-; sizes, uncomment any of the following entries and change them accordingly.
+; If the language you are translating to requires special font faces or sizes,
+; uncomment any of the following entries and change them accordingly.
 ;DialogFontName=
 ;DialogFontSize=8
 ;WelcomeFontName=Verdana
@@ -72,12 +72,12 @@ AboutSetupMenuItem=&Informazioni sull'installazione...
 AboutSetupTitle=Informazioni sull'installazione
 AboutSetupMessage=%1 versione %2%n%3%n%n%1 sito web:%n%4
 AboutSetupNote=
-TranslatorNote=Italian translation maintained by ale5000
+TranslatorNote=Italian maintained by ale5000
 
 ; *** Buttons
 ButtonBack=< &Indietro
 ButtonNext=&Avanti >
-ButtonInstall=Inst&alla
+ButtonInstall=&Installa
 ButtonOK=OK
 ButtonCancel=Annulla
 ButtonYes=&Si
@@ -115,7 +115,7 @@ IncorrectPassword=La password inserita non è corretta, riprovare.
 WizardLicense=Contratto di licenza
 LicenseLabel=Leggere con attenzione le informazioni che seguono prima di procedere.
 LicenseLabel3=Leggere il seguente contratto di licenza. È necessario accettare tutti i termini del contratto per procedere con l'installazione.
-LicenseAccepted=Accetto i termini del &contratto di licenza 
+LicenseAccepted=&Accetto i termini del contratto di licenza
 LicenseNotAccepted=&Non accetto i termini del contratto di licenza
 
 ; *** "Information" wizard pages
@@ -162,7 +162,7 @@ FullInstallation=Installazione completa
 CompactInstallation=Installazione compatta
 CustomInstallation=Installazione personalizzata
 NoUninstallWarningTitle=Componente esistente
-NoUninstallWarning=I seguenti componenti sono già installati sul computer:%n%n%1%n%nDeselezionando questi componenti essi non verranno rimossi.%n%nSi desidera continuare comunque?
+NoUninstallWarning=I seguenti componenti sono già installati sul computer:%n%n%1%n%nDeselezionando questi componenti non verranno disinstallati.%n%nSi desidera continuare comunque?
 ComponentSize1=%1 KB
 ComponentSize2=%1 MB
 ComponentsDiskSpaceMBLabel=La selezione corrente richiede almeno [mb] MB di spazio su disco.
@@ -285,7 +285,7 @@ ErrorRestartingComputer=Impossibile riavviare il sistema. Riavviare manualmente.
 UninstallNotFound=Il file "%1" non esiste. Impossibile disinstallare.
 UninstallOpenError=Il file "%1" non può essere aperto. Impossibile disinstallare
 UninstallUnsupportedVer=Il file log di disinstallazione "%1" è in un formato non riconosciuto da questa versione del programma di disinstallazione. Impossibile disinstallare
-UninstallUnknownEntry=Trovata una voce sconosciuta (%1) nel file log di disinstallazione
+UninstallUnknownEntry=Trovata una voce sconosciuta (%1) nel file di log della disinstallazione
 ConfirmUninstall=Si desidera rimuovere completamente %1 e tutti i suoi componenti?
 UninstallOnlyOnWin64=Questa applicazione può essere disinstallata solo su Windows a 64-bit.
 OnlyAdminCanUninstall=Questa applicazione può essere disinstallata solo da un utente con privilegi di amministratore.
@@ -311,7 +311,7 @@ StatusUninstalling=Disinstallazione di %1 in corso...
 NameAndVersion=%1 versione %2
 AdditionalIcons=Icone aggiuntive:
 CreateDesktopIcon=Crea un'icona sul &desktop
-CreateQuickLaunchIcon=Crea un'icona nella &barra Avvio veloce
+CreateQuickLaunchIcon=Crea un'icona nella barra &Avvio veloce
 ProgramOnTheWeb=%1 sul Web
 UninstallProgram=Disinstalla %1
 LaunchProgram=Avvia %1

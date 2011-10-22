@@ -17,9 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "Transfers.h"
+#include "PeerProject.h"
 #include "Uploads.h"
 #include "UploadQueues.h"
 #include "UploadQueue.h"
@@ -27,26 +26,26 @@
 #include "UploadFile.h"
 #include "UploadTransfer.h"
 #include "UploadTransferED2K.h"
+#include "Transfers.h"
+#include "Downloads.h"
 #include "EDClient.h"
 #include "Library.h"
 #include "FileExecutor.h"
 #include "Security.h"
-
 #include "Skin.h"
-#include "ChatWindows.h"
+
 #include "WindowManager.h"
-#include "WndDownloads.h"
 #include "WndUploads.h"
+#include "WndDownloads.h"
 #include "WndMain.h"
 #include "WndLibrary.h"
 #include "WndBrowseHost.h"
+#include "ChatWindows.h"
 #include "DlgSettingsManager.h"
 #include "DlgQueueProperties.h"
 
 #include "DlgHelp.h"
 #include "LibraryDictionary.h"
-
-//#include <IO.h>	// For torrent filepath validaton
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -535,64 +534,53 @@ void CUploadsWnd::OnUpdateUploadsLaunch(CCmdUI* pCmdUI)
 
 void CUploadsWnd::OnUploadsLaunch()
 {
-	CSingleLock pTransfersLock( &Transfers.m_pSection, TRUE );
+	CSingleLock pTransfersLock( &Transfers.m_pSection );
+	if ( ! pTransfersLock.Lock( 500 ) ) return;
 
-	// Shift key opens files directly
-	if ( ! ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) != 0 )
+	const BOOL bShift = ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 );
+
+	CList<CUploadFile*> pList;
+
+	for ( POSITION pos = UploadFiles.GetIterator() ; pos ; )
 	{
-		// Show file in Libray:
-		for ( POSITION pos = UploadFiles.GetIterator() ; pos ; )
-		{
-			CUploadFile* pFile = UploadFiles.GetNext( pos );
-
-			if ( IsSelected( pFile ) )
-			{
-				CPeerProjectFile oFile = *pFile;
-				pTransfersLock.Unlock();
-
-				CSingleLock pLibraryLock( &Library.m_pSection, TRUE );
-				if ( CLibraryFile* pLibFile = LibraryMaps.LookupFileByHash( &oFile ) )
-				{
-					if ( CMainWnd* pMainWnd = theApp.SafeMainWnd() )
-					{
-						if ( CLibraryWnd* pLibrary = (CLibraryWnd*)( pMainWnd->m_pWindows.Open( RUNTIME_CLASS(CLibraryWnd) ) ) )
-							pLibrary->Display( pLibFile );
-					}
-				}
-				else if ( PathIsDirectory( Settings.Downloads.TorrentPath + _T("\\") + pFile->m_sName ) )	// Try default multifile torrent folder
-				{
-					ShellExecute( GetSafeHwnd(), _T("open"),
-						Settings.Downloads.TorrentPath + _T("\\") + pFile->m_sName, NULL, NULL, SW_SHOWNORMAL );
-				}
-			}
-		}
+		CUploadFile* pFile = UploadFiles.GetNext( pos );
+		if ( IsSelected( pFile ) )
+			pList.AddTail( pFile );
 	}
-	else // Alternately launch files
+
+	pTransfersLock.Unlock();
+
+	while ( ! pList.IsEmpty() )
 	{
-		CList<CUploadFile*> pList;
-	
-		for ( POSITION pos = UploadFiles.GetIterator() ; pos ; )
+		pTransfersLock.Lock();
+		CUploadFile* pFile = pList.RemoveHead();
+
+		if ( pFile->m_sPath.IsEmpty() )		// Multifile torrent always opens folder?  (ToDo: Update this path assumption when fixed elsewhere)
 		{
-			CUploadFile* pFile = UploadFiles.GetNext( pos );
-			if ( IsSelected( pFile ) )
-				pList.AddTail( pFile );
+			const CString strPath = Settings.Downloads.TorrentPath + _T("\\") + pFile->m_sName;		// Try default multifile torrent folder  (Need better detection)
+			pTransfersLock.Unlock();
+			if ( PathIsDirectory( strPath ) )
+				ShellExecute( GetSafeHwnd(), _T("open"), strPath, NULL, NULL, SW_SHOWNORMAL );
 		}
-	
-		while ( ! pList.IsEmpty() )
+		else if ( ! bShift )				// Show in Library by default
 		{
-			CUploadFile* pFile = pList.RemoveHead();
-	
-			if ( UploadFiles.Check( pFile ) )
+			CPeerProjectFile oFile = *pFile;
+			pTransfersLock.Unlock();
+
+			CSingleLock pLibraryLock( &Library.m_pSection, TRUE );
+			if ( CLibraryFile* pLibFile = LibraryMaps.LookupFileByHash( &oFile ) )
 			{
-				CString strPath = pFile->m_sPath;
-	
-				if ( strPath.Find( pFile->m_sName ) > 3 )	// Not multifile torrent
+				if ( CMainWnd* pMainWnd = theApp.SafeMainWnd() )
 				{
-					pTransfersLock.Unlock();
-					CFileExecutor::Execute( strPath );
-					pTransfersLock.Lock();
+					if ( CLibraryWnd* pLibrary = (CLibraryWnd*)( pMainWnd->m_pWindows.Open( RUNTIME_CLASS(CLibraryWnd) ) ) )
+						pLibrary->Display( pLibFile );
 				}
 			}
+		}
+		else if ( UploadFiles.Check( pFile ) )	// Launch directly with Shift key
+		{
+			pTransfersLock.Unlock();
+			CFileExecutor::Execute( pFile->m_sPath );
 		}
 	}
 }
@@ -611,26 +599,33 @@ void CUploadsWnd::OnUploadsFolder()
 		CUploadFile* pFile = UploadFiles.GetNext( pos );
 		if ( IsSelected( pFile ) )
 		{
-			CString strPath;	// = *pFile->m_sPath;
+			CString strPath;	// *pFile->m_sPath
 			CPeerProjectFile oFile = *pFile;
 			if ( CLibraryFile* pLibFile = LibraryMaps.LookupFileByHash( &oFile, FALSE, TRUE ) )
-				strPath = pLibFile->GetPath();
-
-			if ( strPath.Find( pFile->m_sName ) > 3 )
 			{
-			//	char charPath[255];
-			//	sprintf( charPath, "%S", strPath );	// CString to Char for <IO> filepath validation
-			//	if (_access (charPath, 0) == 0)
-					ShellExecute( GetSafeHwnd(), NULL, _T("Explorer.exe"), _T("/select, ") + strPath, NULL, SW_SHOWNORMAL );
+				strPath = pLibFile->GetPath();	// = pLibFile->GetFolder() + _T("\\") + pFile->m_sName;
 			}
-			else if ( PathIsDirectory( Settings.Downloads.TorrentPath + _T("\\") + pFile->m_sName ) )
+			else //if ( strPath.IsEmpty() )
 			{
 				// ToDo: Fix non-default multifile torrents
-				ShellExecute( GetSafeHwnd(), _T("open"),
-					Settings.Downloads.TorrentPath + _T("\\") + pFile->m_sName, NULL, NULL, SW_SHOWNORMAL );
+				strPath = Settings.Downloads.TorrentPath + _T("\\") + pFile->m_sName;
 			}
 
-			//AfxMessageBox( _T("Path: ") + strPath +  _T("\nName: ") + pFile->m_sName );	// TEST
+			// Show corresponding download with Shift key  (ToDo: Fix multifile torrents. Note holding Shift may cause many files to highlight.)
+			if ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 )
+			{
+				if ( CMainWnd* pMainWnd = (CMainWnd*)AfxGetMainWnd() )
+				{
+					if ( CDownloadsWnd* pDownWnd = (CDownloadsWnd*)pMainWnd->m_pWindows.Find( RUNTIME_CLASS(CDownloadsWnd) ) )
+						pDownWnd->Select( Downloads.FindByPath( strPath ) );
+				}
+				continue;
+			}
+			
+			if ( PathIsDirectory( strPath ) )
+				ShellExecute( GetSafeHwnd(), _T("open"), strPath, NULL, NULL, SW_SHOWNORMAL );
+			else if ( PathFileExists( strPath ) )
+				ShellExecute( GetSafeHwnd(), NULL, _T("Explorer.exe"), _T("/select, ") + strPath, NULL, SW_SHOWNORMAL );
 		}
 	}
 }
@@ -771,7 +766,7 @@ BOOL CUploadsWnd::PreTranslateMessage(MSG* pMsg)
 {
 	if ( pMsg->message == WM_KEYDOWN )
 	{
-		if ( pMsg->wParam == VK_TAB )			// Toggle window focus to Downloads
+		if ( pMsg->wParam == VK_TAB )		// Toggle window focus to Downloads
 		{
 			GetManager()->Open( RUNTIME_CLASS(CDownloadsWnd) );
 			return TRUE;

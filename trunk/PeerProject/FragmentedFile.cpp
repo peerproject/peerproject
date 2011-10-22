@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "FragmentedFile.h"
 #include "TransferFile.h"
 #include "BTInfo.h"
@@ -217,7 +217,7 @@ BOOL CFragmentedFile::Open(LPCTSTR pszFile, QWORD nOffset, QWORD nLength, BOOL b
 	//		// Redundant: Try to open file for write from current incomplete folder (in case of changed folder)
 	//		(*pItr).m_sPath = Settings.Downloads.IncompletePath + strPath.Mid( strPath.ReverseFind( _T('\\') ) );
 	//		break;
-	//	
+	//
 	//	// ToDo: Other methods
 	//	}
 	//}

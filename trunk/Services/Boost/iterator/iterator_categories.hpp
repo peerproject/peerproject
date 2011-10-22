@@ -1,6 +1,6 @@
 // (C) Copyright Jeremy Siek 2002.
-// Distributed under the Boost Software License, Version 1.0. (See
-// accompanying file LICENSE_1_0.txt or copy at
+// Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 #ifndef BOOST_ITERATOR_CATEGORIES_HPP
@@ -165,9 +165,8 @@ struct iterator_traversal
 # ifdef BOOST_MPL_CFG_NO_FULL_LAMBDA_SUPPORT
 // Hack because BOOST_MPL_AUX_LAMBDA_SUPPORT doesn't seem to work
 // out well.  Instantiating the nested apply template also
-// requires instantiating iterator_traits on the
-// placeholder. Instead we just specialize it as a metafunction
-// class.
+// requires instantiating iterator_traits on the placeholder.
+// Instead we just specialize it as a metafunction class.
 template <>
 struct iterator_traversal<mpl::_1>
 {

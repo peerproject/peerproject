@@ -19,20 +19,20 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "CtrlIRCFrame.h"
 
 #include "Skin.h"
-#include "CtrlIRCFrame.h"
 #include "RichElement.h"
 #include "RichFragment.h"
-#include "DlgSettingsManager.h"
 #include "CoolInterface.h"
 #include "Colors.h"
 #include "Buffer.h"
 #include "Network.h"
 #include "WndMain.h"
 #include "DlgIrcInput.h"
+#include "DlgSettingsManager.h"
 #include "GProfile.h"
 #include "Plugins.h"	// IChatPlugin Capture
 //#include "PeerProjectURL.h"
@@ -176,7 +176,7 @@ int CIRCFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndTab.Create( WS_CHILD | WS_VISIBLE | TCS_FLATBUTTONS | TCS_HOTTRACK | TCS_OWNERDRAWFIXED,
 		rectDefault, this, IDC_CHAT_TABS );
 	if ( ! theApp.m_bIsWin2000 )
-		m_wndTab.ModifyStyleEx( 0, WS_EX_COMPOSITED );	//Stop control flickering XP+
+		m_wndTab.ModifyStyleEx( 0, WS_EX_COMPOSITED );	// Stop control flickering XP+
 
 	FillChanList();
 	m_wndView.Create( WS_CHILD|WS_VISIBLE, rectDefault, this, IDC_CHAT_TEXT );
@@ -753,10 +753,10 @@ void CIRCFrame::OnIrcChanCmdSave()
 	CListCtrl* pChannelList = &(m_wndPanel.m_boxChans.m_wndChanList);
 	for ( int nIndex = 0 ; nIndex < pChannelList->GetItemCount() ; nIndex++ )
 	{
-		int n_mpChanListIndex = m_pChanList.GetIndexOfDisplay( pChannelList->GetItemText( nIndex, 0 ) );
-		if ( n_mpChanListIndex != -1 && m_pChanList.GetType( m_pChanList.GetDisplayOfIndex( n_mpChanListIndex ) )  )
+		int nChanListIndex = m_pChanList.GetIndexOfDisplay( pChannelList->GetItemText( nIndex, 0 ) );
+		if ( nChanListIndex != -1 && m_pChanList.GetType( m_pChanList.GetDisplayOfIndex( nChanListIndex ) ) )
 		{
-			CT2A pszFile( m_pChanList.GetNameOfIndex( n_mpChanListIndex ) + _T("\r\n") );
+			CT2A pszFile( m_pChanList.GetNameOfIndex( nChanListIndex ) + _T("\r\n") );
 			pFile.Write( (LPCSTR)pszFile, (DWORD)strlen( pszFile ) );
 		}
 	}
@@ -1227,7 +1227,7 @@ void CIRCFrame::OnStatusMessage(LPCTSTR pszText, int nFlags)
 {
 	CString strMessage = pszText;
 	COLORREF cRGB = Settings.IRC.Colors[ nFlags ];
-	int nIndex = strMessage.Find( _T("\x03") ); //Find a color code indicator (Ctrl+K)
+	int nIndex = strMessage.Find( _T("\x03") );		// Find a color code indicator (Ctrl+K)
 	int nSize;
 	// Find color codes and remove them.  ToDo: Support Text Colors
 	while ( nIndex != -1 )
@@ -1307,7 +1307,7 @@ void CIRCFrame::OnStatusMessage(LPCTSTR pszText, int nFlags)
 //				strMsgTemp = m_pszLineJoiner + strCurrentWord.Mid( nOldChar );
 //				nCurrentLength = strMsgTemp.GetLength();
 //			}
-//			else if  ( nCheckLength <= nViewSize )
+//			else if ( nCheckLength <= nViewSize )
 //			{
 //				strMsgTemp += strCurrentWord.Left( nViewSize - nCurrentLength );
 //				m_pContent.Add( retText, strMsgTemp.GetBuffer(), NULL, retfColor )->m_cColor = cRGB;
@@ -1319,7 +1319,7 @@ void CIRCFrame::OnStatusMessage(LPCTSTR pszText, int nFlags)
 //				bStartedSplit = TRUE;
 //				// Add chars up to 30% and the rest to the next line.
 //			}
-//			else if ( nCheckLength > nViewSize ) // Move to the next line.
+//			else if ( nCheckLength > nViewSize )	// Move to the next line.
 //			{
 //				m_pContent.Add( retText, strMsgTemp.GetBuffer(), NULL, retfColor )->m_cColor = cRGB;
 //				m_pContent.Add( retNewline, NEWLINE_FORMAT );
@@ -2796,11 +2796,10 @@ int CIRCFrame::FindInList(CString strName, int nList, int nTab)
 //	else
 //		m_pTray.szInfoTitle[0] = _T('\0');
 //	m_pTray.dwInfoFlags = dwIcon;
-//	m_pTray.uTimeout = uTimeout * 1000;   // convert time to ms
+//	m_pTray.uTimeout = uTimeout * 1000;   // Convert time to ms
 //	m_pTray.szInfo[0] = _T('\0');
 //
-//	BOOL bSuccess = Shell_NotifyIcon( NIM_MODIFY, &m_pTray );
-//	return bSuccess;
+//	return (BOOL)Shell_NotifyIcon( NIM_MODIFY, &m_pTray );
 //}
 
 
@@ -3096,7 +3095,7 @@ void CIRCTabCtrl::DrawTabControl(CDC* pDC)
 	//m_nHoverTab = TabCtrl_HitTest( m_hWnd, &htInfo );
 	int nSel = TabCtrl_GetCurSel( m_hWnd );
 
-	for ( int nTab = 0; nTab < tabCount; nTab++ )
+	for ( int nTab = 0 ; nTab < tabCount ; nTab++ )
 	{
 		if ( nTab == nSel ) continue;
 		TabCtrl_GetItemRect( m_hWnd, nTab, &rcItem );

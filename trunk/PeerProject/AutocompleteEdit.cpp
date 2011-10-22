@@ -1,7 +1,7 @@
 //
 // AutocompleteEdit.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -16,10 +16,10 @@
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
+#include "Settings.h"
 #include "PeerProject.h"
 #include "AutocompleteEdit.h"
-#include "Settings.h"
 
 IMPLEMENT_DYNCREATE(CRegEnum, CComObject)
 
@@ -172,7 +172,7 @@ void CRegEnum::AddString(const CString& rString) const
 
 	// Load list
 	CStringList oList;
-	for ( int i = 0; ; ++i )
+	for ( int i = 0 ; ; ++i )
 	{
 		CString strEntry;
 		strEntry.Format( m_root, i + 1 );
@@ -194,7 +194,7 @@ void CRegEnum::AddString(const CString& rString) const
 
 	// Save list
 	POSITION pos = oList.GetHeadPosition();
-	for ( int i = 0; pos; ++i )
+	for ( int i = 0 ; pos ; ++i )
 	{
 		CString strEntry;
 		strEntry.Format( m_root, i + 1 );
@@ -248,7 +248,7 @@ void CAutocompleteEdit::OnDestroy()
 
 int CAutocompleteEdit::GetWindowText(LPTSTR lpszStringBuf, int nMaxCount) const
 {
-	int n = CEdit::GetWindowText( lpszStringBuf, nMaxCount );
+	const int n = CEdit::GetWindowText( lpszStringBuf, nMaxCount );
 	if ( m_pData && n > 0 )
 	{
 		CString tmp( lpszStringBuf );

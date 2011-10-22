@@ -1,7 +1,7 @@
 //
 // WizardSheet.h
 //
-// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008
+// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2011
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
@@ -38,30 +38,30 @@ public:
 	
 // Operations
 public:
-	static BOOL	Run(CWnd* pParent = NULL);
-public:
+	static BOOL 	Run(CWnd* pParent = NULL);
+
 	CWizardPage*	GetPage(CRuntimeClass* pClass);
 	void			DoReset();
 
 // Overrides
 public:
 	//{{AFX_VIRTUAL(CWizardSheet)
-	public:
-	virtual BOOL OnChildNotify(UINT message, WPARAM wParam, LPARAM lParam, LRESULT* pLResult);
+	virtual BOOL	OnChildNotify(UINT message, WPARAM wParam, LPARAM lParam, LRESULT* pLResult);
 	//}}AFX_VIRTUAL
 
 // Implementation
 public:
 	//{{AFX_MSG(CWizardSheet)
-	virtual BOOL OnInitDialog();
-	afx_msg void OnPaint();
-	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
-	afx_msg void OnSize(UINT nType, int cx, int cy);
-	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
-	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
-	afx_msg void OnNcLButtonUp( UINT nHitTest, CPoint point );
-	afx_msg void OnXButtonDown(UINT nFlags, UINT nButton, CPoint point);
+	virtual BOOL	OnInitDialog();
+	afx_msg void	OnPaint();
+	afx_msg BOOL	OnEraseBkgnd(CDC* pDC);
+	afx_msg void	OnSize(UINT nType, int cx, int cy);
+	afx_msg BOOL	OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
+	afx_msg void	OnLButtonUp(UINT nFlags, CPoint point);
+	afx_msg void	OnNcLButtonUp( UINT nHitTest, CPoint point );
+	afx_msg void	OnXButtonDown(UINT nFlags, UINT nButton, CPoint point);
 	//}}AFX_MSG
+
 	DECLARE_MESSAGE_MAP()
 };
 
@@ -77,8 +77,7 @@ public:
 
 // Attributes
 public:
-	COLORREF		m_crWhite;
-	CBrush			m_brWhite;
+	CBrush			m_brPageColor;	// PAGE_COLOR (Was m_brWhite)
 
 // Operations
 public:
@@ -90,8 +89,8 @@ public:
 // Implementation
 protected:
 	//{{AFX_MSG(CWizardPage)
-	afx_msg void OnSize(UINT nType, int cx, int cy);
-	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+	afx_msg void	OnSize(UINT nType, int cx, int cy);
+	afx_msg HBRUSH	OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()

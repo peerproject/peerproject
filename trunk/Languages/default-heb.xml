@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hebrew Skin File -->
 
-<!-- Translation based on default-en.xml r69 -->
+<!-- Translation based on default-en.xml r70 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2599,6 +2599,12 @@ gap i newline
 	<string id="20020" value="קובץ"/>
 	<string id="20021" value="קבצים"/>
 	<string id="20022" value="‪כל הקבצים"/>
+	<string id="20023" value="No Files"/>
+	<string id="20024" value="‪קבצים גדולים"/>
+	<string id="20025" value="‪קבצים בינוניים"/>
+	<string id="20026" value="‪קבצים קטנים"/>
+	<string id="20027" value="‪קבצים חלקיים"/>
+	<string id="20028" value="ספריית קבצים"/>
 	<string id="20029" value="‪%s הקבצים"/>
 	<string id="20050" value="‪שכל יום"/>
 	<string id="20051" value="‪שני"/>
@@ -4093,9 +4099,9 @@ gap i newline
 	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="הודעת עדכון גרסה">
 		<control caption="?קיימת גרסא חדשה לשרזה. האם ברצונך לשדרג"/>
 		<control caption="אם בחרת לשדרג כעת, שרזה יוסיף את השדרוג לרשימת ההורדות ויתחיל להוריד אותו באופן אוטומטי"/>
-		<control caption="_שדרג כעת"/>
 		<control caption="אל תבדוק אם קיימות גרסאות חדשות"/>
-		<control caption="אל תשדרג"/>
+		<control caption="_שדרג כעת"/>
+		<control caption="ביטול"/>
 	</dialog>
 	<dialog name="CDownloadReviewDlg" cookie="BuSyEd" caption="הורד ביקורות">
 		<control caption="אישור"/>

@@ -16,9 +16,9 @@
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
-#include "Stdafx.h"
-#include "PeerProject.h"
+#include "StdAfx.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "CtrlNeighbourTip.h"
 #include "Neighbours.h"
 #include "Neighbour.h"
@@ -360,7 +360,7 @@ void CNeighbourTipCtrl::OnPaint(CDC* pDC)
 	{
 		LoadString( str, IDS_NEIGHBOUR_RATIO );
 		DrawText( pDC, &pt, str );
-		( nCompIn > 0  ) ? str.Format( _T("%.2f%%"), nCompIn * 100.0 ) : str.Empty();
+		( nCompIn  > 0 ) ? str.Format( _T("%.2f%%"), nCompIn  * 100.0 ) : str.Empty();
 		DrawText( pDC, &pt, str, 128 );
 		( nCompOut > 0 ) ? str.Format( _T("%.2f%%"), nCompOut * 100.0 ) : str.Empty();
 		DrawText( pDC, &pt, str, 128 + 80 );

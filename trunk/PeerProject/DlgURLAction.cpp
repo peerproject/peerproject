@@ -17,9 +17,11 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "PeerProjectURL.h"
+#include "DlgURLAction.h"
+#include "DlgExistingFile.h"
 #include "Download.h"
 #include "Downloads.h"
 #include "Transfers.h"
@@ -27,14 +29,12 @@
 #include "Library.h"
 #include "SharedFile.h"
 #include "HostCache.h"
-#include "DiscoveryServices.h"
-#include "DlgURLAction.h"
-#include "DlgExistingFile.h"
 #include "Skin.h"
 #include "WndMain.h"
 #include "WndSearch.h"
 #include "WndDownloads.h"
 #include "WndBrowseHost.h"
+#include "DiscoveryServices.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE

@@ -66,12 +66,12 @@ STDMETHODIMP CBuilder::Process(/*[in]*/ BSTR sFile, /*[in]*/ ISXMLElement* pXML)
 	hr = pXMLElement->get_Attributes(&pISXMLAttributes);
 	if (FAILED (hr))
 		return hr;
-	
+
 	GFL_FILE_INFORMATION inf = { 0 };
 	WCHAR pszPath[MAX_PATH] = { 0 };
 
 	GFL_ERROR err = gflGetFileInformation (CW2A (sFile), -1, &inf);
-	
+
 	if ( err != GFL_NO_ERROR )
 	{
 		if ( GetShortPathNameW( sFile, pszPath, MAX_PATH ) )
@@ -83,10 +83,10 @@ STDMETHODIMP CBuilder::Process(/*[in]*/ BSTR sFile, /*[in]*/ ISXMLElement* pXML)
 	if ( err == GFL_NO_ERROR )
 	{
 		CString tmp;
-		
+
 		tmp.Format (_T("%lu"), inf.Height);
 		pISXMLAttributes->Add (CComBSTR ("height"), CComBSTR (tmp));
-		
+
 		tmp.Format (_T("%lu"), inf.Width);
 		pISXMLAttributes->Add (CComBSTR ("width"), CComBSTR (tmp));
 
@@ -100,11 +100,9 @@ STDMETHODIMP CBuilder::Process(/*[in]*/ BSTR sFile, /*[in]*/ ISXMLElement* pXML)
 		{
 			if (bits <= 4)
 				colors = _T("16");
-			else
-			if (bits <= 8)
+			else if (bits <= 8)
 				colors = _T("256");
-			else
-			if (bits <= 16)
+			else if (bits <= 16)
 				colors = _T("64K");
 			else
 				colors = _T("16.7M");

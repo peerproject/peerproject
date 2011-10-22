@@ -17,8 +17,10 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "CtrlLibraryHeaderPanel.h"
+#include "CtrlLibraryFrame.h"
 #include "Library.h"
 #include "AlbumFolder.h"
 #include "Schema.h"
@@ -29,8 +31,6 @@
 #include "Colors.h"
 #include "Skin.h"
 
-#include "CtrlLibraryFrame.h"
-#include "CtrlLibraryHeaderPanel.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -122,11 +122,11 @@ int CLibraryHeaderPanel::Update()
 
 	if ( m_hWnd ) Invalidate();
 
-	//Set Skinable Header Height (64px)
+	// Set Skinable Header Height (64px)
 	int nHeight = static_cast< int >( m_pMetadata.GetCount() * 12 + 8 );
 	nHeight = max( Skin.m_nHeaderbarHeight, nHeight );
 
-	//Set Home View Header Differently?
+	// Set Home View Header Differently?
 	//if ( pFolder->GetParent() == NULL ) nHeight = 56;
 
 	return min( 80, nHeight );
@@ -233,7 +233,8 @@ void CLibraryHeaderPanel::DoPaint(CDC* pDC, CRect& rcClient)
 	}
 	else if ( m_nIcon32 >= 0 )
 	{
-		ptIcon.x += 8; ptIcon.y += 8;
+		ptIcon.x += 8;
+		ptIcon.y += 8;
 		ShellIcons.Draw( pDC, m_nIcon32, 32, ptIcon.x, ptIcon.y );
 	}
 

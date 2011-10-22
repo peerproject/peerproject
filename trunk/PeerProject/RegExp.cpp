@@ -1,7 +1,7 @@
 //
 // RegExp.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2010
+// This file is part of PeerProject (peerproject.org) © 2010-2011
 // Portions copyright Shareaza Development Team, 2008-2010.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -29,13 +29,10 @@
 
 #include <atlconv.h>
 #include <tchar.h>
-//#include <regex>
 //#include <string>	// In StdAfx.h
 
-#ifdef _HAS_TR1
+#ifdef _HAS_TR1		// #if _MSC_FULL_VER > 150030000	// VS2008 SP1 for tr1
 #include <regex>
-//#elif defined(_MSC_VER) && (_MSC_FULL_VER > 150030000)	// VS2008 SP1 for tr1
-//#include <regex>
 #else	// Boost fallback
 #include <Boost/tr1/regex.hpp>
 #endif
@@ -80,19 +77,21 @@ size_t Split(LPCTSTR szRegExp, LPCTSTR szContent, LPTSTR* pszResult)
 		{
 			const size_t nCount = results.size();
 			size_t len = 0;
-			for ( size_t i = 0; i < nCount; ++i )
+			for ( size_t i = 0 ; i < nCount ; ++i )
 			{
 				len += results.str( i ).size() + 1;
 			}
-			LPTSTR p = (LPTSTR)GlobalAlloc( GPTR, len * sizeof( wchar_t ) );
 
-			*pszResult = p;
-			for ( size_t i = 0; i < nCount; ++i )
+			if ( LPTSTR p = (LPTSTR)GlobalAlloc( GPTR, len * sizeof( wchar_t ) ) )
 			{
-				wcscpy_s( p, len - ( p - *pszResult ), results.str( i ).c_str() );
-				p += results.str( i ).size() + 1;
+				*pszResult = p;
+				for ( size_t i = 0 ; i < nCount ; ++i )
+				{
+					wcscpy_s( p, len - ( p - *pszResult ), results.str( i ).c_str() );
+					p += results.str( i ).size() + 1;
+				}
+				return nCount;
 			}
-			return nCount;
 		}
 	}
 	catch (...)

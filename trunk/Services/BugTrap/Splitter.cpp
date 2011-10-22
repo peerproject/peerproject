@@ -105,7 +105,6 @@ BOOL CSplitter::HitTest(int x, int y) const
 BOOL CSplitter::DrawPanel(HDC hdc, int iPanel) const
 {
 	_ASSERTE(m_hwnd != NULL);
-	_ASSERTE(g_pResManager != NULL);
 	if (iPanel >= 0 && iPanel < NUM_PANELS)
 	{
 		RECT rect;
@@ -144,7 +143,6 @@ void CSplitter::DrawSplitterBar(HDC hdc) const
 	_ASSERTE(m_hwnd != NULL);
 	RECT rect;
 	GetSplitterBarRect(rect);
-	_ASSERTE(g_pResManager != NULL);
 	FillRect(hdc, &rect, g_pResManager->m_hbrButtonFaceBrush);
 }
 
@@ -320,7 +318,6 @@ LRESULT CALLBACK CSplitter::SplitterWndProc(HWND hwnd, UINT uMsg, WPARAM wParam,
 	DWORD dwResult;
 
 	CSplitter* _this  = (CSplitter*)GetWindowLongPtr(hwnd, GWLP_USERDATA);
-	_ASSERTE(_this != NULL);
 	switch(uMsg)
 	{
 	case WM_NCHITTEST:
@@ -331,7 +328,6 @@ LRESULT CALLBACK CSplitter::SplitterWndProc(HWND hwnd, UINT uMsg, WPARAM wParam,
 		ScreenToClient(hwnd, &point);
 		return (_this->HitTest(point) ? HTCLIENT : HTTRANSPARENT);
 	case WM_SETCURSOR:
-		_ASSERTE(g_pResManager != NULL);
 		dwResult = GetMessagePos();
 		point.x = GET_X_LPARAM(dwResult);
 		point.y = GET_Y_LPARAM(dwResult);

@@ -51,9 +51,9 @@ protected:
 	CString			m_sMD5;
 	CString			m_sType;
 	CString			m_sSize;
-	CString			m_sBusy;	// Busy status message
-	CString			m_sPush;	// Firewalled status message
-	CString			m_sUnstable; // Unstable status message
+	CString			m_sBusy;		// Busy status message
+	CString			m_sPush;		// Firewalled status message
+	CString			m_sUnstable;	// Unstable status message
 	int				m_nIcon;
 	CString			m_sStatus;
 	COLORREF		m_crStatus;
@@ -65,13 +65,13 @@ protected:
 	int				m_nRating;
 
 public:
-	static LPCTSTR	m_hClass;	// CWnd Style
+	static LPCTSTR	m_hClass;		// CWnd Style
 protected:
 	static CBrush	m_brBack;
 	static COLORREF	m_crBack;
 	static COLORREF	m_crText;
 	static COLORREF	m_crBorder;
-	static COLORREF	m_crWarnings; // Color of warning messages
+	static COLORREF	m_crWarnings;	// Color of warning messages
 
 // Operations
 public:

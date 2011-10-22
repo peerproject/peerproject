@@ -49,9 +49,9 @@ public:
 
 	CString		m_sNick;
 	BOOL		m_bEmule;
-	int			m_nVersion;
-	int			m_nEmVersion;
-	int			m_nEmCompatible;
+	DWORD		m_nVersion;
+	DWORD		m_nEmVersion;
+	DWORD		m_nEmCompatible;
 	DWORD		m_nSoftwareVersion;
 
 // Client capabilities

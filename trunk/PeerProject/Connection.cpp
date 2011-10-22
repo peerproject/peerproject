@@ -20,9 +20,10 @@
 // http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CConnection
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "Connection.h"
+
 #include "Network.h"
 #include "Security.h"
 #include "Buffer.h"
@@ -662,7 +663,7 @@ BOOL CConnection::OnHeaderLine(CString& strHeader, CString& strValue)
 	if ( strHeader.CompareNoCase( _T("User-Agent") ) == 0 )
 	{
 		// Copy the value into the user agent member string
-		m_sUserAgent = strValue; // This tells what software the remote computer is running
+		m_sUserAgent = strValue;	// This tells what software the remote computer is running
 		m_bClientExtended = VendorCache.IsExtended( m_sUserAgent );
 	}
 	// It's the remote IP header
@@ -698,8 +699,8 @@ BOOL CConnection::OnHeaderLine(CString& strHeader, CString& strValue)
 			m_nProtocol != PROTOCOL_G2 )
 			m_nProtocol = PROTOCOL_G1;
 		if ( _tcsistr( strValue, _T("application/x-gnutella2") ) ||
-			_tcsistr( strValue, _T("application/x-shareaza") ) ||
-			_tcsistr( strValue, _T("application/x-peerproject") ) )
+			 _tcsistr( strValue, _T("application/x-shareaza") ) ||
+			 _tcsistr( strValue, _T("application/x-peerproject") ) )
 			m_nProtocol = PROTOCOL_G2;
 	}
 
@@ -733,7 +734,7 @@ BOOL CConnection::SendMyAddress()
 			htons( Network.m_pHost.sin_port ) );						// Our port number in big endian
 
 		// Print the line into the bottom of the output buffer
-		Write( strHeader ); // It will be sent to the remote computer on the next write
+		Write( strHeader );		// It will be sent to the remote computer on the next write
 
 		// Report that we are listening on a port, and the header is sent
 		return TRUE;
@@ -745,8 +746,8 @@ BOOL CConnection::SendMyAddress()
 
 void CConnection::UpdateCountry()
 {
-	m_sCountry     = theApp.GetCountryCode( m_pHost.sin_addr );
-	m_sCountryName = theApp.GetCountryName( m_pHost.sin_addr );
+	m_sCountry		= theApp.GetCountryCode( m_pHost.sin_addr );
+	m_sCountryName	= theApp.GetCountryName( m_pHost.sin_addr );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -779,7 +780,7 @@ DWORD CConnection::TCPBandwidthMeter::CalculateLimit( DWORD tNow, bool bOut, boo
 
 		// nData = speed limit in bytes per second - bytes we read in the last second
 		// nLimit = speed limit in bytes per second * elapsed time
-		// return the smaller of the two
+		// Return the smaller of the two
 		nLimit = min( nLimit, nData );
 	}
 	else
@@ -822,7 +823,7 @@ DWORD CConnection::TCPBandwidthMeter::CalculateUsage( DWORD tTime ) const
 			nData += pHistory[ slot++ ];
 	}
 
-	// return the #bytes in time period
+	// Return # bytes in time period
 	return nData;
 }
 
@@ -833,8 +834,8 @@ DWORD CConnection::TCPBandwidthMeter::CalculateUsage( DWORD tTime, bool /*bShort
 	if ( tLastSlot <= tTime ) return 0;
 
 	// Loop across the times and histories stored
-	// Granularity is 1/10th ( METER_MINIMUM ) of a second, so at the most we only
-	// need to read 12 ( METER_MINIMUM / METER_SECOND + 2 )records instead of all of them
+	// Granularity is 1/10th ( METER_MINIMUM ) of a second, so at the most we only need
+	// to read 12 ( METER_MINIMUM / METER_SECOND + 2 ) records instead of all of them
 	DWORD nData = 0;			// #bytes in the time period
 	DWORD slot = METER_LENGTH;	// Start at the last slot
 	while ( slot-- )
@@ -853,7 +854,7 @@ DWORD CConnection::TCPBandwidthMeter::CalculateUsage( DWORD tTime, bool /*bShort
 // Add #bytes to history
 void CConnection::TCPBandwidthMeter::Add( const DWORD nBytes, const DWORD tNow )
 {
-	if ( tNow - tLastSlot < METER_MINIMUM )
+	if ( tNow < tLastSlot + METER_MINIMUM )
 	{
 		// Less than the minimum time interval
 		// Use the same place in the array as before

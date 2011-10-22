@@ -17,9 +17,9 @@
 //
 
 #include "StdAfx.h"
+#include "Settings.h"
 #include "PeerProject.h"
 #include "CollectionFile.h"
-#include "Settings.h"
 
 #include "ZIPFile.h"
 #include "Buffer.h"
@@ -63,10 +63,10 @@ BOOL CCollectionFile::Open(LPCTSTR lpszFileName)
 {
 	Close();
 
-	const int nLength = _tcslen( lpszFileName );
+	const int nLength = (int)_tcslen( lpszFileName );
 	if ( nLength < 4 ) return FALSE;
 
-	if (      				  ! _tcsicmp( lpszFileName + nLength - 3,  _T(".co") ) ||
+	if (					  ! _tcsicmp( lpszFileName + nLength - 3,  _T(".co") ) ||
 			  nLength > 11 && ! _tcsicmp( lpszFileName + nLength - 11, _T(".collection") ) )
 	{
 		if ( LoadCollection( lpszFileName ) )
@@ -475,7 +475,7 @@ void CCollectionFile::Render(CString& strBuffer) const
 		(LPCTSTR)GetTitle() );
 
 	DWORD i = 1;
-	for ( POSITION pos = GetFileIterator() ; pos ; )
+	for ( POSITION pos = GetFileIterator() ; pos ; ++i )
 	{
 		CCollectionFile::File* pFile = GetNextFile( pos );
 
@@ -492,10 +492,10 @@ void CCollectionFile::Render(CString& strBuffer) const
 			strURN = pFile->m_oBTH.toUrn();
 
 		CString strTemp;
-		strTemp.Format( _T("<tr><td class=\"num\">%d</td>")
+		strTemp.Format( _T("<tr><td class=\"num\">%u</td>")
 			_T("<td class=\"url\" onclick=\"if ( ! window.external.open('%s') ) window.external.download('%s');\" onmouseover=\"window.external.hover('%s');\" onmouseout=\"window.external.hover('');\">%s</td>")
 			_T("<td class=\"size\">%s</td></tr>\n"),
-			i++, (LPCTSTR)strURN, (LPCTSTR)strURN, (LPCTSTR)strURN, (LPCTSTR)pFile->m_sName,
+			i, (LPCTSTR)strURN, (LPCTSTR)strURN, (LPCTSTR)strURN, (LPCTSTR)pFile->m_sName,
 			(LPCTSTR)Settings.SmartVolume( pFile->m_nSize ) );
 		strBuffer += strTemp;
 	}

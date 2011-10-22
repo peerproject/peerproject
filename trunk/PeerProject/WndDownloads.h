@@ -35,7 +35,7 @@ public:
 // Operations
 public:
 	void			Update();
-	BOOL			Select(CDownload* pDownload);	// From DownloadMonitor
+	void			Select(CDownload* pDownload);	// For DownloadMonitor "Show"
 	void			DragDownloads(CList< CDownload* >* pList, CImageList* pImage, const CPoint& ptScreen);
 protected:
 	void			Prepare();

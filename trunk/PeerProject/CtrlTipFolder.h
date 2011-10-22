@@ -19,6 +19,7 @@
 #pragma once
 
 #include "CtrlCoolTip.h"
+#include "LibraryFolders.h"
 
 
 class CFolderTipCtrl : public CCoolTipCtrl

@@ -86,7 +86,7 @@ struct lower_alignment_helper_impl<false>
 {
     template <std::size_t target, class TestType>
     struct apply
-      : mpl::if_c<(alignment_of<TestType>::value == target), TestType, char>
+      : public mpl::if_c<(alignment_of<TestType>::value == target), TestType, char>
     {
         enum { value = (alignment_of<TestType>::value == target) };
     };
@@ -94,7 +94,7 @@ struct lower_alignment_helper_impl<false>
 
 template <bool found, std::size_t target, class TestType>
 struct lower_alignment_helper
-  : lower_alignment_helper_impl<found>::template apply<target,TestType>
+  : public lower_alignment_helper_impl<found>::template apply<target,TestType>
 {
 };
 #else
@@ -242,7 +242,7 @@ BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::boost::align::a16,true)
 BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::boost::align::a32,true)
 }
 #endif
-#if (defined(BOOST_MSVC) || (defined(BOOST_INTEL) && defined(_MSC_VER))) && _MSC_VER >= 1300
+#if (defined(BOOST_MSVC) || (defined(BOOST_INTEL) && defined(_MSC_VER)))
 //
 // MSVC supports types which have alignments greater than the normal
 // maximum: these are used for example in the types __m64 and __m128
@@ -286,43 +286,43 @@ struct __declspec(align(128)) a128 {
 template<> class type_with_alignment<8>
 {
    typedef mpl::if_c<
-      ::boost::alignment_of<detail::max_align>::value < 8,
+      ::boost::alignment_of<boost::detail::max_align>::value < 8,
       align::a8,
-      detail::type_with_alignment_imp<8> >::type t1;
+      boost::detail::type_with_alignment_imp<8> >::type t1;
 public:
    typedef t1::type type;
 };
 template<> class type_with_alignment<16>
 {
    typedef mpl::if_c<
-      ::boost::alignment_of<detail::max_align>::value < 16,
+      ::boost::alignment_of<boost::detail::max_align>::value < 16,
       align::a16,
-      detail::type_with_alignment_imp<16> >::type t1;
+      boost::detail::type_with_alignment_imp<16> >::type t1;
 public:
    typedef t1::type type;
 };
 template<> class type_with_alignment<32>
 {
    typedef mpl::if_c<
-      ::boost::alignment_of<detail::max_align>::value < 32,
+      ::boost::alignment_of<boost::detail::max_align>::value < 32,
       align::a32,
-      detail::type_with_alignment_imp<32> >::type t1;
+      boost::detail::type_with_alignment_imp<32> >::type t1;
 public:
    typedef t1::type type;
 };
 template<> class type_with_alignment<64> {
    typedef mpl::if_c<
-      ::boost::alignment_of<detail::max_align>::value < 64,
+      ::boost::alignment_of<boost::detail::max_align>::value < 64,
       align::a64,
-      detail::type_with_alignment_imp<64> >::type t1;
+      boost::detail::type_with_alignment_imp<64> >::type t1;
 public:
    typedef t1::type type;
 };
 template<> class type_with_alignment<128> {
    typedef mpl::if_c<
-      ::boost::alignment_of<detail::max_align>::value < 128,
+      ::boost::alignment_of<boost::detail::max_align>::value < 128,
       align::a128,
-      detail::type_with_alignment_imp<128> >::type t1;
+      boost::detail::type_with_alignment_imp<128> >::type t1;
 public:
    typedef t1::type type;
 };
@@ -367,8 +367,7 @@ BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::boost::align::a16,true)
 
 template <std::size_t N> struct type_with_alignment
 {
-   // We should never get to here, but if we do use the maximally
-   // aligned type:
+   // We should never get to here, but if we do use the maximally aligned type:
    // BOOST_STATIC_ASSERT(0);
    typedef align::a16 type;
 };
@@ -389,5 +388,3 @@ template <> struct type_with_alignment<16>{ typedef align::a16 type; };
 #include <boost/type_traits/detail/bool_trait_undef.hpp>
 
 #endif // BOOST_TT_TYPE_WITH_ALIGNMENT_INCLUDED
-
-

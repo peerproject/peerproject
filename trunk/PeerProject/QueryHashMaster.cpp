@@ -1,7 +1,7 @@
 //
 // QueryHashMaster.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -56,10 +56,10 @@ void CQueryHashMaster::Create()
 {
 	CQueryHashTable::Create();
 
-	m_nPerGroup			= 250;
-	m_bValid			= FALSE;
-	m_bLive				= false;
-	m_nCookie			= 0;
+	m_nPerGroup		= 250;
+	m_bValid		= FALSE;
+	m_bLive			= false;
+	m_nCookie		= 0;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -118,19 +118,13 @@ void CQueryHashMaster::Remove(CQueryHashTable* pTable)
 
 void CQueryHashMaster::Build()
 {
-	DWORD tNow = GetTickCount();
+	const DWORD tNow = GetTickCount();
 
-	if ( m_bValid )
-	{
-		if ( tNow - m_nCookie < 600000 ) return;
-	}
-	else
-	{
-		if ( tNow - m_nCookie < 20000 ) return;
-	}
+	if ( tNow < m_nCookie + m_bValid ? 600000 : 20000 )
+		return;
 
 	CSingleLock oLibraryLock( &Library.m_pSection );
-	if ( !oLibraryLock.Lock( 500 ) )
+	if ( ! oLibraryLock.Lock( 500 ) )
 		return;
 
 	const CQueryHashTable* pLocalTable = LibraryDictionary.GetHashTable();
@@ -155,9 +149,7 @@ void CQueryHashMaster::Build()
 		{
 			const CDownload& oDownload = *Downloads.GetNext( pos );
 			if ( oDownload.IsShared() )
-			{
 				AddFile( oDownload );
-			}
 		}
 	}
 

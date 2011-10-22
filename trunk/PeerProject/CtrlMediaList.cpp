@@ -17,17 +17,17 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "CtrlMediaList.h"
 #include "Library.h"
 #include "AlbumFolder.h"
 #include "SharedFile.h"
 #include "ShellIcons.h"
-#include "LiveList.h"
 #include "Skin.h"
 #include "Colors.h"
 #include "Buffer.h"
-#include "CtrlMediaList.h"
+#include "LiveList.h"
 #include "DlgCollectionExport.h"
 #include "DlgFilePropertiesSheet.h"
 
@@ -353,7 +353,8 @@ int CMediaListCtrl::GetNext(BOOL bSet)
 	}
 	else
 	{
-		if ( ++nItem >= GetItemCount() ) nItem = -1;
+		if ( ++nItem >= GetItemCount() )
+			nItem = -1;
 	}
 
 	if ( bSet ) SetCurrent( nItem );
@@ -414,8 +415,8 @@ void CMediaListCtrl::OnCustomDraw(NMHDR* pNotify, LRESULT* pResult)
 	}
 	else if ( ((NMLVCUSTOMDRAW*) pNotify)->nmcd.dwDrawStage == CDDS_ITEMPREPAINT )
 	{
-		if (	GetItemState( static_cast< int >( ((NMLVCUSTOMDRAW*) pNotify)->nmcd.dwItemSpec ), LVIS_SELECTED ) == 0 &&
-				GetItemState( static_cast< int >( ((NMLVCUSTOMDRAW*) pNotify)->nmcd.dwItemSpec ), STATE_CURRENT ) != 0 )
+		if ( GetItemState( static_cast< int >( ((NMLVCUSTOMDRAW*) pNotify)->nmcd.dwItemSpec ), LVIS_SELECTED ) == 0 &&
+			 GetItemState( static_cast< int >( ((NMLVCUSTOMDRAW*) pNotify)->nmcd.dwItemSpec ), STATE_CURRENT ) != 0 )
 		{
 			((NMLVCUSTOMDRAW*) pNotify)->clrText	= Colors.m_crMediaPanelActiveText;
 			((NMLVCUSTOMDRAW*) pNotify)->clrTextBk	= Colors.m_crMediaPanelActiveBack;
@@ -530,7 +531,8 @@ void CMediaListCtrl::OnMouseMove(UINT nFlags, CPoint point)
 	{
 		DWORD_PTR nFile = nHit >= 0 ? GetItemData( nHit ) : 0;
 
-		if ( nFile > 0 && ! Library.LookupFile( static_cast< DWORD >( nFile ) ) ) nFile = 0;
+		if ( nFile > 0 && ! Library.LookupFile( nFile ) )
+			nFile = 0;
 
 		if ( nFile > 0 )
 			m_wndTip.Show( nFile );

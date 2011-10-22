@@ -17,10 +17,10 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "GraphItem.h"
+#include "PeerProject.h"
 #include "DlgGraphItem.h"
+#include "GraphItem.h"
 #include "Skin.h"
 
 #ifdef _DEBUG
@@ -85,7 +85,8 @@ BOOL CGraphItemDlg::OnInitDialog()
 		int nIndex = m_wndSource.AddString( strItem );
 		m_wndSource.SetItemData( nIndex, (LPARAM)pItem );
 
-		if ( pItem->m_nCode == m_pItem->m_nCode ) m_wndSource.SetCurSel( nIndex );
+		if ( pItem->m_nCode == m_pItem->m_nCode )
+			m_wndSource.SetCurSel( nIndex );
 	}
 
 	m_crColor = m_pItem->m_nColor;
@@ -128,7 +129,8 @@ void CGraphItemDlg::OnDrawItem(int /*nIDCtl*/, LPDRAWITEMSTRUCT lpDrawItemStruct
 		0, dc.GetSafeHdc(), pt.x, pt.y,
 		( lpDrawItemStruct->itemState & ODS_SELECTED ) ? ILD_SELECTED : ILD_NORMAL );
 
-	rcItem.left += 20; rcItem.right -= 2;
+	rcItem.left += 20;
+	rcItem.right -= 2;
 
 	CString strText;
 	m_wndSource.GetLBText( lpDrawItemStruct->itemID, strText );
@@ -223,7 +225,7 @@ void PASCAL DDX_Float(CDataExchange* pDX, int nIDC, float& nValue)
 
 	CWnd* pWnd = CWnd::FromHandle( hWndCtrl );
 
-	// data from control
+	// Data from control
 	if ( pDX->m_bSaveAndValidate )
 	{
 		nValue = 1.0f;
@@ -235,7 +237,7 @@ void PASCAL DDX_Float(CDataExchange* pDX, int nIDC, float& nValue)
 		if ( _stscanf( str, L"%f", &nNumber ) == 1 )
 			nValue = nNumber;
 	}
-	else // data to control
+	else // Data to control
 	{
 		if ( nValue <= 0 )
 			nValue = 1.0;

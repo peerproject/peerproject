@@ -8,7 +8,7 @@
  */
 
 #include "StdAfx.h"
-#include "resource.h"
+#include "Resource.h"
 #include "AboutDlg.h"
 #include "BugTrapUI.h"
 #include "BugTrapUtils.h"
@@ -32,9 +32,10 @@ static CHyperLink g_hlURL;
  * @param hwndCtl - control handle.
  * @param codeNotify - notification code.
  */
-static void AboutDlg_OnCommand(HWND hwnd, int id, HWND hwndCtl, UINT codeNotify)
+static void AboutDlg_OnCommand(HWND hwnd, int id, HWND /*hwndCtl*/, UINT /*codeNotify*/)
 {
-	codeNotify; hwndCtl;
+	/* codeNotify; hwndCtl; */
+
 	switch (id)
 	{
 	case IDOK:
@@ -51,9 +52,9 @@ static void AboutDlg_OnCommand(HWND hwnd, int id, HWND hwndCtl, UINT codeNotify)
  * @param lParam - user-defined parameter.
  * @return true to setup focus to system-defined control.
  */
-static BOOL AboutDlg_OnInitDialog(HWND hwnd, HWND hwndFocus, LPARAM lParam)
+static BOOL AboutDlg_OnInitDialog(HWND hwnd, HWND /*hwndFocus*/, LPARAM /*lParam*/)
 {
-	lParam; hwndFocus;
+	/* lParam; hwndFocus; */
 
 	CenterWindow(hwnd, GetParent(hwnd));
 	HWND hwndCtl = GetDlgItem(hwnd, IDCANCEL);
@@ -72,9 +73,9 @@ static BOOL AboutDlg_OnInitDialog(HWND hwnd, HWND hwndFocus, LPARAM lParam)
  * @brief WM_DESTROY handler of About dialog.
  * @param hwnd - window handle.
  */
-static void AboutDlg_OnDestroy(HWND hwnd)
+static void AboutDlg_OnDestroy(HWND /*hwnd*/)
 {
-	hwnd;
+	/* hwnd; */
 	g_hlURL.Detach();
 }
 

@@ -17,12 +17,12 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "PageSettingsUploads.h"
 #include "Transfers.h"
 #include "UploadQueue.h"
 #include "UploadQueues.h"
-#include "PageSettingsUploads.h"
 #include "DlgQueueProperties.h"
 #include "DlgHelp.h"
 #include "LiveList.h"
@@ -126,7 +126,7 @@ BOOL CUploadsSettingsPage::OnInitDialog()
 	Settings.SetRange( &Settings.Uploads.MaxPerHost, m_wndMaxPerHost );
 
 	for ( string_set::const_iterator i = Settings.Uploads.BlockAgents.begin() ;
-		i != Settings.Uploads.BlockAgents.end(); i++ )
+		i != Settings.Uploads.BlockAgents.end() ; i++ )
 	{
 		m_wndAgentList.AddString( *i );
 	}
@@ -407,9 +407,9 @@ void CUploadsSettingsPage::OnShowWindow(BOOL bShow, UINT nStatus)
 
 		// Update speed units
 		if ( Settings.Bandwidth.Uploads )
-			m_sBandwidthLimit	= Settings.SmartSpeed( Settings.Bandwidth.Uploads );
+			m_sBandwidthLimit = Settings.SmartSpeed( Settings.Bandwidth.Uploads );
 		else
-			m_sBandwidthLimit	= _T("MAX");
+			m_sBandwidthLimit = _T("MAX");
 
 		// Remove any existing strings
 		m_wndBandwidthLimit.ResetContent();

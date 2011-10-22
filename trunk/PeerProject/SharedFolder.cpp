@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "SharedFolder.h"
 #include "SharedFile.h"
 #include "Library.h"
@@ -410,16 +410,16 @@ BOOL CLibraryFolder::ThreadScan(DWORD nScanCookie)
 	{
 		do
 		{
-			if ( CLibrary::IsBadFile( pFind.cFileName, m_sPath,
-				pFind.dwFileAttributes )  ) continue;
+			if ( CLibrary::IsBadFile( pFind.cFileName, m_sPath, pFind.dwFileAttributes ) )
+				 continue;
 
 			if ( pFind.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY )
 			{
 				CLibraryFolder* pFolder = GetFolderByName( pFind.cFileName );
 				if ( pFolder != NULL )
 				{
-					m_nFiles	-= pFolder->m_nFiles;
-					m_nVolume	-= pFolder->m_nVolume;
+					m_nFiles  -= pFolder->m_nFiles;
+					m_nVolume -= pFolder->m_nVolume;
 
 					if ( pFolder->m_sName.CompareNoCase( pFind.cFileName ) )
 					{

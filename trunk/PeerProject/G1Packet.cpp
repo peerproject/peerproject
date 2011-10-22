@@ -20,8 +20,8 @@
 // http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CG1Packet
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "G1Packet.h"
 #include "Buffer.h"
 #include "Datagrams.h"
@@ -95,11 +95,11 @@ CG1Packet* CG1Packet::New(int nType, DWORD nTTL, const Hashes::Guid& oGUID)
 	CG1Packet* pPacket = (CG1Packet*)POOL.New();	// Calls CPacketPool::New, defined in Packet.h
 
 	// Copy the given type and corresponding type index into it
-	pPacket->m_nType      = (BYTE)nType;
+	pPacket->m_nType = (BYTE)nType;
 	pPacket->m_nTypeIndex = GnutellaTypeToIndex( pPacket->m_nType );
 
 	// Set the TTL and hops counts
-	pPacket->m_nTTL  = (BYTE)( nTTL > 0 ? nTTL : Settings.Gnutella1.DefaultTTL );	// If the given TTL is 0, use the default instead
+	pPacket->m_nTTL = (BYTE)( nTTL > 0 ? nTTL : Settings.Gnutella1.DefaultTTL );	// If the given TTL is 0, use the default instead
 	pPacket->m_nHops = 0;	// This packet hasn't traveled across the Internet at all yet
 
 	// No hash yet
@@ -125,16 +125,16 @@ int CG1Packet::GnutellaTypeToIndex(BYTE nType)
 	// Sort by the type byte, and return the corresponding index number which means the same thing
 	switch ( nType )
 	{
-	case G1_PACKET_PING:        return G1_PACKTYPE_PING;        // Byte 0x00 is index 1, ping
-	case G1_PACKET_PONG:        return G1_PACKTYPE_PONG;        // Byte 0x01 is index 2, pong
-	case G1_PACKET_BYE:         return G1_PACKTYPE_BYE;         // Byte 0x02 is index 3, bye
-	case G1_PACKET_QUERY_ROUTE: return G1_PACKTYPE_QUERY_ROUTE; // Byte 0x30 is index 4, query route
-	case G1_PACKET_VENDOR:                                      // Bytes 0x31 and 0x32 are index 5, vendor
-	case G1_PACKET_VENDOR_APP:  return G1_PACKTYPE_VENDOR;
-	case G1_PACKET_PUSH:        return G1_PACKTYPE_PUSH;        // Byte 0x40 is index 6, push
-	case G1_PACKET_QUERY:       return G1_PACKTYPE_QUERY;       // Byte 0x80 is index 7, query
-	case G1_PACKET_HIT:         return G1_PACKTYPE_HIT;         // Byte 0x81 is index 8, hit
-	default:                    return G1_PACKTYPE_UNKNOWN;     // All other bytes are index 0, unknown
+	case G1_PACKET_PING:		return G1_PACKTYPE_PING;		// Byte 0x00 is index 1, ping
+	case G1_PACKET_PONG:		return G1_PACKTYPE_PONG;		// Byte 0x01 is index 2, pong
+	case G1_PACKET_BYE:			return G1_PACKTYPE_BYE; 		// Byte 0x02 is index 3, bye
+	case G1_PACKET_QUERY_ROUTE:	return G1_PACKTYPE_QUERY_ROUTE; // Byte 0x30 is index 4, query route
+	case G1_PACKET_VENDOR:										// Bytes 0x31 and 0x32 are index 5, vendor
+	case G1_PACKET_VENDOR_APP:	return G1_PACKTYPE_VENDOR;
+	case G1_PACKET_PUSH:		return G1_PACKTYPE_PUSH;		// Byte 0x40 is index 6, push
+	case G1_PACKET_QUERY:		return G1_PACKTYPE_QUERY;		// Byte 0x80 is index 7, query
+	case G1_PACKET_HIT:			return G1_PACKTYPE_HIT;			// Byte 0x81 is index 8, hit
+	default:					return G1_PACKTYPE_UNKNOWN;		// All other bytes are index 0, unknown
 	}
 }
 
@@ -202,7 +202,7 @@ void CG1Packet::CacheHash()
 // CG1Packet string conversion
 
 // Use this array to lookup a packet index and get title text, like CG1Packet::m_pszPackets[ 1 ] resolves to "Ping"
-LPCTSTR CG1Packet::m_pszPackets[ G1_PACKTYPE_MAX ] = // There are 9 packet types, with values 0 through 8
+LPCTSTR CG1Packet::m_pszPackets[ G1_PACKTYPE_MAX ] =	// There are 9 packet types, with values 0 through 8
 {
 	// 0 is unknown, 1 Ping, 2 Pong, and so on
 	_T("Unknown"), _T("Ping"), _T("Pong"), _T("Bye"), _T("QRP"), _T("Vendor"), _T("Push"), _T("Query"), _T("Hit")
@@ -905,8 +905,8 @@ BOOL CG1Packet::OnPush(const SOCKADDR_IN* pHost)
 	Hashes::Guid oClientID;
 	Read( oClientID );
 	DWORD nFileIndex = ReadLongLE();	// 4 bytes, the file index
-	DWORD nAddress   = ReadLongLE();	// 4 bytes, the IP address of
-	WORD nPort       = ReadShortLE();	// 2 bytes, the port number
+	DWORD nAddress	 = ReadLongLE();	// 4 bytes, the IP address of
+	WORD nPort		 = ReadShortLE();	// 2 bytes, the port number
 
 	if ( Security.IsDenied( (IN_ADDR*)&nAddress ) )
 	{

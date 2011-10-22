@@ -17,15 +17,16 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "CtrlTipFolder.h"
+
 #include "Library.h"
 #include "LibraryFolders.h"
 #include "SharedFolder.h"
-#include "CtrlTipFolder.h"
 #include "CoolInterface.h"
-#include "ShellIcons.h"
 #include "Colors.h"
+#include "ShellIcons.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE

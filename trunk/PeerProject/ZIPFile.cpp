@@ -1,7 +1,7 @@
 //
 // ZIPFile.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -31,12 +31,11 @@ static char THIS_FILE[]=__FILE__;
 // CZIPFile construction
 
 CZIPFile::CZIPFile(HANDLE hAttach)
+	: m_hFile	( INVALID_HANDLE_VALUE )
+	, m_pFile	( NULL )
+	, m_nFile	( 0 )
+	, m_bAttach	( FALSE )
 {
-	m_bAttach	= FALSE;
-	m_hFile		= INVALID_HANDLE_VALUE;
-	m_pFile		= NULL;
-	m_nFile		= 0;
-
 	if ( hAttach != INVALID_HANDLE_VALUE ) Attach( hAttach );
 }
 
@@ -60,14 +59,10 @@ BOOL CZIPFile::Open(LPCTSTR pszFile)
 	if ( m_hFile == INVALID_HANDLE_VALUE ) return FALSE;
 
 	if ( LocateCentralDirectory() )
-	{
 		return TRUE;
-	}
-	else
-	{
-		Close();
-		return FALSE;
-	}
+
+	Close();
+	return FALSE;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -83,14 +78,10 @@ BOOL CZIPFile::Attach(HANDLE hFile)
 	m_hFile		= hFile;
 
 	if ( LocateCentralDirectory() )
-	{
 		return TRUE;
-	}
-	else
-	{
-		Close();
-		return FALSE;
-	}
+
+	Close();
+	return FALSE;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -152,10 +143,10 @@ CZIPFile::File* CZIPFile::GetFile(LPCTSTR pszFile, BOOL bSmartSearch) const
 
 	if ( bFound )
 		return pFile;
-	else if ( ! bSmartSearch )
+	if ( ! bSmartSearch )
 		return NULL;
-	else
-		pFile = m_pFile;
+
+	pFile = m_pFile;
 
 	for ( int nFile = m_nFile ; nFile ; nFile--, pFile++ )
 	{
@@ -186,11 +177,14 @@ typedef struct
 
 BOOL CZIPFile::LocateCentralDirectory()
 {
-	BYTE pBuffer[4096];
+	auto_array< BYTE > pBuffer( new BYTE[ 4096 ] );
+	if ( ! pBuffer.get() )
+		return FALSE;
+
 	DWORD nBuffer = 0;
 
 	SetFilePointer( m_hFile, -4096, NULL, FILE_END );
-	if ( ! ReadFile( m_hFile, pBuffer, 4096, &nBuffer, NULL ) )
+	if ( ! ReadFile( m_hFile, pBuffer.get(), 4096, &nBuffer, NULL ) )
 		return FALSE;
 	if ( nBuffer < sizeof(ZIP_DIRECTORY_LOC) )
 		return FALSE;
@@ -199,7 +193,7 @@ BOOL CZIPFile::LocateCentralDirectory()
 
 	for ( DWORD nScan = 4 ; nScan < nBuffer ; nScan++ )
 	{
-		DWORD* pnSignature = (DWORD*)( pBuffer + nBuffer - nScan  );
+		DWORD* pnSignature = (DWORD*)( pBuffer.get() + nBuffer - nScan );
 
 		if ( *pnSignature == 0x06054b50 )
 		{
@@ -217,7 +211,7 @@ BOOL CZIPFile::LocateCentralDirectory()
 
 	if ( SetFilePointer( m_hFile, pLoc->nDirectoryOffset, NULL, FILE_BEGIN )
 		 != pLoc->nDirectoryOffset )
-		 return FALSE;
+		return FALSE;
 
 	auto_array< BYTE > pDirectory( new BYTE[ pLoc->nDirectorySize ] );
 	if ( ! pDirectory.get() )
@@ -369,14 +363,10 @@ BOOL CZIPFile::File::PrepareToDecompress(LPVOID pStream)
 	if ( ! m_pZIP->SeekToFile( this ) ) return FALSE;
 
 	if ( m_nCompression == 0 )
-	{
 		return ( m_nSize == m_nCompressedSize );
-	}
-	else
-	{
-		ASSERT( m_nCompression == Z_DEFLATED );
-		return Z_OK == inflateInit2( (z_stream*)pStream, -MAX_WBITS );
-	}
+
+	ASSERT( m_nCompression == Z_DEFLATED );
+	return Z_OK == inflateInit2( (z_stream*)pStream, -MAX_WBITS );
 }
 
 /////////////////////////////////////////////////////////////////////////////

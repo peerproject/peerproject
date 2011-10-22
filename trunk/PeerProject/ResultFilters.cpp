@@ -1,7 +1,7 @@
 //
 // ResultFilters.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -20,9 +20,9 @@
 // ResultFilters
 // Save the filters used for results
 
-#include "stdafx.h"
-#include "PeerProject.h"
+#include "StdAfx.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "ResultFilters.h"
 
 #ifdef _DEBUG
@@ -42,7 +42,7 @@ CResultFilters::~CResultFilters(void)
 {
 	if ( m_pFilters )
 	{
-		for ( DWORD i = 0; i < m_nFilters; i++ )
+		for ( DWORD i = 0 ; i < m_nFilters ; i++ )
 		{
 			delete m_pFilters[i];
 		}
@@ -67,7 +67,7 @@ void CResultFilters::Serialize(CArchive & ar)
 
 		ar.WriteCount( m_nFilters );
 
-		for ( DWORD i = 0; i < m_nFilters; i++ )
+		for ( DWORD i = 0 ; i < m_nFilters ; i++ )
 		{
 			CFilterOptions* pFilter = m_pFilters[ i ];
 			pFilter->Serialize( ar, nVersion );
@@ -84,7 +84,7 @@ void CResultFilters::Serialize(CArchive & ar)
 		m_pFilters = new CFilterOptions *[ m_nFilters ];
 		ZeroMemory( m_pFilters, sizeof(CFilterOptions*) * m_nFilters );
 
-		for ( DWORD i = 0; i < m_nFilters; i++ )
+		for ( DWORD i = 0 ; i < m_nFilters ; i++ )
 		{
 			CFilterOptions* pFilter = new CFilterOptions();
 			m_pFilters[ i ] = pFilter;
@@ -111,7 +111,7 @@ void CResultFilters::Add(CFilterOptions *pOptions)
 // Search for (first) filter with name strName, return index if found, -1 (NONE) otherwise
 int CResultFilters::Search(const CString& strName)
 {
-	for ( DWORD index = 0; index < m_nFilters; index++ )
+	for ( DWORD index = 0 ; index < m_nFilters ; index++ )
 	{
 		if ( strName.Compare( m_pFilters[index]->m_sName ) == 0 )
 			return index;
@@ -142,7 +142,7 @@ void CResultFilters::Load()
 	// Delete old content first
 	if ( m_pFilters )
 	{
-		for ( DWORD i = 0; i < m_nFilters; i++ )
+		for ( DWORD i = 0 ; i < m_nFilters ; i++ )
 		{
 			delete m_pFilters[i];
 		}

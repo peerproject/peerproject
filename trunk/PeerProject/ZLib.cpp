@@ -20,8 +20,8 @@
 // http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CZLib
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "ZLib.h"
 
 #ifdef _DEBUG

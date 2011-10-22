@@ -17,9 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "Transfers.h"
+#include "PeerProject.h"
 #include "CtrlUploads.h"
 #include "UploadQueues.h"
 #include "UploadQueue.h"
@@ -27,9 +26,10 @@
 #include "UploadFile.h"
 #include "UploadTransfer.h"
 #include "UploadTransferBT.h"
+#include "Transfers.h"
 #include "FragmentBar.h"
-#include "CoolInterface.h"
 #include "ShellIcons.h"
+#include "CoolInterface.h"
 #include "Colors.h"
 #include "Skin.h"
 #include "Flags.h"
@@ -203,7 +203,7 @@ BOOL CUploadsCtrl::LoadColumnState()
 			return FALSE;
 
 		if ( _stscanf( strWidths.Left( 4 ), _T("%x"), &pItem.cxy ) != 1 ||
-				_stscanf( strOrdering.Left( 2 ), _T("%x"), &pItem.iOrder ) != 1 )
+			 _stscanf( strOrdering.Left( 2 ), _T("%x"), &pItem.iOrder ) != 1 )
 			return FALSE;
 
 		strWidths = strWidths.Mid( 4 );
@@ -751,7 +751,8 @@ void CUploadsCtrl::OnPaint()
 		}
 		else
 		{
-			PaintQueue( dc, rcItem, pQueue, bFocus && ( m_nFocus == nIndex ) );
+			if ( rcItem.bottom > rcClient.top )
+				PaintQueue( dc, rcItem, pQueue, bFocus && ( m_nFocus == nIndex ) );
 			rcItem.OffsetRect( 0, Settings.Interface.RowSize );
 		}
 
@@ -760,7 +761,7 @@ void CUploadsCtrl::OnPaint()
 		if ( ! pQueue->m_bExpanded )
 			continue;
 
-		while ( posFile && rcItem.top < rcClient.bottom && rcItem.top < rcClient.bottom )
+		while ( posFile && rcItem.top < rcClient.bottom )
 		{
 			int nPosition;
 			CUploadFile* pFile = GetNextFile( pQueue, posFile, &nPosition );
@@ -773,7 +774,8 @@ void CUploadsCtrl::OnPaint()
 			}
 			else
 			{
-				PaintFile( dc, rcItem, pQueue, pFile, nPosition, bFocus && ( m_nFocus == nIndex ) );
+				if ( rcItem.bottom > rcClient.top )
+					PaintFile( dc, rcItem, pQueue, pFile, nPosition, bFocus && ( m_nFocus == nIndex ) );
 				rcItem.OffsetRect( 0, Settings.Interface.RowSize );
 			}
 
@@ -1094,7 +1096,7 @@ void CUploadsCtrl::PaintFile(CDC& dc, const CRect& rcRow, CUploadQueue* /*pQueue
 			break;
 
 		case UPLOAD_COLUMN_RATING:
-			strText.Format(_T("%d"), pTransfer->m_nUserRating );
+			strText.Format(_T("%u"), pTransfer->m_nUserRating );
 			break;
 
 		case UPLOAD_COLUMN_USER:
@@ -1559,8 +1561,8 @@ int CUploadsCtrl::GetExpandableColumnX() const
 	{
 		if ( pColumn.lParam == UPLOAD_COLUMN_TITLE )
 			break;
-		else
-			nTitleStarts += pColumn.cxy;
+
+		nTitleStarts += pColumn.cxy;
 	}
 
 	return nTitleStarts;

@@ -1,0 +1,6 @@
+UnRAR 4.10.1.0	Oct.2011
+
+NoCrypt-only DLL source from
+www.rarlab.com/rar_add.htm
+
+DLL used by the RARBuilder plugin.

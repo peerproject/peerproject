@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "CtrlUploadTip.h"
 #include "CoolInterface.h"
 #include "Colors.h"
@@ -255,7 +255,7 @@ void CUploadTipCtrl::OnPaint(CDC* pDC)
 	}
 	else if ( nQueue > 0 )
 	{
-		strStatus.Format( _T("%s: %i %s %i"),
+		strStatus.Format( _T("%s: %i %s %u"),
 			(LPCTSTR)pUpload->m_pQueue->m_sName,
 			nQueue, (LPCTSTR)strOf, pUpload->m_pQueue->GetQueuedCount() );
 	}

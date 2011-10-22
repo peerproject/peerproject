@@ -17,16 +17,16 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "WizardConnectionPage.h"
+//#include "WizardSheet.h"
 #include "Skin.h"
 #include "Network.h"
-#include "WizardSheet.h"
-#include "WizardConnectionPage.h"
-#include "UploadQueues.h"
 #include "Registry.h"
-#include "DlgHelp.h"
 #include "HostCache.h"
+#include "UploadQueues.h"
+#include "DlgHelp.h"
 #include "DiscoveryServices.h"
 #include "UPnPFinder.h"
 
@@ -306,6 +306,12 @@ LRESULT CWizardConnectionPage::OnWizardNext()
 	Settings.Connection.InSpeed = nDownloadSpeed;
 	Settings.Connection.OutSpeed = nUploadSpeed;
 
+	//if ( Settings.Experimental.LAN_Mode )
+	//{
+	//	Settings.Connection.InSpeed = 40960;
+	//	Settings.Connection.OutSpeed = 40960;
+	//}
+
 	// Set upload limit to 90% of capacity, trimmed down to nearest KB.
 	Settings.Bandwidth.Uploads = ( Settings.Connection.OutSpeed / 8 ) *
 		( ( 100 - Settings.Uploads.FreeBandwidthFactor ) / 100 ) * 1024;
@@ -376,7 +382,7 @@ void CWizardConnectionPage::OnRun()
 				theApp.m_pUPnPFinder->IsAsyncFindRunning() )
 		{
 			Sleep( 1000 );
-			if ( nCurrentStep < 30  )
+			if ( nCurrentStep < 30 )
 				nCurrentStep++;
 			else if ( nCurrentStep == 30 )
 				nCurrentStep = 0;

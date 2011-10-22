@@ -21,10 +21,10 @@
 
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "Handshakes.h"
+#include "PeerProject.h"
 #include "Handshake.h"
+#include "Handshakes.h"
 #include "Neighbours.h"
 #include "Downloads.h"
 #include "Uploads.h"
@@ -354,16 +354,16 @@ BOOL CHandshake::OnAcceptPush()
 BOOL CHandshake::OnAcceptGive()
 {
 	// Local variables for the searching and parsing
-	CString strLine, strClient, strFile;	// Strings for the whole line, the client guid hexidecimal characters, and the file name within it
-	DWORD nFileIndex = 0xFFFFFFFF;			// Start out the file index as -1 to detect if we were able to read it
-	Hashes::Guid oClientID;					// We will translate the GUID into binary here
-	int nPos;								// The distance from the start of the string to a colon or slash we will look for
+	CString strLine, strClient, strFile;				// Strings for the whole line, the client guid hexidecimal characters, and the file name within it
+	DWORD nFileIndex = 0xFFFFFFFF;						// Start out the file index as -1 to detect if we were able to read it
+	Hashes::Guid oClientID;								// We will translate the GUID into binary here
+	int nPos;											// The distance from the start of the string to a colon or slash we will look for
 
 	// The first line should be like "GIV 124:d51dff817f895598ff0065537c09d503/my%20song.mp3"
-	if ( ! Read( strLine ) ) return FALSE;	// If the line isn't all there yet, return false to try again later
+	if ( ! Read( strLine ) ) return FALSE;				// If the line isn't all there yet, return false to try again later
 
 	// If there is a slash in the line
-	if ( ( nPos = strLine.Find( '/' ) ) > 0 ) // Find returns the 0-based index in the string, -1 if not found
+	if ( ( nPos = strLine.Find( '/' ) ) > 0 )			// Find returns the 0-based index in the string, -1 if not found
 	{
 		// Clip out the part of the line after the slash, URL decode it to turn %20 into spaces, and save that in strFile
 		strFile	= URLDecode( strLine.Mid( nPos + 1 ) );	// Mid takes part after the slash

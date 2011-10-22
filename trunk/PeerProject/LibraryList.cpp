@@ -18,13 +18,13 @@
 
 #include "StdAfx.h"
 #include "PeerProject.h"
-#include "Application.h"
 #include "LiveList.h"
-#include "Library.h"
 #include "LibraryList.h"
+#include "Library.h"
 #include "SharedFile.h"
 #include "SharedFolder.h"
 #include "AlbumFolder.h"
+#include "Application.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -42,8 +42,8 @@ CLibraryListItem::CLibraryListItem()
 }
 
 CLibraryListItem::CLibraryListItem(DWORD val)
-	: Type ( CLibraryListItem::LibraryFile )
-	, dwLibraryFile ( val )
+	: Type( CLibraryListItem::LibraryFile )
+	, dwLibraryFile( val )
 {
 	ASSERT( val > 0 && val < 0x00100000 );
 }

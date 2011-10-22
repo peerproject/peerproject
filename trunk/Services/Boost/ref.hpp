@@ -3,7 +3,7 @@
 
 // MS compatible compilers support #pragma once
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif
 
@@ -19,8 +19,8 @@
 //  Copyright (C) 2001, 2002 Peter Dimov
 //  Copyright (C) 2002 David Abrahams
 //
-// Distributed under the Boost Software License, Version 1.0. (See
-// accompanying file LICENSE_1_0.txt or copy at
+// Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 //
 //  See http://www.boost.org/libs/bind/ref.html for documentation.
@@ -172,6 +172,12 @@ class unwrap_reference
 {};
 
 # endif // BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+
+template <class T> inline typename unwrap_reference<T>::type&
+unwrap_ref(T& t)
+{
+    return t;
+}
 
 template<class T> inline T* get_pointer( reference_wrapper<T> const & r )
 {

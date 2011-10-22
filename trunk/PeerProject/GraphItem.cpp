@@ -17,10 +17,10 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "Statistics.h"
+#include "PeerProject.h"
 #include "GraphItem.h"
+#include "Statistics.h"
 #include "Skin.h"
 
 #include "Network.h"

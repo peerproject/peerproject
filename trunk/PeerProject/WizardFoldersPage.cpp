@@ -16,18 +16,16 @@
 //
 
 #include "StdAfx.h"
-
+#include "Settings.h"
 #include "WizardFoldersPage.h"
 
-#include "Settings.h"
+#include "DlgFolderScan.h"
+#include "DlgDonkeyImport.h"
 #include "Library.h"
 #include "LibraryFolders.h"
 #include "SharedFolder.h"
 #include "ShellIcons.h"
 #include "Skin.h"
-
-#include "DlgFolderScan.h"
-#include "DlgDonkeyImport.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE

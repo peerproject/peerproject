@@ -20,11 +20,12 @@
 // http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CNeighboursBase
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "Network.h"
+#include "PeerProject.h"
 #include "NeighboursBase.h"
+
 #include "Neighbour.h"
+#include "Network.h"
 #include "RouteCache.h"
 
 #ifdef _DEBUG
@@ -38,7 +39,7 @@ static char THIS_FILE[]=__FILE__;
 
 // When the program makes the CNeighbours object, this constructor initializes the member variables defined in CNeighboursBase
 CNeighboursBase::CNeighboursBase()
-	: m_nRunCookie    ( 5 )		// Start the run cookie as 5, OnRun will increment it 6+
+	: m_nRunCookie	( 5 )		// Start the run cookie as 5, OnRun will increment it 6+
 {
 	m_pNeighbours.InitHashTable( GetBestHashTableSize( 300 ) );
 	m_pIndex.InitHashTable( GetBestHashTableSize( 300 ) );

@@ -1,7 +1,7 @@
 //
 // DownloadGroups.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -17,10 +17,10 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "DownloadGroup.h"
+#include "PeerProject.h"
 #include "DownloadGroups.h"
+#include "DownloadGroup.h"
 #include "Downloads.h"
 #include "Download.h"
 #include "Schema.h"
@@ -61,14 +61,13 @@ CDownloadGroup* CDownloadGroups::GetSuperGroup()
 	CString strCaption;
 	LoadString( strCaption, IDS_GENERAL_ALL );
 
-	if ( m_pSuper != NULL )
-	{
-		if ( m_pSuper->m_sName != strCaption )
-			m_pSuper->m_sName = strCaption;
-		return m_pSuper;
-	}
+	if ( ! m_pSuper )
+		return m_pSuper = Add( (LPCTSTR)strCaption );
 
-	return m_pSuper = Add( (LPCTSTR)strCaption );
+	if ( m_pSuper->m_sName != strCaption )
+		m_pSuper->m_sName = strCaption;
+
+	return m_pSuper;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -80,7 +79,7 @@ CDownloadGroup* CDownloadGroups::Add(LPCTSTR pszName, BOOL bTemporary, BOOL bUse
 
 	if ( bUseExisting )
 	{
-		for ( POSITION pos = m_pList.GetHeadPosition(); pos; )
+		for ( POSITION pos = m_pList.GetHeadPosition() ; pos ; )
 		{
 			CDownloadGroup* pGroup = m_pList.GetNext( pos );
 			if ( ! pGroup->m_sName.CompareNoCase( pszName ) )
@@ -186,7 +185,8 @@ void CDownloadGroups::Unlink(CDownload* pDownload, BOOL bAndSuper)
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
 		CDownloadGroup* pGroup = GetNext( pos );
-		if ( bAndSuper || pGroup != m_pSuper ) pGroup->Remove( pDownload );
+		if ( bAndSuper || pGroup != m_pSuper )
+			pGroup->Remove( pDownload );
 	}
 }
 
@@ -365,7 +365,7 @@ BOOL CDownloadGroups::Save(BOOL bForce)
 //////////////////////////////////////////////////////////////////////
 // CDownloadGroups serialize
 
-#define GROUPS_SER_VERSION	1000	//7
+#define GROUPS_SER_VERSION	1000	// 7
 // nVersion History:
 // 4 - Added m_bTemporary (ryo-oh-ki)
 // 5 - New download groups added (Image, Collection, etc.)
@@ -418,7 +418,8 @@ void CDownloadGroups::Serialize(CArchive& ar)
 				Downloads.Reorder( pDownload, NULL );
 		}
 
-		if ( ( nCount = ar.ReadCount() ) != 0 ) Clear();
+		if ( ( nCount = ar.ReadCount() ) != 0 )
+			Clear();
 
 		for ( ; nCount > 0 ; nCount-- )
 		{

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default French Skin File -->
 
-<!-- Translation based on default-en.xml r69 -->
+<!-- Translation based on default-en.xml r70 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2800,6 +2800,12 @@
 	<string id="20020" value="Fichier "/>
 	<string id="20021" value="Fichiers "/>
 	<string id="20022" value="Tous les Fichiers"/>
+	<string id="20023" value="No Fichiers"/>
+	<string id="20024" value="Fichiers larges"/>
+	<string id="20025" value="Fichiers moyens"/>
+	<string id="20026" value="Petits fichiers"/>
+	<string id="20027" value="Fichiers partiels"/>
+	<string id="20028" value="Fichiers de la bibliothèque"/>
 	<string id="20029" value="Fichiers %s"/>
 	<string id="20050" value="Tous les Jours"/>
 	<string id="20051" value="Lundi"/>
@@ -2912,6 +2918,7 @@
 	<string id="20191" value="Commande non reconnue « %s »."/>
 	<string id="20196" value="Ce gabarit n'est pas spécialisé."/>
 	<string id="20197" value="Ce gabarit est invalide."/>
+	<string id="20198" value="Texte copié au presse-papiers :"/>
 	<string id="20199" value="(quitter à la fin des transferts)"/>
 	<string id="20200" value="Ajout de « %s » avec %i source(s) à la liste des téléchargements."/>
 	<string id="20201" value="Le fichier « %s » est déjà en téléchargement, ajout des sources."/>
@@ -3249,7 +3256,7 @@
 	<string id="20576" value="Envoi d'une requête de table de routage au voisin %s (%i bit = %lu[%i], %i%% plein)"/>
 	<string id="20577" value="Réception inattendue d'une mise à jour de table de routage du voisin %s."/>
 	<string id="20578" value="Le voisin %s a mis à jour sa requête de table de routage (%i bit = %lu[%i], %i%% full)."/>
-	<string id="20579" value="%s -> %s [%i/%i] %s %s"/>
+	<string id="20579" value="%s -&gt; %s [%i/%i] %s %s"/>
 	<string id="20580" value="La « leaf » voisine %s fait suivre les requêtes, connexion abandonnée."/>
 	<string id="20581" value="Le voisin %s a fait suivre un paquet de ping de taille invalide, on l'ignore."/>
 	<string id="20582" value="Le voisin %s a fait suivre un paquet de pong de longueur invalide, on l'ignore."/>
@@ -4373,13 +4380,13 @@
 		<control caption="Une journée seulement"/>
 		<control/>
 		<control/>
-		<control caption="Lun"/>
-		<control caption="Mar"/>
-		<control caption="Mer"/>
-		<control caption="Jeu"/>
-		<control caption="Ven"/>
-		<control caption="Sam"/>
-		<control caption="Dim"/>
+		<control caption="Lundi"/>
+		<control caption="Mardi"/>
+		<control caption="Mercredi"/>
+		<control caption="Jeudi"/>
+		<control caption="Vendredi"/>
+		<control caption="Samedi"/>
+		<control caption="Dimanche"/>
 		<control caption="Tous"/>
 		<control caption="Commentaires"/>
 		<control/>
@@ -4638,9 +4645,9 @@
 	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Notification de mise à jour">
 		<control caption="Une nouvelle version de PeerProject est maintenant disponible. Voulez-vous mettre à jour&#160;?"/>
 		<control caption="Si vous sélectionnez Mettre à jour, PeerProject va ajouter la mise à jour à votre liste de téléchargements et commencer à la télécharger."/>
-		<control caption="_Mettre à Jour"/>
 		<control caption="Ne pas vérifier les MàJ"/>
-		<control caption="Ne pas MàJ"/>
+		<control caption="_Mettre à Jour"/>
+		<control caption="Annuler"/>
 	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Localisation des métadonnées">
 		<control caption="Merci de sélectionner la méthode de réencodage"/>

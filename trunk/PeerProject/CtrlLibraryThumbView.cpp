@@ -17,8 +17,9 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "CtrlLibraryThumbView.h"
 #include "Library.h"
 #include "SharedFile.h"
 #include "SharedFolder.h"
@@ -31,7 +32,6 @@
 #include "Schema.h"
 #include "SchemaCache.h"
 #include "PeerProjectDataSource.h"
-#include "CtrlLibraryThumbView.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -47,6 +47,7 @@ BEGIN_MESSAGE_MAP(CLibraryThumbView, CLibraryFileView)
 	ON_WM_DESTROY()
 	ON_WM_SIZE()
 	ON_WM_PAINT()
+	ON_WM_TIMER()
 	ON_WM_VSCROLL()
 	ON_WM_MOUSEWHEEL()
 	ON_WM_MOUSEMOVE()
@@ -55,7 +56,6 @@ BEGIN_MESSAGE_MAP(CLibraryThumbView, CLibraryFileView)
 	ON_WM_LBUTTONUP()
 	ON_WM_RBUTTONDOWN()
 	ON_WM_KEYDOWN()
-	ON_WM_TIMER()
 	ON_WM_SETFOCUS()
 	ON_WM_GETDLGCODE()
 	//}}AFX_MSG_MAP
@@ -159,7 +159,7 @@ void CLibraryThumbView::Update()
 	{
 		CRect rcClient;
 		GetClientRect( &rcClient );
-		const int nMax  = ( ( m_nCount + m_nColumns - 1 ) / m_nColumns ) * CY;
+		const int nMax = ( ( m_nCount + m_nColumns - 1 ) / m_nColumns ) * CY;
 		m_nScroll = max( 0, min( m_nScroll, nMax - rcClient.Height() + 1 ) );
 	}
 
@@ -231,7 +231,7 @@ BOOL CLibraryThumbView::Select(DWORD nObject)
 void CLibraryThumbView::SelectAll()
 {
 	CLibraryThumbItem** pList = m_pList;
-	for ( int nItem = 0 ; nItem < m_nCount; nItem++, pList++ )
+	for ( int nItem = 0 ; nItem < m_nCount ; nItem++, pList++ )
 	{
 		Select( *pList, TRI_TRUE );
 	}
@@ -853,7 +853,7 @@ void CLibraryThumbView::OnRun()
 		{
 			CQuickLock pLock( m_pSection );
 
-			for ( int i = 0 ; i < m_nCount && IsThreadEnabled(); ++i )
+			for ( int i = 0 ; i < m_nCount && IsThreadEnabled() ; ++i )
 			{
 				if ( m_pList[ i ]->m_nThumb == CLibraryThumbItem::thumbWaiting )
 				{
@@ -966,7 +966,6 @@ void CLibraryThumbItem::Paint(CDC* pDC, const CRect& rcBlock)
 	rcThumb.bottom	= rcThumb.top + Settings.Library.ThumbSize;
 
 	// Draw Thumbnail
-
 	CoolInterface.DrawThumbnail( pDC, rcThumb, ( m_nThumb == thumbWaiting ),
 		m_bSelected, m_bmThumb, m_nShell, -1 );
 

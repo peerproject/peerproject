@@ -17,17 +17,17 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "Download.h"
-#include "Downloads.h"
-#include "DownloadSource.h"
+#include "PeerProject.h"
 #include "DownloadTransfer.h"
+#include "DownloadTransferBT.h"
+#include "DownloadSource.h"
+#include "Downloads.h"
+#include "Download.h"
 #include "FragmentedFile.h"
+#include "Transfers.h"
 #include "Network.h"
 #include "Buffer.h"
-#include "DownloadTransferBT.h"
-#include "Transfers.h"
 #include "XML.h"
 
 #ifdef _DEBUG
@@ -232,18 +232,18 @@ void CDownloadTransfer::SetState(int nState)
 	{
 		if ( Settings.Downloads.SortSources )
 		{
-			//Proper sort:
+			// Proper sort:
 
 			static BYTE StateSortOrder[13]={ 13 ,12 ,10 ,4 ,0 ,4 ,1 ,2 ,3 ,12 ,8 ,6 ,9};
-				//dtsNull, dtsConnecting, dtsRequesting, dtsHeaders, dtsDownloading, dtsFlushing,
-				//dtsTiger, dtsHashset, dtsMetadata, dtsBusy, dtsEnqueue, dtsQueued, dtsTorrent
+				// dtsNull, dtsConnecting, dtsRequesting, dtsHeaders, dtsDownloading, dtsFlushing,
+				// dtsTiger, dtsHashset, dtsMetadata, dtsBusy, dtsEnqueue, dtsQueued, dtsTorrent
 
 			//Assemble the sort order DWORD
-			m_pSource->m_nSortOrder = StateSortOrder[ min( nState, 13 ) ];		//Get state sort order
+			m_pSource->m_nSortOrder = StateSortOrder[ min( nState, 13 ) ];		// Get state sort order
 
 			if ( m_pSource->m_nSortOrder >= 13 )
 			{
-				//Don't bother sorting 'dead' sources- send to bottom
+				// Don't bother sorting 'dead' sources- send to bottom
 				m_pDownload->SortSource( m_pSource, FALSE );
 				m_pSource->m_nSortOrder = ~0u;
 			}
@@ -261,27 +261,27 @@ void CDownloadTransfer::SetState(int nState)
 					else
 						m_pSource->m_nSortOrder = 10;
 				}
-				m_pSource->m_nSortOrder <<=  8;				// Sort by state
+				m_pSource->m_nSortOrder <<=  8;					// Sort by state
 
 				if ( m_nProtocol != PROTOCOL_HTTP )
 					m_pSource->m_nSortOrder += ( m_nProtocol & 0xFF );
-				m_pSource->m_nSortOrder <<=  16;			// Then protocol
+				m_pSource->m_nSortOrder <<=  16;				// Then protocol
 
-				if ( nState == dtsQueued )					// Then queue postion
+				if ( nState == dtsQueued )						// Then queue postion
 					m_pSource->m_nSortOrder += min( m_nQueuePos, 10000lu ) & 0xFFFFlu;
-				else										// or IP
+				else											// or IP
 					m_pSource->m_nSortOrder += ( ( m_pSource->m_pAddress.S_un.S_un_b.s_b1 << 8 ) |
 												 ( m_pSource->m_pAddress.S_un.S_un_b.s_b2 ) );
 
-				m_pDownload->SortSource( m_pSource );		// Do the sort
+				m_pDownload->SortSource( m_pSource );			// Do the sort
 			}
 		}
 		else	// Simple sort:
 		{
 			if ( nState == dtsDownloading && m_nState != dtsDownloading )
-				m_pDownload->SortSource( m_pSource, TRUE );	// Downloading sources go to top
+				m_pDownload->SortSource( m_pSource, TRUE ); 	// Downloading sources go to top
 			else if ( nState != dtsDownloading && m_nState == dtsDownloading )
-				m_pDownload->SortSource( m_pSource, FALSE ); //Stopped sources go to bottom
+				m_pDownload->SortSource( m_pSource, FALSE );	// Stopped sources go to bottom
 		}
 	}
 
@@ -440,7 +440,7 @@ void CDownloadTransfer::CheckPart(QWORD* nPart, DWORD nPartBlock,
 {
 	if ( nPartBlock == nRangeBlock )
 	{
-		if ( nPart[1] < nRange[1] || !nRange[1] )
+		if ( nPart[1] < nRange[1] || ! nRange[1] )
 		{
 			nRange[0] = nPart[0];
 			nRange[1] = nPart[1];

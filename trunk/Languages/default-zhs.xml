@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Simplified) Skin File -->
 
-<!-- Translation based on default-en.xml r69 (Shareaza r6092) -->
+<!-- Translation based on default-en.xml r70 (Shareaza r6092) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -846,6 +846,7 @@
 		<item id="ID_TAB_NETWORK" text="网络(_N)"/>
 		<separator/>
 		<item id="ID_VIEW_SECURITY" text="安全(_C)"/>
+		<item id="ID_VIEW_SCHEDULER" text="Scheduler(_R)"/>
 		<item id="ID_VIEW_HOSTS" text="主机缓存(_H)"/>
 		<item id="ID_VIEW_DISCOVERY" text="探索(_V)"/>
 		<item id="ID_VIEW_TRAFFIC" text="图表(_G)"/>
@@ -1239,6 +1240,7 @@
 	<menu name="CLibraryTileView">
 		<item id="ID_LIBRARY_ALBUM_OPEN" text="打开(_O)"/>
 		<item id="ID_LIBRARY_ALBUM_DELETE" text="删除(_D)"/>
+		<item id="ID_LIBRARY_FOLDER_NEW" text="新建(_N)..."/>
 		<separator/>
 		<item id="ID_LIBRARY_ALBUM_PROPERTIES" text="属性(_P)"/>
 	</menu>
@@ -1483,14 +1485,14 @@
 	</menu>
 	<!-- SYSTEM WINDOW -->
 	<menu name="CSystemWnd">
-		<menu id="ID_SYSTEM_VERBOSE" text="详细模式(_M)"/>
+		<menu id="ID_SYSTEM_VERBOSE" text="详细模式(_M)">
 			<item id="ID_SYSTEM_VERBOSE_ERROR" text="_Error"/>
 			<item id="ID_SYSTEM_VERBOSE_WARNING" text="_Warning"/>
 			<item id="ID_SYSTEM_VERBOSE_NOTICE" text="_Notice"/>
 			<item id="ID_SYSTEM_VERBOSE_INFO" text="_Info"/>
 			<item id="ID_SYSTEM_VERBOSE_DEBUG" text="_Debug"/>
 		</menu>
-		<item id="ID_SYSTEM_TIMESTAMP" text="时间戳(_P)"/>
+		<item id="ID_SYSTEM_TIMESTAMP" text="时间戳(_T)"/>
 		<separator/>
 		<item id="ID_SYSTEM_COPY" text="复制" shortcut="Ctrl+C"/>
 		<separator/>
@@ -2603,6 +2605,12 @@
 	<string id="20020" value="文件"/>
 	<string id="20021" value="文件"/>
 	<string id="20022" value="所有文件"/>
+	<string id="20023" value="No 文件"/>
+	<string id="20024" value="大型文件"/>
+	<string id="20025" value="中型文件"/>
+	<string id="20026" value="小型文件"/>
+	<string id="20027" value="部分文件"/>
+	<string id="20028" value="Library 文件"/>
 	<string id="20029" value="%s文件"/>
 	<string id="20050" value="星期每天"/>
 	<string id="20051" value="星期一"/>
@@ -3032,7 +3040,7 @@
 	<string id="20576" value="发送查询路由表到邻居主机 %s (%i bit = %lu[%i]， %i%% 满额)。"/>
 	<string id="20577" value="从邻居 %s 主机接收到非正常的查询路由表。"/>
 	<string id="20578" value="邻居主机 %s 更新了它的查询路由表 (%i bit = %lu[%i]， %i%% 满额)。"/>
-	<string id="20579" value="%s -> %s [%i/%i] %s %s"/>
+	<string id="20579" value="%s -&gt; %s [%i/%i] %s %s"/>
 	<string id="20580" value="子端邻居 %s 主机发来质询，断开连接。"/>
 	<string id="20581" value="邻居 %s 主机发来的 ping 数据包尺寸不匹配，忽略数据包。"/>
 	<string id="20582" value="邻居 %s 主机发来的 pong 数据包尺寸不匹配，忽略数据包。"/>
@@ -4387,9 +4395,9 @@
 	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="升级通告">
 		<control caption="现在已存在一个新的 PeerProject 版本。您要升级吗？"/>
 		<control caption="如果您选择立即升级，PeerProject 将把此更新添加到您的下载队列中并自动下载。"/>
-		<control caption="立即升级(_U)"/>
 		<control caption="不要检测新版本"/>
-		<control caption="不要升级"/>
+		<control caption="立即升级(_U)"/>
+		<control caption="取消"/>
 	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="元数据本地化">
 		<control caption="请选择重新编码的方式"/>

@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "CtrlHomePanel.h"
 
 #include "Statistics.h"
@@ -363,12 +363,12 @@ void CHomeConnectionBox::Update()
 
 	if ( m_pdConnectedHours )
 	{
-		str.Format( _T("%I64i "), Statistics.Today.Timer.Connected / ( 60 * 60 ) );
+		str.Format( _T("%I64u "), Statistics.Today.Timer.Connected / ( 60 * 60 ) );
 		m_pdConnectedHours->SetText( str );
 	}
 	if ( m_pdConnectedMinutes )
 	{
-		str.Format( _T("%I64i "), ( Statistics.Today.Timer.Connected / 60 ) % 60 );
+		str.Format( _T("%I64u "), ( Statistics.Today.Timer.Connected / 60 ) % 60 );
 		m_pdConnectedMinutes->SetText( str );
 	}
 

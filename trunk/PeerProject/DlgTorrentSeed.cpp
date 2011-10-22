@@ -17,8 +17,12 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "ThreadImpl.h"
+#include "PeerProject.h"
+#include "DlgTorrentSeed.h"
+#include "DlgExistingFile.h"
+#include "DlgHelp.h"
 #include "Network.h"
 #include "Library.h"
 #include "SharedFile.h"
@@ -27,11 +31,8 @@
 #include "Download.h"
 #include "PeerProjectURL.h"
 #include "HttpRequest.h"
-#include "DlgTorrentSeed.h"
 #include "WndMain.h"
 #include "WndDownloads.h"
-#include "DlgExistingFile.h"
-#include "DlgHelp.h"
 #include "DownloadTask.h"
 #include "FragmentedFile.h"
 #include "LibraryHistory.h"
@@ -168,7 +169,8 @@ void CTorrentSeedDlg::OnSeed()
 		if ( Downloads.FindByBTH( m_pInfo.m_oBTH ) == NULL || m_pInfo.GetCount() == 1 )
 		{
 			// Connect if (we aren't)
-			if ( ! Network.IsConnected() ) Network.Connect();
+			if ( ! Network.IsConnected() )
+				Network.Connect();
 
 			// Update the last seeded torrent
 			CSingleLock pLock( &Library.m_pSection );
@@ -179,7 +181,7 @@ void CTorrentSeedDlg::OnSeed()
 				LibraryHistory.LastSeededTorrent.m_tLastSeeded	= static_cast< DWORD >( time( NULL ) );
 
 				// If it's a 'new' torrent, reset the counters
-				if ( !validAndEqual( LibraryHistory.LastSeededTorrent.m_oBTH, m_pInfo.m_oBTH ) )
+				if ( ! validAndEqual( LibraryHistory.LastSeededTorrent.m_oBTH, m_pInfo.m_oBTH ) )
 				{
 					LibraryHistory.LastSeededTorrent.m_nUploaded	= 0;
 					LibraryHistory.LastSeededTorrent.m_nDownloaded	= 0;

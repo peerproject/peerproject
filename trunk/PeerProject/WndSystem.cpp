@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "WndSystem.h"
 #include "Neighbours.h"
 #include "CrawlSession.h"

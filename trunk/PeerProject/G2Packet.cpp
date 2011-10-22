@@ -17,21 +17,21 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "G2Packet.h"
+#include "G1Packet.h"
+#include "G2Neighbour.h"
+#include "G1Neighbour.h"
+#include "Neighbours.h"
 #include "CrawlSession.h"
 #include "Datagrams.h"
 #include "DiscoveryServices.h"
-#include "RouteCache.h"
-#include "G1Neighbour.h"
-#include "G2Neighbour.h"
-#include "G2Packet.h"
-#include "G1Packet.h"
 #include "GProfile.h"
 #include "Handshakes.h"
 #include "HostCache.h"
+#include "RouteCache.h"
 #include "LocalSearch.h"
-#include "Neighbours.h"
 #include "Network.h"
 #include "QueryHit.h"
 #include "QueryKeys.h"
@@ -1331,7 +1331,7 @@ BOOL CG2Packet::OnKHLA(const SOCKADDR_IN* pHost)
 	BOOL bCompound;
 	int nCount = 0;
 
-	DWORD tNow = static_cast< DWORD >( time( NULL ) );
+	const DWORD tNow = static_cast< DWORD >( time( NULL ) );
 
 	while ( ReadPacket( nType, nLength, &bCompound ) )
 	{
@@ -1454,7 +1454,7 @@ BOOL CG2Packet::OnKHLR(const SOCKADDR_IN* pHost)
 	}
 
 	int nCount = Settings.Gnutella2.KHLHubCount;
-	DWORD tNow = static_cast< DWORD >( time( NULL ) );
+	const DWORD tNow = static_cast< DWORD >( time( NULL ) );
 
 	pKHLA->WritePacket( G2_PACKET_TIMESTAMP, 4 );
 	pKHLA->WriteLongBE( tNow );

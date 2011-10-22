@@ -17,13 +17,13 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "DlgFilePropertiesPage.h"
+#include "DlgFilePropertiesSheet.h"
 #include "Library.h"
 #include "SharedFile.h"
 #include "ShellIcons.h"
-#include "DlgFilePropertiesSheet.h"
-#include "DlgFilePropertiesPage.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE

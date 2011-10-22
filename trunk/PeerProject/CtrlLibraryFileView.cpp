@@ -17,8 +17,11 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "CtrlLibraryFileView.h"
+#include "CtrlLibraryFrame.h"
+#include "CtrlLibraryTip.h"
 #include "Library.h"
 #include "LibraryBuilder.h"
 #include "LibraryFolders.h"
@@ -27,11 +30,6 @@
 #include "AlbumFolder.h"
 #include "FileExecutor.h"
 #include "CoolInterface.h"
-#include "Skin.h"
-#include "Shell.h"
-#include "CtrlLibraryFrame.h"
-#include "CtrlLibraryFileView.h"
-#include "CtrlLibraryTip.h"
 #include "DlgFilePropertiesSheet.h"
 #include "DlgFileCopy.h"
 #include "DlgURLCopy.h"
@@ -45,6 +43,8 @@
 #include "Transfers.h"
 #include "Security.h"
 #include "Schema.h"
+#include "Shell.h"
+#include "Skin.h"
 #include "XML.h"
 
 #ifdef _DEBUG
@@ -55,7 +55,7 @@ static char THIS_FILE[] = __FILE__;
 
 IMPLEMENT_DYNAMIC(CLibraryFileView, CLibraryView)
 
-BEGIN_MESSAGE_MAP(CLibraryFileView, CLibraryView, CWebServices)
+BEGIN_MESSAGE_MAP(CLibraryFileView, CLibraryView)	// CWebServices?
 	ON_WM_CONTEXTMENU()
 	ON_WM_MOUSEMOVE()
 	ON_WM_KEYDOWN()
@@ -934,7 +934,7 @@ void CLibraryFileView::CheckDynamicBar()
 		if ( bIsMusicBrainz )
 		{
 			pFrame->SetDynamicBar( NULL );
-			m_bRequestingService = FALSE; // ToDo: Abort operation
+			m_bRequestingService = FALSE;	// ToDo: Abort operation
 		}
 		return;
 	}
@@ -942,7 +942,7 @@ void CLibraryFileView::CheckDynamicBar()
 	CSingleLock pLock( &Library.m_pSection, TRUE );
 	CLibraryFile* pFile = GetSelectedFile();
 
-	if ( pFile == NULL ) // Ghost file
+	if ( pFile == NULL )	// Ghost file
 	{
 		pFrame->SetDynamicBar( NULL );
 		m_bRequestingService = FALSE;

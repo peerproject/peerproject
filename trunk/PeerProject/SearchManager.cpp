@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "SearchManager.h"
 #include "ManagedSearch.h"
 #include "QuerySearch.h"
@@ -109,7 +109,7 @@ void CSearchManager::OnRun()
 {
 	// Don't run too often to avoid excess CPU use (and router flooding)
 	const DWORD tNow = GetTickCount();
-	if ( ( tNow - m_tLastTick ) < 125 ) return;
+	if ( tNow < m_tLastTick + 125 ) return;
 	m_tLastTick = tNow;
 
 	// Don't run if we aren't connected
@@ -128,7 +128,7 @@ void CSearchManager::OnRun()
 
 	for ( int nClass = 0 ; nClass <= CManagedSearch::spMax ; nClass++ )
 	{
-		for ( POSITION pos = m_pList.GetHeadPosition(); pos ; )
+		for ( POSITION pos = m_pList.GetHeadPosition() ; pos ; )
 		{
 			POSITION posCur = pos;
 			CManagedSearch* pSearch = m_pList.GetNext( pos );
@@ -156,14 +156,15 @@ BOOL CSearchManager::OnQueryAck(CG2Packet* pPacket, const SOCKADDR_IN* pAddress,
 		AfxThrowUserException();
 
 	DWORD nFromIP = pAddress->sin_addr.S_un.S_addr;
-	LONG tAdjust = 0;
-	DWORD tNow = static_cast< DWORD >( time( NULL ) );
 	DWORD nHubs = 0, nLeaves = 0, nSuggestedHubs = 0;
 	DWORD nRetryAfter = 0;
+	LONG tAdjust = 0;
 	CArray< DWORD > pDone;
 
 	G2_PACKET nType;
 	DWORD nLength;
+
+	const DWORD tNow = static_cast< DWORD >( time( NULL ) );
 
 	while ( pPacket->ReadPacket( nType, nLength ) )
 	{

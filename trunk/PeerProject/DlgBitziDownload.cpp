@@ -17,12 +17,12 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "DlgBitziDownload.h"
+#include "BitziDownloader.h"
 #include "Colors.h"
 #include "ShellIcons.h"
-#include "BitziDownloader.h"
-#include "DlgBitziDownload.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE

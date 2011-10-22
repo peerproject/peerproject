@@ -2,18 +2,16 @@
 ;
 ; Maintained by Jorge Andres Brugger (jbrugger@gmx.net)
 ; Spanish.isl version 0.8 (20070328)
-; Default.isl version 1.69
-; 
-; Thanks to Germán Giraldo, Jordi Latorre, Ximo Tamarit, Emiliano Llano, 
-; Ramón Verduzco, Graciela García and Carles Millan
+; Spanish.isl version 0.9 (20100922)
+; Default.isl version 1.72
 
 [LangOptions]
-; The following three entries are very important. Be sure to read and sizes,
+; The following three entries are very important. Be sure to read and
 ; understand the '[LangOptions] section' topic in the help file.
 LanguageName=Espa<00F1>ol
 LanguageID=$0c0a
 LanguageCodePage=1252
-; If the language you are translating to requires special font faces or
+; If the language you are translating to requires special font faces or sizes,
 ; uncomment any of the following entries and change them accordingly.
 ;DialogFontName=
 ;DialogFontSize=8
@@ -300,15 +298,15 @@ SharedFileLocationLabel=Ubicación:
 WizardUninstalling=Estado de la Desinstalación
 StatusUninstalling=Desinstalando %1...
 
-; The custom messages below aren't used by Setup itself,
-; but if you make use of them in your scripts, you'll want to translate them.
+; The custom messages below aren't used by Setup itself, but if you make
+; use of them in your scripts, you'll want to translate them.
 
 [CustomMessages]
 
 NameAndVersion=%1 versión %2
 AdditionalIcons=Iconos adicionales:
 CreateDesktopIcon=Crear un icono en el &escritorio
-CreateQuickLaunchIcon=Crear un icono de Inicio Rápido
+CreateQuickLaunchIcon=Crear un icono de &Inicio Rápido
 ProgramOnTheWeb=%1 en la Web
 UninstallProgram=Desinstalar %1
 LaunchProgram=Ejecutar %1

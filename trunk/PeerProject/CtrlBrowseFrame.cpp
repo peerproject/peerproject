@@ -17,15 +17,16 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "CtrlBrowseFrame.h"
+
+#include "CtrlMatch.h"
 #include "MatchObjects.h"
 #include "QueryHit.h"
+#include "G2Packet.h"
 #include "Schema.h"
 #include "SchemaCache.h"
-#include "G2Packet.h"
-#include "CtrlBrowseFrame.h"
-#include "CtrlMatch.h"
 #include "DlgHitColumns.h"
 #include "Colors.h"
 #include "Skin.h"

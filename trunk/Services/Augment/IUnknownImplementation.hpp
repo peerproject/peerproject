@@ -83,7 +83,20 @@ namespace augment
 			typename I7 = NoInterface, typename I8 = NoInterface, typename I9 = NoInterface>
 	class IUnknownImplementation : public InheritAll< I0, I1, I2, I3, I4, I5, I6, I7, I8, I9 >
 	{
+#if defined(_MSC_VER) && (_MSC_VER >= 1600)	// _HAS_TR1		// static_assert set in StdAfx.h prior to VS2010
 		// ToDo: Are these compile-time checks needed?
+		static_assert( std::tr1::is_convertible< I0*, IUnknown* >::value, "static assert" );
+		static_assert( std::tr1::is_convertible< I1*, IUnknown* >::value, "static assert" );
+		static_assert( std::tr1::is_convertible< I2*, IUnknown* >::value, "static assert" );
+		static_assert( std::tr1::is_convertible< I3*, IUnknown* >::value, "static assert" );
+		static_assert( std::tr1::is_convertible< I4*, IUnknown* >::value, "static assert" );
+		static_assert( std::tr1::is_convertible< I5*, IUnknown* >::value, "static assert" );
+		static_assert( std::tr1::is_convertible< I6*, IUnknown* >::value, "static assert" );
+		static_assert( std::tr1::is_convertible< I7*, IUnknown* >::value, "static assert" );
+		static_assert( std::tr1::is_convertible< I8*, IUnknown* >::value, "static assert" );
+		static_assert( std::tr1::is_convertible< I9*, IUnknown* >::value, "static assert" );
+#else
+#include <Boost/static_assert.hpp>
 		BOOST_STATIC_ASSERT(( boost::is_convertible< I0*, IUnknown* >::value ));
 		BOOST_STATIC_ASSERT(( boost::is_convertible< I1*, IUnknown* >::value ));
 		BOOST_STATIC_ASSERT(( boost::is_convertible< I2*, IUnknown* >::value ));
@@ -94,6 +107,7 @@ namespace augment
 		BOOST_STATIC_ASSERT(( boost::is_convertible< I7*, IUnknown* >::value ));
 		BOOST_STATIC_ASSERT(( boost::is_convertible< I8*, IUnknown* >::value ));
 		BOOST_STATIC_ASSERT(( boost::is_convertible< I9*, IUnknown* >::value ));
+#endif
 	protected:
 		IUnknownImplementation()
 			: ref_count_( 0 )
@@ -127,7 +141,7 @@ namespace augment
 			ATLTRACE2( atlTraceQI, 1, L"%s(%p)->QueryInterface(%s)\n", \
 				AfxGetIIDString( __uuidof( I0 ) ), this, AfxGetIIDString( iid ) );
 #endif
-			if ( !ppvObject )
+			if ( ! ppvObject )
 				return E_POINTER;
 
 			if ( query< IUnknown >( iid, ppvObject )

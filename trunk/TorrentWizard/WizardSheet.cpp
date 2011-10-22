@@ -1,7 +1,7 @@
 //
 // WizardSheet.cpp
 //
-// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2010
+// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2011
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
@@ -38,6 +38,10 @@
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #endif
+
+#define PAGE_COLOR	RGB( 255, 255, 255 )	// White areas
+#define BANNER_SIZE	50
+#define MENU_SIZE	48
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -147,20 +151,27 @@ BOOL CWizardSheet::OnInitDialog()
 	// ToDo: Fix Minimize Button Properly
 	ModifyStyle( 0, WS_MINIMIZEBOX );
 
+	GetWindowRect( &rc );
+	ScreenToClient( &rc );
+	const UINT nWidth = rc.Width();
+
+	// Set Back
 	GetDlgItem( 0x3023 )->GetWindowRect( &rc );
 	ScreenToClient( &rc );
 	rc.OffsetRect( 16 - rc.left, -1 );
 	GetDlgItem( 0x3023 )->MoveWindow( &rc );
 
+	// Set Next
 	GetDlgItem( 0x3024 )->GetWindowRect( &rc );
 	ScreenToClient( &rc );
-	rc.OffsetRect( 100 - rc.left, -1 );
+	rc.OffsetRect( 26 + rc.Width() - rc.left, -1 );
 	GetDlgItem( 0x3024 )->MoveWindow( &rc );
 	GetDlgItem( 0x3025 )->MoveWindow( &rc );
 
+	// Set Cancel
 	GetDlgItem( 2 )->GetWindowRect( &rc );
 	ScreenToClient( &rc );
-	rc.OffsetRect( 414 - rc.left, -1 );
+	rc.OffsetRect( nWidth - 20 - rc.Width() - rc.left, -1 );
 	GetDlgItem( 2 )->MoveWindow( &rc );
 	GetDlgItem( 2 )->SetWindowText( _T("E&xit") );
 
@@ -215,36 +226,37 @@ void CWizardSheet::OnSize(UINT nType, int cx, int cy)
 	{
 		GetClientRect( &m_rcPage );
 
-		m_rcPage.top += 51;	// 50px
-		m_rcPage.bottom -= 48;
+		m_rcPage.top += BANNER_SIZE + 1;
+		m_rcPage.bottom -= MENU_SIZE;
 
-		pWnd->SetWindowPos( NULL, m_rcPage.left, m_rcPage.top, m_rcPage.Width(),
-			m_rcPage.Height(), SWP_NOSIZE );
+		pWnd->SetWindowPos( NULL, m_rcPage.left, m_rcPage.top, m_rcPage.Width(), m_rcPage.Height(), SWP_NOSIZE );
 	}
 }
 
 void CWizardSheet::OnPaint()
 {
 	CPaintDC dc( this );
-	CRect rc;
 
+	CRect rc;
 	GetClientRect( &rc );
 
+	// Banner
 	CDC mdc;
 	mdc.CreateCompatibleDC( &dc );
 	CBitmap* pOldBitmap = (CBitmap*)mdc.SelectObject( &m_bmHeader );
-	dc.BitBlt( 0, 0, 520, 50, &mdc, 0, 0, SRCCOPY );
+	dc.BitBlt( 0, 0, rc.Width(), BANNER_SIZE, &mdc, 0, 0, SRCCOPY );
 	mdc.SelectObject( pOldBitmap );
 	mdc.DeleteDC();
 
-	dc.Draw3dRect( 0, 50, rc.Width() + 1, 1,
+	// Bevels
+	dc.Draw3dRect( 0, BANNER_SIZE, rc.Width() + 1, 1,
 		RGB( 128, 128, 128 ), RGB( 128, 128, 128 ) );
-
-	dc.Draw3dRect( 0, rc.bottom - 48, rc.Width() + 1, 2,
+	dc.Draw3dRect( 0, rc.bottom - MENU_SIZE, rc.Width() + 1, 2,
 		RGB( 128, 128, 128 ), RGB( 255, 255, 255 ) );
 
-	rc.top = rc.bottom - 46;
+	rc.top = rc.bottom - MENU_SIZE + 2;
 
+	// Version Text
 	CFont* pOldFont = (CFont*)dc.SelectObject( &theApp.m_fntTiny );
 	CString str = _T("v") + theApp.m_sVersion;
 	CSize sz = dc.GetTextExtent( str );
@@ -270,7 +282,7 @@ BOOL CWizardSheet::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 	GetClientRect( &rc );
 	ScreenToClient( &pt );
 
-	if ( rc.PtInRect( pt ) && pt.y <= 50 )
+	if ( rc.PtInRect( pt ) && pt.y < BANNER_SIZE )
 	{
 		SetCursor( theApp.LoadCursor( IDC_HAND ) );
 		return TRUE;
@@ -281,7 +293,7 @@ BOOL CWizardSheet::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 
 void CWizardSheet::OnLButtonUp(UINT /*nFlags*/, CPoint point)
 {
-	if ( point.y <= 50 )
+	if ( point.y < BANNER_SIZE )
 		ShellExecute( NULL, NULL, _T("http://PeerProject.org/TorrentWizard/"), NULL, NULL, SW_SHOWNORMAL );
 }
 
@@ -321,8 +333,7 @@ END_MESSAGE_MAP()
 
 CWizardPage::CWizardPage(UINT nID) : CPropertyPage( nID )
 {
-	m_crWhite = RGB( 255, 255, 255 );
-	m_brWhite.CreateSolidBrush( m_crWhite );
+	m_brPageColor.CreateSolidBrush( PAGE_COLOR );
 }
 
 CWizardPage::~CWizardPage()
@@ -337,8 +348,8 @@ HBRUSH CWizardPage::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT /*nCtlColor*/)
 	if ( pWnd != NULL && pWnd->GetDlgCtrlID() == IDC_TITLE )
 		pDC->SelectObject( &theApp.m_fntBold );
 
-	pDC->SetBkColor( m_crWhite );
-	return (HBRUSH)m_brWhite.GetSafeHandle();
+	pDC->SetBkColor( PAGE_COLOR );
+	return (HBRUSH)m_brPageColor.GetSafeHandle();
 }
 
 void CWizardPage::OnSize(UINT nType, int cx, int cy)

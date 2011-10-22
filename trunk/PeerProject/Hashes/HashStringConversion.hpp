@@ -73,7 +73,7 @@ namespace Hashes
 	template<size_t byteCount>
 	struct HashToString< guidEncoding, byteCount >
 	{
-		BOOST_STATIC_ASSERT( byteCount <= maxByteCount );
+		static_assert( byteCount <= maxByteCount, "static assert" );
 		CString operator()(const uchar* hash) const
 		{
 			return toGuid( hash );
@@ -84,7 +84,7 @@ namespace Hashes
 	template<size_t byteCount>
 	struct HashToString< base16Encoding, byteCount >
 	{
-		BOOST_STATIC_ASSERT( byteCount <= maxByteCount );
+		static_assert( byteCount <= maxByteCount, "static assert" );
 		CString operator()(const uchar* hash) const
 		{
 			return toBase16( hash, byteCount );
@@ -95,15 +95,14 @@ namespace Hashes
 	template<size_t byteCount>
 	struct HashToString< base32Encoding, byteCount >
 	{
-		BOOST_STATIC_ASSERT( byteCount <= maxByteCount );
+		static_assert( byteCount <= maxByteCount, "static assert" );
 		CString operator()(const uchar* hash) const
 		{
 			return toBase32( hash, byteCount );
 		}
 	};
 
-	//! \brief Helper template to forward calls to the guid encoding
-	//!        function.
+	//! \brief Helper template to forward calls to the guid encoding function.
 	template<size_t byteCount>
 	struct HashFromString< guidEncoding, byteCount >
 	{
@@ -113,8 +112,7 @@ namespace Hashes
 		}
 	};
 
-	//! \brief Helper template to forward calls to the base16 encoding
-	//!        function.
+	//! \brief Helper template to forward calls to the base16 encoding function.
 	template<size_t byteCount>
 	struct HashFromString< base16Encoding, byteCount >
 	{

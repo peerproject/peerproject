@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "DlgCloseMode.h"
 
 #ifdef _DEBUG
@@ -37,9 +37,9 @@ END_MESSAGE_MAP()
 // CCloseModeDlg dialog
 
 CCloseModeDlg::CCloseModeDlg(CWnd* pParent) : CSkinDialog( CCloseModeDlg::IDD, pParent )
+	, m_nMode ( -1 )
 {
 	//{{AFX_DATA_INIT(CCloseModeDlg)
-	m_nMode = -1;
 	//}}AFX_DATA_INIT
 }
 
@@ -62,7 +62,8 @@ BOOL CCloseModeDlg::OnInitDialog()
 
 	switch ( Settings.General.CloseMode )
 	{
-	case 0: case 2:
+	case 0:
+	case 2:
 		m_nMode = 0;
 		break;
 	case 1:

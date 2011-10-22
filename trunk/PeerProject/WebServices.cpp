@@ -22,8 +22,8 @@
 
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "WebServices.h"
 #include "FileExecutor.h"
 #include "Skin.h"
@@ -40,6 +40,38 @@
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
 #endif	// Filename
+
+// Move from CLibraryFileView?
+//BEGIN_MESSAGE_MAP(CWebServices)
+//	ON_UPDATE_COMMAND_UI(ID_LIBRARY_BITZI_WEB, OnUpdateLibraryBitziWeb)
+//	ON_COMMAND(ID_LIBRARY_BITZI_WEB, OnLibraryBitziWeb)
+//	ON_UPDATE_COMMAND_UI(ID_LIBRARY_BITZI_DOWNLOAD, OnUpdateLibraryBitziDownload)
+//	ON_COMMAND(ID_LIBRARY_BITZI_DOWNLOAD, OnLibraryBitziDownload)
+//	ON_UPDATE_COMMAND_UI(ID_WEBSERVICES_MUSICBRAINZ, OnUpdateMusicBrainzLookup)
+//	ON_COMMAND(ID_WEBSERVICES_MUSICBRAINZ, OnMusicBrainzLookup)
+//	ON_UPDATE_COMMAND_UI(ID_MUSICBRAINZ_MATCHES, OnUpdateMusicBrainzMatches)
+//	ON_COMMAND(ID_MUSICBRAINZ_MATCHES, OnMusicBrainzMatches)
+//	ON_UPDATE_COMMAND_UI(ID_MUSICBRAINZ_ALBUMS, OnUpdateMusicBrainzAlbums)
+//	ON_COMMAND(ID_MUSICBRAINZ_ALBUMS, OnMusicBrainzAlbums)
+//	ON_UPDATE_COMMAND_UI(ID_WEBSERVICES_SHAREMONKEY, OnUpdateShareMonkeyLookup)
+//	ON_COMMAND(ID_WEBSERVICES_SHAREMONKEY, OnShareMonkeyLookup)
+//	ON_UPDATE_COMMAND_UI(ID_SHAREMONKEY_DOWNLOAD, OnUpdateShareMonkeyDownload)
+//	ON_COMMAND(ID_SHAREMONKEY_DOWNLOAD, OnShareMonkeyDownload)
+//	ON_UPDATE_COMMAND_UI(ID_SHAREMONKEY_SAVE, OnUpdateShareMonkeySave)
+//	ON_COMMAND(ID_SHAREMONKEY_SAVE, OnShareMonkeySave)
+//	ON_UPDATE_COMMAND_UI(ID_SHAREMONKEY_SAVE_OPTION, OnUpdateShareMonkeySaveOption)
+//	ON_COMMAND(ID_SHAREMONKEY_SAVE_OPTION, OnShareMonkeySaveOption)
+//	ON_UPDATE_COMMAND_UI(ID_SHAREMONKEY_PREVIOUS, OnUpdateShareMonkeyPrevious)
+//	ON_COMMAND(ID_SHAREMONKEY_PREVIOUS, OnShareMonkeyPrevious)
+//	ON_UPDATE_COMMAND_UI(ID_SHAREMONKEY_NEXT, OnUpdateShareMonkeyNext)
+//	ON_COMMAND(ID_SHAREMONKEY_NEXT, OnShareMonkeyNext)
+//	ON_UPDATE_COMMAND_UI(ID_SHAREMONKEY_PRICES, OnUpdateShareMonkeyPrices)
+//	ON_COMMAND(ID_SHAREMONKEY_PRICES, OnShareMonkeyPrices)
+//	ON_UPDATE_COMMAND_UI(ID_SHAREMONKEY_COMPARE, OnUpdateShareMonkeyCompare)
+//	ON_COMMAND(ID_SHAREMONKEY_COMPARE, OnShareMonkeyCompare)
+//	ON_UPDATE_COMMAND_UI(ID_SHAREMONKEY_BUY, OnUpdateShareMonkeyBuy)
+//	ON_COMMAND(ID_SHAREMONKEY_BUY, OnShareMonkeyBuy)
+//END_MESSAGE_MAP()
 
 
 /////////////////////////////////////////////////////////////////////
@@ -173,7 +205,7 @@ static char THIS_FILE[]=__FILE__;
 //		if ( bIsMusicBrainz )
 //		{
 //			pFrame->SetDynamicBar( NULL );
-//			m_bRequestingService = FALSE; // ToDo: Abort operation
+//			m_bRequestingService = FALSE;	// ToDo: Abort operation
 //		}
 //		return;
 //	}
@@ -181,7 +213,7 @@ static char THIS_FILE[]=__FILE__;
 //	CSingleLock pLock( &Library.m_pSection, TRUE );
 //	CLibraryFile* pFile = GetSelectedFile();
 //
-//	if ( pFile == NULL ) // Ghost file
+//	if ( pFile == NULL )	// Ghost file
 //	{
 //		pFrame->SetDynamicBar( NULL );
 //		m_bRequestingService = FALSE;
@@ -565,8 +597,7 @@ BOOL CWebServices::ShowBitziTicket(DWORD nIndex)
 		return FALSE;
 	}
 
-	CString strURL = Settings.WebServices.BitziWebView;
-	CString str;
+	CString str, strURL = Settings.WebServices.BitziWebView;
 	CFile hFile;
 
 	if ( hFile.Open( pFile->GetPath(), CFile::modeRead|CFile::shareDenyNone ) )
@@ -677,7 +708,7 @@ BOOL CWebServices::ShowBitziTicket(DWORD nIndex)
 						{
 							strAudioTag += _T("&tag.mp3.vbr=");
 
-							if( _tcsstr( strReplace, _T("~") ) )
+							if ( _tcsstr( strReplace, _T("~") ) )
 								strAudioTag += _T("y");
 							else
 								strAudioTag += _T("n");

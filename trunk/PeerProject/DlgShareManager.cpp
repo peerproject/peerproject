@@ -17,9 +17,7 @@
 //
 
 #include "StdAfx.h"
-
 #include "DlgShareManager.h"
-
 #include "DlgFolderScan.h"
 #include "Library.h"
 #include "LibraryFolders.h"

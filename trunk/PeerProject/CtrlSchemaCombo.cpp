@@ -1,7 +1,7 @@
 //
 // CtrlSchemaCombo.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -17,12 +17,13 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "CtrlSchemaCombo.h"
+
 #include "Schema.h"
 #include "SchemaCache.h"
 #include "ShellIcons.h"
-#include "CtrlSchemaCombo.h"
 #include "CoolInterface.h"
 #include "Colors.h"
 #include "XML.h"
@@ -255,13 +256,14 @@ void CSchemaCombo::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 		if ( dc.GetTextExtent( pSchema->m_sTitle + strURI ).cx > rcItem.Width() - 20
 			 && strURI.GetLength() > 8 )
 		{
-			LPCTSTR pszLeft = _tcschr( (LPCTSTR)strURI + 7, '/' );
-			int nRight		= strURI.ReverseFind( '/' );
-
-			if ( pszLeft && nRight >= 0 )
+			if ( LPCTSTR pszLeft = _tcschr( (LPCTSTR)strURI + 7, '/' ) )
 			{
-				int nLeft = static_cast< int >( pszLeft - (LPCTSTR)strURI );  // !!! (ToDo:?)
-				strURI = strURI.Left( nLeft ) + _T("/\x2026") + strURI.Mid( nRight );
+				int nRight = strURI.ReverseFind( '/' );
+				if ( nRight >= 0 )
+				{
+					int nLeft = static_cast< int >( pszLeft - (LPCTSTR)strURI );	// !!! (ToDo:?)
+					strURI = strURI.Left( nLeft ) + _T("/\x2026") + strURI.Mid( nRight );
+				}
 			}
 		}
 
@@ -369,6 +371,7 @@ BOOL CSchemaCombo::PreTranslateMessage(MSG* pMsg)
 				return TRUE;
 		}
 	}
+
 	return CComboBox::PreTranslateMessage( pMsg );
 }
 
@@ -397,7 +400,7 @@ LRESULT PASCAL CSchemaCombo::ListWndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LP
 		{
 			LRESULT nItemHeight = ::SendMessage( hWnd, LB_GETITEMHEIGHT, 0, 0 );
 			LRESULT nTopIndex   = ::SendMessage( hWnd, LB_GETTOPINDEX, 0, 0 );
-			int nIndex		= static_cast< int >( nTopIndex + pt.y / nItemHeight );
+			int nIndex = static_cast< int >( nTopIndex + pt.y / nItemHeight );
 
 			CRect rcItem;
 			::SendMessage( hWnd, LB_GETITEMRECT, nIndex, (LPARAM)&rcItem );
@@ -428,6 +431,7 @@ LRESULT PASCAL CSchemaCombo::ListWndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LP
 			}
 		}
 	}
+
 	return CallWindowProc( pThis->m_pWndProc, hWnd, nMsg, wParam, lParam );
 }
 
@@ -452,5 +456,6 @@ BOOL CSchemaCombo::OnClickItem(int nItem, BOOL bDown)
 		}
 		return TRUE;
 	}
+
 	return FALSE;
 }

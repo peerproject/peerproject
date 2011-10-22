@@ -17,19 +17,19 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "CtrlMediaFrame.h"
 #include "Plugins.h"
 #include "Library.h"
 #include "SharedFile.h"
 #include "Registry.h"
 
-#include "Skin.h"
-#include "CtrlMediaFrame.h"
 #include "DlgSettingsManager.h"
 #include "DlgMediaVis.h"
 #include "CoolInterface.h"
 #include "Colors.h"
+#include "Skin.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -78,11 +78,11 @@ BEGIN_MESSAGE_MAP(CMediaFrame, CWnd)
 	ON_WM_PAINT()
 	ON_WM_TIMER()
 	ON_WM_CONTEXTMENU()
-	ON_WM_HSCROLL()
-	ON_WM_CLOSE()
-	ON_WM_SETCURSOR()
-	ON_WM_LBUTTONDOWN()
 	ON_WM_SYSCOMMAND()
+	ON_WM_SETCURSOR()
+	ON_WM_CLOSE()
+	ON_WM_HSCROLL()
+	ON_WM_LBUTTONDOWN()
 	ON_WM_LBUTTONDBLCLK()
 	ON_UPDATE_COMMAND_UI(ID_MEDIA_CLOSE, OnUpdateMediaClose)
 	ON_COMMAND(ID_MEDIA_CLOSE, OnMediaClose)
@@ -615,7 +615,8 @@ void CMediaFrame::PaintListHeader(CDC& dc, CRect& rcBar)
 	CPoint pt = rcBar.CenterPoint();
 	LoadString( strText, IDS_MEDIA_PLAYLIST );
 	CSize szText = dc.GetTextExtent( strText );
-	pt.x -= szText.cx / 2; pt.y -= szText.cy / 2 + 1;
+	pt.x -= szText.cx / 2;
+	pt.y -= szText.cy / 2 + 1;
 
 	CBitmap bmHeader;
 	if ( Skin.GetWatermark( &bmHeader, _T("CMediaList.Header") ) )
@@ -822,7 +823,7 @@ void CMediaFrame::OnTimer(UINT_PTR nIDEvent)
 {
 	if ( nIDEvent == 1 )
 	{
-		DWORD tNow = GetTickCount();
+		const DWORD tNow = GetTickCount();
 
 		UpdateState();
 
@@ -839,7 +840,7 @@ void CMediaFrame::OnTimer(UINT_PTR nIDEvent)
 			}
 		}
 
-		if ( tNow - m_tMetadata > META_DELAY )
+		if ( tNow > m_tMetadata + META_DELAY )
 		{
 			m_tMetadata = tNow;
 			m_pMetadata.Shuffle();
@@ -1463,7 +1464,7 @@ BOOL CMediaFrame::PlayFile(LPCTSTR pszFile)
 
 	const DWORD tNow = GetTickCount();
 
-	if ( tNow - m_tLastPlay < 500 )
+	if ( tNow > m_tLastPlay + 500 )
 	{
 		m_tLastPlay = tNow;
 		return EnqueueFile( pszFile );
@@ -1539,7 +1540,7 @@ BOOL CMediaFrame::SetVolume(float nVolume)
 //	int nVolumeTick = max( min( m_wndVolume.GetPos() + nVolumeOffset, 100 ), 0 );
 //	m_wndVolume.SetPos( nVolumeTick );
 //	Settings.MediaPlayer.Volume = (double)nVolumeTick / 100.0f;
-//	if ( m_pPlayer != NULL )
+//	if ( m_pPlayer )
 //		m_pPlayer->SetVolume( Settings.MediaPlayer.Volume );
 //	UpdateState();
 //	SetTimer( 1, UPDATE_TIMER, NULL );
@@ -1548,7 +1549,7 @@ BOOL CMediaFrame::SetVolume(float nVolume)
 //void CMediaFrame::OffsetPosition(int nPositionOffset)
 //{
 //	KillTimer( 1 );
-//	if ( m_pPlayer != NULL )
+//	if ( m_pPlayer )
 //	{
 //		bool bPlaying = ( m_nState == smsPlaying );
 //		if ( bPlaying )
@@ -1628,7 +1629,7 @@ BOOL CMediaFrame::PrepareVis()
 //	{
 //		HRESULT hr = CoCreateInstance( pCLSID, NULL, CLSCTX_ALL, IID_IAudioVisPlugin, (void**)&pPlugin );
 //
-//		if ( SUCCEEDED(hr) && pPlugin != NULL )
+//		if ( SUCCEEDED( hr ) && pPlugin != NULL )
 //		{
 //			if ( ! Settings.MediaPlayer.VisPath.IsEmpty() )
 //			{
@@ -1636,12 +1637,12 @@ BOOL CMediaFrame::PrepareVis()
 //
 //				hr = pPlugin->QueryInterface( IID_IWrappedPluginControl, (void**)&pWrap );
 //
-//				if ( SUCCEEDED(hr) && pWrap != NULL )
+//				if ( SUCCEEDED( hr ) && pWrap != NULL )
 //				{
 //					hr = pWrap->Load( CComBSTR( Settings.MediaPlayer.VisPath ), 0 );
 //					pWrap->Release();
 //				}
-//				if ( FAILED(hr) )
+//				if ( FAILED( hr ) )
 //				{
 //					pPlugin->Release();
 //					pPlugin = NULL;
@@ -1764,7 +1765,7 @@ void CMediaFrame::Cleanup()
 		{
 			m_pPlayer->Close();
 		}
-		__except( EXCEPTION_EXECUTE_HANDLER  )
+		__except( EXCEPTION_EXECUTE_HANDLER )
 		{
 		}
 		__try
@@ -1881,7 +1882,7 @@ void CMediaFrame::OnNewCurrent(NMHDR* /*pNotify*/, LRESULT* pResult)
 		m_pPlayer = NULL;
 	}
 
-	if ( nCurrent >= 0 ) // Not last in list
+	if ( nCurrent >= 0 )	// Not last in list
 	{
 		BOOL bPlayIt;
 		BOOL bCorrupted = FALSE;

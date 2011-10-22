@@ -17,8 +17,9 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "CtrlLibraryTip.h"
 #include "CoolInterface.h"
 #include "ShellIcons.h"
 #include "Library.h"
@@ -30,7 +31,6 @@
 #include "ThumbCache.h"
 #include "ImageServices.h"
 #include "ImageFile.h"
-#include "CtrlLibraryTip.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE

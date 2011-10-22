@@ -17,9 +17,9 @@
 //
 
 #include "StdAfx.h"
+#include "Settings.h"
 #include "PeerProject.h"
 #include "CtrlFontCombo.h"
-#include "Settings.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE

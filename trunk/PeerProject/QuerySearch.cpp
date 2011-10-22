@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "QuerySearch.h"
 #include "Network.h"
 #include "Datagrams.h"
@@ -621,19 +621,19 @@ CDCPacket* CQuerySearch::ToDCPacket() const
 	}
 	else if ( m_pSchema )
 	{
-		if ( m_pSchema->CheckURI( CSchema::uriAudio )  )
+		if ( m_pSchema->CheckURI( CSchema::uriAudio ) )
 			nType = 2;
-		else if ( m_pSchema->CheckURI( CSchema::uriArchive )  )
+		else if ( m_pSchema->CheckURI( CSchema::uriArchive ) )
 			nType = 3;
-		else if ( m_pSchema->CheckURI( CSchema::uriDocument )  )
+		else if ( m_pSchema->CheckURI( CSchema::uriDocument ) )
 			nType = 4;
-		else if ( m_pSchema->CheckURI( CSchema::uriApplication )  )
+		else if ( m_pSchema->CheckURI( CSchema::uriApplication ) )
 			nType = 5;
-		else if ( m_pSchema->CheckURI( CSchema::uriImage )  )
+		else if ( m_pSchema->CheckURI( CSchema::uriImage ) )
 			nType = 6;
-		else if ( m_pSchema->CheckURI( CSchema::uriVideo )  )
+		else if ( m_pSchema->CheckURI( CSchema::uriVideo ) )
 			nType = 7;
-		else if ( m_pSchema->CheckURI( CSchema::uriFolder )  )
+		else if ( m_pSchema->CheckURI( CSchema::uriFolder ) )
 			nType = 8;
 	}
 
@@ -1261,7 +1261,7 @@ BOOL CQuerySearch::CheckOverflow(const CString& sSearch)
 	{
 		for ( const CHistoryMap::CPair* pData = m_oSearchHistory.PGetFirstAssoc() ; pData ; pData = m_oSearchHistory.PGetNextAssoc( pData ) )
 		{
-			if ( tNow - pData->value > OVERFLOW_TIMEOUT )
+			if ( tNow > pData->value + OVERFLOW_TIMEOUT )
 			{
 				// In range
 				m_oSearchHistory.RemoveKey( pData->key );
@@ -1272,7 +1272,7 @@ BOOL CQuerySearch::CheckOverflow(const CString& sSearch)
 
 	if ( const CHistoryMap::CPair* pData = m_oSearchHistory.PLookup( sSearch ) )
 	{
-		if ( tNow - pData->value < OVERFLOW_TIMEOUT )
+		if ( tNow < pData->value + OVERFLOW_TIMEOUT )
 		{
 			// Too often
 			m_oSearchHistory.SetAt( sSearch, tNow );
@@ -1881,7 +1881,7 @@ CString CQuerySearch::MakeKeywords(const CString& strPhrase, bool bExpression)
 
 		int nDistance = ! bCharacter ? 1 : 0;
 
-		if ( ! bCharacter || boundary[ 0 ] != boundary[ 1 ] && nPos  )
+		if ( ! bCharacter || boundary[ 0 ] != boundary[ 1 ] && nPos )
 		{
 			if ( nPos > nPrevWord )
 			{

@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "WizardInterfacePage.h"
 #include "WndMain.h"
 #include "Skin.h"

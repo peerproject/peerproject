@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Norwegian Skin File -->
 
-<!-- Translation based on default-en.xml r69 (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r70 (Shareaza 2.2.0.2) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1350,14 +1350,14 @@
 	</menu>
 	<!-- SYSTEM WINDOW -->
 	<menu name="CSystemWnd">
-		<menu id="ID_SYSTEM_VERBOSE" text="Vis alt"/>
+		<menu id="ID_SYSTEM_VERBOSE" text="Vis alt">
 			<item id="ID_SYSTEM_VERBOSE_ERROR" text="_Error"/>
 			<item id="ID_SYSTEM_VERBOSE_WARNING" text="_Warning"/>
 			<item id="ID_SYSTEM_VERBOSE_NOTICE" text="_Notice"/>
 			<item id="ID_SYSTEM_VERBOSE_INFO" text="_Info"/>
 			<item id="ID_SYSTEM_VERBOSE_DEBUG" text="_Debug"/>
 		</menu>
-		<item id="ID_SYSTEM_TIMESTAMP" text="Tidsstempel"/>
+		<item id="ID_SYSTEM_TIMESTAMP" text="_Tidsstempel"/>
 		<separator/>
 		<item id="ID_SYSTEM_COPY" text="_Copy" shortcut="Ctrl+C"/>
 		<separator/>
@@ -2433,6 +2433,7 @@
 	<string id="20003" value="OK"/>
 	<string id="20004" value="Avbryt"/>
 	<string id="20009" value="av"/>	<!-- "1 of 10" -->
+	<string id="20010" value="Match alle"/>
 	<string id="20011" value="Auto"/>
 	<string id="20012" value="Tilpassede"/>
 	<string id="20013" value="Standard"/>
@@ -2445,6 +2446,12 @@
 	<string id="20020" value="Fil"/>
 	<string id="20021" value="Filer"/>
 	<string id="20022" value="Alle Filer"/>
+	<string id="20023" value="No Filer"/>
+	<string id="20024" value="Store filer"/>
+	<string id="20025" value="Middels filer"/>
+	<string id="20026" value="Små filer"/>
+	<string id="20027" value="Delvise filer"/>
+	<string id="20028" value="Library filer"/>
 	<string id="20029" value="%s Filer"/>
 	<string id="20050" value="Hver Dag"/>
 	<string id="20051" value="Mandag"/>
@@ -2860,7 +2867,7 @@
 	<string id="20576" value="Sender spørre-routingtabell til nabo %s (%i bit = %lu[%i], %i%% full)"/>
 	<string id="20577" value="Mottar en uventet spørre-routingtabell-oppdatering fra nabo  %s."/>
 	<string id="20578" value="Nabo %s oppdaterte sin spøøre-routingtabell (%i bit = %lu[%i], %i%% full)."/>
-	<string id="20579" value="%s -> %s [%i/%i] %s %s"/>
+	<string id="20579" value="%s -&gt; %s [%i/%i] %s %s"/>
 	<string id="20580" value="Leaf nabo %s videresender spørringer, lukker kobling."/>
 	<string id="20581" value="Nabo %s videresendte en ping-pakke med ugyldig lengde, ignorerer."/>
 	<string id="20582" value="Nabo %s videresendte en pong-pakke med ugyldig lengde, ignorerer."/>
@@ -2908,7 +2915,7 @@
 	<string id="20655" value="Filstørrelsen Max:"/>
 	<string id="20656" value="Søk mer"/>
 	<string id="20657" value="Vis søkevindu"/>
-	<string id="20658" value="Start søk"/>
+	<string id="20658" value="Søk"/>
 	<string id="20659" value="Stopp"/>
 	<string id="20660" value="Ingen filer funnet"/>
 	<string id="20661" value="%lu hubs, %lu leaves"/>
@@ -3930,13 +3937,13 @@
 		<control caption="One day only"/>
 		<control/>
 		<control/>
-		<control caption="Man"/>
-		<control caption="Tir"/>
-		<control caption="Ons"/>
-		<control caption="Tor"/>
-		<control caption="Fre"/>
-		<control caption="Lør"/>
-		<control caption="Søn"/>
+		<control caption="Mandag"/>
+		<control caption="Tirsdag"/>
+		<control caption="Onsdag"/>
+		<control caption="Tordsag"/>
+		<control caption="Fredag"/>
+		<control caption="Lørdag"/>
+		<control caption="Søndag"/>
 		<control caption="Alle"/>
 		<control caption="Kommentarer"/>
 		<control/>
@@ -4195,9 +4202,9 @@
 	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Oppdateringsvarsel">
 		<control caption="En ny versjon av PeerProject er tilgjengelig. Ønsker du å oppgradere?"/>
 		<control caption="Hvis du velger å oppgradere nå, vil PeerProject legge til oppgraderingen i nedlastingene dine og automatisk starte nedlatningen."/>
-		<control caption="_Oppgrader nå"/>
 		<control caption="Ikke søk etter nye versjoner"/>
-		<control caption="Ikke oppgrader"/>
+		<control caption="_Oppgrader nå"/>
+		<control caption="Avbryt"/>
 	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Lokalisering av metadata">
 		<control caption="Vennligst velg metiden for omkoding"/>

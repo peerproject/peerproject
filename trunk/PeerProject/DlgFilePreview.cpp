@@ -17,16 +17,16 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "Transfers.h"
+#include "PeerProject.h"
+#include "DlgFilePreview.h"
 #include "Downloads.h"
 #include "DownloadWithExtras.h"
 #include "FragmentedFile.h"
 #include "TransferFile.h"
-#include "DlgFilePreview.h"
-#include "FileExecutor.h"
+#include "Transfers.h"
 #include "Plugins.h"
+#include "FileExecutor.h"
 
 #include "DownloadTask.h"
 

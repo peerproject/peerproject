@@ -17,9 +17,10 @@
 //
 
 #include "StdAfx.h"
+#include "Settings.h"
 #include "PeerProject.h"
 #include "DlgLanguage.h"
-#include "Settings.h"
+
 #include "SkinWindow.h"
 #include "Colors.h"
 #include "XML.h"
@@ -79,8 +80,8 @@ BOOL CLanguageDlg::OnInitDialog()
 
 	SkinMe( _T("CLanguageDlg"), ID_TOOLS_LANGUAGE );
 
-	m_hArrow	= theApp.LoadStandardCursor( IDC_ARROW );
-	m_hHand		= theApp.LoadCursor( IDC_HAND );
+	m_hArrow = theApp.LoadStandardCursor( IDC_ARROW );
+	m_hHand  = theApp.LoadCursor( IDC_HAND );
 
 	m_fntNormal.CreateFont( -(int)(Settings.Fonts.FontSize + 1), 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, theApp.m_nFontQuality,
@@ -166,7 +167,7 @@ void CLanguageDlg::OnPaint()
 	rc.right = rc.left + ITEM_WIDTH;
 	CFont* pOldFont = (CFont*)dc.SelectObject( &m_fntNormal );
 
-	for ( int nCount = 0 ; nCount < m_pPaths.GetSize(); nCount += 3 )
+	for ( int nCount = 0 ; nCount < m_pPaths.GetSize() ; nCount += 3 )
 	{
 		if ( nScroll > 0 )
 		{
@@ -277,8 +278,8 @@ void CLanguageDlg::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar*/
 {
 	SCROLLINFO pInfo;
 
-	pInfo.cbSize	= sizeof(pInfo);
-	pInfo.fMask		= SIF_ALL & ~SIF_TRACKPOS;
+	pInfo.cbSize = sizeof(pInfo);
+	pInfo.fMask  = SIF_ALL & ~SIF_TRACKPOS;
 
 	GetScrollInfo( SB_VERT, &pInfo );
 	int nDelta = pInfo.nPos;
@@ -314,8 +315,9 @@ void CLanguageDlg::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar*/
 
 	SetScrollInfo( SB_VERT, &pInfo, TRUE );
 
-	m_nHover	= 0;
-	m_nDown		= 0;
+	m_nHover = 0;
+	m_nDown  = 0;
+
 	Invalidate();
 }
 
@@ -379,7 +381,7 @@ void CLanguageDlg::OnLButtonDown(UINT /*nFlags*/, CPoint /*point*/)
 
 void CLanguageDlg::OnLButtonUp(UINT /*nFlags*/, CPoint /*point*/)
 {
-	int nSelected = m_nDown && ( m_nDown == m_nHover ) ? m_nDown : 0;
+	int nSelected = ( m_nDown && m_nDown == m_nHover ) ? m_nDown : 0;
 
 	m_nDown = m_nHover = 0;
 
@@ -577,7 +579,10 @@ BOOL CLanguageDlg::AddSkin(LPCTSTR pszPath, LPCTSTR pszName)
 	else
 	{
 		if ( nByte >= 3 && pByte[0] == 0xEF && pByte[1] == 0xBB && pByte[2] == 0xBF )
-			pByte += 3; nByte -= 3;
+		{
+			pByte += 3;
+			nByte -= 3;
+		}
 
 		strXML = UTF8Decode( (LPCSTR)pByte, nByte );
 	}
@@ -683,16 +688,14 @@ void CLanguageDlg::Execute(int nSelected)
 	//CString strLangCode = _T("en");
 	//if ( nSelected > 1 ) strLangCode = m_pLangCodes.GetAt( nSelected - 2 );
 	//
-	// Required to have schemas reloaded after restart
+	//// Required to have schemas reloaded after restart
 	//Settings.General.Language = strLangCode;
 	//
 	//if ( Settings.General.LanguageRTL != ( bRTL != FALSE ) )
 	//{
 	//	CString str;
 	//	LoadString( str, IDS_WARNING_RTL );
-	//
 	//	Settings.General.LanguageRTL = bRTL != FALSE;
-	//
 	//	if ( AfxMessageBox( str, MB_ICONQUESTION|MB_YESNO ) == IDYES )
 	//	{
 	//		GetParent()->PostMessage( WM_CLOSE, NULL, NULL );

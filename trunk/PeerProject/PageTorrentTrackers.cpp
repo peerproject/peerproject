@@ -19,17 +19,16 @@
 #include "StdAfx.h"
 #include "Settings.h"
 #include "PeerProject.h"
+#include "PageTorrentTrackers.h"
 
 #include "DlgDownloadSheet.h"
-#include "PageTorrentTrackers.h"
-#include "CoolInterface.h"
 #include "BENode.h"
+#include "Network.h"
 #include "Transfers.h"
 #include "Downloads.h"
-#include "Network.h"
-
-#include "Skin.h"
+#include "CoolInterface.h"
 #include "Colors.h"
+#include "Skin.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE

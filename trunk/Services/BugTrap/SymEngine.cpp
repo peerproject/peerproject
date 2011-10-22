@@ -411,7 +411,7 @@ BOOL CSymEngine::CScreenShot::WriteScreenShot(PCTSTR pszFileName)
 			return FALSE;
 		TCHAR szFileName[MAX_PATH];
 		if (m_dwNumMonitors > 1)
-			_stprintf_s(szFileName, countof(szFileName), _T("%s%d.bmp"), pszFileName, dwMonitorNumber + 1);
+			_stprintf_s(szFileName, countof(szFileName), _T("%s%u.bmp"), pszFileName, dwMonitorNumber + 1);
 		else
 			_stprintf_s(szFileName, countof(szFileName), _T("%s.bmp"), pszFileName);
 		HANDLE hFile = CreateFile(szFileName, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
@@ -1341,7 +1341,6 @@ BOOL CSymEngine::InitStackTrace(HANDLE hThread)
 		//   m_swContext.m_context = *m_pExceptionPointers->ContextRecord;
 		if (m_eExceptionType == WIN32_EXCEPTION)
 		{
-			_ASSERTE(m_pExceptionPointers != NULL);
 			SafeCopy(&m_swContext.m_context, m_pExceptionPointers->ContextRecord, sizeof(m_swContext.m_context));
 		}
 		else
@@ -1475,8 +1474,6 @@ void CSymEngine::GetEnvironmentStrings(CUTF8EncStream& rEncStream)
  */
 void CSymEngine::GetModuleList(CUTF8EncStream& rEncStream, CEnumProcess* pEnumProcess, CEnumProcess::CProcessEntry& rProcEntry)
 {
-	_ASSERTE(pEnumProcess != NULL);
-
 	static const CHAR szProcessMsg[] = "Process: ";
 	static const CHAR szModulesMsg[] = ", Modules:\r\n";
 	static const CHAR szProcessIDMsg[] = ", PID: ";
@@ -1534,8 +1531,6 @@ void CSymEngine::GetModuleList(CUTF8EncStream& rEncStream, CEnumProcess* pEnumPr
  */
 void CSymEngine::GetModuleList(CXmlWriter& rXmlWriter, CEnumProcess* pEnumProcess, CEnumProcess::CProcessEntry& rProcEntry)
 {
-	_ASSERTE(pEnumProcess != NULL);
-
 	rXmlWriter.WriteStartElement(_T("process")); // <process>
 	 rXmlWriter.WriteElementString(_T("name"), rProcEntry.m_szProcessName); // <name>...</name>
 	 TCHAR szTempBuf[64];
@@ -1576,7 +1571,7 @@ void CSymEngine::GetModuleList(CXmlWriter& rXmlWriter, CEnumProcess* pEnumProces
 void CSymEngine::GetProcessList(CXmlWriter& rXmlWriter, CEnumProcess* pEnumProcess)
 {
 	rXmlWriter.WriteStartElement(_T("processes")); // <processes>
-	_ASSERTE(pEnumProcess != NULL);
+
 	CEnumProcess::CProcessEntry ProcEntry;
 	if (g_dwFlags & BTF_LISTPROCESSES)
 	{
@@ -1602,7 +1597,6 @@ void CSymEngine::GetProcessList(CXmlWriter& rXmlWriter, CEnumProcess* pEnumProce
  */
 void CSymEngine::GetProcessList(CUTF8EncStream& rEncStream, CEnumProcess* pEnumProcess)
 {
-	_ASSERTE(pEnumProcess != NULL);
 	CEnumProcess::CProcessEntry ProcEntry;
 	if (g_dwFlags & BTF_LISTPROCESSES)
 	{
@@ -1701,7 +1695,6 @@ void CSymEngine::GetWin32StackTrace(CXmlWriter& rXmlWriter, DWORD dwThreadID, HA
  */
 void CSymEngine::GetWin32ThreadsList(CUTF8EncStream& rEncStream, CEnumProcess* pEnumProcess)
 {
-	_ASSERTE(pEnumProcess != NULL);
 	if (! FOpenThread)
 		return;
 
@@ -1748,7 +1741,6 @@ void CSymEngine::GetWin32ThreadsList(CUTF8EncStream& rEncStream, CEnumProcess* p
  */
 void CSymEngine::GetWin32ThreadsList(CXmlWriter& rXmlWriter, CEnumProcess* pEnumProcess)
 {
-	_ASSERTE(pEnumProcess != NULL);
 	if (! FOpenThread)
 		return;
 
@@ -2530,7 +2522,6 @@ BOOL CSymEngine::ArchiveReportFiles(PCTSTR pszReportFolder, PCTSTR pszArchiveFil
 		for (size_t nFilePos = 0; nFilePos < nFileCount; ++nFilePos)
 		{
 			CLogLink* pLogLink = g_arrLogLinks[nFilePos];
-			_ASSERTE(pLogLink != NULL);
 			PCTSTR pszFilePath = pLogLink->GetLogFileName();
 			PCTSTR pszFileName = PathFindFileName(pszFilePath);
 			_ASSERTE(pszFileName != NULL);

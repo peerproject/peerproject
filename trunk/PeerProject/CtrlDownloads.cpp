@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "CtrlDownloads.h"
 #include "WndDownloads.h"
 #include "Downloads.h"
@@ -885,7 +885,7 @@ void CDownloadsCtrl::OnPaint()
 	if ( ! pTransfersLock.Lock( 250 ) )
 		return;
 
-	if ( tNow - m_tSwitchTimer > 10000 )
+	if ( tNow > m_tSwitchTimer + 10000 )
 	{
 		m_tSwitchTimer = tNow;
 		m_bShowSearching = ! m_bShowSearching;
@@ -1664,7 +1664,7 @@ void CDownloadsCtrl::BubbleSortDownloads(int nColumn)	// BinaryInsertionSortDown
 {
 	m_pbSortAscending[nColumn] = ! m_pbSortAscending[nColumn];
 
-	if (Downloads.GetCount() < 2) return;
+	if ( Downloads.GetCount() < 2 ) return;
 
 	POSITION pos = Downloads.GetIterator(), pos_y = pos;
 	Downloads.GetNext(pos);
@@ -1826,7 +1826,7 @@ void CDownloadsCtrl::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	m_wndTip.Hide();
 
 	bool bControl = ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 ) != 0;
-	bool bShift = ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) != 0;
+//	bool bShift = ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) != 0;
 
 	switch ( nChar )
 	{

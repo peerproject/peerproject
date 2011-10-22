@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "Downloads.h"
 #include "Download.h"
 #include "Transfers.h"
@@ -342,7 +342,7 @@ CDownload* CDownloads::Add(const CPeerProjectURL& oURL)
 	//		for ( POSITION pos = oURL.m_pTorrent->m_sURLs.GetHeadPosition() ; pos ; )
 	//		{
 	//			CString pCurrentUrl = oURL.m_pTorrent->m_sURLs.GetNext( pos );
-	//			pDownload->AddSourceURLs( (LPCTSTR)pCurrentUrl , FALSE  );
+	//			pDownload->AddSourceURLs( (LPCTSTR)pCurrentUrl, FALSE );
 	//		}
 	//		oURL.m_pTorrent->m_sURLs.RemoveAll();
 	//	}
@@ -446,7 +446,7 @@ void CDownloads::CloseTransfers()
 INT_PTR CDownloads::GetCount(BOOL bActiveOnly) const
 {
 	if ( ! bActiveOnly )
-		return (DWORD)m_pList.GetCount();
+		return m_pList.GetCount();
 
 	INT_PTR nCount = 0;
 
@@ -949,7 +949,7 @@ void CDownloads::OnRun()
 
 	// Re-calculating bandwidth may be a little CPU heavy if there are a lot of transfers-
 	// limit it to 4 times per second
-	if ( ( ( tNow - m_tBandwidthLastCalc ) < 250 ) && ( tNow > m_tBandwidthLastCalc ) )
+	if ( tNow < m_tBandwidthLastCalc + 250 )
 	{
 		// Just run the downloads, don't bother re-calulating bandwidth
 		++m_nRunCookie;

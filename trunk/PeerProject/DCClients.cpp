@@ -17,15 +17,15 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "Connection.h"
+#include "PeerProject.h"
 #include "DCClient.h"
 #include "DCClients.h"
 #include "DCNeighbour.h"
 #include "DownloadSource.h"
 #include "DownloadTransfer.h"
 #include "DownloadTransferDC.h"
+#include "Connection.h"
 #include "GProfile.h"
 #include "Neighbours.h"
 #include "Network.h"

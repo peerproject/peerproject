@@ -17,12 +17,12 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "WndPacket.h"
 #include "Network.h"
 #include "Neighbours.h"
 #include "Neighbour.h"
-#include "WndPacket.h"
 #include "LiveList.h"
 #include "CoolMenu.h"
 #include "CoolInterface.h"
@@ -60,7 +60,7 @@ enum {
 #define ID_BASE_ED2K	3300
 #define ID_BASE_DC		3400
 #define ID_BASE_BT		3500
-#define ID_BASE_LAST	3600	// Max Value
+#define ID_BASE_LAST	3600	// Max Value (Other)
 
 
 IMPLEMENT_SERIAL(CPacketWnd, CPanelWnd, 0)
@@ -117,6 +117,7 @@ CPacketWnd::CPacketWnd(CChildWnd* pOwner)
 	, m_bTypeED		( TRUE )
 	, m_bTypeDC		( TRUE )
 	, m_bTypeBT		( TRUE )
+	, m_bTypeOther	( TRUE )
 	, m_nInputFilter ( 0 )
 	, m_nOutputFilter ( 0 )
 {
@@ -293,6 +294,11 @@ void CPacketWnd::SmartDump(const CPacket* pPacket, const SOCKADDR_IN* pAddress, 
 		if ( ! m_bTypeBT )
 			return;
 		break;
+
+	default:
+		// Filter HTTP/FTP packets?
+		if ( ! m_bTypeOther )
+			return;
 	}
 
 	CLiveItem* pItem = new CLiveItem( COL_LAST, bOutgoing );
@@ -457,9 +463,10 @@ void CPacketWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 //	pMenu.AppendMenu( MF_STRING|MF_POPUP, (UINT_PTR)pTypesED.GetSafeHmenu(), _T("&ED2K ") + strType );
 //	pMenu.AppendMenu( MF_STRING|MF_POPUP, (UINT_PTR)pTypesDC.GetSafeHmenu(), _T("&DC ") + strType );
 //	pMenu.AppendMenu( MF_STRING|MF_POPUP, (UINT_PTR)pTypesBT.GetSafeHmenu(), _T("&BT ") + strType );
-	pMenu.AppendMenu( MF_STRING|( m_bTypeED ? MF_CHECKED : 0 ), 3300, _T("&ED2K ") + strType );
-	pMenu.AppendMenu( MF_STRING|( m_bTypeDC ? MF_CHECKED : 0 ), 3400, _T("&DC ") + strType );
-	pMenu.AppendMenu( MF_STRING|( m_bTypeBT ? MF_CHECKED : 0 ), 3500, _T("&BT ") + strType );
+	pMenu.AppendMenu( MF_STRING|( m_bTypeED ? MF_CHECKED : 0 ), ID_BASE_ED2K, _T("&ED2K ") + strType );
+	pMenu.AppendMenu( MF_STRING|( m_bTypeDC ? MF_CHECKED : 0 ), ID_BASE_DC, _T("&DC ") + strType );
+	pMenu.AppendMenu( MF_STRING|( m_bTypeBT ? MF_CHECKED : 0 ), ID_BASE_BT, _T("&BT ") + strType );
+	pMenu.AppendMenu( MF_STRING|( m_bTypeOther ? MF_CHECKED : 0 ), ID_BASE_LAST, _T("&Other ") + strType );
 	pMenu.AppendMenu( MF_SEPARATOR, ID_SEPARATOR );
 	pMenu.AppendMenu( MF_STRING | ( m_bPaused ? MF_CHECKED : 0 ), 1, _T("&Pause Display") );
 	pMenu.AppendMenu( MF_STRING, ID_SYSTEM_CLEAR, _T("&Clear Buffer") );
@@ -504,7 +511,10 @@ void CPacketWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 	case ID_BASE_BT:	// 3500 range unused
 		m_bTypeBT = ! m_bTypeBT;
 		return;
-	//default:	// Detect specific types below
+	case ID_BASE_LAST:	// 3600 max unused
+		m_bTypeOther = ! m_bTypeOther;
+		return;
+	//default:	// Detect specific types below?
 	}
 
 	if ( nCmd >= ID_BASE_G1 && nCmd < ID_BASE_G1 + nTypeG1Size )	// 3000 range

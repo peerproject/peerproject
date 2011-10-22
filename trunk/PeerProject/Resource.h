@@ -77,7 +77,6 @@
 #define IDI_RATING_GOOD                     191
 #define IDI_RATING_AVERAGE                  192
 #define IDI_RATING_FAKE                     193
-#define IDI_SEARCH_ARTIST                   194
 #define IDI_SEARCH_FOLDER                   195
 #define IDI_SKIN                            196		// richdoc#
 #define IDI_STAR                            197		// richdoc#

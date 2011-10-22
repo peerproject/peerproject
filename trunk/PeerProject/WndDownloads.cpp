@@ -17,8 +17,10 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "WndDownloads.h"
+
 #include "Transfers.h"
 #include "Downloads.h"
 #include "Download.h"
@@ -39,7 +41,6 @@
 
 #include "Skin.h"
 #include "WindowManager.h"
-#include "WndDownloads.h"
 #include "WndUploads.h"
 #include "WndBrowseHost.h"
 #include "DlgDownload.h"
@@ -175,7 +176,7 @@ END_MESSAGE_MAP()
 
 CDownloadsWnd::CDownloadsWnd()
 	: CPanelWnd( TRUE, TRUE )
-	, m_bMouseCaptured(false)
+	, m_bMouseCaptured( false )
 {
 	Create( IDR_DOWNLOADSFRAME );
 }
@@ -523,15 +524,23 @@ BOOL CDownloadsWnd::PreTranslateMessage(MSG* pMsg)
 	return CPanelWnd::PreTranslateMessage( pMsg );
 }
 
-BOOL CDownloadsWnd::Select(CDownload* pSelect)
+void CDownloadsWnd::Select(CDownload* pSelect)
 {
 	CSingleLock pLock( &Transfers.m_pSection );
-	if ( ! pLock.Lock( 500 ) ) return FALSE;
-	BOOL bFound = FALSE;
-	int nIndex = 0;
+	if ( ! pLock.Lock( 500 ) ) return;
+	if ( ! pSelect ) return;	// Folder?
 
-	// Find file for Download Monitor
-	for ( POSITION pos = Downloads.GetIterator() ; pos ; nIndex++ )
+	DWORD nIndex = 0;
+
+	// Set "All" SuperGroup if needed
+	if ( m_wndDownloads.m_nGroupCookie != 0 && m_wndDownloads.m_nGroupCookie != pSelect->m_nGroupCookie )
+	{
+		m_wndTabBar.Select();
+		m_wndDownloads.m_nGroupCookie = 0;
+	}
+
+	// Find file for Download Monitor "Show" or right-click
+	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
 	{
 		CDownload* pDownload = Downloads.GetNext( pos );
 
@@ -539,11 +548,15 @@ BOOL CDownloadsWnd::Select(CDownload* pSelect)
 		{
 			m_wndDownloads.SelectTo( nIndex );
 			pDownload->m_bSelected = TRUE;
-			bFound = TRUE;
+			nIndex = UINT_MAX;	// Stop counting at MAXDWORD
 		}
 		else
 		{
 			pDownload->m_bSelected = FALSE;
+			if ( nIndex < UINT_MAX &&
+				 ( m_wndDownloads.m_nGroupCookie == 0 || m_wndDownloads.m_nGroupCookie == pDownload->m_nGroupCookie ) &&
+				 ! m_wndDownloads.IsFiltered( pDownload ) )
+				nIndex++;
 		}
 
 		if ( pDownload->m_bExpanded )
@@ -552,17 +565,16 @@ BOOL CDownloadsWnd::Select(CDownload* pSelect)
 			{
 				CDownloadSource* pSource = pDownload->GetNext( posSource );
 				pSource->m_bSelected = FALSE;
-				if ( ! bFound && ( ! pSource->IsIdle() || Settings.Downloads.ShowSources ) )
+				if ( nIndex < UINT_MAX && ( Settings.Downloads.ShowSources || ! pSource->IsIdle() ) )
 					nIndex++;
 			}
 		}
 	}
+
 	pLock.Unlock();
 
-	Invalidate();
 	m_tSel = 0;
-
-	return bFound;
+	Invalidate();
 }
 
 void CDownloadsWnd::Prepare()
@@ -664,7 +676,7 @@ void CDownloadsWnd::Prepare()
 					m_bSelIdleSource = TRUE;
 				else
 					m_bSelActiveSource = TRUE;
-				if ( pSource->m_bClientExtended || pSource->m_nProtocol == PROTOCOL_ED2K  )
+				if ( pSource->m_bClientExtended || pSource->m_nProtocol == PROTOCOL_ED2K )
 				{
 					m_bSelBrowse = TRUE;
 					m_bSelChat = TRUE;
@@ -1327,7 +1339,7 @@ void CDownloadsWnd::OnDownloadsMergeLocal()
 
 		CList< CString > oFiles;
 		CString sFolder = (LPCTSTR)szFiles;
-		for ( LPCTSTR szFile = szFiles; *szFile ; )
+		for ( LPCTSTR szFile = szFiles ; *szFile ; )
 		{
 			szFile += _tcslen( szFile ) + 1;
 			if ( *szFile )	// Folder + files
@@ -1544,7 +1556,7 @@ void CDownloadsWnd::OnDownloadsEdit()
 			dlg.DoModal();
 			break;
 		}
-		
+
 		if ( m_bSelCompleted )
 		{
 			CFilePropertiesSheet dlg;
@@ -1812,7 +1824,7 @@ void CDownloadsWnd::OnDownloadsFileDelete()
 		CDownload* pDownload = Downloads.GetNext( pos );
 		if ( pDownload->m_bSelected && pDownload->IsCompleted() )
 		{
-			pDownload->m_bClearing == TRUE;		// Indicate marked for removal (may take awhile)
+			pDownload->m_bClearing = TRUE;		// Indicate marked for removal (may take awhile)
 
 			const DWORD nCount = pDownload->GetFileCount();
 			for ( DWORD i = 0 ; i < nCount ; ++i )

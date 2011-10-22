@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "Download.h"
 #include "Downloads.h"
 #include "DownloadSource.h"
@@ -32,7 +32,7 @@
 #include "XML.h"
 #include "Transfers.h"
 #include "VendorCache.h"
-#include "Security.h" //Vendors
+#include "Security.h" // Vendors
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -486,12 +486,12 @@ BOOL CDownloadTransferHTTP::OnRun()
 
 	CDownloadTransfer::OnRun();
 
-	DWORD tNow = GetTickCount();
+	const DWORD tNow = GetTickCount();
 
 	switch ( m_nState )
 	{
 	case dtsConnecting:
-		if ( tNow - m_tConnected > Settings.Connection.TimeoutConnect )
+		if ( tNow > m_tConnected + Settings.Connection.TimeoutConnect )
 		{
 			theApp.Message( MSG_ERROR, IDS_CONNECTION_TIMEOUT_CONNECT, (LPCTSTR)m_sAddress );
 			if ( m_pSource != NULL ) m_pSource->PushRequest();
@@ -502,7 +502,7 @@ BOOL CDownloadTransferHTTP::OnRun()
 
 	case dtsRequesting:
 	case dtsHeaders:
-		if ( tNow - m_tRequest > Settings.Connection.TimeoutHandshake )
+		if ( tNow > m_tRequest + Settings.Connection.TimeoutHandshake )
 		{
 			theApp.Message( MSG_ERROR, IDS_DOWNLOAD_REQUEST_TIMEOUT, (LPCTSTR)m_sAddress );
 			Close( m_bBusyFault || m_bQueueFlag ? TRI_TRUE : TRI_UNKNOWN );
@@ -514,7 +514,7 @@ BOOL CDownloadTransferHTTP::OnRun()
 	case dtsFlushing:
 	case dtsTiger:
 	case dtsMetadata:
-		if ( tNow - m_mInput.tLast > Settings.Connection.TimeoutTraffic * 2 )
+		if ( tNow > m_mInput.tLast + ( Settings.Connection.TimeoutTraffic * 2 ) )
 		{
 			theApp.Message( MSG_ERROR, IDS_DOWNLOAD_TRAFFIC_TIMEOUT, (LPCTSTR)m_sAddress );
 			Close( TRI_TRUE );
@@ -523,7 +523,7 @@ BOOL CDownloadTransferHTTP::OnRun()
 		break;
 
 	case dtsBusy:
-		if ( tNow - m_tRequest > 1000 )
+		if ( tNow > m_tRequest + 1000 )
 		{
 			theApp.Message( MSG_ERROR, IDS_DOWNLOAD_BUSY, (LPCTSTR)m_sAddress, Settings.Downloads.RetryDelay / 1000 );
 			Close( TRI_TRUE );
@@ -978,7 +978,7 @@ BOOL CDownloadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 
 			nPos = strValue.Find( _T("pollmin=") );
 			if ( nPos >= 0 && _stscanf( strValue.Mid( nPos + 8 ), _T("%u"), &nLimit ) == 1 )
-				m_nRetryDelay = max( m_nRetryDelay, nLimit * 1000 + 3000  );
+				m_nRetryDelay = max( m_nRetryDelay, nLimit * 1000 + 3000 );
 
 			nPos = strValue.Find( _T("pollmax=") );
 			if ( nPos >= 0 && _stscanf( strValue.Mid( nPos + 8 ), _T("%u"), &nLimit ) == 1 )
@@ -1060,7 +1060,7 @@ BOOL CDownloadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 						|| strFilename.Find( _T('<') ) >= 0 || strFilename.Find( _T('>') ) >= 0 || strFilename.Find( _T('|') ) >= 0 )
 					{
 						// And if the source is only one, and it isn't a P2P client replace bad chars with _
-						if( m_pDownload->GetSourceCount() <= 1 && ! bIsP2P )
+						if ( m_pDownload->GetSourceCount() <= 1 && ! bIsP2P )
 						{
 							strFilename.Replace( _T('\\'), _T('_') );
 							strFilename.Replace( _T('/'), _T('_') );

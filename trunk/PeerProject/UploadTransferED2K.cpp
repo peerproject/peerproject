@@ -17,14 +17,14 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "Datagrams.h"
+#include "PeerProject.h"
+#include "UploadTransferED2K.h"
 #include "UploadFile.h"
 #include "UploadQueue.h"
 #include "UploadQueues.h"
-#include "UploadTransferED2K.h"
 #include "Statistics.h"
+#include "Datagrams.h"
 #include "EDClient.h"
 #include "EDPacket.h"
 
@@ -182,13 +182,13 @@ BOOL CUploadTransferED2K::OnRun()
 BOOL CUploadTransferED2K::OnRunEx(DWORD tNow)
 {
 	// Limit per-source packet rate
-	if ( tNow - m_tLastRun < Settings.eDonkey.SourceThrottle ) return FALSE;
+	if ( tNow < m_tLastRun + Settings.eDonkey.SourceThrottle ) return FALSE;
 	m_tLastRun = tNow;
 
 	if ( m_nState == upsQueued )
 	{
 		if ( m_pClient->IsOnline() == FALSE && tNow > m_tRequest &&
-			 tNow - m_tRequest >= Settings.eDonkey.DequeueTime * 1000 )
+			 tNow >= m_tRequest + Settings.eDonkey.DequeueTime * 1000 )
 		{
 			Close( IDS_UPLOAD_QUEUE_TIMEOUT );
 			return FALSE;
@@ -206,7 +206,7 @@ BOOL CUploadTransferED2K::OnRunEx(DWORD tNow)
 		else // Over 200 at 8 minutes
 			nCheckThrottle = 8 * 60 * 1000;
 
-		if ( tNow > m_tRankingCheck && tNow - m_tRankingCheck >= nCheckThrottle )
+		if ( tNow > m_tRankingCheck && tNow >= m_tRankingCheck + nCheckThrottle )
 		{
 			// Check the queue rank. Start upload or send rank update if required.
 			if ( ! CheckRanking() )
@@ -218,8 +218,8 @@ BOOL CUploadTransferED2K::OnRunEx(DWORD tNow)
 		if ( ! ServeRequests() )
 			return FALSE;
 
-		if ( tNow > m_pClient->m_mOutput.tLast &&
-			 tNow - m_pClient->m_mOutput.tLast > Settings.Connection.TimeoutTraffic * 3 )
+		if ( tNow > m_pClient->m_mOutput.tLast &&	// Is this necessary?
+			 tNow > m_pClient->m_mOutput.tLast + Settings.Connection.TimeoutTraffic * 3 )
 		{
 			Close( IDS_UPLOAD_TRAFFIC_TIMEOUT );
 			return FALSE;
@@ -227,7 +227,7 @@ BOOL CUploadTransferED2K::OnRunEx(DWORD tNow)
 	}
 	else if ( m_nState == upsReady || m_nState == upsRequest )
 	{
-		if ( tNow > m_tRequest && tNow - m_tRequest > Settings.Connection.TimeoutHandshake )
+		if ( tNow > m_tRequest && tNow > m_tRequest + Settings.Connection.TimeoutHandshake )
 		{
 			Close( IDS_UPLOAD_REQUEST_TIMEOUT );
 			return FALSE;
@@ -235,7 +235,7 @@ BOOL CUploadTransferED2K::OnRunEx(DWORD tNow)
 	}
 	else if ( m_nState == upsConnecting )
 	{
-		if ( tNow > m_tRequest && tNow - m_tRequest > Settings.Connection.TimeoutConnect + Settings.Connection.TimeoutHandshake + 10000 )
+		if ( tNow > m_tRequest && tNow > m_tRequest + Settings.Connection.TimeoutConnect + Settings.Connection.TimeoutHandshake + 10000 )
 		{
 			Close( IDS_UPLOAD_DROPPED );
 			return FALSE;
@@ -593,7 +593,7 @@ BOOL CUploadTransferED2K::DispatchNextChunk()
 						( ( m_nOffset + m_nPosition + nChunk ) & 0xffffffff00000000 );
 
 #if 0
-// ToDo: Why is this here but unreachable?
+// ToDo: Why is this here but unused?
 //	// Use packet form
 //	if ( bI64Offset )
 //	{
@@ -727,7 +727,6 @@ BOOL CUploadTransferED2K::CheckFinishedRequest()
 
 BOOL CUploadTransferED2K::CheckRanking()
 {
-	DWORD tNow = GetTickCount();
 	int nPosition = UploadQueues.GetPosition( this, TRUE );
 
 	if ( nPosition < 0 )
@@ -737,6 +736,8 @@ BOOL CUploadTransferED2K::CheckRanking()
 		Close( IDS_UPLOAD_DROPPED );
 		return FALSE;
 	}
+
+	const DWORD tNow = GetTickCount();
 
 	// Update 'ranking checked' timer
 	m_tRankingCheck = tNow;
@@ -775,7 +776,7 @@ BOOL CUploadTransferED2K::CheckRanking()
 		// Upload is queued
 
 		// Check if we should send a ranking packet- If we have not sent one in a while, or one was requested
-		if ( ( tNow > m_tRankingSent && tNow - m_tRankingSent >= Settings.eDonkey.QueueRankThrottle ) || ( m_nRanking == -1 ) )
+		if ( tNow > m_tRankingSent + Settings.eDonkey.QueueRankThrottle || m_nRanking == -1 )
 		{
 			// Send a queue rank packet
 			CSingleLock pLock( &UploadQueues.m_pSection, TRUE );
@@ -801,7 +802,7 @@ BOOL CUploadTransferED2K::CheckRanking()
 				pPacket->WriteLongLE( 0 );
 				Send( pPacket );
 			}
-			else	// older eDonkey style
+			else	// Older eDonkey style
 			{
 				CEDPacket* pPacket = CEDPacket::New( ED2K_C2C_QUEUERANK );
 				pPacket->WriteLongLE( nPosition );

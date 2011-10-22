@@ -18,9 +18,9 @@
 
 #include "StdAfx.h"
 #include "PeerProject.h"
-#include "Plugins.h"
 #include "ImageServices.h"
 #include "ImageFile.h"
+#include "Plugins.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE

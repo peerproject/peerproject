@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Croatian Skin File -->
 
-<!-- Translation based on default-en.xml r69 (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r70 (Shareaza 2.2.0.2) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1448,7 +1448,7 @@
 			<item id="ID_SYSTEM_VERBOSE_INFO" text="_Info"/>
 			<item id="ID_SYSTEM_VERBOSE_DEBUG" text="_Debug"/>
 		</menu>
-		<item id="ID_SYSTEM_TIMESTAMP" text="Timestam_p"/>
+		<item id="ID_SYSTEM_TIMESTAMP" text="_Timestamp"/>
 		<separator/>
 		<item id="ID_SYSTEM_COPY" text="_Copy" shortcut="Ctrl+C"/>
 		<separator/>
@@ -1485,9 +1485,11 @@
 			<item id="ID_VIEW_HOSTS" text="_Host/Server Cache"/>
 		</menu>
 		<menu text="Praćenje">
-			<item id="ID_NEIGHBOURS_VIEW_ALL" text="Pok_aži Sav Promet"/>
-			<item id="ID_NEIGHBOURS_VIEW_INCOMING" text="Pokaž_i Primljeni Promet"/>
-			<item id="ID_NEIGHBOURS_VIEW_OUTGOING" text="P_okaži Poslani Promet"/>
+			<item id="ID_NEIGHBOURS_VIEW_ALL" text="Pokaži Sav Promet"/>
+			<item id="ID_NEIGHBOURS_VIEW_INCOMING" text="Pokaži Primljeni Promet"/>
+			<item id="ID_NEIGHBOURS_VIEW_OUTGOING" text="Pokaži Poslani Promet"/>
+			<separator/>
+			<item id="ID_VIEW_TRAFFIC" text="View Advanced _Graph"/>
 		</menu>
 	</menu>
 	<!-- SEARCH MONITOR WINDOW -->
@@ -2392,6 +2394,12 @@
 	<string id="20020" value="Datoteka"/>
 	<string id="20021" value="Datoteke"/>
 	<string id="20022" value="Sve Datoteke"/>
+	<string id="20023" value="No Files"/>
+	<string id="20024" value="Velike Datoteke"/>
+	<string id="20025" value="Srednje Datoteke"/>
+	<string id="20026" value="Male Datoteke"/>
+	<string id="20027" value="Djelomične Datoteke"/>
+	<string id="20028" value="Library Files"/>
 	<string id="20029" value="%s Datoteke"/>
 	<string id="20050" value="Svaki Dan"/>
 	<string id="20051" value="Ponedjeljek"/>
@@ -2794,7 +2802,7 @@
 	<string id="20576" value="Sending query routing table to neighbour %s (%i bit = %lu[%i], %i%% full)"/>
 	<string id="20577" value="Receiving an unexpected query routing table update from neighbour %s."/>
 	<string id="20578" value="Neighbour %s updated its query routing table (%i bit = %lu[%i], %i%% full)."/>
-	<string id="20579" value="%s -> %s [%i/%i] %s %s"/>
+	<string id="20579" value="%s -&gt; %s [%i/%i] %s %s"/>
 	<string id="20580" value="Leaf neighbour %s is forwarding queries, dropping connection."/>
 	<string id="20581" value="Neighbour %s forwarded a ping packet with invalid length, ignoring."/>
 	<string id="20582" value="Neighbour %s forwarded a pong packet with invalid length, ignoring."/>
@@ -3820,13 +3828,13 @@
 		<control caption="One day only"/>
 		<control/>
 		<control/>
-		<control caption="Pon"/>
-		<control caption="Uto"/>
-		<control caption="Sri"/>
-		<control caption="Čet"/>
-		<control caption="Pet"/>
-		<control caption="Sub"/>
-		<control caption="Ned"/>
+		<control caption="Ponedjeljek"/>
+		<control caption="Utorak"/>
+		<control caption="Srijeda"/>
+		<control caption="Četvrtak"/>
+		<control caption="Petak"/>
+		<control caption="Subota"/>
+		<control caption="Nedjelja"/>
 		<control caption="Sve"/>
 		<control caption="Komentari"/>
 		<control/>
@@ -3916,18 +3924,18 @@
 		<control caption="http://PeerProject.org"/>
 		<control caption="OK"/>
 	</dialog>
-	<dialog name="CExistingFileDlg" cookie="StStStStStBuBuBuBuBuSt" caption="Postojeća Datoteka">
+	<dialog name="CExistingFileDlg" cookie="StStStStBuBuBuBuBuStSt" caption="Postojeća Datoteka">
 		<control/>
 		<control/>
 		<control/>
-		<control/>
-		<control caption="Ovu datoteku već imate u vašoj kolekciji.Što želite učiniti?"/>
+		<control caption="Ovu datoteku već imate u vašoj kolekciji. Što želite učiniti?"/>
 		<control caption="Pokaži mi datoteku u mojoj kolekciji"/>
 		<control caption="Ponovno skini"/>
 		<control caption="Nemoj skinuti, to već imam"/>
 		<control caption="OK"/>
 		<control caption="Odustani"/>
-		<control caption="Ovu datoteku ste već skinuli, pa obrisali.  Što želite učiniti?"/>
+		<control caption="Ovu datoteku ste već skinuli, pa obrisali. Što želite učiniti?"/>
+		<control caption="Warning: Duplicate files detected. Some malicious software may infect your Library. Make sure that you downloaded this file or placed it manually. Otherwise, shutdown PeerProject and scan your computer with an antivirus program."/>
 	</dialog>
 	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Zatvaranje">
 		<control caption="Ovo je prvi puta da zatvarate PeerProject.Molim da odaberete što će PeerProject učiniti kada ubuduće kliknete na zatvori:"/>
@@ -4085,9 +4093,9 @@
 	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Uzbuna o Poboljšanju">
 		<control caption="Dostupna je nova verzija PeerProject. Želite li je unaprijediti?"/>
 		<control caption="Ako odaberete Unaprijedi Sad, PeerProject će dodati novu verziju u za skinuti i automatski započeti skidanje."/>
-		<control caption="_Unaprijedi Sad"/>
 		<control caption="Ne provjeravaj dali ima novih verzija."/>
-		<control caption="Nemoj Unaprijedit"/>
+		<control caption="_Unaprijedi Sad"/>
+		<control caption="Odustani"/>
 	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Lokalizacija Metadate">
 		<control caption="Molim odaberite metodu re-encodinga"/>

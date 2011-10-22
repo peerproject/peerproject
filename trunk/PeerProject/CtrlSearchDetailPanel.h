@@ -23,6 +23,7 @@
 #include "RichDocument.h"
 #include "RichViewCtrl.h"
 #include "HttpRequest.h"
+#include "MatchObjects.h"
 
 class CMatchFile;
 class CImageFile;

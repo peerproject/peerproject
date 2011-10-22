@@ -17,13 +17,13 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "PageSettingsDownloads.h"
 #include "Library.h"
 #include "LibraryFolders.h"
 #include "SharedFolder.h"
 #include "Skin.h"
-#include "PageSettingsDownloads.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -193,7 +193,7 @@ BOOL CDownloadsSettingsPage::OnKillActive()
 {
 	UpdateData();
 
-	if ( IsLimited( m_sBandwidthLimit ) && !Settings.ParseVolume( m_sBandwidthLimit ) )
+	if ( IsLimited( m_sBandwidthLimit ) && ! Settings.ParseVolume( m_sBandwidthLimit ) )
 	{
 		CString strMessage;
 		LoadString( strMessage, IDS_SETTINGS_NEED_BANDWIDTH );
@@ -327,9 +327,9 @@ void CDownloadsSettingsPage::OnShowWindow(BOOL bShow, UINT nStatus)
 
 		// Update speed units
 		if ( Settings.Bandwidth.Downloads )
-			m_sBandwidthLimit	= Settings.SmartSpeed( Settings.Bandwidth.Downloads );
+			m_sBandwidthLimit = Settings.SmartSpeed( Settings.Bandwidth.Downloads );
 		else
-			m_sBandwidthLimit	= _T("MAX");
+			m_sBandwidthLimit = _T("MAX");
 
 		// Remove any existing strings
 		m_wndBandwidthLimit.ResetContent();

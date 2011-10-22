@@ -17,15 +17,16 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "BitziDownloader.h"
+
+#include "DlgBitziDownload.h"
 #include "Library.h"
 #include "SharedFile.h"
-#include "XML.h"
 #include "Schema.h"
 #include "SchemaCache.h"
-#include "BitziDownloader.h"
-#include "DlgBitziDownload.h"
+#include "XML.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE

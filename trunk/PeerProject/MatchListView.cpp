@@ -18,9 +18,9 @@
 
 #include "StdAfx.h"
 #include "PeerProject.h"
+#include "MatchListView.h"
 #include "MatchObjects.h"
 #include "QueryHit.h"
-#include "MatchListView.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE

@@ -17,14 +17,14 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "CtrlCoolBar.h"
-#include "CoolInterface.h"
-#include "CoolMenu.h"
-#include "Colors.h"
+#include "PeerProject.h"
 #include "Skin.h"
 #include "SkinWindow.h"
+#include "CtrlCoolBar.h"
+#include "CoolMenu.h"
+#include "CoolInterface.h"
+#include "Colors.h"
 #include "ImageServices.h"
 #include "ImageFile.h"
 #include "Images.h"
@@ -2661,7 +2661,7 @@ void CSkin::DrawWrappedText(CDC* pDC, CRect* pBox, LPCTSTR pszText, CPoint ptSta
 	if ( pszText == NULL ) return;
 	if ( ptStart.x == 0 && ptStart.y == 0 ) ptStart = pBox->TopLeft();
 
-	UINT nAlignOptionsOld = pDC->GetTextAlign(); // backup settings
+	UINT nAlignOptionsOld = pDC->GetTextAlign();	// Backup settings
 	UINT nFlags = ETO_CLIPPED | ( bExclude ? ETO_OPAQUE : 0 );
 
 	unsigned short nLenFull = static_cast< unsigned short >( _tcslen( pszText ) );

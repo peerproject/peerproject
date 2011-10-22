@@ -1,7 +1,7 @@
 //
 // DlgFolderProperties.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -17,9 +17,10 @@
 //
 
 #include "StdAfx.h"
+#include "Settings.h"
 #include "PeerProject.h"
 #include "DlgFolderProperties.h"
-#include "Settings.h"
+
 #include "Library.h"
 #include "LibraryFolders.h"
 #include "AlbumFolder.h"
@@ -41,16 +42,16 @@ IMPLEMENT_DYNAMIC(CFolderPropertiesDlg, CSkinDialog)
 
 BEGIN_MESSAGE_MAP(CFolderPropertiesDlg, CSkinDialog)
 	ON_WM_DESTROY()
-	ON_WM_GETMINMAXINFO()
 	ON_WM_SIZE()
-	ON_CBN_SELCHANGE(IDC_SCHEMAS, OnSelChangeSchemas)
-	ON_CBN_CLOSEUP(IDC_SCHEMAS, OnCloseUpSchemas)
-	ON_BN_CLICKED(IDCANCEL, OnCancel)
 	ON_WM_PAINT()
-	ON_EN_CHANGE(IDC_TITLE, OnChangeTitle)
 	ON_WM_CTLCOLOR()
 	ON_WM_SETCURSOR()
 	ON_WM_LBUTTONUP()
+	ON_WM_GETMINMAXINFO()
+	ON_CBN_SELCHANGE(IDC_SCHEMAS, OnSelChangeSchemas)
+	ON_CBN_CLOSEUP(IDC_SCHEMAS, OnCloseUpSchemas)
+	ON_BN_CLICKED(IDCANCEL, OnCancel)
+	ON_EN_CHANGE(IDC_TITLE, OnChangeTitle)
 	ON_EN_CHANGE(IDC_METADATA, OnChangeData)
 END_MESSAGE_MAP()
 
@@ -58,11 +59,12 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CFolderPropertiesDlg dialog
 
-CFolderPropertiesDlg::CFolderPropertiesDlg(CWnd* pParent, CAlbumFolder* pFolder) : CSkinDialog( CFolderPropertiesDlg::IDD, pParent, FALSE ) //ToDo: Fix TRUE Banner Display?
+CFolderPropertiesDlg::CFolderPropertiesDlg(CWnd* pParent, CAlbumFolder* pFolder)
+	: CSkinDialog( CFolderPropertiesDlg::IDD, pParent, FALSE )		// ToDo: Fix TRUE Banner Display?
+	, m_pFolder	( pFolder )
+	, m_nWidth	( 0 )
+	, m_bUpdating ( FALSE )
 {
-	m_pFolder	= pFolder;
-	m_nWidth	= 0;
-	m_bUpdating	= FALSE;
 }
 
 void CFolderPropertiesDlg::DoDataExchange(CDataExchange* pDX)
@@ -108,7 +110,8 @@ BOOL CFolderPropertiesDlg::OnInitDialog()
 		OnSelChangeSchemas();
 
 		m_bUpdating = TRUE;
-		if ( m_pFolder->m_pXML ) m_wndData.UpdateData( m_pFolder->m_pXML, FALSE );
+		if ( m_pFolder->m_pXML )
+			m_wndData.UpdateData( m_pFolder->m_pXML, FALSE );
 		m_bUpdating = FALSE;
 	}
 	else
@@ -162,8 +165,8 @@ void CFolderPropertiesDlg::OnSize(UINT nType, int cx, int cy)
 
 	m_wndSchemas.GetWindowRect( &rc );
 	ScreenToClient( &rc );
-	rc.right	= nRight;
-	rc.left		= rcClient.right - rc.right;
+	rc.right = nRight;
+	rc.left  = rcClient.right - rc.right;
 
 	HDWP hDWP = BeginDeferWindowPos( 4 );
 
@@ -192,15 +195,15 @@ void CFolderPropertiesDlg::OnPaint()
 	CPaintDC dc( this );
 	CRect rc( 8, 6, 8 + 98, 6 + 98 );
 
-	COLORREF crBack =  CColors::CalculateColor(
-						Colors.m_crTipBack, RGB( 255, 255, 255 ), 128 );
+	COLORREF crBack = CColors::CalculateColor( Colors.m_crTipBack, RGB( 255, 255, 255 ), 128 );
 
 	dc.Draw3dRect( &rc, Colors.m_crSysActiveCaption, Colors.m_crSysActiveCaption );
 	rc.DeflateRect( 1, 1 );
 
 	{
 		CPoint pt = rc.CenterPoint();
-		pt.x -= 24; pt.y -= 24;
+		pt.x -= 24;
+		pt.y -= 24;
 
 		if ( CSchemaPtr pSchema = m_wndSchemas.GetSelected() )
 		{
@@ -212,7 +215,8 @@ void CFolderPropertiesDlg::OnPaint()
 			}
 			else
 			{
-				pt.x += 8; pt.y += 8;
+				pt.x += 8;
+				pt.y += 8;
 				ImageList_DrawEx( ShellIcons.GetHandle( 32 ), pSchema->m_nIcon32,
 					dc.GetSafeHdc(), pt.x, pt.y, 32, 32, crBack, CLR_NONE, ILD_NORMAL );
 				dc.ExcludeClipRect( pt.x, pt.y, pt.x + 32, pt.y + 32 );
@@ -380,10 +384,7 @@ void CFolderPropertiesDlg::OnCancel()
 	if ( LibraryFolders.CheckAlbum( m_pFolder ) )
 	{
 		if ( m_pFolder->m_sSchemaURI && m_pFolder->m_sSchemaURI.IsEmpty() )
-		{
-			m_pFolder->Delete();	// "New Folder" created but Cancelled
-									// Only OK button assigns schema
-		}
+			m_pFolder->Delete();	// "New Folder" created but Cancelled, Only OK button assigns schema
 	}
 
 	return CSkinDialog::OnCancel();

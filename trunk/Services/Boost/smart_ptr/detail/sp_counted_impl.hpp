@@ -3,7 +3,7 @@
 
 // MS compatible compilers support #pragma once
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif
 
@@ -13,8 +13,8 @@
 //  Copyright (c) 2001, 2002, 2003 Peter Dimov and Multi Media Ltd.
 //  Copyright 2004-2005 Peter Dimov
 //
-// Distributed under the Boost Software License, Version 1.0. (See
-// accompanying file LICENSE_1_0.txt or copy at
+// Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 //
 
@@ -135,7 +135,11 @@ public:
 
     // pre: d(p) must not throw
 
-    sp_counted_impl_pd( P p, D d ): ptr(p), del(d)
+    sp_counted_impl_pd( P p, D & d ): ptr( p ), del( d )
+    {
+    }
+
+    sp_counted_impl_pd( P p ): ptr( p ), del()
     {
     }
 
@@ -195,7 +199,11 @@ public:
 
     // pre: d( p ) must not throw
 
-    sp_counted_impl_pda( P p, D d, A a ): p_( p ), d_( d ), a_( a )
+    sp_counted_impl_pda( P p, D & d, A a ): p_( p ), d_( d ), a_( a )
+    {
+    }
+
+    sp_counted_impl_pda( P p, A a ): p_( p ), d_(), a_( a )
     {
     }
 

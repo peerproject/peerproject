@@ -17,12 +17,12 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "DownloadWithTransfers.h"
 #include "Download.h"
 #include "Downloads.h"
 #include "Transfers.h"
-#include "DownloadWithTransfers.h"
 #include "DownloadSource.h"
 #include "DownloadTransferHTTP.h"
 //#include "DownloadTransferFTP.h"
@@ -61,7 +61,7 @@ CDownloadWithTransfers::~CDownloadWithTransfers()
 
 bool CDownloadWithTransfers::HasActiveTransfers() const
 {
-	for ( CDownloadTransfer* pTransfer = m_pTransferFirst; pTransfer; pTransfer = pTransfer->m_pDlNext )
+	for ( CDownloadTransfer* pTransfer = m_pTransferFirst ; pTransfer ; pTransfer = pTransfer->m_pDlNext )
 	{
 		// Metadata, tiger fetch, etc. are also transfers, but very short in time - should we check that?
 		if ( pTransfer->m_nState == dtsDownloading )
@@ -74,7 +74,7 @@ DWORD CDownloadWithTransfers::GetTransferCount() const
 {
 	DWORD nCount = 0;
 
-	for ( CDownloadTransfer* pTransfer = m_pTransferFirst; pTransfer; pTransfer = pTransfer->m_pDlNext )
+	for ( CDownloadTransfer* pTransfer = m_pTransferFirst ; pTransfer ; pTransfer = pTransfer->m_pDlNext )
 	{
 		if ( ( pTransfer->m_nState > dtsNull ) &&
 			 ( pTransfer->m_nProtocol != PROTOCOL_ED2K || pTransfer->m_nState != dtsQueued ) )
@@ -102,7 +102,7 @@ DWORD CDownloadWithTransfers::GetTransferCount(int nState, const IN_ADDR* pAddre
 	switch ( nState )
 	{
 	case dtsCountAll:
-		for ( CDownloadTransfer* pTransfer = m_pTransferFirst; pTransfer; pTransfer = pTransfer->m_pDlNext )
+		for ( CDownloadTransfer* pTransfer = m_pTransferFirst ; pTransfer ; pTransfer = pTransfer->m_pDlNext )
 		{
 			if ( ValidTransfer( pAddress, pTransfer ) )
 				++nCount;
@@ -178,7 +178,7 @@ BOOL CDownloadWithTransfers::CanStartTransfers(DWORD tNow)
 	if ( tNow == 0 )
 		tNow = GetTickCount();
 
-	if ( tNow - m_tTransferStart < 100 ) return FALSE;
+	if ( tNow < m_tTransferStart + 100 ) return FALSE;
 	m_tTransferStart = tNow;
 
 	// Make sure the network is ready
@@ -187,8 +187,8 @@ BOOL CDownloadWithTransfers::CanStartTransfers(DWORD tNow)
 	// Limit the connection rate
 	if ( Settings.Downloads.ConnectThrottle != 0 )
 	{
-		if ( tNow < Downloads.m_tLastConnect ) return FALSE;
-		if ( tNow - Downloads.m_tLastConnect <= Settings.Downloads.ConnectThrottle ) return FALSE;
+		if ( tNow < Downloads.m_tLastConnect ) return FALSE;	// Is this really necesary?
+		if ( tNow <= Downloads.m_tLastConnect + Settings.Downloads.ConnectThrottle ) return FALSE;
 	}
 
 	// Limit amount of connecting sources (half-open). (Very important for XP sp2)
@@ -205,11 +205,11 @@ BOOL CDownloadWithTransfers::StartTransfersIfNeeded(DWORD tNow)
 	// Check connection throttles, max open connections, etc
 	if ( ! CanStartTransfers( tNow ) ) return FALSE;
 
-	//BitTorrent limiting
+	// BitTorrent limiting
 	if ( static_cast< CDownloadWithTorrent* >( this )->IsTorrent() )
 	{
 		// Max connections
-		if ( ( GetTransferCount( dtsCountTorrentAndActive ) ) > Settings.BitTorrent.DownloadConnections )
+		if ( GetTransferCount( dtsCountTorrentAndActive ) > Settings.BitTorrent.DownloadConnections )
 			return FALSE;
 	}
 
@@ -220,13 +220,13 @@ BOOL CDownloadWithTransfers::StartTransfersIfNeeded(DWORD tNow)
 		 nTransfers == GetTransferCount( dtsCountAll ) ) )
 	{
 		// If we can start new downloads, or this download is already running
-		if ( Downloads.AllowMoreDownloads() || m_pTransferFirst != NULL )
+		if ( m_pTransferFirst != NULL || Downloads.AllowMoreDownloads() )
 		{
 			// If we can start new transfers
 			if ( Downloads.AllowMoreTransfers() )
 			{
 				// If download bandwidth isn't at max
-				if ( ( tNow - Downloads.m_tBandwidthAtMax ) > 5000 )
+				if ( tNow > Downloads.m_tBandwidthAtMax + 5000 )
 				{
 					// Start a new download
 					if ( StartNewTransfer( tNow ) )
@@ -256,11 +256,11 @@ BOOL CDownloadWithTransfers::StartNewTransfer(DWORD tNow)
 	if ( static_cast< CDownloadWithTorrent* >( this )->IsTorrent() &&
 		( Settings.BitTorrent.PreferenceBTSources ) )
 	{
-		for ( POSITION posSource = GetIterator(); posSource ; )
+		for ( POSITION posSource = GetIterator() ; posSource ; )
 		{
 			CDownloadSource* pSource = GetNext( posSource );
 
-			if (   pSource->IsIdle() &&						// does not have a transfer
+			if (   pSource->IsIdle() &&						// Does not have a transfer
 				 ( pSource->m_bPushOnly == FALSE ) &&		// Not push
 				 ( pSource->m_nProtocol == PROTOCOL_BT ) &&	// Is a BT source
 				 ( pSource->m_tAttempt == 0 ) )				// Is a "fresh" source from the tracker
@@ -274,7 +274,7 @@ BOOL CDownloadWithTransfers::StartNewTransfer(DWORD tNow)
 		}
 	}
 
-	for ( POSITION posSource = GetIterator(); posSource ; )
+	for ( POSITION posSource = GetIterator() ; posSource ; )
 	{
 		CDownloadSource* pSource = GetNext( posSource );
 
@@ -282,7 +282,7 @@ BOOL CDownloadWithTransfers::StartNewTransfer(DWORD tNow)
 		{
 			// Already has a transfer
 		}
-		else if ( ( pSource->m_nProtocol == PROTOCOL_ED2K ) && ( ( tNow - Downloads.m_tBandwidthAtMaxED2K ) < 5000 ) )
+		else if ( pSource->m_nProtocol == PROTOCOL_ED2K && tNow < Downloads.m_tBandwidthAtMaxED2K + 5000 )
 		{
 			// ED2K use (Ratio) is maxed out, no point in starting new transfers
 		}
@@ -415,7 +415,7 @@ BOOL CDownloadWithTransfers::OnAcceptPush(const Hashes::Guid& oClientID, CConnec
 
 	CDownloadSource* pSource = NULL;
 
-	for ( POSITION posSource = GetIterator(); posSource ; )
+	for ( POSITION posSource = GetIterator() ; posSource ; )
 	{
 		pSource = GetNext( posSource );
 
@@ -458,7 +458,7 @@ BOOL CDownloadWithTransfers::OnDonkeyCallback(const CEDClient* pClient, CDownloa
 
 	CDownloadSource* pSource = NULL;
 
-	for ( POSITION posSource = GetIterator(); posSource ; )
+	for ( POSITION posSource = GetIterator() ; posSource ; )
 	{
 		pSource = GetNext( posSource );
 

@@ -1,6 +1,5 @@
 
-//  (C) Copyright Dave Abrahams, Steve Cleary, Beman Dawes, Howard
-//  Hinnant & John Maddock 2000.
+//  (C) Copyright Dave Abrahams, Steve Cleary, Beman Dawes, Howard Hinnant & John Maddock 2000.
 //  Use, modification and distribution are subject to the Boost Software License,
 //  Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt).
@@ -55,7 +54,7 @@ namespace detail {
 
 template <bool>
 struct is_mem_fun_pointer_select
-    : ::boost::type_traits::false_result
+    : public ::boost::type_traits::false_result
 {
 };
 
@@ -64,7 +63,7 @@ struct is_mem_fun_pointer_select<false>
 {
     template <typename T> struct result_
     {
-#if BOOST_WORKAROUND(_MSC_FULL_VER, >= 140050000)
+#if BOOST_WORKAROUND(BOOST_MSVC_FULL_VER, >= 140050000)
 #pragma warning(push)
 #pragma warning(disable:6334)
 #endif
@@ -75,7 +74,7 @@ struct is_mem_fun_pointer_select<false>
             bool, value = (
                 1 == sizeof(::boost::type_traits::is_mem_fun_pointer_tester(self_type::make_t))
             ));
-#if BOOST_WORKAROUND(_MSC_FULL_VER, >= 140050000)
+#if BOOST_WORKAROUND(BOOST_MSVC_FULL_VER, >= 140050000)
 #pragma warning(pop)
 #endif
     };
@@ -83,7 +82,7 @@ struct is_mem_fun_pointer_select<false>
 
 template <typename T>
 struct is_member_function_pointer_impl
-    : is_mem_fun_pointer_select<
+    : public is_mem_fun_pointer_select<
           ::boost::type_traits::ice_or<
               ::boost::is_reference<T>::value
             , ::boost::is_array<T>::value
@@ -97,22 +96,22 @@ template <typename T>
 struct is_member_function_pointer_impl<T&> : public false_type{};
 #endif
 
-#else // Borland C++
-
-template <typename T>
-struct is_member_function_pointer_impl
-{
-   static T* m_t;
-   BOOST_STATIC_CONSTANT(
-              bool, value =
-               (1 == sizeof(type_traits::is_mem_fun_pointer_tester(m_t))) );
-};
-
-template <typename T>
-struct is_member_function_pointer_impl<T&>
-{
-   BOOST_STATIC_CONSTANT(bool, value = false);
-};
+//#else // Borland C++
+//
+//template <typename T>
+//struct is_member_function_pointer_impl
+//{
+//   static T* m_t;
+//   BOOST_STATIC_CONSTANT(
+//              bool, value =
+//               (1 == sizeof(type_traits::is_mem_fun_pointer_tester(m_t))) );
+//};
+//
+//template <typename T>
+//struct is_member_function_pointer_impl<T&>
+//{
+//   BOOST_STATIC_CONSTANT(bool, value = false);
+//};
 
 #endif
 

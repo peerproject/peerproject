@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "FragmentBar.h"
 #include "CoolInterface.h"
 #include "Colors.h"
@@ -61,7 +61,6 @@ void CFragmentBar::DrawFragment(CDC* pDC, CRect* prcBar, QWORD nTotal, QWORD nOf
 		nOffset = nTotal - nOffset - nLength;
 
 	CRect rcArea;
-
 	rcArea.top		= prcBar->top;
 	rcArea.bottom	= prcBar->bottom;
 
@@ -257,10 +256,10 @@ void CFragmentBar::DrawDownloadSimple(CDC* pDC, CRect* prcBar, CDownload* pDownl
 //			}
 //			break;
 //		case PROTOCOL_BT:
-//			for ( Fragments::Queue::const_iterator pRequested
-//				= static_cast< CDownloadTransferBT* >( pSource->m_pTransfer )->m_oRequested.begin() ;
-//				pRequested
-//				!= static_cast< CDownloadTransferBT* >( pSource->m_pTransfer )->m_oRequested.end() ;
+//			for ( Fragments::Queue::const_iterator pRequested =
+//				static_cast< CDownloadTransferBT* >( pSource->m_pTransfer )->m_oRequested.begin() ;
+//				pRequested !=
+//				static_cast< CDownloadTransferBT* >( pSource->m_pTransfer )->m_oRequested.end() ;
 //				++pRequested )
 //			{
 //				DrawStateBar( pDC, prcBar, pSource->m_pDownload->m_nSize,
@@ -352,7 +351,7 @@ void CFragmentBar::DrawUpload(CDC* pDC, CRect* prcBar, CUploadFile* pFile, COLOR
 
 	Fragments::List::const_iterator pItr = pFile->m_oFragments.begin();
 	const Fragments::List::const_iterator pEnd = pFile->m_oFragments.end();
-	for ( ; pItr != pEnd ; ++pItr  )
+	for ( ; pItr != pEnd ; ++pItr )
 	{
 		DrawFragment( pDC, prcBar, pFile->m_nSize, pItr->begin(), pItr->size(),
 			Colors.m_crFragmentComplete, true );

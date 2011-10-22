@@ -131,7 +131,7 @@
 			<title language="af">Album Artist</title>
 			<title language="ca">Artista de l'àlbum</title>
 			<title language="cz">Autor alba</title>
-			<title language="de">Album Artist</title>
+			<title language="de">Album-Künstler</title>
 			<title language="ee">Album Artist</title>
 			<title language="es">Album Artist</title>
 			<title language="es-mx">Album Artist</title>
@@ -279,7 +279,7 @@
 			<title language="af">Album Status</title>
 			<title language="ca">Estat de l'àlbum</title>
 			<title language="cz">Stav alba</title>
-			<title language="de">Album Status</title>
+			<title language="de">Albumstatus</title>
 			<title language="ee">Album Status</title>
 			<title language="es">Album Status</title>
 			<title language="es-mx">Album Status</title>
@@ -426,7 +426,7 @@
 			<title language="af">Original Year</title>
 			<title language="ca">Any original</title>
 			<title language="cz">Původní rok</title>
-			<title language="de">Original Year</title>
+			<title language="de">Originalversion</title>
 			<title language="ee">Original Year</title>
 			<title language="es">Original Year</title>
 			<title language="es-mx">Original Year</title>
@@ -779,7 +779,7 @@
 			<title language="af">Arranger</title>
 			<title language="ca">Arranger</title>
 			<title language="cz">Aranžér</title>
-			<title language="de">Arranger</title>
+			<title language="de">Arrangeur</title>
 			<title language="ee">Arranger</title>
 			<title language="es">Arranger</title>
 			<title language="es-mx">Arranger</title>
@@ -1069,7 +1069,7 @@
 			<title language="af">Uitgewers Groep</title>
 			<title language="ca">Grup de publicació</title>
 			<title language="cz">Vydala skupina:</title>
-			<title language="de">Release Group</title>
+			<title language="de">Releasegruppe</title>
 			<title language="ee">Väljalaske Grupp</title>
 			<title language="es">Release Group</title>
 			<title language="es-mx">Release Group</title>
@@ -1098,7 +1098,7 @@
 			<title language="af">Uitgewers Skakel</title>
 			<title language="ca">Drecera del publicador</title>
 			<title language="cz">Odkaz na vydavatele:</title>
-			<title language="de">Release Group Link</title>
+			<title language="de">Link der Releasegruppe</title>
 			<title language="ee">Väljalaske Grupi Link</title>
 			<title language="es">Release Group Link</title>
 			<title language="es-mx">Release Group Link</title>
@@ -1185,7 +1185,7 @@
 			<title language="af">Encoded By</title>
 			<title language="ca">Codificat per</title>
 			<title language="cz">Zakódoval</title>
-			<title language="de">Encoded By</title>
+			<title language="de">Kodiert von</title>
 			<title language="ee">Encoded By</title>
 			<title language="es">Encoded By</title>
 			<title language="es-mx">Encoded By</title>

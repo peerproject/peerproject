@@ -17,13 +17,14 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "QuerySearch.h"
+#include "DlgNewSearch.h"
+
 #include "Schema.h"
 #include "XML.h"
 #include "Skin.h"
-#include "DlgNewSearch.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE

@@ -17,20 +17,20 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "SharedFile.h"
-#include "Library.h"
+#include "PeerProject.h"
 #include "LibraryBuilder.h"
 #include "LibraryHistory.h"
+#include "Library.h"
+#include "SharedFile.h"
 #include "HashDatabase.h"
-#include "Security.h"
 #include "ThumbCache.h"
 #include "Downloads.h"
 #include "Transfers.h" // Locks
-#include "XML.h"
+#include "Security.h"
 #include "Schema.h"
 #include "SchemaCache.h"
+#include "XML.h"
 #include "ID3.h"
 
 #ifdef _DEBUG
@@ -520,7 +520,7 @@ bool CLibraryBuilder::HashFile(LPCTSTR szPath, HANDLE hFile)
 			break;
 
 		// Exit loop on read error
-		if( !::ReadFile( hFile, pBuffer, nBlock, &nBlock, NULL ) )
+		if ( !::ReadFile( hFile, pBuffer, nBlock, &nBlock, NULL ) )
 			break;
 
 		QueryPerformanceCounter( &count1 );
@@ -955,8 +955,6 @@ bool CLibraryBuilder::DetectVirtualLAME(HANDLE hFile, QWORD& nOffset, QWORD& nLe
 
 	LAME_FRAME pFrame = { 0 };
 	const LAME_FRAME pEmtyRef = { 0 };
-	const char cEncoder[ 5 ] = "LAME";
-	const char cXing[ 5 ] = "Xing";
 	bool bChanged = false;
 
 	if ( ! ReadFile( hFile, &pFrame, sizeof(pFrame), &nRead, NULL ) || nRead != sizeof(pFrame) )
@@ -976,13 +974,13 @@ bool CLibraryBuilder::DetectVirtualLAME(HANDLE hFile, QWORD& nOffset, QWORD& nLe
 			nLength--;
 		}
 	}
-	else if ( memcmp( &pFrame, cXing, 4 ) == 0 )
+	else if ( memcmp( &pFrame, "Xing", 4 ) == 0 )
 	{
 		bChanged = true;
 		nOffset += nFrameSize;
 		nLength -= nFrameSize;
 	}
-	else if ( memcmp( pFrame.ClassID, cEncoder, 4 ) == 0 )	// LAME encoder
+	else if ( memcmp( pFrame.ClassID, "LAME", 4 ) == 0 )	// LAME encoder
 	{
 		bChanged = true;
 		DWORD nMusicLength = swapEndianess( pFrame.MusicLength ) - nFrameSize;	// Minus the first frame
@@ -1079,7 +1077,7 @@ bool CLibraryBuilder::DetectVirtualLAME(HANDLE hFile, QWORD& nOffset, QWORD& nLe
 	if ( ! ReadFile( hFile, pFrame.ClassID, 9, &nRead, NULL ) || nRead != 9 )
 		return bChanged;
 
-	if ( memcmp( pFrame.ClassID, cEncoder, 4 ) == 0 )
+	if ( memcmp( pFrame.ClassID, "LAME", 4 ) == 0 )
 	{
 		bChanged = true;
 		nLength -= 8;

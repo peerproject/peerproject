@@ -20,9 +20,9 @@
 // (Extra features not needed by PageTorrentFiles)
 
 #include "StdAfx.h"
+#include "Settings.h"
 #include "PeerProject.h"
 #include "ComboListCtrl.h"
-#include "Settings.h"
 
 
 IMPLEMENT_DYNAMIC(CComboListCtrl, CListCtrl)

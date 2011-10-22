@@ -18,19 +18,19 @@
 
 
 #include "StdAfx.h"
+#include "Settings.h"
 #include "PeerProject.h"
+#include "DCClient.h"
+#include "DCClients.h"
+#include "DCNeighbour.h"
 #include "Download.h"
 #include "Downloads.h"
 #include "DownloadSource.h"
 #include "DownloadTransfer.h"
 #include "DownloadTransferDC.h"
-#include "DCClient.h"
-#include "DCClients.h"
-#include "DCNeighbour.h"
 #include "HostCache.h"
 #include "Network.h"
 #include "Neighbours.h"
-#include "Settings.h"
 #include "UploadTransfer.h"
 #include "UploadTransferDC.h"
 
@@ -440,7 +440,7 @@ BOOL CDCClient::OnSupports(const std::string& strParams)
 	m_bExtended = TRUE;
 
 	m_oFeatures.RemoveAll();
-	for ( CString strFeatures( strParams.c_str() ); ! strFeatures.IsEmpty(); )
+	for ( CString strFeatures( strParams.c_str() ) ; ! strFeatures.IsEmpty() ; )
 	{
 		CString strFeature = strFeatures.SpanExcluding( _T(" ") );
 		strFeatures = strFeatures.Mid( strFeature.GetLength() + 1 );

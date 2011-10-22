@@ -6,8 +6,8 @@
 // Copyright (c) 2002-2003
 // Eric Friedman, Itay Maman
 //
-// Distributed under the Boost Software License, Version 1.0. (See
-// accompanying file LICENSE_1_0.txt or copy at
+// Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 #ifndef BOOST_ALIGNED_STORAGE_HPP
@@ -54,6 +54,14 @@ struct aligned_storage_imp
             , type_with_alignment<alignment_>
             >::type align_;
     } data_;
+    void* address() const { return const_cast<aligned_storage_imp*>(this); }
+};
+
+template< std::size_t alignment_ >
+struct aligned_storage_imp<0u,alignment_>
+{
+    /* intentionally empty */
+    void* address() const { return 0; }
 };
 
 }} // namespace detail::aligned_storage
@@ -62,11 +70,14 @@ template <
       std::size_t size_
     , std::size_t alignment_ = std::size_t(-1)
 >
-class aligned_storage
+class aligned_storage :
+#ifndef __BORLANDC__
+   private
+#else
+   public
+#endif
+   detail::aligned_storage::aligned_storage_imp<size_, alignment_>
 {
-private: // representation
-
-   detail::aligned_storage::aligned_storage_imp<size_, alignment_> data_;
 
 public: // constants
 
@@ -87,8 +98,7 @@ public: // constants
 
 #if defined(__GNUC__) &&\
     (__GNUC__ >  3) ||\
-    (__GNUC__ == 3 && (__GNUC_MINOR__ >  2 ||\
-                      (__GNUC_MINOR__ == 2 && __GNUC_PATCHLEVEL__ >=3)))
+    (__GNUC__ == 3 && (__GNUC_MINOR__ > 2))
 
 private: // noncopyable
 
@@ -118,36 +128,36 @@ public: // accessors
 
     void* address()
     {
-        return this;
+        return static_cast<type*>(this)->address();
     }
 
-#if !BOOST_WORKAROUND(BOOST_MSVC, < 1300)
-
+//#if !BOOST_WORKAROUND(BOOST_MSVC, < 1300)
+//
     const void* address() const
     {
-        return this;
+        return static_cast<const type*>(this)->address();
     }
-
-#else // MSVC6
-
-    const void* address() const;
-
-#endif // MSVC6 workaround
+//
+//#else // MSVC6
+//
+//  const void* address() const;
+//
+//#endif // MSVC6 workaround
 
 };
 
-#if BOOST_WORKAROUND(BOOST_MSVC, < 1300)
-
+//#if BOOST_WORKAROUND(BOOST_MSVC, < 1300)
+//
 // MSVC6 seems not to like inline functions with const void* returns, so we
 // declare the following here:
-
-template <std::size_t S, std::size_t A>
-const void* aligned_storage<S,A>::address() const
-{
-    return const_cast< aligned_storage<S,A>* >(this)->address();
-}
-
-#endif // MSVC6 workaround
+//
+//template <std::size_t S, std::size_t A>
+//const void* aligned_storage<S,A>::address() const
+//{
+//    return const_cast< aligned_storage<S,A>* >(this)->address();
+//}
+//
+//#endif // MSVC6 workaround
 
 #ifndef BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 //

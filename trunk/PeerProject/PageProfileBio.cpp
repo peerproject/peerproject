@@ -18,9 +18,9 @@
 
 #include "StdAfx.h"
 #include "PeerProject.h"
+#include "PageProfileBio.h"
 #include "GProfile.h"
 #include "XML.h"
-#include "PageProfileBio.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE

@@ -17,8 +17,10 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "WndHitMonitor.h"
+#include "WndSearch.h"
 #include "QuerySearch.h"
 #include "QueryHit.h"
 #include "MatchObjects.h"
@@ -28,8 +30,6 @@
 #include "SchemaCache.h"
 #include "Skin.h"
 
-#include "WndHitMonitor.h"
-#include "WndSearch.h"
 #include "DlgHitColumns.h"
 #include "DlgNewSearch.h"
 

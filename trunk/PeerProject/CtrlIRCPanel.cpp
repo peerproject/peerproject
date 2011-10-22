@@ -19,11 +19,11 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "CtrlIRCPanel.h"
-#include "DlgIrcInput.h"
 
+#include "DlgIrcInput.h"
 #include "RichDocument.h"
 #include "CoolInterface.h"
 #include "Colors.h"
@@ -91,7 +91,7 @@ int CIRCPanel::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_boxUsers.Create( this, 200, _T("Users"), IDR_USERSFRAME );
 
 	if ( ! theApp.m_bIsWin2000 )
-		m_boxUsers.ModifyStyleEx( 0, WS_EX_COMPOSITED );	//Stop control flickering XP+
+		m_boxUsers.ModifyStyleEx( 0, WS_EX_COMPOSITED );	// Stop control flickering XP+
 
 	m_pFont.Attach( theApp.m_gdiFontBold );
 	m_boxChans.m_wndChanList.SetFont( &m_pFont );

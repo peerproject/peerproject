@@ -19,6 +19,7 @@
 #pragma once
 
 #include "DlgSkinDialog.h"
+#include "ThreadImpl.h"
 #include "BTInfo.h"
 
 

@@ -17,17 +17,17 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "Statistics.h"
+#include "PeerProject.h"
+#include "Kademlia.h"
+#include "EDPacket.h"
 #include "Network.h"
 #include "Datagrams.h"
 #include "Transfers.h"
 #include "Buffer.h"
 #include "GProfile.h"
-#include "EDPacket.h"
-#include "Kademlia.h"
 #include "HostCache.h"
+#include "Statistics.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE

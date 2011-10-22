@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "WndHashProgressBar.h"
 #include "Library.h"
 #include "LibraryBuilder.h"
@@ -185,7 +185,7 @@ void CHashProgressBar::OnPaint()
 	dc.SetBkMode( TRANSPARENT );
 
 	// Icon
-	if( ! ShellIcons.Draw( &dc, ShellIcons.Get( m_sCurrent, 32 ), 32,
+	if ( ! ShellIcons.Draw( &dc, ShellIcons.Get( m_sCurrent, 32 ), 32,
 			rcClient.left + 5, rcClient.top + 4, ( m_bmImage.m_hObject ? CLR_NONE : Colors.m_crTipBack ) ) )
 	{
 		HICON hIcon = (HICON)LoadImage( AfxGetResourceHandle(), MAKEINTRESOURCE(IDI_SEARCH_FOLDER), IMAGE_ICON, 32, 32, 0 );

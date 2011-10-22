@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Russian Skin File -->
 
-<!-- Translation based on default-en.xml r69 -->
+<!-- Translation based on default-en.xml r70 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2753,6 +2753,12 @@
 	<string id="20020" value="Файл"/>
 	<string id="20021" value="Файлы"/>
 	<string id="20022" value="Все файлы"/>
+	<string id="20023" value="No файлы"/>
+	<string id="20024" value="Большие файлы"/>
+	<string id="20025" value="Средние файлы"/>
+	<string id="20026" value="Маленькие файлы"/>
+	<string id="20027" value="Частичные файлы"/>
+	<string id="20028" value="Файлы хранилища"/>
 	<string id="20029" value="%s файлы"/>
 	<string id="20050" value="Каждый день"/>
 	<string id="20051" value="Понедельник"/>
@@ -3203,7 +3209,7 @@
 	<string id="20576" value="Посылаю таблицу маршрутизации для запросов на хост %s (%i bit = %lu[%i], %i%% заполнен)"/>
 	<string id="20577" value="Получаю неожиданное обновление таблицы маршрутизации для запросов от хоста %s."/>
 	<string id="20578" value="Хост %s обновил таблицу маршрутизации для запросов (%i bit = %lu[%i], %i%% заполнен)."/>
-	<string id="20579" value="%s -> %s [%i/%i] %s %s"/>
+	<string id="20579" value="%s -&gt; %s [%i/%i] %s %s"/>
 	<string id="20580" value="Лепестковый узел %s пересылает запросы, соединение обрывается."/>
 	<string id="20581" value="Хост %s отправил ping пакет с недействительной длиной, игнорирую."/>
 	<string id="20582" value="Хост %s отправил pong пакет с недействительной длиной, игнорирую."/>
@@ -4592,9 +4598,9 @@
 	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Предупреждение об обновлении">
 		<control caption="Уже появилась новая версия PeerProject. Хотите ли Вы обновить?"/>
 		<control caption="Если Вы будете обновлять Сейчас, PeerProject добавит обновление в очередь Вашего списка загрузок и автоматически начнет его загрузку."/>
-		<control caption="_Обновить сейчас"/>
 		<control caption="Не проверять новых версий"/>
-		<control caption="Не обновлять"/>
+		<control caption="_Обновить сейчас"/>
+		<control caption="Отмена"/>
 	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Локализация мета данных">
 		<control caption="Выберите способ перекодировки (группу языков)"/>

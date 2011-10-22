@@ -17,16 +17,15 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "WndSettingsSheet.h"
+#include "PageSettingsRich.h"
+#include "RichDocument.h"
+#include "RichElement.h"
 #include "Colors.h"
 #include "Skin.h"
 #include "XML.h"
-#include "Skin.h"
-#include "RichDocument.h"
-#include "RichElement.h"
-#include "WndSettingsSheet.h"
-#include "PageSettingsRich.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -48,7 +47,7 @@ END_MESSAGE_MAP()
 
 CRichSettingsPage::CRichSettingsPage(LPCTSTR pszName)
 	: CSettingsPage(CRichSettingsPage::IDD, pszName )
-	, m_pDocument	( NULL )
+	, m_pDocument ( NULL )
 {
 	// Early caption load for settings tree items
 	if ( CXMLElement* pXML = Skin.GetDocument( m_sName ) )

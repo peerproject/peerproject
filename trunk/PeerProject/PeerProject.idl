@@ -33,9 +33,9 @@ library PeerProject
 
 	typedef enum	// [ uuid(9BB696CB-BE11-4569-BB25-7C35D155C936) ]
 	{
-		TRI_UNKNOWN = 0,
-		TRI_FALSE   = 1,
-		TRI_TRUE    = 2
+		TRI_UNKNOWN	= 0,
+		TRI_FALSE	= 1,
+		TRI_TRUE	= 2
 	} TRISTATE;
 
 	//

@@ -15,7 +15,10 @@
 // See the GNU Affero General Public License 3.0 (AGPLv3) for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
+
 #pragma once
+
+#include "AlbumFolder.h"
 
 class CXMLElement;
 
@@ -44,9 +47,9 @@ public:
 
 protected:
 	CAlbumFolder*	m_pFolder;
-	CArray< CWnd* >		m_pControls; // holds all controls
-	CArray< CString >	m_pCaptions; // all label texts
-	CArray< CString >	m_pFileDocs; // all documents for each file
+	CArray< CWnd* >		m_pControls;	// Holds all controls
+	CArray< CString >	m_pCaptions;	// All label texts
+	CArray< CString >	m_pFileDocs;	// All documents for each file
 	CArray< CString >	m_pTemplatePaths;
 	CArray< CString >	m_pImagePaths;
 	int				m_nScroll;
@@ -90,6 +93,8 @@ public:
 	afx_msg void OnBtnPress();
 	afx_msg void OnDestroy();
 	//}}AFX_MSG
+
 	DECLARE_MESSAGE_MAP()
 };
+
 #define IDC_WIZARD_CONTROL		100

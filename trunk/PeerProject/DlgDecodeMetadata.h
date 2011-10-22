@@ -19,6 +19,7 @@
 #pragma once
 
 #include "DlgSkinDialog.h"
+#include "SharedFile.h"
 
 class CDecodeMetadataDlg : public CSkinDialog
 {

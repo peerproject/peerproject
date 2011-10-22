@@ -17,15 +17,15 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "DlgDownloadGroup.h"
+#include "DownloadGroup.h"
+#include "DownloadGroups.h"
+#include "DlgHelp.h"
 #include "Library.h"
 #include "LibraryFolders.h"
 #include "SharedFolder.h"
-#include "DownloadGroup.h"
-#include "DownloadGroups.h"
-#include "DlgDownloadGroup.h"
-#include "DlgHelp.h"
 
 #include "Schema.h"
 #include "SchemaCache.h"
@@ -170,11 +170,11 @@ void CDownloadGroupDlg::OnFilterRemove()
 void CDownloadGroupDlg::OnCbnCloseupSchemas()
 {
 	if ( m_sOldSchemaURI == m_wndSchemas.GetSelectedURI() )
-		return; // No change
+		return;		// No change
 
 	CString strNameOld, strNameNew, strFilter;
 
-	UpdateData(); // For current m_sName
+	UpdateData();	// For current m_sName
 
 	// Get filters
 	CList< CString > oList;

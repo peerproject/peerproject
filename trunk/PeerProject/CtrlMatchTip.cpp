@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "CtrlCoolTip.h"
 #include "CtrlMatchTip.h"
 #include "Colors.h"

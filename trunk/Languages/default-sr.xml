@@ -3,7 +3,7 @@
 
 <!-- PeerProject/ПеерПројецт Default Serbian Skin File -->
 
-<!-- Translation based on default-en.xml r69 -->
+<!-- Translation based on default-en.xml r70 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1193,6 +1193,8 @@
 		<item id="ID_LIBRARY_REBUILD" text="O_bnovi"/>
 		<item id="ID_LIBRARY_FOLDERS" text="Deli..."/>
 		<separator/>
+		<item id="ID_SHELL_MENU" text="S_hell menu"/>
+		<separator/>
 		<item id="ID_LIBRARY_FOLDER_FILE_PROPERTIES" text="_Podešavanja Datoteke"/>
 	</menu>
 	<menu name="CLibraryTree.Virtual.Basic">
@@ -1464,14 +1466,14 @@
 	</menu>
 	<!-- SYSTEM WINDOW -->
 	<menu name="CSystemWnd">
-		<menu id="ID_SYSTEM_VERBOSE" text="_Verbose Mode"/>
+		<menu id="ID_SYSTEM_VERBOSE" text="_Verbose Mode">
 			<item id="ID_SYSTEM_VERBOSE_ERROR" text="_Error"/>
 			<item id="ID_SYSTEM_VERBOSE_WARNING" text="_Warning"/>
 			<item id="ID_SYSTEM_VERBOSE_NOTICE" text="_Notice"/>
 			<item id="ID_SYSTEM_VERBOSE_INFO" text="_Info"/>
 			<item id="ID_SYSTEM_VERBOSE_DEBUG" text="_Debug"/>
 		</menu>
-		<item id="ID_SYSTEM_TIMESTAMP" text="Timestam_p"/>
+		<item id="ID_SYSTEM_TIMESTAMP" text="_Timestamp"/>
 		<separator/>
 		<item id="ID_SYSTEM_COPY" text="_Copy" shortcut="Ctrl+C"/>
 		<separator/>
@@ -2557,6 +2559,12 @@
 	<string id="20020" value="фајл"/>
 	<string id="20021" value="фајлова"/>
 	<string id="20022" value="Sve фајлова"/>
+	<string id="20023" value="No Datoteke"/>
+	<string id="20024" value="Velike Datoteke"/>
+	<string id="20025" value="Srednje Datoteke"/>
+	<string id="20026" value="Male Datoteke"/>
+	<string id="20027" value="Delimične Datoteke"/>
+	<string id="20028" value="Library Datoteke"/>
 	<string id="20029" value="%s фајлова"/>
 	<string id="20050" value="Сваки дан"/>
 	<string id="20051" value="Ponedjeljek"/>
@@ -3940,7 +3948,7 @@
 	</dialog>
 	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Sigurnosna Pravila">
 		<control caption="P_ravilo:"/>
-		<control caption="Tip:"/>
+		<control caption="Vrsta:"/>
 		<control caption="Network (IP) Address|Content Filter"/>
 		<control caption="Komentar:"/>
 		<control/>
@@ -3992,14 +4000,14 @@
 		<control caption="One day only"/>
 		<control/>
 		<control/>
-		<control caption="Pon"/>
-		<control caption="Uto"/>
-		<control caption="Sre"/>
-		<control caption="Čet"/>
-		<control caption="Pet"/>
-		<control caption="Sub"/>
-		<control caption="Ned"/>
-		<control caption="Све"/>
+		<control caption="Ponedjeljek"/>
+		<control caption="Utorak"/>
+		<control caption="Sreda"/>
+		<control caption="Četvrtak"/>
+		<control caption="Petak"/>
+		<control caption="Subota"/>
+		<control caption="Nedjelja"/>
+		<control caption="Sve"/>
 		<control caption="Коментари"/>
 		<control/>
 	</dialog>
@@ -4087,8 +4095,7 @@
 		<control caption="http://PeerProject.org"/>
 		<control caption="OK"/>
 	</dialog>
-	<dialog name="CExistingFileDlg" cookie="StStStStStBuBuBuBuBuSt" caption="Postojeća Datoteka">
-		<control/>
+	<dialog name="CExistingFileDlg" cookie="StStStStBuBuBuBuBuStSt" caption="Postojeća Datoteka">
 		<control/>
 		<control/>
 		<control/>
@@ -4099,6 +4106,7 @@
 		<control caption="OK"/>
 		<control caption="Odustani"/>
 		<control caption="Ovu datoteku ste već skinuli, pa obrisali.  Šta želite učiniti?"/>
+		<control caption="Warning:"/>
 	</dialog>
 	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Zatvaranje">
 		<control caption="Ovo je prvi puta da zatvarate PeerProject. Molim da odaberete šta će PeerProject učiniti kada ubuduće kliknete na zatvori:"/>
@@ -4257,9 +4265,9 @@
 	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Uzbuna o Poboljšanju">
 		<control caption="Dostupna je nova verzija PeerProject. Želite li je unaprediti(update)?"/>
 		<control caption="Ako odaberete Unapredi Sad, PeerProject će dodati novu verziju u za skinuti i automatski započeti skidanje."/>
-		<control caption="_Unapredi Sad"/>
 		<control caption="Ne proveravaj da li ima novih verzija."/>
-		<control caption="Nemoj Unaprediti"/>
+		<control caption="_Unapredi Sad"/>
+		<control caption="Odustani"/>
 	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Lokalizacija Metadate">
 		<control caption="Molim odaberite metodu re-encodinga"/>

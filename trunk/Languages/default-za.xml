@@ -4,7 +4,7 @@
 <!-- PeerProject Default Afrikaans Skin File -->
 <!-- Weergawe: 27 Oktober 2005 vir Shareaza 2.2.0.2 -->
 
-<!-- Translation based on default-en.xml r69 -->
+<!-- Translation based on default-en.xml r70 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -888,6 +888,7 @@
 		<item id="ID_VIEW_MEDIA" text="_Media Speler"/>
 		<separator/>
 		<item id="ID_VIEW_SECURITY" text="Se_kuriteit"/>
+		<item id="ID_VIEW_SCHEDULER" text="Schedule_r"/>
 		<item id="ID_VIEW_HOSTS" text="_Gasheer Kasgeheue"/>
 		<item id="ID_VIEW_DISCOVERY" text="_Ontdekkings"/>
 		<item id="ID_VIEW_TRAFFIC" text="_Grafieke"/>
@@ -1525,7 +1526,7 @@
 			<item id="ID_SYSTEM_VERBOSE_INFO" text="_Info"/>
 			<item id="ID_SYSTEM_VERBOSE_DEBUG" text="_Debug"/>
 		</menu>
-		<item id="ID_SYSTEM_TIMESTAMP" text="Tydstempe_l"/>
+		<item id="ID_SYSTEM_TIMESTAMP" text="_Tydstempel"/>
 		<separator/>
 		<item id="ID_SYSTEM_COPY" text="_Copy" shortcut="Ctrl+C"/>
 		<separator/>
@@ -2685,6 +2686,12 @@
 	<string id="20020" value="Lêer"/>
 	<string id="20021" value="Lêers"/>
 	<string id="20022" value="Alle Lêers"/>
+	<string id="20023" value="No Lêers"/>
+	<string id="20024" value="Groot Lêers"/>
+	<string id="20025" value="Medium Lêers"/>
+	<string id="20026" value="Klein Lêers"/>
+	<string id="20027" value="Gedeeltelike Lêers"/>
+	<string id="20028" value="Library Lêers"/>
 	<string id="20029" value="%s Lêers"/>
 	<string id="20050" value="Elke Dag"/>
 	<string id="20051" value="Maandag"/>
@@ -3126,7 +3133,7 @@
 	<string id="20576" value="Navraag-tabel word gestuur aan gasheer %s (%i bit = %lu[%i], %i%% vol)"/>
 	<string id="20577" value="Navraag-tabel opdatering word onverwags ontvang vanaf gasheer %s."/>
 	<string id="20578" value="Gasheer %s het sy navraag-tabel opgedateer (%i bit = %lu[%i], %i%% vol)."/>
-	<string id="20579" value="%s -> %s [%i/%i] %s %s"/>
+	<string id="20579" value="%s -&gt; %s [%i/%i] %s %s"/>
 	<string id="20580" value="Kliënt konneksie %s is besig om navrae te stuur, konneksie word gesluit."/>
 	<string id="20581" value="Gasheer %s het 'n pieng pakkie met 'n foutiewe grootte aangestuur, oorgesien."/>
 	<string id="20582" value="Gasheer %s het 'n pong pakkie met 'n foutiewe grootte aangestuur, oorgesien."/>
@@ -4201,13 +4208,13 @@
 		<control caption="One day only"/>
 		<control/>
 		<control/>
-		<control caption="Ma"/>
-		<control caption="Di"/>
-		<control caption="Wo"/>
-		<control caption="Don"/>
-		<control caption="Vry"/>
-		<control caption="Sat"/>
-		<control caption="Son"/>
+		<control caption="Maandag"/>
+		<control caption="Dinsdag"/>
+		<control caption="Woensdag"/>
+		<control caption="Donderdag"/>
+		<control caption="Vrydag"/>
+		<control caption="Saterdag"/>
+		<control caption="Sondag"/>
 		<control caption="Alle"/>
 		<control caption="Kommentaar"/>
 		<control/>
@@ -4466,9 +4473,9 @@
 	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Opgradeer Kennisgewing">
 		<control caption="'n Nuwe weergawe van PeerProject is nou beskikbaar. Wil jy graag opgradeer?"/>
 		<control caption="As jy Opgradeer Nou kliek sal PeerProject die opgradering by jou aflaailys byvoeg en dit outomaties begin aflaai."/>
-		<control caption="Opgradeer _Nou"/>
 		<control caption="Ignoreer nuwe weergawes"/>
-		<control caption="Moenie Opgradeer Nie"/>
+		<control caption="Opgradeer _Nou"/>
+		<control caption="Kanselleer"/>
 	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Metadata Lokalisering">
 		<control caption="Selekteer asseblief die her-enkoderingsmetode:"/>

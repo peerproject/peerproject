@@ -77,7 +77,7 @@ public:
 		DWORD		NextCheck;
 		CString		Quote;
 		bool		UpdateCheck;			// Does PeerProject check for new versions?
-		//CString	UpdateCheckURL;			// UPDATE_URL (PeerProject.h)
+	//	CString		UpdateCheckURL;			// UPDATE_URL (PeerProject.h)
 		CString		UpgradePrompt;
 		CString		UpgradeFile;
 		CString		UpgradeSHA1;
@@ -144,7 +144,7 @@ public:
 		DWORD		PanelSize;
 		bool		ShowPanel;
 		bool		ShowVirtual;
-		bool		ShowCoverArt;
+	//	bool		ShowCoverArt;
 		CString		SchemaURI;
 		CString		FilterURI;
 		string_set	SafeExecute;
@@ -233,10 +233,10 @@ public:
 		bool		ListVisible;
 		bool		StatusVisible;
 		CString		MediaServicesCLSID;
-		CString		Mpeg1PreviewCLSID;
-		CString		Mp3PreviewCLSID;
-		CString		AviPreviewCLSID;
-		CString		VisWrapperCLSID;
+	//	CString		Mpeg1PreviewCLSID;
+	//	CString		Mp3PreviewCLSID;
+	//	CString		AviPreviewCLSID;
+	//	CString		VisWrapperCLSID;
 	//	CString		VisSoniqueCLSID;		// No Sonique Vis plugin support available
 		CString		VisCLSID;
 		CString		VisPath;

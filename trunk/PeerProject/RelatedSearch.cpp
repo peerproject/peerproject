@@ -18,10 +18,11 @@
 
 #include "StdAfx.h"
 #include "PeerProject.h"
+#include "RelatedSearch.h"
+
 #include "Library.h"
 #include "MatchObjects.h"
 #include "SharedFile.h"
-#include "RelatedSearch.h"
 #include "QuerySearch.h"
 #include "QueryHit.h"
 #include "Schema.h"

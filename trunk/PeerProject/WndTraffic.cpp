@@ -1,7 +1,7 @@
 //
 // WndTraffic.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "WndTraffic.h"
 #include "WndMain.h"
 #include "DlgGraphList.h"
@@ -60,8 +60,8 @@ END_MESSAGE_MAP()
 
 CTrafficWnd::CTrafficWnd(DWORD nUnique)
 {
-	m_nUnique		= nUnique;
-	m_pGraph		= new CLineGraph();
+	m_nUnique	= nUnique;
+	m_pGraph	= new CLineGraph();
 
 	Create( IDR_TRAFFICFRAME );
 }
@@ -235,7 +235,7 @@ BOOL CTrafficWnd::Serialize(BOOL bSave)
 	WINDOWPLACEMENT pPos = { sizeof(WINDOWPLACEMENT) };
 
 	CString strFile;
-	strFile.Format( _T("%s\\Data\\Graph%.4i.dat"),
+	strFile.Format( _T("%s\\Data\\Graph%.4u.dat"),
 		(LPCTSTR)Settings.General.UserPath, m_nUnique );
 
 	CFile pFile;
@@ -311,16 +311,11 @@ void CTrafficWnd::UpdateCaption()
 	CString strCaption, strName;
 
 	if ( ! m_sName.IsEmpty() )
-	{
 		strName = _T(" : ") + m_sName;
-	}
+	else if ( m_nUnique <= 26 )
+		strName.Format( _T(" (%c)"), 'A' + m_nUnique - 1 );
 	else
-	{
-		if ( m_nUnique <= 26 )
-			strName.Format( _T(" (%c)"), 'A' + m_nUnique - 1 );
-		else
-			strName.Format( _T(" (%lu)"), m_nUnique );
-	}
+		strName.Format( _T(" (%lu)"), m_nUnique );
 
 	LoadString( strCaption, IDR_TRAFFICFRAME );
 	strCaption += strName;

@@ -17,12 +17,12 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "GProfile.h"
-#include "XML.h"
+#include "PeerProject.h"
 #include "PageProfileFavourites.h"
+#include "GProfile.h"
 #include "Skin.h"
+#include "XML.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -47,10 +47,10 @@ END_MESSAGE_MAP()
 // CFavouritesProfilePage property page
 
 CFavouritesProfilePage::CFavouritesProfilePage() : CSettingsPage( CFavouritesProfilePage::IDD )
+	, m_sTitle	( _T("") )
+	, m_sURL	( _T("http://") )
 {
 	//{{AFX_DATA_INIT(CFavouritesProfilePage)
-	m_sTitle = _T("");
-	m_sURL = _T("http://");
 	//}}AFX_DATA_INIT
 }
 

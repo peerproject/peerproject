@@ -17,10 +17,10 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "QuerySearch.h"
+#include "PeerProject.h"
 #include "QueryHit.h"
+#include "QuerySearch.h"
 #include "Network.h"
 #include "G1Packet.h"
 #include "G2Packet.h"
@@ -431,11 +431,10 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 							strNick = pPacket->ReadString( nInner );
 							CT2A pszIP( (LPCTSTR)strNick );
 							ip = inet_addr( (LPCSTR)pszIP );
-							if ( ip != INADDR_NONE && strcmp( inet_ntoa( *(IN_ADDR*)&ip ), (LPCSTR)pszIP ) == 0 &&
-								nAddress != ip )
+							if ( ip != INADDR_NONE && strcmp( inet_ntoa( *(IN_ADDR*)&ip ), (LPCSTR)pszIP ) == 0 && nAddress != ip )
 								bSpam = true;
-							if ( ! strNick.CompareNoCase( _T( VENDOR_CODE ) ) )
-								bSpam = true; // VendorCode Nick Spam
+							else if ( ! strNick.CompareNoCase( _T( VENDOR_CODE ) ) )
+								bSpam = true;	// VendorCode Nick Spam
 						}
 						pPacket->m_nPosition = nSkipInner;
 					}
@@ -926,10 +925,10 @@ CXMLElement* CQueryHit::ReadXML(CG1Packet* pPacket, int nSize)
 	}
 
 	CXMLElement* pRoot = NULL;
-	for ( ; nSize && pszXML; pszXML++, nSize-- )
+	for ( ; nSize && pszXML ; pszXML++, nSize-- )
 	{
 		// Skip up to "<"
-		for ( ; nSize && *pszXML && *pszXML != '<'; pszXML++, nSize--);
+		for ( ; nSize && *pszXML && *pszXML != '<' ; pszXML++, nSize-- );
 
 		if ( nSize < 5 )
 			break;
@@ -995,7 +994,7 @@ BOOL CQueryHit::CheckValid() const
 		}
 	}
 
-	int nCurWord = 0, nWords = 1;
+	WORD nCurWord = 0, nWords = 1;
 	for ( LPCTSTR pszName = m_sName ; *pszName ; pszName++ )
 	{
 		if ( _istgraph( *pszName ) && *pszName != _T('_') &&
@@ -1265,7 +1264,7 @@ void CQueryHit::ReadG2Packet(CG2Packet* pPacket, DWORD nLength)
 		{
 		case G2_PACKET_URN:
 			{
-				CString strURN = pPacket->ReadString( nPacket ); // Null terminated
+				CString strURN = pPacket->ReadString( nPacket );	// Null terminated
 				if ( strURN.GetLength() == (int)nPacket )
 				{
 					theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got malformed URN (%s)"), (LPCTSTR)strURN );
@@ -1426,7 +1425,7 @@ void CQueryHit::ReadG2Packet(CG2Packet* pPacket, DWORD nLength)
 
 		case G2_PACKET_COMMENT:
 			{
-				CString strXML = pPacket->ReadString( nPacket ); // Not null terminated
+				CString strXML = pPacket->ReadString( nPacket );	// Not null terminated
 				if ( strXML.GetLength() != (int)nPacket )
 				{
 					theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got too short comment (%s)"), (LPCTSTR)strXML );
@@ -1938,7 +1937,7 @@ void CQueryHit::Serialize(CArchive& ar, int nVersion)	// MATCHLIST_SER_VERSION
 	if ( ar.IsStoring() )
 	{
 		ASSERT( m_pVendor );
-		if (m_pVendor == NULL) AfxThrowUserException();
+		if ( m_pVendor == NULL ) AfxThrowUserException();
 
 		ar.Write( &m_oSearchID[ 0 ], Hashes::Guid::byteCount );
 

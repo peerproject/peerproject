@@ -1,7 +1,7 @@
 //
 // DlgFilterSearch.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -17,12 +17,12 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "DlgFilterSearch.h"
+#include "DlgSaveFilterAs.h"
 #include "MatchObjects.h"
 #include "ResultFilters.h"
-#include "DlgSaveFilterAs.h"
 #include "WndSearch.h"
 
 #ifdef _DEBUG
@@ -48,20 +48,20 @@ END_MESSAGE_MAP()
 
 CFilterSearchDlg::CFilterSearchDlg(CWnd* pParent, CMatchList* pMatches)
 	: CSkinDialog(CFilterSearchDlg::IDD, pParent)
-	, m_bHideBusy	( FALSE )
-	, m_bHideLocal	( FALSE )
-	, m_bHidePush	( FALSE )
-	, m_bHideReject	( FALSE )
-	, m_bHideUnstable ( FALSE )
-	, m_bHideBogus	( FALSE )
-	, m_bHideDRM	( FALSE )
+	, m_bHideBusy		( FALSE )
+	, m_bHideLocal		( FALSE )
+	, m_bHidePush		( FALSE )
+	, m_bHideReject		( FALSE )
+	, m_bHideUnstable	( FALSE )
+	, m_bHideBogus		( FALSE )
+	, m_bHideDRM		( FALSE )
 	, m_bHideRestricted ( FALSE )
 	, m_bHideSuspicious ( FALSE )
-	, m_bHideAdult	( FALSE )
-	, m_nSources	( 0 )
-	, m_bDefault	( FALSE )
-	, m_pMatches	( pMatches )
-	, m_bRegExp 	( FALSE )
+	, m_bHideAdult		( FALSE )
+	, m_bDefault		( FALSE )
+	, m_bRegExp 		( FALSE )
+	, m_nSources		( 0 )
+	, m_pMatches		( pMatches )
 {
 }
 
@@ -179,7 +179,7 @@ void CFilterSearchDlg::OnBnClickedSaveFilter()
 
 		UpdateList();
 
-		m_Filters.SetCurSel( m_pResultFilters->m_nFilters - 1 ); // Select the last item added
+		m_Filters.SetCurSel( m_pResultFilters->m_nFilters - 1 );	// Select the last item added
 		OnCbnSelChangeFilters();
 	}
 }
@@ -223,14 +223,14 @@ void CFilterSearchDlg::UpdateList()
 {
 	m_Filters.ResetContent();
 
-	for ( DWORD i = 0; i < m_pResultFilters->m_nFilters; i++ )
+	for ( DWORD i = 0 ; i < m_pResultFilters->m_nFilters ; i++ )
 	{
 		if ( i == m_pResultFilters->m_nDefault )
 			m_Filters.AddString( m_pResultFilters->m_pFilters[i]->m_sName + _T(" *") );
 		else
 			m_Filters.AddString( m_pResultFilters->m_pFilters[i]->m_sName );
 
-	//	m_Filters.SetItemDataPtr( i, m_pResultFilters->m_pFilters[i] ); //save a pointer to the item
+	//	m_Filters.SetItemDataPtr( i, m_pResultFilters->m_pFilters[i] );	// Save a pointer to the item
 	}
 
 	GetDlgItem( IDC_SET_DEFAULT_FILTER )->EnableWindow( m_pResultFilters->m_nFilters > 0 );
@@ -384,7 +384,7 @@ void CFilterSearchDlg::OnClickedRegexp()
 		return;
 	}
 
-	if ( m_bRegExp && m_sFilter.GetLength() )
+	if ( m_bRegExp && ! m_sFilter.IsEmpty() )
 	{
 		if ( m_pMatches )
 		{

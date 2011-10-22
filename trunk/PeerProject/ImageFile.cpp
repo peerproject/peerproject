@@ -19,8 +19,8 @@
 // ToDo: Support Alpha transparency from PNG loading (or at least allow for some)
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "ImageFile.h"
 #include "ImageServices.h"
 #include "HttpRequest.h"
@@ -216,7 +216,7 @@ BOOL CImageFile::LoadFromBitmap(HBITMAP hBitmap, BOOL bScanOnly)
 	//	}
 	//	else // if ( m_nComponents = 3 )
 	//	{
-			for ( LONG i = 0 ; i < bmInfo.bmWidth * m_nComponents ; i += 3 )
+			for ( LONG i = 0, max = bmInfo.bmWidth * m_nComponents ; i < max ; i += 3 )
 			{
 				c = dst[i + 0];
 				dst[i + 0] = dst[i + 2];

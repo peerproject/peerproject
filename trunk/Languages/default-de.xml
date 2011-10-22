@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default German Skin File -->
 
-<!-- Translation based on default-en.xml r69 -->
+<!-- Translation based on default-en.xml r70 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1241,6 +1241,7 @@
 		<item id="ID_DOWNLOADS_FILTER_SEEDS" text="See_ds anzeigen"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SHOW_SOURCES" text="Alle _Quellen anzeigen"/>
+		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="_Automatisch entfernen"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Gruppen anzeigen"/>
 	</menu>
@@ -1583,7 +1584,7 @@
 			<item id="ID_SYSTEM_VERBOSE_INFO" text="_Info"/>
 			<item id="ID_SYSTEM_VERBOSE_DEBUG" text="_Debug"/>
 		</menu>
-		<item id="ID_SYSTEM_TIMESTAMP" text="Zeitstem_pel"/>
+		<item id="ID_SYSTEM_TIMESTAMP" text="_Zeitstempel"/>
 		<separator/>
 		<item id="ID_SYSTEM_COPY" text="_Kopieren" shortcut="Ctrl+C"/>
 		<separator/>
@@ -2784,6 +2785,12 @@
 	<string id="20020" value="Datei"/>
 	<string id="20021" value="Dateien"/>
 	<string id="20022" value="Alle Dateien"/>
+	<string id="20023" value="No Dateien"/>
+	<string id="20024" value="Große Dateien"/>
+	<string id="20025" value="Mittelgroße Dateien"/>
+	<string id="20026" value="Kleine Dateien"/>
+	<string id="20027" value="Unvollständige Dateien"/>
+	<string id="20028" value="Dateien in der Bibliothek"/>
 	<string id="20029" value="%s Dateien"/>
 	<string id="20050" value="Jeden Tag"/>
 	<string id="20051" value="Montag"/>
@@ -3232,7 +3239,7 @@
 	<string id="20576" value="QRT an Host %s senden (%i bit = %lu[%i], %i%% voll)"/>
 	<string id="20577" value="Unerwartetes QRT-Update von Host %s empfangen."/>
 	<string id="20578" value="Host %s hat seine query-routing-Tabelle aktualisiert (%i bit = %lu[%i], %i%% voll)."/>
-	<string id="20579" value="%s -> %s [%i/%i] %s %s"/>
+	<string id="20579" value="%s -&gt; %s [%i/%i] %s %s"/>
 	<string id="20580" value="Leaf %s leitet Suchanfragen weiter, Verbindung getrennt."/>
 	<string id="20581" value="Host %s hat ein Ping-Paket mit ungültiger Länge weitergeleitet, ignoriert."/>
 	<string id="20582" value="Host %s hat ein Pong-Paket mit ungültiger Länge weitergeleitet, ignoriert."/>
@@ -3859,7 +3866,7 @@
 		<control caption="Info:"/>
 		<control/>
 		<control caption="_Einstellungen..."/>
-		<control caption="Mehr.."/>
+		<control caption="Mehr..."/>
 	</dialog>
 	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuSt" caption="Erweitert">
 		<control/>
@@ -4370,13 +4377,13 @@
 		<control caption="One day only"/>
 		<control/>
 		<control/>
-		<control caption="Mo"/>
-		<control caption="Di"/>
-		<control caption="Mi"/>
-		<control caption="Do"/>
-		<control caption="Fr"/>
-		<control caption="Sa"/>
-		<control caption="So"/>
+		<control caption="Montag"/>
+		<control caption="Dienstag"/>
+		<control caption="Mittwoch"/>
+		<control caption="Donnerstag"/>
+		<control caption="Freitag"/>
+		<control caption="Samstag"/>
+		<control caption="Sonntag"/>
 		<control caption="Alle"/>
 		<control caption="Kommentare"/>
 		<control/>
@@ -4463,7 +4470,7 @@
 		<control caption="Leider wissen viele nicht, was sie verpassen!"/>
 		<control caption="Wenn Sie also jemanden kennen, dem PeerProjekt auch gefallen könnte, empfehlen Sie PeerProjekt doch weiter."/>
 		<control caption="Ihre Freunde werden ihnen dankbar sein!"/>
-		<control caption="http://PeerProject.org/"/>
+		<control caption="http://PeerProject.org"/>
 		<control caption="OK"/>
 	</dialog>
 	<dialog name="CExistingFileDlg" cookie="StStStStBuBuBuBuBuStSt" caption="Vorhandene Datei herunterladen">
@@ -4633,11 +4640,11 @@
 		<control caption="Abbrechen"/>
 	</dialog>
 	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Update verfügbar">
-		<control caption="Eine neue Version von PeerProjekt ist verfügbar.  Möchten Sie aktualisieren?"/>
+		<control caption="Eine neue Version von PeerProjekt ist verfügbar. Möchten Sie aktualisieren?"/>
 		<control caption="Wenn Sie auf &quot;Jetzt aktualisieren&quot; klicken, wird das Update automatisch zu ihrer Downloadliste hinzugefügt und heruntergeladen."/>
-		<control caption="Jetzt _aktualisieren"/>
 		<control caption="Nicht nach Updates suchen"/>
-		<control caption="Nicht updaten"/>
+		<control caption="Jetzt _aktualisieren"/>
+		<control caption="Abbrechen"/>
 	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Metadaten-Lokalisierung">
 		<control caption="Bitte wählen Sie die neue Codierung"/>
@@ -4808,6 +4815,7 @@
 		<column from="Filename" to="Dateiname"/>
 		<column from="Size" to="Größe"/>
 		<column from="Status" to="Status"/>
+		<column from="Index" to="Index"/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to="Tracker"/>

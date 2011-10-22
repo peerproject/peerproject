@@ -17,8 +17,10 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "CtrlLibraryFrame.h"
+#include "CtrlLibraryMetaPanel.h"
 #include "Library.h"
 #include "LibraryFolders.h"
 #include "SharedFolder.h"
@@ -32,10 +34,8 @@
 #include "ThumbCache.h"
 #include "ImageServices.h"
 #include "ImageFile.h"
-#include "CtrlLibraryFrame.h"
-#include "CtrlLibraryMetaPanel.h"
-#include "DlgFilePropertiesSheet.h"
 #include "FileExecutor.h"
+#include "DlgFilePropertiesSheet.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -273,7 +273,8 @@ void CLibraryMetaPanel::OnPaint()
 		LoadString( str, IDS_LIBPANEL_NO_SELECTION );
 		CSize sz = dc.GetTextExtent( str );
 		CPoint pt = rcClient.CenterPoint();
-		pt.x -= sz.cx / 2; pt.y -= sz.cy / 2;
+		pt.x -= sz.cx / 2;
+		pt.y -= sz.cy / 2;
 		dc.ExtTextOut( pt.x, pt.y, ETO_OPAQUE|dwFlags, &rcClient, str, NULL );
 		dc.SelectObject( pOldFont );
 		return;

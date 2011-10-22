@@ -17,21 +17,20 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "BTInfo.h"
 #include "BENode.h"
 #include "Buffer.h"
-#include "DownloadTask.h"
 #include "Download.h"
 #include "Downloads.h"
+#include "DownloadTask.h"
 #include "FragmentedFile.h"
 #include "Transfers.h"
+#include "Library.h"
 #include "SharedFile.h"
 #include "SharedFolder.h"
-#include "Library.h"
 #include "DlgProgressBar.h"
-
 #include "DownloadWithTorrent.h"	// For scrape m_pPeerId
 
 #ifdef _DEBUG
@@ -665,7 +664,7 @@ int CBTInfo::NextInfoPiece() const
 	if ( m_pSource.m_nLength == 0 )
 		return 0;
 
-	if ( ! m_nInfoSize && ( m_pSource.m_nLength - m_nInfoStart ) > 0 )
+	if ( ! m_nInfoSize && m_pSource.m_nLength > m_nInfoStart )
 		return ( m_pSource.m_nLength - m_nInfoStart ) / MAX_PIECE_SIZE;
 
 	return -1;
@@ -675,7 +674,7 @@ DWORD CBTInfo::GetInfoPiece(DWORD nPiece, BYTE **pInfoPiece) const
 {
 	const DWORD nPieceStart = MAX_PIECE_SIZE * nPiece;
 	if ( m_nInfoSize && m_nInfoStart &&
-		m_pSource.m_nLength - m_nInfoStart > m_nInfoSize &&
+		m_pSource.m_nLength > m_nInfoStart + m_nInfoSize &&
 		nPieceStart < m_nInfoSize )
 	{
 		*pInfoPiece = &m_pSource.m_pBuffer[ m_nInfoStart + nPieceStart ];
@@ -856,9 +855,9 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 						// Check tracker is valid
 						if ( _tcsncicmp( (LPCTSTR)strTracker, _T("http://"), 7 ) != 0 )		// ToDo: Handle UDP/HTTPS	_T("udp://") _T("https://")
 							pBadTrackers.AddTail( BAD_TRACKER_TOKEN + strTracker );			// Store Non-HTTP tracker for display (*udp://)
-						else if ( strTracker.Find( _T(".openbittorrent."), 14 ) > 14 ||
-								  strTracker.Find( _T("denis.stalker.h3q.com"), 7 ) > 7 ||
-								  strTracker.Find( _T("piratebay.org"), 7 ) > 7 ||
+						else if ( strTracker.Find( _T(".openbittorrent."), 12 ) > 12 ||		// (udp-only)
+								  strTracker.Find( _T("denis.stalker.h3q.com"), 6 ) > 6 ||
+								  strTracker.Find( _T("piratebay.org"), 6 ) > 6 ||
 								  strTracker.Find( _T(".1337x."), 8 ) > 8 )
 							pBadTrackers.AddTail( BAD_TRACKER_TOKEN + strTracker );			// Store common dead trackers for display
 						else //if ( _tcsncicmp( (LPCTSTR)strTracker, _T("http://"), 7 ) == 0 )
@@ -1059,13 +1058,13 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 
 		// Add sources from torrents - DWK
 		CBENode* pSources = pRoot->GetNode( "sources" );
-		if( pSources && pSources->IsType( CBENode::beList ) )
+		if ( pSources && pSources->IsType( CBENode::beList ) )
 		{
 			int m_nSources = pSources->GetCount();
-			for ( int nSource = 0 ; nSource < m_nSources; nSource++)
+			for ( int nSource = 0 ; nSource < m_nSources ; nSource++ )
 			{
 				CBENode* pSource = pSources->GetNode( nSource );
-				if( ! pSource || ! pSource->IsType(CBENode::beString) ) continue;
+				if ( ! pSource || ! pSource->IsType(CBENode::beString) ) continue;
 				m_sURLs.AddTail( pSource->GetString() );
 			}
 		}
@@ -1135,7 +1134,7 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 			}
 
 			// If that didn't work, try decoding the path
-			if ( ( ! IsValid( strPath ) )  )
+			if ( ! IsValid( strPath ) )
 			{
 				// There was an error reading the path
 				m_bEncodingError = true;
@@ -1623,7 +1622,7 @@ BOOL CBTInfo::ScrapeTracker()
 		if ( CBENode* pSeeds = pFile->GetNode( "complete" ) )
 		{
 			if ( pSeeds->IsType( CBENode::beInt ) )
-				m_nTrackerSeeds = (int)( pSeeds->GetInt() & ~0xFFFF0000 ); 	// QWORD Caution: Don't get negative values from buggy trackers
+				m_nTrackerSeeds = (int)( pSeeds->GetInt() & ~0xFFFF0000 );	// QWORD Caution: Don't get negative values from buggy trackers
 		}
 
 		if ( CBENode* pPeers = pFile->GetNode( "incomplete" ) )

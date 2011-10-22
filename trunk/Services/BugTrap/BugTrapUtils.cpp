@@ -100,7 +100,6 @@ void CenterWindow(HWND hwnd, HWND hwndCenter)
  */
 void DisplayWaitBanner(HWND hwnd)
 {
-	_ASSERTE(g_pResManager != NULL);
 	TCHAR szMessage[100];
 	LoadString(g_hInstance, IDS_PLEASE_WAIT, szMessage, countof(szMessage));
 	RECT rect;
@@ -119,7 +118,7 @@ void DisplayWaitBanner(HWND hwnd)
  */
 void ValidateScrollInfo(SCROLLINFO* pSInfo)
 {
-	_ASSERTE(pSInfo->nMax >= 0 && pSInfo->nPage >= 0);
+	_ASSERTE(pSInfo->nMax >= 0);
 	if ((UINT)pSInfo->nMax + 1 <= pSInfo->nPage)
 		pSInfo->nMax = pSInfo->nPage = 0;
 	if (pSInfo->nPos < 0)
@@ -277,7 +276,7 @@ size_t GetCanonicalAppName(PTSTR pszAppName, size_t nBufferSize, BOOL bAllowSpac
 			{
 				/*if (*arrCharType & C1_SPACE)
 					pszAppName[nDstPos++] = _T('_');*/
-				nSrcPos += (DWORD)nCharSize;
+				nSrcPos += nCharSize;
 			}
 		}
 		pszAppName[nDstPos] = _T('\0');
@@ -344,7 +343,6 @@ void CListViewOrder::InitList(HWND hwndList)
 {
 	m_iColumnNumber = -1;
 	m_bAscending = TRUE;
-	_ASSERTE(g_pResManager != NULL);
 	HWND hwndHeader = ListView_GetHeader(hwndList);
 	Header_SetImageList(hwndHeader, g_pResManager->m_hSortArrows);
 }
@@ -428,10 +426,10 @@ void CListViewOrder::ToggleSortParams(HWND hwndList, int iColumnNumber)
 int CALLBACK ListViewCompareFunc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort)
 {
 	LISTVIEW_SORT_PARAMS* pLVSortParams = (LISTVIEW_SORT_PARAMS*)lParamSort;
-	TCHAR szItem1Text[256];
-	ListView_GetItemText(pLVSortParams->hwndList, lParam1, pLVSortParams->iColumnNumber, szItem1Text, countof(szItem1Text));
-	TCHAR szItem2Text[256];
-	ListView_GetItemText(pLVSortParams->hwndList, lParam2, pLVSortParams->iColumnNumber, szItem2Text, countof(szItem2Text));
+	TCHAR szItem1Text[256] = {};
+	ListView_GetItemText(pLVSortParams->hwndList, lParam1, pLVSortParams->iColumnNumber, szItem1Text, countof(szItem1Text) - 1);
+	TCHAR szItem2Text[256] = {};
+	ListView_GetItemText(pLVSortParams->hwndList, lParam2, pLVSortParams->iColumnNumber, szItem2Text, countof(szItem2Text) - 1);
 	int iResult;
 	switch (pLVSortParams->eCompareType)
 	{

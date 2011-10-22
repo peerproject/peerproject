@@ -3,12 +3,12 @@
 <!--
 	Emoticons for PeerProject 1.0 Betas
 
-	This is a *temporary* set of emoticons to be used with PeerProject,
+	This is a temporary(?) set of emoticons to be used with PeerProject,
 	based on icons used in Windows Messenger/MSN, in Trillian IM format.
 
 	Custom emoticon sets from Trillian can thus be used with PeerProject.
 
-	The final PeerProject release will have a custom set of emoticons.
+	The final PeerProject release should have a custom set of emoticons.
 -->
 
 <emoticons>
@@ -39,15 +39,18 @@
 
 	<emoticon text=":-$"><source name="msn" left="112" right="128" top="0" bottom="16"/></emoticon>
 
-	<emoticon text=":-S" button="yes"><source name="msn" left="128" right="144" top="0" bottom="16"/></emoticon>
+	<emoticon text=":-/" button="yes"><source name="msn" left="128" right="144" top="0" bottom="16"/></emoticon>
+	<emoticon text=":-S"><source name="msn" left="128" right="144" top="0" bottom="16"/></emoticon>
 
 	<emoticon text=":-(" button="yes"><source name="msn" left="144" right="160" top="0" bottom="16"/></emoticon>
 
 	<emoticon text=":'(" button="yes"><source name="msn" left="160" right="176" top="0" bottom="16"/></emoticon>
 
 	<emoticon text=":-|" button="yes"><source name="msn" left="176" right="192" top="0" bottom="16"/></emoticon>
+	<emoticon text="O_o"><source name="msn" left="176" right="192" top="0" bottom="16"/></emoticon>
 
-	<emoticon text="((6))" button="yes"><source name="msn" left="192" right="208" top="0" bottom="16"/></emoticon>
+	<emoticon text=">:-)" button="yes"><source name="msn" left="192" right="208" top="0" bottom="16"/></emoticon>
+	<emoticon text="((6))""><source name="msn" left="192" right="208" top="0" bottom="16"/></emoticon>
 
 	<emoticon text="((A))" button="yes"><source name="msn" left="208" right="224" top="0" bottom="16"/></emoticon>
 	<emoticon text="((a))"><source name="msn" left="208" right="224" top="0" bottom="16"/></emoticon>
@@ -84,7 +87,8 @@
 	<emoticon text="((W))" button="yes"><source name="msn" left="416" right="432" top="0" bottom="16"/></emoticon>
 	<emoticon text="((w))"><source name="msn" left="416" right="432" top="0" bottom="16"/></emoticon>
 
-	<emoticon text="((K))" button="yes"><source name="msn" left="432" right="448" top="0" bottom="16"/></emoticon>
+	<emoticon text=":-*" button="yes"><source name="msn" left="432" right="448" top="0" bottom="16"/></emoticon>
+	<emoticon text="((K))"><source name="msn" left="432" right="448" top="0" bottom="16"/></emoticon>
 	<emoticon text="((k))"><source name="msn" left="432" right="448" top="0" bottom="16"/></emoticon>
 
 	<emoticon text="((G))" button="yes"><source name="msn" left="448" right="464" top="0" bottom="16"/></emoticon>
@@ -98,7 +102,9 @@
 	<emoticon text="((I))" button="yes"><source name="msn" left="496" right="512" top="0" bottom="16"/></emoticon>
 	<emoticon text="((i))"><source name="msn" left="496" right="512" top="0" bottom="16"/></emoticon>
 
-	<emoticon text="((C))" button="yes"><source name="msn" left="512" right="528" top="0" bottom="16"/></emoticon>
+	<emoticon text="(CC)" button="yes"><source name="msn" left="512" right="528" top="0" bottom="16"/></emoticon>
+	<emoticon text="(cc)"><source name="msn" left="512" right="528" top="0" bottom="16"/></emoticon>
+	<emoticon text="((C))"><source name="msn" left="512" right="528" top="0" bottom="16"/></emoticon>
 	<emoticon text="((c))"><source name="msn" left="512" right="528" top="0" bottom="16"/></emoticon>
 
 	<emoticon text="((T))" button="yes"><source name="msn" left="528" right="544" top="0" bottom="16"/></emoticon>

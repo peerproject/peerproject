@@ -3,7 +3,7 @@
 
 // MS compatible compilers support #pragma once
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif
 
@@ -20,7 +20,7 @@
 //  are available.
 //
 
-#if defined(__GNUC__) && ( __GNUC__ * 100 + __GNUC_MINOR__ >= 401 )
+#if defined( __GNUC__ ) && ( __GNUC__ * 100 + __GNUC_MINOR__ >= 401 ) && !defined( BOOST_SP_NO_SYNC )
 
 #define BOOST_SP_HAS_SYNC
 
@@ -40,7 +40,7 @@
 #undef BOOST_SP_HAS_SYNC
 #endif
 
-#if defined( __INTEL_COMPILER ) && !defined( __ia64__ )
+#if defined( __INTEL_COMPILER ) && !defined( __ia64__ ) && ( __INTEL_COMPILER < 1100 )
 #undef BOOST_SP_HAS_SYNC
 #endif
 

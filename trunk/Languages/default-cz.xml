@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Czech Skin File -->
 
-<!-- Translation based on default-en.xml r69 (Shareaza 2.2.5.7) -->
+<!-- Translation based on default-en.xml r70 (Shareaza 2.2.5.7) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -250,9 +250,9 @@
 		<separator/>
 		<button id="ID_LIBRARY_PROPERTIES" text="Vlastnosti"/>
 		<separator/>
-		<button id="ID_LIBRARY_MOVE" text="Přesunout"/>
-		<button id="ID_LIBRARY_COPY" text="Kopírovat"/>
-		<button id="ID_LIBRARY_DELETE" text="Vymazat"/>
+		<button id="ID_LIBRARY_MOVE"/>	<!--text="Přesunout"-->
+		<button id="ID_LIBRARY_COPY"/>	<!--text="Kopírovat"-->
+		<button id="ID_LIBRARY_DELETE"/> <!--text="Vymazat"-->
 		<rightAlign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Najít:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
@@ -874,13 +874,15 @@
 	</menu>
 	<menu name="CHomeWnd.Tabbed">
 		<item id="ID_TAB_HOME" text="_Hlavní"/>
-		<item id="ID_TAB_LIBRARY" text="_Knihovna"/>
-		<item id="ID_TAB_MEDIA" text="_Přehrávač"/>
 		<item id="ID_TAB_SEARCH" text="_Hledat"/>
 		<item id="ID_TAB_TRANSFERS" text="_Přenos"/>
 		<item id="ID_TAB_NETWORK" text="_Síť"/>
+		<item id="ID_TAB_LIBRARY" text="_Knihovna"/>
+		<item id="ID_TAB_MEDIA" text="_Přehrávač"/>
+		<item id="ID_TAB_IRC" text="_IRC Chat"/>
 		<separator/>
 		<item id="ID_VIEW_SECURITY" text="Zabe_zpečení"/>
+		<item id="ID_VIEW_SCHEDULER" text="Schedule_r"/>
 		<item id="ID_VIEW_HOSTS" text="Cache _hosta"/>
 		<item id="ID_VIEW_DISCOVERY" text="Vyhledání"/>
 		<item id="ID_VIEW_TRAFFIC" text="_Graf"/>
@@ -903,8 +905,9 @@
 			<item id="ID_HOSTCACHE_G2_CACHE" text="Gnutella_2 Cache"/>
 			<item id="ID_HOSTCACHE_G1_CACHE" text="Gnutella_1 Cache"/>
 			<item id="ID_HOSTCACHE_ED2K_CACHE" text="_eDonkey Servers"/>
-			<item id="ID_HOSTCACHE_BT_CACHE" text="_BitTorrent Cache"/>
-			<item id="ID_HOSTCACHE_KAD_CACHE" text="_Kademlia Cache"/>
+			<item id="ID_HOSTCACHE_DC_CACHE" text="DC++ _Hubs"/>
+			<!-- <item id="ID_HOSTCACHE_BT_CACHE" text="_BitTorrent Cache"/> -->
+			<!-- <item id="ID_HOSTCACHE_KAD_CACHE" text="_Kademlia Cache"/> -->
 		</menu>
 		<separator/>
 		<item id="ID_HOSTCACHE_IMPORT" text="_Import souboru MET..."/>
@@ -1268,10 +1271,10 @@
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Sdílené"/>
 		<separator/>
-		<item id="ID_LIBRARY_URI" text=""/>
+		<item id="ID_LIBRARY_URI" text="Kopírovat _URI"/>
 		<item id="ID_LIBRARY_CREATETORRENT" text="._torrent"/>
 		<separator/>
-		<menu text="S_earch For">
+		<menu text="_Vyhledat">
 			<item id="ID_SEARCH_FOR_THIS" text="Tento soubor"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="Podobné soubory"/>
 			<separator/>
@@ -1479,7 +1482,7 @@
 	</menu>
 	<!-- SYSTEM WINDOW -->
 	<menu name="CSystemWnd">
-		<menu id="ID_SYSTEM_VERBOSE" text="_Podrobný režim"/>
+		<menu id="ID_SYSTEM_VERBOSE" text="_Podrobný režim">
 			<item id="ID_SYSTEM_VERBOSE_ERROR" text="_Error"/>
 			<item id="ID_SYSTEM_VERBOSE_WARNING" text="_Warning"/>
 			<item id="ID_SYSTEM_VERBOSE_NOTICE" text="_Notice"/>
@@ -1780,7 +1783,7 @@
 		<group id="2">
 			<para align="center">
 				<newline gap="4"/>
-				<link target="command:ID_VIEW_LIBRARY">Jste připojeni</link>
+				<link target="command:ID_TAB_NETWORK">Jste připojeni</link>
 				<newline gap="4"/>
 				<text id="ConnectedHours" format="b">%i </text>
 				<text>hodin a </text>
@@ -1789,7 +1792,7 @@
 			</para>
 		</group>
 	</document>
-	<document name="CHomeLibraryBox" title="Moje Knihovna" leftMargin="6" topMargin="6">
+	<document name="CHomeLibraryBox" title="Knihovna" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
 				<font size="11"/>
@@ -1821,7 +1824,7 @@
 			</group>
 		</para>
 	</document>
-	<document name="CHomeDownloadsBox" title="Moje stahování" leftMargin="6" topMargin="6">
+	<document name="CHomeDownloadsBox" title="Stahování" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
 				<font size="11"/>
@@ -3062,7 +3065,7 @@
 	<string id="20576" value="Poslán dotaz propojovací tabulky na počítač %s (%i bit = %lu[%i], %i%% full)"/>
 	<string id="20577" value="Přijímán nečekaný dotaz na aktualizaci směrovací tabulky od souseda %s."/>
 	<string id="20578" value="Soused %s aktualizoval jeho otázku na směrovací tabulku (%i bit = %lu[%i], %i%% full)."/>
-	<string id="20579" value="%s -> %s [%i/%i] %s %s"/>
+	<string id="20579" value="%s -&gt; %s [%i/%i] %s %s"/>
 	<string id="20580" value="Seznam se předá počítači %s s dotazem na výpadky spojení."/>
 	<string id="20581" value="Soused %s poslal ping na paket s nesprávnou délkou, ignoruji."/>
 	<string id="20582" value="Soused %s poslal pong na paket s nesprávnou délkou, ignoruji."/>
@@ -4141,13 +4144,13 @@
 		<control caption="One day only"/>
 		<control/>
 		<control/>
-		<control caption="Po"/>
-		<control caption="Út"/>
-		<control caption="St"/>
-		<control caption="Čt"/>
-		<control caption="Pá"/>
-		<control caption="So"/>
-		<control caption="Ne"/>
+		<control caption="Pondělí"/>
+		<control caption="Úterý"/>
+		<control caption="Středa"/>
+		<control caption="Čtvrtek"/>
+		<control caption="Pátek"/>
+		<control caption="Sobota"/>
+		<control caption="Neděle"/>
 		<control caption="Vše"/>
 		<control caption="Komentáře"/>
 		<control/>
@@ -4405,9 +4408,9 @@
 	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Upozornění na aktualizaci">
 		<control caption="Je k dispozici nová verze PeerProject. Chcete program aktualizovat?"/>
 		<control caption="Jestliže teď zvolíte aktualizaci, PeerProject přidá vaši frontu stahování a automaticky začne stahovat potřebné soubory."/>
-		<control caption="_Aktualizovat"/>
 		<control caption="Nekontrolovat nové verze"/>
-		<control caption="Nechci aktualizaci"/>
+		<control caption="_Aktualizovat"/>
+		<control caption="Zrušit"/>
 	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Lokalizace popisků">
 		<control caption="Prosím zvolte metodu obnovení kódování"/>

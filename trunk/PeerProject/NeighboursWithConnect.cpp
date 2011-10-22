@@ -20,19 +20,19 @@
 // http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CNeighboursWithConnect
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "NeighboursWithConnect.h"
+#include "Neighbours.h"
+#include "EDNeighbour.h"
+#include "DCNeighbour.h"
+#include "ShakeNeighbour.h"
 #include "Network.h"
 #include "Datagrams.h"
 #include "Security.h"
 #include "HostCache.h"
 #include "Downloads.h"
 #include "DiscoveryServices.h"
-#include "NeighboursWithConnect.h"
-#include "ShakeNeighbour.h"
-#include "EDNeighbour.h"
-#include "DCNeighbour.h"
-#include "Neighbours.h"
 //#include "Scheduler.h"
 
 #ifdef _DEBUG
@@ -868,7 +868,7 @@ void CNeighboursWithConnect::Maintain()
 			{
 				// This connection is to a hub above us, or a hub just like us:
 				// Count one more hub for this connection's protocol only if we've been connected for several seconds.
-				if ( tNow - pNeighbour->m_tConnected > 8000 )
+				if ( tNow > pNeighbour->m_tConnected + 8000 )
 					nCount[ pNeighbour->m_nProtocol ][ ntHub ]++;
 			}
 			else
@@ -896,7 +896,7 @@ void CNeighboursWithConnect::Maintain()
 	if ( ! Settings.Gnutella2.HubVerified && m_tHubG2Promotion > 0 && Network.IsConnected() )
 	{
 		// If we have been a hub for at least 8 hours
-		if ( ( tNow - m_tHubG2Promotion ) > ( 8 * 60 * 60 ) )
+		if ( tNow > m_tHubG2Promotion + ( 8 * 60 * 60 ) )
 		{
 			// And we're loaded ( 75% capacity ), then we probably make a pretty good hub
 			if ( nCount[ PROTOCOL_G2 ][ ntHub ] > ( Settings.Gnutella2.NumLeafs * 3 / 4 ) )
@@ -1003,9 +1003,9 @@ void CNeighboursWithConnect::Maintain()
 					CHostCacheHostPtr pHost = (*i);
 
 					// If we can connect to this host, try it, if it works, move into this if block
-					if ( pHost->m_bPriority       &&	// This host in the host cache is marked as priority (do)
-						pHost->CanConnect( tNow ) &&	// We can connect to this host now (do)
-						pHost->ConnectTo( TRUE ) )		// Try to connect to this host now (do), if it works
+					if ( pHost->m_bPriority &&			// This host in the host cache is marked as priority (do)
+						 pHost->CanConnect( tNow ) &&	// We can connect to this host now (do)
+						 pHost->ConnectTo( TRUE ) )		// Try to connect to this host now (do), if it works
 					{
 						// Make sure it's an eDonkey2000 computer we just connected to
 						ASSERT( pHost->m_nProtocol == nProtocol );

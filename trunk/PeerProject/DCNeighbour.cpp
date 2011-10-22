@@ -17,6 +17,7 @@
 //
 
 #include "StdAfx.h"
+#include "Settings.h"
 #include "PeerProject.h"
 #include "DCNeighbour.h"
 #include "DCPacket.h"
@@ -29,7 +30,6 @@
 #include "Network.h"
 #include "Neighbours.h"
 #include "Security.h"
-#include "Settings.h"
 #include "UploadQueue.h"
 #include "UploadQueues.h"
 
@@ -114,7 +114,7 @@ BOOL CDCNeighbour::OnRead()
 
 		m_tLastPacket = GetTickCount();
 
-		if ( CDCPacket* pPacket = CDCPacket::New( (const BYTE*)strLine.c_str(), strLine.size() ) )
+		if ( CDCPacket* pPacket = CDCPacket::New( (const BYTE*)strLine.c_str(), (DWORD)strLine.size() ) )
 		{
 			pPacket->SmartDump( &m_pHost, FALSE, FALSE, (DWORD_PTR)this );
 			pPacket->Release();
@@ -495,7 +495,7 @@ BOOL CDCNeighbour::OnLock(const std::string& strLock)
 
 	if ( m_bExtended )
 	{
-		if ( CDCPacket* pPacket = CDCPacket::New()  )
+		if ( CDCPacket* pPacket = CDCPacket::New() )
 		{
 			pPacket->WriteString( _T("$Supports NoHello NoGetINFO UserIP2 TTHSearch |"), FALSE );
 			Send( pPacket );
@@ -506,7 +506,7 @@ BOOL CDCNeighbour::OnLock(const std::string& strLock)
 	if ( CDCPacket* pPacket = CDCPacket::New() )
 	{
 		pPacket->Write( _P("$Key ") );
-		pPacket->Write( strKey.c_str(), strKey.size() );
+		pPacket->Write( strKey.c_str(), (DWORD)strKey.size() );
 		pPacket->Write( _P("|") );
 		Send( pPacket );
 	}

@@ -18,9 +18,10 @@
 
 #include "StdAfx.h"
 #include "PeerProject.h"
+#include "BTPacket.h"
+
 #include "BENode.h"
 #include "BTClient.h"
-#include "BTPacket.h"
 #include "Buffer.h"
 #include "Datagrams.h"
 #include "Statistics.h"

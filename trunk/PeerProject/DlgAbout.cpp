@@ -18,9 +18,9 @@
 
 #include "StdAfx.h"
 #include "PeerProject.h"
-#include "CoolInterface.h"
-#include "Colors.h"
 #include "DlgAbout.h"
+#include "Colors.h"
+#include "CoolInterface.h"
 //#include "Revision.h"
 
 #ifdef _DEBUG

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Traditional) Skin File -->
 
-<!-- Translation based on default-en.xml r69 (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r70 (Shareaza 2.2.2.12) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -372,6 +372,7 @@
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
+		<button id="ID_NETWORK_DC" text="DC++"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="設定"/>
 	</toolbar>
@@ -762,6 +763,7 @@
 			<item id="ID_VIEW_LIBRARY" text="收藏" shortcut="F5"/>
 			<item id="ID_VIEW_MEDIA" text="多媒體" shortcut="F6"/>
 			<separator/>
+			<item id="ID_VIEW_SCHEDULER" text="Scheduler" shortcut="Ctrl+F7"/>
 			<item id="ID_VIEW_SECURITY" text="安全性" shortcut="F7"/>
 			<item id="ID_VIEW_HOSTS" text="主機快取" shortcut="F8"/>
 			<item id="ID_VIEW_DISCOVERY" text="揭示" shortcut="F9"/>
@@ -832,6 +834,7 @@
 			<item id="ID_VIEW_NEIGHBOURS" text="我的鄰居"/>
 			<item id="ID_VIEW_UPLOADS" text="上傳"/>
 			<item id="ID_VIEW_SECURITY" text="安全性"/>
+			<item id="ID_VIEW_SCHEDULER" text="Scheduler"/>
 			<item id="ID_VIEW_HOSTS" text="主機快取"/>
 		</menu>
 	</menu>
@@ -844,6 +847,7 @@
 		<item id="ID_TAB_NETWORK" text="網路"/>
 		<separator/>
 		<item id="ID_VIEW_SECURITY" text="安全性"/>
+		<item id="ID_VIEW_SCHEDULER" text="Scheduler"/>
 		<item id="ID_VIEW_HOSTS" text="主機快取"/>
 		<item id="ID_VIEW_DISCOVERY" text="揭示"/>
 		<item id="ID_VIEW_TRAFFIC" text="圖表"/>
@@ -895,6 +899,7 @@
 		<item id="ID_TAB_NETWORK" text="網路"/>
 		<separator/>
 		<item id="ID_VIEW_SECURITY" text="安全性"/>
+		<item id="ID_VIEW_SCHEDULER" text="Scheduler"/>
 		<item id="ID_VIEW_HOSTS" text="主機快取"/>
 		<item id="ID_VIEW_DISCOVERY" text="揭示"/>
 		<item id="ID_VIEW_TRAFFIC" text="圖表"/>
@@ -1212,6 +1217,8 @@
 		<item id="ID_LIBRARY_REBUILD" text="重建"/>
 		<item id="ID_LIBRARY_FOLDERS" text="分享檔案..."/>
 		<separator/>
+		<item id="ID_SHELL_MENU" text="S_hell menu"/>
+		<separator/>
 		<item id="ID_LIBRARY_FOLDER_FILE_PROPERTIES" text="檔案屬性"/>
 	</menu>
 	<menu name="CLibraryTree.Virtual.Basic">
@@ -1481,7 +1488,7 @@
 	</menu>
 	<!-- SYSTEM WINDOW -->
 	<menu name="CSystemWnd">
-		<menu id="ID_SYSTEM_VERBOSE" text="Verbose 模式"/>
+		<menu id="ID_SYSTEM_VERBOSE" text="Verbose 模式">
 			<item id="ID_SYSTEM_VERBOSE_ERROR" text="_Error"/>
 			<item id="ID_SYSTEM_VERBOSE_WARNING" text="_Warning"/>
 			<item id="ID_SYSTEM_VERBOSE_NOTICE" text="_Notice"/>
@@ -2531,6 +2538,7 @@
 	<string id="20006" value="前进"/>
 	<string id="20008" value="關閉"/>
 	<string id="20009" value="之"/> <!-- "1 of 10" -->
+	<string id="20010" value="所有的"/>
 	<string id="20011" value="自動"/>
 	<string id="20012" value="自訂"/>
 	<string id="20013" value="預設"/>
@@ -2538,6 +2546,12 @@
 	<string id="20020" value="文件"/>
 	<string id="20021" value="文件"/>
 	<string id="20022" value="所有的檔案"/>
+	<string id="20023" value="No 文件"/>
+	<string id="20024" value="大型檔案"/>
+	<string id="20025" value="中型檔案"/>
+	<string id="20026" value="小型檔案"/>
+	<string id="20027" value="部分檔案"/>
+	<string id="20028" value="Library 檔案"/>
 	<string id="20029" value="%s文件"/>
 	<string id="20050" value="星期每天"/>
 	<string id="20051" value="星期一"/>
@@ -2570,7 +2584,7 @@
 	<string id="20108" value="正在從瀏覽主機 %s (%s) 接收內容"/>
 	<string id="20109" value="與 %s 的瀏覽使用者連線已忽略."/>
 	<string id="20110" value="完成瀏覽用戶 %s, 找到 %i 個檔案."/>
-	<string id="20111" value="在 %s 的收藏中找到 %i 分享的檔案."/>
+	<string id="20111" value="發現%i共享文件在%s的圖書館"/>
 	<string id="20112" value="瀏覽主機 %s 回應指令碼 %s (%s)."/>
 	<string id="20113" value="瀏覽主機 %s 送出了無效的 HTTP 回應."/>
 	<string id="20114" value="無法下載檔案清單. 這個主機不支援瀏覽."/>
@@ -2703,6 +2717,7 @@
 	<string id="20257" value="無法啟始下載 &quot;%s&quot; 的解壓縮動作."/>
 	<string id="20258" value="由 %s (%s) 接收 tiger-tree 資料..."/>
 	<string id="20259" value="正在從 %s 要求 &quot;%s&quot; 的解釋資料 ..."/>
+	<string id="20260" value="編輯下載"/>
 	<string id="20261" value="下載主機 %s 回應了 %s (%s)."/>
 	<string id="20262" value="下載主機 %s 發出無效的 HTTP 回應."/>
 	<string id="20263" value="主機 %s 正在推播下載 &quot;%s&quot;, 接受."/>
@@ -2828,6 +2843,7 @@
 	<string id="20398" value="正在關閉與 %s 多餘的連線."/>
 	<string id="20399" value="與%s 的連線已逾時"/>
 	<string id="20400" value="PeerProject 正在為這個檔案切細: %Iu 檔:"/>
+	<string id="20407" value="移除"/>
 	<string id="20410" value="探勘你的 PeerProject 收藏中?"/>
 	<string id="20411" value="探勘中"/>
 	<string id="20412" value="正在探勘 %i 個資料夾的內容"/>
@@ -2836,6 +2852,8 @@
 	<string id="20415" value="沒有選擇任何檔案"/>
 	<string id="20416" value="評分這個檔案"/>
 	<string id="20417" value="最近的新增部分"/>
+	<string id="20422" value="評分"/>
+	<string id="20424" value="優先順序"/>	<!-- Track number -->
 	<string id="20425" value="PeerProject 無法經由複製到資料夾 &quot;%s&quot;.安裝組檔 &quot;%s&quot;."/>
 	<string id="20426" value="您要下載這個組檔裡所有的檔案嗎?\n\n選擇取消以停止進一步的提示."/>
 	<string id="20427" value="PeerProject 已加入組檔 &quot;%s&quot; 至您的收藏."/>
@@ -2964,7 +2982,7 @@
 	<string id="20576" value="正在送出詢問路由表至鄰居 %s (%i bit = %lu[%i], %i%% full)"/>
 	<string id="20577" value="從鄰居 %s 接收到不可預料的詢問路由表更新."/>
 	<string id="20578" value="鄰居 %s 更新了它的詢問路由表 (%i bit = %lu[%i], %i%% full)."/>
-	<string id="20579" value="%s -> %s [%i/%i] %s %s"/>
+	<string id="20579" value="%s -&gt; %s [%i/%i] %s %s"/>
 	<string id="20580" value="葉節點鄰居 %s 正在轉送詢問, 正在忽略連線."/>
 	<string id="20581" value="鄰居 %s 轉送了一個無效長度的 ping 封包, 忽略."/>
 	<string id="20582" value="鄰居 %s 轉送了一個無效長度的 pong 封包, 忽略."/>
@@ -4304,9 +4322,9 @@
 	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="升級通知">
 		<control caption="PeerProject 有新版本了. 您要升級嗎?"/>
 		<control caption="如果您現在選擇立刻升級, PeerProject 將新增更新檔至您的下載等待隊伍並自動開始下載."/>
-		<control caption="立刻升級"/>
 		<control caption="不要檢查新版本"/>
-		<control caption="不升級"/>
+		<control caption="立刻升級"/>
+		<control caption="取消"/>
 	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="解釋資料本地化">
 		<control caption="請選擇重新編碼的方法"/>

@@ -17,14 +17,14 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "Statistics.h"
-#include "Buffer.h"
-#include "Network.h"
+#include "PeerProject.h"
 #include "Datagrams.h"
 #include "Datagram.h"
 #include "DatagramPart.h"
+
+#include "Buffer.h"
+#include "Network.h"
 #include "G1Packet.h"
 #include "G2Packet.h"
 #include "EDPacket.h"
@@ -32,6 +32,7 @@
 #include "BTPacket.h"
 #include "BENode.h"
 #include "Security.h"
+#include "Statistics.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -482,7 +483,7 @@ BOOL CDatagrams::TryWrite()
 					(LPCTSTR)CString( inet_ntoa( pDG->m_pHost.sin_addr ) ),
 					htons( pDG->m_pHost.sin_port ) );
 #endif
-				if( ! pDG->m_bAck )
+				if ( ! pDG->m_bAck )
 					Remove( pDG );
 
 				break;
@@ -525,7 +526,7 @@ void CDatagrams::ManageOutput()
 	{
 		CDatagramOut* pNext = pDG->m_pNextTime;
 
-		if ( tNow - pDG->m_tSent > Settings.Gnutella2.UdpOutExpire )
+		if ( tNow > pDG->m_tSent + Settings.Gnutella2.UdpOutExpire )
 			Remove( pDG );
 
 		pDG = pNext;
@@ -584,7 +585,7 @@ BOOL CDatagrams::TryRead()
 	if ( m_mInput.pHistory )
 	{
 		const DWORD tNow = GetTickCount();
-		if ( tNow - m_mInput.tLastSlot < METER_MINIMUM )
+		if ( tNow < m_mInput.tLastSlot + METER_MINIMUM )
 		{
 			m_mInput.pHistory[ m_mInput.nPosition ] += nLength;
 		}

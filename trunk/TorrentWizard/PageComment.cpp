@@ -63,23 +63,23 @@ void CCommentPage::DoDataExchange(CDataExchange* pDX)
 /////////////////////////////////////////////////////////////////////////////
 // CCommentPage message handlers
 
-void CCommentPage::OnReset() 
+void CCommentPage::OnReset()
 {
 	// Nothing here
 }
 
-BOOL CCommentPage::OnSetActive() 
+BOOL CCommentPage::OnSetActive()
 {
 	SetWizardButtons( PSWIZB_BACK | PSWIZB_NEXT );
 	return CWizardPage::OnSetActive();
 }
 
-LRESULT CCommentPage::OnWizardBack() 
+LRESULT CCommentPage::OnWizardBack()
 {
 	return IDD_TRACKER_PAGE;
 }
 
-LRESULT CCommentPage::OnWizardNext() 
+LRESULT CCommentPage::OnWizardNext()
 {
 	return IDD_OUTPUT_PAGE;
 }

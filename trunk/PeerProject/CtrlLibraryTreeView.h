@@ -180,7 +180,7 @@ public:
 	size_t treeSize() const
 	{
 		size_t result = size();
-		for ( const_iterator i = begin(); i != end(); ++i )
+		for ( const_iterator i = begin() ; i != end() ; ++i )
 		{
 			result += i->treeSize();
 		}

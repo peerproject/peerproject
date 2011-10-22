@@ -17,9 +17,10 @@
 //
 
 #include "StdAfx.h"
+#include "Settings.h"
 #include "PeerProject.h"
-
 #include "LibraryDictionary.h"
+
 #include "SharedFile.h"
 #include "QueryHashMaster.h"
 #include "QueryHashTable.h"
@@ -27,9 +28,8 @@
 
 #include "Library.h"
 #include "LibraryMaps.h"
-#include "Schema.h"
-#include "Settings.h"
 #include "UploadQueues.h"
+#include "Schema.h"
 
 
 #ifdef _DEBUG
@@ -104,7 +104,7 @@ void CLibraryDictionary::ProcessPhrase(CLibraryFile& oFile, const CString& strPh
 
 	CStringList oKeywords;
 	CQueryHashTable::MakeKeywords( strPhrase, oKeywords );
-	for ( POSITION pos = oKeywords.GetHeadPosition(); pos; )
+	for ( POSITION pos = oKeywords.GetHeadPosition() ; pos ; )
 	{
 		ProcessWord( oFile, oKeywords.GetNext( pos ), bAdd, bCanUpload );
 	}
@@ -352,8 +352,7 @@ CFileList* CLibraryDictionary::Search(const CQuerySearch* pSearch, const int nMa
 
 			if ( pHit->m_nCollIndex )
 			{
-				CLibraryFile* pCollection = LibraryMaps.LookupFile(
-					pHit->m_nCollIndex, !bLocal, bAvailableOnly );
+				CLibraryFile* pCollection = LibraryMaps.LookupFile( pHit->m_nCollIndex, ! bLocal, bAvailableOnly );
 
 				if ( pCollection )
 				{

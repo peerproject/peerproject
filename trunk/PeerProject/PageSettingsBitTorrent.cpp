@@ -17,10 +17,10 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "WndMain.h"
+#include "PeerProject.h"
 #include "PageSettingsBitTorrent.h"
+#include "WndMain.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -122,7 +122,7 @@ BOOL CBitTorrentSettingsPage::OnSetActive()
 	DWORD nMaxTorrents = ( Settings.GetOutgoingBandwidth() / 2 ) + 2;
 	nMaxTorrents = min( 10ul, nMaxTorrents );
 
-	m_nDownloads	= min( m_nDownloads, (int)nMaxTorrents );
+	m_nDownloads = min( m_nDownloads, (int)nMaxTorrents );
 	m_wndDownloadsSpin.SetRange( 0, (WORD)nMaxTorrents );
 
 	UpdateData( FALSE );
@@ -165,18 +165,18 @@ void CBitTorrentSettingsPage::OnOK()
 {
 	UpdateData( TRUE );
 
-	m_nClearPercentage = min (m_nClearPercentage, 999);
-	m_nClearPercentage = max (m_nClearPercentage, 100);
+	m_nClearPercentage = min( m_nClearPercentage, 999 );
+	m_nClearPercentage = max( m_nClearPercentage, 100 );
 
 	// Guestimate a good value based on available bandwidth
 	if ( Settings.GetOutgoingBandwidth() < 16 )
-		m_nLinks = min ( m_nLinks, 200 );
+		m_nLinks = min( m_nLinks, 200 );
 	else if ( Settings.GetOutgoingBandwidth() < 32 )
-		m_nLinks = min ( m_nLinks, 300 );
+		m_nLinks = min( m_nLinks, 300 );
 	else if ( Settings.GetOutgoingBandwidth() < 64 )
-		m_nLinks = min ( m_nLinks, 500 );
+		m_nLinks = min( m_nLinks, 500 );
 	else
-		m_nLinks = min ( m_nLinks, 800 );
+		m_nLinks = min( m_nLinks, 800 );
 
 	m_nDownloads = min( m_nDownloads, (int)( ( Settings.GetOutgoingBandwidth() / 2 ) + 2 ) );
 

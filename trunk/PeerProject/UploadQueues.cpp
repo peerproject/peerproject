@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "UploadQueues.h"
 #include "UploadQueue.h"
 #include "UploadTransfer.h"
@@ -567,7 +567,21 @@ void CUploadQueues::CreateDefault()
 	Clear();
 	CString strQueueName;
 
-	if ( Settings.Connection.OutSpeed > 1200 )  // 1200 Kb/s (Massive connection)
+	if ( Settings.Experimental.LAN_Mode )
+	{
+		LoadString ( strQueueName, IDS_FILES_ALL );
+		pQueue						= Create( strQueueName );
+		pQueue->m_nBandwidthPoints	= 40;
+		pQueue->m_nProtocols		= 0;
+		pQueue->m_nFileStateFlag	= CUploadQueue::ulqBoth;
+		pQueue->m_nCapacity			= 1000;
+		pQueue->m_nMinTransfers		= 4;
+		pQueue->m_nMaxTransfers		= 6;
+		pQueue->m_bRotate			= TRUE;
+		pQueue->m_nRotateTime		= 10*60;
+		pQueue->m_bRewardUploaders	= TRUE;
+	}
+	else if ( Settings.Connection.OutSpeed > 1200 )	// 1200 Kb/s (Massive connection)
 	{
 		LoadString ( strQueueName, IDS_UPLOAD_QUEUE_ED2K_PARTIALS );
 		pQueue						= Create( strQueueName );
@@ -640,7 +654,7 @@ void CUploadQueues::CreateDefault()
 		pQueue->m_nRotateTime		= 60*60;
 		pQueue->m_bRewardUploaders	= FALSE;
 	}
-	else if ( Settings.Connection.OutSpeed > 800 )  // 800 Kb/s (Fast Broadband)
+	else if ( Settings.Connection.OutSpeed > 800 )	// 800 Kb/s (Fast Broadband)
 	{
 		LoadString ( strQueueName, IDS_UPLOAD_QUEUE_ED2K_PARTIALS );
 		pQueue						= Create( strQueueName );
@@ -713,7 +727,7 @@ void CUploadQueues::CreateDefault()
 		pQueue->m_nRotateTime		= 60*60;
 		pQueue->m_bRewardUploaders	= FALSE;
 	}
-	else if ( Settings.Connection.OutSpeed > 250 )  // >250 Kb/s (Good Broadband)
+	else if ( Settings.Connection.OutSpeed > 250 )	// >250 Kb/s (Good Broadband)
 	{
 		LoadString ( strQueueName, IDS_UPLOAD_QUEUE_ED2K_PARTIALS );
 		pQueue						= Create( strQueueName );
@@ -774,7 +788,7 @@ void CUploadQueues::CreateDefault()
 		pQueue->m_nRotateTime		= 60*60;
 		pQueue->m_bRewardUploaders	= FALSE;
 	}
-	else if ( Settings.Connection.OutSpeed > 120 )  // >120 Kb/s (Average Broadband)
+	else if ( Settings.Connection.OutSpeed > 120 )	// >120 Kb/s (Average Broadband)
 	{
 		LoadString ( strQueueName, IDS_UPLOAD_QUEUE_ED2K_PARTIALS );
 		pQueue						= Create( strQueueName );
@@ -823,7 +837,7 @@ void CUploadQueues::CreateDefault()
 		pQueue->m_nRotateTime		= 60*60;
 		pQueue->m_bRewardUploaders	= FALSE;
 	}
-	else if ( Settings.Connection.OutSpeed > 50 ) // >50 Kb/s (Slow Broadband/ISDN)
+	else if ( Settings.Connection.OutSpeed > 50 )	// >50 Kb/s (Slow Broadband/ISDN)
 	{
 		LoadString ( strQueueName, IDS_UPLOAD_QUEUE_ED2K_CORE );
 		pQueue						= Create( strQueueName );

@@ -182,21 +182,21 @@ CString CPeerProjectFile::GetBitprint() const
 
 CString CPeerProjectFile::GetFilename() const
 {
-	CString sFilename;
+	CString strFilename;
 	if ( m_oTiger )
-		sFilename = CString( _T("ttr_")  ) + m_oTiger.toString();
+		strFilename = _T("ttr_")  + m_oTiger.toString();
 	else if ( m_oSHA1 )
-		sFilename = CString( _T("sha1_") ) + m_oSHA1.toString();
+		strFilename = _T("sha1_") + m_oSHA1.toString();
 	else if ( m_oED2K )
-		sFilename = CString( _T("ed2k_") ) + m_oED2K.toString();
+		strFilename = _T("ed2k_") + m_oED2K.toString();
 	else if ( m_oBTH )
-		sFilename = CString( _T("btih_") ) + m_oBTH.toString();
+		strFilename = _T("btih_") + m_oBTH.toString();
 	else if ( m_oMD5 )
-		sFilename = CString( _T("md5_")  ) + m_oMD5.toString();
+		strFilename = _T("md5_")  + m_oMD5.toString();
 	else
-		sFilename.Format( _T("file_%2i%2i%2i"),
+		strFilename.Format( _T("file_%2i%2i%2i"),
 			GetRandomNum( 0, 99 ), GetRandomNum( 0, 99 ), GetRandomNum( 0, 99 ) );
-	return sFilename;
+	return strFilename;
 }
 
 bool CPeerProjectFile::SplitStringToURLs(LPCTSTR pszURLs, CMapStringToFILETIME& oUrls) const
@@ -320,14 +320,14 @@ STDMETHODIMP CPeerProjectFile::XPeerProjectFile::get_URN(BSTR sURN, BSTR FAR* ps
 
 	if ( strURN.CompareNoCase( _T("urn:bitprint") ) == 0 )
 	{
-		if ( !pThis->m_oSHA1 || ! pThis->m_oTiger ) return E_FAIL;
+		if ( ! pThis->m_oSHA1 || ! pThis->m_oTiger ) return E_FAIL;
 		bstrURN	= _T("urn:bitprint:")
 				+ pThis->m_oSHA1.toString() + '.'
 				+ pThis->m_oTiger.toString();
 	}
 	else if ( strURN.CompareNoCase( _T("urn:sha1") ) == 0 )
 	{
-		if ( !pThis->m_oSHA1 ) return E_FAIL;
+		if ( ! pThis->m_oSHA1 ) return E_FAIL;
 		bstrURN = pThis->m_oSHA1.toUrn();
 	}
 	else if ( strURN.CompareNoCase( _T("urn:tree:tiger/") ) == 0 )

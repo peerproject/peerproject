@@ -17,10 +17,10 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "WizardSheet.h"
+#include "PeerProject.h"
 #include "WizardFinishedPage.h"
+#include "WizardSheet.h"
 #include "Skin.h"
 
 #ifdef _DEBUG
@@ -81,7 +81,7 @@ BOOL CWizardFinishedPage::OnInitDialog()
 
 BOOL CWizardFinishedPage::OnSetActive()
 {
-	//Wizard Window Caption Workaround
+	// Wizard Window Caption Workaround
 	CString strCaption;
 	GetWindowText( strCaption );
 	GetParent()->SetWindowText( strCaption );

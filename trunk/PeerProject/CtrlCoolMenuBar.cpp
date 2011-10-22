@@ -17,10 +17,10 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "CoolInterface.h"
+#include "PeerProject.h"
 #include "CtrlCoolMenuBar.h"
+#include "CoolInterface.h"
 #include "CoolMenu.h"
 
 #ifdef _PEERPROJECT
@@ -251,7 +251,7 @@ void CCoolMenuBarCtrl::UpdateWindowMenu(CMenu* pMenu)
 		CString strMenu, strWindow;
 		pWnd->GetWindowText( strWindow );
 
-		strMenu.Format( _T("&%i %s"), nIndex, (LPCTSTR)strWindow );
+		strMenu.Format( _T("&%u %s"), nIndex, (LPCTSTR)strWindow );
 
 		pMenu->AppendMenu( MF_STRING | ( pWnd == pActive ? MF_CHECKED : 0 ), nID, strMenu );
 	}

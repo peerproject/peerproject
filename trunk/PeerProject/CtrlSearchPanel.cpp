@@ -17,16 +17,16 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "CtrlSearchPanel.h"
+#include "WndSearch.h"
 #include "Schema.h"
 #include "SchemaCache.h"
 #include "ManagedSearch.h"
 #include "QuerySearch.h"
-#include "CtrlSearchPanel.h"
 #include "CoolInterface.h"
 #include "ShellIcons.h"
-#include "WndSearch.h"
 #include "Colors.h"
 #include "Skin.h"
 #include "XML.h"
@@ -936,12 +936,12 @@ void CSearchAdvancedBox::OnPaint()
 	pDC->SetTextColor( 0 );
 
 	LoadString( strControlTitle, IDS_SEARCH_PANEL_INPUT_4 );		// "Min Filesize:"
-	rct.SetRect( BOX_MARGIN + 1, BOX_MARGIN, rc.right / 2, BOX_MARGIN + 16  );
+	rct.SetRect( BOX_MARGIN + 1, BOX_MARGIN, rc.right / 2, BOX_MARGIN + 16 );
 	pDC->ExtTextOut( rct.left, rct.top, nFlags, &rct, strControlTitle, NULL );
 	pDC->ExcludeClipRect( &rct );
 
 	LoadString( strControlTitle, IDS_SEARCH_PANEL_INPUT_5 );		// "Max Filesize:"
-	rct.SetRect( BOX_MARGIN + 1, BOX_MARGIN + 39,  rc.right / 2, BOX_MARGIN + 55  );
+	rct.SetRect( BOX_MARGIN + 1, BOX_MARGIN + 39,  rc.right / 2, BOX_MARGIN + 55 );
 	pDC->ExtTextOut( rct.left, rct.top, nFlags, &rct, strControlTitle, NULL );
 	pDC->ExcludeClipRect( &rct );
 

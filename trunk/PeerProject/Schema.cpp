@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "Schema.h"
 #include "SchemaMember.h"
 #include "SchemaChild.h"
@@ -793,7 +793,7 @@ CString CSchema::GetVisibleWords(CXMLElement* pXML) const
 	{
 		CSchemaMember* pMember = GetNextMember( pos );
 
-		if ( !pMember->m_bHidden )
+		if ( ! pMember->m_bHidden )
 		{
 			CString strMember = pMember->GetValueFrom( pXML, NULL, FALSE );
 
@@ -904,10 +904,10 @@ LPCTSTR	CSchema::uriVideoMusicCollection	= _T("http://www.shareaza.com/schemas/v
 LPCTSTR	CSchema::uriDocumentRoot			= _T("http://www.shareaza.com/schemas/documentRoot.xsd");
 LPCTSTR	CSchema::uriDocumentAll				= _T("http://www.shareaza.com/schemas/documentAll.xsd");
 
-LPCTSTR	CSchema::uriGhostFolder				= _T("http://www.shareaza.com/schemas/ghostFolder.xsd");
+LPCTSTR	CSchema::uriGhostFolder				= _T("http://schemas.peerproject.org/GhostFolder.xsd");	// http://www.shareaza.com/schemas/ghostFolder.xsd ?
 
 LPCTSTR CSchema::uriBitTorrent				= _T("http://www.shareaza.com/schemas/bittorrent.xsd");
 
-//LPCTSTR CSchema::uriComments				= _T("http://www.shareaza.com/schemas/comments.xsd");	// _T("http://schemas.peerproject.org/Comments.xsd") ?
+//LPCTSTR CSchema::uriComments				= _T("http://www.shareaza.com/schemas/comments.xsd");	// http://schemas.peerproject.org/Comments.xsd ?
 
 //LPCTSTR CSchema::uriSkin					= _T("http://schemas.peerproject.org/Skin.xsd");

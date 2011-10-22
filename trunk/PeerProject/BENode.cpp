@@ -341,11 +341,11 @@ const CString CBENode::Encode() const
 			}
 		}
 		sOutput += _T('\"');
-		sTmp.Format( _T("[%I64i]"), m_nValue );
+		sTmp.Format( _T("[%I64u]"), m_nValue );
 		sOutput += sTmp;
 		break;
 	case beInt:
-		sOutput.Format( _T("%I64i"), m_nValue );
+		sOutput.Format( _T("%I64u"), m_nValue );
 		break;
 	case beList:
 		sOutput = _T("{ ");

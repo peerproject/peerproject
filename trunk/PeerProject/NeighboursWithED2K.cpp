@@ -1,7 +1,7 @@
 //
 // NeighboursWithED2K.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -125,7 +125,7 @@ void CNeighboursWithED2K::SendDonkeyDownload(CDownload* pDownload)
 // Takes a client ID (do), the IP address of an eDonkey2000 computer we're connected to, nServerPort unused (do)
 // Finds the computer we're connected to with that IP address, and sends it a call back request with the client ID
 // Returns true if we sent the packet, false if we couldn't find the computer
-BOOL CNeighboursWithED2K::PushDonkey(DWORD nClientID, const IN_ADDR& pServerAddress, WORD) // Was named nServerPort (do)
+BOOL CNeighboursWithED2K::PushDonkey(DWORD nClientID, const IN_ADDR& pServerAddress, WORD)	// Was named nServerPort (do)
 {
 	CSingleLock oNetworkLock( &Network.m_pSection );
 	if ( ! oNetworkLock.Lock( 300 ) )
@@ -139,7 +139,7 @@ BOOL CNeighboursWithED2K::PushDonkey(DWORD nClientID, const IN_ADDR& pServerAddr
 	CEDNeighbour* pNeighbour = (CEDNeighbour*)Get( pServerAddress );
 
 	// If we found it, and it really is running eDonkey2000
-	if ( ( pNeighbour != NULL ) && ( pNeighbour->m_nProtocol == PROTOCOL_ED2K ) && ( ! CEDPacket::IsLowID( pNeighbour->m_nClientID ) ) )
+	if ( pNeighbour != NULL && pNeighbour->m_nProtocol == PROTOCOL_ED2K && ! CEDPacket::IsLowID( pNeighbour->m_nClientID ) )
 	{
 		// Make a new eDonkey2000 call back request packet, write in the client ID, and send it to the eDonkey2000 computer
 		CEDPacket* pPacket = CEDPacket::New( ED2K_C2S_CALLBACKREQUEST );
@@ -150,7 +150,7 @@ BOOL CNeighboursWithED2K::PushDonkey(DWORD nClientID, const IN_ADDR& pServerAddr
 		return TRUE;
 	}
 
-	//lugdunum (ed2k server) requests no more of this
+	// lugdunum (ed2k server) requests no more of this
 	//CEDPacket* pPacket = CEDPacket::New( ED2K_C2SG_CALLBACKREQUEST );
 	//pPacket->WriteLongLE( Network.m_pHost.sin_addr.S_un.S_addr );
 	//pPacket->WriteShortLE( htons( Network.m_pHost.sin_port ) );
@@ -175,26 +175,27 @@ BOOL CNeighboursWithED2K::FindDonkeySources(const Hashes::Ed2kHash& oED2K, IN_AD
 	// Start out nHash as the lowest byte 0xff of the IP address
 	int nHash = (int)pServerAddress->S_un.S_un_b.s_b4 & 255;
 
-	// Number of milliseconds since the user turned the computer on
-	DWORD tNow = GetTickCount();
-
 	// Make sure nHash is between 0 and 255
 	if ( nHash < 0 )
 		nHash = 0;
 	else if ( nHash > 255 )
 		nHash = 255;
 
+	// Number of milliseconds since the user turned the computer on
+	const DWORD tNow = GetTickCount();
+
 	// Lookup the MD4 hash at nHash in the m_pEDSources array of them, if it's equal to the given hash
 	if ( validAndEqual( m_oEDSources[ nHash ], oED2K ) )
 	{
 		// If the hash in the array is less than an hour old, don't do anything and return false
-		if ( tNow - m_tEDSources[ nHash ] < 3600000 )
-			return FALSE; // 3600000 ms is 1 hour
+		if ( tNow < m_tEDSources[ nHash ] + 3600000 )
+			return FALSE;	// 1 hour
 	}
 	else	// The m_pEDSources array doesn't have pED2K at position nHash
 	{
 		// If that spot in the array was added in the last 15 seconds, don't do anything and return false
-		if ( tNow - m_tEDSources[ nHash ] < 15000 ) return FALSE; // 15000 ms is 15 seconds
+		if ( tNow < m_tEDSources[ nHash ] + 15000 )
+			return FALSE;	// 15 seconds
 
 		// That spot in the array is more than 15 seconds old, put the hash there
 		m_oEDSources[ nHash ] = oED2K;

@@ -3,7 +3,7 @@
 
 // MS compatible compilers support #pragma once
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif
 
@@ -13,8 +13,8 @@
 //  Copyright (c) 2001, 2002, 2003 Peter Dimov and Multi Media Ltd.
 //  Copyright 2004-2005 Peter Dimov
 //
-// Distributed under the Boost Software License, Version 1.0. (See
-// accompanying file LICENSE_1_0.txt or copy at
+// Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 //
 
@@ -51,6 +51,10 @@ int const   weak_count_id = 0x298C38A4;
 #endif
 
 struct sp_nothrow_tag {};
+
+template< class D > struct sp_inplace_tag
+{
+};
 
 class weak_count;
 
@@ -142,6 +146,40 @@ public:
 #endif
     }
 
+#if !defined( BOOST_NO_FUNCTION_TEMPLATE_ORDERING )
+
+    template< class P, class D > shared_count( P p, sp_inplace_tag<D> ): pi_( 0 )
+#if defined(BOOST_SP_ENABLE_DEBUG_HOOKS)
+        , id_(shared_count_id)
+#endif
+    {
+#ifndef BOOST_NO_EXCEPTIONS
+
+        try
+        {
+            pi_ = new sp_counted_impl_pd< P, D >( p );
+        }
+        catch( ... )
+        {
+            D()( p ); // delete p
+            throw;
+        }
+
+#else
+
+        pi_ = new sp_counted_impl_pd< P, D >( p );
+
+        if( pi_ == 0 )
+        {
+            D()( p ); // delete p
+            boost::throw_exception( std::bad_alloc() );
+        }
+
+#endif // #ifndef BOOST_NO_EXCEPTIONS
+    }
+
+#endif // !defined( BOOST_NO_FUNCTION_TEMPLATE_ORDERING )
+
     template<class P, class D, class A> shared_count( P p, D d, A a ): pi_( 0 )
 #if defined(BOOST_SP_ENABLE_DEBUG_HOOKS)
         , id_(shared_count_id)
@@ -187,6 +225,56 @@ public:
 
 #endif
     }
+
+#if !defined( BOOST_NO_FUNCTION_TEMPLATE_ORDERING )
+
+    template< class P, class D, class A > shared_count( P p, sp_inplace_tag< D >, A a ): pi_( 0 )
+#if defined(BOOST_SP_ENABLE_DEBUG_HOOKS)
+        , id_(shared_count_id)
+#endif
+    {
+        typedef sp_counted_impl_pda< P, D, A > impl_type;
+        typedef typename A::template rebind< impl_type >::other A2;
+
+        A2 a2( a );
+
+#ifndef BOOST_NO_EXCEPTIONS
+
+        try
+        {
+            pi_ = a2.allocate( 1, static_cast< impl_type* >( 0 ) );
+            new( static_cast< void* >( pi_ ) ) impl_type( p, a );
+        }
+        catch(...)
+        {
+            D()( p );
+
+            if( pi_ != 0 )
+            {
+                a2.deallocate( static_cast< impl_type* >( pi_ ), 1 );
+            }
+
+            throw;
+        }
+
+#else
+
+        pi_ = a2.allocate( 1, static_cast< impl_type* >( 0 ) );
+
+        if( pi_ != 0 )
+        {
+            new( static_cast< void* >( pi_ ) ) impl_type( p, a );
+        }
+        else
+        {
+            D()( p );
+            boost::throw_exception( std::bad_alloc() );
+        }
+
+#endif // #ifndef BOOST_NO_EXCEPTIONS
+    }
+
+#endif // !defined( BOOST_NO_FUNCTION_TEMPLATE_ORDERING )
 
 #ifndef BOOST_NO_AUTO_PTR
 
@@ -332,6 +420,20 @@ public:
     {
         if(pi_ != 0) pi_->weak_add_ref();
     }
+
+// Move support
+
+#if defined( BOOST_HAS_RVALUE_REFS )
+
+    weak_count(weak_count && r): pi_(r.pi_) // nothrow
+#if defined(BOOST_SP_ENABLE_DEBUG_HOOKS)
+        , id_(weak_count_id)
+#endif
+    {
+        r.pi_ = 0;
+    }
+
+#endif
 
     ~weak_count() // nothrow
     {

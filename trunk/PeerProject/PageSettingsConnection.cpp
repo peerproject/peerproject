@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "PageSettingsConnection.h"
 #include "DlgHelp.h"
 #include "UPnPFinder.h"
@@ -144,7 +144,7 @@ BOOL CConnectionSettingsPage::OnInitDialog()
 		{
 			ip = ipAddr->table[ nIf ].dwAddr;
 			if ( ip == 0x0100007f || ip == 0x0 )
-				continue; // loopback or 0.0.0.0
+				continue;	// loopback or 0.0.0.0
 
 			MIB_IFROW ifRow = {};
 			ifRow.dwIndex = ipAddr->table[ nIf ].dwIndex;
@@ -289,7 +289,7 @@ void CConnectionSettingsPage::OnOK()
 		}
 	}
 
-	DWORD nPriorOutSpeed					= Settings.Connection.OutSpeed;
+	DWORD nPriorOutSpeed = Settings.Connection.OutSpeed;
 
 	Settings.Connection.RandomPort			= ( m_bInRandom && m_nInPort == 0 );
 	Settings.Connection.EnableUPnP			= m_bEnableUPnP != FALSE;

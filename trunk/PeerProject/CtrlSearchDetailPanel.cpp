@@ -17,25 +17,26 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "CtrlSearchDetailPanel.h"
+
 #include "MatchObjects.h"
 #include "QueryHit.h"
 #include "Buffer.h"
-#include "XML.h"
+#include "Library.h"
 #include "Schema.h"
 #include "SchemaCache.h"
-#include "Library.h"
+#include "XML.h"
 
 #include "Colors.h"
 #include "CoolInterface.h"
 #include "ImageServices.h"
 #include "ImageFile.h"
-#include "RichElement.h"
 #include "ShellIcons.h"
+#include "RichElement.h"
 #include "Emoticons.h"
 #include "Skin.h"
-#include "CtrlSearchDetailPanel.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -260,7 +261,8 @@ void CSearchDetailPanel::OnPaint()
 		LoadString( str, IDS_SEARCH_DETAILS_EMPTY );
 		CSize sz = dc.GetTextExtent( str );
 		CPoint pt = rcClient.CenterPoint();
-		pt.x -= sz.cx / 2; pt.y -= sz.cy / 2;
+		pt.x -= sz.cx / 2;
+		pt.y -= sz.cy / 2;
 		dc.ExtTextOut( pt.x, pt.y, ETO_OPAQUE, &rcClient, str, NULL );
 		dc.SelectObject( pOldFont );
 		return;
@@ -435,18 +437,13 @@ void CSearchDetailPanel::OnLButtonUp(UINT nFlags, CPoint point)
 
 Review::Review(const Hashes::Guid& oGUID, IN_ADDR* pAddress, LPCTSTR pszNick, int nRating, LPCTSTR pszComments)
 {
-	m_oGUID		= oGUID;
-	m_nRating	= nRating;
+	m_oGUID = oGUID;
+	m_nRating = nRating;
 
 	if ( pszNick != NULL && *pszNick != 0 )
-	{
-		m_sNick.Format( _T("%s (%s)"), pszNick,
-			(LPCTSTR)CString( inet_ntoa( *pAddress ) ) );
-	}
+		m_sNick.Format( _T("%s (%s)"), pszNick, (LPCTSTR)CString( inet_ntoa( *pAddress ) ) );
 	else
-	{
 		m_sNick = inet_ntoa( *pAddress );
-	}
 
 	if ( pszComments != NULL )
 	{

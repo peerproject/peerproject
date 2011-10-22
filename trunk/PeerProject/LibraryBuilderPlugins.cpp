@@ -18,8 +18,9 @@
 
 #include "StdAfx.h"
 #include "PeerProject.h"
-#include "LibraryBuilder.h"
 #include "LibraryBuilderPlugins.h"
+
+#include "LibraryBuilder.h"
 #include "Plugins.h"
 #include "XMLCOM.h"
 #include "XML.h"

@@ -17,17 +17,17 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "Network.h"
-#include "Statistics.h"
-#include "Neighbours.h"
+#include "PeerProject.h"
 #include "EDNeighbour.h"
 #include "EDPacket.h"
+#include "EDClients.h"
+#include "Neighbours.h"
+#include "Network.h"
+#include "Statistics.h"
 #include "Security.h"
 #include "GProfile.h"
 #include "HostCache.h"
-#include "EDClients.h"
 
 #include "Library.h"
 #include "SharedFile.h"
@@ -52,15 +52,15 @@ static char THIS_FILE[]=__FILE__;
 // CEDNeighbour construction
 
 CEDNeighbour::CEDNeighbour() : CNeighbour( PROTOCOL_ED2K )
+	, m_nClientID 	( 0 )
+	, m_nUserCount	( 0 )
+	, m_nUserLimit	( 0 )
+	, m_nFileLimit	( 2000 )
+	, m_nTCPFlags 	( 0 )
+	, m_nUDPFlags 	( 0 )
+	, m_nFilesSent	( 0 )
 {
 	m_nNodeType 	= ntHub;
-	m_nClientID 	= 0;
-	m_nUserCount	= 0;
-	m_nUserLimit	= 0;
-	m_nFileLimit	= 2000;
-	m_nTCPFlags 	= 0;
-	m_nUDPFlags 	= 0;
-	m_nFilesSent	= 0;
 }
 
 CEDNeighbour::~CEDNeighbour()
@@ -366,12 +366,12 @@ BOOL CEDNeighbour::OnIdChange(CEDPacket* pPacket)
 		{
 			// We got a low ID when we should have gotten a high ID.
 			// Most likely, the user's router needs to get a few UDP packets before it opens up.
-			DWORD tNow = GetTickCount();
+			const DWORD tNow = GetTickCount();
 			theApp.Message( MSG_DEBUG, _T("Fake low ID detected.") );
 
 			if ( Network.m_tLastED2KServerHop > tNow ) Network.m_tLastED2KServerHop = tNow;
 
-			if ( Network.m_tLastED2KServerHop == 0 || ( Network.m_tLastED2KServerHop + ( 8 * 60 * 60 * 1000 ) ) < tNow  )
+			if ( Network.m_tLastED2KServerHop == 0 || tNow > Network.m_tLastED2KServerHop + ( 8 * 60 * 60 * 1000 ) )
 			{
 				// Try another server, but not more than once every 8 hours to avoid wasting server bandwidth
 				// If the user has messed up their settings somewhere.
@@ -593,8 +593,9 @@ BOOL CEDNeighbour::OnSearchResults(CEDPacket* pPacket)
 	// Process the 'more results available' packet.
 	if ( pPacket->m_nType == ED2K_S2C_SEARCHRESULTS && pPacket->GetRemaining() == 1 && m_pQueries.IsEmpty() )
 	{
+		// This will be remembered by the neighbour, and if the search continues, more results can be requested.
 		if ( pPacket->ReadByte() == TRUE )
-		{	// This will be remembered by the neighbour, and if the search continues, more results can be requested.
+		{
 			m_oMoreResultsGUID = oGUID;
 			theApp.Message( MSG_DEBUG, _T("Additional results packet received.") );
 		}
@@ -662,7 +663,7 @@ void CEDNeighbour::SendSharedFiles()
 
 	m_nFilesSent = 0;
 
-	pPacket->WriteLongLE( m_nFilesSent );		// Write number of files. (update this later)
+	pPacket->WriteLongLE( m_nFilesSent );		// Write number of files. (Update this later)
 
 	// Send files on download list to ed2k server (partials)
 	CSingleLock pTransfersLock( &Transfers.m_pSection );

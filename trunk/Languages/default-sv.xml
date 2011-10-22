@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Swedish Skin File -->
 
-<!-- Translation based on default-en.xml r69 -->
+<!-- Translation based on default-en.xml r70 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1489,7 +1489,7 @@
 	</menu>
 	<!-- SYSTEM WINDOW -->
 	<menu name="CSystemWnd">
-		<menu id="ID_SYSTEM_VERBOSE" text="_Detaljerat läge"/>
+		<menu id="ID_SYSTEM_VERBOSE" text="_Detaljerat läge">
 			<item id="ID_SYSTEM_VERBOSE_ERROR" text="_Error"/>
 			<item id="ID_SYSTEM_VERBOSE_WARNING" text="_Warning"/>
 			<item id="ID_SYSTEM_VERBOSE_NOTICE" text="_Notice"/>
@@ -2655,6 +2655,12 @@
 	<string id="20020" value="Fil"/>
 	<string id="20021" value="Filer"/>
 	<string id="20022" value="Alla Filer"/>
+	<string id="20023" value="No Filer"/>
+	<string id="20024" value="Stora filer"/>
+	<string id="20025" value="Medelstora filer"/>
+	<string id="20026" value="Små filer"/>
+	<string id="20027" value="Ofullständiga filer"/>
+	<string id="20028" value="Biblioteksfiler"/>
 	<string id="20029" value="%s Filer"/>
 	<string id="20050" value="Varje Dag"/>
 	<string id="20051" value="Måndag"/>
@@ -3095,7 +3101,7 @@
 	<string id="20576" value="Skickar frågeroutingtabell till grannen %s (%i bitar = %lu[%i], %i%% full)"/>
 	<string id="20577" value="Tog emot en oväntad uppdatering för frågerotuingtabell från grannen %s."/>
 	<string id="20578" value="Grannen %s uppdaterade sin frågerotuingtabell (%i bitar = %lu[%i], %i%% full)."/>
-	<string id="20579" value="%s -> %s [%i/%i] %s %s"/>
+	<string id="20579" value="%s -&gt; %s [%i/%i] %s %s"/>
 	<string id="20580" value="Lövgranne %s skickar vidare förfrågor, släpper anslutning."/>
 	<string id="20581" value="Grannen %s skickade ett pingpaket med en felaktig längd, ignorerar."/>
 	<string id="20582" value="Grannen %s skickade ett pongpaket med felaktig längd, ignorerar."/>
@@ -4218,13 +4224,13 @@
 		<control caption="One day only"/>
 		<control/>
 		<control/>
-		<control caption="Må"/>
-		<control caption="Ti"/>
-		<control caption="On"/>
-		<control caption="To"/>
-		<control caption="Fr"/>
-		<control caption="Lö"/>
-		<control caption="Sö"/>
+		<control caption="Måndag"/>
+		<control caption="Tisdag"/>
+		<control caption="Onsdag"/>
+		<control caption="Torsdag"/>
+		<control caption="Fredag"/>
+		<control caption="Lördag"/>
+		<control caption="Söndag"/>
 		<control caption="Alla"/>
 		<control caption="Kommentarer"/>
 		<control/>
@@ -4483,9 +4489,9 @@
 	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Uppgraderingsnotis">
 		<control caption="En ny version av PeerProject är tillgänglig. Vill du uppgradera?"/>
 		<control caption="Om du väljer Uppgradera Nukommer PeerProject lägga till uppgraderingen till din nedladdningskö och börja ladda ned den."/>
-		<control caption="_Uppgradera nu"/>
 		<control caption="Kontrollera inte efter nya versioner"/>
-		<control caption="Uppgradera inte"/>
+		<control caption="_Uppgradera nu"/>
+		<control caption="Avbryt"/>
 	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Metadatalokalisering">
 		<control caption="Välj metod för omkodning"/>

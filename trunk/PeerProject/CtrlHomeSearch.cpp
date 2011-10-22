@@ -1,7 +1,7 @@
 //
 // CtrlHomeSearch.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -17,15 +17,16 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "CtrlHomeSearch.h"
+
 #include "Schema.h"
 #include "SchemaCache.h"
 #include "QuerySearch.h"
 #include "WndSearch.h"
 #include "Colors.h"
 #include "CoolInterface.h"
-#include "CtrlHomeSearch.h"
 #include "DlgNewSearch.h"
 #include "DlgHelp.h"
 #include "Security.h"
@@ -140,7 +141,7 @@ void CHomeSearchCtrl::FillHistory()
 	m_wndText.ResetContent();
 
 	// Load all
-	for ( int i = 0; ; i++ )
+	for ( int i = 0 ; ; i++ )
 	{
 		CString strEntry;
 		strEntry.Format( _T("Search.%.2i"), i + 1 );
@@ -229,7 +230,7 @@ void CHomeSearchCtrl::OnPaint()
 
 void CHomeSearchCtrl::OnCloseUpText()
 {
-	int nSel = m_wndText.GetCurSel();
+	const int nSel = m_wndText.GetCurSel();
 	if ( nSel < 0 ) return;
 
 	if ( nSel == m_wndText.GetCount() - 1 )
@@ -237,7 +238,7 @@ void CHomeSearchCtrl::OnCloseUpText()
 		m_wndText.SetWindowText( _T("") );
 
 		// Delete all
-		for ( int i = 0; ; i++ )
+		for ( int i = 0 ; ; i++ )
 		{
 			CString strEntry;
 			strEntry.Format( _T("Search.%.2i"), i + 1 );
@@ -304,7 +305,7 @@ void CHomeSearchCtrl::Search(bool bAutostart)
 		{
 			// Load all
 			CStringList oList;
-			for ( int i = 0; ; i++ )
+			for ( int i = 0 ; ; i++ )
 			{
 				strEntry.Format( _T("Search.%.2i"), i + 1 );
 				CString strValue( theApp.GetProfileString( _T("Search"), strEntry ) );
@@ -324,7 +325,7 @@ void CHomeSearchCtrl::Search(bool bAutostart)
 
 			// Save list
 			POSITION pos = oList.GetHeadPosition();
-			for ( int i = 0; pos; ++i )
+			for ( int i = 0 ; pos ; ++i )
 			{
 				strEntry.Format( _T("Search.%.2i"), i + 1 );
 				theApp.WriteProfileString( _T("Search"), strEntry, oList.GetNext( pos ) );

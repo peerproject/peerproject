@@ -19,15 +19,16 @@
 // Note: For reference & reuse only, ShareMonkey*com does not exist
 
 #include "StdAfx.h"
+#include "Settings.h"
 #include "PeerProject.h"
 #include "ShareMonkeyData.h"
-#include "Settings.h"
+
 #include "Library.h"
 #include "CtrlLibraryFileView.h"
 #include "SharedFile.h"
-#include "XML.h"
 #include "Schema.h"
 #include "SchemaCache.h"
+#include "XML.h"
 
 CShareMonkeyData::CShareMonkeyData(INT_PTR nOffset, int nRequestType)
 	: m_nFileIndex	( 0 )
@@ -514,13 +515,13 @@ BOOL CShareMonkeyData::ImportData(CXMLElement* pRoot)
 					m_pSchema = SchemaCache.Get( CSchema::uriAudio );
 					break;
 				case 2:
-					m_pSchema = SchemaCache.Get( CSchema::uriBook );	// For documents
+					m_pSchema = SchemaCache.Get( CSchema::uriBook );		// For documents
 					break;
 				case 3:
-					m_pSchema = SchemaCache.Get( CSchema::uriArchive ); // For games
+					m_pSchema = SchemaCache.Get( CSchema::uriArchive );		// For games
 					break;
 				case 4:
-					m_pSchema = SchemaCache.Get( CSchema::uriApplication ); // For software
+					m_pSchema = SchemaCache.Get( CSchema::uriApplication );	// For software
 					break;
 				case 5:
 					m_pSchema = SchemaCache.Get( CSchema::uriVideo );
@@ -563,8 +564,7 @@ BOOL CShareMonkeyData::ImportData(CXMLElement* pRoot)
 					pImage = pElement->GetElementByName( L"SmallImage" );
 				if ( pImage )
 				{
-					CXMLElement* pImageURL = pImage->GetElementByName( L"ImageURL" );
-					if ( pImageURL )
+					if ( CXMLElement* pImageURL = pImage->GetElementByName( L"ImageURL" ) )
 						m_sThumbnailURL = pImageURL->GetValue();
 				}
 			}

@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "DiscoveryServices.h"
 #include "Network.h"
 #include "HostCache.h"
@@ -53,8 +53,8 @@ CDiscoveryServices::CDiscoveryServices()
 	, m_tUpdated			( 0 )
 	, m_tExecute			( 0 )
 	, m_tQueried			( 0 )
-//	, m_tMetQueried			( 0 )	// Currently using static
-//	, m_tHubsQueried		( 0 )	// Currently using static
+//	, m_tMetQueried			( 0 )	// Using static
+//	, m_tHubsQueried		( 0 )	// Using static
 {
 }
 
@@ -369,9 +369,10 @@ CDiscoveryService* CDiscoveryServices::GetByAddress(const IN_ADDR* pAddress, WOR
 	{
 		CDiscoveryService* pService = m_pList.GetNext( pos );
 
-			if ( pService->m_nSubType == nSubType && pService->m_pAddress.S_un.S_addr == pAddress->S_un.S_addr &&
-				pService->m_nPort == nPort )
-				return pService;
+		if ( pService->m_nSubType == nSubType &&
+			 pService->m_pAddress.S_un.S_addr == pAddress->S_un.S_addr &&
+			 pService->m_nPort == nPort )
+			return pService;
 	}
 
 	return NULL;
@@ -896,8 +897,8 @@ BOOL CDiscoveryServices::Execute(BOOL bDiscovery, PROTOCOLID nProtocol, USHORT n
 			return FALSE;
 
 		const DWORD tNow = static_cast< DWORD >( time( NULL ) );
-		if ( m_tExecute != 0 && tNow - m_tExecute < 5 && nForceDiscovery < 2 ) return FALSE;
-		if ( m_tQueried != 0 && tNow - m_tQueried < 60 && nForceDiscovery == 0 ) return FALSE;
+		if ( m_tExecute != 0 && tNow < m_tExecute + 5  && nForceDiscovery < 2 ) return FALSE;
+		if ( m_tQueried != 0 && tNow < m_tQueried + 60 && nForceDiscovery == 0 ) return FALSE;
 		if ( nForceDiscovery > 0 && nProtocol == PROTOCOL_NULL ) return FALSE;
 
 		m_tExecute = tNow;
@@ -1080,7 +1081,7 @@ CDiscoveryService* CDiscoveryServices::GetRandomService(PROTOCOLID nProtocol)
 		switch ( nProtocol )
 		{
 		case PROTOCOL_G1:
-			if ( Settings.Discovery.EnableG1GWC &&
+			if ( Settings.Discovery.EnableG1GWC &&	// Default false
 				( pService->m_nType == CDiscoveryService::dsWebCache ) && ( pService->m_bGnutella1 ) &&
 				( tNow > pService->m_tAccessed + pService->m_nAccessPeriod ) )
 				pServices.Add( pService );
@@ -1361,7 +1362,7 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 	}
 	else
 	{
-		//Assume gnutella
+		// Assume gnutella
 		strURL += _T("&net=gnutella");				// Some gnutella GWCs that serve spec1 will not serve right on host/url requests combined with the ping request.
 		strURL += _T("&client=")_T(VENDOR_CODE)_T("&version="); 	// Version parameter is spec1
 		strURL += theApp.m_sVersion;
@@ -1685,7 +1686,7 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 			// pong v1
 			if ( m_nLastQueryProtocol != PROTOCOL_G2 )
 			{
-				//Mystery pong received - possibly a hosted static webpage.
+				// Mystery pong received - possibly a hosted static webpage.
 				theApp.Message( MSG_ERROR, _T("GWebCache %s : Mystery PONG received"), (LPCTSTR)m_pWebCache->m_sAddress );
 				return FALSE;
 			}

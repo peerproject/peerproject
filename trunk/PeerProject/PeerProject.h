@@ -44,10 +44,10 @@ public:
 typedef CList< CLogMessage* > CLogMessageList;
 
 
-class CPeerProjectCommandLineInfo : public CCommandLineInfo
+class CAppCommandLineInfo : public CCommandLineInfo
 {
 public:
-	CPeerProjectCommandLineInfo();
+	CAppCommandLineInfo();
 
 	BOOL			m_bHelp;
 	BOOL			m_bTray;
@@ -60,8 +60,8 @@ public:
 	virtual void ParseParam(const TCHAR* pszParam, BOOL bFlag, BOOL bLast);
 
 private:
-	CPeerProjectCommandLineInfo(const CPeerProjectCommandLineInfo&);
-	CPeerProjectCommandLineInfo& operator=(const CPeerProjectCommandLineInfo&);
+	CAppCommandLineInfo(const CAppCommandLineInfo&);
+	CAppCommandLineInfo& operator=(const CAppCommandLineInfo&);
 };
 
 
@@ -105,34 +105,37 @@ public:
 	HHOOK			m_hHookMouse;
 	UINT			m_nMouseWheel;				// System-defined number of lines to move with mouse wheel
 
-	SYSTEM_INFO		m_SysInfo;					// System Information (CPU cores, etc.)
-
-	CPeerProjectCommandLineInfo m_cmdInfo;		// Command-line options
-
 	HCRYPTPROV		m_hCryptProv;				// Cryptography Context handle
 
-	// For themes functions
+	SYSTEM_INFO		m_SysInfo;					// System Information (CPU cores, etc.)
+
+	CAppCommandLineInfo m_cmdInfo;				// Command-line options
+
+	// Theme functions (Safe XP+)
 	HINSTANCE		m_hTheme;
-	HRESULT			(WINAPI *m_pfnSetWindowTheme)(HWND, LPCWSTR, LPCWSTR);
-	BOOL			(WINAPI *m_pfnIsThemeActive)(VOID);
-	HANDLE			(WINAPI *m_pfnOpenThemeData)(HWND, LPCWSTR);
-	HRESULT			(WINAPI *m_pfnCloseThemeData)(HANDLE);
-	HRESULT			(WINAPI *m_pfnDrawThemeBackground)(HANDLE, HDC, int, int, const RECT*, const RECT*);
+	HRESULT			(WINAPI *m_pfnSetWindowTheme)(HWND, LPCWSTR, LPCWSTR);														// WinXP+	SetWindowTheme()  for CCoolInterface::EnableTheme()
+	BOOL			(WINAPI *m_pfnIsThemeActive)(VOID);																			// WinXP+	IsThemeActive()   for CIRCTabCtrl
+	HANDLE			(WINAPI *m_pfnOpenThemeData)(HWND, LPCWSTR);																// WinXP+	OpenThemeData()   for CIRCTabCtrl
+	HRESULT			(WINAPI *m_pfnCloseThemeData)(HANDLE);																		// WinXP+	CloseThemeData()  for CIRCTabCtrl
+	HRESULT			(WINAPI *m_pfnDrawThemeBackground)(HANDLE, HDC, int, int, const RECT*, const RECT*);						// WinXP+	DrawThemeBackground()  for CIRCTabCtrl
 //	HRESULT			(WINAPI *m_pfnEnableThemeDialogTexture)(HWND, DWORD);
 //	HRESULT			(WINAPI *m_pfnDrawThemeParentBackground)(HWND, HDC, RECT*);
 //	HRESULT			(WINAPI *m_pfnGetThemeBackgroundContentRect)(HANDLE, HDC, int, int, const RECT*, RECT*);
 //	HRESULT			(WINAPI *m_pfnDrawThemeText)(HANDLE, HDC, int, int, LPCWSTR, int, DWORD, DWORD, const RECT*);
-	HRESULT			(WINAPI *m_pfnGetThemeSysFont)(HTHEME, int, __out LOGFONTW*);
+	HRESULT			(WINAPI *m_pfnGetThemeSysFont)(HTHEME, int, __out LOGFONTW*);												// WinXP+	GetThemeSysFont()  for local InitResources()
 
-	// Kernel functions
-	HRESULT			(WINAPI *m_pRegisterApplicationRestart)( __in_opt PCWSTR pwzCommandline, __in DWORD dwFlags );
+	// Kernel functions (Safe Vista+)
+	HRESULT			(WINAPI *m_pfnRegisterApplicationRestart)(__in_opt PCWSTR pwzCommandline, __in DWORD dwFlags);				// Vista+	RegisterApplicationRestart()  for InitInstance()
 
-	// Shell functions
-	HINSTANCE		m_hShlWapi;
+	// Shell functions (Safe Vista+)
 	HINSTANCE		m_hShell32;
-	HRESULT			(WINAPI *m_pfnSHGetFolderPathW)(HWND hwnd, int csidl, HANDLE hToken, DWORD dwFlags, LPWSTR pszPath);
-	HRESULT			(WINAPI *m_pfnSHGetKnownFolderPath)(REFKNOWNFOLDERID rfid, DWORD dwFlags, HANDLE hToken, PWSTR *ppszPath);
-	BOOL			(WINAPI *m_pfnAssocIsDangerous)(LPCWSTR);
+	HRESULT			(WINAPI *m_pfnSHGetFolderPathW)(HWND hwnd, int csidl, HANDLE hToken, DWORD dwFlags, LPWSTR pszPath);		// Win2K+ ?	SHGetFolderPath()
+	HRESULT			(WINAPI *m_pfnSHGetKnownFolderPath)(REFKNOWNFOLDERID rfid, DWORD dwFlags, HANDLE hToken, PWSTR *ppszPath);	// Vista+	SHGetKnownFolderPath()
+	HRESULT			(WINAPI *m_pfnSHQueryUserNotificationState)(QUERY_USER_NOTIFICATION_STATE *state);							// Vista+	SHQueryUserNotificationState()	for IsUserFullscreen()
+
+	// ShellWAPI functions (Safe IE6+)
+	HINSTANCE		m_hShlWapi;
+	BOOL			(WINAPI *m_pfnAssocIsDangerous)(LPCWSTR);																	// XPsp1+	AssocIsDangerous()  for CFileExecutor::IsSafeExecute()
 
 	// GeoIP - IP to Country lookup
 	HINSTANCE		m_hGeoIP;

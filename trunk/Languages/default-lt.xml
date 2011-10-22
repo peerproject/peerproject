@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Lithuanian Skin File -->
 
-<!-- Translation based on default-en.xml r69 -->
+<!-- Translation based on default-en.xml r70 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2728,6 +2728,12 @@
 	<string id="20020" value="Failą"/>
 	<string id="20021" value="Failai"/>
 	<string id="20022" value="Visi Failai"/>
+	<string id="20023" value="No Files"/>
+	<string id="20024" value="Dideli failai"/>
+	<string id="20025" value="Vidutiniai failai"/>
+	<string id="20026" value="Maži failai"/>
+	<string id="20027" value="Daliniai failai"/>
+	<string id="20028" value="Kolekcijos failai"/>
 	<string id="20029" value="%s Failai"/>
 	<string id="20050" value="Kiekvienas Dienių"/>
 	<string id="20051" value="Pirmadienis"/>
@@ -4297,13 +4303,13 @@
 		<control caption="One day only"/>
 		<control/>
 		<control/>
-		<control caption="Pir"/>
-		<control caption="Ant"/>
-		<control caption="Tre"/>
-		<control caption="Ket"/>
-		<control caption="Pen"/>
-		<control caption="Šeš"/>
-		<control caption="Sek"/>
+		<control caption="Pirmadienis"/>
+		<control caption="Antradienis"/>
+		<control caption="Trečiadienis"/>
+		<control caption="Ketvirtadienis"/>
+		<control caption="Penktadienis"/>
+		<control caption="Šeštadienis"/>
+		<control caption="Sekmadienis"/>
 		<control caption="Visi"/>
 		<control caption="Komentarai"/>
 		<control/>
@@ -4562,9 +4568,9 @@
 	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Įspėjimas apie atnaujinimą">
 		<control caption="Pasirodė nauja „PeerProject“ versija. Ar norite atnaujinti?"/>
 		<control caption="Jei pasirinksite „Atnaujinti dabar“, „PeerProject“ pridės atnaujinimą prie atsisiuntimų ir pradės jį siųsti."/>
+		<control caption=" Netikrinti naujesnių versijų"/>
 		<control caption="_Atnaujinti dabar"/>
-		<control caption="  Netikrinti naujesnių versijų"/>
-		<control caption="Neatnaujinti"/>
+		<control caption="Atšaukti"/>
 	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Meta duomenų lokalizavimas">
 		<control caption="Pasirinkite perkodavimo būdą (kalbų grupę)"/>

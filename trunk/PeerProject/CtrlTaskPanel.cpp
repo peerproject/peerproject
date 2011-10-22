@@ -17,11 +17,11 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "Colors.h"
-#include "CoolInterface.h"
+#include "PeerProject.h"
 #include "CtrlTaskPanel.h"
+#include "CoolInterface.h"
+#include "Colors.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE

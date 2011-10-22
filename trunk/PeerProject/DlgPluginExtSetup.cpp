@@ -1,7 +1,7 @@
 //
 // DlgPluginExtSetup.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -16,7 +16,7 @@
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "PeerProject.h"
 #include "DlgPluginExtSetup.h"
 
@@ -39,7 +39,7 @@ CPluginExtSetupDlg::CPluginExtSetupDlg(CWnd* pParent, LPCTSTR pszExt)
 	: CDialog(CPluginExtSetupDlg::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(CPluginExtSetupDlg)
-	m_sExtensions	= CString( pszExt );
+	m_sExtensions	= (CString)pszExt;
 	m_pParent		= (CListCtrl*)pParent;
 	//}}AFX_DATA_INIT
 }
@@ -81,7 +81,7 @@ BOOL CPluginExtSetupDlg::OnInitDialog()
 	for ( INT_PTR nToken = 0 ; nToken < nTotal ; nToken++ )
 	{
 		CString strToken = oTokens.GetAt( nToken );
-		if ( strToken.IsEmpty() ) continue; // shouldn't happen but anyway
+		if ( strToken.IsEmpty() ) continue;	// Shouldn't happen
 
 		BOOL bChecked = ( strToken.Left( 1 ) != _T("-") );
 		int nItem = m_wndList.InsertItem( LVIF_TEXT, m_wndList.GetItemCount(),
@@ -155,7 +155,7 @@ void CPluginExtSetupDlg::OnOK()
 		m_pParent->SetItemText( nItem, 2, strCurrExt );
 		if ( bCurrState != m_bParentState )
 		{
-			if ( bCurrState != TRI_UNKNOWN ) // 0 state removes checkbox, we don't need that
+			if ( bCurrState != TRI_UNKNOWN )	// 0 state removes checkbox, we don't need that
 				m_pParent->SetItemState( nItem, bCurrState << 12, LVIS_STATEIMAGEMASK );
 			else
 				m_pParent->SetItemState( nItem, 2 << 12, LVIS_STATEIMAGEMASK );

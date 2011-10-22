@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "EDPartImporter.h"
 #include "EDPacket.h"
 #include "Transfers.h"
@@ -47,9 +47,9 @@ END_MESSAGE_MAP()
 // CEDPartImporter construction
 
 CEDPartImporter::CEDPartImporter()
+	: m_pTextCtrl ( NULL )
 {
-	m_bAutoDelete	= FALSE;
-	m_pTextCtrl		= NULL;
+	m_bAutoDelete = FALSE;
 }
 
 CEDPartImporter::~CEDPartImporter()
@@ -341,7 +341,7 @@ BOOL CEDPartImporter::ImportFile(LPCTSTR pszPath, LPCTSTR pszFile)
 	pDownload->m_sName			= strName;
 	pDownload->m_nSize			= nSize;
 	pDownload->m_oED2K			= oED2K;
-	pDownload->m_bED2KTrusted	= true; // .part use trusted hashes
+	pDownload->m_bED2KTrusted	= true;		// .part use trusted hashes
 	pDownload->Pause();
 
 	BYTE* pHashset = NULL;
