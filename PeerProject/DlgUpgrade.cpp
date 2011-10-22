@@ -17,13 +17,13 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "VersionChecker.h"
-#include "Network.h"
-#include "Downloads.h"
-#include "PeerProjectURL.h"
+#include "PeerProject.h"
 #include "DlgUpgrade.h"
+#include "VersionChecker.h"
+#include "PeerProjectURL.h"
+#include "Downloads.h"
+#include "Network.h"
 #include "WndMain.h"
 #include "WndDownloads.h"
 
@@ -43,10 +43,10 @@ END_MESSAGE_MAP()
 // CUpgradeDlg dialog
 
 CUpgradeDlg::CUpgradeDlg(CWnd* pParent) : CSkinDialog(CUpgradeDlg::IDD, pParent)
+	, m_sMessage	( _T("") )
+	, m_bCheck		( FALSE )
 {
 	//{{AFX_DATA_INIT(CUpgradeDlg)
-	m_bCheck = FALSE;
-	m_sMessage = _T("");
 	//}}AFX_DATA_INIT
 }
 
@@ -82,16 +82,16 @@ void CUpgradeDlg::OnOK()
 
 	CPeerProjectURL pURL;
 
-	pURL.m_nAction		= CPeerProjectURL::uriDownload;
-	pURL.m_sName		= Settings.VersionCheck.UpgradeFile;
-	pURL.m_sURL			= Settings.VersionCheck.UpgradeSources;
-	pURL.m_oSHA1.fromString( Settings.VersionCheck.UpgradeSHA1 );
+	pURL.m_nAction			= CPeerProjectURL::uriDownload;
+	pURL.m_sName			= Settings.VersionCheck.UpgradeFile;
+	pURL.m_sURL				= Settings.VersionCheck.UpgradeSources;
+	pURL.m_oSHA1.fromString(  Settings.VersionCheck.UpgradeSHA1 );
 	pURL.m_oTiger.fromString( Settings.VersionCheck.UpgradeTiger );
 
 	if ( Settings.VersionCheck.UpgradeSize.GetLength() )
 	{
 		QWORD nSize;
-		if ( ( _stscanf( Settings.VersionCheck.UpgradeSize.GetString(), _T("%I64i"), &nSize ) == 1 ) && ( nSize > 0 ) )
+		if ( _stscanf( Settings.VersionCheck.UpgradeSize.GetString(), _T("%I64i"), &nSize ) == 1 && nSize > 0 )
 		{
 			pURL.m_bSize = TRUE;
 			pURL.m_nSize = nSize;

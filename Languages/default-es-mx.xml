@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Spanish (Mexican) Skin File -->
 
-<!-- Translation based on default-en.xml r69 -->
+<!-- Translation based on default-en.xml r70 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -364,7 +364,6 @@
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
-		<button id="ID_NETWORK_DC" text="DC++"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Configurar..."/>
 	</toolbar>
@@ -377,6 +376,7 @@
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
+		<button id="ID_NETWORK_DC" text="DC++"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Configurar..."/>
 	</toolbar>
@@ -612,6 +612,7 @@
 			<item id="ID_TAB_IRC" text="_IRC"/>
 			<separator/>
 			<item id="ID_VIEW_SECURITY" text="_Seguridad"/>
+			<item id="ID_VIEW_SCHEDULER" text="_Programador"/>
 			<item id="ID_VIEW_HOSTS" text="_Caché de Hosts"/>
 			<separator/>
 			<menu text="A_dvanced">
@@ -2679,6 +2680,12 @@
 	<string id="20020" value="Archivo"/>
 	<string id="20021" value="Archivos"/>
 	<string id="20022" value="Todos Los Archivos"/>
+	<string id="20023" value="No Archivos"/>
+	<string id="20024" value="Archivos Grandes"/>
+	<string id="20025" value="Archivos Medianos"/>
+	<string id="20026" value="Archivos Pequeños"/>
+	<string id="20027" value="Archivos Parciales"/>
+	<string id="20028" value="Archivos de librera"/>
 	<string id="20029" value="Archivos de %s"/>
 	<string id="20050" value="Todos los Dias"/>
 	<string id="20051" value="Lunes"/>
@@ -2791,6 +2798,7 @@
 	<string id="20191" value="Comando no conocido %s."/>
 	<string id="20196" value="Este template no tiene ningún cambio."/>
 	<string id="20197" value="Este template es invalido."/>
+	<string id="20198" value="El texto copiado al portapapeles:"/>
 	<string id="20199" value="(cerrando después de transferencias)"/>
 	<string id="20200" value="&quot;%s&quot; fué agregado a la cola de descargas, y tiene %i fuente(s)."/>
 	<string id="20201" value="El archivo %s ya se esta descargando, agregando fuentes."/>
@@ -3126,7 +3134,7 @@
 	<string id="20576" value="Enviando QRT a %s (%i bit = %lu[%i], %i%% full)"/>
 	<string id="20577" value="El vecino %s envió un QRT incorrecto. %s."/>
 	<string id="20578" value="El vecino %s actualizó el QRT (%i bit = %lu[%i], %i%% full)."/>
-	<string id="20579" value="%s -> %s [%i/%i] %s %s"/>
+	<string id="20579" value="%s -&gt; %s [%i/%i] %s %s"/>
 	<string id="20580" value="El vecino en mode Leaf %s esta reenviando b squedas. Conexión cerrada."/>
 	<string id="20581" value="Neighbour %s remitio un paquete de ping con tama o invalido, ignorando."/>
 	<string id="20582" value="Neighbour %s remitio un paquete de pong con tamao invalido, ignorando."/>
@@ -4252,7 +4260,7 @@
 		<control/>
 		<control caption="Lunes"/>
 		<control caption="Martes"/>
-		<control caption="Miercoles"/>
+		<control caption="Miércoles"/>
 		<control caption="Jueves"/>
 		<control caption="Viernes"/>
 		<control caption="Sabado"/>
@@ -4513,11 +4521,11 @@
 		<control caption="Cancelar"/>
 	</dialog>
 	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Alerta de Actualización">
-		<control caption="Una nueva versión de PeerProject esta disponible.  ¿Deseas actualizar?"/>
+		<control caption="Una nueva versión de PeerProject esta disponible. ¿Deseas actualizar?"/>
 		<control caption="Si seleccionas actualizar ahora, PeerProject va a agregar la actualizacion a tu cola de descarga y automaticamente lo va a descargar."/>
-		<control caption="_Actualizar Ahora"/>
 		<control caption="No checar si hay nuevas versiones"/>
-		<control caption="No deseo actualizar"/>
+		<control caption="_Actualizar Ahora"/>
+		<control caption="Cancelar"/>
 	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Ubicar Metadata">
 		<control caption="Por favor selecciona un metodo de codificación"/>

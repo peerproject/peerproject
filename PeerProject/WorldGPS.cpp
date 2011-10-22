@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "WorldGPS.h"
 #include "Buffer.h"
 #include "XML.h"

@@ -5,7 +5,7 @@ M http://cache.leite.us/
 
 2 http://cache.trillinux.org/g2/bazooka.php
 2 http://dkac.trillinux.org/dkac/dkac.php
-2 http://silvers.zyns.com/gwc/dkac.php 
+2 http://silvers.zyns.com/gwc/dkac.php
 2 http://brov.mine.nu/Beacon/gwc.php
 2 http://gwc2.wodi.org/skulls.php
 2 http://gwc.dyndns.info:28960/gwc.php
@@ -17,7 +17,7 @@ M http://cache.leite.us/
 2 http://cache.pongwar.com/
 2 http://cache.ce3c.be/
 
-1 http://beacon.numberzero.org/gwc.php 
+1 http://beacon.numberzero.org/gwc.php
 1 http://gwc.ak-electron.eu:12050/
 1 http://gwc.glucolene.com:8080/
 1 http://gwc.dietpac.com:8080/
@@ -60,7 +60,7 @@ X http://www.lo7.wroc.pl/~stash/g2-moved/bazooka.php
 # http://gwc.gofoxy.net:2108/gwc/cgi-bin/fc
 
 #
-# Last updated July 2011
+# Last updated Sept. 2011
 #
 # Keep at least four gwebcache links and one link to a .met/hublist file
 # or they'll keep getting added every time they're removed

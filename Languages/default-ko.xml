@@ -3,7 +3,7 @@
 
 <!-- PeerProject Korean Language Skin File -->
 
-<!-- Translation based on default-en.xml r69 --> <!--Machine Translated!-->
+<!-- Translation based on default-en.xml r70 --> <!--Machine Translated!-->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -415,7 +415,7 @@
 		<button id="ID_SEARCH_DOWNLOAD" text="다운로드"/>
 		<separator/>
 		<button id="ID_HITMONITOR_SEARCH" text="다시-쿼리"/>
-		<button id="ID_HITMONITOR_PAUSE" text="Pause"/>
+		<button id="ID_HITMONITOR_PAUSE" text="일시 중지"/>
 		<button id="ID_SEARCH_CLEAR" text="맑은"/>
 			<rightAlign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="필터 :"/>
@@ -526,7 +526,7 @@
 	<menu name="CMainWnd.DropMenu" type="bar">
 		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="설정... &#160; "/>
-			<menu text="_Network">
+			<menu text="네트워크">
 				<item id="ID_NETWORK_CONNECT" text="연결" shortcut="Ctrl+G"/>
 				<item id="ID_NETWORK_DISCONNECT" text="끊습니다"/>
 				<separator/>
@@ -620,7 +620,7 @@
 		</menu>
 	</menu>
 	<menu name="CMainWnd.Tabbed" type="bar">
-		<menu text="_Network">
+		<menu text="네트워크">
 			<item id="ID_NETWORK_CONNECT" text="연결" shortcut="Ctrl+G"/>
 			<item id="ID_NETWORK_DISCONNECT" text="끊습니다"/>
 			<separator/>
@@ -708,7 +708,7 @@
 				<item id="ID_HELP_CODEC" text="코덱 도움말"/>
 			</menu>
 			<separator/>
-			<menu text="_Websites">
+			<menu text="가이드">
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject 사이트 항목"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject 포럼"/>
@@ -726,7 +726,7 @@
 		</menu>
 	</menu>
 	<menu name="CMainWnd.Basic" type="bar">
-		<menu text="_Network">
+		<menu text="네트워크">
 			<item id="ID_NETWORK_CONNECT" text="연결" shortcut="Ctrl+G"/>
 			<separator/>
 			<item id="ID_NETWORK_G2" text="연결 to Gnutella_2"/>
@@ -745,11 +745,12 @@
 			<item id="ID_TAB_IRC" text="IRC 채팅"/>
 			<item id="ID_WINDOW_REMOTE" text="미디어 리모트"/>
 			<separator/>
-			<menu text="_Advanced">
+			<menu text="고급 ">
 				<item id="ID_VIEW_NEIGHBOURS" text="이웃"/>
 				<item id="ID_VIEW_UPLOADS" text="업로드"/>
 				<separator/>
 				<item id="ID_VIEW_SECURITY" text="보안 항목"/>
+				<item id="ID_VIEW_SCHEDULER" text="Schedue_r"/>
 				<item id="ID_VIEW_HOSTS" text="호스트 캐시"/>
 				<item id="ID_VIEW_DISCOVERY" text="디스커버"/>
 			</menu>
@@ -773,14 +774,14 @@
 			<item id="ID_HELP_FAQ" text="PeerProject 자주 묻는 질문"/>
 			<item id="ID_HELP_TEST" text="연결 테스트"/>
 			<separator/>
-			<menu text="_Guides">
+			<menu text="가이드">
 				<item id="ID_HELP_GUIDE" text="PeerProject _사용자 가이"/>
 				<item id="ID_HELP_ROUTER" text="_라우터 도움말"/>
 				<item id="ID_HELP_SECURITY" text="보안 도움말 항목"/>
 				<item id="ID_HELP_CODEC" text="코덱 도움"/>
 			</menu>
 			<separator/>
-			<menu text="_Websites">
+			<menu text="가이드">
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject 사이트 항목"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject 포럼"/>
@@ -798,7 +799,7 @@
 		</menu>
 	</menu>
 	<menu name="CMainWnd.Windowed" type="bar">
-		<menu text="_Network">
+		<menu text="네트워크">
 			<item id="ID_NETWORK_SEARCH" text="새로운 검색..." shortcut="Ctrl+S"/>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT" text="연결" shortcut="Ctrl+G"/>
@@ -941,11 +942,12 @@
 		<item id="ID_VIEW_MEDIA" text="미디어 플레이어"/>
 		<separator/>
 		<item id="ID_VIEW_SECURITY" text="보안 항목"/>
+		<item id="ID_VIEW_SCHEDULER" text="Schedule_r"/>
 		<item id="ID_VIEW_HOSTS" text="호스트 캐시"/>
 		<item id="ID_VIEW_DISCOVERY" text="디스커버리"/>
 		<item id="ID_VIEW_TRAFFIC" text="그래프"/>
 		<separator/>
-		<item id="ID_VIEW_PACKETS" text="_Packet Dump"/>
+		<item id="ID_VIEW_PACKETS" text="패킷 덤프"/>
 		<item id="ID_VIEW_SEARCH_MONITOR" text="검색 모니터"/>
 		<item id="ID_VIEW_RESULTS_MONITOR" text="히트 모니터"/>
 	</menu>
@@ -1175,7 +1177,7 @@
 		<item id="ID_TRANSFERS_CHAT" text="_Chat to User"/>
 		<item id="ID_DOWNLOADS_URI" text="Get P2P Link (_URI)"/>
 		<separator/>
-		<item id="ID_TRANSFERS_DISCONNECT" text="_Disconnect"/>
+		<item id="ID_TRANSFERS_DISCONNECT" text="끊습니다"/>
 		<item id="ID_TRANSFERS_FORGET" text="_Forget"/>
 	</menu>
 	<menu name="CDownloadsWnd.Completed.Basic">
@@ -1491,9 +1493,9 @@
 		</menu>
 	</menu>
 	<menu name="CMediaFrame">
-		<item id="ID_MEDIA_PLAY" text="_Play"/>
+		<item id="ID_MEDIA_PLAY" text="재생"/>
 		<item id="ID_MEDIA_PAUSE" text="Pa_use"/>
-		<item id="ID_MEDIA_STOP" text="_Stop"/>
+		<item id="ID_MEDIA_STOP" text="중"/>
 		<separator/>
 		<item id="ID_MEDIA_OPEN" text="_Open Media File..."/>
 		<item id="ID_MEDIA_CLOSE" text="_닫기 File"/>
@@ -1504,7 +1506,7 @@
 			<item id="ID_MEDIA_RANDOM" text="_Random"/>
 			<item id="ID_MEDIA_REPEAT" text="R_epeat"/>
 			<separator/>
-			<item id="ID_MEDIA_PLAYLIST" text="Show _Playlist"/>
+			<item id="ID_MEDIA_PLAYLIST" text="쇼 재생"/>
 		</menu>
 		<menu text="Video Si_ze">
 			<item id="ID_MEDIA_SIZE_ONE" text="_Original Size"/>
@@ -1540,7 +1542,7 @@
 		<item id="ID_MEDIA_ASPECT_16_9" text="_16:9 Ratio (영화)"/>
 	</menu>
 	<menu name="CMediaList">
-		<item id="ID_MEDIA_SELECT" text="_Play"/>
+		<item id="ID_MEDIA_SELECT" text="재생"/>
 		<item id="ID_MEDIA_PROPERTIES" text="_Properties..."/>
 		<item id="ID_MEDIA_RATE" text="Ra_te File..."/>
 		<separator/>
@@ -1567,7 +1569,7 @@
 			<item id="ID_SYSTEM_VERBOSE_INFO" text="_Info"/>
 			<item id="ID_SYSTEM_VERBOSE_DEBUG" text="_Debug"/>
 		</menu>
-		<item id="ID_SYSTEM_TIMESTAMP" text="Timestam_p"/>
+		<item id="ID_SYSTEM_TIMESTAMP" text="_Timestamp"/>
 		<separator/>
 		<item id="ID_SYSTEM_COPY" text="_Copy" shortcut="Ctrl+C"/>
 		<separator/>
@@ -1578,7 +1580,7 @@
 		<item id="ID_BROWSE_LAUNCH" text="_Browse User"/>
 		<item id="ID_NEIGHBOURS_CHAT" text="_Chat to User"/>
 		<separator/>
-		<item id="ID_NEIGHBOURS_DISCONNECT" text="_Disconnect"/>
+		<item id="ID_NEIGHBOURS_DISCONNECT" text="끊습니다"/>
 		<separator/>
 		<item id="ID_NEIGHBOURS_URI" text="Get P2P Link (_URI)"/>
 	</menu>
@@ -1587,13 +1589,13 @@
 		<item id="ID_NEIGHBOURS_CHAT" text="_Chat to User"/>
 		<item id="ID_SECURITY_BAN" text="B_an User"/>
 		<separator/>
-		<item id="ID_NEIGHBOURS_DISCONNECT" text="_Disconnect"/>
+		<item id="ID_NEIGHBOURS_DISCONNECT" text="끊습니다"/>
 		<separator/>
 		<item id="ID_NEIGHBOURS_URI" text="Get P2P Link (_URI)"/>
 		<separator/>
-		<menu text="_Networks">
-			<item id="ID_NETWORK_CONNECT" text="_Connect"/>
-			<item id="ID_NETWORK_DISCONNECT" text="_Disconnect"/>
+		<menu text="네트워크">
+			<item id="ID_NETWORK_CONNECT" text="연결"/>
+			<item id="ID_NETWORK_DISCONNECT" text="끊습니다"/>
 			<separator/>
 			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
 			<item id="ID_NETWORK_G1" text="_Gnutella"/>
@@ -1724,7 +1726,7 @@
 		<group id="2">
 			<para align="center">
 				<newline gap="4"/>
-				<link target="command:ID_TAB_NETWORK">Network Session</link>
+				<link target="command:ID_TAB_NETWORK">네트워크 Session</link>
 				<newline gap="4"/>
 				<text id="ConnectedHours" format="b">%i </text>
 				<text>hours and </text>
@@ -2002,6 +2004,12 @@
 	<string id="20020" value="파일"/>
 	<string id="20021" value="파일"/>
 	<string id="20022" value="모든 파일"/>
+	<string id="20023" value="No Files"/>
+	<string id="20024" value="Large 파일"/>
+	<string id="20025" value="Medium 파일"/>
+	<string id="20026" value="Small 파일"/>
+	<string id="20027" value="부분 파일"/>
+	<string id="20028" value="Library 파일"/>
 	<string id="20029" value="%s 파일"/>
 	<string id="20050" value="매일"/>
 	<string id="20051" value="월요일"/>
@@ -2446,7 +2454,7 @@
 	<string id="20576" value="Sending query routing table to neighbor %s (%i bit = %lu[%i], %i%% full)"/>
 	<string id="20577" value="Receiving an unexpected query routing table update from neighbor %s."/>
 	<string id="20578" value="Neighbor %s updated its query routing table (%i bit = %lu[%i], %i%% full)."/>
-	<string id="20579" value="%s -> %s [%i/%i] %s %s"/>
+	<string id="20579" value="%s -&gt; %s [%i/%i] %s %s"/>
 	<string id="20580" value="Leaf neighbor %s is forwarding queries, dropping connection."/>
 	<string id="20581" value="Neighbor %s forwarded a ping packet with invalid length, ignoring."/>
 	<string id="20582" value="Neighbor %s forwarded a pong packet with invalid length, ignoring."/>
@@ -2485,7 +2493,8 @@
 	<string id="20643" value="입력 일부 키워드가 검색:"/>
 	<string id="20644" value="Advanced"/>
 	<string id="20645" value="모든 파일 형식"/>
-	<string id="20646" value="Clear"/>
+	<string id="20646" value="맑은"/>
+	<string id="20647" value="%lu filtered"/>
 	<string id="20648" value="검색 패널 숨기기"/>
 	<string id="20650" value="찾기"/>
 	<string id="20651" value="여기에 검색어 입력:"/>
@@ -2588,7 +2597,7 @@
 	<string id="20781" value="This source is currently busy"/>
 	<string id="20782" value="This source is firewalled"/>
 	<string id="20783" value="This source may be unstable"/>
-	<string id="20784" value="Speed:"/>
+	<string id="20784" value="스피드 :"/>
 	<string id="20785" value="Status:"/>
 	<string id="20786" value="%lu today, %lu total"/>
 	<string id="20787" value="Total Files:"/>
@@ -2816,7 +2825,7 @@
 		<control/>
 		<control caption="Server:"/>
 		<control/>
-		<control caption="Port:"/>
+		<control caption="포트:"/>
 		<control/>
 		<control caption="Run command on connect"/>
 		<control/>
@@ -2840,17 +2849,17 @@
 	<dialog name="CConnectionSettingsPage" cookie="BuStCoStCoStEdBuBuBuStCoStCoBuStCoBuBuBuStEdmsStEdms" caption="연결">
 		<control caption="Inbound Address:"/>
 		<control caption="Address:"/>
-		<control caption="Automatic"/>
-		<control caption="Speed:"/>
+		<control caption="자동"/>
+		<control caption="스피드 :"/>
 		<control/>
-		<control caption="Port:"/>
+		<control caption="포트"/>
 		<control/>
 		<control caption="Random"/>
 		<control caption="Force binding to this address"/>
 		<control caption="Outbound Address:"/>
 		<control caption="Address:"/>
-		<control caption="Automatic"/>
-		<control caption="Speed:"/>
+		<control caption="자동"/>
+		<control caption="스피드 :"/>
 		<control/>
 		<control caption="옵션:"/>
 		<control caption="Can accept incoming connections"/>
@@ -2891,7 +2900,7 @@
 		<control caption="Only download and upload to networks which are connected."/>
 	</dialog>
 	<dialog name="CUploadsSettingsPage" cookie="BuBuBuBuBuStEdmsBuCoBuBuBuStCoStCoBuSyBuBuBuSt" caption="업로드">
-		<control caption="Options:"/>
+		<control caption="옵션:"/>
 		<control caption="Limit sharing in hub mode"/>
 		<control caption="Share new partial downloads"/>
 		<control caption="Share preview files"/>
@@ -3122,20 +3131,23 @@
 		<control caption="적용"/>
 		<control/>
 	</dialog>
-<!--	<dialog name="CIdentityProfilePage" cookie="BuStStEdEdEdBuStStCoCoBuStBuBu" caption="Identity">
+	<dialog name="CIdentityProfilePage" cookie="BuStStEdEdEdBuStStCoCoBuStBuBu" caption="Identity">
 		<control caption="이름:"/>
-		<control caption="Screen 이름:"/>
-		<control/>
+		<control caption="Display 이름:"/>
 		<control caption="Real 이름:"/>
 		<control/>
 		<control/>
-		<control caption="Vitals:"/>
-		<control caption="|Male|Female"/>
-		<control caption="Gender:"/>
 		<control/>
+		<control caption="_Vitals:"/>
+		<control caption="Gender:"/>
 		<control caption="Age:"/>
+		<control caption="|Male|Female"/>
+		<control/>
+		<control caption="Note:"/>
+		<control caption="This profile is available to users who browse your files, primarily on the G2 network.{n}(PeerProject or Shareaza)"/>
+		<control caption="_Active:"/>
 		<control caption="Allow others to browse my user profile"/>
-	</dialog> -->
+	</dialog>
 	<!-- Mising Profile Dialogs -->
 	<dialog name="CLanguageDlg" cookie="" caption="언어 선택">
 	</dialog>
@@ -3143,7 +3155,7 @@
 		<control caption="Initiate a new connection to host or server:|Browse this host:|Message this user:"/>
 		<control/>
 		<control/>
-		<control caption="Network Protocol:"/>
+		<control caption="네트워크 Protocol:"/>
 		<control/>
 		<control caption="Suppress Ultrapeer"/>
 		<control caption="Connect"/>
@@ -3216,13 +3228,13 @@
 		<control/>
 		<control/>
 		<control/>
-		<control caption="Number of sources:"/>
+		<control caption="번호 소스의:"/>
 		<control caption="..."/>
 		<control caption="Transfer speed:"/>
 		<control caption="..."/>
 		<control caption="Time remaining:"/>
 		<control caption="..."/>
-		<control caption="Total downloaded:"/>
+		<control caption="볼륨 다운로드:"/>
 		<control caption="..."/>
 		<control caption="Show"/>
 		<control caption="취소"/>
@@ -3232,8 +3244,8 @@
 <!--	<dialog name="CFileGeneralPage" cookie="EdStStStStStEdEdEdEdEdStEdEdEdEd" caption="General">
 		<control/>
 		<control caption="File Info"/>
-		<control caption="Location:"/>
-		<control caption="Type:"/>
+		<control caption="위치:"/>
+		<control caption="종류:"/>
 		<control caption="Modified:"/>
 		<control caption="Size:"/>
 		<control/>
@@ -3301,7 +3313,7 @@
 		<control/>
 		<control caption="추가..."/>
 		<control caption="Edit..."/>
-		<control caption="Remove"/>
+		<control caption="제거"/>
 		<control caption="Show:"/>
 		<control caption="Grid Lines"/>
 		<control caption="Vertical Axis"/>
@@ -3352,7 +3364,7 @@
 		<control caption="Match Any"/>
 		<control caption="Match All"/>
 		<control caption="Reg. Exp."/>
-		<control caption="Options:"/>
+		<control caption="옵션:"/>
 		<control caption="Action:"/>
 		<control caption="None|Accept|Deny"/>
 		<control caption="Expire:"/>
@@ -3646,12 +3658,12 @@
 		<control caption="OK"/>
 		<control caption="취소"/>
 	</dialog>
-	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Upgrade Alert">
+	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="New Version Available">
 		<control caption="A new version of PeerProject is now available. Would you like to upgrade?"/>
-		<control caption="If you select Upgrade Now, PeerProject will add the upgrade to your download queue and automatically begin downloading it."/>
-		<control caption="Upgrade Now"/>
+		<control caption="To update now, the upgrade installer will simply be added to your download queue."/>
 		<control caption="Don't check for new versions"/>
-		<control caption="Don't Upgrade"/>
+		<control caption="_Download"/>
+		<control caption="취소"/>
 	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Metadata Localisation">
 		<control caption="Please select the method of re-encoding:"/>

@@ -520,6 +520,7 @@
 		<type extension="db"/>
 		<type extension="dif"/>
 		<type extension="doc"/>
+		<type extension="docm"/>
 		<type extension="docx"/>
 		<type extension="dot"/>
 		<type extension="dox"/>
@@ -530,6 +531,7 @@
 		<type extension="lit"/>
 		<type extension="lwp"/>
 		<type extension="mif"/>
+		<type extension="mht"/>
 		<type extension="odt"/>
 		<type extension="ott"/>
 		<type extension="pdb"/>

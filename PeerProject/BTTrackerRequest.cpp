@@ -17,12 +17,13 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "Network.h"
+#include "PeerProject.h"
+#include "BTTrackerRequest.h"
+
 #include "BENode.h"
 #include "BTPacket.h"
-#include "BTTrackerRequest.h"
+#include "Network.h"
 #include "Transfers.h"
 #include "Downloads.h"
 #include "Download.h"
@@ -38,8 +39,8 @@ static char THIS_FILE[] = __FILE__;
 // CBTTrackerRequest construction
 
 CBTTrackerRequest::CBTTrackerRequest(CDownloadWithTorrent* pDownload, LPCTSTR pszVerb, DWORD nNumWant, bool bProcess)
-	: m_pDownload( pDownload )
-	, m_bProcess( bProcess )
+	: m_pDownload	( pDownload )
+	, m_bProcess	( bProcess )
 {
 	ASSERT( pDownload != NULL );
 	ASSERT( pDownload->IsTorrent() );
@@ -47,14 +48,14 @@ CBTTrackerRequest::CBTTrackerRequest(CDownloadWithTorrent* pDownload, LPCTSTR ps
 	QWORD nRemaining = pDownload->GetVolumeRemaining();
 	if ( nRemaining == SIZE_UNKNOWN ) nRemaining = 0;
 
-	// Create basic URL  http://wiki.theory.org/BitTorrentSpecification#Tracker_HTTP.2FHTTPS_Protocol
+	// Create basic URL - http://wiki.theory.org/BitTorrentSpecification#Tracker_HTTP.2FHTTPS_Protocol
 	CString strURL, strAddress = pDownload->m_pTorrent.GetTrackerAddress();
-	strURL.Format( _T("%s%cinfo_hash=%s&peer_id=%s&port=%i&uploaded=%I64i&downloaded=%I64i&left=%I64i&compact=1"),
+	strURL.Format( _T("%s%cinfo_hash=%s&peer_id=%s&port=%u&uploaded=%I64u&downloaded=%I64u&left=%I64u&compact=1"),
 		(LPCTSTR)strAddress.TrimRight( _T('&') ),
 		( ( strAddress.Find( _T('?') ) != -1 ) ? _T('&') : _T('?') ),
 		(LPCTSTR)Escape( pDownload->m_oBTH ),
 		(LPCTSTR)Escape( m_pDownload->m_pPeerID ),
-		Network.m_pHost.sin_port ? (int)htons( Network.m_pHost.sin_port ) : (int)Settings.Connection.InPort,
+		Network.m_pHost.sin_port ? (DWORD)htons( Network.m_pHost.sin_port ) : Settings.Connection.InPort,
 		pDownload->m_nTorrentUploaded,
 		pDownload->m_nTorrentDownloaded,
 		nRemaining );
@@ -77,11 +78,11 @@ CBTTrackerRequest::CBTTrackerRequest(CDownloadWithTorrent* pDownload, LPCTSTR ps
 
 	// Add the # of peers to request
 	CString strNumWant;
-	strNumWant.Format( _T("&numwant=%i"), nNumWant );
+	strNumWant.Format( _T("&numwant=%u"), nNumWant );
 	strURL += strNumWant;
 
 	// If the TrackerKey is true and we have a valid key, then use it.
-	if ( ( pDownload->m_sKey.GetLength() > 4 ) && ( Settings.BitTorrent.TrackerKey ) )
+	if ( pDownload->m_sKey.GetLength() > 4 && Settings.BitTorrent.TrackerKey )
 	{
 		ASSERT ( pDownload->m_sKey.GetLength() < 20 );		// Key too long
 

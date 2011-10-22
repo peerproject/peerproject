@@ -4,7 +4,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt).
 //
 //  See http://www.boost.org/libs/utility for most recent version including documentation.
-//  see libs/utility/compressed_pair.hpp
+//  See libs/utility/compressed_pair.hpp
 //
 /* Release notes:
    20 Jan 2001:
@@ -505,6 +505,3 @@ inline void swap(compressed_pair<T1, T2>& x, compressed_pair<T1, T2>& y)
 } // boost
 
 #endif // BOOST_OB_COMPRESSED_PAIR_HPP
-
-
-

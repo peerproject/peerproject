@@ -17,22 +17,22 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "BTClient.h"
-#include "BTPacket.h"
+#include "PeerProject.h"
+//#include "UploadTransfer.h"
+#include "UploadTransferBT.h"
+#include "DownloadTransferBT.h"
 #include "Download.h"
 #include "Downloads.h"
-#include "DownloadTransferBT.h"
-#include "UploadTransferBT.h"
-//#include "UploadTransfer.h"
 #include "Uploads.h"
 #include "UploadFile.h"
 #include "UploadFiles.h"
 #include "FragmentedFile.h"
 #include "TransferFile.h"
-#include "Statistics.h"
+#include "BTClient.h"
+#include "BTPacket.h"
 #include "Buffer.h"
+#include "Statistics.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE

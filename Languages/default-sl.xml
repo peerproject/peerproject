@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Slovenian Skin File -->
 
-<!-- Translation based on default-en.xml r69 (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r70 (Shareaza 2.2.2.12) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1442,7 +1442,7 @@
 	</menu>
 	<!-- SYSTEM WINDOW -->
 	<menu name="CSystemWnd">
-		<menu id="ID_SYSTEM_VERBOSE" text="_Verbose način"/>
+		<menu id="ID_SYSTEM_VERBOSE" text="_Verbose način">
 			<item id="ID_SYSTEM_VERBOSE_ERROR" text="_Error"/>
 			<item id="ID_SYSTEM_VERBOSE_WARNING" text="_Warning"/>
 			<item id="ID_SYSTEM_VERBOSE_NOTICE" text="_Notice"/>
@@ -2537,6 +2537,12 @@
 	<string id="20020" value="Datoteka"/>
 	<string id="20021" value="Datoteke"/>
 	<string id="20022" value="Vse Datoteke"/>
+	<string id="20023" value="No Datoteke"/>
+	<string id="20024" value="Velike datoteke"/>
+	<string id="20025" value="Srednje datoteke"/>
+	<string id="20026" value="Majhne datoteke"/>
+	<string id="20027" value="Delne datoteke"/>
+	<string id="20028" value="Library Files"/>
 	<string id="20029" value="%s Datoteke"/>
 	<string id="20050" value="Vsak Dan"/>
 	<string id="20051" value="ponedeljek"/>
@@ -2963,7 +2969,7 @@
 	<string id="20576" value="Pošiljam tabelo za usmerjevanje poizvedb sosedu %s (%i bitov = %lu[%i], %i%% polno)"/>
 	<string id="20577" value="Prejemam nepričakovano posodobitev tabele za usmerjevanje poizvedb (query routing table update) od soseda %s."/>
 	<string id="20578" value="Sosed %s je posodobil tabelo za usmerjanje poizvedb (%i bitov = %lu[%i], %i%% polno)."/>
-	<string id="20579" value="%s -> %s [%i/%i] %s %s"/>
+	<string id="20579" value="%s -&gt; %s [%i/%i] %s %s"/>
 	<string id="20580" value="Listnati sosed (leaf neighbour) %s posreduje poizvedbe, kočujem povezavo."/>
 	<string id="20581" value="Sosed %s je posredoval ping paket z neveljavno dolžino, ignoriram."/>
 	<string id="20582" value="Sosed %s je posredoval pong paket z neveljavno dolžino, ignoriram."/>
@@ -4035,13 +4041,13 @@
 		<control caption="One day only"/>
 		<control/>
 		<control/>
-		<control caption="pon"/>
-		<control caption="tor"/>
-		<control caption="sre"/>
-		<control caption="čet"/>
-		<control caption="pet"/>
-		<control caption="sob"/>
-		<control caption="ned"/>
+		<control caption="Ponedeljek"/>
+		<control caption="Torek"/>
+		<control caption="Sreda"/>
+		<control caption="Četrtek"/>
+		<control caption="Petek"/>
+		<control caption="Sobota"/>
+		<control caption="Nedelja"/>
 		<control caption="Vse"/>
 		<control caption="Komentarji"/>
 		<control/>
@@ -4300,9 +4306,9 @@
 	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Opozorilo o posodobitvi">
 		<control caption="Na voljo je nova različica programa PeerProject. Jo želite posodobiti?"/>
 		<control caption="Če boste izbrali Posodobi takoj, bo PeerProject dodala posodobitev v vašo prenosno čakalno vrsto in bo tudi samodejno pričela s prenosom."/>
-		<control caption="_Posodobi takoj"/>
 		<control caption="Ne preverjaj po novih posodobitvah"/>
-		<control caption="Ne posodobi"/>
+		<control caption="_Posodobi takoj"/>
+		<control caption="Prekliči"/>
 	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Lokalizacija metapodatkov">
 		<control caption="Izberite metodo za ponovno enkodiranje"/>

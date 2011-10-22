@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "WndPanel.h"
 #include "CoolInterface.h"
 #include "Colors.h"
@@ -85,7 +85,8 @@ void CPanelWnd::OnSize(UINT nType, int cx, int cy)
 		CRect rc;
 		GetWindowRect( &rc );
 		rc.OffsetRect( -rc.left, -rc.top );
-		rc.right++; rc.bottom++;
+		rc.right++;
+		rc.bottom++;
 		SetWindowRgn( CreateRectRgnIndirect( &rc ), TRUE );
 	}
 
@@ -175,10 +176,8 @@ LRESULT CPanelWnd::OnSetText(WPARAM /*wParam*/, LPARAM /*lParam*/)
 
 		return lResult;
 	}
-	else
-	{
-		return static_cast< DWORD >( Default() );
-	}
+
+	return Default();
 }
 
 void CPanelWnd::PaintCaption(CDC& dc)
@@ -229,7 +228,7 @@ void CPanelWnd::PaintCaption(CDC& dc)
 	{
 		pBuffer->SelectObject( &theApp.m_gdiFont );
 		CString strText	= _T("Close");
-		CSize szText	= pBuffer->GetTextExtent( strText );
+		CSize szText = pBuffer->GetTextExtent( strText );
 
 		m_rcClose.SetRect( rc.right - szText.cx - 8, rc.top, rc.right, rc.bottom );
 		pBuffer->ExtTextOut( m_rcClose.left + 2,
@@ -242,7 +241,7 @@ void CPanelWnd::PaintCaption(CDC& dc)
 
 	dc.BitBlt( rc.left, rc.top, rc.Width(), rc.Height(), pBuffer, 0, 0, SRCCOPY );
 
-	dc.SelectStockObject( SYSTEM_FONT ); // GDI font leak fix
+	dc.SelectStockObject( SYSTEM_FONT );	// GDI font leak fix
 }
 
 BOOL CPanelWnd::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)

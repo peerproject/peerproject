@@ -27,6 +27,7 @@
 #include "CtrlLibraryHistoryPanel.h"
 #include "CtrlSchemaCombo.h"
 #include "AutocompleteEdit.h"
+#include "LibraryList.h"
 
 class CLibraryView;
 class CPanelCtrl;

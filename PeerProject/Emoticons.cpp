@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "Emoticons.h"
 #include "ImageServices.h"
 #include "ImageFile.h"
@@ -348,8 +348,8 @@ BOOL CEmoticons::LoadXML(LPCTSTR pszFile)
 	CImageFile pImage;
 
 	if ( ! pImage.LoadFromFile( strValue ) ||
-		! pImage.EnsureRGB( GetSysColor( COLOR_WINDOW ) ) ||
-		! pImage.SwapRGB() )
+		 ! pImage.EnsureRGB( GetSysColor( COLOR_WINDOW ) ) ||
+		 ! pImage.SwapRGB() )
 	{
 		delete pXML;
 		return FALSE;
@@ -438,7 +438,7 @@ void CEmoticons::FormatText(CRichDocument* pDocument, LPCTSTR pszBody, BOOL bNew
 
 		if ( pszEmoticon == pszBody )
 		{
-			str.Format( _T("%lu"), nEmoticon );
+			str.Format( _T("%i"), nEmoticon );
 			pDocument->Add( retEmoticon, str );
 			pszBody += _tcslen( GetText( nEmoticon ) );
 			continue;

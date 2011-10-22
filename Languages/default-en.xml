@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default English Skin File -->
 
-<!-- Translation based on default-en.xml r69 -->
+<!-- Translation based on default-en.xml r70 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -185,7 +185,7 @@
 		<button id="ID_TOOLS_DOWNLOAD" text="Add Download"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Clear List"/>
 		<separator/>
-		<button id="ID_DOWNLOADS_FILTER_MENU" text="Filter"/>
+		<button id="ID_DOWNLOADS_FILTER_MENU" text="Filters"/>
 	</toolbar>
 	<!-- UPLOADS WINDOW -->
 	<toolbar name="CUploadsWnd.Basic">
@@ -209,7 +209,7 @@
 			<rightAlign/>
 		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="Clear List"/>
 		<separator/>
-		<button id="ID_UPLOADS_FILTER_MENU" text="Filter"/>
+		<button id="ID_UPLOADS_FILTER_MENU" text="Filters"/>
 	</toolbar>
 	<!-- LIBRARY FRAME -->
 	<toolbar name="CLibraryTree.Top">
@@ -295,9 +295,9 @@
 		<button id="ID_LIBRARY_PANEL" text="Hide Details"/>
 	</toolbar>
 	<toolbar name="CLibraryCollectionView.Virtual">
-		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Play Full Album"/>
+		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Play Album"/>
 		<separator/>
-		<button id="ID_LIBRARY_FOLDER_DOWNLOAD" text="Download All Files"/>
+		<button id="ID_LIBRARY_FOLDER_DOWNLOAD" text="Download All"/>
 			<rightAlign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Find:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
@@ -1136,7 +1136,7 @@
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Filter Results..."/>
-		<item id="ID_SEARCH_FILTER_REMOVE" text="R_emove Filter"/>
+		<item id="ID_SEARCH_FILTER_REMOVE" text="_Remove Filter"/>
 		<separator/>
 		<item id="ID_SEARCH_COLUMNS" text="Edit C_olumns..."/>
 	</menu>
@@ -1629,7 +1629,7 @@
 			<item id="ID_SYSTEM_VERBOSE_INFO" text="_Info"/>
 			<item id="ID_SYSTEM_VERBOSE_DEBUG" text="_Debug"/>
 		</menu>
-		<item id="ID_SYSTEM_TIMESTAMP" text="Timestam_p"/>
+		<item id="ID_SYSTEM_TIMESTAMP" text="_Timestamp"/>
 		<separator/>
 		<item id="ID_SYSTEM_COPY" text="_Copy" shortcut="Ctrl+C"/>
 		<separator/>
@@ -3340,7 +3340,7 @@
 	<string id="20576" value="Sending query routing table to neighbor %s (%i bit = %lu[%i], %i%% full)"/>
 	<string id="20577" value="Receiving an unexpected query routing table update from neighbor %s."/>
 	<string id="20578" value="Neighbor %s updated its query routing table (%i bit = %lu[%i], %i%% full)."/>
-	<string id="20579" value="%s -> %s [%i/%i] %s %s"/>
+	<string id="20579" value="%s -&gt; %s [%i/%i] %s %s"/>
 	<string id="20580" value="Leaf neighbor %s is forwarding queries, dropping connection."/>
 	<string id="20581" value="Neighbor %s forwarded a ping packet with invalid length, ignoring."/>
 	<string id="20582" value="Neighbor %s forwarded a pong packet with invalid length, ignoring."/>
@@ -4763,12 +4763,12 @@
 		<control caption="OK"/>
 		<control caption="Cancel"/>
 	</dialog>
-	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Upgrade Alert">
+	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="New Version Available">
 		<control caption="A new version of PeerProject is now available. Would you like to upgrade?"/>
-		<control caption="If you select Upgrade Now, PeerProject will add the upgrade to your download queue and automatically begin downloading it."/>
-		<control caption="_Upgrade Now"/>
+		<control caption="To update now, the upgrade installer will simply be added to your download queue."/>
 		<control caption="Don't check for new versions"/>
-		<control caption="Don't Upgrade"/>
+		<control caption="_Download"/>
+		<control caption="_Cancel"/>
 	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Metadata Localization">
 		<control caption="Please select the method of re-encoding:"/>

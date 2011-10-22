@@ -7,8 +7,8 @@
 
 /*
  Revision history:
-    02 August 2000 Initial version.
-    Edit: Extraneous Compilers Removed.
+   02 August 2000 Initial version.
+   Edit: Extraneous Compilers Removed.
 */
 
 #ifndef BOOST_STATIC_ASSERT_HPP
@@ -17,9 +17,15 @@
 //#include <boost/config.hpp>
 //#include <boost/detail/workaround.hpp>
 
+#ifndef BOOST_NO_STATIC_ASSERT
+#  define BOOST_STATIC_ASSERT_MSG( B, Msg ) static_assert(B, Msg)
+#else
+#  define BOOST_STATIC_ASSERT_MSG( B, Msg ) BOOST_STATIC_ASSERT( B )
+#endif
+
 #define BOOST_STATIC_ASSERT_BOOL_CAST(x) (bool)(x)
 
-#ifdef BOOST_HAS_STATIC_ASSERT
+#ifndef BOOST_NO_STATIC_ASSERT
 #  define BOOST_STATIC_ASSERT( B ) static_assert(B, #B)
 #else
 
@@ -64,7 +70,7 @@ template<int x> struct static_assert_test{};
    typedef ::boost::static_assert_test<\
       sizeof(::boost::STATIC_ASSERTION_FAILURE< BOOST_STATIC_ASSERT_BOOL_CAST ( B ) >)>\
          BOOST_JOIN(boost_static_assert_typedef_, __COUNTER__)
-#elif defined(BOOST_INTEL_CXX_VERSION)
+#elif defined(BOOST_INTEL_CXX_VERSION) || defined(BOOST_SA_GCC_WORKAROUND)
 // agurt 15/sep/02: a special care is needed to force Intel C++ issue an error instead of warning in case of failure
 # define BOOST_STATIC_ASSERT( B ) \
     typedef char BOOST_JOIN(boost_static_assert_typedef_, __LINE__) \
@@ -83,6 +89,6 @@ template<int x> struct static_assert_test{};
    enum { BOOST_JOIN(boost_static_assert_enum_, __LINE__) \
       = sizeof(::boost::STATIC_ASSERTION_FAILURE< (bool)( B ) >) }
 #endif
-#endif // ndef BOOST_HAS_STATIC_ASSERT
+#endif // defined(BOOST_NO_STATIC_ASSERT)
 
 #endif // BOOST_STATIC_ASSERT_HPP

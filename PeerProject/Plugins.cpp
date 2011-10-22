@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "Plugins.h"
 #include "SharedFile.h"
 #include "Application.h"
@@ -45,7 +45,7 @@ CPlugins::CPlugins()
 
 void CPlugins::Register()
 {
-	CList< HINSTANCE > oModules; // Cache
+	CList< HINSTANCE > oModules;	// Cache
 
 //	LPCTSTR szParam = AfxGetPerUserRegistration() ? _T("/RegServerPerUser") : _T("/RegServer");
 

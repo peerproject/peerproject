@@ -20,8 +20,8 @@
 // http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CNeighbours
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "Neighbours.h"
 
 #ifdef _DEBUG

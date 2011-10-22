@@ -21,16 +21,16 @@
 
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "Statistics.h"
+#include "PeerProject.h"
+#include "NeighboursWithRouting.h"
+#include "Neighbour.h"
 #include "Network.h"
 #include "Datagrams.h"
-#include "Neighbour.h"
-#include "NeighboursWithRouting.h"
 #include "QuerySearch.h"
 #include "G1Packet.h"
 #include "G2Packet.h"
+#include "Statistics.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -64,15 +64,15 @@ void CNeighboursWithRouting::Connect()
 // Returns the number of neighbours that got the packet
 int CNeighboursWithRouting::Broadcast(CPacket* pPacket, CNeighbour* pExcept, BOOL bGGEP)
 {
-	// Have this thread get exclusive access to the network object (do)
-	CSingleLock pLock( &Network.m_pSection, TRUE ); // When this method returns, pLock will go out of scope and release access
-
 	// Count how many neighbours we will send this packet to
 	int nCount = 0;
 	bool bSend = true;
 
 	if ( ! Settings.Gnutella1.EnableGGEP && bGGEP )
 		return 0;
+
+	// Have this thread get exclusive access to the network object (do)
+	CSingleLock pLock( &Network.m_pSection, TRUE );
 
 	// Loop through each neighbour in the list
 	for ( POSITION pos = GetIterator() ; pos ; )
@@ -93,8 +93,7 @@ int CNeighboursWithRouting::Broadcast(CPacket* pPacket, CNeighbour* pExcept, BOO
 		}
 	}
 
-	// Returns the count of how many neighbours got the packet
-	return nCount;
+	return nCount;		// Number of neighbours that got the packet
 }
 
 bool CNeighboursWithRouting::CheckQuery(const CQuerySearch* pSearch)
@@ -103,7 +102,7 @@ bool CNeighboursWithRouting::CheckQuery(const CQuerySearch* pSearch)
 	pThisQuery.m_pAddress = pSearch->m_pEndpoint.sin_addr;
 	pThisQuery.m_nTime = GetTickCount();
 
-	for ( POSITION pos = m_pQueries.GetHeadPosition(); pos; )
+	for ( POSITION pos = m_pQueries.GetHeadPosition() ; pos ; )
 	{
 		POSITION posOrig = pos;
 		const CIPTime& pLastQuery = m_pQueries.GetNext( pos );
@@ -127,9 +126,9 @@ bool CNeighboursWithRouting::CheckQuery(const CQuerySearch* pSearch)
 // Returns the number of computers we sent the packet to
 int CNeighboursWithRouting::RouteQuery(const CQuerySearch* pSearch, CPacket* pPacket, CNeighbour* pFrom, BOOL bToHubs)
 {
-	BOOL bHubLoop = FALSE; // We'll set this to true if this is a Gnutella Q2 packet and we found at least one Gnutella2 computer
-	int nCount = 0;        // We'll count how many neighbours we send the packet to
-	POSITION pos;          // Position used looping down the list of neighbours
+	BOOL bHubLoop = FALSE;	// We'll set this to true if this is a Gnutella Q2 packet and we found at least one Gnutella2 computer
+	int nCount = 0;			// We'll count how many neighbours we send the packet to
+	POSITION pos;			// Position used looping down the list of neighbours
 
 	// If the given packet is a Gnutella packet, point pG1 at it, otherwise make pG1 NULL, and do the same for pG2
 	CG1Packet* pG1 = ( pPacket->m_nProtocol == PROTOCOL_G1 ) ? (CG1Packet*)pPacket : NULL;

@@ -17,10 +17,10 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "Network.h"
+#include "PeerProject.h"
 #include "UPnPFinder.h"
+#include "Network.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -29,19 +29,19 @@ static char THIS_FILE[] = __FILE__;
 #endif	// Filename
 
 CUPnPFinder::CUPnPFinder()
-	: m_pDevices	( )
-	, m_pServices	( )
-	, m_bCOM		( false )
+	: m_pDevices		( )
+	, m_pServices		( )
+	, m_bCOM			( false )
 	, m_nAsyncFindHandle( 0 )
 	, m_bAsyncFindRunning( false )
-	, m_bADSL		( false )
-	, m_bADSLFailed	( false )
-	, m_bPortIsFree	( true )
-	, m_sLocalIP	( )
-	, m_sExternalIP	( )
-	, m_bInited 	( false )
-	, m_bSecondTry	( false )
-	, m_tLastEvent	( GetTickCount() )
+	, m_bADSL			( false )
+	, m_bADSLFailed 	( false )
+	, m_bPortIsFree 	( true )
+	, m_sLocalIP		( )
+	, m_sExternalIP 	( )
+	, m_bInited 		( false )
+	, m_bSecondTry		( false )
+	, m_tLastEvent		( GetTickCount() )
 	, m_bDisableWANIPSetup( Settings.Connection.SkipWANIPSetup == TRUE )
 	, m_bDisableWANPPPSetup( Settings.Connection.SkipWANPPPSetup == TRUE )
 {
@@ -448,9 +448,9 @@ HRESULT CUPnPFinder::MapPort(const ServicePointer& service)
 
 	CString strServiceId( bsServiceId );
 
-	if ( m_bADSL ) // not a very reliable way to detect ADSL, since WANEthLinkC* is optional
+	if ( m_bADSL )	// Not a very reliable way to detect ADSL, since WANEthLinkC* is optional
 	{
-		if ( theApp.m_bUPnPPortsForwarded == TRI_TRUE ) // another physical device or the setup was ran again manually
+		if ( theApp.m_bUPnPPortsForwarded == TRI_TRUE )		// Another physical device or the setup was ran again manually
 		{
 			// Reset settings and recheck ( is there a better solution? )
 			Settings.Connection.SkipWANIPSetup  = FALSE;
@@ -631,7 +631,7 @@ void CUPnPFinder::DeleteExistingPortMappings(ServicePointer pService)
 	// Port mappings are numbered starting from 0 without gaps between;
 	// So, we will loop until we get an empty string or failure as a result.
 	CString strInArgs;
-	USHORT nEntry = 0; // PortMappingNumberOfEntries is of type VT_UI2
+	USHORT nEntry = 0;	// PortMappingNumberOfEntries is of type VT_UI2
 	if ( m_sLocalIP.IsEmpty() )
 		return;
 
@@ -666,12 +666,12 @@ void CUPnPFinder::DeleteExistingPortMappings(ServicePointer pService)
 			// VT_UI4	PortMappingLeaseDuration = 0 (any)
 
 			// DeletePortMapping action takes 3 arguments:
-			//		RemoteHost, ExternalPort and PortMappingProtocol
+			//	RemoteHost, ExternalPort and PortMappingProtocol
 
 			CString strHost, strPort, strProtocol, strLocalIP;
 
 			if ( _tcsistr( strActionResult, L"|VT_BSTR=PeerProject TCP|" ) != NULL ||
-				_tcsistr( strActionResult, L"|VT_BSTR=PeerProject UDP|" ) != NULL )
+				 _tcsistr( strActionResult, L"|VT_BSTR=PeerProject UDP|" ) != NULL )
 			{
 				CStringArray oTokens;
 				Split( strActionResult, _T('|'), oTokens );
@@ -683,7 +683,7 @@ void CUPnPFinder::DeleteExistingPortMappings(ServicePointer pService)
 				strPort		= '|' + oTokens[ 1 ];
 				strProtocol	= '|' + oTokens[ 2 ] + '|';
 
-				// verify types
+				// Verify types
 				if ( _tcsistr( strHost, L"VT_BSTR" ) == NULL
 						|| _tcsistr( strPort, L"VT_UI2" ) == NULL
 						|| _tcsistr( strProtocol, L"VT_BSTR" ) == NULL )
@@ -698,24 +698,21 @@ void CUPnPFinder::DeleteExistingPortMappings(ServicePointer pService)
 					if ( FAILED( hrDel ) )
 						UPnPMessage( hrDel );
 					else
-					{
-						theApp.Message( MSG_DEBUG, L"Old port mapping deleted: %s",
-							strPort + strProtocol );
-					}
+						theApp.Message( MSG_DEBUG, L"Old port mapping deleted: %s", strPort + strProtocol );
 				}
-				else // different IP found in the port mapping entry
+				else	// Different IP found in the port mapping entry
 				{
 					theApp.Message( MSG_DEBUG, L"Port %s is used by %s, trying random port.",
 							(LPCTSTR)oTokens[ 1 ], (LPCTSTR)oTokens[ 4 ] );
 					CString str;
 					str.Format( L"%hu", Settings.Connection.InPort );
-					if ( _tcsstr( strPort, str ) != NULL ) // ports are equal
+					if ( _tcsstr( strPort, str ) != NULL )	// Ports are equal
 					{
 						Settings.Connection.InPort = Network.RandomPort();
-						// start from the beginning
+						// Start from the beginning
 						nEntry = 0;
 						hrDel = hr = S_OK;
-						// cancel after the defined number of attempts
+						// Cancel after the defined number of attempts
 						if ( ! ( nAttempts-- ) )
 						{
 							m_bPortIsFree = false;
@@ -737,7 +734,7 @@ void CUPnPFinder::DeleteExistingPortMappings(ServicePointer pService)
 			break;
 		}
 	}
-	while ( SUCCEEDED( hr ) && strActionResult.GetLength() );
+	while ( SUCCEEDED( hr ) && ! strActionResult.IsEmpty() );
 }
 
 // Creates TCP and UDP port mappings
@@ -878,7 +875,7 @@ HRESULT CUPnPFinder::CreateSafeArray(const VARTYPE vt, const ULONG nArgs, SAFEAR
 
 	*ppsa = SafeArrayCreate( vt, 1, aDim );
 
-	if( NULL == *ppsa ) return E_OUTOFMEMORY;
+	if ( NULL == *ppsa ) return E_OUTOFMEMORY;
 	return S_OK;
 }
 
@@ -1060,7 +1057,7 @@ void CUPnPFinder::DestroyVars(const INT_PTR nCount, VARIANT*** pppVars)
 
 	ASSERT( pppVars && *pppVars );
 
-	if( nCount == 0 ) return;
+	if ( nCount == 0 ) return;
 
 	for ( INT_PTR nArg = 0 ; nArg < nCount ; nArg++ )
 	{
@@ -1127,9 +1124,9 @@ HRESULT CDeviceFinderCallback::SearchComplete(LONG /*nFindData*/)
 //	CServiceCallback
 
 //! Called when the state variable is changed
-//! \arg pus             COM interface pointer of the service;
-//! \arg pszStateVarName State Variable Name;
-//! \arg varValue        State Variable Value
+//! \arg pus				COM interface pointer of the service;
+//! \arg pszStateVarName	State Variable Name;
+//! \arg varValue			State Variable Value
 HRESULT CServiceCallback::StateVariableChanged(IUPnPService* pService,
 			LPCWSTR pszStateVarName, VARIANT varValue)
 {

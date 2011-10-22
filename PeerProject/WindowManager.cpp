@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "WindowManager.h"
 #include "CtrlWndTabBar.h"
 #include "Colors.h"
@@ -29,7 +29,6 @@
 #include "WndNeighbours.h"
 #include "WndDownloads.h"
 #include "WndUploads.h"
-
 #include "WndTraffic.h"
 #include "WndSearch.h"
 #include "WndBrowseHost.h"
@@ -55,9 +54,8 @@ END_MESSAGE_MAP()
 // CWindowManager construction
 
 CWindowManager::CWindowManager(CMDIFrameWnd* pParent)
+	: m_bIgnoreActivate ( FALSE )
 {
-	m_bIgnoreActivate = FALSE;
-
 	if ( pParent ) SetOwner( pParent );
 }
 
@@ -172,7 +170,7 @@ CChildWnd* CWindowManager::Open(CRuntimeClass* pClass, BOOL bToggle, BOOL bFocus
 	if ( ! pChild )
 		pChild = static_cast< CChildWnd* >( pClass->CreateObject() );
 
-	if ( pChild && bFocus  )
+	if ( pChild && bFocus )
 		pChild->BringWindowToTop();
 
 	return pChild;

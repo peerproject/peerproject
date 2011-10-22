@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Greek Skin File -->
 
-<!-- Translation based on default-en.xml r69 -->
+<!-- Translation based on default-en.xml r70 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2736,6 +2736,12 @@
 	<string id="20020" value="Αρχείο"/>
 	<string id="20021" value="Αρχεία"/>
 	<string id="20022" value="Όλα τα Αρχεία"/>
+	<string id="20023" value="No Files"/>
+	<string id="20024" value="Μεγάλα Αρχεία"/>
+	<string id="20025" value="Μεσαία Αρχεία"/>
+	<string id="20026" value="Μικρά Αρχεία"/>
+	<string id="20027" value="Ημιτελή Αρχεία"/>
+	<string id="20028" value="Αρχεία Βιβλιοθήκης"/>
 	<string id="20029" value="%s Αρχεία"/>
 	<string id="20050" value="Κάθε μέρα"/>
 	<string id="20051" value="Δευτέρα"/>
@@ -3177,7 +3183,7 @@
 	<string id="20576" value="Αποστολή πίνακα δρομολόγησης ερωτημάτων προς τον γείτονα %s (%i bit = %lu[%i], %i%% full)"/>
 	<string id="20577" value="Παραλαβή απροσδόκητης ενημέρωσης πίνακα δρομολόγησης ερωτημάτων από τον γείτονα %s."/>
 	<string id="20578" value="Ενημέρωση πίνακα δρομολόγησης ερωτημάτων του γείτονα %s (%i bit = %lu[%i], %i%% πλήρες)."/>
-	<string id="20579" value="%s -> %s [%i/%i] %s %s"/>
+	<string id="20579" value="%s -&gt; %s [%i/%i] %s %s"/>
 	<string id="20580" value="Απόρριψη σύνδεσης γειτονικού φύλλου %s, λόγω προώθησης ερωτήσεων."/>
 	<string id="20581" value="Αγνόηση πακέτου ping με μη έγκυρο μήκος, προωθημένο από τον γείτονα %s."/>
 	<string id="20582" value="Αγνόηση πακέτου pong με μη έγκυρο μήκος, προωθημένο από τον γείτονα %s."/>
@@ -4299,13 +4305,13 @@
 		<control caption="One day only"/>
 		<control/>
 		<control/>
-		<control caption="Δευ"/>
-		<control caption="Τρί"/>
-		<control caption="Τετ"/>
-		<control caption="Πέμ"/>
-		<control caption="Παρ"/>
-		<control caption="Σάβ"/>
-		<control caption="Κυρ"/>
+		<control caption="Δευτέρα"/>
+		<control caption="Τρίτη"/>
+		<control caption="Τετάρτη"/>
+		<control caption="Πέμπτη"/>
+		<control caption="Παρασκευή"/>
+		<control caption="Σάββατο"/>
+		<control caption="Κυριακή"/>
 		<control caption="Όλα"/>
 		<control caption="Σχόλια"/>
 		<control/>
@@ -4563,9 +4569,9 @@
 	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Συναγερμός Αναβάθμισης">
 		<control caption="Μια νέα έκδοση του PeerProject είναι διαθέσιμη. Θέλετε να αναβαθμίσετε;"/>
 		<control caption="Αν επιλέξετε Άμεση Αναβάθμιση, το PeerProject θα προσθέση την αναβάθμιση στη λίστα λήψεων και θα ξεκινήσει αυτόματα να τη λαμβάνει."/>
-		<control caption="_Άμεση Αναβάθμιση"/>
 		<control caption="Μη έλεγχος για νέες εκδόσεις"/>
-		<control caption="Μη αναβάθμιση"/>
+		<control caption="_Άμεση Αναβάθμιση"/>
+		<control caption="Άκυρο"/>
 	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Metadata Localisation">
 		<control caption="Επιλογή μεθόδου επανακωδικοποίησης"/>

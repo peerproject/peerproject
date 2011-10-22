@@ -8,7 +8,7 @@
  */
 
 #include "StdAfx.h"
-#include "resource.h"
+#include "Resource.h"
 #include "BugTrapUI.h"
 #include "WaitCursor.h"
 #include "BugTrapUtils.h"
@@ -99,7 +99,6 @@ static BOOL MachineStateDlg_OnInitDialog(HWND hwnd, HWND hwndFocus, LPARAM lPara
 {
 	lParam; hwndFocus;
 
-	_ASSERTE(g_pResManager != NULL);
 	if (g_pResManager->m_hBigAppIcon)
 		SendMessage(hwnd, WM_SETICON, ICON_BIG, (LPARAM)g_pResManager->m_hBigAppIcon);
 	if (g_pResManager->m_hSmallAppIcon)
@@ -149,10 +148,10 @@ static BOOL MachineStateDlg_OnInitDialog(HWND hwnd, HWND hwndFocus, LPARAM lPara
 		LVITEM lvi;
 		ZeroMemory(&lvi, sizeof(lvi));
 		lvi.mask = LVIF_TEXT | LVIF_PARAM;
+		TCHAR szProcessID[64];
 		int iItemPos = 0;
 		do
 		{
-			TCHAR szProcessID[64];
 			_ultot_s(ProcEntry.m_dwProcessID, szProcessID, countof(szProcessID), 10);
 			lvi.iItem = iItemPos;
 			lvi.pszText = szProcessID;

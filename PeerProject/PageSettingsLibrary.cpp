@@ -17,13 +17,13 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "PageSettingsLibrary.h"
 #include "Library.h"
 #include "LibraryHistory.h"
 #include "LibraryFolders.h"
 #include "LibraryBuilder.h"
-#include "PageSettingsLibrary.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE

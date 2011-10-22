@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Dutch Skin File -->
 
-<!-- Translation based on default-en.xml r69 -->
+<!-- Translation based on default-en.xml r70 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2742,6 +2742,12 @@
 	<string id="20020" value="Bestand"/>
 	<string id="20021" value="Bestanden"/>
 	<string id="20022" value="Alle Bestanden"/>
+	<string id="20023" value="No Files"/>
+	<string id="20024" value="Grote bestanden"/>
+	<string id="20025" value="Middelgrote bestanden"/>
+	<string id="20026" value="Kleine bestanden"/>
+	<string id="20027" value="Gedeeltelijke bestanden"/>
+	<string id="20028" value="Bibliotheek bestanden"/>
 	<string id="20029" value="%s Bestanden"/>
 	<string id="20050" value="Elke Dag"/>
 	<string id="20051" value="Maandag"/>
@@ -3182,7 +3188,7 @@
 	<string id="20576" value="Query routing tabel wordt gestuurd naar bron %s (%i bit = %lu[%i], %i%% vol)"/>
 	<string id="20577" value="Een onverwachte update van de query routing tabel is ontvangen van bron %s."/>
 	<string id="20578" value="Bron %s heeft zijn query routing tabel geüpdate (%i bit = %lu[%i], %i%% vol)."/>
-	<string id="20579" value="%s -> %s [%i/%i] %s %s"/>
+	<string id="20579" value="%s -&gt; %s [%i/%i] %s %s"/>
 	<string id="20580" value="Leaf %s stuurt zoekopdrachten door, de verbinding wordt verbroken."/>
 	<string id="20581" value="Bron %s heeft een ping pakket doorgestuurd met een ongeldige lengte, het wordt genegeerd."/>
 	<string id="20582" value="Bron %s heeft een pong pakket doorgestuurd met een ongeldige lengte, het wordt genegeerd."/>
@@ -4572,9 +4578,9 @@
 	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Upgrade waarschuwing">
 		<control caption="Er is een nieuwe versie van PeerProject verkrijgbaar. Wil je upgraden?"/>
 		<control caption="Wanneer je &quot;Nu upgraden&quot; selecteert, zal PeerProject de upgrade toevoegen aan je downloadlijst en zal het automatisch worden gedownload."/>
-		<control caption="Nu _upgraden"/>
 		<control caption="Niet controleren op nieuwe versies"/>
-		<control caption="Niet upgraden"/>
+		<control caption="Nu _upgraden"/>
+		<control caption="Annuleren"/>
 	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Metadata lokalisatie">
 		<control caption="Selecteer hercodeermethode"/>
@@ -4745,7 +4751,7 @@
 		<column from="Filename" to="Bestandsnaam"/>
 		<column from="Size" to="Grootte"/>
 		<column from="Status" to="Status"/>
-		<column from="Priority" to="Prioriteit"/>
+		<column from="Index" to="Index"/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to=""/>

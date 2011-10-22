@@ -20,12 +20,12 @@
 // http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CNeighboursWithG2
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "Network.h"
+#include "PeerProject.h"
 #include "NeighboursWithG2.h"
 #include "G2Neighbour.h"
 #include "G2Packet.h"
+#include "Network.h"
 #include "HubHorizon.h"
 #include "RouteCache.h"
 #include "HostCache.h"

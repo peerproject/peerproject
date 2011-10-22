@@ -17,10 +17,11 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "Colors.h"
+#include "PeerProject.h"
+#include "CtrlDownloadTip.h"
 #include "CoolInterface.h"
+#include "Colors.h"
 #include "ShellIcons.h"
 #include "Transfers.h"
 #include "Downloads.h"
@@ -30,13 +31,12 @@
 #include "DownloadTransferBT.h"
 #include "DownloadTransferED2K.h"
 #include "EDClient.h"
-#include "Flags.h"
 #include "FragmentedFile.h"
 #include "FragmentBar.h"
+#include "Flags.h"
 #include "Skin.h"
 #include "GraphLine.h"
 #include "GraphItem.h"
-#include "CtrlDownloadTip.h"
 
 #include "BENode.h" // Torrent Scrape
 
@@ -793,8 +793,8 @@ void CDownloadTipCtrl::OnCalcSize(CDC* pDC, CDownloadSource* pSource)
 		const CDownloadTransfer* pTransfer = pSource->GetTransfer();
 		for ( int nHeader = 0 ; nHeader < pTransfer->m_pHeaderName.GetSize() ; nHeader++ )
 		{
-			CString strName		= pTransfer->m_pHeaderName.GetAt( nHeader );
-			CString strValue	= pTransfer->m_pHeaderValue.GetAt( nHeader );
+			CString strName  = pTransfer->m_pHeaderName.GetAt( nHeader );
+			CString strValue = pTransfer->m_pHeaderValue.GetAt( nHeader );
 
 			if ( strValue.GetLength() > 64 )
 				strValue = strValue.Left( 64 ) + _T("...");
@@ -947,8 +947,8 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownloadSource* pSource)
 
 	for ( int nHeader = 0 ; nHeader < m_pHeaderName.GetSize() ; nHeader++ )
 	{
-		CString strName		= m_pHeaderName.GetAt( nHeader );
-		CString strValue	= m_pHeaderValue.GetAt( nHeader );
+		CString strName  = m_pHeaderName.GetAt( nHeader );
+		CString strValue = m_pHeaderValue.GetAt( nHeader );
 
 		DrawText( pDC, &pt, strName + ':' );
 		DrawText( pDC, &pt, strValue, m_nHeaderWidth );

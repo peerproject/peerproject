@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "CoolInterface.h"
 #include "BTInfo.h"
 #include "BTClients.h"
@@ -76,9 +76,9 @@ static char THIS_FILE[] = __FILE__;
 
 
 /////////////////////////////////////////////////////////////////////////////
-// CPeerProjectCommandLineInfo
+// CAppCommandLineInfo	(Was CPeerProjectCommandLineInfo)
 
-CPeerProjectCommandLineInfo::CPeerProjectCommandLineInfo()
+CAppCommandLineInfo::CAppCommandLineInfo()
 	: m_bTray		( FALSE )
 	, m_bHelp		( FALSE )
 	, m_bWait		( FALSE )
@@ -88,7 +88,7 @@ CPeerProjectCommandLineInfo::CPeerProjectCommandLineInfo()
 {
 }
 
-void CPeerProjectCommandLineInfo::ParseParam(const TCHAR* pszParam, BOOL bFlag, BOOL bLast)
+void CAppCommandLineInfo::ParseParam(const TCHAR* pszParam, BOOL bFlag, BOOL bLast)
 {
 	if ( bFlag )
 	{
@@ -187,7 +187,7 @@ CPeerProjectApp::CPeerProjectApp()
 	, m_nFontQuality			( DEFAULT_QUALITY )
 
 	, m_hCryptProv				( NULL )
-	, m_pRegisterApplicationRestart( NULL )
+	, m_pfnRegisterApplicationRestart ( NULL )
 
 	, m_dlgSplash				( NULL )
 	, m_hTheme					( NULL )
@@ -203,13 +203,14 @@ CPeerProjectApp::CPeerProjectApp()
 	, m_hShell32				( NULL )
 	, m_pfnSHGetFolderPathW 	( NULL )
 	, m_pfnSHGetKnownFolderPath	( NULL )
+	, m_pfnSHQueryUserNotificationState	( NULL )
 
 	, m_hLibGFL					( NULL )
 	, m_hGeoIP					( NULL )
 	, m_pGeoIP					( NULL )
 	, m_pfnGeoIP_delete			( NULL )
-	, m_pfnGeoIP_country_code_by_ipnum( NULL )
-	, m_pfnGeoIP_country_name_by_ipnum( NULL )
+	, m_pfnGeoIP_country_code_by_ipnum ( NULL )
+	, m_pfnGeoIP_country_name_by_ipnum ( NULL )
 
 	, m_SysInfo					( )
 {
@@ -295,8 +296,8 @@ BOOL CPeerProjectApp::InitInstance()
 //	}
 //	// else only app instance, continue.
 
-	if ( m_pRegisterApplicationRestart )
-		m_pRegisterApplicationRestart( _T("-nowarn"), 0 );
+	if ( m_pfnRegisterApplicationRestart )
+		m_pfnRegisterApplicationRestart( _T("-nowarn"), 0 );
 
 	ShowStartupText();
 
@@ -318,12 +319,12 @@ BOOL CPeerProjectApp::InitInstance()
 	COleDateTime tCompileTime;
 	tCompileTime.ParseDateTime( _T(__DATE__), LOCALE_NOUSEROVERRIDE, 1033 );
 #ifdef _DEBUG
-	COleDateTimeSpan tTimeOut( 21, 0, 0, 0);		// Daily debug builds
+	COleDateTimeSpan tTimeOut( 21, 0, 0, 0 );		// Daily debug builds
 #else
-	COleDateTimeSpan tTimeOut( 45, 0, 0, 0);		// Forum Betas (Non-sourceforge release)
+	COleDateTimeSpan tTimeOut( 45, 0, 0, 0 );		// Forum Betas (Non-sourceforge release)
 #endif
 
-	if ( ( tCompileTime + tTimeOut ) < tCurrent )
+	if ( tCurrent > tCompileTime + tTimeOut )
 	{
 		CString strMessage;
 		LoadString( strMessage, IDS_BETA_EXPIRED);
@@ -1062,7 +1063,7 @@ void CPeerProjectApp::GetVersionNumber()
 	// PeerProject 1.X.X.X  32/64-bit  (date rXXXX)  Debug
 
 	m_sVersionLong = m_sSmartAgent +
-#ifdef _WIN64
+#ifdef WIN64
 	_T("  64-bit  ") +
 #else
 	_T("  32-bit  ") +
@@ -1100,7 +1101,7 @@ void CPeerProjectApp::GetVersionNumber()
 
 	// Get Major+Minor version (6.1)
 	//	Major ver 5:	Win2000 = 0, WinXP = 1, WinXP64 = 2, Server2003 = 2
-	//	Major ver 6:	Vista = 0, Server2008 = 0, Windows7 = 1
+	//	Major ver 6:	Vista = 0, Server2008 = 0, Windows7 = 1, Windows8 = 2
 	m_nWindowsVersion = pVersion.dwMajorVersion;
 	m_nWindowsVersionMinor = pVersion.dwMinorVersion;
 
@@ -1133,7 +1134,7 @@ void CPeerProjectApp::GetVersionNumber()
 				m_bLimitedConnections = false;
 		}
 	}
-	else if ( m_nWindowsVersion >= 6 )
+	else //if ( m_nWindowsVersion >= 6 )
 	{
 		// GUI support
 		m_bIsVistaOrNewer = true;
@@ -1150,8 +1151,7 @@ void CPeerProjectApp::GetVersionNumber()
 			m_bLimitedConnections = false;
 
 			HKEY hKey;
-			if ( RegOpenKeyEx( HKEY_LOCAL_MACHINE,
-				L"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters",
+			if ( RegOpenKeyEx( HKEY_LOCAL_MACHINE, L"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters",
 				0, KEY_QUERY_VALUE, &hKey ) == ERROR_SUCCESS )
 			{
 				DWORD nSize = sizeof( DWORD ), nResult = 0, nType = REG_NONE;
@@ -1182,15 +1182,15 @@ void CPeerProjectApp::InitResources()
 	// Get pointers to some functions that require Windows Vista or greater
 	if ( HMODULE hKernel32 = GetModuleHandle( _T("kernel32.dll") ) )
 	{
-		(FARPROC&)m_pRegisterApplicationRestart = GetProcAddress( hKernel32, "RegisterApplicationRestart" );
+		(FARPROC&)m_pfnRegisterApplicationRestart = GetProcAddress( hKernel32, "RegisterApplicationRestart" );			// Vista+	RegisterApplicationRestart()  for InitInstance()
 	}
 
 	// Get pointers to some functions that require Windows XP or greater
 	if ( ( m_hTheme = LoadLibrary( _T("UxTheme.dll") ) ) != NULL )
 	{
 		(FARPROC&)m_pfnSetWindowTheme = GetProcAddress( m_hTheme, "SetWindowTheme" );
-		(FARPROC&)m_pfnIsThemeActive = GetProcAddress( m_hTheme, "IsThemeActive" );
-		(FARPROC&)m_pfnOpenThemeData = GetProcAddress( m_hTheme, "OpenThemeData" );
+		(FARPROC&)m_pfnIsThemeActive  = GetProcAddress( m_hTheme, "IsThemeActive" );
+		(FARPROC&)m_pfnOpenThemeData  = GetProcAddress( m_hTheme, "OpenThemeData" );
 		(FARPROC&)m_pfnCloseThemeData = GetProcAddress( m_hTheme, "CloseThemeData" );
 		(FARPROC&)m_pfnDrawThemeBackground = GetProcAddress( m_hTheme, "DrawThemeBackground" );
 	//	(FARPROC&)m_pfnEnableThemeDialogTexture = GetProcAddress( m_hTheme, "EnableThemeDialogTexture" );
@@ -1203,13 +1203,15 @@ void CPeerProjectApp::InitResources()
 	// Get pointers to some functions that require Internet Explorer 6 or greater
 	if ( ( m_hShlWapi = LoadLibrary( _T("shlwapi.dll") ) ) != NULL )
 	{
-		(FARPROC&)m_pfnAssocIsDangerous = GetProcAddress( m_hShlWapi, "AssocIsDangerous" );
+		(FARPROC&)m_pfnAssocIsDangerous = GetProcAddress( m_hShlWapi, "AssocIsDangerous" );								// XPsp1+	AssocIsDangerous()  for CFileExecutor::IsSafeExecute()
 	}
 
+	// Get pointers to shell functions that require Vista or greater
 	if ( ( m_hShell32 = LoadLibrary( _T("shell32.dll") ) ) != NULL )
 	{
-		(FARPROC&)m_pfnSHGetFolderPathW = GetProcAddress( m_hShell32, "SHGetFolderPathW" );
-		(FARPROC&)m_pfnSHGetKnownFolderPath = GetProcAddress( m_hShell32, "SHGetKnownFolderPath" );
+		(FARPROC&)m_pfnSHGetFolderPathW = GetProcAddress( m_hShell32, "SHGetFolderPathW" );								// Win2K+?	SHGetFolderPath()
+		(FARPROC&)m_pfnSHGetKnownFolderPath = GetProcAddress( m_hShell32, "SHGetKnownFolderPath" );						// Vista+	SHGetKnownFolderPath()
+		(FARPROC&)m_pfnSHQueryUserNotificationState = GetProcAddress( m_hShell32, "SHQueryUserNotificationState" );		// Vista+	SHQueryUserNotificationState()  for IsUserFullscreen()
 	}
 
 	LoadCountry();	// GeoIP
@@ -1442,12 +1444,16 @@ void CPeerProjectApp::PrintMessage(WORD nType, const CString& strLog)
 
 void CPeerProjectApp::LogMessage(const CString& strLog)
 {
+	CString strPath = Settings.General.UserPath + _T("\\Data\\PeerProject.log");
+	if ( strPath.GetLength() > MAX_PATH + 4 )
+		strPath = _T("\\\\?\\") + strPath;
+
 	CQuickLock pLock( m_csMessage );
 
 	CFile pFile;
-	if ( pFile.Open( Settings.General.UserPath + _T("\\Data\\PeerProject.log"), CFile::modeReadWrite ) )
+	if ( pFile.Open( strPath, CFile::modeReadWrite ) )
 	{
-		pFile.Seek( 0, CFile::end ); // go to the end of the file to add entires.
+		pFile.Seek( 0, CFile::end );	// Go to the end of the file to add entires.
 
 		if ( ( Settings.General.MaxDebugLogSize ) &&					// If log rotation is on
 			( pFile.GetLength() > Settings.General.MaxDebugLogSize ) )	// and file is too long...
@@ -1456,12 +1462,9 @@ void CPeerProjectApp::LogMessage(const CString& strLog)
 			pFile.Close();
 
 			// Rotate the logs
-			MoveFileEx( CString( _T("\\\\?\\") ) + Settings.General.UserPath + _T("\\Data\\PeerProject.log"),
-				CString( _T("\\\\?\\") ) + Settings.General.UserPath + _T("\\Data\\PeerProject.old.log"),
-				MOVEFILE_REPLACE_EXISTING | MOVEFILE_WRITE_THROUGH );
+			MoveFileEx( strPath, strPath + _T(".old"), MOVEFILE_REPLACE_EXISTING | MOVEFILE_WRITE_THROUGH );
 			// Start a new log
-			if ( ! pFile.Open( Settings.General.UserPath + _T("\\Data\\PeerProject.log"),
-				CFile::modeWrite|CFile::modeCreate ) ) return;
+			if ( ! pFile.Open( strPath, CFile::modeWrite|CFile::modeCreate ) ) return;
 			// Unicode marker
 			WORD nByteOrder = 0xFEFF;
 			pFile.Write( &nByteOrder, 2 );
@@ -1469,8 +1472,7 @@ void CPeerProjectApp::LogMessage(const CString& strLog)
 	}
 	else
 	{
-		if ( ! pFile.Open( Settings.General.UserPath + _T("\\Data\\PeerProject.log"),
-			CFile::modeWrite|CFile::modeCreate ) ) return;
+		if ( ! pFile.Open( strPath, CFile::modeWrite|CFile::modeCreate ) ) return;
 		// Unicode marker
 		WORD nByteOrder = 0xFEFF;
 		pFile.Write( &nByteOrder, 2 );
@@ -2218,7 +2220,7 @@ CString CPeerProjectApp::GetWindowsFolder() const
 		hr = m_pfnSHGetFolderPathW( NULL, CSIDL_WINDOWS, NULL, NULL,
 			sWindows.GetBuffer( MAX_PATH ) );
 		sWindows.ReleaseBuffer();
-		if ( SUCCEEDED( hr  ) && ! sWindows.IsEmpty() )
+		if ( SUCCEEDED( hr ) && ! sWindows.IsEmpty() )
 			return sWindows;
 	}
 
@@ -2255,7 +2257,7 @@ CString CPeerProjectApp::GetProgramFilesFolder() const
 		hr = m_pfnSHGetFolderPathW( NULL, CSIDL_PROGRAM_FILES, NULL, NULL,
 			sProgramFiles.GetBuffer( MAX_PATH ) );
 		sProgramFiles.ReleaseBuffer();
-		if ( SUCCEEDED( hr  ) && ! sProgramFiles.IsEmpty() )
+		if ( SUCCEEDED( hr ) && ! sProgramFiles.IsEmpty() )
 			return sProgramFiles;
 	}
 
@@ -2918,8 +2920,8 @@ bool SaveGUID(const CString& sFilename, const Hashes::Guid& oGUID)
 		if ( hStream != INVALID_HANDLE_VALUE )
 		{
 			DWORD dwWritten = 0;
-			bSuccess = ( WriteFile( hStream, &*oGUID.begin(), oGUID.byteCount,
-				&dwWritten, NULL ) && dwWritten == oGUID.byteCount );
+			bSuccess = ( WriteFile( hStream, &*oGUID.begin(), oGUID.byteCount, &dwWritten, NULL ) &&
+				dwWritten == oGUID.byteCount );
 			CloseHandle( hStream );
 		}
 		//else
@@ -2940,12 +2942,11 @@ CString ResolveShortcut(LPCTSTR lpszFileName)
 		pIPersistFile = pIShellLink;
 		if ( pIPersistFile &&
 			SUCCEEDED( pIPersistFile->Load( CComBSTR( lpszFileName ), STGM_READ ) ) &&
-			SUCCEEDED( pIShellLink->Resolve( AfxGetMainWnd()->GetSafeHwnd(), SLR_NO_UI |
-			SLR_NOUPDATE | SLR_NOSEARCH | SLR_NOTRACK | SLR_NOLINKINFO ) ) )
+			SUCCEEDED( pIShellLink->Resolve( AfxGetMainWnd()->GetSafeHwnd(),
+			SLR_NO_UI | SLR_NOUPDATE | SLR_NOSEARCH | SLR_NOTRACK | SLR_NOLINKINFO ) ) )
 		{
 			CString sPath;
-			BOOL bResult = SUCCEEDED( pIShellLink->GetPath( sPath.GetBuffer( MAX_PATH ),
-				MAX_PATH, NULL, 0 ) );
+			BOOL bResult = SUCCEEDED( pIShellLink->GetPath( sPath.GetBuffer( MAX_PATH ), MAX_PATH, NULL, 0 ) );
 			sPath.ReleaseBuffer();
 			if ( bResult )
 				return sPath;
@@ -3121,25 +3122,25 @@ BOOL IsServiceHealthy(LPCTSTR szService)
 
 BOOL IsUserFullscreen()
 {
-	// Detect system availability
-	if ( theApp.m_bIsVistaOrNewer )
+	// Detect system message availability
+
+	// Vista+ (XP-safe: Default SHQueryUserNotificationState inclusion breaks WinXP)
+	if ( theApp.m_pfnSHQueryUserNotificationState )		// theApp.m_bIsVistaOrNewer
 	{
 		QUERY_USER_NOTIFICATION_STATE state;
-		SHQueryUserNotificationState( &state );
-		if ( state != QUNS_ACCEPTS_NOTIFICATIONS )
-			return TRUE;
+		if ( theApp.m_pfnSHQueryUserNotificationState( &state ) == S_OK )
+			return state != QUNS_ACCEPTS_NOTIFICATIONS;
 	}
-	else // XP external fullscreen
+
+	// XP external fullscreen
+	const HWND hActive = GetForegroundWindow();
+	if ( hActive && hActive != AfxGetMainWnd()->GetSafeHwnd() && ( GetWindowLong( hActive, GWL_EXSTYLE ) & WS_EX_TOPMOST ) )
 	{
-		const HWND hActive = GetForegroundWindow();
-		if ( hActive && hActive != AfxGetMainWnd()->GetSafeHwnd() && ( GetWindowLong( hActive, GWL_EXSTYLE ) & WS_EX_TOPMOST ) )
-		{
-			RECT rcWindow;
-			GetWindowRect( hActive, &rcWindow );
-			return rcWindow.top == 0 && rcWindow.left == 0 &&
-				rcWindow.right  == GetSystemMetrics(SM_CXSCREEN) &&
-				rcWindow.bottom == GetSystemMetrics(SM_CYSCREEN);
-		}
+		RECT rcWindow;
+		GetWindowRect( hActive, &rcWindow );
+		return rcWindow.top == 0 && rcWindow.left == 0 &&
+			rcWindow.right  == GetSystemMetrics(SM_CXSCREEN) &&
+			rcWindow.bottom == GetSystemMetrics(SM_CYSCREEN);
 	}
 
 	return FALSE;

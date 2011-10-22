@@ -19,8 +19,8 @@
 // ConnectTo, BrowseTo, ChatTo, multifunction IP control
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "DlgConnectTo.h"
 #include "CoolInterface.h"
 
@@ -227,7 +227,8 @@ void CConnectToDlg::OnDrawItem(int /*nIDCtl*/, LPDRAWITEMSTRUCT lpDrawItemStruct
 
 	m_wndProtocol.GetLBText( lpDrawItemStruct->itemID, str );
 
-	rcItem.left += 22; rcItem.right -= 2;
+	rcItem.left += 22;
+	rcItem.right -= 2;
 	dc.DrawText( str, &rcItem, DT_SINGLELINE|DT_LEFT|DT_VCENTER|DT_NOPREFIX );
 
 	dc.SelectObject( pOldFont );

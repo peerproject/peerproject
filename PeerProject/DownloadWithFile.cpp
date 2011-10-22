@@ -17,25 +17,25 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "Downloads.h"
+#include "PeerProject.h"
 #include "DownloadWithFile.h"
 #include "DownloadWithTorrent.h"
 #include "DownloadSource.h"
 #include "DownloadTransfer.h"
 #include "DownloadGroups.h"
-#include "FragmentedFile.h"
+#include "Downloads.h"
 #include "Uploads.h"
 #include "Transfers.h"
+#include "FragmentedFile.h"
 
-#include "ID3.h"
-#include "XML.h"
-#include "SchemaCache.h"
 #include "Library.h"
 #include "LibraryBuilder.h"
 #include "LibraryHistory.h"
 #include "SharedFile.h"
+#include "SchemaCache.h"
+#include "XML.h"
+#include "ID3.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE

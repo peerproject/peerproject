@@ -17,8 +17,10 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "HostBrowser.h"
+#include "WndBrowseHost.h"
 #include "Network.h"
 #include "Buffer.h"
 #include "G1Packet.h"
@@ -28,11 +30,9 @@
 #include "EDClients.h"
 #include "GProfile.h"
 #include "Neighbours.h"
-#include "HostBrowser.h"
 #include "Transfers.h"
 #include "QueryHit.h"
 #include "VendorCache.h"
-#include "WndBrowseHost.h"
 #include "XML.h"
 
 #ifdef _DEBUG
@@ -45,8 +45,8 @@ static char THIS_FILE[]=__FILE__;
 //////////////////////////////////////////////////////////////////////
 // CHostBrowser construction
 
-CHostBrowser::CHostBrowser(CBrowseHostWnd* pNotify, PROTOCOLID nProtocol, IN_ADDR* pAddress,
-	WORD nPort, BOOL bMustPush, const Hashes::Guid& oClientID)
+CHostBrowser::CHostBrowser(CBrowseHostWnd* pNotify, PROTOCOLID nProtocol, IN_ADDR* pAddress, WORD nPort,
+	BOOL bMustPush, const Hashes::Guid& oClientID)
 	: m_nState		( hbsNull )
 	, m_pNotify		( pNotify )
 	, m_pProfile	( NULL )
@@ -168,6 +168,9 @@ BOOL CHostBrowser::Browse()
 
 	delete m_pProfile;
 	m_pProfile = NULL;
+
+	// Ensure window text is updated after state has been set to "connecting"
+	m_pNotify->UpdateMessages();
 
 	return TRUE;
 }

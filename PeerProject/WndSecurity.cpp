@@ -17,12 +17,12 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "Security.h"
-#include "LiveList.h"
+#include "PeerProject.h"
 #include "WndSecurity.h"
 #include "DlgSecureRule.h"
+#include "Security.h"
+#include "LiveList.h"
 #include "Colors.h"
 #include "XML.h"
 
@@ -461,7 +461,7 @@ void CSecurityWnd::OnSecurityExport()
 		strText = pXML->ToString( TRUE, TRUE );
 
 		const int nBytes = WideCharToMultiByte( CP_ACP, 0, strText, strText.GetLength(), NULL, 0, NULL, NULL );
-		auto_ptr< CHAR > pBytes( new CHAR[ nBytes ] );
+		auto_array< CHAR > pBytes( new CHAR[ nBytes ] );
 		WideCharToMultiByte( CP_ACP, 0, strText, strText.GetLength(), pBytes.get(), nBytes, NULL, NULL );
 		pFile.Write( pBytes.get(), nBytes );
 	}

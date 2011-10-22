@@ -17,13 +17,12 @@
 //
 
 #include "StdAfx.h"
-
+#include "Settings.h"
 #include "WizardSharePage.h"
 
 #include "DlgFolderScan.h"
 #include "Library.h"
 #include "LibraryFolders.h"
-#include "Settings.h"
 #include "SharedFolder.h"
 #include "ShellIcons.h"
 #include "Skin.h"

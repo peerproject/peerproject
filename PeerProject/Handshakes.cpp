@@ -20,8 +20,8 @@
 // http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CHandshakes
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "Handshakes.h"
 #include "Handshake.h"
 #include "Connection.h"
@@ -201,7 +201,7 @@ BOOL CHandshakes::PushTo(IN_ADDR* pAddress, WORD nPort, DWORD nIndex)
 {
 	// Get exclusive access to the transfers part of the program
 	CSingleLock pLock1( &Transfers.m_pSection );
-	if ( pLock1.Lock( 250 ) ) // If we're waiting more than a quarter second, just give up
+	if ( pLock1.Lock( 250 ) )	// If waiting more than a quarter second, just give up
 	{
 		// If we can't allow any more uploads to this address
 		if ( ! Uploads.AllowMoreTo( pAddress ) )

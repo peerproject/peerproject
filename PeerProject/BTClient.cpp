@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "BTClient.h"
 #include "BTClients.h"
 #include "BTPacket.h"
@@ -830,7 +830,7 @@ CString CBTClient::GetUserAgentOtherStyle(LPBYTE pVendor, CString* strNick)
 	else if ( m_oGUID[0] == 'e' && m_oGUID[1] == 'x' && m_oGUID[2] == 'b' && m_oGUID[3] == 'c' )
 	{
 		// BitLord
-		if  ( m_oGUID[6] == 'L' && m_oGUID[7] == 'O' && m_oGUID[8] == 'R' && m_oGUID[9] == 'D' )
+		if ( m_oGUID[6] == 'L' && m_oGUID[7] == 'O' && m_oGUID[8] == 'R' && m_oGUID[9] == 'D' )
 			sUserAgent.Format( _T("BitLord %i.%02i"), m_oGUID[4], m_oGUID[5] );
 		else // Old BitComet
 			sUserAgent.Format( _T("BitComet %i.%02i"), m_oGUID[4], m_oGUID[5] );
@@ -1199,7 +1199,7 @@ BOOL CBTClient::OnSourceRequest(CBTPacket* /*pPacket*/)
 
 BOOL CBTClient::OnDHTPort(CBTPacket* pPacket)
 {
-	//ToDo: Enable DHT?
+	// ToDo: Enable DHT?
 	if ( pPacket && pPacket->GetRemaining() == 2 )
 	{
 	//	WORD nPort = pPacket->ReadShortBE();

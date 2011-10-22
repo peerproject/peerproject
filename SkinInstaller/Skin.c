@@ -37,7 +37,7 @@ int WINAPI wWinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPWSTR cmdParam, int c
 	szUpdates = NULL;
 	szXML     = NULL;
 
-	if ( wcslen(cmdParam) == 0 )
+	if ( *cmdParam == 0 )
 		MessageBox(NULL,L"PeerProject Skin Installer " VERSION L"\n\nDouble-click on a PeerProject Skin File (.psk) to use this tool.",L"PeerProject Skin Installer",MB_OK | MB_ICONINFORMATION);
 	else if ( ! wcscmp(cmdParam, L"/install") || ! wcscmp(cmdParam, L"/installsilent") )
 		rtn = CreateSkinKeys();
@@ -46,7 +46,7 @@ int WINAPI wWinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPWSTR cmdParam, int c
 	else
 		ExtractSkinFile(cmdParam);
 
-	// free up memory from globals
+	// Free memory from globals
 	if (szName) free(szName);
 	if (szPath) free(szPath);
 	if (szVersion) free(szVersion);

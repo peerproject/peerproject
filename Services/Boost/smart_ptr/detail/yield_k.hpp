@@ -3,7 +3,7 @@
 
 // MS compatible compilers support #pragma once
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif
 
@@ -55,7 +55,7 @@ namespace detail
 {
 
 #if !defined( BOOST_USE_WINDOWS_H )
-  extern "C" void __stdcall Sleep( unsigned ms );
+  extern "C" void __stdcall Sleep( unsigned long ms );
 #endif
 
 inline void yield( unsigned k )

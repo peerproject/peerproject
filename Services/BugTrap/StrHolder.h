@@ -115,7 +115,6 @@ inline CStrHolder::~CStrHolder(void)
  */
 inline CStrHolder::operator PCTSTR(void) const
 {
-	_ASSERTE(m_pData != NULL);
 	return m_pData->m_szData;
 }
 
@@ -124,7 +123,6 @@ inline CStrHolder::operator PCTSTR(void) const
  */
 inline size_t CStrHolder::GetLength(void) const
 {
-	_ASSERTE(m_pData != NULL);
 	return m_pData->m_nLength;
 }
 
@@ -133,7 +131,6 @@ inline size_t CStrHolder::GetLength(void) const
  */
 inline BOOL CStrHolder::IsEmpty(void) const
 {
-	_ASSERTE(m_pData != NULL);
 	return (m_pData->m_nLength == 0);
 }
 

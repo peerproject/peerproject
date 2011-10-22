@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Estonian Skin File -->
 
-<!-- Translation based on default-en.xml r69 (Shareaza 2.2.2.9) -->
+<!-- Translation based on default-en.xml r70 (Shareaza 2.2.2.9) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -381,6 +381,7 @@
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
+		<button id="ID_NETWORK_DC" text="DC++"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Seaded"/>
 	</toolbar>
@@ -1455,14 +1456,14 @@
 	</menu>
 	<!-- SYSTEM WINDOW -->
 	<menu name="CSystemWnd">
-		<menu id="ID_SYSTEM_VERBOSE" text="_Infotihe Olek"/>
+		<menu id="ID_SYSTEM_VERBOSE" text="_Infotihe Olek">
 			<item id="ID_SYSTEM_VERBOSE_ERROR" text="_Error"/>
 			<item id="ID_SYSTEM_VERBOSE_WARNING" text="_Warning"/>
 			<item id="ID_SYSTEM_VERBOSE_NOTICE" text="_Notice"/>
 			<item id="ID_SYSTEM_VERBOSE_INFO" text="_Info"/>
 			<item id="ID_SYSTEM_VERBOSE_DEBUG" text="_Debug"/>
 		</menu>
-		<item id="ID_SYSTEM_TIMESTAMP" text="Ajastu_s"/>
+		<item id="ID_SYSTEM_TIMESTAMP" text="_Ajastus"/>
 		<separator/>
 		<item id="ID_SYSTEM_COPY" text="_Copy" shortcut="Ctrl+C"/>
 		<separator/>
@@ -2709,6 +2710,7 @@
 	<string id="20257" value="Ei suuda alustada faili &quot;%s&quot;  alla laadimist."/>
 	<string id="20258" value="Võtan vastu tiger-tree andmed %s (%s)..."/>
 	<string id="20259" value="Saadan päringu &quot;%s&quot; andmebaasi kohta %s..."/>
+	<string id="20260" value="Üldiselt"/>
 	<string id="20261" value="Allalaadimis serveril %s vastas %s (%s)."/>
 	<string id="20262" value="Allalaadimis serveril %s tegi vigase HTTP vastuse."/>
 	<string id="20263" value="Server %s soovib allalaadida &quot;%s&quot;, nõustun."/>
@@ -2970,7 +2972,7 @@
 	<string id="20576" value="Saadan päringu marsruutinguga %s (%i bit = %lu[%i], %i%% täis)"/>
 	<string id="20577" value="Vastu võetud ootamatu päring marsruutingu uuenduseks %s."/>
 	<string id="20578" value="%s uuendas oma marsruutingu tabelit (%i bit = %lu[%i], %i%% täis)."/>
-	<string id="20579" value="%s -> %s [%i/%i] %s %s"/>
+	<string id="20579" value="%s -&gt; %s [%i/%i] %s %s"/>
 	<string id="20580" value="Leaf  %s saadab järjekordi, katkestan ühenduse."/>
 	<string id="20581" value="%s saatis vigaste andmetega pingi, ignoreerin."/>
 	<string id="20582" value="%s saatis vigase pong paketi, ignoreerin."/>
@@ -4038,13 +4040,13 @@
 		<control caption="One day only"/>
 		<control/>
 		<control/>
-		<control caption="Esm"/>
-		<control caption="Tei"/>
-		<control caption="Kol"/>
-		<control caption="Nel"/>
-		<control caption="Ree"/>
-		<control caption="Lau"/>
-		<control caption="Püh"/>
+		<control caption="Esmaspäev"/>
+		<control caption="Teisipäev"/>
+		<control caption="Kolmapäev"/>
+		<control caption="Neljapäev"/>
+		<control caption="Reede"/>
+		<control caption="Laupäev"/>
+		<control caption="Pühapäev"/>
 		<control caption="Kõik"/>
 		<control caption="Kommentaarid"/>
 		<control/>
@@ -4300,11 +4302,11 @@
 		<control caption="Tühista"/>
 	</dialog>
 	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Uuenduse Teade">
-		<control caption="Uus PeerProject versioon on saadaval.  Kas soovid uuendada?"/>
+		<control caption="Uus PeerProject versioon on saadaval. Kas soovid uuendada?"/>
 		<control caption="Kui sa valid Uuenda Kohe, lisab PeerProject uuenduse sinu allalaadimiste järjekorda ja alustab ise selle tõmbamist."/>
-		<control caption="_Uuenda Kohe"/>
 		<control caption="Ära kontrolli uut versiooni"/>
-		<control caption="Ära uuenda"/>
+		<control caption="_Uuenda Kohe"/>
+		<control caption="Tühista"/>
 	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Andmebaasi kohastamine">
 		<control caption="Vali ümberkodeerimise meetod"/>

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hungarian Skin File -->
 
-<!-- Translation based on default-en.xml r69 -->
+<!-- Translation based on default-en.xml r70 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1523,7 +1523,7 @@
 			<item id="ID_SYSTEM_VERBOSE_INFO" text="_Információ"/>
 			<item id="ID_SYSTEM_VERBOSE_DEBUG" text="Hiba_keresés"/>
 		</menu>
-		<item id="ID_SYSTEM_TIMESTAMP" text="_Időbélyeg"/>
+		<item id="ID_SYSTEM_TIMESTAMP" text="I_dőbélyeg"/>
 		<separator/>
 		<item id="ID_SYSTEM_COPY" text="_Másolás" shortcut="Ctrl+C"/>
 		<separator/>
@@ -2660,6 +2660,12 @@
 	<string id="20020" value="Fájl"/>
 	<string id="20021" value="Fájlok"/>
 	<string id="20022" value="Minden Fájl"/>
+	<string id="20023" value="No Files"/>
+	<string id="20024" value="Nagy fájlok"/>
+	<string id="20025" value="Közepes fájlok"/>
+	<string id="20026" value="Kis fájlok"/>
+	<string id="20027" value="Félkész fájlok"/>
+	<string id="20028" value="Könyvtári fájlok"/>
 	<string id="20029" value="%s Fájlok"/>
 	<string id="20050" value="Minden Nap"/>
 	<string id="20051" value="Hétfő"/>
@@ -3102,7 +3108,7 @@
 	<string id="20576" value="Query routing table elküldése %s (%i bit = %lu[%i], %i%% full)"/>
 	<string id="20577" value="Nem várt query routing: %s."/>
 	<string id="20578" value="%s query routing table frissítve (%i bit = %lu[%i], %i%% full)."/>
-	<string id="20579" value="%s -> %s [%i/%i] %s %s"/>
+	<string id="20579" value="%s -&gt; %s [%i/%i] %s %s"/>
 	<string id="20580" value="Leaf %s kereséseket küldözget, kapcsolat megszakítása."/>
 	<string id="20581" value="%s érvénytelen hosszúságú ping csomagot küldött tovább, ignorálás."/>
 	<string id="20582" value="%s érvénytelen hosszúságú pong csomagot küldött tovább, ignorálás."/>
@@ -4224,13 +4230,13 @@
 		<control caption="One day only"/>
 		<control/>
 		<control/>
-		<control caption="H"/>
-		<control caption="K"/>
-		<control caption="Sz"/>
-		<control caption="Cs"/>
-		<control caption="P"/>
-		<control caption="Szo"/>
-		<control caption="V"/>
+		<control caption="Hétfő"/>
+		<control caption="Kedd"/>
+		<control caption="Szerda"/>
+		<control caption="Csütörtök"/>
+		<control caption="Péntek"/>
+		<control caption="Szombat"/>
+		<control caption="Vasárnap"/>
 		<control caption="Minden"/>
 		<control caption="Hozzászólások"/>
 		<control/>
@@ -4489,9 +4495,9 @@
 	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Frissítés!">
 		<control caption="Elérhetővé vált a PeerProject egy újabb verziója. Szeretne frissíteni?"/>
 		<control caption="Ha most szeretne frissíteni, a PeerProject berakja a letöltendő fájlt a letöltési sorba."/>
-		<control caption="_Frissítés most"/>
 		<control caption="Ne keressen új verzió után"/>
-		<control caption="Ne frissítsen"/>
+		<control caption="_Frissítés most"/>
+		<control caption="Mégse"/>
 	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Metaadat javítása">
 		<control caption="Válasszon egy másik karakterkódolást:"/>

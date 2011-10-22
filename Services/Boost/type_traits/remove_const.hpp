@@ -1,6 +1,5 @@
 
-//  (C) Copyright Dave Abrahams, Steve Cleary, Beman Dawes, Howard
-//  Hinnant & John Maddock 2000.
+//  (C) Copyright Dave Abrahams, Steve Cleary, Beman Dawes, Howard Hinnant & John Maddock 2000.
 //  Use, modification and distribution are subject to the Boost Software License,
 //  Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt).
@@ -53,6 +52,18 @@ struct remove_const_impl
         , ::boost::is_volatile<T>::value
         >::type type;
 };
+
+#ifndef BOOST_NO_RVALUE_REFERENCES
+//
+// We can't filter out rvalue_references at the same level as
+// references or we get ambiguities from msvc:
+//
+template <typename T>
+struct remove_const_impl<T&&>
+{
+    typedef T&& type;
+};
+#endif
 
 } // namespace detail
 

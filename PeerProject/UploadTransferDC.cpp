@@ -17,21 +17,22 @@
 //
 
 #include "StdAfx.h"
+#include "Settings.h"
 #include "PeerProject.h"
+#include "UploadTransfer.h"
+#include "UploadTransferDC.h"
+
 #include "DCClient.h"
 #include "DCClients.h"
 #include "Library.h"
 #include "SharedFolder.h"
 #include "LibraryFolders.h"
-#include "UploadTransfer.h"
-#include "UploadTransferDC.h"
-#include "Settings.h"
-#include "Statistics.h"
 #include "Transfers.h"
 #include "Uploads.h"
 #include "UploadFile.h"
 #include "UploadQueue.h"
 #include "UploadQueues.h"
+#include "Statistics.h"
 #include "XML.h"
 
 #ifdef _DEBUG
@@ -118,7 +119,7 @@ BOOL CUploadTransferDC::OnRun()
 	if ( ! CUploadTransfer::OnRun() )
 		return FALSE;
 
-	DWORD tNow = GetTickCount();
+	const DWORD tNow = GetTickCount();
 
 	switch ( m_nState )
 	{

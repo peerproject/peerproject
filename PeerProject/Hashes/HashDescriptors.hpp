@@ -1,7 +1,7 @@
 //
 // Hashes/HashDescriptors.hpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions Copyright Shareaza Development Team, 2005.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -24,7 +24,12 @@
 
 #pragma once
 
-#include <Boost/array.hpp>	// ToDo: Use std::tr1::array
+#ifdef _HAS_TR1		// #if _MSC_FULL_VER > 150030000	// VS2008 SP1 for std::tr1
+#include <array>
+#else	// Boost fallback
+#include <Boost/tr1/array.hpp>
+#endif
+
 
 namespace Hashes
 {
@@ -62,7 +67,7 @@ namespace Hashes
 
 			//! \brief The length of the urn prefix.
 			//! This specifies the length of the urn prefix without the terminator:
-			//! \a signaturleLength = \c _tcslen( *\a signature ) 
+			//! \a signaturleLength = \c _tcslen( *\a signature )
 			size_t signatureLength;
 
 			//! \brief The urn prefix.
@@ -81,8 +86,8 @@ namespace Hashes
 			static const size_t numUrns = 4;
 			static const UrnString urns[ numUrns ];
 			static const Encoding encoding = base32Encoding;
-			typedef boost::array< uchar, byteCount > RawStorage;
-			typedef boost::array< WordType, wordCount > AlignedStorage;
+			typedef std::tr1::array< uchar, byteCount > RawStorage;
+			typedef std::tr1::array< WordType, wordCount > AlignedStorage;
 			static std::vector< AlignedStorage > blackList;
 		};
 
@@ -92,6 +97,7 @@ namespace Hashes
 		//! Tiger hash algorithm, organized in a Merkle Hash Tree.
 		//! It's input is organized in 64bit words in little endian order.
 		//! \sa http://open-content.net/specs/draft-jchapweske-thex-02.html (expired)
+		//! \sa http://zgp.org/pipermail/p2p-hackers/2002-June/000621.html (cached)
 		//! \sa http://cs.technion.ac.il/~biham/Reports/Tiger/
 		struct TigerDescriptor
 		{
@@ -101,8 +107,8 @@ namespace Hashes
 			static const size_t numUrns = 7;
 			static const UrnString urns[ numUrns ];
 			static const Encoding encoding = base32Encoding;
-			typedef boost::array< uchar, byteCount > RawStorage;
-			typedef boost::array< WordType, wordCount > AlignedStorage;
+			typedef std::tr1::array< uchar, byteCount > RawStorage;
+			typedef std::tr1::array< WordType, wordCount > AlignedStorage;
 			static std::vector< AlignedStorage > blackList;
 		};
 
@@ -123,8 +129,8 @@ namespace Hashes
 			static const size_t numUrns = 4;
 			static const UrnString urns[ numUrns ];
 			static const Encoding encoding = base16Encoding;
-			typedef boost::array< uchar, byteCount > RawStorage;
-			typedef boost::array< WordType, wordCount > AlignedStorage;
+			typedef std::tr1::array< uchar, byteCount > RawStorage;
+			typedef std::tr1::array< WordType, wordCount > AlignedStorage;
 			static std::vector< AlignedStorage > blackList;
 		};
 
@@ -138,8 +144,8 @@ namespace Hashes
 			static const size_t numUrns = 2;
 			static const UrnString urns[ numUrns ];
 			static const Encoding encoding = base16Encoding;
-			typedef boost::array< uchar, byteCount > RawStorage;
-			typedef boost::array< WordType, wordCount > AlignedStorage;
+			typedef std::tr1::array< uchar, byteCount > RawStorage;
+			typedef std::tr1::array< WordType, wordCount > AlignedStorage;
 			static std::vector< AlignedStorage > blackList;
 		};
 
@@ -161,8 +167,8 @@ namespace Hashes
 			static const size_t numUrns = 2;
 			static const UrnString urns[ numUrns ];
 			static const Encoding encoding = base32Encoding;
-			typedef boost::array< uchar, byteCount > RawStorage;
-			typedef boost::array< WordType, wordCount > AlignedStorage;
+			typedef std::tr1::array< uchar, byteCount > RawStorage;
+			typedef std::tr1::array< WordType, wordCount > AlignedStorage;
 			static std::vector< AlignedStorage > blackList;
 		};
 
@@ -180,8 +186,8 @@ namespace Hashes
 			static const size_t byteCount = wordCount * sizeof( WordType );
 			static const Encoding encoding = guidEncoding;
 			static const size_t numUrns = 0;
-			typedef boost::array< uchar, byteCount > RawStorage;
-			typedef boost::array< WordType, wordCount > AlignedStorage;
+			typedef std::tr1::array< uchar, byteCount > RawStorage;
+			typedef std::tr1::array< WordType, wordCount > AlignedStorage;
 			static std::vector< AlignedStorage > blackList;
 		};
 
@@ -198,8 +204,8 @@ namespace Hashes
 			static const size_t byteCount = wordCount * sizeof( WordType );
 			static const Encoding encoding = base16Encoding;
 			static const size_t numUrns = 0;
-			typedef boost::array< uchar, byteCount > RawStorage;
-			typedef boost::array< WordType, wordCount > AlignedStorage;
+			typedef std::tr1::array< uchar, byteCount > RawStorage;
+			typedef std::tr1::array< WordType, wordCount > AlignedStorage;
 			static std::vector< AlignedStorage > blackList;
 		};
 	} // namespace Polcies

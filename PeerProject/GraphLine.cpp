@@ -1,7 +1,7 @@
 //
 // GraphLine.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "GraphLine.h"
 #include "GraphItem.h"
 #include "Colors.h"
@@ -30,7 +30,7 @@ static char THIS_FILE[]=__FILE__;
 #endif	// Filename
 
 const DWORD MIN_GRID_SIZE_HORZ = 16u;
-#define TOP_MARGIN			10
+#define TOP_MARGIN		10
 
 
 //////////////////////////////////////////////////////////////////////
@@ -105,9 +105,9 @@ void CLineGraph::CreateDefaults()
 
 BOOL CLineGraph::Update()
 {
-	DWORD tNow = GetTickCount();
+	const DWORD tNow = GetTickCount();
 
-	if ( tNow - m_tLastScale > 10000 )
+	if ( tNow > m_tLastScale + 10000 )
 	{
 		m_tLastScale = tNow;
 		ResetMaximum();
@@ -250,7 +250,8 @@ void CLineGraph::Paint(CDC* pDC, CRect* pRect)
 
 			if ( nLayer > 1 )
 			{
-				for ( DWORD nPos = 0 ; nPos < nPoints ; nPos++ ) pPoints[ nPos ].y --;
+				for ( DWORD nPos = 0 ; nPos < nPoints ; nPos++ )
+					pPoints[ nPos ].y --;
 				pDC->SelectObject( &pItem->m_pPen[ nLayer - 2 ] );
 			}
 		}

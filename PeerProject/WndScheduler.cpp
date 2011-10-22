@@ -17,11 +17,11 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "Scheduler.h"
-#include "DlgScheduleTask.h"
 #include "WndScheduler.h"
+#include "DlgScheduleTask.h"
 #include "Network.h"
 #include "LiveList.h"
 #include "CoolInterface.h"

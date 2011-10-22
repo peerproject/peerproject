@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Albanian Skin File -->
 
-<!-- Translation based on default-en.xml r69 -->
+<!-- Translation based on default-en.xml r70 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -385,6 +385,7 @@
 		<button id="ID_SECURITY_MOVE_DOWN" text="Lëvize Poshtë"/>
 		<rightAlign/>
 		<button id="ID_SECURITY_RESET" text="Rivendose Hite"/>
+		<separator/>
 		<button id="ID_SECURITY_IMPORT" text="Importo Listën"/>
 		<button id="ID_SECURITY_EXPORT" text="Eksporto Listën"/>
 	</toolbar>
@@ -1537,7 +1538,7 @@
 			<item id="ID_SYSTEM_VERBOSE_INFO" text="_Info"/>
 			<item id="ID_SYSTEM_VERBOSE_DEBUG" text="_Debug"/>
 		</menu>
-		<item id="ID_SYSTEM_TIMESTAMP" text="Me Dat_ë"/>
+		<item id="ID_SYSTEM_TIMESTAMP" text="_Me Datë"/>
 		<separator/>
 		<item id="ID_SYSTEM_COPY" text="_Kopjo" shortcut="Ctrl+C"/>
 		<separator/>
@@ -2965,7 +2966,7 @@
 	<string id="20571" value="%s:  Fqinji %s përcolli një invalide, përbuzje."/>
 	<string id="20572" value="Fqinji %s përcolli një paketë me TTL të tepërt, lëshim i paketës (TTL=%i, Hops=%i)."/>
 	<string id="20573" value="Fqinji %s përcolli një paketë TTL zero, përbuzje."/>
-	<string id="20579" value="%s -> %s [%i/%i] %s %s"/>
+	<string id="20579" value="%s -&gt; %s [%i/%i] %s %s"/>
 	<string id="20580" value="Fqinji gjethe %s po përparon hetime, lëshim i lidhjes."/>
 	<string id="20581" value="Fqinji %s përcolli një paketë ping me gjatësi invalide, përbuzje."/>
 	<string id="20582" value="Fqinji %s përcolli një paketë pong me gjatësi invalide, përbuzje."/>
@@ -4021,14 +4022,14 @@
 		<control caption="One day only"/>
 		<control/>
 		<control/>
-		<control caption="Hën"/>
-		<control caption="Mar"/>
-		<control caption="Mër"/>
-		<control caption="Enj"/>
-		<control caption="Pre"/>
-		<control caption="Sht"/>
-		<control caption="Die"/>
-		<control caption="Të gjithë"/>
+		<control caption="Hënë"/>
+		<control caption="Martë"/>
+		<control caption="Mërkurë"/>
+		<control caption="Enjte"/>
+		<control caption="Premte"/>
+		<control caption="Shtunë"/>
+		<control caption="Diel"/>
+		<control caption="Gjithçka"/>
 		<control caption="Komente"/>
 		<control/>
 	</dialog>
@@ -4285,9 +4286,9 @@
 	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Alarmi i Përmirësimit">
 		<control caption="Për PeerProject-n ka dalë një version i ri. A doni ta përmirësoni?"/>
 		<control caption="Nëse zgjidhni Përmirëso Tani, PeerProject do ta shtojë përmirësimin në radhën tuaj të punëve për shkarkim dhe do të nisë ta shkarkojë atë automatikisht."/>
-		<control caption="_Përmirëso Tani"/>
 		<control caption="Mos verifiko për versione të reja"/>
-		<control caption="Mos Përmirëso"/>
+		<control caption="_Përmirëso Tani"/>
+		<control caption="Anulo"/>
 	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Vendndodhja e Metadatave">
 		<control caption="Të lutem zgjidhe metodën e rikodimit"/>

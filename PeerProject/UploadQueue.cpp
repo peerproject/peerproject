@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "Uploads.h"
 #include "UploadQueue.h"
 #include "UploadQueues.h"
@@ -174,7 +174,7 @@ BOOL CUploadQueue::Enqueue(CUploadTransfer* pUpload, BOOL bForce, BOOL bStart)
 
 	if ( ! bForce && ! bStart )		// If this upload isn't forced, check to see if it's valid to queue
 	{
-		if ( m_bRewardUploaders && ( pUpload->m_nUserRating > urSharing  ) )
+		if ( m_bRewardUploaders && ( pUpload->m_nUserRating > urSharing ) )
 		{
 			// If reward is on, a non-sharer might not queue.
 			// Check if the # already queued plus # reserved by the reward

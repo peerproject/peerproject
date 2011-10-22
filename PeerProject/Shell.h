@@ -31,8 +31,7 @@ public:
 		if ( FAILED( hr ) )
 			return;
 
-		hr = pDesktop->ParseDisplayName( hWnd, 0, CT2OLE( szFullPath ), NULL,
-			&m_pidl, NULL );
+		hr = pDesktop->ParseDisplayName( hWnd, 0, CT2OLE( szFullPath ), NULL, &m_pidl, NULL );
 		if ( FAILED( hr ) )
 			return;
 
@@ -94,7 +93,7 @@ public:
 	{
 		Clear();
 
-		for ( POSITION pos = oFiles.GetHeadPosition(); pos; )
+		for ( POSITION pos = oFiles.GetHeadPosition() ; pos ; )
 		{
 			CString strPath = oFiles.GetNext( pos );
 			CShellItem* pItemIDList = new CShellItem( strPath,
@@ -111,7 +110,7 @@ public:
 			if ( m_pID.get() )
 			{
 				int i = 0;
-				for ( POSITION pos = GetHeadPosition(); pos; i++)
+				for ( POSITION pos = GetHeadPosition() ; pos ; i++ )
 					m_pID[ i ] = GetNext( pos )->m_pLastId;
 			}
 		}
@@ -132,7 +131,7 @@ protected:
 
 	void Clear()
 	{
-		for ( POSITION pos = GetHeadPosition(); pos; )
+		for ( POSITION pos = GetHeadPosition() ; pos ; )
 			delete GetNext( pos );
 		RemoveAll();
 

@@ -17,20 +17,20 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "DownloadTransferBT.h"
+#include "DownloadSource.h"
+#include "Downloads.h"
+#include "Download.h"
 #include "BTClients.h"
 #include "BTClient.h"
 #include "BTPacket.h"
-#include "Download.h"
-#include "Downloads.h"
-#include "DownloadSource.h"
-#include "DownloadTransferBT.h"
 #include "FragmentedFile.h"
+#include "Transfers.h"
 #include "Network.h"
 #include "Buffer.h"
 #include "BENode.h"
-#include "Transfers.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -162,8 +162,8 @@ CString CDownloadTransferBT::GetStateText(BOOL bLong)
 
 BOOL CDownloadTransferBT::OnRun()
 {
-	DWORD tNow = GetTickCount();
-	BOOL bShowInterest	= ( tNow - m_tRunThrottle >= 2000 );
+	const DWORD tNow = GetTickCount();
+	BOOL bShowInterest	= tNow > m_tRunThrottle + 2000;
 
 	QWORD nBlockSize	= m_pDownload->m_pTorrent.m_nBlockSize;
 	DWORD nBlockCount	= m_pDownload->m_pTorrent.m_nBlockCount;
@@ -578,7 +578,7 @@ bool CDownloadTransferBT::UnrequestRange(QWORD nOffset, QWORD nLength)
 		Fragments::Fragment( nOffset, nOffset + nLength ) );
 
 	for ( Fragments::Queue::const_iterator pFragment = oUnrequests.begin() ;
-		pFragment != oUnrequests.end(); ++pFragment )
+		pFragment != oUnrequests.end() ; ++pFragment )
 	{
 		m_pClient->Cancel(							// BT_PACKET_CANCEL
 			(DWORD)( pFragment->begin() / m_pDownload->m_pTorrent.m_nBlockSize ),

@@ -17,13 +17,14 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "Colors.h"
-#include "CoolInterface.h"
+#include "PeerProject.h"
 #include "CtrlBrowseTree.h"
+
 #include "PeerProjectThread.h"
 #include "G2Packet.h"
+#include "Colors.h"
+#include "CoolInterface.h"
 #include "Schema.h"
 #include "SchemaCache.h"
 #include "ShellIcons.h"

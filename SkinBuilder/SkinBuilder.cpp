@@ -63,7 +63,7 @@ int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPTSTR lp
 	// GDI+ initialization
 	ULONG_PTR gdiplusToken;
 	Gdiplus::GdiplusStartupInput gdiplusStartupInput;
-	Gdiplus::Status gdiPlusStatus = GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
+	/*Gdiplus::Status gdiPlusStatus =*/ GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
 
 	hRes = _Module.Init(NULL, hInstance);
 	ATLASSERT(SUCCEEDED(hRes));

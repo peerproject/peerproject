@@ -1,7 +1,7 @@
 //
 // RichViewCtrl.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "RichViewCtrl.h"
 #include "RichDocument.h"
 #include "RichElement.h"
@@ -45,11 +45,11 @@ BEGIN_MESSAGE_MAP(CRichViewCtrl, CWnd)
 	ON_WM_TIMER()
 	ON_WM_VSCROLL()
 	ON_WM_SETCURSOR()
-	ON_WM_MOUSEMOVE()
 	ON_WM_LBUTTONUP()
 	ON_WM_LBUTTONDOWN()
-	ON_WM_MOUSEWHEEL()
 	ON_WM_LBUTTONDBLCLK()
+	ON_WM_MOUSEMOVE()
+	ON_WM_MOUSEWHEEL()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -281,12 +281,13 @@ BOOL CRichViewCtrl::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 			return TRUE;
 		}
 
-		if ( pFrag != NULL && pFrag->m_pElement->m_sLink.GetLength() )
+		if ( pFrag != NULL && ! pFrag->m_pElement->m_sLink.IsEmpty() )
 		{
 			SetCursor( m_hcHand );
 			return TRUE;
 		}
-		else if ( m_bSelectable )
+
+		if ( m_bSelectable )
 		{
 			if ( m_bSelecting || ( pFrag != NULL && pFrag->m_nLength > 0 ) )
 			{
@@ -801,7 +802,7 @@ CPoint CRichViewCtrl::PositionToPoint(RICHPOSITION& pos) const
 	BOOL bOverload = pos.nFragment >= m_pFragments.GetSize();
 
 	const CRichFragment* pFragment = m_pFragments.GetAt(
-		bOverload ? m_pFragments.GetSize() - 1 : pos.nFragment );
+		bOverload ? (int)m_pFragments.GetSize() - 1 : pos.nFragment );
 
 	pt.x = pFragment->m_pt.x;
 	pt.y += pFragment->m_pt.y;
@@ -841,10 +842,10 @@ void CRichViewCtrl::UpdateSelection()
 {
 	if ( m_pSelStart.nFragment < m_pSelEnd.nFragment || ( m_pSelStart.nFragment == m_pSelEnd.nFragment && m_pSelStart.nOffset <= m_pSelEnd.nOffset ) )
 	{
-		if (	m_pSelAbsStart.nFragment	!= m_pSelStart.nFragment ||
-				m_pSelAbsStart.nOffset		!= m_pSelStart.nOffset ||
-				m_pSelAbsEnd.nFragment		!= m_pSelEnd.nFragment ||
-				m_pSelAbsEnd.nOffset		!= m_pSelEnd.nOffset )
+		if ( m_pSelAbsStart.nFragment	!= m_pSelStart.nFragment ||
+			 m_pSelAbsStart.nOffset		!= m_pSelStart.nOffset ||
+			 m_pSelAbsEnd.nFragment		!= m_pSelEnd.nFragment ||
+			 m_pSelAbsEnd.nOffset		!= m_pSelEnd.nOffset )
 		{
 			m_pSelAbsStart	= m_pSelStart;
 			m_pSelAbsEnd	= m_pSelEnd;
@@ -853,10 +854,10 @@ void CRichViewCtrl::UpdateSelection()
 	}
 	else
 	{
-		if (	m_pSelAbsStart.nFragment	!= m_pSelEnd.nFragment ||
-				m_pSelAbsStart.nOffset		!= m_pSelEnd.nOffset ||
-				m_pSelAbsEnd.nFragment		!= m_pSelStart.nFragment ||
-				m_pSelAbsEnd.nOffset		!= m_pSelStart.nOffset )
+		if ( m_pSelAbsStart.nFragment	!= m_pSelEnd.nFragment ||
+			 m_pSelAbsStart.nOffset		!= m_pSelEnd.nOffset ||
+			 m_pSelAbsEnd.nFragment		!= m_pSelStart.nFragment ||
+			 m_pSelAbsEnd.nOffset		!= m_pSelStart.nOffset )
 		{
 			m_pSelAbsStart	= m_pSelEnd;
 			m_pSelAbsEnd	= m_pSelStart;
@@ -928,7 +929,7 @@ void CRichViewCtrl::CopySelection() const
 	// Following block required for IRC functionality:
 	{
 		CString strTemp;
-		for ( int nPos = 0; nPos < str.GetLength(); nPos++ )
+		for ( int nPos = 0, nLength = str.GetLength() ; nPos < nLength ; nPos++ )
 		{
 			TCHAR ch = str.GetAt( nPos );
 			if ( ch != _T('\x200D') )	// Zero Width Joiner
@@ -940,7 +941,7 @@ void CRichViewCtrl::CopySelection() const
 	}
 	// End IRC block
 
-	if ( str.GetLength() && AfxGetMainWnd()->OpenClipboard() )
+	if ( ! str.IsEmpty() && AfxGetMainWnd()->OpenClipboard() )
 	{
 		EmptyClipboard();
 
@@ -983,7 +984,7 @@ CString CRichViewCtrl::GetWordFromPoint(CPoint& point, LPCTSTR szTokens) const
 			const CString& strText = pFragment->m_pElement->m_sText;
 			if ( _tcschr( szTokens, strText.GetAt( nOffset ) ) == NULL )
 			{
-				for ( int nPos = pFragment->m_nOffset; ; )
+				for ( int nPos = pFragment->m_nOffset ; ; )
 				{
 					CString strWord = strText.Tokenize( szTokens, nPos );
 					if ( strWord.IsEmpty() )

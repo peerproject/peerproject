@@ -20,8 +20,8 @@
 // Was DlgDonkeyServers.cpp, CDonkeyServersDlg
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "DlgUpdateServers.h"
 #include "HostCache.h"
 #include "Buffer.h"

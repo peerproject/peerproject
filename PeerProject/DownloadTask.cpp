@@ -17,20 +17,20 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "Download.h"
-#include "Downloads.h"
+#include "PeerProject.h"
 #include "DownloadTask.h"
 #include "DownloadGroups.h"
+#include "Download.h"
+#include "Downloads.h"
 #include "Transfers.h"
 #include "Uploads.h"
 #include "Library.h"
 #include "LibraryFolders.h"
 #include "LibraryMaps.h"
 #include "SharedFile.h"
-#include "HttpRequest.h"
 #include "FragmentedFile.h"
+#include "HttpRequest.h"
 #include "BTInfo.h"
 
 #ifdef _DEBUG
@@ -206,12 +206,12 @@ int CDownloadTask::Run()
 	case dtaskCopy:
 		RunCopy();
 		break;
-	case dtaskPreviewRequest:
-		RunPreviewRequest();
-		break;
 	case dtaskMergeFile:
 		RunMerge();
 		break;
+	case dtaskPreviewRequest:
+		RunPreviewRequest();
+	//	break;
 	}
 
 	if ( bCOM )

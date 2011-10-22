@@ -17,15 +17,14 @@
 //
 
 #include "StdAfx.h"
+#include "Settings.h"
 #include "PeerProject.h"
-
 #include "LibraryFolders.h"
 
 #include "AlbumFolder.h"
 #include "Application.h"
 #include "CollectionFile.h"
 #include "DlgHelp.h"
-#include "Settings.h"
 #include "Library.h"
 #include "LibraryMaps.h"
 #include "Schema.h"
@@ -189,7 +188,7 @@ CLibraryFolder* CLibraryFolders::AddFolder(LPCTSTR pszPath, BOOL bShared)
 {
 	CLibraryFolder* pFolder = AddFolder( pszPath );
 
-	if( pFolder )
+	if ( pFolder )
 		pFolder->SetShared( bShared ? TRI_TRUE : TRI_FALSE );
 
 	return pFolder;

@@ -17,8 +17,10 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "CtrlLibraryFrame.h"
+#include "CtrlLibraryDetailView.h"
 #include "Library.h"
 #include "SharedFolder.h"
 #include "SharedFile.h"
@@ -30,11 +32,9 @@
 
 #include "Colors.h"
 #include "CoolInterface.h"
-#include "ShellIcons.h"
 #include "CoolMenu.h"
+#include "ShellIcons.h"
 #include "Skin.h"
-#include "CtrlLibraryFrame.h"
-#include "CtrlLibraryDetailView.h"
 #include "DlgHitColumns.h"
 #include "PeerProjectDataSource.h"
 
@@ -43,6 +43,18 @@
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif	// Filename
+
+// Set Common-Column Order
+enum {
+	COL_FILE,
+	COL_TYPE,
+	COL_SIZE,
+	COL_FOLDER,
+	COL_HITS,
+	COL_UPLOADS,
+	COL_MODIFIED,
+	COL_LAST	// Count
+};
 
 IMPLEMENT_DYNCREATE(CLibraryDetailView, CLibraryFileView)
 IMPLEMENT_DYNCREATE(CLibraryListView, CLibraryDetailView)
@@ -77,7 +89,7 @@ BEGIN_MESSAGE_MAP(CLibraryDetailView, CLibraryFileView)
 END_MESSAGE_MAP()
 
 #define GET_LIST()		CListCtrl* pList = (CListCtrl*)this
-#define DETAIL_COLUMNS	7
+//#define DETAIL_COLUMNS	7	// COL_LAST
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -143,17 +155,17 @@ int CLibraryDetailView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	GET_LIST();
 
-	pList->InsertColumn( 0, _T("File"), LVCFMT_LEFT, 220, -1 );
+	pList->InsertColumn( COL_FILE, _T("File"), LVCFMT_LEFT, 220, -1 );
 	pList->SetCallbackMask( LVIS_SELECTED );
 
 	if ( m_nStyle == LVS_REPORT )
 	{
-		pList->InsertColumn( 1, _T("Type"), LVCFMT_CENTER, 40, 0 );
-		pList->InsertColumn( 2, _T("Size"), LVCFMT_CENTER, 60, 1 );
-		pList->InsertColumn( 3, _T("Folder"), LVCFMT_LEFT, 0, 2 );
-		pList->InsertColumn( 4, _T("Hits"), LVCFMT_CENTER, 70, 3 );
-		pList->InsertColumn( 5, _T("Uploads"), LVCFMT_CENTER, 70, 4 );
-		pList->InsertColumn( 6, _T("Modified"), LVCFMT_CENTER, 0, 5 );
+		pList->InsertColumn( COL_TYPE, _T("Type"), LVCFMT_CENTER, 40, 0 );
+		pList->InsertColumn( COL_SIZE, _T("Size"), LVCFMT_CENTER, 60, 1 );
+		pList->InsertColumn( COL_FOLDER, _T("Folder"), LVCFMT_LEFT, 0, 2 );
+		pList->InsertColumn( COL_HITS, _T("Hits"), LVCFMT_CENTER, 70, 3 );
+		pList->InsertColumn( COL_UPLOADS, _T("Uploads"), LVCFMT_CENTER, 70, 4 );
+		pList->InsertColumn( COL_MODIFIED, _T("Modified"), LVCFMT_CENTER, 0, 5 );
 		pList->SetImageList( ShellIcons.GetObject( 16 ), LVSIL_SMALL );
 
 		CHeaderCtrl* pHeader = (CHeaderCtrl*)GetWindow( GW_CHILD );
@@ -244,7 +256,7 @@ void CLibraryDetailView::SetViewSchema(CSchemaPtr pSchema, CList< CSchemaMember*
 	m_pColumns.RemoveAll();
 	if ( ( m_pSchema = pSchema ) != NULL ) m_pColumns.AddTail( pColumns );
 
-	int nColumn = DETAIL_COLUMNS;
+	int nColumn = COL_LAST;
 	while ( pList->DeleteColumn( nColumn ) );
 
 	for ( POSITION pos = m_pColumns.GetHeadPosition() ; pos ; nColumn++ )
@@ -269,10 +281,11 @@ void CLibraryDetailView::Update()
 //	GET_LIST();
 
 	CSchemaPtr pSchema	= SchemaCache.Get( Settings.Library.FilterURI );
-	DWORD nCookie		= GetFolderCookie();
+	const DWORD nCookie	= GetFolderCookie();
 	BOOL bGhostFolder	= FALSE;
 
-	if ( Settings.Library.ShowVirtual ) pSchema = NULL;
+	if ( Settings.Library.ShowVirtual )
+		pSchema = NULL;
 
 	CLibraryTreeItem* pTree = GetFolderSelection();
 
@@ -286,7 +299,7 @@ void CLibraryDetailView::Update()
 		{
 			CString strURI = pTree->m_pVirtual->m_pSchema->GetContainedURI( CSchema::stFile );
 
-			if ( strURI.GetLength() && ( m_pSchema == NULL || ! m_pSchema->CheckURI( strURI ) ) )
+			if ( ! strURI.IsEmpty() && ( ! m_pSchema || ! m_pSchema->CheckURI( strURI ) ) )
 			{
 				if ( CSchemaPtr pSchema = SchemaCache.Get( strURI ) )
 				{
@@ -340,8 +353,8 @@ void CLibraryDetailView::Update()
 				m_pList = pList;
 			}
 
-			m_pList[ m_nList ].nIndex		= pFile->m_nIndex;
-			m_pList[ m_nList ].nState		&= ~LDVI_SELECTED;
+			m_pList[ m_nList ].nIndex = pFile->m_nIndex;
+			m_pList[ m_nList ].nState &= ~LDVI_SELECTED;
 			m_nList++;
 
 			pFile->m_nListCookie = nCookie;
@@ -408,24 +421,19 @@ void CLibraryDetailView::CacheItem(int nItem)
 	if ( pItem->pText == NULL ) pItem->pText = new CArray< CString >;
 
 	CArray< CString >* pText = pItem->pText;
-	pText->SetSize( m_nStyle == LVS_REPORT ? DETAIL_COLUMNS + m_pColumns.GetCount() : 1 );
+	pText->SetSize( m_nStyle == LVS_REPORT ? COL_LAST + m_pColumns.GetCount() : 1 );
 
 	CString strName( pFile->m_sName );
 	int nDot = strName.ReverseFind( '.' );
 	if ( nDot >= 0 ) strName.SetAt( nDot, 0 );
-	pText->SetAt( 0, strName );
+	pText->SetAt( COL_FILE, strName );
 
 	if ( m_nStyle == LVS_ICON )
-	{
 		pItem->nIcon = ShellIcons.Get( pFile->m_sName, 32 );
-	}
+	else if ( pFile->m_nIcon16 >= 0 )
+		pItem->nIcon = pFile->m_nIcon16;
 	else
-	{
-		if ( pFile->m_nIcon16 >= 0 )
-			pItem->nIcon = pFile->m_nIcon16;
-		else
-			pItem->nIcon = pFile->m_nIcon16 = ShellIcons.Get( pFile->m_sName, 16 );
-	}
+		pItem->nIcon = pFile->m_nIcon16 = ShellIcons.Get( pFile->m_sName, 16 );
 
 	pItem->nState &= LDVI_SELECTED;
 	if ( ! pFile->IsShared() ) pItem->nState |= LDVI_PRIVATE;
@@ -435,18 +443,18 @@ void CLibraryDetailView::CacheItem(int nItem)
 	if ( m_nStyle != LVS_REPORT ) return;
 
 	if ( LPCTSTR pszType = _tcsrchr( pFile->m_sName, '.' ) )
-		pText->SetAt( 1, pszType + 1 );
+		pText->SetAt( COL_TYPE, pszType + 1 );
 	else
-		pText->SetAt( 1, _T("") );
+		pText->SetAt( COL_TYPE, _T("") );
 
-	pText->SetAt( 2, Settings.SmartVolume( pFile->GetSize() ) );
-	pText->SetAt( 3, pFile->GetPath() );
+	pText->SetAt( COL_SIZE, Settings.SmartVolume( pFile->GetSize() ) );
+	pText->SetAt( COL_FOLDER, pFile->GetPath() );
 
 	CString str;
 	str.Format( _T("%lu (%lu)"), pFile->m_nHitsToday, pFile->m_nHitsTotal );
-	pText->SetAt( 4, str );
+	pText->SetAt( COL_HITS, str );
 	str.Format( _T("%lu (%lu)"), pFile->m_nUploadsToday, pFile->m_nUploadsTotal );
-	pText->SetAt( 5, str );
+	pText->SetAt( COL_UPLOADS, str );
 
 	TCHAR szModified[ 64 ];
 	SYSTEMTIME pTime;
@@ -458,11 +466,11 @@ void CLibraryDetailView::CacheItem(int nItem)
 	_tcscat( szModified, _T(" ") );
 	GetTimeFormat( LOCALE_USER_DEFAULT, 0, &pTime, _T("hh:mm tt"), szModified + _tcslen( szModified ), static_cast< int >( 64 - _tcslen( szModified ) ) );
 
-	pText->SetAt( 6, szModified );
+	pText->SetAt( COL_MODIFIED, szModified );
 
 	if ( m_pSchema == NULL ) return;
 
-	int nColumn = DETAIL_COLUMNS;
+	int nColumn = COL_LAST;
 
 	BOOL bSource =	pFile->m_pMetadata && m_pSchema->Equals( pFile->m_pSchema ) &&
 					m_pSchema->m_sSingular.CompareNoCase( pFile->m_pMetadata->GetName() ) == 0;
@@ -518,7 +526,7 @@ void CLibraryDetailView::OnGetDispInfoW(NMHDR* pNMHDR, LRESULT* pResult)
 	{
 		{
 			CSingleLock oLock( &Library.m_pSection );
-			if ( !oLock.Lock( 100 ) ) return;
+			if ( ! oLock.Lock( 100 ) ) return;
 			CacheItem( pNotify.iItem );
 		}
 		if ( pItem->nCookie != m_nListCookie ) return;
@@ -659,7 +667,7 @@ int CLibraryDetailView::ListCompare(LPCVOID pA, LPCVOID pB)
 			break;
 		default:
 			{
-				const int nColumn = m_pThis->m_nSortColumn - DETAIL_COLUMNS;
+				const int nColumn = m_pThis->m_nSortColumn - COL_LAST;
 				if ( nColumn >= m_pThis->m_pColumns.GetCount() ) return 0;
 				POSITION pos = m_pThis->m_pColumns.FindIndex( nColumn );
 				if ( pos == NULL ) return 0;
@@ -669,9 +677,17 @@ int CLibraryDetailView::ListCompare(LPCVOID pA, LPCVOID pB)
 				if ( pfA->m_pMetadata ) strA = pMember->GetValueFrom( pfA->m_pMetadata, NULL, TRUE );
 				if ( pfB->m_pMetadata ) strB = pMember->GetValueFrom( pfB->m_pMetadata, NULL, TRUE );
 
-				if ( *(LPCTSTR)strA && *(LPCTSTR)strB &&
-					( ((LPCTSTR)strA)[ _tcslen( strA ) - 1 ] == 'k' || ((LPCTSTR)strA)[ _tcslen( strA ) - 1 ] == '~' ) &&
-					( ((LPCTSTR)strB)[ _tcslen( strB ) - 1 ] == 'k' || ((LPCTSTR)strB)[ _tcslen( strB ) - 1 ] == '~' ) )
+				// Old way:
+				//if ( *(LPCTSTR)strA && *(LPCTSTR)strB &&
+				//	( ((LPCTSTR)strA)[ _tcslen( strA ) - 1 ] == 'k' || ((LPCTSTR)strA)[ _tcslen( strA ) - 1 ] == '~' ) &&
+				//	( ((LPCTSTR)strB)[ _tcslen( strB ) - 1 ] == 'k' || ((LPCTSTR)strB)[ _tcslen( strB ) - 1 ] == '~' ) )
+
+				const int nLengthA = strA.GetLength();
+				const int nLengthB = strB.GetLength();
+
+				if ( nLengthA && nLengthB &&
+					( strA.GetAt( nLengthA - 1 ) == _T('k') || strA.GetAt( nLengthA - 1 ) == _T('~') ) &&
+					( strB.GetAt( nLengthB - 1 ) == _T('k') || strB.GetAt( nLengthB - 1 ) == _T('~') ) )
 				{
 					nTest = CLiveList::SortProc( strA, strB, TRUE );
 				}
@@ -920,8 +936,8 @@ void CLibraryDetailView::OnCustomDraw(NMHDR* pNotify, LRESULT* pResult)
 	{
 		*pResult = CDRF_NOTIFYITEMDRAW;
 	}
-	else if (	((NMLVCUSTOMDRAW*) pNotify)->nmcd.dwDrawStage == CDDS_ITEMPREPAINT &&
-				((NMLVCUSTOMDRAW*) pNotify)->nmcd.dwItemSpec < m_nList )
+	else if ( ((NMLVCUSTOMDRAW*) pNotify)->nmcd.dwDrawStage == CDDS_ITEMPREPAINT &&
+			  ((NMLVCUSTOMDRAW*) pNotify)->nmcd.dwItemSpec < m_nList )
 	{
 		LDVITEM* pItem = m_pList + ((NMLVCUSTOMDRAW*) pNotify)->nmcd.dwItemSpec;
 

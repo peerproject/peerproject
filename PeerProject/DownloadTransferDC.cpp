@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "DCClient.h"
 #include "DCClients.h"
 #include "DCNeighbour.h"
@@ -176,7 +176,7 @@ BOOL CDownloadTransferDC::OnRun()
 	if ( ! CDownloadTransfer::OnRun() )
 		return FALSE;
 
-	DWORD tNow = GetTickCount();
+	const DWORD tNow = GetTickCount();
 
 	switch ( m_nState )
 	{

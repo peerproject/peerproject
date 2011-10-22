@@ -14,13 +14,13 @@ Unfortunately there is no very simple way to maintain updates in such files.
 The basic method is using WinMerge (winmerge.org) or similar tool to compare default-en and new default-XX,
 while tracking updates from http://peerproject.svn.sourceforge.net/viewvc/peerproject/trunk/Languages/default-en.xml?view=log
 
-- The StringUpdate tool will extract all isolated strings/tips resources to an .XML file for reference. (Useful for default-en)
+- The SkinExtract commandline tool will export all isolated strings/tips resources to an .XML file for reference. (To update default-en)
 
-- The SkinUpdater tool may help identify simple updates if you have both the older equivalent and updated versions of default-en.xml available.
+- The SkinTranslate commandline conversion tool will assist those who prefer to work with common .po files in Poedit (poedit.net)
 
-- The SkinTranslate conversion tool will instead assist those who prefer to work with common .po files in Poedit (poedit.net)
+- The SkinUpdater GUI tool may help identify simple XML updates if you have both the older equivalent and updated versions of default-en.xml available.
 
-Therefore: convert an .XML to .PO, make modifications easily, then convert back to a new .XML for comparison with the original in WinMerge.
+Typically: Convert an .XML to .PO, make modifications easily in Poedit, then convert back to a new .XML for comparison with the original in WinMerge.
 
 
 

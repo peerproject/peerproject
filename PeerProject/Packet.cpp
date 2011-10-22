@@ -20,12 +20,13 @@
 // http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CPacket
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "Network.h"
+#include "PeerProject.h"
 #include "Packet.h"
-#include "ZLib.h"
+
+#include "Network.h"
 #include "Buffer.h"
+#include "ZLib.h"
 #include "WndMain.h"
 #include "WndPacket.h"
 
@@ -41,16 +42,16 @@ static char THIS_FILE[]=__FILE__;
 // Takes a protocol id, like PROTOCOL_G1 for Gnutella
 // Makes a new CPacket object to represent a packet
 CPacket::CPacket(PROTOCOLID nProtocol)
-	: m_nProtocol  ( nProtocol )	// Save the given protocol id in the object
+	: m_nProtocol	( nProtocol )	// Save the given protocol id in the object
 									// This packet isn't in a list yet, and isn't being used at all yet:
-	, m_pNext      ( NULL )			// No packet next in a list
-	, m_nReference ( 0 )			// No one needs this packet yet, the reference count starts at 0
+	, m_pNext		( NULL )		// No packet next in a list
+	, m_nReference	( 0 )			// No one needs this packet yet, the reference count starts at 0
 									// Start out memory pointers and lengths at null and 0:
-	, m_pBuffer    ( NULL )			// This is just a pointer to allocated bytes, not a CBuffer object that would take care of itself
-	, m_nBuffer    ( 0 )
-	, m_nLength    ( 0 )
-	, m_nPosition  ( 0 )
-	, m_bBigEndian ( TRUE )			// Assume the bytes of the packet are in big endian order
+	, m_pBuffer 	( NULL )		// This is just a pointer to allocated bytes, not a CBuffer object that would take care of itself
+	, m_nBuffer		( 0 )
+	, m_nLength		( 0 )
+	, m_nPosition	( 0 )
+	, m_bBigEndian	( TRUE )		// Assume the bytes of the packet are in big endian order
 {
 }
 
@@ -162,7 +163,7 @@ CString CPacket::ReadString(UINT cp, DWORD nMaximum)
 	if ( ! nMaximum ) return strString; 	// If that would have us read nothing, return the new blank string
 
 	// Setup pointers to look at bytes in the packet
-	LPCSTR pszInput	= (LPCSTR)m_pBuffer + m_nPosition; // Point pszInput at our position inside the buffer
+	LPCSTR pszInput	= (LPCSTR)m_pBuffer + m_nPosition;	// Point pszInput at our position inside the buffer
 	LPCSTR pszScan  = pszInput;		// Start out pszScan at the same spot, it will find the next null terminator
 
 	// Loop for each byte in the packet at and beyond our position in it, searching for a null terminator
@@ -416,21 +417,20 @@ void CPacket::SmartDump(const SOCKADDR_IN* pAddress, BOOL bUDP, BOOL bOutgoing, 
 {
 	// Get exclusive access to the program's critical section while this method runs
 	CSingleLock pLock( &theApp.m_pSection );	// When the method exits, pLock will go out of scope, be destructed, and release the lock
-	if ( pLock.Lock( 50 ) )		// If we wait more than 1/20th of a second for access, Lock will return false so we can just give up
-	{
-		// Get a pointer to the main PeerProject window
-		if ( CMainWnd* pMainWnd = theApp.SafeMainWnd() )
-		{
-			// Get pointers to the window manager, and null a pointer to a packet window
-			CWindowManager* pWindows = &pMainWnd->m_pWindows;
-			CPacketWnd*     pWnd     = NULL;
+	if ( ! pLock.Lock( 50 ) ) return;			// Give up if waiting more than 1/20th of a second for access
 
-			// Loop through all the windows, pointing pWnd at each one
-			while ( ( pWnd = (CPacketWnd*)pWindows->Find( RUNTIME_CLASS(CPacketWnd), pWnd ) ) != NULL )
-			{
-				// Give each window this packet to process, along with the related CNeighbour object, IP address, and travel direction
-				pWnd->SmartDump( this, pAddress, bUDP, bOutgoing, nNeighbourUnique );
-			}
+	// Get a pointer to the main PeerProject window
+	if ( CMainWnd* pMainWnd = theApp.SafeMainWnd() )
+	{
+		// Get pointers to the window manager, and null a pointer to a packet window
+		CWindowManager* pWindows = &pMainWnd->m_pWindows;
+		CPacketWnd* pWnd = NULL;
+
+		// Loop through all the windows, pointing pWnd at each one
+		while ( ( pWnd = (CPacketWnd*)pWindows->Find( RUNTIME_CLASS(CPacketWnd), pWnd ) ) != NULL )
+		{
+			// Give each window this packet to process, along with the related CNeighbour object, IP address, and travel direction
+			pWnd->SmartDump( this, pAddress, bUDP, bOutgoing, nNeighbourUnique );
 		}
 	}
 }

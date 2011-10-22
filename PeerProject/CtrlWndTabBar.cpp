@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "CtrlWndTabBar.h"
 #include "CoolInterface.h"
 #include "CoolMenu.h"
@@ -459,13 +459,15 @@ void CWndTabBar::DoPaint(CDC* pDC)
 			rcItem.OffsetRect( rcItem.Width() + 3, 0 );
 		}
 
-		if ( pDC == pOutDC ) pDC->FillSolidRect( &rc, Colors.m_crMidtone );
+		if ( pDC == pOutDC )
+			pDC->FillSolidRect( &rc, Colors.m_crMidtone );
 	}
 	else
 	{
 		CSize  sz = pDC->GetTextExtent( m_sMessage );
 		CPoint pt = rc.CenterPoint();
-		pt.x -= sz.cx / 2; pt.y -= sz.cy / 2 + 1;
+		pt.x -= sz.cx / 2;
+		pt.y -= sz.cy / 2 + 1;
 
 		pDC->SetBkColor( Colors.m_crMidtone );
 		pDC->SetTextColor( Colors.m_crDisabled );
@@ -554,7 +556,7 @@ void CWndTabBar::OnTimer(UINT_PTR nIDEvent)
 
 BOOL CWndTabBar::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 {
-	if ( m_pItems.GetCount() == 0 && m_nMessage == IDS_TABBAR_CONNECTED  )
+	if ( m_pItems.GetCount() == 0 && m_nMessage == IDS_TABBAR_CONNECTED )
 	{
 		CPoint point;
 		GetCursorPos( &point );

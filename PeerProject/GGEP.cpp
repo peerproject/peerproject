@@ -17,9 +17,9 @@
 //
 
 #include "StdAfx.h"
+#include "Settings.h"
 #include "PeerProject.h"
 #include "Buffer.h"
-#include "Settings.h"
 #include "GGEP.h"
 #include "G1Packet.h"
 #include "ZLib.h"
@@ -34,12 +34,12 @@ static char THIS_FILE[]=__FILE__;
 //////////////////////////////////////////////////////////////////////
 // CGGEPBlock construction
 
-CGGEPBlock::CGGEPBlock() :
-	m_pFirst	( NULL ),
-	m_pLast		( NULL ),
-	m_pInput	( NULL ),
-	m_nInput	( 0 ),
-	m_nItemCount( 0 )
+CGGEPBlock::CGGEPBlock()
+	: m_pFirst	( NULL )
+	, m_pLast	( NULL )
+	, m_pInput	( NULL )
+	, m_nInput	( 0 )
+	, m_nItemCount ( 0 )
 {
 }
 
@@ -128,8 +128,7 @@ BOOL CGGEPBlock::ReadInternal()
 	{
 		BYTE nFlags = ReadByte();
 		if ( ! ( nFlags & GGEP_HDR_IDLEN ) || ( nFlags & GGEP_HDR_RESERVE ) )
-			// Error: Invalid format of GGEP header
-			return FALSE;
+			return FALSE;	// Error: Invalid format of GGEP header
 
 		CGGEPItem* pItem = ReadItem( nFlags );
 		if ( ! pItem )
@@ -391,7 +390,7 @@ void CGGEPItem::WriteTo(CPacket* pPacket)
 		nFlags |= GGEP_HDR_COBS;
 
 	if ( m_pNext == NULL )
-		nFlags |= GGEP_HDR_LAST; // Last extension in the block
+		nFlags |= GGEP_HDR_LAST;	// Last extension in the block
 
 	// Flags -- 1 byte
 	pPacket->WriteByte( nFlags );
@@ -407,7 +406,7 @@ void CGGEPItem::WriteTo(CPacket* pPacket)
 	if ( m_nLength & 0xFC0 )
 		pPacket->WriteByte( (BYTE)( ( ( m_nLength >> 6 ) & GGEP_LEN_MASK ) | GGEP_LEN_MORE ) );
 
-	// shut off everything except the last 6 bits
+	// Shut off everything except the last 6 bits
 	pPacket->WriteByte( (BYTE)( ( m_nLength & GGEP_LEN_MASK ) | GGEP_LEN_LAST ) );
 
 	if ( m_pBuffer && m_nLength )
@@ -423,7 +422,7 @@ BOOL CGGEPItem::Encode()
 		return FALSE;
 
 	DWORD nLength = m_nLength;
-	for ( BYTE* pIn = m_pBuffer; nLength > 0 ; nLength--, pIn++ )
+	for ( BYTE* pIn = m_pBuffer ; nLength > 0 ; nLength--, pIn++ )
 	{
 		if ( *pIn == 0 )
 			break;
@@ -504,24 +503,24 @@ BOOL CGGEPItem::Decode()
 	{
 		BYTE nCode = *pIn++;
 		if ( nCode == 0 )
-			return FALSE;	// Invalid code
+			return FALSE;		// Invalid code
 		nLength--;
 
 		BYTE nLen = nCode - 1;
 		if ( nLength < nLen )
-			return FALSE;	// Too short packet
+			return FALSE;		// Too short packet
 
 		pIn += nLen;
 		nDecodedLength += nLen;
 		nLength -= nLen;
 
 		if ( nCode != 0xff )
-			nDecodedLength++; // + zero byte
+			nDecodedLength++;	// + zero byte
 	}
 
 	auto_array< BYTE > pOutput( new BYTE[ nDecodedLength ] );
 	if ( ! pOutput.get() )
-		return FALSE;	// Out of memory
+		return FALSE;			// Out of memory
 
 	// Decode
 	pIn = m_pBuffer;

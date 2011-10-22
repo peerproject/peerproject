@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Polish Skin File -->
 
-<!-- Translation based on default-en.xml r69 (Shareaza 2.1.2.7) -->
+<!-- Translation based on default-en.xml r70 (Shareaza 2.1.2.7) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1108,6 +1108,7 @@
 	<menu name="CLibraryTileView">
 		<item id="ID_LIBRARY_ALBUM_OPEN" text="Otwórz"/>
 		<item id="ID_LIBRARY_ALBUM_DELETE" text="Usuń"/>
+		<item id="ID_LIBRARY_FOLDER_NEW" text="Nowa..."/>
 		<separator/>
 		<item id="ID_LIBRARY_ALBUM_PROPERTIES" text="Właściwości"/>
 	</menu>
@@ -1350,14 +1351,14 @@
 	</menu>
 	<!-- SYSTEM WINDOW -->
 	<menu name="CSystemWnd">
-		<menu id="ID_SYSTEM_VERBOSE" text="Tryb gadatliwy"/>
+		<menu id="ID_SYSTEM_VERBOSE" text="Tryb gadatliwy">
 			<item id="ID_SYSTEM_VERBOSE_ERROR" text="_Error"/>
 			<item id="ID_SYSTEM_VERBOSE_WARNING" text="_Warning"/>
 			<item id="ID_SYSTEM_VERBOSE_NOTICE" text="_Notice"/>
 			<item id="ID_SYSTEM_VERBOSE_INFO" text="_Info"/>
 			<item id="ID_SYSTEM_VERBOSE_DEBUG" text="_Debug"/>
 		</menu>
-		<item id="ID_SYSTEM_TIMESTAMP" text="Znacznik czasu"/>
+		<item id="ID_SYSTEM_TIMESTAMP" text="_Znacznik czasu"/>
 		<separator/>
 		<item id="ID_SYSTEM_COPY" text="_Copy" shortcut="Ctrl+C"/>
 		<separator/>
@@ -2452,6 +2453,12 @@
 	<string id="20020" value="Plik"/>
 	<string id="20021" value="Pliki"/>
 	<string id="20022" value="Wszystkie Pliki"/>
+	<string id="20023" value="No Pliki"/>
+	<string id="20024" value="Duże pliki"/>
+	<string id="20025" value="Średnie pliki"/>
+	<string id="20026" value="Małe pliki"/>
+	<string id="20027" value="Pliki częściowe"/>
+	<string id="20028" value="Pliki biblioteki"/>
 	<string id="20029" value="%s Pliki"/>
 	<string id="20050" value="Każdy Dzień"/>
 	<string id="20051" value="Poniedziałek"/>
@@ -3851,13 +3858,13 @@
 		<control caption="One day only"/>
 		<control/>
 		<control/>
-		<control caption="Pon"/>
-		<control caption="Wto"/>
-		<control caption="Śro"/>
-		<control caption="Czw"/>
-		<control caption="Pią"/>
-		<control caption="Sob"/>
-		<control caption="Ndz"/>
+		<control caption="Poniedziałek"/>
+		<control caption="Wtorek"/>
+		<control caption="Sroda"/>
+		<control caption="Czwartek"/>
+		<control caption="Piątek"/>
+		<control caption="Sobota"/>
+		<control caption="Niedziela"/>
 		<control caption="Wszystko"/>
 		<control caption="Komentarze"/>
 		<control/>
@@ -4116,9 +4123,9 @@
 	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Alert aktualizacji">
 		<control caption="Nowa wersj PeerProject jest dostępna.  Czy chciałbyś aktualizować?"/>
 		<control caption="Jeśli wybierzesz aktualizuj teraz to PeerProject doda aktualizacje do twojej kolejki pobierania."/>
-		<control caption="Aktualizuj teraz"/>
 		<control caption="Nie sprawdzaj czy są nowe wersje"/>
-		<control caption="Nie aktualizuj"/>
+		<control caption="Aktualizuj teraz"/>
+		<control caption="Anuluj"/>
 	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Lokalizacja Metadanych">
 		<control caption="Proszę wybrać metodę kodowania"/>

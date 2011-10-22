@@ -18,11 +18,15 @@
 
 #pragma once
 
+#include "DownloadTransfer.h"
+#include "DownloadSource.h"
+#include "Download.h"
+#include "Downloads.h"
 #include "Handshakes.h"
 
 // Note: FTP active mode code commented out
 
-#define FTP_RETRY_DELAY		30 // Seconds
+#define FTP_RETRY_DELAY		30	// Seconds
 
 class CDownloadTransferFTP : public CDownloadTransfer
 {
@@ -75,8 +79,7 @@ protected:
 				CLockedBuffer pInput( GetInput() );
 				if ( pInput->m_nLength > 0 )
 				{
-					m_sData.Append( CString( (char*) pInput->m_pBuffer ),
-						pInput->m_nLength );
+					m_sData.Append( CString( (char*) pInput->m_pBuffer ), pInput->m_nLength );
 					pInput->Clear();
 				}
 				return TRUE;
@@ -89,11 +92,11 @@ protected:
 		{
 			TRACE( _T("Extracting file size from:\n%ls\n"), m_sData );
 			CString in( m_sData ), out;
-			for ( int n = 0; Split( in, _T(' '), out ); ++n )
+			for ( int n = 0 ; Split( in, _T(' '), out ) ; ++n )
 			{
 				int i = 0;
-				for ( ; i < out.GetLength(); ++i )
-					if ( !isdigit( out [i] ) )
+				for ( ; i < out.GetLength() ; ++i )
+					if ( ! isdigit( out [i] ) )
 						break;
 				if ( i == out.GetLength() && out [0] != _T('0') && n != 2 )
 				{

@@ -17,21 +17,21 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "CtrlLibraryAlbumView.h"
+#include "CtrlLibraryFrame.h"
+#include "CtrlLibraryTip.h"
 #include "Library.h"
 #include "SharedFile.h"
 #include "AlbumFolder.h"
+#include "PeerProjectDataSource.h"
+#include "DlgFilePropertiesSheet.h"
 #include "Schema.h"
 #include "SchemaCache.h"
 #include "ShellIcons.h"
 #include "Colors.h"
 #include "CoolInterface.h"
-#include "PeerProjectDataSource.h"
-#include "CtrlLibraryAlbumView.h"
-#include "CtrlLibraryFrame.h"
-#include "CtrlLibraryTip.h"
-#include "DlgFilePropertiesSheet.h"
 #include "Skin.h"
 #include "XML.h"
 
@@ -93,15 +93,15 @@ int CLibraryAlbumView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CLibraryFileView::OnCreate( lpCreateStruct ) == -1 ) return -1;
 
-	m_pList			= NULL;
-	m_nCount		= 0;
-	m_nBuffer		= 0;
-	m_nScroll		= 0;
+	m_pList		= NULL;
+	m_nCount	= 0;
+	m_nBuffer	= 0;
+	m_nScroll	= 0;
 
-	m_nSelected		= 0;
-	m_pFocus		= NULL;
-	m_pFirst		= NULL;
-	m_bDrag			= FALSE;
+	m_nSelected	= 0;
+	m_pFocus	= NULL;
+	m_pFirst	= NULL;
+	m_bDrag		= FALSE;
 
 	CBitmap bmStar;
 	bmStar.LoadBitmap( IDB_SMALL_STAR );

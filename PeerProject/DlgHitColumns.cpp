@@ -18,9 +18,9 @@
 
 #include "StdAfx.h"
 #include "PeerProject.h"
-#include "Schema.h"
 #include "DlgHitColumns.h"
 #include "CoolMenu.h"
+#include "Schema.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE

@@ -1,7 +1,7 @@
 //
 // CtrlText.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -19,8 +19,8 @@
 // System Window Drawing (Network Tab)
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "CtrlText.h"
 
 #include "Skin.h"
@@ -330,7 +330,7 @@ int CTextCtrl::HitTest(const CPoint& pt) const
 		GetClientRect( &rcClient );
 		CRect rcLine( rcClient );
 		rcLine.bottom += ( m_nTotal - m_nPosition ) * m_cCharacter.cy;
-		for ( int nLine = m_pLines.GetCount() - 1;
+		for ( int nLine = m_pLines.GetCount() - 1 ;
 			nLine >= 0 && rcLine.bottom > rcClient.top ; nLine-- )
 		{
 			CTextLine* pLine = m_pLines.GetAt( nLine );
@@ -349,7 +349,7 @@ void CTextCtrl::CopyText() const
 
 	CString str;
 	bool bGotIt = false;
-	for ( int i = 0; i < m_pLines.GetCount(); i++ )
+	for ( int i = 0 ; i < m_pLines.GetCount() ; i++ )
 	{
 		CTextLine* pLineTemp = m_pLines.GetAt( i );
 		if ( pLineTemp->m_bSelected )
@@ -418,7 +418,7 @@ void CTextCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 			if ( m_nLastClicked == -1 )
 				m_nLastClicked = nLine;
 
-			for ( int i = 0; i < m_pLines.GetCount(); i++ )
+			for ( int i = 0 ; i < m_pLines.GetCount() ; i++ )
 			{
 				CTextLine* pLineTemp = m_pLines.GetAt( i );
 				pLineTemp->m_bSelected = ( m_nLastClicked < nLine ) ?
@@ -429,7 +429,7 @@ void CTextCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 		else
 		{
 			// Select one, unselect others
-			for ( int i = 0; i < m_pLines.GetCount(); i++ )
+			for ( int i = 0 ; i < m_pLines.GetCount() ; i++ )
 			{
 				CTextLine* pLineTemp = m_pLines.GetAt( i );
 				pLineTemp->m_bSelected = ( pLineTemp == pLine );
@@ -466,7 +466,7 @@ void CTextCtrl::OnKeyDown(UINT nChar, UINT /*nRepCnt*/, UINT /*nFlags*/)
 
 		// Ctrl+A = Select all
 		case 'A':
-			for ( int i = 0; i < m_pLines.GetCount(); i++ )
+			for ( int i = 0 ; i < m_pLines.GetCount() ; i++ )
 			{
 				CTextLine* pLineTemp = m_pLines.GetAt( i );
 				pLineTemp->m_bSelected = TRUE;
@@ -479,7 +479,7 @@ void CTextCtrl::OnKeyDown(UINT nChar, UINT /*nRepCnt*/, UINT /*nFlags*/)
 	// Esc = Unselect all
 	if ( nChar == VK_ESCAPE )
 	{
-		for ( int i = 0; i < m_pLines.GetCount(); i++ )
+		for ( int i = 0, nCount = m_pLines.GetCount() ; i < nCount ; i++ )
 		{
 			CTextLine* pLineTemp = m_pLines.GetAt( i );
 			pLineTemp->m_bSelected = FALSE;

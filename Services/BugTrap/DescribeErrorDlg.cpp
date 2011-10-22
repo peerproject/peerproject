@@ -8,7 +8,7 @@
  */
 
 #include "StdAfx.h"
-#include "resource.h"
+#include "Resource.h"
 #include "DescribeErrorDlg.h"
 #include "BugTrapUI.h"
 #include "BugTrapUtils.h"
@@ -17,7 +17,7 @@
 #include "Globals.h"
 #include "MemStream.h"
 #include "Encoding.h"
-#include "textFormat.h"
+#include "TextFormat.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -103,7 +103,6 @@ static BOOL DescribeErrorDlg_OnInitDialog(HWND hwnd, HWND hwndFocus, LPARAM lPar
 {
 	lParam; hwndFocus;
 	HWND hwndCtl;
-	_ASSERTE(g_pResManager != NULL);
 	if (g_pResManager->m_hBigAppIcon)
 		SendMessage(hwnd, WM_SETICON, ICON_BIG, (LPARAM)g_pResManager->m_hBigAppIcon);
 	if (g_pResManager->m_hSmallAppIcon)

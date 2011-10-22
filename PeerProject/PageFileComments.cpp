@@ -17,14 +17,14 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "PageFileComments.h"
 #include "Library.h"
 #include "SharedFile.h"
 #include "ShellIcons.h"
-#include "Colors.h"
 #include "CoolInterface.h"
-#include "PageFileComments.h"
+#include "Colors.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE

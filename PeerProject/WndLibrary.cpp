@@ -17,14 +17,14 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "WndLibrary.h"
 #include "Library.h"
 #include "LibraryFolders.h"
 #include "LibraryBuilder.h"
 #include "CollectionFile.h"
 #include "SharedFile.h"
-#include "WndLibrary.h"
 #include "SharedFolder.h"
 
 #ifdef _DEBUG
@@ -136,7 +136,7 @@ void CLibraryWnd::OnTimer(UINT_PTR nIDEvent)
 			m_tLast = tNow;
 		}
 	}
-	else if ( tNow - m_tLast > 30000 )
+	else if ( tNow > m_tLast + 30000 )
 	{
 		m_wndFrame.Update( FALSE );
 		m_tLast = tNow;

@@ -18,8 +18,8 @@
 
 #include "StdAfx.h"
 #include "PeerProject.h"
-#include "Library.h"
 #include "LibraryMaps.h"
+#include "Library.h"
 #include "Application.h"
 #include "QuerySearch.h"
 
@@ -136,10 +136,12 @@ CLibraryFile* CLibraryMaps::LookupFileByPath(LPCTSTR pszPath, BOOL bSharedOnly, 
 {
 	ASSERT_VALID( this );
 	ASSERT( pszPath && *pszPath );
+	if ( ! pszPath )
+		return NULL;	// Bad
 
 	CLibraryFile* pFile = NULL;
 	CString strPath( pszPath );
-	ToLower( strPath );
+	strPath.MakeLower();
 
 	CQuickLock oLock( Library.m_pSection );
 
@@ -804,8 +806,8 @@ CFileList* CLibraryMaps::WhatsNew(const CQuerySearch* pSearch, int nMaximum) con
 		if ( pFile->IsAvailable() && pFile->IsShared() && pFile->m_oSHA1 &&
 			( ! pSearch->m_pSchema || pSearch->m_pSchema->Equals( pFile->m_pSchema ) ) )
 		{
-			DWORD nTime = pFile->GetCreationTime();
-			if ( nTime && nTime + 12 * 60 * 60 > tNow  )	// 12 hours
+			const DWORD nTime = pFile->GetCreationTime();
+			if ( nTime && nTime + 12 * 60 * 60 > tNow )		// 12 hours
 			{
 				pFile->m_nHitsToday++;
 				pFile->m_nHitsTotal++;

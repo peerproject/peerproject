@@ -278,14 +278,14 @@ void CScheduleTaskDlg::OnOK()
 	else // Specified days selected
 	{
 		m_nDays = 0;
-		if( m_wndChkDaySun.GetCheck() ) m_nDays |= SUNDAY;
-		if( m_wndChkDayMon.GetCheck() ) m_nDays |= MONDAY;
-		if( m_wndChkDayTues.GetCheck() ) m_nDays |= TUESDAY;
-		if( m_wndChkDayWed.GetCheck() ) m_nDays |= WEDNESDAY;
-		if( m_wndChkDayThu.GetCheck() ) m_nDays |= THURSDAY;
-		if( m_wndChkDayFri.GetCheck() ) m_nDays |= FRIDAY;
-		if( m_wndChkDaySat.GetCheck() ) m_nDays |= SATURDAY;
-		if( ! m_nDays )
+		if ( m_wndChkDaySun.GetCheck() ) m_nDays |= SUNDAY;
+		if ( m_wndChkDayMon.GetCheck() ) m_nDays |= MONDAY;
+		if ( m_wndChkDayTues.GetCheck() ) m_nDays |= TUESDAY;
+		if ( m_wndChkDayWed.GetCheck() ) m_nDays |= WEDNESDAY;
+		if ( m_wndChkDayThu.GetCheck() ) m_nDays |= THURSDAY;
+		if ( m_wndChkDayFri.GetCheck() ) m_nDays |= FRIDAY;
+		if ( m_wndChkDaySat.GetCheck() ) m_nDays |= SATURDAY;
+		if ( ! m_nDays )
 		{
 			AfxMessageBox( IDS_SCHEDULER_SELECTADAY );
 			return;

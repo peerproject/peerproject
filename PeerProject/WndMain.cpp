@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "Colors.h"
 #include "CoolInterface.h"
 #include "CoolMenu.h"
@@ -773,7 +773,7 @@ void CMainWnd::OnTimer(UINT_PTR nIDEvent)
 {
 	CMDIFrameWnd::OnTimer( nIDEvent );
 
-	DWORD tNow = static_cast< DWORD >( time( NULL ) );
+	const DWORD tNow = static_cast< DWORD >( time( NULL ) );
 	static DWORD tLast60SecInterval = 0;
 	static DWORD tLast5SecInterval = 0;
 
@@ -816,7 +816,7 @@ void CMainWnd::OnTimer(UINT_PTR nIDEvent)
 	// Update messages
 	UpdateMessages();
 
-	if ( tNow - tLast5SecInterval > 5 )
+	if ( tNow > tLast5SecInterval + 5 )
 	{
 		tLast5SecInterval = tNow;
 
@@ -826,7 +826,7 @@ void CMainWnd::OnTimer(UINT_PTR nIDEvent)
 		// Scheduler
 		Scheduler.CheckSchedule();
 
-		if ( tNow - tLast60SecInterval > 60 )
+		if ( tNow > tLast60SecInterval + 60 )
 		{
 			tLast60SecInterval = tNow;
 
@@ -979,7 +979,7 @@ void CMainWnd::OnTrayOpen()
 
 LRESULT CMainWnd::OnChangeAlpha(WPARAM wParam, LPARAM /*lParam*/)
 {
-	if ( wParam == 1 ) // Increase transparency
+	if ( wParam == 1 )	// Increase transparency
 	{
 		m_nAlpha += 5;
 		m_nAlpha = min( 255ul, m_nAlpha );
@@ -1234,7 +1234,7 @@ LRESULT CMainWnd::OnHandleTorrent(WPARAM wParam, LPARAM /*lParam*/)
 
 LRESULT CMainWnd::OnVersionCheck(WPARAM wParam, LPARAM /*lParam*/)
 {
-	if ( wParam == VC_MESSAGE_AND_CONFIRM && VersionChecker.m_sMessage.GetLength() )
+	if ( wParam == VC_MESSAGE_AND_CONFIRM && ! VersionChecker.m_sMessage.IsEmpty() )
 		AfxMessageBox( VersionChecker.m_sMessage, MB_ICONINFORMATION );
 
 	if ( wParam == VC_MESSAGE_AND_CONFIRM || wParam == VC_CONFIRM )
@@ -1249,16 +1249,16 @@ LRESULT CMainWnd::OnVersionCheck(WPARAM wParam, LPARAM /*lParam*/)
 			CUpgradeDlg dlg;
 			dlg.DoModal();
 		}
+		else if ( VersionChecker.IsVerbose() )
+		{
+			AfxMessageBox( IDS_UPGRADE_NO_NEW, MB_ICONINFORMATION | MB_OK );
+		}
 		else
 		{
-			if ( VersionChecker.IsVerbose() )
-				AfxMessageBox( LoadString( IDS_UPGRADE_NO_NEW ), MB_ICONINFORMATION | MB_OK );
-			else
-				ShowTrayPopup( LoadString( IDS_UPGRADE_NO_NEW ) );
+			ShowTrayPopup( LoadString( IDS_UPGRADE_NO_NEW ) );
 		}
 	}
-
-	if ( wParam == VC_UPGRADE && ! VersionChecker.m_sUpgradePath.IsEmpty() )
+	else if ( wParam == VC_UPGRADE && ! VersionChecker.m_sUpgradePath.IsEmpty() )
 	{
 		CString strMessage;
 		strMessage.Format( LoadString( IDS_UPGRADE_LAUNCH ), (LPCTSTR)Settings.VersionCheck.UpgradeFile );

@@ -17,11 +17,11 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "Plugins.h"
+#include "PeerProject.h"
 #include "PageSettingsPlugins.h"
 #include "DlgPluginExtSetup.h"
+#include "Plugins.h"
 #include "Colors.h"
 
 #ifdef _DEBUG
@@ -183,9 +183,9 @@ void CPluginsSettingsPage::OnCustomDrawPlugins(NMHDR *pNMHDR, LRESULT *pResult)
 	else if ( pDraw->nmcd.dwDrawStage == CDDS_ITEMPREPAINT )
 	{
 		if ( pDraw->nmcd.lItemlParam != 0 )
-			pDraw->clrText = Colors.m_crText ;			//Interface Elements
+			pDraw->clrText = Colors.m_crText ;			// Interface Elements
 		else
-			pDraw->clrText = Colors.m_crNetworkNull ;	//Hidden Plugin
+			pDraw->clrText = Colors.m_crNetworkNull ;	// Hidden Plugin
 	}
 }
 

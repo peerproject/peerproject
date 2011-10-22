@@ -19,6 +19,7 @@
 #pragma once
 
 #include "PeerProjectFile.h"
+#include "Schema.h"
 
 class CXMLElement;
 class CMatchFile;

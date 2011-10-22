@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "Uploads.h"
 #include "UploadQueue.h"
 #include "UploadQueues.h"

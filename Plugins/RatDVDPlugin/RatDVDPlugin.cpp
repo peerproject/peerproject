@@ -29,13 +29,11 @@ LPCWSTR	CRatDVDPlugin::uriVideo = L"http://www.limewire.com/schemas/video.xsd";
 CRatDVDPlugin::CRatDVDPlugin()
 {
 	ODS(_T("CRatDVDPlugin::CRatDVDPlugin\n"));
-
 }
 
 CRatDVDPlugin::~CRatDVDPlugin()
 {
 	ODS(_T("CRatDVDPlugin::~CRatDVDPlugin\n"));
-
 }
 
 // ILibraryBuilderPlugin Methods
@@ -51,7 +49,8 @@ STDMETHODIMP CRatDVDPlugin::Process(BSTR sFile, ISXMLElement* pXML)
 
 	HRESULT hr = E_FAIL;
 	LPCWSTR pszExt = _wcslwr( wcsrchr( sFile, '.') );
-	if ( wcsncmp( pszExt, L".ratdvd", 7 ) != 0 )
+	if ( wcsncmp( pszExt, L".ratdvd", 7 ) != 0 && 
+		 wcsncmp( pszExt, L".fluxdvd", 8 ) != 0 )
 	{
 		DllRelease();
 		LeaveCritical();

@@ -1,11 +1,11 @@
 ; Inno Setup version 5.1.11+ Czech Messages (PeerProject: cz)
-; 
+;
 ; Original Author: Ivo Bauer (bauer@ozm.cz)
 ; Contributors: Lubos Stanek (lubek@users.sourceforge.net)
 ;          Vitezslav Svejdar (vitezslav.svejdar@cuni.cz)
 ;
 ; $jrsoftware: issrc/Files/Languages/Czech.isl,v 1.18 2007/02/27 18:22:41 jr Exp $
-; http://www.jrsoftware.org/files/istrans/ (user-contributed translations) 
+; http://www.jrsoftware.org/files/istrans/ (user-contributed translations)
 
 [LangOptions]
 LanguageName=<010C>e<0161>tina
@@ -43,8 +43,8 @@ WinVersionTooLowError=Tento produkt vyžaduje %1 verzi %2 nebo vyšší.
 WinVersionTooHighError=Tento produkt nelze nainstalovat ve %1 verzi %2 nebo vyšší.
 AdminPrivilegesRequired=K instalaci tohoto produktu musíte být pøihlášeni s právy administrátora.
 PowerUserPrivilegesRequired=K instalaci tohoto produktu musíte být pøihlášeni s právy administrátora nebo èlena skupiny Power Users.
-SetupAppRunningError=Prùvodce instalací zjistil, že produkt %1 je nyní spuštìn.%n%nUkonèete prosím všechny spuštìné instance tohoto produktu a pokraèujte klepnutím na tlaèítko OK nebo ukonèete instalaci tlaèítkem Storno.
-UninstallAppRunningError=Prùvodce odinstalací zjistil, že produkt %1 je nyní spuštìn.%n%nUkonèete prosím všechny spuštìné instance tohoto produktu a pokraèujte klepnutím na tlaèítko OK nebo ukonèete odinstalaci tlaèítkem Storno.
+SetupAppRunningError=Prùvodce instalací zjistil, že produkt %1 je nyní spuštìn.%n%nUkonèete prosím všechny spuštìné instance tohoto produktu a pokraèujte klepnutím na tlaèítko OK, nebo ukonèete instalaci tlaèítkem Storno.
+UninstallAppRunningError=Prùvodce odinstalací zjistil, že produkt %1 je nyní spuštìn.%n%nUkonèete prosím všechny spuštìné instance tohoto produktu a pokraèujte klepnutím na tlaèítko OK, nebo ukonèete odinstalaci tlaèítkem Storno.
 
 ; *** Misc. errors
 ErrorCreatingDir=Prùvodce instalací nemohl vytvoøit složku "%1"
@@ -79,10 +79,10 @@ SelectLanguageTitle=Výbìr jazyka prùvodce instalací
 SelectLanguageLabel=Zvolte jazyk, který se má použít pøi instalaci:
 
 ; *** Common wizard text
-ClickNext=Pokraèujte klepnutím na tlaèítko Další nebo ukonèete prùvodce instalací tlaèítkem Storno.
+ClickNext=Pokraèujte klepnutím na tlaèítko Další, nebo ukonèete prùvodce instalací tlaèítkem Storno.
 BeveledLabel=
 BrowseDialogTitle=Vyhledat složku
-BrowseDialogLabel=Z níže uvedeného seznamu vyberte složku a klepnìte na OK.
+BrowseDialogLabel=Z níže uvedeného seznamu vyberte složku a klepnìte na tlaèítko OK.
 NewFolderName=Nová složka
 
 ; *** "Welcome" wizard page
@@ -117,7 +117,7 @@ UserInfoDesc=Zadejte prosím požadované údaje.
 UserInfoName=&Uživatelské jméno:
 UserInfoOrg=&Spoleènost:
 UserInfoSerial=Sé&riové èíslo:
-UserInfoNameRequired=Uživatelské jméno musí být zadáno.
+UserInfoNameRequired=Musíte zadat uživatelské jméno.
 
 ; *** "Select Destination Location" wizard page
 WizardSelectDir=Zvolte cílové umístìní
@@ -188,7 +188,7 @@ CannotContinue=Prùvodce instalací nemùže pokraèovat. Ukonèete prosím prùvodce in
 
 ; *** "Installing" wizard page
 WizardInstalling=Instalování
-InstallingLabel=Èekejte prosím dokud prùvodce instalací nedokonèí instalaci produktu [name] na Váš poèítaè.
+InstallingLabel=Èekejte prosím, dokud prùvodce instalací nedokonèí instalaci produktu [name] na Váš poèítaè.
 
 ; *** "Setup Completed" wizard page
 FinishedHeadingLabel=Dokonèuje se instalace produktu [name]
@@ -207,7 +207,7 @@ RunEntryShellExec=Zobrazit %1
 
 ; *** "Setup Needs the Next Disk" stuff
 ChangeDiskTitle=Prùvodce instalací vyžaduje další disk
-SelectDiskLabel2=Vložte prosím disk %1 a klepnìte na OK.%n%nPokud se soubory na tomto disku nacházejí v jiné složce než v té, která je zobrazena níže, pak zadejte správnou cestu nebo ji zvolte klepnutím na tlaèítko Procházet.
+SelectDiskLabel2=Vložte prosím disk %1 a klepnìte na tlaèítko OK.%n%nPokud se soubory na tomto disku nacházejí v jiné složce než v té, která je zobrazena níže, pak zadejte správnou cestu nebo ji zvolte klepnutím na tlaèítko Procházet.
 PathLabel=&Cesta:
 FileNotInDir2=Soubor "%1" nelze najít v "%2". Vložte prosím správný disk nebo zvolte jinou složku.
 SelectDirectoryLabel=Specifikujte prosím umístìní dalšího disku.
@@ -274,7 +274,7 @@ UninstallUnknownEntry=V souboru obsahujícím informace k odinstalaci produktu byl
 ConfirmUninstall=Jste si opravdu jisti, že chcete produkt %1 a všechny jeho souèásti odinstalovat?
 UninstallOnlyOnWin64=Tento produkt lze odinstalovat pouze v 64-bitových verzích MS Windows.
 OnlyAdminCanUninstall=K odinstalaci tohoto produktu musíte být pøihlášeni s právy administrátora.
-UninstallStatusLabel=Èekejte prosím dokud produkt %1 nebude odinstalován z Vašeho poèítaèe.
+UninstallStatusLabel=Èekejte prosím, dokud produkt %1 nebude odinstalován z Vašeho poèítaèe.
 UninstalledAll=Produkt %1 byl z Vašeho poèítaèe úspìšnì odinstalován.
 UninstalledMost=Produkt %1 byl odinstalován.%n%nNìkteré jeho souèásti se odinstalovat nepodaøilo. Mùžete je však odstranit ruènì.
 UninstalledAndNeedsRestart=K dokonèení odinstalace produktu %1 je nezbytné, aby prùvodce odinstalací restartoval Váš poèítaè.%n%nChcete jej nyní restartovat?

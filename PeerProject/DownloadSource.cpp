@@ -17,14 +17,11 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "CoolInterface.h"
-#include "Colors.h"
-#include "Images.h"
-#include "Download.h"
-#include "Downloads.h"
+#include "PeerProject.h"
 #include "DownloadSource.h"
+#include "Downloads.h"
+#include "Download.h"
 #include "DownloadTransferBT.h"
 #include "DownloadTransferDC.h"
 #include "DownloadTransferED2K.h"
@@ -42,6 +39,9 @@
 #include "QueryHit.h"
 #include "Transfers.h"
 #include "PeerProjectURL.h"
+#include "CoolInterface.h"
+#include "Colors.h"
+#include "Images.h"
 #include "VendorCache.h"
 
 #ifdef _DEBUG
@@ -482,7 +482,7 @@ CDownloadTransfer* CDownloadSource::CreateTransfer(LPVOID pParam)
 
 BOOL CDownloadSource::CanInitiate(BOOL bNetwork, BOOL bEstablished)
 {
-	if( ! Network.IsConnected() ) return FALSE;
+	if ( ! Network.IsConnected() ) return FALSE;
 
 	if ( Settings.Connection.RequireForTransfers )
 	{
@@ -945,10 +945,10 @@ void CDownloadSource::SetAvailableRanges(LPCTSTR pszRanges)
 		// 0 - 0 has special meaning
 		if ( _stscanf( strRange, _T("%I64i-%I64i"), &nFirst, &nLast ) == 2 && nLast > nFirst )
 		{
-			if( nFirst < m_oAvailable.limit() ) // Sanity check
+			// Sanity check:  Perhaps the file size we expect is incorrect or the source is erronous,
+			// in either case we make sure the range fits - so we chop off the end if necessary.
+			if ( nFirst < m_oAvailable.limit() )
 				m_oAvailable.insert( Fragments::Fragment( nFirst, min( nLast + 1, m_oAvailable.limit() ) ) );
-				// Perhaps the file size we expect is incorrect or the source is erronous
-				// in either case we make sure the range fits - so we chop off the end if necessary
 		}
 	}
 

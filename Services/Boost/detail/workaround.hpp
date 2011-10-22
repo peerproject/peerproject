@@ -1,6 +1,6 @@
 // Copyright David Abrahams 2002.
-// Distributed under the Boost Software License, Version 1.0. (See
-// accompanying file LICENSE_1_0.txt or copy at
+// Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 #ifndef WORKAROUND_DWA2002126_HPP
 # define WORKAROUND_DWA2002126_HPP
@@ -15,8 +15,8 @@
 //     #endif
 //
 // When BOOST_STRICT_CONFIG is defined, expands to 0. Otherwise, the
-// first argument must be undefined or expand to a numeric
-// value. The above expands to:
+// first argument must be undefined or expand to a numeric value.
+// The above expands to:
 //
 //     (BOOST_MSVC) != 0 && (BOOST_MSVC) < 1300
 //

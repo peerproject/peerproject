@@ -29,7 +29,6 @@ void CXmlWriter::InitVars(void)
  */
 BOOL CXmlWriter::WriteBinHex(const BYTE* pBytes, DWORD dwNumBytes)
 {
-	_ASSERTE(dwNumBytes == 0 || pBytes != NULL);
 	_ASSERTE(m_eWriterState == WS_ELEMENT || m_eWriterState == WS_ATTRUBUTE);
 	if (m_eWriterState != WS_ELEMENT && m_eWriterState != WS_ATTRUBUTE)
 		return FALSE;
@@ -55,7 +54,6 @@ BOOL CXmlWriter::WriteBinHex(const BYTE* pBytes, DWORD dwNumBytes)
  */
 BOOL CXmlWriter::WriteEscaped(PCTSTR pszString, DWORD dwEscapeFlags)
 {
-	_ASSERTE(pszString != NULL);
 	DWORD dwPosition = 0;
 	while (pszString[dwPosition] != _T('\0'))
 	{
@@ -131,7 +129,6 @@ BOOL CXmlWriter::WriteEscaped(PCTSTR pszString, DWORD dwEscapeFlags)
  */
 BOOL CXmlWriter::WriteBase64(const BYTE* pBytes, DWORD dwNumBytes)
 {
-	_ASSERTE(dwNumBytes == 0 || pBytes != NULL);
 	_ASSERTE(m_eWriterState == WS_ELEMENT || m_eWriterState == WS_ATTRUBUTE);
 	if (m_eWriterState != WS_ELEMENT && m_eWriterState != WS_ATTRUBUTE)
 		return FALSE;
@@ -168,7 +165,7 @@ BOOL CXmlWriter::WriteBase64(const BYTE* pBytes, DWORD dwNumBytes)
 			for (DWORD dwBytePos = 0; dwBytePos < 4; ++dwBytePos)
 			{
 				BYTE bValue = (BYTE)(dwAccumulator >> 26); // Extract the following 6 bits from the 32-bit accumulator
-				_ASSERTE(bValue >= 0 && bValue < countof(s_arrBase64EncodingTable));
+				_ASSERTE(bValue < countof(s_arrBase64EncodingTable));
 				if (! m_EncStream.WriteByte(s_arrBase64EncodingTable[bValue]))
 					return FALSE;
 				dwAccumulator <<= 6; // Prepare next 6 bits
@@ -189,7 +186,7 @@ BOOL CXmlWriter::WriteBase64(const BYTE* pBytes, DWORD dwNumBytes)
 		for (DWORD dwBytePos = 0; dwBytePos < dwOutputBytes; ++dwBytePos)
 		{
 			BYTE bValue = (BYTE)(dwAccumulator >> 26); // Extract the following 6 bits from the 32-bit accumulator
-			_ASSERTE(bValue >= 0 && bValue < countof(s_arrBase64EncodingTable));
+			_ASSERTE(bValue < countof(s_arrBase64EncodingTable));
 			if (! m_EncStream.WriteByte(s_arrBase64EncodingTable[bValue]))
 				return FALSE;
 			dwAccumulator <<= 6; // Prepare next 6 bits

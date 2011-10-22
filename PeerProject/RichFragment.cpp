@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "RichFragment.h"
 #include "RichElement.h"
 #include "RichViewCtrl.h"

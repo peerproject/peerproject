@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "DlgSkinDialog.h"
 #include "CoolInterface.h"
 #include "Colors.h"

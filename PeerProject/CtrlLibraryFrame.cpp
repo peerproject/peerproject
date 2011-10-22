@@ -17,8 +17,10 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "CtrlLibraryFrame.h"
+
 #include "Library.h"
 #include "LibraryBuilder.h"
 #include "AlbumFolder.h"
@@ -27,7 +29,6 @@
 #include "Schema.h"
 #include "XML.h"
 
-#include "CtrlLibraryFrame.h"
 #include "DlgNewSearch.h"
 #include "CoolInterface.h"
 #include "Colors.h"
@@ -597,8 +598,7 @@ void CLibraryFrame::SetView(CLibraryView* pView, BOOL bUpdate, BOOL bUser)
 
 	if ( bUser && pView != NULL )
 	{
-		for (	CLibraryTreeItem* pItem = pFolderSelection; pItem ;
-				pItem = pItem->m_pSelNext )
+		for ( CLibraryTreeItem* pItem = pFolderSelection ; pItem ; pItem = pItem->m_pSelNext )
 		{
 			if ( pItem->m_pVirtual != NULL )
 				pItem->m_pVirtual->m_sBestView = pView->GetRuntimeClass()->m_lpszClassName;
@@ -608,10 +608,10 @@ void CLibraryFrame::SetView(CLibraryView* pView, BOOL bUpdate, BOOL bUser)
 	if ( pView )
 	{
 		if ( Settings.Library.ShowVirtual &&
-			pFolderSelection &&
-			pFolderSelection->m_pVirtual &&
-			pFolderSelection->m_pVirtual->m_pSchema &&
-			pFolderSelection->m_pVirtual->m_pSchema->CheckURI( CSchema::uriGhostFolder ) )
+			 pFolderSelection &&
+			 pFolderSelection->m_pVirtual &&
+			 pFolderSelection->m_pVirtual->m_pSchema &&
+			 pFolderSelection->m_pVirtual->m_pSchema->CheckURI( CSchema::uriGhostFolder ) )
 			pView->m_bGhostFolder = TRUE;
 		else
 			pView->m_bGhostFolder = FALSE;
@@ -672,17 +672,13 @@ void CLibraryFrame::SetPanel(CPanelCtrl* pPanel)
 {
 	if ( pPanel == m_pPanel )
 	{
-		if ( m_pPanel )
+		if ( ! m_pPanel )
+			return;
+
+		if ( m_pPanel->m_hWnd )
 		{
-			if ( m_pPanel->m_hWnd )
-			{
-				m_pPanel->Update();
-				m_pPanel->ShowWindow( SW_SHOW );
-				return;
-			}
-		}
-		else
-		{
+			m_pPanel->Update();
+			m_pPanel->ShowWindow( SW_SHOW );
 			return;
 		}
 	}
@@ -850,13 +846,15 @@ void CLibraryFrame::UpdatePanel(BOOL bForce)
 
 BOOL CLibraryFrame::Display(const CLibraryFolder* pFolder)
 {
-	if ( Settings.Library.ShowVirtual != FALSE ) OnLibraryTreePhysical();
+	if ( Settings.Library.ShowVirtual != FALSE )
+		OnLibraryTreePhysical();
 	return m_wndTree.SelectFolder( pFolder );
 }
 
 BOOL CLibraryFrame::Display(const CAlbumFolder* pFolder)
 {
-	if ( Settings.Library.ShowVirtual != TRUE ) OnLibraryTreeVirtual();
+	if ( Settings.Library.ShowVirtual != TRUE )
+		OnLibraryTreeVirtual();
 	return m_wndTree.SelectFolder( pFolder );
 }
 

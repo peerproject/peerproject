@@ -141,7 +141,7 @@ DWORD CBuffer::AddBuffer(CBuffer* pBuffer, const size_t nLength)
 	if ( nLength > INT_MAX ) return 0;
 
 	// If the call specified a length, use it, otherwise use the length of pBuffer
-	if( pBuffer->m_nLength < nLength )
+	if ( pBuffer->m_nLength < nLength )
 	{
 		Add( pBuffer->m_pBuffer, pBuffer->m_nLength );	// Copy the memory across
 		pBuffer->Clear();								// Remove the memory from the source buffer
@@ -760,7 +760,7 @@ bool CBuffer::InflateStreamTo( CBuffer& oBuffer, z_streamp& pStream, BOOL* pbEnd
 			pStream->total_out = 0ul;
 			pStream->total_in = 0ul;
 		}
-	} while ( pStream->avail_out == 0u );			// Check if everything available was decompressed
+	} while ( pStream->avail_out == 0u );		// Check if everything available was decompressed
 
 	// If there was not enough data to decompress anything inflate() returns Z_BUF_ERROR, ignore this error and try again next time
 	if ( nResult == Z_BUF_ERROR )
@@ -768,7 +768,7 @@ bool CBuffer::InflateStreamTo( CBuffer& oBuffer, z_streamp& pStream, BOOL* pbEnd
 
 	// Check if the stream needs to be closed
 	if ( nResult != Z_OK )
-		InflateStreamCleanup( pStream );	// Close ZLib
+		InflateStreamCleanup( pStream );		// Close ZLib
 
 	if ( pbEndOfStream )
 		*pbEndOfStream = ( nResult == Z_STREAM_END );
@@ -864,7 +864,7 @@ void CBuffer::ReverseBuffer(const void* pInput, void* pOutput, size_t nLength)
 	DWORD* pOutputWords = (DWORD*)( pOutput );
 
 	// Make a new local DWORD called nTemp, and request that Visual Studio place it in a machine register
-	register DWORD nTemp; // The register keyword asks that nTemp be a machine register, making it really fast
+	register DWORD nTemp;	// The register keyword asks that nTemp be a machine register, making it really fast
 
 	// Loop while nLength is bigger than 4, grabbing bytes 4 at a time and reversing them
 	while ( nLength > 4 )
@@ -930,18 +930,21 @@ void CBuffer::WriteDIME(
 
 	// Print pszID, which is blank or a GUID in hexadecimal encoding, and bytes of 0 until the total length we added is a multiple of 4
 	Print( pszID, nIDLength );
-	for ( size_t nPad = nIDLength ; nPad & 3 ; nPad++ ) Add( "", 1 );	// If we added "a", add "000" to get to the next group of 4
+	for ( size_t nPad = nIDLength ; nPad & 3 ; nPad++ )
+		Add( "", 1 );	// If we added "a", add "000" to get to the next group of 4
 
 	// Print pszType, which is "text/xml" or a URI to an XML specification, and bytes of 0 until the total length we added is a multiple of 4
 	Print( pszType, nTypeLength );
-	for ( size_t nPad = nTypeLength ; nPad & 3 ; nPad++ ) Add( "", 1 );	// If we added "abcdef", add "00" to get to the next group of 4
+	for ( size_t nPad = nTypeLength ; nPad & 3 ; nPad++ )
+		Add( "", 1 );	// If we added "abcdef", add "00" to get to the next group of 4
 
 	// If there is body text
 	if ( pBody != NULL )
 	{
 		// Add it, followed by bytes of 0 until the total length we added is a multiple of 4
 		Add( pBody, nBody );
-		for ( size_t nPad = nBody ; nPad & 3 ; nPad++ ) Add( "", 1 );
+		for ( size_t nPad = nBody ; nPad & 3 ; nPad++ )
+			Add( "", 1 );
 	}
 }
 
@@ -985,7 +988,7 @@ BOOL CBuffer::ReadDIME(
 	// Read nID, nType, and pnBody from the buffer, and move the pointer forward 8 bytes
 	WORD nID	= ( pIn[0] << 8 ) + pIn[1]; pIn += 2;
 	WORD nType	= ( pIn[0] << 8 ) + pIn[1]; pIn += 2;
-	*pnBody 	= ( pIn[0] << 24 ) + ( pIn[1] << 16 ) + ( pIn[2] << 8 ) + pIn[3]; // Write the body length in the DWORD from the caller
+	*pnBody 	= ( pIn[0] << 24 ) + ( pIn[1] << 16 ) + ( pIn[2] << 8 ) + pIn[3];	// Write the body length in the DWORD from the caller
 	pIn += 4;	// Move forward another 4 bytes to total 8 bytes for this section
 
 	// Skip forward a distance determined by the lengths we just read

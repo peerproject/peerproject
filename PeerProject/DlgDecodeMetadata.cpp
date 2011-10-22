@@ -18,11 +18,12 @@
 
 #include "StdAfx.h"
 #include "PeerProject.h"
+#include "DlgDecodeMetadata.h"
+
 #include "Library.h"
 #include "SharedFile.h"
 #include "Schema.h"
 #include "XML.h"
-#include "DlgDecodeMetadata.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE

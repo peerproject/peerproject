@@ -17,15 +17,14 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "Network.h"
+#include "PeerProject.h"
+#include "WndHostCache.h"
 #include "HostCache.h"
 #include "HubHorizon.h"
 #include "Neighbours.h"
 #include "Neighbour.h"
-#include "VendorCache.h"
-#include "WndHostCache.h"
+#include "Network.h"
 #include "DlgUpdateServers.h"
 #include "DlgURLCopy.h"
 #include "LiveList.h"
@@ -33,6 +32,7 @@
 #include "Colors.h"
 #include "Skin.h"
 #include "Flags.h"
+#include "VendorCache.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE

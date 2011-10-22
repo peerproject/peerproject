@@ -17,9 +17,10 @@
 //
 
 #include "StdAfx.h"
+#include "Settings.h"
 #include "PeerProject.h"
 #include "CtrlBrowseHeader.h"
-#include "Settings.h"
+
 #include "GProfile.h"
 #include "Hostbrowser.h"
 #include "SchemaCache.h"
@@ -76,7 +77,7 @@ void CBrowseHeaderCtrl::Update(CHostBrowser* pBrowser)
 	if ( pProfile != NULL )
 	{
 		strNick = pProfile->GetNick();
-		bNickIsPresent = !strNick.IsEmpty();
+		bNickIsPresent = ! strNick.IsEmpty();
 	}
 
 	if ( bNickIsPresent )
@@ -127,7 +128,8 @@ void CBrowseHeaderCtrl::Update(CHostBrowser* pBrowser)
 
 int CBrowseHeaderCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
-	if ( CWnd::OnCreate( lpCreateStruct ) == -1 ) return -1;
+	if ( CWnd::OnCreate( lpCreateStruct ) == -1 )
+		return -1;
 
 	if ( CSchemaPtr pSchema = SchemaCache.Get( CSchema::uriLibrary ) )
 	{

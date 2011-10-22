@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Japanese Skin File -->
 
-<!-- Translation based on default-en.xml r69 (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r70 (Shareaza 2.2.0.2) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1458,14 +1458,14 @@
 	</menu>
 	<!-- SYSTEM WINDOW -->
 	<menu name="CSystemWnd">
-		<menu id="ID_SYSTEM_VERBOSE" text="冗長モード(_V)"/>
+		<menu id="ID_SYSTEM_VERBOSE" text="冗長モード(_V)">
 			<item id="ID_SYSTEM_VERBOSE_ERROR" text="_Error"/>
 			<item id="ID_SYSTEM_VERBOSE_WARNING" text="_Warning"/>
 			<item id="ID_SYSTEM_VERBOSE_NOTICE" text="_Notice"/>
 			<item id="ID_SYSTEM_VERBOSE_INFO" text="_Info"/>
 			<item id="ID_SYSTEM_VERBOSE_DEBUG" text="_Debug"/>
 		</menu>
-		<item id="ID_SYSTEM_TIMESTAMP" text="タイムスタンプ(_P)"/>
+		<item id="ID_SYSTEM_TIMESTAMP" text="タイムスタンプ(_T)"/>
 		<separator/>
 		<item id="ID_SYSTEM_COPY" text="_Copy" shortcut="Ctrl+C"/>
 		<separator/>
@@ -2574,6 +2574,12 @@
 	<string id="20020" value="ファイル"/>
 	<string id="20021" value="ファイル"/>
 	<string id="20022" value="全てのファイル"/>
+	<string id="20023" value="No Files"/>
+	<string id="20024" value="大きいファイル"/>
+	<string id="20025" value="普通のファイル"/>
+	<string id="20026" value="小さいファイル"/>
+	<string id="20027" value="部分ファイル"/>
+	<string id="20028" value="ライブラリファイル"/>
 	<string id="20029" value="%sファイル"/>
 	<string id="20050" value="毎日曜"/>
 	<string id="20051" value="月曜"/>
@@ -4079,13 +4085,13 @@
 		<control caption="One day only"/>
 		<control/>
 		<control/>
-		<control caption="月"/>
-		<control caption="火"/>
-		<control caption="水"/>
-		<control caption="木"/>
-		<control caption="金"/>
-		<control caption="土"/>
-		<control caption="日"/>
+		<control caption="月曜"/>
+		<control caption="火曜"/>
+		<control caption="水曜"/>
+		<control caption="木曜"/>
+		<control caption="金曜"/>
+		<control caption="土曜"/>
+		<control caption="日曜"/>
 		<control caption="すべて"/>
 		<control caption="コメント"/>
 		<control/>
@@ -4344,9 +4350,9 @@
 	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="アップグレード警告">
 		<control caption="新しいバージョンのPeerProjectが利用可能になりました。 アップグレードしますか?"/>
 		<control caption="「今すぐアップグレード」を選択した場合、PeerProjectはダウンロードキューにアップグレードプログラムを追加し、自動的にダウンロードします。"/>
-		<control caption="今すぐアップグレード"/>
 		<control caption="新バージョンをチェックしない"/>
-		<control caption="アップグレードしない"/>
+		<control caption="今すぐアップグレード"/>
+		<control caption="キャンセル"/>
 	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Metadataローカライズ">
 		<control caption="再エンコード方式を選択して下さい"/>

@@ -249,7 +249,7 @@ int CLiveItem::Add(CListCtrl* pCtrl, int nItem, int nColumns)
 	pItem.stateMask	= LVIS_OVERLAYMASK | LVIS_STATEIMAGEMASK;
 	pItem.pszText	= (LPTSTR)(LPCTSTR)m_pColumn[0];
 	pItem.iItem		= pCtrl->InsertItem( &pItem );
-	if( pItem.iItem != -1 )
+	if ( pItem.iItem != -1 )
 	{
 		for ( pItem.iSubItem = 1 ; pItem.iSubItem < nColumns ; pItem.iSubItem++ )
 		{
@@ -410,7 +410,7 @@ void CLiveList::Sort(CListCtrl* pCtrl, int nColumn, BOOL bGraphic)
 			if ( ! pHeader->GetItem( nCol, &pColumn ) ) break;
 
 			HBITMAP hbm;
-			int     fmt;
+			int fmt;
 			if ( nCol == abs( nColumn ) - 1 )
 			{
 				fmt = pColumn.fmt | HDF_BITMAP | HDF_BITMAP_ON_RIGHT;
@@ -860,7 +860,7 @@ void CLiveListCtrl::Sort(int nColumn)
 		if ( ! pHeader->GetItem( nCol, &pColumn ) ) break;
 
 		HBITMAP hbm;
-		int     fmt;
+		int fmt;
 		if ( nCol == abs( nColumn ) - 1 )
 		{
 			fmt = pColumn.fmt | HDF_BITMAP | HDF_BITMAP_ON_RIGHT;

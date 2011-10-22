@@ -17,11 +17,11 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "Network.h"
-#include "DiscoveryServices.h"
+#include "PeerProject.h"
 #include "DlgDiscoveryService.h"
+#include "DiscoveryServices.h"
+#include "Network.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -41,12 +41,12 @@ END_MESSAGE_MAP()
 // CDiscoveryServiceDlg dialog
 
 CDiscoveryServiceDlg::CDiscoveryServiceDlg(CWnd* pParent, CDiscoveryService* pService) : CSkinDialog(CDiscoveryServiceDlg::IDD, pParent)
+	, m_pService	( pService )
+	, m_sAddress	( _T("") )
+	, m_nType 		( -1 )
+	, m_bNew		( FALSE )
 {
 	//{{AFX_DATA_INIT(CDiscoveryServiceDlg)
-	m_sAddress	= _T("");
-	m_nType 	= -1;
-	m_pService	= pService;
-	m_bNew		= FALSE;
 	//}}AFX_DATA_INIT
 }
 

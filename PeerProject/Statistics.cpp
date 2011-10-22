@@ -35,12 +35,11 @@ CStatistics Statistics;
 // CStatistics construction
 
 CStatistics::CStatistics()
+	: m_tSeconds ( 0 )
 {
 	ZeroMemory( &Today, sizeof(Today) );
 	ZeroMemory( &Ever, sizeof(Ever) );
 	ZeroMemory( &Current, sizeof(Current) );
-
-	m_tSeconds = 0;
 }
 
 CStatistics::~CStatistics()

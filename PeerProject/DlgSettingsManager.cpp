@@ -17,10 +17,10 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "Skin.h"
+#include "PeerProject.h"
 #include "DlgSettingsManager.h"
+#include "Skin.h"
 
 #include "PageSettingsRich.h"
 #include "PageSettingsGeneral.h"
@@ -230,7 +230,6 @@ void CSettingsManagerDlg::OnApply()
 //{
 //	CRect rc;
 //	GetClientRect( &rc );
-//
 //	BITMAP pInfo;
 //	m_bmHeader.GetBitmap( &pInfo );
 //

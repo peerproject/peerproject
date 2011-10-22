@@ -18,6 +18,7 @@
 
 #pragma once
 
+class CDownload;
 class CDownloadGroup;
 
 
@@ -70,13 +71,13 @@ protected:
 public:
 	void			OnSkinChange();
 	void			Update(int nCookie);
+	BOOL			Select(TabItem* pHit = NULL);
+	TabItem*		HitTest(const CPoint& point, CRect* pItemRect = NULL) const;
 	BOOL			DropShowTarget(CList< CDownload* >* pList, const CPoint& ptScreen);
 	BOOL			DropObjects(CList< CDownload* >* pList, const CPoint& ptScreen);
 protected:
 	void			UpdateGroups(int nCookie);
 	void			UpdateStates(int nCookie);
-	TabItem*		HitTest(const CPoint& point, CRect* pItemRect = NULL) const;
-	BOOL			Select(TabItem* pHit);
 	int				GetSelectedCount(BOOL bDownloads = FALSE);
 	TabItem*		GetSelectedItem();
 	CDownloadGroup*	GetSelectedGroup();

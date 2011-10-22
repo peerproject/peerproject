@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "RouteCache.h"
 #include "Packet.h"
 
@@ -42,9 +42,9 @@ const unsigned BUFFER_BLOCK_SIZE = 1024u;
 // CRouteCache construction
 
 CRouteCache::CRouteCache()
-	: m_nSeconds( 60 * 20 )
-	, m_pRecent( &m_pTable[0] )
-	, m_pHistory ( &m_pTable[1] )
+	: m_nSeconds	( 60 * 20 )
+	, m_pRecent 	( &m_pTable[0] )
+	, m_pHistory	( &m_pTable[1] )
 {
 }
 
@@ -147,7 +147,7 @@ CRouteCacheItem* CRouteCache::Lookup(const Hashes::Guid& oGUID, CNeighbour** ppN
 		ASSERT( validAndEqual( oGUID, pItem->m_oGUID ) );
 
 		// This needs to be done, because CRouteCache::Add() can cause m_pHistory cache table deleted.
-		// thus need to copy data member of CRouteCacheItem if it is in m_pHistory, before it gets deleted.
+		// Thus need to copy data member of CRouteCacheItem if it is in m_pHistory, before it gets deleted.
 		Hashes::Guid oTempGUID( pItem->m_oGUID);
 		CNeighbour* pTempNeighbour = const_cast<CNeighbour*>(pItem->m_pNeighbour);
 		SOCKADDR_IN pTempEndPoint = pItem->m_pEndpoint;
@@ -197,7 +197,8 @@ CRouteCacheTable::~CRouteCacheTable()
 CRouteCacheItem* CRouteCacheTable::Find(const Hashes::Guid& oGUID)
 {
 	WORD nGUID = 0, *ppGUID = (WORD*)&oGUID[ 0 ];
-	for ( int nIt = 8 ; nIt ; nIt-- ) nGUID = WORD( ( nGUID + *ppGUID++ ) & 0xffff );
+	for ( int nIt = 8 ; nIt ; nIt-- )
+		nGUID = WORD( ( nGUID + *ppGUID++ ) & 0xffff );
 
 	CRouteCacheItem* pItem = *( m_pHash + ( nGUID & HASH_MASK ) );
 
@@ -213,12 +214,13 @@ CRouteCacheItem* CRouteCacheTable::Add(const Hashes::Guid& oGUID, const CNeighbo
 {
 	if ( m_nUsed == m_nBuffer || ! m_pFree ) return NULL;
 
-	if ( !oGUID.isValid() ) // There seem to be packets with oGUID == NULL (on heavy load) -> return NULL
+	if ( ! oGUID.isValid() )	// There seem to be packets with oGUID == NULL (on heavy load) -> return NULL
 		return NULL;
 
 	WORD nGUID = 0;
 	WORD *ppGUID = (WORD*)&oGUID[ 0 ];
-	for ( int nIt = 8 ; nIt ; nIt-- ) nGUID = WORD( ( nGUID + *ppGUID++ ) & 0xffff );
+	for ( int nIt = 8 ; nIt ; nIt-- )
+		nGUID = WORD( ( nGUID + *ppGUID++ ) & 0xffff );
 
 	CRouteCacheItem** pHash = m_pHash + ( nGUID & HASH_MASK );
 
@@ -228,9 +230,9 @@ CRouteCacheItem* CRouteCacheTable::Add(const Hashes::Guid& oGUID, const CNeighbo
 	pItem->m_pNext = *pHash;
 	*pHash = pItem;
 
-	pItem->m_oGUID			= oGUID;
-	pItem->m_tAdded			= nTime ? nTime : GetTickCount();
-	pItem->m_pNeighbour		= pNeighbour;
+	pItem->m_oGUID		= oGUID;
+	pItem->m_tAdded		= nTime ? nTime : GetTickCount();
+	pItem->m_pNeighbour	= pNeighbour;
 	if ( pEndpoint ) pItem->m_pEndpoint = *pEndpoint;
 
 	if ( ! m_nUsed++ )
@@ -294,7 +296,7 @@ void CRouteCacheTable::Resize(DWORD nSize)
 			{
 				m_nBuffer = ( ( MIN_BUFFER_SIZE + BUFFER_BLOCK_SIZE - 1 ) / BUFFER_BLOCK_SIZE * BUFFER_BLOCK_SIZE );
 				m_pBuffer = new CRouteCacheItem[ m_nBuffer ];
-				ASSERT ( m_pBuffer != NULL ); // Buffer memory Allocation error (serious problem should abort running and restart)
+				ASSERT ( m_pBuffer != NULL );	// Buffer memory Allocation error (serious problem should abort running and restart)
 			}
 		}
 	}

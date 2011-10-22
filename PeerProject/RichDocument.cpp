@@ -1,7 +1,7 @@
 //
 // RichDocument.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -19,10 +19,10 @@
 #include "StdAfx.h"
 #include "Settings.h"
 #include "PeerProject.h"
-#include "Colors.h"
-#include "CoolInterface.h"
 #include "RichDocument.h"
 #include "RichElement.h"
+#include "CoolInterface.h"
+#include "Colors.h"
 #include "XML.h"
 
 #ifdef _DEBUG
@@ -331,7 +331,7 @@ BOOL CRichDocument::LoadXML(CXMLElement* pBase, CMap< CString, const CString&, C
 		{
 			if ( ! LoadXMLStyles( pXML ) ) return FALSE;
 		}
-		else
+		else // Log unknown?
 		{
 			return FALSE;
 		}

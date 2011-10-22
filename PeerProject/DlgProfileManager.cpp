@@ -17,12 +17,12 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "DlgProfileManager.h"
 #include "GProfile.h"
 #include "Skin.h"
 
-#include "DlgProfileManager.h"
 #include "PageProfileIdentity.h"
 #include "PageProfileContact.h"
 #include "PageProfileProfile.h"
@@ -137,7 +137,6 @@ BOOL CProfileManagerDlg::OnInitDialog()
 //{
 //	CRect rc;
 //	GetClientRect( &rc );
-//
 //	BITMAP pInfo;
 //	m_bmHeader.GetBitmap( &pInfo );
 //

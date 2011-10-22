@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 
 #include "ShellIcons.h"
 #include "DlgDownloadSheet.h"
@@ -134,8 +134,11 @@ BOOL CTorrentFilesPage::OnInitDialog()
 	return TRUE;
 }
 
-void CTorrentFilesPage::OnShowWindow(BOOL bShow, UINT nStatus)
+void CTorrentFilesPage::OnShowWindow(BOOL bShow, UINT /*nStatus*/)
 {
+	if ( ! bShow || m_wndFiles.GetItemCount() )
+		return;		// First time only
+
 	CSingleLock oLock( &Transfers.m_pSection );
 	if ( ! oLock.Lock( 500 ) )
 		return;
@@ -144,50 +147,53 @@ void CTorrentFilesPage::OnShowWindow(BOOL bShow, UINT nStatus)
 	if ( ! Downloads.Check( pDownload ) || ! pDownload->IsTorrent() )
 		return;
 
-	if ( CComPtr< CFragmentedFile > pFragFile = pDownload->GetFile() )
+	CComPtr< CFragmentedFile > pFragFile = pDownload->GetFile();
+	if ( ! pFragFile )
+		return;
+
+	const DWORD nCount = pFragFile->GetCount();
+
+	if ( nCount < 2 || pDownload->IsSeeding() )
+		m_wndFiles.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_HEADERDRAGDROP|LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP );	// No checkboxes needed
+	if ( nCount < 2 )
+		m_wndFiles.DeleteColumn( COL_INDEX );
+	//else if ( nCount > 500 )
+	//	theApp.Message( MSG_TRAY, IDS_GENERAL_PLEASEWAIT );		// Obsolete L"Verifying large torrent.\nPlease wait."
+
+	CString strText;
+
+	for ( DWORD i = 0 ; i < nCount ; i++ )
 	{
-		const DWORD nCount = pFragFile->GetCount();
+		strText = pFragFile->GetName( i );
+		strText = strText.Mid( strText.Find( '\\' ) + 1 );
 
-		if ( nCount < 2 || pDownload->IsSeeding() )
-			m_wndFiles.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_HEADERDRAGDROP|LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP );	// No checkboxes needed
-		if ( nCount < 2 )
-			m_wndFiles.DeleteColumn( COL_INDEX );
-		//else if ( nCount > 500 )
-		//	theApp.Message( MSG_TRAY, IDS_GENERAL_PLEASEWAIT );		// Do L"Verifying large torrent.\nPlease wait." ?
+		LV_ITEM pItem	= {};
+		pItem.mask		= LVIF_TEXT|LVIF_IMAGE|LVIF_PARAM;
+		pItem.lParam	= (LPARAM)pFragFile->GetAt( i );
+		pItem.pszText	= (LPTSTR)(LPCTSTR)strText;
+		pItem.iImage	= ShellIcons.Get( strText, 16 );
+		pItem.iItem		= i;
+		pItem.iItem		= m_wndFiles.InsertItem( &pItem );
+		m_wndFiles.SetItemText( pItem.iItem, COL_SIZE, Settings.SmartVolume( pFragFile->GetLength( i ) ) );
 
-		CString strText;
+		strText.Format( _T("%i"), i );
+		m_wndFiles.SetItemText( pItem.iItem, COL_INDEX, strText );
+		m_wndFiles.SetItemState( i,
+			UINT( ( pFragFile->GetPriority( i ) == CFragmentedFile::prUnwanted ? 1 : 2 ) << 12 ), LVIS_STATEIMAGEMASK );
+	//	m_wndFiles.SetColumnData( pItem.iItem, COL_PRIORITY, pFragFile->GetPriority( i ) );		// Legacy priority column, unused
 
-		for ( DWORD i = 0 ; i < nCount ; i++ )
-		{
-			strText = pFragFile->GetName( i );
-			strText = strText.Mid( strText.Find( '\\' ) + 1 );
-
-			LV_ITEM pItem	= {};
-			pItem.mask		= LVIF_TEXT|LVIF_IMAGE|LVIF_PARAM;
-			pItem.lParam	= (LPARAM)pFragFile->GetAt( i );
-			pItem.pszText	= (LPTSTR)(LPCTSTR)strText;
-			pItem.iImage	= ShellIcons.Get( strText, 16 );
-			pItem.iItem		= i;
-			pItem.iItem		= m_wndFiles.InsertItem( &pItem );
-			m_wndFiles.SetItemText( pItem.iItem, COL_SIZE, Settings.SmartVolume( pFragFile->GetLength( i ) ) );
-			strText.Format( _T("%i"), i );
-			m_wndFiles.SetItemText( pItem.iItem, COL_INDEX, strText );
-			m_wndFiles.SetItemState( i,
-				UINT( ( pFragFile->GetPriority( i ) == CFragmentedFile::prUnwanted ? 1 : 2 ) << 12 ), LVIS_STATEIMAGEMASK );
-		//	m_wndFiles.SetColumnData( pItem.iItem, COL_PRIORITY, pFragFile->GetPriority( i ) );		// Legacy Priority Column:
-
-		//	if ( i > 400 )		// No longer applies. Very large torrents made app non-responding in OnInitDialog (~180/sec, 10,000/minute)
-		//		theApp.KeepAlive();
-		}
-
-		oLock.Unlock();
-
-		UpdateCount();
-
-		Update();
-
-		SetTimer( 1, 100, NULL );	// Rapid Refresh (10 chances per second)
+	//	if ( i > 400 )		// No longer applies. Very large torrents made app non-responding in OnInitDialog (~180/sec, 10,000/minute)
+	//		theApp.KeepAlive();
 	}
+
+	oLock.Unlock();
+
+	UpdateCount();
+
+	Update();
+
+	if ( ! pDownload->IsSeeding() )
+		SetTimer( 1, nCount > 60 ? nCount > 1600 ? 330 : 120 : 50, NULL );		// Rapid refresh %  (Arbitrary 3/8/20 chances per second)
 }
 
 void CTorrentFilesPage::OnCheckbox(NMHDR* pNMHDR, LRESULT* pResult)
@@ -319,7 +325,7 @@ void CTorrentFilesPage::UpdateCount()
 void CTorrentFilesPage::Update()
 {
 	CSingleLock oLock( &Transfers.m_pSection );
-	if ( ! oLock.Lock( 100 ) )
+	if ( ! oLock.Lock( 50 ) )
 		return;
 
 	CDownload* pDownload = ((CDownloadSheet*)GetParent())->m_pDownload;

@@ -17,8 +17,14 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "ChatSession.h"
+#include "ChatCore.h"
+#include "ChatWindows.h"
+#include "CtrlChatFrame.h"
+#include "CtrlPrivateChatFrame.h"
+
 #include "GProfile.h"
 #include "G2Packet.h"
 #include "EDPacket.h"
@@ -28,13 +34,6 @@
 #include "Network.h"
 #include "Buffer.h"
 #include "XML.h"
-
-#include "ChatCore.h"
-#include "ChatSession.h"
-
-#include "ChatWindows.h"
-#include "CtrlChatFrame.h"
-#include "CtrlPrivateChatFrame.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -206,10 +205,8 @@ BOOL CChatSession::SendPush(BOOL /*bAutomatic*/)
 
 		return TRUE;
 	}
-	else
-	{
-		return FALSE;
-	}
+
+	return FALSE;
 }
 
 BOOL CChatSession::OnPush(const Hashes::Guid& oGUID, CConnection* pConnection)
@@ -249,7 +246,8 @@ void CChatSession::Close(UINT nError)
 
 	CConnection::Close( nError );
 
-	if ( m_pWndPrivate == NULL && m_pWndPublic == NULL ) delete this;
+	if ( m_pWndPrivate == NULL && m_pWndPublic == NULL )
+		delete this;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -801,8 +799,8 @@ BOOL CChatSession::ReadPackets()
 		}
 		else
 		{
-			BYTE* pLenIn	= pInput->m_pBuffer + 1;
-			BYTE* pLenOut	= (BYTE*)&nLength;
+			BYTE* pLenIn  = pInput->m_pBuffer + 1;
+			BYTE* pLenOut = (BYTE*)&nLength;
 			for ( BYTE nLenCnt = nLenLen ; nLenCnt-- ; ) *pLenOut++ = *pLenIn++;
 		}
 

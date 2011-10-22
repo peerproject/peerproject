@@ -1,9 +1,11 @@
 // Copyright David Abrahams 2002.
-// Distributed under the Boost Software License, Version 1.0. (See
-// accompanying file LICENSE_1_0.txt or copy at
+// Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
+
 #ifndef INDIRECT_TRAITS_DWA2002131_HPP
 # define INDIRECT_TRAITS_DWA2002131_HPP
+
 # include <boost/type_traits/is_function.hpp>
 # include <boost/type_traits/is_reference.hpp>
 # include <boost/type_traits/is_pointer.hpp>
@@ -45,12 +47,12 @@ struct is_reference_to_const<T const&> : mpl::true_
 {
 };
 
-#   if defined(BOOST_MSVC) && _MSC_FULL_VER <= 13102140 // vc7.01 alpha workaround
-template<class T>
-struct is_reference_to_const<T const volatile&> : mpl::true_
-{
-};
-#   endif
+//#   if defined(BOOST_MSVC) && _MSC_FULL_VER <= 13102140 // vc7.01 alpha workaround
+//template<class T>
+//struct is_reference_to_const<T const volatile&> : mpl::true_
+//{
+//};
+//#   endif
 
 template <class T>
 struct is_reference_to_function : mpl::false_
@@ -67,8 +69,7 @@ struct is_pointer_to_function : mpl::false_
 {
 };
 
-// There's no such thing as a pointer-to-cv-function, so we don't need
-// specializations for those
+// There's no such thing as a pointer-to-cv-function, so we don't need specializations for those
 template <class T>
 struct is_pointer_to_function<T*> : is_function<T>
 {
@@ -138,12 +139,12 @@ struct is_reference_to_volatile<T volatile&> : mpl::true_
 {
 };
 
-#   if defined(BOOST_MSVC) && _MSC_FULL_VER <= 13102140 // vc7.01 alpha workaround
-template <class T>
-struct is_reference_to_volatile<T const volatile&> : mpl::true_
-{
-};
-#   endif
+//#   if defined(BOOST_MSVC) && _MSC_FULL_VER <= 13102140 // vc7.01 alpha workaround
+//template <class T>
+//struct is_reference_to_volatile<T const volatile&> : mpl::true_
+//{
+//};
+//#   endif
 
 
 template <class T>

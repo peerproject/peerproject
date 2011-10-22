@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "MatchObjects.h"
 #include "QuerySearch.h"
 #include "QueryHit.h"
@@ -56,7 +56,23 @@ static char THIS_FILE[]=__FILE__;
 // CMatchList construction
 
 CMatchList::CMatchList(CBaseMatchWnd* pParent)
-	: m_pParent	( pParent )
+	: m_pParent 		( pParent )
+	, m_pSchema			( NULL )
+	, m_bNew			( FALSE )
+	, m_bSortDir		( 1 )
+	, m_nSortColumn		( -1 )
+	, m_pszFilter		( NULL )
+	, m_pszRegexPattern	( NULL )
+	, m_pColumns		( NULL )
+	, m_nColumns		( 0 )
+	, m_pFiles			( NULL )
+	, m_nFiles			( 0 )
+	, m_nItems			( 0 )
+	, m_nFilteredFiles	( 0 )
+	, m_nFilteredHits	( 0 )
+	, m_nGnutellaHits	( 0 )
+	, m_nED2KHits		( 0 )
+	, m_nBuffer 		( 0 )
 {
 	m_pResultFilters = new CResultFilters;
 	m_pResultFilters->Load();
@@ -99,30 +115,12 @@ CMatchList::CMatchList(CBaseMatchWnd* pParent)
 		m_nFilterSources	= 1;
 	}
 
-	m_nSortColumn		= -1;
-	m_bSortDir			= 1;
-	m_pSchema			= NULL;
-	m_bNew				= FALSE;
-
-	m_pFiles			= NULL;
-	m_nFiles			= 0;
-	m_nItems			= 0;
-	m_nFilteredFiles	= 0;
-	m_nFilteredHits		= 0;
-	m_nGnutellaHits		= 0;
-	m_nED2KHits			= 0;
-
-	m_nBuffer	= 0;
 	m_pSizeMap	= new CMatchFile*[ MAP_SIZE ];
 	m_pMapSHA1	= new CMatchFile*[ MAP_SIZE ];
 	m_pMapTiger	= new CMatchFile*[ MAP_SIZE ];
 	m_pMapED2K	= new CMatchFile*[ MAP_SIZE ];
 	m_pMapBTH	= new CMatchFile*[ MAP_SIZE ];
 	m_pMapMD5	= new CMatchFile*[ MAP_SIZE ];
-	m_pszFilter	= NULL;
-	m_pszRegexPattern = NULL;
-	m_pColumns	= NULL;
-	m_nColumns	= 0;
 
 	ClearUpdated();
 
@@ -254,7 +252,7 @@ void CMatchList::AddHits(const CQueryHit* pHits, const CQuerySearch* pFilter)
 			// For now, just move such files to bogus. (Unwise?)
 			if ( Settings.Search.SchemaTypes && pFilter->m_pSchema )
 			{
-				if ( !pHit->m_bMatched && pFilter->m_pSchema->Equals( pHit->m_pSchema ) )
+				if ( ! pHit->m_bMatched && pFilter->m_pSchema->Equals( pHit->m_pSchema ) )
 					pHit->m_bBogus = TRUE;
 				else
 					pHit->m_bBogus = ! pFilter->m_pSchema->FilterType( pHit->m_sName );
@@ -675,9 +673,10 @@ bool CMatchList::CreateRegExpFilter(CString strPattern, CString& strFilter)
 	bool bReplaced = false;
 
 	CSearchWnd* pParent = static_cast< CSearchWnd* >( GetParent() );
-	ASSERT( pParent );
-	CQuerySearchPtr pQuery = pParent->GetLastSearch();
+	if ( ! pParent )
+		return false;
 
+	CQuerySearchPtr pQuery = pParent->GetLastSearch();
 	if ( ! pQuery )
 		return false;
 
@@ -736,7 +735,7 @@ bool CMatchList::CreateRegExpFilter(CString strPattern, CString& strFilter)
 							break;
 						}
 					}
-					pszPattern++;	// return to the last position
+					pszPattern++;	// Return to the last position
 				}
 			}
 			else	// No closing '>'

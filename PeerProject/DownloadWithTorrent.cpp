@@ -17,30 +17,30 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "Network.h"
-#include "BTPacket.h"
-#include "BTClient.h"
-#include "BTClients.h"
+#include "PeerProject.h"
+#include "DownloadWithTorrent.h"
 #include "Download.h"
 #include "DownloadTask.h"
 #include "DownloadSource.h"
 #include "DownloadGroups.h"
-#include "DownloadWithTorrent.h"
 #include "DownloadTransferBT.h"
 #include "UploadTransferBT.h"
-#include "BTTrackerRequest.h"
-#include "Transfers.h"
-#include "FragmentedFile.h"
-#include "Buffer.h"
-#include "LibraryFolders.h"
-#include "GProfile.h"
-#include "Uploads.h"
 #include "UploadTransfer.h"
+#include "Uploads.h"
+#include "Transfers.h"
+#include "Network.h"
+#include "Buffer.h"
+#include "BTPacket.h"
+#include "BTClient.h"
+#include "BTClients.h"
+#include "BTTrackerRequest.h"
 #include "Library.h"
 #include "LibraryMaps.h"
+#include "LibraryFolders.h"
+#include "FragmentedFile.h"
 #include "SharedFile.h"
+#include "GProfile.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -687,7 +687,7 @@ CDownloadTransferBT* CDownloadWithTorrent::CreateTorrentTransfer(CBTClient* pCli
 	{
 		pSource = new CDownloadSource( static_cast< CDownload* >( this ),
 			pClient->m_oGUID, &pClient->m_pHost.sin_addr, htons( pClient->m_pHost.sin_port ) );
-		pSource->m_bPushOnly = !(pClient->m_bInitiated);
+		pSource->m_bPushOnly = ! pClient->m_bInitiated;
 
 		if ( ! AddSourceInternal( pSource ) )
 			return NULL;
@@ -797,7 +797,7 @@ void CDownloadWithTorrent::ChokeTorrent(DWORD tNow)
 
 		if ( pTransfer->m_nRandomUnchoke == 2 )
 		{
-			if ( tNow - pTransfer->m_tRandomUnchoke >= Settings.BitTorrent.RandomPeriod )
+			if ( tNow >= pTransfer->m_tRandomUnchoke + Settings.BitTorrent.RandomPeriod )
 				pTransfer->m_nRandomUnchoke = 1;
 			else
 				bChooseRandom = FALSE;
@@ -1003,12 +1003,12 @@ BOOL CDownloadWithTorrent::CheckTorrentRatio() const
 {
 	if ( ! IsTorrent() ) return TRUE;
 
-	if ( m_pTorrent.m_nStartDownloads == CBTInfo::dtAlways ) return TRUE; // Torrent is set to download as needed
+	if ( m_pTorrent.m_nStartDownloads == CBTInfo::dtAlways ) return TRUE;	// Torrent is set to download as needed
 
-	if ( m_pTorrent.m_nStartDownloads == CBTInfo::dtWhenRatio )			// Torrent is set to download only when ratio is okay
+	if ( m_pTorrent.m_nStartDownloads == CBTInfo::dtWhenRatio )				// Torrent is set to download only when ratio is okay
 	{
-		if ( m_nTorrentUploaded > m_nTorrentDownloaded ) return TRUE;	// Ratio OK
-		if ( GetVolumeComplete() < 5 * 1024 * 1024 ) return TRUE;		// Always get at least 5 MB so you have something to upload
+		if ( m_nTorrentUploaded > m_nTorrentDownloaded ) return TRUE;		// Ratio OK
+		if ( GetVolumeComplete() < 5 * 1024 * 1024 ) return TRUE;			// Always get at least 5 MB so you have something to upload
 	}
 
 	return FALSE;
@@ -1023,9 +1023,9 @@ BOOL CDownloadWithTorrent::UploadExists(in_addr* pIP) const
 	{
 		CUploadTransferBT* pTransfer = m_pTorrentUploads.GetNext( pos );
 
-		if ( ( pTransfer->m_nProtocol == PROTOCOL_BT ) &&
-			 ( pTransfer->m_nState != upsNull ) &&
-			 ( pTransfer->m_pHost.sin_addr.S_un.S_addr == pIP->S_un.S_addr ) )
+		if ( pTransfer->m_nProtocol == PROTOCOL_BT &&
+			 pTransfer->m_nState != upsNull &&
+			 pTransfer->m_pHost.sin_addr.S_un.S_addr == pIP->S_un.S_addr )
 			return TRUE;
 	}
 	return FALSE;
@@ -1037,8 +1037,8 @@ BOOL CDownloadWithTorrent::UploadExists(const Hashes::BtGuid& oGUID) const
 	{
 		CUploadTransferBT* pTransfer = m_pTorrentUploads.GetNext( pos );
 
-		if ( ( pTransfer->m_nProtocol == PROTOCOL_BT ) &&
-			 ( pTransfer->m_nState != upsNull ) &&
+		if ( pTransfer->m_nProtocol == PROTOCOL_BT &&
+			 pTransfer->m_nState != upsNull &&
 			 validAndEqual( oGUID, pTransfer->m_pClient->m_oGUID ) )
 			return TRUE;
 	}

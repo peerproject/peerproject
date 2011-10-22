@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "ImageServices.h"
 #include "ImageFile.h"
 #include "DlgSplash.h"

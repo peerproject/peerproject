@@ -72,16 +72,16 @@ public:
 
 	LRESULT OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
 	{
-		// center the dialog on the screen
+		// Center the dialog on the screen
 		CenterWindow();
 
-		// set icons
+		// Set icons
 		HICON hIcon = (HICON)::LoadImage(_Module.GetResourceInstance(), MAKEINTRESOURCE(IDR_MAINFRAME),  IMAGE_ICON, ::GetSystemMetrics(SM_CXICON), ::GetSystemMetrics(SM_CYICON), LR_DEFAULTCOLOR);
 		SetIcon(hIcon, TRUE);
 		HICON hIconSmall = (HICON)::LoadImage(_Module.GetResourceInstance(), MAKEINTRESOURCE(IDR_MAINFRAME), IMAGE_ICON, ::GetSystemMetrics(SM_CXSMICON), ::GetSystemMetrics(SM_CYSMICON), LR_DEFAULTCOLOR);
 		SetIcon(hIconSmall, FALSE);
 
-		// register object for idle updates
+		// Register object for idle updates
 		CMessageLoop* pLoop = _Module.GetMessageLoop();
 		ATLASSERT(pLoop != NULL);
 		pLoop->AddIdleHandler(this);
@@ -134,11 +134,11 @@ public:
 		return TRUE;
 	}
 
-	void OnCommand(UINT uNotifyCode, int nID, CWindow wndCtl)
+	void OnCommand(UINT uNotifyCode, int nID, CWindow /*wndCtl*/)
 	{
 		SetMsgHandled(FALSE);
 
-		if ( ((uNotifyCode == 0) || (uNotifyCode == 1)) && ((nID >= IDS_TAB1) && (nID <= IDS_TAB6C)) )
+		if ( (uNotifyCode == 0 || uNotifyCode == 1) && (nID >= IDS_TAB1 && nID <= IDS_TAB6C) )
 		{
 			CString str;
 			str.LoadString(nID);
@@ -150,14 +150,14 @@ public:
 		}
 	}
 
-	LRESULT OnTab1ASelected(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+	LRESULT OnTab1ASelected(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 	{
 		CString str(_T("Get Started"));
 		m_static.SetWindowText(str);
 		return 0;
 	}
 
-	LRESULT OnTab1DSelected(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+	LRESULT OnTab1DSelected(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 	{
 		CString str(_T("About..."));
 		m_static.SetWindowText(str);
@@ -170,7 +170,7 @@ public:
 
 	LRESULT OnDestroy(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
 	{
-		// unregister idle updates
+		// Unregister idle updates
 		CMessageLoop* pLoop = _Module.GetMessageLoop();
 		ATLASSERT(pLoop != NULL);
 		pLoop->RemoveIdleHandler(this);
@@ -185,7 +185,7 @@ public:
 		return 0;
 	}
 
-	LRESULT OnOK(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+	LRESULT OnOK(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 	{
 		// ToDo: Add validation code
 		// CloseDialog(wID);

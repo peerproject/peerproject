@@ -15,6 +15,6 @@
 #include <boost/utility/enable_if.hpp>
 #include <boost/checked_delete.hpp>
 #include <boost/next_prior.hpp>
-#include <boost/noncopyable.hpp>
+//#include <boost/noncopyable.hpp>
 
 #endif  // BOOST_UTILITY_HPP

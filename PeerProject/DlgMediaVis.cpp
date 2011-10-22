@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "DlgMediaVis.h"
 #include "CtrlMediaFrame.h"
 #include "CoolInterface.h"
@@ -45,11 +45,11 @@ END_MESSAGE_MAP()
 // CMediaVisDlg dialog
 
 CMediaVisDlg::CMediaVisDlg(CMediaFrame* pFrame) : CSkinDialog( CMediaVisDlg::IDD, NULL )
+	, m_pFrame	( pFrame )
+	, m_hIcon	( NULL )
+	, m_nSize	( -1 )
 {
 	//{{AFX_DATA_INIT(CMediaVisDlg)
-	m_nSize = -1;
-	m_pFrame = pFrame;
-	m_hIcon = NULL;
 	//}}AFX_DATA_INIT
 }
 
@@ -267,18 +267,17 @@ void CMediaVisDlg::OnSetup()
 
 	HINSTANCE hRes = AfxGetResourceHandle();
 
-	HRESULT hr = CoCreateInstance( pCLSID, NULL, CLSCTX_ALL,
-		IID_IAudioVisPlugin, (void**)&pPlugin );
+	HRESULT hr = CoCreateInstance( pCLSID, NULL, CLSCTX_ALL, IID_IAudioVisPlugin, (void**)&pPlugin );
 
 	AfxSetResourceHandle( hRes );
 
-	if ( FAILED(hr) || pPlugin == NULL ) return;
+	if ( FAILED( hr ) || pPlugin == NULL ) return;
 
 	if ( ! strPath.IsEmpty() )
 	{
 		IWrappedPluginControl* pWrap = NULL;
 		hr = pPlugin->QueryInterface( IID_IWrappedPluginControl, (void**)&pWrap );
-		if ( SUCCEEDED(hr) && pWrap != NULL )
+		if ( SUCCEEDED( hr ) && pWrap != NULL )
 		{
 			pWrap->Load( CComBSTR( strPath ), 0 );
 			pWrap->Release();

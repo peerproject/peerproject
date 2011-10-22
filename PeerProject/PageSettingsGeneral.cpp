@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "PageSettingsGeneral.h"
 #include "DlgHelp.h"
 #include "Schema.h"
@@ -223,7 +223,7 @@ void CGeneralSettingsPage::OnOK()
 	Settings.Interface.TipAlpha 		= m_wndTipAlpha.GetPos();
 
 	// Update DropShadow
-	if ( m_bTipShadow != Settings.Interface.TipShadow == true && ! theApp.m_bIsWin2000 )
+	if ( (BOOL)Settings.Interface.TipShadow != m_bTipShadow && ! theApp.m_bIsWin2000 )
 	{
 		Settings.Interface.TipShadow	= m_bTipShadow == TRUE;
 		CCoolTipCtrl::m_hClass  = AfxRegisterWndClass( CS_SAVEBITS | ( m_bTipShadow ? CS_DROPSHADOW : 0 ) );

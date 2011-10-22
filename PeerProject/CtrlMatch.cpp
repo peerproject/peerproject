@@ -19,8 +19,8 @@
 // Draw Search and Browse Filelist Windows
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "CtrlMatch.h"
 #include "WndBaseMatch.h"
 #include "MatchObjects.h"
@@ -1191,7 +1191,7 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 				&rcCol, pszText, nText, NULL );
 		}
 
-		dc.ExcludeClipRect( nLeft, rcCol.top, rcCol.right, rcCol.bottom  );
+		dc.ExcludeClipRect( nLeft, rcCol.top, rcCol.right, rcCol.bottom );
 	}
 
 	if ( ! bSelectmark )

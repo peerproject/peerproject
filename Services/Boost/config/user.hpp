@@ -116,9 +116,6 @@
 // for example BOOST_DATE_TIME_NO_LIB or BOOST_REGEX_NO_LIB.
 // Normally if a compiler supports #pragma lib, then the correct library
 // build variant will be automatically selected and linked against, simply
-// by the act of including one of that library's headers.  This macro turns
-// that feature off.
+// by the act of including one of that library's headers.
+// This macro turns that feature off.
 // #define BOOST_WHATEVER_NO_LIB
-
-
-

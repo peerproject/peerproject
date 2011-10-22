@@ -1,4 +1,4 @@
-Mainline DHT  0.18  (Jan.2011)
+Mainline DHT  0.21  (July.2011)
 
 http://www.pps.jussieu.fr/~jch/software/repos/dht/
 

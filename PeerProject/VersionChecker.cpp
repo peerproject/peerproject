@@ -17,15 +17,15 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "VersionChecker.h"
+#include "DiscoveryServices.h"
 #include "Library.h"
 #include "SharedFile.h"
 #include "Transfer.h"
 #include "Network.h"
 #include "GProfile.h"
-#include "DiscoveryServices.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -41,8 +41,8 @@ CVersionChecker VersionChecker;
 //////////////////////////////////////////////////////////////////////
 // CVersionChecker construction
 
-CVersionChecker::CVersionChecker() :
-	m_bVerbose( false )
+CVersionChecker::CVersionChecker()
+	: m_bVerbose( false )
 {
 }
 
@@ -75,7 +75,7 @@ void CVersionChecker::ClearVersionCheck()
 
 BOOL CVersionChecker::NeedToCheck()
 {
-	if ( theApp.m_sVersion.Compare( Settings.VersionCheck.UpgradeVersion ) >= 0 ) // user manually upgraded
+	if ( theApp.m_sVersion.Compare( Settings.VersionCheck.UpgradeVersion ) >= 0 )	// User manually upgraded
 		ClearVersionCheck();
 
 	if ( ! Settings.VersionCheck.UpdateCheck ) return FALSE;

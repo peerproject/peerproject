@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Finnish Skin File -->
 
-<!-- Translation based on default-en.xml r66 (Shareaza 2.1.3.7) -->
+<!-- Translation based on default-en.xml r70 (Shareaza 2.1.3.7) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -352,7 +352,6 @@
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
-		<button id="ID_NETWORK_DC" text="DC++"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Asetukset"/>
 	</toolbar>
@@ -365,6 +364,7 @@
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
+		<button id="ID_NETWORK_DC" text="DC++"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Asetukset"/>
 	</toolbar>
@@ -697,7 +697,7 @@
 			<item id="ID_NETWORK_CONNECT" text="_Yhdistä" shortcut="Ctrl+G"/>
 			<item id="ID_NETWORK_DISCONNECT" text="_Katkaise Yhteys"/>
 			<separator/>
-			<item id="ID_NETWORK_CONNECT_TO" text="Yhdistä.." shortcut="Ctrl+T"/>
+			<item id="ID_NETWORK_CONNECT_TO" text="Yhdistä..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="_Selaa Käyttäjää"/>
 			<separator/>
 			<item id="ID_NETWORK_G2" text="Yhdistä Gnutella_2"/>
@@ -1072,7 +1072,13 @@
 	<menu name="CDownloadsWnd.Seeding">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Avaa"/>
 		<item id="ID_DOWNLOADS_FOLDER" text="Avaa _Folder"/>
+		<item id="ID_DOWNLOADS_FILE_DELETE" text="_Delete Files"/>
+		<separator/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Lopeta Jako"/>
+		<item id="ID_DOWNLOADS_PAUSE" text="Pa_use Seeding"/>
+		<item id="ID_DOWNLOADS_RESUME" text="_Resume Seeding"/>
+		<separator/>
+		<item id="ID_DOWNLOADS_URI" text="Get Magnet Link (_URI)"/>
 		<item id="ID_DOWNLOADS_HELP" text="_Ohje..."/>
 		<separator/>
 		<item id="ID_DOWNLOADS_EDIT" text="Torrentti _Info..."/>
@@ -1090,9 +1096,8 @@
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="_Jatka Kaikkia"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="K_eskeytä Kaikki"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="_Tyhjennä Kaikki"/>
-		<separator/> <!--
-		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Näytä Ryhmät"/>
-		<separator/> -->
+		<separator/>
+		<!-- <item id="ID_DOWNLOAD_GROUP_SHOW" text="_Näytä Ryhmät"/> -->
 		<item id="ID_DOWNLOAD_GROUP_MOVELEFT" text="Siirrä Ryhmä _Vasen"/>
 		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="Siirrä Ryhmä _Oikea"/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="_Poista Ryhmä"/>
@@ -1165,6 +1170,8 @@
 		<item id="ID_LIBRARY_SCAN" text="S_kannaa"/>
 		<item id="ID_LIBRARY_REBUILD" text="Ra_kenna Uudelleen"/>
 		<item id="ID_LIBRARY_FOLDERS" text="Jaa Tiedostoja..."/>
+		<separator/>
+		<item id="ID_SHELL_MENU" text="S_hell menu"/>
 		<separator/>
 		<item id="ID_LIBRARY_FOLDER_FILE_PROPERTIES" text="Tiedoston _Ominaisuudet"/>
 	</menu>
@@ -1330,6 +1337,7 @@
 		<separator/>
 		<item id="ID_LIBRARY_COLUMNS" text="Valitse _Kolumnit..."/>
 		<separator/>
+		<item id="ID_SHELL_MENU" text="S_hell menu"/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Ominaisuudet"/>
 	</menu>
 	<!-- MEDIA WINDOW -->
@@ -1437,14 +1445,14 @@
 	</menu>
 	<!-- SYSTEM WINDOW -->
 	<menu name="CSystemWnd">
-		<menu id="ID_SYSTEM_VERBOSE" text="_Laaja Tila"/>
+		<menu id="ID_SYSTEM_VERBOSE" text="_Laaja Tila">
 			<item id="ID_SYSTEM_VERBOSE_ERROR" text="_Error"/>
 			<item id="ID_SYSTEM_VERBOSE_WARNING" text="_Warning"/>
 			<item id="ID_SYSTEM_VERBOSE_NOTICE" text="_Notice"/>
 			<item id="ID_SYSTEM_VERBOSE_INFO" text="_Info"/>
 			<item id="ID_SYSTEM_VERBOSE_DEBUG" text="_Debug"/>
 		</menu>
-		<item id="ID_SYSTEM_TIMESTAMP" text="Aikaleim_a"/>
+		<item id="ID_SYSTEM_TIMESTAMP" text="_Aikaleima"/>
 		<separator/>
 		<item id="ID_SYSTEM_COPY" text="_Copy" shortcut="Ctrl+C"/>
 		<separator/>
@@ -2147,36 +2155,36 @@
 	<list name="CDownloadCtrl">
 		<column from="Downloaded File" to="Tiedosto"/>
 		<column from="Size" to="Koko"/>
-		<column from="Progress" to=""/>
-		<column from="Transfer" to=""/>
-		<column from="Percent" to=""/>
-		<column from="Speed" to=""/>
+		<column from="Progress" to="Edistys"/>
+		<column from="Transfer" to="Siirto"/>
+		<column from="Percent" to="Prosentti"/>
+		<column from="Speed" to="Nopeus"/>
 		<column from="Status" to="Tila"/>
-		<column from="Client" to=""/>
+		<column from="Client" to="Asiakas"/>
 		<column from="Country" to="Maa"/>
 	</list>
 	<list name="CUploadCtrl">
-		<column from="Uploaded File" to=""/>
+		<column from="Uploaded File" to="Tiedosto"/>
 		<column from="Size" to="Koko"/>
-		<column from="Progress" to=""/>
-		<column from="Transfer" to=""/>
-		<column from="Speed" to=""/>
+		<column from="Progress" to="Edistys"/>
+		<column from="Transfer" to="Siirto"/>
+		<column from="Speed" to="Nopeus"/>
 		<column from="Rating" to="Arvostelut"/>
-		<column from="Remote User" to=""/>
-		<column from="Client" to=""/>
+		<column from="Remote User" to="Etäkäyttäjä"/>
+		<column from="Client" to="Asiakas"/>
 		<column from="Country" to="Maa"/>
 	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="Tiedosto"/>
-		<column from="Type" to=""/>
+		<column from="Type" to="Tyyppi"/>
 		<column from="Size" to="Koko"/>
 		<column from="Folder" to=""/>
 		<column from="Hits" to=""/>
-		<column from="Uploads" to=""/>
+		<column from="Uploads" to="Lähetykset"/>
 		<column from="Modified" to=""/>
 	</list>
 	<list name="CNeighboursWnd">
-		<column from="Address" to=""/>
+		<column from="Address" to="Osoite"/>
 		<column from="Port" to=""/>
 		<column from="Time" to="Aika"/>
 		<column from="Traffic" to=""/>
@@ -2185,15 +2193,15 @@
 		<column from="Flow" to=""/>
 		<column from="Leaves" to=""/>
 		<column from="Mode" to=""/>
-		<column from="Client" to=""/>
+		<column from="Client" to="Asiakas"/>
 		<column from="Name" to="Nimi"/>
 		<column from="Country" to="Maa"/>
 	</list>
 	<list name="CHostCacheWnd">
-		<column from="Address" to=""/>
+		<column from="Address" to="Osoite"/>
 		<column from="Port" to=""/>
 		<column from="Last Seen" to=""/>
-		<column from="Client" to=""/>
+		<column from="Client" to="Asiakas"/>
 		<column from="Name" to="Nimi"/>
 		<column from="Description" to=""/>
 		<column from="Failures" to=""/>
@@ -2202,8 +2210,8 @@
 		<column from="Country" to="Maa"/>
 	</list>
 	<list name="CDiscoveryWnd">
-		<column from="Address" to=""/>
-		<column from="Type" to=""/>
+		<column from="Address" to="Osoite"/>
+		<column from="Type" to="Tyyppi"/>
 		<column from="Last Access" to=""/>
 		<column from="Hosts" to=""/>
 		<column from="Accesses" to=""/>
@@ -2212,9 +2220,9 @@
 	</list>
 	<list name="CPacketWnd">
 		<column from="Time" to="Aika"/>
-		<column from="Address" to=""/>
+		<column from="Address" to="Osoite"/>
 		<column from="Protocol" to=""/>
-		<column from="Type" to=""/>
+		<column from="Type" to="Tyyppi"/>
 		<column from="TTL/Hops" to=""/>
 		<column from="GUID" to=""/>
 		<column from="Hex" to=""/>
@@ -2227,18 +2235,18 @@
 	</list>
 	<list name="CMatchCtrl">
 		<column from="File" to="Tiedosto"/>
-		<column from="Type" to=""/>
+		<column from="Type" to="Tyyppi"/>
 		<column from="Size" to="Koko"/>
 		<column from="Host/Count" to=""/>
-		<column from="Speed" to=""/>
+		<column from="Speed" to="Nopeus"/>
 		<column from="Rating" to="Arvostelut"/>
 		<column from="Status" to="Tila"/>
-		<column from="Client" to=""/>
+		<column from="Client" to="Asiakas"/>
 		<column from="Country" to="Maa"/>
 		<column from="Time" to="Aika"/>
 	</list>
 	<list name="CSecurityWnd">
-		<column from="Address / Content" to=""/>
+		<column from="Address / Content" to="Osoite / Content"/>
 		<column from="Hits" to=""/>
 		<column from="#" to=""/>
 		<column from="Action" to=""/>
@@ -2249,7 +2257,7 @@
 	<list name="CSchedulerWnd">
 		<column from="Task" to=""/>
 		<column from="Date" to=""/>
-		<column from="Time" to=""/>
+		<column from="Time" to="Aika"/>
 		<column from="Status" to=""/>
 		<column from="Activity" to=""/>
 		<column from="Comment" to=""/>
@@ -2258,8 +2266,8 @@
 		<column from="Name" to="Nimi"/>
 		<column from="Criteria" to=""/>
 		<column from="Minimum" to=""/>
-		<column from="Transfers" to=""/>
-		<column from="Priority" to=""/>
+		<column from="Transfers" to="Siirto"/>
+		<column from="Priority" to="Prioriteetti"/>
 	</list>
 	<list name="CAdvancedSettingsList">
 		<column from="Setting" to=""/>
@@ -2281,10 +2289,10 @@
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to=""/>
 		<column from="Status" to="Tila"/>
-		<column from="Type" to=""/>
+		<column from="Type" to="Tyyppi"/>
 	</list>
 	<list name="CReviewList">
-		<column from="User" to=""/>
+		<column from="User" to="Käyttäjä"/>
 		<column from="Rating" to="Arvostelut"/>
 		<column from="Comments" to=""/>
 		<column from="Order" to=""/>

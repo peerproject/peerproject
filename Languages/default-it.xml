@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Italian Skin File -->
 
-<!-- Translation based on default-en.xml r69 -->
+<!-- Translation based on default-en.xml r70 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2720,6 +2720,12 @@
 	<string id="20020" value="File"/>
 	<string id="20021" value="Files"/>
 	<string id="20022" value="Tutti i File"/>
+	<string id="20023" value="No Files"/>
+	<string id="20024" value="File grandi"/>
+	<string id="20025" value="File medi"/>
+	<string id="20026" value="File piccoli"/>
+	<string id="20027" value="File parziali"/>
+	<string id="20028" value="File della libreria"/>
 	<string id="20029" value="Files di %s"/>
 	<string id="20050" value="Ogni Giorno Dìs"/>
 	<string id="20051" value="Lunedì"/>
@@ -3171,7 +3177,7 @@
 	<string id="20576" value="Invio di una richiesta routing table all'host %s (%i bit = %lu[%i], %i%% pieno)"/>
 	<string id="20577" value="Ricezione di un aggiornamento inaspettato della richiesta routing table dall'host %s."/>
 	<string id="20578" value="L'host %s ha aggiornato la sua richiesta routing table (%i bit = %lu[%i], %i%% pieno)."/>
-	<string id="20579" value="%s -> %s [%i/%i] %s %s"/>
+	<string id="20579" value="%s -&gt; %s [%i/%i] %s %s"/>
 	<string id="20580" value="L'host leaf %s sta inviado richieste, chiusura della connessione."/>
 	<string id="20581" value="L'host %s ha inviato un pacchetto ping di lunghezza errata, ignorato."/>
 	<string id="20582" value="L'host %s ha inviato un pacchetto pong di lunghezza errata, ignorato."/>
@@ -4296,13 +4302,13 @@
 		<control caption="One day only"/>
 		<control/>
 		<control/>
-		<control caption="Lun"/>
-		<control caption="Mar"/>
-		<control caption="Mer"/>
-		<control caption="Gio"/>
-		<control caption="Ven"/>
-		<control caption="Sab"/>
-		<control caption="Dom"/>
+		<control caption="Lunedì"/>
+		<control caption="Martedì"/>
+		<control caption="Mercoledì"/>
+		<control caption="Giovedì"/>
+		<control caption="Venerdì"/>
+		<control caption="Sabato"/>
+		<control caption="Domenica"/>
 		<control caption="Tutti"/>
 		<control caption="Commenti"/>
 		<control/>
@@ -4561,9 +4567,9 @@
 	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Avviso di aggiornamento">
 		<control caption="Una nuova versione di PeerProject è ora disponibile. Vuoi effettuare l'aggiornamento ora?"/>
 		<control caption="Se selezioni Aggiorna ora, PeerProject aggiungerà l'aggiornamento alla tua coda dei download e comincerà automaticamente a scaricarlo."/>
-		<control caption="_Aggiorna ora"/>
 		<control caption="Non verificare se ci sono nuove versioni"/>
-		<control caption="Non aggiornare"/>
+		<control caption="_Aggiorna ora"/>
+		<control caption="Annulla"/>
 	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Localizzazione metadata">
 		<control caption="Seleziona il metodo di ri-codifica"/>

@@ -17,12 +17,12 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "QuerySearch.h"
+#include "PeerProject.h"
 #include "WndSearchMonitor.h"
 #include "WndSearch.h"
 #include "WndBrowseHost.h"
+#include "QuerySearch.h"
 #include "LiveList.h"
 #include "Security.h"
 #include "Skin.h"
@@ -33,6 +33,17 @@
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif	// Filename
+
+// Set Column Order
+enum {
+	COL_SEARCH,
+	COL_URN,
+//	COL_SIZE,
+	COL_SCHEMA,
+//	COL_NETWORK,
+	COL_ENDPOINT,
+	COL_LAST	// Count
+};
 
 IMPLEMENT_SERIAL(CSearchMonitorWnd, CPanelWnd, 0)
 
@@ -85,15 +96,14 @@ int CSearchMonitorWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	VERIFY( m_gdiImageList.Create( 16, 16, ILC_MASK|ILC_COLOR32, 1, 1 ) );
 	AddIcon( IDR_SEARCHMONITORFRAME , m_gdiImageList );
 	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
-
-	m_wndList.InsertColumn( 0, _T("Search"), LVCFMT_LEFT, 210, -1 );
-	m_wndList.InsertColumn( 1, _T("URN"), LVCFMT_LEFT, 340, 0 );
-//	m_wndList.InsertColumn( 2, _T("Size"), LVCFMT_LEFT, 100, 1 );
-	m_wndList.InsertColumn( 2, _T("Schema"), LVCFMT_LEFT, 150, 1 );
-//	m_wndList.InsertColumn( 4, _T("Network"), LVCFMT_LEFT, 60, 3 );
-	m_wndList.InsertColumn( 3, _T("Endpoint"), LVCFMT_LEFT, 150, 2 );
-
 	m_wndList.SetFont( &theApp.m_gdiFont );
+
+	m_wndList.InsertColumn( COL_SEARCH, _T("Search"), LVCFMT_LEFT, 210, -1 );
+	m_wndList.InsertColumn( COL_URN, _T("URN"), LVCFMT_LEFT, 340, 0 );
+//	m_wndList.InsertColumn( COL_SIZE, _T("Size"), LVCFMT_LEFT, 100, 1 );
+	m_wndList.InsertColumn( COL_SCHEMA, _T("Schema"), LVCFMT_LEFT, 150, 1 );
+//	m_wndList.InsertColumn( COL_NETWORK, _T("Network"), LVCFMT_LEFT, 60, 3 );
+	m_wndList.InsertColumn( COL_ENDPOINT, _T("Endpoint"), LVCFMT_LEFT, 150, 2 );
 
 	LoadState( _T("CSearchMonitorWnd"), TRUE );
 
@@ -210,12 +220,10 @@ void CSearchMonitorWnd::OnQuerySearch(const CQuerySearch* pSearch)
 
 	if ( m_bPaused ) return;
 
-	CLiveItem* pItem = new CLiveItem( 4, NULL );
+	CLiveItem* pItem = new CLiveItem( COL_LAST, NULL );
 
-	CString strSearch= pSearch->m_sSearch;
-	CString strSchema;
-	CString strURN;
-	CString strNode;
+	CString strSearch = pSearch->m_sSearch;
+	CString strSchema, strURN, strNode;
 
 //	LoadString( strSchema, IDS_NEIGHBOUR_COMPRESSION_NONE );	// ToDo: Generic "None" translation ?
 //	LoadString( strURN, IDS_NEIGHBOUR_COMPRESSION_NONE );
@@ -225,7 +233,7 @@ void CSearchMonitorWnd::OnQuerySearch(const CQuerySearch* pSearch)
 	{
 		strSize = Settings.SmartVolume( pSearch->m_nMinSize );
 		if ( pSearch->m_nMaxSize != SIZE_UNKNOWN && ( pSearch->m_nMaxSize - pSearch->m_nMinSize ) < 1024 * 1025 )
-			strSize = _T("~ ") + Settings.SmartVolume( pSearch->m_nMaxSize ); // Specific size
+			strSize = _T("~ ") + Settings.SmartVolume( pSearch->m_nMaxSize );	// Specific size
 		else if ( pSearch->m_nMaxSize != SIZE_UNKNOWN && pSearch->m_nMaxSize > 512 )
 			strSize = strSize + _T(" - ") + Settings.SmartVolume( pSearch->m_nMaxSize );
 		else
@@ -296,12 +304,12 @@ void CSearchMonitorWnd::OnQuerySearch(const CQuerySearch* pSearch)
 	if ( strNetwork.GetLength() > 1 )
 		strNode += strNetwork;
 
-	pItem->Set( 0, strSearch );
-	pItem->Set( 1, strURN );
-//	pItem->Set( 2, strSize );
-	pItem->Set( 2, strSchema );
-//	pItem->Set( 4, strNetwork );
-	pItem->Set( 3, strNode );
+	pItem->Set( COL_SEARCH, strSearch );
+	pItem->Set( COL_URN, strURN );
+//	pItem->Set( COL_SIZE, strSize );
+	pItem->Set( COL_SCHEMA, strSchema );
+//	pItem->Set( COL_NETWORK, strNetwork );
+	pItem->Set( COL_ENDPOINT, strNode );
 
 	m_pQueue.AddTail( pItem );
 }
@@ -366,7 +374,7 @@ void CSearchMonitorWnd::OnBrowseLaunch()
 {
 	CSingleLock pLock( &m_pSection, TRUE );
 
-	int nItem = m_wndList.GetNextItem( -1, LVNI_SELECTED );
+	const int nItem = m_wndList.GetNextItem( -1, LVNI_SELECTED );
 	if ( nItem >= 0 )
 	{
 		SOCKADDR_IN pHost = { 0 };

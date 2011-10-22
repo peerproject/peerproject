@@ -8,7 +8,7 @@
  */
 
 #include "StdAfx.h"
-#include "resource.h"
+#include "Resource.h"
 #include "TransferProgressDlg.h"
 #include "BugTrapUtils.h"
 #include "BugTrapUI.h"
@@ -186,7 +186,7 @@ static void TransferProgressPane_OnCommand(HWND hwnd, int id, HWND hwndCtl, UINT
 	switch (id)
 	{
 	case IDCANCEL:
-		_ASSERTE(g_hTransferThread != NULL && g_pTransferThreadParams != NULL);
+		_ASSERTE(g_hTransferThread != NULL);
 		HANDLE hCancellationEvent = g_pTransferThreadParams->GetCancellationEvent();
 		SetEvent(hCancellationEvent);
 		break;

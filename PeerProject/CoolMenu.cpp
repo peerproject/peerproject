@@ -1,7 +1,7 @@
 //
 // CoolMenu.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -17,10 +17,10 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "CoolInterface.h"
+#include "PeerProject.h"
 #include "CoolMenu.h"
+#include "CoolInterface.h"
 #include "Colors.h"
 #include "Images.h"
 #include "Skin.h"
@@ -135,7 +135,7 @@ BOOL CCoolMenu::AddMenu(CMenu* pMenu, BOOL bChild)
 			break;	// Bypass shell menu items
 
 		// Non-XML parsed menu items
-		int nItemID = pMenu->GetMenuItemID( i );
+		const int nItemID = pMenu->GetMenuItemID( i );
 		if ( nItemID == ID_SEARCH_FILTER ||
 			nItemID == -1 && ! m_sFilterString.IsEmpty() && m_sFilterString == szBuffer )
 		{
@@ -398,9 +398,7 @@ void CCoolMenu::OnDrawItemInternal(LPDRAWITEMSTRUCT lpDrawItemStruct)
 
 	if ( m_pStrings.Lookup( lpDrawItemStruct->itemData, strText ) == FALSE )
 	{
-		int nMiddle = rcText.top + 1;
-
-		pDC->FillSolidRect( rcText.left, nMiddle, rcText.Width() + 2, 1, Colors.m_crDisabled );
+		pDC->FillSolidRect( rcText.left, rcText.top + 1, rcText.Width() + 2, 1, Colors.m_crDisabled );
 
 		dc.BitBlt( lpDrawItemStruct->rcItem.left, lpDrawItemStruct->rcItem.top,
 			rcItem.Width(), rcItem.Height(), pDC, 0, 0, SRCCOPY );
@@ -411,6 +409,9 @@ void CCoolMenu::OnDrawItemInternal(LPDRAWITEMSTRUCT lpDrawItemStruct)
 
 	if ( bSelected )
 	{
+	//	if ( Settings.General.LanguageRTL )
+	//		SetLayout( pDC->m_hDC, LAYOUT_BITMAPORIENTATIONPRESERVED );		// RTL image workaround fix	( ToDo: Fix poperly elsewhere )
+
 		if ( ! ( bDisabled && Images.DrawButtonState( pDC, rcItem, IMAGE_MENUDISABLED ) ) &&					// "CCoolMenu.Disabled"
 			 ! ( ( ! bDisabled || bKeyboard ) && Images.DrawButtonState( pDC, rcItem, IMAGE_MENUSELECTED ) ) )	// "CCoolMenu.Hover"
 		{
@@ -609,8 +610,8 @@ void CCoolMenu::DoExplorerMenu(HWND hwnd, const CStringList& oFiles, POINT point
 		}
 		if ( SUCCEEDED( hr ) )
 		{
-			hr = pContextMenu1.QueryInterface( &m_pContextMenu2 );
-			hr = pContextMenu1.QueryInterface( &m_pContextMenu3 );
+			/*hr =*/ pContextMenu1.QueryInterface( &m_pContextMenu2 );
+			/*hr =*/ pContextMenu1.QueryInterface( &m_pContextMenu3 );
 
 			::SetForegroundWindow( hwnd );
 			UINT_PTR nCmd = ::TrackPopupMenu( hMenu, TPM_RETURNCMD | nFlags,

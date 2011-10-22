@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "WndSettingsPage.h"
 #include "WndSettingsSheet.h"
 #include "PageSettingsMedia.h"
@@ -126,7 +126,7 @@ BOOL CMediaSettingsPage::OnInitDialog()
 		sPlayer.Remove( _T('*') );
 
 		int nIndex = m_wndServices.AddString( PathFindFileName( sPlayer ) );
-		if( nAstrix != -1 )		// Selected player
+		if ( nAstrix != -1 )		// Selected player
 			nSelected = nIndex;
 
 		m_wndServices.SetItemDataPtr( nIndex, new CString( sPlayer ) );

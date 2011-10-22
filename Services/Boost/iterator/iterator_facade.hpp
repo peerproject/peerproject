@@ -1,8 +1,8 @@
 // (C) Copyright David Abrahams 2002.
 // (C) Copyright Jeremy Siek    2002.
 // (C) Copyright Thomas Witt    2002.
-// Distributed under the Boost Software License, Version 1.0. (See
-// accompanying file LICENSE_1_0.txt or copy at
+// Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 #ifndef BOOST_ITERATOR_FACADE_23022003THW_HPP
 #define BOOST_ITERATOR_FACADE_23022003THW_HPP
@@ -105,6 +105,7 @@ namespace boost
 
         typedef typename remove_const<ValueParam>::type value_type;
 
+        // Not the real associated pointer type
         typedef typename mpl::eval_if<
             boost::detail::iterator_writability_disabled<ValueParam,Reference>
           , add_pointer<const value_type>
@@ -306,9 +307,8 @@ namespace boost
         mutable T m_value;
     };
 
-    // A metafunction that gets the result type for operator->.  Also
-    // has a static function make() which builds the result from a
-    // Reference
+    // A metafunction that gets the result type for operator->.
+    // Also has a static function make() which builds the result from a Reference
     template <class ValueType, class Reference, class Pointer>
     struct operator_arrow_result
     {
@@ -323,7 +323,7 @@ namespace boost
 
         static type make(Reference x)
         {
-            return implicit_cast<type>(&x);
+            return boost::implicit_cast<type>(&x);
         }
     };
 
@@ -617,6 +617,12 @@ namespace boost
          Value, CategoryOrTraversal, Reference, Difference
       > associated_types;
 
+      typedef boost::detail::operator_arrow_result<
+        typename associated_types::value_type
+        , Reference
+        , typename associated_types::pointer
+      > pointer_;
+
    protected:
       // For use by derived classes
       typedef iterator_facade<Derived,Value,CategoryOrTraversal,Reference,Difference> iterator_facade_;
@@ -626,7 +632,9 @@ namespace boost
       typedef typename associated_types::value_type value_type;
       typedef Reference reference;
       typedef Difference difference_type;
-      typedef typename associated_types::pointer pointer;
+
+      typedef typename pointer_::type pointer;
+
       typedef typename associated_types::iterator_category iterator_category;
 
       reference operator*() const
@@ -634,18 +642,9 @@ namespace boost
           return iterator_core_access::dereference(this->derived());
       }
 
-      typename boost::detail::operator_arrow_result<
-          value_type
-        , reference
-        , pointer
-      >::type
-      operator->() const
+      pointer operator->() const
       {
-          return boost::detail::operator_arrow_result<
-              value_type
-            , reference
-            , pointer
-          >::make(*this->derived());
+          return pointer_::make(*this->derived());
       }
 
       typename boost::detail::operator_brackets_result<Derived,Value,reference>::type
@@ -787,8 +786,7 @@ namespace boost
   // // The instantiation will fail with an error hopefully indicating that
   // // there is no operator== for Iterator1, Iterator2
   // // The same will happen if no enable_if is used to remove
-  // // false overloads from the templated conversion constructor
-  // // of AdaptorA.
+  // // false overloads from the templated conversion constructor of AdaptorA.
   //
   // a1 == a2;
   // ----------------

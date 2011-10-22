@@ -17,10 +17,10 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "Datagrams.h"
+#include "PeerProject.h"
 #include "DatagramPart.h"
+#include "Datagrams.h"
 #include "G2Packet.h"
 #include "Buffer.h"
 
@@ -110,7 +110,7 @@ BOOL CDatagramOut::GetPacket(DWORD tNow, BYTE** ppPacket, DWORD* pnPacket, BOOL 
 		{
 			if ( bResend )
 			{
-				if ( tNow - m_pLocked[ nPart ] >= Settings.Gnutella2.UdpOutResend ) break;
+				if ( tNow > m_pLocked[ nPart ] + Settings.Gnutella2.UdpOutResend ) break;
 			}
 			else
 			{

@@ -1,7 +1,7 @@
 //
 // CtrlWizard.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -17,19 +17,20 @@
 //
 
 #include "StdAfx.h"
+#include "Settings.h"
 #include "PeerProject.h"
+#include "CtrlWizard.h"
+
 #include "Library.h"
 #include "LibraryFolders.h"
 #include "AlbumFolder.h"
 #include "CtrlIconButton.h"
+#include "Transfer.h"
 #include "SharedFile.h"
-#include "Settings.h"
 #include "Colors.h"
 #include "Skin.h"
 #include "XML.h"
 
-#include "Transfer.h"
-#include "CtrlWizard.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -352,7 +353,7 @@ void CWizardCtrl::OnShowWindow(BOOL bShow, UINT /*nStatus*/)
 
 		std::vector< CLibraryFile* > pList;
 		pList.reserve( m_pFolder->GetFolderCount() );
-		for ( POSITION pos = m_pFolder->GetFileIterator(); pos; )
+		for ( POSITION pos = m_pFolder->GetFileIterator() ; pos ; )
 		{
 			if ( CLibraryFile* pFile = m_pFolder->GetNextFile( pos ) )
 				pList.push_back( pFile );
@@ -366,7 +367,7 @@ void CWizardCtrl::OnShowWindow(BOOL bShow, UINT /*nStatus*/)
 		if ( m_pFileDocs.GetCount() == 0 )
 		{
 			int nFileCount = 1;
-			for ( std::size_t pos = 0; pos != pList.size(); ++pos )
+			for ( std::size_t pos = 0 ; pos != pList.size() ; ++pos )
 			{
 				PrepareDoc( pList[ pos ], nFileCount % 2 == 0 ? m_sEvenFilePath : m_sOddFilePath );
 				++nFileCount;
@@ -383,32 +384,34 @@ BOOL CWizardCtrl::CollectFiles(CXMLElement* pBase)
 	if ( pBase == NULL ) return FALSE;
 
 	CXMLElement* pTemplate = pBase->GetElementByName( _T("files"), FALSE );
+	if ( ! pTemplate ) return FALSE;
 
-	if ( pTemplate )
+	for ( POSITION pos = pTemplate->GetElementIterator() ; pos ; )
 	{
-		for ( POSITION pos = pTemplate->GetElementIterator() ; pos ; )
+		CXMLElement* pItem = pTemplate->GetNextElement( pos );
+		if ( pItem->IsNamed( _T("file") ) )
 		{
-			CXMLElement* pItem = pTemplate->GetNextElement( pos );
-			if ( pItem->IsNamed( _T("file") ) )
+			CString strType = pItem->GetAttributeValue( _T("type") );
+			CString strPath = pItem->GetAttributeValue( _T("path") );
+
+			if ( strType == "main" )
 			{
-				CString strPath = pItem->GetAttributeValue( _T("path") );
-				CString strType = pItem->GetAttributeValue( _T("type") );
-				if ( strType == "main" && ! m_bValid )	// Use only the first file of type "main"
+				if ( ! m_bValid )	// Use only the first file of type "main"
 				{
 					m_sMainFilePath = strPath;
 					m_bValid = TRUE;
 				}
-				else if ( strType == "evenfile" )
-					m_sEvenFilePath = strPath;
-				else if ( strType == "oddfile" )
-					m_sOddFilePath = strPath;
-				m_pTemplatePaths.Add( strPath );
 			}
+			else if ( strType == "evenfile" )
+				m_sEvenFilePath = strPath;
+			else if ( strType == "oddfile" )
+				m_sOddFilePath = strPath;
+			m_pTemplatePaths.Add( strPath );
 		}
-		if ( m_sOddFilePath.IsEmpty() ) m_sOddFilePath = m_sEvenFilePath;
 	}
-	else
-		return FALSE;
+
+	if ( m_sOddFilePath.IsEmpty() )
+		m_sOddFilePath = m_sEvenFilePath;
 
 	return TRUE;
 }
@@ -419,17 +422,14 @@ BOOL CWizardCtrl::CollectImages(CXMLElement* pBase)
 	if ( pBase == NULL ) return FALSE;
 
 	CXMLElement* pTemplate = pBase->GetElementByName( _T("images"), FALSE );
-	if ( pTemplate )
+	if ( ! pTemplate ) return FALSE;
+
+	for ( POSITION pos = pTemplate->GetElementIterator() ; pos ; )
 	{
-		for ( POSITION pos = pTemplate->GetElementIterator() ; pos ; )
-		{
-			CXMLElement* pItem = pTemplate->GetNextElement( pos );
-			if ( pItem->IsNamed( _T("image") ) )
-				m_pImagePaths.Add( pItem->GetAttributeValue( _T("path") ) );
-		}
+		CXMLElement* pItem = pTemplate->GetNextElement( pos );
+		if ( pItem->IsNamed( _T("image") ) )
+			m_pImagePaths.Add( pItem->GetAttributeValue( _T("path") ) );
 	}
-	else
-		return FALSE;
 
 	return TRUE;
 }
@@ -440,115 +440,111 @@ BOOL CWizardCtrl::MakeControls(CXMLElement* pBase, std::vector< CLibraryFile* > 
 	if ( pBase == NULL ) return FALSE;
 
 	CXMLElement* pTemplate = pBase->GetElementByName( _T("wizardtext"), FALSE );
+	if ( ! pTemplate ) return FALSE;
 
 	CWnd* pControl = NULL;
 	CRect rc;
 
-	if ( pTemplate )
+	for ( POSITION posTemplate = pTemplate->GetElementIterator() ; posTemplate ; )
 	{
-		for ( POSITION posTemplate = pTemplate->GetElementIterator() ; posTemplate ; )
+		CXMLElement* pLangGroup = pTemplate->GetNextElement( posTemplate );
+		CString strLang = pLangGroup->GetAttributeValue( _T("language") );
+
+		// Collect only english and language specific data
+		if ( pLangGroup->IsNamed( _T("text") ) &&
+			( strLang == Settings.General.Language || ( strLang == "en" && m_pControls.IsEmpty() ) ) )
 		{
-			CXMLElement* pLangGroup = pTemplate->GetNextElement( posTemplate );
-			CString strLang = pLangGroup->GetAttributeValue( _T("language") );
+			// If english data loaded but language specific data found later,
+			// then empty controls, captions, and docs collections
+			if ( strLang != "en" ) Clear();
 
-			// Collect only english and language specific data
-			if ( pLangGroup->IsNamed( _T("text") ) &&
-				( strLang == Settings.General.Language || ( strLang == "en" && m_pControls.IsEmpty() ) ) )
+			int nItemCount = 0;
+			for ( POSITION posLangGroup = pLangGroup->GetElementIterator() ; posLangGroup ; )
 			{
-				// If english data loaded but language specific data found later,
-				// then empty controls, captions, and docs collections
-				if ( strLang != "en" ) Clear();
-
-				int nItemCount = 0;
-				for ( POSITION posLangGroup = pLangGroup->GetElementIterator() ; posLangGroup ; )
+				CXMLElement* pItem = pLangGroup->GetNextElement( posLangGroup );
+				if ( pItem->IsNamed( _T("item") ) )
 				{
-					CXMLElement* pItem = pLangGroup->GetNextElement( posLangGroup );
-					if ( pItem->IsNamed( _T("item") ) )
+					CString strType = pItem->GetAttributeValue( _T("type") );
+					bool bFilePickers = ( strType == "single-filepicker" || strType == "multi-filepicker" );
+					bool bPickers = ( strType == "colorpicker" || bFilePickers );
+
+					if ( strType == "textbox" || bPickers )
 					{
-						CString strType = pItem->GetAttributeValue( _T("type") );
-						bool bFilePickers = ( strType == "single-filepicker" || strType == "multi-filepicker" );
-						bool bPickers = ( strType == "colorpicker" || bFilePickers );
+						// Do we need to check if the current text id is actually used in EvenFile.tpl and OddFile.tpl ?
+						int nFileCount = 0;
 
-						if ( strType == "textbox" || bPickers )
+						for ( std::size_t pos = 0 ; pos != pList.size() ; ++pos )
 						{
-							// Do we need to check if the current text id is actually used in EvenFile.tpl and OddFile.tpl ?
-							int nFileCount = 0;
+							CEdit* pEdit = new CEdit();
 
-							for ( std::size_t pos = 0; pos != pList.size(); ++pos )
+							DWORD dwStyle = WS_CHILD|WS_VISIBLE|WS_TABSTOP|ES_AUTOHSCROLL;
+							if ( bPickers ) dwStyle |= ES_READONLY;
+							pEdit->Create( dwStyle, rc, this, IDC_WIZARD_CONTROL + nItemCount );
+							pEdit->ModifyStyleEx( 0, WS_EX_CLIENTEDGE );
+							if ( bPickers && Settings.General.LanguageRTL )
+								pEdit->ModifyStyleEx( WS_EX_RTLREADING, WS_EX_RIGHT, 0 );
+
+							CString strText = pItem->GetAttributeValue( _T("default") );
+							if ( strType == "colorpicker" ) strText.MakeUpper();
+							pEdit->SetWindowText( strText );
+
+							pControl = pEdit;
+							strText = pItem->GetAttributeValue( _T("value") ) + ':';
+
+							m_pCaptions.Add( strText );
+							m_pControls.Add( pControl );
+
+							// Each edit control UINT is mapped to "file #|item ID in XML|filepicker type"
+							CString strUINT;
+							strUINT.Format( _T("%d"), IDC_WIZARD_CONTROL + nItemCount );
+							strText.Format( _T("%d"), nFileCount );
+							strText += _T("|") + pItem->GetAttributeValue( _T("id") ) + _T("|");
+							if ( strType.Find( _T("multi-") ) != -1 )
+								strText += 'm';
+							else if ( strType.Find( _T("single-") ) != -1 )
+								strText += 's';
+							m_pItems.SetAt( strUINT, strText );
+							// Is it correct?
+							SetWindowLongPtr( pControl->GetSafeHwnd(), GWLP_USERDATA, (LONG_PTR)pItem );
+							pControl->SetFont( &theApp.m_gdiFont );
+							nItemCount++;
+
+							if ( bPickers ) // Add buttons after control
 							{
-								CEdit* pEdit = new CEdit();
-
-								DWORD dwStyle = WS_CHILD|WS_VISIBLE|WS_TABSTOP|ES_AUTOHSCROLL;
-								if ( bPickers ) dwStyle |= ES_READONLY;
-								pEdit->Create( dwStyle, rc, this, IDC_WIZARD_CONTROL + nItemCount );
-								pEdit->ModifyStyleEx( 0, WS_EX_CLIENTEDGE );
-								if ( bPickers && Settings.General.LanguageRTL )
-									pEdit->ModifyStyleEx( WS_EX_RTLREADING, WS_EX_RIGHT, 0 );
-
-								CString strText = pItem->GetAttributeValue( _T("default") );
-								if ( strType == "colorpicker" ) strText.MakeUpper();
-								pEdit->SetWindowText( strText );
-
-								pControl = pEdit;
-								strText = pItem->GetAttributeValue( _T("value") ) + ':';
-
-								m_pCaptions.Add( strText );
+								CIconButtonCtrl* pButton = new CIconButtonCtrl();
+								CString strCaption;
+								pButton->Create( rc, this, IDC_WIZARD_CONTROL + nItemCount );
+								if ( bFilePickers )
+								{
+									// A kind of hack to store button type
+									pButton->SetText( _T(" ") );
+									pButton->SetCoolIcon( IDI_BROWSE, Settings.General.LanguageRTL );
+								}
+								else if ( strType == "colorpicker" )
+									pButton->SetCoolIcon( IDI_COLORS, Settings.General.LanguageRTL );
+								pControl = pButton;
+								// Store file name which will be displayed for each multipicker row
+								strCaption = pList[ pos ]->m_sName;
+								m_pCaptions.Add( strCaption );
 								m_pControls.Add( pControl );
-
-								// Each edit control UINT is mapped to "file #|item ID in XML|filepicker type"
-								CString strUINT;
-								strUINT.Format( _T("%d"), IDC_WIZARD_CONTROL + nItemCount );
-								strText.Format( _T("%d"), nFileCount );
-								strText += _T("|") + pItem->GetAttributeValue( _T("id") ) + _T("|");
-								if ( strType.Find( _T("multi-") ) != -1 )
-									strText += 'm';
-								else if ( strType.Find( _T("single-") ) != -1 )
-									strText += 's';
-								m_pItems.SetAt( strUINT, strText );
+								nItemCount++;
 								// Is it correct?
 								SetWindowLongPtr( pControl->GetSafeHwnd(), GWLP_USERDATA, (LONG_PTR)pItem );
-								pControl->SetFont( &theApp.m_gdiFont );
-								nItemCount++;
-
-								if ( bPickers ) // Add buttons after control
-								{
-									CIconButtonCtrl* pButton = new CIconButtonCtrl();
-									CString strCaption;
-									pButton->Create( rc, this, IDC_WIZARD_CONTROL + nItemCount );
-									if ( bFilePickers )
-									{
-										// A kind of hack to store button type
-										pButton->SetText( _T(" ") );
-										pButton->SetCoolIcon( IDI_BROWSE, Settings.General.LanguageRTL );
-									}
-									else if (strType == "colorpicker")
-										pButton->SetCoolIcon( IDI_COLORS, Settings.General.LanguageRTL );
-									pControl = pButton;
-									// Store file name which will be displayed for each multipicker row
-									strCaption = pList[ pos ]->m_sName;
-									m_pCaptions.Add( strCaption );
-									m_pControls.Add( pControl );
-									nItemCount++;
-									// Is it correct?
-									SetWindowLongPtr( pControl->GetSafeHwnd(), GWLP_USERDATA, (LONG_PTR)pItem );
-								}
-								nFileCount++;
-								if ( strType == "multi-filepicker" )
-								{
-									if ( nFileCount > m_pFileDocs.GetCount() )
-										PrepareDoc( pList[ pos ], nFileCount % 2 == 0 ? m_sEvenFilePath : m_sOddFilePath );
-								}
-								else
-									break;
-							} // for pos
-						}
+							}
+							nFileCount++;
+							if ( strType == "multi-filepicker" )
+							{
+								if ( nFileCount > m_pFileDocs.GetCount() )
+									PrepareDoc( pList[ pos ], nFileCount % 2 == 0 ? m_sEvenFilePath : m_sOddFilePath );
+							}
+							else
+								break;
+						} // for pos
 					}
-				} // for posLangGroup
-			}
-		} // for posTemplate
-	}
-	else
-		return FALSE;
+				}
+			} // for posLangGroup
+		}
+	} // for posTemplate
 
 	return TRUE;
 }
@@ -801,7 +797,7 @@ void CWizardCtrl::ReplaceNoCase(CString& sInStr, LPCTSTR pszOldStr, LPCTSTR pszN
 	while ( *pNewStrEnd ) ++pNewStrEnd;
 
 	TCHAR nOldChar = pszOldStr[ 0 ];
-	for ( DWORD nPos = 0; nPos < nInLength; )
+	for ( DWORD nPos = 0 ; nPos < nInLength ; )
 	{
 		TCHAR nChar = pszInStr[ nPos ];
 		if ( ToLower( nChar ) == nOldChar )
@@ -896,26 +892,25 @@ BOOL CWizardCtrl::OnTab()
 			SetFocusTo( pControl );
 			return TRUE;
 		}
-		else if ( pControl == pFocus || pControl->GetWindow( GW_CHILD ) == pFocus )
+
+		if ( pControl == pFocus || pControl->GetWindow( GW_CHILD ) == pFocus )
 		{
 			if ( bShift )
 			{
 				if ( pPrevious )
 				{
 					SetFocusTo( pPrevious );
-					return TRUE;
 				}
 				else
 				{
 					pFocus = GetWindow( GW_HWNDPREV );
 					if ( pFocus ) pFocus->SetFocus();
-					return TRUE;
 				}
+
+				return TRUE;
 			}
-			else
-			{
-				bNext = TRUE;
-			}
+
+			bNext = TRUE;
 		}
 
 		pPrevious = pControl;

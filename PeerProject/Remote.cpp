@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "Remote.h"
 
 #include "Network.h"
@@ -82,10 +82,10 @@ CRemote::~CRemote()
 
 BOOL CRemote::OnRun()
 {
-	DWORD tNow = GetTickCount();
+	const DWORD tNow = GetTickCount();
 
 	// 3 minute timeout
-	if ( ( tNow - m_mOutput.tLast > 3 * 60 * 1000 ) || ! Network.IsConnected() )
+	if ( tNow > m_mOutput.tLast + ( 3 * 60 * 1000 ) || ! Network.IsConnected() )
 	{
 		Close();
 		delete this;
@@ -242,6 +242,9 @@ CString CRemote::GetKey(LPCTSTR pszName)
 
 BOOL CRemote::CheckCookie()
 {
+	const CString strToken = _T("peerprojectremote=");
+	const int nToken = strToken.GetLength();
+
 	for ( INT_PTR nHeader = 0 ; nHeader < m_pHeaderName.GetSize() ; nHeader ++ )
 	{
 		if ( m_pHeaderName.GetAt( nHeader ).CompareNoCase( _T("Cookie") ) == 0 )
@@ -249,12 +252,12 @@ BOOL CRemote::CheckCookie()
 			CString strValue( m_pHeaderValue.GetAt( nHeader ) );
 			ToLower( strValue );
 
-			int nPos = strValue.Find( _T("peerprojectremote=") ); // ToDo: Why can't this name be fixed?
+			int nPos = strValue.Find( strToken );
 
 			if ( nPos >= 0 )
 			{
 				int nCookie = 0;
-				_stscanf( strValue.Mid( nPos + 18 ), _T("%i"), &nCookie );
+				_stscanf( strValue.Mid( nPos + nToken ), _T("%i"), &nCookie );
 				if ( m_pCookies.Find( nCookie ) != NULL ) return FALSE;
 			}
 		}
@@ -267,6 +270,9 @@ BOOL CRemote::CheckCookie()
 // Determines what session ID is currently being used by the logged in user and removes it from the cookie list.
 BOOL CRemote::RemoveCookie()
 {
+	const CString strToken = _T("peerprojectremote=");
+	const int nToken = strToken.GetLength();
+
 	for ( INT_PTR nHeader = 0 ; nHeader < m_pHeaderName.GetSize() ; nHeader ++ )
 	{
 		if ( m_pHeaderName.GetAt( nHeader ).CompareNoCase( _T("Cookie") ) == 0 )
@@ -274,12 +280,12 @@ BOOL CRemote::RemoveCookie()
 			CString strValue( m_pHeaderValue.GetAt( nHeader ) );
 			ToLower( strValue );
 
-			int nPos = strValue.Find( _T("peerprojectremote=") );
+			int nPos = strValue.Find( strToken );
 
 			if ( nPos >= 0 )
 			{
 				int nCookie = 0;
-				_stscanf( strValue.Mid( nPos + 18 ), _T("%i"), &nCookie );		// APP_LENGTH LETTERCOUNT + 7
+				_stscanf( strValue.Mid( nPos + nToken ), _T("%i"), &nCookie );		// APP_LENGTH LETTERCOUNT + 7
 				POSITION pos = m_pCookies.Find( nCookie );
 				if ( pos != NULL )
 				{
@@ -1308,7 +1314,7 @@ void CRemote::PageNetworkNetwork(int nID, bool* pbConnect, LPCTSTR pszName)
 			break;
 		case nrsConnected:
 			{
-				DWORD tNow = ( GetTickCount() - pNeighbour->m_tConnected ) / 1000;
+				const DWORD tNow = ( GetTickCount() - pNeighbour->m_tConnected ) / 1000;	// Seconds
 				if ( tNow > 86400 )
 					str.Format( _T("%i:%.2i:%.2i:%.2i"), tNow / 86400, ( tNow / 3600 ) % 24, ( tNow / 60 ) % 60, tNow % 60 );
 				else

@@ -17,9 +17,10 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "CtrlCoolBar.h"
+
 #include "CoolInterface.h"
 #include "Colors.h"
 #include "Images.h"
@@ -322,7 +323,8 @@ void CCoolBarCtrl::OnUpdated()
 		}
 	}
 
-	if (m_hWnd) Invalidate();
+	if ( m_hWnd )
+		Invalidate();
 }
 
 /////////////////////////////////////////////////////////////////////////////

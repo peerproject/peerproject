@@ -17,14 +17,14 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "Transfers.h"
+#include "PeerProject.h"
 #include "DownloadWithExtras.h"
-#include "DlgFilePreview.h"
 #include "DlgDownloadMonitor.h"
-#include "Plugins.h"
+#include "DlgFilePreview.h"
 #include "DownloadTask.h"
+#include "Transfers.h"
+#include "Plugins.h"
 #include "ImageServices.h"
 #include "ImageFile.h"
 
@@ -38,15 +38,15 @@ static char THIS_FILE[]=__FILE__;
 // CDownloadWithExtras construction
 
 CDownloadWithExtras::CDownloadWithExtras()
-	: m_pMonitorWnd			( NULL )
-	, m_pPreviewWnd			( NULL )
+	: m_pMonitorWnd		( NULL )
+	, m_pPreviewWnd		( NULL )
 
-	, m_pReviewFirst		( NULL )
-	, m_pReviewLast			( NULL )
-	, m_nReviewCount		( 0 )
+	, m_pReviewFirst	( NULL )
+	, m_pReviewLast		( NULL )
+	, m_nReviewCount	( 0 )
 
-	, m_bGotPreview			( FALSE )
-	, m_bWaitingPreview		( FALSE )
+	, m_bGotPreview		( FALSE )
+	, m_bWaitingPreview	( FALSE )
 	, m_bRemotePreviewCapable ( FALSE )
 {
 }
@@ -189,40 +189,31 @@ void CDownloadWithExtras::DeleteReview(CDownloadReview *pReview)
 
 	if ( m_nReviewCount ) m_nReviewCount--;
 
-	if ( pReview->m_pNext == NULL )
+	if ( ! pReview->m_pNext && ! pReview->m_pPrev )
 	{
-		if ( pReview->m_pPrev == NULL )
-		{
-			// Delete the last review on the list
-			m_pReviewFirst = m_pReviewLast = NULL;
-			delete pReview;
-			return;
-		}
-		else
-		{
-			// Delete the only review
-			pReview->m_pPrev->m_pNext = NULL;
-			m_pReviewLast = pReview->m_pPrev;
-			delete pReview;
-			return;
-		}
+		// Delete the last review on the list
+		m_pReviewFirst = m_pReviewLast = NULL;
 	}
-	else if ( pReview->m_pPrev == NULL )
+	else if ( ! pReview->m_pNext )
+	{
+		// Delete the only review
+		pReview->m_pPrev->m_pNext = NULL;
+		m_pReviewLast = pReview->m_pPrev;
+	}
+	else if ( ! pReview->m_pPrev )
 	{
 		// Delete the first review on the list
 		pReview->m_pNext->m_pPrev = NULL;
 		m_pReviewFirst = pReview->m_pNext;
-		delete pReview;
-		return;
 	}
 	else
 	{
 		// Delete a review in the middle of the list
 		pReview->m_pPrev->m_pNext = pReview->m_pNext;
 		pReview->m_pNext->m_pPrev = pReview->m_pPrev;
-		delete pReview;
-		return;
 	}
+
+	delete pReview;
 }
 
 // Delete all reviews
@@ -284,9 +275,9 @@ CDownloadReview* CDownloadWithExtras::FindReview(int nRating, LPCTSTR pszName, L
 
 	while ( pReview )
 	{
-		if ( ( pReview->m_nFileRating == nRating ) &&
-			 ( _tcscmp( pReview->m_sUserName, pszName ) == 0 ) &&
-			 ( _tcscmp( pReview->m_sFileComments, pszComment ) == 0 ) )
+		if ( pReview->m_nFileRating == nRating &&
+			 _tcscmp( pReview->m_sUserName, pszName ) == 0 &&
+			 _tcscmp( pReview->m_sFileComments, pszComment ) == 0 )
 			return pReview;
 		pReview = pReview->m_pNext;
 	}

@@ -21,8 +21,8 @@
 
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "Network.h"
 #include "Neighbours.h"
 #include "Neighbour.h"
@@ -162,7 +162,7 @@ CNeighbour::CNeighbour(PROTOCOLID nProtocol, CNeighbour* pBase)
 CNeighbour::~CNeighbour()
 {
 	// If m_pZSOutput isn't NULL, we are probably in the middle of a zlib compression operation
-	if ( z_streamp pStream = (z_streamp)m_pZSOutput ) // This is correctly assignment, not comparison, in an if statement
+	if ( z_streamp pStream = (z_streamp)m_pZSOutput )	// This is correctly assignment, not comparison, in an if statement
 	{
 		// End the compression and delete the pStream object
 		deflateEnd( pStream );
@@ -312,8 +312,8 @@ BOOL CNeighbour::OnRun()
 
 		if ( ( m_nNodeType == ntHub || ( m_nNodeType == ntNode && m_nProtocol == PROTOCOL_G2 ) ) &&
 			 ( m_pQueryTableLocal != NULL && m_pQueryTableLocal->m_nCookie != QueryHashMaster.m_nCookie ) &&
-			 ( tNow - m_pQueryTableLocal->m_nCookie > 60000 ) &&
-			 ( tNow - QueryHashMaster.m_nCookie > 30000 ||
+			 ( tNow > m_pQueryTableLocal->m_nCookie + 60000 ) &&
+			 ( tNow > QueryHashMaster.m_nCookie + 30000 ||
 				QueryHashMaster.m_nCookie - m_pQueryTableLocal->m_nCookie > 60000 ||
 				! m_pQueryTableLocal->m_bLive ) )
 		{
@@ -385,7 +385,7 @@ BOOL CNeighbour::OnRead()
 BOOL CNeighbour::OnWrite()
 {
 	// If we're not sending compressed data to the remote computer, just call CConnection::OnWrite to send the output buffer
-	if ( m_pZOutput == NULL ) return CConnection::OnWrite(); // Return the result and leave now
+	if ( m_pZOutput == NULL ) return CConnection::OnWrite();	// Return the result and leave now
 
 	// Start or continue using zlib with m_pZSInput and pStream pointers
 	BOOL bNew = ( m_pZSOutput == NULL );		// Make bNew true if zlib compression isn't setup yet
@@ -433,13 +433,13 @@ BOOL CNeighbour::OnWrite()
 			return FALSE;
 
 		// Tell zlib where the data to compress is, and where it should put the compressed data
-		pStream->next_in	= m_pZOutput->m_pBuffer; // Start next_in and avail_in on the data in ZOutput
+		pStream->next_in	= m_pZOutput->m_pBuffer;			// Start next_in and avail_in on the data in ZOutput
 		pStream->avail_in	= m_pZOutput->m_nLength;
-		pStream->next_out	= pOutput->m_pBuffer + pOutput->m_nLength; // Start next_out and avail_out on the empty space in Output
+		pStream->next_out	= pOutput->m_pBuffer + pOutput->m_nLength;	// Start next_out and avail_out on the empty space in Output
 		pStream->avail_out	= pOutput->GetBufferSize() - pOutput->m_nLength;
 
 		// Call zlib inflate to decompress the contents of m_pInput into the end of m_pZInput
-		deflate( pStream, m_bZFlush ? Z_SYNC_FLUSH : Z_NO_FLUSH ); // Zlib adjusts next in, avail in, next out, and avail out to record what it did
+		deflate( pStream, m_bZFlush ? Z_SYNC_FLUSH : Z_NO_FLUSH );	// Zlib adjusts next in, avail in, next out, and avail out to record what it did
 
 		// Add the number of uncompressed bytes that zlib compressed to the m_nZOutput count
 		m_nZOutput += m_pZOutput->m_nLength - pStream->avail_in;

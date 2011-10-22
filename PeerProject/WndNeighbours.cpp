@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "Network.h"
 #include "Neighbours.h"
 #include "G1Neighbour.h"
@@ -147,7 +147,7 @@ int CNeighboursWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndList.InsertColumn( COL_NAME,	 _T("Name"), 	LVCFMT_LEFT,	100 );
 	m_wndList.InsertColumn( COL_COUNTRY, _T("Country"),	LVCFMT_LEFT,	 54 );
 
-	//CLiveList::Sort( &m_wndList, COL_MODE ); // Does not work
+	//CLiveList::Sort( &m_wndList, COL_MODE );	// Does not work
 
 // Obsolete for reference:
 //	CBitmap bmImages;

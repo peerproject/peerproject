@@ -19,8 +19,8 @@
 // Previously "PageSettingsTraffic.cpp"
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "PageSettingsAdvanced.h"
 #include "LiveList.h"
 #include "Skin.h"

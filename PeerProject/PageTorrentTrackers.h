@@ -21,6 +21,7 @@
 #include "ThreadImpl.h"
 #include "PagePropertyAdv.h"
 #include "HttpRequest.h"
+#include "Download.h"
 
 class CTorrentTrackersPage :
 	public CPropertyPageAdv,

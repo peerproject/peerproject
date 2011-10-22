@@ -21,8 +21,8 @@
 
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "Network.h"
 #include "Buffer.h"
 #include "Statistics.h"
@@ -63,7 +63,7 @@ static char THIS_FILE[]=__FILE__;
 // Takes a CNeighbour object to base this new CG1Neighbour object on
 // Creates a new CG1Neighbour object
 CG1Neighbour::CG1Neighbour(CNeighbour* pBase)
-	: CNeighbour( PROTOCOL_G1, pBase ) // First, call the CNeighbour constructor
+	: CNeighbour( PROTOCOL_G1, pBase )	// First, call the CNeighbour constructor
 {
 	CLockedBuffer pOutput( GetOutput() );
 
@@ -77,7 +77,7 @@ CG1Neighbour::CG1Neighbour(CNeighbour* pBase)
 	m_nHopsFlow = 0xFF;
 
 	// Create a new packet buffer for sending packets, giving it the m_pZOutput buffer if we're compressing, or just m_pOutput if we're not
-	m_pOutbound = new CG1PacketBuffer( m_pZOutput ? m_pZOutput : pOutput ); // m_pZOutput is where to write data the program will compress
+	m_pOutbound = new CG1PacketBuffer( m_pZOutput ? m_pZOutput : pOutput );		// m_pZOutput is where to write data the program will compress
 
 	// Report that a Gnutella connection with the remote computer has been successfully established
 	theApp.Message( MSG_INFO, IDS_HANDSHAKE_ONLINE, (LPCTSTR)m_sAddress, 0, 6, m_sUserAgent.IsEmpty() ? _T("Unknown") : (LPCTSTR)m_sUserAgent );
@@ -97,31 +97,31 @@ CG1Neighbour::CG1Neighbour(CNeighbour* pBase)
 		pVendor->WriteShortLE( 0 );
 		pVendor->WriteShortLE( 0 );
 		pVendor->WriteShortLE( 6 );
-		pVendor->WriteLongLE( 'RAEB' ); // "BEAR" for BearShare, the bytes are backwards here to be sent in network order
+		pVendor->WriteLongLE( 'RAEB' );	// "BEAR" for BearShare, the bytes are backwards here to be sent in network order
 		pVendor->WriteShortLE( 0x0004 );
 		pVendor->WriteShortLE( 1 );
-		pVendor->WriteLongLE( 'RAEB' ); // "BEAR" for BearShare
+		pVendor->WriteLongLE( 'RAEB' );
 		pVendor->WriteShortLE( 0x000B );
 		pVendor->WriteShortLE( 1 );
-		pVendor->WriteLongLE( 'RAEB' ); // "BEAR" for BearShare
+		pVendor->WriteLongLE( 'RAEB' );
 		pVendor->WriteShortLE( 0x000C );
 		pVendor->WriteShortLE( 1 );
-		pVendor->WriteLongLE( 'REEP' ); // "PEER" for PeerProject
+		pVendor->WriteLongLE( 'AZAR' );	// "RAZA" for Shareaza
 		pVendor->WriteShortLE( 0x0001 );
 		pVendor->WriteShortLE( 1 );
-		pVendor->WriteLongLE( 'REEP' ); // "PEER" for PeerProject
+		pVendor->WriteLongLE( 'AZAR' );
 		pVendor->WriteShortLE( 0x0002 );
 		pVendor->WriteShortLE( 1 );
-		pVendor->WriteLongLE( 'REEP' ); // "PEER" for PeerProject
+		pVendor->WriteLongLE( 'AZAR' );
 		pVendor->WriteShortLE( 0x0003 );
 		pVendor->WriteShortLE( 1 );
-		pVendor->WriteLongLE( 'AZAR' ); // "RAZA" for Shareaza
+		pVendor->WriteLongLE( 'REEP' );	// "PEER" for PeerProject
 		pVendor->WriteShortLE( 0x0001 );
 		pVendor->WriteShortLE( 1 );
-		pVendor->WriteLongLE( 'AZAR' ); // "RAZA" for Shareaza
+		pVendor->WriteLongLE( 'REEP' );
 		pVendor->WriteShortLE( 0x0002 );
 		pVendor->WriteShortLE( 1 );
-		pVendor->WriteLongLE( 'AZAR' ); // "RAZA" for Shareaza
+		pVendor->WriteLongLE( 'REEP' );
 		pVendor->WriteShortLE( 0x0003 );
 		pVendor->WriteShortLE( 1 );
 
@@ -145,7 +145,7 @@ CG1Neighbour::~CG1Neighbour()
 BOOL CG1Neighbour::OnRead()
 {
 	// Read in data the remote computer sent, and decompress it
-	CNeighbour::OnRead(); // Call CNeighbour's OnRead, which calls CConnection's OnRead
+	CNeighbour::OnRead();	// Call CNeighbour's OnRead, which calls CConnection's OnRead
 
 	// Have ProcessPackets look at the packets we got, and return the result it returns
 	return ProcessPackets();
@@ -158,7 +158,7 @@ BOOL CG1Neighbour::OnWrite()
 	CLockedBuffer pOutputLocked( GetOutput() );
 
 	// Point pOutput at the buffer where we should write data for the remote computer
-	CBuffer* pOutput = m_pZOutput ? m_pZOutput : pOutputLocked; // If we're sending compressed data, we'll put readable bytes in m_pZOutput and then compress them to m_pOutput
+	CBuffer* pOutput = m_pZOutput ? m_pZOutput : pOutputLocked;	// If we're sending compressed data, we'll put readable bytes in m_pZOutput and then compress them to m_pOutput
 
 	// Record when OnWrite was called
 	DWORD nExpire = GetTickCount();
@@ -170,8 +170,8 @@ BOOL CG1Neighbour::OnWrite()
 	while ( pOutput->m_nLength == 0 && m_pOutbound->m_nTotal > 0 )
 	{
 		// Get a packet from the outbound packet buffer
-		CG1Packet* pPacket = m_pOutbound->GetPacketToSend( nExpire ); // Tell GetPacketToSend when OnWrite was called
-		if ( ! pPacket ) break; // If the outbound packet buffer didn't give us anything, leave the while loop
+		CG1Packet* pPacket = m_pOutbound->GetPacketToSend( nExpire );	// Tell GetPacketToSend when OnWrite was called
+		if ( ! pPacket ) break;	// If the outbound packet buffer didn't give us anything, leave the while loop
 
 		// Write the packet into the output buffer, and release it
 		pPacket->ToBuffer( pOutput );
@@ -185,8 +185,8 @@ BOOL CG1Neighbour::OnWrite()
 	}
 
 	// Save statistics from the outbound packet buffer into this CG1Neighbour object
-	m_nOutbound  = m_pOutbound->m_nTotal;   // Number of packets added in empty array spots
-	m_nLostCount = m_pOutbound->m_nDropped; // Number of packets overwritten
+	m_nOutbound  = m_pOutbound->m_nTotal;		// Number of packets added in empty array spots
+	m_nLostCount = m_pOutbound->m_nDropped;		// Number of packets overwritten
 
 	// Always reports success
 	return TRUE;
@@ -265,7 +265,7 @@ BOOL CG1Neighbour::ProcessPackets()
 
 	// Start out with bSuccess true and loop until it gets set to false
 	BOOL bSuccess = TRUE;
-	for ( ; bSuccess ; ) // This is the same thing as while ( bSuccess )
+	for ( ; bSuccess ; )	// This is the same thing as while ( bSuccess )
 	{
 		// Look at the input buffer as a Gnutella packet
 		GNUTELLAPACKET* pPacket = (GNUTELLAPACKET*)pInput->m_pBuffer;	// Hopefully a packet starts right there
@@ -337,15 +337,15 @@ BOOL CG1Neighbour::OnPacket(CG1Packet* pPacket)
 	// Sort the packet by type, hand it to the correct packet handler, and return the result from that
 	switch ( pPacket->m_nType )
 	{
-	case G1_PACKET_PING:        return OnPing( pPacket );			// Ping
-	case G1_PACKET_PONG:        return OnPong( pPacket );			// Pong, response to a ping
-	case G1_PACKET_BYE:         return OnBye( pPacket );			// Bye message
-	case G1_PACKET_QUERY_ROUTE: return OnCommonQueryHash( pPacket ); // Common query hash
-	case G1_PACKET_VENDOR:											// Vendor-specific message
-	case G1_PACKET_VENDOR_APP:  return OnVendor( pPacket );
-	case G1_PACKET_PUSH:        return OnPush( pPacket );			// Push open a connection
-	case G1_PACKET_QUERY:       return OnQuery( pPacket );			// Search query
-	case G1_PACKET_HIT:         return OnHit( pPacket );			// Hit, a search result
+	case G1_PACKET_PING:		return OnPing( pPacket );			// Ping
+	case G1_PACKET_PONG:		return OnPong( pPacket );			// Pong, response to a ping
+	case G1_PACKET_BYE:			return OnBye( pPacket );			// Bye message
+	case G1_PACKET_QUERY_ROUTE:	return OnCommonQueryHash( pPacket );  // Common query hash
+	case G1_PACKET_VENDOR:
+	case G1_PACKET_VENDOR_APP:	return OnVendor( pPacket );			// Vendor-specific message
+	case G1_PACKET_PUSH:		return OnPush( pPacket );			// Push open a connection
+	case G1_PACKET_QUERY:		return OnQuery( pPacket );			// Search query
+	case G1_PACKET_HIT: 		return OnHit( pPacket );			// Hit, a search result
 	}
 
 	// If control makes it here, the Gnutella packet had an unkown type, document it
@@ -382,9 +382,7 @@ BOOL CG1Neighbour::SendPing(const Hashes::Guid& oGUID)
 				pItem->WriteByte( Neighbours.IsG1Ultrapeer() ? GGEP_SCP_ULTRAPEER : GGEP_SCP_LEAF );
 			}
 			if ( Settings.Experimental.EnableDIPPSupport )
-			{
 				pBlock.Add( GGEP_HEADER_SUPPORT_GDNA );
-			}
 			pBlock.Write( pPacket );
 		}
 
@@ -418,7 +416,7 @@ BOOL CG1Neighbour::OnPing(CG1Packet* pPacket)
 	// Note here, a ping packet is just a header, and shouldn't have length
 
 	// If the packet has 1 hop left to live, and has traveled 0 hops yet somehow was sent to us, it must be a keep alive packet
-	BOOL bIsKeepAlive = ( pPacket->m_nTTL == 1 && pPacket->m_nHops == 0 );
+	const BOOL bIsKeepAlive = ( pPacket->m_nTTL == 1 && pPacket->m_nHops == 0 );
 
 	const DWORD tNow = GetTickCount();
 
@@ -534,8 +532,8 @@ BOOL CG1Neighbour::OnPing(CG1Packet* pPacket)
 			CG1Packet* pPong = CG1Packet::New( G1_PACKET_PONG, m_nLastPingHops, m_pLastPingID );
 
 			// Tell the remote computer it's IP address and port number in the payload bytes of the pong packet
-			pPong->WriteShortLE( htons( pConnection->m_pHost.sin_port ) );   // Port number, 2 bytes reversed
-			pPong->WriteLongLE( pConnection->m_pHost.sin_addr.S_un.S_addr ); // IP address, 4 bytes
+			pPong->WriteShortLE( htons( pConnection->m_pHost.sin_port ) );		// Port number, 2 bytes reversed
+			pPong->WriteLongLE( pConnection->m_pHost.sin_addr.S_un.S_addr );	// IP address, 4 bytes
 
 			// Then, write in the information about how many files we are sharing
 			pPong->WriteLongLE( nMyFiles );
@@ -553,8 +551,8 @@ BOOL CG1Neighbour::OnPing(CG1Packet* pPacket)
 	}
 
 	// The ping can only once more or is dead, or it has already traveled across the Internet, and
-	if ( bIsKeepAlive ||										// Either this is a keep alive packet, or
-		( Network.IsListening() && ! Neighbours.IsG1Leaf() ) )	// We're listening for connections and this remote computer is a Gnutella hub
+	// either this is a keep alive packet, or we're listening for connections and this remote computer is a Gnutella
+	if ( bIsKeepAlive || ( Network.IsListening() && ! Neighbours.IsG1Leaf() ) )
 	{
 		// Make a new pong packet, the response to a ping (with same hops count and GUID)
 		CG1Packet* pPong = CG1Packet::New( G1_PACKET_PONG, m_nLastPingHops, m_pLastPingID );
@@ -601,7 +599,7 @@ BOOL CG1Neighbour::OnPing(CG1Packet* pPacket)
 		// Respond to the packet with a pong item object (do)
 		CPongItem* pCache = NULL;
 		while (	( m_nPongNeeded[ nHops ] > 0 ) &&	// While that ratio is positive, and
-				( pCache = Neighbours.LookupPong( this, nHops, &pIgnore ) ) != NULL ) // Lookup can find this ping
+				( pCache = Neighbours.LookupPong( this, nHops, &pIgnore ) ) != NULL )	// Lookup can find this ping
 		{
 			// Have the pong item prepare a packet, and send it to the remote computer
 			Send( pCache->ToPacket( m_nLastPingHops, m_pLastPingID ) );
@@ -637,10 +635,10 @@ BOOL CG1Neighbour::OnPong(CG1Packet* pPacket)
 	}
 
 	// Read information from the pong packet
-	WORD nPort     = pPacket->ReadShortLE(); // 2 bytes, port number (do) of us? the remote computer? the computer that sent the packet?
-	DWORD nAddress = pPacket->ReadLongLE();  // 4 bytes, IP address
-	DWORD nFiles   = pPacket->ReadLongLE();  // 4 bytes, the number of files the source computer is sharing
-	DWORD nVolume  = pPacket->ReadLongLE();  // 4 bytes, the total size of all those files
+	WORD  nPort 	= pPacket->ReadShortLE();	// 2 bytes, port number (do) of us? the remote computer? the computer that sent the packet?
+	DWORD nAddress	= pPacket->ReadLongLE();	// 4 bytes, IP address
+	DWORD nFiles	= pPacket->ReadLongLE();	// 4 bytes, the number of files the source computer is sharing
+	DWORD nVolume	= pPacket->ReadLongLE();	// 4 bytes, the total size of all those files
 
 	if ( Security.IsDenied( (IN_ADDR*)&nAddress ) )
 	{
@@ -718,8 +716,7 @@ BOOL CG1Neighbour::OnPong(CG1Packet* pPacket)
 	}
 
 	// If the pong said it's port number is 0, or we know it's IP address is firewalled, set bLocal to true
-	BOOL bLocal = ! nPort ||								// The pong specified no port number, or
-		Network.IsFirewalledAddress( (IN_ADDR*)&nAddress ); // The network object knows that the pong's IP address is firewalled
+	BOOL bLocal = ! nPort || Network.IsFirewalledAddress( (IN_ADDR*)&nAddress );
 
 	// If the packet has traveled across the Internet, but the computer that made it is firewalled
 	if ( pPacket->m_nHops != 0 && bLocal )
@@ -844,22 +841,22 @@ BOOL CG1Neighbour::OnVendor(CG1Packet* pPacket)
 	}
 
 	// Read the vendor, function, and version numbers from the packet payload
-	DWORD nVendor  = pPacket->ReadLongBE();  // 4 bytes, vendor code in ASCII characters, like "RAZA" (do)
-	WORD nFunction = pPacket->ReadShortLE(); // 2 bytes, function (do)
-	WORD nVersion  = pPacket->ReadShortLE(); // 2 bytes, version (do)
+	DWORD nVendor  = pPacket->ReadLongBE(); 	// 4 bytes, vendor code in ASCII characters, like "RAZA" (do)
+	WORD nFunction = pPacket->ReadShortLE();	// 2 bytes, function (do)
+	WORD nVersion  = pPacket->ReadShortLE();	// 2 bytes, version (do)
 
 
 	if ( nVendor == 0 && nFunction == 0 )	// If the packet has 0 for the vendor and function (do)
 	{
 		// Supported vendor messages array (do)
 	}
-	else if ( nFunction == 0xFFFF )	// The packet has vendor or function numbers, and the 2 bytes of function are all 1s
+	else if ( nFunction == 0xFFFF )		// The packet has vendor or function numbers, and the 2 bytes of function are all 1s
 	{
 		// Vendor is 0
 		if ( nVendor == 0 )
 		{
 			// Vendor code query (do)
-			CG1Packet* pReply = CG1Packet::New( pPacket->m_nType, 1, pPacket->m_oGUID ); // Create a reply packet
+			CG1Packet* pReply = CG1Packet::New( pPacket->m_nType, 1, pPacket->m_oGUID );	// Create a reply packet
 			pReply->WriteLongLE( 0 );
 			pReply->WriteShortLE( 0xFFFE );
 			pReply->WriteShortLE( 1 );
@@ -872,7 +869,7 @@ BOOL CG1Neighbour::OnVendor(CG1Packet* pPacket)
 		else if ( nVendor == 'RAZA' || nVendor == 'AZAR' )	// It's backwards because of network byte order (Confirm?)
 		{
 			// Function code query for "RAZA" (do)
-			CG1Packet* pReply = CG1Packet::New( pPacket->m_nType, 1, pPacket->m_oGUID ); // Create a reply packet
+			CG1Packet* pReply = CG1Packet::New( pPacket->m_nType, 1, pPacket->m_oGUID );	// Create a reply packet
 			pReply->WriteLongBE( 'RAZA' );
 			pReply->WriteShortLE( 0xFFFE );
 			pReply->WriteShortLE( 1 );
@@ -885,10 +882,10 @@ BOOL CG1Neighbour::OnVendor(CG1Packet* pPacket)
 			Send( pReply );		// Send the reply packet to the remote computer
 		}
 		// Vendor is the ASCII text "PEER" for PeerProject
-		else if ( nVendor == 'PEER' || nVendor == 'REEP' ) // It's backwards because of network byte order (Confirm?)
+		else if ( nVendor == 'PEER' || nVendor == 'REEP' )	// It's backwards because of network byte order (Confirm?)
 		{
 			// Function code query for "PEER" (do)
-			CG1Packet* pReply = CG1Packet::New( pPacket->m_nType, 1, pPacket->m_oGUID ); // Create a reply packet
+			CG1Packet* pReply = CG1Packet::New( pPacket->m_nType, 1, pPacket->m_oGUID );	// Create a reply packet
 			pReply->WriteLongBE( 'PEER' );
 			pReply->WriteShortLE( 0xFFFE );
 			pReply->WriteShortLE( 1 );
@@ -904,7 +901,7 @@ BOOL CG1Neighbour::OnVendor(CG1Packet* pPacket)
 		else if ( nVendor == 'BEAR' ) // It's backwards because of network byte order (Confirm?)
 		{
 			// Function code query for "BEAR"
-			CG1Packet* pReply = CG1Packet::New( pPacket->m_nType, 1, pPacket->m_oGUID ); // Create a reply packet
+			CG1Packet* pReply = CG1Packet::New( pPacket->m_nType, 1, pPacket->m_oGUID );	// Create a reply packet
 			pReply->WriteLongBE( 'BEAR' );
 			pReply->WriteShortLE( 0xFFFE );
 			pReply->WriteShortLE( 1 );
@@ -973,27 +970,26 @@ BOOL CG1Neighbour::OnVendor(CG1Packet* pPacket)
 		{
 
 		// Super Pong (do)
-		case 0x0001:
-			break;
+		//case 0x0001:
+		//	break;
 
 		// Product Identifiers (do)
-		case 0x0003:
-			break;
+		//case 0x0003:
+		//	break;
 
 		// Hops Flow (do)
 		case 0x0004:
-
 			if ( nVersion <= 1 && pPacket->GetRemaining() >= 1 )
 				m_nHopsFlow = pPacket->ReadByte();
 			break;
 
 		// Horizon Ping (do)
-		case 0x0005:
-			break;
+		//case 0x0005:
+		//	break;
 
 		// Horizon Pong (do)
-		case 0x0006:
-			break;
+		//case 0x0006:
+		//	break;
 
 		// Query Status Request (do)
 		case 0x000B:
@@ -1011,8 +1007,8 @@ BOOL CG1Neighbour::OnVendor(CG1Packet* pPacket)
 			break;
 
 		// Query Status Response
-		case 0x000C:
-			break;
+		//case 0x000C:
+		//	break;
 		}
 	}
 
@@ -1042,7 +1038,7 @@ void CG1Neighbour::SendClusterAdvisor()
 		return;
 
 	// Setup local variables
-	DWORD tNow = static_cast< DWORD >( time( NULL ) ); // The time now, when this method was called, which won't change as the loop runs
+	const DWORD tNow = static_cast< DWORD >( time( NULL ) );	// The time now, when this method was called, which won't change as the loop runs
 	CG1Packet* pPacket = NULL;	// A pointer to a Gnutella packet (do)
 	WORD nCount = 0;			// Loop up to 20 times
 
@@ -1065,10 +1061,10 @@ void CG1Neighbour::SendClusterAdvisor()
 				{
 					// Make a new vendor specific packet
 					pPacket = CG1Packet::New( G1_PACKET_VENDOR, 1 );
-					pPacket->WriteLongBE( 'PEER' );  // Back-compatability, vendor code should be "PEER" for PeerProject
-					pPacket->WriteShortLE( 0x0003 ); // 3 is the code for a cluster advisor packet
-					pPacket->WriteShortLE( 1 );      // Version number is 1
-					pPacket->WriteShortLE( 0 );      // (do)
+					pPacket->WriteLongBE( 'PEER' ); 	// Back-compatability, vendor code should be "PEER" for PeerProject
+					pPacket->WriteShortLE( 0x0003 );	// 3 is the code for a cluster advisor packet
+					pPacket->WriteShortLE( 1 );			// Version number is 1
+					pPacket->WriteShortLE( 0 ); 		// (do)
 				}
 
 				// Add the IP address and port number to the packet
@@ -1242,8 +1238,8 @@ void CG1Neighbour::SendG2Push(const Hashes::Guid& oGUID, CPacket* pPacket)
 	if ( pPacket->GetRemaining() < 6 ) return;
 
 	// Read 6 bytes, the IP address and port number
-	DWORD nAddress = pPacket->ReadLongLE();
-	WORD nPort     = pPacket->ReadShortLE();
+	DWORD nAddress	= pPacket->ReadLongLE();
+	WORD nPort		= pPacket->ReadShortLE();
 
 	// Make a new Gnutella push packet, fill it with the same information, and send it to the remote computer
 	pPacket = CG1Packet::New( G1_PACKET_PUSH, Settings.Gnutella1.MaximumTTL - 1 );

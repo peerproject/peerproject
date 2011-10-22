@@ -1,7 +1,7 @@
 //
 // DlgCollectionExport.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -17,18 +17,19 @@
 //
 
 #include "StdAfx.h"
+#include "Settings.h"
 #include "PeerProject.h"
+#include "DlgCollectionExport.h"
+
 #include "Library.h"
 #include "LibraryFolders.h"
 #include "AlbumFolder.h"
 #include "SharedFile.h"
-#include "Schema.h"
-#include "XML.h"
-#include "Settings.h"
 #include "LiveList.h"
 #include "Colors.h"
+#include "Schema.h"
+#include "XML.h"
 
-#include "DlgCollectionExport.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -312,7 +313,7 @@ void CCollectionExportDlg::OnOK()
 			m_wndLblName.ShowWindow( FALSE );
 			m_wndLblDesc.ShowWindow( FALSE );
 			m_wndGroupBox.ShowWindow( FALSE );
-			if ( m_wndWizard.m_pControls.GetSize() ) // We already viewed the second screen
+			if ( m_wndWizard.m_pControls.GetSize() )	// We already viewed the second screen
 			{
 				m_wndWizard.ShowWindow( SW_SHOW );
 				if ( ! m_wndWizard.m_bValid )
@@ -354,7 +355,7 @@ void CCollectionExportDlg::OnOK()
 		CString strPath = BrowseForFolder( _T("Select folder for output:") );
 		if ( strPath.IsEmpty() )
 		{
-			m_nStep--; // Do not increment at the end of case
+			m_nStep--;	// Do not increment at the end of case
 			break;
 		}
 
@@ -464,7 +465,7 @@ void CCollectionExportDlg::OnOK()
 									m_wndWizard.ReplaceNoCase( m_wndWizard.m_pFileDocs.GetAt( nPosDocs++ ),
 										str, strNewReplace );
 								}
-								else if ( strMap == "m" ) // individual file doc replacement; multi-file picker
+								else if ( strMap == "m" )	// Individual file doc replacement; multi-file picker
 								{
 									strNewReplace.Replace( '\\', '/' );
 									m_wndWizard.ReplaceNoCase( m_wndWizard.m_pFileDocs.GetAt( nFileID ),
@@ -475,24 +476,22 @@ void CCollectionExportDlg::OnOK()
 								{
 									CString strTarget, strSourceFile;
 
-									// If default file left, add old value to target and destination
-									// since it may contain a relative path.
+									// If default file left, add old value to target and destination, since it may contain a relative path.
 									if ( strReplace.Find(':') == -1 )
 									{
 										strReplace.Replace( '/', '\\' );
 										strTarget = strPath + _T('\\') + strReplace;
-										strSourceFile = DirFromPath( m_wndWizard.m_sXMLPath ) +
-											_T('\\') + strReplace;
+										strSourceFile = DirFromPath( m_wndWizard.m_sXMLPath ) + _T('\\') + strReplace;
 									}
 									else
 									{
 										strTarget = strPath + _T('\\') + strNewReplace;
 										strSourceFile = strReplace;
 									}
-									// check if destination file does not exists
+									// Check if destination file does not exists
 									if ( GetFileAttributes( strTarget ) == 0xFFFFFFFF )
 									{
-										// create dirs recursively
+										// Create dirs recursively
 										CreateDirectory( strTarget.Left( strTarget.ReverseFind( _T('\\') ) ) );
 										if ( ! CopyFile( strSourceFile, strTarget, TRUE ) )
 											AfxMessageBox( _T("TODO: File disappeared: \n") + strReplace );
@@ -521,7 +520,7 @@ void CCollectionExportDlg::OnOK()
 
 					// Output to file
 					CFile pNewFile;
-					if ( pNewFile.Open( strNewFilePath , CFile::modeWrite|CFile::modeCreate ) )
+					if ( pNewFile.Open( strNewFilePath, CFile::modeWrite|CFile::modeCreate ) )
 					{
 						CStringA strSourceUTF8 = UTF8Encode( strSource );
 
@@ -618,36 +617,21 @@ CXMLElement* CCollectionExportDlg::CreateXML(BOOL bMetadataAll)
 		CXMLElement* pFileRoot = pContents->AddElement( _T("file") );
 
 		if ( pFile->m_oSHA1 && pFile->m_oTiger )
-		{
 			pFileRoot->AddElement( _T("id") )->SetValue(
-				_T("urn:bitprint:") + pFile->m_oSHA1.toString() + '.' +
-				pFile->m_oTiger.toString() );
-		}
+				_T("urn:bitprint:") + pFile->m_oSHA1.toString() + '.' + pFile->m_oTiger.toString() );
 		else if ( pFile->m_oSHA1 )
-		{
-			pFileRoot->AddElement( _T("id") )->SetValue(
-				pFile->m_oSHA1.toUrn() );
-		}
+			pFileRoot->AddElement( _T("id") )->SetValue( pFile->m_oSHA1.toUrn() );
 		else if ( pFile->m_oTiger )
-		{
-			pFileRoot->AddElement( _T("id") )->SetValue(
-				pFile->m_oTiger.toUrn() );
-		}
+			pFileRoot->AddElement( _T("id") )->SetValue( pFile->m_oTiger.toUrn() );
+
 		if ( pFile->m_oMD5 )
-		{
-			pFileRoot->AddElement( _T("id") )->SetValue(
-				pFile->m_oMD5.toUrn() );
-		}
+			pFileRoot->AddElement( _T("id") )->SetValue( pFile->m_oMD5.toUrn() );
+
 		if ( pFile->m_oED2K )
-		{
-			pFileRoot->AddElement( _T("id") )->SetValue(
-				pFile->m_oED2K.toUrn() );
-		}
+			pFileRoot->AddElement( _T("id") )->SetValue( pFile->m_oED2K.toUrn() );
+
 		if ( pFile->m_oBTH )
-		{
-			pFileRoot->AddElement( _T("id") )->SetValue(
-				pFile->m_oBTH.toUrn() );
-		}
+			pFileRoot->AddElement( _T("id") )->SetValue( pFile->m_oBTH.toUrn() );
 
 		CXMLElement* pDescription = pFileRoot->AddElement( _T("description") );
 		pDescription->AddElement( _T("name") )->SetValue( pFile->m_sName );
@@ -688,7 +672,7 @@ CXMLElement* CCollectionExportDlg::CopyMetadata(CXMLElement* pMetadata)
 
 void CCollectionExportDlg::OnTemplatesDeleteOrBack()
 {
-	m_wndOK.EnableWindow( TRUE ); // Enable if template was invalid
+	m_wndOK.EnableWindow( TRUE );	// Enable if template was invalid
 	switch ( m_nStep )
 	{
 	case 1:	// The first screen -- button "Delete"
@@ -905,7 +889,7 @@ BOOL CCollectionExportDlg::PreTranslateMessage(MSG* pMsg)
 	if ( m_wndWizard && pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_TAB )
 	{
 		if ( m_wndWizard.IsWindowVisible() && m_wndWizard.OnTab() )
-			return TRUE; // ToDo: when template is invalid tab key does not work.
+			return TRUE;	// ToDo: when template is invalid tab key does not work.
 	}
 
 	return CSkinDialog::PreTranslateMessage( pMsg );

@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "EDPacket.h"
 #include "EDClient.h"
 #include "EDClients.h"

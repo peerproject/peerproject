@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Turkish Skin File -->
 
-<!-- Translation based on default-en.xml r69 -->
+<!-- Translation based on default-en.xml r70 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2668,6 +2668,12 @@
 	<string id="20020" value="Dosya"/>
 	<string id="20021" value="Dosyaları"/>
 	<string id="20022" value="Tüm Dosyalar"/>
+	<string id="20023" value="No Dosyalar"/>
+	<string id="20024" value="Geniş Dosyalar"/>
+	<string id="20025" value="Orta Dosyalar"/>
+	<string id="20026" value="Küçük Dosyalar"/>
+	<string id="20027" value="Bölüm Dosyaları"/>
+	<string id="20028" value="Kütüphane Dosyaları"/>
 	<string id="20029" value="%s Dosyalar"/>
 	<string id="20050" value="Her Gün"/>
 	<string id="20051" value="Pazartesi"/>
@@ -3117,7 +3123,7 @@
 	<string id="20576" value="Komşu %s'e sorgu yönlendirme tablosu gönderiliyor (%i bit = %lu[%i], %i%% tam)"/>
 	<string id="20577" value="Komşu %s'den beklenmedik bir sorgu yönlendirme tablo güncelleştirmesi alınıyor."/>
 	<string id="20578" value="Komşu %s sorgu yönlendirme tablosunu güncelleştirdi (%i bit = %lu[%i], %i%% tam)."/>
-	<string id="20579" value="%s -> %s [%i/%i] %s %s"/>
+	<string id="20579" value="%s -&gt; %s [%i/%i] %s %s"/>
 	<string id="20580" value="Yeni %s komşusu sorgular gönderiyor, bağlantı kesiliyor."/>
 	<string id="20581" value="Komşu %s geçersiz uzunlukta bir ping paketi gönderdi, görmezlikten geliniyor."/>
 	<string id="20582" value="Komşu %s geçersiz uzunlukta bir pong paketi gönderdi, görmezlikten geliniyor."/>
@@ -3991,7 +3997,7 @@
 		<control caption="BitTorrent GUID:"/>
 		<control/>
 		<control caption="Yeni Oluştur"/>
-		<control caption="Info:"/>
+		<control caption="Yardım:"/>
 		<control caption="Gnutella kullanıcıları heskesçe bilinen tek bir kimlik ve özel anahtar eşlemesi ile tanınırlar. Normalde yeni bir ID oluşturulamaya ihtiyaç duyulmadığı halde PeerProject ileri kullanıcılarına böyle bir seçenek sağlar."/>
 	</dialog>
 	<dialog name="CLanguageDlg" cookie="" caption="Dil Seçimi">
@@ -4241,14 +4247,14 @@
 		<control caption="One day only"/>
 		<control/>
 		<control/>
-		<control caption="Pzrt"/>
+		<control caption="Pazartesi"/>
 		<control caption="Salı"/>
-		<control caption="Çrş"/>
-		<control caption="Prş"/>
+		<control caption="Çarşamba"/>
+		<control caption="Perşembe"/>
 		<control caption="Cuma"/>
-		<control caption="Cmrt"/>
-		<control caption="Pzr"/>
-		<control caption="Tüm"/>
+		<control caption="Cumartesi"/>
+		<control caption="Pazar"/>
+		<control caption="Tümü"/>
 		<control caption="Yorumlar"/>
 		<control/>
 	</dialog>
@@ -4504,9 +4510,9 @@
 	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Güncelleme Uyarısı">
 		<control caption="PeerProject'nın yeni bir versiyonu bulunmaktadır. Güncellemek ister misiniz?"/>
 		<control caption="Eğer şimdi güncelemeyi seçerseniz, PeerProject indirme sırasına güncelemeyi ekleyecektir ve indirme otomatik olarak başlayacaktır."/>
-		<control caption="_Şimdi Güncelle"/>
 		<control caption="Yeni versiyonları kontrol etme"/>
-		<control caption="Güncelleme"/>
+		<control caption="_Şimdi Güncelle"/>
+		<control caption="İptal"/>
 	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Veri Yerleştir">
 		<control caption="Lütfen kodlama ile ilgili metod seçiniz."/>

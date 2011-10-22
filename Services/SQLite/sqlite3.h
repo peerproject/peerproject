@@ -1,5 +1,5 @@
 /*
-** sqlite3.h  (3.7.6)(May.2011)
+** sqlite3.h  (3.7.8) (Sept.2011)
 **
 ** This file is part of PeerProject (peerproject.org) © 2008-2011
 ** The original author disclaimed copyright to this source code.
@@ -83,9 +83,9 @@ extern "C" {
 /*
 ** Compile-Time Library Version Numbers
 */
-#define SQLITE_VERSION        "3.7.6"
-#define SQLITE_VERSION_NUMBER 3007006
-#define SQLITE_SOURCE_ID      "2011-05-19 13:26:54 ed1da510a239ea767a01dc332b667119fa3c908e"
+#define SQLITE_VERSION        "3.7.8"
+#define SQLITE_VERSION_NUMBER 3007008
+#define SQLITE_SOURCE_ID      "2011-09-19 14:49:19 3e0da808d2f5b4d12046e05980ca04578f581177"
 
 /*
 ** Run-Time Library Version Numbers
@@ -216,9 +216,14 @@ SQLITE_API int sqlite3_exec(
 #define SQLITE_IOERR_SHMOPEN           (SQLITE_IOERR | (18<<8))
 #define SQLITE_IOERR_SHMSIZE           (SQLITE_IOERR | (19<<8))
 #define SQLITE_IOERR_SHMLOCK           (SQLITE_IOERR | (20<<8))
-#define SQLITE_LOCKED_SHAREDCACHE      (SQLITE_LOCKED |  (1<<8))
-#define SQLITE_BUSY_RECOVERY           (SQLITE_BUSY   |  (1<<8))
+#define SQLITE_IOERR_SHMMAP            (SQLITE_IOERR | (21<<8))
+#define SQLITE_IOERR_SEEK              (SQLITE_IOERR | (22<<8))
+#define SQLITE_LOCKED_SHAREDCACHE      (SQLITE_LOCKED | (1<<8))
+#define SQLITE_BUSY_RECOVERY           (SQLITE_BUSY   | (1<<8))
 #define SQLITE_CANTOPEN_NOTEMPDIR      (SQLITE_CANTOPEN | (1<<8))
+#define SQLITE_CORRUPT_VTAB            (SQLITE_CORRUPT  | (1<<8))
+#define SQLITE_READONLY_RECOVERY       (SQLITE_READONLY | (1<<8))
+#define SQLITE_READONLY_CANTLOCK       (SQLITE_READONLY | (2<<8))
 
 /*
 ** Flags For File Open Operations
@@ -322,7 +327,8 @@ struct sqlite3_io_methods {
 #define SQLITE_FCNTL_CHUNK_SIZE       6
 #define SQLITE_FCNTL_FILE_POINTER     7
 #define SQLITE_FCNTL_SYNC_OMITTED     8
-
+#define SQLITE_FCNTL_WIN32_AV_RETRY   9
+#define SQLITE_FCNTL_PERSIST_WAL     10
 
 /*
 ** Mutex Handle
@@ -446,6 +452,7 @@ struct sqlite3_mem_methods {
 #define SQLITE_CONFIG_PCACHE       14  /* sqlite3_pcache_methods* */
 #define SQLITE_CONFIG_GETPCACHE    15  /* sqlite3_pcache_methods* */
 #define SQLITE_CONFIG_LOG          16  /* xFunc, void* */
+#define SQLITE_CONFIG_URI          17  /* int */
 
 /*
 ** Database Connection Configuration Options
@@ -617,6 +624,12 @@ SQLITE_API int sqlite3_open_v2(
   int flags,              /* Flags */
   const char *zVfs        /* Name of VFS module to use */
 );
+
+/*
+** Obtain Values For URI Parameters
+*/
+SQLITE_API const char *sqlite3_uri_parameter(const char *zFilename, const char *zParam);
+
 
 /*
 ** Error Codes And Messages
@@ -1120,6 +1133,11 @@ struct sqlite3_module {
                        void (**pxFunc)(sqlite3_context*,int,sqlite3_value**),
                        void **ppArg);
   int (*xRename)(sqlite3_vtab *pVtab, const char *zNew);
+  /* The methods above are in version 1 of the sqlite_module object.
+  ** Those below are for version 2 and greater. */
+  int (*xSavepoint)(sqlite3_vtab *pVTab, int);
+  int (*xRelease)(sqlite3_vtab *pVTab, int);
+  int (*xRollbackTo)(sqlite3_vtab *pVTab, int);
 };
 
 /*
@@ -1340,7 +1358,8 @@ SQLITE_API int sqlite3_test_control(int op, ...);
 #define SQLITE_TESTCTRL_ISKEYWORD               16
 #define SQLITE_TESTCTRL_PGHDRSZ                 17
 #define SQLITE_TESTCTRL_SCRATCHMALLOC           18
-#define SQLITE_TESTCTRL_LAST                    18
+#define SQLITE_TESTCTRL_LOCALTIME_FAULT         19
+#define SQLITE_TESTCTRL_LAST                    19
 
 /*
 ** SQLite Runtime Status
@@ -1490,6 +1509,35 @@ SQLITE_API int sqlite3_wal_checkpoint_v2(
 #define SQLITE_CHECKPOINT_PASSIVE 0
 #define SQLITE_CHECKPOINT_FULL    1
 #define SQLITE_CHECKPOINT_RESTART 2
+
+/*
+** Virtual Table Interface Configuration
+*/
+
+SQLITE_API int sqlite3_vtab_config(sqlite3*, int op, ...);
+
+/*
+** Virtual Table Configuration Options
+*/
+
+#define SQLITE_VTAB_CONSTRAINT_SUPPORT 1
+
+/*
+** Determine The Virtual Table Conflict Policy
+*/
+
+SQLITE_API int sqlite3_vtab_on_conflict(sqlite3 *);
+
+/*
+** Conflict resolution modes
+*/
+
+#define SQLITE_ROLLBACK 1
+/* #define SQLITE_IGNORE 2 // Also used by sqlite3_authorizer() callback */
+#define SQLITE_FAIL     3
+/* #define SQLITE_ABORT 4  // Also an error code */
+#define SQLITE_REPLACE  5
+
 
 
 /*

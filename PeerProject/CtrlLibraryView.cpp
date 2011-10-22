@@ -17,17 +17,17 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "CtrlLibraryView.h"
+
+#include "CtrlLibraryFrame.h"
 #include "Library.h"
 #include "SharedFile.h"
 #include "SharedFolder.h"
 #include "AlbumFolder.h"
-#include "Schema.h"
 #include "ShellIcons.h"
 #include "Skin.h"
-#include "CtrlLibraryFrame.h"
-#include "CtrlLibraryView.h"
 #include "Schema.h"
 #include "SchemaCache.h"
 

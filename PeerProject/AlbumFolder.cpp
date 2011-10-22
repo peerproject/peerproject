@@ -17,16 +17,16 @@
 //
 
 #include "StdAfx.h"
+#include "Settings.h"
 #include "PeerProject.h"
+#include "AlbumFolder.h"
 #include "Library.h"
 #include "LibraryFolders.h"
 #include "SharedFile.h"
-#include "AlbumFolder.h"
 #include "CollectionFile.h"
 #include "Schema.h"
 #include "SchemaChild.h"
 #include "SchemaCache.h"
-#include "Settings.h"
 #include "RegExp.h"
 #include "XML.h"
 

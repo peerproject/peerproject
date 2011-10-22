@@ -41,6 +41,7 @@ HKCU
 					NoRemove LibraryBuilder
 					{
 						ForceRemove val '.ratdvd' = s '{C4E7FDB7-C085-465B-AC72-3AB28A20C353}'
+						ForceRemove val '.fluxdvd' = s '{C4E7FDB7-C085-465B-AC72-3AB28A20C353}'
 					}
 				}
 			}

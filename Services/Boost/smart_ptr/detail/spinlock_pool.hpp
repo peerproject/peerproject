@@ -3,7 +3,7 @@
 
 // MS compatible compilers support #pragma once
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif
 
@@ -41,7 +41,11 @@ public:
 
     static spinlock & spinlock_for( void const * pv )
     {
+#if defined(__VMS) && __INITIAL_POINTER_SIZE == 64
+        std::size_t i = reinterpret_cast< unsigned long long >( pv ) % 41;
+#else
         std::size_t i = reinterpret_cast< std::size_t >( pv ) % 41;
+#endif
         return pool_[ i ];
     }
 

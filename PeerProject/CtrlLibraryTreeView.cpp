@@ -17,22 +17,22 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "Colors.h"
+#include "PeerProject.h"
+#include "CtrlLibraryTreeView.h"
+#include "CtrlLibraryFrame.h"
+#include "CtrlCoolBar.h"
+#include "CtrlCoolTip.h"
 #include "CoolInterface.h"
-#include "ShellIcons.h"
+#include "Colors.h"
 #include "Library.h"
 #include "LibraryFolders.h"
-#include "CtrlCoolTip.h"
 #include "SharedFile.h"
 #include "SharedFolder.h"
 #include "AlbumFolder.h"
 #include "FileExecutor.h"
-#include "CtrlLibraryTreeView.h"
-#include "CtrlLibraryFrame.h"
-#include "CtrlCoolBar.h"
 #include "SchemaCache.h"
+#include "ShellIcons.h"
 #include "Skin.h"
 
 #include "DlgFolderScan.h"
@@ -473,7 +473,7 @@ BOOL CLibraryTreeView::CleanItems(CLibraryTreeItem* pItem, DWORD nCookie, BOOL b
 
 void CLibraryTreeView::NotifySelection()
 {
-	if (!m_hWnd) return;
+	if ( ! m_hWnd ) return;
 	NMHDR pNM = { GetSafeHwnd(), GetDlgCtrlID(), LTN_SELCHANGED };
 	GetOwner()->SendMessage( WM_NOTIFY, pNM.idFrom, (LPARAM)&pNM );
 }

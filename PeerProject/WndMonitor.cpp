@@ -17,17 +17,17 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "WndMonitor.h"
+#include "CtrlMonitorBar.h"
+#include "CtrlMediaFrame.h"
 #include "GraphItem.h"
 #include "Colors.h"
 #include "CoolInterface.h"
 #include "SkinWindow.h"
 #include "Skin.h"
 
-#include "WndMonitor.h"
-#include "CtrlMonitorBar.h"
-#include "CtrlMediaFrame.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -99,8 +99,8 @@ BOOL CRemoteWnd::Create(CMonitorBarCtrl* pMonitor)
 	m_pMonitor	= pMonitor;
 	m_pSkin		= NULL;
 
-	return CreateEx(	WS_EX_TOOLWINDOW, m_hClass, _T("PeerProject Remote"),
-						WS_OVERLAPPED|WS_CLIPCHILDREN, 0, 0, 0, 0, NULL, 0 );
+	return CreateEx( WS_EX_TOOLWINDOW, m_hClass, _T("PeerProject Remote"),
+					 WS_OVERLAPPED|WS_CLIPCHILDREN, 0, 0, 0, 0, NULL, 0 );
 }
 
 BOOL CRemoteWnd::IsVisible()
@@ -242,7 +242,8 @@ void CRemoteWnd::UpdateCmdButtons()
 
 void CRemoteWnd::OnSkinChange()
 {
-	for ( POSITION pos = m_pButtons.GetHeadPosition() ; pos ; ) delete m_pButtons.GetNext( pos );
+	for ( POSITION pos = m_pButtons.GetHeadPosition() ; pos ; )
+		delete m_pButtons.GetNext( pos );
 	m_pCmdHover = m_pCmdDown = NULL;
 	m_pButtons.RemoveAll();
 
@@ -689,7 +690,8 @@ void CRemoteWnd::PaintStatus(CDC* pDC)
 		if ( Settings.General.LanguageRTL )
 		{
 			CRect rcSrc;
-			rcSrc.top = 0; rcSrc.left = 0;
+			rcSrc.top = 0;
+			rcSrc.left = 0;
 			rcSrc.right = m_rcsStatusText.Width();
 			rcSrc.bottom = m_rcsStatusText.Height();
 
@@ -1093,10 +1095,9 @@ void CRemoteWnd::CmdButton::Paint(CDC* pdcWindow, CRect& rcWindow, CSkinWindow* 
 	pSkin->GetAnchor( m_sName, m_rc );
 
 	if ( ! m_bVisible )
-	{
 		return;
-	}
-	else if ( m_bChecked )
+
+	if ( m_bChecked )
 	{
 		if ( ! pSkin->PaintPartOnAnchor( pdcWindow, rcWindow, m_sName + _T(".Checked"), m_sName ) )
 			pSkin->PaintPartOnAnchor( pdcWindow, rcWindow, m_sName + _T(".Down"), m_sName );

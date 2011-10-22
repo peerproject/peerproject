@@ -1,9 +1,9 @@
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "SkinTranslate.h"
 
-CXMLLoader::CXMLLoader() :
-	 m_bRemoveComments( false ),
-	 m_pXMLTranslator ( NULL )
+CXMLLoader::CXMLLoader()
+	: m_bRemoveComments( false )
+	, m_pXMLTranslator ( NULL )
 {
 	m_IDIndex.InitHashTable( 2039 );
 	m_RefIndex.InitHashTable( 2039 );
@@ -28,9 +28,7 @@ CXMLLoader::CItem& CXMLLoader::Add(const CItem& item)
 	{
 		sToken.Trim();
 		if ( ! sToken.IsEmpty() )
-		{
 			ATLVERIFY( m_RefIndex.SetAt( sToken, &inserted ) );
-		}
 		sToken = inserted.sRef.Tokenize( _T(" "), curPos );
 	};
 
@@ -92,9 +90,7 @@ bool CXMLLoader::LoadPO(LPCWSTR szFilename)
 
 								// Save previous non-empty string
 								if ( item.sRef != "" )
-								{
 									Add( item );
-								}
 
 								item.Clear();
 
@@ -194,9 +190,7 @@ bool CXMLLoader::LoadPO(LPCWSTR szFilename)
 				item.sTranslated = UTF8Decode( sString );
 				UnMakeSafe( item.sTranslated );
 				if ( item.sRef != "" )
-				{
 					Add( item );
-				}
 
 				if ( ! m_Items.IsEmpty() )
 					return true;
@@ -363,7 +357,7 @@ bool CXMLLoader::SavePO(LPCTSTR szFilename) const
 		_T("msgid \"\"\n")
 		_T("msgstr \"\"\n")
 		_T("\"Project-Id-Version: PeerProject\\n\"\n")
-		_T("\"Report-Msgid-Bugs-To: ryo-oh-ki <ryo-oh-ki@narod.ru>\\n\"\n")
+		_T("\"Report-Msgid-Bugs-To: peerproject.org\\n\"\n")
 		_T("\"POT-Creation-Date: %s\\n\"\n")
 		_T("\"PO-Revision-Date: \\n\"\n")
 		_T("\"Last-Translator: %s\\n\"\n")
@@ -592,10 +586,8 @@ bool CXMLLoader::Load(LPCWSTR szParentName, LPCWSTR szRefName, LPCWSTR szTextNam
 	{
 		// Attribute
 		CComVariant vText;
-		if ( S_OK != pXMLElement->getAttribute( CComBSTR( szTextName ), &vText ) ||
-			vText.vt != VT_BSTR )
-			// Skip empty tag
-			return true;
+		if ( S_OK != pXMLElement->getAttribute( CComBSTR( szTextName ), &vText ) || vText.vt != VT_BSTR )
+			return true;	// Skip empty tag
 		sID = (LPCWSTR)vText.bstrVal;
 	}
 	else
@@ -603,8 +595,7 @@ bool CXMLLoader::Load(LPCWSTR szParentName, LPCWSTR szRefName, LPCWSTR szTextNam
 		// Inner text
 		CComBSTR bstrText;
 		if ( S_OK != pXMLElement->get_text( &bstrText ) )
-			// Skip empty tag
-			return true;
+			return true;	// Skip empty tag
 		sID = bstrText;
 	}
 
@@ -612,8 +603,7 @@ bool CXMLLoader::Load(LPCWSTR szParentName, LPCWSTR szRefName, LPCWSTR szTextNam
 	if ( szRefName )
 	{
 		CComVariant vRef;
-		if ( S_OK != pXMLElement->getAttribute( CComBSTR( szRefName ), &vRef ) ||
-			vRef.vt != VT_BSTR )
+		if ( S_OK != pXMLElement->getAttribute( CComBSTR( szRefName ), &vRef ) || vRef.vt != VT_BSTR )
 		{
 			_tprintf( _T("ERROR: Missed required XML attribute \"%s\" at \"%s\"\n"),
 				szRefName, szParentName );
@@ -684,10 +674,10 @@ bool CXMLLoader::Load(LPCWSTR szParentName, LPCWSTR szRefName, LPCWSTR szTextNam
 
 		if ( sID.IsEmpty() )
 		{
-			if ( bSubstitute && ! sRef.IsEmpty() )
-				sID = sRef;
-			else
+			if ( ! bSubstitute || sRef.IsEmpty() )
 				return true;
+
+			sID = sRef;
 		}
 
 		if( sRefFull.Find( _T(" \t\r\n") ) != -1 )
@@ -699,8 +689,7 @@ bool CXMLLoader::Load(LPCWSTR szParentName, LPCWSTR szRefName, LPCWSTR szTextNam
 
 		const CItemMap::CPair* pair = m_RefIndex.Lookup( sRefFull );
 		if ( pair )
-			// Skip duplicate
-			return true;
+			return true;	// Skip duplicate
 
 		for( POSITION pos = m_Items.GetHeadPosition(); pos; )
 		{
@@ -1565,16 +1554,10 @@ int _tmain(int argc, _TCHAR* argv[])
 			CXMLLoader oTemplate;
 			CXMLLoader oTranslated;
 
-			if ( bPoMode )
-			{
-				// Load translated text as XML
+			if ( bPoMode )		// Load translated text as XML			
 				bResult = oTranslated.LoadXML( sFile );
-			}
-			else if ( bXMLMode )
-			{
-				// Load translated text as PO
+			else if ( bXMLMode )	// Load translated text as PO
 				bResult = oTranslated.LoadPO( sFile );
-			}
 			else
 				bResult = true;
 
@@ -1591,8 +1574,7 @@ int _tmain(int argc, _TCHAR* argv[])
 					else
 					{
 						// Generate .po-file from template XML
-						if ( bPoMode )
-							// ...  and translated XML
+						if ( bPoMode )	 // and translated XML
 							oTemplate.Translate( oTranslated );
 
 						bResult = oTemplate.SavePO( sOutput );

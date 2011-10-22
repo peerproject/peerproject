@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Brazilian Portuguese Skin File -->
 
-<!-- Translation based on default-en.xml r69 -->
+<!-- Translation based on default-en.xml r70 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -375,6 +375,7 @@
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
+		<button id="ID_NETWORK_DC" text="DC++"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Configurações"/>
 	</toolbar>
@@ -389,6 +390,7 @@
 		<button id="ID_SECURITY_MOVE_DOWN" text="Mover pra Baixo"/>
 		<rightAlign/>
 		<button id="ID_SECURITY_RESET" text="Resetar a Hits"/>
+		<separator/>
 		<button id="ID_SECURITY_IMPORT" text="Importar a Lista"/>
 		<button id="ID_SECURITY_EXPORT" text="Exportar a Lista"/>
 	</toolbar>
@@ -2756,6 +2758,12 @@
 	<string id="20020" value="Arquivo"/>
 	<string id="20021" value="Arquivos"/>
 	<string id="20022" value="Todos os Arquivos"/>
+	<string id="20023" value="No Arquivos"/>
+	<string id="20024" value="Arquivos Grandes"/>
+	<string id="20025" value="Arquivos Médios"/>
+	<string id="20026" value="Arquivos Pequenos"/>
+	<string id="20027" value="Arquivos Parciais"/>
+	<string id="20028" value="Arquivos da Biblioteca"/>
 	<string id="20029" value="Arquivos de %s"/>
 	<string id="20050" value="Todos los Dias"/>
 	<string id="20051" value="Segunda"/>
@@ -3206,7 +3214,7 @@
 	<string id="20576" value="Enviando tabela de roteamento de pesquisa para o vizinho %s (%i bit = %lu[%i], %i%% full)"/>
 	<string id="20577" value="Recebendo uma atualização da tabela de roteamento de pesquisa inesperada do vizinho %s."/>
 	<string id="20578" value="O Vizinho %s atualizou a sua tabela de roteamento de pesquisa (%i bit = %lu[%i], %i%% full)."/>
-	<string id="20579" value="%s -> %s [%i/%i] %s %s"/>
+	<string id="20579" value="%s -&gt; %s [%i/%i] %s %s"/>
 	<string id="20580" value="O Vizinho Leaf %s está repassando pesquisas, derrubando conexão."/>
 	<string id="20581" value="O Vizinho %s repassou um pacote ping com comprimento inválido, ignorando."/>
 	<string id="20582" value="O Vizinho %s repassou um pacote pong com comprimento inválido, ignorando."/>
@@ -3939,7 +3947,7 @@
 		<control caption="Salvar Arquivos .Torrent Aqui:"/>
 		<control/>
 		<control/>
-		<control caption="Os tipos mais comuns são inicialmente a instalação em subpastas, mas os grupos podem ser personalizados. Basta arquivos Drag&apos;n&aposdrop."/>
+		<control caption="Os tipos mais comuns são inicialmente a instalação em subpastas, mas os grupos podem ser personalizados. Basta arquivos Drag&apos;n&apos;drop."/>
 	</dialog>
 	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Bem Vindo ao PeerProject &#160;(5/8)">
 		<control caption="Redes P2P só são tão boas quanto as pessoas que as usam. Todo o conteúdo disponível para baixar está sendo compartilhado por outro usuário."/>
@@ -4609,9 +4617,9 @@
 	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Alerta sobre Atualização">
 		<control caption="Uma nova versão do PeerProject está disponível agora. Você gostaria de atualizar?"/>
 		<control caption="Se você selecionar Atualizar Agora, o PeerProject adicionará a atualização a sua fila de download e automaticamente começa a baixá-la."/>
-		<control caption="_Atualizar Agora"/>
 		<control caption="Não procurar novas versões"/>
-		<control caption="Não atualizar"/>
+		<control caption="_Atualizar Agora"/>
+		<control caption="Cancelar"/>
 	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Localização do Metadata">
 		<control caption="Por favor selecione o método de reencodificação:"/>

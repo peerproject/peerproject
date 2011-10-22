@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "Download.h"
 #include "Downloads.h"
 #include "DownloadSource.h"
@@ -86,9 +86,9 @@ DWORD CDownloadWithTiger::GetVerifyLength(PROTOCOLID nProtocol, int nHash) const
 	{
 		if ( nProtocol == PROTOCOL_BT && m_pTorrentBlock )
 			return m_nTorrentSize;
-		else if ( nProtocol == PROTOCOL_ED2K && m_pHashsetBlock )
+		if ( nProtocol == PROTOCOL_ED2K && m_pHashsetBlock )
 			return ED2K_PART_SIZE;
-		else if ( m_pTigerBlock )
+		if ( m_pTigerBlock )
 			return m_nTigerSize;
 	}
 	else if ( nHash == HASH_TIGERTREE && m_pTigerBlock != NULL )
@@ -204,7 +204,7 @@ bool CDownloadWithTiger::IsFullyVerified() const
 
 	if ( m_pTorrentBlock )
 	{
-		for ( DWORD i = 0 ; i < m_nTorrentBlock; i++ )
+		for ( DWORD i = 0 ; i < m_nTorrentBlock ; i++ )
 		{
 			if ( m_pTorrentBlock[ i ] == TRI_TRUE )
 			{
@@ -221,7 +221,7 @@ bool CDownloadWithTiger::IsFullyVerified() const
 
 	if ( m_pTigerBlock && Settings.Downloads.VerifyTiger )
 	{
-		for ( DWORD i = 0 ; i < m_nTigerBlock; i++ )
+		for ( DWORD i = 0 ; i < m_nTigerBlock ; i++ )
 		{
 			if ( m_pTigerBlock[ i ] == TRI_TRUE )
 			{
@@ -238,7 +238,7 @@ bool CDownloadWithTiger::IsFullyVerified() const
 
 	if ( m_pHashsetBlock && Settings.Downloads.VerifyED2K )
 	{
-		for ( DWORD i = 0 ; i < m_nHashsetBlock; i++ )
+		for ( DWORD i = 0 ; i < m_nHashsetBlock ; i++ )
 		{
 			if ( m_pHashsetBlock[ i ] == TRI_TRUE )
 			{
@@ -812,8 +812,8 @@ Fragments::List CDownloadWithTiger::GetPossibleFragments(const Fragments::List& 
 
 	oLargest = *oPossible.largest_range();
 
-	for ( CDownloadTransfer* pTransfer = GetFirstTransfer();
-		! oPossible.empty() && pTransfer; pTransfer = pTransfer->m_pDlNext )
+	for ( CDownloadTransfer* pTransfer = GetFirstTransfer() ;
+		! oPossible.empty() && pTransfer ; pTransfer = pTransfer->m_pDlNext )
 	{
 		pTransfer->SubtractRequested( oPossible );
 	}

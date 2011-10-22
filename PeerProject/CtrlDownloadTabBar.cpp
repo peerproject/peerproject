@@ -17,19 +17,20 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "CtrlDownloadTabBar.h"
+#include "Download.h"
+#include "Downloads.h"
+#include "DownloadGroup.h"
+#include "DownloadGroups.h"
+#include "DlgDownloadGroup.h"
+
 #include "CoolMenu.h"
 #include "CoolInterface.h"
 #include "Colors.h"
 #include "Images.h"
 #include "Transfers.h"
-#include "Downloads.h"
-#include "Download.h"
-#include "DownloadGroup.h"
-#include "DownloadGroups.h"
-#include "CtrlDownloadTabBar.h"
-#include "DlgDownloadGroup.h"
 #include "ShellIcons.h"
 #include "Skin.h"
 
@@ -40,14 +41,14 @@ static char THIS_FILE[] = __FILE__;
 #endif	// Filename
 
 BEGIN_MESSAGE_MAP(CDownloadTabBar, CControlBar)
-	ON_WM_LBUTTONDOWN()
-	ON_WM_RBUTTONUP()
-	ON_WM_LBUTTONDBLCLK()
-	ON_WM_MOUSEMOVE()
 	ON_WM_TIMER()
 	ON_WM_CREATE()
 	ON_WM_MEASUREITEM()
 	ON_WM_DRAWITEM()
+	ON_WM_LBUTTONDOWN()
+	ON_WM_LBUTTONDBLCLK()
+	ON_WM_RBUTTONUP()
+	ON_WM_MOUSEMOVE()
 	ON_COMMAND(ID_DOWNLOAD_GROUP_NEW, OnDownloadGroupNew)
 	ON_UPDATE_COMMAND_UI(ID_DOWNLOAD_GROUP_REMOVE, OnUpdateDownloadGroupRemove)
 	ON_COMMAND(ID_DOWNLOAD_GROUP_REMOVE, OnDownloadGroupRemove)
@@ -424,18 +425,17 @@ void CDownloadTabBar::OnRButtonUp(UINT /*nFlags*/, CPoint point)
 		Invalidate();
 		ClientToScreen( &rcItem );
 		CoolMenu.RegisterEdge( Settings.General.LanguageRTL ? rcItem.right : rcItem.left, rcItem.bottom - 1, rcItem.Width() );
-		Skin.TrackPopupMenu( _T("CDownloadTabBar"), CPoint( Settings.General.LanguageRTL ? rcItem.right : rcItem.left,
-			rcItem.bottom - 1 ), ID_DOWNLOAD_GROUP_PROPERTIES );
+		Skin.TrackPopupMenu( _T("CDownloadTabBar"), CPoint( Settings.General.LanguageRTL ? rcItem.right : rcItem.left, rcItem.bottom - 1 ),
+			ID_DOWNLOAD_GROUP_PROPERTIES );
 		m_bMenuGray = FALSE;
 		Invalidate();
+
 		return;
 	}
-	else
-	{
-		ClientToScreen( &point );
-		Skin.TrackPopupMenu( _T("CDownloadTabBar"), point );
-		return;
-	}
+
+	ClientToScreen( &point );
+	Skin.TrackPopupMenu( _T("CDownloadTabBar"), point );
+//	return;
 
 //	CControlBar::OnRButtonUp( nFlags, point );
 }
@@ -453,6 +453,9 @@ void CDownloadTabBar::OnDrawItem(int /*nIDCtl*/, LPDRAWITEMSTRUCT lpDrawItemStru
 BOOL CDownloadTabBar::Select(TabItem* pHit)
 {
 	BOOL bChanged = FALSE;
+
+	if ( ! pHit )
+		pHit = m_pItems.GetHead();	// Default Supergroup
 
 	for ( POSITION pos = m_pItems.GetHeadPosition() ; pos ; )
 	{

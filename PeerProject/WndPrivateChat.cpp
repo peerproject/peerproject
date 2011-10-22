@@ -17,19 +17,19 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "WndPrivateChat.h"
+#include "WndBrowseHost.h"
 #include "ChatCore.h"
 #include "ChatSession.h"
 #include "CoolInterface.h"
-#include "GProfile.h"
 #include "RichElement.h"
 #include "Skin.h"
+#include "GProfile.h"
 #include "Transfers.h"
 #include "UploadTransfer.h"
 #include "Uploads.h"
-#include "WndBrowseHost.h"
-#include "WndPrivateChat.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -55,7 +55,7 @@ END_MESSAGE_MAP()
 // CPrivateChatWnd construction
 
 CPrivateChatWnd::CPrivateChatWnd()
-	: m_pSession	( NULL )
+	: m_pSession ( NULL )
 {
 	Create( IDR_CHATFRAME, TRUE );
 }

@@ -18,10 +18,10 @@
 
 #include "StdAfx.h"
 #include "PeerProject.h"
-#include "Library.h"
-#include "SharedFile.h"
 #include "PageFileSharing.h"
 
+#include "Library.h"
+#include "SharedFile.h"
 #include "Transfers.h"
 #include "UploadQueue.h"
 #include "UploadQueues.h"

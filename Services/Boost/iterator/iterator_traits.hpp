@@ -1,6 +1,6 @@
 // Copyright David Abrahams 2003.
-// Distributed under the Boost Software License, Version 1.0. (See
-// accompanying file LICENSE_1_0.txt or copy at
+// Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 #ifndef ITERATOR_TRAITS_DWA200347_HPP
 # define ITERATOR_TRAITS_DWA200347_HPP
@@ -14,8 +14,7 @@ namespace boost {
 // iterator_category which has the same name as its
 // std::iterator_category() function, probably due in part to the
 // "std:: is visible globally" hack it uses.  Use
-// BOOST_ITERATOR_CATEGORY to write code that's portable to older
-// GCCs.
+// BOOST_ITERATOR_CATEGORY to write code that's portable to older GCCs.
 
 # if BOOST_WORKAROUND(__GNUC__, <= 2)
 #  define BOOST_ITERATOR_CATEGORY iterator_category_
@@ -36,7 +35,6 @@ struct iterator_reference
     typedef typename boost::detail::iterator_traits<Iterator>::reference type;
 };
 
-
 template <class Iterator>
 struct iterator_pointer
 {
@@ -55,37 +53,9 @@ struct BOOST_ITERATOR_CATEGORY
     typedef typename boost::detail::iterator_traits<Iterator>::iterator_category type;
 };
 
-# if BOOST_WORKAROUND(BOOST_MSVC, < 1300)
-template <>
-struct iterator_value<int>
-{
-    typedef void type;
-};
-
-template <>
-struct iterator_reference<int>
-{
-    typedef void type;
-};
-
-template <>
-struct iterator_pointer<int>
-{
-    typedef void type;
-};
-
-template <>
-struct iterator_difference<int>
-{
-    typedef void type;
-};
-
-template <>
-struct BOOST_ITERATOR_CATEGORY<int>
-{
-    typedef void type;
-};
-# endif
+//# if BOOST_WORKAROUND(BOOST_MSVC, < 1300)
+// Pre-VC6 Code Removed.
+//# endif
 
 } // namespace boost::iterator
 

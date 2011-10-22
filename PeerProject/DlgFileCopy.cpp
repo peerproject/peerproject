@@ -17,14 +17,14 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "DlgFileCopy.h"
 #include "Library.h"
 #include "LibraryFolders.h"
+#include "CtrlSharedFolder.h"
 #include "SharedFolder.h"
 #include "SharedFile.h"
-#include "DlgFileCopy.h"
-#include "CtrlSharedFolder.h"
 #include "Skin.h"
 #include "XML.h"
 
@@ -260,7 +260,7 @@ void CFileCopyDlg::OnRun()
 			}
 		}
 
-		if ( NULL == pFile || ! pFile->IsAvailable() ) break;
+		if ( pFile == NULL || ! pFile->IsAvailable() ) break;
 
 		m_wndProgress.OffsetPos( 1 );
 
@@ -313,7 +313,7 @@ void CFileCopyDlg::OnRun()
 	//	{
 	//		LoadString ( sFile, IDS_LIBRARY_BITZI_HASHED );
 	//		sCurrent.Format( sFile, strName );
-	//		theApp.Message( MSG_NOTICE, sCurrent  );
+	//		theApp.Message( MSG_NOTICE, sCurrent );
 	//		LoadString ( sCurrent, IDS_STATUS_FILEERROR );
 	//		m_wndFileName.SetWindowText( sCurrent );
 	//	}
@@ -444,7 +444,7 @@ bool CFileCopyDlg::ProcessCopy(const CString& strSource, const CString& strTarge
 	bool bResult = CopyFileEx( strSource, strTarget, CopyCallback, this,
 		&m_bCancel, COPY_FILE_FAIL_IF_EXISTS ) != 0;
 
-	if ( ! bResult && !IsThreadAlive() )
+	if ( ! bResult && ! IsThreadAlive() )
 		DeleteFileEx( strTarget, TRUE, FALSE, FALSE );
 
 	return bResult;

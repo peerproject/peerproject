@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "Network.h"
 #include "Library.h"
 #include "LocalSearch.h"
@@ -281,9 +281,9 @@ BOOL CNetwork::ReadyToTransfer(DWORD tNow) const
 
 	// We should wait a short time after starting the connection sequence before starting downloads
 	if ( Settings.Connection.SlowConnect )
-		return ( ( tNow - m_tStartedConnecting ) > 8000 );		// 8 seconds for XPsp2 users
+		return ( tNow > m_tStartedConnecting + 8000 );		// 8 seconds for XPsp2 users
 	else
-		return ( ( tNow - m_tStartedConnecting ) > 4000 );		// 4 seconds for others
+		return ( tNow > m_tStartedConnecting + 4000 );		// 4 seconds for others
 }
 
 //////////////////////////////////////////////////////////////////////

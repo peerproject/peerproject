@@ -174,7 +174,7 @@ IDI_PREVIEW				ICON		"Res\\Preview.ico"
 IDI_COMMERCIAL			ICON		"Res\\Commercial.ico"
 IDI_RATING_FAKE			ICON		"Res\\RatingFake.ico"
 IDI_RATING_AVERAGE		ICON		"Res\\RatingAverage.ico"
-IDI_RATING_GOOD	 		ICON		"Res\\RatingGood.ico"
+IDI_RATING_GOOD			ICON		"Res\\RatingGood.ico"
 IDI_WIZARD_DOT			ICON		"Res\\WizardDot.ico"
 IDI_NOTASK				ICON		"Res\\Firewalled.ico"
 IDI_FAVICON				ICON		"Res\\favicon.ico"
@@ -1028,16 +1028,16 @@ FONT 8, "Tahoma"
 BEGIN
 END
 
-IDD_UPGRADE DIALOGEX 0, 0, 292, 124
+IDD_UPGRADE DIALOGEX 0, 0, 290, 121
 STYLE DS_SETFONT | DS_MODALFRAME | DS_3DLOOK | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "Upgrade Alert"
+CAPTION "New Version Available"
 FONT 8, "Tahoma"
 BEGIN
-	LTEXT			"A new version of PeerProject is now available.  Would you like to upgrade?",IDC_MESSAGE,20,10,250,60
-	LTEXT			"If you select Upgrade Now, PeerProject will add the upgrade to your download queue and automatically begin downloading it.",IDC_STATIC,20,75,250,20
-	DEFPUSHBUTTON	"&Upgrade Now",IDOK,10,100,70,15
-	CONTROL			"Don't check for new versions",IDC_DONT_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,90,100,110,15
-	PUSHBUTTON		"Don't Upgrade",IDCANCEL,210,100,70,15
+	LTEXT			"A new version of PeerProject is now available. Would you like to upgrade?",IDC_MESSAGE,18,10,255,60
+	LTEXT			"To update now, the upgrade installer will simply be added to your download queue.",IDC_STATIC,18,72,255,20
+	CONTROL			"&Don't check for new versions",IDC_DONT_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,100,130,15
+	DEFPUSHBUTTON	"&Download",IDOK,145,100,65,15
+	PUSHBUTTON		"&Cancel",IDCANCEL,215,100,65,15
 END
 
 IDD_SETTINGS_COMMUNITY DIALOGEX 0, 0, 282, 220

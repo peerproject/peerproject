@@ -17,11 +17,11 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "Buffer.h"
-#include "DiscoveryServices.h"
+#include "PeerProject.h"
 #include "HostCache.h"
+#include "DiscoveryServices.h"
+#include "Buffer.h"
 #include "EDPacket.h"
 #include "Kademlia.h"
 #include "Neighbours.h"
@@ -1134,7 +1134,7 @@ CHostCacheHost::CHostCacheHost(PROTOCOLID nProtocol)
 	m_pAddress.s_addr = INADDR_ANY;
 
 	// 20sec cooldown to avoid neighbor add-remove oscillation
-	DWORD tNow = static_cast< DWORD >( time( NULL ) );
+	const DWORD tNow = static_cast< DWORD >( time( NULL ) );
 	switch ( m_nProtocol )
 	{
 	case PROTOCOL_G1:
@@ -1496,7 +1496,7 @@ bool CHostCacheHost::CanConnect(const DWORD tNow) const
 
 	return
 		( ! m_tFailure ||											// Let failed host rest some time
-		( tNow > m_tFailure + Settings.Connection.FailurePenalty  ) ) &&
+		( tNow > m_tFailure + Settings.Connection.FailurePenalty ) ) &&
 		( m_nFailures <= Settings.Connection.FailureLimit ) &&		// and we haven't lost hope on this host
 		( ! IsExpired( tNow ) ) &&									// and host isn't expired
 		( ! IsThrottled( tNow ) );									// and don't reconnect too fast

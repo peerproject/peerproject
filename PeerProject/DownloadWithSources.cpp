@@ -17,26 +17,26 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "Downloads.h"
-#include "Download.h"
+#include "PeerProject.h"
 #include "DownloadWithSources.h"
 #include "DownloadTransfer.h"
 #include "DownloadSource.h"
+#include "Downloads.h"
+#include "Download.h"
 #include "Network.h"
 #include "Neighbours.h"
 #include "Transfer.h"
-#include "QueryHit.h"
-#include "PeerProjectURL.h"
-#include "Schema.h"
-#include "SchemaCache.h"
+#include "Transfers.h"
 #include "Library.h"
 #include "SharedFile.h"
-#include "XML.h"
+#include "Schema.h"
+#include "SchemaCache.h"
+#include "PeerProjectURL.h"
+#include "QueryHit.h"
 #include "QueryHashMaster.h"
 #include "VendorCache.h"
-#include "Transfers.h"
+#include "XML.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -108,7 +108,7 @@ DWORD CDownloadWithSources::GetSourceCount(BOOL bNoPush, BOOL bSane) const
 	if ( ! bNoPush && ! bSane )
 		return GetCount();
 
-	DWORD tNow = GetTickCount();
+	const DWORD tNow = GetTickCount();
 	DWORD nCount = 0;
 
 	for ( POSITION posSource = GetIterator() ; posSource ; )
@@ -163,7 +163,7 @@ DWORD CDownloadWithSources::GetBTSourceCount(BOOL bNoPush) const
 {
 	CQuickLock pLock( Transfers.m_pSection );
 
-	DWORD tNow = GetTickCount();
+	const DWORD tNow = GetTickCount();
 	DWORD nCount = 0;
 
 	for ( POSITION posSource = GetIterator() ; posSource ; )
@@ -845,8 +845,8 @@ CFailedSource* CDownloadWithSources::LookupFailedSource(LPCTSTR pszUrl, bool bRe
 				if ( nTotalVotes > 20 && pResult->m_nNegativeVotes / nTotalVotes > 2 / 3 )
 					break;
 			}
-			break; // Temp solution to ensure same source not added more than once
-				   // We should check IPs which add these sources, since voting takes place, etc.
+			break;	// Temp solution to ensure same source not added more than once
+					// We should check IPs which add these sources, since voting takes place, etc.
 		}
 		else
 			pResult = NULL;
@@ -896,7 +896,7 @@ void CDownloadWithSources::ExpireFailedSources()
 {
 	CQuickLock pLock( Transfers.m_pSection );
 
-	DWORD tNow = GetTickCount();
+	const DWORD tNow = GetTickCount();
 	for ( POSITION pos = m_pFailedSources.GetHeadPosition() ; pos ; )
 	{
 		POSITION posThis = pos;
@@ -904,7 +904,7 @@ void CDownloadWithSources::ExpireFailedSources()
 		if ( m_pFailedSources.GetAt( posThis ) == pBadSource )
 		{
 			// Expire bad sources added more than 2 hours ago
-			if ( tNow - pBadSource->m_nTimeAdded > 2 * 3600 * 1000 )
+			if ( tNow > pBadSource->m_nTimeAdded + ( 2 * 3600 * 1000 ) )
 			{
 				delete pBadSource;
 				m_pFailedSources.RemoveAt( posThis );

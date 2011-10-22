@@ -17,11 +17,11 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "Colors.h"
+#include "PeerProject.h"
 #include "WndSettingsSheet.h"
 #include "WndSettingsPage.h"
+#include "Colors.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -54,7 +54,6 @@ CSettingsSheet::CSettingsSheet(CWnd* pParent, UINT nCaptionID)
 	: CSkinDialog( 0, pParent )
 	, m_pPage			( NULL )
 	, m_pFirst			( NULL )
-	, m_pTemplate		( NULL )
 	, m_bModified		( FALSE )
 	, m_nButtonHeight	( 24 )
 {
@@ -223,34 +222,28 @@ void CSettingsSheet::SetModified(BOOL bChanged)
 
 INT_PTR CSettingsSheet::DoModal()
 {
-	m_pTemplate = (DLGTEMPLATE *)new char[ sizeof(DLGTEMPLATE) + 6 ];
-	if ( ! m_pTemplate )
-		return IDCANCEL;
-
-	ZeroMemory( m_pTemplate, sizeof(DLGTEMPLATE) + 6 );
+	char pBuf[ sizeof( DLGTEMPLATE ) + 16 ] = {};
+	DLGTEMPLATE* pTemplate = (DLGTEMPLATE*)pBuf;
 
 	DWORD dwExStyle = Settings.General.LanguageRTL ? WS_EX_RTLREADING|WS_EX_RIGHT|WS_EX_LEFTSCROLLBAR|WS_EX_LAYOUTRTL :
 		WS_EX_LEFT|WS_EX_LTRREADING|WS_EX_RIGHTSCROLLBAR;
 
-	m_pTemplate->style				= WS_POPUPWINDOW|WS_VISIBLE|WS_DLGFRAME|WS_OVERLAPPED|DS_MODALFRAME;
-	m_pTemplate->dwExtendedStyle	= dwExStyle|WS_EX_DLGMODALFRAME|WS_EX_WINDOWEDGE|WS_EX_CONTROLPARENT;
+	pTemplate->style			= WS_POPUPWINDOW|WS_VISIBLE|WS_DLGFRAME|WS_OVERLAPPED|DS_MODALFRAME;
+	pTemplate->dwExtendedStyle	= dwExStyle|WS_EX_DLGMODALFRAME|WS_EX_WINDOWEDGE|WS_EX_CONTROLPARENT;
 
-	m_pTemplate->cdit	= 0;
-	m_pTemplate->x		= 0;
-	m_pTemplate->y		= 0;
-	m_pTemplate->cx		= 100;
-	m_pTemplate->cy		= 100;
+	pTemplate->cdit	= 0;
+	pTemplate->x	= 0;
+	pTemplate->y	= 0;
+	pTemplate->cx	= 100;
+	pTemplate->cy	= 100;
 
-	m_pPage		= NULL;
-	m_bModified	= FALSE;
+	m_pPage			= NULL;
+	m_bModified		= FALSE;
 
-	CSkinDialog::InitModalIndirect( m_pTemplate, m_pParentWnd );
+	CSkinDialog::InitModalIndirect( pTemplate, m_pParentWnd );
 
 	INT_PTR nResult = CSkinDialog::DoModal();
 
-	delete [] m_pTemplate;
-
-	m_pTemplate		= NULL;
 	m_pParentWnd	= NULL;
 	m_pFirst		= m_pPage;
 	m_pPage			= NULL;

@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "Security.h"
 #include "WndSecurity.h"	// Collumn enum
 #include "PeerProjectFile.h"
@@ -88,9 +88,9 @@ CSecureRule* CSecurity::GetGUID(const GUID& pGUID) const
 	}
 
 	// Unimplemented seperate IP address rules
-	//for ( CAddressRuleMap::const_iterator i = m_pIPRules.begin(); i != m_pIPRules.end(); ++i )
+	//for ( CAddressRuleMap::const_iterator i = m_pIPRules.begin() ; i != m_pIPRules.end() ; ++i )
 	//{
-	//	if( (*i).second->m_pGUID == pGUID ) return (*i).second;
+	//	if ( (*i).second->m_pGUID == pGUID ) return (*i).second;
 	//}
 
 	return NULL;
@@ -252,8 +252,8 @@ void CSecurity::Ban(const CPeerProjectFile* pFile, int nBanLength, BOOL bMessage
 
 	Add( pRule );
 
-	if ( bMessage )
-		theApp.Message( MSG_NOTICE, IDS_NETWORK_SECURITY_BLOCKED, pFile->m_sName );
+	if ( bMessage && pFile )
+		theApp.Message( MSG_NOTICE, IDS_NETWORK_SECURITY_BLOCKED, (LPCTSTR)pFile->m_sName );
 }
 
 void CSecurity::Ban(const IN_ADDR* pAddress, int nBanLength, BOOL bMessage, LPCTSTR szComment)
@@ -1307,7 +1307,7 @@ CString CSecureRule::GetContentWords() const
 //////////////////////////////////////////////////////////////////////
 // CSecureRule serialize
 
-void CSecureRule::Serialize(CArchive& ar, int nVersion)
+void CSecureRule::Serialize(CArchive& ar, int /*nVersion*/)
 {
 	if ( ar.IsStoring() )
 	{
@@ -1563,7 +1563,7 @@ CString CSecureRule::ToGnucleusString() const
 	}
 	else
 	{
-		int nFrom[4], nTo[4];
+		BYTE nFrom[4], nTo[4];
 
 		for ( int nByte = 0 ; nByte < 4 ; nByte++ )
 		{

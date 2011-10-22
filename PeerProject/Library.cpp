@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "Library.h"
 #include "LibraryMaps.h"
 #include "LibraryFolders.h"
@@ -222,7 +222,7 @@ bool CLibrary::OnQueryHits(const CQueryHit* pHits)
 	if ( ! oLock.Lock( 250 ) )
 		return false;
 
-	for ( const CQueryHit* pHit = pHits ; pHit; pHit = pHit->m_pNext )
+	for ( const CQueryHit* pHit = pHits ; pHit ; pHit = pHit->m_pNext )
 	{
 		if ( ! pHit->m_sURL.IsEmpty() )
 		{

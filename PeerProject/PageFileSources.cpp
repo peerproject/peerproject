@@ -17,11 +17,11 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "Library.h"
-#include "SharedFile.h"
+#include "PeerProject.h"
 #include "PageFileSources.h"
+#include "SharedFile.h"
+#include "Library.h"
 #include "Skin.h"
 
 #ifdef _DEBUG
@@ -46,8 +46,9 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CFileSourcesPage property page
 
-CFileSourcesPage::CFileSourcesPage() :
-	CFilePropertiesPage(CFileSourcesPage::IDD), m_sSource()
+CFileSourcesPage::CFileSourcesPage()
+	: CFilePropertiesPage(CFileSourcesPage::IDD)
+	, m_sSource()
 {
 }
 
@@ -129,7 +130,8 @@ void CFileSourcesPage::AddSource(CSharedSource* pSource)
 
 	GetDateFormat( LOCALE_USER_DEFAULT, 0, &pSystemTime, _T("yyyy-MM-dd"), strDate.GetBuffer( 64 ), 64 );
 	GetTimeFormat( LOCALE_USER_DEFAULT, 0, &pSystemTime, _T("HH:mm"), strTime.GetBuffer( 64 ), 64 );
-	strDate.ReleaseBuffer(); strTime.ReleaseBuffer();
+	strDate.ReleaseBuffer();
+	strTime.ReleaseBuffer();
 
 	strDate += ' ';
 	strDate += strTime;

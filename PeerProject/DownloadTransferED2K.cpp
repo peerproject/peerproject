@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "Download.h"
 #include "Downloads.h"
 #include "DownloadSource.h"
@@ -115,8 +115,8 @@ BOOL CDownloadTransferED2K::Initiate()
 
 	m_pHost		= m_pClient->m_pHost;
 	m_sAddress	= m_pClient->m_sAddress;
-	if( m_sAddress.IsEmpty() )
-		m_sAddress	= inet_ntoa( m_pHost.sin_addr );
+	if ( m_sAddress.IsEmpty() )
+		m_sAddress = inet_ntoa( m_pHost.sin_addr );
 	UpdateCountry();
 	m_pClient->m_mInput.pLimit = &m_nBandwidth;
 
@@ -181,7 +181,7 @@ BOOL CDownloadTransferED2K::OnRunEx(DWORD tNow)
 	switch ( m_nState )
 	{
 	case dtsConnecting:
-		if ( tNow > m_tConnected && tNow - m_tConnected > Settings.Connection.TimeoutConnect * 2 )
+		if ( tNow > m_tConnected && tNow > m_tConnected + Settings.Connection.TimeoutConnect * 2 )
 		{
 			theApp.Message( MSG_ERROR, IDS_ED2K_CLIENT_CONNECT_TIMEOUT, m_sAddress );
 			Close( TRI_UNKNOWN );
@@ -190,7 +190,7 @@ BOOL CDownloadTransferED2K::OnRunEx(DWORD tNow)
 		break;
 	case dtsRequesting:
 	case dtsEnqueue:
-		if ( tNow > m_tRequest && tNow - m_tRequest > Settings.Connection.TimeoutHandshake * 2 )
+		if ( tNow > m_tRequest && tNow > m_tRequest + Settings.Connection.TimeoutHandshake * 2 )
 		{
 			theApp.Message( MSG_ERROR, IDS_ED2K_CLIENT_HANDSHAKE_TIMEOUT, m_sAddress );
 			Close( TRI_UNKNOWN );
@@ -202,7 +202,7 @@ BOOL CDownloadTransferED2K::OnRunEx(DWORD tNow)
 	case dtsDownloading:
 	case dtsHashset:
 		if ( tNow > m_pClient->m_mInput.tLast &&
-			 tNow - m_pClient->m_mInput.tLast > Settings.Connection.TimeoutTraffic * 2 )
+			 tNow > m_pClient->m_mInput.tLast + Settings.Connection.TimeoutTraffic * 2 )
 		{
 			theApp.Message( MSG_ERROR, IDS_ED2K_CLIENT_CLOSED, m_sAddress );
 			Close( TRI_TRUE );
@@ -667,7 +667,7 @@ void CDownloadTransferED2K::Send(CEDPacket* pPacket, BOOL bRelease)
 BOOL CDownloadTransferED2K::SendPrimaryRequest()
 {
 	ASSERT( m_pClient != NULL );
-	DWORD tNow = GetTickCount();
+	const DWORD tNow = GetTickCount();
 
 	//if ( m_pDownload->GetVolumeRemaining() == 0 )
 	//{
@@ -680,7 +680,7 @@ BOOL CDownloadTransferED2K::SendPrimaryRequest()
 	SetState( dtsRequesting );
 
 	// Set the 'last requested' time
-	m_tRequest	= tNow;
+	m_tRequest = tNow;
 
 	ClearRequests();
 
@@ -703,15 +703,15 @@ BOOL CDownloadTransferED2K::SendPrimaryRequest()
 	}
 	else
 	{
-		//Send ed2k status request
+		// Send ed2k status request
 		pPacket = CEDPacket::New( ED2K_C2C_FILESTATUSREQUEST );
 		pPacket->Write( m_pDownload->m_oED2K );
 		Send( pPacket );
 	}
 
-	if ( ( m_pDownload->GetSourceCount() < Settings.Downloads.SourcesWanted ) &&	// We want more sources
-		 ( tNow > m_tSources ) && ( tNow - m_tSources > 30 * 60 * 1000 ) &&			// We have not asked for at least 30 minutes
-		 ( m_pClient->m_bEmule ) && ( Network.IsListening() ) )						// Remote client is eMule compatible and we are accepting packets
+	if ( m_pDownload->GetSourceCount() < Settings.Downloads.SourcesWanted &&	// We want more sources
+		 tNow > m_tSources && tNow > m_tSources + 30 * 60 * 1000 &&				// We have not asked for at least 30 minutes
+		 m_pClient->m_bEmule && Network.IsListening() )							// Remote client is eMule compatible and we are accepting packets
 	{
 		// Set 'last asked for sources' time
 		m_tSources = tNow;
@@ -792,7 +792,7 @@ bool CDownloadTransferED2K::SendFragmentRequests()
 	if ( ! m_pDownload->m_bTorrentEndgame )
 	{
 		for ( CDownloadTransfer* pTransfer = m_pDownload->GetFirstTransfer() ;
-			pTransfer && !oPossible.empty() ; pTransfer = pTransfer->m_pDlNext )
+			pTransfer && ! oPossible.empty() ; pTransfer = pTransfer->m_pDlNext )
 		{
 			pTransfer->SubtractRequested( oPossible );
 		}
@@ -822,19 +822,19 @@ bool CDownloadTransferED2K::SendFragmentRequests()
 		}
 	}
 
-	while ( !oRequesting.empty() )
+	while ( ! oRequesting.empty() )
 	{
 		DWORD nCount=0;
 		QWORD nOffsetBegin[3]={0,0,0}, nOffsetEnd[3]={0,0,0};
 		bool  bI64Offset = false;
 
-		while ( nCount < 3 && !oRequesting.empty() )
+		while ( nCount < 3 && ! oRequesting.empty() )
 		{
 			_TRequestIndex iIndex = oRequesting.begin();
 			nOffsetBegin[nCount] = QWORD((*iIndex).second.begin());
 			nOffsetEnd[nCount] = QWORD((*iIndex).second.end());
 			bI64Offset |= ( ( ( nOffsetBegin[nCount] & 0xffffffff00000000 ) ) ||
-						( ( nOffsetEnd[nCount] & 0xffffffff00000000 ) ) );
+							( ( nOffsetEnd[nCount] & 0xffffffff00000000 ) ) );
 			oRequesting.erase(iIndex);
 			nCount++;
 		}
@@ -977,7 +977,7 @@ BOOL CDownloadTransferED2K::RunQueued(DWORD tNow)
 		Close( TRI_FALSE );
 		return FALSE;
 	}
-	else if ( m_pClient->m_bConnected == FALSE && tNow > m_tRanking && tNow - m_tRanking > Settings.eDonkey.ReAskTime * 1000 + 20000 )
+	else if ( m_pClient->m_bConnected == FALSE && tNow > m_tRanking && tNow > m_tRanking + Settings.eDonkey.ReAskTime * 1000 + 20000 )
 	{
 		theApp.Message( MSG_ERROR, IDS_DOWNLOAD_QUEUE_TIMEOUT,
 			(LPCTSTR)m_sAddress, (LPCTSTR)m_pDownload->GetDisplayName() );
@@ -985,8 +985,8 @@ BOOL CDownloadTransferED2K::RunQueued(DWORD tNow)
 		return FALSE;
 	}
 	else if ( !( CEDPacket::IsLowID( m_pSource->m_pAddress.S_un.S_addr ) || m_pSource->m_bPushOnly ) &&
-				/*!Network.IsFirewalled(CHECK_BOTH)*/!Network.IsFirewalled(CHECK_UDP) && m_pClient->m_nUDP > 0 && ! m_bUDP && tNow > m_tRequest && // Temp disable
-				tNow - m_tRequest > Settings.eDonkey.ReAskTime * 1000 - 20000 )
+				! Network.IsFirewalled(/*CHECK_BOTH*/CHECK_UDP) && m_pClient->m_nUDP > 0 && ! m_bUDP && tNow > m_tRequest &&	// Temp disable (??)
+				tNow > m_tRequest + Settings.eDonkey.ReAskTime * 1000 - 20000 )
 	{
 		CEDPacket* pPing = CEDPacket::New( ED2K_C2C_UDP_REASKFILEPING, ED2K_PROTOCOL_EMULE );
 		pPing->Write( m_pDownload->m_oED2K );
@@ -994,7 +994,7 @@ BOOL CDownloadTransferED2K::RunQueued(DWORD tNow)
 		m_bUDP = TRUE;
 		//m_tRequest = GetTickCount();
 	}
-	else if ( tNow > m_tRequest && tNow - m_tRequest > Settings.eDonkey.ReAskTime * 1000 )
+	else if ( tNow > m_tRequest && tNow > m_tRequest + Settings.eDonkey.ReAskTime * 1000 )
 	{
 		m_tRequest = GetTickCount();
 
@@ -1051,11 +1051,11 @@ BOOL CDownloadTransferED2K::OnSendingPart64(CEDPacket* pPacket)
 		return TRUE;
 	}
 
-	QWORD	nOffset = pPacket->ReadLongLE();
-			nOffset = ( (QWORD)pPacket->ReadLongLE() << 32 ) | nOffset;
+	QWORD nOffset = pPacket->ReadLongLE();
+		  nOffset = ( (QWORD)pPacket->ReadLongLE() << 32 ) | nOffset;
 
-	QWORD	nLength = pPacket->ReadLongLE();
-			nLength = ( (QWORD)pPacket->ReadLongLE() << 32 ) | nLength;
+	QWORD nLength = pPacket->ReadLongLE();
+		  nLength = ( (QWORD)pPacket->ReadLongLE() << 32 ) | nLength;
 
 	if ( nLength <= nOffset )
 	{

@@ -17,15 +17,15 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "DlgURLExport.h"
+#include "DlgURLCopy.h"
 #include "Library.h"
 #include "SharedFile.h"
 #include "SharedFolder.h"
 #include "Transfer.h"
 #include "Network.h"
-#include "DlgURLExport.h"
-#include "DlgURLCopy.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE

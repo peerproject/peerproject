@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PeerProject\n"
-"Report-Msgid-Bugs-To: ryo-oh-ki <ryo-oh-ki@narod.ru>\n"
-"POT-Creation-Date: 2010-10-31 01:39+0000\n"
+"Report-Msgid-Bugs-To: peerproject.org\n"
+"POT-Creation-Date: 2011-10-21 21:00+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: dAbserver\n"
 "Language-Team: PeerProject Development Team\n"
@@ -164,14 +164,6 @@ msgstr "Просмотр"
 msgid "Delete File"
 msgstr "Удалить файл"
 
-#: button;id_downloads_resume downloadhelp.paused;text;3
-msgid "Resume Download"
-msgstr "Продолжить"
-
-#: button;id_downloads_pause
-msgid "Pause Download"
-msgstr "Приостановить"
-
 #: button;id_downloads_clear_incomplete
 msgid "Cancel Download"
 msgstr "Отменить"
@@ -179,6 +171,14 @@ msgstr "Отменить"
 #: button;id_downloads_clear_complete
 msgid "Clear Download"
 msgstr "Убрать"
+
+#: button;id_downloads_resume downloadhelp.paused;text;3
+msgid "Resume Download"
+msgstr "Продолжить"
+
+#: button;id_downloads_pause
+msgid "Pause Download"
+msgstr "Приостановить"
 
 #: button;id_downloads_edit button;id_library_properties
 msgid "Details"
@@ -196,8 +196,8 @@ msgstr "Очистить от завершенных"
 msgid "Add Download"
 msgstr "Начать загрузку..."
 
-#: button;id_downloads_filter_menu button;id_uploads_filter_menu cfiltersearchdlg;control;29
-msgid "Filter"
+#: button;id_downloads_filter_menu button;id_uploads_filter_menu
+msgid "Filters"
 msgstr "Фильтр"
 
 #: button;id_uploads_launch
@@ -211,6 +211,10 @@ msgstr "Очистить"
 #: button;id_uploads_start
 msgid "Start Now"
 msgstr "Начать сейчас"
+
+#: button;id_uploads_priority column;priority
+msgid "Priority"
+msgstr "приоритет"
 
 #: button;id_library_folders
 msgid "Share Files..."
@@ -257,7 +261,7 @@ msgid "Play All"
 msgstr "Добавить альбом в список"
 
 #: button;id_library_folder_download
-msgid "Download All Files"
+msgid "Download All"
 msgstr "Загрузить все файлы"
 
 #: button;id_media_play
@@ -339,6 +343,10 @@ msgstr "Подключиться..."
 #: button;id_neighbours_disconnect button;id_hostcache_disconnect button;id_irc_disconnect button;id_chat_disconnect string;20543
 msgid "Disconnect"
 msgstr "Отключиться"
+
+#: button;id_network_dc
+msgid "DC++"
+msgstr "DC++"
 
 #: button;id_security_add
 msgid "Add Rule"
@@ -433,24 +441,32 @@ msgid "Bootstraps"
 msgstr ""
 
 #: button;id_discovery_serverlist
-msgid "Server.met's"
+msgid "Server.met/Hublists"
+msgstr ""
+
+#: button;id_discovery_blocked
+msgid "Blocked"
 msgstr ""
 
 #: button;id_hostcache_remove string;20407 cfavouritesprofilepage;control;8
 msgid "Remove"
 msgstr "Удалить"
 
+#: button;id_hostcache_g2_horizon
+msgid "Cluster"
+msgstr "кластер"
+
 #: button;id_hostcache_g2_cache button;id_hostcache_g1_cache
 msgid "Cache"
-msgstr "G2 кэш"
+msgstr "кэш "
 
 #: button;id_hostcache_ed2k_cache
 msgid "Servers"
-msgstr "eDonkey кэш"
+msgstr "кэш "
 
-#: button;id_hostcache_g2_horizon
-msgid "Cluster"
-msgstr "G2 кластер"
+#: button;id_hostcache_dc_cache
+msgid "Hubs"
+msgstr "кэш "
 
 #: button;id_irc_sendtext
 msgid "Send"
@@ -536,7 +552,7 @@ msgstr "Переместить вправо"
 msgid "_Close Window"
 msgstr "_Закрыть"
 
-#: ctabbar.child;item;id_child_maximise cmainwnd.windowed;30;item;id_window_cascade cmediaframe.basic;62;item;id_media_fullscreen cmediaframe;65;item;id_media_fullscreen
+#: ctabbar.child;item;id_child_maximise cmainwnd.windowed;29;item;id_window_cascade cmediaframe.basic;61;item;id_media_fullscreen cmediaframe;64;item;id_media_fullscreen
 msgid "_Full Screen"
 msgstr "Во весь _экран"
 
@@ -552,7 +568,7 @@ msgstr "_Минимизировать"
 msgid "Open PeerProject"
 msgstr "Открыть PeerProject"
 
-#: cmainwnd.tray;item;id_window_remote cmainwnd.tabbed;14;item;id_window_remote cmainwnd.windowed;30;item;id_window_remote
+#: cmainwnd.tray;item;id_window_remote cmainwnd.tabbed;13;item;id_window_remote cmainwnd.windowed;29;item;id_window_remote
 msgid "Show Remote"
 msgstr "Пульт управления"
 
@@ -560,7 +576,7 @@ msgstr "Пульт управления"
 msgid "Show Settings..."
 msgstr "Открыть Установки..."
 
-#: cmainwnd.tray;item;id_network_search cmainwnd.windowed;26;item;id_network_search cmainwnd.view.windowed;item;id_network_search
+#: cmainwnd.tray;item;id_network_search cmainwnd.windowed;25;item;id_network_search cmainwnd.view.windowed;item;id_network_search
 msgid "New Search..."
 msgstr "Новый поиск..."
 
@@ -584,39 +600,39 @@ msgstr "Предыдущий трэк"
 msgid "Next Track"
 msgstr "Следующий трэк"
 
-#: cmainwnd.tray;item;id_network_auto_close cmainwnd.dropmenu;1;2;item;id_network_auto_close cmainwnd.tabbed;9;item;id_network_auto_close cmainwnd.basic;18;item;id_network_auto_close
+#: cmainwnd.tray;item;id_network_auto_close cmainwnd.dropmenu;1;2;item;id_network_auto_close cmainwnd.tabbed;8;item;id_network_auto_close cmainwnd.basic;17;item;id_network_auto_close
 msgid "Exit After Transfers"
 msgstr "Выйти после пересылок"
 
-#: cmainwnd.tray;item;id_network_exit cmainwnd.dropmenu;1;item;id_network_exit cmainwnd.tabbed;9;item;id_network_exit cmainwnd.basic;18;item;id_network_exit cmainwnd.windowed;26;item;id_network_exit
+#: cmainwnd.tray;item;id_network_exit cmainwnd.dropmenu;1;item;id_network_exit cmainwnd.tabbed;8;item;id_network_exit cmainwnd.basic;17;item;id_network_exit cmainwnd.windowed;25;item;id_network_exit
 msgid "Exit"
 msgstr "Выход"
 
 #: cmainwnd.dropmenu;1
-msgid "             "
-msgstr "             "
+msgid "                     "
+msgstr "                     "
 
 #: cmainwnd.dropmenu;1;item;id_tools_settings
 msgid "_Settings..."
 msgstr "_Установки..."
 
-#: cmainwnd.dropmenu;1;2 cmainwnd.tabbed;9 cmainwnd.tabbed;11;item;id_tab_network cmainwnd.basic;18 cmainwnd.windowed;26 cmainwnd.view.tabbed;item;id_tab_network chomewnd.tabbed;item;id_tab_network
+#: cmainwnd.dropmenu;1;2 cmainwnd.tabbed;8 cmainwnd.tabbed;10;item;id_tab_network cmainwnd.basic;17 cmainwnd.windowed;25 cmainwnd.view.tabbed;item;id_tab_network chomewnd.tabbed;item;id_tab_network
 msgid "_Network"
 msgstr "_Сети"
 
-#: cmainwnd.dropmenu;1;2;item;id_network_connect cmainwnd.tabbed;9;item;id_network_connect cmainwnd.basic;18;item;id_network_connect cmainwnd.windowed;26;item;id_network_connect cneighbourswnd;68;item;id_network_connect cprivatechatframe;item;id_chat_connect
+#: cmainwnd.dropmenu;1;2;item;id_network_connect cmainwnd.tabbed;8;item;id_network_connect cmainwnd.basic;17;item;id_network_connect cmainwnd.windowed;25;item;id_network_connect cneighbourswnd;67;item;id_network_connect cprivatechatframe;item;id_chat_connect
 msgid "_Connect"
 msgstr "_Подключиться"
 
-#: cmainwnd.dropmenu;1;2;item;id_network_disconnect cmainwnd.tabbed;9;item;id_network_disconnect cmainwnd.windowed;26;item;id_network_disconnect chostcachewnd;item;id_hostcache_disconnect cdownloadswnd.source;item;id_transfers_disconnect cneighbourswnd.basic;item;id_neighbours_disconnect cneighbourswnd;item;id_neighbours_disconnect cneighbourswnd;68;item;id_network_disconnect cprivatechatframe;item;id_chat_disconnect
+#: cmainwnd.dropmenu;1;2;item;id_network_disconnect cmainwnd.tabbed;8;item;id_network_disconnect cmainwnd.windowed;25;item;id_network_disconnect chostcachewnd;item;id_hostcache_disconnect cdownloadswnd.source;item;id_transfers_disconnect cneighbourswnd.basic;item;id_neighbours_disconnect cneighbourswnd;item;id_neighbours_disconnect cneighbourswnd;67;item;id_network_disconnect cprivatechatframe;item;id_chat_disconnect
 msgid "_Disconnect"
 msgstr "_Отключиться"
 
-#: cmainwnd.dropmenu;1;2;item;id_network_g2 cmainwnd.tabbed;9;10;item;id_network_g2 cmainwnd.basic;18;19;item;id_network_g2 cmainwnd.windowed;26;27;item;id_network_g2
+#: cmainwnd.dropmenu;1;2;item;id_network_g2 cmainwnd.tabbed;8;9;item;id_network_g2 cmainwnd.basic;17;18;item;id_network_g2 cmainwnd.windowed;25;26;item;id_network_g2
 msgid "Connect to Gnutella_2"
 msgstr "Подключиться к Gnutella_2"
 
-#: cmainwnd.dropmenu;1;2;item;id_network_g1 cmainwnd.tabbed;9;10;item;id_network_g1 cmainwnd.basic;18;19;item;id_network_g1 cmainwnd.windowed;26;27;item;id_network_g1
+#: cmainwnd.dropmenu;1;2;item;id_network_g1 cmainwnd.tabbed;8;9;item;id_network_g1 cmainwnd.basic;17;18;item;id_network_g1 cmainwnd.windowed;25;26;item;id_network_g1
 msgid "Connect to _Gnutella"
 msgstr "Подключиться к _Gnutella"
 
@@ -624,15 +640,19 @@ msgstr "Подключиться к _Gnutella"
 msgid "Connect to _eDonkey2000"
 msgstr "Подключиться к _eDonkey"
 
-#: cmainwnd.dropmenu;1;2;item;id_network_connect_to cmainwnd.tabbed;9;item;id_network_connect_to cmainwnd.windowed;26;item;id_network_connect_to
+#: cmainwnd.dropmenu;1;2;item;id_network_dc cmainwnd.tabbed;8;9;item;id_network_dc cmainwnd.windowed;25;26;item;id_network_dc
+msgid "Connect to _DC++"
+msgstr "Подключиться к _DC++"
+
+#: cmainwnd.dropmenu;1;2;item;id_network_connect_to cmainwnd.tabbed;8;item;id_network_connect_to cmainwnd.windowed;25;item;id_network_connect_to
 msgid "Connect _To..."
 msgstr "Под_ключиться..."
 
-#: cmainwnd.dropmenu;1;2;item;id_network_browse_to cmainwnd.tabbed;9;item;id_network_browse_to cmainwnd.windowed;26;item;id_network_browse_to
+#: cmainwnd.dropmenu;1;2;item;id_network_browse_to cmainwnd.tabbed;8;item;id_network_browse_to cmainwnd.windowed;25;item;id_network_browse_to
 msgid "_Browse User..."
 msgstr "Просмотр _хоста..."
 
-#: cmainwnd.dropmenu;1;2;item;id_network_chat_to cmainwnd.tabbed;9;item;id_network_chat_to cmainwnd.windowed;26;item;id_network_chat_to
+#: cmainwnd.dropmenu;1;2;item;id_network_chat_to cmainwnd.tabbed;8;item;id_network_chat_to cmainwnd.windowed;25;item;id_network_chat_to
 msgid "Chat with _User..."
 msgstr ""
 
@@ -640,19 +660,19 @@ msgstr ""
 msgid "E_xit Immediately"
 msgstr "Выход"
 
-#: cmainwnd.dropmenu;1;3 cmainwnd.tabbed;13 cmainwnd.basic;22 cmainwnd.windowed;29
+#: cmainwnd.dropmenu;1;3 cmainwnd.tabbed;12 cmainwnd.basic;21 cmainwnd.windowed;28
 msgid "_Tools"
 msgstr "_Инструменты"
 
-#: cmainwnd.dropmenu;1;3;item;id_library_folders cmainwnd.tabbed;13;item;id_library_folders cmainwnd.basic;22;item;id_library_folders cmainwnd.windowed;29;item;id_library_folders
+#: cmainwnd.dropmenu;1;3;item;id_library_folders cmainwnd.tabbed;12;item;id_library_folders cmainwnd.basic;21;item;id_library_folders cmainwnd.windowed;28;item;id_library_folders
 msgid "Share _Files..."
 msgstr "Общий _доступ..."
 
-#: cmainwnd.dropmenu;1;3;item;id_open_downloads_folder cmainwnd.windowed;29;item;id_open_downloads_folder
+#: cmainwnd.dropmenu;1;3;item;id_open_downloads_folder cmainwnd.windowed;28;item;id_open_downloads_folder
 msgid "_Open Downloads Folder"
 msgstr "_Открыть папку с загрузками"
 
-#: cmainwnd.dropmenu;1;3;item;id_tools_download cmainwnd.tabbed;13;item;id_tools_download cmainwnd.basic;22;item;id_tools_download cmainwnd.windowed;29;item;id_tools_download
+#: cmainwnd.dropmenu;1;3;item;id_tools_download cmainwnd.tabbed;12;item;id_tools_download cmainwnd.basic;21;item;id_tools_download cmainwnd.windowed;28;item;id_tools_download
 msgid "_Download File/Torrent..."
 msgstr "_Начать загрузку..."
 
@@ -660,31 +680,31 @@ msgstr "_Начать загрузку..."
 msgid "_Seed a .Torrent..."
 msgstr "_Seed a .Torrent..."
 
-#: cmainwnd.dropmenu;1;3;item;id_tools_createtorrent cmainwnd.tabbed;13;item;id_tools_createtorrent cmainwnd.windowed;29;item;id_tools_createtorrent
+#: cmainwnd.dropmenu;1;3;item;id_tools_createtorrent cmainwnd.tabbed;12;item;id_tools_createtorrent cmainwnd.windowed;28;item;id_tools_createtorrent
 msgid "_Create New .Torrent..."
 msgstr "_Create New .Torrent..."
 
-#: cmainwnd.dropmenu;1;3;item;idc_import_downloads cmainwnd.tabbed;13;item;idc_import_downloads cmainwnd.windowed;29;item;idc_import_downloads
+#: cmainwnd.dropmenu;1;3;item;id_import_downloads cmainwnd.tabbed;12;item;id_import_downloads cmainwnd.windowed;28;item;id_import_downloads
 msgid "_Import eMule Partials..."
 msgstr "_Импорт частичных загрузок eMule..."
 
-#: cmainwnd.dropmenu;1;3;item;id_tools_language cmainwnd.tabbed;13;item;id_tools_language cmainwnd.basic;22;item;id_tools_language cmainwnd.windowed;29;item;id_tools_language
+#: cmainwnd.dropmenu;1;3;item;id_tools_language cmainwnd.tabbed;12;item;id_tools_language cmainwnd.basic;21;item;id_tools_language cmainwnd.windowed;28;item;id_tools_language
 msgid "Choose a _Language..."
 msgstr "Выбрать _язык..."
 
-#: cmainwnd.dropmenu;1;3;item;id_tools_skin cmainwnd.tabbed;13;item;id_tools_skin cmainwnd.basic;22;item;id_tools_skin cmainwnd.windowed;29;item;id_tools_skin
+#: cmainwnd.dropmenu;1;3;item;id_tools_skin cmainwnd.tabbed;12;item;id_tools_skin cmainwnd.basic;21;item;id_tools_skin cmainwnd.windowed;28;item;id_tools_skin
 msgid "Choose a S_kin..."
 msgstr "Выбрать _шкурку..."
 
-#: cmainwnd.dropmenu;1;3;item;id_tools_profile cmainwnd.tabbed;13;item;id_tools_profile cmainwnd.basic;22;item;id_tools_profile
+#: cmainwnd.dropmenu;1;3;item;id_tools_profile cmainwnd.tabbed;12;item;id_tools_profile cmainwnd.basic;21;item;id_tools_profile
 msgid "Edit My _Profile..."
 msgstr "Редактировать _профиль..."
 
-#: cmainwnd.dropmenu;1;3;item;id_tools_wizard cmainwnd.tabbed;13;item;id_tools_wizard cmainwnd.basic;22;item;id_tools_wizard cmainwnd.windowed;29;item;id_tools_wizard
+#: cmainwnd.dropmenu;1;3;item;id_tools_wizard cmainwnd.tabbed;12;item;id_tools_wizard cmainwnd.basic;21;item;id_tools_wizard cmainwnd.windowed;28;item;id_tools_wizard
 msgid "QuickStart _Wizard..."
 msgstr "_Мастер быстрого старта"
 
-#: cmainwnd.dropmenu;1;3;item;id_tools_settings cmainwnd.tabbed;13;item;id_tools_settings cmainwnd.basic;22;item;id_tools_settings cmainwnd.windowed;29;item;id_tools_settings
+#: cmainwnd.dropmenu;1;3;item;id_tools_settings cmainwnd.tabbed;12;item;id_tools_settings cmainwnd.basic;21;item;id_tools_settings cmainwnd.windowed;28;item;id_tools_settings
 msgid "_PeerProject Settings..."
 msgstr "_Установки PeerProject..."
 
@@ -692,23 +712,23 @@ msgstr "_Установки PeerProject..."
 msgid "Advanced _View"
 msgstr "Опытным _Вид"
 
-#: cmainwnd.dropmenu;1;4;item;id_tab_home cmainwnd.tabbed;11;item;id_tab_home cmainwnd.basic;20;item;id_tab_home cmainwnd.view.basic;item;id_tab_home cmainwnd.view.tabbed;item;id_tab_home chomewnd.basic;item;id_tab_home chomewnd.tabbed;item;id_tab_home
+#: cmainwnd.dropmenu;1;4;item;id_tab_home cmainwnd.tabbed;10;item;id_tab_home cmainwnd.basic;19;item;id_tab_home cmainwnd.view.basic;item;id_tab_home cmainwnd.view.tabbed;item;id_tab_home chomewnd.basic;item;id_tab_home chomewnd.tabbed;item;id_tab_home
 msgid "_Home"
 msgstr "_Домой"
 
-#: cmainwnd.dropmenu;1;4;item;id_tab_search cmainwnd.tabbed;11;item;id_tab_search cmainwnd.basic;20;item;id_tab_search cmainwnd.view.basic;item;id_tab_search cmainwnd.view.tabbed;item;id_tab_search chomewnd.basic;item;id_tab_search chomewnd.tabbed;item;id_tab_search
+#: cmainwnd.dropmenu;1;4;item;id_tab_search cmainwnd.tabbed;10;item;id_tab_search cmainwnd.basic;19;item;id_tab_search cmainwnd.view.basic;item;id_tab_search cmainwnd.view.tabbed;item;id_tab_search chomewnd.basic;item;id_tab_search chomewnd.tabbed;item;id_tab_search
 msgid "_Search"
 msgstr "_Поиск"
 
-#: cmainwnd.dropmenu;1;4;item;id_view_downloads cmainwnd.tabbed;11;12;item;id_view_downloads cmainwnd.basic;20;item;id_tab_transfers cmainwnd.windowed;28;item;id_view_downloads cmainwnd.view.basic;item;id_tab_transfers cmainwnd.view.windowed;item;id_view_downloads chomewnd.basic;item;id_tab_transfers
+#: cmainwnd.dropmenu;1;4;item;id_view_downloads cmainwnd.tabbed;10;11;item;id_view_downloads cmainwnd.basic;19;item;id_tab_transfers cmainwnd.windowed;27;item;id_view_downloads cmainwnd.view.basic;item;id_tab_transfers cmainwnd.view.windowed;item;id_view_downloads chomewnd.basic;item;id_tab_transfers
 msgid "_Downloads"
 msgstr "_Загрузки"
 
-#: cmainwnd.dropmenu;1;4;item;id_view_uploads cmainwnd.tabbed;11;12;item;id_view_uploads cmainwnd.basic;20;21;item;id_view_uploads cmainwnd.windowed;28;item;id_view_uploads cmainwnd.view.basic;34;item;id_view_uploads cmainwnd.view.windowed;item;id_view_uploads chomewnd.basic;35;item;id_view_uploads
+#: cmainwnd.dropmenu;1;4;item;id_view_uploads cmainwnd.tabbed;10;11;item;id_view_uploads cmainwnd.basic;19;20;item;id_view_uploads cmainwnd.windowed;27;item;id_view_uploads cmainwnd.view.basic;33;item;id_view_uploads cmainwnd.view.windowed;item;id_view_uploads chomewnd.basic;34;item;id_view_uploads
 msgid "_Uploads"
 msgstr "_Раздачи"
 
-#: cmainwnd.dropmenu;1;4;item;id_view_library cmainwnd.tabbed;11;item;id_tab_library cmainwnd.tabbed;11;12;item;id_view_library cmainwnd.basic;20;item;id_tab_library cmainwnd.windowed;28;item;id_view_library cmainwnd.view.basic;item;id_tab_library cmainwnd.view.tabbed;item;id_tab_library cmainwnd.view.windowed;item;id_view_library chomewnd.basic;item;id_tab_library chomewnd.tabbed;item;id_tab_library
+#: cmainwnd.dropmenu;1;4;item;id_view_library cmainwnd.tabbed;10;item;id_tab_library cmainwnd.tabbed;10;11;item;id_view_library cmainwnd.basic;19;item;id_tab_library cmainwnd.windowed;27;item;id_view_library cmainwnd.view.basic;item;id_tab_library cmainwnd.view.tabbed;item;id_tab_library cmainwnd.view.windowed;item;id_view_library chomewnd.basic;item;id_tab_library chomewnd.tabbed;item;id_tab_library
 msgid "_Library"
 msgstr "_Хранилище"
 
@@ -716,31 +736,31 @@ msgstr "_Хранилище"
 msgid "_Media"
 msgstr "Про_ирыватель"
 
-#: cmainwnd.dropmenu;1;4;item;id_tab_irc cmainwnd.tabbed;11;item;id_tab_irc cmainwnd.basic;20;item;id_tab_irc cmainwnd.windowed;28;item;id_tab_irc cmainwnd.view.tabbed;item;id_tab_irc chomewnd.tabbed;item;id_tab_irc
+#: cmainwnd.dropmenu;1;4;item;id_tab_irc cmainwnd.tabbed;10;item;id_tab_irc cmainwnd.basic;19;item;id_tab_irc cmainwnd.windowed;27;item;id_tab_irc cmainwnd.view.tabbed;item;id_tab_irc chomewnd.tabbed;item;id_tab_irc
 msgid "_IRC Chat"
 msgstr "_Чат"
 
-#: cmainwnd.dropmenu;1;4;item;id_view_scheduler cmainwnd.tabbed;11;item;id_view_scheduler cmainwnd.tabbed;11;12;item;id_view_scheduler cmainwnd.windowed;28;item;id_view_scheduler cmainwnd.view.basic;34;item;id_view_scheduler cmainwnd.view.tabbed;item;id_view_scheduler cmainwnd.view.windowed;item;id_view_scheduler chomewnd.basic;35;item;id_view_scheduler chomewnd.tabbed;item;id_view_scheduler
+#: cmainwnd.dropmenu;1;4;item;id_view_scheduler cmainwnd.tabbed;10;item;id_view_scheduler cmainwnd.tabbed;10;11;item;id_view_scheduler cmainwnd.windowed;27;item;id_view_scheduler cmainwnd.view.basic;33;item;id_view_scheduler cmainwnd.view.tabbed;item;id_view_scheduler cmainwnd.view.windowed;item;id_view_scheduler chomewnd.basic;34;item;id_view_scheduler chomewnd.tabbed;item;id_view_scheduler
 msgid "Schedule_r"
 msgstr "Пла_нировщик"
 
-#: cmainwnd.dropmenu;1;4;item;id_view_security cmainwnd.tabbed;11;item;id_view_security cmainwnd.tabbed;11;12;item;id_view_security cmainwnd.basic;20;21;item;id_view_security cmainwnd.windowed;28;item;id_view_security cmainwnd.view.basic;34;item;id_view_security cmainwnd.view.tabbed;item;id_view_security cmainwnd.view.windowed;item;id_view_security chomewnd.basic;35;item;id_view_security chomewnd.tabbed;item;id_view_security
+#: cmainwnd.dropmenu;1;4;item;id_view_security cmainwnd.tabbed;10;item;id_view_security cmainwnd.tabbed;10;11;item;id_view_security cmainwnd.basic;19;20;item;id_view_security cmainwnd.windowed;27;item;id_view_security cmainwnd.view.basic;33;item;id_view_security cmainwnd.view.tabbed;item;id_view_security cmainwnd.view.windowed;item;id_view_security chomewnd.basic;34;item;id_view_security chomewnd.tabbed;item;id_view_security
 msgid "Se_curity"
 msgstr "_Безопасность"
 
-#: cmainwnd.dropmenu;1;4;item;id_view_hosts cmainwnd.tabbed;11;item;id_view_hosts cmainwnd.tabbed;11;12;item;id_view_hosts cmainwnd.basic;20;21;item;id_view_hosts cmainwnd.windowed;28;item;id_view_hosts cmainwnd.view.basic;34;item;id_view_hosts cmainwnd.view.tabbed;item;id_view_hosts cmainwnd.view.windowed;item;id_view_hosts chomewnd.basic;35;item;id_view_hosts chomewnd.tabbed;item;id_view_hosts
+#: cmainwnd.dropmenu;1;4;item;id_view_hosts cmainwnd.tabbed;10;item;id_view_hosts cmainwnd.tabbed;10;11;item;id_view_hosts cmainwnd.basic;19;20;item;id_view_hosts cmainwnd.windowed;27;item;id_view_hosts cmainwnd.view.basic;33;item;id_view_hosts cmainwnd.view.tabbed;item;id_view_hosts cmainwnd.view.windowed;item;id_view_hosts chomewnd.basic;34;item;id_view_hosts chomewnd.tabbed;item;id_view_hosts
 msgid "H_ost Cache"
 msgstr "_Кэш хостов"
 
-#: cmainwnd.dropmenu;1;4;item;id_view_discovery cmainwnd.tabbed;11;12;item;id_view_discovery cmainwnd.basic;20;21;item;id_view_discovery cmainwnd.windowed;28;item;id_view_discovery cmainwnd.view.tabbed;item;id_view_discovery cmainwnd.view.windowed;item;id_view_discovery chomewnd.tabbed;item;id_view_discovery
+#: cmainwnd.dropmenu;1;4;item;id_view_discovery cmainwnd.tabbed;10;11;item;id_view_discovery cmainwnd.basic;19;20;item;id_view_discovery cmainwnd.windowed;27;item;id_view_discovery cmainwnd.view.tabbed;item;id_view_discovery cmainwnd.view.windowed;item;id_view_discovery chomewnd.tabbed;item;id_view_discovery
 msgid "Disco_very"
 msgstr "_Ресурсы соединений"
 
-#: cmainwnd.dropmenu;1;4;item;id_view_traffic cmainwnd.tabbed;11;12;item;id_view_traffic cmainwnd.windowed;28;item;id_view_traffic cmainwnd.view.tabbed;item;id_view_traffic cmainwnd.view.windowed;item;id_view_traffic chomewnd.tabbed;item;id_view_traffic
+#: cmainwnd.dropmenu;1;4;item;id_view_traffic cmainwnd.tabbed;10;11;item;id_view_traffic cmainwnd.windowed;27;item;id_view_traffic cmainwnd.view.tabbed;item;id_view_traffic cmainwnd.view.windowed;item;id_view_traffic chomewnd.tabbed;item;id_view_traffic
 msgid "_Graph"
 msgstr "_График"
 
-#: cmainwnd.dropmenu;1;4;item;id_view_system cmainwnd.tabbed;11;12;item;id_view_system cmainwnd.windowed;28;item;id_view_system cmainwnd.view.windowed;item;id_view_system
+#: cmainwnd.dropmenu;1;4;item;id_view_system cmainwnd.tabbed;10;11;item;id_view_system cmainwnd.windowed;27;item;id_view_system cmainwnd.view.windowed;item;id_view_system
 msgid "S_ystem"
 msgstr "Си_стема"
 
@@ -748,27 +768,27 @@ msgstr "Си_стема"
 msgid "N_eighbours"
 msgstr "С_оединения"
 
-#: cmainwnd.dropmenu;1;4;item;id_view_packets cmainwnd.tabbed;11;12;item;id_view_packets cmainwnd.windowed;28;item;id_view_packets cmainwnd.view.tabbed;item;id_view_packets cmainwnd.view.windowed;item;id_view_packets chomewnd.tabbed;item;id_view_packets
+#: cmainwnd.dropmenu;1;4;item;id_view_packets cmainwnd.tabbed;10;11;item;id_view_packets cmainwnd.windowed;27;item;id_view_packets cmainwnd.view.tabbed;item;id_view_packets cmainwnd.view.windowed;item;id_view_packets chomewnd.tabbed;item;id_view_packets
 msgid "_Packet Dump"
 msgstr "Дамп _пакетов"
 
-#: cmainwnd.dropmenu;1;4;item;id_view_search_monitor cmainwnd.tabbed;11;12;item;id_view_search_monitor cmainwnd.windowed;28;item;id_view_search_monitor cmainwnd.view.tabbed;item;id_view_search_monitor cmainwnd.view.windowed;item;id_view_search_monitor chomewnd.tabbed;item;id_view_search_monitor csearchwnd;39;item;id_view_search_monitor
+#: cmainwnd.dropmenu;1;4;item;id_view_search_monitor cmainwnd.tabbed;10;11;item;id_view_search_monitor cmainwnd.windowed;27;item;id_view_search_monitor cmainwnd.view.tabbed;item;id_view_search_monitor cmainwnd.view.windowed;item;id_view_search_monitor chomewnd.tabbed;item;id_view_search_monitor csearchwnd;38;item;id_view_search_monitor
 msgid "Se_arch Monitor"
 msgstr "_Монитор поиска"
 
-#: cmainwnd.dropmenu;1;4;item;id_view_results_monitor cmainwnd.tabbed;11;12;item;id_view_results_monitor cmainwnd.windowed;28;item;id_view_results_monitor cmainwnd.view.tabbed;item;id_view_results_monitor cmainwnd.view.windowed;item;id_view_results_monitor chomewnd.tabbed;item;id_view_results_monitor csearchwnd;39;item;id_view_results_monitor
+#: cmainwnd.dropmenu;1;4;item;id_view_results_monitor cmainwnd.tabbed;10;11;item;id_view_results_monitor cmainwnd.windowed;27;item;id_view_results_monitor cmainwnd.view.tabbed;item;id_view_results_monitor cmainwnd.view.windowed;item;id_view_results_monitor chomewnd.tabbed;item;id_view_results_monitor csearchwnd;38;item;id_view_results_monitor
 msgid "H_it Monitor"
 msgstr "Монитор хи_тов"
 
-#: cmainwnd.dropmenu;1;5 cmainwnd.tabbed;14 cmainwnd.windowed;30
+#: cmainwnd.dropmenu;1;5 cmainwnd.tabbed;13 cmainwnd.windowed;29
 msgid "_Window"
 msgstr "_Окна"
 
-#: cmainwnd.dropmenu;1;5;item;id_view_tabbed cmainwnd.tabbed;11;item;id_view_tabbed cmainwnd.windowed;28;item;id_view_tabbed
+#: cmainwnd.dropmenu;1;5;item;id_view_tabbed cmainwnd.tabbed;10;item;id_view_tabbed cmainwnd.windowed;27;item;id_view_tabbed
 msgid "_Tabbed Mode"
 msgstr "Ре_жим закладок"
 
-#: cmainwnd.dropmenu;1;5;item;id_view_windowed cmainwnd.tabbed;11;item;id_view_windowed cmainwnd.windowed;28;item;id_view_windowed
+#: cmainwnd.dropmenu;1;5;item;id_view_windowed cmainwnd.tabbed;10;item;id_view_windowed cmainwnd.windowed;27;item;id_view_windowed
 msgid "_Windowed Mode"
 msgstr "Око_нный режим"
 
@@ -788,11 +808,11 @@ msgstr "Показать _монитор"
 msgid "Show Media _Remote"
 msgstr "Показывать пульт _управления"
 
-#: cmainwnd.dropmenu;1;6 cmainwnd.tabbed;15 cmainwnd.basic;23 cmainwnd.windowed;31
+#: cmainwnd.dropmenu;1;6 cmainwnd.tabbed;14 cmainwnd.basic;22 cmainwnd.windowed;30
 msgid "_Help"
 msgstr "_Помощь"
 
-#: cmainwnd.dropmenu;1;6;item;id_help_faq cmainwnd.tabbed;15;item;id_help_faq cmainwnd.basic;23;item;id_help_faq cmainwnd.windowed;31;item;id_help_faq
+#: cmainwnd.dropmenu;1;6;item;id_help_faq cmainwnd.tabbed;14;item;id_help_faq cmainwnd.basic;22;item;id_help_faq cmainwnd.windowed;30;item;id_help_faq
 msgid "PeerProject FA_Q"
 msgstr "_ЧаВо PeerProject"
 
@@ -800,35 +820,31 @@ msgstr "_ЧаВо PeerProject"
 msgid "PeerProject User _Guide"
 msgstr ""
 
-#: cmainwnd.dropmenu;1;6;item;id_help_forums cmainwnd.tabbed;15;17;item;id_help_forums cmainwnd.basic;23;25;item;id_help_forums cmainwnd.windowed;31;33;item;id_help_forums
+#: cmainwnd.dropmenu;1;6;item;id_help_forums cmainwnd.tabbed;14;16;item;id_help_forums cmainwnd.basic;22;24;item;id_help_forums cmainwnd.windowed;30;32;item;id_help_forums
 msgid "PeerProject _Forums"
 msgstr "_Форумы PeerProject"
 
-#: cmainwnd.dropmenu;1;6;item;id_help_forums_local cmainwnd.tabbed;15;17;item;id_help_forums_local cmainwnd.basic;23;25;item;id_help_forums_local cmainwnd.windowed;31;33;item;id_help_forums_local
+#: cmainwnd.dropmenu;1;6;item;id_help_forums_local cmainwnd.tabbed;14;16;item;id_help_forums_local cmainwnd.basic;22;24;item;id_help_forums_local cmainwnd.windowed;30;32;item;id_help_forums_local
 msgid "_English Language Forum"
 msgstr "_Форумы Pусский"
 
-#: cmainwnd.dropmenu;1;6;7
-msgid "Skin Help"
+#: cmainwnd.dropmenu;1;6;7 cmainwnd.tabbed;14;16 cmainwnd.basic;22;24 cmainwnd.windowed;30;32
+msgid "_Websites"
 msgstr "_Руководства"
 
-#: cmainwnd.dropmenu;1;6;8 cmainwnd.tabbed;15;17 cmainwnd.basic;23;25 cmainwnd.windowed;31;33
-msgid "_Websites"
-msgstr "_Веб сайты"
-
-#: cmainwnd.dropmenu;1;6;8;item;id_help_web_3
+#: cmainwnd.dropmenu;1;6;7;item;id_help_web_3
 msgid "Slyck.com"
 msgstr ""
 
-#: cmainwnd.dropmenu;1;6;8;item;id_help_web_1
+#: cmainwnd.dropmenu;1;6;7;item;id_help_web_1
 msgid "ZeroPaid.com"
 msgstr ""
 
-#: cmainwnd.dropmenu;1;6;8;item;id_help_web_2
+#: cmainwnd.dropmenu;1;6;7;item;id_help_web_2
 msgid "P2PForums.com"
 msgstr ""
 
-#: cmainwnd.dropmenu;1;6;8;item;id_help_web_6
+#: cmainwnd.dropmenu;1;6;7;item;id_help_web_6
 msgid "Hypewise.DeviantArt.com"
 msgstr ""
 
@@ -836,153 +852,153 @@ msgstr ""
 msgid "_PeerProject.org"
 msgstr "_Сайт PeerProject"
 
-#: cmainwnd.dropmenu;1;6;item;id_help_about cmainwnd.tabbed;15;item;id_help_about cmainwnd.basic;23;item;id_help_about cmainwnd.windowed;31;item;id_help_about
+#: cmainwnd.dropmenu;1;6;item;id_help_about cmainwnd.tabbed;14;item;id_help_about cmainwnd.basic;22;item;id_help_about cmainwnd.windowed;30;item;id_help_about
 msgid "_About PeerProject..."
 msgstr "_О PeerProject..."
 
-#: cmainwnd.tabbed;9;10 cmainwnd.basic;18;19 cmainwnd.windowed;26;27
+#: cmainwnd.tabbed;8;9 cmainwnd.basic;17;18 cmainwnd.windowed;25;26
 msgid "Choose _Networks"
-msgstr "Выбор _Сетей"
+msgstr ""
 
-#: cmainwnd.tabbed;9;10;item;id_network_ed2k cmainwnd.basic;18;19;item;id_network_ed2k cmainwnd.windowed;26;27;item;id_network_ed2k
+#: cmainwnd.tabbed;8;9;item;id_network_ed2k cmainwnd.basic;17;18;item;id_network_ed2k cmainwnd.windowed;25;26;item;id_network_ed2k
 msgid "Connect to _eDonkey"
-msgstr "Подключиться к _eDonkey"
+msgstr ""
 
-#: cmainwnd.tabbed;11 cmainwnd.basic;20 cmainwnd.windowed;28
+#: cmainwnd.tabbed;10 cmainwnd.basic;19 cmainwnd.windowed;27
 msgid "_View"
 msgstr "_Вид"
 
-#: cmainwnd.tabbed;11;item;id_tab_transfers cmainwnd.view.tabbed;item;id_tab_transfers chomewnd.tabbed;item;id_tab_transfers
+#: cmainwnd.tabbed;10;item;id_tab_transfers cmainwnd.view.tabbed;item;id_tab_transfers chomewnd.tabbed;item;id_tab_transfers
 msgid "_Transfers"
 msgstr "Пе_ресылки"
 
-#: cmainwnd.tabbed;11;item;id_tab_media cmainwnd.basic;20;item;id_tab_media cmainwnd.view.basic;item;id_tab_media cmainwnd.view.tabbed;item;id_tab_media cmainwnd.view.windowed;item;id_view_media chomewnd.basic;item;id_tab_media chomewnd.tabbed;item;id_tab_media
+#: cmainwnd.tabbed;10;item;id_tab_media cmainwnd.basic;19;item;id_tab_media cmainwnd.view.basic;item;id_tab_media cmainwnd.view.tabbed;item;id_tab_media cmainwnd.view.windowed;item;id_view_media chomewnd.basic;item;id_tab_media chomewnd.tabbed;item;id_tab_media
 msgid "_Media Player"
 msgstr "Про_ирыватель"
 
-#: cmainwnd.tabbed;11;12 cmainwnd.basic;20;21 cmainwnd.view.basic;34 chomewnd.basic;35 cdownloadswnd.download;47
+#: cmainwnd.tabbed;10;11 cmainwnd.basic;19;20 cmainwnd.view.basic;33 chomewnd.basic;34 cdownloadswnd.download;46
 msgid "A_dvanced"
 msgstr "_Опытным"
 
-#: cmainwnd.tabbed;11;12;item;id_tab_home
+#: cmainwnd.tabbed;10;11;item;id_tab_home
 msgid "_Home Tab"
 msgstr ""
 
-#: cmainwnd.tabbed;11;12;item;id_tab_irc
+#: cmainwnd.tabbed;10;11;item;id_tab_irc
 msgid "IRC _Chatrooms"
 msgstr ""
 
-#: cmainwnd.tabbed;11;12;item;id_view_media cmainwnd.windowed;28;item;id_view_media
+#: cmainwnd.tabbed;10;11;item;id_view_media cmainwnd.windowed;27;item;id_view_media
 msgid "_Mediaplayer"
 msgstr "Про_игрыватель"
 
-#: cmainwnd.tabbed;11;12;item;id_view_neighbours cmainwnd.basic;20;21;item;id_view_neighbours cmainwnd.windowed;28;item;id_view_neighbours cmainwnd.view.basic;34;item;id_view_neighbours cmainwnd.view.windowed;item;id_view_neighbours chomewnd.basic;35;item;id_view_neighbours
+#: cmainwnd.tabbed;10;11;item;id_view_neighbours cmainwnd.basic;19;20;item;id_view_neighbours cmainwnd.windowed;27;item;id_view_neighbours cmainwnd.view.basic;33;item;id_view_neighbours cmainwnd.view.windowed;item;id_view_neighbours chomewnd.basic;34;item;id_view_neighbours
 msgid "N_eighbors"
 msgstr "С_оединения"
 
-#: cmainwnd.tabbed;11;12;item;id_tab_search cmainwnd.windowed;28;item;id_tab_search
+#: cmainwnd.tabbed;10;11;item;id_tab_search cmainwnd.windowed;27;item;id_tab_search
 msgid "New _Search"
 msgstr ""
 
-#: cmainwnd.tabbed;11;item;id_view_basic cmainwnd.basic;20;item;id_view_basic cmainwnd.windowed;28;item;id_view_basic
+#: cmainwnd.tabbed;10;item;id_view_basic cmainwnd.basic;19;item;id_view_basic cmainwnd.windowed;27;item;id_view_basic
 msgid "_Basic Mode"
 msgstr "Об_ычный режим"
 
-#: cmainwnd.tabbed;13;item;id_open_downloads_folder
+#: cmainwnd.tabbed;12;item;id_open_downloads_folder
 msgid "_Open completed download folder"
 msgstr "_Открыть папку с загрузками"
 
-#: cmainwnd.tabbed;13;item;id_tools_seedtorrent cmainwnd.windowed;29;item;id_tools_seedtorrent
+#: cmainwnd.tabbed;12;item;id_tools_seedtorrent cmainwnd.windowed;28;item;id_tools_seedtorrent
 msgid "_Seed New Torrent..."
 msgstr ""
 
-#: cmainwnd.tabbed;14;item;id_window_navbar cmainwnd.windowed;30;item;id_window_navbar
+#: cmainwnd.tabbed;13;item;id_window_navbar cmainwnd.windowed;29;item;id_window_navbar
 msgid "Show _Navigation Bar"
 msgstr "Показывать _навигационную полоску"
 
-#: cmainwnd.tabbed;14;item;id_window_toolbar cmainwnd.windowed;30;item;id_window_toolbar
+#: cmainwnd.tabbed;13;item;id_window_toolbar cmainwnd.windowed;29;item;id_window_toolbar
 msgid "Show _Tool Bar"
 msgstr "Показывать полоску _инструментов"
 
-#: cmainwnd.tabbed;14;item;id_window_tabbar cmainwnd.windowed;30;item;id_window_tabbar
+#: cmainwnd.tabbed;13;item;id_window_tabbar cmainwnd.windowed;29;item;id_window_tabbar
 msgid "Show Tab _Bar"
 msgstr "Показывать полоску _закладок"
 
-#: cmainwnd.tabbed;14;item;id_window_monitor cmainwnd.windowed;30;item;id_window_monitor
+#: cmainwnd.tabbed;13;item;id_window_monitor cmainwnd.windowed;29;item;id_window_monitor
 msgid "Show _Monitor"
 msgstr "Показать _монитор"
 
-#: cmainwnd.tabbed;15;item;id_help_test cmainwnd.basic;23;item;id_help_test cmainwnd.windowed;31;item;id_help_test
+#: cmainwnd.tabbed;14;item;id_help_test cmainwnd.basic;22;item;id_help_test cmainwnd.windowed;30;item;id_help_test
 msgid "_Connection Test"
 msgstr "_Тест соединения"
 
-#: cmainwnd.tabbed;15;16 cmainwnd.basic;23;24 cmainwnd.windowed;31;32
+#: cmainwnd.tabbed;14;15 cmainwnd.basic;22;23 cmainwnd.windowed;30;31
 msgid "_Guides"
 msgstr "_Руководства"
 
-#: cmainwnd.tabbed;15;16;item;id_help_guide cmainwnd.basic;23;24;item;id_help_guide cmainwnd.windowed;31;32;item;id_help_guide
+#: cmainwnd.tabbed;14;15;item;id_help_guide cmainwnd.basic;22;23;item;id_help_guide cmainwnd.windowed;30;31;item;id_help_guide
 msgid "PeerProject _Users Guide"
 msgstr "_Руководство пользователя"
 
-#: cmainwnd.tabbed;15;16;item;id_help_router cmainwnd.basic;23;24;item;id_help_router cmainwnd.windowed;31;32;item;id_help_router
+#: cmainwnd.tabbed;14;15;item;id_help_router cmainwnd.basic;22;23;item;id_help_router cmainwnd.windowed;30;31;item;id_help_router
 msgid "_Router Help"
 msgstr "О _маршрутизаторах, брандмауэрах"
 
-#: cmainwnd.tabbed;15;16;item;id_help_security cmainwnd.basic;23;24;item;id_help_security cmainwnd.windowed;31;32;item;id_help_security
+#: cmainwnd.tabbed;14;15;item;id_help_security cmainwnd.basic;22;23;item;id_help_security cmainwnd.windowed;30;31;item;id_help_security
 msgid "_Security Help"
 msgstr "О _безопасности"
 
-#: cmainwnd.tabbed;15;16;item;id_help_codec cmainwnd.basic;23;24;item;id_help_codec cmainwnd.windowed;31;32;item;id_help_codec
+#: cmainwnd.tabbed;14;15;item;id_help_codec cmainwnd.basic;22;23;item;id_help_codec cmainwnd.windowed;30;31;item;id_help_codec
 msgid "_Codec Help"
 msgstr "О _кодеках"
 
-#: cmainwnd.tabbed;15;17;item;id_help_homepage cmainwnd.windowed;31;33;item;id_help_homepage
-msgid "_PeerProject site"
+#: cmainwnd.tabbed;14;16;item;id_help_homepage cmainwnd.basic;22;24;item;id_help_homepage
+msgid "_PeerProject Site"
 msgstr "_Сайт PeerProject"
 
-#: cmainwnd.tabbed;15;17;item;id_help_web_6 cmainwnd.basic;23;25;item;id_help_web_6 cmainwnd.windowed;31;33;item;id_help_web_6
+#: cmainwnd.tabbed;14;16;item;id_help_web_6 cmainwnd.basic;22;24;item;id_help_web_6 cmainwnd.windowed;30;32;item;id_help_web_6
 msgid "PeerProject S_kin Site"
 msgstr ""
 
-#: cmainwnd.tabbed;15;17;item;id_help_fakeshareaza cmainwnd.basic;23;25;item;id_help_fakeshareaza cmainwnd.windowed;31;33;item;id_help_fakeshareaza
+#: cmainwnd.tabbed;14;16;item;id_help_fakeshareaza cmainwnd.basic;22;24;item;id_help_fakeshareaza cmainwnd.windowed;30;32;item;id_help_fakeshareaza
 msgid "FakeSharea_za.com"
 msgstr ""
 
-#: cmainwnd.basic;20;item;id_window_remote
+#: cmainwnd.basic;19;item;id_window_remote
 msgid "Media _Remote"
-msgstr "Пульт управления"
+msgstr ""
 
-#: cmainwnd.basic;20;21;item;id_view_sheduler
+#: cmainwnd.basic;19;20;item;id_view_scheduler
 msgid "Schedue_r"
 msgstr ""
 
-#: cmainwnd.basic;20;item;id_view_tabbed
+#: cmainwnd.basic;19;item;id_view_tabbed
 msgid "_Standard Mode"
-msgstr "_Режим опытных"
+msgstr ""
 
-#: cmainwnd.basic;23;25;item;id_help_homepage
-msgid "_PeerProject Site"
-msgstr "_Сайт PeerProject.org"
-
-#: cmainwnd.windowed;26;item;id_network_auto_close
+#: cmainwnd.windowed;25;item;id_network_auto_close
 msgid "Close _After Transfers"
-msgstr "_Закрыть после пересылок"
+msgstr ""
 
-#: cmainwnd.windowed;28;item;id_tab_home
+#: cmainwnd.windowed;27;item;id_tab_home
 msgid "_Home View"
 msgstr ""
 
-#: cmainwnd.windowed;29;item;id_tools_profile
+#: cmainwnd.windowed;28;item;id_tools_profile
 msgid "Edit _Profile..."
-msgstr "Редактировать _профиль..."
+msgstr ""
 
-#: cmainwnd.windowed;30;item;id_window_tile_horz
+#: cmainwnd.windowed;29;item;id_window_tile_horz
 msgid "Tile _Horizontal"
-msgstr "Растянуть _горизонтально"
+msgstr ""
 
-#: cmainwnd.windowed;30;item;id_window_tile_vert
+#: cmainwnd.windowed;29;item;id_window_tile_vert
 msgid "Tile _Vertical"
-msgstr "Растянуть _вертикально"
+msgstr ""
+
+#: cmainwnd.windowed;30;32;item;id_help_homepage
+msgid "_PeerProject site"
+msgstr ""
 
 #: cmainwnd.view.basic;item;id_tab_irc
 msgid "_Chatrooms"
@@ -992,7 +1008,7 @@ msgstr ""
 msgid "_Connect Now"
 msgstr "Под_ключиться сейчас"
 
-#: chostcachewnd;item;id_neighbours_uri csearchwnd.basic;38;item;id_search_uri csearchwnd;item;id_search_uri cbrowsehostwnd.basic;42;item;id_search_uri cbrowsehostwnd;item;id_search_uri chitmonitorwnd;item;id_search_uri cdownloadswnd.download;47;item;id_downloads_uri cdownloadswnd.source;item;id_downloads_uri cdownloadswnd.completed;item;id_downloads_uri clibraryfileview.physical.basic;49;item;id_library_uri clibraryfileview.physical;item;id_library_uri clibraryfileview.virtual;item;id_library_uri cneighbourswnd.basic;item;id_neighbours_uri cneighbourswnd;item;id_neighbours_uri
+#: chostcachewnd;item;id_neighbours_uri csearchwnd.basic;37;item;id_search_uri csearchwnd;item;id_search_uri cbrowsehostwnd.basic;41;item;id_search_uri cbrowsehostwnd;item;id_search_uri chitmonitorwnd;item;id_search_uri cdownloadswnd.download;46;item;id_downloads_uri cdownloadswnd.source;item;id_downloads_uri cdownloadswnd.completed;item;id_downloads_uri clibraryfileview.physical.basic;48;item;id_library_uri clibraryfileview.physical;item;id_library_uri clibraryfileview.virtual;item;id_library_uri cneighbourswnd.basic;item;id_neighbours_uri cneighbourswnd;item;id_neighbours_uri
 msgid "Get P2P Link (_URI)"
 msgstr "_Копировать ссылку"
 
@@ -1001,46 +1017,42 @@ msgid "_Priority Server"
 msgstr "_Приоритетный сервер"
 
 #: chostcachewnd;item;id_hostcache_remove
-msgid "_Remove Host(s)"
+msgid "_Remove Hosts"
 msgstr "_Удалить хост(ы)"
 
-#: chostcachewnd;36
+#: chostcachewnd;35
 msgid "_Filter"
-msgstr "_Фильтр"
+msgstr ""
 
-#: chostcachewnd;36;item;id_hostcache_g2_horizon
+#: chostcachewnd;35;item;id_hostcache_g2_horizon
 msgid "Gnutella2 Cl_uster"
-msgstr "Gnutella2 _кластер"
+msgstr ""
 
-#: chostcachewnd;36;item;id_hostcache_g2_cache
+#: chostcachewnd;35;item;id_hostcache_g2_cache
 msgid "Gnutella_2 Cache"
-msgstr "Gnutella_2 кэш"
+msgstr ""
 
-#: chostcachewnd;36;item;id_hostcache_g1_cache
-msgid "Gnutella_1 Cache"
-msgstr "Gnutella_1 кэш"
+#: chostcachewnd;35;item;id_hostcache_g1_cache
+msgid "_Gnutella Cache"
+msgstr ""
 
-#: chostcachewnd;36;item;id_hostcache_ed2k_cache
+#: chostcachewnd;35;item;id_hostcache_ed2k_cache
 msgid "_eDonkey Servers"
-msgstr "_eDonkey кэш"
+msgstr ""
 
-#: chostcachewnd;36;item;id_hostcache_bt_cache
-msgid "_BitTorrent Cache"
-msgstr "_BitTorrent кэш"
-
-#: chostcachewnd;36;item;id_hostcache_kad_cache
-msgid "_Kademlia Cache"
-msgstr "_Kademlia кэш"
+#: chostcachewnd;35;item;id_hostcache_dc_cache
+msgid "DC++ _Hubs"
+msgstr ""
 
 #: chostcachewnd;item;id_hostcache_import
-msgid "_Import MET File..."
+msgid "_Import MET/Hublist File..."
 msgstr "_Импорт MET файла..."
 
 #: chostcachewnd;item;id_hostcache_file_download
 msgid "Download MET/Hublist..."
 msgstr "_Загрузить MET..."
 
-#: csearchwnd.basic;item;id_search_download csearchwnd;item;id_search_download cbrowsehostwnd.basic;item;id_search_download cbrowsehostwnd;item;id_search_download chitmonitorwnd;item;id_search_download cdownloaddlg;control;6
+#: csearchwnd.basic;item;id_search_download csearchwnd;item;id_search_download cbrowsehostwnd.basic;item;id_search_download cbrowsehostwnd;item;id_search_download chitmonitorwnd;item;id_search_download cdownloaddlg;control;6 cupgradedlg;control;4
 msgid "_Download"
 msgstr "_Загрузить"
 
@@ -1049,42 +1061,42 @@ msgid "_Browse User"
 msgstr "Просмотр _хоста"
 
 #: csearchwnd.basic;item;id_security_ban cuploadswnd.upload.basic;item;id_security_ban cuploadswnd.upload;item;id_security_ban cneighbourswnd;item;id_security_ban
-msgid "_Ban User"
+msgid "B_an User"
 msgstr "_Блокировать"
 
-#: csearchwnd.basic;37 csearchwnd;39 cbrowsehostwnd.basic;41 cbrowsehostwnd;43 chitmonitorwnd;45 clibraryfileview.physical.basic;50 clibraryfileview.physical;52 clibraryfileview.virtual.basic;56 clibraryfileview.virtual;58
+#: csearchwnd.basic;36 csearchwnd;38 cbrowsehostwnd.basic;40 cbrowsehostwnd;42 chitmonitorwnd;44 clibraryfileview.physical.basic;49 clibraryfileview.physical;51 clibraryfileview.virtual.basic;55 clibraryfileview.virtual;57
 msgid "_Search For"
-msgstr "_Искать"
+msgstr "О_перации"
 
-#: csearchwnd.basic;37;item;id_search_for_similar csearchwnd;39;item;id_search_for_similar cbrowsehostwnd.basic;41;item;id_search_for_similar cbrowsehostwnd;43;item;id_search_for_similar chitmonitorwnd;45;item;id_search_for_similar clibraryfileview.physical.basic;50;item;id_search_for_similar clibraryfileview.physical;52;item;id_search_for_similar clibraryfileview.virtual.basic;56;item;id_search_for_similar clibraryfileview.virtual;58;item;id_search_for_similar
+#: csearchwnd.basic;36;item;id_search_for_similar csearchwnd;38;item;id_search_for_similar cbrowsehostwnd.basic;40;item;id_search_for_similar cbrowsehostwnd;42;item;id_search_for_similar chitmonitorwnd;44;item;id_search_for_similar clibraryfileview.physical.basic;49;item;id_search_for_similar clibraryfileview.physical;51;item;id_search_for_similar clibraryfileview.virtual.basic;55;item;id_search_for_similar clibraryfileview.virtual;57;item;id_search_for_similar
 msgid "_Similar Files"
-msgstr "Подобные файлы"
+msgstr ""
 
-#: csearchwnd.basic;37;item;id_search_for_artist csearchwnd;39;item;id_search_for_artist cbrowsehostwnd.basic;41;item;id_search_for_artist cbrowsehostwnd;43;item;id_search_for_artist chitmonitorwnd;45;item;id_search_for_artist clibraryfileview.physical.basic;50;item;id_search_for_artist clibraryfileview.physical;52;item;id_search_for_artist clibraryfileview.virtual.basic;56;item;id_search_for_artist clibraryfileview.virtual;58;item;id_search_for_artist
+#: csearchwnd.basic;36;item;id_search_for_artist csearchwnd;38;item;id_search_for_artist cbrowsehostwnd.basic;40;item;id_search_for_artist cbrowsehostwnd;42;item;id_search_for_artist chitmonitorwnd;44;item;id_search_for_artist clibraryfileview.physical.basic;49;item;id_search_for_artist clibraryfileview.physical;51;item;id_search_for_artist clibraryfileview.virtual.basic;55;item;id_search_for_artist clibraryfileview.virtual;57;item;id_search_for_artist
 msgid "_Music by the same Artist"
-msgstr "Музыку этого же исполнителя"
+msgstr ""
 
-#: csearchwnd.basic;37;item;id_search_for_album csearchwnd;39;item;id_search_for_album cbrowsehostwnd.basic;41;item;id_search_for_album cbrowsehostwnd;43;item;id_search_for_album chitmonitorwnd;45;item;id_search_for_album clibraryfileview.physical.basic;50;item;id_search_for_album clibraryfileview.physical;52;item;id_search_for_album clibraryfileview.virtual.basic;56;item;id_search_for_album clibraryfileview.virtual;58;item;id_search_for_album
+#: csearchwnd.basic;36;item;id_search_for_album csearchwnd;38;item;id_search_for_album cbrowsehostwnd.basic;40;item;id_search_for_album cbrowsehostwnd;42;item;id_search_for_album chitmonitorwnd;44;item;id_search_for_album clibraryfileview.physical.basic;49;item;id_search_for_album clibraryfileview.physical;51;item;id_search_for_album clibraryfileview.virtual.basic;55;item;id_search_for_album clibraryfileview.virtual;57;item;id_search_for_album
 msgid "Music in the same _Album"
-msgstr "Музыку из этого же альбома"
+msgstr ""
 
-#: csearchwnd.basic;37;item;id_search_for_series csearchwnd;39;item;id_search_for_series cbrowsehostwnd.basic;41;item;id_search_for_series cbrowsehostwnd;43;item;id_search_for_series chitmonitorwnd;45;item;id_search_for_series clibraryfileview.physical.basic;50;item;id_search_for_series clibraryfileview.physical;52;item;id_search_for_series clibraryfileview.virtual.basic;56;item;id_search_for_series clibraryfileview.virtual;58;item;id_search_for_series
+#: csearchwnd.basic;36;item;id_search_for_series csearchwnd;38;item;id_search_for_series cbrowsehostwnd.basic;40;item;id_search_for_series cbrowsehostwnd;42;item;id_search_for_series chitmonitorwnd;44;item;id_search_for_series clibraryfileview.physical.basic;49;item;id_search_for_series clibraryfileview.physical;51;item;id_search_for_series clibraryfileview.virtual.basic;55;item;id_search_for_series clibraryfileview.virtual;57;item;id_search_for_series
 msgid "_Episodes in the same Series"
-msgstr "Серии из этого же сериала"
+msgstr ""
 
-#: csearchwnd.basic;38 csearchwnd;40 cbrowsehostwnd;44 chitmonitorwnd;46 clibraryfileview.physical;53 clibraryfileview.virtual;59
+#: csearchwnd.basic;37 csearchwnd;39 cbrowsehostwnd;43 chitmonitorwnd;45 clibraryfileview.physical;52 clibraryfileview.virtual;58
 msgid "_Web Services"
-msgstr "_Сервис"
+msgstr "_Metadata"
 
-#: csearchwnd.basic;38;item;id_library_bitzi_web csearchwnd;40;item;id_library_bitzi_web cbrowsehostwnd.basic;42;item;id_library_bitzi_web cbrowsehostwnd;44;item;id_library_bitzi_web chitmonitorwnd;46;item;id_library_bitzi_web clibraryfileview.physical;53;item;id_library_bitzi_web clibraryfileview.virtual;59;item;id_library_bitzi_web
+#: csearchwnd.basic;37;item;id_library_bitzi_web csearchwnd;39;item;id_library_bitzi_web cbrowsehostwnd.basic;41;item;id_library_bitzi_web cbrowsehostwnd;43;item;id_library_bitzi_web chitmonitorwnd;45;item;id_library_bitzi_web clibraryfileview.physical;52;item;id_library_bitzi_web clibraryfileview.virtual;58;item;id_library_bitzi_web
 msgid "View _Bitzi Ticket"
-msgstr "Посмотреть _Bitzi этикетку"
+msgstr ""
 
 #: csearchwnd;item;id_search_downloadnow cbrowsehostwnd.basic;item;id_search_downloadnow cbrowsehostwnd;item;id_search_downloadnow
 msgid "Download _Now"
 msgstr "Загрузить сейчас"
 
-#: csearchwnd;item;id_search_chat
+#: csearchwnd;item;id_search_chat cuploadswnd.upload.basic;item;id_uploads_chat
 msgid "_Chat with User"
 msgstr "_Чат"
 
@@ -1092,9 +1104,9 @@ msgstr "_Чат"
 msgid "_Ban User+File"
 msgstr "_Блокировать"
 
-#: csearchwnd;39;item;id_search_for_this cbrowsehostwnd;43;item;id_search_for_this chitmonitorwnd;45;item;id_search_for_this clibraryfileview.physical.basic;50;item;id_search_for_this clibraryfileview.physical;52;item;id_search_for_this clibraryfileview.virtual.basic;56;item;id_search_for_this clibraryfileview.virtual;58;item;id_search_for_this
+#: csearchwnd;38;item;id_search_for_this cbrowsehostwnd;42;item;id_search_for_this chitmonitorwnd;44;item;id_search_for_this clibraryfileview.physical.basic;49;item;id_search_for_this clibraryfileview.physical;51;item;id_search_for_this clibraryfileview.virtual.basic;55;item;id_search_for_this clibraryfileview.virtual;57;item;id_search_for_this
 msgid "_This File"
-msgstr "Этот файл"
+msgstr ""
 
 #: csearchwnd;item;id_search_filter cbrowsehostwnd;item;id_search_filter chitmonitorwnd;item;id_search_filter
 msgid "_Filter Results..."
@@ -1112,13 +1124,13 @@ msgstr "О_чистить результаты"
 msgid "Edit C_olumns..."
 msgstr "Выбрать ко_лонки..."
 
-#: cbrowsehostwnd.basic;item;id_search_chat cbrowsehostwnd;item;id_search_chat chitmonitorwnd;item;id_search_chat cdownloadswnd.source;item;id_transfers_chat cuploadswnd.upload.basic;item;id_uploads_chat cuploadswnd.upload;item;id_uploads_chat cneighbourswnd.basic;item;id_neighbours_chat cneighbourswnd;item;id_neighbours_chat
+#: cbrowsehostwnd.basic;item;id_search_chat cbrowsehostwnd;item;id_search_chat chitmonitorwnd;item;id_search_chat cdownloadswnd.source;item;id_transfers_chat cneighbourswnd.basic;item;id_neighbours_chat cneighbourswnd;item;id_neighbours_chat
 msgid "_Chat to User"
 msgstr "_Чат"
 
-#: cbrowsehostwnd.basic;42
+#: cbrowsehostwnd.basic;41
 msgid "_Web File Info"
-msgstr "_Сервис"
+msgstr ""
 
 #: chitmonitorwnd;item;id_hitmonitor_pause csearchmonitorwnd;item;id_searchmonitor_pause
 msgid "_Pause Display"
@@ -1140,7 +1152,7 @@ msgstr "_Продолжить"
 msgid "P_ause"
 msgstr "П_риостановить"
 
-#: cdownloadswnd.download.basic;item;id_downloads_clear_incomplete cdownloadswnd.download;item;id_downloads_clear_incomplete cdownloaddlg;control;7 ccollectionexportdlg;control;12
+#: cdownloadswnd.download.basic;item;id_downloads_clear_incomplete cdownloadswnd.download;item;id_downloads_clear_incomplete cdownloaddlg;control;7 ccollectionexportdlg;control;12 cupgradedlg;control;5
 msgid "_Cancel"
 msgstr "_Отменить"
 
@@ -1172,43 +1184,43 @@ msgstr "_Открыть"
 msgid "Add to Pla_ylist"
 msgstr "_Добавить в список"
 
-#: cdownloadswnd.download;47;item;id_downloads_share
+#: cdownloadswnd.download;46;item;id_downloads_share
 msgid "_Share File"
-msgstr "_Общий доступ"
+msgstr ""
 
-#: cdownloadswnd.download;47;item;id_downloads_add_source
+#: cdownloadswnd.download;46;item;id_downloads_add_source
 msgid "_Add Source..."
-msgstr "_Добавить источник..."
+msgstr ""
 
-#: cdownloadswnd.download;47;item;id_downloads_merge
+#: cdownloadswnd.download;46;item;id_downloads_merge
 msgid "Merge _Local File..."
-msgstr "Merge Слияние локальный файл..."
+msgstr ""
 
-#: cdownloadswnd.download;47;item;id_downloads_monitor
+#: cdownloadswnd.download;46;item;id_downloads_monitor
 msgid "Monitor _Window"
-msgstr "Окно _монитора"
+msgstr ""
 
-#: cdownloadswnd.download;48
+#: cdownloadswnd.download;47
 msgid "Pri_ority"
-msgstr "Приоритет"
+msgstr ""
 
-#: cdownloadswnd.download;48;item;id_downloads_boost
+#: cdownloadswnd.download;47;item;id_downloads_boost
 msgid "_Ignore Bandwidth Limit"
-msgstr "Снять _лимит трафика"
+msgstr ""
 
-#: cdownloadswnd.download;48;item;id_downloads_move_top
+#: cdownloadswnd.download;47;item;id_downloads_move_top
 msgid "Move to _Top"
-msgstr "Вв_ерх!"
+msgstr ""
 
-#: cdownloadswnd.download;48;item;id_downloads_move_bottom
+#: cdownloadswnd.download;47;item;id_downloads_move_bottom
 msgid "Move to _Bottom"
-msgstr "В_низ!"
+msgstr ""
 
-#: cdownloadswnd.download;48;item;id_downloads_move_up csecuritywnd;item;id_security_move_up
+#: cdownloadswnd.download;47;item;id_downloads_move_up csecuritywnd;item;id_security_move_up
 msgid "Move _Up"
 msgstr "Вв_ерх"
 
-#: cdownloadswnd.download;48;item;id_downloads_move_down csecuritywnd;item;id_security_move_down
+#: cdownloadswnd.download;47;item;id_downloads_move_down csecuritywnd;item;id_security_move_down
 msgid "Move _Down"
 msgstr "В_низ"
 
@@ -1228,7 +1240,7 @@ msgstr "_Забыть"
 msgid "_Play or Open"
 msgstr "_Открыть"
 
-#: cdownloadswnd.completed.basic;item;id_downloads_folder cdownloadswnd.completed;item;id_downloads_folder cdownloadswnd.seeding;item;id_downloads_folder cdownloadtabbar;item;id_download_group_open cuploadswnd.upload;item;id_uploads_folder clibraryfileview.physical;51;item;id_library_launch_folder clibraryfileview.virtual;57;item;id_library_launch_folder
+#: cdownloadswnd.completed.basic;item;id_downloads_folder cdownloadswnd.completed;item;id_downloads_folder cdownloadswnd.seeding;item;id_downloads_folder cdownloadtabbar;item;id_download_group_open cuploadswnd.upload;item;id_uploads_folder clibraryfileview.physical;50;item;id_library_launch_folder clibraryfileview.virtual;56;item;id_library_launch_folder
 msgid "Open _Folder"
 msgstr "Открыть _Folder"
 
@@ -1256,12 +1268,20 @@ msgstr "инфо"
 msgid "_Open File"
 msgstr "_Открыть"
 
+#: cdownloadswnd.seeding;item;id_downloads_file_delete
+msgid "_Delete Files"
+msgstr ""
+
 #: cdownloadswnd.seeding;item;id_downloads_clear_complete
 msgid "_Stop Seeding"
 msgstr "У_брать"
 
-#: cdownloadswnd.seeding;item;id_downloads_file_delete
-msgid "_Delete Files"
+#: cdownloadswnd.seeding;item;id_downloads_pause
+msgid "Pa_use Seeding"
+msgstr ""
+
+#: cdownloadswnd.seeding;item;id_downloads_resume
+msgid "_Resume Seeding"
 msgstr ""
 
 #: cdownloadswnd.seeding;item;id_downloads_uri
@@ -1352,13 +1372,21 @@ msgstr "Показывать _группы"
 msgid "Show File in _Library"
 msgstr ""
 
+#: cuploadswnd.upload;item;id_uploads_launch
+msgid "Show in _Library"
+msgstr "Показывать _Library"
+
 #: cuploadswnd.upload;item;id_uploads_start
 msgid "_Start Now"
 msgstr "_Начать сейчас"
 
-#: cuploadswnd.upload;item;id_uploads_launch
-msgid "Show _Library"
-msgstr ""
+#: cuploadswnd.upload;item;id_uploads_priority cprivatechatframe;item;id_chat_priority
+msgid "Grant _Priority"
+msgstr "приоритет"
+
+#: cuploadswnd.upload;item;id_uploads_chat
+msgid "_Chat User"
+msgstr "_Чат"
 
 #: cuploadswnd.default;item;id_library_folders
 msgid "_Shared Folders..."
@@ -1380,7 +1408,7 @@ msgstr "Показывать _историю"
 msgid "_Shared"
 msgstr "_Общий доступ"
 
-#: clibrarytree.physical.basic;item;id_library_remove clibrarytree.physical;item;id_library_remove csecuritywnd;item;id_security_remove cschedulerwnd;item;id_scheduler_remove cdiscoverywnd;item;id_discovery_remove clibrarysettingspage;control;22 clibrarysettingspage;control;26 cmediasettingspage;control;9 cwebsettingspage;control;12 cwizardsharepage;control;6 cavatarprofilepage;control;6 cfilesourcespage;control;6 cgraphlistdlg;control;4 cgraphitemdlg;control;12 csharemanagerdlg;control;4 cdownloadgroupdlg;control;10
+#: clibrarytree.physical.basic;item;id_library_remove clibrarytree.physical;item;id_library_remove csecuritywnd;item;id_security_remove cschedulerwnd;item;id_scheduler_remove cdiscoverywnd;item;id_discovery_remove clibrarysettingspage;control;22 clibrarysettingspage;control;26 cmediasettingspage;control;9 cwebsettingspage;control;13 cwizardsharepage;control;6 cavatarprofilepage;control;6 cfilesourcespage;control;6 cgraphlistdlg;control;4 cgraphitemdlg;control;12 csharemanagerdlg;control;4 cdownloadgroupdlg;control;10
 msgid "_Remove"
 msgstr "_Удалить"
 
@@ -1440,25 +1468,25 @@ msgstr "_Открыть"
 msgid "_New..."
 msgstr "_Новое..."
 
-#: clibrarytileview;item;id_library_album_properties clibraryfileview.physical.basic;item;id_library_properties clibraryfileview.physical;item;id_library_properties clibraryfileview.virtual.basic;item;id_library_properties clibraryfileview.virtual;item;id_library_properties csecuritywnd;item;id_security_edit cdiscoverywnd;item;id_discovery_edit
+#: clibrarytileview;item;id_library_album_properties clibraryfileview.physical.basic;item;id_library_properties clibraryfileview.physical;item;id_library_properties clibraryfileview.virtual.basic;item;id_library_properties clibraryfileview.virtual;item;id_library_properties csecuritywnd;item;id_security_edit
 msgid "_Properties"
 msgstr "_Свойства"
 
-#: clibraryfileview.physical.basic;49
+#: clibraryfileview.physical.basic;48
 msgid "Move/Copy/Rename"
-msgstr "_Искать"
+msgstr "О_перации"
 
-#: clibraryfileview.physical.basic;49;item;id_library_rename clibraryfileview.physical;51;item;id_library_rename clibraryfileview.virtual.basic;55;item;id_library_rename clibraryfileview.virtual;57;item;id_library_rename
+#: clibraryfileview.physical.basic;48;item;id_library_rename clibraryfileview.physical;50;item;id_library_rename clibraryfileview.virtual.basic;54;item;id_library_rename clibraryfileview.virtual;56;item;id_library_rename
 msgid "_Rename File"
-msgstr ""
+msgstr "_Переименовать файл"
 
-#: clibraryfileview.physical.basic;49;item;id_library_move clibraryfileview.physical;51;item;id_library_move clibraryfileview.virtual.basic;55;item;id_library_move clibraryfileview.virtual;57;item;id_library_move
+#: clibraryfileview.physical.basic;48;item;id_library_move clibraryfileview.physical;50;item;id_library_move clibraryfileview.virtual.basic;54;item;id_library_move clibraryfileview.virtual;56;item;id_library_move
 msgid "_Move Files..."
-msgstr ""
+msgstr "П_ереместить файлы..."
 
-#: clibraryfileview.physical.basic;49;item;id_library_copy clibraryfileview.physical;51;item;id_library_copy clibraryfileview.virtual.basic;55;item;id_library_copy clibraryfileview.virtual;57;item;id_library_copy
+#: clibraryfileview.physical.basic;48;item;id_library_copy clibraryfileview.physical;50;item;id_library_copy clibraryfileview.virtual.basic;54;item;id_library_copy clibraryfileview.virtual;56;item;id_library_copy
 msgid "_Copy Files..."
-msgstr ""
+msgstr "_Копировать файлы..."
 
 #: clibraryfileview.physical;item;id_library_launch clibraryfileview.virtual;item;id_library_launch
 msgid "_Open/Play"
@@ -1468,33 +1496,33 @@ msgstr "_Открыть"
 msgid "Create ._torrent File"
 msgstr "_Создать .torrent файл"
 
-#: clibraryfileview.physical;51 clibraryfileview.virtual.basic;55 clibraryfileview.virtual;57
+#: clibraryfileview.physical;50 clibraryfileview.virtual.basic;54 clibraryfileview.virtual;56
 msgid "O_rganize"
-msgstr ""
+msgstr "_Сервис"
 
-#: clibraryfileview.physical;51;item;id_library_unlink clibraryfileview.virtual.basic;55;item;id_library_unlink clibraryfileview.virtual;57;item;id_library_unlink
+#: clibraryfileview.physical;50;item;id_library_unlink clibraryfileview.virtual.basic;54;item;id_library_unlink clibraryfileview.virtual;56;item;id_library_unlink
 msgid "Remove _Files"
 msgstr ""
 
-#: clibraryfileview.physical;53;item;id_library_bitzi_download clibraryfileview.virtual;59;item;id_library_bitzi_download
+#: clibraryfileview.physical;52;item;id_library_bitzi_download clibraryfileview.virtual;58;item;id_library_bitzi_download
 msgid "_Download Metadata"
-msgstr "_Загрузить метаданные"
+msgstr ""
 
-#: clibraryfileview.physical;54 clibraryfileview.virtual;60
+#: clibraryfileview.physical;53 clibraryfileview.virtual;59
 msgid "_Metadata"
-msgstr "О_перации"
+msgstr "_Metadata"
 
-#: clibraryfileview.physical;54;item;id_library_refresh_metadata clibraryfileview.virtual;60;item;id_library_refresh_metadata
+#: clibraryfileview.physical;53;item;id_library_refresh_metadata clibraryfileview.virtual;59;item;id_library_refresh_metadata
 msgid "_Refresh Metadata"
-msgstr ""
+msgstr "_Обновить метаданные"
 
-#: clibraryfileview.physical;54;item;id_library_rebuild_ansi clibraryfileview.virtual;60;item;id_library_rebuild_ansi
+#: clibraryfileview.physical;53;item;id_library_rebuild_ansi clibraryfileview.virtual;59;item;id_library_rebuild_ansi
 msgid "_Localize Metadata"
-msgstr ""
+msgstr "_Локализировать метаданные"
 
-#: clibraryfileview.physical;54;item;id_library_columns clibraryfileview.virtual;60;item;id_library_columns
+#: clibraryfileview.physical;53;item;id_library_columns clibraryfileview.virtual;59;item;id_library_columns
 msgid "Choose Detail _Columns..."
-msgstr ""
+msgstr "Выбрать ко_лонки..."
 
 #: clibraryfileview.physical;item;id_shell_menu clibraryfileview.virtual;item;id_shell_menu
 msgid "_Windows Menu"
@@ -1512,87 +1540,87 @@ msgstr "_Стоп"
 msgid "_Open Media File..."
 msgstr "_Открыть медиа файл..."
 
-#: cmediaframe.basic;61 cmediaframe;64
+#: cmediaframe.basic;60 cmediaframe;63
 msgid "Play_list"
-msgstr ""
+msgstr "Список _воспроизведения"
 
-#: cmediaframe.basic;61;item;id_media_previous cmediaframe;64;item;id_media_previous
+#: cmediaframe.basic;60;item;id_media_previous cmediaframe;63;item;id_media_previous
 msgid "Pre_vious"
-msgstr ""
+msgstr "Предыду_щий"
 
-#: cmediaframe.basic;61;item;id_media_next cmediaframe;64;item;id_media_next
+#: cmediaframe.basic;60;item;id_media_next cmediaframe;63;item;id_media_next
 msgid "_Next"
-msgstr ""
+msgstr "_Следующий"
 
-#: cmediaframe.basic;61;item;id_media_random cmediaframe;64;item;id_media_random
+#: cmediaframe.basic;60;item;id_media_random cmediaframe;63;item;id_media_random
 msgid "_Random"
-msgstr ""
+msgstr "_Произвольный режим"
 
-#: cmediaframe.basic;61;item;id_media_repeat cmediaframe;64;item;id_media_repeat
+#: cmediaframe.basic;60;item;id_media_repeat cmediaframe;63;item;id_media_repeat
 msgid "R_epeat"
-msgstr ""
+msgstr "Режим п_овтора"
 
-#: cmediaframe.basic;61;item;id_media_playlist cmediaframe.basic;63;item;id_media_playlist cmediaframe;64;item;id_media_playlist cmediaframe;66;item;id_media_playlist
+#: cmediaframe.basic;60;item;id_media_playlist cmediaframe.basic;62;item;id_media_playlist cmediaframe;63;item;id_media_playlist cmediaframe;65;item;id_media_playlist
 msgid "Show _Playlist"
 msgstr "Показать _список"
 
-#: cmediaframe.basic;62 cmediaframe;65
+#: cmediaframe.basic;61 cmediaframe;64
 msgid "Video Si_ze"
-msgstr ""
+msgstr "Раз_мер видео"
 
-#: cmediaframe.basic;62;item;id_media_size_one cmediaframe;65;item;id_media_size_one cmediaframe.zoom;item;id_media_size_one
+#: cmediaframe.basic;61;item;id_media_size_one cmediaframe;64;item;id_media_size_one cmediaframe.zoom;item;id_media_size_one
 msgid "_Original Size"
 msgstr "_Оригинальный размер"
 
-#: cmediaframe.basic;62;item;id_media_size_two cmediaframe;65;item;id_media_size_two cmediaframe.zoom;item;id_media_size_two
+#: cmediaframe.basic;61;item;id_media_size_two cmediaframe;64;item;id_media_size_two cmediaframe.zoom;item;id_media_size_two
 msgid "_Double Size"
 msgstr "_Двойной размер"
 
-#: cmediaframe.basic;62;item;id_media_size_half cmediaframe;65;item;id_media_size_half cmediaframe.zoom;item;id_media_size_half
+#: cmediaframe.basic;61;item;id_media_size_half cmediaframe;64;item;id_media_size_half cmediaframe.zoom;item;id_media_size_half
 msgid "_Half Size"
 msgstr "_Половинай размер"
 
-#: cmediaframe.basic;62;item;id_media_size_fill cmediaframe;65;item;id_media_size_fill cmediaframe.zoom;item;id_media_size_fill imageviewer_context;item;pluginid_imageviewer_bestfit
+#: cmediaframe.basic;61;item;id_media_size_fill cmediaframe;64;item;id_media_size_fill cmediaframe.zoom;item;id_media_size_fill imageviewer_context;item;pluginid_imageviewer_bestfit
 msgid "Best _Fit"
 msgstr "_Наибольший"
 
-#: cmediaframe.basic;62;item;id_media_size_distort
+#: cmediaframe.basic;61;item;id_media_size_distort
 msgid "Fi_ll Window"
-msgstr ""
+msgstr "На _всё окно"
 
-#: cmediaframe.basic;62;item;id_media_aspect_default cmediaframe;65;item;id_media_aspect_default cmediaframe.zoom;item;id_media_aspect_default
+#: cmediaframe.basic;61;item;id_media_aspect_default cmediaframe;64;item;id_media_aspect_default cmediaframe.zoom;item;id_media_aspect_default
 msgid "Default _Aspect"
 msgstr "Пропорции по _умолчанию"
 
-#: cmediaframe.basic;62;item;id_media_aspect_4_3 cmediaframe;65;item;id_media_aspect_4_3 cmediaframe.zoom;item;id_media_aspect_4_3
+#: cmediaframe.basic;61;item;id_media_aspect_4_3 cmediaframe;64;item;id_media_aspect_4_3 cmediaframe.zoom;item;id_media_aspect_4_3
 msgid "_4:3 Ratio (TV)"
 msgstr "Пропорции _4:3 (Телевизор)"
 
-#: cmediaframe.basic;62;item;id_media_aspect_16_9 cmediaframe;65;item;id_media_aspect_16_9 cmediaframe.zoom;item;id_media_aspect_16_9
+#: cmediaframe.basic;61;item;id_media_aspect_16_9 cmediaframe;64;item;id_media_aspect_16_9 cmediaframe.zoom;item;id_media_aspect_16_9
 msgid "_16:9 Ratio (Film)"
 msgstr "Пропорции _16:9 (Широкоформатное кино)"
 
-#: cmediaframe.basic;63 cmediaframe;66
+#: cmediaframe.basic;62 cmediaframe;65
 msgid "Setti_ngs"
-msgstr "Список _воспроизведения"
+msgstr "_Установки"
 
-#: cmediaframe.basic;63;item;id_media_vis cmediaframe;66;item;id_media_vis
+#: cmediaframe.basic;62;item;id_media_vis cmediaframe;65;item;id_media_vis
 msgid "Choose _Visualisation..."
-msgstr ""
+msgstr "Выбрать _визуализацию..."
 
-#: cmediaframe.basic;63;item;id_media_status cmediaframe;66;item;id_media_status
+#: cmediaframe.basic;62;item;id_media_status cmediaframe;65;item;id_media_status
 msgid "Show _Status Line"
-msgstr ""
+msgstr "Показать _строку статуса"
 
-#: cmediaframe.basic;63;item;id_media_settings cmediaframe;66;item;id_media_settings
+#: cmediaframe.basic;62;item;id_media_settings cmediaframe;65;item;id_media_settings
 msgid "_Media Settings..."
-msgstr ""
+msgstr "_Медиа установки..."
 
 #: cmediaframe;item;id_media_close
 msgid "_Close File"
 msgstr "_Закрыть файл"
 
-#: cmediaframe;65;item;id_media_size_distort cmediaframe.zoom;item;id_media_size_distort
+#: cmediaframe;64;item;id_media_size_distort cmediaframe.zoom;item;id_media_size_distort
 msgid "Stretch to _Fill"
 msgstr "На _всё окно"
 
@@ -1632,32 +1660,32 @@ msgstr "Режим п_овтора"
 msgid "Hide Play_list"
 msgstr "По_казать список воспроизведения"
 
-#: csystemwnd;67
+#: csystemwnd;66
 msgid "_Verbose Mode"
-msgstr ""
+msgstr "_Уровень отображения"
 
-#: csystemwnd;67;item;id_system_verbose_error
+#: csystemwnd;66;item;id_system_verbose_error
 msgid "_Error"
-msgstr ""
+msgstr "_Только ошибки"
 
-#: csystemwnd;67;item;id_system_verbose_warning
+#: csystemwnd;66;item;id_system_verbose_warning
 msgid "_Warning"
-msgstr ""
+msgstr "_Предупреждения"
 
-#: csystemwnd;67;item;id_system_verbose_notice
+#: csystemwnd;66;item;id_system_verbose_notice
 msgid "_Notice"
-msgstr ""
+msgstr "_Уведомления"
 
-#: csystemwnd;67;item;id_system_verbose_info
+#: csystemwnd;66;item;id_system_verbose_info
 msgid "_Info"
-msgstr ""
+msgstr "_Информация"
 
-#: csystemwnd;67;item;id_system_verbose_debug
+#: csystemwnd;66;item;id_system_verbose_debug
 msgid "_Debug"
-msgstr ""
+msgstr "_Всё"
 
 #: csystemwnd;item;id_system_timestamp
-msgid "Timestam_p"
+msgid "_Timestamp"
 msgstr "_Временной штамп"
 
 #: csystemwnd;item;id_system_copy curlexportdlg;control;7
@@ -1668,48 +1696,52 @@ msgstr "_Копировать"
 msgid "Clear _Buffer"
 msgstr "_Очистить буфер"
 
-#: cneighbourswnd;68
+#: cneighbourswnd;67
 msgid "_Networks"
-msgstr ""
+msgstr "_Сети"
 
-#: cneighbourswnd;68;item;id_network_g2
+#: cneighbourswnd;67;item;id_network_g2
 msgid "Gnutella_2"
-msgstr ""
+msgstr "Gnutella_2"
 
-#: cneighbourswnd;68;item;id_network_g1
+#: cneighbourswnd;67;item;id_network_g1
 msgid "_Gnutella"
-msgstr ""
+msgstr "_Gnutella"
 
-#: cneighbourswnd;68;item;id_network_ed2k
+#: cneighbourswnd;67;item;id_network_ed2k
 msgid "_eDonkey"
-msgstr ""
+msgstr "_eDonkey"
 
-#: cneighbourswnd;68;item;id_view_discovery
-msgid "_Discovery Services"
-msgstr ""
+#: cneighbourswnd;67;item;id_network_dc
+msgid "_DC++"
+msgstr "_DC++"
 
-#: cneighbourswnd;68;item;id_view_hosts
-msgid "_Host Server Cache"
-msgstr ""
+#: cneighbourswnd;67;item;id_view_discovery
+msgid "Discovery _Services"
+msgstr "_Ресурсы подключений"
 
-#: cneighbourswnd;69
+#: cneighbourswnd;67;item;id_view_hosts
+msgid "_Host/Server Cache"
+msgstr "_Кэш хостов"
+
+#: cneighbourswnd;68
 msgid "_Monitor"
-msgstr ""
+msgstr "_Монитор"
 
-#: cneighbourswnd;69;item;id_neighbours_view_all
+#: cneighbourswnd;68;item;id_neighbours_view_all
 msgid "View _Traffic Packets"
-msgstr ""
+msgstr "Смотреть весь _трафик"
 
-#: cneighbourswnd;69;item;id_neighbours_view_incoming
+#: cneighbourswnd;68;item;id_neighbours_view_incoming
 msgid "View _Incoming Traffic"
-msgstr ""
+msgstr "Смотреть _входящий трафик"
 
-#: cneighbourswnd;69;item;id_neighbours_view_outgoing
+#: cneighbourswnd;68;item;id_neighbours_view_outgoing
 msgid "View _Outgoing Traffic"
-msgstr ""
+msgstr "Смотреть _исходящий трафик"
 
-#: cneighbourswnd;69;item;id_view_traffic
-msgid "View Advanced Gra_ph"
+#: cneighbourswnd;68;item;id_view_traffic
+msgid "View Advanced _Graph"
 msgstr ""
 
 #: csearchmonitorwnd;item;id_hitmonitor_search
@@ -1756,23 +1788,23 @@ msgstr "_Импорт..."
 msgid "E_xport..."
 msgstr "_Экспорт..."
 
-#: csecuritywnd;70
+#: csecuritywnd;69
 msgid "Default P_olicy"
-msgstr ""
+msgstr "_Политика по умолчанию"
 
-#: csecuritywnd;70;item;id_security_policy_accept
+#: csecuritywnd;69;item;id_security_policy_accept
 msgid "_Accept"
-msgstr ""
+msgstr "Принимать"
 
-#: csecuritywnd;70;item;id_security_policy_deny
+#: csecuritywnd;69;item;id_security_policy_deny
 msgid "_Deny"
-msgstr ""
+msgstr "Отказать"
 
 #: cschedulerwnd;item;id_scheduler_add
 msgid "_Add Scheduled Task"
 msgstr "Доб_авить задачу"
 
-#: cschedulerwnd;item;id_scheduler_edit
+#: cschedulerwnd;item;id_scheduler_edit cdiscoverywnd;item;id_discovery_edit
 msgid "_Edit"
 msgstr "_Изменить"
 
@@ -1785,8 +1817,12 @@ msgid "_Deactivate"
 msgstr "В_ыключить"
 
 #: cschedulerwnd;item;id_scheduler_remove_all
-msgid "Remove Al_l"
+msgid "Re_move All"
 msgstr "_Удалить всё"
+
+#: cdiscoverywnd;item;id_discovery_add
+msgid "_Add Service..."
+msgstr "_Добавить сервис..."
 
 #: cdiscoverywnd;item;id_discovery_query
 msgid "_Query Now"
@@ -1800,49 +1836,45 @@ msgstr "_Рекламировать"
 msgid "Browse _Statistics"
 msgstr "_Просмотр статистики"
 
-#: cdiscoverywnd;item;id_discovery_gnutella
-msgid "Show _Bootstraps"
-msgstr "Показывать _Bootstraps"
-
 #: cdiscoverywnd;item;id_discovery_webcache
 msgid "Show _GWebCaches"
 msgstr "Показывать _GWebCaches"
 
+#: cdiscoverywnd;item;id_discovery_gnutella
+msgid "Show _Bootstraps"
+msgstr "Показывать _Bootstraps"
+
 #: cdiscoverywnd;item;id_discovery_serverlist
-msgid "Show Ser_ver.met's"
+msgid "Show Server.met/_Hublists"
 msgstr "Показывать Ser_ver.met's"
 
-#: cdiscoverywnd;item;id_discovery_add
-msgid "_Add Service..."
-msgstr "_Добавить сервис..."
+#: cdiscoverywnd;item;id_discovery_blocked
+msgid "Show Bl_ocked"
+msgstr "Показывать блокированный"
 
-#: cprivatechatframe;item;id_chat_priority
-msgid "Grant _Priority"
-msgstr "_Предоставить приоритет"
-
-#: cprivatechatframe;71
+#: cprivatechatframe;70
 msgid "_Format"
-msgstr ""
+msgstr "_Формат"
 
-#: cprivatechatframe;71;item;id_chat_bold
+#: cprivatechatframe;70;item;id_chat_bold
 msgid "Set _Bold"
-msgstr ""
+msgstr "_Жирный"
 
-#: cprivatechatframe;71;item;id_chat_italic
+#: cprivatechatframe;70;item;id_chat_italic
 msgid "Set _Italic"
-msgstr ""
+msgstr "_Наклонный"
 
-#: cprivatechatframe;71;item;id_chat_underline
+#: cprivatechatframe;70;item;id_chat_underline
 msgid "Set _Underline"
-msgstr ""
+msgstr "_Подчеркнутый"
 
-#: cprivatechatframe;71;item;id_chat_color
+#: cprivatechatframe;70;item;id_chat_color
 msgid "Set _Color"
 msgstr ""
 
-#: cprivatechatframe;71;item;id_chat_emoticons
+#: cprivatechatframe;70;item;id_chat_emoticons
 msgid "_Emoticons"
-msgstr ""
+msgstr "_Смайлики"
 
 #: cprivatechatframe;item;id_chat_timestamp
 msgid "Toggle _Timestamp"
@@ -1864,73 +1896,73 @@ msgstr "_КтоЭто"
 msgid "_Query"
 msgstr "_Приват"
 
-#: circuserlist;72 dialog;cdownloadactionspage
+#: circuserlist;71 dialog;cdownloadactionspage
 msgid "Actions"
-msgstr "Действия"
+msgstr "Actions"
 
-#: circuserlist;72;item;id_irc_time
+#: circuserlist;71;item;id_irc_time
 msgid "_Time"
-msgstr ""
+msgstr "_Время"
 
-#: circuserlist;72;item;id_irc_version
+#: circuserlist;71;item;id_irc_version
 msgid "_Version"
-msgstr ""
+msgstr "_Версия"
 
-#: circuserlist;72;item;id_irc_browse
+#: circuserlist;71;item;id_irc_browse
 msgid "_Browse (G2)"
 msgstr ""
 
-#: circuserlist;73
+#: circuserlist;72
 msgid "Control"
-msgstr ""
+msgstr "Control"
 
-#: circuserlist;73;item;id_irc_ignore
+#: circuserlist;72;item;id_irc_ignore
 msgid "_Ignore"
-msgstr ""
+msgstr "_Ignore"
 
-#: circuserlist;73;item;id_irc_unignore
+#: circuserlist;72;item;id_irc_unignore
 msgid "_Unignore"
-msgstr ""
+msgstr "_Unignore"
 
-#: circuserlist;73;item;id_irc_op
+#: circuserlist;72;item;id_irc_op
 msgid "_Op"
-msgstr ""
+msgstr "_Op"
 
-#: circuserlist;73;item;id_irc_deop
+#: circuserlist;72;item;id_irc_deop
 msgid "_Deop"
-msgstr ""
+msgstr "_Deop"
 
-#: circuserlist;73;item;id_irc_voice
+#: circuserlist;72;item;id_irc_voice
 msgid "_Voice"
-msgstr ""
+msgstr "_Voice"
 
-#: circuserlist;73;item;id_irc_devoice
+#: circuserlist;72;item;id_irc_devoice
 msgid "D_evoice"
-msgstr ""
+msgstr "D_evoice"
 
-#: circuserlist;73;item;id_irc_kick
+#: circuserlist;72;item;id_irc_kick
 msgid "_Kick"
-msgstr ""
+msgstr "_Kick"
 
-#: circuserlist;73;item;id_irc_kickwhy
+#: circuserlist;72;item;id_irc_kickwhy
 msgid "Kick (why?)"
-msgstr ""
+msgstr "Kick (причина?)"
 
-#: circuserlist;73;item;id_irc_ban
+#: circuserlist;72;item;id_irc_ban
 msgid "_Ban"
-msgstr ""
+msgstr "_Ban"
 
-#: circuserlist;73;item;id_irc_unban
+#: circuserlist;72;item;id_irc_unban
 msgid "_Unban"
-msgstr ""
+msgstr "_Unban"
 
-#: circuserlist;73;item;id_irc_bankick
+#: circuserlist;72;item;id_irc_bankick
 msgid "Kick+Ban"
-msgstr ""
+msgstr "Kick+Ban"
 
-#: circuserlist;73;item;id_irc_bankickwhy
+#: circuserlist;72;item;id_irc_bankickwhy
 msgid "Kick+Ban (why?)"
-msgstr ""
+msgstr "Kick+Ban (причина?)"
 
 #: webservices.list.menu;item;id_library_bitzi_download
 msgid "_Bitzi"
@@ -2136,11 +2168,11 @@ msgstr "Подключиться!"
 msgid " Gnutella2:"
 msgstr " Gnutella2:"
 
-#: chomeconnectionbox;text;4 chomeconnectionbox;text;10 chomeconnectionbox;text;16
+#: chomeconnectionbox;text;4 chomeconnectionbox;text;10 chomeconnectionbox;text;16 chomeconnectionbox;text;21
 msgid "Disconnected"
 msgstr "Отключено"
 
-#: chomeconnectionbox;text;5 chomeconnectionbox;text;11 chomeconnectionbox;text;17 string;20541
+#: chomeconnectionbox;text;5 chomeconnectionbox;text;11 chomeconnectionbox;text;17 chomeconnectionbox;text;22 string;20541
 msgid "Connecting..."
 msgstr "Подключение…"
 
@@ -2148,7 +2180,7 @@ msgstr "Подключение…"
 msgid "Hub mode"
 msgstr "Подключено"
 
-#: chomeconnectionbox;text;7
+#: chomeconnectionbox;text;7 chomeconnectionbox;text;24
 msgid "%i Hubs"
 msgstr "%i узла(ов)"
 
@@ -2172,23 +2204,31 @@ msgstr "%i узла(ов)"
 msgid " eDonkey:"
 msgstr " eDonkey:"
 
-#: chomeconnectionbox;text;18
-msgid "1 Server"
+#: chomeconnectionbox;text;18 chomeconnectionbox;text;23 string;20542
+msgid "Connected"
 msgstr "Подключено"
 
-#: chomeconnectionbox;link;19
-msgid "Network Session"
-msgstr ""
+#: chomeconnectionbox;text;19
+msgid "%i Server"
+msgstr "%i сервер"
 
-#: chomeconnectionbox;text;20 chomeconnectionbox;text;22
+#: chomeconnectionbox;text;20
+msgid " DC++:  "
+msgstr " DC++:  "
+
+#: chomeconnectionbox;link;25
+msgid "Network Session"
+msgstr "Вы подключены"
+
+#: chomeconnectionbox;text;26 chomeconnectionbox;text;28
 msgid "%i"
 msgstr "%i"
 
-#: chomeconnectionbox;text;21
+#: chomeconnectionbox;text;27
 msgid "hours and"
 msgstr "часов и"
 
-#: chomeconnectionbox;text;23
+#: chomeconnectionbox;text;29
 msgid "minutes"
 msgstr "минут"
 
@@ -2325,7 +2365,7 @@ msgid "Library:"
 msgstr "Хранилище:"
 
 #: cgeneralsettingsgroup;text;8
-msgid "Presentation, file access, and management of the file library."
+msgid "File access, management and presentation of the file library."
 msgstr " Представление и управление Хранилищем, и связи файлов."
 
 #: cgeneralsettingsgroup;link;9
@@ -2860,37 +2900,41 @@ msgstr "Открыть выбранное окно."
 msgid "Add a new discovery service..."
 msgstr "Добавить новую службу ресурсов соединений..."
 
-#: message;id_discovery_advertise
-msgid "Advertise the selected GWebCache service to a random existing GWebCache."
-msgstr "Рекламировать помеченную GWebCache службу в случайной GWebCache."
-
-#: message;id_discovery_browse
-msgid "Browse statistics for the selected GWebCache service on the Web."
-msgstr "Просмотреть статистику помеченной службы GWebCache в Интернете."
-
 #: message;id_discovery_edit
 msgid "View the properties for the selected discovery service."
 msgstr "Просмотр свойств помеченной службы ресурсов соединений."
-
-#: message;id_discovery_gnutella
-msgid "Show bootstrap services in the Discovery window."
-msgstr "Показывать bootstrap службы в окне Ресурсов Соединений."
-
-#: message;id_discovery_query
-msgid "Query the selected discovery services now."
-msgstr "Запросить помеченную службу соединений ресурсов сейчас."
 
 #: message;id_discovery_remove
 msgid "Remove the selected discovery services."
 msgstr "Удалить помеченную службу ресурсов соединений."
 
-#: message;id_discovery_serverlist
-msgid "Show eDonkey Server.met services in the Discovery window."
-msgstr "Показывать службы eDonkey Server.met в окне Ресурсов Соединений."
+#: message;id_discovery_advertise
+msgid "Advertise the selected GWebCache service to a random existing GWebCache."
+msgstr "Рекламировать помеченную GWebCache службу в случайной GWebCache."
+
+#: message;id_discovery_query
+msgid "Query the selected discovery services now."
+msgstr "Запросить помеченную службу соединений ресурсов сейчас."
+
+#: message;id_discovery_browse
+msgid "Browse statistics for the selected GWebCache service on the Web."
+msgstr "Просмотреть статистику помеченной службы GWebCache в Интернете."
+
+#: message;id_discovery_blocked
+msgid "Show blocked services in the Discovery window."
+msgstr ""
+
+#: message;id_discovery_gnutella
+msgid "Show bootstrap services in the Discovery window."
+msgstr "Показывать bootstrap службы в окне Ресурсов Соединений."
 
 #: message;id_discovery_webcache
 msgid "Show GWebCache services in the Discovery window."
 msgstr "Показывать GWebCache службы в окне Ресурсов Соединений."
+
+#: message;id_discovery_serverlist
+msgid "Show eDonkey Server.met and DC++ hublist services in the Discovery window."
+msgstr "Показывать службы eDonkey Server.met в окне Ресурсов Соединений."
 
 #: message;id_download_group_moveleft
 msgid "Reposition tab to the left. (More filter priority)"
@@ -3187,6 +3231,10 @@ msgstr "Пробовать подсоединиться к этому серве
 #: message;id_hostcache_remove
 msgid "Remove the selected hosts from the host cache."
 msgstr "Удалить помеченные хосты из кэша хостов."
+
+#: message;id_import_downloads
+msgid "Import eMule partial downloads..."
+msgstr ""
 
 #: message;id_library_add
 msgid "Add a new folder to your library..."
@@ -3608,13 +3656,17 @@ msgstr "Вручную присоединиться к хосту..."
 msgid "Disconnect from all networks, this will also stop all downloads and uploads."
 msgstr "Отсоединиться от сетей. Это также остановит все загрузки и раздачи."
 
+#: message;id_network_exit
+msgid "Exit PeerProject"
+msgstr "Выйти из PeerProject"
+
 #: message;id_network_ed2k
 msgid "Connect to the eDonkey network."
 msgstr "Соединиться с сетью eDonkey."
 
-#: message;id_network_exit
-msgid "Exit PeerProject"
-msgstr "Выйти из PeerProject"
+#: message;id_network_dc
+msgid "Connect to the DC++ network."
+msgstr "Соединиться с сетью DC++."
 
 #: message;id_network_g1
 msgid "Connect to the original Gnutella network."
@@ -3696,13 +3748,13 @@ msgstr "Очистить буфер монитора поиска."
 msgid "Pause search monitoring."
 msgstr "Приостановить вывод в монитор поиска."
 
-#: message;id_security_add
-msgid "Add a new rule to the security chain..."
-msgstr "Добавить новое правило в цепочку безопасности..."
-
 #: message;id_security_ban
 msgid "Filter out the selected host for an extended period."
 msgstr "Запретить доступ помеченного хоста на протяжении этой сессии."
+
+#: message;id_security_add
+msgid "Add a new rule to the security chain..."
+msgstr "Добавить новое правило в цепочку безопасности..."
 
 #: message;id_security_edit
 msgid "Edit the selected security rule..."
@@ -3739,6 +3791,38 @@ msgstr "Удалить помеченное правило(а) безопасн�
 #: message;id_security_reset
 msgid "Reset the hit counts on the selected rules."
 msgstr "Сбросить счетчики хитов для помеченных правил."
+
+#: message;id_scheduler_add
+msgid "Create a new scheduled task for the list..."
+msgstr "Добавить новую задачу в Планировщике."
+
+#: message;id_scheduler_edit
+msgid "Edit the selected task..."
+msgstr "Править выбранную задачу..."
+
+#: message;id_scheduler_activate
+msgid "Enable selected tasks."
+msgstr "Включить выбранную задачу."
+
+#: message;id_scheduler_deactivate
+msgid "Disable selected tasks."
+msgstr "Выключить выбранные задачи."
+
+#: message;id_scheduler_export
+msgid "Export selected tasks to a file..."
+msgstr "Экспорт помеченных правил безопасности в файл..."
+
+#: message;id_scheduler_import
+msgid "Import scheduled tasks from a file..."
+msgstr "Импорт правил безопасности из файла..."
+
+#: message;id_scheduler_remove
+msgid "Remove selected tasks from the list."
+msgstr "Убрать выбранные задачи из списка."
+
+#: message;id_scheduler_remove_all
+msgid "Delete all scheduled tasks."
+msgstr "Удалить все задачи Планировщика."
 
 #: message;id_system_clear
 msgid "Clear the status log."
@@ -3845,7 +3929,7 @@ msgid "Disconnect the selected download transfers."
 msgstr "Отключить помеченную загрузку(и)."
 
 #: message;id_transfers_forget
-msgid "Disconnect and forget the selected download source(s)."
+msgid "Disconnect and forget the selected download sources."
 msgstr "Отключить и забыть источники помеченной загрузки(ок)."
 
 #: message;id_tray_open
@@ -3892,8 +3976,12 @@ msgstr "Показывать раздачи, ожидающие в Ваших о
 msgid "Show BitTorrent uploads."
 msgstr "Показывать раздачи BitTorrent."
 
+#: message;id_uploads_folder
+msgid "Show selected shared files in Windows. (Open folder.)"
+msgstr ""
+
 #: message;id_uploads_launch
-msgid "Show selected shared files in the Library. (Or hold Shift to open.)s)."
+msgid "Show selected shared files in the Library. (Or hold Shift to open.)"
 msgstr "Запустить помеченный файл."
 
 #: message;id_uploads_settings
@@ -3903,6 +3991,10 @@ msgstr "Конфигурировать установки раздач..."
 #: message;id_uploads_start
 msgid "Force start selected queued uploads."
 msgstr "Начать раздачу помеченного файла(ов), стоящего(их) в очереди."
+
+#: message;id_uploads_priority
+msgid "Select one upload to remove limits."
+msgstr "приоритет."
 
 #: message;id_view_basic
 msgid "Use PeerProject in Basic mode."
@@ -4037,7 +4129,7 @@ msgid "This setting has no effect on current downloads, or torrents, or with eDo
 msgstr "Эта настройка не имеет никакого эффекта на уже загружаемые файлы, а также игнорируется, если у файла есть хеш eDonkey и он активен в сети eDonkey, или если это торрент.{n}Но эта настройка не игнорируется, если загрузка приостановлена.{n}{n}ВНИМАНИЕ: Пользуйтесь этой настройкой в крайнем случае, иначе Вас могут заблокировать."
 
 #: tip;idc_tip_shadow
-msgid "Toggle Drop Shadows under tooltips.{n}-Note changes take effect at next program restart."
+msgid "Toggle drop shadow effect under advanced tooltips."
 msgstr ""
 
 #: string;window_main dialog;cmessagedlg
@@ -4168,9 +4260,53 @@ msgstr "Прервать"
 msgid "Try Again"
 msgstr "Повторить снова"
 
+#: string;20019
+msgid "Please Wait..."
+msgstr "Подождите..."
+
+#: string;20020 column;file
+msgid "File"
+msgstr "Файл"
+
+#: string;20021 dialog;ctorrentfilespage
+msgid "Files"
+msgstr "Файлы"
+
+#: string;20022 string;20842
+msgid "All Files"
+msgstr "Все файлы"
+
+#: string;20023
+msgid "No Files"
+msgstr "No файлы"
+
+#: string;20024 string;20850
+msgid "Large Files"
+msgstr "Большие файлы"
+
+#: string;20025 string;20851
+msgid "Medium Files"
+msgstr "Средние файлы"
+
+#: string;20026 string;20852
+msgid "Small Files"
+msgstr "Маленькие файлы"
+
+#: string;20027 string;20853
+msgid "Partial Files"
+msgstr "Частичные файлы"
+
+#: string;20028 string;20849
+msgid "Library Files"
+msgstr "Файлы хранилища"
+
+#: string;20029
+msgid "%s Files"
+msgstr "%s файлы"
+
 #: string;20050
 msgid "Every Day"
-msgstr "Every Day"
+msgstr "Каждый день"
 
 #: string;20051 cscheduletaskdlg;control;18
 msgid "Monday"
@@ -5273,8 +5409,12 @@ msgid "Gnutella Ratio of Received/Sent Pongs"
 msgstr "Соотношение получ./посланных понгов Gnutella"
 
 #: string;20374
-msgid "Gnutella Local Queries"
-msgstr "Местные Gnutella запросы"
+msgid "Gnutella Queries Incoming"
+msgstr "Входящие Gnutella запросы"
+
+#: string;20375
+msgid "Gnutella Queries Processed"
+msgstr "Обработанные Gnutella запросы"
 
 #: string;20376
 msgid "Gnutella Packets Routed"
@@ -5828,10 +5968,6 @@ msgstr "Отказ"
 msgid "Unknown"
 msgstr "Неизвестно"
 
-#: string;20542
-msgid "Connected"
-msgstr "Подключено"
-
 #: string;20544
 msgid "Shutting down PeerProject network core..."
 msgstr "Закрытие ядра сети PeerProject..."
@@ -5980,6 +6116,10 @@ msgstr "Хост %s отправил пакет активной доставк�
 msgid "Neighbor %s forwarded a packet of excessive size, dropping connection."
 msgstr "Хост %s отправил пакет чрезмерного размера, обрываю соединение."
 
+#: string;20585
+msgid "Received a packet from %s for %s which exceeds query limits, ignoring."
+msgstr "Полученный пакет от %s для %s превышает лимит запросов. Игнорируется."
+
 #: string;20586
 msgid "Neighbor %s forwarded an unrecognised packet (0x%.2x), ignoring."
 msgstr "Хост %s пересылает непонятный пакет (0x%.2x), игнорирую."
@@ -6022,7 +6162,7 @@ msgstr ""
 
 #: string;20597
 msgid "Are you sure you wish to delete selected security rules?"
-msgstr "Уверены, что хотите удалить выбранные правила безопасности? Действие будет необратимое."
+msgstr "Уверены, что хотите удалить выбранные правила безопасности?"
 
 #: string;20598
 msgid "Failed to load Library metadata schemas. Please reinstall application. Continue loading?"
@@ -6080,14 +6220,6 @@ msgstr ""
 msgid "No scheduled event. Please select a task."
 msgstr ""
 
-#: string;20707 string;20760
-msgid "Active"
-msgstr "Активный"
-
-#: string;20709
-msgid "Inactive"
-msgstr "Неактивный"
-
 #: string;20614
 msgid "Waiting"
 msgstr ""
@@ -6102,6 +6234,10 @@ msgstr ""
 
 #: string;20618
 msgid "No tasks scheduled."
+msgstr ""
+
+#: string;20619
+msgid "Last number is 254,252,248,240,224,192,128, or 0.  Others must be 255.\\n\\n(For Netmasked IP ranges.)"
 msgstr ""
 
 #: string;20620
@@ -6134,7 +6270,7 @@ msgstr "%s оценивает этот файл:"
 
 #: string;20627
 msgid "Click to Preview"
-msgstr "  Щелкните для  просмотра"
+msgstr " Щелкните для  просмотра"
 
 #: string;20628
 msgid "Previewing..."
@@ -6321,7 +6457,7 @@ msgid "Skin load error: %s. Element: %s"
 msgstr ""
 
 #: string;20684
-msgid "Are you sure you want to delete the \"%s\" skin? This cannot be undone."
+msgid "Are you sure you wish to delete the \"%s\" skin? This cannot be undone."
 msgstr "Уверены, что хотите удалить шкурку «%s»?  Действие будет необратимое."
 
 #: string;20700
@@ -6340,13 +6476,13 @@ msgstr "Режим узла с %lu хостом(ами).  %s в собсвенн
 msgid "Hub/Ultrapeer mode with %lu neighbors. %s in local library."
 msgstr "Узел/режим Ведущего с %lu хостом(ами).  %s в собсвенном хранилище."
 
-#: string;20705
-msgid "Connected. %s in local library."
-msgstr "Подключено. %s в собсвенном хранилище."
-
 #: string;20704
 msgid "Ultrapeer mode with %lu neighbors. %s in local library."
 msgstr "Режим Ведущего с %lu хостом(ами).  %s в собсвенном хранилище."
+
+#: string;20705
+msgid "Connected. %s in your library."
+msgstr "Подключено. %s в собсвенном хранилище."
 
 #: string;20706
 msgid "Connecting to the network..."
@@ -6356,9 +6492,17 @@ msgstr "Подключаюсь к сети..."
 msgid "Not connected to the network."
 msgstr "Нет соединения с сетью."
 
+#: string;20708
+msgid "Active"
+msgstr "Активный"
+
+#: string;20709
+msgid "Inactive"
+msgstr "Неактивный"
+
 #: string;20710
-msgid "(No Sources)"
-msgstr "(нет источников)"
+msgid "Clearing"
+msgstr "Уборка"
 
 #: string;20711
 msgid "Can't Move"
@@ -6436,6 +6580,10 @@ msgstr "источник"
 msgid "sources"
 msgstr "источников"
 
+#: string;20736
+msgid "(No Sources)"
+msgstr "(нет источников)"
+
 #: string;20740
 msgid "TigerTree"
 msgstr "TigerTree"
@@ -6483,6 +6631,10 @@ msgstr "Вы не подключены.  Щелкните кнопку «Под�
 #: string;20755
 msgid "Are you sure you want to delete the \"%s\" template?\\nThis cannot be undone."
 msgstr "Уверены, что хотите удалить шаблон «%s»?\\nДействие будет необратимое."
+
+#: string;20760
+msgid "Priority\n"
+msgstr "приоритет"
 
 #: string;20762
 msgid "This file appears to be spam."
@@ -6592,7 +6744,7 @@ msgstr "Тип"
 msgid "Untrusted"
 msgstr "Недоверяемый"
 
-#: string;20793 string;20875 cfavouritesprofilepage;control;5
+#: string;20793 string;20874 cfavouritesprofilepage;control;5
 msgid "URL:"
 msgstr "Ссылка:"
 
@@ -6765,16 +6917,16 @@ msgid "Too busy to upload \"%s\" to %s, queued at #%i of %i (\"%s\")."
 msgstr "Слишком занят для раздачи «%s» на %s, ставлю в очередь под номером %i из %i («%s»)."
 
 #: string;20840
+msgid "Upload connection to %s was lost, preserving queue position."
+msgstr "Соединение раздачи на %s оборвано, сохраняю позицию в очереди."
+
+#: string;20841
 msgid "New Queue"
 msgstr "Новая очередь"
 
-#: string;20841
-msgid "All Files"
-msgstr "Все файлы"
-
-#: string;20842
-msgid "Upload connection to %s was lost, preserving queue position."
-msgstr "Соединение раздачи на %s оборвано, сохраняю позицию в очереди."
+#: string;20843
+msgid "DC++ Guard"
+msgstr "Охраняющяя DC++"
 
 #: string;20844
 msgid "eDonkey Core"
@@ -6795,26 +6947,6 @@ msgstr "Законченные раздачи"
 #: string;20848
 msgid "HTTP Guard"
 msgstr "Охраняющяя HTTP"
-
-#: string;20849
-msgid "Library Files"
-msgstr "Файлы хранилища"
-
-#: string;20850
-msgid "Large Files"
-msgstr "Большие файлы"
-
-#: string;20851
-msgid "Medium Files"
-msgstr "Средние файлы"
-
-#: string;20852
-msgid "Small Files"
-msgstr "Маленькие файлы"
-
-#: string;20853
-msgid "Partial Files"
-msgstr "Частичные файлы"
 
 #: string;20854
 msgid "Partial"
@@ -6888,7 +7020,7 @@ msgstr "Получена ссылка «%s»"
 msgid "Type:"
 msgstr "Тип:"
 
-#: string;20874
+#: string;20875
 msgid "Unspecified"
 msgstr "Не указано"
 
@@ -6897,24 +7029,28 @@ msgid "Edit My Profile"
 msgstr "Профиль"
 
 #: string;20881
-msgid "Changing view will close any windows you have open. Would you like to change now?"
-msgstr "При смене вида все открытые Вами окна будут закрыты. Хотите ли переключить сейчас?"
+msgid "%u Files selected.  Are you sure?"
+msgstr "%u выбранных файлов. Вы уверены?"
 
 #: string;20882
-msgid "UPnP Device Host Service is not running. This service is required to perform the setup.\\nYou need to set the startup type of the service to automatic."
-msgstr "Служба «UPnP Device Host Service» не запущена. Эта служба необходима для настройки.\\nВам нужно установить тип загрузки этой службы на автоматический."
-
-#: string;20883
-msgid "This option uses services provided by ShareMonkey.com for recognizing information about selected files.\\n\\nPeerProject will transmit file details and your location in order to query the ShareMonkey database.\\nIf you are concerned about privacy, you may wish to consult ShareMonkey.com policies.\\n\\nWould you like to proceed?"
-msgstr ""
-
-#: string;20884
 msgid "No URN available"
 msgstr "Нет доступных ссылок"
 
+#: string;20883
+msgid "UPnP Device Host Service is not running. This service is required to perform the setup.\\nYou need to set the startup type of the service to automatic."
+msgstr "Служба «UPnP Device Host Service» не запущена. Эта служба необходима для настройки.\\nВам нужно установить тип загрузки этой службы на автоматический."
+
+#: string;20884
+msgid "This option uses services provided by ShareMonkey.com for recognizing information about selected files.\\n\\nPeerProject will transmit file details and your location in order to query the ShareMonkey database.\\nIf you are concerned about privacy, you may wish to consult ShareMonkey.com policies.\\n\\nWould you like to proceed?"
+msgstr ""
+
 #: string;20885
+msgid "Changing view will close any windows you have open. Would you like to change now?"
+msgstr "При смене вида все открытые Вами окна будут закрыты. Хотите ли переключить сейчас?"
+
+#: string;20886
 msgid "Changing interface direction requires restart.\\n\\nExit now?"
-msgstr "Для смены направления интерфейса Вы должны вручную перезапустить PeerProject.?Выйти сейчас?"
+msgstr "Для смены направления интерфейса Вы должны вручную перезапустить PeerProject.\\n\\n?Выйти сейчас?"
 
 #: string;20890
 msgid "Welcome to PeerProject"
@@ -7033,7 +7169,7 @@ msgid "Opacity:"
 msgstr "Прозрач.:"
 
 #: cgeneralsettingspage;control;23
-msgid "Shadow (restart)"
+msgid "DropShadows"
 msgstr "тень"
 
 #: cgeneralsettingspage;control;24
@@ -7065,16 +7201,16 @@ msgid "Allow others to browse"
 msgstr "Открыть общий доступ"
 
 #: clibrarysettingspage;control;3
-msgid "Remember folder views"
-msgstr "Запоминать вид папок"
-
-#: clibrarysettingspage;control;4
 msgid "Watch library folders"
 msgstr "Следить за хранилищем"
 
-#: clibrarysettingspage;control;5
+#: clibrarysettingspage;control;4
 msgid "Quick hashing  (more CPU)"
 msgstr "Быстрое хеширование"
+
+#: clibrarysettingspage;control;5
+msgid "Show hashing status window"
+msgstr "Запоминать вид папок"
 
 #: clibrarysettingspage;control;6
 msgid "Smart media series detection"
@@ -7116,7 +7252,7 @@ msgstr "Очистить Теневые"
 msgid "_Safe to Open Types:"
 msgstr "_Не опасно открывать:"
 
-#: clibrarysettingspage;control;21 clibrarysettingspage;control;25 cmediasettingspage;control;8 cwebsettingspage;control;11 cfilesourcespage;control;5 cdownloadgroupdlg;control;9
+#: clibrarysettingspage;control;21 clibrarysettingspage;control;25 cmediasettingspage;control;8 cwebsettingspage;control;12 cfilesourcespage;control;5 cdownloadgroupdlg;control;9
 msgid "_Add"
 msgstr "_Внести"
 
@@ -7181,7 +7317,7 @@ msgid "Flood protection:"
 msgstr "Flood protection:"
 
 #: circsettingspage;control;5
-msgid "Lines"
+msgid "Lines/Sec"
 msgstr "#"
 
 #: circsettingspage;control;7
@@ -7292,9 +7428,9 @@ msgstr "_Разрешение:"
 msgid "_Enable PeerProject Remote Web Access:"
 msgstr "Разрешить удаленный доступ к PeerProject:"
 
-#: cremotesettingspage;control;3 column;url
-msgid "URL"
-msgstr "URL"
+#: cremotesettingspage;control;3 cskinssettingspage;control;4 cskinssettingspage;control;6 cpluginssettingspage;control;4 cfolderscandlg;control;2 cdownloadmonitordlg;control;1 cdownloadmonitordlg;control;6 cdownloadmonitordlg;control;8 cdownloadmonitordlg;control;10 cdownloadmonitordlg;control;12 ccollectionexportdlg;control;5 ccollectionexportdlg;control;7
+msgid "..."
+msgstr "..."
 
 #: cremotesettingspage;control;4
 msgid "_Credentials:"
@@ -7345,18 +7481,22 @@ msgid "Piolet ( mp2p: )"
 msgstr "Piolet ( mp2p: )"
 
 #: cwebsettingspage;control;7
+msgid "DC++ ( dchub:/dcfile: )"
+msgstr "DC++ ( dchub:/dcfile: )"
+
+#: cwebsettingspage;control;8
 msgid "BitTorrent ( .torrent )"
 msgstr "BitTorrent ( .torrent )"
 
-#: cwebsettingspage;control;8
+#: cwebsettingspage;control;9
 msgid "_Download Manager:"
 msgstr "_Менеджер загрузок:"
 
-#: cwebsettingspage;control;9
+#: cwebsettingspage;control;10
 msgid "Use PeerProject to manage all my web downloads:"
 msgstr "Обрабатывать PeerProject'ой все мои веб загрузки:"
 
-#: cwebsettingspage;control;13
+#: cwebsettingspage;control;14
 msgid "The download manager plugin will only attempt to download file types listed here. Other file types will be handled by your web browser. PeerProject must be running to manage downloads."
 msgstr "Модуль менеджера загрузок предложит загрузить только указанные здесь типы файлов.  Остальные типы файлов будут обработанны вашим обозревателем.  PeerProject должна быть запущена для перехвата загрузок."
 
@@ -7744,10 +7884,6 @@ msgstr "Информация о шкурке:"
 msgid "Name:"
 msgstr "Название:"
 
-#: cskinssettingspage;control;4 cskinssettingspage;control;6 cpluginssettingspage;control;4 cfolderscandlg;control;2 cdownloadmonitordlg;control;1 cdownloadmonitordlg;control;6 cdownloadmonitordlg;control;8 cdownloadmonitordlg;control;10 cdownloadmonitordlg;control;12 ccollectionexportdlg;control;5 ccollectionexportdlg;control;7
-msgid "..."
-msgstr "..."
-
 #: cskinssettingspage;control;5 ccollectionexportdlg;control;6
 msgid "Author:"
 msgstr "Автор:"
@@ -7941,8 +8077,8 @@ msgid "You may select the Internet connection type:"
 msgstr "Выберите тип подключения к интернету:"
 
 #: cwizardconnectionpage;control;3
-msgid "|Dial-up Modem|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2 (24.0M)|Cable Modem|T1|T3|LAN|OC3"
-msgstr "Коммутир. соединение|ИСДН (128 К)|ДСЛ (768 К)|ДСЛ (1,5 М)|ДСЛ (4,0 M)|ДСЛ2 (8,0 M)|ДСЛ2 (10,0 M)|ДСЛ2 (12,0 M)|ДСЛ2+ (20,0 M)|ДСЛ2+ (24,0 M)|Кабельный модем|Т1|Т3|Локальная сеть|OC3"
+msgid "|Dial-up Modem|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Cable Modem"
+msgstr "Коммутир. соединение|ИСДН 128К)|ДСЛ 768К|ДСЛ 1,5М|ДСЛ 4M|ДСЛ2 8M|ДСЛ2 10|ДСЛ2 12|ДСЛ2 15|ДСЛ2 20|ДСЛ2 25|ДСЛ2 30|Т1|Т3|Локальная сеть|OC3|Кабельный модем"
 
 #: cwizardconnectionpage;control;4
 msgid "Or choose the download speed:"
@@ -8002,7 +8138,7 @@ msgstr "Добро пожаловать в PeerProject (4/8)"
 
 #: cwizardfolderspage;control;1
 msgid "PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."
-msgstr "PeerProject first downloads partial files to a private folder, then moves them when completed according to Download Groups."
+msgstr "PeerProject первой загрузки частичные файлы в личную папку, затем перемещает их, когда завершено в соответствии с Скачать группы."
 
 #: cwizardfolderspage;control;2
 msgid "Store Incomplete files here temporarily:"
@@ -8018,7 +8154,7 @@ msgstr "Сохранять .Torrent файлы в папке:"
 
 #: cwizardfolderspage;control;11
 msgid "Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag'n'Drop files."
-msgstr "Common filetypes are initially setup as subfolders of the default location, but Groups can easily be customized by Right-Click.  Simply Drag'n'Drop files."
+msgstr "Наиболее распространенные типы изначально установки в подпапках, но группы могут быть настроены. Просто drag'n'drop файлов."
 
 #: dialog;cwizardsharepage
 msgid "Welcome to PeerProject  (5/8)"
@@ -8487,6 +8623,10 @@ msgstr "По умолчанию"
 #: cfiltersearchdlg;control;27
 msgid "_Save as"
 msgstr "_Сохранить как"
+
+#: cfiltersearchdlg;control;29
+msgid "Filter"
+msgstr "Фильтровать"
 
 #: dialog;csavefilterasdlg
 msgid "Save filter as"
@@ -9112,10 +9252,6 @@ msgstr "Раздать"
 msgid "To share complete files using BitTorrent they must first be seeded.  Once this process is complete the Torrent will appear as a new item in your download list."
 msgstr "Чтобы обмениваться файлами в BitTorrent, их нужно сперва раздать. Когда процесс завершится, торрент появится в Вашем списке загрузок."
 
-#: dialog;ctorrentfilespage
-msgid "Files"
-msgstr "Файлы"
-
 #: dialog;ctorrenttrackerspage
 msgid "Trackers"
 msgstr "Трекеры"
@@ -9297,7 +9433,7 @@ msgid "Footer Display|Full Size Display|Large Display|Medium Display|Small Displ
 msgstr "Внизу изображения|Полный экран|Большой экран|Средний экран|Маленький экран"
 
 #: dialog;cupgradedlg
-msgid "Upgrade Alert"
+msgid "New Version Available"
 msgstr "Предупреждение об обновлении"
 
 #: cupgradedlg;control;1
@@ -9305,20 +9441,12 @@ msgid "A new version of PeerProject is now available. Would you like to upgrade?
 msgstr "Уже появилась новая версия PeerProject. Хотите ли Вы обновить?"
 
 #: cupgradedlg;control;2
-msgid "If you select Upgrade Now, PeerProject will add the upgrade to your download queue and automatically begin downloading it."
+msgid "To update now, the upgrade installer will simply be added to your download queue."
 msgstr "Если Вы будете обновлять Сейчас, PeerProject добавит обновление в очередь Вашего списка загрузок и автоматически начнет его загрузку."
 
 #: cupgradedlg;control;3
-msgid "_Upgrade Now"
-msgstr "_Обновить сейчас"
-
-#: cupgradedlg;control;4
 msgid "Don't check for new versions"
 msgstr "Не проверять новых версий"
-
-#: cupgradedlg;control;5
-msgid "Don't Upgrade"
-msgstr "Не обновлять"
 
 #: dialog;cdecodemetadatadlg
 msgid "Metadata Localization"
@@ -9369,7 +9497,7 @@ msgid "© PeerProject Development Team, 2008-"
 msgstr ""
 
 #: caboutdlg;control;3
-msgid "PeerProject™ is free software;  you can redistribute and/or modify it {n}under the terms of the GNU General Public License as published by {n}the Free Software Foundation, version 3 or later.  (GPL v3)"
+msgid "PeerProject™ is free software;  you can redistribute and/or modify it {n}under terms of the GNU Affero General Public License as published {n}by the Free Software Foundation, version 3 or later.  (AGPL v3)"
 msgstr ""
 
 #: caboutdlg;control;4
@@ -9420,10 +9548,6 @@ msgstr "Раздаваемый файл"
 msgid "RemoteUser"
 msgstr "Хост"
 
-#: column;file
-msgid "File"
-msgstr "Файл"
-
 #: column;modified
 msgid "Modified"
 msgstr "Изменено"
@@ -9440,17 +9564,17 @@ msgstr "Порт"
 msgid "Time"
 msgstr "Время"
 
-#: column;packets
-msgid "Packets"
-msgstr "Пакеты"
-
-#: column;bandwidth
-msgid "Bandwidth"
+#: column;traffic
+msgid "Traffic"
 msgstr "Трафик"
 
 #: column;total
 msgid "Total"
 msgstr "Всего"
+
+#: column;packets
+msgid "Packets"
+msgstr "Пакеты"
 
 #: column;flow
 msgid "Flow"
@@ -9468,13 +9592,9 @@ msgstr "Режим"
 msgid "LastSeen"
 msgstr "Когда встречался"
 
-#: column;dailyuptime
-msgid "DailyUptime"
-msgstr "Работоспособность"
-
-#: column;description
-msgid "Description"
-msgstr "Описание"
+#: column;failures
+msgid "Failures"
+msgstr "Отказов"
 
 #: column;curusers
 msgid "CurUsers"
@@ -9484,9 +9604,9 @@ msgstr "Текущих пользов."
 msgid "MaxUsers"
 msgstr "Макс. число польз."
 
-#: column;failures
-msgid "Failures"
-msgstr "Отказов"
+#: column;description
+msgid "Description"
+msgstr "Описание"
 
 #: column;lastaccess
 msgid "LastAccess"
@@ -9508,9 +9628,13 @@ msgstr "Обновлений"
 msgid "Protocol"
 msgstr "Протокол"
 
-#: column;t/h
+#: column;ttl/hops
 msgid "TTL/Hops"
 msgstr "TTL/Hops"
+
+#: column;guid
+msgid "GUID"
+msgstr "G1 ИД"
 
 #: column;hex
 msgid "Hex"
@@ -9519,10 +9643,6 @@ msgstr "Hex"
 #: column;ascii
 msgid "ASCII"
 msgstr "ASCII"
-
-#: column;g1-id
-msgid "GUID"
-msgstr "G1-ИД"
 
 #: column;urn
 msgid "URN"
@@ -9574,15 +9694,11 @@ msgstr "Критерии"
 
 #: column;minimum
 msgid "Minimum"
-msgstr ""
+msgstr "Трафик"
 
 #: column;transfers
 msgid "Transfers"
 msgstr "Загрузок"
-
-#: column;priority
-msgid "Priority"
-msgstr ""
 
 #: column;setting
 msgid "Setting"
@@ -9591,6 +9707,10 @@ msgstr "Установка"
 #: column;value
 msgid "Value"
 msgstr "Значение"
+
+#: column;url
+msgid "URL"
+msgstr "Ссылка"
 
 #: column;filename
 msgid "Filename"

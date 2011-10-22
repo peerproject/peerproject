@@ -1,18 +1,17 @@
 ; Inno Setup 5.1.0+ Spanish (Mexican) Messages (PeerProject: es-mx)
 ;
-;
 ; Traducción: Ramón Verduzco
 ; Revisión ortográfica: Talibuea
 ; E-mail: procesamx@yahoo.com.mx
 ;
-; http://www.jrsoftware.org/files/istrans/ (user-contributed translations) 
+; http://www.jrsoftware.org/files/istrans/ (user-contributed translations)
 ;
 ; Note: Do not add periods (.) to messages that don't have them already,
 ; because for those messages Inno Setup adds the periods automatically.
 ; (appending a period will result in two periods being displayed.)
 
 [LangOptions]
-; The following three entries are very important. Be sure to read 
+; The following three entries are very important. Be sure to read
 ; and understand the '[LangOptions] section' topic in the help file.
 LanguageName=Espa<00F1>ol (Mexico)
 LanguageID=$080A
@@ -48,7 +47,7 @@ LdrCannotExecTemp=No se puede ejecutar el archivo en el directorio temporal. Ins
 
 ; *** Startup error messages
 LastErrorMessage=%1.%n%nError %2: %3
-SetupFileMissing=No se encuentra el archivo %1 en el directorio de instalación. Por favor solucione el problema u obtenga una nueva copia 
+SetupFileMissing=No se encuentra el archivo %1 en el directorio de instalación. Por favor solucione el problema u obtenga una nueva copia.
 SetupFileCorrupt=Los archivos de instalación están dañados. Por favor obtenga una nueva copia del programa
 SetupFileCorruptOrWrongVer=Los archivos de instalación están dañados o son incompatibles con esta versión del instalador. Por favor solucione el problema u obtenga una nueva copia del programa
 NotOnThisPlatform=Este programa no se ejecutará en %1.
@@ -121,7 +120,7 @@ LicenseNotAccepted=&No acepto los términos
 
 ; *** "Information" wizard pages
 WizardInfoBefore=Información
-InfoBeforeLabel=Por favor lea la siguiente informacion importante antes de continuar 
+InfoBeforeLabel=Por favor lea la siguiente informacion importante antes de continuar
 InfoBeforeClickLabel=Cuando esté listo para continuar con la instalación, presione "Siguiente"
 WizardInfoAfter=Información
 InfoAfterLabel=Por favor lea la siguiente informacion importante antes de continuar

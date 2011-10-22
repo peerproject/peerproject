@@ -17,9 +17,9 @@
 //
 
 #include "StdAfx.h"
+#include "Settings.h"
 #include "PeerProject.h"
 #include "PagePropertyAdv.h"
-#include "Settings.h"
 #include "Colors.h"
 #include "CoolInterface.h"
 #include "ShellIcons.h"

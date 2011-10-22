@@ -17,10 +17,10 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "CoolInterface.h"
+#include "PeerProject.h"
 #include "SkinWindow.h"
+#include "CoolInterface.h"
 #include "ImageFile.h"
 #include "XML.h"
 
@@ -278,7 +278,7 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 			lf.lfHeight			= nFontSize;
 			lf.lfWeight			= nFontWeight;
 			lf.lfCharSet		= DEFAULT_CHARSET;
-			lf.lfQuality		= theApp.m_nFontQuality; // DEFAULT_QUALITY
+			lf.lfQuality		= theApp.m_nFontQuality;	// DEFAULT_QUALITY
 			lf.lfOutPrecision	= OUT_DEFAULT_PRECIS;
 			lf.lfClipPrecision	= CLIP_DEFAULT_PRECIS;
 			lf.lfPitchAndFamily	= DEFAULT_PITCH|FF_DONTCARE;
@@ -1476,7 +1476,7 @@ void CSkinWindow::Paint(CWnd* pWnd, TRISTATE bActive)
 
 	dc.BitBlt( 0, 0, rc.Width(), nCaptionHeight, pDC, 0, 0, SRCCOPY );
 
-	dc.SelectObject( GetStockObject( ANSI_VAR_FONT ) ); // Comctl32.dll font leak fix
+	dc.SelectObject( GetStockObject( ANSI_VAR_FONT ) );		// Comctl32.dll font leak fix
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -1540,7 +1540,8 @@ void CSkinWindow::SelectRegion(CWnd* pWnd)
 
 	pWnd->GetWindowRect( &rcWnd );
 	rcWnd.OffsetRect( -rcWnd.left, -rcWnd.top );
-	rcWnd.right++; rcWnd.bottom++;
+	rcWnd.right++;
+	rcWnd.bottom++;
 
 	for ( POSITION pos = m_pRegionXML->GetElementIterator() ; pos ; )
 	{

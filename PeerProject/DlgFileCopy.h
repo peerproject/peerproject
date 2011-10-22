@@ -20,6 +20,7 @@
 
 #include "DlgSkinDialog.h"
 #include "CtrlSharedFolder.h"
+#include "ThreadImpl.h"
 
 class CLibraryFile;
 
@@ -33,9 +34,8 @@ public:
 
 	enum { IDD = IDD_FILE_COPY };
 
+public:
 	CString				m_sTarget;
-
-	void		AddFile(CLibraryFile* pFile);
 
 protected:
 	CStatic				m_wndMove;
@@ -52,6 +52,9 @@ protected:
 	DWORD				m_nCookie;
 	BOOL				m_bCancel;
 	int					m_nFileProg;
+
+public:
+	void		AddFile(CLibraryFile* pFile);
 
 protected:
 	void		StartOperation();

@@ -483,7 +483,6 @@
 		</member>
 	</members>
 	<typeFilter>
-		<type extension="exe"/>
 		<type extension="fla"/>
 		<type extension="htm"/>
 		<type extension="html"/>
@@ -493,6 +492,7 @@
 		<type extension="mpt"/>
 		<type extension="pdf"/>
 		<type extension="ppt"/>
+		<type extension="pptm"/>
 		<type extension="pptx"/>
 		<type extension="sda"/>
 		<type extension="sdd"/>

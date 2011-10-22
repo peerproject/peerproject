@@ -1,7 +1,7 @@
 //
 // RibbonTabs.h
 //
-// This file is part of PeerProject SkinBuilder (peerproject.org) © 2009
+// This file is part of PeerProject SkinBuilder (peerproject.org) © 2010
 // Portions Copyright Raj Pabari, 2009.
 //
 // PeerProject SkinBuilder is free software; you can redistribute it
@@ -28,7 +28,7 @@
 // Licensed under The Code Project Open License (CPOL):
 // www.codeproject.com/info/cpol10.aspx
 //
-//	1. #include "RibbonTabs.h"  after WTL <atlapp.h> <atlwin.h>
+//	1. #include "RibbonTabs.h" after WTL <atlapp.h> <atlwin.h>
 //	2. Derive a dialog box from CRibbonDialogImpl, instead of CDialogImpl
 //	3. Add to beginning of message map:
 //		CHAIN_MSG_MAP(CRibbonDialogImpl<CMainDlg>)
@@ -132,7 +132,7 @@ private:
 	typedef CAtlArray<RIBBONDLGTAB> LISTSUBTABS;
 	CAtlArray<RIBBONDLGTAB>	m_listTabs;
 
-	CRect				m_rcRibbonBar;						// in screen coordinates
+	CRect				m_rcRibbonBar;						// In screen coordinates
 	int					m_iRibbonBarHeight, m_iTabHeight;
 
 	CFont				m_font, m_fontHot;
@@ -175,9 +175,9 @@ public:
 	// See http://msdn.microsoft.com/en-us/magazine/cc301409.aspx
 	virtual BOOL PreTranslateMessage(MSG* pMsg)
 	{
-		if ((pMsg->message >= WM_KEYFIRST) && (pMsg->message <= WM_KEYLAST))
+		if (pMsg->message >= WM_KEYFIRST && pMsg->message <= WM_KEYLAST)
 		{
-			if ((m_bShowPrefixes == false) && (pMsg->message == WM_SYSKEYDOWN) && (pMsg->wParam == VK_MENU /* i.e., the ALT key */))
+			if (m_bShowPrefixes == false && pMsg->message == WM_SYSKEYDOWN && pMsg->wParam == VK_MENU /*ALT key*/)
 			{
 				m_bShowPrefixes = true;
 				RedrawWindow(&m_rcRibbonBar, NULL, RDW_FRAME | RDW_INVALIDATE | RDW_ERASENOW);
@@ -252,7 +252,7 @@ public:
 		}
 	}
 
-	BOOL OnInitDialog(CWindow wndFocus, LPARAM lInitParam)
+	BOOL OnInitDialog(CWindow /*wndFocus*/, LPARAM /*lInitParam*/)
 	{
 		SetMsgHandled(FALSE);
 
@@ -357,7 +357,7 @@ public:
 		m_listTabs[iTabId].listSubtabs->Add(subtab);
 	}
 
-	void OnCommand(UINT uNotifyCode, int uID, CWindow wndCtl)
+	void OnCommand(UINT uNotifyCode, int uID, CWindow /*wndCtl*/)
 	{
 		// Only need to handle this message when source of the message is an accelerator
 		if (uNotifyCode == 1)
@@ -374,7 +374,7 @@ public:
 		m_AnimationParams.dwDuration = 0;
 	}
 
-	void OnSizing(UINT fwSide, LPRECT pRect)
+	void OnSizing(UINT fwSide, LPRECT /*pRect*/)
 	{
 		SetMsgHandled(FALSE);
 
@@ -517,7 +517,7 @@ public:
 	{
 		// Need to do this first!
 		// Draw default window NC area
-		LRESULT lResult = ::DefWindowProc(m_hWnd, WM_NCPAINT, (WPARAM)(HRGN)rgn, 0);
+		/*LRESULT lResult =*/ ::DefWindowProc(m_hWnd, WM_NCPAINT, (WPARAM)(HRGN)rgn, 0);
 
 		CRect rcWindow, rcClient;
 
@@ -668,11 +668,11 @@ private:
 			bool bHit = bSourceIsMouse ? (::PtInRect(&pSubtab->rc, point) == TRUE) : (pSubtab->uID == uID);
 			if (bHit)
 			{
-				pSubtab->uState |= uState; // set bit
+				pSubtab->uState |= uState;	// Set bit
 				iCurSelectedItem = j;
 			}
 			else
-				pSubtab->uState &= ~uState; // clear bit
+				pSubtab->uState &= ~uState;	// Clear bit
 		}
 
 		// This means a sub-tab was not selected. So keep the selection on the previous sub-tab.
@@ -785,7 +785,7 @@ private:
 				// Fill the path
 				Rect rect(rcRibbonBar.left, rcRibbonBar.top - 3, rcRibbonBar.Width(), rcRibbonBar.Height() );
 
-				LinearGradientBrush gb(rect, Color::White, Color::Black, LinearGradientModeVertical);
+				LinearGradientBrush gb(rect, (DWORD)Color::White, (DWORD)Color::Black, LinearGradientModeVertical);
 				Color colors[5] = {Color(TAB_FILL_GRADIENTSTART), Color(TAB_FILL_GRADIENTMID), Color(TAB_FILL_GRADIENTEND), Color(TAB_FILL_GRADIENTMID), Color(TAB_FILL_GRADIENTEND)};
 				REAL blend[5] = {0.0f, 0.2f, 0.46f, 0.50f, 1.0f};		// Gradient Positions
 				gb.SetInterpolationColors(colors, blend, 5);
@@ -793,7 +793,7 @@ private:
 				graphics.FillPath(&gb, &path);
 
 				// Outline the path
-				Pen pen1(Color::WhiteSmoke, 2.0f), pen2(Color(TAB_OUTLINE));
+				Pen pen1((DWORD)Color::WhiteSmoke, 2.0f), pen2(Color(TAB_OUTLINE));
 				graphics.DrawPath(&pen1, &path);
 				graphics.DrawPath(&pen2, &path);
 
@@ -981,7 +981,7 @@ private:
 				// Want uppercase and lowercase letters
 				CString strLower = strAccel.MakeLower(), strUpper = strAccel.MakeUpper();
 
-				ACCEL accel = {FALT, strLower[0], uID};
+				ACCEL accel = {FALT, strLower[0], (WORD)uID};
 				listAccel.Add(accel);
 
 				if (strUpper != strLower)
@@ -1007,7 +1007,7 @@ private:
 
 		if (m_hAccel == NULL)
 		{
-			ACCEL accel = {0};
+			//ACCEL accel = {0};
 			CAtlArray<ACCEL> listAccel;
 
 			for (int i = 0, iTabCount = m_listTabs.GetCount(); i < iTabCount; i++)
@@ -1053,7 +1053,7 @@ private:
 
 	void RGBtoHLS(COLORREF lRGBColor, BYTE& H, BYTE& L, BYTE& S)
 	{
-		WORD Rdelta, Gdelta, Bdelta; // Intermediate value: % of spread from max
+		WORD Rdelta, Gdelta, Bdelta;	// Intermediate value: % of spread from max
 
 		// Get R, G, and B out of DWORD
 		BYTE R = GetRValue(lRGBColor);
@@ -1063,7 +1063,7 @@ private:
 		// Calculate lightness
 		BYTE cMax = max( max(R,G), B);	// Max RGB values
 		BYTE cMin = min( min(R,G), B);	// Min RGB values
-		L = ( ((cMax+cMin)*HLSMAX) + RGBMAX )/(2*RGBMAX);
+		L = BYTE( ( ((cMax+cMin)*HLSMAX) + RGBMAX )/(2*RGBMAX) );
 
 		// r=g=b --> Achromatic case
 		if (cMax == cMin)
@@ -1071,14 +1071,13 @@ private:
 			S = 0;
 			H = UNDEFINED;
 		}
-		// Chromatic case
-		else
+		else	// Chromatic case
 		{
 			// Saturation
 			if (L <= (HLSMAX/2))
-				S = ( ((cMax-cMin)*HLSMAX) + ((cMax+cMin)/2) ) / (cMax+cMin);
+				S = BYTE( ( ((cMax-cMin)*HLSMAX) + ((cMax+cMin)/2) ) / (cMax+cMin) );
 			else
-				S = ( ((cMax-cMin)*HLSMAX) + ((2*RGBMAX-cMax-cMin)/2) ) / (2*RGBMAX-cMax-cMin);
+				S = BYTE( ( ((cMax-cMin)*HLSMAX) + ((2*RGBMAX-cMax-cMin)/2) ) / (2*RGBMAX-cMax-cMin) );
 
 			// Hue
 			Rdelta = ( ((cMax-R)*(HLSMAX/6)) + ((cMax-cMin)/2) ) / (cMax-cMin);
@@ -1086,11 +1085,11 @@ private:
 			Bdelta = ( ((cMax-B)*(HLSMAX/6)) + ((cMax-cMin)/2) ) / (cMax-cMin);
 
 			if (R == cMax)
-				H = Bdelta - Gdelta;
+				H = BYTE( Bdelta - Gdelta );
 			else if (G == cMax)
-				H = (HLSMAX/3) + Rdelta - Bdelta;
+				H = BYTE( (HLSMAX/3) + Rdelta - Bdelta );
 			else // B == cMax
-				H = ((2*HLSMAX)/3) + Gdelta - Rdelta;
+				H = BYTE( ((2*HLSMAX)/3) + Gdelta - Rdelta );
 
 			if (H < 0)
 				H += HLSMAX;
@@ -1129,10 +1128,8 @@ private:
 		if (sat == 0)
 		{
 			R=G=B=(lum*RGBMAX)/HLSMAX;
-			if (hue != UNDEFINED)
-			{
-				// ERROR
-			}
+			//if (hue != UNDEFINED)
+			//	; // ERROR
 		}
 		// Chromatic case
 		else

@@ -17,8 +17,12 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "CtrlLibraryCollectionView.h"
+#include "CtrlLibraryFrame.h"
+#include "CtrlLibraryTip.h"
+#include "CtrlWeb.h"
 
 #include "Network.h"
 #include "Library.h"
@@ -31,12 +35,7 @@
 #include "PeerProjectURL.h"
 #include "IEProtocol.h"
 #include "CollectionFile.h"
-
 #include "Skin.h"
-#include "CtrlWeb.h"
-#include "CtrlLibraryTip.h"
-#include "CtrlLibraryFrame.h"
-#include "CtrlLibraryCollectionView.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -67,13 +66,13 @@ END_MESSAGE_MAP()
 CLibraryCollectionView::CLibraryCollectionView()
 {
 	m_nCommandID	= ID_LIBRARY_VIEW_COLLECTION;
+	m_pszToolBar	= _T("CLibraryCollectionView");
 
 	m_nWebIndex		= 0;
 	m_pWebCtrl		= NULL;
 	m_pCollection	= new CCollectionFile();
 
 	m_xExternal.m_pView = this;
-	m_pszToolBar	= _T("CLibraryCollectionView");
 }
 
 CLibraryCollectionView::~CLibraryCollectionView()

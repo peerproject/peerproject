@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "PeerProjectURL.h"
 #include "Transfer.h"
 #include "QuerySearch.h"
@@ -109,7 +109,7 @@ void CPeerProjectURL::Clear()
 	m_nAction				= uriNull;
 	m_sAddress.Empty();
 	m_pAddress.s_addr		= 0;
-	m_nPort					= 0; // GNUTELLA_DEFAULT_PORT
+	m_nPort					= 0;	// GNUTELLA_DEFAULT_PORT
 	m_pServerAddress.s_addr = 0;
 	m_nServerPort			= 0;
 	m_bSize					= FALSE;
@@ -131,7 +131,7 @@ BOOL CPeerProjectURL::Parse(const CString& sText, CList< CString >& pURLs, BOOL 
 	CList< CString > oReverse;
 	while ( ( sPart = sText.Tokenize( _T("\n"), curPos ) ).GetLength() )
 	{
-		oReverse.AddHead( sPart.Trim( _T("\r\n\t >< ") ) ); // second space is #160
+		oReverse.AddHead( sPart.Trim( _T("\r\n\t >< ") ) );		// Second space is #160
 	}
 
 	CString sBuf;

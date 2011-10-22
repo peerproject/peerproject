@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "QuerySearch.h"
 #include "QueryHit.h"
 #include "MatchObjects.h"

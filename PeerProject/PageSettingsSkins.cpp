@@ -17,9 +17,9 @@
 //
 
 #include "StdAfx.h"
-#include "PageSettingsSkins.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "PageSettingsSkins.h"
 #include "LiveList.h"
 #include "Colors.h"
 #include "Skin.h"
@@ -194,7 +194,10 @@ BOOL CSkinsSettingsPage::AddSkin(LPCTSTR pszPath, LPCTSTR pszName)
 	else
 	{
 		if ( nByte >= 3 && pByte[0] == 0xEF && pByte[1] == 0xBB && pByte[2] == 0xBF )
-			pByte += 3; nByte -= 3;
+		{
+			pByte += 3;
+			nByte -= 3;
+		}
 
 		strXML = UTF8Decode( (LPCSTR)pByte, nByte );
 	}

@@ -68,6 +68,7 @@
 #pragma warning ( disable : 4738 )	// (Level 3)	storing 32-bit float result in memory, possible loss of performance
 
 #pragma warning ( disable : 4061 )	// (Level 4)	enumerator 'identifier' in switch of enum 'enumeration' is not explicitly handled by a case label
+#pragma warning ( disable : 4062 )	// (Level 4)	enumerator 'identifier' in switch of enum 'enumeration' is not handled
 #pragma warning ( disable : 4263 )	// (Level 4)	'function' : member function does not override any base class virtual member function
 #pragma warning ( disable : 4266 )	// (Level 4)	'function' : no override available for virtual member function from base 'type'; function is hidden
 #pragma warning ( disable : 4365 )	// (Level 4)	'action' : conversion from 'type_1' to 'type_2', signed/unsigned mismatch
@@ -89,14 +90,14 @@
 #define _CRTDBG_MAP_ALLOC
 #endif
 
-#endif	//1
+#endif	// 1
 
-// Target features available from Windows Vista onwards.
+// WINVER Target features available from Windows Vista onwards.
 // To find features that need guards for Windows 2000/XP temporarily use:
 //	#define NTDDI_VERSION	NTDDI_WIN2K
 //	#define _WIN32_WINNT	0x0500
 #define NTDDI_VERSION	NTDDI_LONGHORN	// Minimum build target Vista
-#define _WIN32_WINNT	0x0600			// Vista, 2008
+#define _WIN32_WINNT	0x0600			// Vista/2008
 #include <sdkddkver.h>					// Setup versioning for Windows SDK
 
 // Add defines missed/messed up when Microsoft converted to NTDDI macros
@@ -226,23 +227,35 @@
 // Boost
 //
 
-#ifndef _WIN64
+#ifndef WIN64
 	#define BOOST_BIND_ENABLE_STDCALL 1
 	#define BOOST_MEM_FN_ENABLE_STDCALL 1
 #endif
 
-// BOOST_STATIC_ASSERT(false) for compile-time checks below VS2010  (ToDo: static_assert)
-#include <Boost/static_assert.hpp>
+#define BOOST_MPL_CFG_NO_FULL_LAMBDA_SUPPORT	// Allows fewer include files
+#define BOOST_TYPEOF_EMULATION_UNSUPPORTED	// VS2008
 
-#include <Boost/bind.hpp>
-#include <Boost/shared_ptr.hpp>
-#include <Boost/ptr_container/ptr_list.hpp>
+#include <Boost/bind.hpp>					// For LiveList & UPnPFinder
+#include <Boost/shared_ptr.hpp> 			// For local StdAfx.h
+#include <Boost/ptr_container/ptr_list.hpp>	// For CtrlLibraryTileView
 
-//#include <Boost/array.hpp>			// In Hashes/HashDescriptors.hpp
-//#include <Boost/type_traits.hpp>		// In MinMax.hpp
-//#include <Boost/checked_delete.hpp>	// In Augment/auto_ptr.hpp
-//#include <Boost/utility.hpp>			// ?
+//#include <Boost/array.hpp>				// Was Hashes/HashDescriptors.hpp (TR1)
+//#include <Boost/type_traits.hpp>			// In MinMax.hpp
+//#include <Boost/checked_delete.hpp>		// In Augment/auto_ptr.hpp
+//#include <Boost/utility.hpp>				// ?
 //#include <Boost/bind/placeholders.hpp>
+
+// BOOST_STATIC_ASSERT(false) for compile-time checks (Obsolete)
+//#include <Boost/static_assert.hpp>
+
+// Handle static_assert(false,"text") prior to VS2010
+#if _MSC_VER < 1600
+	#ifdef _STATIC_ASSERT( expr )		// VS2008
+		#define static_assert( expr, text ) _STATIC_ASSERT( expr )
+	#else
+		#define static_assert( expr, text )
+	#endif
+#endif
 
 
 //
@@ -278,7 +291,7 @@ using augment::IUnknownImplementation;
 #endif
 
 
-//typedef CString StringType;		// Previousy for <Hashes>
+//typedef CString StringType;		// Previously for <Hashes>
 
 //! \brief Hash function needed for CMap with const CString& as ARG_KEY.
 template<> AFX_INLINE UINT AFXAPI HashKey(const CString& key)
@@ -339,10 +352,13 @@ template<> AFX_INLINE BOOL AFXAPI CompareElements(const IN_ADDR* pElement1, cons
 //
 
 #ifndef BIF_NEWDIALOGSTYLE
-	#define BIF_NEWDIALOGSTYLE	0x00000040
+	#define BIF_NEWDIALOGSTYLE		0x00000040
 #endif
 #ifndef OFN_ENABLESIZING
-	#define OFN_ENABLESIZING	0x00800000
+	#define OFN_ENABLESIZING		0x00800000
+#endif
+#ifndef LVS_EX_TRANSPARENTBKGND		// NTDDI_WINXP/2K
+	#define LVS_EX_TRANSPARENTBKGND	0x00400000
 #endif
 
 
@@ -657,8 +673,7 @@ private:
 				InterlockedCompareExchange( &m_nThreadId, (LONG)GetCurrentThreadId(), 0 );
 				return TRUE;
 			}
-			else
-				return FALSE;
+			return FALSE;
 		}
 
 		virtual BOOL Unlock()
@@ -738,7 +753,7 @@ __int64 GetMicroCount();
 UINT GetBestHashTableSize(UINT nCount);
 
 // Compute average of values collected by specified time
-template< class T, DWORD dwMilliseconds >
+template< class T, DWORD nMilliseconds >
 class CTimeAverage
 {
 public:
@@ -749,13 +764,13 @@ public:
 	inline T operator()(T Val)
 	{
 		// Add new value
-		DWORD dwNow = GetTickCount();
-		m_Data.push_back( CAveragePair( Val, dwNow ) );
+		const DWORD tNow = GetTickCount();
+		m_Data.push_back( CAveragePair( Val, tNow ) );
 
 		// Remove outdated values
 		while ( m_Data.size() > 1 )
 		{
-			if ( dwNow - (*(++m_Data.begin())).second < dwMilliseconds )
+			if ( tNow < (*(++m_Data.begin())).second + nMilliseconds )
 				break;
 			m_Data.pop_front();
 		}

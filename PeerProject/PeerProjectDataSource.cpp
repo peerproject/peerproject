@@ -1,7 +1,7 @@
 //
 // PeerProjectDataSource.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -18,6 +18,8 @@
 
 #include "StdAfx.h"
 #include "PeerProject.h"
+#include "PeerProjectDataSource.h"
+
 #include "SharedFile.h"
 #include "SharedFolder.h"
 #include "AlbumFolder.h"
@@ -25,7 +27,6 @@
 #include "LibraryList.h"
 #include "LibraryFolders.h"
 #include "CtrlLibraryTreeView.h"
-#include "PeerProjectDataSource.h"
 #include "SchemaCache.h"
 
 #include "HGlobal.h"
@@ -71,7 +72,7 @@ static LPCTSTR GetFORMATLIST(UINT id)
 		{ 0, NULL }
 	};
 	static TCHAR buf [256] = { 0 };
-	for ( int i = 0; FORMATLIST [i].name; i++ )
+	for ( int i = 0 ; FORMATLIST [i].name ; i++ )
 	{
 		if ( FORMATLIST [i].id == id )
 			return FORMATLIST [i].name;
@@ -190,13 +191,13 @@ public:
 	virtual ~CEnumArray();
 
 protected:
-	size_t m_nSizeElem;			// size of each item in the array
-	CCmdTarget* m_pClonedFrom;	// used to keep original alive for clones
+	size_t m_nSizeElem;			// Size of each item in the array
+	CCmdTarget* m_pClonedFrom;	// Used to keep original alive for clones
 
-	BYTE* m_pvEnum;				// pointer data to enumerate
-	UINT m_nCurPos;				// current position in m_pvEnum
-	UINT m_nSize;				// total number of items in m_pvEnum
-	BOOL m_bNeedFree;			// free on release?
+	BYTE* m_pvEnum;				// Pointer data to enumerate
+	UINT m_nCurPos;				// Current position in m_pvEnum
+	UINT m_nSize;				// Total number of items in m_pvEnum
+	BOOL m_bNeedFree;			// Free on release?
 
 	virtual BOOL OnNext(void* pv);
 	virtual BOOL OnSkip();
@@ -228,7 +229,7 @@ public:
 	void AddFormat(const FORMATETC* lpFormatEtc);
 
 protected:
-	UINT m_nMaxSize;	// number of items allocated (>= m_nSize)
+	UINT m_nMaxSize;	// Number of items allocated (>= m_nSize)
 
 	virtual BOOL OnNext(void* pv);
 
@@ -245,9 +246,9 @@ IMPLEMENT_OLECREATE_FLAGS(CPeerProjectDataSource, "PeerProject.DataSource",
 	afxRegFreeThreading|afxRegApartmentThreading,
 	0x34791e02, 0x51dc, 0x4cf4, 0x9e, 0x34, 0x1, 0x81, 0x66, 0xd9, 0x1d, 0xe)
 
-CPeerProjectDataSource::CPeerProjectDataSource() :
-	m_rgde (NULL ),
-	m_cde ( 0 )
+CPeerProjectDataSource::CPeerProjectDataSource()
+	: m_rgde	( NULL )
+	, m_cde 	( 0 )
 {
 	CoCreateInstance( CLSID_DragDropHelper, NULL, CLSCTX_ALL,
 		IID_IDragSourceHelper, (LPVOID*) &m_pdsh );
@@ -266,7 +267,7 @@ void CPeerProjectDataSource::Clean()
 
 	if ( m_rgde )
 	{
-		for ( int ide = 0; ide < m_cde; ide++ )
+		for ( int ide = 0 ; ide < m_cde ; ide++ )
 		{
 			if ( m_rgde[ide].fe.ptd )
 			{
@@ -296,8 +297,7 @@ UINT CPeerProjectDataSource::DragDropThread(LPVOID param)
 
 	{
 		CComPtr< IDataObject > pIDataObject;
-		HRESULT hr = CoGetInterfaceAndReleaseStream( (IStream*)param, IID_IDataObject,
-			(LPVOID*)&pIDataObject );
+		HRESULT hr = CoGetInterfaceAndReleaseStream( (IStream*)param, IID_IDataObject, (LPVOID*)&pIDataObject );
 		if ( SUCCEEDED( hr ) )
 		{
 			// Create drag-n-drop source object
@@ -359,12 +359,11 @@ HRESULT CPeerProjectDataSource::DoDragDropHelper(const T* pList, HBITMAP pImage,
 			if ( SUCCEEDED( hr ) )
 			{
 				// Prepare IDragSourceHelper handler
-				hr = Add( pIDataObject, pImage, ptOffset );
+				/*hr =*/ Add( pIDataObject, pImage, ptOffset );
 
 				// Send data object to thread
 				IStream* pStream = NULL;
-				hr = CoMarshalInterThreadInterfaceInStream( IID_IDataObject,
-					pIDataObject, &pStream);
+				hr = CoMarshalInterThreadInterfaceInStream( IID_IDataObject, pIDataObject, &pStream );
 				if ( SUCCEEDED( hr ) )
 				{
 					// Begin async drag-n-drop operation
@@ -480,7 +479,7 @@ HRESULT CPeerProjectDataSource::SetDropEffect(IDataObject* pIDataObject, DWORD d
 
 BOOL CPeerProjectDataSource::DropToFolder(IDataObject* pIDataObject, DWORD grfKeyState, DWORD* pdwEffect, BOOL bDrop, LPCTSTR pszDest)
 {
-	if( ! pdwEffect )
+	if ( ! pdwEffect )
 		return FALSE;
 
 	*pdwEffect = DROPEFFECT_NONE;
@@ -488,7 +487,7 @@ BOOL CPeerProjectDataSource::DropToFolder(IDataObject* pIDataObject, DWORD grfKe
 	if ( ( grfKeyState & MK_CONTROL ) && ( grfKeyState & MK_SHIFT ) )
 		return FALSE;
 
-	if( ! pIDataObject )
+	if ( ! pIDataObject )
 		return FALSE;
 
 	FORMATETC fmtc = { CF_HDROP, NULL, DVASPECT_CONTENT, -1, TYMED_HGLOBAL };
@@ -517,7 +516,7 @@ BOOL CPeerProjectDataSource::DropToFolder(IDataObject* pIDataObject, DWORD grfKe
 	if ( ! pdf->fWide )
 	{
 		// ANSI
-		for ( LPCSTR pFrom = (LPCSTR)( (char*)pdf + pdf->pFiles ); *pFrom; offset += len + 1, pFrom += len + 1 )
+		for ( LPCSTR pFrom = (LPCSTR)( (char*)pdf + pdf->pFiles ) ; *pFrom ; offset += len + 1, pFrom += len + 1 )
 		{
 			len = lstrlenA( pFrom );
 			CStringW sFile( pFrom );	// ANSI -> UNICODE
@@ -538,7 +537,7 @@ BOOL CPeerProjectDataSource::DropToFolder(IDataObject* pIDataObject, DWORD grfKe
 	else
 	{
 		// UNICODE
-		for ( LPCWSTR pFrom = (LPCWSTR)( (char*)pdf + pdf->pFiles ); *pFrom; offset += len + 1, pFrom += len + 1 )
+		for ( LPCWSTR pFrom = (LPCWSTR)( (char*)pdf + pdf->pFiles ) ; *pFrom ; offset += len + 1, pFrom += len + 1 )
 		{
 			len = lstrlenW( pFrom );
 			if ( len > 4 && ! lstrcmpiW( pFrom + len - 4, L".lnk" ) )
@@ -620,7 +619,7 @@ BOOL CPeerProjectDataSource::DropToFolder(IDataObject* pIDataObject, DWORD grfKe
 
 BOOL CPeerProjectDataSource::DropToAlbum(IDataObject* pIDataObject, DWORD grfKeyState, DWORD* pdwEffect, BOOL bDrop, CAlbumFolder* pAlbumFolder)
 {
-	if( ! pdwEffect )
+	if ( ! pdwEffect )
 		return FALSE;
 
 	*pdwEffect = DROPEFFECT_NONE;
@@ -628,7 +627,7 @@ BOOL CPeerProjectDataSource::DropToAlbum(IDataObject* pIDataObject, DWORD grfKey
 	if ( ( grfKeyState & MK_CONTROL ) && ( grfKeyState & MK_SHIFT ) )
 		return FALSE;
 
-	if( ! pIDataObject )
+	if ( ! pIDataObject )
 		return FALSE;
 
 	if ( ! pAlbumFolder ||
@@ -910,7 +909,7 @@ HRESULT CPeerProjectDataSource::AddFiles(IDataObject* pIDataObject, const T* pSe
 		if ( ! oPDS.IsValid() )
 			return E_OUTOFMEMORY;
 
-		*(DWORD*)oPDS = DROPEFFECT_NONE; // Let's Explorer choose
+		*(DWORD*)oPDS = DROPEFFECT_NONE;	// Let Explorer choose
 		medium_PDS.hGlobal = oPDS;
 		pIDataObject->SetData( &formatetc_PDS, &medium_PDS, FALSE );
 	}
@@ -955,27 +954,25 @@ HRESULT CPeerProjectDataSource::FindFORMATETC(FORMATETC *pfe, LPDATAENTRY *ppde,
 	*ppde = NULL;
 
 	// Comparing two DVTARGETDEVICE structures is hard, so we don't even try
-	if (pfe->ptd != NULL)
+	if ( pfe->ptd != NULL )
 		return DV_E_DVTARGETDEVICE;
 
 	CSingleLock pLock( &m_pSection, TRUE );
 
 	// See if it's in our list
-	for (int ide = 0; ide < m_cde; ide++)
+	for ( int ide = 0 ; ide < m_cde ; ide++ )
 	{
-		if (m_rgde[ide].fe.cfFormat == pfe->cfFormat &&
-			m_rgde[ide].fe.dwAspect == pfe->dwAspect &&
-			m_rgde[ide].fe.lindex == pfe->lindex)
+		if ( m_rgde[ide].fe.cfFormat == pfe->cfFormat &&
+			 m_rgde[ide].fe.dwAspect == pfe->dwAspect &&
+			 m_rgde[ide].fe.lindex == pfe->lindex )
 		{
-			if (fAdd || (m_rgde[ide].fe.tymed & pfe->tymed))
+			if ( fAdd || ( m_rgde[ide].fe.tymed & pfe->tymed ) )
 			{
 				*ppde = &m_rgde[ide];
 				return S_FALSE;
 			}
-			else
-			{
-				return DV_E_TYMED;
-			}
+
+			return DV_E_TYMED;
 		}
 	}
 
@@ -1140,7 +1137,7 @@ STDMETHODIMP CPeerProjectDataSource::XDataObject::SetData(FORMATETC* pformatetc,
 		ReleaseStgMedium( &pde->stgm );	// Release old data
 	if ( SUCCEEDED( hr ) )
 	{
-		if (fRelease)
+		if ( fRelease )
 		{
 			pde->stgm = *pmedium;
 			hr = S_OK;
@@ -1152,7 +1149,7 @@ STDMETHODIMP CPeerProjectDataSource::XDataObject::SetData(FORMATETC* pformatetc,
 		pde->fe.tymed = pde->stgm.tymed;	// Keep in sync
 
 		// Subtlety!  Break circular reference loop
-		if (GetCanonicalIUnknown( pde->stgm.pUnkForRelease ) == GetCanonicalIUnknown( this ) )
+		if ( GetCanonicalIUnknown( pde->stgm.pUnkForRelease ) == GetCanonicalIUnknown( this ) )
 		{
 			pde->stgm.pUnkForRelease->Release();
 			pde->stgm.pUnkForRelease = NULL;
@@ -1178,7 +1175,7 @@ STDMETHODIMP CPeerProjectDataSource::XDataObject::EnumFormatEtc(DWORD /*dwDirect
 
 	CSingleLock pLock( &pThis->m_pSection, TRUE );
 
-	for ( int nIndex = 0; nIndex < pThis->m_cde; nIndex++ )
+	for ( int nIndex = 0 ; nIndex < pThis->m_cde ; nIndex++ )
 	{
 		pFormatList->AddFormat( &pThis->m_rgde[nIndex].fe );
 	}
@@ -1239,15 +1236,15 @@ STDMETHODIMP CPeerProjectDataSource::XDropSource::QueryContinueDrag(BOOL fEscape
 {
 	METHOD_PROLOGUE( CPeerProjectDataSource, DropSource )
 
-	// check escape key or right button and cancel
-	if ( fEscapePressed || ( grfKeyState & MK_RBUTTON ) || (grfKeyState & MK_MBUTTON ) )
+	// Check escape key or right button and cancel
+	if ( fEscapePressed || ( grfKeyState & MK_RBUTTON ) || ( grfKeyState & MK_MBUTTON ) )
 		return DRAGDROP_S_CANCEL;
 
-	// check left-button up and do the drop
+	// Check left-button up and do the drop
 	if ( ! ( grfKeyState & MK_LBUTTON ) )
 		return DRAGDROP_S_DROP;
 
-	// otherwise, keep polling...
+	// Otherwise, keep polling...
 	return S_OK;
 }
 
@@ -1307,8 +1304,7 @@ void CPeerProjectDataSource::GetTotalLength(const CLibraryList* pList, size_t& s
 				ASSERT( pFile != NULL );
 				if ( pFile )
 				{
-					int len = pFile->GetPath().GetLength();
-					if ( len )
+					if ( int len = pFile->GetPath().GetLength() )
 						size_HDROP += ( len + 1 ) * sizeof( TCHAR );
 
 					if ( bRoot )
@@ -1489,16 +1485,13 @@ void CPeerProjectDataSource::FillBuffer(const CLibraryTreeItem* pSelFirst, LPTST
 			// Add virtual folder
 			pItem->m_pVirtual->Serialize( buf_Archive, LIBRARY_SER_VERSION );
 		}
-		if ( pItem->m_pPhysical )
+		if ( pItem->m_pPhysical && ! pItem->m_pPhysical->m_sPath.IsEmpty() )
 		{
 			// Add physical folder
-			if ( ! pItem->m_pPhysical->m_sPath.IsEmpty() )
+			if ( int len = pItem->m_pPhysical->m_sPath.GetLength() )
 			{
-				if ( int len = pItem->m_pPhysical->m_sPath.GetLength()  )
-				{
-					_tcscpy_s( buf_HDROP, len + 1, pItem->m_pPhysical->m_sPath );
-					buf_HDROP += len + 1;
-				}
+				_tcscpy_s( buf_HDROP, len + 1, pItem->m_pPhysical->m_sPath );
+				buf_HDROP += len + 1;
 			}
 		}
 	}

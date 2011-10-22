@@ -147,9 +147,8 @@ main(int argc, char **argv)
         }
     }
 
-    /* Ids need to be distributed evenly, so you cannot just use your
-       bittorrent id.  Either generate it randomly, or take the SHA-1 of
-       something. */
+    /* Ids need to be distributed evenly, so you cannot just use your bittorrent id.
+       Either generate it randomly, or take the SHA-1 of something. */
     fd = open(id_file, O_RDONLY);
     if(fd >= 0) {
         rc = read(fd, myid, 20);
@@ -236,14 +235,13 @@ main(int argc, char **argv)
         i++;
     }
 
-    /* If you set dht_debug to a stream, every action taken by the DHT will
-       be logged. */
+    /* If you set dht_debug to a stream, every action taken by the DHT will be logged. */
     if(!quiet)
         dht_debug = stdout;
 
-    /* We need an IPv4 and an IPv6 socket, bound to a stable port.  Rumour
-       has it that uTorrent works better when it is the same as your
-       Bittorrent port. */
+    /* We need an IPv4 and an IPv6 socket, bound to a stable port.
+       Rumour has it that uTorrent works better when it is the same as
+       your Bittorrent port. */
     if(ipv4) {
         s = socket(PF_INET, SOCK_DGRAM, 0);
         if(s < 0) {
@@ -407,6 +405,14 @@ main(int argc, char **argv)
     printf("Usage: dht-example [-q] [-4] [-6] [-i filename] [-b address]...\n"
            "                   port [address port]...\n");
     exit(1);
+}
+
+/* Functions called by the DHT. */
+
+int
+dht_blacklisted(const struct sockaddr *sa, int salen)
+{
+    return 0;
 }
 
 /* We need to provide a reasonably strong cryptographic hashing function.

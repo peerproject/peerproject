@@ -17,13 +17,13 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "WizardProfilePage.h"
 #include "GProfile.h"
 #include "WorldGPS.h"
 #include "Skin.h"
 #include "XML.h"
-#include "WizardProfilePage.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -110,7 +110,7 @@ BOOL CWizardProfilePage::OnInitDialog()
 
 BOOL CWizardProfilePage::OnSetActive()
 {
-	//Wizard Window Caption Workaround
+	// Wizard Window Caption Workaround
 	CString strCaption;
 	GetWindowText( strCaption );
 	GetParent()->SetWindowText( strCaption );

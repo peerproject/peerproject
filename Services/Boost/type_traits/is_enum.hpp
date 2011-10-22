@@ -1,6 +1,5 @@
 
-//  (C) Copyright Dave Abrahams, Steve Cleary, Beman Dawes, Howard
-//  Hinnant & John Maddock 2000.
+//  (C) Copyright Dave Abrahams, Steve Cleary, Beman Dawes, Howard Hinnant & John Maddock 2000.
 //  Use, modification and distribution are subject to the Boost Software License,
 //  Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt).
@@ -95,7 +94,7 @@ template <>
 struct is_enum_helper<false>
 {
     template <typename T> struct type
-       : ::boost::is_convertible<typename boost::add_reference<T>::type,::boost::detail::int_convertible>
+       : public ::boost::is_convertible<typename boost::add_reference<T>::type,::boost::detail::int_convertible>
     {
     };
 };

@@ -4,16 +4,16 @@
 #define alpha "Yes"
 
 #if VER < 0x05010700
-  #error Inno Setup version 5.1.7 (2006) or higher is needed for this script
+  #error Inno Setup version 5.1.7 or higher (2006) is needed for this script
 #endif
-#if PREPROCVER < 0x05020000
-  #error PreProcessor version 5.2.0.0 or higher is needed for this script
+#if PREPROCVER < 0x05040200
+  #error PreProcessor version 5.4.2.0 or higher (2011) is needed for this script
 #endif
 
-#define internal_name GetStringFileInfo("..\PeerProject\" + ConfigurationName + " " + PlatformName + "\PeerProject.exe", INTERNAL_NAME);
+#define internal_name GetStringFileInfo("..\..\PeerProject\" + ConfigurationName + " " + PlatformName + "\PeerProject.exe", INTERNAL_NAME);
 #define name          internal_name
 #define build         PlatformName + " " + ConfigurationName + " Build"
-#define version       GetFileVersion("..\PeerProject\" + ConfigurationName + " " + PlatformName + "\PeerProject.exe")
+#define version       GetFileVersion("..\..\PeerProject\" + ConfigurationName + " " + PlatformName + "\PeerProject.exe")
 #define Publisher     "PeerProject.org"
 #define Description   internal_name + " P2P Filesharing"
 #define date          GetDateTimeString('yyyy/mm/dd', '-', '')
@@ -111,8 +111,8 @@ Source: "Services\RestoreSettings.bat"; DestDir: "{app}"; DestName: "RestoreSett
 
 ; ZLib
 ;#if ConfigurationName == "Debug"
-Source: "Services\zlib\{#ConfigurationName} {#PlatformName}\zlibwapi.dll"; DestDir: "{app}"; DestName: "zlibwapi.dll"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
-Source: "Services\zlib\{#ConfigurationName} {#PlatformName}\zlibwapi.dll"; DestDir: "{app}\Plugins"; DestName: "zlibwapi.dll"; Flags: overwritereadonly replacesameversion uninsremovereadonly sortfilesbyextension deleteafterinstall
+Source: "Services\zlib\{#ConfigurationName} {#PlatformName}\zlibwapi.dll"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+Source: "Services\zlib\{#ConfigurationName} {#PlatformName}\zlibwapi.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion uninsremovereadonly sortfilesbyextension deleteafterinstall
 ; Using smaller pre-built DLLs:
 ;#elif PlatformName == "x64"
 ;Source: "Services\zlibwapi-x64.dll"; DestDir: "{app}";         DestName: "zlibwapi.dll"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
@@ -123,25 +123,25 @@ Source: "Services\zlib\{#ConfigurationName} {#PlatformName}\zlibwapi.dll"; DestD
 ;#endif
 
 ; BZlib
-Source: "Services\Bzlib\{#ConfigurationName} {#PlatformName}\Bzlib.dll"; DestDir: "{app}"; DestName: "BZlib.dll"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+Source: "Services\Bzlib\{#ConfigurationName} {#PlatformName}\Bzlib.dll"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
 
 ; HashLib
-Source: "HashLib\{#ConfigurationName} {#PlatformName}\HashLib.dll"; DestDir: "{app}"; DestName: "HashLib.dll"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+Source: "HashLib\{#ConfigurationName} {#PlatformName}\HashLib.dll"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
 
 ; SQLite
-Source: "Services\SQLite\{#ConfigurationName} {#PlatformName}\SQLite.dll"; DestDir: "{app}"; DestName: "SQLite.dll"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+Source: "Services\SQLite\{#ConfigurationName} {#PlatformName}\SQLite.dll"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
 
 ; GeoIP
 Source: "Services\GeoIP\{#ConfigurationName} {#PlatformName}\GeoIP.dll"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
-;Source: "Data\GeoIP.dat";  DestDir: "{app}\Data"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+;Source: "Data\GeoIP.dat"; DestDir: "{app}\Data"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
 
 ; Plugins
-Source: "Plugins\DocumentReader\{#ConfigurationName} {#PlatformName}\DocumentReader.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
+Source: "Plugins\DocumentReader\{#ConfigurationName} {#PlatformName}\DocumentReader.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 
-Source: "Plugins\ImageViewer\{#ConfigurationName} {#PlatformName}\ImageViewer.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
+Source: "Plugins\ImageViewer\{#ConfigurationName} {#PlatformName}\ImageViewer.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 
-Source: "Services\LibGFL\{#PlatformName}\LibGFL340.dll"; DestDir: "{app}";  Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
-Source: "Services\LibGFL\{#PlatformName}\LibGFL340.dll"; DestDir: "{app}\Plugins";  Flags: overwritereadonly replacesameversion uninsremovereadonly sortfilesbyextension deleteafterinstall
+Source: "Services\LibGFL\{#PlatformName}\LibGFL340.dll"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+Source: "Services\LibGFL\{#PlatformName}\LibGFL340.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion uninsremovereadonly sortfilesbyextension deleteafterinstall
 Source: "Plugins\GFLImageServices\{#ConfigurationName} {#PlatformName}\GFLImageServices.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 Source: "Plugins\GFLLibraryBuilder\{#ConfigurationName} {#PlatformName}\GFLLibraryBuilder.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 
@@ -315,9 +315,9 @@ SetupAppTitle=Setup | {#internal_name}
 
 [Run]
 ; Register EXE servers
-;Filename: "{app}\Plugins\WindowsThumbnail.exe";  Parameters: "/RegServer"; WorkingDir: "{app}"
-;Filename: "{app}\Plugins\MediaImageServices.exe";  Parameters: "/RegServer"; WorkingDir: "{app}"
-;Filename: "{app}\Plugins\MediaPlayer.exe";  Parameters: "/RegServer"; WorkingDir: "{app}"
+;Filename: "{app}\Plugins\WindowsThumbnail.exe"; Parameters: "/RegServer"; WorkingDir: "{app}"
+;Filename: "{app}\Plugins\MediaImageServices.exe"; Parameters: "/RegServer"; WorkingDir: "{app}"
+;Filename: "{app}\Plugins\MediaPlayer.exe"; Parameters: "/RegServer"; WorkingDir: "{app}"
 
 ; Run the skin installer at end of installation
 Filename: "{app}\SkinInstaller.exe"; Parameters: "/installsilent"; WorkingDir: "{app}"; StatusMsg: "{cm:run_skinexe}"
@@ -563,46 +563,46 @@ const
   KeyLoc1 = 'SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\PeerProject_is1';
   KeyLoc2 = 'SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\PeerProject';
   KeyName = 'UninstallString';
-  NET_FW_SCOPE_ALL = 0;
-  NET_FW_IP_VERSION_ANY       = 2;
-  SERVICE_QUERY_CONFIG        = $1;
-  SERVICE_CHANGE_CONFIG       = $2;
-  SERVICE_QUERY_STATUS        = $4;
-  SERVICE_START               = $10;
-  SERVICE_STOP                = $20;
-  SERVICE_ALL_ACCESS          = $f01ff;
-  SC_MANAGER_ALL_ACCESS       = $f003f;
-  SERVICE_AUTO_START          = $2;
-  SERVICE_DEMAND_START        = $3;
-  SERVICE_RUNNING             = $4;
-  SERVICE_NO_CHANGE           = $ffffffff;
+//NET_FW_SCOPE_ALL = 0;
+//NET_FW_IP_VERSION_ANY  = 2;
+//SERVICE_QUERY_CONFIG   = $1;
+//SERVICE_CHANGE_CONFIG  = $2;
+//SERVICE_QUERY_STATUS   = $4;
+//SERVICE_START          = $10;
+//SERVICE_STOP           = $20;
+//SERVICE_ALL_ACCESS     = $f01ff;
+//SC_MANAGER_ALL_ACCESS  = $f003f;
+//SERVICE_AUTO_START     = $2;
+//SERVICE_DEMAND_START   = $3;
+//SERVICE_RUNNING        = $4;
+//SERVICE_NO_CHANGE      = $ffffffff;
 var
   CurrentPath: string;
   Installed: Boolean;
   MalwareDetected: Boolean;
-  FirewallFailed: string;
-  HasUserPrivileges: Boolean;
+//FirewallFailed: string;
+//HasUserPrivileges: Boolean;
 
-// NT API functions for services
-Function OpenSCManager(lpMachineName, lpDatabaseName: string; dwDesiredAccess: cardinal): HANDLE;
-external 'OpenSCManagerA@advapi32.dll stdcall setuponly';
-
-Function OpenService(hSCManager: HANDLE; lpServiceName: string; dwDesiredAccess: cardinal): HANDLE;
-external 'OpenServiceA@advapi32.dll stdcall setuponly';
-
-Function CloseServiceHandle(hSCObject: HANDLE): Boolean;
-external 'CloseServiceHandle@advapi32.dll stdcall setuponly';
-
-Function StartNTService(hService: HANDLE; dwNumServiceArgs: cardinal; lpServiceArgVectors: cardinal): Boolean;
-external 'StartServiceA@advapi32.dll stdcall setuponly';
-
-Function QueryServiceStatus(hService: HANDLE; var ServiceStatus: SERVICE_STATUS): Boolean;
-external 'QueryServiceStatus@advapi32.dll stdcall setuponly';
-
-Function ChangeServiceConfig(hService: HANDLE; dwServiceType, dwStartType, dwErrorControl: cardinal;
-                             lpBinaryPathName, lpLoadOrderGroup: string; lpdwTagId: cardinal;
-                             lpDependencies, lpServiceStartName, lpPassword, lpDisplayName: string): Boolean;
-external 'ChangeServiceConfigA@advapi32.dll stdcall setuponly';
+// NT API functions for services (Unused Firewall/UPnP)
+//Function OpenSCManager(lpMachineName, lpDatabaseName: string; dwDesiredAccess: cardinal): HANDLE;
+//external 'OpenSCManagerA@advapi32.dll stdcall setuponly';
+//
+//Function OpenService(hSCManager: HANDLE; lpServiceName: string; dwDesiredAccess: cardinal): HANDLE;
+//external 'OpenServiceA@advapi32.dll stdcall setuponly';
+//
+//Function CloseServiceHandle(hSCObject: HANDLE): Boolean;
+//external 'CloseServiceHandle@advapi32.dll stdcall setuponly';
+//
+//Function StartNTService(hService: HANDLE; dwNumServiceArgs: cardinal; lpServiceArgVectors: cardinal): Boolean;
+//external 'StartServiceA@advapi32.dll stdcall setuponly';
+//
+//Function QueryServiceStatus(hService: HANDLE; var ServiceStatus: SERVICE_STATUS): Boolean;
+//external 'QueryServiceStatus@advapi32.dll stdcall setuponly';
+//
+//Function ChangeServiceConfig(hService: HANDLE; dwServiceType, dwStartType, dwErrorControl: cardinal;
+//                             lpBinaryPathName, lpLoadOrderGroup: string; lpdwTagId: cardinal;
+//                             lpDependencies, lpServiceStartName, lpPassword, lpDisplayName: string): Boolean;
+//external 'ChangeServiceConfigA@advapi32.dll stdcall setuponly';
 
 Function InnoSetupUsed(): boolean;
 Begin
@@ -623,99 +623,99 @@ Begin
         Result := False;
 End;
 
-Function OpenServiceManager(): HANDLE;
-begin
-  Result := 0;
-  if (InstallOnThisVersion('0,5.01', '0,0') = irInstall) then
-    Result := OpenSCManager('', 'ServicesActive', SC_MANAGER_ALL_ACCESS);
-end;
+//Function OpenServiceManager(): HANDLE;
+//begin
+//  Result := 0;
+//  if (InstallOnThisVersion('0,5.01', '0,0') = irInstall) then
+//    Result := OpenSCManager('', 'ServicesActive', SC_MANAGER_ALL_ACCESS);
+//end;
 
-Function CanUserModifyServices(): Boolean;
-var
- hSCManager: HANDLE;
-begin
-  hSCManager := 0;
-  Result := false;
-  HasUserPrivileges := false;
-  if (InstallOnThisVersion('0,5.01', '0,0') = irInstall) then begin
-    hSCManager := OpenSCManager('', 'ServicesActive', SC_MANAGER_ALL_ACCESS);
-    if (hSCManager <> 0) then begin
-      HasUserPrivileges := true;
-      Result := true;
-      CloseServiceHandle(hSCManager);
-    end;
-  end;
-end;
+//Function CanUserModifyServices(): Boolean;
+//var
+// hSCManager: HANDLE;
+//begin
+//  hSCManager := 0;
+//  Result := false;
+//  HasUserPrivileges := false;
+//  if (InstallOnThisVersion('0,5.01', '0,0') = irInstall) then begin
+//    hSCManager := OpenSCManager('', 'ServicesActive', SC_MANAGER_ALL_ACCESS);
+//    if (hSCManager <> 0) then begin
+//      HasUserPrivileges := true;
+//      Result := true;
+//      CloseServiceHandle(hSCManager);
+//    end;
+//  end;
+//end;
 
-Function IsServiceInstalled(ServiceName: string): boolean;
-var
- hSCManager: HANDLE;
- hService: HANDLE;
-begin
-  hSCManager := OpenServiceManager();
-  Result := false;
-  if (hSCManager <> 0) then begin
-    hService := OpenService(hSCManager, ServiceName, SERVICE_QUERY_CONFIG);
-    if (hService <> 0) then begin
-      Result := true;
-      CloseServiceHandle(hService);
-    end;
-    CloseServiceHandle(hSCManager);
-  end;
-end;
+//Function IsServiceInstalled(ServiceName: string): boolean;
+//var
+// hSCManager: HANDLE;
+// hService: HANDLE;
+//begin
+//  hSCManager := OpenServiceManager();
+//  Result := false;
+//  if (hSCManager <> 0) then begin
+//    hService := OpenService(hSCManager, ServiceName, SERVICE_QUERY_CONFIG);
+//    if (hService <> 0) then begin
+//      Result := true;
+//      CloseServiceHandle(hService);
+//    end;
+//    CloseServiceHandle(hSCManager);
+//  end;
+//end;
 
-Function StartService(ServiceName: string): boolean;
-var
-  hSCManager: HANDLE;
-  hService: HANDLE;
-begin
-  hSCManager := OpenServiceManager();
-  Result := false;
-  if (hSCManager <> 0) then begin
-    hService := OpenService(hSCManager, ServiceName, SERVICE_START);
-    if (hService <> 0) then begin
-      Result := StartNTService(hService, 0, 0);
-      CloseServiceHandle(hService);
-    end;
-    CloseServiceHandle(hSCManager);
-  end;
-end;
+//Function StartService(ServiceName: string): boolean;
+//var
+//  hSCManager: HANDLE;
+//  hService: HANDLE;
+//begin
+//  hSCManager := OpenServiceManager();
+//  Result := false;
+//  if (hSCManager <> 0) then begin
+//    hService := OpenService(hSCManager, ServiceName, SERVICE_START);
+//    if (hService <> 0) then begin
+//      Result := StartNTService(hService, 0, 0);
+//      CloseServiceHandle(hService);
+//    end;
+//    CloseServiceHandle(hSCManager);
+//  end;
+//end;
 
-Function IsServiceRunning(ServiceName: string): boolean;
-var
-  hSCManager: HANDLE;
-  hService: HANDLE;
-  sStatus: SERVICE_STATUS;
-begin
-  hSCManager := OpenServiceManager();
-  Result := false;
-  if (hSCManager <> 0) then begin
-    hService := OpenService(hSCManager, ServiceName, SERVICE_QUERY_STATUS);
-    if (hService <> 0) then begin
-      if (QueryServiceStatus(hService, sStatus)) then
-        Result := (sStatus.dwCurrentState = SERVICE_RUNNING);
-      CloseServiceHandle(hService);
-    end;
-    CloseServiceHandle(hSCManager);
- end;
-end;
+//Function IsServiceRunning(ServiceName: string): boolean;
+//var
+//  hSCManager: HANDLE;
+//  hService: HANDLE;
+//  sStatus: SERVICE_STATUS;
+//begin
+//  hSCManager := OpenServiceManager();
+//  Result := false;
+//  if (hSCManager <> 0) then begin
+//    hService := OpenService(hSCManager, ServiceName, SERVICE_QUERY_STATUS);
+//    if (hService <> 0) then begin
+//      if (QueryServiceStatus(hService, sStatus)) then
+//        Result := (sStatus.dwCurrentState = SERVICE_RUNNING);
+//      CloseServiceHandle(hService);
+//    end;
+//    CloseServiceHandle(hSCManager);
+// end;
+//end;
 
-Function ChangeServiceStartup(ServiceName: string; dwStartType: cardinal): boolean;
-var
-  hSCManager: HANDLE;
-  hService: HANDLE;
-begin
-  hSCManager := OpenServiceManager();
-  Result := false;
-  if (hSCManager <> 0) then begin
-    hService := OpenService(hSCManager, ServiceName, SERVICE_CHANGE_CONFIG);
-    if (hService <> 0) then begin
-       Result := ChangeServiceConfig(hService, SERVICE_NO_CHANGE, dwStartType, SERVICE_NO_CHANGE, '','',0,'','','','');
-       CloseServiceHandle(hService);
-    end;
-    CloseServiceHandle(hSCManager);
-  end;
-end;
+//Function ChangeServiceStartup(ServiceName: string; dwStartType: cardinal): boolean;
+//var
+//  hSCManager: HANDLE;
+//  hService: HANDLE;
+//begin
+//  hSCManager := OpenServiceManager();
+//  Result := false;
+//  if (hSCManager <> 0) then begin
+//    hService := OpenService(hSCManager, ServiceName, SERVICE_CHANGE_CONFIG);
+//    if (hService <> 0) then begin
+//       Result := ChangeServiceConfig(hService, SERVICE_NO_CHANGE, dwStartType, SERVICE_NO_CHANGE, '','',0,'','','','');
+//       CloseServiceHandle(hService);
+//    end;
+//    CloseServiceHandle(hSCManager);
+//  end;
+//end;
 
 Function NextButtonClick(CurPageID: integer): Boolean;
 var
@@ -899,12 +899,12 @@ begin
         if Value <> S then
           RegWriteDWordValue(HKEY_CURRENT_USER, 'Software\PeerProject\PeerProject\Skins', S, 0);
     end;
-    RegWriteDWordValue(HKEY_CURRENT_USER, 'Software\PeerProject\PeerProject\Skins', Value, 1);
+    RegWriteDWordValue(HKEY_CURRENT_USER,  'Software\PeerProject\PeerProject\Skins', Value, 1);
     Value := IsLanguageRTL(ExpandConstant('{language}'));
-    RegWriteDWordValue(HKEY_CURRENT_USER, 'Software\PeerProject\PeerProject\Settings', 'LanguageRTL', StrToInt(Value));
+    RegWriteDWordValue(HKEY_CURRENT_USER,  'Software\PeerProject\PeerProject\Settings', 'LanguageRTL', StrToInt(Value));
     RegWriteStringValue(HKEY_CURRENT_USER, 'Software\PeerProject\PeerProject\Settings', 'Language', ExpandConstant('{language}'));
     // Set default values for other users
-    RegWriteDWordValue(HKEY_LOCAL_MACHINE, 'Software\PeerProject\PeerProject', 'DefaultLanguageRTL', StrToInt(Value));
+    RegWriteDWordValue(HKEY_LOCAL_MACHINE,  'Software\PeerProject\PeerProject', 'DefaultLanguageRTL', StrToInt(Value));
     RegWriteStringValue(HKEY_LOCAL_MACHINE, 'Software\PeerProject\PeerProject', 'DefaultLanguage', ExpandConstant('{language}'));
   end;
   Result := True;
@@ -913,68 +913,68 @@ end;
 Procedure CurStepChanged(CurStep: TSetupStep);
 var
   InstallFolder: string;
-  FirewallObject: Variant;
+//FirewallObject: Variant;
   FirewallManager: Variant;
   FirewallProfile: Variant;
+//Success: boolean;
   Reset: boolean;
-  Success: boolean;
   Path: string;
 Begin
   if CurStep=ssPostInstall then begin
-    if IsTaskSelected('firewall') then begin
-      if WizardSilent = True then begin
-        try
-          FirewallObject := CreateOleObject('HNetCfg.FwAuthorizedApplication');
-          InstallFolder := ExpandConstant('{app}\PeerProject.exe');
-          FirewallObject.ProcessImageFileName := InstallFolder;
-          FirewallObject.Name := 'PeerProject';
-          FirewallObject.Scope := NET_FW_SCOPE_ALL;
-          FirewallObject.IpVersion := NET_FW_IP_VERSION_ANY;
-          FirewallObject.Enabled := True;
-          FirewallManager := CreateOleObject('HNetCfg.FwMgr');
-          FirewallProfile := FirewallManager.LocalPolicy.CurrentProfile;
-          FirewallProfile.AuthorizedApplications.Add(FirewallObject);
-        except
-        End;
-      End else begin
-        FirewallFailed := ExpandConstant('{cm:dialog_firewall}')
-        try
-          FirewallObject := CreateOleObject('HNetCfg.FwAuthorizedApplication');
-          InstallFolder := ExpandConstant('{app}\PeerProject.exe');
-          FirewallObject.ProcessImageFileName := InstallFolder;
-          FirewallObject.Name := 'PeerProject';
-          FirewallObject.Scope := NET_FW_SCOPE_ALL;
-          FirewallObject.IpVersion := NET_FW_IP_VERSION_ANY;
-          FirewallObject.Enabled := True;
-          FirewallManager := CreateOleObject('HNetCfg.FwMgr');
-          FirewallProfile := FirewallManager.LocalPolicy.CurrentProfile;
-          FirewallProfile.AuthorizedApplications.Add(FirewallObject);
-        except
-          MsgBox(FirewallFailed, mbInformation, MB_OK);
-        End;
-      End;
-    End;
-    if IsTaskSelected('upnp') then begin
-      if (HasUserPrivileges) then begin
-        Success := false;
-        if (IsServiceInstalled('SSDPSRV') and IsServiceInstalled('upnphost')) then begin
-          if (not IsServiceRunning('SSDPSRV')) then begin
-            // Change the startup type to manual if it was disabled;
-            // we don't need to start it since UPnP Device Host service depends on it;
-            // assuming the user didn't modify the dependencies manually.
-            // Note: we could probably elevate user rights with AdjustTokenPrivileges(?)
-            Success := ChangeServiceStartup('SSDPSRV', SERVICE_DEMAND_START);
-          end else
-            Success := true;
-          if (Success) then begin
-            // We succeeded to change the startup type, so we will change another service
-            Success := ChangeServiceStartup('upnphost', SERVICE_AUTO_START);
-            if (Success and not IsServiceRunning('upnphost')) then
-              StartService('upnphost');
-          end;
-        end;
-      end;
-    end;
+//  if IsTaskSelected('firewall') then begin
+//    if WizardSilent = True then begin
+//      try
+//        FirewallObject := CreateOleObject('HNetCfg.FwAuthorizedApplication');
+//        InstallFolder := ExpandConstant('{app}\PeerProject.exe');
+//        FirewallObject.ProcessImageFileName := InstallFolder;
+//        FirewallObject.Name := 'PeerProject';
+//        FirewallObject.Scope := NET_FW_SCOPE_ALL;
+//        FirewallObject.IpVersion := NET_FW_IP_VERSION_ANY;
+//        FirewallObject.Enabled := True;
+//        FirewallManager := CreateOleObject('HNetCfg.FwMgr');
+//        FirewallProfile := FirewallManager.LocalPolicy.CurrentProfile;
+//        FirewallProfile.AuthorizedApplications.Add(FirewallObject);
+//      except
+//      End;
+//    End else begin
+//      FirewallFailed := ExpandConstant('{cm:dialog_firewall}')
+//      try
+//        FirewallObject := CreateOleObject('HNetCfg.FwAuthorizedApplication');
+//        InstallFolder := ExpandConstant('{app}\PeerProject.exe');
+//        FirewallObject.ProcessImageFileName := InstallFolder;
+//        FirewallObject.Name := 'PeerProject';
+//        FirewallObject.Scope := NET_FW_SCOPE_ALL;
+//        FirewallObject.IpVersion := NET_FW_IP_VERSION_ANY;
+//        FirewallObject.Enabled := True;
+//        FirewallManager := CreateOleObject('HNetCfg.FwMgr');
+//        FirewallProfile := FirewallManager.LocalPolicy.CurrentProfile;
+//        FirewallProfile.AuthorizedApplications.Add(FirewallObject);
+//      except
+//        MsgBox(FirewallFailed, mbInformation, MB_OK);
+//      End;
+//    End;
+//  End;
+//  if IsTaskSelected('upnp') then begin
+//    if (HasUserPrivileges) then begin
+//      Success := false;
+//      if (IsServiceInstalled('SSDPSRV') and IsServiceInstalled('upnphost')) then begin
+//        if (not IsServiceRunning('SSDPSRV')) then begin
+//          // Change the startup type to manual if it was disabled;
+//          // we don't need to start it since UPnP Device Host service depends on it;
+//          // assuming the user didn't modify the dependencies manually.
+//          // Note: we could probably elevate user rights with AdjustTokenPrivileges(?)
+//          Success := ChangeServiceStartup('SSDPSRV', SERVICE_DEMAND_START);
+//        end else
+//          Success := true;
+//        if (Success) then begin
+//          // We succeeded to change the startup type, so we will change another service
+//          Success := ChangeServiceStartup('upnphost', SERVICE_AUTO_START);
+//          if (Success and not IsServiceRunning('upnphost')) then
+//            StartService('upnphost');
+//        end;
+//      end;
+//    end;
+//  end;
   End;
   if CurStep=ssInstall then begin
     if not IsTaskSelected('firewall') then begin
@@ -992,22 +992,22 @@ Begin
 
   // Check if the needed paths exist otherwise delete it from the registry (They will be recreated later in the installation process)
   if CurStep=ssInstall then begin
-    if RegQueryStringValue(HKEY_CURRENT_USER, 'SOFTWARE\PeerProject\PeerProject\Downloads', 'CompletePath', Path) and (not DirExists(Path)) then begin
+    if RegQueryStringValue(HKEY_CURRENT_USER,  'SOFTWARE\PeerProject\PeerProject\Downloads', 'CompletePath', Path) and (not DirExists(Path)) then begin
       if not RegDeleteValue(HKEY_CURRENT_USER, 'SOFTWARE\PeerProject\PeerProject\Downloads', 'CompletePath') then begin
         MsgBox(ExpandConstant('{cm:PathNotExist,complete}'), mbError, MB_OK);
       End;
     End;
-    if RegQueryStringValue(HKEY_CURRENT_USER, 'SOFTWARE\PeerProject\PeerProject\Downloads', 'IncompletePath', Path) and (not DirExists(Path)) then begin
+    if RegQueryStringValue(HKEY_CURRENT_USER,  'SOFTWARE\PeerProject\PeerProject\Downloads', 'IncompletePath', Path) and (not DirExists(Path)) then begin
       if not RegDeleteValue(HKEY_CURRENT_USER, 'SOFTWARE\PeerProject\PeerProject\Downloads', 'IncompletePath') then begin
         MsgBox(ExpandConstant('{cm:PathNotExist,incomplete}'), mbError, MB_OK);
       End;
     End;
-    if RegQueryStringValue(HKEY_CURRENT_USER, 'SOFTWARE\PeerProject\PeerProject\Downloads', 'CollectionPath', Path) and (not DirExists(Path)) then begin
+    if RegQueryStringValue(HKEY_CURRENT_USER,  'SOFTWARE\PeerProject\PeerProject\Downloads', 'CollectionPath', Path) and (not DirExists(Path)) then begin
       if not RegDeleteValue(HKEY_CURRENT_USER, 'SOFTWARE\PeerProject\PeerProject\Downloads', 'CollectionPath') then begin
         MsgBox(ExpandConstant('{cm:PathNotExist,collection}'), mbError, MB_OK);
       End;
     End;
-    if RegQueryStringValue(HKEY_CURRENT_USER, 'SOFTWARE\PeerProject\PeerProject\Downloads', 'TorrentPath', Path) and (not DirExists(Path)) then begin
+    if RegQueryStringValue(HKEY_CURRENT_USER,  'SOFTWARE\PeerProject\PeerProject\Downloads', 'TorrentPath', Path) and (not DirExists(Path)) then begin
       if not RegDeleteValue(HKEY_CURRENT_USER, 'SOFTWARE\PeerProject\PeerProject\Downloads', 'TorrentPath') then begin
         MsgBox(ExpandConstant('{cm:PathNotExist,torrent}'), mbError, MB_OK);
       End;
@@ -1020,4 +1020,4 @@ End;
 { Pull in custom wizard pages }
 #include "Pages.iss"
 
-#expr SaveToFile("Scripts\Preprocessed.iss")
+#expr SaveToFile("Preprocessed.iss")

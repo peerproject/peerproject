@@ -21,17 +21,17 @@
 
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "Security.h"
+#include "PeerProject.h"
+#include "ShakeNeighbour.h"
+#include "Neighbours.h"
+#include "G1Neighbour.h"
+#include "G2Neighbour.h"
 #include "Network.h"
 #include "Buffer.h"
 #include "Packet.h"
+#include "Security.h"
 #include "HostCache.h"
-#include "Neighbours.h"
-#include "ShakeNeighbour.h"
-#include "G1Neighbour.h"
-#include "G2Neighbour.h"
 #include "VendorCache.h"
 
 #ifdef _DEBUG

@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "Uploads.h"
 #include "UploadFile.h"
 #include "UploadFiles.h"
@@ -320,7 +320,7 @@ void CUploadTransfer::RotatingQueue(DWORD tNow)
 {
 	if ( m_bPriority )	// Do not rotate user-unlimited upload
 		return;
-		
+
 	CSingleLock pLock( &UploadQueues.m_pSection );
 	if ( ! pLock.Lock( 350 ) )
 		return;

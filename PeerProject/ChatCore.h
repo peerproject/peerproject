@@ -19,6 +19,7 @@
 #pragma once
 
 #include "ThreadImpl.h"
+#include "EDClient.h"
 
 class CConnection;
 class CChatSession;

@@ -17,8 +17,10 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "CtrlTipAlbum.h"
+
 #include "Library.h"
 #include "LibraryFolders.h"
 #include "AlbumFolder.h"
@@ -26,7 +28,6 @@
 #include "Colors.h"
 #include "CoolInterface.h"
 #include "ShellIcons.h"
-#include "CtrlTipAlbum.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -94,8 +95,8 @@ BOOL CAlbumTipCtrl::OnPrepare()
 		else
 			m_sType += _T(" ") + strText;
 
-		m_nIcon48	= m_pAlbumFolder->m_pSchema->m_nIcon48;
-		m_nIcon32	= m_pAlbumFolder->m_pSchema->m_nIcon32;
+		m_nIcon48 = m_pAlbumFolder->m_pSchema->m_nIcon48;
+		m_nIcon32 = m_pAlbumFolder->m_pSchema->m_nIcon32;
 
 		if ( m_pAlbumFolder->m_pXML != NULL )
 		{
@@ -166,9 +167,11 @@ void CAlbumTipCtrl::OnPaint(CDC* pDC)
 
 		if ( ++nCount == 5 )
 		{
-			pt.x += 98; pt.y -= 2;
+			pt.x += 98;
+			pt.y -= 2;
 			DrawRule( pDC, &pt, TRUE );
-			pt.x -= 98; pt.y -= 2;
+			pt.x -= 98;
+			pt.y -= 2;
 		}
 	}
 }
@@ -190,7 +193,8 @@ void CAlbumTipCtrl::DrawThumb(CDC* pDC, CRect& rcThumb)
 	}
 	else if ( m_nIcon32 >= 0 )
 	{
-		pt.x += 8; pt.y += 8;
+		pt.x += 8;
+		pt.y += 8;
 		ShellIcons.Draw( pDC, m_nIcon32, 32, pt.x, pt.y );
 		if ( m_bCollection )
 			CoolInterface.Draw( pDC, IDI_COLLECTION_MASK, 16, pt.x, pt.y );

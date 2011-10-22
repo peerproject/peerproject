@@ -1,7 +1,7 @@
 //
 // GeoIP.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions Copyright MaxMind LLC, 2006-2007. (v1.4.2)
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -101,10 +101,10 @@ extern const char *GeoIPCityDBFileName;
 extern const char *GeoIPOrgDBFileName;
 extern const char *GeoIPISPDBFileName;
 
-extern const char GeoIP_country_code[251][3];
-extern const char GeoIP_country_code3[251][4];
-extern const char * GeoIP_country_name[251];
-extern const char GeoIP_country_continent[251][3];
+extern const char GeoIP_country_code[258][3];
+extern const char GeoIP_country_code3[258][4];
+extern const char * GeoIP_country_name[258];
+extern const char GeoIP_country_continent[258][3];
 
 #ifdef DLL
 #define GEOIP_API __declspec(dllexport)
@@ -120,17 +120,17 @@ GEOIP_API int GeoIP_db_avail(int type);
 GEOIP_API void GeoIP_delete(GeoIP* gi);
 GEOIP_API const char *GeoIP_country_code_by_addr (GeoIP* gi, const char *addr);
 GEOIP_API const char *GeoIP_country_code_by_name (GeoIP* gi, const char *host);
-GEOIP_API const char *GeoIP_country_code3_by_addr (GeoIP* gi, const char *addr);
-GEOIP_API const char *GeoIP_country_code3_by_name (GeoIP* gi, const char *host);
+//GEOIP_API const char *GeoIP_country_code3_by_addr (GeoIP* gi, const char *addr);
+//GEOIP_API const char *GeoIP_country_code3_by_name (GeoIP* gi, const char *host);
 GEOIP_API const char *GeoIP_country_name_by_addr (GeoIP* gi, const char *addr);
 GEOIP_API const char *GeoIP_country_name_by_name (GeoIP* gi, const char *host);
 GEOIP_API const char *GeoIP_country_name_by_ipnum (GeoIP* gi, unsigned long ipnum);
 GEOIP_API const char *GeoIP_country_code_by_ipnum (GeoIP* gi, unsigned long ipnum);
-GEOIP_API const char *GeoIP_country_code3_by_ipnum (GeoIP* gi, unsigned long ipnum);
+//GEOIP_API const char *GeoIP_country_code3_by_ipnum (GeoIP* gi, unsigned long ipnum);
 
 /* Deprecated - for backwards compatibility only */
-GEOIP_API int GeoIP_country_id_by_addr (GeoIP* gi, const char *addr);
-GEOIP_API int GeoIP_country_id_by_name (GeoIP* gi, const char *host);
+//GEOIP_API int GeoIP_country_id_by_addr (GeoIP* gi, const char *addr);
+//GEOIP_API int GeoIP_country_id_by_name (GeoIP* gi, const char *host);
 /* End deprecated */
 
 GEOIP_API int GeoIP_id_by_addr (GeoIP* gi, const char *addr);
@@ -142,17 +142,38 @@ GEOIP_API int GeoIP_id_by_ipnum (GeoIP* gi, unsigned long ipnum);
 //GEOIP_API GeoIPRegion * GeoIP_region_by_ipnum (GeoIP *gi, unsigned long ipnum);
 
 /* Warning - don't call this after GeoIP_assign_region_by_inetaddr calls */
-GEOIP_API void GeoIPRegion_delete (GeoIPRegion *gir);
+//GEOIP_API void GeoIPRegion_delete (GeoIPRegion *gir);
 
-GEOIP_API void GeoIP_assign_region_by_inetaddr(GeoIP* gi, unsigned long inetaddr, GeoIPRegion *gir);
+//GEOIP_API void GeoIP_assign_region_by_inetaddr(GeoIP* gi, unsigned long inetaddr, GeoIPRegion *gir);
 
 /* Used to query GeoIP Organization, ISP and AS Number databases */
-GEOIP_API char *GeoIP_name_by_ipnum (GeoIP* gi, unsigned long ipnum);
-GEOIP_API char *GeoIP_name_by_addr (GeoIP* gi, const char *addr);
-GEOIP_API char *GeoIP_name_by_name (GeoIP* gi, const char *host);
+//GEOIP_API char *GeoIP_name_by_ipnum (GeoIP* gi, unsigned long ipnum);
+//GEOIP_API char *GeoIP_name_by_addr (GeoIP* gi, const char *addr);
+//GEOIP_API char *GeoIP_name_by_name (GeoIP* gi, const char *host);
 
-GEOIP_API char *GeoIP_database_info (GeoIP* gi);
-GEOIP_API unsigned char GeoIP_database_edition (GeoIP* gi);
+/** return two letter country code */
+//GEOIP_API const char* GeoIP_code_by_id(int id);
+
+/** return three letter country code */
+//GEOIP_API const char* GeoIP_code3_by_id(int id);
+
+/** return full name of country in utf8 or iso-8859-1 */
+//GEOIP_API const char* GeoIP_country_name_by_id(GeoIP* gi, int id);
+
+/** return full name of country */
+//GEOIP_API const char* GeoIP_name_by_id(int id);
+
+/** return continent of country */
+//GEOIP_API const char* GeoIP_continent_by_id(int id);
+
+/** return id by country code **/
+GEOIP_API int GeoIP_id_by_code(const char *country);
+
+/** return return number of known countries */
+//GEOIP_API unsigned GeoIP_num_countries(void);
+
+//GEOIP_API char *GeoIP_database_info (GeoIP* gi);
+//GEOIP_API unsigned char GeoIP_database_edition (GeoIP* gi);
 
 /* Convert region code to region name */
 //GEOIP_API const char * GeoIP_region_name_by_code(const char *country_code, const char *region_code);

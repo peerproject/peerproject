@@ -85,11 +85,11 @@ void CAnimProgressBar::SetTimeout(DWORD dwTimeout)
  */
 void CAnimProgressBar::DrawAnimProgressBar(HDC hdc, const RECT* prcPaint) const
 {
+	RECT rcPaintClient = {};
 	if (prcPaint == NULL)
 	{
-		RECT rcClient;
-		GetClientRect(m_hwnd, &rcClient);
-		prcPaint = &rcClient;
+		GetClientRect(m_hwnd, &rcPaintClient);
+		prcPaint = &rcPaintClient;
 	}
 	if (IsRectEmpty(prcPaint))
 		return;
@@ -204,7 +204,6 @@ LRESULT CALLBACK CAnimProgressBar::AnimProgressBarWndProc(HWND hwnd, UINT uMsg, 
 	HDC hdc;
 
 	CAnimProgressBar* _this  = (CAnimProgressBar*)GetWindowLongPtr(hwnd, GWLP_USERDATA);
-	_ASSERTE(_this != NULL);
 	switch(uMsg)
 	{
 	case WM_ERASEBKGND:

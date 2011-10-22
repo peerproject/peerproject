@@ -17,8 +17,9 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "DlgDownloadMonitor.h"
 #include "Transfers.h"
 #include "Downloads.h"
 #include "Download.h"
@@ -30,11 +31,10 @@
 #include "FileExecutor.h"
 #include "CoolInterface.h"
 #include "CoolMenu.h"
-#include "ShellIcons.h"
-#include "Plugins.h"
 #include "Colors.h"
+#include "ShellIcons.h"
 #include "Skin.h"
-#include "DlgDownloadMonitor.h"
+#include "Plugins.h"
 #include "WndDownloads.h"
 #include "WndMain.h"
 
@@ -204,7 +204,7 @@ BOOL CDownloadMonitorDlg::OnInitDialog()
 	pLock.Unlock();
 
 	m_pGraph = new CLineGraph();
-	m_pItem  = new CGraphItem( 0, 1.0f, Colors.m_crMonitorGraphLine  );	// RGB( 252, 20, 10 )
+	m_pItem  = new CGraphItem( 0, 1.0f, Colors.m_crMonitorGraphLine );	// RGB( 252, 20, 10 )
 
 	m_pGraph->m_bShowLegend		= FALSE;
 	m_pGraph->m_bShowAxis		= FALSE;
@@ -695,7 +695,7 @@ void CDownloadMonitorDlg::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 	CDownloadsWnd* pDownWnd = (CDownloadsWnd*)pMainWnd->m_pWindows.Find( RUNTIME_CLASS(CDownloadsWnd) );
 	if ( ! pDownWnd ) return;
 
-	if ( ! pDownWnd->Select( m_pDownload ) ) return;
+	pDownWnd->Select( m_pDownload );
 
 	const BOOL bCompleted = m_pDownload->IsCompleted();
 
@@ -717,7 +717,7 @@ void CDownloadMonitorDlg::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 	UINT nID = pPopup->TrackPopupMenu( TPM_LEFTALIGN|TPM_LEFTBUTTON|TPM_RIGHTBUTTON|TPM_RETURNCMD,
 		point.x, point.y, pDownWnd );
 
-	if ( nID && pDownWnd->Select( m_pDownload ) )
+	if ( nID )
 		pDownWnd->SendMessage( WM_COMMAND, nID );
 }
 

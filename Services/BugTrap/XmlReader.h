@@ -892,7 +892,7 @@ inline void CXmlReader::CXmlInputStream::UnsafeWriteChar(TCHAR chValue)
  */
 inline void CXmlReader::CXmlInputStream::UnsafeWriteChar(const TCHAR arrChar[2], size_t nCharSize)
 {
-	_ASSERTE(nCharSize >= 0 && nCharSize < 2);
+	_ASSERTE(nCharSize < 2);
 	UnsafeWriteChar(arrChar[0]);
 	if (nCharSize > 1)
 		UnsafeWriteChar(arrChar[1]);
@@ -914,7 +914,7 @@ inline void CXmlReader::CXmlInputStream::UnsafePutCharBack(TCHAR chValue)
  */
 inline void CXmlReader::CXmlInputStream::UnsafePutCharBack(const TCHAR arrChar[2], size_t nCharSize)
 {
-	_ASSERTE(nCharSize >= 0 && nCharSize < 2);
+	_ASSERTE(nCharSize < 2);
 	if (nCharSize > 1)
 		UnsafePutCharBack(arrChar[1]);
 	UnsafePutCharBack(arrChar[0]);
@@ -938,8 +938,8 @@ inline void CXmlReader::CXmlInputStream::UnsafePutCharsBack(const TCHAR* pChars,
 {
 	if (nNumChars > 0)
 	{
-		for (size_t nCharPos = nNumChars - 1; nCharPos >= 0; --nCharPos)
-			UnsafePutCharBack(pChars[nCharPos]);
+		for (size_t nCharPos = 0; nCharPos < nNumChars; ++nCharPos)
+			UnsafePutCharBack(pChars[nNumChars - 1 - nCharPos]);
 	}
 }
 
@@ -1040,7 +1040,6 @@ inline CXmlReader::CXmlInputStream::~CXmlInputStream()
  */
 inline CBaseDecoder* CXmlReader::CXmlInputStream::GetDecoder(void) const
 {
-	_ASSERTE(m_pInputStream != NULL);
 	return m_pInputStream->GetDecoder();
 }
 
@@ -1050,7 +1049,6 @@ inline CBaseDecoder* CXmlReader::CXmlInputStream::GetDecoder(void) const
  */
 inline bool CXmlReader::CXmlInputStream::SetDecoder(CBaseDecoder* pDecoder)
 {
-	_ASSERTE(m_pInputStream != NULL);
 	return m_pInputStream->SetDecoder(pDecoder);
 }
 
@@ -1061,7 +1059,6 @@ inline bool CXmlReader::CXmlInputStream::SetDecoder(CBaseDecoder* pDecoder)
  */
 inline bool CXmlReader::CXmlInputStream::GetName(PTSTR pszName, size_t nNameSize) const
 {
-	_ASSERTE(m_pInputStream != NULL);
 	return m_pInputStream->GetName(pszName, nNameSize);
 }
 
@@ -1297,7 +1294,6 @@ inline CXmlReader::XML_RESULT CXmlReader::CXmlParser::ReadNextXmlNode(CXmlNode& 
  */
 inline bool CXmlReader::CXmlInputStream::CheckEncoding()
 {
-	_ASSERTE(m_pInputStream != NULL);
 	return m_pInputStream->CheckEncoding();
 }
 
@@ -1307,7 +1303,6 @@ inline bool CXmlReader::CXmlInputStream::CheckEncoding()
  */
 inline bool CXmlReader::CXmlInputStream::CheckEncoding(TEXT_ENCODING eDefaultEncoding)
 {
-	_ASSERTE(m_pInputStream != NULL);
 	return m_pInputStream->CheckEncoding(eDefaultEncoding);
 }
 

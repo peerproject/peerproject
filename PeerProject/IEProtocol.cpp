@@ -20,6 +20,7 @@
 #include "PeerProject.h"
 #include "Buffer.h"
 #include "IEProtocol.h"
+
 #include "Connection.h"
 #include "Library.h"
 #include "SharedFile.h"
@@ -366,10 +367,10 @@ HRESULT CIEProtocol::OnRequest(LPCTSTR pszURL, CBuffer& oBuffer, CString& sMimeT
 	TRACE( _T("Requested URL: %s\n"), pszURL );
 
 	if ( _tcsnicmp( pszURL, _T("p2p-col://"), 10 ) == 0 )		// p2p-col://{SHA1}/{relative path inside zip}
-		return OnRequestRAZACOL( pszURL + 10, oBuffer, sMimeType, bParseOnly );
+		return OnRequestP2PCOL( pszURL + 10, oBuffer, sMimeType, bParseOnly );
 
 	if ( _tcsnicmp( pszURL, _T("p2p-file://"), 11 ) == 0 )		// p2p-file://{SHA1}/{preview|meta}
-		return OnRequestRAZAFILE( pszURL + 11, oBuffer, sMimeType, bParseOnly );
+		return OnRequestP2PFILE( pszURL + 11, oBuffer, sMimeType, bParseOnly );
 
 	return INET_E_INVALID_URL;
 }
@@ -377,7 +378,7 @@ HRESULT CIEProtocol::OnRequest(LPCTSTR pszURL, CBuffer& oBuffer, CString& sMimeT
 /////////////////////////////////////////////////////////////////////////////
 // CIEProtocol request handler - "p2p-col"
 
-HRESULT CIEProtocol::OnRequestRAZACOL(LPCTSTR pszURL, CBuffer& oBuffer, CString& sMimeType, BOOL /*bParseOnly*/)
+HRESULT CIEProtocol::OnRequestP2PCOL(LPCTSTR pszURL, CBuffer& oBuffer, CString& sMimeType, BOOL /*bParseOnly*/)
 {
 	if ( _tcslen( pszURL ) < 32 + 1 || pszURL[32] != '/' )
 		return INET_E_INVALID_URL;
@@ -448,7 +449,7 @@ HRESULT CIEProtocol::OnRequestRAZACOL(LPCTSTR pszURL, CBuffer& oBuffer, CString&
 /////////////////////////////////////////////////////////////////////////////
 // CIEProtocol request handler - "p2p-file"
 
-HRESULT CIEProtocol::OnRequestRAZAFILE(LPCTSTR pszURL, CBuffer& oBuffer, CString& sMimeType, BOOL /*bParseOnly*/)
+HRESULT CIEProtocol::OnRequestP2PFILE(LPCTSTR pszURL, CBuffer& oBuffer, CString& sMimeType, BOOL /*bParseOnly*/)
 {
 	if ( _tcslen( pszURL ) < 32 + 1 || pszURL[32] != '/' )
 		return INET_E_INVALID_URL;

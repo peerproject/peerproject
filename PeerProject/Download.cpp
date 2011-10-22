@@ -17,21 +17,21 @@
 //
 
 #include "StdAfx.h"
+#include "Settings.h"
 #include "PeerProject.h"
-#include "BTTrackerRequest.h"
 #include "Download.h"
+#include "Downloads.h"
 #include "DownloadGroups.h"
 #include "DownloadSource.h"
 #include "DownloadTask.h"
 #include "DownloadTransfer.h"
-#include "Downloads.h"
+#include "BTTrackerRequest.h"
 #include "FileExecutor.h"
 #include "FragmentedFile.h"
 #include "Library.h"
 #include "LibraryBuilder.h"
 #include "LibraryHistory.h"
 #include "Network.h"
-#include "Settings.h"
 #include "SharedFile.h"
 #include "Statistics.h"
 #include "Transfers.h"
@@ -419,7 +419,7 @@ void CDownload::OnRun()
 
 	if ( ! IsPaused() )
 	{
-		if ( GetFileError() != ERROR_SUCCESS  )
+		if ( GetFileError() != ERROR_SUCCESS )
 		{
 			// File or disk errors
 			Pause( FALSE );
@@ -433,12 +433,12 @@ void CDownload::OnRun()
 		{
 			// Dead Download Check: if download appears dead, give up and allow another to start.
 			// Incomplete, and trying for at least 3 hours:
-			if ( ! IsCompleted() && ( tNow - GetStartTimer() ) > ( 3 * 60 * 60 * 1000 )  )
+			if ( ! IsCompleted() && tNow > GetStartTimer() + ( 3 * 60 * 60 * 1000 ) )
 			{
 				const DWORD tHoursToTry = min( ( GetEffectiveSourceCount() + 49u ) / 50u, 9lu ) + Settings.Downloads.StarveGiveUp;
 
 				// No new data for 5-14 hours
-				if ( ( tNow - m_tReceived ) > ( tHoursToTry * 60 * 60 * 1000 ) )
+				if ( tNow > m_tReceived + ( tHoursToTry * 60 * 60 * 1000 ) )
 				{
 					if ( IsTorrent() )
 					{
@@ -815,7 +815,7 @@ void CDownload::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER_VERSION
 //		return;
 //	}
 
-	CDownloadWithExtras::Serialize( ar, nVersion );
+	CDownloadWithExtras::Serialize( ar, nVersion );		// Any Previews/Reviews
 
 	if ( ar.IsStoring() )
 	{
@@ -949,7 +949,7 @@ BOOL CDownload::Launch(int nIndex, CSingleLock* pLock, BOOL bForceOriginal)
 	}
 	else if ( CanPreview( nIndex ) )
 	{
-		if ( ! bForceOriginal  )
+		if ( ! bForceOriginal )
 		{
 			// Previewing...
 			if ( pLock ) pLock->Unlock();

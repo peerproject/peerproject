@@ -17,12 +17,12 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "Transfers.h"
-#include "EDClient.h"
+#include "PeerProject.h"
 #include "EDClients.h"
+#include "EDClient.h"
 #include "EDPacket.h"
+#include "Transfers.h"
 
 #include "Network.h"
 #include "Security.h"
@@ -289,7 +289,7 @@ bool CEDClients::IsFull(const CEDClient* pCheckThis)
 	}
 
 	// Get current time
-	DWORD tNow = GetTickCount();
+	const DWORD tNow = GetTickCount();
 
 	// If there are more clients current connected than there should be, set full timer
 	if ( nCount >= Settings.eDonkey.MaxLinks )
@@ -328,7 +328,7 @@ BOOL CEDClients::IsMyDownload(const CDownloadTransferED2K* pDownload) const
 
 	for ( CEDClient* pClient = m_pFirst ; pClient ; pClient = pClient->m_pEdNext )
 	{
-		if( pClient->m_pDownloadTransfer == pDownload )
+		if ( pClient->m_pDownloadTransfer == pDownload )
 			return TRUE;
 	}
 	return FALSE;
@@ -339,9 +339,11 @@ BOOL CEDClients::IsMyDownload(const CDownloadTransferED2K* pDownload) const
 
 void CEDClients::OnRun()
 {
+	DWORD tNow = GetTickCount();
+
 	// Delay to limit the rate of ed2k packets being sent.
 	// Keep ed2k transfers under 10 KB/s per source
-	if ( GetTickCount() - m_tLastRun < Settings.eDonkey.PacketThrottle )
+	if ( tNow < m_tLastRun + Settings.eDonkey.PacketThrottle )
 		return;
 
 	CSingleLock oCTranfersLock( &Transfers.m_pSection );
@@ -352,7 +354,7 @@ void CEDClients::OnRun()
 	if ( ! oCEDClientsLock.Lock( 250 ) )
 		return;
 
-	DWORD tNow = GetTickCount();
+	tNow = GetTickCount();	// Update
 
 	if ( Settings.eDonkey.ServerWalk &&
 		 Network.IsConnected() &&
@@ -665,7 +667,7 @@ void CEDClients::RunGlobalStatsRequests(DWORD tNow)
 		CQuickLock oLock( HostCache.eDonkey.m_pSection );
 
 		// Loop through servers in the host cache
-		for ( CHostCacheIterator i = HostCache.eDonkey.Begin() ; i != HostCache.eDonkey.End(); ++i )
+		for ( CHostCacheIterator i = HostCache.eDonkey.Begin() ; i != HostCache.eDonkey.End() ; ++i )
 		{
 			CHostCacheHostPtr pHost = (*i);
 
@@ -675,8 +677,8 @@ void CEDClients::RunGlobalStatsRequests(DWORD tNow)
 
 			// Check if this server could be asked for stats
 			if ( ( pHost->CanQuery( tSecs ) ) &&													// If it hasn't been searched recently
-				 ( ( tSecs > pHost->m_tStats + Settings.eDonkey.StatsServerThrottle  ) ||			// AND we have not checked this host in a week
-				   ( ( pHost->m_nFailures > 0 ) && ( tSecs > pHost->m_tStats + 8*60*60  ) ) ) &&	// OR last check failed, have not checked in 8 hours
+				 ( ( tSecs > pHost->m_tStats + Settings.eDonkey.StatsServerThrottle ) ||			// AND we have not checked this host in a week
+				   ( ( pHost->m_nFailures > 0 ) && ( tSecs > pHost->m_tStats + 8*60*60 ) ) ) && 	// OR last check failed, have not checked in 8 hours
 				 ( ( pHost->m_nUDPFlags == 0 ) || ( m_bAllServersDone ) ) )							// AND it has no flags set OR we have checked all servers
 			{
 				CSingleLock pLock( &Network.m_pSection );

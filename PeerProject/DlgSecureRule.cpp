@@ -17,11 +17,11 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "DlgSecureRule.h"
 #include "Security.h"
 #include "Skin.h"
-#include "DlgSecureRule.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -298,7 +298,7 @@ BOOL CSecureRuleDlg::GetClipboardAddress()
 	BOOL bMask;
 	if ( pFocus == &m_wndIP1 || pFocus == &m_wndIP2 || pFocus == &m_wndIP3 || pFocus == &m_wndIP4 )
 		bMask = FALSE;
-	else if ( pFocus == &m_wndMask1 || pFocus == &m_wndMask2 || pFocus == &m_wndMask3 | pFocus == &m_wndMask4 )
+	else if ( pFocus == &m_wndMask1 || pFocus == &m_wndMask2 || pFocus == &m_wndMask3 || pFocus == &m_wndMask4 )
 		bMask = TRUE;
 	else
 		return FALSE;
@@ -323,7 +323,7 @@ BOOL CSecureRuleDlg::GetClipboardAddress()
 		CloseClipboard();
 		str.Trim( _T(" \t\r\n") );
 
-		if ( str.GetLength() > 16 && ! str.Find( _T("/255.") ) > 6 )
+		if ( str.GetLength() > 16 && str.Find( _T("/255.") ) < 6 )
 			return TRUE;	// Assume bad string, but should handle ip+mask too
 	}
 

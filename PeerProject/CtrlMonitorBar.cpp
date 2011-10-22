@@ -17,13 +17,13 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "GraphItem.h"
-#include "Colors.h"
-#include "CoolInterface.h"
+#include "PeerProject.h"
 #include "CtrlMonitorBar.h"
+#include "CoolInterface.h"
+#include "Colors.h"
 #include "Skin.h"
+#include "GraphItem.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -427,7 +427,8 @@ void CMonitorBarCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 	}
 	else
 	{
-		CControlBar::OnLButtonDown( nFlags, point );
+		if ( GetDC()->m_hDC )	// Strange rare crashfix
+			CControlBar::OnLButtonDown( nFlags, point );
 		return;
 	}
 
@@ -462,7 +463,7 @@ void CMonitorBarCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 		DWORD nScale;
 		if ( pt.y <= rcTrack.top )
 			nScale = 101;
-		else if  ( pt.y <= rcTrack.top + 2 )
+		else if ( pt.y <= rcTrack.top + 2 )
 			nScale = 100;
 		//else if ( pt.y >= rcTrack.bottom - 1 )
 		//	nScale = 0; 	// Disable?

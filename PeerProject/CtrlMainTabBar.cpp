@@ -1,7 +1,7 @@
 //
 // CtrlMainTabBar.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -17,14 +17,15 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "Colors.h"
-#include "CoolInterface.h"
+#include "PeerProject.h"
 #include "CtrlMainTabBar.h"
+
 #include "CtrlCoolBar.h"
-#include "SkinWindow.h"
+#include "CoolInterface.h"
+#include "Colors.h"
 #include "Skin.h"
+#include "SkinWindow.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -50,11 +51,11 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CMainTabBarCtrl construction
 
-CMainTabBarCtrl::CMainTabBarCtrl() :
-	m_pSkin( NULL ),
-	m_pHover( NULL ),
-	m_pDown( NULL ),
-	m_dwHoverTime( 0 )
+CMainTabBarCtrl::CMainTabBarCtrl()
+	: m_pSkin	( NULL )
+	, m_pHover	( NULL )
+	, m_pDown	( NULL )
+	, m_dwHoverTime ( 0 )
 {
 }
 
@@ -187,7 +188,7 @@ void CMainTabBarCtrl::OnUpdateCmdUI(CFrameWnd* pTarget, BOOL /*bDisableIfNoHndle
 CSize CMainTabBarCtrl::CalcFixedLayout(BOOL bStretch, BOOL /*bHorz*/)
 {
 	CRect rcBackground;
-	CSize size( 0, Skin.m_nToolbarHeight );	//ToDo: Use Unique Size
+	CSize size( 0, Skin.m_nToolbarHeight );	// ToDo: Use Unique Size
 
 	if ( m_pSkin != NULL && m_pSkin->GetAnchor( _T("Background"), rcBackground ) )
 		size = rcBackground.Size();
@@ -529,8 +530,8 @@ void CMainTabBarCtrl::TabItem::OnSkinChange(CSkinWindow* pSkin, CDC* pdcCache, C
 
 BOOL CMainTabBarCtrl::TabItem::Update(CFrameWnd* pWnd)
 {
-	BOOL bEnabled	= m_bEnabled;
-	BOOL bSelected	= m_bSelected;
+	BOOL bEnabled  = m_bEnabled;
+	BOOL bSelected = m_bSelected;
 
 	DoUpdate( pWnd, TRUE );
 
@@ -626,9 +627,9 @@ void CMainTabBarCtrl::TabItem::Paint(CDC* pDstDC, CDC* pSrcDC, const CPoint& ptO
 	if ( crNavBarOutline != CLR_NONE )
 	{
 		pDstDC->SetTextColor( crNavBarOutline );
-		for ( int x = -1; x < 2; x++ )
+		for ( int x = -1 ; x < 2 ; x++ )
 		{
-			for ( int y = -1; y < 2; y ++ )
+			for ( int y = -1 ; y < 2 ; y ++ )
 			{
 				if ( x || y )
 					pDstDC->DrawText( m_sTitle, rcTarget + CPoint( x, y ),

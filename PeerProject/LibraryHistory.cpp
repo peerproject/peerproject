@@ -17,10 +17,10 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "Library.h"
+#include "PeerProject.h"
 #include "LibraryHistory.h"
+#include "Library.h"
 #include "SharedFile.h"
 
 #ifdef _DEBUG

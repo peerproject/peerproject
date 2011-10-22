@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Catalan Skin File -->
 
-<!-- Translation based on default-en.xml r69 -->
+<!-- Translation based on default-en.xml r70 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -234,7 +234,6 @@
 		<rightAlign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Cerca:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
-
 		<separator/>
 		<button id="ID_LIBRARY_PANEL" text="Detalls"/>
 	</toolbar>
@@ -259,7 +258,6 @@
 		<rightAlign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Cerca:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
-
 		<separator/>
 		<button id="ID_LIBRARY_PANEL" text="Detalls"/>
 	</toolbar>
@@ -433,11 +431,11 @@
 	</toolbar>
 	<toolbar name="WebServices.ShareMonkey.WithSave">
 		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Get Data"/>
-		<button id="ID_SHAREMONKEY_SAVE" text="Save"/>
+		<button id="ID_SHAREMONKEY_SAVE" text="Enregistra"/>
 		<control id="ID_SHAREMONKEY_SAVE_OPTION" text="Save Preview" width="100" checked="true"/>
 		<separator/>
-		<button id="ID_SHAREMONKEY_PREVIOUS" text="Previous"/>
-		<button id="ID_SHAREMONKEY_NEXT" text="Next"/>
+		<button id="ID_SHAREMONKEY_PREVIOUS" text="Anterior"/>
+		<button id="ID_SHAREMONKEY_NEXT" text="Següent"/>
 		<separator/>
 		<button id="ID_SHAREMONKEY_PRICES" text="Get Prices"/>
 		<button id="ID_SHAREMONKEY_COMPARE" text="Compare"/>
@@ -861,7 +859,7 @@
 		<item id="ID_TAB_TRANSFERS" text="_Descàrregues"/>
 		<item id="ID_TAB_IRC" text="_Chat"/>
 		<separator/>
-		<menu text="_Advanced">
+		<menu text="_Advancia">
 			<item id="ID_VIEW_NEIGHBOURS" text="_Xarxa"/>
 			<item id="ID_VIEW_UPLOADS" text="_Pujades"/>
 			<item id="ID_VIEW_SECURITY" text="_Seguretat"/>
@@ -1535,7 +1533,7 @@
 			<item id="ID_SYSTEM_VERBOSE_INFO" text="_Info"/>
 			<item id="ID_SYSTEM_VERBOSE_DEBUG" text="_Debug"/>
 		</menu>
-		<item id="ID_SYSTEM_TIMESTAMP" text="Timestam_p"/>
+		<item id="ID_SYSTEM_TIMESTAMP" text="_Timestamp"/>
 		<separator/>
 		<item id="ID_SYSTEM_COPY" text="_Copia" shortcut="Ctrl+C"/>
 		<separator/>
@@ -3107,7 +3105,7 @@
 	<string id="20576" value="Enviant QRT a %s (%i bit = %lu[%i], %i%% full)"/>
 	<string id="20577" value="El veí %s ha enviat un QRT incorrecte. %s."/>
 	<string id="20578" value="El veí %s actualitzà el QRT (%i bit = %lu[%i], %i%% full)."/>
-	<string id="20579" value="%s -> %s [%i/%i] %s %s"/>
+	<string id="20579" value="%s -&gt; %s [%i/%i] %s %s"/>
 	<string id="20580" value="El veí en mode Leaf %s està reenviant cerques. Connexió tancada."/>
 	<string id="20581" value="El veí %s ha enviat un paquet de ping amb mida invàlida. Ignorant..."/>
 	<string id="20582" value="El veí %s ha enviat un paquet de pong amb mida invàlida, Ignorant..."/>
@@ -4188,13 +4186,13 @@
 		<control caption="Solo Un Dia"/>
 		<control/>
 		<control/>
-		<control caption="Dil"/>
-		<control caption="Dim"/>
-		<control caption="Dix"/>
-		<control caption="Dij"/>
-		<control caption="Div"/>
-		<control caption="Dis"/>
-		<control caption="Diu"/>
+		<control caption="Dilluns"/>
+		<control caption="Dimarts"/>
+		<control caption="Dimecres"/>
+		<control caption="Dijous"/>
+		<control caption="Divendres"/>
+		<control caption="Dissabte"/>
+		<control caption="Diumenge"/>
 		<control caption="Tots"/>
 		<control caption="Comentaris"/>
 		<control/>
@@ -4453,9 +4451,9 @@
 	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Avís d'actualització">
 		<control caption="Una nova versió de PeerProject està disponible. Vols actualitzar el programa?"/>
 		<control caption="Si selecciones actualitzar ara, PeerProject afegirà l' actualització a la teva cua de descàrrega i, automàticament, es descarregarà."/>
-		<control caption="_Actualitza ara"/>
 		<control caption="No comproves si hi ha noves versions"/>
-		<control caption="No vull actualitzar"/>
+		<control caption="_Actualitza ara"/>
+		<control caption="Cancel·la"/>
 	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Localització de la metainformació">
 		<control caption="Selecciona un mètode de codificació"/>
@@ -4626,6 +4624,7 @@
 		<column from="Filename" to="Nom d'arxiu"/>
 		<column from="Size" to="Mida"/>
 		<column from="Status" to="Estat"/>
+		<column from="Index" to="Index"/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to="Rastrejador"/>

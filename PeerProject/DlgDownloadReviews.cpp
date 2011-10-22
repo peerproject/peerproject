@@ -17,9 +17,10 @@
 //
 
 #include "StdAfx.h"
+#include "Settings.h"
 #include "PeerProject.h"
 #include "DlgDownloadReviews.h"
-#include "Settings.h"
+
 #include "LiveList.h"
 #include "Download.h"
 #include "Downloads.h"

@@ -1,7 +1,7 @@
 //
 // CtrlChatFrame.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2011
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -17,17 +17,18 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "CtrlChatFrame.h"
-#include "RichElement.h"
-#include "EDClients.h"
-#include "EDPacket.h"
+
 #include "ChatWindows.h"
 #include "ChatCore.h"
 #include "ChatSession.h"
 #include "Colors.h"
 #include "Emoticons.h"
+#include "RichElement.h"
+#include "EDClients.h"
+#include "EDPacket.h"
 #include "WndChat.h"
 
 #ifdef _DEBUG
@@ -41,6 +42,10 @@ IMPLEMENT_DYNAMIC(CChatFrame, CWnd)
 BEGIN_MESSAGE_MAP(CChatFrame, CWnd)
 	ON_WM_CREATE()
 	ON_WM_DESTROY()
+	ON_WM_TIMER()
+	ON_WM_SETFOCUS()
+	ON_WM_DRAWITEM()
+	ON_WM_MEASUREITEM()
 	ON_UPDATE_COMMAND_UI(ID_CHAT_BOLD, OnUpdateChatBold)
 	ON_COMMAND(ID_CHAT_BOLD, OnChatBold)
 	ON_UPDATE_COMMAND_UI(ID_CHAT_ITALIC, OnUpdateChatItalic)
@@ -54,10 +59,6 @@ BEGIN_MESSAGE_MAP(CChatFrame, CWnd)
 	ON_COMMAND(ID_CHAT_DISCONNECT, OnChatDisconnect)
 	ON_COMMAND(ID_CHAT_CLEAR, OnChatClear)
 	ON_COMMAND(ID_CHAT_EMOTICONS, OnChatEmoticons)
-	ON_WM_MEASUREITEM()
-	ON_WM_DRAWITEM()
-	ON_WM_TIMER()
-	ON_WM_SETFOCUS()
 	ON_NOTIFY(RVN_CLICK, IDC_CHAT_TEXT, OnClickView)
 	ON_UPDATE_COMMAND_UI(ID_CHAT_TIMESTAMP, OnUpdateChatTimestamp)
 	ON_COMMAND(ID_CHAT_TIMESTAMP, OnChatTimestamp)
@@ -181,8 +182,9 @@ BOOL CChatFrame::PreTranslateMessage(MSG* pMsg)
 	{
 		if ( ! m_pSession ) return TRUE;
 
-		if ( pMsg->wParam == VK_RETURN )
+		switch ( pMsg->wParam )
 		{
+		case VK_RETURN:
 			m_wndEdit.GetWindowText( m_sCurrent );
 			if ( m_sCurrent.IsEmpty() ) return TRUE;
 
@@ -196,61 +198,56 @@ BOOL CChatFrame::PreTranslateMessage(MSG* pMsg)
 			m_sCurrent.Empty();
 			m_wndEdit.SetWindowText( m_sCurrent );
 			return TRUE;
-		}
-		else if ( pMsg->wParam == VK_ESCAPE )
-		{
+
+		case VK_ESCAPE:
 			m_wndEdit.SetWindowText( _T("") );
 			m_nHistory = static_cast< int >( m_pHistory.GetSize() );
 			m_sCurrent.Empty();
 			return TRUE;
-		}
-		else if ( pMsg->wParam == VK_UP )
-		{
+
+		case VK_UP:
 			MoveHistory( -1 );
 			return TRUE;
-		}
-		else if ( pMsg->wParam == VK_DOWN )
-		{
+
+		case VK_DOWN:
 			MoveHistory( 1 );
 			return TRUE;
-		}
-		else if ( pMsg->wParam == VK_PRIOR )
-		{
+
+		case VK_PRIOR:	// Left
 			m_wndView.PostMessage( WM_VSCROLL, MAKELONG( SB_PAGEUP, 0 ), NULL );
 			return TRUE;
-		}
-		else if ( pMsg->wParam == VK_NEXT )
-		{
+
+		case VK_NEXT:	// Right
 			m_wndView.PostMessage( WM_VSCROLL, MAKELONG( SB_PAGEDOWN, 0 ), NULL );
 			return TRUE;
-		}
-		else if ( pMsg->wParam == VK_HOME && ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 ) )
-		{
+
+		case VK_HOME:
+			if ( ! ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 ) ) break;
 			m_wndView.PostMessage( WM_VSCROLL, MAKELONG( SB_TOP, 0 ), NULL );
 			return TRUE;
-		}
-		else if ( pMsg->wParam == VK_END && ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 ) )
-		{
+
+		case VK_END:
+			if ( ! ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 ) ) break;
 			m_wndView.PostMessage( WM_VSCROLL, MAKELONG( SB_BOTTOM, 0 ), NULL );
 			return TRUE;
-		}
-		else if ( pMsg->wParam == 'B' && ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 ) )
-		{
+
+		case 'B':
+			if ( ! ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 ) ) break;
 			OnChatBold();
 			return TRUE;
-		}
-		else if ( pMsg->wParam == 'I' && ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 ) )
-		{
+
+		case 'I':
+			if ( ! ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 ) ) break;
 			OnChatItalic();
 			return TRUE;
-		}
-		else if ( pMsg->wParam == 'U' && ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 ) )
-		{
+
+		case 'U':
+			if ( ! ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 ) ) break;
 			OnChatUnderline();
 			return TRUE;
-		}
-		else if ( pMsg->wParam == 'K' && ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 ) )
-		{
+
+		case 'K':
+			if ( ! ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 ) ) break;
 			OnChatColor();
 			return TRUE;
 		}
@@ -491,7 +488,7 @@ void CChatFrame::OnChatEmoticons()
 	if ( nID == 0 ) return;
 
 	LPCTSTR pszToken = Emoticons.GetText( nID - 1 );
-	if ( pszToken != NULL ) InsertText( pszToken );
+	if ( pszToken != NULL ) InsertText( L" " + (CString)pszToken + L" " );
 }
 
 void CChatFrame::OnChatClear()
@@ -512,18 +509,19 @@ void CChatFrame::OnChatTimestamp()
 
 void CChatFrame::OnUpdateChatConnect(CCmdUI* pCmdUI)
 {
-	BOOL bState = ( m_pSession != NULL ) &&
-				  ( m_pSession->GetConnectedState() == TRI_FALSE );
-	if ( CCoolBarItem* pItem = CCoolBarItem::FromCmdUI( pCmdUI ) ) pItem->Show( bState );
+	const BOOL bState = m_pSession && m_pSession->GetConnectedState() == TRI_FALSE;
+	if ( CCoolBarItem* pItem = CCoolBarItem::FromCmdUI( pCmdUI ) )
+		pItem->Show( bState );
 	pCmdUI->Enable( bState );
 }
 
 void CChatFrame::OnChatConnect()
 {
-	if ( m_pSession != NULL && m_pSession->GetConnectedState() == TRI_FALSE )
+	if ( m_pSession && m_pSession->GetConnectedState() == TRI_FALSE )
 	{
 		CWnd* pParent = GetParent();
-		if ( pParent->IsIconic() ) pParent->ShowWindow( SW_SHOWNORMAL );
+		if ( pParent->IsIconic() )
+			pParent->ShowWindow( SW_SHOWNORMAL );
 		pParent->BringWindowToTop();
 		pParent->SetForegroundWindow();
 		m_pSession->Connect();
@@ -532,15 +530,15 @@ void CChatFrame::OnChatConnect()
 
 void CChatFrame::OnUpdateChatDisconnect(CCmdUI* pCmdUI)
 {
-	BOOL bState = ( m_pSession != NULL ) &&
-				  ( m_pSession->GetConnectedState() != TRI_FALSE );
-	if ( CCoolBarItem* pItem = CCoolBarItem::FromCmdUI( pCmdUI ) ) pItem->Show( bState );
+	const BOOL bState = m_pSession && m_pSession->GetConnectedState() != TRI_FALSE;
+	if ( CCoolBarItem* pItem = CCoolBarItem::FromCmdUI( pCmdUI ) )
+		pItem->Show( bState );
 	pCmdUI->Enable( bState );
 }
 
 void CChatFrame::OnChatDisconnect()
 {
-	if ( m_pSession != NULL ) m_pSession->Close();
+	if ( m_pSession ) m_pSession->Close();
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -551,7 +549,7 @@ void CChatFrame::OnTimer(UINT_PTR nIDEvent)
 	if ( nIDEvent == 1 )
 	{
 		if ( m_pChildWnd != NULL ) m_pChildWnd->SetAlert();
-		// if ( m_pDesktopWnd != NULL ) m_pDesktopWnd->SetAlert();
+		//if ( m_pDesktopWnd != NULL ) m_pDesktopWnd->SetAlert();
 	}
 	else if ( nIDEvent == 4 )
 	{

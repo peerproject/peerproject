@@ -17,8 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
 #include "LocalSearch.h"
 #include "QuerySearch.h"
 #include "QueryHit.h"
@@ -380,7 +380,7 @@ void CLocalSearch::AddHitG1(CG1Packet* pPacket, CSchemaMap& pSchemas, CLibraryFi
 		{
 			if ( CGGEPItem* pItem = pBlock.Add( GGEP_HEADER_ALTS ) )
 			{
-				for ( POSITION pos = pFile->m_pSources.GetHeadPosition(); pos; )
+				for ( POSITION pos = pFile->m_pSources.GetHeadPosition() ; pos ; )
 				{
 					CSharedSource* pSource = pFile->m_pSources.GetNext( pos );
 					CPeerProjectURL oURL( pSource->m_sURL );

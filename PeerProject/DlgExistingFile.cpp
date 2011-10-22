@@ -17,12 +17,12 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "Colors.h"
+#include "PeerProject.h"
 #include "Library.h"
 #include "SharedFile.h"
 #include "DlgExistingFile.h"
+#include "Colors.h"
 #include "WndMain.h"
 #include "WndLibrary.h"
 
@@ -52,7 +52,7 @@ CExistingFileDlg::Action CExistingFileDlg::CheckExisting(const CPeerProjectFile*
 	if ( pLibFile == NULL )
 		return Download;
 
-	DWORD nIndex = pLibFile->m_nIndex;
+	const DWORD nIndex = pLibFile->m_nIndex;
 
 	CExistingFileDlg dlg( pLibFile );
 
@@ -97,13 +97,13 @@ CExistingFileDlg::CExistingFileDlg(CLibraryFile* pFile, CWnd* pParent, bool bDup
 		else if ( pFile->m_oTiger )
 			m_sURN = pFile->m_oTiger.toUrn();
 
-		m_sComments		= pFile->m_sComments;
-		m_bAvailable	= pFile->IsAvailable() ? TRI_FALSE : TRI_UNKNOWN;
+		m_sComments  = pFile->m_sComments;
+		m_bAvailable = pFile->IsAvailable() ? TRI_FALSE : TRI_UNKNOWN;
 	}
 	else if ( pFile->m_oMD5 )
 	{
 		m_sURN = pFile->m_oMD5.toUrn();
-		m_bAvailable	= TRI_TRUE;
+		m_bAvailable = TRI_TRUE;
 	}
 }
 

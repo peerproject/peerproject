@@ -17,6 +17,7 @@
 //
 
 #include "StdAfx.h"
+#include "Settings.h"
 #include "PeerProject.h"
 #include "DlgDeleteFile.h"
 
@@ -24,7 +25,6 @@
 #include "SharedFile.h"
 #include "Download.h"
 #include "ShellIcons.h"
-#include "Settings.h"
 #include "Skin.h"
 #include "Colors.h"
 #include "CoolInterface.h"
@@ -197,7 +197,7 @@ void CDeleteFileDlg::Create(CDownload* pDownload, BOOL bShare)
 		pFile = LibraryMaps.LookupFileByMD5( pDownload->m_oMD5 );
 
 	if ( pFile == NULL && m_bCreateGhost &&
-		 ( m_nRateValue > 0 || ! m_sComments.IsEmpty() ) ) // The file is not completed
+		 ( m_nRateValue > 0 || ! m_sComments.IsEmpty() ) )	// The file is not completed
 	{
 		pFile = new CLibraryFile( NULL, pDownload->m_sName );
 		pFile->m_nSize		= pDownload->m_nSize;

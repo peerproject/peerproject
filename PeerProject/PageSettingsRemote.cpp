@@ -17,12 +17,12 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
+#include "PeerProject.h"
+#include "PageSettingsRemote.h"
 #include "Colors.h"
 #include "Network.h"
 #include "Handshakes.h"
-#include "PageSettingsRemote.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE

@@ -17,10 +17,10 @@
 //
 
 #include "StdAfx.h"
-#include "PeerProject.h"
 #include "Settings.h"
-#include "Network.h"
+#include "PeerProject.h"
 #include "PongCache.h"
+#include "Network.h"
 #include "G1Packet.h"
 
 #ifdef _DEBUG

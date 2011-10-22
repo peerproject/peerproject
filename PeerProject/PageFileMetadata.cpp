@@ -18,12 +18,13 @@
 
 #include "StdAfx.h"
 #include "PeerProject.h"
+#include "PageFileMetadata.h"
+
 #include "Library.h"
 #include "SharedFile.h"
 #include "SchemaCache.h"
 #include "Schema.h"
 #include "XML.h"
-#include "PageFileMetadata.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -45,9 +46,9 @@ END_MESSAGE_MAP()
 // CFileMetadataPage property page
 
 CFileMetadataPage::CFileMetadataPage()
-	: CFilePropertiesPage	(CFileMetadataPage::IDD)
-	, m_pSchemaContainer	(NULL)
-	, m_pXML				(NULL)
+	: CFilePropertiesPage	( CFileMetadataPage::IDD )
+	, m_pSchemaContainer	( NULL )
+	, m_pXML				( NULL )
 {
 }
 

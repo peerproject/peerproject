@@ -17,13 +17,13 @@
 //
 
 #include "StdAfx.h"
+#include "Settings.h"
 #include "PeerProject.h"
 #include "DownloadGroup.h"
+
 #include "DownloadGroups.h"
 #include "Downloads.h"
 #include "Download.h"
-
-#include "Settings.h"
 #include "SchemaCache.h"
 #include "ShellIcons.h"
 #include "QuerySearch.h"
