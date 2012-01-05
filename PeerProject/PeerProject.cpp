@@ -1,7 +1,7 @@
 //
 // PeerProject.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -33,7 +33,6 @@
 #include "FileExecutor.h"
 #include "Firewall.h"
 #include "Flags.h"
-#include "FontManager.h"
 #include "GProfile.h"
 #include "HostCache.h"
 #include "IEProtocol.h"
@@ -187,7 +186,6 @@ CPeerProjectApp::CPeerProjectApp()
 	, m_nFontQuality			( DEFAULT_QUALITY )
 
 	, m_hCryptProv				( NULL )
-	, m_pfnRegisterApplicationRestart ( NULL )
 
 	, m_dlgSplash				( NULL )
 	, m_hTheme					( NULL )
@@ -204,6 +202,10 @@ CPeerProjectApp::CPeerProjectApp()
 	, m_pfnSHGetFolderPathW 	( NULL )
 	, m_pfnSHGetKnownFolderPath	( NULL )
 	, m_pfnSHQueryUserNotificationState	( NULL )
+
+	, m_hUser32					( NULL )
+	, m_pfnChangeWindowMessageFilter ( NULL )
+	, m_pfnRegisterApplicationRestart ( NULL )
 
 	, m_hLibGFL					( NULL )
 	, m_hGeoIP					( NULL )
@@ -256,6 +258,7 @@ BOOL CPeerProjectApp::InitInstance()
 		return FALSE;
 
 	AfxOleInit();				// Initializes OLE support for the application.
+	CoInitializeSecurity( NULL, -1, NULL, NULL, RPC_C_AUTHN_LEVEL_PKT, RPC_C_IMP_LEVEL_IMPERSONATE, NULL, EOAC_NONE, NULL );
 
 	GetVersionNumber();
 	Settings.Load();			// Loads settings. Depends on GetVersionNumber()
@@ -623,12 +626,14 @@ int CPeerProjectApp::ExitInstance()
 	if ( m_hTheme != NULL )
 		FreeLibrary( m_hTheme );
 
-	if ( m_hShell32 != NULL )
-		FreeLibrary( m_hShell32 );
-
 	if ( m_hShlWapi != NULL )
 		FreeLibrary( m_hShlWapi );
 
+	if ( m_hShell32 != NULL )
+		FreeLibrary( m_hShell32 );
+
+	if ( m_hUser32 != NULL )
+		FreeLibrary( m_hUser32 );
 	if ( m_hLibGFL != NULL )
 		FreeLibrary( m_hLibGFL );
 
@@ -1214,6 +1219,22 @@ void CPeerProjectApp::InitResources()
 		(FARPROC&)m_pfnSHQueryUserNotificationState = GetProcAddress( m_hShell32, "SHQueryUserNotificationState" );		// Vista+	SHQueryUserNotificationState()  for IsUserFullscreen()
 	}
 
+	if ( ( m_hUser32 = LoadLibrary( _T("user32.dll") ) ) != NULL )
+	{
+		(FARPROC&)m_pfnChangeWindowMessageFilter = GetProcAddress( m_hUser32, "ChangeWindowMessageFilter" );			// Vista+	ChangeWindowMessageFilter() for below only
+	}
+
+	// Windows Vista: Enable drag-n-drop and window control operations from application with lower security level
+	if ( theApp.m_pfnChangeWindowMessageFilter )
+	{
+		VERIFY( theApp.m_pfnChangeWindowMessageFilter( WM_DDE_INITIATE, MSGFLT_ADD ) );
+		VERIFY( theApp.m_pfnChangeWindowMessageFilter( WM_DROPFILES, MSGFLT_ADD ) );
+		VERIFY( theApp.m_pfnChangeWindowMessageFilter( WM_COPYGLOBALDATA, MSGFLT_ADD ) );
+		VERIFY( theApp.m_pfnChangeWindowMessageFilter( WM_COPYDATA, MSGFLT_ADD ) );
+		VERIFY( theApp.m_pfnChangeWindowMessageFilter( WM_COMMAND, MSGFLT_ADD ) );
+		VERIFY( theApp.m_pfnChangeWindowMessageFilter( WM_CLOSE, MSGFLT_ADD ) );
+	}
+
 	LoadCountry();	// GeoIP
 
 	// Load LibGFL in a custom way, so PeerProject plugins can use this library too when not in their search path (From Plugins folder, and when running inside Visual Studio)
@@ -1260,15 +1281,15 @@ void CPeerProjectApp::InitResources()
 	if ( Settings.Fonts.PacketDumpFont.IsEmpty() )
 		Settings.Fonts.PacketDumpFont = _T("Lucida Console");
 
-	m_gdiFont.CreateFont( -(int)Settings.Fonts.FontSize, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
+	m_gdiFont.CreateFont( -(int)Settings.Fonts.DefaultSize, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, m_nFontQuality,
 		DEFAULT_PITCH|FF_DONTCARE, Settings.Fonts.DefaultFont );
 
-	m_gdiFontBold.CreateFont( -(int)Settings.Fonts.FontSize, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
+	m_gdiFontBold.CreateFont( -(int)Settings.Fonts.DefaultSize, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, m_nFontQuality,
 		DEFAULT_PITCH|FF_DONTCARE, Settings.Fonts.DefaultFont );
 
-	m_gdiFontLine.CreateFont( -(int)Settings.Fonts.FontSize, 0, 0, 0, FW_NORMAL, FALSE, TRUE, FALSE,
+	m_gdiFontLine.CreateFont( -(int)Settings.Fonts.DefaultSize, 0, 0, 0, FW_NORMAL, FALSE, TRUE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, m_nFontQuality,
 		DEFAULT_PITCH|FF_DONTCARE, Settings.Fonts.DefaultFont );
 
@@ -2510,7 +2531,7 @@ void DeleteFolders(CStringList& pList)
 	}
 }
 
-void DeleteFiles(CStringList& pList)
+BOOL DeleteFiles(CStringList& pList)
 {
 	// From WndDownloads
 	while ( ! pList.IsEmpty() )
@@ -2536,7 +2557,7 @@ void DeleteFiles(CStringList& pList)
 		}
 
 		if ( dlg.DoModal() != IDOK )
-			break;
+			return FALSE;
 
 		for ( INT_PTR nProcess = dlg.m_bAll ? pList.GetCount() : 1 ;
 			nProcess > 0 && pList.GetCount() > 0 ; nProcess-- )
@@ -2563,6 +2584,8 @@ void DeleteFiles(CStringList& pList)
 	}
 
 	// Note: Cleanup empty folders for multifile torrents
+
+	return TRUE;
 }
 
 BOOL DeleteFileEx(LPCTSTR szFileName, BOOL bShared, BOOL bToRecycleBin, BOOL bEnableDelayed)

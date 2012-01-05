@@ -1,7 +1,7 @@
 //
 // CtrlLibraryMetaPanel.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -458,7 +458,7 @@ void CLibraryMetaPanel::OnLButtonUp(UINT nFlags, CPoint point)
 
 	if ( m_nSelected > 0 && m_rcFolder.PtInRect( point ) )
 	{
-		//CQuickLock oLock( Library.m_pSection );
+		CQuickLock oLock( Library.m_pSection );
 
 		if ( CLibraryFolder* pFolder = LibraryFolders.GetFolder( m_sFolder ) )
 		{

@@ -1,7 +1,7 @@
 //
 // CollectionFile.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -30,6 +30,7 @@
 
 #include "Library.h"
 #include "Downloads.h"
+#include "Transfers.h"	// Locks
 #include "PeerProjectURL.h"
 #include "SharedFile.h"
 
@@ -471,7 +472,7 @@ void CCollectionFile::Render(CString& strBuffer) const
 		_T(".size { width: 100px; text-align: center; }\n")
 		_T("</style>\n</head>\n<body>\n<h1>%s</h1>\n<table>\n"),
 		(LPCTSTR)GetTitle(),
-		(LPCTSTR)Settings.Fonts.DefaultFont, Settings.Fonts.FontSize,
+		(LPCTSTR)Settings.Fonts.DefaultFont, Settings.Fonts.DefaultSize,
 		(LPCTSTR)GetTitle() );
 
 	DWORD i = 1;
@@ -640,7 +641,7 @@ BOOL CCollectionFile::File::IsComplete() const
 
 BOOL CCollectionFile::File::IsDownloading() const
 {
-	//CQuickLock oLock( Transfers.m_pSection );
+	CQuickLock oLock( Transfers.m_pSection );
 
 	return Downloads.FindBySHA1( m_oSHA1 )
 		|| Downloads.FindByTiger( m_oTiger )

@@ -1,7 +1,7 @@
 //
 // Skin.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -2252,7 +2252,7 @@ BOOL CSkin::LoadFonts(CXMLElement* pBase, const CString& strPath)
 				else if ( strWeight.IsEmpty() || strWeight.CompareNoCase( _T("normal") ) == 0 )
 					strWeight = _T("400");
 
-				int nFontSize = Settings.Fonts.FontSize, nFontWeight = FW_NORMAL;
+				int nFontSize = Settings.Fonts.DefaultSize, nFontWeight = FW_NORMAL;
 
 				if ( strSize.GetLength() && _stscanf( strSize, _T("%i"), &nFontSize ) != 1 )
 					theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Bad [size] attribute in [font] element"), pXML->ToString() );
@@ -2431,15 +2431,12 @@ BOOL CSkin::LoadCommandIcon(CXMLElement* pXML, const CString& strPath)
 			hIcon = (HICON)LoadImage( hInstance, MAKEINTRESOURCE( nIconID ),
 				IMAGE_ICON, cx, cx, 0 );
 		}
-		else
+		else if ( LoadIcon( strFile,
+			( ( nType == LVSIL_SMALL ) ? &hIcon : NULL ),
+			( ( nType == LVSIL_NORMAL ) ? &hIcon : NULL ),
+			( ( nType == LVSIL_BIG ) ? &hIcon : NULL ) ) )
 		{
-			if ( LoadIcon( strFile,
-				( ( nType == LVSIL_SMALL ) ? &hIcon : NULL ),
-				( ( nType == LVSIL_NORMAL ) ? &hIcon : NULL ),
-				( ( nType == LVSIL_BIG )? &hIcon : NULL ) ) )
-			{
-				m_pImages.SetAt( nID, strFile );
-			}
+			m_pImages.SetAt( nID, strFile );
 		}
 		if ( hIcon )
 		{

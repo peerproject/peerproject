@@ -1,7 +1,7 @@
 //
 // WndUploads.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -231,9 +231,18 @@ void CUploadsWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 	m_wndUploads.ScreenToClient( &ptLocal );
 	m_tSel = 0;
 
-	CUploadFile* pUpload;
+	BOOL bHit = FALSE;
 
-	if ( m_wndUploads.HitTest( ptLocal, NULL , &pUpload, NULL, NULL ) && pUpload != NULL )
+	CSingleLock pLock( &Transfers.m_pSection, FALSE );
+	if ( pLock.Lock( 250 ) )
+	{
+		CUploadFile* pUpload;
+		if ( m_wndUploads.HitTest( ptLocal, NULL , &pUpload, NULL, NULL ) && pUpload != NULL )
+			bHit = TRUE;
+		pLock.Unlock();
+	}
+
+	if ( bHit )
 		Skin.TrackPopupMenu( _T("CUploadsWnd.Upload"), point, ID_UPLOADS_LAUNCH );
 	else
 		Skin.TrackPopupMenu( _T("CUploadsWnd.Default"), point, ID_UPLOADS_HELP );
@@ -621,7 +630,7 @@ void CUploadsWnd::OnUploadsFolder()
 				}
 				continue;
 			}
-			
+
 			if ( PathIsDirectory( strPath ) )
 				ShellExecute( GetSafeHwnd(), _T("open"), strPath, NULL, NULL, SW_SHOWNORMAL );
 			else if ( PathFileExists( strPath ) )

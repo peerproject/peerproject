@@ -1,7 +1,7 @@
 //
 // Transfers.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -22,6 +22,9 @@
 #include "Transfers.h"
 #include "Transfer.h"
 #include "TransferFile.h"
+//#include "Network.h"
+#include "Handshakes.h"
+#include "Datagrams.h"
 #include "Downloads.h"
 #include "Uploads.h"
 #include "EDClients.h"
@@ -135,7 +138,7 @@ void CTransfers::OnRun()
 		Doze( Settings.General.MinTransfersRest );
 
 		// Delay thread load at startup
-		if ( ! theApp.m_bLive )
+		if ( ! theApp.m_bLive|| ! Handshakes.IsValid() || ! Datagrams.IsValid() )
 		{
 			Sleep( 0 );
 			continue;

@@ -1,7 +1,7 @@
 //
 // CtrlLibraryTreeView.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -809,7 +809,7 @@ BOOL CLibraryTreeView::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 		}
 	}
 
-	ScrollBy( zDelta * 3 * -Settings.Interface.RowSize / WHEEL_DELTA );
+	ScrollBy( zDelta * 3 * -(int)Settings.Interface.RowSize / WHEEL_DELTA );
 	return TRUE;
 }
 
@@ -1111,8 +1111,8 @@ HBITMAP CLibraryTreeView::CreateDragImage(const CPoint& ptMouse, CPoint& ptMiddl
 // CLibraryTreeItem construction
 
 CLibraryTreeItem::CLibraryTreeItem(CLibraryTreeItem* pParent, const CString& name)
-	: m_pParent( pParent )
-	, m_oList	()
+	: m_pParent	( pParent )
+	, m_oList	( )
 	, m_sText	( name )
 {
 	m_pSelPrev		= NULL;

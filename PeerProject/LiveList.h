@@ -1,7 +1,7 @@
 //
 // LiveList.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -40,14 +40,14 @@ public:
 	}
 #endif
 
-	void	Set(int nColumn, LPCTSTR pszText);
+	void	Set(int nColumn, const CString& sText);
 	void	SetImage(int nColumn, int nImage);
-	void	SetImage(UINT nImage);	// Default column 0
+	void	SetImage(int nImage);	// Default column 0
 	void	SetMaskOverlay(UINT nMaskOverlay);
 	void	Format(int nColumn, LPCTSTR pszFormat, ...);
 	int		Add(CListCtrl* pCtrl, int nItem, int nColumns);
 	BOOL	Update(CListCtrl* pCtrl, int nItem, int nColumns);
-	BOOL	SetImage(CListCtrl* pCtrl, int nParam, int nColumn, int nImageIndex);
+//	BOOL	SetImage(CListCtrl* pCtrl, LPARAM nParam, int nColumn, int nImageIndex);
 
 public:
 	CArray< CString >	m_pColumn;	// Text for each column

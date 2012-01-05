@@ -1,7 +1,7 @@
 //
 // PageTorrentGeneral.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -59,8 +59,8 @@ void CTorrentGeneralPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_TORRENT_CREATEDBY, m_sCreatedBy );
 	DDX_Text(pDX, IDC_TORRENT_CREATIONDATE, m_sCreationDate );
 	DDX_Text(pDX, IDC_TORRENT_OTHER, m_sTorrentOther );
-	DDX_Control(pDX, IDC_TORRENT_STARTDOWNLOADS, m_wndStartDownloads);
 	DDX_Text(pDX, IDC_TORRENT_UPLOADTOTAL, m_sUploadTotal );
+	DDX_Control(pDX, IDC_TORRENT_STARTDOWNLOADS, m_wndStartDownloads);
 	//}}AFX_DATA_MAP
 }
 
@@ -72,13 +72,10 @@ BOOL CTorrentGeneralPage::OnInitDialog()
 	if ( ! CPropertyPageAdv::OnInitDialog() )
 		return FALSE;
 
-	CSingleLock oLock( &Transfers.m_pSection );
-	if ( ! oLock.Lock( 250 ) )
-		return FALSE;
+	ASSUME_LOCK( Transfers.m_pSection );
 
-	CDownload* pDownload = ((CDownloadSheet*)GetParent())->m_pDownload;
-	if ( ! Downloads.Check( pDownload ) || ! pDownload->IsTorrent() )
-		return FALSE;
+	CDownload* pDownload = ((CDownloadSheet*)GetParent())->GetDownload();
+	ASSERT( pDownload && pDownload->IsTorrent() );
 
 	CBTInfo& oInfo = pDownload->m_pTorrent;
 
@@ -130,9 +127,9 @@ BOOL CTorrentGeneralPage::OnApply()
 	if ( ! oLock.Lock( 250 ) )
 		return FALSE;
 
-	CDownload* pDownload = ((CDownloadSheet*)GetParent())->m_pDownload;
-	if ( ! Downloads.Check( pDownload ) || ! pDownload->IsTorrent() )
-		return FALSE;
+	CDownload* pDownload = ((CDownloadSheet*)GetParent())->GetDownload();
+	if ( ! pDownload )
+		return CPropertyPageAdv::OnApply();		// Invalid download
 
 	CBTInfo& oInfo = pDownload->m_pTorrent;
 

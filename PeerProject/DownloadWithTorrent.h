@@ -1,7 +1,7 @@
 //
 // DownloadWithTorrent.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -28,7 +28,7 @@ class CBTClient;
 class CBTPacket;
 
 
-class CDownloadWithTorrent : public CDownloadWithFile
+class CDownloadWithTorrent : public CDownloadWithFile, public CTrackerEvent
 {
 // Construction
 protected:
@@ -74,13 +74,18 @@ public:
 	bool			IsMultiFileTorrent() const;
 	BOOL			UploadExists(in_addr* pIP) const;
 	BOOL			UploadExists(const Hashes::BtGuid& oGUID) const;
-	void			OnTrackerEvent(bool bSuccess, LPCTSTR pszReason, LPCTSTR pszTip = NULL);
+	virtual void	OnTrackerEvent(bool bSuccess, LPCTSTR pszReason, LPCTSTR pszTip, CBTTrackerRequest* pEvent);
 	void			ChokeTorrent(DWORD tNow = 0);
 	CDownloadTransferBT*	CreateTorrentTransfer(CBTClient* pClient);
 	CBTPacket*		CreateBitfieldPacket();
 	BOOL			GenerateTorrentDownloadID();			// Generate Peer ID
 	// Apply new .torrent file to download or update from existing one
 	BOOL			SetTorrent(const CBTInfo* pTorrent = NULL);
+
+	void			AddRequest(CBTTrackerRequest* pRequest);	// Add tracker request for counting
+	void			RemoveRequest(CBTTrackerRequest* pRequest);	// Remove tracker request
+	void			CancelRequest(CBTTrackerRequest* pRequest);	// Cancel tracker request
+
 protected:
 	bool			RunTorrent(DWORD tNow);
 	void			SendCompleted();
@@ -96,8 +101,4 @@ private:
 	void			SendStarted(DWORD nNumWant);
 	void			SendUpdate(DWORD nNumWant);
 	void			SendStopped();
-	void			Add(CBTTrackerRequest* pRequest);		// Add tracker request for counting
-	void			Remove(CBTTrackerRequest* pRequest);	// Remove tracker request
-
-	friend class CBTTrackerRequest;		// Add(),Remove()
 };

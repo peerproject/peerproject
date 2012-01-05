@@ -1970,8 +1970,9 @@
 #define ID_UPLOADS_FILTER_TORRENT           40434
 #define ID_UPLOADS_FILTER_MENU              40435
 #define ID_UPLOADS_FOLDER                   40436
-#define ID_UPLOADS_HELP                     40437
+#define ID_UPLOADS_LIBRARY                  40437
 #define ID_UPLOADS_SETTINGS                 40438
+#define ID_UPLOADS_HELP                     40439
 #define ID_VIEW_BASIC                       40440
 #define ID_VIEW_TABBED                      40441
 #define ID_VIEW_WINDOWED                    40442

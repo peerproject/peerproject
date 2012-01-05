@@ -1,7 +1,7 @@
 //
 // CtrlUploads.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -328,7 +328,7 @@ void CUploadsCtrl::DeselectAll(CUploadFile* /*pExcept*/)
 
 BOOL CUploadsCtrl::HitTest(const CPoint& point, CUploadQueue** ppQueue, CUploadFile** ppFile, int* pnIndex, RECT* prcItem)
 {
-//	ASSUME_LOCK( Transfers.m_pSection );
+	ASSUME_LOCK( Transfers.m_pSection );
 
 	CRect rcClient, rcItem;
 
@@ -405,7 +405,7 @@ BOOL CUploadsCtrl::HitTest(const CPoint& point, CUploadQueue** ppQueue, CUploadF
 
 BOOL CUploadsCtrl::GetAt(int nSelect, CUploadQueue** ppQueue, CUploadFile** ppFile)
 {
-//	ASSUME_LOCK( Transfers.m_pSection );
+	ASSUME_LOCK( Transfers.m_pSection );
 
 	/*int nScroll =*/ GetScrollPos( SB_VERT );
 	int nIndex = 0;
@@ -557,7 +557,7 @@ POSITION CUploadsCtrl::GetFileIterator(CUploadQueue* pQueue)
 
 CUploadFile* CUploadsCtrl::GetNextFile(CUploadQueue* pQueue, POSITION& pos, int* pnPosition)
 {
-//	ASSUME_LOCK( Transfers.m_pSection );
+	ASSUME_LOCK( Transfers.m_pSection );
 	ASSERT( pos != NULL );
 
 	if ( pnPosition != NULL ) *pnPosition = -1;
@@ -658,9 +658,7 @@ void CUploadsCtrl::OnSize(UINT nType, int cx, int cy)
 	int nScroll = GetScrollPos( SB_HORZ );
 	m_wndHeader.SetWindowPos( NULL, -nScroll, 0, rcClient.right + nScroll, HEADER_HEIGHT, SWP_SHOWWINDOW );
 
-//	CSingleLock pTransfersLock( &Transfers.m_pSection, FALSE );
-//	if ( ! pTransfersLock.Lock( 250 ) ) return;
-
+	CSingleLock pTransfersLock( &Transfers.m_pSection, FALSE );		// For GetNextFile()
 	CSingleLock pUploadQueuesLock( &UploadQueues.m_pSection, FALSE );
 	if ( ! pUploadQueuesLock.Lock( 250 ) )
 		return;
@@ -677,20 +675,24 @@ void CUploadsCtrl::OnSize(UINT nType, int cx, int cy)
 			continue;
 		}
 
-		nHeight ++;
+		nHeight++;
 
 		if ( ! pQueue->m_bExpanded )
+			continue;
+
+		if ( ! pTransfersLock.Lock( 200 ) )
 			continue;
 
 		while ( posFile )
 		{
 			if ( GetNextFile( pQueue, posFile ) )
-				nHeight ++;
+				nHeight++;
 		}
+
+		pTransfersLock.Unlock();
 	}
 
 	pUploadQueuesLock.Unlock();
-//	pTransfersLock.Unlock();
 
 	ZeroMemory( &pScroll, sizeof(pScroll) );
 	pScroll.cbSize	= sizeof(pScroll);
@@ -795,7 +797,8 @@ void CUploadsCtrl::OnPaint()
 
 void CUploadsCtrl::PaintQueue(CDC& dc, const CRect& rcRow, CUploadQueue* pQueue, BOOL bFocus)
 {
-	//ASSUME_LOCK( UploadQueues.m_pSection );
+	ASSUME_LOCK( UploadQueues.m_pSection );
+
 	BOOL bSelected = pQueue->m_bSelected;
 	BOOL bLeftMargin = TRUE;
 
@@ -1371,7 +1374,6 @@ void CUploadsCtrl::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 void CUploadsCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
 	CUploadFile* pFile;
 	CUploadQueue* pQueue;
 	CRect rcItem;
@@ -1379,6 +1381,9 @@ void CUploadsCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 
 	SetFocus();
 	m_wndTip.Hide();
+
+	CSingleLock pLock( &Transfers.m_pSection, FALSE );
+	if ( ! pLock.Lock( 500 ) ) return;
 
 	if ( HitTest( point, &pQueue, &pFile, &nIndex, &rcItem ) )
 	{
@@ -1440,12 +1445,14 @@ void CUploadsCtrl::OnRButtonDown(UINT nFlags, CPoint point)
 
 void CUploadsCtrl::OnLButtonDblClk(UINT nFlags, CPoint point)
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
 	CUploadFile* pFile;
 	CUploadQueue* pQueue;
 	CRect rcItem;
 
 	SetFocus();
+
+	CSingleLock pLock( &Transfers.m_pSection, FALSE );
+	if ( ! pLock.Lock( 500 ) ) return;
 
 	if ( HitTest( point, &pQueue, &pFile, NULL, &rcItem ) )
 	{
@@ -1496,6 +1503,9 @@ void CUploadsCtrl::OnMouseMove(UINT nFlags, CPoint point)
 	{
 		CUploadFile* pFile;
 		CRect rcItem;
+
+		CSingleLock pLock( &Transfers.m_pSection, FALSE );
+		if ( ! pLock.Lock( 500 ) ) return;
 
 		if ( HitTest( point, NULL, &pFile, NULL, &rcItem ) )
 		{

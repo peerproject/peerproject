@@ -1,7 +1,7 @@
 //
 // DlgDownloadSheet.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -19,8 +19,11 @@
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "DlgDownloadSheet.h"
+
 #include "CoolInterface.h"
 #include "Colors.h"
+#include "Downloads.h"
+#include "Transfers.h"
 
 #include "PageDownloadEdit.h"
 #include "PageDownloadActions.h"
@@ -45,21 +48,32 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CDownloadSheet
 
-CDownloadSheet::CDownloadSheet(CDownload* pDownload)
-	: m_pDownload		( pDownload )
+CDownloadSheet::CDownloadSheet(CSingleLock& pLock, CDownload* pDownload)
+	: m_pLock			( pLock )
+	, m_pDownload		( pDownload )
 	, m_sFilesTitle 	( L"Files" )
 	, m_sTrackersTitle	( L"Trackers" )
 	, m_sGeneralTitle	( L"Torrent" )
 	, m_sDownloadTitle	( L"General" )
 	, m_sActionsTitle	( L"Actions" )
 {
+	ASSUME_LOCK( Transfers.m_pSection );
+}
+
+CDownload* CDownloadSheet::GetDownload() const
+{
+	ASSUME_LOCK( Transfers.m_pSection );
+
+	return ( Downloads.Check( m_pDownload ) && ! m_pDownload->IsMoving() ) ? m_pDownload : NULL;
 }
 
 /////////////////////////////////////////////////////////////////////////////
 // CDownloadSheet operations
 
-INT_PTR CDownloadSheet::DoModal(int nPage)
+INT_PTR CDownloadSheet::DoModal()
 {
+	ASSUME_LOCK( Transfers.m_pSection );
+
 	CTorrentFilesPage		pFiles;
 	CTorrentTrackersPage	pTrackers;
 	CTorrentGeneralPage		pGeneral;
@@ -83,8 +97,6 @@ INT_PTR CDownloadSheet::DoModal(int nPage)
 		SetTabTitle( &pActions, m_sActionsTitle );
 		AddPage( &pActions );
 	}
-
-	m_psh.nStartPage = nPage;
 
 	return CPropertySheetAdv::DoModal();
 }
@@ -116,6 +128,13 @@ BOOL CDownloadSheet::OnInitDialog()
 
 	if ( GetDlgItem( 0x3021 ) ) GetDlgItem( 0x3021 )->ShowWindow( SW_HIDE );	// No Apply
 	if ( GetDlgItem( 0x0009 ) ) GetDlgItem( 0x0009 )->ShowWindow( SW_HIDE );	// No Help
+
+	// Forcibly create all pages under protection of Transfers.m_pSection
+	for ( int i = GetPageCount() - 1 ; i >= 0 ; --i )
+	{
+		SetActivePage( i );
+	}
+	m_pLock.Unlock();
 
 	return bResult;
 }

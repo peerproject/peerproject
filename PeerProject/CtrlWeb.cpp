@@ -1,7 +1,7 @@
 //
 // CtrlWeb.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -16,7 +16,8 @@
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
-// Uses Internet Explorer for viewing Library Collection files
+// Uses Internet Explorer for viewing Library Collection files (In CtrlLibraryCollectionView)
+// ToDo: Remove depednecy on afxocc.h for VCExpress+WDK (COleControlSite)
 
 #include "StdAfx.h"
 #include "PeerProject.h"
@@ -78,8 +79,7 @@ CWebCtrl::~CWebCtrl()
 BOOL CWebCtrl::Create(DWORD dwStyle, CWnd* pParentWnd, UINT nID)
 {
 	CRect rect( 0, 0, 0, 0 );
-	return CWnd::Create( NULL, NULL, WS_CHILD|WS_CLIPCHILDREN|dwStyle,
-		rect, pParentWnd, nID, NULL );
+	return CWnd::Create( NULL, NULL, WS_CHILD|WS_CLIPCHILDREN|dwStyle, rect, pParentWnd, nID, NULL );
 }
 
 void CWebCtrl::EnableCoolMenu(BOOL bEnable)
@@ -102,7 +102,8 @@ void CWebCtrl::EnableCoolMenu(BOOL bEnable)
 void CWebCtrl::EnableSandbox(BOOL bSandbox)
 {
 	m_bSandbox = bSandbox;
-	if ( m_pBrowser ) m_pBrowser->put_Offline( m_bSandbox ? VARIANT_TRUE : VARIANT_FALSE );
+	if ( m_pBrowser )
+		m_pBrowser->put_Offline( m_bSandbox ? VARIANT_TRUE : VARIANT_FALSE );
 }
 
 void CWebCtrl::SetExternal(IDispatch* pDispatch)
@@ -149,7 +150,8 @@ int CWebCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 			 SUCCEEDED( pUnknown->QueryInterface( IID_IWebBrowser2, (void**)&m_pBrowser ) ) &&
 			 m_pBrowser )
 		{
-			if ( m_bSandbox ) m_pBrowser->put_Offline( VARIANT_TRUE );
+			if ( m_bSandbox )
+				m_pBrowser->put_Offline( VARIANT_TRUE );
 		}
 		else
 		{

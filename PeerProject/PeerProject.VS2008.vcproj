@@ -660,10 +660,6 @@
 				>
 			</File>
 			<File
-				RelativePath="FontManager.cpp"
-				>
-			</File>
-			<File
 				RelativePath="FragmentBar.cpp"
 				>
 			</File>
@@ -2946,10 +2942,6 @@
 			</File>
 			<File
 				RelativePath="Flags.h"
-				>
-			</File>
-			<File
-				RelativePath="FontManager.h"
 				>
 			</File>
 			<File

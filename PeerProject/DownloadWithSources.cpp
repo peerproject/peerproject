@@ -1,7 +1,7 @@
 //
 // DownloadWithSources.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -77,21 +77,21 @@ CDownloadWithSources::~CDownloadWithSources()
 
 POSITION CDownloadWithSources::GetIterator() const
 {
-	//ASSUME_LOCK( Transfers.m_pSection );
+	ASSUME_LOCK( Transfers.m_pSection );
 
 	return m_pSources.GetHeadPosition();
 }
 
 CDownloadSource* CDownloadWithSources::GetNext(POSITION& rPosition) const
 {
-	//ASSUME_LOCK( Transfers.m_pSection );
+	ASSUME_LOCK( Transfers.m_pSection );
 
 	return m_pSources.GetNext( rPosition );
 }
 
 INT_PTR CDownloadWithSources::GetCount() const
 {
-	//ASSUME_LOCK( Transfers.m_pSection );
+	ASSUME_LOCK( Transfers.m_pSection );
 
 	return m_pSources.GetCount();
 }
@@ -216,7 +216,7 @@ BOOL CDownloadWithSources::CheckSource(CDownloadSource* pCheck) const
 
 void CDownloadWithSources::ClearSources()
 {
-//	ASSUME_LOCK( Transfers.m_pSection );
+	ASSUME_LOCK( Transfers.m_pSection );
 	CQuickLock( Transfers.m_pSection );
 
 	for ( POSITION posSource = GetIterator() ; posSource ; )

@@ -1,7 +1,7 @@
 //
 // CtrlLibraryHeaderPanel.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -74,6 +74,8 @@ BOOL CLibraryHeaderPanel::Create(CWnd* pParentWnd)
 
 int CLibraryHeaderPanel::Update()
 {
+	ASSUME_LOCK( Library.m_pSection );
+
 	CAlbumFolder* pFolder = GetSelectedAlbum();
 	if ( pFolder == NULL || pFolder->m_pSchema == NULL ) return 0;
 
@@ -141,6 +143,7 @@ void CLibraryHeaderPanel::OnSkinChange()
 	else if ( Colors.m_crBannerBack == RGB_DEFAULT_CASE )
 		m_bmWatermark.LoadBitmap( IDB_BANNER_MARK );
 
+	CQuickLock oLock( Library.m_pSection );
 	Update();
 }
 
@@ -299,6 +302,8 @@ void CLibraryHeaderPanel::OnLButtonUp(UINT nFlags, CPoint point)
 {
 	if ( CMetaItem* pItem = m_pMetadata.HitTest( point, TRUE ) )
 	{
+		CQuickLock oLock( Library.m_pSection );
+
 		if ( CAlbumFolder* pFolder = pItem->GetLinkTarget() )
 		{
 			CLibraryFrame* pFrame = (CLibraryFrame*)GetOwner();

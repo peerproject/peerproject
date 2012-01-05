@@ -1,7 +1,7 @@
 //
 // CoolInterface.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -19,8 +19,8 @@
 #include "StdAfx.h"
 #include "Settings.h"
 #include "PeerProject.h"
-#include "Colors.h"
 #include "CoolInterface.h"
+#include "Colors.h"
 #include "ShellIcons.h"
 #include "Flags.h"
 #include "XML.h"
@@ -65,6 +65,8 @@ CCoolInterface::~CCoolInterface()
 
 void CCoolInterface::Load()
 {
+	//CQuickLock oLock( m_pSection );
+
 	CreateFonts();
 }
 
@@ -73,6 +75,8 @@ void CCoolInterface::Load()
 
 void CCoolInterface::Clear()
 {
+	//CQuickLock oLock( m_pSection );
+
 	m_pNameMap.RemoveAll();
 
 	m_pImageMap16.RemoveAll();
@@ -102,11 +106,15 @@ void CCoolInterface::Clear()
 
 void CCoolInterface::NameCommand(UINT nID, LPCTSTR pszName)
 {
+	//CQuickLock oLock( m_pSection );
+
 	m_pNameMap.SetAt( pszName, nID );
 }
 
 UINT CCoolInterface::NameToID(LPCTSTR pszName) const
 {
+	//CQuickLock oLock( m_pSection );
+
 	UINT nID = 0;
 	if ( m_pNameMap.Lookup( pszName, nID ) ) return nID;
 	return _tcstoul( pszName, NULL, 10 );
@@ -117,6 +125,8 @@ UINT CCoolInterface::NameToID(LPCTSTR pszName) const
 
 int CCoolInterface::ImageForID(UINT nID, int nImageListType) const
 {
+	//CQuickLock oLock( m_pSection );
+
 	int nImage = -1;
 	switch ( nImageListType )
 	{
@@ -132,6 +142,8 @@ int CCoolInterface::ImageForID(UINT nID, int nImageListType) const
 
 void CCoolInterface::AddIcon(UINT nID, HICON hIcon, int nImageListType)
 {
+	//CQuickLock oLock( m_pSection );
+
 	VERIFY( ConfirmImageList() );
 
 	switch ( nImageListType )
@@ -150,6 +162,8 @@ void CCoolInterface::AddIcon(UINT nID, HICON hIcon, int nImageListType)
 
 void CCoolInterface::CopyIcon(UINT nFromID, UINT nToID, int nImageListType)
 {
+	//CQuickLock oLock( m_pSection );
+
 	int nImage;
 	switch ( nImageListType )
 	{
@@ -170,6 +184,8 @@ void CCoolInterface::CopyIcon(UINT nFromID, UINT nToID, int nImageListType)
 
 HICON CCoolInterface::ExtractIcon(UINT nID, BOOL bMirrored, int nImageListType)
 {
+	//CQuickLock oLock( m_pSection );
+
 	HICON hIcon = NULL;
 	int nImage = ImageForID( nID, nImageListType );
 	if ( nImage >= 0 )
@@ -224,12 +240,16 @@ HICON CCoolInterface::ExtractIcon(UINT nID, BOOL bMirrored, int nImageListType)
 
 int CCoolInterface::ExtractIconID(UINT nID, BOOL bMirrored, int nImageListType)
 {
+	//CQuickLock oLock( m_pSection );
+
 	DestroyIcon( ExtractIcon( nID, bMirrored, nImageListType ) );
 	return ImageForID( nID, nImageListType );
 }
 
 void CCoolInterface::SetIcon(UINT nID, BOOL bMirrored, BOOL bBigIcon, CWnd* pWnd)
 {
+	//CQuickLock oLock( m_pSection );
+
 	HICON hIcon = ExtractIcon( nID, bMirrored, bBigIcon ? LVSIL_NORMAL : LVSIL_SMALL );
 	if ( hIcon )
 	{
@@ -245,6 +265,8 @@ void CCoolInterface::SetIcon(UINT nID, BOOL bMirrored, BOOL bBigIcon, CWnd* pWnd
 
 void CCoolInterface::SetIcon(HICON hIcon, BOOL bMirrored, BOOL bBigIcon, CWnd* pWnd)
 {
+	//CQuickLock oLock( m_pSection );
+
 	if ( hIcon )
 	{
 		if ( bMirrored ) hIcon = CreateMirroredIcon( hIcon );
@@ -549,8 +571,10 @@ void CCoolInterface::DrawThumbnail(CDC* pDC, const CRect& rcThumb,
 
 void CCoolInterface::CreateFonts(LPCTSTR pszFace, int nSize)
 {
+	//CQuickLock oLock( m_pSection );
+
 	if ( ! pszFace ) pszFace = Settings.Fonts.DefaultFont;
-	if ( ! nSize ) nSize = Settings.Fonts.FontSize;
+	if ( ! nSize ) nSize = Settings.Fonts.DefaultSize;
 
 	if ( m_fntNormal.m_hObject )		m_fntNormal.DeleteObject();
 	if ( m_fntBold.m_hObject )			m_fntBold.DeleteObject();
@@ -620,6 +644,8 @@ BOOL CCoolInterface::EnableTheme(CWnd* pWnd, BOOL bEnable)
 
 int CCoolInterface::GetImageCount(int nImageListType)
 {
+	//CQuickLock oLock( m_pSection );
+
 	switch ( nImageListType )
 	{
 	case LVSIL_SMALL:
@@ -634,6 +660,8 @@ int CCoolInterface::GetImageCount(int nImageListType)
 
 BOOL CCoolInterface::Add(CSkin* pSkin, CXMLElement* pBase, HBITMAP hbmImage, COLORREF crMask, int nImageListType)
 {
+	//CQuickLock oLock( m_pSection );
+
 	VERIFY( ConfirmImageList() );
 
 	int nBase = 0;
@@ -708,6 +736,8 @@ BOOL CCoolInterface::Add(CSkin* pSkin, CXMLElement* pBase, HBITMAP hbmImage, COL
 
 CImageList* CCoolInterface::SetImageListTo(CListCtrl& pWnd, int nImageListType)
 {
+	//CQuickLock oLock( m_pSection );
+
 	switch ( nImageListType )
 	{
 	case LVSIL_SMALL:
@@ -722,6 +752,8 @@ CImageList* CCoolInterface::SetImageListTo(CListCtrl& pWnd, int nImageListType)
 
 BOOL CCoolInterface::Draw(CDC* pDC, int nImage, POINT pt, UINT nStyle, int nImageListType) const
 {
+	//CQuickLock oLock( m_pSection );
+
 	HIMAGELIST hList = NULL;
 	switch ( nImageListType )
 	{
@@ -740,6 +772,8 @@ BOOL CCoolInterface::Draw(CDC* pDC, int nImage, POINT pt, UINT nStyle, int nImag
 
 BOOL CCoolInterface::DrawEx(CDC* pDC, int nImage, POINT pt, SIZE sz, COLORREF clrBk, COLORREF clrFg, UINT nStyle, int nImageListType) const
 {
+	//CQuickLock oLock( m_pSection );
+
 	HIMAGELIST hList = NULL;
 	switch ( nImageListType )
 	{
@@ -759,6 +793,8 @@ BOOL CCoolInterface::DrawEx(CDC* pDC, int nImage, POINT pt, SIZE sz, COLORREF cl
 
 BOOL CCoolInterface::Draw(CDC* pDC, UINT nID, int nSize, int nX, int nY, COLORREF crBack, BOOL bSelected, BOOL bExclude) const
 {
+	//CQuickLock oLock( m_pSection );
+
 	HIMAGELIST hList;
 	int nType;
 	switch ( nSize )

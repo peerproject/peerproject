@@ -1,7 +1,7 @@
 //
 // PageTracker.cpp
 //
-// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2010
+// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2012
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
@@ -87,6 +87,8 @@ BOOL CTrackerPage::OnInitDialog()
 	}
 
 	m_sTracker = theApp.GetProfileString( _T("Trackers"), _T("Last") );
+	if ( m_sTracker.GetLength() < 14 )
+		m_sTracker = _T("udp://tracker.openbittorrent.com:80");
 	UpdateData( FALSE );
 
 	return TRUE;
@@ -118,7 +120,8 @@ LRESULT CTrackerPage::OnWizardNext()
 {
 	UpdateData( TRUE );
 
-	if ( m_sTracker.Find( _T("http") ) != 0 || m_sTracker.GetLength() < 16 )
+	if ( m_sTracker.GetLength() < 16 ||
+		( m_sTracker.Find( _T("http:") ) != 0 && m_sTracker.Find( _T("udp:") ) != 0 ) )
 	{
 		if ( IDYES != AfxMessageBox( IDS_TRACKER_NEED_URL, MB_ICONQUESTION|MB_YESNO ) )
 		{

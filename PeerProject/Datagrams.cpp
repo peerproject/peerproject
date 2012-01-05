@@ -1,7 +1,7 @@
 //
 // Datagrams.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -30,6 +30,7 @@
 #include "EDPacket.h"
 #include "DCPacket.h"
 #include "BTPacket.h"
+#include "BTTrackerRequest.h"
 #include "BENode.h"
 #include "Security.h"
 #include "Statistics.h"
@@ -396,7 +397,7 @@ void CDatagrams::OnRun()
 
 void CDatagrams::Measure()
 {
-	DWORD tCutoff		= GetTickCount() - METER_PERIOD;
+	const DWORD tCutoff	= GetTickCount() - METER_PERIOD;
 	DWORD* pInHistory	= m_mInput.pHistory;
 	DWORD* pInTime		= m_mInput.pTimes;
 	DWORD* pOutHistory	= m_mOutput.pHistory;
@@ -732,12 +733,29 @@ BOOL CDatagrams::OnDatagram(const SOCKADDR_IN* pHost, const BYTE* pBuffer, DWORD
 	// Detect BitTorrent packets
 	if ( nLength > 16 )
 	{
-		if ( CBTPacket* pPacket = CBTPacket::New(
-			BT_PACKET_EXTENSION, BT_EXTENSION_NOP, pBuffer, nLength ) )
+		if ( CBTPacket* pPacket = CBTPacket::New( BT_PACKET_EXTENSION, BT_EXTENSION_NOP, pBuffer, nLength ) )
 		{
 			m_nInPackets++;
 
 			bHandled = pPacket->OnPacket( pHost );
+
+			pPacket->Release();
+
+			if ( bHandled )
+				return TRUE;
+		}
+	}
+
+	// Detect BitTorrent UDP tracker packets
+	if ( nLength > 7 )
+	{
+		if ( CBTTrackerPacket* pPacket = CBTTrackerPacket::New( pBuffer, nLength ) )
+		{
+			m_nInPackets++;
+
+			bHandled = pPacket->OnPacket( pHost );
+
+			pPacket->Release();
 
 			if ( bHandled )
 				return TRUE;
@@ -745,7 +763,7 @@ BOOL CDatagrams::OnDatagram(const SOCKADDR_IN* pHost, const BYTE* pBuffer, DWORD
 	}
 
 //	// Report unknown packets
-//	CString strText, strTmp;
+//	CString strText;
 //	strText.Format( _T("UDP: Recieved unknown packet (%i bytes) from %s"),
 //		nLength, (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ) );
 //	for ( DWORD i = 0 ; i < nLength && i < 80 ; i++ )

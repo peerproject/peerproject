@@ -1,7 +1,7 @@
 //
 // DownloadTransferED2K.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -773,7 +773,7 @@ BOOL CDownloadTransferED2K::SendSecondaryRequest()
 
 bool CDownloadTransferED2K::SendFragmentRequests()
 {
-	//ASSUME_LOCK( Transfers.m_pSection );
+	ASSUME_LOCK( Transfers.m_pSection );
 
 	ASSERT( m_pClient != NULL );
 

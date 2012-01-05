@@ -1,7 +1,7 @@
 //
 // DownloadGroup.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -27,7 +27,7 @@
 #include "SchemaCache.h"
 #include "ShellIcons.h"
 #include "QuerySearch.h"
-//#include "Transfers.h"
+#include "Transfers.h"	// Locks
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -106,7 +106,7 @@ void CDownloadGroup::CopyList(CList< CDownload* >& pList)
 
 BOOL CDownloadGroup::Link(CDownload* pDownload)
 {
-	//ASSUME_LOCK( Transfers.m_pSection );
+	ASSUME_LOCK( Transfers.m_pSection );
 
 	// Possible re-link clearing
 	if ( DownloadGroups.GetSuperGroup() != this )
@@ -175,7 +175,7 @@ int CDownloadGroup::LinkAll()
 {
 	int nCount = 0;
 
-	//ASSUME_LOCK( Transfers.m_pSection );
+	ASSUME_LOCK( Transfers.m_pSection );
 
 	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
 	{

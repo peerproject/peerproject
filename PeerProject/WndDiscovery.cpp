@@ -1,7 +1,7 @@
 //
 // WndDiscovery.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -110,12 +110,12 @@ int CDiscoveryWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_pSizer.Attach( &m_wndList );
 
 	m_gdiImageList.Create( 16, 16, ILC_MASK|ILC_COLOR32, 4, 1 );
-	AddIcon( IDR_HOSTCACHEFRAME, m_gdiImageList );
-	AddIcon( IDI_DISCOVERY_GRAY, m_gdiImageList );
-	AddIcon( IDR_DISCOVERYFRAME, m_gdiImageList );
-	AddIcon( IDI_WEB_URL, m_gdiImageList );
-	AddIcon( IDI_DISCOVERY_BLUE, m_gdiImageList );
-	AddIcon( IDI_FIREWALLED, m_gdiImageList );
+	AddIcon( IDR_HOSTCACHEFRAME, m_gdiImageList );	// 0
+	AddIcon( IDR_DISCOVERYFRAME, m_gdiImageList );	// 1
+	AddIcon( IDI_DISCOVERY_BLUE, m_gdiImageList );	// 2
+	AddIcon( IDI_DISCOVERY_GRAY, m_gdiImageList );	// 3
+	AddIcon( IDI_WEB_URL, m_gdiImageList );			// 4
+	AddIcon( IDI_FIREWALLED, m_gdiImageList );		// 5
 	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
 
 	m_wndList.InsertColumn( COL_ADDRESS,	_T("Address"),	LVCFMT_LEFT,	260, -1 );
@@ -175,7 +175,7 @@ void CDiscoveryWnd::Update()
 			if ( ! m_bShowGnutella ) continue;
 			pItem = pLiveList.Add( pService );
 			pItem->Set( COL_TYPE, _T("Bootstrap") );
-			pItem->SetImage( 0 );
+			pItem->SetImage( 0 );			// IDR_HOSTCACHEFRAME
 		}
 		else if ( pService->m_nType == CDiscoveryService::dsWebCache )
 		{
@@ -183,32 +183,27 @@ void CDiscoveryWnd::Update()
 			pItem = pLiveList.Add( pService );
 			pItem->Set( COL_TYPE, _T("GWebCache") );
 			if ( pService->m_bGnutella2 && pService->m_bGnutella1 )
-			{
-				pItem->SetImage( 2 );			// Multi-colored icon
-			}
+				pItem->SetImage( 1 );		// IDR_DISCOVERYFRAME Full-colored
+			else if ( pService->m_bGnutella2 )
+				pItem->SetImage( 2 );		// IDI_DISCOVERY_BLUE
+			else if ( pService->m_bGnutella1 )
+				pItem->SetImage( 3 );		// IDI_DISCOVERY_GRAY
 			else
-			{
-				if ( pService->m_bGnutella2 )
-					pItem->SetImage( 4 );		// Blue icon
-				else if ( pService->m_bGnutella1 )
-					pItem->SetImage( 1 );		// Grey icon
-				else
-					pItem->SetImage( 3 );		// Blank
-			}
+				pItem->SetImage( 4 );		// Blank?
 		}
 		else if ( pService->m_nType == CDiscoveryService::dsServerList )
 		{
 			if ( ! m_bShowServerList ) continue;
 			pItem = pLiveList.Add( pService );
 			pItem->Set( COL_TYPE, pService->m_nProtocolID == PROTOCOL_DC ? _T("Hublist") : _T("Server.met") );
-			pItem->SetImage( 3 );
+			pItem->SetImage( 4 );			// IDI_WEB_URL
 		}
 		else if ( pService->m_nType == CDiscoveryService::dsBlocked )
 		{
 			if ( ! m_bShowBlocked ) continue;
 			pItem = pLiveList.Add( pService );
 			pItem->Set( COL_TYPE, _T("Blocked") );	// ToDo: Translate?
-			pItem->SetImage( 5 );
+			pItem->SetImage( 5 );			// IDI_FIREWALLED
 		}
 		else
 		{

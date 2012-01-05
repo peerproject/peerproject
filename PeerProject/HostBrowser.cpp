@@ -1,7 +1,7 @@
 //
 // HostBrowser.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -558,7 +558,7 @@ BOOL CHostBrowser::OnHeadersComplete()
 		return FALSE;
 	}
 
-	//CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CSingleLock pLock( &Transfers.m_pSection, TRUE );
 
 	m_nState		= hbsContent;
 	m_nReceived		= 0ul;
@@ -596,7 +596,7 @@ BOOL CHostBrowser::OnHeadersComplete()
 
 BOOL CHostBrowser::ReadContent()
 {
-	//CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CSingleLock pLock( &Transfers.m_pSection, TRUE );
 
 	if ( m_nProtocol != PROTOCOL_ED2K )
 	{
@@ -655,7 +655,7 @@ BOOL CHostBrowser::ReadContent()
 
 BOOL CHostBrowser::StreamPacketsG1()
 {
-	//ASSUME_LOCK( Transfers.m_pSection );
+	ASSUME_LOCK( Transfers.m_pSection );
 	ASSERT ( m_nProtocol == PROTOCOL_G1 );
 
 	BOOL bSuccess = TRUE;
@@ -699,7 +699,7 @@ BOOL CHostBrowser::StreamPacketsG1()
 
 BOOL CHostBrowser::StreamPacketsG2()
 {
-	//ASSUME_LOCK( Transfers.m_pSection );
+	ASSUME_LOCK( Transfers.m_pSection );
 	ASSERT ( m_nProtocol == PROTOCOL_G2 );
 
 	while ( CG2Packet* pPacket = CG2Packet::ReadBuffer( m_pBuffer ) )
@@ -842,7 +842,7 @@ void CHostBrowser::OnProfilePacket(CG2Packet* pPacket)
 
 BOOL CHostBrowser::StreamHTML()
 {
-	//ASSUME_LOCK( Transfers.m_pSection );
+	ASSUME_LOCK( Transfers.m_pSection );
 	ASSERT ( m_nProtocol == PROTOCOL_NULL );
 
 	CString strLine;

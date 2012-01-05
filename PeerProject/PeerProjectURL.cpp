@@ -1,7 +1,7 @@
 //
 // PeerProjectURL.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -738,6 +738,8 @@ BOOL CPeerProjectURL::ParseMagnet(LPCTSTR pszURL)
 			else if ( _tcsnicmp( strValue, _T("http://"), 7 ) == 0 ||
 					  _tcsnicmp( strValue, _T("https://"), 8 ) == 0 ||
 					  _tcsnicmp( strValue, _T("http%3A//"), 9 ) == 0 ||
+					  _tcsnicmp( strValue, _T("udp://"), 6 ) == 0 ||
+					  _tcsnicmp( strValue, _T("udp%3A//"), 8 ) == 0 ||
 					  _tcsnicmp( strValue, _T("ftp://"), 6 ) == 0 ||
 					  _tcsnicmp( strValue, _T("ftp%3A//"), 8 ) == 0 ||
 					  _tcsnicmp( strValue, _T("dchub://"), 8 ) == 0 ||

@@ -1,7 +1,7 @@
 //
 // CtrlLibraryThumbView.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -673,7 +673,7 @@ void CLibraryThumbView::OnLButtonUp(UINT nFlags, CPoint /*point*/)
 {
 	m_bDrag = FALSE;
 
-	if ( ( nFlags & (MK_SHIFT|MK_CONTROL) ) == 0 && m_pFocus && m_pFocus->m_bSelected )
+	if ( ( nFlags & ( MK_SHIFT|MK_CONTROL ) ) == 0 && m_pFocus && m_pFocus->m_bSelected )
 	{
 		if ( DeselectAll( m_pFocus ) )
 			Invalidate();
@@ -843,6 +843,8 @@ void CLibraryThumbView::StopThread()
 
 void CLibraryThumbView::OnRun()
 {
+	CSingleLock oLock( &Library.m_pSection, FALSE );
+
 	while ( IsThreadEnabled() )
 	{
 		// Get next file without thumbnail
@@ -850,29 +852,27 @@ void CLibraryThumbView::OnRun()
 		bool bWaiting = false;
 		DWORD nIndex = 0;
 		CString strPath;
+
+		if ( ! oLock.Lock( 100 ) )
+			continue;	// Library is busy
+
+		for ( int i = 0 ; i < m_nCount ; ++i )
 		{
-			CQuickLock pLock( m_pSection );
-
-			for ( int i = 0 ; i < m_nCount && IsThreadEnabled() ; ++i )
+			if ( m_pList[ i ]->m_nThumb == CLibraryThumbItem::thumbWaiting )
 			{
-				if ( m_pList[ i ]->m_nThumb == CLibraryThumbItem::thumbWaiting )
+				bWaiting = true;
+
+				if ( CLibraryFile* pFile = Library.LookupFile( m_pList[ i ]->m_nIndex ) )
 				{
-					bWaiting = true;
-
-					CSingleLock oLock( &Library.m_pSection, FALSE );
-					if ( ! oLock.Lock( 100 ) ) break;
-
-					if ( CLibraryFile* pFile = Library.LookupFile( m_pList[ i ]->m_nIndex ) )
-					{
-						nIndex	= pFile->m_nIndex;
-						strPath	= pFile->GetPath();
-						oLock.Unlock();
-						break;
-					}
+					nIndex	= pFile->m_nIndex;
+					strPath	= pFile->GetPath();
 					oLock.Unlock();
+					break;
 				}
 			}
 		}
+
+		oLock.Unlock();
 
 		if ( ! bWaiting )
 			break;	// Complete
@@ -890,29 +890,31 @@ void CLibraryThumbView::OnRun()
 		BOOL bSuccess = CThumbCache::Cache( strPath, &pFile );
 
 		// Save thumbnail to item
+
+		if ( ! oLock.Lock( 100 ) )
+			continue;	// Library is busy
+
+		for ( int i = 0 ; i < m_nCount ; ++i )
 		{
-			CQuickLock pLock( m_pSection );
-
-			for ( int i = 0 ; i < m_nCount ; ++i )
+			if ( m_pList[ i ]->m_nIndex == nIndex )
 			{
-				if ( m_pList[ i ]->m_nIndex == nIndex )
+				if ( m_pList[ i ]->m_bmThumb.m_hObject )
+					m_pList[ i ]->m_bmThumb.DeleteObject();
+
+				if ( bSuccess )
 				{
-					if ( m_pList[ i ]->m_bmThumb.m_hObject )
-						m_pList[ i ]->m_bmThumb.DeleteObject();
-
-					if ( bSuccess )
-					{
-						m_pList[ i ]->m_bmThumb.Attach( pFile.CreateBitmap() );
-						m_pList[ i ]->m_nThumb = CLibraryThumbItem::thumbValid;
-					}
-					else
-						m_pList[ i ]->m_nThumb = CLibraryThumbItem::thumbError;
-
-					m_nInvalidate++;
-					break;
+					m_pList[ i ]->m_bmThumb.Attach( pFile.CreateBitmap() );
+					m_pList[ i ]->m_nThumb = CLibraryThumbItem::thumbValid;
 				}
+				else
+					m_pList[ i ]->m_nThumb = CLibraryThumbItem::thumbError;
+
+				m_nInvalidate++;
+				break;
 			}
 		}
+
+		oLock.Unlock();
 	}
 }
 
@@ -972,11 +974,10 @@ void CLibraryThumbItem::Paint(CDC* pDC, const CRect& rcBlock)
 	// Draw Label
 
 	CFont* pOldFont = pDC->SelectObject( &CoolInterface.m_fntNormal );
-	const UINT nStyle = DT_CENTER | DT_TOP | DT_WORDBREAK | DT_EDITCONTROL |
-		DT_NOPREFIX | DT_END_ELLIPSIS;
 
-	CRect rcText( rcBlock.left + 4, rcThumb.bottom + 4,
-		rcBlock.right - 4, rcBlock.bottom );
+	const UINT nStyle = DT_CENTER | DT_TOP | DT_WORDBREAK | DT_EDITCONTROL | DT_NOPREFIX | DT_END_ELLIPSIS;
+
+	CRect rcText( rcBlock.left + 4, rcThumb.bottom + 4, rcBlock.right - 4, rcBlock.bottom );
 
 	BOOL bSelectmark = m_bSelected && Skin.m_bmSelected.m_hObject != NULL;
 

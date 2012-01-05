@@ -1,7 +1,7 @@
 //
 // CtrlUploadTip.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -380,6 +380,7 @@ void CUploadTipCtrl::OnTimer(UINT_PTR nIDEvent)
 		// Update torrent Seeds/Peers asynchronously, Scrape if needed
 		if ( pUpload->m_nProtocol == PROTOCOL_BT && m_sSeedsPeers.IsEmpty() )
 		{
+			pLock.Lock();
 			if ( CDownload* pDownload = Downloads.FindByBTH( m_pUploadFile->GetActive()->m_oBTH ) )
 			{
 				if ( pDownload->m_pTorrent.ScrapeTracker() )

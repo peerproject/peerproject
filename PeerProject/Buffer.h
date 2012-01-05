@@ -1,7 +1,7 @@
 //
 // Buffer.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -20,13 +20,6 @@
 // http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CBuffer
 
 #pragma once
-
-// Produces two arguments divided by comma:
-// where first argument is a string itself,
-// and second argument is a string length without null terminator
-#define _P(x)	(x),((sizeof(x))/sizeof((x)[0])-1)
-#define _PT(x)	_P(_T(x))
-
 
 // A buffer of memory that takes care of allocating and freeing itself, and has methods for compression and encoding
 class CBuffer

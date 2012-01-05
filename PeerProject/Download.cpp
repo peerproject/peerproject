@@ -1,7 +1,7 @@
 //
 // Download.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -313,7 +313,7 @@ CString CDownload::GetDownloadStatus() const
 	}
 	else if ( IsPaused() )
 	{
-		if ( GetFileError() == ERROR_SUCCESS )
+		if ( GetFileError() == ERROR_SUCCESS || IsSeeding() )
 			LoadString( strText, IDS_STATUS_PAUSED );
 		else
 			LoadString( strText, IsMoving() ? IDS_STATUS_CANTMOVE : IDS_STATUS_FILEERROR );

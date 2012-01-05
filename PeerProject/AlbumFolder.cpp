@@ -1,7 +1,7 @@
 //
 // AlbumFolder.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -131,21 +131,21 @@ DWORD CAlbumFolder::GetFolderCount() const
 
 POSITION CAlbumFolder::GetFolderIterator() const
 {
-	//ASSUME_LOCK( Library.m_pSection );
+	ASSUME_LOCK( Library.m_pSection );
 
 	return m_pFolders.GetHeadPosition();
 }
 
 CAlbumFolder* CAlbumFolder::GetNextFolder(POSITION& pos) const
 {
-	//ASSUME_LOCK( Library.m_pSection );
+	ASSUME_LOCK( Library.m_pSection );
 
 	return m_pFolders.GetNext( pos );
 }
 
 CAlbumFolder* CAlbumFolder::GetParent() const
 {
-	//ASSUME_LOCK( Library.m_pSection );
+	ASSUME_LOCK( Library.m_pSection );
 
 	return m_pParent;
 }
@@ -307,11 +307,47 @@ CLibraryFile* CAlbumFolder::GetNextFile(POSITION& pos) const
 	return m_pFiles.GetNext( pos );
 }
 
-DWORD CAlbumFolder::GetFileCount() const
+DWORD CAlbumFolder::GetFileCount(BOOL bRecursive) const
 {
 	ASSUME_LOCK( Library.m_pSection );
 
-	return (DWORD)m_pFiles.GetCount();
+	DWORD nCount = (DWORD)m_pFiles.GetCount();
+
+	if ( bRecursive )
+	{
+		for ( POSITION pos = GetFolderIterator() ; pos ; )
+		{
+			const CAlbumFolder* pFolder = GetNextFolder( pos );
+			nCount += pFolder->GetFileCount( bRecursive );
+		}
+	}
+
+	return nCount;
+}
+
+QWORD CAlbumFolder::GetFileVolume(BOOL bRecursive) const
+{
+	if ( CheckURI( m_sSchemaURI, CSchema::uriGhostFolder ) )
+		return 0;	// Skip ghost folder files
+
+	QWORD nVolume = 0;
+
+	for ( POSITION pos = GetFileIterator() ; pos ; )
+	{
+		const CLibraryFile* pFile = GetNextFile( pos );
+		nVolume += pFile->m_nSize;
+	}
+
+	if ( bRecursive )
+	{
+		for ( POSITION pos = GetFolderIterator() ; pos ; )
+		{
+			const CAlbumFolder* pFolder = GetNextFolder( pos );
+			nVolume += pFolder->GetFileVolume( bRecursive );
+		}
+	}
+
+	return nVolume;
 }
 
 DWORD CAlbumFolder::GetSharedCount(BOOL bRecursive) const
@@ -334,7 +370,7 @@ DWORD CAlbumFolder::GetSharedCount(BOOL bRecursive) const
 		for ( POSITION pos = GetFolderIterator() ; pos ; )
 		{
 			const CAlbumFolder* pFolder = GetNextFolder( pos );
-			pFolder->GetSharedCount( bRecursive );
+			nCount += pFolder->GetSharedCount( bRecursive );
 		}
 	}
 
@@ -681,7 +717,7 @@ CCollectionFile* CAlbumFolder::GetCollection()
 }
 
 //////////////////////////////////////////////////////////////////////
-// CAlbumFolder organising
+// CAlbumFolder organizing
 
 BOOL CAlbumFolder::OrganiseFile(CLibraryFile* pFile)
 {
@@ -715,10 +751,8 @@ BOOL CAlbumFolder::OrganiseFile(CLibraryFile* pFile)
 			AddFile( pFile );
 			return TRUE;
 		}
-		else
-		{
-			return FALSE;
-		}
+
+		return FALSE;
 	}
 
 	if ( pFile->m_pMetadata == NULL && m_pParent != NULL )
@@ -877,6 +911,9 @@ BOOL CAlbumFolder::OrganiseFile(CLibraryFile* pFile)
 		CXMLNode::UniformString( strSeries );
 		if ( strSeries.IsEmpty() )
 		{
+			if ( ! Settings.Library.SmartSeriesDetection )
+				return FALSE;
+
 			CString sFileName = (LPCTSTR)pFile->m_sName;
 			CXMLNode::UniformString( sFileName );
 
@@ -914,7 +951,7 @@ BOOL CAlbumFolder::OrganiseFile(CLibraryFile* pFile)
 			else
 				nCount = 0;
 
-			if ( nCount < 4 && Settings.Library.SmartSeriesDetection )
+			if ( nCount < 4 )
 			{
 				nCount = RegExp::Split( _T("(.*[^0-9]+\\b)([0-9]+)\\s*[xX]\\s*([0-9]+)[^0-9]+.*"),
 					sFileName, &szResults );
@@ -925,31 +962,29 @@ BOOL CAlbumFolder::OrganiseFile(CLibraryFile* pFile)
 					p += lstrlen( p ) + 1;
 				}
 				GlobalFree( szResults );
-			}
 
-			if ( nCount >= 4 )
-			{
-				CString strTemp( results[1].c_str() );
-				strTemp.TrimRight( L"- " );
-
-				if ( strTemp.IsEmpty() )
+				if ( nCount < 4 )
 					return FALSE;
-
-				pFile->m_pMetadata->AddAttribute( _T("series"), strTemp );
-				strSeries = strTemp;
-
-				CXMLAttribute* pAttribute = pFile->m_pMetadata->GetAttribute( _T("seriesnumber") );
-				if ( ! pAttribute )
-					pFile->m_pMetadata->AddAttribute( _T("seriesnumber"), results[2].c_str() );
-
-				pAttribute = pFile->m_pMetadata->GetAttribute( _T("episodenumber") );
-				if ( ! pAttribute )
-					pFile->m_pMetadata->AddAttribute( _T("episodenumber"), results[3].c_str() );
 			}
-			else
-			{
+
+			// nCount >= 4
+
+			CString strTemp( results[1].c_str() );
+			strTemp.TrimRight( L"- " );
+
+			if ( strTemp.IsEmpty() )
 				return FALSE;
-			}
+
+			pFile->m_pMetadata->AddAttribute( _T("series"), strTemp );
+			strSeries = strTemp;
+
+			CXMLAttribute* pAttribute = pFile->m_pMetadata->GetAttribute( _T("seriesnumber") );
+			if ( ! pAttribute )
+				pFile->m_pMetadata->AddAttribute( _T("seriesnumber"), results[2].c_str() );
+
+			pAttribute = pFile->m_pMetadata->GetAttribute( _T("episodenumber") );
+			if ( ! pAttribute )
+				pFile->m_pMetadata->AddAttribute( _T("episodenumber"), results[3].c_str() );
 		}
 
 		for ( POSITION pos = GetFolderIterator() ; pos ; )
@@ -1030,9 +1065,7 @@ BOOL CAlbumFolder::OrganiseFile(CLibraryFile* pFile)
 
 		CString strType = pFile->m_pMetadata->GetAttributeValue( _T("type") );
 		if ( strType.CompareNoCase( _T("music video") ) ) return FALSE;
-
 		AddFile( pFile );
-
 		return TRUE;
 	}
 	else if ( CheckURI( m_sSchemaURI, CSchema::uriVideoAll ) )
@@ -1228,7 +1261,7 @@ bool CAlbumFolder::operator==(const CAlbumFolder& val) const
 
 void CAlbumFolder::Clear()
 {
-//	ASSUME_LOCK( Library.m_pSection );
+	ASSUME_LOCK( Library.m_pSection );
 
 	for ( POSITION pos = GetFolderIterator() ; pos ; )
 	{

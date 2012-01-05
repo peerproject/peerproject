@@ -366,7 +366,6 @@
     <ClCompile Include="FileExecutor.cpp" />
     <ClCompile Include="Firewall.cpp" />
     <ClCompile Include="Flags.cpp" />
-    <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="FragmentBar.cpp" />
     <ClCompile Include="FragmentedFile.cpp" />
     <ClCompile Include="G1Neighbour.cpp" />
@@ -1323,7 +1322,6 @@
     <ClInclude Include="FileExecutor.h" />
     <ClInclude Include="Firewall.h" />
     <ClInclude Include="Flags.h" />
-    <ClInclude Include="FontManager.h" />
     <ClInclude Include="FragmentBar.h" />
     <ClInclude Include="FragmentedFile.h" />
     <ClInclude Include="G1Neighbour.h" />

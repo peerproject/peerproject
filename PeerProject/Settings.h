@@ -1,7 +1,7 @@
 //
 // Settings.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -124,7 +124,7 @@ public:
 		CString		DefaultFont;			// Main font
 		CString		PacketDumpFont;			// Packet Window font
 		CString		SystemLogFont;			// System Window font
-		DWORD		FontSize;				// Basic font size
+		DWORD		DefaultSize;			// Basic font size
 	} Fonts;
 
 	struct sLibrary
@@ -478,7 +478,7 @@ public:
 	{
 		bool		Enabled;				// Was BitTorrent.EnableToday
 		bool		EnableAlways;			// Do  BitTorrent.EnableStartup ?
-	//	bool		ShowInterface;			// Never allow hiding some UI features?
+	//	bool		ShowInterface;			// Never need hiding some UI features?
 		CString		TorrentCreatorPath;		// Location of the program used to create .torrent files
 		CString		DefaultTracker;
 		DWORD		DefaultTrackerPeriod;	// Delay between tracker contact attempts if one is not specified by tracker
@@ -495,12 +495,14 @@ public:
 		DWORD		DownloadConnections;	// Number of active torrent connections allowed
 		DWORD		DownloadTorrents;		// Number of torrents to download at once
 		bool		Endgame;				// Allow endgame mode when completing torrents. (Download same chunk from multiple sources)
+		bool		AutoSeed;				// Automatically re-seed most recently completed torrent on start-up
 		bool		AutoClear;				// Clear completed torrents when they meet the required share ratio
 		DWORD		ClearRatio;				// Share ratio a torrent must reach to be cleared. (Minimum 100%)
-		bool		AutoSeed;				// Automatically re-seed most recently completed torrent on start-up
 		DWORD		BandwidthPercentage;	// Percentage of bandwidth to use when BT active.
 		bool		TrackerKey;				// Send a key (random value) to trackers
 		bool		PreferenceBTSources;	// Preference downloading from BT sources where appropriate
+		bool		SkipPaddingFiles;		// Deselect BitComet "____padding_file_..."
+		bool		SkipTrackerFiles;		// Deselect "Torrent downloaded from ... .txt" files
 		DWORD		DhtPruneTime;
 	} BitTorrent;
 

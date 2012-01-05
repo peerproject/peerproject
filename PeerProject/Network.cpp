@@ -1,7 +1,7 @@
 //
 // Network.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -211,7 +211,8 @@ bool CNetwork::IsListening() const
 	return ( IsConnected() )
 		&& ( m_pHost.sin_addr.S_un.S_addr != 0 )
 		&& ( m_pHost.sin_port != 0 )
-		&& ( Handshakes.IsValid() );
+		&& ( Handshakes.IsValid() )
+		&& ( Datagrams.IsValid() );
 }
 
 bool CNetwork::IsWellConnected() const
@@ -631,7 +632,7 @@ WORD CNetwork::RandomPort() const
 
 bool CNetwork::PreRun()
 {
-	//CQuickLock oLock( m_pSection );
+	CQuickLock oLock( m_pSection );
 
 	// Begin network startup
 	theApp.Message( MSG_NOTICE, IDS_NETWORK_STARTUP );
@@ -1139,8 +1140,8 @@ void CNetwork::RunJobs()
 	DWORD nBegin = GetTickCount();
 
 	CSingleLock oLock( &m_pSection, FALSE );
-	if ( ! oLock.Lock( 250 ) )
-		return;
+	if ( ! oLock.Lock( 250 ) ) return;
+
 	while ( ! m_oJobs.IsEmpty() && GetTickCount() - nBegin < 250 )
 	{
 		CJob oJob = m_oJobs.RemoveHead();

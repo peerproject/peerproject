@@ -1,7 +1,7 @@
 //
 // Strings.h
 //
-// This file is part of PeerProject (peerproject.org) © 2010-2011
+// This file is part of PeerProject (peerproject.org) © 2010-2012
 // Portions copyright Shareaza Development Team, 2010.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -17,6 +17,13 @@
 //
 
 #pragma once
+
+
+// Produces two arguments divided by comma from text.	_PT("Text") = L"Text",4
+// Shorthand where first argument is the string
+// and second argument is string length, without null terminator
+#define _P(x)	(x),((sizeof(x))/sizeof((x)[0])-1)
+#define _PT(x)	_P(_T(x))
 
 class CLowerCaseTable
 {
@@ -84,7 +91,7 @@ __int64 atoin(__in_bcount(nLen) const char* pszString, __in size_t nLen);
 // Split string using delimiter to string array
 void Split(const CString& strSource, TCHAR cDelimiter, CStringArray& pAddIt, BOOL bAddFirstEmpty = FALSE);
 
-// StartsWith("Hello world", "hello") is true
+// StartsWith("Hello world", _PT("hello")) is true
 BOOL StartsWith(const CString& sInput, LPCTSTR pszText, size_t nLen = 0);
 
 // Load all text from file (Unicode-compatible)

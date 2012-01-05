@@ -1,7 +1,7 @@
 //
 // MetaList.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -19,11 +19,11 @@
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "MetaList.h"
+#include "Library.h"
+#include "LibraryFolders.h"
 #include "Schema.h"
 #include "SchemaMember.h"
 #include "XML.h"
-#include "Library.h"
-#include "LibraryFolders.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -416,7 +416,7 @@ BOOL CMetaItem::Limit(int nMaxLength)
 {
 	if ( m_sValue.IsEmpty() )
 		return FALSE;
-	else if ( nMaxLength > 0 && m_sValue.GetLength() > nMaxLength )
+	if ( nMaxLength > 0 && m_sValue.GetLength() > nMaxLength )
 		m_sValue = m_sValue.Left( nMaxLength ) + _T('\x2026');
 
 	return TRUE;
@@ -427,7 +427,7 @@ BOOL CMetaItem::Limit(int nMaxLength)
 
 BOOL CMetaItem::CreateLink()
 {
-	if ( m_sValue.Find( _T("http://") ) == 0 || m_sValue.Find( _T("www.") ) == 0 )
+	if ( StartsWith( m_sValue, _PT("http://") ) || StartsWith( m_sValue, _PT("www.") ) )
 	{
 		m_bLink = TRUE;
 
@@ -444,9 +444,7 @@ BOOL CMetaItem::CreateLink()
 	if ( m_pMember->m_sLinkURI.IsEmpty() ) return FALSE;
 	if ( m_pMember->m_sLinkName.IsEmpty() ) return FALSE;
 
-	m_bLink = LibraryFolders.GetAlbumTarget(	m_pMember->m_sLinkURI,
-												m_pMember->m_sLinkName,
-												m_sValue ) != NULL;
+	m_bLink = LibraryFolders.GetAlbumTarget( m_pMember->m_sLinkURI, m_pMember->m_sLinkName, m_sValue ) != NULL;
 
 	if ( m_bLink ) m_sLink = m_sValue;
 
@@ -460,13 +458,13 @@ CAlbumFolder* CMetaItem::GetLinkTarget(BOOL bHTTP) const
 {
 	if ( bHTTP )
 	{
-		if ( m_sLink.Find( _T("http://") ) == 0 )
+		if ( StartsWith( m_sLink, _PT("http://") ) )
 		{
-			ShellExecute( AfxGetMainWnd()->GetSafeHwnd(), _T("open"), m_sLink,
-				NULL, NULL, SW_SHOWNORMAL );
+			ShellExecute( AfxGetMainWnd()->GetSafeHwnd(), _T("open"),
+				m_sLink, NULL, NULL, SW_SHOWNORMAL );
 			return NULL;
 		}
-		else if ( m_sLink.Find( _T("www.") ) == 0 )
+		if ( StartsWith( m_sLink, _PT("www.") ) )
 		{
 			ShellExecute( AfxGetMainWnd()->GetSafeHwnd(), _T("open"),
 				_T("http://") + m_sLink, NULL, NULL, SW_SHOWNORMAL );
@@ -478,9 +476,7 @@ CAlbumFolder* CMetaItem::GetLinkTarget(BOOL bHTTP) const
 	if ( m_pMember->m_sLinkURI.IsEmpty() ) return NULL;
 	if ( m_pMember->m_sLinkName.IsEmpty() ) return NULL;
 
-	return LibraryFolders.GetAlbumTarget(	m_pMember->m_sLinkURI,
-											m_pMember->m_sLinkName,
-											m_sLink );
+	return LibraryFolders.GetAlbumTarget( m_pMember->m_sLinkURI, m_pMember->m_sLinkName, m_sLink );
 }
 
 CString CMetaItem::GetMusicBrainzLink() const
@@ -490,9 +486,9 @@ CString CMetaItem::GetMusicBrainzLink() const
 
 	if ( m_pMember->m_sName == L"mbalbumid" )
 		return L"http://musicbrainz.org/release/" + m_sValue + L".html";
-	else if ( m_pMember->m_sName == L"mbartistid" )
+	if ( m_pMember->m_sName == L"mbartistid" )
 		return L"http://musicbrainz.org/artist/" + m_sValue + L".html";
-	else if ( m_pMember->m_sName == L"mbpuid" )
+	if ( m_pMember->m_sName == L"mbpuid" )
 		return L"http://musicbrainz.org/show/puid/?matchesonly=0&amp;puid=" + m_sValue;
 
 	return CString();

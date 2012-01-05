@@ -1,7 +1,7 @@
 //
 // CtrlBrowseTree.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -607,7 +607,7 @@ void CBrowseTreeCtrl::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBa
 
 BOOL CBrowseTreeCtrl::OnMouseWheel(UINT /*nFlags*/, short zDelta, CPoint /*pt*/)
 {
-	ScrollBy( zDelta * 3 * -Settings.Interface.RowSize / WHEEL_DELTA );
+	ScrollBy( zDelta * 3 * -(int)Settings.Interface.RowSize / WHEEL_DELTA );
 	return TRUE;
 }
 
@@ -732,10 +732,10 @@ CBrowseTreeItem* CBrowseTreeCtrl::HitTest(CRect& rcClient, CPoint& pt, CBrowseTr
 	CRect rc( rcClient.left, pt.y, rcClient.right, pt.y + Settings.Interface.RowSize );
 	pt.y += Settings.Interface.RowSize;
 
-	if ( rc.top >= rcClient.bottom + Settings.Interface.RowSize )
+	if ( rc.top >= rcClient.bottom + (int)Settings.Interface.RowSize )
 		return NULL;
 
-	if ( rc.bottom >= rcClient.top - Settings.Interface.RowSize )
+	if ( rc.bottom >= rcClient.top - (int)Settings.Interface.RowSize )
 	{
 		if ( rc.PtInRect( point ) )
 		{
@@ -758,7 +758,7 @@ CBrowseTreeItem* CBrowseTreeCtrl::HitTest(CRect& rcClient, CPoint& pt, CBrowseTr
 		{
 			CBrowseTreeItem* pItem = HitTest( rcClient, pt, *pChild, point, pRect );
 			if ( pItem ) return pItem;
-			if ( pt.y >= rcClient.bottom + Settings.Interface.RowSize ) break;
+			if ( pt.y >= rcClient.bottom + (int)Settings.Interface.RowSize ) break;
 		}
 
 		pt.x -= 16;

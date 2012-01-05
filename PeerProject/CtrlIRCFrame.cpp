@@ -1,7 +1,7 @@
 ﻿//
 // CtrlIRCFrame.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2005-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -383,7 +383,7 @@ void CIRCFrame::SetFonts()
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, theApp.m_nFontQuality,
 		DEFAULT_PITCH|FF_DONTCARE, Settings.IRC.ScreenFont );
 
-	m_fntEdit.CreateFont( -(int)( Settings.Fonts.FontSize + 1 ), 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
+	m_fntEdit.CreateFont( -(int)( Settings.Fonts.DefaultSize + 1 ), 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, theApp.m_nFontQuality,
 		DEFAULT_PITCH|FF_DONTCARE, Settings.Fonts.DefaultFont );
 

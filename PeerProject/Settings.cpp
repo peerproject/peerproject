@@ -1,7 +1,7 @@
 //
 // Settings.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -150,7 +150,7 @@ void CSettings::Load()
 	Add( _T("Fonts"), _T("DefaultFont"), &Fonts.DefaultFont, theApp.m_bIsVistaOrNewer ? _T("Segoe UI") : _T("Tahoma") );
 	Add( _T("Fonts"), _T("SystemLogFont"), &Fonts.SystemLogFont, theApp.m_bIsVistaOrNewer ? _T("Segoe UI") : _T("Tahoma") );
 	Add( _T("Fonts"), _T("PacketDumpFont"), &Fonts.PacketDumpFont, theApp.m_bIsVistaOrNewer ? _T("Consolas") : _T("Lucida Console") );
-	Add( _T("Fonts"), _T("FontSize"), &Fonts.FontSize, 11, 1, 10, 12, _T(" pt") );
+	Add( _T("Fonts"), _T("DefaultSize"), &Fonts.DefaultSize, 11, 1, 9, 12, _T(" pt") );
 
 	Add( _T("Library"), _T("CreateGhosts"), &Library.CreateGhosts, true );
 	Add( _T("Library"), _T("FilterURI"), &Library.FilterURI );
@@ -481,6 +481,8 @@ void CSettings::Load()
 	Add( _T("BitTorrent"), _T("RequestPipe"), &BitTorrent.RequestPipe, 4, 1, 1, 10 );
 	Add( _T("BitTorrent"), _T("RequestSize"), &BitTorrent.RequestSize, 16*KiloByte, KiloByte, 8, 128, _T(" KB") );
 	Add( _T("BitTorrent"), _T("SourceExchangePeriod"), &BitTorrent.SourceExchangePeriod, 10, 1, 1, 60*5, _T(" m") );
+	Add( _T("BitTorrent"), _T("SkipPaddingFiles"), &BitTorrent.SkipPaddingFiles, true );
+	Add( _T("BitTorrent"), _T("SkipTrackerFiles"), &BitTorrent.SkipTrackerFiles, false );	// Breaks seeding?
 	Add( _T("BitTorrent"), _T("TorrentCodePage"), &BitTorrent.TorrentCodePage, 0, 1, 0, 9999999 );
 	Add( _T("BitTorrent"), _T("TorrentCreatorPath"), &BitTorrent.TorrentCreatorPath );
 	Add( _T("BitTorrent"), _T("TrackerKey"), &BitTorrent.TrackerKey, true );
@@ -655,10 +657,14 @@ void CSettings::Load()
 			Downloads.CompletePath = theApp.GetDownloadsFolder();	//General.Path + _T("\\Downloads");
 	}
 
-	if ( Downloads.TorrentPath.IsEmpty() )
-		Downloads.TorrentPath = Downloads.CompletePath + _T("\\Torrents");
 	if ( Downloads.CollectionPath.IsEmpty() )
 		Downloads.CollectionPath = General.UserPath + _T("\\Collections");
+	if ( Downloads.TorrentPath.IsEmpty() )
+		Downloads.TorrentPath = Downloads.CompletePath + _T("\\Torrents");
+
+	if ( ! StartsWith( BitTorrent.DefaultTracker, _PT("http://") ) &&
+		 ! StartsWith( BitTorrent.DefaultTracker, _PT("udp://") ) )
+		SetDefault( &BitTorrent.DefaultTracker );
 
 	Live.FirstRun = General.FirstRun;
 	General.FirstRun = false;
@@ -1118,7 +1124,7 @@ void CSettings::SmartUpgrade()
 	//	{
 	//		Fonts.DefaultFont.Empty();
 	//		Fonts.SystemLogFont.Empty();
-	//		Fonts.FontSize = 11;
+	//		Fonts.DefaultSize = 11;
 	//	}
 
 	//	if ( General.SmartVersion < 60 )

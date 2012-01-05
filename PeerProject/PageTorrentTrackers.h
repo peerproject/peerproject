@@ -1,7 +1,7 @@
 //
 // PageTorrentTrackers.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -18,14 +18,17 @@
 
 #pragma once
 
-#include "ThreadImpl.h"
 #include "PagePropertyAdv.h"
-#include "HttpRequest.h"
-#include "Download.h"
+#include "BTTrackerRequest.h"
 
-class CTorrentTrackersPage :
-	public CPropertyPageAdv,
-	public CThreadImpl
+// Obsolete Scrape Thread
+//#include "ThreadImpl.h"
+//
+//class CDownload;
+//class CBENode;
+
+
+class CTorrentTrackersPage : public CPropertyPageAdv, public CTrackerEvent	/*public CThreadImpl (Obsolete)*/
 {
 public:
 	CTorrentTrackersPage();
@@ -42,21 +45,22 @@ protected:
 	CEdit			m_wndIncomplete;
 	CComboBox		m_wndTrackerMode;
 	CListCtrl		m_wndTrackers;
-	CHttpRequest	m_pRequest;
-	int				m_nComplete;
-	int				m_nIncomplete;
-	CDownload*		m_pDownload;
+	CBTTrackerRequest*	m_pRequest;
+	DWORD			m_nComplete;
+	DWORD			m_nIncomplete;
 
-	void			OnRun();
-	BOOL			OnTree(CBENode* pNode);
+// Obsolete Scrape Thread
+//	void			OnRun();
+//	BOOL			OnTree(CDownload* pDownload, CBENode* pNode);
 
 	virtual void	DoDataExchange(CDataExchange* pDX);
 	virtual BOOL	OnInitDialog();
 	virtual BOOL	OnApply();
+	virtual void	OnTrackerEvent(bool bSuccess, LPCTSTR pszReason, LPCTSTR pszTip, CBTTrackerRequest* pEvent);
 
+	afx_msg void	OnDestroy();
 	afx_msg void	OnTorrentRefresh();
 	afx_msg void	OnTimer(UINT_PTR nIDEvent);
-	afx_msg void	OnDestroy();
 	afx_msg void	OnEnChangeTorrentTracker();
 	afx_msg void	OnNMClickTorrentTrackers(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void	OnCbnSelchangeTorrentTrackermode();

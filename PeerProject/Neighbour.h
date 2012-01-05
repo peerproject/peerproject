@@ -1,7 +1,7 @@
 //
 // Neighbour.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -61,7 +61,6 @@ const uchar PONG_NEEDED_BUFFER = 32;
 // Define the CNeighbour class to inherit from CConnection, picking up a socket and methods to connect it and read data through it
 class CNeighbour : public CConnection
 {
-
 // Construction
 protected:
 	CNeighbour(PROTOCOLID nProtocol);
@@ -130,7 +129,7 @@ protected:
 // Operations
 public:
 	DWORD		GetMaxTTL() const;		// Get maximum TTL which is safe for both sides
-	void		GetCompression(float* pnInRate, float* pnOutRate);	// Calculate average compression rate in either direction for this connection
+	void		GetCompression(float& nInRate, float& nOutRate) const;	// Calculate average compression rate in either direction for this connection
 
 	virtual DWORD GetUserCount() const { return 0; }	// Returns hub/server leaf/user count variable
 	virtual DWORD GetUserLimit() const { return 0; }	// Returns hub/server leaf/user limit variable

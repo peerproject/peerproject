@@ -1,7 +1,7 @@
 //
 // BTPacket.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -26,6 +26,7 @@
 #include "Datagrams.h"
 #include "Statistics.h"
 #include "HostCache.h"
+#include "Network.h"
 #include "GProfile.h"
 
 #ifdef _DEBUG
@@ -340,8 +341,15 @@ BOOL CBTPacket::OnPacket(const SOCKADDR_IN* pHost)
 	if ( pVersion && pVersion->IsType( CBENode::beString ) )
 		pCache->m_sName = CBTClient::GetUserAgentAzureusStyle( (LPBYTE)pVersion->m_pValue, 4 );
 
-	CString sType = pType->GetString();
-	if ( sType == BT_DICT_QUERY )
+	CBENode* pYourIP = m_pNode->GetNode( BT_DICT_YOURIP );			// "yourip"
+	if ( pYourIP && pYourIP->IsType( CBENode::beString ) )
+	{
+		if ( pYourIP->m_nValue == 4 )	// IPv4
+			Network.AcquireLocalAddress( *(IN_ADDR*)pYourIP->m_pValue );
+	}
+
+	CString strType = pType->GetString();
+	if ( strType == BT_DICT_QUERY )
 	{
 		// Query message
 		CBENode* pQueryMethod = m_pNode->GetNode( BT_DICT_QUERY );	// "q"
@@ -362,7 +370,7 @@ BOOL CBTPacket::OnPacket(const SOCKADDR_IN* pHost)
 
 		return TRUE;
 	}
-	else if ( sType == BT_DICT_RESPONSE )
+	else if ( strType == BT_DICT_RESPONSE )
 	{
 		// Response message
 		CBENode* pResponse = m_pNode->GetNode( BT_DICT_RESPONSE );	// "r"
@@ -390,16 +398,18 @@ BOOL CBTPacket::OnPacket(const SOCKADDR_IN* pHost)
 		CBENode* pPeers = pResponse->GetNode( BT_DICT_VALUES );		// "values"
 		if ( pPeers && pPeers->IsType( CBENode::beList) )
 		{
+			// ToDo: Handle "values" ?
 		}
 
 		CBENode* pNodes = pResponse->GetNode( BT_DICT_NODES );		// "nodes"
 		if ( pNodes && pNodes->IsType( CBENode::beString ) )
 		{
+			// ToDo: Handle "nodes" ?
 		}
 
 		return TRUE;
 	}
-	else if ( sType == BT_DICT_ERROR )
+	else if ( strType == BT_DICT_ERROR )
 	{
 		// Error message
 		CBENode* pError = m_pNode->GetNode( BT_DICT_ERROR );		// "e"

@@ -1,7 +1,7 @@
 //
 // SharedFolder.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -933,7 +933,7 @@ STDMETHODIMP CLibraryFolder::XLibraryFolders::get_Item(VARIANT vIndex, ILibraryF
 {
 	METHOD_PROLOGUE( CLibraryFolder, LibraryFolders )
 
-	//CQuickLock oLock( Library.m_pSection );
+	CQuickLock oLock( Library.m_pSection );
 
 	CLibraryFolder* pFolder = NULL;
 	*ppFolder = NULL;
@@ -973,7 +973,7 @@ STDMETHODIMP CLibraryFolder::XLibraryFolders::get_Count(LONG FAR* pnCount)
 {
 	METHOD_PROLOGUE( CLibraryFolder, LibraryFolders )
 
-	//CQuickLock oLock( Library.m_pSection );
+	CQuickLock oLock( Library.m_pSection );
 
 	*pnCount = static_cast< LONG >( pThis->GetFolderCount() );
 
@@ -1008,7 +1008,7 @@ STDMETHODIMP CLibraryFolder::XLibraryFiles::get_Item(VARIANT vIndex, ILibraryFil
 {
 	METHOD_PROLOGUE( CLibraryFolder, LibraryFiles )
 
-	//CQuickLock oLock( Library.m_pSection );
+	CQuickLock oLock( Library.m_pSection );
 
 	CLibraryFile* pFile = NULL;
 	*ppFile = NULL;
@@ -1045,7 +1045,7 @@ STDMETHODIMP CLibraryFolder::XLibraryFiles::get_Count(LONG FAR* pnCount)
 {
 	METHOD_PROLOGUE( CLibraryFolder, LibraryFiles )
 
-	//CQuickLock oLock( Library.m_pSection );
+	CQuickLock oLock( Library.m_pSection );
 
 	*pnCount = static_cast< LONG >( pThis->GetFileCount() );
 

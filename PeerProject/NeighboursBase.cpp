@@ -1,7 +1,7 @@
 //
 // NeighboursBase.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -197,7 +197,7 @@ DWORD CNeighboursBase::GetCount(PROTOCOLID nProtocol, int nState, int nNodeType)
 // Both CNeighboursWithG1 and CNeighboursWithG2 have Connect methods that do something
 void CNeighboursBase::Connect()
 {
-	//ASSUME_LOCK( Network.m_pSection );
+	ASSUME_LOCK( Network.m_pSection );
 }
 
 //////////////////////////////////////////////////////////////////////
