@@ -1,7 +1,7 @@
 //
 // SharedFile.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -396,12 +396,10 @@ BOOL CLibraryFile::Rename(LPCTSTR pszName)
 		return FALSE;
 	}
 
-	//if ( m_pMetadata != NULL )
+	//if ( m_pMetadata )
 	//{
-	//	CString strMetaFolder	= m_pFolder->m_sPath + _T("\\Metadata");
-	//	CString strMetaOld		= strMetaFolder + '\\' + m_sName + _T(".xml");
-	//	CString strMetaNew		= strMetaFolder + '\\' + pszName + _T(".xml");
-
+	//	CString strMetaOld = m_pFolder->m_sPath + _T("\\Metadata\\") + m_sName + _T(".xml");
+	//	CString strMetaNew = m_pFolder->m_sPath + _T("\\Metadata\\") + pszName + _T(".xml");
 	//	MoveFile( strMetaOld, strMetaNew );
 	//}
 
@@ -972,34 +970,9 @@ BOOL CLibraryFile::ThreadScan(CSingleLock& pLock, DWORD nScanCookie, QWORD nSize
 
 	m_nScanCookie = nScanCookie;
 
-	if ( m_nSize != nSize || CompareFileTime( &m_pTime, pTime ) != 0 )
+	// If file is already in library but hashing was delayed, hash it again
+	if ( m_nSize == nSize || CompareFileTime( &m_pTime, pTime ) == 0 )
 	{
-		pLock.Lock();
-
-		Library.RemoveFile( this );
-
-		CopyMemory( &m_pTime, pTime, sizeof(FILETIME) );
-		m_nSize = nSize;
-
-		m_oSHA1.clear();
-		m_oTiger.clear();
-		m_oMD5.clear();
-		m_oED2K.clear();
-
-		Library.AddFile( this );
-
-		pLock.Unlock();
-
-		m_nUpdateCookie++;
-
-		CFolderScanDlg::Update( m_sName,
-			( m_nSize == SIZE_UNKNOWN ) ? 0 : (DWORD)( m_nSize / 1024 ) );
-
-		return TRUE;
-	}
-	else
-	{
-		// If file is already in library but hashing was delayed - hash it again
 		if ( m_nIndex && ! IsHashed() )
 			LibraryBuilder.Add( this );
 
@@ -1008,6 +981,29 @@ BOOL CLibraryFile::ThreadScan(CSingleLock& pLock, DWORD nScanCookie, QWORD nSize
 
 		return m_bMetadataModified;
 	}
+
+	pLock.Lock();
+
+	Library.RemoveFile( this );
+
+	CopyMemory( &m_pTime, pTime, sizeof(FILETIME) );
+	m_nSize = nSize;
+
+	m_oSHA1.clear();
+	m_oTiger.clear();
+	m_oMD5.clear();
+	m_oED2K.clear();
+
+	Library.AddFile( this );
+
+	pLock.Unlock();
+
+	m_nUpdateCookie++;
+
+	CFolderScanDlg::Update( m_sName,
+		( m_nSize == SIZE_UNKNOWN ) ? 0 : (DWORD)( m_nSize / 1024 ) );
+
+	return TRUE;
 }
 
 BOOL CLibraryFile::IsReadable() const

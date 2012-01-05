@@ -1,7 +1,7 @@
 //
 // BTPacket.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -63,15 +63,20 @@ class CBENode;
 const LPCSTR BT_DICT_ADDED			= "added";
 const LPCSTR BT_DICT_ADDED_F		= "added.f";
 const LPCSTR BT_DICT_DATA			= "a";
+const LPCSTR BT_DICT_COMPLETE		= "complete";
+const LPCSTR BT_DICT_DOWNLOADED		= "downloaded";
 const LPCSTR BT_DICT_DROPPED		= "dropped";
 const LPCSTR BT_DICT_ERROR			= "e";
 const LPCSTR BT_DICT_FAILURE		= "failure reason";
+const LPCSTR BT_DICT_FILES			= "files";
 const LPCSTR BT_DICT_EXT_MSG		= "m";					// Dictionary of supported extension messages
 const LPCSTR BT_DICT_ID				= "id";
+const LPCSTR BT_DICT_INCOMPLETE		= "incomplete";
 const LPCSTR BT_DICT_INTERVAL		= "interval";
 const LPCSTR BT_DICT_LT_TEX			= "lt_tex";
 const LPCSTR BT_DICT_METADATA_SIZE	= "metadata_size";
 const LPCSTR BT_DICT_MSG_TYPE		= "msg_type";
+const LPCSTR BT_DICT_NAME			= "name";
 const LPCSTR BT_DICT_NICKNAME		= "nickname";
 const LPCSTR BT_DICT_NODES			= "nodes";
 const LPCSTR BT_DICT_PEER_ID		= "peer id";
@@ -181,7 +186,7 @@ inline void CBTPacket::CBTPacketPool::FreePoolImpl(CPacket* pPacket)
 	delete [] (CBTPacket*)pPacket;
 }
 
-#pragma pack(1)
+#pragma pack(push, 1)
 
 typedef struct
 {
@@ -191,4 +196,4 @@ typedef struct
 	DWORD	nOffset;
 } BT_PIECE_HEADER;
 
-#pragma pack()
+#pragma pack(pop)

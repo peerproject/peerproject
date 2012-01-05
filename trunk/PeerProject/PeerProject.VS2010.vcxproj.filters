@@ -261,9 +261,6 @@
     <ClCompile Include="Flags.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FontManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="FragmentBar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -1770,9 +1767,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Flags.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="FontManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="FragmentBar.h">

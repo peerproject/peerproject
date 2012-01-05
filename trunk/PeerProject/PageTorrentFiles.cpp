@@ -1,7 +1,7 @@
 //
 // PageTorrentGeneral.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -88,16 +88,6 @@ BOOL CTorrentFilesPage::OnInitDialog()
 	if ( ! CPropertyPageAdv::OnInitDialog() )
 		return FALSE;
 
-	CSingleLock oLock( &Transfers.m_pSection );
-	if ( ! oLock.Lock( 250 ) )
-		return FALSE;	// Overloaded?
-
-	CDownload* pDownload = ((CDownloadSheet*)GetParent())->m_pDownload;
-	if ( ! Downloads.Check( pDownload ) || ! pDownload->IsTorrent() )
-		return FALSE;	// Abort
-
-	oLock.Unlock();
-
 	auto_ptr< CLibraryTipCtrl > pTip( new CLibraryTipCtrl );
 	pTip->Create( this, &Settings.Interface.TipDownloads );
 //	m_wndFiles.EnableTips( pTip );	// Unused ComboListCtrl
@@ -139,13 +129,10 @@ void CTorrentFilesPage::OnShowWindow(BOOL bShow, UINT /*nStatus*/)
 	if ( ! bShow || m_wndFiles.GetItemCount() )
 		return;		// First time only
 
-	CSingleLock oLock( &Transfers.m_pSection );
-	if ( ! oLock.Lock( 500 ) )
-		return;
+	ASSUME_LOCK( Transfers.m_pSection );
 
-	CDownload* pDownload = ((CDownloadSheet*)GetParent())->m_pDownload;
-	if ( ! Downloads.Check( pDownload ) || ! pDownload->IsTorrent() )
-		return;
+	CDownload* pDownload = ((CDownloadSheet*)GetParent())->GetDownload();
+	ASSERT( pDownload && pDownload->IsTorrent() );
 
 	CComPtr< CFragmentedFile > pFragFile = pDownload->GetFile();
 	if ( ! pFragFile )
@@ -161,11 +148,30 @@ void CTorrentFilesPage::OnShowWindow(BOOL bShow, UINT /*nStatus*/)
 	//	theApp.Message( MSG_TRAY, IDS_GENERAL_PLEASEWAIT );		// Obsolete L"Verifying large torrent.\nPlease wait."
 
 	CString strText;
+	DWORD nPadding = 0;
 
 	for ( DWORD i = 0 ; i < nCount ; i++ )
 	{
 		strText = pFragFile->GetName( i );
 		strText = strText.Mid( strText.Find( '\\' ) + 1 );
+
+		// Unwanted files
+		if ( strText.GetAt( 0 ) == _T('_') && _tcscmp( strText.Left( 18 ), _T("_____padding_file_") ) == 0 )
+		{
+			if ( Settings.BitTorrent.SkipPaddingFiles )
+			{
+			//	pFragFile->SetPriority( i, CFragmentedFile::prUnwanted );	// Redundant
+				nPadding++;
+				continue;
+			}
+
+			strText = strText.Left( 20 ) + _T(" ...");	// Otherwise hide BitComet note
+		}
+		//else if ( strText.GetAt( 0 ) == _T('T') && Settings.BitTorrent.SkipTrackerFiles &&
+		//	( strText.Left( 24 ) == _T("Torrent downloaded from ") || strText.Left( 24 ) == _T("Torrent_downloaded_from_") ) )
+		//{
+		//	pFragFile->SetPriority( i, CFragmentedFile::prUnwanted );	// Redundant
+		//}
 
 		LV_ITEM pItem	= {};
 		pItem.mask		= LVIF_TEXT|LVIF_IMAGE|LVIF_PARAM;
@@ -186,7 +192,19 @@ void CTorrentFilesPage::OnShowWindow(BOOL bShow, UINT /*nStatus*/)
 	//		theApp.KeepAlive();
 	}
 
-	oLock.Unlock();
+	if ( nPadding )
+	{
+		strText.Format( _T("_____padding_file_0_...  (x%u)"), nPadding );
+		LV_ITEM pItem	= {};
+		pItem.mask		= LVIF_TEXT|LVIF_IMAGE|LVIF_PARAM;
+		pItem.lParam	= NULL;
+		pItem.pszText	= (LPTSTR)(LPCTSTR)strText;
+		pItem.iImage	= ShellIcons.Get( _T(""), 16 );
+		pItem.iItem		= nCount - nPadding;
+		pItem.iItem		= m_wndFiles.InsertItem( &pItem );
+		m_wndFiles.SetItemText( pItem.iItem, COL_SIZE, _T("0") );
+		m_wndFiles.SetItemState( pItem.iItem, UINT( 1 << 12 ), LVIS_STATEIMAGEMASK );
+	}
 
 	UpdateCount();
 
@@ -218,7 +236,9 @@ void CTorrentFilesPage::OnCheckbox(NMHDR* pNMHDR, LRESULT* pResult)
 
 	int nIndex = _wtoi( m_wndFiles.GetItemText( pNMListView->iItem, COL_INDEX ) );
 
-	CDownload* pDownload = ((CDownloadSheet*)GetParent())->m_pDownload;
+	CDownload* pDownload = ((CDownloadSheet*)GetParent())->GetDownload();
+	if ( ! pDownload )
+		return;		// Invalid download
 
 	CComPtr< CFragmentedFile > pFragFile = pDownload->GetFile();
 
@@ -258,22 +278,27 @@ void CTorrentFilesPage::OnSortColumn(NMHDR* pNotifyStruct, LRESULT* /*pResult*/)
 
 void CTorrentFilesPage::OnNMDblclkTorrentFiles(NMHDR *pNMHDR, LRESULT *pResult)
 {
+	*pResult = 0;
+
 	CPoint pt;
 	GetCursorPos( &pt );
 	m_wndFiles.ScreenToClient( &pt );
-	if ( pt.x > 16 )	// Ignore checkbox
-	{
-		LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
+	if ( pt.x < 18 )	// Ignore checkbox
+		return;
 
-		const int nIndex = _wtoi( m_wndFiles.GetItemText( pNMItemActivate->iItem, COL_INDEX ) );
+	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
 
-		CSingleLock oLock( &Transfers.m_pSection, TRUE );
-		CDownload* pDownload = ((CDownloadSheet*)GetParent())->m_pDownload;
-		if ( Downloads.Check( pDownload ) )
-			pDownload->Launch( nIndex, &oLock, FALSE );
-	}
+	const int nIndex = _wtoi( m_wndFiles.GetItemText( pNMItemActivate->iItem, COL_INDEX ) );
 
-	*pResult = 0;
+	CSingleLock oLock( &Transfers.m_pSection );
+	if ( ! oLock.Lock( 250 ) )
+		return;
+
+	CDownload* pDownload = ((CDownloadSheet*)GetParent())->GetDownload();
+	if ( ! pDownload )
+		return;		// Invalid download
+
+	pDownload->Launch( nIndex, &oLock, FALSE );
 }
 
 BOOL CTorrentFilesPage::OnApply()
@@ -291,7 +316,7 @@ BOOL CTorrentFilesPage::OnApply()
 
 void CTorrentFilesPage::UpdateCount()
 {
-	CDownload* pDownload = ((CDownloadSheet*)GetParent())->m_pDownload;
+	CDownload* pDownload = ((CDownloadSheet*)GetParent())->GetDownload();
 	CComPtr< CFragmentedFile > pFragFile = pDownload->GetFile();
 
 	if ( pFragFile->GetCount() > 1 )
@@ -328,9 +353,9 @@ void CTorrentFilesPage::Update()
 	if ( ! oLock.Lock( 50 ) )
 		return;
 
-	CDownload* pDownload = ((CDownloadSheet*)GetParent())->m_pDownload;
-	if ( ! Downloads.Check( pDownload ) || ! pDownload->IsTorrent() )
-		return;
+	CDownload* pDownload = ((CDownloadSheet*)GetParent())->GetDownload();
+	if ( ! pDownload )
+		return;		// Invalid download
 
 	if ( CComPtr< CFragmentedFile > pFragFile = pDownload->GetFile() )
 	{

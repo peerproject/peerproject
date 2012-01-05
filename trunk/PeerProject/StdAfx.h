@@ -1,7 +1,7 @@
 //
 // StdAfx.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -24,8 +24,8 @@
 #pragma once
 
 
-// ToDo: Visual C++ Express Editions uncomment this line  (See ReadMe.txt for setup)
-//#define VC_EXPRESS
+// ToDo: Visual C++ Express Editions + WDK uncomment this line  (See ReadMe.txt)
+//#define VCEXPRESS
 
 
 //
@@ -127,14 +127,17 @@
 #include <afxwin.h>			// MFC core and standard components
 #include <afxext.h>			// MFC extensions
 #include <afxcmn.h>			// MFC support for Windows Common Controls
-//#include <afxdtctl.h>		// MFC date & time controls  (scheduler)
+//#include <afxdtctl.h>		// MFC date & time controls  (In DlgScheduleTask & PageDownloadEdit)
 #include <afxtempl.h>		// MFC templates
 #include <afxmt.h>			// MFC threads
-#include <afxhtml.h>		// MFC HTML
+#include <afxhtml.h>		// MFC HTML	(For CtrlWeb)
 #include <afxpriv.h>		// MFC UI
 #include <afxole.h>			// MFC OLE
-#include <afxocc.h>			// MFC OCC	(fontmanager/ctrlweb)
-//#include <../src/mfc/occimpl.h>	// MFC OCC substitute for VCExpress+WDK?
+//#ifndef VCEXPRESS
+#include <afxocc.h> 		// MFC OCC	(For CtrlWeb)
+//#else
+//#include <MFC/afxocc.fix.h>	// ToDo: VCExpress+WDK Workaround
+//#endif
 #include <../src/mfc/afximpl.h>
 
 //
@@ -145,6 +148,7 @@
 #include <wininet.h>		// Internet
 #include <wincrypt.h>		// Cryptographic API
 #include <ddeml.h>			// DDE
+#include <dde.h>			// DDE	(WM_DDE_INITIATE)
 #include <math.h>			// Math
 #include <winsvc.h>			// Services (excluded by VC_EXTRALEAN)
 #include <shlwapi.h>		// Windows Shell API

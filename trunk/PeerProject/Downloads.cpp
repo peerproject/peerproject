@@ -1,7 +1,7 @@
 //
 // Downloads.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -71,35 +71,35 @@ CDownloads::~CDownloads()
 
 POSITION CDownloads::GetIterator() const
 {
-	//ASSUME_LOCK( Transfers.m_pSection );
+	ASSUME_LOCK( Transfers.m_pSection );
 
 	return m_pList.GetHeadPosition();
 }
 
 POSITION CDownloads::GetReverseIterator() const
 {
-	//ASSUME_LOCK( Transfers.m_pSection );
+	ASSUME_LOCK( Transfers.m_pSection );
 
 	return m_pList.GetTailPosition();
 }
 
 CDownload* CDownloads::GetNext(POSITION& pos) const
 {
-	//ASSUME_LOCK( Transfers.m_pSection );
+	ASSUME_LOCK( Transfers.m_pSection );
 
 	return m_pList.GetNext( pos );
 }
 
 CDownload* CDownloads::GetPrevious(POSITION& pos) const
 {
-	//ASSUME_LOCK( Transfers.m_pSection );
+	ASSUME_LOCK( Transfers.m_pSection );
 
 	return m_pList.GetPrev( pos );
 }
 
 BOOL CDownloads::Check(CDownload* pDownload) const
 {
-	//ASSUME_LOCK( Transfers.m_pSection );
+	ASSUME_LOCK( Transfers.m_pSection );
 
 	return m_pList.Find( pDownload ) != NULL;
 }
@@ -125,7 +125,7 @@ void CDownloads::StopTrying(bool bIsTorrent)
 
 CDownload* CDownloads::Add()
 {
-	//ASSUME_LOCK( Transfers.m_pSection );
+	ASSUME_LOCK( Transfers.m_pSection );
 
 	CDownload* pDownload = new CDownload();
 	m_pList.AddTail( pDownload );
@@ -260,7 +260,7 @@ CDownload* CDownloads::Add(const CPeerProjectURL& oURL)
 	CDownload* pDownload = NULL;
 	BOOL bNew = TRUE;
 
-	if ( pDownload == NULL && oURL.m_oSHA1 )
+	if ( /*pDownload == NULL &&*/ oURL.m_oSHA1 )
 		pDownload = FindBySHA1( oURL.m_oSHA1 );
 	if ( pDownload == NULL && oURL.m_oTiger )
 		pDownload = FindByTiger( oURL.m_oTiger );
@@ -494,8 +494,8 @@ int CDownloads::GetActiveTorrentCount() const
 		CDownload* pDownload = GetNext( pos );
 
 		if ( pDownload->IsDownloading() && pDownload->IsTorrent() &&
-			! pDownload->IsSeeding()	&& ! pDownload->IsCompleted() &&
-			! pDownload->IsMoving()		&& ! pDownload->IsPaused() )
+			! pDownload->IsSeeding() && ! pDownload->IsCompleted() &&
+			! pDownload->IsMoving() && ! pDownload->IsPaused() )
 		{
 			nCount++;
 		}
@@ -544,7 +544,7 @@ DWORD CDownloads::GetConnectingTransferCount() const
 
 void CDownloads::Remove(CDownload* pDownload)
 {
-	//ASSUME_LOCK( Transfers.m_pSection );
+	ASSUME_LOCK( Transfers.m_pSection );
 
 	if ( POSITION pos = m_pList.Find( pDownload ) )
 		m_pList.RemoveAt( pos );
@@ -557,7 +557,7 @@ void CDownloads::Remove(CDownload* pDownload)
 
 BOOL CDownloads::Check(CDownloadSource* pSource) const
 {
-	//ASSUME_LOCK( Transfers.m_pSection );
+	ASSUME_LOCK( Transfers.m_pSection );
 
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
@@ -585,7 +585,7 @@ bool CDownloads::CheckActive(CDownload* pDownload, int nScope) const
 
 CDownload* CDownloads::FindByPath(const CString& sPath) const
 {
-	//ASSUME_LOCK( Transfers.m_pSection );
+	ASSUME_LOCK( Transfers.m_pSection );
 
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
@@ -598,7 +598,7 @@ CDownload* CDownloads::FindByPath(const CString& sPath) const
 
 CDownload* CDownloads::FindByURN(LPCTSTR pszURN, BOOL bSharedOnly) const
 {
-	//ASSUME_LOCK( Transfers.m_pSection );
+	ASSUME_LOCK( Transfers.m_pSection );
 
 	CDownload* pDownload;
 	Hashes::TigerHash oTiger;
@@ -637,6 +637,8 @@ CDownload* CDownloads::FindByURN(LPCTSTR pszURN, BOOL bSharedOnly) const
 
 CDownload* CDownloads::FindBySHA1(const Hashes::Sha1Hash& oSHA1, BOOL bSharedOnly) const
 {
+	ASSUME_LOCK( Transfers.m_pSection );
+
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
 		CDownload* pDownload = GetNext( pos );
@@ -652,6 +654,8 @@ CDownload* CDownloads::FindBySHA1(const Hashes::Sha1Hash& oSHA1, BOOL bSharedOnl
 
 CDownload* CDownloads::FindByTiger(const Hashes::TigerHash& oTiger, BOOL bSharedOnly) const
 {
+	ASSUME_LOCK( Transfers.m_pSection );
+
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
 		CDownload* pDownload = GetNext( pos );
@@ -667,6 +671,8 @@ CDownload* CDownloads::FindByTiger(const Hashes::TigerHash& oTiger, BOOL bShared
 
 CDownload* CDownloads::FindByED2K(const Hashes::Ed2kHash& oED2K, BOOL bSharedOnly) const
 {
+	ASSUME_LOCK( Transfers.m_pSection );
+
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
 		CDownload* pDownload = GetNext( pos );
@@ -683,12 +689,14 @@ CDownload* CDownloads::FindByED2K(const Hashes::Ed2kHash& oED2K, BOOL bSharedOnl
 
 CDownload* CDownloads::FindByBTH(const Hashes::BtHash& oBTH, BOOL bSharedOnly) const
 {
+	ASSUME_LOCK( Transfers.m_pSection );
+
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
 		CDownload* pDownload = GetNext( pos );
 		if ( validAndEqual( pDownload->m_oBTH, oBTH ) )
 		{
-			if ( ! bSharedOnly || ( pDownload->IsShared() ) )
+			if ( ! bSharedOnly || pDownload->IsShared() )
 				return pDownload;
 		}
 	}
@@ -698,6 +706,8 @@ CDownload* CDownloads::FindByBTH(const Hashes::BtHash& oBTH, BOOL bSharedOnly) c
 
 CDownload* CDownloads::FindByMD5(const Hashes::Md5Hash& oMD5, BOOL bSharedOnly) const
 {
+	ASSUME_LOCK( Transfers.m_pSection );
+
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
 		CDownload* pDownload = GetNext( pos );
@@ -717,6 +727,8 @@ CDownload* CDownloads::FindByMD5(const Hashes::Md5Hash& oMD5, BOOL bSharedOnly) 
 
 CDownload* CDownloads::FindBySID(DWORD nSerID) const
 {
+	ASSUME_LOCK( Transfers.m_pSection );
+
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
 		CDownload* pDownload = GetNext( pos );
@@ -947,8 +959,7 @@ void CDownloads::OnRun()
 
 	const DWORD tNow = GetTickCount();
 
-	// Re-calculating bandwidth may be a little CPU heavy if there are a lot of transfers-
-	// limit it to 4 times per second
+	// Re-calculating bandwidth may be a little CPU heavy if there are many transfers, limit it to 4 times per second
 	if ( tNow < m_tBandwidthLastCalc + 250 )
 	{
 		// Just run the downloads, don't bother re-calulating bandwidth
@@ -960,170 +971,172 @@ void CDownloads::OnRun()
 			pDownload->m_nRunCookie = m_nRunCookie;
 			pDownload->OnRun();
 		}
+
+		return;
 	}
-	else
-	{
-		// Run downloads, update bandwidth settings and allows
-		m_tBandwidthLastCalc = tNow;
 
-		DWORD nActiveDownloads		= 0;	// Number of downloads that are doing something
-		DWORD nActiveTransfers		= 0;	// Number of transfers that are in the downloading state
-		DWORD nTotalTransfers		= 0;	// Total transfers
-		DWORD nTotalBandwidth		= 0;	// Total bandwidth in use
-		DWORD nRunningTransfers		= 0;	// Number of transfers that are downloading and transfering data
-		DWORD nRunningTransfersED2K	= 0;	// Number of ed2k transfers that are downloading and transfering data
-		DWORD nTotalBandwidthED2K	= 0;	// Total ed2k bandwidth in use.
+	// Run downloads, update bandwidth settings and allows
+	m_tBandwidthLastCalc = tNow;
 
-		DWORD nBandwidthAvailable	= min( ( Settings.Bandwidth.Downloads ?
-			Settings.Bandwidth.Downloads : 0xffffffffu ),
-			Settings.Connection.InSpeed * Kilobits / Bytes );
-		DWORD nBandwidthAvailableED2K = 0;
-		BOOL bDonkeyRatioActive		= FALSE;
+	DWORD nActiveDownloads		= 0;	// Number of downloads that are doing something
+	DWORD nActiveTransfers		= 0;	// Number of transfers that are in the downloading state
+	DWORD nTotalTransfers		= 0;	// Total transfers
+	DWORD nTotalBandwidth		= 0;	// Total bandwidth in use
+	DWORD nRunningTransfers		= 0;	// Number of transfers that are downloading and transfering data
+	DWORD nRunningTransfersED2K	= 0;	// Number of ed2k transfers that are downloading and transfering data
+	DWORD nTotalBandwidthED2K	= 0;	// Total ed2k bandwidth in use.
 
-		{	// Lock transfers section
-			CList<CDownloadTransfer*> pTransfersToLimit;
-			++m_nRunCookie;
+	DWORD nBandwidthAvailable	= min( ( Settings.Bandwidth.Downloads ?
+		Settings.Bandwidth.Downloads : 0xffffffffu ),
+		Settings.Connection.InSpeed * Kilobits / Bytes );
+	DWORD nBandwidthAvailableED2K = 0;
+	BOOL bDonkeyRatioActive		= FALSE;
 
-			// Run all the downloads, select the transfers that need bandwidth limiting
-			for ( POSITION pos = GetIterator() ; pos ; )
+	{	// Lock transfers section
+		CList<CDownloadTransfer*> pTransfersToLimit;
+		++m_nRunCookie;
+
+		// Run all the downloads, select the transfers that need bandwidth limiting
+		for ( POSITION pos = GetIterator() ; pos ; )
+		{
+			CDownload* pDownload = GetNext( pos );
+			pDownload->m_nRunCookie = m_nRunCookie;
+			pDownload->OnRun();
+
+			if ( pDownload->IsCompleted() ) 	// BitTorrent seeds
+				continue;
+
+			int nTemp = 0;
+
+			for ( CDownloadTransfer* pTransfer = pDownload->GetFirstTransfer() ; pTransfer ; pTransfer = pTransfer->m_pDlNext )
 			{
-				CDownload* pDownload = GetNext( pos );
-				pDownload->m_nRunCookie = m_nRunCookie;
-				pDownload->OnRun();
-
-				if ( pDownload->IsCompleted() ) 	// BitTorrent seeds
-					continue;
-
-				int nTemp = 0;
-
-				for ( CDownloadTransfer* pTransfer = pDownload->GetFirstTransfer() ; pTransfer ; pTransfer = pTransfer->m_pDlNext )
+				if ( pTransfer->m_nProtocol == PROTOCOL_ED2K )
 				{
+					CDownloadTransferED2K* pED2K = (CDownloadTransferED2K*)pTransfer;
+					if ( ! pED2K->m_pClient || ! pED2K->m_pClient->m_bConnected )
+						continue;
+
+					if ( pTransfer->m_nState == dtsQueued )
+						continue;
+				}
+				else if ( pTransfer->m_nProtocol == PROTOCOL_BT )
+				{
+					CDownloadTransferBT* pBT = (CDownloadTransferBT*)pTransfer;
+					if ( pBT->m_nState == dtsTorrent && pBT->m_bChoked )
+						continue;
+				}
+
+				++nTemp;
+
+				if ( pTransfer->m_nState == dtsDownloading )
+				{
+					DWORD nSpeed = pTransfer->GetMeasuredSpeed();
+					nTotalBandwidth += nSpeed;
+					++nActiveTransfers;
+					++nRunningTransfers;
+					pTransfersToLimit.AddTail( pTransfer );
 					if ( pTransfer->m_nProtocol == PROTOCOL_ED2K )
 					{
-						CDownloadTransferED2K* pED2K = (CDownloadTransferED2K*)pTransfer;
-						if ( ! pED2K->m_pClient || ! pED2K->m_pClient->m_bConnected )
-							continue;
-
-						if ( pTransfer->m_nState == dtsQueued )
-							continue;
+						nTotalBandwidthED2K += nSpeed;
+						++nRunningTransfersED2K;
 					}
-					else if ( pTransfer->m_nProtocol == PROTOCOL_BT )
-					{
-						CDownloadTransferBT* pBT = (CDownloadTransferBT*)pTransfer;
-						if ( pBT->m_nState == dtsTorrent && pBT->m_bChoked )
-							continue;
-					}
-
-					++nTemp;
-
-					if ( pTransfer->m_nState == dtsDownloading )
-					{
-						DWORD nSpeed = pTransfer->GetMeasuredSpeed();
-						nTotalBandwidth += nSpeed;
-						++nActiveTransfers;
-						++nRunningTransfers;
-						pTransfersToLimit.AddTail( pTransfer );
-						if ( pTransfer->m_nProtocol == PROTOCOL_ED2K )
-						{
-							nTotalBandwidthED2K += nSpeed;
-							++nRunningTransfersED2K;
-						}
-						// Limit will be set below, once all data is collected
-					}
-				}
-
-				if ( nTemp )
-				{
-					++nActiveDownloads;
-					nTotalTransfers += nTemp;
+					// Limit will be set below, once all data is collected
 				}
 			}
 
-			// Set the ed2k ratio, bandwidth available
-			if ( UploadQueues.IsDonkeyRatioActive() )
+			if ( nTemp )
 			{
-				nBandwidthAvailableED2K = max( UploadQueues.GetMinimumDonkeyBandwidth(), UploadQueues.GetCurrentDonkeyBandwidth() );
-				if ( nBandwidthAvailableED2K < 10240 )
-				{
-					bDonkeyRatioActive = TRUE;
-					// ED2K 3:1 ratio if you aren't uploading at 10KB/s
-					nBandwidthAvailableED2K *= 3;
-				}
-				else
-					nBandwidthAvailableED2K = 0;
+				++nActiveDownloads;
+				nTotalTransfers += nTemp;
+			}
+		}
+
+		// Set the ed2k ratio, bandwidth available
+		if ( UploadQueues.IsDonkeyRatioActive() )
+		{
+			nBandwidthAvailableED2K = max( UploadQueues.GetMinimumDonkeyBandwidth(), UploadQueues.GetCurrentDonkeyBandwidth() );
+			if ( nBandwidthAvailableED2K < 10240 )
+			{
+				bDonkeyRatioActive = TRUE;
+				// ED2K 3:1 ratio if you aren't uploading at 10KB/s
+				nBandwidthAvailableED2K *= 3;
+			}
+			else
+				nBandwidthAvailableED2K = 0;
+		}
+
+		// Limit the transfers. Faster transfers get a bigger share of the bandwidth
+		for ( POSITION pos = pTransfersToLimit.GetHeadPosition() ; pos ; )
+		{
+			CDownloadTransfer* pTransfer = pTransfersToLimit.GetNext( pos );
+
+			DWORD nLimit;
+			DWORD nCurrentSpeed = pTransfer->GetMeasuredSpeed();
+
+			if ( nTotalBandwidth == 0 )
+			{
+				nLimit = nBandwidthAvailable / (DWORD)pTransfersToLimit.GetCount();
+			}
+			else
+			{
+				double nPercentageUsed = (double)nCurrentSpeed / (double)nTotalBandwidth;
+				nPercentageUsed = min(nPercentageUsed, 0.90);
+				nLimit = (DWORD)(nBandwidthAvailable * nPercentageUsed);
 			}
 
-			// Limit the transfers. Faster transfers get a bigger share of the bandwidth
-			for ( POSITION pos = pTransfersToLimit.GetHeadPosition() ; pos ; )
+			// eDonkey ratio
+			if ( bDonkeyRatioActive && ( pTransfer->m_nProtocol == PROTOCOL_ED2K ) )
 			{
-				CDownloadTransfer* pTransfer = pTransfersToLimit.GetNext( pos );
-
-				DWORD nCurrentSpeed = pTransfer->GetMeasuredSpeed();
-				DWORD nLimit;
-
-				if ( nTotalBandwidth == 0 )
+				DWORD nLimitED2K;
+				if ( nRunningTransfersED2K == 0 )
 				{
-					nLimit = nBandwidthAvailable / (DWORD)pTransfersToLimit.GetCount();
+					nLimitED2K = nBandwidthAvailableED2K;
+				}
+				else if ( nTotalBandwidthED2K == 0 )
+				{
+					nLimitED2K = nBandwidthAvailableED2K / nRunningTransfersED2K;
 				}
 				else
 				{
-					double nPercentageUsed = (double)nCurrentSpeed / (double)nTotalBandwidth;
+					double nPercentageUsed = (double)nCurrentSpeed / (double)nTotalBandwidthED2K;
 					nPercentageUsed = min(nPercentageUsed, 0.90);
-					nLimit = (DWORD)(nBandwidthAvailable * nPercentageUsed);
+					nLimitED2K = (DWORD)(nBandwidthAvailableED2K * nPercentageUsed );
 				}
 
-				// eDonkey ratio
-				if ( bDonkeyRatioActive && ( pTransfer->m_nProtocol == PROTOCOL_ED2K ) )
-				{
-					DWORD nLimitED2K;
-					if ( nRunningTransfersED2K == 0 )
-					{
-						nLimitED2K = nBandwidthAvailableED2K;
-					}
-					else if ( nTotalBandwidthED2K == 0 )
-					{
-						nLimitED2K = nBandwidthAvailableED2K / nRunningTransfersED2K;
-					}
-					else
-					{
-						double nPercentageUsed = (double)nCurrentSpeed / (double)nTotalBandwidthED2K;
-						nPercentageUsed = min(nPercentageUsed, 0.90);
-						nLimitED2K = (DWORD)(nBandwidthAvailableED2K * nPercentageUsed );
-					}
-
-					nLimit = ( nLimit ? min( nLimit, nLimitED2K ) : nLimitED2K );
-				}
-
-				// Minimum allocation- 64 bytes / second to prevent time-outs.
-				nLimit = max( nLimit, 64ul );
-
-				pTransfer->m_nBandwidth = nLimit;
+				nLimit = ( nLimit ? min( nLimit, nLimitED2K ) : nLimitED2K );
 			}
-		} 	// End of transfers section lock
 
-		// Update limit assigned to new transfers
-	//	if ( nBandwidthAvailable > nTotalBandwidth )
-	//		m_nLimitNew = nBandwidthAvailable - nTotalBandwidth;
-	//	else
-	//		m_nLimitNew = Settings.Bandwidth.Request;
+			// Minimum allocation- 64 bytes / second to prevent time-outs.
+			nLimit = max( nLimit, 64ul );
 
-		// Save bandwidth stats, Update allows
-		m_nTransfers = nActiveTransfers;
-		m_nBandwidth = nTotalBandwidth;
+			pTransfer->m_nBandwidth = nLimit;
+		}
 
-		m_bAllowMoreDownloads = nActiveDownloads < Settings.Downloads.MaxFiles;
-		m_bAllowMoreTransfers = nTotalTransfers < Settings.Downloads.MaxTransfers;
+		oLock.Unlock();
+	} 	// End of transfers section lock
 
-		// Set "bandwidth use is near maximum" timers
-		// beware that the MAX setting uses a limit of 0 internally,
-		// so we need to catch that case first
-		if ( nBandwidthAvailable != 0 && ( nTotalBandwidth * 1.1 ) >= nBandwidthAvailable )
-			m_tBandwidthAtMax = tNow;
-		if ( nBandwidthAvailableED2K != 0 && ( nTotalBandwidthED2K * 1.1 ) >= nBandwidthAvailableED2K )
-			m_tBandwidthAtMaxED2K = tNow;
+	// Update limit assigned to new transfers
+//	if ( nBandwidthAvailable > nTotalBandwidth )
+//		m_nLimitNew = nBandwidthAvailable - nTotalBandwidth;
+//	else
+//		m_nLimitNew = Settings.Bandwidth.Request;
 
-		DownloadGroups.Save( FALSE );
-	}
+	// Save bandwidth stats, Update allows
+	m_nTransfers = nActiveTransfers;
+	m_nBandwidth = nTotalBandwidth;
+
+	m_bAllowMoreDownloads = nActiveDownloads < Settings.Downloads.MaxFiles;
+	m_bAllowMoreTransfers = nTotalTransfers < Settings.Downloads.MaxTransfers;
+
+	// Set "bandwidth use is near maximum" timers
+	// beware that the MAX setting uses a limit of 0 internally,
+	// so we need to catch that case first
+	if ( nBandwidthAvailable != 0 && ( nTotalBandwidth * 1.1 ) >= nBandwidthAvailable )
+		m_tBandwidthAtMax = tNow;
+	if ( nBandwidthAvailableED2K != 0 && ( nTotalBandwidthED2K * 1.1 ) >= nBandwidthAvailableED2K )
+		m_tBandwidthAtMaxED2K = tNow;
+
+	DownloadGroups.Save( FALSE );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -1132,8 +1145,7 @@ void CDownloads::OnRun()
 bool CDownloads::OnQueryHits(const CQueryHit* pHits)
 {
 	CSingleLock pLock( &Transfers.m_pSection );
-	if ( ! pLock.Lock( 250 ) )
-		return false;
+	if ( ! pLock.Lock( 250 ) ) return false;
 
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{

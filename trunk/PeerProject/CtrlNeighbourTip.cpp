@@ -1,7 +1,7 @@
 //
 // CtrlNeighbourTip.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -54,6 +54,8 @@ END_MESSAGE_MAP()
 CNeighbourTipCtrl::CNeighbourTipCtrl()
 	: m_nNeighbour	( 0 )
 	, m_pGraph		( NULL )
+	, m_pItemIn		( NULL )
+	, m_pItemOut	( NULL )
 {
 }
 
@@ -70,10 +72,12 @@ BOOL CNeighbourTipCtrl::OnPrepare()
 	CSingleLock pLock( &Network.m_pSection );
 	if ( ! pLock.Lock( 100 ) ) return FALSE;
 
-	CNeighbour* pNeighbour = Neighbours.Get( m_nNeighbour );
+	const CNeighbour* pNeighbour = Neighbours.Get( m_nNeighbour );
 	if ( pNeighbour == NULL ) return FALSE;
 
 	CalcSizeHelper();
+
+//	CoolInterface.LoadIconsTo( m_pProtocols, protocolIDs, FALSE, LVSIL_NORMAL );
 
 	return TRUE;
 }
@@ -107,7 +111,7 @@ void CNeighbourTipCtrl::OnCalcSize(CDC* pDC)
 	CSingleLock pLock( &Network.m_pSection );
 	if ( ! pLock.Lock( 250 ) ) return;
 
-	CNeighbour* pNeighbour = Neighbours.Get( m_nNeighbour );
+	const CNeighbour* pNeighbour = Neighbours.Get( m_nNeighbour );
 	CString str;
 
 	if ( pNeighbour->m_pProfile != NULL && pNeighbour->m_pProfile->IsValid() )
@@ -165,7 +169,7 @@ void CNeighbourTipCtrl::OnCalcSize(CDC* pDC)
 	m_sz.cy += TIP_TEXTHEIGHT * 6 - 2;
 
 	float nCompIn, nCompOut;
-	pNeighbour->GetCompression( &nCompIn, &nCompOut );
+	pNeighbour->GetCompression( nCompIn, nCompOut );
 	if ( nCompIn > 0 || nCompOut > 0 )
 		m_sz.cy += TIP_TEXTHEIGHT;
 
@@ -181,7 +185,7 @@ void CNeighbourTipCtrl::OnPaint(CDC* pDC)
 	CSingleLock pLock( &Network.m_pSection );
 	if ( ! pLock.Lock( 100 ) ) return;
 
-	CNeighbour* pNeighbour = Neighbours.Get( m_nNeighbour );
+	const CNeighbour* pNeighbour = Neighbours.Get( m_nNeighbour );
 	if ( pNeighbour == NULL ) return;
 
 	CPoint pt( 0, 0 );
@@ -207,7 +211,7 @@ void CNeighbourTipCtrl::OnPaint(CDC* pDC)
 
 		DrawRule( pDC, &pt );
 	}
-	else if ( pNeighbour->m_nProtocol == PROTOCOL_ED2K || pNeighbour->m_nProtocol == PROTOCOL_DC)
+	else if ( pNeighbour->m_nProtocol == PROTOCOL_ED2K || pNeighbour->m_nProtocol == PROTOCOL_DC )
 	{
 		str = pNeighbour->m_sServerName;
 
@@ -219,6 +223,13 @@ void CNeighbourTipCtrl::OnPaint(CDC* pDC)
 			DrawRule( pDC, &pt );
 		}
 	}
+
+	// Show large protocol icon (unused)
+	//CRect rcProtocol( m_sz.cx - 32 - 4, pt.y + 4, m_sz.cx - 4, pt.y + 32 + 4 );
+	//ImageList_DrawEx( m_pProtocols, pNeighbour->m_nProtocol, pDC->GetSafeHdc(),
+	//	rcProtocol.left, rcProtocol.top, rcProtocol.Width(), rcProtocol.Height(),
+	//	Colors.m_crTipBack, CLR_DEFAULT, ILD_NORMAL );
+	//pDC->ExcludeClipRect( &rcProtocol );
 
 	pDC->SelectObject( &CoolInterface.m_fntBold );
 	DrawText( pDC, &pt, pNeighbour->m_sAddress );
@@ -245,6 +256,14 @@ void CNeighbourTipCtrl::OnPaint(CDC* pDC)
 		}
 		pt.y += TIP_TEXTHEIGHT + 2;
 	}
+
+
+	if ( ! pNeighbour->m_sUserAgent.IsEmpty() )
+		str = pNeighbour->m_sUserAgent;
+	else
+		str = L"(" + (CString)protocolNames[ pNeighbour->m_nProtocol ] + L")";
+	DrawText( pDC, &pt, str );
+	pt.y += TIP_TEXTHEIGHT;
 
 	if ( pNeighbour->m_nState < nrsConnected )
 	{
@@ -306,12 +325,6 @@ void CNeighbourTipCtrl::OnPaint(CDC* pDC)
 		}
 	}
 
-	if ( ! pNeighbour->m_sUserAgent.IsEmpty() )
-	{
-		DrawText( pDC, &pt, pNeighbour->m_sUserAgent );
-		pt.y += TIP_TEXTHEIGHT;
-	}
-
 	DrawText( pDC, &pt, str );
 	pt.y += TIP_TEXTHEIGHT;
 
@@ -346,7 +359,7 @@ void CNeighbourTipCtrl::OnPaint(CDC* pDC)
 	pt.y += TIP_TEXTHEIGHT;
 
 	float nCompIn, nCompOut;
-	pNeighbour->GetCompression( &nCompIn, &nCompOut );
+	pNeighbour->GetCompression( nCompIn, nCompOut );
 
 	LoadString( str, IDS_NEIGHBOUR_COMPRESSION );
 	DrawText( pDC, &pt, str );

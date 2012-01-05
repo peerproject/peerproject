@@ -1,7 +1,7 @@
 //
 // HostCache.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -83,7 +83,7 @@ public:
 	bool		CanConnect(const DWORD tNow) const;		// Can we connect to this host now?
 	bool		CanQuote(const DWORD tNow) const;		// Is this a recently seen host?
 	bool		CanQuery(const DWORD tNow) const;		// Can we UDP query this host? (G2/ed2k)
-	void		SetKey(DWORD nKey, const IN_ADDR* pHost = NULL);
+	void		SetKey(const DWORD nKey, const IN_ADDR* pHost = NULL);
 
 	DWORD		Seen() const;		// Get host last seen time
 	CString		Address() const;	// Get host address as string
@@ -115,6 +115,7 @@ struct std::less< IN_ADDR > : public std::binary_function< IN_ADDR, IN_ADDR, boo
 
 typedef std::multimap< IN_ADDR, CHostCacheHostPtr > CHostCacheMap;
 typedef std::pair< IN_ADDR, CHostCacheHostPtr > CHostCacheMapPair;
+typedef CHostCacheMap::iterator CHostCacheMapItr;
 
 template<>
 struct std::less< CHostCacheHostPtr > : public std::binary_function< CHostCacheHostPtr, CHostCacheHostPtr, bool>
@@ -168,8 +169,8 @@ public:
 	CHostCacheHostPtr	Add(const IN_ADDR* pAddress, WORD nPort, DWORD tSeen = 0, LPCTSTR pszVendor = NULL, DWORD nUptime = 0, DWORD nCurrentLeaves = 0, DWORD nLeafLimit = 0, LPCTSTR szAddress = NULL);
 	BOOL				Add(LPCTSTR pszHost, DWORD tSeen = 0, LPCTSTR pszVendor = NULL, DWORD nUptime = 0, DWORD nCurrentLeaves = 0, DWORD nLeafLimit = 0); 	// Add host in form "IP:Port SeenTime"
 	void				Update(CHostCacheHostPtr pHost, WORD nPort = 0, DWORD tSeen = 0, LPCTSTR pszVendor = NULL, DWORD nUptime = 0, DWORD nCurrentLeaves = 0, DWORD nLeafLimit = 0);
-	bool				Remove(CHostCacheHostPtr pHost);
-	bool				Remove(const IN_ADDR* pAddress);
+	CHostCacheMapItr	Remove(CHostCacheHostPtr pHost);
+	CHostCacheMapItr	Remove(const IN_ADDR* pAddress);
 	void				OnResolve(LPCTSTR szAddress, const IN_ADDR* pAddress, WORD nPort);
 	void				OnFailure(LPCTSTR szAddress, bool bRemove = true);
 	void				OnFailure(const IN_ADDR* pAddress, WORD nPort, bool bRemove = true);

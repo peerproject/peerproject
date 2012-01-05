@@ -1,7 +1,7 @@
 //
 // CtrlCoolTip.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -75,9 +75,9 @@ BOOL CCoolTipCtrl::Create(CWnd* pParentWnd, bool* pbEnable)
 {
 	CRect rc( 0, 0, 0, 0 );
 
-	DWORD dwStyleEx = WS_EX_TOPMOST | ( Settings.General.LanguageRTL ? WS_EX_LAYOUTRTL : 0 );
-	if ( ! CWnd::CreateEx( dwStyleEx, m_hClass, NULL, WS_POPUP|WS_DISABLED,
-		rc, pParentWnd, 0, NULL ) ) return FALSE;
+	const DWORD dwStyleEx = WS_EX_TOPMOST | ( Settings.General.LanguageRTL ? WS_EX_LAYOUTRTL : 0 );
+	if ( ! CWnd::CreateEx( dwStyleEx, m_hClass, NULL, WS_POPUP|WS_DISABLED, rc, pParentWnd, 0, NULL ) )
+		return FALSE;
 
 	SetOwner( pParentWnd );
 	m_pbEnable = pbEnable;
@@ -202,10 +202,16 @@ void CCoolTipCtrl::CalcSizeHelper()
 
 void CCoolTipCtrl::AddSize(CDC* pDC, LPCTSTR pszText, int nBase)
 {
-	DWORD dwFlags = ( Settings.General.LanguageRTL ? DT_RTLREADING : 0 ) | DT_SINGLELINE | DT_NOPREFIX;
+	m_sz.cx = max( m_sz.cx, (LONG)GetSize( pDC, pszText ) + nBase );
+}
+
+int CCoolTipCtrl::GetSize(CDC* pDC, LPCTSTR pszText) const
+{
 	CRect rcText( 0, 0, 0, 0 );
-	pDC->DrawText( pszText, -1, &rcText, dwFlags | DT_CALCRECT );
-	m_sz.cx = max( m_sz.cx, rcText.Width() + nBase );
+	const DWORD dwFlags = DT_CALCRECT | DT_SINGLELINE | DT_NOPREFIX |
+		( Settings.General.LanguageRTL ? DT_RTLREADING : 0 );
+	pDC->DrawText( pszText, -1, &rcText, dwFlags );
+	return rcText.Width();
 }
 
 void CCoolTipCtrl::GetPaintRect(RECT* pRect)
@@ -224,8 +230,9 @@ void CCoolTipCtrl::DrawText(CDC* pDC, POINT* pPoint, LPCTSTR pszText, int nBase)
 
 void CCoolTipCtrl::DrawText(CDC* pDC, POINT* pPoint, LPCTSTR pszText, SIZE* pTextMaxSize)
 {
-	DWORD dwFlags = ( Settings.General.LanguageRTL ? DT_RTLREADING : 0 ) | DT_SINGLELINE | DT_NOPREFIX;
 	CRect rcText( 0, 0, 0, 0 );
+	const DWORD dwFlags = DT_SINGLELINE | DT_NOPREFIX |
+		( Settings.General.LanguageRTL ? DT_RTLREADING : 0 );
 	pDC->DrawText( pszText, -1, &rcText, dwFlags | DT_CALCRECT );
 	if ( pTextMaxSize )
 	{
@@ -271,7 +278,8 @@ BOOL CCoolTipCtrl::WindowFromPointBelongsToOwner(const CPoint& point)
 	CRect rc;
 	pOwner->GetWindowRect( &rc );
 
-	if ( ! rc.PtInRect( point ) ) return FALSE;
+	if ( ! rc.PtInRect( point ) )
+		return FALSE;
 
 	CWnd* pWnd = WindowFromPoint( point );
 
@@ -356,6 +364,8 @@ void CCoolTipCtrl::OnPaint()
 
 	CSize size = rc.Size();
 	CDC* pMemDC = CoolInterface.GetBuffer( dc, size );
+//	if ( Settings.General.LanguageRTL )
+//		SetLayout( pMemDC->m_hDC, 0 );
 
 	pMemDC->SelectObject( &CoolInterface.m_fntBold );
 
@@ -372,6 +382,9 @@ void CCoolTipCtrl::OnPaint()
 	rc.InflateRect( 1, 1 );
 
 	dc.BitBlt( 0, 0, rc.Width(), rc.Height(), pMemDC, 0, 0, SRCCOPY );
+
+//	if ( Settings.General.LanguageRTL )
+//		SetLayout( pMemDC->m_hDC, LAYOUT_RTL );
 }
 
 void CCoolTipCtrl::OnMouseMove(UINT /*nFlags*/, CPoint /*point*/)
@@ -392,14 +405,16 @@ void CCoolTipCtrl::OnTimer(UINT_PTR /*nIDEvent*/)
 
 	if ( ! WindowFromPointBelongsToOwner( point ) )
 	{
-		if ( m_bVisible ) Hide();
+		if ( m_bVisible )
+			Hide();
 		return;
 	}
 
 	if ( ! m_bVisible && m_tOpen && GetTickCount() >= m_tOpen )
 	{
 		m_tOpen = 0;
-		if ( point == m_pOpen || m_hAltWnd != NULL ) ShowImpl();
+		if ( point == m_pOpen || m_hAltWnd != NULL )
+			ShowImpl();
 	}
 }
 

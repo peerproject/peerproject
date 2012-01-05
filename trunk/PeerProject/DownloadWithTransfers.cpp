@@ -1,7 +1,7 @@
 //
 // DownloadWithTransfers.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -51,7 +51,7 @@ CDownloadWithTransfers::CDownloadWithTransfers()
 
 CDownloadWithTransfers::~CDownloadWithTransfers()
 {
-	//ASSUME_LOCK( Transfers.m_pSection );
+	ASSUME_LOCK( Transfers.m_pSection );
 
 	CloseTransfers();
 }
@@ -354,7 +354,7 @@ BOOL CDownloadWithTransfers::StartNewTransfer(DWORD tNow)
 
 void CDownloadWithTransfers::CloseTransfers()
 {
-	//ASSUME_LOCK( Transfers.m_pSection );
+	ASSUME_LOCK( Transfers.m_pSection );
 
 	bool bBackup = Downloads.m_bClosing;
 	Downloads.m_bClosing = true;
@@ -505,7 +505,7 @@ void CDownloadWithTransfers::AddTransfer(CDownloadTransfer* pTransfer)
 
 void CDownloadWithTransfers::RemoveTransfer(CDownloadTransfer* pTransfer)
 {
-	//ASSUME_LOCK( Transfers.m_pSection );
+	ASSUME_LOCK( Transfers.m_pSection );
 
 	ASSERT( m_nTransferCount > 0 );
 	m_nTransferCount --;

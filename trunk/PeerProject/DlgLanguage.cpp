@@ -83,15 +83,15 @@ BOOL CLanguageDlg::OnInitDialog()
 	m_hArrow = theApp.LoadStandardCursor( IDC_ARROW );
 	m_hHand  = theApp.LoadCursor( IDC_HAND );
 
-	m_fntNormal.CreateFont( -(int)(Settings.Fonts.FontSize + 1), 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
+	m_fntNormal.CreateFont( -(int)(Settings.Fonts.DefaultSize + 1), 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, theApp.m_nFontQuality,
 		DEFAULT_PITCH|FF_DONTCARE, Settings.Fonts.DefaultFont );
 
-	m_fntBold.CreateFont( -(int)(Settings.Fonts.FontSize + 3), 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
+	m_fntBold.CreateFont( -(int)(Settings.Fonts.DefaultSize + 3), 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, theApp.m_nFontQuality,
 		DEFAULT_PITCH|FF_DONTCARE, Settings.Fonts.DefaultFont );
 
-	m_fntSmall.CreateFont( -(int)(Settings.Fonts.FontSize - 1), 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
+	m_fntSmall.CreateFont( -(int)(Settings.Fonts.DefaultSize - 1), 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, theApp.m_nFontQuality,
 		DEFAULT_PITCH|FF_DONTCARE, Settings.Fonts.DefaultFont );
 

@@ -1,7 +1,7 @@
 //
 // PageSettingsBitTorrent.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -192,12 +192,9 @@ void CBitTorrentSettingsPage::OnOK()
 	Settings.Downloads.TorrentPath			= m_sTorrentPath;
 	Settings.BitTorrent.TorrentCreatorPath	= m_sMakerPath;
 
-	// Redraw the GUI if we need to (show/hide obsolete torrents box)
-	//if ( bRedraw )
-	//{
-	//	CMainWnd* pMainWnd = (CMainWnd*)AfxGetMainWnd();
-	//	pMainWnd->SetGUIMode( Settings.General.GUIMode, FALSE );
-	//}
+	if ( ! StartsWith( Settings.BitTorrent.DefaultTracker, _PT("http://") ) &&
+		 ! StartsWith( Settings.BitTorrent.DefaultTracker, _PT("udp://") ) )
+		Settings.SetDefault( &Settings.BitTorrent.DefaultTracker );
 
 	CSettingsPage::OnOK();
 }

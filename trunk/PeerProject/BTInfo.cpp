@@ -1,7 +1,7 @@
 //
 // BTInfo.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -853,14 +853,14 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 						CString strTracker = pTracker->GetString();		// Get the tracker
 
 						// Check tracker is valid
-						if ( _tcsncicmp( (LPCTSTR)strTracker, _T("http://"), 7 ) != 0 )		// ToDo: Handle UDP/HTTPS	_T("udp://") _T("https://")
-							pBadTrackers.AddTail( BAD_TRACKER_TOKEN + strTracker );			// Store Non-HTTP tracker for display (*udp://)
-						else if ( strTracker.Find( _T(".openbittorrent."), 12 ) > 12 ||		// (udp-only)
-								  strTracker.Find( _T("denis.stalker.h3q.com"), 6 ) > 6 ||
+						if ( ! StartsWith( strTracker, _T("http://"), 7 ) &&
+							 ! StartsWith( strTracker, _T("udp://"), 6 ) )					// ToDo: Handle rare HTTPS etc?
+							pBadTrackers.AddTail( BAD_TRACKER_TOKEN + strTracker );			// Store Unknown tracker for display (*https://)
+						else if ( strTracker.Find( _T("denis.stalker.h3q.com"), 6 ) > 6 ||
 								  strTracker.Find( _T("piratebay.org"), 6 ) > 6 ||
 								  strTracker.Find( _T(".1337x."), 8 ) > 8 )
 							pBadTrackers.AddTail( BAD_TRACKER_TOKEN + strTracker );			// Store common dead trackers for display
-						else //if ( _tcsncicmp( (LPCTSTR)strTracker, _T("http://"), 7 ) == 0 )
+						else
 							pTrackers.AddTail( strTracker );								// Store TCP tracker
 					}
 				}
@@ -898,7 +898,7 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 			}
 		}
 
-		// Catch unsupported trackers for display at end of list.	ToDo: Update this when UDP trackers are supported! (Also check HTTPS etc.)
+		// Catch unsupported trackers for display at end of list.
 		if ( ! pBadTrackers.IsEmpty() )
 		{
 			for ( POSITION pos = pBadTrackers.GetHeadPosition() ; pos ; )
@@ -907,7 +907,7 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 				AddTracker( CBTTracker( pTrackers.GetNext( pos ), 99 ) );
 
 			//	CBTTracker oTracker;
-			//	oTracker.m_sAddress	= BAD_TRACKER_TOKEN + pTrackers.GetNext( pos );				// Mark for display only: *udp://...
+			//	oTracker.m_sAddress	= BAD_TRACKER_TOKEN + pTrackers.GetNext( pos );				// Mark for display only: *https://...
 			//	oTracker.m_nFailures = 1;
 			//	oTracker.m_nTier = 99;
 			//	AddTracker( oTracker );
@@ -928,10 +928,11 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 			CString strTracker = pAnnounce->GetString();
 
 			// Store it if it's valid. (Some torrents have invalid trackers)
-			if ( _tcsncicmp( (LPCTSTR)strTracker, _T("http://"), 7 ) == 0 )
+			if ( StartsWith( strTracker, _T("http://"), 7 ) ||
+				 StartsWith( strTracker, _T("udp://"), 6 ) )
 			{
 				// Catch common defunct TCP trackers
-				if ( strTracker.Find( _T("openbittorrent"), 14 ) > 14 || strTracker.Find( _T("piratebay.org"), 7 ) > 7 )
+				if ( strTracker.Find( _T("piratebay.org"), 7 ) > 7 )
 					strTracker = _T("http://tracker.publicbt.com/announce");	// Settings.BitTorrent.DefaultTracker ?
 
 				// Set the torrent to be a single-tracker torrent
@@ -945,9 +946,9 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 				//m_nTrackerMode = tMultiFinding;
 				//AddTracker( oTracker );
 			}
-			else //if ( _tcsncicmp( (LPCTSTR)strTracker, _T("udp://"), 6 ) == 0 )
+			else
 			{
-				// Torrents should always have a valid announce node, only udp:// is unlikely.  Try PublicBT as only TCP tracker. (Should get Private tag first...)
+				// Torrents should always have a valid announce node, other is unlikely.  Try public TCP tracker. (Should get Private tag first...)
 				strTracker = _T("http://tracker.publicbt.com/announce");	// Settings.BitTorrent.DefaultTracker ?
 				SetTracker( strTracker );
 				m_nTrackerMode = tSingle;
@@ -1425,7 +1426,7 @@ void CBTInfo::SetTrackerNext(DWORD tTime)
 	// Search through the list for an available tracker, or the first one that will become available
 	for ( int nTracker = 0 ; nTracker < m_oTrackers.GetCount() ; ++nTracker )
 	{
-		if ( m_oTrackers[ nTracker ].m_sAddress.GetAt( 0 ) == BAD_TRACKER_TOKEN )	// *udp://
+		if ( m_oTrackers[ nTracker ].m_sAddress.GetAt( 0 ) == BAD_TRACKER_TOKEN )	// *https://
 			continue;	//break;	// Reached bad trackers displayed at end of list (but user-added may follow)
 
 		// Get the next tracker in the list
@@ -1575,7 +1576,7 @@ BOOL CBTInfo::ScrapeTracker()
 
 	CString strURL = GetTrackerAddress();
 	if ( strURL.Find( _T("http") ) != 0 )
-		return FALSE;	// ToDo: Support UDP Trackers & handle rare HTTPS
+		return FALSE;	// ToDo: Support UDP Tracker scrape & handle rare HTTPS
 
 	if ( strURL.Replace( _T("/announce"), _T("/scrape") ) != 1 )
 		return FALSE;

@@ -269,9 +269,9 @@
 		<button id="ID_LIBRARY_PANEL" text="Hide Details"/>
 	</toolbar>
 	<toolbar name="CLibraryCollectionView.Virtual">
-		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Play Full Album"/>
+		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Play Album"/>
 		<separator/>
-		<button id="ID_LIBRARY_FOLDER_DOWNLOAD" text="Download All Files"/>
+		<button id="ID_LIBRARY_FOLDER_DOWNLOAD" text="Download All"/>
 			<rightAlign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Find:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>

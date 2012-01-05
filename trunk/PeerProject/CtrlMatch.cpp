@@ -1,7 +1,7 @@
 //
 // CtrlMatch.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -561,7 +561,8 @@ BOOL CMatchCtrl::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 
 void CMatchCtrl::ScrollBy(int nDelta)
 {
-//	CSingleLock pLock( &m_pMatches->m_pSection, TRUE );
+	CSingleLock pLock( &m_pMatches->m_pSection, FALSE );
+	if ( ! pLock.Lock( 250 ) ) return;
 
 	int nIndex = GetScrollPos( SB_VERT ) + nDelta;
 	nIndex = max( 0, nIndex );
@@ -570,7 +571,8 @@ void CMatchCtrl::ScrollBy(int nDelta)
 
 void CMatchCtrl::ScrollTo(DWORD nIndex)
 {
-	CSingleLock pLock( &m_pMatches->m_pSection, TRUE );
+	CSingleLock pLock( &m_pMatches->m_pSection, FALSE );
+	if ( ! pLock.Lock( 250 ) ) return;
 
 	DWORD nLimit = m_pMatches->m_nItems;
 	if ( nLimit > (DWORD)m_nPageCount )

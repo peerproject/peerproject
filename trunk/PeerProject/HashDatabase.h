@@ -42,7 +42,7 @@ class CHashDatabase
 // Construction
 public:
 	CHashDatabase();
-	virtual ~CHashDatabase();
+	~CHashDatabase();
 
 // Operations
 public:

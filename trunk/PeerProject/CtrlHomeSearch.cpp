@@ -1,7 +1,7 @@
 //
 // CtrlHomeSearch.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -270,7 +270,7 @@ void CHomeSearchCtrl::Search(bool bAutostart)
 	strText.Trim();
 
 	LoadString( strClear, IDS_SEARCH_PAD_CLEAR_HISTORY );
-	if ( _tcscmp ( strClear , strText ) == 0 ) return;
+	if ( _tcscmp( strClear, strText ) == 0 ) return;
 
 	// Check if user mistakenly pasted download link to search input box
 	if ( CPeerProjectApp::OpenURL( strText, TRUE ) )

@@ -1,7 +1,7 @@
 //
 // CtrlDownloads.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -28,10 +28,10 @@
 #include "Transfers.h"
 #include "FragmentBar.h"
 #include "CoolInterface.h"
-#include "ShellIcons.h"
-#include "Skin.h"
 #include "Colors.h"
 #include "Flags.h"
+#include "Skin.h"
+#include "ShellIcons.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -1666,19 +1666,22 @@ void CDownloadsCtrl::BubbleSortDownloads(int nColumn)	// BinaryInsertionSortDown
 
 	if ( Downloads.GetCount() < 2 ) return;
 
-	POSITION pos = Downloads.GetIterator(), pos_y = pos;
-	Downloads.GetNext(pos);
+	CSingleLock pLock( &Transfers.m_pSection, TRUE );	// GetIterator() GetNext()
+	if ( ! pLock.Lock( 500 ) ) return;
 
-	while (pos != NULL)
+	POSITION pos = Downloads.GetIterator(), pos_y = pos;
+	Downloads.GetNext( pos );
+
+	while ( pos != NULL )
 	{
 		POSITION pos_x = pos;
-		CDownload *x = Downloads.GetNext(pos);
+		CDownload *x = Downloads.GetNext( pos );
 
 		BOOL bOK = FALSE, bRlBk = TRUE;
 		CDownload *y = NULL;
-		while (bRlBk && (pos_y != NULL))
+		while ( bRlBk && ( pos_y != NULL ) )
 		{
-			y = Downloads.GetPrevious(pos_y);
+			y = Downloads.GetPrevious( pos_y );
 			if ( m_pbSortAscending[nColumn] == FALSE )
 			{
 				switch ( nColumn )
@@ -1791,13 +1794,13 @@ void CDownloadsCtrl::BubbleSortDownloads(int nColumn)	// BinaryInsertionSortDown
 
 		if ( bOK )
 		{
-			Downloads.Reorder(x, y);
+			Downloads.Reorder( x, y );
 			if ( ! bRlBk )
-				Downloads.Move(x,1);
+				Downloads.Move( x, 1 );
 			if ( pos == NULL )
 				break;
 			pos_y = pos;
-			Downloads.GetPrevious(pos_y);
+			Downloads.GetPrevious( pos_y );
 		}
 		else
 		{
@@ -1808,7 +1811,7 @@ void CDownloadsCtrl::BubbleSortDownloads(int nColumn)	// BinaryInsertionSortDown
 
 void CDownloadsCtrl::OnSortPanelItems(NMHDR* pNotifyStruct, LRESULT* /*pResult*/)
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	//CSingleLock pLock( &Transfers.m_pSection, TRUE );		// In BubbleSort
 	NMLISTVIEW *pLV = (NMLISTVIEW *) pNotifyStruct;
 	BubbleSortDownloads( pLV->iItem );
 	Invalidate();
@@ -1817,9 +1820,6 @@ void CDownloadsCtrl::OnSortPanelItems(NMHDR* pNotifyStruct, LRESULT* /*pResult*/
 
 void CDownloadsCtrl::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
-	CSingleLock pLock( &Transfers.m_pSection );
-	if ( ! pLock.Lock( 300 ) ) return;
-
 	CDownloadSource* pSource;
 	CDownload* pDownload;
 
@@ -1827,6 +1827,9 @@ void CDownloadsCtrl::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 	bool bControl = ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 ) != 0;
 //	bool bShift = ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) != 0;
+
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! pLock.Lock( 300 ) ) return;
 
 	switch ( nChar )
 	{

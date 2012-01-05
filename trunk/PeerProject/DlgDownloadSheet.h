@@ -1,7 +1,7 @@
 //
 // DlgDownloadSheet.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -27,13 +27,16 @@ class CDownloadSheet : public CPropertySheetAdv
 	DECLARE_DYNAMIC(CDownloadSheet)
 
 public:
-	CDownloadSheet(CDownload* pDownload);
+	CDownloadSheet(CSingleLock& pLock, CDownload* pDownload);
 
-	CDownload*		m_pDownload;
+	CDownload*		GetDownload() const;
 
-	virtual INT_PTR DoModal(int nPage = -1);
+	virtual INT_PTR DoModal();
 
 protected:
+	CSingleLock&	m_pLock;		// Transfers.m_pSection
+	CDownload*		m_pDownload;
+
 	CString			m_sFilesTitle;
 	CString			m_sTrackersTitle;
 	CString			m_sGeneralTitle;

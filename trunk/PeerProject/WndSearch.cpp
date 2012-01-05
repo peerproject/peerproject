@@ -1,7 +1,7 @@
 //
 // WndSearch.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -642,7 +642,7 @@ void CSearchWnd::OnSysCommand(UINT nID, LPARAM lParam)
 
 CQuerySearchPtr CSearchWnd::GetLastSearch() const
 {
-	//CQuickLock pLock( m_pMatches->m_pSection );
+	CQuickLock pLock( m_pMatches->m_pSection );
 
 	return empty() ? CQuerySearchPtr() : m_oSearches.back()->GetSearch();
 }
@@ -889,9 +889,7 @@ void CSearchWnd::OnTimer(UINT_PTR nIDEvent)
 		//{
 		//	if ( m_nCacheHubs   != pManaged->m_nHubs ||
 		//		 m_nCacheLeaves != pManaged->m_nLeaves )
-		//	{
 				UpdateMessages();
-		//	}
 		//}
 	}
 

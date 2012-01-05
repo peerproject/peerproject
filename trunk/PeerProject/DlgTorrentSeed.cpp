@@ -1,7 +1,7 @@
 //
 // DlgTorrentSeed.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -26,15 +26,15 @@
 #include "Network.h"
 #include "Library.h"
 #include "SharedFile.h"
+#include "FragmentedFile.h"
 #include "Transfers.h"
 #include "Downloads.h"
 #include "Download.h"
+#include "DownloadTask.h"
 #include "PeerProjectURL.h"
 #include "HttpRequest.h"
 #include "WndMain.h"
 #include "WndDownloads.h"
-#include "DownloadTask.h"
-#include "FragmentedFile.h"
 #include "LibraryHistory.h"
 
 #ifdef _DEBUG
@@ -149,7 +149,8 @@ void CTorrentSeedDlg::OnDownload()
 	if ( Settings.Downloads.ShowMonitorURLs )
 	{
 		CSingleLock pTransfersLock( &Transfers.m_pSection, TRUE );
-		if ( Downloads.Check( pDownload ) ) pDownload->ShowMonitor( &pTransfersLock );
+		if ( Downloads.Check( pDownload ) )
+			pDownload->ShowMonitor( &pTransfersLock );
 	}
 
 	EndDialog( IDOK );
@@ -264,16 +265,29 @@ BOOL CTorrentSeedDlg::LoadTorrent(CString strPath)
 	if ( ! m_pInfo.LoadTorrentFile( strPath ) )
 		return FALSE;	// Try again with manual Dialog
 
-	if ( Downloads.FindByBTH( m_pInfo.m_oBTH ) == NULL )		// Not already listed
+	CSingleLock pTransfersLock( &Transfers.m_pSection );	// Rare new .torrent crashfix elsewhere?
+	if ( ! pTransfersLock.Lock( 2000 ) ) return FALSE;
+
+	CDownload* pDownload = Downloads.FindByBTH( m_pInfo.m_oBTH );
+
+	if ( pDownload != NULL )	// Update existing
+	{
+		// ToDo: Update info?
+	//	//Downloads.Add( (CPeerProjectURL)&m_pInfo ); ?
+	//	//pDownload->SetTorrent( &m_pInfo ); ?
+	//	//pDownload->m_pTorrent.AddTracker( CBTInfo::CBTTracker() ); ?
+	}
+	else	// New download/seed
 	{
 		if ( ! Network.IsConnected() )
+		{
+			pTransfersLock.Unlock();
 			Network.Connect();
-
-		CSingleLock pTransfersLock( &Transfers.m_pSection );	// Rare new .torrent crashfix elsewhere?
-		if ( ! pTransfersLock.Lock( 2000 ) ) return FALSE;
+			if ( ! pTransfersLock.Lock( 2000 ) ) return FALSE;
+		}
 
 		CPeerProjectURL oURL( new CBTInfo( m_pInfo ) );
-		CDownload* pDownload = Downloads.Add( oURL );
+		pDownload = Downloads.Add( oURL );
 
 		if ( pDownload == NULL )
 			return FALSE;
@@ -308,18 +322,16 @@ BOOL CTorrentSeedDlg::LoadTorrent(CString strPath)
 			pDownload->Remove();
 			pDownload = Downloads.Add( oURL );
 
-			if ( Settings.Downloads.ShowMonitorURLs )
-			{
-			//	CSingleLock pTransfersLock( &Transfers.m_pSection, TRUE );
-				if ( Downloads.Check( pDownload ) )
-					pDownload->ShowMonitor( &pTransfersLock );
-			}
-
-			pTransfersLock.Unlock();
+			if ( Settings.Downloads.ShowMonitorURLs && Downloads.Check( pDownload ) )
+				pDownload->ShowMonitor( &pTransfersLock );
 		}
 	}
 
+	pTransfersLock.Unlock();
+
 	CMainWnd* pMainWnd = (CMainWnd*)AfxGetMainWnd();
+	CDownloadsWnd* pDownWnd = (CDownloadsWnd*)pMainWnd->m_pWindows.Find( RUNTIME_CLASS(CDownloadsWnd) );
+	if ( pDownWnd ) pDownWnd->Select( pDownload );
 	pMainWnd->m_pWindows.Open( RUNTIME_CLASS(CDownloadsWnd) );
 
 	if ( m_pInfo.HasEncodingError() )	// Check torrent is valid

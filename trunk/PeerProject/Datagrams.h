@@ -1,7 +1,7 @@
 //
 // Datagrams.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -18,7 +18,7 @@
 
 #pragma once
 
-#pragma pack(1)
+#pragma pack(push,1)
 
 typedef struct
 {
@@ -29,9 +29,9 @@ typedef struct
 	BYTE	nCount;
 } SGP_HEADER;
 
-#pragma pack()
+#pragma pack(pop)
 
-// #define SGP_TAG_1	"SGP"
+#define SGP_TAG_1		"SGP"
 #define SGP_TAG_2		"GND"
 #define SGP_DEFLATE		0x01
 #define SGP_ACKNOWLEDGE	0x02
@@ -59,24 +59,25 @@ class CDatagrams
 // Construction
 public:
 	CDatagrams();
-	virtual ~CDatagrams();
+	~CDatagrams();
 
 // Attributes
 public:
-	UDPBandwidthMeter	m_mInput;
-	DWORD				m_nInBandwidth;
-	DWORD				m_nInFrags;
-	DWORD				m_nInPackets;
-	UDPBandwidthMeter	m_mOutput;
-	DWORD				m_nOutBandwidth;
-	DWORD				m_nOutFrags;
-	DWORD				m_nOutPackets;
+	DWORD			m_nInBandwidth;
+	DWORD			m_nInFrags;
+	DWORD			m_nInPackets;
+	DWORD			m_nOutBandwidth;
+	DWORD			m_nOutFrags;
+	DWORD			m_nOutPackets;
 
 protected:
 	SOCKET			m_hSocket;
 	WORD			m_nSequence;
 	BOOL			m_bStable;
 	DWORD			m_tLastWrite;
+
+	UDPBandwidthMeter	m_mInput;
+	UDPBandwidthMeter	m_mOutput;
 
 	DWORD			m_nBufferBuffer;	// Number of output buffers (Settings.Gnutella2.UdpBuffers)
 	CBuffer*		m_pBufferBuffer;	// Output buffers
@@ -108,13 +109,13 @@ public:
 	void	Disconnect();
 
 	// True if the socket is valid, false if closed
-	inline BOOL IsValid() const throw()
+	inline BOOL IsValid() const
 	{
 		return ( m_hSocket != INVALID_SOCKET );
 	}
 
 	// Avoid using this function directly, use !Network.IsFirewalled(CHECK_UDP) instead
-	inline BOOL IsStable() const throw()
+	inline BOOL IsStable() const
 	{
 		return IsValid() && m_bStable;
 	}

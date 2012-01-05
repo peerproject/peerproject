@@ -1,7 +1,7 @@
 //
 // DownloadWithTiger.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -19,11 +19,11 @@
 #include "StdAfx.h"
 #include "Settings.h"
 #include "PeerProject.h"
+#include "DownloadWithTiger.h"
 #include "Download.h"
 #include "Downloads.h"
 #include "DownloadSource.h"
 #include "DownloadTransfer.h"
-#include "DownloadWithTiger.h"
 #include "FragmentedFile.h"
 #include "HashDatabase.h"
 
@@ -109,7 +109,7 @@ DWORD CDownloadWithTiger::GetVerifyLength(PROTOCOLID nProtocol, int nHash) const
 
 BOOL CDownloadWithTiger::GetNextVerifyRange(QWORD& nOffset, QWORD& nLength, BOOL& bSuccess, int nHash) const
 {
-	//ASSUME_LOCK( Transfers.m_pSection );
+	ASSUME_LOCK( Transfers.m_pSection );
 	CQuickLock oLock( m_pTigerSection );
 
 	if ( nOffset >= m_nSize )
@@ -411,14 +411,11 @@ void CDownloadWithTiger::RunValidation()
 	{
 		ContinueValidation();
 	}
-	else
+	else if ( FindNewValidationBlock( HASH_TORRENT ) ||
+		FindNewValidationBlock( HASH_TIGERTREE ) ||
+		FindNewValidationBlock( HASH_ED2K ) )
 	{
-		if ( FindNewValidationBlock( HASH_TORRENT ) ||
-			 FindNewValidationBlock( HASH_TIGERTREE ) ||
-			 FindNewValidationBlock( HASH_ED2K ) )
-		{
-			ContinueValidation();
-		}
+		ContinueValidation();
 	}
 }
 
@@ -850,66 +847,64 @@ BOOL CDownloadWithTiger::GetFragment(CDownloadTransfer* pTransfer)
 
 		return TRUE;
 	}
-	else
+
+	CDownloadTransfer* pExisting = NULL;
+
+	for ( CDownloadTransfer* pOther = GetFirstTransfer() ; pOther ; pOther = pOther->m_pDlNext )
 	{
-		CDownloadTransfer* pExisting = NULL;
-
-		for ( CDownloadTransfer* pOther = GetFirstTransfer() ; pOther ; pOther = pOther->m_pDlNext )
+		if ( pOther->m_bRecvBackwards )
 		{
-			if ( pOther->m_bRecvBackwards )
-			{
-				if ( pOther->m_nOffset + pOther->m_nLength - pOther->m_nPosition
-					 != oLargest.end() ) continue;
-			}
-			else
-			{
-				if ( pOther->m_nOffset + pOther->m_nPosition != oLargest.begin() ) continue;
-			}
-
-			pExisting = pOther;
-			break;
-		}
-
-		if ( pExisting == NULL )
-		{
-			pTransfer->m_nOffset = oLargest.begin();
-			pTransfer->m_nLength = oLargest.size();
-			return TRUE;
-		}
-
-		if ( oLargest.size() < 32 )
-			return FALSE;
-
-		DWORD nOldSpeed	= pExisting->GetAverageSpeed();
-		DWORD nNewSpeed	= pTransfer->GetAverageSpeed();
-		QWORD nLength	= oLargest.size() / 2;
-
-		if ( nOldSpeed > 5 && nNewSpeed > 5 )
-		{
-			nLength = oLargest.size() * nNewSpeed / ( nNewSpeed + nOldSpeed );
-
-			if ( oLargest.size() > 102400 )
-			{
-				nLength = max( nLength, 51200ull );
-				nLength = min( nLength, oLargest.size() - 51200ull );
-			}
-		}
-
-		if ( pExisting->m_bRecvBackwards )
-		{
-			pTransfer->m_nOffset		= oLargest.begin();
-			pTransfer->m_nLength		= nLength;
-			pTransfer->m_bWantBackwards	= FALSE;
+			if ( pOther->m_nOffset + pOther->m_nLength - pOther->m_nPosition
+				 != oLargest.end() ) continue;
 		}
 		else
 		{
-			pTransfer->m_nOffset		= oLargest.end() - nLength;
-			pTransfer->m_nLength		= nLength;
-			pTransfer->m_bWantBackwards	= TRUE;
+			if ( pOther->m_nOffset + pOther->m_nPosition != oLargest.begin() ) continue;
 		}
 
+		pExisting = pOther;
+		break;
+	}
+
+	if ( pExisting == NULL )
+	{
+		pTransfer->m_nOffset = oLargest.begin();
+		pTransfer->m_nLength = oLargest.size();
 		return TRUE;
 	}
+
+	if ( oLargest.size() < 32 )
+		return FALSE;
+
+	DWORD nOldSpeed	= pExisting->GetAverageSpeed();
+	DWORD nNewSpeed	= pTransfer->GetAverageSpeed();
+	QWORD nLength	= oLargest.size() / 2;
+
+	if ( nOldSpeed > 5 && nNewSpeed > 5 )
+	{
+		nLength = oLargest.size() * nNewSpeed / ( nNewSpeed + nOldSpeed );
+
+		if ( oLargest.size() > 102400 )
+		{
+			nLength = max( nLength, 51200ull );
+			nLength = min( nLength, oLargest.size() - 51200ull );
+		}
+	}
+
+	if ( pExisting->m_bRecvBackwards )
+	{
+		pTransfer->m_nOffset		= oLargest.begin();
+		pTransfer->m_nLength		= nLength;
+		pTransfer->m_bWantBackwards	= FALSE;
+	}
+	else
+	{
+		pTransfer->m_nOffset		= oLargest.end() - nLength;
+		pTransfer->m_nLength		= nLength;
+		pTransfer->m_bWantBackwards	= TRUE;
+	}
+
+	return TRUE;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -932,7 +927,6 @@ BOOL CDownloadWithTiger::GetFragment(CDownloadTransfer* pTransfer)
 //
 //			strRange.Format( _T("%I64i-%I64i"), nOffset, nOffset + nLength - 1 );
 //			strRanges += strRange;
-//
 //			if ( strRanges.GetLength() > HTTP_HEADER_MAX_LINE - 256 )
 //				break;	// Prevent too long a line
 //		}

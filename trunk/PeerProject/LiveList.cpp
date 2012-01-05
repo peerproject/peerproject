@@ -1,7 +1,7 @@
 //
 // LiveList.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -165,18 +165,17 @@ CLiveItem::~CLiveItem()
 //////////////////////////////////////////////////////////////////////
 // CLiveItem set
 
-void CLiveItem::Set(int nColumn, LPCTSTR pszText)
+void CLiveItem::Set(int nColumn, const CString& sText)
 {
 	ASSERT_VALID( this );
-	ASSERT( pszText );
 	ASSERT( nColumn >= 0 && nColumn < m_pColumn.GetSize() );
 
-	if ( m_pColumn[ nColumn ] != pszText )
+	if ( m_pColumn[ nColumn ] != sText )
 	{
 		m_bModified = true;
 		m_nModified = m_nModified | ( 1 << nColumn );
 	}
-	m_pColumn[ nColumn ] = pszText;
+	m_pColumn[ nColumn ] = sText;
 }
 
 void CLiveItem::SetImage(int nColumn, int nImage)
@@ -190,9 +189,12 @@ void CLiveItem::SetImage(int nColumn, int nImage)
 	m_nImage[ nColumn ] = nImage;
 }
 
-void CLiveItem::SetImage(UINT nImage)
+void CLiveItem::SetImage(int nImage)
 {
-	SetImage( 0, nImage );
+	ASSERT_VALID( this );
+
+	m_bModified = ( m_nImage[ 0 ] != nImage );
+	m_nImage[ 0 ] = nImage;
 }
 
 void CLiveItem::SetMaskOverlay(UINT nMaskOverlay)
@@ -277,28 +279,43 @@ BOOL CLiveItem::Update(CListCtrl* pCtrl, int nItem, int nColumns)
 
 	BOOL bModified = FALSE;
 
-	LV_ITEM pItem = {};
-	pItem.mask		= LVIF_PARAM|LVIF_IMAGE|LVIF_STATE;
-	pItem.iItem		= nItem;
-	pItem.stateMask	= LVIS_OVERLAYMASK|LVIS_STATEIMAGEMASK;
+	LV_ITEM pMainItem = {
+		LVIF_PARAM | LVIF_IMAGE | LVIF_STATE,	// .mask
+		nItem,									// .iItem
+		0,
+		0,
+		LVIS_OVERLAYMASK | LVIS_STATEIMAGEMASK	// .stateMask
+	};
 
-	if ( ! pCtrl->GetItem( &pItem ) || pItem.lParam != (LPARAM)m_nParam )
+	if ( ! pCtrl->GetItem( &pMainItem ) || pMainItem.lParam != (LPARAM)m_nParam )
 		return FALSE;
 
-	if ( ( pItem.state & (LVIS_OVERLAYMASK|LVIS_STATEIMAGEMASK) ) != ( INDEXTOOVERLAYMASK( m_nMaskOverlay ) | INDEXTOSTATEIMAGEMASK( m_nMaskState ) ) )
+	if ( ( pMainItem.state & ( LVIS_OVERLAYMASK | LVIS_STATEIMAGEMASK ) ) != ( INDEXTOOVERLAYMASK( m_nMaskOverlay ) | INDEXTOSTATEIMAGEMASK( m_nMaskState ) ) )
 	{
-		pItem.state		= INDEXTOOVERLAYMASK( m_nMaskOverlay ) | INDEXTOSTATEIMAGEMASK( m_nMaskState );
-		pItem.stateMask	= LVIS_OVERLAYMASK | LVIS_STATEIMAGEMASK;
+		pMainItem.state		= INDEXTOOVERLAYMASK( m_nMaskOverlay ) | INDEXTOSTATEIMAGEMASK( m_nMaskState );
+		pMainItem.stateMask	= LVIS_OVERLAYMASK | LVIS_STATEIMAGEMASK;
 		bModified = TRUE;
 	}
 
 	if ( bModified )
-		VERIFY( pCtrl->SetItem( &pItem ) );
+		VERIFY( pCtrl->SetItem( &pMainItem ) );
 
-	for ( pItem.iSubItem = 0 ; pItem.iSubItem < nColumns ; pItem.iSubItem++ )
+	CString buf;
+	for ( int i = 0 ; i < nColumns ; ++i )
 	{
-		pItem.mask = LVIF_IMAGE|LVIF_TEXT;
-		if ( ! pCtrl->GetItem( &pItem ) )
+		LV_ITEM pItem = {
+			LVIF_IMAGE | LVIF_TEXT,
+			nItem,
+			i,
+			0,
+			0,
+			buf.GetBuffer( 1024 ),
+			1024
+		};
+
+		BOOL bResult = pCtrl->GetItem( &pItem );
+		buf.ReleaseBuffer();
+		if ( ! bResult )
 			return FALSE;
 
 		pItem.mask = 0;
@@ -325,36 +342,36 @@ BOOL CLiveItem::Update(CListCtrl* pCtrl, int nItem, int nColumns)
 	return bModified;
 }
 
-BOOL CLiveItem::SetImage(CListCtrl* pCtrl, int nParam, int nColumn, int nImageIndex)
-{
-	ASSERT_VALID( this );
-	ASSERT_VALID( pCtrl );
-
-	BOOL bModified = FALSE;
-	LV_FINDINFO pFind = {};
-	pFind.flags  = LVFI_PARAM;
-	pFind.lParam = nParam;
-	int nItem = pCtrl->FindItem( &pFind );
-	if ( nItem < 0 ) return FALSE;
-
-	LV_ITEM pItem = {};
-	pItem.mask	= LVIF_IMAGE;
-	pItem.iItem	= nItem;
-	pItem.iSubItem = nColumn;
-
-	if ( ! pCtrl->GetItem( &pItem ) ) return FALSE;
-
-	if ( pItem.iImage != nImageIndex )
-		bModified = TRUE;
-
-	if ( bModified )
-	{
-		pItem.iImage = nImageIndex;
-		pCtrl->SetItem( &pItem );
-	}
-
-	return bModified;
-}
+//BOOL CLiveItem::SetImage(CListCtrl* pCtrl, LPARAM nParam, int nColumn, int nImageIndex)
+//{
+//	ASSERT_VALID( this );
+//	ASSERT_VALID( pCtrl );
+//
+//	BOOL bModified = FALSE;
+//	LV_FINDINFO pFind = {};
+//	pFind.flags  = LVFI_PARAM;
+//	pFind.lParam = nParam;
+//	int nItem = pCtrl->FindItem( &pFind );
+//	if ( nItem < 0 ) return FALSE;
+//
+//	LV_ITEM pItem = {};
+//	pItem.mask	= LVIF_IMAGE;
+//	pItem.iItem	= nItem;
+//	pItem.iSubItem = nColumn;
+//
+//	if ( ! pCtrl->GetItem( &pItem ) ) return FALSE;
+//
+//	if ( pItem.iImage != nImageIndex )
+//		bModified = TRUE;
+//
+//	if ( bModified )
+//	{
+//		pItem.iImage = nImageIndex;
+//		pCtrl->SetItem( &pItem );
+//	}
+//
+//	return bModified;
+//}
 
 
 //////////////////////////////////////////////////////////////////////

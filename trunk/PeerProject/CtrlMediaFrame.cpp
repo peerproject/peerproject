@@ -1,7 +1,7 @@
 //
 // CtrlMediaFrame.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -528,10 +528,10 @@ void CMediaFrame::OnPaint()
 
 	if ( m_bListVisible )
 	{
-		CRect rcBar(	rcClient.right - m_nListSize - Skin.m_nSplitter,
-						rcClient.top,
-						rcClient.right - m_nListSize,
-						rcClient.bottom );
+		CRect rcBar( rcClient.right - m_nListSize - Skin.m_nSplitter,
+					 rcClient.top,
+					 rcClient.right - m_nListSize,
+					 rcClient.bottom );
 
 		dc.FillSolidRect( rcBar.left, rcBar.top, 1, rcBar.Height(), Colors.m_crResizebarEdge );
 		dc.FillSolidRect( rcBar.left + 1, rcBar.top, 1, rcBar.Height(), Colors.m_crResizebarHighlight );

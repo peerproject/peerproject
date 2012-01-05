@@ -1,7 +1,7 @@
 //
 // BENode.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -277,105 +277,124 @@ void CBENode::Encode(CBuffer* pBuffer) const
 	CHAR szBuffer[64];
 	CString str;
 
-	if ( m_nType == beString )
+	switch ( m_nType )
 	{
+	case beString:
 		pBuffer->Print( szBuffer, sprintf_s( szBuffer, _countof( szBuffer ), "%u:", (DWORD)m_nValue ) );
 		pBuffer->Add( m_pValue, (DWORD)m_nValue );
-	}
-	else if ( m_nType == beInt )
-	{
-		pBuffer->Print( szBuffer, sprintf_s( szBuffer, _countof( szBuffer ), "i%I64ie", m_nValue ) );
-	}
-	else if ( m_nType == beList )
-	{
-		CBENode** pNode = (CBENode**)m_pValue;
+		break;
 
+	case beInt:
+		pBuffer->Print( szBuffer, sprintf_s( szBuffer, _countof( szBuffer ), "i%I64ie", m_nValue ) );
+		break;
+
+	case beList:
 		pBuffer->Print( _P("l") );
 
-		for ( DWORD nItem = 0 ; nItem < (DWORD)m_nValue ; nItem++, pNode++ )
 		{
-			(*pNode)->Encode( pBuffer );
+			CBENode** pNode = (CBENode**)m_pValue;
+
+			for ( DWORD nItem = 0 ; nItem < (DWORD)m_nValue ; nItem++, pNode++ )
+			{
+				(*pNode)->Encode( pBuffer );
+			}
 		}
 
 		pBuffer->Print( _P("e") );
-	}
-	else if ( m_nType == beDict )
-	{
-		CBENode** pNode = (CBENode**)m_pValue;
+		break;
 
+	case beDict:
 		pBuffer->Print( _P("d") );
 
-		for ( DWORD nItem = 0 ; nItem < m_nValue ; nItem++, pNode += 2 )
 		{
-			LPCSTR pszKey = (LPCSTR)pNode[1];
-			size_t nKeyLength = strlen( pszKey );
-			pBuffer->Print( szBuffer, sprintf_s( szBuffer, _countof( szBuffer ), "%i:", nKeyLength ) );
-			pBuffer->Print( pszKey, nKeyLength );
-			(*pNode)->Encode( pBuffer );
+			CBENode** pNode = (CBENode**)m_pValue;
+
+			for ( DWORD nItem = 0 ; nItem < m_nValue ; nItem++, pNode += 2 )
+			{
+				LPCSTR pszKey = (LPCSTR)pNode[1];
+				size_t nKeyLength = strlen( pszKey );
+				pBuffer->Print( szBuffer, sprintf_s( szBuffer, _countof( szBuffer ), "%i:", nKeyLength ) );
+				pBuffer->Print( pszKey, nKeyLength );
+				(*pNode)->Encode( pBuffer );
+			}
 		}
 
 		pBuffer->Print( _P("e") );
-	}
-	else
-	{
+		break;
+
+	default:
 		ASSERT( FALSE );
 	}
 }
 
 const CString CBENode::Encode() const
 {
-	CString sOutput, sTmp;
+	CString strOutput = _T("");
+
 	switch ( m_nType )
 	{
 	case beNull:
-		sOutput = _T("(null)");
+		strOutput = _T("(null)");
 		break;
+
 	case beString:
-		sOutput = _T('\"');
+		strOutput = _T('\"');
 		{
 			const QWORD nLen = min( m_nValue, 100ull );
 			for ( QWORD n = 0 ; n < nLen ; n++ )
 			{
-				sOutput += ( ( ( (LPSTR)m_pValue )[ n ] < ' ' ) ?
+				strOutput += ( ( ( (LPSTR)m_pValue )[ n ] < ' ' ) ?
 					'.' : ( (LPSTR)m_pValue )[ n ] );
 			}
 		}
-		sOutput += _T('\"');
-		sTmp.Format( _T("[%I64u]"), m_nValue );
-		sOutput += sTmp;
+		strOutput += _T('\"');
+
+		{
+			CString strTmp;
+			strTmp.Format( _T("[%I64u]"), m_nValue );
+			strOutput += strTmp;
+		}
 		break;
+
 	case beInt:
-		sOutput.Format( _T("%I64u"), m_nValue );
+		strOutput.Format( _T("%I64u"), m_nValue );
 		break;
+
 	case beList:
-		sOutput = _T("{ ");
+		strOutput = _T("{ ");
 		{
 			CBENode** pNode = (CBENode**)m_pValue;
 			for ( QWORD n = 0 ; n < m_nValue ; n++, pNode++ )
 			{
-				if ( n ) sOutput += _T(", ");
-				sOutput += (*pNode)->Encode();
+				if ( n ) strOutput += _T(", ");
+				strOutput += (*pNode)->Encode();
 			}
 		}
-		sOutput += _T(" }");
+		strOutput += _T(" }");
 		break;
+
 	case beDict:
-		sOutput = _T("{ ");
+		strOutput = _T("{ ");
 		{
+			CString strTmp;
+
 			CBENode** pNode = (CBENode**)m_pValue;
 			for ( QWORD n = 0 ; n < m_nValue ; n++, pNode += 2 )
 			{
-				if ( n ) sOutput += _T(", ");
-				sTmp.Format( _T("\"%s\" = "), (CString)(LPCSTR)pNode[ 1 ] );
-				sOutput += sTmp;
-				sOutput += (*pNode)->Encode();
+				if ( n ) strOutput += _T(", ");
+				strTmp.Format( _T("\"%s\" = "), (CString)(LPCSTR)pNode[ 1 ] );
+				strOutput += strTmp;
+				strOutput += (*pNode)->Encode();
 			}
 		}
-		sOutput += _T(" }");
+		strOutput += _T(" }");
 		break;
+
+	//default:
+	//	ASSERT( FALSE );
 	}
 
-	return sOutput;
+	return strOutput;
 }
 
 #define INC(x) { pInput += (x); nInput -= (x); }

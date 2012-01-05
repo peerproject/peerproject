@@ -1,7 +1,7 @@
 //
 // PeerProject.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -25,16 +25,15 @@ class CMainWnd;
 class CBuffer;
 class CDatabase;
 class CSplashDlg;
-class CFontManager;
 class CUPnPFinder;
 
 
 class __declspec(novtable) CLogMessage
 {
 public:
-	CLogMessage(WORD nType, const CString& strLog) :
-		m_strLog( strLog ),
-		m_nType( nType )
+	CLogMessage(WORD nType, const CString& strLog)
+		: m_strLog	( strLog )
+		, m_nType	( nType )
 	{
 	}
 	CString m_strLog;
@@ -126,6 +125,10 @@ public:
 
 	// Kernel functions (Safe Vista+)
 	HRESULT			(WINAPI *m_pfnRegisterApplicationRestart)(__in_opt PCWSTR pwzCommandline, __in DWORD dwFlags);				// Vista+	RegisterApplicationRestart()  for InitInstance()
+
+	// User functions (Safe Vista+)
+	HINSTANCE		m_hUser32;
+	BOOL			(WINAPI *m_pfnChangeWindowMessageFilter)(UINT message, DWORD dwFlag);										// Vista+	ChangeWindowMessageFilter()   for InitInstance()
 
 	// Shell functions (Safe Vista+)
 	HINSTANCE		m_hShell32;
@@ -262,7 +265,7 @@ BOOL	CreateDirectory(LPCTSTR szPath);
 
 // Delete file to Recycle Bin, etc.
 BOOL	DeleteFileEx(LPCTSTR szFileName, BOOL bShared, BOOL bToRecycleBin, BOOL bEnableDelayed);
-void	DeleteFiles(CStringList& pList);	// User confirmation
+BOOL	DeleteFiles(CStringList& pList);	// User confirmation
 void	DeleteFolders(CStringList& pList);	// Cleanup
 void	PurgeDeletes();						// Delete postponed file
 
@@ -402,6 +405,7 @@ const LPCTSTR RT_GZIP = _T("GZIP");
 #define MAX_DRAG_SIZE_2			(MAX_DRAG_SIZE/2)
 #define DRAG_COLOR_KEY			(RGB(245,248,252)) // Light-blue	ToDo: Skinning?
 #define DRAG_HOVER_TIME			900 			// Dragging mouse button press after X ms
+#define WM_COPYGLOBALDATA		0x0049			// Undocumented way for drag-n-drop
 
 // Set Default Sizes in Pixels					// Skinnable Options:
 //#define PANEL_WIDTH			200				// Skin.m_nSidebarWidth

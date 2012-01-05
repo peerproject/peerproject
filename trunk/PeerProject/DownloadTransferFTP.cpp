@@ -1,7 +1,7 @@
 //
 // DownloadTransferFTP.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -198,7 +198,7 @@ BOOL CDownloadTransferFTP::OnConnected()
 
 BOOL CDownloadTransferFTP::StartNextFragment()
 {
-	//ASSUME_LOCK( Transfers.m_pSection );
+	ASSUME_LOCK( Transfers.m_pSection );
 
 	ASSERT( this != NULL );
 	if ( this == NULL ) return FALSE;

@@ -1,7 +1,7 @@
 //
 // BTClient.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -29,9 +29,10 @@
 #include "Downloads.h"
 #include "DownloadSource.h"
 #include "DownloadTransferBT.h"
-#include "Uploads.h"
 #include "UploadTransferBT.h"
+#include "Uploads.h"
 #include "PeerProjectURL.h"
+#include "Network.h"
 #include "GProfile.h"
 #include "Datagrams.h"
 #include "Transfers.h"
@@ -1248,6 +1249,13 @@ void CBTClient::SendExtendedHandshake()
 BOOL CBTClient::OnExtendedHandshake(CBTPacket* pPacket)
 {
 	const CBENode* pRoot = pPacket->m_pNode.get();
+
+	CBENode* pYourIP = pRoot->GetNode( BT_DICT_YOURIP );							// "yourip"
+	if ( pYourIP && pYourIP->IsType( CBENode::beString ) )
+	{
+		if ( pYourIP->m_nValue == 4 )	// IPv4
+			Network.AcquireLocalAddress( *(IN_ADDR*)pYourIP->m_pValue );
+	}
 
 	// BT_EXTENSION_HANDSHAKE
 	if ( CBENode* pMetadata = pRoot->GetNode( BT_DICT_EXT_MSG ) )					// "m"

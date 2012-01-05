@@ -1,7 +1,7 @@
 //
 // LibraryFolders.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -68,14 +68,14 @@ CLibraryFolders::~CLibraryFolders()
 
 POSITION CLibraryFolders::GetFolderIterator() const
 {
-	//ASSUME_LOCK( Library.m_pSection );
+	ASSUME_LOCK( Library.m_pSection );
 
 	return m_pFolders.GetHeadPosition();
 }
 
 CLibraryFolder* CLibraryFolders::GetNextFolder(POSITION& pos) const
 {
-	//ASSUME_LOCK( Library.m_pSection );
+	ASSUME_LOCK( Library.m_pSection );
 
 	return m_pFolders.GetNext( pos );
 }
@@ -85,7 +85,7 @@ CLibraryFolder* CLibraryFolders::GetNextFolder(POSITION& pos) const
 
 CLibraryFolder* CLibraryFolders::GetFolder(LPCTSTR pszPath) const
 {
-	//ASSUME_LOCK( Library.m_pSection );
+	ASSUME_LOCK( Library.m_pSection );
 
 	for ( POSITION pos = GetFolderIterator() ; pos ; )
 	{
@@ -98,7 +98,7 @@ CLibraryFolder* CLibraryFolders::GetFolder(LPCTSTR pszPath) const
 
 BOOL CLibraryFolders::CheckFolder(CLibraryFolder* pFolder, BOOL bRecursive) const
 {
-	//ASSUME_LOCK( Library.m_pSection );
+	ASSUME_LOCK( Library.m_pSection );
 
 	if ( m_pFolders.Find( pFolder ) != NULL ) return TRUE;
 	if ( ! bRecursive ) return FALSE;
@@ -113,7 +113,7 @@ BOOL CLibraryFolders::CheckFolder(CLibraryFolder* pFolder, BOOL bRecursive) cons
 
 CLibraryFolder* CLibraryFolders::GetFolderByName(LPCTSTR pszName) const
 {
-	//ASSUME_LOCK( Library.m_pSection );
+	ASSUME_LOCK( Library.m_pSection );
 
 	CString strName( pszName );
 	strName.MakeLower();		// Was ToLower()
@@ -277,8 +277,8 @@ bool CLibraryFolders::AddSharedFolder(CListCtrl& oList)
 	}
 
 	// Add path to shared list
-	oList.InsertItem( LVIF_TEXT|LVIF_IMAGE, oList.GetItemCount(), strPath, 0,
-		0, SHI_FOLDER_OPEN, 0 );
+	oList.InsertItem( LVIF_TEXT|LVIF_IMAGE, oList.GetItemCount(), strPath,
+		0, 0, SHI_FOLDER_OPEN, 0 );
 
 	// Success
 	return true;
@@ -310,7 +310,7 @@ BOOL CLibraryFolders::RemoveFolder(CLibraryFolder* pFolder)
 
 CLibraryFolder* CLibraryFolders::IsFolderShared(const CString& strPath) const
 {
-	//CQuickLock oLock( Library.m_pSection );
+	CQuickLock oLock( Library.m_pSection );
 
 	// Convert path to lowercase
 	CString strPathLC( strPath );
@@ -332,7 +332,8 @@ CLibraryFolder* CLibraryFolders::IsFolderShared(const CString& strPath) const
 		}
 		else
 		{
-			if ( strPathLC == strOldLC ) return pFolder;
+			if ( strPathLC == strOldLC )
+				return pFolder;
 		}
 	}
 
@@ -344,7 +345,7 @@ CLibraryFolder* CLibraryFolders::IsFolderShared(const CString& strPath) const
 
 CLibraryFolder* CLibraryFolders::IsSubFolderShared(const CString& strPath) const
 {
-	//CQuickLock oLock( Library.m_pSection );
+	CQuickLock oLock( Library.m_pSection );
 
 	// Convert path to lowercase
 	CString strPathLC( strPath );
@@ -428,6 +429,8 @@ BOOL CLibraryFolders::CheckAlbum(CAlbumFolder* pFolder) const
 
 CAlbumFolder* CLibraryFolders::GetAlbumTarget(LPCTSTR pszSchemaURI, LPCTSTR pszMember, LPCTSTR pszValue) const
 {
+	//ASSUME_LOCK( Library.m_pSection );
+
 	if ( m_pAlbumRoot == NULL ) return NULL;
 
 	CSchemaPtr pSchema = SchemaCache.Get( pszSchemaURI );
@@ -448,10 +451,8 @@ CAlbumFolder* CLibraryFolders::GetAlbumTarget(LPCTSTR pszSchemaURI, LPCTSTR pszM
 		CXMLNode::UniformString( strValue );
 		return m_pAlbumRoot->GetTarget( pMember, strValue );
 	}
-	else
-	{
-		return m_pAlbumRoot->GetTarget( pMember, NULL );
-	}
+
+	return m_pAlbumRoot->GetTarget( pMember, NULL );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -713,7 +714,7 @@ void CLibraryFolders::Serialize(CArchive& ar, int nVersion)
 
 void CLibraryFolders::Maintain()
 {
-	//CQuickLock oLock( Library.m_pSection );
+	CQuickLock oLock( Library.m_pSection );
 
 	for ( POSITION pos = GetFolderIterator() ; pos ; )
 	{
@@ -749,7 +750,7 @@ STDMETHODIMP CLibraryFolders::XLibraryFolders::get_Item(VARIANT vIndex, ILibrary
 {
 	METHOD_PROLOGUE( CLibraryFolders, LibraryFolders )
 
-	//CQuickLock oLock( Library.m_pSection );
+	CQuickLock oLock( Library.m_pSection );
 
 	CLibraryFolder* pFolder = NULL;
 	*ppFolder = NULL;
@@ -786,7 +787,7 @@ STDMETHODIMP CLibraryFolders::XLibraryFolders::get_Count(LONG FAR* pnCount)
 {
 	METHOD_PROLOGUE( CLibraryFolders, LibraryFolders )
 
-	//CQuickLock oLock( Library.m_pSection );
+	CQuickLock oLock( Library.m_pSection );
 
 	*pnCount = static_cast< LONG >( pThis->GetFolderCount() );
 

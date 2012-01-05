@@ -1,7 +1,7 @@
 //
 // CtrlHomePanel.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -282,7 +282,7 @@ void CHomeConnectionBox::Update()
 
 	const BOOL bDetail = Settings.General.GUIMode != GUI_BASIC;
 
-	for ( PROTOCOLID nProtocol = PROTOCOL_G1 ; nProtocol < PROTOCOL_LAST ; nProtocol++ )
+	for ( PROTOCOLID nProtocol = PROTOCOL_G1 ; nProtocol < PROTOCOL_LAST ; ++nProtocol )
 	{
 		if ( ! pEnable[ nProtocol ] )
 			continue;
@@ -406,7 +406,7 @@ int CHomeLibraryBox::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CRichTaskBox::OnCreate( lpCreateStruct ) == -1 ) return -1;
 
-	m_pFont.CreateFont( -(int)(Settings.Fonts.FontSize - 1), 0, 0, 0, FW_NORMAL, FALSE, TRUE, FALSE,
+	m_pFont.CreateFont( -(int)(Settings.Fonts.DefaultSize - 1), 0, 0, 0, FW_NORMAL, FALSE, TRUE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, theApp.m_nFontQuality,
 		DEFAULT_PITCH|FF_DONTCARE, Settings.Fonts.DefaultFont );
 
@@ -797,7 +797,7 @@ int CHomeDownloadsBox::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CRichTaskBox::OnCreate( lpCreateStruct ) == -1 ) return -1;
 
-	m_pFont.CreateFont( -(int)(Settings.Fonts.FontSize - 1), 0, 0, 0, FW_NORMAL, FALSE, TRUE, FALSE,
+	m_pFont.CreateFont( -(int)(Settings.Fonts.DefaultSize - 1), 0, 0, 0, FW_NORMAL, FALSE, TRUE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, theApp.m_nFontQuality,
 		DEFAULT_PITCH|FF_DONTCARE, Settings.Fonts.DefaultFont );
 
