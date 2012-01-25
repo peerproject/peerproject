@@ -21,6 +21,7 @@
 		<title language="hu">Program</title>
 		<title language="it">Applicazione</title>
 		<title language="ja">アプリケーション</title>
+		<title language="ko">신청</title>
 		<title language="lt">Programa</title>
 		<title language="nl">Programma</title>
 		<title language="no">Program</title>
@@ -250,10 +251,10 @@
 			<title language="cz">Autorská práva</title>
 			<title language="de">Copyright</title>
 			<title language="ee">Autorikaitse</title>
-			<title language="es">Copyright</title>
+			<title language="es">Derechos</title>
 			<title language="es-mx">Copyright</title>
 			<title language="fr">Copyright</title>
-			<title language="gr">Πνευματικά Δικαιώματα</title>
+			<title language="gr">Πνευματικά</title>
 			<title language="heb">זכויות יוצרים</title>
 			<title language="hr">Prava</title>
 			<title language="hu">Copyright</title>
@@ -486,8 +487,8 @@
 			<title language="cz">Vydala skupina:</title>
 			<title language="de">Releasegruppe</title>
 			<title language="ee">Väljalaske Grupp</title>
-			<title language="es">Grupo Release</title>
-			<title language="es-mx">Grupo Release</title>
+			<title language="es">Grupo de Lanzamiento</title>
+			<title language="es-mx">Grupo de Lanzamiento</title>
 			<title language="fr">Groupe de diffusion</title>
 			<title language="gr">Ομάδα Δημοσίευσης</title>
 			<title language="heb">קבוצת שחרור</title>
@@ -515,8 +516,8 @@
 			<title language="cz">Odkaz na vydavatele:</title>
 			<title language="de">Link der Releasegruppe</title>
 			<title language="ee">Väljalaske Grupi Link</title>
-			<title language="es">Link de Grupo Release</title>
-			<title language="es-mx">Link de Grupo Release</title>
+			<title language="es">Link de Grupo</title>
+			<title language="es-mx">Link de Grupo</title>
 			<title language="fr">Lien du gr. de diffusion</title>
 			<title language="gr">Ιστοσελίδα Ομάδας Δημοσίευσης</title>
 			<title language="heb">קישור לקבוצת שחרור</title>
@@ -568,6 +569,7 @@
 		</member>
 	</members>
 	<typeFilter>
+		<type extension="air"/>
 		<type extension="bin"/>
 		<type extension="cab"/>
 		<type extension="cue"/>

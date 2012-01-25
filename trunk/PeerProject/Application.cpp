@@ -1,7 +1,7 @@
 //
 // Application.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -76,18 +76,27 @@ CApplication::~CApplication()
 
 HRESULT CApplication::GetApp(IApplication** ppIApplication) throw()
 {
+	if ( ! ppIApplication )
+		return E_POINTER;
+
 	return CoCreateInstance( CLSID_PeerProjectApplication, NULL, CLSCTX_ALL,
 		IID_IApplication, (void**)ppIApplication );
 }
 
 HRESULT CApplication::GetUI(IUserInterface** ppIUserInterface) throw()
 {
+	if ( ! ppIUserInterface )
+		return E_POINTER;
+
 	return CoCreateInstance( CLSID_PeerProjectApplication, NULL, CLSCTX_ALL,
 		IID_IUserInterface, (void**)ppIUserInterface );
 }
 
 HRESULT CApplication::GetSettings(ISettings** ppISettings) throw()
 {
+	if ( ! ppISettings )
+		return E_POINTER;
+
 	return CoCreateInstance( CLSID_PeerProjectApplication, NULL, CLSCTX_ALL,
 		IID_ISettings, (void**)ppISettings );
 }
@@ -230,6 +239,7 @@ STDMETHODIMP CApplication::XUserInterface::NewWindow(BSTR bsName, IPluginWindowO
 
 	CPluginWnd* pWnd = new CPluginWnd( CString( bsName ), pOwner2 );
 	pOwner2->Release();
+	if ( ! pWnd ) return E_FAIL;
 
 	*ppWindow = (IPluginWindow*)pWnd->GetInterface( &IID_IPluginWindow );
 

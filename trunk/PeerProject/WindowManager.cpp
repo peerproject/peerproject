@@ -1,7 +1,7 @@
 //
 // WindowManager.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -444,41 +444,67 @@ void CWindowManager::SaveWindowStates() const
 //////////////////////////////////////////////////////////////////////
 // CWindowManager search load and save
 
-void CWindowManager::LoadSearchWindows()
+BOOL CWindowManager::LoadSearchWindows()
 {
 	const CString strFile = Settings.General.UserPath + _T("\\Data\\Searches.dat");
 
+	CFile pFile;
+	if ( ! pFile.Open( strFile, CFile::modeRead | CFile::shareDenyWrite | CFile::osSequentialScan ) )
+		return FALSE;
+
+	BOOL bSuceess = FALSE;
+
 	try
 	{
-		CFile pFile;
-		if ( ! pFile.Open( strFile, CFile::modeRead ) )
-			return;
-
 		CArchive ar( &pFile, CArchive::load, 262144 );		// 256 KB buffer
-		while ( ar.ReadCount() == 1 )
+		try
 		{
-			CSearchWnd* pWnd = new CSearchWnd();
-			pWnd->Serialize( ar );
+			while ( ar.ReadCount() == 1 )
+			{
+				CSearchWnd* pWnd = new CSearchWnd();
+				pWnd->Serialize( ar );
+			}
+			ar.Close();
+			bSuceess = TRUE;	// Sucess
+		}
+		catch ( CException* pException )
+		{
+			ar.Abort();
+			pFile.Abort();
+			pException->Delete();
 		}
 	}
 	catch ( CException* pException )
 	{
+		pFile.Abort();
 		pException->Delete();
 	}
 
+	pFile.Close();
+
 	if ( Settings.General.GUIMode != GUI_WINDOWED )
 		Open( RUNTIME_CLASS(CHomeWnd) );
+
+	if ( bSuceess )
+		return TRUE;
+
+	theApp.Message( MSG_ERROR, _T("Failed to load search windows: %s"), strFile );
+	return FALSE;
 }
 
 BOOL CWindowManager::SaveSearchWindows() const
 {
 	const CString strFile = Settings.General.UserPath + _T("\\Data\\Searches.dat");
+	const CString strTemp = Settings.General.UserPath + _T("\\Data\\Searches.tmp");
+	int nCount = 0;
 
 	CFile pFile;
-	if ( ! pFile.Open( strFile, CFile::modeWrite | CFile::modeCreate ) )
+	if ( ! pFile.Open( strTemp, CFile::modeWrite | CFile::modeCreate | CFile::shareExclusive | CFile::osSequentialScan ) )
+	{
+		DeleteFile( strTemp );
+		theApp.Message( MSG_ERROR, _T("Failed to save search windows: %s"), strTemp );
 		return FALSE;
-
-	int nCount = 0;
+	}
 
 	try
 	{
@@ -504,21 +530,33 @@ BOOL CWindowManager::SaveSearchWindows() const
 			ar.Abort();
 			pFile.Abort();
 			pException->Delete();
+			DeleteFile( strTemp );
+			theApp.Message( MSG_ERROR, _T("Failed to save search windows: %s"), strTemp );
 			return FALSE;
 		}
-		pFile.Close();
 	}
 	catch ( CException* pException )
 	{
 		pFile.Abort();
 		pException->Delete();
+		DeleteFile( strTemp );
+		theApp.Message( MSG_ERROR, _T("Failed to save search windows: %s"), strTemp );
 		return FALSE;
 	}
 
-	//theApp.Message( MSG_DEBUG, _T("Searches successfully saved to: %s"), strFile );
+	pFile.Close();
 
 	if ( ! nCount )
-		DeleteFileEx( strFile, FALSE, FALSE, FALSE );
+	{
+		DeleteFile( strFile );
+		DeleteFile( strTemp );
+	}
+	else if ( ! MoveFileEx( strTemp, strFile, MOVEFILE_COPY_ALLOWED | MOVEFILE_REPLACE_EXISTING ) )
+	{
+		DeleteFile( strTemp );
+		theApp.Message( MSG_ERROR, _T("Failed to save search windows: %s"), strFile );
+		return FALSE;
+	}
 
 	return TRUE;
 }
@@ -526,41 +564,64 @@ BOOL CWindowManager::SaveSearchWindows() const
 //////////////////////////////////////////////////////////////////////
 // CWindowManager browse host load and save
 
-void CWindowManager::LoadBrowseHostWindows()
+BOOL CWindowManager::LoadBrowseHostWindows()
 {
 	const CString strFile = Settings.General.UserPath + _T("\\Data\\BrowseHosts.dat");
 
+	CFile pFile;
+	if ( ! pFile.Open( strFile, CFile::modeRead | CFile::shareDenyWrite | CFile::osSequentialScan ) )
+		return FALSE;
+
 	try
 	{
-		CFile pFile;
-		if ( ! pFile.Open( strFile, CFile::modeRead ) )
-			return;
-
 		CArchive ar( &pFile, CArchive::load, 262144 );		// 256 KB buffer
-		while ( ar.ReadCount() == 1 )
+		try
 		{
-			CBrowseHostWnd* pWnd = new CBrowseHostWnd();
-			pWnd->Serialize( ar );
+			while ( ar.ReadCount() == 1 )
+			{
+				CBrowseHostWnd* pWnd = new CBrowseHostWnd();
+				pWnd->Serialize( ar );
+			}
+			ar.Close();
+		}
+		catch ( CException* pException )
+		{
+			ar.Abort();
+			pFile.Abort();
+			pException->Delete();
+			theApp.Message( MSG_ERROR, _T("Failed to load browse host windows: %s"), strFile );
+			return FALSE;
 		}
 	}
 	catch ( CException* pException )
 	{
+		pFile.Abort();
 		pException->Delete();
+		theApp.Message( MSG_ERROR, _T("Failed to load browse host windows: %s"), strFile );
+		return FALSE;
 	}
+
+	pFile.Close();
 
 	if ( Settings.General.GUIMode != GUI_WINDOWED )
 		Open( RUNTIME_CLASS(CHomeWnd) );
+
+	return TRUE;
 }
 
 BOOL CWindowManager::SaveBrowseHostWindows() const
 {
 	const CString strFile = Settings.General.UserPath + _T("\\Data\\BrowseHosts.dat");
+	const CString strTemp = Settings.General.UserPath + _T("\\Data\\BrowseHosts.tmp");
+	int nCount = 0;
 
 	CFile pFile;
-	if ( ! pFile.Open( strFile, CFile::modeWrite | CFile::modeCreate ) )
+	if ( ! pFile.Open( strTemp, CFile::modeWrite | CFile::modeCreate | CFile::shareExclusive | CFile::osSequentialScan ) )
+	{
+		DeleteFile( strTemp );
+		theApp.Message( MSG_ERROR, _T("Failed to save browse host windows: %s"), strTemp );
 		return FALSE;
-
-	int nCount = 0;
+	}
 
 	try
 	{
@@ -585,21 +646,35 @@ BOOL CWindowManager::SaveBrowseHostWindows() const
 			ar.Abort();
 			pFile.Abort();
 			pException->Delete();
+			DeleteFile( strTemp );
+			theApp.Message( MSG_ERROR, _T("Failed to save browse host windows: %s"), strTemp );
 			return FALSE;
 		}
-		pFile.Close();
 	}
 	catch ( CException* pException )
 	{
 		pFile.Abort();
 		pException->Delete();
+		DeleteFile( strTemp );
+		theApp.Message( MSG_ERROR, _T("Failed to save browse host windows: %s"), strTemp );
 		return FALSE;
 	}
+
+	pFile.Close();
 
 	//theApp.Message( MSG_DEBUG, _T("Browses successfully saved to: %s"), strFile );
 
 	if ( ! nCount )
-		DeleteFileEx( strFile, FALSE, FALSE, FALSE );
+	{
+		DeleteFile( strTemp );
+		DeleteFile( strFile );
+	}
+	else if ( ! MoveFileEx( strTemp, strFile, MOVEFILE_COPY_ALLOWED | MOVEFILE_REPLACE_EXISTING ) )
+	{
+		DeleteFile( strTemp );
+		theApp.Message( MSG_ERROR, _T("Failed to save browse host windows: %s"), strFile );
+		return FALSE;
+	}
 
 	return TRUE;
 }
@@ -655,7 +730,7 @@ void CWindowManager::OpenNewSearchWindow()
 	}
 
 	// Toggle to next existing search tab
-	for ( posSearch ; posSearch ; )
+	for ( ; posSearch ; )
 	{
 		CSearchWnd* pChild = (CSearchWnd*)GetNext( posSearch );
 
@@ -715,4 +790,30 @@ BOOL CWindowManager::OnEraseBkgnd(CDC* pDC)
 void CWindowManager::OnPaint()
 {
 	CPaintDC dc( this );
+
+	// Draw background logo
+//	if ( Settings.General.GUIMode != GUI_WINDOWED )
+//		return;
+//
+//	CRect rc;
+//	GetClientRect( &rc );
+//	COLORREF crBackground = Colors.m_crMediaWindow;
+//
+//	if ( HBITMAP hLogo = Skin.GetWatermark( _T("LargeLogo"), TRUE ) )
+//	{
+//		BITMAP pInfo = {};
+//		GetObject( hLogo, sizeof( BITMAP ), &pInfo );
+//		CPoint pt = rc.CenterPoint();
+//		pt.x -= pInfo.bmWidth / 2;
+//		pt.y -= pInfo.bmHeight / 2;
+//		CDC dcMem;
+//		dcMem.CreateCompatibleDC( &dc );
+//		HBITMAP pOldBmp = (HBITMAP)dcMem.SelectObject( hLogo );
+//		dc.BitBlt( pt.x, pt.y, pInfo.bmWidth, pInfo.bmHeight, &dcMem, 0, 0, SRCCOPY );
+//		crBackground = dc.GetPixel( pt.x, pt.y );
+//		dc.ExcludeClipRect( pt.x, pt.y, pt.x + pInfo.bmWidth, pt.y + pInfo.bmHeight );
+//		dcMem.SelectObject( pOldBmp );
+//	}
+//
+//	dc.FillSolidRect( &rc, crBackground );
 }

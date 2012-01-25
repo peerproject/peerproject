@@ -74,7 +74,7 @@ BEGIN
             VALUE "FileDescription", "PeerProject Image Viewer Plugin"
             VALUE "FileVersion", "1, 0, 0, 0"
             VALUE "InternalName", "ImageViewer"
-            VALUE "LegalCopyright", "© PeerProject Development Team, 2008-2010"
+            VALUE "LegalCopyright", "© PeerProject Development Team, 2008-2012"
             VALUE "OriginalFilename", "ImageViewer.dll"
             VALUE "ProductName", "PeerProject"
             VALUE "ProductVersion", "1, 0, 0, 0"
@@ -108,7 +108,7 @@ IDI_IMAGE			ICON			"Image.ico"
 // Cursor
 //
 
-IDC_GRABMOVE		CURSOR			"GrabMove.cur"
+//IDC_GRABMOVE		CURSOR			"GrabMove.cur"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -122,7 +122,7 @@ IDB_COMMANDS		BITMAP			"Commands.bmp"
 // HTML
 //
 
-IDR_SKIN		HTML			"Skin.xml"
+IDR_SKIN			HTML			"Skin.xml"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -132,7 +132,7 @@ IDR_SKIN		HTML			"Skin.xml"
 STRINGTABLE
 BEGIN
     IDS_PROJNAME	"ImageViewer"
-    IDS_ABOUT		"PeerProject Image Viewer Plugin\n© PeerProject Development Team, 2008\n(Portions © Michael Stokes, 2002) "
+    IDS_ABOUT		"PeerProject Image Viewer Plugin\n© PeerProject Development Team, 2008-2012\n(Portions © Michael Stokes, 2002) "
 END
 
 #endif    // English (U.S.) resources

@@ -306,8 +306,8 @@ void CDownloadsCtrl::SelectTo(int nIndex)
 	GetScrollRange( SB_VERT, &nMin, &nMax );
 	nIndex = max( 0, min( nIndex, nMax - 1 ) );
 
-	CDownloadSource* pSource;
 	CDownload* pDownload;
+	CDownloadSource* pSource;
 
 	if ( bShift )
 	{
@@ -416,7 +416,7 @@ void CDownloadsCtrl::SelectAll(CDownload* /*pDownload*/, CDownloadSource* /*pSou
 	}
 
 	// If nothing is selected, select all downloads
-	if ( bSelected != TRUE )
+	if ( ! bSelected )
 	{
 		for ( POSITION pos = Downloads.GetIterator() ; pos != NULL ; )
 		{
@@ -1820,13 +1820,10 @@ void CDownloadsCtrl::OnSortPanelItems(NMHDR* pNotifyStruct, LRESULT* /*pResult*/
 
 void CDownloadsCtrl::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
-	CDownloadSource* pSource;
-	CDownload* pDownload;
-
 	m_wndTip.Hide();
 
-	bool bControl = ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 ) != 0;
-//	bool bShift = ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) != 0;
+	const BOOL bControl = ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 ) != 0;
+//	const BOOL bShift = ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) != 0;
 
 	CSingleLock pLock( &Transfers.m_pSection );
 	if ( ! pLock.Lock( 300 ) ) return;
@@ -1848,16 +1845,16 @@ void CDownloadsCtrl::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		SelectTo( nMax - 1 );
 		return;
 	case VK_UP:
-		if ( bControl )
-			MoveSelected( -1 );
-		else
+		if ( ! bControl )
 			SelectTo( m_nFocus - 1 );
+		//else
+		//	MoveSelected( -1 );
 		return;
 	case VK_DOWN:
-		if ( bControl )
-			MoveSelected( 1 );
-		else
+		if ( ! bControl )
 			SelectTo( m_nFocus + 1 );
+		//else
+		//	MoveSelected( 1 );
 		return;
 	case VK_PRIOR:
 		{
@@ -1891,24 +1888,44 @@ void CDownloadsCtrl::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		return;
 	case VK_LEFT:
 	case VK_SUBTRACT:
-		if ( GetAt( m_nFocus, &pDownload, &pSource ) )
 		{
-			if ( pSource != NULL )
-				pDownload = pSource->m_pDownload;
-			if ( pDownload->m_bExpanded == TRUE )
+			CDownload* pDownload;
+			CDownloadSource* pSource;
+			if ( GetAt( m_nFocus, &pDownload, &pSource ) )
 			{
-				pDownload->m_bExpanded = FALSE;
-				Update();
+				if ( pSource != NULL )
+				{
+					pDownload = pSource->m_pDownload;
+
+					CDownloadsWnd* pWindow = (CDownloadsWnd*)GetOwner();
+					ASSERT_KINDOF( CDownloadsWnd, pWindow );
+					pWindow->Select( pDownload );
+				}
+
+				if ( pDownload && pDownload->m_bExpanded )
+				{
+					pDownload->m_bExpanded = FALSE;
+					Update();
+					return;
+				}
 			}
 		}
+		if ( nChar == VK_LEFT && ! bControl )
+			SelectTo( m_nFocus - 1 );
 		return;
 	case VK_RIGHT:
 	case VK_ADD:
-		if ( GetAt( m_nFocus, &pDownload, NULL ) && pDownload != NULL && pDownload->m_bExpanded == FALSE )
 		{
-			pDownload->m_bExpanded = TRUE;
-			Update();
+			CDownload* pDownload;
+			if ( GetAt( m_nFocus, &pDownload, NULL ) && pDownload != NULL && pDownload->m_bExpanded == FALSE )
+			{
+				pDownload->m_bExpanded = TRUE;
+				Update();
+				return;
+			}
 		}
+		if ( nChar == VK_RIGHT && ! bControl )
+			SelectTo( m_nFocus + 1 );
 		return;
 	case 'A':
 		if ( bControl )
@@ -1925,7 +1942,7 @@ void CDownloadsCtrl::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	case VK_INSERT:
 		if ( bControl )
 			GetOwner()->PostMessage( WM_COMMAND, ID_DOWNLOADS_URI );
-		//else if ( bShift )
+		else //if ( bShift )
 			GetOwner()->PostMessage( WM_COMMAND, ID_TOOLS_DOWNLOAD );
 		return;
 	case 'E':
@@ -1952,8 +1969,8 @@ void CDownloadsCtrl::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 void CDownloadsCtrl::OnEnterKey()
 {
-		CDownloadSource* pSource;
 		CDownload* pDownload;
+		CDownloadSource* pSource;
 
 		GetAt( m_nFocus, &pDownload, &pSource );								// Get data for the current focus
 		if ( pDownload != NULL )												// Selected object is a download...
@@ -1974,8 +1991,8 @@ void CDownloadsCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 	CSingleLock pLock( &Transfers.m_pSection );
 	if ( ! pLock.Lock( 300 ) ) return;
 
-	CDownloadSource* pSource;
 	CDownload* pDownload;
+	CDownloadSource* pSource;
 	CRect rcItem;
 	int nIndex;
 
@@ -2046,14 +2063,14 @@ void CDownloadsCtrl::OnRButtonDown(UINT nFlags, CPoint point)
 
 void CDownloadsCtrl::OnLButtonDblClk(UINT nFlags, CPoint point)
 {
+	SetFocus();
+
 	CSingleLock pLock( &Transfers.m_pSection );
 	if ( ! pLock.Lock( 250 ) ) return;
 
-	CDownloadSource* pSource;
 	CDownload* pDownload;
+	CDownloadSource* pSource;
 	CRect rcItem;
-
-	SetFocus();
 
 	if ( HitTest( point, &pDownload, &pSource, NULL, &rcItem ) )
 	{
@@ -2099,13 +2116,12 @@ void CDownloadsCtrl::OnMouseMove(UINT nFlags, CPoint point)
 
 	if ( ( nFlags & ( MK_LBUTTON|MK_RBUTTON) ) == 0 )
 	{
+		CDownload* pDownload;
+		CDownloadSource* pSource;
 		CRect rcItem;
 
 		CSingleLock pLock( &Transfers.m_pSection );
 		if ( ! pLock.Lock( 100 ) ) return;
-
-		CDownloadSource* pSource;
-		CDownload* pDownload;
 
 		if ( HitTest( point, &pDownload, &pSource, NULL, &rcItem ) )
 		{

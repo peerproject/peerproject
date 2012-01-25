@@ -66,9 +66,11 @@ private:
 
 class CPeerProjectApp : public CWinApp
 {
+	DECLARE_DYNAMIC(CPeerProjectApp)
+
 public:
 	CPeerProjectApp();
-	~CPeerProjectApp();
+	virtual ~CPeerProjectApp();
 
 	HANDLE			m_pMutex;
 	CMutex			m_pSection;
@@ -203,7 +205,7 @@ protected:
 	virtual int		ExitInstance();
 	virtual BOOL	Register();
 	virtual BOOL	Unregister();
-	virtual void	WinHelp(DWORD dwData, UINT nCmd = HELP_CONTEXT);
+	virtual void	WinHelp(DWORD_PTR dwData, UINT nCmd = HELP_CONTEXT);
 
 	void			GetVersionNumber();
 	void			InitResources();
@@ -303,16 +305,6 @@ BOOL	IsUserFullscreen();
 
 // Handle "-noskin" flag
 void	ClearSkins();
-
-//typedef enum
-//{
-//	sNone		= 0,
-//	sNumeric	= 1,
-//	sRegular	= 2,
-//	sKanji		= 4,
-//	sHiragana	= 8,
-//	sKatakana	= 16
-//} ScriptType;
 
 struct CompareNums
 {

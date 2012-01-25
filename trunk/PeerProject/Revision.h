@@ -1,6 +1,7 @@
-// r69
-// Auto-generated
+//
+// No SVN Revision Data
 
-#pragma once
+//#pragma once
 
-#define __REVISION__ 	"69"
+//#define __REVISION__
+//#define __MODAUTHOR__

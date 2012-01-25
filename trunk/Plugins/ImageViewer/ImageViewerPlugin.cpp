@@ -1,7 +1,7 @@
 //
 // ImageViewerPlugin.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Original author Michael Stokes released portions into the public domain.
 // You are free to redistribute and modify this page without any restrictions.
 //
@@ -33,10 +33,11 @@
 CImageViewerPlugin::CImageViewerPlugin()
 {
 	// We will maintain a list of open CImageWindow objects as a linked list
-	m_pWindow	= NULL;
+	m_pWindow = NULL;
 
 	// Load the "move / grab" cursor from the DLL's resources
-	m_hcMove	= LoadCursor( _AtlBaseModule.GetResourceInstance(), MAKEINTRESOURCE(IDC_GRABMOVE) );
+	//m_hcMove = LoadCursor( _AtlBaseModule.GetResourceInstance(), MAKEINTRESOURCE(IDC_GRABMOVE) );
+	m_hcMove= LoadCursor( NULL, IDC_SIZEALL );
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -141,9 +142,11 @@ HRESULT STDMETHODCALLTYPE CImageViewerPlugin::OnExecute(BSTR sFilePath)
 	if ( lstrcmpi( pszFileType, _T(".mkv") ) == 0 ) return S_FALSE;
 	if ( lstrcmpi( pszFileType, _T(".mpg") ) == 0 ) return S_FALSE;
 	if ( lstrcmpi( pszFileType, _T(".mpeg") ) == 0 ) return S_FALSE;
+	if ( lstrcmpi( pszFileType, _T(".mp4") ) == 0 ) return S_FALSE;
 	if ( lstrcmpi( pszFileType, _T(".mov") ) == 0 ) return S_FALSE;
-	if ( lstrcmpi( pszFileType, _T(".ogm") ) == 0 ) return S_FALSE;
 	if ( lstrcmpi( pszFileType, _T(".wmv") ) == 0 ) return S_FALSE;
+	if ( lstrcmpi( pszFileType, _T(".ogm") ) == 0 ) return S_FALSE;
+	if ( lstrcmpi( pszFileType, _T(".flv") ) == 0 ) return S_FALSE;
 
 	// Assuming now that it is not a video file.  The next (and primary) step is to
 	// check if there is an ImageService plugin available for this file type.
@@ -214,7 +217,12 @@ HRESULT STDMETHODCALLTYPE CImageViewerPlugin::RegisterCommands()
 	m_pInterface->RegisterCommand( L"PluginID_ImageViewer_FullSize", NULL, &m_nCmdActualSize );
 	m_pInterface->RegisterCommand( L"PluginID_ImageViewer_BestFit", NULL, &m_nCmdBestFit );
 	m_pInterface->RegisterCommand( L"PluginID_ImageViewer_Refresh", NULL, &m_nCmdRefresh );
+	m_pInterface->RegisterCommand( L"PluginID_ImageViewer_Delete", NULL, &m_nCmdDelete );
 	m_pInterface->RegisterCommand( L"PluginID_ImageViewer_Close", NULL, &m_nCmdClose );
+	m_pInterface->RegisterCommand( L"PluginID_ImageViewer_Next", NULL, &m_nCmdNext );
+	m_pInterface->RegisterCommand( L"PluginID_ImageViewer_Prior", NULL, &m_nCmdPrior );
+	m_pInterface->RegisterCommand( L"PluginID_ImageViewer_First", NULL, &m_nCmdFirst );
+	m_pInterface->RegisterCommand( L"PluginID_ImageViewer_Last", NULL, &m_nCmdLast );
 
 	return S_OK;
 }
@@ -306,7 +314,7 @@ BOOL CImageViewerPlugin::OpenNewWindow(LPCTSTR pszFilePath)
 	CImageWindow* pWindow;
 	for ( pWindow = m_pWindow ; pWindow ; pWindow = pWindow->m_pNext )
 	{
-		if ( lstrcmpi( pWindow->m_pszFile, pszFilePath ) == 0 )
+		if ( pWindow->m_sFile.CompareNoCase( pszFilePath ) == 0 )
 			break;	// Got a match, break out of the loop.
 	}
 

@@ -1,7 +1,7 @@
 //
 // QuerySearch.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -554,7 +554,7 @@ CEDPacket* CQuerySearch::ToEDPacket(BOOL bUDP, DWORD nServerFlags) const
 BOOL CQuerySearch::WriteHashesToEDPacket(CEDPacket* pPacket, BOOL bUDP) const
 {
 	ASSERT ( pPacket != NULL );
-	ASSERT ( pPacket->m_nType == bUDP ? ED2K_C2SG_GETSOURCES2 : ED2K_C2S_GETSOURCES );
+	ASSERT ( ( pPacket->m_nType == bUDP ) ? ED2K_C2SG_GETSOURCES2 : ED2K_C2S_GETSOURCES );
 
 	CSingleLock pLock( &Transfers.m_pSection );
 	if ( ! pLock.Lock( 250 ) ) return FALSE;
@@ -999,8 +999,8 @@ BOOL CQuerySearch::ReadG2Packet(CG2Packet* pPacket, const SOCKADDR_IN* pEndpoint
 				nLength -= str.GetLength() + 1;
 
 				if ( str == _T("URL") )			m_bWantURL = TRUE;
-				else if ( str == _T("DN") )		m_bWantDN = TRUE;
-				else if ( str == _T("SZ") )		m_bWantDN = TRUE;	// Hack
+				else if ( str == _T("DN") )		m_bWantDN  = TRUE;
+				else if ( str == _T("SZ") )		m_bWantDN  = TRUE;	// Hack
 				else if ( str == _T("MD") )		m_bWantXML = TRUE;
 				else if ( str == _T("COM") )	m_bWantCOM = TRUE;
 				else if ( str == _T("PFS") )	m_bWantPFS = TRUE;
@@ -1796,20 +1796,16 @@ void CQuerySearch::BuildWordList(bool bExpression, bool /*bLocal*/ )
 	m_sKeywords = MakeKeywords( sKeywords, bExpression );
 
 	// Build word pos/neg tables (m_oWords/m_oNegWords) from m_sKeywords
-	BuildWordTable();
+	BuildWordTable( m_sKeywords, m_oWords, m_oNegWords );
 
 	// Build m_sPosKeywords/m_sG2Keywords from m_oWords/m_oNegWords
-	BuildG2PosKeywords();
-}
 
-void CQuerySearch::BuildG2PosKeywords()
-{
 	// Clear QueryStrings.
 	m_sPosKeywords.Empty();
 	m_sG2Keywords.Empty();
 
 	// Create string with positive keywords.
-	for ( const_iterator pWord = begin() ; pWord != end() ; pWord++ )
+	for ( const_iterator pWord = begin() ; pWord != end() ; ++pWord )
 	{
 		m_sPosKeywords.Append( pWord->first, int(pWord->second) );
 		m_sPosKeywords += _T(' ');
@@ -1819,7 +1815,7 @@ void CQuerySearch::BuildG2PosKeywords()
 	m_sPosKeywords.TrimRight();		// Trim off extra space char at the end of string.
 
 	// Append negative keywords to G2 keywords string.
-	for ( const_iterator pWord = beginNeg() ; pWord != endNeg() ; pWord++ )
+	for ( const_iterator pWord = beginNeg() ; pWord != endNeg() ; ++pWord )
 	{
 		m_sG2Keywords += _T('-');
 		m_sG2Keywords.Append( pWord->first, int(pWord->second) );
@@ -1828,244 +1824,6 @@ void CQuerySearch::BuildG2PosKeywords()
 	m_sG2Keywords.TrimRight();		// Trim off extra space char at the end of string.
 }
 
-// Function is used to split a phrase in asian languages to separate keywords
-// to ease keyword matching, allowing user to type as in the natural language.
-// Spacebar key is not a convenient way to separate keywords with IME,
-// and user may not know how application is keywording their files.
-//
-// The function splits katakana, hiragana and CJK phrases out of the input string.
-// ToDo: "minus" words and quoted phrases for asian languages may not work correctly in all cases.
-//
-CString CQuerySearch::MakeKeywords(const CString& strPhrase, bool bExpression)
-{
-	if ( strPhrase.IsEmpty() )
-		return CString();
-
-	CString str( L" " );
-	LPCTSTR pszPtr = strPhrase;
-	ScriptType boundary[ 2 ] = { sNone, sNone };
-	int nPos = 0;
-	int nPrevWord = 0;
-	BOOL bNegative = FALSE;
-
-	for ( ; *pszPtr ; nPos++, pszPtr++ )
-	{
-		// boundary[ 0 ] -- previous character;
-		// boundary[ 1 ] -- current character;
-		boundary[ 0 ] = boundary[ 1 ];
-		boundary[ 1 ] = sNone;
-
-		if ( IsKanji( *pszPtr ) )
-			boundary[ 1 ] = (ScriptType)( boundary[ 1 ] | sKanji );
-		if ( IsKatakana( *pszPtr ) )
-			boundary[ 1 ] = (ScriptType)( boundary[ 1 ] | sKatakana );
-		if ( IsHiragana( *pszPtr ) )
-			boundary[ 1 ] = (ScriptType)( boundary[ 1 ] | sHiragana );
-		if ( IsCharacter( *pszPtr ) )
-			boundary[ 1 ] = (ScriptType)( boundary[ 1 ] | sRegular );
-		// For now, disable Numeric Detection in order not to split strings like "word2" to "word 2"
-		//if ( _istdigit( *pszPtr ) )
-		//	boundary[ 1 ] = (ScriptType)( boundary[ 1 ] | sNumeric);
-
-		if ( ( boundary[ 1 ] & ( sHiragana | sKatakana ) ) == ( sHiragana | sKatakana ) &&
-			 ( boundary[ 0 ] & ( sHiragana | sKatakana ) ) )
-			boundary[ 1 ] = boundary[ 0 ];
-
-		bool bCharacter = ( boundary[ 1 ] & sRegular ) ||
-			bExpression && ( *pszPtr == _T('-') || *pszPtr == _T('"') );
-
-		if ( ! ( boundary[ 0 ] & sRegular ) && *pszPtr == _T('-') )
-			bNegative = TRUE;
-		else if ( *pszPtr == _T(' ') )
-			bNegative = FALSE;
-
-		int nDistance = ! bCharacter ? 1 : 0;
-
-		if ( ! bCharacter || boundary[ 0 ] != boundary[ 1 ] && nPos )
-		{
-			if ( nPos > nPrevWord )
-			{
-				const int len = str.GetLength();
-				ASSERT( len );
-				const TCHAR last1 = str.GetAt( len - 1 );
-				const TCHAR last2 = ( len > 1 ) ? str.GetAt( len - 2 ) : 0;
-				const TCHAR last3 = ( len > 2 ) ? str.GetAt( len - 3 ) : 0;
-
-				if ( boundary[ 0 ] &&
-					( last2 == _T(' ') || last2 == _T('-') || last2 == _T('"') ) &&
-					! _istdigit( ( nPos < 3 ) ? last1 : last3 ) )
-				{
-					// Join two phrases if the previous was a sigle characters word.
-					// The idea of joining single characters breaks GDF compatibility completely,
-					// but because PeerProject (Shareaza 2.2+) is not really following GDF about
-					// word length limit for ASIAN chars, merging is necessary to be done.
-				}
-				else if ( last1 != _T(' ') && bCharacter )
-				{
-					if ( ( last1 != _T('-') || last1 != _T('"') || *pszPtr == _T('"') ) &&
-						( ! bNegative || ! ( boundary[ 0 ] & ( sHiragana | sKatakana | sKanji ) ) ) )
-						str += _T(' ');
-				}
-				ASSERT( strPhrase.GetLength() > nPos - 1 );
-				if ( strPhrase.GetAt( nPos - 1 ) == _T('-') && nPos > 1 )
-				{
-					ASSERT( strPhrase.GetLength() > nPos - 2 );
-					if ( *pszPtr != _T(' ') && strPhrase.GetAt( nPos - 2 ) != _T(' ') )
-					{
-						nPrevWord += nDistance + 1;
-						continue;
-					}
-
-					str += strPhrase.Mid( nPrevWord, nPos - nDistance - nPrevWord );
-				}
-				else
-				{
-					str += strPhrase.Mid( nPrevWord, nPos - nPrevWord );
-					if ( boundary[ 1 ] == sNone && ! bCharacter || *pszPtr == _T(' ') || ! bExpression ||
-						( ( boundary[ 0 ] & ( sHiragana | sKatakana | sKanji ) ) && ! bNegative ) )
-						str += _T(' ');
-					else if ( ! bNegative && ( ( boundary[ 0 ] & ( sHiragana | sKatakana | sKanji ) ) ||
-						( boundary[ 0 ] & ( sHiragana | sKatakana | sKanji ) ) !=
-						( boundary[ 1 ] & ( sHiragana | sKatakana | sKanji ) ) ) )
-						str += _T(' ');
-				}
-			}
-			nPrevWord = nPos + nDistance;
-		}
-	}
-
-	const int len = str.GetLength();
-	ASSERT( len );
-	const TCHAR last1 = str.GetAt( len - 1 );
-	const TCHAR last2 = ( len > 1 ) ? str.GetAt( len - 2 ) : 0;
-
-	if ( boundary[ 0 ] && boundary[ 1 ] &&
-		( last2 == _T(' ') || last2 == _T('-') || last2 == _T('"') ) )
-	{
-		// Join two phrases if the previous was a sigle characters word.
-		// The idea of joining single characters breaks GDF compatibility completely,
-		// but because PeerProject (Shareaza 2.2+) is not really following GDF about
-		// word length limit for ASIAN chars, merging is necessary to be done.
-	}
-	else if ( boundary[ 1 ] && last1 != _T(' ') )
-	{
-		if ( ( last1 != _T('-') || last1 != _T('"') ) && ! bNegative )
-			str += _T(' ');
-	}
-	str += strPhrase.Mid( nPrevWord, nPos - nPrevWord );
-
-	return str.Trim().TrimRight( L" -" );
-}
-
-// Function makes a set of keywords separated by space using a sliding window algorithm to match asian words
-void CQuerySearch::SlideKeywords(CString& strPhrase)
-{
-	if ( strPhrase.GetLength() < 3 ) return;
-
-	CString strTemp;
-	LPCTSTR pszPhrase = strPhrase.GetBuffer();
-	TCHAR* pszToken = new TCHAR[ 3 ];
-
-	while ( _tcslen( pszPhrase ) )
-	{
-		_tcsncpy_s( pszToken, 3, pszPhrase, 2 );
-		pszToken[ 2 ] = 0;
-		if ( IsKanji( pszToken[ 0 ] ) ||
-			 IsKatakana( pszToken[ 0 ] ) ||
-			 IsHiragana( pszToken[ 0 ] ) )
-		{
-			if ( pszToken[ 1 ] != ' ' && _tcslen( pszPhrase ) > 1 )
-			{
-				strTemp.Append( (LPCTSTR)pszToken );
-				strTemp.Append( L" " );
-			}
-		}
-		else
-		{
-			strTemp += *pszToken;
-		}
-		pszPhrase++;
-	}
-	delete [] pszToken;
-	strPhrase = strTemp.TrimRight( L" " );
-}
-
-void CQuerySearch::BuildWordTable()
-{
-	// Clear word tables.
-	m_oWords.clear();
-	m_oNegWords.clear();
-
-	m_sKeywords.Trim();
-	if ( m_sKeywords.IsEmpty() )
-		return;
-
-	LPCTSTR pszWord	= m_sKeywords;
-	LPCTSTR pszPtr	= pszWord;
-	BOOL bQuote		= FALSE;
-	BOOL bNegate	= FALSE;
-	BOOL bSpace		= TRUE;
-
-	for ( ; *pszPtr ; pszPtr++ )
-	{
-		if ( IsCharacter( *pszPtr ) )
-		{
-			bSpace = FALSE;
-		}
-		else
-		{
-			if ( pszWord < pszPtr )
-			{
-				if ( bNegate )
-				{
-					m_oNegWords.insert( std::make_pair( pszWord, pszPtr - pszWord ) );
-				}
-				else
-				{
-					bool bWord = false, bDigit = false, bMix = false;
-					IsType( pszWord, 0, pszPtr - pszWord, bWord, bDigit, bMix );
-					if ( ( bWord || bMix ) || ( bDigit && pszPtr - pszWord > 3 ) )
-						m_oWords.insert( std::make_pair( pszWord, pszPtr - pszWord ) );
-				}
-			}
-
-			pszWord = pszPtr + 1;
-
-			if ( *pszPtr == '\"' )
-			{
-				bQuote = ! bQuote;
-				bSpace = TRUE;
-			}
-			else if ( *pszPtr == '-' && pszPtr[1] != ' ' && bSpace && ! bQuote )
-			{
-				bNegate = TRUE;
-				bSpace = FALSE;
-			}
-			else
-			{
-				bSpace = ( *pszPtr == ' ' );
-			}
-
-			if ( bNegate && ! bQuote && *pszPtr != '-' )
-				bNegate = FALSE;
-		}
-	}
-
-	if ( pszWord < pszPtr )
-	{
-		if ( bNegate )
-		{
-			m_oNegWords.insert( std::make_pair( pszWord, pszPtr - pszWord ) );
-		}
-		else
-		{
-			bool bWord = false, bDigit = false, bMix = false;
-			IsType( pszWord, 0, pszPtr - pszWord, bWord, bDigit, bMix );
-			if ( ( bWord || bMix ) || ( bDigit && pszPtr - pszWord > 3 ) )
-				m_oWords.insert( std::make_pair( pszWord, pszPtr - pszWord ) );
-		}
-	}
-}
 
 //////////////////////////////////////////////////////////////////////
 // CQuerySearch serialization

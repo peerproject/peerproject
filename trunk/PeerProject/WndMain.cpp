@@ -1,7 +1,7 @@
 //
 // WndMain.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -1563,7 +1563,7 @@ void CMainWnd::LocalSystemChecks()
 	if ( ! Settings.Live.DefaultED2KServersLoaded )
 	{
 		Settings.Live.DefaultED2KServersLoaded = true;
-		HostCache.CheckMinimumED2KServers();
+		HostCache.CheckMinimumServers();
 	}
 
 	if ( ! Settings.Live.DonkeyServerWarning && Settings.eDonkey.Enabled )

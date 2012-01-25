@@ -1,7 +1,7 @@
 //
 // ResultFilters.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -16,10 +16,6 @@
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
-///////////////////////////////////////////////////
-// ResultFilters
-// Save the filters used for results
-
 #include "StdAfx.h"
 #include "Settings.h"
 #include "PeerProject.h"
@@ -31,6 +27,9 @@ static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
 #endif	// Filename
 
+///////////////////////////////////////////////////
+// ResultFilters: Saves the filters used for results
+
 CResultFilters::CResultFilters(void)
 	: m_pFilters	( NULL )
 	, m_nFilters	( 0 )
@@ -38,17 +37,24 @@ CResultFilters::CResultFilters(void)
 {
 }
 
-CResultFilters::~CResultFilters(void)
+CResultFilters::~CResultFilters()
+{
+	Clear();
+}
+
+void CResultFilters::Clear()
 {
 	if ( m_pFilters )
 	{
 		for ( DWORD i = 0 ; i < m_nFilters ; i++ )
 		{
-			delete m_pFilters[i];
+			delete m_pFilters[ i ];
+			m_pFilters[ i ] = NULL;
 		}
 	}
 
 	delete [] ( m_pFilters );
+	m_pFilters = NULL;
 }
 
 #define RESULTFILTERS_SER_VERSION	1000	// 2
@@ -137,42 +143,65 @@ void CResultFilters::Remove(DWORD index)
 	}
 }
 
-void CResultFilters::Load()
+BOOL CResultFilters::Load()
 {
+	const CString strFile = Settings.General.UserPath + _T("\\Data\\Filters.dat");
+
 	// Delete old content first
-	if ( m_pFilters )
-	{
-		for ( DWORD i = 0 ; i < m_nFilters ; i++ )
-		{
-			delete m_pFilters[i];
-		}
-	}
-	delete [] ( m_pFilters );
+	Clear();
 
-	CString strFile = Settings.General.UserPath + _T("\\Data\\Filters.dat");
+	CFile pFile;
+	if ( ! pFile.Open( strFile, CFile::modeRead | CFile::shareDenyWrite | CFile::osSequentialScan ) )
+		return FALSE;
 
-	CFile f;
-	if ( f.Open( strFile, CFile::modeRead ) )
+	try
 	{
+		CArchive ar( &pFile, CArchive::load );	// 4 KB buffer
 		try
 		{
-			CArchive ar( &f, CArchive::load );	// 4 KB buffer
 			Serialize( ar );
+
+			ar.Close();
 		}
 		catch ( CException* pException )
 		{
+			ar.Abort();
+			pFile.Abort();
 			pException->Delete();
+			theApp.Message( MSG_ERROR, _T("Failed to load result filters: %s"), strFile );
+			return FALSE;
 		}
+		pFile.Close();
 	}
+	catch ( CException* pException )
+	{
+		pFile.Abort();
+		pException->Delete();
+		theApp.Message( MSG_ERROR, _T("Failed to load result filters: %s"), strFile );
+		return FALSE;
+	}
+
+	return TRUE;
 }
 
 BOOL CResultFilters::Save()
 {
 	CString strFile = Settings.General.UserPath + _T("\\Data\\Filters.dat");
+	CString strTemp = Settings.General.UserPath + _T("\\Data\\Filters.tmp");
+
+	if ( m_nFilters == 0 )
+	{
+		DeleteFile( strFile );
+		return TRUE;
+	}
 
 	CFile pFile;
-	if ( ! pFile.Open( strFile, CFile::modeCreate | CFile::modeWrite ) )
+	if ( ! pFile.Open( strTemp, CFile::modeWrite | CFile::modeCreate | CFile::shareExclusive | CFile::osSequentialScan ) )
+	{
+		DeleteFile( strTemp );
+		theApp.Message( MSG_ERROR, _T("Failed to save result filters: %s"), strTemp );
 		return FALSE;
+	}
 
 	try
 	{
@@ -187,6 +216,7 @@ BOOL CResultFilters::Save()
 			ar.Abort();
 			pFile.Abort();
 			pException->Delete();
+			theApp.Message( MSG_ERROR, _T("Failed to save result filters: %s"), strTemp );
 			return FALSE;
 		}
 		pFile.Close();
@@ -195,6 +225,14 @@ BOOL CResultFilters::Save()
 	{
 		pFile.Abort();
 		pException->Delete();
+		theApp.Message( MSG_ERROR, _T("Failed to save result filters: %s"), strTemp );
+		return FALSE;
+	}
+
+	if ( ! MoveFileEx( strTemp, strFile, MOVEFILE_COPY_ALLOWED | MOVEFILE_REPLACE_EXISTING ) )
+	{
+		DeleteFile( strTemp );
+		theApp.Message( MSG_ERROR, _T("Failed to save result filters: %s"), strFile );
 		return FALSE;
 	}
 
@@ -203,7 +241,7 @@ BOOL CResultFilters::Save()
 
 
 ////////////////////////////////////////////////////
-// FilterOptions	( The filter settings )
+// FilterOptions: The filter settings
 
 CFilterOptions::CFilterOptions()
 {

@@ -10,32 +10,33 @@
 	</images>
 	<titles>
 		<title language="en">Archive</title>
-		<title language="af">Archive</title>
-		<title language="ca">Archive</title>
-		<title language="cz">Archive</title>
+		<title language="af">Argief</title>
+		<title language="ca">Archivo</title>
+		<title language="cz">Archiv</title>
 		<title language="de">Archiv</title>
-		<title language="ee">Archive</title>
+		<title language="ee">Arhiiv</title>
 		<title language="es">Archivo</title>
 		<title language="es-mx">Archivo</title>
-		<title language="fr">Archive</title>
+		<title language="fr">Archives</title>
 		<title language="gr">Συμπίεση</title>
-		<title language="heb">Archive</title>
-		<title language="hr">Archive</title>
-		<title language="hu">Archive</title>
+		<title language="heb">ארכיון</title>
+		<title language="hr">Arhiva</title>
+		<title language="hu">Archívum</title>
 		<title language="it">Archivio</title>
-		<title language="ja">Archive</title>
+		<title language="ja">アーカイブ</title>
+		<title language="ko">보관</title>
 		<title language="lt">Archyvas</title>
 		<title language="nl">Archief</title>
-		<title language="no">Archive</title>
+		<title language="no">Arkiv</title>
 		<title language="pt-br">Arquivo</title>
 		<title language="ru">Архив</title>
-		<title language="sl">Archive</title>
-		<title language="sq">Archive</title>
-		<title language="sr">Archive</title>
+		<title language="sl">Arhiv</title>
+		<title language="sq">Arkivi</title>
+		<title language="sr">Архива</title>
 		<title language="sv">Arkiv</title>
 		<title language="tr">Arşiv</title>
 		<title language="zhs">档案</title>
-		<title language="zht">Archive</title>
+		<title language="zht">存檔</title>
 	</titles>
 	<members>
 		<member name="title" search="generic">
@@ -72,19 +73,20 @@
 		<member name="folders" search="generic">
 			<title language="en">Folders</title>
 			<title language="af">Folders</title>
-			<title language="ca">Folders</title>
+			<title language="ca">Carpetes</title>
 			<title language="cz">Folders</title>
 			<title language="de">Ordner</title>
 			<title language="ee">Folders</title>
-			<title language="es">Folders</title>
-			<title language="es-mx">Folders</title>
+			<title language="es">Carpetas</title>
+			<title language="es-mx">Carpetas</title>
 			<title language="fr">Dossiers</title>
 			<title language="gr">Φάκελοι</title>
 			<title language="heb">Folders</title>
 			<title language="hr">Folders</title>
 			<title language="hu">Folders</title>
 			<title language="it">Cartelle</title>
-			<title language="ja">Folders</title>
+			<title language="ja">フォルダ</title>
+			<title language="ko">폴더</title>
 			<title language="lt">Aplankai</title>
 			<title language="nl">Mappen</title>
 			<title language="no">Folders</title>
@@ -220,7 +222,7 @@
 			<display columnAlign="center"/>
 			<title language="en">Encrypted</title>
 			<title language="af">Encrypted</title>
-			<title language="ca">Encrypted</title>
+			<title language="ca">Encriptades</title>
 			<title language="cz">Encrypted</title>
 			<title language="de">Verschlüsselt</title>
 			<title language="ee">Encrypted</title>

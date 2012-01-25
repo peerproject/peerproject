@@ -1,7 +1,7 @@
 //
 // BTClients.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -27,23 +27,19 @@ class CBTClients
 // Construction
 public:
 	CBTClients();
-	virtual ~CBTClients();
+	~CBTClients();
 
 // Attributes
 protected:
 	CList< CBTClient* >	m_pList;
-	CMutex				m_pListSection;	// m_pList guard
+	CMutex				m_pListSection; 	// m_pList guard
 
 // Operations
 public:
 	void		Clear();
-	BOOL		OnAccept(CConnection* pConnection);
-
-protected:
 	void		Add(CBTClient* pClient);
 	void		Remove(CBTClient* pClient);
-
-	friend class CBTClient;
+	BOOL		OnAccept(CConnection* pConnection);
 
 private:
 	CBTClients(const CBTClients&);
@@ -51,6 +47,3 @@ private:
 };
 
 extern CBTClients BTClients;
-
-#define BT_PROTOCOL_HEADER			"\023BitTorrent protocol"
-#define BT_PROTOCOL_HEADER_LEN		20

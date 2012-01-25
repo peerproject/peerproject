@@ -1,7 +1,7 @@
 //
 // EDClients.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -138,7 +138,7 @@ int CEDClients::GetCount() const
 // CEDClients push connection setup
 //
 // This function is a callback from the Network thread. Destruction of the
-// object is called from the Tranfers thread.
+// object is called from the Transfers thread.
 
 bool CEDClients::PushTo(DWORD nClientID, WORD nClientPort)
 {
@@ -346,8 +346,8 @@ void CEDClients::OnRun()
 	if ( tNow < m_tLastRun + Settings.eDonkey.PacketThrottle )
 		return;
 
-	CSingleLock oCTranfersLock( &Transfers.m_pSection );
-	if ( ! oCTranfersLock.Lock( 250 ) )
+	CSingleLock oCTransfersLock( &Transfers.m_pSection );
+	if ( ! oCTransfersLock.Lock( 250 ) )
 		return;
 
 	CSingleLock oCEDClientsLock( &m_pSection );

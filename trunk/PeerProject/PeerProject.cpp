@@ -149,6 +149,8 @@ void CAppCommandLineInfo::ParseParam(const TCHAR* pszParam, BOOL bFlag, BOOL bLa
 /////////////////////////////////////////////////////////////////////////////
 // CPeerProjectApp
 
+IMPLEMENT_DYNAMIC(CPeerProjectApp, CWinApp)
+
 BEGIN_MESSAGE_MAP(CPeerProjectApp, CWinApp)
 	//{{AFX_MSG_MAP(CPeerProjectApp)
 	//}}AFX_MSG
@@ -849,7 +851,7 @@ BOOL CPeerProjectApp::Unregister()
 	return TRUE;	// Don't call CWinApp::Unregister(), it removes PeerProject settings
 }
 
-void CPeerProjectApp::WinHelp(DWORD /*dwData*/, UINT /*nCmd*/)
+void CPeerProjectApp::WinHelp(DWORD_PTR /*dwData*/, UINT /*nCmd*/)
 {
 	// Suppress F1
 }
@@ -1256,15 +1258,12 @@ void CPeerProjectApp::InitResources()
 			CLEARTYPE_QUALITY : DEFAULT_QUALITY );
 	}
 
-	if ( Settings.Fonts.DefaultFont.IsEmpty() )
+	if ( Settings.Fonts.DefaultFont.IsEmpty() && m_pfnGetThemeSysFont )
 	{
 		// Get font from current theme
-		if ( m_pfnGetThemeSysFont )
-		{
-			LOGFONT pFont = {};
-			if ( m_pfnGetThemeSysFont( NULL, TMT_MENUFONT, &pFont ) == S_OK )
-				Settings.Fonts.DefaultFont = pFont.lfFaceName;
-		}
+		LOGFONT pFont = {};
+		if ( m_pfnGetThemeSysFont( NULL, TMT_MENUFONT, &pFont ) == S_OK )
+			Settings.Fonts.DefaultFont = pFont.lfFaceName;
 	}
 
 	if ( Settings.Fonts.DefaultFont.IsEmpty() )

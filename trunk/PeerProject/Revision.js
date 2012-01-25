@@ -1,7 +1,7 @@
 //
 // Revision.js
 //
-// This file is part of PeerProject (peerproject.org) © 2009-2010
+// This file is part of PeerProject (peerproject.org) © 2009-2012
 // Portions copyright Shareaza Development Team, 2009.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -16,26 +16,69 @@
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
-// This script compares current directory revision and prior revision
-// saved in Revision.h file using .SVN hidden folder data (for About dialog).
+// This script uses .SVN hidden folder data to update current directory revision
+// in Revision.h file if needed.  (For About dialog, etc.)
 
 
 var fso = WScript.CreateObject( "Scripting.FileSystemObject" );
-var fsvn = fso.GetAbsolutePathName( ".svn\\all-wcprops" );
 var fname = fso.GetAbsolutePathName( "Revision.h" );
+var fsvn;
+var svnfile;
 
 var revision;
 try
 {
-	var svnfile = fso.OpenTextFile( fsvn, 1, false );
-	revision = svnfile.Read( 68 ).substr( 66 );		// Parsing:  "!svn/ver/XXX/"
+	// Old SVN style first
+	fsvn = fso.GetAbsolutePathName( ".svn\\all-wcprops" );
+	svnfile = fso.OpenTextFile( fsvn, 1, false );
+	revision = svnfile.Read( 68 ).substr( 66 );		// Parsing:  "!svn/ver/XX/..."
 	WScript.Echo( "Current SVN Revision is " + revision );
 	svnfile.Close();
 }
 catch(e)
 {
-	WScript.Echo( "SVN Revision Data Missing." );
-	WScript.Quit( 0 );
+	try
+	{
+		// New SVN style (1.7+)
+		fsvn = fso.GetAbsolutePathName( "..\\.svn\\wc.db" );
+		svnfile = fso.OpenTextFile( fsvn, 1, false );
+		revision = svnfile.Read( 4 );		// Test
+	}
+	catch(e)
+	{
+		try
+		{
+			fsvn = fso.GetAbsolutePathName( "..\\..\\.svn\\wc.db" );
+			svnfile = fso.OpenTextFile( fsvn, 1, false );
+			revision = svnfile.Read( 4 );	// Test
+		}
+		catch(e)
+		{
+			WScript.Echo( "No SVN Revision Data Available." );
+			WScript.Quit( 0 );
+		}
+	}
+
+	svnfile.Skip( 1000 );
+	var text = svnfile.ReadAll();
+	svnfile.Close();
+
+	var re = /!svn\/ver\/(\d+)\/trunk\/PeerProject\)/gi;
+	var result = re.exec( text );
+
+	while ( result != null )
+	{
+		revision = result[1];
+		result = re.exec( text );
+	}
+
+	if ( revision == null )
+	{
+		WScript.Echo( "No Proper SVN Revision Detected." );
+		WScript.Quit( 0 );
+	}
+
+	WScript.Echo( "Current SVN Revision is r" + revision );
 }
 
 var modified;

@@ -1325,7 +1325,7 @@ BOOL CSkin::LoadWatermarks(CXMLElement* pSub, const CString& strPath)
 	if ( m_bmSelected.m_hObject ) m_bmSelected.DeleteObject();
 	if ( HBITMAP hSelected = GetWatermark( _T("System.Highlight") ) )
 		m_bmSelected.Attach( hSelected );
-	else if ( HBITMAP hSelected = GetWatermark( _T("CTranfers.Selected") ) )
+	else if ( HBITMAP hSelected = GetWatermark( _T("CTransfers.Selected") ) )
 		m_bmSelected.Attach( hSelected );
 
 	if ( m_bmToolTip.m_hObject ) m_bmToolTip.DeleteObject();
@@ -2791,21 +2791,17 @@ HBITMAP CSkin::LoadBitmap(const CString& strName)
 {
 	const int nPos = strName.Find( '$' );
 	if ( nPos < 0 )
-	{
 		return CImageFile::LoadBitmapFromFile( strName );
-	}
-	else
-	{
-		HINSTANCE hInstance = NULL;
-		if ( _stscanf( (LPCTSTR)strName, _T("%p"), &hInstance ) != 1 )
-			return NULL;
 
-		UINT nID = 0;
-		if ( _stscanf( (LPCTSTR)strName + nPos + 1, _T("%lu"), &nID ) != 1 )
-			return NULL;
+	HINSTANCE hInstance = NULL;
+	if ( _stscanf( (LPCTSTR)strName, _T("%p"), &hInstance ) != 1 )
+		return NULL;
 
-		return CImageFile::LoadBitmapFromResource( nID, hInstance );
-	}
+	UINT nID = 0;
+	if ( _stscanf( (LPCTSTR)strName + nPos + 1, _T("%lu"), &nID ) != 1 )
+		return NULL;
+
+	return CImageFile::LoadBitmapFromResource( nID, hInstance );
 }
 
 //////////////////////////////////////////////////////////////////////

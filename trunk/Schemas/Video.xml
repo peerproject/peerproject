@@ -12,8 +12,8 @@
 		<title language="cz">Video</title>
 		<title language="de">Video</title>
 		<title language="ee">Video</title>
-		<title language="es">Video</title>
-		<title language="es-mx">Video</title>
+		<title language="es">Vídeo</title>
+		<title language="es-mx">Vídeo</title>
 		<title language="fr">Vidéo</title>
 		<title language="gr">Video</title>
 		<title language="heb">וידאו</title>
@@ -21,6 +21,7 @@
 		<title language="hu">Videó</title>
 		<title language="it">Video</title>
 		<title language="ja">動画</title>
+		<title language="ko">비디오</title>
 		<title language="lt">Vaizdo įrašai</title>
 		<title language="nl">Video</title>
 		<title language="no">Video</title>
@@ -1040,8 +1041,8 @@
 			<title language="cz">Vydala skupina:</title>
 			<title language="de">Releasegruppe</title>
 			<title language="ee">Väljalaske Grupp</title>
-			<title language="es">Release Group</title>
-			<title language="es-mx">Release Group</title>
+			<title language="es">Grupo de Lanzamiento</title>
+			<title language="es-mx">Grupo de Lanzamiento</title>
 			<title language="fr">Groupe de diffusion</title>
 			<title language="gr">Ομάδα Δημοσίευσης</title>
 			<title language="heb">קבוצת שחרור</title>
@@ -1069,8 +1070,8 @@
 			<title language="cz">Odkaz na vydavatele:</title>
 			<title language="de">Link der Releasegruppe</title>
 			<title language="ee">Väljalaske Grupi Link</title>
-			<title language="es">Release Group Link</title>
-			<title language="es-mx">Release Group Link</title>
+			<title language="es">Link de Grupo</title>
+			<title language="es-mx">Link de Grupo</title>
 			<title language="fr">Lien du gr. de diffusion</title>
 			<title language="gr">Ιστοσελίδα Ομάδας Δημοσίευσης</title>
 			<title language="heb">קישור לקבוצת שחרור</title>

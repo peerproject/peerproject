@@ -1,7 +1,7 @@
 //
 // Network.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -43,7 +43,7 @@ class CNetwork : public CComObject, public CThreadImpl
 
 public:
 	CNetwork();
-	virtual ~CNetwork();
+	~CNetwork();
 
 // Attributes
 public:
@@ -191,6 +191,7 @@ public:
 	BOOL		IsReserved(const IN_ADDR* pAddress, bool bCheckLocal = true) const;
 	BOOL		IsFirewalledAddress(const IN_ADDR* pAddress, BOOL bIncludeSelf = FALSE) const;
 	WORD		RandomPort() const;
+	WORD		GetPort() const;
 	void		CreateID(Hashes::Guid& oID);
 
 	BOOL		GetNodeRoute(const Hashes::Guid& oGUID, CNeighbour** ppNeighbour, SOCKADDR_IN* pEndpoint);

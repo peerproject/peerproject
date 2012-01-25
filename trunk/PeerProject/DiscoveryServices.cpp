@@ -1,7 +1,7 @@
 //
 // DiscoveryServices.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -405,35 +405,38 @@ void CDiscoveryServices::Stop()
 
 BOOL CDiscoveryServices::Load()
 {
-	CSingleLock pLock( &Network.m_pSection, FALSE );
-	if ( ! pLock.Lock( 250 ) )
-		return FALSE;
+	const CString strFile = Settings.General.UserPath + _T("\\Data\\Discovery.dat");
 
-	CFile pFile;
-
-	CString strFile = Settings.General.UserPath + _T("\\Data\\Discovery.dat");
+	BOOL bSuccess = FALSE;
 
 	// Load the services from disk
-	if ( ! pFile.Open( strFile, CFile::modeRead ) )
+	CFile pFile;
+	if ( pFile.Open( strFile, CFile::modeRead | CFile::shareDenyWrite | CFile::osSequentialScan ) )
 	{
-		AddDefaults();
-		Save();
-		return FALSE;
-	}
+		try
+		{
+			CArchive ar( &pFile, CArchive::load, 16384 );	// 16 KB buffer
+			try
+			{
+				CQuickLock pLock( Network.m_pSection );
 
-	try
-	{
-		CArchive ar( &pFile, CArchive::load, 16384 );	// 16 KB buffer
-		Serialize( ar );
-	}
-	catch ( CException* pException )
-	{
-		pException->Delete();
-		pFile.Close();
-		Clear();
-		AddDefaults();
-		Save();
-		return FALSE;
+				Serialize( ar );
+				ar.Close();
+
+				bSuccess = TRUE;	// Success
+			}
+			catch ( CException* pException )
+			{
+				ar.Abort();
+				pFile.Abort();
+				pException->Delete();
+			}
+		}
+		catch ( CException* pException )
+		{
+			pFile.Abort();
+			pException->Delete();
+		}
 	}
 
 	pFile.Close();
@@ -445,25 +448,32 @@ BOOL CDiscoveryServices::Load()
 		Save();			// And save it
 	}
 
+	if ( ! bSuccess )
+		theApp.Message( MSG_ERROR, _T("Failed to load discovery service list: %s"), strFile );
+
 	return TRUE;
 }
 
 BOOL CDiscoveryServices::Save()
 {
-	CSingleLock pLock( &Network.m_pSection, FALSE );
-	if ( ! pLock.Lock( 250 ) )
-		return FALSE;
+	const CString strFile = Settings.General.UserPath + _T("\\Data\\Discovery.dat");
+	const CString strTemp = Settings.General.UserPath + _T("\\Data\\Discovery.tmp");
 
 	CFile pFile;
-	CString strFile = Settings.General.UserPath + _T("\\Data\\Discovery.dat");
-	if ( ! pFile.Open( strFile, CFile::modeWrite|CFile::modeCreate ) )
+	if ( ! pFile.Open( strTemp, CFile::modeWrite | CFile::modeCreate | CFile::shareExclusive | CFile::osSequentialScan ) )
+	{
+		DeleteFile( strTemp );
+		theApp.Message( MSG_ERROR, _T("Failed to save discovery service list: %s"), strTemp );
 		return FALSE;
+	}
 
 	try
 	{
 		CArchive ar( &pFile, CArchive::store, 16384 );	// 16 KB buffer
 		try
 		{
+			CQuickLock pLock( Network.m_pSection );
+
 			Serialize( ar );
 			ar.Close();
 		}
@@ -472,14 +482,26 @@ BOOL CDiscoveryServices::Save()
 			ar.Abort();
 			pFile.Abort();
 			pException->Delete();
+			DeleteFile( strTemp );
+			theApp.Message( MSG_ERROR, _T("Failed to save discovery service list: %s"), strTemp );
 			return FALSE;
 		}
-		pFile.Close();
 	}
 	catch ( CException* pException )
 	{
 		pFile.Abort();
 		pException->Delete();
+		DeleteFile( strTemp );
+		theApp.Message( MSG_ERROR, _T("Failed to save discovery service list: %s"), strTemp );
+		return FALSE;
+	}
+
+	pFile.Close();
+
+	if ( ! MoveFileEx( strTemp, strFile, MOVEFILE_COPY_ALLOWED | MOVEFILE_REPLACE_EXISTING ) )
+	{
+		DeleteFile( strTemp );
+		theApp.Message( MSG_ERROR, _T("Failed to save discovery service list: %s"), strFile );
 		return FALSE;
 	}
 
@@ -931,7 +953,7 @@ BOOL CDiscoveryServices::Execute(BOOL bDiscovery, PROTOCOLID nProtocol, USHORT n
 				( nProtocol == PROTOCOL_NULL || nProtocol == PROTOCOL_ED2K ) &&
 				Settings.eDonkey.MetAutoQuery &&
 				( tMetQueried == 0 || tNow >= tMetQueried + 60 * 60 ) &&
-				( nForceDiscovery == 1 || ! HostCache.EnoughED2KServers() );
+				( nForceDiscovery == 1 || ! HostCache.EnoughServers() );
 
 			bDCRequired = Settings.DC.Enabled &&
 				( nProtocol == PROTOCOL_NULL || nProtocol == PROTOCOL_DC ) &&

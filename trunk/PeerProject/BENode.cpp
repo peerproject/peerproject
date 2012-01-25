@@ -86,9 +86,9 @@ void CBENode::Clear()
 		}
 	}
 
-	m_nType		= beNull;
-	m_pValue	= NULL;
-	m_nValue	= 0;
+	m_nType  = beNull;
+	m_pValue = NULL;
+	m_nValue = 0;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -377,12 +377,11 @@ const CString CBENode::Encode() const
 		strOutput = _T("{ ");
 		{
 			CString strTmp;
-
 			CBENode** pNode = (CBENode**)m_pValue;
 			for ( QWORD n = 0 ; n < m_nValue ; n++, pNode += 2 )
 			{
 				if ( n ) strOutput += _T(", ");
-				strTmp.Format( _T("\"%s\" = "), (CString)(LPCSTR)pNode[ 1 ] );
+				strTmp.Format( _T("%hs="), (LPCSTR)pNode[ 1 ] );
 				strOutput += strTmp;
 				strOutput += (*pNode)->Encode();
 			}
@@ -510,9 +509,9 @@ void CBENode::Decode(LPCBYTE& pInput, DWORD& nInput, DWORD nSize)
 	}
 	else if ( *pInput >= '0' && *pInput <= '9' )
 	{
-		m_nType		= beString;
-		m_nValue	= DecodeLen( pInput, nInput );
-		m_pValue	= new CHAR[ (DWORD)m_nValue + 1 ];
+		m_nType  = beString;
+		m_nValue = DecodeLen( pInput, nInput );
+		m_pValue = new CHAR[ (DWORD)m_nValue + 1 ];
 		CopyMemory( m_pValue, pInput, (DWORD)m_nValue );
 		((LPBYTE)m_pValue)[ m_nValue ] = 0;
 

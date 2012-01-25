@@ -1,7 +1,7 @@
 //
 // XML.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -24,10 +24,6 @@
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
 #endif
-
-// Produce 2 comma-seperated arguments: string itself, and string length (without null terminator)
-//#define _P(x) (x),((sizeof(x))/sizeof((x)[0])-1)
-#define _PT(x) ( _T(x) ), ( (sizeof(_T(x)))/sizeof((_T(x))[0]) - 1 )
 
 #define IsSpace(ch)	( (ch) == _T(' ') || (ch) == _T('\t') || (ch) == _T('\r') || (ch) == _T('\n') )
 

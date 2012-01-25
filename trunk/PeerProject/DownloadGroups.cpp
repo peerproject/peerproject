@@ -295,21 +295,40 @@ void CDownloadGroups::Clear()
 
 BOOL CDownloadGroups::Load()
 {
-	CQuickLock pLock( m_pSection );
+	const CString strFile = Settings.General.UserPath + _T("\\Data\\DownloadGroups.dat");
 
 	CFile pFile;
-	CString strPath = Settings.General.UserPath + _T("\\Data\\DownloadGroups.dat");
-	if ( ! pFile.Open( strPath, CFile::modeRead ) ) return FALSE;
+	if ( ! pFile.Open( strFile, CFile::modeRead | CFile::shareDenyWrite | CFile::osSequentialScan ) )
+	{
+		theApp.Message( MSG_ERROR, _T("Failed to load download groups: %s"), strFile );
+		return FALSE;
+	}
 
 	try
 	{
 		CArchive ar( &pFile, CArchive::load );	// 4 KB buffer
-		Serialize( ar );
+		try
+		{
+			CQuickLock pTransfersLock( Transfers.m_pSection );
+			CQuickLock pLock( m_pSection );
+
+			Serialize( ar );
+			ar.Close();
+		}
+		catch ( CException* pException )
+		{
+			ar.Abort();
+			pFile.Abort();
+			pException->Delete();
+			theApp.Message( MSG_ERROR, _T("Failed to load download groups: %s"), strFile );
+		}
+		pFile.Close();
 	}
 	catch ( CException* pException )
 	{
+		pFile.Abort();
 		pException->Delete();
-		return FALSE;
+		theApp.Message( MSG_ERROR, _T("Failed to load download groups: %s"), strFile );
 	}
 
 	m_nSaveCookie = m_nBaseCookie;
@@ -319,32 +338,39 @@ BOOL CDownloadGroups::Load()
 
 BOOL CDownloadGroups::Save(BOOL bForce)
 {
-	CQuickLock pTransfersLock( Transfers.m_pSection );
-	CQuickLock pLock( m_pSection );
+	if ( ! bForce && m_nBaseCookie == m_nSaveCookie )
+		return FALSE;
 
-	if ( ! bForce && m_nBaseCookie == m_nSaveCookie ) return FALSE;
-	m_nSaveCookie = m_nBaseCookie;
-
-	CString strPath = Settings.General.UserPath + _T("\\Data\\DownloadGroups.dat");
-	DeleteFileEx( strPath + _T(".tmp"), FALSE, FALSE, FALSE );
+	const CString strFile = Settings.General.UserPath + _T("\\Data\\DownloadGroups.dat");
+	const CString strTemp = Settings.General.UserPath + _T("\\Data\\DownloadGroups.tmp");
 
 	CFile pFile;
-	if ( ! pFile.Open( strPath + _T(".tmp"), CFile::modeWrite | CFile::modeCreate ) )
+	if ( ! pFile.Open( strTemp, CFile::modeWrite | CFile::modeCreate | CFile::shareExclusive | CFile::osSequentialScan ) )
+	{
+		DeleteFile( strTemp );
+		theApp.Message( MSG_ERROR, _T("Failed to save download groups: %s"), strTemp );
 		return FALSE;
+	}
 
 	try
 	{
 		CArchive ar( &pFile, CArchive::store );	// 4 KB buffer
 		try
 		{
+			CQuickLock pTransfersLock( Transfers.m_pSection );
+			CQuickLock pLock( m_pSection );
+
 			Serialize( ar );
 			ar.Close();
+
+			m_nSaveCookie = m_nBaseCookie;
 		}
 		catch ( CException* pException )
 		{
 			ar.Abort();
 			pFile.Abort();
 			pException->Delete();
+			theApp.Message( MSG_ERROR, _T("Failed to save download groups: %s"), strTemp );
 			return FALSE;
 		}
 		pFile.Close();
@@ -353,11 +379,16 @@ BOOL CDownloadGroups::Save(BOOL bForce)
 	{
 		pFile.Abort();
 		pException->Delete();
+		theApp.Message( MSG_ERROR, _T("Failed to save download groups: %s"), strTemp );
 		return FALSE;
 	}
 
-	DeleteFileEx( strPath, FALSE, FALSE, FALSE );
-	MoveFile( strPath + _T(".tmp"), strPath );
+	if ( ! MoveFileEx( strTemp, strFile, MOVEFILE_COPY_ALLOWED | MOVEFILE_REPLACE_EXISTING ) )
+	{
+		DeleteFile( strTemp );
+		theApp.Message( MSG_ERROR, _T("Failed to save download groups: %s"), strFile );
+		return FALSE;
+	}
 
 	return TRUE;
 }
@@ -453,8 +484,8 @@ void CDownloadGroups::CleanTemporary()
 			m_pList.RemoveAt( posCurrent );
 			delete pGroup;
 
-			m_nBaseCookie ++;
-			m_nGroupCookie ++;
+			m_nBaseCookie++;
+			m_nGroupCookie++;
 
 			pos = GetIterator();
 		}
