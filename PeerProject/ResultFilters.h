@@ -1,7 +1,7 @@
 //
 // ResultFilters.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -28,7 +28,7 @@ class CFilterOptions
 public:
 	CFilterOptions();
 
-	CString m_sName; // The options set name
+	CString m_sName;	// The options set name
 	CString	m_sFilter;
 	BOOL	m_bFilterPush;
 	BOOL	m_bFilterBusy;
@@ -48,22 +48,23 @@ public:
 	void	Serialize(CArchive& ar, int nVersion);
 };
 
-const DWORD NONE = ~0u;
-
 class CResultFilters
 {
 public:
-	CResultFilters(void);
-	~CResultFilters(void);
+	CResultFilters();
+	~CResultFilters();
 
-	CFilterOptions **	m_pFilters; // Array of filter options
-	DWORD				m_nFilters; // Count of filter options
-	DWORD				m_nDefault; // Index of the default filter options
+	CFilterOptions **	m_pFilters;	// Array of filter options
+	DWORD				m_nFilters;	// Count of filter options
+	DWORD				m_nDefault;	// Index of the default filter options
 
 	int  Search(const CString& strName);
 	void Serialize(CArchive& ar);
 	void Add(CFilterOptions *pOptions);
 	void Remove(DWORD index);
-	void Load();
+	BOOL Load();
 	BOOL Save();
+	void Clear();
 };
+
+const DWORD NONE = ~0u;

@@ -1,7 +1,7 @@
 //
 // Connection.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -164,7 +164,6 @@ public:
 		CheckingPolicy, ValidationPolicy >& oHash) throw()
 	{
 		CQuickLock oOutputLock( *m_pOutputSection );
-
 		m_pOutput->Add( &oHash[ 0 ], oHash.byteCount );
 	}
 
@@ -182,13 +181,19 @@ public:
 		m_pInput->Read( &oHash[ 0 ], oHash.byteCount );
 	}
 
-	inline BOOL Read(CString& strData, BOOL bPeek = FALSE, UINT nCodePage = CP_ACP) throw()
+	inline BOOL Read(void* pData, const size_t nLength) throw()
 	{
 		CQuickLock oInputLock( *m_pInputSection );
-		return m_pInput->ReadLine( strData, bPeek, nCodePage );
+		return m_pInput->Read( pData, nLength );
 	}
 
-	inline void Bypass(const size_t nLength) throw()
+	inline BOOL Read(CString& strData, BOOL bPeek = FALSE) throw()
+	{
+		CQuickLock oInputLock( *m_pInputSection );
+		return m_pInput->ReadLine( strData, bPeek );
+	}
+
+	inline void Remove(const size_t nLength) throw()
 	{
 		CQuickLock oInputLock( *m_pInputSection );
 		m_pInput->Remove( nLength );

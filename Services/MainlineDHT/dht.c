@@ -1,7 +1,7 @@
 //
 // dht.c :	Implementation of Mainline BitTorrent DHT v0.21
 //
-// This file is part of PeerProject (peerproject.org)
+// This file is part of PeerProject (peerproject.org) 2010-2012
 // Copyright (c) 2009-2011 by Juliusz Chroboczek
 //
 // Permission is hereby granted, free of charge, to any person obtaining
@@ -33,25 +33,37 @@
 /* For memmem. */
 #define _GNU_SOURCE
 
+#ifdef _MSC_VER
+#ifndef _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
+#endif
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
 #include <string.h>
 #include <stdarg.h>
-#include <unistd.h>
 #include <fcntl.h>
-#include <sys/time.h>
 
 #ifndef WIN32
+#include <unistd.h>
 #include <arpa/inet.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
-#else
+#elif !defined(_MSC_VER)
 #include <w32api.h>
-#define WINVER WindowsXP
 #include <ws2tcpip.h>
-#endif
+#include <unistd.h>
+#include <sys/time.h>
+#define WINVER WindowsXP
+extern const char *inet_ntop(int, const void *, char *, socklen_t);
+#else	// MSC
+#include <ws2tcpip.h>
+#define inet_ntop InetNtopA
+#define snprintf _snprintf
+#endif	// WIN32
 
 #include "dht.h"
 
@@ -67,25 +79,89 @@
 
 #ifdef WIN32
 
+#ifndef EAFNOSUPPORT
 #define EAFNOSUPPORT WSAEAFNOSUPPORT
-static int
-set_nonblocking(int fd, int nonblocking)
-{
-    int rc;
+#endif
 
-    unsigned long mode = !!nonblocking;
-    rc = ioctlsocket(fd, FIONBIO, &mode);
-    if(rc != 0)
-        errno = WSAGetLastError();
-    return (rc == 0 ? 0 : -1);
-}
+//static int
+//set_nonblocking(int fd, int nonblocking)
+//{
+//    int rc;
+//
+//    unsigned long mode = !!nonblocking;
+//    rc = ioctlsocket(fd, FIONBIO, &mode);
+//    if(rc != 0)
+//        errno = WSAGetLastError();
+//    return (rc == 0 ? 0 : -1);
+//}
 
 static int
 random(void)
 {
     return rand();
 }
-extern const char *inet_ntop(int, const void *, char *, socklen_t);
+
+
+#if defined(_MSC_VER)
+
+// Define gettimeofday() undefined in Win32
+
+#define DELTA_EPOCH_IN_MICROSECS  11644473600000000Ui64
+ 
+
+struct timeval64 {
+    __int64    tv_sec;         /* seconds */
+    __int64    tv_usec;        /* and microseconds */
+};
+
+struct timezone {
+    int  tz_minuteswest; /* minutes W of Greenwich */
+    int  tz_dsttime;     /* type of dst correction */
+};
+
+static int
+gettimeofday(struct timeval64 *tv, struct timezone *tz)
+{
+    FILETIME ft;
+    unsigned __int64 tmpres = 0;
+    static int tzflag;
+    long zone = 0;
+    int daylight = 0;
+
+    if(NULL != tv)
+    {
+        GetSystemTimeAsFileTime(&ft);
+
+        tmpres |= ft.dwHighDateTime;
+        tmpres <<= 32;
+        tmpres |= ft.dwLowDateTime;
+
+        /*converting file time to unix epoch*/
+        tmpres -= DELTA_EPOCH_IN_MICROSECS; 
+        tmpres /= 10Ui64;  /*convert into microseconds*/
+        tv->tv_sec = (tmpres / 1000000Ui64);
+        tv->tv_usec = (tmpres % 1000000Ui64);
+    }
+
+    if(NULL != tz)
+    {
+        if(!tzflag)
+        {
+            _tzset();
+            tzflag++;
+        }
+
+        _get_timezone( &zone );
+        tz->tz_minuteswest = zone / 60;
+
+        _get_daylight( &daylight );
+        tz->tz_dsttime = daylight;
+    }
+
+    return 0;
+}
+
+#endif // WIN_32
 
 #else
 
@@ -113,13 +189,13 @@ set_nonblocking(int fd, int nonblocking)
 
 #if defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
 /* nothing */
-#elif defined(__GNUC__)
-#define inline __inline
-#if  (__GNUC__ >= 3)
-#define restrict __restrict
-#else
-#define restrict /**/
-#endif
+//#elif defined(__GNUC__)
+//#define inline __inline
+//#if  (__GNUC__ >= 3)
+//#define restrict __restrict
+//#else
+//#define restrict /**/
+//#endif
 #else
 #define inline /**/
 #define restrict /**/
@@ -302,21 +378,23 @@ static struct search *searches = NULL;
 static int numsearches;
 static unsigned short search_id;
 
-/* The maximum number of nodes that we snub.  There is probably little
-   reason to increase this value. */
+/* The maximum number of nodes that we snub.
+   There is probably little reason to increase this value. */
 #ifndef DHT_MAX_BLACKLISTED
 #define DHT_MAX_BLACKLISTED 10
 #endif
 static struct sockaddr_storage blacklist[DHT_MAX_BLACKLISTED];
 int next_blacklisted;
 
-static struct timeval now;
+static struct timeval64 now;
 static time_t mybucket_grow_time, mybucket6_grow_time;
 static time_t expire_stuff_time;
 
 #define MAX_TOKEN_BUCKET_TOKENS 400
 static time_t token_bucket_time;
 static int token_bucket_tokens;
+
+#ifdef DHT_DEBUG
 
 FILE *dht_debug = NULL;
 
@@ -351,6 +429,14 @@ print_hex(FILE *f, const unsigned char *buf, int buflen)
     for(i = 0; i < buflen; i++)
         fprintf(f, "%02x", buf[i]);
 }
+
+#else
+
+#define debugf ATLTRACE
+#define debug_printable(x,y) ATLTRACE("%*s",y,x)
+#define print_hex __noop
+
+#endif // DHT_DEBUG
 
 static int
 is_martian(const struct sockaddr *sa)
@@ -410,29 +496,29 @@ lowbit(const unsigned char *id)
 }
 
 /* Find how many bits two ids have in common. */
-static int
-common_bits(const unsigned char *id1, const unsigned char *id2)
-{
-    int i, j;
-    unsigned char xor;
-    for(i = 0; i < 20; i++) {
-        if(id1[i] != id2[i])
-            break;
-    }
-
-    if(i == 20)
-        return 160;
-
-    xor = id1[i] ^ id2[i];
-
-    j = 0;
-    while((xor & 0x80) == 0) {
-        xor <<= 1;
-        j++;
-    }
-
-    return 8 * i + j;
-}
+//static int
+//common_bits(const unsigned char *id1, const unsigned char *id2)
+//{
+//    int i, j;
+//    unsigned char xor;
+//    for(i = 0; i < 20; i++) {
+//        if(id1[i] != id2[i])
+//            break;
+//    }
+//
+//    if(i == 20)
+//        return 160;
+//
+//    xor = id1[i] ^ id2[i];
+//
+//    j = 0;
+//    while((xor & 0x80) == 0) {
+//        xor <<= 1;
+//        j++;
+//    }
+//
+//    return 8 * i + j;
+//}
 
 /* Determine whether id1 or id2 is closer to ref */
 static int
@@ -471,7 +557,7 @@ find_bucket(unsigned const char *id, int af)
     if(b == NULL)
         return NULL;
 
-    while(1) {
+    for(;;) {
         if(b->next == NULL)
             return b;
         if(id_cmp(id, b->next->first) < 0)
@@ -488,7 +574,7 @@ previous_bucket(struct bucket *b)
     if(b == p)
         return NULL;
 
-    while(1) {
+    for(;;) {
         if(p->next == NULL)
             return NULL;
         if(p->next == b)
@@ -598,9 +684,8 @@ node_good(struct node *node)
         node->time >= now.tv_sec - 900;
 }
 
-/* Our transaction-ids are 4-bytes long, with the first two bytes identi-
-   fying the kind of request, and the remaining two a sequence number in
-   host order. */
+/* Our transaction-ids are 4-bytes long, with the first two bytes identifying
+   the kind of request, and the remaining two a sequence number in host order. */
 
 static void
 make_tid(unsigned char *tid_return, const char *prefix, unsigned short seqno)
@@ -705,7 +790,7 @@ node_blacklisted(const struct sockaddr *sa, int salen)
 static struct bucket *
 split_bucket(struct bucket *b)
 {
-    struct bucket *new;
+    struct bucket *newb;
     struct node *nodes;
     int rc;
     unsigned char new_id[20];
@@ -714,22 +799,22 @@ split_bucket(struct bucket *b)
     if(rc < 0)
         return NULL;
 
-    new = calloc(1, sizeof(struct bucket));
-    if(new == NULL)
+    newb = (bucket*)calloc(1, sizeof(struct bucket));
+    if(newb == NULL)
         return NULL;
 
-    new->af = b->af;
+    newb->af = b->af;
 
     send_cached_ping(b);
 
-    memcpy(new->first, new_id, 20);
-    new->time = b->time;
+    memcpy(newb->first, new_id, 20);
+    newb->time = b->time;
 
     nodes = b->nodes;
     b->nodes = NULL;
     b->count = 0;
-    new->next = b->next;
-    b->next = new;
+    newb->next = b->next;
+    b->next = newb;
     while(nodes) {
         struct node *n;
         n = nodes;
@@ -745,6 +830,9 @@ static struct node *
 new_node(const unsigned char *id, const struct sockaddr *sa, int salen,
          int confirm)
 {
+    if ( confirm )
+        dht_new_node( id, sa, salen, confirm );
+
     struct bucket *b = find_bucket(id, sa->sa_family);
     struct node *n;
     int mybucket, split;
@@ -811,10 +899,9 @@ new_node(const unsigned char *id, const struct sockaddr *sa, int salen,
         int dubious = 0;
         n = b->nodes;
         while(n) {
-            /* Pick the first dubious node that we haven't pinged in the
-               last 15 seconds.  This gives nodes the time to reply, but
-               tends to concentrate on the same nodes, so that we get rid
-               of bad nodes fast. */
+            /* Pick the first dubious node that we haven't pinged in the last 15 seconds.
+               This gives nodes the time to reply, but tends to concentrate on the same nodes,
+               so that we get rid of bad nodes fast. */
             if(!node_good(n)) {
                 dubious = 1;
                 if(n->pinged_time < now.tv_sec - 15) {
@@ -859,7 +946,7 @@ new_node(const unsigned char *id, const struct sockaddr *sa, int salen,
     }
 
     /* Create a new node. */
-    n = calloc(1, sizeof(struct node));
+    n = (node*)calloc(1, sizeof(struct node));
     if(n == NULL)
         return NULL;
     memcpy(n->id, id, 20);
@@ -874,8 +961,8 @@ new_node(const unsigned char *id, const struct sockaddr *sa, int salen,
 }
 
 /* Called periodically to purge known-bad nodes.  Note that we're very
-   conservative here: broken nodes in the table don't do much harm, we'll
-   recover as soon as we find better ones. */
+   conservative here: broken nodes in the table don't do much harm,
+   we'll recover as soon as we find better ones. */
 static int
 expire_buckets(struct bucket *b)
 {
@@ -1157,7 +1244,7 @@ new_search(void)
 
     /* Allocate a new slot. */
     if(numsearches < DHT_MAX_SEARCHES) {
-        sr = calloc(1, sizeof(struct search));
+        sr = (search*)calloc(1, sizeof(struct search));
         if(sr != NULL) {
             sr->next = searches;
             searches = sr;
@@ -1182,8 +1269,7 @@ insert_search_bucket(struct bucket *b, struct search *sr)
     }
 }
 
-/* Start a search.  If port is non-zero, perform an announce when the
-   search is complete. */
+/* Start a search.  If port is non-zero, perform an announce when the search is complete. */
 int
 dht_search(const unsigned char *id, int port, int af,
            dht_callback *callback, void *closure)
@@ -1236,7 +1322,7 @@ dht_search(const unsigned char *id, int port, int af,
         sr->numnodes = 0;
     }
 
-    sr->port = port;
+    sr->port = (unsigned short)port;
 
     insert_search_bucket(b, sr);
 
@@ -1295,7 +1381,7 @@ storage_store(const unsigned char *id,
     if(st == NULL) {
         if(numstorage >= DHT_MAX_HASHES)
             return -1;
-        st = calloc(1, sizeof(struct storage));
+        st = (struct storage*)calloc(1, sizeof(struct storage));
         if(st == NULL) return -1;
         memcpy(st->id, id, 20);
         st->next = storage;
@@ -1323,7 +1409,7 @@ storage_store(const unsigned char *id,
                 return 0;
             n = st->maxpeers == 0 ? 2 : 2 * st->maxpeers;
             n = MIN(n, DHT_MAX_PEERS);
-            new_peers = realloc(st->peers, n * sizeof(struct peer));
+            new_peers = (peer*)realloc(st->peers, n * sizeof(struct peer));
             if(new_peers == NULL)
                 return -1;
             st->peers = new_peers;
@@ -1331,7 +1417,7 @@ storage_store(const unsigned char *id,
         }
         p = &st->peers[st->numpeers++];
         p->time = now.tv_sec;
-        p->len = len;
+        p->len = (unsigned short)len;
         memcpy(p->ip, ip, len);
         p->port = port;
         return 1;
@@ -1417,6 +1503,7 @@ make_token(const struct sockaddr *sa, int old, unsigned char *token_return)
         port = htons(sin6->sin6_port);
     } else {
         abort();
+        return;
     }
 
     dht_hash(token_return, TOKEN_SIZE,
@@ -1472,6 +1559,8 @@ dht_nodes(int af, int *good_return, int *dubious_return, int *cached_return,
         *incoming_return = incoming;
     return good + dubious;
 }
+
+#ifdef DHT_DEBUG
 
 static void
 dump_bucket(FILE *f, struct bucket *b)
@@ -1595,6 +1684,8 @@ dht_dump_tables(FILE *f)
     fflush(f);
 }
 
+#endif // DHT_DEBUG
+
 int
 dht_init(int s, int s6, const unsigned char *id, const unsigned char *v)
 {
@@ -1612,25 +1703,25 @@ dht_init(int s, int s6, const unsigned char *id, const unsigned char *v)
     numstorage = 0;
 
     if(s >= 0) {
-        buckets = calloc(sizeof(struct bucket), 1);
+        buckets = (bucket*)calloc(sizeof(struct bucket), 1);
         if(buckets == NULL)
             return -1;
         buckets->af = AF_INET;
 
-        rc = set_nonblocking(s, 1);
-        if(rc < 0)
-            goto fail;
+        //rc = set_nonblocking(s, 1);
+        //if(rc < 0)
+        //    goto fail;
     }
 
     if(s6 >= 0) {
-        buckets6 = calloc(sizeof(struct bucket), 1);
+        buckets6 = (bucket*)calloc(sizeof(struct bucket), 1);
         if(buckets6 == NULL)
             return -1;
         buckets6->af = AF_INET6;
 
-        rc = set_nonblocking(s6, 1);
-        if(rc < 0)
-            goto fail;
+        //rc = set_nonblocking(s6, 1);
+        //if(rc < 0)
+        //    goto fail;
     }
 
     memcpy(myid, id, 20);
@@ -1768,7 +1859,7 @@ neighbourhood_maintenance(int af)
     if(q) {
         /* Since our node-id is the same in both DHTs, it's probably
            profitable to query both families. */
-        int want = dht_socket >= 0 && dht_socket6 >= 0 ? (WANT4 | WANT6) : -1;
+        int want = (dht_socket >= 0 && dht_socket6 >= 0) ? (((dht_socket >= 0) ? WANT4 : 0) | ((dht_socket6 >= 0) ? WANT6 : 0)) : -1;
         n = random_node(q);
         if(n) {
             unsigned char tid[4];
@@ -1825,20 +1916,20 @@ bucket_maintenance(int af)
                     unsigned char tid[4];
                     int want = -1;
 
-                    if(dht_socket >= 0 && dht_socket6 >= 0) {
+                    if(dht_socket >= 0 || dht_socket6 >= 0) {
                         struct bucket *otherbucket;
                         otherbucket =
                             find_bucket(id, af == AF_INET ? AF_INET6 : AF_INET);
                         if(otherbucket && otherbucket->count < 8)
                             /* The corresponding bucket in the other family
                                is emptyish -- querying both is useful. */
-                            want = WANT4 | WANT6;
+                            want = ((dht_socket >= 0) ? WANT4 : 0) | ((dht_socket6 >= 0) ? WANT6 : 0);
                         else if(random() % 37 == 0)
                             /* Most of the time, this just adds overhead.
                                However, it might help stitch back one of
                                the DHTs after a network collapse, so query
                                both, but only very occasionally. */
-                            want = WANT4 | WANT6;
+                            want = ((dht_socket >= 0) ? WANT4 : 0) | ((dht_socket6 >= 0) ? WANT6 : 0);
                     }
 
                     debugf("Sending find_node for%s bucket maintenance.\n",
@@ -1860,7 +1951,7 @@ bucket_maintenance(int af)
 }
 
 int
-dht_periodic(const void *buf, size_t buflen,
+dht_periodic(const unsigned char *buf, size_t buflen,
              const struct sockaddr *from, int fromlen,
              time_t *tosleep,
              dht_callback *callback, void *closure)
@@ -1988,9 +2079,9 @@ dht_periodic(const void *buf, size_t buflen,
                         }
                     }
                     if(sr)
-                        /* Since we received a reply, the number of
-                           requests in flight has decreased.  Let's push
-                           another request. */
+                        /* Since we received a reply, the number
+                           of requests in flight has decreased.
+                           Let's push another request. */
                         search_send_get_peers(sr, NULL);
                 }
                 if(sr) {
@@ -2157,8 +2248,8 @@ dht_periodic(const void *buf, size_t buflen,
 
         /* In order to maintain all buckets' age within 600 seconds, worst
            case is roughly 27 seconds, assuming the table is 22 bits deep.
-           We want to keep a margin for neighborhood maintenance, so keep
-           this within 25 seconds. */
+           We want to keep a margin for neighborhood maintenance,
+           so keep this within 25 seconds. */
         if(soon)
             confirm_nodes_time = now.tv_sec + 5 + random() % 20;
         else
@@ -2181,8 +2272,8 @@ dht_periodic(const void *buf, size_t buflen,
 }
 
 int
-dht_get_nodes(struct sockaddr_in *sin, int *num,
-              struct sockaddr_in6 *sin6, int *num6)
+dht_get_nodes(struct sockaddr_in *sin, unsigned char* id, int *num,
+              struct sockaddr_in6 *sin6, unsigned char* id6, int *num6)
 {
     int i, j;
     struct bucket *b;
@@ -2200,6 +2291,7 @@ dht_get_nodes(struct sockaddr_in *sin, int *num,
     while(n && i < *num) {
         if(node_good(n)) {
             sin[i] = *(struct sockaddr_in*)&n->ss;
+            memcpy( &id[i * 20], n->id, 20 );
             i++;
         }
         n = n->next;
@@ -2212,6 +2304,7 @@ dht_get_nodes(struct sockaddr_in *sin, int *num,
             while(n && i < *num) {
                 if(node_good(n)) {
                     sin[i] = *(struct sockaddr_in*)&n->ss;
+                    memcpy( &id[i * 20], n->id, 20 );
                     i++;
                 }
                 n = n->next;
@@ -2232,6 +2325,7 @@ dht_get_nodes(struct sockaddr_in *sin, int *num,
     while(n && j < *num6) {
         if(node_good(n)) {
             sin6[j] = *(struct sockaddr_in6*)&n->ss;
+            memcpy( &id6[i * 20], n->id, 20 );
             j++;
         }
         n = n->next;
@@ -2244,6 +2338,7 @@ dht_get_nodes(struct sockaddr_in *sin, int *num,
             while(n && j < *num6) {
                 if(node_good(n)) {
                     sin6[j] = *(struct sockaddr_in6*)&n->ss;
+                    memcpy( &id6[i * 20], n->id, 20 );
                     j++;
                 }
                 n = n->next;
@@ -2304,7 +2399,7 @@ dht_ping_node(struct sockaddr *sa, int salen)
     }
 
 static int
-dht_send(const void *buf, size_t len, int flags,
+dht_send(const char *buf, size_t len, int flags,
          const struct sockaddr *sa, int salen)
 {
     int s;
@@ -2330,7 +2425,7 @@ dht_send(const void *buf, size_t len, int flags,
         return -1;
     }
 
-    return sendto(s, buf, len, flags, sa, salen);
+    return dht_sendto(s, buf, len, flags, sa, salen);
 }
 
 int
@@ -2479,7 +2574,10 @@ insert_closest_node(unsigned char *nodes, int numnodes,
     else if(n->ss.ss_family == AF_INET6)
         size = 38;
     else
+    {
         abort();
+        return -1;
+    }
 
     for(i = 0; i< numnodes; i++) {
         if(id_cmp(n->id, nodes + size * i) == 0)
@@ -2510,7 +2608,8 @@ insert_closest_node(unsigned char *nodes, int numnodes,
         memcpy(nodes + size * i + 36, &sin6->sin6_port, 2);
     } else {
         abort();
-    }
+        return -1;
+   }
 
     return numnodes;
 }
@@ -2662,12 +2761,13 @@ send_error(const struct sockaddr *sa, int salen,
            int code, const char *message)
 {
     char buf[512];
-    int i = 0, rc;
+    int i = 0, rc, message_len;
 
+    message_len = (int)strlen(message);
     rc = snprintf(buf + i, 512 - i, "d1:eli%de%d:",
-                  code, (int)strlen(message));
+                  code, message_len);
     INC(i, rc, 512);
-    COPY(buf, i, message, (int)strlen(message), 512);
+    COPY(buf, i, message, message_len, 512);
     rc = snprintf(buf + i, 512 - i, "e1:t%d:", tid_len); INC(i, rc, 512);
     COPY(buf, i, tid, tid_len, 512);
     ADD_V(buf, i, 512);
@@ -2699,8 +2799,8 @@ static void *
 dht_memmem(const void *haystack, size_t haystacklen,
            const void *needle, size_t needlelen)
 {
-    const char *h = haystack;
-    const char *n = needle;
+    const char *h = (const char*)haystack;
+    const char *n = (const char*)needle;
     size_t i;
 
     /* size_t is unsigned */
@@ -2740,7 +2840,7 @@ parse_message(const unsigned char *buf, int buflen,
     if(((unsigned char*)ptr) + (len) > (buf) + (buflen)) goto overflow;
 
     if(tid_return) {
-        p = dht_memmem(buf, buflen, "1:t", 3);
+        p = (const unsigned char*)dht_memmem(buf, buflen, "1:t", 3);
         if(p) {
             long l;
             char *q;
@@ -2754,7 +2854,7 @@ parse_message(const unsigned char *buf, int buflen,
         }
     }
     if(id_return) {
-        p = dht_memmem(buf, buflen, "2:id20:", 7);
+        p = (const unsigned char*)dht_memmem(buf, buflen, "2:id20:", 7);
         if(p) {
             CHECK(p + 7, 20);
             memcpy(id_return, p + 7, 20);
@@ -2763,7 +2863,7 @@ parse_message(const unsigned char *buf, int buflen,
         }
     }
     if(info_hash_return) {
-        p = dht_memmem(buf, buflen, "9:info_hash20:", 14);
+        p = (const unsigned char*)dht_memmem(buf, buflen, "9:info_hash20:", 14);
         if(p) {
             CHECK(p + 14, 20);
             memcpy(info_hash_return, p + 14, 20);
@@ -2772,20 +2872,20 @@ parse_message(const unsigned char *buf, int buflen,
         }
     }
     if(port_return) {
-        p = dht_memmem(buf, buflen, "porti", 5);
+        p = (const unsigned char*)dht_memmem(buf, buflen, "porti", 5);
         if(p) {
             long l;
             char *q;
             l = strtol((char*)p + 5, &q, 10);
             if(q && *q == 'e' && l > 0 && l < 0x10000)
-                *port_return = l;
+                *port_return = (unsigned short)l;
             else
                 *port_return = 0;
         } else
             *port_return = 0;
     }
     if(target_return) {
-        p = dht_memmem(buf, buflen, "6:target20:", 11);
+        p = (const unsigned char*)dht_memmem(buf, buflen, "6:target20:", 11);
         if(p) {
             CHECK(p + 11, 20);
             memcpy(target_return, p + 11, 20);
@@ -2794,7 +2894,7 @@ parse_message(const unsigned char *buf, int buflen,
         }
     }
     if(token_return) {
-        p = dht_memmem(buf, buflen, "5:token", 7);
+        p = (const unsigned char*)dht_memmem(buf, buflen, "5:token", 7);
         if(p) {
             long l;
             char *q;
@@ -2810,7 +2910,7 @@ parse_message(const unsigned char *buf, int buflen,
     }
 
     if(nodes_len) {
-        p = dht_memmem(buf, buflen, "5:nodes", 7);
+        p = (const unsigned char*)dht_memmem(buf, buflen, "5:nodes", 7);
         if(p) {
             long l;
             char *q;
@@ -2826,7 +2926,7 @@ parse_message(const unsigned char *buf, int buflen,
     }
 
     if(nodes6_len) {
-        p = dht_memmem(buf, buflen, "6:nodes6", 8);
+        p = (const unsigned char*)dht_memmem(buf, buflen, "6:nodes6", 8);
         if(p) {
             long l;
             char *q;
@@ -2842,7 +2942,7 @@ parse_message(const unsigned char *buf, int buflen,
     }
 
     if(values_len || values6_len) {
-        p = dht_memmem(buf, buflen, "6:valuesl", 9);
+        p = (const unsigned char*)dht_memmem(buf, buflen, "6:valuesl", 9);
         if(p) {
             int i = p - buf + 9;
             int j = 0, j6 = 0;
@@ -2885,7 +2985,7 @@ parse_message(const unsigned char *buf, int buflen,
     }
 
     if(want_return) {
-        p = dht_memmem(buf, buflen, "4:wantl", 7);
+        p = (const unsigned char*)dht_memmem(buf, buflen, "4:wantl", 7);
         if(p) {
             int i = p - buf + 7;
             *want_return = 0;

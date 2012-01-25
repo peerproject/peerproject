@@ -1,7 +1,7 @@
 //
 // QuerySearch.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -86,17 +86,6 @@ public:
 	Hash32List			m_oURNs;			// Hashed URNs
 	Hash32List			m_oKeywordHashList;	// List of hashed keywords to BOOST QUery Routing.
 
-private:
-	typedef std::pair< LPCTSTR, size_t > WordEntry;
-	struct CompareWordEntries
-	{
-		bool operator()(const WordEntry& lhs, const WordEntry& rhs) const
-		{
-			int cmp = _tcsnicmp( lhs.first, rhs.first, min( lhs.second, rhs.second ) );
-			return cmp < 0 || cmp == 0 && lhs.second < rhs.second;
-		}
-	};
-
 	// Obsolete (Old common word array)
 	//struct FindStr
 	//{
@@ -109,7 +98,6 @@ private:
 	//};
 
 public:
-	typedef std::set< WordEntry, CompareWordEntries > WordTable;
 	typedef WordTable::iterator iterator;
 	typedef WordTable::const_iterator const_iterator;
 	typedef Hash32List::iterator hash_iterator;
@@ -158,9 +146,6 @@ public:
 	void					PrepareCheck();
 	void					Serialize(CArchive& ar);
 private:
-	void					BuildWordTable();
-	void					BuildG2PosKeywords();
-	void					SlideKeywords(CString& strPhrase);
 	BOOL					WriteHashesToEDPacket(CEDPacket* pPacket, BOOL bUDP) const;
 
 // Utilities
@@ -169,7 +154,6 @@ public:
 	static CSearchWnd*		OpenWindow(CQuerySearch* pSearch);
 	static BOOL 			WordMatch(LPCTSTR pszString, LPCTSTR pszFind, bool* bReject = NULL);
 	static BOOL 			NumberMatch(const CString& strValue, const CString& strRange);
-	static CString			MakeKeywords(const CString& strPhrase, bool bExpression = true);
 	static BOOL				CheckOverflow(const CString& sSearch);
 	static void 			SearchHelp();		// Shows some search help dialogs
 };

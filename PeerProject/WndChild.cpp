@@ -1,7 +1,7 @@
 //
 // WndChild.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -338,8 +338,6 @@ void CChildWnd::SizeListAndBar(CWnd* pList, CWnd* pBar)
 
 void CChildWnd::OnSysCommand(UINT nID, LPARAM lParam)
 {
-	CRect rc;
-
 	switch ( nID & 0xFFF0 )
 	{
 	case SC_MINIMIZE:
@@ -355,6 +353,7 @@ void CChildWnd::OnSysCommand(UINT nID, LPARAM lParam)
 		}
 		else
 		{
+			CRect rc;
 			ShowWindow( SW_SHOWNORMAL );
 			GetParent()->GetClientRect( &rc );
 			MoveWindow( &rc );
@@ -362,8 +361,8 @@ void CChildWnd::OnSysCommand(UINT nID, LPARAM lParam)
 		break;
 	case SC_MOVE:
 	case SC_SIZE:
-	// case SC_PREVWINDOW:
-	// case SC_NEXTWINDOW:
+	//case SC_PREVWINDOW:
+	//case SC_NEXTWINDOW:
 		if ( m_bPanelMode || m_bTabMode ) break;
 		CMDIChildWnd::OnSysCommand( nID, lParam );
 		break;
@@ -375,7 +374,6 @@ void CChildWnd::OnSysCommand(UINT nID, LPARAM lParam)
 		break;
 	default:
 		CMDIChildWnd::OnSysCommand( nID, lParam );
-		break;
 	}
 }
 
@@ -532,14 +530,10 @@ BOOL CChildWnd::OnHelpInfo(HELPINFO* /*pHelpInfo*/)
 BOOL CChildWnd::PreTranslateMessage(MSG* pMsg)
 {
 	// Hack to enable TAB-navigation
-	if ( ( pMsg->message == WM_KEYDOWN ||
-		   pMsg->message == WM_KEYUP ||
-		   pMsg->message == WM_CHAR ) &&
-		( pMsg->wParam == VK_UP ||
-		  pMsg->wParam == VK_DOWN ||
-		  pMsg->wParam == VK_LEFT ||
-		  pMsg->wParam == VK_RIGHT ||
-		  pMsg->wParam == VK_TAB ) )
+	if ( pMsg->wParam == VK_TAB &&
+ 		( pMsg->message == WM_KEYDOWN ||
+		  pMsg->message == WM_KEYUP ||
+		  pMsg->message == WM_CHAR ) )
 	{
 		if ( IsDialogMessage( pMsg ) )
 			return TRUE;

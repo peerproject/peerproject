@@ -310,7 +310,7 @@ public:
 	int					ImportNodes(CFile* pFile);		// Import Kademlia nodes .dat file
 	//int				ImportCache(CFile* pFile);		// ToDo: Support custom G2/Gnutella import/export .xml/.dat
 
-	bool				CheckMinimumED2KServers();
+	bool				CheckMinimumServers();
 	BOOL				Check(const CHostCacheHostPtr pHost) const;
 	CHostCacheHostPtr	Find(const IN_ADDR* pAddress) const;
 	CHostCacheHostPtr	Find(LPCTSTR szAddress) const;
@@ -320,7 +320,7 @@ public:
 	void				OnFailure(const IN_ADDR* pAddress, WORD nPort, PROTOCOLID nProtocol = PROTOCOL_NULL, bool bRemove = true);
 	void				OnSuccess(const IN_ADDR* pAddress, WORD nPort, PROTOCOLID nProtocol = PROTOCOL_NULL, bool bUpdate = true);
 
-	inline bool EnoughED2KServers() const throw()
+	inline bool EnoughServers() const
 	{
 		return ( eDonkey.CountHosts( TRUE ) >= 6 );
 	}
@@ -354,7 +354,7 @@ protected:
 
 	void		Serialize(CArchive& ar);
 	void		Clear();
-	int			LoadDefaultED2KServers();
+	int			LoadDefaultServers();
 };
 
 extern CHostCache HostCache;

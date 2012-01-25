@@ -1,7 +1,7 @@
 //
 // Images.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2010-2011
+// This file is part of PeerProject (peerproject.org) © 2010-2012
 // All work here is original and released as-is under Persistent Public Domain [PPD]
 //
 
@@ -138,7 +138,7 @@ void CImages::Load()
 
 	if ( HBITMAP hSelected = Skin.GetWatermark( _T("System.Highlight") ) )
 		m_bmSelected.Attach( hSelected );
-	else if ( HBITMAP hSelected = Skin.GetWatermark( _T("CTranfers.Selected") ) )
+	else if ( HBITMAP hSelected = Skin.GetWatermark( _T("CTransfers.Selected") ) )
 		m_bmSelected.Attach( hSelected );
 
 	if ( HBITMAP hButton = Skin.GetWatermark( _T("System.MenuSelected") ) )
@@ -676,7 +676,6 @@ void CImages::Load()
 			m_bmMenubarItemPressEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
-
 
 	if ( HBITMAP hButton = Skin.GetWatermark( _T("MenubarButton") ) )
 	{
@@ -1484,7 +1483,7 @@ BOOL CImages::DrawButtonState(CDC* pDC, const CRect rc, const int nResource)
 			DrawButtonMap( pDC, rc, &m_bmButtonMapDownloadgroup, STATE_DISABLED );
 
 	default:
-		//ASSERT();
+		ASSERT( FALSE );
 		return FALSE;
 	}
 }

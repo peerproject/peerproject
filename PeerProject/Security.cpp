@@ -1,7 +1,7 @@
 //
 // Security.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -20,7 +20,7 @@
 #include "Settings.h"
 #include "PeerProject.h"
 #include "Security.h"
-#include "WndSecurity.h"	// Collumn enum
+#include "WndSecurity.h"	// Column enum
 #include "PeerProjectFile.h"
 #include "QuerySearch.h"
 #include "LiveList.h"
@@ -575,64 +575,90 @@ void CSecurity::Expire()
 
 BOOL CSecurity::Load()
 {
-	CQuickLock oLock( m_pSection );
-
-	CFile pFile;
 	const CString strFile = Settings.General.UserPath + _T("\\Data\\Security.dat");
 
-	if ( ! pFile.Open( strFile, CFile::modeRead ) ) return FALSE;
-
-	try
+	CFile pFile;
+	if ( pFile.Open( strFile, CFile::modeRead | CFile::shareDenyWrite | CFile::osSequentialScan ) )
 	{
-		CArchive ar( &pFile, CArchive::load, 131072 );	// 128 KB buffer
-		Serialize( ar );
-		ar.Close();
-	}
-	catch ( CException* pException )
-	{
-		pException->Delete();
+		try
+		{
+			CArchive ar( &pFile, CArchive::load, 131072 );	// 128 KB buffer
+			try
+			{
+				CQuickLock oLock( m_pSection );
+
+				Serialize( ar );
+
+				ar.Close();
+
+				pFile.Close();
+
+				return TRUE;	// Success
+			}
+			catch ( CException* pException )
+			{
+				ar.Abort();
+				pFile.Abort();
+				pException->Delete();
+			}
+		}
+		catch ( CException* pException )
+		{
+			pFile.Abort();
+			pException->Delete();
+		}
+
+		pFile.Close();
 	}
 
-	pFile.Close();
-
-	return TRUE;
+	theApp.Message( MSG_ERROR, _T("Failed to load security rules: %s"), strFile );
+	return FALSE;
 }
 
 BOOL CSecurity::Save()
 {
-	CFile pFile;
 	const CString strFile = Settings.General.UserPath + _T("\\Data\\Security.dat");
+	const CString strTemp = Settings.General.UserPath + _T("\\Data\\Security.tmp");
 
-	CQuickLock oLock( m_pSection );
-
-	if ( ! pFile.Open( strFile, CFile::modeWrite|CFile::modeCreate ) )
-		return FALSE;
-
-	try
+	CFile pFile;
+	if ( pFile.Open( strTemp, CFile::modeWrite | CFile::modeCreate | CFile::shareExclusive | CFile::osSequentialScan ) )
 	{
-		CArchive ar( &pFile, CArchive::store, 131072 );	// 128 KB buffer
 		try
 		{
-			Serialize( ar );
-			ar.Close();
+			CArchive ar( &pFile, CArchive::store, 131072 );	// 128 KB buffer
+			try
+			{
+				{
+					CQuickLock oLock( m_pSection );
+
+					Serialize( ar );
+					ar.Close();
+				}
+
+				pFile.Close();
+
+				if ( MoveFileEx( strTemp, strFile, MOVEFILE_COPY_ALLOWED | MOVEFILE_REPLACE_EXISTING ) )
+					return TRUE;	// Success
+			}
+			catch ( CException* pException )
+			{
+				ar.Abort();
+				pFile.Abort();
+				pException->Delete();
+			}
 		}
 		catch ( CException* pException )
 		{
-			ar.Abort();
 			pFile.Abort();
 			pException->Delete();
-			return FALSE;
 		}
+
 		pFile.Close();
-	}
-	catch ( CException* pException )
-	{
-		pFile.Abort();
-		pException->Delete();
-		return FALSE;
+		DeleteFile( strTemp );
 	}
 
-	return TRUE;
+	theApp.Message( MSG_ERROR, _T("Failed to save security rules: %s"), strFile );
+	return FALSE;
 }
 
 //////////////////////////////////////////////////////////////////////

@@ -1,7 +1,7 @@
 //
 // StdAfx.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Original author Michael Stokes released portions into the public domain. 
 // You are free to redistribute and modify this page without any restrictions.
 //
@@ -19,14 +19,12 @@
 #define _ATL_CSTRING_NO_CRT
 #define _ATL_ALL_WARNINGS
 
-#pragma warning( push, 0 )
-
 #include "Resource.h"
 
 #include <atlbase.h>
 #include <atlcom.h>
 #include <atlwin.h>
+#include <atlstr.h>
+#include <atlcoll.h>
 
 using namespace ATL;
-
-#pragma warning( pop )

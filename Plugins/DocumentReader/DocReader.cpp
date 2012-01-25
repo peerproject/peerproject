@@ -1,7 +1,7 @@
 //
 // DocReader.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions Copyright Shareaza Development Team, 2002-2007.
 // Originally Created by:	Rolandas Rudomanskis
 //
@@ -261,7 +261,7 @@ STDMETHODIMP CDocReader::ProcessNewMSDocument(BSTR bsFile, ISXMLElement* pXML, L
 			if ( ! pFile ) return STG_E_INVALIDNAME;
 		}
 		else
-			return E_FAIL; // system doesn't support 8.3 filenames
+			return E_FAIL;	// System doesn't support 8.3 filenames
 	}
 
 	// Read docProps\app.xml from the archive (Properties -> Pages, Company and AppVersion)
@@ -762,7 +762,7 @@ CComBSTR CDocReader::GetMetadataXML(unzFile pFile, char* pszFile)
 						nError = unzReadCurrentFile( pFile, pBuffer, nBufferSize );
 						if ( nError < 0 )
 							break;
-						else if ( nError > 0 )
+						if ( nError > 0 )
 							sXML.Append( pBuffer, nBufferSize );
 					}
 					while ( nError > 0 );
@@ -834,7 +834,7 @@ STDMETHODIMP CDocReader::GetMSThumbnail(BSTR bsFile, IMAGESERVICEDATA* pParams, 
 	HRESULT hr = m_pDocProps->Open( bsFile, VARIANT_TRUE, dsoOptionOpenReadOnlyIfNoWriteAccess );
 	SysFreeString( bsFile );
 
-	// Opening the document failed; give up
+	// Opening the document failed, give up
 	if ( FAILED(hr) )
 	{
 		m_pDocProps->Close( VARIANT_FALSE );
@@ -1141,7 +1141,7 @@ STDMETHODIMP CDocReader::GetOOThumbnail(BSTR bsFile, IMAGESERVICEDATA* pParams, 
 					if ( nError == UNZ_OK )
 					{
 						// Get statistics for the final size of byte array
-						STATSTG  BytesStatistics = {};
+						STATSTG BytesStatistics = {};
 						pLockBuffer->Stat( &BytesStatistics, STATFLAG_NONAME );
 						ULONG nArray = static_cast<ULONG>(BytesStatistics.cbSize.QuadPart);
 
@@ -1165,8 +1165,7 @@ STDMETHODIMP CDocReader::GetOOThumbnail(BSTR bsFile, IMAGESERVICEDATA* pParams, 
 							hr = pPNGReader.CoCreateInstance( CLSID_PNGReader, NULL, CLSCTX_ALL );
 							if ( SUCCEEDED( hr ) )
 							{
-								hr = pPNGReader->LoadFromMemory( bsFile, psa,
-									pParams, ppImage );
+								hr = pPNGReader->LoadFromMemory( bsFile, psa, pParams, ppImage );
 							}
 						}
 					}
@@ -1728,7 +1727,7 @@ HRESULT CDocReader::
 	HRESULT hr = E_FAIL;
 
 	ODS(_T("CDocReader::CDocumentProperties::get_SummaryProperties\n"));
-	CHECK_NULL_RETURN(ppSummaryProperties,  E_POINTER);
+	CHECK_NULL_RETURN(ppSummaryProperties, E_POINTER);
 	*ppSummaryProperties = NULL;
 
 	if ( m_pSummProps == NULL )
@@ -1763,7 +1762,7 @@ HRESULT CDocReader::
 
 	if ( (m_bstrFileName) && FGetIconForFile( m_bstrFileName, &hIco ) )
 	{
-		PICTDESC  icoDesc;
+		PICTDESC icoDesc;
 		icoDesc.cbSizeofstruct = sizeof(PICTDESC);
 		icoDesc.picType = PICTYPE_ICON;
 		icoDesc.icon.hicon = hIco;
@@ -1961,7 +1960,7 @@ HRESULT CDocReader::CDocumentProperties::
 {
 	ODS(_T("CSummaryProperties::get_Title\n"));
 	CHECK_NULL_RETURN(pbstrTitle, E_POINTER);
-	return ReadProperty(m_pSummPropList, PIDSI_TITLE, VT_BSTR, ((void**)pbstrTitle));
+	return ReadProperty(m_pSummPropList, PIDSI_TITLE, VT_BSTR, ((void*)pbstrTitle));
 }
 
 HRESULT CDocReader::CDocumentProperties::
@@ -1976,7 +1975,7 @@ HRESULT CDocReader::CDocumentProperties::
 {
 	ODS(_T("CSummaryProperties::get_Subject\n"));
 	CHECK_NULL_RETURN(pbstrSubject, E_POINTER);
-	return ReadProperty(m_pSummPropList, PIDSI_SUBJECT, VT_BSTR, ((void**)pbstrSubject));
+	return ReadProperty(m_pSummPropList, PIDSI_SUBJECT, VT_BSTR, ((void*)pbstrSubject));
 }
 
 HRESULT CDocReader::CDocumentProperties::
@@ -1991,7 +1990,7 @@ HRESULT CDocReader::CDocumentProperties::
 {
 	ODS(_T("CSummaryProperties::get_Author\n"));
 	CHECK_NULL_RETURN(pbstrAuthor, E_POINTER);
-	return ReadProperty(m_pSummPropList, PIDSI_AUTHOR, VT_BSTR, ((void**)pbstrAuthor));
+	return ReadProperty(m_pSummPropList, PIDSI_AUTHOR, VT_BSTR, ((void*)pbstrAuthor));
 }
 
 HRESULT CDocReader::CDocumentProperties::
@@ -2006,7 +2005,7 @@ HRESULT CDocReader::CDocumentProperties::
 {
 	ODS(_T("CSummaryProperties::get_Keywords\n"));
 	CHECK_NULL_RETURN(pbstrKeywords, E_POINTER);
-	return ReadProperty(m_pSummPropList, PIDSI_KEYWORDS, VT_BSTR, ((void**)pbstrKeywords));
+	return ReadProperty(m_pSummPropList, PIDSI_KEYWORDS, VT_BSTR, ((void*)pbstrKeywords));
 }
 
 HRESULT CDocReader::CDocumentProperties::
@@ -2021,7 +2020,7 @@ HRESULT CDocReader::CDocumentProperties::
 {
 	ODS(_T("CSummaryProperties::get_Comments\n"));
 	CHECK_NULL_RETURN(pbstrComments, E_POINTER);
-	return ReadProperty(m_pSummPropList, PIDSI_COMMENTS, VT_BSTR, ((void**)pbstrComments));
+	return ReadProperty(m_pSummPropList, PIDSI_COMMENTS, VT_BSTR, ((void*)pbstrComments));
 }
 
 HRESULT CDocReader::CDocumentProperties::
@@ -2036,7 +2035,7 @@ HRESULT CDocReader::CDocumentProperties::
 {
 	ODS(_T("CSummaryProperties::get_Template\n"));
 	CHECK_NULL_RETURN(pbstrTemplate, E_POINTER);
-	return ReadProperty(m_pSummPropList, PIDSI_TEMPLATE, VT_BSTR, ((void**)pbstrTemplate));
+	return ReadProperty(m_pSummPropList, PIDSI_TEMPLATE, VT_BSTR, ((void*)pbstrTemplate));
 }
 
 HRESULT CDocReader::CDocumentProperties::
@@ -2044,7 +2043,7 @@ HRESULT CDocReader::CDocumentProperties::
 {
 	ODS(_T("CSummaryProperties::get_LastSavedBy\n"));
 	CHECK_NULL_RETURN(pbstrLastSavedBy, E_POINTER);
-	return ReadProperty(m_pSummPropList, PIDSI_LASTAUTHOR, VT_BSTR, ((void**)pbstrLastSavedBy));
+	return ReadProperty(m_pSummPropList, PIDSI_LASTAUTHOR, VT_BSTR, ((void*)pbstrLastSavedBy));
 }
 
 HRESULT CDocReader::CDocumentProperties::
@@ -2059,7 +2058,7 @@ HRESULT CDocReader::CDocumentProperties::
 {
 	ODS(_T("CSummaryProperties::get_RevisionNumber\n"));
 	CHECK_NULL_RETURN(pbstrRevisionNumber, E_POINTER);
-	return ReadProperty(m_pSummPropList, PIDSI_REVNUMBER, VT_BSTR, ((void**)pbstrRevisionNumber));
+	return ReadProperty(m_pSummPropList, PIDSI_REVNUMBER, VT_BSTR, ((void*)pbstrRevisionNumber));
 }
 
 HRESULT CDocReader::CDocumentProperties::
@@ -2067,7 +2066,7 @@ HRESULT CDocReader::CDocumentProperties::
 {
 	ODS(_T("CSummaryProperties::get_TotalEditTime\n"));
 	CHECK_NULL_RETURN(plTotalEditTime, E_POINTER);
-	return ReadProperty(m_pSummPropList, PIDSI_EDITTIME, VT_I4, ((void**)plTotalEditTime));
+	return ReadProperty(m_pSummPropList, PIDSI_EDITTIME, VT_I4, ((void*)plTotalEditTime));
 }
 
 HRESULT CDocReader::CDocumentProperties::
@@ -2075,7 +2074,7 @@ HRESULT CDocReader::CDocumentProperties::
 {
 	ODS(_T("CSummaryProperties::get_DateLastPrinted\n"));
 	CHECK_NULL_RETURN(pdtDateLastPrinted, E_POINTER);
-	return ReadProperty(m_pSummPropList, PIDSI_LASTPRINTED, VT_DATE, ((void**)pdtDateLastPrinted));
+	return ReadProperty(m_pSummPropList, PIDSI_LASTPRINTED, VT_DATE, ((void*)pdtDateLastPrinted));
 }
 
 HRESULT CDocReader::CDocumentProperties::
@@ -2083,7 +2082,7 @@ HRESULT CDocReader::CDocumentProperties::
 {
 	ODS(_T("CSummaryProperties::get_DateCreated\n"));
 	CHECK_NULL_RETURN(pdtDateCreated, E_POINTER);
-	return ReadProperty(m_pSummPropList, PIDSI_CREATE_DTM, VT_DATE, ((void**)pdtDateCreated));
+	return ReadProperty(m_pSummPropList, PIDSI_CREATE_DTM, VT_DATE, ((void*)pdtDateCreated));
 }
 
 HRESULT CDocReader::CDocumentProperties::
@@ -2091,7 +2090,7 @@ HRESULT CDocReader::CDocumentProperties::
 {
 	ODS(_T("CSummaryProperties::get_DateLastSaved\n"));
 	CHECK_NULL_RETURN(pdtDateLastSaved, E_POINTER);
-	return ReadProperty(m_pSummPropList, PIDSI_LASTSAVE_DTM, VT_DATE, ((void**)pdtDateLastSaved));
+	return ReadProperty(m_pSummPropList, PIDSI_LASTSAVE_DTM, VT_DATE, ((void*)pdtDateLastSaved));
 }
 
 HRESULT CDocReader::CDocumentProperties::
@@ -2099,7 +2098,7 @@ HRESULT CDocReader::CDocumentProperties::
 {
 	ODS(_T("CSummaryProperties::get_PageCount\n"));
 	CHECK_NULL_RETURN(plPageCount, E_POINTER);
-	return ReadProperty(m_pSummPropList, PIDSI_PAGECOUNT, VT_I4, ((void**)plPageCount));
+	return ReadProperty(m_pSummPropList, PIDSI_PAGECOUNT, VT_I4, ((void*)plPageCount));
 }
 
 HRESULT CDocReader::CDocumentProperties::
@@ -2107,7 +2106,7 @@ HRESULT CDocReader::CDocumentProperties::
 {
 	ODS(_T("CSummaryProperties::get_WordCount\n"));
 	CHECK_NULL_RETURN(plWordCount, E_POINTER);
-	return ReadProperty(m_pSummPropList, PIDSI_WORDCOUNT, VT_I4, ((void**)plWordCount));
+	return ReadProperty(m_pSummPropList, PIDSI_WORDCOUNT, VT_I4, ((void*)plWordCount));
 }
 
 HRESULT CDocReader::CDocumentProperties::
@@ -2115,7 +2114,7 @@ HRESULT CDocReader::CDocumentProperties::
 {
 	ODS(_T("CSummaryProperties::get_CharacterCount\n"));
 	CHECK_NULL_RETURN(plCharacterCount, E_POINTER);
-	return ReadProperty(m_pSummPropList, PIDSI_CHARCOUNT, VT_I4, ((void**)plCharacterCount));
+	return ReadProperty(m_pSummPropList, PIDSI_CHARCOUNT, VT_I4, ((void*)plCharacterCount));
 }
 
 HRESULT CDocReader::CDocumentProperties::
@@ -2139,7 +2138,7 @@ HRESULT CDocReader::CDocumentProperties::
 {
 	ODS(_T("CSummaryProperties::get_ApplicationName\n"));
 	CHECK_NULL_RETURN(pbstrAppName, E_POINTER);
-	return ReadProperty(m_pSummPropList, PIDSI_APPNAME, VT_BSTR, ((void**)pbstrAppName));
+	return ReadProperty(m_pSummPropList, PIDSI_APPNAME, VT_BSTR, ((void*)pbstrAppName));
 }
 
 HRESULT CDocReader::CDocumentProperties::
@@ -2147,7 +2146,7 @@ HRESULT CDocReader::CDocumentProperties::
 {
 	ODS(_T("CSummaryProperties::get_DocumentSecurity\n"));
 	CHECK_NULL_RETURN(plDocSecurity, E_POINTER);
-	return ReadProperty(m_pSummPropList, PIDSI_DOC_SECURITY, VT_I4, ((void**)plDocSecurity));
+	return ReadProperty(m_pSummPropList, PIDSI_DOC_SECURITY, VT_I4, ((void*)plDocSecurity));
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -2158,7 +2157,7 @@ HRESULT CDocReader::CDocumentProperties::
 {
 	ODS(_T("CSummaryProperties::get_Category\n"));
 	CHECK_NULL_RETURN(pbstrCategory, E_POINTER);
-	return ReadProperty(m_pDocPropList, PID_CATEGORY, VT_BSTR, ((void**)pbstrCategory));
+	return ReadProperty(m_pDocPropList, PID_CATEGORY, VT_BSTR, ((void*)pbstrCategory));
 }
 
 HRESULT CDocReader::CDocumentProperties::
@@ -2173,7 +2172,7 @@ HRESULT CDocReader::CDocumentProperties::
 {
 	ODS(_T("CSummaryProperties::get_PresentationFormat\n"));
 	CHECK_NULL_RETURN(pbstrPresFormat, E_POINTER);
-	return ReadProperty(m_pDocPropList, PID_PRESFORMAT, VT_BSTR, ((void**)pbstrPresFormat));
+	return ReadProperty(m_pDocPropList, PID_PRESFORMAT, VT_BSTR, ((void*)pbstrPresFormat));
 }
 
 HRESULT CDocReader::CDocumentProperties::
@@ -2181,7 +2180,7 @@ HRESULT CDocReader::CDocumentProperties::
 {
 	ODS(_T("CSummaryProperties::get_ByteCount\n"));
 	CHECK_NULL_RETURN(plByteCount, E_POINTER);
-	return ReadProperty(m_pDocPropList, PID_BYTECOUNT, VT_I4, ((void**)plByteCount));
+	return ReadProperty(m_pDocPropList, PID_BYTECOUNT, VT_I4, ((void*)plByteCount));
 }
 
 HRESULT CDocReader::CDocumentProperties::
@@ -2189,7 +2188,7 @@ HRESULT CDocReader::CDocumentProperties::
 {
 	ODS(_T("CSummaryProperties::get_LineCount\n"));
 	CHECK_NULL_RETURN(plLineCount, E_POINTER);
-	return ReadProperty(m_pDocPropList, PID_LINECOUNT, VT_I4, ((void**)plLineCount));
+	return ReadProperty(m_pDocPropList, PID_LINECOUNT, VT_I4, ((void*)plLineCount));
 }
 
 HRESULT CDocReader::CDocumentProperties::
@@ -2197,7 +2196,7 @@ HRESULT CDocReader::CDocumentProperties::
 {
 	ODS(_T("CSummaryProperties::get_ParagraphCount\n"));
 	CHECK_NULL_RETURN(plParagraphCount, E_POINTER);
-	return ReadProperty(m_pDocPropList, PID_PARACOUNT, VT_I4, ((void**)plParagraphCount));
+	return ReadProperty(m_pDocPropList, PID_PARACOUNT, VT_I4, ((void*)plParagraphCount));
 }
 
 HRESULT CDocReader::CDocumentProperties::
@@ -2205,7 +2204,7 @@ HRESULT CDocReader::CDocumentProperties::
 {
 	ODS(_T("CSummaryProperties::get_SlideCount\n"));
 	CHECK_NULL_RETURN(plSlideCount, E_POINTER);
-	return ReadProperty(m_pDocPropList, PID_SLIDECOUNT, VT_I4, ((void**)plSlideCount));
+	return ReadProperty(m_pDocPropList, PID_SLIDECOUNT, VT_I4, ((void*)plSlideCount));
 }
 
 HRESULT CDocReader::CDocumentProperties::
@@ -2213,7 +2212,7 @@ HRESULT CDocReader::CDocumentProperties::
 {
 	ODS(_T("CSummaryProperties::get_NoteCount\n"));
 	CHECK_NULL_RETURN(plNoteCount, E_POINTER);
-	return ReadProperty(m_pDocPropList, PID_NOTECOUNT, VT_I4, ((void**)plNoteCount));
+	return ReadProperty(m_pDocPropList, PID_NOTECOUNT, VT_I4, ((void*)plNoteCount));
 }
 
 HRESULT CDocReader::CDocumentProperties::
@@ -2221,7 +2220,7 @@ HRESULT CDocReader::CDocumentProperties::
 {
 	ODS(_T("CSummaryProperties::get_HiddenSlideCount\n"));
 	CHECK_NULL_RETURN(plHiddenSlideCount, E_POINTER);
-	return ReadProperty(m_pDocPropList, PID_HIDDENCOUNT, VT_I4, ((void**)plHiddenSlideCount));
+	return ReadProperty(m_pDocPropList, PID_HIDDENCOUNT, VT_I4, ((void*)plHiddenSlideCount));
 }
 
 HRESULT CDocReader::CDocumentProperties::
@@ -2229,7 +2228,7 @@ HRESULT CDocReader::CDocumentProperties::
 {
 	ODS(_T("CSummaryProperties::get_MultimediaClipCount\n"));
 	CHECK_NULL_RETURN(plMultimediaClipCount, E_POINTER);
-	return ReadProperty(m_pDocPropList, PID_MMCLIPCOUNT, VT_I4, ((void**)plMultimediaClipCount));
+	return ReadProperty(m_pDocPropList, PID_MMCLIPCOUNT, VT_I4, ((void*)plMultimediaClipCount));
 }
 
 HRESULT CDocReader::CDocumentProperties::
@@ -2237,7 +2236,7 @@ HRESULT CDocReader::CDocumentProperties::
 {
 	ODS(_T("CSummaryProperties::get_Manager\n"));
 	CHECK_NULL_RETURN(pbstrManager, E_POINTER);
-	return ReadProperty(m_pDocPropList, PID_MANAGER, VT_BSTR, ((void**)pbstrManager));
+	return ReadProperty(m_pDocPropList, PID_MANAGER, VT_BSTR, ((void*)pbstrManager));
 }
 
 HRESULT CDocReader::CDocumentProperties::
@@ -2252,7 +2251,7 @@ HRESULT CDocReader::CDocumentProperties::
 {
 	ODS(_T("CSummaryProperties::get_Company\n"));
 	CHECK_NULL_RETURN(pbstrCompany, E_POINTER);
-	return ReadProperty(m_pDocPropList, PID_COMPANY, VT_BSTR, ((void**)pbstrCompany));
+	return ReadProperty(m_pDocPropList, PID_COMPANY, VT_BSTR, ((void*)pbstrCompany));
 }
 
 HRESULT CDocReader::CDocumentProperties::
@@ -2267,7 +2266,7 @@ HRESULT CDocReader::CDocumentProperties::
 {
 	ODS(_T("CSummaryProperties::get_CharacterCountWithSpaces\n"));
 	CHECK_NULL_RETURN(plCharCountWithSpaces, E_POINTER);
-	return ReadProperty(m_pDocPropList, PID_CCHWITHSPACES, VT_I4, ((void**)plCharCountWithSpaces));
+	return ReadProperty(m_pDocPropList, PID_CCHWITHSPACES, VT_I4, ((void*)plCharCountWithSpaces));
 }
 
 HRESULT CDocReader::CDocumentProperties::
@@ -2275,19 +2274,20 @@ HRESULT CDocReader::CDocumentProperties::
 {
 	ODS(_T("CSummaryProperties::get_SharedDocument\n"));
 	CHECK_NULL_RETURN(pbSharedDocument, E_POINTER);
-	return ReadProperty(m_pDocPropList, PID_SHAREDDOC, VT_BOOL, ((void**)pbSharedDocument));
+	return ReadProperty(m_pDocPropList, PID_SHAREDDOC, VT_BOOL, ((void*)pbSharedDocument));
 }
 
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::get_Version(BSTR* pbstrVersion)
 {
-	ULONG ul = 0;
+	LONG nVersion = 0;
 	ODS(_T("CSummaryProperties::get_Version\n"));
-	CHECK_NULL_RETURN(pbstrVersion, E_POINTER); *pbstrVersion = NULL;
-	if ( SUCCEEDED(ReadProperty(m_pDocPropList, PID_VERSION, VT_I4, (void**)&ul)) )
+	CHECK_NULL_RETURN(pbstrVersion, E_POINTER);
+	*pbstrVersion = NULL;
+	if ( SUCCEEDED(ReadProperty(m_pDocPropList, PID_VERSION, VT_I4, (void*)&nVersion)) )
 	{
 		TCHAR szVersion[128];
-		wsprintf(szVersion, _T("%d.%d"), (LONG)(HIWORD(ul)), (LONG)(LOWORD(ul)));
+		wsprintf(szVersion, _T("%d.%d"), (LONG)(HIWORD(nVersion)), (LONG)(LOWORD(nVersion)));
 		*pbstrVersion = ConvertToBSTR(szVersion, CP_ACP);
 	}
 	return S_OK;
@@ -2399,15 +2399,13 @@ HRESULT CDocReader::CDocumentProperties::
 // ReadProperty -- Reads property of standard type and copies to pv...
 //
 HRESULT CDocReader::CDocumentProperties::
-	CSummaryProperties::ReadProperty(CDocProperty* pPropList, PROPID pid, VARTYPE vt, void** ppv)
+	CSummaryProperties::ReadProperty(CDocProperty* pPropList, PROPID pid, VARTYPE vt, void* pv)
 {
 	HRESULT hr = S_FALSE;
 	CDocProperty* pitem;
 	VARIANT vtTmp;
 
 	TRACE1("CSummaryProperties::ReadProperty(id=%d)\n", pid);
-	ASSERT(ppv);
-	*ppv = NULL;
 
 	CHECK_FLAG_RETURN(m_fDeadObj, E_INVALIDOBJECT);
 
@@ -2426,10 +2424,10 @@ HRESULT CDocReader::CDocumentProperties::
 			// Return the native data based on the VT type...
 			switch (vt)
 			{
-			case VT_BSTR: *((BSTR*)ppv) = SysAllocString( vtTmp.bstrVal ); break;
-			case VT_I4:   *((LONG*)ppv) = vtTmp.lVal; break;
-			case VT_BOOL: *((VARIANT_BOOL*)ppv) = vtTmp.boolVal; break;
-			case VT_DATE: VariantCopy( ( (VARIANT*)ppv ), &vtTmp ); break;
+			case VT_BSTR: *((BSTR*)pv) = SysAllocString( vtTmp.bstrVal ); break;
+			case VT_I4:   *((LONG*)pv) = vtTmp.lVal; break;
+			case VT_BOOL: *((VARIANT_BOOL*)pv) = vtTmp.boolVal; break;
+			case VT_DATE: VariantCopy( ( (VARIANT*)pv ), &vtTmp ); break;
 			}
 			VariantClear( &vtTmp );
 		}

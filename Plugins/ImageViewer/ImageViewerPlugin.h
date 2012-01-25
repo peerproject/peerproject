@@ -1,7 +1,7 @@
 //
 // ImageViewerPlugin.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Original author Michael Stokes released portions into the public domain.
 // You are free to redistribute and modify this page without any restrictions.
 //
@@ -26,8 +26,9 @@ public:
 	CImageViewerPlugin();
 	virtual ~CImageViewerPlugin();
 
-// Attributes
 public:
+
+// Attributes
 	CComPtr<IApplication>	m_pApplication;
 	CComPtr<IUserInterface>	m_pInterface;
 
@@ -37,15 +38,18 @@ public:
 	UINT			m_nCmdBestFit;
 	UINT			m_nCmdActualSize;
 	UINT			m_nCmdRefresh;
+	UINT			m_nCmdDelete;
 	UINT			m_nCmdClose;
+	UINT			m_nCmdNext;
+	UINT			m_nCmdPrior;
+	UINT			m_nCmdFirst;
+	UINT			m_nCmdLast;
 
 // Operations
-public:
 	BOOL			OpenNewWindow(LPCTSTR pszFilePath);
 	void			RemoveWindow(CImageWindow* pWindow);
 
 // Interfaces
-public:
 	DECLARE_REGISTRY_RESOURCEID(IDR_IMAGEVIEWER)
 
 	BEGIN_COM_MAP(CImageViewerPlugin)
@@ -54,8 +58,9 @@ public:
 		COM_INTERFACE_ENTRY(ICommandPlugin)
 	END_COM_MAP()
 
-// IGeneralPlugin
 protected:
+
+// IGeneralPlugin
 	virtual HRESULT STDMETHODCALLTYPE SetApplication(
 		/* [in] */ IApplication __RPC_FAR *pApplication);
 	virtual HRESULT STDMETHODCALLTYPE QueryCapabilities(
@@ -64,14 +69,12 @@ protected:
 	virtual HRESULT STDMETHODCALLTYPE OnSkinChanged();
 
 // IExecutePlugin
-protected:
 	virtual HRESULT STDMETHODCALLTYPE OnExecute(
 		/* [in] */ BSTR sFilePath );
 	virtual HRESULT STDMETHODCALLTYPE OnEnqueue(
 		/* [in] */ BSTR sFilePath );
 
 // ICommandPlugin
-protected:
 	virtual HRESULT STDMETHODCALLTYPE RegisterCommands();
 	virtual HRESULT STDMETHODCALLTYPE InsertCommands();
 	virtual HRESULT STDMETHODCALLTYPE OnUpdate(

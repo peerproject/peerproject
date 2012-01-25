@@ -494,6 +494,8 @@ public:
 		DWORD		UploadCount;			// Number of active torrent uploads allowed
 		DWORD		DownloadConnections;	// Number of active torrent connections allowed
 		DWORD		DownloadTorrents;		// Number of torrents to download at once
+		DWORD		HostExpire;				// DHT hosts expiration time (seconds)	Was DhtPruneTime
+		bool		EnableDHT;				// Enable Mainline DHT protocol
 		bool		Endgame;				// Allow endgame mode when completing torrents. (Download same chunk from multiple sources)
 		bool		AutoSeed;				// Automatically re-seed most recently completed torrent on start-up
 		bool		AutoClear;				// Clear completed torrents when they meet the required share ratio
@@ -503,7 +505,6 @@ public:
 		bool		PreferenceBTSources;	// Preference downloading from BT sources where appropriate
 		bool		SkipPaddingFiles;		// Deselect BitComet "____padding_file_..."
 		bool		SkipTrackerFiles;		// Deselect "Torrent downloaded from ... .txt" files
-		DWORD		DhtPruneTime;
 	} BitTorrent;
 
 	struct sDownloads
@@ -516,8 +517,8 @@ public:
 		DWORD		SparseThreshold;		// NTFS 'sparse files' are not used on files below this size. (0 = Disable)
 		DWORD		MaxAllowedFailures;
 		DWORD		MaxFiles;				// How many files download at once
-		DWORD		MaxTransfers;			// How many total tranfers take place
-		DWORD		MaxFileTransfers;		// How mnay transfers are allowed per file
+		DWORD		MaxTransfers;			// How many total transfers take place
+		DWORD		MaxFileTransfers;		// How many transfers are allowed per file
 		DWORD		MaxFileSearches;		// Number number of files over the download limit that prepare to start. (Search, etc)
 		DWORD		MaxConnectingSources;	// The maximum number of sources that can be in the 'connecting' state. (Important for XPsp2)
 		DWORD		MinSources;				// The minimum number of sources a download has before PeerProject regards it as having a problem
@@ -583,7 +584,7 @@ public:
 		bool		DynamicPreviews;
 		DWORD		PreviewQuality;
 		DWORD		PreviewTransfers;
-		bool		AllowBackwards;			// Data sent from end of range to begining where supported
+		bool		AllowBackwards;			// Data sent from end of range to beginning where supported
 		bool		HubUnshare;
 		bool		AutoClear;				// Remove completed uploads
 		DWORD		ClearDelay;				// Delay between auto-clears

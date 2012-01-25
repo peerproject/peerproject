@@ -1,7 +1,7 @@
 //
 // WindowManager.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -48,9 +48,9 @@ public:
 	void		SetGUIMode(int nMode, BOOL bSaveState = TRUE);
 	void		LoadWindowStates();
 	void		SaveWindowStates() const;
-	void		LoadSearchWindows();
+	BOOL		LoadSearchWindows();
 	BOOL		SaveSearchWindows() const;
-	void		LoadBrowseHostWindows();
+	BOOL		LoadBrowseHostWindows();
 	BOOL		SaveBrowseHostWindows() const;
 	void		OpenNewSearchWindow();
 	void		PostSkinChange();

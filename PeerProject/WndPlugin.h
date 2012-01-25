@@ -1,7 +1,7 @@
 //
 // WndPlugin.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -25,14 +25,16 @@ class CPluginWnd : public CPanelWnd
 {
 // Construction
 public:
-	CPluginWnd(LPCTSTR pszName = NULL, IPluginWindowOwner* pOwner = NULL);
+	CPluginWnd(LPCTSTR pszName = _T(""), IPluginWindowOwner* pOwner = NULL);
 	virtual ~CPluginWnd();
 
-	DECLARE_DYNAMIC(CPluginWnd)
+	DECLARE_DYNCREATE(CPluginWnd)
+
+public:
+	CComPtr< IPluginWindowOwner > m_pOwner;
 
 // Attributes
-public:
-	IPluginWindowOwner*	m_pOwner;
+protected:
 	CString				m_sName;
 	UINT*				m_pHandled;
 	DWORD				m_nHandled;
@@ -41,29 +43,22 @@ public:
 	BOOL				m_bAccel;
 
 // Operations
-public:
 	virtual void	OnSkinChange();
 	virtual HRESULT	GetGenericView(IGenericView** ppView);
 
 // Overrides
-public:
 	//{{AFX_VIRTUAL(CPluginWnd)
-	public:
 	virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam);
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	//}}AFX_VIRTUAL
 
 // Implementation
-protected:
 	//{{AFX_MSG(CPluginWnd)
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	//}}AFX_MSG
 
-	DECLARE_MESSAGE_MAP()
-
 // IPluginWindow
-protected:
 	BEGIN_INTERFACE_PART(PluginWindow, IPluginWindow)
 		STDMETHOD(ListenForSingleMessage)(UINT nMessage);
 		STDMETHOD(ListenForMultipleMessages)(SAFEARRAY FAR* pMessages);
@@ -79,4 +74,6 @@ protected:
 	END_INTERFACE_PART(PluginWindow)
 
 	DECLARE_INTERFACE_MAP()
+
+	DECLARE_MESSAGE_MAP()
 };

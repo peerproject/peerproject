@@ -86,7 +86,7 @@ BEGIN
 			VALUE "CompanyName", "PeerProject Development Team"
 			VALUE "FileDescription", "PeerProject P2P"
 			VALUE "FileVersion", "1.0.0.0"
-			VALUE "LegalCopyright", "© PeerProject Development Team, 2008-2011"
+			VALUE "LegalCopyright", "© PeerProject Development Team, 2008-2012"
 			VALUE "OriginalFilename", "PeerProject.exe"
 			VALUE "InternalName", "PeerProject"
 			VALUE "ProductName", "PeerProject"
@@ -3575,13 +3575,13 @@ END
 
 STRINGTABLE
 BEGIN
-	ID_UPLOADS_AUTO_CLEAR		"Automatically clear uploads which have been completed."
+	ID_UPLOADS_AUTO_CLEAR		"Automatically clear uploads that have been completed."
 	ID_UPLOADS_CHAT				"Open a chat session with the selected user."
 	ID_UPLOADS_CLEAR			"Cancel selected uploads and remove from list."
 	ID_UPLOADS_CLEAR_COMPLETED	"Clear uploads that have completed."
 	ID_UPLOADS_DISCONNECT		"Disconnect selected upload transfers."
 	ID_UPLOADS_FILTER_ALL		"Show all uploads."
-	ID_UPLOADS_FILTER_ACTIVE	"Show all uploads which are actively sending."
+	ID_UPLOADS_FILTER_ACTIVE	"Show all uploads that are actively sending."
 	ID_UPLOADS_FILTER_HISTORY	"Show uploads which are no longer connected."
 	ID_UPLOADS_FILTER_MENU		"Choose which types of uploads to show and which types to hide in this view."
 	ID_UPLOADS_FILTER_QUEUED	"Show uploads which are waiting in your queues."

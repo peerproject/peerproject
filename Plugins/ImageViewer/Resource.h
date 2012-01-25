@@ -4,13 +4,11 @@
 //
 #define IDI_IMAGE                       4
 #define IDS_PROJNAME                    100
-#define IDR_CALCULATORPLUGIN            101
 #define IDS_ABOUT                       101
-#define IDC_GRABMOVE                    200
-#define IDI_CALCULATOR                  201
 #define IDR_IMAGEVIEWER                 202
 #define IDR_SKIN                        203
 #define IDB_COMMANDS                    204
+//#define IDC_GRABMOVE                  280
 
 // Next default values for new objects
 // 

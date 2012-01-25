@@ -18,12 +18,11 @@
 
 #pragma once
 
+#include <set>
 
-// Produces two arguments divided by comma from text.	_PT("Text") = L"Text",4
-// Shorthand where first argument is the string
-// and second argument is string length, without null terminator
-#define _P(x)	(x),((sizeof(x))/sizeof((x)[0])-1)
-#define _PT(x)	_P(_T(x))
+// Produce 2 comma-seperated arguments: string itself, and string length (without null terminator)	_PT("Text") = L"Text",4
+#define _P(x) (x),((sizeof(x))/sizeof((x)[0])-1)
+#define _PT(x) ( _T(x) ), ( (sizeof(_T(x)))/sizeof((_T(x))[0]) - 1 )
 
 class CLowerCaseTable
 {
@@ -105,3 +104,28 @@ CString HostToString(const SOCKADDR_IN* pHost);
 
 // IsValidIP("1.2.3.4:0000") is true
 BOOL IsValidIP(const CString& sInput);
+
+
+// Function is used to split a phrase in Asian languages to separate keywords
+// to ease keyword matching, allowing user to type as in the natural language.
+// Spacebar key is not a convenient way to separate keywords with IME,
+// and user may not know how application is keywording their files.
+//
+// The function splits katakana, Hiragana and CJK phrases out of the input string.
+// ToDo: "minus" words and quoted phrases for Asian languages may not work correctly in all cases.
+CString MakeKeywords(const CString& strPhrase, bool bExpression = true);
+
+typedef std::pair< LPCTSTR, size_t > WordEntry;
+
+struct CompareWordEntries : public std::binary_function< WordEntry, WordEntry, bool >
+{
+	bool operator()(const WordEntry& lhs, const WordEntry& rhs) const
+	{
+		int cmp = _tcsnicmp( lhs.first, rhs.first, min( lhs.second, rhs.second ) );
+		return ( cmp < 0 || cmp == 0 && lhs.second < rhs.second );
+	}
+};
+
+typedef std::set< WordEntry, CompareWordEntries > WordTable;
+
+void BuildWordTable(LPCTSTR pszWord, WordTable& oWords, WordTable& oNegWords);

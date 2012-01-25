@@ -75,47 +75,73 @@ void CHostCache::Clear()
 
 BOOL CHostCache::Load()
 {
-	CQuickLock oLock( m_pSection );
-
-	Clear();
-
 	const CString strFile = Settings.General.UserPath + _T("\\Data\\HostCache.dat");
 
-	CFile pFile;
-	if ( ! pFile.Open( strFile, CFile::modeRead ) )
-		return FALSE;
+	BOOL bSuccess = FALSE;
 
-	try
+	CFile pFile;
+	if ( pFile.Open( strFile, CFile::modeRead | CFile::shareDenyWrite | CFile::osSequentialScan ) )
 	{
-		CArchive ar( &pFile, CArchive::load, 262144 );	// 256 KB buffer
-		Serialize( ar );
-	}
-	catch ( CException* pException )
-	{
-		pException->Delete();
+		try
+		{
+			CArchive ar( &pFile, CArchive::load, 262144 );	// 256 KB buffer
+			try
+			{
+				CQuickLock oLock( m_pSection );
+
+				Clear();
+
+				Serialize( ar );
+				ar.Close();
+
+				bSuccess = TRUE;	// Success
+			}
+			catch ( CException* pException )
+			{
+				ar.Abort();
+				pFile.Abort();
+				pException->Delete();
+			}
+		}
+		catch ( CException* pException )
+		{
+			pFile.Abort();
+			pException->Delete();
+		}
+
+		pFile.Close();
 	}
 
 	if ( eDonkey.GetNewest() == NULL )
-		CheckMinimumED2KServers();
+		CheckMinimumServers();
 
-	return TRUE;
+	if ( bSuccess )
+		return TRUE;
+
+	theApp.Message( MSG_ERROR, _T("Failed to load host cache: %s"), strFile );
+	return FALSE;
 }
 
 BOOL CHostCache::Save()
 {
-	CQuickLock oLock( m_pSection );
-
 	const CString strFile = Settings.General.UserPath + _T("\\Data\\HostCache.dat");
+	const CString strTemp = Settings.General.UserPath + _T("\\Data\\HostCache.tmp");
 
 	CFile pFile;
-	if ( ! pFile.Open( strFile, CFile::modeWrite|CFile::modeCreate ) )
+	if ( ! pFile.Open( strTemp, CFile::modeWrite | CFile::modeCreate | CFile::shareExclusive | CFile::osSequentialScan ) )
+	{
+		DeleteFile( strTemp );
+		theApp.Message( MSG_ERROR, _T("Failed to save host cache: %s"), strTemp );
 		return FALSE;
+	}
 
 	try
 	{
 		CArchive ar( &pFile, CArchive::store, 262144 );	// 256 KB buffer
 		try
 		{
+			CQuickLock oLock( m_pSection );
+
 			Serialize( ar );
 			ar.Close();
 		}
@@ -124,6 +150,8 @@ BOOL CHostCache::Save()
 			ar.Abort();
 			pFile.Abort();
 			pException->Delete();
+			DeleteFile( strTemp );
+			theApp.Message( MSG_ERROR, _T("Failed to save host cache: %s"), strTemp );
 			return FALSE;
 		}
 		pFile.Close();
@@ -132,6 +160,15 @@ BOOL CHostCache::Save()
 	{
 		pFile.Abort();
 		pException->Delete();
+		DeleteFile( strTemp );
+		theApp.Message( MSG_ERROR, _T("Failed to save host cache: %s"), strTemp );
+		return FALSE;
+	}
+
+	if ( ! MoveFileEx( strTemp, strFile, MOVEFILE_COPY_ALLOWED | MOVEFILE_REPLACE_EXISTING ) )
+	{
+		DeleteFile( strTemp );
+		theApp.Message( MSG_ERROR, _T("Failed to save host cache: %s"), strFile );
 		return FALSE;
 	}
 
@@ -760,32 +797,32 @@ int CHostCache::Import(LPCTSTR pszFile, BOOL bFreshOnly)
 		return 0;
 
 	CFile pFile;
-	if ( ! pFile.Open( pszFile, CFile::modeRead ) )
+	if ( ! pFile.Open( pszFile, CFile::modeRead | CFile::shareDenyWrite | CFile::osSequentialScan ) )
 		return 0;
 
 	int nImported = 0;
 
 	if ( ! _tcsicmp( szExt, _T(".met") ) )
 	{
-		theApp.Message( MSG_NOTICE, _T("Importing MET file: %s ..."), pszFile );
+		theApp.Message( MSG_NOTICE, _T("Importing MET file: %s"), pszFile );
 
 		nImported = ImportMET( &pFile );
 	}
 	else if ( ! _tcsicmp( szExt, _T(".bz2") ) )		// hublist.xml.bz2
 	{
-		theApp.Message( MSG_NOTICE, _T("Importing HubList file: %s ..."), pszFile );
+		theApp.Message( MSG_NOTICE, _T("Importing HubList file: %s"), pszFile );
 
 		nImported = ImportHubList( &pFile );
 	}
 	else if ( ! _tcsicmp( szExt, _T(".dat") ) )
 	{
-		theApp.Message( MSG_NOTICE, _T("Importing Nodes file: %s ..."), pszFile );
+		theApp.Message( MSG_NOTICE, _T("Importing Nodes file: %s"), pszFile );
 
 		nImported = ImportNodes( &pFile );
 	}
 //	else if ( ! _tcsicmp( szExt, _T(".xml") ) || ! _tcsicmp( szExt, _T(".dat") ) ) 	// ToDo: G2/Gnutella import/export
 //	{
-//		theApp.Message( MSG_NOTICE, _T("Importing cache file: %s ..."), pszFile );
+//		theApp.Message( MSG_NOTICE, _T("Importing cache file: %s"), pszFile );
 //
 //		nImported = ImportCache( &pFile );
 //	}
@@ -849,6 +886,7 @@ int CHostCache::ImportHubList(CFile* pFile)
 			const int nUsers	= _tstoi( pHub->GetAttributeValue( _T("Users") ) );
 			const int nMaxusers	= _tstoi( pHub->GetAttributeValue( _T("Maxusers") ) );
 
+			CQuickLock oLock( DC.m_pSection );
 			CHostCacheHostPtr pServer = DC.Add( NULL, DC_DEFAULT_PORT, 0,
 				protocolNames[ PROTOCOL_DC ], 0, nUsers, nMaxusers, sAddress );
 			if ( pServer )
@@ -886,6 +924,7 @@ int CHostCache::ImportMET(CFile* pFile)
 		if ( pFile->Read( &nPort, sizeof(nPort) ) != sizeof(nPort) ) break;
 		if ( pFile->Read( &nTags, sizeof(nTags) ) != sizeof(nTags) ) break;
 
+		CQuickLock oLock( eDonkey.m_pSection );
 		CHostCacheHostPtr pServer = eDonkey.Add( &pAddress, nPort );
 
 		while ( nTags-- > 0 )
@@ -966,6 +1005,7 @@ int CHostCache::ImportNodes(CFile* pFile)
 		}
 		if ( nType < 4 )
 		{
+			CQuickLock oLock( Kademlia.m_pSection );
 			CHostCacheHostPtr pCache = Kademlia.Add( &pAddress, nTCPPort );
 			if ( pCache )
 			{
@@ -982,17 +1022,17 @@ int CHostCache::ImportNodes(CFile* pFile)
 }
 
 //////////////////////////////////////////////////////////////////////
-// CHostCache Check Minimum ED2K Servers
+// CHostCache Check Minimum Servers
 
-bool CHostCache::CheckMinimumED2KServers()
+bool CHostCache::CheckMinimumServers()
 {
 	if ( Settings.Experimental.LAN_Mode )
 		return true;
 
-	if ( ! EnoughED2KServers() )
+	if ( ! EnoughServers() )
 	{
 		// Load default ed2k server list (if necessary)
-		LoadDefaultED2KServers();
+		LoadDefaultServers();
 
 		// Get the server list from eMule (mods) if possible
 		CString strPrograms( theApp.GetProgramFilesFolder() );
@@ -1004,7 +1044,7 @@ bool CHostCache::CheckMinimumED2KServers()
 		Import( strAppData + _T("\\aMule\\server.met"), TRUE );
 
 		// Get server list from Web
-		if ( ! EnoughED2KServers() )
+		if ( ! EnoughServers() )
 			DiscoveryServices.Execute( TRUE, PROTOCOL_ED2K, TRUE );
 
 		return false;
@@ -1014,22 +1054,22 @@ bool CHostCache::CheckMinimumED2KServers()
 }
 
 //////////////////////////////////////////////////////////////////////
-// CHostCache Default ED2K servers import
+// CHostCache Default servers import
 
-int CHostCache::LoadDefaultED2KServers()
+int CHostCache::LoadDefaultServers()
 {
-	CFile pFile;
+	const CString strFile = Settings.General.Path + _T("\\Data\\DefaultServers.dat");
 	int nServers = 0;
-	CString strFile = Settings.General.Path + _T("\\Data\\DefaultServers.dat");
 
 	// Ignore old files (240 days)
 	//if ( ! IsFileNewerThan( strFile, 240ull * 24 * 60 * 60 * 1000 ) )
 	//	return 0;
 
-	if ( ! pFile.Open( strFile, CFile::modeRead ) )			// Load default list from file if possible
+	CFile pFile;	// Load default list from file if possible
+	if ( ! pFile.Open( strFile, CFile::modeRead | CFile::shareDenyWrite | CFile::osSequentialScan ) )
 		return 0;
 
-	theApp.Message( MSG_NOTICE, _T("Loading default ED2K server list") );
+	theApp.Message( MSG_NOTICE, _T("Loading default server list") );
 
 	try
 	{
@@ -1442,7 +1482,7 @@ bool CHostCacheHost::IsExpired(const DWORD tNow) const
 	case PROTOCOL_G2:
 		return m_tSeen && ( tNow > m_tSeen + Settings.Gnutella2.HostExpire );
 	case PROTOCOL_BT:
-		return m_tSeen && ( tNow > m_tSeen + Settings.BitTorrent.DhtPruneTime );
+		return m_tSeen && ( tNow > m_tSeen + Settings.BitTorrent.HostExpire );
 	case PROTOCOL_KAD:
 		return m_tSeen && ( tNow > m_tSeen + 24 * 60 * 60 );	// ToDo: Add Kademlia setting
 	default:	// Never PROTOCOL_ED2K PROTOCOL_DC

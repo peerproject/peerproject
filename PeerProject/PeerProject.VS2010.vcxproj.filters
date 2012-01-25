@@ -1089,6 +1089,9 @@
     <ClCompile Include="WizardWelcomePage.cpp">
       <Filter>Source Files\Wizard</Filter>
     </ClCompile>
+    <ClCompile Include="..\Services\MainlineDHT\dht.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Hashes\HashDescriptors.cpp">
       <Filter>Source Files\Hash algorithms\Policies</Filter>
     </ClCompile>
@@ -2788,6 +2791,9 @@
     </ClInclude>
     <ClInclude Include="..\Services\Augment\IUnknownImplementation.hpp">
       <Filter>Header Files\Augment</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Services\MainlineDHT\dht.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

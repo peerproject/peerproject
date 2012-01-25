@@ -1,7 +1,7 @@
 //
 // Handshake.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -33,6 +33,7 @@
 #include "Network.h"
 #include "Buffer.h"
 #include "GProfile.h"
+#include "BTPacket.h"
 #include "BTClients.h"
 #include "DCClients.h"
 #include "DCPacket.h"
@@ -429,27 +430,24 @@ BOOL CHandshake::OnPush(const Hashes::Guid& oGUID)
 
 	// Make sure this is the only thread doing this right now
 	CSingleLock pWindowLock( &theApp.m_pSection );
-	if ( pWindowLock.Lock( 250 ) )	// Don't wait here for more than a quarter second, Lock will return false and so will OnPush
+	if ( ! pWindowLock.Lock( 300 ) )
+		return FALSE;	// Don't wait here for more than a quarter second
+
+	// Access granted, get a pointer to the windowing system
+	if ( CMainWnd* pMainWnd = theApp.SafeMainWnd() )
 	{
-		// Access granted, get a pointer to the windowing system
-		if ( CMainWnd* pMainWnd = theApp.SafeMainWnd() )
+		// Get a pointer to the main PeerProject window
+		CWindowManager* pWindows = &pMainWnd->m_pWindows;
+		CChildWnd* pChildWnd = NULL;
+
+		// Loop through all of PeerProject's child windows
+		while ( ( pChildWnd = pWindows->Find( NULL, pChildWnd ) ) != NULL )
 		{
-			// Get a pointer to the main PeerProject window
-			CWindowManager* pWindows = &pMainWnd->m_pWindows;
-			CChildWnd* pChildWnd = NULL;
-
-			// Loop through all of PeerProject's child windows
-			while ( ( pChildWnd = pWindows->Find( NULL, pChildWnd ) ) != NULL )
-			{
-				// If a child window recognizes this push request, return true
-				if ( pChildWnd->OnPush( oGUID, this ) ) return TRUE;
-			}
+			// If a child window recognizes this push request, return true
+			if ( pChildWnd->OnPush( oGUID, this ) ) return TRUE;
 		}
-
-		// Let other threads use theApp.m_pSection
-		pWindowLock.Unlock();
 	}
 
-	// No child window recognized a push request, or we waited more than a quarter second and gave up
+	// No child window recognized a push request
 	return FALSE;
 }

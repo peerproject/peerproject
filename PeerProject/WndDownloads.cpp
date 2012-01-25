@@ -488,36 +488,70 @@ BOOL CDownloadsWnd::PreTranslateMessage(MSG* pMsg)
 {
 	if ( pMsg->message == WM_KEYDOWN )
 	{
-		if ( pMsg->wParam == VK_SHIFT || pMsg->wParam == VK_CONTROL )	// Skip async keys
-			return TRUE;
-
-		if ( pMsg->wParam == VK_TAB )	// Toggle window focus to Uploads
+		switch ( pMsg->wParam )
 		{
+		//case VK_SHIFT:
+		//case VK_CONTROL:
+		//	return TRUE;	// Skip async keys?
+
+		case VK_TAB:		// Toggle window focus to Uploads
 			GetManager()->Open( RUNTIME_CLASS(CUploadsWnd) );
 			return TRUE;
-		}
-		if ( pMsg->wParam == VK_ESCAPE && ! m_pDragList )	// Clear selections, when not dragging
-		{
-			CSingleLock pLock( &Transfers.m_pSection );
-			if ( pLock.Lock( 500 ) )
-			{
-				for ( POSITION pos = Downloads.GetIterator() ; pos ; )
-				{
-					CDownload* pDownload = Downloads.GetNext( pos );
-					pDownload->m_bSelected = FALSE;
 
-					if ( pDownload->m_bExpanded )
+		case VK_ESCAPE:
+			if ( ! m_pDragList )	// Clear selections, when not dragging
+			{
+				CSingleLock pLock( &Transfers.m_pSection );
+				if ( pLock.Lock( 500 ) )
+				{
+					for ( POSITION pos = Downloads.GetIterator() ; pos ; )
 					{
-						for ( POSITION posSource = pDownload->GetIterator() ; posSource ; )
+						CDownload* pDownload = Downloads.GetNext( pos );
+						pDownload->m_bSelected = FALSE;
+
+						if ( pDownload->m_bExpanded )
 						{
-							CDownloadSource* pSource = pDownload->GetNext( posSource );
-							pSource->m_bSelected = FALSE;
+							for ( POSITION posSource = pDownload->GetIterator() ; posSource ; )
+							{
+								CDownloadSource* pSource = pDownload->GetNext( posSource );
+								pSource->m_bSelected = FALSE;
+							}
 						}
 					}
+					pLock.Unlock();
+					Update();
 				}
-				pLock.Unlock();
-				Update();
 			}
+			break;
+
+		case VK_UP:
+			if ( ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 ) != 0 )
+			{
+				OnDownloadsMoveUp();
+				return TRUE;
+			}
+			break;
+		case VK_DOWN:
+			if ( ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 ) != 0 )
+			{
+				OnDownloadsMoveDown();
+				return TRUE;
+			}
+			break;
+		case VK_HOME:
+			if ( ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 ) != 0 )
+			{
+				OnDownloadsMoveTop();
+				return TRUE;
+			}
+			break;
+		case VK_END:
+			if ( ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 ) != 0 )
+			{
+				OnDownloadsMoveBottom();
+				return TRUE;
+			}
+			break;
 		}
 	}
 

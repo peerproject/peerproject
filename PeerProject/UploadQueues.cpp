@@ -1,7 +1,7 @@
 //
 // UploadQueues.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -210,14 +210,15 @@ CUploadQueue* CUploadQueues::SelectQueue(PROTOCOLID nProtocol, CDownload const *
 
 CUploadQueue* CUploadQueues::SelectQueue(PROTOCOLID nProtocol, LPCTSTR pszName, QWORD nSize, DWORD nFileState, LPCTSTR pszShareTags)
 {
-	int nIndex = 0;
 	CQuickLock oLock( m_pSection );
 
+	int nIndex = 0;
 	for ( POSITION pos = GetIterator() ; pos ; nIndex++ )
 	{
 		CUploadQueue* pQueue = GetNext( pos );
 		pQueue->m_nIndex = nIndex;
-		if ( pQueue->CanAccept( nProtocol, pszName, nSize, nFileState, pszShareTags ) ) return pQueue;
+		if ( pQueue->CanAccept( nProtocol, pszName, nSize, nFileState, pszShareTags ) )
+			return pQueue;
 	}
 
 	return NULL;
@@ -237,16 +238,14 @@ DWORD CUploadQueues::GetTotalBandwidthPoints( BOOL ActiveOnly )
 		pQptr=GetNext( pos );
 		if ( ActiveOnly )
 		{
-			if ( pQptr->m_bEnable )
-			{
-				if ( ( ( pQptr->m_nProtocols & ( 1 << PROTOCOL_ED2K ) ) != 0 ) && ( Settings.Connection.RequireForTransfers ) )
-				{
-					if ( ! ( Settings.eDonkey.EnableAlways | Settings.eDonkey.Enabled ) )
-						continue;
-				}
-			}
-			else
+			if ( ! pQptr->m_bEnable )
 				continue;
+
+			if ( ( ( pQptr->m_nProtocols & ( 1 << PROTOCOL_ED2K ) ) != 0 ) && ( Settings.Connection.RequireForTransfers ) )
+			{
+				if ( ! ( Settings.eDonkey.EnableAlways | Settings.eDonkey.Enabled ) )
+					continue;
+			}
 		}
 		nCount += pQptr->m_nBandwidthPoints;
 	}
@@ -326,9 +325,7 @@ DWORD CUploadQueues::GetMinimumDonkeyBandwidth()
 	// Check ED2K ratio limiter
 	DWORD nTotal = Settings.Connection.OutSpeed * 128;
 	DWORD nLimit = Settings.Bandwidth.Uploads;
-	DWORD nDonkeyPoints = 0;
-	DWORD nTotalPoints = 0;
-	DWORD nBandwidth = 0;
+	DWORD nDonkeyPoints = 0, nTotalPoints = 0, nBandwidth = 0;
 
 	if ( nLimit == 0 || nLimit > nTotal ) nLimit = nTotal;
 
@@ -443,35 +440,53 @@ void CUploadQueues::Clear()
 
 BOOL CUploadQueues::Load()
 {
-	CQuickLock oLock( m_pSection );
+	const CString strFile = Settings.General.UserPath + _T("\\Data\\UploadQueues.dat");
+
+	{
+		CQuickLock oLock( m_pSection );
+
+		LoadString( m_pTorrentQueue->m_sName, IDS_UPLOAD_QUEUE_TORRENT );
+		LoadString( m_pHistoryQueue->m_sName, IDS_UPLOAD_QUEUE_HISTORY );
+	}
+
+	BOOL bSuccess = FALSE;
+
 	CFile pFile;
-
-	LoadString( m_pTorrentQueue->m_sName, IDS_UPLOAD_QUEUE_TORRENT );
-	LoadString( m_pHistoryQueue->m_sName, IDS_UPLOAD_QUEUE_HISTORY );
-
-	CString strFile = Settings.General.UserPath + _T("\\Data\\UploadQueues.dat");
-
-	if ( ! pFile.Open( strFile, CFile::modeRead ) )
+	if ( pFile.Open( strFile, CFile::modeRead | CFile::shareDenyWrite | CFile::osSequentialScan ) )
 	{
-		CreateDefault();
-		return FALSE;
-	}
+		try
+		{
+			CArchive ar( &pFile, CArchive::load );	// 4 KB buffer
+			try
+			{
+				CQuickLock oLock( m_pSection );
 
-	try
-	{
-		CArchive ar( &pFile, CArchive::load );	// 4 KB buffer
-		Serialize( ar );
-		ar.Close();
-	}
-	catch ( CException* pException )
-	{
+				Serialize( ar );
+				ar.Close();
+
+				bSuccess = TRUE;	// Success
+			}
+			catch ( CException* pException )
+			{
+				ar.Abort();
+				pFile.Abort();
+				pException->Delete();
+			}
+		}
+		catch ( CException* pException )
+		{
+			pFile.Abort();
+			pException->Delete();
+		}
+
 		pFile.Close();
-		pException->Delete();
-		CreateDefault();
-		return FALSE;
 	}
 
-	if ( GetCount() == 0 ) CreateDefault();
+	if ( ! bSuccess )
+		theApp.Message( MSG_ERROR, _T("Failed to load upload queues: %s"), strFile );
+
+	if ( GetCount() == 0 )
+		CreateDefault();
 
 	Validate();
 
@@ -480,39 +495,48 @@ BOOL CUploadQueues::Load()
 
 BOOL CUploadQueues::Save()
 {
-	CQuickLock oLock( m_pSection );
+	CString strFile = Settings.General.UserPath + _T("\\Data\\UploadQueues.dat");
+	CString strTemp = Settings.General.UserPath + _T("\\Data\\UploadQueues.tmp");
 
 	CFile pFile;
-	CString strFile = Settings.General.UserPath + _T("\\Data\\UploadQueues.dat");
-
-	if ( ! pFile.Open( strFile, CFile::modeWrite|CFile::modeCreate ) )
-		return FALSE;
-
-	try
+	if ( pFile.Open( strTemp, CFile::modeWrite | CFile::modeCreate | CFile::shareExclusive | CFile::osSequentialScan ) )
 	{
-		CArchive ar( &pFile, CArchive::store );	// 4 KB buffer
 		try
 		{
-			Serialize( ar );
-			ar.Close();
+			CArchive ar( &pFile, CArchive::store );	// 4 KB buffer
+			try
+			{
+				{
+					CQuickLock oLock( m_pSection );
+
+					Serialize( ar );
+					ar.Close();
+				}
+
+				if ( MoveFileEx( strTemp, strFile, MOVEFILE_COPY_ALLOWED | MOVEFILE_REPLACE_EXISTING ) )
+					return TRUE;	// Success
+			}
+			catch ( CException* pException )
+			{
+				ar.Abort();
+				pFile.Abort();
+				pException->Delete();
+				return FALSE;
+			}
 		}
 		catch ( CException* pException )
 		{
-			ar.Abort();
 			pFile.Abort();
 			pException->Delete();
 			return FALSE;
 		}
+
 		pFile.Close();
-	}
-	catch ( CException* pException )
-	{
-		pFile.Abort();
-		pException->Delete();
-		return FALSE;
+		DeleteFile( strTemp );
 	}
 
-	return TRUE;
+	theApp.Message( MSG_ERROR, _T("Failed to save upload queues: %s"), strFile );
+	return FALSE;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -561,6 +585,8 @@ void CUploadQueues::Serialize(CArchive& ar)
 void CUploadQueues::CreateDefault()
 {
 	CQuickLock oLock( m_pSection );
+
+	theApp.Message( MSG_NOTICE, _T("Creating default upload queues") );
 
 	CUploadQueue* pQueue = NULL;
 

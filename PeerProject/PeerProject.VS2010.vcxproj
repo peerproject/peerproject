@@ -38,6 +38,7 @@
     <UseOfMfc>Static</UseOfMfc>
     <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
+    <!--<PlatformToolset>v90</PlatformToolset>-->
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -53,7 +54,7 @@
     <UseOfMfc>Static</UseOfMfc>
     <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <PlatformToolset>v90</PlatformToolset>
+    <!--<PlatformToolset>v90</PlatformToolset>-->
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -991,6 +992,7 @@
     <ClCompile Include="WizardSharePage.cpp" />
     <ClCompile Include="WizardSheet.cpp" />
     <ClCompile Include="WizardWelcomePage.cpp" />
+    <ClInclude Include="..\Services\MainlineDHT\dht.c" />
     <ClCompile Include="Hashes\HashDescriptors.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\StdAfx.h</PrecompiledHeaderFile>
@@ -1662,6 +1664,7 @@
     <ClInclude Include="..\Services\Augment\auto_array.hpp" />
     <ClInclude Include="..\Services\Augment\auto_ptr.hpp" />
     <ClInclude Include="..\Services\Augment\IUnknownImplementation.hpp" />
+    <ClInclude Include="..\Services\MainlineDHT\dht.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HashLib\HashLib.VS2010.vcxproj">

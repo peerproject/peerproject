@@ -1,7 +1,7 @@
 //
 // DocReader.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions Copyright Shareaza Development Team, 2002-2005.
 // Originally Created by:	Rolandas Rudomanskis
 //
@@ -23,7 +23,7 @@
 #pragma once
 
 #include "Resource.h"
-#include "DocumentReader.h"
+#include "DocumentReader.h"		// Generated
 
 // CDocReader
 
@@ -115,7 +115,7 @@ protected:
 
 			// Internal Functions
 			HRESULT LoadProperties(IPropertySetStorage* pPropSS, BOOL fIsReadOnly, dsoFileOpenOptions dwFlags);
-			HRESULT ReadProperty(CDocProperty* pPropList, PROPID pid, VARTYPE vt, void** ppv);
+			HRESULT ReadProperty(CDocProperty* pPropList, PROPID pid, VARTYPE vt, void* pv);
 			HRESULT WriteProperty(CDocProperty** ppPropList, PROPID pid, VARTYPE vt, void* pv);
 			CDocProperty* GetPropertyFromList(CDocProperty* plist, PROPID id, BOOL fAppendNew);
 			HRESULT SaveProperties(BOOL fCommitChanges);
@@ -123,31 +123,31 @@ protected:
 			void Disconnect();
 
 		private:
-			IPropertySetStorage*    m_pPropSetStg;  // Property Set Storage
-			dsoFileOpenOptions      m_dwFlags;      // Open Flags
-			BOOL		            m_fReadOnly;    // Should be read-only?
-			BOOL                    m_fExternal;    // Does object have external ref count?
-			BOOL                    m_fDeadObj;     // Is object still connected?
-			CDocProperty*			m_pSummPropList;// List of Summary Properties
-			CDocProperty*			m_pDocPropList; // List of Doc Summary Properties
-			WORD                    m_wCodePageSI;  // Code Page for SummPropList
-			WORD                    m_wCodePageDSI; // Code Page for DocPropList
+			IPropertySetStorage*	m_pPropSetStg;	// Property Set Storage
+			dsoFileOpenOptions		m_dwFlags;		// Open Flags
+			BOOL					m_fReadOnly;	// Should be read-only?
+			BOOL					m_fExternal;	// Does object have external ref count?
+			BOOL					m_fDeadObj; 	// Is object still connected?
+			CDocProperty*			m_pSummPropList; // List of Summary Properties
+			CDocProperty*			m_pDocPropList;	 // List of Doc Summary Properties
+			WORD					m_wCodePageSI;	// Code Page for SummPropList
+			WORD					m_wCodePageDSI;	// Code Page for DocPropList
 		};
 
-		CSummaryProperties*			m_pSummProps;   // Summary Properties Object
+		CSummaryProperties*			m_pSummProps;	// Summary Properties Object
 
 		// Implementation
 		HRESULT Open(BSTR sFileName, VARIANT_BOOL ReadOnly, dsoFileOpenOptions Options);
 		HRESULT Close(VARIANT_BOOL SaveBeforeClose);
+		HRESULT Save();
 		HRESULT get_IsReadOnly(VARIANT_BOOL* pbReadOnly);
 		HRESULT get_IsDirty(VARIANT_BOOL* pbDirty);
-		HRESULT Save();
 		HRESULT get_Icon(IDispatch** ppicIcon);
 		HRESULT get_Name(BSTR* pbstrName);
 		HRESULT get_Path(BSTR* pbstrPath);
-		HRESULT get_IsOleFile(VARIANT_BOOL* pIsOleFile);
 		HRESULT get_CLSID(BSTR* pbstrCLSID);
 		HRESULT get_ProgID(BSTR* pbstrProgID);
+		HRESULT get_IsOleFile(VARIANT_BOOL* pIsOleFile);
 		HRESULT get_OleDocumentFormat(BSTR* pbstrFormat);
 		HRESULT get_OleDocumentType(BSTR* pbstrType);
 
@@ -155,13 +155,13 @@ protected:
 		HRESULT get_SummaryProperties(CSummaryProperties** ppSummaryProperties);
 
 	private:
-		BSTR				    m_bstrFileName; // Filename of open document
-		ULONG				    m_cFilePartIdx; // Path/Name Index
-		IStorage*				m_pStorage;     // IStorage document pointer
-		IPropertySetStorage*    m_pPropSetStg;  // Property Set Storage
-		dsoFileOpenOptions      m_dwFlags;      // Open Flags
-		BOOL		            m_fReadOnly;    // Should be read-only?
-		WORD                    m_wCodePage;    // Code Page for MBCS/Unicode translation
+		BSTR					m_bstrFileName;		// Filename of open document
+		ULONG					m_cFilePartIdx;		// Path/Name Index
+		IStorage*				m_pStorage; 		// IStorage document pointer
+		IPropertySetStorage*	m_pPropSetStg;		// Property Set Storage
+		dsoFileOpenOptions		m_dwFlags;			// Open Flags
+		BOOL					m_fReadOnly;		// Should be read-only?
+		WORD					m_wCodePage;		// Code Page for MBCS/Unicode translation
 	};
 
 public:
@@ -181,12 +181,11 @@ public:
 	static LPCWSTR	ooCalcExt;
 	static LPCWSTR	ooImpressExt;
 
-	// ILibraryBuilderPlugin Methods
 public:
+	// ILibraryBuilderPlugin Methods
 	STDMETHOD(Process)(BSTR sFile, ISXMLElement* pXML);
 
 	// IImageServicePlugin Methods
-public:
 	STDMETHOD(LoadFromFile)(BSTR sFile, IMAGESERVICEDATA* pParams, SAFEARRAY** ppImage);
 	STDMETHOD(LoadFromMemory)(BSTR sType, SAFEARRAY* pMemory, IMAGESERVICEDATA* pParams, SAFEARRAY** ppImage);
 	STDMETHOD(SaveToFile)(BSTR sFile, IMAGESERVICEDATA* pParams, SAFEARRAY* pImage);
@@ -200,10 +199,8 @@ private:
 	STDMETHOD(GetOOThumbnail)(BSTR bsFile, IMAGESERVICEDATA* pParams, SAFEARRAY** ppImage);
 	CComBSTR GetMetadataXML(unzFile pFile, char* pszFile);
 
-	HBITMAP GetBitmapFromMetaFile(PICTDESC pds, int nResolution,
-		WORD wBitsPerSample, BITMAPINFO **ppBI);
-	HBITMAP GetBitmapFromEnhMetaFile(PICTDESC pds, int nResolution,
-		WORD wBitsPerSample, BITMAPINFO **ppBI);
+	HBITMAP GetBitmapFromMetaFile(PICTDESC pds, int nResolution, WORD wBitsPerSample, BITMAPINFO **ppBI);
+	HBITMAP GetBitmapFromEnhMetaFile(PICTDESC pds, int nResolution, WORD wBitsPerSample, BITMAPINFO **ppBI);
 public:
 	LPWSTR GetDocumentFormat(LPCWSTR pszExt);
 	LPWSTR GetSchema(BSTR sFile, LPCWSTR pszExt);

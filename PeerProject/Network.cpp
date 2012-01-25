@@ -560,6 +560,13 @@ BOOL CNetwork::IsFirewalledAddress(const IN_ADDR* pAddress, BOOL bIncludeSelf) c
 	return FALSE;
 }
 
+// Get external incoming port (in host byte order)
+
+WORD CNetwork::GetPort() const
+{
+	return m_pHost.sin_port ? ntohs( m_pHost.sin_port ) : (WORD)Settings.Connection.InPort;
+}
+
 // Returns TRUE if the IP address is reserved.
 // Private addresses are treated as reserved when Connection.IgnoreLocalIP = TRUE.
 // The code is based on nmap code and updated according to

@@ -22,6 +22,17 @@
 
 class CBENode;
 
+// http://wiki.theory.org/BitTorrentSpecification
+
+#define BT_PROTOCOL_HEADER			"\023BitTorrent protocol"
+#define BT_PROTOCOL_HEADER_LEN		20
+
+// Protocol flags					   7 6 5 4 3 2 1 0
+#define BT_FLAG_EXTENSION			0x0000100000000000ui64
+#define BT_FLAG_DHT_PORT			0x0100000000000000ui64
+#define BT_FLAG_FAST_PEERS			0x0400000000000000ui64
+#define BT_FLAG_NAT_TRAVERSAL		0x0800000000000000ui64
+
 //
 // Packet Types
 //
@@ -62,14 +73,18 @@ class CBENode;
 
 const LPCSTR BT_DICT_ADDED			= "added";
 const LPCSTR BT_DICT_ADDED_F		= "added.f";
-const LPCSTR BT_DICT_DATA			= "a";
+const LPCSTR BT_DICT_ANNOUNCE_PEER	= "announce_peer";
 const LPCSTR BT_DICT_COMPLETE		= "complete";
+const LPCSTR BT_DICT_DATA			= "a";
 const LPCSTR BT_DICT_DOWNLOADED		= "downloaded";
 const LPCSTR BT_DICT_DROPPED		= "dropped";
 const LPCSTR BT_DICT_ERROR			= "e";
+const LPCSTR BT_DICT_ERROR_LONG		= "error";
+const LPCSTR BT_DICT_EXT_MSG		= "m";					// Dictionary of supported extension messages
 const LPCSTR BT_DICT_FAILURE		= "failure reason";
 const LPCSTR BT_DICT_FILES			= "files";
-const LPCSTR BT_DICT_EXT_MSG		= "m";					// Dictionary of supported extension messages
+const LPCSTR BT_DICT_FIND_NODE		= "find_node";
+const LPCSTR BT_DICT_GET_PEERS		= "get_peers";
 const LPCSTR BT_DICT_ID				= "id";
 const LPCSTR BT_DICT_INCOMPLETE		= "incomplete";
 const LPCSTR BT_DICT_INTERVAL		= "interval";
@@ -79,12 +94,13 @@ const LPCSTR BT_DICT_MSG_TYPE		= "msg_type";
 const LPCSTR BT_DICT_NAME			= "name";
 const LPCSTR BT_DICT_NICKNAME		= "nickname";
 const LPCSTR BT_DICT_NODES			= "nodes";
+const LPCSTR BT_DICT_PEERS			= "peers";
 const LPCSTR BT_DICT_PEER_ID		= "peer id";
 const LPCSTR BT_DICT_PEER_IP		= "ip";
 const LPCSTR BT_DICT_PEER_PORT		= "port";
 const LPCSTR BT_DICT_PEER_URL		= "url";
-const LPCSTR BT_DICT_PEERS			= "peers";
 const LPCSTR BT_DICT_PIECE			= "piece";
+const LPCSTR BT_DICT_PING			= "ping";
 const LPCSTR BT_DICT_PORT			= "p";					// Local TCP listen port
 const LPCSTR BT_DICT_QUERY			= "q";
 const LPCSTR BT_DICT_RESPONSE		= "r";
@@ -94,7 +110,7 @@ const LPCSTR BT_DICT_TOTAL_SIZE		= "total_size";
 const LPCSTR BT_DICT_TRANSACT_ID	= "t";
 const LPCSTR BT_DICT_TRACKERS		= "tr";					// Tracker List hash
 const LPCSTR BT_DICT_TYPE			= "y";
-const LPCSTR BT_DICT_YOURIP			= "yourip";				// External IP (IPv4 or IPv6)
+const LPCSTR BT_DICT_YOURIP			= "yourip";				// External IP (IPv4 or IPv6?)
 const LPCSTR BT_DICT_UPLOAD_ONLY	= "upload_only";		// Partial Seed
 const LPCSTR BT_DICT_USER_AGENT		= "user-agent";
 const LPCSTR BT_DICT_UT_METADATA	= "ut_metadata";
@@ -165,8 +181,8 @@ public:
 	// Packet handler
 	virtual BOOL OnPacket(const SOCKADDR_IN* pHost);
 
-	BOOL OnPing(const SOCKADDR_IN* pHost);
-	BOOL OnError(const SOCKADDR_IN* pHost);
+//	BOOL OnPing(const SOCKADDR_IN* pHost);
+//	BOOL OnError(const SOCKADDR_IN* pHost);
 
 	friend class CBTPacket::CBTPacketPool;
 
@@ -197,3 +213,15 @@ typedef struct
 } BT_PIECE_HEADER;
 
 #pragma pack(pop)
+
+
+// Services/MainlineDHT
+namespace DHT
+{
+void Connect();
+void Disconnect();
+void Search(const Hashes::BtHash& oBTH);
+void Ping(const SOCKADDR_IN* pHost);
+void OnPacket(const SOCKADDR_IN* pHost, CBTPacket* pPacket);
+void OnRun();
+};

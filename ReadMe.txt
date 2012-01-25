@@ -2,7 +2,7 @@ PeerProject Compiling Notes:
 ___________________________
 
 
-0. This sourcecode package is self-contained.  Only Microsoft Visual Studio is supported.
+0. This sourcecode package is self-contained, no setup required.  Only Microsoft Visual Studio is supported.
 
 
 1. Install Visual Studio 2010
@@ -37,7 +37,7 @@ X. Install Visual C++ Express + Windows SDK + WDK
 	- To add MFC in VC2008 go to:  Tools > Options > Projects and Solutions > VC++ Directories > (See dropdown at upper-right)
 	--  In "Include Directories" add to top:  c:\<WDK>\inc\atl71  and  c:\<WDK>\inc\mfc42  and  c:\<Win7 SDK>\Include
 	--  In "Library Directores"  add to end:  c:\<WDK>\lib\ATL\i386  and  c:\<WDK>\lib\MFC\i386  (Use actual paths)
-
+	- Uncomment "//#define VCEXPRESS" early in file StdAfx.h	-Note MFC file afxocc.h is still missing
 
 
 

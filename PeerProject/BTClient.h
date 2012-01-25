@@ -1,7 +1,7 @@
 //
 // BTClient.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -41,6 +41,7 @@ public:
 	CDownloadTransferBT* m_pDownloadTransfer;
 	CDownload*			m_pDownload;
 	BOOL				m_bExtended;		// Extension Protocol support
+	BOOL				m_bDHTPort;			// DHT Port support
 	BOOL				m_bSeeder;
 	BOOL				m_bPrefersEncryption;
 
@@ -69,6 +70,7 @@ public:
 	void			SendInfoRequest(QWORD nPiece);
 	void			SendUtPex(DWORD tConnectedAfter = 0);
 	void			SendLtTex();
+	void			SendDHTPort();
 	void			SendSourceRequest();					// Send extended client source (PeerProject/Shareaza) BT_PACKET_SOURCE_REQUEST
 	void			SendBeHandshake();						// Send extended client handshake (PeerProject/Shareaza)
 	BOOL			OnHandshake1();							// First part of handshake
