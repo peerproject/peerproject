@@ -167,9 +167,9 @@ BOOL CWizardConnectionPage::OnInitDialog()
 	m_bRandom = ( Settings.Connection.RandomPort == true );
 	m_nPort	= Settings.Connection.InPort;
 
-	if ( Settings.Live.FirstRun && m_nPort == GNUTELLA_DEFAULT_PORT )
+	if ( Settings.Live.FirstRun && m_nPort == protocolPorts[ PROTOCOL_G2 ] )
 	{
-		m_nPort	= GNUTELLA_ALTERNATE_PORT;		// Substitute Non-standard Port (6480)
+		m_nPort	= protocolPorts[ PROTOCOL_NULL ];		// Substitute Non-standard Port (6480)
 
 		// Obsolete check:
 		//CString sRegName = _T("InPort");
@@ -398,7 +398,7 @@ void CWizardConnectionPage::OnRun()
 		LoadString( strMessage, IDS_WIZARD_ED2K );
 		m_wndStatus.SetWindowText( strMessage );
 
-		HostCache.CheckMinimumServers();
+		HostCache.CheckMinimumServers( PROTOCOL_ED2K );
 		nCurrentStep +=30;
 		m_wndProgress.PostMessage( PBM_SETPOS, nCurrentStep );
 		Sleep(10);	// Mixed text bugfix?
@@ -472,7 +472,6 @@ void CWizardConnectionPage::OnTimer(UINT_PTR nIDEvent)
 		AfxMessageBox( strMessage, MB_ICONINFORMATION );
 	}
 }
-
 
 CString CWizardConnectionPage::SpeedFormat(const double nSpeed) const
 {

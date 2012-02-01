@@ -1,7 +1,7 @@
 //
 // DownloadTransfer.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -196,8 +196,8 @@ CString CDownloadTransfer::GetStateText(BOOL bLong)
 		}
 		else if ( ! m_sQueueName.IsEmpty() )
 		{
-			str.Format( _T("%s: %s: %i %s %i"), (LPCTSTR)strQueued,
-				(LPCTSTR)m_sQueueName, m_nQueuePos, (LPCTSTR)strOf, m_nQueueLen );
+			str.Format( ( m_nQueueLen ? _T("%s: %s: %i %s %i") : _T("%s %s #%i") ),
+				(LPCTSTR)strQueued, (LPCTSTR)m_sQueueName, m_nQueuePos, (LPCTSTR)strOf, m_nQueueLen );
 		}
 		else
 		{
@@ -261,11 +261,11 @@ void CDownloadTransfer::SetState(int nState)
 					else
 						m_pSource->m_nSortOrder = 10;
 				}
-				m_pSource->m_nSortOrder <<=  8;					// Sort by state
+				m_pSource->m_nSortOrder <<= 8;					// Sort by state
 
 				if ( m_nProtocol != PROTOCOL_HTTP )
 					m_pSource->m_nSortOrder += ( m_nProtocol & 0xFF );
-				m_pSource->m_nSortOrder <<=  16;				// Then protocol
+				m_pSource->m_nSortOrder <<= 16;					// Then protocol
 
 				if ( nState == dtsQueued )						// Then queue postion
 					m_pSource->m_nSortOrder += min( m_nQueuePos, 10000lu ) & 0xFFFFlu;

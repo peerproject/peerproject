@@ -1,7 +1,7 @@
 //
 // PageSettingsUploads.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -352,13 +352,13 @@ void CUploadsSettingsPage::OnOK()
 
 	DWORD nOldLimit = Settings.Bandwidth.Uploads;
 
-	Settings.Uploads.MaxPerHost			= m_nMaxPerHost;
-	Settings.Uploads.HubUnshare			= m_bHubUnshare != FALSE;
-	Settings.Uploads.SharePartials		= m_bSharePartials != FALSE;
-	Settings.Uploads.SharePreviews		= m_bSharePreviews != FALSE;
-	Settings.Uploads.ThrottleMode		= m_bThrottleMode != FALSE;
-	Settings.Uploads.FairUseMode		= m_bFairUseMode != FALSE;
-	Settings.Bandwidth.Uploads			= static_cast< DWORD >( Settings.ParseVolume( m_sBandwidthLimit ) );
+	Settings.Uploads.MaxPerHost		= m_nMaxPerHost;
+	Settings.Uploads.HubUnshare		= m_bHubUnshare != FALSE;
+	Settings.Uploads.SharePartials	= m_bSharePartials != FALSE;
+	Settings.Uploads.SharePreviews	= m_bSharePreviews != FALSE;
+	Settings.Uploads.ThrottleMode	= m_bThrottleMode != FALSE;
+	Settings.Uploads.FairUseMode	= m_bFairUseMode != FALSE;
+	Settings.Bandwidth.Uploads		= static_cast< DWORD >( Settings.ParseVolume( m_sBandwidthLimit ) );
 
 
 	// Warn the user about the effects of upload limiting
@@ -443,10 +443,7 @@ void CUploadsSettingsPage::OnShowWindow(BOOL bShow, UINT nStatus)
 
 bool CUploadsSettingsPage::IsLimited(CString& strText) const
 {
-	if ( ( _tcslen( strText ) == 0 ) ||
-		 ( _tcsistr( strText, _T("MAX") ) != NULL ) ||
-		 ( _tcsistr( strText, _T("NONE") ) != NULL ) )
-		return false;
-
-	return true;
+	return ! ( strText.IsEmpty() ||
+		( _tcsistr( strText, _T("MAX") ) != NULL ) ||
+		( _tcsistr( strText, _T("NONE") ) != NULL ) );
 }

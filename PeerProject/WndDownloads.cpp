@@ -448,8 +448,8 @@ void CDownloadsWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 	CSingleLock pLock( &Transfers.m_pSection );
 	if ( ! pLock.Lock( 1000 ) ) return;
 
-	CDownloadSource* pSource;
 	CDownload* pDownload;
+	CDownloadSource* pSource;
 
 	if ( m_wndDownloads.HitTest( ptLocal, &pDownload, &pSource, NULL, NULL ) )
 	{

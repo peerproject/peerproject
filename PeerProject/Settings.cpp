@@ -285,7 +285,7 @@ void CSettings::Load()
 	Add( _T("Connection"), _T("IgnoreOwnUDP"), &Connection.IgnoreOwnUDP, true );
 	Add( _T("Connection"), _T("InBind"), &Connection.InBind, false );
 	Add( _T("Connection"), _T("InHost"), &Connection.InHost );
-	Add( _T("Connection"), _T("InPort"), &Connection.InPort, GNUTELLA_ALTERNATE_PORT, 1, 1, 65535 );	// 6480... or GNUTELLA_DEFAULT_PORT 6346?
+	Add( _T("Connection"), _T("InPort"), &Connection.InPort, protocolPorts[ PROTOCOL_NULL ], 1, 1, 65535 );	// 6480... or 6346?
 	Add( _T("Connection"), _T("InSpeed"), &Connection.InSpeed, 4096, 25000 );
 	Add( _T("Connection"), _T("OutHost"), &Connection.OutHost );
 	Add( _T("Connection"), _T("OutSpeed"), &Connection.OutSpeed, 768, 15000 );
@@ -342,7 +342,8 @@ void CSettings::Load()
 	Add( _T("Gnutella"), _T("HitsPerPacket"), &Gnutella.HitsPerPacket, 8, 1, 1, 255, _T(" files") );
 	Add( _T("Gnutella"), _T("MaxResults"), &Gnutella.MaxResults, 150, 1, 1, 300, _T(" hits") );
 	Add( _T("Gnutella"), _T("MaxHits"), &Gnutella.MaxHits, 64, 1, 0, 4096, _T(" files") );
-	Add( _T("Gnutella"), _T("MaxHitWords"), &Gnutella.MaxHitWords, 30, 1, 2, 100, _T(" words") );
+	Add( _T("Gnutella"), _T("MaxHitWords"), &Gnutella.MaxHitWords, 30, 1, 3, 100, _T(" words") );
+	Add( _T("Gnutella"), _T("MaxHitLength"), &Gnutella.MaxHitLength, 180, 1, 50, 255, _T(" chars") );
 	Add( _T("Gnutella"), _T("MaximumPacket"), &Gnutella.MaximumPacket, 64*KiloByte, KiloByte, 32, 256, _T(" KB") );
 	Add( _T("Gnutella"), _T("RouteCache"), &Gnutella.RouteCache, 600, 60, 1, 120, _T(" m") );
 	Add( _T("Gnutella"), _T("SpecifyProtocol"), &Gnutella.SpecifyProtocol, true );
@@ -534,7 +535,7 @@ void CSettings::Load()
 	Add( _T("Downloads"), _T("StaggardStart"), &Downloads.StaggardStart, false );
 	Add( _T("Downloads"), _T("StartDroppingFailedSourcesNumber"), &Downloads.StartDroppingFailedSourcesNumber, 20, 1, 0, 50 );
 	Add( _T("Downloads"), _T("StarveGiveUp"), &Downloads.StarveGiveUp, 3, 1, 3, 120, _T(" h") );
-	Add( _T("Downloads"), _T("StarveTimeout"), &Downloads.StarveTimeout, 45*60*1000, 60*1000, 30, 24*60, _T(" m") );
+	Add( _T("Downloads"), _T("StarveTimeout"), &Downloads.StarveTimeout, 30*60*1000, 60*1000, 20, 24*60, _T(" m") );
 	Add( _T("Downloads"), _T("VerifyED2K"), &Downloads.VerifyED2K, true );
 	Add( _T("Downloads"), _T("VerifyFiles"), &Downloads.VerifyFiles, true );
 	Add( _T("Downloads"), _T("VerifyTiger"), &Downloads.VerifyTiger, true );
@@ -614,7 +615,7 @@ void CSettings::Load()
 		Item* pItem = m_pItems.GetNext( pos );
 		pItem->Load();
 		CString strPath;
-		if ( _tcslen( pItem->m_szSection ) > 0 )
+		if ( *pItem->m_szSection )	//_tcslen( pItem->m_szSection ) > 0
 			strPath.AppendFormat( L"%s.%s", pItem->m_szSection, pItem->m_szName );
 		else
 			strPath.AppendFormat( L"General.%s", pItem->m_szName );
@@ -1441,7 +1442,7 @@ const CString CSettings::SmartSpeed(QWORD nVolume, int nVolumeUnits, bool bTrunc
 
 	// bits - Bytes
 	case 1:
-		strVolume.Format( _T("%I64i %s"), nVolume, strUnit );
+		strVolume.Format( _T("%I64u %s"), nVolume, strUnit );
 		break;
 
 	// Kilobits - KiloBytes
@@ -1484,7 +1485,7 @@ const CString CSettings::SmartVolume(QWORD nVolume, int nVolumeUnits, bool bTrun
 	case Bytes:
 		if ( nVolume < KiloByte )					// bits - Bytes
 		{
-			strVolume.Format( _T("%I64i %s"), nVolume, strUnit );
+			strVolume.Format( _T("%I64u %s"), nVolume, strUnit );
 			break;
 		}
 		else if ( nVolume < 10*KiloByte )			// 10 Kilobits - KiloBytes
@@ -1502,7 +1503,7 @@ const CString CSettings::SmartVolume(QWORD nVolume, int nVolumeUnits, bool bTrun
 	case Kilobits:
 	case KiloBytes:
 		if ( nVolume < KiloByte )					// Kilo
-			strVolume.Format( _T("%I64i K%s"), nVolume, strUnit );
+			strVolume.Format( _T("%I64u K%s"), nVolume, strUnit );
 		else if ( nVolume < MegaFloat )				// Mega
 		{
 			if ( ! bTruncate )

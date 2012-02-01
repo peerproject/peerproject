@@ -1,7 +1,7 @@
 //
 // SharedFile.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -22,13 +22,13 @@
 #include "Schema.h"
 
 class CLibraryFolder;
-class CSharedSource;
 class CXMLElement;
+class CSharedSource;
 class CQuerySearch;
 class CLibraryDownload;
+class CDownload;
 class CTigerTree;
 class CED2K;
-class CDownload;
 
 
 class CLibraryFile : public CPeerProjectFile
@@ -135,8 +135,7 @@ public:
 	// $meta:magnet$	- file magnet-link
 	// $meta:number$	- file number in string array
 	// Unknown variables will be replaced by "N/A" string.
-	// Adds file data to string array using template.
-	//BOOL			PrepareDoc(LPCTSTR pszTemplate, CArray< CString >& oDocs);
+	BOOL			PrepareDoc(LPCTSTR pszTemplate, CArray< CString >& oDocs);
 
 	inline CString GetNameLC() const
 	{

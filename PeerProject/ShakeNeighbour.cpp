@@ -1,7 +1,7 @@
 //
 // ShakeNeighbour.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -361,10 +361,10 @@ void CShakeNeighbour::SendPublicHeaders()
 		Write( _P("X-Dynamic-Querying: 0.1\r\n") );
 		Write( _P("X-Ext-Probes: 0.1\r\n") );
 
-		strHeader.Format( _T("X-Degree: %d\r\n"), Settings.Gnutella1.NumPeers );
+		strHeader.Format( _T("X-Degree: %u\r\n"), Settings.Gnutella1.NumPeers );
 		Write( strHeader );
 
-		strHeader.Format( _T("X-Max-TTL: %d\r\n"), Settings.Gnutella1.SearchTTL );
+		strHeader.Format( _T("X-Max-TTL: %u\r\n"), Settings.Gnutella1.SearchTTL );
 		Write( strHeader );
 	}
 }
@@ -746,7 +746,7 @@ BOOL CShakeNeighbour::OnHeaderLine(CString& strHeader, CString& strValue)
 			if ( nColon > 0 )	// There is a colon and it's not at the start of the text
 			{
 				// Save the default Gnutella port, 6346, in nPort to use it if we can't read the port number from the header value text
-				int nPort = GNUTELLA_DEFAULT_PORT;
+				int nPort = protocolPorts[ PROTOCOL_G1 ];
 
 				// Mid clips the strValue text from beyond the colon to the end
 				// _stscanf is like scanf, and %1u means read the text as a long unsigned number
@@ -1420,15 +1420,15 @@ BOOL CShakeNeighbour::OnHeadersCompleteG1()
 			return FALSE;									// Delete this object
 		}
 
-		if ( ( m_nNodeType == ntHub  && Settings.Gnutella1.ClientMode == MODE_ULTRAPEER ) ||	// This connection is up to a hub, and we are a hub
-				  ( m_nNodeType == ntLeaf && Settings.Gnutella1.ClientMode == MODE_LEAF ) ) 		// Or, this connection is down to a leaf like us
+		if ( ( m_nNodeType == ntHub && Settings.Gnutella1.ClientMode == MODE_ULTRAPEER ) ||	// This connection is up to a hub, and we are a hub
+			 ( m_nNodeType == ntLeaf && Settings.Gnutella1.ClientMode == MODE_LEAF ) )		// Or, this connection is down to a leaf like us
 		{
 			// Both in the same role on the network should never happen, tell the remote computer we can't connect
 			SendHostHeaders( _P("GNUTELLA/0.6 503 Ultrapeer disabled") );
 			DelayClose( IDS_HANDSHAKE_NOULTRAPEER );		// Send the buffer then close the socket
 			return FALSE;									// Delete this object
 		}
-		else if ( m_nNodeType != ntHub && Settings.Gnutella1.ClientMode == MODE_LEAF )
+		if ( m_nNodeType != ntHub && Settings.Gnutella1.ClientMode == MODE_LEAF )
 		{
 			// Another nonsense combination that should never happen, tell the remote computer we can't connect
 			SendHostHeaders( _P("GNUTELLA/0.6 503 Need an Ultrapeer") );
@@ -1571,7 +1571,7 @@ void CShakeNeighbour::OnHandshakeComplete()
 
 	if ( pNeighbour == NULL )
 	{
-	//	theApp.Message( MSG_DEBUG, _T("Memory allocation error making new connection from CShakeNeighbour.") );
+		//theApp.Message( MSG_DEBUG, _T("Memory allocation error making new connection from CShakeNeighbour.") );
 	}
 	else if ( m_nNodeType == ntHub )		// This connection is to a hub above us
 	{

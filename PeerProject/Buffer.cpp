@@ -1,7 +1,7 @@
 //
 // Buffer.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -359,11 +359,8 @@ BOOL CBuffer::StartsWith(LPCSTR pszString, const size_t nLength, const BOOL bRem
 	if ( m_nLength < nLength ) return FALSE;
 
 	// If the first characters in the buffer don't match those in the ASCII string, return false
-	if ( strncmp(			// Returns 0 if all the characters are the same
-		(LPCSTR)m_pBuffer,	// Look at the start of the buffer as ASCII text
-		(LPCSTR)pszString,	// The given text
-		nLength ) )			// Don't look too far into the buffer, we know it's long enough to hold the string
-		return FALSE;		// If one string would sort above another, the result is positive or negative
+	if ( strncmp( (LPCSTR)m_pBuffer, (LPCSTR)pszString, nLength ) != 0 )
+		return FALSE;
 
 	// If we got the option to remove the string if it matched, do it
 	if ( bRemove ) Remove( nLength );
@@ -835,7 +832,8 @@ BOOL CBuffer::UnBZip()
 			pOutBuf.m_nLength = nOutSize;
 			break;
 		}
-		else if ( err == BZ_OUTBUFF_FULL )
+
+		if ( err == BZ_OUTBUFF_FULL )
 			nOutSize *= 2;	// Insufficient output buffer
 		else
 			return FALSE;	// Decompression error

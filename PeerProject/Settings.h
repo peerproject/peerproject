@@ -341,7 +341,8 @@ public:
 		bool		DeflateHub2Leaf;
 		DWORD		MaxResults;				// Maximum new results we want on single Search button press
 		DWORD		MaxHits;				// Maximum file hits in search result (divided to packets by HitsPerPacket)
-		DWORD		MaxHitWords;			// Maximum number of words in a hit filename
+		DWORD		MaxHitWords;			// Maximum number of words in a hit filename  ~30
+		DWORD		MaxHitLength;			// Maximum number of chars in a hit filename  ~160
 		DWORD		MaximumPacket;			// Drop packets large than specified (32-256 KB)
 		DWORD		HitsPerPacket;			// Maximum file hits in single search result packet
 		DWORD		RouteCache;				// Life time of node route (seconds)
@@ -527,7 +528,7 @@ public:
 		DWORD		RetryDelay;
 		DWORD		SearchPeriod;
 		DWORD		StarveGiveUp;			// How long (in hours) before PeerProject will give up and try another download if it gets no data. (+ 0-9 h, depending on sources)
-		DWORD		StarveTimeout;
+		DWORD		StarveTimeout;			// How long (in ticks) PeerProject will starve without new downloaded data before trying to search for more sources
 		DWORD		PushTimeout;
 		bool		StaggardStart;
 		bool		AllowBackwards;			// Permit download to run in reverse when appropriate
@@ -903,8 +904,3 @@ enum
 {
 	CONNECTION_AUTO, CONNECTION_FIREWALLED, CONNECTION_OPEN, CONNECTION_OPEN_TCPONLY, CONNECTION_OPEN_UDPONLY
 };
-
-#define GNUTELLA_ALTERNATE_PORT	6480
-#define GNUTELLA_DEFAULT_PORT	6346
-#define ED2K_DEFAULT_PORT		4661
-#define DC_DEFAULT_PORT			411

@@ -674,9 +674,9 @@ void CSearchWnd::ExecuteSearch()
 			}
 			else
 			{
-				m_bPaused			= FALSE;
-				m_tSearch			= GetTickCount();
-				m_bWaitMore			= FALSE;
+				m_bPaused	= FALSE;
+				m_bWaitMore	= FALSE;
+				m_tSearch	= GetTickCount();
 
 				pManaged->Stop();
 				pManaged->Start();

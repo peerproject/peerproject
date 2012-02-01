@@ -1361,7 +1361,7 @@ BOOL CBTClient::OnMetadataRequest(CBTPacket* pPacket)
 				if ( m_nUtMetadataID )
 					SendMetadataRequest( nPiece );
 			}
-			else if ( nMsgType == UT_METADATA_DATA  && ! m_pDownload->m_pTorrent.m_pBlockBTH )
+			else if ( nMsgType == UT_METADATA_DATA && ! m_pDownload->m_pTorrent.m_pBlockBTH )
 			{
 				if ( CBENode* pTotalSize = pRoot->GetNode( BT_DICT_TOTAL_SIZE ) )	// "total_size"
 				{

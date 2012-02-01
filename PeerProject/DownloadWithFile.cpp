@@ -49,7 +49,7 @@ static char THIS_FILE[]=__FILE__;
 
 CDownloadWithFile::CDownloadWithFile()
 	: m_bVerify		( TRI_UNKNOWN )
-	, m_tReceived	( GetTickCount() )
+	, m_tReceived	( GetTickCount() - Settings.Downloads.StarveTimeout + Settings.Connection.TimeoutTraffic )
 	, m_pFile		( new CFragmentedFile )
 	, m_nFileError	( ERROR_SUCCESS )
 {
@@ -426,8 +426,9 @@ float CDownloadWithFile::GetProgress() const
 {
 	if ( m_nSize == 0 || m_nSize == SIZE_UNKNOWN ) return 0;
 	if ( IsMoving() ) return m_pTask->GetProgress();
-	if ( m_nSize == GetVolumeComplete() ) return 100.0f;
-	return float( GetVolumeComplete() * 10000 / m_nSize ) / 100.0f;
+	const QWORD nComplete = GetVolumeComplete();
+	if ( m_nSize == nComplete ) return 100.0f;
+	return float( nComplete * 10000 / m_nSize ) / 100.0f;
 }
 
 QWORD CDownloadWithFile::GetVolumeComplete() const
@@ -435,7 +436,11 @@ QWORD CDownloadWithFile::GetVolumeComplete() const
 	if ( m_pFile.get() )
 	{
 		if ( m_pFile->IsValid() )
-			return m_pFile->GetCompleted();
+		{
+			const QWORD nCompleted = m_pFile->GetCompleted();
+			if ( nCompleted != SIZE_UNKNOWN )
+				return nCompleted;
+		}
 
 		return 0;
 	}

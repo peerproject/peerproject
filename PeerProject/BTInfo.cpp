@@ -856,7 +856,7 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 						if ( ! StartsWith( strTracker, _T("http://"), 7 ) &&
 							 ! StartsWith( strTracker, _T("udp://"), 6 ) )					// ToDo: Handle rare HTTPS etc?
 							pBadTrackers.AddTail( BAD_TRACKER_TOKEN + strTracker );			// Store Unknown tracker for display (*https://)
-						else if ( strTracker.Find( _T("denis.stalker.h3q.com"), 6 ) > 6 ||
+						else if ( strTracker.Find( _T("denis.stalker.h3q.com"), 5 ) > 5 ||
 								  strTracker.Find( _T("piratebay.org"), 6 ) > 6 ||
 								  strTracker.Find( _T(".1337x."), 8 ) > 8 )
 							pBadTrackers.AddTail( BAD_TRACKER_TOKEN + strTracker );			// Store common dead trackers for display
@@ -1126,7 +1126,7 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 				else
 				{
 					// Check the path matches the .utf path
-					CString strCheck =  pPathPart->GetString();
+					CString strCheck = pPathPart->GetString();
 					if ( strPath != strCheck )
 						m_bEncodingError = true;
 					// Switch back to the UTF-8 path

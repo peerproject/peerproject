@@ -341,19 +341,7 @@ BOOL CNetwork::ConnectTo(LPCTSTR pszAddress, int nPort, PROTOCOLID nProtocol, BO
 		return FALSE;
 
 	if ( nPort <= 0 || nPort > USHRT_MAX )
-	{
-		switch ( nProtocol )
-		{
-		case PROTOCOL_ED2K:
-			nPort = ED2K_DEFAULT_PORT;
-			break;
-		case PROTOCOL_DC:
-			nPort = DC_DEFAULT_PORT;
-			break;
-		default:
-			nPort = GNUTELLA_DEFAULT_PORT;
-		}
-	}
+		nPort = protocolPorts[ ( nProtocol == PROTOCOL_ANY ) ? PROTOCOL_G2 : nProtocol ];
 
 	return AsyncResolve( pszAddress, (WORD)nPort, nProtocol, bNoUltraPeer ? 2 : 1 );
 }
@@ -1484,9 +1472,9 @@ void CNetwork::MapPorts()
 		hr = m_pNat->get_NATEventManager( &m_pNatManager );
 		if ( SUCCEEDED( hr ) && m_pNatManager )
 		{
-			hr = m_pNatManager->put_ExternalIPAddressCallback(
+			m_pNatManager->put_ExternalIPAddressCallback(
 				GetInterface( IID_INATExternalIPAddressCallback ) );
-			hr = m_pNatManager->put_NumberOfEntriesCallback(
+			m_pNatManager->put_NumberOfEntriesCallback(
 				GetInterface( IID_INATNumberOfEntriesCallback ) );
 
 			// Retrieve the mappings collection
@@ -1610,8 +1598,8 @@ void CNetwork::DeletePorts()
 			if ( SUCCEEDED( hr ) && pCollection )
 			{
 				// Unmap
-				hr = pCollection->Remove( Settings.Connection.InPort, CComBSTR( L"TCP" ) );
-				hr = pCollection->Remove( Settings.Connection.InPort, CComBSTR( L"UDP" ) );
+				pCollection->Remove( Settings.Connection.InPort, CComBSTR( L"TCP" ) );
+				pCollection->Remove( Settings.Connection.InPort, CComBSTR( L"UDP" ) );
 			}
 		}
 

@@ -1,7 +1,7 @@
 //
 // EDPacket.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -116,7 +116,6 @@ void CEDPacket::WriteLongEDString(LPCTSTR psz, BOOL bUnicode)
 void CEDPacket::WriteFile(const CPeerProjectFile* pPeerProjectFile, QWORD nSize,
 	const CEDClient* pClient, const CEDNeighbour* pServer, bool bPartial)
 {
-	ASSERT( pPeerProjectFile );
 	ASSERT( ( pClient && ! pServer ) || ( ! pClient && pServer ) );
 
 	const CLibraryFile* pFile = bPartial ?
@@ -411,7 +410,7 @@ void CEDPacket::Debug(LPCTSTR pszReason) const
 	if ( m_nType == ED2K_C2C_COMPRESSEDPART ) return;
 
 	CString strOutput;
-	strOutput.Format( L"[ED2K] %s Proto: 0x%x Type: %s", pszReason, int( m_nEdProtocol ), GetType() );
+	strOutput.Format( L"[ED2K] %s Proto: 0x%x Type: %s", pszReason, int( m_nEdProtocol ), (LPCTSTR)GetType() );
 	CPacket::Debug( strOutput );
 }
 #endif	// Debug

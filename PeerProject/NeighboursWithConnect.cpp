@@ -1,7 +1,7 @@
 //
 // NeighboursWithConnect.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -248,7 +248,7 @@ void CNeighboursWithConnect::PeerPrune(PROTOCOLID nProtocol)
 			// If we initiated the connection, we know it's not a leaf trying to contact us, it's probably a hub
 			if ( pNeighbour->m_bInitiated )
 			{
-				// If we dont' need any more hubs, on any protocol, drop this connection
+				// If we don't need any more hubs, on any protocol, drop this connection
 				if ( ! bNeedMoreAnyProtocol )
 					pNeighbour->Close( IDS_CONNECTION_PEERPRUNE );
 			}
@@ -400,7 +400,7 @@ DWORD CNeighboursWithConnect::IsG2HubCapable(BOOL bIgnoreTime, BOOL bDebug) cons
 	if ( bDebug )
 	{
 		CString strRating;
-		strRating.Format( _T("Hub rating: %d"), nRating );
+		strRating.Format( _T("Hub rating: %u"), nRating );
 		theApp.Message( MSG_DEBUG, strRating );
 	}
 
@@ -555,7 +555,7 @@ DWORD CNeighboursWithConnect::IsG1UltrapeerCapable(BOOL bIgnoreTime, BOOL bDebug
 	{
 		// Compose text that includes the rating, and show it in the user interface
 		CString strRating;
-		strRating.Format( _T("Ultrapeer rating: %d"), nRating );
+		strRating.Format( _T("Ultrapeer rating: %u"), nRating );
 		theApp.Message( MSG_DEBUG, strRating );
 	}
 
@@ -966,18 +966,9 @@ void CNeighboursWithConnect::Maintain()
 				if ( ! Network.ReadyToTransfer( tTimer ) ) return;
 			}
 
-			// Get a pointer to the host cache for the given protocol
-			CHostCacheList* pCache = HostCache.ForProtocol( nProtocol );
-
 			// We are going to try to connect to a computer running Gnutella or Gnutella2 software
 			DWORD nAttempt;
-			if ( nProtocol != PROTOCOL_ED2K )
-			{
-				// For Gnutella and Gnutella2, try connection to the number of free slots multiplied by the connect factor from settings
-				nAttempt = ( nLimit[ nProtocol ][ ntHub ] - nCount[ nProtocol ][ ntHub ] );
-				nAttempt *= Settings.Gnutella.ConnectFactor;
-			}
-			else
+			if ( nProtocol == PROTOCOL_ED2K )
 			{
 				// For ed2k we try one attempt at a time to begin with, but we can step up to
 				// 2 at a time after a few seconds if the FastConnect option is selected.
@@ -986,60 +977,75 @@ void CNeighboursWithConnect::Maintain()
 				else
 					nAttempt = 1;
 			}
-
-			// Lower the needed hub number to avoid hitting Windows XP Service Pack 2's half open connection limit
-			nAttempt = min( nAttempt, ( Settings.Downloads.MaxConnectingSources - 2 ) );
-
-			CQuickLock oLock( pCache->m_pSection );
-
-			// Handle priority servers
-			if ( nProtocol == PROTOCOL_ED2K || nProtocol == PROTOCOL_DC )
+			else if ( nProtocol == PROTOCOL_DC )
 			{
-				// Loop into the host cache until we have as many handshaking connections as we need hub connections
-				for ( CHostCacheIterator i = pCache->Begin() ;
-					i != pCache->End() && nCount[ nProtocol ][0] < nAttempt ;
-					++i )
-				{
-					CHostCacheHostPtr pHost = (*i);
-
-					// If we can connect to this host, try it, if it works, move into this if block
-					if ( pHost->m_bPriority &&			// This host in the host cache is marked as priority (do)
-						 pHost->CanConnect( tNow ) &&	// We can connect to this host now (do)
-						 pHost->ConnectTo( TRUE ) )		// Try to connect to this host now (do), if it works
-					{
-						// Make sure it's an eDonkey2000 computer we just connected to
-						ASSERT( pHost->m_nProtocol == nProtocol );
-
-						// Count that we now have one more eDonkey2000 connection, and we don't know if about its network role yet
-						nCount[ nProtocol ][0]++;
-
-						// Prevent queries while we connect with this computer (do)
-						pHost->m_tQuery = tNow;
-
-						// If settings wants to limit how frequently this method can run
-						if ( Settings.Connection.ConnectThrottle )
-						{
-							// Save the time we last made a connection as now, and leave
-							Network.m_tLastConnect = tTimer;
-							Downloads.m_tLastConnect = tTimer;
-							return;
-						}
-					}
-				}
+				// DC++ Slow connecting
+				nAttempt = 1;
+			}
+			else
+			{
+				// For Gnutella and Gnutella2, try connection to the number of free slots multiplied by the connect factor from settings
+				nAttempt = ( nLimit[ nProtocol ][ ntHub ] - nCount[ nProtocol ][ ntHub ] );
+				nAttempt *= Settings.Gnutella.ConnectFactor;
 			}
 
-			// If we need more connections for this network, get IP addresses from the host cache and try to connect to them
+			// Lower the needed hub number to avoid hitting Windows XP Service Pack 2's half open connection limit
+			nAttempt = min( nAttempt, ( Settings.Downloads.MaxConnectingSources - 1 ) );
+
+			CHostCacheList* pCache = HostCache.ForProtocol( nProtocol );
+
+			CSingleLock oLock( &pCache->m_pSection, FALSE );
+			if ( ! oLock.Lock( 250 ) )
+				return;
+
+
+			// Handle priority servers
+			// Loop into the host cache until we have as many handshaking connections as we need hub connections
 			for ( CHostCacheIterator i = pCache->Begin() ;
 				i != pCache->End() && nCount[ nProtocol ][0] < nAttempt ;
 				++i )
 			{
 				CHostCacheHostPtr pHost = (*i);
 
-				// If we can connect to this IP address from the host cache, try to make the connection
-				if ( pHost->CanConnect( tNow ) && pHost->ConnectTo( TRUE ) )	// Enter the if statement if the connection worked
+				// If we can connect to this priority host, try it
+				if ( pHost->m_bPriority &&
+					 pHost->CanConnect( tNow ) &&
+					 pHost->ConnectTo( TRUE ) )
+				{
+					pHost->m_nFailures = 0;
+					pHost->m_tFailure = 0;
+					pHost->m_bCheckedLocally = TRUE;
+
+					// Count that we now have one more connection, and we don't know its network role yet
+					nCount[ nProtocol ][0]++;
+
+					// Prevent queries while we connect with this computer (do)
+					pHost->m_tQuery = tNow;
+
+					// If settings wants to limit how frequently this method can run
+					if ( Settings.Connection.ConnectThrottle )
+					{
+						Network.m_tLastConnect = tTimer;
+						Downloads.m_tLastConnect = tTimer;
+						return;
+					}
+				}
+			}
+
+			// Handle regular servers, if we need more connections for this network, get IP addresses from the host cache and try to connect to them
+			for ( CHostCacheIterator i = pCache->Begin() ;
+				i != pCache->End() && nCount[ nProtocol ][0] < nAttempt ;
+				++i )
+			{
+				CHostCacheHostPtr pHost = (*i);
+
+				// If we can connect to this IP address from the host cache, try it
+				if ( ! pHost->m_bPriority &&
+					pHost->CanConnect( tNow ) &&
+					pHost->ConnectTo( TRUE ) )
 				{
 					// Make sure the connection we just made matches the protocol we're looping for right now
-					ASSERT( pHost->m_nProtocol == nProtocol );
+					//ASSERT( pHost->m_nProtocol == nProtocol );
 					pHost->m_nFailures = 0;
 					pHost->m_tFailure = 0;
 					pHost->m_bCheckedLocally = TRUE;
@@ -1047,14 +1053,12 @@ void CNeighboursWithConnect::Maintain()
 					// Count that we now have one more handshaking connection for this network
 					nCount[ nProtocol ][0]++;
 
-					// When looping for eDonkey2000, Prevent queries while we log on (do)
-					if ( nProtocol == PROTOCOL_ED2K )
-						pHost->m_tQuery = tNow;
+					// Prevent queries while we log on (do)
+					pHost->m_tQuery = tNow;
 
 					// If settings wants to limit how frequently this method can run
-					if ( Settings.Connection.ConnectThrottle != 0 )
+					if ( Settings.Connection.ConnectThrottle )
 					{
-						// Save the time we last made a connection as now, and leave
 						Network.m_tLastConnect = tTimer;
 						Downloads.m_tLastConnect = tTimer;
 						return;

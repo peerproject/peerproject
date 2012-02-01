@@ -1,7 +1,7 @@
 //
 // DlgQueueProperties.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -319,7 +319,7 @@ void CQueuePropertiesDlg::OnHScroll(UINT /*nSBCode*/, UINT /*nPos*/, CScrollBar*
 	DWORD nBandwidth = nLimit * nLocalPoints / max( 1, nTotalPoints );
 
 	CString str;
-	str.Format( _T("%u%% (%lu/%lu)"), ( 100 * nBandwidth ) / nLimit, nLocalPoints, nTotalPoints );
+	str.Format( _T("%u%% (%i/%i)"), ( 100 * nBandwidth ) / nLimit, nLocalPoints, nTotalPoints );
 
 	m_wndBandwidthPoints.SetWindowText( str );
 	m_wndBandwidthValue.SetWindowText( Settings.SmartSpeed( nBandwidth ) + '+' );

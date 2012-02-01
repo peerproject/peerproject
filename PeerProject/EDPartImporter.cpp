@@ -1,7 +1,7 @@
 //
 // EDPartImporter.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -312,7 +312,7 @@ BOOL CEDPartImporter::ImportFile(LPCTSTR pszPath, LPCTSTR pszFile)
 	if ( strPartName.IsEmpty() )
 		strPath.Format( _T("%s\\%s.part"), pszPath, pszFile );
 	else
-		strPath.Format( _T("%s\\%s"), pszPath, strPartName );
+		strPath.Format( _T("%s\\%s"), pszPath, (LPCTSTR)strPartName );
 
 	CFile pData;
 	if ( ! pData.Open( strPath, CFile::modeRead ) )
@@ -358,6 +358,7 @@ BOOL CEDPartImporter::ImportFile(LPCTSTR pszPath, LPCTSTR pszFile)
 
 	Message( IDS_ED2K_EPI_COPY_START, (LPCTSTR)strPath, (LPCTSTR)pDownload->m_sPath );
 
+// ToDo: Alt?
 //	CList < CString > oFiles;
 //	oFiles.AddHead( strPath );
 //	CDownloadTask::MergeFile( pDownload, &oFiles, FALSE, &oGaps );

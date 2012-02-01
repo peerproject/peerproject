@@ -476,6 +476,7 @@ const UINT protocolIDs[] =
 	NULL
 };
 
+// Protocol full names
 const LPCTSTR protocolNames[] =
 {
 	_T(""),
@@ -489,6 +490,7 @@ const LPCTSTR protocolNames[] =
 	_T("Kademlia")
 };
 
+// Protocol short names (4 char)
 const LPCTSTR protocolAbbr[] =
 {
 	_T(""),
@@ -500,6 +502,20 @@ const LPCTSTR protocolAbbr[] =
 	_T("DC"),
 	_T("BT"),
 	_T("KAD")
+};
+
+// Protocol default ports (Were defines)
+const WORD protocolPorts[] =
+{
+	6480,	// Unknown (alt)
+	6346,	// G1	GNUTELLA_DEFAULT_PORT
+	6346,	// G2	GNUTELLA_DEFAULT_PORT
+	4661,	// ED2K	ED2K_DEFAULT_PORT
+	80, 	// HTTP
+	21, 	// FTP
+	411,	// DC	DC_DEFAULT_PORT
+	6881,	// BT
+	4662,	// KAD
 };
 
 // Legacy mapping

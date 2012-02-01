@@ -1133,7 +1133,7 @@ BOOL CSecureRule::Match(const CPeerProjectFile* pFile) const
 
 		pszExt++;
 		CString strCompare;
-		strCompare.Format( _T("size:%s:%u"), pszExt, pFile->m_nSize );	// %I64i
+		strCompare.Format( _T("size:%s:%I64i"), pszExt, pFile->m_nSize );
 		return Match( strCompare );
 	}
 

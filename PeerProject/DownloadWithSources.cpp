@@ -702,12 +702,9 @@ CString CDownloadWithSources::GetSourceURLs(CList< CString >* pState, int nMaxim
 				if ( ! strSources.IsEmpty() )
 					strSources += ',';
 				strSources += CString( inet_ntoa( pSource->m_pAddress ) );
-				if ( pSource->m_nPort != GNUTELLA_DEFAULT_PORT )
-				{
-					CString strURL;
-					strURL.Format( _T("%hu"), pSource->m_nPort );
-					strSources += ':' + strURL;
-				}
+				CString strURL;
+				strURL.Format( _T("%hu"), pSource->m_nPort );
+				strSources += ':' + strURL;
 			}
 			else if ( pSource->m_sURL.Find( _T("Zhttp://") ) >= 0 ||
 				pSource->m_sURL.Find( _T("Z%2C http://") ) >= 0 )
@@ -765,11 +762,8 @@ CString	CDownloadWithSources::GetTopFailedSources(int nMaximum, PROTOCOLID nProt
 
 				strSources += str;
 				str = pResult->m_sURL.Mid( nPos + 1, nPosSlash - nPos - 1 );
-				if ( _tstoi( str ) != GNUTELLA_DEFAULT_PORT )	// "6346"
-				{
-					strSources += ':';
-					strSources += str;
-				}
+				strSources += ':';
+				strSources += str;
 
 				if ( nMaximum == 1 )
 					break;
@@ -1001,8 +995,8 @@ void CDownloadWithSources::InternalRemove(const CDownloadSource* pSource)
 	case PROTOCOL_FTP:
 		m_nFTPSourceCount--;
 		break;
-	default:
-		ASSERT( FALSE );
+	//default:
+	//	ASSERT( FALSE );
 	}
 }
 
@@ -1124,7 +1118,7 @@ void CDownloadWithSources::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER
 
 	if ( ar.IsStoring() )
 	{
-		ar.WriteCount( (DWORD)GetCount() );
+		ar.WriteCount( GetCount() );
 
 		for ( POSITION posSource = GetIterator() ; posSource ; )
 		{

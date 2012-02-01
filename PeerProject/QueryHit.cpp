@@ -1,7 +1,7 @@
 //
 // QueryHit.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -27,14 +27,14 @@
 #include "EDPacket.h"
 #include "DCPacket.h"
 #include "Transfer.h"
+#include "Security.h"
+#include "RouteCache.h"
+#include "VendorCache.h"
 #include "SchemaCache.h"
 #include "Schema.h"
 #include "ZLib.h"
 #include "XML.h"
 #include "GGEP.h"
-#include "VendorCache.h"
-#include "RouteCache.h"
-#include "Security.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -966,7 +966,7 @@ CXMLElement* CQueryHit::ReadXML(CG1Packet* pPacket, int nSize)
 
 BOOL CQueryHit::CheckValid() const
 {
-	if ( m_sName.GetLength() > 160 )
+	if ( m_sName.GetLength() > Settings.Gnutella.MaxHitLength )
 	{
 		theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("Got bogus hit packet from %s.  Name too long (%d), file \"%s\"."), (LPCTSTR)CString( inet_ntoa( m_pAddress ) ), m_sName.GetLength(), m_sName );
 		return FALSE;
@@ -1512,7 +1512,7 @@ void CQueryHit::ReadEDPacket(CEDPacket* pPacket, const SOCKADDR_IN* pServer, BOO
 			}
 			else
 			{
-				nSize.LowPart =  (DWORD)(   pTag.m_nValue & 0x00000000FFFFFFFF );
+				nSize.LowPart  = (DWORD)(   pTag.m_nValue & 0x00000000FFFFFFFF );
 				nSize.HighPart = (DWORD)( ( pTag.m_nValue & 0xFFFFFFFF00000000 ) >> 32 );
 			}
 			break;

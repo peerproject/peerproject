@@ -330,10 +330,9 @@ CLibraryFolder* CLibraryFolders::IsFolderShared(const CString& strPath) const
 				 strPathLC.GetAt( nLength ) == _T('\\') )
 				return pFolder;
 		}
-		else
+		else if ( strPathLC == strOldLC )
 		{
-			if ( strPathLC == strOldLC )
-				return pFolder;
+			return pFolder;
 		}
 	}
 

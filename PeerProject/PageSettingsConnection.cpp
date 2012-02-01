@@ -1,7 +1,7 @@
 //
 // PageSettingsConnection.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -152,7 +152,7 @@ BOOL CConnectionSettingsPage::OnInitDialog()
 			if ( GetIfEntry( &ifRow ) != NO_ERROR || ifRow.dwAdminStatus != MIB_IF_ADMIN_STATUS_UP )
 				continue;
 
-			strIP.Format( L"%d.%d.%d.%d",
+			strIP.Format( L"%u.%u.%u.%u",
 				( ip & 0x0000ff ),
 				( ( ip & 0x00ff00 ) >> 8 ),
 				( ( ip & 0xff0000 ) >> 16 ),
@@ -317,7 +317,7 @@ void CConnectionSettingsPage::OnOK()
 		QWORD nDownload = max( Settings.Bandwidth.Downloads, Settings.Connection.InSpeed * Kilobits / Bytes );
 		QWORD nUpload   = Settings.Connection.OutSpeed * Kilobits / Bytes;
 		if ( Settings.Bandwidth.Uploads > 0 )
-			nUpload =  min( Settings.Bandwidth.Uploads, nUpload );
+			nUpload = min( Settings.Bandwidth.Uploads, nUpload );
 
 		if ( nUpload * 16 < nDownload )
 		{
@@ -395,7 +395,7 @@ void CConnectionSettingsPage::OnClickedEnableUpnp()
 		{
 			CString strMessage;
 			LoadString( strMessage, IDS_UPNP_SERVICES_ERROR );
-			CButton* pBox =  (CButton*)GetDlgItem( IDC_ENABLE_UPNP );
+			CButton* pBox = (CButton*)GetDlgItem( IDC_ENABLE_UPNP );
 			pBox->SetCheck( BST_UNCHECKED );
 			AfxMessageBox( strMessage, MB_OK | MB_ICONEXCLAMATION );
 		}

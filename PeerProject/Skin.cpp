@@ -297,7 +297,7 @@ void CSkin::ApplyRecursive(LPCTSTR pszPath)
 
 			if ( pFind.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY )
 			{
-				if ( pszPath == NULL && _tcsicmp( pFind.cFileName, L"languages" ) ||
+				if ( pszPath == NULL && _tcsicmp( pFind.cFileName, L"languages" ) != 0 ||
 					 pszPath != NULL && _tcsistr( pszPath, L"languages" ) == NULL )
 				{
 					strPath.Format( L"%s%s\\", pszPath ? pszPath : L"", pFind.cFileName );
@@ -305,7 +305,7 @@ void CSkin::ApplyRecursive(LPCTSTR pszPath)
 				}
 			}
 			else if (	_tcsistr( pFind.cFileName, L".xml" ) != NULL &&
-						_tcsicmp( pFind.cFileName, L"Definitions.xml" ) )
+						_tcsicmp( pFind.cFileName, L"Definitions.xml" ) != 0 )
 			{
 				strPath.Format( L"%s%s", pszPath ? pszPath : L"", pFind.cFileName );
 

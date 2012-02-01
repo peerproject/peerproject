@@ -356,20 +356,20 @@ void CIRCFrame::SetFonts()
 	//				nPercentage = 1 - nPercentage;
 	//			}
 	//			if ( nPercentage < 0.55 )
-	//				nHeight =  (int)( 10.0f * 19.0f / txtMetric.tmAscent + 0.5 );
+	//				nHeight = (int)( 10.0f * 19.0f / txtMetric.tmAscent + 0.5 );
 	//			else if ( nPercentage > 0.85 )
-	//				nHeight =  (int)( 10.0f * 19.0f / txtMetric.tmHeight + 0.44 );
+	//				nHeight = (int)( 10.0f * 19.0f / txtMetric.tmHeight + 0.44 );
 	//			else if ( nPercentage > 0.69 )
-	//				nHeight =  (int)( 10.0f * 13.0f / (float)nMainChar + 0.1 );
+	//				nHeight = (int)( 10.0f * 13.0f / (float)nMainChar + 0.1 );
 	//			else
-	//				nHeight =  (int)( 10.0f * 13.0f / ( 16.0f / txtMetric.tmAscent * nMainChar ) + 0.5 );
+	//				nHeight = (int)( 10.0f * 13.0f / ( 16.0f / txtMetric.tmAscent * nMainChar ) + 0.5 );
 	//		}
 	//		else nHeight = 10;
 	//	}
 	//	else
 	//	{
 	//		if ( txtMetric.tmPitchAndFamily & TMPF_FIXED_PITCH )
-	//			nHeight =  (int)( 10.0 * 16.0 / txtMetric.tmAscent + 0.5 );
+	//			nHeight = (int)( 10.0 * 16.0 / txtMetric.tmAscent + 0.5 );
 	//		else
 	//			nHeight = 11;
 	//	}
@@ -2581,7 +2581,7 @@ void CIRCFrame::OnRichDblClk(NMHDR* /*pNMHDR*/, LRESULT* pResult)
 		if ( strText.Left( 4 ) == _T("www.") || strText.Left( 4 ) == _T("WWW.") )
 			strText = _T("http://") + strText;
 
-		theApp.InternalURI(	strText );
+		theApp.InternalURI( strText );
 	}
 	else if ( strText.Left( 7 ) == _T("magnet:") ||
 		strText.Left( 4 ) == _T("ed2k:") ||
@@ -2593,7 +2593,7 @@ void CIRCFrame::OnRichDblClk(NMHDR* /*pNMHDR*/, LRESULT* pResult)
 		if ( strText.Mid( 1, 7 ) == _T("magnet:") || strText.Mid( 1, 4 ) == _T("ed2k:") )
 			strText = strText.Mid( 1 );
 
-		theApp.InternalURI(	strText );
+		theApp.InternalURI( strText );
 	}
 	*pResult = 0;
 }
@@ -3131,8 +3131,8 @@ void CIRCChannelList::AddChannel(LPCTSTR strDisplayName, LPCTSTR strName, BOOL b
 int CIRCChannelList::GetCount(int nType) const
 {
 	if ( nType == -1 ) return m_nCount;
-	if ( nType == 0  ) return m_nCount - m_nCountUserDefined;
-	if ( nType == 1  ) return m_nCountUserDefined;
+	if ( nType ==  0 ) return m_nCount - m_nCountUserDefined;
+	if ( nType ==  1 ) return m_nCountUserDefined;
 	return -1;
 }
 void CIRCChannelList::RemoveAll(int nType)

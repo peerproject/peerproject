@@ -1,7 +1,7 @@
 //
 // PeerProjectDataSource.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -576,8 +576,7 @@ BOOL CPeerProjectDataSource::DropToFolder(IDataObject* pIDataObject, DWORD grfKe
 				( szPath2 - pAFOP->sFrom.GetData() - 1 );
 			if ( nPath1Length == nPath2Length &&
 				_tcsncicmp( pszDest, pAFOP->sFrom.GetData(), nPath1Length ) == 0 )
-				// source == destination
-				return TRUE;
+				return TRUE;	// source == destination
 		}
 		// else "virtual" drop
 	}
@@ -765,25 +764,25 @@ BOOL CPeerProjectDataSource::DropToAlbum(IDataObject* pIDataObject, DWORD grfKey
 		}
 	}
 
-	if ( bRet )
-	{
-		if ( bDrop )
-		{
-			Library.Update( true );
-
-			if ( *pdwEffect == DROPEFFECT_MOVE )
-			{
-				// Optimized move used
-				*pdwEffect = DROPEFFECT_NONE;
-				SetDropEffect( pIDataObject, DROPEFFECT_NONE );
-			}
-		}
-	}
-	else
+	if ( ! bRet )
 	{
 		*pdwEffect = DROPEFFECT_NONE;
+		return FALSE;
 	}
-	return bRet;
+
+	if ( bDrop )
+	{
+		Library.Update( true );
+
+		if ( *pdwEffect == DROPEFFECT_MOVE )
+		{
+			// Optimized move used
+			*pdwEffect = DROPEFFECT_NONE;
+			SetDropEffect( pIDataObject, DROPEFFECT_NONE );
+		}
+	}
+
+	return TRUE;
 }
 
 // Check if this is a PeerProjects drag-n-drop object
@@ -940,8 +939,8 @@ HRESULT CPeerProjectDataSource::AddFiles(IDataObject* pIDataObject, const T* pSe
 	return S_OK;
 }
 
-// Find data in data cahe (and allocate new if not found but need)
-//	Returns:
+// Find data in data cache (and allocate new if not found but needed)
+// Returns:
 //	S_OK - added new entry			DV_E_DVTARGETDEVICE - not supported format
 //	S_FALSE - found old entry		DV_E_FORMATETC - not found
 //	E_OUTOFMEMORY - out of memory	DV_E_TYMED - found but different storage type
@@ -1102,7 +1101,6 @@ STDMETHODIMP CPeerProjectDataSource::XDataObject::QueryGetData (FORMATETC* pform
 			this, GetFORMATLIST( pformatetc->cfFormat ), pformatetc->dwAspect,
 			pformatetc->lindex, pformatetc->ptd, pformatetc->tymed, hr);
 #endif
-
 	return hr;
 }
 
@@ -1342,9 +1340,9 @@ void CPeerProjectDataSource::GetTotalLength(const CLibraryList* pList, size_t& s
 			}
 			break;
 
-		case CLibraryListItem::Empty:
-		default:
-			break;
+		//case CLibraryListItem::Empty:
+		//default:
+		//	break;
 		}
 	}
 }
@@ -1401,7 +1399,7 @@ void CPeerProjectDataSource::FillBuffer(const CLibraryList* pList, LPTSTR& buf_H
 					{
 						CString sTemp;
 						sTemp.Format(
-							_T("magnet:?xt=urn:bitprint:%s.%s&xt=%s&xl=%I64i&dn=%s"),
+							_T("magnet:?xt=urn:bitprint:%s.%s&xt=%s&xl=%I64u&dn=%s"),
 							pFile->m_oSHA1.toString(),
 							pFile->m_oTiger.toString(),
 							pFile->m_oED2K.toUrn(),
@@ -1459,9 +1457,9 @@ void CPeerProjectDataSource::FillBuffer(const CLibraryList* pList, LPTSTR& buf_H
 			}
 			break;
 
-		case CLibraryListItem::Empty:
-		default:
-			break;
+		//case CLibraryListItem::Empty:
+		//default:
+		//	break;
 		}
 	}
 }

@@ -541,7 +541,9 @@ void CHostCacheWnd::OnHostCacheRemove()
 			HostCache.Remove( pHost );
 	}
 
-	HostCache.CheckMinimumServers();
+	HostCache.CheckMinimumServers( m_nMode ? m_nMode : PROTOCOL_G2 );
+
+	//m_wndList.ClearSelection();	// ToDo:?
 
 	Update();
 }

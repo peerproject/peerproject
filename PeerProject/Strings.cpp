@@ -152,22 +152,72 @@ TCHAR CLowerCaseTable::operator()(TCHAR cLookup) const
 
 CString& CLowerCaseTable::operator()(CString& strSource) const
 {
-	const int nLength = strSource.GetLength();
-	LPTSTR str = strSource.GetBuffer();
+	register const int nLength = strSource.GetLength();
+	register LPTSTR str = strSource.GetBuffer();
 	for ( int i = 0 ; i < nLength ; ++i, ++str )
 	{
-		TCHAR cLookup = *str;
-		if ( cLookup <= 127 )
-		{
-			// A..Z -> a..z
-			if ( cLookup >= _T('A') && cLookup <= _T('Z') )
-				*str = (TCHAR)( cLookup + 32 );
-		}
-		else
-			*str = cTable[ cLookup ];
+		// A...Z -> a...z
+		register TCHAR l = *str;
+		register TCHAR r = ToLower( l );
+		if ( l != r ) *str = r;
 	}
 	strSource.ReleaseBuffer( nLength );
 
+	return strSource;
+}
+
+CString& CLowerCaseTable::Clean(CString& strSource) const
+{
+	register const int nLength = strSource.GetLength();
+	register const int nExt = strSource.ReverseFind( _T('.') );
+	register LPTSTR str = strSource.GetBuffer();
+	for ( int i = 0 ; i < nLength ; ++i, ++str )
+	{
+		register TCHAR l = *str;
+		switch ( l )
+		{
+		case _T('_'):
+		case _T('+'):
+			*str = _T(' ');
+			break;
+
+		case _T('.'):
+			if ( i < nExt )
+				*str = _T(' ');
+			break;
+
+		case _T('['):
+		case _T('{'):
+			*str = _T('(');
+			break;
+
+		case _T(']'):
+		case _T('}'):
+			*str = _T(')');
+			break;
+
+		case _T(' '):
+		case _T('('):
+		case _T(')'):
+		case _T('0'):
+		case _T('1'):
+		case _T('2'):
+		case _T('3'):
+		case _T('4'):
+		case _T('5'):
+		case _T('6'):
+		case _T('7'):
+		case _T('8'):
+		case _T('9'):
+		case _T('-'):
+			break;
+
+		default:
+			register TCHAR r = ToLower( l );
+			if ( l != r ) *str = r;
+		}
+	}
+	strSource.ReleaseBuffer( nLength );
 	return strSource;
 }
 
@@ -780,7 +830,7 @@ CString MakeKeywords(const CString& strPhrase, bool bExpression)
 
 		int nDistance = ! bCharacter ? 1 : 0;
 
-		if ( ! bCharacter || boundary[ 0 ] != boundary[ 1 ] && nPos  )
+		if ( ! bCharacter || boundary[ 0 ] != boundary[ 1 ] && nPos )
 		{
 			if ( nPos > nPrevWord )
 			{

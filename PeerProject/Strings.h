@@ -31,6 +31,10 @@ public:
 	TCHAR operator()(TCHAR cLookup) const;
 	CString& operator()(CString& strSource) const;
 
+	// Convert string to lower case and do character substitutes:
+	// ".", "_", "+" to " " and "[", "{" to "(" and "]", "}" to ")"
+	CString& Clean(CString& strSource) const;
+
 private:
 	TCHAR cTable[ 65536 ];
 

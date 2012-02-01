@@ -49,14 +49,11 @@ public:
 	DWORD					m_nListCookie;
 	Hashes::Guid			m_oGUID;
 
-private:
+protected:
 	CAlbumFolder*			m_pParent;
 	CList< CAlbumFolder* >	m_pFolders;
 	CList< CLibraryFile* >	m_pFiles;
 	CCollectionFile*		m_pCollection;
-
-	CAlbumFolder(const CAlbumFolder&);
-	CAlbumFolder& operator=(const CAlbumFolder&);
 
 // Operations
 public:
@@ -97,6 +94,15 @@ public:
 	void			SetCollection(const Hashes::Sha1Hash& oSHA1, CCollectionFile* pCollection);
 	bool			OnFolderDelete(CAlbumFolder* pFolder);
 	void			OnFileDelete(CLibraryFile* pFile, BOOL bDeleteGhost = FALSE);
+	CXMLElement*	CreateXML(BOOL bMetadataAll = FALSE) const;
 
+protected:
+	CXMLElement*	CopyMetadata(CXMLElement* pOriginMetadata) const;
+
+private:
+	CAlbumFolder(const CAlbumFolder&);
+	CAlbumFolder& operator=(const CAlbumFolder&);
+
+public:
 	bool			operator==(const CAlbumFolder& val) const;
 };

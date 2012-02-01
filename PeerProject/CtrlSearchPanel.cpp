@@ -1,7 +1,7 @@
 //
 // CtrlSearchPanel.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -234,7 +234,7 @@ void CSearchPanel::ShowSearch(const CManagedSearch* pManaged)
 	if ( m_bAdvanced )
 	{
 		m_boxAdvanced.m_wndCheckBoxG2.SetCheck( pManaged->m_bAllowG2 ? BST_CHECKED : BST_UNCHECKED);
-		m_boxAdvanced.m_wndCheckBoxG1.SetCheck( /*pManaged->m_bAllowG1 ? BST_CHECKED :*/ BST_UNCHECKED );	// Avoid spam by default until a solution
+		m_boxAdvanced.m_wndCheckBoxG1.SetCheck( pManaged->m_bAllowG1 ? BST_CHECKED : BST_UNCHECKED );
 		m_boxAdvanced.m_wndCheckBoxED2K.SetCheck( pManaged->m_bAllowED2K ? BST_CHECKED : BST_UNCHECKED );
 		m_boxAdvanced.m_wndCheckBoxDC.SetCheck( pManaged->m_bAllowDC ? BST_CHECKED : BST_UNCHECKED );
 
@@ -245,7 +245,6 @@ void CSearchPanel::ShowSearch(const CManagedSearch* pManaged)
 			strSize.Empty();
 		if ( m_boxAdvanced.m_wndSizeMin.m_hWnd != NULL )
 			m_boxAdvanced.m_wndSizeMin.SetWindowText( strSize );
-
 
 		if ( pSearch->m_nMaxSize > 0 && pSearch->m_nMaxSize < SIZE_UNKNOWN )
 			strSize = Settings.SmartVolume( pSearch->m_nMaxSize, Bytes, true );
@@ -566,7 +565,7 @@ void CSearchInputBox::OnSize(UINT nType, int cx, int cy)
 		BOX_MARGIN * 2 + width, 102, width, 24, 	// Cancel Button
 		SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOZORDER );
 	DeferWindowPos( hDWP, m_wndPrefix, NULL,
-		cx - BOX_MARGIN - 8, 8, 12, 16, 			// Hash Icon
+		cx - BOX_MARGIN - 8, 8, 14, 16, 			// Hash Icon
 		SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOZORDER );
 
 	EndDeferWindowPos( hDWP );
@@ -844,7 +843,7 @@ int CSearchAdvancedBox::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndCheckBoxDC.SetFont( &theApp.m_gdiFontBold );
 
 	if ( Settings.Gnutella2.Enabled ) m_wndCheckBoxG2.SetCheck( BST_CHECKED );
-	if ( Settings.Gnutella1.Enabled ) m_wndCheckBoxG1.SetCheck( BST_CHECKED );
+	if ( Settings.Gnutella1.Enabled ) m_wndCheckBoxG1.SetCheck( BST_UNCHECKED );	// ToDo: Temporary default until spam is solved
 	if ( Settings.eDonkey.Enabled ) m_wndCheckBoxED2K.SetCheck( BST_CHECKED );
 	if ( Settings.DC.Enabled ) m_wndCheckBoxDC.SetCheck( BST_CHECKED );
 
@@ -961,11 +960,11 @@ void CSearchAdvancedBox::OnPaint()
 	const int nX = rc.right / 2 + BOX_MARGIN + 1;
 	const int nY = ( Settings.DC.ShowInterface && Settings.eDonkey.ShowInterface && Settings.Gnutella1.ShowInterface ) ? 6 : 24;
 	m_gdiProtocols.Draw( pDC, PROTOCOL_G2, CPoint( nX, nY ), ILD_NORMAL );				// G2 Icon
-	if ( Settings.Gnutella1.ShowInterface )
+	if ( Settings.Gnutella1.ShowInterface || Settings.Gnutella1.Enabled )
 		m_gdiProtocols.Draw( pDC, PROTOCOL_G1, CPoint( nX, nY + 20 ), ILD_NORMAL );		// G1 Icon
-	if ( Settings.eDonkey.ShowInterface )
+	if ( Settings.eDonkey.ShowInterface || Settings.eDonkey.Enabled )
 		m_gdiProtocols.Draw( pDC, PROTOCOL_ED2K, CPoint( nX, nY + 40 ), ILD_NORMAL );	// ED2K Icon
-	if ( Settings.DC.ShowInterface )
+	if ( Settings.DC.ShowInterface || Settings.DC.Enabled )
 		m_gdiProtocols.Draw( pDC, PROTOCOL_DC, CPoint( nX, nY + 60 ), ILD_NORMAL ); 	// DC++ Icon
 
 	if ( pDC != &dc )

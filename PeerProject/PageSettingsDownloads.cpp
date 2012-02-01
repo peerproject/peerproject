@@ -1,7 +1,7 @@
 //
 // PageSettingsDownloads.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -99,7 +99,7 @@ BOOL CDownloadsSettingsPage::OnInitDialog()
 	m_wndIncompletePath.SetIcon( IDI_BROWSE );
 
 	if ( Settings.Downloads.QueueLimit )
-		m_sQueueLimit.Format( _T("%d"), Settings.Downloads.QueueLimit );
+		m_sQueueLimit.Format( _T("%u"), Settings.Downloads.QueueLimit );
 	else	// 0 = Unlimited
 		m_sQueueLimit = _T("MAX");
 
@@ -272,7 +272,7 @@ void CDownloadsSettingsPage::OnOK()
 
 	// Redraw the text in the queue limit box (in case the limit changed)
 	if ( Settings.Downloads.QueueLimit > 0 )
-		m_sQueueLimit.Format( _T("%d"), Settings.Downloads.QueueLimit );
+		m_sQueueLimit.Format( _T("%u"), Settings.Downloads.QueueLimit );
 	else
 		m_sQueueLimit = _T("MAX");
 
@@ -382,10 +382,7 @@ void CDownloadsSettingsPage::OnShowWindow(BOOL bShow, UINT nStatus)
 
 bool CDownloadsSettingsPage::IsLimited(CString& strText) const
 {
-	if ( ( _tcslen( strText ) == 0 ) ||
-		 ( _tcsistr( strText, _T("MAX") ) != NULL ) ||
-		 ( _tcsistr( strText, _T("NONE") ) != NULL ) )
-		return false;
-
-	return true;
+	return ! ( strText.IsEmpty() ||
+		( _tcsistr( strText, _T("MAX") ) != NULL ) ||
+		( _tcsistr( strText, _T("NONE") ) != NULL ) );
 }

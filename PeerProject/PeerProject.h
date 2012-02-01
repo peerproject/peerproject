@@ -178,14 +178,15 @@ public:
 	void			SplashAbort();
 	BOOL			KeepAlive();
 
-	virtual CDocument* OpenDocumentFile(LPCTSTR lpszFileName);	// Open file or url. Returns NULL always.
-	static BOOL		Open(LPCTSTR lpszFileName);					// Open file or url (generic function)
-	static BOOL		OpenShellShortcut(LPCTSTR lpszFileName);	// Open .lnk file
-	static BOOL		OpenInternetShortcut(LPCTSTR lpszFileName);	// Open .url file
-	static BOOL		OpenTorrent(LPCTSTR lpszFileName);			// Open .torrent file
-	static BOOL		OpenCollection(LPCTSTR lpszFileName);		// Open Shareaza/eMule/DC++ file  (.co, .collection, .emulecollection, .files.xml.bz2)
-	static BOOL		OpenImport(LPCTSTR lpszFileName);			// Open eMule/DC++ servers file   (.met, .dat, hublist.xml.bz2)
+	virtual CDocument* OpenDocumentFile(LPCTSTR lpszFileName);		// Open file or url. Returns NULL always.
+	static BOOL		Open(LPCTSTR lpszFileName, BOOL bTest = FALSE);	// Open file or url (generic function)
+	static BOOL		OpenShellShortcut(LPCTSTR lpszFileName);		// Open .lnk file
+	static BOOL		OpenInternetShortcut(LPCTSTR lpszFileName);		// Open .url file
+	static BOOL		OpenTorrent(LPCTSTR lpszFileName);				// Open .torrent file
+	static BOOL		OpenCollection(LPCTSTR lpszFileName);			// Open Shareaza/eMule/DC++ file  (.co, .collection, .emulecollection, .files.xml.bz2)
+	static BOOL		OpenImport(LPCTSTR lpszFileName);				// Open eMule/DC++ servers file   (.met, .dat, hublist.xml.bz2)
 	static BOOL		OpenURL(LPCTSTR lpszFileName, BOOL bSilent = FALSE);	// Open url
+	static BOOL		OpenPath(LPCTSTR lpszFileName);					// Open/Share folder
 
 	CString			GetWindowsFolder() const;
 	CString			GetProgramFilesFolder() const;
@@ -194,7 +195,7 @@ public:
 	CString			GetAppDataFolder() const;
 	CString			GetLocalAppDataFolder() const;
 
-	CDatabase*		GetDatabase(bool bGeneral = false) const;	// Get SQLite (thumbs) database handler, must be freed by "delete" operator.
+	CDatabase*		GetDatabase(bool bGeneral = false) const;		// Get SQLite (thumbs) database handler, must be freed by "delete" operator.
 
 	void			OnRename(LPCTSTR strSource, LPCTSTR pszTarget = (LPCTSTR)1);	// pszTarget: 0 = delete file, 1 = release file.
 

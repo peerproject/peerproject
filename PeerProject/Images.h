@@ -1,7 +1,7 @@
 //
 // Images.h
 //
-// This file is part of PeerProject (peerproject.org) © 2010-2011
+// This file is part of PeerProject (peerproject.org) © 2010-2012
 // All work here is original and released as-is under Persistent Public Domain [PPD]
 //
 
@@ -119,8 +119,8 @@ public:
 	void		DeleteObjects();
 	BOOL		PreBlend(HBITMAP hButton);
 	BOOL		DrawButtonState(CDC* pDC, const CRect rc, const int nResource);
-	BOOL		DrawButtonMap(CDC* pDC, const CRect rc, CBitmap* bmButton, const int nState = 0);
-	BOOL		DrawButton(CDC* pDC, const CRect rc, CBitmap* bmButton, CBitmap* bmButtonEdge = NULL);
+	BOOL		DrawButtonMap(CDC* pDC, const CRect rc, CBitmap* bmButton, const int nState = 0, BOOL bRTL = FALSE);
+	BOOL		DrawButton(CDC* pDC, const CRect rc, CBitmap* bmButton, CBitmap* bmButtonEdge = NULL, BOOL bRTL = FALSE);
 	BOOL		DrawIconButton(CDC* pDC, CRect rc, CBitmap* bmButton);
 };
 

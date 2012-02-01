@@ -1,7 +1,7 @@
 //
 // WndLibrary.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -182,7 +182,7 @@ BOOL CLibraryWnd::OnCollection(LPCTSTR pszPath)
 	// Add the collection folder to the library (in case it isn't there)
 	pLibFolder = LibraryFolders.AddFolder( Settings.Downloads.CollectionPath );
 	// Force a scan of it (in case watch library folders is disabled)
-	pLibFolder =  LibraryFolders.GetFolder( Settings.Downloads.CollectionPath );
+	pLibFolder = LibraryFolders.GetFolder( Settings.Downloads.CollectionPath );
 	if ( pLibFolder != NULL ) pLibFolder->Scan();
 
 	CSingleLock oLock( &Library.m_pSection, TRUE );
@@ -234,7 +234,7 @@ BOOL CLibraryWnd::OnCollection(LPCTSTR pszPath)
 				AfxMessageBox( strMessage, MB_ICONINFORMATION );
 
 				oLock.Lock();
-				if ( CLibraryFolder* pLibFolder =  LibraryFolders.GetFolder( Settings.Downloads.CollectionPath ) )
+				if ( CLibraryFolder* pLibFolder = LibraryFolders.GetFolder( Settings.Downloads.CollectionPath ) )
 					pLibFolder->Scan();
 				if ( CLibraryFile* pTargetFile1 = LibraryMaps.LookupFileByPath( strTarget, FALSE, TRUE ) )
 				{

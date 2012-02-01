@@ -31,11 +31,12 @@
 #include "Library.h"
 #include "LibraryBuilder.h"
 #include "LibraryFolders.h"
+#include "LibraryHistory.h"
 #include "Plugins.h"
 #include "QuerySearch.h"
 #include "QueryHit.h"
-#include "VersionChecker.h"
 #include "GraphItem.h"
+#include "VersionChecker.h"
 #include "PeerProjectURL.h"
 #include "ChatCore.h"
 #include "ChatSession.h"
@@ -45,11 +46,10 @@
 #include "Skin.h"
 #include "SkinWindow.h"
 #include "Scheduler.h"
-#include "DlgHelp.h"
-#include "LibraryHistory.h"
 #include "SharedFile.h"
-#include "DiscoveryServices.h"
+#include "DlgHelp.h"
 #include "DlgDonkeyImport.h"
+#include "DiscoveryServices.h"
 
 #include "WndMain.h"
 #include "WndChild.h"
@@ -1128,7 +1128,7 @@ LRESULT CMainWnd::OnSkinChanged(WPARAM /*wParam*/, LPARAM /*lParam*/)
 			m_brDockArea.CreateSolidBrush( Colors.m_crMidtone );
 
 		SetClassLongPtr( pDockBar->GetSafeHwnd(), GCLP_HBRBACKGROUND,
-			(LONG)(LONG_PTR)(HBRUSH)m_brDockArea );
+			(LONG_PTR)(HBRUSH)m_brDockArea );
 	}
 
 	m_pSkin = Skin.GetWindowSkin( this );
@@ -1563,7 +1563,7 @@ void CMainWnd::LocalSystemChecks()
 	if ( ! Settings.Live.DefaultED2KServersLoaded )
 	{
 		Settings.Live.DefaultED2KServersLoaded = true;
-		HostCache.CheckMinimumServers();
+		HostCache.CheckMinimumServers( PROTOCOL_ED2K );
 	}
 
 	if ( ! Settings.Live.DonkeyServerWarning && Settings.eDonkey.Enabled )
@@ -2680,7 +2680,7 @@ void CMainWnd::OnHelpFaq()
 void CMainWnd::OnHelpConnectiontest()
 {
 	CString strTestUrl;
-	strTestUrl.Format( _T("%s/connectiontest/?port=%d&lang=%s&Version=%s"),
+	strTestUrl.Format( _T("%s/connectiontest/?port=%u&lang=%s&Version=%s"),
 		WEB_SITE, Settings.Connection.InPort,
 		(LPCTSTR)Settings.General.Language, (LPCTSTR)theApp.m_sVersion );
 
@@ -2947,7 +2947,7 @@ LRESULT CMainWnd::OnNowUploading(WPARAM /*wParam*/, LPARAM lParam)
 
 IMPLEMENT_DROP(CMainWnd,CMDIFrameWnd)
 
-BOOL CMainWnd::OnDrop(IDataObject* pDataObj, DWORD /* grfKeyState */, POINT /* ptScreen */, DWORD* pdwEffect, BOOL bDrop)
+BOOL CMainWnd::OnDrop(IDataObject* pDataObj, DWORD /*grfKeyState*/, POINT /*ptScreen*/, DWORD* pdwEffect, BOOL bDrop)
 {
 	if ( ! pDataObj || ! pdwEffect )
 		return FALSE;
@@ -2960,14 +2960,16 @@ BOOL CMainWnd::OnDrop(IDataObject* pDataObj, DWORD /* grfKeyState */, POINT /* p
 		CList < CString > oFiles;
 		if ( CPeerProjectDataSource::ObjectToFiles( pDataObj, oFiles ) == S_OK )
 		{
-			BOOL bAccepted = FALSE;
+			BOOL bAccepted = FALSE, bLink = FALSE;
 			POSITION pos = oFiles.GetHeadPosition();
 			while ( pos && ! ( bAccepted && ! bDrop ) )
 			{
-				bAccepted = CPeerProjectApp::Open( oFiles.GetNext( pos ) ) || bAccepted;
+				const CString strPath = oFiles.GetNext( pos );
+				bLink = bLink || PathIsDirectory( strPath );
+				bAccepted = theApp.Open( strPath, ! bDrop ) || bAccepted;
 			}
 			if ( bAccepted )
-				*pdwEffect = DROPEFFECT_COPY;
+				*pdwEffect = bLink ? DROPEFFECT_LINK : DROPEFFECT_COPY;
 			return bAccepted;
 		}
 	}
@@ -2977,7 +2979,7 @@ BOOL CMainWnd::OnDrop(IDataObject* pDataObj, DWORD /* grfKeyState */, POINT /* p
 		CString strURL;
 		if ( CPeerProjectDataSource::ObjectToURL( pDataObj, strURL ) == S_OK )
 		{
-			BOOL bAccepted = CPeerProjectApp::OpenURL( strURL );
+			BOOL bAccepted = ! bDrop || theApp.OpenURL( strURL, ! bDrop );
 			if ( bAccepted )
 				*pdwEffect = DROPEFFECT_LINK;
 			return bAccepted;

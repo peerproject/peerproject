@@ -151,12 +151,12 @@ BOOL CDiscoveryServices::Add(LPCTSTR pszAddress, int nType, PROTOCOLID nProtocol
 		{
 			pService = new CDiscoveryService( CDiscoveryService::dsGnutella, strAddress );
 
-			if ( _tcsnicmp( strAddress, _T("uhc:"), 4 )  == 0 )
+			if ( _tcsnicmp( strAddress, _T("uhc:"), 4 ) == 0 )
 			{
 				pService->m_nProtocolID	= nProtocol = PROTOCOL_G1;
 				pService->m_nSubType = CDiscoveryService::dsGnutellaUDPHC;
 			}
-			else if ( _tcsnicmp( strAddress, _T("ukhl:"), 5 )  == 0 )
+			else if ( _tcsnicmp( strAddress, _T("ukhl:"), 5 ) == 0 )
 			{
 				pService->m_nProtocolID	= nProtocol = PROTOCOL_G2;
 				pService->m_nSubType = CDiscoveryService::dsGnutella2UDPKHL;
@@ -953,7 +953,7 @@ BOOL CDiscoveryServices::Execute(BOOL bDiscovery, PROTOCOLID nProtocol, USHORT n
 				( nProtocol == PROTOCOL_NULL || nProtocol == PROTOCOL_ED2K ) &&
 				Settings.eDonkey.MetAutoQuery &&
 				( tMetQueried == 0 || tNow >= tMetQueried + 60 * 60 ) &&
-				( nForceDiscovery == 1 || ! HostCache.EnoughServers() );
+				( nForceDiscovery == 1 || ! HostCache.EnoughServers( PROTOCOL_ED2K ) );
 
 			bDCRequired = Settings.DC.Enabled &&
 				( nProtocol == PROTOCOL_NULL || nProtocol == PROTOCOL_DC ) &&
@@ -1776,7 +1776,7 @@ BOOL CDiscoveryServices::RunWebCacheUpdate()
 	{
 		if ( ! Network.IsListening() ) return TRUE;
 
-		strURL.Format( _T("%s?ip=%s:%hu&x.leaves=%i&uptime=%i&x.max=%i"),
+		strURL.Format( _T("%s?ip=%s:%hu&x.leaves=%u&uptime=%u&x.max=%u"),
 			(LPCTSTR)m_pWebCache->m_sAddress,
 			(LPCTSTR)CString( inet_ntoa( Network.m_pHost.sin_addr ) ),
 			htons( Network.m_pHost.sin_port ),
@@ -2136,7 +2136,7 @@ BOOL CDiscoveryService::ResolveGnutella()
 		m_nSubType = dsGnutella2UDPKHL;
 		m_bGnutella1 = FALSE;
 		m_bGnutella2 = TRUE;
-		nPort = GNUTELLA_DEFAULT_PORT;
+		nPort = protocolPorts[ PROTOCOL_G2 ];
 		nSkip = 5;
 	}
 	else if ( _tcsnicmp( strHost, _T("uhc:"), 4 ) == 0 )
@@ -2153,7 +2153,7 @@ BOOL CDiscoveryService::ResolveGnutella()
 		m_nSubType = dsGnutellaTCP;
 		m_bGnutella1 = TRUE;
 		m_bGnutella2 = FALSE;
-		nPort = GNUTELLA_DEFAULT_PORT;
+		nPort = protocolPorts[ PROTOCOL_G1 ];
 		nSkip = 15;
 	}
 	else if ( _tcsnicmp( strHost, _T("gnutella2:host:"), 15 ) == 0 ||
@@ -2162,7 +2162,7 @@ BOOL CDiscoveryService::ResolveGnutella()
 		m_nSubType = dsGnutella2TCP;
 		m_bGnutella1 = FALSE;
 		m_bGnutella2 = TRUE;
-		nPort = GNUTELLA_DEFAULT_PORT;
+		nPort = protocolPorts[ PROTOCOL_G2 ];
 		nSkip = 15;
 	}
 

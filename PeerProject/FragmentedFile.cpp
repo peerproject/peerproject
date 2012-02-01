@@ -1,7 +1,7 @@
 //
 // FragmentedFile.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -243,7 +243,7 @@ BOOL CFragmentedFile::Open(LPCTSTR pszFile, QWORD nOffset, QWORD nLength, BOOL b
 
 BOOL CFragmentedFile::Open(CPeerProjectFile& oSHFile, BOOL bWrite)
 {
-	CString sUniqueName = oSHFile.GetFilename();
+	CString strUniqueName = oSHFile.GetFilename();
 
 	CString strSource;
 	if ( ! m_oFile.empty() )
@@ -255,7 +255,7 @@ BOOL CFragmentedFile::Open(CPeerProjectFile& oSHFile, BOOL bWrite)
 	{
 		// Generate new filename (inside incomplete folder)
 		strSource.Format( _T("%s\\%s.partial"),
-			(LPCTSTR)Settings.Downloads.IncompletePath, sUniqueName );
+			(LPCTSTR)Settings.Downloads.IncompletePath, (LPCTSTR)strUniqueName );
 	}
 	else if ( GetFileAttributes( oSHFile.m_sPath ) != INVALID_FILE_ATTRIBUTES )
 	{
@@ -287,14 +287,14 @@ BOOL CFragmentedFile::Open(CPeerProjectFile& oSHFile, BOOL bWrite)
 		return FALSE;
 	}
 
-	TRACE( _T("Fragmented File : Opened from disk \"%s\"\n"), sUniqueName );
+	TRACE( _T("Fragmented File : Opened from disk \"%s\"\n"), strUniqueName );
 
 	return TRUE;
 }
 
 BOOL CFragmentedFile::Open(const CBTInfo& oInfo, const BOOL bWrite,	CString& strErrorMessage)
 {
-	CString sUniqueName = oInfo.GetFilename();
+	CString strUniqueName = oInfo.GetFilename();
 	const size_t nCount = m_oFile.size();
 	QWORD nOffset = 0;
 	size_t i = 0;
@@ -319,8 +319,8 @@ BOOL CFragmentedFile::Open(const CBTInfo& oInfo, const BOOL bWrite,	CString& str
 		else if ( bWrite )
 		{
 			// Generate new temp filename (inside incomplete folder)
-			strSource.Format( _T("%s\\%s_%d.partial"),
-				(LPCTSTR)Settings.Downloads.IncompletePath, sUniqueName, i );
+			strSource.Format( _T("%s\\%s_%u.partial"),
+				(LPCTSTR)Settings.Downloads.IncompletePath, (LPCTSTR)strUniqueName, (DWORD)i );
 		}
 		else
 		{
