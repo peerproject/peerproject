@@ -1214,7 +1214,7 @@ void CLibraryTreeItem::Paint(CDC& dc, CRect& rc, BOOL bTarget, COLORREF crBack) 
 	POINT ptHover;
 	RECT  rcTick = { rc.left+2, rc.top+2, rc.left+14, rc.bottom-2 };
 	GetCursorPos( &ptHover );
-	if ( dc.GetWindow()!= NULL )
+	if ( dc.GetWindow() != NULL )
 		dc.GetWindow()->ScreenToClient( &ptHover );
 
 	if ( crBack == CLR_NONE ) crBack = Colors.m_crWindow;

@@ -1,7 +1,7 @@
 //
 // MatchObjects.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -777,11 +777,11 @@ void CMatchList::Filter()
 	if ( m_bFilterBusy )		Settings.Search.FilterMask |= ( 1 << 3 );	// 0;
 	if ( m_bFilterLocal )		Settings.Search.FilterMask |= ( 1 << 4 );	// 0;
 	if ( m_bFilterReject )		Settings.Search.FilterMask |= ( 1 << 5 );	// 0;
-	if ( m_bFilterBogus	)		Settings.Search.FilterMask |= ( 1 << 6 );	// 0;
+	if ( m_bFilterBogus )		Settings.Search.FilterMask |= ( 1 << 6 );	// 0;
 	if ( m_bFilterDRM )			Settings.Search.FilterMask |= ( 1 << 7 );	// 1;
 	if ( m_bFilterRestricted )	Settings.Search.FilterMask |= ( 1 << 8 );	// 0;
 	if ( m_bFilterSuspicious )	Settings.Search.FilterMask |= ( 1 << 9 );	// 1;
-	if ( m_bFilterAdult	)		Settings.Search.FilterMask |= ( 1 << 10 );	// 0;
+	if ( m_bFilterAdult )		Settings.Search.FilterMask |= ( 1 << 10 );	// 0;
 //	if ( m_nFilterSources > 0 )	Settings.Search.FilterMask |= ( 1 << 12 );	// 1;
 //	if ( m_nFilterMinSize > 0 )	Settings.Search.FilterMask |= ( 1 << 10 );	// 1;
 //	if ( m_nFilterMaxSize > m_nFilterMinSize )	Settings.Search.FilterMask |= ( 1 << 11 );	// 0;
@@ -1528,6 +1528,8 @@ void CMatchFile::RefreshStatus()
 		{
 			nBestVote = nVote;
 			m_sName = pHit->m_sName;
+			m_sCompareName = m_sName;
+			ToLower.Clean( m_sCompareName );
 			m_sURL = pHit->m_sURL;
 		}
 
@@ -1960,7 +1962,7 @@ int CMatchFile::Compare(CMatchFile* pFile) const
 	switch ( m_pList->m_nSortColumn )
 	{
 	case MATCH_COL_NAME:
-		x = _tcsicoll( m_sName, pFile->m_sName );
+		x = m_sCompareName.Compare( pFile->m_sCompareName );
 		break;
 
 	case MATCH_COL_TYPE:
@@ -2052,7 +2054,7 @@ int CMatchFile::Compare(CMatchFile* pFile) const
 
 	if ( x == 0 && m_pList->m_nSortColumn != MATCH_COL_NAME )
 	{
-		x = _tcsicoll( m_sName, pFile->m_sName );
+		x = m_sCompareName.Compare( pFile->m_sCompareName );
 		if ( x == 0 && m_pList->m_nSortColumn != MATCH_COL_COUNT )
 			x = ( m_nSources == pFile->m_nSources ) ? 0 : ( ( m_nSources > pFile->m_nSources ) ? -1 : 1 );
 

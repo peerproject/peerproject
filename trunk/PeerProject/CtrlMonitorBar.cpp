@@ -1,7 +1,7 @@
 //
 // CtrlMonitorBar.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -248,7 +248,7 @@ void CMonitorBarCtrl::DoPaint(CDC* pDC)
 	m_rcTrackOut.SetRect( rcClient.right - 12, rcClient.top + 1, rcClient.right - 2, rcClient.bottom - 5 );
 	PaintTabs( pMemDC );
 
-	GetClientRect( &rcClient );
+	//GetClientRect( &rcClient );
 	pDC->BitBlt( rcClient.left, rcClient.top, rcClient.Width(), rcClient.Height(), pMemDC, 0, 0, SRCCOPY );
 	if ( Settings.General.LanguageRTL )
 		SetLayout( pMemDC->m_hDC, LAYOUT_RTL );
@@ -284,7 +284,7 @@ void CMonitorBarCtrl::PaintHistory(CDC* pDC, CRect* prc)
 		{
 			DWORD nRate = m_bTabOut ? Settings.Connection.OutSpeed : Settings.Connection.InSpeed;
 			nRate = nRate * ( m_bTabOut ? Settings.Live.BandwidthScaleOut : Settings.Live.BandwidthScaleIn ) / 100;
-			str.Format( _T(" %i%%  %s"),
+			str.Format( _T(" %u%%  %s"),
 				m_bTabOut ? Settings.Live.BandwidthScaleOut : Settings.Live.BandwidthScaleIn,
 				(LPCTSTR)Settings.SmartSpeed( nRate, Kilobits ) );
 

@@ -1594,13 +1594,14 @@ BOOL CMediaFrame::Prepare()
 		AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
 		return FALSE;
 	}
+
 	CoLockObjectExternal( m_pPlayer, TRUE, TRUE );
 	ModifyStyleEx( WS_EX_LAYOUTRTL, 0, 0 );
-	m_pPlayer->Create( GetSafeHwnd() );
-	if ( Settings.General.LanguageRTL ) ModifyStyleEx( 0, WS_EX_LAYOUTRTL, 0 );
+	m_pPlayer->Create( GetSafeHwnd() );		// (LONG_PTR) ?
 	m_pPlayer->SetZoom( Settings.MediaPlayer.Zoom );
 	m_pPlayer->SetAspect( Settings.MediaPlayer.Aspect );
 	m_pPlayer->SetVolume( m_bMute ? 0 : Settings.MediaPlayer.Volume );
+	if ( Settings.General.LanguageRTL ) ModifyStyleEx( 0, WS_EX_LAYOUTRTL, 0 );
 
 	if ( m_bmLogo.m_hObject )
 		m_pPlayer->SetLogoBitmap( (HBITMAP)m_bmLogo.m_hObject );
@@ -1737,11 +1738,11 @@ BOOL CMediaFrame::OpenFile(LPCTSTR pszFile)
 
 HRESULT CMediaFrame::PluginPlay(BSTR bsFilePath)
 {
-	HRESULT hr = E_FAIL;
 	__try
 	{
-		hr = m_pPlayer->Stop();
-		hr = m_pPlayer->Open( bsFilePath );
+		m_pPlayer->Stop();
+
+		return m_pPlayer->Open( bsFilePath );
 	}
 	__except( EXCEPTION_EXECUTE_HANDLER )
 	{
@@ -1749,8 +1750,6 @@ HRESULT CMediaFrame::PluginPlay(BSTR bsFilePath)
 		Cleanup();
 		return E_FAIL;
 	}
-
-	return hr;
 }
 
 void CMediaFrame::Cleanup()
@@ -1792,7 +1791,10 @@ void CMediaFrame::ZoomTo(MediaZoom nZoom)
 	if ( Settings.MediaPlayer.Zoom == nZoom ) return;
 	Settings.MediaPlayer.Zoom = nZoom;
 	if ( m_pPlayer == NULL ) return;
-	m_pPlayer->SetZoom( Settings.MediaPlayer.Zoom );
+
+	HRESULT hr = m_pPlayer->SetZoom( Settings.MediaPlayer.Zoom );
+	if ( FAILED( hr ) )
+		Cleanup();	// TRUE?
 }
 
 void CMediaFrame::AspectTo(double nAspect)
@@ -1800,7 +1802,10 @@ void CMediaFrame::AspectTo(double nAspect)
 	if ( Settings.MediaPlayer.Aspect == nAspect ) return;
 	Settings.MediaPlayer.Aspect = nAspect;
 	if ( m_pPlayer == NULL ) return;
-	m_pPlayer->SetAspect( Settings.MediaPlayer.Aspect );
+
+	HRESULT hr = m_pPlayer->SetAspect( Settings.MediaPlayer.Aspect );
+	if ( FAILED( hr ) )
+		Cleanup();	// TRUE?
 }
 
 void CMediaFrame::UpdateState()

@@ -1,7 +1,7 @@
 //
 // DCClient.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2010-2011
+// This file is part of PeerProject (peerproject.org) © 2010-2012
 // Portions copyright Shareaza Development Team, 2010.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -739,7 +739,7 @@ BOOL CDCClient::Handshake()
 	Write( _P("$Supports MiniSlots XmlBZList ADCGet TTHL TTHF ZLIG |") );
 
 	CString strDirection;
-	strDirection.Format( _T("$Direction %s %u|"),
+	strDirection.Format( _T("$Direction %s %i|"),
 		( m_pDownloadTransfer ? _T("Download") : _T("Upload") ), m_nNumber );
 	Write( strDirection );
 

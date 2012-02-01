@@ -1,7 +1,7 @@
 //
 // Scheduler.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007, 2010.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -62,11 +62,11 @@ CScheduler::~CScheduler()
 
 BOOL CScheduler::Load()
 {
+	const CString strFile = Settings.General.UserPath + _T("\\Data\\Scheduler.dat");
+
 	CQuickLock oLock( Scheduler.m_pSection );
 
 	CFile pFile;
-	CString strFile = Settings.General.UserPath + _T("\\Data\\Scheduler.dat");
-
 	if ( ! pFile.Open( strFile, CFile::modeRead ) )
 	{
 		theApp.Message( MSG_ERROR, _T("Failed to open Scheduler.dat") );
@@ -91,9 +91,9 @@ BOOL CScheduler::Load()
 
 BOOL CScheduler::Save()
 {
-	CQuickLock oLock( Scheduler.m_pSection );
+	const CString strFile = Settings.General.UserPath + _T("\\Data\\Scheduler.dat");
 
-	CString strFile = Settings.General.UserPath + _T("\\Data\\Scheduler.dat");
+	CQuickLock oLock( Scheduler.m_pSection );
 
 	CFile pFile;
 	if ( ! pFile.Open( strFile, CFile::modeWrite|CFile::modeCreate ) )
@@ -136,12 +136,12 @@ void CScheduler::Serialize(CArchive& ar)
 	if ( ar.IsStoring() )
 	{
 		ar << nVersion;
-		ar.WriteCount( GetCount() );	// Write the number of scheduled tasks
+		ar.WriteCount( GetCount() );		// Write the number of scheduled tasks
 
 		for ( POSITION pos = GetIterator() ; pos ; )
 		{
-			CScheduleTask *pSchTask = GetNext( pos );	// Get a pointer to each task
-			pSchTask->Serialize( ar, nVersion );		// Store each task's data
+			CScheduleTask *pSchTask = GetNext( pos );		// Get a pointer to each task
+			pSchTask->Serialize( ar, nVersion );			// Store each task's data
 		}
 	}
 	else // Loading
@@ -424,9 +424,9 @@ BOOL CScheduleTask::FromXML(CXMLElement* pXML)
 	if ( _wtoi( &wcTmp ) )	m_nDays |= ( bLegacy ? MONDAY : TUESDAY );
 	wcTmp = strValue[4];
 	if ( _wtoi( &wcTmp ) )	m_nDays |= ( bLegacy ? TUESDAY : WEDNESDAY );
-	wcTmp =	strValue[6];
+	wcTmp = strValue[6];
 	if ( _wtoi( &wcTmp ) )	m_nDays |= ( bLegacy ? WEDNESDAY : THURSDAY );
-	wcTmp =	strValue[8];
+	wcTmp = strValue[8];
 	if ( _wtoi( &wcTmp ) )	m_nDays |= ( bLegacy ? THURSDAY : FRIDAY );
 	wcTmp = strValue[10];
 	if ( _wtoi( &wcTmp ) )	m_nDays |= ( bLegacy ? FRIDAY : SATURDAY );

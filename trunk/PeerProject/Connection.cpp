@@ -1,7 +1,7 @@
 //
 // Connection.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -70,9 +70,8 @@ void CConnection::AttachTo(CConnection* pConnection)
 {
 	// Make sure the socket isn't valid yet
 	ASSERT( ! IsValid() );								// Make sure the socket here isn't valid yet
-	ASSERT( pConnection != NULL );						// Make sure we got a CConnection object
 	ASSERT( AfxIsValidAddress( pConnection, sizeof( *pConnection ) ) );
-	ASSERT( pConnection->IsValid() );					// And make sure its socket exists
+	ASSERT( pConnection->IsValid() );					// And make sure a CConnection object socket exists
 
 	DestroyBuffers();
 
@@ -685,7 +684,7 @@ BOOL CConnection::OnHeaderLine(CString& strHeader, CString& strValue)
 		if ( ! m_bInitiated && nColon > 0 )
 		{
 			// Read the number after the colon into nPort
-			int nPort = GNUTELLA_DEFAULT_PORT;	// Start out nPort as the default value, 6346
+			int nPort = protocolPorts[ PROTOCOL_G1 ];	// Start out nPort as the default value, 6346
 			if ( _stscanf( strValue.Mid( nColon + 1 ), _T("%lu"), &nPort ) == 1 && nPort != 0 )		// Make sure 1 number was found, and isn't 0
 			{
 				// Save the found port number in m_pHost
@@ -749,6 +748,33 @@ void CConnection::UpdateCountry()
 	m_sCountry		= theApp.GetCountryCode( m_pHost.sin_addr );
 	m_sCountryName	= theApp.GetCountryName( m_pHost.sin_addr );
 }
+
+// ToDo: r8874?
+//void CConnection::SendHTML(UINT nResourceID)
+//{
+//	CString strResponse;
+//	CString strBody = LoadRichHTML( nResourceID, strResponse );
+//
+//	if ( strResponse.IsEmpty() )
+//		Write( _P("HTTP/1.1 200 OK\r\n") );
+//	else
+//		Write( _T("HTTP/1.1 ") + strResponse );
+//
+//	if ( nResourceID == IDR_HTML_BUSY )
+//		Write( _P("Retry-After: 30\r\n") );
+//
+//	Write( _P("Content-Type: text/html\r\n") );
+//
+//	CStringA strBodyUTF8 = UTF8Encode( strBody );
+//
+//	CString strLength;
+//	strLength.Format( _T("Content-Length: %i\r\n\r\n"), strBodyUTF8.GetLength() );
+//	Write( strLength );
+//
+//	LogOutgoing();
+//
+//	Write( (LPCSTR)strBodyUTF8, strBodyUTF8.GetLength() );
+//}
 
 //////////////////////////////////////////////////////////////////////
 // TCPBandwidthMeter Utility routines

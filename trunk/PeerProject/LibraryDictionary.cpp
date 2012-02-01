@@ -1,7 +1,7 @@
 //
 // LibraryDictionary.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -174,10 +174,9 @@ void CLibraryDictionary::BuildHashTable()
 	if ( ! m_pTable )
 	{
 		m_pTable = new CQueryHashTable();
-		if ( m_pTable )
-			m_pTable->Create();
-		else
+		if ( ! m_pTable )
 			return;
+		m_pTable->Create();
 	}
 
 	m_pTable->Clear();
@@ -185,16 +184,16 @@ void CLibraryDictionary::BuildHashTable()
 	// Add words to hash table
 	//TRACE( _T("[LD] Dictionary size: %d words\n"), m_oWordMap.GetCount() );
 	//TRACE( _T("[LD] Hash table size: %d\n"), m_oWordMap.GetHashTableSize() );
-	for ( POSITION pos = m_oWordMap.GetStartPosition() ; pos ; )
+	for ( POSITION pos1 = m_oWordMap.GetStartPosition() ; pos1 ; )
 	{
 		CString strWord;
 		CFileList* pList = NULL;
-		m_oWordMap.GetNextAssoc( pos, strWord, pList );
+		m_oWordMap.GetNextAssoc( pos1, strWord, pList );
 
 		//TRACE( _T("[LD] Word \"%hs\" found %d time(s) in %d file(s)\n"), (LPCSTR)CT2A( strWord ), oWord.m_nCount, oWord.m_pList->GetCount() );
-		for ( POSITION pos = pList->GetHeadPosition() ; pos ; )
+		for ( POSITION pos2 = pList->GetHeadPosition() ; pos2 ; )
 		{
-			const CLibraryFile* pFile = pList->GetNext( pos );
+			const CLibraryFile* pFile = pList->GetNext( pos2 );
 
 			// Check if the file can be uploaded
 			if ( pFile->IsShared() )

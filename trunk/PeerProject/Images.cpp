@@ -1200,15 +1200,15 @@ BOOL CImages::DrawIconButton(CDC* pDC, CRect rc, CBitmap* bmButton)
 	return TRUE;
 }
 
-BOOL CImages::DrawButton(CDC* pDC, const CRect rc, CBitmap* bmButton, CBitmap* bmButtonEdge)
+BOOL CImages::DrawButton(CDC* pDC, const CRect rc, CBitmap* bmButton, CBitmap* bmButtonEdge, BOOL bRTL)
 {
 	if ( ! bmButton->m_hObject || pDC == NULL || rc == NULL )
 		return FALSE;
 
 	CDC dcMark;
 	dcMark.CreateCompatibleDC( pDC );
-	//if ( Settings.General.LanguageRTL )
-	//	SetLayout( dcMark.m_hDC, LAYOUT_BITMAPORIENTATIONPRESERVED );	// No effect?  ToDo: Fix RTL
+	if ( Settings.General.LanguageRTL )
+		SetLayout( dcMark.m_hDC, bRTL ? LAYOUT_RTL : LAYOUT_BITMAPORIENTATIONPRESERVED );
 
 	CBitmap* pOld;
 	pOld = (CBitmap*)dcMark.SelectObject( bmButton );
@@ -1261,7 +1261,7 @@ BOOL CImages::DrawButton(CDC* pDC, const CRect rc, CBitmap* bmButton, CBitmap* b
 	return TRUE;
 }
 
-BOOL CImages::DrawButtonMap(CDC* pDC, const CRect rc, CBitmap* bmButtonMap, const int nState)
+BOOL CImages::DrawButtonMap(CDC* pDC, const CRect rc, CBitmap* bmButtonMap, const int nState, BOOL bRTL)
 {
 	if ( ! bmButtonMap->m_hObject || pDC == NULL || rc == NULL )
 		return FALSE;
@@ -1298,7 +1298,7 @@ BOOL CImages::DrawButtonMap(CDC* pDC, const CRect rc, CBitmap* bmButtonMap, cons
 	CDC dcMark;
 	dcMark.CreateCompatibleDC( pDC );
 	if ( Settings.General.LanguageRTL )
-		SetLayout( dcMark.m_hDC, LAYOUT_BITMAPORIENTATIONPRESERVED );
+		SetLayout( dcMark.m_hDC, bRTL ? LAYOUT_RTL : LAYOUT_BITMAPORIENTATIONPRESERVED );
 
 	CBitmap* pOld;
 	pOld = (CBitmap*)dcMark.SelectObject( bmButtonMap );
@@ -1366,11 +1366,11 @@ BOOL CImages::DrawButtonState(CDC* pDC, const CRect rc, const int nResource)
 	case IMAGE_SELECTED:	// + IMAGE_HIGHLIGHT
 		return DrawButton( pDC, rc, &m_bmSelected );	// ToDo: &m_bmSelectedEdge?
 	case IMAGE_MENUSELECTED:
-		return DrawButton( pDC, rc, &m_bmMenuSelected, &m_bmMenuSelectedEdge ) ||
-			DrawButtonMap( pDC, rc, &m_bmButtonMapMenuselect, STATE_HOVER );
+		return DrawButton( pDC, rc, &m_bmMenuSelected, &m_bmMenuSelectedEdge, TRUE ) ||
+			DrawButtonMap( pDC, rc, &m_bmButtonMapMenuselect, STATE_HOVER, TRUE );
 	case IMAGE_MENUDISABLED:
-		return DrawButton( pDC, rc, &m_bmMenuDisabled, &m_bmMenuDisabledEdge ) ||
-			DrawButtonMap( pDC, rc, &m_bmButtonMapMenuselect, STATE_PRESS );
+		return DrawButton( pDC, rc, &m_bmMenuDisabled, &m_bmMenuDisabledEdge, TRUE ) ||
+			DrawButtonMap( pDC, rc, &m_bmButtonMapMenuselect, STATE_PRESS, TRUE );
 	case IMAGE_PROGRESSBAR:
 		return DrawButton( pDC, rc, &m_bmProgress, &m_bmProgressEdge ) ||
 			DrawButtonMap( pDC, rc, &m_bmButtonMapProgressbar, STATE_HOVER );
@@ -1414,20 +1414,20 @@ BOOL CImages::DrawButtonState(CDC* pDC, const CRect rc, const int nResource)
 			DrawButtonMap( pDC, rc, &m_bmButtonMapRichdoc, STATE_DISABLED );
 
 	case TOOLBARBUTTON_DEFAULT:
-		return DrawButton( pDC, rc, &m_bmToolbarButton, &m_bmToolbarButtonEdge ) ||
-			DrawButtonMap( pDC, rc, &m_bmButtonMapToolbar, STATE_DEFAULT );
+		return DrawButton( pDC, rc, &m_bmToolbarButton, &m_bmToolbarButtonEdge, TRUE ) ||
+			DrawButtonMap( pDC, rc, &m_bmButtonMapToolbar, STATE_DEFAULT, TRUE );
 	case TOOLBARBUTTON_HOVER:
-		return DrawButton( pDC, rc, &m_bmToolbarButtonHover, &m_bmToolbarButtonHoverEdge ) ||
-			DrawButtonMap( pDC, rc, &m_bmButtonMapToolbar, STATE_HOVER );
+		return DrawButton( pDC, rc, &m_bmToolbarButtonHover, &m_bmToolbarButtonHoverEdge, TRUE ) ||
+			DrawButtonMap( pDC, rc, &m_bmButtonMapToolbar, STATE_HOVER, TRUE );
 	case TOOLBARBUTTON_PRESS:
-		return DrawButton( pDC, rc, &m_bmToolbarButtonPress, &m_bmToolbarButtonPressEdge ) ||
-			DrawButtonMap( pDC, rc, &m_bmButtonMapToolbar, STATE_PRESS );
+		return DrawButton( pDC, rc, &m_bmToolbarButtonPress, &m_bmToolbarButtonPressEdge, TRUE ) ||
+			DrawButtonMap( pDC, rc, &m_bmButtonMapToolbar, STATE_PRESS, TRUE );
 	case TOOLBARBUTTON_ACTIVE:
-		return DrawButton( pDC, rc, &m_bmToolbarButtonActive, &m_bmToolbarButtonActiveEdge ) ||
-			DrawButtonMap( pDC, rc, &m_bmButtonMapToolbar, STATE_ACTIVE );
+		return DrawButton( pDC, rc, &m_bmToolbarButtonActive, &m_bmToolbarButtonActiveEdge, TRUE ) ||
+			DrawButtonMap( pDC, rc, &m_bmButtonMapToolbar, STATE_ACTIVE, TRUE );
 	case TOOLBARBUTTON_DISABLED:
-		return DrawButton( pDC, rc, &m_bmToolbarButtonDisabled, &m_bmToolbarButtonDisabledEdge ) ||
-			DrawButtonMap( pDC, rc, &m_bmButtonMapToolbar, STATE_DISABLED );
+		return DrawButton( pDC, rc, &m_bmToolbarButtonDisabled, &m_bmToolbarButtonDisabledEdge, TRUE ) ||
+			DrawButtonMap( pDC, rc, &m_bmButtonMapToolbar, STATE_DISABLED, TRUE );
 	case TOOLBAR_SEPARATOR:
 		return DrawButton( pDC, rc, &m_bmToolbarSeparator );
 

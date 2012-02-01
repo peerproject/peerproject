@@ -112,8 +112,12 @@ BOOL CHostCache::Load()
 		pFile.Close();
 	}
 
-	if ( eDonkey.GetNewest() == NULL )
-		CheckMinimumServers();
+	if ( Gnutella2.IsEmpty() )	CheckMinimumServers( PROTOCOL_G2 );
+	if ( Gnutella1.IsEmpty() )	CheckMinimumServers( PROTOCOL_G1 );
+	if ( eDonkey.IsEmpty() )	CheckMinimumServers( PROTOCOL_ED2K );
+	if ( DC.IsEmpty() )			CheckMinimumServers( PROTOCOL_DC );
+	if ( BitTorrent.IsEmpty() )	CheckMinimumServers( PROTOCOL_BT );
+	if ( Kademlia.IsEmpty() )	CheckMinimumServers( PROTOCOL_KAD );
 
 	if ( bSuccess )
 		return TRUE;
@@ -375,7 +379,7 @@ CHostCacheHostPtr CHostCacheList::Add(const IN_ADDR* pAddress, WORD nPort, DWORD
 	return AddInternal( pAddress, nPort, tSeen, pszVendor, nUptime, nCurrentLeaves, nLeafLimit, szAddress );
 }
 
-BOOL CHostCacheList::Add(LPCTSTR pszHost, DWORD tSeen, LPCTSTR pszVendor, DWORD nUptime, DWORD nCurrentLeaves, DWORD nLeafLimit)
+CHostCacheHostPtr CHostCacheList::Add(LPCTSTR pszHost, DWORD tSeen, LPCTSTR pszVendor, DWORD nUptime, DWORD nCurrentLeaves, DWORD nLeafLimit)
 {
 	CString strHost( pszHost );
 	strHost.Trim();
@@ -390,18 +394,23 @@ BOOL CHostCacheList::Add(LPCTSTR pszHost, DWORD tSeen, LPCTSTR pszVendor, DWORD 
 		tSeen = TimeFromString( strTime );
 	}
 
+	WORD nPort = protocolPorts[ m_nProtocol ];
 	nPos = strHost.Find( _T(':') );
-	if ( nPos < 0 ) return FALSE;
-
-	int nPort = GNUTELLA_DEFAULT_PORT;
-	if ( _stscanf( strHost.Mid( nPos + 1 ), _T("%i"), &nPort ) != 1 ||
-		nPort <= 0 || nPort >= 65536 ) return FALSE;
-	strHost = strHost.Left( nPos );
+	if ( nPos > 0 )
+	{
+		int n = 0;
+		if ( _stscanf( strHost.Mid( nPos + 1 ), _T("%i"), &n ) == 1 &&
+			n > 0 && n <= USHRT_MAX )
+		{
+			nPort = (WORD)n;
+		}
+		strHost = strHost.Left( nPos );
+	}
 
 	DWORD nAddress = inet_addr( CT2CA( (LPCTSTR)strHost ) );
 	if ( nAddress == INADDR_NONE ) return FALSE;
 
-	return ( Add( (IN_ADDR*)&nAddress, (WORD)nPort, tSeen, pszVendor, nUptime, nCurrentLeaves, nLeafLimit ) != NULL );
+	return Add( (IN_ADDR*)&nAddress, nPort, tSeen, pszVendor, nUptime, nCurrentLeaves, nLeafLimit );
 }
 
 // This function actually adds the remote client to the host cache.
@@ -468,7 +477,6 @@ void CHostCacheList::Update(CHostCacheHostPtr pHost, WORD nPort, DWORD tSeen, LP
 {
 	CQuickLock oLock( m_pSection );
 
-	ASSERT( pHost );
 	ASSERT( m_Hosts.size() == m_HostsTime.size() );
 
 	// Update host
@@ -887,7 +895,7 @@ int CHostCache::ImportHubList(CFile* pFile)
 			const int nMaxusers	= _tstoi( pHub->GetAttributeValue( _T("Maxusers") ) );
 
 			CQuickLock oLock( DC.m_pSection );
-			CHostCacheHostPtr pServer = DC.Add( NULL, DC_DEFAULT_PORT, 0,
+			CHostCacheHostPtr pServer = DC.Add( NULL, protocolPorts[ PROTOCOL_DC ], 0,
 				protocolNames[ PROTOCOL_DC ], 0, nUsers, nMaxusers, sAddress );
 			if ( pServer )
 			{
@@ -1024,103 +1032,165 @@ int CHostCache::ImportNodes(CFile* pFile)
 //////////////////////////////////////////////////////////////////////
 // CHostCache Check Minimum Servers
 
-bool CHostCache::CheckMinimumServers()
+bool CHostCache::CheckMinimumServers(PROTOCOLID nProtocol)
 {
-	if ( Settings.Experimental.LAN_Mode )
+	if ( nProtocol != PROTOCOL_G2 && Settings.Experimental.LAN_Mode )
 		return true;
 
-	if ( ! EnoughServers() )
+	if ( EnoughServers( nProtocol ) )
+		return true;
+
+	// Load default server list (if necessary)
+	LoadDefaultServers( nProtocol );
+
+	// Get the server list from local eMule/mods if possible
+	if ( nProtocol == PROTOCOL_ED2K )
 	{
-		// Load default ed2k server list (if necessary)
-		LoadDefaultServers();
+		const LPCTSTR sServerMetPathes[ 8 ] =
+		{
+			{ _T("\\eMule\\config\\server.met") },
+			{ _T("\\eMule\\server.met") },
+			{ _T("\\Neo Mule\\config\\server.met") },
+			{ _T("\\Neo Mule\\server.met") },
+			{ _T("\\hebMule\\config\\server.met") },
+			{ _T("\\hebMule\\server.met") },
+			{ _T("\\aMule\\config\\server.met") },
+			{ _T("\\aMule\\server.met") }
+		};
 
-		// Get the server list from eMule (mods) if possible
-		CString strPrograms( theApp.GetProgramFilesFolder() );
-		Import( strPrograms + _T("\\eMule\\config\\server.met"), TRUE );
-		Import( strPrograms + _T("\\Neo Mule\\config\\server.met"), TRUE );
-		Import( strPrograms + _T("\\hebMule\\config\\server.met"), TRUE );
+		CString sRootPathes[ 3 ];
+		sRootPathes[ 0 ] = theApp.GetProgramFilesFolder();
+		sRootPathes[ 1 ] = theApp.GetLocalAppDataFolder();
+		sRootPathes[ 2 ] = theApp.GetAppDataFolder();
 
-		CString strAppData( theApp.GetAppDataFolder() );
-		Import( strAppData + _T("\\aMule\\server.met"), TRUE );
-
-		// Get server list from Web
-		if ( ! EnoughServers() )
-			DiscoveryServices.Execute( TRUE, PROTOCOL_ED2K, TRUE );
-
-		return false;
+		for ( int i = 0 ; i < _countof( sRootPathes ) ; ++i )
+			for ( int j = 0 ; j < _countof( sServerMetPathes ) ; ++j )
+				Import( sRootPathes[ i ] + sServerMetPathes[ j ], TRUE );
 	}
 
-	return true;
+	// ToDo: Try local Shareaza too
+
+	if ( EnoughServers( nProtocol ) )
+		return true;
+
+	// Get server list from Web
+	DiscoveryServices.Execute( TRUE, nProtocol, TRUE );
+
+	return false;
 }
 
 //////////////////////////////////////////////////////////////////////
 // CHostCache Default servers import
 
-int CHostCache::LoadDefaultServers()
+int CHostCache::LoadDefaultServers(PROTOCOLID nProtocol)
 {
 	const CString strFile = Settings.General.Path + _T("\\Data\\DefaultServers.dat");
 	int nServers = 0;
 
-	// Ignore old files (240 days)
-	//if ( ! IsFileNewerThan( strFile, 240ull * 24 * 60 * 60 * 1000 ) )
+	// Ignore old files (300 days)
+	//if ( ! IsFileNewerThan( strFile, 300ull * 24 * 60 * 60 * 1000 ) )
 	//	return 0;
 
-	CFile pFile;	// Load default list from file if possible
+	CStdioFile pFile;	// Load default list from file if possible
 	if ( ! pFile.Open( strFile, CFile::modeRead | CFile::shareDenyWrite | CFile::osSequentialScan ) )
 		return 0;
 
 	theApp.Message( MSG_NOTICE, _T("Loading default server list") );
 
-	try
+	// Format: PE 255.255.255.255:1024	# NameForConvenience
+
+	for (;;)
 	{
 		CString strLine;
-		CBuffer pBuffer;
-		TCHAR cType;
+		if ( ! pFile.ReadString( strLine ) )
+			break;	// End of file
 
-		pBuffer.EnsureBuffer( (DWORD)pFile.GetLength() );
-		pBuffer.m_nLength = (DWORD)pFile.GetLength();
-		pFile.Read( pBuffer.m_pBuffer, pBuffer.m_nLength );
-		pFile.Close();
+		strLine.Trim( _T(" \t\r\n") );
+		if ( strLine.GetLength() < 10 ) continue;		// Blank or invalid line
 
-		// Format: P 255.255.255.255:1024	# NameForConvenience
+		// Trim at whitespace break (Remove any trailing comments)
+		int nTest = strLine.Find( _T("\t"), 10 );
+		if ( nTest > 0 ) strLine = strLine.Left( nTest );
+		nTest = strLine.Find( _T(" "), 10 );
+		if ( nTest > 0 ) strLine = strLine.Left( nTest );
 
-		while ( pBuffer.ReadLine( strLine ) )
+		//TCHAR cType = strLine.GetAt( 0 );
+		LPCTSTR szServer = strLine;
+		if ( *szServer == _T('#') ) continue;			// Comment line
+		//if ( *szServer == _T('X') ) continue;			// ToDo: Handle bad IPs?
+
+		BOOL bPriority = FALSE;
+		if ( *szServer == _T('P') || *szServer == _T('*') )
 		{
-			if ( strLine.GetLength() < 16 ) continue;		// Blank or invalid line
-
-			cType = strLine.GetAt( 0 );
-			if ( cType == '#' || cType == 'X' ) continue;	// Comment line - ToDo: Handle bad IPs
-
-			CString strServer = strLine.Mid( 2 );			// Remove leading 2 spaces
-
-			if ( strServer.Find( _T("\t"), 14) > 1 )		// Trim at whitespace (remove any comments)
-				strServer.Left( strServer.Find( _T("\t"), 14) );
-			else if ( strServer.Find( _T(" "), 14) > 1 )
-				strServer.Left( strServer.Find( _T(" "), 14) );
-
-			int nIP[4], nPort;
-
-			if ( _stscanf( strServer, _T("%i.%i.%i.%i:%i"), &nIP[0], &nIP[1], &nIP[2], &nIP[3],	&nPort ) == 5 )
-			{
-				IN_ADDR pAddress;
-				pAddress.S_un.S_un_b.s_b1 = (BYTE)nIP[0];
-				pAddress.S_un.S_un_b.s_b2 = (BYTE)nIP[1];
-				pAddress.S_un.S_un_b.s_b3 = (BYTE)nIP[2];
-				pAddress.S_un.S_un_b.s_b4 = (BYTE)nIP[3];
-
-				if ( CHostCacheHostPtr pServer = eDonkey.Add( &pAddress, (WORD)nPort ) )
-				{
-					pServer->m_bPriority = ( cType == 'P' );
-					nServers++;
-				}
-			}
+			bPriority = TRUE;
+			++szServer;
 		}
-	}
-	catch ( CException* pException )
-	{
-		if ( pFile.m_hFile != CFile::hFileNull )
-			pFile.Close();	// File is still open so close it
-		pException->Delete();
+
+		CHostCacheList* pCache = NULL;
+		switch ( *szServer )
+		{
+		case _T('1'):
+		case _T('L'):
+			pCache = &Gnutella1;
+			break;
+		case _T('2'):
+		case _T('G'):
+			pCache = &Gnutella2;
+			break;
+		case _T(' '):	// Legacy
+		case _T('E'):
+			pCache = &eDonkey;
+			break;
+		case _T('D'):
+			pCache = &DC;
+			break;
+		case _T('B'):
+			pCache = &BitTorrent;
+			break;
+		case _T('K'):
+			pCache = &Kademlia;
+			break;
+		}
+
+		if ( ! pCache )
+			continue;	// Unknown protocol?
+
+		if ( nProtocol != pCache->m_nProtocol && nProtocol != PROTOCOL_ANY )
+			continue;	// Unneeded protocol
+
+		++szServer;
+
+		if ( *szServer == _T('P') || *szServer == _T('*') )
+		{
+			bPriority = TRUE;
+			++szServer;
+		}
+
+		for ( ; *szServer == _T(' ') || *szServer == _T('\t') ; ++szServer );
+
+		CQuickLock oLock( pCache->m_pSection );
+		if ( CHostCacheHostPtr pServer = pCache->Add( szServer ) )
+		{
+			pServer->m_bPriority = bPriority;
+			nServers++;
+		}
+
+	//	int nIP[5];
+	//	nTest =_stscanf( strServer, _T("%i.%i.%i.%i:%i"), &nIP[0], &nIP[1], &nIP[2], &nIP[3], &nIP[4] );
+	//	if ( nTest < 4 || nIP[0] > 255 || nIP[1] > 255 || nIP[2] > 255 || nIP[3] > 255 )
+	//		continue;	// Invalid
+	//
+	//	IN_ADDR pAddress;
+	//	pAddress.S_un.S_un_b.s_b1 = (BYTE)nIP[0];
+	//	pAddress.S_un.S_un_b.s_b2 = (BYTE)nIP[1];
+	//	pAddress.S_un.S_un_b.s_b3 = (BYTE)nIP[2];
+	//	pAddress.S_un.S_un_b.s_b4 = (BYTE)nIP[3];
+	//
+	//	if ( CHostCacheHostPtr pServer = pCache->Add( &pAddress, (WORD)nIP[4] ) )
+	//	{
+	//		pServer->m_bPriority = bPriority;
+	//		nServers++;
+	//	}
 	}
 
 	return nServers;

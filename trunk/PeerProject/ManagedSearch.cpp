@@ -1,7 +1,7 @@
 //
 // ManagedSearch.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -466,7 +466,7 @@ BOOL CManagedSearch::ExecuteG2Mesh(const DWORD /*tTicks*/, const DWORD tSecs)
 				// Check per-hub re-query time
 				DWORD nFrequency;
 
-				if ( m_nPriority >=  spLowest )
+				if ( m_nPriority >= spLowest )
 				{
 					// Low priority "auto find" sources
 					if ( m_pSearch->m_oSHA1 )		// Has SHA1- probably exists on G2
@@ -614,7 +614,7 @@ BOOL CManagedSearch::ExecuteDonkeyMesh(const DWORD /*tTicks*/, const DWORD tSecs
 
 	CQuickLock oLock( HostCache.eDonkey.m_pSection );
 
-	for ( CHostCacheIterator i = HostCache.eDonkey.Begin() ; i != HostCache.eDonkey.End();	++i )
+	for ( CHostCacheIterator i = HostCache.eDonkey.Begin() ; i != HostCache.eDonkey.End() ; ++i )
 	{
 		CHostCacheHostPtr pHost = (*i);
 

@@ -219,8 +219,6 @@ float CHostBrowser::GetProgress() const
 
 void CHostBrowser::OnQueryHits(CQueryHit* pHits)
 {
-	ASSERT( pHits );
-
 	m_bCanPush	= TRUE;
 	m_oClientID	= pHits->m_oClientID;
 
@@ -422,7 +420,7 @@ void CHostBrowser::SendRequest()
 		Write( _P("Accept-Encoding: deflate\r\n") );
 		Write( _P("Connection: close\r\n") );
 
-		strHeader.Format( _T("Host: %s:%lu\r\n\r\n"), m_sAddress, htons( m_pHost.sin_port ) );
+		strHeader.Format( _T("Host: %s:%lu\r\n\r\n"), (LPCTSTR)m_sAddress, htons( m_pHost.sin_port ) );
 		Write( strHeader );
 
 		LogOutgoing();

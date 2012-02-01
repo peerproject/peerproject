@@ -553,7 +553,6 @@ CEDPacket* CQuerySearch::ToEDPacket(BOOL bUDP, DWORD nServerFlags) const
 
 BOOL CQuerySearch::WriteHashesToEDPacket(CEDPacket* pPacket, BOOL bUDP) const
 {
-	ASSERT ( pPacket != NULL );
 	ASSERT ( ( pPacket->m_nType == bUDP ) ? ED2K_C2SG_GETSOURCES2 : ED2K_C2S_GETSOURCES );
 
 	CSingleLock pLock( &Transfers.m_pSection );
@@ -654,7 +653,7 @@ CDCPacket* CQuerySearch::ToDCPacket() const
 		( bIsMaxSize ? _T('T') : _T('F') ),
 		( bSizeRestriced ? ( bIsMaxSize ? m_nMaxSize : m_nMinSize ) : 0ull ),
 		nType,
-		( m_oTiger ? ( _T("TTH:") + m_oTiger.toString() ) : strSearch ) );
+		(LPCTSTR)( m_oTiger ? ( _T("TTH:") + m_oTiger.toString() ) : strSearch ) );
 
 	pPacket->WriteString( strQuery, FALSE );
 
@@ -1340,19 +1339,21 @@ BOOL CQuerySearch::CheckValid(bool bExpression)
 		for ( const_iterator pWord = begin() ; pWord != end() ; pWord++ )
 		{
 			TCHAR  szChar = *(pWord->first);
-			size_t nLength = int(pWord->second);
+			size_t nLength = pWord->second;
 			size_t nValidCharacters = 0;
 
-			bool bExtendChar = false;	// Clear the flag used for extended char
+			//bool bExtendChar = false;	// Clear the flag used for extended char
 			// NOTE: Because of how oWord acts, each keyword in oWords gets sorted in ascending order with HEX code of char,
 			// thus Extended chars are always located at end of oWords.  Therefore it is not necessary to Clear the flag inside the loop.
 
 			// After the char inspection:
 			if ( ! IsCharacter( szChar ) )	// Check if the char is valid
-			{
 				continue;					// Do nothing here
-			}
-			else if ( nLength > 3 )			// Any char string longer than 3 byte are counted.
+
+			//if ( nLength > 8 )			// Longer than any common word, no further check needed
+			//	return TRUE;
+
+			if ( nLength > 3 )				// Any char string longer than 3 byte are counted.
 			{
 				nValidCharacters = nLength;
 			}
@@ -1368,14 +1369,14 @@ BOOL CQuerySearch::CheckValid(bool bExpression)
 			{												// Because of number of chars exist in that region they are counted as 2byte chars,
 															// making only 2 or longer chars accepted on Query.
 				nValidCharacters = nLength * 2;
-				bExtendChar = true;							// Set Extended char flag
+				//bExtendChar = true;						// Set Extended char flag
 			}
 			else if ( 0x800 <= szChar && 0xffff >= szChar)  // Check if the char is 3 byte length in UTF8 (non-char will not reach here)
 			{
 				nValidCharacters = nLength * 3;
-				bExtendChar = true;							// Set Extended char flag
+				//bExtendChar = true;						// Set Extended char flag
 			}
-			else if ( nLength > 2 )
+			else if ( nLength > 1 )
 			{
 				// char inspection
 				bool bWord, bDigit, bMix;
@@ -1384,46 +1385,53 @@ BOOL CQuerySearch::CheckValid(bool bExpression)
 					nValidCharacters = nLength;
 			}
 
-			if ( nValidCharacters > 2 )		// If char is longer than 3byte in utf8 (Gnutella standard)
+			// Check char is longer than 3byte in utf8 (Gnutella standard)
+			if ( nValidCharacters < 2 )
+				continue;
+
+			if ( nValidCharacters > 8 )
 			{
-				// Setup Common keyword list
-				static const CString strCommom =
-					L"dvd xxx sex fuck porn";
+				// Lengthy assume valid keyword
+				nValidWords++;
+			}
+			else if ( nValidCharacters == 2 )
+			{
+				// Use invalid 2chars as common term
+				nCommonWords++;
+			}
+			else
+			{
+				// Set additional common keyword list (non-filetypes)
+				static const CString strCommom = L"dvd xxx sex fuck porn";
 
 				const CString strWord = CString( pWord->first, (int)pWord->second ).MakeLower();
 
-				// Obsolete
-				//static const LPCTSTR common[] =
-				//{
-				//	L"mp3", L"ogg", L"ac3",
-				//	L"jpg", L"gif", L"png", L"bmp", L"pdf",
-				//	L"avi", L"mpg", L"mkv", L"wmv", L"mov", L"ogm",
-				//	L"exe", L"zip", L"rar", L"iso", L"bin",
-				//	L"dvd", L"divx", L"xvid", L"mpeg", L"mp4",
-				//	L"xxx", L"sex", L"fuck",
-				//	L"torrent"
-				//};
-				//static const size_t commonWords = sizeof common / sizeof common[ 0 ];
-				//if ( std::find_if( common, common + commonWords, FindStr( *pWord ) ) != common + commonWords ) nCommonWords++;
-
-				// Detect if the keyword is matched to common keywords/extensions
-				if ( nValidCharacters < 8 && SchemaCache.IsFilter( strWord ) || strCommom.Find( strWord ) )
-					nCommonWords++;
+				if ( SchemaCache.IsFilter( strWord ) || strCommom.Find( strWord ) >= 0 )
+					nCommonWords++;		// Common term
+				else if ( nValidCharacters == 3 )
+					nCommonWords += 2;	// Count short valid keywords
 				else
-					nValidWords++;
-
-					// NOTE: code below will filter and narrow down more.
-					//			1. It is 4byte or longer in UTF8 string
-					//			2. Query has Schema with it (File type specified)
-					//			3. The string contains extended char (3byte length char used in Asia region)
-					//if ( nValidCharacters > 3 || m_pSchema != NULL || bExtendChar ) nValidWords++;
-
-				DWORD nHash = CQueryHashTable::HashWord( pWord->first, 0, pWord->second, 32 );
-				m_oKeywordHashList.push_back( nHash );
+					nValidWords++;		// Count any other as valid keywords
 			}
+
+			DWORD nHash = CQueryHashTable::HashWord( pWord->first, 0, pWord->second, 32 );
+			m_oKeywordHashList.push_back( nHash );
+
+			// Obsolete:
+			//static const LPCTSTR common[] =
+			//{
+			//	L"mp3", L"ogg", L"ac3", L"aac",
+			//	L"jpg", L"gif", L"png", L"bmp", L"pdf",
+			//	L"avi", L"mpg", L"mkv", L"wmv", L"mov", L"ogm",
+			//	L"exe", L"zip", L"rar", L"iso", L"bin",
+			//	L"dvd", L"divx", L"xvid", L"mpeg", L"mp4",
+			//	L"xxx", L"sex", L"fuck", L"torrent"
+			//};
+			//static const size_t commonWords = sizeof common / sizeof common[ 0 ];
+			//if ( std::find_if( common, common + commonWords, FindStr( *pWord ) ) != common + commonWords ) nCommonWords++;
 		}
 
-		if ( nValidWords || nCommonWords > 2 || ( m_pSchema ) && nCommonWords > 1 )
+		if ( nValidWords || nCommonWords > 2 || ( m_pSchema && nCommonWords > 1 ) )
 			return TRUE;
 	}
 

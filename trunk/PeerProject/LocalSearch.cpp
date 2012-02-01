@@ -1,7 +1,7 @@
 //
 // LocalSearch.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -262,7 +262,7 @@ bool CLocalSearch::ExecuteSharedFiles(INT_PTR nMaximum, INT_PTR& nHits)
 }
 
 template< typename T >
-void CLocalSearch::SendHits(const CList< T * >& oFiles)
+void CLocalSearch::SendHits(const CList< T* >& oFiles)
 {
 	CPacket* pPacket = NULL;
 	CSchemaMap pSchemas;
@@ -425,7 +425,7 @@ void CLocalSearch::AddHitG1(CG1Packet* pPacket, CSchemaMap& pSchemas, CLibraryFi
 		if ( CXMLElement* pXML = pFile->m_pMetadata->Clone() )
 		{
 			CString strIndex;
-			strIndex.Format( _T("%lu"), nIndex );
+			strIndex.Format( _T("%d"), nIndex );
 			pXML->AddAttribute( _T("index"), strIndex );
 			pGroup->AddElement( pXML );
 		}
@@ -766,12 +766,12 @@ void CLocalSearch::AddHit< CDownload >(CPacket* pPacket, CSchemaMap& pSchemas, C
 	}
 }
 
-void CLocalSearch::AddHitG1(CG1Packet* /*pPacket*/, CSchemaMap& /*pSchemas*/, CDownload * /*pDownload*/, int /*nIndex*/)
+void CLocalSearch::AddHitG1(CG1Packet* /*pPacket*/, CSchemaMap& /*pSchemas*/, CDownload* /*pDownload*/, int /*nIndex*/)
 {
 	// ToDo: Add Gnutella(1) active-download hit packet!
 }
 
-void CLocalSearch::AddHitG2(CG2Packet* pPacket, CSchemaMap& /*pSchemas*/, CDownload * pDownload, int /*nIndex*/)
+void CLocalSearch::AddHitG2(CG2Packet* pPacket, CSchemaMap& /*pSchemas*/, CDownload* pDownload, int /*nIndex*/)
 {
 	// Pass 1: Calculate child group size
 	// Pass 2: Write the child packet
@@ -1025,11 +1025,10 @@ CG2Packet* CLocalSearch::CreatePacketG2()
 	if ( ! Uploads.m_bStable )
 		pPacket->WritePacket( G2_PACKET_PEER_UNSTABLE, 0 );
 
-	int nQueue = 1;
-
 	CSingleLock pQueueLock( &UploadQueues.m_pSection );
 	if ( pQueueLock.Lock( 2000 ) )
 	{
+		int nQueue = 1;
 		for ( POSITION pos = UploadQueues.GetIterator() ; pos ; nQueue++ )
 		{
 			CUploadQueue* pQueue = UploadQueues.GetNext( pos );

@@ -39,7 +39,9 @@
 #include "ImageServices.h"
 #include "ImageFile.h"	// AfxMsgBox Banners
 #include "Library.h"
+#include "LibraryFolders.h"
 #include "LibraryBuilder.h"
+#include "CtrlLibraryFrame.h"
 #include "Network.h"
 #include "Plugins.h"
 #include "PeerProjectURL.h"
@@ -50,6 +52,7 @@
 #include "SchemaCache.h"
 #include "Security.h"
 #include "SharedFile.h"
+#include "SharedFolder.h"
 #include "ShellIcons.h"
 #include "Skin.h"
 #include "SQLite.h"
@@ -66,6 +69,7 @@
 #include "WndMain.h"
 #include "WndMedia.h"
 #include "WndSystem.h"
+#include "WndLibrary.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -326,23 +330,23 @@ BOOL CPeerProjectApp::InitInstance()
 #ifdef _DEBUG
 	COleDateTimeSpan tTimeOut( 21, 0, 0, 0 );		// Daily debug builds
 #else
-	COleDateTimeSpan tTimeOut( 45, 0, 0, 0 );		// Forum Betas (Non-sourceforge release)
+	COleDateTimeSpan tTimeOut( 45, 0, 0, 0 );		// Private Betas (Non-sourceforge release)
 #endif
 
 	if ( tCurrent > tCompileTime + tTimeOut )
 	{
 		CString strMessage;
-		LoadString( strMessage, IDS_BETA_EXPIRED);
+		LoadString( strMessage, IDS_BETA_EXPIRED );
 		AfxMessageBox( strMessage, MB_ICONQUESTION|MB_OK );
 	}
 
 
-	// ALPHA WARNING.  Remember to remove this section for public betas.
+	// ALPHA/BETA WARNING.  Remember to remove this section for public betas.
 
 	if ( ! m_cmdInfo.m_bNoAlphaWarning && m_cmdInfo.m_bShowSplash )
 	{
 		if ( AfxMessageBox(
-			L"\nWARNING: This is an ALPHA TEST version of PeerProject p2p"
+			L"\nWARNING: This is a BETA TEST version of PeerProject p2p"
  #ifdef __REVISION__
 			L", r" _T(__REVISION__)
  #endif
@@ -676,7 +680,9 @@ void CPeerProjectApp::SplashStep(LPCTSTR pszMessage, int nMax, bool bClosing)
 		m_dlgSplash->Step( pszMessage );
 	}
 	else if ( m_dlgSplash /*&& ! nMax*/ )	// Reset m_dlgSplash->m_nPos ?
+	{
 		m_dlgSplash->Step( pszMessage );
+	}
 
 	TRACE( _T("Step: %s\n"), pszMessage ? pszMessage : _T("Done") );
 }
@@ -863,10 +869,11 @@ CDocument* CPeerProjectApp::OpenDocumentFile(LPCTSTR lpszFileName)
 	return NULL;
 }
 
-BOOL CPeerProjectApp::Open(LPCTSTR lpszFileName)		// Note: No BOOL bDoIt needed
+BOOL CPeerProjectApp::Open(LPCTSTR lpszFileName, BOOL bTest)		// Note: Not BOOL bDoIt
 {
 	CString strExt( PathFindExtension( lpszFileName ) );
-	if ( strExt.IsEmpty() ) return FALSE;
+	if ( strExt.IsEmpty() )
+		return bTest ? PathIsDirectory( lpszFileName ) : OpenPath( lpszFileName );
 	strExt = strExt.MakeLower();
 
 	SwitchMap( Ext )
@@ -888,20 +895,21 @@ BOOL CPeerProjectApp::Open(LPCTSTR lpszFileName)		// Note: No BOOL bDoIt needed
 	switch( Ext[ strExt ] )
 	{
 	case 't':	// .torrent
-		return OpenTorrent( lpszFileName );
+		return bTest || OpenTorrent( lpszFileName );
 	case 'c':	// .co .collection .emulecollection
-		return OpenCollection( lpszFileName );
+		return bTest || OpenCollection( lpszFileName );
 	case 'i':	// .met .dat
-		return OpenImport( lpszFileName );
+		return bTest || OpenImport( lpszFileName );
 //	case 'm':	// ToDo: .metalink .meta4 .magma (0.2)
-//		return OpenMetalink( lpszFileName );
+//		return bTest || OpenMetalink( lpszFileName );
 	case 'u':	// .url
-		return OpenInternetShortcut( lpszFileName );
+		return bTest || OpenInternetShortcut( lpszFileName );
 	case 'l':	// .lnk
-		return OpenShellShortcut( lpszFileName );
+		return bTest || OpenShellShortcut( lpszFileName );
 	case 'b':	// .xml.bz2 (DC++)
 		if ( ! _tcsicmp( lpszFileName + ( _tcslen( lpszFileName ) - 8 ),  _T(".xml.bz2") ) )
 		{
+			if ( bTest ) return TRUE;
 			if ( ! _tcsicmp( PathFindFileName( lpszFileName ), _T("hublist.xml.bz2") ) )
 				return OpenImport( lpszFileName );
 			return OpenCollection( lpszFileName );
@@ -931,7 +939,7 @@ BOOL CPeerProjectApp::Open(LPCTSTR lpszFileName)		// Note: No BOOL bDoIt needed
 //	if (/*nLength > 4 &&*/! _tcsicmp( lpszFileName + nLength - 4,  _T(".lnk") ) )
 //		return OpenShellShortcut( lpszFileName );
 
-	return OpenURL( lpszFileName );
+	return OpenURL( lpszFileName, bTest );
 }
 
 BOOL CPeerProjectApp::OpenImport(LPCTSTR lpszFileName)
@@ -1017,6 +1025,62 @@ BOOL CPeerProjectApp::OpenURL(LPCTSTR lpszFileName, BOOL bSilent)
 	return FALSE;
 }
 
+BOOL CPeerProjectApp::OpenPath(LPCTSTR lpszFileName)
+{
+	DWORD nAttributes = GetFileAttributes( lpszFileName );
+	if ( ! ( nAttributes & FILE_ATTRIBUTE_DIRECTORY ) )
+		return FALSE;
+
+	if ( ! LibraryFolders.IsShareable( (CString)lpszFileName ) )
+		return FALSE;
+
+	//PostMainWndMessage( WM_COMMAND, ID_VIEW_LIBRARY );
+
+	// Show existing folder in Library
+	if ( LibraryFolders.IsFolderShared( (CString)lpszFileName ) )
+	{
+		if ( CLibraryFolder* pFolder = LibraryFolders.GetFolder( lpszFileName ) )
+		{
+			CMainWnd* pMainWnd = (CMainWnd*)AfxGetMainWnd();
+			if ( CLibraryWnd* pLibraryWnd = (CLibraryWnd*)pMainWnd->m_pWindows.Open( RUNTIME_CLASS(CLibraryWnd) ) )
+			{
+				CLibraryFrame* pFrame = &pLibraryWnd->m_wndFrame;
+				pFrame->Display( pFolder );
+			}
+		}
+
+		return TRUE;
+	}
+
+	CString strMessage = _T("Add this folder to your Library?\n\n");
+	strMessage += lpszFileName;
+	if ( MsgBox( (LPCTSTR)strMessage, MB_ICONQUESTION|MB_YESNO ) != IDYES )
+		return FALSE;
+
+	// Add new folder to Library
+	if ( CLibraryFolder* pFolder = LibraryFolders.AddFolder( lpszFileName ) )
+	{
+		CMainWnd* pMainWnd = (CMainWnd*)AfxGetMainWnd();
+		if ( CLibraryWnd* pLibraryWnd = (CLibraryWnd*)pMainWnd->m_pWindows.Open( RUNTIME_CLASS(CLibraryWnd) ) )
+		{
+			CLibraryFrame* pFrame = &pLibraryWnd->m_wndFrame;
+			pFrame->Display( pFolder );
+		}
+
+		LoadString( strMessage, IDS_LIBRARY_DOWNLOADS_SHARE );
+		BOOL bShare = AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO ) == IDYES;
+
+		CQuickLock oLock( Library.m_pSection );
+		if ( LibraryFolders.CheckFolder( pFolder, TRUE ) )
+			pFolder->SetShared( bShare ? TRI_TRUE : TRI_FALSE );
+		Library.Update();
+	}
+
+	PostMainWndMessage( WM_COMMAND, ID_LIBRARY_FOLDERS );
+	
+	return TRUE;
+}
+
 /////////////////////////////////////////////////////////////////////////////
 // CPeerProjectApp version
 
@@ -1055,7 +1119,7 @@ void CPeerProjectApp::GetVersionNumber()
 		}
 	}
 
-	m_sVersion.Format( _T("%i.%i.%i.%i"),
+	m_sVersion.Format( _T("%u.%u.%u.%u"),
 		m_nVersion[0], m_nVersion[1],
 		m_nVersion[2], m_nVersion[3] );
 
@@ -2814,7 +2878,7 @@ bool ResourceRequest(const CString& strPath, CBuffer& pResponse, CString& sHeade
 						pResponse.m_nLength = nSize;
 					}
 
-					sHeader.Format(	_T("Content-Type: %s\r\n"), WebResources[ i ].szContentType);
+					sHeader.Format( _T("Content-Type: %s\r\n"), WebResources[ i ].szContentType);
 					ret = true;
 				}
 				FreeResource( hMemory );

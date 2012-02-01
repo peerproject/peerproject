@@ -1,7 +1,7 @@
 //
 // DCNeighbour.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2010-2011
+// This file is part of PeerProject (peerproject.org) © 2010-2012
 // Portions copyright Shareaza Development Team, 2010.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -375,7 +375,7 @@ BOOL CDCNeighbour::OnCommand(const std::string& strCommand, const std::string& s
 		return TRUE;
 	case 'v':		// $ValidateDenide Nick|	OR	$GetPass
 		// Bad user nick
-		m_sNick.Format( CLIENT_NAME _T("%04u"), GetRandomNum( 0, 9999 ) );
+		m_sNick.Format( CLIENT_NAME _T("%04u"), GetRandomNum( 0u, 9999u ) );
 		if ( CHostCacheHostPtr pServer = HostCache.DC.Find( &m_pHost.sin_addr ) )
 			pServer->m_sUser = m_sNick;
 		if ( CDCPacket* pPacket = CDCPacket::New() )

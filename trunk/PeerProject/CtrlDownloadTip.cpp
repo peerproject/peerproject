@@ -1,7 +1,7 @@
 //
 // CtrlDownloadTip.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -620,7 +620,7 @@ void CDownloadTipCtrl::PrepareDownloadInfo(CDownload* pDownload)
 
 		if ( pDownload->m_pTorrent.ScrapeTracker() )
 		{
-			m_sSeedsPeers.Format( _T("   ( %u seeds %u peers )"),	// ToDo: Translation ?
+			m_sSeedsPeers.Format( _T("   ( %i seeds %i peers )"),	// ToDo: Translation ?
 				pDownload->m_pTorrent.m_nTrackerSeeds, pDownload->m_pTorrent.m_nTrackerPeers );
 		}
 	}

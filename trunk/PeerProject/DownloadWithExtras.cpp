@@ -1,7 +1,7 @@
 //
 // DownloadWithExtras.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -253,7 +253,7 @@ CDownloadReview* CDownloadWithExtras::FindReview(IN_ADDR* pIP) const
 CDownloadReview* CDownloadWithExtras::FindReview(LPCTSTR pszUserName) const
 {
 	CDownloadReview *pReview = m_pReviewFirst;
-	if ( _tcsclen( pszUserName ) == 0 ) return NULL;
+	if ( ! *pszUserName ) return NULL;
 
 	while ( pReview )
 	{
@@ -391,11 +391,6 @@ void CDownloadWithExtras::OnPreviewRequestComplete(const CDownloadTask* pTask)
 	if ( m_sPath.IsEmpty() )
 		return;
 
-	CBuffer* pBuffer = NULL;
-
-	if ( ( pBuffer = pTask->IsPreviewAnswerValid() ) == NULL )
-		return;
-
 	const CString strPath = m_sPath + _T(".png");
 
 	if ( CBuffer* pBuffer = pTask->IsPreviewAnswerValid() )
@@ -403,7 +398,7 @@ void CDownloadWithExtras::OnPreviewRequestComplete(const CDownloadTask* pTask)
 		CImageFile pImage;
 
 		if ( pImage.LoadFromMemory( L".jpg", pBuffer->m_pBuffer, pBuffer->m_nLength, FALSE, TRUE ) &&
-			pImage.SaveToFile( (LPCTSTR)strPath, 100 ) )
+			 pImage.SaveToFile( (LPCTSTR)strPath, 100 ) )
 		{
 			// Make it hidden, so the files won't be shared
 			SetFileAttributes( (LPCTSTR)strPath, FILE_ATTRIBUTE_HIDDEN|FILE_ATTRIBUTE_SYSTEM );

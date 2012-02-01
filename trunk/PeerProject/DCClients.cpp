@@ -1,7 +1,7 @@
 //
 // DCClients.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2010-2011
+// This file is part of PeerProject (peerproject.org) © 2010-2012
 // Portions copyright Shareaza Development Team, 2010.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -87,6 +87,7 @@ int CDCClients::GetCount() const
 void CDCClients::OnRun()
 {
 	CSingleLock oLock( &m_pSection, TRUE );
+
 	for ( POSITION pos = m_pList.GetHeadPosition() ; pos ; )
 	{
 		CDCClient* pClient = m_pList.GetNext( pos );
@@ -112,7 +113,7 @@ CString CDCClients::GetDefaultNick() const
 	CString sNick = MyProfile.GetNick();
 	if ( sNick.GetLength() < 3 )
 	{
-		sNick.Format( CLIENT_NAME _T("%04u"), GetRandomNum( 0, 9999 ) );
+		sNick.Format( CLIENT_NAME _T("%04u"), GetRandomNum( 0u, 9999u ) );
 	}
 	else
 	{
@@ -193,8 +194,6 @@ BOOL CDCClients::OnAccept(CConnection* pConnection)
 BOOL CDCClients::Merge(CDCClient* pClient)
 {
 	CQuickLock oLock( m_pSection );
-
-	ASSERT( pClient != NULL );
 
 	for ( POSITION pos = m_pList.GetHeadPosition() ; pos ; )
 	{

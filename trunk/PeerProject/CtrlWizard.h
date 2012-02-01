@@ -1,7 +1,7 @@
 //
 // CtrlWizard.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -33,42 +33,39 @@ friend class CCollectionExportDlg;
 
 // Attributes
 public:
-	int				m_nCaptionWidth;
-	int				m_nItemHeight;
-	BOOL			m_bShowBorder;
-	BOOL			m_bValid;
-	CString			m_sXMLPath;
-	CString			m_sMainFilePath;
-	CString			m_sEvenFilePath;
-	CString			m_sOddFilePath;
-	CString			m_sEvenFile;
-	CString			m_sOddFile;
+	int		m_nCaptionWidth;
+	int		m_nItemHeight;
+	BOOL	m_bShowBorder;
+	BOOL	m_bValid;
+	CString	m_sXMLPath;
+	CString	m_sMainFilePath;
+	CString	m_sEvenFilePath;
+	CString	m_sOddFilePath;
+	CString	m_sEvenFile;
+	CString	m_sOddFile;
 	CMap< CString, const CString&, CString, CString& >	m_pItems;
 
 protected:
-	CAlbumFolder*	m_pFolder;
+	CAlbumFolder*		m_pFolder;
 	CArray< CWnd* >		m_pControls;	// Holds all controls
 	CArray< CString >	m_pCaptions;	// All label texts
 	CArray< CString >	m_pFileDocs;	// All documents for each file
 	CArray< CString >	m_pTemplatePaths;
 	CArray< CString >	m_pImagePaths;
-	int				m_nScroll;
+	int		m_nScroll;
 
 // Operations
 protected:
-	CString			ReadFile(LPCTSTR pszFullPath);
-	void			Layout();
-	void			SetFocusTo(CWnd* pCtrl);
-	BOOL			CollectFiles(CXMLElement* pBase);
-	BOOL			CollectImages(CXMLElement* pBase);
-	BOOL			MakeControls(CXMLElement* pBase, std::vector< CLibraryFile* > pList);
-	BOOL			PrepareDoc(CLibraryFile* pFile, LPCTSTR pszTemplate = _T("") );
+	void	Layout();
+	void	SetFocusTo(CWnd* pCtrl);
+	BOOL	CollectFiles(CXMLElement* pBase);
+	BOOL	CollectImages(CXMLElement* pBase);
+	BOOL	MakeControls(CXMLElement* pBase, std::vector< CLibraryFile* > pList);
+	BOOL	PrepareDoc(CLibraryFile* pFile, LPCTSTR pszTemplate = _T("") );
 
 public:
 	void	ScrollBy(int nDelta);
 	BOOL	OnTab();
-	CString	ReplaceNoCase(LPCTSTR pszInStr, LPCTSTR pszOldStr, LPCTSTR pszNewStr);
-	void	ReplaceNoCase(CString& sInStr, LPCTSTR pszOldStr, LPCTSTR pszNewStr);
 	void	Clear();
 
 // Overrides
@@ -83,12 +80,12 @@ protected:
 protected:
 	//{{AFX_MSG(CWizardCtrl)
 	afx_msg void OnPaint();
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
-	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 	afx_msg void OnNcPaint();
+	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnSetFocus(CWnd* pOldWnd);
-	afx_msg void OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
 	afx_msg void OnShowWindow(BOOL bShow, UINT nStatus);
+	afx_msg void OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
 public:
 	afx_msg void OnBtnPress();
 	afx_msg void OnDestroy();

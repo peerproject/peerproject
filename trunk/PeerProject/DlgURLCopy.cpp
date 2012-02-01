@@ -1,7 +1,7 @@
 //
 // DlgURLCopy.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -123,7 +123,7 @@ void CURLCopyDlg::OnIncludeSelf()
 	if ( m_pFile->m_nSize != 0 && m_pFile->m_nSize != SIZE_UNKNOWN )
 	{
 		CString strSize;
-		strSize.Format( _T("xl=%I64i"), m_pFile->m_nSize );
+		strSize.Format( _T("xl=%I64u"), m_pFile->m_nSize );
 
 		if ( ! m_sMagnet.IsEmpty() ) m_sMagnet += _T("&");
 		m_sMagnet += strSize;
@@ -168,20 +168,19 @@ void CURLCopyDlg::OnIncludeSelf()
 		( m_pFile->m_nSize != 0 && m_pFile->m_nSize != SIZE_UNKNOWN ) &&
 		! m_pFile->m_sName.IsEmpty() )
 	{
-		m_sED2K.Format( _T("ed2k://|file|%s|%I64i|%s|/"),
+		m_sED2K.Format( _T("ed2k://|file|%s|%I64u|%s|/"),
 			(LPCTSTR)URLEncode( m_pFile->m_sName ),
 			m_pFile->m_nSize,
 			(LPCTSTR)m_pFile->m_oED2K.toString() );
 
 		if ( bIncludeSelf )
-		{
-			CString strURL2;
-			strURL2.Format ( _T("%s:%i"),
-					(LPCTSTR)CString( inet_ntoa( Network.m_pHost.sin_addr ) ),
-					htons( Network.m_pHost.sin_port ) );
+			m_sED2K += _T("|sources,") + HostToString( &Network.m_pHost ) + _T("|/");
 
-			m_sED2K += _T("|sources,") + strURL2 + _T("|/");
-		}
+			//CString strURL2;	// Obsolete
+			//strURL2.Format ( _T("%s:%i"),
+			//		(LPCTSTR)CString( inet_ntoa( Network.m_pHost.sin_addr ) ),
+			//		htons( Network.m_pHost.sin_port ) );
+			//m_sED2K += _T("|sources,") + strURL2 + _T("|/");
 	}
 
 	if ( ! m_pFile->m_sURL.IsEmpty() )

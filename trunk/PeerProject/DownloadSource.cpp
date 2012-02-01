@@ -103,8 +103,8 @@ CDownloadSource::CDownloadSource(const CDownload* pDownload, const CQueryHit* pH
 		// Add the size if it was missing.
 		if ( ( m_sURL.Right( 3 ) == _T("/0/") ) && ( pDownload->m_nSize ) )
 		{
-			CString strTemp =  m_sURL.Left( m_sURL.GetLength() - 2 );
-			m_sURL.Format( _T("%s%I64i/"), (LPCTSTR)strTemp, pDownload->m_nSize );
+			CString strTemp = m_sURL.Left( m_sURL.GetLength() - 2 );
+			m_sURL.Format( _T("%s%I64u/"), (LPCTSTR)strTemp, pDownload->m_nSize );
 		}
 	}
 	else if ( pHit->m_nProtocol == PROTOCOL_DC )
@@ -147,14 +147,14 @@ CDownloadSource::CDownloadSource(const CDownload* pDownload, DWORD nClientID,
 
 	if ( ( m_bPushOnly = CEDPacket::IsLowID( nClientID ) ) != FALSE )
 	{
-		m_sURL.Format( _T("ed2kftp://%lu@%s:%i/%s/%I64i/"),
+		m_sURL.Format( _T("ed2kftp://%lu@%s:%hu/%s/%I64u/"),
 			nClientID,
 			(LPCTSTR)CString( inet_ntoa( (IN_ADDR&)nServerIP ) ), nServerPort,
 			(LPCTSTR)m_pDownload->m_oED2K.toString(), m_pDownload->m_nSize );
 	}
 	else
 	{
-		m_sURL.Format( _T("ed2kftp://%s:%i/%s/%I64i/"),
+		m_sURL.Format( _T("ed2kftp://%s:%hu/%s/%I64u/"),
 			(LPCTSTR)CString( inet_ntoa( (IN_ADDR&)nClientID ) ), nClientPort,
 			(LPCTSTR)m_pDownload->m_oED2K.toString(), m_pDownload->m_nSize );
 	}
@@ -175,8 +175,6 @@ CDownloadSource::CDownloadSource(const CDownload* pDownload,
 	, m_oPastFragments	( pDownload->m_nSize )
 {
 	Construct( pDownload );
-
-	ASSERT( pAddress != NULL );
 
 	if ( oGUID )
 	{

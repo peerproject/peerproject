@@ -109,7 +109,7 @@ void CPeerProjectURL::Clear()
 	m_nAction				= uriNull;
 	m_sAddress.Empty();
 	m_pAddress.s_addr		= 0;
-	m_nPort					= 0;	// GNUTELLA_DEFAULT_PORT
+	m_nPort					= 0;	// protocolPorts[ PROTOCOL_G2 ]
 	m_pServerAddress.s_addr = 0;
 	m_nServerPort			= 0;
 	m_bSize					= FALSE;
@@ -353,7 +353,7 @@ BOOL CPeerProjectURL::ParseRoot(LPCTSTR pszURL, BOOL bResolve)
 //	else if ( ! _tcsnicmp( pszURL, _T("dchub://"), 8 ) )			// dchub://1.2.3.4:411
 //	{
 //		SkipSlashes( pszURL, 8 );
-//		m_nPort = DC_DEFAULT_PORT;
+//		m_nPort = protocolPorts[ PROTOCOL_DC ];
 //		m_nProtocol	= PROTOCOL_DC;
 //		return ParsePeerProjectHost( pszURL, FALSE );
 //	}
@@ -552,7 +552,7 @@ BOOL CPeerProjectURL::ParseED2KFTP(LPCTSTR pszURL, BOOL bResolve)
 	}
 
 	SOCKADDR_IN saHost;
-	BOOL bResult = Network.Resolve( m_sAddress, ED2K_DEFAULT_PORT, &saHost, bResolve );
+	BOOL bResult = Network.Resolve( m_sAddress, protocolPorts[ PROTOCOL_ED2K ], &saHost, bResolve );
 
 	if ( bPush )
 	{
@@ -580,7 +580,7 @@ BOOL CPeerProjectURL::ParseDCHub(LPCTSTR pszURL, BOOL /*bResolve*/)
 {
 	Clear();
 
-	m_nPort = DC_DEFAULT_PORT;
+	m_nPort = protocolPorts[ PROTOCOL_DC ];
 
 	SkipSlashes( pszURL, 8 );	// "dchub://"  ToDo: "adc://"
 
@@ -627,7 +627,7 @@ BOOL CPeerProjectURL::ParseDCFile(LPCTSTR pszURL, BOOL bResolve)
 	if ( ! m_bSize ) return FALSE;
 
 	SOCKADDR_IN saHost = {};
-	BOOL bResult = Network.Resolve( m_sAddress, DC_DEFAULT_PORT, &saHost, bResolve );
+	BOOL bResult = Network.Resolve( m_sAddress, protocolPorts[ PROTOCOL_DC ], &saHost, bResolve );
 
 	m_pServerAddress	= saHost.sin_addr;
 	m_nServerPort		= htons( saHost.sin_port );
@@ -671,7 +671,7 @@ BOOL CPeerProjectURL::ParseBTC(LPCTSTR pszURL, BOOL bResolve)
 	if ( ! m_oBTH.fromString( strURL ) ) return FALSE;
 
 	SOCKADDR_IN saHost;
-	BOOL bResult = Network.Resolve( m_sAddress, ED2K_DEFAULT_PORT, &saHost, bResolve );
+	BOOL bResult = Network.Resolve( m_sAddress, protocolPorts[ PROTOCOL_BT ], &saHost, bResolve );
 
 	m_pAddress	= saHost.sin_addr;
 	m_nPort		= htons( saHost.sin_port );
@@ -1113,7 +1113,7 @@ BOOL CPeerProjectURL::ParseDonkeyFile(LPCTSTR pszURL)
 
 		// Now we have the source in x.x.x.x:port format.
 		CString strEDFTP;
-		strEDFTP.Format( _T("ed2kftp://%s/%s/%I64i/"), strPart, (LPCTSTR)m_oED2K.toString(), m_nSize );
+		strEDFTP.Format( _T("ed2kftp://%s/%s/%I64u/"), strPart, (LPCTSTR)m_oED2K.toString(), m_nSize );
 		SafeString( strEDFTP );
 		if ( ! m_sURL.IsEmpty() ) m_sURL += _T(", ");
 		m_sURL += strEDFTP;

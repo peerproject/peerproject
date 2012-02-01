@@ -538,7 +538,7 @@ BOOL CLibrary::ThreadScan()
 
 	if ( bPeriodicScan || bForcedScan || bChanged )
 	{
-		m_nScanTime =  GetTickCount();
+		m_nScanTime = GetTickCount();
 
 		if ( bChanged )
 			Update();	// Mark library as changed

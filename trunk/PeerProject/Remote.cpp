@@ -1,7 +1,7 @@
 //
 // Remote.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -181,7 +181,7 @@ BOOL CRemote::OnHeadersComplete()
 	{
 		Write( _P("HTTP/1.1 200 OK\r\n") );
 		CString strLength;
-		strLength.Format( _T("Content-Length: %i\r\n"), m_pResponse.m_nLength );
+		strLength.Format( _T("Content-Length: %u\r\n"), m_pResponse.m_nLength );
 		Write( strLength );
 		if ( ! m_sHeader.IsEmpty() ) Write( m_sHeader );
 	}
@@ -345,24 +345,18 @@ void CRemote::Output(LPCTSTR pszName)
 	strValue = Settings.General.Path + _T("\\Remote\\") + pszName + _T(".htm");
 	if ( ! hFile.Open( strValue, CFile::modeRead ) ) return;
 
-	int nBytes	 = (int)hFile.GetLength();
-	CHAR* pBytes = new CHAR[ nBytes ];
+	int nBytes = (int)hFile.GetLength();
+	CAutoVectorPtr< BYTE > pBytes ( new BYTE[ nBytes ] );
 	hFile.Read( pBytes, nBytes );
 	hFile.Close();
-
-	bool bBOM = false;
+	LPCSTR pBody = (LPCSTR)(BYTE*)pBytes;
 	if ( nBytes > 3 && pBytes[0] == 0xEF && pBytes[1] == 0xBB && pBytes[2] == 0xBF )
 	{
-		pBytes += 3;
+		// Skip BOM
+		pBody  += 3;
 		nBytes -= 3;
-		bBOM = true;
 	}
-
-	const int nWide = MultiByteToWideChar( CP_UTF8, 0, pBytes, nBytes, NULL, 0 );
-	MultiByteToWideChar( CP_UTF8, 0, pBytes, nBytes, strBody.GetBuffer( nWide ), nWide );
-	strBody.ReleaseBuffer( nWide );
-	if ( bBOM ) pBytes -= 3;
-	delete [] pBytes;
+	strBody = UTF8Decode( pBody, nBytes );
 
 	CList<BOOL> pDisplayStack;
 
@@ -715,7 +709,7 @@ void CRemote::PageSearch()
 
 		if ( pFile->GetFilteredCount() > 1 )
 		{
-			str.Format( _T("(%i sources)"), pFile->GetFilteredCount() );
+			str.Format( _T("(%u sources)"), pFile->GetFilteredCount() );
 			PageSearchRowColumn( MATCH_COL_COUNT, pFile, str );
 		}
 		else
@@ -1130,9 +1124,9 @@ void CRemote::PageUploads()
 		if ( pQueue != UploadQueues.m_pTorrentQueue && pQueue != UploadQueues.m_pHistoryQueue )
 		{
 			CString str;
-			str.Format( _T("%i"), pQueue->GetTransferCount() );
+			str.Format( _T("%u"), pQueue->GetTransferCount() );
 			Add( _T("queue_transfers"), str );
-			str.Format( _T("%i"), pQueue->GetQueuedCount() );
+			str.Format( _T("%u"), pQueue->GetQueuedCount() );
 			Add( _T("queue_queued"), str );
 			Add( _T("queue_bandwidth"), Settings.SmartSpeed( pQueue->GetMeasuredSpeed() ) );
 		}
@@ -1281,11 +1275,13 @@ void CRemote::PageNetworkNetwork(int nID, bool* pbConnect, LPCTSTR pszName)
 		if ( pNeighbour->m_nProtocol != nID ) continue;
 		pNeighbour->Measure();
 
-		str.Format( _T("%i"), (DWORD_PTR)pNeighbour );
+		str.Format( _T("%p"), pNeighbour );
 		Add( _T("row_id"), str );
 		Add( _T("row_address"), pNeighbour->m_sAddress );
+	//	Add( _T("row_mode"), Neighbours.GetName( pNeighbour ) );	// ToDo
 		Add( _T("row_agent"), pNeighbour->m_sUserAgent );
-		str.Format( _T("%i -/- %i"), pNeighbour->m_nInputCount, pNeighbour->m_nOutputCount );
+	//	Add( _T("row_nick"), Neighbours.GetNick( pNeighbour ) );	// ToDo
+		str.Format( _T("%u -/- %u"), pNeighbour->m_nInputCount, pNeighbour->m_nOutputCount );
 		Add( _T("row_packets"), str );
 		str.Format( _T("%s -/- %s"),
 			(LPCTSTR)Settings.SmartSpeed( pNeighbour->m_mInput.nMeasure ),
@@ -1316,9 +1312,9 @@ void CRemote::PageNetworkNetwork(int nID, bool* pbConnect, LPCTSTR pszName)
 			{
 				const DWORD tNow = ( GetTickCount() - pNeighbour->m_tConnected ) / 1000;	// Seconds
 				if ( tNow > 86400 )
-					str.Format( _T("%i:%.2i:%.2i:%.2i"), tNow / 86400, ( tNow / 3600 ) % 24, ( tNow / 60 ) % 60, tNow % 60 );
+					str.Format( _T("%u:%.2u:%.2u:%.2u"), tNow / 86400, ( tNow / 3600 ) % 24, ( tNow / 60 ) % 60, tNow % 60 );
 				else
-					str.Format( _T("%i:%.2i:%.2i"), tNow / 3600, ( tNow / 60 ) % 60, tNow % 60 );
+					str.Format( _T("%u:%.2u:%.2u"), tNow / 3600, ( tNow / 60 ) % 60, tNow % 60 );
 			}
 			break;
 		case nrsNull:
@@ -1331,9 +1327,9 @@ void CRemote::PageNetworkNetwork(int nID, bool* pbConnect, LPCTSTR pszName)
 		if ( pNeighbour->GetUserCount() )
 		{
 			if ( pNeighbour->GetUserLimit() )
-				str.Format( _T("%i/%i"), pNeighbour->GetUserCount(), pNeighbour->GetUserLimit() );
+				str.Format( _T("%u/%u"), pNeighbour->GetUserCount(), pNeighbour->GetUserLimit() );
 			else
-				str.Format( _T("%i"), pNeighbour->GetUserCount() );
+				str.Format( _T("%u"), pNeighbour->GetUserCount() );
 			Add( _T("row_leaves"), str );
 		}
 

@@ -1,7 +1,7 @@
 //
 // EDClient.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -2261,7 +2261,7 @@ CString CEDClient::GetSourceURL()
 
 	if ( CEDPacket::IsLowID( m_nClientID ) )
 	{
-		str.Format( _T("ed2kftp://%lu@%s:%i/%s/%I64i/"),
+		str.Format( _T("ed2kftp://%lu@%s:%hu/%s/%I64u/"),
 			m_nClientID,
 			(LPCTSTR)CString( inet_ntoa( m_pHost.sin_addr ) ),
 			htons( m_pHost.sin_port ),
@@ -2269,7 +2269,7 @@ CString CEDClient::GetSourceURL()
 	}
 	else
 	{
-		str.Format( _T("ed2kftp://%s:%lu/%s/%I64i/"),
+		str.Format( _T("ed2kftp://%s:%hu/%s/%I64u/"),
 			(LPCTSTR)CString( inet_ntoa( m_pHost.sin_addr ) ),
 			htons( m_pHost.sin_port ),
 			(LPCTSTR)m_oUpED2K.toString(), m_nUpSize );

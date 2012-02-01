@@ -452,7 +452,7 @@ BOOL CWindowManager::LoadSearchWindows()
 	if ( ! pFile.Open( strFile, CFile::modeRead | CFile::shareDenyWrite | CFile::osSequentialScan ) )
 		return FALSE;
 
-	BOOL bSuceess = FALSE;
+	BOOL bSuccess = FALSE;
 
 	try
 	{
@@ -465,7 +465,7 @@ BOOL CWindowManager::LoadSearchWindows()
 				pWnd->Serialize( ar );
 			}
 			ar.Close();
-			bSuceess = TRUE;	// Sucess
+			bSuccess = TRUE;	// Success
 		}
 		catch ( CException* pException )
 		{
@@ -485,7 +485,7 @@ BOOL CWindowManager::LoadSearchWindows()
 	if ( Settings.General.GUIMode != GUI_WINDOWED )
 		Open( RUNTIME_CLASS(CHomeWnd) );
 
-	if ( bSuceess )
+	if ( bSuccess )
 		return TRUE;
 
 	theApp.Message( MSG_ERROR, _T("Failed to load search windows: %s"), strFile );

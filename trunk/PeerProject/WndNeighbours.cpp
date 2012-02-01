@@ -1,7 +1,7 @@
 //
 // WndNeighbours.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -242,9 +242,9 @@ void CNeighboursWnd::Update()
 			break;
 		case nrsConnected:
 			if ( nTime > 86400 )
-				str.Format( _T("%i:%.2i:%.2i:%.2i"), nTime / 86400, ( nTime / 3600 ) % 24, ( nTime / 60 ) % 60, nTime % 60 );
+				str.Format( _T("%u:%.2u:%.2u:%.2u"), nTime / 86400, ( nTime / 3600 ) % 24, ( nTime / 60 ) % 60, nTime % 60 );
 			else
-				str.Format( _T("%i:%.2i:%.2i"), nTime / 3600, ( nTime / 60 ) % 60, nTime % 60 );
+				str.Format( _T("%u:%.2u:%.2u"), nTime / 3600, ( nTime / 60 ) % 60, nTime % 60 );
 			break;
 		case nrsNull:
 		default:

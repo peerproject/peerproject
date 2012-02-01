@@ -1,7 +1,7 @@
 //
 // UploadTransferHTTP.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -405,7 +405,7 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 	{
 		Write( _P("HTTP/1.1 200 OK\r\n") );
 		CString strLength;
-		strLength.Format( _T("Content-Length: %i\r\n"), pResponse.m_nLength );
+		strLength.Format( _T("Content-Length: %g\r\n"), pResponse.m_nLength );
 		Write( strLength );
 		if ( ! sHeader.IsEmpty() )
 			Write( sHeader );
@@ -954,7 +954,7 @@ BOOL CUploadTransferHTTP::QueueRequest()
 			strName = m_pQueue->m_sName;
 			strName.Replace( _T("\""), _T("'") );
 
-			strHeader.Format( _T("X-Queue: position=%i,length=%i,limit=%i,pollMin=%lu,pollMax=%lu,id=\"%s\"\r\n"),
+			strHeader.Format( _T("X-Queue: position=%i,length=%u,limit=%u,pollMin=%lu,pollMax=%lu,id=\"%s\"\r\n"),
 				nPosition,
 				m_pQueue->GetQueuedCount(),
 				m_pQueue->GetTransferCount( TRUE ),
@@ -1160,12 +1160,12 @@ BOOL CUploadTransferHTTP::OpenFileSendHeaders()
 		Write( strResponse );
 	}
 
-	strResponse.Format( _T("Content-Length: %I64i\r\n"), m_nLength );
+	strResponse.Format( _T("Content-Length: %I64u\r\n"), m_nLength );
 	Write( strResponse );
 
 	if ( m_nLength != m_nSize )
 	{
-		strResponse.Format( _T("Content-Range: bytes=%I64i-%I64i/%I64i\r\n"), m_nOffset, m_nOffset + m_nLength - 1, m_nSize );
+		strResponse.Format( _T("Content-Range: bytes=%I64u-%I64u/%I64u\r\n"), m_nOffset, m_nOffset + m_nLength - 1, m_nSize );
 		Write( strResponse );
 	}
 
@@ -1360,7 +1360,7 @@ BOOL CUploadTransferHTTP::RequestMetadata(CXMLElement* pMetadata)
 	Write( _P("Content-Type: text/xml\r\n") );
 
 	CString strHeader;
-	strHeader.Format( _T("Content-Length: %lu\r\n"), strXML.GetLength() );
+	strHeader.Format( _T("Content-Length: %d\r\n"), strXML.GetLength() );
 	Write( strHeader );
 	Write( _P("\r\n") );
 
@@ -1421,12 +1421,12 @@ BOOL CUploadTransferHTTP::RequestTigerTreeRaw(CTigerTree* pTigerTree, BOOL bDele
 		SendDefaultHeaders();
 
 		Write( _P("Content-Type: application/tigertree-breadthfirst\r\n") );
-		strHeader.Format( _T("Content-Length: %I64i\r\n"), m_nLength );
+		strHeader.Format( _T("Content-Length: %I64u\r\n"), m_nLength );
 		Write( strHeader );
 
 		if ( m_nLength != nSerialTree )
 		{
-			strHeader.Format( _T("Content-Range: %I64i-%I64i\r\n"), m_nOffset, m_nOffset + m_nLength - 1 );
+			strHeader.Format( _T("Content-Range: %I64u-%I64u\r\n"), m_nOffset, m_nOffset + m_nLength - 1 );
 			Write( strHeader );
 		}
 
@@ -1441,7 +1441,7 @@ BOOL CUploadTransferHTTP::RequestTigerTreeRaw(CTigerTree* pTigerTree, BOOL bDele
 	}
 	else
 	{
-		m_sRanges.Format( _T("0-%I64i"), (QWORD)nSerialTree - 1 );
+		m_sRanges.Format( _T("0-%I64u"), (QWORD)nSerialTree - 1 );
 		ClearHashes();
 		m_sLocations.Empty();
 
@@ -1494,7 +1494,7 @@ BOOL CUploadTransferHTTP::RequestTigerTreeDIME(CTigerTree* pTigerTree, int nDept
 	strXML.Format(	_T("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n")
 					_T("<!DOCTYPE hashtree SYSTEM \"http://open-content.net/spec/thex/thex.dtd\">\r\n")
 					_T("<hashtree>\r\n")
-					_T("\t<file size=\"%I64i\" segmentsize=\"1024\"/>\r\n")
+					_T("\t<file size=\"%I64u\" segmentsize=\"1024\"/>\r\n")
 					_T("\t<digest algorithm=\"http://open-content.net/spec/digest/tiger\" outputsize=\"24\"/>\r\n")
 					_T("\t<serializedtree depth=\"%i\" type=\"http://open-content.net/spec/thex/breadthfirst\" uri=\"%s\"/>\r\n")
 					_T("</hashtree>"),
@@ -1549,12 +1549,12 @@ BOOL CUploadTransferHTTP::RequestTigerTreeDIME(CTigerTree* pTigerTree, int nDept
 		SendDefaultHeaders();
 
 		Write( _P("Content-Type: application/dime\r\n") );
-		strHeader.Format( _T("Content-Length: %I64i\r\n"), m_nLength );
+		strHeader.Format( _T("Content-Length: %I64u\r\n"), m_nLength );
 		Write( strHeader );
 
 		if ( m_nLength != pDIME.m_nLength )
 		{
-			strHeader.Format( _T("Content-Range: %I64i-%I64i\r\n"), m_nOffset, m_nOffset + m_nLength - 1 );
+			strHeader.Format( _T("Content-Range: %I64u-%I64u\r\n"), m_nOffset, m_nOffset + m_nLength - 1 );
 			Write( strHeader );
 		}
 
@@ -1569,7 +1569,7 @@ BOOL CUploadTransferHTTP::RequestTigerTreeDIME(CTigerTree* pTigerTree, int nDept
 	}
 	else
 	{
-		m_sRanges.Format( _T("0-%I64i"), (QWORD)pDIME.m_nLength - 1 );
+		m_sRanges.Format( _T("0-%I64u"), (QWORD)pDIME.m_nLength - 1 );
 		ClearHashes();
 		m_sLocations.Empty();
 
@@ -1827,7 +1827,7 @@ void CUploadTransferHTTP::SendResponse(UINT nResourceID, BOOL bFileHeaders)
 
 	CStringA strBodyUTF8 = UTF8Encode( strBody );
 
-	strResponse.Format( _T("Content-Length: %lu\r\n\r\n"), strBodyUTF8.GetLength() );
+	strResponse.Format( _T("Content-Length: %d\r\n\r\n"), strBodyUTF8.GetLength() );
 	Write( strResponse );
 
 	LogOutgoing();

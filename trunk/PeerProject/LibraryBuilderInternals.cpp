@@ -1,7 +1,7 @@
 //
 // LibraryBuilderInternals.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -229,7 +229,7 @@ bool CLibraryBuilderInternals::ReadID3v1(DWORD nIndex, HANDLE hFile)
 		return false;
 	if ( nRead != sizeof(pInfo) )
 		return false;
-	if ( strncmp( pInfo.szTag, ID3V1_TAG, 3 ) )
+	if ( strncmp( pInfo.szTag, ID3V1_TAG, 3 ) != 0 )
 		return false;
 
 	auto_ptr< CXMLElement > pXML( new CXMLElement( NULL, L"audio" ) );
@@ -239,7 +239,7 @@ bool CLibraryBuilderInternals::ReadID3v1(DWORD nIndex, HANDLE hFile)
 	CopyID3v1Field( pXML.get(), _T("album"), CString( pInfo.szAlbum, 30 ) );
 	CopyID3v1Field( pXML.get(), _T("year"), CString( pInfo.szYear, 4 ) );
 
-	if ( pInfo.nGenre >= 0 &&  pInfo.nGenre < ID3_GENRES )
+	if ( pInfo.nGenre < ID3_GENRES )
 		pXML->AddAttribute( _T("genre"), pszID3Genre[ pInfo.nGenre ] );
 
 	if ( pInfo.szComment[28] == 0 && pInfo.szComment[29] > 0 )
@@ -305,7 +305,7 @@ bool CLibraryBuilderInternals::ReadID3v2(DWORD nIndex, HANDLE hFile)
 	if ( nRead != sizeof(pHeader) )
 		return false;
 
-	if ( strncmp( pHeader.szTag, ID3V2_TAG, 3 ) )
+	if ( strncmp( pHeader.szTag, ID3V2_TAG, 3 ) != 0 )
 		return false;
 	if ( pHeader.nMajorVersion < 2 || pHeader.nMajorVersion > 4 )
 		return false;
@@ -501,9 +501,11 @@ bool CLibraryBuilderInternals::ReadID3v2(DWORD nIndex, HANDLE hFile)
 			{
 				CString strMS = pXML->GetAttributeValue( _T("seconds"), _T("0") );
 				int nMS;
-				if ( _stscanf( strMS, _T("%i"), &nMS ) )
-					strMS.Format( _T("%i"), nMS / 1000 );
-				pXML->AddAttribute( _T("seconds"), strMS );
+				if ( _stscanf( strMS, _T("%d"), &nMS ) == 1 )
+				{
+					strMS.Format( _T("%d"), nMS / 1000 );
+					pXML->AddAttribute( _T("seconds"), strMS );
+				}
 			}
 			break;
 		case 'c':		// "COMM" "COM"
@@ -951,8 +953,9 @@ bool CLibraryBuilderInternals::ScanMP3Frame(CXMLElement* pXML, HANDLE hFile, DWO
 			nBaseChannel = nChannelTable[nChannels];
 			strBaseSoundType = strSoundType[nChannels];
 
-			nFrameSize = ( nLayer == 3 ) ? ( 12 * nBitrate / nFrequency + bPadding ) * 4
-				: ( 144 * nBitrate / nFrequency + bPadding );
+			nFrameSize = ( nLayer == 3 ) ?
+				( 12 * nBitrate / nFrequency + ( bPadding ? 1 : 0 ) ) * 4 :
+				( 144 * nBitrate / nFrequency + ( bPadding ? 1 : 0 ) );
 
 			if ( ! nFrameSize )
 				return false;
@@ -1012,7 +1015,7 @@ bool CLibraryBuilderInternals::ScanMP3Frame(CXMLElement* pXML, HANDLE hFile, DWO
 	strValue.Format( _T("%lu"), nBaseFrequency );
 	pXML->AddAttribute( _T("sampleRate"), strValue );
 
-	strValue.Format( _T("%lu"), nBaseChannel );
+	strValue.Format( _T("%d"), nBaseChannel );
 	pXML->AddAttribute( _T("channels"), strValue );
 
 	pXML->AddAttribute( _T("soundType"), strBaseSoundType );
@@ -1550,9 +1553,9 @@ bool CLibraryBuilderInternals::ReadBMP(DWORD nIndex, HANDLE hFile)
 	auto_ptr< CXMLElement > pXML( new CXMLElement( NULL, _T("image") ) );
 	CString strItem;
 
-	strItem.Format( _T("%lu"), pBIH.biWidth );
+	strItem.Format( _T("%d"), pBIH.biWidth );
 	pXML->AddAttribute( _T("width"), strItem );
-	strItem.Format( _T("%lu"), pBIH.biHeight );
+	strItem.Format( _T("%d"), pBIH.biHeight );
 	pXML->AddAttribute( _T("height"), strItem );
 
 	switch ( pBIH.biBitCount )
@@ -3334,7 +3337,7 @@ bool CLibraryBuilderInternals::ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 	{
 		pXML->AddAttribute( _T("format"), _T("Adobe Acrobat PDF") );
 		CString strTemp;
-		strTemp.Format( _T("1.%i"), nVersion );
+		strTemp.Format( _T("1.%u"), nVersion );
 		pXML->AddAttribute( _T("formatVersion"), strTemp );
 		LibraryBuilder.SubmitMetadata( nIndex, CSchema::uriDocument, pXML.release() );
 	}
@@ -3673,7 +3676,7 @@ bool CLibraryBuilderInternals::ReadCHM(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 	SetFilePointer( hFile, 0, NULL, FILE_BEGIN );
 	ReadFile( hFile, szMagic, 4, &nRead, NULL );
 
-	if ( nRead != 4 || strncmp( szMagic, "ITSF", 4 ) )
+	if ( nRead != 4 || strncmp( szMagic, "ITSF", 4 ) != 0 )
 		return LibraryBuilder.SubmitCorrupted( nIndex );
 	if ( GetFileSize( hFile, NULL ) < 510 )
 		return LibraryBuilder.SubmitCorrupted( nIndex );
@@ -3717,8 +3720,9 @@ bool CLibraryBuilderInternals::ReadCHM(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 	if ( nSizeLow == INVALID_SET_FILE_POINTER && ( nError = GetLastError() ) != NO_ERROR )
 		return LibraryBuilder.SubmitCorrupted( nIndex );
 
-	ReadFile( hFile, szMagic, 4, &nRead, NULL );
-	if ( nRead != 4 || strncmp( szMagic, "LZXC", 4 ) ) // Compression method
+	if ( ! ReadFile( hFile, szMagic, 4, &nRead, NULL ) )
+		return false;
+	if ( nRead != 4 || strncmp( szMagic, "LZXC", 4 ) != 0 ) // Compression method
 		return false;
 	ReadFile( hFile, &nComprVersion, sizeof(nComprVersion), &nRead, NULL );
 	if ( nRead != sizeof(nComprVersion) || nComprVersion != 2 )		// Note: MS Reader books has version 3
@@ -3757,7 +3761,7 @@ bool CLibraryBuilderInternals::ReadCHM(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 		}
 		if ( nFragmentPos == 9 )
 		{
-			if ( ! strncmp( szFragment, "HA Version", 10 ) )
+			if ( strncmp( szFragment, "HA Version", 10 ) == 0 )
 			{
 				// Remember position two words before,
 				// the second word is data entry length

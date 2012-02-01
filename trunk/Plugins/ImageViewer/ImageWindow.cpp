@@ -346,8 +346,12 @@ LRESULT CImageWindow::OnContextMenu(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM lPa
 	// Create a POINT structure with the screen coordinates of the mouse click
 	POINT pt = { LOWORD( lParam ), HIWORD( lParam ) };
 
-	if ( pt.x == -1 && pt.y == -1 ) 	// Keyboard fix
-		ScreenToClient( &pt );
+	if ( pt.x > 65000 || pt.x == NULL || ( pt.x == -1 && pt.y == -1 ) )		// Keyboard fix
+	{
+		pt.x = 1;
+		pt.y = 1;
+		ClientToScreen( &pt );
+	}
 
 	// Get the IPluginWindow to throw our named menu at the location
 	m_pWindow->ThrowMenu( L"ImageViewer_Context", 0, &pt );

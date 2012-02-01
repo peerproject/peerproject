@@ -1,7 +1,7 @@
 //
 // DlgURLExport.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -244,7 +244,7 @@ void CURLExportDlg::MakeURL(const CPeerProjectFile* pFile, CString& strLine)
 	if ( pFile->m_nSize != 0 && pFile->m_nSize != SIZE_UNKNOWN )
 	{
 		strLine.Replace( _T("[Size]"), Settings.SmartVolume( pFile->m_nSize ) );
-		strItem.Format( _T("%I64i"), pFile->m_nSize );
+		strItem.Format( _T("%I64u"), pFile->m_nSize );
 		strLine.Replace( _T("[ByteSize]"), strItem );
 	}
 	else

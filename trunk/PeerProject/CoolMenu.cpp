@@ -1,7 +1,7 @@
 //
 // CoolMenu.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -407,29 +407,23 @@ void CCoolMenu::OnDrawItemInternal(LPDRAWITEMSTRUCT lpDrawItemStruct)
 		return;
 	}
 
-	if ( bSelected )
-	{
-	//	if ( Settings.General.LanguageRTL )
-	//		SetLayout( pDC->m_hDC, LAYOUT_BITMAPORIENTATIONPRESERVED );		// RTL image workaround fix	( ToDo: Fix poperly elsewhere )
-
-		if ( ! ( bDisabled && Images.DrawButtonState( pDC, rcItem, IMAGE_MENUDISABLED ) ) &&					// "CCoolMenu.Disabled"
-			 ! ( ( ! bDisabled || bKeyboard ) && Images.DrawButtonState( pDC, rcItem, IMAGE_MENUSELECTED ) ) )	// "CCoolMenu.Hover"
-		{
-			const COLORREF crBack = bDisabled ? Colors.m_crBackNormal : Colors.m_crBackSel;
-
-			pDC->Draw3dRect( rcItem.left + 1, rcItem.top + 1,
-				rcItem.Width() - 2, rcItem.Height() - 1 - bEdge,
-				Colors.m_crBorder, Colors.m_crBorder );
-			pDC->FillSolidRect( rcItem.left + 2, rcItem.top + 2,
-				rcItem.Width() - 4, rcItem.Height() - 3 - bEdge,
-				crBack );
-
-			pDC->SetBkColor( crBack );
-		}
-	}
-	else
+	if ( ! bSelected )
 	{
 		pDC->SetBkColor( Colors.m_crBackNormal );
+	}
+	else if ( ! ( bDisabled && Images.DrawButtonState( pDC, rcItem, IMAGE_MENUDISABLED ) ) &&					// "CCoolMenu.Disabled"
+			  ! ( ( ! bDisabled || bKeyboard ) && Images.DrawButtonState( pDC, rcItem, IMAGE_MENUSELECTED ) ) )	// "CCoolMenu.Hover"
+	{
+		const COLORREF crBack = bDisabled ? Colors.m_crBackNormal : Colors.m_crBackSel;
+
+		pDC->Draw3dRect( rcItem.left + 1, rcItem.top + 1,
+			rcItem.Width() - 2, rcItem.Height() - 1 - bEdge,
+			Colors.m_crBorder, Colors.m_crBorder );
+		pDC->FillSolidRect( rcItem.left + 2, rcItem.top + 2,
+			rcItem.Width() - 4, rcItem.Height() - 3 - bEdge,
+			crBack );
+
+		pDC->SetBkColor( crBack );
 	}
 
 	if ( bChecked ) 	// Checked-icon box Position

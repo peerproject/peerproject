@@ -1,7 +1,7 @@
 //
 // G1Neighbour.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -492,7 +492,7 @@ BOOL CG1Neighbour::OnPing(CG1Packet* pPacket)
 	//	pItem->Write( "en#", 4 );
 	//}
 
-	// ToDo: Gnutella 1 TLS
+	// ToDo: Gnutella 1 TLS Encyption
 	//if ( Settings.Gnutella1.EnableTLS )
 	//	pGGEP.Add( GGEP_HEADER_TLS_SUPPORT ) );
 
@@ -514,9 +514,9 @@ BOOL CG1Neighbour::OnPing(CG1Packet* pPacket)
 	LibraryMaps.GetStatistics( &nMyFiles, &nMyVolume );
 
 	// Save information from this ping packet in the CG1Neighbour object
-	m_tLastPingIn   = tNow; 						// Record that we last got a ping packet from this remote computer right now
-	m_nLastPingHops = pPacket->m_nHops + 1; 		// Save the hop count from the packet, making it one more (do)
-	m_pLastPingID   = pPacket->m_oGUID; 			// Save the packet's GUID
+	m_tLastPingIn	= tNow; 						// Record that we last got a ping packet from this remote computer right now
+	m_nLastPingHops	= pPacket->m_nHops + 1; 		// Save the hop count from the packet, making it one more (do)
+	m_pLastPingID	= pPacket->m_oGUID; 			// Save the packet's GUID
 
 	// If the ping can travel 2 more times, and hasn't traveled at all yet
 	if ( pPacket->m_nTTL == 2 && pPacket->m_nHops == 0 )
@@ -1112,8 +1112,8 @@ BOOL CG1Neighbour::OnClusterAdvisor(CG1Packet* pPacket)
 	while ( nCount-- )
 	{
 		// Read the IP address and port number from the packet, and add them to the Gnutella host cache
-		DWORD nAddress = pPacket->ReadLongLE();
-		WORD nPort     = pPacket->ReadShortLE();
+		DWORD nAddress	= pPacket->ReadLongLE();
+		WORD nPort		= pPacket->ReadShortLE();
 		HostCache.Gnutella1.Add( (IN_ADDR*)&nAddress, nPort, 0, _T( VENDOR_CODE ) );
 	}
 
@@ -1158,7 +1158,7 @@ BOOL CG1Neighbour::OnPush(CG1Packet* pPacket)
 	}
 
 	bool bGGEP = false;
-	bool bTLS = false;
+	//bool bTLS = false;	// ToDo: Gnutella 1 TLS?
 
 	// If longer than a normal push packet, and handshake said it supports GGEP blocks
 	if ( pPacket->m_nLength > 26 && m_bGGEP )
@@ -1168,8 +1168,8 @@ BOOL CG1Neighbour::OnPush(CG1Packet* pPacket)
 		if ( pGGEP.ReadFromPacket( pPacket ) )
 		{
 			bGGEP = true;
-			if ( pGGEP.Find( GGEP_HEADER_TLS_SUPPORT ) )
-				bTLS = true;
+			//if ( pGGEP.Find( GGEP_HEADER_TLS_SUPPORT ) )
+			//	bTLS = true;
 		}
 	}
 

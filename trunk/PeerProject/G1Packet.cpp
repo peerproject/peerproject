@@ -1,7 +1,7 @@
 //
 // G1Packet.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -524,7 +524,7 @@ CXMLElement* CG1Packet::AutoDetectAudio(LPCTSTR pszInfo)
 	if ( CXMLElement* pXML = new CXMLElement( NULL, _T("audio") ) )
 	{
 		CString strValue;
-		strValue.Format( _T("%lu"), nMinutes * 60 + nSeconds );
+		strValue.Format( _T("%i"), nMinutes * 60 + nSeconds );
 		pXML->AddAttribute( _T("seconds"), strValue );
 
 		strValue.Format( bVariable ? _T("%lu~") : _T("%lu"), nBitrate );
@@ -642,7 +642,7 @@ BOOL CG1Packet::OnPing(const SOCKADDR_IN* pHost)
 		//	pItem->Write( "en#", 4 );
 		//}
 
-		// ToDo: Gnutella 1 TLS
+		// ToDo: Gnutella 1 TLS Encyption
 		//if ( Settings.Gnutella1.EnableTLS )
 		//	pGGEP.Add( GGEP_HEADER_TLS_SUPPORT ) );
 
@@ -914,17 +914,18 @@ BOOL CG1Packet::OnPush(const SOCKADDR_IN* pHost)
 		return TRUE;
 	}
 
-	bool bTLS = false;
-
-	if ( m_nLength > 26 )
-	{
-		CGGEPBlock pGGEP;
-		if ( pGGEP.ReadFromPacket( this ) )
-		{
-			if ( pGGEP.Find( GGEP_HEADER_TLS_SUPPORT ) )
-				bTLS = true;
-		}
-	}
+	// ToDo: Gnutella 1 TLS Encyption?
+	//bool bTLS = false;
+	//
+	//if ( m_nLength > 26 && Settings.Gnutella1.EnableTLS )
+	//{
+	//	CGGEPBlock pGGEP;
+	//	if ( pGGEP.ReadFromPacket( this ) )
+	//	{
+	//		if ( pGGEP.Find( GGEP_HEADER_TLS_SUPPORT ) )
+	//			bTLS = true;
+	//	}
+	//}
 
 	if ( ! nPort || ( m_nHops && (
 		Network.IsFirewalledAddress( (IN_ADDR*)&nAddress ) ||

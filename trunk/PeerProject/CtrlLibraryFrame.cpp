@@ -1,7 +1,7 @@
 //
 // CtrlLibraryFrame.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -67,9 +67,9 @@ BEGIN_MESSAGE_MAP(CLibraryFrame, CWnd)
 	ON_UPDATE_COMMAND_UI(ID_LIBRARY_TREE_VIRTUAL, OnUpdateLibraryTreeVirtual)
 	ON_COMMAND(ID_LIBRARY_TREE_VIRTUAL, OnLibraryTreeVirtual)
 	ON_UPDATE_COMMAND_UI(ID_LIBRARY_PANEL, OnUpdateLibraryPanel)
+	ON_COMMAND(ID_LIBRARY_PANEL, OnLibraryPanel)
 	ON_UPDATE_COMMAND_UI(ID_WEBSERVICES_LIST, OnUpdateShowWebServices)
 	ON_COMMAND(ID_WEBSERVICES_LIST, OnShowWebServices)
-	ON_COMMAND(ID_LIBRARY_PANEL, OnLibraryPanel)
 	ON_COMMAND(ID_LIBRARY_SEARCH, OnLibrarySearch)
 	ON_COMMAND(ID_LIBRARY_SEARCH_QUICK, OnLibrarySearchQuick)
 	ON_NOTIFY(LTN_SELCHANGED, IDC_LIBRARY_TREE, OnTreeSelection)
@@ -846,14 +846,14 @@ void CLibraryFrame::UpdatePanel(BOOL bForce)
 
 BOOL CLibraryFrame::Display(const CLibraryFolder* pFolder)
 {
-	if ( Settings.Library.ShowVirtual != FALSE )
+	if ( Settings.Library.ShowVirtual )
 		OnLibraryTreePhysical();
 	return m_wndTree.SelectFolder( pFolder );
 }
 
 BOOL CLibraryFrame::Display(const CAlbumFolder* pFolder)
 {
-	if ( Settings.Library.ShowVirtual != TRUE )
+	if ( ! Settings.Library.ShowVirtual )
 		OnLibraryTreeVirtual();
 	return m_wndTree.SelectFolder( pFolder );
 }
@@ -1096,11 +1096,8 @@ void CLibraryFrame::RunLocalSearch(CQuerySearch* pSearch)
 		if ( pFolder == NULL )
 		{
 			pFolder = pRoot->AddFolder( CSchema::uriSearchFolder, _T("Search Results") );
-			if ( pFolder->m_pSchema != NULL )
-			{
-				if ( ! strFolderName.IsEmpty() )
-					pFolder->m_sName = strFolderName;
-			}
+			if ( pFolder->m_pSchema != NULL && ! strFolderName.IsEmpty() )
+				pFolder->m_sName = strFolderName;
 		}
 		else
 			pFolder->Clear();

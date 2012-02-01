@@ -1,7 +1,7 @@
 //
 // CtrlSearchDetailPanel.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -340,10 +340,13 @@ void CSearchDetailPanel::OnPaint()
 		dc.SelectObject( &CoolInterface.m_fntUnder );
 		dc.SetTextColor( Colors.m_crTextLink );
 		CSize sz = dc.GetTextExtent( m_sStatus );
-		CString sReviews;
-		LoadString( sReviews, m_pReviews.GetCount() == 1 ?
-			IDS_SEARCH_DETAILS_REVIEWS_ONE : IDS_SEARCH_DETAILS_REVIEWS_MANY );
-		DrawText( &dc, rcWork.left + sz.cx + 8, rcWork.top, sReviews, &m_rcStatus );
+		CString strReviews;
+		if ( m_pReviews.GetCount() == 1 )
+			LoadString( strReviews, IDS_SEARCH_DETAILS_REVIEWS_ONE );
+		else //if ( m_pReviews.GetCount() > 1 )
+			strReviews.Format( LoadString( IDS_SEARCH_DETAILS_REVIEWS_MANY ), m_pReviews.GetCount() );
+
+		DrawText( &dc, rcWork.left + sz.cx + 8, rcWork.top, strReviews, &m_rcStatus );
 	}
 
 	rcWork.top += 18;
@@ -602,7 +605,7 @@ void CSearchDetailPanel::OnRun()
 			continue;
 		}
 
-		CString strURL	= m_pPreviewURLs.RemoveHead();
+		CString strURL = m_pPreviewURLs.RemoveHead();
 		Hashes::Sha1Hash oSHA1( m_oSHA1 );
 
 		if ( ! m_bIsPreviewing )

@@ -348,9 +348,9 @@ CString CDownload::GetDownloadStatus() const
 		else
 		{
 			if ( nTime > 86400 )
-				strText.Format( _T("%i:%.2i:%.2i:%.2i"), nTime / 86400, ( nTime / 3600 ) % 24, ( nTime / 60 ) % 60, nTime % 60 );
+				strText.Format( _T("%u:%.2u:%.2u:%.2u"), nTime / 86400, ( nTime / 3600 ) % 24, ( nTime / 60 ) % 60, nTime % 60 );
 			else
-				strText.Format( _T("%i:%.2i:%.2i"), nTime / 3600, ( nTime / 60 ) % 60, nTime % 60 );
+				strText.Format( _T("%u:%.2u:%.2u"), nTime / 3600, ( nTime / 60 ) % 60, nTime % 60 );
 		}
 	}
 	else if ( GetEffectiveSourceCount() > 0 )
