@@ -641,7 +641,7 @@ void CUploadsCtrl::OnSize(UINT nType, int cx, int cy)
 
 	GetClientRect( &rcClient );
 
-	HDITEM pColumn ={};
+	HDITEM pColumn = {};
 	pColumn.mask = HDI_WIDTH;
 
 	for ( int nColumn = 0 ; m_wndHeader.GetItem( nColumn, &pColumn ) ; nColumn ++ )

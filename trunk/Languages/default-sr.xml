@@ -3,7 +3,7 @@
 
 <!-- PeerProject/ПеерПројецт Default Serbian Skin File -->
 
-<!-- Translation based on default-en.xml r70 -->
+<!-- Translation based on default-en.xml r74 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -18,7 +18,7 @@
 	author="Biza"
 	updatedBy="Woodstoock, Душан Мишић"
 	description="PeerProject Default Serbian Skin File"
-	link="http://PeerProject.org"
+	link="http://peerproject.org"
 	email=""
 	version="1.0.0.0"
 	type="Language"
@@ -681,7 +681,7 @@
 			<item id="ID_LIBRARY_FOLDERS" text="Дели _Фајлове ..."/>
 			<item id="ID_TOOLS_DOWNLOAD" text="_Преузми фајл/Torrent ..."/>
 			<separator/>
-			<item id="ID_TOOLS_SKIN" text="Изаберите  и_зглед ..."/>
+			<item id="ID_TOOLS_SKIN" text="Изаберите и_зглед ..."/>
 			<item id="ID_TOOLS_LANGUAGE" text="Изаберите _језик..."/>
 			<separator/>
 			<item id="ID_TOOLS_PROFILE" text="Измени Мој _профил ..."/>
@@ -1679,7 +1679,7 @@
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="120" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">PRISTUPNA  DALJINU - UKLUČEN</heading>
+			<heading align="middle">PRISTUPNA DALJINU - UKLUČEN</heading>
 			<newline gap="8" indent="42"/>
 			<text>PeerProject pristup na daljinu je omogućen. Kontroliši PeerProject koristeći web preglednik na:</text>
 			<newline gap="6"/>
@@ -2008,7 +2008,7 @@
 		<newline gap="8"/>
 		<text>Ovu datoteku upravo skidam.Ako je skidanje sporo,	probajte
 		potražiti više izvora naredbom </text>
-		<text format="b"> Nađi više izvora</text><text> .  Ako ni to ne pomogne
+		<text format="b"> Nađi više izvora</text><text>.  Ako ni to ne pomogne
 		može biti da korisnici koji dele imaju malu brzinu davanja.
 		Brzina skidanja se obično poveća s vremenom.</text>
 	</document>
@@ -2380,7 +2380,7 @@
 	<tip id="ID_MEDIA_PLAYLIST" message="Prikaži ili sakrij playlist editor."/>
 	<tip id="ID_MEDIA_PREVIOUS" message="Skip back to the previous file in the current playlist." tip="Prethodna datoteka"/>
 	<tip id="ID_MEDIA_RANDOM" message="Toggle random (shuffle) mode in the current playlist."/>
-	<tip id="ID_MEDIA_REMOVE" message="Ukloni selektovani media fajl sa  playliste."/>
+	<tip id="ID_MEDIA_REMOVE" message="Ukloni selektovani media fajl sa playliste."/>
 	<tip id="ID_MEDIA_REPEAT" message="Repeat the current media file."/>
 	<tip id="ID_MEDIA_SAVE" message="Sačuvaj trenutnu playlistu..."/>
 	<tip id="ID_MEDIA_SELECT" message="Označi i pokreni ovu datoteku."/>
@@ -2833,12 +2833,13 @@
 	<string id="20428" value="PeerProject received a collection file:\n\n&quot;%s&quot;.\n\nThis file does not appear to be a valid collection file."/>
 	<string id="20429" value="Would you like to prevent this collection from prompting you to download anything else?"/>
 	<string id="20430" value="Jeste li sigurni da želite pokrenuti &quot;%s&quot; ?\n\nNeke datoteke mogu biti štetne za vaš kompjuter.Budite sigurni da znate šta ova datoteka radi pre nego što je pokrenete."/>
-	<string id="20431" value="Jeste li sigurni da želite zauvek izbrisati %i označenih datoteka?\n\nDatoteke će biti premeštene u &quot;Smeće&quot; Ako je omogućeno."/>
-	<string id="20432" value="PeerProject ne može izbrisati datoteku:\n\n%s"/>
-	<string id="20433" value="Your downloaded files folder &quot;%s&quot; is not yet in your library.\n\nIncluding your downloaded files folder in your library makes it easier to view and organise new downloads, and lets you take advantage of advanced PeerProject features such as download verification and automatic upgrading.Placing downloaded files in your library does not necessarily require you to share them: you can choose whether or not to share files independently.\n\nWould you like to add your downloaded files folder to your library now?"/>
-	<string id="20434" value="Your downloads folder has been added to your library.Would you like to share it too?"/>
-	<string id="20435" value="You have not yet selected a media player to enqueue files with, such as Nullsoft WinAmp.Would you like to select one now?\n\nPeerProject will pass the name of the file to your selected program with the &quot;/ADD&quot; argument."/>
-	<string id="20436" value="Are you sure you want to delete the %i selected album folders ?\n\nNote that this action does not delete the files within the album folders, only the folders themselves."/>
+	<!--string id="20431" value="Jeste li sigurni da želite zauvek izbrisati %i označenih datoteka?\n\nDatoteke će biti premeštene u &quot;Smeće&quot; Ako je omogućeno."-->
+	<string id="20432" value="Are you sure you want to delete the %i selected album folders ?\n\nNote that this action does not delete the files within the album folders, only the folders themselves."/>
+	<string id="20433" value="PeerProject ne može izbrisati datoteku:\n\n%s"/>
+	<string id="20434" value="Your downloaded files folder &quot;%s&quot; is not yet in your library.\n\nIncluding your downloaded files folder in your library makes it easier to view and organise new downloads, and lets you take advantage of advanced PeerProject features such as download verification and automatic upgrading.Placing downloaded files in your library does not necessarily require you to share them: you can choose whether or not to share files independently.\n\nWould you like to add your downloaded files folder to your library now?"/>
+	<string id="20435" value="Your downloads folder has been added to your library.Would you like to share it too?"/>
+	<string id="20436" value="Додај овај директоријум у библиотеку?\n\n%s"/>
+	<string id="20437" value="гхост фајл"/>
 	<string id="20438" value="Menjam metadate od %i datoteka."/>
 	<string id="20439" value="Jeste li sigurni da želite menjati metadate od %i datoteka?"/>
 	<string id="20440" value="Nemogu premestiti datoteku %s. Verovatno ju neki drugi program koristi.\n\nDa li je želite kopirati?"/>
@@ -2860,13 +2861,13 @@
 	<string id="20456" value="Playlista:"/>
 	<string id="20457" value="PeerProject could not instantiate its MediaServices plugin.Please reinstall PeerProject, and confirm that you have the necessary media codecs and output drivers installed."/>
 	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
-	<string id="20461" value="(Nema Vizualizacije)"/>
-	<!--string id="20462" value="PeerProject je završila skidanje:"-->
-	<!--string id="20463" value="PeerProject skida:"-->
-	<!--string id="20464" value="PeerProject premešta skinuto:"-->
-	<!--string id="20465" value="Ovo skidanje je pauzirano"-->
-	<!--string id="20466" value="PeerProject traži izvore za:"-->
-	<!--string id="20467" value="PeerProject proverava ako ima greška:"-->
+	<string id="20462" value="(Nema Vizualizacije)"/>
+	<!--string id="20464" value="PeerProject je završila skidanje:"-->
+	<!--string id="20465" value="PeerProject skida:"-->
+	<!--string id="20466" value="PeerProject premešta skinuto:"-->
+	<!--string id="20467" value="Ovo skidanje je pauzirano"-->
+	<!--string id="20468" value="PeerProject traži izvore za:"-->
+	<!--string id="20469" value="PeerProject proverava ako ima greška:"-->
 	<string id="20470" value="Odustani"/>
 	<string id="20471" value="Otvori"/>
 	<string id="20472" value="Skinuto"/>
@@ -3164,8 +3165,7 @@
 	<string id="20886" value="Changing interface direction requires restart.\n\nExit now?"/>
 	<string id="20890" value="Dobrodošli u PeerProject"/>
 	<string id="20891" value="Izlaz"/>
-	<string id="20895" value="Još mi niste zadali brzinu spajanja.Molim Vas da odaberete tip veze prema internetu, ili ručno upišete brzinu."/>
-	<string id="20896" value="You have indicated that you want to set up port-forwarding on your NAT router or firewall.\n\nPlease configure your network to forward TCP port %i to your local PC."/>
+	<string id="20894" value="Još mi niste zadali brzinu spajanja.Molim Vas da odaberete tip veze prema internetu, ili ručno upišete brzinu."/>
 	<string id="20897" value="Fasciklu koju delite je već na listi za deljenje kao deo druge fascikle:\n\n%s"/>
 	<string id="20898" value="Niste odabrali fascikle za deljenje. Jeste li sigurni da želite nastaviti?"/>
 	<string id="20899" value="godina"/>
@@ -4159,7 +4159,7 @@
 		<control caption="Skini"/>
 		<control caption="Seed"/>
 		<control caption="Prekini"/>
-		<control caption="Da bi ste delili komletne(seed) datoteke koristeći BitTorrent one moraju prvo biti seeded.Nakon toga Torrent  će se pojaviti kao nova stavaka na Vasoj download listi."/>
+		<control caption="Da bi ste delili komletne(seed) datoteke koristeći BitTorrent one moraju prvo biti seeded. Nakon toga Torrent će se pojaviti kao nova stavaka na Vasoj download listi."/>
 		<control/>
 	</dialog>
 	<dialog name="CTorrentFilesPage" cookie="StSy" caption="Files">

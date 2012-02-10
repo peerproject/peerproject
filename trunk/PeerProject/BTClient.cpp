@@ -327,7 +327,7 @@ BOOL CBTClient::OnRead()
 	//	else if ( bSuccess && m_bShake )
 	//	{
 	//		if ( GetTickCount() - m_tConnected > Settings.Connection.TimeoutHandshake / 2 )
-	//			theApp.Message( MSG_ERROR,  _T("No peer-id received") );
+	//			theApp.Message( MSG_ERROR, _T("No peer-id received") );
 	//	}
 	}
 
@@ -413,28 +413,27 @@ BOOL CBTClient::OnHandshake1()
 		// Find the requested file
 		m_pDownload = Downloads.FindByBTH( oFileHash, TRUE );
 
-		if ( m_pDownload == NULL )				// If we can't find the file
+		if ( m_pDownload == NULL )										// If we can't find the file
 		{
 			// Display an error and exit
 			Close( IDS_BT_CLIENT_UNKNOWN_FILE );
 			return FALSE;
 		}
-		else if ( ! m_pDownload->IsTrying() && ! m_pDownload->IsSeeding() )	// If the file isn't active
+		if ( ! m_pDownload->IsTrying() && ! m_pDownload->IsSeeding() )	// If the file isn't active
 		{
 			// Display an error and exit
 			m_pDownload = NULL;
 			Close( IDS_BT_CLIENT_INACTIVE_FILE );
 			return FALSE;
 		}
-		else if ( m_pDownload->UploadExists( &m_pHost.sin_addr ) )	// If there is already an upload of this file to this client
+		if ( m_pDownload->UploadExists( &m_pHost.sin_addr ) )			// If there is already an upload of this file to this client
 		{
 			// Display an error and exit
 			m_pDownload = NULL;
 			Close( IDS_BT_CLIENT_DUPLICATE );
 			return FALSE;
 		}
-		else if ( m_pDownload->m_bVerify != TRI_TRUE
-			&& ( m_pDownload->IsMoving() ||  m_pDownload->IsCompleted() ) )
+		if ( m_pDownload->m_bVerify != TRI_TRUE && ( m_pDownload->IsMoving() || m_pDownload->IsCompleted() ) )
 		{
 			// The file isn't verified yet, close the connection
 			Close( IDS_BT_CLIENT_INACTIVE_FILE );
@@ -1373,7 +1372,7 @@ BOOL CBTClient::OnMetadataRequest(CBTPacket* pPacket)
 
 				if ( m_nUtMetadataSize && ! m_pDownload->m_pTorrent.m_pBlockBTH )
 				{
-					if ( m_pDownload->m_pTorrent.LoadInfoPiece( pPacket->m_pBuffer, pPacket->m_nLength,  m_nUtMetadataSize, nPiece ) )
+					if ( m_pDownload->m_pTorrent.LoadInfoPiece( pPacket->m_pBuffer, pPacket->m_nLength, m_nUtMetadataSize, nPiece ) )
 					{
 						// Full info loaded
 						m_pDownload->SetTorrent();

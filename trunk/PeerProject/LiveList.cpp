@@ -906,6 +906,15 @@ void CLiveListCtrl::Sort(int nColumn)
 	InvalidateRect( NULL );
 }
 
+void CLiveListCtrl::ClearSelection()
+{
+	int nCount = GetItemCount();
+	for ( int i = 0 ; i < nCount ; ++i )
+	{
+		SetItemState( i, 0, LVIS_SELECTED );
+	}
+}
+
 DWORD_PTR CLiveListCtrl::GetItemData(int nItem) const
 {
 	return ( nItem >= 0 && nItem < (int)m_pIndex.size() ) ?

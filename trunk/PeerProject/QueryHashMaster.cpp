@@ -1,7 +1,7 @@
 //
 // QueryHashMaster.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -56,10 +56,10 @@ void CQueryHashMaster::Create()
 {
 	CQueryHashTable::Create();
 
-	m_nPerGroup		= 250;
-	m_bValid		= FALSE;
-	m_bLive			= false;
-	m_nCookie		= 0;
+	m_nPerGroup	= 250;
+	m_bValid	= FALSE;
+	m_bLive		= false;
+	m_nCookie	= 0;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -68,7 +68,6 @@ void CQueryHashMaster::Create()
 void CQueryHashMaster::Add(CQueryHashTable* pTable)
 {
 	ASSERT( m_nPerGroup > 0 );
-	ASSERT( pTable != NULL );
 	ASSERT( pTable->m_nHash > 0 );
 	ASSERT( pTable->m_pGroup == NULL );
 
@@ -96,7 +95,6 @@ void CQueryHashMaster::Add(CQueryHashTable* pTable)
 
 void CQueryHashMaster::Remove(CQueryHashTable* pTable)
 {
-	ASSERT( pTable != NULL );
 	if ( pTable->m_pGroup == NULL ) return;
 
 	CQueryHashGroup* pGroup = pTable->m_pGroup;

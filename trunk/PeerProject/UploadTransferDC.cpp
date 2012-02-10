@@ -1,7 +1,7 @@
 //
 // UploadTransferDC.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2010-2011
+// This file is part of PeerProject (peerproject.org) © 2010-2012
 // Portions copyright Shareaza Development Team, 2010.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -153,8 +153,8 @@ BOOL CUploadTransferDC::OnRun()
 		}
 		break;
 
-	default:
-		;
+	//default:
+	//	;
 	}
 
 	return TRUE;
@@ -240,7 +240,7 @@ BOOL CUploadTransferDC::OnUpload(const std::string& strType, const std::string& 
 	m_sAddress = m_pClient->m_sAddress;
 	UpdateCountry();
 
-	m_pClient->m_mInput.pLimit	= &Settings.Bandwidth.Request;
+	m_pClient->m_mInput.pLimit  = &Settings.Bandwidth.Request;
 	m_pClient->m_mOutput.pLimit = &m_nBandwidth;
 
 	m_tRequest = GetTickCount();

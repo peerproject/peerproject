@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hebrew Skin File -->
 
-<!-- Translation based on default-en.xml r70 -->
+<!-- Translation based on default-en.xml r74 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -23,7 +23,7 @@ gap i newline
 	author="David Aravon"
 	updatedBy="_peer_ (la. Han), Omega"
 	description="PeerProject Default Hebrew Skin File"
-	link="http://PeerProject.org"
+	link="http://peerproject.org"
 	email="peer_l_(at)hotmail, omega09(at)sourceforge.net"
 	version="1.0.0.0"
 	type="Language"
@@ -90,7 +90,7 @@ gap i newline
 		<button id="ID_SEARCH_DOWNLOAD" text="‪הורד"/>
 		<button id="ID_BROWSE_LAUNCH" text="‪עיין במשתמש"/>
 		<rightAlign/>
-		<button id="ID_SEARCH_FILTER_RAW"  text="‪:מסנן" tip="הקלד מספר מילים לסינון תוצאות החיפוש"/>
+		<button id="ID_SEARCH_FILTER_RAW" text="‪:מסנן" tip="הקלד מספר מילים לסינון תוצאות החיפוש"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="‪הצג פרטי חיפוש"/>
@@ -101,7 +101,7 @@ gap i newline
 		<button id="ID_BROWSE_LAUNCH" text="‪עיין במשתמש"/>
 		<button id="ID_SECURITY_BAN" text="Ban"/>
 		<rightAlign/>
-		<button id="ID_SEARCH_FILTER_RAW"  text="‪:מסנן" tip="הקלד מספר מילים לסינון תוצאות החיפוש"/>
+		<button id="ID_SEARCH_FILTER_RAW" text="‪:מסנן" tip="הקלד מספר מילים לסינון תוצאות החיפוש"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="‪הצג פרטי חיפוש"/>
@@ -115,7 +115,7 @@ gap i newline
 		<button id="ID_BROWSE_LAUNCH" text="‪עיין במשתמש"/>
 		<button id="ID_SECURITY_BAN" text="Ban"/>
 		<rightAlign/>
-		<button id="ID_SEARCH_FILTER_RAW"  text="‪:מסנן" tip="הקלד מספר מילים לסינון תוצאות החיפוש"/>
+		<button id="ID_SEARCH_FILTER_RAW" text="‪:מסנן" tip="הקלד מספר מילים לסינון תוצאות החיפוש"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="‪הצג פרטי חיפוש"/>
@@ -2726,7 +2726,9 @@ gap i newline
 	<string id="20423" value="כותרת"/>
 	<string id="20424" value="#"/> <!-- Track number -->
 	<string id="20430" value="‪? &quot;%s&quot; הם הינך בטוח/ה שברצונך להפעיל את הקובץnn.קבצים מסויימים יכולים לפגוע במחשב שלך, אנא וודא איזה קובץ אתה מפעיל"/>
-	<string id="20432" value="‪:שרזה נכשל למחוק את הקובץ file:\n\n%s"/>
+	<string id="20433" value="‪:שרזה נכשל למחוק את הקובץ קובץ:\n\n%s"/>
+	<string id="20436" value="הוסף תיקיה זו לספריית שלך?\n\n%s"/>
+	<string id="20437" value="Ghost קובץ"/>
 	<string id="20438" value="‪.ל- %i קבצים Meta עורך מידע "/>
 	<string id="20439" value="‪?קבצים, האם הינך מעוניינ/ת להמשיך %i-ל Meta את/ה עומד/ת לשנות את המידע"/>
 	<string id="20441" value="‪:שרזה נכשל לשנות את השם\n\n%snto\n%s"/>
@@ -2743,13 +2745,13 @@ gap i newline
 	<string id="20457" value="‪PeerProject could not instantiate its MediaServices plugin. Please reinstall PeerProject, and confirm that you have the necessary media codecs and output drivers installed."/>
 	<string id="20458" value="PeerProject Media Player"/>
 	<string id="20460" value="‪ נ   ג   ן     ה   מ   ד   י   ה       ש   ר   ז   ה"/>
-	<string id="20461" value="‪(ללא אפקטים ויזואליים)"/>
-	<!--string id="20462" value="‪:שרזה סיים להוריד"-->
-	<!--string id="20463" value="‪:שרזה מוריד"-->
-	<!--string id="20464" value="‪:שרזה מעביר את ההורדה"-->
-	<!--string id="20465" value="‪:הורדה זו מושהת"-->
-	<!--string id="20466" value="‪:שרזה מחפשת מקורות עבור"-->
-	<!--string id="20467" value="‪:שרזה בודקת אם יש שגיאות בהורדה"-->
+	<string id="20462" value="‪(ללא אפקטים ויזואליים)"/>
+	<!--string id="20464" value="‪:שרזה סיים להוריד"-->
+	<!--string id="20465" value="‪:שרזה מוריד"-->
+	<!--string id="20466" value="‪:שרזה מעביר את ההורדה"-->
+	<!--string id="20467" value="‪:הורדה זו מושהת"-->
+	<!--string id="20468" value="‪:שרזה מחפשת מקורות עבור"-->
+	<!--string id="20469" value="‪:שרזה בודקת אם יש שגיאות בהורדה"-->
 	<string id="20470" value="ביטול"/>
 	<string id="20471" value="‪פתח"/>
 	<string id="20472" value="‪הושלם"/>
@@ -3135,7 +3137,7 @@ gap i newline
 		<control caption="אני יכול/ה לקבל חיבורים נכנסים"/>
 		<control/>
 		<control caption="מקומיות/פרטיות IP התעלם מכתובות"/>
-		<control caption="Enable UPnP connection devices setup"/>
+		<control caption="Enable Plug'n'Play port-forwarding"/>
 		<control caption=":זמן המתנה לתשובה"/>
 		<control caption="חיבור"/>
 		<control/>

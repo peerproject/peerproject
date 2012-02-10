@@ -352,85 +352,58 @@ void CHostCacheList::Clear()
 //////////////////////////////////////////////////////////////////////
 // CHostCacheList host add
 
-CHostCacheHostPtr CHostCacheList::Add(const IN_ADDR* pAddress, WORD nPort, DWORD tSeen, LPCTSTR pszVendor, DWORD nUptime, DWORD nCurrentLeaves, DWORD nLeafLimit, LPCTSTR szAddress)
-{
-	ASSERT( pAddress || szAddress );
-
-	// Don't add invalid addresses
-	if ( ! nPort )
-		return NULL;
-
-	if ( pAddress && ! pAddress->S_un.S_un_b.s_b1 )
-		return NULL;
-
-	// Don't add own firewalled IPs
-	if ( pAddress && Network.IsFirewalledAddress( pAddress, TRUE ) )
-		return NULL;
-
-	// Check against IANA Reserved addresses
-	if ( pAddress && Network.IsReserved( pAddress ) )
-		return NULL;
-
-	// Check security settings, don't add blocked IPs
-	if ( pAddress && Security.IsDenied( pAddress ) )
-		return NULL;
-
-	// Try adding it to the cache. (duplicates will be rejected)
-	return AddInternal( pAddress, nPort, tSeen, pszVendor, nUptime, nCurrentLeaves, nLeafLimit, szAddress );
-}
-
 CHostCacheHostPtr CHostCacheList::Add(LPCTSTR pszHost, DWORD tSeen, LPCTSTR pszVendor, DWORD nUptime, DWORD nCurrentLeaves, DWORD nLeafLimit)
 {
 	CString strHost( pszHost );
 	strHost.Trim();
 
 	int nPos = strHost.ReverseFind( _T(' ') );
+	if ( nPos < 1 ) nPos = strHost.ReverseFind( _T('\t') );
 	if ( nPos > 0 )
 	{
 		CString strTime = strHost.Mid( nPos + 1 );
 		strHost = strHost.Left( nPos );
 		strHost.TrimRight();
-
 		tSeen = TimeFromString( strTime );
 	}
 
-	WORD nPort = protocolPorts[ m_nProtocol ];
-	nPos = strHost.Find( _T(':') );
-	if ( nPos > 0 )
-	{
-		int n = 0;
-		if ( _stscanf( strHost.Mid( nPos + 1 ), _T("%i"), &n ) == 1 &&
-			n > 0 && n <= USHRT_MAX )
-		{
-			nPort = (WORD)n;
-		}
-		strHost = strHost.Left( nPos );
-	}
-
-	DWORD nAddress = inet_addr( CT2CA( (LPCTSTR)strHost ) );
-	if ( nAddress == INADDR_NONE ) return FALSE;
-
-	return Add( (IN_ADDR*)&nAddress, nPort, tSeen, pszVendor, nUptime, nCurrentLeaves, nLeafLimit );
+	return Add( NULL, 0, tSeen, pszVendor, nUptime, nCurrentLeaves, nLeafLimit, strHost );
 }
 
-// This function actually adds the remote client to the host cache.
-// Private, but used by the public functions.  No security checking, etc.
-CHostCacheHostPtr CHostCacheList::AddInternal(const IN_ADDR* pAddress, WORD nPort, DWORD tSeen, LPCTSTR pszVendor, DWORD nUptime, DWORD nCurrentLeaves, DWORD nLeafLimit, LPCTSTR szAddress)
+CHostCacheHostPtr CHostCacheList::Add(const IN_ADDR* pAddress, WORD nPort, DWORD tSeen, LPCTSTR pszVendor, DWORD nUptime, DWORD nCurrentLeaves, DWORD nLeafLimit, LPCTSTR szAddress)
 {
 	ASSERT( pAddress || szAddress );
-	ASSERT( nPort );
+
+	if ( ! nPort )
+		nPort = protocolPorts[ m_nProtocol ];	// Use default port
 
 	SOCKADDR_IN saHost;
 	if ( ! pAddress )
 	{
 		// Try to quick resolve dotted IP address
 		if ( ! Network.Resolve( szAddress, nPort, &saHost, FALSE ) )
-			return FALSE;	// Cannot resolve
+			return NULL;	// Cannot resolve
 
 		pAddress = &saHost.sin_addr;
 		nPort = ntohs( saHost.sin_port );
 		if ( pAddress->s_addr != INADDR_ANY )
+		{
 			szAddress = NULL;
+
+			if ( ! pAddress->S_un.S_un_b.s_b1 ||			// Don't add invalid address
+				 Network.IsFirewalledAddress( pAddress, TRUE ) ||	// Don't add own firewalled IPs
+				 Network.IsReserved( pAddress ) ||			// Check against IANA reserved address
+				 Security.IsDenied( pAddress ) )			// Check security settings, don't add blocked IPs
+				return NULL;	// Bad IP
+		}
+	}
+	else // if ( pAddress )
+	{
+		if ( ! pAddress->S_un.S_un_b.s_b1 ||				// Don't add invalid address
+			 Network.IsFirewalledAddress( pAddress, TRUE ) ||	// Don't add own firewalled IPs
+			 Network.IsReserved( pAddress ) ||				// Check against IANA reserved address
+			 Security.IsDenied( pAddress ) )				// Check security settings, don't add blocked IPs
+			return NULL;	// Bad IP
 	}
 
 	CQuickLock oLock( m_pSection );
@@ -551,6 +524,16 @@ void CHostCacheList::OnResolve(LPCTSTR szAddress, const IN_ADDR* pAddress, WORD 
 	CQuickLock oLock( m_pSection );
 
 	CHostCacheHostPtr pHost = Find( szAddress );
+
+	if ( Network.IsFirewalledAddress( pAddress, TRUE ) ||	// Don't add own firewalled IPs
+		 Network.IsReserved( pAddress ) ||				// Check against IANA Reserved address
+		 Security.IsDenied( pAddress ) )				// Check security settings, don't add blocked IPs
+	{
+		if ( pHost )
+			Remove( pHost );
+		return;
+	}
+
 	if ( pHost )
 	{
 		// Remove from old place
@@ -563,6 +546,8 @@ void CHostCacheList::OnResolve(LPCTSTR szAddress, const IN_ADDR* pAddress, WORD 
 
 		// Add to new place
 		m_Hosts.insert( CHostCacheMapPair( pHost->m_pAddress, pHost ) );
+
+		m_nCookie++;
 
 		ASSERT( m_Hosts.size() == m_HostsTime.size() );
 	}

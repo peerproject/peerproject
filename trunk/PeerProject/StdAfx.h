@@ -421,14 +421,14 @@ typedef struct _ICONDIRENTRY
 
 typedef struct _GRPICONDIRENTRY
 {
-	BYTE   bWidth;			// Width, in pixels, of the image
-	BYTE   bHeight;			// Height, in pixels, of the image
-	BYTE   bColorCount;		// Number of colors in image (0 if >=8bpp)
-	BYTE   bReserved;		// Reserved
-	WORD   wPlanes;			// Color Planes
-	WORD   wBitCount;		// Bits per pixel
-	DWORD  dwBytesInRes;	// How many bytes in this resource?
-	WORD   nID; 			// the ID
+	BYTE	bWidth;			// Width, in pixels, of the image
+	BYTE	bHeight;			// Height, in pixels, of the image
+	BYTE	bColorCount;	// Number of colors in image (0 if >=8bpp)
+	BYTE	bReserved;		// Reserved
+	WORD	wPlanes;			// Color Planes
+	WORD	wBitCount;		// Bits per pixel
+	DWORD	dwBytesInRes;	// How many bytes in this resource?
+	WORD	nID; 			// the ID
 } GRPICONDIRENTRY, *LPGRPICONDIRENTRY;
 
 typedef struct _ICONDIR

@@ -123,7 +123,7 @@ int CResultFilters::Search(const CString& strName)
 			return index;
 	}
 	return NONE;
- }
+}
 
 void CResultFilters::Remove(DWORD index)
 {

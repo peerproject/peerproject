@@ -1,7 +1,7 @@
 //
 // QueryHashGroup.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -60,7 +60,6 @@ CQueryHashGroup::~CQueryHashGroup()
 
 void CQueryHashGroup::Add(CQueryHashTable* pTable)
 {
-	ASSERT( pTable != NULL );
 	ASSERT( pTable->m_pGroup == NULL );
 	ASSERT( m_pTables.Find( pTable ) == NULL );
 
@@ -76,7 +75,6 @@ void CQueryHashGroup::Add(CQueryHashTable* pTable)
 
 void CQueryHashGroup::Remove(CQueryHashTable* pTable)
 {
-	ASSERT( pTable != NULL );
 	ASSERT( pTable->m_pGroup == this );
 
 	POSITION pos = m_pTables.Find( pTable );

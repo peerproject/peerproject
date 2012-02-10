@@ -531,7 +531,7 @@ BOOL CChildWnd::PreTranslateMessage(MSG* pMsg)
 {
 	// Hack to enable TAB-navigation
 	if ( pMsg->wParam == VK_TAB &&
- 		( pMsg->message == WM_KEYDOWN ||
+		( pMsg->message == WM_KEYDOWN ||
 		  pMsg->message == WM_KEYUP ||
 		  pMsg->message == WM_CHAR ) )
 	{

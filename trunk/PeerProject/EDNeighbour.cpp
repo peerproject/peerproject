@@ -1,7 +1,7 @@
 //
 // EDNeighbour.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -125,7 +125,8 @@ BOOL CEDNeighbour::Send(CPacket* pPacket, BOOL bRelease, BOOL /*bBuffered*/)
 		bSuccess = TRUE;
 	}
 
-	if ( bRelease ) pPacket->Release();
+	if ( bRelease )
+		pPacket->Release();
 
 	return bSuccess;
 }
@@ -277,10 +278,9 @@ BOOL CEDNeighbour::OnPacket(CEDPacket* pPacket)
 		return OnSearchResults( pPacket );
 	case ED2K_S2C_FOUNDSOURCES:
 		return OnFoundSources( pPacket );
-	default:
-		DEBUG_ONLY( pPacket->Debug( _T("Unknown ED2K packet from ") + m_sAddress ) );
-		break;
 	}
+
+	DEBUG_ONLY( pPacket->Debug( _T("Unknown ED2K packet from ") + m_sAddress ) );
 
 	return TRUE;
 }
@@ -527,7 +527,7 @@ bool CEDNeighbour::OnCallbackRequested(CEDPacket* pPacket)
 	if ( pPacket->GetRemaining() < 6 )
 	{
 		// Ignore packet and return that it was handled
-		theApp.Message( MSG_NOTICE, IDS_PROTOCOL_SIZE_PUSH, m_sAddress );
+		theApp.Message( MSG_NOTICE, IDS_PROTOCOL_SIZE_PACKET, m_sAddress, _T("push") );
 		++Statistics.Current.eDonkey.Dropped;
 		++m_nDropCount;
 		return true;

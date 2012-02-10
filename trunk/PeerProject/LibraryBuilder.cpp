@@ -1,7 +1,7 @@
 //
 // LibraryBuilder.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -103,7 +103,6 @@ CLibraryBuilder::~CLibraryBuilder()
 
 bool CLibraryBuilder::Add(CLibraryFile* pFile)
 {
-	ASSERT( pFile );
 	ASSERT( pFile->m_nIndex );
 
 	if ( pFile->IsReadable() && ! m_bBusy )
@@ -141,8 +140,6 @@ void CLibraryBuilder::Remove(DWORD nIndex)
 
 void CLibraryBuilder::Remove(CLibraryFile* pFile)
 {
-	ASSERT( pFile );
-
 	// Remove file from queue
 	Remove( pFile->m_nIndex );
 

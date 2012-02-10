@@ -516,30 +516,30 @@ int CMainWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 void CMainWnd::OnClose()
 {
-	CWaitCursor pCursor;
+	if ( theApp.m_bClosing )
+		return;		// Already closing
 
-	// Show Shutdown Splash, continued in PeerProject.cpp
+	// Show Shutdown Splash, continued in ExitInstance() (PeerProject.cpp)
+	theApp.SplashStep( L"Waiting to Close", 11, true );
 
-	theApp.SplashStep( L"Preparing to Close", 9, true );
-
-	if ( theApp.m_bBusy && ! theApp.m_bClosing )
+	if ( theApp.m_bBusy )
 	{
 		// Delayed close
 		SetTimer( 2, 1000, NULL );
 		return;
 	}
 
-	if ( theApp.m_bClosing )
-		return;		// Already closing
+	//CWaitCursor pCursor;
+
+	theApp.SplashStep( L"Preparing to Close" );
 
 	theApp.m_bClosing = true;
-
 	theApp.m_pSafeWnd = NULL;
-
-	DISABLE_DROP()
 
 	KillTimer( 1 );
 	KillTimer( 2 );
+
+	DISABLE_DROP()
 
 	DeleteTray();
 
@@ -557,8 +557,8 @@ void CMainWnd::OnClose()
 	CDownloadMonitorDlg::CloseAll();
 	CFilePreviewDlg::CloseAll();
 
-	Network.Disconnect();
-	Transfers.StopThread();
+	//Network.Disconnect();
+	//Transfers.StopThread();
 	ChatCore.StopThread();
 
 	if ( m_wndRemoteWnd.IsVisible() )

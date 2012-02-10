@@ -1,7 +1,7 @@
 //
 // UPnPFinder.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -31,7 +31,6 @@ static char THIS_FILE[] = __FILE__;
 CUPnPFinder::CUPnPFinder()
 	: m_pDevices		( )
 	, m_pServices		( )
-	, m_bCOM			( false )
 	, m_nAsyncFindHandle( 0 )
 	, m_bAsyncFindRunning( false )
 	, m_bADSL			( false )
@@ -42,8 +41,8 @@ CUPnPFinder::CUPnPFinder()
 	, m_bInited 		( false )
 	, m_bSecondTry		( false )
 	, m_tLastEvent		( GetTickCount() )
-	, m_bDisableWANIPSetup( Settings.Connection.SkipWANIPSetup == TRUE )
-	, m_bDisableWANPPPSetup( Settings.Connection.SkipWANPPPSetup == TRUE )
+	, m_bDisableWANIPSetup( false )
+	, m_bDisableWANPPPSetup( false )
 {
 }
 
@@ -51,8 +50,8 @@ bool CUPnPFinder::Init()
 {
 	if ( ! m_bInited )
 	{
-		HRESULT hr = CoInitialize( NULL );
-		m_bCOM = ( hr == S_OK || hr == S_FALSE );
+		m_bDisableWANIPSetup  = Settings.Connection.SkipWANIPSetup;
+		m_bDisableWANPPPSetup = Settings.Connection.SkipWANPPPSetup;
 		m_pDeviceFinder = CreateFinderInstance();
 		m_pServiceCallback = new CServiceCallback( *this );
 		m_pDeviceFinderCallback = new CDeviceFinderCallback( *this );
@@ -76,67 +75,66 @@ CUPnPFinder::~CUPnPFinder()
 {
 	m_pDevices.clear();
 	m_pServices.clear();
-	if ( m_bCOM )
-		CoUninitialize();
 }
 
+// Obsolete for reference & deletion (Moved to Network)
 // Helper function to check if UPnP Device Host service is healthy
 // Although SSPD service is dependent on this service but sometimes it may lock up.
 // This will result in application lockup when we call any methods of IUPnPDeviceFinder.
-bool CUPnPFinder::AreServicesHealthy()
-{
-	if ( ! Init() )
-		return false;
-
-	// Open a handle to the Service Control Manager database
-	SC_HANDLE schSCManager = OpenSCManager(
-		NULL,				// Local machine
-		NULL,				// ServicesActive database
-		GENERIC_READ );		// For enumeration and status lookup
-
-	if ( schSCManager == NULL )
-		return false;
-
-	SC_HANDLE schService = OpenService( schSCManager, _T("upnphost"), GENERIC_READ );
-	if ( schService == NULL )
-	{
-		CloseServiceHandle( schSCManager );
-		return false;
-	}
-
-	bool bResult = false;
-	SERVICE_STATUS_PROCESS ssStatus;
-	DWORD nBytesNeeded;
-
-	if ( QueryServiceStatusEx( schService, SC_STATUS_PROCESS_INFO,
-		(LPBYTE)&ssStatus, sizeof(SERVICE_STATUS_PROCESS), &nBytesNeeded ) )
-	{
-		if ( ssStatus.dwCurrentState == SERVICE_RUNNING )
-			bResult = true;
-	}
-	CloseServiceHandle( schService );
-
-	if ( ! bResult )
-	{
-		schService = OpenService( schSCManager, _T("upnphost"), SERVICE_START );
-		if ( schService )
-		{
-			// Power users have only right to start service, thus try to start it here
-			if ( StartService( schService, 0, NULL ) )
-				bResult = true;
-			CloseServiceHandle( schService );
-		}
-	}
-	CloseServiceHandle( schSCManager );
-
-	if ( ! bResult )
-	{
-		Settings.Connection.EnableUPnP = FALSE;
-		theApp.Message( MSG_ERROR, L"UPnP Device Host service is not running, skipping UPnP setup." );
-	}
-
-	return bResult;
-}
+//bool CUPnPFinder::AreServicesHealthy()
+//{
+//	if ( ! Init() )
+//		return false;
+//
+//	// Open a handle to the Service Control Manager database
+//	SC_HANDLE schSCManager = OpenSCManager(
+//		NULL,				// Local machine
+//		NULL,				// ServicesActive database
+//		GENERIC_READ );		// For enumeration and status lookup
+//
+//	if ( schSCManager == NULL )
+//		return false;
+//
+//	SC_HANDLE schService = OpenService( schSCManager, _T("upnphost"), GENERIC_READ );
+//	if ( schService == NULL )
+//	{
+//		CloseServiceHandle( schSCManager );
+//		return false;
+//	}
+//
+//	bool bResult = false;
+//	SERVICE_STATUS_PROCESS ssStatus;
+//	DWORD nBytesNeeded;
+//
+//	if ( QueryServiceStatusEx( schService, SC_STATUS_PROCESS_INFO,
+//		(LPBYTE)&ssStatus, sizeof(SERVICE_STATUS_PROCESS), &nBytesNeeded ) )
+//	{
+//		if ( ssStatus.dwCurrentState == SERVICE_RUNNING )
+//			bResult = true;
+//	}
+//	CloseServiceHandle( schService );
+//
+//	if ( ! bResult )
+//	{
+//		schService = OpenService( schSCManager, _T("upnphost"), SERVICE_START );
+//		if ( schService )
+//		{
+//			// Power users have only right to start service, thus try to start it here
+//			if ( StartService( schService, 0, NULL ) )
+//				bResult = true;
+//			CloseServiceHandle( schService );
+//		}
+//	}
+//	CloseServiceHandle( schSCManager );
+//
+//	if ( ! bResult )
+//	{
+//		Settings.Connection.EnableUPnP = FALSE;
+//		theApp.Message( MSG_ERROR, L"UPnP Device Host service is not running, skipping UPnP setup." );
+//	}
+//
+//	return bResult;
+//}
 
 // Helper function for processing the AsyncFind search
 void CUPnPFinder::ProcessAsyncFind(BSTR bsSearchType) throw()
@@ -162,7 +160,7 @@ void CUPnPFinder::ProcessAsyncFind(BSTR bsSearchType) throw()
 
 	if ( FAILED( hr ) )
 	{
-		theApp.Message( MSG_ERROR, L"CreateAsyncFind failed in UPnP finder." );
+		theApp.Message( MSG_ERROR, L"UPnP AsyncFind is not available." );
 		return;
 	}
 
@@ -182,15 +180,13 @@ void CUPnPFinder::ProcessAsyncFind(BSTR bsSearchType) throw()
 	{
 		__try
 		{
-			hr = m_pDeviceFinder->CancelAsyncFind( m_nAsyncFindHandle );
+			/*hr =*/ m_pDeviceFinder->CancelAsyncFind( m_nAsyncFindHandle );
 		}
 		__except( EXCEPTION_EXECUTE_HANDLER )
 		{
-			hr = E_FAIL;
 		}
 
-		if ( FAILED( hr ) )
-			theApp.Message( MSG_ERROR, L"CancelAsyncFind failed in UPnP finder." );
+		//theApp.Message( MSG_ERROR, L"StartAsyncFind failed in UPnP finder." );
 
 		m_bAsyncFindRunning = false;
 	}
@@ -200,13 +196,10 @@ void CUPnPFinder::ProcessAsyncFind(BSTR bsSearchType) throw()
 void CUPnPFinder::StopAsyncFind()
 {
 	// This will stop the async find if it is in progress
-	// ToDo: Locked up in WinME, cancelling was required (UPDATE?)
+	// ToDo: Locked up in WinME, cancelling was required (Update?)
 
 	if ( m_bInited && IsAsyncFindRunning() )
-	{
-		if ( FAILED( m_pDeviceFinder->CancelAsyncFind( m_nAsyncFindHandle ) ) )
-			theApp.Message( MSG_ERROR, L"Cancel AsyncFind failed in UPnP finder." );
-	}
+		m_pDeviceFinder->CancelAsyncFind( m_nAsyncFindHandle );
 
 	if ( m_bSecondTry )
 		m_bAsyncFindRunning = false;
@@ -221,8 +214,8 @@ void CUPnPFinder::StartDiscovery(bool bSecondTry)
 	if ( ! Init() )
 		return;
 
-	if ( ! bSecondTry )
-		theApp.Message( MSG_INFO, L"Trying to setup port forwardings with UPnP...");
+	//if ( ! bSecondTry )
+	//	theApp.Message( MSG_INFO, L"Trying to setup port forwarding with UPnP...");
 
 	// On tests, in some cases the search for WANConnectionDevice had no results and only a search for InternetGatewayDevice
 	// showed up the UPnP root Device which contained the WANConnectionDevice as a child.  Not sure if there are cases where
@@ -234,13 +227,13 @@ void CUPnPFinder::StartDiscovery(bool bSecondTry)
 	m_bSecondTry = bSecondTry;
 
 	m_bPortIsFree = true;
-	theApp.m_bUPnPPortsForwarded = TRI_UNKNOWN;
+	//Network.m_bUPnPPortsForwarded = TRI_UNKNOWN;
 
 	// We have to process the AsyncFind
 	ProcessAsyncFind( CComBSTR( bSecondTry ? strDeviceType2 : strDeviceType1 ) );
 
 	// We should not release the device finder object
-	return;
+	//return;
 }
 
 // Helper function for adding devices to the list
@@ -339,14 +332,9 @@ bool CUPnPFinder::OnSearchComplete()
 	if ( m_pDevices.empty() )
 	{
 		if ( m_bSecondTry )
-		{
-			theApp.Message( MSG_INFO, L"Found no UPnP gateway devices" );
-			Settings.Connection.EnableUPnP = FALSE;
-			theApp.m_bUPnPPortsForwarded = TRI_FALSE;
-			theApp.m_bUPnPDeviceConnected = TRI_FALSE;
-		}
+			Network.OnMapFailed();
 		else
-			theApp.Message( MSG_INFO, L"Found no UPnP gateway devices - will retry with different parameters" );
+			theApp.Message( MSG_INFO, L"Found no UPnP gateway devices - will retry with different parameters..." );
 		return false;	// No devices found
 	}
 
@@ -387,7 +375,7 @@ HRESULT	CUPnPFinder::GetDeviceServices(DevicePointer pDevice)
 	if ( nCount == 0 )
 	{
 		// Should we ask a user to disable auto-detection?
-		theApp.Message( MSG_INFO, L"Found no services for the currect UPnP device." );
+		theApp.Message( MSG_INFO, L"Found no services for the current UPnP device." );
 		return hr;
 	}
 
@@ -450,7 +438,7 @@ HRESULT CUPnPFinder::MapPort(const ServicePointer& service)
 
 	if ( m_bADSL )	// Not a very reliable way to detect ADSL, since WANEthLinkC* is optional
 	{
-		if ( theApp.m_bUPnPPortsForwarded == TRI_TRUE )		// Another physical device or the setup was ran again manually
+		if ( Network.m_bUPnPPortsForwarded == TRI_TRUE )		// Another physical device or the setup was ran again manually
 		{
 			// Reset settings and recheck ( is there a better solution? )
 			Settings.Connection.SkipWANIPSetup  = FALSE;
@@ -514,8 +502,7 @@ HRESULT CUPnPFinder::MapPort(const ServicePointer& service)
 		if ( FAILED( hr ) )
 			UPnPMessage( hr );
 		else
-			theApp.Message( MSG_DEBUG, L"Callback added for the service %s",
-				strServiceId );
+			theApp.Message( MSG_DEBUG, L"Callback added for the service %s", (LPCTSTR)strServiceId );
 
 		// Delete old and add new port mappings
 		m_sLocalIP = GetLocalRoutableIP( service );
@@ -523,7 +510,7 @@ HRESULT CUPnPFinder::MapPort(const ServicePointer& service)
 		{
 			DeleteExistingPortMappings( service );
 			CreatePortMappings( service );
-			theApp.m_bUPnPDeviceConnected = TRI_TRUE;
+		//	Network.m_bUPnPDeviceConnected = TRI_TRUE;
 		}
 	}
 	else if ( _tcsistr( strResult, L"|VT_BSTR=Disconnected|" ) != NULL && m_bADSL && bPPP )
@@ -547,7 +534,7 @@ void CUPnPFinder::StartPortMapping()
 {
 	std::for_each( m_pServices.begin(), m_pServices.end(), boost::bind( &CUPnPFinder::MapPort, this, _1 ) );
 	if ( m_bADSL && ! Settings.Connection.SkipWANIPSetup &&
-		( theApp.m_bUPnPPortsForwarded == TRI_UNKNOWN || m_bADSLFailed ) && m_pWANIPService != NULL )
+		( Network.m_bUPnPPortsForwarded == TRI_UNKNOWN || m_bADSLFailed ) && m_pWANIPService != NULL )
 	{
 		m_bADSLFailed = true;
 		theApp.Message( MSG_DEBUG, L"Configuration failed or it wasn't an ADSL device. Retrying with WANIPConn setup..." );
@@ -611,7 +598,7 @@ CString CUPnPFinder::GetLocalRoutableIP(ServicePointer pService)
 		if ( ipAddr->table[ nIf ].dwIndex == nInterfaceIndex )
 		{
 			strLocalIP = inet_ntoa( *(IN_ADDR*)&ipAddr->table[ nIf ].dwAddr );
-			theApp.m_nUPnPExternalAddress.s_addr = ip;
+			Network.OnNewExternalIPAddress( *(IN_ADDR*)&ip );
 			break;
 		}
 	}
@@ -764,13 +751,15 @@ void CUPnPFinder::CreatePortMappings(ServicePointer pService)
 	if ( FAILED( hr ) )
 		return (void)UPnPMessage( hr );
 
-	theApp.m_bUPnPPortsForwarded = TRI_TRUE;
-	theApp.Message( MSG_INFO, L"Ports successfully forwarded using UPnP service." );
-
 	// Leave the message loop, since events may take more time.
 	// Assuming that the user doesn't use several devices
-
 	m_bAsyncFindRunning = false;
+
+	// Obsolete for reference & deletion
+	//Network.m_bUPnPPortsForwarded = TRI_TRUE;
+	//theApp.Message( MSG_INFO, L"Ports successfully forwarded using UPnP service." );
+
+	Network.OnMapSuccess();
 }
 
 // Invoke the action for the selected service.
@@ -1145,24 +1134,22 @@ HRESULT CServiceCallback::StateVariableChanged(IUPnPService* pService,
 	// We are not interested in the initial values; we will request them explicitly
 	if ( ! m_instance.IsAsyncFindRunning() )
 	{
-		if ( _wcsicmp( pszStateVarName, L"ConnectionStatus" ) == 0 )
+		if ( _wcsicmp( pszStateVarName, L"ExternalIPAddress" ) == 0 )
 		{
-			theApp.m_bUPnPDeviceConnected = strValue.CompareNoCase( L"Disconnected" ) == 0
-					? TRI_FALSE
-					: ( strValue.CompareNoCase( L"Connected" ) == 0 )
-						? TRI_TRUE
-						: TRI_UNKNOWN;
+			IN_ADDR pAddress;
+			pAddress.s_addr = inet_addr( CT2A( strValue.Trim() ) );
+			Network.OnNewExternalIPAddress( pAddress );
 		}
-		else if ( _wcsicmp( pszStateVarName, L"ExternalIPAddress" ) == 0 )
-		{
-			theApp.m_nUPnPExternalAddress.s_addr = inet_addr( CT2A( strValue.Trim() ) );
-			if ( theApp.m_nUPnPExternalAddress.s_addr == INADDR_ANY )
-				theApp.m_nUPnPExternalAddress.s_addr = INADDR_NONE;
-		}
+	//	else if ( _wcsicmp( pszStateVarName, L"ConnectionStatus" ) == 0 )
+	//	{
+	//		Network.m_bUPnPDeviceConnected =
+	//			strValue.CompareNoCase( L"Disconnected" ) == 0 ? TRI_FALSE :
+	//			( strValue.CompareNoCase( L"Connected" ) == 0 ) ? TRI_TRUE : TRI_UNKNOWN;
+	//	}
 	}
 
 	theApp.Message( MSG_DEBUG, L"UPnP device state variable %s changed to %s in %s",
-		pszStateVarName, strValue.IsEmpty()? L"NULL" : strValue.GetString(), bsServiceId.m_str );
+		pszStateVarName, strValue.IsEmpty() ? L"NULL" : strValue.GetString(), bsServiceId.m_str );
 
 	return hr;
 }
@@ -1175,7 +1162,7 @@ HRESULT CServiceCallback::ServiceInstanceDied(IUPnPService* pService)
 	HRESULT hr = pService->get_Id( &bsServiceId );
 	if ( SUCCEEDED( hr ) )
 	{
-		theApp.Message( MSG_ERROR, L"UPnP service %s died", bsServiceId );
+		theApp.Message( MSG_ERROR, L"UPnP service %s died.", bsServiceId );
 		return hr;
 	}
 

@@ -5632,23 +5632,23 @@ msgstr "Θέλετε σίγουρα να ανοίξετε το αρχείο \"%s
 msgid "Are you sure you want to permanently delete the %i selected files ?\\n\\nThe files will be moved to your \"recycle bin\" if it is enabled."
 msgstr "Θέλετε σίγουρα να διαγράψετε οριστικά τα %i επιλεγμένα αρχεία ;nnΤα αρχεία θα μετακινηθούν στον \"κάδο ανακύκλωσης\", εφόσον λειτουργεί και τα χωράει."
 
-#: string;20432
+#: string;20433
 msgid "PeerProject could not delete the file:\\n\\n%s"
 msgstr "Αποτυχία διαγραφής αρχείου:\\n\\n%s"
 
-#: string;20433
+#: string;20434
 msgid "Your downloaded files folder \"%s\" is not yet in your library.\\n\\nIncluding your downloaded files folder in your library makes it easier to view and organize new downloads, and lets you take advantage of advanced PeerProject features such as download verification and automatic upgrading. Placing downloaded files in your library does not necessarily require you to share them: you can choose whether or not to share files independently.\\n\\nWould you like to add your downloaded files folder to your library now?"
 msgstr "Ο Φάκελος Ληφθέντων \"%s\" δεν περιλαμβάνεται ακόμη στη Βιβλιοθήκη.nnΗ συμπερίληψή του κάνει ευκολότερη την προβολή και οργάνωση νέων αρχείων και σας επιτρέπει να αξιοποιήσετε τις προχωρημένες δυνατότητες του PeerProject, όπως την επαλήθευση αρχείων και την αυτόματη αναβάθμιση. Η τοποθέτηση αρχείων στη Βιβλιοθήκη δεν σας υποχρεώνει να τα κοινοποιείτε: μπορείτε να διαλέξετε αν θα κοινοποιείται ή όχι ένα ή περισσότερα αρχεία, συγκεκριμένα και ανεξάρτητα.nnΘέλετε να προσθέσετε τον Φάκελο Ληφθέντων στη Βιβλιοθήκη τώρα;"
 
-#: string;20434
+#: string;20435
 msgid "Your downloads folder has been added to your library. Would you like to share it too?"
 msgstr "Ο Φάκελος Ληφθέντων προστέθηκε στη Βιβλιοθήκη. Θέλετε επίσης να τον κοινοποιήσετε;"
 
-#: string;20435
+#: string;20436
 msgid "You have not yet selected a media player to enqueue files with, such as Nullsoft Winamp. Would you like to select one now?\\n\\nPeerProject will pass the name of the file to your selected program with the \"/ADD\" argument."
 msgstr "Δεν επιλέξατε ακόμη μια εφαρμογή αναπαραγωγής πολυμέσων, όπως είναι το Nullsoft Winamp. Θέλετε να επιλέξετε μία τώρα;nnΤο PeerProject θα περάσει το όνομα του επιλεγμένου αρχείου με την παράμετρο \"/ADD\"."
 
-#: string;20436
+#: string;20432
 msgid "Are you sure you want to delete the %i selected album folders ?\\n\\nNote that this action does not delete the files within the album folders, only the folders themselves."
 msgstr "Θέλετε σίγουρα να διαγράψετε τα %i επιλεγμένα albums ;nnΣημειώστε ότι αυτή η πράξη δεν διαγράφει τα αρχεία μέσα στα albums, παρά μόνο τα ίδια τα albums."
 
@@ -5748,7 +5748,7 @@ msgstr ""
 msgid "P    E    E    R    P    R    O    J    E    C    T       M    E    D    I    A       S    Y    S    T    E    M"
 msgstr "P    E    E    R    P    R    O    J    E    C    T       M    E    D    I    A       S    Y    S    T    E    M"
 
-#: string;20461
+#: string;20462
 msgid "(No Visualisation)"
 msgstr "(Καμία Απεικόνιση)"
 
@@ -6100,17 +6100,9 @@ msgstr "%s -> %s [%i/%i] %s %s"
 msgid "Leaf neighbor %s is forwarding queries, dropping connection."
 msgstr "Απόρριψη σύνδεσης γειτονικού φύλλου %s, λόγω προώθησης ερωτήσεων."
 
-#: string;20581
-msgid "Neighbor %s forwarded a ping packet with invalid length, ignoring."
-msgstr "Αγνόηση πακέτου ping με μη έγκυρο μήκος, προωθημένο από τον γείτονα %s."
-
 #: string;20582
-msgid "Neighbor %s forwarded a pong packet with invalid length, ignoring."
+msgid "Neighbor %s forwarded a %s packet with invalid length, ignoring."
 msgstr "Αγνόηση πακέτου pong με μη έγκυρο μήκος, προωθημένο από τον γείτονα %s."
-
-#: string;20583
-msgid "Neighbor %s forwarded a push packet with invalid length, ignoring."
-msgstr "Αγνόηση πακέτου push με μη έγκυρο μήκος, προωθημένο από τον γείτονα %s."
 
 #: string;20584
 msgid "Neighbor %s forwarded a packet of excessive size, dropping connection."
@@ -6281,11 +6273,11 @@ msgid "Unable to download preview content from \"%s\"."
 msgstr "Αδυναμία λήψης προεπισκόπησης από \"%s\"."
 
 #: string;20630
-msgid "There are %i reviews."
+msgid "%i Reviews."
 msgstr "Υπάρχουν %i κριτικές."
 
 #: string;20631
-msgid "There is one review."
+msgid "One review."
 msgstr "Υπάρχει μια κριτική."
 
 #: string;20632
@@ -6729,7 +6721,7 @@ msgid "Total Files:"
 msgstr "Σύνολο Αρχείων:"
 
 #: string;20788
-msgid "Total Volume:"
+msgid "Total Size:"
 msgstr "Συνολική Ποσότητα:"
 
 #: string;20789
@@ -7068,7 +7060,7 @@ msgstr "Παρακαλώ περιμένετε: Ενημέρωση λίστας E
 msgid "Please wait: Updating discovery services..."
 msgstr "Παρακαλώ περιμένετε: Ενημέρωση υπηρεσιών ανακάλυψης..."
 
-#: string;20894
+#: string;20895
 msgid "Please wait: Finding UPnP devices and setting them up..."
 msgstr "Παρακαλώ περιμένετε: Αναζήτηση συσκευών UPnP και ρύθμισή τους..."
 
@@ -7533,7 +7525,7 @@ msgid "Ignore private/local IP addresses"
 msgstr "Αγνόηση ιδιωτικών/τοπικών IP διευθύνσεων"
 
 #: cconnectionsettingspage;control;19
-msgid "Enable UPnP connection devices setup"
+msgid "Enable Plug'n'Play port-forwarding"
 msgstr "Ενεργοπ. ρύθμισης συσκευών σύνδεσης UPnP"
 
 #: cconnectionsettingspage;control;20

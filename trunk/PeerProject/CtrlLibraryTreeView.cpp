@@ -1885,7 +1885,7 @@ void CLibraryTreeView::OnLibraryFolderDelete()
 	if ( m_pSelFirst == NULL || m_pSelFirst->m_pVirtual == NULL ) return;
 
 	CString strFormat, strMessage;
-	Skin.LoadString( strFormat, IDS_LIBRARY_FOLDER_DELETE );
+	Skin.LoadString( strFormat, IDS_LIBRARY_DELETE_FOLDER );
 	strMessage.Format( strFormat, m_nSelected );
 
 	if ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_OKCANCEL ) != IDOK ) return;

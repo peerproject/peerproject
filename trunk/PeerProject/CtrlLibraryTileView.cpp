@@ -1,7 +1,7 @@
 //
 // CtrlLibraryTileView.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -1134,7 +1134,7 @@ void CLibraryTileView::OnLibraryAlbumDelete()
 	if ( m_nSelected == 0 ) return;
 
 	CString strFormat, strMessage;
-	Skin.LoadString( strFormat, IDS_LIBRARY_FOLDER_DELETE );
+	Skin.LoadString( strFormat, IDS_LIBRARY_DELETE_FOLDER );
 	strMessage.Format( strFormat, m_nSelected );
 
 	if ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_OKCANCEL ) != IDOK ) return;

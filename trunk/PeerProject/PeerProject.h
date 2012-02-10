@@ -21,11 +21,10 @@
 #include "Resource.h"
 #include "ComObject.h"
 
-class CMainWnd;
 class CBuffer;
 class CDatabase;
+class CMainWnd;
 class CSplashDlg;
-class CUPnPFinder;
 
 
 class __declspec(novtable) CLogMessage
@@ -97,10 +96,6 @@ public:
 	BOOL			m_bMenuWasVisible;			// For the menus in media player window
 	DWORD			m_nWindowsVersion;			// Windows version
 	DWORD			m_nWindowsVersionMinor;		// Windows minor version
-	CAutoPtr< CUPnPFinder > m_pUPnPFinder;
-	TRISTATE		m_bUPnPPortsForwarded;		// UPnP values are assigned when the discovery is complete
-	TRISTATE		m_bUPnPDeviceConnected;		// or when the service notifies
-	IN_ADDR			m_nUPnPExternalAddress;		// UPnP current external address
 	DWORD			m_nLastInput;				// Time of last input event (in secs) (Chat idling)
 	HHOOK			m_hHookKbd;
 	HHOOK			m_hHookMouse;
@@ -114,33 +109,33 @@ public:
 
 	// Theme functions (Safe XP+)
 	HINSTANCE		m_hTheme;
-	HRESULT			(WINAPI *m_pfnSetWindowTheme)(HWND, LPCWSTR, LPCWSTR);														// WinXP+	SetWindowTheme()  for CCoolInterface::EnableTheme()
-	BOOL			(WINAPI *m_pfnIsThemeActive)(VOID);																			// WinXP+	IsThemeActive()   for CIRCTabCtrl
-	HANDLE			(WINAPI *m_pfnOpenThemeData)(HWND, LPCWSTR);																// WinXP+	OpenThemeData()   for CIRCTabCtrl
-	HRESULT			(WINAPI *m_pfnCloseThemeData)(HANDLE);																		// WinXP+	CloseThemeData()  for CIRCTabCtrl
-	HRESULT			(WINAPI *m_pfnDrawThemeBackground)(HANDLE, HDC, int, int, const RECT*, const RECT*);						// WinXP+	DrawThemeBackground()  for CIRCTabCtrl
+	HRESULT			(WINAPI *m_pfnSetWindowTheme)(HWND, LPCWSTR, LPCWSTR);														// WinXP+	SetWindowTheme() for CCoolInterface::EnableTheme()
+	BOOL			(WINAPI *m_pfnIsThemeActive)(VOID);																			// WinXP+	IsThemeActive()  for CIRCTabCtrl
+	HANDLE			(WINAPI *m_pfnOpenThemeData)(HWND, LPCWSTR);																// WinXP+	OpenThemeData()  for CIRCTabCtrl
+	HRESULT			(WINAPI *m_pfnCloseThemeData)(HANDLE);																		// WinXP+	CloseThemeData() for CIRCTabCtrl
+	HRESULT			(WINAPI *m_pfnDrawThemeBackground)(HANDLE, HDC, int, int, const RECT*, const RECT*);						// WinXP+	DrawThemeBackground() for CIRCTabCtrl
 //	HRESULT			(WINAPI *m_pfnEnableThemeDialogTexture)(HWND, DWORD);
 //	HRESULT			(WINAPI *m_pfnDrawThemeParentBackground)(HWND, HDC, RECT*);
 //	HRESULT			(WINAPI *m_pfnGetThemeBackgroundContentRect)(HANDLE, HDC, int, int, const RECT*, RECT*);
 //	HRESULT			(WINAPI *m_pfnDrawThemeText)(HANDLE, HDC, int, int, LPCWSTR, int, DWORD, DWORD, const RECT*);
-	HRESULT			(WINAPI *m_pfnGetThemeSysFont)(HTHEME, int, __out LOGFONTW*);												// WinXP+	GetThemeSysFont()  for local InitResources()
+	HRESULT			(WINAPI *m_pfnGetThemeSysFont)(HTHEME, int, __out LOGFONTW*);												// WinXP+	GetThemeSysFont() for local InitResources()
 
 	// Kernel functions (Safe Vista+)
-	HRESULT			(WINAPI *m_pfnRegisterApplicationRestart)(__in_opt PCWSTR pwzCommandline, __in DWORD dwFlags);				// Vista+	RegisterApplicationRestart()  for InitInstance()
+	HRESULT			(WINAPI *m_pfnRegisterApplicationRestart)(__in_opt PCWSTR pwzCommandline, __in DWORD dwFlags);				// Vista+	RegisterApplicationRestart() for InitInstance()
 
 	// User functions (Safe Vista+)
 	HINSTANCE		m_hUser32;
-	BOOL			(WINAPI *m_pfnChangeWindowMessageFilter)(UINT message, DWORD dwFlag);										// Vista+	ChangeWindowMessageFilter()   for InitInstance()
+	BOOL			(WINAPI *m_pfnChangeWindowMessageFilter)(UINT message, DWORD dwFlag);										// Vista+	ChangeWindowMessageFilter()  for InitInstance()
 
 	// Shell functions (Safe Vista+)
 	HINSTANCE		m_hShell32;
 	HRESULT			(WINAPI *m_pfnSHGetFolderPathW)(HWND hwnd, int csidl, HANDLE hToken, DWORD dwFlags, LPWSTR pszPath);		// Win2K+ ?	SHGetFolderPath()
 	HRESULT			(WINAPI *m_pfnSHGetKnownFolderPath)(REFKNOWNFOLDERID rfid, DWORD dwFlags, HANDLE hToken, PWSTR *ppszPath);	// Vista+	SHGetKnownFolderPath()
-	HRESULT			(WINAPI *m_pfnSHQueryUserNotificationState)(QUERY_USER_NOTIFICATION_STATE *state);							// Vista+	SHQueryUserNotificationState()	for IsUserFullscreen()
+	HRESULT			(WINAPI *m_pfnSHQueryUserNotificationState)(QUERY_USER_NOTIFICATION_STATE *state);							// Vista+	SHQueryUserNotificationState() for IsUserFullscreen()
 
 	// ShellWAPI functions (Safe IE6+)
 	HINSTANCE		m_hShlWapi;
-	BOOL			(WINAPI *m_pfnAssocIsDangerous)(LPCWSTR);																	// XPsp1+	AssocIsDangerous()  for CFileExecutor::IsSafeExecute()
+	BOOL			(WINAPI *m_pfnAssocIsDangerous)(LPCWSTR);																	// XPsp1+	AssocIsDangerous() for CFileExecutor::IsSafeExecute()
 
 	// GeoIP - IP to Country lookup
 	HINSTANCE		m_hGeoIP;
@@ -299,7 +294,7 @@ CString BrowseForFolder(LPCTSTR szTitle, LPCTSTR szInitialPath = NULL, HWND hWnd
 void	SafeMessageLoop();
 
 // Start Windows service
-BOOL	IsServiceHealthy(LPCTSTR szService);	// Was AreServicesHealthy()
+BOOL	IsServiceHealthy(LPCTSTR szService);	// Was AreServiceHealthy()
 
 // Detect external fullscreen application
 BOOL	IsUserFullscreen();

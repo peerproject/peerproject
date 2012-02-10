@@ -39,8 +39,8 @@
 #include "CtrlMatch.h"
 #include "LiveList.h"
 #include "ResultFilters.h"
-#include "WndSearch.h"
 #include "CtrlSearchDetailPanel.h"
+#include "WndSearch.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -183,8 +183,8 @@ void CMatchList::UpdateStats()
 				case PROTOCOL_ED2K:
 					m_nED2KHits ++;
 					break;
-				default:
-					;
+				//default:
+				//	;
 				}
 			}
 		}
@@ -689,7 +689,7 @@ bool CMatchList::CreateRegExpFilter(CString strPattern, CString& strFilter)
 		{
 			pszPattern++;
 			bool bEnds = false;
-			bool bAll = ( *pszPattern == '%' || *pszPattern == '$'  || *pszPattern == '_' || *pszPattern == '>' );
+			bool bAll = ( *pszPattern == '%' || *pszPattern == '$' || *pszPattern == '_' || *pszPattern == '>' );
 
 			for ( ; *pszPattern ; pszPattern++ )
 			{
@@ -2076,7 +2076,7 @@ CString CMatchFile::GetURN() const
 	CString strURN;
 
 	if ( m_oSHA1 && m_oTiger )
-		strURN	= _T("urn:bitprint:") + m_oSHA1.toString() + '.' + m_oTiger.toString();
+		strURN = _T("urn:bitprint:") + m_oSHA1.toString() + '.' + m_oTiger.toString();
 	else if ( m_oSHA1 )
 		strURN = m_oSHA1.toUrn();
 	else if ( m_oTiger )
@@ -2576,12 +2576,15 @@ TRISTATE CMatchFile::GetLibraryStatus()
 
 void CMatchFile::SanityCheck()
 {
+	//const BOOL bBadFile = Security.IsDenied( this );	// Hash/etc. more efficient but undercounted here
+
 	CQueryHit* pHitPrev = NULL;
 	for ( CQueryHit* pHit = m_pHits ; pHit ; )
 	{
 		CQueryHit* pNext = pHit->m_pNext;
 
-		if ( Security.IsDenied( &pHit->m_pAddress ) )
+		if ( Security.IsDenied( &pHit->m_pAddress ) ||
+			 Security.IsDenied( this ) )				// bBadFile
 		{
 			// Exclude from hits list
 			if ( pHitPrev )

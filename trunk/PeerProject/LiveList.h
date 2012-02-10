@@ -165,6 +165,7 @@ public:
 
 	void Apply();
 	void Sort(int nColumn = -1);
+	void ClearSelection();
 
 	CLiveItemPtr Add(DWORD_PTR nParam);
 	CLiveItemPtr Add(LPVOID pParam);

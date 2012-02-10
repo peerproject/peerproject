@@ -534,8 +534,8 @@ void CScheduler::CheckSchedule()
 				// It is scheduled for a specific date and time ("Only Once"). Checking for date.
 				// Or, it is scheduled for specific days of week. Checking for day.
 
-				if ( ( ! pSchTask->m_bSpecificDays && ScheduleFromToday( pSchTask ) == 0 )  ||
-					( pSchTask->m_bSpecificDays && ( ( 1 << ( tNow.GetDayOfWeek() - 1 ) ) & pSchTask->m_nDays ) ) )
+				if ( ( ! pSchTask->m_bSpecificDays && ScheduleFromToday( pSchTask ) == 0 ) ||
+					   ( pSchTask->m_bSpecificDays && ( ( 1 << ( tNow.GetDayOfWeek() - 1 ) ) & pSchTask->m_nDays ) ) )
 				{
 					//static_cast<int>(pow(2.0f, tNow.GetDayOfWeek() - 1)
 					// It will also mark it as executed
@@ -807,7 +807,7 @@ int CScheduler::ScheduleFromToday(CScheduleTask* pSchTask) const
 		return 1;
 
 	if ( tNow.GetMonth() > pSchTask->m_tScheduleDateTime.GetMonth() )
-		return  -1;
+		return -1;
 
 	if ( tNow.GetMonth() < pSchTask->m_tScheduleDateTime.GetMonth() )
 		return 1;
@@ -836,7 +836,7 @@ LONGLONG CScheduler::GetHoursTo(unsigned int nTaskCombination)
 		CScheduleTask *pSchTask = GetNext( pos );
 		if ( pSchTask->m_bActive && ( pSchTask->m_nAction & nTaskCombination ) )
 		{
-			CTimeSpan tToTasks(1, 0, 0, 0);
+			CTimeSpan tToTasks( 1, 0, 0, 0 );
 			if ( pSchTask->m_bSpecificDays )
 			{
 				for ( int i = -1 ; i < 6 ; ++i )
@@ -845,7 +845,7 @@ LONGLONG CScheduler::GetHoursTo(unsigned int nTaskCombination)
 					{
 						tToTasks = CTime( tNow.GetYear(), tNow.GetMonth(), tNow.GetDay(), pSchTask->m_tScheduleDateTime.GetHour(), pSchTask->m_tScheduleDateTime.GetMinute(), pSchTask->m_tScheduleDateTime.GetSecond() ) + CTimeSpan( i + 1, 0, 0, 0 ) - tNow;
 						break;
-					};
+					}
 				}
 			}
 			else
@@ -940,11 +940,10 @@ BOOL CScheduler::FromXML(CXMLElement* pXML)
 
 BOOL CScheduler::Import(LPCTSTR pszFile)
 {
-	CString strText;
-	CBuffer pBuffer;
 	CFile pFile;
-
 	if ( ! pFile.Open( pszFile, CFile::modeRead ) ) return FALSE;
+
+	CBuffer pBuffer;
 	pBuffer.EnsureBuffer( (DWORD)pFile.GetLength() );
 	pBuffer.m_nLength = (DWORD)pFile.GetLength();
 	pFile.Read( pBuffer.m_pBuffer, pBuffer.m_nLength );

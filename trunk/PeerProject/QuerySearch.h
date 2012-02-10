@@ -43,7 +43,7 @@ public:
 
 // Attributes
 public:
-	bool				m_bAutostart;	// Autostart search (default - true)
+	bool				m_bAutostart;	// Autostart search (default true)
 	Hashes::Guid		m_oGUID;		// G1,G2: Search ID
 	CString				m_sSearch;		// search string, transformed by lowercase table
 	CString				m_sKeywords;	// search keywords (stems, minus words, split asian phrase etc.)
@@ -141,7 +141,7 @@ public:
 	BOOL					Match(LPCTSTR pszFilename, LPCTSTR pszSchemaURI, const CXMLElement* pXML, const CPeerProjectFile* pFile ) const;
 	TRISTATE				MatchMetadata(LPCTSTR pszSchemaURI, const CXMLElement* pXML) const;
 	BOOL					MatchMetadataShallow(LPCTSTR pszSchemaURI, const CXMLElement* pXML, bool* bReject = NULL) const;
-	void					BuildWordList(bool bExpression = true, bool bLocal=false);
+	void					BuildWordList(bool bExpression = true, bool bLocal = false);
 	BOOL					CheckValid(bool bExpression = true);
 	void					PrepareCheck();
 	void					Serialize(CArchive& ar);

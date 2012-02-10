@@ -394,34 +394,38 @@ BOOL CSecurity::IsDenied(const IN_ADDR* pAddress)
 {
 	if ( m_Cache.count( *(DWORD*)pAddress ) )
 		return m_bDenyPolicy;
-		// theApp.Message( MSG_DEBUG, _T("Skipped Repeat IP Security Check  (%i Cached)"), m_Cache.size() );
-
-	CQuickLock oLock( m_pSection );
+		//theApp.Message( MSG_DEBUG, _T("Skipped Repeat IP Security Check  (%i Cached)"), m_Cache.size() );
 
 	const DWORD tNow = static_cast< DWORD >( time( NULL ) );
 
-	for ( POSITION pos = GetIterator() ; pos ; )
 	{
-		POSITION posLast = pos;
-		CSecureRule* pRule = GetNext( pos );
+		CQuickLock oLock( m_pSection );
 
-		if ( pRule->IsExpired( tNow ) )
+		for ( POSITION pos = GetIterator() ; pos ; )
 		{
-			m_pRules.RemoveAt( posLast );
-			delete pRule;
-		}
-		else if ( pRule->Match( pAddress ) )
-		{
-			pRule->m_nToday ++;
-			pRule->m_nEver ++;
+			POSITION posLast = pos;
+			CSecureRule* pRule = GetNext( pos );
 
-			// Add 5 min penalty for early access
-			if ( pRule->m_nExpire > CSecureRule::srSession &&
-				pRule->m_nExpire < tNow + 300 )
-				pRule->m_nExpire = tNow + 300;
+			if ( pRule->IsExpired( tNow ) )
+			{
+				m_pRules.RemoveAt( posLast );
+				delete pRule;
+				continue;
+			}
 
-			if ( pRule->m_nAction == CSecureRule::srDeny )		return TRUE;
-			if ( pRule->m_nAction == CSecureRule::srAccept )	return FALSE;
+			if ( pRule->Match( pAddress ) )
+			{
+				pRule->m_nToday ++;
+				pRule->m_nEver ++;
+
+				// Add 5 min penalty for early access
+				if ( pRule->m_nExpire > CSecureRule::srSession &&
+					pRule->m_nExpire < tNow + 300 )
+					pRule->m_nExpire = tNow + 300;
+
+				if ( pRule->m_nAction == CSecureRule::srDeny )   return TRUE;
+				if ( pRule->m_nAction == CSecureRule::srAccept ) return FALSE;
+			}
 		}
 	}
 
@@ -456,15 +460,15 @@ BOOL CSecurity::IsDenied(LPCTSTR pszContent)
 				pRule->m_nExpire < tNow + 300 )
 				pRule->m_nExpire = tNow + 300;
 
-			if ( pRule->m_nAction == CSecureRule::srDeny )		return TRUE;
-			if ( pRule->m_nAction == CSecureRule::srAccept )	return FALSE;
+			if ( pRule->m_nAction == CSecureRule::srDeny )   return TRUE;
+			if ( pRule->m_nAction == CSecureRule::srAccept ) return FALSE;
 		}
 	}
 
 	return m_bDenyPolicy;
 }
 
-BOOL CSecurity::IsDenied(const CPeerProjectFile* pFile) 	// ToDo: Never called?
+BOOL CSecurity::IsDenied(const CPeerProjectFile* pFile)
 {
 	CQuickLock oLock( m_pSection );
 
@@ -490,8 +494,8 @@ BOOL CSecurity::IsDenied(const CPeerProjectFile* pFile) 	// ToDo: Never called?
 				pRule->m_nExpire < tNow + 300 )
 				pRule->m_nExpire = tNow + 300;
 
-			if ( pRule->m_nAction == CSecureRule::srDeny )		return TRUE;
-			if ( pRule->m_nAction == CSecureRule::srAccept )	return FALSE;
+			if ( pRule->m_nAction == CSecureRule::srDeny )   return TRUE;
+			if ( pRule->m_nAction == CSecureRule::srAccept ) return FALSE;
 		}
 	}
 
@@ -519,8 +523,8 @@ BOOL CSecurity::IsDenied(const CQuerySearch* pQuery, const CString& strContent)
 			pRule->m_nToday ++;
 			pRule->m_nEver ++;
 
-			if ( pRule->m_nAction == CSecureRule::srDeny )		return TRUE;
-			if ( pRule->m_nAction == CSecureRule::srAccept )	return FALSE;
+			if ( pRule->m_nAction == CSecureRule::srDeny )   return TRUE;
+			if ( pRule->m_nAction == CSecureRule::srAccept ) return FALSE;
 		}
 	}
 
@@ -787,7 +791,8 @@ BOOL CSecurity::FromXML(CXMLElement* pXML)
 			}
 			else
 			{
-				if ( ! bExisting ) delete pRule;
+				if ( ! bExisting )
+					delete pRule;
 			}
 		}
 	}
@@ -1099,17 +1104,27 @@ BOOL CSecureRule::Match(const IN_ADDR* pAddress) const
 
 BOOL CSecureRule::Match(LPCTSTR pszContent) const
 {
-	if ( m_nType == srContentRegExp || m_nType == srExternal || m_nType == srAddress || ! pszContent || ! m_pContent )
+	if ( m_nType == srAddress || m_nType == srContentRegExp || m_nType == srExternal || ! pszContent || ! m_pContent )
 		return FALSE;
+
+	if ( m_nType == srContentHash )	// urn:
+		return pszContent[3] == ':' && _tcsistr( pszContent, (LPCTSTR)m_pContent ) != NULL;
+
+	if ( m_nType == srSizeType )	// size:
+		return pszContent[4] == ':' && _tcsistr( pszContent, (LPCTSTR)m_pContent ) != NULL;
 
 	for ( LPCTSTR pszFilter = m_pContent ; *pszFilter ; )
 	{
-		BOOL bFound = _tcsistr( pszContent, pszFilter ) != NULL;
-
-		if ( ! bFound && ( m_nType == srContentAll || m_nType == srSizeType || m_nType == srContentHash ) )
-			return FALSE;
-		if (   bFound && ( m_nType == srContentAny || m_nType == srSizeType || m_nType == srContentHash ) )
-			return TRUE;
+		if ( _tcsistr( pszContent, pszFilter ) != NULL )
+		{
+			if ( m_nType == srContentAny )
+				return TRUE;
+		}
+		else // Not found
+		{
+			if ( m_nType == srContentAll )
+				return FALSE;
+		}
 
 		pszFilter += _tcslen( pszFilter ) + 1;
 	}
@@ -1119,7 +1134,7 @@ BOOL CSecureRule::Match(LPCTSTR pszContent) const
 
 BOOL CSecureRule::Match(const CPeerProjectFile* pFile) const
 {
-	if ( m_nType == srContentRegExp || m_nType == srAddress || m_nType == srExternal || ! ( pFile && m_pContent ) )
+	if ( m_nType == srAddress || m_nType == srContentRegExp || m_nType == srExternal || ! ( pFile && m_pContent ) )
 		return FALSE;
 
 	if ( m_nType == srSizeType )
@@ -1130,25 +1145,48 @@ BOOL CSecureRule::Match(const CPeerProjectFile* pFile) const
 		LPCTSTR pszExt = PathFindExtension( (LPCTSTR)pFile->m_sName );
 		if ( *pszExt != '.' )
 			return FALSE;
-
 		pszExt++;
+
+		CString strFilter = (LPCTSTR)m_pContent;
+		strFilter = strFilter.Mid( 5 );		// "size:"
+		if ( ! StartsWith( strFilter, pszExt ) )
+			return FALSE;
+
+		strFilter = strFilter.Mid( strFilter.Find( L':' ) + 1 );
+
+		if ( strFilter.Find( L':' ) > 0 )
+		{
+			QWORD nLower, nUpper, nSize = pFile->m_nSize;
+			_stscanf( (LPCTSTR)strFilter, _T("%I64i:%I64i"), &nLower, &nUpper );
+			return nSize >= nLower && nSize <= nUpper;
+		}
+		if ( strFilter.Find( L'-' ) > 0 )
+		{
+			QWORD nLower, nUpper, nSize = pFile->m_nSize;
+			_stscanf( (LPCTSTR)strFilter, _T("%I64i-%I64i"), &nLower, &nUpper );
+			return nSize >= nLower && nSize <= nUpper;
+		}
+
 		CString strCompare;
 		strCompare.Format( _T("size:%s:%I64i"), pszExt, pFile->m_nSize );
-		return Match( strCompare );
+		return strCompare == (CString)m_pContent;
 	}
 
-	if ( m_nType != srContentHash && Match( pFile->m_sName ) )
-		return TRUE;
+	if ( m_nType == srContentHash )
+	{
+		LPCTSTR pszHash = m_pContent;
+		if ( m_nContentLength < 30 || _tcsnicmp( pszHash, _T("urn:"), 4 ) != 0 )
+			return FALSE;
 
-	if ( m_nType == srContentHash || m_nContentLength > 30 )
 		return
-			( pFile->m_oSHA1  && Match( pFile->m_oSHA1.toUrn() ) ) ||
-			( pFile->m_oED2K  && Match( pFile->m_oED2K.toUrn() ) ) ||
-			( pFile->m_oTiger && Match( pFile->m_oTiger.toUrn() ) ) ||
-			( pFile->m_oBTH   && Match( pFile->m_oBTH.toUrn() ) ) ||
-			( pFile->m_oMD5   && Match( pFile->m_oMD5.toUrn() ) );
+			( pFile->m_oSHA1  && pFile->m_oSHA1.toUrn() == pszHash ) ||		// Not Match( pFile->m_oSHA1.toUrn() )
+			( pFile->m_oTiger && pFile->m_oTiger.toUrn() == pszHash ) ||
+			( pFile->m_oED2K  && pFile->m_oED2K.toUrn() == pszHash ) ||
+			( pFile->m_oBTH   && pFile->m_oBTH.toUrn() == pszHash ) ||
+			( pFile->m_oMD5   && pFile->m_oMD5.toUrn() == pszHash );
+	}
 
-	return FALSE;
+	return Match( pFile->m_sName );
 }
 
 BOOL CSecureRule::Match(const CQuerySearch* pQuery, const CString& strContent) const
@@ -1562,7 +1600,7 @@ BOOL CSecureRule::FromXML(CXMLElement* pXML)
 
 	if ( strValue.CompareNoCase( _T("indefinite") ) == 0 || strValue.CompareNoCase( _T("none") ) == 0 )
 		m_nExpire = srIndefinite;
-	else  if ( strValue.CompareNoCase( _T("session") ) == 0 )
+	else if ( strValue.CompareNoCase( _T("session") ) == 0 )
 		m_nExpire = srSession;
 	else
 		_stscanf( strValue, _T("%lu"), &m_nExpire );

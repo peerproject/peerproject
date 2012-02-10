@@ -776,8 +776,8 @@ void CLibraryFile::Serialize(CArchive& ar, int nVersion)
 
 		SerializeOut( ar, m_oSHA1 );
 		SerializeOut( ar, m_oTiger );
-		SerializeOut( ar, m_oMD5 );
 		SerializeOut( ar, m_oED2K );
+		SerializeOut( ar, m_oMD5 );
 		SerializeOut( ar, m_oBTH );
 		ar << m_bVerify;
 
@@ -861,9 +861,8 @@ void CLibraryFile::Serialize(CArchive& ar, int nVersion)
 
 		SerializeIn( ar, m_oSHA1, nVersion );
 		SerializeIn( ar, m_oTiger, nVersion );
-		SerializeIn( ar, m_oMD5,  nVersion );
 		SerializeIn( ar, m_oED2K, nVersion );
-
+		SerializeIn( ar, m_oMD5,  nVersion );
 		//if ( nVersion >= 26 )
 			SerializeIn( ar, m_oBTH, nVersion );
 		//else

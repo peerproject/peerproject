@@ -1,7 +1,7 @@
 //
 // DownloadTask.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -597,11 +597,11 @@ void CDownloadTask::RunPreviewRequest()
 /////////////////////////////////////////////////////////////////////////////
 // CDownloadTask path creator
 
-void CDownloadTask::CreatePathForFile(const CString& strBase, const CString& strPath)
-{
-	CString strFolder = strBase + _T('\\') + strPath;
-	CreateDirectory( strFolder.Left( strFolder.ReverseFind( _T('\\') ) ) );
-}
+//void CDownloadTask::CreatePathForFile(const CString& strBase, const CString& strPath)
+//{
+//	CString strFolder = strBase + _T('\\') + strPath;
+//	CreateDirectory( strFolder.Left( strFolder.ReverseFind( _T('\\') ) ) );
+//}
 
 CBuffer* CDownloadTask::IsPreviewAnswerValid() const
 {

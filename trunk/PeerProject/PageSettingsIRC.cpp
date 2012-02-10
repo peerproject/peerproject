@@ -1,7 +1,7 @@
 //
 // PageSettingsIRC.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2005-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -138,7 +138,7 @@ void CIRCSettingsPage::OnDrawItem(int /*nIDCtl*/, LPDRAWITEMSTRUCT lpDrawItemStr
 	UINT uStyle = DFCS_BUTTONPUSH;
 	if ( lpDrawItemStruct->CtlType == ODT_COMBOBOX )
 	{
-	   if ( lpDrawItemStruct->CtlID == (UINT)IDC_IRC_TEXTFONT )
+		if ( lpDrawItemStruct->CtlID == (UINT)IDC_IRC_TEXTFONT )
 		   m_wndFonts.SendMessage( OCM_DRAWITEM, 0, (LPARAM)lpDrawItemStruct );
 	}
 	else if ( lpDrawItemStruct->CtlType == ODT_BUTTON )

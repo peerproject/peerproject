@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Traditional) Skin File -->
 
-<!-- Translation based on default-en.xml r70 (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r74 (Shareaza 2.2.2.12) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -18,7 +18,7 @@
 	author="James Bond"
 	updateBy="James Bond"
 	description="PeerProject Default Chinese (Traditional) Skin File"
-	link="http://PeerProject.org"
+	link="http://peerproject.org"
 	email="Contact(at)PeerProject.org"
 	version="1.0.0.0"
 	type="Language"
@@ -1741,7 +1741,7 @@
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="120" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">遠端   監控   已啟用</heading>
+			<heading align="middle">遠端 監控 已啟用</heading>
 			<newline gap="8" indent="42"/>
 			<text>PeerProject 遠端監控已啟用. 在這裡使用您的瀏覽器操控 PeerProject:</text>
 			<newline gap="6"/>
@@ -2604,7 +2604,7 @@
 	<string id="20128" value="與 %s 的 BitTorrent 信號交換已忽略."/>
 	<string id="20129" value="與 %s 的 BitTorrent 耦合不被接受, 因為已連線至這個客戶端 ."/>
 	<string id="20130" value="%i 個新的 BitTorrent 來源: 由%s 接收到了."/>
-	<string id="20131" value="與 %s 的 BitTorrent 耦合 是一個延伸協定, 已辨認  &quot;%s&quot;."/>
+	<string id="20131" value="與 %s 的 BitTorrent 耦合 是一個延伸協定, 已辨認 &quot;%s&quot;."/>
 	<string id="20132" value="與 BitTorrent 客戶端 %s 信號交換已逾時."/>
 	<string id="20133" value="已建立與 %s 的BitTorrent 耦合, 信號交換中..."/>
 	<string id="20134" value="與 %s 的 BitTorrent 耦合不被接受, 因為已達到最大連線數."/>
@@ -2722,7 +2722,7 @@
 	<string id="20262" value="下載主機 %s 發出無效的 HTTP 回應."/>
 	<string id="20263" value="主機 %s 正在推播下載 &quot;%s&quot;, 接受."/>
 	<string id="20264" value="正在傳送下載 &quot;%s&quot; 的推播要求..."/>
-	<string id="20265" value="下載主機 %s 忙碌中, 等待於排隊位置  #%i of %i (&quot;%s&quot;.."/>
+	<string id="20265" value="下載主機 %s 忙碌中, 等待於排隊位置 #%i of %i (&quot;%s&quot;.."/>
 	<string id="20266" value="Staying in queue for quot;%squot;."/>
 	<string id="20267" value="正在忽略下載來源 %s 的 &quot;%s&quot; 因為排隊位置 %s 太遠了."/>
 	<string id="20268" value="等待逾時: 來自於 eDonkey 2000 下載主機 %s 的檔案 &quot;%s&quot;.排隊位置更新."/>
@@ -2859,13 +2859,15 @@
 	<string id="20427" value="PeerProject 已加入組檔 &quot;%s&quot; 至您的收藏."/>
 	<string id="20428" value="PeerProject 接收到組檔:\n\n&quot;%s&quot;.\n\n這個檔案看起來不是有效的組檔."/>
 	<string id="20429" value="您要避免這個組檔提示您下載其他東西嗎?"/>
-	<string id="20430" value="您確定要執行檔案: &quot;%s&quot; ?\n\n 有些檔案可能對您的檔案造成損害.  執行本檔案前請確定其內容為何."/>
-	<string id="20431" value="您要永久刪除%i 個選擇的檔案嗎?\n\n這些檔案將移至 &quot;資訊回收筒&quot;, 如果您有啟用它的話."/>
-	<string id="20432" value="PeerProject 無法刪除檔案 \n\n%s"/>
-	<string id="20433" value="您的已下載檔案資料夾 &quot;%s&quot; 不在您的收藏裡.\n\n將您的已下載檔案資料夾放入收藏允許您更簡單地檢視與整理新的下載; 您還可以利用進階的PeerProject 功能, 像是下載檔驗證與自動更新.  將已下載檔放在您的收藏裡不代表一定要分享他們: 您可以為每個檔案選擇是否要分享.\n\n您現在要新增已下載檔資料夾至您的收藏嗎?"/>
-	<string id="20434" value="您的下載資料夾已經加入至您的收藏. 您也要分享它嗎?"/>
-	<string id="20435" value="您還沒有選擇一個與檔案產生關聯的多媒體播放程式, 像是 Nullsoft WinAmp. 您現在要選擇嗎?\n\nPeerProject will pass the name of the file to your selected program with the &quot;/ADD&quot; argument."/>
-	<string id="20436" value="您確定要刪除 %i 選擇的專輯資料夾嗎?\n\n請留意這個動作不會刪除專輯資料夾內的檔案, 只會刪除資料夾本身."/>
+	<string id="20430" value="您確定要執行檔案: &quot;%s&quot; ?\n\n 有些檔案可能對您的檔案造成損害. 執行本檔案前請確定其內容為何."/>
+	<!--string id="20431" value="您要永久刪除%i 個選擇的檔案嗎?\n\n這些檔案將移至 &quot;資訊回收筒&quot;, 如果您有啟用它的話."-->
+	<string id="20432" value="您確定要刪除 %i 選擇的專輯資料夾嗎?\n\n請留意這個動作不會刪除專輯資料夾內的檔案, 只會刪除資料夾本身."/>
+	<string id="20433" value="PeerProject 無法刪除檔案 \n\n%s"/>
+	<string id="20434" value="您的已下載檔案資料夾 &quot;%s&quot; 不在您的收藏裡.\n\n將您的已下載檔案資料夾放入收藏允許您更簡單地檢視與整理新的下載; 您還可以利用進階的PeerProject 功能, 像是下載檔驗證與自動更新.  將已下載檔放在您的收藏裡不代表一定要分享他們: 您可以為每個檔案選擇是否要分享.\n\n您現在要新增已下載檔資料夾至您的收藏嗎?"/>
+	<string id="20435" value="您的下載資料夾已經加入至您的收藏. 您也要分享它嗎?"/>
+	<!--string id="20436" value="您還沒有選擇一個與檔案產生關聯的多媒體播放程式, 像是 Nullsoft WinAmp. 您現在要選擇嗎?\n\nPeerProject will pass the name of the file to your selected program with the &quot;/ADD&quot; argument."-->
+	<string id="20436" value="此文件夾添加到庫中?\n\n%s"/>
+	<string id="20437" value="Ghost 文件S"/>
 	<string id="20438" value="正在編輯檔案 %i 的解釋資料."/>
 	<string id="20439" value="您即將修改這個檔案的解釋資料: %i , 您要繼續嗎?"/>
 	<string id="20440" value="無法移動檔案 %s. 另一個程式可能在使用它.\n\n您要以複製這個檔案的方式替代嗎?"/>
@@ -2877,7 +2879,6 @@
 	<string id="20446" value="這個檔案 &quot;%s&quot; 無法通過切細驗證測試, 可能不是您想要下載的檔案. 您確定要開啟它嗎?"/>
 	<string id="20447" value="您要將&quot;潛在不安全的&quot;屬性從這個檔案移除嗎?"/>
 	<string id="20448" value="這個檔案 &quot;%s&quot; 尚未切細.  請等到檔案完成切細後,再試一次."/>
-	<string id="20449" value="This option uses services provided by Bitzi.com for recognising and sharing information about selected files.\n\nPeerProject will transmit the SHA1 hash code for the selected files in order to query the Bitzi database.  If you are concerned about privacy, you may wish to consult the Bitzi.com privacy policy.\n\nWould you like to proceed?"/>
 	<string id="20450" value="選擇的資料夾的次資料夾 &quot;%s&quot; 已經是您的收藏的一部份了.\n新增這個資料夾會引起某些檔案被重新切細.\n\n您要繼續嗎?"/>
 	<string id="20451" value="目前沒有播放任何檔案. 在您的收藏裡雙點一個多媒體檔案播放."/>
 	<string id="20452" value="所有的多媒體檔案|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|播放清單|*.asx;*.wax;*.m3u;*.wvx;*.wmx|音訊檔|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|視訊檔|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD 音軌|*.cda|MIDI 檔|*.mid;*.rmi;*.midi|所有的檔案|*.*||"/>
@@ -2887,13 +2888,13 @@
 	<string id="20456" value="播放清單"/>
 	<string id="20457" value="PeerProject 無法啟用 MediaServices 外掛. 請重新安裝 PeerProject, 並確認您有必要的多媒體 codecs 與安裝好的輸出驅動程式."/>
 	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; 媒 &#160;&#160; &#160;&#160; 系 &#160; 统"/>
-	<string id="20461" value="(沒有視覺效果)"/>
-	<!--string id="20462" value="PeerProject 已經完成下載:"-->
-	<!--string id="20463" value="PeerProject 正在下載:"-->
-	<!--string id="20464" value="PeerProject 正在移動下載:"-->
-	<!--string id="20465" value="這個下載已暫停:"-->
-	<!--string id="20466" value="PeerProject 正在尋找這個檔案的來源:"-->
-	<!--string id="20467" value="PeerProject 正在檢查檔案是否有錯誤:"-->
+	<string id="20462" value="(沒有視覺效果)"/>
+	<!--string id="20464" value="PeerProject 已經完成下載:"-->
+	<!--string id="20465" value="PeerProject 正在下載:"-->
+	<!--string id="20466" value="PeerProject 正在移動下載:"-->
+	<!--string id="20467" value="這個下載已暫停:"-->
+	<!--string id="20468" value="PeerProject 正在尋找這個檔案的來源:"-->
+	<!--string id="20469" value="PeerProject 正在檢查檔案是否有錯誤:"-->
 	<string id="20470" value="取消"/>
 	<string id="20471" value="開啟"/>
 	<string id="20472" value="完成"/>
@@ -2984,9 +2985,7 @@
 	<string id="20578" value="鄰居 %s 更新了它的詢問路由表 (%i bit = %lu[%i], %i%% full)."/>
 	<string id="20579" value="%s -&gt; %s [%i/%i] %s %s"/>
 	<string id="20580" value="葉節點鄰居 %s 正在轉送詢問, 正在忽略連線."/>
-	<string id="20581" value="鄰居 %s 轉送了一個無效長度的 ping 封包, 忽略."/>
-	<string id="20582" value="鄰居 %s 轉送了一個無效長度的 pong 封包, 忽略."/>
-	<string id="20583" value="鄰居 %s 轉送了一個無效長度的推播封包, 忽略中."/>
+	<string id="20582" value="鄰居 %s 轉送了一個無效長度的 %s 封包, 忽略."/>
 	<string id="20584" value="鄰居 %s 轉送了一個過大的封包大小, 正在忽略連線."/>
 	<string id="20586" value="鄰居 %s 轉送了一個無法辨認的封包 (0x%.2x), 忽略中."/>
 	<string id="20587" value="鄰居 %s 轉送了一個無效位址資料的 pong, 忽略中."/>
@@ -3215,9 +3214,9 @@
 	<string id="20891" value="離開"/>
 	<string id="20892" value="请稍候: 更新 edonkey 服务器列表..."/>
 	<string id="20893" value="请稍候: 更新发现服务器..."/>
-	<string id="20894" value="请稍候: 查找 UPnP 驱动器并进行设置..."/>
-	<string id="20895" value="您還沒有具體指定連線速度. 繼續下一步動作前, 請選擇您的網路連線類型或是自行輸入連線速度."/>
-	<string id="20896" value="您已經示意要自行設定防火牆或是NAT 路由器的連接埠轉送(Port-Forwarding).\n\n請設定您的網路以轉送TCP 與 UDP 連接埠到 %i 您的本機電腦."/>
+	<string id="20894" value="您還沒有具體指定連線速度. 繼續下一步動作前, 請選擇您的網路連線類型或是自行輸入連線速度."/>
+	<!--string id="20895" value="请稍候: 查找 UPnP 驱动器并进行设置..."-->
+	<!--string id="20896" value="您已經示意要自行設定防火牆或是NAT 路由器的連接埠轉送(Port-Forwarding).\n\n請設定您的網路以轉送TCP 與 UDP 連接埠到 %i 您的本機電腦."-->
 	<string id="20897" value="您在分享的資料夾已經是另一個分享資料夾的一部份:\n\n%s"/>
 	<string id="20898" value="您還沒有具體指定任何要分享的資料夾. 您確定要這樣做嗎?"/>
 	<string id="20899" value="歲"/>

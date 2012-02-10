@@ -824,8 +824,8 @@ bool CDownloadTransferED2K::SendFragmentRequests()
 
 	while ( ! oRequesting.empty() )
 	{
-		DWORD nCount=0;
-		QWORD nOffsetBegin[3]={0,0,0}, nOffsetEnd[3]={0,0,0};
+		DWORD nCount = 0;
+		QWORD nOffsetBegin[3] = {0,0,0}, nOffsetEnd[3] = {0,0,0};
 		bool  bI64Offset = false;
 
 		while ( nCount < 3 && ! oRequesting.empty() )

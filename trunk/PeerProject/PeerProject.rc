@@ -376,7 +376,7 @@ BEGIN
 	RTEXT			"Can accept incoming connections",IDC_STATIC,14,125,147,12
 	COMBOBOX		IDC_CAN_ACCEPT,166,123,47,52,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
 	CONTROL			"Ignore private/local IP addresses ",IDC_IGNORE_LOCAL,"Button",BS_AUTOCHECKBOX | BS_RIGHT | WS_TABSTOP,14,140,161,12,WS_EX_RIGHT
-	CONTROL			"Enable UPnP connection devices setup",IDC_ENABLE_UPNP,"Button",BS_AUTOCHECKBOX | BS_LEFTTEXT | BS_RIGHT | WS_TABSTOP,14,158,161,10
+	CONTROL			"Enable Plug'n'Play port-forwarding ",IDC_ENABLE_UPNP,"Button",BS_AUTOCHECKBOX | BS_LEFTTEXT | BS_RIGHT | WS_TABSTOP,14,158,161,10
 	GROUPBOX		"&Timeouts:",IDC_STATIC,6,179,270,34,WS_GROUP
 	LTEXT			"Connection:",IDC_STATIC,21,193,45,12,SS_CENTERIMAGE
 	EDITTEXT		IDC_TIMEOUT_CONNECTION,69,193,35,12,ES_AUTOHSCROLL | ES_NUMBER
@@ -1423,7 +1423,7 @@ STYLE DS_SETFONT | DS_MODALFRAME | DS_3DLOOK | DS_CENTER | WS_POPUP | WS_CAPTION
 CAPTION "Shared Folders Manager"
 FONT 8, "Tahoma"
 BEGIN
-	LTEXT			"This is a list of folders in your personal library. \nFirst add folders here, then click the checkboxes to publicly share or hide them. Specific files and subfolders can be shared/unshared from the Library.",IDC_STATIC,8,5,280,30
+	LTEXT			"This is a list of root folders in your personal library. \nFirst add folders here, then click the checkboxes to publicly share or hide them. Specific files and subfolders can be shared/unshared from the Library.",IDC_STATIC,8,5,280,30
 	CONTROL			"List1",IDC_SHARE_FOLDERS,"SysListView32",LVS_REPORT | LVS_SHAREIMAGELISTS | LVS_ALIGNLEFT | LVS_NOCOLUMNHEADER | WS_BORDER | WS_TABSTOP,8,40,276,85
 	PUSHBUTTON		"&Add...",IDC_SHARE_ADD,8,130,45,15
 	PUSHBUTTON		"&Remove",IDC_SHARE_REMOVE,58,130,45,15,WS_DISABLED
@@ -4105,12 +4105,13 @@ BEGIN
 	IDS_LIBRARY_COLLECTION_INVALID "PeerProject received a collection file:\r\n\r\n""%s""\r\n\r\nThis file does not appear to be a valid collection file."
 	IDS_LIBRARY_COLLECTION_LOCKDOWN "Would you like to prevent this collection from prompting you to download anything else?"
 	IDS_LIBRARY_CONFIRM_EXECUTE "Are you sure you want to launch the file ""%s"" ?\n\nSome files can be harmful to your computer.  Ensure you know what the file is before launching it."
-	IDS_LIBRARY_DELETE			"Are you sure you want to permanently delete the %i selected files ?\n\nThe files will be moved to your ""recycle bin"" if it is enabled."
+//	IDS_LIBRARY_DELETE			"Are you sure you want to permanently delete the %i selected files ?\n\nThe files will be moved to your ""recycle bin"" if it is enabled."
+	IDS_LIBRARY_DELETE_FOLDER	"Are you sure you want to delete the %i selected album folders ?\n\nNote that this action does not delete the files within the album folders, only the folders themselves."
 	IDS_LIBRARY_DELETE_FAIL		"PeerProject could not delete the file:\n\n%s"
 	IDS_LIBRARY_DOWNLOADS_ADD	"Your downloaded files folder ""%s"" is not yet in your library.\n\nIncluding your downloaded files folder in your library makes it easier to view and organise new downloads, and lets you take advantage of advanced PeerProject features such as download verification and automatic upgrading.  Placing downloaded files in your library does not necessarily require you to share them: you can choose whether or not to share files independently.\n\nWould you like to add your downloaded files folder to your library now?"
 	IDS_LIBRARY_DOWNLOADS_SHARE "Your downloads folder has been added to your local library. \nWould you like to publicly share it too?"
-	IDS_LIBRARY_ENQUEUE			"You have not yet selected a media player to enqueue files with, such as Nullsoft Winamp.  Would you like to select one now?\n\nPeerProject will pass the name of the file to your selected program with the ""/ADD"" argument."
-	IDS_LIBRARY_FOLDER_DELETE	"Are you sure you want to delete the %i selected album folders ?\n\nNote that this action does not delete the files within the album folders, only the folders themselves."
+//	IDS_LIBRARY_ENQUEUE			"You have not yet selected a media player to enqueue files with, such as Nullsoft Winamp.  Would you like to select one now?\n\nPeerProject will pass the name of the file to your selected program with the ""/ADD"" argument."
+	IDS_LIBRARY_ADD_FOLDER		"\nAdd this folder to your Library?\n\n%s"
 END
 
 STRINGTABLE
@@ -4120,7 +4121,7 @@ BEGIN
 	IDS_LIBRARY_METADATA_MANY	"You are about to modify the metadata of %i files, are you sure you want to continue?"
 	IDS_LIBRARY_MOVE_FAIL		"Unable to move the file %s. The file may be in use by another application.\n\nDo you wish to try to copy this file instead?"
 	IDS_LIBRARY_RENAME_FAIL		"PeerProject could not rename:\n\n%s\nto\n%s"
-	IDS_LIBRARY_SUBFOLDER_IN_LIBRARY "A subfolder of the selected folder ""%s"" is already part of your library.\nAdding this folder will cause re-hashing of some files.\n\nDo you want to continue ?"
+	IDS_LIBRARY_SUBFOLDER_IN_LIBRARY "A subfolder of the selected folder ""%s"" is already part of your library.\nAdding this folder will cause re-hashing of some files.\n\nDo you want to continue?"
 	IDS_LIBRARY_TARGET_EXISTS	"Target file exists:\n\n%s\n\nWould you like to overwrite it?"
 	IDS_LIBRARY_TYPE_FILTER_ALL	"Show All File Types"
 	IDS_LIBRARY_URI_COPY		"&Get P2P Link"
@@ -4247,7 +4248,7 @@ BEGIN
 	IDS_NETWORK_SECURITY_DENIED "Security manager denied connection from %s."
 	IDS_NETWORK_SECURITY_OUTGOING "Security manager barred a connection to %s."
 	IDS_NETWORK_STARTUP			"Starting PeerProject network core..."
-	IDS_NETWORK_UNLIMIT			"You are running the Scheduler in 'G2 only' mode. Would you like to turn this mode off, so that all active networks remain connected?"
+	IDS_NETWORK_UNLIMIT			"You are running the Scheduler in 'G2 only' mode.  Would you like to turn this mode off, so that all active networks remain connected?"
 	IDS_NETWORK_UPNP_FAILED		"UPnP port mapping failed after 10 attempts."
 END
 
@@ -4264,11 +4265,9 @@ BEGIN
 	IDS_PROTOCOL_QRP_SENT		"Sending query routing table to neighbor %s (%i bit = %lu[%i], %i%% full)"
 	IDS_PROTOCOL_QRP_UNEXPECTED "Receiving an unexpected query routing table update from neighbor %s."
 	IDS_PROTOCOL_QRP_UPDATED	"Neighbor %s updated its query routing table (%i bit = %lu[%i], %i%% full)."
-	IDS_PROTOCOL_SIZE_PING		"Neighbor %s forwarded a ping packet with invalid length, ignoring."
-	IDS_PROTOCOL_SIZE_PONG		"Neighbor %s forwarded a pong packet with invalid length, ignoring."
-	IDS_PROTOCOL_SIZE_PUSH		"Neighbor %s forwarded a push packet with invalid length, ignoring."
+	IDS_PROTOCOL_SIZE_PACKET	"Neighbor %s forwarded a %s packet with invalid length, ignoring."
 	IDS_PROTOCOL_TOO_LARGE		"Neighbor %s forwarded a packet of excessive size, dropping connection."
-	IDS_PROTOCOL_EXCEEDS_LIMIT	"Received a flood packet from %s for %s which exceeds query limits, ignoring."
+	IDS_PROTOCOL_EXCEEDS_LIMIT	"Ignoring flood packet from %s for %s which exceeds query limits."
 	IDS_PROTOCOL_UNKNOWN		"Neighbor %s forwarded an unrecognised packet (0x%.2x), ignoring."
 	IDS_PROTOCOL_ZERO_PONG		"Neighbor %s forwarded a pong with invalid address data, ignoring."
 	IDS_PROTOCOL_ZERO_PUSH		"Neighbor %s forwarded a push request to a firewalled address, ignoring."
@@ -4602,9 +4601,9 @@ BEGIN
 	IDS_WIZARD_EXIT				"E&xit"
 	IDS_WIZARD_DISCOVERY		"Please wait: Updating discovery services..."
 	IDS_WIZARD_ED2K				"Please wait: Updating eDonkey server list..."
-	IDS_WIZARD_UPNP_SETUP		"Please wait: Finding UPnP devices and setting them up..."
 	IDS_WIZARD_NEED_SPEED		"You have not yet specified a connection speed.  Before continuing, please either choose your Internet connection type, or type in a connection speed."
-	IDS_WIZARD_PORT_FORWARD		"PeerProject was unable to set up port-forwarding on your NAT router or firewall.\n\nPlease configure your network to forward TCP and UDP ports %i to your local PC."
+//	IDS_WIZARD_UPNP_SETUP		"Please wait: Finding UPnP devices and setting them up..."
+//	IDS_WIZARD_PORT_FORWARD		"PeerProject was unable to set up port-forwarding on your NAT router or firewall.\n\nPlease configure your network to forward TCP and UDP ports %i to your local PC."
 	IDS_WIZARD_SHARE_ALREADY	"The folder you are sharing is already shared as part of another shared folder:\n\n%s"
 	IDS_WIZARD_SHARE_CONFIRM	"You have not specified any folders to share.  Are you sure?"
 	IDS_WIZARD_YEARS_OLD		"year old"

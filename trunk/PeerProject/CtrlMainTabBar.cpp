@@ -1,7 +1,7 @@
 //
 // CtrlMainTabBar.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -294,7 +294,7 @@ void CMainTabBarCtrl::DoPaint(CDC* pDC)
 	if ( Skin.m_bMenuBorders )
 		DrawBorders( pBuffer, rc );
 	else
-		rc.DeflateRect(2,2,0,0);
+		rc.DeflateRect( 2, 2, 0, 0 );
 
 	if ( ! CoolInterface.DrawWatermark( pBuffer, &rc, &m_pSkin->m_bmWatermark ) )
 		pBuffer->FillSolidRect( &rc, Colors.m_crMidtone );
@@ -417,7 +417,7 @@ void CMainTabBarCtrl::OnTimer(UINT_PTR /*nIDEvent*/)
 
 IMPLEMENT_DROP(CMainTabBarCtrl, CControlBar)
 
-BOOL CMainTabBarCtrl::OnDrop(IDataObject* pDataObj, DWORD /* grfKeyState */, POINT ptScreen, DWORD* /* pdwEffect */, BOOL /* bDrop */)
+BOOL CMainTabBarCtrl::OnDrop(IDataObject* pDataObj, DWORD /*grfKeyState*/, POINT ptScreen, DWORD* /*pdwEffect*/, BOOL /*bDrop*/)
 {
 	// Mouse move imitation during dragging
 	CPoint pt( ptScreen );
@@ -492,8 +492,8 @@ void CMainTabBarCtrl::TabItem::OnSkinChange(CSkinWindow* pSkin, CDC* pdcCache, C
 		case CSkin::NavBarLower:
 			m_sTitle.MakeLower();
 			break;
-		default:
-			break;
+		//default:
+		//	break;
 		}
 	}
 

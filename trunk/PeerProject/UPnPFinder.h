@@ -1,7 +1,7 @@
 //
 // UPnPFinder.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -32,23 +32,26 @@ public:
 	CUPnPFinder();
 	~CUPnPFinder();
 
+public:
 	void StartDiscovery(bool bSecondTry=false);
 	void StopAsyncFind();
 	void DeletePorts();
-	bool AreServicesHealthy();
 	void AddDevice(DevicePointer pDevice, bool bAddChilds, int nLevel = 0);
 	void RemoveDevice(CComBSTR bsUDN);
 	bool OnSearchComplete();
 	bool Init();
+
 	inline bool IsAsyncFindRunning()
 	{
-		if ( m_pDeviceFinder && m_bAsyncFindRunning && GetTickCount() - m_tLastEvent > 16000 )
+		if ( m_pDeviceFinder && m_bAsyncFindRunning )
 		{
-			m_pDeviceFinder->CancelAsyncFind( m_nAsyncFindHandle );
-			m_bAsyncFindRunning = false;
+			if ( GetTickCount() > m_tLastEvent + 16000 )	 // Timeout ~20 seconds
+			{
+				m_pDeviceFinder->CancelAsyncFind( m_nAsyncFindHandle );
+				m_bAsyncFindRunning = false;
+			}
+			SafeMessageLoop();
 		}
-
-		SafeMessageLoop();
 
 		return m_bAsyncFindRunning;
 	}
@@ -99,15 +102,14 @@ public:
 
 // Private members
 private:
-	std::vector< CAdapt< DevicePointer > >  m_pDevices;
-	std::vector< CAdapt< ServicePointer>  > m_pServices;
+	std::vector< CAdapt< DevicePointer > >	m_pDevices;
+	std::vector< CAdapt< ServicePointer> >	m_pServices;
 	FinderPointer m_pDeviceFinder;
-	CComPtr< IUPnPDeviceFinderCallback > m_pDeviceFinderCallback;
-	CComPtr< IUPnPServiceCallback >      m_pServiceCallback;
+	CComPtr< IUPnPDeviceFinderCallback >	m_pDeviceFinderCallback;
+	CComPtr< IUPnPServiceCallback > 		m_pServiceCallback;
 
 	LONG	m_nAsyncFindHandle;
 	bool	m_bAsyncFindRunning;
-	bool	m_bCOM;
 	bool	m_bPortIsFree;
 	CString m_sLocalIP;
 	CString m_sExternalIP;
@@ -129,6 +131,7 @@ public:
 		: m_instance( instance )
 	{}
 
+private:
 	CUPnPFinder& m_instance;
 
 // Implementation
@@ -147,11 +150,11 @@ public:
 		: m_instance( instance )
 	{}
 
+private:
+	CUPnPFinder& m_instance;
+
 // Implementation
 private:
 	HRESULT __stdcall StateVariableChanged(IUPnPService* pService, LPCWSTR pszStateVarName, VARIANT varValue);
 	HRESULT __stdcall ServiceInstanceDied(IUPnPService* pService);
-
-private:
-	CUPnPFinder& m_instance;
 };

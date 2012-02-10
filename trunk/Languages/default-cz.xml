@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Czech Skin File -->
 
-<!-- Translation based on default-en.xml r70 (Shareaza 2.2.5.7) -->
+<!-- Translation based on default-en.xml r74 (Shareaza 2.2.5.7) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -18,7 +18,7 @@
 	author="Prometheus"
 	updateBy="Odin"
 	description="PeerProject Default Czech Skin File"
-	link="http://PeerProject.org"
+	link="http://peerproject.org"
 	email="odinuv(at)users.sourceforge.net"
 	version="1.0.0.0"
 	type="Language"
@@ -2940,12 +2940,13 @@
 	<string id="20428" value="PeerProject stáhla nový soubor se sbírkou:\n\n&quot;%s&quot;\n\nSoubor však nelze přečíst, pravděpodovně je poškozený."/>
 	<string id="20429" value="Chcete zabránit této sbírce v dalším upozorňování na jiné stahování?"/>
 	<string id="20430" value="Opravdu chcete spustit soubor &quot;%s&quot; ?\n\nNěkteré soubory mohou poškodit váš počítač. Ujistěte se, že víte jaký soubor spouštíte."/>
-	<string id="20431" value="Opravdu chcete trvale vymazat vybraný soubor(y) %i ?\n\nPokud to povolíte, soubory budou přesunuty do &quot;koše&quot; (pokud je povolený)."/>
-	<string id="20432" value="PeerProject nemohla smazat soubor:\n\n%s"/>
-	<string id="20433" value="Adresář se staženými soubory &quot;%s&quot; ještě není zařazen ve vaší knihovně.\n\nStažené soubory ve knihovně můžete snadněji prohlížet a třídit, a umožňuje využívat pokročilé funkce PeerProject: například ověření stahování a automatické aktualizace. Umístění stažených souborů v knihovně nevyžaduje nutně jejich sdílení: můžete si zvolit, zda budete nebo nebudete sdílet tyto soubory.\n\nChcete přidat stažené soubory do knihovny?"/>
-	<string id="20434" value="Adresář se staženými soubory byl přidaný do složky v knihovně. Chcete jej také sdílet?"/>
-	<string id="20435" value="Ještě jste nevybrali přehrávač pro multimédiální soubory, jako např. Nullsoft WinAmp. Chcete přehrávač vybrat nyní?\n\nPeerProject předá programu název souboru s parametrem &quot;/ADD&quot;."/>
-	<string id="20436" value="Opravdu chcete vymazat %i označených složek s albem ?\n\nTato akce nevymaže samotné soubory uvnitř složek alba, ale jen složky."/>
+	<!--string id="20431" value="Opravdu chcete trvale vymazat vybraný soubor(y) %i ?\n\nPokud to povolíte, soubory budou přesunuty do &quot;koše&quot; (pokud je povolený)."-->
+	<string id="20432" value="Opravdu chcete vymazat %i označených složek s albem ?\n\nTato akce nevymaže samotné soubory uvnitř složek alba, ale jen složky."/>
+	<string id="20433" value="PeerProject nemohla smazat soubor:\n\n%s"/>
+	<string id="20434" value="Adresář se staženými soubory &quot;%s&quot; ještě není zařazen ve vaší knihovně.\n\nStažené soubory ve knihovně můžete snadněji prohlížet a třídit, a umožňuje využívat pokročilé funkce PeerProject: například ověření stahování a automatické aktualizace. Umístění stažených souborů v knihovně nevyžaduje nutně jejich sdílení: můžete si zvolit, zda budete nebo nebudete sdílet tyto soubory.\n\nChcete přidat stažené soubory do knihovny?"/>
+	<string id="20435" value="Adresář se staženými soubory byl přidaný do složky v knihovně. Chcete jej také sdílet?"/>
+	<!--string id="20436" value="Ještě jste nevybrali přehrávač pro multimédiální soubory, jako např. Nullsoft WinAmp. Chcete přehrávač vybrat nyní?\n\nPeerProject předá programu název souboru s parametrem &quot;/ADD&quot;."-->
+	<string id="20436" value="Přidat složku do knihovny?\n\n%s"/>
 	<string id="20437" value="Soubor s popisem"/>
 	<string id="20438" value="Upravuji popisky %i souborů."/>
 	<string id="20439" value="Chystáte se upravit popisky pro %i souborů, opravdu chcete pokračovat?"/>
@@ -2969,13 +2970,13 @@
 	<string id="20457" value="PeerProject nemůže použít plugin pro MediaServices. Prosím nainstalujte znovu PeerProject, a zkontrolujte že máte také nainstalované potřebné kodetky a ovladače."/>
 	<string id="20458" value="PeerProject Media Player"/>
 	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
-	<string id="20461" value="(Nezobrazovat)"/>
-	<!--string id="20462" value="PeerProject dokončila stahování:"-->
-	<!--string id="20463" value="PeerProject stahuje soubor:"-->
-	<!--string id="20464" value="PeerProject přesunuje stahování:"-->
-	<!--string id="20465" value="Toto stahování je pozastaveno:"-->
-	<!--string id="20466" value="PeerProject hledá zdroje pro:"-->
-	<!--string id="20467" value="PeerProject kontroluje stahování na chyby:"-->
+	<string id="20462" value="(Nezobrazovat)"/>
+	<!--string id="20464" value="PeerProject dokončila stahování:"-->
+	<!--string id="20465" value="PeerProject stahuje soubor:"-->
+	<!--string id="20466" value="PeerProject přesunuje stahování:"-->
+	<!--string id="20467" value="Toto stahování je pozastaveno:"-->
+	<!--string id="20468" value="PeerProject hledá zdroje pro:"-->
+	<!--string id="20469" value="PeerProject kontroluje stahování na chyby:"-->
 	<string id="20470" value="Zrušit"/>
 	<string id="20471" value="Otevřít"/>
 	<string id="20472" value="Dokončeno"/>
@@ -3057,7 +3058,7 @@
 	<string id="20564" value="Spouštím síťové jádro PeerProject..."/>
 	<string id="20566" value="Mapování UPnP portu selhalo po 10 pokusech."/>
 	<string id="20570" value="Přijat dotaz na poškozený paket od %s, ignoruji."/>
-	<string id="20571" value="%s:  Na dotaz přijat vadný paket ze %s, proto jej ignorujuji."/>
+	<string id="20571" value="%s: Na dotaz přijat vadný paket ze %s, proto jej ignorujuji."/>
 	<string id="20572" value="Soused %s poslal paket s extrémní TTL, paket odmítám (TTL=%i, Hops=%i)."/>
 	<string id="20573" value="Soused %s poslal paket s nulovou TTL, ignoruji."/>
 	<string id="20574" value="Soused %s násilím prosadil rozšířený balíček který není zakódovaný GGEP."/>
@@ -3067,9 +3068,7 @@
 	<string id="20578" value="Soused %s aktualizoval jeho otázku na směrovací tabulku (%i bit = %lu[%i], %i%% full)."/>
 	<string id="20579" value="%s -&gt; %s [%i/%i] %s %s"/>
 	<string id="20580" value="Seznam se předá počítači %s s dotazem na výpadky spojení."/>
-	<string id="20581" value="Soused %s poslal ping na paket s nesprávnou délkou, ignoruji."/>
-	<string id="20582" value="Soused %s poslal pong na paket s nesprávnou délkou, ignoruji."/>
-	<string id="20583" value="Soused %s poslal paket s nesprávnou délkou, ignoruji."/>
+	<string id="20582" value="Soused %s poslal %s na paket s nesprávnou délkou, ignoruji."/>
 	<string id="20584" value="Soused %s odeslal paket nadměrné velikosti, spadlo spojení."/>
 	<string id="20586" value="Soused %s poslal neznámý paket (0x%.2x), ignoruji."/>
 	<string id="20587" value="Soused %s poslal pong s nesprávnými adresnými daty, ignoruji."/>
@@ -3303,9 +3302,9 @@
 	<string id="20891" value="K&amp;onec"/>
 	<string id="20892" value="Prosím čekejte, aktualizuji seznam eDonkey serverů..."/>
 	<string id="20893" value="Prosím čekejte, aktualizuji vyhledávací služby..."/>
-	<string id="20894" value="Prosím čekejte, hledám UPnP zařízení a nastavuji je..."/>
-	<string id="20895" value="Ještě jste nezadali vaši rychlost připojení. Aby jste mohli pokračovat, buď vyberte vaše připojení k Internetu, nebo zadejte rychlost připojení."/>
-	<string id="20896" value="Zadali jste že chcete nastavit přenosový port na vašem firewallu nebo routeru.\n\nProsím nastavte si přenos vaší sítě na port TCP %i ve vašem počítači."/>
+	<string id="20894" value="Ještě jste nezadali vaši rychlost připojení. Aby jste mohli pokračovat, buď vyberte vaše připojení k Internetu, nebo zadejte rychlost připojení."/>
+	<!--string id="20895" value="Prosím čekejte, hledám UPnP zařízení a nastavuji je..."-->
+	<!--string id="20896" value="Zadali jste že chcete nastavit přenosový port na vašem firewallu nebo routeru.\n\nProsím nastavte si přenos vaší sítě na port TCP %i ve vašem počítači."-->
 	<string id="20897" value="Část složky je již sdílená jako další sdílený podadresář\n\n%s"/>
 	<string id="20898" value="Nezadali jste žádné složky ke sdílení. Opravdu nechcete nic sdílet?"/>
 	<string id="20899" value="rok starý"/>
@@ -3726,7 +3725,7 @@
 		<control caption="Ačkoli původní síť Gnutella má méně možností než Gnutella2, a má méně souborů než eDonkey, zůstává cenným rezervním zdrojem."/>
 		<control caption="Připojit k eDonkey"/>
 		<control caption="eDonkey je také oblíbená síť. Zatím nemá tak bohaté možnosti jako Gnutella2, eDonkey má ale impozantní sbírku souborů."/>
-		<control caption="Associate .Torrent Files  (Handle BitTorrent links)"/>
+		<control caption="Associate .Torrent Files (Handle BitTorrent links)"/>
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Vítejte v PeerProject (4/8)">
 		<control caption="PeerProject první dílčí stahování souborů do osobní složky, pak se pohybuje, když dokončí podle skupin ke stažení."/>

@@ -294,7 +294,7 @@ BOOL CDiscoveryServices::CheckWebCacheValid(LPCTSTR pszAddress)
 	}
 
 	// Check it has a valid protocol
-	if ( _tcsnicmp( pszAddress, _T("http://"),  7 ) == 0 )
+	if ( _tcsnicmp( pszAddress, _T("http://"), 7 ) == 0 )
 		pszAddress += 7;
 	else if ( _tcsnicmp( pszAddress, _T("https://"), 8 ) == 0 )
 		pszAddress += 8;
@@ -1121,7 +1121,7 @@ CDiscoveryService* CDiscoveryServices::GetRandomService(PROTOCOLID nProtocol)
 			break;
 		case PROTOCOL_ED2K:
 		case PROTOCOL_DC:
-			if ( pService->m_nType == CDiscoveryService::dsServerList  &&
+			if ( pService->m_nType == CDiscoveryService::dsServerList &&
 				( tNow > pService->m_tAccessed + pService->m_nAccessPeriod ) )
 				pServices.Add( pService );
 			break;
@@ -2095,7 +2095,7 @@ void CDiscoveryService::Serialize(CArchive& ar, int nVersion)
 			m_nSubType = dsGnutellaUDPHC;
 			m_nProtocolID = PROTOCOL_G1;
 		}
-		else if ( _tcsnicmp( m_sAddress, _T("gnutella1:host:"),  15 ) == 0 ||
+		else if ( _tcsnicmp( m_sAddress, _T("gnutella1:host:"), 15 ) == 0 ||
 				  _tcsnicmp( m_sAddress, _T("gnutella:host:"),  14 ) == 0 )
 		{
 			m_bGnutella1 = TRUE;

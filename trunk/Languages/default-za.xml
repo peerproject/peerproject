@@ -4,7 +4,7 @@
 <!-- PeerProject Default Afrikaans Skin File -->
 <!-- Weergawe: 27 Oktober 2005 vir Shareaza 2.2.0.2 -->
 
-<!-- Translation based on default-en.xml r70 -->
+<!-- Translation based on default-en.xml r74 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -19,7 +19,7 @@
 	author="Johann van der Walt (Thesage)"
 	updatedBy="Thesage, omega09"
 	description="PeerProject Default Afrikaans Skin File"
-	link="http://PeerProject.org"
+	link="http://peerproject.org"
 	email="jvdwalt(at)tuks.co.za"
 	version="1.0.0.0"
 	type="Language"
@@ -2631,7 +2631,7 @@
 	<tip id="ID_VIEW_TABBED" message="Gebruik PeerProject in kragtige Tabelmodus (Tuisblad, Biblioteek, Media, Oordragte, Netwerk)."/>
 	<tip id="ID_VIEW_TRAFFIC" message="Vertoon of verwyder 'n GRAFIEK venster."/>
 	<tip id="ID_VIEW_UPLOADS" message="Vertoon of verwyder die OPLAAIE venster."/>
-	<tip id="ID_VIEW_WINDOWED" message="Gebruik PeerProject in  kragtige Venstermodus."/>
+	<tip id="ID_VIEW_WINDOWED" message="Gebruik PeerProject in kragtige Venstermodus."/>
 	<tip id="ID_WINDOW_CASCADE" message="Vergroot alle aktiewe vensters om die skerm te vul."/>
 	<tip id="ID_WINDOW_MONITOR" message="Vertoon of verwyder die die bandwydte-monitor."/>
 	<tip id="ID_WINDOW_NAVBAR" message="Vertoon of verwyder die navigasiebalk."/>
@@ -3008,13 +3008,14 @@
 	<string id="20428" value="PeerProject het 'n versamelingslêer ontvang:\n\n&quot;%s&quot;.\n\nHierdie lêer blyk nie 'n bruikbare versamelingslêer te wees nie."/>
 	<string id="20429" value="Wil jy hierdie versameling verhoed om jou te vra om enigeiets anders af te laai?"/>
 	<string id="20430" value="Is jy seker jy wil die lêer &quot;%s&quot; oopmaak ?\n\nSommige lêers mag dalk skadelik wees vir jou rekenaar.  Maak seker jy weet wat die lêer is voordat jy dit oopmaak."/>
-	<string id="20431" value="Is jy seker jy wil die %i geselekteerde lêers permanent skrap?\n\nDie lêers sal verskuif word na jou &quot;recycle bin&quot; as dit aangeskakel is."/>
-	<string id="20432" value="PeerProject kon nie die lêer:\n\n%s skrap nie"/>
-	<string id="20433" value="Jou aflaai gids &quot;%s&quot; is nog nie by jou biblioteek gevoeg nie.\n\nDeur jou aflaai gids in jou biblioteek in te sluit, word dit makliker gemaak om nuwe aflaaie te organiseer en dit laat jou voordeel trek uit gevorderde PeerProject-funksies soos aflaaikontrole en outomatiese opgradering.  Deur aflaaie in jou biblioteek te plaas beteken nie dat jy verplig is om dit te deel nie, jy kan kies of jy dit wil deel of nie.\n\nWil jy jou aflaai gids nou by jou biblioteek voeg?"/>
-	<string id="20434" value="Jou aflaai gids is by jou biblioteek gevoeg.  Wil jy dit deel ook?"/>
-	<string id="20435" value="Jy het nog nie 'n media speler geselekteer waarmee lêers gelys moet word nie, soos byvoorbeeld Nullsoft WinAmp.  Wil jy nou een selekteer?\n\nPeerProject sal die naam van die lêer aanpas met die &quot;/ADD&quot; argument."/>
-	<string id="20436" value="Is jy seker jy wil die %i geselekteerde albumgidse skrap ?\n\nHierdie aksie skrap nie die lêers binne die albumgidse nie, maar net die gidse self."/>
-	<string id="20437" value="Ghost File"/>
+	<!--string id="20431" value="Is jy seker jy wil die %i geselekteerde lêers permanent skrap?\n\nDie lêers sal verskuif word na jou &quot;recycle bin&quot; as dit aangeskakel is."-->
+	<string id="20432" value="Is jy seker jy wil die %i geselekteerde albumgidse skrap ?\n\nHierdie aksie skrap nie die lêers binne die albumgidse nie, maar net die gidse self."/>
+	<string id="20433" value="PeerProject kon nie die lêer:\n\n%s skrap nie"/>
+	<string id="20434" value="Jou aflaai gids &quot;%s&quot; is nog nie by jou biblioteek gevoeg nie.\n\nDeur jou aflaai gids in jou biblioteek in te sluit, word dit makliker gemaak om nuwe aflaaie te organiseer en dit laat jou voordeel trek uit gevorderde PeerProject-funksies soos aflaaikontrole en outomatiese opgradering.  Deur aflaaie in jou biblioteek te plaas beteken nie dat jy verplig is om dit te deel nie, jy kan kies of jy dit wil deel of nie.\n\nWil jy jou aflaai gids nou by jou biblioteek voeg?"/>
+	<string id="20435" value="Jou aflaai gids is by jou biblioteek gevoeg.  Wil jy dit deel ook?"/>
+	<!--string id="20436" value="Jy het nog nie 'n media speler geselekteer waarmee lêers gelys moet word nie, soos byvoorbeeld Nullsoft WinAmp.  Wil jy nou een selekteer?\n\nPeerProject sal die naam van die lêer aanpas met die &quot;/ADD&quot; argument."-->
+	<string id="20436" value="Voeg hierdie gids aan die biblioteek?\n\n%s"/>
+	<string id="20437" value="Gees Lêer"/>
 	<string id="20438" value="Metadata van %i lêers word verander."/>
 	<string id="20439" value="Jy is op pad om die metadata te verander van %i lêers, Is jy seker jy wil voortgaan?"/>
 	<string id="20440" value="Kon nie die lêer %s suif nie. Die lêer mag dalk deur 'n ander program gebruik word.\n\nWil jy die lêer eerder probeer kopieer?"/>
@@ -3036,13 +3037,13 @@
 	<string id="20456" value="Medialys:"/>
 	<string id="20457" value="PeerProject kon nie die MediaDienste inpropprogram instansieer nie.  Herinstalleer PeerProject en maak seker dat jy die nodige media kodeks en afvoerdrywers geinstalleer het."/>
 	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
-	<string id="20461" value="(Geen Visualisering)"/>
-	<!--string id="20462" value="Aflaai is voltooi:"-->
-	<!--string id="20463" value="PeerProject is besig om af te laai:"-->
-	<!--string id="20464" value="PeerProject skuif die lêer:"-->
-	<!--string id="20465" value="Hierdie aflaai is gevries:"-->
-	<!--string id="20466" value="PeerProject soek bronne vir:"-->
-	<!--string id="20467" value="PeerProject kontroleer die aflaai vir foute:"-->
+	<string id="20462" value="(Geen Visualisering)"/>
+	<!--string id="20464" value="Aflaai is voltooi:"-->
+	<!--string id="20465" value="PeerProject is besig om af te laai:"-->
+	<!--string id="20466" value="PeerProject skuif die lêer:"-->
+	<!--string id="20467" value="Hierdie aflaai is gevries:"-->
+	<!--string id="20468" value="PeerProject soek bronne vir:"-->
+	<!--string id="20469" value="PeerProject kontroleer die aflaai vir foute:"-->
 	<string id="20470" value="Kanselleer"/>
 	<string id="20471" value="Open"/>
 	<string id="20472" value="Voltooi"/>
@@ -3125,7 +3126,7 @@
 	<string id="20565" value="You are running the Scheduler in 'G2 only' mode. Would you like to turn this mode off, so that all active networks remain connected?"/>
 	<string id="20566" value="UPnP port mapping failed after 10 attempts."/>
 	<string id="20570" value="Foutiewe navraag-tref pakkie ontvang van %s, oorgesien."/>
-	<string id="20571" value="%s:  outiewe navraagpakkie ontvang van %s, oorgesien."/>
+	<string id="20571" value="%s: outiewe navraagpakkie ontvang van %s, oorgesien."/>
 	<string id="20572" value="Gasheer %s het 'n pakkie met te groot TTL aangestuur, pakkie word gestort (TTL=%i, Hops=%i)."/>
 	<string id="20573" value="Gasheer %s het 'n pakkie met 'n TTL van nul aangestuur, oorgesien."/>
 	<string id="20574" value="Gasheer %s het 'n uitgebreide pakkie aangestuur wat nie GGEP ge-enkodeer is nie."/>
@@ -3135,9 +3136,7 @@
 	<string id="20578" value="Gasheer %s het sy navraag-tabel opgedateer (%i bit = %lu[%i], %i%% vol)."/>
 	<string id="20579" value="%s -&gt; %s [%i/%i] %s %s"/>
 	<string id="20580" value="Kliënt konneksie %s is besig om navrae te stuur, konneksie word gesluit."/>
-	<string id="20581" value="Gasheer %s het 'n pieng pakkie met 'n foutiewe grootte aangestuur, oorgesien."/>
-	<string id="20582" value="Gasheer %s het 'n pong pakkie met 'n foutiewe grootte aangestuur, oorgesien."/>
-	<string id="20583" value="Gasheer %s het 'n druk-pakkie met 'n foutiewe lengte aangestuur, oorgesien."/>
+	<string id="20582" value="Gasheer %s het 'n %s pakkie met 'n foutiewe grootte aangestuur, oorgesien."/>
 	<string id="20584" value="Gasheer %s het 'n te groot pakkie aangestuur, konneksie word gesluit."/>
 	<string id="20586" value="Gasheer %s het 'n vreemde pakkie aangestuur (0x%.2x), oorgesien."/>
 	<string id="20587" value="Gasheer %s het 'n pong pakkie met foutiewe adresdata aangestuur, oorgesien."/>
@@ -3368,8 +3367,8 @@
 	<string id="20886" value="Verandering van die koppelvlak rigting vereis die oorbegin van PeerProject.\n\nVerlaat PeerProject nou?"/>
 	<string id="20890" value="Welkom by PeerProject"/>
 	<string id="20891" value="Maak Toe"/>
-	<string id="20895" value="Jy het nog nie 'n konneksie-spoed gespesifiseer nie.  Voor jy aangaan, selekteer asseblief jou internet konneksietipe, of sleutel 'n konneksiespoed in."/>
-	<string id="20896" value="Jy het aangedui dat jy poort-aanstuur wil opstel op jou NAT roeteerder of netskans.\n\nStel asseblief jou netwerk om TCP poort %i aan te stuur na jou lokale rekenaar."/>
+	<string id="20894" value="Jy het nog nie 'n konneksie-spoed gespesifiseer nie.  Voor jy aangaan, selekteer asseblief jou internet konneksietipe, of sleutel 'n konneksiespoed in."/>
+	<!--string id="20896" value="Jy het aangedui dat jy poort-aanstuur wil opstel op jou NAT roeteerder of netskans.\n\nStel asseblief jou netwerk om TCP poort %i aan te stuur na jou lokale rekenaar."-->
 	<string id="20897" value="Hierdie gids word alreeds as deel van die volgende gids gedeel:\n\n%s"/>
 	<string id="20898" value="Jy het nie enige gidse geselekteer om te deel nie.  Is jy seker?"/>
 	<string id="20899" value="jaar oue"/>
@@ -3509,7 +3508,7 @@
 		<control caption="Kan inkomende konneksies ontvang"/>
 		<control/>
 		<control caption="Ignoreer privaat/lokale ip adresse"/>
-		<control caption="Enable UPnP connection devices setup"/>
+		<control caption="Enable Plug'n'Play port-forwarding"/>
 		<control caption="_Wagtye:"/>
 		<control caption="Konneksie:"/>
 		<control/>

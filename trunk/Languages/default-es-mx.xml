@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Spanish (Mexican) Skin File -->
 
-<!-- Translation based on default-en.xml r70 -->
+<!-- Translation based on default-en.xml r74 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -18,7 +18,7 @@
 	author="dague12"
 	updatedBy="help"
 	description="PeerProject Default Mexican Spanish Skin File"
-	link="http://PeerProject.org"
+	link="http://peerproject.org"
 	email="luis.help(at)gmail.com"
 	version="1.0.0.0"
 	type="Language"
@@ -508,7 +508,7 @@
 				<item id="ID_NETWORK_ED2K" text="Conectar a _eDonkey2000"/>
 				<item id="ID_NETWORK_DC" text="Conectar a _DC++"/>
 				<separator/>
-				<item id="ID_NETWORK_CONNECT_TO" text="Conectar A..."  shortcut="Ctrl+T"/>
+				<item id="ID_NETWORK_CONNECT_TO" text="Conectar A..." shortcut="Ctrl+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="Explorar Usuario..."/>
 				<separator/>
 				<item id="ID_NETWORK_AUTO_CLOSE" text="Salir Después de Transferencias"/>
@@ -532,35 +532,35 @@
 				<item id="ID_TOOLS_SETTINGS" text="Configuración de PeerProject..."/>
 			</menu>
 			<menu text="_Vista Avanzada">
-				<item id="ID_TAB_HOME" text="Inicio"  shortcut="Ctrl+H"/>
-				<item id="ID_TAB_SEARCH" text="Buscar"  shortcut="Ctrl+S"/>
+				<item id="ID_TAB_HOME" text="Inicio" shortcut="Ctrl+H"/>
+				<item id="ID_TAB_SEARCH" text="Buscar" shortcut="Ctrl+S"/>
 				<item id="ID_VIEW_DOWNLOADS" text="Descargando" shortcut="F3"/>
 				<item id="ID_VIEW_UPLOADS" text="Subiendo" shortcut="F4"/>
-				<item id="ID_VIEW_LIBRARY" text="Colección"   shortcut="F5"/>
+				<item id="ID_VIEW_LIBRARY" text="Colección" shortcut="F5"/>
 				<item id="ID_VIEW_MEDIA" text="Reproductor" shortcut="F6"/>
 				<item id="ID_TAB_IRC" text="_IRC" shortcut="F12"/>
 				<separator/>
-				<item id="ID_VIEW_SECURITY" text="Seguridad"   shortcut="F7"/>
+				<item id="ID_VIEW_SECURITY" text="Seguridad" shortcut="F7"/>
 				<item id="ID_VIEW_HOSTS" text="Caché de Hosts" shortcut="F8"/>
-				<item id="ID_VIEW_DISCOVERY" text="Descubrimientos"  shortcut="F9"/>
+				<item id="ID_VIEW_DISCOVERY" text="Descubrimientos" shortcut="F9"/>
 				<item id="ID_VIEW_TRAFFIC" text="Gráfico" shortcut="F10"/>
-				<item id="ID_VIEW_SYSTEM" text="Sistema"  shortcut="F11"/>
+				<item id="ID_VIEW_SYSTEM" text="Sistema" shortcut="F11"/>
 				<item id="ID_VIEW_NEIGHBOURS" text="Vecinos" shortcut="Crtl+F11"/>
 				<separator/>
 				<item id="ID_VIEW_PACKETS" text="Volcado de paquetes" shortcut="Ctrl+F1"/>
 				<item id="ID_VIEW_SEARCH_MONITOR" text="Monitor de búsqueda" shortcut="Ctrl+F2"/>
 				<item id="ID_VIEW_RESULTS_MONITOR" text="Monitor de resultados" shortcut="Ctrl+F3"/>
 			</menu>
-			<menu  text="_Ventana">
-				<item id="ID_VIEW_TABBED"  text="Modo de pestañas" shortcut="necesario"/>
+			<menu text="_Ventana">
+				<item id="ID_VIEW_TABBED" text="Modo de pestañas" shortcut="necesario"/>
 				<item id="ID_VIEW_WINDOWED" text="Modo de ventaanas" shortcut="malo"/>
 				<separator/>
-				<item id="ID_WINDOW_NAVBAR" text="Mostrar Barra de navegación"  shortcut="necesario"/>
-				<item id="ID_WINDOW_TABBAR" text="Mostrar Barra de pestañas"  shortcut="necesario"/>
+				<item id="ID_WINDOW_NAVBAR" text="Mostrar Barra de navegación" shortcut="necesario"/>
+				<item id="ID_WINDOW_TABBAR" text="Mostrar Barra de pestañas" shortcut="necesario"/>
 				<item id="ID_WINDOW_MONITOR" text="Mostrar Monitor"/>
 				<item id="ID_WINDOW_REMOTE" text="Mostrar Ventana Remota"/>
 			</menu>
-			<menu  text="_Ayuda">
+			<menu text="_Ayuda">
 				<item id="ID_HELP_FAQ" text="Preguntas mas frecuentes" shortcut="F1"/>
 				<item id="ID_HELP_GUIDE" text="Guia para Usuarios de PeerProject"/>
 				<item id="ID_HELP_FORUMS" text="Foros de PeerProject"/>
@@ -583,7 +583,7 @@
 				<separator/>
 				<item id="ID_HELP_ABOUT" text="Acerca de PeerProject..."/>
 			</menu>
-			<item id="ID_NETWORK_EXIT"  text="Salir"/>
+			<item id="ID_NETWORK_EXIT" text="Salir"/>
 		</menu>
 	</menu>
 	<menu name="CMainWnd.Tabbed" type="bar">
@@ -1164,6 +1164,7 @@
 		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="Mover Grupo _Derecho"/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="_Eliminar Grupo"/>
 		<item id="ID_DOWNLOAD_GROUP_NEW" text="Crear _Grupo..."/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="Pr_opiedades"/>
 	</menu>
 	<menu name="CDownloadsWnd.Filter">
@@ -1872,10 +1873,10 @@
 				<text id="LibraryHashRemaining" format="b">%lu </text>
 				<text>archivos:</text>
 				<newline gap="2"/>
-			<group id="3">
+				<group id="3">
 					<link target="command:ID_LIBRARY_HASH_PRIORITY">Procesar los hash más rápido</link>
-			</group>
-			<group id="4">
+				</group>
+				<group id="4">
 					<link target="command:ID_LIBRARY_HASH_PRIORITY">Procesar los hash más lento</link>
 				</group>
 			</group>
@@ -2114,7 +2115,7 @@
 		<newline gap="8"/>
 		<text>Esta descarga esta en progreso.  Si esta bajando demásiado lento,
 		puedes tratar de buscar en la red más fuentes usando el comando </text>
-		<text format="b">Buscar Más Fuentes. </text><text>  Si la velocidad no incrementa y no mejora puede ser que los usuarios
+		<text format="b">Buscar Más Fuentes. </text><text> Si la velocidad no incrementa y no mejora puede ser que los usuarios
 		de los que estas descargando el archivo tienen una velocidad de subida muy baja. La velocidad de descarga mejora con el tiempo.</text>
 	</document>
 	<document name="DownloadHelp.Pending">
@@ -2238,7 +2239,7 @@
 		que separar alocaciones para subida y descarga. Si tu cliente esta propiamente configurado,
 		tu debes de poder subir a una buena velocidad y al mismo tiempo estar descargando al mximo.</text>
 		<newline gap="8"/>
-		<text>Por defecto, tu lmite esta puesto a como  el 85% de tu subida disponible,
+		<text>Por defecto, tu lmite esta puesto a como el 85% de tu subida disponible,
 		cuando tus descarga esta sin lmite. Esa configuracin te debe dar la velocidad ms rpida de las descargas.
 		</text>
 	</document>
@@ -2909,7 +2910,7 @@
 	<string id="20322" value="La conexión con %s de eDonkey fué cerrada por falta de actividad."/>
 	<string id="20323" value="Iniciando conexión con el cliente %s de eDonkey..."/>
 	<string id="20324" value="La conexión con el cliente %s de eDonkey tardó mucho tiempo."/>
-	<string id="20325" value="Reusando conexión  con el eDonkey de %s porque eDonkey está desabilitado."/>
+	<string id="20325" value="Reusando conexión con el eDonkey de %s porque eDonkey está desabilitado."/>
 	<string id="20326" value="La conexión con el cliente %s de eDonkey fué perdida."/>
 	<string id="20327" value="Error iniciando la conexión con el cliente %s de eDonkey."/>
 	<string id="20328" value="El inicio de la conexión con el cliente %s de eDonkey se demoró mucho."/>
@@ -3009,12 +3010,13 @@
 	<string id="20428" value="PeerProject ha recibido un archivo de colección:\n\n&quot;%s&quot;\n\nEste archivo no parece ser un archivo de colección valido."/>
 	<string id="20429" value="¿Deseas prevenit que esta colección te pregunte si deseas descargar otra cosa de esta?"/>
 	<string id="20430" value="Estás seguro(a) que quieres ejecutar el archivo %s?\nAlgunos archivos pueden ser peligrosos para la computadora, y es recomendado tener el antivirus funcionando y actualizado."/>
-	<string id="20431" value="¿Estás seguro(a) de eliminar los %i archivos seleccionados de forma permanente ?\n\nEllos van a ser movidos a la Papelera de reciclaje si esta esta activada."/>
-	<string id="20432" value="PeerProject no pudo eliminar:\n\n%s"/>
-	<string id="20433" value="Tu carpeta de archivos descargados &quot;%s&quot; todavia no se encuentra en Mi Colección.\n\nIncluyendo tu carpeta de archivos descargados en Mi Colección hace más fácil ver y organizar tus nuevas descargas, y hay que tomar las ventajas de las avanzadas características de PeerProject.orgo verificación de descarga y actualización automatica.  Poniendo los archivos descargados en Mi Colección no necesariamente requiere que los compartas: puedes Seleccionar si deseas o no compartir los archivos independientemente.\n\n¿Deseas agregar tu carpeta de descargas a Mi Colección ahora?"/>
-	<string id="20434" value="La carpeta de archivos descargados fué agregada a mi Colección. ¿Quieres compartirla también?"/>
-	<string id="20435" value="No ha seleccionado un reproductor para los archivos de media. ¿Quieres seleccionar uno ahora?\n\nEl archivo va a ser pasado con el argumento &quot;/ADD&quot;."/>
-	<string id="20436" value="¿Estás seguro(a) de eliminar %i carpetas virtuales con información sobre albums?\n\nEsto no elimina los archivos fisicamente del disco duro, solo elimina la carpeta seleccionada de Mi Colección."/>
+	<!--string id="20431" value="¿Estás seguro(a) de eliminar los %i archivos seleccionados de forma permanente ?\n\nEllos van a ser movidos a la Papelera de reciclaje si esta esta activada."-->
+	<string id="20432" value="¿Estás seguro(a) de eliminar %i carpetas virtuales con información sobre albums?\n\nEsto no elimina los archivos fisicamente del disco duro, solo elimina la carpeta seleccionada de Mi Colección."/>
+	<string id="20433" value="PeerProject no pudo eliminar:\n\n%s"/>
+	<string id="20434" value="Tu carpeta de archivos descargados &quot;%s&quot; todavia no se encuentra en Mi Colección.\n\nIncluyendo tu carpeta de archivos descargados en Mi Colección hace más fácil ver y organizar tus nuevas descargas, y hay que tomar las ventajas de las avanzadas características de PeerProject.orgo verificación de descarga y actualización automatica.  Poniendo los archivos descargados en Mi Colección no necesariamente requiere que los compartas: puedes Seleccionar si deseas o no compartir los archivos independientemente.\n\n¿Deseas agregar tu carpeta de descargas a Mi Colección ahora?"/>
+	<string id="20435" value="La carpeta de archivos descargados fué agregada a mi Colección. ¿Quieres compartirla también?"/>
+	<!--string id="20436" value="No ha seleccionado un reproductor para los archivos de media. ¿Quieres seleccionar uno ahora?\n\nEl archivo va a ser pasado con el argumento &quot;/ADD&quot;."-->
+	<string id="20436" value="¿Agregar esta carpeta a la biblioteca?\n\n%s"/>
 	<string id="20437" value="Huella del archivo (Ghost File)"/>
 	<string id="20438" value="Editando metadata de %i archivos."/>
 	<string id="20439" value="Estas a punto de modificar la metadata de %i archivos. ¿Estás seguro(a) en continuar?"/>
@@ -3038,13 +3040,13 @@
 	<string id="20457" value="PeerProject no pudo iniciar los servicias de reproducción.  Por favor reinstale PeerProject, y confirme que tiene todos los codecs, filtros y controladores necesarios.."/>
 	<string id="20458" value="Reproductor de PeerProject"/>
 	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; I &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M &#160;&#160; A"/>
-	<string id="20461" value="(No Visualización)"/>
-	<!--string id="20462" value="PeerProject ha terminado de bajar:"-->
-	<!--string id="20463" value="PeerProject esta descargando:"-->
-	<!--string id="20464" value="PeerProject esta moviendo el archivo descargado:"-->
-	<!--string id="20465" value="Esta descarga esta en pausa:"-->
-	<!--string id="20466" value="PeerProject esta buscando fuentes para:"-->
-	<!--string id="20467" value="PeerProject esta verificando el archivo descargado:"-->
+	<string id="20462" value="(No Visualización)"/>
+	<!--string id="20464" value="PeerProject ha terminado de bajar:"-->
+	<!--string id="20465" value="PeerProject esta descargando:"-->
+	<!--string id="20466" value="PeerProject esta moviendo el archivo descargado:"-->
+	<!--string id="20467" value="Esta descarga esta en pausa:"-->
+	<!--string id="20468" value="PeerProject esta buscando fuentes para:"-->
+	<!--string id="20469" value="PeerProject esta verificando el archivo descargado:"-->
 	<string id="20470" value="Cancelar"/>
 	<string id="20471" value="Abrir"/>
 	<string id="20472" value="Completado"/>
@@ -3136,9 +3138,7 @@
 	<string id="20578" value="El vecino %s actualizó el QRT (%i bit = %lu[%i], %i%% full)."/>
 	<string id="20579" value="%s -&gt; %s [%i/%i] %s %s"/>
 	<string id="20580" value="El vecino en mode Leaf %s esta reenviando b squedas. Conexión cerrada."/>
-	<string id="20581" value="Neighbour %s remitio un paquete de ping con tama o invalido, ignorando."/>
-	<string id="20582" value="Neighbour %s remitio un paquete de pong con tamao invalido, ignorando."/>
-	<string id="20583" value="El vecino %s envió un push incorrecto."/>
+	<string id="20582" value="Neighbour %s remitio un paquete de %s con tamao invalido, ignorando."/>
 	<string id="20584" value="El vecino %s remitio un paquete con tama o excesivo, cerrando conexión."/>
 	<string id="20586" value="%s envió un paquete desconocido (0x%.2x)."/>
 	<string id="20587" value="%s envió un pong inválido."/>
@@ -3373,9 +3373,9 @@
 	<string id="20891" value="Salir"/>
 	<string id="20892" value="Por favor espera: Actualizando lista de servidores eDonkey..."/>
 	<string id="20893" value="Por favor espera: Actualizando servicios de descubrimiento..."/>
-	<string id="20894" value="Por favor espera: Encontrando dispositivos UPnP y configurandolos..."/>
-	<string id="20895" value="Todavía no ha especificado la velocidad de conexión. Antes de continuar, por favor elija o escriba la velocidad de su conexión."/>
-	<string id="20896" value="Has seleccionado utilizar reenvio de puertos en tu NAT router o firewall.\n\nPor favor configure su red para reenviar el puerto TCP %i a su PC."/>
+	<string id="20894" value="Todavía no ha especificado la velocidad de conexión. Antes de continuar, por favor elija o escriba la velocidad de su conexión."/>
+	<!--string id="20895" value="Por favor espera: Encontrando dispositivos UPnP y configurandolos..."-->
+	<!--string id="20896" value="Has seleccionado utilizar reenvio de puertos en tu NAT router o firewall.\n\nPor favor configure su red para reenviar el puerto TCP %i a su PC."-->
 	<string id="20897" value="Esta carpeta ya está compartida como parte de:\n\n%s"/>
 	<string id="20898" value="No ha especificado ninguna carpeta para compartir. Recuerda que la calidad de la red esta basada en la cantidad de archivos que los demás comparten, por lo tanto si compartes tus carpetas, la red va a tener más contenido.  ¿Estás seguro(a) de no compartir tus carpetas?"/>
 	<string id="20899" value="Años"/>
@@ -3988,7 +3988,7 @@
 	</dialog>
 	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Archivos">
 		<control caption="Archivos _favoritos:"/>
-		<control caption="Estos son recomendados, cuando los usuarios exploran Mi Colección.  Los puedes crear agregandolos a la carpeta de &quot;Favourites&quot; en Mi Colección."/>
+		<control caption="Estos son recomendados, cuando los usuarios exploran mi Colección.  Los puedes crear agregandolos a la carpeta de &quot;Favourites&quot; en Mi Colección."/>
 		<control/>
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Favoritos">
@@ -4277,7 +4277,7 @@
 		<control caption="Seleccione un tipo de archivo, y después seleccione los campos a mostrar."/>
 	</dialog>
 	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Manejador de carpetas en mi Colección">
-		<control caption="Esta es la lista de carpetas en Mi Colección.  Puedes agregar o quitar carpeta usando los botones en la derecha."/>
+		<control caption="Esta es la lista de carpetas en mi Colección.  Puedes agregar o quitar carpeta usando los botones en la derecha."/>
 		<control/>
 		<control caption="_Agregar..."/>
 		<control caption="_Quitar"/>

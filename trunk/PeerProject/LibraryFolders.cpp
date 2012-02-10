@@ -428,7 +428,7 @@ BOOL CLibraryFolders::CheckAlbum(CAlbumFolder* pFolder) const
 
 CAlbumFolder* CLibraryFolders::GetAlbumTarget(LPCTSTR pszSchemaURI, LPCTSTR pszMember, LPCTSTR pszValue) const
 {
-	//ASSUME_LOCK( Library.m_pSection );
+	ASSUME_LOCK( Library.m_pSection );
 
 	if ( m_pAlbumRoot == NULL ) return NULL;
 

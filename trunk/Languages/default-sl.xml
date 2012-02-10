@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Slovenian Skin File -->
 
-<!-- Translation based on default-en.xml r70 (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r74 (Shareaza 2.2.2.12) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1622,7 +1622,7 @@
 			<heading align="middle">POZOR: STE ZA POŽARNIM ZIDOM</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">Program PeerProject je zaznal, da se nahajate za NAT usmerjevalnikom oz. požarnim zidom,
-			  in ne boste mogli sprejemati povezav iz spleta. &#160;</text>
+				in ne boste mogli sprejemati povezav iz spleta. &#160;</text>
 			<text color="FF0000" format="b">To lahko povzroči počasnejši prenos podatkov.</text>
 			<newline gap="6"/>
 			<link target="command:ID_HELP_ROUTER">Kliknite sem, da izveste, kako nastaviti vaš usmerjevalnik oz. požarni zid.</link>
@@ -2847,12 +2847,14 @@
 	<string id="20428" value="PeerProject je prejela kolekcijsko datoteko (collection):\n\n&quot;%s&quot;.\n\nKot kaže, datoteka ni ustrezna kolekcijska datoteka."/>
 	<string id="20429" value="Želite preprečiti tej kolekciji, da vas sprašuje po prenašanju česarkoli drugega?"/>
 	<string id="20430" value="Ste prepričani, da želite zagnati datoteko &quot;%s&quot; ?\n\nNekatere datoteke lahko škodijo vašemu računalniku. Prepričajte se o datoteki predno jo zaženete."/>
-	<string id="20431" value="Ste preričani, da želite trajno zbrisati število izbranih datotek %i. ?\n\nDatoteke bodo premaknjene v vaš &quot;koš&quot; če je seveda le-ta omogočen."/>
-	<string id="20432" value="PeerProject ni mogla zbrisati datoteke:\n\n%s"/>
-	<string id="20433" value="Vaša mapa za prenešene datoteke &quot;%s&quot; trenutno še ni v vaši knjižnici.\n\nČe boste prenešene datoteke vključili v svojo knjižnico, boste lažje dostopali do njih in tudi lažje pripravljali nove prenose. Prav tako vam bodo potem na voljo napredne PeerProject zmogljivosti, kot je npr. preverjanje prenešenih datotek in samodejno nadgrajevanje. S tem, ko boste postavili prenešene datoteke v knjižnico, še ne pomeni, da jih boste morali obvezno deliti: sami boste lahko izbrali katere datoteke želite deliti z drugimi.\n\nŽelite dodati mapo z vašimi prenešenimi datotekami v vašo knjižnico?"/>
-	<string id="20434" value="Mapa s prenešenimi datotekami je bila dodana v vašo knjižnico. Jo želite tudi deliti z drugimi?"/>
-	<string id="20435" value="Niste še izbrali predvajalnika medijev, kot je to npr. WinAmp podjetja Nullsoft, s katerim bi postavili datoteke v čakalno vrsto. Želite izbrati program zdaj?\n\nPeerProject bo posredovala ime datoteke izbranemu programu z argumentom &quot;/ADD&quot;."/>
-	<string id="20436" value="Ste prepričani, da želite zbrisati izbrano albumsko mapo %i?\n\nZapomnite si, da to dejanje ne pobriše datotek znotraj albumskih map, temveč samo ustrezne mape."/>
+	<!--string id="20431" value="Ste preričani, da želite trajno zbrisati število izbranih datotek %i. ?\n\nDatoteke bodo premaknjene v vaš &quot;koš&quot; če je seveda le-ta omogočen."-->
+	<string id="20432" value="Ste prepričani, da želite zbrisati izbrano albumsko mapo %i?\n\nZapomnite si, da to dejanje ne pobriše datotek znotraj albumskih map, temveč samo ustrezne mape."/>
+	<string id="20433" value="PeerProject ni mogla zbrisati datoteke:\n\n%s"/>
+	<string id="20434" value="Vaša mapa za prenešene datoteke &quot;%s&quot; trenutno še ni v vaši knjižnici.\n\nČe boste prenešene datoteke vključili v svojo knjižnico, boste lažje dostopali do njih in tudi lažje pripravljali nove prenose. Prav tako vam bodo potem na voljo napredne PeerProject zmogljivosti, kot je npr. preverjanje prenešenih datotek in samodejno nadgrajevanje. S tem, ko boste postavili prenešene datoteke v knjižnico, še ne pomeni, da jih boste morali obvezno deliti: sami boste lahko izbrali katere datoteke želite deliti z drugimi.\n\nŽelite dodati mapo z vašimi prenešenimi datotekami v vašo knjižnico?"/>
+	<string id="20435" value="Mapa s prenešenimi datotekami je bila dodana v vašo knjižnico. Jo želite tudi deliti z drugimi?"/>
+	<!--string id="20436" value="Niste še izbrali predvajalnika medijev, kot je to npr. WinAmp podjetja Nullsoft, s katerim bi postavili datoteke v čakalno vrsto. Želite izbrati program zdaj?\n\nPeerProject bo posredovala ime datoteke izbranemu programu z argumentom &quot;/ADD&quot;."-->
+	<string id="20436" value="Dodaj to mapo v knjižnico?\n\n%s"/>
+	<string id="20437" value="Ghost Datoteko"/>
 	<string id="20438" value="Urejujem metapodatke v številu datotek: %i."/>
 	<string id="20439" value="Pravkar boste spremenili metapodatke %i datotek, ste prepričani, da želite nadaljevati?"/>
 	<string id="20440" value="Premik datoteke %s ni uspel. Datoteko morda uporablja drug program. \n\nŽelite namesto tega poskusiti kopirati datoteko?"/>
@@ -2874,13 +2876,13 @@
 	<string id="20456" value="Senzam Predvajanja:"/>
 	<string id="20457" value="PeerProject ni uspela instancirati (spraviti v instanco) svoj MediaServices vtičnik. Ponovno namestite program PeerProject in potrdite, da imate nameščene ustrezne kodeke in gonilnike."/>
 	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; J &#160;&#160; S &#160;&#160; K &#160;&#160; I &#160;&#160; &#160;&#160; S &#160;&#160; I &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
-	<string id="20461" value="(Brez vizualizacije)"/>
-	<!--string id="20462" value="PeerProject je končala prenos:"-->
-	<!--string id="20463" value="PeerProject prenaša:"-->
-	<!--string id="20464" value="PeerProject premika prenos:"-->
-	<!--string id="20465" value="Prenos je trenutno prekinjen:"-->
-	<!--string id="20466" value="PeerProject išče vire za:"-->
-	<!--string id="20467" value="PeerProject preverja prenos po morebitnih napakah:"-->
+	<string id="20462" value="(Brez vizualizacije)"/>
+	<!--string id="20464" value="PeerProject je končala prenos:"-->
+	<!--string id="20465" value="PeerProject prenaša:"-->
+	<!--string id="20466" value="PeerProject premika prenos:"-->
+	<!--string id="20467" value="Prenos je trenutno prekinjen:"-->
+	<!--string id="20468" value="PeerProject išče vire za:"-->
+	<!--string id="20469" value="PeerProject preverja prenos po morebitnih napakah:"-->
 	<string id="20470" value="Prekliči"/>
 	<string id="20471" value="Odpri"/>
 	<string id="20472" value="Končano"/>
@@ -2971,9 +2973,7 @@
 	<string id="20578" value="Sosed %s je posodobil tabelo za usmerjanje poizvedb (%i bitov = %lu[%i], %i%% polno)."/>
 	<string id="20579" value="%s -&gt; %s [%i/%i] %s %s"/>
 	<string id="20580" value="Listnati sosed (leaf neighbour) %s posreduje poizvedbe, kočujem povezavo."/>
-	<string id="20581" value="Sosed %s je posredoval ping paket z neveljavno dolžino, ignoriram."/>
-	<string id="20582" value="Sosed %s je posredoval pong paket z neveljavno dolžino, ignoriram."/>
-	<string id="20583" value="Sosed %s je posredoval potisni paket (push packet) z neveljavno dolžino, ignoriram."/>
+	<string id="20582" value="Sosed %s je posredoval %s paket z neveljavno dolžino, ignoriram."/>
 	<string id="20584" value="Sosed %s je posredoval paket prekomerne velikosti, končujem povezavo."/>
 	<string id="20586" value="Sosed %s je posredoval neprepoznaven paket (0x%.2x), ignoriram."/>
 	<string id="20587" value="Sosed %s je posredoval pong z neveljavnimi naslovnimi podatki (invalid address data), ignoriram."/>
@@ -3129,7 +3129,7 @@
 	<string id="20804" value="Zavračam uporabniški zahtevek za brskanje od %s, preveliko število povezav za brskanje."/>
 	<string id="20805" value="Uporabniška zahteva po brskanju od %s je bila zavrnjena."/>
 	<string id="20806" value="Naložek (uploads) v čakalni vrsti %s prehitro izvaja ponovno naprošanje, zapiram povezavo."/>
-	<string id="20807" value="Zavračam nalaganje &quot;%s&quot; do  %s (%s), preveč hkratnih povezav gostitelja."/>
+	<string id="20807" value="Zavračam nalaganje &quot;%s&quot; do %s (%s), preveč hkratnih povezav gostitelja."/>
 	<string id="20808" value="Zavrnjeno nalaganje (upload) za &quot;%s&quot; do %s (%s), zaseden in odjemalec ne podpira čakalnih vrst."/>
 	<string id="20809" value="Zavračam nalaganje &quot;%s&quot; do %s (%s), vse enake čakalne vrste so polne."/>
 	<string id="20810" value="Gostitelj za nalaganje %s je zaprosil po nezadovoljivem razponu datoteke &quot;%s&quot;."/>
@@ -3159,7 +3159,7 @@
 	<string id="20836" value="Zavračam potisno prošnjo (push request) do %s, ker ima preveliko število povezav za nalaganje."/>
 	<string id="20837" value="Zapuščinska (legacy) potisna prošnja od %s je prosila za neznano datoteko, kljub temu se povezujem..."/>
 	<string id="20838" value="Prezaposlen za nalaganje &quot;%s&quot; do %s, v čakalni vrsti pri #%i od %i (&quot;%s&quot;.."/>
-	<string id="20840" value="Povezava za nalaganje do  %s je bila izgubljena, obdržujem mesto v čakalni vrsti."/>
+	<string id="20840" value="Povezava za nalaganje do %s je bila izgubljena, obdržujem mesto v čakalni vrsti."/>
 	<string id="20841" value="Nova čakalna vrsta"/>
 	<string id="20842" value="Vse datoteke"/>
 	<string id="20843" value="DC++ zaščitnik"/>
@@ -3199,8 +3199,8 @@
 	<string id="20886" value="Sprememba smeri vmesnika zahteva ponovni zagon.\n\nŽelite končati program?"/>
 	<string id="20890" value="Dobrodošli v PeerProject"/>
 	<string id="20891" value="Izhod"/>
-	<string id="20895" value="Niste še določili hitrosti za povezavo. Pred nadaljevanjem boste morali ali izbrati tip medmrežne povezave ali ročno vnesti hitrost povezave."/>
-	<string id="20896" value="Nakazali ste, da želite nastaviti posredovanje na vratih (port-forwarding) na NAT usmerjevalniku ali požarnem zidu.\n\nNastavite svoje omrežje, da bo posredovalo TCP in UDP varta %i na vaš lokalni PC."/>
+	<string id="20894" value="Niste še določili hitrosti za povezavo. Pred nadaljevanjem boste morali ali izbrati tip medmrežne povezave ali ročno vnesti hitrost povezave."/>
+	<!--string id="20896" value="Nakazali ste, da želite nastaviti posredovanje na vratih (port-forwarding) na NAT usmerjevalniku ali požarnem zidu.\n\nNastavite svoje omrežje, da bo posredovalo TCP in UDP varta %i na vaš lokalni PC."-->
 	<string id="20897" value="Mapa, ki jo delite, je že deljena, kot del druge mape za deljenje:\n\n%s"/>
 	<string id="20898" value="Niste izbrali map za deljenje. Ste prepričani?"/>
 	<string id="20899" value="let (starost)"/>
@@ -3342,7 +3342,7 @@
 		<control caption="Dovoljevanje vhodnih povezav"/>
 		<control/>
 		<control caption="Prezri zasebne/lokalne IP naslove"/>
-		<control caption="Enable UPnP connection devices setup"/>
+		<control caption="Enable Plug'n'Play port-forwarding"/>
 		<control caption="_Časovne omejitve:"/>
 		<control caption="Povezava:"/>
 		<control/>

@@ -1,7 +1,7 @@
 //
 // G2Neighbour.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -19,16 +19,16 @@
 #include "StdAfx.h"
 #include "Settings.h"
 #include "PeerProject.h"
-#include "Network.h"
-#include "Security.h"
-#include "Statistics.h"
+#include "Buffer.h"
 #include "Neighbours.h"
 #include "G2Neighbour.h"
 #include "G2Packet.h"
 #include "G1Packet.h"
-#include "Buffer.h"
-#include "Handshakes.h"
+#include "Network.h"
+#include "Security.h"
+#include "Statistics.h"
 #include "Datagrams.h"
+#include "Handshakes.h"
 #include "HostCache.h"
 #include "RouteCache.h"
 #include "VendorCache.h"
@@ -1140,7 +1140,7 @@ BOOL CG2Neighbour::OnQuery(CG2Packet* pPacket)
 	Statistics.Current.Gnutella2.Queries++;		// All Incoming
 
 	CQuerySearchPtr pSearch = CQuerySearch::FromPacket( pPacket );
-	if ( ! pSearch  || pSearch->m_bDropMe )
+	if ( ! pSearch || pSearch->m_bDropMe )
 	{
 		if ( ! pSearch )
 		{
@@ -1152,20 +1152,28 @@ BOOL CG2Neighbour::OnQuery(CG2Packet* pPacket)
 		return TRUE;
 	}
 
-	const BOOL bUseUDP = pSearch->m_bUDP &&
-		pSearch->m_pEndpoint.sin_addr.s_addr != m_pHost.sin_addr.s_addr;
-
-	if ( ( bUseUDP && m_nNodeType == ntLeaf ) ||				// Forbid UDP answer for leaf query
-		! Network.QueryRoute->Add( pSearch->m_oGUID, this ) )	// Forbid looped query
+	if ( Security.IsDenied( &pSearch->m_pEndpoint.sin_addr ) )
 	{
-		theApp.Message( MSG_INFO, IDS_PROTOCOL_BAD_QUERY, _T("G2"), (LPCTSTR)m_sAddress );
+		theApp.Message( MSG_DEBUG, IDS_PROTOCOL_BAD_QUERY, _T("G2 security"), (LPCTSTR)m_sAddress );
 		Statistics.Current.Gnutella2.Dropped++;
 		m_nDropCount++;
 		return TRUE;
 	}
 
-	if ( Security.IsDenied( &pSearch->m_pEndpoint.sin_addr ) )
+	const BOOL bUseUDP = pSearch->m_bUDP &&
+		pSearch->m_pEndpoint.sin_addr.s_addr != m_pHost.sin_addr.s_addr;
+
+	if ( bUseUDP && m_nNodeType == ntLeaf )						// Forbid UDP answer for leaf query
 	{
+		theApp.Message( MSG_INFO, IDS_PROTOCOL_BAD_QUERY, _T("G2 UDP leaf"), (LPCTSTR)m_sAddress );
+		Statistics.Current.Gnutella2.Dropped++;
+		m_nDropCount++;
+		return TRUE;
+	}
+
+	if ( ! Network.QueryRoute->Add( pSearch->m_oGUID, this ) )	// Forbid looped query
+	{
+		theApp.Message( MSG_INFO, IDS_PROTOCOL_BAD_QUERY, _T("G2 looped"), (LPCTSTR)m_sAddress );
 		Statistics.Current.Gnutella2.Dropped++;
 		m_nDropCount++;
 		return TRUE;
@@ -1288,11 +1296,11 @@ BOOL CG2Neighbour::OnQueryKeyAns(CG2Packet* pPacket)
 	WORD nPort = 0;
 
 	G2_PACKET nType;
-	DWORD nLength;
+	DWORD nLength, nOffset;
 
 	while ( pPacket->ReadPacket( nType, nLength ) )
 	{
-		const DWORD nOffset = pPacket->m_nPosition + nLength;
+		nOffset = pPacket->m_nPosition + nLength;
 
 		if ( nType == G2_PACKET_QUERY_KEY && nLength >= 4 )
 		{
@@ -1338,7 +1346,7 @@ bool CG2Neighbour::OnPush(CG2Packet* pPacket)
 	if ( ! pPacket->SkipCompound( nLength, 6 ) )
 	{
 		// Ignore packet and return that it was handled
-		theApp.Message( MSG_NOTICE, IDS_PROTOCOL_SIZE_PUSH, m_sAddress );
+		theApp.Message( MSG_NOTICE, IDS_PROTOCOL_SIZE_PACKET, m_sAddress, _T("push") );
 		DEBUG_ONLY( pPacket->Debug( _T("BadPush") ) );
 		++Statistics.Current.Gnutella2.Dropped;
 		++m_nDropCount;

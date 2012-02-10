@@ -94,7 +94,7 @@ inline bool ParsePASVArgs(const CString& args, SOCKADDR_IN& host)
 
 inline bool FTPisOK(const CString& str)
 {
-	return ( str.GetLength () == 3 && str [0] == _T('2') );
+	return ( str.GetLength() == 3 && str[0] == _T('2') );
 }
 
 //////////////////////////////////////////////////////////////////////

@@ -1,7 +1,7 @@
 //
 // WndDiscovery.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -19,6 +19,9 @@
 #pragma once
 
 #include "WndPanel.h"
+#include "LiveList.h"
+
+#define IDC_SERVICES	100
 
 class CDiscoveryService;
 
@@ -27,17 +30,17 @@ class CDiscoveryWnd : public CPanelWnd
 {
 	DECLARE_SERIAL(CDiscoveryWnd)
 
-	// Construction
+// Construction
 public:
 	CDiscoveryWnd();
-	virtual ~CDiscoveryWnd();
+	//virtual ~CDiscoveryWnd();
 
 // Attributes
 public:
-	CListCtrl		m_wndList;
-	CImageList		m_gdiImageList;
+	CLiveListCtrl	m_wndList;
 	CLiveListSizer	m_pSizer;
 	CCoolBarCtrl    m_wndToolBar;
+	CImageList		m_gdiImageList;
 	BOOL			m_bShowGnutella;
 	BOOL			m_bShowWebCache;
 	BOOL			m_bShowServerList;
@@ -50,7 +53,7 @@ public:
 	void				OnSkinChange();
 
 // Overrides
-public:
+//public:
 	//{{AFX_VIRTUAL(CDiscoveryWnd)
 	//}}AFX_VIRTUAL
 
@@ -87,5 +90,3 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 };
-
-#define IDC_SERVICES	100

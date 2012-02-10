@@ -1,7 +1,7 @@
 //
 // RichViewCtrl.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -287,13 +287,10 @@ BOOL CRichViewCtrl::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 			return TRUE;
 		}
 
-		if ( m_bSelectable )
+		if ( m_bSelectable && ( m_bSelecting || ( pFrag != NULL && pFrag->m_nLength > 0 ) ) )
 		{
-			if ( m_bSelecting || ( pFrag != NULL && pFrag->m_nLength > 0 ) )
-			{
-				SetCursor( m_hcText );
-				return TRUE;
-			}
+			SetCursor( m_hcText );
+			return TRUE;
 		}
 	}
 
@@ -513,8 +510,6 @@ void CRichViewCtrl::ClearFragments()
 
 void CRichViewCtrl::Layout(CDC* pDC, CRect* pRect)
 {
-	ASSERT( m_pDocument != NULL );
-
 	CSingleLock pLock( &m_pDocument->m_pSection, TRUE );
 
 	ClearFragments();

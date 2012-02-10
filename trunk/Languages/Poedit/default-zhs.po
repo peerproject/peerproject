@@ -5632,23 +5632,23 @@ msgstr "确定要载入 \"%s\" 此文件吗？\\n\\n某些文件可能对您的�
 msgid "Are you sure you want to permanently delete the %i selected files ?\\n\\nThe files will be moved to your \"recycle bin\" if it is enabled."
 msgstr "确定要永久删除选定的 %i 文件吗？ \\n\\n如果您确定，文件将会被移动到 \"回收站\"。"
 
-#: string;20432
+#: string;20433
 msgid "PeerProject could not delete the file:\\n\\n%s"
 msgstr "PeerProject 不能删除 \\n\\n%s"
 
-#: string;20433
+#: string;20434
 msgid "Your downloaded files folder \"%s\" is not yet in your library.\\n\\nIncluding your downloaded files folder in your library makes it easier to view and organize new downloads, and lets you take advantage of advanced PeerProject features such as download verification and automatic upgrading. Placing downloaded files in your library does not necessarily require you to share them: you can choose whether or not to share files independently.\\n\\nWould you like to add your downloaded files folder to your library now?"
 msgstr "您的下载完成文件夹不在收藏中。\\n\\n将下载完成文件夹包括在收藏中，查看和管理将更加容易，还可以使用 PeerProject 的验证功能和自动更新。共享放在收藏中下载文件是不必要的。您可以单独选择是否共享文件。\\n\\n确定马上把下载文件加入收藏中吗？"
 
-#: string;20434
+#: string;20435
 msgid "Your downloads folder has been added to your library. Would you like to share it too?"
 msgstr "下载文件夹已经被添加到收藏中。您想要共享吗？"
 
-#: string;20435
+#: string;20436
 msgid "You have not yet selected a media player to enqueue files with, such as Nullsoft Winamp. Would you like to select one now?\\n\\nPeerProject will pass the name of the file to your selected program with the \"/ADD\" argument."
 msgstr "您还没有选定文件将被加入的媒体播放器，比如 winamp。您要选择一个吗？\\n\\nPeerProject 会用 \"/ADD\" 把文件名传值过去。"
 
-#: string;20436
+#: string;20432
 msgid "Are you sure you want to delete the %i selected album folders ?\\n\\nNote that this action does not delete the files within the album folders, only the folders themselves."
 msgstr "您确定要删除 %i 个选定的专辑文件夹吗？\\n\\n注意: 仅仅是删除文件夹本身，并不包括专辑文件夹。"
 
@@ -5748,7 +5748,7 @@ msgstr ""
 msgid "P    E    E    R    P    R    O    J    E    C    T       M    E    D    I    A       S    Y    S    T    E    M"
 msgstr "P    E    E    R    P    R    O    J    E    C    T       媒    系  统"
 
-#: string;20461
+#: string;20462
 msgid "(No Visualisation)"
 msgstr "(无可视化效果)"
 
@@ -6100,17 +6100,9 @@ msgstr "%s -> %s [%i/%i] %s %s"
 msgid "Leaf neighbor %s is forwarding queries, dropping connection."
 msgstr "子端邻居 %s 主机发来质询，断开连接。"
 
-#: string;20581
-msgid "Neighbor %s forwarded a ping packet with invalid length, ignoring."
-msgstr "邻居 %s 主机发来的 ping 数据包尺寸不匹配，忽略数据包。"
-
 #: string;20582
-msgid "Neighbor %s forwarded a pong packet with invalid length, ignoring."
+msgid "Neighbor %s forwarded a %s packet with invalid length, ignoring."
 msgstr "邻居 %s 主机发来的 pong 数据包尺寸不匹配，忽略数据包。"
-
-#: string;20583
-msgid "Neighbor %s forwarded a push packet with invalid length, ignoring."
-msgstr "邻居 %s 主机发来非法的获取数据包，忽略数据包。"
 
 #: string;20584
 msgid "Neighbor %s forwarded a packet of excessive size, dropping connection."
@@ -6281,11 +6273,11 @@ msgid "Unable to download preview content from \"%s\"."
 msgstr "未能从 \"%s\" 下载预览内容。"
 
 #: string;20630
-msgid "There are %i reviews."
+msgid "%i Reviews."
 msgstr "这里有 %i 个评价。"
 
 #: string;20631
-msgid "There is one review."
+msgid "One review."
 msgstr "这里有 1 个评价。"
 
 #: string;20632
@@ -6729,7 +6721,7 @@ msgid "Total Files:"
 msgstr "文件总计:"
 
 #: string;20788
-msgid "Total Volume:"
+msgid "Total Size:"
 msgstr "大小总计:"
 
 #: string;20789
@@ -7068,7 +7060,7 @@ msgstr "请稍候: 更新 edonkey 服务器列表..."
 msgid "Please wait: Updating discovery services..."
 msgstr "请稍候: 更新发现服务器..."
 
-#: string;20894
+#: string;20895
 msgid "Please wait: Finding UPnP devices and setting them up..."
 msgstr "请稍候: 查找 UPnP 驱动器并进行设置..."
 
@@ -7533,7 +7525,7 @@ msgid "Ignore private/local IP addresses"
 msgstr "忽略 私用/本地 IP 地址"
 
 #: cconnectionsettingspage;control;19
-msgid "Enable UPnP connection devices setup"
+msgid "Enable Plug'n'Play port-forwarding"
 msgstr "启用 UPnP 连接驱动器设置"
 
 #: cconnectionsettingspage;control;20

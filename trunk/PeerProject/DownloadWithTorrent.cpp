@@ -465,11 +465,11 @@ bool CDownloadWithTorrent::RunTorrent(DWORD tNow)
 								strName = pFragFile->GetName( i );
 								strName = strName.Mid( strName.ReverseFind( '\\' ) + 1 );
 
-								if ( strName.GetAt( 0 ) == _T('_') && Settings.BitTorrent.SkipPaddingFiles &&
-										  strName.Left( 18 ) == _T("_____padding_file_") )
+								if ( strName[0] == '_' && Settings.BitTorrent.SkipPaddingFiles &&
+										  StartsWith( strName, _T("_____padding_file_"), 18 ) )
 									pFragFile->SetPriority( i, CFragmentedFile::prUnwanted );
-								else if ( strName.GetAt( 0 ) == _T('T') && Settings.BitTorrent.SkipTrackerFiles && strName.Right( 4 ) == _T(".txt") &&
-										( strName.Left( 24 ) == _T("Torrent downloaded from ") || strName.Left( 24 ) == _T("Torrent_downloaded_from_") ) )
+								else if ( Settings.BitTorrent.SkipTrackerFiles && strName.Right( 4 ) == _T(".txt") &&
+										( StartsWith( strName, _T("Torrent downloaded from "), 24 ) || StartsWith( strName, _T("Torrent_downloaded_from_"), 24 ) ) )
 									pFragFile->SetPriority( i, CFragmentedFile::prUnwanted );
 							}
 						}

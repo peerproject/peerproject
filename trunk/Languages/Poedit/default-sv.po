@@ -5632,23 +5632,23 @@ msgstr "Är du säker på att du vill köra filen \"%s\".\\n\\nVissa filer kan s
 msgid "Are you sure you want to permanently delete the %i selected files ?\\n\\nThe files will be moved to your \"recycle bin\" if it is enabled."
 msgstr "Är du säker på att du vill radera de %i valda filerna?\\n\\nFilerna kommer att flyttas till din papperskorg om den är aktiverad, annars raderas de för alltid."
 
-#: string;20432
+#: string;20433
 msgid "PeerProject could not delete the file:\\n\\n%s"
 msgstr "PeerProject kan inte radera filen:\\n\\n%s"
 
-#: string;20433
+#: string;20434
 msgid "Your downloaded files folder \"%s\" is not yet in your library.\\n\\nIncluding your downloaded files folder in your library makes it easier to view and organize new downloads, and lets you take advantage of advanced PeerProject features such as download verification and automatic upgrading. Placing downloaded files in your library does not necessarily require you to share them: you can choose whether or not to share files independently.\\n\\nWould you like to add your downloaded files folder to your library now?"
 msgstr "Din nedladdningsmapp \"%s\" är ännu inte i ditt bibliotek.\\n\\nInkludering av din nedladdningsmapp i ditt bibliotek gör det enklare att visa och organisera nya nedladdningar och låter dig använda avancerade PeerProjectfunktioner som t.ex. neladdningsverifikation och automatisk uppgradering. Placering av nedladdade filer i ditt bibliotek innebär inte nödvändigtvis att du måste dela ut dem. Du kan välja vilka filer du vill dela ut var för sig.\\n\\nVill du lägga till nedladdningsmappen till ditt bibliotek nu?"
 
-#: string;20434
+#: string;20435
 msgid "Your downloads folder has been added to your library. Would you like to share it too?"
 msgstr "Din nedladdningsmapp har lagts till ditt bibliotek. Vill du dela ut den också?"
 
-#: string;20435
+#: string;20436
 msgid "You have not yet selected a media player to enqueue files with, such as Nullsoft Winamp. Would you like to select one now?\\n\\nPeerProject will pass the name of the file to your selected program with the \"/ADD\" argument."
 msgstr "Du har inte valt en mediaspelare att kölägga filerna med, som t.ex. Nullsoft WinAmp. Vill du välja en nu?\\n\\nPeerProject kommer att skicka namnet på filen till ditt valda program med \"/ADD\"-argumentet."
 
-#: string;20436
+#: string;20432
 msgid "Are you sure you want to delete the %i selected album folders ?\\n\\nNote that this action does not delete the files within the album folders, only the folders themselves."
 msgstr "Är du säker på att du vill radera de %i valda albummapparna?\\n\\nRadering av albummappar raderar inte filerna som tillhör dem, utan endast mapparna."
 
@@ -5748,7 +5748,7 @@ msgstr ""
 msgid "P    E    E    R    P    R    O    J    E    C    T       M    E    D    I    A       S    Y    S    T    E    M"
 msgstr "P    E    E    R    P    R    O    J    E    C    T       M    E    D    I    A       S    Y    S    T    E    M"
 
-#: string;20461
+#: string;20462
 msgid "(No Visualisation)"
 msgstr "(Ingen visualisering)"
 
@@ -6100,17 +6100,9 @@ msgstr "%s -> %s [%i/%i] %s %s"
 msgid "Leaf neighbor %s is forwarding queries, dropping connection."
 msgstr "Lövgranne %s skickar vidare förfrågor, släpper anslutning."
 
-#: string;20581
-msgid "Neighbor %s forwarded a ping packet with invalid length, ignoring."
-msgstr "Grannen %s skickade ett pingpaket med en felaktig längd, ignorerar."
-
 #: string;20582
-msgid "Neighbor %s forwarded a pong packet with invalid length, ignoring."
+msgid "Neighbor %s forwarded a %s packet with invalid length, ignoring."
 msgstr "Grannen %s skickade ett pongpaket med felaktig längd, ignorerar."
-
-#: string;20583
-msgid "Neighbor %s forwarded a push packet with invalid length, ignoring."
-msgstr "Grannen %s skickade ett paket för anslutningsbegämed felaktig längd, ignorerar."
 
 #: string;20584
 msgid "Neighbor %s forwarded a packet of excessive size, dropping connection."
@@ -6281,11 +6273,11 @@ msgid "Unable to download preview content from \"%s\"."
 msgstr "Kan inte ladda ned förhandsvisningsinnehåll från \"%s\"."
 
 #: string;20630
-msgid "There are %i reviews."
+msgid "%i Reviews."
 msgstr "Det finns %i recensioner."
 
 #: string;20631
-msgid "There is one review."
+msgid "One review."
 msgstr "Det finns en recension."
 
 #: string;20632
@@ -6729,7 +6721,7 @@ msgid "Total Files:"
 msgstr "Totalt antal filer:"
 
 #: string;20788
-msgid "Total Volume:"
+msgid "Total Size:"
 msgstr "Total volym:"
 
 #: string;20789
@@ -7068,7 +7060,7 @@ msgstr "Var god vänta: Uppdaterar eDonkey serverlista..."
 msgid "Please wait: Updating discovery services..."
 msgstr "Var god vänta: Uppdaterar upptäckstjänster..."
 
-#: string;20894
+#: string;20895
 msgid "Please wait: Finding UPnP devices and setting them up..."
 msgstr "Var god vänta: Hittar och installerar UPnP-enheter..."
 
@@ -7533,7 +7525,7 @@ msgid "Ignore private/local IP addresses"
 msgstr "Ignorera privata/lokala IP-adresser"
 
 #: cconnectionsettingspage;control;19
-msgid "Enable UPnP connection devices setup"
+msgid "Enable Plug'n'Play port-forwarding"
 msgstr "Tillåt inställning av UPnP-enheter"
 
 #: cconnectionsettingspage;control;20

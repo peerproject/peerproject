@@ -444,7 +444,11 @@ BOOL CMetaItem::CreateLink()
 	if ( m_pMember->m_sLinkURI.IsEmpty() ) return FALSE;
 	if ( m_pMember->m_sLinkName.IsEmpty() ) return FALSE;
 
-	m_bLink = LibraryFolders.GetAlbumTarget( m_pMember->m_sLinkURI, m_pMember->m_sLinkName, m_sValue ) != NULL;
+	{
+		CQuickLock oLock( Library.m_pSection );		// ASSUME_LOCKs
+
+		m_bLink = LibraryFolders.GetAlbumTarget( m_pMember->m_sLinkURI, m_pMember->m_sLinkName, m_sValue ) != NULL;
+	}
 
 	if ( m_bLink ) m_sLink = m_sValue;
 

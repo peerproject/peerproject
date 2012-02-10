@@ -1,7 +1,7 @@
 //
 // WndBaseMatch.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -35,9 +35,8 @@
 #include "ChatWindows.h"
 #include "MatchListView.h"
 #include "RelatedSearch.h"
+#include "ResultFilters.h"
 
-#include "Skin.h"
-#include "CoolInterface.h"
 #include "WndMain.h"
 #include "WndBaseMatch.h"
 #include "WndDownloads.h"
@@ -50,8 +49,9 @@
 #include "DlgURLCopy.h"
 #include "DlgURLExport.h"
 #include "DlgExistingFile.h"
+#include "CoolInterface.h"
 #include "CoolMenu.h"
-#include "ResultFilters.h"
+#include "Skin.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -295,8 +295,8 @@ void CBaseMatchWnd::OnSearchDownload()
 			break;
 		case CExistingFileDlg::Cancel:
 			return;
-		default:
-			;
+		//default:
+		//	;
 		}
 
 		pSingleLock.Lock();
@@ -315,8 +315,8 @@ void CBaseMatchWnd::OnSearchDownload()
 			break;
 		case CExistingFileDlg::Cancel:
 			return;
-		default:
-			;
+		//default:
+		//	;
 		}
 
 		pSingleLock.Lock();
@@ -381,8 +381,8 @@ void CBaseMatchWnd::OnSearchDownloadNow()
 			break;
 		case CExistingFileDlg::Cancel:
 			return;
-		default:
-			;
+		//default:
+		//	;
 		}
 
 		pSingleLock.Lock();
@@ -401,8 +401,8 @@ void CBaseMatchWnd::OnSearchDownloadNow()
 			break;
 		case CExistingFileDlg::Cancel:
 			return;
-		default:
-			;
+		//default:
+		//	;
 		}
 
 		pSingleLock.Lock();
@@ -939,7 +939,7 @@ void CBaseMatchWnd::OnTimer(UINT_PTR nIDEvent)
 {
 	if ( m_wndFilter.m_hWnd == NULL ) return;
 
-//	DWORD nNow = GetTickCount();
+//	const DWORD tNow = GetTickCount();
 
 	if ( nIDEvent == 1 )
 	{

@@ -1,7 +1,7 @@
 //
 // WizardConnectionPage.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -26,17 +26,17 @@ class CWizardConnectionPage :
 	public CWizardPage,
 	public CThreadImpl
 {
+	DECLARE_DYNCREATE(CWizardConnectionPage)
+
 // Construction
 public:
 	CWizardConnectionPage();
 	virtual ~CWizardConnectionPage();
 
-	DECLARE_DYNCREATE(CWizardConnectionPage)
-
 	enum { IDD = IDD_WIZARD_CONNECTION };
 
 // Dialog Data
-public:
+protected:
 	CComboBox	m_wndType;
 	CComboBox	m_wndDownloadSpeed;
 	CComboBox	m_wndUploadSpeed;
@@ -46,10 +46,8 @@ public:
 	CStatic		m_wndStatus;
 	CProgressCtrl m_wndProgress;
 
-private:
 	bool		m_bQueryDiscoveries;
-	bool		m_bUpdateDonkeyServers;
-	bool		m_bUPnPForward;
+	bool		m_bUpdateServers;
 	BOOL		m_bRandom;
 	DWORD		m_nPort;
 	short		m_nProgressSteps;
@@ -63,17 +61,14 @@ protected:
 	void		OnRun();
 
 // Overrides
-public:
-	virtual BOOL OnSetActive();
-	virtual LRESULT OnWizardNext();
-	virtual BOOL OnQueryCancel();
-
-protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
 	virtual BOOL OnInitDialog();
+	virtual BOOL OnSetActive();
+	virtual BOOL OnQueryCancel();
+	virtual LRESULT OnWizardNext();
+
 	afx_msg void OnSelChangeConnectionType();
 	afx_msg void OnChangeConnectionSpeed();
-	afx_msg void OnSelChangeUPnP();
 	afx_msg void OnBnClickedRandom();
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnXButtonDown(UINT nFlags, UINT nButton, CPoint point);

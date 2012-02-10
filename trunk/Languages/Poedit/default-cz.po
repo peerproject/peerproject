@@ -5632,23 +5632,23 @@ msgstr "Opravdu chcete spustit soubor \"%s\" ?\\n\\nNěkteré soubory mohou poš
 msgid "Are you sure you want to permanently delete the %i selected files ?\\n\\nThe files will be moved to your \"recycle bin\" if it is enabled."
 msgstr "Opravdu chcete trvale vymazat vybraný soubor(y) %i ?\\n\\nPokud to povolíte, soubory budou přesunuty do \"koše\" (pokud je povolený)."
 
-#: string;20432
+#: string;20433
 msgid "PeerProject could not delete the file:\\n\\n%s"
 msgstr "PeerProject nemohla smazat soubor:\\n\\n%s"
 
-#: string;20433
+#: string;20434
 msgid "Your downloaded files folder \"%s\" is not yet in your library.\\n\\nIncluding your downloaded files folder in your library makes it easier to view and organize new downloads, and lets you take advantage of advanced PeerProject features such as download verification and automatic upgrading. Placing downloaded files in your library does not necessarily require you to share them: you can choose whether or not to share files independently.\\n\\nWould you like to add your downloaded files folder to your library now?"
 msgstr "Adresář se staženými soubory \"%s\" ještě není zařazen ve vaší knihovně.\\n\\nStažené soubory ve knihovně můžete snadněji prohlížet a třídit, a umožňuje využívat pokročilé funkce PeerProject: například ověření stahování a automatické aktualizace. Umístění stažených souborů v knihovně nevyžaduje nutně jejich sdílení: můžete si zvolit, zda budete nebo nebudete sdílet tyto soubory.\\n\\nChcete přidat stažené soubory do knihovny?"
 
-#: string;20434
+#: string;20435
 msgid "Your downloads folder has been added to your library. Would you like to share it too?"
 msgstr "Adresář se staženými soubory byl přidaný do složky v knihovně. Chcete jej také sdílet?"
 
-#: string;20435
+#: string;20436
 msgid "You have not yet selected a media player to enqueue files with, such as Nullsoft Winamp. Would you like to select one now?\\n\\nPeerProject will pass the name of the file to your selected program with the \"/ADD\" argument."
 msgstr "Ještě jste nevybrali přehrávač pro multimédiální soubory, jako např. Nullsoft WinAmp. Chcete přehrávač vybrat nyní?\\n\\nPeerProject předá programu název souboru s parametrem \"/ADD\"."
 
-#: string;20436
+#: string;20432
 msgid "Are you sure you want to delete the %i selected album folders ?\\n\\nNote that this action does not delete the files within the album folders, only the folders themselves."
 msgstr "Opravdu chcete vymazat %i označených složek s albem ?\\n\\nTato akce nevymaže samotné soubory uvnitř složek alba, ale jen složky."
 
@@ -5748,7 +5748,7 @@ msgstr ""
 msgid "P    E    E    R    P    R    O    J    E    C    T       M    E    D    I    A       S    Y    S    T    E    M"
 msgstr "P    E    E    R    P    R    O    J    E    C    T       M    E    D    I    A       S    Y    S    T    E    M"
 
-#: string;20461
+#: string;20462
 msgid "(No Visualisation)"
 msgstr "(Nezobrazovat)"
 
@@ -6100,17 +6100,9 @@ msgstr "%s -> %s [%i/%i] %s %s"
 msgid "Leaf neighbor %s is forwarding queries, dropping connection."
 msgstr "Seznam se předá počítači %s s dotazem na výpadky spojení."
 
-#: string;20581
-msgid "Neighbor %s forwarded a ping packet with invalid length, ignoring."
-msgstr "Soused %s poslal ping na paket s nesprávnou délkou, ignoruji."
-
 #: string;20582
-msgid "Neighbor %s forwarded a pong packet with invalid length, ignoring."
+msgid "Neighbor %s forwarded a %s packet with invalid length, ignoring."
 msgstr "Soused %s poslal pong na paket s nesprávnou délkou, ignoruji."
-
-#: string;20583
-msgid "Neighbor %s forwarded a push packet with invalid length, ignoring."
-msgstr "Soused %s poslal paket s nesprávnou délkou, ignoruji."
 
 #: string;20584
 msgid "Neighbor %s forwarded a packet of excessive size, dropping connection."
@@ -6281,11 +6273,11 @@ msgid "Unable to download preview content from \"%s\"."
 msgstr "Nelze stáhnout náhled z \"%s\"."
 
 #: string;20630
-msgid "There are %i reviews."
+msgid "%i Reviews."
 msgstr "Jsou zde %i hodnocení."
 
 #: string;20631
-msgid "There is one review."
+msgid "One review."
 msgstr "Je zde jedno hodnocení."
 
 #: string;20632
@@ -6729,7 +6721,7 @@ msgid "Total Files:"
 msgstr "Celkem souborů:"
 
 #: string;20788
-msgid "Total Volume:"
+msgid "Total Size:"
 msgstr "Celková velikost:"
 
 #: string;20789
@@ -7068,7 +7060,7 @@ msgstr "Prosím čekejte, aktualizuji seznam eDonkey serverů..."
 msgid "Please wait: Updating discovery services..."
 msgstr "Prosím čekejte, aktualizuji vyhledávací služby..."
 
-#: string;20894
+#: string;20895
 msgid "Please wait: Finding UPnP devices and setting them up..."
 msgstr "Prosím čekejte, hledám UPnP zařízení a nastavuji je..."
 
@@ -7533,7 +7525,7 @@ msgid "Ignore private/local IP addresses"
 msgstr "Ignoruj soukromé/lokální IP adresy "
 
 #: cconnectionsettingspage;control;19
-msgid "Enable UPnP connection devices setup"
+msgid "Enable Plug'n'Play port-forwarding"
 msgstr "Povolit nastavení UPnP zařízení"
 
 #: cconnectionsettingspage;control;20

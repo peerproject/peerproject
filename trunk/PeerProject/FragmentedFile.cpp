@@ -597,7 +597,7 @@ DWORD CFragmentedFile::Move(DWORD nIndex, LPCTSTR pszDestination, LPPROGRESS_ROU
 
 		sPath = m_oFile[ nIndex ].m_sPath;
 		sName = m_oFile[ nIndex ].m_sName;
-		bSkip = ( m_oFile[ nIndex ].m_nPriority == prUnwanted );
+		bSkip = m_oFile[ nIndex ].m_nPriority == prUnwanted;
 
 		// Close our handle
 		m_oFile[ nIndex ].Release();
@@ -609,7 +609,6 @@ DWORD CFragmentedFile::Move(DWORD nIndex, LPCTSTR pszDestination, LPPROGRESS_ROU
 	ASSERT( ! sName.IsEmpty() );
 
 	CString strTarget( CString( pszDestination ) + _T("\\") + sName );
-	CString strTargetDir = strTarget.Left( strTarget.ReverseFind( _T('\\') ) + 1 );
 
 	if ( ! strTarget.CompareNoCase( sPath ) )
 		return ERROR_SUCCESS;		// Already moved
@@ -618,7 +617,10 @@ DWORD CFragmentedFile::Move(DWORD nIndex, LPCTSTR pszDestination, LPPROGRESS_ROU
 		theApp.Message( MSG_DEBUG, _T("Skipping \"%s\"..."), sPath );
 	else
 		theApp.Message( MSG_DEBUG, _T("Moving \"%s\" to \"%s\"..."),
-			(LPCTSTR)sPath, (LPCTSTR)strTargetDir );
+			(LPCTSTR)sPath, (LPCTSTR)strTarget.Left( strTarget.ReverseFind( _T('\\') ) + 1 ) );
+
+	if ( sPath.GetLength() > MAX_PATH ) sPath = _T("\\\\?\\") + sPath;
+	if ( strTarget.GetLength() > MAX_PATH ) strTarget = _T("\\\\?\\") + strTarget;
 
 	// Close chained uploads
 	theApp.OnRename( sPath );
@@ -629,16 +631,10 @@ DWORD CFragmentedFile::Move(DWORD nIndex, LPCTSTR pszDestination, LPPROGRESS_ROU
 	if ( bSuccess )
 	{
 		if ( bSkip )
-		{
-			bSuccess = DeleteFileEx( sPath, FALSE, TRUE, TRUE );
-		}
+			bSuccess = DeleteFileEx( sPath, FALSE, TRUE, TRUE );	// Breaks possible seeds?
 		else
-		{
-			// Move/copy file using very long filenames
-			bSuccess = MoveFileWithProgress( CString( _T("\\\\?\\") ) + sPath,
-				CString( _T("\\\\?\\") ) + strTarget, lpProgressRoutine, lpData,
+			bSuccess = MoveFileWithProgress( sPath, strTarget, lpProgressRoutine, lpData,
 				MOVEFILE_REPLACE_EXISTING | MOVEFILE_COPY_ALLOWED | MOVEFILE_WRITE_THROUGH );
-		}
 
 		dwError = ::GetLastError();
 	}

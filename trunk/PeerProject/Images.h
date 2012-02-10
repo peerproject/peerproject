@@ -135,7 +135,7 @@ extern CImages Images;
 #define STATE_DISABLED			4
 #define STATE_COUNT 			5
 
-
+// External References
 #define IMAGE_BANNER			0
 #define IMAGE_DIALOG			1
 #define IMAGE_DIALOGPANEL		2
