@@ -1,7 +1,7 @@
 //
 // VersionChecker.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -47,7 +47,9 @@ public:
 	void		ForceCheck();
 	static void ClearVersionCheck();
 	void		SetNextCheck(int nDays);
-    BOOL		CheckUpgradeHash(const CLibraryFile* pFile = NULL);
+	BOOL		CheckUpgradeHash(const CLibraryFile* pFile = NULL);
+
+	static BOOL	IsVersionNewer();		// Test if available version is newer than current
 
 	inline bool	IsUpgradeAvailable() const throw()
 	{

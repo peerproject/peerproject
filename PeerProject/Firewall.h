@@ -1,7 +1,7 @@
 //
 // Firewall.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -48,10 +48,10 @@ public:
 	CComPtr< INetFwAuthorizedApplication >	Program;
 	CComPtr< INetFwOpenPort >				Port;
 
-	// UPnP COM interfaces
+	// UPnP COM interfaces (Obsolete)
 	//CComPtr< IUPnPNAT >					Nat;
-	CComPtr< IStaticPortMappingCollection >	Collection;
-	CComPtr< IStaticPortMapping >			Mapping;
+	//CComPtr< IStaticPortMappingCollection > Collection;
+	//CComPtr< IStaticPortMapping >			Mapping;
 
 	// Examples controlling Windows Firewall
 	//
@@ -73,5 +73,5 @@ public:
 	BOOL IsServiceEnabled( NET_FW_SERVICE_TYPE service, BOOL* enabled );	// Determine if a service is checked
 	BOOL IsProgramEnabled( const CString& path, BOOL* enabled );			// Determine if a listed program is checked
 	BOOL IsProgramListed( const CString& path, BOOL* listed );				// Determine if a program is on the exceptions list
-	BOOL AreExceptionsAllowed();											// Find out if the system is in no-exceptions mode
+	BOOL AreExceptionsAllowed() const;										// Find out if the system is in no-exceptions mode
 };

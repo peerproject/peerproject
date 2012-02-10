@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Dutch Skin File -->
 
-<!-- Translation based on default-en.xml r70 -->
+<!-- Translation based on default-en.xml r74 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -18,7 +18,7 @@
 	author="Jan-Willem Koornwinder (Thurstydog)"
 	updatedBy="ceceboy, Neglacio"
 	description="PeerProject Default Dutch Skin File"
-	link="http://PeerProject.org"
+	link="http://peerproject.org"
 	email="Neglacio@live.nl"
 	version="1.0.0.0"
 	type="Language"
@@ -3063,12 +3063,13 @@
 	<string id="20428" value="PeerProject heeft een collectiebestand ontvangen:\n\n&quot;%s&quot;.\n\nDit bestand is waarschijnlijk geen geldig collectiebestand."/>
 	<string id="20429" value="Wil je voorkomen dat je nog een keer wordt gevraagd om iets van deze collectie te downloaden?"/>
 	<string id="20430" value="Weet je zeker dat je het bestand &quot;%s&quot; wilt openen?\n\nSommige bestanden kunnen kunnen je computer beschadigen. Ga eerst na wat voor soort bestand het is voordat je het opent."/>
-	<string id="20431" value="Weet je zeker dat je de %i geselecteeerde bestand(en) voorgoed wilt verwijderen ?\n\nDe bestanden zullen worden verplaatst naar je Windows &quot;prullenbak&quot; als dit mogelijk is."/>
-	<string id="20432" value="PeerProject kon het bestand\n\n%s niet verwijderen."/>
-	<string id="20433" value="De map &quot;%s&quot; met je gedownloade bestanden zit nog niet in je bibliotheek.\n\nAls deze map is toegevoegd aan je bibliotheek, wordt het gemakkelijker om nieuwe downloads te bekijken en te beheren. Ook kun je dan gebruik maken van extra PeerProject eigenschappen zoals downloadcontrole en automatische upgrades. Het plaatsen van gedownloade bestanden in je bibliotheek wil niet meteen zeggen dat ze moeten worden gedeeld: je kunt voor elk bestand bepalen of je het al dan niet wilt delen.\n\nWil je de map met gedownloade bestanden nu aan je bibbliotheek toevoegen?"/>
-	<string id="20434" value="Je map met downloads is toegevoegd aan je bibliotheek. Wil je het ook delen?"/>
-	<string id="20435" value="Je hebt nog geen mediaspeler geselecteerd voor het in de wachtrij plaatsen van bestanden, zoals Nullsoft Winamp. Wil je er nu één uitkiezen?\n\nPeerProject zal de naam van het bestand doorgeven aan het geselecteerde programma met de parameter &quot;/ADD&quot;."/>
-	<string id="20436" value="Weet je zeker dat je de %i geselecteerde albummappen wilt verwijderen?\n\nMet deze actie worden niet de bestanden uit deze albums verwijderd, maar alleen de mappen zelf."/>
+	<!--string id="20431" value="Weet je zeker dat je de %i geselecteeerde bestand(en) voorgoed wilt verwijderen ?\n\nDe bestanden zullen worden verplaatst naar je Windows &quot;prullenbak&quot; als dit mogelijk is."-->
+	<string id="20432" value="Weet je zeker dat je de %i geselecteerde albummappen wilt verwijderen?\n\nMet deze actie worden niet de bestanden uit deze albums verwijderd, maar alleen de mappen zelf."/>
+	<string id="20433" value="PeerProject kon het bestand\n\n%s niet verwijderen."/>
+	<string id="20434" value="De map &quot;%s&quot; met je gedownloade bestanden zit nog niet in je bibliotheek.\n\nAls deze map is toegevoegd aan je bibliotheek, wordt het gemakkelijker om nieuwe downloads te bekijken en te beheren. Ook kun je dan gebruik maken van extra PeerProject eigenschappen zoals downloadcontrole en automatische upgrades. Het plaatsen van gedownloade bestanden in je bibliotheek wil niet meteen zeggen dat ze moeten worden gedeeld: je kunt voor elk bestand bepalen of je het al dan niet wilt delen.\n\nWil je de map met gedownloade bestanden nu aan je bibbliotheek toevoegen?"/>
+	<string id="20435" value="Je map met downloads is toegevoegd aan je bibliotheek. Wil je het ook delen?"/>
+	<!--string id="20436" value="Je hebt nog geen mediaspeler geselecteerd voor het in de wachtrij plaatsen van bestanden, zoals Nullsoft Winamp. Wil je er nu één uitkiezen?\n\nPeerProject zal de naam van het bestand doorgeven aan het geselecteerde programma met de parameter &quot;/ADD&quot;."-->
+	<string id="20436" value="Voeg deze map om uw bibliotheek?\n\n%s"/>
 	<string id="20437" value="Spookbestand"/>
 	<string id="20438" value="Metadata van %i bestanden worden gewijzigd."/>
 	<string id="20439" value="Je staat op het punt om de metadata van %i bestanden te wijzigen, weet je zeker dat je door wilt gaan?"/>
@@ -3092,13 +3093,13 @@
 	<string id="20457" value="PeerProject kon de MediaServices plugin niet opstarten. Installeer PeerProject alsjeblieft opnieuw en kijk na of je de benodigde mediacodecs en outputdrivers hebt geïnstalleerd."/>
 	<string id="20458" value="PeerProject Media Speler"/>
 	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
-	<string id="20461" value="(Geen visualisatie)"/>
-	<!--string id="20462" value="PeerProject heeft het downloaden voltooid van:"-->
-	<!--string id="20463" value="PeerProject is aan het downloaden:"-->
-	<!--string id="20464" value="PeerProject verplaatst de download:"-->
-	<!--string id="20465" value="Deze download is gepauzeerd:"-->
-	<!--string id="20466" value="PeerProject is bronnen aan het zoeken voor:"-->
-	<!--string id="20467" value="PeerProject is de download aan het controleren op fouten:"-->
+	<string id="20462" value="(Geen visualisatie)"/>
+	<!--string id="20464" value="PeerProject heeft het downloaden voltooid van:"-->
+	<!--string id="20465" value="PeerProject is aan het downloaden:"-->
+	<!--string id="20466" value="PeerProject verplaatst de download:"-->
+	<!--string id="20467" value="Deze download is gepauzeerd:"-->
+	<!--string id="20468" value="PeerProject is bronnen aan het zoeken voor:"-->
+	<!--string id="20469" value="PeerProject is de download aan het controleren op fouten:"-->
 	<string id="20470" value="Annuleren"/>
 	<string id="20471" value="Openen"/>
 	<string id="20472" value="Voltooid"/>
@@ -3180,7 +3181,7 @@
 	<string id="20564" value="Opstarten van het netwerkcentrum van PeerProject..."/>
 	<string id="20566" value="Je router automatisch instellen mislukte na 10 pogingen."/>
 	<string id="20570" value="Er is een slecht geformatteerd query hit pakket ontvangen van %s, het wordt genegeerd."/>
-	<string id="20571" value="%s:  Er is een slecht geformatteerd query pakket ontvangen van %s, het wordt genegeerd."/>
+	<string id="20571" value="%s: Er is een slecht geformatteerd query pakket ontvangen van %s, het wordt genegeerd."/>
 	<string id="20572" value="Bron %s heeft een pakket doorgestuurd met een te grote TTL, het pakket wordt weggegooid (TTL=%i, Hops=%i)."/>
 	<string id="20573" value="Bron %s heeft een pakket doorgestuurd zonder TTL, het wordt genegeerd."/>
 	<string id="20574" value="Bron %s heeft een uitgebreid pakket doorgestuurd dat niet GGEP gecodeerd is."/>
@@ -3190,9 +3191,7 @@
 	<string id="20578" value="Bron %s heeft zijn query routing tabel geüpdate (%i bit = %lu[%i], %i%% vol)."/>
 	<string id="20579" value="%s -&gt; %s [%i/%i] %s %s"/>
 	<string id="20580" value="Leaf %s stuurt zoekopdrachten door, de verbinding wordt verbroken."/>
-	<string id="20581" value="Bron %s heeft een ping pakket doorgestuurd met een ongeldige lengte, het wordt genegeerd."/>
-	<string id="20582" value="Bron %s heeft een pong pakket doorgestuurd met een ongeldige lengte, het wordt genegeerd."/>
-	<string id="20583" value="Bron %s heeft een pushpakket met een ongeldige lengte doorgestuurd, het wordt genegeerd."/>
+	<string id="20582" value="Bron %s heeft een %s pakket doorgestuurd met een ongeldige lengte, het wordt genegeerd."/>
 	<string id="20584" value="Bron %s heeft een te groot pakket doorgestuurd, de verbinding wordt verbroken."/>
 	<string id="20586" value="Bron %s heeft een onherkenbaar pakket doorgestuurd (0x%.2x), het wordt genegeerd."/>
 	<string id="20587" value="Bron %s heeft een pong pakket met een ongeldig data adres doorgestuurd, het wordt genegeerd."/>
@@ -3426,9 +3425,9 @@
 	<string id="20891" value="&amp;Sluiten"/>
 	<string id="20892" value="Even wachten: De eDonkey server lijst aan het vernieuwen..."/>
 	<string id="20893" value="Even wachten: Discovery services aan het vernieuwen..."/>
-	<string id="20894" value="Even wachten: Aan het proberen om je router automatisch in te stellen ..."/>
-	<string id="20895" value="Je hebt geen verbindingssnelheid aangegeven. Kies voordat je verdergaat alsjeblieft ofwel je soort internetverbinding, of vul een verbindingssnelheid in."/>
-	<string id="20896" value="Je hebt aangegeven dat je je poorten wilt delen (port-forwarding) op je NAT-router of firewall.\n\nConfigureer alsjeblieft je netwerk zo, dat TCP poort %i wordt doorgestuurd naar je lokale PC."/>
+	<string id="20894" value="Je hebt geen verbindingssnelheid aangegeven. Kies voordat je verdergaat alsjeblieft ofwel je soort internetverbinding, of vul een verbindingssnelheid in."/>
+	<!--string id="20895" value="Even wachten: Aan het proberen om je router automatisch in te stellen ..."-->
+	<!--string id="20896" value="Je hebt aangegeven dat je je poorten wilt delen (port-forwarding) op je NAT-router of firewall.\n\nConfigureer alsjeblieft je netwerk zo, dat TCP poort %i wordt doorgestuurd naar je lokale PC."-->
 	<string id="20897" value="De map die je wilt delen is al vrijgegeven als deel van een andere vrijgegeven map:\n\n%s"/>
 	<string id="20898" value="Je hebt geen mappen aangegeven om vrij te geven. Weet je het zeker?"/>
 	<string id="20899" value="jaar oude"/>

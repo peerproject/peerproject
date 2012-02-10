@@ -1,7 +1,7 @@
 //
 // CtrlHomeView.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -131,7 +131,7 @@ void CHomeViewCtrl::Update()
 	// BOOL bTCPFirewalled = Network.IsFirewalled(CHECK_TCP);
 	BOOL bUDPFirewalled = Network.IsFirewalled(CHECK_UDP);
 
-	m_pDocument.ShowGroup( GROUP_FIREWALLED, bOnG2 && bUDPFirewalled && ! theApp.m_bUPnPPortsForwarded );
+	m_pDocument.ShowGroup( GROUP_FIREWALLED, bOnG2 && bUDPFirewalled && ! Network.m_bUPnPPortsForwarded );
 	m_pDocument.ShowGroup( GROUP_FIREWALLED_TCP, FALSE );
 	m_pDocument.ShowGroup( GROUP_FIREWALLED_UDP, FALSE );
 
@@ -263,8 +263,8 @@ void CHomeViewCtrl::OnLayoutComplete()
 //		break;
 //	}
 //
-//	pScroll.fMask	= SIF_POS;
-//	pScroll.nPos	= max( 0, min( pScroll.nPos, pScroll.nMax - (int)pScroll.nPage + 1 ) );
+//	pScroll.fMask = SIF_POS;
+//	pScroll.nPos  = max( 0, min( pScroll.nPos, pScroll.nMax - (int)pScroll.nPage + 1 ) );
 //	SetScrollPos( SB_VERT, pScroll.nPos, TRUE );
 //
 //	OnVScrolled();
@@ -308,8 +308,8 @@ void CHomeViewCtrl::OnPaintBegin(CDC* pDC)
 
 			while ( rcMark.left < rcMark.right )
 			{
-				pDC->BitBlt( rcMark.left, rcMark.top, min( rcMark.Width(), pHeader2.bmWidth ),
-					min( rcMark.Height(), pHeader2.bmHeight ), &dcHeader, 0, 0, SRCCOPY );
+				pDC->BitBlt( rcMark.left, rcMark.top, min( (LONG)rcMark.Width(), pHeader2.bmWidth ),
+					min( (LONG)rcMark.Height(), pHeader2.bmHeight ), &dcHeader, 0, 0, SRCCOPY );
 				rcMark.left += pHeader2.bmWidth;
 			}
 		}

@@ -670,13 +670,14 @@ void Split(const CString& strSource, TCHAR cDelimiter, CStringArray& pAddIt, BOO
 	}
 }
 
-BOOL StartsWith(const CString& sInput, LPCTSTR pszText, size_t nLen)
+BOOL StartsWith(const CString& strInput, LPCTSTR pszText, size_t nLen)
 {
 	if ( nLen == 0 )
-		nLen = _tcslen(pszText);
+		nLen = _tcslen( pszText );
 
-	return ( (size_t)sInput.GetLength() >= nLen ) &&
-		! _tcsnicmp( (LPCTSTR)sInput, pszText, nLen );
+	return ( strInput[0] == *pszText || ( strInput[0] & ~0x20 ) == pszText[0] || strInput[0] == ( pszText[0] & ~0x20 ) ) &&		// Fast case-insensitive char
+		(size_t)strInput.GetLength() >= nLen &&
+		_tcsnicmp( (LPCTSTR)strInput, pszText, nLen ) == 0;
 }
 
 CString LoadFile(LPCTSTR pszPath)

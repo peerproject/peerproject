@@ -297,7 +297,7 @@ void CWebCtrl::BeforeNavigate2(LPDISPATCH /*pDispatch*/, VARIANT* pvURL, VARIANT
 		{
 			*pvCancel = VARIANT_TRUE;
 			m_tFrame = GetTickCount();
-			COleVariant vFrame(	 _T("_blank"), VT_BSTR );
+			COleVariant vFrame( _T("_blank"), VT_BSTR );
 			m_pBrowser->Navigate2( pvURL, pvFlags, &vFrame, pvPostData, pvHeaders );
 		}
 	}

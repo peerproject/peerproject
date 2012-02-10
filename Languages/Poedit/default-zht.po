@@ -5632,23 +5632,23 @@ msgstr "您確定要執行檔案: \"%s\" ?\\n\\n 有些檔案可能對您的檔�
 msgid "Are you sure you want to permanently delete the %i selected files ?\\n\\nThe files will be moved to your \"recycle bin\" if it is enabled."
 msgstr "您要永久刪除%i 個選擇的檔案嗎?\\n\\n這些檔案將移至 \"資訊回收筒\", 如果您有啟用它的話."
 
-#: string;20432
+#: string;20433
 msgid "PeerProject could not delete the file:\\n\\n%s"
 msgstr "PeerProject 無法刪除檔案 \\n\\n%s"
 
-#: string;20433
+#: string;20434
 msgid "Your downloaded files folder \"%s\" is not yet in your library.\\n\\nIncluding your downloaded files folder in your library makes it easier to view and organize new downloads, and lets you take advantage of advanced PeerProject features such as download verification and automatic upgrading. Placing downloaded files in your library does not necessarily require you to share them: you can choose whether or not to share files independently.\\n\\nWould you like to add your downloaded files folder to your library now?"
 msgstr "您的已下載檔案資料夾 \"%s\" 不在您的收藏裡.\\n\\n將您的已下載檔案資料夾放入收藏允許您更簡單地檢視與整理新的下載; 您還可以利用進階的PeerProject 功能, 像是下載檔驗證與自動更新.  將已下載檔放在您的收藏裡不代表一定要分享他們: 您可以為每個檔案選擇是否要分享.\\n\\n您現在要新增已下載檔資料夾至您的收藏嗎?"
 
-#: string;20434
+#: string;20435
 msgid "Your downloads folder has been added to your library. Would you like to share it too?"
 msgstr "您的下載資料夾已經加入至您的收藏. 您也要分享它嗎?"
 
-#: string;20435
+#: string;20436
 msgid "You have not yet selected a media player to enqueue files with, such as Nullsoft Winamp. Would you like to select one now?\\n\\nPeerProject will pass the name of the file to your selected program with the \"/ADD\" argument."
 msgstr "您還沒有選擇一個與檔案產生關聯的多媒體播放程式, 像是 Nullsoft WinAmp. 您現在要選擇嗎?\\n\\nPeerProject will pass the name of the file to your selected program with the \"/ADD\" argument."
 
-#: string;20436
+#: string;20432
 msgid "Are you sure you want to delete the %i selected album folders ?\\n\\nNote that this action does not delete the files within the album folders, only the folders themselves."
 msgstr "您確定要刪除 %i 選擇的專輯資料夾嗎?\\n\\n請留意這個動作不會刪除專輯資料夾內的檔案, 只會刪除資料夾本身."
 
@@ -5748,7 +5748,7 @@ msgstr ""
 msgid "P    E    E    R    P    R    O    J    E    C    T       M    E    D    I    A       S    Y    S    T    E    M"
 msgstr "P    E    E    R    P    R    O    J    E    C    T       媒       系   统"
 
-#: string;20461
+#: string;20462
 msgid "(No Visualisation)"
 msgstr "(沒有視覺效果)"
 
@@ -6100,17 +6100,9 @@ msgstr "%s -> %s [%i/%i] %s %s"
 msgid "Leaf neighbor %s is forwarding queries, dropping connection."
 msgstr "葉節點鄰居 %s 正在轉送詢問, 正在忽略連線."
 
-#: string;20581
-msgid "Neighbor %s forwarded a ping packet with invalid length, ignoring."
-msgstr "鄰居 %s 轉送了一個無效長度的 ping 封包, 忽略."
-
 #: string;20582
-msgid "Neighbor %s forwarded a pong packet with invalid length, ignoring."
+msgid "Neighbor %s forwarded a %s packet with invalid length, ignoring."
 msgstr "鄰居 %s 轉送了一個無效長度的 pong 封包, 忽略."
-
-#: string;20583
-msgid "Neighbor %s forwarded a push packet with invalid length, ignoring."
-msgstr "鄰居 %s 轉送了一個無效長度的推播封包, 忽略中."
 
 #: string;20584
 msgid "Neighbor %s forwarded a packet of excessive size, dropping connection."
@@ -6281,11 +6273,11 @@ msgid "Unable to download preview content from \"%s\"."
 msgstr "無法從\"%s\".載預覽內容."
 
 #: string;20630
-msgid "There are %i reviews."
+msgid "%i Reviews."
 msgstr "有 %i 個評論."
 
 #: string;20631
-msgid "There is one review."
+msgid "One review."
 msgstr "有一個評論."
 
 #: string;20632
@@ -6729,7 +6721,7 @@ msgid "Total Files:"
 msgstr "總檔案數:"
 
 #: string;20788
-msgid "Total Volume:"
+msgid "Total Size:"
 msgstr "總容量:"
 
 #: string;20789
@@ -7068,7 +7060,7 @@ msgstr "请稍候: 更新 edonkey 服务器列表..."
 msgid "Please wait: Updating discovery services..."
 msgstr "请稍候: 更新发现服务器..."
 
-#: string;20894
+#: string;20895
 msgid "Please wait: Finding UPnP devices and setting them up..."
 msgstr "请稍候: 查找 UPnP 驱动器并进行设置..."
 
@@ -7533,7 +7525,7 @@ msgid "Ignore private/local IP addresses"
 msgstr "忽略私人/區域 IP 位址"
 
 #: cconnectionsettingspage;control;19
-msgid "Enable UPnP connection devices setup"
+msgid "Enable Plug'n'Play port-forwarding"
 msgstr "启用 UPnP 连接驱动器设置"
 
 #: cconnectionsettingspage;control;20

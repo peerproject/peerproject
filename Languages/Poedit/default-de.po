@@ -5632,23 +5632,23 @@ msgstr "Sind Sie sicher, dass Sie die Datei \"%s\" ausführen möchten?\\n\\nMan
 msgid "Are you sure you want to permanently delete the %i selected files ?\\n\\nThe files will be moved to your \"recycle bin\" if it is enabled."
 msgstr "Sind Sie sicher, dass Sie die %i ausgewählten Datei(en) löschen möchten?\\n\\nDie Dateien werden in den Windows Papierkorb verschoben."
 
-#: string;20432
+#: string;20433
 msgid "PeerProject could not delete the file:\\n\\n%s"
 msgstr "PeerProjekt konnte die Datei\\n\\n%s\\n\\n nicht löschen"
 
-#: string;20433
+#: string;20434
 msgid "Your downloaded files folder \"%s\" is not yet in your library.\\n\\nIncluding your downloaded files folder in your library makes it easier to view and organize new downloads, and lets you take advantage of advanced PeerProject features such as download verification and automatic upgrading. Placing downloaded files in your library does not necessarily require you to share them: you can choose whether or not to share files independently.\\n\\nWould you like to add your downloaded files folder to your library now?"
 msgstr "Ihr Downloadverzeichnis \"%s\" ist nicht in ihrer Bibliothek.\\n\\nWenn Sie ihr Downloadverzeichnis zur Bibliothek hinzufügen, können Sie neue Downloads viel einfacher anzeigen und verwalten. Außerdem können Sie dann die Funktionen Downloadüberprüfung und Automatische Updates benutzen.nDas hinzufügen ihres Downloadverzeichnis zur Bibliothek erfordert es nicht, es freizugeben: Sie können bestimmen, ob Sie einzelne Dateien freigeben.\\n\\nWollen Sie ihr Downloadverzeichnis jetzt zur Bibliothek hinzufügen?"
 
-#: string;20434
+#: string;20435
 msgid "Your downloads folder has been added to your library. Would you like to share it too?"
 msgstr "Ihr Downloadverzeichnis wurde zu ihrer Bibliothek hinzugefügt.  Wollen Sie es auch freigeben?"
 
-#: string;20435
+#: string;20436
 msgid "You have not yet selected a media player to enqueue files with, such as Nullsoft Winamp. Would you like to select one now?\\n\\nPeerProject will pass the name of the file to your selected program with the \"/ADD\" argument."
 msgstr "Sie haben keinen Mediaplayer wie z.B. Winamp gewählt, um Dateien in die Wiedergabeliste aufzunehmen. Wollen Sie jetzt einen auswählen?\\n\\nPeerProjekt wird dem gewählten Programm den Dateinamen mit der \"/ADD\" Option übergeben."
 
-#: string;20436
+#: string;20432
 msgid "Are you sure you want to delete the %i selected album folders ?\\n\\nNote that this action does not delete the files within the album folders, only the folders themselves."
 msgstr "Wollen Sie die markierten %i Alben wirklich löschen ?\\n\\nHierbei werden nicht die Dateien gelöscht, sondern nur die Kollektionen."
 
@@ -5748,7 +5748,7 @@ msgstr ""
 msgid "P    E    E    R    P    R    O    J    E    C    T       M    E    D    I    A       S    Y    S    T    E    M"
 msgstr "P    E    E    R    P    R    O    J    E    K    T       M    E    D    I    A       S    Y    S    T    E    M"
 
-#: string;20461
+#: string;20462
 msgid "(No Visualisation)"
 msgstr "(Keine Visualisierung)"
 
@@ -6100,17 +6100,9 @@ msgstr "%s -> %s [%i/%i] %s %s"
 msgid "Leaf neighbor %s is forwarding queries, dropping connection."
 msgstr "Leaf %s leitet Suchanfragen weiter, Verbindung getrennt."
 
-#: string;20581
-msgid "Neighbor %s forwarded a ping packet with invalid length, ignoring."
-msgstr "Host %s hat ein Ping-Paket mit ungültiger Länge weitergeleitet, ignoriert."
-
 #: string;20582
-msgid "Neighbor %s forwarded a pong packet with invalid length, ignoring."
+msgid "Neighbor %s forwarded a %s packet with invalid length, ignoring."
 msgstr "Host %s hat ein Pong-Paket mit ungültiger Länge weitergeleitet, ignoriert."
-
-#: string;20583
-msgid "Neighbor %s forwarded a push packet with invalid length, ignoring."
-msgstr "Host %s hat ein push-Paket mit ungültiger Länge weitergeleitet, ignoriert."
 
 #: string;20584
 msgid "Neighbor %s forwarded a packet of excessive size, dropping connection."
@@ -6281,11 +6273,11 @@ msgid "Unable to download preview content from \"%s\"."
 msgstr "Download der Vorschau von \"%s\" fehlgeschlagen."
 
 #: string;20630
-msgid "There are %i reviews."
+msgid "%i Reviews."
 msgstr "%i Bewertungen verfügbar."
 
 #: string;20631
-msgid "There is one review."
+msgid "One review."
 msgstr "Eine Bewertung verfügbar."
 
 #: string;20632
@@ -6729,7 +6721,7 @@ msgid "Total Files:"
 msgstr "Dateien gesamt:"
 
 #: string;20788
-msgid "Total Volume:"
+msgid "Total Size:"
 msgstr "Größe:"
 
 #: string;20789
@@ -7068,7 +7060,7 @@ msgstr "Bitte warten: eDonkey-Server-Liste wird aktualisiert..."
 msgid "Please wait: Updating discovery services..."
 msgstr "Bitte warten: Service Provider werden aktualisiert..."
 
-#: string;20894
+#: string;20895
 msgid "Please wait: Finding UPnP devices and setting them up..."
 msgstr "Bitte warten: UPnP-Geräte werden erkannt und konfiguriert..."
 
@@ -7533,7 +7525,7 @@ msgid "Ignore private/local IP addresses"
 msgstr "_Private Netzwerk-IPs ignorieren"
 
 #: cconnectionsettingspage;control;19
-msgid "Enable UPnP connection devices setup"
+msgid "Enable Plug'n'Play port-forwarding"
 msgstr "UPnP-Geräte automatisch einstellen"
 
 #: cconnectionsettingspage;control;20

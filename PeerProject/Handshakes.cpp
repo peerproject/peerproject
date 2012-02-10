@@ -1,7 +1,7 @@
 //
 // Handshakes.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -76,7 +76,7 @@ BOOL CHandshakes::Listen()
 	}
 
 	// Make sure only one thread can execute the code of this method at a time
- 	// When the method exits, local pLock will be destructed, and the lock released
+	// When the method exits, local pLock will be destructed, and the lock released
 	CSingleLock pLock( &m_pSection, TRUE );
 
 	m_hSocket = socket( 	// Create a socket
@@ -132,7 +132,7 @@ BOOL CHandshakes::Listen()
 		// If this is not our first attempt
 		if ( nAttempt )
 		{
-			if ( theApp.m_bUPnPPortsForwarded != TRI_TRUE )
+			if ( Network.m_bUPnPPortsForwarded != TRI_TRUE )
 			{
 				int nPort = Network.RandomPort();
 				Network.m_pHost.sin_port = saListen.sin_port = htons( u_short( nPort ) );

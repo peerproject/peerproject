@@ -5632,23 +5632,23 @@ msgstr "Oled kuindel, et tahad selle faili käivitada \"%s\" ?\\n\\nMõned faili
 msgid "Are you sure you want to permanently delete the %i selected files ?\\n\\nThe files will be moved to your \"recycle bin\" if it is enabled."
 msgstr "Oled kindel, et tahad lõplikult kustutada %i faili ?\\n\\nFailid viiakse sinu \"prügikasti\" kui see on võimaldatud."
 
-#: string;20432
+#: string;20433
 msgid "PeerProject could not delete the file:\\n\\n%s"
 msgstr "PeerProject ei suutnud kustutada:\\n\\n%s"
 
-#: string;20433
+#: string;20434
 msgid "Your downloaded files folder \"%s\" is not yet in your library.\\n\\nIncluding your downloaded files folder in your library makes it easier to view and organize new downloads, and lets you take advantage of advanced PeerProject features such as download verification and automatic upgrading. Placing downloaded files in your library does not necessarily require you to share them: you can choose whether or not to share files independently.\\n\\nWould you like to add your downloaded files folder to your library now?"
 msgstr "Sinu allalaadimiste kaust \"%s\" ei ole veel sinu raamatukogus.\\n\\nLisades selle oma raamatukokku on seda lihtsam käsitleda ja saad ärakasutada täielikult PeerProject võimalusi, nagu allalaadimiste kinnitused ja automaatsed uuendused.  Allalaetud failide raamatukokku panemine ei tähenda tingimita, et sa pead neid jagama: sa saad jagada ka üksikuid faile.\\n\\nKas soovid lisada oma allalaadimiste kausta kohe raamatukokku?"
 
-#: string;20434
+#: string;20435
 msgid "Your downloads folder has been added to your library. Would you like to share it too?"
 msgstr "Sinu allalaadimiste kaust on lisatud raamatukokku.  Kas sooviksid seda ka jagada?"
 
-#: string;20435
+#: string;20436
 msgid "You have not yet selected a media player to enqueue files with, such as Nullsoft Winamp. Would you like to select one now?\\n\\nPeerProject will pass the name of the file to your selected program with the \"/ADD\" argument."
 msgstr "Sa ei ole veel valinud meedia pleierit oma valitud failide jaoks, nagu WinAmp.  Kas sooviksid valida selle nüüd?\\n\\nPeerProject seob sinupoolt valitud failinime, valitud programmiga \"/Lisa\" argumendiga."
 
-#: string;20436
+#: string;20432
 msgid "Are you sure you want to delete the %i selected album folders ?\\n\\nNote that this action does not delete the files within the album folders, only the folders themselves."
 msgstr "Oled kindel, et tahad kustutada %i valitud albumi kausta?\\n\\nSee tegevus ei kustuta faile endid, vaid ainult kausta."
 
@@ -5748,7 +5748,7 @@ msgstr ""
 msgid "P    E    E    R    P    R    O    J    E    C    T       M    E    D    I    A       S    Y    S    T    E    M"
 msgstr "P    E    E    R    P    R    O    J    E    C    T       M    E    D    I    A       S    Y    S    T    E    M"
 
-#: string;20461
+#: string;20462
 msgid "(No Visualisation)"
 msgstr "(Ilma Visualisatioonita)"
 
@@ -6100,17 +6100,9 @@ msgstr "%s -> %s [%i/%i] %s %s"
 msgid "Leaf neighbor %s is forwarding queries, dropping connection."
 msgstr "Leaf  %s saadab järjekordi, katkestan ühenduse."
 
-#: string;20581
-msgid "Neighbor %s forwarded a ping packet with invalid length, ignoring."
-msgstr "%s saatis vigaste andmetega pingi, ignoreerin."
-
 #: string;20582
-msgid "Neighbor %s forwarded a pong packet with invalid length, ignoring."
+msgid "Neighbor %s forwarded a %s packet with invalid length, ignoring."
 msgstr "%s saatis vigase pong paketi, ignoreerin."
-
-#: string;20583
-msgid "Neighbor %s forwarded a push packet with invalid length, ignoring."
-msgstr "%s saatis vigase suurusega paketi, ignoreerin."
 
 #: string;20584
 msgid "Neighbor %s forwarded a packet of excessive size, dropping connection."
@@ -6281,11 +6273,11 @@ msgid "Unable to download preview content from \"%s\"."
 msgstr "Ei ole võimalik saada eelvaadet \"%s\"."
 
 #: string;20630
-msgid "There are %i reviews."
+msgid "%i Reviews."
 msgstr "On %i arvamust."
 
 #: string;20631
-msgid "There is one review."
+msgid "One review."
 msgstr "On üks arvamus."
 
 #: string;20632
@@ -6729,7 +6721,7 @@ msgid "Total Files:"
 msgstr "Faile kokku:"
 
 #: string;20788
-msgid "Total Volume:"
+msgid "Total Size:"
 msgstr "Ruumi kokku:"
 
 #: string;20789
@@ -7068,7 +7060,7 @@ msgstr ""
 msgid "Please wait: Updating discovery services..."
 msgstr ""
 
-#: string;20894
+#: string;20895
 msgid "Please wait: Finding UPnP devices and setting them up..."
 msgstr ""
 
@@ -7533,7 +7525,7 @@ msgid "Ignore private/local IP addresses"
 msgstr "Eira kohalikke IP aadresse "
 
 #: cconnectionsettingspage;control;19
-msgid "Enable UPnP connection devices setup"
+msgid "Enable Plug'n'Play port-forwarding"
 msgstr "_Vaheajad:"
 
 #: cconnectionsettingspage;control;20

@@ -57,6 +57,7 @@ static char THIS_FILE[]=__FILE__;
 
 CNetwork Network;
 
+IMPLEMENT_DYNCREATE(CNetwork, CComObject)
 
 //////////////////////////////////////////////////////////////////////
 // CNetwork construction
@@ -65,14 +66,19 @@ CNetwork::CNetwork()
 	: NodeRoute				( new CRouteCache() )
 	, QueryRoute			( new CRouteCache() )
 	, QueryKeys				( new CQueryKeys() )
+	, UPnPFinder			( new CUPnPFinder() )
+	, Firewall				( new CFirewall() )
+	, m_pHost				( )
 	, m_bAutoConnect		( FALSE )
 	, m_bConnected			( false )
 	, m_tStartedConnecting	( 0 )
 	, m_tLastConnect		( 0 )
 	, m_tLastED2KServerHop	( 0 )
 	, m_nSequence			( 0 )
+	, m_nUPnPExternalAddress( )
+	, m_bUPnPPortsForwarded	( TRI_UNKNOWN )
+	, m_tUPnPMap			( 0 )
 {
-	ZeroMemory( &m_pHost, sizeof( m_pHost ) );
 	m_pHost.sin_family = AF_INET;
 }
 
@@ -80,7 +86,7 @@ CNetwork::~CNetwork()
 {
 }
 
-// Initialize Winsock, Firewall, UPnP/NAT (Plug'n'Play portforwarding) -First SplashStep
+// Initialize Winsock, Firewall, UPnP/NAT (Plug'n'Play portforwarding) (First SplashStep)
 BOOL CNetwork::Init()
 {
 	// Start Windows Sockets 1.1
@@ -128,7 +134,7 @@ BOOL CNetwork::Init()
 
 void CNetwork::Clear()
 {
-	// Remove port mappings
+	// Remove UPnP port mappings
 	DeletePorts();
 
 	// Remove application from the firewall exception list
@@ -141,6 +147,7 @@ void CNetwork::Clear()
 	QueryRoute.Free();
 	NodeRoute.Free();
 
+	// Safe WSACleanup()
 	Cleanup();
 }
 
@@ -159,8 +166,8 @@ BOOL CNetwork::IsSelfIP(const IN_ADDR& nAddress) const
 	if ( nAddress.s_net == 127 )
 		return TRUE;
 
-	if ( theApp.m_nUPnPExternalAddress.s_addr != INADDR_NONE &&
-		 theApp.m_nUPnPExternalAddress.s_addr == nAddress.s_addr )
+	if ( m_nUPnPExternalAddress.s_addr != INADDR_NONE &&
+		 m_nUPnPExternalAddress.s_addr == nAddress.s_addr )
 		return TRUE;
 
 	CQuickLock oHALock( m_pHostAddressSection );
@@ -319,13 +326,13 @@ void CNetwork::Disconnect()
 
 	if ( ! IsConnected() ) return;
 
-	theApp.Message( MSG_INFO, _T("") );
-	theApp.Message( MSG_NOTICE, IDS_NETWORK_DISCONNECTING );
-
 	m_bAutoConnect = FALSE;
 	m_tStartedConnecting = 0;
 
 	pLock.Unlock();
+
+	theApp.Message( MSG_INFO, _T("") );
+	theApp.Message( MSG_NOTICE, IDS_NETWORK_DISCONNECTING );
 
 	CloseThread();
 }
@@ -562,13 +569,13 @@ WORD CNetwork::GetPort() const
 // and http://www.iana.org/assignments/ipv4-address-space
 // ToDo: Review this list for additions as IPv4 space depleted
 
-BOOL CNetwork::IsReserved(const IN_ADDR* pAddress, bool bCheckLocal) const
+BOOL CNetwork::IsReserved(const IN_ADDR* pAddress) const
 {
 	char *ip = (char*)&(pAddress->s_addr);
 	const unsigned char i1 = ip[ 0 ], i2 = ip[ 1 ], i3 = ip[ 2 ];		// i4 = ip[ 3 ]
 
 	// Previously IANA reserved, now allocated:  (001/8)
-	// 1, 2, 5, 14, 23, 27, 31, 36, 37, 39, 42, 46, 49, 50, 100-111, 175-185, 223
+	// 1, 2, 5, 14, 23, 27, 31, 36, 37, 39, 42, 46, 49, 50, 100-111, 175-185, 197, 223
 
 	// 224-239/8 is all multicast
 	// 240-255/8 is still IANA reserved
@@ -583,23 +590,24 @@ BOOL CNetwork::IsReserved(const IN_ADDR* pAddress, bool bCheckLocal) const
 	case 11:	// USA DOD legacy, or private?
 	case 55:	// USA Armed Forces
 	case 127:	// 127/8 is reserved for loopback
-	case 197:	// 197/8 was IANA reserved
 		return TRUE;
-	case 10:	// Private addresses
-		return bCheckLocal && Settings.Connection.IgnoreLocalIP;
+
+	//case 10:	// Private addresses
+	//	return Settings.Connection.IgnoreLocalIP && ! Settings.Experimental.LAN_Mode;
 
 	case 169:	// 169.254.0.0 Reserved for DHCP clients seeking addresses, not routable outside LAN
-		if ( i1 == 169 && i2 == 254 ) return TRUE;
+		if ( i1 == 169 && i2 == 254 )
+			return Settings.Connection.IgnoreLocalIP && ! Settings.Experimental.LAN_Mode;
 		break;
 	case 172:	// 172.16.0.0/12 is reserved for private nets by RFC1819
 		if ( i1 == 172 && i2 >= 16 && i2 <= 31 )
-			return bCheckLocal && Settings.Connection.IgnoreLocalIP;
+			return Settings.Connection.IgnoreLocalIP && ! Settings.Experimental.LAN_Mode;
 		break;
 	case 192:
 		// 192.168.0.0/16 is reserved for private nets by RFC1819
 		// 192.0.2.0/24 is reserved for documentation and examples
 		// 192.88.99.0/24 is used as 6to4 Relay anycast prefix by RFC3068
-		if ( i2 == 168 ) return bCheckLocal && Settings.Connection.IgnoreLocalIP;
+		if ( i2 == 168 ) return Settings.Connection.IgnoreLocalIP && ! Settings.Experimental.LAN_Mode;
 		if ( i2 == 0 && i3 == 2 ) return TRUE;
 		if ( i2 == 88 && i3 == 99 ) return TRUE;
 		break;
@@ -608,9 +616,6 @@ BOOL CNetwork::IsReserved(const IN_ADDR* pAddress, bool bCheckLocal) const
 		break;
 	case 204:	// 204.152.64.0/23 is some Sun proprietary clustering thing
 		if ( i1 == 204 && i2 == 152 && ( i3 == 64 || i3 == 65 ) ) return TRUE;
-		break;
-
-	default:
 		break;
 	}
 
@@ -655,7 +660,7 @@ bool CNetwork::PreRun()
 	m_bConnected = true;
 
 	// Map ports using NAT UPnP and Control Point UPnP methods and acquire external IP on success, sets random port if needed
-	//MapPorts();	ToDo: UPnP update
+	MapPorts();
 
 	Resolve( Settings.Connection.InHost, Settings.Connection.InPort, &m_pHost );
 
@@ -724,19 +729,22 @@ void CNetwork::OnRun()
 				continue;
 			}
 
-			if ( theApp.m_pUPnPFinder && theApp.m_pUPnPFinder->IsAsyncFindRunning() )
+			if ( UPnPFinder && UPnPFinder->IsAsyncFindRunning() )
 			{
 				Sleep( 0 );
 				continue;
 			}
 
-		//	// Refresh UPnP port mappings	(ToDo:?)
-		//	const DWORD tNow = GetTickCount();
-		//	if ( Settings.Connection.EnableUPnP && tNow > m_tUPnPMap + Settings.Connection.UPnPRefreshTime )
-		//	{
-		//		MapPorts();
-		//		continue;
-		//	}
+			// Refresh UPnP port mappings
+			if ( Settings.Connection.EnableUPnP )
+			{
+				const DWORD tNow = GetTickCount();
+				if ( tNow > m_tUPnPMap + Settings.Connection.UPnPRefreshTime )
+				{
+					MapPorts();
+					continue;
+				}
+			}
 
 			if ( m_pSection.Lock() )
 			{
@@ -761,29 +769,31 @@ void CNetwork::OnRun()
 
 void CNetwork::PostRun()
 {
-	CQuickLock oLock( m_pSection );
+	{
+		CQuickLock oLock( m_pSection );
 
-	m_bConnected = false;
+		m_bConnected = false;
 
-	Neighbours.Close();
-	Handshakes.Disconnect();
+		Neighbours.Close();
+		Handshakes.Disconnect();
 
-	Neighbours.Close();
-	Datagrams.Disconnect();
+		Neighbours.Close();
+		Datagrams.Disconnect();
 
-	NodeRoute->Clear();
-	QueryRoute->Clear();
+		NodeRoute->Clear();
+		QueryRoute->Clear();
 
-	ClearResolve();
+		ClearResolve();
 
-	ClearJobs();
+		ClearJobs();
 
-	DiscoveryServices.Stop();
+		DiscoveryServices.Stop();
 
-	//DeletePorts();  ToDo:?
+		//DeletePorts();	// UPnP handled in Network.Clear()
+	}
 
 	{
-		CQuickLock oHALock( m_pHostAddressSection );
+		CQuickLock oLock( m_pHostAddressSection );
 		m_pHostAddresses.RemoveAll();
 	}
 
@@ -1443,6 +1453,7 @@ void CNetwork::MapPorts()
 
 	m_tUPnPMap = GetTickCount();
 
+	// If first run we will run UPnP discovery in the QuickStart Wizard (Check this?)
 	if ( ! Settings.Connection.EnableUPnP )
 		return;
 
@@ -1586,15 +1597,13 @@ BOOL CNetwork::MapPort(IStaticPortMappingCollection* pCollection, LPCWSTR szLoca
 
 void CNetwork::DeletePorts()
 {
-	HRESULT hr;
-
 	if ( Settings.Connection.DeleteUPnPPorts && Settings.Connection.InPort )
 	{
 		if ( m_pNat )
 		{
 			// Retrieve the mappings collection
 			CComPtr< IStaticPortMappingCollection >	pCollection;
-			hr = m_pNat->get_StaticPortMappingCollection( &pCollection );
+			HRESULT hr = m_pNat->get_StaticPortMappingCollection( &pCollection );
 			if ( SUCCEEDED( hr ) && pCollection )
 			{
 				// Unmap

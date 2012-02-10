@@ -628,7 +628,7 @@ BOOL CG1Neighbour::OnPong(CG1Packet* pPacket)
 	if ( pPacket->m_nLength < 14 )
 	{
 		// Pong packets should be 14 bytes long, drop this strange one
-		theApp.Message( MSG_ERROR, IDS_PROTOCOL_SIZE_PONG, (LPCTSTR)m_sAddress );
+		theApp.Message( MSG_ERROR, IDS_PROTOCOL_SIZE_PACKET, (LPCTSTR)m_sAddress, _T("pong") );
 		Statistics.Current.Gnutella1.Dropped++;
 		m_nDropCount++;
 		return TRUE;	// Don't disconnect, though
@@ -1135,7 +1135,7 @@ BOOL CG1Neighbour::OnPush(CG1Packet* pPacket)
 	if ( pPacket->m_nLength < 26 )
 	{
 		// Push packets should be 26 bytes, ignore others
-		theApp.Message( MSG_NOTICE, IDS_PROTOCOL_SIZE_PUSH, m_sAddress );
+		theApp.Message( MSG_NOTICE, IDS_PROTOCOL_SIZE_PACKET, m_sAddress, _T("push") );
 		++Statistics.Current.Gnutella1.Dropped;
 		++m_nDropCount;
 		return TRUE;	// Stay connected

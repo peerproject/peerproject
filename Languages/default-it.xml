@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Italian Skin File -->
 
-<!-- Translation based on default-en.xml r70 -->
+<!-- Translation based on default-en.xml r74 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -18,7 +18,7 @@
 	author="Salvatore Scirè, Francesco Gabrielli"
 	updatedBy="ale5000"
 	description="PeerProject Default Italian Skin File"
-	link="http://PeerProject.org"
+	link="http://peerproject.org"
 	email=""
 	version="1.0.0.0"
 	type="Language"
@@ -3052,12 +3052,13 @@
 	<string id="20428" value="PeerProject ha ricevuto un file collezione:\n\n&quot;%s&quot;\n\nQuesto file non sembra essere un file collezione valido."/>
 	<string id="20429" value="Desideri impedire a questa collezione di chiederti di scaricare qualcosiasi altra cosa?"/>
 	<string id="20430" value="Desideri eseguire il file &quot;%s&quot; ?\n\nAlcuni file potrebbero essere pericolosi per il tuo computer. Assicurati di conoscere la natura del file prima di eseguirlo."/>
-	<string id="20431" value="Desideri eliminare definitivamente i %i file selezionati?\n\nI file saranno spostati nel tuo &quot;cestino&quot; se è abilitato."/>
-	<string id="20432" value="PeerProject non riesce ad eliminare il file:\n\n%s"/>
-	<string id="20433" value="La cartella dei tuoi file scaricati &quot;%s&quot; non è ancora nella tua libreria.\n\nIncluderla nella tua libreria rende più semplice vedere e organizzare i nuovi download, inoltre ti permette di trarre vantaggio dalle funzionalità avanzate di PeerProject quali la verifica dei download e l'aggiornamento automatico. Porre i file scaricati nella tua libreria non richiede necessariamente che tu li condivida: puoi scegliere indipendentemente se condividerli o meno.\n\nDesideri aggiungere la cartella dei tuoi file scaricati alla tua libreria ora?"/>
-	<string id="20434" value="La cartella dei tuoi download è stata aggiunta alla tua libreria. Desideri condividerla?"/>
-	<string id="20435" value="Non hai selezionato un lettore multimediale per accodare i file (per esempio Nullsoft Winamp). Desideri selezionarlo ora?\n\nPeerProject passerà il nome del file al programma indicato con il parametro &quot;/ADD&quot;."/>
-	<string id="20436" value="Desideri eliminare le cartelle album selezionate %i?\n\nQuest'azione non eliminerà i file nelle cartelle album, ma solo le cartelle stesse."/>
+	<!--string id="20431" value="Desideri eliminare definitivamente i %i file selezionati?\n\nI file saranno spostati nel tuo &quot;cestino&quot; se è abilitato."-->
+	<string id="20432" value="Desideri eliminare le cartelle album selezionate %i?\n\nQuest'azione non eliminerà i file nelle cartelle album, ma solo le cartelle stesse."/>
+	<string id="20433" value="PeerProject non riesce ad eliminare il file:\n\n%s"/>
+	<string id="20434" value="La cartella dei tuoi file scaricati &quot;%s&quot; non è ancora nella tua libreria.\n\nIncluderla nella tua libreria rende più semplice vedere e organizzare i nuovi download, inoltre ti permette di trarre vantaggio dalle funzionalità avanzate di PeerProject quali la verifica dei download e l'aggiornamento automatico. Porre i file scaricati nella tua libreria non richiede necessariamente che tu li condivida: puoi scegliere indipendentemente se condividerli o meno.\n\nDesideri aggiungere la cartella dei tuoi file scaricati alla tua libreria ora?"/>
+	<string id="20435" value="La cartella dei tuoi download è stata aggiunta alla tua libreria. Desideri condividerla?"/>
+	<!--string id="20436" value="Non hai selezionato un lettore multimediale per accodare i file (per esempio Nullsoft Winamp). Desideri selezionarlo ora?\n\nPeerProject passerà il nome del file al programma indicato con il parametro &quot;/ADD&quot;."-->
+	<string id="20436" value="Aggiungi questa cartella alla libreria?\n\n%s"/>
 	<string id="20437" value="File fantasma"/>
 	<string id="20438" value="Modifica dei metadata di %i file."/>
 	<string id="20439" value="Stai per modificare i metadata di %i file, desideri continuare?"/>
@@ -3081,12 +3082,12 @@
 	<string id="20457" value="PeerProject non riesce ad instanziare il plugin MediaServices. Reinstalla PeerProject e assicurati di avere i codec multimediali e i driver necessari installati."/>
 	<string id="20458" value="Lettore multimediale di PeerProject"/>
 	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
-	<string id="20461" value="(Nessuna visualizzazione)"/>
-	<!--string id="20462" value="PeerProject sta verificando il download alla ricerca di eventuali errori:"-->
-	<!--string id="20463" value="PeerProject sta scaricando:"-->
-	<!--string id="20464" value="PeerProject sta spostando il download:"-->
-	<!--string id="20465" value="Questo download è in pausa:"-->
-	<!--string id="20466" value="PeerProject sta cercando fonti per:"-->
+	<string id="20462" value="(Nessuna visualizzazione)"/>
+	<!--string id="20464" value="PeerProject sta verificando il download alla ricerca di eventuali errori:"-->
+	<!--string id="20465" value="PeerProject sta scaricando:"-->
+	<!--string id="20466" value="PeerProject sta spostando il download:"-->
+	<!--string id="20467" value="Questo download è in pausa:"-->
+	<!--string id="20468" value="PeerProject sta cercando fonti per:"-->
 	<string id="20470" value="Annulla"/>
 	<string id="20471" value="Apri"/>
 	<string id="20472" value="Completato"/>
@@ -3105,7 +3106,7 @@
 	<string id="20485" value="Limite di velocità di Upload"/>
 	<string id="20490" value="Multiplo"/>
 	<string id="20491" value="Valori multipli"/>
-	<string id="20494" value="Non hai inserito la località nel tuo profilo utente.nnÈ consigliato inserire una località in modo che gli altri utenti sanno dove sei. Si noti che inserire la località non rivela nessuna informazione compromettente.\n\nDesideri continuare senza inserire una località?"/>
+	<string id="20494" value="Non hai inserito la località nel tuo profilo utente.\n\nÈ consigliato inserire una località in modo che gli altri utenti sanno dove sei. Si noti che inserire la località non rivela nessuna informazione compromettente.\n\nDesideri continuare senza inserire una località?"/>
 	<string id="20495" value="Non hai inserito un nickname nel tuo profilo utente."/>
 	<string id="20496" value="Non hai selezionato la tua età e il tuo sesso. Continuare comunque?"/>
 	<string id="20499" value="Nuova Cartella"/>
@@ -3169,7 +3170,7 @@
 	<string id="20565" value="Stai utilizzando il pianificatore in modalità 'solo G2'. Vuoi disabilitare questa modalità, cosicchè tutte le reti attive rimangano connesse?"/>
 	<string id="20566" value="La mappatura delle porta UPnP è fallita dopo 10 tentativi."/>
 	<string id="20570" value="Pacchetto di richiesta malformattato ricevuto da %s, ignorato."/>
-	<string id="20571" value="%s:  Pacchetto di richiesta malformattato ricevuto da %s, ignorato."/>
+	<string id="20571" value="%s: Pacchetto di richiesta malformattato ricevuto da %s, ignorato."/>
 	<string id="20572" value="L'host %s ha inviato un pacchetto con TTL eccessivo, chiusura del pacchetto (TTL=%i, Punti=%i)."/>
 	<string id="20573" value="L'host %s ha inviato un pacchetto con TTL pari a zero, ignorato."/>
 	<string id="20574" value="L'host %s ha inviato un pacchetto esteso non codificato GGEP."/>
@@ -3179,9 +3180,7 @@
 	<string id="20578" value="L'host %s ha aggiornato la sua richiesta routing table (%i bit = %lu[%i], %i%% pieno)."/>
 	<string id="20579" value="%s -&gt; %s [%i/%i] %s %s"/>
 	<string id="20580" value="L'host leaf %s sta inviado richieste, chiusura della connessione."/>
-	<string id="20581" value="L'host %s ha inviato un pacchetto ping di lunghezza errata, ignorato."/>
-	<string id="20582" value="L'host %s ha inviato un pacchetto pong di lunghezza errata, ignorato."/>
-	<string id="20583" value="L'host %s ha inviato un push packet di lunghezza errata, ignorato."/>
+	<string id="20582" value="L'host %s ha inviato un pacchetto %s di lunghezza errata, ignorato."/>
 	<string id="20584" value="L'host %s ha inviato un pacchetto di dimensioni eccessive, connessione chiusa."/>
 	<string id="20586" value="L'host %s ha inviato un pacchetto sconosciuto (0x%.2x), ignorato."/>
 	<string id="20587" value="L'host %s ha inviato un pong con indirizzi errati, ignorato."/>
@@ -3416,9 +3415,9 @@
 	<string id="20891" value="Esci"/>
 	<string id="20892" value="Attendere: Aggiornamento della lista dei server eDonkey..."/>
 	<string id="20893" value="Attendere: Aggiornamento dei servizi di connessione..."/>
-	<string id="20894" value="Attendere: Ricerca e impostazione dei dispositivi UPnP..."/>
-	<string id="20895" value="Non hai ancora specificato la velocità di connessione. Prima di continuare, scegli il tipo di connessione Internet, o scrivi la velocità di connessione."/>
-	<string id="20896" value="PeerProject non ha potuto fare il port-forwarding sul tuo router NAT o firewall.\n\nConfigura la tua rete per fare il forward delle porte TCP e UDP %i al tuo PC."/>
+	<string id="20894" value="Non hai ancora specificato la velocità di connessione. Prima di continuare, scegli il tipo di connessione Internet, o scrivi la velocità di connessione."/>
+	<!--string id="20895" value="Attendere: Ricerca e impostazione dei dispositivi UPnP..."-->
+	<!--string id="20896" value="PeerProject non ha potuto fare il port-forwarding sul tuo router NAT o firewall.\n\nConfigura la tua rete per fare il forward delle porte TCP e UDP %i al tuo PC."-->
 	<string id="20897" value="La cartella che vuoi condividere è già condivisa come parte di un'altra cartella condivisa:\n\n%s"/>
 	<string id="20898" value="Non hai indicato nessuna cartella da condividere. Desideri continuare?"/>
 	<string id="20899" value="anni"/>

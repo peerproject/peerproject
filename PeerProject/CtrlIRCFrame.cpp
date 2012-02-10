@@ -976,7 +976,7 @@ void CIRCFrame::OnIrcDisconnect()
 	OnSize( 0, 0, 0 );	// Hide Tabs & Show Header
 }
 
-//  Return the title of a tab. (Current tab unless specified)
+// Return the title of a tab. (Current tab unless specified)
 CString CIRCFrame::GetTabText(int nTabIndex) const
 {
 	if ( nTabIndex == -1 )
@@ -1289,7 +1289,7 @@ void CIRCFrame::OnStatusMessage(LPCTSTR pszText, int nFlags)
 //		{
 //			nCurrentLength = strMsgTemp.GetLength();
 //			nCheckLength = nCurrentLength +
-//			   int( strCurrentWord.GetLength() * 0.3 );
+//				int( strCurrentWord.GetLength() * 0.3 );
 //			nOldChar = 0;
 //			nCurrentChar = 0;
 //			if ( strCurrentWord.GetLength() > nViewSize && bStartedSplit == TRUE )
@@ -1435,7 +1435,7 @@ BOOL CIRCFrame::PreTranslateMessage(MSG* pMsg)
 			case VK_LWIN:
 			case VK_RWIN:
 				break;
-			// Assume character key changed history, so set current  	// ToDo: Use real change detection
+			// Assume character key changed history, so set current		// ToDo: Use real change detection
 			default:
 				if ( pMsg->wParam < VK_F1 && m_nCurrentPosLineBuffer[ nTab ] >= 0 )
 					m_nCurrentPosLineBuffer[ nTab ] = -1;
@@ -2106,94 +2106,96 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 
 int CIRCFrame::ParseMessageID()
 {
-	int nWordCount = m_pWords.GetCount();
+	const int nWordCount = m_pWords.GetCount();
 	int nMessageType = NULL;
-	if ( nWordCount > 1 )
-	{
-		int nServerErrNum = _tstoi( (LPCTSTR)m_pWords.GetAt( 1 ) );
 
-		switch ( nServerErrNum )
-		{
-		case 0:
-			if ( m_pWords.GetAt( 0 ) == _T("PING") )
-				nMessageType = ID_MESSAGE_SERVER_PING;
-			else if ( m_pWords.GetAt( 0 ) == _T("ERROR") )
-				nMessageType = ID_MESSAGE_SERVER_DISCONNECT;
-			if ( m_pWords.GetAt( 1 ) == _T("NOTICE") )
-				nMessageType = ID_MESSAGE_SERVER_NOTICE;
-			break;
-		case 1:
-		case 2:
-		case 3:
-		case 4:
-		case 372:
-		case 375:
+	if ( nWordCount < 2 )
+		return nMessageType;
+
+	const int nServerErrNum = _tstoi( (LPCTSTR)m_pWords.GetAt( 1 ) );
+
+	switch ( nServerErrNum )
+	{
+	case 0:
+		if ( m_pWords.GetAt( 0 ) == _T("PING") )
+			nMessageType = ID_MESSAGE_SERVER_PING;
+		else if ( m_pWords.GetAt( 0 ) == _T("ERROR") )
+			nMessageType = ID_MESSAGE_SERVER_DISCONNECT;
+		if ( m_pWords.GetAt( 1 ) == _T("NOTICE") )
+			nMessageType = ID_MESSAGE_SERVER_NOTICE;
+		break;
+	case 1:
+	case 2:
+	case 3:
+	case 4:
+	case 372:
+	case 375:
+		nMessageType = ID_MESSAGE_SERVER_MSG;
+		break;
+	case 301:
+		nMessageType = ID_MESSAGE_USER_AWAY;
+		break;
+	case 305:
+		nMessageType = ID_MESSAGE_STOPAWAY;
+		break;
+	case 306:
+		nMessageType = ID_MESSAGE_SETAWAY;
+		break;
+	case 322:
+		nMessageType = ID_MESSAGE_CHANNEL_LIST;
+		break;
+	case 323:
+		nMessageType = ID_MESSAGE_CHANNEL_LISTEND;
+		break;
+	case 332:
+		nMessageType = ID_MESSAGE_CHANNEL_TOPICSHOW;
+		break;
+	case 333:
+		nMessageType = ID_MESSAGE_CHANNEL_TOPICSETBY;
+		break;
+	case 353:
+		nMessageType = ID_MESSAGE_CLIENT_JOIN_USERLIST;
+		break;
+	case 366:
+		nMessageType = ID_MESSAGE_CLIENT_JOIN_ENDNAMES;
+		break;
+	case 376:
+		nMessageType = ID_MESSAGE_SERVER_CONNECTED;
+		break;
+	case 341:
+		nMessageType = ID_MESSAGE_CLIENT_INVITE;
+		break;
+	case 314:
+		nMessageType = ID_MESSAGE_CLIENT_WHOWAS;
+		break;
+	case 311:
+	case 313:
+	case 378:
+	case 312:
+	case 319:
+		nMessageType = ID_MESSAGE_CLIENT_WHOIS;
+		break;
+	case 5:
+	case 300:
+	case 302:
+	case 303:
+	case 317:
+	case 318:
+	case 321:
+	case 331:
+	case 342:
+	case 351:
+	case 369:
+		nMessageType = ID_MESSAGE_IGNORE;
+		break;
+	case 400:
+		nMessageType = ID_MESSAGE_SERVER_ERROR;
+		break;
+	default:
+		if ( nServerErrNum > 250 && nServerErrNum < 270 )
 			nMessageType = ID_MESSAGE_SERVER_MSG;
-			break;
-		case 301:
-			nMessageType = ID_MESSAGE_USER_AWAY;
-			break;
-		case 305:
-			nMessageType = ID_MESSAGE_STOPAWAY;
-			break;
-		case 306:
-			nMessageType = ID_MESSAGE_SETAWAY;
-			break;
-		case 322:
-			nMessageType = ID_MESSAGE_CHANNEL_LIST;
-			break;
-		case 323:
-			nMessageType = ID_MESSAGE_CHANNEL_LISTEND;
-			break;
-		case 332:
-			nMessageType = ID_MESSAGE_CHANNEL_TOPICSHOW;
-			break;
-		case 333:
-			nMessageType = ID_MESSAGE_CHANNEL_TOPICSETBY;
-			break;
-		case 353:
-			nMessageType = ID_MESSAGE_CLIENT_JOIN_USERLIST;
-			break;
-		case 366:
-			nMessageType = ID_MESSAGE_CLIENT_JOIN_ENDNAMES;
-			break;
-		case 376:
-			nMessageType = ID_MESSAGE_SERVER_CONNECTED;
-			break;
-		case 341:
-			nMessageType = ID_MESSAGE_CLIENT_INVITE;
-			break;
-		case 314:
-			nMessageType = ID_MESSAGE_CLIENT_WHOWAS;
-			break;
-		case 311:
-		case 313:
-		case 378:
-		case 312:
-		case 319:
-			nMessageType = ID_MESSAGE_CLIENT_WHOIS;
-			break;
-		case 5:
-		case 300:
-		case 302:
-		case 303:
-		case 317:
-		case 318:
-		case 321:
-		case 331:
-		case 342:
-		case 351:
-		case 369:
-			nMessageType = ID_MESSAGE_IGNORE;
-			break;
-		case 400:
-			nMessageType = ID_MESSAGE_SERVER_ERROR;
-			break;
-		default:
-			if ( nServerErrNum > 250 && nServerErrNum < 270 )
-				nMessageType = ID_MESSAGE_SERVER_MSG;
-		}
 	}
+
 	if ( nWordCount > 6 )
 	{
 		const CString strCommand( m_pWords.GetAt( 5 ) );
@@ -2211,51 +2213,48 @@ int CIRCFrame::ParseMessageID()
 			nMessageType = ID_MESSAGE_NICK;
 		else if ( strCommand == _T("KICK") )
 			nMessageType = ID_MESSAGE_USER_KICK;
-	}
-	if ( nWordCount > 8 )
-	{
-		const CString strCommand( m_pWords.GetAt( 5 ) );
-		const CString strOrigin( m_pWords.GetAt( 0 ) );
-
-		if ( strCommand == _T("INVITE") )
+		else if ( nWordCount > 8 )
 		{
-			nMessageType = ID_MESSAGE_USER_INVITE;
-		}
-		else if ( strCommand == _T("NOTICE") && strOrigin != Settings.IRC.ServerName )
-		{
-			if ( m_pWords.GetAt( 6 ) == m_sNickname )
-				nMessageType = ID_MESSAGE_CLIENT_NOTICE;
-			else
-				nMessageType = ID_MESSAGE_CHANNEL_NOTICE;
-		}
-		else if ( strCommand == _T("PRIVMSG") )
-		{
-			CString str = m_pWords.GetAt( 8 );
-			char pszFirst = str.GetAt( 0 );
-			str = str.Mid( 1, str.GetLength() - 2 ).MakeLower();
-			// 0x01 indicates a CTCP message, including '/me'
-			if ( pszFirst == char('\x01') )
+			if ( strCommand == _T("INVITE") )
 			{
-				if ( m_pWords.GetAt( 6 ).CompareNoCase( m_sNickname ) == 0 )
-				{
-					if ( str == _T("version") )
-						nMessageType = ID_MESSAGE_USER_CTCPVERSION;
-					else if ( str == _T("time") )
-						nMessageType = ID_MESSAGE_USER_CTCPTIME;
-					else if ( str == _T("userinfo") )
-						nMessageType = ID_MESSAGE_USER_CTCPBROWSE;
-					else if ( str == _T("action") || str == "actio" )
-						nMessageType = ID_MESSAGE_USER_ME;
-				}
-				else if ( str == _T("action") || str == "actio" )
-				{
-					nMessageType = ID_MESSAGE_CHANNEL_ME;
-				}
+				nMessageType = ID_MESSAGE_USER_INVITE;
 			}
-			else
+			else if ( strCommand == _T("NOTICE") && strOrigin != Settings.IRC.ServerName )
 			{
-				nMessageType = m_pWords.GetAt( 6 ) == m_sNickname ?
-					ID_MESSAGE_USER_MESSAGE : ID_MESSAGE_CHANNEL_MESSAGE;
+				if ( m_pWords.GetAt( 6 ) == m_sNickname )
+					nMessageType = ID_MESSAGE_CLIENT_NOTICE;
+				else
+					nMessageType = ID_MESSAGE_CHANNEL_NOTICE;
+			}
+			else if ( strCommand == _T("PRIVMSG") )
+			{
+				CString str = m_pWords.GetAt( 8 );
+				char pszFirst = str.GetAt( 0 );
+				str = str.Mid( 1, str.GetLength() - 2 ).MakeLower();
+				// 0x01 indicates a CTCP message, including '/me'
+				if ( pszFirst == char('\x01') )
+				{
+					if ( m_pWords.GetAt( 6 ).CompareNoCase( m_sNickname ) == 0 )
+					{
+						if ( str == _T("version") )
+							nMessageType = ID_MESSAGE_USER_CTCPVERSION;
+						else if ( str == _T("time") )
+							nMessageType = ID_MESSAGE_USER_CTCPTIME;
+						else if ( str == _T("userinfo") )
+							nMessageType = ID_MESSAGE_USER_CTCPBROWSE;
+						else if ( str == _T("action") || str == "actio" )
+							nMessageType = ID_MESSAGE_USER_ME;
+					}
+					else if ( str == _T("action") || str == "actio" )
+					{
+						nMessageType = ID_MESSAGE_CHANNEL_ME;
+					}
+				}
+				else
+				{
+					nMessageType = m_pWords.GetAt( 6 ) == m_sNickname ?
+						ID_MESSAGE_USER_MESSAGE : ID_MESSAGE_CHANNEL_MESSAGE;
+				}
 			}
 		}
 	}

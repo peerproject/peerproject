@@ -3,7 +3,7 @@
 
 <!-- PeerProject Korean Language Skin File -->
 
-<!-- Translation based on default-en.xml r70 --> <!--Machine Translated!-->
+<!-- Translation based on default-en.xml r74 --> <!--Machine Translated!-->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -17,7 +17,7 @@
 	name="한국어"
 	author="PeerProject Development Team"
 	description="PeerProject Korean Language Skin File"
-	link="http://PeerProject.org"
+	link="http://peerproject.org"
 	email="Contact(at)PeerProject.org"
 	version="1.0.0.0"
 	type="Language"
@@ -614,7 +614,7 @@
 				</menu>
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject 사이트 항목"/>
 				<separator/>
-				<item id="ID_HELP_ABOUT" text="항목 ID를  PeerProject..."/>
+				<item id="ID_HELP_ABOUT" text="항목 ID를 PeerProject..."/>
 			</menu>
 			<item id="ID_NETWORK_EXIT" text="종료"/>
 		</menu>
@@ -722,7 +722,7 @@
 			<item id="ID_HELP_VERSION_CHECK" text="새 버전에 대한 확인"/>
 			<item id="ID_HELP_DONATE" text="기부 PeerProject로"/>
 			<separator/> -->
-			<item id="ID_HELP_ABOUT" text="항목 ID를  PeerProject..."/>
+			<item id="ID_HELP_ABOUT" text="항목 ID를 PeerProject..."/>
 		</menu>
 	</menu>
 	<menu name="CMainWnd.Basic" type="bar">
@@ -793,7 +793,7 @@
 			</menu>
 			<separator/> <!--
 			<item id="ID_HELP_VERSION_CHECK" text="새 버전에 대한 확인"/>
-			<item id="ID_HELP_DONATE" text="기부  PeerProject"/>
+			<item id="ID_HELP_DONATE" text="기부 PeerProject"/>
 			<separator/> -->
 			<item id="ID_HELP_ABOUT" text="항목 ID를 PeerProject..."/>
 		</menu>
@@ -2334,12 +2334,12 @@
 	<string id="20428" value="PeerProject received a collection file:\n\n&quot;%s&quot;.\n\nThis file does not appear to be a valid collection file."/>
 	<string id="20429" value="Would you like to prevent this collection from prompting you to download anything else?"/>
 	<string id="20430" value="Are you sure you want to launch the file &quot;%s&quot; ?\n\nSome files can be harmful to your computer. Ensure you know what the file is before launching it."/>
-	<string id="20431" value="Are you sure you want to permanently delete the %i selected files ?\n\nThe files will be moved to your &quot;recycle bin&quot; if it is enabled."/>
-	<string id="20432" value="PeerProject could not delete the file:\n\n%s"/>
-	<string id="20433" value="Your downloaded files folder &quot;%s&quot; is not yet in your library.\n\nIncluding your downloaded files folder in your library makes it easier to view and organise new downloads, and lets you take advantage of advanced PeerProject features such as download verification and automatic upgrading. Placing downloaded files in your library does not necessarily require you to share them: you can choose whether or not to share files independently.\n\nWould you like to add your downloaded files folder to your library now?"/>
-	<string id="20434" value="Your downloads folder has been added to your library. Would you like to share it too?"/>
-	<string id="20435" value="You have not yet selected a media player to enqueue files with, such as Nullsoft Winamp. Would you like to select one now?\n\nPeerProject will pass the name of the file to your selected program with the &quot;/ADD&quot; argument."/>
-	<string id="20436" value="Are you sure you want to delete the %i selected album folders ?\n\nNote that this action does not delete the files within the album folders, only the folders themselves."/>
+	<!--string id="20431" value="Are you sure you want to permanently delete the %i selected files ?\n\nThe files will be moved to your &quot;recycle bin&quot; if it is enabled."-->
+	<string id="20432" value="Are you sure you want to delete the %i selected album folders ?\n\nNote that this action does not delete the files within the album folders, only the folders themselves."/>
+	<string id="20433" value="PeerProject could not delete the file:\n\n%s"/>
+	<string id="20434" value="Your downloaded files folder &quot;%s&quot; is not yet in your library.\n\nIncluding your downloaded files folder in your library makes it easier to view and organise new downloads, and lets you take advantage of advanced PeerProject features such as download verification and automatic upgrading. Placing downloaded files in your library does not necessarily require you to share them: you can choose whether or not to share files independently.\n\nWould you like to add your downloaded files folder to your library now?"/>
+	<string id="20435" value="Your downloads folder has been added to your library. Would you like to share it too?"/>
+	<string id="20436" value="도서관에이 폴더를 추가?\n\n%s"/>
 	<string id="20437" value="Ghost File"/>
 	<string id="20438" value="Editing metadata of %i files."/>
 	<string id="20439" value="You are about to modify the metadata of %i files, are you sure you want to continue?"/>
@@ -2363,7 +2363,7 @@
 	<string id="20457" value="PeerProject could not instantiate its MediaServices plugin. Please reinstall PeerProject, and confirm that you have the necessary media codecs and output drivers installed."/>
 	<string id="20458" value="PeerProject Media Player"/>
 	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
-	<string id="20461" value="(No Visualisation)"/>
+	<string id="20462" value="(No Visualisation)"/>
 	<string id="20470" value="취소"/>
 	<string id="20471" value="열린"/>
 	<string id="20472" value="수료"/>
@@ -2456,9 +2456,7 @@
 	<string id="20578" value="Neighbor %s updated its query routing table (%i bit = %lu[%i], %i%% full)."/>
 	<string id="20579" value="%s -&gt; %s [%i/%i] %s %s"/>
 	<string id="20580" value="Leaf neighbor %s is forwarding queries, dropping connection."/>
-	<string id="20581" value="Neighbor %s forwarded a ping packet with invalid length, ignoring."/>
-	<string id="20582" value="Neighbor %s forwarded a pong packet with invalid length, ignoring."/>
-	<string id="20583" value="Neighbor %s forwarded a push packet with invalid length, ignoring."/>
+	<string id="20582" value="Neighbor %s forwarded a %s packet with invalid length, ignoring."/>
 	<string id="20584" value="Neighbor %s forwarded a packet of excessive size, dropping connection."/>
 	<string id="20586" value="Neighbor %s forwarded an unrecognised packet (0x%.2x), ignoring."/>
 	<string id="20587" value="Neighbor %s forwarded a pong with invalid address data, ignoring."/>
@@ -2478,8 +2476,8 @@
 	<string id="20627" value="Click to Preview"/>
 	<string id="20628" value="Previewing..."/>
 	<string id="20629" value="Unable to download preview content from &quot;%s&quot;."/>
-	<string id="20630" value="There are %i reviews."/>
-	<string id="20631" value="There is one review."/>
+	<string id="20630" value="%i Reviews."/>
+	<string id="20631" value="One review."/>
 	<string id="20632" value="%i sources are available. (%s/s)"/>
 	<string id="20633" value="One source is available. (%s/s)"/>
 	<string id="20634" value="네트워크 어떠한 아직 경기를 반환하지 않았습니다."/>
@@ -2526,7 +2524,7 @@
 	<string id="20680" value="PeerProject 설정"/>
 	<string id="20684" value="Are you sure you want to delete the &quot;%s&quot; skin? This cannot be undone."/>
 	<string id="20700" value="%s in : %s out (d:%I64i/u:%I64i)"/>
-	<string id="20701" value=" %lu 이웃에 연결됨.  %s 지방 컬렉션."/>
+	<string id="20701" value=" %lu 이웃에 연결됨. %s 지방 컬렉션."/>
 	<string id="20702" value="Hub mode with %lu neighbours. %s 개 지역 도서관에."/>
 	<string id="20703" value="Hub/Ultrapeer mode with %lu neighbours. %s 개 지역 도서관에."/>
 	<string id="20704" value="Ultrapeer mode with %lu neighbours. %s 개 지역 도서관에."/>
@@ -2601,7 +2599,7 @@
 	<string id="20785" value="Status:"/>
 	<string id="20786" value="%lu today, %lu total"/>
 	<string id="20787" value="Total Files:"/>
-	<string id="20788" value="Total Volume:"/>
+	<string id="20788" value="Total Size:"/>
 	<string id="20789" value="Transfer:"/>
 	<string id="20790" value="를 입력"/>
 	<string id="20791" value="Untrusted"/>
@@ -2735,7 +2733,7 @@
 		<control caption="옵션:"/>
 		<control caption="Allow others to browse"/>
 		<control caption="Watch library folders"/>
-		<control caption="Quick hashing  (more CPU)"/>
+		<control caption="Quick hashing (more CPU)"/>
 		<control caption="Show hashing status window"/>
 		<control caption="Smart media series detection"/>
 		<control caption="Create ghost files by default"/>
@@ -2865,7 +2863,7 @@
 		<control caption="Can accept incoming connections"/>
 		<control/>
 		<control caption="Ignore private/local IP addresses"/>
-		<control caption="Enable UPnP connection devices setup"/>
+		<control caption="Enable Plug'n'Play port-forwarding"/>
 		<control caption="Timeouts:"/>
 		<control caption="연결:"/>
 		<control/>

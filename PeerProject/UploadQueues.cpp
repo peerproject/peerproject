@@ -235,7 +235,7 @@ DWORD CUploadQueues::GetTotalBandwidthPoints( BOOL ActiveOnly )
 
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
-		pQptr=GetNext( pos );
+		pQptr = GetNext( pos );
 		if ( ActiveOnly )
 		{
 			if ( ! pQptr->m_bEnable )

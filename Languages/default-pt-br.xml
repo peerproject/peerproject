@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Brazilian Portuguese Skin File -->
 
-<!-- Translation based on default-en.xml r70 -->
+<!-- Translation based on default-en.xml r74 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -18,7 +18,7 @@
 	author="Lukas Taves"
 	updatedBy="Felipe"
 	description="Arquivo de Skin Padrão para o Português Brasileiro do PeerProject"
-	link="http://PeerProject.org"
+	link="http://peerproject.org"
 	email="Contact(at)PeerProject.org"
 	version="1.0.0.0"
 	type="Language"
@@ -129,7 +129,7 @@
 		<button id="ID_SEARCH_DOWNLOAD" text="Baixar Arquivo"/>
 		<button id="ID_SEARCH_CHAT" text="Conversar"/>
 		<rightAlign/>
-		<button id="ID_SEARCH_FILTER_RAW"  text="Filtro:" tip="Digite algumas palavras para filtrar os resultados com elas"/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filtro:" tip="Digite algumas palavras para filtrar os resultados com elas"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="Mostrar Detalhes"/>
@@ -141,7 +141,7 @@
 		<separator/>
 		<button id="ID_SEARCH_CHAT" text="Conversar"/>
 		<rightAlign/>
-		<button id="ID_SEARCH_FILTER_RAW"  text="Filtro:" tip="Digite algumas palavras para filtrar os resultados com elas"/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filtro:" tip="Digite algumas palavras para filtrar os resultados com elas"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="Mostrar Detalhes"/>
@@ -579,7 +579,7 @@
 				<item id="ID_VIEW_SEARCH_MONITOR" text="Monitor de bucas" shortcut="Ctrl+F2"/>
 				<item id="ID_VIEW_RESULTS_MONITOR" text="Monitor de resultados" shortcut="Ctrl+F3"/>
 			</menu>
-			<menu  text="_Ventana">
+			<menu text="_Ventana">
 				<item id="ID_VIEW_TABBED" text="M_odo em Abas" shortcut="necesario"/>
 				<item id="ID_VIEW_WINDOWED" text="Modo de _Janelas" shortcut="malo"/>
 				<separator/>
@@ -588,7 +588,7 @@
 				<item id="ID_WINDOW_MONITOR" text="Mostrar Monitor"/>
 				<item id="ID_WINDOW_REMOTE" text="Mostrar Ventana Remoto"/>
 			</menu>
-			<menu  text="_Ayuda">
+			<menu text="_Ayuda">
 				<item id="ID_HELP_FAQ" text="Preguntas mas frecuentes" shortcut="F1"/>
 				<item id="ID_HELP_GUIDE" text="Guia para Usuarios de PeerProject"/>
 				<item id="ID_HELP_FORUMS" text="Fóruns do PeerProject"/>
@@ -848,8 +848,8 @@
 		<item id="ID_WINDOW_REMOTE" text="Mostrar _Remoto"/>
 	</menu>
 	<menu text="_Ajuda">
-		  <item id="ID_HELP_FAQ" text="FAQ do _PeerProject"/>
-		  <item id="ID_HELP_TEST" text="_Teste de Conexão"/>
+		<item id="ID_HELP_FAQ" text="FAQ do _PeerProject"/>
+		<item id="ID_HELP_TEST" text="_Teste de Conexão"/>
 		<separator/>
 		<menu text="_Guias">
 			<item id="ID_HELP_GUIDE" text="Guia dos _Usuários do PeerProject"/>
@@ -1398,7 +1398,7 @@
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Baixar Metadata"/>
 			<separator/>
 			<item id="ID_LIBRARY_PROPERTIES" text="_Propriedades"/>
-	  	</menu>
+		</menu>
 		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localizar Metadata"/>
 	 	<item id="ID_LIBRARY_REFRESH_METADATA" text="_Atualizar Metadata"/>
 	 	<separator/>
@@ -1628,7 +1628,7 @@
 		<separator/>
 		<item id="ID_SECURITY_REMOVE" text="_Remover"/>
 		<item id="ID_SECURITY_RESET" text="Reseta_r"/>
-	  	<separator/>
+		<separator/>
 		<item id="ID_SECURITY_MOVE_UP" text="Mover Pra _Cima"/>
 		<item id="ID_SECURITY_MOVE_DOWN" text="Mover Pra _Baixo"/>
 		<separator/>
@@ -3088,12 +3088,13 @@
 	<string id="20428" value="O PeerProject recebeu um arquivo de coleção:\n\n&quot;%s&quot;.\n\n Este arquivo não parece ser um arquivo de coleção válido."/>
 	<string id="20429" value="Você gostaria de impedir essa coleção de avisar você para baixar mais alguma coisa?"/>
 	<string id="20430" value="Você tem certeza que você quer abrir o arquivo &quot;%s&quot; ?\n\nAlguns arquivos podem danificar seu computador. Certifique-se que você saiba o que o arquivo é antes de executá-lo."/>
-	<string id="20431" value="Você tem certeza que você quer apagar permanentemente o(s) %i arquivos selecionados ?\n\nOs arquivos serão movidos para a sua &quot;pasta recycle bin&quot; se ela estiver ativada."/>
-	<string id="20432" value="O PeerProject não pôde apagar o arquivo:\n\n%s"/>
-	<string id="20433" value="Sua pasta de arquivos baixados &quot;%s&quot; não está ainda na sua biblioteca.\n\nIncluir sua pasta de arquivos baixados na sua biblioteca torna mais fácil de ver e organizar novos downloads, e permite a você tomar vantagem das características avançadas do PeerProject tais como verificação de download e atualização automática. Colocar arquivos baixados na sua biblioteca não requer necessariamente que você os compartilhe: você pode escolher se quer ou não compartilhar os arquivos independentemente.\n\nVocê gostaria de adicionar a sua pasta de arquivos baixados na sua biblioteca agora?"/>
-	<string id="20434" value="Sua pasta de arquivos baixados foi adicionada a sua biblioteca. Você gostaria de compartilhá-la também?"/>
-	<string id="20435" value="Você não selecionou ainda nenhum media player para os seus arquivos, tais como o WinAmp da Nullsoft. Você gostaria de selecionar um agora?\n\nO PeerProject passará o nome do arquivo para o seu programa selecionado com o argumento &quot;/ADD&quot;."/>
-	<string id="20436" value="Você tem certeza que você quer apagar a(s)%i pasta(s) do(s) Álbum(s) selecionada(s) ?\n\nNote que esta ação não apaga os arquivos dentro das pastas do álbum, apenas as próprias pastas."/>
+	<!--string id="20431" value="Você tem certeza que você quer apagar permanentemente o(s) %i arquivos selecionados ?\n\nOs arquivos serão movidos para a sua &quot;pasta recycle bin&quot; se ela estiver ativada."-->
+	<string id="20432" value="Você tem certeza que você quer apagar a(s)%i pasta(s) do(s) Álbum(s) selecionada(s) ?\n\nNote que esta ação não apaga os arquivos dentro das pastas do álbum, apenas as próprias pastas."/>
+	<string id="20433" value="O PeerProject não pôde apagar o arquivo:\n\n%s"/>
+	<string id="20434" value="Sua pasta de arquivos baixados &quot;%s&quot; não está ainda na sua biblioteca.\n\nIncluir sua pasta de arquivos baixados na sua biblioteca torna mais fácil de ver e organizar novos downloads, e permite a você tomar vantagem das características avançadas do PeerProject tais como verificação de download e atualização automática. Colocar arquivos baixados na sua biblioteca não requer necessariamente que você os compartilhe: você pode escolher se quer ou não compartilhar os arquivos independentemente.\n\nVocê gostaria de adicionar a sua pasta de arquivos baixados na sua biblioteca agora?"/>
+	<string id="20435" value="Sua pasta de arquivos baixados foi adicionada a sua biblioteca. Você gostaria de compartilhá-la também?"/>
+	<!--string id="20436" value="Você não selecionou ainda nenhum media player para os seus arquivos, tais como o WinAmp da Nullsoft. Você gostaria de selecionar um agora?\n\nO PeerProject passará o nome do arquivo para o seu programa selecionado com o argumento &quot;/ADD&quot;."-->
+	<string id="20436" value="Adicionar esta pasta à sua biblioteca?\n\n%s"/>
 	<string id="20437" value="Arquivo Ghost"/>
 	<string id="20438" value="Editando metadata de %i arquivos."/>
 	<string id="20439" value="Você está prestes a modificar a metadata de %i arquivos. Você tem certeza que você quer continuar?"/>
@@ -3117,13 +3118,13 @@
 	<string id="20457" value="O PeerProject não pôde iniciar o seu Plugin de Mídia. Por favor reinstale o PeerProject, e confirme que você tem os codecs e drivers necessários."/>
 	<string id="20458" value="PeerProject Media Player"/>
 	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
-	<string id="20461" value="(Sem visualização)"/>
-	<!--string id="20462" value="O PeerProject completou o download:"-->
-	<!--string id="20463" value="O PeerProject está baixando:"-->
-	<!--string id="20464" value="O PeerProject está movendo o download:"-->
-	<!--string id="20465" value="Este download está pausado:"-->
-	<!--string id="20466" value="O PeerProject está procurando por fontes para:"-->
-	<!--string id="20467" value="O PeerProject está verificando o download por erros:"-->
+	<string id="20462" value="(Sem visualização)"/>
+	<!--string id="20464" value="O PeerProject completou o download:"-->
+	<!--string id="20465" value="O PeerProject está baixando:"-->
+	<!--string id="20466" value="O PeerProject está movendo o download:"-->
+	<!--string id="20467" value="Este download está pausado:"-->
+	<!--string id="20468" value="O PeerProject está procurando por fontes para:"-->
+	<!--string id="20469" value="O PeerProject está verificando o download por erros:"-->
 	<string id="20470" value="Cancelar"/>
 	<string id="20471" value="Abrir"/>
 	<string id="20472" value="Completado"/>
@@ -3216,9 +3217,7 @@
 	<string id="20578" value="O Vizinho %s atualizou a sua tabela de roteamento de pesquisa (%i bit = %lu[%i], %i%% full)."/>
 	<string id="20579" value="%s -&gt; %s [%i/%i] %s %s"/>
 	<string id="20580" value="O Vizinho Leaf %s está repassando pesquisas, derrubando conexão."/>
-	<string id="20581" value="O Vizinho %s repassou um pacote ping com comprimento inválido, ignorando."/>
-	<string id="20582" value="O Vizinho %s repassou um pacote pong com comprimento inválido, ignorando."/>
-	<string id="20583" value="O Vizinho %s repassou uma conexão de push com comprimento inválido, ignorando."/>
+	<string id="20582" value="O Vizinho %s repassou um pacote %s com comprimento inválido, ignorando."/>
 	<string id="20584" value="O Vizinho %s repassou um pacote de tamanho excessivo, derrubando conexão."/>
 	<string id="20586" value="O Vizinho %s repassou um pacote desconhecido (0x%.2x), ignorando."/>
 	<string id="20587" value="O Vizinho %s repassou um pong com dados de endereço inválidos, ignorando."/>
@@ -3468,9 +3467,9 @@
 	<string id="20891" value="Sair"/>
 	<string id="20892" value="Por favor espere: Atualizando a lista de servidores do eDonkey..."/>
 	<string id="20893" value="Por favor espere: Atualizando os serviços de descobrimento..."/>
-	<string id="20894" value="Por favor espere: Achando dispositivos UPnP e configurando-os..."/>
-	<string id="20895" value="Você ainda não especificou uma velocidade de conexão. Antes de continuar, por favor escolha seu tipo de conexão com a internet ou digite a velocidade de conexão."/>
-	<string id="20896" value="O PeerProject foi incapaz de configurar para abrir as portas no seu roteador NAT ou firewall.\n\nPor favor configure a sua rede para repassar a porta TCP %i para o seu PC local."/>
+	<string id="20894" value="Você ainda não especificou uma velocidade de conexão. Antes de continuar, por favor escolha seu tipo de conexão com a internet ou digite a velocidade de conexão."/>
+	<!--string id="20895" value="Por favor espere: Achando dispositivos UPnP e configurando-os..."-->
+	<!--string id="20896" value="O PeerProject foi incapaz de configurar para abrir as portas no seu roteador NAT ou firewall.\n\nPor favor configure a sua rede para repassar a porta TCP %i para o seu PC local."-->
 	<string id="20897" value="A pasta que você está compartilhando já é compartilhada como parte de outra pasta compartilhada:\n\n%s"/>
 	<string id="20898" value="Você não selecionou quaisquer pastas para compartilhar. Você tem certeza?"/>
 	<string id="20899" value="anos de idade"/>

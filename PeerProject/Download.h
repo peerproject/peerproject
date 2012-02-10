@@ -1,7 +1,7 @@
 //
 // Download.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -20,6 +20,7 @@
 
 #define DOWNLOAD_SER_VERSION	1000	// 42+
 // nVersion History:
+// 30 - Shareaza 2.0 (2004)
 // 33 - added m_sSearchKeyword to CDownloadBase (CyberBob)
 // 34 - added m_bSeeding and m_sServingFileName to CDownloadWithTorrent (Rolandas)
 // 35 - added m_sCountry to CDownloadSource (dcat)
@@ -51,7 +52,7 @@ public:
 	int			m_nGroupCookie;
 	BOOL		m_bClearing;			// Briefly marked for removal or deletion (rarely visible, but may take longer than expected)
 private:
-	BOOL		m_bTempPaused;
+	BOOL		m_bTempPaused;			// Disk full
 	BOOL		m_bPaused;
 	BOOL		m_bBoosted;
 	BOOL		m_bShared;
@@ -59,6 +60,7 @@ private:
 	bool		m_bDownloading; 		// Store if a download is downloading, as performance tweak. Count transfers for 100% current answer.
 	DWORD		m_tBegan;				// Time when this download began trying to download (Started searching, etc). 0 means not tried this session.
 	DWORD		m_tSaved;
+
 // Operations
 public:
 	void		Pause(BOOL bRealPause = TRUE);
@@ -86,7 +88,7 @@ private:
 	DWORD		GetStartTimer() const;
 	void		OnDownloaded();
 	void		OnMoved();
-//	void		SerializeOld(CArchive& ar, int nVersion);	// Legacy DOWNLOAD_SER_VERSION < 11, for reference
+//	void		SerializeOld(CArchive& ar, int nVersion);	// Legacy DOWNLOAD_SER_VERSION < 11 (2002), for reference only
 
 // Overrides
 public:

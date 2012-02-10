@@ -114,9 +114,9 @@ CHostCacheWnd::CHostCacheWnd()
 	Create( IDR_HOSTCACHEFRAME );
 }
 
-CHostCacheWnd::~CHostCacheWnd()
-{
-}
+//CHostCacheWnd::~CHostCacheWnd()
+//{
+//}
 
 /////////////////////////////////////////////////////////////////////////////
 // CHostCacheWnd create
@@ -128,7 +128,8 @@ int CHostCacheWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	if ( ! m_wndToolBar.Create( this, WS_CHILD|WS_VISIBLE|CBRS_NOALIGN, AFX_IDW_TOOLBAR ) ) return -1;
 	m_wndToolBar.SetBarStyle( m_wndToolBar.GetBarStyle() | CBRS_TOOLTIPS | CBRS_BORDER_TOP );
 
-	m_wndList.Create( WS_VISIBLE|LVS_ICON|LVS_AUTOARRANGE|LVS_REPORT|LVS_SHOWSELALWAYS,
+	m_wndList.Create( WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_CHILD | WS_VISIBLE |
+		LVS_ICON | LVS_AUTOARRANGE | LVS_REPORT | LVS_SHOWSELALWAYS,
 		rectDefault, this, IDC_HOSTS, COL_LAST );		// Ensure enum includes 3 additional debug columns or not
 
 	m_pSizer.Attach( &m_wndList );
@@ -543,7 +544,7 @@ void CHostCacheWnd::OnHostCacheRemove()
 
 	HostCache.CheckMinimumServers( m_nMode ? m_nMode : PROTOCOL_G2 );
 
-	//m_wndList.ClearSelection();	// ToDo:?
+	m_wndList.ClearSelection();
 
 	Update();
 }

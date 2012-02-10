@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hungarian Skin File -->
 
-<!-- Translation based on default-en.xml r70 -->
+<!-- Translation based on default-en.xml r74 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1180,7 +1180,7 @@
 		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="_Szüneteltetett megjelenítése"/>
 		<item id="ID_DOWNLOADS_FILTER_QUEUED" text="_Függőben lévő megjelenítése"/>
 		<item id="ID_DOWNLOADS_FILTER_SOURCES" text="F_orrás nélküli megjelenítése"/>
-		<item id="ID_DOWNLOADS_FILTER_SEEDS" text="_Seeds  megjelenítése"/>
+		<item id="ID_DOWNLOADS_FILTER_SEEDS" text="_Seeds megjelenítése"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SHOW_SOURCES" text="_Minden forrás megjelenítése"/>
 		<separator/>
@@ -2742,7 +2742,7 @@
 	<string id="20153" value="Hiba a BitTorrent tracker válaszánál erre a fájlra: &quot;%s&quot; : &quot;%s&quot;."/>
 	<string id="20154" value="Elemzési hiba a BitTorrent tracker fogadásakor."/>
 	<string id="20155" value="BitTorrent tracker válasz a fájlra: &quot;%s&quot;, %i új forrás."/>
-	<string id="20158" value="Nem tudom a BitTorrent fájlt  kielemezni: &quot;%s&quot;."/>
+	<string id="20158" value="Nem tudom a BitTorrent fájlt kielemezni: &quot;%s&quot;."/>
 	<string id="20159" value="BitTorrent leírófájlt kaptam: &quot;%s&quot;"/>
 	<string id="20160" value="Csevegő kérelem elfogadása: %s, viszontválasz..."/>
 	<string id="20161" value="Nem lehet kapcsolatot létrehozni: %s."/>
@@ -2946,7 +2946,7 @@
 	<string id="20383" value="Feltöltési sávszél"/>
 	<string id="20384" value="Feltöltési forgalom száma"/>
 	<string id="20385" value="Kapcsolódás: %s, visszatérés álcázott(shielded) leaf módba."/>
-	<string id="20386" value="Felesleges kapcsolat bezárása: %s  (%s port %i)."/>
+	<string id="20386" value="Felesleges kapcsolat bezárása: %s (%s port %i)."/>
 	<string id="20387" value="A %s hub nem fogad el minket, mint hub. Kapcsolat megszakítása."/>
 	<string id="20388" value="Viszontválasz hiba: %s, érvénytelen adatok."/>
 	<string id="20389" value="Hubnak adja ki magát a leafnek: %s."/>
@@ -2955,9 +2955,9 @@
 	<string id="20392" value="%s nem hub, kapcsolat bezárása."/>
 	<string id="20393" value="Nem Gnutella2 kapcsolatok bezárása: %s."/>
 	<string id="20394" value="%s hub akar lenni, kapcsolat bezárása."/>
-	<string id="20395" value="Gnutella kapcsolódás sikeres: %s  (G%i.%i : %s)."/>
-	<string id="20396" value="Gnutella2 kapcsolódás eredményes: %s.  (%s)."/>
-	<string id="20397" value="Kapcsolódás elutasítva: %s  (%s)."/>
+	<string id="20395" value="Gnutella kapcsolódás sikeres: %s (G%i.%i : %s)."/>
+	<string id="20396" value="Gnutella2 kapcsolódás eredményes: %s. (%s)."/>
+	<string id="20397" value="Kapcsolódás elutasítva: %s (%s)."/>
 	<string id="20398" value="Felesleges kapcsolat bezárása: %s."/>
 	<string id="20399" value="Viszontválasz nem érkezett időben: %s."/>
 	<string id="20400" value="%Iu fájl hashelése:"/>
@@ -2982,12 +2982,13 @@
 	<string id="20428" value="A PeerProject egy gyűjteményfájlt kapott:\n\n&quot;%s&quot;\n\nEz nem tűnik valós gyűjteményfájlnak."/>
 	<string id="20429" value="Meg akarja-e akadályozni, hogy minden fájl előtt kérdezzen?"/>
 	<string id="20430" value="Biztos, hogy futtatni akarja: &quot;%s&quot; ?\n\nNéhány fájl káros a számítógépnek. Ha nem bízik meg a fájlban, inkább futtasson le egy vírusellenőrzét."/>
-	<string id="20431" value="Biztos, hogy törölni akarja a %i fájlt?\n\nA fájl(ok) a &quot;Lomtárba&quot; kerülnek, ha be van kapcsolva."/>
-	<string id="20432" value="Nem lehet törölni:\n\n%s"/>
-	<string id="20433" value="A letöltési mappa &quot;%s&quot;, nincs a könyvtárban.\n\nHa belerakja, könnyebb lesz rendezni a letöltéseit és kihasználhatja a PeerProject lehetőségeit, mint: a letöltés-ellenőrzés és az automata frissítés. A Könyvtárban lévő letöltött fájlok nem feltétlenül megosztottak: kiválaszthatja, hogy melyiket akarja megosztani vagy sem.\n\nHozzá akarja adni a letöltési mappát a Könyvtárhoz?"/>
-	<string id="20434" value="A letöltési mappa hozzá lett adva a könyvárhoz. Meg is akarja osztani?"/>
-	<string id="20435" value="Nincs médialejátszó kiválasztva(pl. Nullsoft Winamp), ami fel tudná venni a fájlokat egy lejátszólistába. Most akarja kiválasztani?\n\nA PeerProject a(z) &quot;/ADD&quot; paranccsal küldi át a fájlokat a listába."/>
-	<string id="20436" value="Biztos akarja törölni akarja az albummappá(k)at (%i db)?\n\nEz nem fogja törölni az albumban lévő fájlokat csak magát az albumot."/>
+	<!--string id="20431" value="Biztos, hogy törölni akarja a %i fájlt?\n\nA fájl(ok) a &quot;Lomtárba&quot; kerülnek, ha be van kapcsolva."-->
+	<string id="20432" value="Biztos akarja törölni akarja az albummappá(k)at (%i db)?\n\nEz nem fogja törölni az albumban lévő fájlokat csak magát az albumot."/>
+	<string id="20433" value="Nem lehet törölni:\n\n%s"/>
+	<string id="20434" value="A letöltési mappa &quot;%s&quot;, nincs a könyvtárban.\n\nHa belerakja, könnyebb lesz rendezni a letöltéseit és kihasználhatja a PeerProject lehetőségeit, mint: a letöltés-ellenőrzés és az automata frissítés. A Könyvtárban lévő letöltött fájlok nem feltétlenül megosztottak: kiválaszthatja, hogy melyiket akarja megosztani vagy sem.\n\nHozzá akarja adni a letöltési mappát a Könyvtárhoz?"/>
+	<string id="20435" value="A letöltési mappa hozzá lett adva a könyvárhoz. Meg is akarja osztani?"/>
+	<!--string id="20436" value="Nincs médialejátszó kiválasztva(pl. Nullsoft Winamp), ami fel tudná venni a fájlokat egy lejátszólistába. Most akarja kiválasztani?\n\nA PeerProject a(z) &quot;/ADD&quot; paranccsal küldi át a fájlokat a listába."-->
+	<string id="20436" value="Add hozzá ezt a mappát a könyvtár?\n\n%s"/>
 	<string id="20437" value="Szellemfájl"/>
 	<string id="20438" value="Fájl metaadatának a szerkesztése: %i"/>
 	<string id="20439" value="%i fájl metaadat részét akarja módosítani. Biztos ezt akarja?"/>
@@ -3011,13 +3012,13 @@
 	<string id="20457" value="A PeerProject nem tudta betölteni a MediaServices plugint. Telepítsd újra a PeerProject és győződj meg róla, hogy minden fontos kodeket is föltelepítettél."/>
 	<string id="20458" value="PeerProject Médialejátszó"/>
 	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; L &#160;&#160; E &#160;&#160; J &#160;&#160; Á &#160;&#160; T &#160;&#160; S &#160;&#160; Z &#160;&#160; Ó"/>
-	<string id="20461" value="(Nincs képi megjelenítés)"/>
-	<!--string id="20462" value="Letöltés befejezve:"-->
-	<!--string id="20463" value="Letöltés folyamatban:"-->
-	<!--string id="20464" value="Letöltés áthelyezése:"-->
-	<!--string id="20465" value="Letöltés szüneteltetve:"-->
-	<!--string id="20466" value="Források keresése ennek:"-->
-	<!--string id="20467" value="Hibaellenőrzés:"-->
+	<string id="20462" value="(Nincs képi megjelenítés)"/>
+	<!--string id="20464" value="Letöltés befejezve:"-->
+	<!--string id="20465" value="Letöltés folyamatban:"-->
+	<!--string id="20466" value="Letöltés áthelyezése:"-->
+	<!--string id="20467" value="Letöltés szüneteltetve:"-->
+	<!--string id="20468" value="Források keresése ennek:"-->
+	<!--string id="20469" value="Hibaellenőrzés:"-->
 	<string id="20470" value="Mégse"/>
 	<string id="20471" value="Megnyitás"/>
 	<string id="20472" value="Kész"/>
@@ -3100,7 +3101,7 @@
 	<string id="20565" value="Az Ütemező jelenleg kizárólagos G2 módban fut. Ki akarja ezt kapcsolni, hogy a többi hálózathoz is kapcsolódva maradhasson?"/>
 	<string id="20566" value="Az UPnP port hozzárendelés a 10 próbálkozás után sem sikerült."/>
 	<string id="20570" value="Hibásan formázott találati csomag: %s, ignorálás."/>
-	<string id="20571" value="%s:  Hibásan formázott lekérdezéscsomag: %s, ignorálás."/>
+	<string id="20571" value="%s: Hibásan formázott lekérdezéscsomag: %s, ignorálás."/>
 	<string id="20572" value="%s túl nagy TTL-el rendelkező csomagot küldött tovább, csomag ejtése (TTL=%i, Hops=%i)."/>
 	<string id="20573" value="%s TTL=0 csomagot küldött tovább, ignorálás."/>
 	<string id="20574" value="%s egy kiterjesztett csomagot küldött tovább, ami GGEP kódolású."/>
@@ -3110,9 +3111,7 @@
 	<string id="20578" value="%s query routing table frissítve (%i bit = %lu[%i], %i%% full)."/>
 	<string id="20579" value="%s -&gt; %s [%i/%i] %s %s"/>
 	<string id="20580" value="Leaf %s kereséseket küldözget, kapcsolat megszakítása."/>
-	<string id="20581" value="%s érvénytelen hosszúságú ping csomagot küldött tovább, ignorálás."/>
-	<string id="20582" value="%s érvénytelen hosszúságú pong csomagot küldött tovább, ignorálás."/>
-	<string id="20583" value="%s egy érvénytelen hosszúságú csomagot küldött tovább, ignorálás."/>
+	<string id="20582" value="%s érvénytelen hosszúságú %s csomagot küldött tovább, ignorálás."/>
 	<string id="20584" value="%s túl nagy csomagot küldött tovább, kapcsolat megszakítása."/>
 	<string id="20586" value="%s ismeretlen csomagot küldött tovább (0x%.2x), ignorálás."/>
 	<string id="20587" value="%s érvénytelen címmel rendelkező pong csomagot küldött tovább, ignorálás."/>
@@ -3179,7 +3178,7 @@
 	<string id="20678" value="Az eDonkey hálózaton sokáig kell sorbanállni és várakozni egy fájlért. Ha csökkenti a sorok maximális számát, valószínűleg nem fognak elidulni a letöltések.\nBiztos csökkenteni akarja a számodra kirendelt sorszámot?"/>
 	<string id="20680" value="Beállítások"/>
 	<string id="20684" value="Biztos, hogy törölni akarja a(z) &quot;%s&quot; kinézetet? Ezt már nem lehet később visszavonni."/>
-	<string id="20700" value="Le: %s | Fel: %s  (d:%I64i/u:%I64i)"/>
+	<string id="20700" value="Le: %s | Fel: %s (d:%I64i/u:%I64i)"/>
 	<string id="20701" value="Kapcsolódva %lu szomszéddal.  %s a megosztás mérete."/>
 	<string id="20702" value="Hub mód %lu szomszéddal.  %s a helyi könyvtárban."/>
 	<string id="20703" value="Hub/Ultrapeer mód %lu szomszéddal.  %s a helyi könyvtárban."/>
@@ -3262,7 +3261,7 @@
 	<string id="20792" value="Feltöltések"/>
 	<string id="20793" value="URL:"/>
 	<string id="20794" value="Kliens:"/>
-	<string id="20795" value="Le: %s | Fel: %s  (d:%I64i/u:%I64i/s:%I64i)"/>
+	<string id="20795" value="Le: %s | Fel: %s (d:%I64i/u:%I64i/s:%I64i)"/>
 	<string id="20796" value="Az interneten megosztott fájlok"/>
 	<string id="20798" value="A PeerProject letöltötte a legújabb, PeerProject (%s) verziót. Szeretné most frissíteni a proramot?\n\nHa igen, a PeerProject a telepítés idejére bezárja magát."/>
 	<string id="20800" value="Alapértelmezett HTML válasz küldése a feltöltési kiszolgálónak %s (%s)."/>
@@ -3275,7 +3274,7 @@
 	<string id="20807" value="Feltöltés megtagadása: &quot;%s&quot; ide: %s (%s), túl sok egyidejű feltöltés."/>
 	<string id="20808" value="A(z) &quot;%s&quot; feltöltésének megtagadása ide: %s (%s), a kliens nem támogatja a sorbanállást."/>
 	<string id="20809" value="Feltöltés megtagadása: &quot;%s&quot; ide: %s (%s), az egész feltöltési sor tele van."/>
-	<string id="20810" value="%s  egy nem megfelelő részt küldött a fájlból: &quot;%s&quot;."/>
+	<string id="20810" value="%s egy nem megfelelő részt küldött a fájlból: &quot;%s&quot;."/>
 	<string id="20811" value="Az eDonkey feltöltéseket nem tanácsos megszakítani. Biztos megszakítja?"/>
 	<string id="20812" value="Nem tudom megnyitni a feltöltéshez: &quot;%s&quot; ide: %s, lemez/fájlhiba."/>
 	<string id="20813" value="Push kapcsolat létrehozása: %s. %s"/>
@@ -3346,9 +3345,9 @@
 	<string id="20891" value="Kilépés"/>
 	<string id="20892" value="Várakozás: eDonkey szerverlista frissítése..."/>
 	<string id="20893" value="Várakozás: Szerverkereső szolgáltatás frissítése..."/>
-	<string id="20894" value="Várakozás: UPnP eszközök keresése és beállítása..."/>
-	<string id="20895" value="Nem választott ki kapcsolatot. Válasszon egy kapcsolattípust vagy írja be a kapcsolata sebességét."/>
-	<string id="20896" value="A PeerProject nem tudta forwardolni a portokat a NAT router vagy a tűzfal felé.\n\nÁllítsa be a hálózatát, hogy a TCP és UDP %i számú portot forwardolja."/>
+	<string id="20894" value="Nem választott ki kapcsolatot. Válasszon egy kapcsolattípust vagy írja be a kapcsolata sebességét."/>
+	<!--string id="20895" value="Várakozás: UPnP eszközök keresése és beállítása..."-->
+	<!--string id="20896" value="A PeerProject nem tudta forwardolni a portokat a NAT router vagy a tűzfal felé.\n\nÁllítsa be a hálózatát, hogy a TCP és UDP %i számú portot forwardolja."-->
 	<string id="20897" value="A mappa, amit meg akar osztani egy másik mappában már meg van osztva:\n\n%s"/>
 	<string id="20898" value="Nem választott ki megosztani való mappákat. Biztos, hogy ezt akarja?"/>
 	<string id="20899" value="éves"/>

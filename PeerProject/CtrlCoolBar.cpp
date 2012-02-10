@@ -1,7 +1,7 @@
 //
 // CtrlCoolBar.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -95,7 +95,7 @@ CCoolBarCtrl::~CCoolBarCtrl()
 
 BOOL CCoolBarCtrl::Create(CWnd* pParentWnd, DWORD dwStyle, UINT nID)
 {
-	CRect rc( 0, 0, 0, 0);
+	CRect rc( 0, 0, 0, 0 );
 	return CWnd::CreateEx( WS_EX_CONTROLPARENT, NULL, _T("CCoolBarCtrl"),
 		dwStyle | WS_CHILD, rc, pParentWnd, nID, NULL );
 }
@@ -519,7 +519,6 @@ INT_PTR CCoolBarCtrl::OnToolHitTest(CPoint point, TOOLINFO* pTI) const
 	else
 	{
 		CString strTip;
-
 		if ( LoadString( strTip, static_cast< UINT >( pTI->uId ) ) )
 		{
 			if ( LPCTSTR pszBreak = _tcschr( strTip, '\n' ) )
@@ -776,13 +775,10 @@ void CCoolBarCtrl::OnTimer(UINT_PTR nIDEvent)
 	{
 		CMDIFrameWnd* pOwner = (CMDIFrameWnd*)GetOwner();
 
-		if ( pOwner != NULL && pOwner->IsKindOf( RUNTIME_CLASS(CMDIFrameWnd) ) )
+		if ( pOwner != NULL && pOwner->IsKindOf( RUNTIME_CLASS(CMDIFrameWnd) ) && ! pOwner->IsIconic() )
 		{
-			if ( ! pOwner->IsIconic() )
-			{
-				pOwner->RecalcLayout();
-				m_bRecalc = FALSE;
-			}
+			pOwner->RecalcLayout();
+			m_bRecalc = FALSE;
 		}
 	}
 
@@ -928,7 +924,7 @@ void CCoolBarCtrl::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 
 IMPLEMENT_DROP(CCoolBarCtrl, CControlBar)
 
-BOOL CCoolBarCtrl::OnDrop(IDataObject* pDataObj, DWORD /* grfKeyState */, POINT ptScreen, DWORD* /* pdwEffect */, BOOL /* bDrop */)
+BOOL CCoolBarCtrl::OnDrop(IDataObject* pDataObj, DWORD /*grfKeyState*/, POINT ptScreen, DWORD* /*pdwEffect*/, BOOL /*bDrop*/)
 {
 	ASSERT( m_bDropEnabled == TRUE );
 
@@ -1089,8 +1085,8 @@ void CCoolBarItem::SetImage(UINT nCommandID)
 	if ( this == NULL ) return;
 	int nImage = CoolInterface.ImageForID( nCommandID );
 	if ( nImage == m_nImage ) return;
-	m_nImage = nImage;
-	m_bChanged = TRUE;
+	m_nImage	= nImage;
+	m_bChanged	= TRUE;
 }
 
 CCoolBarItem* CCoolBarItem::FromCmdUI(CCmdUI* pUI)

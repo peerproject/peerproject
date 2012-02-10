@@ -940,7 +940,7 @@ void CSearchAdvancedBox::OnPaint()
 	pDC->ExcludeClipRect( &rct );
 
 	LoadString( strControlTitle, IDS_SEARCH_PANEL_INPUT_5 );		// "Max Filesize:"
-	rct.SetRect( BOX_MARGIN + 1, BOX_MARGIN + 39,  rc.right / 2, BOX_MARGIN + 55 );
+	rct.SetRect( BOX_MARGIN + 1, BOX_MARGIN + 39, rc.right / 2, BOX_MARGIN + 55 );
 	pDC->ExtTextOut( rct.left, rct.top, nFlags, &rct, strControlTitle, NULL );
 	pDC->ExcludeClipRect( &rct );
 

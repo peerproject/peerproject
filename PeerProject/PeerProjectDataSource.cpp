@@ -1075,7 +1075,7 @@ STDMETHODIMP CPeerProjectDataSource::XDataObject::GetData(FORMATETC *pformatetc,
 	return hr;
 }
 
-STDMETHODIMP CPeerProjectDataSource::XDataObject::GetDataHere(FORMATETC* /* pformatetc */, STGMEDIUM* /* pmedium */)
+STDMETHODIMP CPeerProjectDataSource::XDataObject::GetDataHere(FORMATETC* /*pformatetc*/, STGMEDIUM* /*pmedium*/)
 {
 	METHOD_PROLOGUE( CPeerProjectDataSource, DataObject )
 

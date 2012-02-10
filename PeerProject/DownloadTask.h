@@ -1,7 +1,7 @@
 //
 // DownloadTask.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -87,7 +87,7 @@ protected:
 	void				RunCopy();
 	void				RunMerge();
 	void				RunMergeFile(CDownload* pDownload, LPCTSTR szFilename, BOOL bMergeValidation, const Fragments::List& oMissedGaps, float fProgress = 100.0f);
-	void				CreatePathForFile(const CString& strBase, const CString& strPath);
+//	void				CreatePathForFile(const CString& strBase, const CString& strPath);
 	BOOL				CopyFile(HANDLE hSource, LPCTSTR pszTarget, QWORD nLength);
 	BOOL				CopyFileToBatch(HANDLE hSource, QWORD nOffset, QWORD nLength, LPCTSTR pszPath);
 	BOOL				MakeBatchTorrent();

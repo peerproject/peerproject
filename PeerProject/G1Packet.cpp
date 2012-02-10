@@ -679,7 +679,7 @@ BOOL CG1Packet::OnPong(const SOCKADDR_IN* pHost)
 	if ( m_nLength < 14 )
 	{
 		// Pong packets should be 14 bytes long, drop this strange one
-		theApp.Message( MSG_ERROR, IDS_PROTOCOL_SIZE_PONG, (LPCTSTR)HostToString( pHost ) );
+		theApp.Message( MSG_ERROR, IDS_PROTOCOL_SIZE_PACKET, (LPCTSTR)HostToString( pHost ), _T("pong") );
 		Statistics.Current.Gnutella1.Dropped++;
 		return FALSE;
 	}
@@ -897,7 +897,7 @@ BOOL CG1Packet::OnPush(const SOCKADDR_IN* pHost)
 {
 	if ( m_nLength < 26 )
 	{
-		theApp.Message( MSG_NOTICE, IDS_PROTOCOL_SIZE_PUSH, (LPCTSTR)HostToString( pHost ) );
+		theApp.Message( MSG_NOTICE, IDS_PROTOCOL_SIZE_PACKET, (LPCTSTR)HostToString( pHost ), _T("push") );
 		Statistics.Current.Gnutella1.Dropped++;
 		return FALSE;
 	}

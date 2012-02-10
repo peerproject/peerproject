@@ -1221,18 +1221,13 @@ void CDownloads::OnRename(LPCTSTR pszSource, LPCTSTR /*pszTarget*/)
 //////////////////////////////////////////////////////////////////////
 // CDownloads load and save
 
-void CDownloads::Load()
+void CDownloads::PreLoad()
 {
-//	m_nLimitNew = Settings.Bandwidth.Downloads;
-	m_nLimitGeneric = Settings.Bandwidth.Downloads;
-	m_nLimitDonkey = Settings.Bandwidth.Downloads;
+	const CString strRoot = Settings.Downloads.IncompletePath + _T("\\");
 
 	CSingleLock pLock( &Transfers.m_pSection, TRUE );
 
-	PurgePreviews();
 //	LoadFromCompoundFiles();						// Legacy Shareaza multifile torrents
-
-	const CString strRoot = Settings.Downloads.IncompletePath + _T("\\");
 
 	WIN32_FIND_DATA pFind = {};
 	HANDLE hSearch = FindFirstFile( strRoot + _T("*.?d"), &pFind );		// .pd files + .sd Shareaza imports
@@ -1275,8 +1270,19 @@ void CDownloads::Load()
 
 		FindClose( hSearch );
 	}
+}
+
+void CDownloads::Load()
+{
+//	m_nLimitNew 	= Settings.Bandwidth.Downloads;
+	m_nLimitGeneric	= Settings.Bandwidth.Downloads;
+	m_nLimitDonkey	= Settings.Bandwidth.Downloads;
+
+	CSingleLock pLock( &Transfers.m_pSection, TRUE );
 
 	Save( FALSE );
+
+	PurgePreviews();
 
 	if ( ! DownloadGroups.Load() )
 		DownloadGroups.CreateDefault();

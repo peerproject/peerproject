@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Albanian Skin File -->
 
-<!-- Translation based on default-en.xml r70 -->
+<!-- Translation based on default-en.xml r74 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -18,7 +18,7 @@
 	author="Besmir Godole"
 	updatedBy="Besmir Godole"
 	description="PeerProject Default Albanian Skin File"
-	link="http://PeerProject.org"
+	link="http://peerproject.org"
 	email="bgodole(at)gmail.com"
 	version="1.0.0.0"
 	type="Language"
@@ -2262,7 +2262,7 @@
 		<newline gap="8"/>
 		<link target="http://peerproject.org/help/?torrentencoding">Klikoni për ndihmë shtesë</link>
 		<text>, ose për të shkarkuar softuerë për riparimin e torrenteve.</text>
-  </document>
+	</document>
 	<document name="GeneralHelp.DonkeyServerList">
 		<text format="b">Lista e serverit eDonkey është bosh</text>
 		<newline gap="8"/>
@@ -2875,15 +2875,8 @@
 	<string id="20422" value="Vlerësimi"/>
 	<string id="20423" value="Titulli"/>
 	<string id="20424" value="#"/> <!-- Track number -->
-	<string id="20425" value="PeerProject was unable to install the collection file &quot;%s&quot; by copying it to the folder &quot;%s&quot;."/>
-	<string id="20426" value="Would you like to download all files in this collection?\n\nChoose Cancel to stop any further prompts."/>
-	<string id="20427" value="PeerProject has added the collection file &quot;%s&quot; to your library."/>
-	<string id="20428" value="PeerProject received a collection file:\n\n&quot;%s&quot;.\n\nThis file does not appear to be a valid collection file."/>
-	<string id="20429" value="Would you like to prevent this collection from prompting you to download anything else?"/>
-	<string id="20432" value="PeerProject could not delete the file:\n\n%s"/>
-	<string id="20433" value="Your downloaded files folder &quot;%s&quot; is not yet in your library.\n\nIncluding your downloaded files folder in your library makes it easier to view and organise new downloads, and lets you take advantage of advanced PeerProject features such as download verification and automatic upgrading.  Placing downloaded files in your library does not necessarily require you to share them: you can choose whether or not to share files independently.\n\nWould you like to add your downloaded files folder to your library now?"/>
-	<string id="20434" value="Your downloads folder has been added to your library.  Would you like to share it too?"/>
-	<string id="20436" value="Are you sure you want to delete the %i selected album folders ?\n\nNote that this action does not delete the files within the album folders, only the folders themselves."/>
+	<!-- Missing Library Strings -->
+	<string id="20436" value="Shto këtë dosje në bibliotekën tuaj?\n\n%s"/>
 	<string id="20437" value="Skeda Fantazmë"/>
 	<string id="20440" value="Unable to move the file %s. The file may be in use by another application.\n\nDo you wish to try to copy this file instead?"/>
 	<string id="20441" value="PeerProject could not rename:\n\n%s\nto\n%s"/>
@@ -2903,13 +2896,13 @@
 	<string id="20457" value="PeerProject could not instantiate its MediaServices plugin.  Please reinstall PeerProject, and confirm that you have the necessary media codecs and output drivers installed."/>
 	<string id="20458" value="MediaLuajtësi i PeerProject-s"/>
 	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
-	<string id="20461" value="(Asnjë vegim)"/>
-	<!--string id="20462" value="PeerProject përfundoi shkarkimin:"-->
-	<!--string id="20463" value="PeerProject po shkarkon:"-->
-	<!--string id="20464" value="PeerProject po lëviz shkarkesën:"-->
-	<!--string id="20465" value="Kjo shkarkesë po pushon:"-->
-	<!--string id="20466" value="PeerProject po gjen burime për:"-->
-	<!--string id="20467" value="PeerProject po verifikon shkarkesën për gabime:"-->
+	<string id="20462" value="(Asnjë vegim)"/>
+	<!--string id="20464" value="PeerProject përfundoi shkarkimin:"-->
+	<!--string id="20465" value="PeerProject po shkarkon:"-->
+	<!--string id="20466" value="PeerProject po lëviz shkarkesën:"-->
+	<!--string id="20467" value="Kjo shkarkesë po pushon:"-->
+	<!--string id="20468" value="PeerProject po gjen burime për:"-->
+	<!--string id="20469" value="PeerProject po verifikon shkarkesën për gabime:"-->
 	<string id="20470" value="Anulo"/>
 	<string id="20471" value="Hape"/>
 	<string id="20472" value="Përfundon"/>
@@ -2968,8 +2961,7 @@
 	<string id="20573" value="Fqinji %s përcolli një paketë TTL zero, përbuzje."/>
 	<string id="20579" value="%s -&gt; %s [%i/%i] %s %s"/>
 	<string id="20580" value="Fqinji gjethe %s po përparon hetime, lëshim i lidhjes."/>
-	<string id="20581" value="Fqinji %s përcolli një paketë ping me gjatësi invalide, përbuzje."/>
-	<string id="20582" value="Fqinji %s përcolli një paketë pong me gjatësi invalide, përbuzje."/>
+	<string id="20582" value="Fqinji %s përcolli një paketë %s me gjatësi invalide, përbuzje."/>
 	<string id="20584" value="Fqinji %s përcolli një paketë me masë të tepërt, lëshim i lidhjes."/>
 	<string id="20586" value="Fqinji %s përcolli një paketë të panjohur (0x%.2x), përbuzje."/>
 	<string id="20587" value="Fqinji %s përcolli një pong me të dhëna adrese invalide, përbuzje."/>
@@ -3142,9 +3134,8 @@
 	<string id="20891" value="Dalje"/>
 	<string id="20892" value="Palun oodake: Updating eDonkey server list..."/>
 	<string id="20893" value="Palun oodake: Updating discovery services..."/>
-	<string id="20894" value="Palun oodake: Finding UPnP devices and setting them up..."/>
-	<string id="20895" value="Ju nuk e keni përcaktuar shpejtësinë e lidhjes. Përpara se të vijoni, ju lutemi zgjidheni llojin e lidhjes tuaj me Internetin, ose shkruani shpejtësinë e lidhjes."/>
-	<string id="20896" value="You have indicated that you want to set up port-forwarding on your NAT router or firewall.\n\nPlease configure your network to forward TCP and UDP ports %i to your local PC."/>
+	<string id="20894" value="Ju nuk e keni përcaktuar shpejtësinë e lidhjes. Përpara se të vijoni, ju lutemi zgjidheni llojin e lidhjes tuaj me Internetin, ose shkruani shpejtësinë e lidhjes."/>
+	<!--string id="20895" value="Palun oodake: Finding UPnP devices and setting them up..."-->
 	<string id="20897" value="Dosja që po shpërndani shpërndahet që më parë si pjesë e një tjetër dosje të shpërndarë:\n\n%s"/>
 	<string id="20898" value="Ju nuk keni përcaktuar asnjë dosje për shpërndarje. A jeni i sigurt?"/>
 	<string id="20899" value="vjeç"/>

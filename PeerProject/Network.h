@@ -39,7 +39,7 @@ enum	// Used from CNetwork::IsFirewalled
 
 class CNetwork : public CComObject, public CThreadImpl
 {
-//	DECLARE_DYNCREATE(CNetwork)		// Breaks build?
+	DECLARE_DYNCREATE(CNetwork)
 
 public:
 	CNetwork();
@@ -156,13 +156,13 @@ protected:
 	bool		InternetConnect();				// Restore WinINet connection to Internet
 
 	bool		PreRun();
-	void		OnRun();
 	void		PostRun();
+	void		OnRun();
 
 	// Create port mapping
 	static BOOL MapPort(IStaticPortMappingCollection* pCollection, LPCWSTR szLocalIP, long nPort, LPCWSTR szProtocol, LPCWSTR szDescription);
-	void		MapPorts(); 	// Create TCP and UDP port mappings
-	void		DeletePorts();	// Remove TCP and UDP port mappings
+	void		MapPorts(); 	// Create TCP/UDP port mappings
+	void		DeletePorts();	// Remove TCP/UDP port mappings
 
 // Operations
 public:
@@ -188,7 +188,7 @@ public:
 	static BOOL	Resolve(LPCTSTR pszHost, int nPort, SOCKADDR_IN* pHost, BOOL bNames = TRUE);
 	BOOL		AsyncResolve(LPCTSTR pszAddress, WORD nPort, PROTOCOLID nProtocol, BYTE nCommand);
 	UINT		GetResolveCount() const;				// Pending network name resolves queue size
-	BOOL		IsReserved(const IN_ADDR* pAddress, bool bCheckLocal = true) const;
+	BOOL		IsReserved(const IN_ADDR* pAddress) const;
 	BOOL		IsFirewalledAddress(const IN_ADDR* pAddress, BOOL bIncludeSelf = FALSE) const;
 	WORD		RandomPort() const;
 	WORD		GetPort() const;

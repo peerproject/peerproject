@@ -1481,9 +1481,8 @@ BOOL CImages::DrawButtonState(CDC* pDC, const CRect rc, const int nResource)
 	case DOWNLOADGROUP_DISABLED:
 		return DrawButton( pDC, rc, &m_bmDownloadGroupDisabled, &m_bmDownloadGroupDisabledEdge ) ||
 			DrawButtonMap( pDC, rc, &m_bmButtonMapDownloadgroup, STATE_DISABLED );
-
-	default:
-		ASSERT( FALSE );
-		return FALSE;
 	}
+
+	ASSERT( FALSE );
+	return FALSE;
 }

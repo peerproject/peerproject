@@ -26,9 +26,8 @@
 #include "Registry.h"
 #include "HostCache.h"
 #include "UploadQueues.h"
-#include "DlgHelp.h"
 #include "DiscoveryServices.h"
-#include "UPnPFinder.h"
+#include "DlgHelp.h"
 
 
 #ifdef _DEBUG
@@ -41,13 +40,12 @@ IMPLEMENT_DYNCREATE(CWizardConnectionPage, CWizardPage)
 
 BEGIN_MESSAGE_MAP(CWizardConnectionPage, CWizardPage)
 	//{{AFX_MSG_MAP(CWizardConnectionPage)
-	ON_CBN_SELCHANGE(IDC_CONNECTION_TYPE, OnSelChangeConnectionType)
-	ON_CBN_EDITCHANGE(IDC_WIZARD_DOWNLOAD_SPEED, OnChangeConnectionSpeed)
-	ON_CBN_SELCHANGE(IDC_WIZARD_DOWNLOAD_SPEED, OnChangeConnectionSpeed)
-	ON_CBN_EDITCHANGE(IDC_WIZARD_UPLOAD_SPEED, OnChangeConnectionSpeed)
-	ON_CBN_SELCHANGE(IDC_WIZARD_UPLOAD_SPEED, OnChangeConnectionSpeed)
-	ON_CBN_SELCHANGE(IDC_WIZARD_UPNP, OnSelChangeUPnP)
-	ON_BN_CLICKED(IDC_WIZARD_RANDOM, OnBnClickedRandom)
+	ON_CBN_SELCHANGE(IDC_CONNECTION_TYPE, &CWizardConnectionPage::OnSelChangeConnectionType)
+	ON_CBN_EDITCHANGE(IDC_WIZARD_DOWNLOAD_SPEED, &CWizardConnectionPage::OnChangeConnectionSpeed)
+	ON_CBN_SELCHANGE(IDC_WIZARD_DOWNLOAD_SPEED, &CWizardConnectionPage::OnChangeConnectionSpeed)
+	ON_CBN_EDITCHANGE(IDC_WIZARD_UPLOAD_SPEED, &CWizardConnectionPage::OnChangeConnectionSpeed)
+	ON_CBN_SELCHANGE(IDC_WIZARD_UPLOAD_SPEED, &CWizardConnectionPage::OnChangeConnectionSpeed)
+	ON_BN_CLICKED(IDC_WIZARD_RANDOM, &CWizardConnectionPage::OnBnClickedRandom)
 	ON_WM_XBUTTONDOWN()
 	ON_WM_TIMER()
 	//}}AFX_MSG_MAP
@@ -60,8 +58,7 @@ END_MESSAGE_MAP()
 CWizardConnectionPage::CWizardConnectionPage()
 	: CWizardPage(CWizardConnectionPage::IDD)
 	, m_bQueryDiscoveries	( false )
-	, m_bUpdateDonkeyServers( false )
-	, m_bUPnPForward		( false )
+	, m_bUpdateServers		( false )
 	, m_bRandom 			( false )
 	, m_nPort				( 0 )
 	, m_nProgressSteps		( 0 )
@@ -157,12 +154,9 @@ BOOL CWizardConnectionPage::OnInitDialog()
 	strTemp.Format( _T("%lu kbps"), Settings.Connection.OutSpeed );
 	m_wndUploadSpeed.SetWindowText( strTemp );
 
-	LoadString( strTemp, IDS_GENERAL_YES );
-	m_wndUPnP.AddString(strTemp);
-	LoadString( strTemp, IDS_GENERAL_NO );
-	m_wndUPnP.AddString( strTemp );
+	m_wndUPnP.AddString( LoadString( IDS_GENERAL_YES ) );
+	m_wndUPnP.AddString( LoadString( IDS_GENERAL_NO ) );
 	m_wndUPnP.SetCurSel( Settings.Connection.EnableUPnP ? 0 : 1 );
-	OnSelChangeUPnP();
 
 	m_bRandom = ( Settings.Connection.RandomPort == true );
 	m_nPort	= Settings.Connection.InPort;
@@ -239,21 +233,22 @@ void CWizardConnectionPage::OnChangeConnectionSpeed()
 	m_wndType.SetCurSel( -1 );
 }
 
-void CWizardConnectionPage::OnSelChangeUPnP()
-{
-		if ( m_wndUPnP.GetCurSel() == 0 )	// Index
-		{
-			m_bUPnPForward = TRUE;
-			m_wndRandom.EnableWindow( TRUE );
-			m_wndPort.EnableWindow( ! m_bRandom );
-		}
-		else
-		{
-			m_bUPnPForward = FALSE;
-			m_wndRandom.EnableWindow( FALSE );
-			m_wndPort.EnableWindow( TRUE );
-		}
-}
+// Obsolete for reference & deletion
+//void CWizardConnectionPage::OnSelChangeUPnP()
+//{
+//	if ( m_wndUPnP.GetCurSel() == 0 )	// Index
+//	{
+//		m_bUPnPForward = TRUE;
+//		m_wndRandom.EnableWindow( TRUE );
+//		m_wndPort.EnableWindow( ! m_bRandom );
+//	}
+//	else
+//	{
+//		m_bUPnPForward = FALSE;
+//		m_wndRandom.EnableWindow( FALSE );
+//		m_wndPort.EnableWindow( TRUE );
+//	}
+//}
 
 void CWizardConnectionPage::OnBnClickedRandom()
 {
@@ -265,13 +260,16 @@ LRESULT CWizardConnectionPage::OnWizardNext()
 {
 	if ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) return 0;
 
+	CWaitCursor pCursor;
+
 	UpdateData();
 
-	if ( m_nPort > 1022 && m_nPort < 65535 )
+	if ( m_nPort > 1022 && m_nPort < 65536 )
 		Settings.Connection.InPort = m_nPort;
 	else
-		AfxMessageBox( L"Port number ignored.  ( Use 1030 - 65530 )" );
+		AfxMessageBox( L"Port number ignored.  (Use 1030-65530)" );
 	Settings.Connection.RandomPort = ( m_bRandom == TRUE );
+	Settings.Connection.EnableUPnP = ( m_wndUPnP.GetCurSel() == 0 );
 
 	DWORD nDownloadSpeed = 0, nUploadSpeed = 0;
 	const int nIndex = m_wndType.GetCurSel();
@@ -297,9 +295,7 @@ LRESULT CWizardConnectionPage::OnWizardNext()
 
 	if ( nDownloadSpeed < 2 || nUploadSpeed < 2 )
 	{
-		CString strSpeed;
-		LoadString( strSpeed, IDS_WIZARD_NEED_SPEED );
-		AfxMessageBox( strSpeed, MB_ICONEXCLAMATION );
+		AfxMessageBox( IDS_WIZARD_NEED_SPEED, MB_ICONEXCLAMATION );
 		return -1;
 	}
 
@@ -326,28 +322,33 @@ LRESULT CWizardConnectionPage::OnWizardNext()
 	m_nProgressSteps = 0;
 
 	// Load default ed2k server list (if necessary)
-	m_bUpdateDonkeyServers = true;
+	m_bUpdateServers = true;
 	m_nProgressSteps += 30;
 
 	// Update the G1, G2 and eDonkey host cache (if necessary)
 	m_bQueryDiscoveries = true;
 	m_nProgressSteps += 30;
 
-	CWaitCursor pCursor;
-	if ( m_bUPnPForward )
-	{
-		m_nProgressSteps += 30;	// UPnP device detection
-
-		// Create UPnP finder object if it doesn't exist
-		if ( ! theApp.m_pUPnPFinder )
-			theApp.m_pUPnPFinder.Attach( new CUPnPFinder );
-		if ( theApp.m_pUPnPFinder->AreServicesHealthy() )
-			theApp.m_pUPnPFinder->StartDiscovery();
-	}
-	else if ( m_wndUPnP.GetCurSel() == 1 )
-	{
-		Settings.Connection.EnableUPnP = false;
-	}
+	// Obsolete for reference & deletion
+	//CWaitCursor pCursor;
+	//if ( m_bUPnPForward )
+	//{
+	//	Settings.Connection.EnableUPnP = true;
+	//
+	//	m_nProgressSteps += 30;		// UPnP device detection
+	//
+	//	//Network.MapPorts();
+	//
+	//	// Create UPnP finder object if it doesn't exist
+	//	//if ( ! Network.UPnPFinder )
+	//	//	Network.UPnPFinder.Attach( new CUPnPFinder );
+	//	//if ( Network.UPnPFinder->AreServicesHealthy() )
+	//	//	Network.UPnPFinder->StartDiscovery();
+	//}
+	//else if ( m_wndUPnP.GetCurSel() == 1 )
+	//{
+	//	Settings.Connection.EnableUPnP = false;
+	//}
 
 	BeginThread( "WizardConnectionPage" );
 
@@ -369,49 +370,46 @@ LRESULT CWizardConnectionPage::OnWizardNext()
 void CWizardConnectionPage::OnRun()
 {
 	short nCurrentStep = 0;
-	CString strMessage;
 
 	m_wndProgress.PostMessage( PBM_SETRANGE32, 0, (LPARAM)m_nProgressSteps );
 
-	if ( m_bUPnPForward )
+	// Obsolete for reference & deletion
+	//if ( m_bUPnPForward )
+	//{
+	//	m_wndStatus.SetWindowText( LoadString( IDS_WIZARD_UPNP_SETUP ) );
+	//
+	//	while ( Network.UPnPFinder &&
+	//			Network.UPnPFinder->IsAsyncFindRunning() )
+	//	{
+	//		Sleep( 1000 );
+	//		if ( nCurrentStep < 30 )
+	//			nCurrentStep++;
+	//		else if ( nCurrentStep == 30 )
+	//			nCurrentStep = 0;
+	//		m_wndProgress.PostMessage( PBM_SETPOS, nCurrentStep );
+	//	}
+	//
+	//	nCurrentStep = 30;
+	//	m_wndProgress.PostMessage( PBM_SETPOS, nCurrentStep );
+	//}
+
+	if ( m_bUpdateServers )
 	{
-		LoadString( strMessage, IDS_WIZARD_UPNP_SETUP );
-		m_wndStatus.SetWindowText( strMessage );
-
-		while ( theApp.m_pUPnPFinder &&
-				theApp.m_pUPnPFinder->IsAsyncFindRunning() )
-		{
-			Sleep( 1000 );
-			if ( nCurrentStep < 30 )
-				nCurrentStep++;
-			else if ( nCurrentStep == 30 )
-				nCurrentStep = 0;
-			m_wndProgress.PostMessage( PBM_SETPOS, nCurrentStep );
-		}
-
-		nCurrentStep = 30;
-		m_wndProgress.PostMessage( PBM_SETPOS, nCurrentStep );
-	}
-
-	if ( m_bUpdateDonkeyServers )
-	{
-		LoadString( strMessage, IDS_WIZARD_ED2K );
-		m_wndStatus.SetWindowText( strMessage );
+		m_wndStatus.SetWindowText( LoadString( IDS_WIZARD_ED2K ) );
 
 		HostCache.CheckMinimumServers( PROTOCOL_ED2K );
-		nCurrentStep +=30;
+		nCurrentStep += 30;
 		m_wndProgress.PostMessage( PBM_SETPOS, nCurrentStep );
-		Sleep(10);	// Mixed text bugfix?
+		Sleep( 10 );	// Mixed text bugfix?
 		m_wndStatus.SetWindowText( _T("") );
 	}
 
 	if ( m_bQueryDiscoveries )
 	{
-		LoadString( strMessage, IDS_WIZARD_DISCOVERY );
-		m_wndStatus.SetWindowText( strMessage );
+		m_wndStatus.SetWindowText( LoadString( IDS_WIZARD_DISCOVERY ) );
 
 		DiscoveryServices.CheckMinimumServices();
-		nCurrentStep +=15;
+		nCurrentStep += 15;
 		m_wndProgress.PostMessage( PBM_SETPOS, nCurrentStep );
 
 		BOOL bConnected = Network.IsConnected();
@@ -429,7 +427,7 @@ void CWizardConnectionPage::OnRun()
 			nCurrentStep += 5;
 			m_wndProgress.PostMessage( PBM_SETPOS, nCurrentStep );
 
-		//	if ( ! bConnected ) Network.Disconnect();		// Causes UPnP false fail on first run
+		//	if ( ! bConnected ) Network.Disconnect();		// Caused UPnP false fail on first run?
 		}
 		else
 		{
@@ -464,13 +462,13 @@ void CWizardConnectionPage::OnTimer(UINT_PTR nIDEvent)
 
 	CloseThread();
 
-	if ( m_bUPnPForward && theApp.m_bUPnPPortsForwarded != TRI_TRUE )
-	{
-		CString strFormat, strMessage;
-		LoadString( strFormat, IDS_WIZARD_PORT_FORWARD );
-		strMessage.Format( strFormat, Settings.Connection.InPort );
-		AfxMessageBox( strMessage, MB_ICONINFORMATION );
-	}
+	// Obsolete for reference & deletion
+	//if ( m_bUPnPForward && Network.m_bUPnPPortsForwarded != TRI_TRUE )
+	//{
+	//	CString strMessage;
+	//	strMessage.Format( LoadString( IDS_WIZARD_PORT_FORWARD ), Settings.Connection.InPort );
+	//	AfxMessageBox( strMessage, MB_ICONINFORMATION );
+	//}
 }
 
 CString CWizardConnectionPage::SpeedFormat(const double nSpeed) const

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default English Skin File -->
 
-<!-- Translation based on default-en.xml r70 -->
+<!-- Translation based on default-en.xml r74 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -18,7 +18,7 @@
 	author="PeerProject Development Team"
 	updatedBy="SkinVista"
 	description="PeerProject Default English Skin File"
-	link="http://PeerProject.org"
+	link="http://peerproject.org"
 	email="Contact(at)PeerProject.org"
 	version="1.0.0.0"
 	type="Language"
@@ -3213,12 +3213,13 @@
 	<string id="20428" value="PeerProject received a collection file:\n\n&quot;%s&quot;\n\nThis file does not appear to be a valid collection file."/>
 	<string id="20429" value="Would you like to prevent this collection from prompting you to download anything else?"/>
 	<string id="20430" value="Are you sure you want to launch the file &quot;%s&quot; ?\n\nSome files can be harmful to your computer. Ensure you know what the file is before launching it."/>
-	<string id="20431" value="Are you sure you want to permanently delete the %i selected files ?\n\nThe files will be moved to your &quot;recycle bin&quot; if it is enabled."/>
-	<string id="20432" value="PeerProject could not delete the file:\n\n%s"/>
-	<string id="20433" value="Your downloaded files folder &quot;%s&quot; is not yet in your library.\n\nIncluding your downloaded files folder in your library makes it easier to view and organize new downloads, and lets you take advantage of advanced PeerProject features such as download verification and automatic upgrading. Placing downloaded files in your library does not necessarily require you to share them: you can choose whether or not to share files independently.\n\nWould you like to add your downloaded files folder to your library now?"/>
-	<string id="20434" value="Your downloads folder has been added to your library. Would you like to share it too?"/>
-	<string id="20435" value="You have not yet selected a media player to enqueue files with, such as Nullsoft Winamp. Would you like to select one now?\n\nPeerProject will pass the name of the file to your selected program with the &quot;/ADD&quot; argument."/>
-	<string id="20436" value="Are you sure you want to delete the %i selected album folders ?\n\nNote that this action does not delete the files within the album folders, only the folders themselves."/>
+	<!--string id="20431" value="Are you sure you want to permanently delete the %i selected files ?\n\nThe files will be moved to your &quot;recycle bin&quot; if it is enabled."-->
+	<string id="20432" value="Are you sure you want to delete the %i selected album folders ?\n\nNote that this action does not delete the files within the album folders, only the folders themselves."/>
+	<string id="20433" value="PeerProject could not delete the file:\n\n%s"/>
+	<string id="20434" value="Your downloaded files folder &quot;%s&quot; is not yet in your library.\n\nIncluding your downloaded files folder in your library makes it easier to view and organize new downloads, and lets you take advantage of advanced PeerProject features such as download verification and automatic upgrading. Placing downloaded files in your library does not necessarily require you to share them: you can choose whether or not to share files independently.\n\nWould you like to add your downloaded files folder to your library now?"/>
+	<string id="20435" value="Your downloads folder has been added to your library. Would you like to share it too?"/>
+	<!--string id="20436" value="You have not yet selected a media player to enqueue files with, such as Nullsoft Winamp. Would you like to select one now?\n\nPeerProject will pass the name of the file to your selected program with the &quot;/ADD&quot; argument."-->
+	<string id="20436" value="Add this folder to your Library?\n\n%s"/>
 	<string id="20437" value="Ghost File"/>
 	<string id="20438" value="Editing metadata of %i files."/>
 	<string id="20439" value="You are about to modify the metadata of %i files, are you sure you want to continue?"/>
@@ -3243,13 +3244,13 @@
 	<string id="20458" value="PeerProject Media Player"/>
 	<string id="20459" value="&#160;/&#160;"/> <!--Track Time-->
 	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
-	<string id="20461" value="(No Visualisation)"/>
-	<!--string id="20462" value="PeerProject has completed downloading:"-->
-	<!--string id="20463" value="PeerProject is downloading:"-->
-	<!--string id="20464" value="Checking download for errors:"-->
-	<!--string id="20465" value="This download is paused:"-->
-	<!--string id="20466" value="PeerProject is looking for sources for:"-->
-	<!--string id="20467" value="PeerProject is moving the download:"-->
+	<string id="20462" value="(No Visualisation)"/>
+	<!--string id="20464" value="PeerProject has completed downloading:"-->
+	<!--string id="20465" value="PeerProject is downloading:"-->
+	<!--string id="20466" value="Checking download for errors:"-->
+	<!--string id="20467" value="This download is paused:"-->
+	<!--string id="20468" value="PeerProject is looking for sources for:"-->
+	<!--string id="20469" value="PeerProject is moving the download:"-->
 	<string id="20470" value="Cancel"/>
 	<string id="20471" value="Open"/>
 	<string id="20472" value="Completed"/>
@@ -3342,9 +3343,7 @@
 	<string id="20578" value="Neighbor %s updated its query routing table (%i bit = %lu[%i], %i%% full)."/>
 	<string id="20579" value="%s -&gt; %s [%i/%i] %s %s"/>
 	<string id="20580" value="Leaf neighbor %s is forwarding queries, dropping connection."/>
-	<string id="20581" value="Neighbor %s forwarded a ping packet with invalid length, ignoring."/>
-	<string id="20582" value="Neighbor %s forwarded a pong packet with invalid length, ignoring."/>
-	<string id="20583" value="Neighbor %s forwarded a push packet with invalid length, ignoring."/>
+	<string id="20582" value="Neighbor %s forwarded a %s packet with invalid length, ignoring."/>
 	<string id="20584" value="Neighbor %s forwarded a packet of excessive size, dropping connection."/>
 	<string id="20585" value="Received a packet from %s for %s which exceeds query limits, ignoring."/>
 	<string id="20586" value="Neighbor %s forwarded an unrecognised packet (0x%.2x), ignoring."/>
@@ -3387,8 +3386,8 @@
 	<string id="20627" value="Click to Preview"/>
 	<string id="20628" value="Previewing..."/>
 	<string id="20629" value="Unable to download preview content from &quot;%s&quot;."/>
-	<string id="20630" value="There are %i reviews."/>
-	<string id="20631" value="There is one review."/>
+	<string id="20630" value="%i Reviews."/>
+	<string id="20631" value="One review."/>
 	<string id="20632" value="%i sources are available. (%s/s)"/>
 	<string id="20633" value="One source is available. (%s/s)"/>
 	<string id="20634" value="The network has not returned any matches yet."/>
@@ -3486,8 +3485,7 @@
 	<string id="20751" value="There are no active searches. Click here to search for files."/>
 	<string id="20752" value="You're not connected. Click the Connect button to get started."/>
 	<string id="20755" value="Are you sure you want to delete the &quot;%s&quot; template?\nThis cannot be undone."/>
-	<string id="20760" value="Priority
-"/>
+	<string id="20760" value="Priority"/>
 	<string id="20762" value="This file appears to be spam."/>
 	<string id="20763" value="Blacklisted:"/>
 	<string id="20764" value="You have downloaded and deleted this file before."/>
@@ -3513,7 +3511,7 @@
 	<string id="20785" value="Status:"/>
 	<string id="20786" value="%lu today, %lu total"/>
 	<string id="20787" value="Total Files:"/>
-	<string id="20788" value="Total Volume:"/>
+	<string id="20788" value="Total Size:"/>
 	<string id="20789" value="Transfer:"/>
 	<string id="20790" value="Type"/>
 	<string id="20791" value="Untrusted"/>
@@ -3596,7 +3594,7 @@
 	<string id="20874" value="URL:"/>
 	<string id="20875" value="Unspecified"/>
 	<string id="20880" value="Edit My Profile"/>
-	<string id="20881" value="%u Files selected.  Are you sure?"/>
+	<string id="20881" value="%u Files selected. Are you sure?"/>
 	<string id="20882" value="No URN available"/>
 	<string id="20883" value="UPnP Device Host Service is not running. This service is required to perform the setup.\nYou need to set the startup type of the service to automatic."/>
 	<string id="20884" value="This option uses services provided by ShareMonkey.com for recognizing information about selected files.\n\nPeerProject will transmit file details and your location in order to query the ShareMonkey database.\nIf you are concerned about privacy, you may wish to consult ShareMonkey.com policies.\n\nWould you like to proceed?"/>
@@ -3606,9 +3604,9 @@
 	<string id="20891" value="E&amp;xit"/>
 	<string id="20892" value="Please wait: Updating eDonkey server list..."/>
 	<string id="20893" value="Please wait: Updating discovery services..."/>
-	<string id="20894" value="Please wait: Finding UPnP devices and setting them up..."/>
-	<string id="20895" value="You have not yet specified a connection speed. Before continuing, please either choose your Internet connection type, or type in a connection speed."/>
-	<string id="20896" value="PeerProject was unable to set up port-forwarding on your NAT router or firewall.\n\nPlease configure your network to forward TCP and UDP ports %i to your local PC."/>
+	<string id="20894" value="You have not yet specified a connection speed. Before continuing, please either choose your Internet connection type, or type in a connection speed."/>
+	<!--string id="20895" value="Please wait: Finding UPnP devices and setting them up..."-->
+	<!--string id="20896" value="PeerProject was unable to set up port-forwarding on your NAT router or firewall.\n\nPlease configure your network to forward TCP and UDP ports %i to your local PC."-->
 	<string id="20897" value="The folder you are sharing is already shared as part of another shared folder:\n\n%s"/>
 	<string id="20898" value="You have not specified any folders to share. Are you sure?"/>
 	<string id="20899" value="year old"/>
@@ -3804,7 +3802,7 @@
 		<control caption="Can accept incoming connections"/>
 		<control/>
 		<control caption="Ignore private/local IP addresses"/>
-		<control caption="Enable UPnP connection devices setup"/>
+		<control caption="Enable Plug'n'Play port-forwarding"/>
 		<control caption="_Timeouts:"/>
 		<control caption="Connection:"/>
 		<control/>

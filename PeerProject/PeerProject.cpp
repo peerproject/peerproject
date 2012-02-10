@@ -31,7 +31,6 @@
 #include "Downloads.h"
 #include "Emoticons.h"
 #include "FileExecutor.h"
-#include "Firewall.h"
 #include "Flags.h"
 #include "GProfile.h"
 #include "HostCache.h"
@@ -58,7 +57,6 @@
 #include "SQLite.h"
 #include "ThumbCache.h"
 #include "Transfers.h"
-#include "UPnPFinder.h"
 #include "UploadQueues.h"
 #include "Uploads.h"
 #include "VendorCache.h"
@@ -182,8 +180,6 @@ CPeerProjectApp::CPeerProjectApp()
 	, m_bLimitedConnections 	( true )
 	, m_nWindowsVersion			( 0ul )
 	, m_nWindowsVersionMinor	( 0ul )
-	, m_bUPnPPortsForwarded 	( TRI_UNKNOWN )
-	, m_bUPnPDeviceConnected	( TRI_UNKNOWN )
 	, m_bMenuWasVisible			( FALSE )
 	, m_nLastInput				( 0ul )
 	, m_hHookKbd				( NULL )
@@ -224,7 +220,6 @@ CPeerProjectApp::CPeerProjectApp()
 {
 	ZeroMemory( m_nVersion, sizeof( m_nVersion ) );
 	ZeroMemory( m_pBTVersion, sizeof( m_pBTVersion ) );
-	m_nUPnPExternalAddress.s_addr = INADDR_NONE;
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1500)	// No VS2005
 	AfxSetPerUserRegistration( TRUE );
@@ -334,11 +329,7 @@ BOOL CPeerProjectApp::InitInstance()
 #endif
 
 	if ( tCurrent > tCompileTime + tTimeOut )
-	{
-		CString strMessage;
-		LoadString( strMessage, IDS_BETA_EXPIRED );
-		AfxMessageBox( strMessage, MB_ICONQUESTION|MB_OK );
-	}
+		AfxMessageBox( IDS_BETA_EXPIRED, MB_ICONQUESTION|MB_OK );
 
 
 	// ALPHA/BETA WARNING.  Remember to remove this section for public betas.
@@ -369,11 +360,9 @@ BOOL CPeerProjectApp::InitInstance()
 
 	// Show Startup Splash Screen
 
-	const int nSplashSteps = 18
-		+ ( Settings.Connection.EnableFirewallException ? 1 : 0 )
-		+ ( Settings.Connection.EnableUPnP ? 1 : 0 );
+	const int nSplashSteps = ( m_cmdInfo.m_bNoSplash || ! m_cmdInfo.m_bShowSplash ) ? 0 : 19;
 
-	SplashStep( L"Up", ( ( m_cmdInfo.m_bNoSplash || ! m_cmdInfo.m_bShowSplash ) ? 0 : nSplashSteps ), false );
+	SplashStep( L"Up", nSplashSteps, false );
 		if ( m_cmdInfo.m_nGUIMode != -1 )
 			Settings.General.GUIMode = m_cmdInfo.m_nGUIMode;
 		if ( Settings.General.GUIMode != GUI_WINDOWED && Settings.General.GUIMode != GUI_TABBED && Settings.General.GUIMode != GUI_BASIC )
@@ -388,15 +377,18 @@ BOOL CPeerProjectApp::InitInstance()
 		PurgeDeletes();
 
 	SplashStep( L"Network Winsock" );
-		WSADATA wsaData;
-		for ( int i = 1 ; i <= 2 ; i++ )
-		{
-			if ( WSAStartup( MAKEWORD( 1, 1 ), &wsaData ) ) return FALSE;
-			if ( wsaData.wVersion == MAKEWORD( 1, 1 ) ) break;
-			if ( i == 2 ) return FALSE;
-			WSACleanup();
-		}
-		CryptAcquireContext( &m_hCryptProv, NULL, NULL, PROV_RSA_FULL, CRYPT_VERIFYCONTEXT );
+		if ( ! Network.Init() )
+			return FALSE;
+
+		// Obsolete for reference & deletion
+		//WSADATA wsaData;
+		//for ( int i = 1 ; i <= 2 ; i++ )
+		//{
+		//	if ( WSAStartup( MAKEWORD( 1, 1 ), &wsaData ) ) return FALSE;
+		//	if ( wsaData.wVersion == MAKEWORD( 1, 1 ) ) break;
+		//	if ( i == 2 ) return FALSE;
+		//	WSACleanup();
+		//}
 
 	SplashStep( L"P2P URIs" );
 		CPeerProjectURL::Register( TRUE );
@@ -473,35 +465,40 @@ BOOL CPeerProjectApp::InitInstance()
 		CThumbCache::InitDatabase();	// Several seconds if large (~5s)
 	SplashStep( L"Library" );
 		Library.Load();					// Lengthy if very large (~20s)
+	SplashStep( L"Downloads" );
+		Downloads.PreLoad();			// Very lengthy if many files (~1min)
 	SplashStep( L"Download Manager" );
-		Downloads.Load();				// Very lengthy if many (~1min)
+		Downloads.Load();
+		Sleep( 60 );					// Allow some splash text visibility
 	SplashStep( L"Upload Manager" );
 		UploadQueues.Load();
+		Sleep( 60 );					// Allow some splash text visibility
 
-	if ( Settings.Connection.EnableFirewallException )
-	{
-		SplashStep( L"Windows Firewall Setup" );
-		CFirewall firewall;
-		if ( firewall.Init() && firewall.AreExceptionsAllowed() )
-		{
-			// Add to firewall exception list if necessary
-			// and enable UPnP Framework if disabled
-			firewall.SetupService( NET_FW_SERVICE_UPNP );
-			firewall.SetupProgram( m_strBinaryPath, theApp.m_pszAppName );
-		}
-	}
-
-	if ( Settings.Connection.EnableUPnP )
-	{
-		SplashStep( L"Plug'n'Play Network Access, Please Wait" );
-		// First run will do UPnP discovery in the QuickStart Wizard
-		if ( ! Settings.Live.FirstRun )
-		{
-			m_pUPnPFinder.Attach( new CUPnPFinder );
-			if ( m_pUPnPFinder->AreServicesHealthy() )
-				m_pUPnPFinder->StartDiscovery();	// Lengthy 30s
-		}
-	}
+	// Obsolete for reference & deletion
+	//if ( Settings.Connection.EnableFirewallException )
+	//{
+	//	SplashStep( L"Windows Firewall Setup" );
+	//	CFirewall firewall;
+	//	if ( firewall.Init() && firewall.AreExceptionsAllowed() )
+	//	{
+	//		// Add to firewall exception list if necessary
+	//		// and enable UPnP Framework if disabled
+	//		firewall.SetupService( NET_FW_SERVICE_UPNP );
+	//		firewall.SetupProgram( m_strBinaryPath, theApp.m_pszAppName );
+	//	}
+	//}
+	//
+	//if ( Settings.Connection.EnableUPnP )
+	//{
+	//	SplashStep( L"Plug'n'Play Network Access, Please Wait" );
+	//	// First run will do UPnP discovery in the QuickStart Wizard
+	//	if ( ! Settings.Live.FirstRun )
+	//	{
+	//		m_pUPnPFinder.Attach( new CUPnPFinder );
+	//		if ( m_pUPnPFinder->AreServicesHealthy() )
+	//			m_pUPnPFinder->StartDiscovery();	// Lengthy 30s
+	//	}
+	//}
 
 	//pCursor.Restore();
 
@@ -548,13 +545,10 @@ int CPeerProjectApp::ExitInstance()
 	{
 		// Continue Shutdown Splash Screen (from WndMain)
 
-		CWaitCursor pCursor;
+		//CWaitCursor pCursor;
 		m_bInteractive = false;
 
-		const int nSplashSteps = 5
-			+ ( Settings.Connection.DeleteFirewallException ? 1 : 0 )
-			+ ( m_pUPnPFinder ? 2 : 0 )
-			+ ( m_bLive ? 3 : 0 );
+		const int nSplashSteps = 6 + ( m_bLive ? 3 : 0 );
 
 		SplashStep( L"Disconnecting", nSplashSteps, true );
 		VersionChecker.Stop();
@@ -583,31 +577,35 @@ int CPeerProjectApp::ExitInstance()
 			HostCache.Save();
 			UploadQueues.Save();
 			DiscoveryServices.Save();
+			DownloadGroups.Save();
 
 			SplashStep( L"Saving Downloads" );
-			DownloadGroups.Save();
 			Downloads.Save();
 
 			SplashStep( L"Saving Library" );
 			Library.Save();
 		}
 
-		if ( m_pUPnPFinder )
-		{
-			SplashStep( L"Closing Plug'n'Play Network Access" );
-			m_pUPnPFinder->StopAsyncFind();
-			if ( Settings.Connection.DeleteUPnPPorts )
-				m_pUPnPFinder->DeletePorts();
-			m_pUPnPFinder.Free();
-		}
+		// Obsolete for reference & deletion
+		//if ( m_pUPnPFinder )
+		//{
+		//	SplashStep( L"Closing Plug'n'Play Network Access" );
+		//	m_pUPnPFinder->StopAsyncFind();
+		//	if ( Settings.Connection.DeleteUPnPPorts )
+		//		m_pUPnPFinder->DeletePorts();
+		//	m_pUPnPFinder.Free();
+		//}
+		//
+		//if ( Settings.Connection.DeleteFirewallException )
+		//{
+		//	SplashStep( L"Closing Windows Firewall Access" );
+		//	CFirewall firewall;
+		//	if ( firewall.Init() )
+		//		firewall.SetupProgram( m_strBinaryPath, theApp.m_pszAppName, TRUE );
+		//}
 
-		if ( Settings.Connection.DeleteFirewallException )
-		{
-			SplashStep( L"Closing Windows Firewall Access" );
-			CFirewall firewall;
-			if ( firewall.Init() )
-				firewall.SetupProgram( m_strBinaryPath, theApp.m_pszAppName, TRUE );
-		}
+		SplashStep( L"Closing Network" );
+		Network.Clear();	// UPnP Delay
 
 		SplashStep( L"Finalizing" );
 		Downloads.Clear( true );
@@ -621,13 +619,11 @@ int CPeerProjectApp::ExitInstance()
 		SchemaCache.Clear();
 		Plugins.Clear();
 
-		FreeCountry();	// Release GeoIP
+		FreeCountry();		// Release GeoIP
 
-		Sleep( 80 );
+		Sleep( 100 );
 		SplashStep();
 	}
-
-	WSACleanup();
 
 	if ( m_hTheme != NULL )
 		FreeLibrary( m_hTheme );
@@ -643,7 +639,7 @@ int CPeerProjectApp::ExitInstance()
 	if ( m_hLibGFL != NULL )
 		FreeLibrary( m_hLibGFL );
 
-	//delete m_pFontManager;
+	//delete m_pFontManager;	// Obsolete
 
 	UnhookWindowsHookEx( m_hHookKbd );
 	UnhookWindowsHookEx( m_hHookMouse );
@@ -907,7 +903,7 @@ BOOL CPeerProjectApp::Open(LPCTSTR lpszFileName, BOOL bTest)		// Note: Not BOOL 
 	case 'l':	// .lnk
 		return bTest || OpenShellShortcut( lpszFileName );
 	case 'b':	// .xml.bz2 (DC++)
-		if ( ! _tcsicmp( lpszFileName + ( _tcslen( lpszFileName ) - 8 ),  _T(".xml.bz2") ) )
+		if ( ! _tcsicmp( lpszFileName + ( _tcslen( lpszFileName ) - 8 ), _T(".xml.bz2") ) )
 		{
 			if ( bTest ) return TRUE;
 			if ( ! _tcsicmp( PathFindFileName( lpszFileName ), _T("hublist.xml.bz2") ) )
@@ -1052,10 +1048,18 @@ BOOL CPeerProjectApp::OpenPath(LPCTSTR lpszFileName)
 		return TRUE;
 	}
 
-	CString strMessage = _T("Add this folder to your Library?\n\n");
-	strMessage += lpszFileName;
+	CString strMessage;
+	strMessage.Format( IDS_LIBRARY_ADD_FOLDER, lpszFileName );
 	if ( MsgBox( (LPCTSTR)strMessage, MB_ICONQUESTION|MB_YESNO ) != IDYES )
 		return FALSE;
+
+	if ( LibraryFolders.IsSubFolderShared( (CString)lpszFileName ) )
+	{
+		LoadString( strMessage, IDS_LIBRARY_SUBFOLDER_IN_LIBRARY );
+		strMessage.Format( strMessage, lpszFileName );
+		if ( MsgBox( strMessage, MB_ICONQUESTION|MB_YESNO ) != IDYES );
+			return FALSE;
+	}
 
 	// Add new folder to Library
 	if ( CLibraryFolder* pFolder = LibraryFolders.AddFolder( lpszFileName ) )
@@ -1077,7 +1081,7 @@ BOOL CPeerProjectApp::OpenPath(LPCTSTR lpszFileName)
 	}
 
 	PostMainWndMessage( WM_COMMAND, ID_LIBRARY_FOLDERS );
-	
+
 	return TRUE;
 }
 
@@ -1253,7 +1257,7 @@ void CPeerProjectApp::InitResources()
 	// Get pointers to some functions that require Windows Vista or greater
 	if ( HMODULE hKernel32 = GetModuleHandle( _T("kernel32.dll") ) )
 	{
-		(FARPROC&)m_pfnRegisterApplicationRestart = GetProcAddress( hKernel32, "RegisterApplicationRestart" );			// Vista+	RegisterApplicationRestart()  for InitInstance()
+		(FARPROC&)m_pfnRegisterApplicationRestart = GetProcAddress( hKernel32, "RegisterApplicationRestart" );			// Vista+	RegisterApplicationRestart() for InitInstance()
 	}
 
 	// Get pointers to some functions that require Windows XP or greater
@@ -1274,7 +1278,7 @@ void CPeerProjectApp::InitResources()
 	// Get pointers to some functions that require Internet Explorer 6 or greater
 	if ( ( m_hShlWapi = LoadLibrary( _T("shlwapi.dll") ) ) != NULL )
 	{
-		(FARPROC&)m_pfnAssocIsDangerous = GetProcAddress( m_hShlWapi, "AssocIsDangerous" );								// XPsp1+	AssocIsDangerous()  for CFileExecutor::IsSafeExecute()
+		(FARPROC&)m_pfnAssocIsDangerous = GetProcAddress( m_hShlWapi, "AssocIsDangerous" );								// XPsp1+	AssocIsDangerous() for CFileExecutor::IsSafeExecute()
 	}
 
 	// Get pointers to shell functions that require Vista or greater
@@ -1282,7 +1286,7 @@ void CPeerProjectApp::InitResources()
 	{
 		(FARPROC&)m_pfnSHGetFolderPathW = GetProcAddress( m_hShell32, "SHGetFolderPathW" );								// Win2K+?	SHGetFolderPath()
 		(FARPROC&)m_pfnSHGetKnownFolderPath = GetProcAddress( m_hShell32, "SHGetKnownFolderPath" );						// Vista+	SHGetKnownFolderPath()
-		(FARPROC&)m_pfnSHQueryUserNotificationState = GetProcAddress( m_hShell32, "SHQueryUserNotificationState" );		// Vista+	SHQueryUserNotificationState()  for IsUserFullscreen()
+		(FARPROC&)m_pfnSHQueryUserNotificationState = GetProcAddress( m_hShell32, "SHQueryUserNotificationState" );		// Vista+	SHQueryUserNotificationState() for IsUserFullscreen()
 	}
 
 	if ( ( m_hUser32 = LoadLibrary( _T("user32.dll") ) ) != NULL )

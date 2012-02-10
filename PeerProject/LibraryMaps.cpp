@@ -1,7 +1,7 @@
 //
 // LibraryMaps.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -109,7 +109,7 @@ CLibraryFile* CLibraryMaps::LookupFile(DWORD_PTR nIndex, BOOL bSharedOnly, BOOL 
 	CQuickLock oLock( Library.m_pSection );
 
 	return ( m_pIndexMap.Lookup( nIndex, pFile ) &&
-		pFile->CheckFileAttributes(	SIZE_UNKNOWN, bSharedOnly, bAvailableOnly ) ) ?
+		pFile->CheckFileAttributes( SIZE_UNKNOWN, bSharedOnly, bAvailableOnly ) ) ?
 		pFile : NULL;
 }
 
@@ -128,7 +128,7 @@ CLibraryFile* CLibraryMaps::LookupFileByName(LPCTSTR pszName, QWORD nSize, BOOL 
 	CQuickLock oLock( Library.m_pSection );
 
 	return ( m_pNameMap.Lookup( strName, pFile ) &&
-		pFile->CheckFileAttributes(	nSize, bSharedOnly, bAvailableOnly ) ) ?
+		pFile->CheckFileAttributes( nSize, bSharedOnly, bAvailableOnly ) ) ?
 		pFile : NULL;
 }
 
@@ -146,7 +146,7 @@ CLibraryFile* CLibraryMaps::LookupFileByPath(LPCTSTR pszPath, BOOL bSharedOnly, 
 	CQuickLock oLock( Library.m_pSection );
 
 	return ( m_pPathMap.Lookup( strPath, pFile ) &&
-		pFile->CheckFileAttributes(	SIZE_UNKNOWN, bSharedOnly, bAvailableOnly ) ) ?
+		pFile->CheckFileAttributes( SIZE_UNKNOWN, bSharedOnly, bAvailableOnly ) ) ?
 		pFile : NULL;
 }
 

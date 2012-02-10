@@ -90,9 +90,9 @@ CDiscoveryWnd::CDiscoveryWnd()
 	Create( IDR_DISCOVERYFRAME );
 }
 
-CDiscoveryWnd::~CDiscoveryWnd()
-{
-}
+//CDiscoveryWnd::~CDiscoveryWnd()
+//{
+//}
 
 /////////////////////////////////////////////////////////////////////////////
 // CDiscoveryWnd message handlers
@@ -105,7 +105,7 @@ int CDiscoveryWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		m_wndToolBar.SetBarStyle( m_wndToolBar.GetBarStyle() | CBRS_TOOLTIPS | CBRS_BORDER_TOP );
 
 	m_wndList.Create( WS_VISIBLE|LVS_ICON|LVS_AUTOARRANGE|LVS_REPORT|LVS_SHOWSELALWAYS,
-		rectDefault, this, IDC_SERVICES );
+		rectDefault, this, IDC_SERVICES, COL_LAST );
 	m_wndList.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP );
 	m_pSizer.Attach( &m_wndList );
 
@@ -162,8 +162,6 @@ void CDiscoveryWnd::Update()
 	if ( ! pLock.Lock( 250 ) )
 		return;
 
-	CLiveList pLiveList( COL_LAST );
-
 	for ( POSITION pos = DiscoveryServices.GetIterator() ; pos ; )
 	{
 		CDiscoveryService* pService = DiscoveryServices.GetNext( pos );
@@ -173,14 +171,14 @@ void CDiscoveryWnd::Update()
 		if ( pService->m_nType == CDiscoveryService::dsGnutella )
 		{
 			if ( ! m_bShowGnutella ) continue;
-			pItem = pLiveList.Add( pService );
+			pItem = m_wndList.Add( pService );
 			pItem->Set( COL_TYPE, _T("Bootstrap") );
 			pItem->SetImage( 0 );			// IDR_HOSTCACHEFRAME
 		}
 		else if ( pService->m_nType == CDiscoveryService::dsWebCache )
 		{
 			if ( ! m_bShowWebCache ) continue;
-			pItem = pLiveList.Add( pService );
+			pItem = m_wndList.Add( pService );
 			pItem->Set( COL_TYPE, _T("GWebCache") );
 			if ( pService->m_bGnutella2 && pService->m_bGnutella1 )
 				pItem->SetImage( 1 );		// IDR_DISCOVERYFRAME Full-colored
@@ -194,14 +192,14 @@ void CDiscoveryWnd::Update()
 		else if ( pService->m_nType == CDiscoveryService::dsServerList )
 		{
 			if ( ! m_bShowServerList ) continue;
-			pItem = pLiveList.Add( pService );
+			pItem = m_wndList.Add( pService );
 			pItem->Set( COL_TYPE, pService->m_nProtocolID == PROTOCOL_DC ? _T("Hublist") : _T("Server.met") );
 			pItem->SetImage( 4 );			// IDI_WEB_URL
 		}
 		else if ( pService->m_nType == CDiscoveryService::dsBlocked )
 		{
 			if ( ! m_bShowBlocked ) continue;
-			pItem = pLiveList.Add( pService );
+			pItem = m_wndList.Add( pService );
 			pItem->Set( COL_TYPE, _T("Blocked") );	// ToDo: Translate?
 			pItem->SetImage( 5 );			// IDI_FIREWALLED
 		}
@@ -244,7 +242,7 @@ void CDiscoveryWnd::Update()
 		}
 	}
 
-	pLiveList.Apply( &m_wndList, TRUE );
+	m_wndList.Apply();
 }
 
 CDiscoveryService* CDiscoveryWnd::GetItem(int nItem)
@@ -404,6 +402,8 @@ void CDiscoveryWnd::OnDiscoveryRemove()
 	}
 
 	DiscoveryServices.CheckMinimumServices();
+
+	m_wndList.ClearSelection();
 
 	Update();
 }

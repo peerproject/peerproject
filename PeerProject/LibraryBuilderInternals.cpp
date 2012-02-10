@@ -3942,9 +3942,9 @@ bool CLibraryBuilderInternals::ReadCHM(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 
 bool CLibraryBuilderInternals::ReadCollection(DWORD nIndex, LPCTSTR pszPath)
 {
-	if ( _tcsicmp( pszPath + _tcslen( pszPath ) - 4,  _T (".bz2") ) == 0 )
+	if ( _tcsicmp( pszPath + _tcslen( pszPath ) - 4, _T (".bz2") ) == 0 )
 	{
-		if ( _tcslen( pszPath ) < 9 || _tcsicmp( pszPath + _tcslen( pszPath ) - 8,  _T (".xml.bz2") ) != 0 )
+		if ( _tcslen( pszPath ) < 9 || _tcsicmp( pszPath + _tcslen( pszPath ) - 8, _T (".xml.bz2") ) != 0 )
 		{
 			auto_ptr< CXMLElement > pXML( new CXMLElement( NULL, L"archive" ) );
 			LibraryBuilder.SubmitMetadata( nIndex, CSchema::uriArchive, pXML.release() );

@@ -18,9 +18,9 @@
 
 #include "StdAfx.h"
 #include "Settings.h"
-#include "PeerProject.h"
 #include "PageSettingsConnection.h"
 #include "DlgHelp.h"
+#include "Network.h"
 #include "UPnPFinder.h"
 
 #ifdef _DEBUG
@@ -269,27 +269,22 @@ void CConnectionSettingsPage::OnOK()
 	if ( m_sOutHost.CompareNoCase( strAutomatic ) == 0 )
 		m_sOutHost.Empty();
 
+	bool bOldEnableUPnP	= Settings.Connection.EnableUPnP;
+	DWORD nOldInPort	= Settings.Connection.InPort;
+	DWORD nOldOutSpeed	= Settings.Connection.OutSpeed;
+
 	Settings.Connection.FirewallState	= m_wndCanAccept.GetCurSel();
 	Settings.Connection.InHost			= m_sInHost;
+	Settings.Connection.InPort			= m_nInPort < 65535 ? m_nInPort : 65535;
 
-	bool bRandomForwarded = ( m_nInPort == 0 &&
-		theApp.m_bUPnPPortsForwarded == TRI_TRUE );
-
-	if ( ! bRandomForwarded || m_nInPort != 0 || ! m_bInRandom )
-	{
-		if ( m_nInPort < 65535 && m_nInPort > 0 )
-			Settings.Connection.InPort = m_nInPort;
-
-		if ( m_bEnableUPnP && ( (DWORD)m_nInPort != Settings.Connection.InPort || ! Settings.Connection.EnableUPnP ) )
-		{
-			if ( ! theApp.m_pUPnPFinder )
-				theApp.m_pUPnPFinder.Attach( new CUPnPFinder );
-			if ( theApp.m_pUPnPFinder->AreServicesHealthy() )
-				theApp.m_pUPnPFinder->StartDiscovery();
-		}
-	}
-
-	DWORD nPriorOutSpeed = Settings.Connection.OutSpeed;
+	// Obsolete for reference & deletion
+	//if ( m_bEnableUPnP && ( (DWORD)m_nInPort != Settings.Connection.InPort || ! Settings.Connection.EnableUPnP ) )
+	//{
+	//	if ( ! Network.UPnPFinder )
+	//		Network.UPnPFinder.Attach( new CUPnPFinder );
+	//	if ( Network.UPnPFinder->AreServicesHealthy() )
+	//		Network.UPnPFinder->StartDiscovery();
+	//}
 
 	Settings.Connection.RandomPort			= ( m_bInRandom && m_nInPort == 0 );
 	Settings.Connection.EnableUPnP			= m_bEnableUPnP != FALSE;
@@ -301,7 +296,7 @@ void CConnectionSettingsPage::OnOK()
 	Settings.Connection.TimeoutConnect		= m_nTimeoutConnection * 1000;
 	Settings.Connection.TimeoutHandshake	= m_nTimeoutHandshake  * 1000;
 
-	if ( Settings.Connection.OutSpeed != nPriorOutSpeed )
+	if ( Settings.Connection.OutSpeed != nOldOutSpeed )
 	{
 		// Reset upload limit to 90% of capacity, trimmed down to nearest KB.
 		Settings.Bandwidth.Uploads = ( Settings.Connection.OutSpeed / 8 ) *
@@ -325,6 +320,13 @@ void CConnectionSettingsPage::OnOK()
 			Settings.Live.UploadLimitWarning = TRUE;
 		}
 	}
+
+	if ( Settings.Connection.EnableUPnP &&
+		( ! bOldEnableUPnP || Settings.Connection.InPort != nOldInPort ) )
+	{
+		Network.UpdatePortMapping();
+	}
+
 	CSettingsPage::OnOK();
 }
 
@@ -383,22 +385,22 @@ void CConnectionSettingsPage::OnClickedEnableUpnp()
 {
 	if ( ! m_bEnableUPnP )
 	{
-		if ( ! theApp.m_pUPnPFinder )
-			theApp.m_pUPnPFinder.Attach( new CUPnPFinder );
+		// Obsolete for reference & deletion
+		//if ( ! theApp.m_pUPnPFinder )
+		//	theApp.m_pUPnPFinder.Attach( new CUPnPFinder );
 
 		// If the UPnP Device Host service is not running ask the user to start it.
 		// It is not wise to have a delay up to 1 minute, especially that we would
 		// need to wait until this and SSDP service are started.
 		// If the upnphost service can not be started PeerProject will lock up.
 
-		if ( ! theApp.m_pUPnPFinder->AreServicesHealthy() )
+		if ( ! IsServiceHealthy( _T("upnphost") ) )
 		{
-			CString strMessage;
-			LoadString( strMessage, IDS_UPNP_SERVICES_ERROR );
 			CButton* pBox = (CButton*)GetDlgItem( IDC_ENABLE_UPNP );
 			pBox->SetCheck( BST_UNCHECKED );
-			AfxMessageBox( strMessage, MB_OK | MB_ICONEXCLAMATION );
+			AfxMessageBox( IDS_UPNP_SERVICES_ERROR, MB_OK | MB_ICONEXCLAMATION );
 		}
 	}
+
 	UpdateData();
 }

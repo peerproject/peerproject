@@ -5632,23 +5632,23 @@ msgstr "Weet je zeker dat je het bestand \"%s\" wilt openen?\\n\\nSommige bestan
 msgid "Are you sure you want to permanently delete the %i selected files ?\\n\\nThe files will be moved to your \"recycle bin\" if it is enabled."
 msgstr "Weet je zeker dat je de %i geselecteeerde bestand(en) voorgoed wilt verwijderen ?\\n\\nDe bestanden zullen worden verplaatst naar je Windows \"prullenbak\" als dit mogelijk is."
 
-#: string;20432
+#: string;20433
 msgid "PeerProject could not delete the file:\\n\\n%s"
 msgstr "PeerProject kon het bestand\\n\\n%s niet verwijderen."
 
-#: string;20433
+#: string;20434
 msgid "Your downloaded files folder \"%s\" is not yet in your library.\\n\\nIncluding your downloaded files folder in your library makes it easier to view and organize new downloads, and lets you take advantage of advanced PeerProject features such as download verification and automatic upgrading. Placing downloaded files in your library does not necessarily require you to share them: you can choose whether or not to share files independently.\\n\\nWould you like to add your downloaded files folder to your library now?"
 msgstr "De map \"%s\" met je gedownloade bestanden zit nog niet in je bibliotheek.\\n\\nAls deze map is toegevoegd aan je bibliotheek, wordt het gemakkelijker om nieuwe downloads te bekijken en te beheren. Ook kun je dan gebruik maken van extra PeerProject eigenschappen zoals downloadcontrole en automatische upgrades. Het plaatsen van gedownloade bestanden in je bibliotheek wil niet meteen zeggen dat ze moeten worden gedeeld: je kunt voor elk bestand bepalen of je het al dan niet wilt delen.\\n\\nWil je de map met gedownloade bestanden nu aan je bibbliotheek toevoegen?"
 
-#: string;20434
+#: string;20435
 msgid "Your downloads folder has been added to your library. Would you like to share it too?"
 msgstr "Je map met downloads is toegevoegd aan je bibliotheek. Wil je het ook delen?"
 
-#: string;20435
+#: string;20436
 msgid "You have not yet selected a media player to enqueue files with, such as Nullsoft Winamp. Would you like to select one now?\\n\\nPeerProject will pass the name of the file to your selected program with the \"/ADD\" argument."
 msgstr "Je hebt nog geen mediaspeler geselecteerd voor het in de wachtrij plaatsen van bestanden, zoals Nullsoft Winamp. Wil je er nu één uitkiezen?\\n\\nPeerProject zal de naam van het bestand doorgeven aan het geselecteerde programma met de parameter \"/ADD\"."
 
-#: string;20436
+#: string;20432
 msgid "Are you sure you want to delete the %i selected album folders ?\\n\\nNote that this action does not delete the files within the album folders, only the folders themselves."
 msgstr "Weet je zeker dat je de %i geselecteerde albummappen wilt verwijderen?\\n\\nMet deze actie worden niet de bestanden uit deze albums verwijderd, maar alleen de mappen zelf."
 
@@ -5748,7 +5748,7 @@ msgstr ""
 msgid "P    E    E    R    P    R    O    J    E    C    T       M    E    D    I    A       S    Y    S    T    E    M"
 msgstr "P    E    E    R    P    R    O    J    E    C    T       M    E    D    I    A       S    Y    S    T    E    M"
 
-#: string;20461
+#: string;20462
 msgid "(No Visualisation)"
 msgstr "(Geen visualisatie)"
 
@@ -6100,17 +6100,9 @@ msgstr "%s -> %s [%i/%i] %s %s"
 msgid "Leaf neighbor %s is forwarding queries, dropping connection."
 msgstr "Leaf %s stuurt zoekopdrachten door, de verbinding wordt verbroken."
 
-#: string;20581
-msgid "Neighbor %s forwarded a ping packet with invalid length, ignoring."
-msgstr "Bron %s heeft een ping pakket doorgestuurd met een ongeldige lengte, het wordt genegeerd."
-
 #: string;20582
-msgid "Neighbor %s forwarded a pong packet with invalid length, ignoring."
+msgid "Neighbor %s forwarded a %s packet with invalid length, ignoring."
 msgstr "Bron %s heeft een pong pakket doorgestuurd met een ongeldige lengte, het wordt genegeerd."
-
-#: string;20583
-msgid "Neighbor %s forwarded a push packet with invalid length, ignoring."
-msgstr "Bron %s heeft een pushpakket met een ongeldige lengte doorgestuurd, het wordt genegeerd."
 
 #: string;20584
 msgid "Neighbor %s forwarded a packet of excessive size, dropping connection."
@@ -6281,11 +6273,11 @@ msgid "Unable to download preview content from \"%s\"."
 msgstr "Niet mogelijk om voorvertoningsinhoud te downloaden van \"%s\"."
 
 #: string;20630
-msgid "There are %i reviews."
+msgid "%i Reviews."
 msgstr "Er zijn %i recensies."
 
 #: string;20631
-msgid "There is one review."
+msgid "One review."
 msgstr "Er is één recensie."
 
 #: string;20632
@@ -6729,7 +6721,7 @@ msgid "Total Files:"
 msgstr "Totale bestanden:"
 
 #: string;20788
-msgid "Total Volume:"
+msgid "Total Size:"
 msgstr "Totale volume:"
 
 #: string;20789
@@ -7068,7 +7060,7 @@ msgstr "Even wachten: De eDonkey server lijst aan het vernieuwen..."
 msgid "Please wait: Updating discovery services..."
 msgstr "Even wachten: Discovery services aan het vernieuwen..."
 
-#: string;20894
+#: string;20895
 msgid "Please wait: Finding UPnP devices and setting them up..."
 msgstr "Even wachten: Aan het proberen om je router automatisch in te stellen ..."
 
@@ -7533,7 +7525,7 @@ msgid "Ignore private/local IP addresses"
 msgstr "Negeer privé/lokale IP adressen"
 
 #: cconnectionsettingspage;control;19
-msgid "Enable UPnP connection devices setup"
+msgid "Enable Plug'n'Play port-forwarding"
 msgstr "Gebruik automatische UPnP instellingen:"
 
 #: cconnectionsettingspage;control;20

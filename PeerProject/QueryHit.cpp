@@ -482,8 +482,7 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 				if ( nLength >= 6 )
 				{
 					nAddress = pPacket->ReadLongLE();
-					if ( Network.IsReserved( (IN_ADDR*)&nAddress, false ) ||
-						 Security.IsDenied( (IN_ADDR*)&nAddress ) )
+					if ( Network.IsReserved( (IN_ADDR*)&nAddress ) || Security.IsDenied( (IN_ADDR*)&nAddress ) )
 						bSpam = true;
 					nPort = pPacket->ReadShortBE();
 				}

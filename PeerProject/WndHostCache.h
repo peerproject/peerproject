@@ -1,7 +1,7 @@
 //
 // WndHostCache.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -28,20 +28,20 @@ class CHostCacheHost;
 
 class CHostCacheWnd : public CPanelWnd
 {
+	DECLARE_SERIAL(CHostCacheWnd)
+
 public:
 	CHostCacheWnd();
-	virtual ~CHostCacheWnd();
-
-	DECLARE_SERIAL(CHostCacheWnd)
+	//virtual ~CHostCacheWnd();
 
 // Attributes
 public:
 	PROTOCOLID		m_nMode;
 	BOOL			m_bAllowUpdates;
 protected:
-	CCoolBarCtrl	m_wndToolBar;
 	CLiveListCtrl	m_wndList;
 	CLiveListSizer	m_pSizer;
+	CCoolBarCtrl	m_wndToolBar;
 	CImageList		m_gdiImageList;
 	DWORD			m_nCookie;
 	DWORD			m_tLastUpdate;

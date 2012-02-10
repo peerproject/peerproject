@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default French Skin File -->
 
-<!-- Translation based on default-en.xml r70 -->
+<!-- Translation based on default-en.xml r74 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -18,7 +18,7 @@
 	author="Antoine Martin-Lalande (Sensi)"
 	updatedBy="ceceboy, zigotozor"
 	description="PeerProject Default French Skin File"
-	link="http://PeerProject.org"
+	link="http://peerproject.org"
 	email="shareaza.fr(at)gmail.com"
 	version="1.0.0.0"
 	type="Language"
@@ -3130,12 +3130,13 @@
 	<string id="20428" value="PeerProject a reçu un fichier collection:nn« %s »\n\nCe fichier ne semble pas être un fichier collection valide."/>
 	<string id="20429" value="Voulez-vous stopper tout message de sollicitation à télécharger autre chose de cette collection ?"/>
 	<string id="20430" value="Voulez-vous vraiment ouvrir fichier « %s » ?\n\nCertains fichiers exécutables peuvent endommager votre système s'ils comportent des virus."/>
-	<string id="20431" value="Voulez-vous vraiment supprimer définitivement le(s) %i fichier(s) sélectionné(s) ?\n\nCes fichiers seront déplacés vers votre corbeille si vous répondez « Valider »."/>
-	<string id="20432" value="PeerProject ne peut pas effacer le fichier :\n\n%s"/>
-	<string id="20433" value="Votre dossier de téléchargements « %s » ne fait pas partie de votre bibliothèque.\n\nInclure ce dossier dans votre bibliothèque rend plus simple l'organisation de vos nouveaux téléchargements et vous permet de bénéficier des fonctions avancées de PeerProject, comme la vérification automatique des téléchargements et les mises à jour automatiques. Placer ce dossier dans votre bibliothèque ne vous oblige pas à le partager : vous pouvez décider cela indépendamment.\n\nVoulez-vous ajouter votre dossier de téléchargements à votre bibliothèque maintenant ?"/>
-	<string id="20434" value="Votre dossier de téléchargements a été ajouté à votre bibliothèque. Voulez-vous qu'il soit partagé ?"/>
-	<string id="20435" value="Vous n'avez pas encore sélectionné un lecteur multimédia avec lequel mettre en file d'attente les fichiers, comme par exemple Nullsoft WinAmp. Voulez-vous en sélectionner un maintenant ?\n\nPeerProject enverra le nom de fichier à ce programme avec l'argument « /ADD »."/>
-	<string id="20436" value="Voulez-vous vraiment supprimer cette sélection d'albums (%i) ?\n\nNotez que cela ne supprimera pas les fichiers contenus dans cette sélection d'albums."/>
+	<!--string id="20431" value="Voulez-vous vraiment supprimer définitivement le(s) %i fichier(s) sélectionné(s) ?\n\nCes fichiers seront déplacés vers votre corbeille si vous répondez « Valider »."-->
+	<string id="20432" value="Voulez-vous vraiment supprimer cette sélection d'albums (%i) ?\n\nNotez que cela ne supprimera pas les fichiers contenus dans cette sélection d'albums."/>
+	<string id="20433" value="PeerProject ne peut pas effacer le fichier :\n\n%s"/>
+	<string id="20434" value="Votre dossier de téléchargements « %s » ne fait pas partie de votre bibliothèque.\n\nInclure ce dossier dans votre bibliothèque rend plus simple l'organisation de vos nouveaux téléchargements et vous permet de bénéficier des fonctions avancées de PeerProject, comme la vérification automatique des téléchargements et les mises à jour automatiques. Placer ce dossier dans votre bibliothèque ne vous oblige pas à le partager : vous pouvez décider cela indépendamment.\n\nVoulez-vous ajouter votre dossier de téléchargements à votre bibliothèque maintenant ?"/>
+	<string id="20435" value="Votre dossier de téléchargements a été ajouté à votre bibliothèque. Voulez-vous qu'il soit partagé ?"/>
+	<!--string id="20436" value="Vous n'avez pas encore sélectionné un lecteur multimédia avec lequel mettre en file d'attente les fichiers, comme par exemple Nullsoft WinAmp. Voulez-vous en sélectionner un maintenant ?\n\nPeerProject enverra le nom de fichier à ce programme avec l'argument « --ADD »."/>
+	<string id="20436" value="Ajouter ce dossier à votre bibliothèque?\n\n%s"/>
 	<string id="20437" value="Fichier fantôme"/>
 	<string id="20438" value="Édition des métadonnées de %i fichiers."/>
 	<string id="20439" value="Vous allez modifier les métadonnées de %i fichiers, voulez-vous continuer ?"/>
@@ -3159,13 +3160,13 @@
 	<string id="20457" value="PeerProject ne peut instancier le module MediaServices. Veuillez réinstaller PeerProject et confirmer que les codecs et pilotes nécessaires sont installés sur votre PC."/>
 	<string id="20458" value="Lecteur Multimédia PeerProject"/>
 	<string id="20460" value="L&#160; &#160;E&#160; &#160;C&#160; &#160;T&#160; &#160;E&#160; &#160;U&#160; &#160;R &#160; &#160; M&#160; &#160;U&#160; &#160;L&#160; &#160;T&#160; &#160;I&#160; &#160;M&#160; &#160;E&#160; &#160;D&#160; &#160;I&#160; &#160;A &#160; &#160; P&#160; &#160;E&#160; &#160;E&#160; &#160;R&#160; &#160;P&#160; &#160;R&#160; &#160;O&#160; &#160;J&#160; &#160;E&#160; &#160;C&#160; &#160;T"/>
-	<string id="20461" value="(Pas de visualisation)"/>
-	<!--string id="20462" value="PeerProject a terminé le téléchargement :"-->
-	<!--string id="20463" value="PeerProject télécharge :"-->
-	<!--string id="20464" value="PeerProject déplace le téléchargement :"-->
-	<!--string id="20465" value="Ce téléchargement est en pause :"-->
-	<!--string id="20466" value="PeerProject recherche des sources pour :"-->
-	<!--string id="20467" value="PeerProject vérifie le téléchargement :"-->
+	<string id="20462" value="(Pas de visualisation)"/>
+	<!--string id="20464" value="PeerProject a terminé le téléchargement :"-->
+	<!--string id="20465" value="PeerProject télécharge :"-->
+	<!--string id="20466" value="PeerProject déplace le téléchargement :"-->
+	<!--string id="20467" value="Ce téléchargement est en pause :"-->
+	<!--string id="20468" value="PeerProject recherche des sources pour :"-->
+	<!--string id="20469" value="PeerProject vérifie le téléchargement :"-->
 	<string id="20470" value="Annuler"/>
 	<string id="20471" value="Ouvrir"/>
 	<string id="20472" value="Terminé"/>
@@ -3258,9 +3259,7 @@
 	<string id="20578" value="Le voisin %s a mis à jour sa requête de table de routage (%i bit = %lu[%i], %i%% full)."/>
 	<string id="20579" value="%s -&gt; %s [%i/%i] %s %s"/>
 	<string id="20580" value="La « leaf » voisine %s fait suivre les requêtes, connexion abandonnée."/>
-	<string id="20581" value="Le voisin %s a fait suivre un paquet de ping de taille invalide, on l'ignore."/>
-	<string id="20582" value="Le voisin %s a fait suivre un paquet de pong de longueur invalide, on l'ignore."/>
-	<string id="20583" value="Le voisin %s a fait suivre un paquet poussé d'une longueur invalide, on l'ignore."/>
+	<string id="20582" value="Le voisin %s a fait suivre un paquet de %s de longueur invalide, on l'ignore."/>
 	<string id="20584" value="Le voisin %s a fait suivre un paquet de taille excessive, connexion abandonnée."/>
 	<string id="20586" value="Le voisin %s a fait suivre un paquet inconnu (0x%.2x), ignore."/>
 	<string id="20587" value="Le voisin %s a fait suivre un paquet de pong avec adresse invalide, ignore."/>
@@ -3495,9 +3494,9 @@
 	<string id="20891" value="&amp;Quitter"/>
 	<string id="20892" value="Veuillez patienter : mise à jour de la liste d'hôtes eDonkey ..."/>
 	<string id="20893" value="Veuillez patienter : mise à jour des services de découverte ..."/>
-	<string id="20894" value="Veuillez patienter : découverte et réglage des services UPnP ..."/>
-	<string id="20895" value="Vous n'avez pas encore spécifié une vitesse de connexion. Avant de continuer, choisissez un type de connexion Internet, ou entrez une vitesse de connexion."/>
-	<string id="20896" value="PeerProject n'a pas réussi à configurer votre routeur NAT ou votre pare-feu.\n\nVeillez à configurer votre réseau pour rediriger le port TCP et UDP %i vers votre PC local."/>
+	<string id="20894" value="Vous n'avez pas encore spécifié une vitesse de connexion. Avant de continuer, choisissez un type de connexion Internet, ou entrez une vitesse de connexion."/>
+	<!--string id="20895" value="Veuillez patienter : découverte et réglage des services UPnP ..."-->
+	<!--string id="20896" value="PeerProject n'a pas réussi à configurer votre routeur NAT ou votre pare-feu.\n\nVeillez à configurer votre réseau pour rediriger le port TCP et UDP %i vers votre PC local."-->
 	<string id="20897" value="Le dossier que vous souhaitez partager l'est déjà car il est contenu dans un dossier précédemment partagé :\n\n%s"/>
 	<string id="20898" value="Vous n'avez choisi aucun dossier à partager.\n\nÊtes-vous certain de vouloir continuer ?"/>
 	<string id="20899" value="ans"/>
@@ -3955,7 +3954,7 @@
 	</dialog>
 	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="PeerProject vous souhaite la bienvenue &#160;(3/8)">
 		<control caption="PeerProject est une application d'échange de fichier à usage universel qui peut accéder à de nombreux réseaux P2P simultanément. Choisissez ci-dessous à quels réseaux se connecter, vous pourrez en sélectionner de différents à tout moment."/>
-		<control caption="Connexion à Gnutella2  (Recommandé)"/>
+		<control caption="Connexion à Gnutella2 (Recommandé)"/>
 		<control caption="Le réseau Gnutella2 (G2) est le réseau de prédilection de PeerProject, il est le plus performant des réseaux P2P. (Shareaza)"/>
 		<control caption="Connexion à Gnutella"/>
 		<control caption="Le réseau Gnutella original (G1) possède moins de fichiers qu'eDonkey, mais il reste une ressource non négligeable. (LimeWire)"/>

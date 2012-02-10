@@ -5632,23 +5632,23 @@ msgstr "Biztos, hogy futtatni akarja: \"%s\" ?\\n\\nNéhány fájl káros a szá
 msgid "Are you sure you want to permanently delete the %i selected files ?\\n\\nThe files will be moved to your \"recycle bin\" if it is enabled."
 msgstr "Biztos, hogy törölni akarja a %i fájlt?\\n\\nA fájl(ok) a \"Lomtárba\" kerülnek, ha be van kapcsolva."
 
-#: string;20432
+#: string;20433
 msgid "PeerProject could not delete the file:\\n\\n%s"
 msgstr "Nem lehet törölni:\\n\\n%s"
 
-#: string;20433
+#: string;20434
 msgid "Your downloaded files folder \"%s\" is not yet in your library.\\n\\nIncluding your downloaded files folder in your library makes it easier to view and organize new downloads, and lets you take advantage of advanced PeerProject features such as download verification and automatic upgrading. Placing downloaded files in your library does not necessarily require you to share them: you can choose whether or not to share files independently.\\n\\nWould you like to add your downloaded files folder to your library now?"
 msgstr "A letöltési mappa \"%s\", nincs a könyvtárban.\\n\\nHa belerakja, könnyebb lesz rendezni a letöltéseit és kihasználhatja a PeerProject lehetőségeit, mint: a letöltés-ellenőrzés és az automata frissítés. A Könyvtárban lévő letöltött fájlok nem feltétlenül megosztottak: kiválaszthatja, hogy melyiket akarja megosztani vagy sem.\\n\\nHozzá akarja adni a letöltési mappát a Könyvtárhoz?"
 
-#: string;20434
+#: string;20435
 msgid "Your downloads folder has been added to your library. Would you like to share it too?"
 msgstr "A letöltési mappa hozzá lett adva a könyvárhoz. Meg is akarja osztani?"
 
-#: string;20435
+#: string;20436
 msgid "You have not yet selected a media player to enqueue files with, such as Nullsoft Winamp. Would you like to select one now?\\n\\nPeerProject will pass the name of the file to your selected program with the \"/ADD\" argument."
 msgstr "Nincs médialejátszó kiválasztva(pl. Nullsoft Winamp), ami fel tudná venni a fájlokat egy lejátszólistába. Most akarja kiválasztani?\\n\\nA PeerProject a(z) \"/ADD\" paranccsal küldi át a fájlokat a listába."
 
-#: string;20436
+#: string;20432
 msgid "Are you sure you want to delete the %i selected album folders ?\\n\\nNote that this action does not delete the files within the album folders, only the folders themselves."
 msgstr "Biztos akarja törölni akarja az albummappá(k)at (%i db)?\\n\\nEz nem fogja törölni az albumban lévő fájlokat csak magát az albumot."
 
@@ -5748,7 +5748,7 @@ msgstr ""
 msgid "P    E    E    R    P    R    O    J    E    C    T       M    E    D    I    A       S    Y    S    T    E    M"
 msgstr "P    E    E    R    P    R    O    J    E    C    T       M    E    D    I    A    L    E    J    Á    T    S    Z    Ó"
 
-#: string;20461
+#: string;20462
 msgid "(No Visualisation)"
 msgstr "(Nincs képi megjelenítés)"
 
@@ -6100,17 +6100,9 @@ msgstr "%s -> %s [%i/%i] %s %s"
 msgid "Leaf neighbor %s is forwarding queries, dropping connection."
 msgstr "Leaf %s kereséseket küldözget, kapcsolat megszakítása."
 
-#: string;20581
-msgid "Neighbor %s forwarded a ping packet with invalid length, ignoring."
-msgstr "%s érvénytelen hosszúságú ping csomagot küldött tovább, ignorálás."
-
 #: string;20582
-msgid "Neighbor %s forwarded a pong packet with invalid length, ignoring."
+msgid "Neighbor %s forwarded a %s packet with invalid length, ignoring."
 msgstr "%s érvénytelen hosszúságú pong csomagot küldött tovább, ignorálás."
-
-#: string;20583
-msgid "Neighbor %s forwarded a push packet with invalid length, ignoring."
-msgstr "%s egy érvénytelen hosszúságú csomagot küldött tovább, ignorálás."
 
 #: string;20584
 msgid "Neighbor %s forwarded a packet of excessive size, dropping connection."
@@ -6281,11 +6273,11 @@ msgid "Unable to download preview content from \"%s\"."
 msgstr "\"%s\". Nem lehet letölteni az előnézeti adatokat."
 
 #: string;20630
-msgid "There are %i reviews."
+msgid "%i Reviews."
 msgstr "%i megjegyzés."
 
 #: string;20631
-msgid "There is one review."
+msgid "One review."
 msgstr "Egy megjegyzés."
 
 #: string;20632
@@ -6729,7 +6721,7 @@ msgid "Total Files:"
 msgstr "Összes fájl:"
 
 #: string;20788
-msgid "Total Volume:"
+msgid "Total Size:"
 msgstr "Teljes méret:"
 
 #: string;20789
@@ -7068,7 +7060,7 @@ msgstr "Várakozás: eDonkey szerverlista frissítése..."
 msgid "Please wait: Updating discovery services..."
 msgstr "Várakozás: Szerverkereső szolgáltatás frissítése..."
 
-#: string;20894
+#: string;20895
 msgid "Please wait: Finding UPnP devices and setting them up..."
 msgstr "Várakozás: UPnP eszközök keresése és beállítása..."
 
@@ -7533,7 +7525,7 @@ msgid "Ignore private/local IP addresses"
 msgstr "Helyi hálózati IP címek tiltása"
 
 #: cconnectionsettingspage;control;19
-msgid "Enable UPnP connection devices setup"
+msgid "Enable Plug'n'Play port-forwarding"
 msgstr "UPnP használatának engedélyezése"
 
 #: cconnectionsettingspage;control;20

@@ -1,7 +1,7 @@
 //
 // ShareMonkeyData.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -22,9 +22,9 @@
 #include "Settings.h"
 #include "PeerProject.h"
 #include "ShareMonkeyData.h"
-
-#include "Library.h"
 #include "CtrlLibraryFileView.h"
+#include "Library.h"
+#include "Network.h"
 #include "SharedFile.h"
 #include "Schema.h"
 #include "SchemaCache.h"
@@ -197,8 +197,9 @@ BOOL CShareMonkeyData::BuildRequest()
 	{
 		// storeMatch/<session_id>/<contributor_id>/<file_id>/<product_id>/COUNTRY
 		CString str;
-		str.Format( L"storeMatch/%s/%s/0/%s/%s", m_sSessionID, Settings.WebServices.ShareMonkeyCid,
-					m_sProductID, m_sCountry );
+		str.Format( L"storeMatch/%s/%s/0/%s/%s",
+					(LPCTSTR)m_sSessionID, (LPCTSTR)Settings.WebServices.ShareMonkeyCid,
+					(LPCTSTR)m_sProductID, (LPCTSTR)m_sCountry );
 		m_sURL += str;
 	}
 	else if ( m_nRequestType == stComparison )
@@ -208,10 +209,10 @@ BOOL CShareMonkeyData::BuildRequest()
 
 	if ( m_nRequestType == stProductMatch || m_nRequestType == stComparison )
 	{
-		if ( theApp.m_nUPnPExternalAddress.s_addr != INADDR_NONE )
+		if ( Network.m_pHost.sin_addr.s_addr != INADDR_NONE )
 		{
 			m_sURL += L"&user_ip_address=";
-			m_sURL += inet_ntoa( theApp.m_nUPnPExternalAddress );
+			m_sURL += inet_ntoa( Network.m_pHost.sin_addr );
 		}
 		else
 		{
@@ -615,7 +616,7 @@ BOOL CShareMonkeyData::ImportData(CXMLElement* pRoot)
 		if ( pLink )
 		{
 			CString strLink;
-			strLink.Format( L"%s|%s", pLink->GetValue(), strValue );
+			strLink.Format( L"%s|%s", (LPCTSTR)pLink->GetValue(), (LPCTSTR)strValue );
 
 			while ( Find( strName ) )
 				strName += '\x00A0';

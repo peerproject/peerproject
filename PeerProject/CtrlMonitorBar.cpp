@@ -84,7 +84,7 @@ int CMonitorBarCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CControlBar::OnCreate( lpCreateStruct ) == -1 ) return -1;
 
-//	if ( Skin.m_bMenuBorders )
+	if ( Skin.m_bMenuBorders )
 		m_dwStyle |= CBRS_BORDER_3D;	// CBRS_TOOLTIPS in WndMain
 
 	if ( lpCreateStruct->dwExStyle & WS_EX_LAYOUTRTL )
@@ -248,7 +248,7 @@ void CMonitorBarCtrl::DoPaint(CDC* pDC)
 	m_rcTrackOut.SetRect( rcClient.right - 12, rcClient.top + 1, rcClient.right - 2, rcClient.bottom - 5 );
 	PaintTabs( pMemDC );
 
-	//GetClientRect( &rcClient );
+	GetClientRect( &rcClient );
 	pDC->BitBlt( rcClient.left, rcClient.top, rcClient.Width(), rcClient.Height(), pMemDC, 0, 0, SRCCOPY );
 	if ( Settings.General.LanguageRTL )
 		SetLayout( pMemDC->m_hDC, LAYOUT_RTL );

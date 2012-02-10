@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Estonian Skin File -->
 
-<!-- Translation based on default-en.xml r70 (Shareaza 2.2.2.9) -->
+<!-- Translation based on default-en.xml r74 (Shareaza 2.2.2.9) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -24,7 +24,7 @@
 	author="Janza"
 	updateBy="Felix Kütt"
 	description="PeerProject Default Estonian Skin File"
-	link="http://PeerProject.org"
+	link="http://peerproject.org"
 	email="janekk32(at)solo.delfi.ee"
 	version="1.0.0.0"
 	type="Language"
@@ -1634,7 +1634,7 @@
 			<heading align="middle">HOIATUS - SA OLED TULEMÜÜRITUD</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject tuvastas, et sinu arvuti on NAT ruuteri või tulemüüri poolt suletud ja ei ole
-			  suuteline sissetulevaid ühendusi vastu võtma. &#160;</text>
+				suuteline sissetulevaid ühendusi vastu võtma. &#160;</text>
 			<text color="FF0000" format="b">See võib põhjustada kehva allalaadimist.</text>
 			<newline gap="6"/>
 			<link target="command:ID_HELP_ROUTER">Kliki siia, et abi saada.</link>
@@ -1817,7 +1817,7 @@
 		<text>osas on seotud kasutusmugavusega.</text>
 		<newline gap="16" indent="16"/>
 		<link target="page:CGeneralSettingsPage" format="b">Üldine:</link>
-		<text>&#160;Tavalise kasutajaliidese seaded nagu  vihjed, minimeerimine, numbrite formaat, jne.</text>
+		<text>&#160;Tavalise kasutajaliidese seaded nagu vihjed, minimeerimine, numbrite formaat, jne.</text>
 		<newline gap="10"/>
 		<link target="page:CLibrarySettingsPage" format="b">Raamatukogu:</link>
 		<text>&#160;Failide ja kaustade käsitlus, esitlus ja failide avamine.</text>
@@ -2597,7 +2597,7 @@
 	<string id="20128" value="BitTorrent kinnitus %s katkes."/>
 	<string id="20129" value="BitTorrent ühendust %s ei aktsepteeritud, selle kliendiga on juba ühendus."/>
 	<string id="20130" value="Vastu võetud %i uut BitTorrenti allikat %s -lt."/>
-	<string id="20131" value="BitTorrenti ühendus  %s on laiendatud protokolliga, tuvastatud &quot;%s&quot;."/>
+	<string id="20131" value="BitTorrenti ühendus %s on laiendatud protokolliga, tuvastatud &quot;%s&quot;."/>
 	<string id="20132" value="Aeg läbi kinnitades ühendust BitTorrenti kliendiga %s."/>
 	<string id="20133" value="Sisse seatud BitTorrent ühendus %s, kinnitan..."/>
 	<string id="20134" value="BitTorrent ühendust %s ei aktsepteeritud, maksimaalne arv saavutatud."/>
@@ -2700,14 +2700,14 @@
 	<string id="20245" value="Ei saa avada kohalikku faili &quot;%s&quot; allalaadimiseks, katkestan."/>
 	<string id="20246" value="Ei ole rohkem osasid allalaadimiseks, sulgen ühenduse %s."/>
 	<string id="20247" value="Fragment lühenes, sulgen ühenduse %s."/>
-	<string id="20248" value="Küsin allalaadimiseks fragmenti (%I64u-%I64u)  &quot;%s&quot; -lt %s."/>
+	<string id="20248" value="Küsin allalaadimiseks fragmenti (%I64u-%I64u) &quot;%s&quot; -lt %s."/>
 	<string id="20250" value="Drag'n'drop faile %s grupp"/>
 	<string id="20251" value="Default download grupp. (Näita kõik failid)"/>
 	<string id="20253" value="Serverite eDonkey2000 hashset on rikutud või tahtlikult poolikuks jäetud, peatan ühenduse."/>
-	<string id="20254" value="Vastu võetud vigane eDonkey2000 hashset  %s  serverilt, peatan ühenduse."/>
+	<string id="20254" value="Vastu võetud vigane eDonkey2000 hashset %s serverilt, peatan ühenduse."/>
 	<string id="20255" value="Vastu võetud eDonkey2000 hashset &quot;%s&quot;, minimaalne kinnitatav kogus %s."/>
 	<string id="20256" value="Saadan päringu eDonkey2000 hashset kohta &quot;%s&quot; serverist %s..."/>
-	<string id="20257" value="Ei suuda alustada faili &quot;%s&quot;  alla laadimist."/>
+	<string id="20257" value="Ei suuda alustada faili &quot;%s&quot; alla laadimist."/>
 	<string id="20258" value="Võtan vastu tiger-tree andmed %s (%s)..."/>
 	<string id="20259" value="Saadan päringu &quot;%s&quot; andmebaasi kohta %s..."/>
 	<string id="20260" value="Üldiselt"/>
@@ -2715,9 +2715,9 @@
 	<string id="20262" value="Allalaadimis serveril %s tegi vigase HTTP vastuse."/>
 	<string id="20263" value="Server %s soovib allalaadida &quot;%s&quot;, nõustun."/>
 	<string id="20264" value="Saadan päringu faili &quot;%s&quot; allalaadimiseks..."/>
-	<string id="20265" value="Server %s on hõivatud, ootan järjekorras, positsioonil #%i  %i -st (&quot;%s&quot;.."/>
+	<string id="20265" value="Server %s on hõivatud, ootan järjekorras, positsioonil #%i %i -st (&quot;%s&quot;.."/>
 	<string id="20266" value="ootan järjekorras &quot;%s&quot;."/>
-	<string id="20267" value="Katkestan ühenduse tõmbamise allikaga %s  &quot;%s&quot; failile, kuna järjekorra pikkus  %i on liiga suur."/>
+	<string id="20267" value="Katkestan ühenduse tõmbamise allikaga %s  &quot;%s&quot; failile, kuna järjekorra pikkus %i on liiga suur."/>
 	<string id="20268" value="Aeg täis, oodates eDonkey2000 allalaadimis järjekorras serverist %s faili &quot;%s&quot;."/>
 	<string id="20269" value="Allalaadimiseks päring %s ei vasta, sulgen ühenduse."/>
 	<string id="20270" value="Puhastatud allalaadimine &quot;%s&quot;."/>
@@ -2725,16 +2725,16 @@
 	<string id="20272" value="Peatatud allalaadimine &quot;%s&quot;."/>
 	<string id="20273" value="Jätkan allalaadimist &quot;%s&quot;."/>
 	<string id="20274" value="Lahendan &quot;%s&quot; allalaadimiseks &quot;%s&quot;..."/>
-	<string id="20275" value="Otsin rohkem allikaid allalaadimisele &quot;%s&quot;  %i ühendust..."/>
+	<string id="20275" value="Otsin rohkem allikaid allalaadimisele &quot;%s&quot; %i ühendust..."/>
 	<string id="20276" value="Ei saa lisada rohkem allikaid allalaadimisele &quot;%s&quot; sest ei ole võrguühendust."/>
 	<string id="20280" value="Serveri tiger-tree andmed on rikutud või tahtlikult poolikud, eiran."/>
 	<string id="20281" value="Serveri tiger-tree ei vasta oodatudd põhiväärtusele."/>
-	<string id="20282" value="Server %s ei rahuldanud  tiger-tree päringut."/>
+	<string id="20282" value="Server %s ei rahuldanud tiger-tree päringut."/>
 	<string id="20283" value="Vastu võetud tiger-tree andmed &quot;%s&quot;, %i astmelt, minimaalne kinnitatav kogus on %s."/>
 	<string id="20284" value="Võtan vastu tiger-tree andmeid %s (%s)..."/>
 	<string id="20285" value="Saadan päringu tiger-tree suuruse kohta &quot;%s&quot; serverist %s..."/>
 	<string id="20286" value="Sulgen ühenduse %s liikluse puudumise tõttu."/>
-	<string id="20290" value="Server %s vastas erineva aga kasulikus ulatuses (%I64i-%I64i)  &quot;%s&quot;."/>
+	<string id="20290" value="Server %s vastas erineva aga kasulikus ulatuses (%I64i-%I64i) &quot;%s&quot;."/>
 	<string id="20291" value="Vastu võetud mittevajalik ühendus %s."/>
 	<string id="20292" value="Katkestan ühenduse %s (%s) saadetud vigaste osade pärast failile &quot;%s&quot; (%I64i-%I64i)."/>
 	<string id="20293" value="HOIATUS: Fail &quot;%s&quot; ei läbinud kinnitust, see ei pruugi olla fail, mida sa üritad allalaadida!"/>
@@ -2771,12 +2771,12 @@
 	<string id="20326" value="eDonkey2000 kliendi ühendus %s suleti."/>
 	<string id="20327" value="Tekkis viga, vahetades kinnitusi eDonkey2000 kliendiga %s."/>
 	<string id="20328" value="Kinnituse aeg täis eDonkey2000 kliendiga %s."/>
-	<string id="20329" value="Saadan eDonkey2000 hashset  &quot;%s&quot; aadressile %s..."/>
+	<string id="20329" value="Saadan eDonkey2000 hashset &quot;%s&quot; aadressile %s..."/>
 	<string id="20330" value="eDonkey2000 kliendil %s oli vale GUID, katkestan kinnituse."/>
 	<string id="20331" value="See fail on juba PeerProject tõmbamiste nimekirjas."/>
 	<string id="20332" value="Ei saa avada poolikut faili &quot;%s&quot;."/>
 	<string id="20333" value="Kopeerimine lõpetatud."/>
-	<string id="20334" value="Kopeerin &quot;%s&quot;  &quot;%s&quot;..."/>
+	<string id="20334" value="Kopeerin &quot;%s&quot; &quot;%s&quot;..."/>
 	<string id="20335" value="Faili kopeerimiseks ei jätku piisavalt kõvakettaruumi."/>
 	<string id="20336" value="Loon PeerProject osalist tõmbamist, %s jäänud."/>
 	<string id="20337" value="Ei saa faili importida."/>
@@ -2788,7 +2788,7 @@
 	<string id="20344" value="Leitud allalaadimine &quot;%s&quot;, suurus %s."/>
 	<string id="20345" value="Ühendatud eDonkey2000 serveriga %s, kinnitan..."/>
 	<string id="20346" value="Alustan ühendust eDonkey2000 serveriga aadressiga %s..."/>
-	<string id="20347" value="eDonkey2000 server %s muutis meie kliendi ID -d %lu  %lu."/>
+	<string id="20347" value="eDonkey2000 server %s muutis meie kliendi ID -d %lu %lu."/>
 	<string id="20348" value="eDonkey2000 server %s tuvastas ennast kui &quot;%s&quot;."/>
 	<string id="20349" value="ED2K[%s] %s"/>
 	<string id="20350" value="eDonkey2000 server %s online, cliendi ID is %lu."/>
@@ -2823,22 +2823,22 @@
 	<string id="20385" value="Ühendan %s langen tagasi kaitstud leaf mode."/>
 	<string id="20386" value="Sulgen üleliigse ühenduse %s serveri vihjega (%s port %i)."/>
 	<string id="20387" value="Jaotur %s ei aktsepteeri meid jaoturina, sulgen ühenduse."/>
-	<string id="20388" value="Kinnitus  %s ei õnnestunud, puuduliku info tõttu."/>
+	<string id="20388" value="Kinnitus %s ei õnnestunud, puuduliku info tõttu."/>
 	<string id="20389" value="Käitun hubina (jaoturina) leafi serveris %s."/>
 	<string id="20390" value="Jaoturi ühendus kinnitatud, sulgen peer ühenduse."/>
 	<string id="20391" value="Keeldun ühendusest %s kuna see on kaitstud leaf node(lehe sõlm)."/>
 	<string id="20392" value="%s ei ole hub(jaotur), sulgen ühenduse."/>
 	<string id="20393" value="Sulgen ühenduse mitte-Gnutella2 %s."/>
 	<string id="20394" value="%s tahab olla hub(jaotur), sulgen ühenduse."/>
-	<string id="20395" value="Gnutella ühendus %s edukalt üles seatud  (G%i.%i : %s)."/>
+	<string id="20395" value="Gnutella ühendus %s edukalt üles seatud (G%i.%i : %s)."/>
 	<string id="20396" value="Gnutella2 ühendus %s edukalt sisse seatud (%s)."/>
 	<string id="20397" value="Ühendus %s keeldus (%s)."/>
 	<string id="20398" value="Sulgen üleliigse ühenduse %s."/>
 	<string id="20399" value="Kinnitamise aeg täis %s."/>
 	<string id="20400" value="PeerProject loob kohti %Iu failile:"/>
 	<string id="20410" value="Uuri oma PeerProject Raamatukogu"/>
-	<string id="20411" value="Vaatan   "/>
-	<string id="20412" value=" Vaatan   %i kausta sisu"/>
+	<string id="20411" value="Vaatan"/>
+	<string id="20412" value=" Vaatan %i kausta sisu"/>
 	<string id="20413" value="%i faili valitud"/>
 	<string id="20414" value="Mitu kausta"/>
 	<string id="20415" value="Ühtegi faili ei ole valitud"/>
@@ -2850,12 +2850,14 @@
 	<string id="20428" value="PeerProject võttis vastu kolleksiooni faili:\n\n&quot;%s&quot;\n\nSee ei paista õige fail olema."/>
 	<string id="20429" value="Kas soovid ära hoida selle kollektsiooni küsimusi järgmiste tõmbamiste kohta?"/>
 	<string id="20430" value="Oled kuindel, et tahad selle faili käivitada &quot;%s&quot; ?\n\nMõned failid võivad sinu arvutile kahjulikud olla.  Ole enne faili käivitamist kindel, millega tegu."/>
-	<string id="20431" value="Oled kindel, et tahad lõplikult kustutada %i faili ?\n\nFailid viiakse sinu &quot;prügikasti&quot; kui see on võimaldatud."/>
-	<string id="20432" value="PeerProject ei suutnud kustutada:\n\n%s"/>
-	<string id="20433" value="Sinu allalaadimiste kaust &quot;%s&quot; ei ole veel sinu raamatukogus.\n\nLisades selle oma raamatukokku on seda lihtsam käsitleda ja saad ärakasutada täielikult PeerProject võimalusi, nagu allalaadimiste kinnitused ja automaatsed uuendused.  Allalaetud failide raamatukokku panemine ei tähenda tingimita, et sa pead neid jagama: sa saad jagada ka üksikuid faile.\n\nKas soovid lisada oma allalaadimiste kausta kohe raamatukokku?"/>
-	<string id="20434" value="Sinu allalaadimiste kaust on lisatud raamatukokku.  Kas sooviksid seda ka jagada?"/>
-	<string id="20435" value="Sa ei ole veel valinud meedia pleierit oma valitud failide jaoks, nagu WinAmp.  Kas sooviksid valida selle nüüd?\n\nPeerProject seob sinupoolt valitud failinime, valitud programmiga &quot;/Lisa&quot; argumendiga."/>
-	<string id="20436" value="Oled kindel, et tahad kustutada %i valitud albumi kausta?\n\nSee tegevus ei kustuta faile endid, vaid ainult kausta."/>
+	<!--string id="20431" value="Oled kindel, et tahad lõplikult kustutada %i faili ?\n\nFailid viiakse sinu &quot;prügikasti&quot; kui see on võimaldatud."-->
+	<string id="20432" value="Oled kindel, et tahad kustutada %i valitud albumi kausta?\n\nSee tegevus ei kustuta faile endid, vaid ainult kausta."/>
+	<string id="20433" value="PeerProject ei suutnud kustutada:\n\n%s"/>
+	<string id="20434" value="Sinu allalaadimiste kaust &quot;%s&quot; ei ole veel sinu raamatukogus.\n\nLisades selle oma raamatukokku on seda lihtsam käsitleda ja saad ärakasutada täielikult PeerProject võimalusi, nagu allalaadimiste kinnitused ja automaatsed uuendused.  Allalaetud failide raamatukokku panemine ei tähenda tingimita, et sa pead neid jagama: sa saad jagada ka üksikuid faile.\n\nKas soovid lisada oma allalaadimiste kausta kohe raamatukokku?"/>
+	<string id="20435" value="Sinu allalaadimiste kaust on lisatud raamatukokku.  Kas sooviksid seda ka jagada?"/>
+	<!--string id="20436" value="Sa ei ole veel valinud meedia pleierit oma valitud failide jaoks, nagu WinAmp.  Kas sooviksid valida selle nüüd?\n\nPeerProject seob sinupoolt valitud failinime, valitud programmiga &quot;--Lisa&quot; argumendiga."/>
+	<string id="20436" value="See kataloog lisada oma raamatukogu?\n\n%s"/>
+	<string id="20437" value="Ghost Faili"/>
 	<string id="20438" value="Faili %i andmebaasi muutmine."/>
 	<string id="20439" value="Sa hakkad faili %i andmebaasi muutma, oled kindel, et tahad jätkata?"/>
 	<string id="20440" value="Ei suuda liigutada  %s faili. Mõni teine programm võib seda faili kasutada.\n\nVõib-olla soovid hoopis sellest failist koopia teha?"/>
@@ -2877,13 +2879,13 @@
 	<string id="20456" value="Playlist:"/>
 	<string id="20457" value="PeerProject ei suutnud oma Meediateenuste lisa käivitada.  Palun installi PeerProject uuesti ja kontrolli, et sul on vajalikud meedia koodekid ja draiverid installitud."/>
 	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
-	<string id="20461" value="(Ilma Visualisatioonita)"/>
-	<!--string id="20462" value="PeerProject on lõpetanud allalaadimise:"-->
-	<!--string id="20463" value="PeerProject tõmbab:"-->
-	<!--string id="20464" value="PeerProject tõstab faili ringi:"-->
-	<!--string id="20465" value="See allalaadimine on peatatud:"-->
-	<!--string id="20466" value="PeerProject otsib rohkem allikaid:"-->
-	<!--string id="20467" value="PeerProject kontrollib faili vigu:"-->
+	<string id="20462" value="(Ilma Visualisatioonita)"/>
+	<!--string id="20464" value="PeerProject on lõpetanud allalaadimise:"-->
+	<!--string id="20465" value="PeerProject tõmbab:"-->
+	<!--string id="20466" value="PeerProject tõstab faili ringi:"-->
+	<!--string id="20467" value="See allalaadimine on peatatud:"-->
+	<!--string id="20468" value="PeerProject otsib rohkem allikaid:"-->
+	<!--string id="20469" value="PeerProject kontrollib faili vigu:"-->
 	<string id="20470" value="Tühista"/>
 	<string id="20471" value="Ava"/>
 	<string id="20472" value="Lõpetatud"/>
@@ -2946,7 +2948,7 @@
 	<string id="20544" value="Sulgen PeerProject võrgu tuuma..."/>
 	<string id="20545" value="Ühendus võrguga katkestatud."/>
 	<string id="20546" value="Oled kindel, et tahad selle ühenduse katkestada?"/>
-	<string id="20547" value="Gnutella2 on PeerProject esmane võrk.  Peatades selle töö piirab nii arvuliselt kui kvaliteedilt  sinu otsinute tulemusi. Oled kindel, et tahad seda teha?"/>
+	<string id="20547" value="Gnutella2 on PeerProject esmane võrk.  Peatades selle töö piirab nii arvuliselt kui kvaliteedilt sinu otsinute tulemusi. Oled kindel, et tahad seda teha?"/>
 	<string id="20548" value="Ei saa kasutada %s porti %i sissetulevateks ühendusteks.  Sissetulevaid ühendusi ei toetata"/>
 	<string id="20549" value="Ei suuda suunata %s väljuvateks ühenduskteks.  Väljuvad ühendused kasutavad vaikimisi seadeid."/>
 	<string id="20550" value="Sinu võrgu läbilaskevõime on liiga madal, et võimaldada võrgul korralikult töötada"/>
@@ -2957,14 +2959,14 @@
 	<string id="20555" value="Väljuvad ühendused suunatakse %s porti %i."/>
 	<string id="20556" value="Ei suuda serverit lahendada &quot;%s&quot;."/>
 	<string id="20557" value="Lahendan serverit &quot;%s&quot;..."/>
-	<string id="20558" value="Saadan päringu &quot;%s&quot;  %s."/>
+	<string id="20558" value="Saadan päringu &quot;%s&quot; %s."/>
 	<string id="20560" value="Address %s on juba sinu turva seadetega keelatud."/>
 	<string id="20561" value="Lisatud turvareegel %s blokeerimiseks."/>
 	<string id="20562" value="Turvateenus keelas ühenduse %s serveriga."/>
 	<string id="20563" value="Turvateenus tõkestas ühenduse %s."/>
 	<string id="20564" value="Käivitan PeerProject võrgu tuuma..."/>
 	<string id="20570" value="Vastu võetud vigaselt formeeritud pakettide päring %s, ignoreerin."/>
-	<string id="20571" value="%s:  Vastu võetud vigaselt formeeritud info päring %s, ignoreerin."/>
+	<string id="20571" value="%s: Vastu võetud vigaselt formeeritud info päring %s, ignoreerin."/>
 	<string id="20572" value="%s saatis liiga suure TTL, kaotan paketi (TTL=%i, Hops=%i)."/>
 	<string id="20573" value="%s saatis paketi ilma TTL-ita, eiran."/>
 	<string id="20574" value="%s saatis laiendatut paketi, mis ei ole GGEP kodeeringus."/>
@@ -2973,10 +2975,8 @@
 	<string id="20577" value="Vastu võetud ootamatu päring marsruutingu uuenduseks %s."/>
 	<string id="20578" value="%s uuendas oma marsruutingu tabelit (%i bit = %lu[%i], %i%% täis)."/>
 	<string id="20579" value="%s -&gt; %s [%i/%i] %s %s"/>
-	<string id="20580" value="Leaf  %s saadab järjekordi, katkestan ühenduse."/>
-	<string id="20581" value="%s saatis vigaste andmetega pingi, ignoreerin."/>
-	<string id="20582" value="%s saatis vigase pong paketi, ignoreerin."/>
-	<string id="20583" value="%s saatis vigase suurusega paketi, ignoreerin."/>
+	<string id="20580" value="Leaf %s saadab järjekordi, katkestan ühenduse."/>
+	<string id="20582" value="%s saatis vigase %s paketi, ignoreerin."/>
 	<string id="20584" value="%s saatis liiga suure infopaketi, katkestan ühenduse."/>
 	<string id="20586" value="%s saatis tundmatu paketi (0x%.2x), ignoreerin."/>
 	<string id="20587" value="%s saatis vigase aadressiga andme pongi, ignoreerin."/>
@@ -3132,20 +3132,20 @@
 	<string id="20804" value="Keeldun kasutaja eelvaate päringust %s, liiga palju ühendusi."/>
 	<string id="20805" value="Keelatud kasutaja sirvimine aadressilt %s."/>
 	<string id="20806" value="Järjekorras üleslaadimine %s liiga kiire taaspäring, sulgen ühenduse."/>
-	<string id="20807" value="Keeldun &quot;%s&quot;  üleslaadimisest %s (%s), liiga palju konkureerivaid servereid."/>
-	<string id="20808" value="Keeldun &quot;%s&quot; üleslaadimisest  %s (%s), hõivatud ja klient ei toeta järjekordi."/>
+	<string id="20807" value="Keeldun &quot;%s&quot; üleslaadimisest %s (%s), liiga palju konkureerivaid servereid."/>
+	<string id="20808" value="Keeldun &quot;%s&quot; üleslaadimisest %s (%s), hõivatud ja klient ei toeta järjekordi."/>
 	<string id="20809" value="Keeldun &quot;%s&quot; üleslaadimisest %s (%s), kõik sobivad järjekorrad on täis."/>
 	<string id="20810" value="Server %s saatis ebarahuldavas ulatuses päringu &quot;%s&quot;."/>
 	<string id="20811" value="eDonkey2000 üleslaadimisi ei tohiks tühistada.  Oled kindel, et tahad tühistada?"/>
 	<string id="20812" value="Ei saa avada &quot;%s&quot; et üleslaadida serverile %s, ketta/faili viga."/>
 	<string id="20813" value="Üritan tõukeühendust serveriga %s. %s"/>
 	<string id="20814" value="Ei suuda luua ühendust %s tõukeks."/>
-	<string id="20815" value="Saadan üleslaadimiste sisu, ulauses %I64i-%I64i  &quot;%s&quot; serverile %s (%s)."/>
+	<string id="20815" value="Saadan üleslaadimiste sisu, ulauses %I64i-%I64i &quot;%s&quot; serverile %s (%s)."/>
 	<string id="20816" value="Üleslaadimisühendus %s suletud."/>
 	<string id="20817" value="Keeldun uuest üleslaadimisest %s kuna eelmine ühendus on veel töökorras."/>
 	<string id="20818" value="Sulgen vanema üleslaadimise %s kuna on tehtud uus ühendus."/>
 	<string id="20819" value="Keeldun üleslaadimisest %s (%s), võrk ei tööta."/>
-	<string id="20820" value="Üleslaadimine peatatud &quot;%s&quot;  %s kuna fail on kustutatud."/>
+	<string id="20820" value="Üleslaadimine peatatud &quot;%s&quot; %s kuna fail on kustutatud."/>
 	<string id="20821" value="Saadan faili &quot;%s&quot; %s serverisse..."/>
 	<string id="20822" value="Server %s saatis tundmatu või kättesaamatu päringu &quot;%s&quot;."/>
 	<string id="20823" value="Lõpetatud üleslaadimise osa &quot;%s&quot; serverile %s."/>
@@ -3155,13 +3155,13 @@
 	<string id="20827" value="Laen &quot;%s&quot; andmebaasi infot %s."/>
 	<string id="20828" value="Üleslaadimis server %s saatis vigase HTTP päringu."/>
 	<string id="20830" value="Saadan üleslaadimise päringu %I64i-%I64i poolikust failist &quot;%s&quot; serverisse %s (%s)."/>
-	<string id="20832" value="Keeldun  &quot;%s&quot; üleslaadimise eelvaatest %s, liiga palju eelvaate ühendusi."/>
+	<string id="20832" value="Keeldun &quot;%s&quot; üleslaadimise eelvaatest %s, liiga palju eelvaate ühendusi."/>
 	<string id="20833" value="Valmistan ette &quot;%s&quot; dünaamilise eelvaate üleslaadimiseks %s."/>
 	<string id="20834" value="Server %s saatis &quot;%s&quot; eelvaateks päringu, aga eelvaadet ei ole saadaval."/>
 	<string id="20835" value="Laen üles &quot;%s&quot; eelvaadet %s."/>
 	<string id="20836" value="Keeldun tõuke päringust %s kuna sellel on liiga palju kliente."/>
 	<string id="20837" value="Tõuke päring aadressilt %s küsitud tundmatut faili, ühendan sellegipoolest..."/>
-	<string id="20838" value="Hõivatud, et üleslaadida &quot;%s&quot; serverile %s, järjekorras #%i  %i (&quot;%s&quot;.."/>
+	<string id="20838" value="Hõivatud, et üleslaadida &quot;%s&quot; serverile %s, järjekorras #%i %i (&quot;%s&quot;.."/>
 	<string id="20840" value="Üleslaadimisühendus %s katkenud, säilitan järjekorda."/>
 	<string id="20841" value="Uus Rivi"/>
 	<string id="20842" value="Kõik Failid"/>
@@ -3181,7 +3181,7 @@
 	<string id="20857" value="Üleslaadimisjärjekord %s aegunud, eemaldan."/>
 	<string id="20858" value="Üleslaadimis serveri ajalimiit ületatud %s."/>
 	<string id="20859" value="Sulgen üleslaadimise %s liikluse puudumise tõttu."/>
-	<string id="20860" value="Laen tiger-tree &quot;%s&quot; infot üles infot üles  %s."/>
+	<string id="20860" value="Laen tiger-tree &quot;%s&quot; infot üles infot üles %s."/>
 	<string id="20861" value="Eemaldatud üleslaadimine &quot;%s&quot; serverist %s."/>
 	<string id="20862" value="Lisa"/>
 	<string id="20864" value="&amp;Sirvi"/>
@@ -3202,8 +3202,8 @@
 	<string id="20886" value="Kasutajaliidese suundade muutmine nõuab taaskäivitust.\n\nVälju nüüd?"/>
 	<string id="20890" value="Teretulemast PeerProjectsse"/>
 	<string id="20891" value="Välju"/>
-	<string id="20895" value="Sa ei ole veel oma internetiühenduse kiirust täpsustanud. Enne jätkamist, vali kas Interneti ühenduse tüüp või kiirus."/>
-	<string id="20896" value="Sa oled näidanud, et tahad kasutada Portide suunamist, oma NAT ruuteri või tulemüüriga.\n\nPalun seadista oma võrk läbima TCP ja UDP porte %i oma PCl."/>
+	<string id="20894" value="Sa ei ole veel oma internetiühenduse kiirust täpsustanud. Enne jätkamist, vali kas Interneti ühenduse tüüp või kiirus."/>
+	<!--string id="20896" value="Sa oled näidanud, et tahad kasutada Portide suunamist, oma NAT ruuteri või tulemüüriga.\n\nPalun seadista oma võrk läbima TCP ja UDP porte %i oma PCl."-->
 	<string id="20897" value="Kaust mida jagad on juba jagatud, kui osa teisest kaustast:\n\n%s"/>
 	<string id="20898" value="Sa ei ole veel täpsustanud oma jagatavaid kausu. Oled kindel?"/>
 	<string id="20899" value="aastat vana"/>
@@ -4058,7 +4058,7 @@
 		<control caption="Tühista"/>
 		<control caption="Vali nimekirjast teema, seejärel vali milliseid pealkirju kuvada."/>
 	</dialog>	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Jagatud Kausta Haldur">
-		<control caption="See on nimekiri sinu Raamautukogus olevatest kaustadest.  Sa võid vasakul asuvatest nuppudest lisada või kustutada kaustu .  Kui lisad uue kausta siis seda jagatakse automaatselt teistega, aga sa saad selle soovi korral ka keelata, PeerProject Raamatukogust."/>
+		<control caption="See on nimekiri sinu Raamautukogus olevatest kaustadest.  Sa võid vasakul asuvatest nuppudest lisada või kustutada kaustu.  Kui lisad uue kausta siis seda jagatakse automaatselt teistega, aga sa saad selle soovi korral ka keelata, PeerProject Raamatukogust."/>
 		<control/>
 		<control caption="_Lisa..."/>
 		<control caption="_Eemalda"/>
@@ -4119,7 +4119,7 @@
 	</dialog>
 	<dialog name="CWarningsDlg" cookie="StStStStStStBu" caption="PeerProject Austab Oma Kasutajaid">
 		<control caption="Kas teadsid, et PeerProject on 100% vabavara?"/>
-		<control caption="PeerProject ei sisalda &quot;spyware&quot;, &quot;adware&quot; ega mõnda muud lisaprogramme. Ta kuva mingeid reklaame ega   &quot;hüpikaknaid&quot;, mitte kunagi.{n}{n}Kui peaksid reklaami nägema &quot;hüpikaknaid&quot; kasutades PeerProjectt, võid kindel olla, et need ei tule sellest programmist."/>
+		<control caption="PeerProject ei sisalda &quot;spyware&quot;, &quot;adware&quot; ega mõnda muud lisaprogramme. Ta kuva mingeid reklaame ega &quot;hüpikaknaid&quot;, mitte kunagi.{n}{n}Kui peaksid reklaami nägema &quot;hüpikaknaid&quot; kasutades PeerProjectt, võid kindel olla, et need ei tule sellest programmist."/>
 		<control caption="Kahjuks paljud teised programmid tulevad koos adware'i või spyware'iga, nii et kui näed midagi kahtlast siis peaksid oma arvutit kontrollima spyware eemaldus programmiga (nt.ad-aware)."/>
 		<control caption="Sa ei pea maksma raha PeerProject omandamise eest.  PeerProject on vabalt saadaval kodulehel http://peerproject.org/.  Kui sa oled oma programmi eest maksnud siis peaksid koheselt raha tagasi nõudma."/>
 		<control caption="PeerProject austab oma kasutajaid!"/>

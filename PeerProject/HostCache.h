@@ -272,7 +272,6 @@ protected:
 	CHostCacheMap		m_Hosts;		// Hosts map (sorted by IP)
 	CHostCacheIndex		m_HostsTime;	// Host index (sorted from newer to older)
 
-	CHostCacheHostPtr	AddInternal(const IN_ADDR* pAddress, WORD nPort, DWORD tSeen, LPCTSTR pszVendor, DWORD nUptime, DWORD nCurrentLeaves, DWORD nLeafLimit, LPCTSTR szAddress);
 	void				PruneHosts();
 };
 

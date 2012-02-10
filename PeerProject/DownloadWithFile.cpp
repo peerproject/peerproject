@@ -271,16 +271,34 @@ DWORD CDownloadWithFile::MoveFile(LPCTSTR pszDestination, LPPROGRESS_ROUTINE lpP
 	const CString strRoot = (CString)pszDestination + L"\\";
 
 	const DWORD nCount = m_pFile->GetCount();
+
+	CString strNewFolder;
+	if ( nCount > 1 )
+	{
+		strNewFolder = m_sName;
+		strNewFolder.Trim( _T(" .*<>:?|/\\\"") );
+		if ( strNewFolder.FindOneOf( _T("*<>:?|/\\\"") ) > 0 )
+			strNewFolder.Empty();
+	}
+
 	for ( DWORD nIndex = 0 ; nIndex < nCount ; ++nIndex )
 	{
-		// Handle conflicts
-		if ( Settings.Downloads.RenameExisting && PathFileExists( strRoot + m_pFile->GetName( nIndex ) ) )
-		{
-			CString strName( m_pFile->GetName( nIndex ) );
-			BOOL bDuplicate = FALSE;
+		CString strName( m_pFile->GetName( nIndex ) );
 
+		// Change embedded folder when torrent display name changed
+		if ( nCount > 1 && ! strNewFolder.IsEmpty() && strNewFolder != strName.Left( strName.Find( L"\\" ) ) )
+		{
+			strName = strNewFolder + strName.Mid( strName.Find( L"\\" ) );
+			m_pFile->SetName( nIndex, strName );
+		}
+
+		// Handle conflicts
+		if ( Settings.Downloads.RenameExisting && PathFileExists( strRoot + strName ) )
+		{
 			if ( m_pFile->GetLength( nIndex ) < 2 )
 				continue;	// Just skip empty files  (ToDo: Verify seeds okay!)
+
+			BOOL bDuplicate = FALSE;
 
 			// Do quick size comparison
 			if ( oLibraryLock.Lock( 100 ) )
@@ -323,7 +341,7 @@ DWORD CDownloadWithFile::MoveFile(LPCTSTR pszDestination, LPPROGRESS_ROUTINE lpP
 					if ( ! PathFileExists( strRoot + strName ) )
 					{
 						m_pFile->SetName( nIndex, strName );
-						theApp.Message( MSG_INFO, _T("New File Renamed:  %s"), (LPCTSTR)m_pFile->GetName( nIndex ) );
+						theApp.Message( MSG_INFO, _T("New File Renamed:  %s"), (LPCTSTR)strName );
 						break;
 					}
 				}

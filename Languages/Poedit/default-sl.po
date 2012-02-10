@@ -5632,23 +5632,23 @@ msgstr "Ste prepričani, da želite zagnati datoteko \"%s\" ?\\n\\nNekatere dato
 msgid "Are you sure you want to permanently delete the %i selected files ?\\n\\nThe files will be moved to your \"recycle bin\" if it is enabled."
 msgstr "Ste preričani, da želite trajno zbrisati število izbranih datotek %i. ?\\n\\nDatoteke bodo premaknjene v vaš \"koš\" če je seveda le-ta omogočen."
 
-#: string;20432
+#: string;20433
 msgid "PeerProject could not delete the file:\\n\\n%s"
 msgstr "PeerProject ni mogla zbrisati datoteke:\\n\\n%s"
 
-#: string;20433
+#: string;20434
 msgid "Your downloaded files folder \"%s\" is not yet in your library.\\n\\nIncluding your downloaded files folder in your library makes it easier to view and organize new downloads, and lets you take advantage of advanced PeerProject features such as download verification and automatic upgrading. Placing downloaded files in your library does not necessarily require you to share them: you can choose whether or not to share files independently.\\n\\nWould you like to add your downloaded files folder to your library now?"
 msgstr "Vaša mapa za prenešene datoteke \"%s\" trenutno še ni v vaši knjižnici.\\n\\nČe boste prenešene datoteke vključili v svojo knjižnico, boste lažje dostopali do njih in tudi lažje pripravljali nove prenose. Prav tako vam bodo potem na voljo napredne PeerProject zmogljivosti, kot je npr. preverjanje prenešenih datotek in samodejno nadgrajevanje. S tem, ko boste postavili prenešene datoteke v knjižnico, še ne pomeni, da jih boste morali obvezno deliti: sami boste lahko izbrali katere datoteke želite deliti z drugimi.\\n\\nŽelite dodati mapo z vašimi prenešenimi datotekami v vašo knjižnico?"
 
-#: string;20434
+#: string;20435
 msgid "Your downloads folder has been added to your library. Would you like to share it too?"
 msgstr "Mapa s prenešenimi datotekami je bila dodana v vašo knjižnico. Jo želite tudi deliti z drugimi?"
 
-#: string;20435
+#: string;20436
 msgid "You have not yet selected a media player to enqueue files with, such as Nullsoft Winamp. Would you like to select one now?\\n\\nPeerProject will pass the name of the file to your selected program with the \"/ADD\" argument."
 msgstr "Niste še izbrali predvajalnika medijev, kot je to npr. WinAmp podjetja Nullsoft, s katerim bi postavili datoteke v čakalno vrsto. Želite izbrati program zdaj?\\n\\nPeerProject bo posredovala ime datoteke izbranemu programu z argumentom \"/ADD\"."
 
-#: string;20436
+#: string;20432
 msgid "Are you sure you want to delete the %i selected album folders ?\\n\\nNote that this action does not delete the files within the album folders, only the folders themselves."
 msgstr "Ste prepričani, da želite zbrisati izbrano albumsko mapo %i?\\n\\nZapomnite si, da to dejanje ne pobriše datotek znotraj albumskih map, temveč samo ustrezne mape."
 
@@ -5748,7 +5748,7 @@ msgstr ""
 msgid "P    E    E    R    P    R    O    J    E    C    T       M    E    D    I    A       S    Y    S    T    E    M"
 msgstr "P    E    E    R    P    R    O    J    E    C    T       M    E    D    I    J    S    K    I       S    I    S    T    E    M"
 
-#: string;20461
+#: string;20462
 msgid "(No Visualisation)"
 msgstr "(Brez vizualizacije)"
 
@@ -6100,17 +6100,9 @@ msgstr "%s -> %s [%i/%i] %s %s"
 msgid "Leaf neighbor %s is forwarding queries, dropping connection."
 msgstr "Listnati sosed (leaf neighbour) %s posreduje poizvedbe, kočujem povezavo."
 
-#: string;20581
-msgid "Neighbor %s forwarded a ping packet with invalid length, ignoring."
-msgstr "Sosed %s je posredoval ping paket z neveljavno dolžino, ignoriram."
-
 #: string;20582
-msgid "Neighbor %s forwarded a pong packet with invalid length, ignoring."
+msgid "Neighbor %s forwarded a %s packet with invalid length, ignoring."
 msgstr "Sosed %s je posredoval pong paket z neveljavno dolžino, ignoriram."
-
-#: string;20583
-msgid "Neighbor %s forwarded a push packet with invalid length, ignoring."
-msgstr "Sosed %s je posredoval potisni paket (push packet) z neveljavno dolžino, ignoriram."
 
 #: string;20584
 msgid "Neighbor %s forwarded a packet of excessive size, dropping connection."
@@ -6281,11 +6273,11 @@ msgid "Unable to download preview content from \"%s\"."
 msgstr "Vsebine za predogled z lokacije \"%s\" ni bilo mogoče prenesti."
 
 #: string;20630
-msgid "There are %i reviews."
+msgid "%i Reviews."
 msgstr "Ocene na voljo: %i."
 
 #: string;20631
-msgid "There is one review."
+msgid "One review."
 msgstr "Na voljo je ena ocena"
 
 #: string;20632
@@ -6729,7 +6721,7 @@ msgid "Total Files:"
 msgstr "Skupaj datotek:"
 
 #: string;20788
-msgid "Total Volume:"
+msgid "Total Size:"
 msgstr "Skupna velikost:"
 
 #: string;20789
@@ -7068,7 +7060,7 @@ msgstr ""
 msgid "Please wait: Updating discovery services..."
 msgstr ""
 
-#: string;20894
+#: string;20895
 msgid "Please wait: Finding UPnP devices and setting them up..."
 msgstr ""
 
@@ -7533,8 +7525,8 @@ msgid "Ignore private/local IP addresses"
 msgstr "Prezri zasebne/lokalne IP naslove"
 
 #: cconnectionsettingspage;control;19
-msgid "Enable UPnP connection devices setup"
-msgstr "Enable UPnP connection devices setup"
+msgid "Enable Plug'n'Play port-forwarding"
+msgstr "Enable Plug'n'Play port-forwarding"
 
 #: cconnectionsettingspage;control;20
 msgid "_Timeouts:"

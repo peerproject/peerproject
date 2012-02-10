@@ -1,7 +1,7 @@
 //
 // ImageServices.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -177,9 +177,6 @@ BOOL CImageServices::LoadFromFileHelper(IImageServicePlugin* pService, CImageFil
 
 BOOL CImageServices::PostLoad(CImageFile* pFile, const IMAGESERVICEDATA* pParams, SAFEARRAY* pArray)
 {
-	ASSERT( pFile );
-	ASSERT( pParams );
-
 	pFile->m_bScanned		= TRUE;
 	pFile->m_nWidth			= pParams->nWidth;
 	pFile->m_nHeight		= pParams->nHeight;
@@ -191,8 +188,7 @@ BOOL CImageServices::PostLoad(CImageFile* pFile, const IMAGESERVICEDATA* pParams
 	if ( SUCCEEDED( SafeArrayGetUBound( pArray, 1, &nArray ) ) )
 	{
 		nArray++;
-		LONG nFullSize = ( ( pParams->nWidth * pParams->nComponents + 3 ) & ~3 ) *
-			pParams->nHeight;
+		LONG nFullSize = ( ( pParams->nWidth * pParams->nComponents + 3 ) & ~3 ) * pParams->nHeight;
 		if ( nArray == nFullSize )
 		{
 			pFile->m_pImage = new BYTE[ nArray ];
@@ -308,8 +304,7 @@ SAFEARRAY* CImageServices::ImageToArray(CImageFile* pFile)
 
 	if ( FAILED( SafeArrayAllocDescriptor( 1, &pOutput ) ) || pOutput == NULL ) return NULL;
 
-	DWORD nLength = ( ( pFile->m_nWidth * pFile->m_nComponents + 3 ) & ~3 ) *
-		pFile->m_nHeight;
+	DWORD nLength = ( ( pFile->m_nWidth * pFile->m_nComponents + 3 ) & ~3 ) * pFile->m_nHeight;
 
 	pOutput->cbElements = 1;
 	pOutput->rgsabound[ 0 ].lLbound = 0;

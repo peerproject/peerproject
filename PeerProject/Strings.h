@@ -95,7 +95,7 @@ __int64 atoin(__in_bcount(nLen) const char* pszString, __in size_t nLen);
 void Split(const CString& strSource, TCHAR cDelimiter, CStringArray& pAddIt, BOOL bAddFirstEmpty = FALSE);
 
 // StartsWith("Hello world", _PT("hello")) is true
-BOOL StartsWith(const CString& sInput, LPCTSTR pszText, size_t nLen = 0);
+BOOL StartsWith(const CString& strInput, LPCTSTR pszText, size_t nLen = 0);
 
 // Load all text from file (Unicode-compatible)
 CString LoadFile(LPCTSTR pszPath);

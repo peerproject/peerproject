@@ -1259,7 +1259,7 @@ void CDownloadsWnd::OnDownloadsSources()
 		}
 
 		// Also only allow 3 FMS operations at once to avoid being blacklisted
-		if ( nCount >=3 ) break;
+		if ( nCount >= 3 ) break;
 	}
 
 	Update();

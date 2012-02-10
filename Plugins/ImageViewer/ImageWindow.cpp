@@ -346,10 +346,9 @@ LRESULT CImageWindow::OnContextMenu(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM lPa
 	// Create a POINT structure with the screen coordinates of the mouse click
 	POINT pt = { LOWORD( lParam ), HIWORD( lParam ) };
 
-	if ( pt.x > 65000 || pt.x == NULL || ( pt.x == -1 && pt.y == -1 ) )		// Keyboard fix
+	if ( pt.x > 65000 )		// Keyboard fix (-1,-1)
 	{
-		pt.x = 1;
-		pt.y = 1;
+		pt.x = pt.y = 1;
 		ClientToScreen( &pt );
 	}
 

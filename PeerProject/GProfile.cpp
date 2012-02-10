@@ -1,7 +1,7 @@
 //
 // GProfile.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -123,7 +123,6 @@ void CGProfile::Create()
 	oGUID = tmp;
 
 	CXMLElement* pGnutella = m_pXML->GetElementByName( _T("gnutella"), TRUE );
-	ASSERT( pGnutella );
 	VERIFY( pGnutella->AddAttribute( _T("guid"), tmp.toString() ) ) ;
 
 	CreateBT();
@@ -141,7 +140,6 @@ void CGProfile::CreateBT()
 	oGUIDBT = tmp_bt;
 
 	CXMLElement* pBitTorrent = m_pXML->GetElementByName( _T("bittorrent"), TRUE );
-	ASSERT( pBitTorrent );
 	VERIFY( pBitTorrent->AddAttribute( _T("guid"), tmp_bt.toString() ) );
 }
 

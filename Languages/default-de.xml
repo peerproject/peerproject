@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default German Skin File -->
 
-<!-- Translation based on default-en.xml r70 -->
+<!-- Translation based on default-en.xml r74 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -18,7 +18,7 @@
 	author="Jann Röder"
 	updatedBy="Frontier, OldDeath, ZeRO (Daisuke)"
 	description="PeerProjekt Default German Skin File"
-	link="http://PeerProject.org"
+	link="http://peerproject.org"
 	email="zero9999(at)gmail.com"
 	version="1.0.0.0"
 	type="Language"
@@ -2480,7 +2480,7 @@
 	<tip id="ID_DOWNLOADS_RATE" message="Den markierten Download bewerten."/>
 	<tip id="ID_DOWNLOADS_REMOTE_PREVIEW" message="Vorschaubild des ausgewählten Downloads herunterladen."/>
 	<tip id="ID_DOWNLOADS_RESUME" message="Markierte(n) Download(s) fortsetzen." tip="Download fortsetzen"/>
-	<tip id="ID_DOWNLOADS_SETTINGS" message="Downloadeinstellungen  anpassen..."/>
+	<tip id="ID_DOWNLOADS_SETTINGS" message="Downloadeinstellungen anpassen..."/>
 	<tip id="ID_DOWNLOADS_SHARE" message="Diese teilweise heruntergeladene Datei freigeben."/>
 	<tip id="ID_DOWNLOADS_SHOW_SOURCES" message="Auch Quellen anzeigen, die zur Zeit nicht benutzt werden." tip="Alle Quellen anzeigen"/>
 	<tip id="ID_DOWNLOADS_SOURCES" message="Zusätzliche Quellen für den/die markierten Download(s) suchen." tip="Mehr Quellen"/>
@@ -2818,7 +2818,7 @@
 	<string id="20103" value="Kann keine Verbindung zu %s zum Durchsuchen herstellen."/>
 	<string id="20104" value="Fehler beim Senden der Anfrage an %s zum Durchsuchen."/>
 	<string id="20105" value="Verbindung herstellen..."/>
-	<string id="20106" value="Herstellen einer Verbindung zu %s für Durchsuchen  ..."/>
+	<string id="20106" value="Herstellen einer Verbindung zu %s für Durchsuchen ..."/>
 	<string id="20107" value="Dateiliste wird heruntergeladen (%2.f%%)..."/>
 	<string id="20108" value="Herunterladen von &quot;Durchsuchen&quot; Host %s (%s)."/>
 	<string id="20109" value="&quot;Durchsuchen&quot; Verbindung zu %s wurde unterbrochen."/>
@@ -3113,12 +3113,13 @@
 	<string id="20428" value="PeerProjekt hat folgende Kollektion empfangen:\n\n&quot;%s&quot;\n\nDiese Datei scheint keine gültige Kollektion zu sein."/>
 	<string id="20429" value="Keine weiteren Downloads von dieser Kollektion."/>
 	<string id="20430" value="Sind Sie sicher, dass Sie die Datei &quot;%s&quot; ausführen möchten?\n\nManche Dateien können ihren Computer beschädigen. Stellen Sie die Echtheit der Datei sicher, bevor Sie sie ausführen (Virenscan)."/>
-	<string id="20431" value="Sind Sie sicher, dass Sie die %i ausgewählten Datei(en) löschen möchten?\n\nDie Dateien werden in den Windows Papierkorb verschoben."/>
-	<string id="20432" value="PeerProjekt konnte die Datei\n\n%s\n\n nicht löschen"/>
-	<string id="20433" value="Ihr Downloadverzeichnis &quot;%s&quot; ist nicht in ihrer Bibliothek.\n\nWenn Sie ihr Downloadverzeichnis zur Bibliothek hinzufügen, können Sie neue Downloads viel einfacher anzeigen und verwalten. Außerdem können Sie dann die Funktionen Downloadüberprüfung und Automatische Updates benutzen.nDas hinzufügen ihres Downloadverzeichnis zur Bibliothek erfordert es nicht, es freizugeben: Sie können bestimmen, ob Sie einzelne Dateien freigeben.\n\nWollen Sie ihr Downloadverzeichnis jetzt zur Bibliothek hinzufügen?"/>
-	<string id="20434" value="Ihr Downloadverzeichnis wurde zu ihrer Bibliothek hinzugefügt.  Wollen Sie es auch freigeben?"/>
-	<string id="20435" value="Sie haben keinen Mediaplayer wie z.B. Winamp gewählt, um Dateien in die Wiedergabeliste aufzunehmen. Wollen Sie jetzt einen auswählen?\n\nPeerProjekt wird dem gewählten Programm den Dateinamen mit der &quot;/ADD&quot; Option übergeben."/>
-	<string id="20436" value="Wollen Sie die markierten %i Alben wirklich löschen ?\n\nHierbei werden nicht die Dateien gelöscht, sondern nur die Kollektionen."/>
+	<!--string id="20431" value="Sind Sie sicher, dass Sie die %i ausgewählten Datei(en) löschen möchten?\n\nDie Dateien werden in den Windows Papierkorb verschoben."-->
+	<string id="20432" value="Wollen Sie die markierten %i Alben wirklich löschen ?\n\nHierbei werden nicht die Dateien gelöscht, sondern nur die Kollektionen."/>
+	<string id="20433" value="PeerProjekt konnte die Datei\n\n%s\n\n nicht löschen"/>
+	<string id="20434" value="Ihr Downloadverzeichnis &quot;%s&quot; ist nicht in ihrer Bibliothek.\n\nWenn Sie ihr Downloadverzeichnis zur Bibliothek hinzufügen, können Sie neue Downloads viel einfacher anzeigen und verwalten. Außerdem können Sie dann die Funktionen Downloadüberprüfung und Automatische Updates benutzen.nDas hinzufügen ihres Downloadverzeichnis zur Bibliothek erfordert es nicht, es freizugeben: Sie können bestimmen, ob Sie einzelne Dateien freigeben.\n\nWollen Sie ihr Downloadverzeichnis jetzt zur Bibliothek hinzufügen?"/>
+	<string id="20435" value="Ihr Downloadverzeichnis wurde zu ihrer Bibliothek hinzugefügt. Wollen Sie es auch freigeben?"/>
+	<!--string id="20436" value="Sie haben keinen Mediaplayer wie z.B. Winamp gewählt, um Dateien in die Wiedergabeliste aufzunehmen. Wollen Sie jetzt einen auswählen?\n\nPeerProjekt wird dem gewählten Programm den Dateinamen mit der &quot;/ADD&quot; Option übergeben."-->
+	<string id="20436" value="Fügen Sie diesen Ordner auf Ihre Bibliothek?\n\n%s"/>
 	<string id="20437" value="Ghost-Datei"/>
 	<string id="20438" value="Metadaten von %i bearbeiten."/>
 	<string id="20439" value="Sie sind dabei die Metadaten von %i Dateien zu ändern. Wollen Sie fortfahren?"/>
@@ -3142,13 +3143,13 @@
 	<string id="20457" value="PeerProjekt konnte das MediaServices-Plugin nicht laden. Bitte installieren Sie PeerProjekt erneut und stellen Sie sicher, dass Sie die nötigen Codecs und Ausgabetreiber installiert haben."/>
 	<string id="20458" value="PeerProjekt-Medienwiedergabe"/>
 	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; K &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
-	<string id="20461" value="(Keine Visualisierung)"/>
-	<!--string id="20462" value="PeerProjekt hat den Download abgeschlossen:"-->
-	<!--string id="20463" value="PeerProjekt lädt herunter:"-->
-	<!--string id="20464" value="PeerProjekt verschiebt den Download:"-->
-	<!--string id="20465" value="Dieser Download wurde angehalten:"-->
-	<!--string id="20466" value="PeerProjekt sucht nach Quellen für:"-->
-	<!--string id="20467" value="PeerProjekt überprüft den Download auf Fehler:"-->
+	<string id="20462" value="(Keine Visualisierung)"/>
+	<!--string id="20464" value="PeerProjekt hat den Download abgeschlossen:"-->
+	<!--string id="20465" value="PeerProjekt lädt herunter:"-->
+	<!--string id="20466" value="PeerProjekt verschiebt den Download:"-->
+	<!--string id="20467" value="Dieser Download wurde angehalten:"-->
+	<!--string id="20468" value="PeerProjekt sucht nach Quellen für:"-->
+	<!--string id="20469" value="PeerProjekt überprüft den Download auf Fehler:"-->
 	<string id="20470" value="Abbrechen"/>
 	<string id="20471" value="Öffnen"/>
 	<string id="20472" value="Beendet"/>
@@ -3241,9 +3242,7 @@
 	<string id="20578" value="Host %s hat seine query-routing-Tabelle aktualisiert (%i bit = %lu[%i], %i%% voll)."/>
 	<string id="20579" value="%s -&gt; %s [%i/%i] %s %s"/>
 	<string id="20580" value="Leaf %s leitet Suchanfragen weiter, Verbindung getrennt."/>
-	<string id="20581" value="Host %s hat ein Ping-Paket mit ungültiger Länge weitergeleitet, ignoriert."/>
-	<string id="20582" value="Host %s hat ein Pong-Paket mit ungültiger Länge weitergeleitet, ignoriert."/>
-	<string id="20583" value="Host %s hat ein push-Paket mit ungültiger Länge weitergeleitet, ignoriert."/>
+	<string id="20582" value="Host %s hat ein %s-Paket mit ungültiger Länge weitergeleitet, ignoriert."/>
 	<string id="20584" value="Host %s hat ein zu großes Paket weitergeleitet, Verbindung getrennt."/>
 	<string id="20586" value="Host %s hat ein unbekanntes Paket weitergeleitet (0x%.2x), ignoriert."/>
 	<string id="20587" value="Host %s hat einen Pong mit ungültigen Adressdaten weitergeleitet, ignoriert."/>
@@ -3492,9 +3491,9 @@
 	<string id="20891" value="&amp;Schließen"/>
 	<string id="20892" value="Bitte warten: eDonkey-Server-Liste wird aktualisiert..."/>
 	<string id="20893" value="Bitte warten: Service Provider werden aktualisiert..."/>
-	<string id="20894" value="Bitte warten: UPnP-Geräte werden erkannt und konfiguriert..."/>
-	<string id="20895" value="Sie haben Ihre Verbindungsgeschwindigkeit noch nicht angegeben. Bevor Sie fortfahren stellen Sie bitte ihre Verbindungsart oder Geschwindigkeit ein."/>
-	<string id="20896" value="Sie haben angegeben, dass Sie in Ihrem NAT-Router oder Firewall die Port-Freigabe benutzen möchten.\n\nBitte konfigurieren Sie ihr Netzwerk um Port %i (TCP und UDP)an ihren PC weiterzuleiten."/>
+	<string id="20894" value="Sie haben Ihre Verbindungsgeschwindigkeit noch nicht angegeben. Bevor Sie fortfahren stellen Sie bitte ihre Verbindungsart oder Geschwindigkeit ein."/>
+	<!--string id="20895" value="Bitte warten: UPnP-Geräte werden erkannt und konfiguriert..."-->
+	<!--string id="20896" value="Sie haben angegeben, dass Sie in Ihrem NAT-Router oder Firewall die Port-Freigabe benutzen möchten.\n\nBitte konfigurieren Sie ihr Netzwerk um Port %i (TCP und UDP)an ihren PC weiterzuleiten."-->
 	<string id="20897" value="Der Ordner, den Sie freigegeben möchten, ist bereits als Teil eines anderen Ordners freigegeben:\n\n%s"/>
 	<string id="20898" value="Sie haben keine Ordner freigegeben. Sind Sie sicher?"/>
 	<string id="20899" value="Jahre alt"/>
@@ -4509,7 +4508,7 @@
 		<control caption="Abbrechen"/>
 		<control/>
 		<control caption="Eine Ghost-Datei erstellen"/>
-		<control caption="PeerProjekt kann sich diese Datei merken und Sie darauf hinweisen, wenn sie in einer Suche auftaucht. Sie können eine Ghost-Datei mit  Kommentaren und Bewertung erstellen."/>
+		<control caption="PeerProjekt kann sich diese Datei merken und Sie darauf hinweisen, wenn sie in einer Suche auftaucht. Sie können eine Ghost-Datei mit Kommentaren und Bewertung erstellen."/>
 		<control caption="Bewertung:"/>
 		<control caption="Löschgrund:"/>
 		<control caption="!"/>

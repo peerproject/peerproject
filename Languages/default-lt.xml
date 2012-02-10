@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Lithuanian Skin File -->
 
-<!-- Translation based on default-en.xml r70 -->
+<!-- Translation based on default-en.xml r74 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -18,7 +18,7 @@
 	author="Rolandas Rudomanskis"
 	updatedBy="Rolandas Rudomanskis"
 	description="PeerProject Default Lithuanian Skin File"
-	link="http://PeerProject.org"
+	link="http://peerproject.org"
 	email="rrol2002(at)hotmail.com"
 	version="1.0.0.0"
 	type="Language"
@@ -2964,19 +2964,19 @@
 	<string id="20328" value="Baigėsi ryšio su eDonkey klientu %s patvirtinimo laiko limitas."/>
 	<string id="20329" value="Siunčiamas failo „%s“ eDonkey maišos rinkinys adresatui %s..."/>
 	<string id="20330" value="eDonkey klientas %s turi neteisingą GUID, ryšio patvirtinimas atšaukiamas."/>
-	<string id="20331" value="  Šis failas jau yra „PeerProject“ atsisiunčiamų failų sąraše."/>
-	<string id="20332" value="  Neįmanoma atverti dalinio failo „%s“."/>
-	<string id="20333" value="  Failo kopijavimas baigtas."/>
-	<string id="20334" value="  Kopijuojama „%s“ į „%s“..."/>
-	<string id="20335" value="  Failo kopijavimui nepakanka vietos diske."/>
-	<string id="20336" value="  Sukurtas dalinis „PeerProject“ parsisiuntimo failas, %s lieka."/>
-	<string id="20337" value="  Neįmanoma importuoti failo."/>
-	<string id="20338" value="  Parsisiunčiamo failo duomenų failas yra naujesnis nei .part failas, atšaukiama."/>
+	<string id="20331" value=" Šis failas jau yra „PeerProject“ atsisiunčiamų failų sąraše."/>
+	<string id="20332" value=" Neįmanoma atverti dalinio failo „%s“."/>
+	<string id="20333" value=" Failo kopijavimas baigtas."/>
+	<string id="20334" value=" Kopijuojama „%s“ į „%s“..."/>
+	<string id="20335" value=" Failo kopijavimui nepakanka vietos diske."/>
+	<string id="20336" value=" Sukurtas dalinis „PeerProject“ parsisiuntimo failas, %s lieka."/>
+	<string id="20337" value=" Neįmanoma importuoti failo."/>
+	<string id="20338" value=" Parsisiunčiamo failo duomenų failas yra naujesnis nei .part failas, atšaukiama."/>
 	<string id="20339" value=" Aptiktas dalinis failas „%s“, importuojama..."/>
 	<string id="20340" value="Veiksmas baigtas, sėkmingai importuoti %i daliniai failai(-ų)."/>
 	<string id="20341" value="Skenuojamas aplankas: „%s“..."/>
 	<string id="20342" value="Pradedamas eDonkey dalinių failų importas..."/>
-	<string id="20344" value="  Aptiktas parsisiunčiamas failas „%s“, %s dydžio."/>
+	<string id="20344" value=" Aptiktas parsisiunčiamas failas „%s“, %s dydžio."/>
 	<string id="20345" value="Ryšys su eDonkey serveriu %s užmegztas, patvirtinama..."/>
 	<string id="20346" value="Užmezgamas ryšys su eDonkey serveriu %s..."/>
 	<string id="20347" value="eDonkey serveris %s pakeitė mūsų kliento ID iš %lu į %lu."/>
@@ -3057,12 +3057,13 @@
 	<string id="20428" value="„PeerProject“ parsisiuntė rinkinio failą:\n\n„%s“\n\nTurbūt jis nėra teisingas rinkinio failas."/>
 	<string id="20429" value="Ar norite, kad šiam rinkiniui daugiau nebebūtų klausiama apie kokius nors atsisiuntimus?"/>
 	<string id="20430" value="Ar tikrai norite vykdyti failą „%s“ ?\n\nKai kurie failai gali pakenkti Jūsų kompiuteriui. Įsitikinkite, kas tai per failas, prieš vykdydami jį."/>
-	<string id="20431" value="Ar tikrai norite visam laikui ištrinti %i pasirinktus failus(-ą)?\n\nFailai bus patalpintos į „Šiukšliadėžę“, jei ji yra įgalinta."/>
-	<string id="20432" value="„PeerProject“ negalėjo ištrinti failo:\n\n%s"/>
-	<string id="20433" value="Jūsų parsisiųstų failų aplankas „%s“ dar nėra įtrauktas į Jūsų kolekciją.\n\nĮtraukę parsisiųstų failų aplanką į savo kolekciją, Jūs galėsite lengviau tvarkyti ir peržiūrėti naujai parsisiųstus failus, o taip pat pasinaudoti tokiomis papildomomis PeerProject funkcijomis, kaip failų patikra ir savaiminis PeerProject atnaujinimas. Parsisiųstų failų laikymas Jūsų kolekcijoje nereikalauja, kad Jūs jas bendrintumėte: Jūs galite pasirinkti kiekvienam failui atskirai, ar jį bendrinti ar ne.\n\nAr norėtumėte dabar įtraukti parsisiųstų failų aplanką į savo kolekciją?"/>
-	<string id="20434" value="Jūsų parsisiųstų failų aplankas įtrauktas į kolekciją. Ar norėtumėte jį irgi bendrinti?"/>
-	<string id="20435" value="Jūs dar nenurodėte grotuvo programos, pvz., Nullsoft WinAmp, į kurio grojaraštį norite įtraukti savo failus. Ar norite dabar jį nurodyti?\n\nPeerProject perduos failo pavadinimą Jūsų pasirinktai programai kartu su „/ADD“ argumentu."/>
-	<string id="20436" value="Ar tikrai norite pašalinti %i pasirinktą albumo katalogą(-us)?\n\nĮsidėmėkite, kad šis veiksmas neištrins failų, esančių albumų kataloguose, tiktai pačius katalogus."/>
+	<!--string id="20431" value="Ar tikrai norite visam laikui ištrinti %i pasirinktus failus(-ą)?\n\nFailai bus patalpintos į „Šiukšliadėžę“, jei ji yra įgalinta."-->
+	<string id="20432" value="Ar tikrai norite pašalinti %i pasirinktą albumo katalogą(-us)?\n\nĮsidėmėkite, kad šis veiksmas neištrins failų, esančių albumų kataloguose, tiktai pačius katalogus."/>
+	<string id="20433" value="„PeerProject“ negalėjo ištrinti failo:\n\n%s"/>
+	<string id="20434" value="Jūsų parsisiųstų failų aplankas „%s“ dar nėra įtrauktas į Jūsų kolekciją.\n\nĮtraukę parsisiųstų failų aplanką į savo kolekciją, Jūs galėsite lengviau tvarkyti ir peržiūrėti naujai parsisiųstus failus, o taip pat pasinaudoti tokiomis papildomomis PeerProject funkcijomis, kaip failų patikra ir savaiminis PeerProject atnaujinimas. Parsisiųstų failų laikymas Jūsų kolekcijoje nereikalauja, kad Jūs jas bendrintumėte: Jūs galite pasirinkti kiekvienam failui atskirai, ar jį bendrinti ar ne.\n\nAr norėtumėte dabar įtraukti parsisiųstų failų aplanką į savo kolekciją?"/>
+	<string id="20435" value="Jūsų parsisiųstų failų aplankas įtrauktas į kolekciją. Ar norėtumėte jį irgi bendrinti?"/>
+	<!--string id="20436" value="Jūs dar nenurodėte grotuvo programos, pvz., Nullsoft WinAmp, į kurio grojaraštį norite įtraukti savo failus. Ar norite dabar jį nurodyti?\n\nPeerProject perduos failo pavadinimą Jūsų pasirinktai programai kartu su „--ADD“ argumentu."/>
+	<string id="20436" value="Pridėti šį aplanką į savo biblioteką?\n\n%s"/>
 	<string id="20437" value="Šešėlinis failas"/>
 	<string id="20438" value="Taisomi %i failų(-os) meta duomenys."/>
 	<string id="20439" value="Jūs ruošiatės pakeisti %i failų(-os) meta duomenis. Ar tikrai norite tęsti?"/>
@@ -3086,13 +3087,13 @@
 	<string id="20457" value="„PeerProject“ nesugebėjo sukurti atmintyje Grotuvo paslaugų papildinio objekto. Įdiekite „PeerProject“ iš naujo ir įsitikinkite, kad Jūs turite įdiegę reikalingus grotuvo kodekus bei išvesties tvarkykles."/>
 	<string id="20458" value="PeerProject grotuvas"/>
 	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; J &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; I &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M &#160;&#160; A"/>
-	<string id="20461" value="(Be muzikos vaizdo)"/>
-	<!--string id="20462" value="„PeerProject“ baigė parsisiųsti:"-->
-	<!--string id="20463" value="„PeerProject“ siunčiasi:"-->
-	<!--string id="20464" value="„PeerProject“ perkelia parsisiųstą failą:"-->
-	<!--string id="20465" value="Šio failo parsisiuntimas pristabdytas:"-->
-	<!--string id="20466" value="„PeerProject“ ieško šaltinių failui(-ams):"-->
-	<!--string id="20467" value="„PeerProject“ ieško klaidų parsisiųstame faile:"-->
+	<string id="20462" value="(Be muzikos vaizdo)"/>
+	<!--string id="20464" value="„PeerProject“ baigė parsisiųsti:"-->
+	<!--string id="20465" value="„PeerProject“ siunčiasi:"-->
+	<!--string id="20466" value="„PeerProject“ perkelia parsisiųstą failą:"-->
+	<!--string id="20467" value="Šio failo parsisiuntimas pristabdytas:"-->
+	<!--string id="20468" value="„PeerProject“ ieško šaltinių failui(-ams):"-->
+	<!--string id="20469" value="„PeerProject“ ieško klaidų parsisiųstame faile:"-->
 	<string id="20470" value="Atšaukti"/>
 	<string id="20471" value="Atverti"/>
 	<string id="20472" value="Baigta"/>
@@ -3175,7 +3176,7 @@
 	<string id="20565" value="Jūsų planuotojas veikia tik G2 tinklo veiksenoje. Ar norite išjungti šią veikseną, kad visi aktyvūs tinklai liktų prijungti?"/>
 	<string id="20566" value="Prievado peradresavimas naudojant UPnP buvo nesėkmingas po 10 bandymų."/>
 	<string id="20570" value="Gautas neteisingo formato užklausos kreipinio paketas iš %s, ignoruojama."/>
-	<string id="20571" value="%s:  Gautas neteisingo formato užklausos paketas iš %s, ignoruojama."/>
+	<string id="20571" value="%s: Gautas neteisingo formato užklausos paketas iš %s, ignoruojama."/>
 	<string id="20572" value="Kaimynas adresu %s persiuntė paketą su pernelyg dideliu TTL, paketas šalinamas (TTL=%i, šuolių=%i)."/>
 	<string id="20573" value="Kaimynas adresu %s persiuntė paketą su nuliniu TTL, ignoruojama."/>
 	<string id="20574" value="Kaimynas adresu %s persiuntė pernelyg išplėstą paketą, kuris nėra užkoduotas pagal GGEP protokolą."/>
@@ -3184,9 +3185,7 @@
 	<string id="20577" value="Gaunamas netikėtas užklausos maršruto lentelės atnaujinimas iš kaimyno %s."/>
 	<string id="20578" value="Kaimynas adresu %s atnaujino savo užklausos maršruto lentelę (%i bitų = %lu[%i], %i%% užimtumas)."/>
 	<string id="20580" value="Atsišakojęs kaimynas adresu %s persiuntinėja užklausas, ryšys nutraukiamas."/>
-	<string id="20581" value="Kaimynas adresu %s persiuntė neteisingo dydžio ping paketą, ignoruojama."/>
-	<string id="20582" value="Kaimynas adresu %s persiuntė neteisingo dydžio pong paketą, ignoruojama."/>
-	<string id="20583" value="Kaimynas adresu %s persiuntė neteisingo dydžio įstūmiantįjį paketą, ignoruojama."/>
+	<string id="20582" value="Kaimynas adresu %s persiuntė neteisingo dydžio %s paketą, ignoruojama."/>
 	<string id="20584" value="Kaimynas adresu %s persiuntė pernelyg didelį paketą, ryšys nutraukiamas."/>
 	<string id="20586" value="Kaimynas adresu %s persiuntė neatpažintą paketą (0x%.2x), ignoruojama."/>
 	<string id="20587" value="Kaimynas adresu %s persiuntė pong paketą su netesingais adreso duomenimis, ignoruojama."/>
@@ -3419,9 +3418,9 @@
 	<string id="20891" value="&amp;Užverti"/>
 	<string id="20892" value="Prašome palaukti: Atnaujinamas eDonkey serverių sąrašas..."/>
 	<string id="20893" value="Prašome palaukti: Atnaujinamos paslaugų radimo tarnybos..."/>
-	<string id="20894" value="Prašome palaukti: Ieškomi ir konfigūruojami UPnP įrenginiai..."/>
-	<string id="20895" value="Jūs nenurodėte ryšio spartos. Prieš tęsdami, pasirinkite arba savo interneto susijungimo tipą, arba susijungimo spartą."/>
-	<string id="20896" value="PeerProject nesugebėjo nukreipti prievado į Jūsų NAT maršrutizatorių ar užkardą.\n\nSukonfigūruokite savo tinklą TCP ir UDP prievado %i nukreipimui į savo vietinį kompiuterį."/>
+	<string id="20894" value="Jūs nenurodėte ryšio spartos. Prieš tęsdami, pasirinkite arba savo interneto susijungimo tipą, arba susijungimo spartą."/>
+	<!--string id="20895" value="Prašome palaukti: Ieškomi ir konfigūruojami UPnP įrenginiai..."-->
+	<!--string id="20896" value="PeerProject nesugebėjo nukreipti prievado į Jūsų NAT maršrutizatorių ar užkardą.\n\nSukonfigūruokite savo tinklą TCP ir UDP prievado %i nukreipimui į savo vietinį kompiuterį."-->
 	<string id="20897" value="Aplankas, kurį norite bendrinti, aplankų medyje yra žemiau kito, jau bendrinto, aplanko:\n\n%s"/>
 	<string id="20898" value="Jūs nenurodėte, kokius aplankus bendrinti. Ar tikrai tęsti?"/>
 	<string id="20899" value="m. amžiaus"/>
