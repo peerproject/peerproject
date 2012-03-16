@@ -1,7 +1,7 @@
 //
 // PagePackage.cpp
 //
-// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2011
+// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2012
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
@@ -47,18 +47,18 @@ END_MESSAGE_MAP()
 // CPackagePage property page
 
 CPackagePage::CPackagePage() : CWizardPage(CPackagePage::IDD)
+	, m_hImageList	( NULL )
+	, m_nTotalSize	( 0 )
+	, m_sTotalSize	( _T("") )
+	, m_sFileCount	( _T("Files in this Torrent package:") )
 {
 	//{{AFX_DATA_INIT(CPackagePage)
-	m_hImageList = NULL;
-	m_nTotalSize = 0;
-	m_sTotalSize = _T("");
-	m_sFileCount = _T("Files in this Torrent package:");
 	//}}AFX_DATA_INIT
 }
 
-CPackagePage::~CPackagePage()
-{
-}
+//CPackagePage::~CPackagePage()
+//{
+//}
 
 void CPackagePage::DoDataExchange(CDataExchange* pDX)
 {
@@ -97,8 +97,41 @@ void CPackagePage::OnReset()
 
 BOOL CPackagePage::OnSetActive()
 {
-	m_wndRemove.EnableWindow( m_wndList.GetSelectedCount() > 0 );
 	SetWizardButtons( PSWIZB_BACK | PSWIZB_NEXT );
+
+	if ( ! theApp.m_sCommandLineSourceFile.IsEmpty() )
+	{
+		CStringList oDirs;
+		oDirs.AddTail( theApp.m_sCommandLineSourceFile );
+		theApp.m_sCommandLineSourceFile.Empty();
+
+		while ( ! oDirs.IsEmpty() )
+		{
+			CString strFolder = oDirs.RemoveHead() + _T("\\");
+			CFileFind finder;
+			BOOL bWorking = finder.FindFile( strFolder + _T("*.*") );
+			while ( bWorking )
+			{
+				bWorking = finder.FindNextFile();
+				if ( ! finder.IsDots() && ! finder.IsHidden() )
+				{
+					CString sFilename = strFolder + finder.GetFileName();
+					if ( finder.IsDirectory() )
+						oDirs.AddTail( sFilename );
+					else
+						AddFile( sFilename );
+				}
+			}
+		}
+
+		if ( m_wndList.GetItemCount() > 0 )
+			Next();
+	}
+
+	m_wndRemove.EnableWindow( m_wndList.GetSelectedCount() > 0 );
+
+	UpdateData( FALSE );
+
 	return CWizardPage::OnSetActive();
 }
 
@@ -128,9 +161,11 @@ void CPackagePage::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint /*point*/
 
 void CPackagePage::OnItemChangedFileList(NMHDR* /*pNMHDR*/, LRESULT* pResult)
 {
-//	NM_LISTVIEW* pNMListView = (NM_LISTVIEW*)pNMHDR;
-	*pResult = 0;
+//	NM_LISTVIEW* pNMListView = (NM_LISTVIEW*)pNMHDR;	// For reference
+
 	m_wndRemove.EnableWindow( m_wndList.GetSelectedCount() > 0 );
+
+	*pResult = 0;
 }
 
 void CPackagePage::OnDropFiles( HDROP hDropInfo )

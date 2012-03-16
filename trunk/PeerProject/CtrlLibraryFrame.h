@@ -1,7 +1,7 @@
 //
 // CtrlLibraryFrame.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -31,15 +31,15 @@
 
 class CLibraryView;
 class CPanelCtrl;
-class CMetaPanel;
+class CMetaList;
 
 class CLibraryFrame : public CWnd
 {
+	DECLARE_DYNAMIC(CLibraryFrame)
+
 public:
 	CLibraryFrame();
 	virtual ~CLibraryFrame();
-
-	DECLARE_DYNAMIC(CLibraryFrame)
 
 public:
 	typedef CList< CLibraryView* > CLibraryViewList;
@@ -56,8 +56,8 @@ public:
 	BOOL			Select(DWORD nObject);
 	BOOL			SetDynamicBar(LPCTSTR pszName);
 	void			HideDynamicBar();
-	void			SetPanelData(CMetaPanel* pPanel);	// Sets new metadata to display which can be saved later
-	CMetaPanel*		GetPanelData();
+	void			SetPanelData(CMetaList* pPanel);	// Sets new metadata to display which can be saved later
+	CMetaList*		GetPanelData();
 
 	inline LPCTSTR GetDynamicBarName() const
 	{
@@ -118,7 +118,7 @@ protected:
 	CCoolBarCtrl		m_wndViewBottom;
 	CCoolBarCtrl		m_wndBottomDynamic;
 	CAutocompleteEdit	m_wndSearch;
-	CButton				m_wndSaveOption;
+//	CButton				m_wndSaveOption;	// Legacy Sharemonkey
 	CLibraryViewList	m_pViews;
 	CLibraryView*		m_pView;
 	CLibraryMetaPanel	m_pMetaPanel;

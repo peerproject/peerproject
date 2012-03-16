@@ -1,7 +1,7 @@
 //
 // CtrlLibraryFileView.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -37,7 +37,6 @@
 #include "DlgDeleteFile.h"
 #include "DlgDecodeMetadata.h"
 #include "DlgBitziDownload.h"
-#include "ShareMonkeyData.h"
 #include "WebServices.h"
 #include "RelatedSearch.h"
 #include "Transfers.h"
@@ -47,6 +46,8 @@
 #include "Skin.h"
 #include "XML.h"
 
+//#include "ShareMonkeyData.h"	// Legacy
+
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
@@ -55,7 +56,7 @@ static char THIS_FILE[] = __FILE__;
 
 IMPLEMENT_DYNAMIC(CLibraryFileView, CLibraryView)
 
-BEGIN_MESSAGE_MAP(CLibraryFileView, CLibraryView)	// CWebServices?
+BEGIN_MESSAGE_MAP(CLibraryFileView, CLibraryView)
 	ON_WM_CONTEXTMENU()
 	ON_WM_MOUSEMOVE()
 	ON_WM_KEYDOWN()
@@ -98,7 +99,7 @@ BEGIN_MESSAGE_MAP(CLibraryFileView, CLibraryView)	// CWebServices?
 	ON_COMMAND(ID_LIBRARY_REBUILD_ANSI, OnLibraryRebuildAnsi)
 	ON_MESSAGE(WM_METADATA, OnServiceDone)
 
-	// Web Services 	ToDo: Move Bitzi/MusicBrainz/ShareMonkey out to WebServices?
+	// Web Services 	ToDo: Move Bitzi/MusicBrainz out to CWebServices?
 	ON_UPDATE_COMMAND_UI(ID_LIBRARY_BITZI_WEB, OnUpdateLibraryBitziWeb)
 	ON_COMMAND(ID_LIBRARY_BITZI_WEB, OnLibraryBitziWeb)
 	ON_UPDATE_COMMAND_UI(ID_LIBRARY_BITZI_DOWNLOAD, OnUpdateLibraryBitziDownload)
@@ -109,24 +110,25 @@ BEGIN_MESSAGE_MAP(CLibraryFileView, CLibraryView)	// CWebServices?
 	ON_COMMAND(ID_MUSICBRAINZ_MATCHES, OnMusicBrainzMatches)
 	ON_UPDATE_COMMAND_UI(ID_MUSICBRAINZ_ALBUMS, OnUpdateMusicBrainzAlbums)
 	ON_COMMAND(ID_MUSICBRAINZ_ALBUMS, OnMusicBrainzAlbums)
-	ON_UPDATE_COMMAND_UI(ID_WEBSERVICES_SHAREMONKEY, OnUpdateShareMonkeyLookup)
-	ON_COMMAND(ID_WEBSERVICES_SHAREMONKEY, OnShareMonkeyLookup)
-	ON_UPDATE_COMMAND_UI(ID_SHAREMONKEY_DOWNLOAD, OnUpdateShareMonkeyDownload)
-	ON_COMMAND(ID_SHAREMONKEY_DOWNLOAD, OnShareMonkeyDownload)
-	ON_UPDATE_COMMAND_UI(ID_SHAREMONKEY_SAVE, OnUpdateShareMonkeySave)
-	ON_COMMAND(ID_SHAREMONKEY_SAVE, OnShareMonkeySave)
-	ON_UPDATE_COMMAND_UI(ID_SHAREMONKEY_SAVE_OPTION, OnUpdateShareMonkeySaveOption)
-	ON_COMMAND(ID_SHAREMONKEY_SAVE_OPTION, OnShareMonkeySaveOption)
-	ON_UPDATE_COMMAND_UI(ID_SHAREMONKEY_PREVIOUS, OnUpdateShareMonkeyPrevious)
-	ON_COMMAND(ID_SHAREMONKEY_PREVIOUS, OnShareMonkeyPrevious)
-	ON_UPDATE_COMMAND_UI(ID_SHAREMONKEY_NEXT, OnUpdateShareMonkeyNext)
-	ON_COMMAND(ID_SHAREMONKEY_NEXT, OnShareMonkeyNext)
-	ON_UPDATE_COMMAND_UI(ID_SHAREMONKEY_PRICES, OnUpdateShareMonkeyPrices)
-	ON_COMMAND(ID_SHAREMONKEY_PRICES, OnShareMonkeyPrices)
-	ON_UPDATE_COMMAND_UI(ID_SHAREMONKEY_COMPARE, OnUpdateShareMonkeyCompare)
-	ON_COMMAND(ID_SHAREMONKEY_COMPARE, OnShareMonkeyCompare)
-	ON_UPDATE_COMMAND_UI(ID_SHAREMONKEY_BUY, OnUpdateShareMonkeyBuy)
-	ON_COMMAND(ID_SHAREMONKEY_BUY, OnShareMonkeyBuy)
+	// Legacy ShareMonkey for reference:
+	//ON_UPDATE_COMMAND_UI(ID_WEBSERVICES_SHAREMONKEY, &CWebServices::OnUpdateShareMonkeyLookup)
+	//ON_COMMAND(ID_WEBSERVICES_SHAREMONKEY, &CWebServices::OnShareMonkeyLookup)
+	//ON_UPDATE_COMMAND_UI(ID_SHAREMONKEY_DOWNLOAD, &CWebServices::OnUpdateShareMonkeyDownload)
+	//ON_COMMAND(ID_SHAREMONKEY_DOWNLOAD, &CWebServices::OnShareMonkeyDownload)
+	//ON_UPDATE_COMMAND_UI(ID_SHAREMONKEY_SAVE, &CWebServices::OnUpdateShareMonkeySave)
+	//ON_COMMAND(ID_SHAREMONKEY_SAVE, &CWebServices::OnShareMonkeySave)
+	//ON_UPDATE_COMMAND_UI(ID_SHAREMONKEY_SAVE_OPTION, &CWebServices::OnUpdateShareMonkeySaveOption)
+	//ON_COMMAND(ID_SHAREMONKEY_SAVE_OPTION, &CWebServices::OnShareMonkeySaveOption)
+	//ON_UPDATE_COMMAND_UI(ID_SHAREMONKEY_PREVIOUS, &CWebServices::OnUpdateShareMonkeyPrevious)
+	//ON_COMMAND(ID_SHAREMONKEY_PREVIOUS, &CWebServices::OnShareMonkeyPrevious)
+	//ON_UPDATE_COMMAND_UI(ID_SHAREMONKEY_NEXT, &CWebServices::OnUpdateShareMonkeyNext)
+	//ON_COMMAND(ID_SHAREMONKEY_NEXT, &CWebServices::OnShareMonkeyNext)
+	//ON_UPDATE_COMMAND_UI(ID_SHAREMONKEY_PRICES, &CWebServices::OnUpdateShareMonkeyPrices)
+	//ON_COMMAND(ID_SHAREMONKEY_PRICES, &CWebServices::OnShareMonkeyPrices)
+	//ON_UPDATE_COMMAND_UI(ID_SHAREMONKEY_COMPARE, &CWebServices::OnUpdateShareMonkeyCompare)
+	//ON_COMMAND(ID_SHAREMONKEY_COMPARE, &CWebServices::OnShareMonkeyCompare)
+	//ON_UPDATE_COMMAND_UI(ID_SHAREMONKEY_BUY, &CWebServices::OnUpdateShareMonkeyBuy)
+	//ON_COMMAND(ID_SHAREMONKEY_BUY, &CWebServices::OnShareMonkeyBuy)
 END_MESSAGE_MAP()
 
 
@@ -215,11 +217,22 @@ void CLibraryFileView::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 		}
 	}
 
+	if ( oFiles.GetCount() == 0 )
+	{
+		// No files were selected, try folder itself
+		if ( CLibraryTreeItem* pRoot = GetFolderSelection() )
+		{
+			if ( pRoot->m_pPhysical )
+				oFiles.AddTail( pRoot->m_pPhysical->m_sPath );
+		}
+	}
+
 	if ( point.x == -1 && point.y == -1 ) 	// Keyboard fix
 		ClientToScreen( &point );
 
 	CString strName( m_pszToolBar );
 	strName += Settings.Library.ShowVirtual ? _T(".Virtual") : _T(".Physical");
+
 	Skin.TrackPopupMenu( strName, point, ID_LIBRARY_LAUNCH, oFiles );
 }
 
@@ -387,7 +400,6 @@ void CLibraryFileView::OnLibraryMove()
 	CFileCopyDlg dlg( NULL, TRUE );
 
 	POSITION posSel = StartSelectedFileLoop();
-
 	while ( CLibraryFile* pFile = GetNextSelectedFile( posSel ) )
 	{
 		dlg.AddFile( pFile );
@@ -562,9 +574,9 @@ void CLibraryFileView::OnUpdateLibraryRebuildAnsi(CCmdUI* pCmdUI)
 					bXmlPossiblyModified = TRUE;
 			}
 		}
-		if ( ( strExtension != _T("mp3") && strExtension != _T("pdf") &&
-			   strExtension != _T("mpc") && strExtension != _T("mpp") &&
-			   strExtension != _T("mp+") && strExtension != _T("avi") )
+		if ( ( strExtension != _T("mp3") && strExtension != _T("avi") &&
+			   strExtension != _T("pdf") && strExtension != _T("mpc") &&
+			   strExtension != _T("mpp") && strExtension != _T("mp+") )
 			  || bXmlPossiblyModified )
 			nSelected--;
 	}
@@ -584,9 +596,9 @@ void CLibraryFileView::OnLibraryRebuildAnsi()
 		CString strExtension = pFile->m_sName.Right(3);
 		ToLower( strExtension );
 
-		if ( strExtension == _T("mp3") || strExtension == _T("pdf") ||
-			 strExtension == _T("mpc") || strExtension == _T("mpp") ||
-			 strExtension == _T("mp+") || strExtension == _T("avi") )
+		if ( strExtension == _T("mp3") || strExtension == _T("avi") ||
+			 strExtension == _T("pdf") || strExtension == _T("mpc") ||
+			 strExtension == _T("mpp") || strExtension == _T("mp+") )
 			dlg.AddFile( pFile );
 	}
 
@@ -602,12 +614,28 @@ void CLibraryFileView::OnUpdateLibraryRefreshMetadata(CCmdUI* pCmdUI)
 
 void CLibraryFileView::OnLibraryRefreshMetadata()
 {
+	const DWORD nTotal = GetSelectedCount();
+
+	if ( nTotal == 1 )
+	{
+		CQuickLock pLock( Library.m_pSection );
+		LibraryBuilder.RefreshMetadata( GetSelectedFile()->GetPath() );
+		return;
+	}
+
+	CProgressDialog dlgProgress( LoadString( ID_LIBRARY_REFRESH_METADATA ) + _T("...") );
+
 	CQuickLock pLock( Library.m_pSection );
 
+	DWORD nCompleted = 0;
 	POSITION posSel = StartSelectedFileLoop();
 	while ( CLibraryFile* pFile = GetNextSelectedFile( posSel ) )
 	{
-		LibraryBuilder.RefreshMetadata( pFile->GetPath() );
+		CString strPath = pFile->GetPath();
+
+		dlgProgress.Progress( strPath, nCompleted++, nTotal );
+
+		LibraryBuilder.RefreshMetadata( strPath );
 	}
 }
 
@@ -619,9 +647,9 @@ void CLibraryFileView::OnUpdateLibraryProperties(CCmdUI* pCmdUI)
 void CLibraryFileView::OnLibraryProperties()
 {
 	//CStringList oFiles;
+	CFilePropertiesSheet dlg;
 
 	CSingleLock pLock( &Library.m_pSection, TRUE );
-	CFilePropertiesSheet dlg;
 
 	POSITION posSel = StartSelectedFileLoop();
 	while ( CLibraryFile* pFile = GetNextSelectedFile( posSel, FALSE, FALSE ) )
@@ -629,6 +657,7 @@ void CLibraryFileView::OnLibraryProperties()
 		dlg.Add( pFile );
 		//oFiles.AddTail( pFile->GetPath() );
 	}
+
 	pLock.Unlock();
 
 	//HRESULT hr;
@@ -807,14 +836,13 @@ void CLibraryFileView::OnSearchForSeries()
 /////////////////////////////////////////////////////////////////////
 // Web Services Handling
 
-// ToDo: Move below ShareMonkey & MusicBrainz to WebServices class?
+// ToDo: Move below Bitzi/MusicBrainz to WebServices?
 
 void CLibraryFileView::ClearServicePages()
 {
 	for ( POSITION pos = m_pServiceDataPages.GetHeadPosition() ; pos ; )
 	{
-		CMetaPanel* pPanelData = m_pServiceDataPages.GetNext( pos );
-		delete pPanelData;
+		delete m_pServiceDataPages.GetNext( pos );
 	}
 
 	m_pServiceDataPages.RemoveAll();
@@ -1052,277 +1080,7 @@ void CLibraryFileView::OnMusicBrainzAlbums()
 }
 
 /////////////////////////////////////////////////////////////////////
-// ShareMonkey Services
-
-void CLibraryFileView::OnUpdateShareMonkeyLookup(CCmdUI* pCmdUI)
-{
-	pCmdUI->Enable( GetSelectedCount() == 1 && ! m_bRequestingService );
-}
-
-void CLibraryFileView::OnShareMonkeyLookup()
-{
-	GetFrame()->SetDynamicBar( L"WebServices.ShareMonkey.WithSave" );
-}
-
-void CLibraryFileView::OnUpdateShareMonkeyDownload(CCmdUI* pCmdUI)
-{
-	pCmdUI->Enable( ! m_bRequestingService && m_pServiceDataPages.GetCount() == 0 );
-}
-
-void CLibraryFileView::OnShareMonkeyDownload()
-{
-	if ( ! Settings.WebServices.ShareMonkeyOkay )
-	{
-		CString strFormat;
-		Skin.LoadString( strFormat, IDS_SHAREMONKEY_MESSAGE );
-		if ( AfxMessageBox( strFormat, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
-		Settings.WebServices.ShareMonkeyOkay = true;
-		Settings.Save();
-	}
-
-	CShareMonkeyData* pPanelData = new CShareMonkeyData( m_nCurrentPage );
-
-	CString strStatus;
-	LoadString( strStatus, IDS_TIP_STATUS );
-	strStatus.TrimRight( ':' );
-	pPanelData->Add( strStatus, L"Please wait..." );
-
-	if ( m_nCurrentPage == 0 )
-		ClearServicePages();
-	GetFrame()->SetPanelData( pPanelData );
-
-	m_pServiceDataPages.AddTail( pPanelData );
-
-	CSingleLock pLock( &Library.m_pSection, TRUE );
-	CLibraryFile* pFile = GetSelectedFile();
-
-	// Should be set to FALSE, and abort button created
-	m_bRequestingService = pFile != NULL;
-	if ( m_bRequestingService )
-	{
-		DWORD nIndex = pFile->m_nIndex;
-		pLock.Unlock();
-		pPanelData->Start( this, nIndex );
-		return;
-	}
-
-	pLock.Unlock();
-}
-
-void CLibraryFileView::OnUpdateShareMonkeySave(CCmdUI* pCmdUI)
-{
-	BOOL bShow = TRUE;
-	if ( m_bServiceFailed && m_nCurrentPage == m_pServiceDataPages.GetCount() - 1 )
-		bShow = FALSE;
-	pCmdUI->Enable( bShow && ! m_bRequestingService && m_pServiceDataPages.GetCount() > 0 );
-}
-
-void CLibraryFileView::OnShareMonkeySave()
-{
-	INT_PTR nCurr = 0;
-	CShareMonkeyData* pPanelData = NULL;
-
-	for ( POSITION pos = m_pServiceDataPages.GetHeadPosition() ; pos ; nCurr++ )
-	{
-		if ( m_nCurrentPage == nCurr )
-		{
-			pPanelData = static_cast< CShareMonkeyData* >( m_pServiceDataPages.GetNext( pos ) );
-			break;
-		}
-	}
-
-	if ( pPanelData == NULL ) return;
-
-	CSingleLock pLock( &Library.m_pSection, TRUE );
-
-	CLibraryFile* pFile = GetSelectedFile();
-	CSchemaPtr pSchema = pFile->m_pSchema ? pFile->m_pSchema : pPanelData->GetSchema();
-
-	if ( pSchema )
-	{
-		CXMLElement* pRoot = pSchema->Instantiate( TRUE );
-		CXMLElement* pXML = NULL;
-
-		if ( pFile->m_pMetadata )
-		{
-			pXML = pFile->m_pMetadata->Clone();
-			pRoot->AddElement( pXML );
-		}
-		else
-			pXML = pRoot->AddElement( pSchema->m_sSingular );
-
-		CXMLAttribute* pTitle = new CXMLAttribute( NULL, L"title" );
-		pXML->AddAttribute( pTitle );
-
-		CXMLAttribute* pDescription = NULL;
-		if ( pSchema->CheckURI( CSchema::uriApplication ) )
-		{
-			pDescription = new CXMLAttribute( NULL, L"fileDescription" );
-			pXML->AddAttribute( pDescription );
-		}
-		else if ( pSchema->CheckURI( CSchema::uriArchive ) )
-		{
-			// No description... There should be games
-		}
-		else
-		{
-			pDescription = new CXMLAttribute( NULL, L"description" );
-			pXML->AddAttribute( pDescription );
-		}
-
-		if ( pTitle )
-			pTitle->SetValue( pPanelData->m_sProductName );
-		if ( pDescription )
-			pDescription->SetValue( pPanelData->m_sDescription );
-
-		pFile->SetMetadata( pRoot );
-		delete pRoot;
-	}
-}
-
-void CLibraryFileView::OnUpdateShareMonkeySaveOption(CCmdUI* pCmdUI)
-{
-	OnUpdateShareMonkeySave( pCmdUI );
-}
-
-void CLibraryFileView::OnShareMonkeySaveOption()
-{
-	Settings.WebServices.ShareMonkeySaveThumbnail = ! Settings.WebServices.ShareMonkeySaveThumbnail;
-}
-
-void CLibraryFileView::OnUpdateShareMonkeyPrevious(CCmdUI* pCmdUI)
-{
-	pCmdUI->Enable( ! m_bRequestingService && m_nCurrentPage > 0 );
-}
-
-void CLibraryFileView::OnShareMonkeyPrevious()
-{
-	INT_PTR nCurr = m_nCurrentPage--;
-	CShareMonkeyData* pPanelData = NULL;
-
-	POSITION pos = m_pServiceDataPages.GetHeadPosition();
-
-	while ( pos && nCurr-- )
-	{
-		pPanelData = static_cast< CShareMonkeyData* >( m_pServiceDataPages.GetNext( pos ) );
-	}
-
-	GetFrame()->SetPanelData( pPanelData );
-}
-
-void CLibraryFileView::OnUpdateShareMonkeyNext(CCmdUI* pCmdUI)
-{
-	BOOL bShow = TRUE;
-	if ( m_bServiceFailed && m_nCurrentPage == m_pServiceDataPages.GetCount() - 1 )
-		bShow = FALSE;
-	pCmdUI->Enable( bShow && ! m_bRequestingService && m_pServiceDataPages.GetCount() > 0 );
-}
-
-void CLibraryFileView::OnShareMonkeyNext()
-{
-	INT_PTR nCurr = ++m_nCurrentPage;
-	nCurr++;
-
-	if ( m_nCurrentPage > m_pServiceDataPages.GetCount() - 1 )
-	{
-		OnShareMonkeyDownload();
-	}
-	else
-	{
-		CShareMonkeyData* pPanelData = NULL;
-		POSITION pos = m_pServiceDataPages.GetHeadPosition();
-
-		while ( pos && nCurr-- )
-		{
-			pPanelData = static_cast< CShareMonkeyData* >( m_pServiceDataPages.GetNext( pos ) );
-		}
-
-		GetFrame()->SetPanelData( pPanelData );
-	}
-}
-
-void CLibraryFileView::OnUpdateShareMonkeyPrices(CCmdUI* pCmdUI)
-{
-	BOOL bShow = TRUE;
-	if ( m_bServiceFailed && m_pServiceDataPages.GetCount() == 1 || m_pServiceDataPages.GetCount() == 0 )
-		bShow = FALSE;
-	pCmdUI->Enable( ! m_bRequestingService && bShow );
-}
-
-void CLibraryFileView::OnShareMonkeyPrices()
-{
-	POSITION pos = m_pServiceDataPages.GetHeadPosition();
-	CShareMonkeyData* pData = NULL;
-
-	// ToDo: Change m_pServiceDataPages to CMap. Now it's stupid
-	for ( INT_PTR nPage = 0 ; nPage <= m_nCurrentPage ; nPage++ )
-	{
-		pData = static_cast< CShareMonkeyData* >( m_pServiceDataPages.GetNext( pos ) );
-	}
-
-	if ( pData && ! pData->m_pChild )
-	{
-		CShareMonkeyData* pChild = new CShareMonkeyData( 0, CShareMonkeyData::stStoreMatch );
-		pData->m_pChild = pChild;
-		CString strStatus;
-		LoadString( strStatus, IDS_TIP_STATUS );
-		strStatus.TrimRight( ':' );
-		pChild->Add( strStatus, L"Please wait..." );
-		pChild->m_sSessionID = pData->m_sSessionID;
-		pChild->m_sProductID = pData->m_sProductID;
-		pChild->m_sThumbnailURL = pData->m_sThumbnailURL;
-
-		GetFrame()->SetPanelData( pChild );
-		pChild->Start( this, 0 );
-	}
-	else
-	{
-		GetFrame()->SetPanelData( pData ? pData->m_pChild : NULL );
-	}
-}
-
-void CLibraryFileView::OnUpdateShareMonkeyCompare(CCmdUI* pCmdUI)
-{
-	BOOL bShow = TRUE;
-	if ( m_bServiceFailed && m_pServiceDataPages.GetCount() == 1 || m_pServiceDataPages.GetCount() == 0 )
-		bShow = FALSE;
-	pCmdUI->Enable( ! m_bRequestingService && bShow );
-}
-
-void CLibraryFileView::OnShareMonkeyCompare()
-{
-	POSITION pos = m_pServiceDataPages.GetHeadPosition();
-	CShareMonkeyData* pData = NULL;
-
-	// ToDo: Change m_pServiceDataPages to CMap. Now it's stupid
-	for ( INT_PTR nPage = 0 ; nPage <= m_nCurrentPage ; nPage++ )
-	{
-		pData = static_cast< CShareMonkeyData* >( m_pServiceDataPages.GetNext( pos ) );
-	}
-
-	if ( pData && pData->m_sComparisonURL.GetLength() )
-		ShellExecute( GetSafeHwnd(), _T("open"), pData->m_sComparisonURL, NULL, NULL, SW_SHOWNORMAL );
-}
-
-void CLibraryFileView::OnUpdateShareMonkeyBuy(CCmdUI* pCmdUI)
-{
-	pCmdUI->Enable( ! m_bServiceFailed && ! m_bRequestingService && m_pServiceDataPages.GetCount() > 0 );
-}
-
-void CLibraryFileView::OnShareMonkeyBuy()
-{
-	POSITION pos = m_pServiceDataPages.GetHeadPosition();
-	CShareMonkeyData* pData = NULL;
-
-	// ToDo: Change m_pServiceDataPages to CMap. Now it's stupid
-	for ( INT_PTR nPage = 0 ; nPage <= m_nCurrentPage ; nPage++ )
-	{
-		pData = static_cast< CShareMonkeyData* >( m_pServiceDataPages.GetNext( pos ) );
-	}
-
-	if ( pData && pData->m_sBuyURL.GetLength() )
-		ShellExecute( GetSafeHwnd(), _T("open"), pData->m_sBuyURL, NULL, NULL, SW_SHOWNORMAL );
-}
+// ShareMonkey Services (Obsolete, moved to WebServices for reference)
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1337,7 +1095,7 @@ LRESULT CLibraryFileView::OnServiceDone(WPARAM wParam, LPARAM lParam)
 	strStatus.TrimRight( ':' );
 
 	LPCTSTR pszMessage = (LPCTSTR)lParam;
-	CMetaPanel* pPanelData = (CMetaPanel*)wParam;
+	CMetaList* pPanelData = (CMetaList*)wParam;
 
 	m_bServiceFailed = FALSE;
 

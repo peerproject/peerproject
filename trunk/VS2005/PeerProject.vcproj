@@ -667,10 +667,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\PeerProject\FontManager.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\PeerProject\FragmentBar.cpp"
 				>
 			</File>
@@ -824,10 +820,6 @@
 			</File>
 			<File
 				RelativePath="..\PeerProject\MetaList.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\PeerProject\MetaPanel.cpp"
 				>
 			</File>
 			<File
@@ -1048,10 +1040,6 @@
 			</File>
 			<File
 				RelativePath="..\PeerProject\SharedFolder.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\PeerProject\ShareMonkeyData.cpp"
 				>
 			</File>
 			<File
@@ -2306,10 +2294,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\PeerProject\FontManager.h"
-				>
-			</File>
-			<File
 				RelativePath="..\PeerProject\FragmentBar.h"
 				>
 			</File>
@@ -2471,10 +2455,6 @@
 			</File>
 			<File
 				RelativePath="..\PeerProject\MetaList.h"
-				>
-			</File>
-			<File
-				RelativePath="..\PeerProject\MetaPanel.h"
 				>
 			</File>
 			<File
@@ -2667,10 +2647,6 @@
 			</File>
 			<File
 				RelativePath="..\PeerProject\SharedFolder.h"
-				>
-			</File>
-			<File
-				RelativePath="..\PeerProject\ShareMonkeyData.h"
 				>
 			</File>
 			<File

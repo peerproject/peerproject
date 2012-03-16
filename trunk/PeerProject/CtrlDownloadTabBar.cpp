@@ -1,7 +1,7 @@
 //
 // CtrlDownloadTabBar.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -833,6 +833,8 @@ void CDownloadTabBar::TabItem::Paint(CDownloadTabBar* pBar, CDC* pDC, CRect* pRe
 	BOOL bPopulated = m_nCount > 0;
 	BOOL bSkinned = FALSE;
 
+	// Background:
+
 	rc.InflateRect( 1, 1 );
 	rc.bottom++;
 
@@ -878,15 +880,11 @@ void CDownloadTabBar::TabItem::Paint(CDownloadTabBar* pBar, CDC* pDC, CRect* pRe
 
 	rc.DeflateRect( 1, 1 );
 
+	// Icon:
+
 	CPoint ptImage( rc.left + 2, rc.top + 1 );
 
-	if ( m_bSelected )
-	{
-		ImageList_DrawEx( ShellIcons.GetHandle( 16 ), m_nImage, pDC->GetSafeHdc(),
-			ptImage.x, ptImage.y, 0, 0, crBack, CLR_NONE, ILD_NORMAL );
-		pDC->ExcludeClipRect( ptImage.x, ptImage.y, ptImage.x + 16, ptImage.y + 16 );
-	}
-	else if ( bHot )
+	if ( bHot && ! m_bSelected )
 	{
 		ptImage.Offset( -1, -1 );
 
@@ -898,12 +896,10 @@ void CDownloadTabBar::TabItem::Paint(CDownloadTabBar* pBar, CDC* pDC, CRect* pRe
 
 		ptImage.Offset( 2, 2 );
 		pDC->SetTextColor( Colors.m_crShadow );
-		ImageList_DrawEx( ShellIcons.GetHandle( 16 ), m_nImage, pDC->GetSafeHdc(),
-			ptImage.x, ptImage.y, 0, 0, crBack, CLR_NONE, ILD_MASK );
+		ShellIcons.Draw( pDC, m_nImage, 16, ptImage.x, ptImage.y, crBack, CLR_NONE, ILD_MASK );
 
 		ptImage.Offset( -2, -2 );
-		ImageList_DrawEx( ShellIcons.GetHandle( 16 ), m_nImage, pDC->GetSafeHdc(),
-			ptImage.x, ptImage.y, 0, 0, CLR_NONE, CLR_NONE, ILD_NORMAL );
+		ShellIcons.Draw( pDC, m_nImage, 16, ptImage.x, ptImage.y, CLR_NONE, CLR_NONE, ILD_NORMAL );
 
 		pDC->ExcludeClipRect( ptImage.x, ptImage.y, ptImage.x + 18, ptImage.y + 18 );
 
@@ -911,10 +907,14 @@ void CDownloadTabBar::TabItem::Paint(CDownloadTabBar* pBar, CDC* pDC, CRect* pRe
 	}
 	else
 	{
-		ImageList_DrawEx( ShellIcons.GetHandle( 16 ), m_nImage, pDC->GetSafeHdc(),
-			ptImage.x, ptImage.y, 0, 0, crBack, Colors.m_crShadow, ILD_BLEND50 );
+		if ( m_bSelected )	// Default ImageList_DrawEx()
+			ShellIcons.Draw( pDC, m_nImage, 16, ptImage.x, ptImage.y, crBack );
+		else
+			ShellIcons.Draw( pDC, m_nImage, 16, ptImage.x, ptImage.y, crBack, Colors.m_crShadow, ILD_BLEND50 );
 		pDC->ExcludeClipRect( ptImage.x, ptImage.y, ptImage.x + 16, ptImage.y + 16 );
 	}
+
+	// Text:
 
 	rc.left += 20;
 

@@ -187,7 +187,7 @@ bool CLocalSearch::ExecutePartialFiles(INT_PTR nMaximum, INT_PTR& nHits)
 	CList< CDownload* > oFilesInPacket;
 
 	for ( POSITION pos = Downloads.GetIterator() ;
-		pos && ( ! nMaximum || ( nHits + oFilesInPacket.GetCount() < nMaximum ) ); )
+		pos && ( ! nMaximum || ( nHits + oFilesInPacket.GetCount() < nMaximum ) ) ; )
 	{
 		CDownload* pDownload = Downloads.GetNext( pos );
 

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Traditional) Skin File -->
 
-<!-- Translation based on default-en.xml r74 (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r75 (Shareaza 2.2.2.12) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -360,6 +360,7 @@
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<button id="ID_NETWORK_DC" text="DC++"/>
+		<button id="ID_NETWORK_BT" text="BitTorrent"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="設定"/>
 	</toolbar>
@@ -373,6 +374,7 @@
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<button id="ID_NETWORK_DC" text="DC++"/>
+		<button id="ID_NETWORK_BT" text="BitTorrent"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="設定"/>
 	</toolbar>
@@ -506,6 +508,7 @@
 				<item id="ID_NETWORK_G1" text="連線至 Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="連線至 eDonkey2000"/>
 				<item id="ID_NETWORK_DC" text="連線至 DC++"/>
+				<item id="ID_NETWORK_BT" text="連線至 BitTorrent"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="連線至..." shortcut="Ctrl+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="瀏覽主機..."/>
@@ -591,6 +594,7 @@
 			<item id="ID_NETWORK_G1" text="連線至 Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="連線至 eDonkey2000"/>
 			<item id="ID_NETWORK_DC" text="連線至 DC++"/>
+			<item id="ID_NETWORK_BT" text="連線至 BitTorrent"/>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="連線至..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="瀏覽主機..."/>
@@ -751,6 +755,7 @@
 			<item id="ID_NETWORK_G1" text="連線至 _Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="連線至 _eDonkey2000"/>
 			<item id="ID_NETWORK_DC" text="連線至 _DC++"/>
+			<item id="ID_NETWORK_BT" text="連線至 _BitTorrent"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="傳輸後關閉"/>
 			<item id="ID_NETWORK_EXIT" text="離開"/>
@@ -1527,6 +1532,7 @@
 			<item id="ID_NETWORK_G1" text="Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<item id="ID_NETWORK_BT" text="_BitTorrent"/>
 			<separator/>
 			<item id="ID_VIEW_DISCOVERY" text="揭示"/>
 			<item id="ID_VIEW_HOSTS" text="主機快取"/>
@@ -2394,6 +2400,7 @@
 	<tip id="ID_NETWORK_EXIT" message="離開 PeerProject"/>
 	<tip id="ID_NETWORK_ED2K" message="連線至 eDonkey2000 網路."/>
 	<tip id="ID_NETWORK_DC" message="連線至 DC++ 網路."/>
+	<tip id="ID_NETWORK_BT" message="連線至 BitTorrent 網路."/>
 	<tip id="ID_NETWORK_G1" message="連線至原始的 Gnutella 網路."/>
 	<tip id="ID_NETWORK_G2" message="連縣至 Gnutella2 網路 (強烈建議)."/>
 	<tip id="ID_NETWORK_SEARCH" message="在這個網路上開始新的搜尋..."/>
@@ -2602,7 +2609,7 @@
 	<string id="20126" value="與 %s 的 BitTorrent 耦合已忽略."/>
 	<string id="20127" value="至 %s 的 BitTorrent 連線已忽略."/>
 	<string id="20128" value="與 %s 的 BitTorrent 信號交換已忽略."/>
-	<string id="20129" value="與 %s 的 BitTorrent 耦合不被接受, 因為已連線至這個客戶端 ."/>
+	<string id="20129" value="與 %s 的 BitTorrent 耦合不被接受, 因為已連線至這個客戶端."/>
 	<string id="20130" value="%i 個新的 BitTorrent 來源: 由%s 接收到了."/>
 	<string id="20131" value="與 %s 的 BitTorrent 耦合 是一個延伸協定, 已辨認 &quot;%s&quot;."/>
 	<string id="20132" value="與 BitTorrent 客戶端 %s 信號交換已逾時."/>
@@ -2670,8 +2677,8 @@
 	<string id="20202" value="從 %s 收到一個錯誤的推播連線, 關閉連線."/>
 	<string id="20203" value="藉由移除頻寬限制來加速下載 &quot;%s&quot;."/>
 	<string id="20204" value="下載主機 %s 忙碌中, 重試於 %i 秒後."/>
-	<string id="20205" value="無法移動下載 &quot;%s&quot; 至 &quot;%s&quot;. 請確定未完成檔案沒有正在被其他程式使用, 以及你的下載資料夾存在, 沒有設為唯讀."/>
-	<string id="20206" value="無法辨認 &quot;%s&quot;."/>
+	<string id="20205" value="硬碟空間不足, 無法下載 &quot;%s&quot; (%s)."/>
+	<string id="20206" value="無法移動下載 &quot;%s&quot; 至 &quot;%s&quot;. 請確定未完成檔案沒有正在被其他程式使用, 以及你的下載資料夾存在, 沒有設為唯讀."/>
 	<string id="20207" value="您確定取消/放棄這個群組裡所有的下載嗎?"/>
 	<string id="20208" value="關閉至%s 的下載連線, 不再需要了."/>
 	<string id="20209" value="下載主機 %s 送出沒有要求的資料, 關閉連線中."/>
@@ -2684,23 +2691,18 @@
 	<string id="20216" value="無法連線至下載主機 %s."/>
 	<string id="20217" value="從主機 %s (%s) 接收下載內容."/>
 	<string id="20218" value="正在放棄從 下載 &quot;%s&quot; from %s (%s), 因為網路已停用."/>
-	<string id="20219" value="硬碟空間不足, 無法下載 &quot;%s&quot; (%s)."/>
-	<string id="20220" value="與 %s 下載連線已丟失."/>
-	<string id="20222" value="您鍵入的 eDonkey2000 切細值無效. 請檢查後再試一次."/>
-	<string id="20224" value="请输入一个擦除的有效范围.&quot;从&quot; 区域是要擦除的第一个 byte，&quot;到&quot; 区域是要擦除的最后一个 byte."/>
-	<string id="20225" value="您鍵入的 SHA1 值無效.  請檢查後重試."/>
-	<string id="20226" value="您鍵入的 root tiger-tree 值無效. 請檢查後重試."/>
-	<string id="20227" value="您已經改變檔案大小. 確定要改變這個下載的檔案大小嗎?"/>
-	<string id="20228" value="無法從這個下載抹除選擇的部分, 因為沒有存在的part of the range."/>
-	<string id="20231" value="您提供的 SHA1 切細值不同於這個下載的切細值. 您現在確定要更改 SHA1 切細嗎?"/>
-	<string id="20232" value="您提供的 eDonkey2000 切細值不同於這個下載的切細值. 您現在確定要更改 eDonkey2000 切細嗎?"/>
-	<string id="20233" value="您提供的root tiger-tree 切細值不同於這個下載的切細值 您現在確定要更改 tiger-tree root 切細嗎?"/>
-	<string id="20235" value="您無法假定這個下載已完成並且重新驗證, 因為你還沒有持有任何部分驗證資料, 像是 tiger-tree volume, eDonkey hashset 或 BitTorrent hashset. 在沒有驗證資訊的情況下將不能重新驗證下載."/>
-	<string id="20236" value="您要假設這個下載是完整的並重新驗證嗎? 我們會檢視整個檔案; PeerProject 會接受通過驗證的部分並重新下載驗證失敗的部分."/>
-	<string id="20237" value="您確定要忘卻選擇的下載的所有來源嗎?"/>
-	<string id="20238" value="您確定要忽略目前的驗證狀態嗎? 所有已下載的資料將被視為不可靠, 而且快取的 hashtrees 以及 hashsets 將會被沖掉."/>
-	<string id="20240" value="從下載抹除 %I64i 位元組."/>
-	<string id="20241" value="您已經更改了名稱欄位的記載. 您確定要重新命名這個下載嗎?"/>
+	<string id="20219" value="與 %s 下載連線已丟失."/>
+	<string id="20221" value="请输入一个擦除的有效范围.&quot;从&quot; 区域是要擦除的第一个 byte，&quot;到&quot; 区域是要擦除的最后一个 byte."/>
+	<string id="20222" value="您鍵入的 %s 切細值無效. 請檢查後再試一次."/>
+	<string id="20223" value="您提供的 %s 切細值不同於這個下載的切細值. 您現在確定要更改 %s 切細嗎?"/>
+	<string id="20224" value="您已經更改了名稱欄位的記載. 您確定要重新命名這個下載嗎?"/>
+	<string id="20225" value="您已經改變檔案大小. 確定要改變這個下載的檔案大小嗎?"/>
+	<string id="20226" value="您無法假定這個下載已完成並且重新驗證, 因為你還沒有持有任何部分驗證資料, 像是 tiger-tree volume, eDonkey hashset 或 BitTorrent hashset. 在沒有驗證資訊的情況下將不能重新驗證下載."/>
+	<string id="20227" value="您要假設這個下載是完整的並重新驗證嗎? 我們會檢視整個檔案; PeerProject 會接受通過驗證的部分並重新下載驗證失敗的部分."/>
+	<string id="20228" value="您確定要忽略目前的驗證狀態嗎? 所有已下載的資料將被視為不可靠, 而且快取的 hashtrees 以及 hashsets 將會被沖掉."/>
+	<string id="20229" value="您確定要忘卻選擇的下載的所有來源嗎?"/>
+	<string id="20231" value="無法從這個下載抹除選擇的部分, 因為沒有存在的part of the range."/>
+	<string id="20232" value="從下載抹除 %I64i 位元組."/>
 	<string id="20242" value="下載主機 %s 沒有這個檔案: &quot;%s&quot;."/>
 	<string id="20243" value="正在製作檔案 &quot;%s&quot; 以供下載."/>
 	<string id="20244" value="無法製作本地檔案 &quot;%s&quot; 用於下載, 放棄中."/>
@@ -2731,11 +2733,12 @@
 	<string id="20271" value="已移動 &quot;%s&quot; 至 &quot;%s&quot;, 下載完成."/>
 	<string id="20272" value="暫停下載 quot;%squot;."/>
 	<string id="20273" value="繼續下載 quot;%squot;."/>
-	<string id="20274" value="正在解析 &quot;%s&quot; 以下載 quot;%squot;..."/>
 	<string id="20275" value="正在詢問更多下載 &quot;%s&quot; 的來源於 %i 連線..."/>
 	<string id="20276" value="無法取得更多這個下載的來源: &quot;%s&quot; 因為網路沒有連線."/>
+	<!--string id="20277" value="正在解析 &quot;%s&quot; 以下載 quot;%squot;..."-->
+	<!--string id="20278" value="無法辨認 &quot;%s&quot;."-->
 	<string id="20280" value="下載主機的 tiger-tree 資料毀損或是內部不一致, 正在忽略它."/>
-	<string id="20281" value="下載主機的 tiger-tree 無法與期待的 root value 吻合 ."/>
+	<string id="20281" value="下載主機的 tiger-tree 無法與期待的 root value 吻合."/>
 	<string id="20282" value="下載主機 %s 無法滿足 tiger-tree 要求."/>
 	<string id="20283" value="已收到 &quot;%s&quot; 的 tiger-tree volume, %i levels, 最小可驗證分塊 (chunk) %s."/>
 	<string id="20284" value="從 %s (%s) 接收到 tiger-tree 容量..."/>
@@ -2977,7 +2980,7 @@
 	<string id="20570" value="從 %s 接收到一個錯誤格式的 query hit 封包, 忽略中."/>
 	<string id="20571" value="%s: 從 %s 接收到一個錯誤格式的詢問封包, 忽略中."/>
 	<string id="20572" value="鄰居 %s 轉送了一個過高 TTL 的封包, 正在忽略封包 (TTL=%i, Hops=%i)."/>
-	<string id="20573" value="鄰居 %s 轉送了一個零 TTL 的封包, 忽略."/>
+	<!--string id="20573" value="鄰居 %s 轉送了一個零 TTL 的封包, 忽略."-->
 	<string id="20574" value="鄰居 %s 轉送了一個不是使用 GGEP 編碼的延伸封包."/>
 	<string id="20575" value="鄰居 %s 傳送了一個無效詢問路由表更新, 正在忽略連線."/>
 	<string id="20576" value="正在送出詢問路由表至鄰居 %s (%i bit = %lu[%i], %i%% full)"/>
@@ -3169,7 +3172,7 @@
 	<string id="20834" value="上傳主機 %s 要求預覽 &quot;%s&quot;, 但是沒有可用的預覽."/>
 	<string id="20835" value="正在上傳預覽 &quot;%s&quot; 至 %s."/>
 	<string id="20836" value="正在拒絕推播要求至 %s, 因為它有太多上傳連線."/>
-	<string id="20837" value="來自於 %s 的Legacy 推播要求了一個未知的檔案, 無論如何連線..."/>
+	<!--string id="20837" value="來自於 %s 的Legacy 推播要求了一個未知的檔案, 無論如何連線..."-->
 	<string id="20838" value="過於忙碌, 無法上載&quot;%s&quot;.至 %s, 排隊位置於 #%i of %i (&quot;%s&quot;.."/>
 	<string id="20840" value="至 %s 的上傳連線丟失, 保留排隊位置."/>
 	<string id="20841" value="新的排隊隊伍"/>
@@ -3198,7 +3201,7 @@
 	<string id="20866" value="檔案名稱:"/>
 	<string id="20867" value="主機:"/>
 	<string id="20868" value="連接埠:"/>
-	<string id="20869" value="無法顯示 URL 動作對話框, 因為 PeerProject 忙祿中."/>
+	<!--string id="20869" value="無法顯示 URL 動作對話框, 因為 PeerProject 忙祿中."-->
 	<string id="20870" value="無法解析 URL: PeerProject 不了解這個 URL."/>
 	<string id="20871" value="接收到 URL &quot;%s&quot;"/>
 	<string id="20872" value="類型:"/>
@@ -3499,7 +3502,7 @@
 		<control caption="下載..."/>
 		<control caption="從網際網路下載 eDonkey 伺服器清單:"/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="下載連線:"/>
 		<control/>
 		<control/>
@@ -3507,6 +3510,7 @@
 		<control/>
 		<control/>
 		<control caption="客戶端連線"/>
+		<control caption="啟用BitTorrent的DHT的"/>
 		<control caption="偏好 torrent 來源"/>
 		<control caption="終場模式:"/>
 		<control caption="在 torrent 即將完成時啟用終場模式"/>
@@ -4075,7 +4079,7 @@
 		<control caption="Select a schema from the list, then select the fields to display as columns."/>
 	</dialog>
 	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="分享的資料夾管理員">
-		<control caption="這是您的收藏的資料夾清單. 您可以使用左方按鈕新增或移除資料夾 .  任何一個新增的資料夾將預設為開放給其他使用者分享, 不過您可以在 PeerProject 收藏停止分享."/>
+		<control caption="這是您的收藏的資料夾清單. 您可以使用左方按鈕新增或移除資料夾.  任何一個新增的資料夾將預設為開放給其他使用者分享, 不過您可以在 PeerProject 收藏停止分享."/>
 		<control/>
 		<control caption="新增"/>
 		<control caption="移除"/>
@@ -4223,7 +4227,7 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="伺服器">
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBuBuBu" caption="伺服器">
 		<control/>
 		<control/>
 		<control/>
@@ -4235,6 +4239,8 @@
 		<control caption="伺服器的模式:"/>
 		<control caption="停用|自訂|單一伺服器|多部伺服器|多部伺服器 (已鎖定)"/>
 		<control caption="重新整理"/>
+		<control caption="新增"/>
+		<control caption="移除"/>
 	</dialog>
 	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="一般">
 		<control/>

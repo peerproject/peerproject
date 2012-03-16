@@ -1,7 +1,7 @@
 //
 // RouteCache.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -25,6 +25,8 @@ class CRouteCacheItem
 {
 // Attributes
 public:
+	CRouteCacheItem();
+
 	CRouteCacheItem*	m_pNext;
 	DWORD				m_tAdded;
 	Hashes::Guid		m_oGUID;
@@ -87,7 +89,7 @@ public:
 	BOOL		Add(const Hashes::Guid& oGUID, const SOCKADDR_IN* pEndpoint);
 	void		Remove(CNeighbour* pNeighbour);
 	void		Clear();
-public:
+
 	CRouteCacheItem*	Add(const Hashes::Guid& oGUID, const CNeighbour* pNeighbour, const SOCKADDR_IN* pEndpoint, DWORD tAdded);
 	CRouteCacheItem*	Lookup(const Hashes::Guid& oGUID, CNeighbour** ppNeighbour = NULL, SOCKADDR_IN* pEndpoint = NULL);
 };

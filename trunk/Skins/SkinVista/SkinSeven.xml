@@ -49,7 +49,7 @@
   <color name="System.Base.Midtone"			value="F9F8F6"/>  <!--toolbars-->
   <color name="System.Base.Text" 			value="1A100A"/>
   <color name="System.Base.HiText" 			value="000000"/>
-  <color name="System.Base.HiBorder"	  		value="90B8E6"/>
+  <color name="System.Base.HiBorder"			value="90B8E6"/>
   <!--color name="System.Base.HiBorderIn"  		value="E2EEFB"-->
   <color name="System.Base.Highlight"    		value="DFEDFE"/>
   <color name="System.Back.Checked"			value="F8F6F4"/>
@@ -98,9 +98,9 @@
   <color name="Media.Panel.Active.Text" 		value="FFFFFF"/>
   <color name="Media.Panel.Caption"			value="343232"/>
   <color name="Media.Panel.Caption.Text"		value="FDFCFA"/>
-  <color name="Traffic.Window.Back"	 		value="1A1816"/>
-  <color name="Traffic.Window.Text"	 		value="68625A"/>
-  <color name="Traffic.Window.Grid"	 		value="343232"/>
+  <color name="Traffic.Window.Back"			value="1A1816"/>
+  <color name="Traffic.Window.Text"			value="68625A"/>
+  <color name="Traffic.Window.Grid"			value="343232"/>
   <color name="Monitor.History.Text" 			value="7A726A"/>
   <color name="Monitor.History.Back" 			value="000000"/>
   <color name="Monitor.History.Back.Max" 		value="444240"/>
@@ -122,9 +122,9 @@
   <color name="Richdoc.Text"				value="4A4840"/>
   <color name="Richdoc.Heading" 			value="B03020"/>
 
-  <color name="System.Base.Chat.In"	 		value="0660CC"/>
-  <color name="System.Base.Chat.Out"	 		value="EA4A60"/>
-  <color name="System.Base.Chat.Null"	 		value="D0CDCB"/>
+  <color name="System.Base.Chat.In"			value="0660CC"/>
+  <color name="System.Base.Chat.Out"			value="EA4A60"/>
+  <color name="System.Base.Chat.Null"			value="D0CDCB"/>
   <color name="System.Base.Network.Null" 		value="D0CDCB"/>
   <color name="System.Base.Network.G1"			value="888888"/>
   <color name="System.Base.Network.G2"			value="2000D0"/>
@@ -147,11 +147,11 @@
   <color name="System.Base.Transfer.Source" 		value="202020"/>
 
   <color name="FragmentBar.Shaded" 			value="F6F4F2"/>
-  <color name="FragmentBar.Complete"	 		value="D4F8B4"/>
-  <color name="FragmentBar.Pass"	 		value="40F020"/>
+  <color name="FragmentBar.Complete"			value="D4F8B4"/>
+  <color name="FragmentBar.Pass"			value="40F020"/>
   <color name="FragmentBar.Fail"			value="F01000"/>
   <color name="FragmentBar.Request"			value="F0FF20"/>
-  <color name="FragmentBar.Border"	 		value="888888"/>
+  <color name="FragmentBar.Border"			value="888888"/>
   <color name="FragmentBar.Border.Selected" 		value="808080"/>
   <color name="DropdownBox.Back"			value="FFFFFF"/>
   <color name="DropdownBox.Text"			value="403A38"/>
@@ -195,7 +195,7 @@
   <!--watermark target="CLibraryTileView.Physical.Toolbar" path="Toolbar.png"-->
   <!--watermark target="CLibraryTileView.Virtual.Toolbar"  path="Toolbar.png"-->
   <!--watermark target="CLibraryCollectionView.Virtual.Toolbar" path="Toolbar.png"-->
-  <!--watermark target="CIRCFrame.Toolbar"	 	path="Toolbar.png"-->
+  <!--watermark target="CIRCFrame.Toolbar"		path="Toolbar.png"-->
   <!--watermark target="CDiscoveryWnd.Toolbar"  	path="Toolbar.png"-->
   <!--watermark target="CHostCacheWnd.Toolbar"  	path="Toolbar.png"-->
   <!--watermark target="CHitMonitorWnd.Toolbar"  	path="Toolbar.png"-->
@@ -209,7 +209,6 @@
   <watermark target="CSearchPanel.Footer"		path="Seven\SidebarFooter.jpg"/>
   <watermark target="CHomePanel"			path="Seven\SidebarRepeat.png"/>
   <watermark target="CHomePanel.Footer" 		path="Seven\SidebarFooter.jpg"/>
-  <!--watermark target="CHomeBox"			path=""-->
   <watermark target="CIRCPanel"				path="Seven\SidebarRepeat.png"/>
   <watermark target="CIRCPanel.Footer" 			path="Seven\SidebarFooter.jpg"/>
   <watermark target="CIRCWaterMarkPanel"		path="Seven\MenuBkg.png"/>
@@ -236,11 +235,11 @@
 
   <!--watermark target="CNeighboursWnd"  		path="Seven\SideBlock.png"-->
   <!--watermark target="CSecurityWnd"  			path="Seven\SideBlock.png"-->
-  <!--watermark target="CListCtrl"	  		path="Seven\SideBlock.png"--> <!--dialog list boxes-->
+  <!--watermark target="CListCtrl"			path="Seven\SideBlock.png"--> <!--dialog list boxes-->
   <watermark target="CDialog.Panel"			path="DialogPanel.png"/> <!--meta tabs/wizard-->
   <watermark target="CDialog"				path="Dialog.png"/> <!--settings bg-->
-  <watermark target="CMediaList"	  		path="Playlist.png"/>
-  <watermark target="CMediaList.Header"	  		path="PlaylistHeader.png"/>
+  <watermark target="CMediaList"			path="Playlist.png"/>
+  <watermark target="CMediaList.Header"			path="PlaylistHeader.png"/>
   <!--watermark target="CMediaFrame.StatusBar"		path="MediaStatus.png"--> <!--note: causes flickering-->
   <!--watermark target="CHomeViewCtrl.Header"		path="###.png"--> <!--hometab logo-->
   <!--watermark target="CHomeViewCtrl.HeaderRepeat"	path="###.png"--> <!--hometab repeat-->
@@ -249,12 +248,12 @@
   <!--watermark target="CWndTabBar.Active" 		path="Seven\RibbonTaskbarTabActive.png"-->
   <!--watermark target="CWndTabBar.Hover"  		path="Seven\RibbonTaskbarTabActive.png"-->
   <!--watermark target="CWndTabBar.Active.Hover"  	path="Seven\RibbonTaskbarTabAlt.png"-->
-  <!--watermark target="CWndTabBar.Tab"	 		path="Seven\RibbonTaskbarTab.png"-->
+  <!--watermark target="CWndTabBar.Tab"			path="Seven\RibbonTaskbarTab.png"-->
   <!--watermark target="CWndTabBar.Edge"		path="Seven\RibbonTaskbarTabEdge.png"-->
   <!--watermark target="CWndTabBar.Active.Edge" 	path="Seven\RibbonTaskbarTabActiveEdge.png"-->
   <!--watermark target="CWndTabBar.Hover.Edge"  	path="Seven\RibbonTaskbarTabActiveEdge.png"-->
   <!--watermark target="CWndTabBar.Active.Hover.Edge" 	path="Seven\RibbonTaskbarTabActiveEdge.png"-->
-  <!--watermark target="CDownloadTabBar.Active"	 	path="DownloadgroupsHover.png"-->
+  <!--watermark target="CDownloadTabBar.Active"		path="DownloadgroupsHover.png"-->
   <!--watermark target="CDownloadTabBar.Hover" 		path="DownloadgroupsHover.png"-->
   <!--watermark target="CDownloadTabBar.Active.Hover" 	path="DownloadgroupsActive.png"-->
   <!--watermark target="CDownloadTabBar.Active.Edge" 	path="DownloadgroupsEdge.png"-->
@@ -309,7 +308,6 @@
 </watermarks>
 
 <windowSkins>
-
 
 
 <!-- Main Window -->

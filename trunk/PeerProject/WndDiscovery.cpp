@@ -86,6 +86,10 @@ END_MESSAGE_MAP()
 // CDiscoveryWnd construction
 
 CDiscoveryWnd::CDiscoveryWnd()
+	: m_bShowGnutella	( TRUE )
+	, m_bShowWebCache	( TRUE )
+	, m_bShowServerList	( TRUE )
+	, m_bShowBlocked	( TRUE )
 {
 	Create( IDR_DISCOVERYFRAME );
 }
@@ -392,6 +396,8 @@ void CDiscoveryWnd::OnUpdateDiscoveryRemove(CCmdUI* pCmdUI)
 
 void CDiscoveryWnd::OnDiscoveryRemove()
 {
+	if ( m_wndList.GetSelectedCount() <= 0 ) return;
+
 	CSingleLock pLock( &Network.m_pSection, FALSE );
 	if ( ! pLock.Lock( 250 ) ) return;
 
@@ -478,4 +484,35 @@ void CDiscoveryWnd::OnDiscoveryAdd()
 
 	if ( dlg.DoModal() == IDOK )
 		Update();
+}
+
+//void CDiscoveryWnd::OnCustomDrawList(NMHDR* /*pNMHDR*/, LRESULT* pResult)
+//{
+//	//NMLVCUSTOMDRAW* pDraw = (NMLVCUSTOMDRAW*)pNMHDR;
+//
+//	*pResult = CDRF_DODEFAULT;
+//}
+
+BOOL CDiscoveryWnd::PreTranslateMessage(MSG* pMsg)
+{
+	if ( pMsg->message == WM_KEYDOWN )
+	{
+		if ( pMsg->wParam == VK_DELETE )
+		{
+			PostMessage( WM_COMMAND, ID_DISCOVERY_REMOVE );
+			return TRUE;
+		}
+		if ( pMsg->wParam == VK_INSERT )
+		{
+			PostMessage( WM_COMMAND, ID_DISCOVERY_ADD );
+			return TRUE;
+		}
+		if ( pMsg->wParam == VK_RETURN )
+		{
+			PostMessage( WM_COMMAND, ID_DISCOVERY_EDIT );
+			return TRUE;
+		}
+	}
+
+	return CPanelWnd::PreTranslateMessage( pMsg );
 }

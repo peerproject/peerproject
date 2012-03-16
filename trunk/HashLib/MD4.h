@@ -1,7 +1,7 @@
 //
 // MD4.h (ED2K)
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions Copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -25,12 +25,12 @@ class HASHLIB_API CMD4
 {
 public:
 	CMD4();
-	virtual ~CMD4() {}
+	~CMD4() {}
 
 	void Reset();
 	void Add(const void* pData, size_t nLength);
 	void Finish();
-	
+
 	struct HASHLIB_API Digest // 128 bit
 	{
 		uint32& operator[](size_t i) { return data[ i ]; }

@@ -19,6 +19,8 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
+// This file is not used. For reference only.
+
 #include "StdAfx.h"
 #include "TorrentWizard.h"
 #include "TorrentBuilder.h"

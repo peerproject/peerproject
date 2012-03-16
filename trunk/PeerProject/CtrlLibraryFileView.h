@@ -1,7 +1,7 @@
 //
 // CtrlLibraryFileView.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -21,7 +21,8 @@
 #include "CtrlLibraryView.h"
 
 class CLibraryFile;
-class CMetaPanel;
+class CMetaList;
+
 
 class CLibraryFileView : public CLibraryView
 {
@@ -37,7 +38,7 @@ protected:
 	BOOL				m_bEditing;
 	BOOL				m_bRequestingService;
 	INT_PTR				m_nCurrentPage;
-	CList<CMetaPanel*>	m_pServiceDataPages;
+	CList<CMetaList*>	m_pServiceDataPages;
 	BOOL				m_bServiceFailed;
 
 // Overrides
@@ -105,24 +106,25 @@ protected:
 	afx_msg void OnMusicBrainzMatches();
 	afx_msg void OnUpdateMusicBrainzAlbums(CCmdUI* pCmdUI);
 	afx_msg void OnMusicBrainzAlbums();
-	afx_msg void OnUpdateShareMonkeyLookup(CCmdUI* pCmdUI);
-	afx_msg void OnShareMonkeyLookup();
-	afx_msg void OnUpdateShareMonkeyDownload(CCmdUI* pCmdUI);
-	afx_msg void OnShareMonkeyDownload();
-	afx_msg void OnUpdateShareMonkeySave(CCmdUI* pCmdUI);
-	afx_msg void OnShareMonkeySave();
-	afx_msg void OnUpdateShareMonkeySaveOption(CCmdUI* pCmdUI);
-	afx_msg void OnShareMonkeySaveOption();
-	afx_msg void OnUpdateShareMonkeyPrevious(CCmdUI* pCmdUI);
-	afx_msg void OnShareMonkeyPrevious();
-	afx_msg void OnUpdateShareMonkeyNext(CCmdUI* pCmdUI);
-	afx_msg void OnShareMonkeyNext();
-	afx_msg void OnUpdateShareMonkeyPrices(CCmdUI* pCmdUI);
-	afx_msg void OnShareMonkeyPrices();
-	afx_msg void OnUpdateShareMonkeyCompare(CCmdUI* pCmdUI);
-	afx_msg void OnShareMonkeyCompare();
-	afx_msg void OnUpdateShareMonkeyBuy(CCmdUI* pCmdUI);
-	afx_msg void OnShareMonkeyBuy();
+	// Legacy Sharemonkey:
+	//afx_msg void OnUpdateShareMonkeyLookup(CCmdUI* pCmdUI);
+	//afx_msg void OnShareMonkeyLookup();
+	//afx_msg void OnUpdateShareMonkeyDownload(CCmdUI* pCmdUI);
+	//afx_msg void OnShareMonkeyDownload();
+	//afx_msg void OnUpdateShareMonkeySave(CCmdUI* pCmdUI);
+	//afx_msg void OnShareMonkeySave();
+	//afx_msg void OnUpdateShareMonkeySaveOption(CCmdUI* pCmdUI);
+	//afx_msg void OnShareMonkeySaveOption();
+	//afx_msg void OnUpdateShareMonkeyPrevious(CCmdUI* pCmdUI);
+	//afx_msg void OnShareMonkeyPrevious();
+	//afx_msg void OnUpdateShareMonkeyNext(CCmdUI* pCmdUI);
+	//afx_msg void OnShareMonkeyNext();
+	//afx_msg void OnUpdateShareMonkeyPrices(CCmdUI* pCmdUI);
+	//afx_msg void OnShareMonkeyPrices();
+	//afx_msg void OnUpdateShareMonkeyCompare(CCmdUI* pCmdUI);
+	//afx_msg void OnShareMonkeyCompare();
+	//afx_msg void OnUpdateShareMonkeyBuy(CCmdUI* pCmdUI);
+	//afx_msg void OnShareMonkeyBuy();
 
 	afx_msg LRESULT OnServiceDone(WPARAM wParam, LPARAM lParam);
 

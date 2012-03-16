@@ -1,7 +1,7 @@
 //
 // ED2K.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions Copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -23,12 +23,14 @@
 
 #include "MD4.h"
 
+const DWORD ED2K_PART_SIZE = 9500 * 1024u;
+
 
 class HASHLIB_API CED2K
 {
 public:
 	CED2K();
-	virtual ~CED2K();
+	~CED2K();
 
 	void	Clear();
 	void	Save(uchar* pBuf) const;
@@ -65,5 +67,3 @@ private:
 	CMD4	m_pSegment;
 	bool	m_bNullBlock;
 };
-
-const DWORD ED2K_PART_SIZE	= 9500 * 1024u;

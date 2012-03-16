@@ -529,18 +529,20 @@
 	<resource code="57652" id="ID_WINDOW_TILE_VERT"/>
 	<!-- WebServices -->
 	<resource code="40480" id="ID_WEBSERVICES_LIST"/>
-	<resource code="40481" id="ID_WEBSERVICES_SHAREMONKEY"/>
-	<resource code="40482" id="ID_WEBSERVICES_MUSICBRAINZ"/>
-	<resource code="40483" id="ID_SHAREMONKEY_DOWNLOAD"/>
-	<resource code="40484" id="ID_SHAREMONKEY_SAVE"/>
-	<resource code="40485" id="ID_SHAREMONKEY_SAVE_OPTION"/>
-	<resource code="40486" id="ID_SHAREMONKEY_PREVIOUS"/>
-	<resource code="40487" id="ID_SHAREMONKEY_NEXT"/>
-	<resource code="40488" id="ID_SHAREMONKEY_COMPARE"/>
-	<resource code="40489" id="ID_SHAREMONKEY_PRICES"/>
-	<resource code="40490" id="ID_SHAREMONKEY_BUY"/>
-	<resource code="40491" id="ID_MUSICBRAINZ_MATCHES"/>
-	<resource code="40492" id="ID_MUSICBRAINZ_ALBUMS"/>
+	<resource code="40481" id="ID_WEBSERVICES_MUSICBRAINZ"/>
+	<resource code="40482" id="ID_MUSICBRAINZ_MATCHES"/>
+	<resource code="40483" id="ID_MUSICBRAINZ_ALBUMS"/>
+	<!--
+	<resource code="40490" id="ID_WEBSERVICES_SHAREMONKEY"/>
+	<resource code="40491" id="ID_SHAREMONKEY_DOWNLOAD"/>
+	<resource code="40492" id="ID_SHAREMONKEY_SAVE"/>
+	<resource code="40493" id="ID_SHAREMONKEY_SAVE_OPTION"/>
+	<resource code="40494" id="ID_SHAREMONKEY_PREVIOUS"/>
+	<resource code="40495" id="ID_SHAREMONKEY_NEXT"/>
+	<resource code="40496" id="ID_SHAREMONKEY_COMPARE"/>
+	<resource code="40497" id="ID_SHAREMONKEY_PRICES"/>
+	<resource code="40498" id="ID_SHAREMONKEY_BUY"/>
+	-->
 	<!-- Plugin Commands (Skinning) -->
 	<resource code="40500" id="PluginID_Custom"/>
 	<resource code="40501" id="PluginID_ImageViewer_FullSize"/>

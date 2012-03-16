@@ -1,7 +1,7 @@
 //
 // Plugins.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -278,7 +278,7 @@ BOOL CPlugins::LookupEnable(REFCLSID pCLSID, LPCTSTR pszExt) const
 
 	if ( strExtensions.IsEmpty() )
 		return TRUE;
-	if ( strExtensions == _T("-") ) // for plugins without associations
+	if ( strExtensions == _T("-") )		// For plugins without associations
 		return FALSE;
 	if ( strExtensions.Left( 1 ) == _T("-") && strExtensions.GetLength() > 1 )
 		strExtensions = strExtensions.Mid( 1 );
@@ -381,10 +381,10 @@ void CPlugins::OnRun()
 	{
 		Doze();
 
+		CQuickLock oLock( m_pSection );
+
 		if ( ! IsThreadEnabled() )
 			break;
-
-		CQuickLock oLock( m_pSection );
 
 		// Revoke interface
 		CPluginPtr* pGITPlugin = NULL;
@@ -542,7 +542,8 @@ BOOL CPlugins::OnCommand(CChildWnd* pActiveWnd, UINT nCommandID)
 
 		if ( pPluginWnd->m_pOwner )
 		{
-			if ( pPluginWnd->m_pOwner->OnCommand( nCommandID ) == S_OK ) return TRUE;
+			if ( pPluginWnd->m_pOwner->OnCommand( nCommandID ) == S_OK )
+				return TRUE;
 		}
 	}
 
@@ -552,7 +553,8 @@ BOOL CPlugins::OnCommand(CChildWnd* pActiveWnd, UINT nCommandID)
 
 		if ( pPlugin->m_pCommand )
 		{
-			if ( pPlugin->m_pCommand->OnCommand( nCommandID ) == S_OK ) return TRUE;
+			if ( pPlugin->m_pCommand->OnCommand( nCommandID ) == S_OK )
+				return TRUE;
 		}
 	}
 
@@ -680,20 +682,20 @@ BOOL CPlugin::Start()
 		return FALSE;
 	}
 
-	hr = m_pPlugin->SetApplication( pApplication );
+	/*hr =*/ m_pPlugin->SetApplication( pApplication );
 
 	m_nCapabilities = 0;
-	hr = m_pPlugin->QueryCapabilities( &m_nCapabilities );
+	/*hr =*/ m_pPlugin->QueryCapabilities( &m_nCapabilities );
 
 	ASSERT( ! m_pCommand );
 	ASSERT( ! m_pExecute );
 	ASSERT( ! m_pLibrary );
 	ASSERT( ! m_pChat );
 
-	hr = m_pPlugin->QueryInterface( IID_ICommandPlugin, (void**)&m_pCommand );
-	hr = m_pPlugin->QueryInterface( IID_IExecutePlugin, (void**)&m_pExecute );
-	hr = m_pPlugin->QueryInterface( IID_ILibraryPlugin, (void**)&m_pLibrary );
-	hr = m_pPlugin->QueryInterface( IID_IChatPlugin, (void**)&m_pChat );
+	/*hr =*/ m_pPlugin->QueryInterface( IID_ICommandPlugin, (void**)&m_pCommand );
+	/*hr =*/ m_pPlugin->QueryInterface( IID_IExecutePlugin, (void**)&m_pExecute );
+	/*hr =*/ m_pPlugin->QueryInterface( IID_ILibraryPlugin, (void**)&m_pLibrary );
+	/*hr =*/ m_pPlugin->QueryInterface( IID_IChatPlugin, (void**)&m_pChat );
 
 	return TRUE;
 }
@@ -751,10 +753,9 @@ CString CPlugin::GetStringCLSID() const
 HICON CPlugin::LookupIcon() const
 {
 	CString strName;
-	HKEY hKey;
-
 	strName.Format( _T("CLSID\\%s\\InprocServer32"), (LPCTSTR)GetStringCLSID() );
 
+	HKEY hKey;
 	if ( RegOpenKeyEx( HKEY_CLASSES_ROOT, strName, 0, KEY_QUERY_VALUE, &hKey ) )
 		return NULL;
 

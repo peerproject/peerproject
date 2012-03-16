@@ -1,7 +1,7 @@
 //
 // WizardSharePage.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -82,8 +82,8 @@ BOOL CWizardSharePage::OnInitDialog()
 	m_wndList.GetClientRect( &rc );
 	m_wndList.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_TRANSPARENTBKGND|LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP|LVS_EX_CHECKBOXES );
 	m_wndList.InsertColumn( 0, _T("Folder"), LVCFMT_LEFT, rc.Width() - GetSystemMetrics( SM_CXVSCROLL ) );
-	m_wndList.SetImageList( ShellIcons.GetObject( 16 ), LVSIL_SMALL );
 	m_wndList.EnableToolTips( TRUE );
+	ShellIcons.AttachTo( &m_wndList, 16 );	// .SetImageList()
 
 	if ( m_wndList.SetBkImage( Skin.GetWatermark( _T("CListCtrl") ) ) )
 		m_wndList.SetExtendedStyle( LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP|LVS_EX_CHECKBOXES );	// No LVS_EX_DOUBLEBUFFER
@@ -104,8 +104,6 @@ BOOL CWizardSharePage::OnInitDialog()
 				UINT( ( pFolder->IsShared() != TRUE ? 1 : 2 ) << 12 ), LVIS_STATEIMAGEMASK );
 		}
 
-		CString strPrograms( theApp.GetProgramFilesFolder() ), strFolder;
-
 		CreateDirectory( Settings.Downloads.CompletePath );
 		AddPhysicalFolder( Settings.Downloads.CompletePath );
 
@@ -115,8 +113,9 @@ BOOL CWizardSharePage::OnInitDialog()
 		CreateDirectory( Settings.Downloads.TorrentPath );
 		AddPhysicalFolder( Settings.Downloads.TorrentPath );
 
-		strFolder = theApp.GetDownloadsFolder();
-		AddPhysicalFolder( strFolder );
+		AddPhysicalFolder( (LPCTSTR)theApp.GetDownloadsFolder() );
+
+		AddPhysicalFolder( (LPCTSTR)theApp.GetDocumentsFolder() );
 
 		// ToDo: Check other common programs for download folder locations
 		//strFolder = strPrograms + _T("\\Shareaza\\Downloads");
@@ -125,8 +124,8 @@ BOOL CWizardSharePage::OnInitDialog()
 		//AddPhysicalFolder( strFolder );
 		//strFolder = strPrograms + _T("\\Neo Mule\\Incoming");
 		//AddPhysicalFolder( strFolder );
-		strFolder = strPrograms + _T("\\eMule\\Incoming");
-		AddPhysicalFolder( strFolder );
+		CString strFolder = theApp.GetProgramFilesFolder() + _T("\\eMule\\Incoming");
+		AddPhysicalFolder( (LPCTSTR)strFolder );
 
 		AddRegistryFolder( HKEY_CURRENT_USER, _T("Software\\Shareaza\\Shareaza\\Downloads"), _T("CompletePath") );
 		AddRegistryFolder( HKEY_CURRENT_USER, _T("Software\\Kazaa\\Transfer"), _T("DlDir0") );

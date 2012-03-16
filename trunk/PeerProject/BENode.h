@@ -1,7 +1,7 @@
 //
 // BENode.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -33,7 +33,7 @@ public:
 public:
 	int			m_nType;
 	LPVOID		m_pValue;
-	QWORD		m_nValue;
+	__int64		m_nValue;
 	QWORD		m_nSize;
 	QWORD		m_nPosition;
 
@@ -65,17 +65,17 @@ public:
 		return m_nType == nType;
 	}
 
-	inline QWORD GetInt() const
+	inline __int64 GetInt() const
 	{
 		if ( m_nType != beInt ) return 0;
 		return m_nValue;
 	}
 
-	inline void SetInt(QWORD nValue)
+	inline void SetInt(__int64 nValue)
 	{
 		Clear();
-		m_nType		= beInt;
-		m_nValue	= nValue;
+		m_nType  = beInt;
+		m_nValue = nValue;
 	}
 
 	// If a torrent is badly encoded, you can try forcing a code page.
@@ -96,9 +96,9 @@ public:
 	inline void SetString(LPCVOID pString, size_t nLength, BOOL bNull = FALSE)
 	{
 		Clear();
-		m_nType		= beString;
-		m_nValue	= (QWORD)nLength;
-		m_pValue	= new BYTE[ nLength + ( bNull ? 1 : 0 ) ];
+		m_nType  = beString;
+		m_nValue = (__int64)nLength;
+		m_pValue = new BYTE[ nLength + ( bNull ? 1 : 0 ) ];
 		CopyMemory( m_pValue, pString, nLength + ( bNull ? 1 : 0 ) );
 	}
 
@@ -129,7 +129,7 @@ public:
 	{
 		if ( m_nType != beList && m_nType != beDict ) return NULL;
 		if ( m_nType == beDict ) nItem *= 2;
-		if ( nItem < 0 || nItem >= (int)m_nValue ) return NULL;
+		if ( nItem < 0 || nItem >= m_nValue ) return NULL;
 		return *( (CBENode**)m_pValue + nItem );
 	}
 

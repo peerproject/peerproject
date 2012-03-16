@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Brazilian Portuguese Skin File -->
 
-<!-- Translation based on default-en.xml r74 -->
+<!-- Translation based on default-en.xml r75 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -363,6 +363,7 @@
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<button id="ID_NETWORK_DC" text="DC++"/>
+		<button id="ID_NETWORK_BT" text="BitTorrent"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Configurações"/>
 	</toolbar>
@@ -376,6 +377,7 @@
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<button id="ID_NETWORK_DC" text="DC++"/>
+		<button id="ID_NETWORK_BT" text="BitTorrent"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Configurações"/>
 	</toolbar>
@@ -449,6 +451,12 @@
 		<button id="ID_CHAT_DISCONNECT" text="Desconectar"/>
 	</toolbar>
 	<!-- WEBSERVICES -->
+	<toolbar name="WebServices.MusicBrainz">
+		<button id="ID_MUSICBRAINZ_MATCHES" text="Visualizar Álbuns que Combinam"/>
+		<button id="ID_MUSICBRAINZ_ALBUMS" text="Visualizar Todos os Álbuns"/>
+		<separator/>
+	</toolbar>
+	<!--
 	<toolbar name="WebServices.ShareMonkey">
 		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Obter Dados"/>
 		<separator/>
@@ -471,11 +479,7 @@
 		<button id="ID_SHAREMONKEY_COMPARE" text="Comparar"/>
 		<button id="ID_SHAREMONKEY_BUY" text="Comprar"/>
 	</toolbar>
-	<toolbar name="WebServices.MusicBrainz">
-		<button id="ID_MUSICBRAINZ_MATCHES" text="Visualizar Álbuns que Combinam"/>
-		<button id="ID_MUSICBRAINZ_ALBUMS" text="Visualizar Todos os Álbuns"/>
-		<separator/>
-	</toolbar>
+	-->
 	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
 		<button id="PluginID_ImageViewer_FullSize" text="Tamanho Verdadeiro"/>
@@ -534,6 +538,7 @@
 				<item id="ID_NETWORK_G1" text="Conectar a Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Conectar a eDonkey2000"/>
 				<item id="ID_NETWORK_DC" text="Conectar a DC++"/>
+				<item id="ID_NETWORK_BT" text="Conectar a BitTorrent"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="Conectar A..." shortcut="Ctrl+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="Explorar Usuario..."/>
@@ -619,6 +624,7 @@
 		<item id="ID_NETWORK_G1" text="Conectar na _Gnutella"/>
 		<item id="ID_NETWORK_ED2K" text="Conectar no _eDonkey"/>
 		<item id="ID_NETWORK_DC" text="Conectar no _DC++"/>
+		<item id="ID_NETWORK_BT" text="Conectar no _BitTorrent"/>
 		<separator/>
 		  <item id="ID_NETWORK_CONNECT_TO" text="Conectar _na..." shortcut="Ctrl+T"/>
 		  <item id="ID_NETWORK_BROWSE_TO" text="_Navegar Usuário..."/>
@@ -700,8 +706,8 @@
 			<item id="ID_HELP_FORUMS" text="Fóruns do _PeerProject"/>
 			<item id="ID_HELP_FORUMS_LOCAL" text="_Foro de Português"/>
 			<item id="ID_HELP_UPDATE" text="Últimas notícias"/>
-		  	<item id="ID_HELP_VERSION_CHECK" text="Procurar nova _versão"/>
-		  	<item id="ID_HELP_DONATE" text="_Doar para o Projeto PeerProject!"/>
+			<item id="ID_HELP_VERSION_CHECK" text="Procurar nova _versão"/>
+			<item id="ID_HELP_DONATE" text="_Doar para o Projeto PeerProject!"/>
 			<item id="ID_HELP_WEB_6" text="PeerProject S_kins"/>
 			<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/> <!--
 			<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
@@ -773,8 +779,8 @@
 			<item id="ID_HELP_FORUMS_LOCAL" text="_Foro de Português"/>
 			<!-- <separator/>
 			<item id="ID_HELP_UPDATE" text="Últimas notícias"/>
-		  	<item id="ID_HELP_VERSION_CHECK" text="Procurar nova _versão"/>
-		  	<item id="ID_HELP_DONATE" text="_Doar para o Projeto PeerProject!"/> -->
+			<item id="ID_HELP_VERSION_CHECK" text="Procurar nova _versão"/>
+			<item id="ID_HELP_DONATE" text="_Doar para o Projeto PeerProject!"/> -->
 		</menu>
 		<item id="ID_HELP_HOMEPAGE" text="_Site do PeerProject"/>
 		<separator/>
@@ -795,6 +801,7 @@
 		<item id="ID_NETWORK_G1" text="Conectar na _Gnutella"/>
 		<item id="ID_NETWORK_ED2K" text="Conectar no _eDonkey"/>
 		<item id="ID_NETWORK_DC" text="Conectar na _DC++"/>
+		<item id="ID_NETWORK_BT" text="Conectar na _BitTorrent"/>
 		<separator/>
 		  <item id="ID_NETWORK_AUTO_CLOSE" text="Fechar _Após as Transferências"/>
 		  <item id="ID_NETWORK_EXIT" text="S_air"/>
@@ -1002,7 +1009,7 @@
 		<menu text="_Serviços da Rede">
 		  <item id="ID_LIBRARY_BITZI_WEB" text="Ver o _Ticket do Bitzi"/>
 		  <item id="ID_SEARCH_URI" text="Copiar _URI..."/>
-	  	</menu>
+		</menu>
 	</menu>
 	<menu name="CSearchWnd">
 		<item id="ID_SEARCH_DOWNLOAD" text="_Baixar"/>
@@ -1336,7 +1343,7 @@
 		<item id="ID_LIBRARY_LAUNCH" text="_Abrir/Tocar"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="Adicionar a lis_ta de execuções"/>
 		<item id="ID_LIBRARY_DELETE" text="_Apagar"/>
-	 	<separator/>
+		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Compartilhado"/>
 		<separator/>
 		<item id="ID_LIBRARY_URI" text="Copiar _URI"/>
@@ -1377,7 +1384,7 @@
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Compartilhado"/>
 		<separator/>
 		<item id="ID_LIBRARY_DELETE" text="_Apagar"/>
-	 	<menu text="O_rganizar">
+		<menu text="O_rganizar">
 			<item id="ID_LIBRARY_UNLINK" text="Remover _Arquivos"/>
 			<separator/>
 			<item id="ID_LIBRARY_RENAME" text="_Renomear Arquivo"/>
@@ -1400,8 +1407,8 @@
 			<item id="ID_LIBRARY_PROPERTIES" text="_Propriedades"/>
 		</menu>
 		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localizar Metadata"/>
-	 	<item id="ID_LIBRARY_REFRESH_METADATA" text="_Atualizar Metadata"/>
-	 	<separator/>
+		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Atualizar Metadata"/>
+		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Propriedades"/>
 	</menu>
 	<menu name="CLibraryFileView.Virtual">
@@ -1426,7 +1433,7 @@
 			<item id="ID_LIBRARY_BITZI_WEB" text="Ver o _Ticket do Bitzi"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Baixar Metadata"/>
 			<separator/>
-	 	</menu>
+		</menu>
 		<menu text="_Organizar">
 			<item id="ID_LIBRARY_UNLINK" text="Remover _Arquivos"/>
 			<separator/>
@@ -1590,10 +1597,11 @@
 		  <item id="ID_NETWORK_G1" text="_Gnutella"/>
 		  <item id="ID_NETWORK_ED2K" text="_eDonkey"/>
 		  <item id="ID_NETWORK_DC" text="_DC++"/>
+		  <item id="ID_NETWORK_BT" text="_BitTorrent"/>
 		  <separator/>
 		  <item id="ID_VIEW_DISCOVERY" text="Desco_brimento"/>
 		  <item id="ID_VIEW_HOSTS" text="_Cache dos Hosts"/>
-	 	</menu>
+		</menu>
 		<menu text="_Monitor">
 		  <item id="ID_NEIGHBOURS_VIEW_ALL" text="Ver _Todo o Tráfego"/>
 		  <item id="ID_NEIGHBOURS_VIEW_INCOMING" text="Ver o _Tráfego que Entra"/>
@@ -1718,7 +1726,7 @@
 	<menu name="WebServices.List.Menu">
 		<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Bitzi"/>
 		<item id="ID_WEBSERVICES_MUSICBRAINZ" text="_MusicBrainz"/>
-		<item id="ID_WEBSERVICES_SHAREMONKEY" text="_ShareMonkey"/>
+		<!--item id="ID_WEBSERVICES_SHAREMONKEY" text="_ShareMonkey"-->
 	</menu>
 </menus>
 <!-- Documents -->
@@ -2525,7 +2533,7 @@
 	<tip id="ID_LIBRARY_SELECT_ALL" message="Selecionar e ver toda as pastas na sua biblioteca."/>
 	<tip id="ID_LIBRARY_SHARED_FILE" message="Compartilhar ou não compartilhar os arquivos selecionados."/>
 	<tip id="ID_LIBRARY_SHARED_FOLDER" message="Compartilhar ou não compartilhar a(s) pasta(s) selecionada(s)."/>
-	<tip id="ID_LIBRARY_TREE_PHYSICAL" message="Ver as pastas físicas na sua biblioteca ."/>
+	<tip id="ID_LIBRARY_TREE_PHYSICAL" message="Ver as pastas físicas na sua biblioteca."/>
 	<tip id="ID_LIBRARY_TREE_VIRTUAL" message="Organizar a sua biblioteca."/>
 	<tip id="ID_LIBRARY_UNLINK" message="Remover os arquivos selecionados da pasta do álbum atual."/>
 	<tip id="ID_LIBRARY_URI" message="Copiar a URI do arquivo selecionado."/>
@@ -2587,6 +2595,7 @@
 	<tip id="ID_NETWORK_EXIT" message="Sair do PeerProject"/>
 	<tip id="ID_NETWORK_ED2K" message="Conectar a rede eDonkey."/>
 	<tip id="ID_NETWORK_DC" message="Conectar a rede DC++."/>
+	<tip id="ID_NETWORK_BT" message="Conectar a rede BitTorrent."/>
 	<tip id="ID_NETWORK_G1" message="Conectar a rede Gnutella original."/>
 	<tip id="ID_NETWORK_G2" message="Conectar a rede Gnutella 2 (Altamente Recomendado)."/>
 	<tip id="ID_NETWORK_SEARCH" message="Começar uma nova busca da rede..."/>
@@ -2699,7 +2708,7 @@
 	<tip id="ID_WINDOW_TILE_VERT" message="Organizar as janelas abertas como telas não sobrepostas verticais."/>
 	<tip id="ID_WINDOW_TOOLBAR" message="Mostrar ou esconder a barra de ferramentas."/>
 	<tip id="ID_WEBSERVICES_LIST" message="Escolha o serviço da web para obter mais informação sobre o arquivo selecionado."/>
-	<tip id="ID_WEBSERVICES_SHAREMONKEY" message="Procurar a informação do arquivo usando o serviço ShareMonkey."/>
+	<!--tip id="ID_WEBSERVICES_SHAREMONKEY" message="Procurar a informação do arquivo usando o serviço ShareMonkey."-->
 	<!-- PLUGIN TIPS -->
 	<tip id="PluginID_ImageViewer_BestFit" message="Re-dimensionar a imagem para encaixar dentro da janela."/>
 	<tip id="PluginID_ImageViewer_FullSize" message="Mostrar a imagem no seu tamanho natural."/>
@@ -2709,7 +2718,7 @@
 <!-- Tips displayed when mouse is moved over controls in the dialogs -->
 <controlTips>
 	<tip id="IDC_THROTTLE_MODE" message="No modo máximo a banda não excederá o valor especificado. No modo médio flutuará em volta do valor para ambos os lados."/>
-	<tip id="IDC_REGEXP" message="Insira expressões regulares em sintaxe perl.{n}As palavras chave da busca podem ser especificadas em uma forma de &lt;n&gt;, onde n é um número entre 1 e 9. Se você quer pôr todas as palavras-chave uma após a outra, use um marcador &lt;_&gt; ."/>
+	<tip id="IDC_REGEXP" message="Insira expressões regulares em sintaxe perl.{n}As palavras chave da busca podem ser especificadas em uma forma de &lt;n&gt;, onde n é um número entre 1 e 9. Se você quer pôr todas as palavras-chave uma após a outra, use um marcador &lt;_&gt;."/>
 	<tip id="IDC_SHARE_PARTIALS" message="Esta opção não tem efeito em downloads iniciados anteriormente, esta opção também é ignorada se o arquivo tem o hash eDonkey e a rede eDonkey está ativada ou se é um torrent.{n}Contudo esta opção não é ignorada se o download está pausado.{n}{n}ATENÇÃO: Use esta opção só em caso de necessidade real, se você abusar desta opção você pode ser banido."/>
 </controlTips>
 <!-- Localized Strings -->
@@ -2882,8 +2891,8 @@
 	<string id="20202" value="Recebida uma conexão push defeituosa de %s, fechando conexão."/>
 	<string id="20203" value="Acelerando o download &quot;%s&quot; removendo o limite de banda."/>
 	<string id="20204" value="O Host de download %s está ocupado, tentando novamente em %i segundos."/>
-	<string id="20205" value="Não pôde mover o download &quot;%s&quot; para &quot;%s&quot;. Verifique se o arquivo incompleto não está em uso e que a sua pasta de downloads existe e pode ser escrita."/>
-	<string id="20206" value="Incapaz de resolver &quot;%s&quot;."/>
+	<string id="20205" value="Espaço em disco insuficiente para baixar &quot;%s&quot; (%s)."/>
+	<string id="20206" value="Não pôde mover o download &quot;%s&quot; para &quot;%s&quot;. Verifique se o arquivo incompleto não está em uso e que a sua pasta de downloads existe e pode ser escrita."/>
 	<string id="20207" value="Você tem certeza que você quer cancelar/abortar cada download neste grupo?"/>
 	<string id="20208" value="Fechando conexão de download com %s, não mais necessária."/>
 	<string id="20209" value="O Host de download %s enviou dados não solicitados, fechando conexão."/>
@@ -2896,23 +2905,18 @@
 	<string id="20216" value="Incapaz de conectar com o host de download %s."/>
 	<string id="20217" value="Recebendo conteúdo de download do host %s (%s)."/>
 	<string id="20218" value="Abortando download de &quot;%s&quot; de %s (%s), rede desativada."/>
-	<string id="20219" value="Espaço em disco insuficiente para baixar &quot;%s&quot; (%s)."/>
-	<string id="20220" value="A Conexão de download com %s foi perdida."/>
-	<string id="20222" value="Você digitou um valor de hash eDonkey, contudo, é inválido. Por favor verifique-o e tente de novo."/>
-	<string id="20224" value="Por favor entre com um intervalo válido para apagar. O &quot;do&quot; campo é o primeiro byte a apagar, o &quot;último&quot; do campo é o último byte a apagar."/>
-	<string id="20225" value="Você digitou um valor SHA1, contudo, é inválido. Por favor verifique-o e tente de novo."/>
-	<string id="20226" value="Você digitou um valor raiz tiger-tree, contudo, é inválido. Por favor verifique-o e tente de novo."/>
-	<string id="20227" value="Você mudou o tamanho do arquivo. Você tem certeza de que você quer mudar o tamanho deste download?"/>
-	<string id="20228" value="Incapaz de apagar o intervalo selecionado do download porque nenhuma parte do intervalo está presente."/>
-	<string id="20231" value="Você digitou um valor de hash SHA1 o qual é diferente do que está atualmente associado com este download. Você tem certeza de que você quer mudar o valor de hash SHA1 agora?"/>
-	<string id="20232" value="Você digitou um valor de hash eDonkey o qual é diferente do que está atualmente associado com este download. Você tem certeza de que você quer mudar o hash do eDonkey agora?"/>
-	<string id="20233" value="Você digitou um valor raiz tiger-tree o qual é diferente do que está atualmente associado com este download. Você tem certeza de que você quer mudar o hash raiz tiger-tree agora?"/>
-	<string id="20235" value="Você não pode asssumir que este download está completo e re-verificá-lo porque você não tem aindao quaisquer dados de verificação parcial, tais como volume tiger-treee, hashset do eDonkey ou hashset do BitTorrent. Sem a informação de verificação o download não pode ser re-verificado."/>
-	<string id="20236" value="Você tem certeza de que você quer assumir que este download está completo e re-verificá-lo? O arquivo inteiro será considerado, e o PeerProject aceitará as partes que passarem na verificação e baixará de novo as partes que falharem na verificação."/>
-	<string id="20237" value="Você tem certeza de que você quer esquecer todas as fontes para o download selecionado?"/>
-	<string id="20238" value="Você tem certeza de que você quer esquecer o status da verificação atual? Todos os dados baixados serão tratados como não confiáveis, e as árvores de hash armazenadas e hashsets serão descartados."/>
-	<string id="20240" value="Apagados %I64i bytes do download."/>
-	<string id="20241" value="Você fez mudanças no nome de campo. Você tem certeza de que você quer renomear este download?"/>
+	<string id="20219" value="A Conexão de download com %s foi perdida."/>
+	<string id="20221" value="Por favor entre com um intervalo válido para apagar. O &quot;do&quot; campo é o primeiro byte a apagar, o &quot;último&quot; do campo é o último byte a apagar."/>
+	<string id="20222" value="Você digitou um valor de hash %s, contudo, é inválido. Por favor verifique-o e tente de novo."/>
+	<string id="20223" value="Você digitou um valor de hash %s o qual é diferente do que está atualmente associado com este download. Você tem certeza de que você quer mudar o valor de hash %s agora?"/>
+	<string id="20224" value="Você fez mudanças no nome de campo. Você tem certeza de que você quer renomear este download?"/>
+	<string id="20225" value="Você mudou o tamanho do arquivo. Você tem certeza de que você quer mudar o tamanho deste download?"/>
+	<string id="20226" value="Você não pode asssumir que este download está completo e re-verificá-lo porque você não tem aindao quaisquer dados de verificação parcial, tais como volume tiger-treee, hashset do eDonkey ou hashset do BitTorrent. Sem a informação de verificação o download não pode ser re-verificado."/>
+	<string id="20227" value="Você tem certeza de que você quer assumir que este download está completo e re-verificá-lo? O arquivo inteiro será considerado, e o PeerProject aceitará as partes que passarem na verificação e baixará de novo as partes que falharem na verificação."/>
+	<string id="20228" value="Você tem certeza de que você quer esquecer o status da verificação atual? Todos os dados baixados serão tratados como não confiáveis, e as árvores de hash armazenadas e hashsets serão descartados."/>
+	<string id="20229" value="Você tem certeza de que você quer esquecer todas as fontes para o download selecionado?"/>
+	<string id="20231" value="Incapaz de apagar o intervalo selecionado do download porque nenhuma parte do intervalo está presente."/>
+	<string id="20232" value="Apagados %I64i bytes do download."/>
 	<string id="20242" value="O Host de download %s não possui o arquivo &quot;%s&quot;."/>
 	<string id="20243" value="Criando o arquivo &quot;%s&quot; para download."/>
 	<string id="20244" value="Incapaz de criar arquivo local &quot;%s&quot; para download, abortando."/>
@@ -2944,9 +2948,10 @@
 	<string id="20271" value="Moveu &quot;%s&quot; para &quot;%s&quot;, download completado."/>
 	<string id="20272" value="Pausando download de &quot;%s&quot;."/>
 	<string id="20273" value="Resumindo o download de &quot;%s&quot;."/>
-	<string id="20274" value="Resolvendo &quot;%s&quot; para baixar &quot;%s&quot;..."/>
 	<string id="20275" value="Inquirindo por mais fontes para o download &quot;%s&quot; em %i conexões..."/>
 	<string id="20276" value="Impossível achar mais fontes para &quot;%s&quot; porque não há conexão de rede."/>
+	<!--string id="20277" value="Resolvendo &quot;%s&quot; para baixar &quot;%s&quot;..."-->
+	<!--string id="20278" value="Incapaz de resolver &quot;%s&quot;."-->
 	<string id="20280" value="Os Dados TigerTree do host de download estão corrompidos ou internamente inconsistentes, ignorando-os."/>
 	<string id="20281" value="Os Dados TigerTree do host de download não combinam com o valor esperado da raiz."/>
 	<string id="20282" value="O Host de download %s não pôde satisfazer o pedido de tiger-tree."/>
@@ -3209,7 +3214,7 @@
 	<string id="20570" value="Recebendo um pacote de acerto malformatado de %s, ignorando."/>
 	<string id="20571" value="Recebendo um pacote de pesquisa %s malformatado de %s, ignorando."/>
 	<string id="20572" value="O Vizinho %s repassou um pacote com TTL excessivo, derrubando pacote (TTL=%i, Hops=%i)."/>
-	<string id="20573" value="O Vizinho %s repassou um pacote com TTL Zero, ignorando."/>
+	<!--string id="20573" value="O Vizinho %s repassou um pacote com TTL Zero, ignorando."-->
 	<string id="20574" value="O Vizinho %s enviou um pacote extendido que não é codificado por GGEP."/>
 	<string id="20575" value="O Vizinho %s enviou uma atualização da tabela de roteamento de pesquisa inválida, descartando conexão."/>
 	<string id="20576" value="Enviando tabela de roteamento de pesquisa para o vizinho %s (%i bit = %lu[%i], %i%% full)"/>
@@ -3421,7 +3426,7 @@
 	<string id="20834" value="Host de upload %s requisitou uma prévia de &quot;%s&quot;, mas nenhuma prévia está disponível."/>
 	<string id="20835" value="Enviando uma prévia de &quot;%s&quot; para %s."/>
 	<string id="20836" value="Recusando o pedido de push %s porque este tem muitas conexões de upload."/>
-	<string id="20837" value="Pedido push legacy de %s requisitou um arquivo desconhecido, conectando mesmo assim..."/>
+	<!--string id="20837" value="Pedido push legacy de %s requisitou um arquivo desconhecido, conectando mesmo assim..."-->
 	<string id="20838" value="Muito ocupado para enviar &quot;%s&quot; para %s. Esperando na fila na posição #%i de %i (&quot;%s&quot;.."/>
 	<string id="20840" value="Conexão de upload com %s foi perdida, preservando a posição na fila de espera."/>
 	<string id="20841" value="Nova Fila"/>
@@ -3451,7 +3456,7 @@
 	<string id="20866" value="Arquivo:"/>
 	<string id="20867" value="Host:"/>
 	<string id="20868" value="Porta:"/>
-	<string id="20869" value="Incapaz de exibir diálogo de ação da URL porque o PeerProject está ocupado."/>
+	<!--string id="20869" value="Incapaz de exibir diálogo de ação da URL porque o PeerProject está ocupado."-->
 	<string id="20870" value="Impossível analisar URL: PeerProject não entende esta URL."/>
 	<string id="20871" value="Recebida URL &quot;%s&quot;"/>
 	<string id="20872" value="Tipo:"/>
@@ -3794,7 +3799,7 @@
 		<control caption="Baixar..."/>
 		<control caption="Baixar lista de servidores eDonkey da rede:"/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Conexões de Download:"/>
 		<control/>
 		<control/>
@@ -3802,6 +3807,7 @@
 		<control/>
 		<control/>
 		<control caption="Conexões com clientes"/>
+		<control caption="Ativar BitTorrent DHT"/>
 		<control caption="Preferir fontes torrent"/>
 		<control caption="_EndGame:"/>
 		<control caption="Ativar o modo EndGame quando completar os torrents"/>
@@ -4518,7 +4524,7 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackers">
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBuBuBu" caption="Trackers">
 		<control/>
 		<control/>
 		<control/>
@@ -4529,7 +4535,9 @@
 		<control caption="Peers (Incompleto):"/>
 		<control caption="Modo Tracker:"/>
 		<control caption="Desativado|Tracker Único|Multi-tracker|Multi-tracker (trancado)"/>
-		<control caption="_Atualizar"/>
+		<control caption="A_tualizar"/>
+		<control caption="_Adicionar"/>
+		<control caption="_Remover"/>
 	</dialog>
 	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="Torrent">
 		<control/>

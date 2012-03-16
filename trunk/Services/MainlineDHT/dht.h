@@ -1,7 +1,7 @@
 //
 // dht.h
 //
-// This file is part of PeerProject (peerproject.org)
+// This file is part of PeerProject (peerproject.org) © 2010-2012
 // Copyright (c) 2009-2011 by Juliusz Chroboczek
 //
 // Permission is hereby granted, free of charge, to any person obtaining
@@ -26,17 +26,22 @@
 #pragma once
 #endif
 
+//#define DHT_DEBUG		// Enable debug functions
 
 typedef void
 dht_callback(void *closure, int event,
-             unsigned char *info_hash,
-             void *data, size_t data_len);
+             const unsigned char *info_hash,
+             const void *data, size_t data_len);
 
 #define DHT_EVENT_NONE 0
 #define DHT_EVENT_VALUES 1
 #define DHT_EVENT_VALUES6 2
 #define DHT_EVENT_SEARCH_DONE 3
 #define DHT_EVENT_SEARCH_DONE6 4
+#define DHT_EVENT_ADDED 5			// Node was added
+#define DHT_EVENT_SENT 6			// We sent request to node
+#define DHT_EVENT_REPLY 7			// Node sent us a reply
+#define DHT_EVENT_REMOVED 8			// Node was removed from DHT table
 
 int dht_init(int s, int s6, const unsigned char *id, const unsigned char *v);
 int dht_insert_node(const unsigned char *id, struct sockaddr *sa, int salen);
@@ -67,5 +72,5 @@ void dht_hash(void *hash_return, int hash_size,
 int dht_random_bytes(void *buf, size_t size);
 int dht_sendto(int s, const char *buf, int len, int flags,
               const struct sockaddr *to, int tolen);
-void dht_new_node(const unsigned char *id,
-              const struct sockaddr *sa, int salen, int confirm);
+//void dht_new_node(const unsigned char *id,
+//            const struct sockaddr *sa, int salen, int confirm);

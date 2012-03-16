@@ -194,11 +194,11 @@ void CLibraryHeaderPanel::OnSize(UINT nType, int cx, int cy)
 
 void CLibraryHeaderPanel::OnPaint()
 {
-	CPaintDC dc( this );
 	CRect rcClient;
-
 	GetClientRect( &rcClient );
 	if ( rcClient.IsRectEmpty() ) return;
+
+	CPaintDC dc( this );
 
 	if ( rcClient.Width() > m_szBuffer.cx || rcClient.Height() > m_szBuffer.cy )
 	{
@@ -220,8 +220,8 @@ void CLibraryHeaderPanel::OnPaint()
 
 	DoPaint( &m_dcBuffer, rcClient );
 
-	dc.BitBlt( rcClient.left, rcClient.top, rcClient.Width(),
-		rcClient.Height(), &m_dcBuffer, 0, 0, SRCCOPY );
+	dc.BitBlt( rcClient.left, rcClient.top, rcClient.Width(), rcClient.Height(),
+		&m_dcBuffer, 0, 0, SRCCOPY );
 }
 
 void CLibraryHeaderPanel::DoPaint(CDC* pDC, CRect& rcClient)

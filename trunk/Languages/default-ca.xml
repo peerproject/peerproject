@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Catalan Skin File -->
 
-<!-- Translation based on default-en.xml r74 -->
+<!-- Translation based on default-en.xml r75 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -374,6 +374,7 @@
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<button id="ID_NETWORK_DC" text="DC++"/>
+		<button id="ID_NETWORK_BT" text="BitTorrent"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Configuració..."/>
 	</toolbar>
@@ -419,28 +420,6 @@
 		<button id="ID_CHAT_DISCONNECT" text="Desconnecta"/>
 	</toolbar>
 	<!-- WEBSERVICES -->
-	<toolbar name="WebServices.ShareMonkey">
-		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Get Data"/>
-		<separator/>
-		<button id="ID_SHAREMONKEY_PREVIOUS" text="Previous"/>
-		<button id="ID_SHAREMONKEY_NEXT" text="Next"/>
-		<separator/>
-		<button id="ID_SHAREMONKEY_PRICES" text="Get Prices"/>
-		<button id="ID_SHAREMONKEY_COMPARE" text="Compare"/>
-		<button id="ID_SHAREMONKEY_BUY" text="Buy It"/>
-	</toolbar>
-	<toolbar name="WebServices.ShareMonkey.WithSave">
-		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Get Data"/>
-		<button id="ID_SHAREMONKEY_SAVE" text="Enregistra"/>
-		<control id="ID_SHAREMONKEY_SAVE_OPTION" text="Save Preview" width="100" checked="true"/>
-		<separator/>
-		<button id="ID_SHAREMONKEY_PREVIOUS" text="Anterior"/>
-		<button id="ID_SHAREMONKEY_NEXT" text="Següent"/>
-		<separator/>
-		<button id="ID_SHAREMONKEY_PRICES" text="Get Prices"/>
-		<button id="ID_SHAREMONKEY_COMPARE" text="Compare"/>
-		<button id="ID_SHAREMONKEY_BUY" text="Buy It"/>
-	</toolbar>
 	<toolbar name="WebServices.MusicBrainz">
 		<button id="ID_MUSICBRAINZ_MATCHES" text="View Album Matches"/>
 		<button id="ID_MUSICBRAINZ_ALBUMS" text="View All Albums"/>
@@ -505,6 +484,7 @@
 					<item id="ID_NETWORK_G1" text="Connecta a _Gnutella"/>
 					<item id="ID_NETWORK_ED2K" text="Connecta a _eDonkey"/>
 					<item id="ID_NETWORK_DC" text="Connecta a _DC++"/>
+					<item id="ID_NETWORK_BT" text="Connecta a _BitTorrent"/>
 				</menu>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="Connecta _a..." shortcut="Ctrl+T"/>
@@ -597,6 +577,7 @@
 				<item id="ID_NETWORK_G1" text="Connecta a _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Connecta a _eDonkey"/>
 				<item id="ID_NETWORK_DC" text="Connecta a _DC++"/>
+				<item id="ID_NETWORK_BT" text="Connecta a _BitTorrent"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Connecta _a..." shortcut="Ctrl+T"/>
@@ -773,6 +754,7 @@
 				<item id="ID_NETWORK_G1" text="Connecta a _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Connecta a _eDonkey"/>
 				<item id="ID_NETWORK_DC" text="Connecta a _DC++"/>
+				<item id="ID_NETWORK_BT" text="Connecta a _BitTorrent"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Tanca _després de les transferències"/>
@@ -1565,6 +1547,7 @@
 			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
 			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<item id="ID_NETWORK_BT" text="_BitTorrent"/>
 			<separator/>
 			<item id="ID_VIEW_DISCOVERY" text="_Descobriments"/>
 			<item id="ID_VIEW_HOSTS" text="Caxè de servidors"/>
@@ -2502,6 +2485,7 @@
 	<tip id="ID_NETWORK_EXIT" message="Surt de PeerProject"/>
 	<tip id="ID_NETWORK_ED2K" message="Connecta a la xarxa eDonkey."/>
 	<tip id="ID_NETWORK_DC" message="Connecta a la xarxa DC++."/>
+	<tip id="ID_NETWORK_BT" message="Connecta a la xarxa BitTorrent."/>
 	<tip id="ID_NETWORK_G1" message="Connectar a la xarxa original de Gnutella."/>
 	<tip id="ID_NETWORK_G2" message="Connectar a la xarxa Gnutella2 (molt recomanada)."/>
 	<tip id="ID_NETWORK_SEARCH" message="Comença una nova cerca de la xarxa"/>
@@ -2782,8 +2766,8 @@
 	<string id="20202" value="El veí %s ha demanat un push incorrecte."/>
 	<string id="20203" value="Incrementant la velocitat de descarregada %s treient límits d' ample de banda."/>
 	<string id="20204" value="L'usuari %s està ocupat, reintentant en %i segons."/>
-	<string id="20205" value="ha estat imposible moure l'arxiu descarregat %s a %s.  Revisa que l'arxiu no està essent utilitzat, i que tingui Accès d'escriptura a la carpeta compartida."/>
-	<string id="20206" value="Ha estat impossible resoldre la ruta %s."/>
+	<string id="20205" value="Insuficient espai de disc per a descarregar &quot;%s&quot; (%s)."/>
+	<string id="20206" value="ha estat imposible moure l'arxiu descarregat %s a %s.  Revisa que l'arxiu no està essent utilitzat, i que tingui Accès d'escriptura a la carpeta compartida."/>
 	<string id="20207" value="Estàs segur(a) que vols cancel·lar/abortar totes les descàrregues d'aquest grup?"/>
 	<string id="20208" value="Tancant la connexió de descàrrega a %s, per no ser requerida."/>
 	<string id="20209" value="La font de descàrrega %s ha enviat dades no solicitades, tancant connexió."/>
@@ -2796,23 +2780,18 @@
 	<string id="20216" value="Ha estat imposible connectarse amb %s."/>
 	<string id="20217" value="Rebent transferència de %s (%s)."/>
 	<string id="20218" value="Abortant descàrrega de %s de %s (%s), perquè la xarxa està deshabilitada."/>
-	<string id="20219" value="Insuficient espai de disc per a descarregar &quot;%s&quot; (%s)."/>
-	<string id="20220" value="La connexió de transferència amb %s ha estat perduda."/>
-	<string id="20222" value="El valor del hash de eDonkey asignat no és vàlid."/>
-	<string id="20224" value="Si us plau, introdueix un rang vàlid. El valor &quot;de&quot; és el primer byte a esborrar i l'&quot;últim&quot; és l'últim byte a esborrar."/>
-	<string id="20225" value="El valor de SHA1 que li ha asignat a la descàrrega no és vàlid.  Per favor , comprova-ho."/>
-	<string id="20226" value="El valor de root tiger-tree asignat no és vàlid."/>
-	<string id="20227" value="Has fet canvis a la mida de l'arxiu.  Estàs segur de que vols canviar la mida d'aquesta descàrrega?"/>
-	<string id="20228" value="Error: el rang no està present a la descàrrega."/>
-	<string id="20231" value="Estàs canviant el SHA1 a un diferent a l'associat amb aquesta descàrrega. Vols continuar?"/>
-	<string id="20232" value="Estàs canviant el hash eDonkey a un diferent a l'associat amb aquesta descàrrega. Vols continuar?"/>
-	<string id="20233" value="Estàs canviant el root tiger-tree a un diferent a l'associat amb aquesta descàrrega. Vols continuar?"/>
-	<string id="20235" value="Aquesta descàrrega no es pot asumir completa, perquè falta informació sobre el hash, que és necessària per a verificar-la."/>
-	<string id="20236" value="Estàs segur/a d'asumir aquesta descàrrega com completa i reverificar-la? PeerProject reverificarà l'arxiu, i acceptarà les parts correctes, i descarregarà de nou aquelles incorrectes."/>
-	<string id="20237" value="Estàs segur/a d'oblidar totes les fonts d'aquesta descàrrega?"/>
-	<string id="20238" value="Estàs segur/a d'oblidar l'estat actual de verificació? Tota la informació de la descàrrega serà tractada com insegur/a, per a tornar a verificar-la."/>
-	<string id="20240" value="%I64i octets han estat esborrats de la descàrrega."/>
-	<string id="20241" value="Has canviat el Nom de l'arxiu.  ¿Estàs segur de canviar-lo?"/>
+	<string id="20219" value="La connexió de transferència amb %s ha estat perduda."/>
+	<string id="20221" value="Si us plau, introdueix un rang vàlid. El valor &quot;de&quot; és el primer byte a esborrar i l'&quot;últim&quot; és l'últim byte a esborrar."/>
+	<string id="20222" value="El valor del hash de %s asignat no és vàlid."/>
+	<string id="20223" value="Estàs canviant el %s a un diferent a l'associat amb aquesta descàrrega. Vols continuar?"/>
+	<string id="20224" value="Has canviat el Nom de l'arxiu.  ¿Estàs segur de canviar-lo?"/>
+	<string id="20225" value="Has fet canvis a la mida de l'arxiu.  Estàs segur de que vols canviar la mida d'aquesta descàrrega?"/>
+	<string id="20226" value="Aquesta descàrrega no es pot asumir completa, perquè falta informació sobre el hash, que és necessària per a verificar-la."/>
+	<string id="20227" value="Estàs segur/a d'asumir aquesta descàrrega com completa i reverificar-la? PeerProject reverificarà l'arxiu, i acceptarà les parts correctes, i descarregarà de nou aquelles incorrectes."/>
+	<string id="20228" value="Estàs segur/a d'oblidar l'estat actual de verificació? Tota la informació de la descàrrega serà tractada com insegur/a, per a tornar a verificar-la."/>
+	<string id="20229" value="Estàs segur/a d'oblidar totes les fonts d'aquesta descàrrega?"/>
+	<string id="20231" value="Error: el rang no està present a la descàrrega."/>
+	<string id="20232" value="%I64i octets han estat esborrats de la descàrrega."/>
 	<string id="20242" value="El usuari %s no té l'arxiu %s."/>
 	<string id="20243" value="Creant l'arxiu: %s per a ser descarregat."/>
 	<string id="20244" value="l'arxiu %s no ha pogut ser creat, s'ha cancel·lat la descàrrega."/>
@@ -2844,9 +2823,10 @@
 	<string id="20271" value="l'arxiu %s a %s ha estat mogut, transferència completada."/>
 	<string id="20272" value="Pausant la descàrrega de &quot;%s&quot;."/>
 	<string id="20273" value="Recuperant la descàrrega de &quot;%s&quot;."/>
-	<string id="20274" value="Resolent %s per a descarregar %s..."/>
 	<string id="20275" value="Cercant més fonts per a %s en %i connexió(ns)..."/>
 	<string id="20276" value="No s'han pogut cercar més fonts per a %s, no hi ha connexió a la xarxa."/>
+	<!--string id="20277" value="Resolent %s per a descarregar %s..."-->
+	<!--string id="20278" value="Ha estat impossible resoldre la ruta %s."-->
 	<string id="20280" value="La font de descàrrega ha enviat dades tiger-tree corruptes o internament incosistents, ignorant..."/>
 	<string id="20281" value="El tiger-tree de la font de descàrrega no coincideix amb el valor esperat."/>
 	<string id="20282" value="%s no ha pogut proporcionar el Tiger-Tree sol·licitat."/>
@@ -3100,7 +3080,7 @@
 	<string id="20570" value="%s ha enviat un paquet de resposta a cerca incorrecta."/>
 	<string id="20571" value="%s:  %s ha enviat un paquet de cerca incorrecta."/>
 	<string id="20572" value="El veí %s ha enviat un paquet amb TTL excessiu, llençant paquet (TTL=%i, Hops=%i)."/>
-	<string id="20573" value="El veí %s ha enviat un paquet amb TTL zero, ignorant..."/>
+	<!--string id="20573" value="El veí %s ha enviat un paquet amb TTL zero, ignorant."-->
 	<string id="20574" value="El veí %s ha enviat un paquet extès no compatible amb GGEP."/>
 	<string id="20575" value="El veí %s ha enviat un QRT invàlid."/>
 	<string id="20576" value="Enviant QRT a %s (%i bit = %lu[%i], %i%% full)"/>
@@ -3297,7 +3277,7 @@
 	<string id="20834" value="servidor de pujada %s ha demanat vista prèvia de &quot;%s&quot;, però no hi ha vista prèvia disponible."/>
 	<string id="20835" value="Pujant vista prèvia de &quot;%s&quot; a %s."/>
 	<string id="20836" value="Reajustant la petició push a %s perquè té massa connexions de pujada."/>
-	<string id="20837" value="La petició push des de %s demana un arxiu desconegut, connectant de totes maneres..."/>
+	<!--string id="20837" value="La petició push des de %s demana un arxiu desconegut, connectant de totes maneres..."-->
 	<string id="20838" value="Molt ocupat per a pujar &quot;%s&quot; a %s, cua #%i de %i (&quot;%s&quot;.."/>
 	<string id="20840" value="Connexió de pujada a %s ha estat perduda, preservant Connexió en cua."/>
 	<string id="20841" value="Nova cua"/>
@@ -3327,7 +3307,7 @@
 	<string id="20866" value="Nom d'arxiu:"/>
 	<string id="20867" value="Servidor:"/>
 	<string id="20868" value="Port:"/>
-	<string id="20869" value="L'adreça URL no s'ha pogut processar, PeerProject no la pot interpretar."/>
+	<!--string id="20869" value="L'adreça URL no s'ha pogut processar, PeerProject no la pot interpretar."-->
 	<string id="20870" value="PeerProject no ha entés l'URL &quot;%s&quot;."/>
 	<string id="20871" value="Rebuts URL &quot;%s&quot;"/>
 	<string id="20872" value="tipus:"/>
@@ -3628,7 +3608,7 @@
 		<control caption="Descarrega..."/>
 		<control caption="Descarrega una llista de servidors de eDonkey de la web"/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Connexions de descàrrega:"/>
 		<control/>
 		<control/>
@@ -3636,8 +3616,9 @@
 		<control/>
 		<control/>
 		<control caption="Connexions de clients"/>
-		<control caption="&#160;Prefereix fonts torrent"/>
-		<control caption="_EndGame:"/>
+		<control caption="Activar DHT BitTorrent"/>
+		<control caption="Prefereix fonts torrent"/>
+		<control caption="_EndGame: (fi del joc)"/>
 		<control caption="Habilita el mode EndGame al completar torrents"/>
 		<control caption="Neteja els torrents descarregats quan la ràtio de compartició sigui:"/>
 		<control/>
@@ -4352,7 +4333,7 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackers">
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBuBuBu" caption="Trackers">
 		<control/>
 		<control/>
 		<control/>
@@ -4364,6 +4345,8 @@
 		<control caption="Mode del rastrejador:"/>
 		<control caption="Deshabilitat|Personalitzat|Tracker únic|Multi-tracker|Multi-tracker (blocat)"/>
 		<control caption="_Actualitza"/>
+		<control caption="_Afegeix"/>
+		<control caption="_Esborra"/>
 	</dialog>
 	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="Torrent">
 		<control/>

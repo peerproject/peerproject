@@ -241,10 +241,9 @@
     <ClCompile Include="BENode.cpp" />
     <ClCompile Include="..\Buffer.cpp" />
     <ClCompile Include="..\CmdLine.cpp" />
-    <ClCompile Include="PageCommandline.cpp" />
     <ClCompile Include="..\PageComment.cpp" />
-    <ClCompile Include="PageExpert.cpp" />
-    <ClCompile Include="PageFinished.cpp" />
+    <ClCompile Include="..\PageExpert.cpp" />
+    <ClCompile Include="..\PageFinished.cpp" />
     <ClCompile Include="..\PageOutput.cpp" />
     <ClCompile Include="..\PagePackage.cpp" />
     <ClCompile Include="..\PageSingle.cpp" />
@@ -308,7 +307,6 @@
     <ClInclude Include="BENode.h" />
     <ClInclude Include="..\Buffer.h" />
     <ClInclude Include="..\CmdLine.h" />
-    <ClInclude Include="..\PageCommandline.h" />
     <ClInclude Include="..\PageComment.h" />
     <ClInclude Include="..\PageExpert.h" />
     <ClInclude Include="..\PageFinished.h" />

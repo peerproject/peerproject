@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default French Skin File -->
 
-<!-- Translation based on default-en.xml r74 -->
+<!-- Translation based on default-en.xml r75 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -359,6 +359,7 @@
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<button id="ID_NETWORK_DC" text="DC++"/>
+		<button id="ID_NETWORK_BT" text="BitTorrent"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Réglages"/>
 	</toolbar>
@@ -456,6 +457,12 @@
 		<button id="ID_CHAT_DISCONNECT" text="Se déconnecter"/>
 	</toolbar>
 	<!-- WEBSERVICES -->
+	<toolbar name="WebServices.MusicBrainz">
+		<button id="ID_MUSICBRAINZ_MATCHES" text="Voir les albums correspondants"/>
+		<button id="ID_MUSICBRAINZ_ALBUMS" text="Voir tous les albums"/>
+		<separator/>
+	</toolbar>
+	<!--
 	<toolbar name="WebServices.ShareMonkey">
 		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Informations"/>
 		<separator/>
@@ -478,11 +485,7 @@
 		<button id="ID_SHAREMONKEY_COMPARE" text="Comparer"/>
 		<button id="ID_SHAREMONKEY_BUY" text="Acheter"/>
 	</toolbar>
-	<toolbar name="WebServices.MusicBrainz">
-		<button id="ID_MUSICBRAINZ_MATCHES" text="Voir les albums correspondants"/>
-		<button id="ID_MUSICBRAINZ_ALBUMS" text="Voir tous les albums"/>
-		<separator/>
-	</toolbar>
+	-->
 	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
 		<button id="PluginID_ImageViewer_FullSize" text="Taille Réelle"/>
@@ -547,6 +550,7 @@
 				<item id="ID_NETWORK_G1" text="Connexion à _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Connexion à _eDonkey2000"/>
 				<item id="ID_NETWORK_DC" text="Connexion à _DC++"/>
+				<item id="ID_NETWORK_BT" text="Connexion à _BitTorrent"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="Se connecter à..." shortcut="Ctrl+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="Parcourir l'hôte..."/>
@@ -636,6 +640,7 @@
 			<item id="ID_NETWORK_G1" text="Se connecter à _Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="Se connecter à _eDonkey"/>
 			<item id="ID_NETWORK_DC" text="Se connecter à _DC++"/>
+			<item id="ID_NETWORK_BT" text="Se connecter à _BitTorrent"/>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Se connec_ter à..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="_Parcourir l'hôte..."/>
@@ -818,6 +823,7 @@
 			<item id="ID_NETWORK_G1" text="Se connecter à _Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="Se connecter à _eDonkey"/>
 			<item id="ID_NETWORK_DC" text="Se connecter à _DC++"/>
+			<item id="ID_NETWORK_BT" text="Se connecter à _BitTorrent"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Quitter à la _fin des transferts"/>
 			<item id="ID_NETWORK_EXIT" text="_Quitter"/>
@@ -1623,6 +1629,7 @@
 			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
 			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<item id="ID_NETWORK_BT" text="_BitTorrent"/>
 			<separator/>
 			<item id="ID_VIEW_DISCOVERY" text="Décou_verte"/>
 			<item id="ID_VIEW_HOSTS" text="_Hôtes en cache"/>
@@ -2631,6 +2638,7 @@
 	<tip id="ID_NETWORK_EXIT" message="Quitter PeerProject"/>
 	<tip id="ID_NETWORK_ED2K" message="Se connecter au réseau eDonkey."/>
 	<tip id="ID_NETWORK_DC" message="Se connecter au réseau DC++."/>
+	<tip id="ID_NETWORK_BT" message="Se connecter au réseau BitTorrent."/>
 	<tip id="ID_NETWORK_G1" message="Se connecter au réseau Gnutella original."/>
 	<tip id="ID_NETWORK_G2" message="Se connecter au réseau Gnutella2 (hautement recommandé)."/>
 	<tip id="ID_NETWORK_SEARCH" message="Commencer une nouvelle recherche sur le réseau..."/>
@@ -2925,8 +2933,8 @@
 	<string id="20202" value="Réception d'une connexion poussée défectueuse de %s, fermeture de la connexion."/>
 	<string id="20203" value="Améliore le téléchargement « %s », enlève les limites imposées à la bande passante."/>
 	<string id="20204" value="L'hôte de téléchargement %s est occupé, relance dans %i secondes."/>
-	<string id="20205" value="Impossible de déplacer le téléchargement vers « %s ». Vérifiez que ce fichier n'est pas utilisé et que votre dossier de téléchargement existe et qu'il est inscriptible."/>
-	<string id="20206" value="Impossible de résoudre « %s »."/>
+	<string id="20205" value="Espace disque insuffisant pour télécharger « %s » (%s)."/>
+	<string id="20206" value="Impossible de déplacer le téléchargement vers « %s ». Vérifiez que ce fichier n'est pas utilisé et que votre dossier de téléchargement existe et qu'il est inscriptible."/>
 	<string id="20207" value="Êtes-vous certain de vouloir annuler tous les téléchargements dans ce groupe ?"/>
 	<string id="20208" value="Fermeture de la connexion de téléchargement à %s, elle n'est plus requise."/>
 	<string id="20209" value="L'hôte de téléchargement %s a envoyé des données non solicitées, fermeture de la connexion."/>
@@ -2939,23 +2947,18 @@
 	<string id="20216" value="Impossible de se connecter à l'hôte %s pour télécharger."/>
 	<string id="20217" value="Réception du contenu du téléchargement depuis %s (%s)."/>
 	<string id="20218" value="Voulez-vous vraiment exécuter ce fichier téléchargé « %s » ?\n\nCertains fichiers exécutables peuvent endommager votre système s'ils incluent des virus."/>
-	<string id="20219" value="Espace disque insuffisant pour télécharger « %s » (%s)."/>
-	<string id="20220" value="La connexion de téléchargement avec %s a été perdue."/>
-	<string id="20222" value="Vous avez tapez une valeur de hash eDonkey, cependant elle est invalide. Merci de la vérifier et de recommencer."/>
-	<string id="20224" value="Merci de saisir un segment valide à effacer. Le champ « De » est le premier octet à effacer, le champ « Dernier » est le dernier octet à effacer."/>
-	<string id="20225" value="Vous avez tapez une valeur SHA1, cependant elle est invalide. Merci de la vérifier et de recommencer."/>
-	<string id="20226" value="Vous avez tapez une valeur tiger-tree, cependant elle est invalide. Merci de la vérifier et de recommencer."/>
-	<string id="20227" value="Êtes-vous certain de vouloir changer la taille de ce fichier ?"/>
-	<string id="20228" value="Impossible d'effacer le segment sélectionné du téléchargement car aucune partie de ce segment n'est présente."/>
-	<string id="20231" value="Vous avez fourni une valeur de hachage SHA1 qui est différente de celle actuellement associée avec ce téléchargement. Êtes-vous certain de vouloir changer le hachage SHA1 maintenant ?"/>
-	<string id="20232" value="Vous avez fourni une valeur de hachage eDonkey qui est différente de celle actuellement associée avec ce téléchargement. Êtes-vous certain de vouloir changer le hachage eDonkey maintenant ?"/>
-	<string id="20233" value="Vous avez fourni une valeur de hachage du root tiger-tree qui est différente de celle actuellement associée avec ce téléchargement. Êtes-vous certain de vouloir changer le hachage du root tiger-tree maintenant ?"/>
-	<string id="20235" value="Vous ne pouvez pas considérer que ce téléchargement est terminé et le revérifier car vous n'avez pour l'instant aucune donnée de vérification partielle, tel un volume tiger-tree, un hashset eDonkey ou BitTorrent. Sans information de vérification le téléchargement ne peut pas être vérifié."/>
-	<string id="20236" value="Êtes-vous certain de vouloir considérer ce téléchargement comme terminé et de le revérifier ?? Le fichier terminé sera pris en compte, et PeerProject acceptera les parties qui passent la vérification et téléchargera à nouveau les parties qui échouent lors de cette vérification."/>
-	<string id="20237" value="Êtes-vous certain de vouloir oublier toutes les sources du téléchargement sélectionnées ?"/>
-	<string id="20238" value="Êtes-vous certain de vouloir oublier le statut de vérification actuel ? Toutes les données téléchargées seront considérées comme non-vérifiées, et les « hashtrees » et « hashsets » en cache seront nettoyés."/>
-	<string id="20240" value="%I64i octets effacés du téléchargement."/>
-	<string id="20241" value="Vous avez fait des changements dans le champ « nom ». Êtes-vous certain de vouloir renommer ce téléchargement ?"/>
+	<string id="20219" value="La connexion de téléchargement avec %s a été perdue."/>
+	<string id="20221" value="Merci de saisir un segment valide à effacer. Le champ « De » est le premier octet à effacer, le champ « Dernier » est le dernier octet à effacer."/>
+	<string id="20222" value="Vous avez tapez une valeur de hash %s, cependant elle est invalide. Merci de la vérifier et de recommencer."/>
+	<string id="20223" value="Vous avez fourni une valeur de hachage %s qui est différente de celle actuellement associée avec ce téléchargement. Êtes-vous certain de vouloir changer le hachage %s maintenant ?"/>
+	<string id="20224" value="Vous avez fait des changements dans le champ « nom ». Êtes-vous certain de vouloir renommer ce téléchargement ?"/>
+	<string id="20225" value="Êtes-vous certain de vouloir changer la taille de ce fichier ?"/>
+	<string id="20226" value="Vous ne pouvez pas considérer que ce téléchargement est terminé et le revérifier car vous n'avez pour l'instant aucune donnée de vérification partielle, tel un volume tiger-tree, un hashset eDonkey ou BitTorrent. Sans information de vérification le téléchargement ne peut pas être vérifié."/>
+	<string id="20227" value="Êtes-vous certain de vouloir considérer ce téléchargement comme terminé et de le revérifier ?? Le fichier terminé sera pris en compte, et PeerProject acceptera les parties qui passent la vérification et téléchargera à nouveau les parties qui échouent lors de cette vérification."/>
+	<string id="20228" value="Êtes-vous certain de vouloir oublier le statut de vérification actuel ? Toutes les données téléchargées seront considérées comme non-vérifiées, et les « hashtrees » et « hashsets » en cache seront nettoyés."/>
+	<string id="20229" value="Êtes-vous certain de vouloir oublier toutes les sources du téléchargement sélectionnées ?"/>
+	<string id="20231" value="Impossible d'effacer le segment sélectionné du téléchargement car aucune partie de ce segment n'est présente."/>
+	<string id="20232" value="%I64i octets effacés du téléchargement."/>
 	<string id="20242" value="L'hôte de téléchargement %s n'a pas le fichier « %s »."/>
 	<string id="20243" value="Création d'un fichier pour le téléchargement de « %s »"/>
 	<string id="20244" value="Impossible de créer un fichier local « %s » pour le téléchargement, abandon."/>
@@ -2987,9 +2990,10 @@
 	<string id="20271" value="Déplacement de « %s » vers «%s », téléchargement terminé."/>
 	<string id="20272" value="Mise en pause du téléchargement de « %s »."/>
 	<string id="20273" value="Reprise du téléchargement de « %s »."/>
-	<string id="20274" value="Résolution de « %s » pour le téléchargement de « %s »..."/>
 	<string id="20275" value="Demande de plus de sources pour le téléchargement de « %s » sur %i connexion(s)..."/>
 	<string id="20276" value="Impossible de rechercher plus de sources pour le téléchargement de « %s » car il n'y a pas de connexion au réseau."/>
+	<!--string id="20277" value="Résolution de « %s » pour le téléchargement de « %s »..."-->
+	<!--string id="20278" value="Impossible de résoudre « %s »."-->
 	<string id="20280" value="Le « tiger-tree » de l'hôte de téléchargement est corrompu ou inconsistant, on l'ignore."/>
 	<string id="20281" value="La valeur à la racine du « tiger-tree » de l'hôte de téléchargement ne correspond pas à celle attendue."/>
 	<string id="20282" value="L'hôte de téléchargement %s ne peut satisfaire à la demande « tiger-tree »."/>
@@ -3251,7 +3255,7 @@
 	<string id="20570" value="Réception d'une requête de paquet d'accès mal formatée de %s, ignore."/>
 	<string id="20571" value="Réception d'une requête %s mal formatée de %s, ignore."/>
 	<string id="20572" value="Le voisin %s a fait suivre un paquet de TTL excessif, paquet dérivé (TTL=%i, Hops=%i)."/>
-	<string id="20573" value="Le voisin %s a fait suivre un paquet de TTL nul, on l'ignore."/>
+	<!--string id="20573" value="Le voisin %s a fait suivre un paquet de TTL nul, on l'ignore."-->
 	<string id="20574" value="Le voisin %s a fait suivre un paquet étendu qui n'est pas encodé GGEP."/>
 	<string id="20575" value="Le voisin %s a envoyé une notification de mise à jour de table de routage invalide, connexion abondonée."/>
 	<string id="20576" value="Envoi d'une requête de table de routage au voisin %s (%i bit = %lu[%i], %i%% plein)"/>
@@ -3270,6 +3274,7 @@
 	<string id="20597" value="Êtes-vous certain de vouloir supprimer ces règles ?"/>
 	<string id="20599" value="&amp;Schémas"/>
 	<!-- Missing Scheduler/Security Strings -->
+	<string id="20614" value="Attente"/>
 	<string id="20620" value="PeerProject recherche activement sur le réseau..."/>
 	<string id="20621" value="Cliquez ici pour rechercher à nouveau"/>
 	<string id="20622" value="Tous les réseaux"/>
@@ -3448,7 +3453,7 @@
 	<string id="20834" value="Envoi d'une demande sur l'hôte %s de prévisualisation de « %s », mais aucune prévisualisation n'est disponible."/>
 	<string id="20835" value="Envoi d'une prévisualisation de « %s » vers %s."/>
 	<string id="20836" value="Refus d'une demande poussée pour %s, il y a trop de connexions d'envoi."/>
-	<string id="20837" value="La demande poussée en provenance de %s est une demande d'un fichier inconnu, connexion acceptée tout de même..."/>
+	<!--string id="20837" value="La demande poussée en provenance de %s est une demande d'un fichier inconnu, connexion acceptée tout de même..."-->
 	<string id="20838" value="Trop occupé pour envoyer « %s » à %s, mis en file d'attente à la position #%i de %i (« %s »)."/>
 	<string id="20840" value="L'envoi d'une connexion vers %s a été perdu, position dans la file d'attente préservée."/>
 	<string id="20841" value="Nouvelle file d'attente"/>
@@ -3478,7 +3483,7 @@
 	<string id="20866" value="Fichier :"/>
 	<string id="20867" value="Hôte :"/>
 	<string id="20868" value="Port :"/>
-	<string id="20869" value="Impossible d'afficher le dialogue d'action de l'URL, PeerProject est occupé."/>
+	<!--string id="20869" value="Impossible d'afficher le dialogue d'action de l'URL, PeerProject est occupé."-->
 	<string id="20870" value="Impossible d'analyser cette URL : PeerProject ne reconnaît pas cette URL."/>
 	<string id="20871" value="Adresse reçue « %s »"/>
 	<string id="20872" value="Type :"/>
@@ -3821,7 +3826,7 @@
 		<control caption="Télécharger..."/>
 		<control caption="Télécharger la liste des serveurs ED2K sur le Web&#160;:"/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="Connexions de _Téléchargement :"/>
 		<control/>
 		<control/>
@@ -3829,6 +3834,7 @@
 		<control/>
 		<control/>
 		<control caption="Connexions à des clients"/>
+		<control caption="Activer BitTorrent DHT"/>
 		<control caption="Préférer les sources torrent"/>
 		<control caption="_EndGame :"/>
 		<control caption="Activer le mode Endgame à la finition des torrents"/>
@@ -4546,7 +4552,7 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Traqueurs">
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBuBuBu" caption="Traqueurs">
 		<control/>
 		<control/>
 		<control/>
@@ -4558,6 +4564,8 @@
 		<control caption="Mode&#160;:"/>
 		<control caption="Inemployé|Déterminer|Traqueur unique|Multi-traqueur|Multi-tracker (défini)"/>
 		<control caption="Q_uérir"/>
+		<control caption="_Ajouter"/>
+		<control caption="_Enlever"/>
 	</dialog>
 	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="Torrent">
 		<control/>

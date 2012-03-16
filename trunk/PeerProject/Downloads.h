@@ -42,10 +42,13 @@ public:
 public:
 	DWORD			m_tBandwidthAtMax;			// Last time download bandwidth was all in use
 	DWORD			m_tBandwidthAtMaxED2K;		// Last time all ed2k bandwidth was used
+	DWORD			m_tLastConnect;
 	DWORD			m_nTransfers;
 	DWORD			m_nBandwidth;
-	DWORD			m_tLastConnect;
+	QWORD			m_nComplete;				// Last completed size of incomplete downloads (For Win7 Progress Bar)
+	QWORD			m_nTotal;					// Last expected size of incomplete downloads (For Win7 Progress Bar)
 	bool			m_bClosing;
+
 private:
 	CList< CDownload* >	m_pList;
 	CMap< ULONG, ULONG, DWORD, DWORD > m_pHostLimits;

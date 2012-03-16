@@ -800,13 +800,11 @@ void CLibraryFolder::Maintain(BOOL bAdd)
 			sIconIndex = sIconFile.Mid( nPos + 1 );
 			sIconFile = sIconFile.Left( nPos );
 		}
-		CString sTip;
-		LoadString( sTip, IDS_FOLDER_TIP );
 
 		WritePrivateProfileString( _T(".ShellClassInfo"), _T("ConfirmFileOp"), _T("0"), sDesktopINI );
 		WritePrivateProfileString( _T(".ShellClassInfo"), _T("IconFile"), sIconFile, sDesktopINI );
 		WritePrivateProfileString( _T(".ShellClassInfo"), _T("IconIndex"), sIconIndex, sDesktopINI );
-		WritePrivateProfileString( _T(".ShellClassInfo"), _T("InfoTip"), sTip, sDesktopINI );
+		WritePrivateProfileString( _T(".ShellClassInfo"), _T("InfoTip"), LoadString( IDS_FOLDER_TIP ), sDesktopINI );
 
 		if ( bChanged )
 			SetFileAttributes( sDesktopINI, dwDesktopINIAttr |

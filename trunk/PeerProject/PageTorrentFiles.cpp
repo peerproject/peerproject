@@ -1,5 +1,5 @@
 //
-// PageTorrentGeneral.cpp
+// PageTorrentFiles.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
@@ -88,6 +88,8 @@ BOOL CTorrentFilesPage::OnInitDialog()
 	if ( ! CPropertyPageAdv::OnInitDialog() )
 		return FALSE;
 
+	//ASSUME_LOCK( Transfers.m_pSection );
+
 	auto_ptr< CLibraryTipCtrl > pTip( new CLibraryTipCtrl );
 	pTip->Create( this, &Settings.Interface.TipDownloads );
 //	m_wndFiles.EnableTips( pTip );	// Unused ComboListCtrl
@@ -102,7 +104,7 @@ BOOL CTorrentFilesPage::OnInitDialog()
 //	m_wndFiles.InsertColumn( COL_PRIORITY, _T("Priority"), LVCFMT_RIGHT, 52, 0 );	// Obsolete
 
 	m_wndFiles.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_HEADERDRAGDROP|LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP|LVS_EX_CHECKBOXES );
-	m_wndFiles.SetImageList( ShellIcons.GetObject( 16 ), LVSIL_SMALL );
+	ShellIcons.AttachTo( &m_wndFiles, 16 );	// m_wndFiles.SetImageList()
 
 	Skin.Translate( _T("CTorrentFileList"), m_wndFiles.GetHeaderCtrl() );
 

@@ -1,11 +1,8 @@
-/****************************************************************************
- *  This file is part of PPMd project                                       *
- *  Written and distributed to public domain by Dmitry Shkarin 1997,        *
- *  1999-2000                                                               *
- *  Contents: model description and encoding/decoding routines              *
- ****************************************************************************/
-
-#include "rar.hpp"
+/******************************************************************************
+ *  This file is part of PPMd project                                         *
+ *  Written and distributed to public domain by Dmitry Shkarin 1997,1999-2000 *
+ *  Contents: model description and encoding/decoding routines                *
+ ******************************************************************************/
 
 inline PPM_CONTEXT* PPM_CONTEXT::createChild(ModelPPM *Model,STATE* pStats,
                                              STATE& FirstState)

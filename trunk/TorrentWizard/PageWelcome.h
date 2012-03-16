@@ -1,7 +1,7 @@
 //
 // PageWelcome.h
 //
-// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008
+// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008,2012
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
@@ -25,28 +25,28 @@
 
 class CWelcomePage : public CWizardPage
 {
+	DECLARE_DYNCREATE(CWelcomePage)
+
 // Construction
 public:
 	CWelcomePage();
-	virtual ~CWelcomePage();
+	//virtual ~CWelcomePage();
 
-	DECLARE_DYNCREATE(CWelcomePage)
+	enum { IDD = IDD_WELCOME_PAGE };
 
 // Dialog Data
 public:
 	//{{AFX_DATA(CWelcomePage)
-	enum { IDD = IDD_WELCOME_PAGE };
 	int		m_nType;
 	//}}AFX_DATA
 
 // Overrides
 public:
 	//{{AFX_VIRTUAL(CWelcomePage)
-	public:
 	virtual void OnReset();
 	virtual BOOL OnSetActive();
 	virtual LRESULT OnWizardNext();
-	protected:
+protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
 	//}}AFX_VIRTUAL
 

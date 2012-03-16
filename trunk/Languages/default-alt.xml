@@ -3,7 +3,7 @@
 
 <!-- PeerProject UK English Skin File -->
 
-<!-- Translation based on default-en.xml r74 -->
+<!-- Translation based on default-en.xml r75 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -255,6 +255,7 @@
 				<item id="ID_NETWORK_G1" text="Connect to _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Connect to _eDonkey"/>
 				<item id="ID_NETWORK_DC" text="Connect to _DC++"/>
+				<item id="ID_NETWORK_BT" text="Connect to _BitTorrent"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Close _After Transfers"/>
@@ -723,7 +724,7 @@
 	<string id="20395" value="Gnutella connection with neighbour %s established successfully (G%i.%i : %s)."/>
 	<string id="20396" value="Gnutella2 connection with neighbour %s established successfully (%s)."/>
 	<string id="20572" value="Neighbour %s forwarded a packet with excessive TTL, dropping packet (TTL=%i, Hops=%i)."/>
-	<string id="20573" value="Neighbour %s forwarded a packet with zero TTL, ignoring."/>
+	<!--string id="20573" value="Neighbour %s forwarded a packet with zero TTL, ignoring."-->
 	<string id="20574" value="Neighbour %s forwarded an extended packet that is not GGEP encoded."/>
 	<string id="20575" value="Neighbour %s sent an invalid query routing table update, dropping connection."/>
 	<string id="20576" value="Sending query routing table to neighbour %s (%i bit = %lu[%i], %i%% full)"/>

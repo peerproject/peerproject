@@ -24,6 +24,12 @@
     <ClCompile Include="..\PageComment.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\PageExpert.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\PageFinished.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\PageOutput.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -52,15 +58,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MD4.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PageCommandline.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PageExpert.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PageFinished.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SHA1.cpp">
@@ -92,9 +89,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\CmdLine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\PageCommandline.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\PageComment.h">

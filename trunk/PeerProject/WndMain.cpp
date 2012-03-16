@@ -123,6 +123,7 @@ BEGIN_MESSAGE_MAP(CMainWnd, CMDIFrameWnd)
 	ON_WM_GETMINMAXINFO()
 	ON_WM_ENDSESSION()
 	ON_WM_MENUCHAR()
+	//ON_WM_COPYDATA()
 	ON_WM_POWERBROADCAST()
 	ON_WM_WINDOWPOSCHANGING()
 	ON_MESSAGE(WM_WINSOCK, OnWinsock)
@@ -268,6 +269,8 @@ BEGIN_MESSAGE_MAP(CMainWnd, CMDIFrameWnd)
 	ON_COMMAND(ID_NETWORK_ED2K, OnNetworkED2K)
 	ON_UPDATE_COMMAND_UI(ID_NETWORK_DC, OnUpdateNetworkDC)
 	ON_COMMAND(ID_NETWORK_DC, OnNetworkDC)
+	ON_UPDATE_COMMAND_UI(ID_NETWORK_BT, OnUpdateNetworkBT)
+	ON_COMMAND(ID_NETWORK_BT, OnNetworkBT)
 	ON_UPDATE_COMMAND_UI(ID_VIEW_BASIC, OnUpdateViewBasic)
 	ON_COMMAND(ID_VIEW_BASIC, OnViewBasic)
 	ON_UPDATE_COMMAND_UI(ID_LIBRARY_HASH_PRIORITY, OnUpdateLibraryHashPriority)
@@ -500,7 +503,7 @@ int CMainWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	if ( Settings.Connection.AutoConnect && ! Settings.Live.FirstRun )
 		PostMessage( WM_COMMAND, ID_NETWORK_CONNECT );
 
-	Settings.Live.LoadWindowState = TRUE;
+	Settings.Live.LoadWindowState = true;
 
 	// Go
 
@@ -519,19 +522,22 @@ void CMainWnd::OnClose()
 	if ( theApp.m_bClosing )
 		return;		// Already closing
 
-	// Show Shutdown Splash, continued in ExitInstance() (PeerProject.cpp)
-	theApp.SplashStep( L"Waiting to Close", 11, true );
-
 	if ( theApp.m_bBusy )
 	{
 		// Delayed close
-		SetTimer( 2, 1000, NULL );
+		static int nStep = 0;
+		if ( nStep++ < 80 )
+			theApp.SplashStep( Settings.General.Language.Left(2) == _T("en") ? L"Waiting to Close" : LoadString( IDS_SCHEDULER_TASK_WAITING ), 80, true );
+		SetTimer( 2, 550, NULL );
 		return;
 	}
 
+	theApp.SplashStep();
+
 	//CWaitCursor pCursor;
 
-	theApp.SplashStep( L"Preparing to Close" );
+	// Show Shutdown Splash, continued in ExitInstance() (PeerProject.cpp)
+	theApp.SplashStep( L"Preparing to Close", 10, true );
 
 	theApp.m_bClosing = true;
 	theApp.m_pSafeWnd = NULL;
@@ -581,13 +587,17 @@ void CMainWnd::RemoveSkin()
 	m_wndNavBar.RemoveSkin();
 }
 
-// ToDo: Replace this with OnQueryEndSession()
 void CMainWnd::OnEndSession(BOOL bEnding)
 {
-	CMDIFrameWnd::OnEndSession( bEnding );
+	CMDIFrameWnd::OnEndSession( bEnding );	// ToDo: Remove this?
 
 	if ( bEnding )
+	{
+		AfxOleSetUserCtrl( TRUE );		// Keep from randomly shutting down
+
 		SendMessage( WM_CLOSE );
+	}
+
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -813,9 +823,6 @@ void CMainWnd::OnTimer(UINT_PTR nIDEvent)
 	if ( m_wndMenuBar.IsWindowVisible() == FALSE )
 		ShowControlBar( &m_wndMenuBar, TRUE, FALSE );
 
-	// Update messages
-	UpdateMessages();
-
 	if ( tNow > tLast5SecInterval + 5 )
 	{
 		tLast5SecInterval = tNow;
@@ -836,7 +843,12 @@ void CMainWnd::OnTimer(UINT_PTR nIDEvent)
 			// Network / disk space / directory checks
 			LocalSystemChecks();
 		}
+
+		m_bTrayUpdate = TRUE;	// Restore icon if lost by Windows Explorer
 	}
+
+	// Update messages
+	UpdateMessages();
 }
 
 void CMainWnd::OnActivate(UINT nState, CWnd* pWndOther, BOOL bMinimized)
@@ -1012,8 +1024,9 @@ LRESULT CMainWnd::OnChangeAlpha(WPARAM wParam, LPARAM /*lParam*/)
 
 void CMainWnd::OnSysCommand(UINT nID, LPARAM lParam)
 {
-	if ( ( nID & 0xFFF0 ) == SC_KEYMENU )
+	switch ( nID & 0xFFF0 )
 	{
+	case SC_KEYMENU:
 		if ( lParam != ' ' && lParam != '-' )
 		{
 			if ( lParam )
@@ -1023,34 +1036,50 @@ void CMainWnd::OnSysCommand(UINT nID, LPARAM lParam)
 
 			return;
 		}
-	}
+		break;
 
-	if ( m_bTrayHide )
-	{
-		switch ( nID & 0xFFF0 )
+	case SC_RESTORE:
+		if ( m_bTrayHide )
 		{
-		case SC_RESTORE:
 			OpenFromTray( SW_SHOWNORMAL );
 			return;
-		case SC_MAXIMIZE:
+		}
+		break;
+
+	case SC_MAXIMIZE:
+		if ( m_bTrayHide )
+		{
 			OpenFromTray( SW_SHOWMAXIMIZED );
 			return;
 		}
-	}
-	else
-	{
-		BOOL bShift = ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 );
+		break;
 
-		switch ( nID & 0xFFF0 )
+	case SC_MINIMIZE:
 		{
-		case SC_CLOSE:
+			const BOOL bShift = ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 );
+			if ( ( Settings.General.TrayMinimise && ! bShift ) || ( ! Settings.General.TrayMinimise && bShift ) )
+			{
+				CloseToTray();
+				return;
+			}
+		}
+		break;
+
+	case SC_CLOSE:
+		{
+			const BOOL bShift = ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 );
 			if ( Settings.General.CloseMode == 0 )
 			{
 				CCloseModeDlg dlg;
-				if ( dlg.DoModal() != IDOK ) return;
+				if ( dlg.DoModal() != IDOK )
+					return;
 			}
-
-			if ( Settings.General.CloseMode == 3 && ! bShift )
+			else if ( Settings.General.CloseMode == 1 && ! bShift )
+			{
+				CloseToTray();
+				return;
+			}
+			else if ( Settings.General.CloseMode == 3 && ! bShift )
 			{
 				if ( Settings.Live.AutoClose )
 					CloseToTray();
@@ -1058,20 +1087,8 @@ void CMainWnd::OnSysCommand(UINT nID, LPARAM lParam)
 					OnNetworkAutoClose();
 				return;
 			}
-			else if ( Settings.General.CloseMode == 1 && ! bShift )
-			{
-				CloseToTray();
-				return;
-			}
-			break;
-		case SC_MINIMIZE:
-			if ( ( Settings.General.TrayMinimise && ! bShift ) || ( ! Settings.General.TrayMinimise && bShift ) )
-			{
-				CloseToTray();
-				return;
-			}
-			break;
 		}
+	//	break;
 	}
 
 	CMDIFrameWnd::OnSysCommand( nID, lParam );
@@ -1164,10 +1181,15 @@ LRESULT CMainWnd::OnSkinChanged(WPARAM /*wParam*/, LPARAM /*lParam*/)
 	CFilePreviewDlg::OnSkinChange( TRUE );
 
 	Invalidate();
+	//UnlockWindowUpdate();
+	//UpdateWindow();
 
-	// Update shell icons
-	LibraryFolders.Maintain();
-	CPeerProjectURL::Register();
+	if ( theApp.m_bLive )
+	{
+		// Update shell icons
+		LibraryFolders.Maintain();
+		CPeerProjectURL::Register();
+	}
 
 	Skin.m_bSkinChanging = FALSE;	// Restore system state
 
@@ -1455,12 +1477,49 @@ void CMainWnd::UpdateMessages()
 			CGraphItem::GetValue( GRC_UPLOADS_TRANSFERS ),
 			CGraphItem::GetValue( GRC_GNUTELLA_CONNECTIONS ) );
 
-		if ( strTip != m_pTray.szTip )
+		m_pTray.uFlags = NIF_TIP;
+		_tcsncpy( m_pTray.szTip, strTip, _countof( m_pTray.szTip ) - 1 );
+		m_pTray.szTip[ _countof( m_pTray.szTip ) - 1 ] = _T('\0');
+		m_bTrayIcon = Shell_NotifyIcon( NIM_MODIFY, &m_pTray );
+	}
+
+	// AppBar on Windows 7
+	if ( theApp.m_nWinVer >= WIN_7 )
+	{
+		static bool bProgressShown = false;
+
+		QWORD nTotal = Downloads.m_nTotal, nComplete = Downloads.m_nComplete;
+		if ( nTotal && nTotal != nComplete )
 		{
-			m_pTray.uFlags = NIF_TIP;
-			_tcsncpy( m_pTray.szTip, strTip, _countof( m_pTray.szTip ) - 1 );
-			m_pTray.szTip[ _countof( m_pTray.szTip ) - 1 ] = _T('\0');
-			m_bTrayIcon = Shell_NotifyIcon( NIM_MODIFY, &m_pTray );
+			bProgressShown = true;
+
+			CComPtr< ITaskbarList3 > pTaskbar;
+			if ( SUCCEEDED( pTaskbar.CoCreateInstance( CLSID_TaskbarList ) ) )
+			{
+				pTaskbar->SetProgressState( GetSafeHwnd(), TBPF_NORMAL );
+				pTaskbar->SetProgressValue( GetSafeHwnd(), nComplete, nTotal );
+
+				CString strAppBarTip;
+				strAppBarTip.Format( _T("%s\r\n%s %.2f%%\r\n%s %s"), Settings.SmartAgent(),
+					LoadString( IDS_MONITOR_VOLUME_DOWNLOADED ), float( ( 10000 * nComplete ) / nTotal ) / 100.f,
+					LoadString( IDS_MONITOR_TOTAL_SPEED ), Settings.SmartSpeed( CGraphItem::GetValue( GRC_TOTAL_BANDWIDTH_IN ), bits ) );
+				pTaskbar->SetThumbnailTooltip( GetSafeHwnd(), strAppBarTip );
+			}
+		}
+		else if ( bProgressShown )
+		{
+			bProgressShown = false;
+
+			CComPtr< ITaskbarList3 > pTaskbar;
+			if ( SUCCEEDED( pTaskbar.CoCreateInstance( CLSID_TaskbarList ) ) )
+			{
+				pTaskbar->SetProgressState( GetSafeHwnd(), TBPF_NOPROGRESS );
+				pTaskbar->SetThumbnailTooltip( GetSafeHwnd(), Settings.SmartAgent()
+#ifdef _DEBUG					
+				+ _T(" Debug")
+#endif
+				);
+			}
 		}
 	}
 }
@@ -1694,19 +1753,23 @@ void CMainWnd::OnNetworkG2()
 {
 	if ( Settings.Gnutella2.Enabled )
 	{
-		if ( AfxMessageBox( LoadString( IDS_NETWORK_DISABLE_G2 ), MB_ICONEXCLAMATION|MB_YESNO|MB_DEFBUTTON2 ) != IDYES )
+		if ( AfxMessageBox( IDS_NETWORK_DISABLE_G2, MB_ICONEXCLAMATION|MB_YESNO|MB_DEFBUTTON2 ) != IDYES )
 			return;
 	}
 
 	Settings.Gnutella2.Enabled = ! Settings.Gnutella2.Enabled;
 
-	if ( Settings.Gnutella2.Enabled )
-	{
-		if ( ! Network.IsConnected() )
-			Network.Connect( TRUE );
-		else
-			DiscoveryServices.Execute( FALSE, PROTOCOL_G2, FALSE );
-	}
+	if ( ! Settings.Gnutella2.Enabled )
+		return;
+
+	if ( ! Network.IsConnected() )
+		Network.Connect( TRUE );
+	else
+		DiscoveryServices.Execute( FALSE, PROTOCOL_G2, FALSE );
+
+	if ( ! Settings.Gnutella2.EnableAlways &&
+		 AfxMessageBox( IDS_NETWORK_ALWAYS, MB_ICONQUESTION|MB_YESNO ) == IDYES )
+		Settings.Gnutella1.EnableAlways = true;
 }
 
 void CMainWnd::OnUpdateNetworkG1(CCmdUI* pCmdUI)
@@ -1732,16 +1795,14 @@ void CMainWnd::OnNetworkG1()
 	if ( ! Settings.Gnutella1.Enabled )
 		return;
 
-	if ( ! Settings.Gnutella1.EnableAlways )
-	{
-		if ( AfxMessageBox( LoadString( IDS_NETWORK_UNLIMIT ), MB_ICONQUESTION|MB_YESNO ) == IDYES )
-			Settings.Gnutella1.EnableAlways = true;
-	}
-
 	if ( ! Network.IsConnected() )
 		Network.Connect( TRUE );
 	else
 		DiscoveryServices.Execute( FALSE, PROTOCOL_G1, FALSE );
+
+	if ( ! Settings.Gnutella1.EnableAlways &&
+		 AfxMessageBox( IDS_NETWORK_ALWAYS, MB_ICONQUESTION|MB_YESNO ) == IDYES )
+		Settings.Gnutella1.EnableAlways = true;
 }
 
 void CMainWnd::OnUpdateNetworkED2K(CCmdUI* pCmdUI)
@@ -1767,14 +1828,12 @@ void CMainWnd::OnNetworkED2K()
 	if ( ! Settings.eDonkey.Enabled )
 		return;
 
-	if ( ! Settings.eDonkey.EnableAlways )
-	{
-		if ( AfxMessageBox( LoadString( IDS_NETWORK_UNLIMIT ), MB_ICONQUESTION|MB_YESNO ) == IDYES )
-			Settings.eDonkey.EnableAlways = true;
-	}
-
 	if ( ! Network.IsConnected() )
 		Network.Connect( TRUE );
+
+	if ( ! Settings.eDonkey.EnableAlways &&
+		 AfxMessageBox( IDS_NETWORK_ALWAYS, MB_ICONQUESTION|MB_YESNO ) == IDYES )
+		Settings.eDonkey.EnableAlways = true;
 }
 
 void CMainWnd::OnUpdateNetworkDC(CCmdUI* pCmdUI)
@@ -1800,14 +1859,43 @@ void CMainWnd::OnNetworkDC()
 	if ( ! Settings.DC.Enabled )
 		return;
 
-	if ( ! Settings.DC.EnableAlways )
+	if ( ! Network.IsConnected() )
+		Network.Connect( TRUE );
+
+	if ( ! Settings.DC.EnableAlways &&
+		 AfxMessageBox( IDS_NETWORK_ALWAYS, MB_ICONQUESTION|MB_YESNO ) == IDYES )
+		Settings.DC.EnableAlways = true;
+}
+
+void CMainWnd::OnUpdateNetworkBT(CCmdUI* pCmdUI)
+{
+	if ( Settings.Experimental.LAN_Mode )	// || ! Settings.BitTorrent.ShowInterface && ! Settings.BitTorrent.Enabled
 	{
-		if ( AfxMessageBox( LoadString( IDS_NETWORK_UNLIMIT ), MB_ICONQUESTION|MB_YESNO ) == IDYES )
-			Settings.DC.EnableAlways = true;
+		if ( CCoolBarItem* pcCmdUI = CCoolBarItem::FromCmdUI( pCmdUI ) )
+			pcCmdUI->Show( FALSE );
+		return;
 	}
+
+	pCmdUI->SetCheck( Settings.BitTorrent.Enabled );
+	pCmdUI->Enable( Settings.GetOutgoingBandwidth() >= 2 );
+}
+
+void CMainWnd::OnNetworkBT()
+{
+	if ( Settings.Experimental.LAN_Mode )
+		return;
+
+	Settings.BitTorrent.Enabled = ! Settings.BitTorrent.Enabled;
+
+	if ( ! Settings.BitTorrent.Enabled )
+		return;
 
 	if ( ! Network.IsConnected() )
 		Network.Connect( TRUE );
+
+	if ( ! Settings.BitTorrent.EnableAlways &&
+		 AfxMessageBox( IDS_NETWORK_ALWAYS, MB_ICONQUESTION|MB_YESNO ) == IDYES )
+		Settings.BitTorrent.EnableAlways = true;
 }
 
 void CMainWnd::OnUpdateNetworkAutoClose(CCmdUI* pCmdUI)
@@ -1828,21 +1916,16 @@ void CMainWnd::OnNetworkAutoClose()
 		return;
 	}
 
-	//Network.Disconnect();
-	Settings.Live.AutoClose = ( Transfers.GetActiveCount() > 0 );
-
-	if ( Settings.Live.AutoClose )
-	{
-		strCaption += _T("  ") + LoadString( IDS_CLOSING_AFTER );
-		SetWindowText( strCaption );
-
-		if ( ! m_bTrayHide )
-			CloseToTray();
-	}
-	else
-	{
+	if ( Transfers.GetActiveCount() < 1 )
 		PostMessage( WM_CLOSE );
-	}
+
+	Settings.Live.AutoClose = true;
+
+	strCaption += _T("  ") + LoadString( IDS_CLOSING_AFTER );
+	SetWindowText( strCaption );
+
+	if ( ! m_bTrayHide )
+		CloseToTray();
 }
 
 void CMainWnd::OnNetworkExit()
@@ -1861,7 +1944,7 @@ void CMainWnd::OnUpdateViewBasic(CCmdUI* pCmdUI)
 void CMainWnd::OnViewBasic()
 {
 	if ( Settings.General.GUIMode == GUI_BASIC ) return;
-	//if ( AfxMessageBox( LoadString( IDS_VIEW_MODE_CONFIRM ), MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
+	//if ( AfxMessageBox( IDS_VIEW_MODE_CONFIRM, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
 	CWaitCursor pCursor;
 	SetGUIMode( GUI_BASIC );
 }
@@ -1874,7 +1957,7 @@ void CMainWnd::OnUpdateViewTabbed(CCmdUI* pCmdUI)
 void CMainWnd::OnViewTabbed()
 {
 	if ( Settings.General.GUIMode == GUI_TABBED ) return;
-	//if ( AfxMessageBox( LoadString( IDS_VIEW_MODE_CONFIRM ), MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
+	//if ( AfxMessageBox( IDS_VIEW_MODE_CONFIRM, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
 	CWaitCursor pCursor;
 	SetGUIMode( GUI_TABBED );
 }
@@ -1887,7 +1970,7 @@ void CMainWnd::OnUpdateViewWindowed(CCmdUI* pCmdUI)
 void CMainWnd::OnViewWindowed()
 {
 	if ( Settings.General.GUIMode == GUI_WINDOWED ) return;
-	//if ( AfxMessageBox( LoadString( IDS_VIEW_MODE_CONFIRM ), MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
+	//if ( AfxMessageBox( IDS_VIEW_MODE_CONFIRM, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
 	CWaitCursor pCursor;
 	SetGUIMode( GUI_WINDOWED );
 }
@@ -2206,7 +2289,8 @@ void CMainWnd::OnUpdateTabTransfers(CCmdUI* pCmdUI)
 	if ( pChild != NULL && pChild->m_pGroupParent != NULL )
 	{
 		pChild = pChild->m_pGroupParent;
-		if ( ! m_pWindows.Check( pChild ) ) pChild = NULL;
+		if ( ! m_pWindows.Check( pChild ) )
+			pChild = NULL;
 	}
 
 	pCmdUI->SetCheck( pChild != NULL && pChild->IsKindOf( RUNTIME_CLASS(CDownloadsWnd) ) );
@@ -3070,3 +3154,6 @@ UINT CMainWnd::OnPowerBroadcast(UINT nPowerEvent, UINT nEventData)
 
 	return CMDIFrameWnd::OnPowerBroadcast( nPowerEvent, nEventData );
 }
+
+// Note: Windows scheduler not implemented
+//BOOL CMainWnd::OnCopyData(CWnd* /*pWnd*/, COPYDATASTRUCT* pCopyDataStruct)

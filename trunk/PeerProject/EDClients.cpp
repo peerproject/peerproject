@@ -346,12 +346,12 @@ void CEDClients::OnRun()
 	if ( tNow < m_tLastRun + Settings.eDonkey.PacketThrottle )
 		return;
 
-	CSingleLock oCTransfersLock( &Transfers.m_pSection );
-	if ( ! oCTransfersLock.Lock( 250 ) )
-		return;
-
 	CSingleLock oCEDClientsLock( &m_pSection );
 	if ( ! oCEDClientsLock.Lock( 250 ) )
+		return;
+
+	CSingleLock oCTransfersLock( &Transfers.m_pSection );
+	if ( ! oCTransfersLock.Lock( 250 ) )
 		return;
 
 	tNow = GetTickCount();	// Update

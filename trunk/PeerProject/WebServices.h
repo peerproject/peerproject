@@ -1,7 +1,7 @@
 //
 // WebServices.h
 //
-// This file is part of PeerProject (peerproject.org) © 2011
+// This file is part of PeerProject (peerproject.org) © 2011-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -34,6 +34,8 @@ public:
 //	afx_msg void OnMusicBrainzMatches();
 //	afx_msg void OnUpdateMusicBrainzAlbums(CCmdUI* pCmdUI);
 //	afx_msg void OnMusicBrainzAlbums();
+
+// Legacy ShareMonkey, obsolete for reference:
 //	afx_msg void OnUpdateShareMonkeyLookup(CCmdUI* pCmdUI);
 //	afx_msg void OnShareMonkeyLookup();
 //	afx_msg void OnUpdateShareMonkeyDownload(CCmdUI* pCmdUI);

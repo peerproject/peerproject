@@ -34,7 +34,7 @@ IMPLEMENT_DYNCREATE(CTrackerPage, CWizardPage)
 
 BEGIN_MESSAGE_MAP(CTrackerPage, CWizardPage)
 	//{{AFX_MSG_MAP(CTrackerPage)
-	ON_BN_CLICKED(IDC_CLEAR_TRACKERS, OnClearTrackers)
+	ON_BN_CLICKED(IDC_CLEAR_TRACKERS, &CTrackerPage::OnClearTrackers)
 	ON_WM_XBUTTONDOWN()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
@@ -45,14 +45,11 @@ END_MESSAGE_MAP()
 
 CTrackerPage::CTrackerPage() : CWizardPage(CTrackerPage::IDD)
 {
-	//{{AFX_DATA_INIT(CTrackerPage)
-	m_sTracker = _T("");
-	//}}AFX_DATA_INIT
 }
 
-CTrackerPage::~CTrackerPage()
-{
-}
+//CTrackerPage::~CTrackerPage()
+//{
+//}
 
 void CTrackerPage::DoDataExchange(CDataExchange* pDX)
 {
@@ -97,6 +94,17 @@ BOOL CTrackerPage::OnInitDialog()
 BOOL CTrackerPage::OnSetActive()
 {
 	SetWizardButtons( PSWIZB_BACK | PSWIZB_NEXT );
+
+	if ( ! theApp.m_sCommandLineTracker.IsEmpty() )
+	{
+		m_sTracker = theApp.m_sCommandLineTracker;
+		theApp.m_sCommandLineTracker.Empty();
+
+		UpdateData( FALSE );
+
+		Next();
+	}
+
 	return CWizardPage::OnSetActive();
 }
 
@@ -113,6 +121,11 @@ void CTrackerPage::OnClearTrackers()
 LRESULT CTrackerPage::OnWizardBack()
 {
 	GET_PAGE( CWelcomePage, pWelcome );
+
+	UpdateData( TRUE );
+
+	SaveTrackers();
+
 	return pWelcome->m_nType ? IDD_PACKAGE_PAGE : IDD_SINGLE_PAGE;
 }
 
@@ -130,6 +143,13 @@ LRESULT CTrackerPage::OnWizardNext()
 		}
 	}
 
+	SaveTrackers();
+
+	return IDD_COMMENT_PAGE;
+}
+
+void CTrackerPage::SaveTrackers()
+{
 	if ( m_sTracker.GetLength() > 15 && m_wndTracker.FindStringExact( -1, m_sTracker ) < 0 )
 	{
 		m_wndTracker.AddString( m_sTracker );	// Populate Combo-box
@@ -142,7 +162,7 @@ LRESULT CTrackerPage::OnWizardNext()
 		theApp.WriteProfileString( _T("Trackers"), strName, m_sTracker );
 	}
 
-	if ( m_sTracker2.Find( _T("http") ) == 0 && m_sTracker2.GetLength() > 15 && m_wndTracker2.FindStringExact( -1, m_sTracker2 ) < 0 )
+	if ( m_sTracker2.GetLength() > 15 && m_sTracker2.Find( _T("://") ) > 0 && m_wndTracker2.FindStringExact( -1, m_sTracker2 ) < 0 )
 	{
 		m_wndTracker.AddString( m_sTracker2 );
 		m_wndTracker2.AddString( m_sTracker2 );
@@ -155,8 +175,6 @@ LRESULT CTrackerPage::OnWizardNext()
 	}
 
 	theApp.WriteProfileString( _T("Trackers"), _T("Last"), m_sTracker );
-
-	return IDD_COMMENT_PAGE;
 }
 
 void CTrackerPage::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint /*point*/)

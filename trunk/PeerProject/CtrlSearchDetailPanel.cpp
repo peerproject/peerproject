@@ -139,6 +139,18 @@ void CSearchDetailPanel::SetFile(CMatchFile* pFile)
 		m_sStatus += strPart;
 	}
 
+// ToDo:?
+//	if ( m_pReviews.GetCount() > 1 )
+//	{
+//		strPart.Format( LoadString( IDS_SEARCH_DETAILS_REVIEWS_MANY ), m_pReviews.GetCount() );
+//		m_sStatus += strPart;
+//	}
+//	else if ( m_pReviews.GetCount() == 1 )
+//	{
+//		LoadString( strPart, IDS_SEARCH_DETAILS_REVIEWS_ONE );
+//		m_sStatus += strPart;
+//	}
+
 	if ( pFile->m_pPreview != NULL && pFile->m_nPreview > 0 )
 	{
 		CImageFile pImage;
@@ -424,7 +436,7 @@ void CSearchDetailPanel::OnLButtonUp(UINT nFlags, CPoint point)
 
 	if ( m_bValid && m_pReviews.GetCount() > 0 && m_rcStatus.PtInRect( point ) )
 	{
-		int nHeight = 54 + m_pMetadata.m_nHeight;
+		int nHeight = 54 + m_pMetadata.GetHeight();
 		SetScrollPos( SB_VERT, nHeight );
 		OnVScroll( SB_THUMBPOSITION, nHeight, NULL );
 		Invalidate();

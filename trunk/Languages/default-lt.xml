@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Lithuanian Skin File -->
 
-<!-- Translation based on default-en.xml r74 -->
+<!-- Translation based on default-en.xml r75 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -361,6 +361,7 @@
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<button id="ID_NETWORK_DC" text="DC++"/>
+		<button id="ID_NETWORK_BT" text="BitTorrent"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Nuostatos"/>
 	</toolbar>
@@ -444,6 +445,12 @@
 		<button id="ID_CHAT_DISCONNECT" text="Atsijungti"/>
 	</toolbar>
 	<!-- WEBSERVICES -->
+	<toolbar name="WebServices.MusicBrainz">
+		<button id="ID_MUSICBRAINZ_MATCHES" text="Peržiūrėti rastus albumus"/>
+		<button id="ID_MUSICBRAINZ_ALBUMS" text="Peržiūrėti visus albumus"/>
+		<separator/>
+	</toolbar>
+	<!--
 	<toolbar name="WebServices.ShareMonkey">
 		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Gauti duomenis"/>
 		<separator/>
@@ -466,11 +473,7 @@
 		<button id="ID_SHAREMONKEY_COMPARE" text="Palyginti"/>
 		<button id="ID_SHAREMONKEY_BUY" text="Pirkti"/>
 	</toolbar>
-	<toolbar name="WebServices.MusicBrainz">
-		<button id="ID_MUSICBRAINZ_MATCHES" text="Peržiūrėti rastus albumus"/>
-		<button id="ID_MUSICBRAINZ_ALBUMS" text="Peržiūrėti visus albumus"/>
-		<separator/>
-	</toolbar>
+	-->
 	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
 		<button id="PluginID_ImageViewer_BestFit" text="Geriausias dydis"/>
@@ -529,6 +532,7 @@
 			<item id="ID_NETWORK_G1" text="Jungtis prie Gnutella1"/>
 			<item id="ID_NETWORK_ED2K" text="Jungtis prie eDonkey"/>
 			<item id="ID_NETWORK_DC" text="Jungtis prie DC++"/>
+			<item id="ID_NETWORK_BT" text="Jungtis prie BitTorrent"/>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Jungtis prie..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="Naršyti adresatą..."/>
@@ -616,6 +620,7 @@
 			<item id="ID_NETWORK_G1" text="Jungtis prie _Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="Jungtis prie _eDonkey"/>
 			<item id="ID_NETWORK_DC" text="Jungtis prie _DC++"/>
+			<item id="ID_NETWORK_BT" text="Jungtis prie _BitTorrent"/>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Jung_tis prie..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="_Naršyti adresatą..."/>
@@ -791,6 +796,7 @@
 			<item id="ID_NETWORK_G1" text="Jungtis prie _Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="Jungtis prie _eDonkey"/>
 			<item id="ID_NETWORK_DC" text="Jungtis prie _DC++"/>
+			<item id="ID_NETWORK_BT" text="Jungtis prie _BitTorrent"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Išeiti _baigus siųsti"/>
 			<item id="ID_NETWORK_EXIT" text="Iš_eiti"/>
@@ -1582,6 +1588,7 @@
 			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
 			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<item id="ID_NETWORK_BT" text="_BitTorrent"/>
 			<separator/>
 			<item id="ID_VIEW_DISCOVERY" text="Paslaugų _radimo tarnybos"/>
 			<item id="ID_VIEW_HOSTS" text="Adresatų _talpykla"/>
@@ -1707,7 +1714,7 @@
 	<menu name="WebServices.List.Menu">
 		<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Bitzi"/>
 		<item id="ID_WEBSERVICES_MUSICBRAINZ" text="_MusicBrainz"/>
-		<item id="ID_WEBSERVICES_SHAREMONKEY" text="_ShareMonkey"/>
+		<!--item id="ID_WEBSERVICES_SHAREMONKEY" text="_ShareMonkey"-->
 	</menu>
 </menus>
 <!-- Documents -->
@@ -2560,6 +2567,7 @@
 	<tip id="ID_NETWORK_EXIT" message="Baigti darbą su „PeerProject“"/>
 	<tip id="ID_NETWORK_ED2K" message="Jungtis prie eDonkey tinklo."/>
 	<tip id="ID_NETWORK_DC" message="Jungtis prie DC++ tinklo."/>
+	<tip id="ID_NETWORK_BT" message="Jungtis prie BitTorrent tinklo."/>
 	<tip id="ID_NETWORK_G1" message="Jungtis prie pirminio Gnutella tinklo."/>
 	<tip id="ID_NETWORK_G2" message="Jungtis prie Gnutella2 tinklo (labai rekomenduojama)."/>
 	<tip id="ID_NETWORK_SEARCH" message="Pradėti naują paiešką tinkle..."/>
@@ -2674,7 +2682,7 @@
 	<tip id="ID_WINDOW_TILE_VERT" message="Išdėstyti atvertus langus iš viršaus į apačią, neuždengiant vienas kito."/>
 	<tip id="ID_WINDOW_TOOLBAR" message="Rodyti ar paslėpti įrankių juostą."/>
 	<tip id="ID_WEBSERVICES_LIST" message="Pasirinkite paslaugą internete ir gaukite daugiau informacijos apie pasirinktą failą."/>
-	<tip id="ID_WEBSERVICES_SHAREMONKEY" message="Ieškokite failo informacijos naudodamiesi ShareMonkey tarnyba."/>
+	<!--tip id="ID_WEBSERVICES_SHAREMONKEY" message="Ieškokite failo informacijos naudodamiesi ShareMonkey tarnyba."-->
 	<!-- PLUGIN TIPS -->
 	<tip id="PluginID_ImageViewer_BestFit" message="Keisti paveikslėlio dydį, kad tilptų į langą."/>
 	<tip id="PluginID_ImageViewer_FullSize" message="Rodyti natūralaus dydžio paveikslėlį."/>
@@ -2852,8 +2860,8 @@
 	<string id="20202" value="Gauta klaidinga įstūmiančiojo susijungimo užklausa iš %s, nutraukiamas ryšys."/>
 	<string id="20203" value="Vykdomas failo „%s“ parsisiuntimo spartinimas, pašalinant siuntimo greitaveikos apribojimus."/>
 	<string id="20204" value="Adresatas %s yra užimtas, parsisiuntimą bus bandoma kartoti už %i sekundžių."/>
-	<string id="20205" value="Neįmanoma perkelti failo „%s“ į „%s“. Patikrinkite, ar nebaigto failo kas nors nenaudoja arba ar aplankas egzistuoja ir į jį galima rašyti."/>
-	<string id="20206" value="Neįmanoma nustatyti „%s“ adreso."/>
+	<string id="20205" value="Nepakanka vietos diske failui „%s“ parsisiųsti (%s)."/>
+	<string id="20206" value="Neįmanoma perkelti failo „%s“ į „%s“. Patikrinkite, ar nebaigto failo kas nors nenaudoja arba ar aplankas egzistuoja ir į jį galima rašyti."/>
 	<string id="20207" value="Ar tikrai norite nutraukti visus atsisiuntimus šioje grupėje?"/>
 	<string id="20208" value="Nutraukiamas parsisiuntimo ryšys su adresu %s, daugiau nereikalingas."/>
 	<string id="20209" value="Parsisiunčiant, adresatas %s atsiuntė neprašytų duomenų, ryšys nutraukiamas."/>
@@ -2867,23 +2875,18 @@
 	<string id="20217" value="Iš adresato %s gaunamas parsisiunčiamo failo turinys (%s)."/>
 	<string id="20217" value="Pasirinkite eDonkey/eMule temp aplanką:"/>
 	<string id="20218" value="Ar tikrai norite vykdyti atsisiųstą failą „%s“ ?\n\nKai kurie failai gali pakenkti Jūsų kompiuteriui. Įsitikinkite, kas tai per failas, prieš vykdydami jį."/>
-	<string id="20219" value="Nepakanka vietos diske failui „%s“ parsisiųsti (%s)."/>
-	<string id="20220" value="Parsisiunčiant ryšys su %s nutrūko."/>
-	<string id="20222" value="Jūs įrašėte eDonkey maišos reikšmę, tačiau ji yra neteisinga. Pasitikrinkite ir mėginkite dar kartą."/>
-	<string id="20224" value="Įveskite teisingus trinimo rėžius. „Nuo“ lauke nurodomas pirmasis trinamas baitas, o „iki“ lauke — paskutinis."/>
-	<string id="20225" value="Jūs įrašėte SHA1 reikšmę, tačiau ji yra neteisinga. Pasitikrinkite ir mėginkite dar kartą."/>
-	<string id="20226" value="Jūs įrašėte šakninę dryžinės maišos (tiger-tree) reikšmę, tačiau ji yra neteisinga. Pasitikrinkite ir mėginkite dar kartą."/>
-	<string id="20227" value="Jūs pakeitėte failo dydį. Ar tikrai norite jį pakeisti šiam parsisiunčiamam failui?"/>
-	<string id="20228" value="Neįmanoma ištrinti failo pasirinktuose rėžiuose, nes nėra jokios informacijos šiuose rėžiuose."/>
-	<string id="20231" value="Jūs pateikėte SHA1 maišos reikšmę, kuri skiriasi nuo reikšmės, priskirtos šiam parsisiunčiamam failui. Ar tikrai įsitikinę, kad norite pakeisti SHA1 maišą?"/>
-	<string id="20232" value="Jūs pateikėte eDonkey maišos reikšmę, kuri skiriasi nuo reikšmės, priskirtos šiam parsisiunčiamam failui. Ar tikrai įsitikinę, kad norite pakeisti eDonkey maišą?"/>
-	<string id="20233" value="Jūs pateikėte šakninę dryžinės (tiger-tree) maišos reikšmę, kuri skiriasi nuo reikšmės, priskirtos šiam parsisiunčiamam failui. Ar tikrai įsitikinę, kad norite pakeisti šakninę dryžinę maišą?"/>
-	<string id="20235" value="Negalima nustatyti, kad šio failo parsisiuntimas baigtas, ir atlikti patikrą iš naujo, nes kol kas nėra jokių dalinių patikros duomenų, tokių kaip dryžinės (tiger-tree) maišos apimtis, eDonkey ar BitTorrent maišos rinkiniai. Be patikros informacijos parsisiunčiamam failui negali būti atlikta patikra."/>
-	<string id="20236" value="Ar tikrai norite nustatyti, kad šio failo parsisiuntimas baigtas ir atlikti jos patikrą? Bus peržiūrimas visas failas, ir „PeerProject“ priims tas dalis, kurios praeis patikrą, o tas dalis, kurios nepraeis patikros, atsiųs iš naujo."/>
-	<string id="20237" value="Ar tikrai norite, kad būtų užmiršti visi šaltiniai pažymėtam failui?"/>
-	<string id="20238" value="Ar tikrai norite, kad būtų užmiršta esamos patikros būklė? Visi parsisiųsti duomenys bus laikomi nepatikimais, o talpykla su maišų medžiais ir rinkiniais bus išvalyta."/>
-	<string id="20240" value="Ištrinta %I64i baitų(-ai) parsisiunčiamame faile."/>
-	<string id="20241" value="Jūs pakeitėte vardą. Ar tikrai norite pervardinti šį parsisiunčiamą failą?"/>
+	<string id="20219" value="Parsisiunčiant ryšys su %s nutrūko."/>
+	<string id="20221" value="Įveskite teisingus trinimo rėžius. „Nuo“ lauke nurodomas pirmasis trinamas baitas, o „iki“ lauke — paskutinis."/>
+	<string id="20222" value="Jūs įrašėte %s maišos reikšmę, tačiau ji yra neteisinga. Pasitikrinkite ir mėginkite dar kartą."/>
+	<string id="20223" value="Jūs pateikėte %s maišos reikšmę, kuri skiriasi nuo reikšmės, priskirtos šiam parsisiunčiamam failui. Ar tikrai įsitikinę, kad norite pakeisti %s maišą?"/>
+	<string id="20224" value="Jūs pakeitėte vardą. Ar tikrai norite pervardinti šį parsisiunčiamą failą?"/>
+	<string id="20225" value="Jūs pakeitėte failo dydį. Ar tikrai norite jį pakeisti šiam parsisiunčiamam failui?"/>
+	<string id="20226" value="Negalima nustatyti, kad šio failo parsisiuntimas baigtas, ir atlikti patikrą iš naujo, nes kol kas nėra jokių dalinių patikros duomenų, tokių kaip dryžinės (tiger-tree) maišos apimtis, eDonkey ar BitTorrent maišos rinkiniai. Be patikros informacijos parsisiunčiamam failui negali būti atlikta patikra."/>
+	<string id="20227" value="Ar tikrai norite nustatyti, kad šio failo parsisiuntimas baigtas ir atlikti jos patikrą? Bus peržiūrimas visas failas, ir „PeerProject“ priims tas dalis, kurios praeis patikrą, o tas dalis, kurios nepraeis patikros, atsiųs iš naujo."/>
+	<string id="20228" value="Ar tikrai norite, kad būtų užmiršta esamos patikros būklė? Visi parsisiųsti duomenys bus laikomi nepatikimais, o talpykla su maišų medžiais ir rinkiniais bus išvalyta."/>
+	<string id="20229" value="Ar tikrai norite, kad būtų užmiršti visi šaltiniai pažymėtam failui?"/>
+	<string id="20231" value="Neįmanoma ištrinti failo pasirinktuose rėžiuose, nes nėra jokios informacijos šiuose rėžiuose."/>
+	<string id="20232" value="Ištrinta %I64i baitų(-ai) parsisiunčiamame faile."/>
 	<string id="20242" value="Adresatas %s neturi failo „%s“."/>
 	<string id="20243" value="Kuriamas failas „%s“ parsisiuntimui."/>
 	<string id="20244" value="Neįmanoma sukurti vietinio failo „%s“ parsisiuntimui, procedūra nutraukiama."/>
@@ -2915,9 +2918,10 @@
 	<string id="20271" value="Failas „%s“ perkeltas į „%s“, parsisiuntimas baigtas."/>
 	<string id="20272" value="„%s“ parsisiuntimas pristabdomas."/>
 	<string id="20273" value="„%s“ parsisiuntimas tęsiamas."/>
-	<string id="20274" value="Nustatomas „%s“ adresas failui „%s“ parsisiųsti..."/>
 	<string id="20275" value="Siunčiama užklausa failo „%s“ parsisiuntimo šaltinių papildymui %i ryšiais(-iu)..."/>
 	<string id="20276" value="Neįmanoma gauti daugiau šaltinių failo „%s“ parsisiuntimui, nes nėra ryšio su tinklu."/>
+	<!--string id="20277" value="Nustatomas „%s“ adresas failui „%s“ parsisiųsti..."-->
+	<!--string id="20278" value="Neįmanoma nustatyti „%s“ adreso."-->
 	<string id="20280" value="Gauti dryžinės (tiger-tree) maišos duomenys yra sugadinti arba prieštaringi, ignoruojama."/>
 	<string id="20281" value="Gauta dryžinė (tiger-tree) maiša neatitinka laukiamos šakninės reikšmės."/>
 	<string id="20282" value="Adresatas %s netenkina parsisiunčiamo failo dryžinės (tiger-tree) maišos kriterijų."/>
@@ -3178,7 +3182,7 @@
 	<string id="20570" value="Gautas neteisingo formato užklausos kreipinio paketas iš %s, ignoruojama."/>
 	<string id="20571" value="%s: Gautas neteisingo formato užklausos paketas iš %s, ignoruojama."/>
 	<string id="20572" value="Kaimynas adresu %s persiuntė paketą su pernelyg dideliu TTL, paketas šalinamas (TTL=%i, šuolių=%i)."/>
-	<string id="20573" value="Kaimynas adresu %s persiuntė paketą su nuliniu TTL, ignoruojama."/>
+	<!--string id="20573" value="Kaimynas adresu %s persiuntė paketą su nuliniu TTL, ignoruojama."-->
 	<string id="20574" value="Kaimynas adresu %s persiuntė pernelyg išplėstą paketą, kuris nėra užkoduotas pagal GGEP protokolą."/>
 	<string id="20575" value="Kaimynas adresu %s atsiuntė neteisingą užklausos maršruto lentelės atnaujinimą, ryšys nutraukiamas."/>
 	<string id="20576" value="Siunčiama užklausos maršruto lentelė kaimynui %s (%i bitų = %lu[%i], %i%% užimtumas)"/>
@@ -3372,7 +3376,7 @@
 	<string id="20834" value="Adresatas %s užklausė failo „%s“ peržiūros turinio, bet failas jo neturi."/>
 	<string id="20835" value="Išsiunčiamas failo „%s“ peržiūros turinys adresatui %s."/>
 	<string id="20836" value="Adresatui %s atsakyta sukurti įstūmiančiojo išsiuntimo ryšį, nes jo susijungimų skaičius per didelis."/>
-	<string id="20837" value="Pasenusi įstūmiančiojo ryšio užklausa iš adresato %s nežinomam failui išsiųsti, leidžiama jungtis..."/>
+	<!--string id="20837" value="Pasenusi įstūmiančiojo ryšio užklausa iš adresato %s nežinomam failui išsiųsti, leidžiama jungtis..."-->
 	<string id="20838" value="Per daug užimtas išsiųsti failą „%s“ adresatui %s, pastatyta į eilę Nr. %i iš %i vietų („%s“)."/>
 	<string id="20840" value="Išsiunčiant failą, ryšys su %s nutrūko, išsaugoma vieta eilėje."/>
 	<string id="20841" value="Nauja eilė"/>
@@ -3402,7 +3406,7 @@
 	<string id="20866" value="Vardas:"/>
 	<string id="20867" value="Adresatas:"/>
 	<string id="20868" value="Prievadas:"/>
-	<string id="20869" value="Neįmanoma parodyti URL veiksmo dialogo lango, nes „PeerProject“ yra užimta."/>
+	<!--string id="20869" value="Neįmanoma parodyti URL veiksmo dialogo lango, nes „PeerProject“ yra užimta."-->
 	<string id="20870" value="Neįmanoma išnagrinėti URL: „PeerProject“ nesupranta šio adreso."/>
 	<string id="20871" value="Gautas URL, adresas „%s“"/>
 	<string id="20872" value="Tipas:"/>
@@ -3745,7 +3749,7 @@
 		<control caption="Parsisiųsti..."/>
 		<control caption="eDonkey serverių sąrašo parsisiuntimas iš interneto:"/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Atsisiuntimų susijungimai:"/>
 		<control/>
 		<control/>
@@ -3753,6 +3757,7 @@
 		<control/>
 		<control/>
 		<control caption="Klientų susijungimų"/>
+		<control caption="Įjungti BitTorrent DHT"/>
 		<control caption="Teikti pirmenybę torrent šaltiniams"/>
 		<control caption="_EndGame (paspartinimas):"/>
 		<control caption="Įgalinti BitTorrent „EndGame“ veikseną baigiant siųstis failus"/>
@@ -4469,7 +4474,7 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Sekliai">
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBuBuBu" caption="Sekliai">
 		<control/>
 		<control/>
 		<control/>
@@ -4481,6 +4486,8 @@
 		<control caption="Seklio veiksena:"/>
 		<control caption="Neįgalinta|Pasirinktinė|Vienas seklys|Daug seklių|Daug seklių (užrakinta)"/>
 		<control caption="_Atnaujinti"/>
+		<control caption="_Pridėti"/>
+		<control caption="_Salinti"/>
 	</dialog>
 	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="Bendra">
 		<control/>

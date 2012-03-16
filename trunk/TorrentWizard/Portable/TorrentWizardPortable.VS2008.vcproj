@@ -50,7 +50,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\..\Services"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_CRT_NONSTDC_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_CRT_NONSTDC_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_PORTABLE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				EnableFunctionLevelLinking="true"
@@ -135,7 +135,7 @@
 				Optimization="3"
 				FavorSizeOrSpeed="1"
 				AdditionalIncludeDirectories="..\..\Services"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_CRT_NONSTDC_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_CRT_NONSTDC_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_PORTABLE"
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="true"
 				EnableFiberSafeOptimizations="true"
@@ -216,19 +216,15 @@
 				>
 			</File>
 			<File
-				RelativePath="PageCommandline.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\PageComment.cpp"
 				>
 			</File>
 			<File
-				RelativePath="PageExpert.cpp"
+				RelativePath="..\PageExpert.cpp"
 				>
 			</File>
 			<File
-				RelativePath="PageFinished.cpp"
+				RelativePath="..\PageFinished.cpp"
 				>
 			</File>
 			<File
@@ -359,10 +355,6 @@
 			</File>
 			<File
 				RelativePath="..\CmdLine.h"
-				>
-			</File>
-			<File
-				RelativePath="..\PageCommandline.h"
 				>
 			</File>
 			<File

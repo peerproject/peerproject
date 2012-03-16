@@ -200,7 +200,7 @@
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;HASHLIB_USE_ASM"
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="true"
-				EnableEnhancedInstructionSet="1"
+				EnableEnhancedInstructionSet="2"
 				OmitFramePointers="true"
 				StringPooling="true"
 				ExceptionHandling="0"

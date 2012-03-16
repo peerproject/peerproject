@@ -3,7 +3,7 @@
 
 <!-- PeerProject Arabic Language Skin File -->
 
-<!-- Translation based on default-en.xml r74 -->
+<!-- Translation based on default-en.xml r75 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -374,6 +374,7 @@
 		<button id="ID_NETWORK_G1" text="Gnutella" />
 		<button id="ID_NETWORK_ED2K" text="eDonkey" />
 		<button id="ID_NETWORK_DC" text="DC++"/>
+		<button id="ID_NETWORK_BT" text="BitTorrent"/>
 		<separator />
 		<button id="ID_NEIGHBOURS_SETTINGS" text="إعدادات" />
 	</toolbar>
@@ -419,6 +420,12 @@
 		<button id="ID_CHAT_DISCONNECT" text="قطع الإتصال" />
 	</toolbar>
 	<!-- WEBSERVICES -->
+	<toolbar name="WebServices.MusicBrainz">
+		<button id="ID_MUSICBRAINZ_MATCHES" text="عرض مطابقات الألبوم" />
+		<button id="ID_MUSICBRAINZ_ALBUMS" text="عرض كافة الألبومات" />
+		<separator />
+	</toolbar>
+	<!--
 	<toolbar name="WebServices.ShareMonkey">
 		<button id="ID_SHAREMONKEY_DOWNLOAD" text="جلب البيانات" />
 		<separator />
@@ -441,11 +448,7 @@
 		<button id="ID_SHAREMONKEY_COMPARE" text="مقارنة" />
 		<button id="ID_SHAREMONKEY_BUY" text="الشراء" />
 	</toolbar>
-	<toolbar name="WebServices.MusicBrainz">
-		<button id="ID_MUSICBRAINZ_MATCHES" text="عرض مطابقات الألبوم" />
-		<button id="ID_MUSICBRAINZ_ALBUMS" text="عرض كافة الألبومات" />
-		<separator />
-	</toolbar>
+	-->
 	<!--نافذة عارض الصور-->
 	<toolbar name="ImageViewerWnd">
 		<button id="PluginID_ImageViewer_FullSize" text="الحجم الفعلي" />
@@ -504,6 +507,7 @@
 				<item id="ID_NETWORK_G1" text="الإتصال بـ _Gnutella" />
 				<item id="ID_NETWORK_ED2K" text=" _الإتصال بـ _eDonkey2000" />
 				<item id="ID_NETWORK_DC" text=" _الإتصال بـ _DC++" />
+				<item id="ID_NETWORK_BT" text=" _الإتصال بـ _BitTorrent" />
 				<separator />
 				<item id="ID_NETWORK_CONNECT_TO" text="الإتصال _بـ..." shortcut="Ctrl+T" />
 				<item id="ID_NETWORK_BROWSE_TO" text="_إستعراض المضيف..." />
@@ -594,6 +598,7 @@
 				<item id="ID_NETWORK_G1" text="الإتصال بـ _Gnutella" />
 				<item id="ID_NETWORK_ED2K" text=" _الإتصال بـ _eDonkey2000" />
 				<item id="ID_NETWORK_DC" text=" _الإتصال بـ _DC++" />
+				<item id="ID_NETWORK_BT" text=" _الإتصال بـ _BitTorrent" />
 			</menu>
 			<separator />
 			<item id="ID_NETWORK_CONNECT_TO" text="الإتصال _بـ..." shortcut="Ctrl+T" />
@@ -766,6 +771,7 @@
 				<item id="ID_NETWORK_G1" text="_Gnutella الإتصال بـ "/>
 				<item id="ID_NETWORK_ED2K" text="_eDonkey2000 الإتصال بـ "/>
 				<item id="ID_NETWORK_DC" text="_DC++ الإتصال بـ"/>
+				<item id="ID_NETWORK_BT" text="_BitTorrent الإتصال بـ"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="الإغلاق _عند اتمام نقل البيانات"/>
@@ -1554,6 +1560,7 @@
 			<item id="ID_NETWORK_G1" text="_Gnutella" />
 			<item id="ID_NETWORK_ED2K" text="_eDonkey" />
 			<item id="ID_NETWORK_DC" text="_DC++" />
+			<item id="ID_NETWORK_BT" text="_BitTorrent" />
 			<separator />
 			<item id="ID_VIEW_DISCOVERY" text="الإكت_شاف" />
 			<item id="ID_VIEW_HOSTS" text="ا_لمخزون المؤقت للمضيف" />
@@ -2513,6 +2520,7 @@
 	<tip id="ID_NETWORK_EXIT" message="الخروج من PeerProject" />
 	<tip id="ID_NETWORK_ED2K" message="الإتصال بشبكة eDonkey" />
 	<tip id="ID_NETWORK_DC" message="الإتصال بشبكة DC++" />
+	<tip id="ID_NETWORK_BT" message="الإتصال بشبكة BitTorrent" />
 	<tip id="ID_NETWORK_G1" message="الإتصال بشبكة Gnutella الأصلية" />
 	<tip id="ID_NETWORK_G2" message="الإتصال بشبكة Gnutella2 (جدا مستحسن) ـ" />
 	<tip id="ID_NETWORK_SEARCH" message="بدء بحث جديد للشبكة..." />
@@ -2627,7 +2635,7 @@
 	<tip id="ID_WINDOW_TILE_VERT" message="ترتيب النوافذ المفتوحة رأسيا مع تجانب غير متداخل" />
 	<tip id="ID_WINDOW_TOOLBAR" message="إظهار أو إخفاء شريط الأدوات" />
 	<tip id="ID_WEBSERVICES_LIST" message="إختيار خدمة الويب للحصول على مزيد من المعلومات حول الملف المحدد" />
-	<tip id="ID_WEBSERVICES_SHAREMONKEY" message="البحث عن معلومات الملف باستعمال خدمة ShareMonkey" />
+	<!-- tip id="ID_WEBSERVICES_SHAREMONKEY" message="البحث عن معلومات الملف باستعمال خدمة ShareMonkey" -->
 	<!-- PLUGIN TIPS -->
 	<tip id="PluginID_ImageViewer_BestFit" message="تحجيم الصورة لملائمة حجم النافذة" />
 	<tip id="PluginID_ImageViewer_FullSize" message="إظهار الصورة بحجمها الطبيعي" />
@@ -3211,7 +3219,7 @@
 		<control caption="تحميل..." />
 		<control caption=":من الانترنت eDonkey تحميل قائمة ملقم" />
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption=":إ_تصالات التحميل" />
 		<control />
 		<control />
@@ -3219,6 +3227,7 @@
 		<control />
 		<control />
 		<control caption="إتصالات العميل" />
+		<control caption="تمكين BitTorrent DHT"/>
 		<control caption=" المفضلة torrent مصادر" />
 		<control caption=":المرحلة ال_ختامية" />
 		<control caption="torrent تمكين نمط المرحلة الختامية عند إكتمال ملفات" />
@@ -3933,7 +3942,7 @@
 		<control />
 		<control />
 	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackers">
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBuBuBu" caption="Trackers">
 		<control />
 		<control />
 		<control />
@@ -3945,6 +3954,8 @@
 		<control caption="Tracker Mode:" />
 		<control caption="Disabled|Custom|Single Tracker|Multi-tracker|Multi-tracker (locked)" />
 		<control caption="ت_حديث" />
+		<control caption="إ_ضافة" />
+		<control caption="إ_زالة" />
 	</dialog>
 	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="General">
 		<control/>

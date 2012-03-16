@@ -1,7 +1,7 @@
 //
 // TigerTree.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions Copyright Shareaza Development Team, 2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -33,7 +33,7 @@ class HASHLIB_API CTigerTree
 {
 public:
 	CTigerTree();
-	virtual ~CTigerTree();
+	~CTigerTree();
 
 	void	SetupAndAllocate(uint32 nHeight, uint64 nLength);
 	void	SetupParameters(uint64 nLength);
@@ -64,7 +64,7 @@ public:
 	BOOL	ToBytes(uint8** ppOutput, uint32* pnOutput, uint32 nHeight = 0);		// Extract hash tree  (To free ppOutput, use GlobalFree function)
 	BOOL	ToBytesLevel1(uint8** ppOutput, uint32* pnOutput);						// Extract first level of hash tree  (To free ppOutput, use GlobalFree function)
 	BOOL	FromBytes(const uint8* pOutput, uint32 nOutput, uint32 nHeight, uint64 nLength);		// Create hash tree from full tree data
-	BOOL	FromBytesLevel1(const uint8* pInput, uint32 nInput, uint32 nHeight, uint64 nLength);	// Create hash tree from first level of tree data
+	BOOL	FromBytesLevel1(const uint8* pInput, uint32 nInput, uint64 nLength);		// Create hash tree from first level of tree data
 	BOOL	CheckIntegrity();														// Check hash tree integrity (rebuilding missed hashes if needed)
 
 	BOOL	IsAvailable() const;

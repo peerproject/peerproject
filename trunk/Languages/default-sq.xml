@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Albanian Skin File -->
 
-<!-- Translation based on default-en.xml r74 -->
+<!-- Translation based on default-en.xml r75 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -359,6 +359,7 @@
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<button id="ID_NETWORK_DC" text="DC++"/>
+		<button id="ID_NETWORK_BT" text="BitTorrent"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Kuadro"/>
 	</toolbar>
@@ -444,6 +445,12 @@
 		<button id="ID_CHAT_DISCONNECT" text="Shkëputu"/>
 	</toolbar>
 	<!-- WEBSERVICES -->
+	<toolbar name="WebServices.MusicBrainz">
+		<button id="ID_MUSICBRAINZ_MATCHES" text="Shiko Dublimet e Albumit"/>
+		<button id="ID_MUSICBRAINZ_ALBUMS" text="Shiko Tërë Albumet"/>
+		<separator/>
+	</toolbar>
+	<!--
 	<toolbar name="WebServices.ShareMonkey">
 		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Merr të Dhëna"/>
 		<separator/>
@@ -466,11 +473,7 @@
 		<button id="ID_SHAREMONKEY_COMPARE" text="Krahaso"/>
 		<button id="ID_SHAREMONKEY_BUY" text="Blije"/>
 	</toolbar>
-	<toolbar name="WebServices.MusicBrainz">
-		<button id="ID_MUSICBRAINZ_MATCHES" text="Shiko Dublimet e Albumit"/>
-		<button id="ID_MUSICBRAINZ_ALBUMS" text="Shiko Tërë Albumet"/>
-		<separator/>
-	</toolbar>
+	-->
 	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
 		<button id="PluginID_ImageViewer_BestFit" text="Përmasa Perfekte"/>
@@ -529,6 +532,7 @@
 				<item id="ID_NETWORK_G1" text="_Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
 				<item id="ID_NETWORK_DC" text="_DC++"/>
+				<item id="ID_NETWORK_BT" text="_BitTorrent"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="Lidhu _Te..." shortcut="Ctrl+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="_Shfleto një Host..."/>
@@ -617,6 +621,7 @@
 			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
 			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<item id="ID_NETWORK_BT" text="_BitTorrent"/>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Lidhu _Te..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="_Shfleto një Host..."/>
@@ -784,6 +789,7 @@
 			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
 			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<item id="ID_NETWORK_BT" text="_BitTorrent"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Mbylle _Kur Përfundon"/>
 			<item id="ID_NETWORK_EXIT" text="D_il"/>
@@ -1570,6 +1576,7 @@
 			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
 			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<item id="ID_NETWORK_BT" text="_BitTorrent"/>
 			<separator/>
 			<item id="ID_VIEW_DISCOVERY" text="Zbu_limi"/>
 			<item id="ID_VIEW_HOSTS" text="Depo H_osti"/>
@@ -1698,7 +1705,7 @@
 	<menu name="WebServices.List.Menu">
 		<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Bitzi"/>
 		<item id="ID_WEBSERVICES_MUSICBRAINZ" text="_MusicBrainz"/>
-		<item id="ID_WEBSERVICES_SHAREMONKEY" text="_ShareMonkey"/>
+		<!--item id="ID_WEBSERVICES_SHAREMONKEY" text="_ShareMonkey"-->
 	</menu>
 </menus>
 <!-- Documents -->
@@ -2561,6 +2568,7 @@
 	<tip id="ID_NETWORK_EXIT" message="PeerProject do të mbyllet."/>
 	<tip id="ID_NETWORK_ED2K" message="Lidhet tek rrjeti eDonkey."/>
 	<tip id="ID_NETWORK_DC" message="Lidhet tek rrjeti DC++."/>
+	<tip id="ID_NETWORK_BT" message="Lidhet tek rrjeti BitTorrent."/>
 	<tip id="ID_NETWORK_G1" message="Lidhet tek rrjeti origjinal Gnutella."/>
 	<tip id="ID_NETWORK_G2" message="Lidhet tek rrjeti Gnutella2 (rekomandohet fort)."/>
 	<tip id="ID_NETWORK_SEARCH" message="Nis një kërkim të ri në rrjet..."/>
@@ -2673,7 +2681,7 @@
 	<tip id="ID_WINDOW_TILE_VERT" message="Radhit dritaret e hapura si vertikale, me tituj jombulues."/>
 	<tip id="ID_WINDOW_TOOLBAR" message="Tregon ose fsheh shufrën e mjeteve."/>
 	<tip id="ID_WEBSERVICES_LIST" message="Zgjidh shërbimin e rrjetit që të marrësh më shumë informacion për skedën e zgjedhur."/>
-	<tip id="ID_WEBSERVICES_SHAREMONKEY" message="Kërkon për informacionin e skedës duke përdorur shërbimin ShareMonkey."/>
+	<!--tip id="ID_WEBSERVICES_SHAREMONKEY" message="Kërkon për informacionin e skedës duke përdorur shërbimin ShareMonkey."-->
 	<!-- PLUGIN TIPS -->
 	<tip id="PluginID_ImageViewer_BestFit" message="Ripërmason figurën që të jetë brenda dritares."/>
 	<tip id="PluginID_ImageViewer_FullSize" message="Tregon figurën në masën e saj natyrale."/>
@@ -2791,21 +2799,18 @@
 	<string id="20196" value="Kjo tempujkë nuk të jep mundësi zgjedhjeje."/>
 	<string id="20197" value="Kjo tempujkë është jokorrekte."/>
 	<string id="20199" value="(mbylle pas transferimit)"/>
-	<string id="20222" value="Ju shkruat një vlerë hashi për eDonkey, gjithsesi nuk ka vlerë. Ju lutemi rishikoni dhe provoni përsëri."/>
-	<string id="20224" value="Ju lutemi shkruani një kufi të vlefshëm për të fshirë.  Fusha &quot;nga&quot; është bajti i parë për t'u fshirë, fusha &quot;fundit&quot; është bajti i fundit për t'u fshirë."/>
-	<string id="20225" value="Ju shkruat një vlerë SHA1, gjithsesi nuk ka vlerë.  Ju lutemi rishikoni dhe provoni përsëri."/>
-	<string id="20226" value="Ju shkruat një vlerë-rrënjë tiger-tree, gjithsesi nuk ka vlerë.  Ju lutemi rishikoni dhe provoni përsëri."/>
-	<string id="20227" value="Ju kryet ndryshime në masën e skedës. A jeni i sigurt se doni të ndryshoni masën për këtë shkarkesë?"/>
-	<string id="20228" value="Nuk mund të fshij nga shkarkesa kufirin e zgjedhur sepse asnjë pjesë e kufirit nuk është e pranishme."/>
-	<string id="20231" value="Ju dhatë një vlerë hashi SHA1 që ndryshon nga ajo që aktualisht shoqërohet me këtë shkarkesë.  A jeni i sigurt se tani doni të ndryshoni hashin SHA1?"/>
-	<string id="20232" value="Ju dhatë një vlerë hashi eDonkey që ndryshon nga ajo që aktualisht shoqërohet me këtë shkarkesë.  A jeni i sigurt se tani doni të ndryshoni hashin eDonkey?"/>
-	<string id="20233" value="Ju dhatë një vlerë-rrënjë hashi tiger-tree që ndryshon nga ajo që aktualisht shoqërohet me këtë shkarkesë.  A jeni i sigurt se tani doni të ndryshoni hash-rrënjën tiger-tree?"/>
-	<string id="20235" value="Nuk mund të supozoni se kjo shkarkesë ka përfunduar dhe ta riverifikoni atë, pasi nuk keni akoma ndonjë të dhënë të pjesshme verifikuese, si vëllimin tiger-tree, hashsetin eDonkey ose atë BitTorrent.  Pa informacion verifikues shkarkesa nuk mund të riverifikohet."/>
-	<string id="20236" value="A jeni i sigurt se doni të supozoni se kjo shkarkesë ka përfunduar dhe do e riverifikoni atë?  E tërë skeda do të merret parasysh dhe PeerProject do të pranojë pjesë të cilat e kalojnë verifikimin dhe do të rishkarkojë pjesët që nuk e kalojnë atë."/>
-	<string id="20237" value="A jeni i sigurt se doni të harroni gjithë burimet për shkarkesën e zgjedhur?"/>
-	<string id="20238" value="A jeni i sigurt se doni të harroni statusin aktual të verifikimit?  Gjithë të dhënat e shkarkuara do të trajtohen si të pabesueshme, dhe hash-pemët e depozituara do të shpërbëhen."/>
-	<string id="20240" value="Fshiva %I64i bajte nga shkarkesa."/>
-	<string id="20241" value="Ju kryet ndryshime te fusha e emrit.  A jeni i sigurt se doni të riemërtoni shkarkesën?"/>
+	<string id="20221" value="Ju lutemi shkruani një kufi të vlefshëm për të fshirë.  Fusha &quot;nga&quot; është bajti i parë për t'u fshirë, fusha &quot;fundit&quot; është bajti i fundit për t'u fshirë."/>
+	<string id="20222" value="Ju shkruat një vlerë hashi për %s, gjithsesi nuk ka vlerë. Ju lutemi rishikoni dhe provoni përsëri."/>
+	<string id="20223" value="Ju dhatë një vlerë hashi %s që ndryshon nga ajo që aktualisht shoqërohet me këtë shkarkesë.  A jeni i sigurt se tani doni të ndryshoni hashin %s?"/>
+	<string id="20224" value="Ju kryet ndryshime te fusha e emrit.  A jeni i sigurt se doni të riemërtoni shkarkesën?"/>
+	<string id="20225" value="Ju kryet ndryshime në masën e skedës. A jeni i sigurt se doni të ndryshoni masën për këtë shkarkesë?"/>
+	<string id="20226" value="Nuk mund të supozoni se kjo shkarkesë ka përfunduar dhe ta riverifikoni atë, pasi nuk keni akoma ndonjë të dhënë të pjesshme verifikuese, si vëllimin tiger-tree, hashsetin eDonkey ose atë BitTorrent.  Pa informacion verifikues shkarkesa nuk mund të riverifikohet."/>
+	<string id="20227" value="A jeni i sigurt se doni të supozoni se kjo shkarkesë ka përfunduar dhe do e riverifikoni atë?  E tërë skeda do të merret parasysh dhe PeerProject do të pranojë pjesë të cilat e kalojnë verifikimin dhe do të rishkarkojë pjesët që nuk e kalojnë atë."/>
+	<string id="20228" value="A jeni i sigurt se doni të harroni statusin aktual të verifikimit?  Gjithë të dhënat e shkarkuara do të trajtohen si të pabesueshme, dhe hash-pemët e depozituara do të shpërbëhen."/>
+	<string id="20229" value="A jeni i sigurt se doni të harroni gjithë burimet për shkarkesën e zgjedhur?"/>
+	<string id="20231" value="Nuk mund të fshij nga shkarkesa kufirin e zgjedhur sepse asnjë pjesë e kufirit nuk është e pranishme."/>
+	<string id="20232" value="Fshiva %I64i bajte nga shkarkesa."/>
+	<!-- Missing Download Fragment Strings -->
 	<string id="20250" value="Drag'n'drop dosjet grupit %s"/>
 	<string id="20251" value="Default shkarko grup. (Trego të gjitha dosjet)"/>
 	<string id="20252" value="Grup i Ri"/>
@@ -2958,7 +2963,7 @@
 	<string id="20570" value="Fqinji %s përcolli një invalide, përbuzje."/>
 	<string id="20571" value="%s:  Fqinji %s përcolli një invalide, përbuzje."/>
 	<string id="20572" value="Fqinji %s përcolli një paketë me TTL të tepërt, lëshim i paketës (TTL=%i, Hops=%i)."/>
-	<string id="20573" value="Fqinji %s përcolli një paketë TTL zero, përbuzje."/>
+	<!--string id="20573" value="Fqinji %s përcolli një paketë TTL zero, përbuzje."-->
 	<string id="20579" value="%s -&gt; %s [%i/%i] %s %s"/>
 	<string id="20580" value="Fqinji gjethe %s po përparon hetime, lëshim i lidhjes."/>
 	<string id="20582" value="Fqinji %s përcolli një paketë %s me gjatësi invalide, përbuzje."/>
@@ -3456,7 +3461,7 @@
 		<control caption="Shkarko..."/>
 		<control caption="Shkarko server-listën e eDonkey në rrjet:"/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="Lidhjet për _Shkarkim:"/>
 		<control/>
 		<control/>
@@ -3464,6 +3469,7 @@
 		<control/>
 		<control/>
 		<control caption="lidhje me klientë"/>
+		<control caption="Aktivizo BitTorrent DHT"/>
 		<control caption="Parapëlqe burime nga torrenti"/>
 		<control caption="_FundLojë:"/>
 		<control caption="Lejo mënyrën FundLojë kur torrentet përfundojnë"/>
@@ -4180,7 +4186,7 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Gjurmuesit">
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBuBuBu" caption="Gjurmuesit">
 		<control/>
 		<control/>
 		<control/>
@@ -4191,6 +4197,8 @@
 		<control caption="Mënyra e Gjurmuesit:"/>
 		<control caption="E çaktivizuar|Me porosi|Gjurmues i vetëm|Multi-gjurmues|Multi-gjurmues (i kyçur)"/>
 		<control caption="_Rifresko"/>
+		<control caption="_Shto"/>
+		<control caption="_Fshije"/>
 	</dialog>
 	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="Torrentin">
 		<control/>

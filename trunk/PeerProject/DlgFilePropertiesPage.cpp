@@ -1,7 +1,7 @@
 //
 // DlgFilePropertiesPage.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -102,7 +102,7 @@ BOOL CFilePropertiesPage::OnInitDialog()
 			}
 			pNameWnd->SetWindowText( pFile->m_sName );
 		}
-		m_nIcon = ShellIcons.Get( pFile->m_sName, 48 );
+		m_nIcon = ShellIcons.Get( pFile->GetPath(), 48 );
 
 		oLock.Unlock();
 	}
@@ -122,12 +122,11 @@ BOOL CFilePropertiesPage::OnInitDialog()
 						rc.top - rcPage.top, rc.Width(), rc.Height(), FALSE );
 					pNameWnd->ModifyStyleEx( 0, WS_EX_RTLREADING, 0 );
 				}
-				CString strFormat, strMessage;
-				LoadString( strFormat, IDS_LIBRARY_METADATA_EDIT );
-				strMessage.Format( strFormat, pList->GetCount() );
+				CString strMessage;
+				strMessage.Format( LoadString( IDS_LIBRARY_METADATA_EDIT ), pList->GetCount() );
 				pNameWnd->SetWindowText( strMessage );
 			}
-			m_nIcon = SHI_EXECUTABLE;
+			//m_nIcon = SHI_EXECUTABLE;
 		}
 	}
 

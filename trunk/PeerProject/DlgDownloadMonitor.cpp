@@ -1,7 +1,7 @@
 //
 // DlgDownloadMonitor.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -182,22 +182,8 @@ BOOL CDownloadMonitorDlg::OnInitDialog()
 	if ( Downloads.Check( m_pDownload ) )
 	{
 		m_sName = m_pDownload->m_sName;
-		CString strType = m_sName;
-
-		const int nPeriod = strType.ReverseFind( '.' );
-		if ( nPeriod > 0 )
-		{
-			strType = strType.Mid( nPeriod );
-
-			HICON hIcon;
-			if ( ShellIcons.Lookup( strType, NULL, &hIcon, NULL, NULL ) )
-			{
-				if ( Settings.General.LanguageRTL )
-					hIcon = CreateMirroredIcon( hIcon );
-				m_wndIcon.SetIcon( hIcon );
-			}
-		}
-
+		m_wndIcon.SetIcon( ShellIcons.ExtractIcon(
+			ShellIcons.Get( m_sName.Find( '.' ) < 1 ? _T(".torrent") : m_sName, 32 ), 32 ) );
 		m_wndFile.SetWindowText( m_sName );
 	}
 
@@ -370,7 +356,7 @@ void CDownloadMonitorDlg::OnTimer( UINT_PTR nIDEvent )
 	if ( bCompleted )
 	{
 		LoadString( strText, IDS_MONITOR_COMPLETED_WORD );
-		if (  m_pDownload->IsTorrent() && m_pDownload->IsSeeding() )
+		if ( m_pDownload->IsTorrent() && m_pDownload->IsSeeding() )
 		{
 			LoadString( strAction, IDS_STATUS_SEEDING );
 			strText += _T("  (") + strAction + _T(")");
@@ -501,13 +487,40 @@ void CDownloadMonitorDlg::OnTimer( UINT_PTR nIDEvent )
 		Update( &m_wndVolume, strText );
 	}
 
-	if ( ! strAction.GetLength() )
+	if ( strAction.IsEmpty() )
 		LoadString( strAction, IDS_MONITOR_ACTION_CANCEL );
 	Update( &m_wndAction, strAction );
 	Update( &m_wndAutoClose, ! bCompleted );
 
 	CClientDC dc( this );
 	DoPaint( dc );
+
+	// AppBar on Windows 7
+	if ( theApp.m_nWinVer >= WIN_7 )
+	{
+		static bool bProgressShown = false;
+
+		QWORD nTotal = m_pDownload->m_nSize, nComplete = m_pDownload->GetVolumeComplete();
+		if ( nTotal && nTotal != nComplete && ! m_pDownload->IsPaused() )
+		{
+			bProgressShown = true;
+
+			CComPtr< ITaskbarList3 > pTaskbar;
+			if ( SUCCEEDED( pTaskbar.CoCreateInstance( CLSID_TaskbarList ) ) )
+			{
+				pTaskbar->SetProgressState( GetSafeHwnd(), TBPF_NORMAL );
+				pTaskbar->SetProgressValue( GetSafeHwnd(), nComplete, nTotal );
+			}
+		}
+		else if ( bProgressShown )
+		{
+			bProgressShown = false;
+
+			CComPtr< ITaskbarList3 > pTaskbar;
+			if ( SUCCEEDED( pTaskbar.CoCreateInstance( CLSID_TaskbarList ) ) )
+				pTaskbar->SetProgressState( GetSafeHwnd(), TBPF_NOPROGRESS );
+		}
+	}
 }
 
 void CDownloadMonitorDlg::Update(CWnd* pWnd, LPCTSTR pszText)

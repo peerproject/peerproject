@@ -1,7 +1,7 @@
 //
 // PageExpert.cpp
 //
-// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2011
+// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2012
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
@@ -21,7 +21,6 @@
 
 #include "StdAfx.h"
 #include "TorrentWizard.h"
-#include "TorrentBuilder.h"
 #include "PageExpert.h"
 #include "PagePackage.h"
 #include "PageSingle.h"
@@ -29,6 +28,11 @@
 #include "PageComment.h"
 #include "PageOutput.h"
 #include "PageFinished.h"
+#ifdef _PORTABLE
+#include "Portable\TorrentBuilder.h"
+#else
+#include "TorrentBuilder.h"
+#endif
 
 
 #ifdef _DEBUG
@@ -56,15 +60,15 @@ END_MESSAGE_MAP()
 // CExpertPage property page
 
 CExpertPage::CExpertPage() : CWizardPage(CExpertPage::IDD)
+	, m_hImageList	( NULL )
 {
 	//{{AFX_DATA_INIT(CExpertPage)
-	m_hImageList = NULL;
 	//}}AFX_DATA_INIT
 }
 
-CExpertPage::~CExpertPage()
-{
-}
+//CExpertPage::~CExpertPage()
+//{
+//}
 
 void CExpertPage::DoDataExchange(CDataExchange* pDX)
 {
@@ -347,9 +351,11 @@ void CExpertPage::OnBrowseFolder()
 
 void CExpertPage::OnItemChangedFileList(NMHDR* /*pNMHDR*/, LRESULT* pResult)
 {
-//	NM_LISTVIEW* pNMListView = (NM_LISTVIEW*)pNMHDR;
-	*pResult = 0;
+	//NM_LISTVIEW* pNMListView = (NM_LISTVIEW*)pNMHDR;	// For reference
+
 	m_wndRemove.EnableWindow( m_wndList.GetSelectedCount() > 0 );
+
+	*pResult = 0;
 }
 
 void CExpertPage::OnDropFiles( HDROP hDropInfo )

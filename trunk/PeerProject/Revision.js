@@ -63,7 +63,7 @@ catch(e)
 	var text = svnfile.ReadAll();
 	svnfile.Close();
 
-	var re = /!svn\/ver\/(\d+)\/trunk\/PeerProject\)/gi;
+	var re = /normaldir.{60,90}?\/!svn\/ver\/(\d+)\/(?:trunk\/)?PeerProject\)/gi;
 	var result = re.exec( text );
 
 	while ( result != null )

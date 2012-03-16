@@ -32,6 +32,7 @@
 #include "SharedFile.h"
 #include "SharedFolder.h"
 #include "ShellIcons.h"
+#include "Skin.h"	// Win7+
 #include "XML.h"
 
 #ifdef _DEBUG
@@ -154,8 +155,9 @@ CLibraryFolder* CLibraryFolders::AddFolder(LPCTSTR pszPath)
 
 	CQuickLock oLock( Library.m_pSection );
 
-	if ( IsFolderShared( strPath ) ) return NULL;
-	if ( IsSubFolderShared( strPath ) ) return NULL;
+	if ( GetFolder( strPath ) ) return NULL;
+//	if ( IsFolderShared( strPath ) ) return NULL;
+//	if ( IsSubFolderShared( strPath ) ) return NULL;
 
 	CLibraryFolder* pFolder = new CLibraryFolder( NULL, strPath );
 	if ( ! pFolder ) return NULL;
@@ -165,13 +167,12 @@ CLibraryFolder* CLibraryFolders::AddFolder(LPCTSTR pszPath)
 	for ( POSITION pos = GetFolderIterator() ; pos ; )
 	{
 		POSITION posAdd = pos;
+		if ( GetNextFolder( pos )->m_sName.CompareNoCase( pFolder->m_sName ) < 0 )
+			continue;
 
-		if ( GetNextFolder( pos )->m_sName.CompareNoCase( pFolder->m_sName ) >= 0 )
-		{
-			m_pFolders.InsertBefore( posAdd, pFolder );
-			bAdded = TRUE;
-			break;
-		}
+		m_pFolders.InsertBefore( posAdd, pFolder );
+		bAdded = TRUE;
+		break;
 	}
 
 	if ( ! bAdded )
@@ -180,6 +181,8 @@ CLibraryFolder* CLibraryFolders::AddFolder(LPCTSTR pszPath)
 	pFolder->Maintain( TRUE );
 
 	Library.Update( true );
+
+	Maintain();		// desktop.ini
 
 	return pFolder;
 }
@@ -302,6 +305,8 @@ BOOL CLibraryFolders::RemoveFolder(CLibraryFolder* pFolder)
 
 	Library.Update( true );
 
+	Maintain();		// desktop.ini
+
 	return TRUE;
 }
 
@@ -310,27 +315,28 @@ BOOL CLibraryFolders::RemoveFolder(CLibraryFolder* pFolder)
 
 CLibraryFolder* CLibraryFolders::IsFolderShared(const CString& strPath) const
 {
-	CQuickLock oLock( Library.m_pSection );
-
 	// Convert path to lowercase
-	CString strPathLC( strPath );
-	ToLower( strPathLC );
+	CString strPathLow( strPath );
+	ToLower( strPathLow );
+	const int nPathLength = strPathLow.GetLength();
+
+	CQuickLock oLock( Library.m_pSection );
 
 	for ( POSITION pos = GetFolderIterator() ; pos ; )
 	{
 		CLibraryFolder* pFolder = GetNextFolder( pos );
 
-		CString strOldLC( pFolder->m_sPath );
-		ToLower( strOldLC );
+		CString strOldLow( pFolder->m_sPath );
+		ToLower( strOldLow );
+		const int nLength = strOldLow.GetLength();
 
-		if ( strPathLC.GetLength() > strOldLC.GetLength() )
+		if ( nPathLength > nLength )
 		{
-			int nLength = strOldLC.GetLength();
-			if ( strPathLC.Left( nLength ) == strOldLC &&
-				 strPathLC.GetAt( nLength ) == _T('\\') )
+			if ( strPathLow.Left( nLength ) == strOldLow &&
+				 strPathLow.GetAt( nLength ) == _T('\\') )
 				return pFolder;
 		}
-		else if ( strPathLC == strOldLC )
+		else if ( strPathLow == strOldLow )
 		{
 			return pFolder;
 		}
@@ -344,25 +350,25 @@ CLibraryFolder* CLibraryFolders::IsFolderShared(const CString& strPath) const
 
 CLibraryFolder* CLibraryFolders::IsSubFolderShared(const CString& strPath) const
 {
-	CQuickLock oLock( Library.m_pSection );
-
 	// Convert path to lowercase
-	CString strPathLC( strPath );
-	ToLower( strPathLC );
+	CString strPathLow( strPath );
+	ToLower( strPathLow );
+	const int nLength = strPathLow.GetLength();
+
+	CQuickLock oLock( Library.m_pSection );
 
 	for ( POSITION pos = GetFolderIterator() ; pos ; )
 	{
 		CLibraryFolder* pFolder = GetNextFolder( pos );
 
-		CString strOldLC( pFolder->m_sPath );
-		ToLower( strOldLC );
+		CString strOldLow( pFolder->m_sPath );
+		ToLower( strOldLow );
 
-		if ( strPathLC.GetLength() < strOldLC.GetLength() )
+		if ( nLength < strOldLow.GetLength() )
 		{
-			int nLength = strPathLC.GetLength();
-			if ( strOldLC.Left( nLength ) == strPathLC &&
-				 strOldLC.GetAt( nLength ) == _T('\\') )
-				 return pFolder;
+			if ( strOldLow.Left( nLength ) == strPathLow &&
+				 strOldLow.GetAt( nLength ) == _T('\\') )
+				return pFolder;
 		}
 	}
 
@@ -375,35 +381,37 @@ CLibraryFolder* CLibraryFolders::IsSubFolderShared(const CString& strPath) const
 bool CLibraryFolders::IsShareable(const CString& strPath)
 {
 	// Convert path to lowercase
-	CString strPathLC( strPath );
-	ToLower( strPathLC );
+	CString strPathLow( strPath );
+	if ( strPathLow.IsEmpty() ) return false;
+	ToLower( strPathLow );
 
 	// Get system paths (to compare)
-	CString strWindowsLC( theApp.GetWindowsFolder() );
-	ToLower( strWindowsLC );
+	CString strWindowsLow( theApp.GetWindowsFolder() );
+	ToLower( strWindowsLow );
 
-	CString strProgramsLC( theApp.GetProgramFilesFolder() );
-	ToLower( strProgramsLC );
+	CString strProgramsLow( theApp.GetProgramFilesFolder() );
+	ToLower( strProgramsLow );
 
 	// Get various PeerProject paths (to compare)
-	CString strIncompletePathLC = Settings.Downloads.IncompletePath;
-	ToLower( strIncompletePathLC );
+	CString strIncompletePathLow = Settings.Downloads.IncompletePath;
+	ToLower( strIncompletePathLow );
 
-	CString strGeneralPathLC = Settings.General.Path;
-	ToLower( strGeneralPathLC );
+	CString strGeneralPathLow = Settings.General.Path;
+	ToLower( strGeneralPathLow );
 
-	CString strUserPathLC = Settings.General.UserPath;
-	ToLower( strUserPathLC );
+	CString strUserPathLow = Settings.General.UserPath;
+	ToLower( strUserPathLow );
 
-	return ! ( strPathLC == _T( "" ) ||
-		 strPathLC == strWindowsLC.Left( 3 ) ||
-		 strPathLC == strProgramsLC ||
-		 strPathLC == strWindowsLC ||
-		 strPathLC == strGeneralPathLC ||
-		 strPathLC == strGeneralPathLC + _T("\\data") ||
-		 strPathLC == strUserPathLC ||
-		 strPathLC == strUserPathLC + _T("\\data") ||
-		 strPathLC == strIncompletePathLC );
+	return ! (
+		 strPathLow == strWindowsLow.Left( 3 ) ||
+		 strPathLow == strWindowsLow.Left( 2 ) ||
+		 strPathLow == strWindowsLow ||
+		 strPathLow == strProgramsLow ||
+		 strPathLow == strGeneralPathLow ||
+		 strPathLow == strGeneralPathLow + _T("\\data") ||
+		 strPathLow == strUserPathLow ||
+		 strPathLow == strUserPathLow + _T("\\data") ||
+		 strPathLow == strIncompletePathLow );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -411,7 +419,7 @@ bool CLibraryFolders::IsShareable(const CString& strPath)
 
 CAlbumFolder* CLibraryFolders::GetAlbumRoot() const
 {
-	//ASSUME_LOCK( Library.m_pSection );
+	ASSUME_LOCK( Library.m_pSection );
 
 	return m_pAlbumRoot;
 }
@@ -702,8 +710,6 @@ void CLibraryFolders::Serialize(CArchive& ar, int nVersion)
 			CLibraryFolder* pFolder = new CLibraryFolder( NULL );
 			pFolder->Serialize( ar, nVersion );
 			m_pFolders.AddTail( pFolder );
-
-			pFolder->Maintain( TRUE );
 		}
 	}
 
@@ -715,9 +721,45 @@ void CLibraryFolders::Maintain()
 {
 	CQuickLock oLock( Library.m_pSection );
 
+	// Update desktop.ini's only
+	if ( ! Settings.Library.UseWindowsLibrary || theApp.m_nWinVer < WIN_7 )
+	{
+		for ( POSITION pos = GetFolderIterator() ; pos ; )
+		{
+			GetNextFolder( pos )->Maintain( TRUE );
+		}
+		return;
+	}
+
+	// Update Windows 7/8 Libraries too
+
+	CComPtr< IShellLibrary > pIShellLib;
+	pIShellLib.CoCreateInstance( CLSID_ShellLibrary );
+
 	for ( POSITION pos = GetFolderIterator() ; pos ; )
 	{
-		GetNextFolder( pos )->Maintain( TRUE );
+		CLibraryFolder* pFolder = GetNextFolder( pos );
+
+		pFolder->Maintain( TRUE );
+
+		if ( pIShellLib && theApp.m_pfnSHCreateItemFromParsingName )
+		{
+			CComPtr< IShellItem > psiFolder;
+			theApp.m_pfnSHCreateItemFromParsingName( (LPCWSTR)CT2W( pFolder->m_sPath ), NULL, IID_PPV_ARGS( &psiFolder ) );
+			if ( psiFolder )
+				pIShellLib->AddFolder( psiFolder );
+		}
+	}
+
+	if ( pIShellLib )
+	{
+		LPCTSTR pszPath = Settings.General.Path + L"\\Schemas\\WindowsLibrary.ico";
+		if ( ! PathFileExists( pszPath ) )
+			pszPath = (LPCWSTR)CT2W( Skin.GetImagePath( IDI_COLLECTION ) );
+		pIShellLib->SetIcon( pszPath );
+
+		CComPtr< IShellItem > psiLibrary;
+		pIShellLib->SaveInKnownFolder( FOLDERID_UsersLibraries, CLIENT_NAME, LSF_OVERRIDEEXISTING, &psiLibrary );
 	}
 }
 

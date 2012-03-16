@@ -1,7 +1,7 @@
 //
 // CtrlLibraryMetaPanel.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -19,7 +19,7 @@
 #pragma once
 
 #include "CtrlPanel.h"
-#include "MetaPanel.h"
+
 
 class CSchema;
 class CLibraryFile;
@@ -35,38 +35,39 @@ public:
 	CLibraryMetaPanel();
 	virtual ~CLibraryMetaPanel();
 
+public:
 	virtual void Update();
 
-	BOOL		SetServicePanel(CMetaPanel* pPanel);
-	CMetaPanel*	GetServicePanel();
+	BOOL		SetServicePanel(CMetaList* pPanel);
+	CMetaList*	GetServicePanel();
 
 protected:
-	int				m_nSelected;
-	DWORD			m_nIndex;
-	CString			m_sName;
-	CString			m_sPath;
-	CString			m_sFolder;
-	CString			m_sType;
-	CString			m_sSize;
-	int				m_nIcon32;
-	int				m_nIcon48;
-	int				m_nRating;
-	CSchemaPtr		m_pSchema;
-	CMetaPanel*		m_pMetadata;
-	CMetaPanel*		m_pServiceData;
+	int			m_nSelected;
+	DWORD		m_nIndex;
+	CString		m_sName;
+	CString		m_sPath;		// Current file path
+	CString		m_sFolder;
+	CString		m_sType;
+	CString		m_sSize;
+	int			m_nIcon32;
+	int			m_nIcon48;
+	int			m_nRating;
+	CSchemaPtr	m_pSchema;
+	CMetaList*	m_pMetadata;
+	CMetaList*	m_pServiceData;
 	CCriticalSection m_pSection;
-	CRect			m_rcFolder;
-	CRect			m_rcRating;
-	BOOL			m_bForceUpdate;
-	CString			m_sThumbnailURL;	// Use this URL to load thumbnail instead
-	CString			m_sThumb;			// Loaded thumbnail file path or URL
-	CBitmap			m_bmThumb;
+	CRect		m_rcFolder;
+	CRect		m_rcRating;
+	BOOL		m_bForceUpdate;
+//	CString		m_sThumbnailURL;	// Use this URL to load thumbnail instead
+	CString		m_sThumb;			// Loaded thumbnail file path or URL
+	CBitmap		m_bmThumb;
 
 	const CLibraryList*	GetViewSelection() const;
 
-	void	DrawText(CDC* pDC, int nX, int nY, LPCTSTR pszText, RECT* pRect = NULL, int nMaxWidth = -1);
+	void		DrawText(CDC* pDC, int nX, int nY, LPCTSTR pszText, RECT* pRect = NULL, int nMaxWidth = -1);
 
-	void	OnRun();
+	void		OnRun();
 
 	afx_msg void OnPaint();
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);

@@ -1,7 +1,7 @@
 //
 // DlgMessage.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2009-2011
+// This file is part of PeerProject (peerproject.org) © 2009-2012
 // Portions copyright Shareaza Development Team, 2009.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -24,7 +24,7 @@
 #include "Skin.h"
 
 
-// CMessageDlg dialog
+// CMessageDlg dialog  (AfxMessageBox replacement)
 
 IMPLEMENT_DYNAMIC(CMessageDlg, CSkinDialog)
 
@@ -33,6 +33,9 @@ CMessageDlg::CMessageDlg(CWnd* pParent /*=NULL*/)
 	, m_nType		( MB_OK )
 	, m_bRemember	( FALSE )
 	, m_pnDefault	( NULL )
+	, m_nDefButton	( 0 )
+	, m_nTimer		( 0 )
+	, m_nIDHelp		( 0 )
 {
 }
 
@@ -143,14 +146,13 @@ BOOL CMessageDlg::OnInitDialog()
 		m_pButton3.ShowWindow( SW_HIDE );
 		nButtons = 2;
 		break;
-	case MB_ABORTRETRYIGNORE:
-		m_pButton1.SetWindowText( LoadString( IDS_GENERAL_IGNORE ) );
+	case MB_YESNO:
+		m_pButton1.SetWindowText( LoadString( IDS_GENERAL_NO ) );
 		m_pButton1.ShowWindow( SW_NORMAL );
-		m_pButton2.SetWindowText( LoadString( IDS_GENERAL_RETRY ) );
+		m_pButton2.SetWindowText( LoadString( IDS_GENERAL_YES ) );
 		m_pButton2.ShowWindow( SW_NORMAL );
-		m_pButton3.SetWindowText( LoadString( IDS_GENERAL_ABORT ) );
-		m_pButton3.ShowWindow( SW_NORMAL );
-		nButtons = 3;
+		m_pButton3.ShowWindow( SW_HIDE );
+		nButtons = 2;
 		break;
 	case MB_YESNOCANCEL:
 		m_pButton1.SetWindowText( LoadString( IDS_GENERAL_CANCEL ) );
@@ -160,14 +162,6 @@ BOOL CMessageDlg::OnInitDialog()
 		m_pButton3.SetWindowText( LoadString( IDS_GENERAL_YES ) );
 		m_pButton3.ShowWindow( SW_NORMAL );
 		nButtons = 3;
-		break;
-	case MB_YESNO:
-		m_pButton1.SetWindowText( LoadString( IDS_GENERAL_NO ) );
-		m_pButton1.ShowWindow( SW_NORMAL );
-		m_pButton2.SetWindowText( LoadString( IDS_GENERAL_YES ) );
-		m_pButton2.ShowWindow( SW_NORMAL );
-		m_pButton3.ShowWindow( SW_HIDE );
-		nButtons = 2;
 		break;
 	case MB_RETRYCANCEL:
 		m_pButton1.SetWindowText( LoadString( IDS_GENERAL_CANCEL ) );
@@ -186,44 +180,58 @@ BOOL CMessageDlg::OnInitDialog()
 		m_pButton3.ShowWindow( SW_NORMAL );
 		nButtons = 3;
 		break;
+	case MB_ABORTRETRYIGNORE:
+		m_pButton1.SetWindowText( LoadString( IDS_GENERAL_IGNORE ) );
+		m_pButton1.ShowWindow( SW_NORMAL );
+		m_pButton2.SetWindowText( LoadString( IDS_GENERAL_RETRY ) );
+		m_pButton2.ShowWindow( SW_NORMAL );
+		m_pButton3.SetWindowText( LoadString( IDS_GENERAL_ABORT ) );
+		m_pButton3.ShowWindow( SW_NORMAL );
+		nButtons = 3;
+		break;
 	}
 
 	switch ( m_nType & MB_DEFMASK )
 	{
 	case MB_DEFBUTTON1:
-		switch ( nButtons )
-		{
-		case 1:
-			m_pButton1.SetButtonStyle( m_pButton1.GetButtonStyle() | BS_DEFPUSHBUTTON );
-			m_pButton1.SetFocus();
-			break;
-		case 2:
-			m_pButton2.SetButtonStyle( m_pButton2.GetButtonStyle() | BS_DEFPUSHBUTTON );
-			m_pButton2.SetFocus();
-			break;
-		case 3:
-			m_pButton3.SetButtonStyle( m_pButton3.GetButtonStyle() | BS_DEFPUSHBUTTON );
-			m_pButton3.SetFocus();
-			break;
-		}
+		m_nDefButton = nButtons;
 		break;
 	case MB_DEFBUTTON2:
 		switch ( nButtons )
 		{
 		case 1:
 		case 2:
-			m_pButton1.SetButtonStyle( m_pButton1.GetButtonStyle() | BS_DEFPUSHBUTTON );
-			m_pButton1.SetFocus();
+			m_nDefButton = 1;
 			break;
 		case 3:
-			m_pButton2.SetButtonStyle( m_pButton2.GetButtonStyle() | BS_DEFPUSHBUTTON );
-			m_pButton2.SetFocus();
+			m_nDefButton = 2;
 			break;
 		}
 		break;
 	case MB_DEFBUTTON3:
+		m_nDefButton = 1;
+		break;
+	}
+
+	switch ( m_nDefButton )
+	{
+	case 1:
 		m_pButton1.SetButtonStyle( m_pButton1.GetButtonStyle() | BS_DEFPUSHBUTTON );
 		m_pButton1.SetFocus();
+		if ( nButtons > 1 ) m_pButton2.SetButtonStyle( BS_PUSHBUTTON );
+		if ( nButtons > 2 ) m_pButton3.SetButtonStyle( BS_PUSHBUTTON );
+		break;
+	case 2:
+		m_pButton2.SetButtonStyle( m_pButton2.GetButtonStyle() | BS_DEFPUSHBUTTON );
+		m_pButton2.SetFocus();
+		m_pButton1.SetButtonStyle( BS_PUSHBUTTON );
+		if ( nButtons > 2 ) m_pButton3.SetButtonStyle( BS_PUSHBUTTON );
+		break;
+	case 3:
+		m_pButton3.SetButtonStyle( m_pButton3.GetButtonStyle() | BS_DEFPUSHBUTTON );
+		m_pButton3.SetFocus();
+		m_pButton1.SetButtonStyle( BS_PUSHBUTTON );
+		m_pButton2.SetButtonStyle( BS_PUSHBUTTON );
 		break;
 	}
 
@@ -233,15 +241,21 @@ BOOL CMessageDlg::OnInitDialog()
 	m_pSplit.ShowWindow( m_pnDefault ? SW_NORMAL : SW_HIDE );
 	m_pDefault.ShowWindow( m_pnDefault ? SW_NORMAL : SW_HIDE );
 
+	if ( m_nTimer > 0 )
+		SetTimer( 1, 1000, NULL );
+
 	return FALSE;
 }
 
 void CMessageDlg::OnOK()
 {
+	StopTimer();
 }
 
 void CMessageDlg::OnCancel()
 {
+	StopTimer();
+
 	switch ( m_nType & MB_TYPEMASK )
 	{
 	case MB_OK:
@@ -266,6 +280,7 @@ BEGIN_MESSAGE_MAP(CMessageDlg, CSkinDialog)
 	ON_BN_CLICKED(IDC_INFO_BUTTON1, &CMessageDlg::OnBnClickedButton1)
 	ON_BN_CLICKED(IDC_INFO_BUTTON2, &CMessageDlg::OnBnClickedButton2)
 	ON_BN_CLICKED(IDC_INFO_BUTTON3, &CMessageDlg::OnBnClickedButton3)
+	ON_WM_TIMER()
 END_MESSAGE_MAP()
 
 // CMessageDlg message handlers
@@ -273,6 +288,7 @@ END_MESSAGE_MAP()
 void CMessageDlg::OnBnClickedButton1()
 {
 	UpdateData();
+	StopTimer();
 
 	switch ( m_nType & MB_TYPEMASK )
 	{
@@ -299,6 +315,7 @@ void CMessageDlg::OnBnClickedButton1()
 void CMessageDlg::OnBnClickedButton2()
 {
 	UpdateData();
+	StopTimer();
 
 	switch ( m_nType & MB_TYPEMASK )
 	{
@@ -324,6 +341,7 @@ void CMessageDlg::OnBnClickedButton2()
 void CMessageDlg::OnBnClickedButton3()
 {
 	UpdateData();
+	StopTimer();
 
 	switch ( m_nType & MB_TYPEMASK )
 	{
@@ -357,14 +375,12 @@ INT_PTR CMessageDlg::DoModal()
 			if ( *m_pnDefault == 2 )
 				return IDCANCEL;
 			break;
-		case MB_ABORTRETRYIGNORE:
-			// 0 - ask, 1 - abort, 2 - retry, 3 - ignore
+		case MB_YESNO:
+			// 0 - ask, 1 - no, 2 - yes
 			if ( *m_pnDefault == 1 )
-				return IDABORT;
+				return IDNO;
 			if ( *m_pnDefault == 2 )
-				return IDRETRY;
-			if ( *m_pnDefault == 3 )
-				return IDIGNORE;
+				return IDYES;
 			break;
 		case MB_YESNOCANCEL:
 			// 0 - ask, 1 - no, 2 - yes, 3 - cancel
@@ -374,13 +390,6 @@ INT_PTR CMessageDlg::DoModal()
 				return IDYES;
 			if ( *m_pnDefault == 3 )
 				return IDCANCEL;
-			break;
-		case MB_YESNO:
-			// 0 - ask, 1 - no, 2 - yes
-			if ( *m_pnDefault == 1 )
-				return IDNO;
-			if ( *m_pnDefault == 2 )
-				return IDYES;
 			break;
 		case MB_RETRYCANCEL:
 			// 0 - ask, 1 - retry, 2 - cancel
@@ -397,6 +406,15 @@ INT_PTR CMessageDlg::DoModal()
 				return IDTRYAGAIN;
 			if ( *m_pnDefault == 3 )
 				return IDCONTINUE;
+			break;
+		case MB_ABORTRETRYIGNORE:
+			// 0 - ask, 1 - abort, 2 - retry, 3 - ignore
+			if ( *m_pnDefault == 1 )
+				return IDABORT;
+			if ( *m_pnDefault == 2 )
+				return IDRETRY;
+			if ( *m_pnDefault == 3 )
+				return IDIGNORE;
 			break;
 		}
 	}
@@ -420,13 +438,11 @@ INT_PTR CMessageDlg::DoModal()
 			else if ( nResult == IDCANCEL )
 				*m_pnDefault = 2;
 			break;
-		case MB_ABORTRETRYIGNORE:
-			if ( nResult == IDABORT )
+		case MB_YESNO:
+			if ( nResult == IDNO )
 				*m_pnDefault = 1;
-			else if ( nResult == IDRETRY )
+			else if ( nResult == IDYES )
 				*m_pnDefault = 2;
-			else if ( nResult == IDIGNORE )
-				*m_pnDefault = 3;
 			break;
 		case MB_YESNOCANCEL:
 			if ( nResult == IDNO )
@@ -435,12 +451,6 @@ INT_PTR CMessageDlg::DoModal()
 				*m_pnDefault = 2;
 			else if ( nResult == IDCANCEL )
 				*m_pnDefault = 3;
-			break;
-		case MB_YESNO:
-			if ( nResult == IDNO )
-				*m_pnDefault = 1;
-			else if ( nResult == IDYES )
-				*m_pnDefault = 2;
 			break;
 		case MB_RETRYCANCEL:
 			if ( nResult == IDRETRY )
@@ -456,22 +466,125 @@ INT_PTR CMessageDlg::DoModal()
 			else if ( nResult == IDCONTINUE )
 				*m_pnDefault = 3;
 			break;
+		case MB_ABORTRETRYIGNORE:
+			if ( nResult == IDABORT )
+				*m_pnDefault = 1;
+			else if ( nResult == IDRETRY )
+				*m_pnDefault = 2;
+			else if ( nResult == IDIGNORE )
+				*m_pnDefault = 3;
+			break;
 		}
 	}
 
 	return nResult;
 }
 
-INT_PTR MsgBox(LPCTSTR lpszText, UINT nType, UINT /*nIDHelp*/, DWORD* pnDefault)
+void CMessageDlg::OnTimer(UINT_PTR nIDEvent)
 {
-	CMessageDlg dlg;
-	dlg.m_nType = nType;
-	dlg.m_sText = lpszText;
-	dlg.m_pnDefault = pnDefault;
-	return dlg.DoModal();
+	if ( nIDEvent == 1 )
+	{
+		if ( m_nTimer )
+			m_nTimer--;
+
+		UpdateTimer();
+
+		if ( ! m_nTimer )
+		{
+			// Press the button
+			switch ( m_nDefButton )
+			{
+			case 1:
+				OnBnClickedButton1();
+				break;
+			case 2:
+				OnBnClickedButton2();
+				break;
+			case 3:
+				OnBnClickedButton3();
+				break;
+			}
+		}
+
+		return;
+	}
+
+	CSkinDialog::OnTimer( nIDEvent );
 }
 
-INT_PTR MsgBox(UINT nIDPrompt, UINT nType, UINT /*nIDHelp*/, DWORD* pnDefault)
+void CMessageDlg::UpdateTimer()
 {
-	return MsgBox( LoadString( nIDPrompt ), nType, NULL, pnDefault );
+	if ( m_nTimer > 10 )
+		return;
+
+	CButton* pButton = NULL;
+	switch ( m_nDefButton )
+	{
+	case 1:
+		pButton = &m_pButton1;
+		break;
+	case 2:
+		pButton = &m_pButton2;
+		break;
+	case 3:
+		pButton = &m_pButton3;
+		break;
+	}
+
+	CString strText;
+	pButton->GetWindowText( strText );
+	int nPos = strText.Find( _T(" (") );
+	if ( nPos != -1 )
+		strText = strText.Left( nPos );
+
+	if ( m_nTimer > 0 )
+	{
+		CString strNewText;
+		strNewText.Format( _T("%s (%u)"), strText, m_nTimer - 1 );
+		pButton->SetWindowText( strNewText );
+	}
+	else
+	{
+		pButton->SetWindowText( strText );
+	}
+
+	pButton->UpdateWindow();
 }
+
+void CMessageDlg::StopTimer()
+{
+	m_nTimer = 0;
+	KillTimer( 1 );
+	UpdateTimer();
+}
+
+BOOL CMessageDlg::PreTranslateMessage(MSG* pMsg)
+{
+	if ( pMsg->message == WM_LBUTTONDOWN ||
+		 pMsg->message == WM_NCLBUTTONDOWN ||
+		 pMsg->message == WM_RBUTTONDOWN ||
+		 pMsg->message == WM_NCRBUTTONDOWN ||
+		 pMsg->message == WM_KEYDOWN ||
+		 pMsg->message == WM_SYSKEYDOWN )
+	{
+		if ( m_nTimer )
+			StopTimer();
+	}
+
+	return CSkinDialog::PreTranslateMessage(pMsg);
+}
+
+// Moved to PeerProject.cpp:
+//INT_PTR MsgBox(LPCTSTR lpszText, UINT nType, UINT /*nIDHelp*/, DWORD* pnDefault, DWORD nTimer)
+//{
+//	CMessageDlg dlg;
+//	dlg.m_nType = nType;
+//	dlg.m_sText = lpszText;
+//	dlg.m_pnDefault = pnDefault;
+//	return dlg.DoModal();
+//}
+//
+//INT_PTR MsgBox(UINT nIDPrompt, UINT nType, UINT /*nIDHelp*/, DWORD* pnDefault, DWORD nTimer)
+//{
+//	return MsgBox( LoadString( nIDPrompt ), nType, NULL, pnDefault );
+//}

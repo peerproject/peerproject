@@ -1,7 +1,7 @@
 //
 // PageWelcome.cpp
 //
-// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008
+// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008,2012
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
@@ -49,9 +49,9 @@ CWelcomePage::CWelcomePage() : CWizardPage(CWelcomePage::IDD)
 	//}}AFX_DATA_INIT
 }
 
-CWelcomePage::~CWelcomePage()
-{
-}
+//CWelcomePage::~CWelcomePage()
+//{
+//}
 
 void CWelcomePage::DoDataExchange(CDataExchange* pDX)
 {
@@ -70,9 +70,20 @@ void CWelcomePage::OnReset()
 	UpdateData( FALSE );
 }
 
-BOOL CWelcomePage::OnSetActive() 
+BOOL CWelcomePage::OnSetActive()
 {
 	SetWizardButtons( PSWIZB_NEXT );
+
+//	GetSheet()->GetDlgItem( 2 )->EnableWindow( TRUE );
+
+	if ( ! theApp.m_sCommandLineSourceFile.IsEmpty() )
+	{
+		m_nType = PathIsDirectory( theApp.m_sCommandLineSourceFile ) ? 1 : 0;
+		Next();
+	}
+
+	UpdateData( FALSE );
+
 	return CWizardPage::OnSetActive();
 }
 
@@ -82,12 +93,12 @@ void CWelcomePage::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint /*point*/
 		GetSheet()->PressButton( PSBTN_NEXT );
 }
 
-LRESULT CWelcomePage::OnWizardNext() 
+LRESULT CWelcomePage::OnWizardNext()
 {
 	UpdateData();
 
 	theApp.WriteProfileInt( _T(""), _T("Mode"), m_nType );
-	
+
 	if ( m_nType == 0 )
 		return IDD_SINGLE_PAGE;
 	if ( m_nType == 1 )
@@ -102,8 +113,8 @@ LRESULT CWelcomePage::OnWizardNext()
 //LRESULT CWelcomePage::OnExpertMode()
 //{
 //	UpdateData();
-	
+//
 //	m_nType = 2;
-
+//
 //	return IDD_EXPERT_PAGE;
 //}

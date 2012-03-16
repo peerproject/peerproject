@@ -1,7 +1,7 @@
 //
 // CtrlLibraryTip.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -109,7 +109,7 @@ BOOL CLibraryTipCtrl::OnPrepare()
 
 	// Type information and icons
 	m_sType = ShellIcons.GetTypeString( m_sName );
-	m_nIcon = ShellIcons.Get( m_sName, 48 );
+	m_nIcon = ShellIcons.Get( m_sPath.IsEmpty() ? m_sName : m_sPath, 48 );
 
 	// URN
 	if ( Settings.General.GUIMode != GUI_BASIC )
@@ -210,8 +210,8 @@ void CLibraryTipCtrl::OnCalcSize(CDC* pDC)
 	m_pMetadata.ComputeWidth( pDC, m_nKeyWidth, nValueWidth );
 
 	if ( m_nKeyWidth ) m_nKeyWidth += TIP_GAP;
-	m_sz.cx =  min( max( m_sz.cx, m_nKeyWidth + nValueWidth +
-		(int)Settings.Library.ThumbSize + 16 ), GetSystemMetrics( SM_CXSCREEN ) / 2 );
+	m_sz.cx = min( max( m_sz.cx, (LONG)m_nKeyWidth + nValueWidth +
+		(LONG)Settings.Library.ThumbSize + 16 ), (LONG)GetSystemMetrics( SM_CXSCREEN ) / 2 );
 	m_sz.cy += max( nMetaHeight, (int)Settings.Library.ThumbSize + 4 );
 	m_sz.cy += 6;
 }

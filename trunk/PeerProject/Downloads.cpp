@@ -48,17 +48,19 @@ CDownloads Downloads;
 // CDownloads construction
 
 CDownloads::CDownloads()
-	: m_tBandwidthAtMax		( 0ul )
-	, m_tBandwidthAtMaxED2K	( 0ul )
-	, m_nTransfers			( 0ul )
-	, m_nBandwidth			( 0ul )
-	, m_tLastConnect		( 0ul )
+	: m_tBandwidthAtMax		( 0 )
+	, m_tBandwidthAtMaxED2K	( 0 )
+	, m_tBandwidthLastCalc	( 0 )
+	, m_tLastConnect		( 0 )
+	, m_nTransfers			( 0 )
+	, m_nBandwidth			( 0 )
+	, m_nComplete			( 0 )
+	, m_nTotal				( 0 )
 	, m_nRunCookie			( 0 )
-	, m_tBandwidthLastCalc	( 0ul )
-	, m_nLimitGeneric		( 0ul )
-	, m_nLimitDonkey		( 0ul )
-	, m_nTryingCount		( 0ul )
-	, m_nBTTryingCount		( 0ul )
+	, m_nLimitGeneric		( 0 )
+	, m_nLimitDonkey		( 0 )
+	, m_nTryingCount		( 0 )
+	, m_nBTTryingCount		( 0 )
 	, m_bAllowMoreDownloads	( true )
 	, m_bAllowMoreTransfers	( true )
 	, m_bClosing			( false )
@@ -128,6 +130,8 @@ CDownload* CDownloads::Add()
 	ASSUME_LOCK( Transfers.m_pSection );
 
 	CDownload* pDownload = new CDownload();
+	if ( ! pDownload ) return NULL;		// Out of memory
+
 	m_pList.AddTail( pDownload );
 	return pDownload;
 }
@@ -965,12 +969,24 @@ void CDownloads::OnRun()
 		// Just run the downloads, don't bother re-calulating bandwidth
 		++m_nRunCookie;
 
+		QWORD nComplete = 0, nTotal = 0;
 		for ( POSITION pos = GetIterator() ; pos ; )
 		{
 			CDownload* pDownload = GetNext( pos );
+
+			if ( pDownload->m_nSize > 0 && pDownload->m_nSize < SIZE_UNKNOWN &&
+				! pDownload->IsSeeding() && ! pDownload->IsComplete() && ! pDownload->IsPaused() && ! pDownload->IsMoving() )
+			{
+				nComplete += pDownload->GetVolumeComplete();
+				nTotal += pDownload->m_nSize;
+			}
+
 			pDownload->m_nRunCookie = m_nRunCookie;
 			pDownload->OnRun();
 		}
+
+		m_nComplete = nComplete;
+		m_nTotal = nTotal;
 
 		return;
 	}

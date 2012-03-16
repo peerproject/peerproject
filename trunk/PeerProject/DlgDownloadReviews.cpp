@@ -1,7 +1,7 @@
 //
 // DlgDownloadReviews.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -127,10 +127,8 @@ BOOL CDownloadReviewDlg::OnInitDialog()
 		pItem->Set( 0, pReview->m_sUserName );
 
 		int nRating = min( pReview->m_nFileRating, 6 );
-		nRating = max ( nRating, 0 );
-		CString strRating;
-		LoadString( strRating, IDS_RATING_NONE + nRating );
-		pItem->Set( 1, strRating );
+		nRating = max( nRating, 0 );
+		pItem->Set( 1, LoadString( IDS_RATING_NONE + nRating ) );	// IDS_RATING_1...
 
 		pItem->Set( 2, pReview->m_sFileComments );
 		pItem->Format( 3, _T("%i"), nIndex );

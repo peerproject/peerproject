@@ -1,7 +1,7 @@
 //
 // PageSingle.cpp
 //
-// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2010
+// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2012
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
@@ -47,15 +47,12 @@ END_MESSAGE_MAP()
 CSinglePage::CSinglePage() : CWizardPage(CSinglePage::IDD)
 {
 	//{{AFX_DATA_INIT(CSinglePage)
-	m_sFileName = _T("");
-	m_sFileSize = _T("");
-	//m_sMagnet = _T("");
 	//}}AFX_DATA_INIT
 }
 
-CSinglePage::~CSinglePage()
-{
-}
+//CSinglePage::~CSinglePage()
+//{
+//}
 
 void CSinglePage::DoDataExchange(CDataExchange* pDX)
 {
@@ -73,14 +70,27 @@ void CSinglePage::OnReset()
 {
 	m_sFileName.Empty();
 	m_sFileSize.Empty();
+
 	UpdateData( FALSE );
 }
 
 BOOL CSinglePage::OnSetActive()
 {
-	if ( m_sFileName.IsEmpty() ) SetTimer( 1, 25, NULL );
 	SetWizardButtons( PSWIZB_BACK | PSWIZB_NEXT );
-	this->DragAcceptFiles(TRUE);
+	this->DragAcceptFiles( TRUE );
+
+	if ( ! theApp.m_sCommandLineSourceFile.IsEmpty() )
+	{
+		m_sFileName = theApp.m_sCommandLineSourceFile;
+		theApp.m_sCommandLineSourceFile.Empty();
+
+		Next();
+	}
+
+	if ( m_sFileName.IsEmpty() )
+		SetTimer( 1, 25, NULL );
+	else
+		Update();
 
 	return CWizardPage::OnSetActive();
 }
@@ -126,6 +136,11 @@ void CSinglePage::OnBrowseFile()
 
 	m_sFileName = dlg.GetPathName();
 
+	Update();
+}
+
+void CSinglePage::Update()
+{
 	HANDLE hFile = CreateFile( m_sFileName, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL );
 
 	if ( hFile != INVALID_HANDLE_VALUE )
@@ -150,7 +165,7 @@ void CSinglePage::OnBrowseFile()
 	UpdateData( FALSE );
 }
 
-// ToDo: Display Magnet Link in new textbox on file-load
+// ToDo: Display Magnet Link in new textbox on file-load?
 
 LRESULT CSinglePage::OnWizardBack()
 {
@@ -161,8 +176,7 @@ LRESULT CSinglePage::OnWizardNext()
 {
 	UpdateData();
 
-	if ( m_sFileName.IsEmpty() ||
-		 GetFileAttributes( m_sFileName ) == 0xFFFFFFFF )
+	if ( m_sFileName.IsEmpty() || GetFileAttributes( m_sFileName ) == 0xFFFFFFFF )
 	{
 		AfxMessageBox( IDS_SINGLE_NEED_FILE, MB_ICONEXCLAMATION );
 		return -1;

@@ -1,7 +1,7 @@
 //
 // PeerProjectURL.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -36,22 +36,27 @@ public:
 public:
 	enum URI_TYPE
 	{
-		uriNull, uriDownload, uriSource, uriSearch,
-		uriHost, uriBrowse, uriDonkeyServer, uriDiscovery
+		uriNull,
+		uriDownload,
+		uriSource,
+		uriSearch,
+		uriHost,
+		uriBrowse,
+		uriDiscovery
 	};
 
-	PROTOCOLID	m_nProtocol;
-	URI_TYPE	m_nAction;
-	CBTInfo*	m_pTorrent;
-	CString		m_sAddress;
-	IN_ADDR		m_pAddress;
-	WORD		m_nPort;
-	IN_ADDR		m_pServerAddress;
-	WORD		m_nServerPort;
-	BOOL		m_bSize;
-	CString		m_sLogin;
-	CString		m_sPassword;
-	Hashes::BtGuid m_oBTC;
+	PROTOCOLID		m_nProtocol;
+	URI_TYPE		m_nAction;
+	CString			m_sAddress;
+	IN_ADDR			m_pAddress;
+	WORD			m_nPort;
+	IN_ADDR			m_pServerAddress;
+	WORD			m_nServerPort;
+	BOOL			m_bSize;
+	CString			m_sLogin;
+	CString			m_sPassword;
+	CAutoPtr< CBTInfo >	m_pTorrent;
+	Hashes::BtGuid	m_oBTC;
 
 // Operations
 public:
@@ -65,22 +70,27 @@ protected:
 	BOOL	ParseRoot(LPCTSTR pszURL, BOOL bResolve);
 	BOOL	ParseHTTP(LPCTSTR pszURL, BOOL bResolve);
 	BOOL	ParseFTP(LPCTSTR pszURL, BOOL bResolve);
-	BOOL	ParseED2KFTP(LPCTSTR pszURL, BOOL bResolve);	// ed2kftp://[client_id@]address:port/md4_hash/size/
+	BOOL	ParseED2KFTP(LPCTSTR pszURL, BOOL bResolve);	// ed2kftp://[client_id@]address:port/{md4_hash}/{size}/
 	BOOL	ParseDCFile(LPCTSTR pszURL, BOOL bResolve); 	// dcfile://address:port/login/TTH:tiger_hash/size/
 	BOOL	ParseDCHub(LPCTSTR pszURL, BOOL bResolve);  	// dchub://address:port	 (adc://)
-	BOOL	ParseBTC(LPCTSTR pszURL, BOOL bResolve);		// btc://address:port/[node_guid]/btih_hash/
-	BOOL	ParseMagnet(LPCTSTR pszURL);
+	BOOL	ParseBTC(LPCTSTR pszURL, BOOL bResolve);		// btc://address:port/[{node_guid}]/{btih_hash}/
+	BOOL	ParseMagnet(LPCTSTR pszURL);					// magnet:?{params}
+											// Host:		// peerproject:[//]{verb}{[user@]address[:port]}, where {verb} is "" (empty), "host:", "hub:", "server:", "browse:" or "btnode:"
+											// WebCache:	// peerproject:[//]gwc:{url}[?nets={net_list}], where {net_list} is "gnutella" or "gnutella2"
+											// Discovery:	// peerproject:[//]{verb}{url}, where {verb} is "uhc:", "ukhl:", "gnutella1:host:" or "gnutella2:host:"
+											// ServerMet:	// peerproject:[//]meturl:{url}
+											// URL:			// peerproject:[//]url:{nested_url}
 	BOOL	ParsePeerProject(LPCTSTR pszURL);
-	BOOL	ParsePeerProjectHost(LPCTSTR pszURL, BOOL bBrows);
+	BOOL	ParsePeerProjectHost(LPCTSTR pszURL, BOOL bBrowse = FALSE);
 	BOOL	ParsePeerProjectFile(LPCTSTR pszURL);
-	BOOL	ParseDonkey(LPCTSTR pszURL);
+	BOOL	ParseDiscovery(LPCTSTR pszURL, int nType);
+	BOOL	ParseDonkey(LPCTSTR pszURL);					// ed2k://|file|{name}|{size}|{md4_hash}|/	ed2k://|server|{address}|{port}|/	ed2k://|search|{query}|/
 	BOOL	ParseDonkeyFile(LPCTSTR pszURL);
 	BOOL	ParseDonkeyServer(LPCTSTR pszURL);
-	BOOL	ParsePiolet(LPCTSTR pszURL);
+	BOOL	ParsePiolet(LPCTSTR pszURL);					// mp2p://[|]file|{name}|{size}|{sha1_hash}/
 	BOOL	ParsePioletFile(LPCTSTR pszURL);
-	BOOL	ParseDiscovery(LPCTSTR pszURL, int nType);
 
-	static void	SkipSlashes(LPCTSTR& pszURL, int nAdd = 0);
+	static LPCTSTR SkipSlashes(LPCTSTR pszURL, int nAdd = 0);
 	static void	SafeString(CString& strInput);
 
 // Registration Operations

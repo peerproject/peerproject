@@ -59,7 +59,7 @@ END_MESSAGE_MAP()
 // CLibraryMetaPanel construction
 
 CLibraryMetaPanel::CLibraryMetaPanel()
-	: m_pMetadata	( new CMetaPanel() )
+	: m_pMetadata	( new CMetaList() )
 	, m_pServiceData( NULL )
 	, m_bForceUpdate( FALSE )
 {
@@ -98,7 +98,8 @@ void CLibraryMetaPanel::Update()
 		const CLibraryListItem& pItem = pSel->GetHead();
 		if ( pItem.Type == CLibraryListItem::LibraryFile )
 			pFirst = Library.LookupFile( pItem );
-		if ( pFirst == NULL ) m_nSelected = 0;
+		if ( pFirst == NULL )
+			m_nSelected = 0;
 	}
 
 	m_nIcon32 = m_nIcon48 = -1;
@@ -111,20 +112,18 @@ void CLibraryMetaPanel::Update()
 		m_sFolder	= pFirst->GetFolder();
 		m_sSize		= Settings.SmartVolume( pFirst->GetSize() );
 		m_sType		= ShellIcons.GetTypeString( m_sName );
-		m_nIcon32	= ShellIcons.Get( m_sName, 32 );
-		m_nIcon48	= ShellIcons.Get( m_sName, 48 );
+		m_nIcon32	= ShellIcons.Get( pFirst->GetPath(), 32 );
+		m_nIcon48	= ShellIcons.Get( pFirst->GetPath(), 48 );
 		m_nRating	= pFirst->m_nRating;
 	}
 	else if ( m_nSelected > 1 )
 	{
-		CString strFormat;
-		LoadString( strFormat, IDS_LIBPANEL_MULTIPLE_FILES );
-		m_sName.Format( strFormat, m_nSelected );
+		m_sName.Format( LoadString( IDS_LIBPANEL_MULTIPLE_FILES ), m_nSelected );
 		QWORD nSize = 0;
 
 		m_sFolder	= pFirst->GetFolder();
-		m_nIcon32	= ShellIcons.Get( pFirst->m_sName, 32 );
-		m_nIcon48	= ShellIcons.Get( pFirst->m_sName, 48 );
+		m_nIcon32	= ShellIcons.Get( pFirst->GetPath(), 32 );
+		m_nIcon48	= ShellIcons.Get( pFirst->GetPath(), 48 );
 		m_nRating	= 0;
 
 		for ( POSITION pos = pSel->GetHeadPosition() ; pos ; )
@@ -137,9 +136,9 @@ void CLibraryMetaPanel::Update()
 			if ( pFile->IsAvailable() && pFile->GetFolder().CompareNoCase( m_sFolder ) )
 				LoadString( m_sFolder, IDS_LIBPANEL_MULTIPLE_FOLDERS );
 
-			int nIcon = ShellIcons.Get( pFile->m_sName, 48 );
+			int nIcon = ShellIcons.Get( pFile->GetPath(), 48 );
 			if ( nIcon != m_nIcon48 ) m_nIcon48 = -1;
-			nIcon = ShellIcons.Get( pFile->m_sName, 32 );
+			nIcon = ShellIcons.Get( pFile->GetPath(), 32 );
 			if ( nIcon != m_nIcon32 ) m_nIcon32 = -1;
 		}
 
@@ -195,15 +194,14 @@ void CLibraryMetaPanel::Update()
 	CClientDC dc( this );
 	if ( Settings.General.LanguageRTL )
 		SetLayout( dc.m_hDC, LAYOUT_BITMAPORIENTATIONPRESERVED );
-	SCROLLINFO pInfo;
-	CRect rc;
 
+	CRect rc;
 	GetClientRect( &rc );
 
 	int nThumbSize = min( max( rc.Height() - 16, 64 ), (int)Settings.Library.ThumbSize );
-
 	int nHeight = 54 + m_pMetadata->Layout( &dc, rc.Width() - 24 - nThumbSize );
 
+	SCROLLINFO pInfo;
 	pInfo.cbSize	= sizeof(pInfo);
 	pInfo.fMask		= SIF_ALL & ~SIF_TRACKPOS;
 	pInfo.nMin		= 0;
@@ -214,8 +212,7 @@ void CLibraryMetaPanel::Update()
 
 	SetScrollInfo( SB_VERT, &pInfo, TRUE );
 
-	if ( m_bForceUpdate || ( m_sThumbnailURL.IsEmpty() ? ( m_sThumb != m_sPath ) :
-		( m_sThumb != m_sThumbnailURL ) ) )
+	if ( m_bForceUpdate || m_sThumb != m_sPath )	// || ( m_sThumbnailURL.IsEmpty() ? ( m_sThumb != m_sPath ) : ( m_sThumb != m_sThumbnailURL ) )
 	{
 		m_bForceUpdate = FALSE;
 
@@ -237,7 +234,8 @@ void CLibraryMetaPanel::Update()
 
 int CLibraryMetaPanel::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
-	if ( CPanelCtrl::OnCreate( lpCreateStruct ) == -1 ) return -1;
+	if ( CPanelCtrl::OnCreate( lpCreateStruct ) == -1 )
+		return -1;
 
 	return 0;
 }
@@ -255,13 +253,12 @@ void CLibraryMetaPanel::OnDestroy()
 void CLibraryMetaPanel::OnPaint()
 {
 	CSingleLock pLock( &m_pSection, TRUE );
-	CPaintDC dc( this );
-	CRect rcClient;
-	CString str;
-	DWORD dwFlags = ( Settings.General.LanguageRTL ? ETO_RTLREADING : 0 );
 
+	CString str;
+	CRect rcClient;
 	GetClientRect( &rcClient );
 
+	CPaintDC dc( this );
 	CFont* pOldFont = dc.GetCurrentFont();
 	dc.SetTextColor( Colors.m_crText );
 	dc.SetBkColor( Colors.m_crWindow );
@@ -269,6 +266,8 @@ void CLibraryMetaPanel::OnPaint()
 
 	if ( m_nSelected == 0 )
 	{
+		DWORD dwFlags = ( Settings.General.LanguageRTL ? ETO_RTLREADING : 0 );
+
 		dc.SelectObject( &CoolInterface.m_fntNormal );
 		LoadString( str, IDS_LIBPANEL_NO_SELECTION );
 		CSize sz = dc.GetTextExtent( str );
@@ -384,7 +383,6 @@ void CLibraryMetaPanel::OnPaint()
 
 void CLibraryMetaPanel::DrawText(CDC* pDC, int nX, int nY, LPCTSTR pszText, RECT* pRect, int nMaxWidth)
 {
-	DWORD dwFlags = ( Settings.General.LanguageRTL ? ETO_RTLREADING : 0 );
 	CSize sz = pDC->GetTextExtent( pszText, static_cast< int >( _tcslen( pszText ) ) );
 
 	int nWidth = sz.cx;
@@ -393,6 +391,8 @@ void CLibraryMetaPanel::DrawText(CDC* pDC, int nX, int nY, LPCTSTR pszText, RECT
 
 	CRect rc( nX - 2, nY - 2, nX + nWidth + 2, nY + sz.cy + 2 );
 
+	DWORD dwFlags = ( Settings.General.LanguageRTL ? ETO_RTLREADING : 0 );
+
 	pDC->ExtTextOut( nX, nY, ETO_CLIPPED|ETO_OPAQUE|dwFlags, &rc, pszText, static_cast< UINT >( _tcslen( pszText ) ), NULL );
 	pDC->ExcludeClipRect( &rc );
 
@@ -400,11 +400,11 @@ void CLibraryMetaPanel::DrawText(CDC* pDC, int nX, int nY, LPCTSTR pszText, RECT
 		CopyMemory( pRect, &rc, sizeof(RECT) );
 }
 
-BOOL CLibraryMetaPanel::SetServicePanel(CMetaPanel* pPanel)
+BOOL CLibraryMetaPanel::SetServicePanel(CMetaList* pPanel)
 {
 	m_pSection.Lock();
 
-	m_sThumbnailURL = pPanel ? pPanel->m_sThumbnailURL : CString();
+//	m_sThumbnailURL = pPanel ? pPanel->m_sThumbnailURL : CString();
 	m_pServiceData = pPanel;
 
 	m_pSection.Unlock();
@@ -414,7 +414,7 @@ BOOL CLibraryMetaPanel::SetServicePanel(CMetaPanel* pPanel)
 	return TRUE;
 }
 
-CMetaPanel* CLibraryMetaPanel::GetServicePanel()
+CMetaList* CLibraryMetaPanel::GetServicePanel()
 {
 	if ( m_pServiceData )
 		return m_pServiceData;
@@ -479,7 +479,7 @@ void CLibraryMetaPanel::OnLButtonUp(UINT nFlags, CPoint point)
 	{
 		const CLibraryList* pList = GetViewSelection();
 
-		if ( pList != NULL && pList->GetCount() > 0 )
+		if ( pList && pList->GetCount() > 0 )
 		{
 			CFilePropertiesSheet dlg;
 			dlg.Add( pList );
@@ -488,6 +488,8 @@ void CLibraryMetaPanel::OnLButtonUp(UINT nFlags, CPoint point)
 	}
 	else if ( CMetaItem* pItem = m_pMetadata->HitTest( point, TRUE ) )
 	{
+		CQuickLock oLock( Library.m_pSection );
+
 		if ( CAlbumFolder* pFolder = pItem->GetLinkTarget() )
 		{
 			CLibraryFrame* pFrame = (CLibraryFrame*)GetOwner();
@@ -522,26 +524,24 @@ void CLibraryMetaPanel::OnRun()
 	while ( IsThreadEnabled() )
 	{
 		CString strPath = m_sPath;
-		CString strURL = m_sThumbnailURL;
+	//	CString strURL = m_sThumbnailURL;
 
-		if ( strPath.IsEmpty() && strURL.IsEmpty() )
+		if ( strPath.IsEmpty() )	// && strURL.IsEmpty()
 			break;
 
 		m_pSection.Unlock();
 
 		CImageFile pFile;
-		BOOL bSuccess;
-		if ( strURL.IsEmpty() )
-			bSuccess = CThumbCache::Cache( strPath, &pFile );
-		else
-			bSuccess = pFile.LoadFromURL( strURL ) && pFile.EnsureRGB();
+		BOOL bSuccess = CThumbCache::Cache( strPath, &pFile );
+	//	if ( ! strURL.IsEmpty() )
+	//		bSuccess = pFile.LoadFromURL( strURL ) && pFile.EnsureRGB();
 
 		m_pSection.Lock();
 
 		// If nothing changes
-		if ( strPath == m_sPath && strURL == m_sThumbnailURL )
+		if ( strPath == m_sPath )	// && strURL == m_sThumbnailURL
 		{
-			m_sThumb = strURL.IsEmpty() ? strPath : strURL;
+		//	m_sThumb = strURL.IsEmpty() ? strPath : strURL;
 
 			if ( bSuccess )
 			{

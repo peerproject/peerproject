@@ -1,7 +1,7 @@
 //
 // HashTest.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2010-2011
+// This file is part of PeerProject (peerproject.org) © 2010-2012
 // Portions Copyright Shareaza Development Team, 2009.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -47,13 +47,61 @@ __int64 GetMicroCount()
 // HashWord() function from PeerProject source	(Known bad use of tolower() unicode)
 DWORD HashWord(LPCTSTR pszString, size_t nStart, size_t nLength, DWORD nBits) throw()
 {
-	DWORD nNumber	= 0;
-	int nByte		= 0;
+	if ( nLength == 0 || nBits == 0 )
+		return 0;
 
-	for ( pszString += nStart ; nLength ; --nLength, ++pszString )
+	pszString += nStart;
+
+	register DWORD nNumber	= 0;
+
+	// Obsolete method for reference & deletion:
+	//for ( int nByte = 0 ; nLength ; --nLength, ++pszString )
+	//{
+	//	nNumber ^= ( tolower( *pszString ) & 0xFF ) << ( nByte * 8 );
+	//	nByte = ( nByte + 1 ) & 3;
+	//}
+
+	for ( register size_t nLength1 = nLength / 8 ; nLength1 ; --nLength1, pszString += 8 )
 	{
-		nNumber ^= ( tolower( *pszString ) & 0xFF ) << ( nByte * 8 );
-		nByte = ( nByte + 1 ) & 3;
+		nNumber ^=
+			( ( tolower( pszString[ 0 ] ) & 0xFF )       ) ^
+			( ( tolower( pszString[ 1 ] ) & 0xFF ) <<  8 ) ^
+			( ( tolower( pszString[ 2 ] ) & 0xFF ) << 16 ) ^
+			( ( tolower( pszString[ 3 ] ) & 0xFF ) << 24 ) ^
+			( ( tolower( pszString[ 4 ] ) & 0xFF )       ) ^
+			( ( tolower( pszString[ 5 ] ) & 0xFF ) <<  8 ) ^
+			( ( tolower( pszString[ 6 ] ) & 0xFF ) << 16 ) ^
+			( ( tolower( pszString[ 7 ] ) & 0xFF ) << 24 );
+	}
+
+	register size_t nLength2 = nLength & 7;
+	if ( nLength2 > 0 )
+	{
+		nNumber ^= ( tolower( pszString[ 0 ] ) & 0xFF );
+		if ( nLength2 > 1 )
+		{
+			nNumber ^= ( tolower( pszString[ 1 ] ) & 0xFF ) <<  8;
+			if ( nLength2 > 2 )
+			{
+				nNumber ^= ( tolower( pszString[ 2 ] ) & 0xFF ) << 16;
+				if ( nLength2 > 3 )
+				{
+					nNumber ^= ( tolower( pszString[ 3 ] ) & 0xFF ) << 24;
+					if ( nLength2 > 4 )
+					{
+						nNumber ^= ( tolower( pszString[ 4 ] ) & 0xFF );
+						if ( nLength2 > 5 )
+						{
+							nNumber ^= ( tolower( pszString[ 5 ] ) & 0xFF ) <<  8;
+							if ( nLength2 > 6 )
+							{
+								nNumber ^= ( tolower( pszString[ 6 ] ) & 0xFF ) << 16;
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 
 	return ( nNumber * 0x4F1BBCDC ) >> ( 32 - nBits );
@@ -99,51 +147,60 @@ int _tmain(int /*argc*/, _TCHAR* /*argv*/[])
 		( HashWord( L"\x0000",             0,  1, 10 ) ==   0 ) ? _T("OK") : _T("FAIL") );
 	_tprintf( _T("Hash test 6... %s\n"),
 		( HashWord( L"\x0001",             0,  1, 10 ) == 316 ) ? _T("OK") : _T("FAIL") );
+	_tprintf( _T("Hash test 7... %s\n"),
+		( HashWord( L"0123456789",         0, 10, 10 ) == 551 ) ? _T("OK") : _T("FAIL") );
 // No UTF-32 support for unmanaged C++
-//	_tprintf( _T("Hash test 6... %s\n"),
+//	_tprintf( _T("Hash test 8... %s\n"),
 //		( HashWord( L"\x10400",            0,  1, 10 ) == 316 ) ? _T("OK") : _T("FAIL") );
-//	_tprintf( _T("Hash test 7... %s\n"),
+//	_tprintf( _T("Hash test 9... %s\n"),
 //		( HashWord( L"\x10428",            0,  1, 10 ) == 658 ) ? _T("OK") : _T("FAIL") );
 
 	_tprintf( _T("\nMeasuring performance:\n\n") );
-	const int nCount = 100;
-	const __int64 nBlock = 10 * 1024 * 1024;	// 10 MB
+
+	const int nCount = 10;
+	const __int64 nBlock = 100 * 1024 * 1024;	// 100 MB
 	LPVOID pBuffer = VirtualAlloc( NULL, nBlock, MEM_COMMIT, PAGE_READWRITE );
+	memset( pBuffer, 'A', nBlock );
 
 	SetThreadPriority( GetCurrentThread(), THREAD_PRIORITY_HIGHEST );
 
 	{
-		__int64 nBest = 0, nError = 0;
+		__int64 nBest = -1, nError = 0, nFast = 0, n = 0;
 		do
 		{
 			__int64 nWorst = 0;
-			memset( pBuffer, nBlock, 0xf0 );
 			_tprintf( _T("HashWord : %I64d MB by "), nBlock / 1024 / 1024 );
-			DWORD foo = 0;
+			DWORD foo;
 			for ( int i = 0 ; i < nCount ; ++i )
 			{
 				const __int64 nBegin = GetMicroCount();
-				foo ^= HashWord( (LPCTSTR)pBuffer, 0, nBlock / sizeof( TCHAR ), 20 );
+				foo = HashWord( (LPCTSTR)pBuffer, 0, nBlock / sizeof( TCHAR ) - 1, 20 );
 				__int64 nTime = GetMicroCount() - nBegin;
-				if ( i == 0 || nTime < nBest )
+				if ( nBest < 0 || nTime < nBest )
 					nBest = nTime;
 				if ( i == 0 || nTime > nWorst )
 					nWorst = nTime;
+				if ( foo != 901120 )
+				{
+					_tprintf( _T("FAILED! ") );
+					break;
+				}
 			}
 			nError = ( 100 * ( nWorst - nBest ) ) / nWorst;
 			const __int64 nSpeed = ( nBlock * 1000000 ) / nBest;
+			if ( nFast < nSpeed )
+				nFast = nSpeed;
 			_tprintf( _T("%3I64d ms (inaccuracy %2I64d%%), %3I64d MB/s        \r"),
-				nBest / 1000, nError, nSpeed / ( 1024 * 1024 ) );
-		} while ( nError > 9 );
+				nBest / 1000, nError, nFast / ( 1024 * 1024 ) );
+		} while ( nError > 5 && n++ < 10 );
 	}
 	_tprintf( _T("\n") );
 
 	{
-		__int64 nBest = 0, nError = 0;
+		__int64 nBest = -1, nError = 0, nFast = 0, n = 0;
 		do
 		{
 			__int64 nWorst = 0;
-			memset( pBuffer, nBlock, 0xf0 );
 			_tprintf( _T("MD4  hash: %I64d MB by "), nBlock / 1024 / 1024 );
 			for ( int i = 0 ; i < nCount ; ++i )
 			{
@@ -152,25 +209,26 @@ int _tmain(int /*argc*/, _TCHAR* /*argv*/[])
 				pMD4.Add( pBuffer, nBlock );
 				pMD4.Finish();
 				__int64 nTime = GetMicroCount() - nBegin;
-				if ( i == 0 || nTime < nBest )
+				if ( nBest < 0 || nTime < nBest )
 					nBest = nTime;
 				if ( i == 0 || nTime > nWorst )
 					nWorst = nTime;
 			}
 			nError = ( 100 * ( nWorst - nBest ) ) / nWorst;
 			const __int64 nSpeed = ( nBlock * 1000000 ) / nBest;
+			if ( nFast < nSpeed )
+				nFast = nSpeed;
 			_tprintf( _T("%3I64d ms (inaccuracy %2I64d%%), %3I64d MB/s        \r"),
-				nBest / 1000, nError, nSpeed / ( 1024 * 1024 ) );
-		} while ( nError > 9 );
+				nBest / 1000, nError, nFast / ( 1024 * 1024 ) );
+		} while ( nError > 5 && n++ < 10 );
 	}
 	_tprintf( _T("\n") );
 
 	{
-		__int64 nBest = 0, nError = 0;
+		__int64 nBest = -1, nError = 0, nFast = 0, n = 0;
 		do
 		{
 			__int64 nWorst = 0;
-			memset( pBuffer, nBlock, 0xf0 );
 			_tprintf( _T("MD5  hash: %I64d MB by "), nBlock / 1024 / 1024 );
 			for ( int i = 0 ; i < nCount ; ++i )
 			{
@@ -179,25 +237,26 @@ int _tmain(int /*argc*/, _TCHAR* /*argv*/[])
 				pMD5.Add( pBuffer, nBlock );
 				pMD5.Finish();
 				__int64 nTime = GetMicroCount() - nBegin;
-				if ( i == 0 || nTime < nBest )
+				if ( nBest < 0 || nTime < nBest )
 					nBest = nTime;
 				if ( i == 0 || nTime > nWorst )
 					nWorst = nTime;
 			}
 			nError = ( 100 * ( nWorst - nBest ) ) / nWorst;
 			const __int64 nSpeed = ( nBlock * 1000000 ) / nBest;
+			if ( nFast < nSpeed )
+				nFast = nSpeed;
 			_tprintf( _T("%3I64d ms (inaccuracy %2I64d%%), %3I64d MB/s        \r"),
-				nBest / 1000, nError, nSpeed / ( 1024 * 1024 ) );
-		} while ( nError > 9 );
+				nBest / 1000, nError, nFast / ( 1024 * 1024 ) );
+		} while ( nError > 5 && n++ < 10 );
 	}
 	_tprintf( _T("\n") );
 
 	{
-		__int64 nBest = 0, nError = 0;
+		__int64 nBest = -1, nError = 0, nFast = 0, n = 0;
 		do
 		{
 			__int64 nWorst = 0;
-			memset( pBuffer, nBlock, 0xf0 );
 			_tprintf( _T("SHA1 hash: %I64d MB by "), nBlock / 1024 / 1024 );
 			for ( int i = 0 ; i < nCount ; ++i )
 			{
@@ -206,16 +265,18 @@ int _tmain(int /*argc*/, _TCHAR* /*argv*/[])
 				pSHA.Add( pBuffer, nBlock );
 				pSHA.Finish();
 				__int64 nTime = GetMicroCount() - nBegin;
-				if ( i == 0 || nTime < nBest )
+				if ( nBest < 0 || nTime < nBest )
 					nBest = nTime;
 				if ( i == 0 || nTime > nWorst )
 					nWorst = nTime;
 			}
 			nError = ( 100 * ( nWorst - nBest ) ) / nWorst;
 			const __int64 nSpeed = ( nBlock * 1000000 ) / nBest;
+			if ( nFast < nSpeed )
+				nFast = nSpeed;
 			_tprintf( _T("%3I64d ms (inaccuracy %2I64d%%), %3I64d MB/s        \r"),
-				nBest / 1000, nError, nSpeed / ( 1024 * 1024 ) );
-		} while ( nError > 9 );
+				nBest / 1000, nError, nFast / ( 1024 * 1024 ) );
+		} while ( nError > 5 && n++ < 10 );
 	}
 	_tprintf( _T("\n") );
 

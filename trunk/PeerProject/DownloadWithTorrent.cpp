@@ -31,6 +31,7 @@
 #include "Uploads.h"
 #include "Transfers.h"
 #include "Network.h"
+#include "HostCache.h"
 #include "Buffer.h"
 #include "BTPacket.h"
 #include "BTClient.h"
@@ -126,12 +127,12 @@ bool CDownloadWithTorrent::IsTorrent() const
 
 bool CDownloadWithTorrent::IsSingleFileTorrent() const
 {
-	return IsTorrent() && m_pTorrent.GetCount() == 1;
+	return m_pTorrent.IsAvailable() && m_pTorrent.GetCount() == 1;
 }
 
 bool CDownloadWithTorrent::IsMultiFileTorrent() const
 {
-	return IsTorrent() && m_pTorrent.GetCount() > 1;
+	return m_pTorrent.IsAvailable() && m_pTorrent.GetCount() > 1;
 }
 
 void CDownloadWithTorrent::AddRequest(CBTTrackerRequest* pRequest)
@@ -385,6 +386,12 @@ BOOL CDownloadWithTorrent::SetTorrent(const CBTInfo* pTorrent)
 		AddSourceURLs( m_pTorrent.m_sURLs.GetNext( pos ) );
 	}
 
+	// Add DHT nodes to host cache
+	for ( POSITION pos = m_pTorrent.m_oNodes.GetHeadPosition() ; pos ; )
+	{
+		HostCache.BitTorrent.Add( m_pTorrent.m_oNodes.GetNext( pos ) );
+	}
+
 	SetModified();
 
 	// Re-link Download Group
@@ -574,7 +581,7 @@ void CDownloadWithTorrent::SendStarted(DWORD nNumWant)
 	m_tTorrentTracker += Settings.BitTorrent.DefaultTrackerPeriod;
 	m_nTorrentDownloaded = m_nTorrentUploaded = 0ull;
 
-	DHT::Search( m_oBTH );
+	DHT.Search( m_oBTH );
 
 	// Return if there is no tracker
 	if ( ! m_pTorrent.HasTracker() )
@@ -593,7 +600,7 @@ void CDownloadWithTorrent::SendUpdate(DWORD nNumWant)
 	m_tTorrentTracker = m_tTorrentSources = GetTickCount();
 	m_tTorrentTracker += Settings.BitTorrent.DefaultTrackerPeriod;
 
-	DHT::Search( m_oBTH );
+	DHT.Search( m_oBTH );
 
 	// Return if there is no tracker
 	if ( ! m_pTorrent.HasTracker() )

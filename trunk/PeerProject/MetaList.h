@@ -1,7 +1,7 @@
 //
 // MetaList.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -35,29 +35,30 @@ public:
 // Attributes
 protected:
 	CList< CMetaItem* >	m_pItems;
-	BOOL	m_bMusicBrainz;
+	BOOL		m_bMusicBrainz;
+	CBitmap		m_bmMusicBrainz;
+	int			m_nHeight;
 
 // Operations
 public:
 	CMetaItem*	Add(LPCTSTR pszKey, LPCTSTR pszValue);
 	CMetaItem*	Find(LPCTSTR pszKey) const;
 	void		Remove(LPCTSTR pszKey);
+	void		Clear();
+	void		Vote();
 	void		Shuffle();
 	void		Setup(CSchemaPtr pSchema, BOOL bClear = TRUE);
-	void		Setup(CMetaList* pMetaList);					// For copying data from the external list
-	void		Combine(CXMLElement* pXML);
-	void		Vote();
+	void		Setup(const CMetaList* pMetaList);				// For copying data from the external list
+	void		Combine(const CXMLElement* pXML);
 	void		CreateLinks();
 	void		Clean(int nMaxLength = 128);
 	void		ComputeWidth(CDC* pDC, int& nKeyWidth, int& nValueWidth);
 	CMetaItem*	HitTest(const CPoint& point, BOOL bLinksOnly = FALSE);
-	BOOL		OnSetCursor(CWnd* pWnd);
 	BOOL		IsMusicBrainz() const;
-
-	virtual BOOL IsWorking() const { return FALSE; }
-	virtual void Start() {}
-	virtual void Stop() {}
-	virtual void Clear();
+	BOOL		OnSetCursor(CWnd* pWnd);
+	BOOL		OnClick(const CPoint& point);
+	void		Paint(CDC* pDC, const CRect* prcArea);
+	int			Layout(CDC* pDC, int nWidth);
 
 // Inline Operations
 public:
@@ -81,11 +82,16 @@ public:
 		return m_pItems.IsEmpty() ? NULL : m_pItems.GetHead();
 	}
 
+	inline int GetHeight() const
+	{
+		return m_nHeight;
+	}
+
 	INT_PTR	GetCount(BOOL bVisibleOnly) const;
 };
 
 
-class CMetaItem
+class CMetaItem : public CRect
 {
 // Construction
 public:
@@ -94,12 +100,10 @@ public:
 // Attributes
 public:
 	CSchemaMember*	m_pMember;
+	CMap< CString, const CString&, int, int > m_pVote;
 	CString			m_sKey;
 	CString			m_sValue;
 	BOOL			m_bValueDefined;
-	CMap< CString, const CString&, int, int > m_pVote;
-
-	CRect			m_rect;
 	BOOL			m_bLink;
 	CString			m_sLink;
 	CString			m_sLinkName;
@@ -108,20 +112,12 @@ public:
 
 // Operations
 public:
-	BOOL			Combine(CXMLElement* pXML);
+	BOOL			Combine(const CXMLElement* pXML);
 	void			Vote();
 	BOOL			Limit(int nMaxLength);
 	BOOL			CreateLink();
 	CAlbumFolder*	GetLinkTarget(BOOL bHTTP = TRUE) const;
 	CString			GetMusicBrainzLink() const;
-
-	inline void SetRect(int x1, int y1, int x2, int y2)
-	{
-		m_rect.left		= x1;
-		m_rect.top		= y1;
-		m_rect.right	= x2;
-		m_rect.bottom	= y2;
-	}
 
 	inline CString GetDisplayValue() const
 	{

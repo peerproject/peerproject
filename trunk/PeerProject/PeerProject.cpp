@@ -64,6 +64,8 @@
 
 #include "DlgHelp.h"
 #include "DlgSplash.h"
+#include "DlgMessage.h"
+
 #include "WndMain.h"
 #include "WndMedia.h"
 #include "WndSystem.h"
@@ -164,6 +166,10 @@ const GUID CDECL BASED_CODE _tlid =
 
 CPeerProjectApp theApp;
 
+OSVERSIONINFOEX	Windows = { sizeof( OSVERSIONINFOEX ) };
+SYSTEM_INFO		System = {};
+
+
 /////////////////////////////////////////////////////////////////////////////
 // CPeerProjectApp construction
 
@@ -178,10 +184,9 @@ CPeerProjectApp::CPeerProjectApp()
 	, m_bIsWin2000				( false )
 	, m_bIsVistaOrNewer			( false )
 	, m_bLimitedConnections 	( true )
-	, m_nWindowsVersion			( 0ul )
-	, m_nWindowsVersionMinor	( 0ul )
 	, m_bMenuWasVisible			( FALSE )
 	, m_nLastInput				( 0ul )
+	, m_nWinVer					( 0ul )
 	, m_hHookKbd				( NULL )
 	, m_hHookMouse				( NULL )
 	, m_nMouseWheel 			( 3 )
@@ -215,9 +220,11 @@ CPeerProjectApp::CPeerProjectApp()
 	, m_pfnGeoIP_delete			( NULL )
 	, m_pfnGeoIP_country_code_by_ipnum ( NULL )
 	, m_pfnGeoIP_country_name_by_ipnum ( NULL )
-
-	, m_SysInfo					( )
 {
+	// Determine the version of Windows
+	GetVersionEx( (OSVERSIONINFO*)&Windows );
+	GetSystemInfo( (SYSTEM_INFO*)&System );
+
 	ZeroMemory( m_nVersion, sizeof( m_nVersion ) );
 	ZeroMemory( m_pBTVersion, sizeof( m_pBTVersion ) );
 
@@ -262,9 +269,9 @@ BOOL CPeerProjectApp::InitInstance()
 	CoInitializeSecurity( NULL, -1, NULL, NULL, RPC_C_AUTHN_LEVEL_PKT, RPC_C_IMP_LEVEL_IMPERSONATE, NULL, EOAC_NONE, NULL );
 
 	GetVersionNumber();
-	Settings.Load();			// Loads settings. Depends on GetVersionNumber()
-	InitResources();			// Loads theApp settings. Depends on Settings::Load()
-	CoolInterface.Load();		// Loads colors and fonts. Depends on InitResources()
+	Settings.Load();			// Loads settings.			Depends on GetVersionNumber()
+	InitResources();			// Loads theApp settings.	Depends on Settings::Load()
+	CoolInterface.Load();		// Loads colors and fonts.	Depends on InitResources()
 
 //	m_pFontManager = new CFontManager();
 //	AfxEnableControlContainer( m_pFontManager );
@@ -329,14 +336,14 @@ BOOL CPeerProjectApp::InitInstance()
 #endif
 
 	if ( tCurrent > tCompileTime + tTimeOut )
-		AfxMessageBox( IDS_BETA_EXPIRED, MB_ICONQUESTION|MB_OK );
+		MsgBox( IDS_BETA_EXPIRED, MB_ICONQUESTION|MB_OK, 0, NULL, 30 );
 
 
 	// ALPHA/BETA WARNING.  Remember to remove this section for public betas.
 
 	if ( ! m_cmdInfo.m_bNoAlphaWarning && m_cmdInfo.m_bShowSplash )
 	{
-		if ( AfxMessageBox(
+		if ( MsgBox(
 			L"\nWARNING: This is a BETA TEST version of PeerProject p2p"
  #ifdef __REVISION__
 			L", r" _T(__REVISION__)
@@ -347,7 +354,7 @@ BOOL CPeerProjectApp::InitInstance()
 			L"stable release from PeerProject.org.  If you continue past this point,\n"
 			L"you could possibly experience system instability or lose files.\n"
 			L"Please be aware of recent development before using.\n\n"
-			L"Do you wish to continue?", MB_ICONEXCLAMATION|MB_YESNO|MB_SETFOREGROUND ) == IDNO )
+			L"Do you wish to continue?", MB_ICONEXCLAMATION|MB_YESNO|MB_SETFOREGROUND, 0, NULL, 30 ) == IDNO )
 				return FALSE;
 	}
 
@@ -1164,44 +1171,54 @@ void CPeerProjectApp::GetVersionNumber()
 
 
 	// Determine the version of Windows
-	OSVERSIONINFOEX pVersion = { sizeof( OSVERSIONINFOEX ) };
-	GetVersionEx( (OSVERSIONINFO*)&pVersion );
-	GetSystemInfo( &m_SysInfo );
+	//OSVERSIONINFOEX Windows
+	//SYSTEM_INFO System
+
+	// Get Service Pack version
+	TCHAR* sp = _tcsstr( Windows.szCSDVersion, _T("Service Pack") );
 
 	// Determine if it's a server
-	m_bIsServer = pVersion.wProductType != VER_NT_WORKSTATION;	// VER_NT_SERVER
+	m_bIsServer = Windows.wProductType != VER_NT_WORKSTATION;	// VER_NT_SERVER
 
 	// Many supported windows versions have network limiting
 	m_bLimitedConnections = ! m_bIsServer;
 
-	// Get Major+Minor version (6.1)
+	// Get Major+Minor version (6.1 = 610)
 	//	Major ver 5:	Win2000 = 0, WinXP = 1, WinXP64 = 2, Server2003 = 2
 	//	Major ver 6:	Vista = 0, Server2008 = 0, Windows7 = 1, Windows8 = 2
-	m_nWindowsVersion = pVersion.dwMajorVersion;
-	m_nWindowsVersionMinor = pVersion.dwMinorVersion;
 
-	// Get Service Pack version
-	TCHAR* sp = _tcsstr( pVersion.szCSDVersion, _T("Service Pack") );
+	m_nWinVer = Windows.dwMajorVersion * 100 + Windows.dwMinorVersion * 10;		// ( Windows.dwMinorVersion < 9 ? Windows.dwMinorVersion * 10 : 90 );
+	if ( sp )
+	{
+		if ( sp[ 13 ] == '1' )
+			m_nWinVer++;
+		else if ( sp[ 13 ] == '2' )
+			m_nWinVer += 2;
+		else if ( sp[ 13 ] == '3' )
+			m_nWinVer += 3;
+		else if ( sp[ 13 ] == '4' )
+			m_nWinVer += 4;
+	}
 
 	// Set some variables for different Windows OS
-	if ( m_nWindowsVersion == 5 )
+	if ( Windows.dwMajorVersion == 5 )
 	{
 #ifndef WIN64
 		// Windows 2000
-		if ( m_nWindowsVersionMinor == 0 )
+		if ( Windows.dwMinorVersion == 0 )
 		{
 			m_bIsWin2000 = true;
 			m_bLimitedConnections = false;
 		}
 		// Windows XP
-		else if ( m_nWindowsVersionMinor == 1 )
+		else if ( Windows.dwMinorVersion == 1 )
 		{
 			// No network limiting for original XP or SP1
-			if ( ! sp || sp[ 13 ] == '1' )
+			if ( m_nWinVer < WIN_XP_SP2 )
 				m_bLimitedConnections = false;
 		}
 		// Windows XP64 or 2003
-		else if ( m_nWindowsVersionMinor == 2 )
+		else if ( Windows.dwMinorVersion == 2 )
 #endif
 		{
 			// No network limiting for Vanilla Win2003/XP64
@@ -1209,19 +1226,19 @@ void CPeerProjectApp::GetVersionNumber()
 				m_bLimitedConnections = false;
 		}
 	}
-	else //if ( m_nWindowsVersion >= 6 )
+	else //if ( Windows.dwMajorVersion >= 6 )
 	{
 		// GUI support
 		m_bIsVistaOrNewer = true;
 
-		if ( pVersion.wProductType == VER_NT_SERVER )
+		if ( Windows.wProductType == VER_NT_SERVER )
 		{
 			m_bLimitedConnections = false;
 			return;
 		}
 
-		// Windows 7 or Vista SP2+ have Registry patch
-		if ( m_nWindowsVersionMinor >= 1 || ( sp && sp[ 13 ] >= '2' ) ) 	// Vista (no SP) crashfix
+		// Vista SP2+ have Registry patch (Windows 7/8?)
+		if ( m_nWinVer >= WIN_VISTA_SP2 )
 		{
 			m_bLimitedConnections = false;
 
@@ -1239,9 +1256,14 @@ void CPeerProjectApp::GetVersionNumber()
 				}
 
 				RegCloseKey( hKey );
+				if ( nResult == 1 )
+					return;		// Don't double-check below if server
 			}
 		}
 	}
+
+	if ( m_bLimitedConnections && Windows.wProductType == VER_NT_SERVER && ( Windows.wSuiteMask & VER_SUITE_SMALLBUSINESS ) == 0 )
+		m_bLimitedConnections = false;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1287,6 +1309,7 @@ void CPeerProjectApp::InitResources()
 		(FARPROC&)m_pfnSHGetFolderPathW = GetProcAddress( m_hShell32, "SHGetFolderPathW" );								// Win2K+?	SHGetFolderPath()
 		(FARPROC&)m_pfnSHGetKnownFolderPath = GetProcAddress( m_hShell32, "SHGetKnownFolderPath" );						// Vista+	SHGetKnownFolderPath()
 		(FARPROC&)m_pfnSHQueryUserNotificationState = GetProcAddress( m_hShell32, "SHQueryUserNotificationState" );		// Vista+	SHQueryUserNotificationState() for IsUserFullscreen()
+		(FARPROC&)m_pfnSHCreateItemFromParsingName = GetProcAddress( m_hShell32, "SHCreateItemFromParsingName" );		// Vista+	SHCreateItemFromParsingName() for CLibraryFolders::Maintain() (Win7 Libraries)
 	}
 
 	if ( ( m_hUser32 = LoadLibrary( _T("user32.dll") ) ) != NULL )
@@ -1435,7 +1458,7 @@ void CPeerProjectApp::ShowStartupText()
 	}
 
 	CString strCPU;
-	strCPU.Format( _T("\n%u x CPU. Features:"), m_SysInfo.dwNumberOfProcessors );
+	strCPU.Format( _T("\n%u x CPU. Features:"), System.dwNumberOfProcessors );
 	if ( Machine::SupportsMMX() )
 		strCPU += _T(" MMX");
 	if ( Machine::SupportsSSE() )
@@ -3147,6 +3170,7 @@ BOOL PostMainWndMessage(UINT Msg, WPARAM wParam, LPARAM lParam)
 void SafeMessageLoop()
 {
 	InterlockedIncrement( &theApp.m_bBusy );
+
 	__try
 	{
 		MSG msg;
@@ -3156,8 +3180,7 @@ void SafeMessageLoop()
 			DispatchMessage( &msg );
 		}
 
-		if ( GetWindowThreadProcessId( AfxGetMainWnd()->GetSafeHwnd(), NULL ) ==
-			GetCurrentThreadId() )
+		if ( GetWindowThreadProcessId( AfxGetMainWnd()->GetSafeHwnd(), NULL ) == GetCurrentThreadId() )
 		{
 			LONG lIdle = 0;
 			while ( AfxGetApp()->OnIdle( lIdle++ ) );
@@ -3166,6 +3189,7 @@ void SafeMessageLoop()
 	__except( EXCEPTION_EXECUTE_HANDLER )
 	{
 	}
+
 	InterlockedDecrement( &theApp.m_bBusy );
 }
 
@@ -3247,6 +3271,51 @@ void ClearSkins()
 
 	// Reskin if not startup
 	//PostMainWndMessage( WM_SKINCHANGED );
+}
+
+// AfxMessageBox() Replacement:  (DlgMessage)
+INT_PTR MsgBox(LPCTSTR lpszText, UINT nType, UINT nIDHelp, DWORD* pnDefault, DWORD nTimer)
+{
+	CMessageDlg dlg;
+	dlg.m_nType = nType;
+	dlg.m_nIDHelp = nIDHelp;
+	dlg.m_sText = lpszText;
+	dlg.m_pnDefault = pnDefault;
+	dlg.m_nTimer = nTimer;
+	return dlg.DoModal();
+}
+
+INT_PTR MsgBox(UINT nIDPrompt, UINT nType, UINT nIDHelp, DWORD* pnDefault, DWORD nTimer)
+{
+	return MsgBox( LoadString( nIDPrompt ), nType, nIDHelp, pnDefault, nTimer );
+}
+
+/////////////////////////////////////////////////////////////////////////////
+// CProgressDialog
+
+CProgressDialog::CProgressDialog(LPCTSTR szTitle, DWORD dwFlags)
+{
+	if ( SUCCEEDED( CoCreateInstance( CLSID_ProgressDialog ) ) )
+	{
+		p->SetTitle( CLIENT_NAME );
+		p->SetLine( 1, szTitle, FALSE, NULL );
+		p->StartProgressDialog( theApp.SafeMainWnd()->GetSafeHwnd(), NULL, dwFlags, NULL );
+	}
+}
+
+CProgressDialog::~CProgressDialog()
+{
+	if ( p )
+		p->StopProgressDialog();
+}
+
+void CProgressDialog::Progress(LPCTSTR szText, QWORD nCompleted, QWORD nTotal)
+{
+	if ( p )
+	{
+		p->SetLine( 2,  szText, TRUE, NULL );
+		p->SetProgress64( nCompleted, nTotal );
+	}
 }
 
 

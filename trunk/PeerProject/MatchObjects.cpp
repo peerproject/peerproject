@@ -1622,7 +1622,6 @@ BOOL CMatchFile::Add(CQueryHit* pHit, BOOL bForce)
 	if ( ! m_bDownload && GetLibraryStatus() == TRI_UNKNOWN && HasHash() )
 	{
 		CSingleLock pLock2( &Transfers.m_pSection );
-
 		if ( pLock2.Lock( 50 ) )
 		{
 			if ( ! m_bDownload && m_oSHA1 && Downloads.FindBySHA1( m_oSHA1 ) != NULL )
@@ -2561,14 +2560,10 @@ TRISTATE CMatchFile::GetLibraryStatus()
 			pExisting = NULL;
 
 		if ( pExisting )
-		{
 			m_bExisting = pExisting->IsAvailable() ? TRI_FALSE : TRI_TRUE;
-		}
-		else
-		{
-			if ( m_bExisting == TRI_FALSE )
-				m_bExisting = TRI_TRUE;
-		}
+		else if ( m_bExisting == TRI_FALSE )
+			m_bExisting = TRI_TRUE;
+
 		pLock.Unlock();
 	}
 	return m_bExisting;

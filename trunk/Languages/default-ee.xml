@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Estonian Skin File -->
 
-<!-- Translation based on default-en.xml r74 (Shareaza 2.2.2.9) -->
+<!-- Translation based on default-en.xml r75 (Shareaza 2.2.2.9) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -369,6 +369,7 @@
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 		<button id="ID_NETWORK_DC" text="DC++"/>
+		<button id="ID_NETWORK_BT" text="BitTorrent"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Seaded"/>
 	</toolbar>
@@ -382,6 +383,7 @@
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 		<button id="ID_NETWORK_DC" text="DC++"/>
+		<button id="ID_NETWORK_BT" text="BitTorrent"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Seaded"/>
 	</toolbar>
@@ -476,6 +478,7 @@
 				<item id="ID_NETWORK_G1" text="Ühenda _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Ühenda _eDonkey2000"/>
 				<item id="ID_NETWORK_DC" text="Ühenda _DC++"/>
+				<item id="ID_NETWORK_BT" text="Ühenda _BitTorrent"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="Ühenda _Aadressil..." shortcut="Ctrl+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="_Sirvi Võõrustajat..."/>
@@ -565,6 +568,7 @@
 			<item id="ID_NETWORK_G1" text="Ühenda _Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="Ühenda _eDonkey2000"/>
 			<item id="ID_NETWORK_DC" text="Ühenda _DC++"/>
+			<item id="ID_NETWORK_BT" text="Ühenda _BitTorrent"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Välju _Ülekande Lõpus"/>
 			<item id="ID_NETWORK_EXIT" text="V_älju"/>
@@ -725,6 +729,7 @@
 				<item id="ID_NETWORK_G1" text="Ühenda _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Ühenda _eDonkey2000"/>
 				<item id="ID_NETWORK_DC" text="Ühenda _DC++"/>
+				<item id="ID_NETWORK_BT" text="Ühenda _BitTorrent"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Välju _Ülekande Lõpus"/>
@@ -1495,6 +1500,7 @@
 			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey2000"/>
 			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<item id="ID_NETWORK_BT" text="_BitTorrent"/>
 			<separator/>
 			<item id="ID_VIEW_DISCOVERY" text="Serveri_d"/>
 			<item id="ID_VIEW_HOSTS" text="_Võõrustajad"/>
@@ -2364,7 +2370,7 @@
 	<tip id="ID_MEDIA_PAUSE" message="Peata meedia faili taasesitus." tip="Paus"/>
 	<tip id="ID_MEDIA_PLAY" message="Alusta meedia faili taasesitust." tip="Mängi"/>
 	<tip id="ID_MEDIA_PLAYLIST" message="Näita või peida playlisti toimetaja."/>
-	<tip id="ID_MEDIA_PREVIOUS" message="Hüppa tagasi, eelmisele failile playlistis ." tip="Eelmine"/>
+	<tip id="ID_MEDIA_PREVIOUS" message="Hüppa tagasi, eelmisele failile playlistis." tip="Eelmine"/>
 	<tip id="ID_MEDIA_RANDOM" message="Juhuesitus käesolevast playlistis."/>
 	<tip id="ID_MEDIA_REMOVE" message="Eemalda valitud fail playlistist."/>
 	<tip id="ID_MEDIA_REPEAT" message="Korda valitud faili."/>
@@ -2396,6 +2402,7 @@
 	<tip id="ID_NETWORK_EXIT" message="Välju PeerProjectst"/>
 	<tip id="ID_NETWORK_ED2K" message="Ühenda eDonkey2000 võrgustikku."/>
 	<tip id="ID_NETWORK_DC" message="Ühenda DC++ võrgustikku."/>
+	<tip id="ID_NETWORK_BT" message="Ühenda BitTorrent võrgustikku."/>
 	<tip id="ID_NETWORK_G1" message="Ühendu algsesse Gnutella võrkku."/>
 	<tip id="ID_NETWORK_G2" message="Ühendu Gnutella2 võrkku (väga soovitatav)."/>
 	<tip id="ID_NETWORK_SEARCH" message="Alusta võrgus uut otsingut..."/>
@@ -2663,8 +2670,8 @@
 	<string id="20202" value="Vastu võetud vigane ühendus %s, sulgen ühenduse."/>
 	<string id="20203" value="Kiirendan allalaadimist &quot;%s&quot; eemaldades läbilaske piirangud."/>
 	<string id="20204" value="Server %s on kinni, proovin uuesti %i sekundi pärast."/>
-	<string id="20205" value="Ei saanud ümber tõsta faili &quot;%s&quot;  &quot;%s&quot;.  Kontrolli, et poolik fail ei oleks kasutuses ja, et sul oleks ikka allalaadimis kaust ja sinna oleks võimalik kirjutada."/>
-	<string id="20206" value="Ei suuda lahendada &quot;%s&quot;."/>
+	<string id="20205" value="Ebapiisav ketta ruum allalaadimaks &quot;%s&quot; (%s)."/>
+	<string id="20206" value="Ei saanud ümber tõsta faili &quot;%s&quot;  &quot;%s&quot;.  Kontrolli, et poolik fail ei oleks kasutuses ja, et sul oleks ikka allalaadimis kaust ja sinna oleks võimalik kirjutada."/>
 	<string id="20207" value="Oled kindel, et tahad peatada/tühistada terve selle allalaadimisgrupi?"/>
 	<string id="20208" value="Sulgen ühenduse %s, ei ole rohkem vaja."/>
 	<string id="20209" value="Server %s saatis küsimata andmeid, sulgen ühenduse."/>
@@ -2677,23 +2684,18 @@
 	<string id="20216" value="Ei saa allalaadimiseks ühendust luua %s."/>
 	<string id="20217" value="Võtan vastu allalaadimis infot %s (%s)."/>
 	<string id="20218" value="Katkestan allalaadimise &quot;%s&quot; serverist %s (%s), võrk ei vasta."/>
-	<string id="20219" value="Ebapiisav ketta ruum allalaadimaks &quot;%s&quot; (%s)."/>
-	<string id="20220" value="Ühendus %s katkes."/>
-	<string id="20222" value="Sa oled sisestanud eDonkey2000 hash väärtuse, mis aga on vale.  Palun kontrolli seda ja proovi uuesti."/>
-	<string id="20224" value="Palun sisesta kustutamise ulatus. &quot;alates&quot; väljal on esimesed baidid, mis kustutatakse ja &quot;viimane&quot; väljal viimased baidid."/>
-	<string id="20225" value="Sa oled sisestanud SHA1 väärtuse, mis aga on vale. Palun kontrolli seda ja proovi uuesti."/>
-	<string id="20226" value="Sa oled sisestanud tiger-tree juurväärtuse, mis aga on vale.  Palun kontrolli seda ja proovi uuesti."/>
-	<string id="20227" value="Sa oled muutnud faili suurust.  Oled kindel, et tahad selle tõmbamise failisuurust muuta?"/>
-	<string id="20228" value="Ei saa kustutada valitud ulatust, kuna neid osasid ei ole."/>
-	<string id="20231" value="Sa oled andnud uue SHA1 hash väärtuse, mis on aga erinev käesolevast.  Oled kindel, et tahad muuta SHA1 hash -i?"/>
-	<string id="20232" value="Sa oled andnud eDonkey2000 hash väärtuse, mis on aga erinev käesolevast.  Oled kindel, et tahad muuta eDonkey2000 hash -i?"/>
-	<string id="20233" value="Sa oled andnud root tiger-tree hash väärtuse, mis on aga erinev käesolevast .  Oled kindel, et tahad muuta tiger-tree root hash -i?"/>
-	<string id="20235" value="Sa ei saa eeldada, et fail on tervenisti alla tõmmatud ja seda kinnitada, sest sul ei ole veel ühtegi kinnituse osa, nagu tiger-tree suurus, eDonkey hashset ja BitTorrenti hashset.  Ilma kinnituse teabeta ei saa allalaadimist üle kinnitada."/>
-	<string id="20236" value="Oled kindel, et tahad eeldada, et fail on tervenisti alla tõmmatud ja üle kinnitada?  Terve fail vaadatakse üle ja PeerProject nõustub kinnitatud faili osadega ja tõmbab uuesti need osad, mis kinnitust ei läbinud."/>
-	<string id="20237" value="Oled kindel, et tahad selle allalaadimise allikad unustada?"/>
-	<string id="20238" value="Oled kindel, et tahad unustada praeguse kinnituse seisu? Kõiki allalaaditud andmeid käsitletakse kui ebausaldatavat ja kogu andmebaas ehitatakse uuesti."/>
-	<string id="20240" value="Kustutatud %I64i baiti, allalaadimisest."/>
-	<string id="20241" value="Sa oled teinud muutusi nimes.  Oled kindel, et tahad faili ümber nimetada?"/>
+	<string id="20219" value="Ühendus %s katkes."/>
+	<string id="20221" value="Palun sisesta kustutamise ulatus. &quot;alates&quot; väljal on esimesed baidid, mis kustutatakse ja &quot;viimane&quot; väljal viimased baidid."/>
+	<string id="20222" value="Sa oled sisestanud %s hash väärtuse, mis aga on vale.  Palun kontrolli seda ja proovi uuesti."/>
+	<string id="20223" value="Sa oled andnud uue %s hash väärtuse, mis on aga erinev käesolevast.  Oled kindel, et tahad muuta %s hash -i?"/>
+	<string id="20224" value="Sa oled teinud muutusi nimes.  Oled kindel, et tahad faili ümber nimetada?"/>
+	<string id="20225" value="Sa oled muutnud faili suurust.  Oled kindel, et tahad selle tõmbamise failisuurust muuta?"/>
+	<string id="20226" value="Sa ei saa eeldada, et fail on tervenisti alla tõmmatud ja seda kinnitada, sest sul ei ole veel ühtegi kinnituse osa, nagu tiger-tree suurus, eDonkey hashset ja BitTorrenti hashset.  Ilma kinnituse teabeta ei saa allalaadimist üle kinnitada."/>
+	<string id="20227" value="Oled kindel, et tahad eeldada, et fail on tervenisti alla tõmmatud ja üle kinnitada?  Terve fail vaadatakse üle ja PeerProject nõustub kinnitatud faili osadega ja tõmbab uuesti need osad, mis kinnitust ei läbinud."/>
+	<string id="20228" value="Oled kindel, et tahad unustada praeguse kinnituse seisu? Kõiki allalaaditud andmeid käsitletakse kui ebausaldatavat ja kogu andmebaas ehitatakse uuesti."/>
+	<string id="20229" value="Oled kindel, et tahad selle allalaadimise allikad unustada?"/>
+	<string id="20231" value="Ei saa kustutada valitud ulatust, kuna neid osasid ei ole."/>
+	<string id="20232" value="Kustutatud %I64i baiti, allalaadimisest."/>
 	<string id="20242" value="Allalaadimis serveril %s ei ole faili &quot;%s&quot;."/>
 	<string id="20243" value="Loon faili &quot;%s&quot; allalaadimiseks."/>
 	<string id="20244" value="Ei saa luua kohalikku faili &quot;%s&quot; allalaadimiseks, katkestan."/>
@@ -2724,9 +2726,10 @@
 	<string id="20271" value="Fail &quot;%s&quot; ümberpaigutatud &quot;%s&quot;, allalaadimine lõpetatud."/>
 	<string id="20272" value="Peatatud allalaadimine &quot;%s&quot;."/>
 	<string id="20273" value="Jätkan allalaadimist &quot;%s&quot;."/>
-	<string id="20274" value="Lahendan &quot;%s&quot; allalaadimiseks &quot;%s&quot;..."/>
 	<string id="20275" value="Otsin rohkem allikaid allalaadimisele &quot;%s&quot; %i ühendust..."/>
 	<string id="20276" value="Ei saa lisada rohkem allikaid allalaadimisele &quot;%s&quot; sest ei ole võrguühendust."/>
+	<!--string id="20277" value="Lahendan &quot;%s&quot; allalaadimiseks &quot;%s&quot;..."-->
+	<!--string id="20278" value="Ei suuda lahendada &quot;%s&quot;."-->
 	<string id="20280" value="Serveri tiger-tree andmed on rikutud või tahtlikult poolikud, eiran."/>
 	<string id="20281" value="Serveri tiger-tree ei vasta oodatudd põhiväärtusele."/>
 	<string id="20282" value="Server %s ei rahuldanud tiger-tree päringut."/>
@@ -2968,7 +2971,7 @@
 	<string id="20570" value="Vastu võetud vigaselt formeeritud pakettide päring %s, ignoreerin."/>
 	<string id="20571" value="%s: Vastu võetud vigaselt formeeritud info päring %s, ignoreerin."/>
 	<string id="20572" value="%s saatis liiga suure TTL, kaotan paketi (TTL=%i, Hops=%i)."/>
-	<string id="20573" value="%s saatis paketi ilma TTL-ita, eiran."/>
+	<!--string id="20573" value="%s saatis paketi ilma TTL-ita, eiran."-->
 	<string id="20574" value="%s saatis laiendatut paketi, mis ei ole GGEP kodeeringus."/>
 	<string id="20575" value="%s saatis vigase päringu marsruutingu uuenduseks, katkestan ühenduse."/>
 	<string id="20576" value="Saadan päringu marsruutinguga %s (%i bit = %lu[%i], %i%% täis)"/>
@@ -3160,7 +3163,7 @@
 	<string id="20834" value="Server %s saatis &quot;%s&quot; eelvaateks päringu, aga eelvaadet ei ole saadaval."/>
 	<string id="20835" value="Laen üles &quot;%s&quot; eelvaadet %s."/>
 	<string id="20836" value="Keeldun tõuke päringust %s kuna sellel on liiga palju kliente."/>
-	<string id="20837" value="Tõuke päring aadressilt %s küsitud tundmatut faili, ühendan sellegipoolest..."/>
+	<!--string id="20837" value="Tõuke päring aadressilt %s küsitud tundmatut faili, ühendan sellegipoolest..."-->
 	<string id="20838" value="Hõivatud, et üleslaadida &quot;%s&quot; serverile %s, järjekorras #%i %i (&quot;%s&quot;.."/>
 	<string id="20840" value="Üleslaadimisühendus %s katkenud, säilitan järjekorda."/>
 	<string id="20841" value="Uus Rivi"/>
@@ -3189,7 +3192,7 @@
 	<string id="20866" value="Failinimi:"/>
 	<string id="20867" value="Võõrustaja:"/>
 	<string id="20868" value="Port:"/>
-	<string id="20869" value="Ei suuda kuvada URL tegevuste dialoogi, kuna PeerProject on hõivatud."/>
+	<!--string id="20869" value="Ei suuda kuvada URL tegevuste dialoogi, kuna PeerProject on hõivatud."-->
 	<string id="20870" value="Ei suuda tuvastada URL: PeerProject ei suuda seda URL-i lugeda."/>
 	<string id="20871" value="Vastuvõetud URL &quot;%s&quot;"/>
 	<string id="20872" value="Tüüp:"/>
@@ -3486,7 +3489,7 @@
 		<control caption="Tõmba..."/>
 		<control caption="Tõmba weebist eDonkey serverite nimekiri"/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Allalaadimisühendused:"/>
 		<control/>
 		<control/>
@@ -3494,7 +3497,8 @@
 		<control/>
 		<control/>
 		<control caption="Kliendi ühendust"/>
-		<control caption="&#160;Eelista torrenti allikaid"/>
+		<control caption="Luba BitTorrent DHT"/>
+		<control caption="Eelista torrenti allikaid"/>
 		<control caption="_EndGame:"/>
 		<control caption="Võimalda EndGame rešiim kui lõpetad torrente"/>
 		<control caption="Puhasta allalaaditud torrentid kui jagamissuhe jõuab:"/>
@@ -4206,7 +4210,7 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Jälitused">
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBuBuBu" caption="Jälitused">
 		<control/>
 		<control/>
 		<control/>
@@ -4218,6 +4222,8 @@
 		<control caption="Jälitus Rešiim:"/>
 		<control caption="Väljas|Vaba|Üks Jälitaja|Mitu Jälitajat|Mitu Jälitajat (lukustatud)"/>
 		<control caption="_Värskenda"/>
+		<control caption="_Lisa"/>
+		<control caption="_Eemalda"/>
 	</dialog>
 	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="Üldiselt">
 		<control/>

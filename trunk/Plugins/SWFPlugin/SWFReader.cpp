@@ -1,7 +1,7 @@
 //
 // SWFReader.cpp : Implementation of CSWFReader
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008,2012
 // Copyright (c) Nikolay Raspopov, 2005-2008.
 //
 // GFL Library, GFL SDK and XnView
@@ -35,7 +35,7 @@ void CSWFReader::FinalRelease() throw()
 	m_pUnkMarshaler.Release();
 }
 
-// convert BGR down-up bitmap to RGB up-down bitmap
+// Convert BGR down-up bitmap to RGB up-down bitmap
 inline void BGRA_DU2RGBA_UD (char* dest, int width, int height, int components) throw()
 {
 	register int line_size = ((width * components) + 3) & (-4);
@@ -97,7 +97,7 @@ public:
 	END_MSG_MAP()
 };
 
-HRESULT CreateSWF (HWND hWnd, IUnknown** ppControl) throw ()
+HRESULT CreateSWF (HWND hWnd, IUnknown** ppControl)
 {
 	HRESULT hr;
 	__try {
@@ -109,7 +109,7 @@ HRESULT CreateSWF (HWND hWnd, IUnknown** ppControl) throw ()
 	return hr;
 }
 
-DWORD WINAPI LoadSWF (LPVOID filename) throw ()
+DWORD WINAPI LoadSWF (void* filename)
 {
 	DWORD dwBegin = GetTickCount();
 	HRESULT hr = CoInitializeEx (NULL, COINIT_APARTMENTTHREADED);
@@ -127,19 +127,19 @@ DWORD WINAPI LoadSWF (LPVOID filename) throw ()
 						hr = pControl->QueryInterface (IID_IDispatch, (void**) &pIDispatch);
 						if (SUCCEEDED (hr)) {
 							// void LoadMovie (dwLayer, bstrFilename);
-							VARIANT varArg [2];						
+							VARIANT varArg [2];
 							VariantInit (&varArg [1]);
 							varArg [1].vt = VT_I4;
 							varArg [1].lVal = 0;
 							VariantInit (&varArg [0]);
 							varArg [0].vt = VT_BSTR;
-							varArg [0].bstrVal = SysAllocString ((LPCWSTR) filename);						
+							varArg [0].bstrVal = SysAllocString ((LPCWSTR) filename);
 							DISPPARAMS dispparams;
 							memset(&dispparams, 0, sizeof dispparams);
 							dispparams.rgvarg = varArg;
-							dispparams.cArgs = 2;						
+							dispparams.cArgs = 2;
 							VARIANT varResult;
-							VariantInit (&varResult);						
+							VariantInit (&varResult);
 							UINT nArgErr = (UINT) -1;
 							hr = pIDispatch->Invoke (0x8e, IID_NULL, 0, DISPATCH_METHOD,
 								&dispparams, &varResult, NULL, &nArgErr);
@@ -147,7 +147,7 @@ DWORD WINAPI LoadSWF (LPVOID filename) throw ()
 								( GetTickCount() - dwBegin ) < 20000; ) {
 								// long get_ReadyState ()
 								dispparams.cArgs = 0;
-								VariantInit (&varResult);	
+								VariantInit (&varResult);
 								hr = pIDispatch->Invoke (DISPID_READYSTATE, IID_NULL, 0, DISPATCH_PROPERTYGET,
 									&dispparams, &varResult, NULL, NULL);
 								if (varResult.lVal != state) {
@@ -168,19 +168,19 @@ DWORD WINAPI LoadSWF (LPVOID filename) throw ()
 										case 4:
 											// long get_TotalFrames ()
 											dispparams.cArgs = 0;
-											VariantInit (&varResult);	
+											VariantInit (&varResult);
 											hr = pIDispatch->Invoke (0x7c, IID_NULL, 0, DISPATCH_PROPERTYGET,
-												&dispparams, &varResult, NULL, NULL);	
+												&dispparams, &varResult, NULL, NULL);
 											ATLTRACE( _T("Complete. Frames: %d\n"), varResult.lVal);
 											// void GotoFrame (dwFrameNumber)
 											VariantInit (&varArg [0]);
 											varArg [0].vt = VT_I4;
-											varArg [0].lVal = min (varResult.lVal, 2);						
+											varArg [0].lVal = min (varResult.lVal, 2);
 											dispparams.cArgs = 1;
 											VariantInit (&varResult);
 											nArgErr = (UINT) -1;
 											hr = pIDispatch->Invoke (0x7f, IID_NULL, 0, DISPATCH_METHOD,
-												&dispparams, &varResult, NULL, &nArgErr);												
+												&dispparams, &varResult, NULL, &nArgErr);
 											break;
 										default:
 											ATLTRACE( _T("Unknown state (%d)\n"), state);
@@ -189,7 +189,7 @@ DWORD WINAPI LoadSWF (LPVOID filename) throw ()
 								Sleep (0);
 							}
 							hr = E_OUTOFMEMORY;
-							_Data = new MY_DATA;	
+							_Data = new MY_DATA;
 							if (_Data) {
 								_Data->hBitmap = NULL;
 								ZeroMemory (&_Data->bmiHeader, sizeof (_Data->bmiHeader));
@@ -199,7 +199,7 @@ DWORD WINAPI LoadSWF (LPVOID filename) throw ()
 								_Data->hBitmap = CreateCompatibleBitmap (hDC, cx, cy);
 								HBITMAP hOldBitmap = (HBITMAP) SelectObject (hMemDC, _Data->hBitmap);
 								RECT rcMem = {0, 0, cx, cy};
-								hr = OleDraw (pControl, DVASPECT_CONTENT, hMemDC, &rcMem);	
+								hr = OleDraw (pControl, DVASPECT_CONTENT, hMemDC, &rcMem);
 								SelectObject (hMemDC, hOldBitmap);
 								DeleteDC (hMemDC);
 								GetDIBits (hDC, _Data->hBitmap, 0, 0, NULL,
@@ -227,13 +227,13 @@ DWORD WINAPI LoadSWF (LPVOID filename) throw ()
 			_Data = NULL;
 		}
 	}
-	return 0; 
+	return 0;
 }
 
 STDMETHODIMP CSWFReader::LoadFromFile (
-	/* [in] */ BSTR sFile,
-	/* [in,out] */ IMAGESERVICEDATA* pParams,
-	/* [out] */ SAFEARRAY** ppImage )
+	/*[in]*/ BSTR sFile,
+	/*[in,out]*/ IMAGESERVICEDATA* pParams,
+	/*[out]*/ SAFEARRAY** ppImage )
 {
 	ATLTRACE( _T("SWFPlugin::LoadFromFile (\"%s\", 0x%08x, 0x%08x)\n"), sFile, pParams, ppImage);
 
@@ -247,8 +247,7 @@ STDMETHODIMP CSWFReader::LoadFromFile (
 	HRESULT hr = E_FAIL;
 
 	// Changing threading model
-	DWORD dwID;
-	HANDLE hThread = CreateThread (NULL, 0, LoadSWF, (LPVOID) sFile, 0, &dwID);
+	HANDLE hThread = CreateThread (NULL, 0, LoadSWF, (LPVOID) sFile, 0, NULL);
 	WaitForSingleObject (hThread, INFINITE);
 	CloseHandle (hThread);
 
@@ -301,27 +300,27 @@ STDMETHODIMP CSWFReader::LoadFromFile (
 }
 
 STDMETHODIMP CSWFReader::LoadFromMemory (
-	/* [in] */ BSTR /* sType */,
-	/* [in] */ SAFEARRAY* /* pMemory */,
-	/* [in,out] */ IMAGESERVICEDATA* /* pParams */,
-	/* [out] */ SAFEARRAY** /* ppImage */)
+	/*[in]*/ BSTR /*sType*/,
+	/*[in]*/ SAFEARRAY* /*pMemory*/,
+	/*[in,out]*/ IMAGESERVICEDATA* /*pParams*/,
+	/*[out]*/ SAFEARRAY** /*ppImage*/)
 {
 	ATLTRACENOTIMPL( _T("SWFPlugin::LoadFromMemory") );
 }
 
 STDMETHODIMP CSWFReader::SaveToFile (
-	/* [in] */ BSTR /* sFile */,
-	/* [in,out] */ IMAGESERVICEDATA* /* pParams */,
-	/* [in] */ SAFEARRAY* /* pImage */)
+	/*[in]*/ BSTR /*sFile*/,
+	/*[in,out]*/ IMAGESERVICEDATA* /*pParams*/,
+	/*[in]*/ SAFEARRAY* /*pImage*/)
 {
 	ATLTRACENOTIMPL( _T("SWFPlugin::SaveToFile") );
 }
 
 STDMETHODIMP CSWFReader::SaveToMemory (
-	/* [in] */ BSTR /* sType */,
-	/* [out] */ SAFEARRAY** /* ppMemory */,
-	/* [in,out] */ IMAGESERVICEDATA* /* pParams */,
-	/* [in] */ SAFEARRAY* /* pImage */)
+	/*[in]*/ BSTR /*sType*/,
+	/*[out]*/ SAFEARRAY** /*ppMemory*/,
+	/*[in,out]*/ IMAGESERVICEDATA* /*pParams*/,
+	/*[in]*/ SAFEARRAY* /*pImage*/)
 {
 	ATLTRACENOTIMPL( _T("SWFPlugin::SaveToMemory") );
 }

@@ -1,7 +1,7 @@
 //
 // CtrlSearchDetailPanel.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -19,7 +19,7 @@
 #pragma once
 
 #include "CtrlPanel.h"
-#include "MetaPanel.h"
+#include "MetaList.h"
 #include "RichDocument.h"
 #include "RichViewCtrl.h"
 #include "HttpRequest.h"
@@ -36,6 +36,7 @@ public:
 	Review(const Hashes::Guid& oGUID, IN_ADDR* pAddress, LPCTSTR pszNick, int nRating, LPCTSTR pszComments);
 	virtual ~Review();
 
+public:
 	void			Layout(CSearchDetailPanel* pParent, CRect* pRect);
 	void			Reposition(int nScroll);
 	void			Paint(CDC* pDC, int nScroll);
@@ -89,7 +90,7 @@ protected:
 	int					m_nIcon32;
 	int					m_nRating;
 	CSchemaPtr			m_pSchema;
-	CMetaPanel			m_pMetadata;
+	CMetaList			m_pMetadata;
 	CList< Review* >	m_pReviews;
 	CCriticalSection	m_pSection;
 	BOOL				m_bCanPreview;

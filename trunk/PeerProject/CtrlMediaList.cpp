@@ -1,7 +1,7 @@
 //
 // CtrlMediaList.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -256,6 +256,7 @@ int CMediaListCtrl::Add(LPCTSTR pszPath, int nItem)
 	int nDotPos = strTemp.ReverseFind( '.' );
 	if ( nDotPos != -1 ) strTemp = strTemp.Left( nDotPos );
 	LPTSTR pszFileTmp = strTemp.GetBuffer( strTemp.GetLength() );
+
 	LV_ITEM pItem = {};
 	pItem.mask		= LVIF_TEXT|LVIF_IMAGE|LVIF_PARAM;
 	pItem.iItem		= nItem >= 0 ? nItem : GetItemCount();
@@ -371,8 +372,7 @@ void CMediaListCtrl::Reset(BOOL bNext)
 
 CString CMediaListCtrl::GetPath(int nItem)
 {
-	CString str;
-	if ( nItem < 0 || nItem >= GetItemCount() ) return str;
+	if ( nItem < 0 || nItem >= GetItemCount() ) return CString();
 	return GetItemText( nItem, 1 );
 }
 
@@ -383,7 +383,7 @@ int CMediaListCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CListCtrl::OnCreate( lpCreateStruct ) == -1 ) return -1;
 
-	SetImageList( ShellIcons.GetObject( 16 ), LVSIL_SMALL );
+	ShellIcons.AttachTo( this, 16 );	// SetImageList()
 	InsertColumn( 0, _T("Name"), LVCFMT_LEFT, 100, -1 );
 	InsertColumn( 1, _T("Path"), LVCFMT_LEFT, 0, 0 );
 
@@ -660,12 +660,9 @@ void CMediaListCtrl::OnMediaAdd()
 {
 	if ( ! AfxGetMainWnd()->IsWindowEnabled() ) return;
 
-	CString strFilter;
-	Skin.LoadString( strFilter, IDS_MEDIA_FILTER );
-
 	CFileDialog dlg( TRUE, NULL, NULL,
 		OFN_HIDEREADONLY|OFN_ALLOWMULTISELECT|OFN_ENABLESIZING,
-		strFilter, this );
+		LoadString( IDS_MEDIA_FILTER ), this );
 
 	const int nLimit = 81920;
 
@@ -679,7 +676,7 @@ void CMediaListCtrl::OnMediaAdd()
 	CString strFolder( szFiles.get() );
 	LPCTSTR pszFile = szFiles.get() + strFolder.GetLength() + 1;
 
-	BOOL bWasEmpty = ( GetItemCount() == 0 );
+	const BOOL bWasEmpty = ( GetItemCount() == 0 );
 
 	if ( *pszFile )
 	{
@@ -694,7 +691,7 @@ void CMediaListCtrl::OnMediaAdd()
 		Enqueue( strFolder, FALSE );
 	}
 
-	if ( GetItemCount() > 0 && bWasEmpty )
+	if ( bWasEmpty && GetItemCount() > 0 )
 		GetNext();
 }
 
@@ -739,9 +736,7 @@ void CMediaListCtrl::OnMediaClear()
 
 void CMediaListCtrl::OnMediaOpen()
 {
-	CString strFilter;
-	Skin.LoadString( strFilter, IDS_MEDIA_FILTER );
-	CFileDialog dlg( TRUE, NULL, NULL, OFN_HIDEREADONLY|OFN_ENABLESIZING, strFilter, this );
+	CFileDialog dlg( TRUE, NULL, NULL, OFN_HIDEREADONLY|OFN_ENABLESIZING, LoadString( IDS_MEDIA_FILTER ), this );
 
 	if ( dlg.DoModal() != IDOK ) return;
 

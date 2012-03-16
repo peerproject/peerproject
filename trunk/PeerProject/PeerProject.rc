@@ -412,7 +412,7 @@ CAPTION "G2/Gnutella"
 FONT 8, "Tahoma"
 BEGIN
 	GROUPBOX		"Gnutella2 Network:",IDC_STATIC,6,5,132,74,WS_GROUP
-	CONTROL			"Connect to G2 now",IDC_G2_TODAY,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,18,120,10
+	CONTROL			"Connect to G2 now",IDC_G2_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,18,120,10
 	CONTROL			"Connect to G2 at startup",IDC_G2_ALWAYS,"Button",BS_AUTO3STATE | WS_TABSTOP,14,34,120,10
 	RTEXT			"Mode:",IDC_STATIC,16,58,50,8,0
 	COMBOBOX		IDC_G2_CLIENTMODE,71,56,56,54,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
@@ -427,7 +427,7 @@ BEGIN
 	EDITTEXT		IDC_G2_PEERS,91,141,35,12,ES_AUTOHSCROLL | ES_NUMBER
 	CONTROL			"Spin1",IDC_G2_PEERS_SPIN,"msctls_updown32",UDS_SETBUDDYINT | UDS_AUTOBUDDY | UDS_ALIGNRIGHT | UDS_ARROWKEYS | UDS_NOTHOUSANDS,127,141,11,12
 	GROUPBOX		"Gnutella Network:",IDC_STATIC,144,5,132,74,WS_GROUP
-	CONTROL			"Connect to Gnutella now",IDC_G1_TODAY,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,151,18,124,10
+	CONTROL			"Connect to Gnutella now",IDC_G1_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,151,18,124,10
 	CONTROL			"Connect to Gnutella at startup",IDC_G1_ALWAYS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,151,34,124,10
 	RTEXT			"Mode:",IDC_STATIC,154,58,50,8,0
 	COMBOBOX		IDC_G1_CLIENTMODE,209,56,56,53,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
@@ -453,7 +453,7 @@ END
 //FONT 8, "Tahoma"
 //BEGIN
 //	GROUPBOX		"&DC++ Network:",IDC_STATIC,6,5,270,48,WS_GROUP
-//	CONTROL			"Connect to DC++ now",IDC_ENABLE_TODAY,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,18,200,10
+//	CONTROL			"Connect to DC++ now",IDC_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,18,200,10
 //	CONTROL			"Connect to DC++ at startup",IDC_ENABLE_ALWAYS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,34,200,10
 //	GROUPBOX		"&Hubs:",IDC_STATIC,6,58,270,38,WS_GROUP
 //	RTEXT			"Connect to no more than:",IDC_STATIC,17,73,95,12,SS_CENTERIMAGE
@@ -473,7 +473,7 @@ CAPTION "eDonkey"
 FONT 8, "Tahoma"
 BEGIN
 	GROUPBOX		"&eDonkey Network:",IDC_STATIC,6,5,270,48,WS_GROUP
-	CONTROL			"Connect to eDonkey2000 now",IDC_ENABLE_TODAY,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,18,200,10
+	CONTROL			"Connect to eDonkey2000 now",IDC_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,18,200,10
 	CONTROL			"Connect to eDonkey2000 at startup",IDC_ENABLE_ALWAYS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,34,200,10
 	GROUPBOX		"&Client Link Connections:",IDC_STATIC,6,58,270,38,WS_GROUP
 	RTEXT			"Connect to no more than:",IDC_STATIC,17,73,95,12,SS_CENTERIMAGE
@@ -524,11 +524,12 @@ BEGIN
 	GROUPBOX		"&Download Connections:",IDC_STATIC,6,5,270,53,WS_GROUP
 	EDITTEXT		IDC_TORRENT_DOWNLOADS,14,19,35,12,ES_AUTOHSCROLL | ES_NUMBER
 	CONTROL			"",IDC_TORRENT_DOWNLOADS_SPIN,"msctls_updown32",UDS_SETBUDDYINT | UDS_AUTOBUDDY | UDS_ALIGNRIGHT | UDS_ARROWKEYS | UDS_NOTHOUSANDS,50,20,10,12
-	LTEXT			"Torrents at once",IDC_STATIC,56,20,106,12,SS_CENTERIMAGE
+	LTEXT			"Torrents at once",IDC_STATIC,55,19,99,12,SS_CENTERIMAGE
 	EDITTEXT		IDC_TORRENT_CLIENTLINKS,14,38,35,12,ES_AUTOHSCROLL | ES_NUMBER
 	CONTROL			"",IDC_TORRENT_LINKS_SPIN,"msctls_updown32",UDS_SETBUDDYINT | UDS_AUTOBUDDY | UDS_ALIGNRIGHT | UDS_ARROWKEYS | UDS_NOTHOUSANDS,50,38,10,12
-	LTEXT			"Client connections",IDC_STATIC,56,39,96,12,SS_CENTERIMAGE
-	CONTROL			"Prefer torrent sources",IDC_TORRENT_PREFERENCE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,156,40,112,11//,WS_EX_TRANSPARENT
+	LTEXT			"Client connections",IDC_STATIC,55,39,99,12,SS_CENTERIMAGE
+	CONTROL			"Enable BitTorrent DHT",IDC_ENABLE_DHT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,156,19,116,12//,WS_EX_TRANSPARENT
+	CONTROL			"Prefer torrent sources",IDC_TORRENT_PREFERENCE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,156,39,116,12//,WS_EX_TRANSPARENT
 	GROUPBOX		"&EndGame:",IDC_STATIC,6,62,270,48,WS_GROUP
 	CONTROL			"Enable EndGame mode when completing torrents  (multi-source)",IDC_TORRENT_ENDGAME,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,74,254,15
 	CONTROL			"Clear downloaded torrents when share ratio reaches:",IDC_TORRENT_AUTOCLEAR,"Button",BS_AUTOCHECKBOX | /*BS_VCENTER |*/ WS_TABSTOP,14,91,214,12//,WS_EX_TRANSPARENT
@@ -1117,7 +1118,7 @@ BEGIN
 	LTEXT			"Author:",IDC_STATIC,160,145,32,10
 	LTEXT			"...",IDC_SKIN_AUTHOR,192,145,82,10
 	LTEXT			"Description:",IDC_STATIC,14,160,40,10
-	EDITTEXT		IDC_SKIN_DESC,60,160,206,25,ES_MULTILINE | ES_AUTOVSCROLL | ES_READONLY | WS_VSCROLL
+	EDITTEXT		IDC_SKIN_DESC,60,160,208,26,ES_MULTILINE | ES_AUTOVSCROLL | ES_READONLY | WS_VSCROLL
 	LTEXT			"*Select multiple skins to mix",IDC_STATIC,5,203,118,16
 	PUSHBUTTON		"Delete",IDC_SKINS_DELETE,124,200,48,15,WS_GROUP
 	PUSHBUTTON		"Install...",IDC_SKINS_BROWSE,176,200,48,15
@@ -1812,17 +1813,19 @@ STYLE DS_SETFONT | DS_3DLOOK | WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "Download Properties"
 FONT 8, "Tahoma"
 BEGIN
-	EDITTEXT		IDC_TORRENT_TRACKER,90,14,194,12,ES_AUTOHSCROLL
+	EDITTEXT		IDC_TORRENT_TRACKER,90,14,194,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_TABSTOP
 	EDITTEXT		IDC_TORRENT_COMPLETED,90,34,56,12,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY | NOT WS_TABSTOP
 	EDITTEXT		IDC_TORRENT_INCOMPLETE,228,34,56,12,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY | NOT WS_TABSTOP
-	CONTROL			"",IDC_TORRENT_TRACKERS,"SysListView32",LVS_REPORT | LVS_SHAREIMAGELISTS | WS_BORDER | WS_TABSTOP,6,82,288,133
+	CONTROL			"",IDC_TORRENT_TRACKERS,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_EDITLABELS | LVS_NOSORTHEADER | LVS_SHAREIMAGELISTS | WS_BORDER | WS_TABSTOP,6,94,288,121
 	LTEXT			"Tracker:",IDC_STATIC,14,14,74,12,SS_CENTERIMAGE
 	GROUPBOX		"&Current Tracker:",IDC_STATIC,6,3,288,71
 	LTEXT			"Seeds (Complete):",IDC_STATIC,14,34,74,12,SS_CENTERIMAGE
 	CTEXT			"Peers (Incomplete):",IDC_STATIC,148,34,80,12,SS_CENTERIMAGE
 	LTEXT			"Tracker Mode:",IDC_STATIC,14,56,78,9
 	COMBOBOX		IDC_TORRENT_TRACKERMODE,90,53,120,66,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-	PUSHBUTTON		"&Refresh",IDC_TORRENT_REFRESH,228,52,56,14
+	PUSHBUTTON		"R&efresh",IDC_TORRENT_REFRESH,228,52,56,14
+	PUSHBUTTON      " &Add",IDC_SOURCE_ADD,62,77,60,14
+	PUSHBUTTON      " &Remove",IDC_SOURCE_REMOVE,177,77,60,14
 END
 
 IDD_TORRENT_GENERAL DIALOGEX 0, 0, 300, 220
@@ -3469,6 +3472,7 @@ BEGIN
 	ID_NETWORK_EXIT				"Exit PeerProject"
 	ID_NETWORK_ED2K				"Connect to the eDonkey network."
 	ID_NETWORK_DC				"Connect to the DC++ network."
+	ID_NETWORK_BT				"Connect to the BitTorrent network."
 	ID_NETWORK_G1				"Connect to the original Gnutella network."
 	ID_NETWORK_G2				"Connect to the Gnutella2 network (highly recommended)."
 	ID_NETWORK_SEARCH			"Start a new search of the network..."
@@ -3632,17 +3636,17 @@ END
 STRINGTABLE
 BEGIN
 	ID_WEBSERVICES_LIST			"Choose a web service to get more information about the selected file."
-	ID_WEBSERVICES_SHAREMONKEY	"Search for the file infomation using ShareMonkey service."
 	ID_WEBSERVICES_MUSICBRAINZ	"Search for the same artist songs using MusicBrainz service."
-	ID_SHAREMONKEY_DOWNLOAD		"Search for matches"
-	ID_SHAREMONKEY_SAVE			"Save the match in your Library"
-	ID_SHAREMONKEY_PREVIOUS		"Go to the previous match"
-	ID_SHAREMONKEY_NEXT			"Go to the next match"
-	ID_SHAREMONKEY_PRICES		"Look at the prices for the current match"
-	ID_SHAREMONKEY_COMPARE		"Compare prices in different stores"
-	ID_SHAREMONKEY_BUY			"Buy it and support the author"
 	ID_MUSICBRAINZ_MATCHES		"Search for albums matching the selected file."
 	ID_MUSICBRAINZ_ALBUMS		"Look at all albums for this artist."
+//	ID_WEBSERVICES_SHAREMONKEY	"Search for the file infomation using ShareMonkey service."
+//	ID_SHAREMONKEY_DOWNLOAD		"Search for matches"
+//	ID_SHAREMONKEY_SAVE			"Save the match in your Library"
+//	ID_SHAREMONKEY_PREVIOUS		"Go to the previous match"
+//	ID_SHAREMONKEY_NEXT			"Go to the next match"
+//	ID_SHAREMONKEY_PRICES		"Look at the prices for the current match"
+//	ID_SHAREMONKEY_COMPARE		"Compare prices in different stores"
+//	ID_SHAREMONKEY_BUY			"Buy it and support the author"
 END
 
 // String Resources:
@@ -3868,8 +3872,8 @@ BEGIN
 	IDS_DOWNLOAD_BAD_PUSH		"Received a faulty push connection from %s, closing connection."
 	IDS_DOWNLOAD_BOOST			"Boosting download ""%s"" by removing bandwidth caps."
 	IDS_DOWNLOAD_BUSY			"Download host %s is busy, retrying in %i seconds."
+	IDS_DOWNLOAD_DISK_SPACE		"Insufficient disk space to download ""%s"" (%s)."
 	IDS_DOWNLOAD_CANT_MOVE		"Couldn't move download ""%s"" to ""%s"".  Check that the incomplete file is not in use, and that your downloads folder exists and is writable."
-	IDS_DOWNLOAD_CANT_RESOLVE	"Unable to resolve ""%s""."
 	IDS_DOWNLOAD_CLEAR_GROUP	"Are you sure you want to cancel/abort every download in this group?"
 	IDS_DOWNLOAD_CLOSING_EXTRA	"Closing download connection to %s, no longer required."
 	IDS_DOWNLOAD_CLOSING_OVERFLOW "Download host %s sent unsolicited data, closing connection."
@@ -3882,25 +3886,24 @@ BEGIN
 	IDS_DOWNLOAD_CONNECT_ERROR	"Unable to connect to download host %s."
 	IDS_DOWNLOAD_CONTENT		"Receiving download content from host %s (%s)."
 	IDS_DOWNLOAD_DISABLED		"Aborting download of ""%s"" from %s (%s), network disabled."
-	IDS_DOWNLOAD_DISK_SPACE		"Insufficient disk space to download ""%s"" (%s)."
 	IDS_DOWNLOAD_DROPPED		"Download connection to %s was lost."
 END
 
 STRINGTABLE
 BEGIN
 	IDS_DOWNLOAD_EDIT_ACTIVE_TASK "\nThe selected download already has an active Task, please wait."
-	IDS_DOWNLOAD_EDIT_BAD_HASH	"You have typed an %s hash value, however it is invalid.  Please check it and try again."
 	IDS_DOWNLOAD_EDIT_BAD_RANGE "Please enter a valid range to erase.  The ""from"" field is the first byte to erase, the ""last"" field is the last byte to erase."
-	IDS_DOWNLOAD_EDIT_CANCEL_DOWNLOAD "Do you wish to cancel this download but save the incomplete files?"
-	IDS_DOWNLOAD_EDIT_CANT_ERASE "Unable to erase the selected range from the download because no part of the range is present."
+	IDS_DOWNLOAD_EDIT_BAD_HASH	"You have typed a %s hash value, however it is invalid.  Please check it and try again."
 	IDS_DOWNLOAD_EDIT_CHANGE_HASH "You have provided an %s hash value that is different from the one currently associated with this download.  Are you sure you want to change the %s hash now?"
+	IDS_DOWNLOAD_EDIT_CHANGE_NAME "You have made changes to the name field.  Are you sure you want to rename this download?"
 	IDS_DOWNLOAD_EDIT_CHANGE_SIZE "You have made changes to the file size.  Are you sure you want to change the file size for this download?"
 	IDS_DOWNLOAD_EDIT_COMPLETE_NOHASH "You cannot assume this download is complete and reverify it because you do not yet have any partial verification data, such as tiger-tree volume, eDonkey hashset or BitTorrent hashset.  Without verification information the download cannot be reverified."
 	IDS_DOWNLOAD_EDIT_COMPLETE_VERIFY "Are you sure you want to assume this download is complete and reverify it?  The whole file will be considered, and PeerProject will accept parts which pass verification and redownload parts which fail verification."
-	IDS_DOWNLOAD_EDIT_ERASED	"Erased %I64i bytes from the download."
+	IDS_DOWNLOAD_EDIT_FORGET_VERIFY  "Are you sure you want to forget the current verification status?  All downloaded data will be treated as untrusted, and cached hashtrees and hashsets will be flushed."
 	IDS_DOWNLOAD_EDIT_FORGET_SOURCES "Are you sure you want to forget all sources for the selected download?"
-	IDS_DOWNLOAD_EDIT_FORGET_VERIFY "Are you sure you want to forget the current verification status?  All downloaded data will be treated as untrusted, and cached hashtrees and hashsets will be flushed."
-	IDS_DOWNLOAD_EDIT_RENAME	"You have made changes to the name field.  Are you sure you want to rename this download?"
+	IDS_DOWNLOAD_EDIT_CANCEL_DOWNLOAD "Do you wish to cancel this download but save the incomplete files?"
+	IDS_DOWNLOAD_EDIT_CANT_ERASE  "Unable to erase the selected range from the download because no part of the range is present."
+	IDS_DOWNLOAD_EDIT_ERASED	"Erased %I64i bytes from the download."
 END
 
 STRINGTABLE
@@ -3940,7 +3943,6 @@ BEGIN
 	IDS_DOWNLOAD_QUEUE_TIMEOUT	"Timed out waiting for queue update from eDonkey download host %s for file ""%s""."
 	IDS_DOWNLOAD_REMOVE			"Cleared download ""%s."""
 	IDS_DOWNLOAD_REQUEST_TIMEOUT "Download request to %s timed out, closing connection."
-	IDS_DOWNLOAD_RESOLVING		"Resolving ""%s"" to download ""%s""..."
 	IDS_DOWNLOAD_RESUMED		"Resuming download of ""%s."""
 	IDS_DOWNLOAD_SOURCES		"Querying for more sources for download ""%s"" on %i connections..."
 	IDS_DOWNLOAD_SOURCES_CONNECTED "Can't fetch more sources for download ""%s"" because there is no network connection."
@@ -3948,6 +3950,8 @@ END
 
 STRINGTABLE
 BEGIN
+//	IDS_DOWNLOAD_RESOLVING		"Resolving ""%s"" to download ""%s""..."
+//	IDS_DOWNLOAD_CANT_RESOLVE	"Unable to resolve ""%s""."
 	IDS_DOWNLOAD_TIGER_CORRUPT	"Download host's tiger-tree data is corrupt or internally inconsistent, ignoring it."
 	IDS_DOWNLOAD_TIGER_MISMATCH	"Download host's tiger-tree does not match expected root value."
 	IDS_DOWNLOAD_TIGER_RANGE	"Download host %s could not satisfy the tiger-tree request."
@@ -4250,6 +4254,7 @@ BEGIN
 	IDS_NETWORK_STARTUP			"Starting PeerProject network core..."
 	IDS_NETWORK_UNLIMIT			"You are running the Scheduler in 'G2 only' mode.  Would you like to turn this mode off, so that all active networks remain connected?"
 	IDS_NETWORK_UPNP_FAILED		"UPnP port mapping failed after 10 attempts."
+	IDS_NETWORK_ALWAYS			"Would you like to always connect to this network automatically?"
 END
 
 STRINGTABLE
@@ -4258,9 +4263,8 @@ BEGIN
 	IDS_PROTOCOL_BAD_QUERY		"Ignoring malformatted %s search query packet from %s."
 	IDS_PROTOCOL_GGEP_REQUIRED	"Neighbor %s forwarded an extended packet that is not GGEP encoded."
 	IDS_PROTOCOL_HIGH_TTL		"Neighbor %s forwarded a packet with excessive TTL, dropping packet (TTL=%i, Hops=%i)."
+//	IDS_PROTOCOL_NO_TTL			"Neighbor %s forwarded a packet with zero TTL, ignoring."
 	IDS_PROTOCOL_LEAF_FORWARD	"Leaf neighbor %s is forwarding queries, dropping connection."
-	IDS_PROTOCOL_NO_TTL			"Neighbor %s forwarded a packet with zero TTL, ignoring."
-	IDS_PROTOCOL_PACKET_DUMP	"%s -> %s [%i/%i] %s %s"
 	IDS_PROTOCOL_QRP_FAILED		"Neighbor %s sent an invalid query routing table update, dropping connection."
 	IDS_PROTOCOL_QRP_SENT		"Sending query routing table to neighbor %s (%i bit = %lu[%i], %i%% full)"
 	IDS_PROTOCOL_QRP_UNEXPECTED "Receiving an unexpected query routing table update from neighbor %s."
@@ -4387,7 +4391,7 @@ BEGIN
 	IDS_SETTINGS_NEED_BANDWIDTH "Please type the bandwidth limit you wish to set in the form ""123 kb/s"" for kilobits per second, or ""123 KB/s"" for kilobytes per second."
 	IDS_SETTINGS_WARN_QUEUELIMIT "The eDonkey network uses large queues with long wait times. By limiting the maximum queue position you will accept so strictly, you may have trouble getting downloads to begin.\nAre you sure you want to limit what queue positions you will accept?"
 	IDS_SELECT_ED2K_TEMP_FOLDER	"Select the eDonkey/eMule temp folder:"
-	IDS_SHAREMONKEY_MESSAGE		"Please note: ShareMonkey.com appears defunct.\n\nThis option uses services provided by ShareMonkey.com for recognizing information about selected files.\n\nPeerProject will transmit file details and your location in order to query the ShareMonkey database.\nIf you are concerned about privacy, you may wish to consult ShareMonkey.com policies.\n\nWould you like to proceed?"
+//	IDS_SHAREMONKEY_MESSAGE		"Please note: ShareMonkey.com appears defunct.\n\nThis option uses services provided by ShareMonkey.com for recognizing information about selected files.\n\nPeerProject will transmit file details and your location in order to query the ShareMonkey database.\nIf you are concerned about privacy, you may wish to consult ShareMonkey.com policies.\n\nWould you like to proceed?"
 	IDS_SKIN_DELETE				"Are you sure you want to delete the ""%s"" skin?\n\nThis cannot be undone."
 	IDS_SKIN_ERROR				"Skin load error: %s.  Element: %s"
 	IDS_SKIN_LOAD				"Loading skin: %s"
@@ -4538,7 +4542,7 @@ BEGIN
 	IDS_UPLOAD_PREVIEW_EMPTY	"Upload host %s requested a preview of ""%s"", but no preview is available."
 	IDS_UPLOAD_PREVIEW_SEND		"Uploading a preview of ""%s"" to %s."
 	IDS_UPLOAD_PUSH_BUSY		"Refusing push request to %s because it has too many upload connections."
-	IDS_UPLOAD_PUSH_FILENOTFOUND "Legacy push request from %s requested an unknown file, connecting anyway..."
+//	IDS_UPLOAD_PUSH_FILENOTFOUND "Legacy push request from %s requested an unknown file, connecting anyway..."
 	IDS_UPLOAD_REMOVE			"Removed upload of ""%s"" to %s."
 	IDS_UPLOAD_REQUEST_TIMEOUT	"Timed out waiting for request from upload host %s."
 	IDS_UPLOAD_TRAFFIC_TIMEOUT	"Closing upload connection %s due to lack of traffic."
@@ -4572,10 +4576,10 @@ STRINGTABLE
 BEGIN
 	IDS_URL_ADD					"Add"
 	IDS_URL_BROWSE				"&Browse"
-	IDS_URL_BUSY				"Unable to display URL action dialog because PeerProject is busy."
 	IDS_URL_CONNECT				"&Connect"
 	IDS_URL_FILENAME			"Filename:"
 	IDS_URL_HOST				"Host:"
+//	IDS_URL_BUSY				"Unable to display URL action dialog because PeerProject is busy."
 	IDS_URL_PARSE_ERROR			"Unable to parse URL: PeerProject does not understand this URL."
 	IDS_URL_PORT				"Port:"
 	IDS_URL_RECEIVED			"Received URL ""%s"""

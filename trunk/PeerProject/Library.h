@@ -1,7 +1,7 @@
 //
 // Library.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -38,19 +38,19 @@ class CLibrary :
 	public CComObject,
 	public CThreadImpl
 {
+	DECLARE_DYNAMIC(CLibrary)
+
 // Construction
 public:
 	CLibrary();
 	virtual ~CLibrary();
-
-	DECLARE_DYNAMIC(CLibrary)
 
 // Attributes
 public:
 	mutable CMutexEx m_pSection;
 
 protected:
-	int				m_nFileSwitch;			// Library next save .dat/.bak
+//	int				m_nFileSwitch;			// Library next save .dat/.bak	(Using local static)
 	volatile LONG	m_nUpdateCookie;		// Library cookie (ms)
 	volatile LONG	m_nScanCookie;			// Used by CLibraryFolder::ThreadScan()
 	volatile DWORD	m_nScanCount;			// Library scan counter
@@ -96,7 +96,7 @@ public:
 	void			CheckDuplicates(LPCTSTR pszMD5Hash) const;
 
 protected:
-	void			CheckDuplicates(CLibraryFile* pFile, bool bForce = false) const;
+	void			CheckDuplicates(const CLibraryFile* pFile, bool bForce = false) const;
 
 // General Operations
 public:

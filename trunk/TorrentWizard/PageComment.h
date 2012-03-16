@@ -1,7 +1,7 @@
 //
-// PageComment.h : header file
+// PageComment.h
 //
-// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008
+// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008,2012
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
@@ -26,29 +26,29 @@
 
 class CCommentPage : public CWizardPage
 {
+	DECLARE_DYNCREATE(CCommentPage)
+
 // Construction
 public:
 	CCommentPage();
-	virtual ~CCommentPage();
+	//virtual ~CCommentPage();
 
-	DECLARE_DYNCREATE(CCommentPage)
+	enum { IDD = IDD_COMMENT_PAGE };
 
 // Dialog Data
 public:
 	//{{AFX_DATA(CCommentPage)
-	enum { IDD = IDD_COMMENT_PAGE };
 	CString	m_sComment;
 	//}}AFX_DATA
 
 // Overrides
 public:
 	//{{AFX_VIRTUAL(CCommentPage)
-	public:
 	virtual void OnReset();
 	virtual BOOL OnSetActive();
 	virtual LRESULT OnWizardBack();
 	virtual LRESULT OnWizardNext();
-	protected:
+protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
 	//}}AFX_VIRTUAL
 

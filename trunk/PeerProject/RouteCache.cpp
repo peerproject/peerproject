@@ -1,7 +1,7 @@
 //
 // RouteCache.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -17,10 +17,8 @@
 //
 
 #include "StdAfx.h"
-#include "Settings.h"
 #include "PeerProject.h"
 #include "RouteCache.h"
-#include "Packet.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -37,6 +35,15 @@ const DWORD MIN_BUFFER_SIZE = 1024u;
 const DWORD MAX_BUFFER_SIZE = 40960u;
 const unsigned BUFFER_BLOCK_SIZE = 1024u;
 
+CRouteCacheItem::CRouteCacheItem()
+	: m_pNext		( NULL )
+	, m_tAdded		( 0 )
+	, m_oGUID		()
+	, m_pNeighbour	( NULL )
+	, m_pEndpoint	()
+{
+	m_pEndpoint.sin_family = AF_INET;
+}
 
 //////////////////////////////////////////////////////////////////////
 // CRouteCache construction
@@ -179,9 +186,13 @@ void CRouteCache::Clear()
 // CRouteCacheTable construction
 
 CRouteCacheTable::CRouteCacheTable()
-	: m_pBuffer( NULL )
-	, m_nBuffer( 0 )
-	, m_nUsed( 0 )
+	: m_pHash	()
+	, m_pFree	( NULL )
+	, m_pBuffer	( NULL )
+	, m_nBuffer	( 0 )
+	, m_nUsed	( 0 )
+	, m_tFirst	( 0 )
+	, m_tLast	( 0 )
 {
 	Clear();
 }

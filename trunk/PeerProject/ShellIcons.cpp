@@ -1,7 +1,7 @@
 //
 // ShellIcons.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -18,7 +18,6 @@
 
 #include "StdAfx.h"
 #include "Settings.h"
-#include "PeerProject.h"
 #include "ShellIcons.h"
 #include "CoolInterface.h"
 
@@ -41,9 +40,9 @@ CShellIcons::CShellIcons()
 	m_m48.InitHashTable( 31 );
 }
 
-CShellIcons::~CShellIcons()
-{
-}
+//CShellIcons::~CShellIcons()
+//{
+//}
 
 //////////////////////////////////////////////////////////////////////
 // CShellIcons clear
@@ -103,13 +102,13 @@ void CShellIcons::Clear()
 //	m_i32.SetOverlayImage( SHI_LOCKED, SHI_O_LOCKED );
 //	m_i48.SetOverlayImage( SHI_LOCKED, SHI_O_LOCKED );
 
-	m_m16.SetAt(_T(".exe"), SHI_EXECUTABLE);
-	m_m32.SetAt(_T(".exe"), SHI_EXECUTABLE);
-	m_m48.SetAt(_T(".exe"), SHI_EXECUTABLE);
+	m_m16.SetAt( _T(".exe"), SHI_EXECUTABLE );
+	m_m32.SetAt( _T(".exe"), SHI_EXECUTABLE );
+	m_m48.SetAt( _T(".exe"), SHI_EXECUTABLE );
 
-	m_m16.SetAt(_T(".com"), SHI_EXECUTABLE);
-	m_m32.SetAt(_T(".com"), SHI_EXECUTABLE);
-	m_m48.SetAt(_T(".com"), SHI_EXECUTABLE);
+	m_m16.SetAt( _T(".com"), SHI_EXECUTABLE );
+	m_m32.SetAt( _T(".com"), SHI_EXECUTABLE );
+	m_m48.SetAt( _T(".com"), SHI_EXECUTABLE );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -201,13 +200,15 @@ int CShellIcons::Get(LPCTSTR pszFile, int nSize)
 			( ( nSize == 48 ) ? &hIcon : NULL ) );
 	}
 
-	SHFILEINFO sfi = {};
-	if ( ! hIcon &&
-		SHGetFileInfo( pszFile, 0, &sfi, sizeof( SHFILEINFO ),
+	if ( ! hIcon )
+	{
+		SHFILEINFO sfi = {};
+		if ( SHGetFileInfo( pszFile, 0, &sfi, sizeof( SHFILEINFO ),
 			( strFilename.IsEmpty() ? SHGFI_USEFILEATTRIBUTES : 0 ) |
 			SHGFI_ICON | ( ( nSize == 16 ) ? SHGFI_SMALLICON : SHGFI_LARGEICON ) ) )
-	{
-		hIcon = Settings.General.LanguageRTL ? CreateMirroredIcon( sfi.hIcon ) : sfi.hIcon;
+		{
+			hIcon = Settings.General.LanguageRTL ? CreateMirroredIcon( sfi.hIcon ) : sfi.hIcon;
+		}
 	}
 
 	nIndex = hIcon ? pImage->Add( hIcon ) : SHI_FILE;
@@ -238,6 +239,7 @@ int CShellIcons::Add(HICON hIcon, int nSize)
 	case 48:
 		return m_i48.Add( hIcon );
 	default:
+		ASSERT( FALSE );
 		return -1;
 	}
 }
@@ -260,6 +262,7 @@ HICON CShellIcons::ExtractIcon(int nIndex, int nSize)
 		hIcon = m_i48.ExtractIcon( nIndex );
 		break;
 	default:
+		ASSERT( FALSE );
 		return NULL;
 	}
 
@@ -285,7 +288,8 @@ CString	CShellIcons::GetTypeString(LPCTSTR pszFile)
 	if ( ! strName.IsEmpty() )
 	{
 		strOutput = strName;
-		if ( ! strMime.IsEmpty() ) strOutput += _T(" (") + strMime + _T(")");
+		if ( ! strMime.IsEmpty() )
+			strOutput += _T(" (") + strMime + _T(")");
 	}
 	else
 	{
@@ -306,7 +310,7 @@ BOOL CShellIcons::Lookup(LPCTSTR pszType, HICON* phSmallIcon, HICON* phLargeIcon
 
 	if ( phSmallIcon ) *phSmallIcon = NULL;
 	if ( phLargeIcon ) *phLargeIcon = NULL;
-	//if ( phHugeIcon ) *phHugeIcon = NULL;
+	if ( phHugeIcon )  *phHugeIcon = NULL;
 	if ( psName ) *psName = pszType + 1;
 	if ( psMIME ) psMIME->Empty();
 
@@ -409,7 +413,7 @@ BOOL CShellIcons::Lookup(LPCTSTR pszType, HICON* phSmallIcon, HICON* phLargeIcon
 		if ( phLargeIcon && *phLargeIcon )
 			*phLargeIcon = CreateMirroredIcon( *phLargeIcon );
 		if ( phHugeIcon && *phHugeIcon )
-			*phHugeIcon = CreateMirroredIcon( *phHugeIcon );
+			*phHugeIcon  = CreateMirroredIcon( *phHugeIcon );
 	}
 
 	return TRUE;
@@ -418,41 +422,70 @@ BOOL CShellIcons::Lookup(LPCTSTR pszType, HICON* phSmallIcon, HICON* phLargeIcon
 //////////////////////////////////////////////////////////////////////
 // CShellIcons attach image list to controls
 
-//void CShellIcons::AttachTo(CListCtrl* const pList, int nSize) const
-//{
-//	if ( nSize == 16 )
-//		pList->SetImageList( const_cast< CImageList* >( &m_i16 ), LVSIL_SMALL );
-//	else if ( nSize == 32 )
-//		pList->SetImageList( const_cast< CImageList* >( &m_i32 ), LVSIL_NORMAL );
-//}
-//
-//void CShellIcons::AttachTo(CTreeCtrl* const pTree) const
-//{
-//	pTree->SetImageList( const_cast< CImageList* >( &m_i16 ), LVSIL_NORMAL );
-//}
+void CShellIcons::AttachTo(CListCtrl* const pList, int nSize) const
+{
+	if ( nSize == 16 )
+		pList->SetImageList( const_cast< CImageList* >( &m_i16 ), LVSIL_SMALL );
+	else if ( nSize == 32 )
+		pList->SetImageList( const_cast< CImageList* >( &m_i32 ), LVSIL_NORMAL );
+	else if ( nSize == 48 )
+		pList->SetImageList( const_cast< CImageList* >( &m_i48 ), LVSIL_BIG );
+	else
+		ASSERT( FALSE );
+}
+
+void CShellIcons::AttachTo(CTreeCtrl* const pTree) const
+{
+	pTree->SetImageList( const_cast< CImageList* >( &m_i16 ), LVSIL_NORMAL );
+}
 
 //////////////////////////////////////////////////////////////////////
 // CShellIcons draw icon
 
-//BOOL CShellIcons::Draw(CDC* pDC, int nIcon, int nSize, int nX, int nY, COLORREF crBack, BOOL bSelected) const
-//{
-//	HIMAGELIST hImages;
-//	switch ( nSize )
-//	{
-//	case 16:
-//		hImages = m_i16.GetSafeHandle();
-//		break;
-//	case 32:
-//		hImages = m_i32.GetSafeHandle();
-//		break;
-//	case 48:
-//		hImages = m_i48.GetSafeHandle();
-//		break;
-//	default:
-//		return FALSE;
-//	}
-//	return ImageList_DrawEx( hImages, nIcon, pDC->GetSafeHdc(),
-//		nX, nY, nSize, nSize, crBack,
-//		( bSelected ? Colors.m_crHighlight : CLR_NONE ),
-//		( bSelected ? ILD_SELECTED : ILD_NORMAL ) );
-//}
+BOOL CShellIcons::Draw(CDC* pDC, int nIcon, int nSize, int nX, int nY, COLORREF crBack, BOOL bSelected) const
+{
+	HIMAGELIST hImages;
+	switch ( nSize )
+	{
+	case 16:
+		hImages = m_i16.GetSafeHandle();
+		break;
+	case 32:
+		hImages = m_i32.GetSafeHandle();
+		break;
+	case 48:
+		hImages = m_i48.GetSafeHandle();
+		break;
+	default:
+		ASSERT( FALSE );
+		return FALSE;
+	}
+
+	return ImageList_DrawEx( hImages, nIcon, pDC->GetSafeHdc(),
+		nX, nY, nSize, nSize, crBack,
+		CLR_DEFAULT,	// bSelected ? Colors.m_crHighlight : CLR_NONE,
+		bSelected ? ILD_SELECTED : ILD_NORMAL );
+}
+
+BOOL CShellIcons::Draw(CDC* pDC, int nIcon, int nSize, int nX, int nY, COLORREF crBack, COLORREF crBlend, UINT nStyle) const
+{
+	HIMAGELIST hImages;
+	switch ( nSize )
+	{
+	case 16:
+		hImages = m_i16.GetSafeHandle();
+		break;
+	case 32:
+		hImages = m_i32.GetSafeHandle();
+		break;
+	case 48:
+		hImages = m_i48.GetSafeHandle();
+		break;
+	default:
+		ASSERT( FALSE );
+		return FALSE;
+	}
+
+	return ImageList_DrawEx( hImages, nIcon, pDC->GetSafeHdc(),
+		nX, nY, nSize, nSize, crBack, crBlend, nStyle );
+}

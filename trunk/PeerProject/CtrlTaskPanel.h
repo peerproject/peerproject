@@ -1,7 +1,7 @@
 //
 // CtrlTaskPanel.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -23,20 +23,20 @@ class CTaskBox;
 
 class CTaskPanel : public CWnd
 {
+	DECLARE_DYNAMIC(CTaskPanel)
+
 // Construction
 public:
 	CTaskPanel();
-
-	DECLARE_DYNAMIC(CTaskPanel)
 
 // Attributes
 protected:
 	CList< CTaskBox* >	m_pBoxes;
 	CTaskBox*	m_pStretch;
-	int			m_nMargin;
-	int			m_nCurve;
 	CBitmap		m_bmWatermark;
 	CBitmap		m_bmFooter;
+//	int			m_nMargin;	// MARGIN_WIDTH
+//	int			m_nCurve;
 	BOOL		m_bLayout;
 
 // Operations
@@ -49,9 +49,9 @@ public:
 	void		ClearBoxes(BOOL bDelete);
 
 	void		SetStretchBox(CTaskBox* pBox);
-	void		SetMargin(int nMargin, int nCurve = 2);
 	void		SetWatermark(HBITMAP hBitmap);
 	void		SetFooter(HBITMAP hBitmap, BOOL bDefault = TRUE);
+//	void		SetMargin(int nMargin, int nCurve = 2);
 	void		OnChanged();
 protected:
 	void		Layout(CRect& rcClient);
@@ -79,11 +79,11 @@ protected:
 
 class CTaskBox : public CButton
 {
+	DECLARE_DYNAMIC(CTaskBox)
+
 public:
 	CTaskBox();
 	virtual ~CTaskBox();
-
-	DECLARE_DYNAMIC(CTaskBox)
 
 public:
 	CTaskPanel*	GetPanel() const;

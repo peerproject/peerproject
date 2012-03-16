@@ -389,11 +389,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\TorrentWizard\PageCommandline.cpp"
+				RelativePath="..\TorrentWizard\PageComment.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\TorrentWizard\PageComment.cpp"
+				RelativePath="..\TorrentWizard\PageExpert.cpp"
 				>
 			</File>
 			<File
@@ -487,11 +487,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\TorrentWizard\PageCommandline.h"
+				RelativePath="..\TorrentWizard\PageComment.h"
 				>
 			</File>
 			<File
-				RelativePath="..\TorrentWizard\PageComment.h"
+				RelativePath="..\TorrentWizard\PageExpert.h"
 				>
 			</File>
 			<File

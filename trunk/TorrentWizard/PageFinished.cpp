@@ -1,7 +1,7 @@
 //
 // PageFinished.cpp
 //
-// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2011
+// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2012
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
@@ -21,7 +21,6 @@
 
 #include "StdAfx.h"
 #include "TorrentWizard.h"
-#include "TorrentBuilder.h"
 #include "PageFinished.h"
 #include "PageOutput.h"
 #include "PageComment.h"
@@ -30,6 +29,11 @@
 #include "PageSingle.h"
 #include "PageExpert.h"
 #include "PageWelcome.h"
+#ifdef _PORTABLE
+#include "Portable\TorrentBuilder.h"
+#else
+#include "TorrentBuilder.h"
+#endif
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -56,9 +60,9 @@ END_MESSAGE_MAP()
 // CFinishedPage property page
 
 CFinishedPage::CFinishedPage() : CWizardPage(CFinishedPage::IDD)
+	, m_pBuilder( NULL )
 {
 	//{{AFX_DATA_INIT(CFinishedPage)
-	m_pBuilder = NULL;
 	//}}AFX_DATA_INIT
 }
 
@@ -70,6 +74,7 @@ CFinishedPage::~CFinishedPage()
 void CFinishedPage::DoDataExchange(CDataExchange* pDX)
 {
 	CWizardPage::DoDataExchange(pDX);
+
 	//{{AFX_DATA_MAP(CFinishedPage)
 	DDX_Control(pDX, IDC_ABORT, m_wndAbort);
 	DDX_Control(pDX, IDC_TORRENT_NAME, m_wndTorrentName);
@@ -101,6 +106,7 @@ BOOL CFinishedPage::OnInitDialog()
 BOOL CFinishedPage::OnSetActive()
 {
 	SetTimer( 2, 25, NULL );
+
 	return CWizardPage::OnSetActive();
 }
 
@@ -170,7 +176,7 @@ void CFinishedPage::Start()
 	m_wndProgress.SetPos( 0 );
 	m_wndProgress.SetRange( 0, 1 );
 
-	SetWizardButtons( 0 );
+	SetWizardButtons( PSWIZB_DISABLEDFINISH );
 }
 
 void CFinishedPage::OnTimer(UINT_PTR nIDEvent)
@@ -241,6 +247,8 @@ void CFinishedPage::OnTimer(UINT_PTR nIDEvent)
 	}
 
 	m_wndDone2.ShowWindow( SW_SHOW );
+
+//	GetSheet()->GetDlgItem( 2 )->EnableWindow( FALSE );
 
 	SetWizardButtons( PSWIZB_BACK | PSWIZB_FINISH );
 }
@@ -326,8 +334,8 @@ void CFinishedPage::OnTorrentCopy()
 		}
 		else
 		{
-			int nLen = WideCharToMultiByte( CP_ACP,  0, (LPCTSTR)strText.GetBuffer(), -1, NULL, 0, NULL, NULL );
-			LPSTR pStr	= new CHAR[ nLen + 1 ];
+			int nLen = WideCharToMultiByte( CP_ACP, 0, (LPCTSTR)strText.GetBuffer(), -1, NULL, 0, NULL, NULL );
+			LPSTR pStr = new CHAR[ nLen + 1 ];
 			WideCharToMultiByte( CP_ACP, 0, (LPCTSTR)strText.GetBuffer(), -1, pStr, nLen, NULL, NULL );
 			pStr[ nLen ] = 0;
 			HANDLE hMem = GlobalAlloc( GMEM_MOVEABLE|GMEM_DDESHARE, nLen + 1 );

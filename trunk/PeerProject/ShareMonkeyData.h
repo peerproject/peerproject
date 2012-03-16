@@ -1,7 +1,7 @@
 //
 // ShareMonkeyData.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -15,6 +15,9 @@
 // See the GNU Affero General Public License 3.0 (AGPLv3) for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
+
+// Note: For reference & reuse only, ShareMonkey*com does not exist
+// This file is unused.
 
 #pragma once
 
@@ -35,7 +38,6 @@ public:
 protected:
 	CCriticalSection	m_pSection;
 
-protected:
 	DWORD				m_nFileIndex;
 	HINTERNET			m_hInternet;
 	HINTERNET			m_hSession;
@@ -76,12 +78,12 @@ public:
 	};
 
 protected:
-	void			OnRun();
-	void			Clear();
-	BOOL			BuildRequest();
-	BOOL			ExecuteRequest();
-	BOOL			DecodeResponse(CString& strMessage);
-	BOOL			ImportData(CXMLElement* pRoot);
+	void		OnRun();
+	void		Clear();
+	BOOL		BuildRequest();
+	BOOL		ExecuteRequest();
+	BOOL		DecodeResponse(CString& strMessage);
+	BOOL		ImportData(CXMLElement* pRoot);
 
 	inline bool NotifyWindow(LPCTSTR pszMessage = NULL) const;
 };

@@ -1,4 +1,3 @@
-#include "rar.hpp"
 
 #define VMCF_OP0             0
 #define VMCF_OP1             1

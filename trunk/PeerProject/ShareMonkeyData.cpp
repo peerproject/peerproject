@@ -17,6 +17,7 @@
 //
 
 // Note: For reference & reuse only, ShareMonkey*com does not exist
+// This file is unused.
 
 #include "StdAfx.h"
 #include "Settings.h"
@@ -418,8 +419,8 @@ BOOL CShareMonkeyData::DecodeResponse(CString& strMessage)
 	}
 
 	bool bFailed = false;
-	CString strStatus, strWarnings;
 	BOOL bResult = FALSE;
+	CString strStatus, strWarnings;
 
 	for ( POSITION pos = m_pXML->GetElementIterator() ; pos ; )
 	{

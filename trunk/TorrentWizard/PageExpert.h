@@ -1,7 +1,7 @@
 //
 // PageExpert.h
 //
-// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008
+// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008,2012
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
@@ -28,18 +28,19 @@
 
 class CExpertPage : public CWizardPage
 {
+	DECLARE_DYNCREATE(CExpertPage)
+
 // Construction
 public:
 	CExpertPage();
-	virtual ~CExpertPage();
-	
-	DECLARE_DYNCREATE(CExpertPage)
-	
+	//virtual ~CExpertPage();
+
+	enum { IDD = IDD_EXPERT_PAGE };
+
 // Dialog Data
 public:
 	//{{AFX_DATA(CExpertPage)
-	enum { IDD = IDD_EXPERT_PAGE };
-	QWORD 	 	m_nTotalSize;
+	QWORD 		m_nTotalSize;
 	CString 	m_sFileCount;
 	CString 	m_sName;
 	CString 	m_sFolder;
@@ -59,23 +60,23 @@ public:
 protected:
 	void	AddFile(LPCTSTR pszFile);
 	void	AddFolder(LPCTSTR pszPath, int nRecursive);
-	
+
 // Overrides
 public:
 	//{{AFX_VIRTUAL(CExpertPage)
-	public:
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	virtual BOOL OnSetActive();
 	virtual LRESULT OnWizardBack();
 	virtual LRESULT OnWizardNext();
 	virtual void OnReset();
+protected:
+	virtual BOOL OnInitDialog();
+	virtual void DoDataExchange(CDataExchange* pDX);
 	//}}AFX_VIRTUAL
 
 // Implementation
 protected:
 	//{{AFX_MSG(CExpertPage)
-	virtual BOOL OnInitDialog();
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 	afx_msg void OnDropFiles(HDROP hDropInfo);
 	afx_msg void OnXButtonDown(UINT nFlags, UINT nButton, CPoint point);
 	afx_msg void OnItemChangedFileList(NMHDR* pNMHDR, LRESULT* pResult);

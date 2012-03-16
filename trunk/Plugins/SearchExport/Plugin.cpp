@@ -1,7 +1,7 @@
 //
 // Plugin.cpp : Implementation of CPlugin for SearchExport
 //
-// This file is part of PeerProject (peerproject.org) © 2009-2010
+// This file is part of PeerProject (peerproject.org) © 2009-2012
 // Portions Previously Copyright Nikolay Raspopov, 2009.
 //
 // PeerProject is free software; you can redistribute it
@@ -30,10 +30,10 @@ void InsertCommand(ISMenu* pMenu, int nPos, UINT nID, LPCWSTR szItem)
 	LONG nCount;
 	if ( SUCCEEDED( pMenu->get_Count( &nCount ) ) )
 	{
-		for ( int i = 0; i < (int)nCount; ++i )
+		for ( int i = 0 ; i < (int)nCount ; ++i )
 		{
 			CComPtr< ISMenu > pItem;
-			LONG nItemID;	// note: -1 - submenu, 0 - separator
+			LONG nItemID;	// Note: -1 - submenu, 0 - separator
 			if ( SUCCEEDED( pMenu->get_Item( CComVariant( i ), &pItem ) ) && pItem &&
 				 SUCCEEDED( pItem->get_CommandID( &nItemID ) ) && (UINT)nItemID == nID )
 				return;		// Already in place
@@ -60,11 +60,11 @@ CString SmartVolume(ULONGLONG nVolume)
 	CString strVolume;
 
 	if ( nVolume < KiloBytes )					// Bytes
-		strVolume.Format( _T("%I64i B"), nVolume );
+		strVolume.Format( _T("%I64u B"), nVolume );
 	else if ( nVolume < 10 * KiloBytes )		// 1..10 KiloBytes
 		strVolume.Format( _T("%.2f KB"), nVolume / KiloFloat );
 	else if ( nVolume < MegaBytes )				// 10..1024 KiloBytes
-		strVolume.Format( _T("%I64i KB"), nVolume / KiloBytes );
+		strVolume.Format( _T("%I64u KB"), nVolume / KiloBytes );
 	else if ( nVolume < 100 * MegaBytes )		// 1..100 MegaBytes
 		strVolume.Format( _T("%.2f MB"), nVolume / MegaFloat );
 	else if ( nVolume < GigaBytes )				// 100..1024 MegaBytes
@@ -295,7 +295,7 @@ HRESULT CPlugin::Export(IGenericView* pGenericView, LONG nCount)
 		_T("\t\t<a href=\"http://peerproject.org/\"><div class=\"hd\"></div></a>\r\n");
 
 	CAtlMap< CComBSTR, bool > oSHA1Map, oTigerMap, oED2KMap, oMD5Map;
-	int n = 0;
+	int n = 1;
 	for ( LONG i = 0; i < nCount; ++i )
 	{
 		CComVariant pItem;
@@ -337,8 +337,10 @@ HRESULT CPlugin::Export(IGenericView* pGenericView, LONG nCount)
 		str.Format( _T("\t\t<div class=\"f%d\">")
 			_T("<span class=\"f_\">%d</span>")
 			_T("<span class=\"fn\"><a href=\"magnet:?"),
-			( n & 1 ), ++n );
+			( n & 1 ), n );
 		sHTML += str;
+
+		n++;
 
 		if ( bstrSHA1.Length() && bstrTiger.Length() )
 			sHTML = sHTML + _T("xt=urn:bitprint:") + bstrSHA1 + _T(".") + bstrTiger + _T("&amp;");
@@ -360,7 +362,7 @@ HRESULT CPlugin::Export(IGenericView* pGenericView, LONG nCount)
 		hr = pPeerProjectFile->get_Size( &nSize );
 		ATLASSERT( SUCCEEDED( hr ) );
 
-		str.Format( _T("dn=%s&amp;xl=%I64i\">%s</a></span>")
+		str.Format( _T("dn=%s&amp;xl=%I64u\">%s</a></span>")
 			_T("<span class=\"fs\">%s</span></div>\r\n"),
 			URLEncode( bstrName ), nSize, bstrName, SmartVolume( nSize ) );
 		sHTML += str;

@@ -930,7 +930,7 @@ CLibraryThumbItem::CLibraryThumbItem(CLibraryFile* pFile)
 	m_bShared	= pFile->IsShared();
 	m_bSelected	= FALSE;
 	m_nThumb	= thumbWaiting;
-	m_nShell	= ShellIcons.Get( m_sText, 48 );	// THUMB_ICON Size
+	m_nShell	= ShellIcons.Get( pFile->GetPath(), 48 );	// THUMB_ICON Size
 }
 
 CLibraryThumbItem::~CLibraryThumbItem()

@@ -1,7 +1,7 @@
 //
 // DlgURLAction.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -106,8 +106,7 @@ BOOL CURLActionDlg::OnInitDialog()
 
 	CString strMessage;
 
-	if ( m_pURL->m_nAction == CPeerProjectURL::uriHost ||
-		 m_pURL->m_nAction == CPeerProjectURL::uriDonkeyServer )
+	if ( m_pURL->m_nAction == CPeerProjectURL::uriHost )
 	{
 		LoadString( m_sNameTitle, IDS_URL_HOST );
 		LoadString( m_sHashTitle, IDS_URL_PORT );
@@ -122,7 +121,9 @@ BOOL CURLActionDlg::OnInitDialog()
 		m_wndDownload.SetWindowText( strMessage );
 		m_wndDownload.SetFocus();
 
-		if ( m_pURL->m_nAction == CPeerProjectURL::uriHost )
+		if ( m_pURL->m_nProtocol != PROTOCOL_ED2K &&
+			 m_pURL->m_nProtocol != PROTOCOL_BT &&
+			 m_pURL->m_nProtocol != PROTOCOL_KAD )
 		{
 			LoadString( strMessage, IDS_URL_BROWSE );
 			m_wndSearch.SetWindowText( strMessage );
@@ -324,9 +325,6 @@ void CURLActionDlg::OnUrlDownload()
 		break;
 	case CPeerProjectURL::uriDiscovery:
 		DiscoveryServices.Add( m_pURL->m_sURL, (int)m_pURL->m_nSize );
-		break;
-	case CPeerProjectURL::uriDonkeyServer:
-		Network.ConnectTo( m_pURL->m_sName, m_pURL->m_nPort, PROTOCOL_ED2K );
 		break;
 	//case CPeerProjectURL::uriSearch:
 	//default:

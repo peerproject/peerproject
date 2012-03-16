@@ -500,6 +500,7 @@ void CDownload::OnRun()
 		}
 		else if ( ! IsCompleted() && m_bVerify != TRI_TRUE )
 		{
+			// This is pending download
 		//	// If this download isn't trying to download, see if it can try
 		//	if ( IsDownloading() )
 		//		SetStartTimer();	// This download was probably started by a push/etc
@@ -510,18 +511,16 @@ void CDownload::OnRun()
 				// a download has sources and is ready to go.
 				if ( Downloads.GetTryingCount() < ( Settings.Downloads.MaxFiles + Settings.Downloads.MaxFileSearches ) )
 				{
-					if ( IsTorrent() )
+					if ( ! IsTorrent() ||
+						Downloads.GetTryingCount( true ) < Settings.BitTorrent.DownloadTorrents )
 					{
 						// Torrents only try when 'ready to go'. (Reduce tracker load)
-						if ( Downloads.GetTryingCount( true ) < Settings.BitTorrent.DownloadTorrents )
-							Resume();
-					}
-					else
 						Resume();
+					}
 				}
 			}
-			else
-				ASSERT( ! IsTrying() );
+		//	else
+		//		ASSERT( ! IsTrying() );
 		}
 	}
 

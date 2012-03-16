@@ -31,9 +31,9 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNCREATE(CBitTorrentSettingsPage, CSettingsPage)
 
 BEGIN_MESSAGE_MAP(CBitTorrentSettingsPage, CSettingsPage)
-	ON_BN_CLICKED(IDC_TORRENT_AUTOCLEAR, OnTorrentsAutoClear)
-	ON_BN_CLICKED(IDC_TORRENTS_BROWSE, OnTorrentsBrowse)
-	ON_BN_CLICKED(IDC_TORRENTS_TORRENTMAKERBROWSE, OnMakerBrowse)
+	ON_BN_CLICKED(IDC_TORRENT_AUTOCLEAR, &CBitTorrentSettingsPage::OnTorrentsAutoClear)
+	ON_BN_CLICKED(IDC_TORRENTS_BROWSE, &CBitTorrentSettingsPage::OnTorrentsBrowse)
+	ON_BN_CLICKED(IDC_TORRENTS_TORRENTMAKERBROWSE, &CBitTorrentSettingsPage::OnMakerBrowse)
 END_MESSAGE_MAP()
 
 
@@ -42,12 +42,13 @@ END_MESSAGE_MAP()
 
 CBitTorrentSettingsPage::CBitTorrentSettingsPage()
 	: CSettingsPage(CBitTorrentSettingsPage::IDD)
-	, m_nDownloads		( 0 )
-	, m_nLinks			( 0 )
+	, m_bEnableDHT		( TRUE )
 	, m_bEndGame		( FALSE )
+	, m_bPrefBTSources	( TRUE )
 	, m_bAutoClear		( FALSE )
 	, m_nClearPercentage ( 0 )
-	, m_bPrefBTSources	( TRUE )
+	, m_nDownloads		( 0 )
+	, m_nLinks			( 0 )
 	, m_sTracker		( _T("") )
 	, m_sTorrentPath	( _T("") )
 	, m_sMakerPath		( _T("") )
@@ -64,6 +65,8 @@ void CBitTorrentSettingsPage::DoDataExchange(CDataExchange* pDX)
 {
 	CSettingsPage::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CBitTorrentSettingsPage)
+	DDX_Check(pDX, IDC_ENABLE_DHT, m_bEnableDHT);
+	DDX_Check(pDX, IDC_TORRENT_PREFERENCE, m_bPrefBTSources);
 	DDX_Check(pDX, IDC_TORRENT_ENDGAME, m_bEndGame);
 	DDX_Text(pDX, IDC_TORRENT_CLIENTLINKS, m_nLinks);
 	DDX_Control(pDX, IDC_TORRENT_LINKS_SPIN, m_wndLinksSpin);
@@ -73,7 +76,6 @@ void CBitTorrentSettingsPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_TORRENT_CLEAR_PERCENTAGE, m_wndClearPercentage);
 	DDX_Control(pDX, IDC_TORRENT_CLEAR_SPIN, m_wndClearPercentageSpin);
 	DDX_Text(pDX, IDC_TORRENT_CLEAR_PERCENTAGE, m_nClearPercentage);
-	DDX_Check(pDX, IDC_TORRENT_PREFERENCE, m_bPrefBTSources);
 	DDX_Text(pDX, IDC_TORRENT_DEFAULTTRACKER, m_sTracker);
 	DDX_Control(pDX, IDC_TORRENTS_BROWSE, m_wndTorrentPath);
 	DDX_Text(pDX, IDC_TORRENTS_FOLDER, m_sTorrentPath);
@@ -88,15 +90,16 @@ void CBitTorrentSettingsPage::DoDataExchange(CDataExchange* pDX)
 BOOL CBitTorrentSettingsPage::OnInitDialog()
 {
 	CSettingsPage::OnInitDialog();
+	m_bEnableDHT		= Settings.BitTorrent.EnableDHT;
 	m_bEndGame			= Settings.BitTorrent.Endgame;
-	m_nLinks			= Settings.BitTorrent.DownloadConnections;
-	m_sTracker			= Settings.BitTorrent.DefaultTracker;
-	m_sTorrentPath		= Settings.Downloads.TorrentPath;
-	m_nDownloads		= Settings.BitTorrent.DownloadTorrents;
-	m_sMakerPath		= Settings.BitTorrent.TorrentCreatorPath;
+	m_bPrefBTSources	= Settings.BitTorrent.PreferenceBTSources;
 	m_bAutoClear		= Settings.BitTorrent.AutoClear;
 	m_nClearPercentage	= Settings.BitTorrent.ClearRatio;
-	m_bPrefBTSources	= Settings.BitTorrent.PreferenceBTSources;
+	m_nLinks			= Settings.BitTorrent.DownloadConnections;
+	m_nDownloads		= Settings.BitTorrent.DownloadTorrents;
+	m_sTracker			= Settings.BitTorrent.DefaultTracker;
+	m_sTorrentPath		= Settings.Downloads.TorrentPath;
+	m_sMakerPath		= Settings.BitTorrent.TorrentCreatorPath;
 
 	m_wndTorrentPath.SetIcon( IDI_BROWSE );
 	m_wndMakerPath.SetIcon( IDI_BROWSE );
@@ -104,7 +107,7 @@ BOOL CBitTorrentSettingsPage::OnInitDialog()
 	m_wndClearPercentage.EnableWindow( m_bAutoClear );
 
 	DWORD nMaxTorrents = ( Settings.GetOutgoingBandwidth() / 2 ) + 2;
-	nMaxTorrents = min ( 10ul, nMaxTorrents);
+	nMaxTorrents = min( 10ul, nMaxTorrents );
 
 	m_wndClearPercentageSpin.SetRange( 100, 999 );
 
@@ -182,12 +185,13 @@ void CBitTorrentSettingsPage::OnOK()
 
 	UpdateData( FALSE );
 
+	Settings.BitTorrent.EnableDHT			= m_bEnableDHT != FALSE;
 	Settings.BitTorrent.Endgame				= m_bEndGame != FALSE;
+	Settings.BitTorrent.PreferenceBTSources	= m_bPrefBTSources != FALSE;
 	Settings.BitTorrent.DownloadConnections	= m_nLinks;
 	Settings.BitTorrent.DownloadTorrents	= m_nDownloads;
 	Settings.BitTorrent.AutoClear			= m_bAutoClear != FALSE;
 	Settings.BitTorrent.ClearRatio			= m_nClearPercentage;
-	Settings.BitTorrent.PreferenceBTSources	= m_bPrefBTSources != FALSE;
 	Settings.BitTorrent.DefaultTracker		= m_sTracker;
 	Settings.Downloads.TorrentPath			= m_sTorrentPath;
 	Settings.BitTorrent.TorrentCreatorPath	= m_sMakerPath;

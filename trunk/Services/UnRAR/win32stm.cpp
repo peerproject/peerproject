@@ -1,4 +1,3 @@
-#include "rar.hpp"
 
 #ifndef SFX_MODULE
 void ExtractStreams(Archive &Arc,char *FileName,wchar *FileNameW)

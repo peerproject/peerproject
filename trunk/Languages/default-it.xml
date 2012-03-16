@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Italian Skin File -->
 
-<!-- Translation based on default-en.xml r74 -->
+<!-- Translation based on default-en.xml r75 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -360,6 +360,7 @@
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<button id="ID_NETWORK_DC" text="DC++"/>
+		<button id="ID_NETWORK_BT" text="BitTorrent"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Opzioni"/>
 	</toolbar>
@@ -443,6 +444,12 @@
 		<button id="ID_CHAT_DISCONNECT" text="Disconnetti"/>
 	</toolbar>
 	<!-- WEBSERVICES -->
+	<toolbar name="WebServices.MusicBrainz">
+		<button id="ID_MUSICBRAINZ_MATCHES" text="Vedi Corrispondenze Album"/>
+		<button id="ID_MUSICBRAINZ_ALBUMS" text="Vedi Tutti Gli Album"/>
+		<separator/>
+	</toolbar>
+	<!--
 	<toolbar name="WebServices.ShareMonkey">
 		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Ottieni Dati"/>
 		<separator/>
@@ -465,11 +472,7 @@
 		<button id="ID_SHAREMONKEY_COMPARE" text="Confronta"/>
 		<button id="ID_SHAREMONKEY_BUY" text="Compralo"/>
 	</toolbar>
-	<toolbar name="WebServices.MusicBrainz">
-		<button id="ID_MUSICBRAINZ_MATCHES" text="Vedi Corrispondenze Album"/>
-		<button id="ID_MUSICBRAINZ_ALBUMS" text="Vedi Tutti Gli Album"/>
-		<separator/>
-	</toolbar>
+	-->
 	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
 		<button id="PluginID_ImageViewer_BestFit" text="Adatta dimensioni"/>
@@ -528,6 +531,7 @@
 				<item id="ID_NETWORK_G1" text="Connetti a Gnutella1"/>
 				<item id="ID_NETWORK_ED2K" text="Connetti a eDonkey2000"/>
 				<item id="ID_NETWORK_DC" text="Connetti a DC++"/>
+				<item id="ID_NETWORK_BT" text="Connetti a BitTorrent"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="Connetti a..." shortcut="Ctrl+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="Esplora Host..."/>
@@ -612,6 +616,7 @@
 			<item id="ID_NETWORK_G1" text="Connetti a _Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="Connetti a _eDonkey"/>
 			<item id="ID_NETWORK_DC" text="Connetti a _DC++"/>
+			<item id="ID_NETWORK_BT" text="Connetti a _BitTorrent"/>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Connetti a..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="Esplora host..."/>
@@ -777,6 +782,7 @@
 			<item id="ID_NETWORK_G1" text="Connetti a _Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="Connetti a _eDonkey"/>
 			<item id="ID_NETWORK_DC" text="Connetti a _DC++"/>
+			<item id="ID_NETWORK_BT" text="Connetti a _BitTorrent"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Esci al termine dei trasferimenti"/>
 			<item id="ID_NETWORK_EXIT" text="Esci"/>
@@ -1556,6 +1562,7 @@
 			<item id="ID_NETWORK_G1" text="Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="eDonkey"/>
 			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<item id="ID_NETWORK_BT" text="_BitTorrent"/>
 			<separator/>
 			<item id="ID_VIEW_DISCOVERY" text="Sco_perta"/>
 			<item id="ID_VIEW_HOSTS" text="_Cache host"/>
@@ -1675,7 +1682,7 @@
 	<menu name="WebServices.List.Menu">
 		<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Bitzi"/>
 		<item id="ID_WEBSERVICES_MUSICBRAINZ" text="_MusicBrainz"/>
-		<item id="ID_WEBSERVICES_SHAREMONKEY" text="_ShareMonkey"/>
+		<!--item id="ID_WEBSERVICES_SHAREMONKEY" text="_ShareMonkey"-->
 	</menu>
 	<!-- PLUGIN MENUS -->
 	<menu name="ImageViewer_Context">
@@ -2549,6 +2556,7 @@
 	<tip id="ID_NETWORK_EXIT" message="Esci da PeerProject"/>
 	<tip id="ID_NETWORK_ED2K" message="Connetti alla rete eDonkey."/>
 	<tip id="ID_NETWORK_DC" message="Connetti alla rete DC++."/>
+	<tip id="ID_NETWORK_BT" message="Connetti alla rete BitTorrent."/>
 	<tip id="ID_NETWORK_G1" message="Connetti alla rete Gnutella originale."/>
 	<tip id="ID_NETWORK_G2" message="Connetti alla rete Gnutella2 (consigliato)."/>
 	<tip id="ID_NETWORK_SEARCH" message="Inizia una nuova ricerca nella rete..."/>
@@ -2661,7 +2669,7 @@
 	<tip id="ID_WINDOW_TILE_VERT" message="Disponi le finestre aperte verticalmente, senza sovrapposizioni."/>
 	<tip id="ID_WINDOW_TOOLBAR" message="Mostra o nascondi la barra degli strumenti."/>
 	<tip id="ID_WEBSERVICES_LIST" message="Scegli il servizio web per avere maggiori informazioni sul file selezionato."/>
-	<tip id="ID_WEBSERVICES_SHAREMONKEY" message="Cerca le informazioni sul file utilizzando il servizio ShareMonkey."/>
+	<!--tip id="ID_WEBSERVICES_SHAREMONKEY" message="Cerca le informazioni sul file utilizzando il servizio ShareMonkey."-->
 	<!-- PLUGIN TIPS -->
 	<tip id="PluginID_ImageViewer_BestFit" message="Ridimensiona l'immagine per adattarsi alla finestra."/>
 	<tip id="PluginID_ImageViewer_FullSize" message="Mostra l'immagine con le dimensioni naturali."/>
@@ -2846,8 +2854,8 @@
 	<string id="20202" value="Richiesta GIV malformattata %s ricevuta, chiusura della connessione."/>
 	<string id="20203" value="Avvio del download &quot;%s&quot; rimuovendo le protezioni di banda."/>
 	<string id="20204" value="L'host di download %s è occupato, nuovo tentativo tra %i secondi."/>
-	<string id="20205" value="Non posso spostare il download su &quot;%s&quot;. Verifica se il file incompleto non è in uso e che la tua cartella dei download esista e che vi si possa scrivere."/>
-	<string id="20206" value="Impossibile risolvere &quot;%s&quot;."/>
+	<string id="20205" value="Spazio su disco insufficiente per il download &quot;%s&quot; (%s)."/>
+	<string id="20206" value="Non posso spostare il download su &quot;%s&quot;. Verifica se il file incompleto non è in uso e che la tua cartella dei download esista e che vi si possa scrivere."/>
 	<string id="20207" value="Sei sicuro di voler eliminare/annullare tutti i download di questo gruppo?"/>
 	<string id="20208" value="Connessione in download con %s chiusa, non è più richiesta."/>
 	<string id="20209" value="L'host di download %s ha inviato dati non richiesti, chiusura della connessione."/>
@@ -2860,23 +2868,18 @@
 	<string id="20216" value="Impossibile connettersi per il download con l'host %s."/>
 	<string id="20217" value="Contenuto del download dall'host %s (%s) in ricezione."/>
 	<string id="20218" value="Desideri eseguire il file scaricato &quot;%s&quot;.\n\nAlcuni file possono essere pericolosi per il tuo computer. Assicurati sulla natura del file prima di eseguirlo."/>
-	<string id="20219" value="Spazio su disco insufficiente per il download &quot;%s&quot; (%s)."/>
-	<string id="20220" value="La connessione di download con %s è stata persa."/>
-	<string id="20222" value="Hai inserito un hash eDonkey non valido. Controlla e riprova di nuovo."/>
-	<string id="20224" value="Inserisci un estensione di dati valida da cancellare. Il campo &quot;Cancella byte&quot; è il primo byte da cancellare, mentre il campo &quot;a&quot; è l'ultimo byte da cancellare."/>
-	<string id="20225" value="Hai inserito un hash SHA1 non valido. Controlla e riprova di nuovo."/>
-	<string id="20226" value="Hai inserito un hash tiger-tree root non valido. Controlla e riprova di nuovo."/>
-	<string id="20227" value="Hai cambiato la dimensione del file. Sei sicuro di voler cambiare la dimensione del file per questo download?"/>
-	<string id="20228" value="Impossibile cancellare l'estensione di dati selezionata dal download perchè non è presente nessuna parte di quella estensione."/>
-	<string id="20231" value="Hai inserito un hash SHA1 diverso da quello che è correntemente associato a questo download. Desideri modificare l'hash SHA1 ora?"/>
-	<string id="20232" value="Hai inserito un hash eDonkey diverso da quello che è correntemente associato a questo download. Desideri modificare l'hash eDonkey ora?"/>
-	<string id="20233" value="Hai inserito un hash tiger-tree root diverso da quello che è correntemente associato a questo download. Desideri modificare l'hash tiger-tree root ora?"/>
-	<string id="20235" value="Non puoi simulare questo download come completo e riverificarlo perchè non sono presenti dati di verifica parziale, come un volume tiger-tree, un hashset eDonkey o un hashset BitTorrent. Senza le informazioni di verifica il download non può essere riverificato."/>
-	<string id="20236" value="Desideri simulare questo download come completo e riverificarlo? Verrà considerato il file intero e PeerProject accetterà le parti che riescono a passare la verifica e riscaricherà le parti che falliscono la verifica."/>
-	<string id="20237" value="Desideri rimuovere tutte le fonti del download selezionato?"/>
-	<string id="20238" value="Desideri azzerare lo stato di verifica corrente? Tutti i dati scaricati verranno trattati come non sicuri, mentre gli hashtree e hashset verranno svuotati."/>
-	<string id="20240" value="%I64i byte cancellati dal download."/>
-	<string id="20241" value="Hai modificato il nome del file. Desideri rinominare questo download?"/>
+	<string id="20219" value="La connessione di download con %s è stata persa."/>
+	<string id="20221" value="Inserisci un estensione di dati valida da cancellare. Il campo &quot;Cancella byte&quot; è il primo byte da cancellare, mentre il campo &quot;a&quot; è l'ultimo byte da cancellare."/>
+	<string id="20222" value="Hai inserito un hash %s non valido. Controlla e riprova di nuovo."/>
+	<string id="20223" value="Hai inserito un hash %s diverso da quello che è correntemente associato a questo download. Desideri modificare l'hash %s ora?"/>
+	<string id="20224" value="Hai modificato il nome del file. Desideri rinominare questo download?"/>
+	<string id="20225" value="Hai cambiato la dimensione del file. Sei sicuro di voler cambiare la dimensione del file per questo download?"/>
+	<string id="20226" value="Non puoi simulare questo download come completo e riverificarlo perchè non sono presenti dati di verifica parziale, come un volume tiger-tree, un hashset eDonkey o un hashset BitTorrent. Senza le informazioni di verifica il download non può essere riverificato."/>
+	<string id="20227" value="Desideri simulare questo download come completo e riverificarlo? Verrà considerato il file intero e PeerProject accetterà le parti che riescono a passare la verifica e riscaricherà le parti che falliscono la verifica."/>
+	<string id="20228" value="Desideri azzerare lo stato di verifica corrente? Tutti i dati scaricati verranno trattati come non sicuri, mentre gli hashtree e hashset verranno svuotati."/>
+	<string id="20229" value="Desideri rimuovere tutte le fonti del download selezionato?"/>
+	<string id="20231" value="Impossibile cancellare l'estensione di dati selezionata dal download perchè non è presente nessuna parte di quella estensione."/>
+	<string id="20232" value="%I64i byte cancellati dal download."/>
 	<string id="20242" value="L'host di download %s non ha il file &quot;%s&quot;."/>
 	<string id="20243" value="Creazione del file &quot;%s&quot; per il download."/>
 	<string id="20244" value="Impossibile creare il file locale &quot;%s&quot; per il download, azione annullata."/>
@@ -2908,9 +2911,10 @@
 	<string id="20271" value="Spostato su &quot;%s&quot;."/>
 	<string id="20272" value="Il download di &quot;%s&quot; è stato sospeso."/>
 	<string id="20273" value="Il download di &quot;%s&quot; è stato ripreso."/>
-	<string id="20274" value="Risoluzione &quot;%s&quot; per scaricare &quot;%s&quot; in corso..."/>
 	<string id="20275" value="Richiesta di ulteriori fonti per il download &quot;%s&quot; su %i connessione(i) effettuata..."/>
 	<string id="20276" value="Ulteriori fonti per il download &quot;%s&quot; non trovate perchè non c'è connessione con la rete."/>
+	<!--string id="20277" value="Risoluzione &quot;%s&quot; per scaricare &quot;%s&quot; in corso..."-->
+	<!--string id="20278" value="Impossibile risolvere &quot;%s&quot;."-->
 	<string id="20280" value="L'host di download dei dati tiger-tree è corrotto o internamente inconsistente, ignorato."/>
 	<string id="20281" value="L'host di download del tiger-tree non coincide con il valore della root."/>
 	<string id="20282" value="L'host del download %s potrebbe non soddisfare la richiesta tiger-tree."/>
@@ -3172,7 +3176,7 @@
 	<string id="20570" value="Pacchetto di richiesta malformattato ricevuto da %s, ignorato."/>
 	<string id="20571" value="%s: Pacchetto di richiesta malformattato ricevuto da %s, ignorato."/>
 	<string id="20572" value="L'host %s ha inviato un pacchetto con TTL eccessivo, chiusura del pacchetto (TTL=%i, Punti=%i)."/>
-	<string id="20573" value="L'host %s ha inviato un pacchetto con TTL pari a zero, ignorato."/>
+	<!--string id="20573" value="L'host %s ha inviato un pacchetto con TTL pari a zero, ignorato."-->
 	<string id="20574" value="L'host %s ha inviato un pacchetto esteso non codificato GGEP."/>
 	<string id="20575" value="L'host %s ha inviato un aggiornamento della richiesta routing table, chiusura della connessione."/>
 	<string id="20576" value="Invio di una richiesta routing table all'host %s (%i bit = %lu[%i], %i%% pieno)"/>
@@ -3191,6 +3195,7 @@
 	<string id="20597" value="Sei sicuro di voler cancellare le regole di sicurezza selezionate?"/>
 	<string id="20599" value="&amp;Schemi"/>
 	<!-- Missing Scheduler/Security Strings -->
+	<string id="20614" value="Attesa"/>
 	<string id="20620" value="PeerProject sta cercando nella rete..."/>
 	<string id="20621" value="Clicca qui per cercare ancora"/>
 	<string id="20622" value="Tutte le reti"/>
@@ -3369,7 +3374,7 @@
 	<string id="20834" value="L'host di upload %s ha richiesto un'anteprima di &quot;%s&quot;, ma non è disponibile nessuna anteprima."/>
 	<string id="20835" value="Invio dell'anteprima di &quot;%s&quot; a %s."/>
 	<string id="20836" value="Richiesta push da %s rifiutata perchè ci sono troppe connessioni in upload."/>
-	<string id="20837" value="Richiest push da %s di un file sconosciuto, connessione in corso..."/>
+	<!--string id="20837" value="Richiest push da %s di un file sconosciuto, connessione in corso..."-->
 	<string id="20838" value="Troppo occupato per l'upload di &quot;%s&quot; a %s, accodato a #%i di %i (&quot;%s&quot;.."/>
 	<string id="20840" value="La connessione in upload a %s è persa, la posizione in coda viene conservata."/>
 	<string id="20841" value="Nuova coda"/>
@@ -3399,7 +3404,7 @@
 	<string id="20866" value="Nome file:"/>
 	<string id="20867" value="Host:"/>
 	<string id="20868" value="Porta:"/>
-	<string id="20869" value="Impossibile mostrare il dialogo di azione dell'URL perchè PeerProject è occupato."/>
+	<!--string id="20869" value="Impossibile mostrare il dialogo di azione dell'URL perchè PeerProject è occupato."-->
 	<string id="20870" value="Impossibile analizzare l'URL: PeerProject non riesce a leggere questo URL."/>
 	<string id="20871" value="URL &quot;%s&quot; ricevuto"/>
 	<string id="20872" value="Tipo:"/>
@@ -3743,7 +3748,7 @@
 		<control caption="Scarica..."/>
 		<control caption="Scarica la lista dei server eDonkey dal web:"/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Connessioni di download:"/>
 		<control/>
 		<control/>
@@ -3751,6 +3756,7 @@
 		<control/>
 		<control/>
 		<control caption="Connessioni del client"/>
+		<control caption="Abilita BitTorrent DHT"/>
 		<control caption="Priorità alle fonti torrent"/>
 		<control caption="_EndGame:"/>
 		<control caption="Abilita modalità EndGame nel completare il torrent"/>
@@ -4468,7 +4474,7 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Tracker">
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBuBuBu" caption="Tracker">
 		<control/>
 		<control/>
 		<control/>
@@ -4480,6 +4486,8 @@
 		<control caption="Modalità tracker:"/>
 		<control caption="Disabilitato|Personalizzato|Tracker singolo|Multi-tracker|Multi-tracker (bloccato)"/>
 		<control caption="_Aggiorna"/>
+		<control caption="_Aggiungi"/>
+		<control caption="_Rimuovi"/>
 	</dialog>
 	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="Torrent">
 		<control/>

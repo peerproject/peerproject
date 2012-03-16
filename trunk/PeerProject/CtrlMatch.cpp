@@ -120,10 +120,10 @@ void CMatchCtrl::OnSkinChange()
 
 BOOL CMatchCtrl::Create(CMatchList* pMatches, CWnd* pParentWnd)
 {
-	CRect rect( 0, 0, 0, 0 );
+	CRect rc( 0, 0, 0, 0 );
 	m_pMatches = pMatches;
-	return CWnd::CreateEx( 0, NULL, _T("CMatchCtrl"), WS_CHILD|WS_TABSTOP|WS_VSCROLL|
-		WS_VISIBLE, rect, pParentWnd, IDC_MATCHES, NULL );
+	return CWnd::CreateEx( 0, NULL, _T("CMatchCtrl"), WS_CHILD|WS_TABSTOP|WS_VSCROLL|WS_VISIBLE,
+		rc, pParentWnd, IDC_MATCHES, NULL );
 }
 
 int CMatchCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
@@ -131,7 +131,6 @@ int CMatchCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	if ( CWnd::OnCreate( lpCreateStruct ) == -1 ) return -1;
 
 	CRect rc;
-
 	if ( ! m_wndHeader.Create( WS_CHILD|WS_VISIBLE|HDS_BUTTONS|HDS_DRAGDROP|HDS_HOTTRACK|HDS_FULLDRAG,
 		rc, this, IDC_MATCH_HEADER ) ) return -1;
 
@@ -696,7 +695,7 @@ void CMatchCtrl::OnPaint()
 
 	m_nBottomIndex = nIndex + 1;
 
-	if ( m_pMatches->m_nFilteredFiles == 0 && m_sMessage.GetLength() )
+	if ( m_pMatches->m_nFilteredFiles == 0 && ! m_sMessage.IsEmpty() )
 	{
 		dc.SetViewportOrg( 0, 0 );
 		GetClientRect( &rcClient );
@@ -762,7 +761,9 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 		crWnd = crBack = CColors::CalculateColor( crBack, RGB( 250, 20, 0 ), 50 );
 	}
 
-	if ( pFile->GetLibraryStatus() == TRI_FALSE )
+	const TRISTATE bLibraryStatus = pFile->GetLibraryStatus();
+
+	if ( bLibraryStatus == TRI_FALSE )
 	{
 		// Green if already in the library
 		if ( bSelected )
@@ -770,7 +771,7 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 		else
 			crText = pHit ? Colors.m_crSearchExistsHit : Colors.m_crSearchExists;
 	}
-	else if ( pFile->GetLibraryStatus() == TRI_TRUE )
+	else if ( bLibraryStatus == TRI_TRUE )
 	{
 		// Brown/Orange if a ghost rating is in the library
 		crText = Colors.m_crSearchGhostrated;
@@ -793,7 +794,7 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 			  ( pHit && pHit->m_bPush == TRI_TRUE && Network.IsStable() == FALSE ) )
 	{
 		// Greyed Out if Unstable (or Brown if also Ghostrated)
-		crText = pFile->GetLibraryStatus() == TRI_TRUE ? Colors.m_crSearchGhostrated : Colors.m_crSearchNull;
+		crText = bLibraryStatus == TRI_TRUE ? Colors.m_crSearchGhostrated : Colors.m_crSearchNull;
 	}
 
 	// Update Full Row Highlight
@@ -892,8 +893,7 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 			}
 
 			if ( pFile->m_bDRM )	// Draw DRM status
-				CoolInterface.Draw( &dc, IDI_COMMERCIAL, 16,
-					rcCol.left - 16, rcCol.top, CLR_NONE, bSelected );
+				CoolInterface.Draw( &dc, IDI_COMMERCIAL, 16, rcCol.left - 16, rcCol.top, CLR_NONE, bSelected );
 
 			if ( bLeftMargin || ! bSelectmark )
 				dc.FillSolidRect( rcCol.left, rcCol.top, 1, Settings.Interface.RowSize, crLeftMargin );
@@ -1050,18 +1050,11 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 
 		case MATCH_COL_RATING:
 			if ( pHit )
-			{
 				DrawRating( dc, rcCol, pHit->m_nRating, crBack, bSelected, bSelectmark );
-			}
 			else if ( nHits == 1 )
-			{
 				DrawRating( dc, rcCol, pFile->GetBestRating(), crBack, bSelected, bSelectmark );
-			}
 			else
-			{
-				DrawRating( dc, rcCol, pFile->m_nRated ? pFile->m_nRating / pFile->m_nRated : 0,
-					crBack, bSelected, bSelectmark );
-			}
+				DrawRating( dc, rcCol, pFile->m_nRated ? pFile->m_nRating / pFile->m_nRated : 0, crBack, bSelected, bSelectmark );
 			break;
 
 		case MATCH_COL_STATUS:
@@ -1561,8 +1554,7 @@ void CMatchCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 
 	BOOL bChanged = FALSE;
 
-	if ( ( nFlags & MK_SHIFT ) == 0 && ( nFlags & MK_CONTROL ) == 0 &&
-		 ( nFlags & MK_RBUTTON ) == 0 )
+	if ( ( nFlags & MK_SHIFT ) == 0 && ( nFlags & MK_CONTROL ) == 0 && ( nFlags & MK_RBUTTON ) == 0 )
 	{
 		bChanged |= m_pMatches->ClearSelection();
 		m_nFocus = nIndex;
@@ -1987,8 +1979,7 @@ void CMatchCtrl::SelectAll()
 			m_pMatches->Select( *ppCurFile, NULL, TRUE );
 			if ( (*ppCurFile)->m_bExpanded )
 			{
-				for ( CQueryHit* pCurHit = (*ppCurFile)->GetHits() ; pCurHit ;
-					pCurHit = pCurHit->m_pNext )
+				for ( CQueryHit* pCurHit = (*ppCurFile)->GetHits() ; pCurHit ; pCurHit = pCurHit->m_pNext )
 				{
 					if ( pCurHit->m_bFiltered )
 						m_pMatches->Select( *ppCurFile, pCurHit, TRUE );

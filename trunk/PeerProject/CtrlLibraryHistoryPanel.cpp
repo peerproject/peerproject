@@ -1,7 +1,7 @@
 //
 // CtrlLibraryHistoryPanel.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -102,7 +102,7 @@ void CLibraryHistoryPanel::Update()
 			pItem->m_pRecent	= pRecent;
 			pItem->m_nIndex		= pRecent->m_pFile->m_nIndex;
 			pItem->m_sText		= pRecent->m_pFile->m_sName;
-			pItem->m_nIcon16	= ShellIcons.Get( pItem->m_sText, 16 );
+			pItem->m_nIcon16	= ShellIcons.Get( pRecent->m_pFile->GetPath(), 16 );
 
 			FileTimeToSystemTime( &pRecent->m_tAdded, &pItem->m_pTime );
 			SystemTimeToTzSpecificLocalTime( NULL, &pItem->m_pTime, &pItem->m_pTime );
@@ -115,14 +115,13 @@ void CLibraryHistoryPanel::Update()
 		}
 	}
 
-	SCROLLINFO pInfo;
 	CRect rc;
-
 	GetClientRect( &rc );
 
 	m_nColumns		= ( rc.Width() > 500 ) ? 2 : 1;
 	int nHeight		= static_cast< int >( ( m_pList.GetSize() + m_nColumns - 1 ) / m_nColumns * 24 + 2 );
 
+	SCROLLINFO pInfo;
 	pInfo.cbSize	= sizeof(pInfo);
 	pInfo.fMask		= SIF_ALL & ~SIF_TRACKPOS;
 	pInfo.nMin		= 0;
@@ -268,7 +267,6 @@ void CLibraryHistoryPanel::OnPaint()
 BOOL CLibraryHistoryPanel::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 {
 	CPoint point;
-
 	GetCursorPos( &point );
 	ScreenToClient( &point );
 	point.y += GetScrollPos( SB_VERT );

@@ -1,7 +1,7 @@
 //
 // PageSettingsGnutella.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -33,8 +33,8 @@ IMPLEMENT_DYNCREATE(CGnutellaSettingsPage, CSettingsPage)
 
 BEGIN_MESSAGE_MAP(CGnutellaSettingsPage, CSettingsPage)
 	//{{AFX_MSG_MAP(CGnutellaSettingsPage)
-	ON_BN_CLICKED(IDC_G2_TODAY, OnG2Today)
-	ON_BN_CLICKED(IDC_G1_TODAY, OnG1Today)
+	ON_BN_CLICKED(IDC_G2_ENABLE, OnG2Today)
+	ON_BN_CLICKED(IDC_G1_ENABLE, OnG1Today)
 	ON_BN_CLICKED(IDC_G2_ALWAYS, OnG2Always)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
@@ -77,9 +77,9 @@ void CGnutellaSettingsPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_G1_PEERS_SPIN, m_wndG1Peers);
 	DDX_Control(pDX, IDC_G1_LEAFS_SPIN, m_wndG1Leafs);
 	DDX_Control(pDX, IDC_G1_HUBS_SPIN, m_wndG1Hubs);
-	DDX_Check(pDX, IDC_G2_TODAY, m_bG2Today);
+	DDX_Check(pDX, IDC_G2_ENABLE, m_bG2Today);
 	DDX_Check(pDX, IDC_G2_ALWAYS, m_bG2Always);
-	DDX_Check(pDX, IDC_G1_TODAY, m_bG1Today);
+	DDX_Check(pDX, IDC_G1_ENABLE, m_bG1Today);
 	DDX_Check(pDX, IDC_G1_ALWAYS, m_bG1Always);
 	DDX_Text(pDX, IDC_G1_HUBS, m_nG1Hubs);
 	DDX_Text(pDX, IDC_G1_LEAFS, m_nG1Leafs);
@@ -148,9 +148,9 @@ BOOL CGnutellaSettingsPage::OnInitDialog()
 
 	if ( Settings.Experimental.LAN_Mode )	// #ifdef LAN_MODE
 	{
-		GetDlgItem( IDC_G2_TODAY )->EnableWindow( FALSE );
+		GetDlgItem( IDC_G2_ENABLE )->EnableWindow( FALSE );
 		GetDlgItem( IDC_G2_ALWAYS )->EnableWindow( FALSE );
-		GetDlgItem( IDC_G1_TODAY )->EnableWindow( FALSE );
+		GetDlgItem( IDC_G1_ENABLE )->EnableWindow( FALSE );
 		GetDlgItem( IDC_G1_ALWAYS )->EnableWindow( FALSE );
 		m_wndG1Peers.EnableWindow( FALSE );
 		m_wndG1Leafs.EnableWindow( FALSE );

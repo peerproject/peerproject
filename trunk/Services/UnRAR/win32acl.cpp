@@ -1,4 +1,3 @@
-#include "rar.hpp"
 
 static void SetPrivileges();
 

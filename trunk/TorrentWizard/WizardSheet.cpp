@@ -1,7 +1,7 @@
 //
 // WizardSheet.cpp
 //
-// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2011
+// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2012
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
@@ -23,35 +23,27 @@
 #include "TorrentWizard.h"
 #include "WizardSheet.h"
 
-#include "PageWelcome.h"
-#include "PageExpert.h"
-#include "PageSingle.h"
-#include "PagePackage.h"
-#include "PageTracker.h"
-#include "PageComment.h"
-#include "PageOutput.h"
-#include "PageFinished.h"
-#include "PageCommandline.h"
-
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #endif
 
-#define PAGE_COLOR	RGB( 255, 255, 255 )	// White areas
-#define BANNER_SIZE	50
-#define MENU_SIZE	48
+#define PAGE_COLOR		RGB( 255, 255, 255 )	// White areas
+//#define BANNER_SIZE	50	// m_nBannerHeight
+#define MENU_SIZE		48
 
 
 /////////////////////////////////////////////////////////////////////////////
 // CWizardSheet
 
+IMPLEMENT_DYNAMIC(CWizardSheet, CPropertySheet)
+
 BEGIN_MESSAGE_MAP(CWizardSheet, CPropertySheet)
 	//{{AFX_MSG_MAP(CWizardSheet)
 	ON_WM_PAINT()
 	ON_WM_SIZE()
-	ON_WM_ERASEBKGND()
+//	ON_WM_ERASEBKGND()
 	ON_WM_SETCURSOR()
 	ON_WM_LBUTTONUP()
 	ON_WM_NCLBUTTONUP()
@@ -59,58 +51,25 @@ BEGIN_MESSAGE_MAP(CWizardSheet, CPropertySheet)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
-/////////////////////////////////////////////////////////////////////////////
-// CWizardSheet run wizard
-
-BOOL CWizardSheet::Run(CWnd* pParent)
-{
-	CWizardSheet		pSheet( pParent, 0 );
-	CWelcomePage		pWelcome;
-	CExpertPage			pExpert;
-	CSinglePage			pSingle;
-	CPackagePage		pPackage;
-	CTrackerPage		pTracker;
-	CCommentPage		pComment;
-	COutputPage			pOutput;
-	CFinishedPage		pFinished;
-	CCommandlinePage	pCommandline;
-
-	if ( theApp.m_bCommandLine )
-	{
-		pSheet.AddPage( &pCommandline );
-	}
-	else
-	{
-		pSheet.AddPage( &pWelcome );
-		pSheet.AddPage( &pExpert );
-		pSheet.AddPage( &pSingle );
-		pSheet.AddPage( &pPackage );
-		pSheet.AddPage( &pTracker );
-		pSheet.AddPage( &pComment );
-		pSheet.AddPage( &pOutput );
-		pSheet.AddPage( &pFinished );
-	}
-
-
-	if ( pSheet.DoModal() != IDOK ) return FALSE;
-
-	return TRUE;
-}
-
 
 /////////////////////////////////////////////////////////////////////////////
 // CWizardSheet construction
 
 CWizardSheet::CWizardSheet(CWnd *pParentWnd, UINT iSelectPage)
 {
+	BITMAP bm;
+	m_bmHeader.LoadBitmap( IDB_BANNER );
+	m_bmHeader.GetBitmap( &bm );
+	m_nBannerHeight = bm.bmHeight;
+
 	m_psh.dwFlags &= ~PSP_HASHELP;
 	Construct( _T(""), pParentWnd, iSelectPage );
 	SetWizardMode();
 }
 
-CWizardSheet::~CWizardSheet()
-{
-}
+//CWizardSheet::~CWizardSheet()
+//{
+//}
 
 /////////////////////////////////////////////////////////////////////////////
 // CWizardSheet page lookup
@@ -143,7 +102,6 @@ void CWizardSheet::DoReset()
 BOOL CWizardSheet::OnInitDialog()
 {
 	CPropertySheet::OnInitDialog();
-	CRect rc;
 
 	SetIcon( theApp.LoadIcon( IDR_MAINFRAME ), TRUE );
 	SetFont( &theApp.m_fntNormal );
@@ -151,6 +109,7 @@ BOOL CWizardSheet::OnInitDialog()
 	// ToDo: Fix Minimize Button Properly
 	ModifyStyle( 0, WS_MINIMIZEBOX );
 
+	CRect rc;
 	GetWindowRect( &rc );
 	ScreenToClient( &rc );
 	const UINT nWidth = rc.Width();
@@ -166,7 +125,7 @@ BOOL CWizardSheet::OnInitDialog()
 	ScreenToClient( &rc );
 	rc.OffsetRect( 26 + rc.Width() - rc.left, -1 );
 	GetDlgItem( 0x3024 )->MoveWindow( &rc );
-	GetDlgItem( 0x3025 )->MoveWindow( &rc );
+	GetDlgItem( 0x3025 )->MoveWindow( &rc );	// Ready button
 
 	// Set Cancel
 	GetDlgItem( 2 )->GetWindowRect( &rc );
@@ -175,10 +134,14 @@ BOOL CWizardSheet::OnInitDialog()
 	GetDlgItem( 2 )->MoveWindow( &rc );
 	GetDlgItem( 2 )->SetWindowText( _T("E&xit") );
 
+	// Set Help
+	//GetDlgItem( 0x0009 )->GetWindowRect( &rc );
+	//ScreenToClient( &rc );
+	//rc.OffsetRect( 414 - rc.left - 84, -1 );
+	//GetDlgItem( 0x0009 )->MoveWindow( &rc );
+
 	if ( GetDlgItem( 0x0009 ) ) GetDlgItem( 0x0009 )->ShowWindow( SW_HIDE );
 	if ( GetDlgItem( 0x3026 ) ) GetDlgItem( 0x3026 )->ShowWindow( SW_HIDE );
-
-	m_bmHeader.LoadBitmap( IDB_BANNER );
 
 	return TRUE;
 }
@@ -226,7 +189,7 @@ void CWizardSheet::OnSize(UINT nType, int cx, int cy)
 	{
 		GetClientRect( &m_rcPage );
 
-		m_rcPage.top += BANNER_SIZE + 1;
+		m_rcPage.top += m_nBannerHeight + 1;
 		m_rcPage.bottom -= MENU_SIZE;
 
 		pWnd->SetWindowPos( NULL, m_rcPage.left, m_rcPage.top, m_rcPage.Width(), m_rcPage.Height(), SWP_NOSIZE );
@@ -241,15 +204,18 @@ void CWizardSheet::OnPaint()
 	GetClientRect( &rc );
 
 	// Banner
+	CRect rcHeader = rc;
+	rcHeader.bottom = rcHeader.top + m_nBannerHeight;
+
 	CDC mdc;
 	mdc.CreateCompatibleDC( &dc );
 	CBitmap* pOldBitmap = (CBitmap*)mdc.SelectObject( &m_bmHeader );
-	dc.BitBlt( 0, 0, rc.Width(), BANNER_SIZE, &mdc, 0, 0, SRCCOPY );
+	dc.BitBlt( rcHeader.left, rcHeader.top, rcHeader.Width(), m_nBannerHeight, &mdc, 0, 0, SRCCOPY );
 	mdc.SelectObject( pOldBitmap );
 	mdc.DeleteDC();
 
 	// Bevels
-	dc.Draw3dRect( 0, BANNER_SIZE, rc.Width() + 1, 1,
+	dc.Draw3dRect( 0, m_nBannerHeight, rc.Width() + 1, 1,
 		RGB( 128, 128, 128 ), RGB( 128, 128, 128 ) );
 	dc.Draw3dRect( 0, rc.bottom - MENU_SIZE, rc.Width() + 1, 2,
 		RGB( 128, 128, 128 ), RGB( 255, 255, 255 ) );
@@ -268,10 +234,10 @@ void CWizardSheet::OnPaint()
 	dc.SelectObject( pOldFont );
 }
 
-BOOL CWizardSheet::OnEraseBkgnd(CDC* /*pDC*/)
-{
-	return TRUE;
-}
+//BOOL CWizardSheet::OnEraseBkgnd(CDC* /*pDC*/)
+//{
+//	return TRUE;
+//}
 
 BOOL CWizardSheet::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 {
@@ -282,7 +248,7 @@ BOOL CWizardSheet::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 	GetClientRect( &rc );
 	ScreenToClient( &pt );
 
-	if ( rc.PtInRect( pt ) && pt.y < BANNER_SIZE )
+	if ( rc.PtInRect( pt ) && pt.y < m_nBannerHeight )
 	{
 		SetCursor( theApp.LoadCursor( IDC_HAND ) );
 		return TRUE;
@@ -293,8 +259,8 @@ BOOL CWizardSheet::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 
 void CWizardSheet::OnLButtonUp(UINT /*nFlags*/, CPoint point)
 {
-	if ( point.y < BANNER_SIZE )
-		ShellExecute( NULL, NULL, _T("http://PeerProject.org/TorrentWizard/"), NULL, NULL, SW_SHOWNORMAL );
+	if ( point.y < m_nBannerHeight )
+		ShellExecute( NULL, NULL, _T("http://peerproject.org/TorrentWizard/"), NULL, NULL, SW_SHOWNORMAL );
 }
 
 void CWizardSheet::OnNcLButtonUp(UINT nHitTest, CPoint /*point*/)
@@ -324,6 +290,7 @@ BEGIN_MESSAGE_MAP(CWizardPage, CPropertyPage)
 	//{{AFX_MSG_MAP(CWizardPage)
 	ON_WM_SIZE()
 	ON_WM_CTLCOLOR()
+	ON_MESSAGE(WM_PRESSBUTTON, OnPressButton)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -336,9 +303,9 @@ CWizardPage::CWizardPage(UINT nID) : CPropertyPage( nID )
 	m_brPageColor.CreateSolidBrush( PAGE_COLOR );
 }
 
-CWizardPage::~CWizardPage()
-{
-}
+//CWizardPage::~CWizardPage()
+//{
+//}
 
 /////////////////////////////////////////////////////////////////////////////
 // CWizardPage message handlers
@@ -365,6 +332,22 @@ void CWizardPage::OnSize(UINT nType, int cx, int cy)
 /////////////////////////////////////////////////////////////////////////////
 // CWizardPage operations
 
+void CWizardPage::Next()
+{
+	PostMessage( WM_PRESSBUTTON, PSBTN_NEXT );
+}
+
+LRESULT CWizardPage::OnPressButton(WPARAM wParam, LPARAM /*lParam*/)
+{
+	UpdateWindow();
+
+	Sleep( 250 );
+
+	GetSheet()->PressButton( (int)wParam );
+
+	return 0;
+}
+
 CWizardSheet* CWizardPage::GetSheet()
 {
 	return (CWizardSheet*)GetParent();
@@ -387,7 +370,8 @@ void CWizardPage::StaticReplace(LPCTSTR pszSearch, LPCTSTR pszReplace)
 		TCHAR szName[32];
 		GetClassName( pChild->GetSafeHwnd(), szName, 32 );
 
-		if ( _tcscmp( szName, _T("Static") ) ) continue;
+		if ( _tcscmp( szName, _T("Static") ) != 0 )
+			continue;
 
 		CString strText;
 		pChild->GetWindowText( strText );

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Croatian Skin File -->
 
-<!-- Translation based on default-en.xml r74 (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r75 (Shareaza 2.2.0.2) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -358,6 +358,7 @@
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 		<button id="ID_NETWORK_DC" text="DC++"/>
+		<button id="ID_NETWORK_BT" text="BitTorrent"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Postavke"/>
 	</toolbar>
@@ -466,6 +467,7 @@
 				<item id="ID_NETWORK_G1" text="Spoji se na _Gnutellu"/>
 				<item id="ID_NETWORK_ED2K" text="Spoji se na _eDonkey2000"/>
 				<item id="ID_NETWORK_DC" text="Spoji se na _DC++"/>
+				<item id="ID_NETWORK_BT" text="Spoji se na _BitTorrent"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="Spoji se na..." shortcut="Ctrl+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="Pogledaj Što Ima..."/>
@@ -551,6 +553,7 @@
 			<item id="ID_NETWORK_G1" text="Spoji se na _Gnutellu"/>
 			<item id="ID_NETWORK_ED2K" text="Spoji se na _eDonkey2000"/>
 			<item id="ID_NETWORK_DC" text="Spoji se na _DC++"/>
+			<item id="ID_NETWORK_BT" text="Spoji se na _BitTorrent"/>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Spoji se na..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="Pogledaj Što Ima..."/>
@@ -1480,6 +1483,7 @@
 			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey2000"/>
 			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<item id="ID_NETWORK_BT" text="_BitTorrent"/>
 			<separator/>
 			<item id="ID_VIEW_DISCOVERY" text="_Discovery Services"/>
 			<item id="ID_VIEW_HOSTS" text="_Host/Server Cache"/>
@@ -2319,6 +2323,7 @@
 	<tip id="ID_NETWORK_EXIT" message="Ugasi PeerProject"/>
 	<tip id="ID_NETWORK_ED2K" message="Spoji se na eDonkey2000 mrežu."/>
 	<tip id="ID_NETWORK_DC" message="Spoji se na DC++ mrežu."/>
+	<tip id="ID_NETWORK_BT" message="Spoji se na BitTorrent mrežu."/>
 	<tip id="ID_NETWORK_G1" message="Spoji se na originalnu Gnutella mrežu."/>
 	<tip id="ID_NETWORK_G2" message="Spoji se na Gnutella2 mrežu (preporučeno)."/>
 	<tip id="ID_NETWORK_SEARCH" message="Start a new search of the network..."/>
@@ -2416,7 +2421,7 @@
 	<string id="20064" value="Dobro"/>
 	<string id="20065" value="Vrlo Dobro"/>
 	<string id="20066" value="Odlično"/>
-	<string id="20080" value="Ovo je testna verzija PeerProject, i period beta testiranja je završio.Molimo vas da skinete cijelo, službeno izdanje sa http://peerproject.org/."/>
+	<string id="20080" value="Ovo je testna verzija PeerProject, i period beta testiranja je završio. Molimo vas da skinete cijelo, službeno izdanje sa http://peerproject.org/."/>
 	<string id="20081" value="&amp;Zatvori"/>
 	<string id="20082" value="Gotovo, klikni na zatvori"/>
 	<string id="20083" value="Čekam Odobrenje..."/>
@@ -2441,27 +2446,8 @@
 	<string id="20117" value="Sent a push request to %s to browse user."/>
 	<string id="20118" value="Spojeno, tražim dozvolu za pregled..."/>
 	<string id="20119" value="Sent browse user request to %s..."/>
-	<string id="20120" value="Closing browse user connection %s due to lack of traffic."/>
 	<string id="20121" value="Pregledavam %s"/>
-	<string id="20122" value="BitTorrent coupling with %s established for &quot;%s&quot;."/>
-	<string id="20123" value="Incoming connection from %s is a BitTorrent coupling, negotiating..."/>
-	<string id="20124" value="Initiating BitTorrent client coupling with %s..."/>
-	<string id="20125" value="Timed out connecting to BitTorrent client %s."/>
-	<string id="20130" value="Received %i new BitTorrent sources from %s."/>
-	<string id="20131" value="BitTorrent coupling with %s is extended protocol, identified &quot;%s&quot;."/>
-	<string id="20132" value="Timed out handshaking with BitTorrent client %s."/>
-	<string id="20133" value="Established BitTorrent coupling with %s, handshaking..."/>
-	<string id="20136" value="BitTorrent coupling with %s requested an unknown file."/>
-	<string id="20137" value="BitTorrent coupling with %s responded with the wrong file."/>
-	<string id="20138" value="BitTorrent coupling with %s failed because the remote client has a different Peer ID."/>
-	<string id="20139" value="Closing BitTorrent coupling with %s due to lack of traffic."/>
-	<string id="20142" value="The torrent &quot;%s&quot; is already on your download list, and cannot be seeded."/>
-	<string id="20143" value="An error occurred while copying from &quot;%s&quot; to a BitTorrent share file."/>
-	<string id="20144" value="Unable to create BitTorrent share file &quot;%s&quot;."/>
-	<string id="20145" value="An unknown error occurred while trying to seed &quot;%s&quot;."/>
-	<string id="20146" value="Error loading the torrent file &quot;%s&quot;.This may not be a valid torrent."/>
-	<string id="20147" value="This torrent includes the file &quot;%s&quot;, but PeerProject cannot find this file in your library.If possible, move the file to the same folder as the torrent and try again."/>
-	<string id="20148" value="This torrent includes the file &quot;%s&quot; which should be %s, however your version of the file is %s."/>
+	<!-- Missing BitTorrent Strings -->
 	<string id="20149" value="Otkrivena je greška u datoteci &quot;%s&quot;."/>
 	<string id="20150" value="Unable to communicate with tracker"/>
 	<string id="20152" value="You have changed the tracker URL for this torrent. Are you sure you want to save this change?\n\nAn invalid tracker URL may prevent further downloading."/>
@@ -2485,8 +2471,8 @@
 	<string id="20172" value="Pozdravljanje neuspješno, izgleda da ne podržava razgovor"/>
 	<string id="20173" value="Puno vas pozdravlja, ima protokol verzije %s."/>
 	<string id="20174" value="Razmjenjujem informacije o profilu..."/>
-	<string id="20175" value="Niste još ispunili vaš profil.Morate ispuniti profil ako želite pričati sa ostalim korisnicima.nnŽelita li to sad učiniti?"/>
-	<string id="20176" value="Ne mogu poslati poruku, niste spojeni.PeerProject se pokušava spojiti..."/>
+	<string id="20175" value="Niste još ispunili vaš profil. Morate ispuniti profil ako želite pričati sa ostalim korisnicima.nnŽelita li to sad učiniti?"/>
+	<string id="20176" value="Ne mogu poslati poruku, niste spojeni. PeerProject se pokušava spojiti..."/>
 	<string id="20177" value="Ne mogu poslati poruku, veza još uvijek nije uspostavljena..."/>
 	<string id="20178" value="%s je sada %s."/>
 	<string id="20179" value="Pričate sa %s (%s)."/>
@@ -2508,8 +2494,8 @@
 	<string id="20202" value="Received a faulty push connection from %s, closing connection."/>
 	<string id="20203" value="Friziram skidanje &quot;%s&quot; tko što mičem ograničenje bandwitha."/>
 	<string id="20204" value="Davaoc %s je zauzet, ponovo ću pokušati za %i sekunda."/>
-	<string id="20205" value="Couldn't move download &quot;%s&quot; to &quot;%s&quot;.Check that the incomplete file is not in use, and that your downloads folder exists and is writable."/>
-	<string id="20206" value="Unable to resolve &quot;%s&quot;."/>
+	<string id="20205" value="Nedovoljo prostora na disku za skinuti &quot;%s&quot; (%s)."/>
+	<string id="20206" value="Couldn't move download &quot;%s&quot; to &quot;%s&quot;. Check that the incomplete file is not in use, and that your downloads folder exists and is writable."/>
 	<string id="20207" value="Jeste li sigurni da želite poništiti/prekinuti sva skidanja u ovoj groupi?"/>
 	<string id="20208" value="Closing download connection to %s, no longer required."/>
 	<string id="20209" value="Download host %s sent unsolicited data, closing connection."/>
@@ -2519,25 +2505,12 @@
 	<string id="20213" value="Jeste li sigurni da želite obrisati skidanje &quot;%s&quot;."/>
 	<string id="20214" value="Veza za skidanje na %s uspostavljena."/>
 	<string id="20215" value="Uspostavljam vezu sa %s na portu %i za skidanje &quot;%s&quot;..."/>
-	<string id="20216" value="Ne mogu se spojiti na hosta za skidanje %s ."/>
+	<string id="20216" value="Ne mogu se spojiti na hosta za skidanje %s."/>
 	<string id="20217" value="Primam sadržaj skidanja sa %s (%s)."/>
-	<string id="20218" value="Aborting download of &quot;%s&quot; from %s (%s), network disabled."/>
-	<string id="20219" value="Nedovoljo prostora na disku za skinuti &quot;%s&quot; (%s)."/>
-	<string id="20220" value="Download connection to %s was lost."/>
-	<string id="20222" value="You have typed an eDonkey2000 hash value, however it is invalid.Please check it and try again."/>
-	<string id="20224" value="Please enter a valid range to erase. The &quot;from&quot; field is the first byte to erase, the &quot;last&quot; field is the last byte to erase."/>
-	<string id="20225" value="You have typed a SHA1 value, however it is invalid.Please check it and try again."/>
-	<string id="20226" value="You have typed a root tiger-tree value, however it is invalid.Please check it and try again."/>
-	<string id="20228" value="Unable to erase the selected range from the download because no part of the range is present."/>
-	<string id="20231" value="You have provided a SHA1 hash value which is different to the one currently associated with this download.Are you sure you want to change the SHA1 hash now?"/>
-	<string id="20232" value="You have provided an eDonkey2000 hash value which is different to the one currently associated with this download.Are you sure you want to change the eDonkey2000 hash now?"/>
-	<string id="20233" value="You have provided a root tiger-tree hash value which is different to the one currently associated with this download.Are you sure you want to change the tiger-tree root hash now?"/>
-	<string id="20235" value="You cannot assume this download is complete and reverify it because you do not yet have any partial verification data, such as tiger-tree volume, eDonkey hashset or BitTorrent hashset.Without verification information the download cannot be reverified."/>
-	<string id="20236" value="Are you sure you want to assume this download is complete and reverify it?The whole file will be considered, and PeerProject will accept parts which pass verification and redownload parts which fail verification."/>
-	<string id="20237" value="Jeste li sigurni da želite da zaboravim sve izvore odabrane datoteke?"/>
-	<string id="20238" value="Are you sure you want to forget the current verification status?All downloaded data will be treated as untrusted, and cached hashtrees and hashsets will be flushed."/>
-	<string id="20240" value="Izbrisano %I64i bajta is skidanja."/>
-	<string id="20241" value="Napravili ste promjenu u polju imena.Jeste li sigurni da želite preimenovati ovo skidanje?"/>
+	<!-- Missing Dowload Edit Strings -->
+	<string id="20224" value="Napravili ste promjenu u polju imena. Jeste li sigurni da želite preimenovati ovo skidanje?"/>
+	<string id="20229" value="Jeste li sigurni da želite da zaboravim sve izvore odabrane datoteke?"/>
+	<string id="20232" value="Izbrisano %I64i bajta is skidanja."/>
 	<string id="20242" value="Domačin skidanja %s nema potrbnu &quot;%s&quot; datoteku."/>
 	<string id="20243" value="Stvaram &quot;%s&quot; datoteku skidanja."/>
 	<string id="20244" value="Ne mogu stvoriti lokalnu datoteku &quot;%s&quot; , odustajem."/>
@@ -2567,7 +2540,6 @@
 	<string id="20271" value="Moved &quot;%s&quot; to &quot;%s&quot;, download complete."/>
 	<string id="20272" value="Skidanje &quot;%s&quot; je pauzirano."/>
 	<string id="20273" value="Nastavljam skidanje &quot;%s&quot;."/>
-	<string id="20274" value="Resolving &quot;%s&quot; to download &quot;%s&quot;..."/>
 	<string id="20275" value="Querying for more sources for download &quot;%s&quot; on %i connection(s)..."/>
 	<string id="20276" value="Can't fetch more sources for download &quot;%s&quot; because there is no network connection."/>
 	<string id="20280" value="Download host's tiger-tree data is corrupt or internally inconsistent, ignoring it."/>
@@ -2673,17 +2645,12 @@
 	<string id="20415" value="Nema označenih datoteka"/>
 	<string id="20416" value="Ocijeni"/>
 	<string id="20417" value="Novi Dodaci"/>
-	<string id="20425" value="PeerProject was unable to install the collection file &quot;%s&quot; by copying it to the folder &quot;%s&quot;."/>
 	<string id="20426" value="Želite li skinuti sve datoteke u ovoj kolekciji?\n\nOdaberite prekini da vam više ne dolazi ova obavjest."/>
-	<string id="20427" value="PeerProject has added the collection file &quot;%s&quot; to your library."/>
-	<string id="20428" value="PeerProject received a collection file:\n\n&quot;%s&quot;\n\nThis file does not appear to be a valid collection file."/>
-	<string id="20429" value="Would you like to prevent this collection from prompting you to download anything else?"/>
-	<string id="20430" value="Jeste li sigurni da želite pokrenuti &quot;%s&quot; ?\n\nNeke datoteke mogu biti štetne za vaš kompjuter.Budite sigurni da znate što ova datoteka radi prije nego je pokrenete."/>
+	<!-- Missing Collection Strings -->
+	<string id="20430" value="Jeste li sigurni da želite pokrenuti &quot;%s&quot; ?\n\nNeke datoteke mogu biti štetne za vaš kompjuter. Budite sigurni da znate što ova datoteka radi prije nego je pokrenete."/>
 	<!--string id="20431" value="Jeste li sigurni da želite zauvjek izbrisati %i označenih datoteka?\n\nDatoteke će biti premještene u &quot;Smeće&quot; Ako je omogučeno."-->
-	<string id="20432" value="Are you sure you want to delete the %i selected album folder(s) ?\n\nNote that this action does not delete the files within the album folders, only the folders themselves."/>
 	<string id="20433" value="PeerProject ne može izbrisati datoteku:\n\n%s"/>
-	<string id="20434" value="Your downloaded files folder &quot;%s&quot; is not yet in your library.\n\nIncluding your downloaded files folder in your library makes it easier to view and organise new downloads, and lets you take advantage of advanced PeerProject features such as download verification and automatic upgrading.Placing downloaded files in your library does not necessarily require you to share them: you can choose whether or not to share files independently.\n\nWould you like to add your downloaded files folder to your library now?"/>
-	<string id="20435" value="Your downloads folder has been added to your library.Would you like to share it too?"/>
+	<!-- Missing Downloads Folder Strings -->
 	<string id="20436" value="Dodaj ovu mapu na svoj knjižnica?\n\n%s"/>
 	<string id="20437" value="Ghost Datoteka"/>
 	<string id="20438" value="Mjenjam metadate od %i datoteka."/>
@@ -2694,18 +2661,18 @@
 	<string id="20443" value="Pokaži Datoteke Svih Vrsta"/>
 	<string id="20444" value="Copy URI"/>
 	<string id="20445" value="Export URIs..."/>
-	<string id="20446" value="The file &quot;%s&quot; failed a hash verification test, and might not be the file you intended to download.Are you sure you want to open it?"/>
+	<string id="20446" value="The file &quot;%s&quot; failed a hash verification test, and might not be the file you intended to download. Are you sure you want to open it?"/>
 	<string id="20447" value="Would you like to remove the &quot;potentially unsafe&quot; attribute from this file?"/>
 	<string id="20448" value="The file &quot;%s&quot; has not yet been hashed. Please wait for the file to be hashed, and then try again."/>
-	<string id="20449" value="This option uses services provided by Bitzi.com for recognising and sharing information about selected files.\n\nPeerProject will transmit the SHA1 hash code for the selected file(s) in order to query the Bitzi database.If you are concerned about privacy, you may wish to consult the Bitzi.com privacy policy.\n\nWould you like to proceed?"/>
+	<string id="20449" value="This option uses services provided by Bitzi.com for recognising and sharing information about selected files.\n\nPeerProject will transmit the SHA1 hash code for the selected file(s) in order to query the Bitzi database. If you are concerned about privacy, you may wish to consult the Bitzi.com privacy policy.\n\nWould you like to proceed?"/>
 	<string id="20450" value="Podmapa u odabranoj mapi &quot;%s&quot; je već dio vaše kolekcije.nDodavanje ove mape če izazvati re-hashing nekih datoteka.nnŽelite li svejedno nastaviti?"/>
-	<string id="20451" value="There is no file playing.Double-click a media file in your library to play it."/>
+	<string id="20451" value="There is no file playing. Double-click a media file in your library to play it."/>
 	<string id="20452" value="All Media Files|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Playlists|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Audio Files|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Video Files|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD Audio Tracks|*.cda|MIDI Files|*.mid;*.rmi;*.midi|All Files|*.*||"/>
 	<string id="20453" value="Ne mogu učitati datoteku &quot;%s&quot;"/>
 	<string id="20454" value="The file may be damaged, or you may not have the necessary codecs to play it."/>
 	<string id="20455" value="Part of this file could not be played, you may need to download additional codecs."/>
 	<string id="20456" value="Playlista:"/>
-	<string id="20457" value="PeerProject could not instantiate its MediaServices plugin.Please reinstall PeerProject, and confirm that you have the necessary media codecs and output drivers installed."/>
+	<string id="20457" value="PeerProject could not instantiate its MediaServices plugin. Please reinstall PeerProject, and confirm that you have the necessary media codecs and output drivers installed."/>
 	<string id="20458" value="PeerProject Media Player"/>
 	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
 	<string id="20462" value="(Nema Vizualizacije)"/>
@@ -2777,7 +2744,7 @@
 	<string id="20544" value="Gasim mrežnu jezgru..."/>
 	<string id="20545" value="Iskopčan sa mreže."/>
 	<string id="20546" value="Jeste li sigurni da se želite isključiti?"/>
-	<string id="20547" value="Gnutella2 je PeerProject glavna mreža.Obustavljanje podrške može ozbiljno smanjiti broj i kvalitetu rezultata potrage.Jeste li sigurni da to želite?"/>
+	<string id="20547" value="Gnutella2 je PeerProject glavna mreža. Obustavljanje podrške može ozbiljno smanjiti broj i kvalitetu rezultata potrage. Jeste li sigurni da to želite?"/>
 	<string id="20548" value="ne mogu se spojiti na %s port %i. Primanje poziva nije moguće"/>
 	<string id="20549" value="Greška na %s za odlazeće veze.  Odlazeće veze će koristiti osnovno sučelje."/>
 	<string id="20550" value="Brzina slanja podataka je premala da bi se omogučila ova mreža"/>
@@ -2900,11 +2867,11 @@
 	<string id="20746" value="Nepotvrđeno"/>
 	<string id="20747" value="Potvrđeno"/>
 	<string id="20748" value="Potvrđujem"/>
-	<string id="20750" value="!Dobrodošli u PeerProject (version) !n.nPeerProject je potpuno besplatan program.nMolimo da ga koristite odgovorno i poštujte zakone o autorskim pravima.n."/>
+	<string id="20750" value="!Dobrodošli u PeerProject (version) !\n.nPeerProject je potpuno besplatan program.\nMolimo da ga koristite odgovorno i poštujte zakone o autorskim pravima.\n."/>
 	<string id="20751" value="Nema aktivnih traženja. Stisni ovdje ako želiš započeti traženje"/>
-	<string id="20752" value="PeerProject nije spojena.Stisni Spoji botun."/>
+	<string id="20752" value="PeerProject nije spojena. Stisni Spoji botun."/>
 	<string id="20760" value="Prioritet"/>
-	<string id="20762" value="Ovo izgleda kao smeće ."/>
+	<string id="20762" value="Ovo izgleda kao smeće."/>
 	<string id="20763" value="Na Crnoj Listi:"/>
 	<string id="20764" value="Ovu datoteku ste već skinuli i obrisali."/>
 	<string id="20765" value="Ovo već imate na popisu za skidanje."/>
@@ -2965,7 +2932,6 @@
 	<string id="20866" value="Ime:"/>
 	<string id="20867" value="Host:"/>
 	<string id="20868" value="Port:"/>
-	<string id="20869" value="Unable to display URL action dialog because PeerProject is busy."/>
 	<string id="20870" value="Unable to parse URL: PeerProject does not understand this URL."/>
 	<string id="20871" value="Primljen URL &quot;%s&quot;"/>
 	<string id="20872" value="Vrsta:"/>
@@ -2978,7 +2944,7 @@
 	<string id="20886" value="Changing interface direction requires restart.\n\nExit now?"/>
 	<string id="20890" value="Dobrodošli u PeerProject"/>
 	<string id="20891" value="Izlaz"/>
-	<string id="20894" value="Još mi niste zadali brzinu spajanja.Molim Vas da odaberete tip veze prema internetu, ili ručno upišete brzinu."/>
+	<string id="20894" value="Još mi niste zadali brzinu spajanja. Molim Vas da odaberete tip veze prema internetu, ili ručno upišete brzinu."/>
 	<string id="20897" value="Mapu koju djelite je već na listi za djeljenje kao dio druge mape:\n\n%s"/>
 	<string id="20898" value="Niste odabrali mape za djeljenje. Jeste li sigurni da želite nastaviti?"/>
 	<string id="20899" value="godina"/>
@@ -3259,7 +3225,7 @@
 		<control caption="Skini..."/>
 		<control caption="Skini eDonkey listu servera sa neta"/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="Postavke ski_danja:"/>
 		<control/>
 		<control/>
@@ -3267,8 +3233,9 @@
 		<control/>
 		<control/>
 		<control caption="Klijent veze"/>
+		<control caption="Omogući BitTorrent DHT"/>
 		<control caption="Preferiraj torrent izvore"/>
-		<control caption="_EndGame:"/>
+		<control caption="_EndGame: (kraj igre)"/>
 		<control caption="Omoguči EndGame način prilikom dovršenja torrentsa"/>
 		<control caption="Makni skinunte torrente Kada omjer djeljenja dođe do:"/>
 		<control/>
@@ -3978,7 +3945,7 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackers">
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBuBuBu" caption="Trackers">
 		<control/>
 		<control/>
 		<control/>
@@ -3990,6 +3957,8 @@
 		<control caption="Tracker Mode:"/>
 		<control caption="Disabled|Custom|Single Tracker|Multi-tracker|Multi-tracker (locked)"/>
 		<control caption="_Refresh"/>
+		<control caption="Dod_aj"/>
+		<control caption="_Makni"/>
 	</dialog>
 	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="BitTorrentu">
 		<control/>
