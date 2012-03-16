@@ -33,10 +33,8 @@ static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
 #endif	// Filename
 
-#define CM_ICONWIDTH		16
-#define CM_ICONHEIGHT		16
-#define CM_ICONOFFSET_X		5
-#define CM_ICONOFFSET_Y		4
+#define ICONOFFSET_X	5
+#define ICONOFFSET_Y	4
 
 CCoolMenu CoolMenu;
 
@@ -45,7 +43,6 @@ CCoolMenu CoolMenu;
 // CCoolMenu construction
 
 CCoolMenu::CCoolMenu()
-	: m_bUnhook	( FALSE )
 {
 }
 
@@ -60,7 +57,7 @@ void CCoolMenu::Clear()
 	SafeRelease( m_pContextMenuCache );
 
 	SetWatermark( NULL );
-	if ( m_bUnhook ) EnableHook( FALSE );
+	EnableHook( false );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -116,7 +113,9 @@ void CCoolMenu::OnInitMenuPopup(CMenu* pPopupMenu, UINT nIndex, BOOL bSysMenu)
 
 BOOL CCoolMenu::AddMenu(CMenu* pMenu, BOOL bChild)
 {
-	//if ( ! Settings.Interface.CoolMenuEnable ) return FALSE;
+	EnableHook();
+
+	if ( ! Settings.Interface.CoolMenuEnable ) return FALSE;
 
 	for ( int i = 0 ; i < (int)pMenu->GetMenuItemCount() ; i++ )
 	{
@@ -428,9 +427,9 @@ void CCoolMenu::OnDrawItemInternal(LPDRAWITEMSTRUCT lpDrawItemStruct)
 
 	if ( bChecked ) 	// Checked-icon box Position
 	{
-		pDC->Draw3dRect( rcItem.left + CM_ICONOFFSET_X - 2, rcItem.top + CM_ICONOFFSET_Y - 2, 20, 20, //rcItem.Height() - 3 - bEdge,
+		pDC->Draw3dRect( rcItem.left + ICONOFFSET_X - 2, rcItem.top + ICONOFFSET_Y - 2, 20, 20, //rcItem.Height() - 3 - bEdge,
 			Colors.m_crBorder, Colors.m_crBorder );
-		pDC->FillSolidRect( rcItem.left + CM_ICONOFFSET_X - 1, rcItem.top + CM_ICONOFFSET_Y - 1, 18, 18, //rcItem.Height() - 5 - bEdge ),
+		pDC->FillSolidRect( rcItem.left + ICONOFFSET_X - 1, rcItem.top + ICONOFFSET_Y - 1, 18, 18, //rcItem.Height() - 5 - bEdge ),
 			( bSelected && ! bDisabled ) ? Colors.m_crBackCheckSel : Colors.m_crBackCheck );
 	}
 
@@ -441,7 +440,7 @@ void CCoolMenu::OnDrawItemInternal(LPDRAWITEMSTRUCT lpDrawItemStruct)
 
 	if ( nIcon >= 0 )
 	{
-		CPoint pt( rcItem.left + CM_ICONOFFSET_X, rcItem.top + CM_ICONOFFSET_Y );	// Icon Position
+		CPoint pt( rcItem.left + ICONOFFSET_X, rcItem.top + ICONOFFSET_Y );	// Icon Position
 
 		if ( bDisabled )
 		{
@@ -544,16 +543,10 @@ int		CCoolMenu::m_nEdgeSize	= 0;
 
 void CCoolMenu::EnableHook()
 {
-	ASSERT( m_hMsgHook == NULL );
-	ASSERT( m_bUnhook == FALSE );
-
-	if ( ! Settings.Interface.CoolMenuEnable ) return;
-
-	m_bUnhook = TRUE;
-	EnableHook( TRUE );
+	EnableHook( Settings.Interface.CoolMenuEnable );
 }
 
-void CCoolMenu::EnableHook(BOOL bEnable)
+void CCoolMenu::EnableHook(bool bEnable)
 {
 	if ( bEnable == ( m_hMsgHook != NULL ) ) return;
 

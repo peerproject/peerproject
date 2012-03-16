@@ -1,7 +1,7 @@
 //
 // TorrentBuilder.cpp
 //
-// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2010
+// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2012
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
@@ -43,17 +43,17 @@ END_MESSAGE_MAP()
 // CTorrentBuilder construction
 
 CTorrentBuilder::CTorrentBuilder()
-: m_bActive( FALSE )
-, m_bFinished ( FALSE )
-, m_bAbort( FALSE )
-, m_nTotalSize( 0 )
-, m_nPieceSize( 0 )
-, m_nBuffer( 0 )
-, m_pBuffer( NULL )
-, m_bAutoPieces( true )
-, m_bSHA1( FALSE )
-, m_bED2K( FALSE )
-, m_bMD5( FALSE )
+	: m_bActive		( FALSE )
+	, m_bFinished	( FALSE )
+	, m_bAbort		( FALSE )
+	, m_nTotalSize	( 0 )
+	, m_nPieceSize	( 0 )
+	, m_nBuffer		( 0 )
+	, m_pBuffer		( NULL )
+	, m_bAutoPieces	( TRUE )
+	, m_bSHA1		( FALSE )
+	, m_bED2K		( FALSE )
+	, m_bMD5		( FALSE )
 {
 	m_bAutoDelete = FALSE;
 }
@@ -179,16 +179,15 @@ void CTorrentBuilder::Stop()
 	}
 
 	if ( nAttempt <= 0 )
-	{
 		TerminateThread( m_hThread, 1 );
-	}
 
 	m_hThread	= NULL;
 	m_bActive	= FALSE;
 	m_bFinished	= FALSE;
 	m_bAbort	= FALSE;
 
-	if ( m_pBuffer != NULL ) {
+	if ( m_pBuffer != NULL )
+	{
 		delete [] m_pBuffer;
 		m_pBuffer = NULL;
 	}
@@ -272,10 +271,14 @@ int CTorrentBuilder::Run()
 
 	if ( m_pSection.Lock() )
 	{
-		if ( m_pPieceSHA1 ) delete [] m_pPieceSHA1;
-		if ( m_pFileED2K ) delete [] m_pFileED2K;
-		if ( m_pFileSHA1 ) delete [] m_pFileSHA1;
-		if ( m_pFileSize ) delete [] m_pFileSize;
+		delete [] m_pPieceSHA1;
+		m_pPieceSHA1 = NULL;
+		delete [] m_pFileED2K;
+		m_pFileED2K = NULL;
+		delete [] m_pFileSHA1;
+		m_pFileSHA1 = NULL;
+		delete [] m_pFileSize;
+		m_pFileSize = NULL;
 
 		m_sThisFile.Empty();
 		m_bActive = FALSE;
@@ -500,7 +503,7 @@ BOOL CTorrentBuilder::WriteOutput()
 
 		CBENode* pAnnounceList = pRoot.Add( "announce-list" );
 		{
-			BYTE*	pBuffer = NULL;		// Quick List Workaround
+			BYTE* pBuffer = NULL;		// Quick List Workaround
 
 			CBENode* pList1 = pAnnounceList->Add( pBuffer, 1 );
 			{
@@ -621,7 +624,7 @@ BOOL CTorrentBuilder::WriteOutput()
 		CString strAgent = _T("PeerProject Wizard ") + theApp.m_sVersion;
 		pAgent->SetString( strAgent );
 	}
-	if ( m_sComment.GetLength() > 0 )
+	if ( ! m_sComment.IsEmpty() )
 	{
 		CBENode* pComment = pRoot.Add( "comment" );
 		pComment->SetString( m_sComment );

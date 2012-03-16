@@ -1,7 +1,7 @@
 //
 // DlgShareManager.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -74,11 +74,11 @@ BOOL CShareManagerDlg::OnInitDialog()
 	m_wndList.GetClientRect( &rc );
 	m_wndList.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_TRANSPARENTBKGND|LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP|LVS_EX_CHECKBOXES );
 	m_wndList.InsertColumn( 0, _T("Folder"), LVCFMT_LEFT, rc.right - GetSystemMetrics( SM_CXVSCROLL ) );
-	m_wndList.SetImageList( ShellIcons.GetObject( 16 ), LVSIL_SMALL );
 	m_wndList.EnableToolTips( TRUE );
+	ShellIcons.AttachTo( &m_wndList, 16 );	// m_wndList.SetImageList()
 
 	if ( m_wndList.SetBkImage( Skin.GetWatermark( _T("CListCtrl") ) ) )
-		m_wndList.SetExtendedStyle( LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP|LVS_EX_CHECKBOXES );	// No LVS_EX_DOUBLEBUFFER
+		m_wndList.SetExtendedStyle( LVS_EX_FULLROWSELECT|LVS_EX_TRANSPARENTBKGND|LVS_EX_LABELTIP|LVS_EX_CHECKBOXES );	// No LVS_EX_DOUBLEBUFFER
 	else
 		m_wndList.SetBkColor( Colors.m_crWindow );
 
@@ -167,7 +167,7 @@ void CShareManagerDlg::OnOK()
 
 		for ( int nItem = 0 ; nItem < m_wndList.GetItemCount() ; nItem++ )
 		{
-			LibraryFolders.AddFolder( m_wndList.GetItemText( nItem, 0 ), m_wndList.GetCheck(nItem) );
+			LibraryFolders.AddFolder( m_wndList.GetItemText( nItem, 0 ), m_wndList.GetCheck( nItem ) );
 		}
 	}
 

@@ -378,9 +378,6 @@
     <ClCompile Include="MetaList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MetaPanel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Neighbour.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -517,9 +514,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SharedFolder.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ShareMonkeyData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ShellIcons.cpp">
@@ -1895,9 +1889,6 @@
     <ClInclude Include="MetaList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MetaPanel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MinMax.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -2043,9 +2034,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SharedFolder.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ShareMonkeyData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Shell.h">

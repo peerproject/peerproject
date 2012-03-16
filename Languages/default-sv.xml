@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Swedish Skin File -->
 
-<!-- Translation based on default-en.xml r74 -->
+<!-- Translation based on default-en.xml r75 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -361,6 +361,7 @@
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<button id="ID_NETWORK_DC" text="DC++"/>
+		<button id="ID_NETWORK_BT" text="BitTorrent"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Inställningar"/>
 	</toolbar>
@@ -476,6 +477,7 @@
 				<item id="ID_NETWORK_G1" text="Anslut till _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Anslut till _eDonkey"/>
 				<item id="ID_NETWORK_DC" text="Anslut till _DC++"/>
+				<item id="ID_NETWORK_BT" text="Anslut till _BitTorrent"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="Anslut _till…" shortcut="Ctrl+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="Visa värdens _filer…"/>
@@ -567,6 +569,7 @@
 			<item id="ID_NETWORK_G1" text="Anslut till _Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="Anslut till _eDonkey"/>
 			<item id="ID_NETWORK_DC" text="Anslut till _DC++"/>
+			<item id="ID_NETWORK_BT" text="Anslut till _BitTorrent"/>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Anslut _till…" shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="Visa värdens _filer…"/>
@@ -740,6 +743,7 @@
 			<item id="ID_NETWORK_G1" text="Anslut till _Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="Anslut till _eDonkey"/>
 			<item id="ID_NETWORK_DC" text="Anslut till _DC++"/>
+			<item id="ID_NETWORK_BT" text="Anslut till _BitTorrent"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Stäng _efter överföringar"/>
 			<item id="ID_NETWORK_EXIT" text="A_vsluta"/>
@@ -1528,6 +1532,7 @@
 			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
 			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<item id="ID_NETWORK_BT" text="_BitTorrent"/>
 			<separator/>
 			<item id="ID_VIEW_DISCOVERY" text="_Upptäck"/>
 			<item id="ID_VIEW_HOSTS" text="_Värdcache"/>
@@ -1644,7 +1649,7 @@
 	<menu name="WebServices.List.Menu">
 		<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Bitzi"/>
 		<item id="ID_WEBSERVICES_MUSICBRAINZ" text="_MusicBrainz"/>
-		<item id="ID_WEBSERVICES_SHAREMONKEY" text="_ShareMonkey"/>
+		<!--item id="ID_WEBSERVICES_SHAREMONKEY" text="_ShareMonkey"-->
 	</menu>
 </menus>
 <!-- Documents -->
@@ -2490,6 +2495,7 @@
 	<tip id="ID_NETWORK_EXIT" message="Avsluta PeerProject"/>
 	<tip id="ID_NETWORK_ED2K" message="Anslut till eDonkey-nätverket."/>
 	<tip id="ID_NETWORK_DC" message="Anslut till DC++-nätverket."/>
+	<tip id="ID_NETWORK_BT" message="Anslut till BitTorrent-nätverket."/>
 	<tip id="ID_NETWORK_G1" message="Anslut till Gnutellas ursprungsnätverk."/>
 	<tip id="ID_NETWORK_G2" message="Anslut till Gnutella2-nätverket (mycket rekommenderat)."/>
 	<tip id="ID_NETWORK_SEARCH" message="Starta en ny sökning i nätverket…"/>
@@ -2603,7 +2609,7 @@
 	<tip id="ID_WINDOW_TILE_VERT" message="Arrangera öppna fönster vertikalt utan att de överlappar varandra."/>
 	<tip id="ID_WINDOW_TOOLBAR" message="Visa eller dölj verktygsfältet."/>
 	<tip id="ID_WEBSERVICES_LIST" message="Välj webbtjänsten för att ta reda på mer information om den valda filen."/>
-	<tip id="ID_WEBSERVICES_SHAREMONKEY" message="Sök efter filinformation med tjänsten ShareMonkey."/>
+	<!--tip id="ID_WEBSERVICES_SHAREMONKEY" message="Sök efter filinformation med tjänsten ShareMonkey."-->
 	<!-- PLUGIN TIPS -->
 	<tip id="PluginID_ImageViewer_BestFit" message="Anpassa bilden till fönstrets storlek."/>
 	<tip id="PluginID_ImageViewer_FullSize" message="Visa bilden i originalstorlek."/>
@@ -2779,8 +2785,8 @@
 	<string id="20202" value="Mottog en felaktig anslutningsbegäran från %s, stänger anslutning."/>
 	<string id="20203" value="Ökar bandbredden för nedladdning av &quot;%s&quot; genom att ta bort bandbreddsbegränsning."/>
 	<string id="20204" value="Nedladdningsvärd %s är upptagen, försöker igen om %i sekunder."/>
-	<string id="20205" value="Kan inte flytta nedladdning &quot;%s&quot; till &quot;%s&quot;. Kontrollera att filen inte används och att nedladdningsmappen existerar och är skrivbar."/>
-	<string id="20206" value="Kan inte hämta &quot;%s&quot;."/>
+	<string id="20205" value="Otillräckligt diskutrymme för nedladdning &quot;%s&quot; (%s)."/>
+	<string id="20206" value="Kan inte flytta nedladdning &quot;%s&quot; till &quot;%s&quot;. Kontrollera att filen inte används och att nedladdningsmappen existerar och är skrivbar."/>
 	<string id="20207" value="Är du säker på att du vill avbryta alla nedladdningar i denna grupp?"/>
 	<string id="20208" value="Stänger nedladdningsanslutning till %s, inge längre behövd."/>
 	<string id="20209" value="Nedladdningsvärd %s skickade oombedd data, stänger anslutning."/>
@@ -2793,23 +2799,18 @@
 	<string id="20216" value="Kan inte ansluta till nedladdningsvärd %s."/>
 	<string id="20217" value="Mottar nedladdningsinnehåll från värd %s (%s)."/>
 	<string id="20218" value="Avbryter nedladdning av &quot;%s&quot; från %s (%s), nätverk avstängt."/>
-	<string id="20219" value="Otillräckligt diskutrymme för nedladdning &quot;%s&quot; (%s)."/>
-	<string id="20220" value="Nedladdningsanslutning till %s förlorades."/>
-	<string id="20222" value="Du har skrivit ett felaktigt eDonkey hashset-värde. Kontrollera det och försök igen."/>
-	<string id="20224" value="Ange ett giltigt omfång av bytes att radera. Från-fältet är anger den första byten att radera och till-fältet anger den sista."/>
-	<string id="20225" value="Du har skrivit ett felaktigt SHA1-värde. Kontrollera det och försök igen."/>
-	<string id="20226" value="Du har skrivit ett felaktigt tiger-tree-värde. Kontrollera det och försök igen."/>
-	<string id="20227" value="Du har ndrat filstorleken. Är du säker på att du vill ändra filstorleken för den här nedladdningen?"/>
-	<string id="20228" value="Kan inte radera det valda omfånget från nedladdningen eftersom ingen del av det är tillgängligt."/>
-	<string id="20231" value="Du har anget ett annat SHA1-värde än det som för tillfället är associerat med denna nedladdning. Är du säker på att du vill ändra det?"/>
-	<string id="20232" value="Du har anget ett annat eDonkey hash-värde än det som för tillfället är associerat med denna nedladdning. Är du säker på att du vill ändra det?"/>
-	<string id="20233" value="Du har anget ett annat tiger-tree hash-värde än det som för tillfället är associerat med denna nedladdning. Är du säker på att du vill ändra det?"/>
-	<string id="20235" value="Du kan inte anta att denna nedladdning är färdig och återverifiera den eftersom du inte har någon verifikationsdata, t.ex. tiger-tree-volym, eDonkey hashset eller BitTorrent hashset. Utan verifikationsinformation kan inte nedladdningen verifieras."/>
-	<string id="20236" value="Är du säker på att du vill anta att nedladdningen är färdig och återverifiera den? Hela filen kommer att granskas och PeerProject kommer att acceptera godkänta delar och ladda ned ej godkända delar igen."/>
-	<string id="20237" value="Är du säker på att du vill glömma alla källor för den valda nedladdningen?"/>
-	<string id="20238" value="Är du säker på att du vill glömma aktuell verifikationsstatus? All nedladdad data kommer att behandlas som opålitlig och cachade hashtrees och hashsets kommer att bli spolade."/>
-	<string id="20240" value="Raderade %I64i bytes från nedladdningen."/>
-	<string id="20241" value="Du har ändrat filnamnet. Är du säker på att du vill ändra namn på denna nedladdning?"/>
+	<string id="20219" value="Nedladdningsanslutning till %s förlorades."/>
+	<string id="20221" value="Ange ett giltigt omfång av bytes att radera. Från-fältet är anger den första byten att radera och till-fältet anger den sista."/>
+	<string id="20222" value="Du har skrivit ett felaktigt %s hashset-värde. Kontrollera det och försök igen."/>
+	<string id="20223" value="Du har anget ett annat %s-värde än det som för tillfället är associerat med denna nedladdning. Är du säker på att du vill ändra det?"/>
+	<string id="20224" value="Du har ändrat filnamnet. Är du säker på att du vill ändra namn på denna nedladdning?"/>
+	<string id="20225" value="Du har ndrat filstorleken. Är du säker på att du vill ändra filstorleken för den här nedladdningen?"/>
+	<string id="20226" value="Du kan inte anta att denna nedladdning är färdig och återverifiera den eftersom du inte har någon verifikationsdata, t.ex. tiger-tree-volym, eDonkey hashset eller BitTorrent hashset. Utan verifikationsinformation kan inte nedladdningen verifieras."/>
+	<string id="20227" value="Är du säker på att du vill anta att nedladdningen är färdig och återverifiera den? Hela filen kommer att granskas och PeerProject kommer att acceptera godkänta delar och ladda ned ej godkända delar igen."/>
+	<string id="20228" value="Är du säker på att du vill glömma aktuell verifikationsstatus? All nedladdad data kommer att behandlas som opålitlig och cachade hashtrees och hashsets kommer att bli spolade."/>
+	<string id="20229" value="Är du säker på att du vill glömma alla källor för den valda nedladdningen?"/>
+	<string id="20231" value="Kan inte radera det valda omfånget från nedladdningen eftersom ingen del av det är tillgängligt."/>
+	<string id="20232" value="Raderade %I64i bytes från nedladdningen."/>
 	<string id="20242" value="Nedladdningsvärd %s har inte filen &quot;%s&quot;."/>
 	<string id="20243" value="Skapade fil &quot;%s&quot; för nedladdning."/>
 	<string id="20244" value="Kan inte skapa lokal fil &quot;%s&quot; för nedladdning, avbryter."/>
@@ -2840,9 +2841,10 @@
 	<string id="20271" value="Flyttade &quot;%s&quot; till &quot;%s&quot;, nedladdning klar."/>
 	<string id="20272" value="Gör paus i nedladdning av &quot;%s&quot;."/>
 	<string id="20273" value="Återupptar nedladdning av &quot;%s&quot;."/>
-	<string id="20274" value="Hämtar &quot;%s&quot; för nedladdning av &quot;%s&quot;."/>
 	<string id="20275" value="Efterfrågar fler källor för nedladdning av &quot;%s&quot; på %i anslutningar.."/>
 	<string id="20276" value="Kan inte hämta fler källor för nedladdning av &quot;%s&quot; eftersom det inte finns någon nätverksanslutning."/>
+	<!--string id="20277" value="Hämtar &quot;%s&quot; för nedladdning av &quot;%s&quot;."-->
+	<!--string id="20278" value="Kan inte hämta &quot;%s&quot;."-->
 	<string id="20280" value="Nedladdning av värdens tiger-tree-data är felaktig, ignorerar den."/>
 	<string id="20281" value="Nedladdning av värdens tiger-tree matchar inte det väntade rotvärdet."/>
 	<string id="20282" value="Nedladdningsvärd %s kan inte tillfredsställa din tiger-tree-begäran."/>
@@ -3096,7 +3098,7 @@
 	<string id="20570" value="Tog emot ett felformaterat frågeträffpaket från %s, ignorerar."/>
 	<string id="20571" value="%s:  Tog emot en felformaterad frågepaket från %s, ignorerar."/>
 	<string id="20572" value="Grannen %s skickade ett paket med för stor TTL, släpper paket (TTL=%i, Hops=%i)."/>
-	<string id="20573" value="Grannen %s skickade ett paket med noll TTL, ignorerar."/>
+	<!--string id="20573" value="Grannen %s skickade ett paket med noll TTL, ignorerar."-->
 	<string id="20574" value="Grannen %s skickade vidare ett utökat paket som inte är GGEP-kodat."/>
 	<string id="20575" value="Grannen %s skickade en felaktig uppdatering för frågeroutingtabell, släpper anslutning."/>
 	<string id="20576" value="Skickar frågeroutingtabell till grannen %s (%i bitar = %lu[%i], %i%% full)"/>
@@ -3292,7 +3294,7 @@
 	<string id="20834" value="Uppladdningsvärd %s begärde en förhandsvisning av &quot;%s&quot;, men ingen förhandsvisning finns tillgänglig."/>
 	<string id="20835" value="Uppladdar en förhandsvisning av &quot;%s&quot; till %s."/>
 	<string id="20836" value="Vägrar anslutningsbegäran till %s eftersom den har för många uppladdningsanslutningar."/>
-	<string id="20837" value="Nedärvd anslutningsbegäran från %s begärde en okänd fil, ansluter ändå…"/>
+	<!--string id="20837" value="Nedärvd anslutningsbegäran från %s begärde en okänd fil, ansluter ändå…"-->
 	<string id="20838" value="För upptagen med att ladda upp &quot;%s&quot; till %s, kölagd som #%i av %i (&quot;%s&quot;.."/>
 	<string id="20840" value="Uppladdningsanslutning. till %s förlorades, bevarar kölagd position."/>
 	<string id="20841" value="Ny kö"/>
@@ -3322,7 +3324,7 @@
 	<string id="20866" value="Filnamn:"/>
 	<string id="20867" value="Värd:"/>
 	<string id="20868" value="Port:"/>
-	<string id="20869" value="Kan inte visa URL-åtgärdsdialogrutan eftersom PeerProject är upptagen."/>
+	<!--string id="20869" value="Kan inte visa URL-åtgärdsdialogrutan eftersom PeerProject är upptagen."-->
 	<string id="20870" value="Kan inte tolka URL: PeerProject förstår inte denna URL."/>
 	<string id="20871" value="Mottog URL &quot;%s&quot;"/>
 	<string id="20872" value="Typ:"/>
@@ -3665,7 +3667,7 @@
 		<control caption="Ladda ned…"/>
 		<control caption="Ladda ned serverlista MET för eDonkey från webben"/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Nedladdningsanslutning:"/>
 		<control/>
 		<control/>
@@ -3673,6 +3675,7 @@
 		<control/>
 		<control/>
 		<control caption="Klientanslutningar"/>
+		<control caption="Möjliggöra BitTorrent DHT"/>
 		<control caption="Föredra torrentkällor"/>
 		<control caption="_Slutspel:"/>
 		<control caption="Aktivera slutspelsläge när nedladdning av torrents slutförs"/>
@@ -3978,8 +3981,7 @@
 	<dialog name="CLanguageDlg" cookie="" caption="Välj språk">
 	</dialog>
 	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="Anslut till|Visa värdens filer|Chat with User">
-		<control caption="Skapa en ny anslutning till värden eller servern:|Visa värdens filer
-|Message this user:"/>
+		<control caption="Skapa en ny anslutning till värden eller servern:|Visa värdens filer|Message this user:"/>
 		<control/>
 		<control/>
 		<control caption="Nätverks_protokoll:"/>
@@ -4390,7 +4392,7 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackers">
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBuBuBu" caption="Trackers">
 		<control/>
 		<control/>
 		<control/>
@@ -4402,6 +4404,8 @@
 		<control caption="Trackerläge:"/>
 		<control caption="Avstängd|Anpassad|Enkel tracker|Multi-tracker|Multi-tracker (låst)"/>
 		<control caption="_Uppdatera"/>
+		<control caption="_Lägg till"/>
+		<control caption="_Readera"/>
 	</dialog>
 	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="Torrent">
 		<control/>

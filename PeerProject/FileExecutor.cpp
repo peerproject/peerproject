@@ -1,7 +1,7 @@
 //
 // FileExecutor.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -68,6 +68,8 @@ KnownPlayers[] =
 	{ _T("winamp.exe"),		_T("/ADD \"%s\"") },
 	// Light Alloy
 	{ _T("la.exe"),			_T("/ADD \"%s\"") },
+	// KMPlayer
+	{ _T("kmplayer.exe"),	_T("/ADD \"%s\"") },
 	// BSPlayer
 	{ _T("bsplayer.exe"),	_T("\"%s\" -ADD") },
 	// Zoom Player
@@ -216,9 +218,8 @@ TRISTATE CFileExecutor::IsVerified(LPCTSTR szFile)
 		CQuickLock pLock( Library.m_pSection );
 		if ( CLibraryFile* pFile = LibraryMaps.LookupFileByPath( szFile ) )
 		{
-			bInsecure = ( pFile->m_bVerify == TRI_FALSE ) &&
-				( ! Settings.Search.AdultFilter ||
-				  ! AdultFilter.IsChildPornography( szFile ) );
+			bInsecure = pFile->m_bVerify == TRI_FALSE &&
+				( ! Settings.Search.AdultFilter || ! AdultFilter.IsChildPornography( szFile ) );
 		}
 	}
 

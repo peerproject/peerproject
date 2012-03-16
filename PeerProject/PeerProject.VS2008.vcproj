@@ -816,10 +816,6 @@
 				>
 			</File>
 			<File
-				RelativePath="MetaPanel.cpp"
-				>
-			</File>
-			<File
 				RelativePath="Neighbour.cpp"
 				>
 			</File>
@@ -1061,10 +1057,6 @@
 			</File>
 			<File
 				RelativePath="SharedFolder.cpp"
-				>
-			</File>
-			<File
-				RelativePath="ShareMonkeyData.cpp"
 				>
 			</File>
 			<File
@@ -3109,10 +3101,6 @@
 				>
 			</File>
 			<File
-				RelativePath="MetaPanel.h"
-				>
-			</File>
-			<File
 				RelativePath="MinMax.hpp"
 				>
 			</File>
@@ -3306,10 +3294,6 @@
 			</File>
 			<File
 				RelativePath="SharedFolder.h"
-				>
-			</File>
-			<File
-				RelativePath="ShareMonkeyData.h"
 				>
 			</File>
 			<File

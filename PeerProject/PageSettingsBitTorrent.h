@@ -1,7 +1,7 @@
 //
 // PageSettingsBitTorrent.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -37,7 +37,9 @@ public:
 	virtual BOOL OnSetActive();
 
 protected:
+	BOOL			m_bEnableDHT;
 	BOOL			m_bEndGame;
+	BOOL			m_bPrefBTSources;
 	int				m_nLinks;
 	CSpinButtonCtrl	m_wndLinksSpin;
 	CSpinButtonCtrl	m_wndDownloadsSpin;
@@ -46,7 +48,6 @@ protected:
 	CEdit			m_wndClearPercentage;
 	CSpinButtonCtrl	m_wndClearPercentageSpin;
 	int				m_nClearPercentage;
-	BOOL			m_bPrefBTSources;
 	CIconButtonCtrl	m_wndTorrentPath;
 	CString			m_sTorrentPath;
 	CString			m_sTracker;

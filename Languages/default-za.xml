@@ -4,7 +4,7 @@
 <!-- PeerProject Default Afrikaans Skin File -->
 <!-- Weergawe: 27 Oktober 2005 vir Shareaza 2.2.0.2 -->
 
-<!-- Translation based on default-en.xml r74 -->
+<!-- Translation based on default-en.xml r75 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -364,6 +364,7 @@
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<button id="ID_NETWORK_DC" text="DC++"/>
+		<button id="ID_NETWORK_BT" text="BitTorrent"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Verstellings"/>
 	</toolbar>
@@ -421,28 +422,6 @@
 		<button id="ID_CHAT_DISCONNECT" text="Diskonnekteer"/>
 	</toolbar>
 	<!-- WEBSERVICES -->
-	<toolbar name="WebServices.ShareMonkey">
-		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Get Data"/>
-		<separator/>
-		<button id="ID_SHAREMONKEY_PREVIOUS" text="Previous"/>
-		<button id="ID_SHAREMONKEY_NEXT" text="Next"/>
-		<separator/>
-		<button id="ID_SHAREMONKEY_PRICES" text="Get Prices"/>
-		<button id="ID_SHAREMONKEY_COMPARE" text="Compare"/>
-		<button id="ID_SHAREMONKEY_BUY" text="Buy It"/>
-	</toolbar>
-	<toolbar name="WebServices.ShareMonkey.WithSave">
-		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Get Data"/>
-		<button id="ID_SHAREMONKEY_SAVE" text="Save"/>
-		<control id="ID_SHAREMONKEY_SAVE_OPTION" text="Save Preview" width="100" checked="true"/>
-		<separator/>
-		<button id="ID_SHAREMONKEY_PREVIOUS" text="Previous"/>
-		<button id="ID_SHAREMONKEY_NEXT" text="Next"/>
-		<separator/>
-		<button id="ID_SHAREMONKEY_PRICES" text="Get Prices"/>
-		<button id="ID_SHAREMONKEY_COMPARE" text="Compare"/>
-		<button id="ID_SHAREMONKEY_BUY" text="Buy It"/>
-	</toolbar>
 	<toolbar name="WebServices.MusicBrainz">
 		<button id="ID_MUSICBRAINZ_MATCHES" text="View Album Matches"/>
 		<button id="ID_MUSICBRAINZ_ALBUMS" text="View All Albums"/>
@@ -504,6 +483,7 @@
 				<item id="ID_NETWORK_G1" text="Konnekteer aan _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Konnekteer aan _eDonkey2000"/>
 				<item id="ID_NETWORK_DC" text="Konnekteer aan _DC++"/>
+				<item id="ID_NETWORK_BT" text="Konnekteer aan _BitTorrent"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="Konnekteer _Aan..." shortcut="Ctrl+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="_Blaai deur Gebruikersinligting..."/>
@@ -595,6 +575,7 @@
 			<item id="ID_NETWORK_G1" text="Konnekteer aan _Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="Konnekteer aan _eDonkey2000"/>
 			<item id="ID_NETWORK_DC" text="Konnekteer aan _DC++"/>
+			<item id="ID_NETWORK_BT" text="Konnekteer aan _BitTorrent"/>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Konnekteer _Aan..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="_Blaai deur Gebruikersinligting..."/>
@@ -769,6 +750,7 @@
 			<item id="ID_NETWORK_G1" text="Konnekteer aan _Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="Konnekteer aan _eDonkey2000"/>
 			<item id="ID_NETWORK_DC" text="Konnekteer aan _DC++"/>
+			<item id="ID_NETWORK_BT" text="Konnekteer aan _BitTorrent"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Verlaat PeerProject _Na Oordragte"/>
 			<item id="ID_NETWORK_EXIT" text="_Verlaat PeerProject"/>
@@ -1558,6 +1540,7 @@
 			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey2000"/>
 			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<item id="ID_NETWORK_BT" text="_BitTorrent"/>
 			<separator/>
 			<item id="ID_VIEW_DISCOVERY" text="_Ontdekkings"/>
 			<item id="ID_VIEW_HOSTS" text="_Gasheer Kasgeheue"/>
@@ -1674,7 +1657,7 @@
 	<menu name="WebServices.List.Menu">
 		<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Bitzi"/>
 		<item id="ID_WEBSERVICES_MUSICBRAINZ" text="_MusicBrainz"/>
-		<item id="ID_WEBSERVICES_SHAREMONKEY" text="_ShareMonkey"/>
+		<!--item id="ID_WEBSERVICES_SHAREMONKEY" text="_ShareMonkey"-->
 	</menu>
 </menus>
 
@@ -2528,6 +2511,7 @@
 	<tip id="ID_NETWORK_DISCONNECT" message="Diskonnekteer van die netwerk."/>
 	<tip id="ID_NETWORK_EXIT" message="Verlaat PeerProject"/>
 	<tip id="ID_NETWORK_DC" message="Konnekteer aan die DC++ netwerk."/>
+	<tip id="ID_NETWORK_BT" message="Konnekteer aan die BitTorrent netwerk."/>
 	<tip id="ID_NETWORK_G1" message="Konnekteer aan die oorspronklike Gnutella netwerk."/>
 	<tip id="ID_NETWORK_G2" message="Konnekteer aan die Gnutella2 netwerk (word sterk aanbeveel)."/>
 	<tip id="ID_NETWORK_SEARCH" message="Begin 'n nuwe soektog op die netwerk..."/>
@@ -2641,7 +2625,6 @@
 	<tip id="ID_WINDOW_TILE_VERT" message="Rangskik oop vensters as vertikale, nie-oorvleuelende teëls."/>
 	<tip id="ID_WINDOW_TOOLBAR" message="Vertoon of verwyder die nutsbalk."/>
 	<tip id="ID_WEBSERVICES_LIST" message="Choose the web service to get more information about the selected file."/>
-	<tip id="ID_WEBSERVICES_SHAREMONKEY" message="Search for the file infomation using ShareMonkey service."/>
 	<!-- PLUGIN TIPS Missing -->
 </commandTips>
 <!-- Tips displayed when mouse is moved over controls in the dialogs -->
@@ -2810,8 +2793,8 @@
 	<string id="20202" value="Foutiewe druk-konneksie ontvang vanaf %s, konneksie word gesluit."/>
 	<string id="20203" value="Gee aflaai &quot;%s&quot; 'n hupstoot deur bandwydte beperkings te verwyder."/>
 	<string id="20204" value="Aflaaigasheer %s is beset, probeer weer oor %i sekondes."/>
-	<string id="20205" value="Kon nie lêer &quot;%s&quot; na &quot;%s&quot; skuif nie. Maak seker dat die onvoltooide lêer nie in gebruik is nie en dat jou aflaaigids bestaan en skryfbaar is."/>
-	<string id="20206" value="Kon nie aan &quot;%s&quot; konnekteer nie."/>
+	<string id="20205" value="Nie genoeg skyfspasie om &quot;%s&quot; (%s) af te laai nie."/>
+	<string id="20206" value="Kon nie lêer &quot;%s&quot; na &quot;%s&quot; skuif nie. Maak seker dat die onvoltooide lêer nie in gebruik is nie en dat jou aflaaigids bestaan en skryfbaar is."/>
 	<string id="20207" value="Is jy seker jy wil al die aflaaie in hierdie groep kanselleer?"/>
 	<string id="20208" value="Aflaaikonneksie aan %s word gesluit, nie meer benodig nie."/>
 	<string id="20209" value="Aflaaigasheer %s het foutiewe data gestuur, konneksie word gesluit."/>
@@ -2824,23 +2807,18 @@
 	<string id="20216" value="Kan nie na gasheer %s konnekteer nie."/>
 	<string id="20217" value="Aflaai-inhoud word ontvang vanaf %s (%s)."/>
 	<string id="20218" value="Aflaai van &quot;%s&quot; vanaf %s (%s) word gestaak, netwerk afgeskakel."/>
-	<string id="20219" value="Nie genoeg skyfspasie om &quot;%s&quot; (%s) af te laai nie."/>
-	<string id="20220" value="Aflaaikonneksie na %s is verbreek."/>
-	<string id="20222" value="Jy het 'n eDonkey2000 hash-waarde ingetik, maar dit is foutief. Kontroleer dit asseblief en probeer weer."/>
-	<string id="20224" value="Sleutel asseblief geldige grense in om te skrap. Die &quot;van&quot;-veld is die eerste greep om te skrap, en die &quot;tot&quot;-veld die laaste greep om te skrap."/>
-	<string id="20225" value="Jy het 'n SHA1-waarde ingetik, maar dit is foutief. Kontroleer dit asseblief en probeer weer."/>
-	<string id="20226" value="Jy het 'n wortel tiger-tree waarde ingetik, maar dit is foutief. Kontroleer dit asseblief en probeer weer."/>
-	<string id="20227" value="You have made changes to the file size. Are you sure you want to change the file size for this download?"/>
-	<string id="20228" value="Kon nie die gespesifiseerde deel van die aflaai skrap nie, aangesien geen data binne die grense beskikbaar is nie."/>
-	<string id="20231" value="Jy het 'n SHA1-hashwaarde verskaf wat verskil van die huidige een vir hierdie aflaai. Is jy seker jy wil die SHA1-hash verander?"/>
-	<string id="20232" value="Jy het 'n eDonkey2000 hashwaarde verskaf wat verskil van die huidige een vir hierdie aflaai. Is jy seker jy wil die eDonkey2000 hash verander?"/>
-	<string id="20233" value="Jy het 'n tiger-tree hashwaarde verskaf wat verskil van die huidige een vir hierdie aflaai. Is jy seker jy wil die tiger-tree wortel-hash verander?"/>
-	<string id="20235" value="Jy kan nie aaneem hierdie aflaai is voltooi en dit herkontroleer nie, aangesien jy nog geen kontrole-data, soos 'n tiger-tree waarde, eDonkey hashset of BitTorrent hashset het nie. Sonder kontrole-data kan die aflaai nie herkontroleer word nie."/>
-	<string id="20236" value="Is jy seker jy wil aanneem dat hierdie aflaai voltooi is en dit herkontroleer? Die totale lêer sal oorweeg word, en PeerProject sal net dele aanvaar wat die kontrole deurkom, en die res weer aflaai."/>
-	<string id="20237" value="Is jy seker jy wil alle bronne vergeet vir die geselekteerde aflaai?"/>
-	<string id="20238" value="Is jy seker jy wil die huidige kontole-status vergeet? Alle afgelaaide data sal as onbetroubaar beskou word, en gestoorde hashtrees en hashsets sal skoongemaak word."/>
-	<string id="20240" value="%I64i grepe van die aflaai geskrap."/>
-	<string id="20241" value="Jy het verandering in die naam-veld gemaak. Is jy seker jy wil die aflaai hernoem?"/>
+	<string id="20219" value="Aflaaikonneksie na %s is verbreek."/>
+	<string id="20221" value="Sleutel asseblief geldige grense in om te skrap. Die &quot;van&quot;-veld is die eerste greep om te skrap, en die &quot;tot&quot;-veld die laaste greep om te skrap."/>
+	<string id="20222" value="Jy het 'n %s hash-waarde ingetik, maar dit is foutief. Kontroleer dit asseblief en probeer weer."/>
+	<string id="20223" value="Jy het 'n %s-hashwaarde verskaf wat verskil van die huidige een vir hierdie aflaai. Is jy seker jy wil die %s-hash verander?"/>
+	<string id="20224" value="Jy het verandering in die naam-veld gemaak. Is jy seker jy wil die aflaai hernoem?"/>
+	<string id="20225" value="You have made changes to the file size. Are you sure you want to change the file size for this download?"/>
+	<string id="20226" value="Jy kan nie aaneem hierdie aflaai is voltooi en dit herkontroleer nie, aangesien jy nog geen kontrole-data, soos 'n tiger-tree waarde, eDonkey hashset of BitTorrent hashset het nie. Sonder kontrole-data kan die aflaai nie herkontroleer word nie."/>
+	<string id="20227" value="Is jy seker jy wil aanneem dat hierdie aflaai voltooi is en dit herkontroleer? Die totale lêer sal oorweeg word, en PeerProject sal net dele aanvaar wat die kontrole deurkom, en die res weer aflaai."/>
+	<string id="20228" value="Is jy seker jy wil die huidige kontole-status vergeet? Alle afgelaaide data sal as onbetroubaar beskou word, en gestoorde hashtrees en hashsets sal skoongemaak word."/>
+	<string id="20229" value="Is jy seker jy wil alle bronne vergeet vir die geselekteerde aflaai?"/>
+	<string id="20231" value="Kon nie die gespesifiseerde deel van die aflaai skrap nie, aangesien geen data binne die grense beskikbaar is nie."/>
+	<string id="20232" value="%I64i grepe van die aflaai geskrap."/>
 	<string id="20242" value="Aflaaigasheer %s het nie die lêer &quot;%s&quot; nie."/>
 	<string id="20243" value="Lêer &quot;%s&quot; word geskep vir aflaai."/>
 	<string id="20244" value="Kan nie lokale lêer &quot;%s&quot; skep vir aflaai nie, aflaai word gestaak."/>
@@ -2872,9 +2850,10 @@
 	<string id="20271" value="Lêer &quot;%s&quot; geskuif na &quot;%s&quot;, aflaai is voltooi."/>
 	<string id="20272" value="Aflaai van &quot;%s&quot; gevries."/>
 	<string id="20273" value="Aflaai van &quot;%s&quot; hervat."/>
-	<string id="20274" value="Probeer konnekteer aan &quot;%s&quot; om &quot;%s&quot; af te laai..."/>
 	<string id="20275" value="Navraag word gedoen vir meer bronne vir &quot;%s&quot; oor %i konneksie(s)..."/>
 	<string id="20276" value="Kan nie meer bronne vir aflaai &quot;%s&quot; vind nie, want daar is geen netwerkkonneksies nie."/>
+	<!--string id="20277" value="Probeer konnekteer aan &quot;%s&quot; om &quot;%s&quot; af te laai..."-->
+	<!--string id="20278" value="Kon nie aan &quot;%s&quot; konnekteer nie."-->
 	<string id="20280" value="Aflaaigasheer se tiger-tree data is korrup of inkonsekwent, oorgesien."/>
 	<string id="20281" value="Aflaaigasheer se tiger-tree data stem nie ooreen met verwagte stamwaarde nie."/>
 	<string id="20282" value="Aflaaigasheer %s kon nie die Tiger-tree navraag beantwoord nie."/>
@@ -3128,7 +3107,7 @@
 	<string id="20570" value="Foutiewe navraag-tref pakkie ontvang van %s, oorgesien."/>
 	<string id="20571" value="%s: outiewe navraagpakkie ontvang van %s, oorgesien."/>
 	<string id="20572" value="Gasheer %s het 'n pakkie met te groot TTL aangestuur, pakkie word gestort (TTL=%i, Hops=%i)."/>
-	<string id="20573" value="Gasheer %s het 'n pakkie met 'n TTL van nul aangestuur, oorgesien."/>
+	<!--string id="20573" value="Gasheer %s het 'n pakkie met 'n TTL van nul aangestuur, oorgesien."-->
 	<string id="20574" value="Gasheer %s het 'n uitgebreide pakkie aangestuur wat nie GGEP ge-enkodeer is nie."/>
 	<string id="20575" value="Gasheer %s het 'n foutiewe navraag-tabel opdatering gestuur, konneksie word gesluit."/>
 	<string id="20576" value="Navraag-tabel word gestuur aan gasheer %s (%i bit = %lu[%i], %i%% vol)"/>
@@ -3324,7 +3303,7 @@
 	<string id="20834" value="Oplaaigasheer %s het 'n voorskou van &quot;%s&quot; versoek, maar geen voorskoue is beskikbaar nie."/>
 	<string id="20835" value="Laai 'n voorskou van &quot;%s&quot; op na %s."/>
 	<string id="20836" value="Druk-versoek na %s word geweier omdat dit te veel oplaai-konneksies het."/>
-	<string id="20837" value="Verouderde druk-navraag ontvang vanaf %s vra 'n onbekende lêer, konnekteer in elk geval..."/>
+	<!--string id="20837" value="Verouderde druk-navraag ontvang vanaf %s vra 'n onbekende lêer, konnekteer in elk geval..."-->
 	<string id="20838" value="Te besig vir oplaai van &quot;%s&quot; na %s, wag in posisie #%i van %i (&quot;%s&quot;.."/>
 	<string id="20840" value="Oplaaikonneksie aan %s is verloor, behou waglysposisie."/>
 	<string id="20841" value="Nuwe Waglys"/>
@@ -3354,7 +3333,7 @@
 	<string id="20866" value="Lêernaam:"/>
 	<string id="20867" value="Gasheer:"/>
 	<string id="20868" value="Poort:"/>
-	<string id="20869" value="Kan nie URL-aksie venster vertoon nie, want PeerProject is beset."/>
+	<!--string id="20869" value="Kan nie URL-aksie venster vertoon nie, want PeerProject is beset."-->
 	<string id="20870" value="Kan nie URL gebruik nie: PeerProject verstaan nie hierdie URL nie."/>
 	<string id="20871" value="URL &quot;%s&quot; ontvang"/>
 	<string id="20872" value="Tipe:"/>
@@ -3650,7 +3629,7 @@
 		<control caption="Laai Af..."/>
 		<control caption="Laai eDonkey bedienerlys van die web af"/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Aflaai Koppellings:"/>
 		<control/>
 		<control/>
@@ -3658,6 +3637,7 @@
 		<control/>
 		<control/>
 		<control caption="Kliënt koppellings"/>
+		<control caption="Aktiveer BitTorrent DHT"/>
 		<control caption="Prefer torrent sources"/>
 		<control caption="_EndGame:"/>
 		<control caption="Skakel 'Endgame'-modus aan wanneer torrent-lêers voltooi word"/>
@@ -4374,7 +4354,7 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackers">
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBuBuBu" caption="Trackers">
 		<control/>
 		<control/>
 		<control/>
@@ -4386,6 +4366,8 @@
 		<control caption="Tracker Mode:"/>
 		<control caption="Disabled|Custom|Single Tracker|Multi-tracker|Multi-tracker (locked)"/>
 		<control caption="_Refresh"/>
+		<control caption="Voeg _By"/>
+		<control caption="_Verwyder"/>
 	</dialog>
 	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="BitTorrent">
 		<control/>

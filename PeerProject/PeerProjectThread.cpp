@@ -1,7 +1,7 @@
 //
 // PeerProjectThread.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -26,9 +26,9 @@ IMPLEMENT_DYNAMIC(CAppThread, CWinThread)
 CCriticalSection		CAppThread::m_ThreadMapSection;
 CAppThread::CThreadMap	CAppThread::m_ThreadMap;
 
-CAppThread::CAppThread(AFX_THREADPROC pfnThreadProc /*= NULL*/, LPVOID pParam /*= NULL*/) :
-	CWinThread( NULL, pParam ),
-	m_pfnThreadProcExt( pfnThreadProc )
+CAppThread::CAppThread(AFX_THREADPROC pfnThreadProc /*= NULL*/, LPVOID pParam /*= NULL*/)
+	: CWinThread( NULL, pParam )
+	, m_pfnThreadProcExt( pfnThreadProc )
 {
 }
 
@@ -177,10 +177,7 @@ HANDLE BeginThread(LPCSTR pszName, AFX_THREADPROC pfnThreadProc,
 	CAppThread* pThread = new CAppThread( pfnThreadProc, pParam );
 	ASSERT_VALID( pThread );
 	if ( pThread )
-	{
-		return pThread->CreateThread( pszName, nPriority, dwCreateFlags, nStackSize,
-			lpSecurityAttrs );
-	}
+		return pThread->CreateThread( pszName, nPriority, dwCreateFlags, nStackSize, lpSecurityAttrs );
 	return NULL;
 }
 
@@ -201,21 +198,13 @@ void CloseThread(HANDLE* phThread, DWORD dwTimeout)
 					DWORD res = MsgWaitForMultipleObjects( 1, phThread,
 						FALSE, dwTimeout, QS_ALLINPUT | QS_ALLPOSTMESSAGE );
 					if ( res == WAIT_OBJECT_0 + 1 )
-					{
-						// Handle messages
-						continue;
-					}
-					else if ( res != WAIT_TIMEOUT )
-					{
-						// Handle signaled state or errors
-						break;
-					}
-					else
-					{
-						// Timeout
+						continue;		// Handle messages
+
+					// Handle signaled state or errors...
+					if ( res == WAIT_TIMEOUT )
 						CAppThread::Terminate( *phThread );
-						break;
-					}
+
+					break;
 				}
 			}
 			__except( EXCEPTION_EXECUTE_HANDLER )

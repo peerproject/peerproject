@@ -1,7 +1,7 @@
 //
 // TigerTree.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -1164,7 +1164,7 @@ BOOL CTigerTree::FromBytes(const uint8* pInput, uint32 nInput, uint32 nHeight, u
 	return TRUE;
 }
 
-BOOL CTigerTree::FromBytesLevel1(const uint8* pInput, uint32 nInput, uint32 nHeight, uint64 nLength)
+BOOL CTigerTree::FromBytesLevel1(const uint8* pInput, uint32 nInput, uint64 nLength)
 {
 	CSectionLock oLock( &m_pSection );
 
@@ -1180,7 +1180,7 @@ BOOL CTigerTree::FromBytesLevel1(const uint8* pInput, uint32 nInput, uint32 nHei
 	for ( uint32 nStep = 1 ; nStep < nCount ; nStep *= 2 )
 		nCountHeight++;
 
-	SetupAndAllocate( min( nCountHeight, nHeight ), nLength );
+	SetupAndAllocate( nCountHeight, nLength );
 
 	CTigerNode* pBase = m_pNode + m_nNodeCount - m_nNodeBase;
 

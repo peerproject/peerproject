@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Finnish Skin File -->
 
-<!-- Translation based on default-en.xml r74 (Shareaza 2.1.3.7) -->
+<!-- Translation based on default-en.xml r75 (Shareaza 2.1.3.7) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -365,6 +365,7 @@
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<button id="ID_NETWORK_DC" text="DC++"/>
+		<button id="ID_NETWORK_BT" text="BitTorrent"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Asetukset"/>
 	</toolbar>
@@ -458,6 +459,7 @@
 				<item id="ID_NETWORK_G1" text="Yhdistä _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Yhdistä _eDonkey2000"/>
 				<item id="ID_NETWORK_DC" text="Yhdistä _DC++"/>
+				<item id="ID_NETWORK_BT" text="Yhdistä _BitTorrent"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="Yhdistä..." shortcut="Ctrl+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="_Selaa Käyttäjää"/>
@@ -544,6 +546,7 @@
 			<item id="ID_NETWORK_G1" text="Yhdistä _Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="Yhdistä _eDonkey2000"/>
 			<item id="ID_NETWORK_DC" text="Yhdistä _DC++"/>
+			<item id="ID_NETWORK_BT" text="Yhdistä _BitTorrent"/>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Yhdistä..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="_Selaa Käyttäjää"/>
@@ -704,6 +707,7 @@
 			<item id="ID_NETWORK_G1" text="Yhdistä _Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="Yhdistä _eDonkey2000"/>
 			<item id="ID_NETWORK_DC" text="Yhdistä _DC++"/>
+			<item id="ID_NETWORK_BT" text="Yhdistä _BitTorrent"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Sulje _Siirtojen Jälkeen"/>
 			<item id="ID_NETWORK_EXIT" text="P_oistu"/>
@@ -1484,6 +1488,7 @@
 			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey2000"/>
 			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<item id="ID_NETWORK_BT" text="_BitTorrent"/>
 			<separator/>
 			<item id="ID_VIEW_DISCOVERY" text="Disco_very"/>
 			<item id="ID_VIEW_HOSTS" text="K_äyttäjä Välimuisti"/>

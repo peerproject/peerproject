@@ -1,4 +1,3 @@
-#include "rar.hpp"
 
 inline unsigned int RangeCoder::GetChar()
 {

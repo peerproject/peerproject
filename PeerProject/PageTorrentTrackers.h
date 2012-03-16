@@ -30,21 +30,28 @@
 
 class CTorrentTrackersPage : public CPropertyPageAdv, public CTrackerEvent	/*public CThreadImpl (Obsolete)*/
 {
+	DECLARE_DYNCREATE(CTorrentTrackersPage)
+
 public:
 	CTorrentTrackersPage();
 	virtual ~CTorrentTrackersPage();
 
-	DECLARE_DYNCREATE(CTorrentTrackersPage)
-
 	enum { IDD = IDD_TORRENT_TRACKERS };
 
 protected:
-	CString			m_sTracker;
-	CButton			m_wndRefresh;
+	CStringList		m_sOriginalTrackers;
+	CString			m_sOriginalTracker;
+	int				m_nOriginalMode;
+
+	CEdit			m_wndTracker;
 	CEdit			m_wndComplete;
 	CEdit			m_wndIncomplete;
 	CComboBox		m_wndTrackerMode;
+	CButton			m_wndRefresh;
+	CButton			m_wndAdd;
+	CButton			m_wndDel;
 	CListCtrl		m_wndTrackers;
+
 	CBTTrackerRequest*	m_pRequest;
 	DWORD			m_nComplete;
 	DWORD			m_nIncomplete;
@@ -52,6 +59,12 @@ protected:
 // Obsolete Scrape Thread
 //	void			OnRun();
 //	BOOL			OnTree(CDownload* pDownload, CBENode* pNode);
+
+	BOOL			ApplyTracker();							// Apply settings to download
+	void			InsertTracker();						// Insert new tracker
+	void			EditTracker(int nItem, LPCTSTR szText);	// Set tracker new text
+	void			SelectTracker(int nItem);				// Select this tracker as current one in single mode
+	void			UpdateInterface();						// Updated interface
 
 	virtual void	DoDataExchange(CDataExchange* pDX);
 	virtual BOOL	OnInitDialog();
@@ -61,10 +74,14 @@ protected:
 	afx_msg void	OnDestroy();
 	afx_msg void	OnTorrentRefresh();
 	afx_msg void	OnTimer(UINT_PTR nIDEvent);
-	afx_msg void	OnEnChangeTorrentTracker();
-	afx_msg void	OnNMClickTorrentTrackers(NMHDR *pNMHDR, LRESULT *pResult);
-	afx_msg void	OnCbnSelchangeTorrentTrackermode();
 	afx_msg void	OnCustomDrawList(NMHDR* pNMHDR, LRESULT* pResult);
+	afx_msg void	OnNMClickTorrentTrackers(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void	OnNMDblclkTorrentTrackers(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void	OnLvnEndlabeleditTorrentTrackers(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void	OnLvnKeydownTorrentTrackers(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void	OnCbnSelchangeTorrentTrackermode();
+	afx_msg void	OnBnClickedTorrentTrackersAdd();
+	afx_msg void	OnBnClickedTorrentTrackersDel();
 
 	DECLARE_MESSAGE_MAP()
 };

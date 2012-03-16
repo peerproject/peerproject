@@ -1338,16 +1338,10 @@ BOOL CLibraryTreeView::Update(CLibraryFolder* pFolder, CLibraryTreeItem* pItem, 
 		CString strName = pFolder->m_sName;
 		if ( pFolder->m_pParent == NULL )
 		{
+			CString strDrive = _T(" (Net)");
 			if ( pFolder->m_sPath.Find( _T(":\\") ) == 1 || pFolder->m_sPath.GetLength() == 2 )
-			{
-				CString strDrive;
-				strDrive.Format( _T("(%c:) "), pFolder->m_sPath[0] );
-				strName = strDrive + strName;
-			}
-			else
-			{
-				strName = _T("(Net) ") + strName;
-			}
+				strDrive.Format( _T(" (%C:)"), pFolder->m_sPath[0] );
+			strName += strDrive;
 		}
 		pItem = pParent->addItem( strName );
 		if ( bVisible ) m_nTotal++;

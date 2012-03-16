@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Simplified) Skin File -->
 
-<!-- Translation based on default-en.xml r74 (Shareaza r6092) -->
+<!-- Translation based on default-en.xml r75 (Shareaza r6092) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -360,6 +360,7 @@
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<button id="ID_NETWORK_DC" text="DC++"/>
+		<button id="ID_NETWORK_BT" text="BitTorrent"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="设置"/>
 	</toolbar>
@@ -506,6 +507,7 @@
 				<item id="ID_NETWORK_G1" text="连接到 _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="连接到 _edonkey"/>
 				<item id="ID_NETWORK_DC" text="连接到 _DC++"/>
+				<item id="ID_NETWORK_BT" text="连接到 _BitTorrent"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="连接到(_T)..." shortcut="Ctrl+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="浏览主机(_B)..."/>
@@ -591,6 +593,7 @@
 			<item id="ID_NETWORK_G1" text="连接到 _Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="连接到 _eDonkey"/>
 			<item id="ID_NETWORK_DC" text="连接到 _DDC++"/>
+			<item id="ID_NETWORK_BT" text="连接到 _DBitTorrent"/>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="连接到(_T)..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="浏览主机(_B)..."/>
@@ -752,6 +755,7 @@
 			<item id="ID_NETWORK_G1" text="连接到 _Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="连接到 _eDonkey"/>
 			<item id="ID_NETWORK_DC" text="连接到 _DC++"/>
+			<item id="ID_NETWORK_BT" text="连接到 _BitTorrent"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="传送后关闭(_A)"/>
 			<item id="ID_NETWORK_EXIT" text="退出(_X)"/>
@@ -1524,6 +1528,7 @@
 			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
 			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<item id="ID_NETWORK_BT" text="_BitTorrent"/>
 			<separator/>
 			<item id="ID_VIEW_DISCOVERY" text="发现服务"/>
 			<item id="ID_VIEW_HOSTS" text="主机缓存"/>
@@ -2454,6 +2459,7 @@
 	<tip id="ID_NETWORK_EXIT" message="退出 PeerProject"/>
 	<tip id="ID_NETWORK_ED2K" message="连接到 edonkey 网络。"/>
 	<tip id="ID_NETWORK_DC" message="连接到 DC++ 网络。"/>
+	<tip id="ID_NETWORK_BT" message="连接到 BitTorrent 网络。"/>
 	<tip id="ID_NETWORK_G1" message="连接到原始的 Gnutella 网络。"/>
 	<tip id="ID_NETWORK_G2" message="连接到 Gnutella2 网络(强力推荐)。"/>
 	<tip id="ID_NETWORK_SEARCH" message="在网络上进行新的搜索..."/>
@@ -2729,8 +2735,8 @@
 	<string id="20202" value="接收到来自 %s 的进入连接，关闭连接。"/>
 	<string id="20203" value="移除带宽限制加速 &quot;%s&quot; 下载。"/>
 	<string id="20204" value="下载主机 %s 过于繁忙，请等待 %i 秒后再试。"/>
-	<string id="20205" value="不能移动下载 &quot;%s&quot; 到 &quot;%s&quot;.检查未完成文件是否正被使用，并且您的下载文件夹存在且可写入。"/>
-	<string id="20206" value="不能解析 &quot;%s&quot;."/>
+	<string id="20205" value="磁盘空间不够，无法下载 &quot;%s&quot; (%s)。"/>
+	<string id="20206" value="不能移动下载 &quot;%s&quot; 到 &quot;%s&quot;.检查未完成文件是否正被使用，并且您的下载文件夹存在且可写入。"/>
 	<string id="20207" value="您确定要取消/放弃此组中的每个下载项吗？"/>
 	<string id="20208" value="正在关闭到 %s 的下载连接，不再请求。"/>
 	<string id="20209" value="下载主机 %s 发送未经同意的数据，关闭连接。"/>
@@ -2743,23 +2749,18 @@
 	<string id="20216" value="不能连接到 %s 的主机下载。"/>
 	<string id="20217" value="接收到 %s 的下载内容 (%s)。"/>
 	<string id="20218" value="终止从 %s 下载 &quot;%s&quot; (%s)，网络禁止。"/>
-	<string id="20219" value="磁盘空间不够，无法下载 &quot;%s&quot; (%s)。"/>
-	<string id="20220" value="到 %s 的下载连接已经丢失。"/>
-	<string id="20222" value="您已经输入了一个 edonkey Hash 值，但它是无效的。请检查并重试。"/>
-	<string id="20224" value="请输入一个擦除的有效范围。&quot;从&quot; 区域是要擦除的第一个 byte，&quot;到&quot; 区域是要擦除的最后一个 byte。"/>
-	<string id="20225" value="您已经输入了一个 SHA1 值，但它是无效的。请检查并重试。"/>
-	<string id="20226" value="您已经输入了一个根 tiger-tree 值，但它是无效的。请检查并重试。"/>
-	<string id="20227" value="BitTorrent 与 %s 的连合未被接受，达到最大连接数。"/>
-	<string id="20228" value="未能擦除下载中的选定区域，因为此部分不存在。"/>
-	<string id="20231" value="您已经提供了一个 SHA1 Hash 值，但它与当前关联与此下载的值不同。您确定要立即变更此 SHA1 Hash 吗？"/>
-	<string id="20232" value="您已经提供了一个 edonkey Hash 值，但它与当前关联与此下载的值不同。您确定要立即变更此 edonkey Hash 吗？"/>
-	<string id="20233" value="您已经提供了一个 根 tiger-tree 值，但它与当前关联与此下载的值不同。您确定要立即变更此 tiger-tree Hash 吗？"/>
-	<string id="20235" value="您不能假设此下载已完成并验证，因为您还未拥有任何部分验证数据，例如 tiger-tree 卷，eDonkey Hashset 或 BitTorrent Hashset。没有验证信息，此下载不能被验证。"/>
-	<string id="20236" value="您确定要假设此下载已完成并验证？ 整个文件将会被考虑，并且 PeerProject 将会接受已通过验证的部分并重新下载未通过验证的部分。"/>
-	<string id="20237" value="您确定要忽略选定下载的所有资源吗？"/>
-	<string id="20238" value="您确定要忽略当前的验证状态吗？所有的已下载数据都将被认为未被信任的，并且缓存的 Hash 树和 Hash 设置都将被刷新。"/>
-	<string id="20240" value="从下载中擦除 %I64i B。"/>
-	<string id="20241" value="您在名称区域进行了变动。您确定要重命名下载吗？"/>
+	<string id="20219" value="到 %s 的下载连接已经丢失。"/>
+	<string id="20221" value="请输入一个擦除的有效范围。&quot;从&quot; 区域是要擦除的第一个 byte，&quot;到&quot; 区域是要擦除的最后一个 byte。"/>
+	<string id="20222" value="您已经输入了一个 %s Hash 值，但它是无效的。请检查并重试。"/>
+	<string id="20223" value="您已经提供了一个 %s Hash 值，但它与当前关联与此下载的值不同。您确定要立即变更此 %s Hash 吗？"/>
+	<string id="20224" value="您在名称区域进行了变动。您确定要重命名下载吗？"/>
+	<string id="20225" value="BitTorrent 与 %s 的连合未被接受，达到最大连接数。"/>
+	<string id="20226" value="您不能假设此下载已完成并验证，因为您还未拥有任何部分验证数据，例如 tiger-tree 卷，eDonkey Hashset 或 BitTorrent Hashset。没有验证信息，此下载不能被验证。"/>
+	<string id="20227" value="您确定要假设此下载已完成并验证？ 整个文件将会被考虑，并且 PeerProject 将会接受已通过验证的部分并重新下载未通过验证的部分。"/>
+	<string id="20228" value="您确定要忽略当前的验证状态吗？所有的已下载数据都将被认为未被信任的，并且缓存的 Hash 树和 Hash 设置都将被刷新。"/>
+	<string id="20229" value="您确定要忽略选定下载的所有资源吗？"/>
+	<string id="20231" value="未能擦除下载中的选定区域，因为此部分不存在。"/>
+	<string id="20232" value="从下载中擦除 %I64i B。"/>
 	<string id="20242" value="目标下载主机 %s 没有要下载的 &quot;%s&quot; 文件。"/>
 	<string id="20243" value="为下载 &quot;%s&quot; 创建文件。"/>
 	<string id="20244" value="不能为下载创建文件 &quot;%s&quot;.正在终止。"/>
@@ -2789,9 +2790,10 @@
 	<string id="20271" value="移动 &quot;%s&quot; 到 &quot;%s&quot;.下载完毕。"/>
 	<string id="20272" value="暂停下载 &quot;%s&quot;."/>
 	<string id="20273" value="续传下载 &quot;%s&quot;."/>
-	<string id="20274" value="解析 &quot;%s&quot; 到下载 &quot;%s&quot;..."/>
 	<string id="20275" value="在 %i 个连接中为下载 &quot;%s&quot; 查询更多资源..."/>
 	<string id="20276" value="不能获取到 &quot;%s&quot; 更多的下载资源，因为现在没有网络连接。"/>
+	<!--string id="20277" value="解析 &quot;%s&quot; 到下载 &quot;%s&quot;..."-->
+	<!--string id="20278" value="不能解析 &quot;%s&quot;."-->
 	<string id="20280" value="下载主机的 tiger-tree 数据已损坏或是不匹配，忽略。"/>
 	<string id="20281" value="下载主机的 tiger-tree 与期望 root 值不匹配。"/>
 	<string id="20282" value="下载主机 %s 不能满足 tiger-tree 的请求。"/>
@@ -3036,7 +3038,7 @@
 	<string id="20570" value="接收到来自 %s 主机混乱格式的命中数据包，忽略数据包。"/>
 	<string id="20571" value="%s: 接收到来自 %s 主机的混乱格式的质询，忽略数据包。"/>
 	<string id="20572" value="邻居 %s 主机发来的数据包 TTL 过大，抛弃数据包(TTL=%i，Hops=%i)。"/>
-	<string id="20573" value="邻居 %s 主机发来的数据包 TTL 恒为 0，忽略数据包。"/>
+	<!--string id="20573" value="邻居 %s 主机发来的数据包 TTL 恒为 0，忽略数据包。"-->
 	<string id="20574" value="邻居主机 %s 前送了非 GGEP 编码得扩展数据包。"/>
 	<string id="20575" value="邻居 %s 主机发送了非法查询路由表，正在断开连接。"/>
 	<string id="20576" value="发送查询路由表到邻居主机 %s (%i bit = %lu[%i]， %i%% 满额)。"/>
@@ -3243,7 +3245,7 @@
 	<string id="20834" value="上传主机 %s 请求 &quot;%s&quot; 的预览，但没有可用预览。"/>
 	<string id="20835" value="正在上传 &quot;%s&quot; 的预览到 %s。"/>
 	<string id="20836" value="拒绝到 %s 的获取请求，因为已经有太多上传连接。"/>
-	<string id="20837" value="继承来自 %s 主机查询未知文件的外送连接，无条件连接..."/>
+	<!--string id="20837" value="继承来自 %s 主机查询未知文件的外送连接，无条件连接..."-->
 	<string id="20838" value="过于繁忙不能上传 &quot;%s&quot; 到 %s ，队列中的位置 #%i 总 %i (&quot;%s&quot;.。"/>
 	<string id="20840" value="连接到 %s 的上传已丢失，保存队列位置。"/>
 	<string id="20841" value="新建队列"/>
@@ -3272,7 +3274,7 @@
 	<string id="20866" value="文件名:"/>
 	<string id="20867" value="主机:"/>
 	<string id="20868" value="端口:"/>
-	<string id="20869" value="未能显示链接操作对话框因为 PeerProject 正忙。"/>
+	<!--string id="20869" value="未能显示链接操作对话框因为 PeerProject 正忙。"-->
 	<string id="20870" value="未能粘贴链接: PeerProject 不能识别此链接。"/>
 	<string id="20871" value="已接收链接 &quot;%s&quot;"/>
 	<string id="20872" value="类型:"/>
@@ -3573,7 +3575,7 @@
 		<control caption="下载..."/>
 		<control caption="从网络上下载 eDonkey 服务器列表:"/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEdd" caption="BitTorrent">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="下载连接:"/>
 		<control/>
 		<control/>
@@ -3581,7 +3583,8 @@
 		<control/>
 		<control/>
 		<control caption="个客户端连接"/>
-		<control caption="&#160;Torrent 资源优先"/>
+		<control caption="启用BitTorrent的DHT的"/>
+		<control caption="Torrent 资源优先"/>
 		<control caption="最终阶段:"/>
 		<control caption="在完成 Torrent 时启用最终阶段模式"/>
 		<control caption="&#160;清除已下载的 Torrent &#160; 当共享比率达到:"/>
@@ -4297,7 +4300,7 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackers">
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBuBuBu" caption="Trackers">
 		<control/>
 		<control/>
 		<control/>
@@ -4308,7 +4311,9 @@
 		<control caption="(未完成):"/>
 		<control caption="Tracker 模式:"/>
 		<control caption="已禁用|自定义|单一 Tracker|多重 Tracker|多重 Tracker(已锁定)"/>
-		<control caption="刷新(_R)"/>
+		<control caption="刷新(_E)"/>
+		<control caption="添加(_A)"/>
+		<control caption="移除(_R)"/>
 	</dialog>
 	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="常规">
 		<control/>

@@ -7,14 +7,18 @@ E 91.200.42.46:1176	# eMule-Security.org
 E 94.75.216.6:4666	# Emule Server No1
 E 212.63.206.35:4242	# eDonkeyServer No2
 
+B router.bittorrent.com:6881
+B router.utorrent.com:6881
+B dht.transmissionbt.com:6881
+B dht.aelitis.com:6881
 
 # P/*	Priority flag
 # E	eDonkey server
 # D	DC++ hub
-# B	BitTorrent node
+# B	BitTorrent node/bootstrap
 # 1/L	Gnutella peer
 # 2/G	G2 hub
 # K	KAD node
 # X	Bad IP
 
-# Update Jan.2012
+# Update Feb.2012

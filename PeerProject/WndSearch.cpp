@@ -384,13 +384,15 @@ BOOL CSearchWnd::DoSizeDetails()
 	CPoint point;
 
 	GetClientRect( &rcClient );
-	if ( m_bPanel ) rcClient.left += Skin.m_nSidebarWidth;
-	if ( ! (m_bPaused||m_bWaitMore) ) rcClient.top += STATUS_HEIGHT;
+	if ( m_bPanel )
+		rcClient.left += Skin.m_nSidebarWidth;
+	if ( ! ( m_bPaused || m_bWaitMore ) )
+		rcClient.top += STATUS_HEIGHT;
 	rcClient.bottom -= Skin.m_nToolbarHeight;
+
 	ClientToScreen( &rcClient );
 	ClipCursor( &rcClient );
 	SetCapture();
-
 	ScreenToClient( &rcClient );
 
 	int nOffset = 0xFFFF;

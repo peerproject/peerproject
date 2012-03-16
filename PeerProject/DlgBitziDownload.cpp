@@ -1,7 +1,7 @@
 //
 // DlgBitziDownload.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -72,9 +72,9 @@ BOOL CBitziDownloadDlg::OnInitDialog()
 	if ( Settings.General.LanguageRTL )
 		m_wndProgress.ModifyStyleEx( WS_EX_LAYOUTRTL, 0, 0 );
 	m_wndProgress.SetRange( 0, short( m_pDownloader.GetFileCount() * 2 ) );
-	m_wndFiles.SetImageList( ShellIcons.GetObject( 16 ), LVSIL_SMALL );
 	m_wndFiles.InsertColumn( 0, _T("Filename"), LVCFMT_LEFT, 190, -1 );
 	m_wndFiles.InsertColumn( 1, _T("Status"), LVCFMT_LEFT, 100, 0 );
+	ShellIcons.AttachTo( &m_wndFiles, 16 );		// .SetImageList()
 
 	SetTimer( 1, 1000, NULL );
 	m_nFailures = 0;

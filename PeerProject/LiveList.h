@@ -91,7 +91,7 @@ public:
 #endif
 
 protected:
-	typedef CMap< DWORD_PTR, DWORD_PTR, CLiveItem*, CLiveItem*& > CLiveItemMap;
+	typedef CMap< DWORD_PTR, const DWORD_PTR&, CLiveItem*, CLiveItem*& > CLiveItemMap;
 
 	CLiveItemMap		m_pItems;
 	CCriticalSection	m_pSection;

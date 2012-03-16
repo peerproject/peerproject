@@ -66,7 +66,7 @@ CLibrary::CLibrary()
 	, m_nScanTime		( 0 )
 	, m_nSaveCookie		( 0 )
 	, m_nSaveTime		( 0 )
-	, m_nFileSwitch		( 0 )
+//	, m_nFileSwitch		( 0 )
 {
 	EnableDispatch( IID_ILibrary );
 }
@@ -130,8 +130,10 @@ void CLibrary::RemoveFile(CLibraryFile* pFile)
 		LibraryDictionary.RemoveFile( *pFile );
 }
 
-void CLibrary::CheckDuplicates(CLibraryFile* pFile, bool bForce) const
+void CLibrary::CheckDuplicates(const CLibraryFile* pFile, bool bForce) const
 {
+	ASSUME_LOCK( m_pSection );
+
 	// Malicious software are usually small, we won't search all duplicates
 	if ( pFile->m_nSize < 48 || pFile->m_nSize > Settings.Library.MaliciousFileSize ) return;
 
@@ -165,9 +167,11 @@ void CLibrary::CheckDuplicates(CLibraryFile* pFile, bool bForce) const
 	CExistingFileDlg dlg( pFile, NULL, true );
 	Settings.Live.MaliciousWarning = true;
 
-	m_pSection.Unlock();
+	//m_pSection.Unlock();
 
 	dlg.DoModal();
+
+	//m_pSection.Lock();
 
 	switch ( dlg.GetResult() )
 	{
@@ -409,6 +413,8 @@ BOOL CLibrary::Load()
 	}
 
 	LibraryFolders.CreateAlbumTree();
+	LibraryFolders.Maintain();			// Update desktop.ini's
+
 	LibraryHashDB.Create();
 	LibraryBuilder.BoostPriority( Settings.Library.HighPriorityHash );
 
@@ -437,10 +443,12 @@ BOOL CLibrary::Load()
 
 BOOL CLibrary::Save()
 {
-	CString strFile = Settings.General.UserPath +
-		( m_nFileSwitch ? _T("\\Data\\Library.bak") : _T("\\Data\\Library.dat") );
+	static BOOL bFileSwitch = FALSE;
 
-	m_nFileSwitch = m_nFileSwitch ? 0 : 1;
+	const CString strFile = Settings.General.UserPath +
+		( bFileSwitch ? _T("\\Data\\Library.bak") : _T("\\Data\\Library.dat") );
+
+	bFileSwitch = ! bFileSwitch;
 	m_nSaveTime = GetTickCount();
 
 	CSingleLock pLock( &m_pSection, TRUE );
@@ -583,7 +591,7 @@ BOOL CLibrary::IsBadFile(LPCTSTR pszFilenameOnly, LPCTSTR pszPathOnly, DWORD dwF
 				_tcsicmp( pszFilenameOnly, _T("dxva_sig.txt") ) == 0 ||				// Ignore video tag-file
 				_tcsnicmp( pszFilenameOnly, _T("~uTorrentPartFile_"), 18 ) == 0 ||	// uTorrent part files
 				_tcsnicmp( pszFilenameOnly, _T("___ARESTRA___"), 13 ) == 0 ||		// Ares Galaxy partials
-				_tcsicmp( pszFilenameOnly, _T("signons") ) == 0 )					// FireFox Password files "signons3.txt"
+				_tcsnicmp( pszFilenameOnly, _T("signons"), 7 ) == 0 )				// FireFox Password files "signons3.txt"
 			{
 				 return TRUE;
 			}

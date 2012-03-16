@@ -127,7 +127,8 @@
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>rasapi32.lib;winmm.lib;version.lib;ws2_32.lib;wininet.lib;Iphlpapi.lib;msi.lib;powrprof.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>secur32.lib;rasapi32.lib;winmm.lib;version.lib;ws2_32.lib;wininet.lib;Iphlpapi.lib;msi.lib;powrprof.lib;mstask.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <DelayLoadDLLs>secur32.dll;rasapi32.dll;winmm.dll;version.dll;ws2_32.dll;wininet.dll;iphlpapi.dll;msi.dll;powrprof.dll;winspool.drv;comdlg32.dll;comctl32.dll;oledlg.dll;ole32.dll;oleaut32.dll;oleacc.dll;urlmon.dll;msimg32.dll;gdiplus.dll;imm32.dll;advapi32.dll;shell32.dll;shlwapi.dll</DelayLoadDLLs>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -174,7 +175,8 @@
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>rasapi32.lib;winmm.lib;version.lib;ws2_32.lib;wininet.lib;Iphlpapi.lib;msi.lib;powrprof.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>secur32.lib;rasapi32.lib;winmm.lib;version.lib;ws2_32.lib;wininet.lib;Iphlpapi.lib;msi.lib;powrprof.lib;mstask.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <DelayLoadDLLs>secur32.dll;rasapi32.dll;winmm.dll;version.dll;ws2_32.dll;wininet.dll;iphlpapi.dll;msi.dll;powrprof.dll;winspool.drv;comdlg32.dll;comctl32.dll;oledlg.dll;ole32.dll;oleaut32.dll;oleacc.dll;urlmon.dll;msimg32.dll;gdiplus.dll;imm32.dll;advapi32.dll;shell32.dll;shlwapi.dll</DelayLoadDLLs>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -229,7 +231,8 @@
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>rasapi32.lib;winmm.lib;version.lib;ws2_32.lib;wininet.lib;Iphlpapi.lib;msi.lib;powrprof.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>secur32.lib;rasapi32.lib;winmm.lib;version.lib;ws2_32.lib;wininet.lib;Iphlpapi.lib;msi.lib;powrprof.lib;mstask.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <DelayLoadDLLs>secur32.dll;rasapi32.dll;winmm.dll;version.dll;ws2_32.dll;wininet.dll;iphlpapi.dll;msi.dll;powrprof.dll;winspool.drv;comdlg32.dll;comctl32.dll;oledlg.dll;ole32.dll;oleaut32.dll;oleacc.dll;urlmon.dll;msimg32.dll;gdiplus.dll;imm32.dll;advapi32.dll;shell32.dll;shlwapi.dll</DelayLoadDLLs>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -286,7 +289,8 @@
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>rasapi32.lib;winmm.lib;version.lib;ws2_32.lib;wininet.lib;Iphlpapi.lib;msi.lib;powrprof.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>secur32.lib;rasapi32.lib;winmm.lib;version.lib;ws2_32.lib;wininet.lib;Iphlpapi.lib;msi.lib;powrprof.lib;mstask.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <DelayLoadDLLs>secur32.dll;rasapi32.dll;winmm.dll;version.dll;ws2_32.dll;wininet.dll;iphlpapi.dll;msi.dll;powrprof.dll;winspool.drv;comdlg32.dll;comctl32.dll;oledlg.dll;ole32.dll;oleaut32.dll;oleacc.dll;urlmon.dll;msimg32.dll;gdiplus.dll;imm32.dll;advapi32.dll;shell32.dll;shlwapi.dll</DelayLoadDLLs>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -406,7 +410,6 @@
     <ClCompile Include="MatchListView.cpp" />
     <ClCompile Include="MatchObjects.cpp" />
     <ClCompile Include="MetaList.cpp" />
-    <ClCompile Include="MetaPanel.cpp" />
     <ClCompile Include="Neighbour.cpp" />
     <ClCompile Include="Neighbours.cpp" />
     <ClCompile Include="NeighboursBase.cpp" />
@@ -478,7 +481,6 @@
     <ClCompile Include="ShakeNeighbour.cpp" />
     <ClCompile Include="SharedFile.cpp" />
     <ClCompile Include="SharedFolder.cpp" />
-    <ClCompile Include="ShareMonkeyData.cpp" />
     <ClCompile Include="ShellIcons.cpp" />
     <ClCompile Include="Skin.cpp" />
     <ClCompile Include="SkinWindow.cpp" />
@@ -1365,7 +1367,6 @@
     <ClInclude Include="MatchListView.h" />
     <ClInclude Include="MatchObjects.h" />
     <ClInclude Include="MetaList.h" />
-    <ClInclude Include="MetaPanel.h" />
     <ClInclude Include="MinMax.hpp" />
     <ClInclude Include="Neighbour.h" />
     <ClInclude Include="Neighbours.h" />
@@ -1415,7 +1416,6 @@
     <ClInclude Include="ShakeNeighbour.h" />
     <ClInclude Include="SharedFile.h" />
     <ClInclude Include="SharedFolder.h" />
-    <ClInclude Include="ShareMonkeyData.h" />
     <ClInclude Include="Shell.h" />
     <ClInclude Include="ShellIcons.h" />
     <ClInclude Include="Skin.h" />

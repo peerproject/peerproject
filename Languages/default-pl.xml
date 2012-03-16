@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Polish Skin File -->
 
-<!-- Translation based on default-en.xml r74 (Shareaza 2.1.2.7) -->
+<!-- Translation based on default-en.xml r75 (Shareaza 2.1.2.7) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -358,6 +358,7 @@
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 		<button id="ID_NETWORK_DC" text="DC++"/>
+		<button id="ID_NETWORK_BT" text="BitTorrent"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Ustawienia"/>
 	</toolbar>
@@ -466,6 +467,7 @@
 				<item id="ID_NETWORK_G1" text="Połącz z Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Połącz z eDonkey2000"/>
 				<item id="ID_NETWORK_DC" text="Połącz z DC++"/>
+				<item id="ID_NETWORK_BT" text="Połącz z BitTorrent"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="Połącz z..." shortcut="Ctrl+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="Przeglądaj użytkownika..."/>
@@ -621,6 +623,7 @@
 			<item id="ID_NETWORK_G1" text="Połącz z Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="Połącz z eDonkey2000"/>
 			<item id="ID_NETWORK_DC" text="Połącz z DC++"/>
+			<item id="ID_NETWORK_BT" text="Połącz z BitTorrent"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Zakończ po pobieraniu"/>
 			<item id="ID_NETWORK_EXIT" text="Zakończ"/>
@@ -1390,6 +1393,7 @@
 			<item id="ID_NETWORK_G1" text="Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 			<item id="ID_NETWORK_DC" text="DC++"/>
+			<item id="ID_NETWORK_BT" text="BitTorrent"/>
 			<separator/>
 			<item id="ID_VIEW_DISCOVERY" text="Discovery Services"/>
 			<item id="ID_VIEW_HOSTS" text="Cache hostów"/>
@@ -2286,6 +2290,7 @@
 	<tip id="ID_NETWORK_EXIT" message="Wyjdź z PeerProject"/>
 	<tip id="ID_NETWORK_ED2K" message="Podłącz sie do sieci eDonkey2000."/>
 	<tip id="ID_NETWORK_DC" message="Podłącz sie do sieci DC++."/>
+	<tip id="ID_NETWORK_BT" message="Podłącz sie do sieci BitTorrent."/>
 	<tip id="ID_NETWORK_G1" message="Podłącz się do orginalnej sieci Gnutella."/>
 	<tip id="ID_NETWORK_G2" message="Podłącz się do sieci Gnutella2 (Zalecane)."/>
 	<tip id="ID_NETWORK_SEARCH" message="Rozpocznij nowe przeszukiwanie sieci..."/>
@@ -2304,7 +2309,7 @@
 	<tip id="ID_SEARCH_FOR_SERIES" message="Szukaj plików wideo z tego samego serialu co wybrany plik."/>
 	<tip id="ID_SEARCH_FOR_SIMILAR" message="Sukaj plików podobnych do wybranego."/>
 	<tip id="ID_SEARCH_FOR_THIS" message="Szukaj innych kopii zaznaczonego pliku."/>
-	<tip id="ID_SEARCH_PANEL" message="Pokaż panel szybkiego szukania po lewej stronie okna szukania ."/>
+	<tip id="ID_SEARCH_PANEL" message="Pokaż panel szybkiego szukania po lewej stronie okna szukania."/>
 	<tip id="ID_SEARCH_SEARCH" message="Przeszukaj sieć ponownie..."/>
 	<tip id="ID_SEARCH_STOP" message="Zatrzymaj otrzymywanie rezultatów szukania w tym oknie."/>
 	<tip id="ID_SEARCHMONITOR_CLEAR" message="Wyczyść bufor monitora wyszukiwania."/>
@@ -2399,7 +2404,7 @@
 	<tip id="ID_WINDOW_TILE_VERT" message="Arrange open windows as vertical, non-overlapping tiles."/>
 	<tip id="ID_WINDOW_TOOLBAR" message="Pokaż lub ukryj pasek narzędzi."/>
 	<tip id="ID_WEBSERVICES_LIST" message="Wybierz usługę web aby uzyskać więcej informacji o zaznaczonym pliku."/>
-	<tip id="ID_WEBSERVICES_SHAREMONKEY" message="Szukaj informacji o pliku używając usługi ShareMonkey."/>
+	<!--tip id="ID_WEBSERVICES_SHAREMONKEY" message="Szukaj informacji o pliku używając usługi ShareMonkey."-->
 	<!-- PLUGIN TIPS -->
 	<tip id="PluginID_ImageViewer_BestFit" message="Dopasuj rozmiar obrazka (image) aby był odpowiedni do okna."/>
 	<tip id="PluginID_ImageViewer_FullSize" message="Pokaż obrazek w jego naturalnej wielkości."/>
@@ -2409,7 +2414,7 @@
 <!-- Tips displayed when mouse is moved over controls in the dialogs -->
 <controlTips>
 	<tip id="IDC_THROTTLE_MODE" message="W trybie maksymalnie szerokość pasma nie przekroczy podanej wartości. W trybie średnio będzie wahać się w obie strony wokół zadanej wartości."/>
-	<tip id="IDC_REGEXP" message="Wprowadź regularne wyrażenie w składni perl (perl syntax).{n}Słowa kluczowe mogą być doprecyzowane w formie &lt;n&gt;, gdzie n jest liczbą pomiędzy 1 i 9. Jeśli chcesz to put wszystkie słowa kluczowe each after other, użyj znacznika (narkup) &lt;_&gt; ."/>
+	<tip id="IDC_REGEXP" message="Wprowadź regularne wyrażenie w składni perl (perl syntax).{n}Słowa kluczowe mogą być doprecyzowane w formie &lt;n&gt;, gdzie n jest liczbą pomiędzy 1 i 9. Jeśli chcesz to put wszystkie słowa kluczowe each after other, użyj znacznika (narkup) &lt;_&gt;."/>
 	<tip id="IDC_SHARE_PARTIALS" message="To ustawienie nie ma wpływu na uprzednio uruchomione pobierania, jak również to ustawienie jest ignorowane jeśli plik ma hash eDonkeya i sieć eDonkey jest włączona albo jeśli to jest torrent.{n}Jednakże to ustawienie nie jest ignorowane jeśli pobieranie jest wstrzymane (paused).{n}{n}UWAGA: Używać tej opcji tylko w razie prawdziwej konieczności, jeśli będziesz nadużywać tej opcji możesz zostać zabanowany."/>
 </controlTips>
 <!-- Localised Strings -->
@@ -2502,42 +2507,15 @@
 	<string id="20119" value="Sent browse user request to %s..."/>
 	<string id="20120" value="Closing browse user connection %s due to lack of traffic."/>
 	<string id="20121" value="Przeglądanie %s"/>
-	<string id="20122" value="BitTorrent coupling with %s established for &quot;%s&quot;."/>
-	<string id="20123" value="Incoming connection from %s is a BitTorrent coupling, negotiating..."/>
-	<string id="20124" value="Initiating BitTorrent client coupling with %s..."/>
-	<string id="20125" value="Timed out connecting to BitTorrent client %s."/>
 	<string id="20126" value="BitTorrentowe sparowanie z %s zostało porzucone."/>
 	<string id="20127" value="Połączenie BitTorrent z %s zosatało porzucone."/>
 	<string id="20128" value="Powitanie BitTorrentowe z %s zostało porzucone."/>
 	<string id="20129" value="BitTorrent coupling z %s nie zaakceptowane, połączenie do tego klienta już istnieje."/>
-	<string id="20130" value="Received %i new BitTorrent sources from %s."/>
-	<string id="20131" value="BitTorrent coupling with %s is extended protocol, identified &quot;%s&quot;."/>
-	<string id="20132" value="Timed out handshaking with BitTorrent client %s."/>
-	<string id="20133" value="Established BitTorrent coupling with %s, handshaking..."/>
-	<string id="20134" value="BitTorrent coupling z %s nie zaakceptowane, osiągnięte zostało maksimum połączeń."/>
-	<string id="20136" value="BitTorrent coupling with %s requested an unknown file."/>
-	<string id="20137" value="BitTorrent coupling with %s responded with the wrong file."/>
-	<string id="20138" value="BitCoupling (sparowanie?) torrentu z %s nie powiodło się ponieważ zdalny klient ma inny Peer ID (identyfikator Peer'a)."/>
-	<string id="20139" value="Closing BitTorrent coupling with %s due to lack of traffic."/>
+	<!-- Missing Torrent Strings -->
 	<string id="20140" value="Błąd (za)kodowania"/>
 	<string id="20141" value="Prywatny torrent"/>
-	<string id="20142" value="The torrent &quot;%s&quot; is already on your download list, and cannot be seeded."/>
-	<string id="20143" value="An error occurred while copying from &quot;%s&quot; to a BitTorrent share file."/>
-	<string id="20144" value="Unable to create BitTorrent share file &quot;%s&quot;."/>
-	<string id="20145" value="An unknown error occurred while trying to seed &quot;%s&quot;."/>
-	<string id="20146" value="Error loading the torrent file &quot;%s&quot;.  This may not be a valid torrent."/>
-	<string id="20147" value="This torrent includes the file &quot;%s&quot;, but PeerProject cannot find this file in your library.  If possible, move the file to the same folder as the torrent and try again."/>
-	<string id="20148" value="This torrent includes the file &quot;%s&quot; which should be %s, however your version of the file is %s."/>
-	<string id="20149" value="An error was detected in the file &quot;%s&quot;."/>
 	<string id="20150" value="Unable to communicate with tracker"/>
 	<string id="20151" value="Tracker zawiódł - Próbowanie następnego trackera (%i z %i)"/>
-	<string id="20152" value="You have changed the tracker URL for this torrent.  Are you sure you want to save this change?\n\nAn invalid tracker URL may prevent further downloading."/>
-	<string id="20153" value="Error from BitTorrent tracker for &quot;%s&quot; : &quot;%s&quot;."/>
-	<string id="20154" value="Error parsing BitTorrent tracker response."/>
-	<string id="20155" value="Received BitTorrent tracker response for &quot;%s&quot;, %i new sources."/>
-	<string id="20158" value="Unable to parse prefetched BitTorrent file &quot;%s&quot;."/>
-	<string id="20159" value="Received BitTorrent descriptor file: &quot;%s&quot;"/>
-	<string id="20160" value="Accepted incoming chat request from %s, handshaking..."/>
 	<string id="20161" value="Nie można było utworzyć połączenia z %s."/>
 	<string id="20162" value="Unable to request a push connection from %s, no route available."/>
 	<string id="20163" value="Połączenie zamknięte."/>
@@ -2573,21 +2551,9 @@
 	<string id="20197" value="This template is invalid."/>
 	<string id="20199" value="(zamykanie po zakończeniu transferów)"/>
 	<string id="20207" value="Czy jesteś pewien(a), że chcesz anulować/abort wszystkie pobierania w tej grupie?"/>
-	<string id="20222" value="Wpisałeś wartośc hasha eDonkey, jednakże jest on nieprawidłowa. Proszę sprawdzić i spróbować ponownie."/>
-	<string id="20224" value="Please enter a valid range to erase.  The &quot;from&quot; field is the first byte to erase, the &quot;last&quot; field is the last byte to erase."/>
-	<string id="20225" value="You have typed a SHA1 value, however it is invalid.  Please check it and try again."/>
-	<string id="20226" value="You have typed a root tiger-tree value, however it is invalid.  Please check it and try again."/>
-	<string id="20227" value="Zmieniłeś wielkośc pliku. Czy jesteś pewny(a), że chcesz zmienić wielkość pliku dla tego pobrania?"/>
-	<string id="20228" value="Unable to erase the selected range from the download because no part of the range is present."/>
-	<string id="20231" value="You have provided a SHA1 hash value which is different to the one currently associated with this download.  Are you sure you want to change the SHA1 hash now?"/>
-	<string id="20232" value="You have provided an eDonkey hash value which is different to the one currently associated with this download.  Are you sure you want to change the eDonkey hash now?"/>
-	<string id="20233" value="You have provided a root tiger-tree hash value which is different to the one currently associated with this download.  Are you sure you want to change the tiger-tree root hash now?"/>
-	<string id="20235" value="You cannot assume this download is complete and reverify it because you do not yet have any partial verification data, such as tiger-tree volume, eDonkey hashset or BitTorrent hashset.  Without verification information the download cannot be reverified."/>
-	<string id="20236" value="Are you sure you want to assume this download is complete and reverify it?  The whole file will be considered, and PeerProject will accept parts which pass verification and redownload parts which fail verification."/>
-	<string id="20237" value="Are you sure you want to forget all sources for the selected download?"/>
-	<string id="20238" value="Are you sure you want to forget the current verification status?  All downloaded data will be treated as untrusted, and cached hashtrees and hashsets will be flushed."/>
-	<string id="20240" value="Erased %I64i bytes from the download."/>
-	<string id="20241" value="You have made changes to the name field.  Are you sure you want to rename this download?"/>
+	<string id="20222" value="Wpisałeś wartośc hasha %s, jednakże jest on nieprawidłowa. Proszę sprawdzić i spróbować ponownie."/>
+	<string id="20225" value="Zmieniłeś wielkośc pliku. Czy jesteś pewny(a), że chcesz zmienić wielkość pliku dla tego pobrania?"/>
+	<!-- Missing Download Edit Strings -->
 	<string id="20248" value="Żądanie pobrania fragmentu (%I64u-%I64u) z &quot;%s&quot; od %s."/>
 	<string id="20250" value="Drag'n'drop pliki tej %s grupy"/>
 	<string id="20251" value="Grupy domyślne. (Pokaż wszystkie pliki)"/>
@@ -2961,7 +2927,6 @@
 	<string id="20866" value="Nazwa pliku:"/>
 	<string id="20867" value="Host:"/>
 	<string id="20868" value="Port:"/>
-	<string id="20869" value="Unable to display URL action dialog because PeerProject is busy."/>
 	<string id="20870" value="Unable to parse URL: PeerProject does not understand this URL."/>
 	<string id="20871" value="Received URL &quot;%s&quot;"/>
 	<string id="20872" value="Typ:"/>
@@ -3303,7 +3268,7 @@
 		<control caption="Pobierz..."/>
 		<control caption="Pobierz listę serwerów eDonkey z sieci:"/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="Połączenia pobierające:"/>
 		<control/>
 		<control/>
@@ -3311,6 +3276,7 @@
 		<control/>
 		<control/>
 		<control caption="Połączeń z innymi klientami"/>
+		<control caption="Włącz BitTorrent DHT"/>
 		<control caption="Preferuj źródła torrentu"/>
 		<control caption="GraKońcowa:"/>
 		<control caption="Włącz tryb GryKońcowej, gdy PeerProject kończy pobierać torrenty"/>
@@ -4027,7 +3993,7 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackery">
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBuBuBu" caption="Trackery">
 		<control/>
 		<control/>
 		<control/>
@@ -4039,6 +4005,8 @@
 		<control caption="Tryb Trackera:"/>
 		<control caption="Wyłącz|Custom|Pojedynczy Tracker|Multi-tracker|Multi-tracker (locked)"/>
 		<control caption="Odśwież"/>
+		<control caption="Dodaj"/>
+		<control caption="Usuń"/>
 	</dialog>
 	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="BitTorrent">
 		<control/>

@@ -190,16 +190,21 @@ void CUploadsWnd::OnTimer(UINT_PTR nIDEvent)
 		CSingleLock pLock( &Transfers.m_pSection );
 		if ( ! pLock.Lock( 10 ) ) return;
 
-		const BOOL bCull = Uploads.GetCount( NULL ) > 75;
+		//BOOL bCull = Uploads.GetCount( NULL ) > 50;	// Obsolete
+
+		DWORD nCount = 0;
 
 		for ( POSITION pos = Uploads.GetIterator() ; pos ; )
 		{
 			CUploadTransfer* pUpload = Uploads.GetNext( pos );
 
-			if ( pUpload->m_nState == upsNull && tNow > pUpload->m_tConnected + Settings.Uploads.ClearDelay )
+			if ( pUpload->m_nState == upsNull )
 			{
-				if ( Settings.Uploads.AutoClear || pUpload->m_nUploaded == 0 || bCull )
+				if ( ( tNow > pUpload->m_tConnected + Settings.Uploads.ClearDelay ) &&
+					 ( Settings.Uploads.AutoClear || pUpload->m_nUploaded == 0 || nCount > 30 ) )
 					pUpload->Remove( FALSE );
+				else
+					nCount++;
 			}
 		}
 		return;

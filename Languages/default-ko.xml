@@ -3,7 +3,7 @@
 
 <!-- PeerProject Korean Language Skin File -->
 
-<!-- Translation based on default-en.xml r74 --> <!--Machine Translated!-->
+<!-- Translation based on default-en.xml r75 --> <!--Machine Translated!-->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -366,6 +366,7 @@
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<button id="ID_NETWORK_DC" text="DC++"/>
+		<button id="ID_NETWORK_BT" text="BitTorrent"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="설정"/>
 	</toolbar>
@@ -448,34 +449,12 @@
 		<button id="ID_CHAT_CONNECT" text="연결" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="끊습니다"/>
 	</toolbar>
-	<!-- WEBSERVICES
-	<toolbar name="WebServices.ShareMonkey">
-		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Get Data"/>
-		<separator/>
-		<button id="ID_SHAREMONKEY_PREVIOUS" text="이전"/>
-		<button id="ID_SHAREMONKEY_NEXT" text="다음"/>
-		<separator/>
-		<button id="ID_SHAREMONKEY_PRICES" text="Get Prices"/>
-		<button id="ID_SHAREMONKEY_COMPARE" text="Compare"/>
-		<button id="ID_SHAREMONKEY_BUY" text="Buy It"/>
-	</toolbar>
-	<toolbar name="WebServices.ShareMonkey.WithSave">
-		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Get Data"/>
-		<button id="ID_SHAREMONKEY_SAVE" text="Save"/>
-		<control id="ID_SHAREMONKEY_SAVE_OPTION" text="Save Preview" width="100" checked="true"/>
-		<separator/>
-		<button id="ID_SHAREMONKEY_PREVIOUS" text="Previous"/>
-		<button id="ID_SHAREMONKEY_NEXT" text="Next"/>
-		<separator/>
-		<button id="ID_SHAREMONKEY_PRICES" text="Get Prices"/>
-		<button id="ID_SHAREMONKEY_COMPARE" text="Compare"/>
-		<button id="ID_SHAREMONKEY_BUY" text="Buy It"/>
-	</toolbar>
+	<!-- WEBSERVICES -->
 	<toolbar name="WebServices.MusicBrainz">
-		<button id="ID_MUSICBRAINZ_MATCHES" text="View Album Matches"/>
-		<button id="ID_MUSICBRAINZ_ALBUMS" text="View All Albums"/>
+		<button id="ID_MUSICBRAINZ_MATCHES" text="보기 Album Matches"/>
+		<button id="ID_MUSICBRAINZ_ALBUMS" text="보기 All Albums"/>
 		<separator/>
-	</toolbar> -->
+	</toolbar>
 	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
 		<button id="PluginID_ImageViewer_FullSize" text="실제 크기"/>
@@ -534,6 +513,7 @@
 				<item id="ID_NETWORK_G1" text="연결 to _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="연결 to _eDonkey"/>
 				<item id="ID_NETWORK_DC" text="연결 to _DC++"/>
+				<item id="ID_NETWORK_BT" text="연결 to _BitTorrent"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="에 연결하려면..." shortcut="Ctrl+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="찾아보기 호스트 ..."/>
@@ -558,7 +538,7 @@
 				<separator/>
 				<item id="ID_TOOLS_SETTINGS" text="_PeerProject 설정..."/>
 			</menu>
-			<menu text="_View">
+			<menu text="보기">
 				<item id="ID_TAB_HOME" text="홈 Tab" shortcut="Alt-Home"/>
 				<item id="ID_TAB_IRC" text="IRC 채팅" shortcut="F12"/>
 				<item id="ID_VIEW_DOWNLOADS" text="다운로드" shortcut="F3"/>
@@ -628,6 +608,7 @@
 			<item id="ID_NETWORK_G1" text="연결 to _Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="연결 to _eDonkey"/>
 			<item id="ID_NETWORK_DC" text="연결 to _DC++"/>
+			<item id="ID_NETWORK_BT" text="연결 to _BitTorrent"/>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="에 연결하려면..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="찾아보기 호스트 ..."/>
@@ -1601,6 +1582,7 @@
 			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
 			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<item id="ID_NETWORK_BT" text="_BitTorrent"/>
 			<separator/>
 			<item id="ID_VIEW_DISCOVERY" text="디스커버"/>
 			<item id="ID_VIEW_HOSTS" text="호스트 캐시"/>
@@ -2123,13 +2105,13 @@
 	<string id="20196" value="This template does not have any customizations."/>
 	<string id="20197" value="This template is invalid."/>
 	<string id="20199" value="(전송 후 종료)"/>
-	<string id="20200" value="Added &quot;%s&quot; to download queue with %i sources."/>
+<!--	<string id="20200" value="Added &quot;%s&quot; to download queue with %i sources."/>
 	<string id="20201" value="The file &quot;%s&quot; is already being downloaded, adding sources."/>
 	<string id="20202" value="Received a faulty push connection from %s, closing connection."/>
 	<string id="20203" value="Boosting download &quot;%s&quot; by removing bandwidth caps."/>
 	<string id="20204" value="Download host %s is busy, retrying in %i seconds."/>
-	<string id="20205" value="Couldn't move download &quot;%s&quot; to &quot;%s&quot;. Check that the incomplete file is not in use, and that your downloads folder exists and is writable."/>
-	<string id="20206" value="Unable to resolve &quot;%s&quot;."/>
+	<string id="20205" value="Insufficient disk space to download &quot;%s&quot; (%s)."/>
+	<string id="20206" value="Couldn't move download &quot;%s&quot; to &quot;%s&quot;. Check that the incomplete file is not in use, and that your downloads folder exists and is writable."/>
 	<string id="20207" value="Are you sure you want to cancel/abort every download in this group?"/>
 	<string id="20208" value="Closing download connection to %s, no longer required."/>
 	<string id="20209" value="Download host %s sent unsolicited data, closing connection."/>
@@ -2142,30 +2124,25 @@
 	<string id="20216" value="Unable to connect to download host %s."/>
 	<string id="20217" value="Receiving download content from host %s (%s)."/>
 	<string id="20218" value="Aborting download of &quot;%s&quot; from %s (%s), network disabled."/>
-	<string id="20219" value="Insufficient disk space to download &quot;%s&quot; (%s)."/>
-	<string id="20220" value="Download connection to %s was lost."/>
-	<string id="20222" value="You have typed an eDonkey hash value, however it is invalid. Please check it and try again."/>
-	<string id="20224" value="Please enter a valid range to erase. The &quot;from&quot; field is the first byte to erase, the &quot;last&quot; field is the last byte to erase."/>
-	<string id="20225" value="You have typed a SHA1 value, however it is invalid. Please check it and try again."/>
-	<string id="20226" value="You have typed a root tiger-tree value, however it is invalid. Please check it and try again."/>
-	<string id="20227" value="You have made changes to the file size. Are you sure you want to change the file size for this download?"/>
-	<string id="20228" value="Unable to erase the selected range from the download because no part of the range is present."/>
-	<string id="20231" value="You have provided a SHA1 hash value which is different to the one currently associated with this download. Are you sure you want to change the SHA1 hash now?"/>
-	<string id="20232" value="You have provided an eDonkey hash value which is different to the one currently associated with this download. Are you sure you want to change the eDonkey hash now?"/>
-	<string id="20233" value="You have provided a root tiger-tree hash value which is different to the one currently associated with this download. Are you sure you want to change the tiger-tree root hash now?"/>
-	<string id="20235" value="You cannot assume this download is complete and reverify it because you do not yet have any partial verification data, such as tiger-tree volume, eDonkey hashset or BitTorrent hashset. Without verification information the download cannot be reverified."/>
-	<string id="20236" value="Are you sure you want to assume this download is complete and reverify it? The whole file will be considered, and PeerProject will accept parts which pass verification and redownload parts which fail verification."/>
-	<string id="20237" value="Are you sure you want to forget all sources for the selected download?"/>
-	<string id="20238" value="Are you sure you want to forget the current verification status? All downloaded data will be treated as untrusted, and cached hashtrees and hashsets will be flushed."/>
-	<string id="20240" value="Erased %I64i bytes from the download."/>
-	<string id="20241" value="You have made changes to the name field. Are you sure you want to rename this download?"/>
+	<string id="20219" value="Download connection to %s was lost."/>
+	<string id="20221" value="Please enter a valid range to erase. The &quot;from&quot; field is the first byte to erase, the &quot;last&quot; field is the last byte to erase."/>
+	<string id="20222" value="You have typed a %s hash value, however it is invalid. Please check it and try again."/>
+	<string id="20223" value="You have provided a %s hash value that is different to the one currently associated with this download. Are you sure you want to change the %s hash now?"/>
+	<string id="20224" value="You have made changes to the name field. Are you sure you want to rename this download?"/>
+	<string id="20225" value="You have made changes to the file size. Are you sure you want to change the file size for this download?"/>
+	<string id="20226" value="You cannot assume this download is complete and reverify it because you do not yet have any partial verification data, such as tiger-tree volume, eDonkey hashset or BitTorrent hashset. Without verification information the download cannot be reverified."/>
+	<string id="20227" value="Are you sure you want to assume this download is complete and reverify it? The whole file will be considered, and PeerProject will accept parts which pass verification and redownload parts which fail verification."/>
+	<string id="20228" value="Are you sure you want to forget the current verification status? All downloaded data will be treated as untrusted, and cached hashtrees and hashsets will be flushed."/>
+	<string id="20229" value="Are you sure you want to forget all sources for the selected download?"/>
+	<string id="20231" value="Unable to erase the selected range from the download because no part of the range is present."/>
+	<string id="20232" value="Erased %I64i bytes from the download."/>
 	<string id="20242" value="Download host %s does not have the file &quot;%s&quot;."/>
 	<string id="20243" value="Creating file &quot;%s&quot; for download."/>
 	<string id="20244" value="Unable to create local file &quot;%s&quot; for download, aborting."/>
 	<string id="20245" value="Unable to open local file &quot;%s&quot; for download, aborting."/>
 	<string id="20246" value="No more download fragments, closing connection to %s."/>
 	<string id="20247" value="Fragment shortened, closing connection to %s."/>
-	<string id="20248" value="Requesting download fragment (%I64u-%I64u) of &quot;%s&quot; from %s."/>
+-->	<string id="20248" value="Requesting download fragment (%I64u-%I64u) of &quot;%s&quot; from %s."/>
 	<string id="20250" value="끌어 다 놓으십시오 %s 그룹에 파일을"/>
 	<string id="20251" value="기본 그룹을 다운로드하십시오. (모두보기 파일)"/>
 	<string id="20252" value="새 그룹"/>
@@ -2190,7 +2167,6 @@
 	<string id="20271" value="Moved &quot;%s&quot; to &quot;%s&quot;, download complete."/>
 	<string id="20272" value="Pausing download of &quot;%s&quot;."/>
 	<string id="20273" value="Resuming download of &quot;%s&quot;."/>
-	<string id="20274" value="Resolving &quot;%s&quot; to download &quot;%s&quot;..."/>
 	<string id="20275" value="Querying for more sources for download &quot;%s&quot; on %i connection(s)..."/>
 	<string id="20276" value="Can't fetch more sources for download &quot;%s&quot; because there is no network connection."/>
 	<string id="20280" value="Download host's tiger-tree data is corrupt or internally inconsistent, ignoring it."/>
@@ -2448,7 +2424,7 @@
 	<string id="20570" value="Ignoring malformatted query hit packet from %s."/>
 	<string id="20571" value="Ignoring malformatted %s search query packet from %s."/>
 	<string id="20572" value="Neighbor %s forwarded a packet with excessive TTL, dropping packet (TTL=%i, Hops=%i)."/>
-	<string id="20573" value="Neighbor %s forwarded a packet with zero TTL, ignoring."/>
+	<!--string id="20573" value="Neighbor %s forwarded a packet with zero TTL, ignoring."-->
 	<string id="20574" value="Neighbor %s forwarded an extended packet that is not GGEP encoded."/>
 	<string id="20575" value="Neighbor %s sent an invalid query routing table update, dropping connection."/>
 	<string id="20576" value="Sending query routing table to neighbor %s (%i bit = %lu[%i], %i%% full)"/>
@@ -2645,7 +2621,6 @@
 	<string id="20834" value="Upload host %s requested a preview of &quot;%s&quot;, but no preview is available."/>
 	<string id="20835" value="Uploading a preview of &quot;%s&quot; to %s."/>
 	<string id="20836" value="Refusing push request to %s because it has too many upload connections."/>
-	<string id="20837" value="Legacy push request from %s requested an unknown file, connecting anyway..."/>
 	<string id="20838" value="Too busy to upload &quot;%s&quot; to %s, queued at #%i of %i (&quot;%s&quot;.."/>
 	<string id="20840" value="Upload connection to %s was lost, preserving queue position."/>
 	<string id="20841" value="New 대기열"/>
@@ -2675,7 +2650,7 @@
 	<string id="20866" value="파일명:"/>
 	<string id="20867" value="호스트 :"/>
 	<string id="20868" value="포트"/>
-	<string id="20869" value="Unable to display URL action dialog because PeerProject is busy."/>
+	<!--string id="20869" value="Unable to display URL action dialog because PeerProject is busy."-->
 	<string id="20870" value="Unable to parse URL: PeerProject does not understand this URL."/>
 	<string id="20871" value="Received URL &quot;%s&quot;"/>
 	<string id="20872" value="종류:"/>
@@ -3561,7 +3536,7 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="추적자">
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBuBuBu" caption="추적자">
 		<control/>
 		<control/>
 		<control/>
@@ -3573,6 +3548,8 @@
 		<control caption="Tracker Mode:"/>
 		<control caption="Disabled|Custom|Single Tracker|Multi-tracker|Multi-tracker (locked)"/>
 		<control caption="Refresh"/>
+		<control caption="추가하기"/>
+		<control caption="제거"/>
 	</dialog>
 	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="Torrent">
 		<control/>

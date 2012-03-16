@@ -20,13 +20,15 @@
 #include "Settings.h"
 #include "PeerProject.h"
 #include "DiscoveryServices.h"
+#include "Buffer.h"
 #include "Network.h"
 #include "HostCache.h"
 #include "Neighbours.h"
 #include "Neighbour.h"
+#include "GProfile.h"
 #include "G2Packet.h"
+#include "G1Packet.h"
 #include "Packet.h"
-#include "Buffer.h"
 #include "Datagrams.h"
 #include "Kademlia.h"
 #include "VendorCache.h"
@@ -93,13 +95,13 @@ DWORD CDiscoveryServices::GetCount(int nType, PROTOCOLID nProtocol) const
 		ptr = m_pList.GetNext( pos );
 		if ( ( nType == CDiscoveryService::dsNull ) || ( ptr->m_nType == nType ) )	// If we're counting all types, or it matches
 		{
-			if ( nProtocol == PROTOCOL_NULL ||									// If we're counting all protocols
-			   ( nProtocol == PROTOCOL_G1	&& ptr->m_bGnutella1 ) ||			// Or we're counting G1 and it matches
-			   ( nProtocol == PROTOCOL_G2	&& ptr->m_bGnutella2 ) ||			// Or we're counting G2 and it matches
-			   ( nProtocol == PROTOCOL_ED2K	&& ptr->m_nType == CDiscoveryService::dsServerList ) || 	// Or we're counting ED2K
-			   ( nProtocol == PROTOCOL_DC	&& ptr->m_nType == CDiscoveryService::dsServerList ) )		// Or we're counting DC++
+			if (  nProtocol == PROTOCOL_NULL ||									// If we're counting all protocols
+				( nProtocol == PROTOCOL_G1   && ptr->m_bGnutella1 ) ||			// Or we're counting G1 and it matches
+				( nProtocol == PROTOCOL_G2   && ptr->m_bGnutella2 ) ||			// Or we're counting G2 and it matches
+				( nProtocol == PROTOCOL_ED2K && ptr->m_nType == CDiscoveryService::dsServerList ) || 	// Or we're counting ED2K
+				( nProtocol == PROTOCOL_DC   && ptr->m_nType == CDiscoveryService::dsServerList ) )		// Or we're counting DC++
 			{
-			   nCount++;
+				nCount++;
 			}
 		}
 	}
@@ -591,10 +593,10 @@ BOOL CDiscoveryServices::EnoughServices() const
 		}
 	}
 
-	return ( ( nWebCacheCount   >= 1 ) &&	// At least 1 webcache
-			 ( nG2Count			>= 3 ) &&	// At least 3 G2 services
-			 ( nG1Count			>= 2 || ! Settings.Gnutella1.ShowInterface ) &&	// At least 2 G1 services, if exposed
-			 ( nServerMetCount  >= 2 || ! Settings.eDonkey.ShowInterface ) &&	// At least 2 server.met, if exposed
+	return ( ( nWebCacheCount	>= 1 ) &&	// At least 1 webcache
+			 ( nG2Count 		>= 3 ) &&	// At least 3 G2 services
+			 ( nG1Count 		>= 2 || ! Settings.Gnutella1.ShowInterface ) &&	// At least 2 G1 services, if exposed
+			 ( nServerMetCount	>= 2 || ! Settings.eDonkey.ShowInterface ) &&	// At least 2 server.met, if exposed
 			 ( nHubListCount	>= 2 || ! Settings.DC.ShowInterface ) );		// At least 2 hublist, if exposed
 }
 
@@ -870,12 +872,13 @@ BOOL CDiscoveryServices::Update()
 	else											// No protocols active- no updates
 		return FALSE;
 
-	//*** ToDo: Ultrapeer mode hasn't been updated or tested in a long time
+	//*** ToDo: Ultrapeer mode hasn't been updated or tested in a very long time
 
-	ASSERT ( nProtocol == PROTOCOL_G1 || nProtocol == PROTOCOL_G2 );
+	//ASSERT ( nProtocol == PROTOCOL_G1 || nProtocol == PROTOCOL_G2 );
 
 	// Must have at least 4 peers
-	if ( Neighbours.GetCount( nProtocol, -1, ntNode ) < 4 ) return FALSE;
+	if ( Neighbours.GetCount( nProtocol, -1, ntNode ) < 4 && ! Settings.Experimental.LAN_Mode )
+		return FALSE;
 
 	// Select a random webcache of the appropriate sort
 	CDiscoveryService* pService = GetRandomWebCache(nProtocol, TRUE, NULL, TRUE );
@@ -1988,6 +1991,57 @@ BOOL CDiscoveryServices::Execute(CDiscoveryService* pService, Mode nMode)
 	return FALSE;
 }
 
+void CDiscoveryServices::OnResolve(PROTOCOLID nProtocol, LPCTSTR szAddress, const IN_ADDR* pAddress, WORD nPort)
+{
+	// Code to invoke UDPHC/UDPKHL Sender, from CNetwork::OnWinsock(). (uhc:/ukhl:)
+	if ( nProtocol != PROTOCOL_G2 || nProtocol != PROTOCOL_G1 )
+		return;
+
+	CString strAddress( nProtocol == PROTOCOL_G1 ? _T("uhc:") : _T("ukhl:") );
+	strAddress += szAddress;
+
+	CDiscoveryService* pService = GetByAddress( strAddress );
+	if ( pService == NULL )
+	{
+		strAddress.AppendFormat( _T(":%u"), nPort );
+		pService = GetByAddress( strAddress );
+	}
+
+	if ( pAddress )
+	{
+		if ( pService != NULL )
+		{
+			pService->m_pAddress = *pAddress;
+			pService->m_nPort = nPort;
+		}
+
+		if ( nProtocol == PROTOCOL_G1 )
+		{
+			if ( CG1Packet* pPing = CG1Packet::New( G1_PACKET_PING, 1, Hashes::Guid( MyProfile.oGUID ) ) )
+			{
+				CGGEPBlock pBlock;
+				if ( CGGEPItem* pItem = pBlock.Add( GGEP_HEADER_SUPPORT_CACHE_PONGS ) )
+				{
+					pItem->WriteByte( Neighbours.IsG1Ultrapeer() ? GGEP_SCP_ULTRAPEER : GGEP_SCP_LEAF );
+				}
+				pBlock.Write( pPing );
+				Datagrams.Send( pAddress, nPort, pPing, TRUE, NULL, FALSE );
+			}
+		}
+		else // G2
+		{
+			if ( CG2Packet* pKHLR = CG2Packet::New( G2_PACKET_KHL_REQ ) )
+			{
+				Datagrams.Send( pAddress, nPort, pKHLR, TRUE, NULL, FALSE );
+			}
+		}
+	}
+	else
+	{
+		if ( pService != NULL )
+			pService->OnFailure();
+	}
+}
 
 //////////////////////////////////////////////////////////////////////
 // CDiscoveryService construction
@@ -2172,7 +2226,7 @@ BOOL CDiscoveryService::ResolveGnutella()
 		if ( nPos >= 0 && _stscanf( strHost.Mid( nPos + 1 ), _T("%i"), &nPort ) == 1 )
 			strHost = strHost.Left( nPos );
 
-		if ( Network.AsyncResolve( strHost, (WORD)nPort, PROTOCOL_G1, 0 ) )
+		if ( Network.AsyncResolve( strHost, (WORD)nPort, PROTOCOL_G1, RESOLVE_ONLY ) )
 		{
 			OnSuccess();
 			return TRUE;
@@ -2185,7 +2239,7 @@ BOOL CDiscoveryService::ResolveGnutella()
 		if ( nPos >= 0 && _stscanf( strHost.Mid( nPos + 1 ), _T("%i"), &nPort ) == 1 )
 			strHost = strHost.Left( nPos );
 
-		if ( Network.AsyncResolve( strHost, (WORD)nPort, PROTOCOL_G1, 1 ) )
+		if ( Network.AsyncResolve( strHost, (WORD)nPort, PROTOCOL_G1, RESOLVE_CONNECT_ULTRAPEER ) )
 		{
 			OnAccess();
 			return TRUE;
@@ -2198,7 +2252,7 @@ BOOL CDiscoveryService::ResolveGnutella()
 		if ( nPos >= 0 && _stscanf( strHost.Mid( nPos + 1 ), _T("%i"), &nPort ) == 1 )
 			strHost = strHost.Left( nPos );
 
-		if ( Network.AsyncResolve( strHost, (WORD)nPort, PROTOCOL_G2, 1 ) )
+		if ( Network.AsyncResolve( strHost, (WORD)nPort, PROTOCOL_G2, RESOLVE_CONNECT_ULTRAPEER ) )
 		{
 			OnAccess();
 			return TRUE;
@@ -2211,7 +2265,7 @@ BOOL CDiscoveryService::ResolveGnutella()
 		if ( nPos >= 0 && _stscanf( strHost.Mid( nPos + 1 ), _T("%i"), &nPort ) == 1 )
 			strHost = strHost.Left( nPos );
 
-		if ( Network.AsyncResolve( strHost, (WORD)nPort, PROTOCOL_G1, 3 ) )
+		if ( Network.AsyncResolve( strHost, (WORD)nPort, PROTOCOL_G1, RESOLVE_DISCOVERY ) )
 		{
 			OnAccess();
 			return TRUE;
@@ -2224,7 +2278,7 @@ BOOL CDiscoveryService::ResolveGnutella()
 		if ( nPos >= 0 && _stscanf( strHost.Mid( nPos + 1 ), _T("%i"), &nPort ) == 1 )
 			strHost = strHost.Left( nPos );
 
-		if ( Network.AsyncResolve( strHost, (WORD)nPort, PROTOCOL_G2, 3 ) )
+		if ( Network.AsyncResolve( strHost, (WORD)nPort, PROTOCOL_G2, RESOLVE_DISCOVERY ) )
 		{
 			OnAccess();
 			return TRUE;

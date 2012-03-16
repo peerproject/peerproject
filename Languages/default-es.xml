@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Spanish (International) Skin File -->
 
-<!-- Translation based on default-en.xml r74 -->
+<!-- Translation based on default-en.xml r75 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -365,6 +365,7 @@
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<button id="ID_NETWORK_DC" text="DC++"/>
+		<button id="ID_NETWORK_BT" text="BitTorrent"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Configurar..."/>
 	</toolbar>
@@ -422,6 +423,12 @@
 		<button id="ID_CHAT_DISCONNECT" text="Desconectar"/>
 	</toolbar>
 	<!-- WEBSERVICES -->
+	<toolbar name="WebServices.MusicBrainz">
+		<button id="ID_MUSICBRAINZ_MATCHES" text="Ver coincidencias de album"/>
+		<button id="ID_MUSICBRAINZ_ALBUMS" text="Ver todos los albums"/>
+		<separator/>
+	</toolbar>
+	<!--
 	<toolbar name="WebServices.ShareMonkey">
 		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Obtener datos"/>
 		<separator/>
@@ -444,11 +451,7 @@
 		<button id="ID_SHAREMONKEY_COMPARE" text="Comparar"/>
 		<button id="ID_SHAREMONKEY_BUY" text="Compar"/>
 	</toolbar>
-	<toolbar name="WebServices.MusicBrainz">
-		<button id="ID_MUSICBRAINZ_MATCHES" text="Ver coincidencias de album"/>
-		<button id="ID_MUSICBRAINZ_ALBUMS" text="Ver todos los albums"/>
-		<separator/>
-	</toolbar>
+	-->
 	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
 		<button id="PluginID_ImageViewer_BestFit" text="Mejor ajuste"/>
@@ -507,6 +510,7 @@
 				<item id="ID_NETWORK_G1" text="Conectar a _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Conectar a _eDonkey2000"/>
 				<item id="ID_NETWORK_DC" text="Conectar a _DC++"/>
+				<item id="ID_NETWORK_BT" text="Conectar a _BitTorrent"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="Conectar A..." shortcut="Ctrl+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="Explorar Usuario..."/>
@@ -596,6 +600,7 @@
 				<item id="ID_NETWORK_G1" text="Conectar a _Gnutella 1"/>
 				<item id="ID_NETWORK_ED2K" text="Conectar a _eDonkey"/>
 				<item id="ID_NETWORK_DC" text="Conectar a _DC++"/>
+				<item id="ID_NETWORK_BT" text="Conectar a _BitTorrent"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Conectar _A..." shortcut="Ctrl+T"/>
@@ -766,6 +771,7 @@
 				<item id="ID_NETWORK_G1" text="Conectar a _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Conectar a _eDonkey"/>
 				<item id="ID_NETWORK_DC" text="Conectar a _DC++"/>
+				<item id="ID_NETWORK_BT" text="Conectar a _BitTorrent"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="_Salir Después de Transferencias"/>
@@ -1548,6 +1554,7 @@
 			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
 			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<item id="ID_NETWORK_BT" text="_BitTorrent"/>
 			<separator/>
 			<item id="ID_VIEW_DISCOVERY" text="Descu_brimiento"/>
 			<item id="ID_VIEW_HOSTS" text="C_ache de Host"/>
@@ -2524,6 +2531,7 @@
 	<tip id="ID_NETWORK_EXIT" message="Salir de PeerProject"/>
 	<tip id="ID_NETWORK_ED2K" message="Conectar a la red de eDonkey."/>
 	<tip id="ID_NETWORK_DC" message="Conectar a la red de DC++."/>
+	<tip id="ID_NETWORK_BT" message="Conectar a la red de BitTorrent."/>
 	<tip id="ID_NETWORK_G1" message="Conectar a la red original de Gnutella."/>
 	<tip id="ID_NETWORK_G2" message="Conectar a la red Gnutella2 (Muy recomendado)."/>
 	<tip id="ID_NETWORK_SEARCH" message="Empezar una nueva búsqueda"/>
@@ -2812,8 +2820,8 @@
 	<string id="20202" value="El vecino %s pidió un push incorrecto, cerrando conexión."/>
 	<string id="20203" value="Incrementando velocidad de descarga &quot;%s&quot; quitando limites de ancho de banda."/>
 	<string id="20204" value="El usuario %s esta ocupado, reintentando en %i segundos."/>
-	<string id="20205" value="Fué imposible mover el archivo descargado &quot;%s&quot; a &quot;%s&quot;.  Revise que el archivo no este siendo utilizado, y que tenga acceso de escritura a la carpeta compartida."/>
-	<string id="20206" value="Fué imposible conseguir la ruta para &quot;%s&quot;."/>
+	<string id="20205" value="Insuficiente espacio de disco para descargar &quot;%s&quot; (%s)."/>
+	<string id="20206" value="Fué imposible mover el archivo descargado &quot;%s&quot; a &quot;%s&quot;.  Revise que el archivo no este siendo utilizado, y que tenga acceso de escritura a la carpeta compartida."/>
 	<string id="20207" value="¿Estás seguro que deseas cancelar/abortar todas las descargas en este grupo?"/>
 	<string id="20208" value="Cerrando conexión de descarga a %s, no sige siendo requerido."/>
 	<string id="20209" value="La fuente de descarga %s envió datos no solicitados, cerrando conexión."/>
@@ -2826,23 +2834,18 @@
 	<string id="20216" value="Fué imposible conectarse con %s."/>
 	<string id="20217" value="Recibiendo transferencia de %s (%s)."/>
 	<string id="20218" value="Abortando descarga de &quot;%s&quot; de %s (%s), porque la red esta deshabilitada."/>
-	<string id="20219" value="Insuficiente espacio de disco para descargar &quot;%s&quot; (%s)."/>
-	<string id="20220" value="La conexión de transferencia con %s fué perdida."/>
-	<string id="20222" value="El valor del hash de eDonkey asignado no es válido. Por favor, revíselo e intentelo de nuevo."/>
-	<string id="20224" value="Por favor entre un rango válido para borrar. El campo &quot;from&quot; es el primer byte para borrar, el campo &quot;last&quot; es el último byte para borrar."/>
-	<string id="20225" value="El valor de SHA1 que le asignó a la descarga no es válido. Por favor, revíselo e intentelo de nuevo."/>
-	<string id="20226" value="El valor de root tiger-tree asignado no es válido. Por favor, revíselo e intentelo de nuevo."/>
-	<string id="20227" value="Has hecho cambios en el tamaño del archivo.  Estas seguro que quieres cambiar el tamaño de esta descarga?"/>
-	<string id="20228" value="Incapaz de borrar el rango seleccionado, porque el rango no está presente en la descarga."/>
-	<string id="20231" value="¿Estás seguro de cambiar el SHA1?"/>
-	<string id="20232" value="¿Estás seguro de cambiar el hash de eDonkey?"/>
-	<string id="20233" value="¿Estás seguro de cambiar el root tiger-tree hash?"/>
-	<string id="20235" value="Esta descarga no se puede asumir completa, porque falta información sobre el hash, que es necesaria para verificarla."/>
-	<string id="20236" value="¿Estás seguro de asumir esta descarga como completa y reverificarla? PeerProject reverificará el archivo, y aceptará las partes correctas, y descarga de nuevo aquellas incorrectas."/>
-	<string id="20237" value="¿Estás seguro de olvidar todas las fuentes de esta descarga?"/>
-	<string id="20238" value="¿Estás seguro de olvidar el estado actual de verificación? Toda la información de la descarga va a ser tratada como inseguro, para reverificarla."/>
-	<string id="20240" value="%I64i bytes fueron borrados de la descarga."/>
-	<string id="20241" value="Usted ha cambiado el nombre del archivo. ¿Está seguro de renombrarlo?"/>
+	<string id="20219" value="La conexión de transferencia con %s fué perdida."/>
+	<string id="20221" value="Por favor entre un rango válido para borrar. El campo &quot;from&quot; es el primer byte para borrar, el campo &quot;last&quot; es el último byte para borrar."/>
+	<string id="20222" value="El valor del hash de %s asignado no es válido. Por favor, revíselo e intentelo de nuevo."/>
+	<string id="20223" value="¿Estás seguro de cambiar el hash de %s?"/>
+	<string id="20224" value="Usted ha cambiado el nombre del archivo. ¿Está seguro de renombrarlo?"/>
+	<string id="20225" value="Has hecho cambios en el tamaño del archivo.  ¿Estas seguro que quieres cambiar el tamaño de esta descarga?"/>
+	<string id="20226" value="Esta descarga no se puede asumir completa, porque falta información sobre el hash, que es necesaria para verificarla."/>
+	<string id="20227" value="¿Estás seguro de asumir esta descarga como completa y reverificarla? PeerProject reverificará el archivo, y aceptará las partes correctas, y descarga de nuevo aquellas incorrectas."/>
+	<string id="20228" value="¿Estás seguro de olvidar el estado actual de verificación? Toda la información de la descarga va a ser tratada como inseguro, para reverificarla."/>
+	<string id="20229" value="¿Estás seguro de olvidar todas las fuentes de esta descarga?"/>
+	<string id="20231" value="Incapaz de borrar el rango seleccionado, porque el rango no está presente en la descarga."/>
+	<string id="20232" value="%I64i bytes fueron borrados de la descarga."/>
 	<string id="20242" value="El usuario %s no tiene el archivo &quot;%s&quot;."/>
 	<string id="20243" value="Creando el archivo: &quot;%s&quot; para ser descargado."/>
 	<string id="20244" value="El archivo &quot;%s&quot; no pudo ser creado, abortando."/>
@@ -2873,9 +2876,10 @@
 	<string id="20271" value="El archivo &quot;%s&quot; a &quot;%s&quot; fué movido, transferencia completada."/>
 	<string id="20272" value="Pausando descarga de &quot;%s&quot;."/>
 	<string id="20273" value="Resumiendo descarga de &quot;%s&quot;."/>
-	<string id="20274" value="Resolviendo &quot;%s&quot; para descargar &quot;%s&quot;..."/>
 	<string id="20275" value="Buscando más fuentes para descargar &quot;%s&quot; en %i conexión(es)..."/>
 	<string id="20276" value="No se pudieron buscar más fuentes para descargar &quot;%s&quot; por que no hay conexión a la red."/>
+	<!--string id="20277" value="Resolviendo &quot;%s&quot; para descargar &quot;%s&quot;..."-->
+	<!--string id="20278" value="Fué imposible conseguir la ruta para &quot;%s&quot;."-->
 	<string id="20280" value="La fuente de descarga envió datos tiger-tree corruptos o internamente incosistente, ignorandolo."/>
 	<string id="20281" value="El tiger-tree de la fuente de descarga tiger-tree no coincide con el valor esperado."/>
 	<string id="20282" value="%s no pudo dar el TigerTree."/>
@@ -2972,7 +2976,7 @@
 	<string id="20382" value="Ancho de banda total de transmición UDP"/>
 	<string id="20383" value="Ancho de Banda de Subida"/>
 	<string id="20384" value="Cuenta Transferencia de Subida"/>
-	<string id="20385" value="Conectando a vecino %s pero es un nodo leaf ."/>
+	<string id="20385" value="Conectando a vecino %s pero es un nodo leaf."/>
 	<string id="20386" value="Cerrando surplus conexión con %s con host hint (%s puerto %i)."/>
 	<string id="20387" value="El Hub vecino %s no va a aceptarnos como hub, cerrando conexión."/>
 	<string id="20388" value="Handshake con %s fallo por mandar mala información."/>
@@ -3136,7 +3140,7 @@
 	<string id="20570" value="%s envió una respuesta incorrecta, ignorando."/>
 	<string id="20571" value="%s: %s envió una búsqueda incorrecta, ignorando."/>
 	<string id="20572" value="El vecino %s remitio un paquete con excesivo TTL, tirando paquete(paquete caído) (TTL=%i, Hops=%i)."/>
-	<string id="20573" value="El vecino %s remitio un paquete con zero TTL, ignorando."/>
+	<!--string id="20573" value="El vecino %s remitio un paquete con zero TTL, ignorando."-->
 	<string id="20574" value="El vecino %s envió un paquete extendido no compatible con GGEP."/>
 	<string id="20575" value="El vecino %s envió un QRT inválido, cerrando conexión."/>
 	<string id="20576" value="Enviando QRT a %s (%i bit = %lu[%i], %i%% full)"/>
@@ -3155,6 +3159,7 @@
 	<string id="20597" value="¿Estas seguro que quieres borrar las reglas de seguridad seleccionadas?"/>
 	<string id="20599" value="&amp;Schemas"/>
 	<!-- Missing Scheduler/Security Strings -->
+	<string id="20614" value="Esperando"/>
 	<string id="20620" value="PeerProject esta buscando activamente en la red..."/>
 	<string id="20621" value="Haz click aquí para buscar de nuevo"/>
 	<string id="20622" value="Todas las redes"/>
@@ -3326,14 +3331,14 @@
 	<string id="20825" value="El host de subida %s pidio &quot;%s&quot; con SHA1 diferente."/>
 	<string id="20826" value="Enviando headers de subida &quot;%s&quot; a host %s (%s)."/>
 	<string id="20827" value="Subiendo metadata para &quot;%s&quot; a %s."/>
-	<string id="20828" value="Host de subida %s pidio una peticion HTTP invalida ."/>
+	<string id="20828" value="Host de subida %s pidio una peticion HTTP invalida."/>
 	<string id="20830" value="Enviando subida del rango %I64i-%I64i del archivo parcial &quot;%s&quot; a host %s (%s)."/>
 	<string id="20832" value="Rechazando subida de vista previa de &quot;%s&quot; a %s, demasiadas conexiones de vista previa."/>
 	<string id="20833" value="Programando una vista previa dinámica de &quot;%s&quot; para subida a %s."/>
 	<string id="20834" value="Host de subida %s pidio vista previa de &quot;%s&quot;, pero no hay vista previa disponible."/>
 	<string id="20835" value="Subiendo vista previa de &quot;%s&quot; a %s."/>
 	<string id="20836" value="Rechazando petición push a %s porque tiene demasiadas conexiones de subida."/>
-	<string id="20837" value="Petición push %s pidio un archivo desconocido, conectando de todas maneras..."/>
+	<!--string id="20837" value="Petición push %s pidio un archivo desconocido, conectando de todas maneras..."-->
 	<string id="20838" value="Muy ocupado para subir &quot;%s&quot; a %s, cola #%i of %i (&quot;%s&quot;)."/>
 	<string id="20840" value="Conexión de subida a %s fue perdida, preservando conexión en cola."/>
 	<string id="20841" value="Nueva Cola"/>
@@ -3363,7 +3368,7 @@
 	<string id="20866" value="Nombre de archivo:"/>
 	<string id="20867" value="Host:"/>
 	<string id="20868" value="Puerto:"/>
-	<string id="20869" value="La ventana de URL no pudo ser mostrada, PeerProject está ocupado."/>
+	<!--string id="20869" value="La ventana de URL no pudo ser mostrada, PeerProject está ocupado."-->
 	<string id="20870" value="PeerProject no entendió el URL."/>
 	<string id="20871" value="URL &quot;%s&quot; recibida"/>
 	<string id="20872" value="Tipo:"/>
@@ -3706,7 +3711,7 @@
 		<control caption="Descargar..."/>
 		<control caption="Descargar lista de servidores eDonkey de la web"/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Conexiones de descarga:"/>
 		<control/>
 		<control/>
@@ -3714,8 +3719,9 @@
 		<control/>
 		<control/>
 		<control caption="Conexiones de cliente"/>
+		<control caption="Activar DHT BitTorrent"/>
 		<control caption="Fuentes torrent de preferencia"/>
-		<control caption="_EndGame:"/>
+		<control caption="_EndGame: (Fin del juego)"/>
 		<control caption="Habilitar modo EndGame al completar torrents"/>
 		<control caption="Limpiar torrents descargados cuando el ratio sea alcanzado:"/>
 		<control/>
@@ -4430,7 +4436,7 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Rastreadores">
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBuBuBu" caption="Rastreadores">
 		<control/>
 		<control/>
 		<control/>
@@ -4441,7 +4447,9 @@
 		<control caption="Peers (Incompleto):"/>
 		<control caption="Tracker Mode:"/>
 		<control caption="Deshabilitado|Custom|Single Tracker|Multi-tracker|Multi-tracker (locked)"/>
-		<control caption="_Actualizar"/>
+		<control caption="A_ctualizar"/>
+		<control caption="_Agregar"/>
+		<control caption="_Eliminar"/>
 	</dialog>
 	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="BitTorrent">
 		<control/>

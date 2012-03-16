@@ -1,7 +1,7 @@
 //
 // WndPrivateChat.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2011.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -109,10 +109,10 @@ void CPrivateChatWnd::Setup(const Hashes::Guid& oGUID, const SOCKADDR_IN* pHost,
 {
 	ASSERT( m_pSession == NULL );
 	m_pSession = new CChatSession( nProtocol, this );
-	m_pSession->m_oGUID		= oGUID;
+	m_pSession->m_oGUID 	= oGUID;
 	m_pSession->m_pHost		= *pHost;
+	m_pSession->m_sNick 	= HostToString( pHost );
 	m_pSession->m_bMustPush	= bMustPush;
-	m_pSession->m_sNick = HostToString( pHost );
 }
 
 BOOL CPrivateChatWnd::Accept(CChatSession* pSession)
@@ -147,9 +147,8 @@ BOOL CPrivateChatWnd::Find(const SOCKADDR_IN* pAddress) const
 BOOL CPrivateChatWnd::Find(const Hashes::Guid& oGUID, bool bLive) const
 {
 	if ( m_pSession && validAndEqual( m_pSession->m_oGUID, oGUID ) )
-	{
 		return ( bLive == m_pSession->IsOnline() );
-	}
+
 	return FALSE;
 }
 
@@ -251,9 +250,11 @@ void CPrivateChatWnd::OnChatPriority()
 {
 	if ( ! m_pSession )
 		return;
+
 	CSingleLock pLock( &Transfers.m_pSection );
 	if ( ! pLock.Lock( 500 ) )
 		return;
+
 	DWORD nAddress = m_pSession->m_pHost.sin_addr.s_addr;
 	for ( POSITION pos = Uploads.GetIterator() ; pos ; )
 	{
@@ -264,6 +265,8 @@ void CPrivateChatWnd::OnChatPriority()
 			pUpload->Promote();
 		}
 	}
+
+	pLock.Unlock();
 
 	CString strMessage;
 	strMessage.Format( LoadString( IDS_CHAT_PRIORITY_GRANTED ), (LPCTSTR)HostToString( &m_pSession->m_pHost ) );

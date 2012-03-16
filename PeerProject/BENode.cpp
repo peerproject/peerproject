@@ -117,8 +117,6 @@ CBENode* CBENode::Add(LPCBYTE pKey, size_t nKey)
 	auto_ptr< CBENode > pNew( new CBENode );
 	CBENode* pNew_ = pNew.get();
 
-	// Overflow check
-	ASSERT ( m_nValue <= SIZE_T_MAX );
 	size_t nValue = static_cast< size_t >( m_nValue );
 
 	if ( m_nType == beList )
@@ -280,7 +278,7 @@ void CBENode::Encode(CBuffer* pBuffer) const
 	switch ( m_nType )
 	{
 	case beString:
-		pBuffer->Print( szBuffer, sprintf_s( szBuffer, _countof( szBuffer ), "%u:", (DWORD)m_nValue ) );
+		pBuffer->Print( szBuffer, sprintf_s( szBuffer, _countof( szBuffer ), "%I64i:", m_nValue ) );
 		pBuffer->Add( m_pValue, (DWORD)m_nValue );
 		break;
 
@@ -309,7 +307,7 @@ void CBENode::Encode(CBuffer* pBuffer) const
 		{
 			CBENode** pNode = (CBENode**)m_pValue;
 
-			for ( DWORD nItem = 0 ; nItem < m_nValue ; nItem++, pNode += 2 )
+			for ( DWORD nItem = 0 ; nItem < (DWORD)m_nValue ; nItem++, pNode += 2 )
 			{
 				LPCSTR pszKey = (LPCSTR)pNode[1];
 				size_t nKeyLength = strlen( pszKey );
@@ -329,7 +327,7 @@ void CBENode::Encode(CBuffer* pBuffer) const
 
 const CString CBENode::Encode() const
 {
-	CString strOutput = _T("");
+	CString strOutput;
 
 	switch ( m_nType )
 	{
@@ -340,20 +338,14 @@ const CString CBENode::Encode() const
 	case beString:
 		strOutput = _T('\"');
 		{
-			const QWORD nLen = min( m_nValue, 100ull );
-			for ( QWORD n = 0 ; n < nLen ; n++ )
+			const DWORD nLen = (DWORD)min( m_nValue, 100ll );
+			for ( DWORD n = 0 ; n < nLen ; n++ )
 			{
-				strOutput += ( ( ( (LPSTR)m_pValue )[ n ] < ' ' ) ?
-					'.' : ( (LPSTR)m_pValue )[ n ] );
+				strOutput += ( ( ( (LPSTR)m_pValue )[ n ] < ' ' ) ? '.' : ( (LPSTR)m_pValue )[ n ] );
 			}
 		}
 		strOutput += _T('\"');
-
-		{
-			CString strTmp;
-			strTmp.Format( _T("[%I64u]"), m_nValue );
-			strOutput += strTmp;
-		}
+		strOutput.AppendFormat( _T("[%I64i]"), m_nValue );
 		break;
 
 	case beInt:
@@ -364,7 +356,7 @@ const CString CBENode::Encode() const
 		strOutput = _T("{ ");
 		{
 			CBENode** pNode = (CBENode**)m_pValue;
-			for ( QWORD n = 0 ; n < m_nValue ; n++, pNode++ )
+			for ( DWORD n = 0 ; n < (DWORD)m_nValue ; n++, pNode++ )
 			{
 				if ( n ) strOutput += _T(", ");
 				strOutput += (*pNode)->Encode();
@@ -376,13 +368,11 @@ const CString CBENode::Encode() const
 	case beDict:
 		strOutput = _T("{ ");
 		{
-			CString strTmp;
 			CBENode** pNode = (CBENode**)m_pValue;
 			for ( QWORD n = 0 ; n < m_nValue ; n++, pNode += 2 )
 			{
 				if ( n ) strOutput += _T(", ");
-				strTmp.Format( _T("%hs="), (LPCSTR)pNode[ 1 ] );
-				strOutput += strTmp;
+				strOutput.AppendFormat( _T("%hs="), (LPCSTR)pNode[ 1 ] );
 				strOutput += (*pNode)->Encode();
 			}
 		}
@@ -463,10 +453,8 @@ void CBENode::Decode(LPCBYTE& pInput, DWORD& nInput, DWORD nSize)
 
 		if ( nSeek >= 40 ) AfxThrowUserException();
 
-		__int64 nValue = atoin( (LPCSTR)pInput, nSeek );
-		if ( nValue == -1 )
+		if ( ! atoin( (LPCSTR)pInput, nSeek, m_nValue ) )
 			AfxThrowUserException();
-		m_nValue = (QWORD)nValue;
 
 		INC( nSeek + 1 );
 		m_nType = beInt;
@@ -513,7 +501,7 @@ void CBENode::Decode(LPCBYTE& pInput, DWORD& nInput, DWORD nSize)
 		m_nValue = DecodeLen( pInput, nInput );
 		m_pValue = new CHAR[ (DWORD)m_nValue + 1 ];
 		CopyMemory( m_pValue, pInput, (DWORD)m_nValue );
-		((LPBYTE)m_pValue)[ m_nValue ] = 0;
+		((LPBYTE)m_pValue)[ (DWORD)m_nValue ] = 0;
 
 		INC( (DWORD)m_nValue );
 	}
@@ -538,8 +526,9 @@ int CBENode::DecodeLen(LPCBYTE& pInput, DWORD& nInput)
 
 	if ( nSeek >= 32 )
 		AfxThrowUserException();
-	__int64 nLen = atoin( (LPCSTR)pInput, nSeek );
-	if ( nLen == -1 )
+
+	__int64 nLen;
+	if ( ! atoin( (LPCSTR)pInput, nSeek, nLen ) || nLen < 0 )
 		AfxThrowUserException();
 	INC( nSeek + 1 );
 

@@ -192,8 +192,8 @@ void CWizardCtrl::OnNcPaint()
 	if ( m_bShowBorder )
 	{
 		CWindowDC dc( this );
-		CRect rc;
 
+		CRect rc;
 		GetWindowRect( &rc );
 		rc.OffsetRect( -rc.left, -rc.top );
 		dc.Draw3dRect( &rc, Colors.m_crSysActiveCaption, Colors.m_crSysActiveCaption );
@@ -309,7 +309,7 @@ void CWizardCtrl::OnShowWindow(BOOL bShow, UINT /*nStatus*/)
 			int nFileCount = 1;
 			for ( std::size_t pos = 0 ; pos != pList.size() ; ++pos )
 			{
-				pList[ pos ]->PrepareDoc( ( nFileCount & 1 ) ?  strOddTemplate : strEvenTemplate, m_pFileDocs );
+				pList[ pos ]->PrepareDoc( ( nFileCount & 1 ) ? strOddTemplate : strEvenTemplate, m_pFileDocs );
 				++nFileCount;
 			}
 		}

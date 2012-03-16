@@ -3,19 +3,17 @@
 // Used by TorrentWizard.rc
 //
 #define IDR_MANIFEST                    1
-#define IDD_TORRENTWIZARD_DIALOG        102
-#define IDD_EXPERT_PAGE		            106
-#define IDD_WELCOME_PAGE                107
-#define IDD_SINGLE_PAGE                 108
-#define IDD_PACKAGE_PAGE                109
-#define IDD_TRACKER_PAGE                110
-#define IDD_OUTPUT_PAGE                 111
-#define IDD_FINISHED_PAGE               112
-#define IDD_COMMENT_PAGE                113
-#define IDD_COMMANDLINE_PAGE            114
-#define IDR_MAINFRAME                   128
+#define IDD_WELCOME_PAGE                102
+#define IDD_EXPERT_PAGE                 104
+#define IDD_SINGLE_PAGE                 105
+#define IDD_PACKAGE_PAGE                106
+#define IDD_TRACKER_PAGE                107
+#define IDD_COMMENT_PAGE                108
+#define IDD_OUTPUT_PAGE                 109
+#define IDD_FINISHED_PAGE               110
+#define IDR_MAINFRAME                   120
 #define IDB_BANNER                      130
-#undef  IDC_HAND						//winuser.h
+#undef  IDC_HAND						// winuser.h
 #define IDC_HAND                        131
 #define IDC_EXPERT_MODE                 1000
 #define IDC_TYPE_SINGLE                 1001
@@ -44,7 +42,6 @@
 #define IDC_TOTAL_SIZE                  1024
 #define IDC_TITLE                       1025
 #define IDC_COMMENT                     1026
-#define IDC_EDIT1                       1027
 #define IDC_AUTO_PIECE_SIZE             1028
 #define IDC_PIECE_SIZE                  1029
 #define IDC_TORRENT_SEED                1030
@@ -62,23 +59,23 @@
 #define IDS_TRACKER_NEED_URL            8004
 #define IDS_OUTPUT_NEED_FOLDER          8005
 #define IDS_OUTPUT_NEED_FILE            8006
-#define IDS_OUTPUT_CREATE_FOLDER        8007
-#define IDS_OUTPUT_CANT_CREATE_FOLDER   8008
-#define IDS_OUTPUT_REPLACE_FILE         8009
-#define IDS_SINGLE_CANT_OPEN            8010
-#define IDS_PACKAGE_CANT_OPEN           8011
-#define IDS_BUILDER_CANT_OPEN           8012
-#define IDS_BUILDER_CANT_SAVE           8013
-#define IDS_OUTPUT_EXTENSION            8014
+#define IDS_OUTPUT_REPLACE_FILE         8007
+#define IDS_OUTPUT_EXTENSION            8008
+#define IDS_OUTPUT_CREATE_FOLDER        8010
+#define IDS_OUTPUT_CANT_CREATE_FOLDER   8011
+#define IDS_SINGLE_CANT_OPEN            8012
+#define IDS_PACKAGE_CANT_OPEN           8013
+#define IDS_BUILDER_CANT_OPEN           8014
+#define IDS_BUILDER_CANT_SAVE           8015
 
 // Next default values for new objects
 //
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                1
-#define _APS_NEXT_RESOURCE_VALUE        138
+#define _APS_NEXT_RESOURCE_VALUE        132
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1034
-#define _APS_NEXT_SYMED_VALUE           101
+#define _APS_NEXT_CONTROL_VALUE         1040
+#define _APS_NEXT_SYMED_VALUE           100
 #endif
 #endif

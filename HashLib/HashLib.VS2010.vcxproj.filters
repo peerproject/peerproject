@@ -72,17 +72,17 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="MD4.32.asm">
+    <MASM Include="MD4.32.asm">
       <Filter>Source Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="MD5.32.asm">
+    </MASM>
+    <MASM Include="MD5.32.asm">
       <Filter>Source Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="SHA.32.asm">
+    </MASM>
+    <MASM Include="SHA.32.asm">
       <Filter>Source Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="Tiger.32.asm">
+    </MASM>
+    <MASM Include="Tiger.32.asm">
       <Filter>Source Files</Filter>
-    </CustomBuild>
+    </MASM>
   </ItemGroup>
 </Project>

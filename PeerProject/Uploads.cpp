@@ -1,7 +1,7 @@
 //
 // Uploads.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -443,5 +443,5 @@ void CUploads::Remove(CUploadTransfer* pUpload)
 	POSITION pos = m_pList.Find( pUpload );
 	ASSERT( pos != NULL );
 	m_pList.RemoveAt( pos );
-	UNUSED_ALWAYS( pos );
+//	UNUSED_ALWAYS( pos );
 }

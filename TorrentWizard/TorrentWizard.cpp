@@ -1,7 +1,7 @@
 //
 // TorrentWizard.cpp
 //
-// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2010
+// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2012
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
@@ -24,6 +24,15 @@
 #include "WizardSheet.h"
 #include "CmdLine.h"
 
+#include "PageWelcome.h"
+#include "PageExpert.h"
+#include "PageSingle.h"
+#include "PagePackage.h"
+#include "PageTracker.h"
+#include "PageComment.h"
+#include "PageOutput.h"
+#include "PageFinished.h"
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #undef THIS_FILE
@@ -31,7 +40,7 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 BEGIN_MESSAGE_MAP(CTorrentWizardApp, CWinApp)
-	ON_COMMAND(ID_HELP, CWinApp::OnHelp)
+	ON_COMMAND(ID_HELP, CTorrentWizardApp::OnHelp)
 END_MESSAGE_MAP()
 
 CTorrentWizardApp theApp;
@@ -42,6 +51,14 @@ CTorrentWizardApp theApp;
 
 CTorrentWizardApp::CTorrentWizardApp()
 {
+}
+
+void CTorrentWizardApp::OnHelp()
+{
+	CWinApp::OnHelp();
+//	ShellExecute( NULL, NULL, _T("http://peerproject.org/torrentwizard/") +
+//		static_cast< CWizardPage* >( m_pSheet->GetActivePage() )->m_sHelp,
+//		NULL, NULL, SW_SHOWNORMAL );
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -55,17 +72,17 @@ BOOL CTorrentWizardApp::InitInstance()
 	cmdInfo.GetOption( _T("sourcefile"), m_sCommandLineSourceFile );
 	cmdInfo.GetOption( _T("destination"), m_sCommandLineDestination );
 	cmdInfo.GetOption( _T("tracker"), m_sCommandLineTracker );
+	cmdInfo.GetOption( _T("comment"), m_sCommandLineComment );
 
 	if( ! m_sCommandLineSourceFile.IsEmpty() &&
 		! m_sCommandLineDestination.IsEmpty() &&
 		! m_sCommandLineTracker.IsEmpty() )
 	{
-		m_bCommandLine = TRUE;
+		if ( m_sCommandLineComment.IsEmpty() )
+			m_sCommandLineComment = _T("http://peerproject.org/");
 	}
 	else
 	{
-		m_bCommandLine = FALSE;
-
 		// Test prior app instance for non-commandline
 		HANDLE pMutex = CreateMutex( NULL, FALSE, _T("Global\\TorrentWizard") );
 		if ( GetLastError() == ERROR_ALREADY_EXISTS )
@@ -80,16 +97,15 @@ BOOL CTorrentWizardApp::InitInstance()
 			//}
 
 			if ( MessageBox( NULL,
-				(LPCWSTR)L"TorrentWizard is currently running.\nDo you want to open a new window?",
+				(LPCWSTR)L"TorrentWizard is currently running.\nDo you wish to open a new window?",
 				(LPCWSTR)L"PeerProject TorrentWizard",
 				MB_ICONQUESTION | MB_OKCANCEL | MB_SETFOREGROUND ) == IDCANCEL )
 			{
 				CloseHandle( pMutex );
-
 				return FALSE;
 			}
 		}
-		// else Continue
+		// else Continue...
 	}
 
 	SetRegistryKey( _T("PeerProject") );
@@ -97,7 +113,28 @@ BOOL CTorrentWizardApp::InitInstance()
 	InitEnvironment();
 	InitResources();
 
-	CWizardSheet::Run();
+	CWizardSheet	pSheet;
+	CWelcomePage	pWelcome;
+	CExpertPage		pExpert;
+	CSinglePage		pSingle;
+	CPackagePage	pPackage;
+	CTrackerPage	pTracker;
+	CCommentPage	pComment;
+	COutputPage		pOutput;
+	CFinishedPage	pFinished;
+
+	m_pSheet = &pSheet;
+
+	pSheet.AddPage( &pWelcome );
+	pSheet.AddPage( &pExpert );
+	pSheet.AddPage( &pSingle );
+	pSheet.AddPage( &pPackage );
+	pSheet.AddPage( &pTracker );
+	pSheet.AddPage( &pComment );
+	pSheet.AddPage( &pOutput );
+	pSheet.AddPage( &pFinished );
+
+	pSheet.DoModal();
 
 	return FALSE;
 }
@@ -141,11 +178,12 @@ void CTorrentWizardApp::InitEnvironment()
 	m_sVersion.Format( _T("%i.%i.%i.%i"),
 		m_nVersion[0], m_nVersion[1], m_nVersion[2], m_nVersion[3] );
 
-	OSVERSIONINFO pVersion;
-	pVersion.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
-	GetVersionEx( &pVersion );
-
-	m_bNT = ( pVersion.dwPlatformId == VER_PLATFORM_WIN32_NT );
+	// Obsolete:
+	//OSVERSIONINFO pVersion;
+	//pVersion.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
+	//GetVersionEx( &pVersion );
+	//
+	//m_bNT = ( pVersion.dwPlatformId == VER_PLATFORM_WIN32_NT );
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -153,12 +191,10 @@ void CTorrentWizardApp::InitEnvironment()
 
 void CTorrentWizardApp::InitResources()
 {
-	BOOL bVista = FALSE;
 	OSVERSIONINFO pVersion;
 	pVersion.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
 	GetVersionEx( &pVersion );
-	if ( pVersion.dwMajorVersion > 5 )
-		bVista = TRUE;
+	const BOOL bVista = pVersion.dwMajorVersion > 5;
 
 	m_fntNormal.CreateFont( -11, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,

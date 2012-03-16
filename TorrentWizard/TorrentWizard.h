@@ -1,7 +1,7 @@
 //
 // TorrentWizard.h
 //
-// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008
+// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008,2012
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
@@ -22,6 +22,8 @@
 #pragma once
 
 #include "Resource.h"
+#include "WizardSheet.h"
+
 
 class CTorrentWizardApp : public CWinApp
 {
@@ -34,32 +36,33 @@ public:
 	CString		m_sPath;
 	CString		m_sVersion;
 	WORD		m_nVersion[4];
-	BOOL		m_bNT;
 	CFont		m_fntNormal;
 	CFont		m_fntBold;
 	CFont		m_fntLine;
 	CFont		m_fntTiny;
 
-	BOOL		m_bCommandLine;
 	CString		m_sCommandLineSourceFile;
 	CString		m_sCommandLineDestination;
 	CString		m_sCommandLineTracker;
-	
+	CString		m_sCommandLineComment;
+
 // Operations
 protected:
+	CWizardSheet*	m_pSheet;
+
 	void		InitEnvironment();
 	void		InitResources();
-	
+
 // Overrides
-public:
+protected:
 	//{{AFX_VIRTUAL(CTorrentWizardApp)
-	public:
 	virtual BOOL InitInstance();
 	//}}AFX_VIRTUAL
 
 // Implementation
 protected:
 	//{{AFX_MSG(CTorrentWizardApp)
+	afx_msg void OnHelp();
 	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()

@@ -839,7 +839,8 @@ void CDownloadsCtrl::OnSize(UINT nType, int cx, int cy)
 
 		nHeight ++;
 
-		if ( ! pDownload->m_bExpanded || ( pDownload->IsSeeding() && ! Settings.General.DebugBTSources ) ) continue;
+		if ( ! pDownload->m_bExpanded || ( pDownload->IsSeeding() && ! Settings.General.DebugBTSources ) )
+			continue;
 
 		if ( Settings.Downloads.ShowSources )
 		{
@@ -851,7 +852,7 @@ void CDownloadsCtrl::OnSize(UINT nType, int cx, int cy)
 			{
 				CDownloadSource* pSource = pDownload->GetNext( posSource );
 
-				if ( Settings.Downloads.ShowSources || pSource->IsConnected() )
+				if ( /*Settings.Downloads.ShowSources ||*/ pSource->IsConnected() )
 					nHeight ++;
 			}
 		}

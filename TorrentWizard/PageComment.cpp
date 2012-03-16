@@ -1,7 +1,7 @@
 //
 // PageComment.cpp
 //
-// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008
+// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008,2012
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
@@ -44,13 +44,12 @@ END_MESSAGE_MAP()
 CCommentPage::CCommentPage() : CWizardPage(CCommentPage::IDD)
 {
 	//{{AFX_DATA_INIT(CCommentPage)
-	m_sComment = _T("");
 	//}}AFX_DATA_INIT
 }
 
-CCommentPage::~CCommentPage()
-{
-}
+//CCommentPage::~CCommentPage()
+//{
+//}
 
 void CCommentPage::DoDataExchange(CDataExchange* pDX)
 {
@@ -65,12 +64,22 @@ void CCommentPage::DoDataExchange(CDataExchange* pDX)
 
 void CCommentPage::OnReset()
 {
-	// Nothing here
 }
 
 BOOL CCommentPage::OnSetActive()
 {
 	SetWizardButtons( PSWIZB_BACK | PSWIZB_NEXT );
+
+	if ( ! theApp.m_sCommandLineComment.IsEmpty() )
+	{
+		m_sComment = theApp.m_sCommandLineComment;
+		theApp.m_sCommandLineComment.Empty();
+
+		Next();
+	}
+
+	UpdateData( FALSE );
+
 	return CWizardPage::OnSetActive();
 }
 

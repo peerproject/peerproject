@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Greek Skin File -->
 
-<!-- Translation based on default-en.xml r74 -->
+<!-- Translation based on default-en.xml r75 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -369,6 +369,7 @@
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="ED2K"/>
 		<button id="ID_NETWORK_DC" text="DC++"/>
+		<button id="ID_NETWORK_BT" text="BitTorrent"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Ρυθμίσεις"/>
 	</toolbar>
@@ -426,6 +427,12 @@
 		<button id="ID_CHAT_DISCONNECT" text="Αποσύνδεση"/>
 	</toolbar>
 	<!-- WEBSERVICES -->
+	<toolbar name="WebServices.MusicBrainz">
+		<button id="ID_MUSICBRAINZ_MATCHES" text="Προβολή Όμοιων Album"/>
+		<button id="ID_MUSICBRAINZ_ALBUMS" text="Προβολή Όλων των Album"/>
+		<separator/>
+	</toolbar>
+	<!--
 	<toolbar name="WebServices.ShareMonkey">
 		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Λήψη Δεδομένων"/>
 		<separator/>
@@ -448,11 +455,7 @@
 		<button id="ID_SHAREMONKEY_COMPARE" text="Σύγκριση"/>
 		<button id="ID_SHAREMONKEY_BUY" text="Αγορά"/>
 	</toolbar>
-	<toolbar name="WebServices.MusicBrainz">
-		<button id="ID_MUSICBRAINZ_MATCHES" text="Προβολή Όμοιων Album"/>
-		<button id="ID_MUSICBRAINZ_ALBUMS" text="Προβολή Όλων των Album"/>
-		<separator/>
-	</toolbar>
+	-->
 	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
 		<button id="PluginID_ImageViewer_FullSize" text="Πραγματικό Μέγεθος"/>
@@ -511,6 +514,7 @@
 				<item id="ID_NETWORK_G1" text="Σύνδεση στο _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Σύνδεση στο _ED2K"/>
 				<item id="ID_NETWORK_DC" text="Σύνδεση στο _DC++"/>
+				<item id="ID_NETWORK_BT" text="Σύνδεση στο _BitTorrent"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="Σύνδεση _ με..." shortcut="Ctrl+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="_Περιήγηση Host..."/>
@@ -612,6 +616,7 @@
 			<item id="ID_NETWORK_G1" text="Σύνδεση στο _Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="Σύνδεση στο _ED2K"/>
 			<item id="ID_NETWORK_DC" text="Σύνδεση στο _DC++"/>
+			<item id="ID_NETWORK_BT" text="Σύνδεση στο _BitTorrent"/>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Σύνδεση _ με..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="_Περιήγηση Host..."/>
@@ -789,6 +794,7 @@
 			<item id="ID_NETWORK_G1" text="Σύνδεση στο _Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="Σύνδεση στο _ED2K"/>
 			<item id="ID_NETWORK_DC" text="Σύνδεση στο _DC++"/>
+			<item id="ID_NETWORK_BT" text="Σύνδεση στο _BitTorrent"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Έξοδος _Μετά τις Μεταφορές"/>
 			<item id="ID_NETWORK_EXIT" text="Έ_ξοδος"/>
@@ -1581,6 +1587,7 @@
 			<item id="ID_NETWORK_G1" text="Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="ED2K"/>
 			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<item id="ID_NETWORK_BT" text="_BitTorrent"/>
 			<separator/>
 			<item id="ID_VIEW_DISCOVERY" text="Ανα_κάλυψη"/>
 			<item id="ID_VIEW_HOSTS" text="H_ost Cache"/>
@@ -1706,7 +1713,7 @@
 	<menu name="WebServices.List.Menu">
 		<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Bitzi"/>
 		<item id="ID_WEBSERVICES_MUSICBRAINZ" text="_MusicBrainz"/>
-		<item id="ID_WEBSERVICES_SHAREMONKEY" text="_ShareMonkey"/>
+		<!--item id="ID_WEBSERVICES_SHAREMONKEY" text="_ShareMonkey"-->
 	</menu>
 </menus>
 <!-- Documents -->
@@ -2569,6 +2576,7 @@
 	<tip id="ID_NETWORK_EXIT" message="Έξοδος από το PeerProject."/>
 	<tip id="ID_NETWORK_ED2K" message="Σύνδεση στο δίκτυο ED2K."/>
 	<tip id="ID_NETWORK_DC" message="Σύνδεση στο δίκτυο DC++."/>
+	<tip id="ID_NETWORK_BT" message="Σύνδεση στο δίκτυο BitTorrent."/>
 	<tip id="ID_NETWORK_G1" message="Σύνδεση στο δίκτυο Gnutella."/>
 	<tip id="ID_NETWORK_G2" message="Σύνδεση στο δίκτυο Gnutella2 (συνιστώμενη)."/>
 	<tip id="ID_NETWORK_SEARCH" message="Έναρξη νέας αναζήτησης στο δίκτυο..."/>
@@ -2655,7 +2663,7 @@
 	<tip id="ID_UPLOADS_LAUNCH" message="Άνοιγμα των επιλεγμένων αρχείων."/>
 	<tip id="ID_UPLOADS_SETTINGS" message="Παραμετροποίηση ρυθμίσεων αποστολών..."/>
 	<tip id="ID_UPLOADS_START" message="Αγνόηση ουρών και άμεση εκκίνηση επιλεγμένων αποστολών."/>
-	<tip id="ID_UPLOADS_PRIORITY" message="προτεραιότητα ."/>
+	<tip id="ID_UPLOADS_PRIORITY" message="προτεραιότητα."/>
 	<tip id="ID_VIEW_BASIC" message="Εμφάνιση του PeerProject στη Βασική μορφή."/>
 	<tip id="ID_VIEW_DISCOVERY" message="Εναλλαγή παραθύρου Υπηρεσιών Ανακάλυψης."/>
 	<tip id="ID_VIEW_DOWNLOADS" message="Εναλλαγή παραθύρου Λήψεων."/>
@@ -2682,7 +2690,7 @@
 	<tip id="ID_WINDOW_TILE_VERT" message="Κάθετη παράθεση όλων τα ανοικτών παραθύρων ως μη αλληλοεπικαλυπτόμενα πλακίδια."/>
 	<tip id="ID_WINDOW_TOOLBAR" message="Προβολή της μικρής μπάρας πλοήγησης."/>
 	<tip id="ID_WEBSERVICES_LIST" message="Επιλέξτε τις υπηρεσίες διαδικτύου, για να λάβετε περισσότερες πληροφορίες για το επιλεγόμενο αρχείο"/>
-	<tip id="ID_WEBSERVICES_SHAREMONKEY" message="Κάντε έρευνα για τις πληροφορίες αρχείου, χρησιμοποιώντας την υπηρεσία ShareMonkey"/>
+	<!--tip id="ID_WEBSERVICES_SHAREMONKEY" message="Κάντε έρευνα για τις πληροφορίες αρχείου, χρησιμοποιώντας την υπηρεσία ShareMonkey"-->
 	<!-- PLUGIN TIPS -->
 	<tip id="PluginID_ImageViewer_BestFit" message="Προσαρμογή του μεγέθους της εικόνας ώστε να χωρέσει στο παράθυρο."/>
 	<tip id="PluginID_ImageViewer_FullSize" message="Προβολή της εικόνας στο φυσικό της μέγεθος."/>
@@ -2860,8 +2868,8 @@
 	<string id="20202" value="Κλείσιμο σύνδεσης με %s, λόγω παραλαβής εσφαλμένης σύνδεσης προώθησης."/>
 	<string id="20203" value="Ενίσχυση λήψης &quot;%s&quot; μέσω αφαίρεσης ορίων ταχύτητας."/>
 	<string id="20204" value="Ο host %s είναι απασχολημένος, νέα προσπάθεια σε %i δευτερόλεπτα."/>
-	<string id="20205" value="Αδυναμία μετακίνησης αρχείου &quot;%s&quot; στο &quot;%s&quot;. Ελέγξτε ότι δεν χρησιμοποιείται (στον φάκελο ημιτελών) και ότι ο φάκελος ληφθέντων υπάρχει και είναι εγγράψιμος."/>
-	<string id="20206" value="Αδυναμία ανάλυσης του &quot;%s&quot;."/>
+	<string id="20205" value="Ανεπαρκής χώρος στον δίσκο για λήψη του &quot;%s&quot; (%s)."/>
+	<string id="20206" value="Αδυναμία μετακίνησης αρχείου &quot;%s&quot; στο &quot;%s&quot;. Ελέγξτε ότι δεν χρησιμοποιείται (στον φάκελο ημιτελών) και ότι ο φάκελος ληφθέντων υπάρχει και είναι εγγράψιμος."/>
 	<string id="20207" value="Θέλετε σίγουρα να διαγράψετε όλες τις λήψεις σε αυτήν την ομάδα;"/>
 	<string id="20208" value="Κλείσιμο σύνδεσης λήψης από %s, καθώς δεν απαιτείται πλέον."/>
 	<string id="20209" value="Κλείσιμο σύνδεσης με host %s, λόγω αποστολής αυθαίρετων δεδομένων."/>
@@ -2874,23 +2882,18 @@
 	<string id="20216" value="Αδυναμία σύνδεσης για λήψη από τον host %s."/>
 	<string id="20217" value="Παραλαβή τεμαχίων από host %s (%s)."/>
 	<string id="20218" value="Διακοπή λήψης του &quot;%s&quot; από %s (%s), λόγω απενεργοποιημένου δικτύου."/>
-	<string id="20219" value="Ανεπαρκής χώρος στον δίσκο για λήψη του &quot;%s&quot; (%s)."/>
-	<string id="20220" value="Απώλεια σύνδεσης λήψης από %s."/>
-	<string id="20222" value="Εισάγατε μη έγκυρο ED2K hash. Παρακαλώ ελέγξτε το και ξαναπροσπαθήστε."/>
-	<string id="20224" value="Παρακαλώ εισάγεται μια έγκυρη σειρά προς διαγραφή. Το πεδίο &quot;από&quot; είναι το πρώτο byte που θα διαγραφεί και το πεδίο &quot;ως και&quot; είναι το τελευταίο."/>
-	<string id="20225" value="Εισάγατε μη έγκυρο SHA1. Παρακαλώ ελέγξτε το και ξαναπροσπαθήστε."/>
-	<string id="20226" value="Εισάγατε μη έγκυρο tiger-tree ρίζας. Παρακαλώ ελέγξτε το και ξαναπροσπαθήστε."/>
-	<string id="20227" value="Αλλάξατε το μέγεθος του αρχείου. Είστε σίγουροι;"/>
-	<string id="20228" value="Αδυναμία διαγραφής της καθορισμένης σειράς από τη λήψη, επειδή δεν περιέχει κανένα τεμάχιο."/>
-	<string id="20231" value="Εισάγατε ένα SHA1 διαφορετικό από το τρέχον της λήψης! Θέλετε σίγουρα να το αλλάξετε τώρα;"/>
-	<string id="20232" value="Εισάγατε ένα ED2K hash διαφορετικό από το τρέχον της λήψης! Θέλετε σίγουρα να το αλλάξετε τώρα;"/>
-	<string id="20233" value="Εισάγατε ένα tiger-tree ρίζας διαφορετικό από το τρέχον της λήψης! Θέλετε σίγουρα να το αλλάξετε τώρα;"/>
-	<string id="20235" value="Αδυναμία θεώρησης της λήψης ως ολοκληρωμένης και επαναεπαλήθευσής της, λόγω έλλειψης δεδομένων μερικής επαλήθευσης, όπως tiger-tree volume, ED2K hashset ή BitTorrent hashset. Χωρίς πληροφορία επαλήθευσης, η λήψη δεν μπορεί να επαναεπαληθευθεί."/>
-	<string id="20236" value="Θέλετε σίγουρα να θεωρηθεί αυτή η λήψη ως ολοκληρωμένη και να επαναεπαληθευθεί; Το σύνολο του αρχείου θα σαρωθεί, όσα τμήματα επαληθευθούν θα κρατηθούν και τα υπόλοιπα θα ξαναληφθούν."/>
-	<string id="20237" value="Θέλετε σίγουρα αποΑπολησμόνηση όλων των πηγών των επιλεγμένων λήψεων;"/>
-	<string id="20238" value="Θέλετε σίγουρα αποΑπολησμόνηση της τρέχουσας κατάστασης επαλήθευσης; Όλα τα ληφθέντα δεδομένα θα αντιμετωπιστούν ως αφερέγγυα και τα cached hashtrees και hashsets θα διαγραφούν!"/>
-	<string id="20240" value="Διαγράφηκαν %I64i bytes από τη λήψη."/>
-	<string id="20241" value="Αλλάξατε το όνομα του αρχείου. Είστε σίγουροι;"/>
+	<string id="20219" value="Απώλεια σύνδεσης λήψης από %s."/>
+	<string id="20221" value="Παρακαλώ εισάγεται μια έγκυρη σειρά προς διαγραφή. Το πεδίο &quot;από&quot; είναι το πρώτο byte που θα διαγραφεί και το πεδίο &quot;ως και&quot; είναι το τελευταίο."/>
+	<string id="20222" value="Εισάγατε μη έγκυρο %s hash. Παρακαλώ ελέγξτε το και ξαναπροσπαθήστε."/>
+	<string id="20223" value="Εισάγατε ένα %s διαφορετικό από το τρέχον της λήψης! Θέλετε σίγουρα να το αλλάξετε τώρα;"/>
+	<string id="20224" value="Αλλάξατε το όνομα του αρχείου. Είστε σίγουροι;"/>
+	<string id="20225" value="Αλλάξατε το μέγεθος του αρχείου. Είστε σίγουροι;"/>
+	<string id="20226" value="Αδυναμία θεώρησης της λήψης ως ολοκληρωμένης και επαναεπαλήθευσής της, λόγω έλλειψης δεδομένων μερικής επαλήθευσης, όπως tiger-tree volume, ED2K hashset ή BitTorrent hashset. Χωρίς πληροφορία επαλήθευσης, η λήψη δεν μπορεί να επαναεπαληθευθεί."/>
+	<string id="20227" value="Θέλετε σίγουρα να θεωρηθεί αυτή η λήψη ως ολοκληρωμένη και να επαναεπαληθευθεί; Το σύνολο του αρχείου θα σαρωθεί, όσα τμήματα επαληθευθούν θα κρατηθούν και τα υπόλοιπα θα ξαναληφθούν."/>
+	<string id="20228" value="Θέλετε σίγουρα αποΑπολησμόνηση της τρέχουσας κατάστασης επαλήθευσης; Όλα τα ληφθέντα δεδομένα θα αντιμετωπιστούν ως αφερέγγυα και τα cached hashtrees και hashsets θα διαγραφούν!"/>
+	<string id="20229" value="Θέλετε σίγουρα αποΑπολησμόνηση όλων των πηγών των επιλεγμένων λήψεων;"/>
+	<string id="20231" value="Αδυναμία διαγραφής της καθορισμένης σειράς από τη λήψη, επειδή δεν περιέχει κανένα τεμάχιο."/>
+	<string id="20232" value="Διαγράφηκαν %I64i bytes από τη λήψη."/>
 	<string id="20242" value="Μη κατοχή από τον host %s του αρχείου &quot;%s&quot;."/>
 	<string id="20243" value="Δημιουργία αρχείου &quot;%s&quot; για λήψη."/>
 	<string id="20244" value="Ματαίωση λήψης, λόγω αδυναμίας δημιουργίας τοπικού αρχείου &quot;%s&quot;."/>
@@ -2921,9 +2924,10 @@
 	<string id="20271" value="Ολοκλήρωση λήψης &quot;%s&quot; και μετακίνησής του στο &quot;%s&quot;."/>
 	<string id="20272" value="Παύση λήψης &quot;%s&quot;."/>
 	<string id="20273" value="Συνέχιση λήψης &quot;%s&quot;."/>
-	<string id="20274" value="Ανάλυση του &quot;%s&quot; για λήψη του &quot;%s&quot;..."/>
 	<string id="20275" value="Εκζήτηση επιπλέον πηγών για τη λήψη &quot;%s&quot; σε %i συνδέσεις..."/>
 	<string id="20276" value="Αδυναμία αναζήτησης περισσοτέρων πηγών για τη λήψη του &quot;%s&quot;, λόγω μη σύνδεσης στο δίκτυο."/>
+	<!--string id="20277" value="Ανάλυση του &quot;%s&quot; για λήψη του &quot;%s&quot;..."-->
+	<!--string id="20278" value="Αδυναμία ανάλυσης του &quot;%s&quot;."-->
 	<string id="20280" value="Αγνόηση tiger-tree, λόγω φθοράς ή εσωτερικής ασυνέπειάς του."/>
 	<string id="20281" value="Ασυμφωνία tiger-tree και προσδοκόμενης τιμής ρίζας."/>
 	<string id="20282" value="Αδυναμία ικανοποίησης από τον host %s της αίτησης tiger-tree."/>
@@ -3178,7 +3182,7 @@
 	<string id="20570" value="Αγνόηση δύσμορφου ερωτηματικού πακέτου εύρεσης από %s."/>
 	<string id="20571" value="%s:  Αγνόηση δύσμορφου ερωτηματικού πακέτου από %s."/>
 	<string id="20572" value="Απόρριψη πακέτου με υπερβολικό TTL, προωθημένο από τον γείτονα %s (TTL=%i, Hops=%i)."/>
-	<string id="20573" value="Αγνόηση πακέτου με μηδενικό TTL, προωθημένο από τον γείτονα %s."/>
+	<!--string id="20573" value="Αγνόηση πακέτου με μηδενικό TTL, προωθημένο από τον γείτονα %s."-->
 	<string id="20574" value="Μη κωδικοποιημένο κατά GGEP εκτεταμένο πακέτο, προωθημένο από τον γείτονα %s."/>
 	<string id="20575" value="Απόρριψη σύνδεσης με τον γείτονα %s, λόγω αποστολής μη έγκυρης ενημέρωσης πίνακα δρομολόγησης ερωτημάτων."/>
 	<string id="20576" value="Αποστολή πίνακα δρομολόγησης ερωτημάτων προς τον γείτονα %s (%i bit = %lu[%i], %i%% full)"/>
@@ -3374,7 +3378,7 @@
 	<string id="20834" value="Μη διαθέσιμη αιτηθήσα προεπισκόπηση από τον host %s του &quot;%s&quot;."/>
 	<string id="20835" value="Αποστολή προεπισκόπησης του &quot;%s&quot; προς %s."/>
 	<string id="20836" value="Άρνηση αίτησης προώθησης προς %s, επειδή έχει πάρα πολλές συνδέσεις αποστολής."/>
-	<string id="20837" value="Σύνδεση με %s, παρά την παρωχημένη του αίτηση προώθησης για ένα άγνωστο αρχείο..."/>
+	<!--string id="20837" value="Σύνδεση με %s, παρά την παρωχημένη του αίτηση προώθησης για ένα άγνωστο αρχείο..."-->
 	<string id="20838" value="Έλλειψη πόρων για αποστολή του &quot;%s&quot; προς %s, ανάρτηση της αποστολής στο #%i του %i (&quot;%s&quot;.."/>
 	<string id="20840" value="Απώλεια σύνδεσης αποστολής προς %s, διατήρηση θέσης του στην ουρά."/>
 	<string id="20841" value="Νέα Ουρά"/>
@@ -3404,7 +3408,7 @@
 	<string id="20866" value="Όνομα Αρχείου:"/>
 	<string id="20867" value="Host:"/>
 	<string id="20868" value="Θύρα:"/>
-	<string id="20869" value="Αδυναμία εμφάνισης URL action dialog, λόγω φόρτου."/>
+	<!--string id="20869" value="Αδυναμία εμφάνισης URL action dialog, λόγω φόρτου."-->
 	<string id="20870" value="Αδυναμία ανάλυσης URL: Μη κατανοητό URL."/>
 	<string id="20871" value="Ληφθέντες URL &quot;%s&quot;"/>
 	<string id="20872" value="Τύπος:"/>
@@ -3747,7 +3751,7 @@
 		<control caption="Λήψη λίστας servers του ED2K από τον Ιστό:"/>
 		<control caption="Λήψη..."/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="Συνδέσεις _Λήψης:"/>
 		<control/>
 		<control/>
@@ -3755,6 +3759,7 @@
 		<control/>
 		<control/>
 		<control caption="Συνδέσεις Client"/>
+		<control caption="Ενεργοποίηση BitTorrent DHT"/>
 		<control caption="Προτίμηση πηγών torrent"/>
 		<control caption="_Παιχνίδι Τέλους:"/>
 		<control caption="Με την ολοκλήρωση ενός torrent, ενεργ. λειτουργίας Παιχνιδιού Τέλους"/>
@@ -4471,7 +4476,7 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackers">
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBuBuBu" caption="Trackers">
 		<control/>
 		<control/>
 		<control/>
@@ -4482,6 +4487,8 @@
 		<control caption="Κατάσταση Tracker:"/>
 		<control caption="Απενεργοποιημένος|Προσαρμοσμένος|Μονός Tracker|Πολλαπλός Tracker|Πολλαπλός Tracker (κλειδωμένος)"/>
 		<control caption="_Ανανέωση"/>
+		<control caption="_Προσθήκη"/>
+		<control caption="_Αφαίρεση"/>
 	</dialog>
 	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="BitTorrent">
 		<control/>

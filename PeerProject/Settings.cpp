@@ -194,6 +194,7 @@ void CSettings::Load()
 	Add( _T("Library"), _T("PanelSize"), &Library.PanelSize, 120, 1, 0, 1024, _T(" px") );
 	Add( _T("Library"), _T("URLExportFormat"), &Library.URLExportFormat, _T("<a href=\"magnet:?xt=urn:bitprint:[SHA1].[TIGER]&amp;xt=urn:ed2khash:[ED2K]&amp;xt=urn:md5:[MD5]&amp;xl=[ByteSize]&amp;dn=[NameURI]\">[Name]</a><br>") );
 	Add( _T("Library"), _T("UseCustomFolders"), &Library.UseCustomFolders, true );
+	Add( _T("Library"), _T("UseWindowsLibrary"), &Library.UseWindowsLibrary, theApp.m_nWinVer >= WIN_7 );
 	Add( _T("Library"), _T("UseFolderGUID"), &Library.UseFolderGUID, true );
 	Add( _T("Library"), _T("VirtualFiles"), &Library.VirtualFiles, false );
 	Add( _T("Library"), _T("WatchFolders"), &Library.WatchFolders, true );
@@ -205,10 +206,10 @@ void CSettings::Load()
 	Add( _T("WebServices"), _T("BitziWebSubmit"), &WebServices.BitziWebSubmit, _T("http://bitzi.com/lookup/(SHA1).(TTH)?fl=(SIZE)&ff=(FIRST20)&fn=(NAME)&tag.ed2k.ed2khash=(ED2K)&(INFO)&a=(AGENT)&v=Q0.4&ref=peerproject") );
 	Add( _T("WebServices"), _T("BitziWebView"), &WebServices.BitziWebView, _T("http://bitzi.com/lookup/(URN)?v=detail&ref=peerproject") );
 	Add( _T("WebServices"), _T("BitziXML"), &WebServices.BitziXML, _T("http://ticket.bitzi.com/rdf/(SHA1)") );
-	Add( _T("WebServices"), _T("ShareMonkeyCid"), &WebServices.ShareMonkeyCid );
-	Add( _T("WebServices"), _T("ShareMonkeyOkay"), &WebServices.ShareMonkeyOkay, false, true );
-	Add( _T("WebServices"), _T("ShareMonkeySaveThumbnail"), &WebServices.ShareMonkeySaveThumbnail, false, true );
-	Add( _T("WebServices"), _T("ShareMonkeyBaseURL"), &WebServices.ShareMonkeyBaseURL, _T("http://tools.sharemonkey.com/xml/") );	// Obsolete: Does not exist!
+//	Add( _T("WebServices"), _T("ShareMonkeyCid"), &WebServices.ShareMonkeyCid );
+//	Add( _T("WebServices"), _T("ShareMonkeyOkay"), &WebServices.ShareMonkeyOkay, false, true );
+//	Add( _T("WebServices"), _T("ShareMonkeySaveThumbnail"), &WebServices.ShareMonkeySaveThumbnail, false, true );
+//	Add( _T("WebServices"), _T("ShareMonkeyBaseURL"), &WebServices.ShareMonkeyBaseURL, _T("http://tools.sharemonkey.com/xml/") );	// Obsolete: Does not exist
 
 	Add( _T("Search"), _T("AdultFilter"), &Search.AdultFilter, false );
 	Add( _T("Search"), _T("AdvancedPanel"), &Search.AdvancedPanel, true );
@@ -269,7 +270,7 @@ void CSettings::Load()
 	Add( _T("Web"), _T("Piolet"), &Web.Piolet, true );
 
 	Add( _T("Connection"), _T("AutoConnect"), &Connection.AutoConnect, true );
-	Add( _T("Connection"), _T("ConnectThrottle"), &Connection.ConnectThrottle, 0, 1, 0, 1000, _T(" ms") );
+	Add( _T("Connection"), _T("ConnectThrottle"), &Connection.ConnectThrottle, 0, 1, 0, 5000, _T(" ms") );
 	Add( _T("Connection"), _T("DeleteFirewallException"), &Connection.DeleteFirewallException, false );
 	Add( _T("Connection"), _T("DeleteUPnPPorts"), &Connection.DeleteUPnPPorts, true );
 	Add( _T("Connection"), _T("DetectConnectionLoss"), &Connection.DetectConnectionLoss, true );
@@ -333,7 +334,7 @@ void CSettings::Load()
 	Add( _T("Discovery"), _T("UpdatePeriod"), &Discovery.UpdatePeriod, 30*60, 60, 1, 60*24, _T(" m") );
 
 	Add( _T("Gnutella"), _T("ConnectFactor"), &Gnutella.ConnectFactor, 4, 1, 1, 20, _T("x") );
-	Add( _T("Gnutella"), _T("ConnectThrottle"), &Gnutella.ConnectThrottle, 30, 1, 0, 3600, _T(" s") );
+	Add( _T("Gnutella"), _T("ConnectThrottle"), &Gnutella.ConnectThrottle, 30, 1, 0, 60*60, _T(" s") );
 	Add( _T("Gnutella"), _T("DeflateHub2Hub"), &Gnutella.DeflateHub2Hub, true );
 	Add( _T("Gnutella"), _T("DeflateHub2Leaf"), &Gnutella.DeflateHub2Leaf, true );
 	Add( _T("Gnutella"), _T("DeflateLeaf2Hub"), &Gnutella.DeflateLeaf2Hub, true );
@@ -426,7 +427,7 @@ void CSettings::Load()
 	Add( _T("eDonkey"), _T("ExtendedRequest"), &eDonkey.ExtendedRequest, 2, 1, 0, 2 );
 	Add( _T("eDonkey"), _T("FastConnect"), &eDonkey.FastConnect, false );
 	Add( _T("eDonkey"), _T("ForceHighID"), &eDonkey.ForceHighID, true );
-	Add( _T("eDonkey"), _T("FrameSize"), &eDonkey.FrameSize, 10*KiloByte, KiloByte, 1, 500, _T(" KB") );
+	Add( _T("eDonkey"), _T("FrameSize"), &eDonkey.FrameSize, 512*KiloByte, KiloByte, 1, 10*KiloByte, _T(" KB") );
 	Add( _T("eDonkey"), _T("GetSourcesThrottle"), &eDonkey.GetSourcesThrottle, 8*60*60*1000, 60*60*1000, 1, 24, _T(" h") );
 	Add( _T("eDonkey"), _T("LargeFileSupport"), &eDonkey.LargeFileSupport, true );
 	Add( _T("eDonkey"), _T("LearnNewServers"), &eDonkey.LearnNewServers, false );
@@ -465,6 +466,7 @@ void CSettings::Load()
 	Add( _T("BitTorrent"), _T("AutoSeed"), &BitTorrent.AutoSeed, true );
 	Add( _T("BitTorrent"), _T("BandwidthPercentage"), &BitTorrent.BandwidthPercentage, 90, 1, 40, 99, _T(" %") );
 	Add( _T("BitTorrent"), _T("ClearRatio"), &BitTorrent.ClearRatio, 120, 1, 100, 999, _T(" %") );
+	Add( _T("BitTorrent"), _T("ConnectThrottle"), &BitTorrent.ConnectThrottle, 6*60, 1, 0, 60*60, _T(" s") );	// DHT
 	Add( _T("BitTorrent"), _T("DefaultTracker"), &BitTorrent.DefaultTracker, _T("http://tracker.publicbt.com/announce") );
 	Add( _T("BitTorrent"), _T("DefaultTrackerPeriod"), &BitTorrent.DefaultTrackerPeriod, 5*60000, 60000, 2, 120, _T(" m") );
 	Add( _T("BitTorrent"), _T("DownloadConnections"), &BitTorrent.DownloadConnections, 40, 1, 1, 800 );
@@ -477,6 +479,7 @@ void CSettings::Load()
 	Add( _T("BitTorrent"), _T("LinkPing"), &BitTorrent.LinkPing, 120*1000, 1000, 10, 60*10, _T(" s") );
 	Add( _T("BitTorrent"), _T("LinkTimeout"), &BitTorrent.LinkTimeout, 180*1000, 1000, 10, 60*10, _T(" s") );
 	Add( _T("BitTorrent"), _T("HostExpire"), &BitTorrent.HostExpire, 60*24*60*60, 24*60*60, 1, 120, _T(" d") );	// DHT
+	Add( _T("BitTorrent"), _T("QueryHostDeadline"), &BitTorrent.QueryHostDeadline, 30, 1, 1, 60*60, _T(" s") );	// DHT
 	Add( _T("BitTorrent"), _T("UtPexPeriod"), &BitTorrent.UtPexPeriod, 60*1000, 1000, 10, 60*10, _T(" s") );
 	Add( _T("BitTorrent"), _T("RandomPeriod"), &BitTorrent.RandomPeriod, 30*1000, 1000, 1, 60*5, _T(" s") );
 	Add( _T("BitTorrent"), _T("RequestLimit"), &BitTorrent.RequestLimit, 128*KiloByte, KiloByte, 1, KiloByte, _T(" KB") );
@@ -1099,7 +1102,6 @@ void CSettings::SmartUpgrade()
 	//	{
 	//		WebServices.BitziOkay		= theApp.GetProfileInt( L"Library", L"BitziOkay", false ) != 0;
 	//		WebServices.ShareMonkeyCid	= theApp.GetProfileString( L"", L"ShareMonkeyCid", L"" );
-
 	//		// Delete old values
 	//		theApp.WriteProfileString( L"Library", L"BitziAgent", NULL );
 	//		theApp.WriteProfileString( L"Library", L"BitziWebSubmit", NULL );

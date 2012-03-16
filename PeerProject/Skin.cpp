@@ -107,6 +107,7 @@ void CSkin::CreateDefault()
 	m_nHeaderbarHeight	= 64;
 	m_nMonitorbarWidth	= 120;
 	m_nSidebarWidth 	= 200;
+	m_nSidebarPadding 	= 12;
 	m_nSplitter			= 6;
 	m_nButtonEdge		= 4;
 	m_nLibIconsX		= 220;
@@ -634,6 +635,10 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 			Text[ L"tabbar" ]		= 'k';
 			Text[ L"sidebar" ]		= 's';
 			Text[ L"sidepanel" ] 	= 's';
+			Text[ L"taskpanel" ] 	= 's';
+			Text[ L"taskboxpadding" ] = 'a';
+			Text[ L"sidebarpadding" ] = 'a';
+			Text[ L"sidebarmargin" ]  = 'a';
 			Text[ L"titlebar" ]		= 'h';
 			Text[ L"headerpanel" ]	= 'h';
 			Text[ L"groupsbar" ] 	= 'g';
@@ -728,11 +733,17 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 			else if ( ! strValue.IsEmpty() )
 				m_nTaskbarHeight = _wtoi(strValue);
 			break;
-		case 's':	// "Sidebar" or "SidePanel"
+		case 's':	// "Sidebar" or "SidePanel" or "TaskPanel"
 			if ( ! strWidth.IsEmpty() )
 				m_nSidebarWidth = _wtoi(strWidth);
 			else if ( ! strValue.IsEmpty() )
 				m_nSidebarWidth = _wtoi(strValue);
+			break;
+		case 'a':	// "SidebarMargin" or "SidebarPadding" or "TaskPanelPadding"
+			if ( ! strWidth.IsEmpty() )
+				m_nSidebarPadding = _wtoi(strWidth);
+			else if ( ! strValue.IsEmpty() )
+				m_nSidebarPadding = _wtoi(strValue);
 			break;
 		case 'h':	// "Titlebar" or "HeaderPanel"
 			if ( ! strHeight.IsEmpty() )
@@ -1054,10 +1065,8 @@ BOOL CSkin::CreateToolBar(LPCTSTR pszName, CCoolBarCtrl* pBar)
 		pBar->Copy( pBase );
 		return TRUE;
 	}
-	else
-	{
-		return FALSE;
-	}
+
+	return FALSE;
 }
 
 CCoolBarCtrl* CSkin::GetToolBar(LPCTSTR pszName) const
@@ -1559,42 +1568,38 @@ BOOL CSkin::Apply(LPCTSTR pszName, CDialog* pDialog, UINT nIconID, CToolTipCtrl*
 
 	if ( Settings.General.DialogScan )
 	{
-		CFile pFile;
+		CStdioFile pFile;
 
 		if ( pFile.Open( Settings.General.Path + _T("\\Dialogs.xml"), CFile::modeReadWrite ) )
 			pFile.Seek( 0, CFile::end );
 		else if ( ! pFile.Open( Settings.General.Path + _T("\\Dialogs.xml"), CFile::modeWrite|CFile::modeCreate ) )
 			return FALSE;
 		else
-			pFile.Write( "<dialogs>\r\n", 11 );
+			pFile.WriteString( _T("<dialogs>\r\n") );
 
-		pFile.Write( "\t<dialog name=\"", 15 );
-		int nBytes = WideCharToMultiByte( CP_ACP, 0, strName, strName.GetLength(), NULL, 0, NULL, NULL );
-		LPSTR pBytes = new CHAR[nBytes];
-		WideCharToMultiByte( CP_ACP, 0, strName, strName.GetLength(), pBytes, nBytes, NULL, NULL );
-		pFile.Write( pBytes, nBytes );
-		delete [] pBytes;
+		// Obsolete CFile method, for reference & deletion:
+		//pFile.Write( "\t<dialog name=\"", 15 );
+		//int nBytes = WideCharToMultiByte( CP_ACP, 0, strName, strName.GetLength(), NULL, 0, NULL, NULL );
+		//LPSTR pBytes = new CHAR[nBytes];
+		//WideCharToMultiByte( CP_ACP, 0, strName, strName.GetLength(), pBytes, nBytes, NULL, NULL );
+		//pFile.Write( pBytes, nBytes );
+		//delete [] pBytes;
 
-		pFile.Write( "\" cookie=\"", 10 );
-		nBytes = WideCharToMultiByte( CP_ACP, 0, strCaption, strCaption.GetLength(), NULL, 0, NULL, NULL );
-		pBytes = new CHAR[nBytes];
-		WideCharToMultiByte( CP_ACP, 0, strCaption, strCaption.GetLength(), pBytes, nBytes, NULL, NULL );
-		pFile.Write( pBytes, nBytes );
-		delete [] pBytes;
+		pFile.WriteString( _T("\t<dialog name=\"") );
+		pFile.WriteString( strName );
 
-		pFile.Write( "\" caption=\"", 11 );
+		pFile.WriteString( _T("\" cookie=\"") );
+		pFile.WriteString( strCaption );
+
+		pFile.WriteString( _T("\" caption=\"") );
 		pDialog->GetWindowText( strCaption );
 		strCaption.Replace( _T("\n"), _T("{n}") );
 		strCaption.Replace( _T("\r"), _T("") );
 		strCaption.Replace( _T("&"), _T("_") );
 		strCaption = CXMLNode::ValueToString( strCaption );
-		nBytes = WideCharToMultiByte( CP_ACP, 0, strCaption, strCaption.GetLength(), NULL, 0, NULL, NULL );
-		pBytes = new CHAR[nBytes];
-		WideCharToMultiByte( CP_ACP, 0, strCaption, strCaption.GetLength(), pBytes, nBytes, NULL, NULL );
-		pFile.Write( pBytes, nBytes );
-		delete [] pBytes;
+		pFile.WriteString( strCaption );
 
-		pFile.Write( "\">\r\n", 4 );
+		pFile.WriteString( _T("\">\r\n") );
 
 		for ( CWnd* pWnd = pDialog->GetWindow( GW_CHILD ) ; pWnd ; pWnd = pWnd->GetNextWindow() )
 		{
@@ -1644,23 +1649,18 @@ BOOL CSkin::Apply(LPCTSTR pszName, CDialog* pDialog, UINT nIconID, CToolTipCtrl*
 				strCaption.Replace( _T("\r"), _T("") );
 				strCaption.Replace( _T("&"), _T("_") );
 				strCaption = CXMLNode::ValueToString( strCaption );
-				pFile.Write( "\t\t<control caption=\"", 20 );
-				int nBytes = WideCharToMultiByte( CP_ACP, 0, strCaption, strCaption.GetLength(), NULL, 0, NULL, NULL );
-				LPSTR pBytes = new CHAR[nBytes];
-				WideCharToMultiByte( CP_ACP, 0, strCaption, strCaption.GetLength(), pBytes, nBytes, NULL, NULL );
-				pFile.Write( pBytes, nBytes );
-				delete [] pBytes;
-
-				pFile.Write( "\"/>\r\n", 5 );
+				pFile.WriteString( _T("\t\t<control caption=\"") );
+				pFile.WriteString( strCaption );
+				pFile.WriteString( _T("\"/>\r\n") );
 			}
 			else
 			{
-				pFile.Write( "\t\t<control/>\r\n", 10+4 );
+				pFile.WriteString( _T("\t\t<control/>\r\n") );
 			}
 		}
 
-		pFile.Write( "\t</dialog>\r\n", 12 );
-		pFile.Close();
+		pFile.WriteString( _T("\t</dialog>\r\n") );
+	//	pFile.Close();
 
 		return TRUE;
 	}

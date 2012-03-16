@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default German Skin File -->
 
-<!-- Translation based on default-en.xml r74 -->
+<!-- Translation based on default-en.xml r75 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -379,6 +379,7 @@
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<button id="ID_NETWORK_DC" text="DC++"/>
+		<button id="ID_NETWORK_BT" text="BitTorrent"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Netzwerkeinstellungen"/>
 	</toolbar>
@@ -453,6 +454,12 @@
 		<button id="ID_CHAT_DISCONNECT" text="Verbindung trennen"/>
 	</toolbar>
 	<!-- WEBSERVICES -->
+	<toolbar name="WebServices.MusicBrainz">
+		<button id="ID_MUSICBRAINZ_MATCHES" text="Treffer anzeigen" />
+		<button id="ID_MUSICBRAINZ_ALBUMS" text="Alle Alben ansehen" />
+		<separator />
+	</toolbar>
+	<!--
 	<toolbar name="WebServices.ShareMonkey">
 		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Daten holen" />
 		<separator />
@@ -475,11 +482,7 @@
 		<button id="ID_SHAREMONKEY_COMPARE" text="Vergleichen" />
 		<button id="ID_SHAREMONKEY_BUY" text="Kaufen" />
 	</toolbar>
-	<toolbar name="WebServices.MusicBrainz">
-		<button id="ID_MUSICBRAINZ_MATCHES" text="Treffer anzeigen" />
-		<button id="ID_MUSICBRAINZ_ALBUMS" text="Alle Alben ansehen" />
-		<separator />
-	</toolbar>
+	-->
 	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
 		<button id="PluginID_ImageViewer_FullSize" text="Originalgröße"/>
@@ -538,6 +541,7 @@
 				<item id="ID_NETWORK_G1" text="Mit _Gnutella verbinden"/>
 				<item id="ID_NETWORK_ED2K" text="Mit _eDonkey verbinden"/>
 				<item id="ID_NETWORK_DC" text="Mit _DC++ verbinden"/>
+				<item id="ID_NETWORK_BT" text="Mit _BitTorrent verbinden"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="Verbinden _mit..." shortcut="Strg+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="Benutzer _durchsuchen..."/>
@@ -609,7 +613,7 @@
 					<separator/>
 					<item id="ID_HELP_WEB_1" text="File Sharing Portal"/>
 					<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
-		 		</menu>
+				</menu>
 				<separator/> <!--
 				<item id="ID_HELP_VERSION_CHECK" text="Nach _Update suchen"/>
 				<item id="ID_HELP_DONATE" text="_An das PeerProjekt spenden"/>
@@ -631,6 +635,7 @@
 				<item id="ID_NETWORK_G1" text="Mit _Gnutella verbinden"/>
 				<item id="ID_NETWORK_ED2K" text="Mit _eDonkey verbinden"/>
 				<item id="ID_NETWORK_DC" text="Mit _DC++ verbinden"/>
+				<item id="ID_NETWORK_BT" text="Mit _BitTorrent verbinden"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Verbinden _mit..." shortcut="Strg+T"/>
@@ -810,6 +815,7 @@
 			<item id="ID_NETWORK_G1" text="Mit _Gnutella verbinden"/>
 			<item id="ID_NETWORK_ED2K" text="Mit _eDonkey verbinden"/>
 			<item id="ID_NETWORK_DC" text="Mit _DC++ verbinden"/>
+			<item id="ID_NETWORK_BT" text="Mit _BitTorrent verbinden"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="N_ach Transfer beenden"/>
 			<item id="ID_NETWORK_EXIT" text="_Beenden"/>
@@ -1616,6 +1622,7 @@
 			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
 			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<item id="ID_NETWORK_BT" text="_BitTorrent"/>
 			<separator/>
 			<item id="ID_VIEW_DISCOVERY" text="Service-_Provider"/>
 			<item id="ID_VIEW_HOSTS" text="H_ost-Cache"/>
@@ -1737,7 +1744,7 @@
 	<menu name="WebServices.List.Menu">
 		<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Bitzi"/>
 		<item id="ID_WEBSERVICES_MUSICBRAINZ" text="_MusicBrainz"/>
-		<item id="ID_WEBSERVICES_SHAREMONKEY" text="_ShareMonkey"/>
+		<!--item id="ID_WEBSERVICES_SHAREMONKEY" text="_ShareMonkey"-->
 	</menu>
 	<!-- PLUGIN MENUS -->
 	<menu name="ImageViewer_Context">
@@ -2618,6 +2625,7 @@
 	<tip id="ID_NETWORK_EXIT" message="PeerProjekt beenden" tip="Beenden"/>
 	<tip id="ID_NETWORK_ED2K" message="Zum eDonkey-Netzwerk verbinden."/>
 	<tip id="ID_NETWORK_DC" message="Zum DC++-Netzwerk verbinden."/>
+	<tip id="ID_NETWORK_BT" message="Zum BitTorrent-Netzwerk verbinden."/>
 	<tip id="ID_NETWORK_G1" message="Zum Gnutella1-Netzwerk verbinden."/>
 	<tip id="ID_NETWORK_G2" message="Zum Gnutella2-Netzwerk verbinden (empfohlen)."/>
 	<tip id="ID_NETWORK_SEARCH" message="Eine neue Suche starten..." tip="Eine neue Suche starten"/>
@@ -2686,7 +2694,7 @@
 	<tip id="ID_TRAFFIC_SETUP" message="Die zu überwachenden Elemente auswählen und konfigurieren..." tip="Graphen auswählen"/>
 	<tip id="ID_TRAFFIC_WINDOW" message="Ein neues Diagrammfenster öffnen..." tip="Neues Fenster"/>
 	<tip id="ID_TRANSFERS_CHAT" message="Eine Chatsitzung mit dem markierten Host beginnen." tip="Chat beginnen"/>
-	<tip id="ID_TRANSFERS_CONNECT" message="Versuchen, von der/den markierte(n) Quelle(n) runterzuladen ." tip="Quelle anfragen"/>
+	<tip id="ID_TRANSFERS_CONNECT" message="Versuchen, von der/den markierte(n) Quelle(n) runterzuladen." tip="Quelle anfragen"/>
 	<tip id="ID_TRANSFERS_DISCONNECT" message="Markierten Transfer abbrechen." tip="Verbindung trennen"/>
 	<tip id="ID_TRANSFERS_FORGET" message="Markierten Transfer abbrechen und Quelle vergessen." tip="Quelle entfernen"/>
 	<tip id="ID_TRAY_OPEN" message="Das PeerProjekt-Fenster öffnen." tip="Das PeerProjekt-Fenster öffnen"/>
@@ -2731,7 +2739,7 @@
 	<tip id="ID_WINDOW_TILE_VERT" message="Die geöffneten Fenster nebeneinander anordnen." tip="Nebeneinander"/>
 	<tip id="ID_WINDOW_TOOLBAR" message="Die Werkzeugleiste ein- oder ausblenden." tip="Werkzeugleiste anzeigen"/>
 	<tip id="ID_WEBSERVICES_LIST" message="Wählen Sie einen Internet-Dienst, um mehr Informationen über die gewählte Datei zu erhalten."/>
-	<tip id="ID_WEBSERVICES_SHAREMONKEY" message="Mit Sharemonkey nach vorhandenen Datei-Informationen suchen."/>
+	<!--tip id="ID_WEBSERVICES_SHAREMONKEY" message="Mit Sharemonkey nach vorhandenen Datei-Informationen suchen."-->
 	<!-- PLUGIN TIPS -->
 	<tip id="PluginID_ImageViewer_BestFit" message="Das Bild auf Fenstergröße skalieren."/>
 	<tip id="PluginID_ImageViewer_FullSize" message="Das Bild in Originalgröße anzeigen."/>
@@ -2909,8 +2917,8 @@
 	<string id="20202" value="Fehlerhafte Push-Verbindung von %s empfangen, Verbindung wird geschlossen."/>
 	<string id="20203" value="Der Download &quot;%s&quot; wird beschleunigt, indem die Zeitsteuerung deaktiviert wird."/>
 	<string id="20204" value="Download Host %s hat keine freien Slots, erneut versuchen in %i Sekunden."/>
-	<string id="20205" value="Der Download &quot;%s&quot; konnte nicht verschoben werden.  Überprüfen Sie ob die unvollständige Datei nicht in Gebrauch ist, und ob ihr Downloadverzeichnis existiert bzw. beschreibbar ist."/>
-	<string id="20206" value="Kann &quot;%s&quot; nicht auflösen."/>
+	<string id="20205" value="Nicht genügend Speicherplatz um &quot;%s&quot; herunterzuladen (%s)."/>
+	<string id="20206" value="Der Download &quot;%s&quot; konnte nicht verschoben werden.  Überprüfen Sie ob die unvollständige Datei nicht in Gebrauch ist, und ob ihr Downloadverzeichnis existiert bzw. beschreibbar ist."/>
 	<string id="20207" value="Sind Sie sicher, dass Sie alle Downloads dieser Gruppe abbrechen möchten?"/>
 	<string id="20208" value="Nicht mehr benötigte Verbindung zu %s geschlossen."/>
 	<string id="20209" value="Host %s hat unverlangte Daten gesendet, Verbindung geschlossen."/>
@@ -2923,27 +2931,22 @@
 	<string id="20216" value="Verbindung zum Herunterladen von %s kann nicht hergestellt werden."/>
 	<string id="20217" value="Herunterladen einer Datei von Host %s (%s)."/>
 	<string id="20218" value="Herunterladen von &quot;%s&quot; von %s (%s) abgebrochen, Netzwerk deaktiviert."/>
-	<string id="20219" value="Nicht genügend Speicherplatz um &quot;%s&quot; herunterzuladen (%s)."/>
-	<string id="20220" value="Download-Verbindung mit %s unterbrochen."/>
-	<string id="20222" value="Sie haben einen ungültigen eD2k-Hash angegeben. Bitte überprüfen Sie Ihre Eingabe und versuchen Sie es erneut."/>
-	<string id="20224" value="Bitte geben Sie einen gültigen Bereich zum Entfernen ein. Das &quot;von&quot;-Feld ist das erste zu löschende Byte, das &quot;bis&quot;-Feld ist das letzte zu löschende Byte."/>
-	<string id="20225" value="Sie haben einen ungültigen SHA1-Hash angegeben. Bitte überprüfen Sie Ihre Eingabe und versuchen Sie es erneut."/>
-	<string id="20226" value="Sie haben einen ungültigen TT-Root-Hash angegeben. Bitte überprüfen Sie Ihre Eingabe und versuchen Sie es erneut."/>
-	<string id="20227" value="Sie wollen Änderungen an der Dateigröße vornehmen. Sind Sie sicher, dass Sie die Dateigröße dieses Downloads ändern wollen?"/>
-	<string id="20228" value="Kann den gewählten Bereich nicht von dem Downlaod entfernen, weil keine Teile aus diesem Bereich vorhanden sind."/>
-	<string id="20231" value="Sie haben einen SHA1-Hash eingegeben, der sich von dem unterscheidet, der zur Zeit mit diesem Download verknüpft ist. Sind Sie sicher, dass Sie den SHA1-Hash jetzt ändern wollen?"/>
-	<string id="20232" value="Sie haben einen eD2k-Hash eingegeben, der sich von dem unterscheidet, der zur Zeit mit diesem Download verknüpft ist. Sind Sie sicher, dass Sie den ed2k-Hash jetzt ändern wollen?"/>
-	<string id="20233" value="Sie haben einen TT-Root-Has eingegeben, der sich von dem unterscheidet, der zur Zeit mit diesem Download verknüpft ist.  Sind Sie sicher, dass Sie den tiger-tree root-Hash jetzt ändern wollen?"/>
-	<string id="20235" value="Sie können diesen Download nicht als komplett annehemen und verifizieren, weil Sie keine Verifizierungsdaten (tiger-tree-Volumen, eD2k-Hashset oder BitTorrent-Hashset) haben. Ohne Verifizierungsinformationen kann der Download nicht erneut verifiziert werden."/>
-	<string id="20236" value="Sind Sie sicher, dass Sie diesen Download als komplett annehmen und neu verifizieren wollen?  Die ganze Datei wird untersucht und PeerProjekt wird die Teile akzeptieren, die die Verifizierung bestehen und die, die sie nicht bestehen neu herunterladen."/>
-	<string id="20237" value="Sind Sie sicher, dass Sie alle Quellen für den markierten Download vergessen wollen?"/>
-	<string id="20238" value="Sind Sie sicher, dass Sie den aktuellen Verifizierungsstatus vergessen wollen? Alle heruntergeladenen Daten werden als nicht verifiziert betrachtet und gepufferte Hashtrees und Hashsets werden gelöscht."/>
-	<string id="20240" value="%I64i Bytes vom Download entfernt."/>
-	<string id="20241" value="Sie haben das Namensfeld geändert. Sind Sie sicher, dass Sie diesen Download umbenennen wollen?"/>
+	<string id="20219" value="Download-Verbindung mit %s unterbrochen."/>
+	<string id="20221" value="Bitte geben Sie einen gültigen Bereich zum Entfernen ein. Das &quot;von&quot;-Feld ist das erste zu löschende Byte, das &quot;bis&quot;-Feld ist das letzte zu löschende Byte."/>
+	<string id="20222" value="Sie haben einen ungültigen %s-Hash angegeben. Bitte überprüfen Sie Ihre Eingabe und versuchen Sie es erneut."/>
+	<string id="20223" value="Sie haben einen %s-Hash eingegeben, der sich von dem unterscheidet, der zur Zeit mit diesem Download verknüpft ist. Sind Sie sicher, dass Sie den %s-Hash jetzt ändern wollen?"/>
+	<string id="20224" value="Sie haben das Namensfeld geändert. Sind Sie sicher, dass Sie diesen Download umbenennen wollen?"/>
+	<string id="20225" value="Sie wollen Änderungen an der Dateigröße vornehmen. Sind Sie sicher, dass Sie die Dateigröße dieses Downloads ändern wollen?"/>
+	<string id="20226" value="Sie können diesen Download nicht als komplett annehemen und verifizieren, weil Sie keine Verifizierungsdaten (tiger-tree-Volumen, eD2k-Hashset oder BitTorrent-Hashset) haben. Ohne Verifizierungsinformationen kann der Download nicht erneut verifiziert werden."/>
+	<string id="20227" value="Sind Sie sicher, dass Sie diesen Download als komplett annehmen und neu verifizieren wollen?  Die ganze Datei wird untersucht und PeerProjekt wird die Teile akzeptieren, die die Verifizierung bestehen und die, die sie nicht bestehen neu herunterladen."/>
+	<string id="20228" value="Sind Sie sicher, dass Sie den aktuellen Verifizierungsstatus vergessen wollen? Alle heruntergeladenen Daten werden als nicht verifiziert betrachtet und gepufferte Hashtrees und Hashsets werden gelöscht."/>
+	<string id="20229" value="Sind Sie sicher, dass Sie alle Quellen für den markierten Download vergessen wollen?"/>
+	<string id="20231" value="Kann den gewählten Bereich nicht von dem Downlaod entfernen, weil keine Teile aus diesem Bereich vorhanden sind."/>
+	<string id="20232" value="%I64i Bytes vom Download entfernt."/>
 	<string id="20242" value="Download-Host %s hat die Datei &quot;%s&quot; nicht."/>
 	<string id="20243" value="Datei &quot;%s&quot; für Download erstellt."/>
 	<string id="20244" value="Fehler beim Erstellen der lokalen Datei &quot;%s&quot; für Download, abgebrochen."/>
-	<string id="20245" value="Fehler beim Öffnen der lokalen Datei &quot;%s&quot; für Download, abgebrochen ."/>
+	<string id="20245" value="Fehler beim Öffnen der lokalen Datei &quot;%s&quot; für Download, abgebrochen."/>
 	<string id="20246" value="Keine weiteren Fragmente, Verbindung zu %s wird getrennt."/>
 	<string id="20247" value="Fragment gekürzt, Verbindung zu %s wird getrennt."/>
 	<string id="20248" value="Fragment (%I64u-%I64u) von &quot;%s&quot; von %s angefordert."/>
@@ -2970,9 +2973,10 @@
 	<string id="20271" value="&quot;%s&quot; nach &quot;%s&quot; verschoben, Download komplett."/>
 	<string id="20272" value="Download &quot;%s&quot; angehalten."/>
 	<string id="20273" value="Download &quot;%s&quot; wiederaufgenommen."/>
-	<string id="20274" value="&quot;%s&quot; zum Download von &quot;%s&quot; benutzen..."/>
 	<string id="20275" value="Nach zusätzlichen Quellen für Download &quot;%s&quot; auf %i Verbindung(en) suchen..."/>
 	<string id="20276" value="Kann nicht nach weiteren Quellen für Download &quot;%s&quot; suchen, weil keine Netzwerkverbindung besteht."/>
+	<!--string id="20277" value="&quot;%s&quot; zum Download von &quot;%s&quot; benutzen..."-->
+	<!--string id="20278" value="Kann &quot;%s&quot; nicht auflösen."-->
 	<string id="20280" value="Die TTH-Daten des Hosts sind verfälscht oder inkonsistent, ignoriert."/>
 	<string id="20281" value="Die TTH-Daten des Hosts entsprechen nicht dem erwarteten Root-Wert."/>
 	<string id="20282" value="Download-Host %s konnte die TTH-Anforderung nicht erfülllen."/>
@@ -3234,7 +3238,7 @@
 	<string id="20570" value="Host %s hat ein falsch formatiertes queryhit-Paket weitergeleitet, ignoriert."/>
 	<string id="20571" value="%s:  Host %s hat ein falsch formatiertes query-Paket weitergeleitet, ignoriert."/>
 	<string id="20572" value="Host %s hat ein Paket mit zu hoher TTL weitergeleitet, Paket verworfen (TTL=%i, Hops=%i)."/>
-	<string id="20573" value="Host %s hat ein Paket mit TTL=0 weitergeleitet, ignoriert."/>
+	<!--string id="20573" value="Host %s hat ein Paket mit TTL=0 weitergeleitet, ignoriert."-->
 	<string id="20574" value="Host %s hat ein erweitertes Paket weitergeleitet, das nicht GGEP-kodiert ist."/>
 	<string id="20575" value="Host %s hat ein ungültiges QRT-Update gesendet, Verbindung getrennt."/>
 	<string id="20576" value="QRT an Host %s senden (%i bit = %lu[%i], %i%% voll)"/>
@@ -3370,10 +3374,10 @@
 	<string id="20746" value="Nicht verifiziert"/>
 	<string id="20747" value="Verifiziert"/>
 	<string id="20748" value="Verifizieren"/>
-	<string id="20750" value="! Willkommen bei PeerProjekt (version) !n.nPeerProjekt ist völlig kostenlose Software.nBitte benutzen Sie PeerProjekt verantwortungsbewusst und respektieren Sie geistiges Eigentum.n."/>
+	<string id="20750" value="! Willkommen bei PeerProjekt (version) !\n.\nPeerProjekt ist völlig kostenlose Software.\nBitte benutzen Sie PeerProjekt verantwortungsbewusst und respektieren Sie geistiges Eigentum.\n."/>
 	<string id="20751" value="Es läuft kein Suche. Klicken Sie auf &quot;Suchen&quot; um nach Dateien zu suchen."/>
 	<string id="20752" value="Sie sind nicht verbunden. Klicken Sie auf &quot;Verbinden&quot; um Verbindungen zu den gewählten Netzwerken herzustellen."/>
-	<string id="20755" value="Sind Sie sicher, dass Sie die &quot;%s&quot;.Vorlage löschen wollen?nDieser Schritt kann nicht rückgängig gemacht werden."/>
+	<string id="20755" value="Sind Sie sicher, dass Sie die &quot;%s&quot;. Vorlage löschen wollen?nDieser Schritt kann nicht rückgängig gemacht werden."/>
 	<string id="20760" value="Priorität"/>
 	<string id="20762" value="Diese Datei scheint SPAM zu sein."/>
 	<string id="20763" value="Gesperrte Liste: "/>
@@ -3422,7 +3426,7 @@
 	<string id="20809" value="Upload von &quot;%s&quot; an %s (%s) verweigert, alle entsprechenden Warteschlangen sind voll."/>
 	<string id="20810" value="Upload-Host %s hat einen nicht verfügbaren Bereich der Datei &quot;%s&quot; angefordert."/>
 	<string id="20811" value="eDonkey-Uploads sollten nicht abgebrochen werden. Sind Sie sicher, dass Sie diesen Upload abbrechen wollen?"/>
-	<string id="20812" value="Die Datei &quot;%s&quot; konnte nicht geöffnet werden um an Host %s hochzuladen, Festplatten/Dateifehler ."/>
+	<string id="20812" value="Die Datei &quot;%s&quot; konnte nicht geöffnet werden um an Host %s hochzuladen, Festplatten/Dateifehler."/>
 	<string id="20813" value="Push-Verbindung mit %s wird hergestellt um &quot;%s&quot; hochzuladen."/>
 	<string id="20814" value="Konnte keine Upload-Verbindung zu %s herstellen um einen Push request zu senden."/>
 	<string id="20815" value="Dateibereich %I64i-%I64i aus Datei &quot;%s&quot; wird an Host %s übertragen (%s)."/>
@@ -3445,7 +3449,7 @@
 	<string id="20834" value="Upload-Host %s hat eine Vorschau von &quot;%s&quot; angefordert. Es ist jedoch keine Vorschau vorhanden."/>
 	<string id="20835" value="Vorschau von &quot;%s&quot; an %s hochladen."/>
 	<string id="20836" value="Push-request zu %s verweigert, weil kein Upload-Slot frei ist."/>
-	<string id="20837" value="Push-Request(alt) von %s hat eine unbekannte Datei angefordert, trotzdem verbinden..."/>
+	<!--string id="20837" value="Push-Request(alt) von %s hat eine unbekannte Datei angefordert, trotzdem verbinden..."-->
 	<string id="20838" value="Kein freier Uploadslot um &quot;%s&quot; an %s hochzuladen, Warteschlange auf Position #%i von %i (&quot;%s&quot;.."/>
 	<string id="20840" value="Upload-Verbindung mit %s unterbrochen, Warteschlangenposition wird erhalten."/>
 	<string id="20841" value="Neue Warteschlange"/>
@@ -3475,7 +3479,7 @@
 	<string id="20866" value="Dateiname:"/>
 	<string id="20867" value="Host:"/>
 	<string id="20868" value="Port:"/>
-	<string id="20869" value="Der URL-Aktionsdialog kann nicht angezeigt werden, weil PeerProjekt beschäftigt ist."/>
+	<!--string id="20869" value="Der URL-Aktionsdialog kann nicht angezeigt werden, weil PeerProjekt beschäftigt ist."-->
 	<string id="20870" value="Auswertung der URL nicht möglich: PeerProjekt versteht die URL nicht."/>
 	<string id="20871" value="URL &quot;%s&quot; empfangen"/>
 	<string id="20872" value="Typ:"/>
@@ -3819,7 +3823,7 @@
 		<control caption="Herunterladen..."/>
 		<control caption="Serverliste aus dem Internet herunterladen"/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Download-Verbindungen:"/>
 		<control/>
 		<control/>
@@ -3827,6 +3831,7 @@
 		<control/>
 		<control/>
 		<control caption="Client-Verbindungen"/>
+		<control caption="Aktivieren BitTorrent DHT"/>
 		<control caption="Torrentquellen bevorzugen"/>
 		<control caption="_End-Game:"/>
 		<control caption="End-Game-Modus am Ende von Torrent-Downloads aktivieren"/>
@@ -4543,7 +4548,7 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Tracker">
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBuBuBu" caption="Tracker">
 		<control/>
 		<control/>
 		<control/>
@@ -4555,6 +4560,8 @@
 		<control caption="Tracker-Modus:"/>
 		<control caption="Deaktiviert|Benutzerdefiniert|Einzel-Tracker|Multi-Tracker|Multi-Tracker (locked)"/>
 		<control caption="_Aktualisieren"/>
+		<control caption="_Hinzufügen"/>
+		<control caption="_Entfernen"/>
 	</dialog>
 	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="Übersicht">
 		<control/>

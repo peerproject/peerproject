@@ -1,7 +1,7 @@
 //
 // Neighbours.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -28,7 +28,6 @@
 
 class CNeighbours : public CNeighboursWithConnect
 {
-
 public:
 	CNeighbours();
 	virtual ~CNeighbours();
@@ -41,4 +40,5 @@ public:
 
 // Access the single global Neighbours object that holds the list of neighbour computers we are connected to
 // When PeerProject starts running, this line creates a single global instance of a CNeighbours object, called Neighbours
+
 extern CNeighbours Neighbours;

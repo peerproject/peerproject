@@ -1,7 +1,7 @@
 //
 // CtrlTaskPanel.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -22,6 +22,7 @@
 #include "CtrlTaskPanel.h"
 #include "CoolInterface.h"
 #include "Colors.h"
+#include "Skin.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -44,20 +45,21 @@ IMPLEMENT_DYNAMIC(CTaskBox, CButton)
 
 BEGIN_MESSAGE_MAP(CTaskBox, CButton)
 	//{{AFX_MSG_MAP(CTaskBox)
-	ON_WM_NCCALCSIZE()
+	ON_WM_PAINT()
 	ON_WM_NCPAINT()
+	ON_WM_NCCALCSIZE()
 	ON_WM_NCHITTEST()
 	ON_WM_NCACTIVATE()
-	ON_WM_PAINT()
 	ON_WM_SYSCOMMAND()
 	ON_WM_SETCURSOR()
 	ON_WM_NCLBUTTONUP()
-	ON_WM_TIMER()
 	ON_WM_NCLBUTTONDOWN()
+	ON_WM_TIMER()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 #define CAPTION_HEIGHT	25
+//#define MARGIN_WIDTH	12	// Skin.m_nSidebarPadding, was m_nMargin
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -65,8 +67,8 @@ END_MESSAGE_MAP()
 
 CTaskPanel::CTaskPanel()
 	: m_pStretch	( NULL )
-	, m_nMargin 	( 12 )
-	, m_nCurve		( 2 )
+//	, m_nMargin 	( 12 )
+//	, m_nCurve		( 2 )
 	, m_bLayout		( FALSE )
 {
 }
@@ -142,11 +144,11 @@ void CTaskPanel::SetStretchBox(CTaskBox* pBox)
 	m_pStretch = pBox;
 }
 
-void CTaskPanel::SetMargin(int nMargin, int nCurve)
-{
-	m_nMargin = nMargin;
-	m_nCurve  = nCurve;
-}
+//void CTaskPanel::SetMargin(int nMargin, int nCurve)
+//{
+//	m_nMargin = nMargin;
+//	m_nCurve  = nCurve;
+//}
 
 void CTaskPanel::SetWatermark(HBITMAP hBitmap)
 {
@@ -236,7 +238,7 @@ void CTaskPanel::Layout(CRect& rcClient)
 {
 	CRect rcBox( &rcClient );
 
-	rcBox.DeflateRect( m_nMargin, m_nMargin );
+	rcBox.DeflateRect( Skin.m_nSidebarPadding, Skin.m_nSidebarPadding );
 
 	int nStretch = rcBox.Height();
 
@@ -247,7 +249,7 @@ void CTaskPanel::Layout(CRect& rcClient)
 			CTaskBox* pBox = GetNextBox( pos );
 
 			if ( pBox->m_bVisible && pBox->m_nHeight && pBox != m_pStretch )
-				nStretch -= pBox->GetOuterHeight() + m_nMargin;
+				nStretch -= pBox->GetOuterHeight() + Skin.m_nSidebarPadding;
 		}
 	}
 
@@ -276,7 +278,7 @@ void CTaskPanel::Layout(CRect& rcClient)
 				pChild->ShowWindow( pBox->m_bOpen ? SW_SHOW : SW_HIDE );
 			}
 
-			rcBox.OffsetRect( 0, nHeight + m_nMargin );
+			rcBox.OffsetRect( 0, nHeight + Skin.m_nSidebarPadding );
 		}
 		else if ( pBox->IsWindowVisible() )
 		{
@@ -321,7 +323,7 @@ BOOL CTaskBox::Create(CTaskPanel* pPanel, int nHeight, LPCTSTR pszCaption, UINT 
 	if ( pPanel->m_hWnd )
 	{
 		pPanel->GetClientRect( &rect );
-		rect.DeflateRect( pPanel->m_nMargin, 0 );
+		rect.DeflateRect( Skin.m_nSidebarPadding, 0 );
 		rect.bottom = 0;
 	}
 
@@ -391,6 +393,9 @@ void CTaskBox::SetWatermark(HBITMAP hBitmap)
 void CTaskBox::SetCaptionmark(HBITMAP hBitmap, BOOL bDefault)
 {
 	if ( m_bmCaptionmark.m_hObject != NULL ) m_bmCaptionmark.DeleteObject();
+
+	if ( hBitmap == NULL )
+		hBitmap = Skin.GetWatermark( _T("CTaskBox.Caption") );
 
 	if ( hBitmap != NULL )
 		m_bmCaptionmark.Attach( hBitmap );
@@ -522,7 +527,7 @@ void CTaskBox::PaintBorders()
 	GetWindowRect( &rc );
 	rc.OffsetRect( -rc.left, -rc.top );
 
-	if ( m_pPanel->m_nCurve != 0 && m_bCaptionCurve )
+	if ( m_bCaptionCurve )	// && m_pPanel->m_nCurve != 0
 	{
 		dc.SetPixel( 0, 0, Colors.m_crTaskPanelBack );
 		dc.SetPixel( 1, 0, Colors.m_crTaskPanelBack );
@@ -543,14 +548,10 @@ void CTaskBox::PaintBorders()
 	CDC* pBuffer = CoolInterface.GetBuffer( dc, size );
 
 	if ( m_bmCaptionmark.m_hObject != NULL )
-	{
 		CoolInterface.DrawWatermark( pBuffer, &rcc, &m_bmCaptionmark );
-	}
 	else
-	{
 		pBuffer->FillSolidRect( &rcc, m_bPrimary ?
 			Colors.m_crTaskBoxPrimaryBack : Colors.m_crTaskBoxCaptionBack );
-	}
 
 	CPoint ptIcon( 6, rcc.Height() / 2 - 7 );
 
@@ -559,8 +560,8 @@ void CTaskBox::PaintBorders()
 
 	GetWindowText( strCaption );
 
-	CFont* pOldFont	= (CFont*)pBuffer->SelectObject( &CoolInterface.m_fntBold );
-	CSize sz		= pBuffer->GetTextExtent( strCaption );
+	CFont* pOldFont = (CFont*)pBuffer->SelectObject( &CoolInterface.m_fntBold );
+	CSize sz = pBuffer->GetTextExtent( strCaption );
 
 	pBuffer->SetBkMode( TRANSPARENT );
 	pBuffer->SetTextColor( m_bHover ? Colors.m_crTaskBoxCaptionHover :
@@ -578,8 +579,7 @@ void CTaskBox::PaintBorders()
 	if ( m_bOpen )
 	{
 		rc.top = rcc.bottom - 1;
-		dc.Draw3dRect( &rc, Colors.m_crTaskBoxCaptionBack,
-			Colors.m_crTaskBoxCaptionBack );
+		dc.Draw3dRect( &rc, Colors.m_crTaskBoxCaptionBack, Colors.m_crTaskBoxCaptionBack );
 	}
 }
 
@@ -598,8 +598,8 @@ void CTaskBox::InvalidateNonclient()
 void CTaskBox::OnPaint()
 {
 	CPaintDC dc( this );
-	CRect rc;
 
+	CRect rc;
 	GetClientRect( &rc );
 
 	if ( ! CoolInterface.DrawWatermark( &dc, &rc, &m_bmWatermark ) )

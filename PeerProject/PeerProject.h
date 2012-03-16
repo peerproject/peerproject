@@ -71,6 +71,7 @@ public:
 	CPeerProjectApp();
 	virtual ~CPeerProjectApp();
 
+public:
 	HANDLE			m_pMutex;
 	CMutex			m_pSection;
 	WORD			m_nVersion[4];
@@ -94,16 +95,13 @@ public:
 	bool			m_bIsVistaOrNewer;			// Is OS Vista/7 or newer
 	bool			m_bLimitedConnections;		// Networking is limited (XP SP2)
 	BOOL			m_bMenuWasVisible;			// For the menus in media player window
-	DWORD			m_nWindowsVersion;			// Windows version
-	DWORD			m_nWindowsVersionMinor;		// Windows minor version
 	DWORD			m_nLastInput;				// Time of last input event (in secs) (Chat idling)
+	DWORD			m_nWinVer;					// Windows version major/minor/sp concatenation (WIN_2K = 500)
 	HHOOK			m_hHookKbd;
 	HHOOK			m_hHookMouse;
 	UINT			m_nMouseWheel;				// System-defined number of lines to move with mouse wheel
 
 	HCRYPTPROV		m_hCryptProv;				// Cryptography Context handle
-
-	SYSTEM_INFO		m_SysInfo;					// System Information (CPU cores, etc.)
 
 	CAppCommandLineInfo m_cmdInfo;				// Command-line options
 
@@ -129,9 +127,10 @@ public:
 
 	// Shell functions (Safe Vista+)
 	HINSTANCE		m_hShell32;
-	HRESULT			(WINAPI *m_pfnSHGetFolderPathW)(HWND hwnd, int csidl, HANDLE hToken, DWORD dwFlags, LPWSTR pszPath);		// Win2K+ ?	SHGetFolderPath()
-	HRESULT			(WINAPI *m_pfnSHGetKnownFolderPath)(REFKNOWNFOLDERID rfid, DWORD dwFlags, HANDLE hToken, PWSTR *ppszPath);	// Vista+	SHGetKnownFolderPath()
-	HRESULT			(WINAPI *m_pfnSHQueryUserNotificationState)(QUERY_USER_NOTIFICATION_STATE *state);							// Vista+	SHQueryUserNotificationState() for IsUserFullscreen()
+	HRESULT			(WINAPI *m_pfnSHGetFolderPathW)(__reserved HWND hwnd, __in int csidl, __in_opt HANDLE hToken, __in DWORD dwFlags, __out_ecount(MAX_PATH) LPWSTR pszPath);		// Win2K+ ?	SHGetFolderPath()
+	HRESULT			(WINAPI *m_pfnSHGetKnownFolderPath)(__in REFKNOWNFOLDERID rfid, __in DWORD dwFlags, __in_opt HANDLE hToken, __deref_out PWSTR *ppszPath);		// Vista+	SHGetKnownFolderPath()
+	HRESULT			(WINAPI *m_pfnSHCreateItemFromParsingName)(__in PCWSTR pszPath, __in_opt IBindCtx *pbc, __in REFIID riid, __deref_out void **ppv);				// Win7+	SHCreateItemFromParsingName()
+	HRESULT			(WINAPI *m_pfnSHQueryUserNotificationState)(__in QUERY_USER_NOTIFICATION_STATE *state);						// Vista+	SHQueryUserNotificationState() for IsUserFullscreen()
 
 	// ShellWAPI functions (Safe IE6+)
 	HINSTANCE		m_hShlWapi;
@@ -218,7 +217,20 @@ private:
 	CPeerProjectApp& operator=(const CPeerProjectApp&);
 };
 
-extern CPeerProjectApp theApp;
+extern CPeerProjectApp	theApp;
+extern OSVERSIONINFOEX	Windows;		// Windows Version
+extern SYSTEM_INFO		System;			// System Information
+
+
+class CProgressDialog : public CComPtr< IProgressDialog >
+{
+public:
+	CProgressDialog(LPCTSTR szTitle, DWORD dwFlags = PROGDLG_NOCANCEL | PROGDLG_AUTOTIME);
+	virtual ~CProgressDialog();
+
+	void Progress(LPCTSTR szText, QWORD nCompleted, QWORD nTotal);
+};
+
 
 //
 // Utility Functions
@@ -337,11 +349,20 @@ __int32 GetRandomNum<__int32>(const __int32& min, const __int32& max);
 template <>
 __int64 GetRandomNum<__int64>(const __int64& min, const __int64& max);
 
-
 const LPCTSTR RT_BMP  = _T("BMP");
 const LPCTSTR RT_PNG  = _T("PNG");
 const LPCTSTR RT_JPEG = _T("JPEG");
 const LPCTSTR RT_GZIP = _T("GZIP");
+
+// theApp.m_nWinVer (Add as needed)
+#define WIN_2K					500				// 5.0
+#define WIN_XP					510				// 5.1
+#define WIN_XP_SP2				512				// 5.1.sp2
+#define WIN_XP_64				520				// 5.2
+#define WIN_VISTA				600				// 6.0
+#define WIN_VISTA_SP2			602				// 6.0.sp2
+#define WIN_7					610				// 6.1
+#define WIN_8					620				// 6.2
 
 // Log severity (log level)
 #define MSG_SEVERITY_MASK		0x000f

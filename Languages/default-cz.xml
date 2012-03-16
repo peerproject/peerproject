@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Czech Skin File -->
 
-<!-- Translation based on default-en.xml r74 (Shareaza 2.2.5.7) -->
+<!-- Translation based on default-en.xml r75 (Shareaza 2.2.5.7) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -359,6 +359,7 @@
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<button id="ID_NETWORK_DC" text="DC++"/>
+		<button id="ID_NETWORK_BT" text="BitTorrent"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Nastavení"/>
 	</toolbar>
@@ -474,6 +475,7 @@
 				<item id="ID_NETWORK_G1" text="Připojit ke _Gnutelle"/>
 				<item id="ID_NETWORK_ED2K" text="Připojit k _eDonkey"/>
 				<item id="ID_NETWORK_DC" text="Připojit k _DC++"/>
+				<item id="ID_NETWORK_BT" text="Připojit k _BitTorrent"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="Připojit _ke..." shortcut="Ctrl+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="_Prohlížet hosta..."/>
@@ -563,6 +565,7 @@
 				<item id="ID_NETWORK_G1" text="Připojit ke Gnutelle_1"/>
 				<item id="ID_NETWORK_ED2K" text="Připojit k _eDonkey"/>
 				<item id="ID_NETWORK_DC" text="Připojit k _DC++"/>
+				<item id="ID_NETWORK_BT" text="Připojit k _BitTorrent"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Připojit _ke..." shortcut="Ctrl+T"/>
@@ -658,6 +661,7 @@
 				<item id="ID_NETWORK_G1" text="Připojit ke Gnutelle_1"/>
 				<item id="ID_NETWORK_ED2K" text="Připojit k _eDonkey"/>
 				<item id="ID_NETWORK_DC" text="Připojit k _DC++"/>
+				<item id="ID_NETWORK_BT" text="Připojit k _BitTorrent"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Ukončit po _stažení"/>
@@ -732,6 +736,7 @@
 			<item id="ID_NETWORK_G1" text="Připojit ke Gnutelle_1"/>
 			<item id="ID_NETWORK_ED2K" text="Připojit k _eDonkey"/>
 			<item id="ID_NETWORK_DC" text="Připojit k _DC++"/>
+			<item id="ID_NETWORK_BT" text="Připojit k _BitTorrent"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Ukončit po _stažení"/>
 			<item id="ID_NETWORK_EXIT" text="K_onec"/>
@@ -1521,6 +1526,7 @@
 			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
 			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<item id="ID_NETWORK_BT" text="_BitTorrent"/>
 			<separator/>
 			<item id="ID_VIEW_DISCOVERY" text="Vyhledání"/>
 			<item id="ID_VIEW_HOSTS" text="Cache h_osta"/>
@@ -2075,7 +2081,7 @@
 	<document name="DownloadHelp.Queued">
 		<text format="b">Toto stahování čeká ve frontě</text>
 		<newline gap="8"/>
-		<text>Toto stahování čeká na dokončení nějakého jiného právě stahovaného souboru .
+		<text>Toto stahování čeká na dokončení nějakého jiného právě stahovaného souboru.
 		Vaše nastavení pro stahování omezí počet stahovaných souborů které mohou být aktivní
 		v daném čase, zajistí aby každé stahování obdrželo dostupnou šířku pásma. Můžete změnit
 		toto nastavení přes Nástroje, Nastavení PeerProject.
@@ -2463,6 +2469,7 @@
 	<tip id="ID_NETWORK_EXIT" message="Ukončit PeerProject"/>
 	<tip id="ID_NETWORK_ED2K" message="Připojit k síti eDonkey."/>
 	<tip id="ID_NETWORK_DC" message="Připojit k síti DC++."/>
+	<tip id="ID_NETWORK_BT" message="Připojit k síti BitTorrent."/>
 	<tip id="ID_NETWORK_G1" message="Připojit k původní síti Gnutella."/>
 	<tip id="ID_NETWORK_G2" message="Připojit k síti Gnutelly2 (velmi doporučeno)."/>
 	<tip id="ID_NETWORK_SEARCH" message="Začít nové hledání v síti..."/>
@@ -2744,8 +2751,8 @@
 	<string id="20202" value="Přijato chybné vynucené spojení z %s, ukončuji spojení."/>
 	<string id="20203" value="Posíleno stahování &quot;%s&quot; odstraněním šířky pásma."/>
 	<string id="20204" value="Stahuji od hosta %s ale ten je příliš přetížen , opakuji za %i sekund."/>
-	<string id="20205" value="Nemohu přesunout stažený soubor &quot;%s&quot; to &quot;%s&quot;. Zkontrolujte zda se neúplný soubor nepoužívá, a že vaše složka pro stahování existuje a lze do ní zapisovat."/>
-	<string id="20206" value="Nemohu vyřešit &quot;%s&quot;."/>
+	<string id="20205" value="Nedostatek místa na disku pro stahování &quot;%s&quot; (%s)."/>
+	<string id="20206" value="Nemohu přesunout stažený soubor &quot;%s&quot; to &quot;%s&quot;. Zkontrolujte zda se neúplný soubor nepoužívá, a že vaše složka pro stahování existuje a lze do ní zapisovat."/>
 	<string id="20207" value="Opravdu chcete zrušit/přerušit všechna stahování v této skupině?"/>
 	<string id="20208" value="Ukončené stahování připojené k %s, již není dále nutné."/>
 	<string id="20209" value="Stahování od hosta %s nenabízí data, ukončuji spojení."/>
@@ -2758,23 +2765,18 @@
 	<string id="20216" value="Nemohu se připojit a stahovat od hosta %s."/>
 	<string id="20217" value="Přijímám obsah stahování od hosta %s (%s)."/>
 	<string id="20218" value="Ruším stahování od &quot;%s&quot; ze %s (%s), síť nenalezena."/>
-	<string id="20219" value="Nedostatek místa na disku pro stahování &quot;%s&quot; (%s)."/>
-	<string id="20220" value="Připojení pro stahování %s bylo ztraceno."/>
-	<string id="20222" value="Zadali jste eDonkey hash, který je nesprávný. Prosím překontrolujte to a zkuste znovu."/>
-	<string id="20224" value="Prosím zadejte platný rozsah pro vymazání. Pole &quot;Od&quot; je první bajt rozsahu, a pole &quot;do&quot; je poslední bajt rozsahu."/>
-	<string id="20225" value="Zadali jste hodnotu SHA1, ale je nesprávná. Prosím zkontrolujte to a zkuste znovu."/>
-	<string id="20226" value="Zadali jste v kořenovém stromu hodnotu, ale ta je nesprávná. Prosím překontrolujte to a zkuste znovu."/>
-	<string id="20227" value="Změnili jste velikost souboru. Opravdu chcete změnit velikost tohoto souboru?"/>
-	<string id="20228" value="Nelze vymazat vybraný rozsah ze stahování, protože v daném rozsahu nejsou přítomna žádná data."/>
-	<string id="20231" value="Zadali jste hodnotu SHA1 hash která je odlišná od aktuální hodnoty. Opravdu teď chcete změnit SHA1 hash?"/>
-	<string id="20232" value="Zadali jste hodnotu eDonkey hash která je odlišná od aktuální hodnoty. Opravdu teď chcete změnit eDonkey hash?"/>
-	<string id="20233" value="Zadali jste hodnotu tiger-tree hash která je odlišná od aktuální hodnoty. Opravdu teď chcete změnit tiger-tree hash?"/>
-	<string id="20235" value="Nemůžete označit tento souboru jako kompletní, protože ještě nemáte žádný prostředek k ověření částí souboru, jako je tiger-tree soubor, eDonkey hashset nebo BitTorrent hashset. Bez těchto ověřovacích informací není možné stažený soubor zkontrolovat."/>
-	<string id="20236" value="Checete označit tento soubor jako kompletní a ověřit jej? Celý soubor bude překontrolován a PeerProject přijme části které projdou ověřením a znovu stáhne části které neprojdou ověřením."/>
-	<string id="20237" value="Opravdu chcete zapomenout všechny zdroje pro označené stahování?"/>
-	<string id="20238" value="Opravdu chcete zapomenout aktuální stav ověření? Všechna stažená data budou považována za nedůvěryhodná, a všechny dočasné ověřovací hash budou vymazány."/>
-	<string id="20240" value="Mažu %I64i bajtů ze stahování."/>
-	<string id="20241" value="Provedli jste změny v názvu. Opravdu chcete přejmenovat toto stahování?"/>
+	<string id="20219" value="Připojení pro stahování %s bylo ztraceno."/>
+	<string id="20221" value="Prosím zadejte platný rozsah pro vymazání. Pole &quot;Od&quot; je první bajt rozsahu, a pole &quot;do&quot; je poslední bajt rozsahu."/>
+	<string id="20222" value="Zadali jste %s hash, který je nesprávný. Prosím překontrolujte to a zkuste znovu."/>
+	<string id="20223" value="Zadali jste hodnotu %s hash která je odlišná od aktuální hodnoty. Opravdu teď chcete změnit %s hash?"/>
+	<string id="20224" value="Provedli jste změny v názvu. Opravdu chcete přejmenovat toto stahování?"/>
+	<string id="20225" value="Změnili jste velikost souboru. Opravdu chcete změnit velikost tohoto souboru?"/>
+	<string id="20226" value="Nemůžete označit tento souboru jako kompletní, protože ještě nemáte žádný prostředek k ověření částí souboru, jako je tiger-tree soubor, eDonkey hashset nebo BitTorrent hashset. Bez těchto ověřovacích informací není možné stažený soubor zkontrolovat."/>
+	<string id="20227" value="Checete označit tento soubor jako kompletní a ověřit jej? Celý soubor bude překontrolován a PeerProject přijme části které projdou ověřením a znovu stáhne části které neprojdou ověřením."/>
+	<string id="20228" value="Opravdu chcete zapomenout aktuální stav ověření? Všechna stažená data budou považována za nedůvěryhodná, a všechny dočasné ověřovací hash budou vymazány."/>
+	<string id="20229" value="Opravdu chcete zapomenout všechny zdroje pro označené stahování?"/>
+	<string id="20231" value="Nelze vymazat vybraný rozsah ze stahování, protože v daném rozsahu nejsou přítomna žádná data."/>
+	<string id="20232" value="Mažu %I64i bajtů ze stahování."/>
 	<string id="20242" value="Stahování od hosta %s soubor &quot;%s&quot; nenalezen."/>
 	<string id="20243" value="Vytvoření souboru &quot;%s&quot; pro stahování."/>
 	<string id="20244" value="Nelze vytvořit místní soubor &quot;%s&quot; pro stahování, zrušeno."/>
@@ -2804,9 +2806,10 @@
 	<string id="20271" value="Přesunuji &quot;%s&quot; do &quot;%s&quot;, stahování je dokončeno."/>
 	<string id="20272" value="Pozastaveno stahování od &quot;%s&quot;."/>
 	<string id="20273" value="Pokračuji ve stahování souboru &quot;%s&quot;."/>
-	<string id="20274" value="Řeší se &quot;%s&quot; ke stahování &quot;%s&quot;..."/>
 	<string id="20275" value="Dotazuji se na více zdrojů pro stahování &quot;%s&quot; na %i a připojuji se..."/>
 	<string id="20276" value="Nemohu najít více zdrojů pro stahování &quot;%s&quot; protože není síťové spojení."/>
+	<!--string id="20277" value="Řeší se &quot;%s&quot; ke stahování &quot;%s&quot;..."-->
+	<!--string id="20278" value="Nemohu vyřešit &quot;%s&quot;."-->
 	<string id="20280" value="Stahování hostitelova datového stromu je poškozeno nebo interně neslučitelné, ignoruji jej."/>
 	<string id="20281" value="Stahování hostitelova datového stromu neodpovídá očekávané hodnotě."/>
 	<string id="20282" value="Stahování od hosta %s nevyhovělo žádosti o zadání velikosti."/>
@@ -3060,7 +3063,7 @@
 	<string id="20570" value="Přijat dotaz na poškozený paket od %s, ignoruji."/>
 	<string id="20571" value="%s: Na dotaz přijat vadný paket ze %s, proto jej ignorujuji."/>
 	<string id="20572" value="Soused %s poslal paket s extrémní TTL, paket odmítám (TTL=%i, Hops=%i)."/>
-	<string id="20573" value="Soused %s poslal paket s nulovou TTL, ignoruji."/>
+	<!--string id="20573" value="Soused %s poslal paket s nulovou TTL, ignoruji."-->
 	<string id="20574" value="Soused %s násilím prosadil rozšířený balíček který není zakódovaný GGEP."/>
 	<string id="20575" value="Soused %s poslal nesprávný dotaz aktualizace směrovací tabulky, vypadlo spojení."/>
 	<string id="20576" value="Poslán dotaz propojovací tabulky na počítač %s (%i bit = %lu[%i], %i%% full)"/>
@@ -3083,7 +3086,7 @@
 	<string id="20621" value="Kliknutím zde hledáte znovu"/>
 	<string id="20622" value="Všechny sítě"/>
 	<string id="20623" value="Chystáte se začít nové hledání. Chcete vymazat výsledky předchozího hledání?"/>
-	<string id="20624" value="Tato oblast zobrazuje více informací o vybraných souborech ."/>
+	<string id="20624" value="Tato oblast zobrazuje více informací o vybraných souborech."/>
 	<string id="20625" value="%s upozorňuje:"/>
 	<string id="20626" value="%s rychlosti tohoto souboru:"/>
 	<string id="20627" value="Klikni pro náhled"/>
@@ -3256,7 +3259,7 @@
 	<string id="20834" value="Odesílání pro hosta %s požaduje náhled z &quot;%s&quot;, ale žádný náhled není dostupný."/>
 	<string id="20835" value="Odesílání náhledu z &quot;%s&quot; do %s."/>
 	<string id="20836" value="Odmítám urgentní žádost %s protože již je příliš spojení pro odesílání."/>
-	<string id="20837" value="Odkaz vynucené žádost od %s požaduje neznámý soubor, i tak se připojuji..."/>
+	<!--string id="20837" value="Odkaz vynucené žádost od %s požaduje neznámý soubor, i tak se připojuji..."-->
 	<string id="20838" value="Zaneprázdněné odesílání &quot;%s&quot; do %s, ve frontě #%i ze %i (&quot;%s&quot;.."/>
 	<string id="20840" value="Spojení pro odesílání %s bylo ztraceno, zajišťuji pozici ve frontě."/>
 	<string id="20841" value="Nová fronta"/>
@@ -3286,7 +3289,7 @@
 	<string id="20866" value="Soubor:"/>
 	<string id="20867" value="Adresa:"/>
 	<string id="20868" value="Port:"/>
-	<string id="20869" value="Nelze zobrazit URL protože PeerProject je přetížená."/>
+	<!--string id="20869" value="Nelze zobrazit URL protože PeerProject je přetížená."-->
 	<string id="20870" value="Nelze analyzovat URL: PeerProject nerozumí tomuto URL."/>
 	<string id="20871" value="Přijato URL &quot;%s&quot;"/>
 	<string id="20872" value="Typ:"/>
@@ -3586,7 +3589,7 @@
 		<control caption="Stáhnout..."/>
 		<control caption="Stáhnout seznam serverů eDonkey z webu"/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Připojená stahování:"/>
 		<control/>
 		<control/>
@@ -3594,8 +3597,9 @@
 		<control/>
 		<control/>
 		<control caption="připojených klientů"/>
+		<control caption="Povolit BitTorrent DHT"/>
 		<control caption="Dávat přednost zdrojům torrent"/>
-		<control caption="_EndGame:"/>
+		<control caption="_EndGame: (konec hry)"/>
 		<control caption="Po dokončení torrentů umožnit režim EndGame"/>
 		<control caption="Vymazat stažené torrenty Když procento sdílení dosáhne:"/>
 		<control/>
@@ -4310,7 +4314,7 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackery">
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBuBuBu" caption="Trackery">
 		<control/>
 		<control/>
 		<control/>
@@ -4322,6 +4326,8 @@
 		<control caption="Tracker Mód:"/>
 		<control caption="zakázano|vlastní|Single Tracker|Multi-tracker|Multi-tracker (zamčeno)"/>
 		<control caption="_Obnovit"/>
+		<control caption="Přid_at"/>
+		<control caption="Odst_ranit"/>
 	</dialog>
 	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="Obecné">
 		<control/>

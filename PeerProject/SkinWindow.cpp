@@ -1,7 +1,7 @@
 //
 // SkinWindow.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-20078.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -31,8 +31,8 @@ static char THIS_FILE[]=__FILE__;
 #endif	// Filename
 
 
-#define BORDER_WIDTH			GetSystemMetrics( SM_CXSIZEFRAME )
-#define SIZEBOX_WIDTH			GetSystemMetrics( SM_CXSIZE )
+//#define BORDER_WIDTH		GetSystemMetrics( SM_CXSIZEFRAME )
+//#define SIZEBOX_WIDTH		GetSystemMetrics( SM_CXSIZE )
 
 
 //////////////////////////////////////////////////////////////////////
@@ -44,6 +44,8 @@ CSkinWindow::CSkinWindow()
 	, m_nHoverAnchor		( 0 )
 	, m_nDownAnchor 		( 0 )
 	, m_nMirror 			( 0 )
+	, m_rcMirror			( 0, 0, 0, 0 )
+//	, m_rcMaximise			( -1, 0, -1, -1 )
 
 	, m_bCaption			( FALSE )
 	, m_bCaptionCaps		( FALSE )
@@ -53,8 +55,6 @@ CSkinWindow::CSkinWindow()
 	, m_crCaptionShadow 	( CLR_NONE )
 	, m_crCaptionOutline	( CLR_NONE )
 	, m_nCaptionAlign		( 0 )
-
-	, m_sLanguage			( _T("") )
 {
 	m_bPart		= new BOOL[ SKINPART_COUNT ];
 	m_rcPart	= new CRect[ SKINPART_COUNT ];
@@ -67,9 +67,8 @@ CSkinWindow::CSkinWindow()
 	ZeroMemory( m_bAnchor, sizeof(BOOL) * SKINANCHOR_COUNT );
 
 	m_szMinSize.cx = m_szMinSize.cy = 0;
-	m_rcMaximise.SetRect( -1, 0, -1, -1 );
-	m_rcResize.SetRect( BORDER_WIDTH, BORDER_WIDTH, BORDER_WIDTH, BORDER_WIDTH );
-	m_rcMirror.SetRectEmpty();
+	const int nBorderWidth( GetSystemMetrics( SM_CXSIZEFRAME ) );
+	m_rcResize.SetRect( nBorderWidth, nBorderWidth, nBorderWidth, nBorderWidth );	// Was BORDER_WIDTH
 }
 
 CSkinWindow::~CSkinWindow()
@@ -122,17 +121,19 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 		_T("LeftTopAlt"), _T("LeftAlt"), _T("LeftBottomAlt"),
 		_T("RightTopAlt"), _T("RightAlt"), _T("RightBottomAlt"),
 		_T("BottomLeftAlt"), _T("BottomAlt"), _T("BottomRightAlt"),
+		_T("Menu"), _T("MenuHover"), _T("MenuDown"),
 		_T("System"), _T("SystemHover"), _T("SystemDown"),
 		_T("Minimise"), _T("MinimiseHover"), _T("MinimiseDown"),
 		_T("Maximise"), _T("MaximiseHover"), _T("MaximiseDown"),
 		_T("Close"), _T("CloseHover"), _T("CloseDown"),
+	//	_T("Custom"), _T("CustomHover"), _T("CustomDown"),		// ToDo: Skin-defined HTOBJECT?
+	//	_T("CaptionLeft"), _T("Caption"), _T("CaptionRight"),	// ToDo: Text area?
 		NULL
 	};
 
 	static LPCTSTR pszAnchor[] =
 	{
-		_T("Icon"), _T("System"), _T("Minimise"), _T("Maximise"), _T("Close"),
-		NULL
+		_T("Icon"), _T("Menu"), _T("System"), _T("Minimise"), _T("Maximise"), _T("Close"), /*_T("Custom"),*/ NULL
 	};
 
 	CString str;
@@ -173,10 +174,10 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 				CString strMode = pXML->GetAttributeValue( _T("mode") );
 				int nMode = SKINPARTMODE_TILE;
 
-				if ( strMode.CompareNoCase( _T("tile") ) == 0 )
-					nMode = SKINPARTMODE_TILE;
-				else if ( strMode.CompareNoCase( _T("stretch") ) == 0 )
+				if ( strMode.CompareNoCase( _T("stretch") ) == 0 )
 					nMode = SKINPARTMODE_STRETCH;
+				//else if ( strMode.CompareNoCase( _T("tile") ) == 0 )
+				//	nMode = SKINPARTMODE_TILE;
 
 				CString strName = pXML->GetAttributeValue( _T("name") );
 				if ( strName.IsEmpty() ) continue;
@@ -186,9 +187,9 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 				{
 					if ( _tcsicmp( strName, pszPart[ nPart ] ) == 0 )
 					{
-						m_bPart[ nPart ]	= TRUE;
-						m_nPart[ nPart ]	= nMode;
-						m_rcPart[ nPart ]	= rc;
+						m_bPart[ nPart ]  = TRUE;
+						m_nPart[ nPart ]  = nMode;
+						m_rcPart[ nPart ] = rc;
 						break;
 					}
 				}
@@ -229,8 +230,8 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 				{
 					if ( _tcsicmp( strName, pszAnchor[ nAnchor ] ) == 0 )
 					{
-						m_bAnchor[ nAnchor ]	= TRUE;
-						m_rcAnchor[ nAnchor ]	= rc;
+						m_bAnchor[ nAnchor ]  = TRUE;
+						m_rcAnchor[ nAnchor ] = rc;
 						break;
 					}
 				}
@@ -415,6 +416,11 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 				m_bmSkin.Attach( hBitmap );
 			}
 		}
+		else if ( pGroup->IsNamed( _T("region") ) )
+		{
+			if ( m_pRegionXML ) delete m_pRegionXML;
+			m_pRegionXML = pGroup->Detach();
+		}
 		//else if ( pGroup->IsNamed( _T("language") ) )
 		//{
 		//	if ( m_sLanguage == Settings.General.Language ) continue;
@@ -422,17 +428,12 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 		//	if ( str.IsEmpty() || ! str.CompareNoCase( Settings.General.Language ) || ! str.CompareNoCase( _T("default") ) )
 		//		m_sLanguage = Settings.General.Language;
 		//}
-		else if ( pGroup->IsNamed( _T("region") ) )
-		{
-			if ( m_pRegionXML ) delete m_pRegionXML;
-			m_pRegionXML = pGroup->Detach();
-		}
-		else if ( pGroup->IsNamed( _T("maximiseCrop") ) )
-		{
-			ParseRect( pGroup, &m_rcMaximise );
-			m_rcMaximise.right -= m_rcMaximise.left;
-			m_rcMaximise.bottom -= m_rcMaximise.top;
-		}
+		//else if ( pGroup->IsNamed( _T("maximiseCrop") ) )		// ToDo: Fix fullscreen frame?
+		//{
+		//	ParseRect( pGroup, &m_rcMaximise );
+		//	m_rcMaximise.right -= m_rcMaximise.left;
+		//	m_rcMaximise.bottom -= m_rcMaximise.top;
+		//}
 		else if ( pGroup->IsNamed( _T("resizeBorder") ) )
 		{
 			ParseRect( pGroup, &m_rcResize );
@@ -441,7 +442,7 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 		}
 		else if ( pGroup->IsNamed( _T("minimumSize") ) )
 		{
-			CString str = pGroup->GetAttributeValue( _T("width") );
+			str = pGroup->GetAttributeValue( _T("width") );
 			_stscanf( str, _T("%i"), &m_szMinSize.cx );
 			str = pGroup->GetAttributeValue( _T("height") );
 			_stscanf( str, _T("%i"), &m_szMinSize.cy );
@@ -522,11 +523,8 @@ void CSkinWindow::CalcWindowRect(RECT* pRect, BOOL bToClient, BOOL /*bZoomed*/)
 		rcAdjust.top = max( rcAdjust.top, m_rcPart[ SKINPART_TOP ].Height() );
 	if ( m_bPart[ SKINPART_TOP_RIGHT ] )
 		rcAdjust.top = max( rcAdjust.top, m_rcPart[ SKINPART_TOP_RIGHT ].Height() );
-
-	if ( m_bPart[ SKINPART_LEFT ] )
-		rcAdjust.left = max( rcAdjust.left, m_rcPart[ SKINPART_LEFT ].Width() );
-	if ( m_bPart[ SKINPART_RIGHT ] )
-		rcAdjust.right = max( rcAdjust.right, m_rcPart[ SKINPART_RIGHT ].Width() );
+	if ( rcAdjust.top == 0 )
+		return;
 
 	if ( m_bPart[ SKINPART_BOTTOM_LEFT ] )
 		rcAdjust.bottom = max( rcAdjust.bottom, m_rcPart[ SKINPART_BOTTOM_LEFT ].Height() );
@@ -534,6 +532,11 @@ void CSkinWindow::CalcWindowRect(RECT* pRect, BOOL bToClient, BOOL /*bZoomed*/)
 		rcAdjust.bottom = max( rcAdjust.bottom, m_rcPart[ SKINPART_BOTTOM ].Height() );
 	if ( m_bPart[ SKINPART_BOTTOM_RIGHT ] )
 		rcAdjust.bottom = max( rcAdjust.bottom, m_rcPart[ SKINPART_BOTTOM_RIGHT ].Height() );
+
+	if ( m_bPart[ SKINPART_LEFT ] )
+		rcAdjust.left = max( rcAdjust.left, m_rcPart[ SKINPART_LEFT ].Width() );
+	if ( m_bPart[ SKINPART_RIGHT ] )
+		rcAdjust.right = max( rcAdjust.right, m_rcPart[ SKINPART_RIGHT ].Width() );
 
 	if ( bToClient )
 	{
@@ -551,15 +554,21 @@ void CSkinWindow::CalcWindowRect(RECT* pRect, BOOL bToClient, BOOL /*bZoomed*/)
 	}
 }
 
-void CSkinWindow::OnNcCalcSize(CWnd* pWnd, BOOL /*bCalcValidRects*/, NCCALCSIZE_PARAMS FAR* lpncsp)
+void CSkinWindow::OnNcCalcSize(CWnd* /*pWnd*/, BOOL /*bCalcValidRects*/, NCCALCSIZE_PARAMS FAR* lpncsp)
 {
-	CalcWindowRect( &lpncsp->rgrc[0], TRUE, pWnd->IsZoomed() );
+	CalcWindowRect( &lpncsp->rgrc[0], TRUE/*, pWnd->IsZoomed()*/ );
 }
 
 void CSkinWindow::OnGetMinMaxInfo(MINMAXINFO* lpMMI)
 {
-	HMONITOR hMonitor = MonitorFromWindow( AfxGetMainWnd()->GetSafeHwnd(),
-		MONITOR_DEFAULTTOPRIMARY );
+	if ( ! AfxGetMainWnd()->IsZoomed() )
+	{
+		lpMMI->ptMinTrackSize.x	= max( lpMMI->ptMinTrackSize.x, m_szMinSize.cx );
+		lpMMI->ptMinTrackSize.y	= max( lpMMI->ptMinTrackSize.y, m_szMinSize.cy );
+		return;
+	}
+
+	HMONITOR hMonitor = MonitorFromWindow( AfxGetMainWnd()->GetSafeHwnd(), MONITOR_DEFAULTTOPRIMARY );
 
 	MONITORINFO oMonitor = {0};
 	oMonitor.cbSize = sizeof( MONITORINFO );
@@ -568,36 +577,46 @@ void CSkinWindow::OnGetMinMaxInfo(MINMAXINFO* lpMMI)
 	CRect rcWork = oMonitor.rcWork;
 	rcWork.OffsetRect( -rcWork.left, -rcWork.top );
 
-	CRect rcAdjusted( &rcWork );
-	CalcWindowRect( &rcAdjusted, FALSE, TRUE );
+	//CRect rcAdjusted( &rcWork );
+	//CalcWindowRect( &rcAdjusted, FALSE/*, TRUE*/ );
 
-	if ( m_rcMaximise.left < 0 )
-		rcWork.left = rcAdjusted.left;
+	//if ( m_rcMaximise.left < 0 )
+	//	rcWork.left = rcAdjusted.left;
+	//else
+	//	rcWork.left -= m_rcMaximise.left;
+
+	//if ( m_rcMaximise.top < 0 )
+	//	rcWork.top = rcAdjusted.top;
+	//else
+	//	rcWork.top -= m_rcMaximise.top;
+
+	//if ( m_rcMaximise.right < 0 )
+	//	rcWork.right = rcAdjusted.right;
+	//else
+	//	rcWork.right += m_rcMaximise.right;
+
+	//if ( m_rcMaximise.bottom < 0 )
+	//	rcWork.bottom = rcAdjusted.bottom;
+	//else
+	//	rcWork.bottom += m_rcMaximise.bottom;
+
+	// Windows bugginess? ToDo: Fix maximiseCrop.
+	//lpMMI->ptMaxPosition.x	= rcWork.left
+	//lpMMI->ptMaxPosition.y	= rcWork.top
+	//lpMMI->ptMaxSize.x		= rcWork.right
+	//lpMMI->ptMaxSize.y		= rcWork.bottom
+
+	// Workaround to show full skins but not native frames (ToDo: Test in XP?)
+	lpMMI->ptMaxPosition.x	= 0;
+	lpMMI->ptMaxPosition.y	= 0;
+	lpMMI->ptMaxSize.x		= rcWork.Width();
+	lpMMI->ptMaxSize.y		= rcWork.Height();
+	if ( m_bPart[ SKINPART_TOP_RIGHT ] || m_bPart[ SKINPART_TOP ] )
+		lpMMI->ptMaxSize.y--;
 	else
-		rcWork.left -= m_rcMaximise.left;
-
-	if ( m_rcMaximise.top < 0 )
-		rcWork.top = rcAdjusted.top;
-	else
-		rcWork.top -= m_rcMaximise.top;
-
-	if ( m_rcMaximise.right < 0 )
-		rcWork.right = rcAdjusted.right;
-	else
-		rcWork.right += m_rcMaximise.right;
-
-	if ( m_rcMaximise.bottom < 0 )
-		rcWork.bottom = rcAdjusted.bottom;
-	else
-		rcWork.bottom += m_rcMaximise.bottom;
-
-	lpMMI->ptMaxPosition.x	= rcWork.left;
-	lpMMI->ptMaxPosition.y	= rcWork.top;
-	lpMMI->ptMaxSize.x		= rcWork.right;
-	lpMMI->ptMaxSize.y		= rcWork.bottom;
-
-	lpMMI->ptMinTrackSize.x	= max( lpMMI->ptMinTrackSize.x, m_szMinSize.cx );
-	lpMMI->ptMinTrackSize.y	= max( lpMMI->ptMinTrackSize.y, m_szMinSize.cy );
+		lpMMI->ptMaxPosition.y--;
+	lpMMI->ptMaxTrackSize.x	= lpMMI->ptMaxSize.x;
+	lpMMI->ptMaxTrackSize.y	= lpMMI->ptMaxSize.y;
 }
 
 UINT CSkinWindow::OnNcHitTest(CWnd* pWnd, CPoint point, BOOL bResizable)
@@ -612,22 +631,16 @@ UINT CSkinWindow::OnNcHitTest(CWnd* pWnd, CPoint point, BOOL bResizable)
 		point.x = 2 * rc.left + rc.Width() - point.x;
 	}
 
-	if ( m_bAnchor[ SKINANCHOR_SYSTEM ] )
-	{
-		ResolveAnchor( rc, rcAnchor, SKINANCHOR_SYSTEM );
-		if ( rcAnchor.PtInRect( point ) ) return HTSYSMENU;
-	}
-
 	if ( m_bAnchor[ SKINANCHOR_MINIMISE ] )
 	{
 		ResolveAnchor( rc, rcAnchor, SKINANCHOR_MINIMISE );
-		if ( rcAnchor.PtInRect( point ) ) return HTREDUCE;
+		if ( rcAnchor.PtInRect( point ) ) return HTMINBUTTON;
 	}
 
 	if ( m_bAnchor[ SKINANCHOR_MAXIMISE ] )
 	{
 		ResolveAnchor( rc, rcAnchor, SKINANCHOR_MAXIMISE );
-		if ( rcAnchor.PtInRect( point ) ) return HTZOOM;
+		if ( rcAnchor.PtInRect( point ) ) return HTMAXBUTTON;
 	}
 
 	if ( m_bAnchor[ SKINANCHOR_CLOSE ] )
@@ -636,12 +649,31 @@ UINT CSkinWindow::OnNcHitTest(CWnd* pWnd, CPoint point, BOOL bResizable)
 		if ( rcAnchor.PtInRect( point ) ) return HTCLOSE;
 	}
 
+	if ( m_bAnchor[ SKINANCHOR_SYSTEM ] )
+	{
+		ResolveAnchor( rc, rcAnchor, SKINANCHOR_SYSTEM );
+		if ( rcAnchor.PtInRect( point ) ) return HTSYSMENU;
+	}
+
+	if ( m_bAnchor[ SKINANCHOR_MENU ] )
+	{
+		ResolveAnchor( rc, rcAnchor, SKINANCHOR_MENU );
+		if ( rcAnchor.PtInRect( point ) ) return HTMENU;
+	}
+
+	//if ( m_bAnchor[ SKINANCHOR_CUSTOM ] )
+	//{
+	//	ResolveAnchor( rc, rcAnchor, SKINANCHOR_CUSTOM );
+	//	if ( rcAnchor.PtInRect( point ) ) return HTOBJECT;
+	//}
+
 	if ( Settings.General.LanguageRTL )
 		point.x = nPointX;
 
 	if ( bResizable && ! pWnd->IsZoomed() )
 	{
-		if ( point.x >= rc.right - SIZEBOX_WIDTH && point.y >= rc.bottom - SIZEBOX_WIDTH )
+		const int nSizeboxWidth( GetSystemMetrics( SM_CXSIZE ) );	// Was SIZEBOX_WIDTH
+		if ( point.x >= rc.right - nSizeboxWidth && point.y >= rc.bottom - nSizeboxWidth )
 			return HTBOTTOMRIGHT;
 
 		if ( point.x < rc.left + m_rcResize.left )
@@ -765,10 +797,10 @@ void CSkinWindow::OnNcMouseMove(CWnd* pWnd, UINT nHitTest, CPoint /*point*/)
 	int nAnchor = 0;
 	switch ( nHitTest )
 	{
-	case HTREDUCE:
+	case HTMINBUTTON:
 		nAnchor = SKINANCHOR_MINIMISE;
 		break;
-	case HTZOOM:
+	case HTMAXBUTTON:
 		nAnchor = SKINANCHOR_MAXIMISE;
 		break;
 	case HTCLOSE:
@@ -777,6 +809,12 @@ void CSkinWindow::OnNcMouseMove(CWnd* pWnd, UINT nHitTest, CPoint /*point*/)
 	case HTSYSMENU:
 		nAnchor = SKINANCHOR_SYSTEM;
 		break;
+	case HTMENU:
+		nAnchor = SKINANCHOR_MENU;
+		break;
+	//case HTOBJECT:
+	//	nAnchor = SKINANCHOR_CUSTOM;
+	//	break;
 	}
 
 	if ( m_nDownAnchor && m_nDownAnchor != nAnchor )
@@ -796,10 +834,10 @@ BOOL CSkinWindow::OnNcLButtonDown(CWnd* pWnd, UINT nHitTest, CPoint point)
 	int nAnchor = 0;
 	switch ( nHitTest )
 	{
-	case HTREDUCE:
+	case HTMINBUTTON:
 		nAnchor = SKINANCHOR_MINIMISE;
 		break;
-	case HTZOOM:
+	case HTMAXBUTTON:
 		nAnchor = SKINANCHOR_MAXIMISE;
 		break;
 	case HTCLOSE:
@@ -808,6 +846,12 @@ BOOL CSkinWindow::OnNcLButtonDown(CWnd* pWnd, UINT nHitTest, CPoint point)
 	case HTSYSMENU:
 		nAnchor = SKINANCHOR_SYSTEM;
 		break;
+	case HTMENU:
+		nAnchor = SKINANCHOR_MENU;
+		break;
+	//case HTOBJECT:
+	//	nAnchor = SKINANCHOR_CUSTOM;
+	//	break;
 	default:
 		return FALSE;
 	}
@@ -843,6 +887,31 @@ BOOL CSkinWindow::OnNcLButtonDown(CWnd* pWnd, UINT nHitTest, CPoint point)
 				pWnd->PostMessage( WM_SYSCOMMAND, SC_CLOSE, MAKELONG( rcSystem.left, rcSystem.bottom ) );
 		}
 	}
+	else if ( nAnchor == SKINANCHOR_MENU )
+	{
+		m_nHoverAnchor = 0;
+
+		if ( CMenu* pMenu = Skin.GetMenu( _T("CMainWnd.DropMenu") ) )
+		{
+			pMenu = pMenu->GetSubMenu( 0 );
+
+			CRect rcWindow, rcMenu;
+			pWnd->GetWindowRect( &rcWindow );
+			ResolveAnchor( rcWindow, rcMenu, SKINANCHOR_MENU );
+
+			MENUITEMINFO pInfo = {};
+			pInfo.cbSize = sizeof(pInfo);
+			pInfo.fMask  = MIIM_STATE;
+			GetMenuItemInfo( pMenu->GetSafeHmenu(), ID_TOOLS_SETTINGS, FALSE, &pInfo );
+			pInfo.fState |= MFS_DEFAULT;
+			SetMenuItemInfo( pMenu->GetSafeHmenu(), ID_TOOLS_SETTINGS, FALSE, &pInfo );
+
+			pMenu->TrackPopupMenu( TPM_LEFTALIGN|TPM_TOPALIGN,
+				Settings.General.LanguageRTL ? rcWindow.right - rcMenu.left + rcWindow.left : rcMenu.left - 1,
+				rcMenu.bottom + 2, pWnd, NULL );
+		}
+	}
+	//else if ( nAnchor == SKINANCHOR_CUSTOM )	// ToDo: Skin-defined item?
 
 	Paint( pWnd );
 
@@ -963,16 +1032,16 @@ void CSkinWindow::Paint(CWnd* pWnd, TRISTATE bActive)
 
 	// Window Buttons
 
-	for ( int nAnchor = SKINANCHOR_SYSTEM ; nAnchor <= SKINANCHOR_CLOSE ; nAnchor++ )
+	for ( int nAnchor = SKINANCHOR_MENU ; nAnchor <= SKINANCHOR_CLOSE ; nAnchor++ )
 	{
 		if ( m_bAnchor[ nAnchor ] )
 		{
-			int nPart = ( nAnchor - SKINANCHOR_SYSTEM ) * 3 + SKINPART_SYSTEM;
+			int nPart = ( nAnchor - SKINANCHOR_MENU ) * 3 + SKINPART_MENU;
 
 			if ( m_nHoverAnchor == nAnchor )
 				nPart += ( m_nDownAnchor == nAnchor ? 2 : 1 );
-			else
-				nPart += ( m_nDownAnchor == nAnchor ? 0 : 0 );
+			//else
+			//	nPart += ( m_nDownAnchor == nAnchor ? 0 : 0 );
 
 			if ( m_bPart[ nPart ] )
 			{
@@ -1119,14 +1188,15 @@ void CSkinWindow::Paint(CWnd* pWnd, TRISTATE bActive)
 
 	if ( bActive == TRI_FALSE && m_bPart[ SKINPART_BOTTOM_RIGHT_ALT ] )
 	{
-		dc.BitBlt( 0, rc.Height() - m_rcPart[ SKINPART_BOTTOM_LEFT_ALT ].Height(),
+		dc.BitBlt( rc.Width() - m_rcPart[ SKINPART_BOTTOM_RIGHT_ALT ].Width(),
+			rc.Height() - m_rcPart[ SKINPART_BOTTOM_RIGHT_ALT ].Height(),
 			m_rcPart[ SKINPART_BOTTOM_RIGHT_ALT ].Width(),
 			m_rcPart[ SKINPART_BOTTOM_RIGHT_ALT ].Height(), &m_dcSkin,
 			m_rcPart[ SKINPART_BOTTOM_RIGHT_ALT ].left,
 			m_rcPart[ SKINPART_BOTTOM_RIGHT_ALT ].top, SRCCOPY );
 
-		rcBottom.left += m_rcPart[ SKINPART_BOTTOM_RIGHT_ALT ].Width();
-		rcLeft.bottom -= m_rcPart[ SKINPART_BOTTOM_RIGHT_ALT ].Height();
+		rcBottom.right -= m_rcPart[ SKINPART_BOTTOM_RIGHT_ALT ].Width();
+		rcRight.bottom -= m_rcPart[ SKINPART_BOTTOM_RIGHT_ALT ].Height();
 	}
 	else if ( m_bPart[ SKINPART_BOTTOM_RIGHT ] )
 	{
@@ -1137,8 +1207,8 @@ void CSkinWindow::Paint(CWnd* pWnd, TRISTATE bActive)
 			m_rcPart[ SKINPART_BOTTOM_RIGHT ].left,
 			m_rcPart[ SKINPART_BOTTOM_RIGHT ].top, SRCCOPY );
 
-		rcRight.bottom -= m_rcPart[ SKINPART_BOTTOM_RIGHT ].Height();
 		rcBottom.right -= m_rcPart[ SKINPART_BOTTOM_RIGHT ].Width();
+		rcRight.bottom -= m_rcPart[ SKINPART_BOTTOM_RIGHT ].Height();
 	}
 
 	if ( bActive == TRI_FALSE && m_bPart[ SKINPART_LEFT_TOP_ALT ] )
@@ -1148,7 +1218,7 @@ void CSkinWindow::Paint(CWnd* pWnd, TRISTATE bActive)
 			m_rcPart[ SKINPART_LEFT_TOP_ALT ].left,
 			m_rcPart[ SKINPART_LEFT_TOP_ALT ].top, SRCCOPY );
 
-		rcLeft.top += m_rcPart[ SKINPART_LEFT_TOP ].Height();
+		rcLeft.top += m_rcPart[ SKINPART_LEFT_TOP_ALT ].Height();
 	}
 	else if ( m_bPart[ SKINPART_LEFT_TOP ] )
 	{
@@ -1738,8 +1808,7 @@ BOOL CSkinWindow::PreBlend(CBitmap* pbmTarget, const CRect& rcTarget, const CRec
 		}
 	}
 
-	SetDIBits( hDC, *pbmTarget, 0, -pCacheInfo.bmiHeader.biHeight, pCacheData.get(),
-		&pCacheInfo, DIB_RGB_COLORS );
+	SetDIBits( hDC, *pbmTarget, 0, -pCacheInfo.bmiHeader.biHeight, pCacheData.get(), &pCacheInfo, DIB_RGB_COLORS );
 
 	::ReleaseDC( 0, hDC );
 

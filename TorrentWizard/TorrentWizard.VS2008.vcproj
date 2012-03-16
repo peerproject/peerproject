@@ -398,10 +398,6 @@
 				>
 			</File>
 			<File
-				RelativePath="PageCommandline.cpp"
-				>
-			</File>
-			<File
 				RelativePath="PageComment.cpp"
 				>
 			</File>
@@ -497,10 +493,6 @@
 			</File>
 			<File
 				RelativePath="CmdLine.h"
-				>
-			</File>
-			<File
-				RelativePath="PageCommandline.h"
 				>
 			</File>
 			<File

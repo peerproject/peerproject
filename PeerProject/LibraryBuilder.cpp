@@ -265,8 +265,7 @@ DWORD CLibraryBuilder::GetNextFileToHash(CString& sPath)
 			// Get next candidate
 			FILETIME ftCurrentTime;
 			GetSystemTimeAsFileTime( &ftCurrentTime );
-			QWORD nCurrentTime = MAKEQWORD( ftCurrentTime.dwLowDateTime,
-				ftCurrentTime.dwHighDateTime );
+			QWORD nCurrentTime = MAKEQWORD( ftCurrentTime.dwLowDateTime, ftCurrentTime.dwHighDateTime );
 			for ( CFileInfoList::iterator i = m_pFiles.begin() ; i != m_pFiles.end() ; i++ )
 			{
 				if ( (*i).nNextAccessTime < nCurrentTime )
@@ -306,8 +305,7 @@ DWORD CLibraryBuilder::GetNextFileToHash(CString& sPath)
 			if ( GetFileAttributesEx( sPath, GetFileExInfoStandard, &wfad ) )
 			{
 				int nSlash = sPath.ReverseFind( _T('\\') );
-				if ( CLibrary::IsBadFile( sPath.Mid( nSlash + 1 ), sPath.Left( nSlash ),
-					wfad.dwFileAttributes ) )
+				if ( CLibrary::IsBadFile( sPath.Mid( nSlash + 1 ), sPath.Left( nSlash ), wfad.dwFileAttributes ) )
 				{
 					// Remove bad file
 					Remove( nIndex );
@@ -370,17 +368,17 @@ void CLibraryBuilder::OnRun()
 
 	while ( IsThreadEnabled() )
 	{
+		if ( Settings.Library.HighPriorityHash )
+			Sleep( 20 );
+		else
+			Sleep( 100 );	// Max 10 files per second
+
 		// Delay thread load at startup
 		if ( ! theApp.m_bLive )
 		{
 			Sleep( 0 );
 			continue;
 		}
-
-		if ( Settings.Library.HighPriorityHash )
-			Sleep( 50 );	// Max 20 files per second
-		else
-			Sleep( 100 );	// Max 10 files per second
 
 		CString sPath;
 		const DWORD nIndex = GetNextFileToHash( sPath );
@@ -504,7 +502,7 @@ bool CLibraryBuilder::HashFile(LPCTSTR szPath, HANDLE hFile)
 	QWORD nLength = nFileSize;
 	while ( nLength )
 	{
-		nBlock = (DWORD)min( nLength, MAX_HASH_BUFFER_SIZE );
+		nBlock = (DWORD)min( nLength, (QWORD)MAX_HASH_BUFFER_SIZE );
 
 		{
 			CQuickLock pLock( m_pSection );
@@ -573,12 +571,6 @@ bool CLibraryBuilder::HashFile(LPCTSTR szPath, HANDLE hFile)
 
 	pFileHash->Finish();
 
-	// Get associated download (if any)
-	CSingleLock oTransfersLock( &Transfers.m_pSection, TRUE );
-	CDownload* pDownload = Downloads.FindByPath( szPath );
-	if ( ! pDownload )
-		oTransfersLock.Unlock();
-
 	CSingleLock oLibraryLock( &Library.m_pSection, FALSE );
 	while ( ! oLibraryLock.Lock( 100 ) )
 	{
@@ -601,8 +593,7 @@ bool CLibraryBuilder::HashFile(LPCTSTR szPath, HANDLE hFile)
 	pFileHash->CopyTo( pFile );
 
 	LibraryMaps.CullDeletedFiles( pFile );
-	LibraryHistory.Add( szPath, pFile->m_oSHA1, pFile->m_oTiger,
-		pFile->m_oED2K, pFile->m_oBTH, pFile->m_oMD5 );
+	LibraryHistory.Add( szPath, pFile->m_oSHA1, pFile->m_oTiger, pFile->m_oED2K, pFile->m_oBTH, pFile->m_oMD5 );
 
 	// Child pornography check
 	if ( Settings.Search.AdultFilter &&
@@ -613,15 +604,19 @@ bool CLibraryBuilder::HashFile(LPCTSTR szPath, HANDLE hFile)
 		pFile->SetShared( false );
 	}
 
-	if ( pDownload )
-		pFile->UpdateMetadata( pDownload );
+	// Get associated download (if any)
+	CSingleLock oTransfersLock( &Transfers.m_pSection );
+	if ( oTransfersLock.Lock( 2000 ) )
+	{
+		CDownload* pDownload = Downloads.FindByPath( szPath );
+		if ( pDownload )
+			pFile->UpdateMetadata( pDownload );
+		oTransfersLock.Unlock();
+	}
 
 	Library.AddFile( pFile );
 
 	oLibraryLock.Unlock();
-
-	if ( pDownload )
-		oTransfersLock.Unlock();
 
 	Library.Update();
 
@@ -863,8 +858,8 @@ bool CLibraryBuilder::DetectVirtualLyrics(HANDLE hFile, QWORD& nOffset, QWORD& n
 	LYRICS3_2 pFooter = { 0 };
 	DWORD nRead;
 
-	LONG nPosLow	= (LONG)( ( nOffset + nLength - sizeof(pFooter) ) & 0xFFFFFFFF );
-	LONG nPosHigh	= (LONG)( ( nOffset + nLength - sizeof(pFooter) ) >> 32 );
+	LONG nPosLow  = (LONG)( ( nOffset + nLength - sizeof(pFooter) ) & 0xFFFFFFFF );
+	LONG nPosHigh = (LONG)( ( nOffset + nLength - sizeof(pFooter) ) >> 32 );
 	SetFilePointer( hFile, nPosLow, &nPosHigh, FILE_BEGIN );
 
 	if ( ! ReadFile( hFile, &pFooter, sizeof(pFooter), &nRead, NULL ) )

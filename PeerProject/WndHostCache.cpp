@@ -362,31 +362,17 @@ void CHostCacheWnd::OnNcMouseMove(UINT /*nHitTest*/, CPoint /*point*/)
 
 void CHostCacheWnd::OnUpdateHostCacheConnect(CCmdUI* pCmdUI)
 {
-	pCmdUI->Enable( ( m_wndList.GetSelectedCount() > 0 ) &&
-		( m_nMode == PROTOCOL_NULL ||
-		m_nMode == PROTOCOL_G2 ||
-		m_nMode == PROTOCOL_G1 ||
-		m_nMode == PROTOCOL_ED2K ||
-		m_nMode == PROTOCOL_DC ||
-		m_nMode == PROTOCOL_KAD ) );
+	pCmdUI->Enable( m_wndList.GetSelectedCount() > 0 );
 }
 
 void CHostCacheWnd::OnHostCacheConnect()
 {
-	if ( m_nMode == PROTOCOL_NULL ||
-		m_nMode == PROTOCOL_G2 ||
-		m_nMode == PROTOCOL_G1 ||
-		m_nMode == PROTOCOL_ED2K ||
-		m_nMode == PROTOCOL_DC ||
-		m_nMode == PROTOCOL_KAD )
+	POSITION pos = m_wndList.GetFirstSelectedItemPosition();
+	while ( pos )
 	{
-		POSITION pos = m_wndList.GetFirstSelectedItemPosition();
-		while ( pos )
-		{
-			const int nItem = m_wndList.GetNextSelectedItem( pos );
-			if ( CHostCacheHostPtr pHost = GetItem( nItem ) )
-				pHost->ConnectTo();
-		}
+		const int nItem = m_wndList.GetNextSelectedItem( pos );
+		if ( CHostCacheHostPtr pHost = GetItem( nItem ) )
+			pHost->ConnectTo();
 	}
 }
 
@@ -521,6 +507,8 @@ void CHostCacheWnd::OnNeighboursCopy()
 		strURL.Format( _T("ed2k://|kad|%s|%u|/"), (LPCTSTR)pHost->Address(), pHost->m_nUDPPort );
 	else if ( pHost->m_nProtocol == PROTOCOL_DC )
 		strURL.Format( _T("dchub://%s:%u"), (LPCTSTR)pHost->Address(), pHost->m_nUDPPort );
+	else if ( pHost->m_nProtocol == PROTOCOL_BT )
+		strURL.Format( _T("peerproject:btnode:%s:%u"), (LPCTSTR)pHost->Address(), pHost->m_nUDPPort );
 
 	CURLCopyDlg::SetClipboardText( strURL );
 }

@@ -186,7 +186,7 @@ BOOL CDatagrams::Listen()
 	m_nInFrags	= m_nInPackets = 0;
 	m_nOutFrags	= m_nOutPackets = 0;
 
-	DHT::Connect();
+	DHT.Connect();
 
 	return TRUE;
 }
@@ -198,7 +198,7 @@ void CDatagrams::Disconnect()
 {
 	if ( ! IsValid() ) return;
 
-	DHT::Disconnect();
+	DHT.Disconnect();
 
 	CNetwork::CloseSocket( m_hSocket, false );
 
@@ -384,7 +384,7 @@ void CDatagrams::OnRun()
 {
 	if ( ! IsValid() ) return;
 
-	DHT::OnRun();
+	DHT.OnRun();
 
 	TryWrite();
 	ManageOutput();

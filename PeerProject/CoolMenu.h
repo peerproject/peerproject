@@ -1,7 +1,7 @@
 //
 // CoolMenu.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -71,14 +71,13 @@ protected:
 	CSize		m_czWatermark;
 	HBITMAP		m_hOldMark;
 
-	BOOL		m_bUnhook;
 	CString		m_sFilterString;
 	CString		m_sOldFilterString;
 
 // Border Hook
 public:
 	void			EnableHook();
-	static void		EnableHook(BOOL bEnable);
+	static void		EnableHook(bool bEnable);
 	static void		RegisterEdge(int nLeft, int nTop, int nLength);
 
 protected:

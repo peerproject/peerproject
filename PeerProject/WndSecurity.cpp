@@ -1,7 +1,7 @@
 //
 // WndSecurity.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -273,11 +273,14 @@ void CSecurityWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 
 void CSecurityWnd::OnUpdateSecurityEdit(CCmdUI* pCmdUI)
 {
-	pCmdUI->Enable( m_wndList.GetSelectedCount() == 1 );
+	pCmdUI->Enable( m_wndList.GetSelectedCount() == 1 && m_wndList.GetItemCount() > 1 );
 }
 
 void CSecurityWnd::OnSecurityEdit()
 {
+	if ( m_wndList.GetSelectedCount() != 1 || m_wndList.GetItemCount() < 2 )
+		return;
+
 	CSecureRule* pEditableRule;
 	{
 		CQuickLock oLock( Security.m_pSection );
@@ -318,14 +321,16 @@ void CSecurityWnd::OnSecurityReset()
 
 void CSecurityWnd::OnUpdateSecurityRemove(CCmdUI* pCmdUI)
 {
-	pCmdUI->Enable( m_wndList.GetSelectedCount() > 0 );
+	pCmdUI->Enable( m_wndList.GetSelectedCount() > 0 && m_wndList.GetItemCount() > 1 );
 }
 
 void CSecurityWnd::OnSecurityRemove()
 {
-	CString strMessage;
-	LoadString( strMessage, IDS_SECURITY_REMOVE_CONFIRM );
-	if ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
+	if ( m_wndList.GetSelectedCount() < 1 || m_wndList.GetItemCount() <= 1 )
+		return;
+
+	if ( AfxMessageBox( IDS_SECURITY_REMOVE_CONFIRM, MB_ICONQUESTION|MB_YESNO ) != IDYES )
+		return;
 
 	for ( int nItem = -1 ; ( nItem = m_wndList.GetNextItem( nItem, LVIS_SELECTED ) ) >= 0 ; )
 	{
@@ -516,12 +521,12 @@ BOOL CSecurityWnd::PreTranslateMessage(MSG* pMsg)
 		{
 			if ( pMsg->wParam == VK_UP )
 			{
-				OnSecurityMoveUp();
+				PostMessage( WM_COMMAND, ID_SECURITY_MOVE_UP ); 	// OnSecurityMoveUp()
 				return TRUE;
 			}
 			if ( pMsg->wParam == VK_DOWN )
 			{
-				OnSecurityMoveDown();
+				PostMessage( WM_COMMAND, ID_SECURITY_MOVE_DOWN );	// OnSecurityMoveDown()
 				return TRUE;
 			}
 			if ( pMsg->wParam == 'A' )
@@ -536,12 +541,17 @@ BOOL CSecurityWnd::PreTranslateMessage(MSG* pMsg)
 		}
 		else if ( pMsg->wParam == VK_DELETE )
 		{
-			OnSecurityRemove();
+			PostMessage( WM_COMMAND, ID_SECURITY_REMOVE );			// OnSecurityRemove()
 			return TRUE;
 		}
 		else if ( pMsg->wParam == VK_INSERT )
 		{
 			PostMessage( WM_COMMAND, ID_SECURITY_ADD );
+			return TRUE;
+		}
+		else if ( pMsg->wParam == VK_RETURN )
+		{
+			PostMessage( WM_COMMAND, ID_SECURITY_EDIT );
 			return TRUE;
 		}
 	}

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default English Skin File -->
 
-<!-- Translation based on default-en.xml r74 -->
+<!-- Translation based on default-en.xml r75 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -374,6 +374,7 @@
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 		<button id="ID_NETWORK_DC" text="DC++"/>
+		<button id="ID_NETWORK_BT" text="BitTorrent"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Settings"/>
 	</toolbar>
@@ -476,6 +477,12 @@
 		<button id="ID_CHAT_DISCONNECT" text="Disconnect"/>
 	</toolbar>
 	<!-- WEBSERVICES -->
+	<toolbar name="WebServices.MusicBrainz">
+		<button id="ID_MUSICBRAINZ_MATCHES" text="View Album Matches"/>
+		<button id="ID_MUSICBRAINZ_ALBUMS" text="View All Albums"/>
+		<separator/>
+	</toolbar>
+	<!--
 	<toolbar name="WebServices.ShareMonkey">
 		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Get Data"/>
 		<separator/>
@@ -498,11 +505,7 @@
 		<button id="ID_SHAREMONKEY_COMPARE" text="Compare"/>
 		<button id="ID_SHAREMONKEY_BUY" text="Buy It"/>
 	</toolbar>
-	<toolbar name="WebServices.MusicBrainz">
-		<button id="ID_MUSICBRAINZ_MATCHES" text="View Album Matches"/>
-		<button id="ID_MUSICBRAINZ_ALBUMS" text="View All Albums"/>
-		<separator/>
-	</toolbar>
+	-->
 	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
 		<button id="PluginID_ImageViewer_FullSize" text="Actual Size"/>
@@ -571,13 +574,14 @@
 				<item id="ID_NETWORK_G1" text="Connect to _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Connect to _eDonkey2000"/>
 				<item id="ID_NETWORK_DC" text="Connect to _DC++"/>
+				<item id="ID_NETWORK_BT" text="Connect to _BitTorrent"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="Connect _To..." shortcut="Ctrl+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="_Browse User..."/>
 				<item id="ID_NETWORK_CHAT_TO" text="Chat with _User..."/>
 				<separator/>
 				<item id="ID_NETWORK_AUTO_CLOSE" text="Exit _After Transfers"/>
-				<item id="ID_NETWORK_EXIT" text="E_xit Immediately"/>
+				<item id="ID_NETWORK_EXIT" text="E_xit Now"/>
 			</menu>
 			<menu text="_Tools">
 				<item id="ID_LIBRARY_FOLDERS" text="Share _Files..."/>
@@ -655,6 +659,7 @@
 				<item id="ID_NETWORK_G1" text="Connect to _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Connect to _eDonkey"/>
 				<item id="ID_NETWORK_DC" text="Connect to _DC++"/>
+				<item id="ID_NETWORK_BT" text="Connect to _BitTorrent"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Connect _To..." shortcut="Ctrl+T"/>
@@ -846,6 +851,7 @@
 				<item id="ID_NETWORK_G1" text="Connect to _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Connect to _eDonkey"/>
 				<item id="ID_NETWORK_DC" text="Connect to _DC++"/>
+				<item id="ID_NETWORK_BT" text="Connect to _BitTorrent"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Close _After Transfers"/>
@@ -1661,6 +1667,7 @@
 			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
 			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<item id="ID_NETWORK_BT" text="_BitTorrent"/>
 			<separator/>
 			<item id="ID_VIEW_DISCOVERY" text="Discovery _Services"/>
 			<item id="ID_VIEW_HOSTS" text="_Host/Server Cache"/>
@@ -1798,7 +1805,7 @@
 	<menu name="WebServices.List.Menu">
 		<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Bitzi"/>
 		<item id="ID_WEBSERVICES_MUSICBRAINZ" text="_MusicBrainz"/>
-		<item id="ID_WEBSERVICES_SHAREMONKEY" text="_ShareMonkey"/>
+		<!--item id="ID_WEBSERVICES_SHAREMONKEY" text="_ShareMonkey"-->
 	</menu>
 	<!-- PLUGIN MENUS -->
 	<menu name="ImageViewer_Context">
@@ -2086,7 +2093,7 @@
 		<text>Adjust common user interface behaviors, etc.</text>
 		<newline gap="10"/>
 		<link target="page:CLibrarySettingsPage" format="b">Library: </link>
-		<text>File access, management and presentation of the file library.</text>
+		<text>File access, and management of your local library.</text>
 		<newline gap="10"/>
 		<link target="page:CMediaSettingsPage" format="b">Media Player: </link>
 		<text>Set when to use the internal PeerProject Media System.</text>
@@ -2097,7 +2104,7 @@
 		<link target="page:CCommunitySettingsPage" format="b">Community: </link>
 		<text>Your profile and direct chat settings.</text>
 		<newline gap="10"/>
-		<link target="page:CRemoteSettingsPage" format="b">Remote: </link>
+		<link target="page:CRemoteSettingsPage" format="b">Web Remote: </link>
 		<text>Set PeerProject to be controlled from a web browser.</text>
 		<newline gap="10"/>
 		<link target="page:CWebSettingsPage" format="b">Web Integration: </link>
@@ -2701,6 +2708,7 @@
 	<tip id="ID_NETWORK_EXIT" message="Exit PeerProject"/>
 	<tip id="ID_NETWORK_ED2K" message="Connect to the eDonkey network."/>
 	<tip id="ID_NETWORK_DC" message="Connect to the DC++ network."/>
+	<tip id="ID_NETWORK_BT" message="Connect to the BitTorrent network."/>
 	<tip id="ID_NETWORK_G1" message="Connect to the original Gnutella network."/>
 	<tip id="ID_NETWORK_G2" message="Connect to the Gnutella2 network (highly recommended)."/>
 	<tip id="ID_NETWORK_SEARCH" message="Start a new search of the network..."/>
@@ -2814,7 +2822,7 @@
 	<tip id="ID_WINDOW_TILE_VERT" message="Arrange open windows as vertical, non-overlapping tiles."/>
 	<tip id="ID_WINDOW_TOOLBAR" message="Show or hide the toolbar."/>
 	<tip id="ID_WEBSERVICES_LIST" message="Choose the web service to get more information about the selected file."/>
-	<tip id="ID_WEBSERVICES_SHAREMONKEY" message="Search for the file infomation using ShareMonkey service."/>
+	<!--tip id="ID_WEBSERVICES_SHAREMONKEY" message="Search for the file infomation using ShareMonkey service."-->
 	<!-- PLUGIN TIPS -->
 	<tip id="PluginID_ImageViewer_BestFit" message="Resize the image to fit within the window."/>
 	<tip id="PluginID_ImageViewer_FullSize" message="Show the image at its natural size."/>
@@ -3002,8 +3010,8 @@
 	<string id="20202" value="Received a faulty push connection from %s, closing connection."/>
 	<string id="20203" value="Boosting download &quot;%s&quot; by removing bandwidth caps."/>
 	<string id="20204" value="Download host %s is busy, retrying in %i seconds."/>
-	<string id="20205" value="Couldn't move download &quot;%s&quot; to &quot;%s&quot;. Check that the incomplete file is not in use, and that your downloads folder exists and is writable."/>
-	<string id="20206" value="Unable to resolve &quot;%s&quot;."/>
+	<string id="20205" value="Insufficient disk space to download &quot;%s&quot; (%s)."/>
+	<string id="20206" value="Couldn't move download &quot;%s&quot; to &quot;%s&quot;. Check that the incomplete file is not in use, and that your downloads folder exists and is writable."/>
 	<string id="20207" value="Are you sure you want to cancel/abort every download in this group?"/>
 	<string id="20208" value="Closing download connection to %s, no longer required."/>
 	<string id="20209" value="Download host %s sent unsolicited data, closing connection."/>
@@ -3016,27 +3024,20 @@
 	<string id="20216" value="Unable to connect to download host %s."/>
 	<string id="20217" value="Receiving download content from host %s (%s)."/>
 	<string id="20218" value="Aborting download of &quot;%s&quot; from %s (%s), network disabled."/>
-	<string id="20219" value="Insufficient disk space to download &quot;%s&quot; (%s)."/>
-	<string id="20220" value="Download connection to %s was lost."/>
-	<string id="20221" value="The selected download currently has an active Task, please wait."/>
-	<string id="20222" value="You have typed an eDonkey hash value, however it is invalid. Please check it and try again."/>
-	<string id="20223" value="You have provided an %s hash value that is different from the one currently associated with this download. Are you sure you want to change the %s hash now?"/>
-	<string id="20224" value="Please enter a valid range to erase. The &quot;from&quot; field is the first byte to erase, the &quot;last&quot; field is the last byte to erase."/>
-	<string id="20225" value="You have typed a SHA1 value, however it is invalid. Please check it and try again."/>
-	<string id="20226" value="You have typed a root tiger-tree value, however it is invalid. Please check it and try again."/>
-	<string id="20227" value="You have made changes to the file size. Are you sure you want to change the file size for this download?"/>
-	<string id="20228" value="Unable to erase the selected range from the download because no part of the range is present."/>
-	<string id="20230" value="You have typed an %s hash value, however it is invalid. Please check it and try again."/>
-	<string id="20231" value="You have provided a SHA1 hash value which is different to the one currently associated with this download. Are you sure you want to change the SHA1 hash now?"/>
-	<string id="20232" value="You have provided an eDonkey hash value which is different to the one currently associated with this download. Are you sure you want to change the eDonkey hash now?"/>
-	<string id="20233" value="You have provided a root tiger-tree hash value which is different to the one currently associated with this download. Are you sure you want to change the tiger-tree root hash now?"/>
-	<string id="20234" value="Do you wish to cancel this download but save the incomplete files?"/>
-	<string id="20235" value="You cannot assume this download is complete and reverify it because you do not yet have any partial verification data, such as tiger-tree volume, eDonkey hashset or BitTorrent hashset. Without verification information the download cannot be reverified."/>
-	<string id="20236" value="Are you sure you want to assume this download is complete and reverify it? The whole file will be considered, and PeerProject will accept parts which pass verification and redownload parts which fail verification."/>
-	<string id="20237" value="Are you sure you want to forget all sources for the selected download?"/>
-	<string id="20238" value="Are you sure you want to forget the current verification status? All downloaded data will be treated as untrusted, and cached hashtrees and hashsets will be flushed."/>
-	<string id="20240" value="Erased %I64i bytes from the download."/>
-	<string id="20241" value="You have made changes to the name field. Are you sure you want to rename this download?"/>
+	<string id="20219" value="Download connection to %s was lost."/>
+	<string id="20220" value="The selected download currently has an active Task, please wait."/>
+	<string id="20221" value="Please enter a valid range to erase. The &quot;from&quot; field is the first byte to erase, the &quot;last&quot; field is the last byte to erase."/>
+	<string id="20222" value="You have typed a %s hash value, however it is invalid. Please check it and try again."/>
+	<string id="20223" value="You have provided a %s hash value that is different from the one currently associated with this download. Are you sure you want to change the %s hash now?"/>
+	<string id="20224" value="You have made changes to the name field. Are you sure you want to rename this download?"/>
+	<string id="20225" value="You have made changes to the file size. Are you sure you want to change the file size for this download?"/>
+	<string id="20226" value="You cannot assume this download is complete and reverify it because you do not yet have any partial verification data, such as tiger-tree volume, eDonkey hashset or BitTorrent hashset. Without verification information the download cannot be reverified."/>
+	<string id="20227" value="Are you sure you want to assume this download is complete and reverify it? The whole file will be considered, and PeerProject will accept parts which pass verification and redownload parts which fail verification."/>
+	<string id="20228" value="Are you sure you want to forget the current verification status? All downloaded data will be treated as untrusted, and cached hashtrees and hashsets will be flushed."/>
+	<string id="20229" value="Are you sure you want to forget all sources for the selected download?"/>
+	<string id="20231" value="Unable to erase the selected range from the download because no part of the range is present."/>
+	<string id="20230" value="Do you wish to cancel this download but save the incomplete files?"/>
+	<string id="20232" value="Erased %I64i bytes from the download."/>
 	<string id="20242" value="Download host %s does not have the file &quot;%s&quot;."/>
 	<string id="20243" value="Creating file &quot;%s&quot; for download."/>
 	<string id="20244" value="Unable to create local file &quot;%s&quot; for download, aborting."/>
@@ -3068,9 +3069,10 @@
 	<string id="20271" value="Moved &quot;%s&quot; to &quot;%s&quot;, download complete."/>
 	<string id="20272" value="Pausing download of &quot;%s&quot;."/>
 	<string id="20273" value="Resuming download of &quot;%s&quot;."/>
-	<string id="20274" value="Resolving &quot;%s&quot; to download &quot;%s&quot;..."/>
 	<string id="20275" value="Querying for more sources for download &quot;%s&quot; on %i connections..."/>
 	<string id="20276" value="Can't fetch more sources for download &quot;%s&quot; because there is no network connection."/>
+	<!--string id="20277" value="Resolving &quot;%s&quot; to download &quot;%s&quot;..."-->
+	<!--string id="20278" value="Unable to resolve &quot;%s&quot;."-->
 	<string id="20280" value="Download host's tiger-tree data is corrupt or internally inconsistent, ignoring it."/>
 	<string id="20281" value="Download host's tiger-tree does not match expected root value."/>
 	<string id="20282" value="Download host %s could not satisfy the tiger-tree request."/>
@@ -3335,7 +3337,7 @@
 	<string id="20570" value="Ignoring malformatted query hit packet from %s."/>
 	<string id="20571" value="Ignoring malformatted %s search query packet from %s."/>
 	<string id="20572" value="Neighbor %s forwarded a packet with excessive TTL, dropping packet (TTL=%i, Hops=%i)."/>
-	<string id="20573" value="Neighbor %s forwarded a packet with zero TTL, ignoring."/>
+	<!--string id="20573" value="Neighbor %s forwarded a packet with zero TTL, ignoring."-->
 	<string id="20574" value="Neighbor %s forwarded an extended packet that is not GGEP encoded."/>
 	<string id="20575" value="Neighbor %s sent an invalid query routing table update, dropping connection."/>
 	<string id="20576" value="Sending query routing table to neighbor %s (%i bit = %lu[%i], %i%% full)"/>
@@ -3557,7 +3559,7 @@
 	<string id="20834" value="Upload host %s requested a preview of &quot;%s&quot;, but no preview is available."/>
 	<string id="20835" value="Uploading a preview of &quot;%s&quot; to %s."/>
 	<string id="20836" value="Refusing push request to %s because it has too many upload connections."/>
-	<string id="20837" value="Legacy push request from %s requested an unknown file, connecting anyway..."/>
+	<!--string id="20837" value="Legacy push request from %s requested an unknown file, connecting anyway..."-->
 	<string id="20838" value="Too busy to upload &quot;%s&quot; to %s, queued at #%i of %i (&quot;%s&quot;)."/>
 	<string id="20840" value="Upload connection to %s was lost, preserving queue position."/>
 	<string id="20841" value="New Queue"/>
@@ -3587,7 +3589,7 @@
 	<string id="20866" value="Filename:"/>
 	<string id="20867" value="Host:"/>
 	<string id="20868" value="Port:"/>
-	<string id="20869" value="Unable to display URL action dialog because PeerProject is busy."/>
+	<!--string id="20869" value="Unable to display URL action dialog because PeerProject is busy."-->
 	<string id="20870" value="Unable to parse URL: PeerProject does not understand this URL."/>
 	<string id="20871" value="Received URL &quot;%s&quot;"/>
 	<string id="20872" value="Type:"/>
@@ -3597,7 +3599,6 @@
 	<string id="20881" value="%u Files selected. Are you sure?"/>
 	<string id="20882" value="No URN available"/>
 	<string id="20883" value="UPnP Device Host Service is not running. This service is required to perform the setup.\nYou need to set the startup type of the service to automatic."/>
-	<string id="20884" value="This option uses services provided by ShareMonkey.com for recognizing information about selected files.\n\nPeerProject will transmit file details and your location in order to query the ShareMonkey database.\nIf you are concerned about privacy, you may wish to consult ShareMonkey.com policies.\n\nWould you like to proceed?"/>
 	<string id="20885" value="Changing view will close any windows you have open. Would you like to change now?"/>
 	<string id="20886" value="Changing interface direction requires restart.\n\nExit now?"/>
 	<string id="20890" value="Welcome to PeerProject"/>
@@ -3932,7 +3933,7 @@
 		<control caption="Download..."/>
 		<control caption="Update eDonkey server list from the web.  (MET file)"/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Download Connections:"/>
 		<control/>
 		<control/>
@@ -3940,6 +3941,7 @@
 		<control/>
 		<control/>
 		<control caption="Client connections"/>
+		<control caption="Enable BitTorrent DHT"/>
 		<control caption="Prefer torrent sources"/>
 		<control caption="_EndGame:"/>
 		<control caption="Enable EndGame mode when completing torrents  (multi-source)"/>
@@ -4666,7 +4668,7 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackers">
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBuBuBu" caption="Trackers">
 		<control/>
 		<control/>
 		<control/>
@@ -4677,7 +4679,9 @@
 		<control caption="Peers (Incomplete):"/>
 		<control caption="Tracker Mode:"/>
 		<control caption="Disabled|Single Tracker|Multi-tracker|Multi-tracker (locked)"/>
-		<control caption="_Refresh"/>
+		<control caption="R_efresh"/>
+		<control caption="_Add"/>
+		<control caption="_Remove"/>
 	</dialog>
 	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="Torrent">
 		<control/>

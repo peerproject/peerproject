@@ -1,7 +1,7 @@
 //
 // PageSettingsDonkey.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -36,7 +36,7 @@ BEGIN_MESSAGE_MAP(CDonkeySettingsPage, CSettingsPage)
 	//{{AFX_MSG_MAP(CDonkeySettingsPage)
 	ON_BN_CLICKED(IDC_DISCOVERY_GO, OnDiscoveryGo)
 	ON_BN_CLICKED(IDC_SERVER_WALK, OnServerWalk)
-	ON_BN_CLICKED(IDC_ENABLE_TODAY, OnEnable)
+	ON_BN_CLICKED(IDC_ENABLE, OnEnable)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -68,7 +68,7 @@ void CDonkeySettingsPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_DISCOVERY_GO, m_wndDiscoveryGo);
 	DDX_Text(pDX, IDC_RESULTS, m_nResults);
 	DDX_Text(pDX, IDC_LINKS, m_nLinks);
-	DDX_Check(pDX, IDC_ENABLE_TODAY, m_bEnabled);
+	DDX_Check(pDX, IDC_ENABLE, m_bEnabled);
 	DDX_Check(pDX, IDC_ENABLE_ALWAYS, m_bEnableAlways);
 	DDX_Check(pDX, IDC_LEARN_ED2K_SERVERS, m_bLearnServers);
 	DDX_Check(pDX, IDC_SERVER_WALK, m_bServerWalk);

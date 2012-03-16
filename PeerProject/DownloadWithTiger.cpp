@@ -91,17 +91,20 @@ DWORD CDownloadWithTiger::GetVerifyLength(PROTOCOLID nProtocol, int nHash) const
 		if ( m_pTigerBlock )
 			return m_nTigerSize;
 	}
-	else if ( nHash == HASH_TIGERTREE && m_pTigerBlock != NULL )
+	else if ( nHash == HASH_TIGERTREE )
 	{
-		return m_nTigerSize;
+		if ( m_pTigerBlock != NULL )
+			return m_nTigerSize;
 	}
-	else if ( nHash == HASH_ED2K && m_pHashsetBlock != NULL )
+	else if ( nHash == HASH_ED2K )
 	{
-		return ED2K_PART_SIZE;
+		if ( m_pHashsetBlock != NULL )
+			return ED2K_PART_SIZE;
 	}
-	else if ( nHash == HASH_TORRENT && m_pTorrentBlock != NULL )
+	else if ( nHash == HASH_TORRENT )
 	{
-		return m_nTorrentSize;
+		if ( m_pTorrentBlock != NULL )
+			return m_nTorrentSize;
 	}
 
 	return 0;
@@ -277,11 +280,9 @@ BOOL CDownloadWithTiger::SetTigerTree(BYTE* pTiger, DWORD nTiger, BOOL bLevel1)
 	if ( m_pTigerTree.IsAvailable() )
 		return TRUE;
 
-	DWORD nHeight = Settings.Library.TigerHeight;
-
 	if ( ! ( bLevel1 ?
-		m_pTigerTree.FromBytesLevel1( pTiger, nTiger, nHeight, m_nSize ) :
-		m_pTigerTree.FromBytes( pTiger, nTiger, nHeight, m_nSize ) ) )
+		m_pTigerTree.FromBytesLevel1( pTiger, nTiger, m_nSize ) :
+		m_pTigerTree.FromBytes( pTiger, nTiger, Settings.Library.TigerHeight, m_nSize ) ) )
 	{
 		theApp.Message( MSG_ERROR, IDS_DOWNLOAD_TIGER_CORRUPT,
 			(LPCTSTR)GetDisplayName() );

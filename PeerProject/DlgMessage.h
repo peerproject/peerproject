@@ -1,7 +1,7 @@
 //
 // DlgMessage.h
 //
-// This file is part of PeerProject (peerproject.org) © 2009-2010
+// This file is part of PeerProject (peerproject.org) © 2009-2012
 // Portions copyright Shareaza Development Team, 2009.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -32,9 +32,12 @@ public:
 
 	enum { IDD = IDD_MESSAGE };
 
+public:
 	DWORD	m_nType;		// Message box type
 	CString	m_sText;		// Message box text
 	DWORD*	m_pnDefault;	// Message box variable
+	DWORD	m_nIDHelp;		// The Help context ID for the message (0 - default)
+	DWORD	m_nTimer;		// Time to auto-press default button (0 - disabled)
 
 	virtual INT_PTR DoModal();
 
@@ -46,16 +49,22 @@ protected:
 	CButton m_pButton1;
 	CButton m_pButton2;
 	CButton m_pButton3;
-	BOOL	m_bRemember;	// Remember my selection next time
+	BOOL	m_bRemember;	// Remember selection next time
+	int		m_nDefButton;	// Default button number (1, 2 or 3)
 
 	virtual void DoDataExchange(CDataExchange* pDX);
 	virtual BOOL OnInitDialog();
 	virtual void OnOK();
 	virtual void OnCancel();
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
+
+	void UpdateTimer();
+	void StopTimer();
 
 	afx_msg void OnBnClickedButton1();
 	afx_msg void OnBnClickedButton2();
 	afx_msg void OnBnClickedButton3();
+	afx_msg void OnTimer(UINT_PTR nIDEvent);
 
 	DECLARE_MESSAGE_MAP()
 };

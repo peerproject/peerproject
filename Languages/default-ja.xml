@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Japanese Skin File -->
 
-<!-- Translation based on default-en.xml r74 (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r75 (Shareaza 2.2.0.2) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -360,6 +360,7 @@
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 		<button id="ID_NETWORK_DC" text="DC++"/>
+		<button id="ID_NETWORK_BT" text="BitTorrent"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="設定"/>
 	</toolbar>
@@ -474,6 +475,7 @@
 				<item id="ID_NETWORK_G1" text="_Gnutellaへ接続"/>
 				<item id="ID_NETWORK_ED2K" text="_eDonkey2000へ接続"/>
 				<item id="ID_NETWORK_DC" text="_DC++へ接続"/>
+				<item id="ID_NETWORK_BT" text="_BitTorrentへ接続"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="接続先(_T)..." shortcut="Ctrl+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="ホストを参照(_B)..."/>
@@ -559,6 +561,7 @@
 			<item id="ID_NETWORK_G1" text="_Gnutellaへ接続"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey2000へ接続"/>
 			<item id="ID_NETWORK_DC" text="_DC++へ接続"/>
+			<item id="ID_NETWORK_BT" text="_BitTorrentへ接続"/>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="接続先(_T)..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="ホストを参照(_B)..."/>
@@ -1497,6 +1500,7 @@
 			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey2000"/>
 			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<item id="ID_NETWORK_BT" text="_BitTorrent"/>
 			<separator/>
 			<item id="ID_VIEW_DISCOVERY" text="ディスカバリ"/>
 			<item id="ID_VIEW_HOSTS" text="ホストキャッシュ"/>
@@ -2417,6 +2421,7 @@
 	<tip id="ID_NETWORK_EXIT" message="PeerProjectを終了します"/>
 	<tip id="ID_NETWORK_ED2K" message="eDonkey2000ネットワークに接続します"/>
 	<tip id="ID_NETWORK_DC" message="DC++ネットワークに接続します"/>
+	<tip id="ID_NETWORK_BT" message="BitTorrentネットワークに接続します"/>
 	<tip id="ID_NETWORK_G1" message="オリジナルGnutellaネットワークに接続します"/>
 	<tip id="ID_NETWORK_G2" message="Gnutella2ネットワークに接続します(推奨)"/>
 	<tip id="ID_NETWORK_SEARCH" message="ネットワークで新規検索します..."/>
@@ -2698,8 +2703,8 @@
 	<string id="20202" value="%s からの不完全なプッシュ接続を受信した為、接続を閉じています"/>
 	<string id="20203" value="帯域制限を解除してダウンロード &quot;%s&quot; を加速中です"/>
 	<string id="20204" value="ダウンロードホスト %s はビジー状態です。%i 秒後に再試行します"/>
-	<string id="20205" value="ダウンロード &quot;%s&quot; を &quot;%s&quot; へ移動できません。未完了ファイルが使用中でないかや、ダウンロードフォルダが存在して、書き込み可能かどうかをチェックして下さい"/>
-	<string id="20206" value="&quot;%s&quot;.名前解決できませんでした"/>
+	<string id="20205" value="&quot;%s&quot; をダウンロードするために十分なディスクの空き容量がありません(%s)"/>
+	<string id="20206" value="ダウンロード &quot;%s&quot; を &quot;%s&quot; へ移動できません。未完了ファイルが使用中でないかや、ダウンロードフォルダが存在して、書き込み可能かどうかをチェックして下さい"/>
 	<string id="20207" value="このグループの全てのダウンロードをキャンセル/中止してよろしいですか?"/>
 	<string id="20208" value="最早必要でない為 %s への接続を閉じています"/>
 	<string id="20209" value="ダウンロードホスト %s が求められないデータを送信した為、接続を閉じています"/>
@@ -2712,23 +2717,18 @@
 	<string id="20216" value="ダウンロードホスト %s と接続できません"/>
 	<string id="20217" value="ホスト %s からダウンロード内容を受信しています (%s)"/>
 	<string id="20218" value="ネットワークが無効になり、&quot;%s&quot;.のダウンロード(ダウンロード元: %s)を中止しています (%s)"/>
-	<string id="20219" value="&quot;%s&quot; をダウンロードするために十分なディスクの空き容量がありません(%s)"/>
-	<string id="20220" value="%s とのダウンロード接続が失われました"/>
-	<string id="20222" value="eDonkey2000ハッシュ値を入力しましたが、この値は無効です。正確な値かどうか確認して再試行して下さい"/>
-	<string id="20224" value="消去する有効な範囲を入力して下さい。 &quot;開始&quot; フィールドには消去する最初のバイト、&quot;終了&quot; フィールドには消去する最後のバイトを入力します"/>
-	<string id="20225" value="SHA1値を入力しましたが、この値は無効です。正確な値かどうか確認して再試行して下さい"/>
-	<string id="20226" value="ルートtiger-tree値を入力しましたが、この値は無効です。正確な値かどうか確認して再試行して下さい"/>
-	<string id="20227" value="ファイルサイズの変更が行われました。 本当にこのダウンロードのファイルサイズを変更して宜しいですか?"/>
-	<string id="20228" value="指定された範囲のデータが存在しない為、ダウンロードから指定範囲を消去できませんでした"/>
-	<string id="20231" value="現在このダウンロードと関連づけられているものとは異なるSHA1ハッシュ値を与えました。 本当にSHA1ハッシュを変更して宜しいですか?"/>
-	<string id="20232" value="現在このダウンロードと関連づけられているものとは異なるeDonkey2000ハッシュ値を与えました。 本当にeDonkey2000ハッシュを変更して宜しいですか?"/>
-	<string id="20233" value="現在このダウンロードと関連づけられているものとは異なるtiger-treeルートハッシュ値を与えました。 本当にtiger-treeルートハッシュを変更して宜しいですか?"/>
-	<string id="20235" value="tiger-treeボリュームやeDonkeyハッシュセット、BitTorrentハッシュセットといった、どのような部分検証データもない為、このダウンロードを完了・再検証できません。 検証情報が無ければダウンロードを再検証できません"/>
-	<string id="20236" value="このダウンロードを完了済みとして再検証しますか?　ファイル全体が考慮され、PeerProjectは検証に成功する部分を受け付け、検証に失敗する部分を再ダウンロードします"/>
-	<string id="20237" value="選択したダウンロードの全てのソースを消去してよろしいですか?"/>
-	<string id="20238" value="現在の検証状況を消去してよろしいですか?　ダウンロードした全てのデータが未検証として扱われ、キャッシュされたハッシュツリーとハッシュセットはフラッシュされます"/>
-	<string id="20240" value="ダウンロードから %I64i バイトを消去しました"/>
-	<string id="20241" value="名前領域を変更しました。このダウンロードをリネームして宜しいですか?"/>
+	<string id="20219" value="%s とのダウンロード接続が失われました"/>
+	<string id="20221" value="消去する有効な範囲を入力して下さい。 &quot;開始&quot; フィールドには消去する最初のバイト、&quot;終了&quot; フィールドには消去する最後のバイトを入力します"/>
+	<string id="20222" value="%sハッシュ値を入力しましたが、この値は無効です。正確な値かどうか確認して再試行して下さい"/>
+	<string id="20223" value="現在このダウンロードと関連づけられているものとは異なる%sハッシュ値を与えました。 本当に%sハッシュを変更して宜しいですか?"/>
+	<string id="20224" value="名前領域を変更しました。このダウンロードをリネームして宜しいですか?"/>
+	<string id="20225" value="ファイルサイズの変更が行われました。 本当にこのダウンロードのファイルサイズを変更して宜しいですか?"/>
+	<string id="20226" value="tiger-treeボリュームやeDonkeyハッシュセット、BitTorrentハッシュセットといった、どのような部分検証データもない為、このダウンロードを完了・再検証できません。 検証情報が無ければダウンロードを再検証できません"/>
+	<string id="20227" value="このダウンロードを完了済みとして再検証しますか?　ファイル全体が考慮され、PeerProjectは検証に成功する部分を受け付け、検証に失敗する部分を再ダウンロードします"/>
+	<string id="20228" value="現在の検証状況を消去してよろしいですか?　ダウンロードした全てのデータが未検証として扱われ、キャッシュされたハッシュツリーとハッシュセットはフラッシュされます"/>
+	<string id="20229" value="選択したダウンロードの全てのソースを消去してよろしいですか?"/>
+	<string id="20231" value="指定された範囲のデータが存在しない為、ダウンロードから指定範囲を消去できませんでした"/>
+	<string id="20232" value="ダウンロードから %I64i バイトを消去しました"/>
 	<string id="20242" value="ダウンロードホスト %s はファイル &quot;%s&quot; を所有していません"/>
 	<string id="20243" value="ダウンロード用のファイル &quot;%s&quot; を作成しています"/>
 	<string id="20244" value="ダウンロード用のローカルファイル &quot;%s&quot; を作成できませんでした。中止しています"/>
@@ -2758,9 +2758,10 @@
 	<string id="20271" value="&quot;%s&quot; から &quot;%s&quot; への移動が終了し、ダウンロードが完了しました"/>
 	<string id="20272" value="&quot;%s&quot;.ダウンロードを一時停止しています"/>
 	<string id="20273" value="&quot;%s&quot;.ダウンロードを再開しています"/>
-	<string id="20274" value="名前解決中 &quot;%s&quot; (ダウンロード &quot;%s&quot;..."/>
 	<string id="20275" value="ダウンロード &quot;%s&quot; の追加ソースを %i 接続で問い合わせ中です..."/>
 	<string id="20276" value="ネットワーク接続が全くない為、ダウンロード %s の追加ソースをフェッチできません"/>
+	<!--string id="20277" value="名前解決中 &quot;%s&quot; (ダウンロード &quot;%s&quot;..."-->
+	<!--string id="20278" value="&quot;%s&quot;.名前解決できませんでした"-->
 	<string id="20280" value="ダウンロードホストのtiger-treeデータは不正であるか内部的に矛盾している為、これを無視します"/>
 	<string id="20281" value="ダウンロードホストのtiger-treeは予想されたルートの値と一致しませんでした"/>
 	<string id="20282" value="ダウンロードホスト %s はtiger-tree要求を処理できませんでした"/>
@@ -3005,7 +3006,7 @@
 	<string id="20570" value="%s から不正な形式のヒットパケットを受信した為、無視しています"/>
 	<string id="20571" value="%s: %s から不正な形式の問い合わせパケットを受信した為、無視しています"/>
 	<string id="20572" value="近隣 %s が大きすぎるTTLを転送した為、パケットを中止しています (TTL=%i, Hops=%i)"/>
-	<string id="20573" value="近隣 %s がTTLが0のパケットを転送した為、無視しています"/>
+	<!--string id="20573" value="近隣 %s がTTLが0のパケットを転送した為、無視しています"-->
 	<string id="20574" value="近隣 %s がGGEP以外でエンコードされた拡張パケットを転送しました"/>
 	<string id="20575" value="近隣 %s が不正な問い合わせルーチンテーブルのアップデートを送信しました。接続を中止しています"/>
 	<string id="20576" value="近隣 %s に問い合わせルーチンテーブルを送信中です (%i bit = %lu[%i], 進行 %i%%)"/>
@@ -3198,7 +3199,7 @@
 	<string id="20834" value="アップロードホスト %s が &quot;%s&quot; のプレビューを要求しましたが、利用可能なプレビューがありません"/>
 	<string id="20835" value="&quot;%s&quot; のプレビューを %s へアップロードしています"/>
 	<string id="20836" value="あまりに多すぎるアップロード接続を持っているため %s へのプッシュ要求を拒否しました"/>
-	<string id="20837" value="%s からのレガシープッシュ要求は未知のファイルを要求していますが、接続試行しています..."/>
+	<!--string id="20837" value="%s からのレガシープッシュ要求は未知のファイルを要求していますが、接続試行しています..."/>
 	<string id="20838" value="&quot;%s&quot; を %s へアップロードするにはビジーすぎる為、キュー(#%i/%i)で順番待ちしています(&quot;%s&quot;."/>
 	<string id="20840" value="%s へのアップロード接続が失われた為、キュー位置を保存しています"/>
 	<string id="20841" value="新規キュー"/>
@@ -3228,7 +3229,7 @@
 	<string id="20866" value="ファイル名:"/>
 	<string id="20867" value="ホスト:"/>
 	<string id="20868" value="ポート:"/>
-	<string id="20869" value="PeerProjectがビジーの為、URLアクションダイアログを表示できませんでした"/>
+	<!--string id="20869" value="PeerProjectがビジーの為、URLアクションダイアログを表示できませんでした"-->
 	<string id="20870" value="URLの解析に失敗しました: PeerProjectはこのURLを理解できません"/>
 	<string id="20871" value="URL &quot;%s&quot; を受信しました"/>
 	<string id="20872" value="種類:"/>
@@ -3528,7 +3529,7 @@
 		<control caption="ダウンロード..."/>
 		<control caption="ウェブからeDonkeyサーバーリストをダウンロード:"/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="ダウンロード接続数:"/>
 		<control/>
 		<control/>
@@ -3536,8 +3537,9 @@
 		<control/>
 		<control/>
 		<control caption="クライアント接続数"/>
+		<control caption="BitTorrentのDHTを有効にする"/>
 		<control caption="Torrentソースを優先する"/>
-		<control caption="_EndGame:"/>
+		<control caption="_EndGame: (終盤)"/>
 		<control caption="Torrent完了時にEndGameモードを有効にする"/>
 		<control caption="次の共有比率になればダウンロードしたTorrentを自動クリアする:"/>
 		<control/>
@@ -4252,7 +4254,7 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="トラッカー">
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBuBuBu" caption="トラッカー">
 		<control/>
 		<control/>
 		<control/>
@@ -4263,7 +4265,9 @@
 		<control caption="(未完了):"/>
 		<control caption="トラッカー形態:"/>
 		<control caption="無効|カスタム|単一トラッカー|複数トラッカー|複数トラッカー (固定)"/>
-		<control caption="更新(_R)"/>
+		<control caption="更新(_E)"/>
+		<control caption="追加(_A)"/>
+		<control caption="削除(_R)"/>
 	</dialog>
 	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="一般">
 		<control/>

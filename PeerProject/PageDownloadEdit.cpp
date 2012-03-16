@@ -182,7 +182,7 @@ BOOL CDownloadEditPage::OnApply()
 	CDownloadSheet* pSheet = (CDownloadSheet*)GetParent();
 	CDownload* pDownload = pSheet->GetDownload();
 	if ( ! pDownload )
-		return CPropertyPageAdv::OnApply();	// Invalid download
+		return CPropertyPageAdv::OnApply();		// Invalid download
 
 	bool bNeedUpdate = false;
 	bool bCriticalChange = false;
@@ -196,7 +196,7 @@ BOOL CDownloadEditPage::OnApply()
 	if ( pDownload->m_sName != m_sName )
 	{
 		pLock.Unlock();
-		if ( AfxMessageBox( IDS_DOWNLOAD_EDIT_RENAME, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return FALSE;
+		if ( AfxMessageBox( IDS_DOWNLOAD_EDIT_CHANGE_NAME, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return FALSE;		// Was IDS_DOWNLOAD_EDIT_RENAME
 		pLock.Lock();
 		pDownload = pSheet->GetDownload();
 		if ( ! pDownload ) return CPropertyPageAdv::OnApply();

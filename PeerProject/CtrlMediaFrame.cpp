@@ -149,7 +149,7 @@ CMediaFrame::CMediaFrame()
 	m_bFullScreen		= FALSE;
 	m_bStatusVisible	= Settings.MediaPlayer.StatusVisible;
 	m_bListVisible		= Settings.MediaPlayer.ListVisible;
-	m_bListWasVisible   = Settings.MediaPlayer.ListVisible;
+	m_bListWasVisible	= Settings.MediaPlayer.ListVisible;
 	m_nListSize			= Settings.MediaPlayer.ListSize;
 	m_rcVideo.SetRectEmpty();
 	m_rcStatus.SetRectEmpty();

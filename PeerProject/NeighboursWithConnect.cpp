@@ -24,9 +24,11 @@
 #include "PeerProject.h"
 #include "NeighboursWithConnect.h"
 #include "Neighbours.h"
+#include "ShakeNeighbour.h"
 #include "EDNeighbour.h"
 #include "DCNeighbour.h"
-#include "ShakeNeighbour.h"
+#include "BTPacket.h"
+#include "Kademlia.h"
 #include "Network.h"
 #include "Datagrams.h"
 #include "Security.h"
@@ -133,11 +135,18 @@ CNeighbour* CNeighboursWithConnect::ConnectTo(
 			Settings.eDonkey.Enabled = true;
 			CloseDonkeys();		// Reset the eDonkey2000 network (do)
 			break;
+		case PROTOCOL_BT:
+			Settings.BitTorrent.Enabled = true;
+			Settings.BitTorrent.EnableDHT = true;
+			break;
 		case PROTOCOL_DC:
 			Settings.DC.Enabled = true;
 			break;
-		default:
-			ASSERT( ! nProtocol );
+		case PROTOCOL_KAD:
+			Settings.eDonkey.Enabled = true;
+			break;
+		//default:
+		//	ASSERT( ! nProtocol );
 		}
 	}
 
@@ -146,30 +155,48 @@ CNeighbour* CNeighboursWithConnect::ConnectTo(
 		return NULL;
 
 	// Create a compatible Neighbour object type connected to the IP address, and return the pointer to it
-	if ( nProtocol == PROTOCOL_ED2K )
+
+	switch ( nProtocol )
 	{
-		auto_ptr< CEDNeighbour > pNeighbour( new CEDNeighbour() );
-		if ( pNeighbour->ConnectTo( &pAddress, nPort, bAutomatic ) )
-			return pNeighbour.release();			// Started connecting to an ed2k neighbour
-	}
-	else if ( nProtocol == PROTOCOL_DC )
-	{
-		auto_ptr< CDCNeighbour > pNeighbour( new CDCNeighbour() );
-		if ( pNeighbour->ConnectTo( &pAddress, nPort, bAutomatic ) )
-			return pNeighbour.release();			// Started connecting to a dc++ neighbour
-	}
-	else	// PROTOCOL_G1/PROTOCOL_G2
-	{
-		auto_ptr< CShakeNeighbour > pNeighbour( new CShakeNeighbour() );
-		if ( pNeighbour->ConnectTo( &pAddress, nPort, bAutomatic, bNoUltraPeer ) )
+	case PROTOCOL_ED2K:
 		{
-			// Started connecting to a Gnutella/G2 neighbour
+			auto_ptr< CEDNeighbour > pNeighbour( new CEDNeighbour() );
+			if ( pNeighbour->ConnectTo( &pAddress, nPort, bAutomatic ) )
+				return pNeighbour.release();			// Started connecting to an ed2k neighbour
+		}
+		break;
 
-			// If we only want G1 connections now, specify that to begin with.
-			if ( Settings.Gnutella.SpecifyProtocol )
-				pNeighbour->m_nProtocol = nProtocol;
+	case PROTOCOL_DC:
+		{
+			auto_ptr< CDCNeighbour > pNeighbour( new CDCNeighbour() );
+			if ( pNeighbour->ConnectTo( &pAddress, nPort, bAutomatic ) )
+				return pNeighbour.release();			// Started connecting to a dc++ neighbour
+		}
+		break;
 
-			return pNeighbour.release();
+	case PROTOCOL_BT:
+		{
+			DHT.Ping( &pAddress, nPort );
+		}
+		break;
+
+	case PROTOCOL_KAD:
+		{
+			SOCKADDR_IN pHost = { AF_INET, htons( nPort ), pAddress };
+			Kademlia.Bootstrap( &pHost );
+		}
+		break;
+
+	default:	// PROTOCOL_G1/PROTOCOL_G2
+		{
+			auto_ptr< CShakeNeighbour > pNeighbour( new CShakeNeighbour() );
+			if ( pNeighbour->ConnectTo( &pAddress, nPort, bAutomatic, bNoUltraPeer ) )
+			{
+				// If we only want G1 connections now, specify that to begin with
+				if ( Settings.Gnutella.SpecifyProtocol )
+					pNeighbour->m_nProtocol = nProtocol;
+				return pNeighbour.release();			// Started connecting to a Gnutella/G2 neighbour
+			}
 		}
 	}
 
@@ -397,6 +424,20 @@ DWORD CNeighboursWithConnect::IsG2HubCapable(BOOL bIgnoreTime, BOOL bDebug) cons
 		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("Gnutella not enabled") );
 	}
 
+	// Not connected to eDonkey2000
+	if ( ! Settings.eDonkey.Enabled )
+	{
+		nRating++;
+		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("eDonkey not enabled") );
+	}
+
+	// The user has diabled BitTorrent, so that won't be taking up bandwidth
+	if ( ! Settings.BitTorrent.Enabled )
+	{
+		nRating++;
+		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("BitTorrent not enabled") );
+	}
+
 	if ( bDebug )
 	{
 		CString strRating;
@@ -544,10 +585,17 @@ DWORD CNeighboursWithConnect::IsG1UltrapeerCapable(BOOL bIgnoreTime, BOOL bDebug
 	}
 
 	// We'll be a better Gnutella ultrapeer if the program isn't connected to the other networks
-	if ( ! Settings.eDonkey.Enabled )	// Not connected to eDonkey2000
+
+	if ( ! Settings.eDonkey.Enabled )
 	{
 		nRating++;
 		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("eDonkey not enabled") );
+	}
+
+	if ( ! Settings.BitTorrent.Enabled )
+	{
+		nRating++;
+		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("BitTorrent not enabled") );
 	}
 
 	// If debug mode is enabled, display the ultrapeer rating in the system window log (do)
@@ -1219,10 +1267,10 @@ DWORD CNeighboursWithConnect::CalculateSystemPerformanceScore(BOOL bDebug) const
 	}
 
 	// Having more CPUs has significant effect on performance
-	if ( theApp.m_SysInfo.dwNumberOfProcessors > 1 )
+	if ( System.dwNumberOfProcessors > 1 )
 	{
-		nRating += theApp.m_SysInfo.dwNumberOfProcessors / 2;
-		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("%u Processors"), theApp.m_SysInfo.dwNumberOfProcessors );
+		nRating += System.dwNumberOfProcessors / 2;
+		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("%u Processors"), System.dwNumberOfProcessors );
 	}
 
 	// 64-bit benefit

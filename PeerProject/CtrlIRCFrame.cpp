@@ -541,6 +541,7 @@ void CIRCFrame::PaintHeader(CRect rcHeader, CDC &dc)
 	ScreenToClient( &rcClient );
 	if ( rcClient.IsRectEmpty() ) return;
 	if ( rcHeader.IsRectEmpty() ) return;
+
 	if ( m_bmBuffer.m_hObject != NULL )
 	{
 		m_dcBuffer.SelectObject( m_hBuffer );
@@ -554,8 +555,8 @@ void CIRCFrame::PaintHeader(CRect rcHeader, CDC &dc)
 	if ( ! CoolInterface.DrawWatermark( &m_dcBuffer, &rcClient, &m_bmWatermark ) )
 		m_dcBuffer.FillSolidRect( &rcHeader, Colors.m_crBannerBack );
 
-	dc.BitBlt( rcHeader.left, rcHeader.top, rcHeader.Width(),
-		rcHeader.Height(), &m_dcBuffer, 0, 0, SRCCOPY );
+	dc.BitBlt( rcHeader.left, rcHeader.top, rcHeader.Width(), rcHeader.Height(),
+		&m_dcBuffer, 0, 0, SRCCOPY );
 }
 
 void CIRCFrame::DrawText(CDC* pDC, int nX, int nY, LPCTSTR pszText)
@@ -1027,7 +1028,7 @@ void CIRCFrame::OnLocalText(LPCTSTR pszText)
 	if ( bMeMsg )	// Action *Nick
 	{
 		strMessage = strMessage.Mid( 4 );
-		strStatusMsg = _T("*") + m_sNickname + _T(" ") + strMessage;
+		strStatusMsg = _T("•") + m_sNickname + _T(" ") + strMessage;
 	}
 	else // Normal <Nick>
 	{
@@ -1632,7 +1633,7 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 			if ( CMainWnd* pWnd = theApp.CPeerProjectApp::SafeMainWnd() )
 			{
 				if ( ! pWnd->IsForegroundWindow() )
-					pWnd->ShowTrayPopup( strText, m_pWords.GetAt( 0 ), NIIF_NONE, 10 );	// Seconds  ToDo: Make Setting?
+					pWnd->ShowTrayPopup( strText, m_pWords.GetAt( 0 ), NIIF_NONE, 10 );		// Seconds  ToDo: Make Setting?
 			}
 
 			oNewMessage.Add( strSender + GetStringAfterParsedItem( 7 ), m_pWords.GetAt( 0 ), ID_COLOR_TEXT );
@@ -1644,7 +1645,7 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 		}
 	case ID_MESSAGE_USER_AWAY:
 		{
-			CString strSender = _T("*") + m_pWords.GetAt( 3 ) + _T(" is away:  ") + GetStringAfterParsedItem( 4 );
+			CString strSender = _T("•") + m_pWords.GetAt( 3 ) + _T(" is away:  ") + GetStringAfterParsedItem( 4 );
 			oNewMessage.Add( strSender, GetTabText( m_wndTab.GetCurSel() ), ID_COLOR_SERVERMSG );
 			return;
 		}
@@ -1664,7 +1665,7 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 					m_wndPanel.m_boxUsers.UpdateCaptionCount();
 					FillChanListCount( _T("-1"), m_pWords.GetAt( 6 ) );
 				}
-				CString strSender = _T("*") + m_pWords.GetAt( 7 ) + _T(" was kicked by ") + m_pWords.GetAt( 0 )
+				CString strSender = _T("•") + m_pWords.GetAt( 7 ) + _T(" was kicked by ") + m_pWords.GetAt( 0 )
 					+ _T("  (") + GetStringAfterParsedItem( 8 ) + _T(")");
 				oNewMessage.Add( strSender, GetTabText( m_wndTab.GetCurSel() ), ID_COLOR_SERVERMSG );
 			}
@@ -1678,19 +1679,19 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 				}
 				m_wndTab.SetCurSel( 0 );
 				TabClick();
-				CString strSender = _T("*You were kicked from ") + m_pWords.GetAt( 6 ) + _T(" by ") + m_pWords.GetAt( 0 ) + _T(" (") + GetStringAfterParsedItem( 8 ) + _T(")");
+				CString strSender = _T("•You were kicked from ") + m_pWords.GetAt( 6 ) + _T(" by ") + m_pWords.GetAt( 0 ) + _T(" (") + GetStringAfterParsedItem( 8 ) + _T(")");
 				oNewMessage.Add( strSender, m_sStatus, ID_COLOR_SERVERMSG );
 			}
 			return;
 		}
 	case ID_MESSAGE_SETAWAY:
 		{
-			oNewMessage.Add( _T("*You are now set as away"), GetTabText( m_wndTab.GetCurSel() ), ID_COLOR_SERVERMSG );
+			oNewMessage.Add( _T("•You are now set as away"), GetTabText( m_wndTab.GetCurSel() ), ID_COLOR_SERVERMSG );
 			return;
 		}
 	case ID_MESSAGE_STOPAWAY:
 		{
-			oNewMessage.Add( _T("*You are back  (no longer set as away)"), GetTabText( m_wndTab.GetCurSel() ), ID_COLOR_SERVERMSG );
+			oNewMessage.Add( _T("•You are back (no longer set as away)"), GetTabText( m_wndTab.GetCurSel() ), ID_COLOR_SERVERMSG );
 			return;
 		}
 	case ID_MESSAGE_USER_ME:
@@ -1698,13 +1699,13 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 			int nTab = AddTab( m_pWords.GetAt( 0 ), ID_KIND_PRIVATEMSG );
 			if ( nTab != m_wndTab.GetCurSel() )
 				HighlightTab( nTab );
-			CString strSender = _T("*") + m_pWords.GetAt( 0 ) + _T(" ");
+			CString strSender = _T("•") + m_pWords.GetAt( 0 ) + _T(" ");
 			oNewMessage.Add( strSender + GetStringAfterParsedItem( 8 ), m_pWords.GetAt( 0 ), ID_COLOR_ME );
 			return;
 		}
 	case ID_MESSAGE_USER_INVITE:
 		{
-			CString strSender = _T("*You have been invited to channel ") + m_pWords.GetAt( 8 ) + _T(" by ") + m_pWords.GetAt( 6 );
+			CString strSender = _T("•You have been invited to channel ") + m_pWords.GetAt( 8 ) + _T(" by ") + m_pWords.GetAt( 6 );
 			oNewMessage.Add( strSender, GetTabText( m_wndTab.GetCurSel() ), ID_COLOR_SERVERMSG );
 			return;
 		}
@@ -1728,7 +1729,7 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 			if ( nTab == -1 ) return;
 			if ( nTab != m_wndTab.GetCurSel() )
 				HighlightTab( nTab );
-			CString strSender = _T("*") + m_pWords.GetAt( 0 ) + _T(" ");
+			CString strSender = _T("•") + m_pWords.GetAt( 0 ) + _T(" ");
 			oNewMessage.Add( strSender + GetStringAfterParsedItem( 8 ), m_pWords.GetAt( 6 ), ID_COLOR_ME );
 			return;
 		}
@@ -1739,7 +1740,7 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 		}
 	case ID_MESSAGE_CLIENT_INVITE:
 		{
-			CString strSender = _T("*You have invited ") + m_pWords.GetAt( 3 ) + _T(" to channel ") + m_pWords.GetAt( 4 );
+			CString strSender = _T("•You have invited ") + m_pWords.GetAt( 3 ) + _T(" to channel ") + m_pWords.GetAt( 4 );
 			oNewMessage.Add( strSender, GetTabText( m_wndTab.GetCurSel() ), ID_COLOR_SERVERMSG );
 			return;
 		}
@@ -1784,7 +1785,7 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 				(LPCTSTR)time.Format( _T("%Y-%m-%d %H:%M:%S") ),
 				- nTZBias / 60, nTZBias % 60 );
 			OnLocalText( strReply );
-			oNewMessage.Add( _T("*") + m_pWords.GetAt( 0 ) + _T(" TIME'd you."), m_sStatus, ID_COLOR_SERVERMSG );
+			oNewMessage.Add( _T("•") + m_pWords.GetAt( 0 ) + _T(" TIME'd you."), m_sStatus, ID_COLOR_SERVERMSG );
 			return;
 		}
 	case ID_MESSAGE_USER_CTCPVERSION:
@@ -1792,9 +1793,10 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 			CString strReply;
 			strReply.Format( _T("/NOTICE %s :\x01VERSION %s:%s:Microsoft Windows %u.%u\x01"),
 				(LPCTSTR)m_pWords.GetAt( 0 ), CLIENT_NAME,
-				(LPCTSTR)theApp.m_sVersionLong, theApp.m_nWindowsVersion, theApp.m_nWindowsVersionMinor );
+				(LPCTSTR)theApp.m_sVersionLong,
+				Windows.dwMajorVersion, Windows.dwMinorVersion );
 			OnLocalText( strReply );
-			oNewMessage.Add( _T("*") + m_pWords.GetAt( 0 ) + _T(" VERSIONed you."), m_sStatus, ID_COLOR_SERVERMSG );
+			oNewMessage.Add( _T("•") + m_pWords.GetAt( 0 ) + _T(" VERSIONed you."), m_sStatus, ID_COLOR_SERVERMSG );
 			return;
 		}
 	case ID_MESSAGE_USER_CTCPBROWSE:
@@ -1806,7 +1808,7 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 			else
 				strReply = _T("/NOTICE %s :\x01USERINFO :Browse not available.");
 			OnLocalText( strReply );
-			oNewMessage.Add( _T("* ") + m_pWords.GetAt( 0 ) + _T(" just USERINFOed you.  (Browse Files)"), m_sStatus, ID_COLOR_SERVERMSG );
+			oNewMessage.Add( _T("• ") + m_pWords.GetAt( 0 ) + _T(" just USERINFOed you.  (Browse Files)"), m_sStatus, ID_COLOR_SERVERMSG );
 			return;
 		}
 	case ID_MESSAGE_SERVER_NOTICE:
@@ -1857,20 +1859,20 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 				m_pIrcUsersBuffer[ nTab ].Add( strTemp );
 			}
 			m_wndPanel.m_boxUsers.UpdateCaptionCount();
-			oNewMessage.Add( _T("*You have joined channel ") + strChannelName, strChannelName, ID_COLOR_CHANNELACTION );
+			oNewMessage.Add( _T("•You have joined channel ") + strChannelName, strChannelName, ID_COLOR_CHANNELACTION );
 			return;
 		}
 	case ID_MESSAGE_CHANNEL_TOPICSHOW:
 		{
 			CString strChannelName = m_pWords.GetAt( 3 );
 			m_pContent.Clear();
-			oNewMessage.Add( _T("*Topic is:  ") + GetStringAfterParsedItem ( 4 ), strChannelName, ID_COLOR_TOPIC );
+			oNewMessage.Add( _T("•Topic is:  ") + GetStringAfterParsedItem ( 4 ), strChannelName, ID_COLOR_TOPIC );
 			return;
 		}
 	case ID_MESSAGE_CHANNEL_TOPICSETBY:
 		{
 			CString strChannelName = m_pWords.GetAt( 3 );
-			oNewMessage.Add( _T("*Topic set by ") + m_pWords.GetAt( 4 ), strChannelName, ID_COLOR_TOPIC );
+			oNewMessage.Add( _T("•Topic set by ") + m_pWords.GetAt( 4 ), strChannelName, ID_COLOR_TOPIC );
 			return;
 		}
 	case ID_MESSAGE_CHANNEL_PART:
@@ -1888,16 +1890,16 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 				m_wndPanel.m_boxUsers.UpdateCaptionCount();
 				FillChanListCount( _T("-1"), strChannelName );
 
-				oNewMessage.Add( _T("*") + strNick + _T(" has left ") + strChannelName, strChannelName, ID_COLOR_CHANNELACTION );
+				oNewMessage.Add( _T("•") + strNick + _T(" has left ") + strChannelName, strChannelName, ID_COLOR_CHANNELACTION );
 
 				// ToDo: Merge consecutive joined/left lines
 				//int nLine = m_pIrcBuffer[ nTab ].GetUpperBound();
 				//CString strPrior = m_pIrcBuffer[ nTab ].GetAt( nLine );
 
-				//if ( strPrior.Find( _T("*") + strNick + _T(" has joined") ) != 0 )
-				//	oNewMessage.Add( _T("*") + strNick + _T(" has left ") + strChannelName, strChannelName, ID_COLOR_CHANNELACTION );
+				//if ( strPrior.Find( _T("•") + strNick + _T(" has joined") ) != 0 )
+				//	oNewMessage.Add( _T("•") + strNick + _T(" has left ") + strChannelName, strChannelName, ID_COLOR_CHANNELACTION );
 				//else
-				//	oNewMessage.Add( _T("*") + strNick + _T(" then left..."), strChannelName, ID_COLOR_CHANNELACTION );
+				//	oNewMessage.Add( _T("•") + strNick + _T(" then left..."), strChannelName, ID_COLOR_CHANNELACTION );
 				//	m_pIrcBuffer[ nTab ].RemoveAt( nLine );
 				//	oNewMessage.Add( strPrior + _T(" ...and left."), strChannelName, ID_COLOR_CHANNELACTION );
 				//	oNewMessage.m_pMessages[ oNewMessage.m_pMessages.GetUpperBound() ].sMessage = strPrior + _T(" ...and left.");
@@ -1962,11 +1964,11 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 					m_pIrcUsersBuffer[ nTab ].RemoveAt( nListUser );
 					FillChanListCount( _T("-1"), strTabName );
 
-					oNewMessage.Add( _T("*") + strNick + _T(" has quit:  ( ") + strUserMsg + _T(" )"), strTabName, ID_COLOR_CHANNELACTION );
+					oNewMessage.Add( _T("•") + strNick + _T(" has quit:  ( ") + strUserMsg + _T(" )"), strTabName, ID_COLOR_CHANNELACTION );
 				}
 				else if ( strNick == strTabName )
 				{
-					oNewMessage.Add( _T("*") + strNick + _T(" has quit:  ( ") + strUserMsg + _T(" )"), strTabName, ID_COLOR_CHANNELACTION );
+					oNewMessage.Add( _T("•") + strNick + _T(" has quit:  ( ") + strUserMsg + _T(" )"), strTabName, ID_COLOR_CHANNELACTION );
 				}
 			}
 			m_wndPanel.m_boxUsers.UpdateCaptionCount();
@@ -1995,7 +1997,7 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 				AddUser( strNick );
 			FillChanListCount( _T("0"), strChannelName );
 			m_wndPanel.m_boxUsers.UpdateCaptionCount();
-			oNewMessage.Add( _T("*") + strNick + _T(" has joined ") + strChannelName, strChannelName, ID_COLOR_CHANNELACTION );
+			oNewMessage.Add( _T("•") + strNick + _T(" has joined ") + strChannelName, strChannelName, ID_COLOR_CHANNELACTION );
 			return;
 		}
 	case ID_MESSAGE_SERVER_DISCONNECT:
@@ -2097,7 +2099,7 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 			{
 				DeleteUser( nListUser );
 				AddUser( strCurUser );
-				oNewMessage.Add( _T("*") + strNick + _T(" is now known as ") + m_pWords.GetAt( 7 ), strChannelName, ID_COLOR_CHANNELACTION );
+				oNewMessage.Add( _T("•") + strNick + _T(" is now known as ") + m_pWords.GetAt( 7 ), strChannelName, ID_COLOR_CHANNELACTION );
 			}
 			return;
 		}
@@ -2617,7 +2619,7 @@ CString CIRCFrame::GetTextFromRichPoint() const
 	CPoint point;
 	GetCursorPos( &point );
 
-	CString strTemp = m_wndView.GetWordFromPoint( point, _T(" \r\n\t�<>[](){}`\'\"!,;*") );
+	CString strTemp = m_wndView.GetWordFromPoint( point, _T(" \r\n\t�<>[](){}`\'\"!,;•*") );
 
 // Obsolete:
 //	{
@@ -2676,12 +2678,12 @@ CString CIRCFrame::GetTextFromRichPoint() const
 //	if ( strTemp.IsEmpty() ) return "";
 //
 //	//strTemp.TrimRight( _T(":") );
-//	//strTemp.TrimLeft( _T("*") );
+//	//strTemp.TrimLeft( _T("•") );
 //
 //	//if ( strTemp.Left( 1 ) == _T("-") && strTemp.Right( 1 ) == _T("-") )
 //	//	strTemp = strTemp.Mid( 1, strTemp.GetLength() - 2 );
 //
-//	if ( strTemp.Left( 1 ) == _T("*") || strTemp.Left( 1 ) == _T("(") )
+//	if ( strTemp.Left( 1 ) == _T("•") || strTemp.Left( 1 ) == _T("(") )
 //		strTemp = strTemp.Mid( 1 );
 
 	if ( strTemp.Right( 1 ) == _T(":") )

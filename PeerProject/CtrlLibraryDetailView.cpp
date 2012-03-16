@@ -1,7 +1,7 @@
 //
 // CtrlLibraryDetailView.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -166,18 +166,18 @@ int CLibraryDetailView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		pList->InsertColumn( COL_HITS, _T("Hits"), LVCFMT_CENTER, 70, 3 );
 		pList->InsertColumn( COL_UPLOADS, _T("Uploads"), LVCFMT_CENTER, 70, 4 );
 		pList->InsertColumn( COL_MODIFIED, _T("Modified"), LVCFMT_CENTER, 0, 5 );
-		pList->SetImageList( ShellIcons.GetObject( 16 ), LVSIL_SMALL );
+		ShellIcons.AttachTo( pList, 16 );	// pList->SetImageList()
 
 		CHeaderCtrl* pHeader = (CHeaderCtrl*)GetWindow( GW_CHILD );
 		if ( pHeader ) Skin.Translate( _T("CLibraryWnd"), pHeader );
 	}
 	else if ( m_nStyle != LVS_ICON )
 	{
-		pList->SetImageList( ShellIcons.GetObject( 16 ), LVSIL_SMALL );
+		ShellIcons.AttachTo( pList, 16 );	// pList->SetImageList()
 	}
 	else
 	{
-		pList->SetImageList( ShellIcons.GetObject( 32 ), LVSIL_NORMAL );
+		ShellIcons.AttachTo( pList, 32 );	// pList->SetImageList()
 	}
 
 	pList->SetCallbackMask( LVIS_SELECTED | LVIS_FOCUSED );
@@ -429,11 +429,11 @@ void CLibraryDetailView::CacheItem(int nItem)
 	pText->SetAt( COL_FILE, strName );
 
 	if ( m_nStyle == LVS_ICON )
-		pItem->nIcon = ShellIcons.Get( pFile->m_sName, 32 );
+		pItem->nIcon = ShellIcons.Get( pFile->GetPath(), 32 );
 	else if ( pFile->m_nIcon16 >= 0 )
 		pItem->nIcon = pFile->m_nIcon16;
 	else
-		pItem->nIcon = pFile->m_nIcon16 = ShellIcons.Get( pFile->m_sName, 16 );
+		pItem->nIcon = pFile->m_nIcon16 = ShellIcons.Get( pFile->GetPath(), 16 );
 
 	pItem->nState &= LDVI_SELECTED;
 	if ( ! pFile->IsShared() ) pItem->nState |= LDVI_PRIVATE;

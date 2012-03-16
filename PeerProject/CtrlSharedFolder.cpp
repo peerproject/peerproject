@@ -1,7 +1,7 @@
 //
 // CtrlSharedFolder.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -284,10 +284,10 @@ int CLibraryFolderCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CTreeCtrl::OnCreate( lpCreateStruct ) == -1 ) return -1;
 
-	SetImageList( ShellIcons.GetObject( 16 ), TVSIL_NORMAL );
+	ShellIcons.AttachTo( this );	// SetImageList()
 
-	m_hRoot				= GetRootItem();
-	m_hFirstSelected	= NULL;
+	m_hRoot = GetRootItem();
+	m_hFirstSelected = NULL;
 
 	return 0;
 }
@@ -333,7 +333,6 @@ void CLibraryFolderCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 	else
 	{
 		BOOL bChanged = FALSE;
-
 		BOOL bSelected = hItem && ( GetItemState( hItem, TVIS_SELECTED ) & TVIS_SELECTED );
 
 		if ( ! bSelected || ( nFlags & MK_RBUTTON ) == 0 )
@@ -345,16 +344,14 @@ void CLibraryFolderCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 			m_hFirstSelected = NULL;
 		}
 
-		if ( hItem )
+		if ( hItem && ! bSelected )
 		{
-			if ( ! bSelected )
-			{
-				SetItemState( hItem, TVIS_SELECTED, TVIS_SELECTED );
-				bChanged = TRUE;
-			}
+			SetItemState( hItem, TVIS_SELECTED, TVIS_SELECTED );
+			bChanged = TRUE;
 		}
 
-		if ( bChanged ) NotifySelectionChanged();
+		if ( bChanged )
+			NotifySelectionChanged();
 	}
 
 	m_bFirstClick = FALSE;
@@ -420,11 +417,6 @@ void CLibraryFolderCtrl::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 		return;
 	}
-	else if ( nChar >= VK_SPACE )
-	{
-		m_hFirstSelected = NULL;
-		ClearSelection();
-	}
 	else if ( nChar == 'A' && ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 ) && m_bMultiSelect )
 	{
 		BOOL bChanged = FALSE;
@@ -440,6 +432,11 @@ void CLibraryFolderCtrl::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 		if ( bChanged ) NotifySelectionChanged();
 		return;
+	}
+	else if ( nChar >= VK_SPACE )
+	{
+		m_hFirstSelected = NULL;
+		ClearSelection();
 	}
 
 	CTreeCtrl::OnKeyDown( nChar, nRepCnt, nFlags );
@@ -602,12 +599,10 @@ void CLibraryFolderCtrl::OnNcPaint()
 	if ( GetStyle() & WS_BORDER )
 	{
 		CWindowDC dc( this );
+
 		CRect rc;
-
-		COLORREF crBorder = Colors.m_crSysActiveCaption ;
-
 		GetWindowRect( &rc );
 		rc.OffsetRect( -rc.left, -rc.top );
-		dc.Draw3dRect( &rc, crBorder, crBorder );
+		dc.Draw3dRect( &rc, Colors.m_crSysActiveCaption, Colors.m_crSysActiveCaption );
 	}
 }

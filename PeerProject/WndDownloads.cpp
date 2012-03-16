@@ -349,8 +349,8 @@ void CDownloadsWnd::OnTimer(UINT_PTR nIDEvent)
 				CDownload* pDownload = Downloads.GetNext( pos );
 
 				if ( pDownload->IsCompleted() &&				// If the download has completed
-					pDownload->IsPreviewVisible() == FALSE &&	// And isn't previewing
-					tNow - pDownload->m_tCompleted > Settings.Downloads.ClearDelay )
+					 pDownload->IsPreviewVisible() == FALSE &&	// And isn't previewing
+					 tNow > pDownload->m_tCompleted + Settings.Downloads.ClearDelay )
 				{
 					// We might want to clear this download
 					if ( Settings.BitTorrent.AutoClear && pDownload->IsTorrent() == true )		// It's a torrent and may be ratio-limited
@@ -380,17 +380,18 @@ void CDownloadsWnd::OnTimer(UINT_PTR nIDEvent)
 			for ( POSITION pos = Downloads.GetIterator() ; pos ; )
 			{
 				CDownload* pDownload = Downloads.GetNext( pos );
-				if ( pDownload->m_bGotPreview && pDownload->m_bWaitingPreview )
-				{
-					pDownload->m_bWaitingPreview = FALSE;
-					CString sPreview = pDownload->m_sPath + L".png";
-					pLock.Unlock();
+				if ( ! pDownload->m_bGotPreview || ! pDownload->m_bWaitingPreview )
+					continue;
 
-					CFileExecutor::Execute( sPreview );
+				pDownload->m_bWaitingPreview = FALSE;
+				CString strPreview = pDownload->m_sPath + L".png";
+				pLock.Unlock();
 
-					break;	// Show next preview on next update
-				}
+				CFileExecutor::Execute( strPreview );
+
+				break;	// Show next preview on next update
 			}
+			pLock.Unlock();
 		}
 
 		// Refresh the window if visible, or hasn't been updated in 10 seconds
@@ -1808,32 +1809,36 @@ void CDownloadsWnd::OnUpdateDownloadsFolder(CCmdUI* pCmdUI)
 
 void CDownloadsWnd::OnDownloadsFolder()
 {
-//	CSingleLock pLock( &Transfers.m_pSection );
-//	if ( ! pLock.Lock( 500 ) return;
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! pLock.Lock( 500 ) ) return;
 
 	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
 	{
 		CDownload* pDownload = Downloads.GetNext( pos );
-		if ( pDownload->m_bSelected && ( pDownload->IsCompleted() || pDownload->IsSeeding() ) )
+		if ( ! pDownload->m_bSelected || ! ( pDownload->IsCompleted() || pDownload->IsSeeding() ) )
+			continue;
+
+		pLock.Unlock();
+
+		CString strPath = pDownload->GetPath( 0 );
+
+		if ( pDownload->GetFileCount() == 1 )
 		{
-			CString strPath = pDownload->GetPath( 0 );
-
-			if ( pDownload->GetFileCount() == 1 )
-			{
-				ShellExecute( GetSafeHwnd(), NULL, _T("Explorer.exe"), _T("/select, ") + strPath, NULL, SW_SHOWNORMAL );
-			}
-			else
-			{
-				CString strName = pDownload->m_sName;
-				if ( strPath.Find( strName ) > 1 )
-					strPath = strPath.Left( strPath.Find( strName ) + strName.GetLength() );
-				else
-					strPath = strPath.Left( strPath.ReverseFind( '\\' ) + 1 );
-
-				if ( PathIsDirectory( strPath ) )
-					ShellExecute( GetSafeHwnd(), _T("open"), strPath, NULL, NULL, SW_SHOWNORMAL );
-			}
+			ShellExecute( GetSafeHwnd(), NULL, _T("Explorer.exe"), _T("/select, ") + strPath, NULL, SW_SHOWNORMAL );
 		}
+		else
+		{
+			CString strName = pDownload->m_sName;
+			if ( strPath.Find( strName ) > 1 )
+				strPath = strPath.Left( strPath.Find( strName ) + strName.GetLength() );
+			else
+				strPath = strPath.Left( strPath.ReverseFind( '\\' ) + 1 );
+
+			if ( PathIsDirectory( strPath ) )
+				ShellExecute( GetSafeHwnd(), _T("open"), strPath, NULL, NULL, SW_SHOWNORMAL );
+		}
+
+		if ( ! pLock.Lock( 500 ) ) return;
 	}
 }
 
@@ -1849,38 +1854,39 @@ void CDownloadsWnd::OnDownloadsFileDelete()
 {
 	// Create file list of all selected and completed downloads
 	CStringList pList, pFolderList;
+
 	CSingleLock pLock( &Transfers.m_pSection );
 	if ( ! pLock.Lock( 800 ) ) return;
 
 	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
 	{
 		CDownload* pDownload = Downloads.GetNext( pos );
-		if ( pDownload->m_bSelected && pDownload->IsCompleted() )
+		if ( ! pDownload->m_bSelected || ! pDownload->IsCompleted() )
+			continue;
+
+		pDownload->m_bClearing = TRUE;		// Indicate marked for removal (may take awhile)
+
+		const DWORD nCount = pDownload->GetFileCount();
+		for ( DWORD i = 0 ; i < nCount ; ++i )
 		{
-			pDownload->m_bClearing = TRUE;		// Indicate marked for removal (may take awhile)
+			pList.AddTail( pDownload->GetPath( i ) );
+		}
 
-			const DWORD nCount = pDownload->GetFileCount();
-			for ( DWORD i = 0 ; i < nCount ; ++i )
-			{
-				pList.AddTail( pDownload->GetPath( i ) );
-			}
+		// Attempt orphan root folder for torrents
+		if ( nCount > 1 )	// pDownload->IsMultiFileTorrent()
+		{
+			CString strPath = pDownload->GetPath( 0 );
+			strPath = strPath.Left( strPath.ReverseFind( '\\' ) );
+			pFolderList.AddTail( strPath );
 
-			// Attempt orphan root folder for torrents
-			if ( nCount > 1 )	// pDownload->IsMultiFileTorrent()
-			{
-				CString strPath = pDownload->GetPath( 0 );
-				strPath = strPath.Left( strPath.ReverseFind( '\\' ) );
-				pFolderList.AddTail( strPath );
+			CString strPathCheck = pList.GetTail();
+			strPathCheck = strPathCheck.Left( strPathCheck.ReverseFind( '\\' ) );
+			if ( strPathCheck.GetLength() < strPath.GetLength() )
+				pFolderList.AddTail( strPathCheck );
 
-				CString strPathCheck = pDownload->GetPath( nCount - 1 );
-				strPathCheck = strPathCheck.Left( strPathCheck.ReverseFind( '\\' ) );
-				if ( strPathCheck.GetLength() < strPath.GetLength() )
-					pFolderList.AddTail( strPathCheck );
-
-				const int nRoot = strPathCheck.Find( pDownload->m_sName + L"\\" );
-				if ( nRoot > 4 )					// Last file was likely subfolder, try again
-					pFolderList.AddTail( strPathCheck.Left( nRoot + pDownload->m_sName.GetLength() ) );
-			}
+			const int nRoot = strPathCheck.Find( pDownload->m_sName + L"\\" );
+			if ( nRoot > 4 )					// Last file was likely subfolder, try again
+				pFolderList.AddTail( strPathCheck.Left( nRoot + pDownload->m_sName.GetLength() ) );
 		}
 	}
 
@@ -1889,11 +1895,13 @@ void CDownloadsWnd::OnDownloadsFileDelete()
 
 	if ( ! DeleteFiles( pList ) )
 	{
+		pLock.Lock();
 		for ( POSITION pos = Downloads.GetIterator() ; pos ; )
 		{
 			CDownload* pDownload = Downloads.GetNext( pos );
 			pDownload->m_bClearing = FALSE;
 		}
+		pLock.Unlock();
 	}
 	DeleteFolders( pFolderList );
 

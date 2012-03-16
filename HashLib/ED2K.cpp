@@ -1,7 +1,7 @@
 //
 // ED2K.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions Copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -32,7 +32,7 @@ CED2K::CED2K()
 	, m_nCurByte		( 0 )
 	, m_bNullBlock	( FALSE )
 {
-    std::fill_n( &m_pRoot[ 0 ], 4, 0 );
+	std::fill_n( &m_pRoot[ 0 ], 4, 0 );
 }
 
 CED2K::~CED2K()
@@ -45,7 +45,7 @@ CED2K::~CED2K()
 
 void CED2K::Clear()
 {
-    std::fill_n( &m_pRoot[ 0 ], 4, 0 );
+	std::fill_n( &m_pRoot[ 0 ], 4, 0 );
 	delete [] m_pList;
 	m_pList = NULL;
 	m_nList = 0;
@@ -148,7 +148,7 @@ void CED2K::AddToFile(LPCVOID pInput, uint32 nLength)
 
 BOOL CED2K::FinishFile()
 {
-	if ( !m_bNullBlock && m_nCurHash < m_nList )
+	if ( ! m_bNullBlock && m_nCurHash < m_nList )
 	{
 		m_pSegment.Finish();
 		m_pSegment.GetHash( (uchar*)&m_pList[ m_nCurHash++ ][ 0 ] );
@@ -259,11 +259,12 @@ BOOL CED2K::FromBytes(BYTE* pOutput, uint32 nOutput, uint64 nSize)
 {
 	Clear();
 
-	if ( pOutput == NULL || nOutput == 0 || ( nOutput % sizeof( CMD4::Digest ) ) != 0 ) return FALSE;
+	if ( pOutput == NULL || nOutput == 0 || ( nOutput % sizeof( CMD4::Digest ) ) != 0 )
+		return FALSE;
 
 	if ( nSize > 0 )
 	{
-        if ( nSize % ED2K_PART_SIZE == 0 && nSize )
+		if ( nSize % ED2K_PART_SIZE == 0 && nSize )
 			m_bNullBlock = true;
 
 		uint64 nValidBlocks = ( nSize + ED2K_PART_SIZE - 1 ) / ED2K_PART_SIZE;

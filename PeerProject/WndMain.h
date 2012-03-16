@@ -1,7 +1,7 @@
 //
 // WndMain.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -53,7 +53,7 @@ public:
 		return ! m_bTrayHide && ! IsIconic() && IsWindowVisible();
 	}
 
-	void		OnUpdateCmdUI();					// Update tab and navigation bars
+	void	OnUpdateCmdUI();						// Update tab and navigation bars
 
 	// Dispatch command messages also to monitor bar and media frame (if opened)
 	virtual BOOL OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO* pHandlerInfo);
@@ -79,12 +79,12 @@ protected:
 	CSkinWindow*		m_pSkin;
 	DWORD				m_nAlpha;			// Main window transparency (0-255)
 
-	void		UpdateMessages();			// Update main window tile, status bar and tray messages
-	void		LocalSystemChecks();		// Run various networks, host caches and disk checks
-	void		SaveState();				// Save all window states
-	void		RemoveSkin();				// Remove skins from window (primarily for shutdown)
-	void		AddTray();
-	void		DeleteTray();
+	void	UpdateMessages();				// Update main window tile, status bar and tray messages
+	void	LocalSystemChecks();			// Run various networks, host caches and disk checks
+	void	SaveState();					// Save all window states
+	void	RemoveSkin();					// Remove skins from window (primarily for shutdown)
+	void	AddTray();
+	void	DeleteTray();
 
 	virtual BOOL OnCommand(WPARAM wParam, LPARAM lParam);
 	virtual BOOL Create(LPCTSTR lpszClassName, LPCTSTR lpszWindowName, DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, LPCTSTR lpszMenuName, DWORD dwExStyle, CCreateContext* pContext);
@@ -257,6 +257,8 @@ protected:
 	afx_msg void OnNetworkED2K();
 	afx_msg void OnUpdateNetworkDC(CCmdUI* pCmdUI);
 	afx_msg void OnNetworkDC();
+	afx_msg void OnUpdateNetworkBT(CCmdUI* pCmdUI);
+	afx_msg void OnNetworkBT();
 	afx_msg void OnUpdateViewBasic(CCmdUI* pCmdUI);
 	afx_msg void OnViewBasic();
 	afx_msg void OnUpdateLibraryHashPriority(CCmdUI* pCmdUI);
@@ -273,6 +275,7 @@ protected:
 	afx_msg LRESULT OnSanityCheck(WPARAM wParam, LPARAM lParam);
 	afx_msg LRESULT OnNowUploading(WPARAM wParam, LPARAM lParam);
 	afx_msg UINT OnPowerBroadcast(UINT nPowerEvent, UINT nEventData);
+//	afx_msg BOOL OnCopyData(CWnd* pWnd,COPYDATASTRUCT* pCopyDataStruct);	// Windows scheduler not implemented
 
 	DECLARE_MESSAGE_MAP()
 	DECLARE_DROP()

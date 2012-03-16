@@ -1,7 +1,7 @@
 //
 // DlgExistingFile.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -41,6 +41,22 @@ BEGIN_MESSAGE_MAP(CExistingFileDlg, CSkinDialog)
 	ON_BN_CLICKED(IDC_ACTION_2, OnAction2)
 END_MESSAGE_MAP()
 
+//CExistingFileDlg::Action CExistingFileDlg::CheckExisting(const CPeerProjectURL* pURL)
+//{
+//	// Check files inside torrent
+//	if ( pURL->m_pTorrent )
+//	{
+//		for ( POSITION pos = pURL->m_pTorrent->m_pFiles.GetHeadPosition() ; pos ; )
+//		{
+//			CBTInfo::CBTFile* pBTFile = pURL->m_pTorrent->m_pFiles.GetNext( pos );
+//
+//			return CheckExisting( static_cast< const CPeerProjectFile* >( pBTFile ), bInteracive );
+//		}
+//	}
+//
+//	// Check as common file
+//	return CheckExisting( static_cast< const CPeerProjectFile* >( pURL ) );
+//}
 
 CExistingFileDlg::Action CExistingFileDlg::CheckExisting(const CPeerProjectFile* pFile)
 {
@@ -82,7 +98,7 @@ CExistingFileDlg::Action CExistingFileDlg::CheckExisting(const CPeerProjectFile*
 /////////////////////////////////////////////////////////////////////////////
 // CExistingFileDlg dialog
 
-CExistingFileDlg::CExistingFileDlg(CLibraryFile* pFile, CWnd* pParent, bool bDuplicateSearch)
+CExistingFileDlg::CExistingFileDlg(const CLibraryFile* pFile, CWnd* pParent, bool bDuplicateSearch)
 	: CSkinDialog( CExistingFileDlg::IDD, pParent )
 	, m_nAction  ( 0 )
 {

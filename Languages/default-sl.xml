@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Slovenian Skin File -->
 
-<!-- Translation based on default-en.xml r74 (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r75 (Shareaza 2.2.2.12) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -359,6 +359,7 @@
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<button id="ID_NETWORK_DC" text="DC++"/>
+		<button id="ID_NETWORK_BT" text="BitTorrent"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Nastavitve"/>
 	</toolbar>
@@ -466,6 +467,7 @@
 				<item id="ID_NETWORK_G1" text="Poveži se z _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Poveži se z _eDonkey2000"/>
 				<item id="ID_NETWORK_DC" text="Poveži se z _DC++"/>
+				<item id="ID_NETWORK_BT" text="Poveži se z _BitTorrent"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="_Poveži se z..." shortcut="Ctrl+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="_Brskaj po gostitelju..."/>
@@ -551,6 +553,7 @@
 			<item id="ID_NETWORK_G1" text="Poveži se z _Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="Poveži se z _eDonkey2000"/>
 			<item id="ID_NETWORK_DC" text="Poveži se z _DC++"/>
+			<item id="ID_NETWORK_BT" text="Poveži se z _BitTorrent"/>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="_Poveži se z..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="_Brskaj po gostitelju..."/>
@@ -711,6 +714,7 @@
 			<item id="ID_NETWORK_G1" text="Poveži se z _Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="Poveži se z _eDonkey2000"/>
 			<item id="ID_NETWORK_DC" text="Poveži se z _DC++"/>
+			<item id="ID_NETWORK_BT" text="Poveži se z _BitTorrent"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Zapri po p_renosih"/>
 			<item id="ID_NETWORK_EXIT" text="_Izhod"/>
@@ -1481,6 +1485,7 @@
 			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey2000"/>
 			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<item id="ID_NETWORK_BT" text="_BitTorrent"/>
 			<separator/>
 			<item id="ID_VIEW_DISCOVERY" text="_Discovery"/>
 			<item id="ID_VIEW_HOSTS" text="_Predpomnilnik gostitelja"/>
@@ -2387,6 +2392,7 @@
 	<tip id="ID_NETWORK_EXIT" message="Izhod iz PeerProject"/>
 	<tip id="ID_NETWORK_ED2K" message="Poveži se z eDonkey2000 omrežjem."/>
 	<tip id="ID_NETWORK_DC" message="Poveži se z DC++ omrežjem."/>
+	<tip id="ID_NETWORK_BT" message="Poveži se z BitTorrent omrežjem."/>
 	<tip id="ID_NETWORK_G1" message="Poveži se z izvornim Gnutella omrežjem."/>
 	<tip id="ID_NETWORK_G2" message="Poveži se z Gnutella2 omrežjem (zelo priporočljivo)."/>
 	<tip id="ID_NETWORK_SEARCH" message="Začni novo iskanje po mreži..."/>
@@ -2661,8 +2667,8 @@
 	<string id="20202" value="Prejel okvarjeno potisno (push) povezavo od %s, zapiram povezavo."/>
 	<string id="20203" value="Povečevanje prenosnih zmogljivosti &quot;%s&quot; in sicer tako, da so bile odstranjene omejitve pasovne širine."/>
 	<string id="20204" value="Gostitelj za prenos %s je zaposlen, ponovni poskus čez %i sekund."/>
-	<string id="20205" value="Premik prenosa &quot;%s&quot; do &quot;%s&quot; ni uspel. Preverite, da nepopolna datoteka ni v uporabi in da vaša mapa za prenos obstaja ter da ima odprte vse pravice za pisanje."/>
-	<string id="20206" value="Razrešitev &quot;%s&quot; ni uspela."/>
+	<string id="20205" value="Premalo prostora na disku za prenos &quot;%s&quot; (%s)."/>
+	<string id="20206" value="Premik prenosa &quot;%s&quot; do &quot;%s&quot; ni uspel. Preverite, da nepopolna datoteka ni v uporabi in da vaša mapa za prenos obstaja ter da ima odprte vse pravice za pisanje."/>
 	<string id="20207" value="Ste prepričani, da želite preklicati/prekiniti vse prenose v tej skupini?"/>
 	<string id="20208" value="Zapiram prenosno povezavo do %s, saj ni več potrebna."/>
 	<string id="20209" value="Gostielj za prenos %s je poslal sent nezaprošene podatke, zapiram povezavo."/>
@@ -2675,23 +2681,18 @@
 	<string id="20216" value="Povezava s prenosnim gostiteljem %s ni uspela."/>
 	<string id="20217" value="Prejemanje prenosne vsebine gostitelja %s (%s)."/>
 	<string id="20218" value="Prekinjam prenos &quot;%s&quot; od %s (%s), omrežje onesposobljeno."/>
-	<string id="20219" value="Premalo prostora na disku za prenos &quot;%s&quot; (%s)."/>
-	<string id="20220" value="Povezava za prenos do %s je bila izgubljena."/>
-	<string id="20222" value="Vpisali ste eDonkey2000 zgostitveno vrednost (hash value), ki pa je žal neveljavna. Preverite vrednost in poskusite znova."/>
-	<string id="20224" value="Vnesite veljaven razpon za brisanje. Polje &quot;od&quot; je prvi bajt, ki naj se briše in polje &quot;zadnji&quot; predstavlja zadnji bajt, ki naj se briše."/>
-	<string id="20225" value="Vpisali ste vrednost SHA1, ki pa je žal neveljavna. Preverite vrednost in poskusite znova."/>
-	<string id="20226" value="Vpisali ste korensko 'tiger-tree' vrednost, ki pa je žal neveljavna. Preverite vrednost in poskusite znova."/>
-	<string id="20227" value="Spremenili ste velikost datoteke. Ste prepričani, da želite spremeniti velikost datoteke za ta prenos?"/>
-	<string id="20228" value="Brisanje izbranega razpona iz prenosa ni uspelo, ker v prenosu ni navdenega razpona."/>
-	<string id="20231" value="Podali ste zgostitveno vrednost SHA1 (hash value), ki se razlikuje od tiste, ki je trenutno povezana s tem prenosom. Ste prepričani, da želite spremeniti zgostitveno vrednost SHA1?"/>
-	<string id="20232" value="Podali ste eDonkey2000 zgostitveno vrednost (hash value), ki se razlikuje od tiste, ki je trenutno povezana s tem prenosom. Ste prepričani, da želite spremeniti eDonkey2000 zgostitveno vrednost?"/>
-	<string id="20233" value="Podali ste korensko 'tiger-tree' zgostitveno vrednost (hash value), ki se razlikuje od tiste, ki je trenutno povezana s tem prenosom. Ste prepričani, da želite spremeniti 'tiger-tree' korensko zgostiteveno vrednost?"/>
-	<string id="20235" value="Ne smete sklepati, da je prenos zaključen in ponovno preverjen, ker še nimate na voljo katerekoli delne podatke za preverjanje (partial verification data), kot npr. 'tiger-tree' zvezek, eDonkey nabor izvlečkov (hashset) ali BitTorrent nabor izvlečkov. Brez podatkov o preverjanju se prenos ne more ponovno preveriti."/>
-	<string id="20236" value="Ste prepričani, da želite sklepati, da je prenos zaključen in ga ponovno preveriti? V poštev bo prišla celotna datoteka in PeerProject bo potrdila dele, ki opravijo preverjanje ter prenese dele, ki preverjanja ne opravijo."/>
-	<string id="20237" value="Ste prepričani, da želite pozabiti vse vire za izbran prenos?"/>
-	<string id="20238" value="Ste prepričani, da želite pozabiti trenutno preveritveni status?  Vsi prenešeni podatki se bodo smatrali, kot varni (trusted) in medpomnjeni izvečki (hashtrees oz. hashsets)se bodo pobrisali."/>
-	<string id="20240" value="Brisal %I64i bajtov v prenosu."/>
-	<string id="20241" value="Spremenili ste imensko polje. Ste prepričani, da želite preimenovati ta prenos?"/>
+	<string id="20219" value="Povezava za prenos do %s je bila izgubljena."/>
+	<string id="20221" value="Vnesite veljaven razpon za brisanje. Polje &quot;od&quot; je prvi bajt, ki naj se briše in polje &quot;zadnji&quot; predstavlja zadnji bajt, ki naj se briše."/>
+	<string id="20222" value="Vpisali ste %s zgostitveno vrednost (hash value), ki pa je žal neveljavna. Preverite vrednost in poskusite znova."/>
+	<string id="20223" value="Podali ste zgostitveno vrednost %s (hash value), ki se razlikuje od tiste, ki je trenutno povezana s tem prenosom. Ste prepričani, da želite spremeniti zgostitveno vrednost %s?"/>
+	<string id="20224" value="Spremenili ste imensko polje. Ste prepričani, da želite preimenovati ta prenos?"/>
+	<string id="20225" value="Spremenili ste velikost datoteke. Ste prepričani, da želite spremeniti velikost datoteke za ta prenos?"/>
+	<string id="20226" value="Ne smete sklepati, da je prenos zaključen in ponovno preverjen, ker še nimate na voljo katerekoli delne podatke za preverjanje (partial verification data), kot npr. 'tiger-tree' zvezek, eDonkey nabor izvlečkov (hashset) ali BitTorrent nabor izvlečkov. Brez podatkov o preverjanju se prenos ne more ponovno preveriti."/>
+	<string id="20227" value="Ste prepričani, da želite sklepati, da je prenos zaključen in ga ponovno preveriti? V poštev bo prišla celotna datoteka in PeerProject bo potrdila dele, ki opravijo preverjanje ter prenese dele, ki preverjanja ne opravijo."/>
+	<string id="20228" value="Ste prepričani, da želite pozabiti trenutno preveritveni status?  Vsi prenešeni podatki se bodo smatrali, kot varni (trusted) in medpomnjeni izvečki (hashtrees oz. hashsets)se bodo pobrisali."/>
+	<string id="20229" value="Ste prepričani, da želite pozabiti vse vire za izbran prenos?"/>
+	<string id="20231" value="Brisanje izbranega razpona iz prenosa ni uspelo, ker v prenosu ni navdenega razpona."/>
+	<string id="20232" value="Brisal %I64i bajtov v prenosu."/>
 	<string id="20242" value="Gostitelj za prenos %s nima datoteke &quot;%s&quot;."/>
 	<string id="20243" value="Ustvarjam datoteko &quot;%s&quot; za prenos."/>
 	<string id="20244" value="Ustvarjanje lokalne datoteke &quot;%s&quot; za prenos ni uspelo, prekinjam."/>
@@ -2721,9 +2722,10 @@
 	<string id="20271" value="Premaknil &quot;%s&quot; do &quot;%s&quot;, prenos dokončan."/>
 	<string id="20272" value="Trenutno prekinjen prenos za &quot;%s&quot;."/>
 	<string id="20273" value="Nadaljujem prenos za &quot;%s&quot;."/>
-	<string id="20274" value="Razrešujem &quot;%s&quot; za prenos &quot;%s&quot;..."/>
 	<string id="20275" value="Poizvedujem po dodatnih virih za prenos &quot;%s&quot; na %i povezavah..."/>
 	<string id="20276" value="Pridobitev dodatnih virov za prenos ni bilo mogoče &quot;%s&quot; saj ni odprtih nobenih mrežnih povezav."/>
+	<!--string id="20277" value="Razrešujem &quot;%s&quot; za prenos &quot;%s&quot;..."-->
+	<!--string id="20278" value="Razrešitev &quot;%s&quot; ni uspela."-->
 	<string id="20280" value="'Tiger-tree' podatki gostitelja za prenos so v okvari ali notranje neusklajeni. Ignoriram."/>
 	<string id="20281" value="'Tiger-tree' gostitelja za prenos se ne ujema z pričakovano korensko vrednostjo."/>
 	<string id="20282" value="Gostitelj za prenos %s ni uspel ugoditi 'tiger-tree' prošnji."/>
@@ -2965,7 +2967,7 @@
 	<string id="20570" value="Received a malformatted query hit packet from %s, ignoring."/>
 	<string id="20571" value="%s:  Prejel zmaličen format poizvedbenega paketa od %s, ignoriram."/>
 	<string id="20572" value="Sosed %s je posredoval paket s prekomernim TTL-om, končujem paket (TTL=%i, Skokov=%i)."/>
-	<string id="20573" value="Sosed %s je posredoval paket z ničelnim TTL-om, ignoriram."/>
+	<!--string id="20573" value="Sosed %s je posredoval paket z ničelnim TTL-om, ignoriram."-->
 	<string id="20574" value="Sosed %s je posredoval razširjen paket, ki ni enkordiran po principu GGEP."/>
 	<string id="20575" value="Sosed %s pošilja neveljavno posodobitev tabele za usmerjanje poizvedb, končujem povezavo."/>
 	<string id="20576" value="Pošiljam tabelo za usmerjevanje poizvedb sosedu %s (%i bitov = %lu[%i], %i%% polno)"/>
@@ -3157,7 +3159,7 @@
 	<string id="20834" value="Gostitelj za nalaganje %s je zaprosil predogled &quot;%s&quot;, vendar žal ni a voljo nobenega predogleda."/>
 	<string id="20835" value="Nalagam predogled &quot;%s&quot; do %s."/>
 	<string id="20836" value="Zavračam potisno prošnjo (push request) do %s, ker ima preveliko število povezav za nalaganje."/>
-	<string id="20837" value="Zapuščinska (legacy) potisna prošnja od %s je prosila za neznano datoteko, kljub temu se povezujem..."/>
+	<!--string id="20837" value="Zapuščinska (legacy) potisna prošnja od %s je prosila za neznano datoteko, kljub temu se povezujem..."-->
 	<string id="20838" value="Prezaposlen za nalaganje &quot;%s&quot; do %s, v čakalni vrsti pri #%i od %i (&quot;%s&quot;.."/>
 	<string id="20840" value="Povezava za nalaganje do %s je bila izgubljena, obdržujem mesto v čakalni vrsti."/>
 	<string id="20841" value="Nova čakalna vrsta"/>
@@ -3186,7 +3188,7 @@
 	<string id="20866" value="Datotečno ime:"/>
 	<string id="20867" value="Gostitelj:"/>
 	<string id="20868" value="Vrata:"/>
-	<string id="20869" value="Obvestila o URL akciji ni bilo mogoče prikazati, ker je PeerProject zaposlena."/>
+	<!--string id="20869" value="Obvestila o URL akciji ni bilo mogoče prikazati, ker je PeerProject zaposlena."-->
 	<string id="20870" value="Razčlenba (parsanje) URL-ja: PeerProject ne razume tega URL-ja."/>
 	<string id="20871" value="Sprejel URL &quot;%s&quot;"/>
 	<string id="20872" value="Tip:"/>
@@ -3484,7 +3486,7 @@
 		<control caption="Prenesi..."/>
 		<control caption="Prenesi eDonkey seznam strežnikov iz spleta:"/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Prenosne povezave:"/>
 		<control/>
 		<control/>
@@ -3492,6 +3494,7 @@
 		<control/>
 		<control/>
 		<control caption="Povezave odjemalca"/>
+		<control caption="Omogoči BitTorrent DHT"/>
 		<control caption="Daj prednost torrent virom"/>
 		<control caption="_EndGame:"/>
 		<control caption="Omogoči EndGame način pri zaključevanju torrentov"/>
@@ -4208,7 +4211,7 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Sledilniki">
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBuBuBu" caption="Sledilniki">
 		<control/>
 		<control/>
 		<control/>
@@ -4220,6 +4223,8 @@
 		<control caption="Sledilniški način:"/>
 		<control caption="Onemogočen|Prilagojen|Sledilnik|Sledilniki|Sledilniki (zaklenjeno)"/>
 		<control caption="_Osveži"/>
+		<control caption="_Dodaj"/>
+		<control caption="_Odstrani"/>
 	</dialog>
 	<dialog name="CTorrentGeneralPage" cookie="BuStEdStEdStEdStEdBuStCoEdStStEd" caption="Splošno">
 		<control/>

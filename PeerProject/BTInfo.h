@@ -1,7 +1,7 @@
 //
 // BTInfo.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -99,6 +99,7 @@ public:
 // Attributes
 public:
 	CStringList	m_sURLs;				// Add sources from torrents - DWK
+	CStringList	m_oNodes;				// DHT nodes list
 	CList< CBTFile* > m_pFiles;			// List of files
 	Hashes::BtPureHash* m_pBlockBTH;
 	DWORD		m_nBlockSize;
@@ -133,7 +134,7 @@ private:
 public:
 	void		Clear();
 	void		Serialize(CArchive& ar);
-	void		ConvertOldTorrents();
+//	void		ConvertOldTorrents();	// Legacy Shareaza 2.4 Reference
 
 	int			NextInfoPiece() const;
 	BOOL		LoadInfoPiece(BYTE *pPiece, DWORD nPieceSize, DWORD nInfoSize, DWORD nInfoPiece);
@@ -150,6 +151,7 @@ public:
 	BOOL		FinishBlockTest(DWORD nBlock);
 
 	int			AddTracker(const CBTTracker& oTracker);
+	void		RemoveAllTrackers();
 	void		SetTrackerAccess(DWORD tNow);
 	void		SetTrackerSucceeded(DWORD tNow);
 	void		SetTrackerRetry(DWORD tTime);
@@ -200,6 +202,8 @@ public:
 	}
 
 	void SetTracker(const CString& sTracker);
+
+	void SetNode(const CString& sNode);
 
 	inline int GetTrackerMode() const
 	{

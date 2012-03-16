@@ -37,6 +37,14 @@ enum	// Used from CNetwork::IsFirewalled
 	CHECK_BOTH, CHECK_TCP, CHECK_UDP, CHECK_IP
 };
 
+enum // AsyncResolver command
+{
+	RESOLVE_ONLY,				// Resolve and update host cache
+	RESOLVE_CONNECT_ULTRAPEER,	// Resolve, update host cache and connect as ultrapeer
+	RESOLVE_CONNECT,			// Resolve, update host cache and connect
+	RESOLVE_DISCOVERY			// Resolve and update discovery services
+};
+
 class CNetwork : public CComObject, public CThreadImpl
 {
 	DECLARE_DYNCREATE(CNetwork)
@@ -143,7 +151,8 @@ protected:
 		void*	m_pData;
 		int		m_nStage;
 	};
-	CList< CJob > m_oJobs;
+	CCriticalSection	m_pJobSection;			// m_oJobs synchronization
+	CList< CJob >		m_oJobs;
 
 	// Process asynchronous jobs (hits, searches, etc.):
 	void		RunJobs();
@@ -202,9 +211,6 @@ public:
 	void		OnQuerySearch(CLocalSearch* pSearch);	// Add query search to queue
 	void		OnQueryHits(CQueryHit* pHits);			// Add query hit to queue
 //	BOOL		OnPush(const Hashes::Guid& oGUID, CConnection* pConnection);	// Handle push for downloads, chats and browsers
-
-	void		UDPHostCache(IN_ADDR* pAddress, WORD nPort);
-	void		UDPKnownHubCache(IN_ADDR* pAddress, WORD nPort);
 
 	// Safe ways to: accept/close socket, send/recieve data
 	static SOCKET AcceptSocket(SOCKET hSocket, SOCKADDR_IN* addr, LPCONDITIONPROC lpfnCondition, DWORD_PTR dwCallbackData = 0);

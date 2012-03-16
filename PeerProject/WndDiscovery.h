@@ -39,7 +39,7 @@ public:
 public:
 	CLiveListCtrl	m_wndList;
 	CLiveListSizer	m_pSizer;
-	CCoolBarCtrl    m_wndToolBar;
+	CCoolBarCtrl	m_wndToolBar;
 	CImageList		m_gdiImageList;
 	BOOL			m_bShowGnutella;
 	BOOL			m_bShowWebCache;
@@ -48,13 +48,14 @@ public:
 
 // Operations
 public:
-	CDiscoveryService*	GetItem(int nItem);
-	void				Update();
-	void				OnSkinChange();
+	CDiscoveryService* GetItem(int nItem);
+	void			Update();
 
 // Overrides
-//public:
+protected:
 	//{{AFX_VIRTUAL(CDiscoveryWnd)
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
+	virtual void OnSkinChange();
 	//}}AFX_VIRTUAL
 
 // Implementation

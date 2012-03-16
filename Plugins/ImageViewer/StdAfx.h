@@ -2,7 +2,7 @@
 // StdAfx.h
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2012
-// Original author Michael Stokes released portions into the public domain. 
+// Original author Michael Stokes released portions into the public domain.
 // You are free to redistribute and modify this page without any restrictions.
 //
 

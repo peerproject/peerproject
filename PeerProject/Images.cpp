@@ -1394,7 +1394,7 @@ BOOL CImages::DrawButtonState(CDC* pDC, const CRect rc, const int nResource)
 		return DrawIconButton( pDC, rc, &m_bmIconButtonActive ) ||
 			DrawButtonMap( pDC, rc, &m_bmButtonMapIconbox, STATE_ACTIVE );
 	case ICONBUTTON_DISABLED:
-		return DrawIconButton( pDC, rc, &m_bmIconButtonDisabled )||
+		return DrawIconButton( pDC, rc, &m_bmIconButtonDisabled ) ||
 			DrawButtonMap( pDC, rc, &m_bmButtonMapIconbox, STATE_DISABLED );
 
 	case RICHBUTTON_DEFAULT:

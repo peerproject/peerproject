@@ -10,9 +10,9 @@
 #endif
 
 #if !defined(SFX_MODULE) && (defined(_MSC_VER) || defined(__BORLANDC__))
-// If C_UNICODE_RTL is defined, we can use library Unicode functions like
-// wcscpy. Otherwise, for compatibility with old compilers or for removing
-// RTL to reduce SFX module size, we need need to use our own implementations.
+// If C_UNICODE_RTL is defined, we can use library Unicode functions like wcscpy.
+// Otherwise, for compatibility with old compilers or for removing RTL
+// to reduce SFX module size, we need need to use our own implementations.
 #define C_UNICODE_RTL
 #endif
 
@@ -25,22 +25,22 @@ int uni_init(int codepage);
 int uni_done();
 #endif
 
-#ifdef __BORLANDC__
+//#ifdef __BORLANDC__
 // Borland C++ Builder 5 uses the old style swprintf without the buffer size,
 // so we replace it with snwprintf in our custom sprintfw definition.
-#define sprintfw snwprintf
-#elif defined (__OpenBSD__)
-#define sprintfw(s,...) *(s)=0
-#else
+//#define sprintfw snwprintf
+//#elif defined (__OpenBSD__)
+//#define sprintfw(s,...) *(s)=0
+//#else
 #define sprintfw swprintf
-#endif
+//#endif
 
 bool WideToChar(const wchar *Src,char *Dest,size_t DestSize=0x1000000);
 bool CharToWide(const char *Src,wchar *Dest,size_t DestSize=0x1000000);
 byte* WideToRaw(const wchar *Src,byte *Dest,size_t SrcSize=0x1000000);
 wchar* RawToWide(const byte *Src,wchar *Dest,size_t DestSize=0x1000000);
 void WideToUtf(const wchar *Src,char *Dest,size_t DestSize);
-void UtfToWide(const char *Src,wchar *Dest,size_t DestSize);
+bool UtfToWide(const char *Src,wchar *Dest,size_t DestSize);
 bool UnicodeEnabled();
 
 int wcsicomp(const wchar *s1,const wchar *s2);

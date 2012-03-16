@@ -1,4 +1,3 @@
-#include "rar.hpp"
 
 bool IsAnsiComment(const char *Data,int Size);
 
@@ -19,7 +18,7 @@ bool Archive::GetComment(Array<byte> *CmtData,Array<wchar> *CmtDataW)
   else
 #endif
   {
-    if (NewMhd.Flags & MHD_COMMENT)
+    if ((NewMhd.Flags & MHD_COMMENT)!=0)
     {
       // Old style (RAR 2.9) archive comment embedded into the main archive header.
       Seek(SFXSize+SIZEOF_MARKHEAD+SIZEOF_NEWMHD,SEEK_SET);
@@ -32,8 +31,7 @@ bool Archive::GetComment(Array<byte> *CmtData,Array<wchar> *CmtDataW)
       return(SearchSubBlock(SUBHEAD_TYPE_CMT)!=0 && ReadCommentData(CmtData,CmtDataW)!=0);
     }
 #ifndef SFX_MODULE
-    // Old style (RAR 2.9) comment header embedded into the main
-    // archive header.
+    // Old style (RAR 2.9) comment header embedded into the main archive header.
     if (CommHead.HeadCRC!=HeaderCRC)
     {
       Log(FileName,St(MLogCommHead));
@@ -44,7 +42,7 @@ bool Archive::GetComment(Array<byte> *CmtData,Array<wchar> *CmtDataW)
 #endif
   }
 #ifndef SFX_MODULE
-  if (OldFormat && (OldMhd.Flags & MHD_PACK_COMMENT) || !OldFormat && CommHead.Method!=0x30)
+  if (OldFormat && (OldMhd.Flags & MHD_PACK_COMMENT)!=0 || !OldFormat && CommHead.Method!=0x30)
   {
     if (!OldFormat && (CommHead.UnpVer < 15 || CommHead.UnpVer > UNP_VER || CommHead.Method > 0x35))
       return(false);
@@ -111,8 +109,12 @@ bool Archive::GetComment(Array<byte> *CmtData,Array<wchar> *CmtDataW)
     if (CmtDataW!=NULL)
     {
       CmtDataW->Alloc(CmtSize+1);
+
+      // It can cause reallocation, so we should not use 'DataA' variable
+      // with previosuly saved CmtData->Addr() after Push() call.
       CmtData->Push(0);
-      CharToWide(DataA,CmtDataW->Addr(),CmtSize+1);
+
+      CharToWide((char *)CmtData->Addr(),CmtDataW->Addr(),CmtSize+1);
       CmtData->Alloc(CmtSize);
       CmtDataW->Alloc(wcslen(CmtDataW->Addr()));
     }

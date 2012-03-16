@@ -976,7 +976,9 @@ void CUploadsCtrl::PaintQueue(CDC& dc, const CRect& rcRow, CUploadQueue* pQueue,
 
 void CUploadsCtrl::PaintFile(CDC& dc, const CRect& rcRow, CUploadQueue* /*pQueue*/, CUploadFile* pFile, int nPosition, BOOL bFocus)
 {
-	BOOL bSelected = pFile->m_bSelected;
+	//ASSUME_LOCK( Transfers.m_pSection );
+
+	const BOOL bSelected = pFile->m_bSelected;
 	BOOL bLeftMargin = TRUE;
 
 	CUploadTransfer* pTransfer = pFile->GetActive();
@@ -1010,9 +1012,10 @@ void CUploadsCtrl::PaintFile(CDC& dc, const CRect& rcRow, CUploadQueue* /*pQueue
 
 	int nTextLeft = rcRow.right, nTextRight = rcRow.left;
 
-	BOOL bMultifile = pTransfer->m_nProtocol == PROTOCOL_BT;
-	if ( bMultifile && pFile->m_sName.Find( '.' ) > 1 )		// Crude torrent icon workaround fix
-		bMultifile = ( pFile->m_sName.ReverseFind( '.' ) < pFile->m_sName.GetLength() - 4 );
+	// Crude torrent icon workaround fix
+	const BOOL bMultifile = pTransfer->m_nProtocol == PROTOCOL_BT &&
+		( pFile->m_sName.ReverseFind( '.' ) < 1 ||
+		( pFile->m_sName.ReverseFind( '.' ) < pFile->m_sName.GetLength() - 5 ) );
 
 	HDITEM pColumn = {};
 	pColumn.mask = HDI_FORMAT | HDI_LPARAM;
@@ -1039,8 +1042,14 @@ void CUploadsCtrl::PaintFile(CDC& dc, const CRect& rcRow, CUploadQueue* /*pQueue
 			rcCell.left += 24;
 			if ( bLeftMargin || ! bSelectmark && Settings.Interface.RowSize > 16 )
 				dc.FillSolidRect( rcCell.left, rcCell.top + 16, 16, rcCell.Height() - 16, crLeftMargin );
-			ImageList_DrawEx( ShellIcons.GetHandle( 16 ), ShellIcons.Get( bMultifile ? _T(".torrent") : pFile->m_sName, 16 ), dc.GetSafeHdc(),
-					rcCell.left, rcCell.top, 16, 16, crBack, CLR_DEFAULT, bSelected ? ILD_SELECTED : ILD_NORMAL );
+
+			{
+				int nIcon = ShellIcons.Get( bMultifile ? _T(".torrent") :
+					( lstrcmpi( PathFindExtension( pFile->m_sPath ), _T(".partial") ) ?
+					pFile->m_sPath : pFile->m_sName ), 16 );
+				ShellIcons.Draw( &dc, nIcon, 16, rcCell.left, rcCell.top, crBack, bSelected );
+			}
+
 			rcCell.left += 16;
 			if ( bLeftMargin || ! bSelectmark )
 				dc.FillSolidRect( rcCell.left, rcCell.top, 1, rcCell.Height(), crLeftMargin );

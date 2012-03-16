@@ -215,13 +215,26 @@ typedef struct
 #pragma pack(pop)
 
 
+//
 // Services/MainlineDHT
-namespace DHT
+//
+
+class CDHT
 {
-void Connect();
-void Disconnect();
-void Search(const Hashes::BtHash& oBTH);
-void Ping(const SOCKADDR_IN* pHost);
-void OnPacket(const SOCKADDR_IN* pHost, CBTPacket* pPacket);
-void OnRun();
+public:
+	CDHT();
+
+	void Connect();			// Initialize DHT library and load initial hosts
+	void Disconnect();		// Save hosts from DHT library to host cache and shutdown
+	void Search(const Hashes::BtHash& oBTH, bool bAnnounce = true);	// Search for hash (and announce if needed)
+	bool Ping(const IN_ADDR* pAddress, WORD nPort);					// Ping this host
+	void OnPacket(const SOCKADDR_IN* pHost, CBTPacket* pPacket);	// Packet processor
+	void OnRun();			// Run this periodically
+
+protected:
+	bool m_bConnected;
+
+	static void OnEvent(void* closure, int evt, const unsigned char* info_hash, const void* data, size_t data_len);
 };
+
+extern CDHT DHT;

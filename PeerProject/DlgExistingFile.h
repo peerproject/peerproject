@@ -1,7 +1,7 @@
 //
 // DlgExistingFile.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -21,6 +21,8 @@
 #include "DlgSkinDialog.h"
 
 class CLibraryFile;
+//class CPeerProjectFile;
+//class CPeerProjectURL;
 
 
 class CExistingFileDlg : public CSkinDialog
@@ -28,12 +30,13 @@ class CExistingFileDlg : public CSkinDialog
 	DECLARE_DYNAMIC(CExistingFileDlg)
 
 public:
-	CExistingFileDlg(CLibraryFile* pFile, CWnd* pParent = NULL, bool bDuplicateSearch = false);
+	CExistingFileDlg(const CLibraryFile* pFile, CWnd* pParent = NULL, bool bDuplicateSearch = false);
 
 	enum { IDD = IDD_EXISTING_FILE };
 	enum Action { ShowInLibrary, Download, DontDownload, Cancel };
 
 	static Action CheckExisting(const CPeerProjectFile* pFile);
+//	static Action CheckExisting(const CPeerProjectURL* pURL);
 
 	inline Action GetResult() const
 	{

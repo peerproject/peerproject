@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hungarian Skin File -->
 
-<!-- Translation based on default-en.xml r74 -->
+<!-- Translation based on default-en.xml r75 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -364,6 +364,7 @@
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<button id="ID_NETWORK_DC" text="DC++"/>
+		<button id="ID_NETWORK_BT" text="BitTorrent"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Beállítások"/>
 	</toolbar>
@@ -421,6 +422,12 @@
 		<button id="ID_CHAT_DISCONNECT" text="Lekapcsolódás"/>
 	</toolbar>
 	<!-- WEBSERVICES -->
+	<toolbar name="WebServices.MusicBrainz">
+		<button id="ID_MUSICBRAINZ_MATCHES" text="Egyező albumok megtekintése"/>
+		<button id="ID_MUSICBRAINZ_ALBUMS" text="Minden album megtekintése"/>
+		<separator/>
+	</toolbar>
+	<!--
 	<toolbar name="WebServices.ShareMonkey">
 		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Adatok letöltése"/>
 		<separator/>
@@ -442,11 +449,7 @@
 		<button id="ID_SHAREMONKEY_COMPARE" text="Összehasonlítás"/>
 		<button id="ID_SHAREMONKEY_BUY" text="Vásárlás"/>
 	</toolbar>
-	<toolbar name="WebServices.MusicBrainz">
-		<button id="ID_MUSICBRAINZ_MATCHES" text="Egyező albumok megtekintése"/>
-		<button id="ID_MUSICBRAINZ_ALBUMS" text="Minden album megtekintése"/>
-		<separator/>
-	</toolbar>
+	-->
 	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
 		<button id="PluginID_ImageViewer_FullSize" text="Eredeti méret"/>
@@ -592,6 +595,7 @@
 			<item id="ID_NETWORK_G1" text="Kapcsolódás a _Gnutella-hez"/>
 			<item id="ID_NETWORK_ED2K" text="Kapcsolódás az _eDonkey-hoz"/>
 			<item id="ID_NETWORK_DC" text="Kapcsolódás az _DC++-hoz"/>
+			<item id="ID_NETWORK_BT" text="Kapcsolódás az _BitTorrent-hoz"/>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="_Manuális kapcsolódás..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="_Fájllista és adatlap..."/>
@@ -765,6 +769,7 @@
 			<item id="ID_NETWORK_G1" text="Kapcsolódás a _Gnutella-hez"/>
 			<item id="ID_NETWORK_ED2K" text="Kapcsolódás az _eDonkey-hoz"/>
 			<item id="ID_NETWORK_DC" text="Kapcsolódás az _DC++-hoz"/>
+			<item id="ID_NETWORK_BT" text="Kapcsolódás az _BitTorrent-hoz"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="_Forgalom után kilépés"/>
 			<item id="ID_NETWORK_EXIT" text="_Kilépés"/>
@@ -1555,6 +1560,7 @@
 			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
 			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<item id="ID_NETWORK_BT" text="_BitTorrent"/>
 			<separator/>
 			<item id="ID_VIEW_DISCOVERY" text="_Szerverkereső"/>
 			<item id="ID_VIEW_HOSTS" text="_Kiszolgálók listája"/>
@@ -1671,7 +1677,7 @@
 	<menu name="WebServices.List.Menu">
 		<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Bitzi"/>
 		<item id="ID_WEBSERVICES_MUSICBRAINZ" text="_MusicBrainz"/>
-		<item id="ID_WEBSERVICES_SHAREMONKEY" text="_ShareMonkey"/>
+		<!--item id="ID_WEBSERVICES_SHAREMONKEY" text="_ShareMonkey"-->
 	</menu>
 </menus>
 <!-- Documents -->
@@ -2493,6 +2499,7 @@
 	<tip id="ID_NETWORK_EXIT" message="Kilépés a PeerProject."/>
 	<tip id="ID_NETWORK_ED2K" message="Kapcsolódik a eDonkey-hoz."/>
 	<tip id="ID_NETWORK_DC" message="Kapcsolódik a DC++-hoz."/>
+	<tip id="ID_NETWORK_BT" message="Kapcsolódik a BitTorrent-hoz."/>
 	<tip id="ID_NETWORK_G1" message="Kapcsolódik a Gnutella1-hez."/>
 	<tip id="ID_NETWORK_G2" message="Kapcsolódik a Gnutella2-höz (erősen ajánlott)."/>
 	<tip id="ID_NETWORK_SEARCH" message="Új keresést indít a hálózaton..."/>
@@ -2607,7 +2614,7 @@
 	<tip id="ID_WINDOW_TILE_VERT" message="Függőlegesen rendezi a megnyitott ablakokat."/>
 	<tip id="ID_WINDOW_TOOLBAR" message="Eszközsor elrejtése, megjelenítése."/>
 	<tip id="ID_WEBSERVICES_LIST" message="Kattintson a webszolgáltatásra, hogy több információt tudjon meg a fájlról."/>
-	<tip id="ID_WEBSERVICES_SHAREMONKEY" message="A ShareMonkey segítségével több információt tudhat meg a fájlról."/>
+	<!--tip id="ID_WEBSERVICES_SHAREMONKEY" message="A ShareMonkey segítségével több információt tudhat meg a fájlról."-->
 	<!-- PLUGIN TIPS -->
 	<tip id="PluginID_ImageViewer_BestFit" message="Átméretezi a képet, hogy beleférjen az ablakba."/>
 	<tip id="PluginID_ImageViewer_FullSize" message="Eredeti méretben mutatja a képet."/>
@@ -2722,8 +2729,8 @@
 	<string id="20132" value="Viszontválasz közbeni időtúllépés a BitTorrent kliens által: %s."/>
 	<string id="20133" value="BitTorrent kapcsolat létrehozva: %s, viszontválasz..."/>
 	<string id="20134" value="BitTorrent összekapcsolódás nincs elfogadva, kapcsolatok maximális száma elérve: %s"/>
-	<string id="20136" value="BitTorrent kapcsolódáskor ismeretlen fájllal válaszolt: %s ."/>
-	<string id="20137" value="BitTorrent kapcsolódáskor rossz fájllal válaszolt: %s ."/>
+	<string id="20136" value="BitTorrent kapcsolódáskor ismeretlen fájllal válaszolt: %s."/>
+	<string id="20137" value="BitTorrent kapcsolódáskor rossz fájllal válaszolt: %s."/>
 	<string id="20138" value="BitTorrent kapcsolódás nem sikerült, mert a kliensnek más GUID-je van: %s."/>
 	<string id="20139" value="BitTorrent kapcsolat bezárása a forgalom hiánya miatt: %s."/>
 	<string id="20140" value="Karakterkódolási hiba"/>
@@ -2784,8 +2791,8 @@
 	<string id="20202" value="Hibás push kapcsolat: %s, kapcsolat bezárása."/>
 	<string id="20203" value="Letöltés gyorsítása a korlátozások elvételével: &quot;%s&quot;."/>
 	<string id="20204" value="%s túl elfoglalt, %i másodperc múlva újra próbálkozom."/>
-	<string id="20205" value="Nem tudtam áthelyezni: &quot;%s&quot; ide: &quot;%s&quot;. Ellenőrizd, hogy a fékész fájl nincs-e használatban és/vagy a kész letöltések mappába lehet-e írni."/>
-	<string id="20206" value="Nem tudom felhasználni: &quot;%s&quot;."/>
+	<string id="20205" value="Nincs elég hely a letöltéshez: &quot;%s&quot; (%s)."/>
+	<string id="20206" value="Nem tudtam áthelyezni: &quot;%s&quot; ide: &quot;%s&quot;. Ellenőrizd, hogy a fékész fájl nincs-e használatban és/vagy a kész letöltések mappába lehet-e írni."/>
 	<string id="20207" value="Biztos, hogy minden letöltést törölni akar a csoportból?"/>
 	<string id="20208" value="Letöltési kapcsolat bezárása: %s, már nincs rá szükség."/>
 	<string id="20209" value="%s nem kért adatokat küldött, kapcsolat bezárása."/>
@@ -2798,26 +2805,21 @@
 	<string id="20216" value="Nem lehet a letöltési kiszolgálóhoz kapcsolódni: %s."/>
 	<string id="20217" value="Letöltési tartalom vétele: %s (%s)."/>
 	<string id="20218" value="A(z) &quot;%s&quot; letöltésének leállítása: %s (%s), hálózat kikapcsolva."/>
-	<string id="20219" value="Nincs elég hely a letöltéshez: &quot;%s&quot; (%s)."/>
-	<string id="20220" value="A letöltési kapcsolat megszakadt: %s."/>
-	<string id="20222" value="A beírt eDonkey érték érvénytelen. Ellenőrizze és próbálja meg újra."/>
-	<string id="20224" value="Adjon meg egy érvényes törlendő részt. A(z) &quot;from&quot; mező az első bájt, a(z) &quot;last&quot; mező az utolsó bájt, amit törölni kell."/>
-	<string id="20225" value="A beírt SHA1 érték érvénytelen. Ellenőrizze és próbálja meg újra."/>
-	<string id="20226" value="A beírt TTH érték érvénytelen. Ellenőrizze és próbálja meg újra."/>
-	<string id="20227" value="BitTorrent kapcsolódás visszautasítva: %s, több kapcsolat már nem hozható létre."/>
-	<string id="20228" value="Nem lehet a megadott részt törölni, mert az nem létezik."/>
-	<string id="20231" value="Egy más SHA1 hash értéket adott meg, ami különbözik a jelenlegitől.  Biztos ki akarja cserélni?"/>
-	<string id="20232" value="Egy más eDonkey hash értéket adott meg, ami különbözik a jelenlegitől.  Biztos ki akarja cserélni?"/>
-	<string id="20233" value="Egy más TTH hash értéket adott meg, ami különbözik a jelenlegitől.  Biztos ki akarja cserélni?"/>
-	<string id="20235" value="Nem tudja a letöltést késznek tekinteni és ellenőrizni, mert nincs hozzá megfelelő hash érték."/>
-	<string id="20236" value="Késznek veszis a letöltést és úgy ellenőrzi? A fájl újra lesz hashelve, jó és rossz részek is elfogadásra kerülnek."/>
-	<string id="20237" value="Biztos, hogy a letöltés minden forrását törölni akarja?"/>
-	<string id="20238" value="Biztos, hogy törölni akarja a jelenlegi azonosítási állapotot? Minden letöltés megbízhatatlan lesz és a hash értékek pedig törölve lesznek."/>
-	<string id="20240" value="%I64i bájt törölve a letöltésből."/>
-	<string id="20241" value="Megváltoztatta a letöltés nevét. Biztos át akarja nevezni?"/>
+	<string id="20219" value="A letöltési kapcsolat megszakadt: %s."/>
+	<string id="20221" value="Adjon meg egy érvényes törlendő részt. A(z) &quot;from&quot; mező az első bájt, a(z) &quot;last&quot; mező az utolsó bájt, amit törölni kell."/>
+	<string id="20222" value="A beírt %s érték érvénytelen. Ellenőrizze és próbálja meg újra."/>
+	<string id="20223" value="Egy más %s hash értéket adott meg, ami különbözik a jelenlegitől.  Biztos ki akarja cserélni?"/>
+	<string id="20224" value="Megváltoztatta a letöltés nevét. Biztos át akarja nevezni?"/>
+	<string id="20225" value="BitTorrent kapcsolódás visszautasítva: %s, több kapcsolat már nem hozható létre."/>
+	<string id="20226" value="Nem tudja a letöltést késznek tekinteni és ellenőrizni, mert nincs hozzá megfelelő hash érték."/>
+	<string id="20227" value="Késznek veszis a letöltést és úgy ellenőrzi? A fájl újra lesz hashelve, jó és rossz részek is elfogadásra kerülnek."/>
+	<string id="20228" value="Biztos, hogy törölni akarja a jelenlegi azonosítási állapotot? Minden letöltés megbízhatatlan lesz és a hash értékek pedig törölve lesznek."/>
+	<string id="20229" value="Biztos, hogy a letöltés minden forrását törölni akarja?"/>
+	<string id="20231" value="Nem lehet a megadott részt törölni, mert az nem létezik."/>
+	<string id="20232" value="%I64i bájt törölve a letöltésből."/>
 	<string id="20242" value="%s nincs meg neki ez a fájl: &quot;%s&quot;."/>
 	<string id="20243" value="Fájl készítése a letöltéshez: &quot;%s&quot;."/>
-	<string id="20244" value="Nem tudok fájlt készíteni a letöltéshez: &quot;%s&quot;, megszakítás ."/>
+	<string id="20244" value="Nem tudok fájlt készíteni a letöltéshez: &quot;%s&quot;, megszakítás."/>
 	<string id="20245" value="Fájl megnyitása nem lehetséges a letöltéshez &quot;%s&quot;, megszakítás."/>
 	<string id="20246" value="Nincs több letöltési töredék, kapcsolat bezárása: %s."/>
 	<string id="20247" value="Töredék rövidítve, Kapcsolat bezázása %s."/>
@@ -2846,9 +2848,10 @@
 	<string id="20271" value="Áthelyezve: &quot;%s&quot; ide: &quot;%s&quot;, letöltés kész."/>
 	<string id="20272" value="Letöltés szüneteltetése: &quot;%s&quot;."/>
 	<string id="20273" value="Letöltés folytatása: &quot;%s&quot;."/>
-	<string id="20274" value="&quot;%s&quot; használata &quot;%s&quot; letöltéséhez..."/>
 	<string id="20275" value="Több forrás keresése: &quot;%s&quot; itt: %i..."/>
 	<string id="20276" value="Nem lehet több forrást találni: &quot;%s&quot; mert nincs hálózati kapcsolat."/>
+	<!--string id="20277" value="&quot;%s&quot; használata &quot;%s&quot; letöltéséhez..."-->
+	<!--string id="20278" value="Nem tudom felhasználni: &quot;%s&quot;."-->
 	<string id="20280" value="A TTH adatok hamisak vagy inkonzisztensek, ignorálás."/>
 	<string id="20281" value="A TTH adatok nem egyeznek a gyökérértékekkel."/>
 	<string id="20282" value="%s nem tudta elküldeni a TTH-t."/>
@@ -3103,7 +3106,7 @@
 	<string id="20570" value="Hibásan formázott találati csomag: %s, ignorálás."/>
 	<string id="20571" value="%s: Hibásan formázott lekérdezéscsomag: %s, ignorálás."/>
 	<string id="20572" value="%s túl nagy TTL-el rendelkező csomagot küldött tovább, csomag ejtése (TTL=%i, Hops=%i)."/>
-	<string id="20573" value="%s TTL=0 csomagot küldött tovább, ignorálás."/>
+	<!--string id="20573" value="%s TTL=0 csomagot küldött tovább, ignorálás."-->
 	<string id="20574" value="%s egy kiterjesztett csomagot küldött tovább, ami GGEP kódolású."/>
 	<string id="20575" value="%s érvénytelen query routing table-t küldött, kapcsolat megszakítása."/>
 	<string id="20576" value="Query routing table elküldése %s (%i bit = %lu[%i], %i%% full)"/>
@@ -3299,7 +3302,7 @@
 	<string id="20834" value="%s előnézetet kért a(z) &quot;%s&quot; fájlból, de nem elérhető."/>
 	<string id="20835" value="Előnézet feltöltése: &quot;%s&quot; ide: %s."/>
 	<string id="20836" value="Push request megtagadása, mert túl sok feltöltési kapcsolata van %s."/>
-	<string id="20837" value="%s egy push requestet kért egy ismeretlem fájlhhozhoz, azért kapcsolódok..."/>
+	<!--string id="20837" value="%s egy push requestet kért egy ismeretlem fájlhhozhoz, azért kapcsolódok..."-->
 	<string id="20838" value="Nem tudom még feltölteni: &quot;%s&quot; ide: %s, sorbanáll: #%i / %i (&quot;%s&quot;.."/>
 	<string id="20840" value="Feltöltési kapcsolat megszakadt, megtartom a régi helyet a sorban: %s."/>
 	<string id="20841" value="Új sor"/>
@@ -3329,7 +3332,7 @@
 	<string id="20866" value="Fájlnév:"/>
 	<string id="20867" value="Kiszolgáló:"/>
 	<string id="20868" value="Port:"/>
-	<string id="20869" value="Az URL ablakot nem lehet megnyitni, mert a PeerProject elfoglalt."/>
+	<!--string id="20869" value="Az URL ablakot nem lehet megnyitni, mert a PeerProject elfoglalt."-->
 	<string id="20870" value="A PeerProject nem ismeri ezt a fajta URL-t."/>
 	<string id="20871" value="URL fogadva: &quot;%s&quot;"/>
 	<string id="20872" value="Típus:"/>
@@ -3672,7 +3675,7 @@
 		<control caption="Letöltés..."/>
 		<control caption="eDonkey szerverlista letöltése az internetről:"/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Letöltési kapcsolatok"/>
 		<control/>
 		<control/>
@@ -3680,6 +3683,7 @@
 		<control/>
 		<control/>
 		<control caption="kliens kapcsolódhat hozzám egyszerre"/>
+		<control caption="Engedélyezze BitTorrent DHT"/>
 		<control caption="Előbb a torrentforrásokat használja"/>
 		<control caption="EndGame"/>
 		<control caption="A letöltés végének gyorsítása (EndGame mód)"/>
@@ -4396,7 +4400,7 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackerek">
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBuBuBu" caption="Trackerek">
 		<control/>
 		<control/>
 		<control/>
@@ -4408,6 +4412,8 @@
 		<control caption="Trackermód:"/>
 		<control caption="Letiltva|Saját|Egy tracker|Multi-tracker|Multi-tracker (zárt)"/>
 		<control caption="_Frissít"/>
+		<control caption="_Hozzáad"/>
+		<control caption="_Eltávolít"/>
 	</dialog>
 	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="Általános">
 		<control/>

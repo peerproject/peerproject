@@ -1,7 +1,7 @@
 //
 // CtrlLibraryHeaderBar.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -151,10 +151,7 @@ void CLibraryHeaderBar::PaintHeader(CDC* pDC, CRect& rcBar, BOOL bTransparent)
 	if ( bTransparent )
 	{
 		if ( m_nImage )
-		{
-			ImageList_DrawEx( ShellIcons.GetHandle( 16 ), m_nImage, pDC->GetSafeHdc(),
-				rcBar.left + 4, nMiddle - 8, 16, 16, CLR_NONE, CLR_NONE, ILD_NORMAL );
-		}
+			ShellIcons.Draw( pDC, m_nImage, 16, rcBar.left + 4, nMiddle - 8 );
 
 		pDC->SetBkMode( TRANSPARENT );
 		pDC->ExtTextOut( rcBar.left + 22, nMiddle - szText.cy / 2,
@@ -166,9 +163,7 @@ void CLibraryHeaderBar::PaintHeader(CDC* pDC, CRect& rcBar, BOOL bTransparent)
 
 		if ( m_nImage )
 		{
-			ImageList_DrawEx( ShellIcons.GetHandle( 16 ), m_nImage, pDC->GetSafeHdc(),
-				rcBar.left + 4, nMiddle - 8, 16, 16, Colors.m_crMidtone, CLR_NONE, ILD_NORMAL );
-
+			ShellIcons.Draw( pDC, m_nImage, 16, rcBar.left + 4, nMiddle - 8, Colors.m_crMidtone );
 			pDC->ExcludeClipRect( rcBar.left + 4, nMiddle - 8, rcBar.left + 20, nMiddle + 8 );
 		}
 

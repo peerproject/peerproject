@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Norwegian Skin File -->
 
-<!-- Translation based on default-en.xml r74 (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r75 (Shareaza 2.2.0.2) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -357,6 +357,7 @@
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 		<button id="ID_NETWORK_DC" text="DC++"/>
+		<button id="ID_NETWORK_BT" text="BitTorrent"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Innstillinger"/>
 	</toolbar>
@@ -465,6 +466,7 @@
 				<item id="ID_NETWORK_G1" text="Koble til Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Koble til eDonkey2000"/>
 				<item id="ID_NETWORK_DC" text="Koble til DC++"/>
+				<item id="ID_NETWORK_BT" text="Koble til BitTorrent"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="Koble til..." shortcut="Ctrl+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="Utforsk vert..."/>
@@ -620,6 +622,7 @@
 			<item id="ID_NETWORK_G1" text="Koble til Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="Koble til eDonkey2000"/>
 			<item id="ID_NETWORK_DC" text="Koble til DC++"/>
+			<item id="ID_NETWORK_BT" text="Koble til BitTorrent"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Avslutt etter overføringer"/>
 			<item id="ID_NETWORK_EXIT" text="Avslutt"/>
@@ -1389,6 +1392,7 @@
 			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey2000"/>
 			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<item id="ID_NETWORK_BT" text="_BitTorrent"/>
 			<separator/>
 			<item id="ID_VIEW_DISCOVERY" text="Oppdagelse"/>
 			<item id="ID_VIEW_HOSTS" text="Vert-cache"/>
@@ -2292,6 +2296,7 @@
 	<tip id="ID_NETWORK_EXIT" message="Avslutt PeerProject"/>
 	<tip id="ID_NETWORK_ED2K" message="Koble til eDonkey2000-nettverket."/>
 	<tip id="ID_NETWORK_DC" message="Koble til DC++-nettverket."/>
+	<tip id="ID_NETWORK_BT" message="Koble til BitTorrent-nettverket."/>
 	<tip id="ID_NETWORK_G1" message="Koble til det originale Gnutella-nettverket."/>
 	<tip id="ID_NETWORK_G2" message="Koble til Gnutella2-nettverket (Høyst anbefalt)."/>
 	<tip id="ID_NETWORK_SEARCH" message="Start et nytt søk på nettverket..."/>
@@ -2560,8 +2565,8 @@
 	<string id="20202" value="Mottok en ugyldig push kobling fra %s, lukker kobling."/>
 	<string id="20203" value="Øker hastighet &quot;%s&quot; ved å fjerne hastighetsgrenser.."/>
 	<string id="20204" value="Nedlastingsvert %s er opptatt, prøver på nytt om %i sekunder."/>
-	<string id="20205" value="Kunne ikke flytte nedlasting &quot;%s&quot; til &quot;%s&quot;.  Sjekk at den uferdige filen ikke er i bruk og at nedlastings mappen finns og ikke er skrivebeskyttet."/>
-	<string id="20206" value="Klarte ikke å anerkjenne &quot;%s&quot;."/>
+	<string id="20205" value="Det er ikke nok plass på pc-en til å laste ned &quot;%s&quot; (%s)."/>
+	<string id="20206" value="Kunne ikke flytte nedlasting &quot;%s&quot; til &quot;%s&quot;.  Sjekk at den uferdige filen ikke er i bruk og at nedlastings mappen finns og ikke er skrivebeskyttet."/>
 	<string id="20207" value="Er du sikker p at du vil avbryte alle nedlastningene i denne gruppen?"/>
 	<string id="20208" value="Lukker nedlastings-kobling til %s, den er ikke lenger nødvendig."/>
 	<string id="20209" value="Nedlastingsvert %s sendte ugyldige data, lukker kobling."/>
@@ -2574,22 +2579,17 @@
 	<string id="20216" value="Klarte ikke å koble til nedlastingsvert %s."/>
 	<string id="20217" value="Mottar nedlastingsinnhold fra vert %s (%s)."/>
 	<string id="20218" value="Avbryter nedlasting av &quot;%s&quot; fra %s (%s), nettverk skrudd av."/>
-	<string id="20219" value="Det er ikke nok plass på pc-en til å laste ned &quot;%s&quot; (%s)."/>
-	<string id="20220" value="Nedlastings-kobling til %s mistet."/>
-	<string id="20222" value="Du har skrevet inn en ugyldig eDonkey2000 hash-verdi. Vennligst sjekk verdien og prøv på nytt."/>
-	<string id="20224" value="Vennligst velg hvilket omfang du vil slette. &quot;Fra&quot; feltet er den første byten som skal slettes, &quot;Siste&quot; feltet er den siste byten som skal slettes."/>
-	<string id="20225" value="Du har skrevet inn en ugyldig SHA1 hash-verdi. Vennligst sjekk verdien og prøv på nytt."/>
-	<string id="20226" value="Du har skrevet inn en ugyldig root tiger-tree hash-verdi. Vennligst sjekk verdien og prøv på nytt."/>
-	<string id="20228" value="Klarte ikke å slette valgte omfang av filen fordi ingen deler av omfanget eksisterer."/>
-	<string id="20231" value="Du har gitt en SHA1 hash-verdi som er forskjellig fra den som er asossiert med denne nedlastingen. Er du sikker på at du vil endre SHA1 hashen nå?"/>
-	<string id="20232" value="Du har gitt en eDonkey2000 hash-verdi som er forskjellig fra den som er asossiert med denne nedlastingen. Er du sikker på at du vil endre eDonkey2000 hashen nå?"/>
-	<string id="20233" value="Du har gitt en root tiger-tree hash-verdi som er forskjellig fra den som er asossiert med denne nedlastingen. Er du sikker på at du vil endre tiger-tree hashen nå?"/>
-	<string id="20235" value="Du kan ikke gå ut i fra at denne filen er ferdig og reverifisere den fordi du har ennå ingen partielle verifikasjons data, slik som tiger-tree innhold, eDonkey hashset eller BitTorrent hashset. Uten verifikasjons-data kan ikke filen reverifiseres."/>
-	<string id="20236" value="Er du sikker på at du vil gå ut i fra at denne filen er ferdig og reverifisere den? Hele filen vil betraktes, PeerProject vil godta deler som blit verifiserte og laste ned nye deler for de som feilet verifiseringen."/>
-	<string id="20237" value="Er du helt sikker på at du vil glemme alle kildene til denne nedlastingen?"/>
-	<string id="20238" value="Er du sikker på at du vil glemme nåværende verifiseringsposisjon?  Alle data som blir lastet ned vil bli sett på som usikre og cachede hashtrees og hash-sets vil bli fjernet."/>
-	<string id="20240" value="Slettet %I64i byte fra nedlastingen."/>
-	<string id="20241" value="Du har gjort endringer i navnefeltet. Er du sikker på at du vil endre navnet på denne nedlastingen?"/>
+	<string id="20219" value="Nedlastings-kobling til %s mistet."/>
+	<string id="20221" value="Vennligst velg hvilket omfang du vil slette. &quot;Fra&quot; feltet er den første byten som skal slettes, &quot;Siste&quot; feltet er den siste byten som skal slettes."/>
+	<string id="20222" value="Du har skrevet inn en ugyldig %s hash-verdi. Vennligst sjekk verdien og prøv på nytt."/>
+	<string id="20223" value="Du har gitt en %s hash-verdi som er forskjellig fra den som er asossiert med denne nedlastingen. Er du sikker på at du vil endre %s hashen nå?"/>
+	<string id="20224" value="Du har gjort endringer i navnefeltet. Er du sikker på at du vil endre navnet på denne nedlastingen?"/>
+	<string id="20226" value="Du kan ikke gå ut i fra at denne filen er ferdig og reverifisere den fordi du har ennå ingen partielle verifikasjons data, slik som tiger-tree innhold, eDonkey hashset eller BitTorrent hashset. Uten verifikasjons-data kan ikke filen reverifiseres."/>
+	<string id="20227" value="Er du sikker på at du vil gå ut i fra at denne filen er ferdig og reverifisere den? Hele filen vil betraktes, PeerProject vil godta deler som blit verifiserte og laste ned nye deler for de som feilet verifiseringen."/>
+	<string id="20228" value="Er du sikker på at du vil glemme nåværende verifiseringsposisjon?  Alle data som blir lastet ned vil bli sett på som usikre og cachede hashtrees og hash-sets vil bli fjernet."/>
+	<string id="20229" value="Er du helt sikker på at du vil glemme alle kildene til denne nedlastingen?"/>
+	<string id="20231" value="Klarte ikke å slette valgte omfang av filen fordi ingen deler av omfanget eksisterer."/>
+	<string id="20232" value="Slettet %I64i byte fra nedlastingen."/>
 	<string id="20242" value="Nedlastingsvert %s har ikke filene &quot;%s&quot;."/>
 	<string id="20243" value="Lager fil &quot;%s&quot; for nedlasting."/>
 	<string id="20244" value="Klarte ikke å lage fil &quot;%s&quot; for nedlasting, avbryter."/>
@@ -2619,9 +2619,10 @@
 	<string id="20271" value="Flyttet &quot;%s&quot; til &quot;%s&quot;, nedlasting ferdig."/>
 	<string id="20272" value="Pauser nedlastingen av &quot;%s&quot;."/>
 	<string id="20273" value="Starter nedlastingen av &quot;%s&quot;."/>
-	<string id="20274" value="Aksepterer &quot;%s&quot; å laste ned &quot;%s&quot;..."/>
 	<string id="20275" value="Søker etter flere kilder for nedlasting &quot;%s&quot; på %i koblingen(e)..."/>
 	<string id="20276" value="Kan ikke finne flere kilder til nedlasting &quot;%s&quot; fordi det er ingen nettverkskoblinger."/>
+	<!--string id="20277" value="Aksepterer &quot;%s&quot; å laste ned &quot;%s&quot;..."-->
+	<!--string id="20278" value="Klarte ikke å anerkjenne &quot;%s&quot;."-->
 	<string id="20280" value="Nedlastingsvertens tiger-tree data er ugyldig eller ødelagt, ignorerer det."/>
 	<string id="20281" value="Nedlastingsvertens tiger-tree ligner ikke på ventet rotverdi."/>
 	<string id="20282" value="Nedlastingsvert %s klarte ikke å tilfredstille tiger-tree anmodning."/>
@@ -2649,7 +2650,7 @@
 	<string id="20309" value="Lukket kobling til nabo %s fordi det er ikke en hub."/>
 	<string id="20310" value="Klarte ikke å starte kobling til nabo med %s (avslått)."/>
 	<string id="20311" value="Mistet kommunikasjon med koblingen på %s."/>
-	<string id="20312" value="Lukker kobling til nabo %s p.g.a. mangel av trafikk ."/>
+	<string id="20312" value="Lukker kobling til nabo %s p.g.a. mangel av trafikk."/>
 	<string id="20313" value="Oppdaterer vert-oppdagelsestjeneste..."/>
 	<string id="20314" value="Oppdagelsestjeneste &quot;%s&quot; feilet, feil count %i."/>
 	<string id="20315" value="Oppdagelsestjeneste &quot;%s&quot; har feilet %i ganger, fjerner."/>
@@ -2863,7 +2864,7 @@
 	<string id="20570" value="Mottok et feil formatert spørre-treff-pakke fra %s, ignorerer."/>
 	<string id="20571" value="%s: Mottok et feil formatert spørrepakke fra %s, ignorerer."/>
 	<string id="20572" value="Nabo %s videresendte en pakke med overdrevet TTL, dropper pakke (TTL=%i, Hops=%i)."/>
-	<string id="20573" value="Nabo %s videresendte en pakke med null TTL, ignorerer."/>
+	<!--string id="20573" value="Nabo %s videresendte en pakke med null TTL, ignorerer."-->
 	<string id="20574" value="Nabo %s videresendte en utvidet pakke som ikke er GGEP kodet."/>
 	<string id="20575" value="Nabo %s sendte en ugyldig spøøre-routingtabell-oppdatering, dropper kobling."/>
 	<string id="20576" value="Sender spørre-routingtabell til nabo %s (%i bit = %lu[%i], %i%% full)"/>
@@ -3053,7 +3054,7 @@
 	<string id="20834" value="Opplastingsvert %s forespurte forhåndsvisning av &quot;%s&quot;, men filen kan ikke forhånsvises."/>
 	<string id="20835" value="Laster opp forhåndsvisning av &quot;%s&quot; til %s."/>
 	<string id="20836" value="Nekter push forespørsel til %s fordi den har for mange opplastings koblinger."/>
-	<string id="20837" value="Legacy push forespørsel fra %s forespurte en ukjent fil, kobler til likevel..."/>
+	<!--string id="20837" value="Legacy push forespørsel fra %s forespurte en ukjent fil, kobler til likevel..."-->
 	<string id="20838" value="For opptatt til å laste opp &quot;%s&quot; til %s, satt i kø ved #%i av %i (&quot;%s&quot;.."/>
 	<string id="20840" value="Opplastingskobling til %s mistet, lagrer kø-posisjon."/>
 	<string id="20841" value="Ny kø"/>
@@ -3082,7 +3083,7 @@
 	<string id="20866" value="Filnavn:"/>
 	<string id="20867" value="Vert:"/>
 	<string id="20868" value="Port:"/>
-	<string id="20869" value="Kan ikke vise URL-dialogen fordi PeerProject er opptatt."/>
+	<!--string id="20869" value="Kan ikke vise URL-dialogen fordi PeerProject er opptatt."-->
 	<string id="20870" value="Kan ikke motta URL: PeerProject gjenkjenner ikke denne URL."/>
 	<string id="20871" value="Mottar URL &quot;%s&quot;"/>
 	<string id="20872" value="Type:"/>
@@ -3380,7 +3381,7 @@
 		<control caption="Last ned..."/>
 		<control caption="Last ned eDonkey2000 serverliste fra nettet:"/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="Nedlastingskoblinger:"/>
 		<control/>
 		<control/>
@@ -3388,6 +3389,7 @@
 		<control/>
 		<control/>
 		<control caption="Klienttilkoblinger"/>
+		<control caption="Aktiver BitTorrent DHT"/>
 		<control caption="Foretrekk torrent-kilder"/>
 		<control caption="_EndGame:"/>
 		<control caption="Skru på EndGame-modus når torrenter blir ferdige"/>
@@ -4104,7 +4106,7 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackers">
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBuBuBu" caption="Trackers">
 		<control/>
 		<control/>
 		<control/>
@@ -4116,6 +4118,8 @@
 		<control caption="Tracker Mode:"/>
 		<control caption="Disabled|Custom|Single Tracker|Multi-tracker|Multi-tracker (locked)"/>
 		<control caption="_Refresh"/>
+		<control caption="_Legg til"/>
+		<control caption="_Fjern"/>
 	</dialog>
 	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="BitTorrent">
 		<control/>

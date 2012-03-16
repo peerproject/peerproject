@@ -348,6 +348,7 @@
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 		<button id="ID_NETWORK_DC" text="DC++"/>
+		<button id="ID_NETWORK_BT" text="BitTorrent"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Settings"/>
 	</toolbar>
@@ -450,6 +451,12 @@
 		<button id="ID_CHAT_DISCONNECT" text="Disconnect"/>
 	</toolbar>
 	<!-- WEBSERVICES -->
+	<toolbar name="WebServices.MusicBrainz">
+		<button id="ID_MUSICBRAINZ_MATCHES" text="View Album Matches"/>
+		<button id="ID_MUSICBRAINZ_ALBUMS" text="View All Albums"/>
+		<separator/>
+	</toolbar>
+	<!--
 	<toolbar name="WebServices.ShareMonkey">
 		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Get Data"/>
 		<separator/>
@@ -472,11 +479,7 @@
 		<button id="ID_SHAREMONKEY_COMPARE" text="Compare"/>
 		<button id="ID_SHAREMONKEY_BUY" text="Buy It"/>
 	</toolbar>
-	<toolbar name="WebServices.MusicBrainz">
-		<button id="ID_MUSICBRAINZ_MATCHES" text="View Album Matches"/>
-		<button id="ID_MUSICBRAINZ_ALBUMS" text="View All Albums"/>
-		<separator/>
-	</toolbar>
+	-->
 </toolbars>
 
 <!-- Menu Definitions -->
@@ -537,13 +540,14 @@
 				<item id="ID_NETWORK_G1" text="Connect to _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Connect to _eDonkey2000"/>
 				<item id="ID_NETWORK_DC" text="Connect to _DC++"/>
+				<item id="ID_NETWORK_BT" text="Connect to _BitTorrent"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="Connect _To..." shortcut="Ctrl+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="_Browse User..."/>
 				<item id="ID_NETWORK_CHAT_TO" text="Chat with _User..."/>
 				<separator/>
 				<item id="ID_NETWORK_AUTO_CLOSE" text="Exit _After Transfers"/>
-				<item id="ID_NETWORK_EXIT" text="E_xit Immediately"/>
+				<item id="ID_NETWORK_EXIT" text="E_xit Now"/>
 			</menu>
 			<menu text="_Tools">
 				<item id="ID_LIBRARY_FOLDERS" text="Share _Files..."/>
@@ -621,6 +625,7 @@
 				<item id="ID_NETWORK_G1" text="Connect to _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Connect to _eDonkey"/>
 				<item id="ID_NETWORK_DC" text="Connect to _DC++"/>
+				<item id="ID_NETWORK_BT" text="Connect to _BitTorrent"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Connect _To..." shortcut="Ctrl+T"/>
@@ -813,6 +818,7 @@
 				<item id="ID_NETWORK_G1" text="Connect to _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Connect to _eDonkey"/>
 				<item id="ID_NETWORK_DC" text="Connect to _DC++"/>
+				<item id="ID_NETWORK_BT" text="Connect to _BitTorrent"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Close _After Transfers"/>
@@ -1095,8 +1101,8 @@
 			<item id="ID_SEARCH_FOR_THIS" text="_This File"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="_Similar Files"/>
 			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="_Music by the same Artist"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="Music in the same _Album"/>
+			<item id="ID_SEARCH_FOR_ARTIST" text="Music by the same _Artist"/>
+			<item id="ID_SEARCH_FOR_ALBUM" text="_Music in the same Album"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episodes in the same Series"/>
 		</menu>
 		<menu text="_Web Services">
@@ -1104,7 +1110,7 @@
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Filter Results..."/>
-		<item id="ID_SEARCH_FILTER_REMOVE" text="R_emove Filter"/>
+		<item id="ID_SEARCH_FILTER_REMOVE" text="_Remove Filter"/>
 		<separator/>
 		<item id="ID_SEARCH_COLUMNS" text="Edit C_olumns..."/>
 	</menu>
@@ -1597,7 +1603,7 @@
 			<item id="ID_SYSTEM_VERBOSE_INFO" text="_Info"/>
 			<item id="ID_SYSTEM_VERBOSE_DEBUG" text="_Debug"/>
 		</menu>
-		<item id="ID_SYSTEM_TIMESTAMP" text="Timestam_p"/>
+		<item id="ID_SYSTEM_TIMESTAMP" text="_Timestamp"/>
 		<separator/>
 		<item id="ID_SYSTEM_COPY" text="_Copy" shortcut="Ctrl+C"/>
 		<separator/>
@@ -1629,6 +1635,7 @@
 			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
 			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<item id="ID_NETWORK_BT" text="_BitTorrent"/>
 			<separator/>
 			<item id="ID_VIEW_DISCOVERY" text="Discovery _Services"/>
 			<item id="ID_VIEW_HOSTS" text="_Host/Server Cache"/>
@@ -1766,7 +1773,7 @@
 	<menu name="WebServices.List.Menu">
 		<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Bitzi"/>
 		<item id="ID_WEBSERVICES_MUSICBRAINZ" text="_MusicBrainz"/>
-		<item id="ID_WEBSERVICES_SHAREMONKEY" text="_ShareMonkey"/>
+		<!-- item id="ID_WEBSERVICES_SHAREMONKEY" text="_ShareMonkey" -->
 	</menu>
 </menus>
 
@@ -2046,7 +2053,7 @@
 		<text>&#160;Adjust common user interface behaviors, etc.</text>
 		<newline gap="10"/>
 		<link target="page:CLibrarySettingsPage" format="b">Library: </link>
-		<text>&#160;File access, presentation and management of your local library.</text>
+		<text>&#160;File access, and management of your local library.</text>
 		<newline gap="10"/>
 		<link target="page:CMediaSettingsPage" format="b">Media Player: </link>
 		<text>&#160;Set when to use the internal PeerProject Media System.</text>
@@ -2419,7 +2426,7 @@
 	<document name="SearchHelp.BadSearch3">
 		<text format="b">Please re-phrase the search</text>
 		<newline gap="8"/>
-		<text>This search seems to contain only common file extensions, or no searchable words.</text>
+		<text>This search seems to contain only common filetypes, or no searchable words.</text>
 		<newline gap="8"/>
 		<text>If you are having trouble creating searches, keep in mind that it's quite similar
 		to a web search. Specific terms or phrases are best- Unique names, titles and keywords.</text>
@@ -2637,11 +2644,11 @@
 <commandImages>
 	<bitmap id="IDB_MENUBAR" mask="CLR_NONE">
 		<image /> <!--Logo-->
-		<image id="ID_MEDIA_PREVIOUS" id1="ID_SHAREMONKEY_PREVIOUS" id2="ID_LIBRARY_PARENT"/>
-		<image id="ID_MEDIA_NEXT" id1="ID_SHAREMONKEY_NEXT" id2="ID_CHAT_PRIORITY"/>
+		<image id="ID_MEDIA_PREVIOUS" id1="ID_LIBRARY_PARENT"/>  <!-- id2="ID_SHAREMONKEY_PREVIOUS" -->
+		<image id="ID_MEDIA_NEXT" id1="ID_CHAT_PRIORITY"/>  <!-- id2="ID_SHAREMONKEY_NEXT" -->
 		<image id="ID_SEARCH_DOWNLOAD" id1="ID_DOWNLOADS_RESUME" id2="ID_DOWNLOAD_GROUP_RESUME" id3="ID_UPLOADS_START" id4="ID_UPLOADS_PRIORITY"
 			id5="ID_HOSTCACHE_CONNECT" id6="ID_NETWORK_CONNECT" id7="ID_NETWORK_CONNECT_TO" id8="ID_TRANSFERS_CONNECT" id9="ID_DISCOVERY_QUERY"/>
-		<image id="ID_CHAT_CONNECT" id1="ID_IRC_CONNECT" id2="ID_SEARCH_DOWNLOADNOW" id3="ID_DOWNLOADS_BOOST" id4="ID_SHAREMONKEY_BUY"/>
+		<image id="ID_CHAT_CONNECT" id1="ID_IRC_CONNECT" id2="ID_SEARCH_DOWNLOADNOW" id3="ID_DOWNLOADS_BOOST"/>  <!-- id4="ID_SHAREMONKEY_BUY" -->
 		<image id="ID_MEDIA_PLAY" id1="ID_MEDIA_SELECT" id2="ID_DOWNLOADS_LAUNCH" id3="ID_DOWNLOADS_LAUNCH_COPY" id4="ID_DOWNLOADS_LAUNCH_COMPLETE"
 			id5="ID_UPLOADS_LAUNCH" id6="ID_LIBRARY_LAUNCH" id7="ID_LIBRARY_ALBUM_OPEN" id8="ID_LIBRARY_EXPLORE" id9="ID_LIBRARY_FOLDER_ENQUEUE"/>
 		<image id="ID_DOWNLOADS_CLEAR_COMPLETE" id1="ID_DOWNLOADS_CLEAR_COMPLETED" id2="ID_UPLOADS_CLEAR_COMPLETED" id3="ID_DOWNLOAD_GROUP_CLEAR"
@@ -2683,13 +2690,13 @@
 		<image id="ID_TAB_LIBRARY" id1="ID_VIEW_LIBRARY" id2="ID_MEDIA_PROPERTIES"/>
 		<!--Blue/Grey-->
 		<image /> <!--Checkmark-->
-		<image id="ID_CHECKMARK" id1="ID_SHAREMONKEY_SAVE_OPTION"/>
+		<image id="ID_CHECKMARK"/>  <!--id1="ID_SHAREMONKEY_SAVE_OPTION"-->
 		<image id="ID_TOOLS_PROFILE" id1="ID_BROWSE_PROFILE"/>
 		<image id="ID_TOOLS_LANGUAGE" id1="ID_LIBRARY_REBUILD_ANSI" id2="ID_VIEW_DISCOVERY" id3="ID_DISCOVERY_EDIT" id4="ID_HELP_FORUMS_LOCAL"/>
-		<image id="ID_VIEW_DOWNLOADS" id1="ID_TAB_TRANSFERS" id2="ID_LIBRARY_FOLDER_DOWNLOAD" id3="ID_SHAREMONKEY_DOWNLOAD"/>
+		<image id="ID_VIEW_DOWNLOADS" id1="ID_TAB_TRANSFERS" id2="ID_LIBRARY_FOLDER_DOWNLOAD"/>  <!--id3="ID_SHAREMONKEY_DOWNLOAD"-->
 		<image id="ID_VIEW_UPLOADS" id1="ID_CHAT_SEND_FILE"/>
 		<image id="ID_HELP_ABOUT" id1="ID_DOWNLOADS_HELP" id2="ID_UPLOADS_HELP"/>
-		<image id="ID_MEDIA_SAVE" id1="ID_SHAREMONKEY_SAVE" id2="ID_SECURITY_EXPORT" id3="ID_SCHEDULER_EXPORT"/>
+		<image id="ID_MEDIA_SAVE" id1="ID_SECURITY_EXPORT" id2="ID_SCHEDULER_EXPORT"/>  <!--id3="ID_SHAREMONKEY_SAVE"-->
 		<image id="ID_MEDIA_PLAYLIST"/>
 		<image id="ID_SEARCH_PANEL"/>
 		<image id="ID_SEARCH_DETAILS" id1="ID_LIBRARY_PANEL" id2="ID_WINDOW_REMOTE"/>
@@ -2710,7 +2717,7 @@
 		<image id="ID_LIBRARY_PROPERTIES" id1="ID_LIBRARY_FOLDER_FILE_PROPERTIES"
 			id2="ID_DOWNLOAD_GROUP_PROPERTIES" id3="ID_DOWNLOADS_EDIT" id4="ID_DISCOVERY_EDIT" id5="ID_SEARCH_COLUMNS"/>
 		<image id="ID_LIBRARY_MOVE" id1="ID_DOWNLOADS_MERGE"/>
-		<image id="ID_LIBRARY_COPY" id1="ID_SYSTEM_COPY" id2="ID_SHAREMONKEY_COMPARE"/>
+		<image id="ID_LIBRARY_COPY" id1="ID_SYSTEM_COPY"/>  <!--id2="ID_SHAREMONKEY_COMPARE"-->
 		<image /> <!--Clipboard-->
 		<!--System-->
 		<image id="ID_SECURITY_ADD" id1="ID_SECURITY_EDIT"/>
@@ -2724,7 +2731,7 @@
 		<image id="ID_WINDOW_CASCADE"/>
 		<image id="ID_WINDOW_TILE_HORZ"/>
 		<image id="ID_WINDOW_TILE_VERT"/>
-		<image id="ID_LIBRARY_VIEW_DETAIL" id1="ID_LIBRARY_COLUMNS" id2="ID_VIEW_PACKETS" id3="ID_SHAREMONKEY_PRICES"/>
+		<image id="ID_LIBRARY_VIEW_DETAIL" id1="ID_LIBRARY_COLUMNS" id2="ID_VIEW_PACKETS"/>  <!--id3="ID_SHAREMONKEY_PRICES"-->
 		<image id="ID_LIBRARY_VIEW_LIST"/>
 		<image id="ID_LIBRARY_VIEW_ICON"/>
 		<image id="ID_LIBRARY_VIEW_THUMBNAIL"/>

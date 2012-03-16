@@ -260,7 +260,7 @@ void CBuffer::Print(const LPCWSTR pszText, const size_t nLength, const UINT nCod
 // Takes a maximum number of bytes to examine at the start of the buffer, and a code page which is ASCII by default
 // Reads the given number of bytes as ASCII characters, copying them into a string
 // Returns the text in a string, which will contain Unicode or ASCII characters depending on the compile
-CString CBuffer::ReadString(const size_t nBytes, const UINT nCodePage)
+CString CBuffer::ReadString(const size_t nBytes, const UINT nCodePage) const
 {
 	CString str;
 

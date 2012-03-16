@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Dutch Skin File -->
 
-<!-- Translation based on default-en.xml r74 -->
+<!-- Translation based on default-en.xml r75 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -363,6 +363,7 @@
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<button id="ID_NETWORK_DC" text="DC++"/>
+		<button id="ID_NETWORK_BT" text="BitTorrent"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Instellingen"/>
 	</toolbar>
@@ -447,6 +448,12 @@
 		<button id="ID_CHAT_DISCONNECT" text="Verbinding verbreken"/>
 	</toolbar>
 	<!-- WEBSERVICES -->
+	<toolbar name="WebServices.MusicBrainz">
+		<button id="ID_MUSICBRAINZ_MATCHES" text="Toon Album Resultaten"/>
+		<button id="ID_MUSICBRAINZ_ALBUMS" text="Toon Alle Albums"/>
+		<separator/>
+	</toolbar>
+	<!--
 	<toolbar name="WebServices.ShareMonkey">
 		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Verkrijg Data"/>
 		<separator/>
@@ -469,11 +476,7 @@
 		<button id="ID_SHAREMONKEY_COMPARE" text="Vergelijken"/>
 		<button id="ID_SHAREMONKEY_BUY" text="Buy It"/>
 	</toolbar>
-	<toolbar name="WebServices.MusicBrainz">
-		<button id="ID_MUSICBRAINZ_MATCHES" text="Toon Album Resultaten"/>
-		<button id="ID_MUSICBRAINZ_ALBUMS" text="Toon Alle Albums"/>
-		<separator/>
-	</toolbar>
+	-->
 	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
 		<button id="PluginID_ImageViewer_FullSize" text="Echte grootte"/>
@@ -532,6 +535,7 @@
 				<item id="ID_NETWORK_G1" text="Verbinden met _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Verbinden met _eDonkey"/>
 				<item id="ID_NETWORK_DC" text="Verbinden met _DC++"/>
+				<item id="ID_NETWORK_BT" text="Verbinden met _BitTorrent"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="Verbinden _met..." shortcut="Ctrl+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="Gastheer be_kijken..."/>
@@ -620,6 +624,7 @@
 			<item id="ID_NETWORK_G1" text="Verbinden met _Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="Verbinden met _eDonkey"/>
 			<item id="ID_NETWORK_DC" text="Verbinden met _DC++"/>
+			<item id="ID_NETWORK_BT" text="Verbinden met _BitTorrent"/>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Verbinden _met..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="Gastheer be_kijken..."/>
@@ -793,6 +798,7 @@
 			<item id="ID_NETWORK_G1" text="Verbinden met _Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="Verbinden met _eDonkey"/>
 			<item id="ID_NETWORK_DC" text="Verbinden met _DC++"/>
+			<item id="ID_NETWORK_BT" text="Verbinden met _BitTorrent"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Afsluiten na ver_keer"/>
 			<item id="ID_NETWORK_EXIT" text="_Afsluiten"/>
@@ -1574,6 +1580,7 @@
 			<item id="ID_NETWORK_G1" text="Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
 			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<item id="ID_NETWORK_BT" text="_BitTorrent"/>
 			<separator/>
 			<item id="ID_VIEW_DISCOVERY" text="_Discovery Services"/>
 			<item id="ID_VIEW_HOSTS" text="Gastheer c_ache"/>
@@ -1696,7 +1703,7 @@
 	<menu name="WebServices.List.Menu">
 		<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Bitzi"/>
 		<item id="ID_WEBSERVICES_MUSICBRAINZ" text="_MusicBrainz"/>
-		<item id="ID_WEBSERVICES_SHAREMONKEY" text="_ShareMonkey"/>
+		<!--item id="ID_WEBSERVICES_SHAREMONKEY" text="_ShareMonkey"-->
 	</menu>
 	<!-- PLUGIN MENUS -->
 	<menu name="ImageViewer_Context">
@@ -2558,6 +2565,7 @@
 	<tip id="ID_NETWORK_EXIT" message="PeerProject afsluiten."/>
 	<tip id="ID_NETWORK_ED2K" message="Verbinden met het eDonkey netwerk."/>
 	<tip id="ID_NETWORK_DC" message="Verbinden met het DC++ netwerk."/>
+	<tip id="ID_NETWORK_BT" message="Verbinden met het BitTorrent netwerk."/>
 	<tip id="ID_NETWORK_G1" message="Verbinden met het originele Gnutella netwerk."/>
 	<tip id="ID_NETWORK_G2" message="Verbinden met het Gnutella2 netwerk (zeer aanbevolen)."/>
 	<tip id="ID_NETWORK_SEARCH" message="Begin een nieuwe zoekopdracht van het netwerk..."/>
@@ -2674,7 +2682,7 @@
 	<tip id="PluginID_ImageViewer_BestFit" message="Verander de grootte van de afbeelding zodat deze in het scherm past."/>
 	<tip id="PluginID_ImageViewer_FullSize" message="Toon de afbeelding met zijn oorspronkelijke grootte."/>
 	<tip id="PluginID_ImageViewer_Refresh" message="Vernieuw de afbeelding."/>
-	<tip id="PluginID_ImageViewer_Close" message="Sluit de afbeelding bekijker ."/>
+	<tip id="PluginID_ImageViewer_Close" message="Sluit de afbeelding bekijker."/>
 </commandTips>
 <!-- Tips displayed when mouse is moved over controls in the dialogs -->
 <controlTips>
@@ -2798,7 +2806,7 @@
 	<string id="20126" value="BitTorrent paren met %s is verbroken."/>
 	<string id="20127" value="BitTorrent verbinding met %s is verbroken."/>
 	<string id="20128" value="BitTorrent handdruk met %s is verbroken."/>
-	<string id="20129" value="BitTorrent paren met %s is niet geaccepteerd want een verbinding met deze cliënt ."/>
+	<string id="20129" value="BitTorrent paren met %s is niet geaccepteerd want een verbinding met deze cliënt."/>
 	<string id="20130" value="%i nieuwe BitTorrent bronnen ontvangen van %s."/>
 	<string id="20131" value="BitTorrent verbinding met %s is uitgebreid protocol, geïdentificeerd als &quot;%s&quot;."/>
 	<string id="20132" value="Handschudden met BitTorrent cliënt %s is uitgeteld."/>
@@ -2866,8 +2874,8 @@
 	<string id="20202" value="Een onvolledige pushverbinding is ontvangen van %s, de verbinding wordt gesloten."/>
 	<string id="20203" value="Het downloaden van &quot;%s&quot; wordt versneld door de bandbreedtebegrenzing te verwijderen."/>
 	<string id="20204" value="Downloadgastheer %s is bezet, opnieuw proberen over %i seconden."/>
-	<string id="20205" value="Kon de download &quot;%s&quot; niet verplaatsen naar &quot;%s&quot;. Kijk na of het incomplete bestand niet in gebruik is en dat je downloads map bestaat en beschrijfbaar is."/>
-	<string id="20206" value="Niet mogelijk om &quot;%s&quot; op te lossen."/>
+	<string id="20205" value="Niet genoeg schijfruimte om &quot;%s&quot; te downloaden (%s)."/>
+	<string id="20206" value="Kon de download &quot;%s&quot; niet verplaatsen naar &quot;%s&quot;. Kijk na of het incomplete bestand niet in gebruik is en dat je downloads map bestaat en beschrijfbaar is."/>
 	<string id="20207" value="Weet je zeker dat je iedere download uit deze groep wilt annuleren/afbreken?"/>
 	<string id="20208" value="Downloadverbinding met %s wordt verbroken, niet maar nodig."/>
 	<string id="20209" value="Downloadgastheer %s heeft ongevraagde data gestuurd, verbinding wordt verbroken."/>
@@ -2880,23 +2888,18 @@
 	<string id="20216" value="Niet mogelijk te verbinden met %s voor het downloaden."/>
 	<string id="20217" value="Ontvangen van downloadinhoud van gastheer %s (%s)."/>
 	<string id="20218" value="Het downloaden van &quot;%s&quot; vanaf %s (%s) wordt geannuleerd, het netwerk is buiten gebruik."/>
-	<string id="20219" value="Niet genoeg schijfruimte om &quot;%s&quot; te downloaden (%s)."/>
-	<string id="20220" value="Downloadverbinding met %s is verloren gegaan."/>
-	<string id="20222" value="Je hebt een eDonkey hash waarde ingevoerd, maar het is ongeldig. Controleer het en probeer het nog een keer."/>
-	<string id="20224" value="Geef alsjebleift een geldig bereik voor het wissen. Het &quot;van&quot; veld is de eerste byte die moet worden gewist, het &quot;tot&quot; veld is de laatste byte die moet worden gewist."/>
-	<string id="20225" value="Je hebt een SHA1 waarde ingevoerd, maar het is ongeldig. Controleer het en probeer het nog een keer."/>
-	<string id="20226" value="Je hebt een root tiger-tree waarde ingevoerd, maar het is ongeldig. Controleer het en probeer het nog een keer."/>
-	<string id="20228" value="Het is niet mogelijk om het geselecteerde bereik van de download te wissen omdat geen deel van het bereik aanwezig is."/>
-	<string id="20231" value="Je hebt een SHA1 hash waarde ingegeven die anders is als degene die momenteel met deze download is geassocieerd. Weet je zeker dat je de SHA1 hash nu wilt veranderen?"/>
-	<string id="20232" value="Je hebt een eDonkey hash waarde ingegeven die anders is als degene die momenteel met deze download is geassocieerd. Weet je zeker dat je de eDonkey hash nu wilt veranderen?"/>
-	<string id="20233" value="Je hebt een root tiger-tree hash waarde ingegeven die anders is als degene die momenteel met deze download is geassocieerd. Weet je zeker dat je de tiger-tree root hash nu wilt veranderen?"/>
-	<string id="20235" value="Je kunt deze download niet als volledig beschouwen en opnieuw controleren want je hebt nog geen gedeeltelijke verificatie data, zoals het tiger-tree volume, de eDonkey hashset of de BitTorrent hashset.  Zonder deze verificatiegegevens kan de download niet opnieuw worden gecontroleerd."/>
-	<string id="20236" value="Ben je zeker dat dit bestand compleet is en je het wilt laten hercontroleren? Het hele bestand zal worden overwogen, en PeerProject zal de succesvol gecontroleerde delen behouden en de mislukte delen opnieuw downloaden."/>
-	<string id="20236" value="Weet je zeker dat je deze download als volledig wilt beschouwen en het opnieuw controleren?  Het gehele bestand zal worden beschouwd, en PeerProject zal delen accepteren die de controle zullen doorstaan.  Delen die de controle niet doorstaan zullen opnieuw worden gedownload."/>
-	<string id="20237" value="Weet je zeker dat je alle bronnen wilt vergeten voor de geselecteerde download?"/>
-	<string id="20238" value="Weet je zeker dat je de huidige verificatie status wilt vergeten? Alle gedownloade data zal als onbetrouwbaar worden beschouwd, en opgeslagen hashtrees en hashsets zullen worden verwijderd."/>
-	<string id="20240" value="%I64i bytes van de download zijn gewist."/>
-	<string id="20241" value="Je hebt de bestandsnaam aangepast. Weet je zeker dat je deze download wilt hernoemen?"/>
+	<string id="20219" value="Downloadverbinding met %s is verloren gegaan."/>
+	<string id="20221" value="Geef alsjebleift een geldig bereik voor het wissen. Het &quot;van&quot; veld is de eerste byte die moet worden gewist, het &quot;tot&quot; veld is de laatste byte die moet worden gewist."/>
+	<string id="20222" value="Je hebt een %s hash waarde ingevoerd, maar het is ongeldig. Controleer het en probeer het nog een keer."/>
+	<string id="20223" value="Je hebt een %s hash waarde ingegeven die anders is als degene die momenteel met deze download is geassocieerd. Weet je zeker dat je de %s hash nu wilt veranderen?"/>
+	<string id="20224" value="Je hebt de bestandsnaam aangepast. Weet je zeker dat je deze download wilt hernoemen?"/>
+	<string id="20225" value="Je hebt de wijzigingen aangebracht in de bestandsgrootte. Weet u zeker dat u het bestandgrootte wilt wijzigen voor deze download?"/>
+	<string id="20226" value="Je kunt deze download niet als volledig beschouwen en opnieuw controleren want je hebt nog geen gedeeltelijke verificatie data, zoals het tiger-tree volume, de eDonkey hashset of de BitTorrent hashset.  Zonder deze verificatiegegevens kan de download niet opnieuw worden gecontroleerd."/>
+	<string id="20227" value="Weet je zeker dat je om aan te nemen deze download is compleet en het opnieuw te controleren? Het hele bestand zal worden overwogen, en PeerProject zal de succesvol gecontroleerde delen behouden en de mislukte delen opnieuw downloaden."/>
+	<string id="20228" value="Weet je zeker dat je de huidige verificatie status wilt vergeten? Alle gedownloade data zal als onbetrouwbaar worden beschouwd, en opgeslagen hashtrees en hashsets zullen worden verwijderd."/>
+	<string id="20229" value="Weet je zeker dat je alle bronnen wilt vergeten voor de geselecteerde download?"/>
+	<string id="20231" value="Het is niet mogelijk om het geselecteerde bereik van de download te wissen omdat geen deel van het bereik aanwezig is."/>
+	<string id="20232" value="%I64i bytes van de download zijn gewist."/>
 	<string id="20242" value="Downloadgastheer %s heeft het bestand &quot;%s&quot; niet."/>
 	<string id="20243" value="Bestand &quot;%s&quot; aanmaken om te downloaden."/>
 	<string id="20244" value="Niet mogelijk lokaal bestand &quot;%s&quot; aan te maken voor het downloaden, geannuleerd."/>
@@ -2927,9 +2930,10 @@
 	<string id="20271" value="&quot;%s&quot; is verplaatst naar &quot;%s&quot;, download voltooid."/>
 	<string id="20272" value="Het downloaden van &quot;%s&quot; is gepauzeerd."/>
 	<string id="20273" value="Het downloaden van &quot;%s&quot; is hervat."/>
-	<string id="20274" value="Oplossen van &quot;%s&quot; voor het downloaden van &quot;%s&quot;..."/>
 	<string id="20275" value="Meer bronnen worden opgevraagd voor download &quot;%s&quot; op %i verbinding(en)..."/>
 	<string id="20276" value="Kan geen bronnen meer binnenhalen voor download &quot;%s&quot; omdat er geen netwerkverbinding is."/>
+	<!--string id="20277" value="Oplossen van &quot;%s&quot; voor het downloaden van &quot;%s&quot;..."-->
+	<!--string id="20278" value="Niet mogelijk om &quot;%s&quot; op te lossen."-->
 	<string id="20280" value="De tiger-tree data van deze downloadgastheer is corrupt of inwendig inconsequent, het wordt genegeerd."/>
 	<string id="20281" value="De tiger-tree data van deze downloadgastheer komt niet overeen met de verwachte oorspronkelijke waarde."/>
 	<string id="20282" value="Downloadgastheer %s kon niet voldoen aan het tiger-tree verzoek."/>
@@ -3183,7 +3187,7 @@
 	<string id="20570" value="Er is een slecht geformatteerd query hit pakket ontvangen van %s, het wordt genegeerd."/>
 	<string id="20571" value="%s: Er is een slecht geformatteerd query pakket ontvangen van %s, het wordt genegeerd."/>
 	<string id="20572" value="Bron %s heeft een pakket doorgestuurd met een te grote TTL, het pakket wordt weggegooid (TTL=%i, Hops=%i)."/>
-	<string id="20573" value="Bron %s heeft een pakket doorgestuurd zonder TTL, het wordt genegeerd."/>
+	<!--string id="20573" value="Bron %s heeft een pakket doorgestuurd zonder TTL, het wordt genegeerd."-->
 	<string id="20574" value="Bron %s heeft een uitgebreid pakket doorgestuurd dat niet GGEP gecodeerd is."/>
 	<string id="20575" value="Bron %s heeft een ongeldige update gestuurd van de query routing tabel, verbinding verbroken."/>
 	<string id="20576" value="Query routing tabel wordt gestuurd naar bron %s (%i bit = %lu[%i], %i%% vol)"/>
@@ -3379,7 +3383,7 @@
 	<string id="20834" value="Uploadgastheer %s heeft een voorvertoning aangevraagd van &quot;%s&quot;, maar er is geen voorvertoning beschikbaar."/>
 	<string id="20835" value="Een voorvertoning van &quot;%s&quot; wordt geüpload naar %s."/>
 	<string id="20836" value="Pushaanvraag door %s is geweigerd omdat er te veel uploadverbindingen zijn."/>
-	<string id="20837" value="Verouderde pushaanvraag van %s heeft een onbekend bestand aangevraagd, wordt toch verbonden..."/>
+	<!--string id="20837" value="Verouderde pushaanvraag van %s heeft een onbekend bestand aangevraagd, wordt toch verbonden..."-->
 	<string id="20838" value="Te druk om &quot;%s&quot; te uploaden naar %s, het is in de wachtrij geplaatst op #%i van %i (&quot;%s&quot;.."/>
 	<string id="20840" value="Upload verbinding met %s is verloren gegaan, wachtrij positie wordt behouden."/>
 	<string id="20841" value="Nieuwe wachtrij"/>
@@ -3409,7 +3413,7 @@
 	<string id="20866" value="Bestandsnaam:"/>
 	<string id="20867" value="Gastheer:"/>
 	<string id="20868" value="Poort:"/>
-	<string id="20869" value="Niet mogelijk het URL actiescherm weer te geven omdat PeerProject het druk heeft."/>
+	<!--string id="20869" value="Niet mogelijk het URL actiescherm weer te geven omdat PeerProject het druk heeft."-->
 	<string id="20870" value="Niet mogelijk om URL te ontleden omdat PeerProject deze URL niet begrijpt."/>
 	<string id="20871" value="Ontvangen URL &quot;%s&quot;"/>
 	<string id="20872" value="Type:"/>
@@ -3755,7 +3759,7 @@
 		<control caption="Downloaden"/>
 		<control caption="eDonkey Serverlijst downloaden van het internet:"/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Download verbindingen:"/>
 		<control/>
 		<control/>
@@ -3763,6 +3767,7 @@
 		<control/>
 		<control/>
 		<control caption="cliënt verbindingen"/>
+		<control caption="Schakel BitTorrent DHT"/>
 		<control caption="Verkies torrent bronnen"/>
 		<control caption="_EndGame:"/>
 		<control caption="Activeer EndGame Modus bij het afmaken van torrents"/>
@@ -4479,7 +4484,7 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackers">
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBuBuBu" caption="Trackers">
 		<control/>
 		<control/>
 		<control/>
@@ -4491,6 +4496,8 @@
 		<control caption="Tracker Mode:"/>
 		<control caption="Disabled|Custom|Single Tracker|Multi-tracker|Multi-tracker (locked)"/>
 		<control caption="_Refresh"/>
+		<control caption="_Toevoegen"/>
+		<control caption="_Verwijder"/>
 	</dialog>
 	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="BitTorrent">
 		<control/>

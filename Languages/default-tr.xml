@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Turkish Skin File -->
 
-<!-- Translation based on default-en.xml r74 -->
+<!-- Translation based on default-en.xml r75 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -362,6 +362,7 @@
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<button id="ID_NETWORK_DC" text="DC++"/>
+		<button id="ID_NETWORK_BT" text="BitTorrent"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Ayarlar"/>
 	</toolbar>
@@ -419,6 +420,12 @@
 		<button id="ID_CHAT_DISCONNECT" text="Bağlantıyı Kes"/>
 	</toolbar>
 	<!-- WEBSERVICES -->
+	<toolbar name="WebServices.MusicBrainz">
+		<button id="ID_MUSICBRAINZ_MATCHES" text="Karşılık Gelen Albümlere Bak"/>
+		<button id="ID_MUSICBRAINZ_ALBUMS" text="Tüm Albümlere Bak"/>
+		<separator/>
+	</toolbar>
+	<!--
 	<toolbar name="WebServices.ShareMonkey">
 		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Bilgi istemi"/>
 		<separator/>
@@ -441,11 +448,7 @@
 		<button id="ID_SHAREMONKEY_COMPARE" text="Karşılaştır"/>
 		<button id="ID_SHAREMONKEY_BUY" text="Satın al"/>
 	</toolbar>
-	<toolbar name="WebServices.MusicBrainz">
-		<button id="ID_MUSICBRAINZ_MATCHES" text="Karşılık Gelen Albümlere Bak"/>
-		<button id="ID_MUSICBRAINZ_ALBUMS" text="Tüm Albümlere Bak"/>
-		<separator/>
-	</toolbar>
+	-->
 	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
 		<button id="PluginID_ImageViewer_FullSize" text="Gerçek Boyut"/>
@@ -504,6 +507,7 @@
 				<item id="ID_NETWORK_G1" text="Gnutella1 ağına bağlan"/>
 				<item id="ID_NETWORK_ED2K" text="eDonkey2000 ağına bağlan"/>
 				<item id="ID_NETWORK_DC" text="DC++ ağına bağlan"/>
+				<item id="ID_NETWORK_BT" text="BitTorrent ağına bağlan"/>
 				<separator/>
 				<item id="ID_NETWORK_CONNECT_TO" text="Bağlan..." shortcut="Ctrl+T"/>
 				<item id="ID_NETWORK_BROWSE_TO" text="Hosta Gözat..."/>
@@ -591,6 +595,7 @@
 			<item id="ID_NETWORK_G1" text="Bağlan _Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="Bağlan _eDonkey2000"/>
 			<item id="ID_NETWORK_DC" text="Bağlan _DC++"/>
+			<item id="ID_NETWORK_BT" text="Bağlan _BitTorrent"/>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="B_ağlan..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="_Hosta Gözat..."/>
@@ -764,6 +769,7 @@
 			<item id="ID_NETWORK_G1" text="Bağlan _Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="Bağlan _eDonkey2000"/>
 			<item id="ID_NETWORK_DC" text="Bağlan _DC++"/>
+			<item id="ID_NETWORK_BT" text="Bağlan _BitTorrent"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Kapat _Transferden Sonra"/>
 			<item id="ID_NETWORK_EXIT" text="Çı_kış"/>
@@ -1548,6 +1554,7 @@
 			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey2000"/>
 			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<item id="ID_NETWORK_BT" text="_BitTorrent"/>
 			<separator/>
 			<item id="ID_VIEW_DISCOVERY" text="K_eşif"/>
 			<item id="ID_VIEW_HOSTS" text="Sunucu _Belleği"/>
@@ -1673,7 +1680,7 @@
 	<menu name="WebServices.List.Menu">
 		<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Bitzi"/>
 		<item id="ID_WEBSERVICES_MUSICBRAINZ" text="_MusicBrainz"/>
-		<item id="ID_WEBSERVICES_SHAREMONKEY" text="_ShareMonkey"/>
+		<!--item id="ID_WEBSERVICES_SHAREMONKEY" text="_ShareMonkey"-->
 	</menu>
 </menus>
 <!-- Documents -->
@@ -2500,6 +2507,7 @@
 	<tip id="ID_NETWORK_EXIT" message="PeerProject'dan çık"/>
 	<tip id="ID_NETWORK_ED2K" message="eDonkey2000 ağına bağlan."/>
 	<tip id="ID_NETWORK_DC" message="DC++ ağına bağlan."/>
+	<tip id="ID_NETWORK_BT" message="BitTorrent ağına bağlan."/>
 	<tip id="ID_NETWORK_G1" message="Orijinal Gnutella ağına bağlan."/>
 	<tip id="ID_NETWORK_G2" message="Gnutella2 ağına bağlan."/>
 	<tip id="ID_NETWORK_SEARCH" message="Ağda yeni bir arama başlat..."/>
@@ -2614,7 +2622,7 @@
 	<tip id="ID_WINDOW_TILE_VERT" message="Açık pencereleri üstüste binmeden düşey olarak düzenle."/>
 	<tip id="ID_WINDOW_TOOLBAR" message="Araç çubuğu göster/gizle."/>
 	<tip id="ID_WEBSERVICES_LIST" message="Seçilen dosya hakkında daha fazla bilgi edinmek için kullanılacak Web servisini berlirle."/>
-	<tip id="ID_WEBSERVICES_SHAREMONKEY" message="Dosyayı Sharemonkey servisinde ara."/>
+	<!--tip id="ID_WEBSERVICES_SHAREMONKEY" message="Dosyayı Sharemonkey servisinde ara."-->
 	<!-- PLUGIN TIPS -->
 	<tip id="PluginID_ImageViewer_BestFit" message="Resmi pencereye uyacak şekilde uyarla."/>
 	<tip id="PluginID_ImageViewer_FullSize" message="Resmi temel boyutlarında göster."/>
@@ -2792,8 +2800,8 @@
 	<string id="20202" value="%s'den hatalı sıkıştırılmış bir bağlantı alınıyor, bağlantı kapatılıyor."/>
 	<string id="20203" value="Ayrılan genişletilmiş bant genişliği &quot;%s&quot; indirimini destekliyor."/>
 	<string id="20204" value="Host %s indirmesi meşgul, %i saniye içerisinde tekrar edilir."/>
-	<string id="20205" value="&quot;%s&quot; dan &quot;%s&quot;.a taşınamadı. Dosyanın kullanımda olup olmadığını, indirme klasörünüzün mevcut ve yazılabilir olduğunu kontrol edin."/>
-	<string id="20206" value="&quot;%s&quot; karar veremez."/>
+	<string id="20205" value="&quot;%s&quot; (%s) indirmesi için yetersiz disk alanı."/>
+	<string id="20206" value="&quot;%s&quot; dan &quot;%s&quot;.a taşınamadı. Dosyanın kullanımda olup olmadığını, indirme klasörünüzün mevcut ve yazılabilir olduğunu kontrol edin."/>
 	<string id="20207" value="Bu gruptaki tüm indirmeleri iptal etmek/durdurmak istediğinize emin misiniz?"/>
 	<string id="20208" value="%s'e indirme bağlantısı kapatılıyor, gerekli değil."/>
 	<string id="20209" value="%s indirme hostu istenmeyen veri gönderdi, bağlantı kapatılıyor."/>
@@ -2806,28 +2814,23 @@
 	<string id="20216" value="%s Hosta indirme için bağlanılamaz."/>
 	<string id="20217" value="%s (%s) hostundan indirme içeriği alınıyor."/>
 	<string id="20218" value="%s (%s) 'dan &quot;%s&quot;.in indirme başarısızlıkla sonuçlanıyor, ağda sorun oluştu."/>
-	<string id="20219" value="&quot;%s&quot; (%s) indirmesi için yetersiz disk alanı."/>
-	<string id="20220" value="%s indirme bağlantısı değerlendirilemedi."/>
-	<string id="20222" value="Geçersiz bir eDonkey2000 hash değeri yazdınız. Lütfen kontrol edin ve tekrar deneyin."/>
-	<string id="20224" value="Geçerli alanı silmek için enter'a basın. &quot;from&quot; alanı ilk silinecek bayt, &quot;last&quot; alanı son silinecek bayttır."/>
-	<string id="20225" value="Geçersiz bir SHA1 değeri yazdınız. Lütfen kontrol edin ve tekrar deneyin."/>
-	<string id="20226" value="Geçersiz bir tiger-tree kök değeri yazdınız. Lütfen kontrol edin ve tekrar deneyin."/>
-	<string id="20227" value="Dosya boyutunda değişiklikler yaptınız. Bu indirme için dosya boyutunu değiştirmek istediğinize emin misiniz?"/>
-	<string id="20228" value="İndirmeden seçilen alan silinemez çünkü alanın hiçbir parçası tanınmadı."/>
-	<string id="20231" value="Bu indirme ile güncel olarak birleşmiş farklı SHA1 hash değeri sağlanır. Şimdi SHA1 hash'i değiştirmek istediğinizden amin misiniz?"/>
-	<string id="20232" value="Bu indirme ile güncel olarak birleşmiş farklı eDonkey2000 hash değeri sağlanır. Şimdi eDonkey2000 hash'i değiştirmek istediğinizden emin misiniz?"/>
-	<string id="20233" value="Bu indirme ile güncel olarak birleşmiş farklı tiger-tree hash kök değeri sağlanır.  Şimdi tiger-tree kök hash'i değiştirmek istediğinizden emin misiniz?"/>
-	<string id="20235" value="Bu indirmenin tamamlanmasını kabul edemezsiniz çünkü tiger-tree bölümü, eDonkey hashset ya da BitTorrent hashset gibi bazı veri doğrulama parçalarına sahip değilsiniz. Doğrulama bilgileri olmadan indirme gerçekleştirilemez."/>
-	<string id="20236" value="Bu indirmeyi tamamlanmış kabul etmek istediğine emin misiniz?  Bütün dosya hesaba katılacak ve PeerProject doğrulanan parçaları kabul edecek, doğrulanmayan parçalar kabul edilmeyecek."/>
-	<string id="20237" value="Seçilen indirme için bütün kaynakları kaybetmek istediğinize emin misiniz?"/>
-	<string id="20238" value="Güncel doğrulama durumlarını kaybetmek istediğinize emin misiniz? Tüm İndirme verilerine güvenilmeyecektir ve hashtrees-hashsets zulaları temizlenecektir."/>
-	<string id="20240" value="%I64i byte indirmeden silindi."/>
-	<string id="20241" value="İsim alanında değişiklikler yaptınız. Bu indirme ismini değiştirmek istediğinize emin misiniz?"/>
+	<string id="20219" value="%s indirme bağlantısı değerlendirilemedi."/>
+	<string id="20221" value="Geçerli alanı silmek için enter'a basın. &quot;from&quot; alanı ilk silinecek bayt, &quot;last&quot; alanı son silinecek bayttır."/>
+	<string id="20222" value="Geçersiz bir %s hash değeri yazdınız. Lütfen kontrol edin ve tekrar deneyin."/>
+	<string id="20223" value="Bu indirme ile güncel olarak birleşmiş farklı %s hash değeri sağlanır. Şimdi %s hash'i değiştirmek istediğinizden amin misiniz?"/>
+	<string id="20224" value="İsim alanında değişiklikler yaptınız. Bu indirme ismini değiştirmek istediğinize emin misiniz?"/>
+	<string id="20225" value="Dosya boyutunda değişiklikler yaptınız. Bu indirme için dosya boyutunu değiştirmek istediğinize emin misiniz?"/>
+	<string id="20226" value="Bu indirmenin tamamlanmasını kabul edemezsiniz çünkü tiger-tree bölümü, eDonkey hashset ya da BitTorrent hashset gibi bazı veri doğrulama parçalarına sahip değilsiniz. Doğrulama bilgileri olmadan indirme gerçekleştirilemez."/>
+	<string id="20227" value="Bu indirmeyi tamamlanmış kabul etmek istediğine emin misiniz?  Bütün dosya hesaba katılacak ve PeerProject doğrulanan parçaları kabul edecek, doğrulanmayan parçalar kabul edilmeyecek."/>
+	<string id="20228" value="Güncel doğrulama durumlarını kaybetmek istediğinize emin misiniz? Tüm İndirme verilerine güvenilmeyecektir ve hashtrees-hashsets zulaları temizlenecektir."/>
+	<string id="20229" value="Seçilen indirme için bütün kaynakları kaybetmek istediğinize emin misiniz?"/>
+	<string id="20231" value="İndirmeden seçilen alan silinemez çünkü alanın hiçbir parçası tanınmadı."/>
+	<string id="20232" value="%I64i byte indirmeden silindi."/>
 	<string id="20242" value="%s indirme hostu &quot;%s&quot; dosyasına sahip değil."/>
 	<string id="20243" value="İndirme için &quot;%s&quot; dosyası yaratılıyor."/>
 	<string id="20244" value="İndirme için &quot;%s&quot; yerel dosyası yaratılamaz, başarısızlıkla sonuçlandı."/>
 	<string id="20245" value="İndirme için &quot;%s&quot; yerel dosyası açılamaz, başarısızlıkla sonuçlandı."/>
-	<string id="20246" value="Daha fazla indirme parçası bulunamadı,%s bağlantısı kapatılıyor ."/>
+	<string id="20246" value="Daha fazla indirme parçası bulunamadı,%s bağlantısı kapatılıyor."/>
 	<string id="20247" value="İndirme parçaları kısaldı, %s bağlantısı kapatılıyor."/>
 	<string id="20248" value="(%I64u-%I64u) indirme parçaları &quot;%s&quot; için %s' den isteniyor."/>
 	<string id="20250" value="Drag'n'drop %s grubuna dosyaları"/>
@@ -2854,9 +2857,10 @@
 	<string id="20271" value="&quot;%s&quot; dan &quot;%s&quot;.a taşındı, indirme tamamlandı."/>
 	<string id="20272" value="&quot;%s&quot; indirme duraklatılıyor."/>
 	<string id="20273" value="&quot;%s&quot; indirme sürdürülüyor."/>
-	<string id="20274" value="&quot;%s&quot; 'dan &quot;%s&quot; 'a indirmeye karar veriliyor..."/>
 	<string id="20275" value="&quot;%s&quot; indirmesi için %i bağlantısında kaynak sorgulanıyor..."/>
 	<string id="20276" value="&quot;%s&quot; indirmesi için kaynak edinemezsin çünkü ağ bağlantısı yok."/>
+	<!--string id="20277" value="&quot;%s&quot; 'dan &quot;%s&quot; 'a indirmeye karar veriliyor..."-->
+	<!--string id="20278" value="&quot;%s&quot; karar veremez."-->
 	<string id="20280" value="İndirme hostunun tiger-tree verisi tutarsız ya da bozuktur, görmezlikten geliniyor."/>
 	<string id="20281" value="İndirme hostunun tiger-tree verisi beklenilen sonuca uygun değildir."/>
 	<string id="20282" value="%s indirme hostu tiger-tree isteğini karşılayamadı."/>
@@ -2959,7 +2963,7 @@
 	<string id="20388" value="Geçersiz veri gönderiminde %s'ile uygun anlaşılama yapılamadı."/>
 	<string id="20389" value="Komşu %s hub yerine kullanıyor."/>
 	<string id="20390" value="Hub bağlantısı kuruldu, eşli bağlantılar kapatılıyor."/>
-	<string id="20391" value="%s den bağlantı kabul edilmedi, çünkü bu düğüm korunmaktadır ."/>
+	<string id="20391" value="%s den bağlantı kabul edilmedi, çünkü bu düğüm korunmaktadır."/>
 	<string id="20392" value="Komşu %s hub değil, bağlantı kapatılıyor."/>
 	<string id="20393" value="Komşu %s Gnutella2 bağlantısı kapatılıyor."/>
 	<string id="20394" value="Komşu %s hub olmak istiyor, bağlantı kapatılıyor."/>
@@ -3016,7 +3020,7 @@
 	<string id="20446" value="&quot;%s&quot; dosyası bir hash test doğrulamasını başaramadı ve indirmeyi tasarladığın dosya olmayabilir. Bunu açmak istediğinden emin misin?"/>
 	<string id="20447" value="Bu dosyadan &quot;gizlilik ve tehlikeli&quot; özniteliklerini kaldırmak istiyor musunuz?"/>
 	<string id="20448" value="&quot;%s&quot; dosyası henüz taranmadı. Lütfen dosyanın taranması için bekleyin ve sonra tekrar deneyin."/>
-	<string id="20449" value="Bu seçeneklerle seçilen dosyada onaylanan ve paylaşılan bilgi için Bitzi.com tarafından sağlanan servisler kullanılır.\n\nPeerProject Bitzi veritabanı sorgu düzeninde seçilen dosyalar için SHA1 hash kod gönderecek.Eğer gizlilikle ilgileniyorsan Bitzi.com gizlilik politikasını danışmak isteyebilirsin.\n\nİlerlemek istiyor musun?"/>
+	<string id="20449" value="Bu seçeneklerle seçilen dosyada onaylanan ve paylaşılan bilgi için Bitzi.com tarafından sağlanan servisler kullanılır.\n\nPeerProject Bitzi veritabanı sorgu düzeninde seçilen dosyalar için SHA1 hash kod gönderecek. Eğer gizlilikle ilgileniyorsan Bitzi.com gizlilik politikasını danışmak isteyebilirsin.\n\nİlerlemek istiyor musun?"/>
 	<string id="20450" value="Seçilen klasör &quot;%s&quot; klasörünün alt klasörü, zaten kütüphanenizin parçasıdır.\nEklenen bu klasör bazı dosyaların bozulmasına neden olacaktır.\n\nDevam etmek istiyor musunuz ?"/>
 	<string id="20451" value="Oynayacak dosya yok. Kütüphanenizdeki bir ortam dosyasını oynatmak için çift-tıklın."/>
 	<string id="20452" value="Tüm ortam dosyaları|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Oynatma Listeleri|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Ses Dosyaları|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Video Dosyaları|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD Ses Trackleri|*.cda|MIDI Dosyalar|*.mid;*.rmi;*.midi|Tüm Dosyalar|*.*||"/>
@@ -3102,7 +3106,7 @@
 	<string id="20550" value="Ağı etkinleştirmek için ayrılan bantgenişliği çok az."/>
 	<string id="20551" value="Güvenlik duvarı, gelen bağlantıları kabul etmiyor."/>
 	<string id="20552" value="Hub modundaki PC'niz performans ve P2P ağında karşıt efektler bulunduğu için zorlanıyor. PeerProject'nın karar vermesine izin vermek genellikle daha iyidir ya da hub modunu kullanmayınız.\n\nHub modu daha iyi arama sonuçları üretmez, sizin için üstünlük sağlamaz.\n\nDezavantajlarına rağmen bunu gerçekten yapmak istiyor musunuz?"/>
-	<string id="20553" value="%s porttan %i gelmekte olan TCP bağlantıları kabul ediliyor ."/>
+	<string id="20553" value="%s porttan %i gelmekte olan TCP bağlantıları kabul ediliyor."/>
 	<string id="20554" value="UDP veriler %s portdan %i kabul ediliyor."/>
 	<string id="20555" value="Giden bağlantılar %s portdan %i."/>
 	<string id="20556" value="&quot;%s&quot; host çözülemez."/>
@@ -3118,7 +3122,7 @@
 	<string id="20570" value="%s'den bozuk bir başarı sorgu paketi alındı, görmezlikten geliniyor."/>
 	<string id="20571" value="%s: %s'den bozuk bir sorgu paketi alındı, görmezlikten geliniyor."/>
 	<string id="20572" value="Komşu %s aşırı TTL ile bir paket gönderdi, paket durduruluyor (TTL=%i, Sekme=%i)."/>
-	<string id="20573" value="Komşu %s sıfır TTL ile bir paket gönderdi, görmezlikten geliniyor."/>
+	<!--string id="20573" value="Komşu %s sıfır TTL ile bir paket gönderdi, görmezlikten geliniyor."-->
 	<string id="20574" value="Komşu %s GGEP kodunda olmayan bir erişim paketi gönderdi."/>
 	<string id="20575" value="Komşu %s geçersiz bir sorgu yönlendirme tablo güncelleştirmesi gönderdi, bağlantı kesiliyor."/>
 	<string id="20576" value="Komşu %s'e sorgu yönlendirme tablosu gönderiliyor (%i bit = %lu[%i], %i%% tam)"/>
@@ -3146,7 +3150,7 @@
 	<string id="20626" value="%s bu dosya çeşitleri:"/>
 	<string id="20627" value="Önizleme için tıklayınız"/>
 	<string id="20628" value="Önizlemede..."/>
-	<string id="20629" value="&quot;%s&quot;.dan indirme içerik önizlemesi yapılamaz ."/>
+	<string id="20629" value="&quot;%s&quot;.dan indirme içerik önizlemesi yapılamaz."/>
 	<string id="20630" value="%i eleştiri var."/>
 	<string id="20631" value="Bir eleştiri var."/>
 	<string id="20632" value="%i kaynak bulundu. (%s/s)"/>
@@ -3314,7 +3318,7 @@
 	<string id="20834" value="%s aktarım hostu &quot;%s&quot; önizlemesini istedi, ama önizleme bulunamadı."/>
 	<string id="20835" value="%s'e &quot;%s&quot; önizlemesi aktarılıyor."/>
 	<string id="20836" value="%s'de istek reddediliyor çünkü çok fazla aktarım bağlantısı var."/>
-	<string id="20837" value="%s 'den kalan sıkıştırma isteği bilinmeyen bir dosya istedi, yine de bağlanıyor..."/>
+	<!--string id="20837" value="%s 'den kalan sıkıştırma isteği bilinmeyen bir dosya istedi, yine de bağlanıyor..."-->
 	<string id="20838" value="&quot;%s&quot;'in %s'a aktarımı fazla yoğun, #%i 'den %i 'ye (&quot;%s&quot;. sıralandı."/>
 	<string id="20840" value="%s'e aktarım bağlantısı kesildi, pozisyon sırası hazırlanıyor."/>
 	<string id="20841" value="Yeni Sıra"/>
@@ -3344,7 +3348,7 @@
 	<string id="20866" value="Dosya Adı:"/>
 	<string id="20867" value="Host:"/>
 	<string id="20868" value="Port:"/>
-	<string id="20869" value="URL faaliyet diyalogu gösterilemez çünkü PeerProject meşgul."/>
+	<!--string id="20869" value="URL faaliyet diyalogu gösterilemez çünkü PeerProject meşgul."-->
 	<string id="20870" value="URL ayrıştırılamaz : PeerProject bu URL'yi anlamıyor."/>
 	<string id="20871" value="&quot;%s&quot; URL alındı"/>
 	<string id="20872" value="Tür:"/>
@@ -3616,7 +3620,7 @@
 		<control/>
 		<control/>
 		<control caption="Yardım:"/>
-		<control caption="PeerProject Uzaktan Erişim PC'nizde çalışan PeerProject'dan ayrılmanıza ve uzaktaki web tarayıcısını kontrol etmenize izin verir. Gelen bağlantıları kabul etmek için bu özellikleri kullanmaya ihtiyaç duyacaksınız(i.e. düzgün yönlendirme yapılandırması, vb) ."/>
+		<control caption="PeerProject Uzaktan Erişim PC'nizde çalışan PeerProject'dan ayrılmanıza ve uzaktaki web tarayıcısını kontrol etmenize izin verir. Gelen bağlantıları kabul etmek için bu özellikleri kullanmaya ihtiyaç duyacaksınız (i.e. düzgün yönlendirme yapılandırması, vb)."/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Ağlar">
 		<control caption="PeerProject aynı zamanda birçok P2P ağa erişebilen genel bir amaç dosya paylaşımı uygulamasıdır. Bu sayfada bağlamayı istediğiniz P2P ağları seçebilirsiniz, ve sonra her ağ için belirli ayarları ayarlayabilirsiniz."/>
@@ -3689,7 +3693,7 @@
 		<control caption="İndir..."/>
 		<control caption="Webden eDonkey2000 server listesini indir:"/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_İndirme Bağlantıları:"/>
 		<control/>
 		<control/>
@@ -3697,8 +3701,9 @@
 		<control/>
 		<control/>
 		<control caption="İstemci bağlantıları"/>
+		<control caption="BitTorrent DHT etkinleştirin"/>
 		<control caption="Torrent kaynakları tercih et"/>
-		<control caption="_EndGame:"/>
+		<control caption="_EndGame: (oyun sonu)"/>
 		<control caption="Torrentlar tamamlandığında EndGame modunu etkinleşir"/>
 		<control caption="Paylaşım oranları genişletildiğinde Torrent indirmelerini temizle"/>
 		<control/>
@@ -4265,7 +4270,7 @@
 		<control caption="Listeden bir şema seçip, sonra sütun olarak görünmesi için alanlar seçiniz."/>
 	</dialog>
 	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Paylaşılan Klasör Yönetimi">
-		<control caption="Bu kütüphanenizdeki klasörlerin listesidir. Soldaki düğmeyi kullanarak klasör ekleyip kaldırabilirsiniz . Daha önce diğer kullanıcılar ile paylaşılan yeni bir klasör eklediğinizde, bununla birlikte isterseniz PeerProject kütüphanesinden bunu paylaşmayabilirsiniz."/>
+		<control caption="Bu kütüphanenizdeki klasörlerin listesidir. Soldaki düğmeyi kullanarak klasör ekleyip kaldırabilirsiniz. Daha önce diğer kullanıcılar ile paylaşılan yeni bir klasör eklediğinizde, bununla birlikte isterseniz PeerProject kütüphanesinden bunu paylaşmayabilirsiniz."/>
 		<control/>
 		<control caption="_Ekle..."/>
 		<control caption="_Kaldır"/>
@@ -4412,7 +4417,7 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackers">
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBuBuBu" caption="Trackers">
 		<control/>
 		<control/>
 		<control/>
@@ -4423,6 +4428,8 @@
 		<control caption="Tracker Modu:"/>
 		<control caption="Etkisiz|Kişisel değer|Tek Tracker|Birçok tracker|Birçok tracker (kilitli)"/>
 		<control caption="T_azele"/>
+		<control caption="_Ekle"/>
+		<control caption="_Kaldır"/>
 	</dialog>
 	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="Torrent">
 		<control/>

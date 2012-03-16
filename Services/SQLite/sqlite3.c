@@ -4601,8 +4601,7 @@ struct FuncDestructor {
 **     that accepts nArg arguments and is implemented by a call to C
 **     function likeFunc. Argument pArg is cast to a (void *) and made
 **     available as the function user-data (sqlite3_user_data()). The
-**     FuncDef.flags variable is set to the value passed as the flags
-**     parameter.
+**     FuncDef.flags variable is set to the value passed as the flags parameter.
 */
 #define FUNCTION(zName, nArg, iArg, bNC, xFunc) \
   {nArg, SQLITE_UTF8, bNC*SQLITE_FUNC_NEEDCOLL, \
@@ -43579,8 +43578,8 @@ SQLITE_API void sqlite3_result_error_nomem(sqlite3_context *pCtx){
 }
 
 /*
-** This function is called after a transaction has been committed. It
-** invokes callbacks registered with sqlite3_wal_hook() as required.
+** This function is called after a transaction has been committed.
+** It invokes callbacks registered with sqlite3_wal_hook() as required.
 */
 static int doWalCallbacks(sqlite3 *db){
   int rc = SQLITE_OK;
@@ -52018,69 +52017,7 @@ typedef struct SorterRecord SorterRecord;
 /*
 ** NOTES ON DATA STRUCTURE USED FOR N-WAY MERGES:
 **
-** As keys are added to the sorter, they are written to disk in a series
-** of sorted packed-memory-arrays (PMAs). The size of each PMA is roughly
-** the same as the cache-size allowed for temporary databases. In order
-** to allow the caller to extract keys from the sorter in sorted order,
-** all PMAs currently stored on disk must be merged together. This comment
-** describes the data structure used to do so. The structure supports merging
-** any number of arrays in a single pass with no redundant comparison operations.
-**
-** The aIter[] array contains an iterator for each of the PMAs being merged.
-** An aIter[] iterator either points to a valid key or else is at EOF. For
-** the purposes of the paragraphs below, we assume that the array is actually
-** N elements in size, where N is the smallest power of 2 greater to or equal
-** to the number of iterators being merged. The extra aIter[] elements are
-** treated as if they are empty (always at EOF).
-**
-** The aTree[] array is also N elements in size. The value of N is stored in
-** the VdbeSorter.nTree variable.
-**
-** The final (N/2) elements of aTree[] contain the results of comparing
-** pairs of iterator keys together. Element i contains the result of
-** comparing aIter[2*i-N] and aIter[2*i-N+1]. Whichever key is smaller, the
-** aTree element is set to the index of it.
-**
-** For the purposes of this comparison, EOF is considered greater than any
-** other key value. If the keys are equal (only possible with two EOF
-** values), it doesn't matter which index is stored.
-**
-** The (N/4) elements of aTree[] that preceed the final (N/2) described
-** above contains the index of the smallest of each block of 4 iterators.
-** And so on. So that aTree[1] contains the index of the iterator that
-** currently points to the smallest key value. aTree[0] is unused.
-**
-** Example:
-**
-**     aIter[0] -> Banana
-**     aIter[1] -> Feijoa
-**     aIter[2] -> Elderberry
-**     aIter[3] -> Currant
-**     aIter[4] -> Grapefruit
-**     aIter[5] -> Apple
-**     aIter[6] -> Durian
-**     aIter[7] -> EOF
-**
-**     aTree[] = { X, 5   0, 5    0, 3, 5, 6 }
-**
-** The current element is "Apple" (the value of the key indicated by
-** iterator 5). When the Next() operation is invoked, iterator 5 will
-** be advanced to the next key in its segment. Say the next key is "Eggplant":
-**
-**     aIter[5] -> Eggplant
-**
-** The contents of aTree[] are updated first by comparing the new iterator
-** 5 key to the current key of iterator 4 (still "Grapefruit"). The iterator
-** 5 value is still smaller, so aTree[6] is set to 5. And so on up the tree.
-** The value of iterator 6 - "Durian" - is now smaller than that of iterator
-** 5, so aTree[3] is set to 6. Key 0 is smaller than key 6 (Banana<Durian),
-** so the value written into element 1 of the array is 0. As follows:
-**
-**     aTree[] = { X, 0   0, 6    0, 3, 5, 6 }
-**
-** In other words, each time we advance to the next sorter element, log2(N)
-** key comparison operations are required, where N is the number of segments
-** being merged (rounded up to the next power of 2).
+** (COMMENTS REMOVED)
 */
 struct VdbeSorter {
   int nInMemory;                  /* Current size of pRecord list as PMA */
@@ -54626,8 +54563,8 @@ static int resolveSelectStep(Walker *pWalker, Select *p){
 ** If an expression contains aggregate functions then the EP_Agg
 ** property on the expression is set.
 **
-** An error message is left in pParse if anything is amiss.  The number
-** if errors is returned.
+** An error message is left in pParse if anything is amiss.
+** The number of errors is returned.
 */
 SQLITE_PRIVATE int sqlite3ResolveExprNames(
   NameContext *pNC,       /* Namespace to resolve expressions in. */
@@ -59583,8 +59520,7 @@ static void openStatTable(
 
 /*
 ** Three SQL functions - stat3_init(), stat3_push(), and stat3_pop() -
-** share an instance of the following structure to hold their state
-** information.
+** share an instance of the following structure to hold their state information.
 */
 typedef struct Stat3Accum Stat3Accum;
 struct Stat3Accum {
@@ -59657,10 +59593,9 @@ static const FuncDef stat3InitFuncdef = {
 
 
 /*
-** Implementation of the stat3_push(nEq,nLt,nDLt,rowid,P) SQL function.  The
-** arguments describe a single key instance.  This routine makes the
-** decision about whether or not to retain this key for the sqlite_stat3
-** table.
+** Implementation of the stat3_push(nEq,nLt,nDLt,rowid,P) SQL function.
+** The arguments describe a single key instance.  This routine makes the
+** decision about whether or not to retain this key for the sqlite_stat3 table.
 **
 ** The return value is NULL.
 */
@@ -69166,8 +69101,7 @@ SQLITE_PRIVATE void sqlite3Insert(
     goto insert_cleanup;
   }
 
-  /* Figure out if we have any triggers and if the table being
-  ** inserted into is a view
+  /* Figure out if we have any triggers and if the table being inserted into is a view
   */
 #ifndef SQLITE_OMIT_TRIGGER
   pTrigger = sqlite3TriggersExist(pParse, pTab, TK_INSERT, 0, &tmask);
@@ -69184,8 +69118,7 @@ SQLITE_PRIVATE void sqlite3Insert(
   assert( (pTrigger && tmask) || (pTrigger==0 && tmask==0) );
 
   /* If pTab is really a view, make sure it has been initialized.
-  ** ViewGetColumnNames() is a no-op if pTab is not a view (or virtual
-  ** module table).
+  ** ViewGetColumnNames() is a no-op if pTab is not a view (or virtual module table).
   */
   if( sqlite3ViewGetColumnNames(pParse, pTab) ){
     goto insert_cleanup;
@@ -69230,13 +69163,12 @@ SQLITE_PRIVATE void sqlite3Insert(
 
   /* Figure out how many columns of data are supplied.  If the data
   ** is coming from a SELECT statement, then generate a co-routine that
-  ** produces a single row of the SELECT on each invocation.  The
-  ** co-routine is the common header to the 3rd and 4th templates.
+  ** produces a single row of the SELECT on each invocation.
+  ** The co-routine is the common header to the 3rd and 4th templates.
   */
   if( pSelect ){
     /* Data is coming from a SELECT.  Generate code to implement that SELECT
-    ** as a co-routine.  The code is common to both the 3rd and 4th
-    ** templates:
+    ** as a co-routine.  The code is common to both the 3rd and 4th templates:
     **
     **         EOF <- 0
     **         X <- A
@@ -69253,8 +69185,8 @@ SQLITE_PRIVATE void sqlite3Insert(
     **
     ** On each invocation of the co-routine, it puts a single row of the
     ** SELECT result into registers dest.iMem...dest.iMem+dest.nMem-1.
-    ** (These output registers are allocated by sqlite3Select().)  When
-    ** the SELECT completes, it sets the EOF flag stored in regEof.
+    ** (These output registers are allocated by sqlite3Select().)
+    ** When the SELECT completes, it sets the EOF flag stored in regEof.
     */
     int rc, j1;
 
@@ -70482,8 +70414,8 @@ static int xferOptimization(
 
 
 /*
-** Execute SQL code.  Return one of the SQLITE_ success/failure
-** codes.  Also write an error message into memory obtained from
+** Execute SQL code.  Return one of the SQLITE_ success/failure codes.
+** Also write an error message into memory obtained from
 ** malloc() and make *pzErrMsg point to that message.
 **
 ** If the SQL is a query, then for each row in the query result
@@ -72483,20 +72415,17 @@ SQLITE_PRIVATE void sqlite3Pragma(
    **
    ** Return or set the value of the lock_proxy_file flag.  Changing
    ** the value sets a specific file to be used for database access locks.
-   **
    */
   if( sqlite3StrICmp(zLeft, "lock_proxy_file")==0 ){
     if( !zRight ){
       Pager *pPager = sqlite3BtreePager(pDb->pBt);
       char *proxy_file_path = NULL;
       sqlite3_file *pFile = sqlite3PagerFile(pPager);
-      sqlite3OsFileControlHint(pFile, SQLITE_GET_LOCKPROXYFILE,
-                           &proxy_file_path);
+      sqlite3OsFileControlHint(pFile, SQLITE_GET_LOCKPROXYFILE, &proxy_file_path);
 
       if( proxy_file_path ){
         sqlite3VdbeSetNumCols(v, 1);
-        sqlite3VdbeSetColName(v, 0, COLNAME_NAME,
-                              "lock_proxy_file", SQLITE_STATIC);
+        sqlite3VdbeSetColName(v, 0, COLNAME_NAME, "lock_proxy_file", SQLITE_STATIC);
         sqlite3VdbeAddOp4(v, OP_String8, 0, 1, 0, proxy_file_path, 0);
         sqlite3VdbeAddOp2(v, OP_ResultRow, 1, 1);
       }
@@ -74574,8 +74503,7 @@ static int checkForMultiColumnSelectError(
 #endif
 
 /*
-** This routine generates the code for the inside of the inner loop
-** of a SELECT.
+** This routine generates the code for the inside of the inner loop of a SELECT.
 **
 ** If srcTab and nColumn are both zero, then the pEList expressions
 ** are evaluated in order to get the data for this row.  If nColumn>0
@@ -74652,8 +74580,7 @@ static void selectInnerLoop(
   }
 
   switch( eDest ){
-    /* In this mode, write each query result to the key of the temporary
-    ** table iParm.
+    /* In this mode, write each query result to the key of the temporary table iParm.
     */
 #ifndef SQLITE_OMIT_COMPOUND_SELECT
     case SRT_Union: {
@@ -91096,11 +91023,9 @@ SQLITE_PRIVATE const char sqlite3IsEbcdicIdChar[];
 **                 returns 1 if it ends in the START state and 0 if it ends
 **                 in any other state.
 **
-**   (2) NORMAL    We are in the middle of statement which ends with a single
-**                 semicolon.
+**   (2) NORMAL    We are in the middle of statement which ends with a single semicolon.
 **
-**   (3) EXPLAIN   The keyword EXPLAIN has been seen at the beginning of
-**                 a statement.
+**   (3) EXPLAIN   The keyword EXPLAIN has been seen at the beginning of a statement.
 **
 **   (4) CREATE    The keyword CREATE has been seen at the beginning of a
 **                 statement, possibly preceeded by EXPLAIN and/or followed by
@@ -91816,8 +91741,7 @@ SQLITE_API int sqlite3_config(int op, ...){
     }
 
     /* Record a pointer to the logger funcction and its first argument.
-    ** The default is NULL.  Logging is disabled if the function pointer is
-    ** NULL.
+    ** The default is NULL.  Logging is disabled if the function pointer is NULL.
     */
     case SQLITE_CONFIG_LOG: {
       /* MSVC is picky about pulling func ptrs from va lists.
@@ -93655,9 +93579,9 @@ static int openDatabase(
 
   sqlite3Error(db, rc, 0);
 
-  /* -DSQLITE_DEFAULT_LOCKING_MODE=1 makes EXCLUSIVE the default locking
-  ** mode.  -DSQLITE_DEFAULT_LOCKING_MODE=0 make NORMAL the default locking
-  ** mode.  Doing nothing at all also makes NORMAL the default.
+  /* -DSQLITE_DEFAULT_LOCKING_MODE=1 makes EXCLUSIVE the default locking mode.
+  ** -DSQLITE_DEFAULT_LOCKING_MODE=0 make NORMAL the default locking mode.
+  ** Doing nothing at all also makes NORMAL the default.
   */
 #ifdef SQLITE_DEFAULT_LOCKING_MODE
   db->dfltLockMode = SQLITE_DEFAULT_LOCKING_MODE;
@@ -94167,4 +94091,5 @@ SQLITE_API const char *sqlite3_db_filename(sqlite3 *db, const char *zDbName){
 
 /************** End of main.c ************************************************/
 /************** Removed file notify.c ****************************************/
+/************** Removed file fts3.c ******************************************/
 /************** Removed file fts3_icu.c **************************************/

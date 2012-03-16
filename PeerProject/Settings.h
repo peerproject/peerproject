@@ -162,6 +162,7 @@ public:
 		bool		MarkFileAsDownload;		// Mark downloaded file using NTFS stream as Internet Explorer
 		bool		UseFolderGUID;			// Save/Load folder GUID using NTFS stream
 		bool		UseCustomFolders;		// Use desktop.ini
+		bool		UseWindowsLibrary;		// Use Windows 7 Libraries
 		bool		ScanAPE;				// Enable .ape,.mac,.apl metadata extraction by internals
 		bool		ScanASF;				// Enable .asf,.wma,.wmv metadata extraction by internals
 		bool		ScanAVI;				// Enable .avi metadata extraction by internals
@@ -185,10 +186,10 @@ public:
 		CString		BitziWebSubmit;
 		CString		BitziXML;
 		bool		BitziOkay;
-		bool		ShareMonkeyOkay;
-		bool		ShareMonkeySaveThumbnail;
-		CString		ShareMonkeyCid;			// Affiliate ID
-		CString		ShareMonkeyBaseURL;		// Redirect obsolete sharemonkey*com, does not exist
+	//	bool		ShareMonkeyOkay;
+	//	bool		ShareMonkeySaveThumbnail;
+	//	CString		ShareMonkeyCid;			// Affiliate ID
+	//	CString		ShareMonkeyBaseURL;		// Redirect obsolete sharemonkey*com, does not exist
 	} WebServices;
 
 	struct sSearch
@@ -496,6 +497,8 @@ public:
 		DWORD		DownloadConnections;	// Number of active torrent connections allowed
 		DWORD		DownloadTorrents;		// Number of torrents to download at once
 		DWORD		HostExpire;				// DHT hosts expiration time (seconds)	Was DhtPruneTime
+		DWORD		ConnectThrottle;		// Throttle for DHT request (sec)
+		DWORD		QueryHostDeadline;		// Time to wait for DHT reply (sec)
 		bool		EnableDHT;				// Enable Mainline DHT protocol
 		bool		Endgame;				// Allow endgame mode when completing torrents. (Download same chunk from multiple sources)
 		bool		AutoSeed;				// Automatically re-seed most recently completed torrent on start-up

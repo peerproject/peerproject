@@ -138,7 +138,7 @@ void CTransfers::OnRun()
 		Doze( Settings.General.MinTransfersRest );
 
 		// Delay thread load at startup
-		if ( ! theApp.m_bLive|| ! Handshakes.IsValid() || ! Datagrams.IsValid() )
+		if ( ! theApp.m_bLive || ! Handshakes.IsValid() || ! Datagrams.IsValid() )
 		{
 			Sleep( 0 );
 			continue;

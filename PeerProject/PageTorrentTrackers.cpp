@@ -23,6 +23,7 @@
 
 #include "DlgDownloadSheet.h"
 #include "BENode.h"
+#include "BTInfo.h"
 #include "Network.h"
 #include "Transfers.h"
 #include "Downloads.h"
@@ -44,8 +45,12 @@ BEGIN_MESSAGE_MAP(CTorrentTrackersPage, CPropertyPageAdv)
 	ON_WM_DESTROY()
 	ON_NOTIFY(NM_CUSTOMDRAW, IDC_TORRENT_TRACKERS, &CTorrentTrackersPage::OnCustomDrawList)
 	ON_NOTIFY(NM_CLICK, IDC_TORRENT_TRACKERS, &CTorrentTrackersPage::OnNMClickTorrentTrackers)
+	ON_NOTIFY(NM_DBLCLK, IDC_TORRENT_TRACKERS, &CTorrentTrackersPage::OnNMDblclkTorrentTrackers)
+	ON_NOTIFY(LVN_KEYDOWN, IDC_TORRENT_TRACKERS, &CTorrentTrackersPage::OnLvnKeydownTorrentTrackers)
+	ON_NOTIFY(LVN_ENDLABELEDIT, IDC_TORRENT_TRACKERS, &CTorrentTrackersPage::OnLvnEndlabeleditTorrentTrackers)
 	ON_BN_CLICKED(IDC_TORRENT_REFRESH, &CTorrentTrackersPage::OnTorrentRefresh)
-	ON_EN_CHANGE(IDC_TORRENT_TRACKER, &CTorrentTrackersPage::OnEnChangeTorrentTracker)
+	ON_BN_CLICKED(IDC_SOURCE_ADD, &CTorrentTrackersPage::OnBnClickedTorrentTrackersAdd)
+	ON_BN_CLICKED(IDC_SOURCE_REMOVE, &CTorrentTrackersPage::OnBnClickedTorrentTrackersDel)
 	ON_CBN_SELCHANGE(IDC_TORRENT_TRACKERMODE, &CTorrentTrackersPage::OnCbnSelchangeTorrentTrackermode)
 END_MESSAGE_MAP()
 
@@ -55,6 +60,7 @@ END_MESSAGE_MAP()
 
 CTorrentTrackersPage::CTorrentTrackersPage()
 	: CPropertyPageAdv	( CTorrentTrackersPage::IDD )
+	, m_nOriginalMode	( CBTInfo::tNull )
 	, m_nComplete		( 0 )
 	, m_nIncomplete		( 0 )
 	, m_pRequest		( NULL )
@@ -69,12 +75,214 @@ void CTorrentTrackersPage::DoDataExchange(CDataExchange* pDX)
 {
 	CPropertyPageAdv::DoDataExchange(pDX);
 
-	DDX_Text(pDX, IDC_TORRENT_TRACKER, m_sTracker);
+	DDX_Control(pDX, IDC_TORRENT_TRACKER, m_wndTracker);
+	DDX_Control(pDX, IDC_TORRENT_TRACKERS, m_wndTrackers);
 	DDX_Control(pDX, IDC_TORRENT_COMPLETED, m_wndComplete);
 	DDX_Control(pDX, IDC_TORRENT_INCOMPLETE, m_wndIncomplete);
-	DDX_Control(pDX, IDC_TORRENT_REFRESH, m_wndRefresh);
-	DDX_Control(pDX, IDC_TORRENT_TRACKERS, m_wndTrackers);
 	DDX_Control(pDX, IDC_TORRENT_TRACKERMODE, m_wndTrackerMode);
+	DDX_Control(pDX, IDC_TORRENT_REFRESH, m_wndRefresh);
+	DDX_Control(pDX, IDC_SOURCE_ADD, m_wndAdd);
+	DDX_Control(pDX, IDC_SOURCE_REMOVE, m_wndDel);
+}
+
+void CTorrentTrackersPage::UpdateInterface()
+{
+	int nItem = m_wndTrackers.GetNextItem( -1, LVNI_SELECTED );
+	m_wndDel.EnableWindow( ( nItem != -1 ) );
+
+	// Find item with current tracker...
+	LVFINDINFO fi =
+	{
+		LVFI_STRING,
+		m_sOriginalTracker
+	};
+	int nCurrentItem = m_wndTrackers.FindItem( &fi );
+
+	// ...and mark it
+	LVITEM lvi =
+	{
+		LVIF_PARAM | LVIF_IMAGE
+	};
+	int nCount = m_wndTrackers.GetItemCount();
+	for ( int i = 0 ; i < nCount ; ++i )
+	{
+		CString strTracker = m_wndTrackers.GetItemText( i, 0 );
+		const UINT nIconID = ( i == nCurrentItem ) ? ID_MEDIA_SELECT :
+			( StartsWith( strTracker, _PT("http://") ) || StartsWith( strTracker, _PT("udp://") ) ) ? ID_DOWNLOADS_URI : ID_DISCOVERY_BLOCKED;
+		lvi.iItem = i;
+		lvi.iImage = CoolInterface.ImageForID( nIconID );
+		lvi.lParam = ( i == nCurrentItem ) ? TRUE : FALSE;
+		m_wndTrackers.SetItem( &lvi );
+	}
+
+	if ( nCount == 0 )
+		m_wndTrackerMode.SetCurSel( CBTInfo::tNull );
+	else if ( nCount == 1 )
+		m_wndTrackerMode.SetCurSel( CBTInfo::tSingle );
+	m_wndTrackerMode.EnableWindow( nCount > 1 );
+
+	UpdateWindow();
+}
+
+BOOL CTorrentTrackersPage::ApplyTracker()
+{
+	CString strNewTracker;
+	m_wndTracker.GetWindowText( strNewTracker );
+	bool bAddressChanged = m_sOriginalTracker != strNewTracker;
+
+	int nNewTrackerMode = m_wndTrackerMode.GetCurSel();
+	bool bModeChanged = m_nOriginalMode != nNewTrackerMode;
+
+	bool bListChanged = false;
+	int nCount = m_wndTrackers.GetItemCount();
+	if ( nCount == m_sOriginalTrackers.GetCount() )
+	{
+		int i = 0;
+		for ( POSITION pos = m_sOriginalTrackers.GetHeadPosition() ; pos ; ++i )
+		{
+			if ( m_sOriginalTrackers.GetNext( pos ) != m_wndTrackers.GetItemText( i, 0 ) )
+			{
+				bListChanged = true;
+				break;
+			}
+		}
+	}
+	else
+		bListChanged = true;
+
+
+	if ( bAddressChanged || bModeChanged || bListChanged )
+	{
+		CSingleLock oLock( &Transfers.m_pSection );
+
+		// Display warning
+		if ( AfxMessageBox( IDS_BT_TRACK_CHANGE, MB_ICONQUESTION | MB_YESNO ) != IDYES || ! oLock.Lock( 250 ) )
+		{
+			// Restore original settings
+			m_wndTracker.SetWindowText( m_sOriginalTracker );
+			m_wndTrackerMode.SetCurSel( m_nOriginalMode );
+			return FALSE;
+		}
+
+		// Apply new settings
+		CDownloadSheet* pSheet = (CDownloadSheet*)GetParent();
+		if ( CDownload* pDownload = pSheet->GetDownload() )
+		{
+			CBTInfo& oInfo = pDownload->m_pTorrent;
+
+			m_sOriginalTracker.Empty();
+			m_nOriginalMode = nCount ? ( ( nCount > 1 ) ? CBTInfo::tMultiFinding : CBTInfo::tSingle ) : CBTInfo::tNull;
+			m_sOriginalTrackers.RemoveAll();
+
+			oInfo.RemoveAllTrackers();
+			for ( int i = 0 ; i < nCount ; ++i )
+			{
+				CString strTracker = m_wndTrackers.GetItemText( i, 0 );
+				if ( strTracker == strNewTracker )
+				{
+					m_sOriginalTracker = strNewTracker;
+					m_nOriginalMode = nNewTrackerMode;
+				}
+				m_sOriginalTrackers.AddTail( strTracker );
+				oInfo.SetTracker( strTracker );
+			}
+
+			if ( ! m_sOriginalTracker.IsEmpty() )
+				oInfo.SetTracker( m_sOriginalTracker );
+			oInfo.SetTrackerMode( m_nOriginalMode );
+
+			pDownload->SetModified();
+		}
+	}
+	return TRUE;
+}
+
+void CTorrentTrackersPage::InsertTracker()
+{
+	// De-select all
+	int nCount = m_wndTrackers.GetItemCount();
+	for ( int i = 0 ; i < nCount ; ++i )
+		m_wndTrackers.SetItemState( i, 0, LVIS_SELECTED );
+
+	LVITEM lvi =
+	{
+		LVIF_PARAM | LVIF_IMAGE | LVIF_TEXT,
+		nCount,
+		0,
+		LVIS_SELECTED,
+		LVIS_SELECTED,
+		(LPTSTR)(LPCTSTR)Settings.BitTorrent.DefaultTracker,
+		0,
+		CoolInterface.ImageForID( ID_DOWNLOADS_URI )
+	};
+	int nItem = m_wndTrackers.InsertItem( &lvi );
+	m_wndTrackers.SetItemText( nItem, 1, LoadString( IDS_STATUS_UNKNOWN ) );
+	m_wndTrackers.SetFocus();
+	m_wndTrackers.EditLabel( nItem );
+
+	if ( nCount == 1 )
+		m_wndTrackerMode.SetCurSel( CBTInfo::tMultiFinding );
+
+	UpdateInterface();
+}
+
+void CTorrentTrackersPage::EditTracker(int nItem, LPCTSTR szText)
+{
+	CString sEditedTracker = m_wndTrackers.GetItemText( nItem, 0 );
+	if ( szText )
+	{
+		// User entered text
+		CString strNewTracker = szText;
+		if ( strNewTracker.GetLength() > 21 &&
+			( StartsWith( strNewTracker, _PT("http://") ) ||
+			  StartsWith( strNewTracker, _PT("udp://") ) ||
+			  StartsWith( strNewTracker.Mid( 1 ), _PT("http://") ) ||
+			  StartsWith( strNewTracker.Mid( 1 ), _PT("udp://") ) ) )
+		{
+			// User entered correct tracker
+			LVFINDINFO fi =
+			{
+				LVFI_PARTIAL | LVFI_STRING,
+				strNewTracker
+			};
+			if ( m_wndTrackers.FindItem( &fi ) == -1 )
+				m_wndTrackers.SetItemText( nItem, 0, strNewTracker );	// User entered unique tracker
+			else
+				m_wndTrackers.DeleteItem( nItem );						// Remove duplicate tracker
+
+			if ( ! StartsWith( strNewTracker, _PT("http://") ) && ! StartsWith( strNewTracker, _PT("udp://") ) )
+				m_wndTrackers.SetItemText( nItem, 1, LoadString( IDS_STATUS_UNSUPPORTED ) );
+			else if ( m_wndTrackers.GetItemText( nItem, 1 ) == LoadString( IDS_STATUS_UNSUPPORTED ) )
+				m_wndTrackers.SetItemText( nItem, 1, LoadString( IDS_STATUS_UNKNOWN ) );
+		}
+	}
+	else
+	{
+		// Remove duplicate tracker
+		LVFINDINFO fi =
+		{
+			LVFI_PARTIAL | LVFI_STRING,
+			sEditedTracker
+		};
+		if ( m_wndTrackers.FindItem( &fi ) != nItem )
+			m_wndTrackers.DeleteItem( nItem );
+	}
+
+	UpdateInterface();
+}
+
+void CTorrentTrackersPage::SelectTracker(int nItem)
+{
+	if ( nItem != -1 )
+	{
+		m_wndTracker.SetWindowText( m_wndTrackers.GetItemText( nItem, 0 ) );
+		m_wndTrackerMode.SetCurSel( CBTInfo::tSingle );
+
+		if ( ApplyTracker() )
+			OnTorrentRefresh();
+
+		UpdateInterface();
+	}
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -85,30 +293,36 @@ BOOL CTorrentTrackersPage::OnInitDialog()
 	if ( ! CPropertyPageAdv::OnInitDialog() )
 		return FALSE;
 
+	// If not using text labels?
+	m_wndAdd.SetIcon( CoolInterface.ExtractIcon( ID_MEDIA_ADD ) );
+	m_wndDel.SetIcon( CoolInterface.ExtractIcon( ID_MEDIA_REMOVE ) );
+
 	ASSUME_LOCK( Transfers.m_pSection );
 
-	CDownload* pDownload = ((CDownloadSheet*)GetParent())->GetDownload();
+	CDownloadSheet* pSheet = (CDownloadSheet*)GetParent();
+	CDownload* pDownload = pSheet->GetDownload();
 	ASSERT( pDownload && pDownload->IsTorrent() );
 
 	CBTInfo& oInfo = pDownload->m_pTorrent;
 
-	m_sTracker = oInfo.GetTrackerAddress();
+	m_sOriginalTracker = oInfo.GetTrackerAddress();
+	m_wndTracker.SetWindowText( m_sOriginalTracker );
+
 	int nCount = oInfo.GetTrackerCount();
-	int nTrackerMode = oInfo.GetTrackerMode();
+	m_nOriginalMode = oInfo.GetTrackerMode();
+	m_wndTrackerMode.SetCurSel( m_nOriginalMode );
 
 	// Remove invalid modes
-	if ( nCount < 2 )
-	{
-		ASSERT( nTrackerMode!= CBTInfo::tMultiFound );
-		m_wndTrackerMode.DeleteString( CBTInfo::tMultiFound );
-		ASSERT( nTrackerMode != CBTInfo::tMultiFinding );
-		m_wndTrackerMode.DeleteString( CBTInfo::tMultiFinding );
-	}
-	m_wndTrackerMode.SetCurSel( nTrackerMode );
+	//if ( nCount < 2 )
+	//{
+	//	m_wndTrackerMode.DeleteString( CBTInfo::tMultiFound );
+	//	m_wndTrackerMode.DeleteString( CBTInfo::tMultiFinding );
+	//}
 
 	CRect rc;
 	m_wndTrackers.GetClientRect( &rc );
 	rc.right -= GetSystemMetrics( SM_CXVSCROLL );
+
 	CoolInterface.SetImageListTo( m_wndTrackers, LVSIL_SMALL );
 	m_wndTrackers.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_HEADERDRAGDROP|LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP );
 	m_wndTrackers.InsertColumn( 0, _T("Tracker"), LVCFMT_LEFT, rc.right - 82, -1 );
@@ -123,58 +337,67 @@ BOOL CTorrentTrackersPage::OnInitDialog()
 
 	for ( int nTracker = 0 ; nTracker < nCount ; nTracker++ )
 	{
-		LV_ITEM pItem = {};
-		pItem.mask		= LVIF_TEXT|LVIF_IMAGE|LVIF_PARAM;
-		pItem.iItem		= m_wndTrackers.GetItemCount();
-		pItem.lParam	= (LPARAM)nTracker;
+		//LV_ITEM pItem = {};
+		//pItem.mask	= LVIF_TEXT|LVIF_IMAGE|LVIF_PARAM;
+		//pItem.iItem	= m_wndTrackers.GetItemCount();
+		//pItem.lParam	= (LPARAM)nTracker;
+		//
+		//if ( oInfo.GetTrackerIndex() == nTracker )
+		//	pItem.iImage = CoolInterface.ImageForID( ID_MEDIA_SELECT );
+		//else if ( oInfo.GetTrackerAddress( nTracker ).GetAt( 0 ) == BAD_TRACKER_TOKEN )
+		//	pItem.iImage = CoolInterface.ImageForID( ID_DISCOVERY_BLOCKED );
+		//else
+		//	pItem.iImage = CoolInterface.ImageForID( ID_DOWNLOADS_URI );
+		//
+		//pItem.pszText	= (LPTSTR)(LPCTSTR)oInfo.GetTrackerAddress( nTracker );
+		//pItem.iItem	= m_wndTrackers.InsertItem( &pItem );
 
-		if ( oInfo.GetTrackerIndex() == nTracker )
-			pItem.iImage = CoolInterface.ImageForID( ID_MEDIA_SELECT );
-		else if ( oInfo.GetTrackerAddress( nTracker ).GetAt( 0 ) == BAD_TRACKER_TOKEN )
-			pItem.iImage = CoolInterface.ImageForID( ID_DISCOVERY_BLOCKED );
-		else
-			pItem.iImage = CoolInterface.ImageForID( ID_DOWNLOADS_URI );
-
-		pItem.pszText	= (LPTSTR)(LPCTSTR)oInfo.GetTrackerAddress( nTracker );
-		pItem.iItem		= m_wndTrackers.InsertItem( &pItem );
+		CString strTracker = oInfo.GetTrackerAddress( nTracker );
+		m_sOriginalTrackers.AddTail( strTracker );
 
 		// Display status
-		CString sStatus, sType = _T("Announce");
-		if ( oInfo.GetTrackerAddress( nTracker ).GetAt( 0 ) == BAD_TRACKER_TOKEN )	// Tagged for display only (*https:// etc.)
+		CString strStatus;
+		UINT nStatusIcon = ID_DOWNLOADS_URI;
+		if ( ! StartsWith( oInfo.GetTrackerAddress( nTracker ), _PT("http://") ) &&
+			 ! StartsWith( oInfo.GetTrackerAddress( nTracker ), _PT("udp://") ) )
 		{
-			LoadString( sStatus, IDS_STATUS_UNSUPPORTED );
+			// Bad format, or BAD_TRACKER_TOKEN Tagged for display only (*https:// etc.)
+			LoadString( strStatus, IDS_STATUS_UNSUPPORTED );
+			nStatusIcon = ID_DISCOVERY_BLOCKED;
 		}
 		else
 		{
 			switch ( oInfo.GetTrackerStatus( nTracker ) )
 			{
-			case TRI_UNKNOWN:
-				LoadString( sStatus, IDS_STATUS_UNKNOWN );
+			case TRI_TRUE:
+				LoadString( strStatus, IDS_STATUS_ACTIVE );
 				break;
 			case TRI_FALSE:
-				LoadString( sStatus, IDS_STATUS_TRACKERDOWN );
+				LoadString( strStatus, IDS_STATUS_TRACKERDOWN );
 				break;
-			case TRI_TRUE:
-				LoadString( sStatus, IDS_STATUS_ACTIVE );
-				break;
+			case TRI_UNKNOWN:
+				LoadString( strStatus, IDS_STATUS_UNKNOWN );
+			//	break;
 			}
 		}
 
-		m_wndTrackers.SetItemText( pItem.iItem, 1, sStatus );
+		// pItem.iItem
+		int nItem = m_wndTrackers.InsertItem( m_wndTrackers.GetItemCount(), strTracker, CoolInterface.ImageForID( nStatusIcon ) );
+
+		m_wndTrackers.SetItemText( nItem, 1, strStatus );
 
 		// Display type
+		CString strType = _T("Announce");
 		if ( oInfo.IsMultiTracker() )
-			sType.Format( _T("Tier %i"), oInfo.GetTrackerTier( nTracker ) );
+			strType.Format( _T("Tier %i"), oInfo.GetTrackerTier( nTracker ) );
 
-		m_wndTrackers.SetItemText( pItem.iItem, 2, sType );
+		m_wndTrackers.SetItemText( nItem, 2, strType );
 	}
-
-	GetDlgItem( IDC_TORRENT_TRACKER )->EnableWindow( nTrackerMode != CBTInfo::tNull );
-
-	UpdateData( FALSE );
 
 	if ( Network.IsConnected() )
 		PostMessage( WM_COMMAND, MAKELONG( IDC_TORRENT_REFRESH, BN_CLICKED ), (LPARAM)m_wndRefresh.GetSafeHwnd() );
+
+	UpdateInterface();
 
 	return TRUE;
 }
@@ -183,7 +406,7 @@ void CTorrentTrackersPage::OnDestroy()
 {
 	KillTimer( 1 );
 
-	// Cancel unfinished yet request
+	// Cancel unfinished request
 	if ( m_pRequest )
 	{
 		CDownloadSheet* pSheet = (CDownloadSheet*)GetParent();
@@ -271,49 +494,146 @@ void CTorrentTrackersPage::OnTimer(UINT_PTR nIDEvent)
 
 BOOL CTorrentTrackersPage::OnApply()
 {
-	if ( ! UpdateData() )
-		return FALSE;
-
-	CDownloadSheet* pSheet = (CDownloadSheet*)GetParent();
-
-	CSingleLock oLock( &Transfers.m_pSection );
-	if ( ! oLock.Lock( 500 ) )
-		return FALSE;
-
-	CDownload* pDownload = pSheet->GetDownload();
-	if ( ! pDownload )
-		return CPropertyPageAdv::OnApply();
-
-	CBTInfo& oInfo = pDownload->m_pTorrent;
-
-	const int nTrackerMode = m_wndTrackerMode.GetCurSel();
-	const BOOL bModeChanged = oInfo.GetTrackerMode() != nTrackerMode;
-	const BOOL bAddressChanged = oInfo.GetTrackerAddress() != m_sTracker;
-	if ( bAddressChanged || bModeChanged )
-	{
-		oLock.Unlock();
-
-		GetDlgItem( IDC_TORRENT_TRACKER )->SetFocus();
-
-		// Display warning
-		if ( AfxMessageBox( IDS_BT_TRACK_CHANGE, MB_ICONQUESTION | MB_YESNO ) != IDYES )
-			return FALSE;
-
-		if ( ! oLock.Lock( 250 ) )
-			return FALSE;
-
-		pDownload = pSheet->GetDownload();
-		if ( ! pDownload )
-			return CPropertyPageAdv::OnApply();
-
-		if ( bAddressChanged )
-			oInfo.SetTracker( m_sTracker );
-		if ( bModeChanged )
-			oInfo.SetTrackerMode( nTrackerMode );
-	}
-
-	return CPropertyPageAdv::OnApply();
+	return ApplyTracker() ? CPropertyPageAdv::OnApply() : FALSE;
 }
+
+void CTorrentTrackersPage::OnNMClickTorrentTrackers(NMHDR* /*pNMHDR*/, LRESULT *pResult)
+{
+	*pResult = 0;
+
+	UpdateInterface();
+}
+
+void CTorrentTrackersPage::OnNMDblclkTorrentTrackers(NMHDR* /*pNMHDR*/, LRESULT *pResult)
+{
+	*pResult = 0;
+
+	SelectTracker( m_wndTrackers.GetNextItem( -1, LVNI_SELECTED ) );
+}
+
+void CTorrentTrackersPage::OnLvnKeydownTorrentTrackers(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMLVKEYDOWN pNMKD = (LPNMLVKEYDOWN)pNMHDR;
+
+	*pResult = 0;
+
+	if ( pNMKD->wVKey == VK_DELETE )
+	{
+		int nItem = m_wndTrackers.GetNextItem( -1, LVNI_SELECTED );
+		if ( nItem != -1 )
+		{
+			m_wndTrackers.DeleteItem( nItem );
+			UpdateInterface();
+		}
+	}
+	else if ( pNMKD->wVKey == VK_INSERT )
+	{
+		InsertTracker();
+	}
+	else if ( pNMKD->wVKey == VK_SPACE || pNMKD->wVKey == VK_RETURN )
+	{
+		SelectTracker( m_wndTrackers.GetNextItem( -1, LVNI_SELECTED ) );
+	}
+}
+
+void CTorrentTrackersPage::OnCbnSelchangeTorrentTrackermode()
+{
+	UpdateInterface();
+}
+
+void CTorrentTrackersPage::OnBnClickedTorrentTrackersAdd()
+{
+	InsertTracker();
+}
+
+void CTorrentTrackersPage::OnBnClickedTorrentTrackersDel()
+{
+	int nItem = m_wndTrackers.GetNextItem( -1, LVNI_SELECTED );
+	if ( nItem != -1 )
+	{
+		m_wndTrackers.DeleteItem( nItem );
+		UpdateInterface();
+	}
+}
+
+void CTorrentTrackersPage::OnLvnEndlabeleditTorrentTrackers(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	NMLVDISPINFO* pDispInfo = reinterpret_cast< NMLVDISPINFO* >( pNMHDR );
+
+	*pResult = 0;
+
+	EditTracker( pDispInfo->item.iItem, pDispInfo->item.pszText );
+}
+
+void CTorrentTrackersPage::OnCustomDrawList(NMHDR* pNMHDR, LRESULT* pResult)
+{
+	if ( ! ::IsWindow( m_wndTrackers.GetSafeHwnd() ) ) return;
+
+	if ( m_wndTrackers.GetBkColor() != Colors.m_crWindow ) return;	// Rarely needed (Remove this line when useful)
+
+	NMLVCUSTOMDRAW* pDraw = (NMLVCUSTOMDRAW*)pNMHDR;
+
+	if ( pDraw->nmcd.dwDrawStage == CDDS_PREPAINT )
+	{
+		*pResult = CDRF_NOTIFYITEMDRAW;
+	}
+	else if ( pDraw->nmcd.dwDrawStage == CDDS_ITEMPREPAINT )
+	{
+		if ( m_wndTrackers.GetBkColor() == Colors.m_crWindow )
+			pDraw->clrTextBk = Colors.m_crWindow;
+
+		*pResult = CDRF_DODEFAULT;
+	}
+}
+
+// Obsolete Apply:
+//BOOL CTorrentTrackersPage::OnApply()
+//{
+//	if ( ! UpdateData() )
+//		return FALSE;
+//
+//	CDownloadSheet* pSheet = (CDownloadSheet*)GetParent();
+//
+//
+//
+//	CSingleLock oLock( &Transfers.m_pSection );
+//	if ( ! oLock.Lock( 500 ) )
+//		return FALSE;
+//
+//	CDownload* pDownload = pSheet->GetDownload();
+//	if ( ! pDownload )
+//		return CPropertyPageAdv::OnApply();
+//
+//	CBTInfo& oInfo = pDownload->m_pTorrent;
+//
+//	const int nTrackerMode = m_wndTrackerMode.GetCurSel();
+//	const BOOL bModeChanged = oInfo.GetTrackerMode() != nTrackerMode;
+//	const BOOL bAddressChanged = oInfo.GetTrackerAddress() != m_sTracker;
+//	if ( bAddressChanged || bModeChanged )
+//	{
+//		oLock.Unlock();
+//
+//		GetDlgItem( IDC_TORRENT_TRACKER )->SetFocus();
+//
+//		// Display warning
+//		if ( AfxMessageBox( IDS_BT_TRACK_CHANGE, MB_ICONQUESTION | MB_YESNO ) != IDYES )
+//			return FALSE;
+//
+//		if ( ! oLock.Lock( 250 ) )
+//			return FALSE;
+//
+//		pDownload = pSheet->GetDownload();
+//		if ( ! pDownload )
+//			return CPropertyPageAdv::OnApply();
+//
+//		if ( bAddressChanged )
+//			oInfo.SetTracker( m_sTracker );
+//		if ( bModeChanged )
+//			oInfo.SetTrackerMode( nTrackerMode );
+//	}
+//
+//	return CPropertyPageAdv::OnApply();
+//}
 
 // Obsolete thread scrape method for reference or deletion
 //void CTorrentTrackersPage::OnRun()
@@ -414,71 +734,3 @@ BOOL CTorrentTrackersPage::OnApply()
 //
 //	return TRUE;
 //}
-
-void CTorrentTrackersPage::OnEnChangeTorrentTracker()
-{
-	if ( ! UpdateData() )
-		return;
-
-	CSingleLock oLock( &Transfers.m_pSection );
-	if ( ! oLock.Lock( 250 ) )
-		return;
-
-	CDownload* pDownload = ((CDownloadSheet*)GetParent())->GetDownload();
-	if ( ! pDownload )
-		return;
-
-	CBTInfo& oInfo = pDownload->m_pTorrent;
-
-	if ( m_sTracker != oInfo.GetTrackerAddress() )
-		m_wndTrackerMode.SetCurSel( CBTInfo::tSingle );
-	else if ( oInfo.GetTrackerMode() != CBTInfo::tNull )
-		m_wndTrackerMode.SetCurSel( oInfo.GetTrackerMode() );
-}
-
-void CTorrentTrackersPage::OnNMClickTorrentTrackers(NMHDR *pNMHDR, LRESULT *pResult)
-{
-	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast< LPNMITEMACTIVATE >( pNMHDR );
-	*pResult = 0;
-
-	if ( ! UpdateData() )
-		return;
-
-	if ( pNMItemActivate->iItem != -1 )
-	{
-		m_sTracker = m_wndTrackers.GetItemText( pNMItemActivate->iItem, 0 );
-		m_wndTrackerMode.SetCurSel( CBTInfo::tSingle );
-
-		GetDlgItem( IDC_TORRENT_TRACKER )->EnableWindow( TRUE );
-
-		UpdateData( FALSE );
-	}
-}
-
-void CTorrentTrackersPage::OnCbnSelchangeTorrentTrackermode()
-{
-	const int nMode = m_wndTrackerMode.GetCurSel();
-
-	GetDlgItem( IDC_TORRENT_TRACKER )->EnableWindow( nMode != CBTInfo::tNull );
-}
-
-void CTorrentTrackersPage::OnCustomDrawList(NMHDR* pNMHDR, LRESULT* pResult)
-{
-	if ( ! ::IsWindow( m_wndTrackers.GetSafeHwnd() ) ) return;
-
-	if ( m_wndTrackers.GetBkColor() != Colors.m_crWindow ) return;	// Rarely needed (Remove this line when useful)
-
-	NMLVCUSTOMDRAW* pDraw = (NMLVCUSTOMDRAW*)pNMHDR;
-
-	if ( pDraw->nmcd.dwDrawStage == CDDS_PREPAINT )
-	{
-		*pResult = CDRF_NOTIFYITEMDRAW;
-	}
-	else if ( pDraw->nmcd.dwDrawStage == CDDS_ITEMPREPAINT )
-	{
-		if ( m_wndTrackers.GetBkColor() == Colors.m_crWindow )
-			pDraw->clrTextBk = Colors.m_crWindow;
-
-		*pResult = CDRF_DODEFAULT;
-	}
-}

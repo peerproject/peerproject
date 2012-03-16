@@ -1,7 +1,7 @@
 //
 // WebServices.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2011
+// This file is part of PeerProject (peerproject.org) © 2011-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -33,7 +33,7 @@
 #include "SharedFile.h"
 #include "Library.h"
 #include "DlgBitziDownload.h"
-#include "ShareMonkeyData.h"
+//#include "ShareMonkeyData.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -83,7 +83,7 @@ static char THIS_FILE[]=__FILE__;
 //{
 //	for ( POSITION pos = m_pServiceDataPages.GetHeadPosition() ; pos ; )
 //	{
-//		CMetaPanel* pPanelData = m_pServiceDataPages.GetNext( pos );
+//		CMetaList* pPanelData = m_pServiceDataPages.GetNext( pos );
 //		delete pPanelData;
 //	}
 //
@@ -295,7 +295,9 @@ static char THIS_FILE[]=__FILE__;
 
 
 /////////////////////////////////////////////////////////////////////
-// ShareMonkey Services  (Obsolete site, for reuse)
+// ShareMonkey Services  (Obsolete site, for reference)
+//
+// Note: Moved from CtrlLibraryFileView
 
 //void CWebServices::OnUpdateShareMonkeyLookup(CCmdUI* pCmdUI)
 //{
@@ -316,9 +318,7 @@ static char THIS_FILE[]=__FILE__;
 //{
 //	if ( ! Settings.WebServices.ShareMonkeyOkay )
 //	{
-//		CString strFormat;
-//		Skin.LoadString( strFormat, IDS_SHAREMONKEY_MESSAGE );
-//		if ( AfxMessageBox( strFormat, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
+//		if ( AfxMessageBox( IDS_SHAREMONKEY_MESSAGE, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
 //		Settings.WebServices.ShareMonkeyOkay = true;
 //		Settings.Save();
 //	}
@@ -598,8 +598,8 @@ BOOL CWebServices::ShowBitziTicket(DWORD nIndex)
 	}
 
 	CString str, strURL = Settings.WebServices.BitziWebView;
-	CFile hFile;
 
+	CFile hFile;
 	if ( hFile.Open( pFile->GetPath(), CFile::modeRead|CFile::shareDenyNone ) )
 	{
 		strURL = Settings.WebServices.BitziWebSubmit;

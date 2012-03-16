@@ -160,7 +160,7 @@ BOOL CEDNeighbour::OnConnected()
 {
 	theApp.Message( MSG_INFO, IDS_ED2K_SERVER_CONNECTED, (LPCTSTR)m_sAddress );
 
-	CEDPacket* pPacket = CEDPacket::New(  ED2K_C2S_LOGINREQUEST );
+	CEDPacket* pPacket = CEDPacket::New( ED2K_C2S_LOGINREQUEST );
 
 	Hashes::Guid oGUID = MyProfile.oGUID;
 	oGUID[ 5 ] = 14;
@@ -726,7 +726,7 @@ BOOL CEDNeighbour::SendSharedDownload(CDownload* pDownload)
 	if ( ! IsGoodSize( pDownload->m_nSize ) ) return FALSE;
 	if ( m_nFilesSent >= m_nFileLimit ) return FALSE;
 
-	CEDPacket* pPacket = CEDPacket::New(  ED2K_C2S_OFFERFILES );
+	CEDPacket* pPacket = CEDPacket::New( ED2K_C2S_OFFERFILES );
 
 	// Send one file
 	pPacket->WriteLongLE( 1 );

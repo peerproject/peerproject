@@ -1,7 +1,7 @@
 //
 // SHA.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -25,7 +25,7 @@ class HASHLIB_API CSHA
 {
 public:
 	CSHA();
-	virtual ~CSHA() {}
+	~CSHA() {}
 
 	void Reset();
 	void Add(const void* pData, size_t nLength);

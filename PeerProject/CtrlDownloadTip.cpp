@@ -172,8 +172,8 @@ void CDownloadTipCtrl::OnCalcSize(CDC* pDC, CDownload* pDownload)
 	if ( pDownload->IsTorrent() )
 	{
 		// Torrent Tracker error
-		if (  pDownload->m_bTorrentTrackerError &&
-			! pDownload->m_sTorrentTrackerError.IsEmpty() )		// Rare crash?
+		if ( pDownload->m_bTorrentTrackerError &&
+			 pDownload->m_sTorrentTrackerError.GetLength() > 1 )		// ToDo: Rare crash for IsEmpty?
 		{
 			AddSize( pDC, pDownload->m_sTorrentTrackerError );
 			m_sz.cy += TIP_TEXTHEIGHT;
@@ -278,8 +278,7 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownload* pDownload)
 
 	DrawRule( pDC, &pt );
 
-	ImageList_DrawEx( ShellIcons.GetHandle( 32 ), m_nIcon, pDC->GetSafeHdc(), pt.x, pt.y, 32, 32,
-		( Skin.m_bmToolTip.m_hObject ) ? CLR_NONE : Colors.m_crTipBack, CLR_NONE, ILD_NORMAL );
+	ShellIcons.Draw( pDC, m_nIcon, 32, pt.x, pt.y, ( Skin.m_bmToolTip.m_hObject ) ? CLR_NONE : Colors.m_crTipBack );
 	pDC->ExcludeClipRect( pt.x, pt.y, pt.x + 32, pt.y + 32 );
 
 	pt.y += 2;
@@ -370,9 +369,8 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownload* pDownload)
 	}
 
 	// Update Torrent Seeds/Peers from last Tracker Scrape
-	if ( pDownload->IsTorrent() )
+	if ( pDownload->IsTorrent() && ( pDownload->m_pTorrent.m_nTrackerSeeds || pDownload->m_pTorrent.m_nTrackerPeers ) )
 	{
-		m_pDownload->m_pTorrent.ScrapeTracker();
 		m_sSeedsPeers.Format( _T("   ( %i seeds %i peers )"),	// ToDo: Translation ?
 			pDownload->m_pTorrent.m_nTrackerSeeds, pDownload->m_pTorrent.m_nTrackerPeers );
 
@@ -613,16 +611,14 @@ void CDownloadTipCtrl::PrepareDownloadInfo(CDownload* pDownload)
 			m_sMD5+= _T(" (") + strUntrusted + _T(")");
 	}
 
-	// Prepare seeds/peers data for immediate display, or trigger initial tracker scrape
+	// Prepare torrent data for display
 	if ( pDownload->IsTorrent() )
 	{
 		m_sURL = pDownload->m_pTorrent.GetTrackerAddress();
-
-		if ( pDownload->m_pTorrent.ScrapeTracker() )
-		{
+	
+		if ( pDownload->m_pTorrent.m_nTrackerSeeds || pDownload->m_pTorrent.m_nTrackerPeers )
 			m_sSeedsPeers.Format( _T("   ( %i seeds %i peers )"),	// ToDo: Translation ?
 				pDownload->m_pTorrent.m_nTrackerSeeds, pDownload->m_pTorrent.m_nTrackerPeers );
-		}
 	}
 
 	// Moved Scrape to CBTInfo:
@@ -729,7 +725,7 @@ void CDownloadTipCtrl::PrepareFileInfo(CDownload* pDownload)	// CPeerProjectFile
 		CString strName, strMime;
 
 		ShellIcons.Lookup( strType, NULL, NULL, &strName, &strMime );
-		m_nIcon = ShellIcons.Get( strType, 32 );
+		m_nIcon = ShellIcons.Get( m_sName, 32 );
 
 		if ( ! strName.IsEmpty() )
 		{
@@ -1000,6 +996,10 @@ void CDownloadTipCtrl::OnTimer(UINT_PTR nIDEvent)
 			Invalidate();						// No flicker when skinned (buffered)
 		else
 			InvalidateRect( &m_rcUpdateText );	// Limit flicker when unbuffered
+
+		// Trigger async tracker scrape if needed
+		if ( m_pDownload->IsTorrent() )
+			m_pDownload->m_pTorrent.ScrapeTracker();
 		return;
 	}
 

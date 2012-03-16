@@ -1,7 +1,7 @@
 //
 // PageProfileFavourites.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -90,8 +90,7 @@ BOOL CFavouritesProfilePage::OnInitDialog()
 	m_wndList.InsertColumn( 0, _T("Name"), LVCFMT_LEFT, 160, -1 );
 	m_wndList.InsertColumn( 1, _T("URL"), LVCFMT_LEFT, rc.right - 160, 0 );
 
-	m_wndList.SendMessage( LVM_SETEXTENDEDLISTVIEWSTYLE,
-		LVS_EX_FULLROWSELECT, LVS_EX_FULLROWSELECT );
+	m_wndList.SendMessage( LVM_SETEXTENDEDLISTVIEWSTYLE, LVS_EX_FULLROWSELECT, LVS_EX_FULLROWSELECT );
 
 	if ( CXMLElement* pBookmarks = MyProfile.GetXML( _T("bookmarks") ) )
 	{
@@ -142,8 +141,7 @@ void CFavouritesProfilePage::OnWebAdd()
 {
 	UpdateData();
 
-	int nItem = m_wndList.InsertItem( LVIF_TEXT|LVIF_IMAGE,
-		m_wndList.GetItemCount(), m_sTitle, 0, 0, 0, 0 );
+	int nItem = m_wndList.InsertItem( LVIF_TEXT|LVIF_IMAGE, m_wndList.GetItemCount(), m_sTitle, 0, 0, 0, 0 );
 	m_wndList.SetItemText( nItem, 1, Settings.General.LanguageRTL ? _T("\x202A") + m_sURL : m_sURL );
 
 	m_sTitle.Empty();

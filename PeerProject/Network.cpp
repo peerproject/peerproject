@@ -27,7 +27,6 @@
 #include "Datagrams.h"
 #include "HostCache.h"
 #include "RouteCache.h"
-#include "GProfile.h"
 #include "Transfers.h"
 #include "Downloads.h"
 #include "Statistics.h"
@@ -40,9 +39,11 @@
 #include "QueryHashMaster.h"
 #include "QueryHit.h"
 #include "QueryKeys.h"
+#include "BTPacket.h"
 #include "G1Packet.h"
 #include "G2Packet.h"
 #include "G1Neighbour.h"
+#include "GProfile.h"
 
 #include "WndMain.h"
 #include "WndSearch.h"
@@ -342,15 +343,27 @@ void CNetwork::Disconnect()
 
 BOOL CNetwork::ConnectTo(LPCTSTR pszAddress, int nPort, PROTOCOLID nProtocol, BOOL bNoUltraPeer)
 {
-	CSingleLock pLock( &m_pSection, TRUE );
-
-	if ( ! IsConnected() && ! Connect() )
-		return FALSE;
+//	if ( ! IsConnected() && ! Connect() )
+//		return FALSE;
 
 	if ( nPort <= 0 || nPort > USHRT_MAX )
 		nPort = protocolPorts[ ( nProtocol == PROTOCOL_ANY ) ? PROTOCOL_G2 : nProtocol ];
 
-	return AsyncResolve( pszAddress, (WORD)nPort, nProtocol, bNoUltraPeer ? 2 : 1 );
+	// Try to quick resolve dotted IP address
+	SOCKADDR_IN saHost;
+	if ( ! Resolve( pszAddress, nPort, &saHost, FALSE ) )
+		return FALSE;	// Bad address
+
+	if ( saHost.sin_addr.s_addr != INADDR_ANY )
+	{
+		// Dotted IP address
+		HostCache.ForProtocol( nProtocol )->Add( &saHost.sin_addr, ntohs( saHost.sin_port ) );
+
+		Neighbours.ConnectTo( saHost.sin_addr, ntohs( saHost.sin_port ), nProtocol, FALSE, bNoUltraPeer );
+		return TRUE;
+	}
+
+	return AsyncResolve( pszAddress, (WORD)nPort, nProtocol, bNoUltraPeer ? RESOLVE_CONNECT : RESOLVE_CONNECT_ULTRAPEER );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -746,14 +759,15 @@ void CNetwork::OnRun()
 				}
 			}
 
-			if ( m_pSection.Lock() )
+			CSingleLock oLock( &m_pSection, FALSE );
+			if ( oLock.Lock( 100 ) )
 			{
 				Datagrams.OnRun();
 				SearchManager.OnRun();
 				QueryHashMaster.Build();
 				CrawlSession.OnRun();
 
-				m_pSection.Unlock();
+				oLock.Unlock();
 			}
 
 			Neighbours.OnRun();
@@ -809,87 +823,55 @@ void CNetwork::PostRun()
 
 void CNetwork::OnWinsock(WPARAM wParam, LPARAM lParam)
 {
-	auto_ptr< ResolveStruct > pResolve( GetResolve( (HANDLE)wParam ) );
+	auto_ptr< const ResolveStruct > pResolve( GetResolve( (HANDLE)wParam ) );
 	if ( ! pResolve.get() )
 		return;		// Out of memory
 
-	CHostCacheList* pCache = HostCache.ForProtocol( pResolve->m_nProtocol );
-
-	CQuickLock oNetworkLock( m_pSection );
-
 	if ( WSAGETASYNCERROR( lParam ) == 0 )
 	{
-		IN_ADDR& pAddress = *(IN_ADDR*)pResolve->m_pHost.h_addr;
+		const IN_ADDR* pAddress = (const IN_ADDR*)pResolve->m_pHost.h_addr;
 
-		if ( pResolve->m_nCommand == 0 )
+		switch ( pResolve->m_nCommand )
 		{
-			if ( pCache )
-				pCache->OnResolve( pResolve->m_sAddress, &pAddress, pResolve->m_nPort );
-		}
-		else if ( pResolve->m_nCommand == 1 || pResolve->m_nCommand == 2 )
-		{
-			if ( pCache )
-				pCache->OnResolve( pResolve->m_sAddress, &pAddress, pResolve->m_nPort );
+		case RESOLVE_ONLY:
+			HostCache.OnResolve( pResolve->m_nProtocol, pResolve->m_sAddress, pAddress, pResolve->m_nPort );
+			break;
 
-			BOOL bNoUltraPeer = ( pResolve->m_nCommand == 2 );
+		case RESOLVE_CONNECT_ULTRAPEER:
+		case RESOLVE_CONNECT:
+			HostCache.OnResolve( pResolve->m_nProtocol, pResolve->m_sAddress, pAddress, pResolve->m_nPort );
+			Neighbours.ConnectTo( *pAddress, pResolve->m_nPort, pResolve->m_nProtocol, FALSE, ( pResolve->m_nCommand == RESOLVE_CONNECT ) );
+			break;
 
-			Neighbours.ConnectTo( pAddress, pResolve->m_nPort, pResolve->m_nProtocol, FALSE, bNoUltraPeer );
-		}
-		else if ( pResolve->m_nCommand == 3 )
-		{
-			// Code to invoke UDPHC/UDPKHL Sender.
-			if ( pResolve->m_nProtocol == PROTOCOL_G1 ||	// uhc:
-				 pResolve->m_nProtocol == PROTOCOL_G2 ) 	// ukhl:
-			{
-				CString strAddress = ( ( pResolve->m_nProtocol == PROTOCOL_G1 ) ?
-					L"uhc:" : L"ukhl:" ) + pResolve->m_sAddress;
-				CDiscoveryService* pService = DiscoveryServices.GetByAddress( strAddress );
-				if ( pService == NULL )
-				{
-					strAddress.AppendFormat( _T(":%u"), pResolve->m_nPort );
-					pService = DiscoveryServices.GetByAddress( strAddress );
-				}
-				if ( pService != NULL )
-				{
-					pService->m_pAddress = pAddress;
-					pService->m_nPort = pResolve->m_nPort;
-				}
+		case RESOLVE_DISCOVERY:		// uhc:/ukhl:
+			DiscoveryServices.OnResolve( pResolve->m_nProtocol, pResolve->m_sAddress, pAddress, pResolve->m_nPort );
+			break;
 
-				if ( pResolve->m_nProtocol == PROTOCOL_G1 )
-					UDPHostCache( (IN_ADDR*)pResolve->m_pHost.h_addr, pResolve->m_nPort );
-				else // G2
-					UDPKnownHubCache( &pAddress, pResolve->m_nPort );
-			}
-		}
-
-		return;
-	}
-
-	// Error
-	if ( pResolve->m_nCommand == 3 )
-	{
-		if ( pResolve->m_nProtocol == PROTOCOL_G1 ||	// uhc:
-			 pResolve->m_nProtocol == PROTOCOL_G2 ) 	// ukhl:
-		{
-			CString strAddress = ( ( pResolve->m_nProtocol == PROTOCOL_G1 ) ?
-				L"uhc:" : L"ukhl:" ) + pResolve->m_sAddress;
-			CDiscoveryService* pService = DiscoveryServices.GetByAddress( strAddress );
-			if ( pService == NULL )
-			{
-				strAddress.AppendFormat(_T(":%u"), pResolve->m_nPort );
-				pService = DiscoveryServices.GetByAddress( strAddress );
-			}
-
-			if ( pService != NULL )
-				pService->OnFailure();
+		//default:
+		//	ASSERT( FALSE );
 		}
 	}
-	else //if ( pResolve->m_nCommand < 3 )
+	else
 	{
-		if ( ( pResolve->m_nCommand == 1 || pResolve->m_nCommand == 2 ) && ( pCache ) )
-			pCache->OnFailure( pResolve->m_sAddress, false );
-
 		theApp.Message( MSG_ERROR, IDS_NETWORK_RESOLVE_FAIL, pResolve->m_sAddress );
+
+		switch ( pResolve->m_nCommand )
+		{
+		case RESOLVE_ONLY:
+			break;
+
+		case RESOLVE_CONNECT_ULTRAPEER:
+		case RESOLVE_CONNECT:
+			HostCache.OnResolve( pResolve->m_nProtocol, pResolve->m_sAddress );
+			break;
+
+		case RESOLVE_DISCOVERY:
+			DiscoveryServices.OnResolve( pResolve->m_nProtocol, pResolve->m_sAddress );
+			break;
+
+		//default:
+		//	ASSERT( FALSE );
+		}
 	}
 }
 
@@ -1119,7 +1101,7 @@ BOOL CNetwork::RouteHits(CQueryHit* pHits, CPacket* pPacket)
 
 void CNetwork::OnQuerySearch(CLocalSearch* pSearch)
 {
-	CQuickLock oLock( m_pSection );
+	CQuickLock oLock( m_pJobSection );
 
 	// ToDo: Add overload protection code
 
@@ -1128,7 +1110,7 @@ void CNetwork::OnQuerySearch(CLocalSearch* pSearch)
 
 void CNetwork::OnQueryHits(CQueryHit* pHits)
 {
-	CQuickLock oLock( m_pSection );
+	CQuickLock oLock( m_pJobSection );
 
 	// ToDo: Add overload protection code
 
@@ -1137,38 +1119,41 @@ void CNetwork::OnQueryHits(CQueryHit* pHits)
 
 void CNetwork::RunJobs()
 {
-	// Quick check to avoid locking
-	if ( m_oJobs.IsEmpty() )
-		return;
-
 	// Spend no more than 250 ms here at once
-	DWORD nBegin = GetTickCount();
+	const DWORD nStop = GetTickCount() + 250;
 
-	CSingleLock oLock( &m_pSection, FALSE );
-	if ( ! oLock.Lock( 250 ) ) return;
+	CSingleLock oJobLock( &m_pJobSection, TRUE );
 
-	while ( ! m_oJobs.IsEmpty() && GetTickCount() - nBegin < 250 )
+	// Quick check, to avoid locking if needed
+	//if ( m_oJobs.IsEmpty() ) return;
+
+	while ( ! m_oJobs.IsEmpty() && GetTickCount() < nStop )
 	{
 		CJob oJob = m_oJobs.RemoveHead();
 
-		oLock.Unlock();
+		oJobLock.Unlock();
 
-		bool bKeep = false;
-		switch ( oJob.GetType() )
+		bool bKeep = true;
+		CSingleLock oNetworkLock( &m_pSection, FALSE );
+		if ( oNetworkLock.Lock( 250 ) )
 		{
-		case CJob::Hit:
-			bKeep = ProcessQueryHits( oJob );
-			break;
+			switch ( oJob.GetType() )
+			{
+			case CJob::Hit:
+				bKeep = ProcessQueryHits( oJob );
+				break;
 
-		case CJob::Search:
-			bKeep = ProcessQuerySearch( oJob );
-			break;
+			case CJob::Search:
+				bKeep = ProcessQuerySearch( oJob );
+				break;
 
-		default:
-			ASSERT( FALSE );
+			//default:
+			//	ASSERT( FALSE );
+			}
+			oNetworkLock.Unlock();
 		}
 
-		oLock.Lock();
+		oJobLock.Lock();
 
 		if ( bKeep )
 			m_oJobs.AddTail( oJob );	// Go to next iteration
@@ -1177,7 +1162,7 @@ void CNetwork::RunJobs()
 
 void CNetwork::ClearJobs()
 {
-	CQuickLock oLock( m_pSection );
+	CQuickLock oLock( m_pJobSection );
 
 	while ( ! m_oJobs.IsEmpty() )
 	{
@@ -1311,23 +1296,24 @@ bool CNetwork::ProcessQueryHits(CNetwork::CJob& oJob)
 	return true;
 }
 
-void CNetwork::UDPHostCache(IN_ADDR* pAddress, WORD nPort)
-{
-	if ( CG1Packet* pPing = CG1Packet::New( G1_PACKET_PING, 1, Hashes::Guid( MyProfile.oGUID ) ) )
-	{
-		CGGEPBlock pBlock;
-		if ( CGGEPItem* pItem = pBlock.Add( GGEP_HEADER_SUPPORT_CACHE_PONGS ) )
-			pItem->WriteByte( Neighbours.IsG1Ultrapeer() ? GGEP_SCP_ULTRAPEER : GGEP_SCP_LEAF );
-		pBlock.Write( pPing );
-		Datagrams.Send( pAddress, nPort, pPing, TRUE, NULL, FALSE );
-	}
-}
-
-void CNetwork::UDPKnownHubCache(IN_ADDR* pAddress, WORD nPort)
-{
-	if ( CG2Packet* pKHLR = CG2Packet::New( G2_PACKET_KHL_REQ ) )
-		Datagrams.Send( pAddress, nPort, pKHLR, TRUE, NULL, FALSE );
-}
+// Obsolete for reference & deletion:
+//void CNetwork::UDPHostCache(IN_ADDR* pAddress, WORD nPort)
+//{
+//	if ( CG1Packet* pPing = CG1Packet::New( G1_PACKET_PING, 1, Hashes::Guid( MyProfile.oGUID ) ) )
+//	{
+//		CGGEPBlock pBlock;
+//		if ( CGGEPItem* pItem = pBlock.Add( GGEP_HEADER_SUPPORT_CACHE_PONGS ) )
+//			pItem->WriteByte( Neighbours.IsG1Ultrapeer() ? GGEP_SCP_ULTRAPEER : GGEP_SCP_LEAF );
+//		pBlock.Write( pPing );
+//		Datagrams.Send( pAddress, nPort, pPing, TRUE, NULL, FALSE );
+//	}
+//}
+//
+//void CNetwork::UDPKnownHubCache(IN_ADDR* pAddress, WORD nPort)
+//{
+//	if ( CG2Packet* pKHLR = CG2Packet::New( G2_PACKET_KHL_REQ ) )
+//		Datagrams.Send( pAddress, nPort, pKHLR, TRUE, NULL, FALSE );
+//}
 
 
 //////////////////////////////////////////////////////////////////////

@@ -187,6 +187,7 @@ public:
 	int			m_nHeaderbarHeight;
 	int			m_nMonitorbarWidth;
 	int			m_nSidebarWidth;
+	int			m_nSidebarPadding;
 	int			m_nSplitter;
 	int 		m_nLibIconsX;
 	int 		m_nLibIconsY;
