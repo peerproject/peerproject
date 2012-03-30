@@ -1,7 +1,7 @@
 //
 // CtrlCoolMenuBar.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -19,13 +19,13 @@
 #include "StdAfx.h"
 #include "Settings.h"
 #include "PeerProject.h"
+//#include "CtrlCoolBar.h"
 #include "CtrlCoolMenuBar.h"
 #include "CoolInterface.h"
 #include "CoolMenu.h"
-
-#ifdef _PEERPROJECT
+#include "WndMain.h"
 #include "WndChild.h"
-#endif
+#include "Skin.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -33,7 +33,7 @@ static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif	// Filename
 
-#define MENUBAR_HEIGHT 28
+#define MENUBAR_HEIGHT 28	// Placeholder for Skin.m_nMenubarHeight
 
 
 BEGIN_MESSAGE_MAP(CCoolMenuBarCtrl, CCoolBarCtrl)
@@ -62,7 +62,7 @@ CCoolMenuBarCtrl::CCoolMenuBarCtrl()
 
 	m_bStretch	= theApp.GetProfileInt( _T(""), _T("MenuStretch"), TRUE );
 	if ( theApp.GetProfileInt( _T(""), _T("MenuHalfHeight"), TRUE ) )
-		m_nHeight = MENUBAR_HEIGHT;		// Skin.m_nToolbarHeight -Unskinnable?
+		m_nHeight = MENUBAR_HEIGHT;		// Skin.m_nMenubarHeight set later
 }
 
 CCoolMenuBarCtrl::~CCoolMenuBarCtrl()
@@ -155,7 +155,7 @@ void CCoolMenuBarCtrl::ShowMenu()
 	const UINT nFirstID = pMenu->GetMenuItemID( 0 );
 	if ( nFirstID == ID_WINDOW_NAVBAR || nFirstID == ID_WINDOW_CASCADE )	// Tabbed/Windowed modes
 		UpdateWindowMenu( pMenu );
-	else if ( nFirstID == ID_TOOLS_SETTINGS )								// Get DropMenu submenu
+	else if ( nFirstID == ID_TOOLS_SETTINGS && Skin.m_bDropMenu )			// Get DropMenu submenu
 		UpdateWindowMenu( pMenu->GetSubMenu( 4 ) );
 
 	m_pDown = m_pHot;
@@ -212,7 +212,7 @@ void CCoolMenuBarCtrl::UpdateWindowMenu(CMenu* pMenu)
 		pMenu->RemoveMenu( nIndex, MF_BYPOSITION );
 	}
 
-	CMDIFrameWnd* pFrame = (CMDIFrameWnd*)AfxGetMainWnd();
+	CMainWnd* pFrame = theApp.SafeMainWnd();					// Was CMDIFrameWnd* pFrame = (CMDIFrameWnd*)AfxGetMainWnd();
 	if ( ! pFrame->IsKindOf( RUNTIME_CLASS(CMDIFrameWnd) ) ) return;
 
 	CWnd* pClient = pFrame->GetWindow( GW_CHILD );
@@ -225,22 +225,19 @@ void CCoolMenuBarCtrl::UpdateWindowMenu(CMenu* pMenu)
 
 	if ( pClient == NULL ) return;
 
-	CMDIChildWnd* pActive = pFrame->MDIGetActive();
+	CMDIChildWnd* pActive = pFrame->m_pWindows.GetActive();		// Was pFrame->MDIGetActive();
 	BOOL bSeparator = TRUE;
 
 	for ( UINT nIndex = 1, nID = AFX_IDM_FIRST_MDICHILD ; nIndex <= 12 ; nIndex++, nID++ )
 	{
-		CWnd* pWnd = pClient->GetDlgItem( nID );
-		if ( ! pWnd ) break;
+		CChildWnd* pChildWnd = (CChildWnd*)pClient->GetDlgItem( nID );
+		if ( ! pChildWnd ) break;
 
-#ifdef _PEERPROJECT
-		CChildWnd* pChildWnd = (CChildWnd*)pWnd;
 		if ( pChildWnd->m_bTabMode )
 		{
 			nIndex--;
 			continue;
 		}
-#endif
 
 		if ( bSeparator )
 		{
@@ -249,11 +246,10 @@ void CCoolMenuBarCtrl::UpdateWindowMenu(CMenu* pMenu)
 		}
 
 		CString strMenu, strWindow;
-		pWnd->GetWindowText( strWindow );
-
+		pChildWnd->GetWindowText( strWindow );
 		strMenu.Format( _T("&%u %s"), nIndex, (LPCTSTR)strWindow );
 
-		pMenu->AppendMenu( MF_STRING | ( pWnd == pActive ? MF_CHECKED : 0 ), nID, strMenu );
+		pMenu->AppendMenu( MF_STRING | ( pChildWnd == pActive ? MF_CHECKED : 0 ), nID, strMenu );
 	}
 }
 
@@ -303,6 +299,11 @@ void CCoolMenuBarCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 	CCoolBarCtrl::OnLButtonDown( nFlags, point );
 }
 
+void CCoolMenuBarCtrl::OnSkinChange()
+{
+	m_nHeight = Skin.m_nMenubarHeight;
+}
+
 /////////////////////////////////////////////////////////////////////////////
 // CCoolMenuBarCtrl menu message forwarding
 
@@ -312,8 +313,7 @@ void CCoolMenuBarCtrl::OnUpdateCmdUI(CFrameWnd* /*pTarget*/, BOOL /*bDisableIfNo
 
 void CCoolMenuBarCtrl::OnInitMenuPopup(CMenu* pPopupMenu, UINT nIndex, BOOL bSysMenu)
 {
-	GetOwner()->SendMessage( WM_INITMENUPOPUP, (WPARAM)pPopupMenu->GetSafeHmenu(),
-		MAKELONG( nIndex, bSysMenu ) );
+	GetOwner()->SendMessage( WM_INITMENUPOPUP, (WPARAM)pPopupMenu->GetSafeHmenu(), MAKELONG( nIndex, bSysMenu ) );
 }
 
 void CCoolMenuBarCtrl::OnMeasureItem(int nIDCtl, LPMEASUREITEMSTRUCT lpMeasureItemStruct)
@@ -414,7 +414,7 @@ BOOL CCoolMenuBarCtrl::OnMenuMessage(MSG* pMsg)
 				PostMessage( WM_CANCELMODE, 0, 0 );		// Settings.WINE.MenuFix (No SendMessage)
 				return TRUE;
 			}
-			else if ( pHit == m_pDown )
+			if ( pHit == m_pDown )
 			{
 				m_pDown = NULL;
 				PostMessage( WM_CANCELMODE, 0, 0 );

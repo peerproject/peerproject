@@ -1,7 +1,7 @@
 //
 // WndSearchMonitor.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -22,14 +22,16 @@
 
 class CLiveItem;
 
+
 class CSearchMonitorWnd : public CPanelWnd
 {
+	DECLARE_SERIAL(CSearchMonitorWnd)
+
 // Construction
 public:
 	CSearchMonitorWnd();
-	virtual ~CSearchMonitorWnd();
+//	virtual ~CSearchMonitorWnd();
 
-	DECLARE_SERIAL(CSearchMonitorWnd)
 
 // Attributes
 protected:
@@ -41,21 +43,19 @@ protected:
 	CList< CLiveItem* >	m_pQueue;
 	CCriticalSection	m_pSection;
 
-// Operations
+// Overrides
 public:
+	//{{AFX_VIRTUAL(CSearchMonitorWnd)
 	virtual void	OnQuerySearch(const CQuerySearch* pSearch);
 	virtual void	OnSkinChange();
-
-// Overrides
-	//{{AFX_VIRTUAL(CSearchMonitorWnd)
 	//}}AFX_VIRTUAL
 
 // Implementation
 protected:
 	//{{AFX_MSG(CSearchMonitorWnd)
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
-	afx_msg void OnSize(UINT nType, int cx, int cy);
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
+	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
 	afx_msg void OnUpdateSearchMonitorPause(CCmdUI* pCmdUI);
 	afx_msg void OnSearchMonitorPause();
@@ -67,6 +67,7 @@ protected:
 	afx_msg void OnUpdateBrowseLaunch(CCmdUI* pCmdUI);
 	afx_msg void OnBrowseLaunch();
 	afx_msg void OnDblClkList(NMHDR* pNotifyStruct, LRESULT *pResult);
+	afx_msg void OnCustomDrawList(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	//}}AFX_MSG
 

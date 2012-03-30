@@ -39,6 +39,7 @@ class CChildWnd : public CMDIChildWnd
 public:
 	CChildWnd();
 
+public:
 	BOOL			m_bTabMode;
 	BOOL			m_bGroupMode;
 	CChildWnd*		m_pGroupParent;
@@ -49,6 +50,7 @@ public:
 private:
 	CMainWnd*		m_pMainWndCache;
 	static CChildWnd*	m_pCmdMsg;
+	CString			m_sCaption;
 
 protected:
 	CSkinWindow*	m_pSkin;
@@ -58,8 +60,8 @@ protected:
 public:
 	CMainWnd*		GetMainWnd();
 	CWindowManager*	GetManager();
-//	void			GetWindowText(CString& rString);
-//	void			SetWindowText(LPCTSTR lpszString);
+	void			GetWindowText(CString& rString);
+	void			SetWindowText(LPCTSTR lpszString);
 	BOOL			IsActive(BOOL bFocused = FALSE);
 	BOOL			IsPartiallyVisible();
 	BOOL			TestPoint(const CPoint& ptScreen);

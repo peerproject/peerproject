@@ -406,7 +406,7 @@ BOOL CMatchCtrl::LoadColumnState()
 			return FALSE;
 
 		if ( _stscanf( strWidths.Left( 4 ), _T("%x"), &pItem.cxy ) != 1 ||
-				_stscanf( strOrdering.Left( 2 ), _T("%x"), &pItem.iOrder ) != 1 )
+			 _stscanf( strOrdering.Left( 2 ), _T("%x"), &pItem.iOrder ) != 1 )
 			return FALSE;
 
 		strWidths = strWidths.Mid( 4 );

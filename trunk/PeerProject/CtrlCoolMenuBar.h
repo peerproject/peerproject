@@ -1,7 +1,7 @@
 //
 // CtrlCoolMenuBar.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -39,6 +39,7 @@ public:
 	void	SetMenu(HMENU hMenu);
 	void	OpenMenuBar();
 	BOOL	OpenMenuChar(UINT nChar);
+	void	OnSkinChange();
 protected:
 	void	ShowMenu();
 	void	UpdateWindowMenu(CMenu* pMenu);
@@ -67,9 +68,9 @@ protected:
 	afx_msg void OnInitMenuPopup(CMenu* pPopupMenu, UINT nIndex, BOOL bSysMenu);
 	afx_msg void OnMenuSelect(UINT nItemID, UINT nFlags, HMENU hSysMenu);
 	afx_msg void OnEnterIdle(UINT nWhy, CWnd* pWho);
-	//}}AFX_MSG
 	afx_msg void OnEnterMenuLoop(BOOL bIsTrackPopupMenu);
 	afx_msg void OnExitMenuLoop(BOOL bIsTrackPopupMenu);
+	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

@@ -45,8 +45,7 @@ static char THIS_FILE[]=__FILE__;
 //////////////////////////////////////////////////////////////////////
 // CHostBrowser construction
 
-CHostBrowser::CHostBrowser(CBrowseHostWnd* pNotify, PROTOCOLID nProtocol, IN_ADDR* pAddress, WORD nPort,
-	BOOL bMustPush, const Hashes::Guid& oClientID)
+CHostBrowser::CHostBrowser(CBrowseHostWnd* pNotify, PROTOCOLID nProtocol, IN_ADDR* pAddress, WORD nPort, BOOL bMustPush, const Hashes::Guid& oClientID)
 	: m_nState		( hbsNull )
 	, m_pNotify		( pNotify )
 	, m_pProfile	( NULL )
@@ -92,19 +91,19 @@ BOOL CHostBrowser::Browse()
 
 	switch ( m_nProtocol )
 	{
-		case PROTOCOL_G2:
-			Settings.Gnutella2.Enabled = true;
-			break;
-		case PROTOCOL_G1:
-			Settings.Gnutella1.Enabled = true;
-			break;
-		case PROTOCOL_ED2K:
-			Settings.eDonkey.Enabled = true;
-			break;
-		case PROTOCOL_DC:
-			Settings.DC.Enabled = true;
-			break;
-	//	default: ?
+	case PROTOCOL_G2:
+		Settings.Gnutella2.Enabled = true;
+		break;
+	case PROTOCOL_G1:
+		Settings.Gnutella1.Enabled = true;
+		break;
+	case PROTOCOL_ED2K:
+		Settings.eDonkey.Enabled = true;
+		break;
+	case PROTOCOL_DC:
+		Settings.DC.Enabled = true;
+		break;
+	//default:
 	}
 
 	// ED2K Clients have their connection controlled by ED2KClient.

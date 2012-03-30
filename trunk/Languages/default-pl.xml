@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Polish Skin File -->
 
-<!-- Translation based on default-en.xml r75 (Shareaza 2.1.2.7) -->
+<!-- Translation based on default-en.xml r76 --> <!-- (Shareaza 2.1.2.7) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -401,7 +401,7 @@
 		<button id="ID_HOSTCACHE_DC_CACHE" text="Cache"/>
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
-	<toolbar name="CPrivateChatFrame">
+	<toolbar name="CPrivateChatWnd">
 		<button id="ID_CHAT_BOLD"/>
 		<button id="ID_CHAT_ITALIC"/>
 		<button id="ID_CHAT_UNDERLINE"/>
@@ -1115,13 +1115,18 @@
 		<separator/>
 		<item id="ID_LIBRARY_ALBUM_PROPERTIES" text="Właściwości"/>
 	</menu>
-	<menu name="CLibraryFileView.Physical.Basic">
+	<menu name="CLibraryFileView.Basic">
 		<item id="ID_LIBRARY_LAUNCH" text="Otwórz lub odtwarzaj"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="Dodaj do listy odtwarzania"/>
 		<item id="ID_LIBRARY_DELETE" text="Usuń"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="Udostępnione"/>
 		<separator/>
+		<menu text="Organizuj">
+			<item id="ID_LIBRARY_RENAME" text="Zmień nazwę pliku"/>
+			<item id="ID_LIBRARY_COPY" text="Kopiuj pliki..."/>
+			<item id="ID_LIBRARY_MOVE" text="Przenieś pliki..."/>
+		</menu>
 		<menu text="Szukaj">
 			<item id="ID_SEARCH_FOR_THIS" text="Tego pliku"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="Podobnych plików"/>
@@ -1133,92 +1138,28 @@
 		<menu text="Usługi web">
 			<item id="ID_LIBRARY_BITZI_WEB" text="Zobacz Bitzi ticket"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Pobierz Metadane"/>
-			<separator/>
-		</menu>
-		<menu text="Organizuj">
-			<item id="ID_LIBRARY_RENAME" text="Zmień nazwę pliku"/>
-			<item id="ID_LIBRARY_MOVE" text="Przenieś pliki..."/>
-			<item id="ID_LIBRARY_COPY" text="Kopiuj pliki..."/>
 		</menu>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="Właściwości"/>
 	</menu>
-	<menu name="CLibraryFileView.Physical">
+	<menu name="CLibraryFileView">
 		<item id="ID_LIBRARY_LAUNCH" text="Otwórz lub odtwarzaj"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="Dodaj do listy odtwarzania"/>
 		<item id="ID_LIBRARY_DELETE" text="Usuń"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="Udostępnione"/>
 		<separator/>
-		<item id="ID_LIBRARY_URI" text="URI"/>
+		<item id="ID_LIBRARY_URI" text="_URI"/>
 		<item id="ID_LIBRARY_CREATETORRENT" text="Stwórz plik .torrent"/>
+		<item id="ID_LIBRARY_LAUNCH_FOLDER" text="Otwórz _Folder"/>
 		<separator/>
-		<menu text="Szukaj">
-			<item id="ID_SEARCH_FOR_THIS" text="Tego pliku"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="Podobnych plików"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="Muzyka tego samego wykonawcy"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="Muzyka z tego samego albumu"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="Odcinki tego serialu"/>
-		</menu>
-		<menu text="Usługi web">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Zobacz Bitzi ticket"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Pobierz Metadane"/>
-			<separator/>
-		</menu>
-		<menu text="Organizuj">
-			<item id="ID_LIBRARY_RENAME" text="Zmień nazwę pliku"/>
-			<item id="ID_LIBRARY_MOVE" text="Przenieś pliki..."/>
-			<item id="ID_LIBRARY_COPY" text="Kopiuj pliki..."/>
-		</menu>
-		<menu text="_Metadane">
-			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadane"/>
-			<item id="ID_LIBRARY_REBUILD_ANSI" text="Lokalizuj Metadane"/>
-			<item id="ID_LIBRARY_COLUMNS" text="Wybierz kolumny..."/>
-		</menu>
-		<separator/>
-		<item id="ID_LIBRARY_PROPERTIES" text="Właściwości"/>
-	</menu>
-	<menu name="CLibraryFileView.Virtual.Basic">
-		<item id="ID_LIBRARY_LAUNCH" text="Otwórz lub odtwarzaj"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="Dodaj do listy odtwarzania"/>
-		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="Odtwórz album"/>
-		<item id="ID_LIBRARY_DELETE" text="Usuń"/>
-		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="Udostępnione"/>
-		<separator/>
-		<menu text="Szukaj">
-			<item id="ID_SEARCH_FOR_THIS" text="Tego pliku"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="Podobnych plików"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="Muzyka tego samego wykonawcy"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="Muzyka z tego samego albumu"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="Odcinki tego serialu"/>
-		</menu>
-		<menu text="Usługi web">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Zobacz Bitzi ticket"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Pobierz Metadane"/>
-			<separator/>
-		</menu>
 		<menu text="Organizuj">
 			<item id="ID_LIBRARY_UNLINK" text="Usuń pliki"/>
 			<separator/>
 			<item id="ID_LIBRARY_RENAME" text="Zmień nazwę pliku"/>
-			<item id="ID_LIBRARY_MOVE" text="Przenieś pliki..."/>
 			<item id="ID_LIBRARY_COPY" text="Kopiuj pliki..."/>
+			<item id="ID_LIBRARY_MOVE" text="Przenieś pliki..."/>
 		</menu>
-		<separator/>
-		<item id="ID_LIBRARY_PROPERTIES" text="Właściwości"/>
-	</menu>
-	<menu name="CLibraryFileView.Virtual">
-		<item id="ID_LIBRARY_LAUNCH" text="Otwórz lub odtwarzaj"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="Dodaj do listy odtwarzania"/>
-		<item id="ID_LIBRARY_DELETE" text="Usuń"/>
-		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="Udostępnione"/>
-		<separator/>
-		<item id="ID_LIBRARY_URI" text=""/>
-		<separator/>
 		<menu text="Szukaj">
 			<item id="ID_SEARCH_FOR_THIS" text="Tego pliku"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="Podobnych plików"/>
@@ -1230,15 +1171,6 @@
 		<menu text="Usługi web">
 			<item id="ID_LIBRARY_BITZI_WEB" text="Zobacz Bitzi ticket"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Pobierz Metadane"/>
-			<separator/>
-			<item id="ID_LIBRARY_CREATETORRENT" text="Stwórz plik .torrent"/>
-		</menu>
-		<menu text="Organizuj">
-			<item id="ID_LIBRARY_UNLINK" text="Usuń pliki"/>
-			<separator/>
-			<item id="ID_LIBRARY_RENAME" text="Zmień nazwę pliku"/>
-			<item id="ID_LIBRARY_MOVE" text="Przenieś pliki..."/>
-			<item id="ID_LIBRARY_COPY" text="Kopiuj pliki..."/>
 		</menu>
 		<menu text="_Metadane">
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadane"/>
@@ -1460,7 +1392,7 @@
 		<item id="ID_DISCOVERY_BLOCKED" text="Pokaż Zablokowany"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
-	<menu name="CPrivateChatFrame">
+	<menu name="CPrivateChatWnd">
 		<item id="ID_CHAT_CONNECT" text="Połącz"/>
 		<item id="ID_CHAT_DISCONNECT" text="Rozłącz"/>
 		<separator/>

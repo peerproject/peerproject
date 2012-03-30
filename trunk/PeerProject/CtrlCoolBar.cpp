@@ -72,8 +72,8 @@ CCoolBarCtrl::CCoolBarCtrl()
 	, m_bBold		( FALSE )
 	, m_bDragForward( FALSE )
 	, m_pSyncObject	( NULL )
-	, m_tLastUpdate ( 0 )
-	, m_dwHoverTime	( 0 )
+//	, m_tLastUpdate ( 0 )		// Using static
+	, m_tHoverTime	( 0 )
 	, m_bBuffered	( FALSE )
 	, m_bMenuGray	( FALSE )
 	, m_pDown		( NULL )
@@ -704,10 +704,10 @@ HBRUSH CCoolBarCtrl::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 
 void CCoolBarCtrl::OnUpdateCmdUI(CFrameWnd* pTarget, BOOL bDisableIfNoHndler)
 {
+	static DWORD tNextUpdate = 0;
 	const DWORD tNow = GetTickCount();
-	if ( tNow < m_tLastUpdate + 500 )	// Only refresh occasionally (Twice per second?)
-		return;
-	m_tLastUpdate = tNow;
+	if ( tNow < tNextUpdate ) return;	// Only refresh occasionally (Thrice per second?)
+	tNextUpdate = tNow + Settings.Interface.RefreshRateUI;			// Was m_tLastUpdate
 
 	UINT nIndex		= 0;
 	BOOL bChanged	= FALSE;
@@ -755,7 +755,7 @@ void CCoolBarCtrl::OnMouseMove(UINT nFlags, CPoint point)
 
 	if ( pItem != m_pHot )
 	{
-		m_dwHoverTime = pItem ? GetTickCount() : 0;
+		m_tHoverTime = pItem ? GetTickCount() : 0;
 		m_pHot = pItem;
 		Invalidate();
 	}
@@ -936,11 +936,11 @@ BOOL CCoolBarCtrl::OnDrop(IDataObject* pDataObj, DWORD /*grfKeyState*/, POINT pt
 	if ( pDataObj )
 	{
 		// DragEnter or DragOver
-		if ( m_pHot && m_dwHoverTime )
+		if ( m_pHot && m_tHoverTime )
 		{
-			if ( GetTickCount() - m_dwHoverTime >= DRAG_HOVER_TIME )
+			if ( GetTickCount() - m_tHoverTime >= DRAG_HOVER_TIME )
 			{
-				m_dwHoverTime = 0;
+				m_tHoverTime = 0;
 				switch ( m_pHot->m_nID )
 				{
 				// Ignore Some Buttons
@@ -958,7 +958,7 @@ BOOL CCoolBarCtrl::OnDrop(IDataObject* pDataObj, DWORD /*grfKeyState*/, POINT pt
 	else
 	{
 		// DragLeave
-		m_dwHoverTime = 0;
+		m_tHoverTime = 0;
 	}
 	return FALSE;
 }
@@ -1010,7 +1010,7 @@ CCoolBarItem::CCoolBarItem(CCoolBarCtrl* pBar, CCoolBarItem* pCopy)
 	m_nCtrlHeight	= pCopy->m_nCtrlHeight;
 	m_bCheckButton	= pCopy->m_bCheckButton;
 
-	// if ( m_nImage < 0 )
+	//if ( m_nImage < 0 )
 		m_nImage = CoolInterface.ImageForID( m_nID );
 	SetText( pCopy->m_sText );
 }
@@ -1309,7 +1309,7 @@ void CCoolBarItem::DrawText(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMe
 	rc.left += ( m_nImage >= 0 ) ? 20 : 1;
 	const int nY = ( rc.top + rc.bottom ) / 2 - pDC->GetTextExtent( m_sText ).cy / 2 - 1;
 
-	pDC->ExtTextOut( rc.left + 2, nY, ETO_CLIPPED|( bTransparent ? 0 : ETO_OPAQUE), &rc, m_sText, NULL );
+	pDC->ExtTextOut( rc.left + 2, nY, ETO_CLIPPED|( bTransparent ? 0 : ETO_OPAQUE ), &rc, m_sText, NULL );
 
 	rc.right = rc.left;
 	rc.left -= ( m_nImage >= 0 ) ? 20 : 1;

@@ -615,7 +615,7 @@ void CDownloadsWnd::Select(CDownload* pSelect)
 void CDownloadsWnd::Prepare()
 {
 	const DWORD tNow = GetTickCount();
-	if ( tNow < m_tSel + 250 ) return;
+	if ( tNow < m_tSel + Settings.Interface.RefreshRateUI ) return;
 
 	m_nSelectedDownloads = 0;
 	m_bSelAny = m_bSelDownload = m_bSelSource = m_bSelTrying = m_bSelPaused = FALSE;
@@ -632,7 +632,7 @@ void CDownloadsWnd::Prepare()
 	m_bConnectOkay = FALSE;
 
 	CSingleLock pLock( &Transfers.m_pSection, FALSE );
-	if ( ! pLock.Lock( 250 ) )
+	if ( ! pLock.Lock( Settings.Interface.RefreshRateUI ) )
 		return;
 
 	BOOL bFirstShare = TRUE;

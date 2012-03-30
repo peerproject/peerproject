@@ -1,7 +1,7 @@
 //
 // Plugin.cpp : Implementation of CPlugin for VirusTotal
 //
-// This file is part of PeerProject (peerproject.org) © 2009-2010
+// This file is part of PeerProject (peerproject.org) © 2009-2012
 // Portions Copyright Nikolay Raspopov, 2009.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -132,6 +132,7 @@ STDMETHODIMP CPlugin::RegisterCommands()
 
 	HRESULT hr = m_pUserInterface->RegisterCommand( CComBSTR( L"PluginID_VirusTotal_Check" ),
 		LoadIcon( _AtlBaseModule.GetResourceInstance(), MAKEINTRESOURCE( IDI_ICON ) ), &m_nCmdCheck );
+
 	if ( SUCCEEDED( hr ) )
 		return S_OK;
 
@@ -153,20 +154,11 @@ STDMETHODIMP CPlugin::InsertCommands()
 	}
 
 	CComPtr< ISMenu > pFileMenu;
-	if ( SUCCEEDED( m_pUserInterface->GetMenu( CComBSTR( L"CLibraryFileView.Physical" ),
+	if ( SUCCEEDED( m_pUserInterface->GetMenu( CComBSTR( L"CLibraryFileView" ),		// Was CLibraryFileView.Physical CLibraryFileView.Virtual
 		VARIANT_FALSE, &pFileMenu ) ) && pFileMenu )
 	{
 		CComPtr< ISMenu > pWebMenu;
 		if ( SUCCEEDED( pFileMenu->get_Item( CComVariant( 12 ), &pWebMenu ) ) && pWebMenu )
-			InsertCommand( pWebMenu, 3, m_nCmdCheck, VIRUSTOTAL_CHECK );
-	}
-
-	CComPtr< ISMenu > pVirtualMenu;
-	if ( SUCCEEDED( m_pUserInterface->GetMenu( CComBSTR( L"CLibraryFileView.Virtual" ),
-		VARIANT_FALSE, &pVirtualMenu ) ) && pVirtualMenu )
-	{
-		CComPtr< ISMenu > pWebMenu;
-		if ( SUCCEEDED( pVirtualMenu->get_Item( CComVariant( 12 ), &pWebMenu ) ) && pWebMenu )
 			InsertCommand( pWebMenu, 3, m_nCmdCheck, VIRUSTOTAL_CHECK );
 	}
 

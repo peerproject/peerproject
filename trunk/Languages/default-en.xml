@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default English Skin File -->
 
-<!-- Translation based on default-en.xml r75 -->
+<!-- Translation based on default-en.xml r76 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -462,7 +462,7 @@
 		<button id="ID_IRC_SETTINGS" text="Settings" tip="Configure IRC Settings"/>
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
-	<toolbar name="CPrivateChatFrame">
+	<toolbar name="CPrivateChatWnd">
 		<button id="ID_CHAT_BOLD"/>
 		<button id="ID_CHAT_ITALIC"/>
 		<button id="ID_CHAT_UNDERLINE"/>
@@ -1133,8 +1133,8 @@
 			<item id="ID_SEARCH_FOR_THIS" text="_This File"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="_Similar Files"/>
 			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="_Music by the same Artist"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="Music in the same _Album"/>
+			<item id="ID_SEARCH_FOR_ARTIST" text="Music by the same _Artist"/>
+			<item id="ID_SEARCH_FOR_ALBUM" text="_Music in the same Album"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episodes in the same Series"/>
 		</menu>
 		<menu text="_Web Services">
@@ -1389,7 +1389,7 @@
 		<separator/>
 		<item id="ID_LIBRARY_ALBUM_PROPERTIES" text="_Properties"/>
 	</menu>
-	<menu name="CLibraryFileView.Physical.Basic">
+	<menu name="CLibraryFileView.Basic">
 		<item id="ID_LIBRARY_LAUNCH" text="Play or _Open"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="_Add to Playlist"/>
 		<item id="ID_LIBRARY_DELETE" text="_Delete"/>
@@ -1398,9 +1398,12 @@
 		<separator/>
 		<menu text="Move/Copy/Rename">
 			<item id="ID_LIBRARY_RENAME" text="_Rename File"/>
-			<item id="ID_LIBRARY_MOVE" text="_Move Files..."/>
 			<item id="ID_LIBRARY_COPY" text="_Copy Files..."/>
+			<item id="ID_LIBRARY_MOVE" text="_Move Files..."/>
+			<separator/>
+			<item id="ID_LIBRARY_UNLINK" text="Remove from Library"/>
 			<item id="ID_LIBRARY_URI" text="Get P2P Link (_URI)"/>
+			<item id="ID_LIBRARY_LAUNCH_FOLDER" text="Open _Folder"/>
 		</menu>
 		<menu text="S_earch For">
 			<item id="ID_SEARCH_FOR_THIS" text="_This File"/>
@@ -1409,11 +1412,13 @@
 			<item id="ID_SEARCH_FOR_ARTIST" text="_Music by the same Artist"/>
 			<item id="ID_SEARCH_FOR_ALBUM" text="Music in the same _Album"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episodes in the same Series"/>
+			<separator/>
+			<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="Play _Album"/>
 		</menu>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Properties"/>
 	</menu>
-	<menu name="CLibraryFileView.Physical">
+	<menu name="CLibraryFileView">
 		<item id="ID_LIBRARY_LAUNCH" text="_Open/Play"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="Add to Pla_ylist"/>
 		<item id="ID_LIBRARY_DELETE" text="_Delete"/>
@@ -1422,16 +1427,16 @@
 		<separator/>
 		<item id="ID_LIBRARY_URI" text="Get P2P Link (_URI)"/>
 		<item id="ID_LIBRARY_CREATETORRENT" text="Create ._torrent File"/>
+		<item id="ID_LIBRARY_LAUNCH_FOLDER" text="Open _Folder"/>
+		<separator/>
 		<menu text="O_rganize">
-			<item id="ID_LIBRARY_LAUNCH_FOLDER" text="Open _Folder"/>
 			<item id="ID_LIBRARY_UNLINK" text="Remove _Files"/>
 			<separator/>
 			<item id="ID_LIBRARY_RENAME" text="_Rename File" shortcut="F2"/>
 			<item id="ID_LIBRARY_COPY" text="_Copy Files..." shortcut="Ctrl+C"/>
 			<item id="ID_LIBRARY_MOVE" text="_Move Files..." shortcut="Ctrl+X"/>
 		</menu>
-		<separator/>
-		<menu text="S_earch For">
+		<menu text="S_earch">
 			<item id="ID_SEARCH_FOR_THIS" text="_This File"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="_Similar Files"/>
 			<separator/>
@@ -1439,85 +1444,17 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Music in the same _Album"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episodes in the same Series"/>
 		</menu>
-		<menu text="_Web Services">
+		<menu text="We_b Services">
 			<item id="ID_LIBRARY_BITZI_WEB" text="View _Bitzi Ticket"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Download Metadata"/>
 		</menu>
 		<menu text="_Metadata">
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
 			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localize Metadata"/>
-			<item id="ID_LIBRARY_COLUMNS" text="Choose Detail _Columns..."/>
-			<separator/>
+			<item id="ID_LIBRARY_COLUMNS" text="C_hoose Detail Columns..."/>
 		</menu>
 		<separator/>
-		<item id="ID_SHELL_MENU" text="_Windows Menu"/>
-		<item id="ID_LIBRARY_PROPERTIES" text="_Properties"/>
-	</menu>
-	<menu name="CLibraryFileView.Virtual.Basic">
-		<item id="ID_LIBRARY_LAUNCH" text="Play or _Open"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="Add to Pla_ylist"/>
-		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="Play _Album"/>
-		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="_Shared"/>
-		<separator/>
-		<item id="ID_LIBRARY_DELETE" text="_Delete"/>
-		<menu text="O_rganize">
-			<item id="ID_LIBRARY_UNLINK" text="Remove _Files"/>
-			<separator/>
-			<item id="ID_LIBRARY_RENAME" text="_Rename File"/>
-			<item id="ID_LIBRARY_MOVE" text="_Move Files..."/>
-			<item id="ID_LIBRARY_COPY" text="_Copy Files..."/>
-		</menu>
-		<separator/>
-		<menu text="S_earch For">
-			<item id="ID_SEARCH_FOR_THIS" text="_This File"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="_Similar Files"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="_Music by the same Artist"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="Music in the same _Album"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="_Episodes in the same Series"/>
-		</menu>
-		<separator/>
-		<item id="ID_LIBRARY_PROPERTIES" text="_Properties"/>
-	</menu>
-	<menu name="CLibraryFileView.Virtual">
-		<item id="ID_LIBRARY_LAUNCH" text="_Open/Play"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="Add to Pla_ylist"/>
-		<item id="ID_LIBRARY_DELETE" text="_Delete"/>
-		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="_Shared"/>
-		<separator/>
-		<item id="ID_LIBRARY_URI" text="Get P2P Link (_URI)"/>
-		<item id="ID_LIBRARY_CREATETORRENT" text="Create ._torrent File"/>
-		<menu text="O_rganize">
-			<item id="ID_LIBRARY_LAUNCH_FOLDER" text="Open _Folder"/>
-			<item id="ID_LIBRARY_UNLINK" text="Remove _Files"/>
-			<separator/>
-			<item id="ID_LIBRARY_RENAME" text="_Rename File" shortcut="F2"/>
-			<item id="ID_LIBRARY_COPY" text="_Copy Files..." shortcut="Ctrl+C"/>
-			<item id="ID_LIBRARY_MOVE" text="_Move Files..." shortcut="Ctrl+X"/>
-		</menu>
-		<separator/>
-		<menu text="S_earch For">
-			<item id="ID_SEARCH_FOR_THIS" text="_This File"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="_Similar Files"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="_Music by the same Artist"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="Music in the same _Album"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="_Episodes in the same Series"/>
-		</menu>
-		<menu text="_Web Services">
-			<item id="ID_LIBRARY_BITZI_WEB" text="View _Bitzi Ticket"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Download Metadata"/>
-			<separator/>
-		</menu>
-		<menu text="_Metadata">
-			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
-			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localize Metadata"/>
-			<item id="ID_LIBRARY_COLUMNS" text="Choose Detail _Columns..."/>
-		</menu>
-		<separator/>
-		<item id="ID_SHELL_MENU" text="_Windows Menu"/>
+		<item id="ID_SHELL_MENU" text="Windows Men_u"/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Properties"/>
 	</menu>
 	<!-- MEDIA WINDOW -->
@@ -1753,7 +1690,7 @@
 		<item id="ID_DISCOVERY_BLOCKED" text="Show Bl_ocked"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
-	<menu name="CPrivateChatFrame">
+	<menu name="CPrivateChatWnd">
 		<item id="ID_CHAT_CONNECT" text="_Connect"/>
 		<item id="ID_CHAT_DISCONNECT" text="_Disconnect"/>
 		<separator/>
@@ -3046,7 +2983,7 @@
 	<string id="20247" value="Fragment shortened, closing connection to %s."/>
 	<string id="20248" value="Requesting download fragment (%I64u-%I64u) of &quot;%s&quot; from %s."/>
 	<string id="20250" value="Drag'n'drop files to the %s group"/>
-	<string id="20251" value="Default download group.  (Show all files)"/>
+	<string id="20251" value="Default download group. (Show all files)"/>
 	<string id="20252" value="New Group"/>
 	<string id="20253" value="Download host's eDonkey hashset is corrupt or internally inconsistent, dropping source."/>
 	<string id="20254" value="Received an invalid eDonkey hashset from %s, dropping source."/>
@@ -3661,7 +3598,7 @@
 		<control caption="_Options:"/>
 		<control caption="Allow others to browse"/>
 		<control caption="Watch library folders"/>
-		<control caption="Quick hashing  (more CPU)"/>
+		<control caption="Quick hashing (more CPU)"/>
 		<control caption="Show hashing status window"/>
 		<control caption="Smart media series detection"/>
 		<control caption="Create ghost files by default"/>
@@ -4090,12 +4027,12 @@
 	</dialog>
 	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Welcome to PeerProject &#160;(5/8)">
 		<control caption="P2P networks are only as good as the people who use them:{n}Anything available for download is being shared by another user like you."/>
-		<control caption="You do not need to share any files to use PeerProject,  however your downloading performance may be restricted by other users.  Be polite."/>
+		<control caption="You do not need to share any files to use PeerProject, however your downloading performance may be restricted by other users.  Be polite."/>
 		<control caption="First use the Add button to include folders in your local libray, then click the checkboxes to publicly share or hide them.  Files can be unshared later."/>
 		<control/>
 		<control caption="_Add..."/>
 		<control caption="_Remove"/>
-		<control caption="CAUTION: Uploading unauthorized copyright works is liable in some countries."/>
+		<control caption="Caution: Uploading unauthorized copyright works is liable in some countries."/>
 	</dialog>
 	<dialog name="CFolderScanDlg" cookie="StStStStStStBu" caption="Scanning Folder...">
 		<control/>
@@ -4702,7 +4639,7 @@
 		<control caption="Notes:"/>
 	</dialog>
 	<dialog name="CDownloadEditPage" cookie="StBuStStStStBuStEdEdEdSyBuEdBuEdBuEdBuEdBuEd" caption="Download Properties">
-		<control caption="CAUTION: This dialog provides advanced download editing features for power users, that may cause corruption when used incorrectly."/>
+		<control caption="Caution: This dialog provides advanced download editing features for power users, that may cause corruption when used incorrectly."/>
 		<control caption="Details:"/>
 		<control caption="Filename:"/>
 		<control caption="Location:"/>
@@ -4726,7 +4663,7 @@
 		<control/>
 	</dialog>
 	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="Actions">
-		<control caption="CAUTION: This dialog provides advanced download editing features for power users, that may cause corruption when used incorrectly."/>
+		<control caption="Caution: This dialog provides advanced download editing features for power users, that may cause corruption when used incorrectly."/>
 		<control caption="Forget all known sources"/>
 		<control caption="Forget current verification status and reverify"/>
 		<control caption="Assume file is 100% complete and reverify"/>

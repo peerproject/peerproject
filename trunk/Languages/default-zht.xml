@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Traditional) Skin File -->
 
-<!-- Translation based on default-en.xml r75 (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r76 --> <!-- (Shareaza 2.2.2.12) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -342,7 +342,7 @@
 	</toolbar>
 	<!-- IRC WINDOW -->
 	<toolbar name="CIRCFrame">
-		<button id="ID_IRC_SENDTEXT" text="Send" tip="Post Your Comments"/>
+		<button id="ID_IRC_SENDTEXT" text="發送" tip="Post Your Comments"/>
 		<separator/>
 		<button id="ID_IRC_CLOSETAB" text="关闭" tip="Exit Current Channel Window"/>
 		<rightAlign/>
@@ -434,7 +434,7 @@
 		<button id="ID_HOSTCACHE_DC_CACHE" text="DC 快取"/>
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
-	<toolbar name="CPrivateChatFrame">
+	<toolbar name="CPrivateChatWnd">
 		<button id="ID_CHAT_BOLD" text="粗"/>
 		<button id="ID_CHAT_ITALIC" text="斜"/>
 		<button id="ID_CHAT_UNDERLINE" text="底"/>
@@ -1252,14 +1252,18 @@
 		<separator/>
 		<item id="ID_LIBRARY_ALBUM_PROPERTIES" text="屬性"/>
 	</menu>
-	<menu name="CLibraryFileView.Physical.Basic">
+	<menu name="CLibraryFileView.Basic">
 		<item id="ID_LIBRARY_LAUNCH" text="開啟或播放"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="新增至播放清單"/>
+		<item id="ID_LIBRARY_DELETE" text="刪除"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="分享的"/>
 		<separator/>
-		<item id="ID_LIBRARY_DELETE" text="刪除"/>
-		<separator/>
+		<menu text="整理">
+			<item id="ID_LIBRARY_RENAME" text="重新命名檔案"/>
+			<item id="ID_LIBRARY_COPY" text="複製檔案..."/>
+			<item id="ID_LIBRARY_MOVE" text="移動檔案..."/>
+		</menu>
 		<menu text="搜尋...">
 			<item id="ID_SEARCH_FOR_THIS" text="這個檔案"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="相似的檔案"/>
@@ -1269,111 +1273,27 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="同一個系列的 Episodes"/>
 		</menu>
 		<menu text="網際網路服務">
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="將解釋資料本地化"/>
+			<separator/>
 			<item id="ID_LIBRARY_BITZI_WEB" text="檢視 Bitzi 標籤"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="下載解釋資料"/>
 			<separator/>
-			<item id="ID_LIBRARY_URI" text=""/>
+			<item id="ID_LIBRARY_URI" text="_URI"/>
 		</menu>
-		<menu text="整理">
-			<item id="ID_LIBRARY_RENAME" text="重新命名檔案"/>
-			<item id="ID_LIBRARY_MOVE" text="移動檔案..."/>
-			<item id="ID_LIBRARY_COPY" text="複製檔案..."/>
-		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="將解釋資料本地化"/>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="屬性"/>
 	</menu>
-	<menu name="CLibraryFileView.Physical">
+	<menu name="CLibraryFileView">
 		<item id="ID_LIBRARY_LAUNCH" text="開啟或播放"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="新增至播放清單"/>
+		<item id="ID_LIBRARY_DELETE" text="刪除"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="分享的"/>
 		<separator/>
-		<item id="ID_LIBRARY_URI" text="URL"/>
-		<item id="ID_LIBRARY_DELETE" text="刪除"/>
+		<item id="ID_LIBRARY_URI" text="_URI"/>
+		<item id="ID_LIBRARY_CREATETORRENT" text="製作 .torrent 檔"/>
+		<item id="ID_LIBRARY_LAUNCH_FOLDER" text="Open _Folder"/>
 		<separator/>
-		<menu text="搜尋...">
-			<item id="ID_SEARCH_FOR_THIS" text="這個檔案"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="相似的檔案"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="同一個作家的音樂"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="同一個專輯的音樂"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="同一個系列的 Episodes"/>
-		</menu>
-		<menu text="網際網路服務">
-			<item id="ID_LIBRARY_BITZI_WEB" text="檢視 Bitzi 標籤"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="取得解釋資料"/>
-			<separator/>
-			<item id="ID_LIBRARY_CREATETORRENT" text="製作 .torrent 檔"/>
-		</menu>
-		<menu text="整理">
-			<item id="ID_LIBRARY_RENAME" text="重新命名檔案"/>
-			<item id="ID_LIBRARY_MOVE" text="移動檔案..."/>
-			<item id="ID_LIBRARY_COPY" text="複製檔案..."/>
-		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="將解釋資料本地化"/>
-		<separator/>
-		<item id="ID_LIBRARY_COLUMNS" text="選擇欄位..."/>
-		<separator/>
-		<item id="ID_LIBRARY_PROPERTIES" text="屬性"/>
-	</menu>
-	<menu name="CLibraryFileView.Virtual.Basic">
-		<item id="ID_LIBRARY_LAUNCH" text="開啟或播放"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="新增至播放清單"/>
-		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="播放專輯"/>
-		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="分享的"/>
-		<separator/>
-		<item id="ID_LIBRARY_DELETE" text="刪除"/>
-		<separator/>
-		<menu text="搜尋...">
-			<item id="ID_SEARCH_FOR_THIS" text="這個檔案"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="相似的檔案"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="同一個作家的音樂"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="同一個專輯的音樂"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="同一個系列的Episodes"/>
-		</menu>
-		<menu text="網際網路服務">
-			<item id="ID_LIBRARY_BITZI_WEB" text="檢視 Bitzi 標籤"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="取得解釋資料"/>
-			<separator/>
-			<item id="ID_LIBRARY_URI" text=""/>
-		</menu>
-		<menu text="整理">
-			<item id="ID_LIBRARY_RENAME" text="重新命名檔案"/>
-			<item id="ID_LIBRARY_UNLINK" text="移除擋案"/>
-			<separator/>
-			<item id="ID_LIBRARY_MOVE" text="移動檔案..."/>
-			<item id="ID_LIBRARY_COPY" text="複製檔案..."/>
-		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="將解釋資料本地化"/>
-		<separator/>
-		<item id="ID_LIBRARY_PROPERTIES" text="屬性"/>
-	</menu>
-	<menu name="CLibraryFileView.Virtual">
-		<item id="ID_LIBRARY_LAUNCH" text="開啟或播放"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="新增至播放清單"/>
-		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="分享的"/>
-		<separator/>
-		<item id="ID_LIBRARY_URI" text=""/>
-		<item id="ID_LIBRARY_DELETE" text="刪除"/>
-		<separator/>
-		<menu text="搜尋...">
-			<item id="ID_SEARCH_FOR_THIS" text="這個檔案"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="相似的檔案"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="同一個作家的音樂"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="同一個專輯的音樂"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="同一個系列的 Episodes"/>
-		</menu>
-		<menu text="網際網路服務">
-			<item id="ID_LIBRARY_BITZI_WEB" text="檢視 Bitzi 標籤"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="取得解釋資料"/>
-			<separator/>
-			<item id="ID_LIBRARY_CREATETORRENT" text="製作 .torrent 檔"/>
-		</menu>
 		<menu text="整理">
 			<item id="ID_LIBRARY_UNLINK" text="移除檔案"/>
 			<separator/>
@@ -1381,10 +1301,25 @@
 			<item id="ID_LIBRARY_MOVE" text="移動檔案..."/>
 			<item id="ID_LIBRARY_COPY" text="複製檔案..."/>
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="將解釋資料本地化"/>
+		<menu text="搜尋...">
+			<item id="ID_SEARCH_FOR_THIS" text="這個檔案"/>
+			<item id="ID_SEARCH_FOR_SIMILAR" text="相似的檔案"/>
+			<separator/>
+			<item id="ID_SEARCH_FOR_ARTIST" text="同一個作家的音樂"/>
+			<item id="ID_SEARCH_FOR_ALBUM" text="同一個專輯的音樂"/>
+			<item id="ID_SEARCH_FOR_SERIES" text="同一個系列的 Episodes"/>
+		</menu>
+		<menu text="網際網路服務">
+			<item id="ID_LIBRARY_BITZI_WEB" text="檢視 Bitzi 標籤"/>
+			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="取得解釋資料"/>
+		</menu>
+		<menu text="_Metadata">
+			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="將解釋資料本地化"/>
+			<item id="ID_LIBRARY_COLUMNS" text="選擇欄位..."/>
+		</menu>
 		<separator/>
-		<item id="ID_LIBRARY_COLUMNS" text="選擇欄位..."/>
-		<separator/>
+		<item id="ID_SHELL_MENU" text="Windows Men_u"/>
 		<item id="ID_LIBRARY_PROPERTIES" text="屬性"/>
 	</menu>
 	<!-- MEDIA WINDOW -->
@@ -1614,7 +1549,7 @@
 		<item id="ID_DISCOVERY_BLOCKED" text="顯示 封鎖"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
-	<menu name="CPrivateChatFrame">
+	<menu name="CPrivateChatWnd">
 		<item id="ID_CHAT_CONNECT" text="連線"/>
 		<item id="ID_CHAT_DISCONNECT" text="中斷連線"/>
 		<separator/>

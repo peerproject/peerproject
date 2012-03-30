@@ -27,13 +27,13 @@
 #include "Schema.h"
 #include "SchemaCache.h"
 #include "Security.h"
-#include "ShellIcons.h"
-#include "Colors.h"
 #include "Download.h"
 #include "Downloads.h"
 #include "Transfers.h"
 #include "VendorCache.h"
+#include "ShellIcons.h"
 #include "RegExp.h"
+#include "Colors.h"
 #include "XML.h"
 
 #include "CtrlMatch.h"
@@ -1336,8 +1336,8 @@ CMatchFile::CMatchFile(CMatchList* pList, CQueryHit* pHit)
 	, m_pTime			( CTime::GetCurrentTime() )
 {
 	// ToDo: Change to SIZE_UNKNOWN without the size
-	m_nSize			= ( pHit && pHit->m_bSize ) ? pHit->m_nSize : 0;
-	m_sSize			= Settings.SmartVolume( m_nSize );
+	m_nSize = ( pHit && pHit->m_bSize ) ? pHit->m_nSize : 0;
+	m_sSize = Settings.SmartVolume( m_nSize );
 
 	if ( pHit ) Add( pHit );
 }
@@ -1747,10 +1747,9 @@ void CMatchFile::Added(CQueryHit* pHit)
 	if ( m_nShellIndex == -1 )
 		m_nShellIndex = ShellIcons.Get( pHit->m_sName, 16 );
 
-	BOOL bSchema;
+	const BOOL bSchema = m_pList->m_pSchema && m_pList->m_pSchema->Equals( pHit->m_pSchema );
 
-	if ( m_pList->m_pSchema &&
-		 ( bSchema = m_pList->m_pSchema->Equals( pHit->m_pSchema ) || pHit->m_oSHA1 ) != FALSE )
+	if ( bSchema || pHit->m_oSHA1 )
 	{
 		if ( m_pColumns == NULL )
 		{
@@ -2061,10 +2060,7 @@ int CMatchFile::Compare(CMatchFile* pFile) const
 			x = - x;
 	}
 
-	if ( x == 0 || x == 1 || x == -1 )
-		return x;
-
-	return ( x > 0 ) ? 1 : -1;
+	return ( x > 0 ) ? 1 : ( x < 0 ) ? -1 : 0;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -2196,11 +2192,9 @@ CQueryHit*	CMatchFile::GetBest() const
 //int CMatchFile::GetRating() const
 //{
 //	int nRating = 0;
-
 //	if ( m_bPush != TRI_TRUE ) nRating += 4;
 //	if ( m_bBusy != TRI_TRUE ) nRating += 2;
 //	if ( m_bStable == TRI_TRUE ) nRating ++;
-
 //	return nRating;
 //}
 
@@ -2304,7 +2298,7 @@ BOOL CMatchFile::AddHitsToPreviewURLs(CList<CString>& oPreviewURLs) const
 				oPreviewURLs.AddTail( pHit->m_sPreview );
 				bCanPreview = TRUE;
 			}
-#ifdef _DEBUG
+//#ifdef _DEBUG
 			else if (	_tcsistr( pHit->m_sName, _T(".avi") ) ||
 						_tcsistr( pHit->m_sName, _T(".mpg") ) ||
 						_tcsistr( pHit->m_sName, _T(".mpeg") ) ||
@@ -2318,7 +2312,7 @@ BOOL CMatchFile::AddHitsToPreviewURLs(CList<CString>& oPreviewURLs) const
 				oPreviewURLs.AddTail( strURL );
 				bCanPreview = TRUE;
 			}
-#endif  // Debug Only
+//#endif  // Debug?
 		}
 	}
 	return bCanPreview;
@@ -2571,16 +2565,19 @@ TRISTATE CMatchFile::GetLibraryStatus()
 
 void CMatchFile::SanityCheck()
 {
-	//const BOOL bBadFile = Security.IsDenied( this );	// Hash/etc. more efficient but undercounted here
+	const BOOL bBadFile = Security.IsDenied( this );	// Hash/etc. more efficient but undercounted here
+	int nBadCount = 0;
 
 	CQueryHit* pHitPrev = NULL;
 	for ( CQueryHit* pHit = m_pHits ; pHit ; )
 	{
 		CQueryHit* pNext = pHit->m_pNext;
 
-		if ( Security.IsDenied( &pHit->m_pAddress ) ||
-			 Security.IsDenied( this ) )				// bBadFile
+		if ( Security.IsDenied( &pHit->m_pAddress ) || bBadFile )
 		{
+			if ( bBadFile && ++nBadCount > 1 )
+				Security.IsDenied( this );				// Duplicate check for hitcount
+
 			// Exclude from hits list
 			if ( pHitPrev )
 				pHitPrev->m_pNext = pNext;

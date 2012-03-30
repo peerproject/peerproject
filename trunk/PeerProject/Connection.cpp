@@ -119,6 +119,9 @@ CConnection::~CConnection()
 	m_bAutoDelete = FALSE;
 
 	CConnection::Close();
+
+	// Delete and mark null the input and output buffers
+	DestroyBuffers();
 }
 
 void CConnection::LogOutgoing()
@@ -312,9 +315,6 @@ void CConnection::Close(UINT nError)
 	}
 
 	CNetwork::CloseSocket( m_hSocket, false );
-
-	// Delete and mark null the input and output buffers
-	DestroyBuffers();
 
 	// This connection object isn't connected any longer
 	m_bConnected = FALSE;
@@ -780,7 +780,7 @@ void CConnection::UpdateCountry()
 // TCPBandwidthMeter Utility routines
 
 // Calculate the number of bytes available for use
-DWORD CConnection::TCPBandwidthMeter::CalculateLimit( DWORD tNow, bool bOut, bool bMaxMode ) const
+DWORD CConnection::TCPBandwidthMeter::CalculateLimit(DWORD tNow, bool bOut, bool bMaxMode ) const
 {
 	DWORD tCutoff = tNow - METER_SECOND;			// Time period for bytes
 	if ( bMaxMode )
@@ -819,8 +819,8 @@ DWORD CConnection::TCPBandwidthMeter::CalculateLimit( DWORD tNow, bool bOut, boo
 	return nLimit;		// Return the new limit
 }
 
-// Count the #bytes used for a given time period ( optimal for time periods more than METER_LENGTH / 2 )
-DWORD CConnection::TCPBandwidthMeter::CalculateUsage( DWORD tTime ) const
+// Count the #bytes used for a given time period (optimal for time periods more than METER_LENGTH / 2)
+DWORD CConnection::TCPBandwidthMeter::CalculateUsage(DWORD tTime ) const
 {
 	// Exit early if the last slot used is older than the time limit
 	if ( tLastSlot <= tTime ) return 0;
@@ -853,8 +853,8 @@ DWORD CConnection::TCPBandwidthMeter::CalculateUsage( DWORD tTime ) const
 	return nData;
 }
 
-// Count the #bytes used for a given time period ( optimal for time periods less than METER_LENGTH / 2 )
-DWORD CConnection::TCPBandwidthMeter::CalculateUsage( DWORD tTime, bool /*bShortPeriod*/ ) const
+// Count the #bytes used for a given time period (optimal for time periods less than METER_LENGTH / 2)
+DWORD CConnection::TCPBandwidthMeter::CalculateUsage(DWORD tTime, bool /*bShortPeriod*/) const
 {
 	// Exit early if the last slot used is older than the time limit
 	if ( tLastSlot <= tTime ) return 0;
@@ -878,7 +878,7 @@ DWORD CConnection::TCPBandwidthMeter::CalculateUsage( DWORD tTime, bool /*bShort
 }
 
 // Add #bytes to history
-void CConnection::TCPBandwidthMeter::Add( const DWORD nBytes, const DWORD tNow )
+void CConnection::TCPBandwidthMeter::Add(const DWORD nBytes, const DWORD tNow)
 {
 	if ( tNow < tLastSlot + METER_MINIMUM )
 	{

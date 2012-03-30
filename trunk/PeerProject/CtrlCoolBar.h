@@ -1,7 +1,7 @@
 //
 // CtrlCoolBar.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -25,12 +25,12 @@ class CCoolBarItem;
 
 class CCoolBarCtrl : public CControlBar
 {
+	DECLARE_DYNAMIC(CCoolBarCtrl)
+
 // Construction
 public:
 	CCoolBarCtrl();
 	virtual ~CCoolBarCtrl();
-
-	DECLARE_DYNAMIC(CCoolBarCtrl)
 
 // Attributes
 protected:
@@ -44,8 +44,8 @@ protected:
 	BOOL			m_bBuffered;
 	BOOL			m_bMenuGray;
 	CSyncObject*	m_pSyncObject;
-	DWORD			m_tLastUpdate;
-	DWORD			m_dwHoverTime;
+//	DWORD			m_tLastUpdate;	// Using static
+	DWORD			m_tHoverTime;	// Was m_dwHoverTime
 	CCoolBarItem*	m_pDown;
 	CCoolBarItem*	m_pHot;
 	BOOL			m_bTimer;

@@ -1,7 +1,7 @@
 //
 // WndNeighbours.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -26,11 +26,11 @@ class CNeighbour;
 
 class CNeighboursWnd : public CPanelWnd
 {
+	DECLARE_SERIAL(CNeighboursWnd)
+
 // Construction
 public:
 	CNeighboursWnd();
-
-	DECLARE_SERIAL(CNeighboursWnd)
 
 // Attributes
 protected:
@@ -47,6 +47,7 @@ public:
 	void		OpenPacketWnd(BOOL bIncoming, BOOL bOutgoing);
 	void		DrawEmptyMessage(CDC* pDC);
 	CNeighbour*	GetItem(int nItem);
+	UINT		GetSelectedCount() const;
 
 // Overrides
 public:

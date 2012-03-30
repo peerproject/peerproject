@@ -87,6 +87,7 @@ protected:
 	afx_msg void OnDiscoveryAdvertise();
 	afx_msg void OnUpdateDiscoveryBrowse(CCmdUI* pCmdUI);
 	afx_msg void OnDiscoveryBrowse();
+	afx_msg void OnCustomDrawList(NMHDR* pNMHDR, LRESULT* pResult);
 	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()

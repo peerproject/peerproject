@@ -234,11 +234,9 @@ CStringA UTF8Encode(__in_bcount(nInput) LPCWSTR psInput, __in int nInput)
 
 	if ( nUTF8 == 0 && GetLastError() == ERROR_INSUFFICIENT_BUFFER )
 	{
-		nUTF8 = ::WideCharToMultiByte( CP_UTF8, 0, psInput, nInput,
-			NULL, 0, NULL, NULL );
+		nUTF8 = ::WideCharToMultiByte( CP_UTF8, 0, psInput, nInput, NULL, 0, NULL, NULL );
 
-		nUTF8 = ::WideCharToMultiByte( CP_UTF8, 0, psInput, nInput,
-			strUTF8.GetBuffer( nUTF8 ), nUTF8, NULL, NULL );
+		nUTF8 = ::WideCharToMultiByte( CP_UTF8, 0, psInput, nInput, strUTF8.GetBuffer( nUTF8 ), nUTF8, NULL, NULL );
 	}
 	strUTF8.ReleaseBuffer( nUTF8 );
 
@@ -253,20 +251,38 @@ CStringW UTF8Decode(__in const CStringA& strInput)
 CStringW UTF8Decode(__in_bcount(nInput) LPCSTR psInput, __in int nInput)
 {
 	CStringW strWide;
-	int nWide = ::MultiByteToWideChar( CP_UTF8, 0, psInput, nInput,
-		strWide.GetBuffer( nInput + 1 ), nInput + 1 );
+	int nWide = 0;
 
+	// Reverted Test:
+	nWide = ::MultiByteToWideChar( CP_UTF8, 0, psInput, nInput, strWide.GetBuffer( nInput + 1 ), nInput + 1 );
 	if ( nWide == 0 && GetLastError() == ERROR_INSUFFICIENT_BUFFER )
 	{
-		nWide = ::MultiByteToWideChar( CP_UTF8, 0, psInput, nInput,
-			NULL, 0 );
-
-		nWide = ::MultiByteToWideChar( CP_UTF8, 0, psInput, nInput,
-			strWide.GetBuffer( nWide ), nWide );
+		nWide = ::MultiByteToWideChar( CP_UTF8, 0, psInput, nInput, NULL, 0 );
+		nWide = ::MultiByteToWideChar( CP_UTF8, 0, psInput, nInput, strWide.GetBuffer( nWide ), nWide );
 	}
 	strWide.ReleaseBuffer( nWide );
-
 	return strWide;
+
+//	// Try UTF-8
+//	nWide = ::MultiByteToWideChar( CP_UTF8, MB_ERR_INVALID_CHARS, psInput, nInput, NULL, 0 );
+//	if ( nWide > 0 )
+//	{
+//		nWide = ::MultiByteToWideChar( CP_UTF8, 0, psInput, nInput, strWide.GetBuffer( nWide ), nWide );
+//		strWide.ReleaseBuffer( nWide );
+//		return strWide;
+//	}
+//
+//	// Try ANSI
+//	nWide = ::MultiByteToWideChar( CP_ACP, MB_ERR_INVALID_CHARS, psInput, nInput, NULL, 0 );
+//	if ( nWide > 0 )
+//	{
+//		nWide = ::MultiByteToWideChar( CP_ACP, 0, psInput, nInput, strWide.GetBuffer( nWide ), nWide );
+//		strWide.ReleaseBuffer( nWide );
+//		return strWide;
+//	}
+//
+//	// As-is
+//	return CString( psInput, nInput );
 }
 
 // Encodes unsafe characters in a string, turning text "hello world" into string "hello%20world", for instance
@@ -606,6 +622,7 @@ LPCTSTR _tcsistr(LPCTSTR pszString, LPCTSTR pszSubString)
 		++pszString;
 	}
 
+	// No match found, return a null pointer
 	return NULL;
 }
 
@@ -987,9 +1004,9 @@ void BuildWordTable(LPCTSTR pszWord, WordTable& oWords, WordTable& oNegWords)
 
 CString HostToString(const SOCKADDR_IN* pHost)
 {
-	CString sHost;
-	sHost.Format( _T("%s:%hu"), (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ), ntohs( pHost->sin_port ) );
-	return sHost;
+	CString strHost;
+	strHost.Format( _T("%s:%hu"), (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ), ntohs( pHost->sin_port ) );
+	return strHost;
 }
 
 BOOL IsValidIP(const CString& sInput)

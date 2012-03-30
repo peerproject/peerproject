@@ -887,7 +887,7 @@ int CHostCache::ImportHubList(CFile* pFile)
 		return FALSE;	// Invalid XML file format
 
 	CXMLElement* pHubs = pHublist->GetFirstElement();
-	if ( !  pHubs || ! pHubs->IsNamed( _T("Hubs") ) )
+	if ( ! pHubs || ! pHubs->IsNamed( _T("Hubs") ) )
 		return FALSE;	// Invalid XML file format
 
 	int nHubs = 0;

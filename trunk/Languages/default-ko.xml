@@ -3,7 +3,7 @@
 
 <!-- PeerProject Korean Language Skin File -->
 
-<!-- Translation based on default-en.xml r75 --> <!--Machine Translated!-->
+<!-- Translation based on default-en.xml r76 --> <!--Machine Translated!-->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -435,7 +435,7 @@
 		<button id="ID_HOSTCACHE_DC_CACHE" text="캐시"/>
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
-	<toolbar name="CPrivateChatFrame">
+	<toolbar name="CPrivateChatWnd">
 		<button id="ID_CHAT_BOLD"/>
 		<button id="ID_CHAT_ITALIC"/>
 		<button id="ID_CHAT_UNDERLINE"/>
@@ -490,11 +490,11 @@
 		<separator/>
 		<item id="ID_WINDOW_REMOTE" text="원격보기"/>
 		<item id="ID_TOOLS_SETTINGS" text="보기 설정..."/>
-		<item id="ID_NETWORK_SEARCH" text="N새로운 검색..."/>
+		<item id="ID_NETWORK_SEARCH" text="새로운 검색..."/>
 		<item id="ID_TOOLS_DOWNLOAD" text="파일 다운로드 ..."/>
 		<separator/>
 		<item id="ID_MEDIA_PLAY" text="재생 미디어"/>
-		<item id="ID_MEDIA_PAUSE" text="P일시 중지 미디어"/>
+		<item id="ID_MEDIA_PAUSE" text="일시 중지 미디어"/>
 		<item id="ID_MEDIA_PREVIOUS" text="이전 트랙"/>
 		<item id="ID_MEDIA_NEXT" text="다음 트랙"/>
 		<separator/>
@@ -1108,7 +1108,7 @@
 		<item id="ID_DOWNLOADS_LAUNCH" text="_Preview"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Resume"/>
-		<item id="ID_DOWNLOADS_PAUSE" text="P_ause"/>
+		<item id="ID_DOWNLOADS_PAUSE" text="일시 중지"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="_Cancel"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SOURCES" text="_Find More Sources"/>
@@ -1123,7 +1123,7 @@
 		<item id="ID_DOWNLOADS_ENQUEUE" text="Add to Pla_ylist"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Resume"/>
-		<item id="ID_DOWNLOADS_PAUSE" text="Pa_use"/>
+		<item id="ID_DOWNLOADS_PAUSE" text="일시 중지"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="_Cancel"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="Vie_w Reviews"/>
@@ -1199,7 +1199,7 @@
 		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="_Resume All"/>
-		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="Pa_use All"/>
+		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="일시 중지 All"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="_Clear All"/>
 		<separator/> <!--
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Hide Groups"/>
@@ -1215,7 +1215,7 @@
 		<item id="ID_DOWNLOADS_FILTER_ALL" text="모두보기"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILTER_ACTIVE" text="보기 A_ctive"/>
-		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="보기 _Paused"/>
+		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="보기 일시 중지됨"/>
 		<item id="ID_DOWNLOADS_FILTER_QUEUED" text="보기 _Queued"/>
 		<item id="ID_DOWNLOADS_FILTER_SOURCES" text="보기 _No Sources"/>
 		<item id="ID_DOWNLOADS_FILTER_SEEDS" text="보기 See_ds"/>
@@ -1246,7 +1246,7 @@
 	</menu>
 	<menu name="CUploadsWnd.Default">
 		<item id="ID_LIBRARY_FOLDERS" text="파일을 공유..."/>
-		<item id="ID_UPLOADS_SETTINGS" text="_Queue Settings..."/>
+		<item id="ID_UPLOADS_SETTINGS" text="_Queue 설정이..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="_Clear Completed"/>
 		<separator/>
 		<item id="ID_UPLOADS_HELP" text="_도움..."/>
@@ -1307,17 +1307,18 @@
 		<separator/>
 		<item id="ID_LIBRARY_ALBUM_PROPERTIES" text="등록"/>
 	</menu>
-	<menu name="CLibraryFileView.Physical.Basic">
+	<menu name="CLibraryFileView.Basic">
 		<item id="ID_LIBRARY_LAUNCH" text="열기 또는 재생"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="재생 목록에 추가"/>
+		<item id="ID_LIBRARY_DELETE" text="삭제"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="공유"/>
 		<separator/>
-		<item id="ID_LIBRARY_DELETE" text="삭제"/>
 		<menu text="이동/복사/이름 바꾸기">
 			<item id="ID_LIBRARY_RENAME" text="파일 이름 바꾸기"/>
-			<item id="ID_LIBRARY_MOVE" text="파일 이동..."/>
 			<item id="ID_LIBRARY_COPY" text="파일 복사..."/>
+			<item id="ID_LIBRARY_MOVE" text="파일 이동..."/>
+			<separator/>
 			<item id="ID_LIBRARY_URI" text="Get P2P Link (_URI)"/>
 		</menu>
 		<menu text="S_earch For">
@@ -1331,80 +1332,17 @@
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="등록"/>
 	</menu>
-	<menu name="CLibraryFileView.Physical">
+	<menu name="CLibraryFileView">
 		<item id="ID_LIBRARY_LAUNCH" text="열기 또는 재생"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="재생 목록에 추가"/>
-		<item id="ID_LIBRARY_PROPERTIES" text="등록"/>
+		<item id="ID_LIBRARY_DELETE" text="삭제"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="공유"/>
 		<separator/>
 		<item id="ID_LIBRARY_URI" text="Get P2P Link (_URI)"/>
 		<item id="ID_LIBRARY_CREATETORRENT" text="Create ._torrent File"/>
-		<item id="ID_LIBRARY_DELETE" text="삭제"/>
-		<menu text="O_rganize">
-			<item id="ID_LIBRARY_RENAME" text="파일 이름 바꾸기"/>
-			<item id="ID_LIBRARY_COPY" text="파일 복사..."/>
-			<item id="ID_LIBRARY_MOVE" text="파일 이동..."/>
-		</menu>
+		<item id="ID_LIBRARY_LAUNCH_FOLDER" text="Open _Folder"/>
 		<separator/>
-		<menu text="S_earch For">
-			<item id="ID_SEARCH_FOR_THIS" text="이 파일을"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="비슷한 파일"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="_Music by the same Artist"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="Music in the same _Album"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="_Episodes in the same Series"/>
-		</menu>
-		<menu text="_Web Services">
-			<item id="ID_LIBRARY_BITZI_WEB" text="View _Bitzi Ticket"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="다운로드 메타"/>
-		</menu>
-		<menu text="_Metadata">
-			<item id="ID_LIBRARY_REFRESH_METADATA" text="새로고침 메타"/>
-			<item id="ID_LIBRARY_REBUILD_ANSI" text="지방적 특색을 메타"/>
-		</menu>
-		<separator/>
-		<item id="ID_LIBRARY_COLUMNS" text="열 선택을..."/>
-		<separator/>
-		<item id="ID_SHELL_MENU" text="S_hell 메뉴"/>
-	</menu>
-	<menu name="CLibraryFileView.Virtual.Basic">
-		<item id="ID_LIBRARY_LAUNCH" text="열기 또는 재생"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="재생 목록에 추가"/>
-		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="재생 앨범"/>
-		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="공유"/>
-		<separator/>
-		<item id="ID_LIBRARY_DELETE" text="삭제"/>
-		<menu text="O_rganize">
-			<item id="ID_LIBRARY_RENAME" text="파일 이름 바꾸기"/>
-			<item id="ID_LIBRARY_UNLINK" text="파일 제거"/>
-			<separator/>
-			<item id="ID_LIBRARY_MOVE" text="파일 이동..."/>
-			<item id="ID_LIBRARY_COPY" text="파일 복사..."/>
-		</menu>
-		<separator/>
-		<menu text="S_earch For">
-			<item id="ID_SEARCH_FOR_THIS" text="이 파일을"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="비슷한 파일"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="_Music by the same Artist"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="Music in the same _Album"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="_Episodes in the same Series"/>
-		</menu>
-		<separator/>
-		<item id="ID_LIBRARY_PROPERTIES" text="등록"/>
-	</menu>
-	<menu name="CLibraryFileView.Virtual">
-		<item id="ID_LIBRARY_LAUNCH" text="열기 또는 재생"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="재생 목록에 추가"/>
-		<item id="ID_LIBRARY_PROPERTIES" text="등록"/>
-		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="공유"/>
-		<separator/>
-		<item id="ID_LIBRARY_URI" text="Get P2P Link (_URI)"/>
-		<item id="ID_LIBRARY_CREATETORRENT" text="Create ._torrent File"/>
-		<item id="ID_LIBRARY_DELETE" text="삭제"/>
 		<menu text="O_rganise">
 			<item id="ID_LIBRARY_UNLINK" text="파일 제거"/>
 			<separator/>
@@ -1412,8 +1350,7 @@
 			<item id="ID_LIBRARY_MOVE" text="파일 이동..."/>
 			<item id="ID_LIBRARY_COPY" text="파일 복사..."/>
 		</menu>
-		<separator/>
-		<menu text="S_earch For">
+		<menu text="S_earch">
 			<item id="ID_SEARCH_FOR_THIS" text="이 파일을"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="비슷한 파일"/>
 			<separator/>
@@ -1421,24 +1358,23 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Music in the same _Album"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episodes in the same Series"/>
 		</menu>
-		<menu text="_Web Services">
+		<menu text="We_b Services">
 			<item id="ID_LIBRARY_BITZI_WEB" text="View _Bitzi Ticket"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="다운로드 메타"/>
-			<separator/>
 		</menu>
-		<menu text="_Metadata">
+		<menu text="_Metadata"> <!--메타 데이터-->
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="새로고침 메"/>
 			<item id="ID_LIBRARY_REBUILD_ANSI" text="지방적 특색을 메"/>
+			<item id="ID_LIBRARY_COLUMNS" text="열 선택을..."/>
 		</menu>
 		<separator/>
-		<item id="ID_LIBRARY_COLUMNS" text="열 선택을..."/>
-		<separator/>
 		<item id="ID_SHELL_MENU" text="S_hell menu"/>
+		<item id="ID_LIBRARY_PROPERTIES" text="등록"/>
 	</menu>
 	<!-- MEDIA WINDOW -->
 	<menu name="CMediaFrame.Basic">
 		<item id="ID_MEDIA_PLAY" text="재생"/>
-		<item id="ID_MEDIA_PAUSE" text="Pause"/>
+		<item id="ID_MEDIA_PAUSE" text="일시 중지"/>
 		<item id="ID_MEDIA_STOP" text="중"/>
 		<separator/>
 		<item id="ID_MEDIA_OPEN" text="_Open Media File..."/>
@@ -1475,7 +1411,7 @@
 	</menu>
 	<menu name="CMediaFrame">
 		<item id="ID_MEDIA_PLAY" text="재생"/>
-		<item id="ID_MEDIA_PAUSE" text="Pa_use"/>
+		<item id="ID_MEDIA_PAUSE" text="일시 중지"/>
 		<item id="ID_MEDIA_STOP" text="중"/>
 		<separator/>
 		<item id="ID_MEDIA_OPEN" text="_Open Media File..."/>
@@ -1502,13 +1438,13 @@
 			<separator/>
 			<item id="ID_MEDIA_FULLSCREEN" text="_Full Screen"/>
 		</menu>
-		<menu text="Setti_ngs">
+		<menu text="설정이">
 			<item id="ID_MEDIA_VIS" text="Choose _Visualisation..."/>
 			<separator/>
 			<item id="ID_MEDIA_PLAYLIST" text="Show _Playlist"/>
 			<item id="ID_MEDIA_STATUS" text="Show _Status Line"/>
 			<separator/>
-			<item id="ID_MEDIA_SETTINGS" text="_Media Settings..."/>
+			<item id="ID_MEDIA_SETTINGS" text="_Media 설정이..."/>
 		</menu>
 	</menu>
 	<menu name="CMediaFrame.Zoom">
@@ -2526,7 +2462,7 @@
 	<string id="20724" value="다음"/>
 	<string id="20725" value="Q"/>
 	<string id="20726" value="Queued"/>
-	<string id="20727" value="Paused"/>
+	<string id="20727" value="일시 중지됨"/>
 	<string id="20728" value="Pending"/>
 	<string id="20729" value="Requesting"/>
 	<string id="20730" value="Searching"/>
@@ -2665,7 +2601,7 @@
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
-	<dialog name="CSettingSheet" cookie="SyBuBuBu" caption="PeerProject Settings">
+	<dialog name="CSettingSheet" cookie="SyBuBuBu" caption="PeerProject 설정이">
 		<control/>
 		<control caption="OK"/>
 		<control caption="취소"/>
@@ -2787,7 +2723,7 @@
 		<control caption="Notices"/>
 		<control/>
 		<control caption="Topics"/>
-		<control caption="Connection Settings:"/>
+		<control caption="Connection 설정이:"/>
 		<control caption="Screen 이름:"/>
 		<control/>
 		<control caption="User 이름:"/>
@@ -3232,7 +3168,7 @@
 		<control/>
 		<control/>
 	</dialog> -->
-<!--	<dialog name="CFileMetadataPage" cookie="CoEd" caption="Metadata">
+<!--	<dialog name="CFileMetadataPage" cookie="CoEd" caption="메타 데이터">
 		<control/>
 		<control/>
 	</dialog> -->

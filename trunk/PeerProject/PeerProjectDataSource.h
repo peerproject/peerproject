@@ -1,7 +1,7 @@
 //
 // PeerProjectDataSource.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -31,7 +31,7 @@ class CAlbumFolder;
 
 class CPeerProjectDataSource : public CComObject
 {
-	DECLARE_DYNCREATE(CPeerProjectDataSource)
+	DECLARE_DYNAMIC(CPeerProjectDataSource)
 
 public:
 	CPeerProjectDataSource();
@@ -74,21 +74,22 @@ protected:
 		STGMEDIUM					stgm;
 	} DATAENTRY, *LPDATAENTRY;
 
-	template < typename T > class THREADDATA
-	{
-	public:
-		THREADDATA(const T* pList, HBITMAP pImage, const Hashes::Guid& oGUID) :
-			m_pList (pList),
-			m_pImage (pImage),
-			m_oGUID (oGUID),
-			m_hReady (CreateEvent( NULL, TRUE, FALSE, NULL ))
-		{
-		}
-		const T*					m_pList;
-		HBITMAP						m_pImage;
-		Hashes::Guid				m_oGUID;
-		HANDLE						m_hReady;
-	};
+// Obsolete:
+//	template < typename T > class THREADDATA
+//	{
+//	public:
+//		THREADDATA(const T* pList, HBITMAP pImage, const Hashes::Guid& oGUID) :
+//			m_pList (pList),
+//			m_pImage (pImage),
+//			m_oGUID (oGUID),
+//			m_hReady (CreateEvent( NULL, TRUE, FALSE, NULL ))
+//		{
+//		}
+//		const T*					m_pList;
+//		HBITMAP						m_pImage;
+//		Hashes::Guid				m_oGUID;
+//		HANDLE						m_hReady;
+//	};
 
 	LPDATAENTRY						m_rgde;		// Array of active DATAENTRY entries
 	int								m_cde;		// Size of m_rgde
@@ -163,7 +164,7 @@ protected:
 
 	void DumpIDataObject(IDataObject* pIDataObject);
 
-#else	// _DEBUG
+#else	// No _DEBUG
 
 	#define DumpIDataObject __noop
 

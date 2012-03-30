@@ -109,9 +109,22 @@ END_MESSAGE_MAP()
 
 CNeighboursWnd::CNeighboursWnd()
 	: CPanelWnd( TRUE, TRUE )
-//	, m_tLastUpdate( 0 )
+	, m_tLastUpdate( 0 )
 {
 	Create( IDR_NEIGHBOURSFRAME );
+}
+
+UINT CNeighboursWnd::GetSelectedCount() const
+{
+	static UINT nCount = 0;
+	static DWORD tLastUpdate = 0;
+	const DWORD tNow = GetTickCount();
+	if ( tNow > tLastUpdate + Settings.Interface.RefreshRateUI || tNow < tLastUpdate )
+	{
+		tLastUpdate = tNow;
+		nCount = m_wndList.GetSelectedCount();
+	}
+	return nCount;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -186,8 +199,6 @@ int CNeighboursWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 //	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
 
 	LoadState( _T("CNeighboursWnd"), FALSE );
-
-	m_tLastUpdate = 0;
 
 	PostMessage( WM_TIMER, 1 );
 
@@ -406,7 +417,7 @@ void CNeighboursWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 
 void CNeighboursWnd::OnUpdateNeighboursDisconnect(CCmdUI* pCmdUI)
 {
-	pCmdUI->Enable( m_wndList.GetSelectedCount() > 0 );
+	pCmdUI->Enable( GetSelectedCount() > 0 );
 }
 
 void CNeighboursWnd::OnNeighboursDisconnect()
@@ -422,7 +433,7 @@ void CNeighboursWnd::OnNeighboursDisconnect()
 
 void CNeighboursWnd::OnUpdateNeighboursCopy(CCmdUI* pCmdUI)
 {
-	pCmdUI->Enable( m_wndList.GetSelectedCount() == 1 );
+	pCmdUI->Enable( GetSelectedCount() == 1 );
 }
 
 void CNeighboursWnd::OnNeighboursCopy()
@@ -455,7 +466,7 @@ void CNeighboursWnd::OnNeighboursCopy()
 
 void CNeighboursWnd::OnUpdateNeighboursChat(CCmdUI* pCmdUI)
 {
-	if ( m_wndList.GetSelectedCount() == 1 && Settings.Community.ChatEnable )
+	if ( GetSelectedCount() == 1 && Settings.Community.ChatEnable )
 	{
 		CSingleLock pNetworkLock( &Network.m_pSection );
 		if ( pNetworkLock.Lock( 500 ) )
@@ -493,7 +504,7 @@ void CNeighboursWnd::OnNeighboursChat()
 
 void CNeighboursWnd::OnUpdateSecurityBan(CCmdUI* pCmdUI)
 {
-	pCmdUI->Enable( m_wndList.GetSelectedCount() > 0 );
+	pCmdUI->Enable( GetSelectedCount() > 0 );
 }
 
 void CNeighboursWnd::OnSecurityBan()
@@ -515,7 +526,7 @@ void CNeighboursWnd::OnSecurityBan()
 
 void CNeighboursWnd::OnUpdateBrowseLaunch(CCmdUI* pCmdUI)
 {
-	if ( m_wndList.GetSelectedCount() == 1 )
+	if ( GetSelectedCount() == 1 )
 	{
 		CSingleLock pNetworkLock( &Network.m_pSection );
 		if ( pNetworkLock.Lock( 500 ) )
@@ -555,7 +566,7 @@ void CNeighboursWnd::OnBrowseLaunch()
 
 void CNeighboursWnd::OnUpdateNeighboursViewAll(CCmdUI* pCmdUI)
 {
-	pCmdUI->Enable( m_wndList.GetSelectedCount() == 1 );
+	pCmdUI->Enable( GetSelectedCount() == 1 );
 }
 
 void CNeighboursWnd::OnNeighboursViewAll()
@@ -565,7 +576,7 @@ void CNeighboursWnd::OnNeighboursViewAll()
 
 void CNeighboursWnd::OnUpdateNeighboursViewIncoming(CCmdUI* pCmdUI)
 {
-	pCmdUI->Enable( m_wndList.GetSelectedCount() == 1 );
+	pCmdUI->Enable( GetSelectedCount() == 1 );
 }
 
 void CNeighboursWnd::OnNeighboursViewIncoming()
@@ -575,7 +586,7 @@ void CNeighboursWnd::OnNeighboursViewIncoming()
 
 void CNeighboursWnd::OnUpdateNeighboursViewOutgoing(CCmdUI* pCmdUI)
 {
-	pCmdUI->Enable( m_wndList.GetSelectedCount() == 1 );
+	pCmdUI->Enable( GetSelectedCount() == 1 );
 }
 
 void CNeighboursWnd::OnNeighboursViewOutgoing()

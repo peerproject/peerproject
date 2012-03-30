@@ -29,6 +29,7 @@ public:
 	CWindowManager(CMDIFrameWnd* pParent = NULL);
 	virtual ~CWindowManager();
 
+public:
 	CMDIFrameWnd*		m_pParent;
 	CList< CChildWnd* >	m_pWindows;
 	CRect				m_rcSize;
@@ -42,6 +43,7 @@ public:
 	CChildWnd*	Find(CRuntimeClass* pClass, CChildWnd* pAfter = NULL, CChildWnd* pExcept = NULL);
 	CChildWnd*	FindFromPoint(const CPoint& point) const;
 	BOOL		Check(CChildWnd* pChild) const;
+	BOOL		IsEmpty() const { return m_pWindows.IsEmpty(); }
 	void		Close();
 	void		AutoResize();
 	void		Cascade(BOOL bActiveOnly = FALSE);

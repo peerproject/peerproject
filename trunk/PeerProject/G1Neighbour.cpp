@@ -23,19 +23,17 @@
 #include "StdAfx.h"
 #include "Settings.h"
 #include "PeerProject.h"
-#include "Network.h"
-#include "Buffer.h"
-#include "Statistics.h"
 #include "Neighbours.h"
-#include "Handshakes.h"
 #include "G1Neighbour.h"
 #include "G1Packet.h"
 #include "G2Packet.h"
+#include "Network.h"
+#include "Handshakes.h"
 #include "HostCache.h"
 #include "RouteCache.h"
 #include "PacketBuffer.h"
+#include "Buffer.h"
 #include "Security.h"
-#include "GProfile.h"
 #include "PongCache.h"
 #include "VendorCache.h"
 #include "QuerySearch.h"
@@ -49,6 +47,8 @@
 #include "WndMain.h"
 #include "WndChild.h"
 #include "WndSearchMonitor.h"
+#include "Statistics.h"
+#include "GProfile.h"
 #include "GGEP.h"
 
 #ifdef _DEBUG
@@ -318,13 +318,9 @@ BOOL CG1Neighbour::OnPacket(CG1Packet* pPacket)
 	Statistics.Current.Gnutella1.Incoming++;					// Count this as one more Gnutella packet the program has received
 
 	// Make sure the packet's time to live count isn't too high
-	if (
-		// It can be sent across the Internet some more, but
-		pPacket->m_nTTL != 0 &&
-		// The packet's time to live and hops numbers added together are bigger than settings allow, and
-		(DWORD)pPacket->m_nTTL + pPacket->m_nHops > Settings.Gnutella1.MaximumTTL &&
-		// This isn't a push or hit packet
-		pPacket->m_nType != G1_PACKET_PUSH && pPacket->m_nType != G1_PACKET_HIT )
+	if ( pPacket->m_nTTL != 0 &&								// It can be sent across the Internet some more, but
+		(DWORD)pPacket->m_nTTL + pPacket->m_nHops > Settings.Gnutella1.MaximumTTL &&	// The packet's time to live and hops numbers added together are bigger than settings allow, and
+		pPacket->m_nType != G1_PACKET_PUSH && pPacket->m_nType != G1_PACKET_HIT )		// This isn't a push or hit packet
 	{
 		// Record that the packet has a time to live too high, and set it to 1
 		theApp.Message( MSG_ERROR, IDS_PROTOCOL_HIGH_TTL, (LPCTSTR)m_sAddress, pPacket->m_nTTL, pPacket->m_nHops );
@@ -850,7 +846,7 @@ BOOL CG1Neighbour::OnVendor(CG1Packet* pPacket)
 	{
 		// Supported vendor messages array (do)
 	}
-	else if ( nFunction == 0xFFFF )		// The packet has vendor or function numbers, and the 2 bytes of function are all 1s
+	else if ( nFunction == 0xFFFF )			// The packet has vendor or function numbers, and the 2 bytes of function are all 1s
 	{
 		// Vendor is 0
 		if ( nVendor == 0 )

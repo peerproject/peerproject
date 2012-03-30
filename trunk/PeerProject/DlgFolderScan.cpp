@@ -1,7 +1,7 @@
 //
 // DlgFolderScan.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -47,10 +47,9 @@ CFolderScanDlg::CFolderScanDlg(CWnd* pParent)
 	, m_nVolume		( 0 )
 {
 	//{{AFX_DATA_INIT(CFolderScanDlg)
-	//}}AFX_DATA_INIT
-
 	m_tLastUpdate	= 0;
 	m_bActive		= FALSE;
+	//}}AFX_DATA_INIT
 
 	CSingleLock oLock( &Library.m_pSection );
 	if ( oLock.Lock( 500 ) )
@@ -131,17 +130,17 @@ void CFolderScanDlg::Update(LPCTSTR pszName, DWORD nVolume)
 void CFolderScanDlg::InstanceUpdate(LPCTSTR pszName, DWORD nVolume)
 {
 	const DWORD tNow = GetTickCount();
-	CString strItem;
 
 	m_nFiles++;
 	m_nVolume += nVolume;
 
-	if ( m_bActive && tNow > m_tLastUpdate + 250 )
+	if ( m_bActive && tNow > m_tLastUpdate + Settings.Interface.RefreshRateUI )
 	{
 		m_tLastUpdate = tNow;
 
 		m_wndFile.SetWindowText( pszName );
 
+		CString strItem;
 		strItem.Format( _T("%lu"), m_nFiles );
 		m_wndFiles.SetWindowText( strItem );
 

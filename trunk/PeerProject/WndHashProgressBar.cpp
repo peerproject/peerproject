@@ -1,7 +1,7 @@
 //
 // WndHashProgressBar.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -214,8 +214,7 @@ void CHashProgressBar::OnPaint()
 //	dc.SelectObject( &CoolInterface.m_fntCaption );
 	rcText.top = rcText.bottom + 4;
 	rcText.bottom = rcClient.bottom - 10;
-	dc.DrawText( m_sCurrent, rcText,
-		DT_LEFT | DT_SINGLELINE | DT_END_ELLIPSIS );
+	dc.DrawText( m_sCurrent, rcText, DT_LEFT | DT_SINGLELINE | DT_END_ELLIPSIS );
 
 	dc.SelectObject( pOld );
 
@@ -231,8 +230,7 @@ void CHashProgressBar::OnPaint()
 	rcProgress.top--;
 	dc.Draw3dRect( &rcProgress, Colors.m_crFragmentPass, Colors.m_crTipText );
 
-//	pDC->BitBlt( rcClient.left, rcClient.top, rcClient.Width(), rcClient.Height(),
-//		&dc, 0, 0, SRCCOPY );
+//	pDC->BitBlt( rcClient.left, rcClient.top, rcClient.Width(), rcClient.Height(), &dc, 0, 0, SRCCOPY );
 }
 
 BOOL CHashProgressBar::OnEraseBkgnd(CDC* /*pDC*/)
@@ -282,7 +280,7 @@ void CHashProgressBar::OnTimer(UINT_PTR /*nIDEvent*/)
 void CHashProgressBar::OnLButtonDown(UINT /*nFlags*/, CPoint point)
 {
 	if ( point.y < 14 && point.x > ( WINDOW_WIDTH - 14 ) )	// "x"
-		Settings.Library.HashWindow = FALSE;
+		Settings.Library.HashWindow = false;
 
 	ShowWindow( SW_HIDE );
 	KillTimer( 1 );

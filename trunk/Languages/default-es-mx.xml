@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Spanish (Mexican) Skin File -->
 
-<!-- Translation based on default-en.xml r75 -->
+<!-- Translation based on default-en.xml r76 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -408,7 +408,7 @@
 		<button id="ID_HOSTCACHE_DC_CACHE" text="Hubs"/>
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
-	<toolbar name="CPrivateChatFrame">
+	<toolbar name="CPrivateChatWnd">
 		<button id="ID_CHAT_BOLD"/>
 		<button id="ID_CHAT_ITALIC"/>
 		<button id="ID_CHAT_UNDERLINE"/>
@@ -1267,13 +1267,18 @@
 		<separator/>
 		<item id="ID_LIBRARY_ALBUM_PROPERTIES" text="_Propiedades"/>
 	</menu>
-	<menu name="CLibraryFileView.Physical.Basic">
+	<menu name="CLibraryFileView.Basic">
 		<item id="ID_LIBRARY_LAUNCH" text="_Reproducr"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="_Agregar al Reproductor"/>
 		<item id="ID_LIBRARY_DELETE" text="_Eliminar"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Compartido"/>
 		<separator/>
+		<menu text="O_rganizar">
+			<item id="ID_LIBRARY_RENAME" text="_Renombrar Archivo"/>
+			<item id="ID_LIBRARY_MOVE" text="_Mover Archivo..."/>
+			<item id="ID_LIBRARY_COPY" text="_Copiar Archivo..."/>
+		</menu>
 		<menu text="S_earch For">
 			<item id="ID_SEARCH_FOR_THIS" text="Este Archivo"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="Archivos Similares"/>
@@ -1286,26 +1291,30 @@
 			<item id="ID_LIBRARY_BITZI_WEB" text="Ver _Bitzi Ticket"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Descargar Metadata"/>
 			<separator/>
-		</menu>
-		<menu text="O_rganizar">
-			<item id="ID_LIBRARY_RENAME" text="_Renombrar Archivo"/>
-			<item id="ID_LIBRARY_MOVE" text="_Mover Archivo..."/>
-			<item id="ID_LIBRARY_COPY" text="_Copiar Archivo..."/>
+			<item id="ID_LIBRARY_URI" text="Copiar _URI"/>
 		</menu>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Propiedades"/>
 	</menu>
-	<menu name="CLibraryFileView.Physical">
+	<menu name="CLibraryFileView">
 		<item id="ID_LIBRARY_LAUNCH" text="_Abrir o Reproducir"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="Agregar a la lista de reproducción"/>
 		<item id="ID_LIBRARY_DELETE" text="_Eliminar"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Compartido"/>
 		<separator/>
-		<item id="ID_LIBRARY_URI" text="Copiar URI"/>
+		<item id="ID_LIBRARY_URI" text="Copiar _URI"/>
 		<item id="ID_LIBRARY_CREATETORRENT" text="Crear Archivo .torrent"/>
+		<item id="ID_LIBRARY_LAUNCH_FOLDER" text="Abrir _Folder"/>
 		<separator/>
-		<menu text="S_earch For">
+		<menu text="O_rganizar">
+			<item id="ID_LIBRARY_UNLINK" text="Eliminar _Archivos aqui"/>
+			<separator/>
+			<item id="ID_LIBRARY_RENAME" text="_Renombrar Archivo"/>
+			<item id="ID_LIBRARY_COPY" text="_Copiar Archivos..."/>
+			<item id="ID_LIBRARY_MOVE" text="_Mover Archivos..."/>
+		</menu>
+		<menu text="_Búsqueda">
 			<item id="ID_SEARCH_FOR_THIS" text="Este Archivo"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="Archivos Similares"/>
 			<separator/>
@@ -1313,89 +1322,13 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Música del mismo Album"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Episodios de las mismás series"/>
 		</menu>
-		<menu text="_Web Services">
+		<menu text="_Web Servicios">
 			<item id="ID_LIBRARY_BITZI_WEB" text="Ver _Bitzi Ticket"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Adquirir Metadata"/>
-			<separator/>
-		</menu>
-		<menu text="O_rganizar">
-			<item id="ID_LIBRARY_RENAME" text="_Renombrar Archivo"/>
-			<item id="ID_LIBRARY_MOVE" text="_Mover Archivos..."/>
-			<item id="ID_LIBRARY_COPY" text="_Copiar Archivos..."/>
 		</menu>
 		<menu text="_Metadata">
+			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
 			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Ubicar Metadata"/>
-			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh metadata"/>
-			<item id="ID_LIBRARY_COLUMNS" text="Seleccionar _Columnas..."/>
-		</menu>
-		<separator/>
-		<item id="ID_SHELL_MENU" text="S_hell menu"/>
-		<item id="ID_LIBRARY_PROPERTIES" text="_Propiedades"/>
-	</menu>
-	<menu name="CLibraryFileView.Virtual.Basic">
-		<item id="ID_LIBRARY_LAUNCH" text="_Reproducir"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="Agregar al Reproductor"/>
-		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="Reproducir Album"/>
-		<item id="ID_LIBRARY_DELETE" text="_Eliminar"/>
-		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="_Compartido"/>
-		<separator/>
-		<menu text="S_earch For">
-			<item id="ID_SEARCH_FOR_THIS" text="Este Archivo"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="Archivos Similares"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="Música por el mismo artista"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="Música del mismo Album"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="Episodios de las mismás series"/>
-		</menu>
-		<menu text="_Web Services">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Ver _Bitzi Ticket"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Adquirir Metadata"/>
-			<separator/>
-		</menu>
-		<menu text="O_rganizar">
-			<item id="ID_LIBRARY_UNLINK" text="Eliminar _Archivos"/>
-			<separator/>
-			<item id="ID_LIBRARY_RENAME" text="_Renombrar Archivo"/>
-			<item id="ID_LIBRARY_MOVE" text="_Mover Archivos..."/>
-			<item id="ID_LIBRARY_COPY" text="_Copiar Archivos..."/>
-		</menu>
-		<separator/>
-		<item id="ID_LIBRARY_PROPERTIES" text="_Propiedades"/>
-	</menu>
-	<menu name="CLibraryFileView.Virtual">
-		<item id="ID_LIBRARY_LAUNCH" text="_Abrir o Reproducir"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="Agregar a la lista de reproducción"/>
-		<item id="ID_LIBRARY_DELETE" text="_Eliminar"/>
-		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="_Compartido"/>
-		<separator/>
-		<item id="ID_LIBRARY_URI" text="Copiar URI"/>
-		<item id="ID_LIBRARY_CREATETORRENT" text="Crear Archivo .torrent"/>
-		<separator/>
-		<menu text="S_earch For">
-			<item id="ID_SEARCH_FOR_THIS" text="Este Archivo"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="Archivos Similares"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="Música por el mismo artista"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="Música del mismo Album"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="Episodios de las mismás series"/>
-		</menu>
-		<menu text="_Web Services">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Ver _Bitzi Ticket"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Adquirir Metadata"/>
-			<separator/>
-		</menu>
-		<menu text="O_rganizar">
-			<item id="ID_LIBRARY_UNLINK" text="Eliminar _Archivos"/>
-			<separator/>
-			<item id="ID_LIBRARY_RENAME" text="_Renombrar Archivo"/>
-			<item id="ID_LIBRARY_MOVE" text="_Mover Archivos..."/>
-			<item id="ID_LIBRARY_COPY" text="_Copiar Archivos..."/>
-		</menu>
-		<menu text="_Metadata">
-			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Ubicar Metadata"/>
-			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh metadata"/>
 			<item id="ID_LIBRARY_COLUMNS" text="Seleccionar _Columnas..."/>
 		</menu>
 		<separator/>
@@ -1616,7 +1549,7 @@
 		<item id="ID_DISCOVERY_BLOCKED" text="Mostrar Bloqueado"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
-	<menu name="CPrivateChatFrame">
+	<menu name="CPrivateChatWnd">
 		<item id="ID_CHAT_CONNECT" text="_Conectar"/>
 		<item id="ID_CHAT_DISCONNECT" text="_Desconectar"/>
 		<separator/>
@@ -3868,7 +3801,7 @@
 		<control/>
 		<control caption="_Agregar..."/>
 		<control caption="_Eliminar"/>
-		<control caption="Peligro: Distribuyendo obras con copyright en casi todos los paises es ilegal."/>
+		<control caption="Peligro: Distribuyendo obras con copyright sin autorización es responsable en algunos países."/>
 	</dialog>
 	<dialog name="CFolderScanDlg" cookie="StStStStStStBu" caption="Escaneando Carpeta...">
 		<control/>
@@ -4465,7 +4398,7 @@
 		<control caption="Notas:"/>
 	</dialog>
 	<dialog name="CDownloadEditPage" cookie="StBuStStStStBuStEdEdEdSyBuEdBuEdBuEdBuEdBuEd" caption="Avanzado">
-		<control caption="ADVERTENCIA: En este diálogo se pueden configurar opciones avanzadas de la descarga, que pueden dañar o perder la descarga."/>
+		<control caption="Advertencia: En este diálogo se pueden configurar opciones avanzadas de la descarga, que pueden dañar o perder la descarga."/>
 		<control caption="Información:"/>
 		<control caption="Nombre de archivo:"/>
 		<control caption="Archivo:"/>
@@ -4489,7 +4422,7 @@
 		<control/>
 	</dialog>
 	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="Acciones">
-		<control caption="ADVERTENCIA: En este diálogo se pueden configurar opciones avanzadas de la descarga, que pueden dañar o perder la descarga."/>
+		<control caption="Advertencia: En este diálogo se pueden configurar opciones avanzadas de la descarga, que pueden dañar o perder la descarga."/>
 		<control caption="Olvidar todas las fuentes"/>
 		<control caption="Olvidar el estado de verificación actual y reverificar"/>
 		<control caption="Asumir completados y reverificar (para recuperar descargas)"/>

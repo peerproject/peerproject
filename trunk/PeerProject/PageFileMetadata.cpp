@@ -1,7 +1,7 @@
 //
 // PageFileMetadata.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -73,7 +73,7 @@ BOOL CFileMetadataPage::OnInitDialog()
 {
 	CFilePropertiesPage::OnInitDialog();
 
-	CLibraryList* pFiles = GetList();
+	CLibraryListPtr pFiles( GetList() );
 
 	CRect rcClient, rcCombo;
 	CString strText;
@@ -260,8 +260,9 @@ void CFileMetadataPage::OnCloseUpSchemas()
 
 void CFileMetadataPage::OnOK()
 {
-	CLibraryList* pFiles = GetList();
-	if ( pFiles == NULL ) return;
+	CLibraryListPtr pFiles( GetList() );
+
+	if ( ! pFiles ) return;
 
 	if ( pFiles->GetCount() >= 10 )
 	{

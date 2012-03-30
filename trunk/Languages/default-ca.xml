@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Catalan Skin File -->
 
-<!-- Translation based on default-en.xml r75 -->
+<!-- Translation based on default-en.xml r76 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -405,7 +405,7 @@
 		<button id="ID_HOSTCACHE_DC_CACHE" text="Caxè"/>
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
-	<toolbar name="CPrivateChatFrame">
+	<toolbar name="CPrivateChatWnd">
 		<button id="ID_CHAT_BOLD"/>
 		<button id="ID_CHAT_ITALIC"/>
 		<button id="ID_CHAT_UNDERLINE"/>
@@ -1260,13 +1260,12 @@
 		<separator/>
 		<item id="ID_LIBRARY_ALBUM_PROPERTIES" text="_Propietats"/>
 	</menu>
-	<menu name="CLibraryFileView.Physical.Basic">
+	<menu name="CLibraryFileView.Basic">
 		<item id="ID_LIBRARY_LAUNCH" text="_Reprodueix"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="_Afegeix al reproductor"/>
+		<item id="ID_LIBRARY_DELETE" text="_Esborra"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Compartit"/>
-		<separator/>
-		<item id="ID_LIBRARY_DELETE" text="_Esborra"/>
 		<separator/>
 		<menu text="S_earch For">
 			<item id="ID_SEARCH_FOR_THIS" text="Aquest arxiu"/>
@@ -1280,7 +1279,7 @@
 			<item id="ID_LIBRARY_BITZI_WEB" text="Informe _Bitzi"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Descarrega la metainformació"/>
 			<separator/>
-			<item id="ID_LIBRARY_URI" text=""/>
+			<item id="ID_LIBRARY_URI" text="_URI"/>
 		</menu>
 		<menu text="O_rganitza">
 			<item id="ID_LIBRARY_RENAME" text="_Reanomena arxiu"/>
@@ -1290,86 +1289,24 @@
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Propietats"/>
 	</menu>
-	<menu name="CLibraryFileView.Physical">
+	<menu name="CLibraryFileView">
 		<item id="ID_LIBRARY_LAUNCH" text="_Obre o reprodueix"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="Afegeix a la llista de reproducció"/>
 		<item id="ID_LIBRARY_DELETE" text="_Esborra"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Comparteix"/>
 		<separator/>
-		<item id="ID_LIBRARY_URI" text=""/>
+		<item id="ID_LIBRARY_URI" text="_URI"/>
+		<item id="ID_LIBRARY_CREATETORRENT" text="Crea arxiu .torrent"/>
+		<item id="ID_LIBRARY_LAUNCH_FOLDER" text="Obre _Folder"/>
 		<separator/>
-		<menu text="Cerca">
-			<item id="ID_SEARCH_FOR_THIS" text="Aquest arxiu"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="Arxius semblants"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="Música del mateix artista"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="Música del mateix àlbum"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="Episodis de les mateixes sèries"/>
-		</menu>
-		<menu text="_Serveis web">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Informe _Bitzi"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Carrega la metainformació"/>
-			<separator/>
-			<item id="ID_LIBRARY_CREATETORRENT" text="Crea arxiu .torrent"/>
-		</menu>
-		<menu text="O_rganitza">
-			<item id="ID_LIBRARY_RENAME" text="_Reanomena arxiu"/>
-			<item id="ID_LIBRARY_MOVE" text="_Mou arxius..."/>
-			<item id="ID_LIBRARY_COPY" text="_Copia arxius..."/>
-		</menu>
-		<menu text="_Metadata">
-			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localitza la metainformació"/>
-			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
-			<item id="ID_LIBRARY_COLUMNS" text="Tria _columnes..."/>
-		</menu>
-		<separator/>
-		<item id="ID_SHELL_MENU" text="S_hell menu"/>
-		<item id="ID_LIBRARY_PROPERTIES" text="_Propietats"/>
-	</menu>
-	<menu name="CLibraryFileView.Virtual.Basic">
-		<item id="ID_LIBRARY_LAUNCH" text="_Obre o reprodueix"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="Afegeix al reproductor"/>
-		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="Reprodueix àlbum"/>
-		<item id="ID_LIBRARY_DELETE" text="_Esborra"/>
-		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="_Compartit"/>
-		<separator/>
-		<menu text="Cerca">
-			<item id="ID_SEARCH_FOR_THIS" text="Aquest arxiu"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="arxius semblants"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="Música del mateix artista"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="Música del mateix àlbum"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="Episodis de les mateixes sèries"/>
-		</menu>
-		<menu text="_Serveis web">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Informe _Bitzi"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Carrega la metainformació"/>
-			<separator/>
-			<item id="ID_LIBRARY_URI" text=""/>
-		</menu>
-		<menu text="O_rganitza">
+		<menu text="O_rganització">
 			<item id="ID_LIBRARY_UNLINK" text="Esborra _arxius"/>
 			<separator/>
-			<item id="ID_LIBRARY_RENAME" text="_Reanomena arxiu"/>
-			<item id="ID_LIBRARY_MOVE" text="_Mou arxius..."/>
+			<item id="ID_LIBRARY_RENAME" text="_Reanomena arxius"/>
 			<item id="ID_LIBRARY_COPY" text="_Copia arxius..."/>
+			<item id="ID_LIBRARY_MOVE" text="_Mou arxius..."/>
 		</menu>
-		<separator/>
-		<item id="ID_SHELL_MENU" text="S_hell menu"/>
-		<item id="ID_LIBRARY_PROPERTIES" text="_Propietats"/>
-	</menu>
-	<menu name="CLibraryFileView.Virtual">
-		<item id="ID_LIBRARY_LAUNCH" text="_Obre o reprodueix"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="Afegeix a la llista de reproducció"/>
-		<item id="ID_LIBRARY_DELETE" text="_Esborra"/>
-		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="_Comparteix"/>
-		<separator/>
-		<item id="ID_LIBRARY_URI" text=""/>
-		<item id="ID_LIBRARY_CREATETORRENT" text="._torrent"/>
-		<separator/>
 		<menu text="C_erca...">
 			<item id="ID_SEARCH_FOR_THIS" text="Aquest arxiu"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="Arxius semblants"/>
@@ -1381,19 +1318,10 @@
 		<menu text="_Serveis web">
 			<item id="ID_LIBRARY_BITZI_WEB" text="Informe _Bitzi"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Carrega la metainformació"/>
-			<separator/>
-			<item id="ID_LIBRARY_CREATETORRENT" text="Crea arxiu .torrent"/>
 		</menu>
-		<menu text="O_rganització">
-			<item id="ID_LIBRARY_UNLINK" text="Esborra _arxius"/>
-			<separator/>
-			<item id="ID_LIBRARY_RENAME" text="_Reanomena arxius"/>
-			<item id="ID_LIBRARY_MOVE" text="_Mou arxius..."/>
-			<item id="ID_LIBRARY_COPY" text="_Copia arxius..."/>
-		</menu>
-		<menu text="_Metadata">
-			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localitza la metainformació"/>
+		<menu text="_Metainformació">
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localitza la metainformació"/>
 			<item id="ID_LIBRARY_COLUMNS" text="Tria _columnes..."/>
 		</menu>
 		<separator/>
@@ -1477,15 +1405,15 @@
 		</menu>
 	</menu>
 	<menu name="CMediaFrame.Zoom">
-			<item id="ID_MEDIA_SIZE_ONE" text="Mida _original"/>
-			<item id="ID_MEDIA_SIZE_TWO" text="Mida _doble"/>
-			<item id="ID_MEDIA_SIZE_HALF" text="Mida _medio"/>
-			<item id="ID_MEDIA_SIZE_FILL" text="Mida _gran"/>
-			<item id="ID_MEDIA_SIZE_DISTORT" text="_Omple finestra"/>
-			<separator/>
-			<item id="ID_MEDIA_ASPECT_DEFAULT" text="_Aspecte original"/>
-			<item id="ID_MEDIA_ASPECT_4_3" text="_4:3 (TV)"/>
-			<item id="ID_MEDIA_ASPECT_16_9" text="_16:9 (Cinema)"/>
+		<item id="ID_MEDIA_SIZE_ONE" text="Mida _original"/>
+		<item id="ID_MEDIA_SIZE_TWO" text="Mida _doble"/>
+		<item id="ID_MEDIA_SIZE_HALF" text="Mida _medio"/>
+		<item id="ID_MEDIA_SIZE_FILL" text="Mida _gran"/>
+		<item id="ID_MEDIA_SIZE_DISTORT" text="_Omple finestra"/>
+		<separator/>
+		<item id="ID_MEDIA_ASPECT_DEFAULT" text="_Aspecte original"/>
+		<item id="ID_MEDIA_ASPECT_4_3" text="_4:3 (TV)"/>
+		<item id="ID_MEDIA_ASPECT_16_9" text="_16:9 (Cinema)"/>
 	</menu>
 	<menu name="CMediaList">
 		<item id="ID_MEDIA_SELECT" text="_Reprodueix"/>
@@ -1617,7 +1545,7 @@
 		<item id="ID_DISCOVERY_BLOCKED" text="Mostra Bloquejat"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
-	<menu name="CPrivateChatFrame">
+	<menu name="CPrivateChatWnd">
 		<item id="ID_CHAT_CONNECT" text="_Connecta"/>
 		<item id="ID_CHAT_DISCONNECT" text="_Desconnecta"/>
 		<separator/>
@@ -3770,7 +3698,7 @@
 		<control/>
 		<control caption="_Afegeix..."/>
 		<control caption="_Esborra"/>
-		<control caption="ADVERTÈNCIA: Distribuir obres sota drets d'autor (copyright) sense permís és il·legal!!!"/>
+		<control caption="Atenció: Distribuir obres sota drets d'autor (copyright) sense permís és il·legal."/>
 	</dialog>
 	<dialog name="CFolderScanDlg" cookie="StStStStStStBu" caption="Escanejant carpeta...">
 		<control/>
@@ -4367,7 +4295,7 @@
 		<control caption="Notes:"/>
 	</dialog>
 	<dialog name="CDownloadEditPage" cookie="StBuStStStStBuStEdEdEdSyBuEdBuEdBuEdBuEdBuEd" caption="Avançada">
-		<control caption="ADVERTÈNCIA: Amb aquesta finestra es poden configurar opcions avançades de la descàrrega per a usuaris avançats, que, si són utilitzades incorrectament, podrien danyar o perdre la descàrrega."/>
+		<control caption="Atenció: Amb aquesta finestra es poden configurar opcions avançades de la descàrrega per a usuaris avançats, que, si són utilitzades incorrectament, podrien danyar o perdre la descàrrega."/>
 		<control caption="Nom de l'arxiu i mida:"/>
 		<control caption="Nom:"/>
 		<control caption="Arxiu:"/>
@@ -4391,7 +4319,7 @@
 		<control/>
 	</dialog>
 	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="_Accions:">
-		<control caption="ADVERTÈNCIA: Amb aquesta finestra es poden configurar opcions avançades de la descàrrega per a usuaris avançats, que, si són utilitzades incorrectament, podrien danyar o perdre la descàrrega."/>
+		<control caption="Atenció: Amb aquesta finestra es poden configurar opcions avançades de la descàrrega per a usuaris avançats, que, si són utilitzades incorrectament, podrien danyar o perdre la descàrrega."/>
 		<control caption="Oblida totes les fonts conegudes"/>
 		<control caption="Oblida l'estat de verificació actual i torna a verificar"/>
 		<control caption="Asumeix completats i reverifica (per a recuperar descàrregues)"/>

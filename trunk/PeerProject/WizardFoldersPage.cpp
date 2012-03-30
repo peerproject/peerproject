@@ -1,7 +1,7 @@
 //
 // WizardFoldersPage.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2011
+// This file is part of PeerProject (peerproject.org) © 2011-2012
 //
 // PeerProject is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Affero General Public License
@@ -117,26 +117,21 @@ BOOL CWizardFoldersPage::OnSetActive()
 
 void CWizardFoldersPage::OnDownloadsBrowse()
 {
-	CString strPath( BrowseForFolder( _T("Select folder for downloads:"),
-		m_sDownloadsPath ) );
+	CString strPath( BrowseForFolder( _T("Select folder for downloads:"), m_sDownloadsPath ) );
 	if ( strPath.IsEmpty() )
 		return;
 
 	// Warn user about a path that's too long
 	if ( _tcslen( strPath ) > MAX_PATH - 33 )
 	{
-		CString strMessage;
-		LoadString( strMessage, IDS_SETTINGS_FILEPATH_TOO_LONG );
-		AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
+		AfxMessageBox( IDS_SETTINGS_FILEPATH_TOO_LONG, MB_ICONEXCLAMATION );
 		return;
 	}
 
 	// Make sure download/incomplete folders aren't the same
 	if ( _tcsicmp( strPath, m_sIncompletePath ) == 0 )
 	{
-		CString strMessage;
-		LoadString( strMessage, IDS_SETTINGS_FILEPATH_NOT_SAME );
-		AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
+		AfxMessageBox( IDS_SETTINGS_FILEPATH_NOT_SAME, MB_ICONEXCLAMATION );
 		return;
 	}
 
@@ -148,35 +143,28 @@ void CWizardFoldersPage::OnDownloadsBrowse()
 
 void CWizardFoldersPage::OnIncompleteBrowse()
 {
-	CString strPath( BrowseForFolder( _T("Select folder for incomplete files:"),
-		m_sIncompletePath ) );
+	CString strPath( BrowseForFolder( _T("Select folder for incomplete files:"), m_sIncompletePath ) );
 	if ( strPath.IsEmpty() )
 		return;
 
 	// Warn user about a path that's too long
 	if ( _tcslen( strPath ) > MAX_PATH - 52 )
 	{
-		CString strMessage;
-		LoadString( strMessage, IDS_SETTINGS_FILEPATH_TOO_LONG );
-		AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
+		AfxMessageBox( IDS_SETTINGS_FILEPATH_TOO_LONG, MB_ICONEXCLAMATION );
 		return;
 	}
 
 	// Make sure download/incomplete folders aren't the same
 	if ( _tcsicmp( strPath, m_sDownloadsPath ) == 0 )
 	{
-		CString strMessage;
-		LoadString( strMessage, IDS_SETTINGS_FILEPATH_NOT_SAME );
-		AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
+		AfxMessageBox( IDS_SETTINGS_FILEPATH_NOT_SAME, MB_ICONEXCLAMATION );
 		return;
 	}
 
 	// Warn user about an incomplete folder in the library
 	if ( LibraryFolders.IsFolderShared( strPath ) )
 	{
-		CString strMessage;
-		LoadString( strMessage, IDS_SETTINGS_INCOMPLETE_LIBRARY );
-		AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
+		AfxMessageBox( IDS_SETTINGS_INCOMPLETE_LIBRARY, MB_ICONEXCLAMATION );
 		return;
 	}
 
@@ -187,8 +175,7 @@ void CWizardFoldersPage::OnIncompleteBrowse()
 
 void CWizardFoldersPage::OnTorrentsBrowse()
 {
-	CString strPath( BrowseForFolder( _T("Select folder for torrents:"),
-		m_sTorrentsPath ) );
+	CString strPath( BrowseForFolder( _T("Select folder for torrents:"), m_sTorrentsPath ) );
 	if ( strPath.IsEmpty() )
 		return;
 
@@ -201,15 +188,24 @@ LRESULT CWizardFoldersPage::OnWizardNext()
 {
 	CWaitCursor pCursor;
 
+	CreateDirectory( m_sDownloadsPath );
+	CreateDirectory( m_sIncompletePath );
+	CreateDirectory( m_sTorrentsPath );
+
+	if ( m_sIncompletePath != Settings.Downloads.IncompletePath && Settings.Library.UseCustomFolders )
+	{
+		// Set desktop.ini
+		CLibraryFolder*	pFolderNew = new CLibraryFolder( NULL, m_sIncompletePath );
+		pFolderNew->Maintain( TRUE );
+		CLibraryFolder*	pFolderOld = new CLibraryFolder( NULL, Settings.Downloads.IncompletePath );
+		pFolderOld->Maintain( FALSE );
+	}
+
 	Settings.Downloads.CompletePath		= m_sDownloadsPath;
 	Settings.Downloads.IncompletePath	= m_sIncompletePath;
 	Settings.Downloads.TorrentPath		= m_sTorrentsPath;
 
 	UpdateData( FALSE );
-
-	CreateDirectory( m_sDownloadsPath );
-	CreateDirectory( m_sIncompletePath );
-	CreateDirectory( m_sTorrentsPath );
 
 	//LibraryFolders.AddFolder( m_sDownloadsPath );
 	//LibraryFolders.AddFolder( m_sTorrentsPath );
@@ -246,5 +242,6 @@ void CWizardFoldersPage::DoDonkeyImport()
 		}
 	}
 
-	if ( nCount > 0 ) dlg.DoModal();
+	if ( nCount > 0 )
+		dlg.DoModal();
 }

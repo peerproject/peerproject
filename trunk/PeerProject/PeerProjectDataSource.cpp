@@ -226,6 +226,7 @@ public:
 	CEnumFormatEtc();
 	virtual ~CEnumFormatEtc();
 
+public:
 	void AddFormat(const FORMATETC* lpFormatEtc);
 
 protected:
@@ -239,7 +240,7 @@ protected:
 /////////////////////////////////////////////////////////////////////////////
 // CPeerProjectDataSource
 
-IMPLEMENT_DYNCREATE(CPeerProjectDataSource, CComObject)
+IMPLEMENT_DYNAMIC(CPeerProjectDataSource, CComObject)
 
 // {34791E02-51DC-4CF4-9E34-018166D91D0E}
 IMPLEMENT_OLECREATE_FLAGS(CPeerProjectDataSource, "PeerProject.DataSource",
@@ -630,7 +631,7 @@ BOOL CPeerProjectDataSource::DropToAlbum(IDataObject* pIDataObject, DWORD grfKey
 		return FALSE;
 
 	if ( ! pAlbumFolder ||
-		! LibraryFolders.CheckAlbum( pAlbumFolder ) ||
+		 ! LibraryFolders.CheckAlbum( pAlbumFolder ) ||
 		CheckURI( pAlbumFolder->m_sSchemaURI, CSchema::uriGhostFolder ) ||
 		CheckURI( pAlbumFolder->m_sSchemaURI, CSchema::uriSearchFolder ) )
 	{
@@ -720,7 +721,8 @@ BOOL CPeerProjectDataSource::DropToAlbum(IDataObject* pIDataObject, DWORD grfKey
 			{
 				if ( CAlbumFolder* pFolder = new CAlbumFolder( pAlbumFolder ) )
 				{
-					try {
+					try
+					{
 						pFolder->Serialize( ar, LIBRARY_SER_VERSION );
 
 						if ( *pAlbumFolder == *pFolder ||
@@ -1318,9 +1320,9 @@ void CPeerProjectDataSource::GetTotalLength(const CLibraryList* pList, size_t& s
 				if ( pAlbum && bRoot &&
 					! CheckURI( pAlbum->m_sSchemaURI, CSchema::uriGhostFolder ) )
 				{
-					CLibraryList List;
-					pAlbum->GetFileList( &List, TRUE );
-					GetTotalLength( &List, size_HDROP, size_Archive, size_Files, FALSE );
+					CLibraryListPtr pList( new CLibraryList() );
+					pAlbum->GetFileList( pList, TRUE );
+					GetTotalLength( pList, size_HDROP, size_Archive, size_Files, FALSE );
 
 					size_Archive++;
 				}
@@ -1359,9 +1361,9 @@ void CPeerProjectDataSource::GetTotalLength(const CLibraryTreeItem* pSelFirst, s
 			! CheckURI( pItem->m_pVirtual->m_sSchemaURI, CSchema::uriGhostFolder ) )
 		{
 			// Add all files within virtual folder (recursively)
-			CLibraryList List;
-			pItem->m_pVirtual->GetFileList( &List, TRUE );
-			GetTotalLength( &List, size_HDROP, size_Archive, size_Files, FALSE );
+			CLibraryListPtr pList( new CLibraryList() );
+			pItem->m_pVirtual->GetFileList( pList, TRUE );
+			GetTotalLength( pList, size_HDROP, size_Archive, size_Files, FALSE );
 
 			// Add virtual folder
 			size_Archive++;
@@ -1433,9 +1435,9 @@ void CPeerProjectDataSource::FillBuffer(const CLibraryList* pList, LPTSTR& buf_H
 				if ( pAlbum && bRoot &&
 					! CheckURI( pAlbum->m_sSchemaURI, CSchema::uriGhostFolder ) )
 				{
-					CLibraryList List;
-					pAlbum->GetFileList( &List, TRUE );
-					FillBuffer( &List, buf_HDROP, buf_Archive, buf_Files, buf_Text, FALSE, pAlbum->m_oGUID );
+					CLibraryListPtr pList( new CLibraryList() );
+					pAlbum->GetFileList( pList, TRUE );
+					FillBuffer( pList, buf_HDROP, buf_Archive, buf_Files, buf_Text, FALSE, pAlbum->m_oGUID );
 
 					pAlbum->Serialize( buf_Archive, LIBRARY_SER_VERSION );
 				}
@@ -1476,9 +1478,9 @@ void CPeerProjectDataSource::FillBuffer(const CLibraryTreeItem* pSelFirst, LPTST
 			! CheckURI( pItem->m_pVirtual->m_sSchemaURI, CSchema::uriGhostFolder ) )
 		{
 			// Add all files within virtual folder (recursively)
-			CLibraryList List;
-			pItem->GetFileList( &List, TRUE );
-			FillBuffer( &List, buf_HDROP, buf_Archive, buf_Files, buf_Text, FALSE, pItem->m_pVirtual->m_oGUID );
+			CLibraryListPtr pList( new CLibraryList() );
+			pItem->GetFileList( pList, TRUE );
+			FillBuffer( pList, buf_HDROP, buf_Archive, buf_Files, buf_Text, FALSE, pItem->m_pVirtual->m_oGUID );
 
 			// Add virtual folder
 			pItem->m_pVirtual->Serialize( buf_Archive, LIBRARY_SER_VERSION );

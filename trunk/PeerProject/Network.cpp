@@ -1120,7 +1120,7 @@ void CNetwork::OnQueryHits(CQueryHit* pHits)
 void CNetwork::RunJobs()
 {
 	// Spend no more than 250 ms here at once
-	const DWORD nStop = GetTickCount() + 250;
+	const DWORD nStop = GetTickCount() + 250;	// Settings.Interface.RefreshRateUI ?
 
 	CSingleLock oJobLock( &m_pJobSection, TRUE );
 

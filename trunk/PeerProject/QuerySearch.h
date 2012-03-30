@@ -36,9 +36,12 @@ typedef CComObjectPtr< CQuerySearch > CQuerySearchPtr;
 
 class CQuerySearch : public CPeerProjectFile
 {
+	DECLARE_DYNAMIC(CQuerySearch)
+
 // Construction
 public:
 	CQuerySearch(BOOL bGUID = TRUE);
+protected:
 	virtual ~CQuerySearch();
 
 // Attributes
@@ -156,4 +159,8 @@ public:
 	static BOOL 			NumberMatch(const CString& strValue, const CString& strRange);
 	static BOOL				CheckOverflow(const CString& sSearch);
 	static void 			SearchHelp();		// Shows some search help dialogs
+
+private:
+	CQuerySearch(const CQuerySearch&);
+	CQuerySearch& operator=(const CQuerySearch&);
 };

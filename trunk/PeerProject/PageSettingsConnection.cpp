@@ -317,7 +317,7 @@ void CConnectionSettingsPage::OnOK()
 		if ( nUpload * 16 < nDownload )
 		{
 			CHelpDlg::Show( _T("GeneralHelp.UploadWarning") );
-			Settings.Live.UploadLimitWarning = TRUE;
+			Settings.Live.UploadLimitWarning = true;
 		}
 	}
 

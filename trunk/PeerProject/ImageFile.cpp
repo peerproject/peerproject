@@ -1,7 +1,7 @@
 //
 // ImageFile.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -89,18 +89,14 @@ BOOL CImageFile::LoadFromResource(HINSTANCE hInstance, UINT nResourceID, LPCTSTR
 	Clear();
 
 	HMODULE hModule = (HMODULE)hInstance;
-	HRSRC hRes = FindResource( hModule, MAKEINTRESOURCE( nResourceID ), pszType );
-	if ( hRes )
+	if ( HRSRC hRes = FindResource( hModule, MAKEINTRESOURCE( nResourceID ), pszType ) )
 	{
-		DWORD nSize			= SizeofResource( hModule, hRes );
-		HGLOBAL hMemory		= LoadResource( hModule, hRes );
-		if ( hMemory )
+		DWORD nSize = SizeofResource( hModule, hRes );
+		if ( HGLOBAL hMemory = LoadResource( hModule, hRes ) )
 		{
-			LPCVOID pMemory	= (LPCVOID)LockResource( hMemory );
+			LPCVOID pMemory = (LPCVOID)LockResource( hMemory );
 			if ( pMemory )
 			{
-				CString strType;
-
 				if ( _tcscmp( pszType, RT_JPEG ) == 0 )
 				{
 					pszType = _T(".jpg");
@@ -111,6 +107,7 @@ BOOL CImageFile::LoadFromResource(HINSTANCE hInstance, UINT nResourceID, LPCTSTR
 				}
 				else
 				{
+					CString strType;
 					strType.Format( _T(".%s"), pszType );
 					pszType = strType;
 				}
@@ -226,7 +223,7 @@ BOOL CImageFile::LoadFromBitmap(HBITMAP hBitmap, BOOL bScanOnly)
 	}
 
 #ifndef WIN64
-	if ( m_nComponents == 4 && theApp.m_bIsWin2000 )
+	if ( theApp.m_bIsWin2000 && m_nComponents == 4 )
 		AlphaToRGB( RGB( 255,255,255 ) );
 #endif	// No x64
 
@@ -672,7 +669,9 @@ HBITMAP CImageFile::LoadBitmapFromFile(LPCTSTR pszFile)
 	CImageFile pFile;
 	if ( pFile.LoadFromFile( pszFile, FALSE, FALSE ) )
 	{
-		if ( theApp.m_bIsWin2000 ) pFile.EnsureRGB();	// Support Alpha?
+#ifndef WIN64
+		if ( theApp.m_bIsWin2000 ) pFile.EnsureRGB();	// Support Alpha otherwise?
+#endif
 		return pFile.CreateBitmap();
 	}
 
@@ -681,19 +680,18 @@ HBITMAP CImageFile::LoadBitmapFromFile(LPCTSTR pszFile)
 
 HBITMAP CImageFile::LoadBitmapFromResource(UINT nResourceID, HINSTANCE hInstance)
 {
-	HBITMAP hBitmap = (HBITMAP)LoadImage( hInstance,
-		MAKEINTRESOURCE( nResourceID ), IMAGE_BITMAP, 0, 0, 0 );
+	HBITMAP hBitmap = (HBITMAP)LoadImage( hInstance, MAKEINTRESOURCE( nResourceID ), IMAGE_BITMAP, 0, 0, 0 );
+
 	if ( ! hBitmap )
 	{
 		CImageFile pFile;
-		hBitmap = ( pFile.LoadFromResource( hInstance, nResourceID, RT_PNG ) &&
-			pFile.EnsureRGB() ) ? pFile.CreateBitmap() : NULL;
+		if ( pFile.LoadFromResource( hInstance, nResourceID, RT_PNG ) && pFile.EnsureRGB() )	// ToDo: Allow Alpha?
+			hBitmap = pFile.CreateBitmap();
+		else if ( pFile.LoadFromResource( hInstance, nResourceID, RT_JPEG ) && pFile.EnsureRGB() )
+			hBitmap = pFile.CreateBitmap();
+		else
+			hBitmap = NULL;
 	}
-	if ( ! hBitmap )
-	{
-		CImageFile pFile;
-		hBitmap = ( pFile.LoadFromResource( hInstance, nResourceID, RT_JPEG ) &&
-			pFile.EnsureRGB() ) ? pFile.CreateBitmap() : NULL;
-	}
+
 	return hBitmap;
 }

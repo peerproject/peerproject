@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Turkish Skin File -->
 
-<!-- Translation based on default-en.xml r75 -->
+<!-- Translation based on default-en.xml r76 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -405,7 +405,7 @@
 		<button id="ID_HOSTCACHE_DC_CACHE" text="Bellek"/>
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
-	<toolbar name="CPrivateChatFrame">
+	<toolbar name="CPrivateChatWnd">
 		<button id="ID_CHAT_BOLD"/> <!--K-->
 		<button id="ID_CHAT_ITALIC"/> <!--I-->
 		<button id="ID_CHAT_UNDERLINE"/> <!--A-->
@@ -1272,13 +1272,18 @@
 		<separator/>
 		<item id="ID_LIBRARY_ALBUM_PROPERTIES" text="Ö_zellikler"/>
 	</menu>
-	<menu name="CLibraryFileView.Physical.Basic">
+	<menu name="CLibraryFileView.Basic">
 		<item id="ID_LIBRARY_LAUNCH" text="_Aç/Oynat"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="_Oynatma Listesine Ekle"/>
 		<item id="ID_LIBRARY_DELETE" text="_Sil"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Paylaşılanlar"/>
 		<separator/>
+		<menu text="_Düzenle">
+			<item id="ID_LIBRARY_RENAME" text="_Dosya Adı Değiştir"/>
+			<item id="ID_LIBRARY_COPY" text="Dosyaları _Kopyala..."/>
+			<item id="ID_LIBRARY_MOVE" text="Dosyaları _Taşı..."/>
+		</menu>
 		<menu text="A_rama">
 			<item id="ID_SEARCH_FOR_THIS" text="_Bu Dosya"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="Benzer _Dosyalar"/>
@@ -1290,26 +1295,28 @@
 		<menu text="_Web Servisleri">
 			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi Etiketi Göster"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Veri İndir"/>
-			<separator/>
-		</menu>
-		<menu text="_Düzenle">
-			<item id="ID_LIBRARY_RENAME" text="_Dosya Adı Değiştir"/>
-			<item id="ID_LIBRARY_MOVE" text="Dosyaları _Taşı..."/>
-			<item id="ID_LIBRARY_COPY" text="Dosyaları _Kopyala..."/>
 		</menu>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="Ö_zellikler"/>
 	</menu>
-	<menu name="CLibraryFileView.Physical">
+	<menu name="CLibraryFileView">
 		<item id="ID_LIBRARY_LAUNCH" text="_Aç/Oynat"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="_Oynatma Listesine Ekle"/>
 		<item id="ID_LIBRARY_DELETE" text="_Sil"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Paylaşılanlar"/>
 		<separator/>
-		<item id="ID_LIBRARY_URI" text="URI"/>
+		<item id="ID_LIBRARY_URI" text="_URI"/>
 		<item id="ID_LIBRARY_CREATETORRENT" text="._torrent Dosyası Oluştur"/>
+		<item id="ID_LIBRARY_LAUNCH_FOLDER" text="Aç _Folder"/>
 		<separator/>
+		<menu text="_Düzenle">
+			<item id="ID_LIBRARY_UNLINK" text="Dosyaları _Kaldır"/>
+			<separator/>
+			<item id="ID_LIBRARY_RENAME" text="_Dosya Adı Değiştir"/>
+			<item id="ID_LIBRARY_COPY" text="Do_syaları Kopyala..."/>
+			<item id="ID_LIBRARY_MOVE" text="Dosyaları _Taşı..."/>
+		</menu>
 		<menu text="A_rama">
 			<item id="ID_SEARCH_FOR_THIS" text="_Bu Dosya"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="Benzer _Dosyalar"/>
@@ -1321,90 +1328,14 @@
 		<menu text="_Web Servisleri">
 			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi Etiketi Göster"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Veri Edinmek"/>
-			<separator/>
 		</menu>
-		<menu text="_Düzenle">
-			<item id="ID_LIBRARY_RENAME" text="_Dosya Adı Değiştir"/>
-			<item id="ID_LIBRARY_MOVE" text="Dosyaları _Taşı..."/>
-			<item id="ID_LIBRARY_COPY" text="Dosyaları _Kopyala..."/>
-		</menu>
-		<menu text="_Metadata">
-			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Sınırlı Veri"/>
+		<menu text="_Meta Verileri">
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Meta Verileri Tazele"/>
-			<item id="ID_LIBRARY_COLUMNS" text="Sü_tun Seç..."/>
-		</menu>
-		<separator/>
-		<item id="ID_SHELL_MENU" text="İş_letim Sistemi Menüsü"/>
-		<item id="ID_LIBRARY_PROPERTIES" text="Ö_zellikler"/>
-	</menu>
-	<menu name="CLibraryFileView.Virtual.Basic">
-		<item id="ID_LIBRARY_LAUNCH" text="_Aç/Oynat"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="_Oynatma Listesine Ekle"/>
-		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="A_lbüm Oynat"/>
-		<item id="ID_LIBRARY_DELETE" text="_Sil"/>
-		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="_Paylaşılanlar"/>
-		<separator/>
-		<menu text="A_rama">
-			<item id="ID_SEARCH_FOR_THIS" text="_Bu Dosya"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="Benzer _Dosyalar"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="Aynı Sanatçının _Müzikleri"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="Aynı _Albümden Müzikler"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="Aynı _Seriden Bölümler"/>
-		</menu>
-		<menu text="_Web Servisleri">
-			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi Etiketi Göster"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Veri Edinmek"/>
-			<separator/>
-		</menu>
-		<menu text="_Düzenle">
-			<item id="ID_LIBRARY_UNLINK" text="Dosyaları _Kaldır"/>
-			<separator/>
-			<item id="ID_LIBRARY_RENAME" text="_Dosya Adı Değiştir"/>
-			<item id="ID_LIBRARY_MOVE" text="Dosyaları _Taşı..."/>
-			<item id="ID_LIBRARY_COPY" text="Do_syaları Kopyala..."/>
-		</menu>
-		<separator/>
-		<item id="ID_LIBRARY_PROPERTIES" text="Ö_zellikler"/>
-	</menu>
-	<menu name="CLibraryFileView.Virtual">
-		<item id="ID_LIBRARY_LAUNCH" text="_Aç/Oynat"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="_Oynatma Listesine Ekle"/>
-		<item id="ID_LIBRARY_DELETE" text="_Sil"/>
-		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="_Paylaşılanlar"/>
-		<separator/>
-		<item id="ID_LIBRARY_URI" text="URI"/>
-		<item id="ID_LIBRARY_CREATETORRENT" text="._torrent Dosyası Oluştur"/>
-		<separator/>
-		<menu text="A_rama">
-			<item id="ID_SEARCH_FOR_THIS" text="_Bu Dosya"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="Benzer _Dosyalar"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="Aynı Sanatçının _Müzikleri"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="Aynı _Albümden Müzikler"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="Aynı _Seriden Bölümler"/>
-		</menu>
-		<menu text="_Web Servisleri">
-			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi Etiketi Göster"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Veri Edinmek"/>
-			<separator/>
-		</menu>
-		<menu text="_Düzenle">
-			<item id="ID_LIBRARY_UNLINK" text="Dosyaları _Kaldır"/>
-			<separator/>
-			<item id="ID_LIBRARY_RENAME" text="_Dosya Adı Değiştir"/>
-			<item id="ID_LIBRARY_MOVE" text="Dosyaları _Taşı..."/>
-			<item id="ID_LIBRARY_COPY" text="Do_syaları Kopyala..."/>
-		</menu>
-		<menu text="_Metadata">
 			<item id="ID_LIBRARY_REBUILD_ANSI" text="Sı_nırlı Veri"/>
-			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Meta Verileri Tazele"/>
 			<item id="ID_LIBRARY_COLUMNS" text="Sü_tun Seç..."/>
 		</menu>
 		<separator/>
-		<item id="ID_SHELL_MENU" text="Windows men_u"/>
+		<item id="ID_SHELL_MENU" text="Windows Men_u"/>
 		<item id="ID_LIBRARY_PROPERTIES" text="Ö_zellikler"/>
 	</menu>
 	<!-- MEDIA WINDOW -->
@@ -1621,7 +1552,7 @@
 		<item id="ID_DISCOVERY_BLOCKED" text="Engellenen Göster"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
-	<menu name="CPrivateChatFrame">
+	<menu name="CPrivateChatWnd">
 		<item id="ID_CHAT_CONNECT" text="_Bağlan"/>
 		<item id="ID_CHAT_DISCONNECT" text="Bağlantı _Kes"/>
 		<separator/>
@@ -4358,7 +4289,7 @@
 		<control caption="Tamam"/>
 		<control caption="İptal"/>
 		<control caption="Bu dosyayı daha önce indirdiniz ve sildiniz. Ne yapmak istersiniz?"/>
-		<control caption="Uyarı!!! Kopya - eş dosyalar tespit edilmiştir. Bazı kötücül yazılımlar kütüphanenizdeki dosyalara bulaşabilir. Bu dosyayı indirdiğinizden ya da sizin koyduğunuzdan emin olun. Aksi takdirde PeerProject'yı kapatıp bilgisayarınızı bir antivirüs programıyla tarayın."/>
+		<control caption="Uyarı! Kopya - eş dosyalar tespit edilmiştir. Bazı kötücül yazılımlar kütüphanenizdeki dosyalara bulaşabilir. Bu dosyayı indirdiğinizden ya da sizin koyduğunuzdan emin olun. Aksi takdirde PeerProject'yı kapatıp bilgisayarınızı bir antivirüs programıyla tarayın."/>
 	</dialog>
 	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Kapat Düğmesi">
 		<control caption="Bu PeerProject'nın kapat butonuna ilk basışınızdır. Lütfen bundan böyle bu butona bastığınızda PeerProject'nın yapmasını istediğiniz faaliyeti seçiniz:"/>

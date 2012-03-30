@@ -22,6 +22,7 @@
 #include "WndDiscovery.h"
 #include "DiscoveryServices.h"
 #include "DlgDiscoveryService.h"
+#include "CoolInterface.h"
 #include "Network.h"
 #include "LiveList.h"
 #include "Skin.h"
@@ -46,6 +47,17 @@ enum {
 	COL_FAILURES,
 	COL_PONG,
 	COL_LAST	// Column Count
+};
+
+const static UINT nImageID[] =
+{
+	IDR_HOSTCACHEFRAME,
+	IDR_DISCOVERYFRAME,
+	IDI_DISCOVERY_BLUE,
+	IDI_DISCOVERY_GRAY,
+	IDI_WEB_URL,
+	IDI_FIREWALLED,
+	NULL
 };
 
 IMPLEMENT_SERIAL(CDiscoveryWnd, CPanelWnd, 0)
@@ -78,6 +90,7 @@ BEGIN_MESSAGE_MAP(CDiscoveryWnd, CPanelWnd)
 	ON_COMMAND(ID_DISCOVERY_ADVERTISE, OnDiscoveryAdvertise)
 	ON_UPDATE_COMMAND_UI(ID_DISCOVERY_BROWSE, OnUpdateDiscoveryBrowse)
 	ON_COMMAND(ID_DISCOVERY_BROWSE, OnDiscoveryBrowse)
+//	ON_NOTIFY(NM_CUSTOMDRAW, IDC_SERVICES, OnCustomDrawList)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -108,19 +121,19 @@ int CDiscoveryWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	if ( m_wndToolBar.Create( this, WS_CHILD|WS_VISIBLE|CBRS_NOALIGN, AFX_IDW_TOOLBAR ) )
 		m_wndToolBar.SetBarStyle( m_wndToolBar.GetBarStyle() | CBRS_TOOLTIPS | CBRS_BORDER_TOP );
 
-	m_wndList.Create( WS_VISIBLE|LVS_ICON|LVS_AUTOARRANGE|LVS_REPORT|LVS_SHOWSELALWAYS,
+	m_wndList.Create( WS_CLIPCHILDREN|WS_CLIPSIBLINGS|WS_CHILD|WS_VISIBLE|LVS_ICON|LVS_AUTOARRANGE|LVS_REPORT|LVS_SHOWSELALWAYS,
 		rectDefault, this, IDC_SERVICES, COL_LAST );
-	m_wndList.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP );
+	m_wndList.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP|LVS_EX_SUBITEMIMAGES );
 	m_pSizer.Attach( &m_wndList );
 
-	m_gdiImageList.Create( 16, 16, ILC_MASK|ILC_COLOR32, 4, 1 );
-	AddIcon( IDR_HOSTCACHEFRAME, m_gdiImageList );	// 0
-	AddIcon( IDR_DISCOVERYFRAME, m_gdiImageList );	// 1
-	AddIcon( IDI_DISCOVERY_BLUE, m_gdiImageList );	// 2
-	AddIcon( IDI_DISCOVERY_GRAY, m_gdiImageList );	// 3
-	AddIcon( IDI_WEB_URL, m_gdiImageList );			// 4
-	AddIcon( IDI_FIREWALLED, m_gdiImageList );		// 5
-	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
+//	m_gdiImageList.Create( 16, 16, ILC_MASK|ILC_COLOR32, 4, 1 );
+//	AddIcon( IDR_HOSTCACHEFRAME, m_gdiImageList );	// 0
+//	AddIcon( IDR_DISCOVERYFRAME, m_gdiImageList );	// 1
+//	AddIcon( IDI_DISCOVERY_BLUE, m_gdiImageList );	// 2
+//	AddIcon( IDI_DISCOVERY_GRAY, m_gdiImageList );	// 3
+//	AddIcon( IDI_WEB_URL, m_gdiImageList );			// 4
+//	AddIcon( IDI_FIREWALLED, m_gdiImageList );		// 5
+//	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
 
 	m_wndList.InsertColumn( COL_ADDRESS,	_T("Address"),	LVCFMT_LEFT,	260, -1 );
 	m_wndList.InsertColumn( COL_TYPE,		_T("Type"), 	LVCFMT_CENTER,	80, 0 );
@@ -136,13 +149,8 @@ int CDiscoveryWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	LoadState( _T("CDiscoveryWnd"), TRUE );
 
-	m_bShowGnutella		= TRUE;
-	m_bShowWebCache		= TRUE;
-	m_bShowServerList	= TRUE;
-	m_bShowBlocked		= TRUE;
-
-	CWaitCursor pCursor;
-	Update();
+//	CWaitCursor pCursor;
+//	Update();
 
 	return 0;
 }
@@ -265,9 +273,18 @@ void CDiscoveryWnd::OnSkinChange()
 {
 	OnSize( 0, 0, 0 );
 	CPanelWnd::OnSkinChange();
-	Settings.LoadList( _T("CDiscoveryWnd"), &m_wndList, 3 );
+
 	Skin.CreateToolBar( _T("CDiscoveryWnd"), &m_wndToolBar );
+
+	// Columns
+	Settings.LoadList( _T("CDiscoveryWnd"), &m_wndList, 3 );
+
+	// Fonts
 	m_wndList.SetFont( &theApp.m_gdiFont );
+
+	// Icons
+	CoolInterface.LoadIconsTo( m_gdiImageList, nImageID );
+	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
 }
 
 void CDiscoveryWnd::OnSize(UINT nType, int cx, int cy)
@@ -281,7 +298,7 @@ void CDiscoveryWnd::OnSize(UINT nType, int cx, int cy)
 
 void CDiscoveryWnd::OnTimer(UINT_PTR nIDEvent)
 {
-	if ( nIDEvent == 1 && IsPartiallyVisible() )
+	if ( nIDEvent == 1 )	// && IsPartiallyVisible()
 		Update();
 }
 
@@ -486,12 +503,12 @@ void CDiscoveryWnd::OnDiscoveryAdd()
 		Update();
 }
 
-//void CDiscoveryWnd::OnCustomDrawList(NMHDR* /*pNMHDR*/, LRESULT* pResult)
-//{
-//	//NMLVCUSTOMDRAW* pDraw = (NMLVCUSTOMDRAW*)pNMHDR;
-//
-//	*pResult = CDRF_DODEFAULT;
-//}
+void CDiscoveryWnd::OnCustomDrawList(NMHDR* /*pNMHDR*/, LRESULT* pResult)
+{
+	//NMLVCUSTOMDRAW* pDraw = (NMLVCUSTOMDRAW*)pNMHDR;
+
+	*pResult = CDRF_DODEFAULT;
+}
 
 BOOL CDiscoveryWnd::PreTranslateMessage(MSG* pMsg)
 {

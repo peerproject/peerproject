@@ -23,6 +23,7 @@
 
 #include "Library.h"
 #include "LibraryBuilder.h"
+#include "LibraryHistory.h"
 #include "AlbumFolder.h"
 #include "SharedFile.h"
 #include "QuerySearch.h"
@@ -85,15 +86,20 @@ END_MESSAGE_MAP()
 // CLibraryFrame construction
 
 CLibraryFrame::CLibraryFrame()
-	: m_pView			( NULL )
-	, m_pPanel			( NULL )
-	, m_nHeaderSize		( 0 )
-	, m_nTreeSize		( Settings.Library.TreeSize )
-	, m_nPanelSize		( Settings.Library.PanelSize )
-	, m_bPanelShow		( Settings.Library.ShowPanel )
-	, m_bUpdating		( FALSE )
-	, m_bShowDynamicBar	( TRUE )
-	, m_bDynamicBarHidden ( TRUE )
+	: m_pView				( NULL )
+	, m_pPanel				( NULL )
+	, m_nHeaderSize			( 0 )
+	, m_nTreeSize			( Settings.Library.TreeSize )
+	, m_nPanelSize			( Settings.Library.PanelSize )
+	, m_bPanelShow			( Settings.Library.ShowPanel )
+	, m_bUpdating			( FALSE )
+	, m_bShowDynamicBar		( TRUE )
+	, m_bDynamicBarHidden	( TRUE )
+	, m_nTreeTypesHeight	( 0 )
+	, m_nLibraryCookie		( 0 )
+	, m_nFolderCookie		( 0 )
+	, m_bViewSelection		( FALSE )
+	, m_pViewEmpty			( new CLibraryList() )
 {
 	m_pViews.AddTail( new CLibraryDetailView() );
 	m_pViews.AddTail( new CLibraryListView() );
@@ -110,6 +116,16 @@ CLibraryFrame::~CLibraryFrame()
 	{
 		delete m_pViews.GetNext( pos );
 	}
+}
+
+BOOL CLibraryFrame::HasView() const
+{
+	return m_pView && ::IsWindow( m_pView->GetSafeHwnd() );
+}
+
+BOOL CLibraryFrame::HasPanel() const
+{
+	return m_pPanel && ::IsWindow( m_pPanel->GetSafeHwnd() );
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -218,7 +234,7 @@ void CLibraryFrame::OnSkinChange()
 	SetView( pView, TRUE, FALSE );
 	SetPanel( pPanel );
 
-	if ( m_pView ) m_pView->OnSkinChange();
+	if ( HasView() ) m_pView->OnSkinChange();
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -246,11 +262,11 @@ BOOL CLibraryFrame::OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERIN
 	{
 		if ( m_wndTree.OnCmdMsg( nID, nCode, pExtra, pHandlerInfo ) ) return TRUE;
 	}
-	if ( m_pView && m_pView->m_hWnd )
+	if ( HasView() )
 	{
 		if ( m_pView->OnCmdMsg( nID, nCode, pExtra, pHandlerInfo ) ) return TRUE;
 	}
-	if ( m_pPanel && m_pPanel->m_hWnd )
+	if ( HasPanel() )
 	{
 		if ( m_pPanel->OnCmdMsg( nID, nCode, pExtra, pHandlerInfo ) ) return TRUE;
 	}
@@ -280,7 +296,7 @@ void CLibraryFrame::OnSize(UINT nType, int cx, int cy)
 		m_nPanelSize = max( 0, rc.Height() - Skin.m_nToolbarHeight * 2 - m_nHeaderSize - Skin.m_nSplitter );
 
 	HDWP hDWP = BeginDeferWindowPos(
-		7 + ( m_pView ? 1 : 0 ) + ( m_pPanel ? 1 : 0 ) + ( m_nHeaderSize > 0 ) );
+		7 + ( HasView() ? 1 : 0 ) + ( HasPanel() ? 1 : 0 ) + ( m_nHeaderSize > 0 ) );
 
 	DeferWindowPos( hDWP, m_wndTreeTop.GetSafeHwnd(), NULL,
 		rc.left, rc.top, m_nTreeSize, Skin.m_nToolbarHeight, SWP_NOZORDER );
@@ -306,7 +322,7 @@ void CLibraryFrame::OnSize(UINT nType, int cx, int cy)
 	DeferWindowPos( hDWP, m_wndTree.GetSafeHwnd(), NULL,
 		rc.left, rc.top + Skin.m_nToolbarHeight, m_nTreeSize, rc.Height() - Skin.m_nToolbarHeight * 2, SWP_NOZORDER );
 
-	if ( m_pView )
+	if ( HasView() )
 	{
 		int nTop = rc.top + Skin.m_nToolbarHeight - 1;
 
@@ -320,14 +336,14 @@ void CLibraryFrame::OnSize(UINT nType, int cx, int cy)
 		}
 
 		int nHeight = rc.bottom - Skin.m_nToolbarHeight - nTop;
-		if ( m_pPanel ) nHeight -= m_nPanelSize + Skin.m_nSplitter;
+		if ( HasPanel() ) nHeight -= m_nPanelSize + Skin.m_nSplitter;
 
 		DeferWindowPos( hDWP, m_pView->GetSafeHwnd(), NULL,
 			rc.left + m_nTreeSize + Skin.m_nSplitter, nTop,
 			rc.Width() - m_nTreeSize - Skin.m_nSplitter, nHeight, SWP_NOZORDER|SWP_SHOWWINDOW );
 	}
 
-	if ( m_pPanel )
+	if ( HasPanel() )
 	{
 		DeferWindowPos( hDWP, m_pPanel->GetSafeHwnd(), NULL,
 			rc.left + m_nTreeSize + Skin.m_nSplitter, rc.bottom - Skin.m_nToolbarHeight - m_nPanelSize,
@@ -360,7 +376,7 @@ void CLibraryFrame::OnPaint()
 			rcClient.right - rc.right, 1, Colors.m_crSys3DHighlight );
 	}
 
-	if ( Settings.Library.ShowVirtual == FALSE )
+	if ( ! Settings.Library.ShowVirtual )
 	{
 		rc.SetRect( rcClient.left, rcClient.bottom - Skin.m_nToolbarHeight,
 			rcClient.left + m_nTreeSize, rcClient.bottom - m_nTreeTypesHeight );
@@ -369,7 +385,7 @@ void CLibraryFrame::OnPaint()
 		dc.FillSolidRect( rc.left, rc.top + 2, rc.Width(), rc.Height() - 2, Colors.m_crSysBtnFace );
 	}
 
-	if ( m_pPanel )
+	if ( HasPanel() )
 	{
 		rc.SetRect(	rcClient.left + m_nTreeSize + Skin.m_nSplitter,
 					rcClient.bottom - Skin.m_nToolbarHeight - m_nPanelSize - Skin.m_nSplitter,
@@ -385,7 +401,7 @@ void CLibraryFrame::OnPaint()
 
 void CLibraryFrame::OnContextMenu(CWnd* /*pWnd*/, CPoint /*point*/)
 {
-	//if ( m_pView )
+	//if ( HasView() )
 	//	m_pView->SendMessage( WM_CONTEXTMENU, (WPARAM)pWnd->GetSafeHwnd(), MAKELONG( point.x, point.y ) );
 }
 
@@ -419,7 +435,7 @@ BOOL CLibraryFrame::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 		return TRUE;
 	}
 
-	if ( m_pPanel )
+	if ( HasPanel() )
 	{
 		rc.SetRect(	Settings.General.LanguageRTL ? rcClient.left :
 					rcClient.left + m_nTreeSize + Skin.m_nSplitter,
@@ -454,7 +470,7 @@ void CLibraryFrame::OnLButtonDown(UINT nFlags, CPoint point)
 		return;
 	}
 
-	if ( m_pPanel != NULL )
+	if ( HasPanel() )
 	{
 		rc.SetRect(	rcClient.left + m_nTreeSize + Skin.m_nSplitter,
 					rcClient.bottom - Skin.m_nToolbarHeight - m_nPanelSize - Skin.m_nSplitter,
@@ -620,7 +636,7 @@ void CLibraryFrame::SetView(CLibraryView* pView, BOOL bUpdate, BOOL bUser)
 
 	if ( m_pView == pView )
 	{
-		if ( m_pView )
+		if ( HasView() )
 		{
 			m_pView->Update();
 			m_pView->ShowWindow( SW_SHOW );
@@ -629,6 +645,9 @@ void CLibraryFrame::SetView(CLibraryView* pView, BOOL bUpdate, BOOL bUser)
 
 		return;
 	}
+
+	if ( pView && pView->m_hWnd )
+		return;		// Switching too fast
 
 	m_wndViewTip.Hide();
 	m_wndViewTip.SetOwner( this );
@@ -643,19 +662,24 @@ void CLibraryFrame::SetView(CLibraryView* pView, BOOL bUpdate, BOOL bUser)
 		m_pView->Create( this );
 	OnSize( 1982, 0, 0 );
 
-	if ( m_pView && ! bUpdate )
+	if ( HasView() && ! bUpdate )
 		m_pView->Update();
 
-	if ( pOld ) pOld->ShowWindow( SW_HIDE );
-	if ( m_pView ) m_pView->ShowWindow( SW_SHOW );
-	if ( pOld ) pOld->DestroyWindow();
+	if ( pOld && pOld != m_pView )
+		pOld->ShowWindow( SW_HIDE );
 
-	if ( m_pView && bUpdate )
+	if ( HasView() )
+		m_pView->ShowWindow( SW_SHOW );
+
+	if ( pOld && pOld != m_pView )
+		pOld->DestroyWindow();
+
+	if ( HasView() && bUpdate )
 		Update( TRUE );
 
 	m_wndViewTop.Update( m_pView );
 
-	if ( m_pView )
+	if ( HasView() )
 	{
 		CString strBar( m_pView->m_pszToolBar );
 		strBar += Settings.Library.ShowVirtual ? _T(".Virtual") : _T(".Physical");
@@ -673,16 +697,16 @@ void CLibraryFrame::SetPanel(CPanelCtrl* pPanel)
 {
 	if ( pPanel == m_pPanel )
 	{
-		if ( ! m_pPanel )
-			return;
-
-		if ( m_pPanel->m_hWnd )
+		if ( HasPanel() )
 		{
 			m_pPanel->Update();
 			m_pPanel->ShowWindow( SW_SHOW );
-			return;
 		}
+		return;
 	}
+
+	if ( pPanel && pPanel->m_hWnd )
+		return;		// Switching too fast
 
 	CPanelCtrl* pOld = m_pPanel;
 	m_pPanel = pPanel;
@@ -691,13 +715,13 @@ void CLibraryFrame::SetPanel(CPanelCtrl* pPanel)
 		m_pPanel->Create( this );
 	OnSize( 1982, 0, 0 );
 
-	if ( m_pPanel )
+	if ( HasPanel() )
 		m_pPanel->Update();
 
 	if ( pOld && pOld != m_pPanel )
 		pOld->ShowWindow( SW_HIDE );
 
-	if ( m_pPanel )
+	if ( HasPanel() )
 		m_pPanel->ShowWindow( SW_SHOW );
 
 	if ( pOld && pOld != m_pPanel )
@@ -706,7 +730,7 @@ void CLibraryFrame::SetPanel(CPanelCtrl* pPanel)
 
 CMetaList*	CLibraryFrame::GetPanelData()
 {
-	if ( ! m_pPanel ) return NULL;	// Panel is hidden
+	if ( ! HasPanel() ) return NULL;	// Panel is hidden
 
 	if ( m_pPanel->IsKindOf( RUNTIME_CLASS( CLibraryMetaPanel ) ) )
 	{
@@ -719,7 +743,7 @@ CMetaList*	CLibraryFrame::GetPanelData()
 
 void CLibraryFrame::SetPanelData(CMetaList* pPanel)
 {
-	if ( ! m_pPanel ) return;	// Panel is hidden
+	if ( ! HasPanel() ) return;		// Panel is hidden
 
 	if ( m_pPanel->IsKindOf( RUNTIME_CLASS( CLibraryMetaPanel ) ) )
 	{
@@ -798,7 +822,7 @@ BOOL CLibraryFrame::Update(BOOL bForce, BOOL bBestView)
 
 	if ( pBestView != NULL && bBestView )
 		SetView( pBestView, FALSE, FALSE );
-	else if ( m_pView == NULL || m_pView->m_bAvailable == FALSE )
+	else if ( ! HasView() || ! m_pView->m_bAvailable )
 		SetView( pFirstView, FALSE, FALSE );
 	else
 		SetView( m_pView, FALSE, FALSE );
@@ -814,34 +838,36 @@ void CLibraryFrame::UpdatePanel(BOOL bForce)
 {
 	CQuickLock oLock( Library.m_pSection );
 
-	if ( ! bForce && ! m_bViewSelection ) return;
+	if ( ! bForce && ! m_bViewSelection )
+		return;
+
 	m_bViewSelection = FALSE;
-	m_pViewSelection = m_pView ? m_pView->GetSelection() : &m_pViewEmpty;
+	m_pViewSelection = HasView() ? m_pView->GetSelection() : m_pViewEmpty;
 
 	if ( m_bPanelShow )
 	{
 		CLibraryTreeItem* pFolders = m_wndTree.GetFirstSelected();
-		BOOL bMetaPanelAvailable = pFolders &&
-			( pFolders->m_pSelNext == NULL ) &&
-			( pFolders->m_pVirtual == NULL ||
-			// Do not display meta panel for Collection folder
-			( ! ( pFolders->m_pVirtual->m_oCollSHA1 &&
-			  pFolders->m_pVirtual->GetBestView().Find( _T("Collection") ) > 0 ||
-			  CheckURI( pFolders->m_pVirtual->m_sSchemaURI, CSchema::uriCollectionsFolder ) ) &&
-			  pFolders->m_pVirtual->GetFileCount() != 0 ) );
-		BOOL bHistoryPanelAvailable = ( pFolders == NULL );
+		CLibraryListPtr pFiles( GetViewSelection() );
 
-		if ( m_pPanel == NULL ||
-			( m_pPanel == &m_pMetaPanel    && ! bMetaPanelAvailable ) ||
-			( m_pPanel == &m_pHistoryPanel && ! bHistoryPanelAvailable ) )
-		{
-			SetPanel( bMetaPanelAvailable ? static_cast< CPanelCtrl* >( &m_pMetaPanel ) :
-				( bHistoryPanelAvailable ? static_cast< CPanelCtrl* >( &m_pHistoryPanel ) : NULL ) );
-		}
+		BOOL bMetaPanelAvailable = ( pFolders != NULL );
+		BOOL bHistoryPanelAvailable = ( LibraryHistory.GetCount() > 0 );
+
+		// Do not display any panel for the collection folder
+		if ( pFolders && pFolders->m_pVirtual && pFolders->m_pVirtual->m_oCollSHA1 )
+			bMetaPanelAvailable = bHistoryPanelAvailable = FALSE;
+
+		// Prefer history panel if no files selected for meta panel
+		if ( bMetaPanelAvailable && bHistoryPanelAvailable && pFiles && pFiles->GetCount() <= 0 )
+			bMetaPanelAvailable = FALSE;
+
+		CPanelCtrl* pBestPanel = bMetaPanelAvailable ?
+			static_cast< CPanelCtrl* >( &m_pMetaPanel ) : ( bHistoryPanelAvailable ?
+			static_cast< CPanelCtrl* >( &m_pHistoryPanel ) : NULL );
+
+		if ( ! HasPanel() || m_pPanel != pBestPanel )
+			SetPanel( pBestPanel );
 		else
-		{
 			SetPanel( m_pPanel );
-		}
 	}
 }
 
@@ -880,8 +906,7 @@ BOOL CLibraryFrame::Display(const CLibraryFile* pFile)
 
 BOOL CLibraryFrame::Select(DWORD nObject)
 {
-	if ( ! m_pView ) return FALSE;
-	return m_pView->Select( nObject );
+	return HasView() ? m_pView->Select( nObject ) : FALSE;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -922,14 +947,14 @@ void CLibraryFrame::OnFilterTypes()
 
 void CLibraryFrame::OnUpdateLibraryTreePhysical(CCmdUI* pCmdUI)
 {
-	pCmdUI->SetCheck( Settings.Library.ShowVirtual == FALSE );
+	pCmdUI->SetCheck( Settings.Library.ShowVirtual == false );
 }
 
 void CLibraryFrame::OnLibraryTreePhysical()
 {
-	if ( Settings.Library.ShowVirtual != FALSE )
+	if ( Settings.Library.ShowVirtual )
 	{
-		Settings.Library.ShowVirtual = FALSE;
+		Settings.Library.ShowVirtual = false;
 		OnSkinChange();
 		m_wndTreeBottom.Invalidate();
 	}
@@ -937,14 +962,14 @@ void CLibraryFrame::OnLibraryTreePhysical()
 
 void CLibraryFrame::OnUpdateLibraryTreeVirtual(CCmdUI* pCmdUI)
 {
-	pCmdUI->SetCheck( Settings.Library.ShowVirtual == TRUE );
+	pCmdUI->SetCheck( Settings.Library.ShowVirtual == true );
 }
 
 void CLibraryFrame::OnLibraryTreeVirtual()
 {
-	if ( Settings.Library.ShowVirtual != TRUE )
+	if ( ! Settings.Library.ShowVirtual )
 	{
-		Settings.Library.ShowVirtual = TRUE;
+		Settings.Library.ShowVirtual = true;
 		OnSkinChange();
 		m_wndTreeBottom.Invalidate();
 	}
@@ -958,16 +983,17 @@ void CLibraryFrame::OnLibraryRefresh()
 
 void CLibraryFrame::OnUpdateLibraryPanel(CCmdUI* pCmdUI)
 {
-	pCmdUI->SetCheck( m_pPanel != NULL );
+	pCmdUI->SetCheck( HasPanel() );
 }
 
 void CLibraryFrame::OnLibraryPanel()
 {
-	if ( m_pPanel )
+	if ( HasPanel() )
 	{
 		m_bPanelShow = FALSE;
 		SetDynamicBar( NULL );
-		if ( m_pView ) m_pView->SendMessage( WM_METADATA );
+		if ( HasView() )
+			m_pView->SendMessage( WM_METADATA );
 		SetPanel( NULL );
 	}
 	else
@@ -1009,7 +1035,7 @@ void CLibraryFrame::OnToolbarReturn()
 	{
 		if ( m_wndSearch.GetWindowTextLength() > 0 )
 			OnLibrarySearchQuick();
-		else if ( m_pView != NULL )
+		else if ( HasView() )
 			m_pView->SetFocus();
 	}
 }
@@ -1019,7 +1045,7 @@ void CLibraryFrame::OnToolbarEscape()
 	if ( GetFocus() == &m_wndSearch )
 	{
 		m_wndSearch.SetWindowText( _T("") );
-		if ( m_pView )
+		if ( HasView() )
 			m_pView->SetFocus();
 	}
 }
@@ -1154,13 +1180,13 @@ void CLibraryFrame::OnSetFocus(CWnd* pOldWnd)
 {
 	CWnd::OnSetFocus( pOldWnd );
 
-	if ( m_pView && IsWindow( m_pView->m_hWnd ) && m_pView->IsWindowVisible() )
+	if ( HasView() && m_pView->IsWindowVisible() )
 		m_pView->SetFocus();
 }
 
 void CLibraryFrame::OnUpdateShowWebServices(CCmdUI* pCmdUI)
 {
-	m_bShowDynamicBar = m_pViewSelection != NULL && m_pViewSelection->GetCount() == 1;
+	m_bShowDynamicBar = m_pViewSelection && m_pViewSelection->GetCount() == 1;
 
 	if ( ! m_bShowDynamicBar )
 	{

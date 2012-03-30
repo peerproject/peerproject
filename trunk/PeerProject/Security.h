@@ -1,7 +1,7 @@
 //
 // Security.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -188,7 +188,7 @@ public:
 	BOOL		IsChildPornography(LPCTSTR) const;	// Word combination indicates underage
 	BOOL		IsSearchFiltered(LPCTSTR) const;	// Check if search is filtered
 	BOOL		IsChatFiltered(LPCTSTR) const;		// Check filter for chat
-	BOOL		Censor(TCHAR*) const;				// Censor (remove) bad words from a string
+	BOOL		Censor(CString& sText) const;		// Censor (hide) bad words from a string
 private:
 	BOOL		IsFiltered(LPCTSTR) const;
 };

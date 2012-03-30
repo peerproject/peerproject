@@ -259,8 +259,8 @@ BOOL CRichViewCtrl::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 	if ( nHitTest == HTCLIENT && m_pDocument != NULL )
 	{
 		CSingleLock pLock( &m_pDocument->m_pSection, TRUE );
-		CPoint pt;
 
+		CPoint pt;
 		GetCursorPos( &pt );
 		ScreenToClient( &pt );
 
@@ -343,8 +343,8 @@ void CRichViewCtrl::OnMouseMove(UINT nFlags, CPoint point)
 
 			if ( pHover != m_pHover )
 			{
-				BOOL bPaint =	( pHover != NULL && pHover->m_nType == retLink ) ||
-								( m_pHover != NULL && m_pHover->m_nType == retLink );
+				BOOL bPaint = ( pHover != NULL && pHover->m_nType == retLink ) ||
+							  ( m_pHover != NULL && m_pHover->m_nType == retLink );
 
 				if ( pHover != NULL && m_pHover == NULL )
 					SetTimer( 1, 200, NULL );
@@ -518,10 +518,10 @@ void CRichViewCtrl::Layout(CDC* pDC, CRect* pRect)
 
 	CPoint pt( pRect->left, pRect->top );
 
-	int nLeftPoint		= pRect->left;
-	int nWidth			= pRect->Width();
-	int nLineHeight		= 0;
-	int nAlign			= reaLeft;
+	int nLeftPoint	= pRect->left;
+	int nWidth		= pRect->Width();
+	int nLineHeight	= 0;
+	int nAlign		= reaLeft;
 
 	CRichFragment* pFrag = NULL;
 	CList< CRichFragment* > pLine;

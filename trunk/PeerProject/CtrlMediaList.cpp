@@ -98,6 +98,19 @@ CMediaListCtrl::~CMediaListCtrl()
 {
 }
 
+UINT CMediaListCtrl::GetSelectedCount()
+{
+	static UINT nSelectedCount = 0;
+	static DWORD tLastUpdate = 0;
+	const DWORD tNow = GetTickCount();
+	if ( tNow > tLastUpdate + Settings.Interface.RefreshRateUI || tNow < tLastUpdate )
+	{
+		nSelectedCount = CListCtrl::GetSelectedCount();
+		tLastUpdate = tNow;
+	}
+	return nSelectedCount;
+}
+
 /////////////////////////////////////////////////////////////////////////////
 // CMediaListCtrl operations
 
@@ -203,7 +216,7 @@ BOOL CMediaListCtrl::LoadTextList(LPCTSTR pszFile)
 		if ( strItem.GetLength() && strItem.GetAt( 0 ) != '#' )
 		{
 			if ( strItem.Find( '\\' ) != 0 && strItem.Find( ':' ) != 1 )
-				strItem = strPath + strItem;
+				strItem = strPath + strItem;	// Relative path
 
 			if ( GetFileAttributes( strItem ) != 0xFFFFFFFF )
 				Enqueue( strItem, FALSE );
@@ -593,7 +606,7 @@ void CMediaListCtrl::OnLButtonUp(UINT nFlags, CPoint point)
 BOOL CMediaListCtrl::AreSelectedFilesInLibrary()
 {
 	CQuickLock oLock( Library.m_pSection );
-	if ( GetSelectedCount() > 0 )
+	if ( GetSelectedCount() )
 	{
 		// If at least one selected file is in the library then enable
 		for ( int nItem = -1 ; ( nItem = GetNextItem( nItem, LVIS_SELECTED ) ) >= 0 ; )
@@ -712,7 +725,7 @@ void CMediaListCtrl::OnMediaAddFolder()
 
 void CMediaListCtrl::OnUpdateMediaRemove(CCmdUI* pCmdUI)
 {
-	pCmdUI->Enable( GetSelectedCount() > 0 );
+	pCmdUI->Enable( GetSelectedCount() );
 }
 
 void CMediaListCtrl::OnMediaRemove()

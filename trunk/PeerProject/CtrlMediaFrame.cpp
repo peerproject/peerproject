@@ -1825,14 +1825,16 @@ void CMediaFrame::UpdateState()
 		if ( m_pPlayer ) m_pPlayer->GetPosition( &m_nPosition );
 		const int nPosition = (int)( m_nPosition / TIME_FACTOR );
 
-		m_wndPosition.EnableWindow( TRUE );
+		if ( ! m_wndPosition.IsWindowEnabled() ) 
+			m_wndPosition.EnableWindow( TRUE );
 		m_wndPosition.SetRangeMax( nLength );
 		m_wndPosition.SetPos( nPosition );
 
 		double nSpeed = 1.0f;
 		m_pPlayer->GetSpeed( &nSpeed );
 		m_wndSpeed.SetPos( (int)( nSpeed * 100 ) );
-		m_wndSpeed.EnableWindow( TRUE );
+		if ( ! m_wndSpeed.IsWindowEnabled() )
+			m_wndSpeed.EnableWindow( TRUE );
 
 		if ( ! m_bMute )
 		{
@@ -1849,9 +1851,11 @@ void CMediaFrame::UpdateState()
 			Cleanup();
 		m_wndPosition.SetPos( 0 );
 		m_wndPosition.SetRange( 0, 0 );
-		m_wndPosition.EnableWindow( FALSE );
+		if ( m_wndPosition.IsWindowEnabled() )
+			m_wndPosition.EnableWindow( FALSE );
 		m_wndSpeed.SetPos( 100 );
-		m_wndSpeed.EnableWindow( FALSE );
+		if ( m_wndSpeed.IsWindowEnabled() )
+			m_wndSpeed.EnableWindow( FALSE );
 	}
 
 	m_wndVolume.SetPos( (int)( Settings.MediaPlayer.Volume * 100 ) );

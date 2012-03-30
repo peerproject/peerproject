@@ -1,7 +1,7 @@
 //
 // ComObject.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -21,19 +21,20 @@
 
 class CComObject : public CCmdTarget
 {
-public:
+	DECLARE_DYNAMIC(CComObject)
+
+protected:
 	CComObject();
 	virtual ~CComObject();
-
-	DECLARE_DYNCREATE(CComObject)
-
-	BOOL		EnableDispatch(REFIID pIID);
-	LPUNKNOWN	GetInterface(REFIID pIID, BOOL bAddRef = FALSE);
-	LPDISPATCH	GetDispatch(BOOL bAddRef = FALSE);
 
 protected:
 	const CLSID*	m_pCLSID;
 	CMap< LPUNKNOWN, LPUNKNOWN, const IID*, const IID* > m_pDispatchMap;
+
+public:
+	BOOL		EnableDispatch(REFIID pIID);
+	LPUNKNOWN	GetInterface(REFIID pIID, BOOL bAddRef = FALSE);
+	LPDISPATCH	GetDispatch(BOOL bAddRef = FALSE);
 
 public:
 	STDMETHOD_(ULONG, ComAddRef)(LPUNKNOWN);

@@ -1,7 +1,7 @@
 //
 // DlgFilePropertiesSheet.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -29,7 +29,7 @@ class CFilePropertiesSheet : public CPropertySheetAdv
 public:
 	CFilePropertiesSheet(CLibraryListItem oObject = CLibraryListItem());
 
-	CLibraryList	m_pList;
+	CLibraryListPtr	m_pList;
 
 	void	Add(CLibraryListItem oObject);
 	void	Add(const CLibraryList* pList);
@@ -37,11 +37,11 @@ public:
 	virtual INT_PTR DoModal(int nPage = -1);
 
 protected:
-	CString			m_sGeneralTitle;
-	CString			m_sMetadataTitle;
-	CString			m_sCommentsTitle;
-	CString			m_sSharingTitle;
-	CString			m_sSourcesTitle;
+	CString		m_sGeneralTitle;
+	CString		m_sMetadataTitle;
+	CString		m_sCommentsTitle;
+	CString		m_sSharingTitle;
+	CString		m_sSourcesTitle;
 
 	virtual BOOL OnInitDialog();
 

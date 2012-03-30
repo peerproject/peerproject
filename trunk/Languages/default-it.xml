@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Italian Skin File -->
 
-<!-- Translation based on default-en.xml r75 -->
+<!-- Translation based on default-en.xml r76 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -429,7 +429,7 @@
 		<button id="ID_HOSTCACHE_DC_CACHE" text="Cache"/>
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
-	<toolbar name="CPrivateChatFrame">
+	<toolbar name="CPrivateChatWnd">
 		<button id="ID_CHAT_BOLD"/> <!--G-->
 		<button id="ID_CHAT_ITALIC"/> <!--C-->
 		<button id="ID_CHAT_UNDERLINE"/> <!--S-->
@@ -1280,13 +1280,18 @@
 		<separator/>
 		<item id="ID_LIBRARY_ALBUM_PROPERTIES" text="Proprietà"/>
 	</menu>
-	<menu name="CLibraryFileView.Physical.Basic">
+	<menu name="CLibraryFileView.Basic">
 		<item id="ID_LIBRARY_LAUNCH" text="Apri/Play"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="Aggiungi alla playlist"/>
 		<item id="ID_LIBRARY_DELETE" text="Elimina"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="Condividi"/>
 		<separator/>
+		<menu text="Organizza">
+			<item id="ID_LIBRARY_RENAME" text="Rinomina file"/>
+			<item id="ID_LIBRARY_COPY" text="Copia i file..."/>
+			<item id="ID_LIBRARY_MOVE" text="Sposta i file..."/>
+		</menu>
 		<menu text="Cerca">
 			<item id="ID_SEARCH_FOR_THIS" text="_Questo file"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="File _simili"/>
@@ -1298,26 +1303,28 @@
 		<menu text="Servizi web">
 			<item id="ID_LIBRARY_BITZI_WEB" text="Visualizza la ricerca su Bitzi"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Scarica metadata"/>
-			<separator/>
-		</menu>
-		<menu text="Organizza">
-			<item id="ID_LIBRARY_RENAME" text="Rinomina file"/>
-			<item id="ID_LIBRARY_MOVE" text="Sposta i file..."/>
-			<item id="ID_LIBRARY_COPY" text="Copia i file..."/>
 		</menu>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="Proprietà"/>
 	</menu>
-	<menu name="CLibraryFileView.Physical">
+	<menu name="CLibraryFileView">
 		<item id="ID_LIBRARY_LAUNCH" text="Apri/Play"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="Aggiungi alla playlist"/>
 		<item id="ID_LIBRARY_DELETE" text="Elimina"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="Condividi"/>
 		<separator/>
-		<item id="ID_LIBRARY_URI" text="URI"/>
+		<item id="ID_LIBRARY_URI" text="_URI"/>
 		<item id="ID_LIBRARY_CREATETORRENT" text="Crea File ._torrent"/>
+		<item id="ID_LIBRARY_LAUNCH_FOLDER" text="Apri _Folder"/>
 		<separator/>
+		<menu text="Organizza">
+			<item id="ID_LIBRARY_UNLINK" text="Rimuovi i file"/>
+			<separator/>
+			<item id="ID_LIBRARY_RENAME" text="Rinomina file"/>
+			<item id="ID_LIBRARY_COPY" text="Copia i file..."/>
+			<item id="ID_LIBRARY_MOVE" text="Sposta i file..."/>
+		</menu>
 		<menu text="Cerca">
 			<item id="ID_SEARCH_FOR_THIS" text="_Questo file"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="File _simili"/>
@@ -1329,86 +1336,10 @@
 		<menu text="Servizi web">
 			<item id="ID_LIBRARY_BITZI_WEB" text="Visualizza la ricerca su _Bitzi"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Acquisisci metadata"/>
-			<separator/>
-		</menu>
-		<menu text="Organizza">
-			<item id="ID_LIBRARY_RENAME" text="Rinomina file"/>
-			<item id="ID_LIBRARY_MOVE" text="Sposta i file..."/>
-			<item id="ID_LIBRARY_COPY" text="Copia i file..."/>
 		</menu>
 		<menu text="_Metadata">
-			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localizza metadata"/>
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="Aggiorna _metadata"/>
-			<item id="ID_LIBRARY_COLUMNS" text="Modifica colonne..."/>
-		</menu>
-		<separator/>
-		<item id="ID_SHELL_MENU" text="Menu s_hell"/>
-		<item id="ID_LIBRARY_PROPERTIES" text="Proprietà"/>
-	</menu>
-	<menu name="CLibraryFileView.Virtual.Basic">
-		<item id="ID_LIBRARY_LAUNCH" text="Apri/Play"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="Aggiungi alla playlist"/>
-		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="Esegui album"/>
-		<item id="ID_LIBRARY_DELETE" text="Elimina"/>
-		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="Condividi"/>
-		<separator/>
-		<menu text="Cerca">
-			<item id="ID_SEARCH_FOR_THIS" text="_Questo file"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="File _simili"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="_Musica dello stesso artista"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="Musica dello stesso _album"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="_Episodi della stessa serie"/>
-		</menu>
-		<menu text="Servizi web">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Visualizza la ricerca su Bitzi"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Acquisisci metadata"/>
-			<separator/>
-		</menu>
-		<menu text="Organizza">
-			<item id="ID_LIBRARY_UNLINK" text="Rimuovi i file"/>
-			<separator/>
-			<item id="ID_LIBRARY_RENAME" text="Rinomina file"/>
-			<item id="ID_LIBRARY_MOVE" text="Sposta i file..."/>
-			<item id="ID_LIBRARY_COPY" text="Copia i file..."/>
-		</menu>
-		<separator/>
-		<item id="ID_LIBRARY_PROPERTIES" text="Proprietà"/>
-	</menu>
-	<menu name="CLibraryFileView.Virtual">
-		<item id="ID_LIBRARY_LAUNCH" text="Apri/Play"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="Aggiungi alla playlist"/>
-		<item id="ID_LIBRARY_DELETE" text="Elimina"/>
-		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="Condividi"/>
-		<separator/>
-		<item id="ID_LIBRARY_URI" text=""/>
-		<item id="ID_LIBRARY_CREATETORRENT" text="Crea File ._torrent"/>
-		<separator/>
-		<menu text="Cerca">
-			<item id="ID_SEARCH_FOR_THIS" text="_Questo file"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="File _simili"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="_Musica dello stesso artista"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="Musica dello stesso _album"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="_Episodi della stessa serie"/>
-		</menu>
-		<menu text="Servizi web">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Visualizza la ricerca su _Bitzi"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Acquisisci metadata"/>
-			<separator/>
-		</menu>
-		<menu text="Organizza">
-			<item id="ID_LIBRARY_UNLINK" text="Rimuovi i file"/>
-			<separator/>
-			<item id="ID_LIBRARY_RENAME" text="Rinomina file"/>
-			<item id="ID_LIBRARY_MOVE" text="Sposta i file..."/>
-			<item id="ID_LIBRARY_COPY" text="Copia i file..."/>
-		</menu>
-		<menu text="_Metadata">
 			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localizza metadata"/>
-			<item id="ID_LIBRARY_REFRESH_METADATA" text="Aggiorna _metadata"/>
 			<item id="ID_LIBRARY_COLUMNS" text="Modifica colonne..."/>
 		</menu>
 		<separator/>
@@ -1632,7 +1563,7 @@
 		<item id="ID_DISCOVERY_BLOCKED" text="Mostra Bloccato"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
-	<menu name="CPrivateChatFrame">
+	<menu name="CPrivateChatWnd">
 		<item id="ID_CHAT_CONNECT" text="Connetti"/>
 		<item id="ID_CHAT_DISCONNECT" text="Disconnetti"/>
 		<separator/>
@@ -4414,7 +4345,7 @@
 		<control caption="OK"/>
 		<control caption="Annulla"/>
 		<control caption="Hai scaricato ed eliminato questo file precedentemente. Cosa desideri fare?"/>
-		<control caption="Avvertimento!!! Rilevati file duplicati. Un software malevolo potrebbe aver infettato la tua libreria. Assicurati di aver scaricato o messo manualmente questo file. Altrimenti, chiudi PeerProject e scansiona il tuo computer con un antivirus."/>
+		<control caption="Avvertimento! Rilevati file duplicati. Un software malevolo potrebbe aver infettato la tua libreria. Assicurati di aver scaricato o messo manualmente questo file. Altrimenti, chiudi PeerProject e scansiona il tuo computer con un antivirus."/>
 	</dialog>
 	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Pulsante di chiusura">
 		<control caption="Questa è la prima volta che clicchi sul pulsante di chiusura di PeerProject. Scegli l'azione che deve eseguire PeerProject quando clicchi sul pulsante di chiusura:"/>

@@ -1,7 +1,7 @@
 //
 // CtrlBrowseFrame.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -30,12 +30,12 @@ class CBrowseTreeItem;
 
 class CBrowseFrameCtrl : public CWnd
 {
+	DECLARE_DYNAMIC(CBrowseFrameCtrl)
+
 // Construction
 public:
 	CBrowseFrameCtrl();
 	virtual ~CBrowseFrameCtrl();
-
-	DECLARE_DYNAMIC(CBrowseFrameCtrl)
 
 // Attributes
 protected:
@@ -48,17 +48,17 @@ protected:
 	BOOL				m_bPanelEnable;
 	BOOL				m_bPanelVisible;
 	int					m_nPanelSize;
-	CG2Packet*			m_pTree[2];
 	int					m_nTree;
+	CG2Packet*			m_pTree[2];
 
 // Operations
 public:
 	void			Serialize(CArchive& ar);
-	virtual BOOL	Create(CWnd* pParentWnd, CMatchCtrl* pMatch);
 	void			OnSkinChange();
 	void			OnPhysicalTree(CG2Packet* pPacket);
 	void			OnVirtualTree(CG2Packet* pPacket);
 	void			OnSelChangeMatches();
+	virtual BOOL	Create(CWnd* pParentWnd, CMatchCtrl* pMatch);
 protected:
 	BOOL			DoSizeTree();
 	BOOL			DoSizePanel();
@@ -66,13 +66,12 @@ protected:
 
 // Implementation
 protected:
-	DECLARE_MESSAGE_MAP()
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
+	afx_msg void OnPaint();
+	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
-	afx_msg void OnSize(UINT nType, int cx, int cy);
-	afx_msg void OnPaint();
 	afx_msg void OnUpdateSearchDetails(CCmdUI* pCmdUI);
 	afx_msg void OnSearchDetails();
 	afx_msg void OnUpdateLibraryTreePhysical(CCmdUI *pCmdUI);
@@ -81,6 +80,7 @@ protected:
 	afx_msg void OnLibraryTreeVirtual();
 	afx_msg void OnTreeSelection(NMHDR* pNotify, LRESULT* pResult);
 
+	DECLARE_MESSAGE_MAP()
 };
 
 #define IDC_BROWSE_FRAME	110

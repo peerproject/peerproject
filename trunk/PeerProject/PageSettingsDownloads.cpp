@@ -121,26 +121,21 @@ BOOL CDownloadsSettingsPage::OnInitDialog()
 
 void CDownloadsSettingsPage::OnDownloadsBrowse()
 {
-	CString strPath( BrowseForFolder( _T("Select folder for downloads:"),
-		m_sDownloadsPath ) );
+	CString strPath( BrowseForFolder( _T("Select folder for downloads:"), m_sDownloadsPath ) );
 	if ( strPath.IsEmpty() )
 		return;
 
 	// Warn user about a path that's too long
 	if ( _tcslen( strPath ) > MAX_PATH - 33 )
 	{
-		CString strMessage;
-		LoadString( strMessage, IDS_SETTINGS_FILEPATH_TOO_LONG );
-		AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
+		AfxMessageBox( IDS_SETTINGS_FILEPATH_TOO_LONG, MB_ICONEXCLAMATION );
 		return;
 	}
 
 	// Make sure download/incomplete folders aren't the same
 	if ( _tcsicmp( strPath, m_sIncompletePath ) == 0 )
 	{
-		CString strMessage;
-		LoadString( strMessage, IDS_SETTINGS_FILEPATH_NOT_SAME );
-		AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
+		AfxMessageBox( IDS_SETTINGS_FILEPATH_NOT_SAME, MB_ICONEXCLAMATION );
 		return;
 	}
 
@@ -152,35 +147,28 @@ void CDownloadsSettingsPage::OnDownloadsBrowse()
 
 void CDownloadsSettingsPage::OnIncompleteBrowse()
 {
-	CString strPath( BrowseForFolder( _T("Select folder for incomplete files:"),
-		m_sIncompletePath ) );
+	CString strPath( BrowseForFolder( _T("Select folder for incomplete files:"), m_sIncompletePath ) );
 	if ( strPath.IsEmpty() )
 		return;
 
 	// Warn user about a path that's too long
 	if ( _tcslen( strPath ) > MAX_PATH - 60 )
 	{
-		CString strMessage;
-		LoadString( strMessage, IDS_SETTINGS_FILEPATH_TOO_LONG );
-		AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
+		AfxMessageBox( IDS_SETTINGS_FILEPATH_TOO_LONG, MB_ICONEXCLAMATION );
 		return;
 	}
 
 	// Make sure download/incomplete folders aren't the same
 	if ( _tcsicmp( strPath, m_sDownloadsPath ) == 0 )
 	{
-		CString strMessage;
-		LoadString( strMessage, IDS_SETTINGS_FILEPATH_NOT_SAME );
-		AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
+		AfxMessageBox( IDS_SETTINGS_FILEPATH_NOT_SAME, MB_ICONEXCLAMATION );
 		return;
 	}
 
 	// Warn user about an incomplete folder in the library
 	if ( LibraryFolders.IsFolderShared( strPath ) )
 	{
-		CString strMessage;
-		LoadString( strMessage, IDS_SETTINGS_INCOMPLETE_LIBRARY );
-		AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
+		AfxMessageBox( IDS_SETTINGS_INCOMPLETE_LIBRARY, MB_ICONEXCLAMATION );
 		return;
 	}
 
@@ -195,9 +183,7 @@ BOOL CDownloadsSettingsPage::OnKillActive()
 
 	if ( IsLimited( m_sBandwidthLimit ) && ! Settings.ParseVolume( m_sBandwidthLimit ) )
 	{
-		CString strMessage;
-		LoadString( strMessage, IDS_SETTINGS_NEED_BANDWIDTH );
-		AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
+		AfxMessageBox( IDS_SETTINGS_NEED_BANDWIDTH, MB_ICONEXCLAMATION );
 		GetDlgItem( IDC_DOWNLOADS_BANDWIDTH_LIMIT )->SetFocus();
 		return FALSE;
 	}
@@ -218,10 +204,9 @@ void CDownloadsSettingsPage::OnOK()
 		while ( nCount-- )
 		{
 			TCHAR cCharacter = m_sQueueLimit.GetAt( nCount );
-			if ( ( cCharacter >= '0' ) &&
-				 ( cCharacter <= '9' ) )
+			if ( cCharacter >= '0' && cCharacter <= '9' )
 			{
-				nQueueLimit += ( ( cCharacter - '0') * nPosition );
+				nQueueLimit += ( ( cCharacter - '0' ) * nPosition );
 				nPosition *= 10;
 			}
 		}
@@ -233,22 +218,23 @@ void CDownloadsSettingsPage::OnOK()
 	}
 
 	// Check the queue limit value is okay
-	if ( ( nQueueLimit > 0 ) && ( nQueueLimit < 2000 ) && ( ! Settings.Live.QueueLimitWarning ) &&
-		 ( Settings.eDonkey.Enabled || Settings.eDonkey.EnableAlways ) && ( Settings.Downloads.QueueLimit != (int)nQueueLimit ) )
+	if ( nQueueLimit != Settings.Downloads.QueueLimit && nQueueLimit < 2000 && nQueueLimit > 0 &&
+		! Settings.Live.QueueLimitWarning && ( Settings.eDonkey.Enabled || Settings.eDonkey.EnableAlways ) )
 	{
 		// Warn the user about setting the max queue wait limit too low
-		CString strMessage;
-		LoadString( strMessage, IDS_SETTINGS_WARN_QUEUELIMIT );
-
-		if ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO ) == IDNO )
-		{
+		if ( AfxMessageBox( IDS_SETTINGS_WARN_QUEUELIMIT, MB_ICONQUESTION|MB_YESNO ) == IDNO )
 			nQueueLimit = 0;
-		}
 		else
-		{
-			// Don't need to warn the user again.
-			Settings.Live.QueueLimitWarning = TRUE;
-		}
+			Settings.Live.QueueLimitWarning = true;		// Don't need to warn the user again.
+	}
+
+	if ( m_sIncompletePath != Settings.Downloads.IncompletePath && Settings.Library.UseCustomFolders )
+	{
+		// Set desktop.ini
+		CLibraryFolder*	pFolderNew = new CLibraryFolder( NULL, m_sIncompletePath );
+		pFolderNew->Maintain( TRUE );
+		CLibraryFolder*	pFolderOld = new CLibraryFolder( NULL, Settings.Downloads.IncompletePath );
+		pFolderOld->Maintain( FALSE );
 	}
 
 	// Put new values in the settings.

@@ -95,6 +95,7 @@ public:
 		DWORD		RowSize;				// 17 pixel ITEM_HEIGHT in custom-draw lists
 		DWORD		RefreshRateGraph;		// Data display update in milliseconds (set speed)
 		DWORD		RefreshRateText;		// Data display update in milliseconds
+		DWORD		RefreshRateUI;			// Button availability update in milliseconds (~4 chances per second)
 		DWORD		TipDelay;
 		DWORD		TipAlpha;
 		bool		TipShadow;
@@ -320,6 +321,7 @@ public:
 		bool		ServeProfile;
 		bool		ServeFiles;
 		DWORD		AwayMessageIdleTime;	// Time in secs of idle system time before showing away message
+	//	DWORD		UserPanelSize;			// Width of chat users sidepanel (in pixels)
 	} Community;
 
 	struct sDiscovery

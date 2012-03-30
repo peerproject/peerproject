@@ -445,7 +445,7 @@ void CBTTrackerRequest::OnRun()
 	// Check if the request return needs to be parsed
 	if ( m_sURL.GetLength() < 14 )		// Need to verify m_sURL: Prior crash in CHttpRequest::OnRun()
 	{
-		ProcessUDP();	// No URL assume UDP
+	//	ProcessUDP();	// No URL assume UDP
 		delete this;
 		return;
 	}
@@ -476,7 +476,6 @@ void CBTTrackerRequest::OnRun()
 
 	theApp.Message( MSG_DEBUG | MSG_FACILITY_OUTGOING, _T("[BT] Sending BitTorrent tracker request: %s"), m_sURL );
 
-
 	if ( m_bHTTP )
 		ProcessHTTP();
 	else
@@ -490,8 +489,13 @@ void CBTTrackerRequest::OnTrackerEvent(bool bSuccess, LPCTSTR pszReason, LPCTSTR
 	theApp.Message( ( bSuccess ? MSG_INFO : MSG_ERROR ), _T("%s"), pszReason );
 
 	CSingleLock oLock( &Transfers.m_pSection, FALSE );
-	while ( ! oLock.Lock( 100 ) ) { if ( IsCanceled() ) return; }
-	if ( ! Downloads.Check( m_pDownload ) ) return;
+	while ( ! oLock.Lock( 100 ) )
+	{
+		if ( IsCanceled() ) return;
+	}
+
+	if ( ! Downloads.Check( m_pDownload ) )
+		return;
 
 	if ( m_pOnTrackerEvent )
 		m_pOnTrackerEvent->OnTrackerEvent( bSuccess, pszReason, pszTip, this );
@@ -514,8 +518,13 @@ void CBTTrackerRequest::ProcessHTTP()
 		return;
 
 	CSingleLock oLock( &Transfers.m_pSection, FALSE );
-	while ( ! oLock.Lock( 100 ) ) { if ( IsCanceled() ) return; }
-	if ( ! Downloads.Check( m_pDownload ) ) return;
+	while ( ! oLock.Lock( 100 ) )
+	{
+		if ( IsCanceled() ) return;
+	}
+
+	if ( ! Downloads.Check( m_pDownload ) )
+		return;
 
 	// Abort if download has been paused after the request was sent, but before a reply was received
 	if ( ! m_pDownload->m_bTorrentRequested && m_nEvent != BTE_TRACKER_SCRAPE )
@@ -728,6 +737,7 @@ void CBTTrackerRequest::ProcessUDP()
 BOOL CBTTrackerRequest::OnConnect(CBTTrackerPacket* pPacket)
 {
 	ASSUME_LOCK( Transfers.m_pSection );
+
 	if ( IsCanceled() || ! Downloads.Check( m_pDownload ) ) return TRUE;
 
 	// Assume UDP is stable
@@ -789,7 +799,9 @@ BOOL CBTTrackerRequest::OnConnect(CBTTrackerPacket* pPacket)
 BOOL CBTTrackerRequest::OnAnnounce(CBTTrackerPacket* pPacket)
 {
 	ASSUME_LOCK( Transfers.m_pSection );
-	if ( IsCanceled() || ! Downloads.Check( m_pDownload ) ) return TRUE;
+
+	if ( IsCanceled() || ! Downloads.Check( m_pDownload ) )
+		return TRUE;
 
 	// Abort if download has been paused after request was sent but before a reply was received
 	if ( ! m_pDownload->m_bTorrentRequested )
@@ -810,7 +822,7 @@ BOOL CBTTrackerRequest::OnAnnounce(CBTTrackerPacket* pPacket)
 	m_pDownload->m_bTorrentStarted = TRUE;
 
 	m_nLeechers = pPacket->ReadLongBE();
-	m_nSeeders = pPacket->ReadLongBE();
+	m_nSeeders  = pPacket->ReadLongBE();
 
 	while ( pPacket->GetRemaining() >= sizeof( bt_peer_t ) )
 	{
@@ -822,7 +834,7 @@ BOOL CBTTrackerRequest::OnAnnounce(CBTTrackerPacket* pPacket)
 	CString strError;
 	strError.Format( LoadString( IDS_BT_TRACK_SUCCESS ), m_sName, nCount );
 	OnTrackerEvent( true, strError );
-	Cancel();	// Crash!
+	Cancel();	// ToDo: Crash!
 
 	return TRUE;
 }

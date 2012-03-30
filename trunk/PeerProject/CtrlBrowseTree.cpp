@@ -756,8 +756,8 @@ CBrowseTreeItem* CBrowseTreeCtrl::HitTest(CRect& rcClient, CPoint& pt, CBrowseTr
 
 		for ( int nCount = pItem->m_nCount ; nCount ; nCount--, pChild++ )
 		{
-			CBrowseTreeItem* pItem = HitTest( rcClient, pt, *pChild, point, pRect );
-			if ( pItem ) return pItem;
+			if ( CBrowseTreeItem* pHit = HitTest( rcClient, pt, *pChild, point, pRect ) )
+				return pHit;
 			if ( pt.y >= rcClient.bottom + (int)Settings.Interface.RowSize ) break;
 		}
 
@@ -806,10 +806,8 @@ BOOL CBrowseTreeCtrl::GetRect(CPoint& pt, CBrowseTreeItem* pItem, CBrowseTreeIte
 
 		return TRUE;
 	}
-	else
-	{
-		pt.y += Settings.Interface.RowSize;
-	}
+
+	pt.y += Settings.Interface.RowSize;
 
 	if ( pItem->m_bExpanded && pItem->m_nCount )
 	{
@@ -1101,10 +1099,11 @@ int CBrowseTreeItem::GetChildCount() const
 void CBrowseTreeItem::Paint(CDC& dc, CRect& rc, BOOL bTarget, COLORREF crBack) const
 {
 	POINT ptHover;
-	RECT  rcTick = { rc.left+2, rc.top+2, rc.left+14, rc.bottom-2 };
 	GetCursorPos( &ptHover );
 	if ( dc.GetWindow() != NULL )
 		dc.GetWindow()->ScreenToClient( &ptHover );
+
+	RECT rcTick = { rc.left+2, rc.top+2, rc.left+14, rc.bottom-2 };
 
 	if ( crBack == CLR_NONE ) crBack = Colors.m_crWindow;
 	dc.FillSolidRect( rc.left, rc.top, 33, Settings.Interface.RowSize, crBack );
