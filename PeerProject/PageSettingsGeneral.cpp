@@ -1,7 +1,7 @@
 //
 // PageSettingsGeneral.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -190,9 +190,9 @@ void CGeneralSettingsPage::OnOK()
 {
 	UpdateData();
 
-	if ( Settings.Search.AdultFilter == FALSE && m_bAdultFilter == TRUE && Settings.Live.AdultWarning == FALSE )
+	if ( m_bAdultFilter && ! Settings.Search.AdultFilter && ! Settings.Live.AdultWarning )
 	{
-		Settings.Live.AdultWarning = TRUE;
+		Settings.Live.AdultWarning = true;
 		CHelpDlg::Show( _T("GeneralHelp.AdultFilter") );
 	}
 

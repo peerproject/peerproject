@@ -1,7 +1,7 @@
 //
 // PageFileComments.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -74,8 +74,8 @@ BOOL CFileCommentsPage::OnInitDialog()
 {
 	CFilePropertiesPage::OnInitDialog();
 
-	CLibraryList* pFiles = GetList();
-	if ( pFiles == NULL ) return TRUE;
+	CLibraryListPtr pFiles( GetList() );
+	if ( ! pFiles ) return TRUE;
 
 	if ( pFiles->GetCount() == 1 )
 	{
@@ -192,9 +192,9 @@ void CFileCommentsPage::OnOK()
 	UpdateData();
 	m_sComments.Trim();
 
-	CLibraryList* pFiles = GetList();
+	CLibraryListPtr pFiles( GetList() );
 
-	if ( pFiles == NULL || pFiles->GetCount() == 1 )
+	if ( ! pFiles || pFiles->GetCount() == 1 )
 	{
 		CQuickLock oLock( Library.m_pSection );
 		if ( CLibraryFile* pFile = GetFile() )

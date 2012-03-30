@@ -1,7 +1,7 @@
 //
 // ManagedSearch.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -29,8 +29,11 @@ typedef CComObjectPtr< CManagedSearch > CSearchPtr;
 
 class CManagedSearch : public CComObject
 {
+	DECLARE_DYNAMIC(CManagedSearch)
+
 public:
 	CManagedSearch(CQuerySearch* pSearch = NULL, int nPriority = 0);
+protected:
 	virtual ~CManagedSearch();
 
 public:
@@ -106,4 +109,8 @@ protected:
 	BOOL	ExecuteG1Mesh(const DWORD tTicks = 0, const DWORD tSecs = 0);
 	BOOL	ExecuteG2Mesh(const DWORD tTicks, const DWORD tSecs);
 	BOOL	ExecuteDonkeyMesh(const DWORD tTicks, const DWORD tSecs);
+
+private:
+	CManagedSearch(const CManagedSearch&);
+	CManagedSearch& operator=(const CManagedSearch&);
 };

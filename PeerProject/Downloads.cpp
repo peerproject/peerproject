@@ -963,8 +963,8 @@ void CDownloads::OnRun()
 
 	const DWORD tNow = GetTickCount();
 
-	// Re-calculating bandwidth may be a little CPU heavy if there are many transfers, limit it to 4 times per second
-	if ( tNow < m_tBandwidthLastCalc + 250 )
+	// Re-calculating bandwidth may be a little CPU heavy if there are many transfers, limit it to ~4 times per second
+	if ( tNow < m_tBandwidthLastCalc + Settings.Interface.RefreshRateUI )
 	{
 		// Just run the downloads, don't bother re-calulating bandwidth
 		++m_nRunCookie;

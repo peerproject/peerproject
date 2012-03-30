@@ -327,6 +327,67 @@ BOOL CMainWnd::Create(LPCTSTR lpszClassName, LPCTSTR lpszWindowName, DWORD dwSty
 		WS_EX_APPWINDOW, pContext );
 }
 
+CMDIChildWnd* CMainWnd::MDIGetActive(BOOL* pbMaximized) const
+{
+	if ( m_hWnd == NULL || m_pWindows.IsEmpty() ) return NULL;
+
+	static CMDIChildWnd* pActive = NULL;
+	static DWORD tLastUpdate = 0;
+	const DWORD tNow = GetTickCount();
+	if ( tNow > tLastUpdate + 100 || tNow < tLastUpdate ||
+		! m_pWindows.Check( static_cast< CChildWnd* >( pActive ) ) )
+	{
+		tLastUpdate = tNow;
+		pActive = CMDIFrameWnd::MDIGetActive( pbMaximized );
+	}
+	return pActive;
+}
+
+//BOOL CMainWnd::PreTranslateMessage(MSG* pMsg)
+//{
+//	// Check for special cancel modes for ComboBoxes
+//	if ( pMsg->message == WM_LBUTTONDOWN || pMsg->message == WM_NCLBUTTONDOWN )
+//		AfxCancelModes(pMsg->hwnd);    // Filter clicks
+//
+//	// Allow tooltip messages to be filtered
+//	if ( CWnd::PreTranslateMessage(pMsg) )
+//		return TRUE;
+//
+////#ifndef _AFX_NO_OLE_SUPPORT
+////	// Allow hook to consume message
+////	if ( m_pNotifyHook != NULL && m_pNotifyHook->OnPreTranslateMessage(pMsg) )
+////		return TRUE;
+////#endif
+//
+//	CMDIChildWnd* pActiveChild = MDIGetActive();
+//
+//	// Current active child gets first crack at it
+//	if ( pActiveChild != NULL && pActiveChild->PreTranslateMessage(pMsg) )
+//		return TRUE;
+//
+//	if ( pMsg->message >= WM_KEYFIRST && pMsg->message <= WM_KEYLAST )
+//	{
+//		// translate accelerators for frame and any children
+//		if ( m_hAccelTable != NULL && ::TranslateAccelerator( m_hWnd, m_hAccelTable, pMsg ) )
+//
+//			return TRUE;
+//
+//		// Special processing for MDI accelerators last
+//		// and only if it is not in SDI mode (print preview)
+//		if ( GetActiveView() == NULL )
+//		{
+//			if ( pMsg->message == WM_KEYDOWN || pMsg->message == WM_SYSKEYDOWN )
+//			{
+//				// The MDICLIENT window may translate it
+//				if ( ::TranslateMDISysAccel( m_hWndMDIClient, pMsg ) )
+//					return TRUE;
+//			}
+//		}
+//	}
+//
+//	return FALSE;
+//}
+
 BOOL CMainWnd::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* /*pContext*/)
 {
 	// Bypass menu creation
@@ -565,7 +626,7 @@ void CMainWnd::OnClose()
 
 	//Network.Disconnect();
 	//Transfers.StopThread();
-	ChatCore.StopThread();
+	ChatCore.Close();	// StopThread()
 
 	if ( m_wndRemoteWnd.IsVisible() )
 		m_wndRemoteWnd.DestroyWindow();
@@ -805,7 +866,7 @@ void CMainWnd::OnTimer(UINT_PTR nIDEvent)
 	}
 
 	m_bTimer = FALSE;
-	Settings.Live.LoadWindowState = FALSE;
+	Settings.Live.LoadWindowState = false;
 
 	// Statistics
 	Statistics.Update();
@@ -820,7 +881,7 @@ void CMainWnd::OnTimer(UINT_PTR nIDEvent)
 		DeleteTray();
 
 	// Menu Bar
-	if ( m_wndMenuBar.IsWindowVisible() == FALSE )
+	if ( ! m_wndMenuBar.IsWindowVisible() )
 		ShowControlBar( &m_wndMenuBar, TRUE, FALSE );
 
 	if ( tNow > tLast5SecInterval + 5 )
@@ -907,7 +968,18 @@ void CMainWnd::CloseToTray()
 {
 	if ( m_bTrayHide ) return;
 
-	ShowWindow( SW_HIDE );
+//	if ( theApp.m_nWinVer >= WIN_7 )
+//	{
+//		static volatile bool bClosingToTray = false;    // Workaround for TaskBar lag
+//		if ( bClosingToTray ) return;
+//		bClosingToTray = true;
+//		if ( ! IsIconic() )
+//			SendMessage( WM_SYSCOMMAND, SC_MINIMIZE );
+//		bClosingToTray = false;
+//	}
+//
+//	if ( IsWindowVisible() )
+		ShowWindow( SW_HIDE );
 
 	m_bTrayHide = TRUE;
 }
@@ -1113,6 +1185,8 @@ LRESULT CMainWnd::OnSkinChanged(WPARAM /*wParam*/, LPARAM /*lParam*/)
 
 	//ModifyStyleEx( 0, WS_EX_COMPOSITED ); // Counter-productive
 
+	m_wndMenuBar.OnSkinChange();	// Set height here
+
 	if ( Skin.m_bDropMenu )
 	{
 		if ( CMenu* pMenu = Skin.GetMenu( _T("CMainWnd.DropMenu") ) )
@@ -1131,7 +1205,7 @@ LRESULT CMainWnd::OnSkinChanged(WPARAM /*wParam*/, LPARAM /*lParam*/)
 	m_wndMenuBar.SetWatermark( Skin.GetWatermark( _T("CCoolMenuBar") ) );
 	m_wndTabBar.OnSkinChange();
 
-	// ToDo: Skin m_wndStatusBar
+	// ToDo: Skin m_wndStatusBar?
 
 	// Make Menu Dock Area Skinnable
 	if ( CWnd* pDockBar = GetDlgItem( AFX_IDW_DOCKBAR_TOP ) )
@@ -1144,8 +1218,7 @@ LRESULT CMainWnd::OnSkinChanged(WPARAM /*wParam*/, LPARAM /*lParam*/)
 		else
 			m_brDockArea.CreateSolidBrush( Colors.m_crMidtone );
 
-		SetClassLongPtr( pDockBar->GetSafeHwnd(), GCLP_HBRBACKGROUND,
-			(LONG_PTR)(HBRUSH)m_brDockArea );
+		SetClassLongPtr( pDockBar->GetSafeHwnd(), GCLP_HBRBACKGROUND, (LONG_PTR)(HBRUSH)m_brDockArea );
 	}
 
 	m_pSkin = Skin.GetWindowSkin( this );
@@ -1552,7 +1625,7 @@ void CMainWnd::LocalSystemChecks()
 	}
 
 	// Check disk/directory exists and isn't read-only
-	if ( Settings.Live.DiskWriteWarning == FALSE )
+	if ( ! Settings.Live.DiskWriteWarning )
 	{
 		DWORD nCompleteAttributes, nIncompleteAttributes;
 		nCompleteAttributes = GetFileAttributes( Settings.Downloads.CompletePath );
@@ -1571,7 +1644,7 @@ void CMainWnd::LocalSystemChecks()
 		//	if ( ( _taccess( Settings.Downloads.IncompletePath, 06 ) != 0 ) ||
 		//		 ( _taccess( Settings.Downloads.CompletePath, 06 ) != 0 ) )
 		//	{
-		//		Settings.Live.DiskWriteWarning = TRUE;
+		//		Settings.Live.DiskWriteWarning = true;
 		//		PostMessage( WM_COMMAND, ID_HELP_DISKWRITEFAIL );
 		//}
 	}

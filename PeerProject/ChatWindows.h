@@ -1,7 +1,7 @@
 //
 // ChatWindows.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -18,8 +18,8 @@
 
 #pragma once
 
-class CChatFrame;
-class CPrivateChatFrame;
+class CChatWnd;
+class CPrivateChatWnd;
 
 
 class CChatWindows
@@ -28,31 +28,29 @@ public:
 	CChatWindows();
 	virtual ~CChatWindows();
 
-// Attributes
-protected:
-	CList< CChatFrame* > m_pList;
-
 // Operations
 public:
-	POSITION	GetIterator() const;
-	CChatFrame*	GetNext(POSITION& pos) const;
-	INT_PTR		GetCount() const { return m_pList.GetCount(); }
-
-	void		Close();
-	void		Add(CChatFrame* pFrame);
-	void		Remove(CChatFrame* pFrame);
+	void				Add(CChatWnd* pFrame);
+	void				Remove(CChatWnd* pFrame);
+//	INT_PTR				GetCount() const { return m_pList.GetCount(); }
+//	void				Close();	// Empty m_pList
 
 	// Start new or reopen existing chat session
-	CPrivateChatFrame*	OpenPrivate(const Hashes::Guid& oGUID, SOCKADDR_IN* pHost, BOOL bMustPush = FALSE, PROTOCOLID nProtocol = PROTOCOL_NULL, SOCKADDR_IN* pServer = NULL );
-	// Start chat session, nPort and nServerPort in host byte order
-	CPrivateChatFrame*	OpenPrivate(const Hashes::Guid& oGUID, IN_ADDR* pAddress, WORD nPort = 6346, BOOL bMustPush = FALSE, PROTOCOLID nProtocol = PROTOCOL_NULL, IN_ADDR* pServerAddress = NULL, WORD nServerPort = 0 );
-	CPrivateChatFrame*	FindPrivate(const Hashes::Guid& oGUID);
-	CPrivateChatFrame*	FindPrivate(IN_ADDR* pAddress);
-	CPrivateChatFrame*  FindED2KFrame(SOCKADDR_IN* pAddress);
-	CPrivateChatFrame*  FindED2KFrame(DWORD nClientID, SOCKADDR_IN* pServerAddress);
+	CPrivateChatWnd*	OpenPrivate(const Hashes::Guid& oGUID, const SOCKADDR_IN* pHost, BOOL bMustPush = FALSE, PROTOCOLID nProtocol = PROTOCOL_NULL, SOCKADDR_IN* pServer = NULL);
+	CPrivateChatWnd*	OpenPrivate(const Hashes::Guid& oGUID, const IN_ADDR* pAddress, WORD nPort = protocolPorts[ PROTOCOL_G2 ], BOOL bMustPush = FALSE, PROTOCOLID nProtocol = PROTOCOL_NULL, IN_ADDR* pServerAddress = NULL, WORD nServerPort = 0);		// (nPort and nServerPort must be in host byte order)
+	CPrivateChatWnd*	FindPrivate(const Hashes::Guid& oGUID, bool bLive) const;
+	CPrivateChatWnd*	FindPrivate(const SOCKADDR_IN* pAddress) const;
+	CPrivateChatWnd*	FindED2KFrame(const SOCKADDR_IN* pAddress) const;
+	CPrivateChatWnd*	FindED2KFrame(DWORD nClientID, const SOCKADDR_IN* pServerAddress) const;
 
-protected:
-	friend class CChatFrame;
+private:
+	CList< CChatWnd* >	m_pList;
+
+	POSITION			GetIterator() const;
+	CChatWnd*			GetNext(POSITION& pos) const;
+
+	CPrivateChatWnd*	OpenPrivateGnutella(const Hashes::Guid& oGUID, const SOCKADDR_IN* pHost, BOOL bMustPush, PROTOCOLID nProtocol);
+	CPrivateChatWnd*	OpenPrivateED2K(const Hashes::Guid& oGUID, const SOCKADDR_IN* pHost, BOOL bMustPush, SOCKADDR_IN* pServer);
 };
 
 extern CChatWindows ChatWindows;

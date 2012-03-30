@@ -1,7 +1,7 @@
 //
 // WndBrowseHost.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -143,20 +143,14 @@ void CBrowseHostWnd::OnSkinChange()
 
 BOOL CBrowseHostWnd::OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO* pHandlerInfo)
 {
-	if ( m_wndHeader.m_hWnd != NULL )
-	{
-		if ( m_wndHeader.OnCmdMsg( nID, nCode, pExtra, pHandlerInfo ) ) return TRUE;
-	}
+	if ( m_wndHeader.m_hWnd && m_wndHeader.OnCmdMsg( nID, nCode, pExtra, pHandlerInfo ) )
+		return TRUE;
 
-	if ( m_wndProfile.m_hWnd != NULL )
-	{
-		if ( m_wndProfile.OnCmdMsg( nID, nCode, pExtra, pHandlerInfo ) ) return TRUE;
-	}
+	if ( m_wndProfile.m_hWnd && m_wndProfile.OnCmdMsg( nID, nCode, pExtra, pHandlerInfo ) )
+		return TRUE;
 
-	if ( m_wndFrame.m_hWnd != NULL )
-	{
-		if ( m_wndFrame.OnCmdMsg( nID, nCode, pExtra, pHandlerInfo ) ) return TRUE;
-	}
+	if ( m_wndFrame.m_hWnd && m_wndFrame.OnCmdMsg( nID, nCode, pExtra, pHandlerInfo ) )
+		return TRUE;
 
 	return CBaseMatchWnd::OnCmdMsg( nID, nCode, pExtra, pHandlerInfo );
 }

@@ -40,7 +40,11 @@ public:
 	CMainWnd();
 	virtual ~CMainWnd();
 
+public:
 	CWindowManager		m_pWindows;
+
+//	virtual BOOL PreTranslateMessage(MSG* pMsg);
+	virtual CMDIChildWnd* MDIGetActive(BOOL* pbMaximized = NULL) const;
 
 	void	CloseToTray();							// Hide application to tray
 	void	OpenFromTray(int nShowCmd = SW_SHOW);	// Open main window from tray

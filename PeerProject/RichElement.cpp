@@ -1,7 +1,7 @@
 //
 // RichElement.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -38,14 +38,13 @@ static char THIS_FILE[]=__FILE__;
 // CRichElement construction
 
 CRichElement::CRichElement(int nType, LPCTSTR pszText, LPCTSTR pszLink, DWORD nFlags, int nGroup)
+	: m_pDocument	( NULL )
+	, m_nType		( nType )
+	, m_nFlags		( nFlags )
+	, m_nGroup		( nGroup )
+	, m_hImage		( NULL )
+	, m_nImageIndex ( NULL )
 {
-	m_pDocument	= NULL;
-	m_nType		= nType;
-	m_nFlags	= nFlags;
-	m_nGroup	= nGroup;
-	m_hImage	= NULL;
-	m_nImageIndex = NULL;
-
 	if ( m_nType == retHeading )
 	{
 		m_nType = retText;
@@ -60,8 +59,29 @@ CRichElement::CRichElement(int nType, LPCTSTR pszText, LPCTSTR pszLink, DWORD nF
 			m_sText = pszText;
 	}
 
-	if ( pszLink )
-		m_sLink = pszLink;
+	if ( pszLink ) m_sLink = pszLink;
+}
+
+CRichElement::CRichElement(HBITMAP hBitmap, LPCTSTR pszLink, DWORD nFlags, int nGroup)
+	: m_pDocument	( NULL )
+	, m_nType		( retBitmap )
+	, m_nFlags		( nFlags )
+	, m_nGroup		( nGroup )
+	, m_hImage		( (HANDLE)hBitmap )
+	, m_nImageIndex ( NULL )
+{
+	if ( pszLink ) m_sLink = pszLink;
+}
+
+CRichElement::CRichElement(HICON hIcon, LPCTSTR pszLink, DWORD nFlags, int nGroup)
+	: m_pDocument	( NULL )
+	, m_nType		( retIcon )
+	, m_nFlags		( nFlags )
+	, m_nGroup		( nGroup )
+	, m_hImage		( (HANDLE)hIcon )
+	, m_nImageIndex ( NULL )
+{
+	if ( pszLink ) m_sLink = pszLink;
 }
 
 CRichElement::~CRichElement()
@@ -157,7 +177,7 @@ void CRichElement::PrePaint(CDC* pDC, BOOL bHover)
 		pFont = NULL;
 		break;
 	case retEmoticon:
-		_stscanf( m_sText, _T("%i"), &m_nImageIndex );		// ToDo:
+		_stscanf( m_sText, _T("%i"), &m_nImageIndex );			// ToDo:
 		m_hImage = NULL;
 		pFont = NULL;
 		break;
@@ -208,9 +228,9 @@ void CRichElement::PrePaintBitmap(CDC* /*pDC*/)
 	}
 	else
 	{
-		CImageFile pFile;
-
 		CString strFile = Settings.General.Path + '\\' + m_sText;
+
+		CImageFile pFile;
 		if ( ! pFile.LoadFromFile( strFile ) ) return;
 		if ( ! pFile.EnsureRGB() ) return;	// ToDo: Support Alpha?
 		m_hImage = pFile.CreateBitmap();
@@ -234,7 +254,7 @@ void CRichElement::PrePaintIcon(CDC* /*pDC*/)
 //////////////////////////////////////////////////////////////////////
 // CRichElement dimensions
 
-CSize CRichElement::GetSize()
+CSize CRichElement::GetSize() const
 {
 	CSize sz( 0, 0 );
 
@@ -244,7 +264,7 @@ CSize CRichElement::GetSize()
 	}
 	else if ( m_nType == retBitmap && m_hImage != NULL )
 	{
-		BITMAP pInfo;
+		BITMAP pInfo = {};
 		GetObject( (HBITMAP)m_hImage, sizeof(pInfo), &pInfo );
 
 		sz.cx = pInfo.bmWidth;
@@ -253,7 +273,7 @@ CSize CRichElement::GetSize()
 	else if ( m_nType == retIcon )
 	{
 		sz.cx = sz.cy = 16;
-		UINT nID;
+		UINT nID = 0;
 		_stscanf( m_sText, _T("%lu.%i.%i"), &nID, &sz.cx, &sz.cy );
 	}
 	else if ( m_nType == retEmoticon || m_nType == retCmdIcon )

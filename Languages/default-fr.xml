@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default French Skin File -->
 
-<!-- Translation based on default-en.xml r75 -->
+<!-- Translation based on default-en.xml r76 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -442,7 +442,7 @@
 		<button id="ID_IRC_SETTINGS" text="Réglages" tip="Configurer les réglages IRC"/>
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
-	<toolbar name="CPrivateChatFrame">
+	<toolbar name="CPrivateChatWnd">
 		<button id="ID_CHAT_BOLD"/>
 		<button id="ID_CHAT_ITALIC"/>
 		<button id="ID_CHAT_UNDERLINE"/>
@@ -1347,13 +1347,18 @@
 		<separator/>
 		<item id="ID_LIBRARY_ALBUM_PROPERTIES" text="_Propriétés"/>
 	</menu>
-	<menu name="CLibraryFileView.Physical.Basic">
+	<menu name="CLibraryFileView.Basic">
 		<item id="ID_LIBRARY_LAUNCH" text="_Ouvrir ou lire"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="Ajouter à la liste de _lecture"/>
 		<item id="ID_LIBRARY_DELETE" text="_Supprimer"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="Par_tagé"/>
 		<separator/>
+		<menu text="Orga_niser">
+			<item id="ID_LIBRARY_RENAME" text="_Renommer le fichier"/>
+			<item id="ID_LIBRARY_COPY" text="_Copier les fichiers..."/>
+			<item id="ID_LIBRARY_MOVE" text="_Déplacer les fichiers..."/>
+		</menu>
 		<menu text="_Rechercher">
 			<item id="ID_SEARCH_FOR_THIS" text="Ce _fichier"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="Fichiers si_milaires"/>
@@ -1366,93 +1371,29 @@
 			<item id="ID_LIBRARY_BITZI_WEB" text="Voir le billet _Bitzi"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Télécharger les méta_données"/>
 			<separator/>
-		</menu>
-		<menu text="Orga_niser">
-			<item id="ID_LIBRARY_RENAME" text="_Renommer le fichier"/>
-			<item id="ID_LIBRARY_MOVE" text="_Déplacer les fichiers..."/>
-			<item id="ID_LIBRARY_COPY" text="_Copier les fichiers..."/>
+			<item id="ID_LIBRARY_URI" text="P2P _URI"/>
 		</menu>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Propriétés"/>
 	</menu>
-	<menu name="CLibraryFileView.Physical">
+	<menu name="CLibraryFileView">
 		<item id="ID_LIBRARY_LAUNCH" text="_Ouvrir ou lire"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="Ajouter à la liste de _lecture"/>
 		<item id="ID_LIBRARY_DELETE" text="_Supprimer"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="Par_tagé"/>
 		<separator/>
-		<item id="ID_LIBRARY_URI" text=""/>
+		<item id="ID_LIBRARY_URI" text="P2P _URI"/>
 		<item id="ID_LIBRARY_CREATETORRENT" text="Créer un fichier .torrent"/>
+		<item id="ID_LIBRARY_LAUNCH_FOLDER" text="Ouvrir _Folder"/>
 		<separator/>
-		<menu text="_Rechercher">
-			<item id="ID_SEARCH_FOR_THIS" text="Ce _fichier"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="Fichiers si_milaires"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="Musique du même ar_tiste"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="Musique du même _album"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="Épisodes de la même sér_ie"/>
-		</menu>
-		<menu text="Services _Web">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Voir le billet _Bitzi"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Télécharger les méta_données"/>
-			<separator/>
-		</menu>
-		<menu text="Orga_niser">
-			<item id="ID_LIBRARY_RENAME" text="_Renommer le fichier"/>
-			<item id="ID_LIBRARY_MOVE" text="_Déplacer les fichiers..."/>
-			<item id="ID_LIBRARY_COPY" text="_Copier les fichiers..."/>
-		</menu>
-		<menu text="_Metadata">
-			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localiser les métadonnées"/>
-			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Rafraîchir les metadonnées"/>
-			<item id="ID_LIBRARY_COLUMNS" text="Choisir les _colonnes..."/>
-		</menu>
-		<separator/>
-		<item id="ID_SHELL_MENU" text="_Menu"/>
-		<item id="ID_LIBRARY_PROPERTIES" text="_Propriétés"/>
-	</menu>
-	<menu name="CLibraryFileView.Virtual.Basic">
-		<item id="ID_LIBRARY_LAUNCH" text="_Ouvrir ou lire"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="Ajouter à la liste de _lecture"/>
-		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="Lire l'_album"/>
-		<item id="ID_LIBRARY_DELETE" text="_Supprimer"/>
-		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="Par_tagé"/>
-		<separator/>
-		<menu text="_Rechercher">
-			<item id="ID_SEARCH_FOR_THIS" text="Ce _fichier"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="Fichiers si_milaires"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="Musique du même ar_tiste"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="Musique du même _album"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="Épisodes de la même sér_ie"/>
-		</menu>
-		<menu text="Services _Web">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Voir le billet _Bitzi"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Télécharger les méta_données"/>
-			<separator/>
-		</menu>
 		<menu text="Orga_niser">
 			<item id="ID_LIBRARY_UNLINK" text="_Enlever les fichiers"/>
 			<separator/>
 			<item id="ID_LIBRARY_RENAME" text="_Renommer le fichier"/>
-			<item id="ID_LIBRARY_MOVE" text="_Déplacer les fichiers..."/>
 			<item id="ID_LIBRARY_COPY" text="_Copier les fichiers..."/>
+			<item id="ID_LIBRARY_MOVE" text="_Déplacer les fichiers..."/>
 		</menu>
-		<separator/>
-		<item id="ID_LIBRARY_PROPERTIES" text="_Propriétés"/>
-	</menu>
-	<menu name="CLibraryFileView.Virtual">
-		<item id="ID_LIBRARY_LAUNCH" text="_Ouvrir ou lire"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="Ajouter à la liste de _lecture"/>
-		<item id="ID_LIBRARY_DELETE" text="_Supprimer"/>
-		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="Par_tagé"/>
-		<separator/>
-		<item id="ID_LIBRARY_URI" text=""/>
-		<item id="ID_LIBRARY_CREATETORRENT" text="Créer un fichier .torrent"/>
-		<separator/>
 		<menu text="_Rechercher">
 			<item id="ID_SEARCH_FOR_THIS" text="Ce _fichier"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="Fichiers si_milaires"/>
@@ -1464,18 +1405,10 @@
 		<menu text="Services _Web">
 			<item id="ID_LIBRARY_BITZI_WEB" text="Voir le billet _Bitzi"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Télécharger les méta_données"/>
-			<separator/>
-		</menu>
-		<menu text="Orga_niser">
-			<item id="ID_LIBRARY_UNLINK" text="_Enlever les fichiers"/>
-			<separator/>
-			<item id="ID_LIBRARY_RENAME" text="_Renommer le fichier"/>
-			<item id="ID_LIBRARY_MOVE" text="_Déplacer les fichiers..."/>
-			<item id="ID_LIBRARY_COPY" text="_Copier les fichiers..."/>
 		</menu>
 		<menu text="_Metadata">
-			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localiser les métadonnées"/>
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Rafraîchir les métadonnées"/>
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localiser les métadonnées"/>
 			<item id="ID_LIBRARY_COLUMNS" text="Choisir les _colonnes..."/>
 		</menu>
 		<separator/>
@@ -1711,7 +1644,7 @@
 		<item id="ID_DISCOVERY_BLOCKED" text="Afficher les Bloquée"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
-	<menu name="CPrivateChatFrame">
+	<menu name="CPrivateChatWnd">
 		<item id="ID_CHAT_CONNECT" text="Se _connecter"/>
 		<item id="ID_CHAT_DISCONNECT" text="Se _Déconnecter"/>
 		<separator/>
@@ -3988,7 +3921,7 @@
 		<control/>
 		<control caption="_Ajouter..."/>
 		<control caption="Enleve_r"/>
-		<control caption="ATTENTION : La violation du droit d'auteur est interdite par la loi."/>
+		<control caption="Attention : Les œuvres du droit d'auteur non autorisé peut être tenu responsable dans certains pays."/>
 	</dialog>
 	<dialog name="CFolderScanDlg" cookie="StStStStStStBu" caption="Index le dossier...">
 		<control/>
@@ -4586,7 +4519,7 @@
 		<control caption="Notes&#160;:"/>
 	</dialog>
 	<dialog name="CDownloadEditPage" cookie="StBuStStStStBuStEdEdEdSyBuEdBuEdBuEdBuEdBuEd" caption="Général">
-		<control caption="ATTENTION&#160;: Utilisateurs avertis... Cette fenêtre donne accès à des paramètres avancés qui, s'ils sont mal renseignés, peuvent corrompre un fichier."/>
+		<control caption="Attention&#160;: Utilisateurs avertis... Cette fenêtre donne accès à des paramètres avancés qui, s'ils sont mal renseignés, peuvent corrompre un fichier."/>
 		<control caption="Nom et Taille&#160;:"/>
 		<control caption="Nom de Fichier&#160;:"/>
 		<control caption="Fichier&#160;:"/>
@@ -4610,7 +4543,7 @@
 		<control/>
 	</dialog>
 	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="Acciones">
-		<control caption="ATTENTION&#160;: Utilisateurs avertis... Cette fenêtre donne accès à des paramètres avancés qui, s'ils sont mal renseignés, peuvent corrompre un fichier."/>
+		<control caption="Attention&#160;: Utilisateurs avertis... Cette fenêtre donne accès à des paramètres avancés qui, s'ils sont mal renseignés, peuvent corrompre un fichier."/>
 		<control caption="Oublier toutes les sources connues"/>
 		<control caption="Oublier le statut de vérification actuelle et revérifier"/>
 		<control caption="Considérer que le fichier est complet à 100% et revérifier"/>

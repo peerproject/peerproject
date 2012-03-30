@@ -64,7 +64,7 @@ void CFilePropertiesPage::DoDataExchange(CDataExchange* pDX)
 
 CLibraryFile* CFilePropertiesPage::GetFile()
 {
-	CLibraryList* pList = GetList();
+	CLibraryListPtr pList( GetList() );
 	if ( pList->GetCount() != 1 ) return NULL;
 	CQuickLock oLock( Library.m_pSection );
 	CLibraryFile* pFile = Library.LookupFile( pList->GetHead() );
@@ -76,7 +76,7 @@ CLibraryFile* CFilePropertiesPage::GetFile()
 CLibraryList* CFilePropertiesPage::GetList() const
 {
 	CFilePropertiesSheet* pSheet = (CFilePropertiesSheet*)GetParent();
-	return &pSheet->m_pList;
+	return pSheet->m_pList;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -109,7 +109,8 @@ BOOL CFilePropertiesPage::OnInitDialog()
 	else
 	{
 		oLock.Unlock();
-		if ( CLibraryList* pList = GetList() )
+		CLibraryListPtr pList( GetList() );
+		if ( pList )
 		{
 			if ( CWnd* pNameWnd = GetDlgItem( IDC_FILE_NAME ) )
 			{

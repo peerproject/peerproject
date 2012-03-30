@@ -3,7 +3,7 @@
 
 <!-- PeerProject UK English Skin File -->
 
-<!-- Translation based on default-en.xml r75 -->
+<!-- Translation based on default-en.xml r76 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -396,59 +396,22 @@
 			<item id="ID_VIEW_HOSTS" text="_Host Cache"/>
 		</menu>
 	</menu>
-	<menu name="CLibraryFileView.Physical">
-		<item id="ID_LIBRARY_LAUNCH" text="_Open or Play"/>
+	<menu name="CLibraryFileView">
+		<item id="ID_LIBRARY_LAUNCH" text="_Open/Play"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="Add to Pla_ylist"/>
-		<item id="ID_LIBRARY_PROPERTIES" text="_Properties"/>
+		<item id="ID_LIBRARY_DELETE" text="_Delete"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Shared"/>
 		<separator/>
 		<item id="ID_LIBRARY_URI" text="Get P2P Link (_URI)"/>
 		<item id="ID_LIBRARY_CREATETORRENT" text="Create ._torrent File"/>
-		<item id="ID_LIBRARY_DELETE" text="_Delete"/>
 		<menu text="O_rganise">
-			<item id="ID_LIBRARY_RENAME" text="_Rename File"/>
-			<item id="ID_LIBRARY_COPY" text="_Copy Files..."/>
-			<item id="ID_LIBRARY_MOVE" text="_Move Files..."/>
-		</menu>
-		<separator/>
-		<menu text="S_earch For">
-			<item id="ID_SEARCH_FOR_THIS" text="_This File"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="_Similar Files"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="_Music by the same Artist"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="Music in the same _Album"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="_Episodes in the same Series"/>
-		</menu>
-		<menu text="_Web Services">
-			<item id="ID_LIBRARY_BITZI_WEB" text="View _Bitzi Ticket"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Download Metadata"/>
-		</menu>
-		<menu text="_Metadata">
-			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
-			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localise Metadata"/>
-		</menu>
-		<separator/>
-		<item id="ID_LIBRARY_COLUMNS" text="Choose _Columns..."/>
-		<separator/>
-		<item id="ID_SHELL_MENU" text="S_hell menu"/>
-	</menu>
-	<menu name="CLibraryFileView.Virtual">
-		<item id="ID_LIBRARY_LAUNCH" text="_Open or Play"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="Add to Pla_ylist"/>
-		<item id="ID_LIBRARY_PROPERTIES" text="_Properties"/>
-		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="_Shared"/>
-		<separator/>
-		<item id="ID_LIBRARY_URI" text="Get P2P Link (_URI)"/>
-		<item id="ID_LIBRARY_CREATETORRENT" text="Create ._torrent File"/>
-		<item id="ID_LIBRARY_DELETE" text="_Delete"/>
-		<menu text="O_rganise">
+			<item id="ID_LIBRARY_LAUNCH_FOLDER" text="Open _Folder"/>
 			<item id="ID_LIBRARY_UNLINK" text="Remove _Files"/>
 			<separator/>
-			<item id="ID_LIBRARY_RENAME" text="_Rename File"/>
-			<item id="ID_LIBRARY_MOVE" text="_Move Files..."/>
-			<item id="ID_LIBRARY_COPY" text="_Copy Files..."/>
+			<item id="ID_LIBRARY_RENAME" text="_Rename File" shortcut="F2"/>
+			<item id="ID_LIBRARY_COPY" text="_Copy Files..." shortcut="Ctrl+C"/>
+			<item id="ID_LIBRARY_MOVE" text="_Move Files..." shortcut="Ctrl+X"/>
 		</menu>
 		<separator/>
 		<menu text="S_earch For">
@@ -467,14 +430,14 @@
 		<menu text="_Metadata">
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
 			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localise Metadata"/>
+			<item id="ID_LIBRARY_COLUMNS" text="Choose Detail _Columns..."/>
 		</menu>
 		<separator/>
-		<item id="ID_LIBRARY_COLUMNS" text="Choose _Columns..."/>
-		<separator/>
-		<item id="ID_SHELL_MENU" text="S_hell menu"/>
+		<item id="ID_SHELL_MENU" text="_Windows Menu"/>
+		<item id="ID_LIBRARY_PROPERTIES" text="_Properties"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
-	<menu name="CPrivateChatFrame">
+	<menu name="CPrivateChatWnd">
 		<item id="ID_CHAT_CONNECT" text="_Connect"/>
 		<item id="ID_CHAT_DISCONNECT" text="_Disconnect"/>
 		<separator/>

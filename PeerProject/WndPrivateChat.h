@@ -1,7 +1,7 @@
 //
 // WndPrivateChat.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2011.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -21,6 +21,7 @@
 #include "WndChat.h"
 
 class CChatSession;
+
 
 class CPrivateChatWnd : public CChatWnd
 {
@@ -57,5 +58,17 @@ protected:
 	afx_msg void OnUpdateChatPriority(CCmdUI* pCmdUI);
 	afx_msg void OnChatPriority();
 
+	// Temp:  Remove in r8974/8990
+	afx_msg LRESULT OnProfileReceived(WPARAM wParam, LPARAM lParam);
+	afx_msg LRESULT OnStatusMessage(WPARAM wParam, LPARAM lParam);
+	afx_msg LRESULT OnBitmapMessage(WPARAM wParam, LPARAM lParam);
+	afx_msg LRESULT OnRemoteMessage(WPARAM wParam, LPARAM lParam);
+
 	DECLARE_MESSAGE_MAP()
 };
+
+// Temp: Remove in r8974
+#define WM_CHAT_PROFILE_RECEIVED	(WM_APP+70)		// (WPARAM: unused, LPARAM: unused)
+#define WM_CHAT_REMOTE_MESSAGE		(WM_APP+71)		// (WPARAM: bool bAction, LPARAM: CString* psText)
+#define WM_CHAT_STATUS_MESSAGE		(WM_APP+72)		// (WPARAM: int nFlags, LPARAM: CString* psText)
+#define WM_CHAT_BITMAP_MESSAGE		(WM_APP+73)		// (WPARAM: unused, LPARAM: HBITMAP hBitmap)

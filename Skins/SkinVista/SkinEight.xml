@@ -31,6 +31,7 @@
  <option name="MenuGripper" value="false"/>
  <option name="ButtonEdge" value="3"/>
  <option name="Taskbar" value="24" width="203"/>
+ <option name="Menubar" value="30"/>
  <!--option name="Toolbar" value="28"-->
  <!--option name="Titlebar" value="64"-->
  <!--option name="MonitorBar" value="120"-->
@@ -182,7 +183,7 @@
  <image target="CDownloadTabBar"			path="DownloadgroupsToolbar.png"/>
  <image target="CDownloadsWnd.Toolbar"			path="ToolbarLt.png"/>
  <!--image target="CUploadsWnd.Toolbar" 		path="Toolbar.png"-->
- <!--image target="CPrivateChatFrame.Toolbar"		path="ToolbarLt.png"-->
+ <!--image target="CPrivateChatWnd.Toolbar"		path="ToolbarLt.png"-->
  <!--image target="CBrowseHostWnd.Toolbar"		path="Toolbar.png"-->
  <!--image target="CBrowseTree.Top.Toolbar" 		path="Toolbar.png"-->
  <!--image target="CLibraryTree.Top.Toolbar"		path="Toolbar.png"-->
@@ -294,6 +295,7 @@
  <image target="ButtonMap.Toolbar"			path="ButtonmapToolbar.png"/>
  <image target="ButtonMap.Taskbar"			path="Eight\ButtonmapTaskbar.png"/>
  <image target="ButtonMap.DownloadGroup" 		path="ButtonmapGroupsbar.png"/>
+ <!--image target="ButtonMap.Menubar" 			path="ButtonmapMenuBar.png"-->
  <image target="ButtonMap.MenuText"			path="ButtonmapMenuText.png"/>
  <image target="ButtonMap.MenuSelect"			path="ButtonmapMenuSelect.png"/>
 
@@ -463,7 +465,7 @@
 <region>
  <shape type="rectangle"	rect="0,0,-1,-1"/>
 </region>
-<caption align="left" rect="26,1,260,24" fontFace="Segoe UI" fontSize="12" fontWeight="Normal" color="000000" outlinecolor="D0D0D0" inactivecolor="707070"/>
+<caption align="left" rect="26,1,-110,24" fontFace="Segoe UI" fontSize="12" fontWeight="Normal" color="000000" outlinecolor="D0D0D0" inactivecolor="707070"/>
 </windowskin>
 
 <!-- PANEL HEADERS -->

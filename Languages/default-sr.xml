@@ -3,7 +3,7 @@
 
 <!-- PeerProject/ПеерПројецт Default Serbian Skin File -->
 
-<!-- Translation based on default-en.xml r75 -->
+<!-- Translation based on default-en.xml r76 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -401,7 +401,7 @@
 		<button id="ID_HOSTCACHE_DC_CACHE" text="Cache"/>
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
-	<toolbar name="CPrivateChatFrame">
+	<toolbar name="CPrivateChatWnd">
 		<button id="ID_CHAT_BOLD"/>
 		<button id="ID_CHAT_ITALIC"/>
 		<button id="ID_CHAT_UNDERLINE"/>
@@ -1227,14 +1227,18 @@
 		<separator/>
 		<item id="ID_LIBRARY_ALBUM_PROPERTIES" text="_Podešavanja"/>
 	</menu>
-	<menu name="CLibraryFileView.Physical.Basic">
+	<menu name="CLibraryFileView.Basic">
 		<item id="ID_LIBRARY_LAUNCH" text="_Otvori ili Pokreni"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="Dodaj u Pl_aylistu"/>
+		<item id="ID_LIBRARY_DELETE" text="Obriši"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="Deljeno"/>
 		<separator/>
-		<item id="ID_LIBRARY_DELETE" text="Obriši"/>
-		<separator/>
+		<menu text="Složi">
+			<item id="ID_LIBRARY_RENAME" text="P_reimenuj Datoteku"/>
+			<item id="ID_LIBRARY_COPY" text="Kopiraj Datoteke..."/>
+			<item id="ID_LIBRARY_MOVE" text="Pre_mesti..."/>
+		</menu>
 		<menu text="Traži">
 			<item id="ID_SEARCH_FOR_THIS" text="Ovu Datoteku"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="Slično"/>
@@ -1244,97 +1248,34 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Epizode Iste Serije"/>
 		</menu>
 		<menu text="_Web Usluge">
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokalizuj Metadatu"/>
+			<separator/>
 			<item id="ID_LIBRARY_BITZI_WEB" text="Pogledaj _Bitzi Ticket"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Skini Meta_datu"/>
 			<separator/>
-			<item id="ID_LIBRARY_URI" text=""/>
+			<item id="ID_LIBRARY_URI" text="_URI"/>
 		</menu>
-		<menu text="Složi">
-			<item id="ID_LIBRARY_RENAME" text="P_reimenuj Datoteku"/>
-			<item id="ID_LIBRARY_MOVE" text="Pre_mesti..."/>
-			<item id="ID_LIBRARY_COPY" text="Kopiraj Datoteke..."/>
-		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokalizuj Metadatu"/>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Podešavanja"/>
 	</menu>
-	<menu name="CLibraryFileView.Physical">
+	<menu name="CLibraryFileView">
 		<item id="ID_LIBRARY_LAUNCH" text="P_okreni"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="Dodaj u Pla_ylistu"/>
+		<item id="ID_LIBRARY_DELETE" text="Obriši"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="Deljeno"/>
 		<separator/>
-		<item id="ID_LIBRARY_URI" text=""/>
-		<item id="ID_LIBRARY_DELETE" text="Obriši"/>
+		<item id="ID_LIBRARY_URI" text="_URI"/>
+		<item id="ID_LIBRARY_CREATETORRENT" text="Napravi .torrent Datoteku"/>
+		<item id="ID_LIBRARY_LAUNCH_FOLDER" text="Pokreni _Folder"/>
 		<separator/>
-		<menu text="Traži">
-			<item id="ID_SEARCH_FOR_THIS" text="Ovu Datoteku"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="Slično"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="Muziku Istog Izvođača"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="Pesme iz Istog Albuma"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="Epizode Iste Serije"/>
-		</menu>
-		<menu text="_Web Usluge">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Pogledaj _Bitzi Ticket"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Skini Metadata"/>
-			<separator/>
-			<item id="ID_LIBRARY_CREATETORRENT" text="Napravi .torrent Datoteku"/>
-		</menu>
 		<menu text="Složi">
-			<item id="ID_LIBRARY_RENAME" text="P_reimenuj Datoteku"/>
-			<item id="ID_LIBRARY_MOVE" text="Pre_mesti..."/>
-			<item id="ID_LIBRARY_COPY" text="Kopiraj Datoteke..."/>
-		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokalizuj Metadate"/>
-		<separator/>
-		<item id="ID_LIBRARY_COLUMNS" text="Odaberi Kolonu..."/>
-		<separator/>
-		<item id="ID_LIBRARY_PROPERTIES" text="_Podešavanja"/>
-	</menu>
-	<menu name="CLibraryFileView.Virtual.Basic">
-		<item id="ID_LIBRARY_LAUNCH" text="_Otvori ili Pokreni"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="Dodaj u Pla_ylistu"/>
-		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="Pokreni _Album"/>
-		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="Deljeno"/>
-		<separator/>
-		<item id="ID_LIBRARY_DELETE" text="Obriši"/>
-		<separator/>
-		<menu text="Traži">
-			<item id="ID_SEARCH_FOR_THIS" text="Ovu Datoteku"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="Slično"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="Muziku Istog Izvođača"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="Pesme iz Istog Albuma"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="Epizode Iste Serije"/>
-		</menu>
-		<menu text="_Web Usluge">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Pogledaj _Bitzi Ticket"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="N_abavi Metadatu"/>
-			<separator/>
-			<item id="ID_LIBRARY_URI" text=""/>
-		</menu>
-		<menu text="Složi">
-			<item id="ID_LIBRARY_RENAME" text="_Preimenuj Datoteku"/>
 			<item id="ID_LIBRARY_UNLINK" text="Ukloni Datoteke"/>
 			<separator/>
-			<item id="ID_LIBRARY_MOVE" text="_Premesti..."/>
+			<item id="ID_LIBRARY_RENAME" text="_Preimenuj Datoteku"/>
 			<item id="ID_LIBRARY_COPY" text="Kopiraj Datoteke..."/>
+			<item id="ID_LIBRARY_MOVE" text="_Premesti..."/>
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokalizuj Metadate"/>
-		<separator/>
-		<item id="ID_LIBRARY_PROPERTIES" text="_Podešavanja"/>
-	</menu>
-	<menu name="CLibraryFileView.Virtual">
-		<item id="ID_LIBRARY_LAUNCH" text="P_okreni"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="Dodaj u Pla_ylistu"/>
-		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="Deljeno"/>
-		<separator/>
-		<item id="ID_LIBRARY_URI" text=""/>
-		<item id="ID_LIBRARY_DELETE" text="Obriši"/>
-		<separator/>
 		<menu text="Traži">
 			<item id="ID_SEARCH_FOR_THIS" text="Ovu Datoteku"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="Slično"/>
@@ -1346,20 +1287,14 @@
 		<menu text="_Web Usluge">
 			<item id="ID_LIBRARY_BITZI_WEB" text="Pogledaj _Bitzi Ticket"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="N_abavi Metadate"/>
-			<separator/>
-			<item id="ID_LIBRARY_CREATETORRENT" text="Napravi .torrent Datoteku"/>
 		</menu>
-		<menu text="Složi">
-			<item id="ID_LIBRARY_UNLINK" text="Ukloni Datoteke"/>
-			<separator/>
-			<item id="ID_LIBRARY_RENAME" text="_Preimenuj Datoteku"/>
-			<item id="ID_LIBRARY_MOVE" text="_Premesti..."/>
-			<item id="ID_LIBRARY_COPY" text="Kopiraj Datoteke..."/>
+		<menu text="_Metadate">
+			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadate"/>
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokalizuj Metadate"/>
+			<item id="ID_LIBRARY_COLUMNS" text="Odaberi Kolon_u..."/>
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokalizuj Metadate"/>
 		<separator/>
-		<item id="ID_LIBRARY_COLUMNS" text="Odaberi Kolon_u..."/>
-		<separator/>
+		<item id="ID_SHELL_MENU" text="Windows Men_u"/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Podešavanja"/>
 	</menu>
 	<!-- MEDIA WINDOW -->
@@ -1576,7 +1511,7 @@
 		<item id="ID_DISCOVERY_BLOCKED" text="Pokaži блокиран"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
-	<menu name="CPrivateChatFrame">
+	<menu name="CPrivateChatWnd">
 		<item id="ID_CHAT_CONNECT" text="_Spoji"/>
 		<item id="ID_CHAT_DISCONNECT" text="_Isključi"/>
 		<separator/>
@@ -2591,7 +2526,7 @@
 	<string id="20081" value="&amp;Zatvori"/>
 	<string id="20082" value="Gotovo, klikni na zatvori"/>
 	<string id="20083" value="Čekam Odobrenje..."/>
-	<string id="20084" value="Uspeh!!!"/>
+	<string id="20084" value="Uspeh!"/>
 	<string id="20100" value="Zatvaram pregled korisnika %s."/>
 	<string id="20101" value="Browse host %s responded with an unrecognised response, and may not support user/host browsing."/>
 	<string id="20102" value="Ne mogu se spojiti na korisnika da vidite šta ima."/>

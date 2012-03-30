@@ -94,22 +94,22 @@ BOOL CChildWnd::Create(UINT nID, BOOL bVisible)
 		WS_CLIPCHILDREN | WS_CLIPSIBLINGS );
 }
 
-//void CChildWnd::GetWindowText(CString& rString)
-//{
-//	if ( m_sCaption.IsEmpty() )
-//		CMDIChildWnd::GetWindowText( m_sCaption );
-//
-//	rString = m_sCaption;
-//}
-//
-//void CChildWnd::SetWindowText(LPCTSTR lpszString)
-//{
-//	if ( m_sCaption != lpszString )
-//	{
-//		m_sCaption = lpszString;
-//		CMDIChildWnd::SetWindowText( lpszString );
-//	}
-//}
+void CChildWnd::GetWindowText(CString& rString)
+{
+	if ( m_sCaption.IsEmpty() )
+		CMDIChildWnd::GetWindowText( m_sCaption );
+
+	rString = m_sCaption;
+}
+
+void CChildWnd::SetWindowText(LPCTSTR lpszString)
+{
+	if ( m_sCaption != lpszString )
+	{
+		m_sCaption = lpszString;
+		CMDIChildWnd::SetWindowText( lpszString );
+	}
+}
 
 CMainWnd* CChildWnd::GetMainWnd()
 {
@@ -130,13 +130,13 @@ BOOL CChildWnd::IsActive(BOOL bFocused)
 
 	if ( bFocused && GetForegroundWindow() != pMainWnd ) return FALSE;
 
-	CChildWnd* pActive = (CChildWnd*)pMainWnd->MDIGetActive();
+	CChildWnd* pActive = pMainWnd->m_pWindows.GetActive();	// Was (CChildWnd*)pMainWnd->MDIGetActive()
 
 	if ( pActive == this ) return TRUE;
 	if ( bFocused ) return FALSE;
 
-	return	( pActive != NULL && m_pGroupParent == pActive ) ||
-			( pActive != NULL && pActive->m_pGroupParent == this );
+	return	( pActive && m_pGroupParent == pActive ) ||
+			( pActive && pActive->m_pGroupParent == this );
 }
 
 BOOL CChildWnd::IsPartiallyVisible()
@@ -253,7 +253,7 @@ BOOL CChildWnd::SetAlert(BOOL bAlert)
 
 	CMainWnd* pMainWnd = GetMainWnd();
 
-	if ( bAlert && pMainWnd->MDIGetActive() == this ) return FALSE;
+	if ( bAlert && pMainWnd->m_pWindows.GetActive() == this ) return FALSE;		// Was MDIGetActive()
 
 	m_bAlert = bAlert;
 

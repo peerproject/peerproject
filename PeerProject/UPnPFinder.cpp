@@ -129,7 +129,7 @@ CUPnPFinder::~CUPnPFinder()
 //
 //	if ( ! bResult )
 //	{
-//		Settings.Connection.EnableUPnP = FALSE;
+//		Settings.Connection.EnableUPnP = false;
 //		theApp.Message( MSG_ERROR, L"UPnP Device Host service is not running, skipping UPnP setup." );
 //	}
 //
@@ -441,16 +441,16 @@ HRESULT CUPnPFinder::MapPort(const ServicePointer& service)
 		if ( Network.m_bUPnPPortsForwarded == TRI_TRUE )		// Another physical device or the setup was ran again manually
 		{
 			// Reset settings and recheck ( is there a better solution? )
-			Settings.Connection.SkipWANIPSetup  = FALSE;
-			Settings.Connection.SkipWANPPPSetup = FALSE;
+			Settings.Connection.SkipWANIPSetup  = false;
+			Settings.Connection.SkipWANPPPSetup = false;
 			m_bADSL = false;
 			m_bADSLFailed = false;
 		}
 		else if ( ! m_bADSLFailed )
 		{
 			theApp.Message( MSG_DEBUG, L"WANEthLinkC service detected. Disabling WANIPConn setup..." );
-			Settings.Connection.SkipWANIPSetup  = TRUE;
-			Settings.Connection.SkipWANPPPSetup = FALSE;
+			Settings.Connection.SkipWANIPSetup  = true;
+			Settings.Connection.SkipWANPPPSetup = false;
 		}
 	}
 
@@ -516,15 +516,15 @@ HRESULT CUPnPFinder::MapPort(const ServicePointer& service)
 	else if ( _tcsistr( strResult, L"|VT_BSTR=Disconnected|" ) != NULL && m_bADSL && bPPP )
 	{
 		theApp.Message( MSG_DEBUG, L"Disconnected PPP service in ADSL device..." );
-		Settings.Connection.SkipWANIPSetup  = FALSE;
-		Settings.Connection.SkipWANPPPSetup = TRUE;
+		Settings.Connection.SkipWANIPSetup  = false;
+		Settings.Connection.SkipWANPPPSetup = true;
 		m_bADSLFailed = true;
 	}
 	else if ( _tcsistr( strResult, L"|VT_BSTR=Disconnected|" ) != NULL && m_bADSL && bIP )
 	{
 		theApp.Message( MSG_DEBUG, L"Disconnected IP service in ADSL device..." );
-		Settings.Connection.SkipWANIPSetup  = TRUE;
-		Settings.Connection.SkipWANPPPSetup = FALSE;
+		Settings.Connection.SkipWANIPSetup  = true;
+		Settings.Connection.SkipWANPPPSetup = false;
 		m_bADSLFailed = true;
 	}
 	return S_OK;

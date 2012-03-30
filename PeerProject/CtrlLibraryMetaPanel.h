@@ -63,7 +63,7 @@ protected:
 	CString		m_sThumb;			// Loaded thumbnail file path or URL
 	CBitmap		m_bmThumb;
 
-	const CLibraryList*	GetViewSelection() const;
+	CLibraryList*	GetViewSelection() const;
 
 	void		DrawText(CDC* pDC, int nX, int nY, LPCTSTR pszText, RECT* pRect = NULL, int nMaxWidth = -1);
 

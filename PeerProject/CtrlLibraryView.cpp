@@ -1,7 +1,7 @@
 //
 // CtrlLibraryView.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -58,6 +58,7 @@ CLibraryView::CLibraryView()
 	, m_pszToolBar	( NULL )
 	, m_bAvailable	( FALSE )
 	, m_bGhostFolder( FALSE )
+	, m_pSelection	( new CLibraryList() )
 {
 }
 
@@ -220,8 +221,8 @@ CAlbumFolder* CLibraryView::GetSelectedAlbum(CLibraryTreeItem* pSel) const
 
 BOOL CLibraryView::SelAdd(CLibraryListItem oObject, BOOL bNotify)
 {
-	if ( m_pSelection.Find( oObject ) ) return FALSE;
-	m_pSelection.AddTail( oObject );
+	if ( m_pSelection->Find( oObject ) ) return FALSE;
+	m_pSelection->AddTail( oObject );
 
 	if ( bNotify )
 	{
@@ -234,9 +235,9 @@ BOOL CLibraryView::SelAdd(CLibraryListItem oObject, BOOL bNotify)
 
 BOOL CLibraryView::SelRemove(CLibraryListItem oObject, BOOL bNotify)
 {
-	POSITION pos = m_pSelection.Find( oObject );
+	POSITION pos = m_pSelection->Find( oObject );
 	if ( pos == NULL ) return FALSE;
-	m_pSelection.RemoveAt( pos );
+	m_pSelection->RemoveAt( pos );
 
 	if ( bNotify )
 	{
@@ -249,8 +250,8 @@ BOOL CLibraryView::SelRemove(CLibraryListItem oObject, BOOL bNotify)
 
 BOOL CLibraryView::SelClear(BOOL bNotify)
 {
-	if ( m_pSelection.IsEmpty() ) return FALSE;
-	m_pSelection.RemoveAll();
+	if ( m_pSelection->IsEmpty() ) return FALSE;
+	m_pSelection->RemoveAll();
 
 	if ( bNotify )
 	{
@@ -263,19 +264,19 @@ BOOL CLibraryView::SelClear(BOOL bNotify)
 
 INT_PTR CLibraryView::GetSelectedCount() const
 {
-	return m_pSelection.GetCount();
+	return m_pSelection->GetCount();
 }
 
 POSITION CLibraryView::StartSelectedFileLoop() const
 {
-	return m_pSelection.GetHeadPosition();
+	return m_pSelection->GetHeadPosition();
 }
 
 CLibraryFile* CLibraryView::GetNextSelectedFile(POSITION& posSel, BOOL bSharedOnly, BOOL bAvailableOnly) const
 {
 	while ( posSel )
 	{
-		DWORD_PTR nIndex = m_pSelection.GetNext( posSel );
+		DWORD_PTR nIndex = m_pSelection->GetNext( posSel );
 		if ( CLibraryFile* pFile = Library.LookupFile( nIndex, bSharedOnly, bAvailableOnly ) )
 			return pFile;
 	}
@@ -285,8 +286,8 @@ CLibraryFile* CLibraryView::GetNextSelectedFile(POSITION& posSel, BOOL bSharedOn
 
 CLibraryFile* CLibraryView::GetSelectedFile()
 {
-	if ( m_pSelection.GetCount() == 0 ) return NULL;
-	return Library.LookupFile( m_pSelection.GetHead() );
+	if ( m_pSelection->GetCount() == 0 ) return NULL;
+	return Library.LookupFile( m_pSelection->GetHead() );
 }
 
 int CLibraryView::OnCreate(LPCREATESTRUCT lpCreateStruct)
@@ -343,13 +344,13 @@ void CLibraryView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	case 'C':
 	case 'c':
 		if ( ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 ) == 0x8000
-				&& m_pSelection.GetCount() > 0 )
+				&& m_pSelection->GetCount() > 0 )
 			GetParent()->PostMessage( WM_COMMAND, ID_LIBRARY_COPY );
 		return;
 	case 'X':
 	case 'x':
 		if ( ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 ) == 0x8000
-				&& m_pSelection.GetCount() > 0 )
+				&& m_pSelection->GetCount() > 0 )
 			GetParent()->PostMessage( WM_COMMAND, ID_LIBRARY_MOVE );
 		return;
 	}
@@ -372,7 +373,7 @@ void CLibraryView::StartDragging(const CPoint& ptMouse)
 	if ( oHit.Type == CLibraryListItem::AlbumFolder )
 		oGUID = ((CAlbumFolder*)oHit)->m_oGUID;
 
-	CPeerProjectDataSource::DoDragDrop( &m_pSelection, pImage, oGUID, ptMiddle );
+	CPeerProjectDataSource::DoDragDrop( m_pSelection, pImage, oGUID, ptMiddle );
 }
 
 HBITMAP CLibraryView::CreateDragImage(const CPoint& /*ptMouse*/, CPoint& /*ptMiddle*/)

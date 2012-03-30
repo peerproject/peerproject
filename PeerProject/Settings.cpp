@@ -130,6 +130,7 @@ void CSettings::Load()
 	Add( _T("Interface"), _T("RowSize"), &Interface.RowSize, 17, 1, 16, 20, _T(" px") );
 	Add( _T("Interface"), _T("RefreshRateGraph"), &Interface.RefreshRateGraph, 72, 1, 10, 60000, _T(" ms") );	// 30sec display areas
 	Add( _T("Interface"), _T("RefreshRateText"), &Interface.RefreshRateText, 650, 1, 10, 10000, _T(" ms") );	// 3x per 2 sec.
+	Add( _T("Interface"), _T("RefreshRateUI"), &Interface.RefreshRateUI, theApp.m_nWinVer < WIN_XP_64 ? 330 : 200, 1, 10, 2000, _T(" ms") );	// 3/5x per sec. (Button status)
 	Add( _T("Interface"), _T("TipDelay"), &Interface.TipDelay, 500, 1, 100, 5000, _T(" ms") );
 	Add( _T("Interface"), _T("TipAlpha"), &Interface.TipAlpha, 220, 1, 50, 255 );
 	Add( _T("Interface"), _T("TipDownloads"), &Interface.TipDownloads, true );
@@ -193,7 +194,7 @@ void CSettings::Load()
 	Add( _T("Library"), _T("TreeSize"), &Library.TreeSize, 200, 1, 0, 1024, _T(" px") );
 	Add( _T("Library"), _T("PanelSize"), &Library.PanelSize, 120, 1, 0, 1024, _T(" px") );
 	Add( _T("Library"), _T("URLExportFormat"), &Library.URLExportFormat, _T("<a href=\"magnet:?xt=urn:bitprint:[SHA1].[TIGER]&amp;xt=urn:ed2khash:[ED2K]&amp;xt=urn:md5:[MD5]&amp;xl=[ByteSize]&amp;dn=[NameURI]\">[Name]</a><br>") );
-	Add( _T("Library"), _T("UseCustomFolders"), &Library.UseCustomFolders, true );
+	Add( _T("Library"), _T("UseCustomFolders"), &Library.UseCustomFolders, true );	// Desktop.ini
 	Add( _T("Library"), _T("UseWindowsLibrary"), &Library.UseWindowsLibrary, theApp.m_nWinVer >= WIN_7 );
 	Add( _T("Library"), _T("UseFolderGUID"), &Library.UseFolderGUID, true );
 	Add( _T("Library"), _T("VirtualFiles"), &Library.VirtualFiles, false );
@@ -323,6 +324,7 @@ void CSettings::Load()
 	Add( _T("Community"), _T("ServeFiles"), &Community.ServeFiles, true );
 	Add( _T("Community"), _T("ServeProfile"), &Community.ServeProfile, true );
 	Add( _T("Community"), _T("Timestamp"), &Community.Timestamp, true );
+//	Add( _T("Community"), _T("UserPanelSize"), &Community.UserPanelSize, 180, 1, 0, 1024, _T(" px") );
 
 	Add( _T("Discovery"), _T("AccessThrottle"), &Discovery.AccessThrottle, 60*60, 60, 1, 180, _T(" m") );
 	Add( _T("Discovery"), _T("BootstrapCount"), &Discovery.BootstrapCount, 10, 1, 0, 20 );

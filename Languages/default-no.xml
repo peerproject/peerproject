@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Norwegian Skin File -->
 
-<!-- Translation based on default-en.xml r75 (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r76 --> <!-- (Shareaza 2.2.0.2) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -400,7 +400,7 @@
 		<button id="ID_HOSTCACHE_DC_CACHE" text="Cache"/>
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
-	<toolbar name="CPrivateChatFrame">
+	<toolbar name="CPrivateChatWnd">
 		<button id="ID_CHAT_BOLD"/>
 		<button id="ID_CHAT_ITALIC"/>
 		<button id="ID_CHAT_UNDERLINE"/>
@@ -1113,14 +1113,18 @@
 		<separator/>
 		<item id="ID_LIBRARY_ALBUM_PROPERTIES" text="Egenskaper"/>
 	</menu>
-	<menu name="CLibraryFileView.Physical.Basic">
+	<menu name="CLibraryFileView.Basic">
 		<item id="ID_LIBRARY_LAUNCH" text="Åpne / spill av"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="Legg til spilleliste"/>
+		<item id="ID_LIBRARY_DELETE" text="Slett"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="Delt"/>
 		<separator/>
-		<item id="ID_LIBRARY_DELETE" text="Slett"/>
-		<separator/>
+		<menu text="Organisert">
+			<item id="ID_LIBRARY_RENAME" text="Gi nytt navn"/>
+			<item id="ID_LIBRARY_COPY" text="Kopier filer..."/>
+			<item id="ID_LIBRARY_MOVE" text="Flytt filer..."/>
+		</menu>
 		<menu text="Søk etter">
 			<item id="ID_SEARCH_FOR_THIS" text="Denne filen"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="Lignende filer"/>
@@ -1130,29 +1134,34 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Episode fra samme serie"/>
 		</menu>
 		<menu text="_Webtjenester">
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="Lokaliser metadata"/>
+			<separator/>
 			<item id="ID_LIBRARY_BITZI_WEB" text="Søk med Bitzi Ticket"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Hent Metadata"/>
 			<separator/>
-			<item id="ID_LIBRARY_URI" text=""/>
+			<item id="ID_LIBRARY_URI" text="_URI"/>
 		</menu>
-		<menu text="Organisert">
-			<item id="ID_LIBRARY_RENAME" text="Gi nytt navn"/>
-			<item id="ID_LIBRARY_MOVE" text="Flytt filer..."/>
-			<item id="ID_LIBRARY_COPY" text="Kopier filer..."/>
-		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="Lokaliser metadata"/>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="Egenskaper"/>
 	</menu>
-	<menu name="CLibraryFileView.Physical">
+	<menu name="CLibraryFileView">
 		<item id="ID_LIBRARY_LAUNCH" text="Åpne / spill av"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="Legg til spilleliste"/>
+		<item id="ID_LIBRARY_DELETE" text="Slett"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="Delt"/>
 		<separator/>
-		<item id="ID_LIBRARY_URI" text=""/>
-		<item id="ID_LIBRARY_DELETE" text="Slett"/>
+		<item id="ID_LIBRARY_URI" text="_URI"/>
+		<item id="ID_LIBRARY_CREATETORRENT" text="Lag .torrent"/>
+		<item id="ID_LIBRARY_LAUNCH_FOLDER" text="Åpne _Folder"/>
 		<separator/>
+		<menu text="Organisert">
+			<item id="ID_LIBRARY_UNLINK" text="Fjern filer"/>
+			<separator/>
+			<item id="ID_LIBRARY_RENAME" text="Gi nytt navn"/>
+			<item id="ID_LIBRARY_COPY" text="Kopier filer..."/>
+			<item id="ID_LIBRARY_MOVE" text="Flytt filer..."/>
+		</menu>
 		<menu text="Søk etter">
 			<item id="ID_SEARCH_FOR_THIS" text="Denne filen"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="Lignende filer"/>
@@ -1164,88 +1173,14 @@
 		<menu text="Web søk">
 			<item id="ID_LIBRARY_BITZI_WEB" text="Søk med Bitzi Ticket"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Hent metadata"/>
-			<separator/>
-			<item id="ID_LIBRARY_CREATETORRENT" text="Lag .torrent"/>
 		</menu>
-		<menu text="Organisert">
-			<item id="ID_LIBRARY_RENAME" text="Gi nytt navn"/>
-			<item id="ID_LIBRARY_MOVE" text="Flytt filer..."/>
-			<item id="ID_LIBRARY_COPY" text="Kopier filer..."/>
+		<menu text="_Metadata">
+			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh metadata"/>
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="Lokaliser metadata"/>
+			<item id="ID_LIBRARY_COLUMNS" text="Velg kolonner"/>
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="Lokaliser metadata"/>
 		<separator/>
-		<item id="ID_LIBRARY_COLUMNS" text="Velg kolonner"/>
-		<separator/>
-		<item id="ID_LIBRARY_PROPERTIES" text="Egenskaper"/>
-	</menu>
-	<menu name="CLibraryFileView.Virtual.Basic">
-		<item id="ID_LIBRARY_LAUNCH" text="Åpne / spill av"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="Legg til spilleliste"/>
-		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="Spill av..."/>
-		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="Delt"/>
-		<separator/>
-		<item id="ID_LIBRARY_DELETE" text="Slett"/>
-		<separator/>
-		<menu text="S_øk etter">
-			<item id="ID_SEARCH_FOR_THIS" text="Denne filen"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="Lignende filer"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="Musikk fra samme artist"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="Musikk fra samme album"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="Episode fra samme serie"/>
-		</menu>
-		<menu text="Webtjenester">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Søk med Bitzi Ticket"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Hent metadata"/>
-			<separator/>
-			<item id="ID_LIBRARY_URI" text=""/>
-		</menu>
-		<menu text="Organisert">
-			<item id="ID_LIBRARY_RENAME" text="Gi nytt navn"/>
-			<item id="ID_LIBRARY_UNLINK" text="Fjern filer"/>
-			<separator/>
-			<item id="ID_LIBRARY_MOVE" text="Flytt filer..."/>
-			<item id="ID_LIBRARY_COPY" text="Kopier filer..."/>
-		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="Lokaliser metadata"/>
-		<separator/>
-		<item id="ID_LIBRARY_PROPERTIES" text="Egenskaper"/>
-	</menu>
-	<menu name="CLibraryFileView.Virtual">
-		<item id="ID_LIBRARY_LAUNCH" text="Åpne / spill av"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="Legg til spilleliste"/>
-		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="Delt"/>
-		<separator/>
-		<item id="ID_LIBRARY_URI" text=""/>
-		<item id="ID_LIBRARY_DELETE" text="Slett"/>
-		<separator/>
-		<menu text="Søk etter">
-			<item id="ID_SEARCH_FOR_THIS" text="Denne filen"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="Lignende filer"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="Musikk fra samme artist"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="Musikk fra samme album"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="Episode fra samme serie"/>
-		</menu>
-		<menu text="Web søk">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Søk med Bitzi Ticket"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Hent metadata"/>
-			<separator/>
-			<item id="ID_LIBRARY_CREATETORRENT" text="Lag .torrent"/>
-		</menu>
-		<menu text="Organisert">
-			<item id="ID_LIBRARY_UNLINK" text="Fjern filer"/>
-			<separator/>
-			<item id="ID_LIBRARY_RENAME" text="Gi nytt navn"/>
-			<item id="ID_LIBRARY_MOVE" text="Flytt filer..."/>
-			<item id="ID_LIBRARY_COPY" text="Kopier filer..."/>
-		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="Lokaliser metadata"/>
-		<separator/>
-		<item id="ID_LIBRARY_COLUMNS" text="Velg kolonner"/>
-		<separator/>
+		<item id="ID_SHELL_MENU" text="Windows Men_u"/>
 		<item id="ID_LIBRARY_PROPERTIES" text="Egenskaper"/>
 	</menu>
 	<!-- MEDIA WINDOW -->
@@ -1459,7 +1394,7 @@
 		<item id="ID_DISCOVERY_BLOCKED" text="Vis Blokkerte"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
-	<menu name="CPrivateChatFrame">
+	<menu name="CPrivateChatWnd">
 		<item id="ID_CHAT_CONNECT" text="Koble til"/>
 		<item id="ID_CHAT_DISCONNECT" text="Koble fra"/>
 		<separator/>

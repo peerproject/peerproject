@@ -1,7 +1,7 @@
 //
 // EDClient.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -54,20 +54,29 @@ public:
 	DWORD		m_nEmCompatible;
 	DWORD		m_nSoftwareVersion;
 
-// Client capabilities
-	BOOL		m_bEmAICH;			// Not supported
+// Client capabilities 1
+	BOOL		m_bEmAICH;					// Not supported
 	BOOL		m_bEmUnicode;
 	BOOL		m_bEmUDPVersion;
 	BOOL		m_bEmDeflate;
-	BOOL		m_bEmSecureID;		// Not supported
+	BOOL		m_bEmSecureID;				// Not supported
 	BOOL		m_bEmSources;
 	BOOL		m_bEmRequest;
 	BOOL		m_bEmComments;
-	BOOL		m_bEmPeerCache;		// Not supported
-	BOOL		m_bEmBrowse;		// Browse supported
-	BOOL		m_bEmMultiPacket;	// Not supported
-	BOOL		m_bEmPreview;		// Preview support
-	BOOL		m_bEmLargeFile;		// Large file support
+	BOOL		m_bEmPeerCache;				// Not supported
+	BOOL		m_bEmBrowse;				// Browse support
+	BOOL		m_bEmMultiPacket;			// Not supported
+	BOOL		m_bEmPreview;				// Preview support
+
+// Client capabilities 2
+	BOOL		m_bEmSupportsCaptcha;
+	BOOL		m_bEmSupportsSourceEx2;		// Not supported
+	BOOL		m_bEmRequiresCryptLayer;	// Not supported
+	BOOL		m_bEmRequestsCryptLayer;	// Not supported
+	BOOL		m_bEmSupportsCryptLayer;	// Not supported
+	BOOL		m_bEmExtMultiPacket;		// Not supported
+	BOOL		m_bEmLargeFile;				// Large file support
+	BOOL		m_nEmKadVersion;			// Not supported
 
 // Other
 	CDownloadTransferED2K*	m_pDownloadTransfer;
@@ -140,7 +149,9 @@ protected:
 	BOOL	OnRequestPreview(CEDPacket* pPacket);
 	BOOL	OnPreviewAnswer(CEDPacket* pPacket);
 // Chat:
-	BOOL	OnMessage(CEDPacket* pPacket);
+	BOOL	OnChatMessage(CEDPacket* pPacket);
+	BOOL	OnCaptchaRequest(CEDPacket* pPacket);
+	BOOL	OnCaptchaResult(CEDPacket* pPacket);
 // Browse us:
 	BOOL	OnAskSharedDirs(CEDPacket* pPacket);
 	BOOL	OnViewSharedDir(CEDPacket* pPacket);

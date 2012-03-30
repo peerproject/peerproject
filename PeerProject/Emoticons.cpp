@@ -1,7 +1,7 @@
 //
 // Emoticons.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -147,7 +147,6 @@ CMenu* CEmoticons::CreateMenu()
 	pMenu->CreatePopupMenu();
 
 	int nCount = 0;
-
 	for ( int nPos = 0 ; nPos < m_pButtons.GetSize() ; nPos++ )
 	{
 		int nIndex = m_pButtons.GetAt( nPos );
@@ -390,7 +389,7 @@ BOOL CEmoticons::LoadXML(LPCTSTR pszFile)
 
 void CEmoticons::FormatText(CRichDocument* pDocument, LPCTSTR pszBody, BOOL bNewlines, COLORREF cr)
 {
-	static LPCTSTR pszURLs[] = { _T("\r\n"), _T("http://"), _T("https://"), _T("ftp://"), _T("mailto:"), _T("aim:"), _T("www."), _T("magnet:?"), _T("ed2k://"), _T("gnutella:"), _T("gnutella1:"), _T("gnutella2:"), _T("g2://"), _T("gnet:"), _T("peer:"), _T("peerproject:"), _T("shareaza:"), _T("raza:"), _T("gwc:"), _T("uhc:"), _T("ukhl:"), _T("mp2p:"), _T("sig2dat:"), NULL };
+	static LPCTSTR pszURLs[] = { _T("\r"), _T("\n"), _T("http://"), _T("https://"), _T("ftp://"), _T("mailto:"), _T("aim:"), _T("www."), _T("magnet:?"), _T("ed2k://"), _T("gnutella:"), _T("gnutella1:"), _T("gnutella2:"), _T("g2://"), _T("gnet:"), _T("peer:"), _T("peerproject:"), _T("shareaza:"), _T("raza:"), _T("gwc:"), _T("uhc:"), _T("ukhl:"), _T("mp2p:"), _T("sig2dat:"), NULL };
 	BOOL bBold = FALSE, bItalic = FALSE, bUnderline = FALSE;
 	CString str;
 
@@ -443,12 +442,12 @@ void CEmoticons::FormatText(CRichDocument* pDocument, LPCTSTR pszBody, BOOL bNew
 			pszBody += _tcslen( GetText( nEmoticon ) );
 			continue;
 		}
-		else if ( pszBody[0] == '\r' && pszBody[1] == '\n' )
+		else if ( pszBody[0] == '\r' || pszBody[0] == '\n' )
 		{
 			if ( bNewlines )
 				pDocument->Add( retNewline, _T("4") );
 
-			pszBody += 2;
+			pszBody ++;
 			continue;
 		}
 		else if ( *pszBody != '[' )

@@ -69,7 +69,7 @@ public:
 		return m_wndTree.GetFirstSelected();
 	}
 
-	inline const CLibraryList* GetViewSelection() const
+	inline CLibraryList* GetViewSelection() const
 	{
 		return m_pViewSelection;
 	}
@@ -133,13 +133,15 @@ protected:
 	DWORD				m_nLibraryCookie;
 	DWORD				m_nFolderCookie;
 	BOOL				m_bViewSelection;
-	const CLibraryList*	m_pViewSelection;
-	CLibraryList		m_pViewEmpty;
+	CLibraryListPtr 	m_pViewSelection;
+	CLibraryListPtr 	m_pViewEmpty;
 
 	CString				m_sDynamicBarName;
 	BOOL				m_bShowDynamicBar;
 	BOOL				m_bDynamicBarHidden;
 
+	BOOL		HasView() const;
+	BOOL		HasPanel() const;
 	BOOL		DoSizeTree();
 	BOOL		DoSizePanel();
 	void		UpdatePanel(BOOL bForce);

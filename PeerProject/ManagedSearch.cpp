@@ -40,6 +40,7 @@ static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
 #endif	// Filename
 
+IMPLEMENT_DYNAMIC(CManagedSearch, CComObject)
 
 //////////////////////////////////////////////////////////////////////
 // CManagedSearch construction
@@ -425,7 +426,7 @@ BOOL CManagedSearch::ExecuteG2Mesh(const DWORD /*tTicks*/, const DWORD tSecs)
 
 		if ( pHost->m_nKeyValue == 0 )
 		{
-			// We already know we don't have a key... pretty simple
+			// We already know we don't have a key, pretty simple
 		}
 		else if ( ! Network.IsFirewalled(CHECK_UDP) )
 		{

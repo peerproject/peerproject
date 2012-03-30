@@ -776,7 +776,7 @@ BEGIN
 	CONTROL			"List1",IDC_SHARE_FOLDERS,"SysListView32",LVS_REPORT | LVS_SHAREIMAGELISTS | LVS_ALIGNLEFT | LVS_NOCOLUMNHEADER | WS_BORDER | WS_TABSTOP,11,82,210,55
 	PUSHBUTTON		"&Add...",IDC_SHARE_ADD,230,88,50,15
 	PUSHBUTTON		"&Remove",IDC_SHARE_REMOVE,230,115,50,15,WS_DISABLED
-	LTEXT			"CAUTION:  Uploading unauthorized copyright work is liable in some countries.",IDC_STATIC,10,138,270,16,SS_CENTERIMAGE
+	LTEXT			"Caution:  Uploading unauthorized copyright work is liable in many countries.",IDC_STATIC,10,138,270,16,SS_CENTERIMAGE
 END
 
 IDD_WIZARD_INTERFACE DIALOGEX 0, 0, 276, 172
@@ -1856,7 +1856,7 @@ STYLE DS_SETFONT | DS_3DLOOK | WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "Download Properties"
 FONT 8, "Tahoma"
 BEGIN
-	LTEXT			"CAUTION: This dialog provides advanced download editing features \nfor power users, that may cause corruption when used incorrectly.",IDC_STATIC,7,7,286,18
+	LTEXT			"Caution: This dialog provides advanced download editing features \nfor power users, that may cause corruption when used incorrectly.",IDC_STATIC,7,7,286,18
 	GROUPBOX		"Details:",IDC_STATIC,6,28,288,69
 	LTEXT			"Filename:",IDC_STATIC,14,44,60,10
 	LTEXT			"Location:",IDC_STATIC,14,62,60,10
@@ -1885,7 +1885,7 @@ STYLE DS_SETFONT | DS_3DLOOK | WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "Download Properties"
 FONT 8, "Tahoma"
 BEGIN
-	LTEXT			"CAUTION: This dialog provides advanced download editing features \nfor power users, that may cause corruption when used incorrectly.",IDC_STATIC,7,7,286,18
+	LTEXT			"Caution: This dialog provides advanced download editing features \nfor power users, that may cause corruption when used incorrectly.",IDC_STATIC,7,7,286,18
 	LTEXT			"Forget all known sources",IDC_FORGET_SOURCES,20,100,264,8
 	LTEXT			"Forget current verification status and reverify",IDC_FORGET_VERIFY,20,86,264,8
 	LTEXT			"Assume file is 100% complete and verify",IDC_COMPLETE_AND_VERIFY,20,72,264,8

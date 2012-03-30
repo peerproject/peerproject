@@ -66,11 +66,11 @@ public:
 	}
 
 	// Read the data in the buffer as text
-	CString ReadString(const size_t nBytes, const UINT nCodePage = CP_ACP) const;          // Reads nBytes of ASCII characters as a string
+	CString ReadString(const size_t nBytes, const UINT nCodePage = CP_ACP) const;					// Reads nBytes of ASCII characters as a string
 
 	BOOL	Read(void* pData, const size_t nLength); //throw();
-	BOOL    ReadLine(CString& strLine, BOOL bPeek = FALSE, UINT nCodePage = CP_ACP); // Reads until "\r\n"
-	BOOL    StartsWith(LPCSTR pszString, const size_t nLength, const BOOL bRemove = FALSE) throw(); // Returns true if the buffer starts with this text
+	BOOL	ReadLine(CString& strLine, BOOL bPeek = FALSE);											// Reads until "\r\n". Encoding detection.
+	BOOL	StartsWith(LPCSTR pszString, const size_t nLength, const BOOL bRemove = FALSE) throw();	// Returns true if the buffer starts with this text
 
 	// Use the buffer with a socket
 #ifdef _WINSOCKAPI_
@@ -124,8 +124,8 @@ private:
 
 // Statics
 public:
-	static const DWORD	MAX_RECV_SIZE	= 1024ul * 16ul;	// Recieve up to 16KB blocks from the socket
-	static const UINT	ZLIB_CHUNK_SIZE	= 1024u;			// Chunk size for ZLib compression/decompression
+	static const size_t	MAX_RECV_SIZE	= 1024ul * 16ul;	// Recieve up to 16KB blocks from the socket
+	static const size_t	ZLIB_CHUNK_SIZE	= 1024u;			// Chunk size for ZLib compression/decompression
 
 	// Static means you can call CBuffer::ReverseBuffer without having a CBuffer object at all
 	static void ReverseBuffer(const void* pInput, void* pOutput, size_t nLength);

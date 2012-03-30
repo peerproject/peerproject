@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Albanian Skin File -->
 
-<!-- Translation based on default-en.xml r75 -->
+<!-- Translation based on default-en.xml r76 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -430,7 +430,7 @@
 		<button id="ID_HOSTCACHE_DC_CACHE" text="Depo "/>
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
-	<toolbar name="CPrivateChatFrame">
+	<toolbar name="CPrivateChatWnd">
 		<button id="ID_CHAT_BOLD"/>
 		<button id="ID_CHAT_ITALIC"/>
 		<button id="ID_CHAT_UNDERLINE"/>
@@ -1289,14 +1289,18 @@
 		<separator/>
 		<item id="ID_LIBRARY_ALBUM_PROPERTIES" text="_Veti"/>
 	</menu>
-	<menu name="CLibraryFileView.Physical.Basic">
+	<menu name="CLibraryFileView.Basic">
 		<item id="ID_LIBRARY_LAUNCH" text="_Hape ose Luaje"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="_Shtoje te Lista"/>
+		<item id="ID_LIBRARY_DELETE" text="_Fshije"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Shpërndahet"/>
 		<separator/>
-		<item id="ID_LIBRARY_DELETE" text="_Fshije"/>
-		<separator/>
+		<menu text="O_rganizo">
+			<item id="ID_LIBRARY_RENAME" text="_Riemërto Skedën"/>
+			<item id="ID_LIBRARY_COPY" text="_Kopjo Skedën..."/>
+			<item id="ID_LIBRARY_MOVE" text="_Lëvize Skedën..."/>
+		</menu>
 		<menu text="K_ërko Për">
 			<item id="ID_SEARCH_FOR_THIS" text="_Këtë Skedë"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="Skeda _Njësoj"/>
@@ -1306,66 +1310,35 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episode në këtë Serial"/>
 		</menu>
 		<menu text="Shërbime _Rrjeti">
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokalizo Metadatat"/>
+			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Rifresko Metadata"/>
+			<separator/>
 			<item id="ID_LIBRARY_BITZI_WEB" text="Shiko Biletën _Bitzi"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Shkarko Metadatat"/>
 			<separator/>
 			<item id="ID_LIBRARY_URI" text="Kopjo _URI-n"/>
 		</menu>
-		<menu text="O_rganizo">
-			<item id="ID_LIBRARY_RENAME" text="_Riemërto Skedën"/>
-			<item id="ID_LIBRARY_MOVE" text="_Lëvize Skedën..."/>
-			<item id="ID_LIBRARY_COPY" text="_Kopjo Skedën..."/>
-		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokalizo Metadatat"/>
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Rifresko Metadata"/>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Veti"/>
 	</menu>
-	<menu name="CLibraryFileView.Physical">
+	<menu name="CLibraryFileView">
 		<item id="ID_LIBRARY_LAUNCH" text="_Hape/Lexo"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="Shtoje në _Listë"/>
+		<item id="ID_LIBRARY_DELETE" text="_Fshije"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Shpërndahet"/>
 		<separator/>
 		<item id="ID_LIBRARY_URI" text="Kopjo _URI-n"/>
-		<item id="ID_LIBRARY_DELETE" text="_Fshije"/>
+		<item id="ID_LIBRARY_CREATETORRENT" text="Krijo një Skedë .torrent"/>
+		<item id="ID_LIBRARY_LAUNCH_FOLDER" text="Hape _Folder"/>
 		<separator/>
-		<menu text="K_ërko Për">
-			<item id="ID_SEARCH_FOR_THIS" text="_Këtë Skedë"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="Skeda _Njësoj"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="_Muzikë nga ky Artist"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="Muzikë në këtë _Album"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="_Episode në këtë Serial"/>
-		</menu>
-		<menu text="Shërbime _Rrjeti">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Shiko Biletën _Bitzi"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Përfto Metadatat"/>
-			<separator/>
-			<item id="ID_LIBRARY_CREATETORRENT" text="Krijo një Skedë .torrent"/>
-		</menu>
 		<menu text="O_rganizo">
+			<item id="ID_LIBRARY_UNLINK" text="Hiqi _Skedat"/>
+			<separator/>
 			<item id="ID_LIBRARY_RENAME" text="_Riemërto Skedën"/>
-			<item id="ID_LIBRARY_MOVE" text="_Lëvize Skedën..."/>
 			<item id="ID_LIBRARY_COPY" text="_Kopjo Skedën..."/>
+			<item id="ID_LIBRARY_MOVE" text="_Lëvize Skedën..."/>
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokalizo Metadatat"/>
-		<separator/>
-		<item id="ID_LIBRARY_COLUMNS" text="Zgjidhi _Kolonat..."/>
-		<separator/>
-		<item id="ID_SHELL_MENU" text="Menyja B_azë"/>
-		<separator/>
-		<item id="ID_LIBRARY_PROPERTIES" text="_Veti"/>
-	</menu>
-	<menu name="CLibraryFileView.Virtual.Basic">
-		<item id="ID_LIBRARY_LAUNCH" text="_Hape/Lexo"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="Shtoje në _Listë"/>
-		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="Lexo _Albumin"/>
-		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="_Shpërndahet"/>
-		<separator/>
-		<item id="ID_LIBRARY_DELETE" text="_Fshije"/>
-		<separator/>
 		<menu text="K_ërko për">
 			<item id="ID_SEARCH_FOR_THIS" text="Këtë Skedë"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="Skeda të Ngjashme"/>
@@ -1377,56 +1350,14 @@
 		<menu text="Shërbime _Rrjeti">
 			<item id="ID_LIBRARY_BITZI_WEB" text="Shiko Biletën _Bitzi"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Përfto Metadatat"/>
-			<separator/>
-			<item id="ID_LIBRARY_URI" text="Kopjo _URI-n"/>
 		</menu>
-		<menu text="O_rganizo">
-			<item id="ID_LIBRARY_RENAME" text="_Riemërto Skedën"/>
-			<item id="ID_LIBRARY_UNLINK" text="Hiqi _Skedat"/>
-			<separator/>
-			<item id="ID_LIBRARY_MOVE" text="_Lëvize Skedën..."/>
-			<item id="ID_LIBRARY_COPY" text="_Kopjo Skedën..."/>
+		<menu text="_Metadatat">
+			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Rifresko Metadatat"/>
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokalizo Metadatat"/>
+			<item id="ID_LIBRARY_COLUMNS" text="Zgjidhi _Kolonat..."/>
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokalizo Metadatat"/>
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Rifresko Metadata"/>
 		<separator/>
-		<item id="ID_LIBRARY_PROPERTIES" text="_Veti"/>
-	</menu>
-	<menu name="CLibraryFileView.Virtual">
-		<item id="ID_LIBRARY_LAUNCH" text="_Hape/Lexo"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="Shtoje në _Listë"/>
-		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="_Shpërndahet"/>
-		<separator/>
-		<item id="ID_LIBRARY_URI" text="Kopjo _URI-n"/>
-		<item id="ID_LIBRARY_DELETE" text="_Fshije"/>
-		<separator/>
-		<menu text="K_ërko për">
-			<item id="ID_SEARCH_FOR_THIS" text="Këtë Skedë"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="Skeda të Ngjashme"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="Muzikë nga i njëjti Artist"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="Muzikë nga i njëjti Album"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="Episode nga i njëjti Serial"/>
-		</menu>
-		<menu text="Shërbime _Rrjeti">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Shiko Biletën _Bitzi"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Përfto Metadatat"/>
-			<separator/>
-			<item id="ID_LIBRARY_CREATETORRENT" text="Krijo një Skedë .torrent"/>
-		</menu>
-		<menu text="O_rganizo">
-			<item id="ID_LIBRARY_UNLINK" text="Hiqi _Skedat"/>
-			<separator/>
-			<item id="ID_LIBRARY_RENAME" text="_Riemërto Skedën"/>
-			<item id="ID_LIBRARY_MOVE" text="_Lëvize Skedën..."/>
-			<item id="ID_LIBRARY_COPY" text="_Kopjo Skedën..."/>
-		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokalizo Metadatat"/>
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Rifresko Metadata"/>
-		<separator/>
-		<item id="ID_LIBRARY_COLUMNS" text="Zgjidhi _Kolonat..."/>
-		<separator/>
+		<item id="ID_SHELL_MENU" text="Windows Men_u"/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Veti"/>
 	</menu>
 	<!-- MEDIA WINDOW -->
@@ -1646,7 +1577,7 @@
 		<item id="ID_DISCOVERY_BLOCKED" text="Trego Bllokuar"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
-	<menu name="CPrivateChatFrame">
+	<menu name="CPrivateChatWnd">
 		<item id="ID_CHAT_CONNECT" text="_Lidhu"/>
 		<item id="ID_CHAT_DISCONNECT" text="_Shkëputu"/>
 		<separator/>

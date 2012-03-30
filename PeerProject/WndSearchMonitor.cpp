@@ -1,7 +1,7 @@
 //
 // WndSearchMonitor.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -22,6 +22,7 @@
 #include "WndSearchMonitor.h"
 #include "WndSearch.h"
 #include "WndBrowseHost.h"
+#include "CoolInterface.h"
 #include "QuerySearch.h"
 #include "LiveList.h"
 #include "Security.h"
@@ -37,12 +38,18 @@ static char THIS_FILE[] = __FILE__;
 // Set Column Order
 enum {
 	COL_SEARCH,
-	COL_URN,
+//	COL_URN,
 //	COL_SIZE,
 	COL_SCHEMA,
 //	COL_NETWORK,
 	COL_ENDPOINT,
 	COL_LAST	// Count
+};
+
+const static UINT nImageID[] =
+{
+	IDR_SEARCHMONITORFRAME,
+	NULL
 };
 
 IMPLEMENT_SERIAL(CSearchMonitorWnd, CPanelWnd, 0)
@@ -64,6 +71,7 @@ BEGIN_MESSAGE_MAP(CSearchMonitorWnd, CPanelWnd)
 	ON_UPDATE_COMMAND_UI(ID_BROWSE_LAUNCH, OnUpdateBrowseLaunch)
 	ON_COMMAND(ID_BROWSE_LAUNCH, OnBrowseLaunch)
 	ON_NOTIFY(LVN_COLUMNCLICK, IDC_SEARCHES, OnDblClkList)
+	ON_NOTIFY(NM_CUSTOMDRAW, IDC_SEARCHES, OnCustomDrawList)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -72,13 +80,14 @@ END_MESSAGE_MAP()
 // CSearchMonitorWnd construction
 
 CSearchMonitorWnd::CSearchMonitorWnd()
+	: m_bPaused	( FALSE )
 {
 	Create( IDR_SEARCHMONITORFRAME );
 }
 
-CSearchMonitorWnd::~CSearchMonitorWnd()
-{
-}
+//CSearchMonitorWnd::~CSearchMonitorWnd()
+//{
+//}
 
 /////////////////////////////////////////////////////////////////////////////
 // CSearchMonitorWnd message handlers
@@ -87,19 +96,18 @@ int CSearchMonitorWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CPanelWnd::OnCreate( lpCreateStruct ) == -1 ) return -1;
 
-	m_wndList.Create( WS_VISIBLE|LVS_ICON|LVS_AUTOARRANGE|LVS_REPORT|LVS_SHOWSELALWAYS,
+	m_wndList.Create( WS_CLIPCHILDREN|WS_CLIPSIBLINGS|WS_CHILD|WS_VISIBLE|LVS_ICON|LVS_AUTOARRANGE|LVS_REPORT|LVS_SHOWSELALWAYS,
 		rectDefault, this, IDC_SEARCHES );
-	m_wndList.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP );
-
+	m_wndList.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP|LVS_EX_SUBITEMIMAGES );
 	m_pSizer.Attach( &m_wndList );
 
-	VERIFY( m_gdiImageList.Create( 16, 16, ILC_MASK|ILC_COLOR32, 1, 1 ) );
-	AddIcon( IDR_SEARCHMONITORFRAME , m_gdiImageList );
-	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
-	m_wndList.SetFont( &theApp.m_gdiFont );
+//	VERIFY( m_gdiImageList.Create( 16, 16, ILC_MASK|ILC_COLOR32, 1, 1 ) );
+//	AddIcon( IDR_SEARCHMONITORFRAME , m_gdiImageList );
+//	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
+//	m_wndList.SetFont( &theApp.m_gdiFont );
 
-	m_wndList.InsertColumn( COL_SEARCH, _T("Search"), LVCFMT_LEFT, 210, -1 );
-	m_wndList.InsertColumn( COL_URN, _T("URN"), LVCFMT_LEFT, 340, 0 );
+	m_wndList.InsertColumn( COL_SEARCH, _T("Search"), LVCFMT_LEFT, 400, -1 );
+//	m_wndList.InsertColumn( COL_URN, _T("URN"), LVCFMT_LEFT, 340, 0 );
 //	m_wndList.InsertColumn( COL_SIZE, _T("Size"), LVCFMT_LEFT, 100, 1 );
 	m_wndList.InsertColumn( COL_SCHEMA, _T("Schema"), LVCFMT_LEFT, 150, 1 );
 //	m_wndList.InsertColumn( COL_NETWORK, _T("Network"), LVCFMT_LEFT, 60, 3 );
@@ -107,7 +115,7 @@ int CSearchMonitorWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	LoadState( _T("CSearchMonitorWnd"), TRUE );
 
-	m_bPaused = FALSE;
+//	m_bPaused = FALSE;
 	SetTimer( 2, 250, NULL );
 
 	return 0;
@@ -137,7 +145,16 @@ void CSearchMonitorWnd::OnDestroy()
 void CSearchMonitorWnd::OnSkinChange()
 {
 	CPanelWnd::OnSkinChange();
+
+	// Columns
 	Settings.LoadList( _T("CSearchMonitorWnd"), &m_wndList );
+
+	// Fonts
+	m_wndList.SetFont( &theApp.m_gdiFont );
+
+	// Icons
+	CoolInterface.LoadIconsTo( m_gdiImageList, nImageID );	// IDR_SEARCHMONITORFRAME
+	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
 }
 
 void CSearchMonitorWnd::OnSize(UINT nType, int cx, int cy)
@@ -223,7 +240,6 @@ void CSearchMonitorWnd::OnQuerySearch(const CQuerySearch* pSearch)
 	CLiveItem* pItem = new CLiveItem( COL_LAST, NULL );
 
 	CString strSearch = pSearch->m_sSearch;
-	CString strSchema, strURN, strNode;
 
 //	LoadString( strSchema, IDS_NEIGHBOUR_COMPRESSION_NONE );	// ToDo: Generic "None" translation ?
 //	LoadString( strURN, IDS_NEIGHBOUR_COMPRESSION_NONE );
@@ -244,24 +260,27 @@ void CSearchMonitorWnd::OnQuerySearch(const CQuerySearch* pSearch)
 		strSize = _T("< ") + Settings.SmartVolume( pSearch->m_nMaxSize );
 	}
 
-	CString strNetwork = _T("-");
-	if ( pSearch->m_nProtocol > PROTOCOL_NULL )
-	{
-		if ( pSearch->m_nProtocol == PROTOCOL_G1 )
-			strNetwork = _T("  G1");
-		else if ( pSearch->m_nProtocol == PROTOCOL_G2 )
-			strNetwork = _T("  G2");
-		else if ( pSearch->m_nProtocol == PROTOCOL_ED2K )
-			strNetwork = _T("  ED2K");
-		else
-			strNetwork = _T("  ?");	// Others?
-	}
-
+	CString strNode;
 	if ( pSearch->m_pEndpoint.sin_addr.s_addr )
 		strNode.Format( _T("%hs:%u"),
 			inet_ntoa( pSearch->m_pEndpoint.sin_addr ),
 			ntohs( pSearch->m_pEndpoint.sin_port ) );
 
+	if ( pSearch->m_nProtocol > PROTOCOL_NULL )
+	{
+		if ( pSearch->m_nProtocol == PROTOCOL_G2 )
+			strNode += _T("  G2");
+		else if ( pSearch->m_nProtocol == PROTOCOL_G1 )
+			strNode += _T("  G1");
+		else if ( pSearch->m_nProtocol == PROTOCOL_ED2K )
+			strNode += _T("  ED2K");
+		else if ( pSearch->m_nProtocol == PROTOCOL_DC )
+			strNode += _T("  DC++");
+		else
+			strNode += _T("  ??");		// Others?
+	}
+
+	CString strURN;
 	if ( pSearch->m_oSHA1 && pSearch->m_oTiger )
 		strURN	= _T("bitprint:") + pSearch->m_oSHA1.toString() + '.' + pSearch->m_oTiger.toString();
 	else if ( pSearch->m_oTiger )
@@ -274,8 +293,8 @@ void CSearchMonitorWnd::OnQuerySearch(const CQuerySearch* pSearch)
 		strURN = pSearch->m_oBTH.toShortUrn();
 	else if ( pSearch->m_oMD5 )
 		strURN = pSearch->m_oMD5.toShortUrn();
-	else
-		strURN = _T("-");
+	//else
+	//	strURN = _T("-");
 
 	if ( pSearch->m_bWhatsNew )
 		strSearch = _T("What's New?");
@@ -287,12 +306,13 @@ void CSearchMonitorWnd::OnQuerySearch(const CQuerySearch* pSearch)
 		strSearch += _T('»');
 	}
 
+	CString strSchema;
 	if ( pSearch->m_pSchema )
 		strSchema = pSearch->m_pSchema->m_sTitle;
 	else
 		strSchema = _T("-");
 
-	// ToDo: Add proper Size and Network columns to HitMonitor instead
+	// ToDo: Add proper Size and Network columns to HitMonitor instead?
 	if ( strSize.GetLength() > 1 )
 	{
 		if ( strSchema.GetLength() > 3 )
@@ -301,11 +321,16 @@ void CSearchMonitorWnd::OnQuerySearch(const CQuerySearch* pSearch)
 			strSchema = strSize;
 	}
 
-	if ( strNetwork.GetLength() > 1 )
-		strNode += strNetwork;
+	if ( ! strURN.IsEmpty() )
+	{
+		if ( strSearch.GetLength() > 1 )
+			strSearch += _T("  ") + strURN;
+		else
+			strSearch = strURN;
+	}
 
 	pItem->Set( COL_SEARCH, strSearch );
-	pItem->Set( COL_URN, strURN );
+//	pItem->Set( COL_URN, strURN );
 //	pItem->Set( COL_SIZE, strSize );
 	pItem->Set( COL_SCHEMA, strSchema );
 //	pItem->Set( COL_NETWORK, strNetwork );
@@ -334,7 +359,7 @@ void CSearchMonitorWnd::OnTimer(UINT_PTR nIDEvent)
 		if ( (DWORD)m_wndList.GetItemCount() >= Settings.Search.MonitorQueue && Settings.Search.MonitorQueue > 0 )
 			m_wndList.DeleteItem( 0 );
 
-		/*int nItem =*/ pItem->Add( &m_wndList, -1, 4 );
+		/*int nItem =*/ pItem->Add( &m_wndList, -1, COL_LAST );
 
 		delete pItem;
 	}
@@ -385,4 +410,11 @@ void CSearchMonitorWnd::OnBrowseLaunch()
 		pHost.sin_port = htons( (WORD)_tstoi( strNode.Mid( nPos + 1 ) ) );
 		new CBrowseHostWnd( PROTOCOL_ANY, &pHost );
 	}
+}
+
+void CSearchMonitorWnd::OnCustomDrawList(NMHDR* /*pNMHDR*/, LRESULT* pResult)
+{
+	//NMLVCUSTOMDRAW* pDraw = (NMLVCUSTOMDRAW*)pNMHDR;
+
+	*pResult = CDRF_DODEFAULT;
 }

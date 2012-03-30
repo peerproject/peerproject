@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Russian Skin File -->
 
-<!-- Translation based on default-en.xml r75 -->
+<!-- Translation based on default-en.xml r76 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -434,7 +434,7 @@
 		<button id="ID_HOSTCACHE_DC_CACHE" text="кэш "/>
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
-	<toolbar name="CPrivateChatFrame">
+	<toolbar name="CPrivateChatWnd">
 		<button id="ID_CHAT_BOLD"/>
 		<button id="ID_CHAT_ITALIC"/>
 		<button id="ID_CHAT_UNDERLINE"/>
@@ -1316,112 +1316,51 @@
 		<separator/>
 		<item id="ID_LIBRARY_ALBUM_PROPERTIES" text="_Свойства"/>
 	</menu>
-	<menu name="CLibraryFileView.Physical.Basic">
+	<menu name="CLibraryFileView.Basic">
 		<item id="ID_LIBRARY_LAUNCH" text="_Открыть"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="_Добавить в список"/>
 		<item id="ID_LIBRARY_DELETE" text="_Удалить"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Общий доступ"/>
 		<separator/>
-		<menu text="_Искать">
-			<item id="ID_SEARCH_FOR_THIS" text="Этот файл"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="Подобные файлы"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="Музыку этого же исполнителя"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="Музыку из этого же альбома"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="Серии из этого же сериала"/>
-		</menu>
-		<menu text="_Сервис">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Посмотреть _Bitzi этикетку"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Загрузить метаданные"/>
-			<separator/>
-		</menu>
 		<menu text="О_перации">
 			<item id="ID_LIBRARY_RENAME" text="_Переименовать файл"/>
+			<item id="ID_LIBRARY_COPY" text="_Копировать файлы..."/>
 			<item id="ID_LIBRARY_MOVE" text="П_ереместить файлы..."/>
-			<item id="ID_LIBRARY_COPY" text="_Копировать файлы..."/>
+		</menu>
+		<menu text="_Искать">
+			<item id="ID_SEARCH_FOR_THIS" text="Этот файл"/>
+			<item id="ID_SEARCH_FOR_SIMILAR" text="Подобные файлы"/>
+			<separator/>
+			<item id="ID_SEARCH_FOR_ARTIST" text="Музыку этого же исполнителя"/>
+			<item id="ID_SEARCH_FOR_ALBUM" text="Музыку из этого же альбома"/>
+			<item id="ID_SEARCH_FOR_SERIES" text="Серии из этого же сериала"/>
+		</menu>
+		<menu text="_Сервис">
+			<item id="ID_LIBRARY_BITZI_WEB" text="Посмотреть _Bitzi этикетку"/>
+			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Загрузить метаданные"/>
 		</menu>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Свойства"/>
 	</menu>
-	<menu name="CLibraryFileView.Physical">
+	<menu name="CLibraryFileView">
 		<item id="ID_LIBRARY_LAUNCH" text="_Открыть"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="_Добавить в список"/>
 		<item id="ID_LIBRARY_DELETE" text="_Удалить"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Общий доступ"/>
 		<separator/>
-		<item id="ID_LIBRARY_URI" text="Копировать сс_ылку"/>
+		<item id="ID_LIBRARY_URI" text="_URI"/>
 		<item id="ID_LIBRARY_CREATETORRENT" text="_Создать .torrent файл"/>
+		<item id="ID_LIBRARY_LAUNCH_FOLDER" text="Открыть _Folder"/>
 		<separator/>
-		<menu text="_Искать">
-			<item id="ID_SEARCH_FOR_THIS" text="Этот файл"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="Подобные файлы"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="Музыку этого же исполнителя"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="Музыку из этого же альбома"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="Серии из этого же сериала"/>
-		</menu>
-		<menu text="_Сервис">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Посмотреть _Bitzi этикетку"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Загрузить метаданные"/>
-			<separator/>
-		</menu>
-		<menu text="О_перации">
-			<item id="ID_LIBRARY_RENAME" text="_Переименовать файл"/>
-			<item id="ID_LIBRARY_MOVE" text="Пере_местить файлы..."/>
-			<item id="ID_LIBRARY_COPY" text="_Копировать файлы..."/>
-		</menu>
-		<menu text="_Metadata">
-			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Локализировать метаданные"/>
-			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Обновить метаданные"/>
-			<item id="ID_LIBRARY_COLUMNS" text="Выбрать _колонки..."/>
-		</menu>
-		<separator/>
-		<item id="ID_SHELL_MENU" text="Меню Windows"/>
-		<item id="ID_LIBRARY_PROPERTIES" text="_Свойства"/>
-	</menu>
-	<menu name="CLibraryFileView.Virtual.Basic">
-		<item id="ID_LIBRARY_LAUNCH" text="_Открыть"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="_Добавить в список"/>
-		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="Добавить _альбом в список"/>
-		<item id="ID_LIBRARY_DELETE" text="_Удалить"/>
-		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="_Общий доступ"/>
-		<separator/>
-		<menu text="_Искать">
-			<item id="ID_SEARCH_FOR_THIS" text="Этот файл"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="Подобные файлы"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="Музыку этого же исполнителя"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="Музыку из этого же альбома"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="Серии из этого же сериала"/>
-		</menu>
-		<menu text="_Сервис">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Посмотреть _Bitzi этикетку"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Загрузить метаданные"/>
-			<separator/>
-		</menu>
 		<menu text="О_перации">
 			<item id="ID_LIBRARY_UNLINK" text="_Удалить файлы"/>
 			<separator/>
 			<item id="ID_LIBRARY_RENAME" text="_Переименовать файл"/>
-			<item id="ID_LIBRARY_MOVE" text="Пере_местить файлы..."/>
 			<item id="ID_LIBRARY_COPY" text="_Копировать файлы..."/>
+			<item id="ID_LIBRARY_MOVE" text="Пере_местить файлы..."/>
 		</menu>
-		<separator/>
-		<item id="ID_LIBRARY_PROPERTIES" text="_Свойства"/>
-	</menu>
-	<menu name="CLibraryFileView.Virtual">
-		<item id="ID_LIBRARY_LAUNCH" text="_Открыть"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="_Добавить в список"/>
-		<item id="ID_LIBRARY_DELETE" text="_Удалить"/>
-		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="_Общий доступ"/>
-		<separator/>
-		<item id="ID_LIBRARY_URI" text="URI"/>
-		<item id="ID_LIBRARY_CREATETORRENT" text="_Создать .torrent файл"/>
-		<separator/>
 		<menu text="_Искать">
 			<item id="ID_SEARCH_FOR_THIS" text="Этот файл"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="Подобные файлы"/>
@@ -1433,22 +1372,14 @@
 		<menu text="_Сервис">
 			<item id="ID_LIBRARY_BITZI_WEB" text="Посмотреть _Bitzi этикетку"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Загрузить метаданные"/>
-			<separator/>
 		</menu>
-		<menu text="О_перации">
-			<item id="ID_LIBRARY_UNLINK" text="_Удалить файлы"/>
-			<separator/>
-			<item id="ID_LIBRARY_RENAME" text="_Переименовать файл"/>
-			<item id="ID_LIBRARY_MOVE" text="Пере_местить файлы..."/>
-			<item id="ID_LIBRARY_COPY" text="_Копировать файлы..."/>
-		</menu>
-		<menu text="_Metadata">
-			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Локализировать метаданные"/>
+		<menu text="_Mетаданные">
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Обновить метаданные"/>
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Локализировать метаданные"/>
 			<item id="ID_LIBRARY_COLUMNS" text="Выбрать ко_лонки..."/>
 		</menu>
 		<separator/>
-		<item id="ID_SHELL_MENU" text="Windows men_u"/>
+		<item id="ID_SHELL_MENU" text="Windows Men_u"/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Свойства"/>
 	</menu>
 	<!-- MEDIA WINDOW -->
@@ -1683,7 +1614,7 @@
 		<item id="ID_DISCOVERY_BLOCKED" text="Показывать блокированный"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
-	<menu name="CPrivateChatFrame">
+	<menu name="CPrivateChatWnd">
 		<item id="ID_CHAT_CONNECT" text="_Подключиться"/>
 		<item id="ID_CHAT_DISCONNECT" text="_Отключиться"/>
 		<separator/>
@@ -4445,7 +4376,7 @@
 		<control caption="OK"/>
 		<control caption="Отмена"/>
 		<control caption="Вы уже загружали этот файл и удалили его.  Что бы Вы хотели сделать?"/>
-		<control caption="Внимание!!! Найденны дубликаты. Злоумышленные программы могут заразить Ваше хранилище. Проверьте, что это Вы загрузили или поместили этот файл. Иначе, закройте PeerProject и просканируйте Ваш компьютер."/>
+		<control caption="Внимание! Найденны дубликаты. Злоумышленные программы могут заразить Ваше хранилище. Проверьте, что это Вы загрузили или поместили этот файл. Иначе, закройте PeerProject и просканируйте Ваш компьютер."/>
 	</dialog>
 	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Кнопка «Закрыть»">
 		<control caption="Это - первый раз, когда Вы щелкнули кнопку «Закрыть» PeerProject.  Выберите, какое действие PeerProject должна выполнять когда Вы её щелкаете:"/>

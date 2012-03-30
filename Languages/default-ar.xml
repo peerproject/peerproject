@@ -3,7 +3,7 @@
 
 <!-- PeerProject Arabic Language Skin File -->
 
-<!-- Translation based on default-en.xml r75 -->
+<!-- Translation based on default-en.xml r76 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -405,7 +405,7 @@
 		<button id="ID_HOSTCACHE_DC_CACHE" text="مخزون مؤقت" />
 	</toolbar>
 	<!--غطار المحادثة الخاصة-->
-	<toolbar name="CPrivateChatFrame">
+	<toolbar name="CPrivateChatWnd">
 		<button id="ID_CHAT_BOLD"/> <!--ع-->
 		<button id="ID_CHAT_ITALIC"/> <!--م-->
 		<button id="ID_CHAT_UNDERLINE"/> <!--تس-->
@@ -1274,13 +1274,12 @@
 		<separator />
 		<item id="ID_LIBRARY_ALBUM_PROPERTIES" text="_خصائص" />
 	</menu>
-	<menu name="CLibraryFileView.Physical.Basic">
+	<menu name="CLibraryFileView.Basic">
 		<item id="ID_LIBRARY_LAUNCH" text="_فتح او تشغيل" />
 		<item id="ID_LIBRARY_ENQUEUE" text="_اضافه الى قائمة التشغيل" />
+		<item id="ID_LIBRARY_DELETE" text="_حذف" />
 		<separator />
 		<item id="ID_LIBRARY_SHARED_FILE" text="_مشاركة" />
-		<separator />
-		<item id="ID_LIBRARY_DELETE" text="_حذف" />
 		<separator />
 		<menu text="_البحث لـ">
 			<item id="ID_SEARCH_FOR_THIS" text="هذا الملف" />
@@ -1291,100 +1290,40 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="الأحداث في نفس السلسلة" />
 		</menu>
 		<menu text="_خدمات الانترنت">
+			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata" />
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="_توطين ملف تعريف" />
+			<separator />
 			<item id="ID_LIBRARY_BITZI_WEB" text="Bitzi عرض ب_طافة" />
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_تحميل ملف تعريف" />
 			<separator />
-			<item id="ID_LIBRARY_URI" text="" />
+			<item id="ID_LIBRARY_URI" text="_URI" />
 		</menu>
 		<menu text="ت_نظيم">
 			<item id="ID_LIBRARY_RENAME" text="_اعادة تسمية ملف" />
 			<item id="ID_LIBRARY_MOVE" text="_نقل ملفات..." />
 			<item id="ID_LIBRARY_COPY" text="_نسخ ملفات..." />
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_توطين ملف تعريف" />
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata" />
 		<separator />
 		<item id="ID_LIBRARY_PROPERTIES" text="_خصائص" />
 	</menu>
-	<menu name="CLibraryFileView.Physical">
+	<menu name="CLibraryFileView">
 		<item id="ID_LIBRARY_LAUNCH" text="_فتح او تشغيل" />
 		<item id="ID_LIBRARY_ENQUEUE" text="اضف الى قائ_مة التشغيل" />
-		<separator />
-		<item id="ID_LIBRARY_SHARED_FILE" text="_مشاركة" />
-		<separator />
-		<item id="ID_LIBRARY_URI" text="" />
 		<item id="ID_LIBRARY_DELETE" text="_حذف" />
-		<separator />
-		<menu text="_البحث لـ">
-			<item id="ID_SEARCH_FOR_THIS" text="هذا الملف" />
-			<item id="ID_SEARCH_FOR_SIMILAR" text="الملفات المتشابهة" />
-			<separator />
-			<item id="ID_SEARCH_FOR_ARTIST" text="موسيقى لنفس اسم الفنان" />
-			<item id="ID_SEARCH_FOR_ALBUM" text="موسيقى لنفس الألبوم" />
-			<item id="ID_SEARCH_FOR_SERIES" text="الأحداث في نفس السلسلة" />
-		</menu>
-		<menu text="_خدمات الانترنت">
-			<item id="ID_LIBRARY_BITZI_WEB" text="عرض ب_طافة Bitzi" />
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_طلب ملف تعريف" />
-			<separator />
-			<item id="ID_LIBRARY_CREATETORRENT" text="إنشاء ملف torrent" />
-		</menu>
-		<menu text="ت_نظيم">
-			<item id="ID_LIBRARY_RENAME" text="_اعادة تسمية ملف" />
-			<item id="ID_LIBRARY_MOVE" text="_نقل ملفات..." />
-			<item id="ID_LIBRARY_COPY" text="_نسخ ملفات..." />
-		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_توطين ملف تعريف" />
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="تحديث بيانات التعريف" />
-		<separator />
-		<item id="ID_LIBRARY_COLUMNS" text="أختيار الا_عمدة..." />
-		<separator />
-		<item id="ID_LIBRARY_PROPERTIES" text="_خصائص" />
-	</menu>
-	<menu name="CLibraryFileView.Virtual.Basic">
-		<item id="ID_LIBRARY_LAUNCH" text="_فتح او تشغيل" />
-		<item id="ID_LIBRARY_ENQUEUE" text="اضف الى قائ_مة التشغيل" />
-		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="الألبوم _تشغيل" />
-		<separator />
-		<item id="ID_LIBRARY_SHARED_FILE" text="_مشاركة" />
-		<separator />
-		<item id="ID_LIBRARY_DELETE" text="_حذف" />
-		<separator />
-		<menu text="_البحث لـ">
-			<item id="ID_SEARCH_FOR_THIS" text="هذا الملف" />
-			<item id="ID_SEARCH_FOR_SIMILAR" text="الملفات المتشابهة" />
-			<separator />
-			<item id="ID_SEARCH_FOR_ARTIST" text="موسيقى لنفس اسم الفنان" />
-			<item id="ID_SEARCH_FOR_ALBUM" text="موسيقى لنفس الألبوم" />
-			<item id="ID_SEARCH_FOR_SERIES" text="الأحداث في نفس السلسلة" />
-		</menu>
-		<menu text="_خدمات الانترنت">
-			<item id="ID_LIBRARY_BITZI_WEB" text="عرض ب_طافة Bitzi" />
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_طلب ملف تعريف" />
-			<separator />
-			<item id="ID_LIBRARY_URI" text="" />
-		</menu>
-		<menu text="ت_نظيم">
-			<item id="ID_LIBRARY_RENAME" text="_اعادة تسمية ملف" />
-			<item id="ID_LIBRARY_UNLINK" text="حذف _ملفات" />
-			<separator />
-			<item id="ID_LIBRARY_MOVE" text="_نقل ملفات..." />
-			<item id="ID_LIBRARY_COPY" text="_نسخ ملفات..." />
-		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_توطين ملف تعريف" />
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="_تحديث بيانات التعريف" />
-		<separator />
-		<item id="ID_LIBRARY_PROPERTIES" text="_خصائص" />
-	</menu>
-	<menu name="CLibraryFileView.Virtual">
-		<item id="ID_LIBRARY_LAUNCH" text="_فتح او تشغيل" />
-		<item id="ID_LIBRARY_ENQUEUE" text="اضف الى قائ_مة التشغيل" />
 		<separator />
 		<item id="ID_LIBRARY_SHARED_FILE" text="_مشاركة" />
 		<separator />
 		<item id="ID_LIBRARY_URI" text="نسخ _رابط" />
-		<item id="ID_LIBRARY_DELETE" text="_حذف" />
+		<item id="ID_LIBRARY_CREATETORRENT" text="إنشاء ملف .torrent" />
+		<item id="ID_LIBRARY_LAUNCH_FOLDER" text="Open _Folder"/>
 		<separator />
+		<menu text="ت_نظيم">
+			<item id="ID_LIBRARY_UNLINK" text="حذف _ملفات" />
+			<separator />
+			<item id="ID_LIBRARY_RENAME" text="_اعادة تسمية ملف" />
+			<item id="ID_LIBRARY_COPY" text="_نسخ ملفات..." />
+			<item id="ID_LIBRARY_MOVE" text="_نقل ملفات..." />
+		</menu>
 		<menu text="_البحث لـ">
 			<item id="ID_SEARCH_FOR_THIS" text="هذا الملف" />
 			<item id="ID_SEARCH_FOR_SIMILAR" text="الملفات المتشابهة" />
@@ -1396,21 +1335,14 @@
 		<menu text="_خدمات الانترنت">
 			<item id="ID_LIBRARY_BITZI_WEB" text="عرض ب_طافة Bitzi" />
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_طلب ملف تعريف" />
-			<separator />
-			<item id="ID_LIBRARY_CREATETORRENT" text="إنشاء ملف .torrent" />
 		</menu>
-		<menu text="ت_نظيم">
-			<item id="ID_LIBRARY_UNLINK" text="حذف _ملفات" />
-			<separator />
-			<item id="ID_LIBRARY_RENAME" text="_اعادة تسمية ملف" />
-			<item id="ID_LIBRARY_MOVE" text="_نقل ملفات..." />
-			<item id="ID_LIBRARY_COPY" text="_نسخ ملفات..." />
+		<menu text="_Metadata">
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="_توطين ملف تعريف" />
+			<item id="ID_LIBRARY_REFRESH_METADATA" text="_تحديث بيانات التعريف" />
+			<item id="ID_LIBRARY_COLUMNS" text="أختيار الا_عمدة..." />
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_توطين ملف تعريف" />
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="_تحديث بيانات التعريف" />
 		<separator />
-		<item id="ID_LIBRARY_COLUMNS" text="أختيار الا_عمدة..." />
-		<separator />
+		<item id="ID_SHELL_MENU" text="Windows Men_u"/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_خصائص" />
 	</menu>
 	<!-- MEDIA WINDOW -->
@@ -1627,7 +1559,7 @@
 		<item id="ID_DISCOVERY_BLOCKED" text="_إظهار حظر"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
-	<menu name="CPrivateChatFrame">
+	<menu name="CPrivateChatWnd">
 		<item id="ID_CHAT_CONNECT" text="_إتصال" />
 		<item id="ID_CHAT_DISCONNECT" text="_قطع الإتصال" />
 		<separator />
@@ -3882,7 +3814,7 @@
 		<control caption="حسنا" />
 		<control caption="إلغاء الأمر" />
 		<control caption="You have downloaded and deleted this file before. What would you like to do?" />
-		<control caption="Warning!!! Duplicate files detected. Some malicious software may infect your Library. Make sure that you downloaded this file or placed it manually. Otherwise, shutdown PeerProject and scan your computer with an antivirus program." />
+		<control caption="Warning! Duplicate files detected. Some malicious software may infect your Library. Make sure that you downloaded this file or placed it manually. Otherwise, shutdown PeerProject and scan your computer with an antivirus program." />
 	</dialog>
 	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="زر الإغلاق">
 		<control caption="هذه اول مره تضغط على زر الإغلاق . رجاء تحديد ماذا تريد انت تعمل لكي يتم تطبيقه على جميع الاحوال:" />
@@ -3975,7 +3907,7 @@
 		<control caption="Notes:" />
 	</dialog>
 	<dialog name="CDownloadEditPage" cookie="StBuStStStStBuStEdEdEdSyBuEdBuEdBuEdBuEdBuEd" caption="General">
-		<control caption="CAUTION: This dialog provides advanced download editing features for power users, that may cause corruption when used incorrectly."/>
+		<control caption="Caution: This dialog provides advanced download editing features for power users, that may cause corruption when used incorrectly."/>
 		<control caption="Details:"/>
 		<control caption="Filename:"/>
 		<control caption="Location:"/>
@@ -3999,12 +3931,12 @@
 		<control/>
 	</dialog>
 	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="_Actions:">
-		<control caption="CAUTION: This dialog provides advanced download editing features for power users, that may cause corruption when used incorrectly." />
+		<control caption="Caution: This dialog provides advanced download editing features for power users, that may cause corruption when used incorrectly." />
 		<control caption="Forget all known sources" />
 		<control caption="Forget current verification status and reverify" />
 		<control caption="Assume file is 100% complete and reverify" />
 		<control caption="Merge with local file and verify" />
-		<control caption="Cancel download but save incomplete file"/>
+		<control caption="Cancel download but save incomplete file" />
 		<control />
 		<control />
 		<control caption="_Actions:" />

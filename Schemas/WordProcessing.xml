@@ -22,6 +22,7 @@
 		<title language="hu">Szövegszerkesztés</title>
 		<title language="it">Documento di testo</title>
 		<title language="ja">ワープロ文章</title>
+		<title language="ko">워드 프로세싱</title>
 		<title language="lt">Dokumentas</title>
 		<title language="nl">Documenten</title>
 		<title language="no">Word</title>
@@ -532,6 +533,7 @@
 		<type extension="lwp"/>
 		<type extension="mif"/>
 		<type extension="mht"/>
+		<type extension="nfo"/>
 		<type extension="odt"/>
 		<type extension="ott"/>
 		<type extension="pdb"/>

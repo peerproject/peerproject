@@ -579,7 +579,7 @@ BOOL CWebServices::ShowBitziTicket(DWORD nIndex)
 	{
 		if ( AfxMessageBox( LoadString( IDS_LIBRARY_BITZI_MESSAGE ), MB_ICONQUESTION|MB_YESNO ) != IDYES )
 			return FALSE;
-		Settings.WebServices.BitziOkay = TRUE;
+		Settings.WebServices.BitziOkay = true;
 		Settings.Save();
 	}
 

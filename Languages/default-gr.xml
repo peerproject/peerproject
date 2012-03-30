@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Greek Skin File -->
 
-<!-- Translation based on default-en.xml r75 -->
+<!-- Translation based on default-en.xml r76 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -412,7 +412,7 @@
 		<button id="ID_HOSTCACHE_DC_CACHE" text="Cache"/>
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
-	<toolbar name="CPrivateChatFrame">
+	<toolbar name="CPrivateChatWnd">
 		<button id="ID_CHAT_BOLD"/>
 		<button id="ID_CHAT_ITALIC"/>
 		<button id="ID_CHAT_UNDERLINE"/>
@@ -1299,14 +1299,18 @@
 		<separator/>
 		<item id="ID_LIBRARY_ALBUM_PROPERTIES" text="_Ιδιότητες"/>
 	</menu>
-	<menu name="CLibraryFileView.Physical.Basic">
+	<menu name="CLibraryFileView.Basic">
 		<item id="ID_LIBRARY_LAUNCH" text="_Άνοιγμα"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="Προσθήκη στη _Λίστα Αναπαραγωγής"/>
+		<item id="ID_LIBRARY_DELETE" text="_Διαγραφή!"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Κοινοποιημένο"/>
 		<separator/>
-		<item id="ID_LIBRARY_DELETE" text="_Διαγραφή!"/>
-		<separator/>
+		<menu text="_Οργάνωση">
+			<item id="ID_LIBRARY_RENAME" text="_Μετονομασία Αρχείου"/>
+			<item id="ID_LIBRARY_COPY" text="_Αντιγραφή Αρχείου..."/>
+			<item id="ID_LIBRARY_MOVE" text="Μετα_κίνηση Αρχείου..."/>
+		</menu>
 		<menu text="Ανα_ζήτηση Για">
 			<item id="ID_SEARCH_FOR_THIS" text="_Αυτό το Αρχείο"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="_Παρόμοια Αρχεία"/>
@@ -1316,102 +1320,35 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="_Επεισόδια από την ίδια Σειρά"/>
 		</menu>
 		<menu text="_Υπηρεσίες Ιστού">
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localise Metadata"/>
+			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Ανανέωση Metadata"/>
+			<separator/>
 			<item id="ID_LIBRARY_BITZI_WEB" text="Προβολή _Bitzi Ticket"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Λήψη _Metadata"/>
 			<separator/>
 			<item id="ID_LIBRARY_URI" text="Get P2P Link (_URI)"/>
 		</menu>
-		<menu text="_Οργάνωση">
-			<item id="ID_LIBRARY_RENAME" text="_Μετονομασία Αρχείου"/>
-			<item id="ID_LIBRARY_MOVE" text="Μετα_κίνηση Αρχείου..."/>
-			<item id="ID_LIBRARY_COPY" text="_Αντιγραφή Αρχείου..."/>
-		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localise Metadata"/>
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Ανανέωση Metadata"/>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Ιδιότητες"/>
 	</menu>
-	<menu name="CLibraryFileView.Physical">
+	<menu name="CLibraryFileView">
 		<item id="ID_LIBRARY_LAUNCH" text="_Άνοιγμα"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="Προσθήκη στη _Λίστα Αναπαραγωγής"/>
+		<item id="ID_LIBRARY_DELETE" text="_Διαγραφή!"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Κοινοποιημένο"/>
 		<separator/>
 		<item id="ID_LIBRARY_URI" text="Get P2P Link (_URI)"/>
-		<item id="ID_LIBRARY_DELETE" text="_Διαγραφή!"/>
+		<item id="ID_LIBRARY_CREATETORRENT" text="Δημιουργία Αρχείου .torrent"/>
+		<item id="ID_LIBRARY_LAUNCH_FOLDER" text="Άνοιγμα _Folder"/>
 		<separator/>
-		<menu text="Ανα_ζήτηση Για">
-			<item id="ID_SEARCH_FOR_THIS" text="_Αυτό το Αρχείο"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="_Παρόμοια Αρχεία"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="Μουσική απο τον ίδιο _Καλλιτέχνη"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="Μουσική απο το ίδιο _Album"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="_Επεισόδια από την ίδια Σειρά"/>
-		</menu>
-		<menu text="_Υπηρεσίες Ιστού">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Προβολή _Bitzi Ticket"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Λήψη _Metadata"/>
-			<separator/>
-			<item id="ID_LIBRARY_CREATETORRENT" text="Δημιουργία Αρχείου .torrent"/>
-		</menu>
 		<menu text="_Οργάνωση">
-			<item id="ID_LIBRARY_RENAME" text="_Μετονομασία Αρχείου"/>
-			<item id="ID_LIBRARY_MOVE" text="Μετα_κίνηση Αρχείου..."/>
-			<item id="ID_LIBRARY_COPY" text="_Αντιγραφή Αρχείου..."/>
-		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localise Metadata"/>
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Ανανέωση Metadata"/>
-		<separator/>
-		<item id="ID_LIBRARY_COLUMNS" text="Επιλογή _Στηλών..."/>
-		<separator/>
-		<item id="ID_SHELL_MENU" text="S_hell menu"/>
-		<separator/>
-		<item id="ID_LIBRARY_PROPERTIES" text="_Ιδιότητες"/>
-	</menu>
-	<menu name="CLibraryFileView.Virtual.Basic">
-		<item id="ID_LIBRARY_LAUNCH" text="_Άνοιγμα"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="Προσθήκη στη _Λίστα Αναπαραγωγής"/>
-		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="Αναπαραγωγή _Album"/>
-		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="_Κοινοποιημένο"/>
-		<separator/>
-		<item id="ID_LIBRARY_DELETE" text="_Διαγραφή!"/>
-		<separator/>
-		<menu text="Ανα_ζήτηση Για">
-			<item id="ID_SEARCH_FOR_THIS" text="_Αυτό το Αρχείο"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="_Παρόμοια Αρχεία"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="Μουσική απο τον ίδιο _Καλλιτέχνη"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="Μουσική απο το ίδιο _Album"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="_Επεισόδια από την ίδια Σειρά"/>
-		</menu>
-		<menu text="_Υπηρεσίες Ιστού">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Προβολή _Bitzi Ticket"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Λήψη _Metadata"/>
-			<separator/>
-			<item id="ID_LIBRARY_URI" text="Get P2P Link (_URI)"/>
-		</menu>
-		<menu text="_Οργάνωση">
-			<item id="ID_LIBRARY_RENAME" text="_Μετονομασία Αρχείου"/>
 			<item id="ID_LIBRARY_UNLINK" text="_Αφαίρεση Αρχείων"/>
 			<separator/>
-			<item id="ID_LIBRARY_MOVE" text="Μετα_κίνηση Αρχείων..."/>
+			<item id="ID_LIBRARY_RENAME" text="_Μετονομασία Αρχείου"/>
 			<item id="ID_LIBRARY_COPY" text="Αντι_γραφή Αρχείων..."/>
+			<item id="ID_LIBRARY_MOVE" text="Μετα_κίνηση Αρχείων..."/>
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localise Metadata"/>
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Ανανέωση Metadata"/>
-		<separator/>
-		<item id="ID_LIBRARY_PROPERTIES" text="_Ιδιότητες"/>
-	</menu>
-	<menu name="CLibraryFileView.Virtual">
-		<item id="ID_LIBRARY_LAUNCH" text="_Άνοιγμα"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="Προσθήκη στη _Λίστα Αναπαραγωγής"/>
-		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="_Κοινοποιημένο"/>
-		<separator/>
-		<item id="ID_LIBRARY_URI" text="Get P2P Link (_URI)"/>
-		<item id="ID_LIBRARY_DELETE" text="_Διαγραφή!"/>
-		<separator/>
 		<menu text="Ανα_ζήτηση Για">
 			<item id="ID_SEARCH_FOR_THIS" text="_Αυτό το Αρχείο"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="_Παρόμοια Αρχεία"/>
@@ -1423,21 +1360,14 @@
 		<menu text="_Yπηρεσίες web">
 			<item id="ID_LIBRARY_BITZI_WEB" text="Προβολή _Bitzi Ticket"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Λήψη _Metadata"/>
-			<separator/>
-			<item id="ID_LIBRARY_CREATETORRENT" text="Δημιουργία Αρχείου .torrent"/>
 		</menu>
-		<menu text="_Οργάνωση">
-			<item id="ID_LIBRARY_UNLINK" text="_Αφαίρεση Αρχείων"/>
-			<separator/>
-			<item id="ID_LIBRARY_RENAME" text="_Μετονομασία Αρχείου"/>
-			<item id="ID_LIBRARY_MOVE" text="Μετα_κίνηση Αρχείων..."/>
-			<item id="ID_LIBRARY_COPY" text="Αντι_γραφή Αρχείων..."/>
+		<menu text="_Metadata">
+			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Ανανέωση Metadata"/>
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localise Metadata"/>
+			<item id="ID_LIBRARY_COLUMNS" text="Επιλογή _Στηλών..."/>
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localise Metadata"/>
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Ανανέωση Metadata"/>
 		<separator/>
-		<item id="ID_LIBRARY_COLUMNS" text="Επιλογή _Στηλών..."/>
-		<separator/>
+		<item id="ID_SHELL_MENU" text="Windows Men_u"/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Ιδιότητες"/>
 	</menu>
 	<!-- MEDIA WINDOW -->
@@ -1654,7 +1584,7 @@
 		<item id="ID_DISCOVERY_BLOCKED" text="Προβολή Αποκλεισμένοι"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
-	<menu name="CPrivateChatFrame">
+	<menu name="CPrivateChatWnd">
 		<item id="ID_CHAT_CONNECT" text="_Σύνδεση"/>
 		<item id="ID_CHAT_DISCONNECT" text="_Αποσύνδεση"/>
 		<separator/>
@@ -4416,7 +4346,7 @@
 		<control caption="OK"/>
 		<control caption="Άκυρο"/>
 		<control caption="Έχετε λάβει και διαγράψει αυτό το αρχείο παλαιότερα. Τι θέλετε να κάνετε;"/>
-		<control caption="Προειδοποίηση!!! Εντοπισμός πανομοιότυπου αρχείου. Κάποιο κακόβουλο λογισμικό ίσως μολύνει τη Βιβλιοθήκη. Εξετάστε μήπως εσείς λάβατε αυτό το αρχείο ή το προσθέσατε χειροκίνητα. Αν όχι, τερματίστε το PeerProject και σαρώστε τον υπολογιστή σας με ένα αντιβιοτικό πρόγραμμα."/>
+		<control caption="Προειδοποίηση! Εντοπισμός πανομοιότυπου αρχείου. Κάποιο κακόβουλο λογισμικό ίσως μολύνει τη Βιβλιοθήκη. Εξετάστε μήπως εσείς λάβατε αυτό το αρχείο ή το προσθέσατε χειροκίνητα. Αν όχι, τερματίστε το PeerProject και σαρώστε τον υπολογιστή σας με ένα αντιβιοτικό πρόγραμμα."/>
 	</dialog>
 	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Κουμπί Κλεισίματος">
 		<control caption="Αυτή είναι η πρώτη φορά που κάνατε κλικ στο κουμπί κλεισίματος του PeerProject. Παρακαλώ διαλέξτε την ενέργεια αυτού του κουμπιού από δω και στο εξής:"/>

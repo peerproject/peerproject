@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Swedish Skin File -->
 
-<!-- Translation based on default-en.xml r75 -->
+<!-- Translation based on default-en.xml r76 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -404,7 +404,7 @@
 		<button id="ID_HOSTCACHE_DC_CACHE" text="Cache"/>
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
-	<toolbar name="CPrivateChatFrame">
+	<toolbar name="CPrivateChatWnd">
 		<button id="ID_CHAT_BOLD"/> <!--F-->
 		<button id="ID_CHAT_ITALIC"/> <!--I-->
 		<button id="ID_CHAT_UNDERLINE"/> <!--U-->
@@ -1244,14 +1244,18 @@
 		<separator/>
 		<item id="ID_LIBRARY_ALBUM_PROPERTIES" text="_Egenskaper"/>
 	</menu>
-	<menu name="CLibraryFileView.Physical.Basic">
+	<menu name="CLibraryFileView.Basic">
 		<item id="ID_LIBRARY_LAUNCH" text="_Öppna eller spela upp"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="_Lägg till i spellista"/>
+		<item id="ID_LIBRARY_DELETE" text="_Radera"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Utdelad"/>
 		<separator/>
-		<item id="ID_LIBRARY_DELETE" text="_Radera"/>
-		<separator/>
+		<menu text="O_rganisera">
+			<item id="ID_LIBRARY_RENAME" text="_Byt namn på fil"/>
+			<item id="ID_LIBRARY_COPY" text="_Kopiera filer…"/>
+			<item id="ID_LIBRARY_MOVE" text="_Flytta filer…"/>
+		</menu>
 		<menu text="_Sök efter">
 			<item id="ID_SEARCH_FOR_THIS" text="Denna fil"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="Liknande filer"/>
@@ -1261,128 +1265,54 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Avsnitt från samma serie"/>
 		</menu>
 		<menu text="_Webbtjänster">
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokalisera metadata"/>
+			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Uppdatera metadata"/>
+			<separator/>
 			<item id="ID_LIBRARY_BITZI_WEB" text="Visa _Bitzibiljett"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Ladda ned metadata"/>
 			<separator/>
 			<item id="ID_LIBRARY_URI" text="Kopiera _URI"/>
 		</menu>
-		<menu text="O_rganisera">
-			<item id="ID_LIBRARY_RENAME" text="_Byt namn på fil"/>
-			<item id="ID_LIBRARY_MOVE" text="_Flytta filer…"/>
-			<item id="ID_LIBRARY_COPY" text="_Kopiera filer…"/>
-		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokalisera metadata"/>
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Uppdatera metadata"/>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Egenskaper"/>
 	</menu>
-	<menu name="CLibraryFileView.Physical">
+	<menu name="CLibraryFileView">
 		<item id="ID_LIBRARY_LAUNCH" text="_Öppna eller spela upp"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="_Lägg till i spellista"/>
+		<item id="ID_LIBRARY_DELETE" text="_Radera"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Utdelad"/>
 		<separator/>
 		<item id="ID_LIBRARY_URI" text="Kopiera _URI"/>
-		<item id="ID_LIBRARY_DELETE" text="_Radera"/>
+		<item id="ID_LIBRARY_CREATETORRENT" text="Skapa .torrent-fil"/>
+		<item id="ID_LIBRARY_LAUNCH_FOLDER" text="Öppna _Folder"/>
 		<separator/>
-		<menu text="_Sök efter">
-			<item id="ID_SEARCH_FOR_THIS" text="Denna fil"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="Liknande filer"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="Musik av samma artist"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="Musik från samma album"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="Avsnitt från samma serie"/>
-		</menu>
-		<menu text="_Webbtjänster">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Visa _Bitzibiljett"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Hämta metadata"/>
-			<separator/>
-			<item id="ID_LIBRARY_CREATETORRENT" text="Skapa .torrent-fil"/>
-		</menu>
-		<menu text="O_rganisera">
-			<item id="ID_LIBRARY_RENAME" text="_Byt namn på fil"/>
-			<item id="ID_LIBRARY_MOVE" text="_Flytta filer…"/>
-			<item id="ID_LIBRARY_COPY" text="_Kopiera filer…"/>
-		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokalisera metadata"/>
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Uppdatera Metadata"/>
-		<separator/>
-		<item id="ID_LIBRARY_COLUMNS" text="Välj _kolumner…"/>
-		<separator/>
-		<item id="ID_SHELL_MENU" text="S_kalmeny"/>
-		<separator/>
-		<item id="ID_LIBRARY_PROPERTIES" text="_Egenskaper"/>
-	</menu>
-	<menu name="CLibraryFileView.Virtual.Basic">
-		<item id="ID_LIBRARY_LAUNCH" text="_Öppna eller spela upp"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="_Lägg till i spellista"/>
-		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="Spela upp _album"/>
-		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="_Utdelad"/>
-		<separator/>
-		<item id="ID_LIBRARY_DELETE" text="_Radera"/>
-		<separator/>
-		<menu text="_Sök efter">
-			<item id="ID_SEARCH_FOR_THIS" text="Denna fil"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="Liknande filer"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="Musik av samma artist"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="Musik från samma album"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="Avsnitt från samma serie"/>
-		</menu>
-		<menu text="_Webbtjänster">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Visa _Bitzibiljett"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Hämta metadata"/>
-			<separator/>
-			<item id="ID_LIBRARY_URI" text="Kopiera _URI"/>
-		</menu>
-		<menu text="O_rganisera">
-			<item id="ID_LIBRARY_RENAME" text="_Byt namn på fil"/>
-			<item id="ID_LIBRARY_UNLINK" text="_Radera filer"/>
-			<separator/>
-			<item id="ID_LIBRARY_MOVE" text="_Flytta filer…"/>
-			<item id="ID_LIBRARY_COPY" text="_Kopiera filer…"/>
-		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokalisera metadata"/>
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Uppdatera metadata"/>
-		<separator/>
-		<item id="ID_LIBRARY_PROPERTIES" text="_Egenskaper"/>
-	</menu>
-	<menu name="CLibraryFileView.Virtual">
-		<item id="ID_LIBRARY_LAUNCH" text="_Öppna eller spela upp"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="_Lägg till i spellista"/>
-		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="_Utdelad"/>
-		<separator/>
-		<item id="ID_LIBRARY_URI" text="Kopiera _URI"/>
-		<item id="ID_LIBRARY_DELETE" text="_Radera"/>
-		<separator/>
-		<menu text="_Sök efter">
-			<item id="ID_SEARCH_FOR_THIS" text="Denna fil"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="Liknande filer"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="Musik av samma artist"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="Musik från samma album"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="Avsnitt från samma serie"/>
-		</menu>
-		<menu text="_Webbtjänster">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Visa _Bitzibiljett"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Hämta metadata"/>
-			<separator/>
-			<item id="ID_LIBRARY_CREATETORRENT" text="Skapa .torrent-fil"/>
-		</menu>
 		<menu text="O_rganisera">
 			<item id="ID_LIBRARY_UNLINK" text="_Radera filer"/>
 			<separator/>
 			<item id="ID_LIBRARY_RENAME" text="_Byt namn på fil"/>
-			<item id="ID_LIBRARY_MOVE" text="_Flytta filer…"/>
 			<item id="ID_LIBRARY_COPY" text="_Kopiera filer…"/>
+			<item id="ID_LIBRARY_MOVE" text="_Flytta filer…"/>
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokalisera metadata"/>
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Uppdatera metadata"/>
+		<menu text="_Sök efter">
+			<item id="ID_SEARCH_FOR_THIS" text="Denna fil"/>
+			<item id="ID_SEARCH_FOR_SIMILAR" text="Liknande filer"/>
+			<separator/>
+			<item id="ID_SEARCH_FOR_ARTIST" text="Musik av samma artist"/>
+			<item id="ID_SEARCH_FOR_ALBUM" text="Musik från samma album"/>
+			<item id="ID_SEARCH_FOR_SERIES" text="Avsnitt från samma serie"/>
+		</menu>
+		<menu text="_Webbtjänster">
+			<item id="ID_LIBRARY_BITZI_WEB" text="Visa _Bitzibiljett"/>
+			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Hämta metadata"/>
+		</menu>
+		<menu text="_Metadata">
+			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Uppdatera metadata"/>
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokalisera metadata"/>
+			<item id="ID_LIBRARY_COLUMNS" text="Välj _kolumner…"/>
+		</menu>
 		<separator/>
-		<item id="ID_LIBRARY_COLUMNS" text="Välj _kolumner…"/>
-		<separator/>
+		<item id="ID_SHELL_MENU" text="Windows Men_u"/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Egenskaper"/>
 	</menu>
 	<!-- MEDIA WINDOW -->
@@ -1599,7 +1529,7 @@
 		<item id="ID_DISCOVERY_BLOCKED" text="Visa Blockerade"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
-	<menu name="CPrivateChatFrame">
+	<menu name="CPrivateChatWnd">
 		<item id="ID_CHAT_CONNECT" text="_Anslut"/>
 		<item id="ID_CHAT_DISCONNECT" text="_Koppla ifrån"/>
 		<separator/>
@@ -4332,7 +4262,7 @@
 		<control caption="OK"/>
 		<control caption="Avbryt"/>
 		<control caption="Du har tidigare laddat ned och raderat denna fil. Vad vill du göra?"/>
-		<control caption="Varning!!! Dubbla filer upptcktes. Skadlig programvara kan infektera ditt bibliotek. Om du inte har laddat ner eller flyttat den h�r filen sj�lv, st�ng PeerProject och skanna datorn med ett antivirusprogram."/>
+		<control caption="Varning! Dubbla filer upptcktes. Skadlig programvara kan infektera ditt bibliotek. Om du inte har laddat ner eller flyttat den h�r filen sj�lv, st�ng PeerProject och skanna datorn med ett antivirusprogram."/>
 	</dialog>
 	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Stängkommandot">
 		<control caption="Detta är första gången du har valt PeerProjects stängkommando. Välj den handling du vill att PeerProject ska utföra när du väljer stängkommandot från och med nu."/>

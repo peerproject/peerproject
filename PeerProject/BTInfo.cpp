@@ -1468,8 +1468,11 @@ void CBTInfo::SetTrackerNext(DWORD tTime)
 	// Search through the list for an available tracker, or the first one that will become available
 	for ( int nTracker = 0 ; nTracker < m_oTrackers.GetCount() ; ++nTracker )
 	{
-		if ( m_oTrackers[ nTracker ].m_sAddress.GetAt( 0 ) == BAD_TRACKER_TOKEN )	// *https://
-			continue;	//break;	// Reached bad trackers displayed at end of list (but user-added may follow)
+		// Check for bad trackers displayed at end of list (but user-added may follow)
+		// m_oTrackers[ nTracker ].m_sAddress.GetAt( 0 ) == BAD_TRACKER_TOKEN		// *https://
+		if ( ! StartsWith( m_oTrackers[ nTracker ].m_sAddress, _PT("http://") ) &&
+			 ! StartsWith( m_oTrackers[ nTracker ].m_sAddress, _PT("udp://") ) )
+			continue;	//break;
 
 		// Get the next tracker in the list
 		CBTTracker& oTracker = m_oTrackers[ nTracker ];

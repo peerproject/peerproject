@@ -887,12 +887,8 @@ void CSearchWnd::OnTimer(UINT_PTR nIDEvent)
 			m_bSetFocus = FALSE;
 		}
 
-		//if ( pManaged )
-		//{
-		//	if ( m_nCacheHubs   != pManaged->m_nHubs ||
-		//		 m_nCacheLeaves != pManaged->m_nLeaves )
-				UpdateMessages();
-		//}
+		//if ( pManaged && ( m_nCacheHubs != pManaged->m_nHubs || m_nCacheLeaves != pManaged->m_nLeaves ) )
+			UpdateMessages();
 	}
 
 	// Unlock if we were locked

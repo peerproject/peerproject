@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hebrew Skin File -->
 
-<!-- Translation based on default-en.xml r75 -->
+<!-- Translation based on default-en.xml r76 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -456,7 +456,7 @@ gap i newline
 		<button id="ID_IRC_SETTINGS" text="הגדרות" tip="קביעת תצורה של הגדרות ה-IRC"/>
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
-	<toolbar name="CPrivateChatFrame">
+	<toolbar name="CPrivateChatWnd">
 		<button id="ID_CHAT_BOLD"/>
 		<button id="ID_CHAT_ITALIC"/>
 		<button id="ID_CHAT_UNDERLINE"/>
@@ -1323,14 +1323,18 @@ gap i newline
 		<separator/>
 		<item id="ID_LIBRARY_ALBUM_PROPERTIES" text="‪מ_אפיינים"/>
 	</menu>
-	<menu name="CLibraryFileView.Physical.Basic">
+	<menu name="CLibraryFileView.Basic">
 		<item id="ID_LIBRARY_LAUNCH" text="‪_פתח או הפעל"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="‪_הוסף לרשימת השמעה"/>
+		<item id="ID_LIBRARY_DELETE" text="‪_מחק"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="‪_משותף"/>
 		<separator/>
-		<item id="ID_LIBRARY_DELETE" text="‪_מחק"/>
-		<separator/>
+		<menu text="‪אירגון">
+			<item id="ID_LIBRARY_RENAME" text="‪שנה שם קובץ"/>
+			<item id="ID_LIBRARY_COPY" text="‪העתק קובץ"/>
+			<item id="ID_LIBRARY_MOVE" text="‪_העבר קובץ"/>
+		</menu>
 		<menu text="‪_חיפוש של">
 			<item id="ID_SEARCH_FOR_THIS" text="‪קובץ זה"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="‪קבצים דומים"/>
@@ -1340,128 +1344,54 @@ gap i newline
 			<item id="ID_SEARCH_FOR_SERIES" text="‪פרקים באותה סדרה"/>
 		</menu>
 		<menu text="‪שירותי רשת">
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="‪מקומי Metadata שינוי"/>
+			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
+			<separator/>
 			<item id="ID_LIBRARY_BITZI_WEB" text="‪Bitzi הראה כרטיס"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="‪Metadata הורד"/>
 			<separator/>
-			<item id="ID_LIBRARY_URI" text="‪"/>
+			<item id="ID_LIBRARY_URI" text="‪_URI"/>
 		</menu>
-		<menu text="‪אירגון">
-			<item id="ID_LIBRARY_RENAME" text="‪שנה שם קובץ"/>
-			<item id="ID_LIBRARY_MOVE" text="‪_העבר קובץ"/>
-			<item id="ID_LIBRARY_COPY" text="‪העתק קובץ"/>
-		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="‪מקומי Metadata שינוי"/>
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="‪מ_אפיינים"/>
 	</menu>
-	<menu name="CLibraryFileView.Physical">
+	<menu name="CLibraryFileView">
 		<item id="ID_LIBRARY_LAUNCH" text="‪_פתח או הפעל"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="‪הוסף לרשימת השמעה"/>
-		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="‪_משותף"/>
-		<separator/>
-		<item id="ID_LIBRARY_URI" text="‪"/>
 		<item id="ID_LIBRARY_DELETE" text="‪_מחק"/>
 		<separator/>
-		<menu text="‪_חיפוש של">
-			<item id="ID_SEARCH_FOR_THIS" text="‪קובץ זה"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="‪קבצים דומים"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="‪מוזיקה של אותו אמן"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="‪מוזיקה באותו אלבום"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="‪פרקים באותה סדרה"/>
-		</menu>
-		<menu text="‪שירותי רשת">
-			<item id="ID_LIBRARY_BITZI_WEB" text="‪Bitzi הראה כרטיס"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="‪Metadata קבל"/>
-			<separator/>
-			<item id="ID_LIBRARY_CREATETORRENT" text="‪.torrent צור קובץ"/>
-		</menu>
-		<menu text="‪אירגון">
-			<item id="ID_LIBRARY_RENAME" text="‪שנה שם קובץ"/>
-			<item id="ID_LIBRARY_MOVE" text="‪_העבר קובץ"/>
-			<item id="ID_LIBRARY_COPY" text="‪העתק קובץ"/>
-		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="‪מקומי Metadata שינוי"/>
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
+		<item id="ID_LIBRARY_SHARED_FILE" text="_משותף"/>
 		<separator/>
-		<item id="ID_LIBRARY_COLUMNS" text="Choose _Columns..."/>
+		<item id="ID_LIBRARY_URI" text="_URI"/>
+		<item id="ID_LIBRARY_CREATETORRENT" text="‪.torrent צור קובץ"/>
+		<item id="ID_LIBRARY_LAUNCH_FOLDER" text="Open _Folder"/>
 		<separator/>
-		<item id="ID_LIBRARY_COLUMNS" text="‪...בחר עמודות"/>
-		<separator/>
-		<item id="ID_LIBRARY_PROPERTIES" text="‪מ_אפיינים"/>
-	</menu>
-	<menu name="CLibraryFileView.Virtual.Basic">
-		<item id="ID_LIBRARY_LAUNCH" text="‪_פתח או הפעל"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="‪הוסף לרשימת השמעה"/>
-		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="‪_נגן אלבום"/>
-		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="‪_משותף"/>
-		<separator/>
-		<item id="ID_LIBRARY_DELETE" text="‪_מחק"/>
-		<separator/>
-		<menu text="‪_חיפוש של">
-			<item id="ID_SEARCH_FOR_THIS" text="‪קובץ זה"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="‪קבצים דומים"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="‪מוזיקה של אותו אמן"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="‪מוזיקה באותו אלבום"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="‪פרקים באותה סדרה"/>
-		</menu>
-		<menu text="‪שירותי רשת">
-			<item id="ID_LIBRARY_BITZI_WEB" text="‪Bitzi הראה כרטיס"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="‪Metadata קבל"/>
-			<separator/>
-			<item id="ID_LIBRARY_URI" text="‪"/>
-		</menu>
-		<menu text="‪אירגון">
-			<item id="ID_LIBRARY_RENAME" text="‪שנה שם קובץ"/>
-			<item id="ID_LIBRARY_UNLINK" text="‪הסר קבצים"/>
-			<separator/>
-			<item id="ID_LIBRARY_MOVE" text="‪_העבר קובץ"/>
-			<item id="ID_LIBRARY_COPY" text="‪העתק קובץ"/>
-		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="‪מקומי Metadata שינוי"/>
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
-		<separator/>
-		<item id="ID_LIBRARY_PROPERTIES" text="‪מ_אפיינים"/>
-	</menu>
-	<menu name="CLibraryFileView.Virtual">
-		<item id="ID_LIBRARY_LAUNCH" text="‪_פתח או הפעל"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="‪הוסף לרשימת השמעה"/>
-		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="‪_משותף"/>
-		<separator/>
-		<item id="ID_LIBRARY_URI" text="‪"/>
-		<item id="ID_LIBRARY_DELETE" text="‪_מחק"/>
-		<separator/>
-		<menu text="‪_חיפוש של">
-			<item id="ID_SEARCH_FOR_THIS" text="‪קובץ זה"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="‪קבצים דומים"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="‪מוזיקה של אותו אמן"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="‪מוזיקה באותו אלבום"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="‪פרקים באותה סדרה"/>
-		</menu>
-		<menu text="‪שירותי רשת">
-			<item id="ID_LIBRARY_BITZI_WEB" text="‪Bitzi הראה כרטיס"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="‪Metadata קבל"/>
-			<separator/>
-			<item id="ID_LIBRARY_CREATETORRENT" text="‪.torrent צור קובץ"/>
-		</menu>
 		<menu text="‪אירגון">
 			<item id="ID_LIBRARY_UNLINK" text="‪הסר קבצים"/>
 			<separator/>
 			<item id="ID_LIBRARY_RENAME" text="‪שנה שם קובץ"/>
-			<item id="ID_LIBRARY_MOVE" text="‪_העבר קובץ"/>
 			<item id="ID_LIBRARY_COPY" text="‪העתק קובץ"/>
+			<item id="ID_LIBRARY_MOVE" text="‪_העבר קובץ"/>
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="‪מקומי Metadata שינוי"/>
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
+		<menu text="‪_חיפוש של">
+			<item id="ID_SEARCH_FOR_THIS" text="‪קובץ זה"/>
+			<item id="ID_SEARCH_FOR_SIMILAR" text="‪קבצים דומים"/>
+			<separator/>
+			<item id="ID_SEARCH_FOR_ARTIST" text="‪מוזיקה של אותו אמן"/>
+			<item id="ID_SEARCH_FOR_ALBUM" text="‪מוזיקה באותו אלבום"/>
+			<item id="ID_SEARCH_FOR_SERIES" text="‪פרקים באותה סדרה"/>
+		</menu>
+		<menu text="‪שירותי רשת">
+			<item id="ID_LIBRARY_BITZI_WEB" text="‪Bitzi הראה כרטיס"/>
+			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="‪Metadata קבל"/>
+		</menu>
+		<menu text="_Metadata">
+			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="‪מקומי Metadata שינוי"/>
+			<item id="ID_LIBRARY_COLUMNS" text="‪...בחר עמודות"/>
+		</menu>
 		<separator/>
-		<item id="ID_LIBRARY_COLUMNS" text="‪...בחר עמודות"/>
-		<separator/>
+		<item id="ID_SHELL_MENU" text="Windows Men_u"/>
 		<item id="ID_LIBRARY_PROPERTIES" text="‪מ_אפיינים"/>
 	</menu>
 	<!-- MEDIA WINDOW -->
@@ -1678,7 +1608,7 @@ gap i newline
 		<item id="ID_DISCOVERY_BLOCKED" text="חסום הצג"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
-	<menu name="CPrivateChatFrame">
+	<menu name="CPrivateChatWnd">
 		<item id="ID_CHAT_CONNECT" text="‪_התחבר"/>
 		<item id="ID_CHAT_DISCONNECT" text="‪ה_תנתק"/>
 		<separator/>
@@ -3939,7 +3869,7 @@ gap i newline
 		<control caption="אישור"/>
 		<control caption="ביטול"/>
 		<control caption="?הורדת ומחקת את קובץ זה בעבר. מה תרצה לעשות"/>
-		<control caption="אזהרה!!! התגלו קבצים משוכפלים. ייתכן ותוכנה זדונית תפגע בספרייה שלך. וודא שהורגת את הקובץ הזה או שמת אותו באופן ידני. אחרת, סגור את שרזה וסרוק את מחשבך עם תוכנת אנטי-וירוס."/>
+		<control caption="אזהרה! התגלו קבצים משוכפלים. ייתכן ותוכנה זדונית תפגע בספרייה שלך. וודא שהורגת את הקובץ הזה או שמת אותו באופן ידני. אחרת, סגור את שרזה וסרוק את מחשבך עם תוכנת אנטי-וירוס."/>
 	</dialog>
 	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="כפתור סגירה">
 		<control caption="זוהי הפעם הראשונה בה לחצת על לחצן הסגירה של שרזה. אנא בחר את הפעולה אותה תרצה ששרזה תעשה בכל פעם שתלחץ על כפתור זה מעכשיו והלאה"/>

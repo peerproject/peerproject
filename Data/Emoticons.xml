@@ -49,8 +49,7 @@
 	<emoticon text=":-|" button="yes"><source name="msn" left="176" right="192" top="0" bottom="16"/></emoticon>
 	<emoticon text="O_o"><source name="msn" left="176" right="192" top="0" bottom="16"/></emoticon>
 
-	<emoticon text=">:-)" button="yes"><source name="msn" left="192" right="208" top="0" bottom="16"/></emoticon>
-	<emoticon text="((6))""><source name="msn" left="192" right="208" top="0" bottom="16"/></emoticon>
+	<emoticon text="((6))" button="yes"><source name="msn" left="192" right="208" top="0" bottom="16"/></emoticon>
 
 	<emoticon text="((A))" button="yes"><source name="msn" left="208" right="224" top="0" bottom="16"/></emoticon>
 	<emoticon text="((a))"><source name="msn" left="208" right="224" top="0" bottom="16"/></emoticon>

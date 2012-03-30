@@ -1,7 +1,7 @@
 //
 // RichDocument.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -28,6 +28,7 @@ public:
 	CRichDocument();
 	virtual ~CRichDocument();
 
+public:
 	CCriticalSection	m_pSection;
 	DWORD			m_nCookie;
 	CSize			m_szMargin;
@@ -43,7 +44,6 @@ public:
 	CFont			m_fntBoldUnder;
 	CFont			m_fntHeading;
 
-public:
 	POSITION		GetIterator() const;
 	CRichElement*	GetNext(POSITION& pos) const;
 	CRichElement*	GetPrev(POSITION& pos) const;
@@ -51,6 +51,8 @@ public:
 	POSITION		Find(CRichElement* pElement) const;
 	CRichElement*	Add(CRichElement* pElement, POSITION posBefore = NULL);
 	CRichElement*	Add(int nType, LPCTSTR pszText, LPCTSTR pszLink = NULL, DWORD nFlags = 0, int nGroup = 0, POSITION posBefore = NULL);
+	CRichElement*	Add(HBITMAP hBitmap, LPCTSTR pszLink = NULL, DWORD nFlags = 0, int nGroup = 0, POSITION posBefore = NULL);
+	CRichElement*	Add(HICON hIcon, LPCTSTR pszLink = NULL, DWORD nFlags = 0, int nGroup = 0, POSITION posBefore = NULL);
 	void			Remove(CRichElement* pElement);
 	void			ShowGroup(int nGroup, BOOL bShow = TRUE);
 	void			ShowGroupRange(int nMin, int nMax, BOOL bShow = TRUE);

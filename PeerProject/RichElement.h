@@ -1,7 +1,7 @@
 //
 // RichElement.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -28,6 +28,8 @@ class CRichElement
 // Construction
 public:
 	CRichElement(int nType = 0, LPCTSTR pszText = NULL, LPCTSTR pszLink = NULL, DWORD nFlags = 0, int nGroup = 0);
+	CRichElement(HBITMAP hBitmap, LPCTSTR pszLink = NULL, DWORD nFlags = 0, int nGroup = 0);
+	CRichElement(HICON hIcon, LPCTSTR pszLink = NULL, DWORD nFlags = 0, int nGroup = 0);
 	virtual ~CRichElement();
 
 // Attributes
@@ -48,11 +50,12 @@ public:
 	void	SetText(LPCTSTR pszText);
 	void	SetFlags(DWORD nFlags, DWORD nMask = 0xFFFFFFFF);
 	void	Delete();
+
 protected:
 	void	PrePaint(CDC* pDC, BOOL bHover);
 	void	PrePaintBitmap(CDC* pDC);
 	void	PrePaintIcon(CDC* pDC);
-	CSize	GetSize();
+	CSize	GetSize() const;
 
 	friend class CRichFragment;
 	friend class CRichViewCtrl;

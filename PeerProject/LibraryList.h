@@ -1,7 +1,7 @@
 //
 // LibraryList.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -18,9 +18,11 @@
 
 #pragma once
 
+class CLibraryList;
 class CLibraryFile;
 class CLibraryFolder;
 class CAlbumFolder;
+
 
 class CLibraryListItem
 {
@@ -52,9 +54,18 @@ protected:
 	};
 };
 
+
+typedef CComObjectPtr< CLibraryList > CLibraryListPtr;
+
+
 class CLibraryList : public CComObject
 {
-	DECLARE_DYNCREATE(CLibraryList)
+	DECLARE_DYNAMIC(CLibraryList)
+
+public:
+	CLibraryList();
+protected:
+	virtual ~CLibraryList();
 
 // Attributes
 protected:
@@ -172,4 +183,8 @@ public:
 		STDMETHOD(Clone)(IEnumVARIANT** ppenum);
 		POSITION m_pos;
 	END_INTERFACE_PART(EnumVARIANT)
+
+private:
+	CLibraryList(const CLibraryList&);
+	CLibraryList& operator=(const CLibraryList&);
 };

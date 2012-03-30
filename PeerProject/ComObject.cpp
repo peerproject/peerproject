@@ -1,7 +1,7 @@
 //
 // ComObject.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -26,8 +26,9 @@ static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif	// Filename
 
-IMPLEMENT_DYNCREATE(CComObject, CCmdTarget)
-IMPLEMENT_OLETYPELIB(CComObject, LIBID_PeerProject, 1, 0);
+IMPLEMENT_DYNAMIC(CComObject, CCmdTarget)
+
+IMPLEMENT_OLETYPELIB(CComObject, LIBID_PeerProject, 1, 0)
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -50,7 +51,7 @@ BOOL CComObject::EnableDispatch(REFIID pIID)
 {
 	LPUNKNOWN pUnknown = CCmdTarget::GetInterface( &pIID );
 
-	if ( !pUnknown ) return FALSE;
+	if ( ! pUnknown ) return FALSE;
 
 	m_pDispatchMap.SetAt( pUnknown, &pIID );
 
@@ -171,8 +172,8 @@ STDMETHODIMP CComObject::ComInvoke(	LPUNKNOWN pUnk, DISPID dispidMember, REFIID 
 	sc = ComGetTypeInfo( pUnk, 0, lcid, &pTypeInfo );
 	if ( FAILED( sc ) ) return sc;
 
-	hr = DispInvoke(	pUnk, pTypeInfo, dispidMember, wFlags, pdispparams,
-						pvarResult, pexcepinfo, puArgErr );
+	hr = DispInvoke( pUnk, pTypeInfo, dispidMember, wFlags, pdispparams,
+					 pvarResult, pexcepinfo, puArgErr );
 
 	pTypeInfo->Release();
 

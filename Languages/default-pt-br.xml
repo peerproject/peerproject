@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Brazilian Portuguese Skin File -->
 
-<!-- Translation based on default-en.xml r75 -->
+<!-- Translation based on default-en.xml r76 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -436,7 +436,7 @@
 		<button id="ID_HOSTCACHE_DC_CACHE" text="Cache"/>
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
-	<toolbar name="CPrivateChatFrame">
+	<toolbar name="CPrivateChatWnd">
 		<button id="ID_CHAT_BOLD"/> <!--N-->
 		<button id="ID_CHAT_ITALIC"/> <!--I-->
 		<button id="ID_CHAT_UNDERLINE"/> <!--S-->
@@ -616,45 +616,205 @@
 		</menu>
 	</menu>
 	<menu name="CMainWnd.Tabbed" type="bar">
-	  <menu text="_Rede">
-		<item id="ID_NETWORK_CONNECT" text="_Conectar" shortcut="Ctrl+G"/>
-		<item id="ID_NETWORK_DISCONNECT" text="_Desconectar"/>
-		<separator/>
-		<item id="ID_NETWORK_G2" text="Conectar na Gnutella_2"/>
-		<item id="ID_NETWORK_G1" text="Conectar na _Gnutella"/>
-		<item id="ID_NETWORK_ED2K" text="Conectar no _eDonkey"/>
-		<item id="ID_NETWORK_DC" text="Conectar no _DC++"/>
-		<item id="ID_NETWORK_BT" text="Conectar no _BitTorrent"/>
-		<separator/>
-		  <item id="ID_NETWORK_CONNECT_TO" text="Conectar _na..." shortcut="Ctrl+T"/>
-		  <item id="ID_NETWORK_BROWSE_TO" text="_Navegar Usuário..."/>
-		<separator/>
-		  <item id="ID_NETWORK_AUTO_CLOSE" text="Sair _Após as Transferências"/>
-		  <item id="ID_NETWORK_EXIT" text="S_air"/>
-	  </menu>
-	  <menu text="_Visualizar">
-		  <item id="ID_TAB_HOME" text="_Home"/>
-		  <item id="ID_TAB_SEARCH" text="_Procurar"/>
-		  <item id="ID_TAB_TRANSFERS" text="_Transferências"/>
-		  <item id="ID_TAB_NETWORK" text="_Rede"/>
-		  <item id="ID_TAB_LIBRARY" text="_Biblioteca"/>
-		  <item id="ID_TAB_MEDIA" text="_Media Player"/>
-		  <item id="ID_TAB_IRC" text="_IRC"/>
-		<separator/>
-		  <item id="ID_VIEW_SECURITY" text="Se_gurança"/>
-		  <item id="ID_VIEW_SCHEDULER" text="Programado_r"/>
-		  <item id="ID_VIEW_HOSTS" text="C_ache dos Hosts"/>
-		<separator/>
-		<menu text="A_vançado">
-			<item id="ID_VIEW_SYSTEM" text="S_istema" shortcut="F11"/>
-			<item id="ID_VIEW_NEIGHBOURS" text="V_izinhos" shortcut="Ctrl+F11"/>
+		<menu text="_Rede">
+			<item id="ID_NETWORK_CONNECT" text="_Conectar" shortcut="Ctrl+G"/>
+			<item id="ID_NETWORK_DISCONNECT" text="_Desconectar"/>
+			<separator/>
+			<item id="ID_NETWORK_G2" text="Conectar na Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="Conectar na _Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="Conectar no _eDonkey"/>
+			<item id="ID_NETWORK_DC" text="Conectar no _DC++"/>
+			<item id="ID_NETWORK_BT" text="Conectar no _BitTorrent"/>
+			<separator/>
+			<item id="ID_NETWORK_CONNECT_TO" text="Conectar _na..." shortcut="Ctrl+T"/>
+			<item id="ID_NETWORK_BROWSE_TO" text="_Navegar Usuário..."/>
+			<separator/>
+			<item id="ID_NETWORK_AUTO_CLOSE" text="Sair _Após as Transferências"/>
+			<item id="ID_NETWORK_EXIT" text="S_air"/>
+		</menu>
+		<menu text="_Visualizar">
+			<item id="ID_TAB_HOME" text="_Home"/>
+			<item id="ID_TAB_SEARCH" text="_Procurar"/>
+			<item id="ID_TAB_TRANSFERS" text="_Transferências"/>
+			<item id="ID_TAB_NETWORK" text="_Rede"/>
+			<item id="ID_TAB_LIBRARY" text="_Biblioteca"/>
+			<item id="ID_TAB_MEDIA" text="_Media Player"/>
+			<item id="ID_TAB_IRC" text="_IRC"/>
+			<separator/>
+			<item id="ID_VIEW_SECURITY" text="Se_gurança"/>
+			<item id="ID_VIEW_SCHEDULER" text="Programado_r"/>
+			<item id="ID_VIEW_HOSTS" text="C_ache dos Hosts"/>
+			<separator/>
+			<menu text="A_vançado">
+				<item id="ID_VIEW_SYSTEM" text="S_istema" shortcut="F11"/>
+				<item id="ID_VIEW_NEIGHBOURS" text="V_izinhos" shortcut="Ctrl+F11"/>
+				<item id="ID_VIEW_DOWNLOADS" text="_Downloads" shortcut="F3"/>
+				<item id="ID_VIEW_UPLOADS" text="_Uploads" shortcut="F4"/>
+				<item id="ID_VIEW_LIBRARY" text="_Biblioteca" shortcut="F5"/>
+				<item id="ID_VIEW_MEDIA" text="_Media Player" shortcut="F6"/>
+				<item id="ID_TAB_IRC" text="IR_C" shortcut="F12"/>
+				<separator/>
+				<item id="ID_VIEW_SCHEDULER" text="Programado_r" shortcut="Ctrl+F7"/>
+				<item id="ID_VIEW_SECURITY" text="Se_gurança" shortcut="F7"/>
+				<item id="ID_VIEW_HOSTS" text="C_ache dos Hosts" shortcut="F8"/>
+				<item id="ID_VIEW_DISCOVERY" text="Desco_brimento" shortcut="F9"/>
+				<item id="ID_VIEW_TRAFFIC" text="_Gráfico" shortcut="F10"/>
+				<separator/>
+				<item id="ID_VIEW_PACKETS" text="_Pacotes Perdidos" shortcut="Ctrl+F1"/>
+				<item id="ID_VIEW_SEARCH_MONITOR" text="Mo_nitor das Buscas" shortcut="Ctrl+F2"/>
+				<item id="ID_VIEW_RESULTS_MONITOR" text="M_onitor de Acertos" shortcut="Ctrl+F3"/>
+			</menu>
+			<separator/>
+			<item id="ID_VIEW_BASIC" text="M_odo Basico"/>
+			<item id="ID_VIEW_TABBED" text="M_odo em Abas"/>
+			<item id="ID_VIEW_WINDOWED" text="_Modo de Janelas"/>
+		</menu>
+		<menu text="_Ferramentas">
+			<item id="ID_LIBRARY_FOLDERS" text="Compartilhar _Arquivos..."/>
+			<item id="ID_TOOLS_DOWNLOAD" text="_Baixar Arquivo/Torrent..."/>
+			<item id="ID_IMPORT_DOWNLOADS" text="_Importar downloads parciais do eMule..."/>
+			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Abrir a minha pasta de Downloads terminados"/>
+			<separator/>
+			<item id="ID_TOOLS_SKIN" text="Escolher uma S_kin..."/>
+			<item id="ID_TOOLS_LANGUAGE" text="Escolher um _Idioma..."/>
+			<separator/>
+			<item id="ID_TOOLS_PROFILE" text="Editar Meu _Perfil..."/>
+			<item id="ID_TOOLS_WIZARD" text="Assistente de _Configuração..."/>
+			<separator/>
+			<item id="ID_TOOLS_SETTINGS" text="_Configurações do PeerProject..."/>
+		</menu>
+		<menu text="_Janelas">
+			<item id="ID_WINDOW_NAVBAR" text="Mostrar _Barra de Navegação"/>
+			<item id="ID_WINDOW_TOOLBAR" text="Mostrar _Barra de Ferramentas"/>
+			<separator/>
+			<item id="ID_WINDOW_TABBAR" text="Mostrar Barra de _Abas"/>
+			<item id="ID_WINDOW_MONITOR" text="Mostrar _Monitor"/>
+			<item id="ID_WINDOW_REMOTE" text="Mostrar _Remoto"/>
+		</menu>
+		<menu text="_Ajuda">
+			<item id="ID_HELP_FAQ" text="FAQ do _PeerProject"/>
+			<item id="ID_HELP_TEST" text="_Teste de Conexão"/>
+			<separator/>
+			<menu text="_Guias">
+				<item id="ID_HELP_GUIDE" text="Guia dos _Usuários do PeerProject"/>
+				<item id="ID_HELP_ROUTER" text="_Ajuda sobre Roteador"/>
+				<item id="ID_HELP_SECURITY" text="_Ajuda sobre Segurança"/>
+				<item id="ID_HELP_CODEC" text="_Ajuda sobre Codecs"/>
+			</menu>
+			<separator/>
+			<menu text="_Sites da Rede">
+				<item id="ID_HELP_FORUMS" text="Fóruns do _PeerProject"/>
+				<item id="ID_HELP_FORUMS_LOCAL" text="_Foro de Português"/>
+				<item id="ID_HELP_UPDATE" text="Últimas notícias"/>
+				<item id="ID_HELP_VERSION_CHECK" text="Procurar nova _versão"/>
+				<item id="ID_HELP_DONATE" text="_Doar para o Projeto PeerProject!"/>
+				<item id="ID_HELP_WEB_6" text="PeerProject S_kins"/>
+				<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/> <!--
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
+				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+			</menu>
+			<item id="ID_HELP_HOMEPAGE" text="_Site do PeerProject"/>
+			<separator/>
+			<item id="ID_HELP_ABOUT" text="_Sobre o PeerProject..."/>
+		</menu>
+	</menu>
+	<menu name="CMainWnd.Basic" type="bar">
+		<menu text="_Rede">
+			<item id="ID_NETWORK_CONNECT" text="_Conectar" shortcut="Ctrl+G"/>
+			<separator/>
+			<item id="ID_NETWORK_G2" text="Conectar na Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="Conectar na _Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="Conectar no _eDonkey"/>
+			<separator/>
+			<item id="ID_NETWORK_AUTO_CLOSE" text="Sair _Após as Transferências"/>
+			<item id="ID_NETWORK_EXIT" text="S_air"/>
+		</menu>
+		<menu text="_Visualizar">
+			<item id="ID_TAB_HOME" text="_Home"/>
+			<item id="ID_TAB_LIBRARY" text="_Biblioteca"/>
+			<item id="ID_TAB_MEDIA" text="_Media Player"/>
+			<item id="ID_TAB_SEARCH" text="_Procurar"/>
+			<item id="ID_TAB_TRANSFERS" text="_Downloads"/>
+			<item id="ID_WINDOW_REMOTE" text="_Remoto"/>
+			<item id="ID_TAB_IRC" text="_Chat"/>
+			<separator/>
+			<menu text="_Avançado">
+				<item id="ID_VIEW_NEIGHBOURS" text="_Vizinhos"/>
+				<item id="ID_VIEW_UPLOADS" text="_Uploads"/>
+				<separator/>
+				<item id="ID_VIEW_SECURITY" text="Se_gurança"/>
+				<item id="ID_VIEW_SCHEDULER" text="Programado_r"/>
+				<item id="ID_VIEW_HOSTS" text="_Cache dos Hosts"/>
+				<item id="ID_VIEW_DISCOVERY" text="Desco_brimento"/>
+			</menu>
+			<separator/>
+			<item id="ID_VIEW_BASIC" text="_Modo Básico"/>
+			<item id="ID_VIEW_TABBED" text="_Modo Power"/>
+		</menu>
+		<menu text="_Ferramentas">
+			<item id="ID_LIBRARY_FOLDERS" text="Compartilhar _Arquivos..."/>
+			<item id="ID_TOOLS_DOWNLOAD" text="_Baixar Arquivo/Torrent..."/>
+			<separator/>
+			<item id="ID_TOOLS_LANGUAGE" text="Escolher um _Idioma..."/>
+			<item id="ID_TOOLS_SKIN" text="Escolher uma S_kin..."/>
+			<separator/>
+			<item id="ID_TOOLS_PROFILE" text="Editar Meu _Perfil..."/>
+			<item id="ID_TOOLS_WIZARD" text="Assistente de _Configuração..."/>
+			<separator/>
+			<item id="ID_TOOLS_SETTINGS" text="_Configurações do PeerProject..."/>
+		</menu>
+		<menu text="_Ajuda">
+			<item id="ID_HELP_FAQ" text="FAQ do _PeerProject"/>
+			<item id="ID_HELP_TEST" text="_Teste de Conexão"/>
+			<separator/>
+			<menu text="_Guias">
+				<item id="ID_HELP_GUIDE" text="Guia dos _Usuários do PeerProject"/>
+				<item id="ID_HELP_ROUTER" text="_Ajuda sobre Roteador"/>
+				<item id="ID_HELP_SECURITY" text="_Ajuda sobre Segurança"/>
+				<item id="ID_HELP_CODEC" text="_Ajuda sobre Codecs"/>
+			</menu>
+			<separator/>
+			<menu text="_Sites da Rede">
+				<item id="ID_HELP_FORUMS" text="Fóruns do _PeerProject"/>
+				<item id="ID_HELP_FORUMS_LOCAL" text="_Foro de Português"/>
+				<!-- <separator/>
+				<item id="ID_HELP_UPDATE" text="Últimas notícias"/>
+				<item id="ID_HELP_VERSION_CHECK" text="Procurar nova _versão"/>
+				<item id="ID_HELP_DONATE" text="_Doar para o Projeto PeerProject!"/> -->
+			</menu>
+			<item id="ID_HELP_HOMEPAGE" text="_Site do PeerProject"/>
+			<separator/>
+			<item id="ID_HELP_ABOUT" text="_Sobre o PeerProject..."/>
+		</menu>
+	</menu>
+	<menu name="CMainWnd.Windowed" type="bar">
+		<menu text="_Rede">
+			<item id="ID_NETWORK_SEARCH" text="Nova _Busca..." shortcut="Ctrl+S"/>
+			<separator/>
+			<item id="ID_NETWORK_CONNECT" text="_Conectar" shortcut="Ctrl+G"/>
+			<item id="ID_NETWORK_DISCONNECT" text="_Desconectar"/>
+			<separator/>
+			<item id="ID_NETWORK_CONNECT_TO" text="Conectar _na..." shortcut="Ctrl+T"/>
+			<item id="ID_NETWORK_BROWSE_TO" text="_Navegar Host..."/>
+			<separator/>
+			<item id="ID_NETWORK_G2" text="Conectar na Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="Conectar na _Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="Conectar no _eDonkey"/>
+			<item id="ID_NETWORK_DC" text="Conectar na _DC++"/>
+			<item id="ID_NETWORK_BT" text="Conectar na _BitTorrent"/>
+			<separator/>
+			<item id="ID_NETWORK_AUTO_CLOSE" text="Fechar _Após as Transferências"/>
+			<item id="ID_NETWORK_EXIT" text="S_air"/>
+		</menu>
+		<menu text="_Visualizar">
+			<item id="ID_VIEW_SYSTEM" text="_Sistema" shortcut="F11"/>
+			<item id="ID_VIEW_NEIGHBOURS" text="_Vizinhos" shortcut="Ctrl+F11"/>
 			<item id="ID_VIEW_DOWNLOADS" text="_Downloads" shortcut="F3"/>
 			<item id="ID_VIEW_UPLOADS" text="_Uploads" shortcut="F4"/>
 			<item id="ID_VIEW_LIBRARY" text="_Biblioteca" shortcut="F5"/>
 			<item id="ID_VIEW_MEDIA" text="_Media Player" shortcut="F6"/>
-			<item id="ID_TAB_IRC" text="IR_C" shortcut="F12"/>
+			<item id="ID_TAB_IRC" text="IRC _Chat" shortcut="F12"/>
 			<separator/>
-			<item id="ID_VIEW_SCHEDULER" text="Programado_r" shortcut="Ctrl+F7"/>
 			<item id="ID_VIEW_SECURITY" text="Se_gurança" shortcut="F7"/>
 			<item id="ID_VIEW_HOSTS" text="C_ache dos Hosts" shortcut="F8"/>
 			<item id="ID_VIEW_DISCOVERY" text="Desco_brimento" shortcut="F9"/>
@@ -663,223 +823,63 @@
 			<item id="ID_VIEW_PACKETS" text="_Pacotes Perdidos" shortcut="Ctrl+F1"/>
 			<item id="ID_VIEW_SEARCH_MONITOR" text="Mo_nitor das Buscas" shortcut="Ctrl+F2"/>
 			<item id="ID_VIEW_RESULTS_MONITOR" text="M_onitor de Acertos" shortcut="Ctrl+F3"/>
-		</menu>
-		<separator/>
-		  <item id="ID_VIEW_BASIC" text="M_odo Basico"/>
-		  <item id="ID_VIEW_TABBED" text="M_odo em Abas"/>
-		  <item id="ID_VIEW_WINDOWED" text="_Modo de Janelas"/>
-	  </menu>
-	  <menu text="_Ferramentas">
-		  <item id="ID_LIBRARY_FOLDERS" text="Compartilhar _Arquivos..."/>
-		  <item id="ID_TOOLS_DOWNLOAD" text="_Baixar Arquivo/Torrent..."/>
-		  <item id="ID_IMPORT_DOWNLOADS" text="_Importar downloads parciais do eMule..."/>
-		  <item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Abrir a minha pasta de Downloads terminados"/>
-		  <separator/>
-		  <item id="ID_TOOLS_SKIN" text="Escolher uma S_kin..."/>
-		  <item id="ID_TOOLS_LANGUAGE" text="Escolher um _Idioma..."/>
-		  <separator/>
-		  <item id="ID_TOOLS_PROFILE" text="Editar Meu _Perfil..."/>
-		  <item id="ID_TOOLS_WIZARD" text="Assistente de _Configuração..."/>
-		  <separator/>
-		  <item id="ID_TOOLS_SETTINGS" text="_Configurações do PeerProject..."/>
-		</menu>
-		<menu text="_Janelas">
-		  <item id="ID_WINDOW_NAVBAR" text="Mostrar _Barra de Navegação"/>
-		  <item id="ID_WINDOW_TOOLBAR" text="Mostrar _Barra de Ferramentas"/>
-		  <separator/>
-		  <item id="ID_WINDOW_TABBAR" text="Mostrar Barra de _Abas"/>
-		  <item id="ID_WINDOW_MONITOR" text="Mostrar _Monitor"/>
-		  <item id="ID_WINDOW_REMOTE" text="Mostrar _Remoto"/>
-		</menu>
-		<menu text="_Ajuda">
-		  <item id="ID_HELP_FAQ" text="FAQ do _PeerProject"/>
-		  <item id="ID_HELP_TEST" text="_Teste de Conexão"/>
-		  <separator/>
-		  <menu text="_Guias">
-			<item id="ID_HELP_GUIDE" text="Guia dos _Usuários do PeerProject"/>
-			<item id="ID_HELP_ROUTER" text="_Ajuda sobre Roteador"/>
-			<item id="ID_HELP_SECURITY" text="_Ajuda sobre Segurança"/>
-			<item id="ID_HELP_CODEC" text="_Ajuda sobre Codecs"/>
-		</menu>
-		<separator/>
-		<menu text="_Sites da Rede">
-			<item id="ID_HELP_FORUMS" text="Fóruns do _PeerProject"/>
-			<item id="ID_HELP_FORUMS_LOCAL" text="_Foro de Português"/>
-			<item id="ID_HELP_UPDATE" text="Últimas notícias"/>
-			<item id="ID_HELP_VERSION_CHECK" text="Procurar nova _versão"/>
-			<item id="ID_HELP_DONATE" text="_Doar para o Projeto PeerProject!"/>
-			<item id="ID_HELP_WEB_6" text="PeerProject S_kins"/>
-			<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/> <!--
-			<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-			<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
-		</menu>
-		<item id="ID_HELP_HOMEPAGE" text="_Site do PeerProject"/>
-		<separator/>
-		<item id="ID_HELP_ABOUT" text="_Sobre o PeerProject..."/>
-	  </menu>
-	</menu>
-	<menu name="CMainWnd.Basic" type="bar">
-		<menu text="_Rede">
-		<item id="ID_NETWORK_CONNECT" text="_Conectar" shortcut="Ctrl+G"/>
-		<separator/>
-		<item id="ID_NETWORK_G2" text="Conectar na Gnutella_2"/>
-		<item id="ID_NETWORK_G1" text="Conectar na _Gnutella"/>
-		<item id="ID_NETWORK_ED2K" text="Conectar no _eDonkey"/>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="Sair _Após as Transferências"/>
-		<item id="ID_NETWORK_EXIT" text="S_air"/>
-		</menu>
-		<menu text="_Visualizar">
-		<item id="ID_TAB_HOME" text="_Home"/>
-		<item id="ID_TAB_LIBRARY" text="_Biblioteca"/>
-		<item id="ID_TAB_MEDIA" text="_Media Player"/>
-		<item id="ID_TAB_SEARCH" text="_Procurar"/>
-		<item id="ID_TAB_TRANSFERS" text="_Downloads"/>
-		<item id="ID_WINDOW_REMOTE" text="_Remoto"/>
-		<item id="ID_TAB_IRC" text="_Chat"/>
-		<separator/>
-		<menu text="_Avançado">
-			<item id="ID_VIEW_NEIGHBOURS" text="_Vizinhos"/>
-			<item id="ID_VIEW_UPLOADS" text="_Uploads"/>
 			<separator/>
-			<item id="ID_VIEW_SECURITY" text="Se_gurança"/>
-			<item id="ID_VIEW_SCHEDULER" text="Programado_r"/>
-			<item id="ID_VIEW_HOSTS" text="_Cache dos Hosts"/>
-			<item id="ID_VIEW_DISCOVERY" text="Desco_brimento"/>
-		</menu>
-		<separator/>
-		<item id="ID_VIEW_BASIC" text="_Modo Básico"/>
-		<item id="ID_VIEW_TABBED" text="_Modo Power"/>
+			<item id="ID_VIEW_BASIC" text="Modo Básico"/>
+			<item id="ID_VIEW_TABBED" text="Modo em Abas"/>
+			<item id="ID_VIEW_WINDOWED" text="Modo de Janelas"/>
 		</menu>
 		<menu text="_Ferramentas">
-		<item id="ID_LIBRARY_FOLDERS" text="Compartilhar _Arquivos..."/>
-		<item id="ID_TOOLS_DOWNLOAD" text="_Baixar Arquivo/Torrent..."/>
-		<separator/>
-		<item id="ID_TOOLS_LANGUAGE" text="Escolher um _Idioma..."/>
-		<item id="ID_TOOLS_SKIN" text="Escolher uma S_kin..."/>
-		<separator/>
-		<item id="ID_TOOLS_PROFILE" text="Editar Meu _Perfil..."/>
-		<item id="ID_TOOLS_WIZARD" text="Assistente de _Configuração..."/>
-		<separator/>
-		<item id="ID_TOOLS_SETTINGS" text="_Configurações do PeerProject..."/>
+			<item id="ID_LIBRARY_FOLDERS" text="Compartilhar _Arquivos..."/>
+			<item id="ID_TOOLS_DOWNLOAD" text="_Baixar Arquivo/Torrent..."/>
+			<item id="ID_IMPORT_DOWNLOADS" text="_Importar download parciais do eMule..."/>
+			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Abrir minha pasta de Downloads completados"/>
+			<separator/>
+			<item id="ID_TOOLS_SKIN" text="Escolher uma S_kin..."/>
+			<item id="ID_TOOLS_LANGUAGE" text="Escolher um _Idioma..."/>
+			<separator/>
+			<item id="ID_TOOLS_PROFILE" text="Editar Meu _Perfil..."/>
+			<separator/>
+			<item id="ID_TOOLS_WIZARD" text="Assistente de _Configuração..."/>
+			<item id="ID_TOOLS_SETTINGS" text="_Configurações do PeerProject..."/>
+		</menu>
+		<menu text="_Janela">
+			<item id="ID_WINDOW_CASCADE" text="_Tela Cheia"/>
+			<item id="ID_WINDOW_TILE_HORZ" text="Modo _Horizontal"/>
+			<item id="ID_WINDOW_TILE_VERT" text="Modo _Vertical"/>
+			<separator/>
+			<item id="ID_WINDOW_NAVBAR" text="Mostrar _Barra de Navegação"/>
+			<item id="ID_WINDOW_TOOLBAR" text="Mostrar _Barra de Ferramentas"/>
+			<separator/>
+			<item id="ID_WINDOW_TABBAR" text="Mostrar Barra de _Abas"/>
+			<item id="ID_WINDOW_MONITOR" text="Mostrar _Monitor"/>
+			<item id="ID_WINDOW_REMOTE" text="Mostrar _Remoto"/>
 		</menu>
 		<menu text="_Ajuda">
-		<item id="ID_HELP_FAQ" text="FAQ do _PeerProject"/>
-		<item id="ID_HELP_TEST" text="_Teste de Conexão"/>
-		<separator/>
-		<menu text="_Guias">
-			<item id="ID_HELP_GUIDE" text="Guia dos _Usuários do PeerProject"/>
-			<item id="ID_HELP_ROUTER" text="_Ajuda sobre Roteador"/>
-			<item id="ID_HELP_SECURITY" text="_Ajuda sobre Segurança"/>
-			<item id="ID_HELP_CODEC" text="_Ajuda sobre Codecs"/>
-		</menu>
-		<separator/>
-		<menu text="_Sites da Rede">
-			<item id="ID_HELP_FORUMS" text="Fóruns do _PeerProject"/>
-			<item id="ID_HELP_FORUMS_LOCAL" text="_Foro de Português"/>
-			<!-- <separator/>
-			<item id="ID_HELP_UPDATE" text="Últimas notícias"/>
+			<item id="ID_HELP_FAQ" text="FAQ do _PeerProject"/>
+			<item id="ID_HELP_TEST" text="_Teste de Conexão"/>
+			<separator/>
+			<menu text="_Guias">
+				<item id="ID_HELP_GUIDE" text="Guia dos _Usuários do PeerProject"/>
+				<item id="ID_HELP_ROUTER" text="_Ajuda sobre Roteador"/>
+				<item id="ID_HELP_SECURITY" text="_Ajuda sobre Segurança"/>
+				<item id="ID_HELP_CODEC" text="_Ajuda sobre Codecs"/>
+			</menu>
+			<separator/>
+			<menu text="_Sites da Rede">
+				<item id="ID_HELP_HOMEPAGE" text="Site do PeerProject"/>
+				<item id="ID_HELP_FORUMS" text="Fóruns do PeerProject"/>
+				<item id="ID_HELP_FORUMS_LOCAL" text="_Foro de Português"/>
+				<!-- <separator/>
+				<item id="ID_HELP_UPDATE" text="Últimas notícias"/>
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
+				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+			</menu>
+			<separator/> <!--
 			<item id="ID_HELP_VERSION_CHECK" text="Procurar nova _versão"/>
-			<item id="ID_HELP_DONATE" text="_Doar para o Projeto PeerProject!"/> -->
+			<item id="ID_HELP_DONATE" text="_Doar para o Projeto PeerProject"/>
+			<separator/> -->
+			<item id="ID_HELP_ABOUT" text="_Sobre o PeerProject..."/>
 		</menu>
-		<item id="ID_HELP_HOMEPAGE" text="_Site do PeerProject"/>
-		<separator/>
-		<item id="ID_HELP_ABOUT" text="_Sobre o PeerProject..."/>
-	  </menu>
-	</menu>
-	<menu name="CMainWnd.Windowed" type="bar">
-	  <menu text="_Rede">
-		  <item id="ID_NETWORK_SEARCH" text="Nova _Busca..." shortcut="Ctrl+S"/>
-		<separator/>
-		  <item id="ID_NETWORK_CONNECT" text="_Conectar" shortcut="Ctrl+G"/>
-		  <item id="ID_NETWORK_DISCONNECT" text="_Desconectar"/>
-		<separator/>
-		  <item id="ID_NETWORK_CONNECT_TO" text="Conectar _na..." shortcut="Ctrl+T"/>
-		  <item id="ID_NETWORK_BROWSE_TO" text="_Navegar Host..."/>
-		<separator/>
-		<item id="ID_NETWORK_G2" text="Conectar na Gnutella_2"/>
-		<item id="ID_NETWORK_G1" text="Conectar na _Gnutella"/>
-		<item id="ID_NETWORK_ED2K" text="Conectar no _eDonkey"/>
-		<item id="ID_NETWORK_DC" text="Conectar na _DC++"/>
-		<item id="ID_NETWORK_BT" text="Conectar na _BitTorrent"/>
-		<separator/>
-		  <item id="ID_NETWORK_AUTO_CLOSE" text="Fechar _Após as Transferências"/>
-		  <item id="ID_NETWORK_EXIT" text="S_air"/>
-	</menu>
-	<menu text="_Visualizar">
-		<item id="ID_VIEW_SYSTEM" text="_Sistema" shortcut="F11"/>
-		<item id="ID_VIEW_NEIGHBOURS" text="_Vizinhos" shortcut="Ctrl+F11"/>
-		<item id="ID_VIEW_DOWNLOADS" text="_Downloads" shortcut="F3"/>
-		<item id="ID_VIEW_UPLOADS" text="_Uploads" shortcut="F4"/>
-		<item id="ID_VIEW_LIBRARY" text="_Biblioteca" shortcut="F5"/>
-		<item id="ID_VIEW_MEDIA" text="_Media Player" shortcut="F6"/>
-		<item id="ID_TAB_IRC" text="IRC _Chat" shortcut="F12"/>
-		<separator/>
-		<item id="ID_VIEW_SECURITY" text="Se_gurança" shortcut="F7"/>
-		<item id="ID_VIEW_HOSTS" text="C_ache dos Hosts" shortcut="F8"/>
-		<item id="ID_VIEW_DISCOVERY" text="Desco_brimento" shortcut="F9"/>
-		<item id="ID_VIEW_TRAFFIC" text="_Gráfico" shortcut="F10"/>
-		<separator/>
-		<item id="ID_VIEW_PACKETS" text="_Pacotes Perdidos" shortcut="Ctrl+F1"/>
-		<item id="ID_VIEW_SEARCH_MONITOR" text="Mo_nitor das Buscas" shortcut="Ctrl+F2"/>
-		<item id="ID_VIEW_RESULTS_MONITOR" text="M_onitor de Acertos" shortcut="Ctrl+F3"/>
-		<separator/>
-		<item id="ID_VIEW_BASIC" text="Modo Básico"/>
-		<item id="ID_VIEW_TABBED" text="Modo em Abas"/>
-		<item id="ID_VIEW_WINDOWED" text="Modo de Janelas"/>
-	</menu>
-	<menu text="_Ferramentas">
-		<item id="ID_LIBRARY_FOLDERS" text="Compartilhar _Arquivos..."/>
-		<item id="ID_TOOLS_DOWNLOAD" text="_Baixar Arquivo/Torrent..."/>
-		<item id="ID_IMPORT_DOWNLOADS" text="_Importar download parciais do eMule..."/>
-		<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Abrir minha pasta de Downloads completados"/>
-		<separator/>
-		<item id="ID_TOOLS_SKIN" text="Escolher uma S_kin..."/>
-		<item id="ID_TOOLS_LANGUAGE" text="Escolher um _Idioma..."/>
-		<separator/>
-		<item id="ID_TOOLS_PROFILE" text="Editar Meu _Perfil..."/>
-		<separator/>
-		<item id="ID_TOOLS_WIZARD" text="Assistente de _Configuração..."/>
-		<item id="ID_TOOLS_SETTINGS" text="_Configurações do PeerProject..."/>
-	</menu>
-	<menu text="_Janela">
-		<item id="ID_WINDOW_CASCADE" text="_Tela Cheia"/>
-		<item id="ID_WINDOW_TILE_HORZ" text="Modo _Horizontal"/>
-		<item id="ID_WINDOW_TILE_VERT" text="Modo _Vertical"/>
-		<separator/>
-		<item id="ID_WINDOW_NAVBAR" text="Mostrar _Barra de Navegação"/>
-		<item id="ID_WINDOW_TOOLBAR" text="Mostrar _Barra de Ferramentas"/>
-		<separator/>
-		<item id="ID_WINDOW_TABBAR" text="Mostrar Barra de _Abas"/>
-		<item id="ID_WINDOW_MONITOR" text="Mostrar _Monitor"/>
-		<item id="ID_WINDOW_REMOTE" text="Mostrar _Remoto"/>
-	</menu>
-	<menu text="_Ajuda">
-		<item id="ID_HELP_FAQ" text="FAQ do _PeerProject"/>
-		<item id="ID_HELP_TEST" text="_Teste de Conexão"/>
-		<separator/>
-		<menu text="_Guias">
-			<item id="ID_HELP_GUIDE" text="Guia dos _Usuários do PeerProject"/>
-			<item id="ID_HELP_ROUTER" text="_Ajuda sobre Roteador"/>
-			<item id="ID_HELP_SECURITY" text="_Ajuda sobre Segurança"/>
-			<item id="ID_HELP_CODEC" text="_Ajuda sobre Codecs"/>
-		</menu>
-		<separator/>
-		<menu text="_Sites da Rede">
-			<item id="ID_HELP_HOMEPAGE" text="Site do PeerProject"/>
-			<item id="ID_HELP_FORUMS" text="Fóruns do PeerProject"/>
-			<item id="ID_HELP_FORUMS_LOCAL" text="_Foro de Português"/>
-			<!-- <separator/>
-			<item id="ID_HELP_UPDATE" text="Últimas notícias"/>
-			<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-			<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
-		</menu>
-		<separator/> <!--
-		  <item id="ID_HELP_VERSION_CHECK" text="Procurar nova _versão"/>
-		  <item id="ID_HELP_DONATE" text="_Doar para o Projeto PeerProject"/>
-		<separator/> -->
-		<item id="ID_HELP_ABOUT" text="_Sobre o PeerProject..."/>
-	  </menu>
 	</menu>
 	<!-- VIEW POPUP -->
 	<menu name="CMainWnd.View.Basic">
@@ -890,11 +890,11 @@
 		<item id="ID_TAB_MEDIA" text="_Media Player"/>
 		<separator/>
 		<menu text="_Avançado">
-		  <item id="ID_VIEW_NEIGHBOURS" text="_Vizinhos"/>
-		  <item id="ID_VIEW_UPLOADS" text="_Uploads"/>
-		  <item id="ID_VIEW_HOSTS" text="_Cache dos Hosts"/>
-		  <item id="ID_VIEW_SECURITY" text="_Segurança"/>
-		  <item id="ID_VIEW_SCHEDULER" text="Programado_r"/>
+			<item id="ID_VIEW_NEIGHBOURS" text="_Vizinhos"/>
+			<item id="ID_VIEW_UPLOADS" text="_Uploads"/>
+			<item id="ID_VIEW_HOSTS" text="_Cache dos Hosts"/>
+			<item id="ID_VIEW_SECURITY" text="_Segurança"/>
+			<item id="ID_VIEW_SCHEDULER" text="Programado_r"/>
 		</menu>
 	</menu>
 	<menu name="CMainWnd.View.Tabbed">
@@ -945,11 +945,11 @@
 		<item id="ID_TAB_TRANSFERS" text="_Downloads"/>
 		<separator/>
 		<menu text="_Avançado">
-		  <item id="ID_VIEW_NEIGHBOURS" text="_Vizinhos"/>
-		  <item id="ID_VIEW_UPLOADS" text="_Uploads"/>
-		  <item id="ID_VIEW_HOSTS" text="_Cache dos Hosts"/>
-		  <item id="ID_VIEW_SECURITY" text="_Segurança"/>
-		  <item id="ID_VIEW_SCHEDULER" text="Programado_r"/>
+			<item id="ID_VIEW_NEIGHBOURS" text="_Vizinhos"/>
+			<item id="ID_VIEW_UPLOADS" text="_Uploads"/>
+			<item id="ID_VIEW_HOSTS" text="_Cache dos Hosts"/>
+			<item id="ID_VIEW_SECURITY" text="_Segurança"/>
+			<item id="ID_VIEW_SCHEDULER" text="Programado_r"/>
 		</menu>
 	</menu>
 	<menu name="CHomeWnd.Tabbed">
@@ -1000,15 +1000,15 @@
 		<item id="ID_SEARCH_CHAT" text="_Conversar com Usuário"/>
 		<separator/>
 		<menu text="_Procurar Por">
-		  <item id="ID_SEARCH_FOR_SIMILAR" text="_Arquivos Similares"/>
-		  <separator/>
-		  <item id="ID_SEARCH_FOR_ARTIST" text="_Músicas do mesmo Artista"/>
-		  <item id="ID_SEARCH_FOR_ALBUM" text="Músicas do mesmo _Álbum"/>
-		  <item id="ID_SEARCH_FOR_SERIES" text="_Episódios da mesma Série"/>
+			<item id="ID_SEARCH_FOR_SIMILAR" text="_Arquivos Similares"/>
+			<separator/>
+			<item id="ID_SEARCH_FOR_ARTIST" text="_Músicas do mesmo Artista"/>
+			<item id="ID_SEARCH_FOR_ALBUM" text="Músicas do mesmo _Álbum"/>
+			<item id="ID_SEARCH_FOR_SERIES" text="_Episódios da mesma Série"/>
 		</menu>
 		<menu text="_Serviços da Rede">
-		  <item id="ID_LIBRARY_BITZI_WEB" text="Ver o _Ticket do Bitzi"/>
-		  <item id="ID_SEARCH_URI" text="Copiar _URI..."/>
+			<item id="ID_LIBRARY_BITZI_WEB" text="Ver o _Ticket do Bitzi"/>
+			<item id="ID_SEARCH_URI" text="Copiar _URI..."/>
 		</menu>
 	</menu>
 	<menu name="CSearchWnd">
@@ -1021,15 +1021,15 @@
 		<item id="ID_SECURITY_BAN" text="_Banir Usuário"/>
 		<separator/>
 		<menu text="_Procurar Por">
-		  <item id="ID_SEARCH_FOR_THIS" text="_Este Arquivo"/>
-		  <item id="ID_SEARCH_FOR_SIMILAR" text="_Arquivos Similares"/>
-		  <separator/>
-		  <item id="ID_SEARCH_FOR_ARTIST" text="_Músicas do mesmo Artista"/>
-		  <item id="ID_SEARCH_FOR_ALBUM" text="Músicas do mesmo _Álbum"/>
-		  <item id="ID_SEARCH_FOR_SERIES" text="_Episódios da mesma Série"/>
+			<item id="ID_SEARCH_FOR_THIS" text="_Este Arquivo"/>
+			<item id="ID_SEARCH_FOR_SIMILAR" text="_Arquivos Similares"/>
+			<separator/>
+			<item id="ID_SEARCH_FOR_ARTIST" text="_Músicas do mesmo Artista"/>
+			<item id="ID_SEARCH_FOR_ALBUM" text="Músicas do mesmo _Álbum"/>
+			<item id="ID_SEARCH_FOR_SERIES" text="_Episódios da mesma Série"/>
 		</menu>
 		<menu text="_Serviços da Rede">
-		  <item id="ID_LIBRARY_BITZI_WEB" text="Ver o _Ticket do Bitzi"/>
+			<item id="ID_LIBRARY_BITZI_WEB" text="Ver o _Ticket do Bitzi"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Filtrar Resultados..."/>
@@ -1046,16 +1046,16 @@
 		<item id="ID_SEARCH_CHAT" text="_Conversar com Usuário"/>
 		<separator/>
 		<menu text="_Procurar Por">
-		  <item id="ID_SEARCH_FOR_SIMILAR" text="_Arquivos Similares"/>
-		<separator/>
-		  <item id="ID_SEARCH_FOR_ARTIST" text="_Músicas do mesmo Artista"/>
-		  <item id="ID_SEARCH_FOR_ALBUM" text="Músicas do mesmo _Álbum"/>
-		  <item id="ID_SEARCH_FOR_SERIES" text="_Episódios da mesma Série"/>
+			<item id="ID_SEARCH_FOR_SIMILAR" text="_Arquivos Similares"/>
+			<separator/>
+			<item id="ID_SEARCH_FOR_ARTIST" text="_Músicas do mesmo Artista"/>
+			<item id="ID_SEARCH_FOR_ALBUM" text="Músicas do mesmo _Álbum"/>
+			<item id="ID_SEARCH_FOR_SERIES" text="_Episódios da mesma Série"/>
 		</menu>
 		<menu text="_Info do Arquivo na Rede">
-		  <item id="ID_LIBRARY_BITZI_WEB" text="Ver o _Ticket do Bitzi"/>
-		  <item id="ID_SEARCH_URI" text="Copiar _URI..."/>
-	  </menu>
+			<item id="ID_LIBRARY_BITZI_WEB" text="Ver o _Ticket do Bitzi"/>
+			<item id="ID_SEARCH_URI" text="Copiar _URI..."/>
+		</menu>
 	</menu>
 	<menu name="CBrowseHostWnd">
 		<item id="ID_SEARCH_DOWNLOAD" text="_Baixar"/>
@@ -1065,15 +1065,15 @@
 		<item id="ID_SEARCH_CHAT" text="_Conversar com Usuário"/>
 		<separator/>
 		<menu text="_Procurar Por">
-		  <item id="ID_SEARCH_FOR_THIS" text="_Este Arquivo"/>
-		  <item id="ID_SEARCH_FOR_SIMILAR" text="_Arquivos Similares"/>
-		  <separator/>
-		  <item id="ID_SEARCH_FOR_ARTIST" text="_Músicas do mesmo Artista"/>
-		  <item id="ID_SEARCH_FOR_ALBUM" text="Músicas do mesmo _Álbum"/>
-		  <item id="ID_SEARCH_FOR_SERIES" text="_Episódios da mesma Série"/>
+			<item id="ID_SEARCH_FOR_THIS" text="_Este Arquivo"/>
+			<item id="ID_SEARCH_FOR_SIMILAR" text="_Arquivos Similares"/>
+			<separator/>
+			<item id="ID_SEARCH_FOR_ARTIST" text="_Músicas do mesmo Artista"/>
+			<item id="ID_SEARCH_FOR_ALBUM" text="Músicas do mesmo _Álbum"/>
+			<item id="ID_SEARCH_FOR_SERIES" text="_Episódios da mesma Série"/>
 		</menu>
 		<menu text="_Serviços da Rede">
-		  <item id="ID_LIBRARY_BITZI_WEB" text="Ver o _Ticket do Bitzi"/>
+			<item id="ID_LIBRARY_BITZI_WEB" text="Ver o _Ticket do Bitzi"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Filtrar Resultados..."/>
@@ -1090,15 +1090,15 @@
 		<item id="ID_SEARCH_CHAT" text="_Conversar com Usuário"/>
 		<separator/>
 		<menu text="_Procurar Por">
-		  <item id="ID_SEARCH_FOR_THIS" text="_Este Arquivo"/>
-		  <item id="ID_SEARCH_FOR_SIMILAR" text="_Arquivos Similares"/>
-		  <separator/>
-		  <item id="ID_SEARCH_FOR_ARTIST" text="_Músicas do mesmo Artista"/>
-		  <item id="ID_SEARCH_FOR_ALBUM" text="Músicas do mesmo _Álbum"/>
-		  <item id="ID_SEARCH_FOR_SERIES" text="_Episódios da mesma Série"/>
+			<item id="ID_SEARCH_FOR_THIS" text="_Este Arquivo"/>
+			<item id="ID_SEARCH_FOR_SIMILAR" text="_Arquivos Similares"/>
+			<separator/>
+			<item id="ID_SEARCH_FOR_ARTIST" text="_Músicas do mesmo Artista"/>
+			<item id="ID_SEARCH_FOR_ALBUM" text="Músicas do mesmo _Álbum"/>
+			<item id="ID_SEARCH_FOR_SERIES" text="_Episódios da mesma Série"/>
 		</menu>
 		<menu text="_Serviços da Rede">
-		  <item id="ID_LIBRARY_BITZI_WEB" text="Ver o _Ticket do Bitzi"/>
+			<item id="ID_LIBRARY_BITZI_WEB" text="Ver o _Ticket do Bitzi"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Filtrar Resultados..."/>
@@ -1137,21 +1137,21 @@
 		<item id="ID_DOWNLOADS_SOURCES" text="_Achar Mais Fontes"/>
 		<separator/>
 		<menu text="_Avançado">
-		  <item id="ID_DOWNLOADS_SHARE" text="_Compartilhar Arquivo"/>
-		  <separator/>
-		  <item id="ID_DOWNLOADS_URI" text="_Copiar URI"/>
-		  <item id="ID_DOWNLOADS_ADD_SOURCE" text="_Adicionar Fonte..."/>
-		  <item id="ID_DOWNLOADS_MERGE" text="_Merge de Arquivos Local..."/>
-		  <separator/>
-		  <item id="ID_DOWNLOADS_MONITOR" text="Janela do _Monitor"/>
+			<item id="ID_DOWNLOADS_SHARE" text="_Compartilhar Arquivo"/>
+			<separator/>
+			<item id="ID_DOWNLOADS_URI" text="_Copiar URI"/>
+			<item id="ID_DOWNLOADS_ADD_SOURCE" text="_Adicionar Fonte..."/>
+			<item id="ID_DOWNLOADS_MERGE" text="_Merge de Arquivos Local..."/>
+			<separator/>
+			<item id="ID_DOWNLOADS_MONITOR" text="Janela do _Monitor"/>
 		</menu>
 		<menu text="Pri_oridade">
-		  <item id="ID_DOWNLOADS_BOOST" text="_Ignorar Limite da Banda"/>
-		  <separator/>
-		  <item id="ID_DOWNLOADS_MOVE_TOP" text="Mover pra _Cima!" shortcut="Ctrl+Home"/>
-		  <item id="ID_DOWNLOADS_MOVE_BOTTOM" text="Mover pra _Baixo!" shortcut="Ctrl+End"/>
-		  <item id="ID_DOWNLOADS_MOVE_UP" text="Mover pra _Cima" shortcut="Ctrl+Up"/>
-		  <item id="ID_DOWNLOADS_MOVE_DOWN" text="Mover pra _Baixo" shortcut="Ctrl+Down"/>
+			<item id="ID_DOWNLOADS_BOOST" text="_Ignorar Limite da Banda"/>
+			<separator/>
+			<item id="ID_DOWNLOADS_MOVE_TOP" text="Mover pra _Cima!" shortcut="Ctrl+Home"/>
+			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="Mover pra _Baixo!" shortcut="Ctrl+End"/>
+			<item id="ID_DOWNLOADS_MOVE_UP" text="Mover pra _Cima" shortcut="Ctrl+Up"/>
+			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Mover pra _Baixo" shortcut="Ctrl+Down"/>
 		</menu>
 		<item id="ID_DOWNLOADS_HELP" text="_Ajuda..."/>
 		<separator/>
@@ -1288,7 +1288,7 @@
 	<menu name="CLibraryTree.Virtual.Basic">
 		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="_Tocar Álbum"/>
 		<item id="ID_LIBRARY_FOLDER_DELETE" text="_Apagar"/>
-	  <separator/>
+		<separator/>
 		<item id="ID_LIBRARY_FOLDER_FILE_PROPERTIES" text="_Propriedades do Arquivo"/>
 		<item id="ID_LIBRARY_FOLDER_PROPERTIES" text="_Propriedades do Álbum"/>
 	</menu>
@@ -1311,49 +1311,18 @@
 		<separator/>
 		<item id="ID_LIBRARY_ALBUM_PROPERTIES" text="_Propriedades"/>
 	</menu>
-	<menu name="CLibraryFileView.Physical.Basic">
+	<menu name="CLibraryFileView.Basic">
 		<item id="ID_LIBRARY_LAUNCH" text="_Abrir/Tocar"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="_Adicionar a lista de execuções"/>
 		<item id="ID_LIBRARY_DELETE" text="_Apagar"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Compartilhado"/>
 		<separator/>
-		<menu text="P_rocurar Por">
-		  <item id="ID_SEARCH_FOR_THIS" text="_Este Arquivo"/>
-		  <item id="ID_SEARCH_FOR_SIMILAR" text="_Arquivos Similares"/>
-		  <separator/>
-		  <item id="ID_SEARCH_FOR_ARTIST" text="_Música do mesmo Artista"/>
-		  <item id="ID_SEARCH_FOR_ALBUM" text="_Música do mesmo Álbum"/>
-		  <item id="ID_SEARCH_FOR_SERIES" text="_Episódios da mesma Série"/>
-		</menu>
-		<menu text="_Serviços da Rede">
-		  <item id="ID_LIBRARY_BITZI_WEB" text="Ver o _Ticket do Bitzi"/>
-		  <item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Baixar Metadata"/>
-		  <separator/>
-		</menu>
-		<menu text="O_rganizar">
-		  <item id="ID_LIBRARY_RENAME" text="_Renomear Arquivo"/>
-		  <item id="ID_LIBRARY_MOVE" text="_Mover Arquivos..."/>
-		  <item id="ID_LIBRARY_COPY" text="_Copiar Arquivos..."/>
-		</menu>
-		<separator/>
-		<item id="ID_LIBRARY_PROPERTIES" text="_Propriedades"/>
-	</menu>
-	<menu name="CLibraryFileView.Physical">
-		<item id="ID_LIBRARY_LAUNCH" text="_Abrir/Tocar"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="Adicionar a lis_ta de execuções"/>
-		<item id="ID_LIBRARY_DELETE" text="_Apagar"/>
-		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="_Compartilhado"/>
-		<separator/>
-		<item id="ID_LIBRARY_URI" text="Copiar _URI"/>
-		<item id="ID_LIBRARY_CREATETORRENT" text="Criar _Arquivo .torrent"/>
 		<menu text="O_rganizar">
 			<item id="ID_LIBRARY_RENAME" text="_Renomear Arquivo"/>
-			<item id="ID_LIBRARY_MOVE" text="_Mover Arquivos..."/>
 			<item id="ID_LIBRARY_COPY" text="_Copiar Arquivos..."/>
+			<item id="ID_LIBRARY_MOVE" text="_Mover Arquivos..."/>
 		</menu>
-		<separator/>
 		<menu text="P_rocurar Por">
 			<item id="ID_SEARCH_FOR_THIS" text="_Este Arquivo"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="_Arquivos Similares"/>
@@ -1365,62 +1334,28 @@
 		<menu text="_Serviços da Rede">
 			<item id="ID_LIBRARY_BITZI_WEB" text="Ver o _Ticket do Bitzi"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Baixar Metadata"/>
-			<separator/>
-		</menu>
-		<menu text="_Metadata">
-			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localizar Metadata"/>
-			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Atualizar Metadata"/>
-			<item id="ID_LIBRARY_COLUMNS" text="Escolher _Colunas..."/>
 		</menu>
 		<separator/>
-		<item id="ID_SHELL_MENU" text="M_enu de contexto"/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Propriedades"/>
 	</menu>
-	<menu name="CLibraryFileView.Virtual.Basic">
+	<menu name="CLibraryFileView">
 		<item id="ID_LIBRARY_LAUNCH" text="_Abrir/Tocar"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="Adicionar a lis_ta de execuções"/>
-		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="Tocar _Álbum"/>
+		<item id="ID_LIBRARY_DELETE" text="_Apagar"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Compartilhado"/>
 		<separator/>
-		<item id="ID_LIBRARY_DELETE" text="_Apagar"/>
-		<menu text="O_rganizar">
+		<item id="ID_LIBRARY_URI" text="Copiar _URI"/>
+		<item id="ID_LIBRARY_CREATETORRENT" text="Criar _Arquivo .torrent"/>
+		<item id="ID_LIBRARY_LAUNCH_FOLDER" text="Abrir _Folder"/>
+		<separator/>
+		<menu text="_Organizar">
 			<item id="ID_LIBRARY_UNLINK" text="Remover _Arquivos"/>
 			<separator/>
 			<item id="ID_LIBRARY_RENAME" text="_Renomear Arquivo"/>
-			<item id="ID_LIBRARY_MOVE" text="_Mover Arquivos..."/>
 			<item id="ID_LIBRARY_COPY" text="_Copiar Arquivos..."/>
+			<item id="ID_LIBRARY_MOVE" text="_Mover Arquivos..."/>
 		</menu>
-		<separator/>
-		<menu text="P_rocurar Por">
-			<item id="ID_SEARCH_FOR_THIS" text="_Este Arquivo"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="_Arquivos Similares"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="_Música do mesmo Artista"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="_Música do mesmo Álbum"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="_Episódios da mesma Série"/>
-		</menu>
-		<menu text="_Serviços da Rede">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Ver o _Ticket do Bitzi"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Baixar Metadata"/>
-			<separator/>
-			<item id="ID_LIBRARY_PROPERTIES" text="_Propriedades"/>
-		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localizar Metadata"/>
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Atualizar Metadata"/>
-		<separator/>
-		<item id="ID_LIBRARY_PROPERTIES" text="_Propriedades"/>
-	</menu>
-	<menu name="CLibraryFileView.Virtual">
-		<item id="ID_LIBRARY_LAUNCH" text="_Abrir/Tocar"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="Adicionar a lis_ta de execuções"/>
-		<item id="ID_LIBRARY_DELETE" text="_Apagar"/>
-		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="_Compartilhado"/>
-		<separator/>
-		<item id="ID_LIBRARY_URI" text="Copiar _URI"/>
-		<item id="ID_LIBRARY_CREATETORRENT" text="Criar _Arquivo .torrent"/>
-		<separator/>
 		<menu text="P_rocurar Por">
 			<item id="ID_SEARCH_FOR_THIS" text="_Este Arquivo"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="_Arquivos Similares"/>
@@ -1432,99 +1367,91 @@
 		<menu text="_Serviços da Rede">
 			<item id="ID_LIBRARY_BITZI_WEB" text="Ver o _Ticket do Bitzi"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Baixar Metadata"/>
-			<separator/>
-		</menu>
-		<menu text="_Organizar">
-			<item id="ID_LIBRARY_UNLINK" text="Remover _Arquivos"/>
-			<separator/>
-			<item id="ID_LIBRARY_RENAME" text="_Renomear Arquivo"/>
-			<item id="ID_LIBRARY_MOVE" text="_Mover Arquivos..."/>
-			<item id="ID_LIBRARY_COPY" text="_Copiar Arquivos..."/>
 		</menu>
 		<menu text="_Metadata">
-			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localizar Metadata"/>
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Atualizar Metadata"/>
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localizar Metadata"/>
 			<item id="ID_LIBRARY_COLUMNS" text="Escolher _Colunas..."/>
 		</menu>
 		<separator/>
-		<item id="ID_SHELL_MENU" text="Windows men_u"/>
+		<item id="ID_SHELL_MENU" text="Windows Men_u"/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Propriedades"/>
 	</menu>
 	<!-- MEDIA WINDOW -->
 	<menu name="CMediaFrame.Basic">
-	  <item id="ID_MEDIA_PLAY" text="_Tocar"/>
-	  <item id="ID_MEDIA_PAUSE" text="Pa_usar"/>
-	  <item id="ID_MEDIA_STOP" text="_Parar"/>
-	  <separator/>
-	  <item id="ID_MEDIA_OPEN" text="_Abrir Arquivo de Mídia..."/>
-	  <separator/>
-	  <menu text="Li_sta de execuções">
-		<item id="ID_MEDIA_PREVIOUS" text="Ant_erior"/>
-		<item id="ID_MEDIA_NEXT" text="_Próxima"/>
-		<item id="ID_MEDIA_RANDOM" text="_Aleatória"/>
-		<item id="ID_MEDIA_REPEAT" text="R_epetir"/>
+		<item id="ID_MEDIA_PLAY" text="_Tocar"/>
+		<item id="ID_MEDIA_PAUSE" text="Pa_usar"/>
+		<item id="ID_MEDIA_STOP" text="_Parar"/>
 		<separator/>
-		<item id="ID_MEDIA_PLAYLIST" text="Mostrar a _lista de execuções"/>
-	  </menu>
-	  <menu text="Tamanho do Ví_deo">
-		<item id="ID_MEDIA_SIZE_ONE" text="_Tamanho Original"/>
-		<item id="ID_MEDIA_SIZE_TWO" text="_Tamanho Duplo"/>
-		<item id="ID_MEDIA_SIZE_HALF" text="_Tamanho Medio"/>
-		<item id="ID_MEDIA_SIZE_FILL" text="_Maior"/>
-		<item id="ID_MEDIA_SIZE_DISTORT" text="_Preencher a Janela"/>
+		<item id="ID_MEDIA_OPEN" text="_Abrir Arquivo de Mídia..."/>
 		<separator/>
-		<item id="ID_MEDIA_ASPECT_DEFAULT" text="Aspecto _Padrão"/>
-		<item id="ID_MEDIA_ASPECT_4_3" text="_Proporção 4:3 (TV)"/>
-		<item id="ID_MEDIA_ASPECT_16_9" text="16:9 (_Filme)"/>
-		<separator/>
-		<item id="ID_MEDIA_FULLSCREEN" text="_Tela Cheia"/>
-	  </menu>
-	  <menu text="Confi_gurações">
-		<item id="ID_MEDIA_VIS" text="Escolher _Visualização..."/>
-		<separator/>
-		<item id="ID_MEDIA_PLAYLIST" text="Mostrar _lista de execuções"/>
-		<item id="ID_MEDIA_STATUS" text="Mostrar _Linha de Status"/>
-		<separator/>
-		<item id="ID_MEDIA_SETTINGS" text="_Configurações da Mídia..."/>
-	  </menu>
+		<menu text="Li_sta de execuções">
+			<item id="ID_MEDIA_PREVIOUS" text="Ant_erior"/>
+			<item id="ID_MEDIA_NEXT" text="_Próxima"/>
+			<item id="ID_MEDIA_RANDOM" text="_Aleatória"/>
+			<item id="ID_MEDIA_REPEAT" text="R_epetir"/>
+			<separator/>
+			<item id="ID_MEDIA_PLAYLIST" text="Mostrar a _lista de execuções"/>
+		</menu>
+		<menu text="Tamanho do Ví_deo">
+			<item id="ID_MEDIA_SIZE_ONE" text="_Tamanho Original"/>
+			<item id="ID_MEDIA_SIZE_TWO" text="_Tamanho Duplo"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="_Tamanho Medio"/>
+			<item id="ID_MEDIA_SIZE_FILL" text="_Maior"/>
+			<item id="ID_MEDIA_SIZE_DISTORT" text="_Preencher a Janela"/>
+			<separator/>
+			<item id="ID_MEDIA_ASPECT_DEFAULT" text="Aspecto _Padrão"/>
+			<item id="ID_MEDIA_ASPECT_4_3" text="_Proporção 4:3 (TV)"/>
+			<item id="ID_MEDIA_ASPECT_16_9" text="16:9 (_Filme)"/>
+			<separator/>
+			<item id="ID_MEDIA_FULLSCREEN" text="_Tela Cheia"/>
+		</menu>
+		<menu text="Confi_gurações">
+			<item id="ID_MEDIA_VIS" text="Escolher _Visualização..."/>
+			<separator/>
+			<item id="ID_MEDIA_PLAYLIST" text="Mostrar _lista de execuções"/>
+			<item id="ID_MEDIA_STATUS" text="Mostrar _Linha de Status"/>
+			<separator/>
+			<item id="ID_MEDIA_SETTINGS" text="_Configurações da Mídia..."/>
+		</menu>
 	</menu>
 	<menu name="CMediaFrame">
-	  <item id="ID_MEDIA_PLAY" text="_Tocar"/>
-	  <item id="ID_MEDIA_PAUSE" text="Pa_usar"/>
-	  <item id="ID_MEDIA_STOP" text="_Parar"/>
-	  <separator/>
-	  <item id="ID_MEDIA_OPEN" text="_Abrir Arquivo de Mídia..."/>
-	  <item id="ID_MEDIA_CLOSE" text="_Fechar Arquivo"/>
-	  <separator/>
-	  <menu text="Lista de execuções">
-		<item id="ID_MEDIA_PREVIOUS" text="Ant_erior"/>
-		<item id="ID_MEDIA_NEXT" text="_Próxima"/>
-		<item id="ID_MEDIA_RANDOM" text="_Aleatória"/>
-		<item id="ID_MEDIA_REPEAT" text="R_epetir"/>
+		<item id="ID_MEDIA_PLAY" text="_Tocar"/>
+		<item id="ID_MEDIA_PAUSE" text="Pa_usar"/>
+		<item id="ID_MEDIA_STOP" text="_Parar"/>
 		<separator/>
-		<item id="ID_MEDIA_PLAYLIST" text="Mostrar _lista de execuções"/>
-	  </menu>
-	  <menu text="Tamanho do Ví_deo">
-		<item id="ID_MEDIA_SIZE_ONE" text="_Tamanho Original"/>
-		<item id="ID_MEDIA_SIZE_TWO" text="_Tamanho Duplo"/>
-		<item id="ID_MEDIA_SIZE_HALF" text="_Tamanho Medio"/>
-		<item id="ID_MEDIA_SIZE_FILL" text="_Maior"/>
-		<item id="ID_MEDIA_SIZE_DISTORT" text="_Preencher a Janela"/>
+		<item id="ID_MEDIA_OPEN" text="_Abrir Arquivo de Mídia..."/>
+		<item id="ID_MEDIA_CLOSE" text="_Fechar Arquivo"/>
 		<separator/>
-		<item id="ID_MEDIA_ASPECT_DEFAULT" text="Aspecto _Padrão"/>
-		<item id="ID_MEDIA_ASPECT_4_3" text="_Proporção 4:3 (TV)"/>
-		<item id="ID_MEDIA_ASPECT_16_9" text="16:9 (_Filme)"/>
-		<separator/>
-		<item id="ID_MEDIA_FULLSCREEN" text="Tela Cheia"/>
-	  </menu>
-	  <menu text="Configurações">
-		<item id="ID_MEDIA_VIS" text="Escolher Visualização..."/>
-		<separator/>
-		<item id="ID_MEDIA_PLAYLIST" text="Mostrar_lista de execuções"/>
-		<item id="ID_MEDIA_STATUS" text="Mostrar Linha de Status"/>
-		<separator/>
-		<item id="ID_MEDIA_SETTINGS" text="_Configurações da Mídia..."/>
-	  </menu>
+		<menu text="Lista de execuções">
+			<item id="ID_MEDIA_PREVIOUS" text="Ant_erior"/>
+			<item id="ID_MEDIA_NEXT" text="_Próxima"/>
+			<item id="ID_MEDIA_RANDOM" text="_Aleatória"/>
+			<item id="ID_MEDIA_REPEAT" text="R_epetir"/>
+			<separator/>
+			<item id="ID_MEDIA_PLAYLIST" text="Mostrar _lista de execuções"/>
+		</menu>
+		<menu text="Tamanho do Ví_deo">
+			<item id="ID_MEDIA_SIZE_ONE" text="_Tamanho Original"/>
+			<item id="ID_MEDIA_SIZE_TWO" text="_Tamanho Duplo"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="_Tamanho Medio"/>
+			<item id="ID_MEDIA_SIZE_FILL" text="_Maior"/>
+			<item id="ID_MEDIA_SIZE_DISTORT" text="_Preencher a Janela"/>
+			<separator/>
+			<item id="ID_MEDIA_ASPECT_DEFAULT" text="Aspecto _Padrão"/>
+			<item id="ID_MEDIA_ASPECT_4_3" text="_Proporção 4:3 (TV)"/>
+			<item id="ID_MEDIA_ASPECT_16_9" text="16:9 (_Filme)"/>
+			<separator/>
+			<item id="ID_MEDIA_FULLSCREEN" text="Tela Cheia"/>
+		</menu>
+		<menu text="Configurações">
+			<item id="ID_MEDIA_VIS" text="Escolher Visualização..."/>
+			<separator/>
+			<item id="ID_MEDIA_PLAYLIST" text="Mostrar_lista de execuções"/>
+			<item id="ID_MEDIA_STATUS" text="Mostrar Linha de Status"/>
+			<separator/>
+			<item id="ID_MEDIA_SETTINGS" text="_Configurações da Mídia..."/>
+		</menu>
 	</menu>
 	<menu name="CMediaFrame.Zoom">
 		<item id="ID_MEDIA_SIZE_ONE" text="_Tamanho Original"/>
@@ -1590,23 +1517,23 @@
 		<item id="ID_NEIGHBOURS_URI" text="Copiar _URI"/>
 		<separator/>
 		<menu text="_Redes">
-		  <item id="ID_NETWORK_CONNECT" text="_Conectar"/>
-		  <item id="ID_NETWORK_DISCONNECT" text="_Desconectar"/>
-		  <separator/>
-		  <item id="ID_NETWORK_G2" text="Gnutella_2"/>
-		  <item id="ID_NETWORK_G1" text="_Gnutella"/>
-		  <item id="ID_NETWORK_ED2K" text="_eDonkey"/>
-		  <item id="ID_NETWORK_DC" text="_DC++"/>
-		  <item id="ID_NETWORK_BT" text="_BitTorrent"/>
-		  <separator/>
-		  <item id="ID_VIEW_DISCOVERY" text="Desco_brimento"/>
-		  <item id="ID_VIEW_HOSTS" text="_Cache dos Hosts"/>
+			<item id="ID_NETWORK_CONNECT" text="_Conectar"/>
+			<item id="ID_NETWORK_DISCONNECT" text="_Desconectar"/>
+			<separator/>
+			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="_Gnutella"/>
+			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
+			<item id="ID_NETWORK_DC" text="_DC++"/>
+			<item id="ID_NETWORK_BT" text="_BitTorrent"/>
+			<separator/>
+			<item id="ID_VIEW_DISCOVERY" text="Desco_brimento"/>
+			<item id="ID_VIEW_HOSTS" text="_Cache dos Hosts"/>
 		</menu>
 		<menu text="_Monitor">
-		  <item id="ID_NEIGHBOURS_VIEW_ALL" text="Ver _Todo o Tráfego"/>
-		  <item id="ID_NEIGHBOURS_VIEW_INCOMING" text="Ver o _Tráfego que Entra"/>
-		  <item id="ID_NEIGHBOURS_VIEW_OUTGOING" text="Ver o _Tráfego que Sai"/>
-	  </menu>
+			<item id="ID_NEIGHBOURS_VIEW_ALL" text="Ver _Todo o Tráfego"/>
+			<item id="ID_NEIGHBOURS_VIEW_INCOMING" text="Ver o _Tráfego que Entra"/>
+			<item id="ID_NEIGHBOURS_VIEW_OUTGOING" text="Ver o _Tráfego que Sai"/>
+		</menu>
 	</menu>
 	<!-- SEARCH MONITOR WINDOW -->
 	<menu name="CSearchMonitorWnd">
@@ -1644,8 +1571,8 @@
 		<item id="ID_SECURITY_EXPORT" text="E_xportar..."/>
 		<separator/>
 		<menu text="Política P_adrão">
-		  <item id="ID_SECURITY_POLICY_ACCEPT" text="_Aceitar"/>
-		  <item id="ID_SECURITY_POLICY_DENY" text="_Negar"/>
+			<item id="ID_SECURITY_POLICY_ACCEPT" text="_Aceitar"/>
+			<item id="ID_SECURITY_POLICY_DENY" text="_Negar"/>
 		</menu>
 		<separator/>
 		<item id="ID_SECURITY_EDIT" text="_Propriedades"/>
@@ -1667,7 +1594,7 @@
 		<item id="ID_DISCOVERY_BLOCKED" text="Mostrar Bloqueado"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
-	<menu name="CPrivateChatFrame">
+	<menu name="CPrivateChatWnd">
 		<item id="ID_CHAT_CONNECT" text="_Conectar"/>
 		<item id="ID_CHAT_DISCONNECT" text="_Desconectar"/>
 		<separator/>
@@ -1704,11 +1631,11 @@
 		<item id="ID_IRC_QUERY" text="_Inquirir"/>
 		<separator/>
 		<menu text="Ações">
-		  <item id="ID_IRC_TIME" text="_Hora"/>
-		  <item id="ID_IRC_VERSION" text="_Versão"/>
-	  </menu>
-	  <separator/>
-	  <menu text="Controle">
+			<item id="ID_IRC_TIME" text="_Hora"/>
+			<item id="ID_IRC_VERSION" text="_Versão"/>
+		</menu>
+		<separator/>
+		<menu text="Controle">
 		<item id="ID_IRC_IGNORE" text="_Ignorar"/>
 		<item id="ID_IRC_UNIGNORE" text="_Não ignorar"/>
 		<item id="ID_IRC_OP" text="_Op"/>
@@ -1721,7 +1648,7 @@
 		<item id="ID_IRC_UNBAN" text="_Des-banir"/>
 		<item id="ID_IRC_BANKICK" text="Chutar+Banir"/>
 		<item id="ID_IRC_BANKICKWHY" text="Chutar+Banir (porque?)"/>
-	  </menu>
+		</menu>
 	</menu>
 	<menu name="WebServices.List.Menu">
 		<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Bitzi"/>
@@ -3961,7 +3888,7 @@
 		<control/>
 		<control caption="_Adicionar..."/>
 		<control caption="_Remover"/>
-		<control caption="AVISO: Distribuir trabalho que tem copyright é um crime na maioria dos países."/>
+		<control caption="Aviso: Distribuir trabalho que tem copyright não autorizados pode ser responsabilizado em alguns países."/>
 	</dialog>
 	<dialog name="CFolderScanDlg" cookie="StStStStStStBu" caption="Escaneando a Pasta...">
 		<control/>
@@ -4464,7 +4391,7 @@
 		<control caption="OK"/>
 		<control caption="Cancelar"/>
 		<control caption="Você já baixou e deletou este arquivo antes. O que você gostaria de fazer?"/>
-		<control caption="Aviso!!! Arquivos duplicados detectados. Algum software malicioso pode ter infectado sua biblioteca. Tenha certeza de que você baixou este arquivo ou colocou-o manualmente. De outro modo, feche o PeerProject e scaneie o seu computador com um programa anti-vírus."/>
+		<control caption="Aviso! Arquivos duplicados detectados. Algum software malicioso pode ter infectado sua biblioteca. Tenha certeza de que você baixou este arquivo ou colocou-o manualmente. De outro modo, feche o PeerProject e scaneie o seu computador com um programa anti-vírus."/>
 	</dialog>
 	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Botão Fechar">
 		<control caption="Esta é a primeira vez que você clicou no botão de fechar do PeerProject. Por favor escolha qual ação que você gostaria que o PeerProject tomasse quando clicar no botão fechar de agora em diante:"/>

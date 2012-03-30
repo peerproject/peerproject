@@ -654,9 +654,6 @@
     <ClCompile Include="CtrlBrowseTree.cpp">
       <Filter>Source Files\Controls</Filter>
     </ClCompile>
-    <ClCompile Include="CtrlChatFrame.cpp">
-      <Filter>Source Files\Controls</Filter>
-    </ClCompile>
     <ClCompile Include="CtrlCoolBar.cpp">
       <Filter>Source Files\Controls</Filter>
     </ClCompile>
@@ -763,9 +760,6 @@
       <Filter>Source Files\Controls</Filter>
     </ClCompile>
     <ClCompile Include="CtrlPanel.cpp">
-      <Filter>Source Files\Controls</Filter>
-    </ClCompile>
-    <ClCompile Include="CtrlPrivateChatFrame.cpp">
       <Filter>Source Files\Controls</Filter>
     </ClCompile>
     <ClCompile Include="CtrlRichTaskBox.cpp">
@@ -1027,6 +1021,9 @@
       <Filter>Source Files\Windows</Filter>
     </ClCompile>
     <ClCompile Include="WndPlugin.cpp">
+      <Filter>Source Files\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="WndPrivateChat.cpp">
       <Filter>Source Files\Windows</Filter>
     </ClCompile>
     <ClCompile Include="WndScheduler.cpp">
@@ -2180,9 +2177,6 @@
     <ClInclude Include="CtrlBrowseTree.h">
       <Filter>Header Files\Controls</Filter>
     </ClInclude>
-    <ClInclude Include="CtrlChatFrame.h">
-      <Filter>Header Files\Controls</Filter>
-    </ClInclude>
     <ClInclude Include="CtrlCoolBar.h">
       <Filter>Header Files\Controls</Filter>
     </ClInclude>
@@ -2291,9 +2285,6 @@
     <ClInclude Include="CtrlPanel.h">
       <Filter>Header Files\Controls</Filter>
     </ClInclude>
-    <ClInclude Include="CtrlPrivateChatFrame.h">
-      <Filter>Header Files\Controls</Filter>
-    </ClInclude>
     <ClInclude Include="CtrlRichTaskBox.h">
       <Filter>Header Files\Controls</Filter>
     </ClInclude>
@@ -2397,6 +2388,9 @@
       <Filter>Header Files\Windows</Filter>
     </ClInclude>
     <ClInclude Include="WndPlugin.h">
+      <Filter>Header Files\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="WndPrivateChat.h">
       <Filter>Header Files\Windows</Filter>
     </ClInclude>
     <ClInclude Include="WndScheduler.h">

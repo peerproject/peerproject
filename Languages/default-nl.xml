@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Dutch Skin File -->
 
-<!-- Translation based on default-en.xml r75 -->
+<!-- Translation based on default-en.xml r76 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -433,7 +433,7 @@
 		<button id="ID_HOSTCACHE_DC_CACHE" text="Cache"/>
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
-	<toolbar name="CPrivateChatFrame">
+	<toolbar name="CPrivateChatWnd">
 		<button id="ID_CHAT_BOLD"/>
 		<button id="ID_CHAT_ITALIC"/>
 		<button id="ID_CHAT_UNDERLINE"/>
@@ -1299,13 +1299,18 @@
 		<separator/>
 		<item id="ID_LIBRARY_ALBUM_PROPERTIES" text="_Eigenschappen"/>
 	</menu>
-	<menu name="CLibraryFileView.Physical.Basic">
+	<menu name="CLibraryFileView.Basic">
 		<item id="ID_LIBRARY_LAUNCH" text="_Openen of afspelen"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="Toevoegen aan _afspeellijst"/>
 		<item id="ID_LIBRARY_DELETE" text="Ver_wijderen"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Delen"/>
 		<separator/>
+		<menu text="_Organiseren">
+			<item id="ID_LIBRARY_RENAME" text="Bestand _hernoemen"/>
+			<item id="ID_LIBRARY_COPY" text="Bestanden _kopiëren..."/>
+			<item id="ID_LIBRARY_MOVE" text="Bestanden ver_plaatsen..."/>
+		</menu>
 		<menu text="_Zoeken naar">
 			<item id="ID_SEARCH_FOR_THIS" text="_Dit bestand"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="_Vergelijkbare bestanden"/>
@@ -1317,85 +1322,11 @@
 		<menu text="_Internetdiensten">
 			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi Ticket bekijken"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Metadata _downloaden"/>
-			<separator/>
-		</menu>
-		<menu text="_Organiseren">
-			<item id="ID_LIBRARY_RENAME" text="Bestand _hernoemen"/>
-			<item id="ID_LIBRARY_MOVE" text="Bestanden ver_plaatsen..."/>
-			<item id="ID_LIBRARY_COPY" text="Bestanden _kopiëren..."/>
 		</menu>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Eigenschappen"/>
 	</menu>
-	<menu name="CLibraryFileView.Physical">
-		<item id="ID_LIBRARY_LAUNCH" text="_Openen of afspelen"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="Toevoegen aan _afspeellijst"/>
-		<item id="ID_LIBRARY_DELETE" text="Ver_wijderen"/>
-		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="_Delen"/>
-		<separator/>
-		<item id="ID_LIBRARY_URI" text="_URI kopiëren"/>
-			<item id="ID_LIBRARY_CREATETORRENT" text="._Torrent maken"/>
-		<separator/>
-		<menu text="_Zoeken naar">
-			<item id="ID_SEARCH_FOR_THIS" text="_Dit bestand"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="_Vergelijkbare bestanden"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="Muziek van dezelfde _artiest"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="Muziek van hetzelfde al_bum"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="Afleveringen uit dezelfde _serie"/>
-		</menu>
-		<menu text="_Internetdiensten">
-			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi Ticket bekijken"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Metadata downloaden"/>
-			<separator/>
-		</menu>
-		<menu text="O_rganiseren">
-			<item id="ID_LIBRARY_RENAME" text="Bestand _hernoemen"/>
-			<item id="ID_LIBRARY_MOVE" text="Bestanden ver_plaatsen..."/>
-			<item id="ID_LIBRARY_COPY" text="Bestanden _kopiëren..."/>
-		</menu>
-		<menu text="_Metadata">
-			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokaliseer metadata"/>
-			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh metadata"/>
-			<item id="ID_LIBRARY_COLUMNS" text="Kolommen uit_kiezen..."/>
-		</menu>
-		<separator/>
-		<item id="ID_SHELL_MENU" text="Conte_xtmenu"/>
-		<item id="ID_LIBRARY_PROPERTIES" text="_Eigenschappen"/>
-	</menu>
-	<menu name="CLibraryFileView.Virtual.Basic">
-		<item id="ID_LIBRARY_LAUNCH" text="_Openen of afspelen"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="_Toevoegen aan afspeellijst"/>
-		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="_Album afspelen"/>
-		<item id="ID_LIBRARY_DELETE" text="Ver_wijderen"/>
-		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="_Delen"/>
-		<separator/>
-		<menu text="_Zoeken naar">
-			<item id="ID_SEARCH_FOR_THIS" text="_Dit bestand"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="_Vergelijkbare bestanden"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="Muziek van dezelfde _artiest"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="Muziek van hetzelfde al_bum"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="Afleveringen uit dezelfde _serie"/>
-		</menu>
-		<menu text="_Internetdiensten">
-			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi Ticket bekijken"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Metadata downloaden"/>
-			<separator/>
-		</menu>
-		<menu text="O_rganiseren">
-			<item id="ID_LIBRARY_UNLINK" text="_Bestanden verwijderen"/>
-			<separator/>
-			<item id="ID_LIBRARY_RENAME" text="Bestand _hernoemen"/>
-			<item id="ID_LIBRARY_MOVE" text="Bestanden ver_plaatsen..."/>
-			<item id="ID_LIBRARY_COPY" text="Bestanden _kopiëren..."/>
-		</menu>
-		<separator/>
-		<item id="ID_LIBRARY_PROPERTIES" text="_Eigenschappen"/>
-	</menu>
-	<menu name="CLibraryFileView.Virtual">
+	<menu name="CLibraryFileView">
 		<item id="ID_LIBRARY_LAUNCH" text="_Openen of afspelen"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="_Toevoegen aan afspeellijst"/>
 		<item id="ID_LIBRARY_DELETE" text="Ver_wijderen"/>
@@ -1404,7 +1335,15 @@
 		<separator/>
 		<item id="ID_LIBRARY_URI" text="_URI kopiëren"/>
 		<item id="ID_LIBRARY_CREATETORRENT" text="._Torrent maken"/>
+		<item id="ID_LIBRARY_LAUNCH_FOLDER" text="Openen _Folder"/>
 		<separator/>
+		<menu text="O_rganiseren">
+			<item id="ID_LIBRARY_UNLINK" text="_Bestanden verwijderen"/>
+			<separator/>
+			<item id="ID_LIBRARY_RENAME" text="Bestand _hernoemen"/>
+			<item id="ID_LIBRARY_COPY" text="Bestanden _kopiëren..."/>
+			<item id="ID_LIBRARY_MOVE" text="Bestanden ver_plaatsen..."/>
+		</menu>
 		<menu text="_Zoeken naar">
 			<item id="ID_SEARCH_FOR_THIS" text="_Dit bestand"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="_Vergelijkbare bestanden"/>
@@ -1416,21 +1355,14 @@
 		<menu text="_Internetdiensten">
 			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi Ticket bekijken"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Metadata downloaden"/>
-			<separator/>
-		</menu>
-		<menu text="O_rganiseren">
-			<item id="ID_LIBRARY_UNLINK" text="_Bestanden verwijderen"/>
-			<separator/>
-			<item id="ID_LIBRARY_RENAME" text="Bestand _hernoemen"/>
-			<item id="ID_LIBRARY_MOVE" text="Bestanden ver_plaatsen..."/>
-			<item id="ID_LIBRARY_COPY" text="Bestanden _kopiëren..."/>
 		</menu>
 		<menu text="_Metadata">
-			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokaliseer metadata"/>
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh metadata"/>
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokaliseer metadata"/>
 			<item id="ID_LIBRARY_COLUMNS" text="_Kolommen uitkiezen..."/>
 		</menu>
 		<separator/>
+		<item id="ID_SHELL_MENU" text="Windows Men_u"/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Eigenschappen"/>
 	</menu>
 	<!-- MEDIA WINDOW -->
@@ -1651,7 +1583,7 @@
 		<item id="ID_DISCOVERY_BLOCKED" text="Toon Geblokkeerde"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
-	<menu name="CPrivateChatFrame">
+	<menu name="CPrivateChatWnd">
 		<item id="ID_CHAT_CONNECT" text="_Verbinden"/>
 		<item id="ID_CHAT_DISCONNECT" text="Ver_breek verbinding"/>
 		<separator/>
@@ -4424,7 +4356,7 @@
 		<control caption="OK"/>
 		<control caption="Annuleren"/>
 		<control caption="Je hebt dit bestand al een keer gedownload en verwijderd. Wat wil je doen?"/>
-		<control caption="Waarschuwing!!! Dubbele bestanden gevonden. Sommige malifide software heeft misschien je Bibliotheek gewijzigd. Wees zeker dat je dit bestand werkelijk hebt. Anders, sluit PeerProject en scan je computer met beveilingssoftware."/>
+		<control caption="Waarschuwing! Dubbele bestanden gevonden. Sommige malifide software heeft misschien je Bibliotheek gewijzigd. Wees zeker dat je dit bestand werkelijk hebt. Anders, sluit PeerProject en scan je computer met beveilingssoftware."/>
 	</dialog>
 	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Afsluiten knop">
 		<control caption="Dit is de eerste keer dat je op de afsluiten knop van PeerProject gedrukt hebt. Selecteer alsjeblieft welke handeling PeerProject vanaf nu zou moeten uitvoeren wanneer op de afsluiten knop gedrukt wordt:"/>

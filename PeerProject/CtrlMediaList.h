@@ -1,7 +1,7 @@
 //
 // CtrlMediaList.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -45,8 +45,9 @@ public:
 	void	Remove(LPCTSTR pszFile);
 	BOOL	LoadTextList(LPCTSTR pszFile);
 	BOOL	SaveTextList(LPCTSTR pszFile);
-	int		GetCount();
 	void	Clear();
+	int		GetCount();
+	UINT	GetSelectedCount();
 	int		GetCurrent();
 	void	SetCurrent(int nCurrent);
 	int		GetNext(BOOL bSet = TRUE);

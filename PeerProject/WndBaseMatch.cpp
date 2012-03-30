@@ -603,9 +603,7 @@ void CBaseMatchWnd::OnLibraryBitziWeb()
 {
 	if ( ! Settings.WebServices.BitziOkay )
 	{
-		CString strMessage;
-		Skin.LoadString( strMessage, IDS_LIBRARY_BITZI_MESSAGE );
-		if ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
+		if ( AfxMessageBox( IDS_LIBRARY_BITZI_MESSAGE, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
 		Settings.WebServices.BitziOkay = true;
 		Settings.Save();
 	}
@@ -952,7 +950,7 @@ void CBaseMatchWnd::OnTimer(UINT_PTR nIDEvent)
 				m_wndFilter.SetWindowText( m_pMatches->m_sFilter );
 		}
 
-		BOOL bActive = ( GetMDIFrame()->MDIGetActive() == this );
+		BOOL bActive = ( GetMainWnd()->m_pWindows.GetActive() == this );	// Was MDIGetActive()
 
 		if ( bActive )
 		{

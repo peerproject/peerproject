@@ -1218,10 +1218,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\PeerProject\CtrlChatFrame.cpp"
-					>
-				</File>
-				<File
 					RelativePath="..\PeerProject\CtrlCoolBar.cpp"
 					>
 				</File>
@@ -1368,10 +1364,6 @@
 				<File
 					RelativePath="..\PeerProject\CtrlPanel.cpp"
 					DeploymentContent="true"
-					>
-				</File>
-				<File
-					RelativePath="..\PeerProject\CtrlPrivateChatFrame.cpp"
 					>
 				</File>
 				<File
@@ -1724,6 +1716,14 @@
 				</File>
 				<File
 					RelativePath="..\PeerProject\WndPlugin.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\PeerProject\WndPrivateChat.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\PeerProject\WndScheduler.cpp"
 					>
 				</File>
 				<File
@@ -2809,10 +2809,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\PeerProject\CtrlChatFrame.h"
-					>
-				</File>
-				<File
 					RelativePath="..\PeerProject\CtrlCoolBar.h"
 					>
 				</File>
@@ -2957,10 +2953,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\PeerProject\CtrlPrivateChatFrame.h"
-					>
-				</File>
-				<File
 					RelativePath="..\PeerProject\CtrlRichTaskBox.h"
 					>
 				</File>
@@ -3102,6 +3094,14 @@
 				</File>
 				<File
 					RelativePath="..\PeerProject\WndPlugin.h"
+					>
+				</File>
+				<File
+					RelativePath="..\PeerProject\WndPrivateChat.h"
+					>
+				</File>
+				<File
+					RelativePath="..\PeerProject\WndScheduler.h"
 					>
 				</File>
 				<File

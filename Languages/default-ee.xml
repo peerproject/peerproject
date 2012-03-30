@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Estonian Skin File -->
 
-<!-- Translation based on default-en.xml r75 (Shareaza 2.2.2.9) -->
+<!-- Translation based on default-en.xml r76 --> <!-- (Shareaza 2.2.2.9) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -413,7 +413,7 @@
 		<button id="ID_HOSTCACHE_DC_CACHE" text="Hubs"/>
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
-	<toolbar name="CPrivateChatFrame">
+	<toolbar name="CPrivateChatWnd">
 		<button id="ID_CHAT_BOLD"/>
 		<button id="ID_CHAT_ITALIC"/>
 		<button id="ID_CHAT_UNDERLINE"/>
@@ -1220,14 +1220,19 @@
 		<separator/>
 		<item id="ID_LIBRARY_ALBUM_PROPERTIES" text="_Omadused"/>
 	</menu>
-	<menu name="CLibraryFileView.Physical.Basic">
+	<menu name="CLibraryFileView.Basic">
 		<item id="ID_LIBRARY_LAUNCH" text="_Ava"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="_Lisa Playlisti"/>
+		<item id="ID_LIBRARY_DELETE" text="_Kustuta"/>
+		<separator/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Jagatud"/>
 		<separator/>
-		<item id="ID_LIBRARY_DELETE" text="_Kustuta"/>
-		<separator/>
+		<menu text="Ko_rrasta">
+			<item id="ID_LIBRARY_RENAME" text="_Nimeta Ümber"/>
+			<item id="ID_LIBRARY_COPY" text="_Kopeeri Fail..."/>
+			<item id="ID_LIBRARY_MOVE" text="_Liiguta Faili..."/>
+		</menu>
 		<menu text="O_tsi Lisaks">
 			<item id="ID_SEARCH_FOR_THIS" text="Seda Faili"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="Sarnaseid Faile"/>
@@ -1240,94 +1245,30 @@
 			<item id="ID_LIBRARY_BITZI_WEB" text="Vaata _Bitzist"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Tõmba Andmebaas"/>
 			<separator/>
-			<item id="ID_LIBRARY_URI" text=""/>
-		</menu>
-		<menu text="Ko_rrasta">
-			<item id="ID_LIBRARY_RENAME" text="_Nimeta Ümber"/>
-			<item id="ID_LIBRARY_MOVE" text="_Liiguta Faili..."/>
-			<item id="ID_LIBRARY_COPY" text="_Kopeeri Fail..."/>
+			<item id="ID_LIBRARY_URI" text="_URI"/>
 		</menu>
 		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Kohanda Andmebaas"/>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Omadused"/>
 	</menu>
-	<menu name="CLibraryFileView.Physical">
+	<menu name="CLibraryFileView">
 		<item id="ID_LIBRARY_LAUNCH" text="_Ava"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="Lisa Pla_ylisti"/>
+		<item id="ID_LIBRARY_DELETE" text="_Kustuta"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Jagatud"/>
 		<separator/>
-		<item id="ID_LIBRARY_URI" text=""/>
-		<item id="ID_LIBRARY_DELETE" text="_Kustuta"/>
+		<item id="ID_LIBRARY_URI" text="Get P2P Link (_URI)"/>
+		<item id="ID_LIBRARY_CREATETORRENT" text="Loo .torrent Faili"/>
+		<item id="ID_LIBRARY_LAUNCH_FOLDER" text="Ava _Folder"/>
 		<separator/>
-		<menu text="Otsi Lisaks">
-			<item id="ID_SEARCH_FOR_THIS" text="Seda Faili"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="Sarnaseid Faile"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="Samalt Artistilt"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="Samalt Albumilt"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="Sama Seriaali Osasid"/>
-		</menu>
-		<menu text="_Weebiteenused">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Vaata _Bitzist"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Tõmba Andmebaas"/>
-			<separator/>
-			<item id="ID_LIBRARY_CREATETORRENT" text="Loo .torrent Fail"/>
-		</menu>
-		<menu text="K_orrasta">
-			<item id="ID_LIBRARY_RENAME" text="_Nimeta Ümber"/>
-			<item id="ID_LIBRARY_MOVE" text="_Liiguta Faile..."/>
-			<item id="ID_LIBRARY_COPY" text="_Kopeeri Faile..."/>
-		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Kohanda Andmebaas"/>
-		<separator/>
-		<item id="ID_LIBRARY_COLUMNS" text="Seadista _Veerg..."/>
-		<separator/>
-		<item id="ID_LIBRARY_PROPERTIES" text="_Omadused"/>
-	</menu>
-	<menu name="CLibraryFileView.Virtual.Basic">
-		<item id="ID_LIBRARY_LAUNCH" text="_Ava"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="Lisa Pla_ylisti"/>
-		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="Mängi _Albumit"/>
-		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="_Jagatud"/>
-		<separator/>
-		<item id="ID_LIBRARY_DELETE" text="_Kustuta"/>
-		<separator/>
-		<menu text="Otsi Lisak_s">
-			<item id="ID_SEARCH_FOR_THIS" text="Seda Faili"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="Sarnaseid Faile"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="Samalt Artistilt"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="Samalt Albumilt"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="Sama Seriaali Osasid"/>
-		</menu>
-		<menu text="_Weebiteenused">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Vaata _Bitzist"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Tõmba Andmebaas"/>
-			<separator/>
-			<item id="ID_LIBRARY_URI" text=""/>
-		</menu>
 		<menu text="Ko_rrasta">
-			<item id="ID_LIBRARY_RENAME" text="_Nimeta Ümber"/>
 			<item id="ID_LIBRARY_UNLINK" text="Eemalda _Failid"/>
 			<separator/>
+			<item id="ID_LIBRARY_RENAME" text="_Nimeta Ümber"/>
+			<item id="ID_LIBRARY_COPY" text="_Kopeeri Faile..."/>
 			<item id="ID_LIBRARY_MOVE" text="_Liiguta Faile..."/>
-			<item id="ID_LIBRARY_COPY" text="_Kopeeri Failie..."/>
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Kohanda Andmebaas"/>
-		<separator/>
-		<item id="ID_LIBRARY_PROPERTIES" text="_Omadused"/>
-	</menu>
-	<menu name="CLibraryFileView.Virtual">
-		<item id="ID_LIBRARY_LAUNCH" text="_Ava"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="Lisa Pla_ylisti"/>
-		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="_Jagatud"/>
-		<separator/>
-		<item id="ID_LIBRARY_URI" text=""/>
-		<item id="ID_LIBRARY_DELETE" text="_Kustuta"/>
-		<separator/>
 		<menu text="Otsi _Lisaks">
 			<item id="ID_SEARCH_FOR_THIS" text="Seda Faili"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="Sarnaseid Faile"/>
@@ -1339,20 +1280,14 @@
 		<menu text="_Weebiteenused">
 			<item id="ID_LIBRARY_BITZI_WEB" text="Vaata _Bitzist"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Tõmba Andmebaas"/>
-			<separator/>
-			<item id="ID_LIBRARY_CREATETORRENT" text="Loo .torrent Fail"/>
 		</menu>
-		<menu text="Ko_rrasta">
-			<item id="ID_LIBRARY_UNLINK" text="Eemalda _Failid"/>
-			<separator/>
-			<item id="ID_LIBRARY_RENAME" text="_Nimeta Ümber"/>
-			<item id="ID_LIBRARY_MOVE" text="_Liiguta Faile..."/>
-			<item id="ID_LIBRARY_COPY" text="_Kopeeri Faile..."/>
+		<menu text="_Metadata">
+			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Kohanda Andmebaas"/>
+			<item id="ID_LIBRARY_COLUMNS" text="Seadista _Veerg..."/>
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Kohanda Andmebaas"/>
 		<separator/>
-		<item id="ID_LIBRARY_COLUMNS" text="Seadista _Veerg..."/>
-		<separator/>
+		<item id="ID_SHELL_MENU" text="Windows Men_u"/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Omadused"/>
 	</menu>
 	<!-- MEDIA WINDOW -->
@@ -1567,7 +1502,7 @@
 		<item id="ID_DISCOVERY_BLOCKED" text="Näita Blokeeritud"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
-	<menu name="CPrivateChatFrame">
+	<menu name="CPrivateChatWnd">
 		<item id="ID_CHAT_CONNECT" text="_Ühenda"/>
 		<item id="ID_CHAT_DISCONNECT" text="_Katkesta Ühendus"/>
 		<separator/>

@@ -1,7 +1,7 @@
 //
 // CtrlLibraryView.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -47,9 +47,9 @@ public:
 
 // Operations
 public:
-	const CLibraryList* GetSelection() const
+	inline CLibraryList* GetSelection() const
 	{
-		return &m_pSelection;
+		return m_pSelection;
 	}
 
 	virtual BOOL				Create(CWnd* pParentWnd);
@@ -67,7 +67,7 @@ public:
 	virtual DWORD_PTR			HitTestIndex(const CPoint& point) const = 0;
 
 private:
-	CLibraryList		m_pSelection;
+	CLibraryListPtr		m_pSelection;
 
 protected:
 	void				PostUpdate();

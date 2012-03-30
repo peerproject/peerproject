@@ -100,6 +100,7 @@ void CSkin::CreateDefault()
 	CoolInterface.CreateFonts();
 
 	// Default Skin Options:
+	m_nMenubarHeight	= 28;
 	m_nToolbarHeight	= 28;
 	m_nTaskbarHeight	= 26;
 	m_nTaskbarTabWidth	= 0;	// 200/140 set in WndMain
@@ -305,8 +306,8 @@ void CSkin::ApplyRecursive(LPCTSTR pszPath)
 					ApplyRecursive( strPath );
 				}
 			}
-			else if (	_tcsistr( pFind.cFileName, L".xml" ) != NULL &&
-						_tcsicmp( pFind.cFileName, L"Definitions.xml" ) != 0 )
+			else if ( _tcsistr( pFind.cFileName, L".xml" ) != NULL &&
+					  _tcsicmp( pFind.cFileName, L"Definitions.xml" ) != 0 )
 			{
 				strPath.Format( L"%s%s", pszPath ? pszPath : L"", pFind.cFileName );
 
@@ -625,8 +626,10 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 			Text[ L"navbar" ]		= 'n';
 			Text[ L"dropmenu" ]		= 'd';
 			Text[ L"submenu" ]		= 'd';
-			Text[ L"menuborders" ]	= 'm';
-			Text[ L"menubarbevel" ]	= 'm';
+			Text[ L"menubar" ]		= 'm';
+			Text[ L"menubars" ]		= 'm';
+			Text[ L"menubarbevel" ]	= 'b';
+			Text[ L"menuborders" ]	= 'b';
 			Text[ L"menugripper" ]	= 'p';
 			Text[ L"grippers" ] 	= 'p';
 			Text[ L"toolbar" ]		= 't';
@@ -677,7 +680,7 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 			else if ( strValue == _T("0") )
 				m_bDropMenu = FALSE;
 			break;
-		case 'm':	// "MenuBorders" or "MenubarBevel"
+		case 'b':	// "MenuBorders" or "MenubarBevel"
 			if ( strValue == _T("true") )
 				m_bMenuBorders = TRUE;
 			else if ( strValue == _T("false") )
@@ -718,6 +721,12 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 				m_bRoundedSelect = TRUE;
 			else if ( strValue == _T("0") )
 				m_bRoundedSelect = FALSE;
+			break;
+		case 'm':	// "Menubar" or "Menubars"
+			if ( ! strHeight.IsEmpty() )
+				m_nMenubarHeight = _wtoi(strHeight);
+			else if ( ! strValue.IsEmpty() )
+				m_nMenubarHeight = _wtoi(strValue);
 			break;
 		case 't':	// "Toolbar" or "Toolbars"
 			if ( ! strHeight.IsEmpty() )
@@ -798,29 +807,6 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 			break;
 		}
 	}
-
-	return TRUE;
-}
-
-BOOL CSkin::LoadNavBar(CXMLElement* pBase)
-{
-	CString strValue = pBase->GetAttributeValue( _T("offset") );
-	if ( ! strValue.IsEmpty() )
-	{
-		_stscanf( strValue, _T("%i,%i"),
-			&m_rcNavBarOffset.left, &m_rcNavBarOffset.top );
-	}
-
-	strValue = pBase->GetAttributeValue( _T("mode") );
-	if ( strValue.IsEmpty() )
-		strValue = pBase->GetAttributeValue( _T("case") );
-
-	if ( strValue.CompareNoCase( _T("upper") ) == 0 )
-		m_NavBarMode = NavBarUpper;
-	else if ( strValue.CompareNoCase( _T("lower") ) == 0 )
-		m_NavBarMode = NavBarLower;
-	else
-		m_NavBarMode = NavBarNormal;
 
 	return TRUE;
 }
@@ -1018,59 +1004,81 @@ BOOL CSkin::CreateMenu(CXMLElement* pRoot, HMENU hMenu)
 //////////////////////////////////////////////////////////////////////
 // CSkin toolbars
 
+BOOL CSkin::LoadNavBar(CXMLElement* pBase)
+{
+	CString strValue = pBase->GetAttributeValue( _T("offset") );
+	if ( ! strValue.IsEmpty() )
+	{
+		if ( _stscanf( strValue, _T("%i,%i"), &m_rcNavBarOffset.left, &m_rcNavBarOffset.top ) != 2 )
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
+				_T("Bad [offset] attribute in [navbar] element"), pBase->ToString() );
+	}
+
+	strValue = pBase->GetAttributeValue( _T("mode") );
+	if ( strValue.IsEmpty() )
+		strValue = pBase->GetAttributeValue( _T("case") );
+
+	if ( strValue.CompareNoCase( _T("upper") ) == 0 )
+		m_NavBarMode = NavBarUpper;
+	else if ( strValue.CompareNoCase( _T("lower") ) == 0 )
+		m_NavBarMode = NavBarLower;
+	else
+		m_NavBarMode = NavBarNormal;
+
+	return TRUE;
+}
+
 BOOL CSkin::CreateToolBar(LPCTSTR pszName, CCoolBarCtrl* pBar)
 {
+	//CQuickLock oLock( m_pSection );
+
 	if ( pszName == NULL ) return FALSE;
 
 	if ( pBar->m_hWnd )
-	for ( CWnd* pChild = pBar->GetWindow( GW_CHILD ) ; pChild ; pChild = pChild->GetNextWindow() )
 	{
-		pChild->ShowWindow( SW_HIDE );
+		for ( CWnd* pChild = pBar->GetWindow( GW_CHILD ) ; pChild ; pChild = pChild->GetNextWindow() )
+		{
+			pChild->ShowWindow( SW_HIDE );
+		}
 	}
-
-	CString strPath = pszName;
-	strPath += _T(".Toolbar");
-
-	if ( m_pWatermarks.Lookup( strPath, strPath ) )
-	{
-		HBITMAP hBitmap = LoadBitmap( strPath );
-		pBar->SetWatermark( hBitmap );
-	}
-	else if ( HBITMAP hBitmap = GetWatermark( _T("System.Toolbars") ) )
-	{
-		if ( strPath.Left( 10 ) != _T("CSearchWnd") ) 	// Crash Workaround 	// ToDo: Fix properly
-			pBar->SetWatermark( hBitmap );
-	}
-	else
-	{
-		pBar->SetWatermark( NULL );
-	}
-
+	pBar->SetWatermark( NULL );
 	pBar->Clear();
 
 	ASSERT( Settings.General.GUIMode == GUI_WINDOWED ||
 		Settings.General.GUIMode == GUI_TABBED ||
 		Settings.General.GUIMode == GUI_BASIC );
 	LPCTSTR* pszModeSuffix = m_pszModeSuffix[ Settings.General.GUIMode ];
-	CCoolBarCtrl* pBase = NULL;
-	CString strName( pszName );
+	CString strClassName( pszName );
 
+	CCoolBarCtrl* pBase = NULL;
 	for ( int nModeTry = 0 ; nModeTry < 3 && pszModeSuffix[ nModeTry ] ; nModeTry++ )
 	{
-		if ( m_pToolbars.Lookup( strName + pszModeSuffix[ nModeTry ], pBase ) ) break;
+		CString strName( strClassName + pszModeSuffix[ nModeTry ] );
+		if ( m_pToolbars.Lookup( strName, pBase ) )
+		{
+		//	if ( strName.Left( 10 ) == _T("CSearchWnd") )
+		//		continue; 	// Crash Workaround?
+			if ( HBITMAP hBitmap = GetWatermark( strName + _T(".Toolbar") ) )
+				pBar->SetWatermark( hBitmap );
+			else if ( HBITMAP hBitmap = GetWatermark( strClassName + _T(".Toolbar") ) )
+				pBar->SetWatermark( hBitmap );
+			else if ( HBITMAP hBitmap = GetWatermark( _T("System.Toolbars") ) )
+				pBar->SetWatermark( hBitmap );
+
+			pBar->Copy( pBase );
+			return TRUE;
+		}
 	}
 
-	if ( pBase != NULL )
-	{
-		pBar->Copy( pBase );
-		return TRUE;
-	}
+//	ASSERT( pBase != NULL );
 
 	return FALSE;
 }
 
 CCoolBarCtrl* CSkin::GetToolBar(LPCTSTR pszName) const
 {
+	//CQuickLock oLock( m_pSection );
+
 	ASSERT( Settings.General.GUIMode == GUI_WINDOWED ||
 		Settings.General.GUIMode == GUI_TABBED ||
 		Settings.General.GUIMode == GUI_BASIC );
@@ -1111,6 +1119,8 @@ BOOL CSkin::LoadToolbars(CXMLElement* pBase)
 
 CCoolBarCtrl* CSkin::CreateToolBar(LPCTSTR pszName)
 {
+	//CQuickLock oLock( m_pSection );
+
 	CCoolBarCtrl* pBar = new CCoolBarCtrl();
 	if ( pBar )
 	{

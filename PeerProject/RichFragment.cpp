@@ -1,7 +1,7 @@
 //
 // RichFragment.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -65,8 +65,8 @@ void CRichFragment::Add(int nLength, CSize* pSize)
 {
 	ASSERT( m_pElement->m_nType >= retText );
 
-	m_nLength	= WORD( nLength );
-	m_sz		= *pSize;
+	m_nLength = WORD( nLength );
+	m_sz = *pSize;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -74,9 +74,8 @@ void CRichFragment::Add(int nLength, CSize* pSize)
 
 void CRichFragment::Paint(CDC* pDC, CRichViewCtrl* pCtrl, int nFragment)
 {
-	BOOL bClean  =	pCtrl->m_pSelAbsEnd.nFragment < nFragment ||
-					pCtrl->m_pSelAbsStart.nFragment > nFragment;
-	BOOL bSelect =	FALSE;
+	BOOL bClean  = pCtrl->m_pSelAbsEnd.nFragment < nFragment || pCtrl->m_pSelAbsStart.nFragment > nFragment;
+	BOOL bSelect = FALSE;
 
 	if ( ! bClean )
 	{
@@ -85,10 +84,10 @@ void CRichFragment::Paint(CDC* pDC, CRichViewCtrl* pCtrl, int nFragment)
 		{
 			bClean = TRUE;
 		}
-		else if (	nFragment < pCtrl->m_pSelAbsEnd.nFragment &&
-				(	nFragment > pCtrl->m_pSelAbsStart.nFragment ||
-					nFragment == pCtrl->m_pSelAbsStart.nFragment &&
-					0 == pCtrl->m_pSelAbsStart.nOffset ) )
+		else if ( nFragment < pCtrl->m_pSelAbsEnd.nFragment &&
+				 ( nFragment > pCtrl->m_pSelAbsStart.nFragment ||
+				   nFragment == pCtrl->m_pSelAbsStart.nFragment &&
+				   0 == pCtrl->m_pSelAbsStart.nOffset ) )
 		{
 			bSelect = TRUE;
 		}
@@ -100,8 +99,7 @@ void CRichFragment::Paint(CDC* pDC, CRichViewCtrl* pCtrl, int nFragment)
 
 		if ( bClean )
 		{
-			pDC->ExtTextOut( m_pt.x - ( Settings.General.LanguageRTL ? 1 : 0 ), m_pt.y, ETO_OPAQUE,
-				NULL, pszText, m_nLength, NULL );
+			pDC->ExtTextOut( m_pt.x - ( Settings.General.LanguageRTL ? 1 : 0 ), m_pt.y, ETO_OPAQUE, NULL, pszText, m_nLength, NULL );
 		}
 		else if ( bSelect )
 		{
@@ -109,21 +107,17 @@ void CRichFragment::Paint(CDC* pDC, CRichViewCtrl* pCtrl, int nFragment)
 			pDC->ExtTextOut( m_pt.x, m_pt.y, ETO_OPAQUE, NULL, pszText, m_nLength, NULL );
 			pDC->SetBkColor( pDC->SetTextColor( pDC->GetBkColor() ) );
 		}
-		else if (	pCtrl->m_pSelAbsStart.nFragment == nFragment ||
-					pCtrl->m_pSelAbsEnd.nFragment == nFragment )
+		else if ( pCtrl->m_pSelAbsStart.nFragment == nFragment ||
+				  pCtrl->m_pSelAbsEnd.nFragment == nFragment )
 		{
 			int nCharStart = 0, nCharEnd = m_nLength;
 			int nX = m_pt.x;
 
 			if ( pCtrl->m_pSelAbsStart.nFragment == nFragment )
-			{
 				nCharStart = pCtrl->m_pSelAbsStart.nOffset;
-			}
 
 			if ( pCtrl->m_pSelAbsEnd.nFragment == nFragment )
-			{
 				nCharEnd = pCtrl->m_pSelAbsEnd.nOffset;
-			}
 
 			if ( nCharStart > 0 )
 			{
@@ -158,8 +152,7 @@ void CRichFragment::Paint(CDC* pDC, CRichViewCtrl* pCtrl, int nFragment)
 		CDC mdc;
 		mdc.CreateCompatibleDC( pDC );
 
-		HBITMAP hOld = (HBITMAP)SelectObject( mdc.GetSafeHdc(),
-			(HBITMAP)m_pElement->m_hImage );
+		HBITMAP hOld = (HBITMAP)SelectObject( mdc.GetSafeHdc(), (HBITMAP)m_pElement->m_hImage );
 
 		pDC->BitBlt( m_pt.x, m_pt.y, m_sz.cx, m_sz.cy, &mdc, 0, 0, SRCCOPY );
 
@@ -189,8 +182,7 @@ void CRichFragment::Paint(CDC* pDC, CRichViewCtrl* pCtrl, int nFragment)
 	}
 	else if ( m_pElement->m_nType == retEmoticon )
 	{
-		Emoticons.Draw( pDC, m_pElement->m_nImageIndex, m_pt.x, m_pt.y,
-			pDC->GetBkColor() );
+		Emoticons.Draw( pDC, m_pElement->m_nImageIndex, m_pt.x, m_pt.y, pDC->GetBkColor() );
 
 		if ( bSelect )
 		{

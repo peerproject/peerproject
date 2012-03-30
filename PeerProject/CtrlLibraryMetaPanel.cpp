@@ -74,7 +74,7 @@ CLibraryMetaPanel::~CLibraryMetaPanel()
 /////////////////////////////////////////////////////////////////////////////
 // CLibraryMetaPanel operations
 
-const CLibraryList* CLibraryMetaPanel::GetViewSelection() const
+CLibraryList* CLibraryMetaPanel::GetViewSelection() const
 {
 	if ( ! m_hWnd ) return NULL;
 	CLibraryFrame* pFrame = (CLibraryFrame*)GetOwner();
@@ -88,7 +88,7 @@ void CLibraryMetaPanel::Update()
 	CSingleLock pLock1( &Library.m_pSection, TRUE );
 	CSingleLock pLock2( &m_pSection, TRUE );
 
-	const CLibraryList* pSel = GetViewSelection();
+	CLibraryListPtr pSel( GetViewSelection() );
 	m_nSelected = pSel ? static_cast< int >( pSel->GetCount() ) : 0;
 
 	// Show info for library files only
@@ -477,7 +477,7 @@ void CLibraryMetaPanel::OnLButtonUp(UINT nFlags, CPoint point)
 	}
 	else if ( m_nSelected > 0 && m_rcRating.PtInRect( point ) )
 	{
-		const CLibraryList* pList = GetViewSelection();
+		CLibraryListPtr pList( GetViewSelection() );
 
 		if ( pList && pList->GetCount() > 0 )
 		{

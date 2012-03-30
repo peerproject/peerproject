@@ -298,11 +298,11 @@ BOOL CUploadsWnd::IsSelected(CUploadFile* pFile)
 
 void CUploadsWnd::Prepare()
 {
-	if ( GetTickCount() < m_tSel + 250 )
+	if ( GetTickCount() < m_tSel + Settings.Interface.RefreshRateUI )
 		return;
 
 	CSingleLock pLock( &Transfers.m_pSection, FALSE );
-	if ( ! pLock.Lock( 250 ) )
+	if ( ! pLock.Lock( Settings.Interface.RefreshRateUI ) )
 		return;
 
 	m_tSel = GetTickCount();

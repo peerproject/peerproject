@@ -116,11 +116,11 @@ void CLibraryWnd::OnMDIActivate(BOOL bActivate, CWnd* pActivateWnd, CWnd* pDeact
 {
 	CPanelWnd::OnMDIActivate( bActivate, pActivateWnd, pDeactivateWnd );
 
-	if ( bActivate )
-	{
-		m_wndFrame.Update();
-		m_wndFrame.SetFocus();
-	}
+	//if ( bActivate )
+	//{
+	//	m_wndFrame.Update();
+	//	m_wndFrame.SetFocus();
+	//}
 }
 
 void CLibraryWnd::OnTimer(UINT_PTR nIDEvent)
@@ -156,7 +156,7 @@ void CLibraryWnd::OnSkinChange()
 HRESULT CLibraryWnd::GetGenericView(IGenericView** ppView)
 {
 	if ( m_wndFrame.m_hWnd == NULL ) return S_FALSE;
-	CLibraryList* pList = const_cast< CLibraryList* >( m_wndFrame.GetViewSelection() );
+	CLibraryListPtr pList( m_wndFrame.GetViewSelection() );
 	*ppView = (IGenericView*)pList->GetInterface( IID_IGenericView, TRUE );
 	return S_OK;
 }

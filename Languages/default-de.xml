@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default German Skin File -->
 
-<!-- Translation based on default-en.xml r75 -->
+<!-- Translation based on default-en.xml r76 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -439,7 +439,7 @@
 		<!-- <button id="ID_HOSTCACHE_KAD_CACHE" text="Kademlia-Cache"/> -->
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
-	<toolbar name="CPrivateChatFrame">
+	<toolbar name="CPrivateChatWnd">
 		<button id="ID_CHAT_BOLD"/> <!--F-->
 		<button id="ID_CHAT_ITALIC"/> <!--K-->
 		<button id="ID_CHAT_UNDERLINE"/> <!--U-->
@@ -1332,14 +1332,18 @@
 		<separator/>
 		<item id="ID_LIBRARY_ALBUM_PROPERTIES" text="_Eigenschaften"/>
 	</menu>
-	<menu name="CLibraryFileView.Physical.Basic">
+	<menu name="CLibraryFileView.Basic">
 		<item id="ID_LIBRARY_LAUNCH" text="_Öffnen"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="_In Wiedergabeliste aufnehmen"/>
+		<item id="ID_LIBRARY_DELETE" text="_Löschen"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Freigegeben"/>
 		<separator/>
-		<item id="ID_LIBRARY_DELETE" text="_Löschen"/>
-		<separator/>
+		<menu text="_Verwalten">
+			<item id="ID_LIBRARY_RENAME" text="Datei _umbenennen"/>
+			<item id="ID_LIBRARY_MOVE" text="Datei(en) _verschieben..."/>
+			<item id="ID_LIBRARY_COPY" text="Datei(en) _kopieren..."/>
+		</menu>
 		<menu text="_Suchen nach">
 			<item id="ID_SEARCH_FOR_THIS" text="Dieser Da_tei"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="Ä_hnlichen Dateien"/>
@@ -1349,94 +1353,18 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Folg_en der gleichen Serie"/>
 		</menu>
 		<menu text="_Web Dienste">
-			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi-Ticket anzeigen"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Meta_daten suchen"/>
-			<separator/>
-			<item id="ID_LIBRARY_URI" text="_URI kopieren"/>
-		</menu>
-		<menu text="_Verwalten">
-			<item id="ID_LIBRARY_RENAME" text="Datei _umbenennen"/>
-			<item id="ID_LIBRARY_MOVE" text="Datei(en) _verschieben..."/>
-			<item id="ID_LIBRARY_COPY" text="Datei(en) _kopieren..."/>
-		</menu>
 		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Metadaten lokalisieren"/>
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
-		<separator/>
-		<item id="ID_LIBRARY_PROPERTIES" text="_Eigenschaften"/>
-	</menu>
-	<menu name="CLibraryFileView.Physical">
-		<item id="ID_LIBRARY_LAUNCH" text="_Öffnen"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="_In Wiedergabeliste aufnehmen"/>
-		<item id="ID_LIBRARY_DELETE" text="Datei(en) _löschen"/>
-		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="_Freigegeben"/>
-		<separator/>
-		<item id="ID_LIBRARY_URI" text="_URI kopieren"/>
-		<item id="ID_LIBRARY_CREATETORRENT" text="._torrent-Datei erstellen"/>
-		<separator/>
-		<menu text="_Suchen nach">
-			<item id="ID_SEARCH_FOR_THIS" text="_Dieser Datei"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="Ä_hnlichen Dateien"/>
+			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
 			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="_Musik vom selben Künstler"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="Musik aus dem gleichen _Album"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="Folg_en der gleichen Serie"/>
-		</menu>
-		<menu text="_Web Dienste">
 			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi-Ticket anzeigen"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Meta_daten suchen"/>
 			<separator/>
-		</menu>
-		<menu text="_Verwalten">
-			<item id="ID_LIBRARY_RENAME" text="Datei _umbenennen"/>
-			<item id="ID_LIBRARY_MOVE" text="Datei(en) _verschieben..."/>
-			<item id="ID_LIBRARY_COPY" text="Datei(en) _kopieren..."/>
-		</menu>
-		<menu text="_Metadata">
-			<item id="ID_LIBRARY_REBUILD_ANSI" text="Metadaten _lokalisieren"/>
-			<item id="ID_LIBRARY_REFRESH_METADATA" text="Metadaten _aktualisieren"/>
-			<item id="ID_LIBRARY_COLUMNS" text="S_palteneinstellungen..."/>
-		</menu>
-		<separator/>
-		<item id="ID_SHELL_MENU" text="_Kontextmenü"/>
-		<item id="ID_LIBRARY_PROPERTIES" text="_Eigenschaften"/>
-	</menu>
-	<menu name="CLibraryFileView.Virtual.Basic">
-		<item id="ID_LIBRARY_LAUNCH" text="_Öffnen"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="_In Wiedergabeliste aufnehmen"/>
-		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="_Album wiedergeben"/>
-		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="_Freigegeben"/>
-		<separator/>
-		<item id="ID_LIBRARY_DELETE" text="_Löschen"/>
-		<separator/>
-		<menu text="_Suchen nach">
-			<item id="ID_SEARCH_FOR_THIS" text="Dieser Da_tei"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="Ä_hnlichen Dateien"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="_Musik vom selben Künstler"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="Musik aus dem gleichen _Album"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="Folg_en der gleichen Serie"/>
-		</menu>
-		<menu text="_Web Dienste">
-			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi-Ticket anzeigen"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Met_adaten suchen"/>
-			<separator/>
 			<item id="ID_LIBRARY_URI" text="_URI kopieren"/>
 		</menu>
-		<menu text="_Verwalten">
-			<item id="ID_LIBRARY_RENAME" text="Datei _umbenennen"/>
-			<item id="ID_LIBRARY_UNLINK" text="Datei(en) _entfernen"/>
-			<separator/>
-			<item id="ID_LIBRARY_MOVE" text="Datei(en) _verschieben..."/>
-			<item id="ID_LIBRARY_COPY" text="Datei(en) _kopieren..."/>
-		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="Metadaten _lokalisieren"/>
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="Metadaten _aktualisieren"/>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Eigenschaften"/>
 	</menu>
-	<menu name="CLibraryFileView.Virtual">
+	<menu name="CLibraryFileView">
 		<item id="ID_LIBRARY_LAUNCH" text="_Öffnen"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="_In Wiedergabeliste aufnehmen"/>
 		<item id="ID_LIBRARY_DELETE" text="_Löschen"/>
@@ -1445,7 +1373,15 @@
 		<separator/>
 		<item id="ID_LIBRARY_URI" text="_URI kopieren"/>
 		<item id="ID_LIBRARY_CREATETORRENT" text="._torrent-Datei erstellen"/>
+		<item id="ID_LIBRARY_LAUNCH_FOLDER" text="Öffnen _Folder"/>
 		<separator/>
+		<menu text="_Verwalten">
+			<item id="ID_LIBRARY_UNLINK" text="Datei(en) _entfernen"/>
+			<separator/>
+			<item id="ID_LIBRARY_RENAME" text="Datei _umbenennen"/>
+			<item id="ID_LIBRARY_COPY" text="Datei(en) _kopieren..."/>
+			<item id="ID_LIBRARY_MOVE" text="Datei(en) _verschieben..."/>
+		</menu>
 		<menu text="_Suchen nach">
 			<item id="ID_SEARCH_FOR_THIS" text="Dieser Da_tei"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="Ä_hnlichen Dateien"/>
@@ -1457,16 +1393,8 @@
 		<menu text="_Web Dienste">
 			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi-Ticket anzeigen"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Met_adaten suchen"/>
-			<separator/>
 		</menu>
-		<menu text="_Verwalten">
-			<item id="ID_LIBRARY_UNLINK" text="Datei(en) _entfernen"/>
-			<separator/>
-			<item id="ID_LIBRARY_RENAME" text="Datei _umbenennen"/>
-			<item id="ID_LIBRARY_MOVE" text="Datei(en) _verschieben..."/>
-			<item id="ID_LIBRARY_COPY" text="Datei(en) _kopieren..."/>
-		</menu>
-		<menu text="_Metadata">
+		<menu text="_Metadaten">
 			<item id="ID_LIBRARY_REBUILD_ANSI" text="Metadaten _lokalisieren"/>
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="Metadaten _aktualisieren"/>
 			<item id="ID_LIBRARY_COLUMNS" text="S_palteneinstellungen..."/>
@@ -1693,7 +1621,7 @@
 		<item id="ID_DISCOVERY_BLOCKED" text="Verstopft anzeigen"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
-	<menu name="CPrivateChatFrame">
+	<menu name="CPrivateChatWnd">
 		<item id="ID_CHAT_CONNECT" text="_Verbinden"/>
 		<item id="ID_CHAT_DISCONNECT" text="Verbindung _trennen"/>
 		<separator/>
@@ -3981,11 +3909,11 @@
 	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Willkommen bei PeerProjekt &#160;(5/8)">
 		<control caption="P2P-Netzwerke sind nur so gut wie die Leute, die sie benutzen. Alle Dateien, die Sie herunterladen können, werden von anderen Benutzern freigegeben."/>
 		<control caption="Sie müssen keine Dateien freigeben, um PeerProjekt zu benutzen. Viele P2P-Programme benachteiligen jedoch Benutzer, die keine Dateien freigeben."/>
-		<control caption="Bitte geben Sie an, welche Ordner Sie freigeben möchten.  Klicken Sie einfach auf &quot;Hinzufügen&quot;."/>
+		<control caption="Bitte geben Sie an, welche Ordner Sie freigeben möchten. Klicken Sie einfach auf &quot;Hinzufügen&quot;."/>
 		<control/>
 		<control caption="_Hinzufügen"/>
 		<control caption="_Entfernen"/>
-		<control caption="WARNUNG: Das Verteilen urheberrechtlich geschützter Werke ist strafbar."/>
+		<control caption="Achtung: Das Hochladen von urheberrechtlich geschützten Werkes unbefugte kann in einigen Ländern verantwortlich."/>
 	</dialog>
 	<dialog name="CFolderScanDlg" cookie="StStStStStStBu" caption="Verzeichnis scannen...">
 		<control/>
@@ -4582,7 +4510,7 @@
 		<control caption="Notizen:"/>
 	</dialog>
 	<dialog name="CDownloadEditPage" cookie="StBuStStStStBuStEdEdEdSyBuEdBuEdBuEdBuEdBuEd" caption="Download bearbeiten (erweitert)">
-		<control caption="ACHTUNG: Dieser Dialog stellt erweiterte Funktionen für Poweruser zur Verfügung. Diese Funktionen zerstören bei falscher Anwendung ihre Downloads."/>
+		<control caption="Achtung: Dieser Dialog stellt erweiterte Funktionen für Poweruser zur Verfügung. Diese Funktionen zerstören bei falscher Anwendung ihre Downloads."/>
 		<control caption="Dateiname und -größe:"/>
 		<control caption="Dateiname:"/>
 		<control caption="Datei:"/>
@@ -4606,7 +4534,7 @@
 		<control/>
 	</dialog>
 	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="Aktionen">
-		<control caption="ACHTUNG: Dieser Dialog stellt erweiterte Funktionen für Poweruser zur Verfügung. Diese Funktionen zerstören bei falscher Anwendung ihre Downloads."/>
+		<control caption="Achtung: Dieser Dialog stellt erweiterte Funktionen für Poweruser zur Verfügung. Diese Funktionen zerstören bei falscher Anwendung ihre Downloads."/>
 		<control caption="Alle Quellen vergessen"/>
 		<control caption="Datei erneut verifizieren (TTH oder eD2k-Hashset)"/>
 		<control caption="Datei als komplett annehmen und erneut verifizieren"/>

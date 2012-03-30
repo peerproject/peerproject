@@ -473,20 +473,20 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 			{
 				if ( CLibraryFile* pFile = LibraryMaps.LookupFileByURN( pszURN, TRUE, TRUE ) )
 				{
-					if ( UploadQueues.CanUpload( PROTOCOL_HTTP, pFile, TRUE ) )
-					{
+					//if ( UploadQueues.CanUpload( PROTOCOL_HTTP, pFile, TRUE ) )
+					//{
 						// Have the file, but the network is disabled (503 Service Unavailable response).
 						// We handle them in CDownloadTransferHTTP::ReadResponseLine.
 						// Adjust Retry-After header in SendDefaultHeaders() if you change the ban period
 						SendResponse( IDR_HTML_DISABLED );
-						theApp.Message( MSG_ERROR, IDS_UPLOAD_DISABLED, (LPCTSTR)m_sAddress, (LPCTSTR)m_sUserAgent );
-						Security.Ban( &m_pHost.sin_addr, ban2Hours, FALSE );	// Anti-hammer protection if client doesn't understand 403
-						Remove( FALSE );
-						return FALSE;
-					}
+					//	theApp.Message( MSG_ERROR, IDS_UPLOAD_DISABLED, (LPCTSTR)m_sAddress, (LPCTSTR)m_sUserAgent );
+					//}
 				}
-				// Network is disabled, but we don't have the file anyway.
-				SendResponse( IDR_HTML_FILENOTFOUND );
+				else
+				{
+					// Network is disabled, but we don't have the file anyway.
+					SendResponse( IDR_HTML_FILENOTFOUND );
+				}
 			}
 			else
 			{
@@ -497,8 +497,9 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 		{
 			SendResponse( IDR_HTML_DISABLED );
 		}
+
 		theApp.Message( MSG_ERROR, IDS_UPLOAD_DISABLED, (LPCTSTR)m_sAddress, (LPCTSTR)m_sUserAgent );
-		Security.Ban( &m_pHost.sin_addr, ban2Hours, FALSE );	// Anti-hammer protection if client doesn't understand 403
+		Security.Ban( &m_pHost.sin_addr, ban30Mins, FALSE );	// Anti-hammer protection if client doesn't understand 403
 		Remove( FALSE );
 		return FALSE;
 	}
@@ -702,7 +703,7 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 BOOL CUploadTransferHTTP::IsNetworkDisabled()
 {
 	if ( ! Network.IsConnected() ) return TRUE;
-	if ( Settings.Connection.RequireForTransfers == FALSE ) return FALSE;
+	if ( ! Settings.Connection.RequireForTransfers ) return FALSE;
 	if ( ( m_nGnutella & 2 ) && Settings.Gnutella2.Enabled ) return FALSE;
 	if ( ( m_nGnutella & 1 ) && Settings.Gnutella1.Enabled ) return FALSE;
 	return TRUE;

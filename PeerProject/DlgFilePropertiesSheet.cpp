@@ -1,7 +1,7 @@
 //
 // DlgFilePropertiesSheet.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -48,9 +48,10 @@ CFilePropertiesSheet::CFilePropertiesSheet(CLibraryListItem oObject)
 	, m_sMetadataTitle	( L"Metadata" )
 	, m_sSourcesTitle	( L"Sources" )
 	, m_sSharingTitle	( L"Sharing" )
+	, m_pList			( new CLibraryList() )
 {
 	if ( oObject.Type != CLibraryListItem::Empty )
-		m_pList.AddTail( oObject );
+		m_pList->AddTail( oObject );
 }
 
 
@@ -59,12 +60,12 @@ CFilePropertiesSheet::CFilePropertiesSheet(CLibraryListItem oObject)
 
 void CFilePropertiesSheet::Add(CLibraryListItem oObject)
 {
-	m_pList.CheckAndAdd( oObject );
+	m_pList->CheckAndAdd( oObject );
 }
 
 void CFilePropertiesSheet::Add(const CLibraryList* pList)
 {
-	m_pList.Merge( pList );
+	m_pList->Merge( pList );
 }
 
 INT_PTR CFilePropertiesSheet::DoModal(int nPage)
@@ -77,7 +78,7 @@ INT_PTR CFilePropertiesSheet::DoModal(int nPage)
 
 	CString strTabLabel;
 
-	switch ( m_pList.GetCount() )
+	switch ( m_pList->GetCount() )
 	{
 	case 0:
 		return IDCANCEL;

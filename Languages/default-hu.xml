@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hungarian Skin File -->
 
-<!-- Translation based on default-en.xml r75 -->
+<!-- Translation based on default-en.xml r76 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -407,7 +407,7 @@
 		<button id="ID_HOSTCACHE_DC_CACHE" text="Cache"/>
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
-	<toolbar name="CPrivateChatFrame">
+	<toolbar name="CPrivateChatWnd">
 		<button id="ID_CHAT_BOLD"/> <!--F-->
 		<button id="ID_CHAT_ITALIC"/> <!--D-->
 		<button id="ID_CHAT_UNDERLINE"/> <!--A-->
@@ -1272,14 +1272,18 @@
 		<separator/>
 		<item id="ID_LIBRARY_ALBUM_PROPERTIES" text="_Tulajdonságok"/>
 	</menu>
-	<menu name="CLibraryFileView.Physical.Basic">
+	<menu name="CLibraryFileView.Basic">
 		<item id="ID_LIBRARY_LAUNCH" text="_Megnyitás és Lejátszás"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="_Listához ad"/>
+		<item id="ID_LIBRARY_DELETE" text="_Törlés"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Megosztott"/>
 		<separator/>
-		<item id="ID_LIBRARY_DELETE" text="_Törlés"/>
-		<separator/>
+		<menu text="_Rendezés">
+			<item id="ID_LIBRARY_RENAME" text="Fájl _átnevezése"/>
+			<item id="ID_LIBRARY_COPY" text="Fájlok má_solása..."/>
+			<item id="ID_LIBRARY_MOVE" text="Fájl _mozgatása..."/>
+		</menu>
 		<menu text="_Keresés">
 			<item id="ID_SEARCH_FOR_THIS" text="Keresés _URN alapján"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="_Hasonló fájlok"/>
@@ -1289,128 +1293,54 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Ugyanabból a _sorozatból"/>
 		</menu>
 		<menu text="_Webszolgáltatások">
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Metaadat javítása"/>
+			<item id="ID_LIBRARY_REFRESH_METADATA" text="Metaadat f_rissítése"/>
+			<separator/>
 			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi Ticket"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Metaadat letöltése"/>
 			<separator/>
-			<item id="ID_LIBRARY_URI" text=""/>
+			<item id="ID_LIBRARY_URI" text="_URI"/>
 		</menu>
-		<menu text="_Rendezés">
-			<item id="ID_LIBRARY_RENAME" text="Fájl _átnevezése"/>
-			<item id="ID_LIBRARY_MOVE" text="Fájl _mozgatása..."/>
-			<item id="ID_LIBRARY_COPY" text="Fájlok má_solása..."/>
-		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Metaadat javítása"/>
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="Metaadat f_rissítése"/>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Tulajdonságok"/>
 	</menu>
-	<menu name="CLibraryFileView.Physical">
+	<menu name="CLibraryFileView">
 		<item id="ID_LIBRARY_LAUNCH" text="_Megnyitás és Lejátszás"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="_Listához ad"/>
+		<item id="ID_LIBRARY_DELETE" text="_Törlés"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="M_egosztott"/>
 		<separator/>
-		<item id="ID_LIBRARY_URI" text=""/>
-		<item id="ID_LIBRARY_DELETE" text="_Törlés"/>
+		<item id="ID_LIBRARY_URI" text="_URI"/>
+		<item id="ID_LIBRARY_CREATETORRENT" text="._torrent fájl készítése"/>
+		<item id="ID_LIBRARY_LAUNCH_FOLDER" text="Open _Folder"/>
 		<separator/>
-		<menu text="_Keresés">
-			<item id="ID_SEARCH_FOR_THIS" text="Keresés _URN alapján"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="_Hasonló fájlok"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="Ugyanattól az _előadótól"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="Ugyanabból az _albumból"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="Ugyanabból a _sorozatból"/>
-		</menu>
-		<menu text="_Webszolgáltatások">
-			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi Ticket"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Metaadat letöltése"/>
-			<separator/>
-			<item id="ID_LIBRARY_CREATETORRENT" text="._torrent fájl készítése"/>
-		</menu>
-		<menu text="_Rendezés">
-			<item id="ID_LIBRARY_RENAME" text="Fájl _átnevezése"/>
-			<item id="ID_LIBRARY_MOVE" text="Fájl _mozgatása..."/>
-			<item id="ID_LIBRARY_COPY" text="Fájlok má_solása..."/>
-		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Metaadat javítása"/>
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="Metaadat f_rissítése"/>
-		<separator/>
-		<item id="ID_LIBRARY_COLUMNS" text="_Oszlopok kiválasztása"/>
-		<separator/>
-		<item id="ID_SHELL_MENU" text="S_hell menu"/>
-		<separator/>
-		<item id="ID_LIBRARY_PROPERTIES" text="_Tulajdonságok"/>
-	</menu>
-	<menu name="CLibraryFileView.Virtual.Basic">
-		<item id="ID_LIBRARY_LAUNCH" text="_Megnyitás és Lejátszás"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="_Listához ad"/>
-		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="_Album lejátszása"/>
-		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="M_egosztott"/>
-		<separator/>
-		<item id="ID_LIBRARY_DELETE" text="_Törlés"/>
-		<separator/>
-		<menu text="_Keresés">
-			<item id="ID_SEARCH_FOR_THIS" text="Keresés _URN alapján"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="_Hasonló fájlok"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="Ugyanattól az _előadótól"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="Ugyanabból az _albumból"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="Ugyanabból a _sorozatból"/>
-		</menu>
-		<menu text="_Webszolgáltatások">
-			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi Ticket"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Metaadat letöltése"/>
-			<separator/>
-			<item id="ID_LIBRARY_URI" text=""/>
-		</menu>
-		<menu text="_Rendezés">
-			<item id="ID_LIBRARY_RENAME" text="Fájl _átnevezése"/>
-			<item id="ID_LIBRARY_UNLINK" text="Fájlok _eltávolítása"/>
-			<separator/>
-			<item id="ID_LIBRARY_MOVE" text="Fájl _mozgatása..."/>
-			<item id="ID_LIBRARY_COPY" text="Fájlok má_solása..."/>
-		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Metaadat javítása"/>
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="Metaadat f_rissítése"/>
-		<separator/>
-		<item id="ID_LIBRARY_PROPERTIES" text="_Tulajdonságok"/>
-	</menu>
-	<menu name="CLibraryFileView.Virtual">
-		<item id="ID_LIBRARY_LAUNCH" text="_Megnyitás és Lejátszás"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="_Listához ad"/>
-		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="M_egosztott"/>
-		<separator/>
-		<item id="ID_LIBRARY_URI" text=""/>
-		<item id="ID_LIBRARY_DELETE" text="_Törlés"/>
-		<separator/>
-		<menu text="_Keresés">
-			<item id="ID_SEARCH_FOR_THIS" text="Keresés _URN alapján"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="_Hasonló fájlok"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="Ugyanattól az _előadótól"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="Ugyanabból az _albumból"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="Ugyanabból a _sorozatból"/>
-		</menu>
-		<menu text="_Webszolgáltatások">
-			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi Ticket"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Metaadat letöltése"/>
-			<separator/>
-			<item id="ID_LIBRARY_CREATETORRENT" text="._torrent fájl készítése"/>
-		</menu>
 		<menu text="_Rendezés">
 			<item id="ID_LIBRARY_UNLINK" text="Fájlok _eltávolítása"/>
 			<separator/>
 			<item id="ID_LIBRARY_RENAME" text="Fájl _átnevezése"/>
-			<item id="ID_LIBRARY_MOVE" text="Fájl _mozgatása..."/>
 			<item id="ID_LIBRARY_COPY" text="Fájlok má_solása..."/>
+			<item id="ID_LIBRARY_MOVE" text="Fájl _mozgatása..."/>
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Metaadat javítása"/>
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="Metaadat f_rissítése"/>
+		<menu text="_Keresés">
+			<item id="ID_SEARCH_FOR_THIS" text="Keresés _URN alapján"/>
+			<item id="ID_SEARCH_FOR_SIMILAR" text="_Hasonló fájlok"/>
+			<separator/>
+			<item id="ID_SEARCH_FOR_ARTIST" text="Ugyanattól az _előadótól"/>
+			<item id="ID_SEARCH_FOR_ALBUM" text="Ugyanabból az _albumból"/>
+			<item id="ID_SEARCH_FOR_SERIES" text="Ugyanabból a _sorozatból"/>
+		</menu>
+		<menu text="_Webszolgáltatások">
+			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi Ticket"/>
+			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Metaadat letöltése"/>
+		</menu>
+		<menu text="_Metadata">
+			<item id="ID_LIBRARY_REFRESH_METADATA" text="Metaadat f_rissítése"/>
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Metaadat javítása"/>
+			<item id="ID_LIBRARY_COLUMNS" text="_Oszlopok kiválasztása"/>
+		</menu>
 		<separator/>
-		<item id="ID_LIBRARY_COLUMNS" text="_Oszlopok kiválasztása"/>
-		<separator/>
+		<item id="ID_SHELL_MENU" text="Windows Men_u"/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Tulajdonságok"/>
 	</menu>
 	<!-- MEDIA WINDOW -->
@@ -1627,7 +1557,7 @@
 		<item id="ID_DISCOVERY_BLOCKED" text="Zárolt megjelenítése"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
-	<menu name="CPrivateChatFrame">
+	<menu name="CPrivateChatWnd">
 		<item id="ID_CHAT_CONNECT" text="_Kapcsolódás"/>
 		<item id="ID_CHAT_DISCONNECT" text="_Lekapcsolódás"/>
 		<separator/>

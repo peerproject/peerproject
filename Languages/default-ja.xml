@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Japanese Skin File -->
 
-<!-- Translation based on default-en.xml r75 (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r76 --> <!-- (Shareaza 2.2.0.2) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -402,7 +402,7 @@
 		<button id="ID_HOSTCACHE_DC_CACHE" text="キャッシュ"/>
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
-	<toolbar name="CPrivateChatFrame">
+	<toolbar name="CPrivateChatWnd">
 		<button id="ID_CHAT_BOLD"/>
 		<button id="ID_CHAT_ITALIC"/>
 		<button id="ID_CHAT_UNDERLINE"/>
@@ -1218,14 +1218,18 @@
 		<separator/>
 		<item id="ID_LIBRARY_ALBUM_PROPERTIES" text="プロパティ(_P)"/>
 	</menu>
-	<menu name="CLibraryFileView.Physical.Basic">
+	<menu name="CLibraryFileView.Basic">
 		<item id="ID_LIBRARY_LAUNCH" text="開く・再生(_O)"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="再生リストに追加(_A)"/>
+		<item id="ID_LIBRARY_DELETE" text="削除(_D)"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="共有(_S)"/>
 		<separator/>
-		<item id="ID_LIBRARY_DELETE" text="削除(_D)"/>
-		<separator/>
+		<menu text="構成(_R)">
+			<item id="ID_LIBRARY_RENAME" text="ファイル名変更(_R)"/>
+			<item id="ID_LIBRARY_COPY" text="ファイルをコピー(_C)..."/>
+			<item id="ID_LIBRARY_MOVE" text="ファイルを移動(_M)..."/>
+		</menu>
 		<menu text="検索対象(_E)">
 			<item id="ID_SEARCH_FOR_THIS" text="このファイル"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="似たファイル"/>
@@ -1235,122 +1239,53 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="同じシリーズのエピソード"/>
 		</menu>
 		<menu text="ウェブサービス(_W)">
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="メタデータをローカライズ(_L)"/>
+			<separator/>
 			<item id="ID_LIBRARY_BITZI_WEB" text="Bitzi Ticketを表示(_B)"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="メタデータをダウンロード(_D)"/>
 			<separator/>
-			<item id="ID_LIBRARY_URI" text=""/>
+			<item id="ID_LIBRARY_URI" text="_URI"/>
 		</menu>
-		<menu text="構成(_R)">
-			<item id="ID_LIBRARY_RENAME" text="ファイル名変更(_R)"/>
-			<item id="ID_LIBRARY_MOVE" text="ファイルを移動(_M)..."/>
-			<item id="ID_LIBRARY_COPY" text="ファイルをコピー(_C)..."/>
-		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="メタデータをローカライズ(_L)"/>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="プロパティ(_P)"/>
 	</menu>
-	<menu name="CLibraryFileView.Physical">
+	<menu name="CLibraryFileView">
 		<item id="ID_LIBRARY_LAUNCH" text="開く・再生(_O)"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="再生リストに追加(_Y)"/>
+		<item id="ID_LIBRARY_DELETE" text="削除(_D)"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="共有(_S)"/>
 		<separator/>
-		<item id="ID_LIBRARY_URI" text=""/>
-		<item id="ID_LIBRARY_DELETE" text="削除(_D)"/>
+		<item id="ID_LIBRARY_URI" text="_URI"/>
+		<item id="ID_LIBRARY_CREATETORRENT" text=".torrentファイルを作成"/>
+		<item id="ID_LIBRARY_LAUNCH_FOLDER" text="Open _Folder"/>
 		<separator/>
-		<menu text="検索対象(_E)">
-			<item id="ID_SEARCH_FOR_THIS" text="このファイル"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="似たファイル"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="同じアーティストの曲"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="同じアルバムの曲"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="同じシリーズのエピソード"/>
-		</menu>
-		<menu text="ウェブサービス(_W)">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Bitzi Ticketを表示(_B)"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="メタデータを取得(_A)"/>
-			<separator/>
-			<item id="ID_LIBRARY_CREATETORRENT" text=".torrentファイルを作成"/>
-		</menu>
-		<menu text="構成(_R)">
-			<item id="ID_LIBRARY_RENAME" text="ファイル名変更(_R)"/>
-			<item id="ID_LIBRARY_MOVE" text="ファイルを移動(_M)..."/>
-			<item id="ID_LIBRARY_COPY" text="ファイルをコピー(_C)..."/>
-		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="メタデータをローカライズ(_L)"/>
-		<separator/>
-		<item id="ID_LIBRARY_COLUMNS" text="カラム選択(_C)..."/>
-		<separator/>
-		<item id="ID_LIBRARY_PROPERTIES" text="プロパティ(_P)"/>
-	</menu>
-	<menu name="CLibraryFileView.Virtual.Basic">
-		<item id="ID_LIBRARY_LAUNCH" text="開く・再生(_O)"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="再生リストに追加(_Y)"/>
-		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="アルバムを再生(_A)"/>
-		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="共有(_S)"/>
-		<separator/>
-		<item id="ID_LIBRARY_DELETE" text="削除(_D)"/>
-		<separator/>
-		<menu text="検索対象(_E)">
-			<item id="ID_SEARCH_FOR_THIS" text="このファイル"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="似たファイル"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="同じアーティストの曲"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="同じアルバムの曲"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="同じシリーズのエピソード"/>
-		</menu>
-		<menu text="ウェブサービス(_W)">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Bitzi Ticketを表示(_B)"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="メタデータを取得(_A)"/>
-			<separator/>
-			<item id="ID_LIBRARY_URI" text=""/>
-		</menu>
-		<menu text="構成(_R)">
-			<item id="ID_LIBRARY_RENAME" text="ファイル名変更(_R)"/>
-			<item id="ID_LIBRARY_UNLINK" text="ファイルを削除(_F)"/>
-			<separator/>
-			<item id="ID_LIBRARY_MOVE" text="ファイルを移動(_M)..."/>
-			<item id="ID_LIBRARY_COPY" text="ファイルをコピー(_C)..."/>
-		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="メタデータをローカライズ(_L)"/>
-		<separator/>
-		<item id="ID_LIBRARY_PROPERTIES" text="プロパティ(_P)"/>
-	</menu>
-	<menu name="CLibraryFileView.Virtual">
-		<item id="ID_LIBRARY_LAUNCH" text="開く・再生(_O)"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="再生リストに追加(_Y)"/>
-		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="共有(_S)"/>
-		<separator/>
-		<item id="ID_LIBRARY_URI" text=""/>
-		<item id="ID_LIBRARY_DELETE" text="削除(_D)"/>
-		<separator/>
-		<menu text="検索対象(_E)">
-			<item id="ID_SEARCH_FOR_THIS" text="このファイル"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="似たファイル"/>
-			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="同じアーティストの曲"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="同じアルバムの曲"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="同じシリーズのエピソード"/>
-		</menu>
-		<menu text="ウェブサービス(_W)">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Bitzi Ticketを表示(_B)"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="メタデータを取得(_A)"/>
-			<separator/>
-			<item id="ID_LIBRARY_CREATETORRENT" text=".torrentファイルを作成"/>
-		</menu>
 		<menu text="構成(_R)">
 			<item id="ID_LIBRARY_UNLINK" text="ファイルを削除(_F)"/>
 			<separator/>
 			<item id="ID_LIBRARY_RENAME" text="ファイル名変更(_R)"/>
-			<item id="ID_LIBRARY_MOVE" text="ファイルを移動(_M)..."/>
 			<item id="ID_LIBRARY_COPY" text="ファイルをコピー(_C)..."/>
+			<item id="ID_LIBRARY_MOVE" text="ファイルを移動(_M)..."/>
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="メタデータをローカライズ(_L)"/>
+		<menu text="検索対象(_E)">
+			<item id="ID_SEARCH_FOR_THIS" text="このファイル"/>
+			<item id="ID_SEARCH_FOR_SIMILAR" text="似たファイル"/>
+			<separator/>
+			<item id="ID_SEARCH_FOR_ARTIST" text="同じアーティストの曲"/>
+			<item id="ID_SEARCH_FOR_ALBUM" text="同じアルバムの曲"/>
+			<item id="ID_SEARCH_FOR_SERIES" text="同じシリーズのエピソード"/>
+		</menu>
+		<menu text="ウェブサービス(_W)">
+			<item id="ID_LIBRARY_BITZI_WEB" text="Bitzi Ticketを表示(_B)"/>
+			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="メタデータを取得(_A)"/>
+		</menu>
+		<menu text="_Metadata">
+			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="メタデータをローカライズ(_L)"/>
+			<item id="ID_LIBRARY_COLUMNS" text="カラム選択(_C)..."/>
+		</menu>
 		<separator/>
-		<item id="ID_LIBRARY_COLUMNS" text="カラム選択(_C)..."/>
-		<separator/>
+		<item id="ID_SHELL_MENU" text="Windows Men_u"/>
 		<item id="ID_LIBRARY_PROPERTIES" text="プロパティ(_P)"/>
 	</menu>
 	<!-- MEDIA WINDOW -->
@@ -1567,7 +1502,7 @@
 		<item id="ID_DISCOVERY_BLOCKED" text="ブロックを表示"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
-	<menu name="CPrivateChatFrame">
+	<menu name="CPrivateChatWnd">
 		<item id="ID_CHAT_CONNECT" text="接続(_C)"/>
 		<item id="ID_CHAT_DISCONNECT" text="切断(_D)"/>
 		<separator/>
@@ -4194,7 +4129,7 @@
 		<control caption="OK"/>
 		<control caption="キャンセル"/>
 		<control caption="あなたは以前このファイルをダウンロードして、削除したことがあります。どうしますか?"/>
-		<control caption="警告!!! ファイルのコピーが検出されました。 いくつかの悪意のあるソフトウェアがあなたのライブラリを汚染させる可能性があります。 あなたがこのファイルをダウンロードしたか手動でライブラリに追加したかどうかを必ず確認して下さい。 もし記憶に無ければ直ちにPeerProjectを終了させ、コンピュータをアンチウイルスプログラムでスキャンして下さい。"/>
+		<control caption="警告! ファイルのコピーが検出されました。 いくつかの悪意のあるソフトウェアがあなたのライブラリを汚染させる可能性があります。 あなたがこのファイルをダウンロードしたか手動でライブラリに追加したかどうかを必ず確認して下さい。 もし記憶に無ければ直ちにPeerProjectを終了させ、コンピュータをアンチウイルスプログラムでスキャンして下さい。"/>
 	</dialog>
 	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="終了ボタン">
 		<control caption="初めてPeerProjectの終了ボタンをクリックしました。 次回から終了ボタンをクリックした時にPeerProjectがどういう挙動をするかを選択して下さい:"/>

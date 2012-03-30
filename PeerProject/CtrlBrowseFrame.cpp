@@ -1,7 +1,7 @@
 //
 // CtrlBrowseFrame.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -46,9 +46,9 @@ BEGIN_MESSAGE_MAP(CBrowseFrameCtrl, CWnd)
 	ON_WM_LBUTTONDOWN()
 	ON_WM_SIZE()
 	ON_WM_PAINT()
+	ON_NOTIFY(BTN_SELCHANGED, IDC_BROWSE_TREE, OnTreeSelection)
 	ON_UPDATE_COMMAND_UI(ID_SEARCH_DETAILS, OnUpdateSearchDetails)
 	ON_COMMAND(ID_SEARCH_DETAILS, OnSearchDetails)
-	ON_NOTIFY(BTN_SELCHANGED, IDC_BROWSE_TREE, OnTreeSelection)
 	ON_UPDATE_COMMAND_UI(ID_LIBRARY_TREE_PHYSICAL, OnUpdateLibraryTreePhysical)
 	ON_COMMAND(ID_LIBRARY_TREE_PHYSICAL, OnLibraryTreePhysical)
 	ON_UPDATE_COMMAND_UI(ID_LIBRARY_TREE_VIRTUAL, OnUpdateLibraryTreeVirtual)
@@ -447,10 +447,10 @@ void CBrowseFrameCtrl::OnTreeSelection(NMHDR* /*pNotify*/, LRESULT* pResult)
 
 		for ( CQueryHit* pHit = pFile->GetHits() ; pHit ; pHit = pHit->m_pNext )
 		{
-			if ( ( pHit->m_bMatched = bGlobal ) != FALSE ) continue;
+			pHit->m_bMatched = bGlobal;
+			if ( bGlobal ) continue;
 
-			for (	CBrowseTreeItem* pSel = m_wndTree.GetFirstSelected() ; pSel ;
-					pSel = pSel->m_pSelNext )
+			for ( CBrowseTreeItem* pSel = m_wndTree.GetFirstSelected() ; pSel ; pSel = pSel->m_pSelNext )
 			{
 				SelectTree( pSel, pHit );
 			}
@@ -463,7 +463,7 @@ void CBrowseFrameCtrl::OnTreeSelection(NMHDR* /*pNotify*/, LRESULT* pResult)
 	{
 		CString strURI = pTree->m_pSchema->GetContainedURI( CSchema::stFile );
 
-		if ( strURI.GetLength() &&
+		if ( ! strURI.IsEmpty() &&
 			 ( m_wndList->m_pSchema == NULL || ! m_wndList->m_pSchema->CheckURI( strURI ) ) )
 		{
 			if ( CSchemaPtr pSchema = SchemaCache.Get( strURI ) )
@@ -478,7 +478,7 @@ void CBrowseFrameCtrl::OnTreeSelection(NMHDR* /*pNotify*/, LRESULT* pResult)
 	m_wndList->m_pMatches->Filter();
 	m_wndList->Update();
 
-	GetOwner()->PostMessage( WM_COMMAND, MAKELONG( IDC_MATCHES, LBN_SELCHANGE ), 0 );
+	GetOwner()->PostMessage( WM_COMMAND, MAKELONG( IDC_MATCHES, LBN_SELCHANGE ), 0 );	// OnSelChangeMatches()
 
 	*pResult = 0;
 }

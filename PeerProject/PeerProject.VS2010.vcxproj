@@ -176,7 +176,7 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>secur32.lib;rasapi32.lib;winmm.lib;version.lib;ws2_32.lib;wininet.lib;Iphlpapi.lib;msi.lib;powrprof.lib;mstask.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <DelayLoadDLLs>secur32.dll;rasapi32.dll;winmm.dll;version.dll;ws2_32.dll;wininet.dll;iphlpapi.dll;msi.dll;powrprof.dll;winspool.drv;comdlg32.dll;comctl32.dll;oledlg.dll;ole32.dll;oleaut32.dll;oleacc.dll;urlmon.dll;msimg32.dll;gdiplus.dll;imm32.dll;advapi32.dll;shell32.dll;shlwapi.dll</DelayLoadDLLs>
+      <DelayLoadDLLs>rasapi32.dll;winmm.dll;version.dll;ws2_32.dll;wininet.dll;iphlpapi.dll;msi.dll;powrprof.dll;winspool.drv;comdlg32.dll;comctl32.dll;oledlg.dll;ole32.dll;oleaut32.dll;oleacc.dll;urlmon.dll;msimg32.dll;gdiplus.dll;imm32.dll;advapi32.dll;shell32.dll;shlwapi.dll</DelayLoadDLLs> <!--secur32.dll-->
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -232,7 +232,7 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>secur32.lib;rasapi32.lib;winmm.lib;version.lib;ws2_32.lib;wininet.lib;Iphlpapi.lib;msi.lib;powrprof.lib;mstask.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <DelayLoadDLLs>secur32.dll;rasapi32.dll;winmm.dll;version.dll;ws2_32.dll;wininet.dll;iphlpapi.dll;msi.dll;powrprof.dll;winspool.drv;comdlg32.dll;comctl32.dll;oledlg.dll;ole32.dll;oleaut32.dll;oleacc.dll;urlmon.dll;msimg32.dll;gdiplus.dll;imm32.dll;advapi32.dll;shell32.dll;shlwapi.dll</DelayLoadDLLs>
+      <DelayLoadDLLs>rasapi32.dll;winmm.dll;version.dll;ws2_32.dll;wininet.dll;iphlpapi.dll;msi.dll;powrprof.dll;winspool.drv;comdlg32.dll;comctl32.dll;oledlg.dll;ole32.dll;oleaut32.dll;oleacc.dll;urlmon.dll;msimg32.dll;gdiplus.dll;imm32.dll;advapi32.dll;shell32.dll;shlwapi.dll</DelayLoadDLLs> <!--secur32.dll-->
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -290,7 +290,7 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>secur32.lib;rasapi32.lib;winmm.lib;version.lib;ws2_32.lib;wininet.lib;Iphlpapi.lib;msi.lib;powrprof.lib;mstask.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <DelayLoadDLLs>secur32.dll;rasapi32.dll;winmm.dll;version.dll;ws2_32.dll;wininet.dll;iphlpapi.dll;msi.dll;powrprof.dll;winspool.drv;comdlg32.dll;comctl32.dll;oledlg.dll;ole32.dll;oleaut32.dll;oleacc.dll;urlmon.dll;msimg32.dll;gdiplus.dll;imm32.dll;advapi32.dll;shell32.dll;shlwapi.dll</DelayLoadDLLs>
+      <DelayLoadDLLs>rasapi32.dll;winmm.dll;version.dll;ws2_32.dll;wininet.dll;iphlpapi.dll;msi.dll;powrprof.dll;winspool.drv;comdlg32.dll;comctl32.dll;oledlg.dll;ole32.dll;oleaut32.dll;oleacc.dll;urlmon.dll;msimg32.dll;gdiplus.dll;imm32.dll;advapi32.dll;shell32.dll;shlwapi.dll</DelayLoadDLLs> <!--secur32.dll-->
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -851,7 +851,6 @@
     <ClCompile Include="CtrlBrowseHeader.cpp" />
     <ClCompile Include="CtrlBrowseProfile.cpp" />
     <ClCompile Include="CtrlBrowseTree.cpp" />
-    <ClCompile Include="CtrlChatFrame.cpp" />
     <ClCompile Include="CtrlCoolBar.cpp" />
     <ClCompile Include="CtrlCoolMenuBar.cpp" />
     <ClCompile Include="CtrlCoolTip.cpp" />
@@ -888,7 +887,6 @@
     <ClCompile Include="CtrlMonitorBar.cpp" />
     <ClCompile Include="CtrlNeighbourTip.cpp" />
     <ClCompile Include="CtrlPanel.cpp" />
-    <ClCompile Include="CtrlPrivateChatFrame.cpp" />
     <ClCompile Include="CtrlRichTaskBox.cpp" />
     <ClCompile Include="CtrlSchema.cpp" />
     <ClCompile Include="CtrlSchemaCombo.cpp" />
@@ -976,6 +974,7 @@
     <ClCompile Include="WndPacket.cpp" />
     <ClCompile Include="WndPanel.cpp" />
     <ClCompile Include="WndPlugin.cpp" />
+    <ClCompile Include="WndPrivateChat.cpp" />
     <ClCompile Include="WndScheduler.cpp" />
     <ClCompile Include="WndSearch.cpp" />
     <ClCompile Include="WndSearchMonitor.cpp" />
@@ -1464,7 +1463,6 @@
     <ClInclude Include="CtrlBrowseHeader.h" />
     <ClInclude Include="CtrlBrowseProfile.h" />
     <ClInclude Include="CtrlBrowseTree.h" />
-    <ClInclude Include="CtrlChatFrame.h" />
     <ClInclude Include="CtrlCoolBar.h" />
     <ClInclude Include="CtrlCoolMenuBar.h" />
     <ClInclude Include="CtrlCoolTip.h" />
@@ -1501,7 +1499,6 @@
     <ClInclude Include="CtrlMonitorBar.h" />
     <ClInclude Include="CtrlNeighbourTip.h" />
     <ClInclude Include="CtrlPanel.h" />
-    <ClInclude Include="CtrlPrivateChatFrame.h" />
     <ClInclude Include="CtrlRichTaskBox.h" />
     <ClInclude Include="CtrlSchema.h" />
     <ClInclude Include="CtrlSchemaCombo.h" />
@@ -1537,6 +1534,7 @@
     <ClInclude Include="WndPacket.h" />
     <ClInclude Include="WndPanel.h" />
     <ClInclude Include="WndPlugin.h" />
+    <ClInclude Include="WndPrivateChat.h" />
     <ClInclude Include="WndScheduler.h" />
     <ClInclude Include="WndSearch.h" />
     <ClInclude Include="WndSearchMonitor.h" />
