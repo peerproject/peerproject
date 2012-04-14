@@ -761,7 +761,7 @@ BOOL CG1Packet::OnPong(const SOCKADDR_IN* pHost)
 	if ( nCachedHostsCount > 0 )
 	{
 		if ( CDiscoveryService* pService = DiscoveryServices.GetByAddress(
-			&(pHost->sin_addr) , ntohs( pHost->sin_port ),
+			&(pHost->sin_addr), ntohs( pHost->sin_port ),
 			CDiscoveryService::dsGnutellaUDPHC ) )
 		{
 			pService->OnSuccess();

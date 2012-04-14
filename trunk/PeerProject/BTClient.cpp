@@ -50,7 +50,8 @@ static char THIS_FILE[]=__FILE__;
 // CBTClient construction
 
 CBTClient::CBTClient()
-	: m_bExtended			( FALSE )
+	: CTransfer				( PROTOCOL_BT )
+	, m_bExtended			( FALSE )
 	, m_pUploadTransfer		( NULL )
 	, m_pDownloadTransfer	( NULL )
 	, m_pDownload			( NULL )
@@ -988,7 +989,7 @@ void CBTClient::DetermineUserAgent()
 	{
 		m_pUploadTransfer->m_sUserAgent = m_sUserAgent;
 		if ( ! strNick.IsEmpty() )
-			m_pUploadTransfer->m_sNick = strNick;
+			m_pUploadTransfer->m_sRemoteNick = strNick;
 		m_pUploadTransfer->m_bClientExtended = m_bClientExtended;
 	}
 }

@@ -1,7 +1,7 @@
 //
 // CtrlMatchTip.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -21,9 +21,8 @@
 #include "PeerProject.h"
 #include "CtrlCoolTip.h"
 #include "CtrlMatchTip.h"
-#include "Colors.h"
 #include "CoolInterface.h"
-#include "ShellIcons.h"
+#include "Colors.h"
 #include "Library.h"
 #include "SharedFile.h"
 #include "MatchObjects.h"
@@ -31,6 +30,7 @@
 #include "Schema.h"
 #include "SchemaCache.h"
 #include "VendorCache.h"
+#include "ShellIcons.h"
 #include "Flags.h"
 
 #ifdef _DEBUG
@@ -381,29 +381,29 @@ void CMatchTipCtrl::LoadFromHit()
 	if ( m_pFile->GetLibraryStatus() == TRI_FALSE )
 	{
 		LoadString( m_sStatus, IDS_TIP_EXISTS_LIBRARY );
-		m_crStatus = Colors.m_crTextStatus ;
+		m_crStatus = Colors.m_crTextStatus;
 	}
 	else if ( m_pFile->m_bDownload || m_pHit->m_bDownload )
 	{
 		LoadString( m_sStatus, IDS_TIP_EXISTS_DOWNLOAD );
-		m_crStatus = Colors.m_crTextStatus ;
+		m_crStatus = Colors.m_crTextStatus;
 	}
 	else if ( m_pHit->m_bBogus )
 	{
 		LoadString( m_sStatus, IDS_TIP_BOGUS );
-		m_crStatus = Colors.m_crTextAlert ;
+		m_crStatus = Colors.m_crTextAlert;
 	}
 	else if ( ! m_pHit->m_sComments.IsEmpty() )
 	{
 		if ( m_pHit->m_nRating == 1 )
 			LoadString( m_sStatus, IDS_TIP_EXISTS_BLACKLISTED );
 		m_sStatus += m_pHit->m_sComments;
-		m_crStatus = Colors.m_crTextAlert ;
+		m_crStatus = Colors.m_crTextAlert;
 	}
-	else if ( m_pFile->GetLibraryStatus() == TRI_TRUE )  // Ghost rated
+	else if ( m_pFile->GetLibraryStatus() == TRI_TRUE )		// Ghost rated
 	{
 		LoadString( m_sStatus, IDS_TIP_EXISTS_DELETED );
-		m_crStatus = Colors.m_crTextAlert ;
+		m_crStatus = Colors.m_crTextAlert;
 	}
 
 	// Is this a firewalled eDonkey client

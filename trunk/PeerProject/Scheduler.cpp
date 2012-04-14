@@ -313,10 +313,10 @@ CXMLElement* CScheduleTask::ToXML()
 	pXML->AddAttribute( _T("specificdays"), m_bSpecificDays ? _T("Yes") : _T("No") );
 	pXML->AddAttribute( _T("limitednet"), m_bLimitedNetworks ? _T("Yes") : _T("No") );
 
-	strValue.Format( _T("%i") , m_nLimitDown );
+	strValue.Format( _T("%i"), m_nLimitDown );
 	pXML->AddAttribute( _T("limitdown"), strValue );
 
-	strValue.Format( _T("%i") , m_nLimitUp );
+	strValue.Format( _T("%i"), m_nLimitUp );
 	pXML->AddAttribute( _T("limitup"), strValue );
 
 	if ( ! m_sDescription.IsEmpty() )

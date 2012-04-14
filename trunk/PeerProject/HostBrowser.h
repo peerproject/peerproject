@@ -1,7 +1,7 @@
 //
 // HostBrowser.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -19,22 +19,23 @@
 #pragma once
 
 #include "Transfer.h"
-#include "zlib.h"
-
+//#include "zlib.h"
 class CG1Packet;
 class CG2Packet;
 class CEDPacket;
 class CQueryHit;
 class CGProfile;
+class CLibraryFile;
 class CBuffer;
 class CVendor;
 class CBrowseHostWnd;
+class CXMLElement;
+
 
 class CHostBrowser : public CTransfer
 {
 public:
-	CHostBrowser(CBrowseHostWnd* pNotify = NULL, PROTOCOLID nProtocol = PROTOCOL_ANY, IN_ADDR* pAddress = NULL, WORD nPort = 0,
-		BOOL bMustPush = FALSE, const Hashes::Guid& pClientID = Hashes::Guid());
+	CHostBrowser(CBrowseHostWnd* pNotify = NULL, PROTOCOLID nProtocol = PROTOCOL_ANY, IN_ADDR* pAddress = NULL, WORD nPort = 0, BOOL bMustPush = FALSE, const Hashes::Guid& pClientID = Hashes::Guid(), const CString& sNick = CString());
 	virtual ~CHostBrowser();
 
 public:
@@ -54,6 +55,7 @@ public:
 	int				m_nHits;
 	CVendor*		m_pVendor;
 	BOOL			m_bCanChat;
+	CString			m_sNick;
 	CString			m_sServer;
 	BOOL			m_bDeflate;
 	DWORD			m_nLength;
@@ -63,32 +65,35 @@ public:
 
 // Operations
 public:
-	void		Serialize(CArchive& ar);
-	BOOL		Browse();
-	void		Stop(BOOL bCompleted = FALSE);
-	BOOL		IsBrowsing() const;
-	float		GetProgress() const;
-	void		OnQueryHits(CQueryHit* pHits);
+	void			Serialize(CArchive& ar, int nVersion = 0);	// BROWSER_SER_VERSION
+	BOOL			Browse();
+	void			Stop(BOOL bCompleted = FALSE);
+	BOOL			IsBrowsing() const;
+	float			GetProgress() const;
+	void			OnQueryHits(CQueryHit* pHits);
 
 	virtual BOOL	OnConnected();
 	virtual void	OnDropped();
 	virtual BOOL	OnHeadersComplete();
 	virtual BOOL	OnPush(const Hashes::Guid& oClientID, CConnection* pConnection);
+	virtual BOOL	OnNewFile(CLibraryFile* pFile);
 
 protected:
 	CBrowseHostWnd*	m_pNotify;
 
-	BOOL		SendPush(BOOL bMessage);
-	void		SendRequest();
-	BOOL		ReadResponseLine();
-	BOOL		ReadContent();
-	BOOL		StreamContent();
-	BOOL		StreamPacketsG1();
-	BOOL		StreamPacketsG2();
-	BOOL		StreamHTML();
-	BOOL		OnPacket(CG1Packet* pPacket);
-	BOOL		OnPacket(CG2Packet* pPacket);
-	void		OnProfilePacket(CG2Packet* pPacket);
+	BOOL			SendPush(BOOL bMessage);
+	void			SendRequest();
+	BOOL			ReadResponseLine();
+	BOOL			ReadContent();
+	BOOL			StreamContent();
+	BOOL			StreamPacketsG1();
+	BOOL			StreamPacketsG2();
+	BOOL			StreamHTML();
+	BOOL			OnPacket(CG1Packet* pPacket);
+	BOOL			OnPacket(CG2Packet* pPacket);
+	void			OnProfilePacket(CG2Packet* pPacket);
+	BOOL			LoadDC(LPCTSTR pszFile, CQueryHit*& pHits);
+	BOOL			LoadDCDirectory(CXMLElement* pRoot, CQueryHit*& pHits);
 
 	virtual BOOL	OnRead();
 	virtual BOOL	OnHeaderLine(CString& strHeader, CString& strValue);

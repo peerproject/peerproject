@@ -3,7 +3,7 @@
 
 <!-- PeerProject/ПеерПројецт Default Serbian Skin File -->
 
-<!-- Translation based on default-en.xml r76 -->
+<!-- Translation based on default-en.xml r77 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2819,6 +2819,7 @@
 	<string id="20505" value="Ništa"/>
 	<string id="20506" value="Spajam"/>
 	<string id="20507" value="Trenutno:"/>
+	<string id="20509" value="DC++: Client-to-Hub Veza"/>
 	<string id="20510" value="eDonkey2000 Server Veza"/>
 	<string id="20511" value="eDonkey2000 (HighID)"/>
 	<string id="20512" value="eDonkey Server Veza (LOWID: %lu)"/>
@@ -3258,7 +3259,7 @@
 		<control caption="Pomoć:"/>
 		<control caption="PeerProject pristup na daljinu vam omogućava da ostavite upaljen PC sa pokrenutom PeerProject, i njome upravljate sa druge lokacije. Da bi ste koristili ovu opciju morate biti u mogućnosti primati dolazeće veze(npr. podešen ruter, itd)."/>
 	</dialog>
-	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Mreže">
+	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="Mreže">
 		<control caption="PeerProject je program za deljenje i skidanje datoteka opšteg sadržaja, i može se istovremeno spojiti na više P2P mreža.Ovde možete odabrati kojim mrežama želite pristupiti, te podesiti svaku posebno."/>
 		<control caption="Gnutella2 Mreža:"/>
 		<control caption="Gnutella2 mreža je PeerProject osnovna mreža, nudi najviše opcija i najbrža je od svih ostalih P2P mreža. Preporučujemo"/>
@@ -3272,6 +3273,10 @@
 		<control caption="eDonkey mreža je popularna server-bazirana mreža.Iako nema mogućnosti kao Gnutella2, poseduje impresivnu zbirku datoteka."/>
 		<control caption="Spoji se na eDonkey2000 (ED2K)"/>
 		<control caption="Podesi eDonkey"/>
+		<control caption="DC++ Mreža:"/>
+		<control caption="DC++ mreža je popularna server-bazirana mreža.Iako nema mogućnosti kao Gnutella2, poseduje impresivnu zbirku datoteka."/>
+		<control caption="Spoji se na DC++ (DC)"/>
+		<control caption="Podesi DC++"/>
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Gnutella2 Mreža:"/>
@@ -3328,6 +3333,21 @@
 		<control caption="eDonkey2000 Ala_ti:"/>
 		<control caption="Skini..."/>
 		<control caption="Skini eDonkey2000 listu servera sa neta"/>
+	</dialog>
+	<dialog name="CDCSettingsPage" cookie="BuBuBuBuStEdmsStBuStBuBuSt" caption="DC++">
+		<control caption="_DC++ Mreža:"/>
+		<control caption="Spoji se na DC++"/>
+		<control caption="Spoji se svaki put (Automatski)"/>
+		<control caption="_Hubs:"/>
+		<control caption="Connect by default to:"/>
+		<control/>
+		<control/>
+		<control caption="DC++ hubs."/>
+		<control caption="_Info:"/>
+		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
+		<control caption="_Tools:"/>
+		<control caption="Skini..."/>
+		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="Podešavanja ski_danja:"/>

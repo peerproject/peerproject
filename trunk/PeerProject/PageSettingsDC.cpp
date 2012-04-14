@@ -1,7 +1,7 @@
 //
 // PageSettingsDC.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2011
+// This file is part of PeerProject (peerproject.org) © 2011-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -19,9 +19,10 @@
 #include "StdAfx.h"
 #include "Settings.h"
 #include "PeerProject.h"
+#include "PeerProjectURL.h"
 #include "WndSettingsSheet.h"
-#include "PageSettingsNetworks.h"
 #include "PageSettingsDC.h"
+#include "PageSettingsNetworks.h"
 #include "DlgUpdateServers.h"
 #include "Downloads.h"
 
@@ -35,7 +36,7 @@ IMPLEMENT_DYNCREATE(CDCSettingsPage, CSettingsPage)
 
 BEGIN_MESSAGE_MAP(CDCSettingsPage, CSettingsPage)
 	//{{AFX_MSG_MAP(CDCSettingsPage)
-	ON_BN_CLICKED(IDC_ENABLE_TODAY, OnEnable)
+	ON_BN_CLICKED(IDC_ENABLE, OnEnable)
 	ON_BN_CLICKED(IDC_DISCOVERY_GO, OnDiscoveryGo)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
@@ -59,12 +60,12 @@ void CDCSettingsPage::DoDataExchange(CDataExchange* pDX)
 {
 	CSettingsPage::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CDCSettingsPage)
-	DDX_Check(pDX, IDC_ENABLE_TODAY, m_bEnabled);
+	DDX_Check(pDX, IDC_ENABLE, m_bEnabled);
 	DDX_Check(pDX, IDC_ENABLE_ALWAYS, m_bEnableAlways);
-	DDX_Control(pDX, IDC_LINKS, m_wndLinks);
-	DDX_Control(pDX, IDC_LINKS_SPIN, m_wndLinksSpin);
+	DDX_Text(pDX, IDC_SOURCES, m_nHubs);
+	DDX_Control(pDX, IDC_SOURCES, m_wndHubs);
+	DDX_Control(pDX, IDC_SOURCES_SPIN, m_wndHubsSpin);
 	DDX_Control(pDX, IDC_DISCOVERY_GO, m_wndDiscoveryGo);
-	DDX_Text(pDX, IDC_LINKS, m_nLinks);
 	//}}AFX_DATA_MAP
 }
 
@@ -77,12 +78,12 @@ BOOL CDCSettingsPage::OnInitDialog()
 
 	m_bEnabled		= Settings.DC.Enabled;
 	m_bEnableAlways	= Settings.DC.EnableAlways;
-	m_nHubs		= Settings.DC.NumServers;
+	m_nHubs 		= Settings.DC.NumServers;
 
 	UpdateData( FALSE );
 
-//	m_wndResults.EnableWindow( m_bServerWalk );
-//	Settings.SetRange( &Settings.DC.NumServers, m_wndLinksSpin );
+//	m_wndResults.EnableWindow( m_bCheckbox );
+	Settings.SetRange( &Settings.DC.NumServers, m_wndHubsSpin );
 
 	return TRUE;
 }
@@ -155,7 +156,7 @@ void CDCSettingsPage::OnOK()
 {
 	UpdateData();
 
-	Settings.DC.Enabled		= m_bEnabled && ( Settings.GetOutgoingBandwidth() >= 2 );
+	Settings.DC.Enabled			= m_bEnabled && ( Settings.GetOutgoingBandwidth() >= 2 );
 	Settings.DC.EnableAlways	= m_bEnableAlways && ( Settings.GetOutgoingBandwidth() >= 2 );
 //	Settings.DC.NumServers		= m_nHubs;
 

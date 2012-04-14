@@ -1,7 +1,7 @@
 //
 // G2Packet.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -1032,10 +1032,8 @@ BOOL CG2Packet::OnQueryKeyAnswer(const SOCKADDR_IN* pHost)
 			BYTE* pOut = WriteGetPointer( 11, 0 );
 
 			if ( pOut == NULL )
-			{
-			//	theApp.Message( MSG_DEBUG, _T("Memory allocation error in CDatagrams::OnQueryKeyAnswer()") );
 				return TRUE;
-			}
+				// theApp.Message( MSG_DEBUG, _T("Memory allocation error in CDatagrams::OnQueryKeyAnswer()") );
 
 			*pOut++ = 0x50;
 			*pOut++ = 6;
@@ -1314,7 +1312,7 @@ BOOL CG2Packet::OnKHLA(const SOCKADDR_IN* pHost)
 	}
 
 	CDiscoveryService * pService = DiscoveryServices.GetByAddress(
-		&(pHost->sin_addr) , ntohs(pHost->sin_port), CDiscoveryService::dsGnutella2UDPKHL );
+		&(pHost->sin_addr), ntohs(pHost->sin_port), CDiscoveryService::dsGnutella2UDPKHL );
 
 	if ( pService == NULL &&
 		( Network.IsFirewalledAddress( &pHost->sin_addr, TRUE ) ||

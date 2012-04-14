@@ -367,7 +367,7 @@ CG2Packet* CGProfile::CreateAvatar() const
 //////////////////////////////////////////////////////////////////////
 // CGProfile serialize
 
-void CGProfile::Serialize(CArchive& ar)
+void CGProfile::Serialize(CArchive& ar, int /*nVersion*/)	// BROWSER_SER_VERSION
 {
 	BOOL bXMLPresent = FALSE;
 

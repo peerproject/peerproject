@@ -79,8 +79,8 @@ END_MESSAGE_MAP()
 
 #define SIZE_INTERNAL	1982
 #define STATUS_HEIGHT	24
-//#define SPLIT_SIZE		6	//  Skin.m_nSplitter
-//#define TOOLBAR_HEIGHT	28	//  Skin.m_nToolbarHeight
+//#define SPLIT_SIZE		6	// Skin.m_nSplitter
+//#define TOOLBAR_HEIGHT	28	// Skin.m_nToolbarHeight
 
 /////////////////////////////////////////////////////////////////////////////
 // CSearchWnd construction

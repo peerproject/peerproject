@@ -383,36 +383,43 @@ void CUploads::OnRun()
 BOOL CUploads::OnAccept(CConnection* pConnection)
 {
 	CSingleLock oTransfersLock( &Transfers.m_pSection );
-	if ( ! oTransfersLock.Lock( 250 ) )
+	if ( oTransfersLock.Lock( 250 ) )
 	{
-		theApp.Message( MSG_INFO, _T("Rejecting incoming connection from %s, network core overloaded."), (LPCTSTR)pConnection->m_sAddress );
-		return FALSE;
-	}
-
-	if ( pConnection->StartsWith( _P("GET /remote/") ) ||
-		 pConnection->StartsWith( _P("GET /remote HTTP") ) )		// User entered remote page into browser, but forgot trailing '/'
-	{
-		if ( ! Settings.Remote.Enable )
+		if ( pConnection->StartsWith( _P("GET /remote/") ) ||
+			 pConnection->StartsWith( _P("GET /remote HTTP") ) )		// User entered remote page into browser, but forgot trailing '/'
 		{
+			if ( Settings.Remote.Enable )
+			{
+				if ( new CRemote( pConnection ) )
+					return FALSE;
+			}
+
 			theApp.Message( MSG_ERROR, _T("Rejecting incoming connection from %s, remote interface disabled."), (LPCTSTR)pConnection->m_sAddress );
-			return FALSE;
+
+			pConnection->SendHTML( IDR_HTML_FILENOTFOUND );
+			pConnection->DelayClose( IDS_CONNECTION_CLOSED );
+			return TRUE;
 		}
 
-		new CRemote( pConnection );
-		return TRUE;
+		if ( CUploadTransfer* pUpload = new CUploadTransferHTTP() )
+		{
+			for ( POSITION pos = GetIterator() ; pos ; )
+			{
+				CUploadTransfer* pTest = GetNext( pos );
+
+				if ( pTest->m_pHost.sin_addr.S_un.S_addr == pConnection->m_pHost.sin_addr.S_un.S_addr )
+					pTest->m_bLive = FALSE;
+			}
+
+			pUpload->AttachTo( pConnection );
+			return FALSE;
+		}
 	}
 
-	CUploadTransfer* pUpload = new CUploadTransferHTTP();
+	theApp.Message( MSG_INFO, _T("Rejecting incoming connection from %s, network core overloaded."), (LPCTSTR)pConnection->m_sAddress );
 
-	for ( POSITION pos = GetIterator() ; pos ; )
-	{
-		CUploadTransfer* pTest = GetNext( pos );
-
-		if ( pTest->m_pHost.sin_addr.S_un.S_addr == pConnection->m_pHost.sin_addr.S_un.S_addr )
-			pTest->m_bLive = FALSE;
-	}
-
-	pUpload->AttachTo( pConnection );
+	pConnection->SendHTML( IDR_HTML_BUSY );
+	pConnection->DelayClose( IDS_CONNECTION_CLOSED );
 
 	return TRUE;
 }

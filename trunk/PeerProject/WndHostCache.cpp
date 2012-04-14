@@ -322,7 +322,7 @@ void CHostCacheWnd::OnCustomDrawList(NMHDR* pNMHDR, LRESULT* pResult)
 	else if ( pDraw->nmcd.dwDrawStage == CDDS_ITEMPREPAINT )
 	{
 		if ( m_wndList.GetItemOverlayMask( (int)pDraw->nmcd.dwItemSpec ) )
-			pDraw->clrText = Colors.m_crSysActiveCaption ;
+			pDraw->clrText = Colors.m_crSysActiveCaption;
 
 		*pResult = CDRF_DODEFAULT;
 	}
@@ -506,7 +506,7 @@ void CHostCacheWnd::OnNeighboursCopy()
 	else if ( pHost->m_nProtocol == PROTOCOL_KAD )
 		strURL.Format( _T("ed2k://|kad|%s|%u|/"), (LPCTSTR)pHost->Address(), pHost->m_nUDPPort );
 	else if ( pHost->m_nProtocol == PROTOCOL_DC )
-		strURL.Format( _T("dchub://%s:%u"), (LPCTSTR)pHost->Address(), pHost->m_nUDPPort );
+		strURL.Format( _T("dchub://%s:%u/"), (LPCTSTR)pHost->Address(), pHost->m_nUDPPort );
 	else if ( pHost->m_nProtocol == PROTOCOL_BT )
 		strURL.Format( _T("peerproject:btnode:%s:%u"), (LPCTSTR)pHost->Address(), pHost->m_nUDPPort );
 

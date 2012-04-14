@@ -728,8 +728,8 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 
 	COLORREF crWnd	= Colors.m_crWindow;
 	COLORREF crText	= bSelected ? Colors.m_crHiText : Colors.m_crText;
-	COLORREF crBack	= crWnd ;
-	COLORREF crLeftMargin = crBack ;
+	COLORREF crBack	= crWnd;
+	COLORREF crLeftMargin = crBack;
 
 	if ( pFile->m_bCollection )
 	{

@@ -1,7 +1,7 @@
 //
 // UploadTransferDC.h
 //
-// This file is part of PeerProject (peerproject.org) © 2011
+// This file is part of PeerProject (peerproject.org) © 2011-2012
 // Portions copyright Shareaza Development Team, 2010.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -40,9 +40,12 @@ public:
 
 	// Got $ADCGET command
 	BOOL			OnUpload(const std::string& strType, const std::string& strFilename, QWORD nOffset, QWORD nLength, const std::string& strOptions);
+	BOOL			IsIdle() const; 	// Check if transfer idle
 
 protected:
 	DWORD			m_tRankingCheck;	// Time the queue position was last checked
+	BOOL			m_bGet;				// Client uses $Get
+	CBuffer			m_pXML;				// Cached library file list
 
 	// Check the client's Q rank. Start upload or send notification if required
 	BOOL			CheckRanking();

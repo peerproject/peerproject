@@ -19,7 +19,10 @@
 #pragma once
 
 #include "Connection.h"
+#include "WndChat.h"
 
+class CDCPacket;
+class CDCClient;
 class CEDPacket;
 class CEDClient;
 class CG2Packet;
@@ -35,11 +38,16 @@ public:
 	virtual ~CChatSession();
 
 public:
+	enum
+	{
+		cssNull, cssConnecting, cssRequest1, cssHeaders1, cssRequest2, cssHeaders2,
+		cssRequest3, cssHeaders3, cssHandshake, cssActive, cssAway
+	};
+
 	Hashes::Guid	m_oGUID;
 
-	int				m_nState;
+	CString			m_sNick;
 	BOOL			m_bMustPush;
-	CString			m_sUserNick;
 	BOOL			m_bUnicode;		// ED2K Client in UTF-8 format
 	DWORD			m_nClientID;	// ED2K Client ID (if appropriate)
 	SOCKADDR_IN		m_pServer;		// ED2K server (if appropriate)
@@ -47,63 +55,71 @@ public:
 public:
 	virtual void	AttachTo(CConnection* pConnection);
 	virtual void	Close(UINT nError = 0);
+	virtual void	AddUser(CChatUser* pUser);
+	virtual void	DeleteUser(CString* pUser);
 	virtual void	OnDropped();
 
-	TRISTATE		GetConnectedState() const;
 	BOOL			Connect();
+	TRISTATE		GetConnectedState() const;
+	void			MakeActive(BOOL bAddUsers = TRUE);
 	BOOL			SendPush(BOOL bAutomatic);
 	BOOL			OnPush(const Hashes::Guid& oGUID, CConnection* pConnection);
-	void			OnED2KMessage(CEDPacket* pPacket);
+	void			OnMessage(CPacket* pPacket);
 
 	BOOL			SendPrivateMessage(bool bAction, const CString& strText);
-//	BOOL			SendAwayMessage(const CString& strText);
-	void			StatusMessage(int nFlags, UINT nID, ...);
-//	void			NotifyMessage(MessageType bType, const CString& sFrom, const CString& sMessage = CString(), HBITMAP hBitmap = NULL);
 	void			OnOpenWindow();
 	void			OnCloseWindow();
+	inline bool		IsOnline() const
+	{
+		return ( m_nState > cssConnecting );
+	}
 
 protected:
-	TRISTATE			m_bOld; 		// Chat version: TRI_TRUE = CHAT/0.1
-	DWORD				m_tPushed;
-	CGProfile*			m_pProfile;
-	CPrivateChatWnd*	m_pWndPrivate;
-//	CList< MSG >		m_pMessages;	// Undelivered messages queue
-
-	BOOL	ReadHandshake();
-	BOOL	ReadText();
-	BOOL	ReadPackets();
-	void	MakeActive();
-	void	PostOpenWindow();
-	BOOL	OnText(const CString& str);
-
-	// G1/G2
-	void	Send(CG2Packet* pPacket);
-	BOOL	OnChatMessage(CG2Packet* pPacket);
-	BOOL	OnPacket(CG2Packet* pPacket);
-	BOOL	OnProfileChallenge(CG2Packet* pPacket);
-	BOOL	OnProfileDelivery(CG2Packet* pPacket);
-	BOOL	OnChatRequest(CG2Packet* pPacket);
-	BOOL	OnChatAnswer(CG2Packet* pPacket);
-	BOOL	OnEstablished();
-
-	// ED2K
-	BOOL	ReadPacketsED2K();
-	BOOL	SendPacketsED2K();
-	BOOL	SendChatMessage(CEDPacket* pPacket);
-	BOOL	OnChatMessage(CEDPacket* pPacket);
-	BOOL	OnCaptchaRequest(CEDPacket* pPacket);
-	BOOL	OnCaptchaResult(CEDPacket* pPacket);
+	TRISTATE		m_bOld; 		// Chat version: TRI_TRUE = CHAT/0.1
+	int				m_nState;
+	DWORD			m_tPushed;
+	CGProfile*		m_pProfile;
+	CPrivateChatWnd* m_pWndPrivate;
+	CList< MSG >	m_pMessages;	// Undelivered messages queue
 
 	virtual BOOL	OnRun();
 	virtual BOOL	OnConnected();
 	virtual BOOL	OnRead();
-//	virtual void	OnDropped();	// Public
 	virtual BOOL	OnHeaderLine(CString& strHeader, CString& strValue);
 	virtual BOOL	OnHeadersComplete();
-};
 
-enum
-{
-	cssNull, cssConnecting, cssRequest1, cssHeaders1, cssRequest2, cssHeaders2,
-	cssRequest3, cssHeaders3, cssHandshake, cssActive, cssAway
+	void	Command(UINT nCommand);
+	void	StatusMessage(MessageType bType, UINT nID, ...);
+	void	NotifyMessage(MessageType bType, const CString& sFrom, const CString& sMessage = CString(), HBITMAP hBitmap = NULL);
+//	BOOL	SendAwayMessage(const CString& strText);
+	void	ProcessMessages();
+	void	ClearMessages();
+
+	// G1/G2
+	BOOL	ReadHandshake();
+	BOOL	ReadG2();
+	void	Send(CG2Packet* pPacket);
+	BOOL	OnEstablished();
+	BOOL	OnProfileChallenge(CG2Packet* pPacket);
+	BOOL	OnProfileDelivery(CG2Packet* pPacket);
+	BOOL	OnChatRequest(CG2Packet* pPacket);
+	BOOL	OnChatAnswer(CG2Packet* pPacket);
+	BOOL	OnChatMessage(CG2Packet* pPacket);
+
+	BOOL	ReadG1();
+	void	OnChatMessage(const CString& sFrom, const CString& sMessage);
+
+	// DC++
+	BOOL	ReadDC();
+	BOOL	SendDC();
+	BOOL	Send(CDCPacket* pPacket);
+	BOOL	OnChatMessage(CDCPacket* pPacket);
+
+	// ED2K
+	BOOL	ReadED2K();
+	BOOL	SendED2K();
+	BOOL	Send(CEDPacket* pPacket);
+	BOOL	OnChatMessage(CEDPacket* pPacket);
+	BOOL	OnCaptchaRequest(CEDPacket* pPacket);
+	BOOL	OnCaptchaResult(CEDPacket* pPacket);
 };

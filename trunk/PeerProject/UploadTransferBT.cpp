@@ -1,7 +1,7 @@
 //
 // UploadTransferBT.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -300,7 +300,7 @@ BOOL CUploadTransferBT::OpenFile()
 	}
 	// else Something wrong...
 
-	theApp.Message( MSG_ERROR, IDS_UPLOAD_CANTOPEN, (LPCTSTR)m_sName , (LPCTSTR)m_sAddress);
+	theApp.Message( MSG_ERROR, IDS_UPLOAD_CANTOPEN, (LPCTSTR)m_sName, (LPCTSTR)m_sAddress);
 
 	Close();
 
@@ -361,8 +361,8 @@ BOOL CUploadTransferBT::ServeRequests()
 		m_oServed.push_back( Fragments::Fragment( m_nOffset, m_nOffset + m_nLength ) );
 		m_pBaseFile->AddFragment( m_nOffset, m_nLength );
 
-		m_nState	= upsUploading;
-		m_nLength	= SIZE_UNKNOWN;
+		m_nState  = upsUploading;
+		m_nLength = SIZE_UNKNOWN;
 	}
 	else
 	{

@@ -1,7 +1,7 @@
 //
 // Transfer.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -23,7 +23,7 @@
 class CBuffer;
 
 
-class CTransfer : public CConnection
+class CTransfer abstract : public CConnection
 {
 // Construction
 public:
@@ -32,6 +32,8 @@ public:
 
 // Attributes
 public:
+	SOCKADDR_IN			m_pServer;			// Reference server (ED2K, DC++)
+	CString				m_sRemoteNick;		// Remote user nick
 	DWORD				m_nRunCookie;
 	CList< CString >	m_pSourcesSent;
 	CArray< CString >	m_pHeaderName;

@@ -136,7 +136,7 @@ IDI_DOWNLOAD_MONITOR	ICON		"Res\\DownloadMonitor.ico"
 IDI_PROPERTIES			ICON		"Res\\Properties.ico"
 IDI_BROWSE				ICON		"Res\\Browse.ico"
 IDI_WEB_URL				ICON		"Res\\WebURL.ico"
-IDI_WORLD				ICON		"Res\\World.ico"
+//IDI_WORLD				ICON		"Res\\World.ico"	// ID_TOOLS_LANGUAGE
 IDI_SKIN				ICON		"Res\\Skin.ico"
 IDI_FLAG_ENGLISH		ICON		"Res\\FlagEnglish.ico"
 IDI_UPDOWN_ARROW		ICON		"Res\\UpDownArrow.ico"
@@ -144,6 +144,8 @@ IDI_POINTER_ARROW_IN	ICON		"Res\\PointerArrowIn.ico"
 IDI_POINTER_ARROW_OUT	ICON		"Res\\PointerArrowOut.ico"
 //IDI_INCOMING			ICON		"Res\\PacketIn.ico"
 //IDI_OUTGOING			ICON		"Res\\PacketOut.ico"
+//IDI_USER				ICON		"Res\\PacketIn.ico"
+//IDI_USER_ME			ICON		"Res\\PacketOut.ico"
 IDI_COMPUTER			ICON		"Res\\Computer.ico"
 IDI_CHECKMARK			ICON		"Res\\Checkmark.ico"
 IDI_EXECUTABLE			ICON		"Res\\Executable.ico"
@@ -391,19 +393,23 @@ STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "Networks"
 FONT 8, "Tahoma"
 BEGIN
-	LTEXT			"PeerProject is a general-purpose filesharing application that can utilize several P2P networks simultaneously.  On this page you can select which networks to connect to, then adjust specific settings for each network.",IDC_STATIC,5,5,270,30
-	GROUPBOX		"Gnutella2 Network:",IDC_STATIC,6,35,270,55,WS_GROUP
-	LTEXT			"The G2 network is PeerProject's premiere protocol, offering more features and performance than any other P2P net.    (Shareaza)",IDC_STATIC,15,50,250,18
-	CONTROL			"Connect to Gnutella2  (G2)",IDC_G2_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,73,145,10
-	RTEXT			"Configure Gnutella2",IDC_G2_SETUP,165,73,100,10
-	GROUPBOX		"Gnutella Network:",IDC_STATIC,6,95,270,55,WS_GROUP
-	LTEXT			"The original Gnutella network is less feature-rich than G2, and returns search spam, yet remains a valuable resource.    (Limewire)",IDC_STATIC,15,109,250,18
-	CONTROL			"Connect to Gnutella  (G1)",IDC_G1_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,132,145,10
-	RTEXT			"Configure Gnutella",IDC_G1_SETUP,165,132,100,10
-	GROUPBOX		"eDonkey Network:",IDC_STATIC,6,155,270,55,WS_GROUP
-	LTEXT			"The eDonkey network is a popular server-based network.  Not as feature-rich or fast as G2, but ed2k has an impressive size.    (eMule)",IDC_STATIC,15,170,250,18
-	CONTROL			"Connect to eDonkey2000  (ED2K)",IDC_ED2K_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,193,145,10
-	RTEXT			"Configure eDonkey",IDC_ED2K_SETUP,165,193,100,10
+	LTEXT			"PeerProject is a general-purpose filesharing application that utilizes several P2P networks simultaneously.  On this page you can select which networks to make available or hidden.",IDC_STATIC,5,5,270,30
+	GROUPBOX		"Gnutella2 Network:",IDC_STATIC,6,34,270,42,WS_GROUP
+	LTEXT			"The G2 network is PeerProject's premiere protocol, offering more features and performance than any other P2P net.    (Shareaza)",IDC_STATIC,15,44,250,18
+	CONTROL			" Show Gnutella2  (G2)",IDC_G2_ENABLE,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,15,62,145,10
+	RTEXT			"Configure G2",IDC_G2_SETUP,165,62,100,10
+	GROUPBOX		"Gnutella Network:",IDC_STATIC,6,80,270,42,WS_GROUP
+	LTEXT			"The original Gnutella network is less feature-rich than G2, and returns search spam, yet remains a valuable resource.    (Limewire)",IDC_STATIC,15,90,250,18
+	CONTROL			" Show Gnutella  (G1)",IDC_G1_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,108,145,10
+	RTEXT			"Configure Gnutella",IDC_G1_SETUP,165,108,100,10
+	GROUPBOX		"eDonkey Network:",IDC_STATIC,6,126,270,42,WS_GROUP
+	LTEXT			"The eDonkey network is a popular server-based network.  Not as feature-rich or fast as G2, but ed2k has an impressive size.    (eMule)",IDC_STATIC,15,136,250,18
+	CONTROL			" Show eDonkey2000  (ED2K)",IDC_ED2K_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,154,145,10
+	RTEXT			"Configure eDonkey",IDC_ED2K_SETUP,165,154,100,10
+	GROUPBOX		"DC++ Network:",IDC_STATIC,6,172,270,42,WS_GROUP
+	LTEXT			"The DC++ network is a community hub-based network.    (DC++)",IDC_STATIC,15,182,250,18
+	CONTROL			" Show DC++  (DC)",IDC_DC_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,200,145,10
+	RTEXT			"Configure DC++",IDC_DC_SETUP,165,200,100,10
 END
 
 IDD_SETTINGS_GNUTELLA DIALOGEX 0, 0, 282, 220
@@ -447,25 +453,25 @@ BEGIN
 	CONTROL			"Hub to Hub",IDC_DEFLATE_HUB2HUB,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,186,186,80,10
 END
 
-//IDD_SETTINGS_DC DIALOGEX 0, 0, 282, 220
-//STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
-//CAPTION "DC++"
-//FONT 8, "Tahoma"
-//BEGIN
-//	GROUPBOX		"&DC++ Network:",IDC_STATIC,6,5,270,48,WS_GROUP
-//	CONTROL			"Connect to DC++ now",IDC_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,18,200,10
-//	CONTROL			"Connect to DC++ at startup",IDC_ENABLE_ALWAYS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,34,200,10
-//	GROUPBOX		"&Hubs:",IDC_STATIC,6,58,270,38,WS_GROUP
-//	RTEXT			"Connect to no more than:",IDC_STATIC,17,73,95,12,SS_CENTERIMAGE
-//	EDITTEXT		IDC_LINKS,122,73,35,12,ES_AUTOHSCROLL | ES_NUMBER
-//	CONTROL			"Spin1",IDC_LINKS_SPIN,"msctls_updown32",UDS_SETBUDDYINT | UDS_AUTOBUDDY | UDS_ALIGNRIGHT | UDS_ARROWKEYS | UDS_NOTHOUSANDS,158,73,11,12
-//	LTEXT			"DC++ hubs.",IDC_STATIC,166,73,100,12,SS_CENTERIMAGE
-//	GROUPBOX		"&Info:",IDC_STATIC,6,101,270,64,WS_GROUP
-//	LTEXT			"DC++ works by connecting to specific ""hub"" communities.  Please select hubs from the ""Hostcache"" advanced view window, otherwise one will be randomly selected.\n\nDC++ can be hidden entirely from the Advanced setting DC.ShowInterface.",IDC_STATIC,14,114,250,58
-//	GROUPBOX		"&Tools:",IDC_STATIC,6,170,270,38,WS_GROUP
-//	PUSHBUTTON		"Download...",IDC_DISCOVERY_GO,13,183,60,15
-//	LTEXT			"Update DC++ hubs from the web.  (hublist.xml.bz2)",IDC_STATIC,80,183,185,15,SS_CENTERIMAGE
-//END
+IDD_SETTINGS_DC DIALOGEX 0, 0, 282, 220
+STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
+CAPTION "DC++"
+FONT 8, "Tahoma"
+BEGIN
+	GROUPBOX		"&DC++ Network:",IDC_STATIC,6,5,270,48,WS_GROUP
+	CONTROL			"Connect to DC++ now",IDC_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,18,200,10
+	CONTROL			"Connect to DC++ at startup",IDC_ENABLE_ALWAYS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,34,200,10
+	GROUPBOX		"&Hubs:",IDC_STATIC,6,58,270,38,WS_GROUP
+	RTEXT			"Connect by default to:",IDC_STATIC,17,73,95,12,SS_CENTERIMAGE
+	EDITTEXT		IDC_SOURCES,122,73,35,12,ES_AUTOHSCROLL | ES_NUMBER
+	CONTROL			"Spin1",IDC_SOURCES_SPIN,"msctls_updown32",UDS_SETBUDDYINT | UDS_AUTOBUDDY | UDS_ALIGNRIGHT | UDS_ARROWKEYS | UDS_NOTHOUSANDS,158,73,11,12
+	LTEXT			"DC++ hubs.",IDC_STATIC,166,73,100,12,SS_CENTERIMAGE
+	GROUPBOX		"&Info:",IDC_STATIC,6,101,270,64,WS_GROUP
+	LTEXT			"DC++ works by connecting to specific ""hub"" communities.  Please select hubs from the ""Hostcache"" advanced view window (F8), otherwise one will be randomly selected.",IDC_STATIC,14,114,250,58
+	GROUPBOX		"&Tools:",IDC_STATIC,6,170,270,38,WS_GROUP
+	PUSHBUTTON		"Download...",IDC_DISCOVERY_GO,13,183,60,15
+	LTEXT			"Update DC++ hubs from the web.  (hublist.xml.bz2)",IDC_STATIC,80,183,185,15,SS_CENTERIMAGE
+END
 
 IDD_SETTINGS_DONKEY DIALOGEX 0, 0, 282, 220
 STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
@@ -1267,7 +1273,7 @@ BEGIN
 	CONTROL			"Gnutella  ( gnutella: )",IDC_URI_GNUTELLA,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,20,50,105,12
 	CONTROL			"eDonkey  ( ed2k: )",IDC_URI_ED2K,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,20,65,105,12
 	CONTROL			"Piolet  ( mp2p: )",IDC_URI_PIOLET,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,150,35,105,12
-	CONTROL			"DC++  ( dchub: dcfile: )",IDC_URI_DC,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,150,50,105,12
+	CONTROL			"DC++  ( dchub: )",IDC_URI_DC,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,150,50,105,12
 	CONTROL			"BitTorrent  ( .torrent )",IDC_URI_TORRENT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,150,65,105,12
 	GROUPBOX		"&Download Manager:",IDC_STATIC,6,95,132,120,WS_GROUP
 	CONTROL			"Manage all web downloads:",IDC_WEB_HOOK,"Button",BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,12,112,122,12
@@ -2017,6 +2023,14 @@ BEGIN
 	END
 
 	IDD_SETTINGS_GNUTELLA, DIALOG
+	BEGIN
+		LEFTMARGIN, 6
+		RIGHTMARGIN, 275
+		TOPMARGIN, 7
+		BOTTOMMARGIN, 213
+	END
+
+	IDD_SETTINGS_DC, DIALOG
 	BEGIN
 		LEFTMARGIN, 6
 		RIGHTMARGIN, 275
@@ -4203,6 +4217,7 @@ END
 
 STRINGTABLE
 BEGIN
+	IDS_NEIGHBOUR_DCHUB 		"DC++ Client-to-Hub Connection"
 	IDS_NEIGHBOUR_ED2K_HIGH		"eDonkey Server Connection"
 	IDS_NEIGHBOUR_ED2K_LOW		"eDonkey Server Connection (LOWID: %lu)"
 	IDS_NEIGHBOUR_ED2K_HIGHID	"eDonkey (HighID)"

@@ -86,6 +86,9 @@ CQuerySearch::CQuerySearch(BOOL bGUID)
 	ZeroMemory( &m_pEndpoint, sizeof( m_pEndpoint ) );
 	m_pEndpoint.sin_family = AF_INET;
 
+	ZeroMemory( &m_pMyHub, sizeof( m_pMyHub ) );
+	m_pMyHub.sin_family = AF_INET;
+
 	m_dwRef = 0;
 }
 
@@ -515,7 +518,7 @@ CEDPacket* CQuerySearch::ToEDPacket(BOOL bUDP, DWORD nServerFlags) const
 
 			// Size limit (max)
 			pPacket->WriteByte( 3 );
-			pPacket->WriteLongLE( (DWORD)min( m_nMaxSize, 0xFFFFFFFF ) );
+			pPacket->WriteLongLE( (DWORD)min( m_nMaxSize, (QWORD)0xFFFFFFFF ) );
 			pPacket->WriteByte( 2 );
 			pPacket->WriteShortLE( 1 );
 			pPacket->WriteByte( ED2K_FT_FILESIZE );
@@ -584,10 +587,8 @@ BOOL CQuerySearch::WriteHashesToEDPacket(CEDPacket* pPacket, BOOL bUDP) const
 				DWORD nSources = pDownload->GetSourceCount( FALSE, TRUE );
 				if ( nSources < ( Settings.Downloads.SourcesWanted / 4u ) )
 				{
-					BOOL bFewSources = nSources < Settings.Downloads.MinSources;
-					BOOL bDataStarve = tNow < pDownload->m_tReceived + Settings.Downloads.StarveTimeout;	// ~45 Minutes
-
-					if ( bFewSources || bDataStarve || nFiles < 10 )
+					if ( nSources < Settings.Downloads.MinSources || nFiles < 10 ||
+						 tNow > pDownload->m_tReceived + Settings.Downloads.StarveTimeout )		// ~45 Minutes
 					{
 						// Add the hash/size for this download
 						pPacket->Write( pDownload->m_oED2K );
@@ -613,7 +614,9 @@ BOOL CQuerySearch::WriteHashesToEDPacket(CEDPacket* pPacket, BOOL bUDP) const
 
 CDCPacket* CQuerySearch::ToDCPacket() const
 {
-	// $Search Ip:Port (F|T)?(F|T)?Size?Type?String|
+	// Active user / Passive user
+	// $Search SenderIP:SenderPort (T|F)?(T|F)?Size?Type?String|
+	// $Search Hub:Nick (T|F)?(T|F)?Size?Type?String|
 
 	int nType = 1;
 	if ( m_oTiger )
@@ -636,6 +639,8 @@ CDCPacket* CQuerySearch::ToDCPacket() const
 			nType = 7;
 		else if ( m_pSchema->CheckURI( CSchema::uriFolder ) )
 			nType = 8;
+		else if ( m_pSchema->CheckURI( CSchema::uriROM ) )
+			nType = 10;
 	}
 
 	CDCPacket* pPacket = CDCPacket::New();
@@ -647,10 +652,15 @@ CDCPacket* CQuerySearch::ToDCPacket() const
 	strSearch.Replace( _T(' '), _T('$') );
 	strSearch.Replace( _T('|'), _T('$') );
 
+	CString strAddress;
+	if ( Network.IsFirewalled( CHECK_IP ) )
+		strAddress = _T("Hub:") + m_sMyNick;			// Passive search
+	else
+		strAddress = HostToString( &Network.m_pHost );	// Active search
+
 	CString strQuery;
-	strQuery.Format( _T("$Search %s:%u %c?%c?%I64u?%d?%s|"),
-		(LPCTSTR)CString( inet_ntoa( Network.m_pHost.sin_addr ) ),
-		ntohs( Network.m_pHost.sin_port ),
+	strQuery.Format( _T("$Search %s %c?%c?%I64u?%d?%s|"),
+		(LPCTSTR)strAddress,
 		( bSizeRestriced ? _T('T') : _T('F') ),
 		( bIsMaxSize ? _T('T') : _T('F') ),
 		( bSizeRestriced ? ( bIsMaxSize ? m_nMaxSize : m_nMinSize ) : 0ull ),
@@ -689,13 +699,13 @@ CQuerySearchPtr CQuerySearch::FromPacket(CPacket* pPacket, const SOCKADDR_IN* pE
 		else if ( pPacket->m_nProtocol == PROTOCOL_DC )
 		{
 			pSearch->m_nProtocol = PROTOCOL_DC; 	// Display convenience
-		//	if ( pSearch->ReadDCPacket( (CDCPacket*)pPacket, pEndpoint ) )
-		//		return pSearch;
+			if ( pSearch->ReadDCPacket( (CDCPacket*)pPacket, pEndpoint ) )
+				return pSearch;
 		}
-		//else if ( pPacket->m_nProtocol == PROTOCOL_ED2K )
-		//{
-		//	pSearch->m_nProtocol = PROTOCOL_ED2K;
-		//}
+		else if ( pPacket->m_nProtocol == PROTOCOL_ED2K )
+		{
+			pSearch->m_nProtocol = PROTOCOL_ED2K;	// Display convenience
+		}
 	}
 	catch ( CException* pException )
 	{
@@ -1107,141 +1117,141 @@ BOOL CQuerySearch::ReadG2Packet(CG2Packet* pPacket, const SOCKADDR_IN* pEndpoint
 	return CheckValid( true );
 }
 
-//BOOL CQuerySearch::ReadDCPacket(CDCPacket* pPacket, const SOCKADDR_IN* pEndpoint)
-//{
-//	// Active user
-//	// $Search SenderIP:SenderPort (F|T)?(F|T)?Size?Type?String|
-//	// Passive user
-//	// $Search Hub:Nick (F|T)?(F|T)?Size?Type?String|
-//
-//	if ( pPacket->GetRemaining() < 24 )		// Too short
-//	{
-//		theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[DC] Got too short query packet (%d bytes)"), pPacket->GetRemaining() );
-//		return FALSE;
-//	}
-//
-//	if ( pEndpoint )
-//		m_pEndpoint = *pEndpoint;
-//
-//	LPSTR szAddress = (LPSTR)&pPacket->m_pBuffer[ 8 ];
-//	pPacket->m_pBuffer[ pPacket->m_nLength - 1 ] = 0;	// ASCIIZ
-//
-//	LPSTR szPort = strchr( szAddress , ':' );
-//	if ( ! szPort ) return FALSE;
-//	*szPort++ = 0;
-//
-//	LPSTR szFlag1 = strchr( szPort, ' ' );
-//	if ( ! szFlag1 ) return FALSE;
-//	*szFlag1++ = 0;
-//
-//	LPSTR szFlag2 = strchr( szFlag1, '?' );
-//	if ( ! szFlag2 ) return FALSE;
-//	*szFlag2++ = 0;
-//
-//	LPSTR szSize = strchr( szFlag2, '?' );
-//	if ( ! szSize ) return FALSE;
-//	*szSize++ = 0;
-//
-//	LPSTR szType = strchr( szSize, '?' );
-//	if ( ! szType ) return FALSE;
-//	*szType++ = 0;
-//
-//	LPSTR szString = strchr( szType, '?' );
-//	if ( ! szString ) return FALSE;
-//	*szString++ = 0;
-//
-//	IN_ADDR nAddress;
-//	nAddress.s_addr = inet_addr( szAddress );
-//	int nPort = atoi( szPort );
-//	if ( nAddress.s_addr == INADDR_NONE || nPort <= 0 || nPort > USHRT_MAX )
-//	{
-//		// Passive user request (send answer via TCP)
-//		m_bUDP = FALSE;
-//		m_sUserNick = UTF8Decode( szPort );
-//	}
-//	else
-//	{
-//		// Active user request (send answer via UDP)
-//		m_bUDP = TRUE;
-//		m_sUserNick.Empty();
-//		m_pEndpoint.sin_addr = nAddress;
-//		m_pEndpoint.sin_port = htons( (WORD)nPort );
-//	}
-//
-//	bool bSizeRestriced = ( *szFlag1 == 'T' );
-//	bool bIsMaxSize = ( *szFlag2 == 'T' );
-//	if ( ( ! bSizeRestriced && *szFlag1 != 'F' ) ||
-//		 ( ! bIsMaxSize     && *szFlag2 != 'F' ) )
-//		return FALSE;
-//	QWORD nSize = 0;
-//	if ( sscanf_s( szSize, "%I64u", &nSize ) != 1 )
-//		return FALSE;
-//	int nType = atoi( szType );
-//	if ( nType < 1 )
-//		return FALSE;
-//
-//	if ( bSizeRestriced )
-//	{
-//		if ( bIsMaxSize )
-//			m_nMaxSize = nSize;
-//		else
-//			m_nMinSize = nSize;
-//	}
-//	else if ( nSize )
-//	{
-//		m_nMinSize = m_nMaxSize = nSize;
-//	}
-//
-//	if ( nType == 9 )	// Hash search
-//	{
-//		if ( _strnicmp( szString, "TTH:", 4 ) != 0 )
-//			return FALSE;	// Unknown hash prefix
-//
-//		if ( ! m_oTiger.fromString( CA2W( szString + 4 ) ) )
-//			return FALSE;	// Invalid TigerTree hash encoding
-//	}
-//	else	// Keywords search
-//	{
-//		m_sSearch = UTF8Decode( szString );
-//		m_sSearch.Replace( _T('$'), _T(' ') );
-//
-//		switch ( nType )
-//		{
-//		case 1:		// Any file
-//			break;
-//		case 2:		// Audio
-//			m_pSchema = SchemaCache.Get( CSchema::uriAudio );
-//			break;
-//		case 3:		// Archive
-//			m_pSchema = SchemaCache.Get( CSchema::uriArchive );
-//			break;
-//		case 4:		// Document
-//			m_pSchema = SchemaCache.Get( CSchema::uriDocument );
-//			break;
-//		case 5:		// Executable
-//			m_pSchema = SchemaCache.Get( CSchema::uriApplication );
-//			break;
-//		case 6:		// Image
-//			m_pSchema = SchemaCache.Get( CSchema::uriImage );
-//			break;
-//		case 7:		// Video
-//			m_pSchema = SchemaCache.Get( CSchema::uriVideo );
-//			break;
-//		case 8:		// Folders
-//			m_pSchema = SchemaCache.Get( CSchema::uriFolder );
-//			break;
-//		case 9:		// TTH (see above)
-//			break;
-//		case 10:	// DVD/CD
-//			m_pSchema = SchemaCache.Get( CSchema::uriROM );
-//			break;
-//		//default:	// Unknown
-//		//	;
-//		}
-//	}
-//
-//	return CheckValid( true );
-//}
+BOOL CQuerySearch::ReadDCPacket(CDCPacket* pPacket, const SOCKADDR_IN* pEndpoint)
+{
+	// Active user
+	// $Search SenderIP:SenderPort (F|T)?(F|T)?Size?Type?String|
+	// Passive user
+	// $Search Hub:Nick (F|T)?(F|T)?Size?Type?String|
+
+	if ( pPacket->GetRemaining() < 24 )		// Too short
+	{
+		theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[DC] Got too short query packet (%d bytes)"), pPacket->GetRemaining() );
+		return FALSE;
+	}
+
+	if ( pEndpoint )
+		m_pEndpoint = *pEndpoint;
+
+	LPSTR szAddress = (LPSTR)&pPacket->m_pBuffer[ 8 ];
+	pPacket->m_pBuffer[ pPacket->m_nLength - 1 ] = 0;	// ASCIIZ
+
+	LPSTR szPort = strchr( szAddress, ':' );
+	if ( ! szPort ) return FALSE;
+	*szPort++ = 0;
+
+	LPSTR szFlag1 = strchr( szPort, ' ' );
+	if ( ! szFlag1 ) return FALSE;
+	*szFlag1++ = 0;
+
+	LPSTR szFlag2 = strchr( szFlag1, '?' );
+	if ( ! szFlag2 ) return FALSE;
+	*szFlag2++ = 0;
+
+	LPSTR szSize = strchr( szFlag2, '?' );
+	if ( ! szSize ) return FALSE;
+	*szSize++ = 0;
+
+	LPSTR szType = strchr( szSize, '?' );
+	if ( ! szType ) return FALSE;
+	*szType++ = 0;
+
+	LPSTR szString = strchr( szType, '?' );
+	if ( ! szString ) return FALSE;
+	*szString++ = 0;
+
+	IN_ADDR nAddress;
+	nAddress.s_addr = inet_addr( szAddress );
+	int nPort = atoi( szPort );
+	if ( nAddress.s_addr == INADDR_NONE || nPort <= 0 || nPort > USHRT_MAX )
+	{
+		// Passive user request (send answer via TCP)
+		m_bUDP = FALSE;
+		m_sUserNick = UTF8Decode( szPort );
+	}
+	else
+	{
+		// Active user request (send answer via UDP)
+		m_bUDP = TRUE;
+		m_sUserNick.Empty();
+		m_pEndpoint.sin_addr = nAddress;
+		m_pEndpoint.sin_port = htons( (WORD)nPort );
+	}
+
+	bool bSizeRestriced = ( *szFlag1 == 'T' );
+	bool bIsMaxSize = ( *szFlag2 == 'T' );
+	if ( ( ! bSizeRestriced && *szFlag1 != 'F' ) ||
+		 ( ! bIsMaxSize     && *szFlag2 != 'F' ) )
+		return FALSE;
+	QWORD nSize = 0;
+	if ( sscanf_s( szSize, "%I64u", &nSize ) != 1 )
+		return FALSE;
+	int nType = atoi( szType );
+	if ( nType < 1 )
+		return FALSE;
+
+	if ( bSizeRestriced )
+	{
+		if ( bIsMaxSize )
+			m_nMaxSize = nSize;
+		else
+			m_nMinSize = nSize;
+	}
+	else if ( nSize )
+	{
+		m_nMinSize = m_nMaxSize = nSize;
+	}
+
+	if ( nType == 9 )	// Hash search
+	{
+		if ( _strnicmp( szString, "TTH:", 4 ) != 0 )
+			return FALSE;	// Unknown hash prefix
+
+		if ( ! m_oTiger.fromString( CA2W( szString + 4 ) ) )
+			return FALSE;	// Invalid TigerTree hash encoding
+	}
+	else	// Keywords search
+	{
+		m_sSearch = UTF8Decode( szString );
+		m_sSearch.Replace( _T('$'), _T(' ') );
+
+		switch ( nType )
+		{
+		case 1:		// Any file
+			break;
+		case 2:		// Audio
+			m_pSchema = SchemaCache.Get( CSchema::uriAudio );
+			break;
+		case 3:		// Archive
+			m_pSchema = SchemaCache.Get( CSchema::uriArchive );
+			break;
+		case 4:		// Document
+			m_pSchema = SchemaCache.Get( CSchema::uriDocument );
+			break;
+		case 5:		// Executable
+			m_pSchema = SchemaCache.Get( CSchema::uriApplication );
+			break;
+		case 6:		// Image
+			m_pSchema = SchemaCache.Get( CSchema::uriImage );
+			break;
+		case 7:		// Video
+			m_pSchema = SchemaCache.Get( CSchema::uriVideo );
+			break;
+		case 8:		// Folders
+			m_pSchema = SchemaCache.Get( CSchema::uriFolder );
+			break;
+		case 9:		// TTH (see above)
+			break;
+		case 10:	// DVD/CD
+			m_pSchema = SchemaCache.Get( CSchema::uriROM );
+			break;
+		//default:	// Unknown
+		//	;
+		}
+	}
+
+	return CheckValid( true );
+}
 
 //////////////////////////////////////////////////////////////////////
 // CQuerySearch validity check

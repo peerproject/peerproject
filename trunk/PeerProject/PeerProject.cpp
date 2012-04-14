@@ -42,6 +42,7 @@
 #include "LibraryBuilder.h"
 #include "CtrlLibraryFrame.h"
 #include "Network.h"
+#include "Neighbours.h"
 #include "Plugins.h"
 #include "PeerProjectURL.h"
 #include "QueryHashMaster.h"
@@ -367,7 +368,7 @@ BOOL CPeerProjectApp::InitInstance()
 
 	// Show Startup Splash Screen
 
-	const int nSplashSteps = ( m_cmdInfo.m_bNoSplash || ! m_cmdInfo.m_bShowSplash ) ? 0 : 19;
+	const int nSplashSteps = ( m_cmdInfo.m_bNoSplash || ! m_cmdInfo.m_bShowSplash ) ? 0 : 20;
 
 	SplashStep( L"Up", nSplashSteps, false );
 		if ( m_cmdInfo.m_nGUIMode != -1 )
@@ -468,6 +469,8 @@ BOOL CPeerProjectApp::InitInstance()
 
 	//CWaitCursor pCursor;
 
+	SplashStep( L"Custom Folders" );
+		LibraryFolders.Maintain();		// Update desktop.ini's (~2s)
 	SplashStep( L"Thumb Database" );
 		CThumbCache::InitDatabase();	// Several seconds if large (~5s)
 	SplashStep( L"Library" );
@@ -1100,7 +1103,7 @@ void CPeerProjectApp::GetVersionNumber()
 	// Set Build Date
 	COleDateTime tCompileTime;
 	tCompileTime.ParseDateTime( _T(__DATE__), LOCALE_NOUSEROVERRIDE, 1033 );
-	m_sBuildDate = tCompileTime.Format( _T("%Y%m%d") );
+	m_sBuildDate = tCompileTime.Format( _T("%Y.%m.%d") );
 
 	// Get .exe-file name
 	GetModuleFileName( NULL, m_strBinaryPath.GetBuffer( MAX_PATH ), MAX_PATH );
@@ -1746,7 +1749,7 @@ BOOL CPeerProjectApp::InternalURI(LPCTSTR pszURI)
 			! _tcsnicmp( strURI, _T("btc:"), 4 ) ||
 			! _tcsnicmp( strURI, _T("irc:"), 4 ) ||
 			! _tcsnicmp( strURI, _T("aim:"), 4 ) ||
-		//	! _tcsnicmp( strURI, _T("adc:"), 4 ) ||
+			! _tcsnicmp( strURI, _T("adc:"), 4 ) ||
 			! _tcsnicmp( strURI, _T("dchub:"), 6 ) ||
 			! _tcsnicmp( strURI, _T("dcfile:"), 7 ) ||
 			! _tcsnicmp( strURI, _T("mailto:"), 7 ) ||
@@ -2815,6 +2818,65 @@ CString LoadHTML(HINSTANCE hInstance, UINT nResourceID)
 	}
 
 	FreeResource( hMemory );
+
+	return strBody;
+}
+
+CString LoadRichHTML(UINT nResourceID, CString& strResponse, CPeerProjectFile* pFile)
+{
+	CString strBody = LoadHTML( GetModuleHandle( NULL ), nResourceID );
+
+	bool bWindowsEOL = true;
+	int nBreak = strBody.Find( _T("\r\n") );
+	if ( nBreak == -1 )
+	{
+		nBreak = strBody.Find( _T("\n") );
+		bWindowsEOL = false;
+	}
+	strResponse	= strBody.Left( nBreak + ( bWindowsEOL ? 2 : 1 ) );
+	strBody = strBody.Mid( nBreak + ( bWindowsEOL ? 2 : 1 ) );
+
+	for (;;)
+	{
+		int nStart = strBody.Find( _T("<%") );
+		if ( nStart < 0 ) break;
+
+		int nEnd = strBody.Find( _T("%>") );
+		if ( nEnd < nStart ) break;
+
+		CString strReplace = strBody.Mid( nStart + 2, nEnd - nStart - 2 );
+
+		strReplace.TrimLeft();
+		strReplace.TrimRight();
+
+		if ( strReplace.CompareNoCase( _T("Client") ) == 0 )
+			strReplace = CLIENT_NAME;
+		else if ( strReplace.CompareNoCase( _T("SmartAgent") ) == 0 )
+			strReplace = theApp.m_sSmartAgent;
+		else if ( strReplace.CompareNoCase( _T("Name") ) == 0 )
+			strReplace = pFile ? pFile->m_sName : _T("");
+		else if ( strReplace.CompareNoCase( _T("SHA1") ) == 0 )
+            strReplace = pFile ? pFile->m_oSHA1.toString() : _T("");
+		else if ( strReplace.CompareNoCase( _T("URN") ) == 0 )
+			strReplace = pFile ? pFile->m_oSHA1.toUrn() : _T("");
+		else if ( strReplace.CompareNoCase( _T("Version") ) == 0 )
+			strReplace = theApp.m_sVersion;
+		else if ( strReplace.Find( _T("Neighbours") ) == 0 )
+			strReplace = Neighbours.GetNeighbourList( strReplace.Right( strReplace.GetLength() - 11 ) );
+		else if ( strReplace.CompareNoCase( _T("ListenIP") ) == 0 )
+		{
+			if ( Network.IsListening() )
+			{
+				strReplace.Format( _T("%s:%i"),
+					(LPCTSTR)CString( inet_ntoa( Network.m_pHost.sin_addr ) ),
+					htons( Network.m_pHost.sin_port ) );
+			}
+			else
+				strReplace.Empty();
+		}
+
+		strBody = strBody.Left( nStart ) + strReplace + strBody.Mid( nEnd + 2 );
+	}
 
 	return strBody;
 }

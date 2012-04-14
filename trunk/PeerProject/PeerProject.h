@@ -23,6 +23,7 @@
 
 class CBuffer;
 class CDatabase;
+class CPeerProjectFile;
 class CMainWnd;
 class CSplashDlg;
 
@@ -281,6 +282,7 @@ void	PurgeDeletes();						// Delete postponed file
 
 // Loads RT_HTML or RT_GZIP resource as string
 CString LoadHTML(HINSTANCE hInstance, UINT nResourceID);
+CString LoadRichHTML(UINT nResourceID, CString& strResponse, CPeerProjectFile* pFile = NULL);
 
 // Loads well-known resource for HTTP-uploading
 bool	ResourceRequest(const CString& strPath, CBuffer& pResponse, CString& sHeader);

@@ -78,10 +78,10 @@ public:
 	bool				m_bWhatsNew;	// G1: "Whats New?" request
 	bool				m_bDropMe;		// Silently drop this packet (to avoid overflow)
 
-//	SOCKADDR_IN			m_pMyHub;		// DC: Hub address
-//	CString				m_sMyHub;		// DC: Hub name
-//	CString				m_sMyNick;		// DC: Name
-//	CString				m_sUserNick;	// DC: Passive user name
+	SOCKADDR_IN			m_pMyHub;		// DC: Hub address
+	CString				m_sMyHub;		// DC: Hub name
+	CString				m_sMyNick;		// DC: Name
+	CString				m_sUserNick;	// DC: Passive user name
 
 	PROTOCOLID			m_nProtocol;	// Pass network for convenience (SearchMonitor)
 
@@ -137,7 +137,7 @@ private:
 	BOOL					ReadG1Packet(CG1Packet* pPacket, const SOCKADDR_IN* pEndpoint = NULL);
 	void					ReadGGEP(CG1Packet* pPacket);
 	BOOL					ReadG2Packet(CG2Packet* pPacket, const SOCKADDR_IN* pEndpoint = NULL);
-//	BOOL					ReadDCPacket(CDCPacket* pPacket, const SOCKADDR_IN* pEndpoint = NULL);
+	BOOL					ReadDCPacket(CDCPacket* pPacket, const SOCKADDR_IN* pEndpoint = NULL);
 
 // Operations
 public:

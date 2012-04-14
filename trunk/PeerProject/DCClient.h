@@ -1,7 +1,7 @@
 //
 // DCClient.h
 //
-// This file is part of PeerProject (peerproject.org) © 2010
+// This file is part of PeerProject (peerproject.org) © 2010-2012
 // Portions copyright Shareaza Development Team, 2010.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -20,102 +20,83 @@
 
 #include "Transfer.h"
 
+class CDCNeighbour;
 class CDownloadTransferDC;
 class CUploadTransferDC;
 
 // Class for DC++ remote client connection.
 // This class uses fictive CUploadTransferDC and CDownloadTransferDC classes
-// to mimic download and upload connecions like CEDClient.
+// to mimic download and upload connections like CEDClient.
 
 class CDCClient : public CTransfer
 {
 public:
-	CDCClient(LPCTSTR szNick = NULL);
+	CDCClient(const IN_ADDR* pHubAddress = NULL, WORD nHubPort = 0, LPCTSTR szNick = NULL, LPCTSTR szRemoteNick = NULL);
+	virtual ~CDCClient();
+
+public:
+	Hashes::Guid	m_oGUID;							// GUID to identify callback connections
 
 	virtual BOOL	ConnectTo(const IN_ADDR* pAddress, WORD nPort);
 	virtual void	AttachTo(CConnection* pConnection);
 	virtual void	Close(UINT nError = 0);
 	virtual BOOL	OnRun();
 
-	// Re-connect
-	BOOL			Connect();
-	// Attach download transfer
-	void			AttachDownload(CDownloadTransferDC* pTransfer);
-	// When download transfer closed
-	void			OnDownloadClose();
-	// When upload transfer closed
-	void			OnUploadClose();
-	// Second part of handshaking - Send [$MyNick, $Lock,] $Supports, $Direction and $Key commands
-	BOOL			Handshake();
-	// Send command
-	BOOL			SendCommand(const CString& strSend);
-	// Test if clients describes same remote computer
-	BOOL			Equals(const CDCClient* pClient) const;
-	// Merge all useful data from old to current client and then destroy it
-	void			Merge(CDCClient* pClient);
-	// Destroy this object
-	void			Remove();
-	// Check if client on-line
-	BOOL			IsOnline() const;
+	CString			GetUserAgent();						// Detect remote user agent
+	BOOL			Connect();							// Re-connect
+	void			AttachDownload(CDownloadTransferDC* pTransfer); 	// Attach download transfer
+	void			OnDownloadClose();					// When download transfer closed
+	void			OnUploadClose();					// When upload transfer closed
+	BOOL			Handshake();						// Second part of handshaking - Send [$MyNick, $Lock,] $Supports, $Direction and $Key commands
+	BOOL			SendCommand(const CString& strSend);	// Send command
+	void			Merge(CDCClient* pClient);			// Merge all useful data from old to current client and then destroy it
+	void			Remove();							// Destroy this object
+	BOOL			IsOnline() const;					// Check if client on-line
+	BOOL			IsDownloading() const;				// Check if client busy downloading something (not in command mode)
+	BOOL			IsUploading() const;				// Check if client busy uploading something (not in command mode)
+	BOOL			IsIdle() const;						// Check if client does nothing (no upload, no download)
+	BOOL			OnPush();							// Accept push connection
 
 protected:
-	Hashes::Guid			m_oGUID;				// GUID to identify callback connections
-	CString					m_sNick;				// User nick
-	CString					m_sRemoteNick;			// Remote user nick
-	CDownloadTransferDC*	m_pDownloadTransfer;	// Download stream
-	CUploadTransferDC*		m_pUploadTransfer;		// Upload stream
-	std::string				m_strKey;				// Key calculated for remote client lock
-	BOOL					m_bExtended;			// Using extended protocol
-	CStringList				m_oFeatures;			// Remote client supported features
-	TRISTATE				m_bDirection;			// Got $Direction command: TRI_TRUE - remote client want download, TRI_FALSE - upload.
-	BOOL					m_bNumberSent;			// My $Direction number sent
-	int						m_nNumber;				// My $Direction number (0...0x7fff)
-	int						m_nRemoteNumber;		// Remote client $Direction number (0...0x7fff), -1 - unknown.
-	BOOL					m_bLogin;				// Got $Lock command
+	CDownloadTransferDC* m_pDownloadTransfer;			// Download stream
+	CUploadTransferDC*   m_pUploadTransfer;				// Upload stream
+	CString			m_sNick;							// User nick
+	std::string		m_strKey;							// Key calculated for remote client lock
+	BOOL			m_bExtended;						// Using extended protocol
+	CStringList		m_oFeatures;						// Remote client supported features
+	TRISTATE		m_bDirection;						// Got $Direction command: TRI_TRUE - remote client want download, TRI_FALSE - upload.
+	BOOL			m_bNumberSent;						// My $Direction number sent
+	int				m_nNumber;							// My $Direction number (0...0x7fff)
+	int				m_nRemoteNumber;					// Remote client $Direction number (0...0x7fff), -1 - unknown.
+	BOOL			m_bLogin;							// Got $Lock command
+	BOOL			m_bKey;								// Got $Key command
 
-	virtual ~CDCClient();
-
+protected:
 	virtual BOOL	OnConnected();
 	virtual void	OnDropped();
 	virtual BOOL	OnRead();
 	virtual BOOL	OnWrite();
 
-	// Read single command from input buffer
-	BOOL			ReadCommand(std::string& strLine);
-	// Got DC++ command
-	BOOL			OnCommand(const std::string& strCommand, const std::string& strParams);
-	// Got chat message
-	BOOL			OnChat(const std::string& strMessage);
-	// Got $MyNick command
-	BOOL			OnMyNick(const std::string& strParams);
-	// Got $Lock command
-	BOOL			OnLock(const std::string& strParams);
-	// Got $Supports command
-	BOOL			OnSupports(const std::string& strParams);
-	// Got $Key command
-	BOOL			OnKey(const std::string& strParams);
-	// Got $Direction command
-	BOOL			OnDirection(const std::string& strParams);
-	// Got $ADCGET command
-	BOOL			OnADCGet(const std::string& strParams);
-	// Got $ADCSND command
-	BOOL			OnADCSnd(const std::string& strParams);
-	// Got $MaxedOut command
-	BOOL			OnMaxedOut(const std::string& strParams);
-	// Got $Error command
-	BOOL			OnError(const std::string& strParams);
-	// Generating challenge for this client
-	std::string		GenerateLock() const;
-	// Generating direction number
-	int				GenerateNumber() const;
-	// First part of handshaking - Send $MyNick, $Lock
-	BOOL			Greetings();
-	// Can PeerProject start download?
-	BOOL			CanDownload() const;
-	// Can PeerProject start upload?
-	BOOL			CanUpload() const;
-	// Close download
-	void			DetachDownload();
-	// Close upload
-	void			DetachUpload();
+	BOOL			ReadCommand(std::string& strLine);			// Read single command from input buffer
+	BOOL			OnCommand(const std::string& strCommand, const std::string& strParams);	// Got DC++ command
+	BOOL			OnChat(const std::string& strMessage);		// Got chat message
+	BOOL			OnMyNick(const std::string& strParams);		// Got $MyNick command
+	BOOL			OnLock(const std::string& strParams);		// Got $Lock command
+	BOOL			OnSupports(const std::string& strParams);	// Got $Supports command
+	BOOL			OnKey(const std::string& strParams);		// Got $Key command
+	BOOL			OnDirection(const std::string& strParams);	// Got $Direction command
+	BOOL			OnGet(const std::string& strParams);		// Got $Get command
+	BOOL			OnSend(const std::string& strParams);		// Got $Send command
+	BOOL			OnADCGet(const std::string& strParams); 	// Got $ADCGET command
+	BOOL			OnADCSnd(const std::string& strParams); 	// Got $ADCSND command
+	BOOL			OnMaxedOut(const std::string& strParams);	// Got $MaxedOut command
+	BOOL			OnError(const std::string& strParams);		// Got $Error command
+	std::string		GenerateLock() const;				// Generating challenge for this client
+	int				GenerateNumber() const;				// Generating direction number
+	BOOL			Greetings();						// First part of handshaking - Send $MyNick, $Lock
+	BOOL			CanDownload() const;				// Can PeerProject start download?
+	BOOL			CanUpload() const;					// Can PeerProject start upload?
+	void			DetachDownload();					// Close download
+	void			DetachUpload(); 					// Close upload
+	BOOL			StartDownload();					// Start download
 };

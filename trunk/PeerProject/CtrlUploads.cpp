@@ -804,7 +804,7 @@ void CUploadsCtrl::PaintQueue(CDC& dc, const CRect& rcRow, CUploadQueue* pQueue,
 
 	COLORREF crNatural	= Colors.m_crWindow;
 	COLORREF crBack		= bSelected ? Colors.m_crHighlight : crNatural;
-	COLORREF crLeftMargin = crBack ;
+	COLORREF crLeftMargin = crBack;
 
 	// Update Full Row Highlight
 	dc.FillSolidRect( rcRow, crBack );
@@ -1035,7 +1035,7 @@ void CUploadsCtrl::PaintFile(CDC& dc, const CRect& rcRow, CUploadQueue* /*pQueue
 		{
 		case UPLOAD_COLUMN_TITLE:
 			bLeftMargin = rcRow.left == rcCell.left;
-			crLeftMargin = ( bLeftMargin ? crNatural : bSelectmark ? -1 : crBack ) ;
+			crLeftMargin = ( bLeftMargin ? crNatural : bSelectmark ? -1 : crBack );
 
 			if ( bLeftMargin || ! bSelectmark )
 				dc.FillSolidRect( rcCell.left, rcCell.top, 24, rcCell.Height(), crLeftMargin );
@@ -1114,10 +1114,10 @@ void CUploadsCtrl::PaintFile(CDC& dc, const CRect& rcRow, CUploadQueue* /*pQueue
 		case UPLOAD_COLUMN_USER:
 			if ( pTransfer == NULL )
 				strText.Empty();
-			else if ( pTransfer->m_sNick.IsEmpty() )
+			else if ( pTransfer->m_sRemoteNick.IsEmpty() )
 				strText = pTransfer->m_sAddress;
 			else
-				strText = pTransfer->m_sNick + _T(" (") + pTransfer->m_sAddress + _T(")");
+				strText = pTransfer->m_sRemoteNick + _T(" (") + pTransfer->m_sAddress + _T(")");
 			break;
 
 		case UPLOAD_COLUMN_CLIENT:

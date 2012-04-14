@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Turkish Skin File -->
 
-<!-- Translation based on default-en.xml r76 -->
+<!-- Translation based on default-en.xml r77 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2999,6 +2999,7 @@
 	<string id="20505" value="Hiçbiri"/>
 	<string id="20506" value="Bağlanıyor"/>
 	<string id="20507" value="Güncel:"/>
+	<string id="20509" value="DC++: Client-to-Hub Bağlantısı"/>
 	<string id="20510" value="eDonkey2000 Sunucu Bağlantısı"/>
 	<string id="20511" value="eDonkey2000 (HighID)"/>
 	<string id="20512" value="eDonkey Sunucu Bağlantısı (LOWID: %lu)"/>
@@ -3553,20 +3554,24 @@
 		<control caption="Yardım:"/>
 		<control caption="PeerProject Uzaktan Erişim PC'nizde çalışan PeerProject'dan ayrılmanıza ve uzaktaki web tarayıcısını kontrol etmenize izin verir. Gelen bağlantıları kabul etmek için bu özellikleri kullanmaya ihtiyaç duyacaksınız (i.e. düzgün yönlendirme yapılandırması, vb)."/>
 	</dialog>
-	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Ağlar">
+	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="Ağlar">
 		<control caption="PeerProject aynı zamanda birçok P2P ağa erişebilen genel bir amaç dosya paylaşımı uygulamasıdır. Bu sayfada bağlamayı istediğiniz P2P ağları seçebilirsiniz, ve sonra her ağ için belirli ayarları ayarlayabilirsiniz."/>
 		<control caption="Gnutella2 Ağı:"/>
 		<control caption="Gnutella2 ağı PeerProject'nın ana ağıdır, diğer P2P netlerden daha fazla performans ve özellik sunmaktadır. Israrla tavsiye edilir."/>
-		<control caption="Gnutella2 (G2) Bağlan"/>
+		<control caption="Gnutella2 (G2) göster"/>
 		<control caption="Gnutella2 Yapılandır"/>
 		<control caption="Orijinal Gnutella Ağı:"/>
 		<control caption="Orijinal Gnutella ağı, Gnutella2 daha az özelliğe ve eDonkey'dan daha az dosyaya sahip olmasına rağmen değerli bir kaynaktır."/>
-		<control caption="Orijinal Gnutella (G1) Bağlan"/>
-		<control caption="Gnutella1 Yapılandır"/>
+		<control caption="Orijinal Gnutella (G1) göster"/>
+		<control caption="Gnutella Yapılandır"/>
 		<control caption="eDonkey Ağı:"/>
 		<control caption="eDonkey ağı popüler bir sunucu-tabanlı ağdır. Gnutella2 kadar zengin özellikte olmasa da, eDonkey etkileyici bir dosya kolleksiyonuna sahiptir."/>
-		<control caption="eDonkey2000 (ED2K) Bağlan"/>
+		<control caption="eDonkey2000 (ED2K) göster"/>
 		<control caption="eDonkey Yapılandır"/>
+		<control caption="DC++ Ağı:"/>
+		<control caption="DC++ ağı popüler bir sunucu-tabanlı ağdır. Gnutella2 kadar zengin özellikte olmasa da, eDonkey etkileyici bir dosya kolleksiyonuna sahiptir."/>
+		<control caption="DC++ (DC) göster"/>
+		<control caption="DC++ Yapılandır"/>
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Gnutella2 Ağı:"/>
@@ -3623,6 +3628,21 @@
 		<control caption="eDonkey2000 _Araçları:"/>
 		<control caption="İndir..."/>
 		<control caption="Webden eDonkey2000 server listesini indir:"/>
+	</dialog>
+	<dialog name="CDCSettingsPage" cookie="BuBuBuBuStEdmsStBuStBuBuSt" caption="DC++">
+		<control caption="_DC++ Ağı:"/>
+		<control caption="Bugün DC++'e Bağlan"/>
+		<control caption="Her oturumda otomatik bağlan"/>
+		<control caption="_Hubs:"/>
+		<control caption="Connect by default to:"/>
+		<control/>
+		<control/>
+		<control caption="DC++ hubs."/>
+		<control caption="_Info:"/>
+		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
+		<control caption="_Tools:"/>
+		<control caption="Download..."/>
+		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_İndirme Bağlantıları:"/>

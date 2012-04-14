@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Norwegian Skin File -->
 
-<!-- Translation based on default-en.xml r76 --> <!-- (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r77 --> <!-- (Shareaza 2.2.0.2) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2747,6 +2747,7 @@
 	<string id="20505" value="Ingen"/>
 	<string id="20506" value="Oppretter kobling"/>
 	<string id="20507" value="I øyeblikket:"/>
+	<string id="20509" value="DC++: Client-to-Hub kobling"/>
 	<string id="20510" value="eDonkey2000 Server kobling"/>
 	<string id="20511" value="eDonkey2000 (HighID)"/>
 	<string id="20512" value="eDonkey Server kobling (LOWID: %lu)"/>
@@ -3245,20 +3246,24 @@
 		<control caption="Hjelp:"/>
 		<control caption="PeerProject fjernkonsoll gir deg muligheten til å kjøre og kontrollere PeerProject gjennom internettleseren din. Du må kunne motta innkommende tilkoblinger for å bruke konsollen (sjekk oppsettet på routeren/brannmuren)."/>
 	</dialog>
-	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Nettverk">
+	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="Nettverk">
 		<control caption="PeerProject er et fildelingsprogram som kan koble seg opp mot mange P2P-nettverk på en gang. På denne siden kan du velge hvilke P2P-nettverk du vil koble deg til, og justere innstillingene for hvert nettverk."/>
 		<control caption="Gnutella2-nettverket:"/>
 		<control caption="Gnutella2-nettverket er PeerProjects hovednettverk, det har flere egenskaper og gir mer enn andre P2P-nett. Høyst anbefalt."/>
-		<control caption="Koble til Gnutella2 (G2)"/>
+		<control caption="Vis Gnutella2 (G2)"/>
 		<control caption="Gnutella2 innstillinger"/>
-		<control caption="Gnutella1-nettverket:"/>
+		<control caption="Gnutella-nettverket:"/>
 		<control caption="Gnutella har færre egenskaper enn Gnutella2, færre filer enn eDonkey, men er likevel en verdifull resurs."/>
-		<control caption="Koble til Gnutella1"/>
-		<control caption="Gnutella1 innstillinger"/>
+		<control caption="Vis Gnutella"/>
+		<control caption="Gnutella innstillinger"/>
 		<control caption="eDonkey-nettverket:"/>
 		<control caption="eDonkey er et tjener-basert nettverk. Det har ikke like mange egenskaper som Gnutella2, men inneholder enorme mengder filer."/>
-		<control caption="Koble til eDonkey2000"/>
+		<control caption="Vis eDonkey2000"/>
 		<control caption="eDonkey innstillinger"/>
+		<control caption="DC++-nettverket:"/>
+		<control caption="DC++ er et tjener-basert nettverk. Det har ikke like mange egenskaper som Gnutella2, men inneholder enorme mengder filer."/>
+		<control caption="Vis DC++"/>
+		<control caption="DC++ innstillinger"/>
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Gnutella2-nettverket:"/>
@@ -3315,6 +3320,21 @@
 		<control caption="eDonkey2000 _verktøy:"/>
 		<control caption="Last ned..."/>
 		<control caption="Last ned eDonkey2000 serverliste fra nettet:"/>
+	</dialog>
+	<dialog name="CDCSettingsPage" cookie="BuBuBuBuStEdmsStBuStBuBuSt" caption="DC++">
+		<control caption="_DC++ nettverket:"/>
+		<control caption="Koble til DC++ i dag"/>
+		<control caption="Koble til automatisk hver gang"/>
+		<control caption="_Hubs:"/>
+		<control caption="Koble til default to:"/>
+		<control/>
+		<control/>
+		<control caption="DC++ hubs."/>
+		<control caption="_Info:"/>
+		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
+		<control caption="_Verktøy:"/>
+		<control caption="Last ned..."/>
+		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="Nedlastingskoblinger:"/>

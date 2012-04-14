@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Russian Skin File -->
 
-<!-- Translation based on default-en.xml r76 -->
+<!-- Translation based on default-en.xml r77 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2077,20 +2077,20 @@
 		<text>Здесь показываются в данный момент загружаемые файлы. Вы можете просмотреть
 		отдельные источники, развернув дерево каждого файла (нажав на значок «+» слева).</text>
 		<newline gap="8"/>
-		<text>Вы можете использовать эту команду также для получения помощи по загрузке.  Просто
-		выделите загрузку и выберите эту команду снова.</text>
+		<text>Вы можете использовать эту команду также для получения помощи по загрузке.
+		Просто выделите загрузку и выберите эту команду снова.</text>
 	</document>
 	<document name="DownloadHelp.Completed">
 		<text format="b">Эта загрузка завершена</text>
 		<newline gap="8"/>
-		<text>PeerProject закончила загружать этот файл, и сверила его верность
-		на 100%.  Также файл был перемещен в папку загрузок.</text>
+		<text>PeerProject закончила загружать этот файл, и сверила его верность на 100%.
+		Также файл был перемещен в папку загрузок.</text>
 	</document>
 	<document name="DownloadHelp.Moving">
 		<text format="b">Эта загрука перемещается</text>
 		<newline gap="8"/>
-		<text>PeerProject закончила загружать этот файл, и проверила его
-		целостность.  В настоящее время файл перемещается и/или распаковывается в папку ваших загрузок.</text>
+		<text>PeerProject закончила загружать этот файл, и проверила его целостность.
+		В настоящее время файл перемещается и/или распаковывается в папку ваших загрузок.</text>
 	</document>
 	<document name="DownloadHelp.Paused">
 		<text format="b">Эта загрузка в паузе</text>
@@ -2866,7 +2866,7 @@
 	<string id="20264" value="Посылается запрос на активную доставку для загрузки «%s»..."/>
 	<string id="20265" value="Хост загрузки %s занят, жду в очереди под номером %i из %i («%s»)."/>
 	<string id="20266" value="Стою в очереди для получения «%s»."/>
-	<string id="20267" value="Сбрасывается источник загрузки %s для «%s»,  так как номер очереди %i слишком велик."/>
+	<string id="20267" value="Сбрасывается источник загрузки %s для «%s», так как номер очереди %i слишком велик."/>
 	<string id="20268" value="Вышло время для ожидания обновления очереди с eDonkey хоста загрузки %s для файла «%s»."/>
 	<string id="20269" value="Вышло время запроса на загрузку с %s, закрываю связь."/>
 	<string id="20270" value="Загрузка «%s» удалена из списка."/>
@@ -3085,6 +3085,7 @@
 	<string id="20505" value="Отсутсвует"/>
 	<string id="20506" value="Соединение"/>
 	<string id="20507" value="Текущий:"/>
+	<string id="20509" value="DC++: Связь ветвь к узлу"/>
 	<string id="20510" value="Связь с eDonkey сервером"/>
 	<string id="20511" value="eDonkey (высокий ID)"/>
 	<string id="20512" value="Связь с eDonkey сервером (LOWID: %lu)"/>
@@ -3118,7 +3119,7 @@
 	<string id="20545" value="Отключено от сети."/>
 	<string id="20546" value="Вы уверены, что хотите отключиться"/>
 	<string id="20547" value="Gnutella2 - это главная сеть PeerProject.  Выключая её поддержку, Вы очень уменьшите число и ухудшите качество результатов поиска.  Вы УВЕРЕНЫ, что хотите это сделать?"/>
-	<string id="20548" value="Не могу использовать  %s порт %i для входящих соединений.  Входящие соединения не будут поддерживаться."/>
+	<string id="20548" value="Не могу использовать %s порт %i для входящих соединений.  Входящие соединения не будут поддерживаться."/>
 	<string id="20549" value="Не могу опросить %s для исходящих соединений.  Исходящие соединения будут использовать интерфейс по умолчанию."/>
 	<string id="20550" value="Исходящяя полоса пропускания слишком низка для включения этой сети."/>
 	<string id="20551" value="За бранмауэром, не прослушивается на входящие соединения."/>
@@ -3640,20 +3641,24 @@
 		<control caption="Справка:"/>
 		<control caption="Удаленный доступ к PeerProject позволит Вам оставить PeerProject запущенной и контролировать её удаленно из веб браузера.  Для использования этого Вам понадобится иметь возможность принимать входящие соединения (и правильно настроить брандмауэр)."/>
 	</dialog>
-	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Сети">
+	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="Сети">
 		<control caption="PeerProject - многоцелевая программа обмена файлами, с доступом ко многим P2P сетям одновременно. Здесь Вы можете выбрать, какие P2P сети Вы хотите использовать, и затем определить настройки для каждой из сетей."/>
 		<control caption="Сеть Gnutella2:"/>
 		<control caption="Gnutella2 - основная сеть PeerProject, она предлагает больше особенностей и опций работы чем любая другая P2P сеть."/>
-		<control caption="Соединяться с Gnutella2(G2)"/>
+		<control caption="Показать Gnutella2(G2)"/>
 		<control caption="Настроить Gnutella2"/>
 		<control caption="Сеть оригинальной Gnutella:"/>
 		<control caption="Хотя оригинальная Gnutella менее богата возможностями чем Gnutella2, и имеет меньше файлов чем eDonkey, всё равно это ценный ресурс."/>
-		<control caption="Соединяться с оригинальной Gnutella (G1)"/>
-		<control caption="Настроить Gnutella1"/>
+		<control caption="Показать оригинальной Gnutella (G1)"/>
+		<control caption="Настроить Gnutella"/>
 		<control caption="Сеть eDonkey:"/>
-		<control caption="eDonkey популярная сеть с использованием серверов.  Не столь богата возможностями как Gnutella2, но содержит больше файлов."/>
-		<control caption="Соединяться с eDonkey2000 (ED2K)"/>
+		<control caption="eDonkey популярная сеть с использованием серверов. Не столь богата возможностями как Gnutella2, но содержит больше файлов."/>
+		<control caption="Показать eDonkey2000 (ED2K)"/>
 		<control caption="Настроить eDonkey"/>
+		<control caption="Сеть DC++:"/>
+		<control caption="eDonkey популярная сеть с использованием серверов. Не столь богата возможностями как Gnutella2, но содержит больше файлов."/>
+		<control caption="Показать DC++ (DC)"/>
+		<control caption="Настроить DC++"/>
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Сеть Gnutella2:"/>
@@ -3710,6 +3715,21 @@
 		<control caption="eDonkey _утилиты:"/>
 		<control caption="Загрузить..."/>
 		<control caption="Загрузить список серверов из вба:"/>
+	</dialog>
+	<dialog name="CDCSettingsPage" cookie="BuBuBuBuStEdmsStBuStBuBuSt" caption="DC++">
+		<control caption="Сеть _DC++:"/>
+		<control caption="Всегда соединяться с DC++"/>
+		<control caption="Соединиться с DC++ сегодня"/>
+		<control caption="_Hubs:"/>
+		<control caption="Соединять default:"/>
+		<control/>
+		<control/>
+		<control caption="DC++ hubs."/>
+		<control caption="_Info:"/>
+		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
+		<control caption="_утилиты:"/>
+		<control caption="Загрузить..."/>
+		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Соединений для загрузки:"/>

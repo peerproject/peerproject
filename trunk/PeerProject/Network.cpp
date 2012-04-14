@@ -44,6 +44,7 @@
 #include "G2Packet.h"
 #include "G1Neighbour.h"
 #include "GProfile.h"
+#include "ChatCore.h"
 
 #include "WndMain.h"
 #include "WndSearch.h"
@@ -241,6 +242,8 @@ BOOL CNetwork::IsFirewalled(int nCheck) const
 	if ( Settings.Experimental.LAN_Mode )
 		return FALSE;
 
+	if ( nCheck == CHECK_IP )
+		return IsFirewalledAddress( &Network.m_pHost.sin_addr ) || IsReserved( &Network.m_pHost.sin_addr );
 	if ( Settings.Connection.FirewallState == CONNECTION_OPEN )		// CHECK_BOTH, CHECK_TCP, CHECK_UDP
 		return FALSE;			// We know we are not firewalled on both TCP and UDP
 	if ( Settings.Connection.FirewallState == CONNECTION_OPEN_TCPONLY && nCheck == CHECK_TCP )
@@ -1075,29 +1078,30 @@ BOOL CNetwork::RouteHits(CQueryHit* pHits, CPacket* pPacket)
 //////////////////////////////////////////////////////////////////////
 // CNetwork common handler functions
 
-//BOOL CNetwork::OnPush(const Hashes::Guid& oGUID, CConnection* pConnection)
-//{
-//	if ( Downloads.OnPush( oGUID, pConnection ) )
-//		return TRUE;
-//
-//	//if ( ChatCore.OnPush( oGUID, pConnection ) )
-//	//	return TRUE;
-//
-//	CSingleLock oAppLock( &theApp.m_pSection );
-//	if ( ! oAppLock.Lock( 250 ) )
-//		return FALSE;
-//
-//	if ( CMainWnd* pMainWnd = theApp.SafeMainWnd() )
-//	{
-//		CChildWnd* pChildWnd = NULL;
-//		while ( ( pChildWnd = pMainWnd->m_pWindows.Find( NULL, pChildWnd ) ) != NULL )
-//		{
-//			pChildWnd->OnPush( oGUID, pConnection );
-//		}
-//	}
-//
-//	return FALSE;
-//}
+BOOL CNetwork::OnPush(const Hashes::Guid& oGUID, CConnection* pConnection)
+{
+	if ( Downloads.OnPush( oGUID, pConnection ) )
+		return TRUE;
+
+	if ( ChatCore.OnPush( oGUID, pConnection ) )
+		return TRUE;
+
+	CSingleLock oAppLock( &theApp.m_pSection );
+	if ( ! oAppLock.Lock( 250 ) )
+		return FALSE;
+
+	if ( CMainWnd* pMainWnd = theApp.SafeMainWnd() )
+	{
+		CChildWnd* pChildWnd = NULL;
+		while ( ( pChildWnd = pMainWnd->m_pWindows.Find( NULL, pChildWnd ) ) != NULL )
+		{
+			if ( pChildWnd->OnPush( oGUID, pConnection ) )
+				return TRUE;
+		}
+	}
+
+	return FALSE;
+}
 
 void CNetwork::OnQuerySearch(CLocalSearch* pSearch)
 {

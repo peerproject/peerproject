@@ -23,13 +23,14 @@
 #include "Neighbours.h"
 #include "G1Neighbour.h"
 #include "G2Neighbour.h"
-//#include "DCNeighbour.h"
+#include "DCNeighbour.h"
 #include "EDNeighbour.h"
 #include "EDPacket.h"
 #include "HostCache.h"
 #include "Security.h"
 #include "LiveList.h"
 #include "GProfile.h"
+#include "ChatCore.h"
 #include "ChatWindows.h"
 #include "CoolInterface.h"
 #include "Colors.h"
@@ -445,7 +446,7 @@ void CNeighboursWnd::OnNeighboursCopy()
 
 	CString strURL;
 
-	if ( pNeighbour->m_nProtocol == PROTOCOL_G1 || pNeighbour->m_nProtocol == PROTOCOL_G2 )
+	if ( pNeighbour->m_nProtocol == PROTOCOL_G2 || pNeighbour->m_nProtocol == PROTOCOL_G1 )
 	{
 		strURL.Format( _T("gnutella:host:%s:%u"),
 			(LPCTSTR)pNeighbour->m_sAddress, htons( pNeighbour->m_pHost.sin_port ) );
@@ -466,45 +467,47 @@ void CNeighboursWnd::OnNeighboursCopy()
 
 void CNeighboursWnd::OnUpdateNeighboursChat(CCmdUI* pCmdUI)
 {
-	if ( GetSelectedCount() == 1 && Settings.Community.ChatEnable )
+	BOOL bEnable = FALSE;
+	if ( Settings.Community.ChatEnable && GetSelectedCount() == 1 )
 	{
 		CSingleLock pNetworkLock( &Network.m_pSection );
 		if ( pNetworkLock.Lock( 500 ) )
 		{
-			CNeighbour* pNeighbour = GetItem( m_wndList.GetNextItem( -1, LVNI_SELECTED ) );
-			if ( pNeighbour &&
-				pNeighbour->m_nProtocol == PROTOCOL_G1 ||
-				pNeighbour->m_nProtocol == PROTOCOL_G2 )
+			if ( CNeighbour* pNeighbour = GetItem( m_wndList.GetNextItem( -1, LVNI_SELECTED ) ) )
 			{
-				pCmdUI->Enable( TRUE );
-				return;
+				bEnable = (
+					pNeighbour->m_nProtocol == PROTOCOL_G2 ||
+					pNeighbour->m_nProtocol == PROTOCOL_G1 ||
+					pNeighbour->m_nProtocol == PROTOCOL_DC );
 			}
 		}
 	}
-	pCmdUI->Enable( FALSE );
+	pCmdUI->Enable( bEnable );
 }
 
 void CNeighboursWnd::OnNeighboursChat()
 {
+	if ( ! Settings.Community.ChatEnable || ! GetSelectedCount() )
+		return;
+
 	CSingleLock pLock( &Network.m_pSection, TRUE );
 
 	for ( int nItem = -1 ; ( nItem = m_wndList.GetNextItem( nItem, LVNI_SELECTED ) ) >= 0 ; )
 	{
 		if ( CNeighbour* pNeighbour = GetItem( nItem ) )
 		{
-			if ( pNeighbour->m_nProtocol == PROTOCOL_G1 ||
-				 pNeighbour->m_nProtocol == PROTOCOL_G2 )
-			{
-				ChatWindows.OpenPrivate( pNeighbour->m_oGUID,
-					&pNeighbour->m_pHost, FALSE, pNeighbour->m_nProtocol );
-			}
+			if ( pNeighbour->m_nProtocol == PROTOCOL_G2 ||
+				 pNeighbour->m_nProtocol == PROTOCOL_G1 )
+				ChatWindows.OpenPrivate( pNeighbour->m_oGUID, &pNeighbour->m_pHost, FALSE, pNeighbour->m_nProtocol );
+			else if ( pNeighbour->m_nProtocol == PROTOCOL_DC )
+				ChatCore.OnMessage( static_cast< CDCNeighbour*>( pNeighbour ) );
 		}
 	}
 }
 
 void CNeighboursWnd::OnUpdateSecurityBan(CCmdUI* pCmdUI)
 {
-	pCmdUI->Enable( GetSelectedCount() > 0 );
+	pCmdUI->Enable( GetSelectedCount() );
 }
 
 void CNeighboursWnd::OnSecurityBan()
@@ -526,22 +529,21 @@ void CNeighboursWnd::OnSecurityBan()
 
 void CNeighboursWnd::OnUpdateBrowseLaunch(CCmdUI* pCmdUI)
 {
+	BOOL bEnable = FALSE;
 	if ( GetSelectedCount() == 1 )
 	{
 		CSingleLock pNetworkLock( &Network.m_pSection );
 		if ( pNetworkLock.Lock( 500 ) )
 		{
-			CNeighbour* pNeighbour = GetItem( m_wndList.GetNextItem( -1, LVNI_SELECTED ) );
-			if ( pNeighbour &&
-				pNeighbour->m_nProtocol == PROTOCOL_G1 ||
-				pNeighbour->m_nProtocol == PROTOCOL_G2 )
+			if ( CNeighbour* pNeighbour = GetItem( m_wndList.GetNextItem( -1, LVNI_SELECTED ) ) )
 			{
-				pCmdUI->Enable( TRUE );
-				return;
+				bEnable = (
+					pNeighbour->m_nProtocol == PROTOCOL_G2 ||
+					pNeighbour->m_nProtocol == PROTOCOL_G1 );
 			}
 		}
 	}
-	pCmdUI->Enable( FALSE );
+	pCmdUI->Enable( bEnable );
 }
 
 void CNeighboursWnd::OnBrowseLaunch()
@@ -559,7 +561,7 @@ void CNeighboursWnd::OnBrowseLaunch()
 
 			pLock.Unlock();
 
-			new CBrowseHostWnd( nProtocol, &pAddress, oGUID );
+			new CBrowseHostWnd( nProtocol, &pAddress, FALSE, oGUID );
 		}
 	}
 }

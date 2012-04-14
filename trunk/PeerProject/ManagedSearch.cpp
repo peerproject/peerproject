@@ -26,13 +26,15 @@
 #include "HostCache.h"
 #include "Neighbours.h"
 #include "Datagrams.h"
-#include "G1Neighbour.h"
 #include "G2Neighbour.h"
-#include "G1Packet.h"
+#include "G1Neighbour.h"
+#include "EDNeighbour.h"
+#include "DCNeighbour.h"
 #include "G2Packet.h"
+#include "G1Packet.h"
 #include "EDPacket.h"
 #include "DCPacket.h"
-#include "EDNeighbour.h"
+
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -333,10 +335,15 @@ BOOL CManagedSearch::ExecuteNeighbours(const DWORD tTicks, const DWORD tSecs)
 		}
 		else if ( pNeighbour->m_nProtocol == PROTOCOL_ED2K )
 		{
-			pPacket = m_pSearch->ToEDPacket( FALSE, ((CEDNeighbour*)pNeighbour)->m_nTCPFlags );
+			CEDNeighbour* pEDNeighbour = static_cast< CEDNeighbour* >( pNeighbour );
+			pPacket = m_pSearch->ToEDPacket( FALSE, pEDNeighbour->m_nTCPFlags );
 		}
 		else if ( pNeighbour->m_nProtocol == PROTOCOL_DC )
 		{
+			CDCNeighbour* pDCNeighbour = static_cast< CDCNeighbour* >( pNeighbour );
+			m_pSearch->m_pMyHub = pDCNeighbour->m_pHost;
+			m_pSearch->m_sMyHub = pDCNeighbour->m_sServerName;
+			m_pSearch->m_sMyNick = pDCNeighbour->m_sNick;
 			pPacket = m_pSearch->ToDCPacket();
 		}
 
@@ -366,8 +373,7 @@ BOOL CManagedSearch::ExecuteNeighbours(const DWORD tTicks, const DWORD tSecs)
 				}
 				else if ( pNeighbour->m_nProtocol == PROTOCOL_DC )
 				{
-					if ( ! m_pSearch->m_oTiger )
-						SearchManager.m_oLastSearch = m_pSearch->m_oGUID;
+					SearchManager.m_oLastSearch = m_pSearch->m_oGUID;
 				}
 			}
 			pPacket->Release();

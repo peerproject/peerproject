@@ -154,7 +154,7 @@ void CBitTorrentSettingsPage::OnTorrentsBrowse()
 
 void CBitTorrentSettingsPage::OnMakerBrowse()
 {
-	CFileDialog dlg( TRUE, _T("exe"), _T("TorrentWizard.exe") , OFN_HIDEREADONLY|OFN_FILEMUSTEXIST,
+	CFileDialog dlg( TRUE, _T("exe"), _T("TorrentWizard.exe"), OFN_HIDEREADONLY|OFN_FILEMUSTEXIST,
 		_T("Executable Files|*.exe|") + LoadString( IDS_FILES_ALL ) + _T("|*.*||"), this );
 
 	if ( dlg.DoModal() != IDOK ) return;

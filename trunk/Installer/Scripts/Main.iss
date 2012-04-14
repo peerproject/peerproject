@@ -3,8 +3,8 @@
 ; Change from "Yes" to "No" on the next line for public releases.
 #define alpha "Yes"
 
-#if VER < 0x05010700
-  #error Inno Setup version 5.1.7 or higher (2006) is needed for this script
+#if VER < 0x05030500
+  #error Inno Setup version 5.3.5 or higher (2009) is needed for this script
 #endif
 #if PREPROCVER < 0x05040200
   #error PreProcessor version 5.4.2.0 or higher (2011) is needed for this script
@@ -19,7 +19,11 @@
 #define date          GetDateTimeString('yyyy/mm/dd', '-', '')
 
 #if ConfigurationName == "Debug"
-  #define output_name	internal_name + "_" + version + "_" + date + "_" + ConfigurationName + "_" + PlatformName
+  #if PlatformName == "x64"
+    #define output_name	internal_name + "_" + version + "_" + date + "_" + ConfigurationName + "_" + PlatformName
+  #else
+    #define output_name	internal_name + "_" + version + "_" + date + "_" + ConfigurationName
+  #endif
 #elif alpha == "Yes"
   #if PlatformName == "x64"
     #define output_name	internal_name + "_" + version + "_" + date + "_" + PlatformName
@@ -287,19 +291,19 @@ Source: "Data\DefaultSecurity.dat"; DestDir: "{app}\Data"; DestName: "Security.d
 
 [Icons]
 ; PeerProject Start Menu Shortcuts
-Name: "{group}\{#internal_name}"; Filename: "{app}\PeerProject.exe"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"
+Name: "{group}\{#internal_name}"; Filename: "{app}\PeerProject.exe"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"; AppUserModelID: "PeerProject"
 Name: "{group}\TorrentWizard"; Filename: "{app}\TorrentWizard.exe"; WorkingDir: "{app}"; Comment: "PeerProject Torrent File Creator"
-Name: "{group}\GUI Modes\{#internal_name} ({cm:icons_basicmode})"; Filename: "{app}\PeerProject.exe"; Parameters: "-basic"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"
-Name: "{group}\GUI Modes\{#internal_name} ({cm:icons_tabbedmode})"; Filename: "{app}\PeerProject.exe"; Parameters: "-tabbed"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"
-Name: "{group}\GUI Modes\{#internal_name} ({cm:icons_windowedmode})"; Filename: "{app}\PeerProject.exe"; Parameters: "-windowed"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"
-Name: "{group}\GUI Modes\{#internal_name} ({cm:icons_launchtray})"; Filename: "{app}\PeerProject.exe"; Parameters: "-tray"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"
-;Name: "{group}\GUI Modes\{#internal_name} ({cm:icons_noskin})"; Filename: "{app}\PeerProject.exe"; Parameters: "-noskin"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"
-Name: "{commondesktop}\{#internal_name}"; Filename: "{app}\PeerProject.exe"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"; Tasks: desktopicon
-Name: "{commondesktop}\TorrentWizard"; Filename: "{app}\TorrentWizard.exe"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"; Tasks: desktopiconwizard
+Name: "{group}\GUI Modes\{#internal_name} ({cm:icons_basicmode})"; Filename: "{app}\PeerProject.exe"; Parameters: "-basic"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"; AppUserModelID: "PeerProject"
+Name: "{group}\GUI Modes\{#internal_name} ({cm:icons_tabbedmode})"; Filename: "{app}\PeerProject.exe"; Parameters: "-tabbed"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"; AppUserModelID: "TorrentWizard"
+Name: "{group}\GUI Modes\{#internal_name} ({cm:icons_windowedmode})"; Filename: "{app}\PeerProject.exe"; Parameters: "-windowed"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"; AppUserModelID: "PeerProject"
+Name: "{group}\GUI Modes\{#internal_name} ({cm:icons_launchtray})"; Filename: "{app}\PeerProject.exe"; Parameters: "-tray"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"; AppUserModelID: "PeerProject"
+;Name: "{group}\GUI Modes\{#internal_name} ({cm:icons_noskin})"; Filename: "{app}\PeerProject.exe"; Parameters: "-noskin"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"; AppUserModelID: "PeerProject"
+Name: "{commondesktop}\{#internal_name}"; Filename: "{app}\PeerProject.exe"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"; Tasks: desktopicon; AppUserModelID: "PeerProject"
+Name: "{commondesktop}\TorrentWizard"; Filename: "{app}\TorrentWizard.exe"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"; Tasks: desktopiconwizard; AppUserModelID: "TorrentWizard"
 Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\{#internal_name}"; Filename: "{app}\PeerProject.exe"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"; Tasks: quicklaunch
 
 #if alpha == "Yes"
-Name: "{group}\GUI Modes\{#internal_name} (Help Options)"; Filename: "{app}\PeerProject.exe"; Parameters: "-?"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"
+Name: "{group}\GUI Modes\{#internal_name} (Help Options)"; Filename: "{app}\PeerProject.exe"; Parameters: "-?"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"; AppUserModelID: "PeerProject"
 #endif
 
 ; Other icons in user language

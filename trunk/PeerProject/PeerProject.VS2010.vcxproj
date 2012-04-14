@@ -128,7 +128,7 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>secur32.lib;rasapi32.lib;winmm.lib;version.lib;ws2_32.lib;wininet.lib;Iphlpapi.lib;msi.lib;powrprof.lib;mstask.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <DelayLoadDLLs>secur32.dll;rasapi32.dll;winmm.dll;version.dll;ws2_32.dll;wininet.dll;iphlpapi.dll;msi.dll;powrprof.dll;winspool.drv;comdlg32.dll;comctl32.dll;oledlg.dll;ole32.dll;oleaut32.dll;oleacc.dll;urlmon.dll;msimg32.dll;gdiplus.dll;imm32.dll;advapi32.dll;shell32.dll;shlwapi.dll</DelayLoadDLLs>
+      <DelayLoadDLLs>rasapi32.dll;winmm.dll;version.dll;ws2_32.dll;wininet.dll;iphlpapi.dll;msi.dll;powrprof.dll;winspool.drv;comdlg32.dll;comctl32.dll;oledlg.dll;ole32.dll;oleaut32.dll;oleacc.dll;urlmon.dll;msimg32.dll;gdiplus.dll;imm32.dll;advapi32.dll;shell32.dll;shlwapi.dll</DelayLoadDLLs> <!--secur32.dll-->
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -1034,6 +1034,7 @@
     <ClCompile Include="PageSettingsBitTorrent.cpp" />
     <ClCompile Include="PageSettingsCommunity.cpp" />
     <ClCompile Include="PageSettingsConnection.cpp" />
+    <ClCompile Include="PageSettingsDC.cpp" />
     <ClCompile Include="PageSettingsDonkey.cpp" />
     <ClCompile Include="PageSettingsDownloads.cpp" />
     <ClCompile Include="PageSettingsGeneral.cpp" />
@@ -1625,6 +1626,7 @@
     <ClInclude Include="PageSettingsBitTorrent.h" />
     <ClInclude Include="PageSettingsCommunity.h" />
     <ClInclude Include="PageSettingsConnection.h" />
+    <ClInclude Include="PageSettingsDC.h" />
     <ClInclude Include="PageSettingsDonkey.h" />
     <ClInclude Include="PageSettingsDownloads.h" />
     <ClInclude Include="PageSettingsGeneral.h" />

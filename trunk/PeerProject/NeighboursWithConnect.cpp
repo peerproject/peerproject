@@ -210,32 +210,32 @@ CNeighbour* CNeighboursWithConnect::ConnectTo(
 // Takes a pointer to the CHandshake object the program made when it accepted the new connection from the listening socket
 // Makes a new CShakeNeighbour object, and calls AttachTo to have it take this incoming connection
 // Returns a pointer to the CShakeNeighbour object
-CNeighbour* CNeighboursWithConnect::OnAccept(CConnection* pConnection)
+BOOL CNeighboursWithConnect::OnAccept(CConnection* pConnection)
 {
 	CSingleLock pLock( &Network.m_pSection );
-	if ( ! pLock.Lock( 300 ) )
+	if ( pLock.Lock( 300 ) )
 	{
-		// Give up if more than a quarter second passes here waiting for access
-		theApp.Message( MSG_ERROR, _T("Rejecting Gnutella connection from %s, network core overloaded."), (LPCTSTR)pConnection->m_sAddress );
-		return NULL;
-	}
+		if ( Neighbours.Get( pConnection->m_pHost.sin_addr ) )
+		{
+			pConnection->Write( _P("GNUTELLA/0.6 503 Duplicate connection\r\n\r\n") );
+			pConnection->LogOutgoing();
+			pConnection->DelayClose( IDS_CONNECTION_ALREADY_REFUSE );
+			return TRUE;
+		}
 
-	if ( Neighbours.Get( pConnection->m_pHost.sin_addr ) )
-	{
-		// Duplicate connection
-		theApp.Message( MSG_ERROR, IDS_CONNECTION_ALREADY_REFUSE, (LPCTSTR)pConnection->m_sAddress );
-		return NULL;
+		if ( CShakeNeighbour* pNeighbour = new CShakeNeighbour() )
+		{
+			pNeighbour->AttachTo( pConnection );
+			return FALSE;
+		}
 	}
+	else
+		theApp.Message( MSG_ERROR, _T("Rejecting %s connection from %s, network core overloaded."), _T("neighbour"), (LPCTSTR)pConnection->m_sAddress );
 
-	if ( CShakeNeighbour* pNeighbour = new CShakeNeighbour() )
-	{
-		// Make a CShakeNeighbour object, have it pickup this incoming connection, and return a pointer to it
-		pNeighbour->AttachTo( pConnection );
-		return pNeighbour;
-	}
-
-	// Out of memory
-	return NULL;
+	pConnection->Write( _P("GNUTELLA/0.6 503 Busy\r\n\r\n") );
+	pConnection->LogOutgoing();
+	pConnection->DelayClose( IDS_CONNECTION_CLOSED );
+	return TRUE;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -306,13 +306,13 @@ DWORD CNeighboursWithConnect::IsG2HubCapable(BOOL bIgnoreTime, BOOL bDebug) cons
 	DWORD nRating = 0;		// Increment this number as we find signs we can be a hub
 
 	// If the caller wants us to report debugging information, start out with a header line
-	if ( bDebug ) theApp.Message( MSG_DEBUG, _T("Is Gnutella2 hub capable?") );
+	if ( bDebug ) theApp.Message( MSG_DEBUG, _T("Is G2 hub capable?") );		// protocolNames[ PROTOCOL_G2 ]
 
 	// We can't be a Gnutella2 hub if the user has not chosen to connect to Gnutella2 in the program settings
 	if ( ! Network.IsConnected() || ! Settings.Gnutella2.Enabled )
 	{
 		// Finish the lines of debugging information, and report no, we can't be a hub
-		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("NO: G2 not enabled") );
+		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("NO: G2 not enabled") );		// protocolNames[ PROTOCOL_G2 ]
 		return FALSE;
 	}
 
@@ -417,25 +417,30 @@ DWORD CNeighboursWithConnect::IsG2HubCapable(BOOL bIgnoreTime, BOOL bDebug) cons
 	// If we've made it this far, change the rating number from 0 to 1
 	nRating = 1 + CalculateSystemPerformanceScore( bDebug );	// The higher it is, the better a hub we can be
 
-	// The program is not connected to the Gnutella network
+	// The program is not connected to other networks
+
 	if ( ! Settings.Gnutella1.Enabled )
 	{
 		nRating++;
-		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("Gnutella not enabled") );
+		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("Gnutella not enabled") );		// protocolNames[ PROTOCOL_G1 ]
 	}
 
-	// Not connected to eDonkey2000
 	if ( ! Settings.eDonkey.Enabled )
 	{
 		nRating++;
-		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("eDonkey not enabled") );
+		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("eDonkey not enabled") );		// protocolNames[ PROTOCOL_ED2K ]
 	}
 
-	// The user has diabled BitTorrent, so that won't be taking up bandwidth
+	if ( ! Settings.DC.Enabled )
+	{
+		nRating++;
+		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("DC++ not enabled") );			// protocolNames[ PROTOCOL_DC ]
+	}
+
 	if ( ! Settings.BitTorrent.Enabled )
 	{
 		nRating++;
-		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("BitTorrent not enabled") );
+		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("BitTorrent not enabled") );	// protocolNames[ PROTOCOL_BT ]
 	}
 
 	if ( bDebug )
@@ -472,12 +477,12 @@ DWORD CNeighboursWithConnect::IsG1UltrapeerCapable(BOOL bIgnoreTime, BOOL bDebug
 	DWORD nRating = 0;		// If we can be an ultrapeer, we'll set this to 1, and then make it higher if we'd be an even better ultrapeer
 
 	// If the caller requested we write out debugging information, start out by titling that the messages that follow come from this method
-	if ( bDebug ) theApp.Message( MSG_DEBUG, _T("Is Gnutella ultrapeer capable?") );
+	if ( bDebug ) theApp.Message( MSG_DEBUG, _T("Is Gnutella ultrapeer capable?") );	// protocolNames[ PROTOCOL_G1 ]
 
 	// We can't be a Gnutella ultrapeer if we're not connected to the Gnutella network
-	if ( ! Network.IsConnected() || ! Settings.Gnutella1.Enabled )
+	if ( ! Settings.Gnutella1.Enabled || ! Network.IsConnected() )
 	{
-		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("NO: Gnutella1 not enabled") );
+		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("NO: Gnutella not enabled") );		// protocolNames[ PROTOCOL_G1 ]
 		return FALSE;
 	}
 
@@ -520,7 +525,7 @@ DWORD CNeighboursWithConnect::IsG1UltrapeerCapable(BOOL bIgnoreTime, BOOL bDebug
 		else // We aren't a Gnutella2 hub right now
 		{
 			// Make a note we passed this test, and keep going
-			if ( bDebug ) theApp.Message( MSG_DEBUG, _T("OK: not a G2 hub") );
+			if ( bDebug ) theApp.Message( MSG_DEBUG, _T("OK: not a G2 hub") );		// protocolNames[ PROTOCOL_G2 ]
 		}
 
 		// Note base physical memory check in CalculateSystemPerformanceScore
@@ -578,24 +583,30 @@ DWORD CNeighboursWithConnect::IsG1UltrapeerCapable(BOOL bIgnoreTime, BOOL bDebug
 	// The higher it is, the better an ultrapeer we can be
 	nRating = 1 + CalculateSystemPerformanceScore( bDebug );
 
+	// We'll be a better Gnutella ultrapeer if the program isn't connected to other networks
+
 	if ( ! Settings.Gnutella2.Enabled )
 	{
 		nRating++;
-		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("G2 not enabled") );
+		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("G2 not enabled") );			// protocolNames[ PROTOCOL_G2 ]
 	}
-
-	// We'll be a better Gnutella ultrapeer if the program isn't connected to the other networks
 
 	if ( ! Settings.eDonkey.Enabled )
 	{
 		nRating++;
-		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("eDonkey not enabled") );
+		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("eDonkey not enabled") );		// protocolNames[ PROTOCOL_ED2K]
+	}
+
+	if ( ! Settings.DC.Enabled )
+	{
+		nRating++;
+		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("DC++ not enabled") );			// protocolNames[ PROTOCOL_DC ]
 	}
 
 	if ( ! Settings.BitTorrent.Enabled )
 	{
 		nRating++;
-		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("BitTorrent not enabled") );
+		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("BitTorrent not enabled") );	// protocolNames[ PROTOCOL_BT ]
 	}
 
 	// If debug mode is enabled, display the ultrapeer rating in the system window log (do)
@@ -993,7 +1004,6 @@ void CNeighboursWithConnect::Maintain()
 
 	nLimit[ PROTOCOL_DC ][ ntHub ] = Settings.DC.Enabled ? Settings.DC.NumServers : 0;					// 1 hub by default
 
-
 	// Add the count of connections where we don't know the network yet to the 0 column of both Gnutella and Gnutella2
 	nCount[ PROTOCOL_G1 ][0] += nCount[ PROTOCOL_NULL ][0];
 	nCount[ PROTOCOL_G2 ][0] += nCount[ PROTOCOL_NULL ][0];
@@ -1008,9 +1018,8 @@ void CNeighboursWithConnect::Maintain()
 		if ( nCount[ nProtocol ][ ntHub ] < nLimit[ nProtocol ][ ntHub ] )
 		{
 			// Don't try to connect to G1 right away, wait a few seconds to reduce the number of connections
-			if ( nProtocol == PROTOCOL_G1 && Settings.Gnutella2.Enabled )
+			if ( nProtocol != PROTOCOL_G2 && Settings.Gnutella2.Enabled )
 			{
-				// Wait 4 seconds before trying G1
 				if ( ! Network.ReadyToTransfer( tTimer ) ) return;
 			}
 
@@ -1045,7 +1054,6 @@ void CNeighboursWithConnect::Maintain()
 			CSingleLock oLock( &pCache->m_pSection, FALSE );
 			if ( ! oLock.Lock( 250 ) )
 				return;
-
 
 			// Handle priority servers
 			// Loop into the host cache until we have as many handshaking connections as we need hub connections

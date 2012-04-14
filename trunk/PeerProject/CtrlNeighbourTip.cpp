@@ -134,17 +134,12 @@ void CNeighbourTipCtrl::OnCalcSize(CDC* pDC)
 
 		m_sz.cy += TIP_RULE;
 	}
-	else if ( pNeighbour->m_nProtocol == PROTOCOL_ED2K || pNeighbour->m_nProtocol == PROTOCOL_DC )
+	else if ( ! pNeighbour->m_sServerName.IsEmpty() )	// pNeighbour->m_nProtocol == PROTOCOL_ED2K || PROTOCOL_DC
 	{
-		str = pNeighbour->m_sServerName;
-
-		if ( ! str.IsEmpty() )
-		{
-			pDC->SelectObject( &CoolInterface.m_fntNormal );
-			AddSize( pDC, str );
-			m_sz.cy += TIP_TEXTHEIGHT;
-			m_sz.cy += TIP_RULE;
-		}
+		pDC->SelectObject( &CoolInterface.m_fntNormal );
+		AddSize( pDC, pNeighbour->m_sServerName );
+		m_sz.cy += TIP_TEXTHEIGHT;
+		m_sz.cy += TIP_RULE;
 	}
 
 	pDC->SelectObject( &CoolInterface.m_fntBold );
@@ -211,17 +206,12 @@ void CNeighbourTipCtrl::OnPaint(CDC* pDC)
 
 		DrawRule( pDC, &pt );
 	}
-	else if ( pNeighbour->m_nProtocol == PROTOCOL_ED2K || pNeighbour->m_nProtocol == PROTOCOL_DC )
+	else if ( ! pNeighbour->m_sServerName.IsEmpty() )	// pNeighbour->m_nProtocol == PROTOCOL_ED2K || PROTOCOL_DC
 	{
-		str = pNeighbour->m_sServerName;
-
-		if ( ! str.IsEmpty() )
-		{
-			pDC->SelectObject( &CoolInterface.m_fntBold );
-			DrawText( pDC, &pt, str );
-			pt.y += TIP_TEXTHEIGHT;
-			DrawRule( pDC, &pt );
-		}
+		pDC->SelectObject( &CoolInterface.m_fntBold );
+		DrawText( pDC, &pt, pNeighbour->m_sServerName );
+		pt.y += TIP_TEXTHEIGHT;
+		DrawRule( pDC, &pt );
 	}
 
 	// Show large protocol icon (unused)
@@ -305,19 +295,13 @@ void CNeighbourTipCtrl::OnPaint(CDC* pDC)
 			if ( CEDNeighbour* pED = (CEDNeighbour*)pNeighbour )
 			{
 				if ( CEDPacket::IsLowID( pED->m_nClientID ) )
-				{
-					CString sFormat;
-					LoadString( sFormat, IDS_NEIGHBOUR_ED2K_LOW );
-					str.Format( sFormat, pED->m_nClientID );
-				}
+					str.Format( LoadString( IDS_NEIGHBOUR_ED2K_LOW ), pED->m_nClientID );
 				else
-				{
 					LoadString( str, IDS_NEIGHBOUR_ED2K_HIGH );
-				}
 			}
 			break;
 		case PROTOCOL_DC:
-			str = L"NMDC Client-to-Hub Connection";		// ToDo: Localize
+			LoadString( str, IDS_NEIGHBOUR_DCHUB );
 			break;
 		default:
 			LoadString( str, IDS_NEIGHBOUR_HANDSHAKE );

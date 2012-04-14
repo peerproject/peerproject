@@ -4,7 +4,7 @@
 <!-- PeerProject Default Afrikaans Skin File -->
 <!-- Weergawe: 27 Oktober 2005 vir Shareaza 2.2.0.2 -->
 
-<!-- Translation based on default-en.xml r76 -->
+<!-- Translation based on default-en.xml r77 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2983,6 +2983,7 @@
 	<string id="20505" value="Geen"/>
 	<string id="20506" value="Konnekteer"/>
 	<string id="20507" value="Huidiget:"/>
+	<string id="20509" value="DC++: Client-tot-Hub Konneksie"/>
 	<string id="20510" value="eDonkey2000 Bediener Konneksie"/>
 	<string id="20511" value="eDonkey2000 (HighID)"/>
 	<string id="20512" value="eDonkey Bediener Konneksie (LOWID: %lu)"/>
@@ -3488,20 +3489,24 @@
 		<control caption="Hulp:"/>
 		<control caption="PeerProject Web Toegang laat jou toe om PeerProject op jou rekenaar aan te los en dit vanaf 'n afgeleë plek te beheer deur middel van 'n web blaaier. Jy sal inkomende konneksies moet kan ontvang om hierdie funksie te gebruik ('n korrek opgestelde roeteerder, ens)."/>
 	</dialog>
-	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Netwerke">
+	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="Netwerke">
 		<control caption="PeerProject is 'n algemeendoelige lêerdelingsprogram wat toegang tot verskeie P2P netwerke gelyktydig bied.  Op hierdie bladsy kan jy kies aan watter P2P netwerke jy wil konnekteer en daarna spesifieke verstellings maak vir elke netwerk."/>
 		<control caption="Gnutella2 Netwerk:"/>
 		<control caption="Die Gnutella2 Netwerk is PeerProject se primêre netwerk en bied meer funksies en beter werkverrigting as enige ander P2P netwerk.  Word sterk aanbeveel."/>
-		<control caption="Konnekteer aan Gnutella2 (G2)"/>
+		<control caption="Wys Gnutella2 (G2)"/>
 		<control caption="Konfigureer Gnutella2"/>
 		<control caption="Oorspronklike Gnutella Netwerk:"/>
 		<control caption="Alhoewel die oorspronklike Gnutella netwerk minder funksieryk as Gnutella2 is en ook minder lêers het as eDonkey2000, bly dit 'n waardevolle hulpbron."/>
-		<control caption="Konnekteer aan Oorspronklike Gnutella"/>
-		<control caption="Konfigureer Gnutella1"/>
+		<control caption="Wys Oorspronklike Gnutella"/>
+		<control caption="Konfigureer Gnutella"/>
 		<control caption="eDonkey Netwerk:"/>
-		<control caption="Die eDonkey netwerk is 'n populêre bediener-gebaseerde netwerk.  Nie so funksieryk soos Gnutella2 nie, maar dit het 'n groot hoeveelheid lêers."/>
-		<control caption="Konnekteer aan eDonkey2000 (ED2K)"/>
+		<control caption="Die eDonkey netwerk is 'n populêre bediener-gebaseerde netwerk. Nie so funksieryk soos Gnutella2 nie, maar dit het 'n groot hoeveelheid lêers."/>
+		<control caption="Wys eDonkey2000 (ED2K)"/>
 		<control caption="Konfigureer eDonkey"/>
+		<control caption="DC++ Netwerk:"/>
+		<control caption="Die DC++ netwerk is 'n populêre bediener-gebaseerde netwerk. Nie so funksieryk soos Gnutella2 nie, maar dit het 'n groot hoeveelheid lêers."/>
+		<control caption="Wys DC++ (DC)"/>
+		<control caption="Konfigureer DC++"/>
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Gnutella2 Netwerk:"/>
@@ -3558,6 +3563,21 @@
 		<control caption="eDonkey2000 _Opsies:"/>
 		<control caption="Laai Af..."/>
 		<control caption="Laai eDonkey bedienerlys van die web af"/>
+	</dialog>
+	<dialog name="CDCSettingsPage" cookie="BuBuBuBuStEdmsStBuStBuBuSt" caption="DC++">
+		<control caption="_DC++ Netwerk:"/>
+		<control caption="Konnekteer aan DC++"/>
+		<control caption="Konnekteer aan DC++ auto"/>
+		<control caption="_Hubs:"/>
+		<control caption="Konnekteer aan default:"/>
+		<control/>
+		<control/>
+		<control caption="DC++ hubs."/>
+		<control caption="_Info:"/>
+		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
+		<control caption="_Opsies:"/>
+		<control caption="Laai Af..."/>
+		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Aflaai Koppellings:"/>

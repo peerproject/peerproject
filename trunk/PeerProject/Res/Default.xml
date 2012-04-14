@@ -2695,8 +2695,8 @@
 		<image id="ID_DOWNLOADS_MOVE_BOTTOM" id1="ID_DOWNLOADS_MOVE_DOWN" id2="ID_SECURITY_MOVE_DOWN"/>
 		<image id="ID_DOWNLOAD_GROUP_MOVELEFT" id1="ID_MOVETAB_LEFT" id2="ID_MOVETAB_FIRST"/>
 		<image id="ID_DOWNLOAD_GROUP_MOVERIGHT" id1="ID_MOVETAB_RIGHT" id2="ID_MOVETAB_LAST"/>
-		<image id="IDI_INCOMING"/>
-		<image id="IDI_OUTGOING"/>
+		<image id="IDI_INCOMING" id1="IDI_USER"/>
+		<image id="IDI_OUTGOING" id1="IDI_USER_ME"/>
 	</bitmap>
 	<bitmap id="IDB_IRCICONS" mask="CLR_NONE">
 		<image id="ID_TAB_IRC"/>

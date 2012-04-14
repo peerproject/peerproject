@@ -482,7 +482,6 @@ BOOL CWizardCtrl::MakeControls(CXMLElement* pBase, std::vector< CLibraryFile* > 
 
 							if ( nFileCount > m_pFileDocs.GetCount() )
 								pList[ pos ]->PrepareDoc( ( nFileCount & 1 ) ? strOddTemplate : strEvenTemplate, m_pFileDocs );
-
 						} // for pos
 					}
 				}
@@ -518,7 +517,7 @@ void CWizardCtrl::Layout()
 
 	for ( INT_PTR nControl = 0 ; nControl < m_pControls.GetSize() ; nControl++ )
 	{
-		CWnd* pControl	= m_pControls.GetAt( nControl );
+		CWnd* pControl = m_pControls.GetAt( nControl );
 		float nFactor = 1;
 		CString strUINT, strValue;
 

@@ -70,6 +70,10 @@ BEGIN_MESSAGE_MAP(CBaseMatchWnd, CPanelWnd)
 	ON_WM_CONTEXTMENU()
 	ON_WM_MEASUREITEM()
 	ON_WM_DRAWITEM()
+	ON_WM_SETCURSOR()
+	ON_WM_MOUSEWHEEL()
+	ON_WM_NCLBUTTONDOWN()
+	ON_WM_MDIACTIVATE()
 	ON_UPDATE_COMMAND_UI(ID_SEARCH_DOWNLOAD, OnUpdateSearchDownload)
 	ON_COMMAND(ID_SEARCH_DOWNLOAD, OnSearchDownload)
 	ON_UPDATE_COMMAND_UI(ID_SEARCH_DOWNLOADNOW, OnUpdateSearchDownloadNow)
@@ -89,10 +93,6 @@ BEGIN_MESSAGE_MAP(CBaseMatchWnd, CPanelWnd)
 	ON_COMMAND(ID_SECURITY_BAN, OnSecurityBan)
 	ON_UPDATE_COMMAND_UI(ID_HITMONITOR_SEARCH, OnUpdateHitMonitorSearch)
 	ON_COMMAND(ID_HITMONITOR_SEARCH, OnHitMonitorSearch)
-	ON_WM_MOUSEWHEEL()
-	ON_WM_MDIACTIVATE()
-	ON_WM_NCLBUTTONDOWN()
-	ON_WM_SETCURSOR()
 	ON_UPDATE_COMMAND_UI(ID_BROWSE_LAUNCH, OnUpdateBrowseLaunch)
 	ON_COMMAND(ID_BROWSE_LAUNCH, OnBrowseLaunch)
 	ON_COMMAND(ID_SEARCH_FILTER_RAW, OnSearchFilterRaw)
@@ -584,8 +584,11 @@ void CBaseMatchWnd::OnBrowseLaunch()
 
 	if ( CQueryHit* pHit = m_pMatches->GetSelectedHit() )
 	{
-		new CBrowseHostWnd( pHit->m_nProtocol, &pHit->m_pAddress, pHit->m_nPort,
-			pHit->m_bPush == TRI_TRUE, pHit->m_oClientID );
+		SOCKADDR_IN pAddress = { AF_INET };
+		pAddress.sin_port = htons( pHit->m_nPort );
+		pAddress.sin_addr = pHit->m_pAddress;
+		new CBrowseHostWnd( pHit->m_nProtocol, &pAddress,
+			pHit->m_bPush == TRI_TRUE, pHit->m_oClientID, pHit->m_sNick  );
 	}
 }
 

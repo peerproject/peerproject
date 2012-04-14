@@ -239,10 +239,10 @@ void CSecurityWnd::OnCustomDrawList(NMHDR* pNMHDR, LRESULT* pResult)
 		switch ( Settings.General.LanguageRTL ? 2 - pItem.iImage : pItem.iImage )
 		{
 		case CSecureRule::srAccept:
-			pDraw->clrText = Colors.m_crSecurityAllow ;
+			pDraw->clrText = Colors.m_crSecurityAllow;
 			break;
 		case CSecureRule::srDeny:
-			pDraw->clrText = Colors.m_crSecurityDeny ;
+			pDraw->clrText = Colors.m_crSecurityDeny;
 			break;
 		}
 
@@ -412,7 +412,6 @@ void CSecurityWnd::OnSecurityExport()
 
 	if ( dlg.DoModal() != IDOK ) return;
 
-	CString strText;
 	CFile pFile;
 
 	if ( ! pFile.Open( dlg.GetPathName(), CFile::modeWrite|CFile::modeCreate ) )
@@ -422,6 +421,8 @@ void CSecurityWnd::OnSecurityExport()
 	}
 
 	CWaitCursor pCursor;
+
+	CString strText;
 
 	if ( dlg.GetFileExt().CompareNoCase( _T("net") ) == 0 )
 	{

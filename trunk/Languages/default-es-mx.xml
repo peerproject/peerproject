@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Spanish (Mexican) Skin File -->
 
-<!-- Translation based on default-en.xml r76 -->
+<!-- Translation based on default-en.xml r77 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3014,6 +3014,7 @@
 	<string id="20505" value="Ninguno"/>
 	<string id="20506" value="Conectando"/>
 	<string id="20507" value="Actual:"/>
+	<string id="20509" value="DC++: Conexión Client-to-Hub"/>
 	<string id="20510" value="Conexión Servidor eDonkey"/>
 	<string id="20511" value="eDonkey (HighID)"/>
 	<string id="20512" value="Conexión Servidor eDonkey(LOWID: %lu)"/>
@@ -3568,20 +3569,24 @@
 		<control caption="Ayuda:"/>
 		<control caption="El Acceso Remoto de PeerProject te permite dejar PeerProject corriendo en tu PC, y controlarlo usando un navegador. Vas a necesitar habilitar aceptar conexiones entrantes para usar esta característica (Ej: Configurar tu router, etc)."/>
 	</dialog>
-	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Redes">
+	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="Redes">
 		<control caption="PeerProject tiene la habilidad de acceder varias redes de compartimiento de archivos. En esta página se pueden seleccionar las redes que serán usadas, y ajustar las configuraciones de las mismás."/>
 		<control caption="Red Gnutella2:"/>
 		<control caption="Gnutella2 es la red principal de PeerProject, esta ofrece el mejor rendimiento y funciones. Altamente recomendada."/>
-		<control caption="Conectar a Gnutella2 (G2)"/>
+		<control caption="Mostrar Gnutella2 (G2)"/>
 		<control caption="Configurar Gnutella2"/>
 		<control caption="Red original de Gnutella:"/>
 		<control caption="Esta red tiene menos funciones y menos archivos que eDonkey, pero puede seguir siendo un recurso valioso."/>
-		<control caption="Conectar a Gnutella (G1)"/>
+		<control caption="Mostrar Gnutella (G1)"/>
 		<control caption="Configurar Gnutella"/>
 		<control caption="Red eDonkey:"/>
 		<control caption="La red de eDonkey es popular, y basada en servidores. No tiene tantas funciones como Gnutella2, pero si tiene una gran cantidad de usuarios."/>
-		<control caption="Conectar a eDonkey2000 (ED2K)"/>
+		<control caption="Mostrar eDonkey2000 (ED2K)"/>
 		<control caption="Configurar eDonkey"/>
+		<control caption="Red DC++:"/>
+		<control caption="La red de DC++ es popular, y basada en servidores. No tiene tantas funciones como Gnutella2, pero si tiene una gran cantidad de usuarios."/>
+		<control caption="Mostrar DC++ (DC)"/>
+		<control caption="Configurar DC++"/>
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption=" Red Gnutella2:"/>
@@ -3638,6 +3643,21 @@
 		<control caption="_Herramientas de eDonkey:"/>
 		<control caption="Descargar..."/>
 		<control caption="Descargar lista de servidores de eDonkey de la web:"/>
+	</dialog>
+	<dialog name="CDCSettingsPage" cookie="BuBuBuBuStEdmsStBuStBuBuSt" caption="DC++">
+		<control caption="Red de _DC++:"/>
+		<control caption="Conectar a DC++ ahora"/>
+		<control caption="Conectar siempre a DC++ en el inicio"/>
+		<control caption="_Hubs:"/>
+		<control caption="Conectar a default:"/>
+		<control/>
+		<control/>
+		<control caption="DC++ hubs."/>
+		<control caption="_Info:"/>
+		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
+		<control caption="_Herramientas:"/>
+		<control caption="Descargar..."/>
+		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Conexiones de descarga:"/>

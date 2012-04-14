@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Greek Skin File -->
 
-<!-- Translation based on default-en.xml r76 -->
+<!-- Translation based on default-en.xml r77 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3058,6 +3058,7 @@
 	<string id="20505" value="Καμία"/>
 	<string id="20506" value="Σύνδεση..."/>
 	<string id="20507" value="Τρέχον:"/>
+	<string id="20509" value="DC++: Σύνδεση Φύλλου-σε-Κόμβο"/>
 	<string id="20510" value="Σύνδεση σε server του ED2K"/>
 	<string id="20511" value="ED2K (HighID)"/>
 	<string id="20512" value="Σύνδεση σε server του ED2K(LOWID: %lu)"/>
@@ -3610,20 +3611,24 @@
 		<control caption="Περιγραφή:"/>
 		<control caption="Η Απομακρυσμένη Πρόσβαση επιτρέπει, κατά την εκτέλεση του PeerProject στον υπολογιστή σας, τον χειρισμό του από απομακρυσμένα προγράμματα περιήγησης. Για να χρησιμοποιήσετε αυτήν τη δυνατότητα, πρέπει να δέχεστε εισερχόμενες συνδέσεις (π.χ. κατάλληλα ρυθμισμένο router κτλ)."/>
 	</dialog>
-	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Δίκτυα">
+	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="Δίκτυα">
 		<control caption="Το PeerProject είναι ένα γενικού σκοπού πρόγραμμα ανταλλαγής αρχείων που συνδέεται σε πολλά P2P δίκτυα ταυτόχρονα. Σε αυτήν τη σελίδα μπορείτε να επιλέξετε σε ποια δίκτυα θέλετε να συνδέεστε και με τι ρυθμίσεις στο καθένα."/>
 		<control caption="Δίκτυο Gnutella2:"/>
 		<control caption="Το πρωτεύον δίκτυο του PeerProject, που προσφέρει τα περισσότερα χαρακτηριστικά και επιδόσεις από κάθε άλλο. Συστείνεται ανεπιφύλακτα."/>
-		<control caption="Σύνδεση στο Gnutella2 (G2)"/>
+		<control caption="Εμφάνιση Gnutella2 (G2)"/>
 		<control caption="Παραμετροποίηση Gnutella2"/>
 		<control caption="Δίκτυο Gnutella:"/>
 		<control caption="Όχι τόσο προχωρημένο όσο το Gnutella2 και με λιγότερα αρχεία από το ED2K, αλλά παραμένει μια πολύτιμη πηγή, κυρίως μουσικής."/>
-		<control caption="Σύνδεση στο Gnutella (G1)"/>
+		<control caption="Εμφάνιση Gnutella (G1)"/>
 		<control caption="Παραμετροποίηση Gnutella"/>
 		<control caption="Δίκτυο ED2K:"/>
 		<control caption="Δημοφιλές δίκτυο, βασισμένο σε server. Δεν είναι τόσο προχωρημένο όσο το Gnutella2, αλλά διαθέτει τα περισσότερα αρχεία."/>
-		<control caption="Σύνδεση στο ED2K"/>
+		<control caption="Εμφάνιση ED2K"/>
 		<control caption="Παραμετροποίηση ED2K"/>
+		<control caption="Δίκτυο DC++:"/>
+		<control caption="Δημοφιλές δίκτυο, βασισμένο σε server. Δεν είναι τόσο προχωρημένο όσο το Gnutella2, αλλά διαθέτει τα περισσότερα αρχεία."/>
+		<control caption="Εμφάνιση DC++"/>
+		<control caption="Παραμετροποίηση DC++"/>
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella 1 &amp; 2">
 		<control caption="Δίκτυο Gnutella2:"/>
@@ -3678,8 +3683,23 @@
 		<control caption="αποτελέσματα αναζήτησης."/>
 		<control caption="Παραλαβή και ενημέρωση λίστας servers από τον ενωμένο server"/>
 		<control caption="_Εργαλεία ED2K:"/>
-		<control caption="Λήψη λίστας servers του ED2K από τον Ιστό:"/>
 		<control caption="Λήψη..."/>
+		<control caption="Λήψη λίστας servers του ED2K από τον Ιστό:"/>
+	</dialog>
+	<dialog name="CDCSettingsPage" cookie="BuBuBuBuStEdmsStBuStBuBuSt" caption="DC++">
+		<control caption="Δίκτυο _DC++:"/>
+		<control caption="Πάντα σύνδεση στο DC++"/>
+		<control caption="Σύνδεση στο DC++ σήμερα"/>
+		<control caption="_Hubs:"/>
+		<control caption="Connect by default to:"/>
+		<control/>
+		<control/>
+		<control caption="DC++ hubs."/>
+		<control caption="_Info:"/>
+		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
+		<control caption="_Εργαλεία:"/>
+		<control caption="Λήψη..."/>
+		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="Συνδέσεις _Λήψης:"/>

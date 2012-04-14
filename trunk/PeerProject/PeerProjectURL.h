@@ -67,13 +67,13 @@ public:
 protected:
 	void	Clear();
 
-	BOOL	ParseRoot(LPCTSTR pszURL, BOOL bResolve);
-	BOOL	ParseHTTP(LPCTSTR pszURL, BOOL bResolve);
-	BOOL	ParseFTP(LPCTSTR pszURL, BOOL bResolve);
-	BOOL	ParseED2KFTP(LPCTSTR pszURL, BOOL bResolve);	// ed2kftp://[client_id@]address:port/{md4_hash}/{size}/
-	BOOL	ParseDCFile(LPCTSTR pszURL, BOOL bResolve); 	// dcfile://address:port/login/TTH:tiger_hash/size/
-	BOOL	ParseDCHub(LPCTSTR pszURL, BOOL bResolve);  	// dchub://address:port	 (adc://)
-	BOOL	ParseBTC(LPCTSTR pszURL, BOOL bResolve);		// btc://address:port/[{node_guid}]/{btih_hash}/
+	BOOL	ParseRoot(LPCTSTR pszURL, BOOL bResolve = TRUE);
+	BOOL	ParseHTTP(LPCTSTR pszURL, BOOL bResolve = TRUE);
+	BOOL	ParseFTP(LPCTSTR pszURL, BOOL bResolve = TRUE);
+	BOOL	ParseED2KFTP(LPCTSTR pszURL, BOOL bResolve = TRUE);	// ed2kftp://[client_id@]address:port/{md4_hash}/{size}/
+	BOOL	ParseDCFile(LPCTSTR pszURL, BOOL bResolve = TRUE); 	// dcfile://address:port/login/TTH:tiger_hash/size/	(Deprecated?)
+	BOOL	ParseDCHub(LPCTSTR pszURL, BOOL bResolve = TRUE);  	// dchub://[login@]address:port/[filepath] -Can be regular path or "files.xml.bz2" or "TTH:tiger_hash/size/"	 (adc:// ?)
+	BOOL	ParseBTC(LPCTSTR pszURL, BOOL bResolve = TRUE);		// btc://address:port/[{node_guid}]/{btih_hash}/
 	BOOL	ParseMagnet(LPCTSTR pszURL);					// magnet:?{params}
 											// Host:		// peerproject:[//]{verb}{[user@]address[:port]}, where {verb} is "" (empty), "host:", "hub:", "server:", "browse:" or "btnode:"
 											// WebCache:	// peerproject:[//]gwc:{url}[?nets={net_list}], where {net_list} is "gnutella" or "gnutella2"

@@ -1955,6 +1955,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\PeerProject\PageSettingsDC.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\PeerProject\PageSettingsDonkey.cpp"
 					>
 				</File>
@@ -3502,6 +3506,10 @@
 				</File>
 				<File
 					RelativePath="..\PeerProject\PageSettingsConnection.h"
+					>
+				</File>
+				<File
+					RelativePath="..\PeerProject\PageSettingsDC.h"
 					>
 				</File>
 				<File

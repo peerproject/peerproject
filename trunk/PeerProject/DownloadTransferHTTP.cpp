@@ -1052,7 +1052,7 @@ BOOL CDownloadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 				{
 					// If exactly, it should follow RFC 2184 rules
 					CString strPhrase = URLDecode( strValue.Mid( nPos + 9 ) );
-					CString strFilename = strPhrase.Mid( 1 , strPhrase.GetLength() - 2 );
+					CString strFilename = strPhrase.Mid( 1, strPhrase.GetLength() - 2 );
 
 					// If the filenames contain an invalid character (Because web servers or P2P clients are evil, or because sometimes non-ascii chars, ex Japanese chars, are encoded as "?" (%3F) by faulty coding)
 					if (  strFilename.Find( _T('\\') ) >= 0 || strFilename.Find( _T('/') ) >= 0 || strFilename.Find( _T(':') ) >= 0
@@ -1216,9 +1216,9 @@ BOOL CDownloadTransferHTTP::OnHeadersComplete()
 			return FALSE;
 		}
 
-		if (	m_sContentType.CompareNoCase( _T("application/tigertree-breadthfirst") ) &&
-				m_sContentType.CompareNoCase( _T("application/dime") ) &&
-				m_sContentType.CompareNoCase( _T("application/binary") ) )	// Content Type used by Phex
+		if ( m_sContentType.CompareNoCase( _T("application/tigertree-breadthfirst") ) &&
+			 m_sContentType.CompareNoCase( _T("application/dime") ) &&
+			 m_sContentType.CompareNoCase( _T("application/binary") ) )		// Content Type used by Phex
 		{
 			theApp.Message( MSG_INFO, IDS_DOWNLOAD_TIGER_RANGE, (LPCTSTR)m_sAddress );
 			Close( TRI_TRUE );
@@ -1653,7 +1653,7 @@ BOOL CDownloadTransferHTTP::ReadFlush()
 		{
 			// Made two requests already and the source does advertise available ranges,
 			// but we still managed to request a wrong one.  ToDo: Determine if/why this is still happening
-			theApp.Message( MSG_ERROR, _T("BUG: PeerProject requested a fragment from host %s, although it knew that the host doesn't have that fragment") , (LPCTSTR)m_sAddress );
+			theApp.Message( MSG_ERROR, _T("BUG: PeerProject requested a fragment from host %s, although it knew that the host doesn't have that fragment"), (LPCTSTR)m_sAddress );
 			Close( TRI_TRUE );
 			return FALSE;
 		}

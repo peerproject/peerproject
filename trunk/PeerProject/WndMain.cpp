@@ -1175,6 +1175,9 @@ LRESULT CMainWnd::OnSkinChanged(WPARAM /*wParam*/, LPARAM /*lParam*/)
 
 	Skin.m_bSkinChanging = TRUE;	// Indicate transitional state where needed
 
+	if ( m_pSkin )
+		CoolInterface.EnableTheme( this, TRUE );
+
 	//LockWindowUpdate();
 	RemoveSkin();
 
@@ -1223,7 +1226,8 @@ LRESULT CMainWnd::OnSkinChanged(WPARAM /*wParam*/, LPARAM /*lParam*/)
 
 	m_pSkin = Skin.GetWindowSkin( this );
 
-	CoolInterface.EnableTheme( this, ( m_pSkin == NULL ) );
+	if ( m_pSkin )
+		CoolInterface.EnableTheme( this, FALSE );
 
 	SetWindowRgn( NULL, TRUE );
 
@@ -1588,7 +1592,7 @@ void CMainWnd::UpdateMessages()
 			{
 				pTaskbar->SetProgressState( GetSafeHwnd(), TBPF_NOPROGRESS );
 				pTaskbar->SetThumbnailTooltip( GetSafeHwnd(), Settings.SmartAgent()
-#ifdef _DEBUG					
+#ifdef _DEBUG
 				+ _T(" Debug")
 #endif
 				);

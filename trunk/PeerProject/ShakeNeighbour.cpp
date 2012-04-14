@@ -1188,7 +1188,7 @@ BOOL CShakeNeighbour::OnHeadersCompleteG2()
 		if ( m_nNodeType == ntLeaf && m_bBadClient )
 		{
 			// We don't allow these to act as a leaf. (Resource use, etc.)
-			theApp.Message( MSG_ERROR, _T("Rejecting bad leaf client %s") , (LPCTSTR)m_sUserAgent );
+			theApp.Message( MSG_ERROR, _T("Rejecting bad leaf client %s"), (LPCTSTR)m_sUserAgent );
 			Write( _P("GNUTELLA/0.6 503 Client Refused.\r\n") );
 
 			SendMinimalHeaders();

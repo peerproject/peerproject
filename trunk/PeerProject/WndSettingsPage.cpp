@@ -1,7 +1,7 @@
 //
 // WndSettingsPage.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -244,9 +244,15 @@ HBRUSH CSettingsPage::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 
 		if ( pWnd->GetDlgCtrlID() != IDC_STATIC )						// Named controls  (Dynamic handling)	 // || ( pWnd->GetStyle() & SS_REALSIZEIMAGE ) || ( pWnd->GetStyle() & SS_ICON )
 		{
-			if ( ! pWnd->IsWindowEnabled() || ( pWnd->GetStyle() & ES_READONLY ) )
-				if ( pWnd->GetDlgCtrlID() != IDC_REMOTE_URL )
-					return Skin.m_brDialog;								// Skip disabled edit boxes (Not disabled text)
+			if ( ( pWnd->GetStyle() & ES_READONLY ) )
+				return Skin.m_brDialog;									// Skip disabled edit boxes (Not disabled text)
+
+			//if ( ! pWnd->IsWindowEnabled() )
+			//{
+			//	const int nID = pWnd->GetDlgCtrlID();
+			//	if ( nID != IDC_REMOTE_URL && nID != IDC_INBOUND_BIND && nID != IDC_G1_SETUP && nID != IDC_ED2K_SETUP && nID != IDC_DC_SETUP )	// Keep exception list updated
+			//		return Skin.m_brDialog;								// Skip disabled edit boxes (Not disabled text)
+			//}
 
 			//TCHAR szName[24];
 			//GetClassName( pWnd->GetSafeHwnd(), szName, 24 );			// Alt detection method for exceptions

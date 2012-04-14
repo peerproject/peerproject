@@ -49,11 +49,6 @@ BEGIN_MESSAGE_MAP(CPrivateChatWnd, CChatWnd)
 	ON_COMMAND(ID_CHAT_BROWSE, &CPrivateChatWnd::OnChatBrowse)
 	ON_UPDATE_COMMAND_UI(ID_CHAT_PRIORITY, &CPrivateChatWnd::OnUpdateChatPriority)
 	ON_COMMAND(ID_CHAT_PRIORITY, &CPrivateChatWnd::OnChatPriority)
-	// Temp:
-	ON_MESSAGE(WM_CHAT_REMOTE_MESSAGE, &CPrivateChatWnd::OnRemoteMessage)
-	ON_MESSAGE(WM_CHAT_STATUS_MESSAGE, &CPrivateChatWnd::OnStatusMessage)
-	ON_MESSAGE(WM_CHAT_BITMAP_MESSAGE, &CPrivateChatWnd::OnBitmapMessage)
-	ON_MESSAGE(WM_CHAT_PROFILE_RECEIVED, &CPrivateChatWnd::OnProfileReceived)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -118,8 +113,8 @@ void CPrivateChatWnd::Setup(const Hashes::Guid& oGUID, const SOCKADDR_IN* pHost,
 
 	m_pSession = new CChatSession( nProtocol, this );
 	m_pSession->m_oGUID 	= oGUID;
-	m_pSession->m_pHost		= *pHost;
-	m_pSession->m_sUserNick	= HostToString( pHost );
+	m_pSession->m_pHost 	= *pHost;
+	m_pSession->m_sNick 	= HostToString( pHost );
 	m_pSession->m_bMustPush	= bMustPush;
 }
 
@@ -127,8 +122,9 @@ BOOL CPrivateChatWnd::Accept(CChatSession* pSession)
 {
 	if ( m_pSession )
 	{
-		if ( m_pSession->m_nState > cssConnecting )
+		if ( m_pSession->IsOnline() )
 			return FALSE;
+
 		m_pSession->OnCloseWindow();
 	}
 
@@ -152,7 +148,7 @@ BOOL CPrivateChatWnd::Find(const SOCKADDR_IN* pAddress) const
 BOOL CPrivateChatWnd::Find(const Hashes::Guid& oGUID, bool bLive) const
 {
 	if ( m_pSession && validAndEqual( m_pSession->m_oGUID, oGUID ) )
-		return ( bLive == m_pSession->m_nState > cssConnecting );
+		return ( bLive == m_pSession->IsOnline() );
 
 	return FALSE;
 }
@@ -169,21 +165,23 @@ void CPrivateChatWnd::OnDestroy()
 {
 	CChatWnd::OnDestroy();
 
+	CQuickLock pLock( ChatCore.m_pSection );
+
+	if ( CChatSession* pSession = m_pSession )
 	{
-		CQuickLock pLock( ChatCore.m_pSection );
-		if ( CChatSession* pSession = m_pSession )
-		{
-			m_pSession = NULL;
-			pSession->OnCloseWindow();
-		}
+		m_pSession = NULL;
+
+		pSession->OnCloseWindow();
 	}
 }
 
 BOOL CPrivateChatWnd::OnLocalMessage(bool bAction, const CString& sText)
 {
 	CChatWnd::OnMessage( bAction, GetChatID(), true, MyProfile.GetNick(), m_sNick, sText );
+
 	if ( ! m_pSession )
 		return FALSE;
+
 	return m_pSession->SendPrivateMessage( bAction, sText );
 }
 
@@ -200,98 +198,6 @@ BOOL CPrivateChatWnd::OnLocalCommand(const CString& sCommand, const CString& sAr
 
 	return TRUE;
 }
-
-// Temp:
-
-LRESULT CPrivateChatWnd::OnProfileReceived(WPARAM, LPARAM)
-{
-	if ( m_pSession )
-		m_sNick = m_pSession->m_sUserNick;
-
-	CChatWnd::AddLogin( m_sNick );
-
-	CString strCaption;
-	LoadString( strCaption, IDR_CHATFRAME );
-	if ( Settings.General.LanguageRTL ) strCaption = _T("\x200F") + strCaption + _T("\x202E");
-	strCaption += _T(" : ");
-	if ( Settings.General.LanguageRTL ) strCaption += _T("\x202B");
-	strCaption += m_sNick;
-
-	if ( m_pSession )
-	{
-		CString strAddress;
-		strAddress.Format( _T(" (%s)"),
-			(LPCTSTR)HostToString( &m_pSession->m_pHost ) );
-		if ( Settings.General.LanguageRTL ) strCaption += _T("\x200F");
-		strCaption += strAddress;
-		if ( ! m_pSession->m_sUserAgent.IsEmpty() )
-		{
-			if ( Settings.General.LanguageRTL ) strCaption += _T("\x200F");
-			strCaption = strCaption + _T(" - ") + m_pSession->m_sUserAgent;
-		}
-	}
-
-	SetWindowText( strCaption );
-
-	Open();
-
-	SetAlert();
-
-	return 0;
-}
-
-LRESULT CPrivateChatWnd::OnRemoteMessage(WPARAM wParam, LPARAM lParam)
-{
-	bool bAction = ( wParam != 0 );
-	CAutoPtr< CString > psText( (CString*)lParam );
-
-	CString sChatID;
-	if ( m_pSession )
-	{
-		m_sNick = m_pSession->m_sUserNick;
-		sChatID = HostToString( &m_pSession->m_pHost );
-	}
-	else
-		sChatID = _T("Private:") + m_sNick;
-
-	CChatWnd::OnMessage( bAction, sChatID, false, m_sNick, MyProfile.GetNick(), *psText );
-
-	if ( ! m_pSession )
-		return 0;
-
-	DWORD nIdle = (DWORD)time( NULL ) - theApp.m_nLastInput;
-	if ( nIdle > Settings.Community.AwayMessageIdleTime )
-	{
-		CString strTime;
-		if ( nIdle > 86400 )
-			strTime.Format( _T("%u:%.2u:%.2u:%.2u"), nIdle / 86400, ( nIdle / 3600 ) % 24, ( nIdle / 60 ) % 60, nIdle % 60 );
-		else
-			strTime.Format( _T("%u:%.2u:%.2u"), nIdle / 3600, ( nIdle / 60 ) % 60, nIdle % 60 );
-
-		CString strMessage;
-		strMessage.Format( LoadString( IDS_CHAT_PRIVATE_AWAY ), _T(""), strTime );
-		m_pSession->SendPrivateMessage( true, strMessage );
-	}
-
-	return 0;
-}
-
-LRESULT CPrivateChatWnd::OnStatusMessage(WPARAM wParam, LPARAM lParam)
-{
-	CAutoPtr< CString > psText( (CString*)lParam );
-
-	CChatWnd::OnStatusMessage( (int)wParam, *psText );
-
-	return 0;
-}
-
-LRESULT CPrivateChatWnd::OnBitmapMessage(WPARAM /*wParam*/, LPARAM lParam)
-{
-	CChatWnd::AddBitmap( (HBITMAP)lParam );
-
-	return 0;
-}
-
 
 /////////////////////////////////////////////////////////////////////////////
 // CPrivateChatWnd commands
@@ -333,8 +239,8 @@ void CPrivateChatWnd::OnUpdateChatBrowse(CCmdUI* pCmdUI)
 void CPrivateChatWnd::OnChatBrowse()
 {
 	if ( m_pSession && m_pSession->m_nProtocol != PROTOCOL_DC )
-		new CBrowseHostWnd( m_pSession->m_nProtocol, &m_pSession->m_pHost, m_pSession->m_oGUID );
-		//	&m_pSession->m_pHost, FALSE, m_pSession->m_oGUID, m_pSession->m_sUserNick );
+		new CBrowseHostWnd( m_pSession->m_nProtocol,
+			&m_pSession->m_pHost, FALSE, m_pSession->m_oGUID, m_pSession->m_sNick );
 }
 
 void CPrivateChatWnd::OnUpdateChatPriority(CCmdUI* pCmdUI)
@@ -352,9 +258,11 @@ void CPrivateChatWnd::OnChatPriority()
 		return;
 
 	DWORD nAddress = m_pSession->m_pHost.sin_addr.s_addr;
+
 	for ( POSITION pos = Uploads.GetIterator() ; pos ; )
 	{
 		CUploadTransfer* pUpload = Uploads.GetNext( pos );
+
 		if ( pUpload->m_pHost.sin_addr.s_addr == nAddress &&
 			 pUpload->m_nState == upsQueued )
 		{

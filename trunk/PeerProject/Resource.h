@@ -96,6 +96,8 @@
 #define IDI_FAVICON                         212		// richdoc#
 #define IDI_INCOMING                        214
 #define IDI_OUTGOING                        215
+#define IDI_USER                            216
+#define IDI_USER_ME                         218
 
 // Cursor Resources:
 
@@ -305,10 +307,12 @@
 #define IDC_COPY                            1060
 #define IDC_COPYRIGHT                       1061
 #define IDC_CREATE_GHOST                    1062
-#define IDC_DEFAULT_VALUE                   1063
-#define IDC_DEFLATE_HUB2HUB                 1064
-#define IDC_DEFLATE_HUB2LEAF                1065
-#define IDC_DEFLATE_LEAF2HUB                1066
+#define IDC_DC_ENABLE                       1064
+#define IDC_DC_SETUP                        1065
+#define IDC_DEFAULT_VALUE                   1066
+#define IDC_DEFLATE_HUB2HUB                 1067
+#define IDC_DEFLATE_HUB2LEAF                1068
+#define IDC_DEFLATE_LEAF2HUB                1069
 #define IDC_DELETE_ALL                      1070
 #define IDC_DELETE_FILTER                   1071
 #define IDC_DELETE_OPTIONS                  1072
@@ -1249,6 +1253,7 @@
 #define IDS_NEIGHBOUR_COMPRESSION_NONE      20505
 #define IDS_NEIGHBOUR_CONNECTING            20506
 #define IDS_NEIGHBOUR_CURRENT               20507
+#define IDS_NEIGHBOUR_DCHUB                 20509
 #define IDS_NEIGHBOUR_ED2K_HIGH             20510
 #define IDS_NEIGHBOUR_ED2K_HIGHID           20511
 #define IDS_NEIGHBOUR_ED2K_LOW              20512

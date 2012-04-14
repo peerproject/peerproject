@@ -1,7 +1,7 @@
 //
 // GProfile.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -37,7 +37,7 @@ public:
 	BOOL			Load();								// Get local profile from file at PeerProject start up
 	BOOL			Save();								// Save local profile to file
 	BOOL			FromXML(const CXMLElement* pXML);	// Create remote profile from XML
-	void			Serialize(CArchive& ar);			// Load/Save browsed host profile
+	void			Serialize(CArchive& ar, int nVersion = 0);	// Load/Save browsed host profile  (BROWSER_SER_VERSION)
 	BOOL			IsValid() const;
 
 	CXMLElement*	GetXML(LPCTSTR pszElement = NULL, BOOL bCreate = FALSE);

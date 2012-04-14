@@ -286,7 +286,7 @@ BOOL CDownloadWithTransfers::StartNewTransfer(DWORD tNow)
 		{
 			// ED2K use (Ratio) is maxed out, no point in starting new transfers
 		}
-		else if ( pSource->m_bPushOnly == FALSE || pSource->m_nProtocol == PROTOCOL_ED2K )
+		else if ( pSource->m_bPushOnly == FALSE || pSource->m_nProtocol == PROTOCOL_ED2K || pSource->m_nProtocol == PROTOCOL_DC )
 		{
 			if ( pSource->m_tAttempt == 0 )
 			{

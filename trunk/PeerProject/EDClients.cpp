@@ -376,24 +376,27 @@ void CEDClients::OnRun()
 
 BOOL CEDClients::OnAccept(CConnection* pConnection)
 {
-	ASSERT( pConnection != NULL );
-
 	if ( ! Network.IsConnected() || ( Settings.Connection.RequireForTransfers && ! Settings.eDonkey.Enabled ) )
 	{
-		theApp.Message( MSG_ERROR, IDS_ED2K_CLIENT_DISABLED,
-			(LPCTSTR)pConnection->m_sAddress );
+		theApp.Message( MSG_ERROR, IDS_ED2K_CLIENT_DISABLED, (LPCTSTR)pConnection->m_sAddress );
 		return FALSE;
 	}
 
-	CSingleLock pLock( &Transfers.m_pSection );
-	if ( ! pLock.Lock( 250 ) )
+	CSingleLock oTransfersLock( &Transfers.m_pSection );
+	if ( ! oTransfersLock.Lock( 250 ) )
 	{
 		theApp.Message( MSG_DEBUG, _T("Rejecting ed2k connection from %s, network core overloaded."),
-			(LPCTSTR)pConnection->m_sAddress );
+			(LPCTSTR)pConnection->m_sAddress );			// protocolNames[ PROTOCOL_ED2K ]
 		return FALSE;
 	}
 
-	CQuickLock oLock( m_pSection );
+	CSingleLock oEDClientsLock( &m_pSection );
+	if ( ! oEDClientsLock.Lock( 250 ) )
+	{
+		theApp.Message( MSG_DEBUG, _T("Rejecting ed2k connection from %s, network core overloaded."),
+			(LPCTSTR)pConnection->m_sAddress );			// protocolNames[ PROTOCOL_ED2K ]
+		return FALSE;
+	}
 
 	if ( IsFull() )
 	{
@@ -401,20 +404,23 @@ BOOL CEDClients::OnAccept(CConnection* pConnection)
 		if ( ( GetByIP( &pConnection->m_pHost.sin_addr ) == NULL ) || ( IsOverloaded() ) )
 		{
 			theApp.Message( MSG_DEBUG, _T("Rejecting ed2k connection from %s, max client connections reached."),
-				(LPCTSTR)pConnection->m_sAddress );
+				(LPCTSTR)pConnection->m_sAddress );		// protocolNames[ PROTOCOL_ED2K ]
 			return FALSE;
 		}
 		else
 		{
 			theApp.Message( MSG_DEBUG, _T("Accepting ed2k connection from %s despite client connection limit."),
-				(LPCTSTR)pConnection->m_sAddress );
+				(LPCTSTR)pConnection->m_sAddress );		// protocolNames[ PROTOCOL_ED2K ]
 		}
 	}
 
-	CEDClient* pClient = new CEDClient();
-	pClient->AttachTo( pConnection );
+	if ( CEDClient* pClient = new CEDClient() )
+	{
+		pClient->AttachTo( pConnection );
+		return TRUE;
+	}
 
-	return TRUE;
+	return FALSE;
 }
 
 //////////////////////////////////////////////////////////////////////

@@ -1,7 +1,7 @@
 //
 // DlgSkinDialog.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -36,22 +36,22 @@ IMPLEMENT_DYNAMIC(CSkinDialog, CDialog)
 
 BEGIN_MESSAGE_MAP(CSkinDialog, CDialog)
 	//{{AFX_MSG_MAP(CSkinDialog)
-	ON_WM_NCCALCSIZE()
-	ON_WM_NCHITTEST()
-	ON_WM_NCACTIVATE()
-	ON_WM_NCPAINT()
-	ON_WM_NCLBUTTONDOWN()
-	ON_WM_NCLBUTTONUP()
-	ON_WM_NCLBUTTONDBLCLK()
-	ON_WM_NCMOUSEMOVE()
+	ON_WM_CREATE()
 	ON_WM_WINDOWPOSCHANGING()
 	ON_WM_SIZE()
 	ON_WM_ERASEBKGND()
 	ON_WM_CTLCOLOR()
-	ON_WM_CREATE()
+	ON_WM_NCPAINT()
+	ON_WM_NCCALCSIZE()
+	ON_WM_NCACTIVATE()
+	ON_WM_NCHITTEST()
+	ON_WM_NCLBUTTONDOWN()
+	ON_WM_NCLBUTTONUP()
+	ON_WM_NCLBUTTONDBLCLK()
+	ON_WM_NCMOUSEMOVE()
 	ON_WM_HELPINFO()
 //	ON_WM_UPDATEUISTATE()	// Alt-keypress
-	ON_MESSAGE(WM_SETTEXT, OnSetText)
+	ON_MESSAGE(WM_SETTEXT, &CSkinDialog::OnSetText)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -75,6 +75,18 @@ void CSkinDialog::DoDataExchange(CDataExchange* pDX)
 
 /////////////////////////////////////////////////////////////////////////////
 // CSkinDialog operations
+
+// Legacy, use Skin.m_nBanner
+//int CSkinDialog::GetBannerHeight() const
+//{
+//	if ( CStatic* pBanner = (CStatic*)GetDlgItem( IDC_BANNER ) )
+//	{
+//		BITMAP bm = {};
+//		GetObject( pBanner->GetBitmap(), sizeof( BITMAP ), &bm );
+//		return bm.bmHeight;
+//	}
+//	return 0;
+//}
 
 void CSkinDialog::EnableBanner(BOOL bEnable)
 {
@@ -132,53 +144,61 @@ void CSkinDialog::EnableBanner(BOOL bEnable)
 	}
 }
 
+void CSkinDialog::CalcWindowRect(LPRECT lpClientRect, UINT nAdjustType)
+{
+	if ( ! theApp.m_bClosing && m_pSkin )
+		m_pSkin->CalcWindowRect( lpClientRect );
+	else
+		CDialog::CalcWindowRect( lpClientRect, nAdjustType );
+}
+
+void CSkinDialog::RemoveSkin()
+{
+	if ( m_pSkin )
+	{
+		m_pSkin = NULL;
+		CoolInterface.EnableTheme( this, TRUE );
+	}
+}
+
 BOOL CSkinDialog::SkinMe(LPCTSTR pszSkin, UINT nIcon, BOOL bLanguage)
 {
 	if ( m_bAutoBanner )
 		EnableBanner( TRUE );
 
-	BOOL bSuccess ( FALSE );
 	CRect rc;
 	GetClientRect( &rc );
 
 	CString strSkin = ( pszSkin ? pszSkin : (LPCTSTR)GetRuntimeClass()->m_lpszClassName );
 
 	m_pSkin = ::Skin.GetWindowSkin( strSkin );
-	if ( NULL == m_pSkin ) m_pSkin = ::Skin.GetWindowSkin( this );
+	if ( ! m_pSkin )
+		m_pSkin = ::Skin.GetWindowSkin( this );
 
+	if ( m_pSkin )
+		CoolInterface.EnableTheme( this, FALSE );
+
+	BOOL bSuccess = FALSE;
 	if ( bLanguage )
 		bSuccess = ::Skin.Apply( strSkin, this, nIcon );
 
 	if ( nIcon )
 		CoolInterface.SetIcon( nIcon, m_pSkin && Settings.General.LanguageRTL, FALSE, this );
 
-	CoolInterface.EnableTheme( this, ( m_pSkin == NULL ) );
-
-	if ( m_pSkin != NULL )
-	{
-		if ( GetStyle() & WS_CAPTION )
-			ModifyStyle( WS_CAPTION, 0 );
-
-		m_pSkin->CalcWindowRect( &rc );
-
-		SetWindowRgn( NULL, FALSE );
-		SetWindowPos( NULL, 0, 0, rc.Width(), rc.Height(),
-			SWP_NOMOVE|SWP_NOZORDER|SWP_NOACTIVATE|SWP_FRAMECHANGED );
-
-		m_pSkin->OnSize( this );
-	}
+	if ( m_pSkin )
+		ModifyStyle( WS_CAPTION, 0 );		// if ( ( GetStyle() & WS_CAPTION ) == 0 )
 	else
-	{
-		if ( ( GetStyle() & WS_CAPTION ) == 0 )
-			ModifyStyle( 0, WS_CAPTION );
+		ModifyStyle( 0, WS_CAPTION );
 
-		CalcWindowRect( &rc );
-		SetWindowRgn( NULL, FALSE );
-		SetWindowPos( NULL, 0, 0, rc.Width(), rc.Height(),
-			SWP_NOMOVE|SWP_NOZORDER|SWP_NOACTIVATE|SWP_FRAMECHANGED );
-	}
+	CalcWindowRect( &rc );
+	SetWindowRgn( NULL, FALSE );
+	SetWindowPos( NULL, 0, 0, rc.Width(), rc.Height(),
+		SWP_NOMOVE|SWP_NOZORDER|SWP_NOACTIVATE|SWP_FRAMECHANGED );
 
-	return bSuccess || m_pSkin != NULL;
+	if ( m_pSkin )
+		m_pSkin->OnSize( this );
+
+	return bSuccess || ( m_pSkin != NULL );
 }
 
 BOOL CSkinDialog::SelectCaption(CWnd* pWnd, int nIndex)
@@ -191,7 +211,7 @@ BOOL CSkinDialog::SelectCaption(CWnd* pWnd, int nIndex)
 
 void CSkinDialog::OnNcCalcSize(BOOL bCalcValidRects, NCCALCSIZE_PARAMS FAR* lpncsp)
 {
-	if ( m_pSkin && ! theApp.m_bClosing )
+	if ( ! theApp.m_bClosing && m_pSkin )
 		m_pSkin->OnNcCalcSize( this, bCalcValidRects, lpncsp );
 	else
 		CDialog::OnNcCalcSize( bCalcValidRects, lpncsp );
@@ -199,7 +219,7 @@ void CSkinDialog::OnNcCalcSize(BOOL bCalcValidRects, NCCALCSIZE_PARAMS FAR* lpnc
 
 LRESULT CSkinDialog::OnNcHitTest(CPoint point)
 {
-	if ( m_pSkin && ! theApp.m_bClosing )
+	if ( ! theApp.m_bClosing && m_pSkin )
 		return m_pSkin->OnNcHitTest( this, point, ( GetStyle() & WS_THICKFRAME ) ? TRUE : FALSE );
 
 	return CDialog::OnNcHitTest( point );
@@ -207,7 +227,7 @@ LRESULT CSkinDialog::OnNcHitTest(CPoint point)
 
 BOOL CSkinDialog::OnNcActivate(BOOL bActive)
 {
-	if ( m_pSkin && ! theApp.m_bClosing )
+	if ( ! theApp.m_bClosing && m_pSkin )
 	{
 		m_pSkin->OnNcActivate( this, IsWindowEnabled() && ( bActive || ( m_nFlags & WF_STAYACTIVE ) ) );
 		return TRUE;
@@ -218,7 +238,7 @@ BOOL CSkinDialog::OnNcActivate(BOOL bActive)
 
 void CSkinDialog::OnNcPaint()
 {
-	if ( m_pSkin && ! theApp.m_bClosing )
+	if ( ! theApp.m_bClosing && m_pSkin )
 		m_pSkin->OnNcPaint( this );
 	else
 		CDialog::OnNcPaint();
@@ -256,25 +276,22 @@ void CSkinDialog::OnSize(UINT nType, int cx, int cy)
 
 LRESULT CSkinDialog::OnSetText(WPARAM /*wParam*/, LPARAM /*lParam*/)
 {
-	LRESULT lResult = Default();
-
 	if ( m_pSkin )
 	{
-		if ( IsWindowVisible() )
-		{
-			ModifyStyle( WS_VISIBLE, 0 );
-			lResult = Default();
-			ModifyStyle( 0, WS_VISIBLE );
-		}
+		BOOL bVisible = IsWindowVisible();
+		if ( bVisible ) ModifyStyle( WS_VISIBLE, 0 );
+		LRESULT lResult = Default();
+		if ( bVisible ) ModifyStyle( 0, WS_VISIBLE );
 		m_pSkin->OnSetText( this );
+		return lResult;
 	}
 
-	return lResult;
+	return Default();
 }
 
 BOOL CSkinDialog::OnEraseBkgnd(CDC* pDC)
 {
-	if ( m_pSkin && ! theApp.m_bClosing && m_pSkin->OnEraseBkgnd( this, pDC ) ) return TRUE;
+	if ( ! theApp.m_bClosing && m_pSkin && m_pSkin->OnEraseBkgnd( this, pDC ) ) return TRUE;
 
 	CRect rc;
 	GetClientRect( &rc );

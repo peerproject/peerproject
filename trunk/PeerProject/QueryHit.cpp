@@ -750,7 +750,6 @@ CQueryHit* CQueryHit::FromEDPacket(CEDPacket* pPacket, const SOCKADDR_IN* pServe
 
 				pHit->m_bBrowseHost = TRUE;
 				pHit->m_bChat = TRUE;
-
 				pHit->m_oED2K = oHash;
 				pHit->m_pVendor = VendorCache.Lookup( _T("ED2K") );
 				if ( ! pHit->m_pVendor ) pHit->m_pVendor = VendorCache.m_pNull;
@@ -780,100 +779,127 @@ CQueryHit* CQueryHit::FromDCPacket(CDCPacket* pPacket)
 	// Search result
 	// $SR Nick FileName<0x05>FileSize FreeSlots/TotalSlots<0x05>HubName (HubIP:HubPort)|
 
-	std::string strParams( (const char*)pPacket->m_pBuffer + 4, pPacket->m_nLength - 5 );
-	std::string::size_type nPos = strParams.find( ' ' );
-	if ( nPos == std::string::npos )
-		return FALSE;
-	std::string strNick = strParams.substr( 0, nPos );
-	strParams = strParams.substr( nPos + 1 );
+	LPSTR szNick = (LPSTR)&pPacket->m_pBuffer[ 4 ];
+	pPacket->m_pBuffer[ pPacket->m_nLength - 1 ] = 0;	// ASCIIZ
 
-	nPos = strParams.find( '\x05' );
-	if ( nPos == std::string::npos )
-		return FALSE;
-	std::string strFilename = strParams.substr( 0, nPos );
-	strParams = strParams.substr( nPos + 1 );
-	nPos = strFilename.rfind( '\\' );
-	if ( nPos != std::string::npos )
-		strFilename = strFilename.substr( nPos + 1 );	// Cut off path
+	LPSTR szFileName = strchr( szNick, ' ' );
+	if ( ! szFileName ) return NULL;
+	*szFileName++ = 0;
 
-	nPos = strParams.find( ' ' );
-	if ( nPos == std::string::npos )
-		return FALSE;
-	std::string strSize = strParams.substr( 0, nPos );
-	strParams = strParams.substr( nPos + 1 );
+	LPSTR szFileSize = strchr( szFileName, '\x05' );
+	if ( ! szFileSize ) return NULL;
+	*szFileSize++ = 0;
+
+	LPSTR szFreeSlots = strchr( szFileSize, ' ' );
+	if ( ! szFreeSlots ) return NULL;
+	*szFreeSlots++ = 0;
+
+	LPSTR szTotalSlots = strchr( szFreeSlots, '/' );
+	if ( ! szTotalSlots ) return NULL;
+	*szTotalSlots++ = 0;
+
+	LPSTR szHubName = strchr( szTotalSlots, '\x05' );
+	if ( ! szHubName ) return NULL;
+	*szHubName++ = 0;
+
+	LPSTR szAddress = strchr( szHubName, ' ' );
+	if ( ! szAddress ) return NULL;
+	*szAddress++ = 0;
+
+	int nFreeSlots = atoi( szFreeSlots );
+	if ( nFreeSlots < 0 ) return NULL;
+
+	int nTotalSlots = atoi( szTotalSlots );
+	if ( nTotalSlots < 0 || nFreeSlots > nTotalSlots ) return NULL;
+
 	QWORD nSize = 0;
-	if ( sscanf_s( strSize.c_str(), "%I64u", &nSize ) != 1 )
-		return FALSE;
+	if ( sscanf_s( szFileSize, "%I64u", &nSize ) != 1 )
+		return NULL;
 
-	nPos = strParams.find( '/' );
-	if ( nPos == std::string::npos )
-		return FALSE;
-	std::string strFreeSlots = strParams.substr( 0, nPos );
-	strParams = strParams.substr( nPos + 1 );
-	DWORD nFreeSlots = 0;
-	if ( sscanf_s( strFreeSlots.c_str(), "%u", &nFreeSlots ) != 1 )
-		return FALSE;
-
-	nPos = strParams.find( '\x05' );
-	if ( nPos == std::string::npos )
-		return FALSE;
-	std::string strTotalSlots = strParams.substr( 0, nPos );
-	strParams = strParams.substr( nPos + 1 );
-	DWORD nTotalSlots = 0;
-	if ( sscanf_s( strTotalSlots.c_str(), "%u", &nTotalSlots ) != 1 )
-		return FALSE;
-	if ( ! nTotalSlots || nTotalSlots < nFreeSlots )
-		return FALSE;	// No upload - useless hit
-
-	nPos = strParams.find( ' ' );
-	if ( nPos == std::string::npos )
-		return FALSE;
-	std::string strHubName = strParams.substr( 0, nPos );
-	strParams = strParams.substr( nPos + 1 );
-	Hashes::TigerHash oTiger;
-	if ( strHubName.substr( 0, 4 ) == "TTH:" )
+	IN_ADDR pHubAddress = {};	// Was nHubAddress
+	int nHubPort = protocolPorts[ PROTOCOL_DC ];
+	if ( *szAddress == '(' )
 	{
-		if ( ! oTiger.fromString( CA2W( strHubName.substr( 4 ).c_str() ) ) )
-			return FALSE;
+		if ( *++szAddress != ')' )
+		{
+			// "HubName (IP[:Port])"
+			LPSTR szPort = strchr( szAddress, ':' );
+			if ( szPort )
+			{
+				// "HubName (IP:Port)"
+				*szPort++ = 0;
+
+				LPSTR szEnd = strchr( szPort, ')' );
+				if ( ! szEnd ) return NULL;
+				*szEnd++ = 0;
+
+				if ( *szPort )
+				{
+					nHubPort = atoi( szPort );
+					if ( nHubPort <= 0 || nHubPort > USHRT_MAX )
+						return NULL;
+				}
+			}
+			else
+			{
+				// "HubName (IP)"
+				LPSTR szEnd = strchr( szAddress, ')' );
+				if ( ! szEnd ) return NULL;
+				*szEnd++ = 0;
+			}
+
+			pHubAddress.s_addr = inet_addr( szAddress );
+			if ( pHubAddress.s_addr == INADDR_NONE )
+				return FALSE;
+			if ( Network.IsFirewalledAddress( &pHubAddress ) ||
+				 Network.IsReserved( &pHubAddress ) ||
+				 Security.IsDenied( &pHubAddress ) )
+				return NULL;	// Inaccessible hub
+		}
 	}
 
-	const size_t len = strParams.size();
-	if ( strParams[ 0 ] != '(' || strParams[ len - 1 ] != ')' )
-		return FALSE;
-	nPos = strParams.find( ':' );
-	if ( nPos == std::string::npos )
-		return FALSE;
-	DWORD nHubAddress = inet_addr( strParams.substr( 1, nPos - 1 ).c_str() );
-	int nHubPort = atoi( strParams.substr( nPos + 1, len - nPos - 2 ).c_str() );
-	if ( nHubPort <= 0 || nHubPort > USHRT_MAX || nHubAddress == INADDR_NONE ||
-		Network.IsFirewalledAddress( (const IN_ADDR*)&nHubAddress ) ||
-		Network.IsReserved( (const IN_ADDR*)&nHubAddress ) ||
-		Security.IsDenied( (const IN_ADDR*)&nHubAddress ) )
-		return FALSE;	// Unaccessible hub
+	Hashes::TigerHash oTiger;
+	if ( strncmp( szHubName, "TTH:", 4 ) == 0 )
+	{
+		if ( ! oTiger.fromString( CA2T( szHubName + 4 ) ) )
+			return NULL;
+	}
+
+	LPCSTR szNameOnly = strrchr( szFileName, '\\' );
+	if ( ! szNameOnly )
+	{
+		szNameOnly = strrchr( szFileName, '/' );
+		if ( ! szNameOnly )
+			szNameOnly = szFileName;
+		else
+			szNameOnly++;
+	}
+	else
+		szNameOnly++;
 
 	CAutoPtr< CQueryHit > pHit( new CQueryHit( PROTOCOL_DC ) );
 	if ( ! pHit )
 		return FALSE;	// Out of memory
 
-	pHit->m_sName		= CA2W( strFilename.c_str() );
+	pHit->m_sName		= UTF8Decode( szNameOnly );		// Was CA2W( strFilename.c_str() )
 	pHit->m_nSize		= nSize;
 	pHit->m_bSize		= TRUE;
 	pHit->m_oTiger		= oTiger;
 	pHit->m_bChat		= TRUE;
 	pHit->m_bBrowseHost	= TRUE;
-	pHit->m_sNick		= CA2W( strNick.c_str() );
+	pHit->m_sNick		= UTF8Decode( szNick );			// Was CA2W( strNick.c_str() )
 	pHit->m_nUpSlots	= nTotalSlots;
 	pHit->m_nUpQueue	= nTotalSlots - nFreeSlots;
-	pHit->m_bBusy		= nFreeSlots ? TRI_TRUE : TRI_FALSE;
+	pHit->m_bBusy		= nFreeSlots ? TRI_FALSE : TRI_TRUE;
 	pHit->m_pVendor		= VendorCache.Lookup( _T("DC++") );
 	if ( ! pHit->m_pVendor )
 		pHit->m_pVendor = VendorCache.m_pNull;
 
 	// Hub
 	pHit->m_bPush		= TRI_TRUE;		// Always
-	pHit->m_pAddress	= *(const IN_ADDR*)&nHubAddress;
+	pHit->m_pAddress	= pHubAddress;
 	pHit->m_nPort		= (WORD)nHubPort;
-	pHit->m_sCountry	= theApp.GetCountryCode( *(const IN_ADDR*)&nHubAddress );
+	pHit->m_sCountry	= theApp.GetCountryCode( pHubAddress );
 
 	pHit->Resolve();
 
@@ -1788,9 +1814,13 @@ void CQueryHit::Resolve()
 	}
 	if ( m_nProtocol == PROTOCOL_DC )
 	{
-		m_sURL.Format( _T("dcfile://%s:%u/%s/TTH:%s/%I64u/"),
-			(LPCTSTR)CString( inet_ntoa( m_pAddress ) ), m_nPort,
+	//	m_sURL.Format( _T("dcfile://%s:%u/%s/TTH:%s/%I64u/"),
+	//		(LPCTSTR)CString( inet_ntoa( m_pAddress ) ), m_nPort,
+	//		(LPCTSTR)URLEncode( m_sNick ),
+	//		(LPCTSTR)m_oTiger.toString(), m_bSize ? m_nSize : 0 );
+		m_sURL.Format( _T("dchub://%s@%s:%u/TTH:%s/%I64u/"),
 			(LPCTSTR)URLEncode( m_sNick ),
+			(LPCTSTR)CString( inet_ntoa( m_pAddress ) ), m_nPort,
 			(LPCTSTR)m_oTiger.toString(), m_bSize ? m_nSize : 0 );
 		return;
 	}
@@ -1976,10 +2006,11 @@ void CQueryHit::Serialize(CArchive& ar, int nVersion)	// MATCHLIST_SER_VERSION
 		ar << m_bCollection;
 
 		ar << ( ( m_pSchema && m_pXML ) ? m_pSchema->GetURI() : CString() );
-		ar << ( ( m_pSchema && m_pXML ) ? m_pSchema->m_sPlural : CString() );
+		ar << ( ( m_pSchema && m_pXML ) ? m_pSchema->m_sPlural : CString() );	// Unused
 		if ( m_pSchema && m_pXML ) m_pXML->Serialize( ar );
 		ar << m_nRating;
 		ar << m_sComments;
+		ar << m_sNick;
 
 		ar << m_bMatched;
 		ar << m_bExactMatch;
@@ -2000,9 +2031,10 @@ void CQueryHit::Serialize(CArchive& ar, int nVersion)	// MATCHLIST_SER_VERSION
 		ar >> m_nPort;
 		ar >> m_nSpeed;
 		ar >> m_sSpeed;
-		CString sCode;
-		ar >> sCode;
-		m_pVendor = VendorCache.Lookup( sCode );
+
+		CString strCode;
+		ar >> strCode;
+		m_pVendor = VendorCache.Lookup( strCode );
 		if ( ! m_pVendor )
 			m_pVendor = VendorCache.m_pNull;
 
@@ -2061,6 +2093,8 @@ void CQueryHit::Serialize(CArchive& ar, int nVersion)	// MATCHLIST_SER_VERSION
 
 		ar >> m_nRating;
 		ar >> m_sComments;
+		//if ( nVersion >= 15 )
+			ar >> m_sNick;
 
 		ar >> m_bMatched;
 		//if ( nVersion >= 12 )

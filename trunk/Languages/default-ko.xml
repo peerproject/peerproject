@@ -3,7 +3,7 @@
 
 <!-- PeerProject Korean Language Skin File -->
 
-<!-- Translation based on default-en.xml r76 --> <!--Machine Translated!-->
+<!-- Translation based on default-en.xml r77 --> <!--Machine Translated!-->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2298,6 +2298,7 @@
 	<string id="20495" value="You haven't entered a screen name in your user profile."/>
 	<string id="20496" value="You have not selected your age and gender. Are you sure you want to continue without doing this?"/>
 	<string id="20499" value="새 폴더"/>
+<!--
 	<string id="20500" value="Click the Connect button to get started."/>
 	<string id="20501" value="You're not connected to the network."/>
 	<string id="20502" value="Closing"/>
@@ -2306,6 +2307,7 @@
 	<string id="20505" value="None"/>
 	<string id="20506" value="Connecting"/>
 	<string id="20507" value="Current:"/>
+	<string id="20509" value="DC++ Client-to-Hub Connection"/>
 	<string id="20510" value="eDonkey Server Connection"/>
 	<string id="20511" value="eDonkey (HighID)"/>
 	<string id="20512" value="eDonkey Server Connection (LOWID: %lu)"/>
@@ -2331,6 +2333,8 @@
 	<string id="20535" value="Ratio:"/>
 	<string id="20536" value="Rejected"/>
 	<string id="20538" value="Unknown"/>
+-->
+	<!-- Missing Scheduler/Security Strings -->
 	<string id="20540" value="연결"/>
 	<string id="20541" value="연결 중..."/>
 	<string id="20542" value="연결"/>
@@ -2360,7 +2364,6 @@
 	<string id="20570" value="Ignoring malformatted query hit packet from %s."/>
 	<string id="20571" value="Ignoring malformatted %s search query packet from %s."/>
 	<string id="20572" value="Neighbor %s forwarded a packet with excessive TTL, dropping packet (TTL=%i, Hops=%i)."/>
-	<!--string id="20573" value="Neighbor %s forwarded a packet with zero TTL, ignoring."-->
 	<string id="20574" value="Neighbor %s forwarded an extended packet that is not GGEP encoded."/>
 	<string id="20575" value="Neighbor %s sent an invalid query routing table update, dropping connection."/>
 	<string id="20576" value="Sending query routing table to neighbor %s (%i bit = %lu[%i], %i%% full)"/>

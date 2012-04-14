@@ -1,7 +1,7 @@
 //
 // DlgLanguage.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -33,14 +33,14 @@ static char THIS_FILE[] = __FILE__;
 
 BEGIN_MESSAGE_MAP(CLanguageDlg, CSkinDialog)
 	//{{AFX_MSG_MAP(CLanguageDlg)
-	ON_WM_ERASEBKGND()
 	ON_WM_PAINT()
+	ON_WM_ERASEBKGND()
+	ON_WM_TIMER()
 	ON_WM_VSCROLL()
 	ON_WM_MOUSEWHEEL()
 	ON_WM_MOUSEMOVE()
 	ON_WM_LBUTTONDOWN()
 	ON_WM_LBUTTONUP()
-	ON_WM_TIMER()
 	ON_WM_KEYDOWN()
 	ON_WM_SETCURSOR()
 	ON_WM_DESTROY()
@@ -118,15 +118,12 @@ BOOL CLanguageDlg::OnInitDialog()
 	pScroll.nPage	= ITEM_ROWS + 1;
 	SetScrollInfo( SB_VERT, &pScroll, TRUE );
 
-	if ( m_pSkin )
-		m_pSkin->CalcWindowRect( &rc );
-	else
-		CalcWindowRect( &rc, adjustBorder );
+	CalcWindowRect( &rc );
 
 	rc.OffsetRect(	GetSystemMetrics( SM_CXSCREEN ) / 2 -  rc.Width() / 2 - rc.left,
 					GetSystemMetrics( SM_CYSCREEN ) / 2 - rc.Height() / 2 - rc.top );
 
-	SetWindowPos( NULL, rc.left, rc.top, rc.Width(), rc.Height() , 0 );
+	SetWindowPos( NULL, rc.left, rc.top, rc.Width(), rc.Height(), 0 );
 
 	SetTimer( 1, 100, NULL );
 
@@ -242,28 +239,25 @@ void CLanguageDlg::PaintItem(int nItem, CDC* pDC, CRect* pRect)
 
 		pDC->SetTextColor( Colors.m_crShadow );
 		ImageList_DrawEx( m_pImages.GetSafeHandle(), nItem,
-			pDC->GetSafeHdc(), ptIcon.x, ptIcon.y, 32, 32, crBack, CLR_NONE,
-			ILD_MASK );
+			pDC->GetSafeHdc(), ptIcon.x, ptIcon.y, 32, 32, crBack, CLR_NONE, ILD_MASK );
 
 		ptIcon.Offset( -2, -2 );
 
 		ImageList_DrawEx( m_pImages.GetSafeHandle(), nItem,
-			pDC->GetSafeHdc(), ptIcon.x, ptIcon.y, 32, 32, CLR_NONE, CLR_NONE,
-			ILD_NORMAL );
+			pDC->GetSafeHdc(), ptIcon.x, ptIcon.y, 32, 32, CLR_NONE, CLR_NONE, ILD_NORMAL );
 
 		pDC->ExcludeClipRect( ptIcon.x, ptIcon.y, ptIcon.x + 34, ptIcon.y + 34 );
 	}
 	else
 	{
 		ImageList_DrawEx( m_pImages.GetSafeHandle(), nItem,
-			pDC->GetSafeHdc(), ptIcon.x, ptIcon.y, 32, 32, crBack, CLR_NONE,
-			ILD_NORMAL );
+			pDC->GetSafeHdc(), ptIcon.x, ptIcon.y, 32, 32, crBack, CLR_NONE, ILD_NORMAL );
 
 		pDC->ExcludeClipRect( ptIcon.x, ptIcon.y, ptIcon.x + 32, ptIcon.y + 32 );
 	}
 
-	CRect rcText(	rc.left + 46, rc.top + TEXT_MARGIN,
-					rc.right - TEXT_MARGIN, rc.top + 20 + TEXT_MARGIN );
+	CRect rcText( rc.left + 46, rc.top + TEXT_MARGIN,
+				  rc.right - TEXT_MARGIN, rc.top + 20 + TEXT_MARGIN );
 
 	rcText.OffsetRect( 0, 6 );
 	pDC->SetTextColor( bHover || bDown ? Colors.m_crCmdTextSel : Colors.m_crCmdText );
@@ -330,13 +324,12 @@ BOOL CLanguageDlg::OnMouseWheel(UINT /*nFlags*/, short zDelta, CPoint /*pt*/)
 void CLanguageDlg::OnMouseMove(UINT nFlags, CPoint point)
 {
 	CRect rc;
-	int nScroll = GetScrollPos( SB_VERT );
-
 	GetClientRect( &rc );
 	rc.top += Skin.m_nBanner;
 
 	if ( rc.PtInRect( point ) )
 	{
+		int nScroll = GetScrollPos( SB_VERT );
 		int nHover = ( ( point.y - rc.top ) / ITEM_HEIGHT + 1 + nScroll ) * 3 - 2 + ( point.x - rc.left ) / ITEM_WIDTH;
 
 		if ( nHover != m_nHover )
@@ -361,7 +354,6 @@ BOOL CLanguageDlg::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 	if ( nHitTest == HTCLIENT )
 	{
 		CPoint pt;
-
 		GetCursorPos( &pt );
 		ScreenToClient( &pt );
 
@@ -397,11 +389,11 @@ void CLanguageDlg::OnTimer(UINT_PTR /*nIDEvent*/)
 	if ( ! m_nHover || m_bKeyMode ) return;
 
 	CPoint pt;
-	CRect rc;
-
-	GetClientRect( &rc );
 	GetCursorPos( &pt );
 	ScreenToClient( &pt );
+
+	CRect rc;
+	GetClientRect( &rc );
 
 	if ( ! rc.PtInRect( pt ) )
 	{
@@ -435,8 +427,8 @@ void CLanguageDlg::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 			m_nHover--;
 			m_bKeyMode = TRUE;
 			SCROLLINFO pInfo;
-			pInfo.cbSize	= sizeof(pInfo);
-			pInfo.fMask		= SIF_ALL & ~SIF_TRACKPOS;
+			pInfo.cbSize = sizeof(pInfo);
+			pInfo.fMask  = SIF_ALL & ~SIF_TRACKPOS;
 			GetScrollInfo( SB_VERT, &pInfo );
 			if ( m_nHover <= 0 )
 			{
@@ -461,8 +453,8 @@ void CLanguageDlg::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 			m_nHover++;
 			m_bKeyMode = TRUE;
 			SCROLLINFO pInfo;
-			pInfo.cbSize	= sizeof(pInfo);
-			pInfo.fMask		= SIF_ALL & ~SIF_TRACKPOS;
+			pInfo.cbSize = sizeof(pInfo);
+			pInfo.fMask  = SIF_ALL & ~SIF_TRACKPOS;
 			GetScrollInfo( SB_VERT, &pInfo );
 			if ( m_nHover > m_pPaths.GetSize() )
 			{
@@ -534,13 +526,11 @@ void CLanguageDlg::Enumerate(LPCTSTR pszPath)
 
 BOOL CLanguageDlg::AddSkin(LPCTSTR pszPath, LPCTSTR pszName)
 {
-	CString strXML;
+	CString strRoot = Settings.General.Path + _T("\\Skins\\");
+	if ( pszPath != NULL ) strRoot += pszPath;
+	CString strXML = strRoot + pszName;
+
 	CFile pFile;
-
-	strXML = Settings.General.Path + _T("\\Skins\\");
-	if ( pszPath != NULL ) strXML += pszPath;
-	strXML += pszName;
-
 	if ( ! pFile.Open( strXML, CFile::modeRead ) ) return FALSE;
 
 	DWORD nSource = (DWORD)pFile.GetLength();
@@ -623,8 +613,9 @@ BOOL CLanguageDlg::AddSkin(LPCTSTR pszPath, LPCTSTR pszName)
 
 	CString	strName		= pManifest->GetAttributeValue( _T("name"), pszName );
 	CString strIcon		= pManifest->GetAttributeValue( _T("icon") );
-	CString strGUIDir	= pManifest->GetAttributeValue( _T("dir"), _T("ltr") );
 	CString strLangCode = pManifest->GetAttributeValue( _T("language") );
+	CString strGUIDir	= pManifest->GetAttributeValue( _T("dir"), _T("ltr") );
+//	CString strPrompt	= pManifest->GetAttributeValue( _T("prompt") );		// Tip unused
 
 	delete pXML;
 
@@ -634,22 +625,15 @@ BOOL CLanguageDlg::AddSkin(LPCTSTR pszPath, LPCTSTR pszName)
 	m_pPaths.Add( strXML );
 	m_pTitles.Add( strName );
 	m_pGUIDirs.Add( strGUIDir );
-	m_pLangCodes.Add ( strLangCode );
+	m_pLangCodes.Add( strLangCode );
 
 	if ( ! strIcon.IsEmpty() )
 	{
-		if ( pszPath )
-			strIcon = Settings.General.Path + _T("\\Skins\\") + pszPath + strIcon;
-		else
-			strIcon = Settings.General.Path + _T("\\Skins\\") + strIcon;
+		strIcon = strRoot + strIcon;
 	}
 	else
 	{
-		if ( pszPath )
-			strIcon = Settings.General.Path + _T("\\Skins\\") + pszPath + strIcon + pszName;
-		else
-			strIcon = Settings.General.Path + _T("\\Skins\\") + strIcon + pszName;
-
+		strIcon = strRoot + pszName;
 		strIcon = strIcon.Left( strIcon.GetLength() - 3 ) + _T("ico");
 	}
 
@@ -693,15 +677,14 @@ void CLanguageDlg::Execute(int nSelected)
 	//
 	//if ( Settings.General.LanguageRTL != ( bRTL != FALSE ) )
 	//{
-	//	CString str;
-	//	LoadString( str, IDS_WARNING_RTL );
 	//	Settings.General.LanguageRTL = bRTL != FALSE;
-	//	if ( AfxMessageBox( str, MB_ICONQUESTION|MB_YESNO ) == IDYES )
+	//	if ( AfxMessageBox( IDS_WARNING_RTL, MB_ICONQUESTION|MB_YESNO ) == IDYES )
 	//	{
 	//		GetParent()->PostMessage( WM_CLOSE, NULL, NULL );
 	//		EndDialog( IDCANCEL );
 	//	}
 	//}
+
 	EndDialog( IDOK );
 }
 

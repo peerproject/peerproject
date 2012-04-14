@@ -63,7 +63,7 @@ private:
 
 // Operations
 public:
-	CDownload*	Add();
+	CDownload*	Add(BOOL bAddToHead = FALSE);
 	CDownload*	Add(CQueryHit* pHit, BOOL bAddToHead = FALSE);
 	CDownload*	Add(CMatchFile* pFile, BOOL bAddToHead = FALSE);
 	CDownload*	Add(const CPeerProjectURL& oURL);

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Brazilian Portuguese Skin File -->
 
-<!-- Translation based on default-en.xml r76 -->
+<!-- Translation based on default-en.xml r77 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3087,6 +3087,7 @@
 	<string id="20505" value="Nenhuma"/>
 	<string id="20506" value="Conectando"/>
 	<string id="20507" value="Atualmente:"/>
+	<string id="20509" value="DC++: Conexão Client-para-Hub"/>
 	<string id="20510" value="Conexão com o Servidor eDonkey"/>
 	<string id="20511" value="eDonkey (ID Alta)"/>
 	<string id="20512" value="Conexão com servidor eDonkey (ID Baixa: %lu)"/>
@@ -3655,20 +3656,24 @@
 		<control caption="Ajuda:"/>
 		<control caption="O Acesso Remoto do PeerProject permite a você deixar o PeerProject rodando no seu PC, e controlá-lo remotamente usando um navegador da rede. Você precisará ser capaz de aceitar conexões de entrada para usar esta função. (Roteador apropriadamente configurado, etc.)"/>
 	</dialog>
-	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Redes">
+	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="Redes">
 		<control caption="PeerProject é uma aplicação de compartilhamento de arquivos de propósito geral que pode acessar várias redes P2P ao mesmo tempo. Nesta página você seleciona quais redes P2P você quer conectar, e ajustar opções específicas pra cada rede."/>
 		<control caption="Rede Gnutella 2:"/>
 		<control caption="A rede Gnutella 2 é a rede premiére do PeerProject, oferecendo mais funções e performance do que qualquer outra rede P2P. Altamente Recomendada."/>
-		<control caption="Conectar a Gnutella 2 (G2)"/>
+		<control caption="Mostrar Gnutella 2 (G2)"/>
 		<control caption="Configurar a Gnutella 2"/>
-		<control caption="Rede Gnutella original:"/>
+		<control caption="Rede Gnutella:"/>
 		<control caption="Embora a rede Gnutella original é menos rica em funções que a Gnutella 2 e tenha menos arquivos que a eDonkey, ela é um recurso valioso."/>
-		<control caption="Conectar na Gnutella Original (G1)"/>
-		<control caption="Configurar a Gnutella 1"/>
+		<control caption="Mostrar Gnutella (G1)"/>
+		<control caption="Configurar a Gnutella"/>
 		<control caption="Rede eDonkey:"/>
 		<control caption="A rede eDonkey é uma rede baseada em servidores. Enqto não tão rica em funções como Gnutella 2, ed2k tem uma grande coleção de arquivos."/>
-		<control caption="Conectar no eDonkey2000 (ED2K)"/>
+		<control caption="Mostrar eDonkey2000 (ED2K)"/>
 		<control caption="Configurar o eDonkey"/>
+		<control caption="Rede DC++:"/>
+		<control caption="A rede DC++ é uma rede baseada em servidores. Enqto não tão rica em funções como Gnutella 2, ed2k tem uma grande coleção de arquivos."/>
+		<control caption="Mostrar DC++ (DC)"/>
+		<control caption="Configurar o DC++"/>
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Rede Gnutella2:"/>
@@ -3725,6 +3730,21 @@
 		<control caption="Ferramentas do eDonkey"/>
 		<control caption="Baixar..."/>
 		<control caption="Baixar lista de servidores eDonkey da rede:"/>
+	</dialog>
+	<dialog name="CDCSettingsPage" cookie="BuBuBuBuStEdmsStBuStBuBuSt" caption="DC++">
+		<control caption="Rede _DC++:"/>
+		<control caption="Conectar no DC++ agora"/>
+		<control caption="Sempre conectar no DC++ na inicialização"/>
+		<control caption="_Hubs:"/>
+		<control caption="Conectar a default:"/>
+		<control/>
+		<control/>
+		<control caption="DC++ hubs."/>
+		<control caption="_Info:"/>
+		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
+		<control caption="_Ferramentas:"/>
+		<control caption="Baixar..."/>
+		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Conexões de Download:"/>

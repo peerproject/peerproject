@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Japanese Skin File -->
 
-<!-- Translation based on default-en.xml r76 --> <!-- (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r77 --> <!-- (Shareaza 2.2.0.2) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2889,6 +2889,7 @@
 	<string id="20505" value="なし"/>
 	<string id="20506" value="接続中"/>
 	<string id="20507" value="現在:"/>
+	<string id="20509" value="DC++: リーフ→ハブ 接続"/>
 	<string id="20510" value="eDonkey2000 サーバー接続"/>
 	<string id="20511" value="eDonkey2000(HighID)"/>
 	<string id="20512" value="eDonkey サーバー接続 (LOWID: %lu)"/>
@@ -3393,20 +3394,24 @@
 		<control caption="ガイド:"/>
 		<control caption="PeerProjectリモートアクセスはあなたがPCの前を離れていても、ウェブブラウザを使用してPeerProjectを遠隔操作することができるようにします。この機能を利用するには(ルータを適切に設定する等して)入力接続を受け付けることができるようにする必要があります"/>
 	</dialog>
-	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="ネットワーク">
+	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="ネットワーク">
 		<control caption="PeerProjectは複数のP2Pネットワークへ同時にアクセスできる汎用ファイル共有アプリケーションです。このページではあなたがどのP2Pネットワークに接続するかを選択し、それぞれのネットワーク固有の設定を行います。"/>
 		<control caption="Gnutella2ネットワーク:"/>
 		<control caption="Gnutella2ネットワークは他のどんなP2Pネットワークよりも機能・処理能力があり、PeerProjectの推奨ネットワークとなっています。"/>
-		<control caption="Gnutella2(G2)に接続"/>
+		<control caption="Gnutella2(G2)を表示"/>
 		<control caption="Gnutella2設定"/>
 		<control caption="オリジナルGnutellaネットワーク:"/>
 		<control caption="オリジナルGnutellaネットワークはGnutella程機能もなく、eDonkeyより共有量も少ないですが、それでもまだ貴重なリソースを得ることができます。"/>
-		<control caption="オリジナルGnutellaに接続"/>
-		<control caption="Gnutella1設定"/>
+		<control caption="オリジナルGnutellaを表示"/>
+		<control caption="Gnutella設定"/>
 		<control caption="eDonkey2000ネットワーク:"/>
 		<control caption="eDonkeyネットワークは典型的なサーバーベースのネットワークです。 機能的にはGnutella2ほど豊富ではありませんが、興味深いファイルの共有があります。"/>
-		<control caption="eDonkeyに接続"/>
+		<control caption="eDonkeyを表示"/>
 		<control caption="eDonkey設定"/>
+		<control caption="DC++ネットワーク:"/>
+		<control caption="DC++ネットワークは典型的なサーバーベースのネットワークです。 機能的にはGnutella2ほど豊富ではありませんが、興味深いファイルの共有があります。"/>
+		<control caption="DC++を表示"/>
+		<control caption="DC++設定"/>
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Gnutella2ネットワーク:"/>
@@ -3460,9 +3465,24 @@
 		<control/>
 		<control caption="検索結果"/>
 		<control caption="Update global server list from the connected server"/>
-		<control caption="eDonkey0ツール:"/>
+		<control caption="eDonkeyツール:"/>
 		<control caption="ダウンロード..."/>
 		<control caption="ウェブからeDonkeyサーバーリストをダウンロード:"/>
+	</dialog>
+	<dialog name="CDCSettingsPage" cookie="BuBuBuBuStEdmsStBuStBuBuSt" caption="DC++">
+		<control caption="_DC++ネットワーク:"/>
+		<control caption="今回DC++に接続"/>
+		<control caption="常時DC++に接続"/>
+		<control caption="_Hubs:"/>
+		<control caption="Connect by default to:"/>
+		<control/>
+		<control/>
+		<control caption="DC++ hubs."/>
+		<control caption="_Info:"/>
+		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
+		<control caption="_ツール:"/>
+		<control caption="ダウンロード..."/>
+		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="ダウンロード接続数:"/>

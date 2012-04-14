@@ -1,7 +1,7 @@
 //
 // CtrlBrowseProfile.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -68,7 +68,7 @@ protected:
 
 // Operations
 public:
-	void	Serialize(CArchive& ar);
+	void	Serialize(CArchive& ar, int nVersion);	// BROWSER_SER_VERSION
 	void	OnSkinChange();
 	void	OnHeadPacket(CG2Packet* pPacket);
 	void	Update(CHostBrowser* pBrowser);
@@ -86,7 +86,7 @@ public:
 // Implementation
 protected:
 	//{{AFX_MSG(CBrowseProfileCtrl)
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
 	afx_msg void OnPaint();
 	afx_msg void OnSize(UINT nType, int cx, int cy);
@@ -95,7 +95,4 @@ protected:
 	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
-
 };
-
-//{{AFX_INSERT_LOCATION}}

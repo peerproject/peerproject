@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Simplified) Skin File -->
 
-<!-- Translation based on default-en.xml r76 --> <!-- (Shareaza r6092) -->
+<!-- Translation based on default-en.xml r77 --> <!-- (Shareaza r6092) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2921,6 +2921,7 @@
 	<string id="20505" value="无"/>
 	<string id="20506" value="连接中"/>
 	<string id="20507" value="当前:"/>
+	<string id="20509" value="DC++:子端到集端连接"/>
 	<string id="20510" value="edonkey 服务器连接"/>
 	<string id="20511" value="edonkey (HighID)"/>
 	<string id="20512" value="eDonkey 服务器连接(LOWID: %lu)"/>
@@ -3439,20 +3440,24 @@
 		<control caption="帮助:"/>
 		<control caption="PeerProject 远程访问允许您让 PeerProject 在您的计算机上运行，并使用网页浏览器对它进行远程控制。您将需要能够接受传入连接以使用此功能(也就是正确地配置路由器，等等)。"/>
 	</dialog>
-	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="网络">
+	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="网络">
 		<control caption="PeerProject 是能够同时连接多个 P2P 网络的多用途的文件共享软件。在此您可以选择想要连接的网络，并且调整针对每个网络的设置。"/>
 		<control caption="Gnutella2 网络:"/>
 		<control caption="Gnutella2 网络是 PeerProject 的主网络，相对其他 P2P 网提供了更多的特性和更具优点。强烈推荐。"/>
-		<control caption="连接到 Gnutella2(G2)"/>
+		<control caption="显示 Gnutella2(G2)"/>
 		<control caption="配置 Gnutella2"/>
 		<control caption="原始的 Gnutella 网络:"/>
 		<control caption="尽管原始 Gnutella 网络比 Gnutella2 特性少，但依旧保留了可观的资源。"/>
-		<control caption="连接到原始 Gnutella"/>
-		<control caption="配置 Gnutella1"/>
+		<control caption="连显示 Gnutella"/>
+		<control caption="配置 Gnutella"/>
 		<control caption="edonkey2000 网络:"/>
 		<control caption="edonkey 网络是广泛使用的基于服务器的网络。虽不像 Gnutella2 特性极多，edonkey 的文件搜集方式令人印象深刻。"/>
-		<control caption="连接到 edonkey"/>
+		<control caption="显示 edonkey"/>
 		<control caption="配置 edonkey"/>
+		<control caption="DC++ 网络:"/>
+		<control caption="DC++ 网络是广泛使用的基于服务器的网络。虽不像 Gnutella2 特性极多，edonkey 的文件搜集方式令人印象深刻。"/>
+		<control caption="显示 DC++"/>
+		<control caption="配置 DC++"/>
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Gnutella2 网络:"/>
@@ -3509,6 +3514,21 @@
 		<control caption="eDonkey 工具:"/>
 		<control caption="下载..."/>
 		<control caption="从网络上下载 eDonkey 服务器列表:"/>
+	</dialog>
+	<dialog name="CDCSettingsPage" cookie="BuBuBuBuStEdmsStBuStBuBuSt" caption="DC++">
+		<control caption="_DC++ 网络:"/>
+		<control caption="Connect to DC++ now"/>
+		<control caption="Connect to DC++ at startup"/>
+		<control caption="_Hubs:"/>
+		<control caption="Connect by default to:"/>
+		<control/>
+		<control/>
+		<control caption="DC++ hubs."/>
+		<control caption="_Info:"/>
+		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
+		<control caption="工具:"/>
+		<control caption="下载..."/>
+		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="下载连接:"/>

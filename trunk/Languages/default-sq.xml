@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Albanian Skin File -->
 
-<!-- Translation based on default-en.xml r76 -->
+<!-- Translation based on default-en.xml r77 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3321,20 +3321,24 @@
 		<control caption="Ndihmë:"/>
 		<control caption="Hyrja në Largësi bën që PeerProject të lihet të veprojë në PC e të kontrollohet me një shfletues rrjeti të jashtëm. Që kjo veçori të përdoret, duhet të jeni i aftë të pranoni lidhjet hyrëse (d.m.th. konfiguroni routerin si duhet etj.)."/>
 	</dialog>
-	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Rrjeti">
+	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="Rrjeti">
 		<control caption="PeerProject është një aplikim skedëshpërndarës me synim të përgjithshëm hapjen e sa më shumë rrjeteve P2P në një kohë. Në këtë faqe mund të zgjidhni rrjetet P2P te të cilat doni të lidheni, pastaj mund të rregulloni kuadrot e caktuar për secilin rrjet."/>
 		<control caption="Rrjeti Gnutella2:"/>
 		<control caption="Rrjeti Gnutella2 është rrjeti parësor i PeerProject-s, i cili ofron shumë më tepër veçori dhe rendiment se çdo rrjet tjetër P2P (Rekomandohet fort)"/>
-		<control caption="Lidhu tek Gnutella2 (G2)"/>
+		<control caption="Trego Gnutella2 (G2)"/>
 		<control caption="Konfiguro Gnutella2"/>
 		<control caption="Rrjeti Origjinal Gnutella:"/>
 		<control caption="Ndonëse rrjeti origjinal Gnutella ka më pak veçori se Gnutella2, dhe ka më pak skeda se eDonkey, ai mbetet një burim me vlerë."/>
-		<control caption="Lidhu tek Gnutella Origjinal (G1)"/>
-		<control caption="Konfiguro Gnutella1"/>
+		<control caption="Trego Gnutella (G1)"/>
+		<control caption="Konfiguro Gnutella"/>
 		<control caption="Rrjeti eDonkey:"/>
 		<control caption="Rrjeti eDonkey është rrjeti i famshëm me bazë një server. Ndonëse nuk ka aq veçori sa Gnutella2, eDonkey ka një koleksion mahnitës me skeda."/>
-		<control caption="Lidhu tek eDonkey2000 (ED2K)"/>
+		<control caption="Trego eDonkey2000 (ED2K)"/>
 		<control caption="Konfiguro eDonkey"/>
+		<control caption="Rrjeti DC++:"/>
+		<control caption="Rrjeti DC++ është rrjeti i famshëm me bazë një server. Ndonëse nuk ka aq veçori sa Gnutella2, eDonkey ka një koleksion mahnitës me skeda."/>
+		<control caption="Trego DC++ (DC)"/>
+		<control caption="Konfiguro DC++"/>
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Rrjeti Gnutella2:"/>
@@ -3391,6 +3395,21 @@
 		<control caption="_Mjetet e eDonkey:"/>
 		<control caption="Shkarko..."/>
 		<control caption="Shkarko server-listën e eDonkey në rrjet:"/>
+	</dialog>
+	<dialog name="CDCSettingsPage" cookie="BuBuBuBuStEdmsStBuStBuBuSt" caption="DC++">
+		<control caption="Rrjeti _DC++:"/>
+		<control caption="Lidhu sot te DC++"/>
+		<control caption="Lidhu përherë te DC++"/>
+		<control caption="_Hubs:"/>
+		<control caption="Mos u lidh default:"/>
+		<control/>
+		<control/>
+		<control caption="DC++ hubs."/>
+		<control caption="_Info:"/>
+		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
+		<control caption="_Mjetet:"/>
+		<control caption="Shkarko..."/>
+		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="Lidhjet për _Shkarkim:"/>

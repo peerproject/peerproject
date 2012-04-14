@@ -1,7 +1,7 @@
 //
 // DCNeighbour.h
 //
-// This file is part of PeerProject (peerproject.org) © 2010-2011
+// This file is part of PeerProject (peerproject.org) © 2010-2012
 // Portions copyright Shareaza Development Team, 2010.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -19,6 +19,10 @@
 #pragma once
 
 #include "Neighbour.h"
+#include "WndChat.h"
+
+class CDCPacket;
+class CChatSession;
 
 
 class CDCNeighbour : public CNeighbour
@@ -29,23 +33,48 @@ public:
 
 public:
 	CString			m_sNick;		// User nick on this hub
+	BOOL			m_bNickValid;	// User nick was accepted
 	BOOL			m_bExtended;	// Using extended protocol
 	CStringList		m_oFeatures;	// Remote client supported features
 
 	BOOL			ConnectToMe(const CString& sNick);		// Send $ConnectToMe command
+	void			OnChatOpen(CChatSession* pSession); 	// Chat window was (re)opened
+	CChatUser*		GetUser(const CString& sNick) const;	// Find user
 
 	virtual BOOL	ConnectTo(const IN_ADDR* pAddress, WORD nPort, BOOL bAutomatic);
 	virtual BOOL	Send(CPacket* pPacket, BOOL bRelease = TRUE, BOOL bBuffered = FALSE);
+	virtual DWORD	GetUserCount() const { return m_oUsers.GetCount(); }
 
 protected:
+	CChatUser::Map	m_oUsers;		// Hub user list
+
+	void			RemoveAllUsers();
+
 	virtual BOOL	OnConnected();
 	virtual void	OnDropped();
 	virtual BOOL	OnRead();
 
-	BOOL			ReadCommand(std::string& strLine);		// Read single command from input buffer
-	BOOL			OnCommand(const std::string& strCommand, const std::string& strParams);
-	BOOL			OnHello();								// Got $Hello command
-	BOOL			OnLock(const std::string& strLock);		// Got $Lock command
-	BOOL			OnChat(const std::string& strMessage);	// Got chat message
-	BOOL			OnSearch(const IN_ADDR* pAddress, WORD nPort, std::string& strSearch);	// Got search request
+	BOOL			OnPacket(CDCPacket* pPacket);			// Got DC++ command
+	BOOL			OnPing();								// Got ping
+	BOOL			OnHello(LPSTR szNick);					// Got $Hello command
+	BOOL			OnLock(LPSTR szParams);					// Got $Lock command
+	BOOL			OnQuery(CDCPacket* pPacket);			// Got search request
+	BOOL			OnChat(CDCPacket* pPacket);				// Got chat message
+	BOOL			OnChatPrivate(CDCPacket* pPacket);		// Got private chat message
+	BOOL			OnSupports(LPSTR szParams);				// Got $Supports command
+	BOOL			OnHubName(CDCPacket* pPacket);			// Got $HubName command
+	BOOL			OnHubTopic(CDCPacket* pPacket);			// Got $HubTopic command
+	BOOL			OnOpList(LPSTR szParams);				// Got $OpList command
+	BOOL			OnUserInfo(LPSTR szInfo);				// Got $MyINFO command
+	BOOL			OnUserIP(LPSTR szIP);					// Got $UserIP command
+	BOOL			OnQuit(LPSTR szNick);					// Got $Quit command
+	BOOL			OnConnectToMe(LPSTR szParams);			// Got $ConnectToMe command
+	BOOL			OnRevConnectToMe(LPSTR szParams);		// Got $RevConnectToMe command
+	BOOL			OnForceMove(LPSTR szParams);			// Got $ForceMove command
+	BOOL			OnValidateDenide();						// Got $ValidateDenide command (not 'denied')
+	BOOL			OnGetPass();							// Got $GetPass command
+	BOOL			OnZOn();								// Got $ZOn command
+	BOOL			OnUnknown(CDCPacket* pPacket);			// Got unknown message
+
+	BOOL			SendUserInfo();							// Send $MyINFO command
 };

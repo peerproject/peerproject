@@ -1,7 +1,7 @@
 //
 // PageSettingsDC.h
 //
-// This file is part of PeerProject (peerproject.org) © 2011
+// This file is part of PeerProject (peerproject.org) © 2011-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -35,9 +35,9 @@ public:
 // Dialog Data
 public:
 	//{{AFX_DATA(CDCSettingsPage)
-	CSpinButtonCtrl	m_wndLinksSpin;
-	CEdit	m_wndLinks;
 	CButton	m_wndDiscoveryGo;
+	CSpinButtonCtrl	m_wndHubsSpin;
+	CEdit	m_wndHubs;
 	int 	m_nHubs;
 	BOOL	m_bEnabled;
 	BOOL	m_bEnableAlways;

@@ -2607,6 +2607,10 @@
 					>
 				</File>
 				<File
+					RelativePath="PageSettingsDC.cpp"
+					>
+				</File>
+				<File
 					RelativePath="PageSettingsDonkey.cpp"
 					>
 				</File>
@@ -4157,6 +4161,10 @@
 				</File>
 				<File
 					RelativePath="PageSettingsConnection.h"
+					>
+				</File>
+				<File
+					RelativePath="PageSettingsDC.h"
 					>
 				</File>
 				<File

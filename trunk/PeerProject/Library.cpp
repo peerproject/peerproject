@@ -413,7 +413,7 @@ BOOL CLibrary::Load()
 	}
 
 	LibraryFolders.CreateAlbumTree();
-	LibraryFolders.Maintain();			// Update desktop.ini's
+//	LibraryFolders.Maintain();			// Update desktop.ini's	(May take several seconds, call seperately)
 
 	LibraryHashDB.Create();
 	LibraryBuilder.BoostPriority( Settings.Library.HighPriorityHash );

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Lithuanian Skin File -->
 
-<!-- Translation based on default-en.xml r76 -->
+<!-- Translation based on default-en.xml r77 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3058,6 +3058,7 @@
 	<string id="20505" value="Jokio"/>
 	<string id="20506" value="Jungiamasi"/>
 	<string id="20507" value="Esamas:"/>
+	<string id="20509" value="DC++: Ryšys atšaka-mazgas"/>
 	<string id="20510" value="eDonkey serverio ryšys"/>
 	<string id="20511" value="eDonkey (aukštas ID)"/>
 	<string id="20512" value="eDonkey serverio ryšys (LOWID: %lu)"/>
@@ -3608,20 +3609,24 @@
 		<control caption="Pagalba:"/>
 		<control caption="„PeerProject“ nuotolinės prieigos funkcija leidžia jums, naudojantis naršykle, kontroliuoti nuotoliniu būdu „PeerProject“ programą, paliktą veikiančią savo kompiuteryje. Šios funkcijos naudojimuisi reikia, kad kompiuteris priimtų įeinančius susijungimus (t.y. teisingai suderintas maršrutizatorius ir t.t.)."/>
 	</dialog>
-	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Tinklai">
+	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="Tinklai">
 		<control caption="„PeerProject“ - tai bendros paskirties failų apsikeitimo programa, kuri gali prisijungti prie kelių lygiaverčio tarptinklinio susijungimo (P2P) tinklų vienu metu. Čia Jūs galite pasirinkti, prie kurių P2P tinklų norite jungtis, o po to - derinti kiekvieną tinklą atskirai."/>
 		<control caption="Gnutella2 tinklas:"/>
 		<control caption="Gnutella2 tinklas - tai pagrindinis „PeerProject“ tinklas, siūlantis daugiau galimybių ir našumo nei kiti P2P tinklai. Ypač rekomenduojama."/>
-		<control caption="Jungtis prie Gnutella2 (G2)"/>
+		<control caption="Rodyti Gnutella2 (G2)"/>
 		<control caption="Konfigūruoti Gnutella2"/>
 		<control caption="Pirminis Gnutella tinklas:"/>
 		<control caption="Nors pirminis Gnutella tinklas turi mažiau galimybių, nei Gnutella2, ir mažiau failų, nei eDonkey, šis tinklas pasilieka vertingu ištekliumi."/>
-		<control caption="Jungtis prie Gnutella (G1)"/>
-		<control caption="Konfigūruoti Gnutella1"/>
+		<control caption="Rodyti Gnutella (G1)"/>
+		<control caption="Konfigūruoti Gnutella"/>
 		<control caption="eDonkey2000 tinklas:"/>
 		<control caption="eDonkey tinklas - tai populiarus tinklas su serveriais. Nors neturi tiek galimybių kaip Gnutella2, eDonkey tinkle yra įspūdinga failų kolekcija."/>
-		<control caption="Jungtis prie eDonkey2000 (ED2K)"/>
+		<control caption="Rodyti eDonkey2000 (ED2K)"/>
 		<control caption="Konfigūruoti eDonkey"/>
+		<control caption="DC++ tinklas:"/>
+		<control caption="DC++ tinklas - tai populiarus tinklas su serveriais. Nors neturi tiek galimybių kaip Gnutella2, eDonkey tinkle yra įspūdinga failų kolekcija."/>
+		<control caption="Rodyti DC++ (DC)"/>
+		<control caption="Konfigūruoti DC++"/>
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Gnutella2 tinklas:"/>
@@ -3678,6 +3683,21 @@
 		<control caption="eDonkey į_rankiai:"/>
 		<control caption="Parsisiųsti..."/>
 		<control caption="eDonkey serverių sąrašo parsisiuntimas iš interneto:"/>
+	</dialog>
+	<dialog name="CDCSettingsPage" cookie="BuBuBuBuStEdmsStBuStBuBuSt" caption="DC++">
+		<control caption="_DC++ tinklas:"/>
+		<control caption="Visada jungtis prie DC++"/>
+		<control caption="Jungtis prie DC++ šiandien"/>
+		<control caption="_Hubs:"/>
+		<control caption="Jungtis by default to:"/>
+		<control/>
+		<control/>
+		<control caption="DC++ hubs."/>
+		<control caption="_Info:"/>
+		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
+		<control caption="_į_rankiai:"/>
+		<control caption="Parsisiųsti..."/>
+		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Atsisiuntimų susijungimai:"/>

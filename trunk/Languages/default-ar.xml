@@ -3,7 +3,7 @@
 
 <!-- PeerProject Arabic Language Skin File -->
 
-<!-- Translation based on default-en.xml r76 -->
+<!-- Translation based on default-en.xml r77 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3080,7 +3080,7 @@
 		<control caption=":الدليل" />
 		<control caption="يسمح لك الوصول البعيد لشير-أزا بترك &quot;شير-أزا&quot; يعمل في كمبيوترك و من ثم التحكم فيه عن بعد عن طريق متصفح ويب . لكن يجب قبول الإتصالات الواردة لإستخدام هذه الميزة" />
 	</dialog>
-	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="الشبكات">
+	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="الشبكات">
 		<control caption="شير-أزا هو تطبيق لمشاركة الملفات لأغراض عامة حيث يقوم بالدخول على العديد من شبكات &quot;النظير-إلى-النظير&quot; المختلفة في نفس الوقت . في هذه الصفحة يمكنك تحديد شبكات &quot;النظير-إلى-النظير&quot; المراد الإنصال بها و من ثم ضبط الإعدادات لكل شبكة" />
 		<control caption=":Gnutella2 شبكة" />
 		<control caption="نوتيللا-2 هي الشبكة رئيسية إفتتاحية لشبكة شير-أزا . حيث تقدم الكثير من الميزات و الأداء أكثر من أي شبكة أخرى . و هي مستحسنة جدا" />
@@ -3094,6 +3094,10 @@
 		<control caption="إ.دونكي هي شبكة تعتمد على ملقم عام لكن مميزاتها أقل من  شبكة نوتيللا-2 . و هذه الشبكة تمتلك مجموعة لا يستهان بها من الملفات" />
 		<control caption=":eDonkey2000 (ED2K) الإتصال بـ" />
 		<control caption="eDonkey تكوين" />
+		<control caption=":DC++ شبكة" />
+		<control caption="إ.دونكي هي شبكة تعتمد على ملقم عام لكن مميزاتها أقل من  شبكة نوتيللا-2 . و هذه الشبكة تمتلك مجموعة لا يستهان بها من الملفات" />
+		<control caption=":DC++ (DC) الإتصال بـ" />
+		<control caption="DC++ تكوين" />
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption=":Gnutella2 شبكة" />
@@ -3150,6 +3154,21 @@
 		<control caption=":eDonkey _أدوات" />
 		<control caption="تحميل..." />
 		<control caption=":من الانترنت eDonkey تحميل قائمة ملقم" />
+	</dialog>
+	<dialog name="CDCSettingsPage" cookie="BuBuBuBuStEdmsStBuStBuBuSt" caption="DC++">
+		<control caption=":_DC++ شبكة" />
+		<control caption="DC++ الإتصال دائما بـ" />
+		<control caption="DC++ الإتصال اليوم بـ" />
+		<control caption="_Hubs:" />
+		<control caption="Connect by default to:" />
+		<control />
+		<control />
+		<control caption="DC++ hubs." />
+		<control caption="_Info:" />
+		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected." />
+		<control caption=":أدوات" />
+		<control caption="تحميل..." />
+		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)" />
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption=":إ_تصالات التحميل" />
