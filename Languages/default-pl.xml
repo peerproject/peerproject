@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Polish Skin File -->
 
-<!-- Translation based on default-en.xml r76 --> <!-- (Shareaza 2.1.2.7) -->
+<!-- Translation based on default-en.xml r77 --> <!-- (Shareaza 2.1.2.7) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2637,23 +2637,24 @@
 	<string id="20505" value="Żadna"/>
 	<string id="20506" value="Łączenie"/>
 	<string id="20507" value="Aktualnie:"/>
+	<string id="20509" value="DC++ Client-to-Hub Połączenie"/>
 	<string id="20510" value="Połączenie serwera eDonkey"/>
 	<string id="20511" value="eDonkey (HighID)"/>
-	<string id="20512" value="eDonkey Server Connection (LOWID: %lu)"/>
+	<string id="20512" value="eDonkey Server Połączenie (LOWID: %lu)"/>
 	<string id="20513" value="eDonkey (LowID)"/>
 	<string id="20514" value="Serwer eDonkey"/>
 	<string id="20515" value="Liść G1"/>
 	<string id="20516" value="Peer G1"/>
-	<string id="20517" value="Gnutella: Peer-to-Peer Connection"/>
-	<string id="20518" value="Gnutella: Leaf-to-Ultrapeer Connection"/>
-	<string id="20519" value="Gnutella: Ultrapeer-to-Leaf Connection"/>
+	<string id="20517" value="Gnutella: Peer-to-Peer Połączenie"/>
+	<string id="20518" value="Gnutella: Leaf-to-Ultrapeer Połączenie"/>
+	<string id="20519" value="Gnutella: Ultrapeer-to-Leaf Połączenie"/>
 	<string id="20520" value="Ultrapeer G1"/>
 	<string id="20521" value="Hub G2"/>
 	<string id="20522" value="Liść G2"/>
 	<string id="20524" value="Peer G2"/>
-	<string id="20525" value="Gnutella2: Leaf-to-Hub Connection"/>
-	<string id="20526" value="Gnutella2: Hub-to-Hub Connection"/>
-	<string id="20527" value="Gnutella2: Hub-to-Leaf Connection"/>
+	<string id="20525" value="Gnutella2: Leaf-to-Hub Połączenie"/>
+	<string id="20526" value="Gnutella2: Hub-to-Hub Połączenie"/>
+	<string id="20527" value="Gnutella2: Hub-to-Leaf Połączenie"/>
 	<string id="20530" value="Witanie"/>
 	<string id="20531" value="Witanie"/>
 	<string id="20532" value="Przychodzące"/>
@@ -3129,20 +3130,24 @@
 		<control caption="Pomoc:"/>
 		<control caption="Zdalny dostęp do PeerProjecty pozwala ci na zostawienie włączonej PeerProjecty na Twoim komputerze i zdalne sterowanie nią za pomocą przeglądarki internetowej. Aby używać tej funkcji musisz być w stanie przyjmować połączenia przychodzące (np. właściwie skonfigurowany router, itp.)."/>
 	</dialog>
-	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Sieci">
+	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="Sieci">
 		<control caption="PeerProject jest aplikacją współdzielącą (udostępniajacą) pliki do ogólnego użytku, która może się połączyć jednocześnie z wieloma sieciami P2P. W tej sekcji wybierasz, do jakich sieci chcesz się włączyć i dostosujesz ustawienia charakterystyczne dla każdej z nich."/>
 		<control caption="Sieć Gnutella2:"/>
 		<control caption="Sieć Gnutella2 jest główną siecią PeerProjecty, oferującą więcej funkcji i większą wydajność niż jakakolwiek inna sieć. Gorąco zalecamy włączanie się do niej."/>
-		<control caption="Połącz z Gnutella2 (G2)"/>
+		<control caption="Pokaż Gnutella2 (G2)"/>
 		<control caption="Skonfiguruj Gnutella2"/>
-		<control caption="Oryginalna sieć Gnutella:"/>
-		<control caption="Pomimo, że Gnutella nie ma tylu funkcjonalności co Gnutella2, ani tylu plików co eDonkey, to nadal pozostaje wartościowym źródłem plików/zasobów."/>
-		<control caption="Połącz z Oryginalną Gnutellą (G1)"/>
+		<control caption="Sieć Gnutella:"/>
+		<control caption="Pomimo, że Oryginalną Gnutella nie ma tylu funkcjonalności co Gnutella2, ani tylu plików co eDonkey, to nadal pozostaje wartościowym źródłem plików/zasobów."/>
+		<control caption="Pokaż Gnutellą (G1)"/>
 		<control caption="Skonfiguruj Gnutella1"/>
 		<control caption="Sieć eDonkey:"/>
 		<control caption="Sieć eDonkey jest popularną siecią opartą na serwerach. Nie posiada tylu funkcjonalności co Gnutella2, natomiast eDonkey ma imponujący zbiór plików."/>
-		<control caption="Połącz z eDonkey2000 (ED2K)"/>
+		<control caption="Pokaż eDonkey2000 (ED2K)"/>
 		<control caption="Skonfiguruj eDonkey"/>
+		<control caption="Sieć DC++:"/>
+		<control caption="Sieć DC++ jest popularną siecią opartą na serwerach. Nie posiada tylu funkcjonalności co Gnutella2, natomiast eDonkey ma imponujący zbiór plików."/>
+		<control caption="Pokaż DC++ (DC)"/>
+		<control caption="Skonfiguruj DC++"/>
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Sieć Gnutella2:"/>
@@ -3199,6 +3204,21 @@
 		<control caption="Narzędzia eDonkey:"/>
 		<control caption="Pobierz..."/>
 		<control caption="Pobierz listę serwerów eDonkey z sieci:"/>
+	</dialog>
+	<dialog name="CDCSettingsPage" cookie="BuBuBuBuStEdmsStBuStBuBuSt" caption="DC++">
+		<control caption="Sieć _DC++:"/>
+		<control caption="Zawsze włączaj się do DC++"/>
+		<control caption="Włącz się do DC++ dzisiaj"/>
+		<control caption="_Hubs:"/>
+		<control caption="Connect by default to:"/>
+		<control/>
+		<control/>
+		<control caption="DC++ hubs."/>
+		<control caption="_Info:"/>
+		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
+		<control caption="_Narzędzia:"/>
+		<control caption="Pobierz..."/>
+		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="Połączenia pobierające:"/>

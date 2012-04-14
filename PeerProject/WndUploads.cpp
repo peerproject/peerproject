@@ -242,7 +242,7 @@ void CUploadsWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 	if ( pLock.Lock( 250 ) )
 	{
 		CUploadFile* pUpload;
-		if ( m_wndUploads.HitTest( ptLocal, NULL , &pUpload, NULL, NULL ) && pUpload != NULL )
+		if ( m_wndUploads.HitTest( ptLocal, NULL, &pUpload, NULL, NULL ) && pUpload != NULL )
 			bHit = TRUE;
 		pLock.Unlock();
 	}

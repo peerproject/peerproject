@@ -164,15 +164,14 @@ HRESULT CLibraryWnd::GetGenericView(IGenericView** ppView)
 BOOL CLibraryWnd::OnCollection(LPCTSTR pszPath)
 {
 	CAlbumFolder* pFolder = NULL;
-	CString strFormat, strMessage;
+	CString strMessage;
 	CCollectionFile pCollection;
 	CLibraryFolder* pLibFolder;
 
 	if ( ! pCollection.Open( pszPath ) )	// Verify specified collection is valid
 	{
 		// User clicked an invalid collection
-		LoadString( strFormat, IDS_LIBRARY_COLLECTION_INVALID );
-		strMessage.Format( strFormat, pszPath );
+		strMessage.Format( LoadString( IDS_LIBRARY_COLLECTION_INVALID ), pszPath );
 		AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
 		return FALSE;
 	}
@@ -229,8 +228,7 @@ BOOL CLibraryWnd::OnCollection(LPCTSTR pszPath)
 				// Force a scan of collection folder (in case watch library folders is disabled)
 				if ( pLibFolder != NULL ) pLibFolder->Scan();
 
-				LoadString( strFormat, IDS_LIBRARY_COLLECTION_INSTALLED );
-				strMessage.Format( strFormat, (LPCTSTR)pCollection.GetTitle() );
+				strMessage.Format( LoadString( IDS_LIBRARY_COLLECTION_INSTALLED ), (LPCTSTR)pCollection.GetTitle() );
 				AfxMessageBox( strMessage, MB_ICONINFORMATION );
 
 				oLock.Lock();
@@ -251,9 +249,8 @@ BOOL CLibraryWnd::OnCollection(LPCTSTR pszPath)
 				// The greatest probablility is that the file is there, but hasn't been added yet.
 				// Best bet is to pretend everything is okay, since the delay it takes the user to respond may fix everything.
 
-				LoadString( strFormat, IDS_LIBRARY_COLLECTION_INSTALLED );
-				strMessage.Format( strFormat, (LPCTSTR)pCollection.GetTitle() );
-				AfxMessageBox( strMessage , MB_ICONINFORMATION );
+				strMessage.Format( LoadString( IDS_LIBRARY_COLLECTION_INSTALLED ), (LPCTSTR)pCollection.GetTitle() );
+				AfxMessageBox( strMessage, MB_ICONINFORMATION );
 
 				oLock.Lock();
 				if ( CLibraryFile* pTargetFile1 = LibraryMaps.LookupFileByPath( strTarget, FALSE, TRUE ) )
@@ -267,15 +264,13 @@ BOOL CLibraryWnd::OnCollection(LPCTSTR pszPath)
 				{
 					// Most likely cause- Corrupt file in collection folder.
 					oLock.Unlock();
-					LoadString( strFormat, IDS_LIBRARY_COLLECTION_CANT_INSTALL );
-					strMessage.Format( strFormat, (LPCTSTR)pCollection.GetTitle(), (LPCTSTR)Settings.Downloads.CollectionPath );
+					strMessage.Format( LoadString( IDS_LIBRARY_COLLECTION_CANT_INSTALL ), (LPCTSTR)pCollection.GetTitle(), (LPCTSTR)Settings.Downloads.CollectionPath );
 					AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
 				}
 			}
 			else	// Was not able to copy collection to the collection folder for Unknown reason -Display an error message
 			{
-				LoadString( strFormat, IDS_LIBRARY_COLLECTION_CANT_INSTALL );
-				strMessage.Format( strFormat, (LPCTSTR)pCollection.GetTitle(), (LPCTSTR)Settings.Downloads.CollectionPath );
+				strMessage.Format( LoadString( IDS_LIBRARY_COLLECTION_CANT_INSTALL ), (LPCTSTR)pCollection.GetTitle(), (LPCTSTR)Settings.Downloads.CollectionPath );
 				AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
 			}
 		}

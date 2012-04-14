@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Swedish Skin File -->
 
-<!-- Translation based on default-en.xml r76 -->
+<!-- Translation based on default-en.xml r77 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2975,6 +2975,7 @@
 	<string id="20505" value="Ingen"/>
 	<string id="20506" value="ANsluter"/>
 	<string id="20507" value="Nuvarande:"/>
+	<string id="20509" value="DC++: Löv-till-nav-anslutning"/>
 	<string id="20510" value="eDonkey-serveranslutning"/>
 	<string id="20511" value="eDonkey (HighID)"/>
 	<string id="20512" value="eDonkey-serveranslutning (LOWID: %lu)"/>
@@ -3526,20 +3527,24 @@
 		<control caption="Hjälp:"/>
 		<control caption="PeerProjects fjärråtkomst tillåter dig att lämna PeerProject igång på din PC och kontrollera det med en webbläsare. Du måste kunna acceptera inkommande anslutningar för att använda denna funktion (d.v.s. en ordentligt anpassad router eller dylikt)."/>
 	</dialog>
-	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Nätverk">
+	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="Nätverk">
 		<control caption="PeerProject är ett en mångsidig fildelningsapplikation som kan komma åt många fildelningsnätverk på samma gång. På denna sida kan du välja vilka nätverk du vill ansluta till och justera specifika inställningar för varje nätverk."/>
 		<control caption="Gnutella2-nätverk:"/>
 		<control caption="Gnutella2 är PeerProjects främsta nätverk, som erbjuder fler funktioner och prestanda än något annat fildelningsnätverk hittils. Mycket rekommenderad."/>
-		<control caption="Anslut till Gnutella2 (G2)"/>
+		<control caption="Visar Gnutella2 (G2)"/>
 		<control caption="Anpassa Gnutella2"/>
 		<control caption="Gnutellas ursprungsnätverk:"/>
 		<control caption="Fastän Gnutellas ursprungsnätverk erbjuder färre funktioner än Gnutella2 och färre filer än eDonkey är det ändå en värdefull resurs."/>
-		<control caption="Anslut till Gnutellas ursprungsnätverk (G1)"/>
-		<control caption="Anpassa Gnutella1"/>
-		<control caption="eDonkey-nätverk"/>
+		<control caption="Visar Gnutellas (G1)"/>
+		<control caption="Anpassa Gnutella"/>
+		<control caption="eDonkey-nätverk:"/>
 		<control caption="eDonkey-nätverk är ett populärt serverbaserat nätverk, med en imponerande stor filsamling, men utan alla funktioner som Gnutella2 har."/>
-		<control caption="Anslut till eDonkey2000 (ED2K)"/>
+		<control caption="Visar eDonkey2000 (ED2K)"/>
 		<control caption="Anpassa eDonkey"/>
+		<control caption="DC++-nätverk:"/>
+		<control caption="DC++-nätverk är ett populärt serverbaserat nätverk, med en imponerande stor filsamling, men utan alla funktioner som Gnutella2 har."/>
+		<control caption="Visar DC++ (DC)"/>
+		<control caption="Anpassa DC++"/>
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Gnutella2-nätverk:"/>
@@ -3596,6 +3601,21 @@
 		<control caption="eDonkey-_verktyg:"/>
 		<control caption="Ladda ned…"/>
 		<control caption="Ladda ned serverlista MET för eDonkey från webben"/>
+	</dialog>
+	<dialog name="CDCSettingsPage" cookie="BuBuBuBuStEdmsStBuStBuBuSt" caption="DC++">
+		<control caption="_DC++-nätverk:"/>
+		<control caption="Anslut till DC++ idag"/>
+		<control caption="Anslut alltid DC++ automatiskt"/>
+		<control caption="_Hubs:"/>
+		<control caption="Anslut by default to:"/>
+		<control/>
+		<control/>
+		<control caption="DC++ hubs."/>
+		<control caption="_Info:"/>
+		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
+		<control caption="_Verktyg:"/>
+		<control caption="Ladda ned…"/>
+		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Nedladdningsanslutning:"/>

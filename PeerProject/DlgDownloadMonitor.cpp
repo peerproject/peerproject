@@ -148,7 +148,7 @@ void CDownloadMonitorDlg::OnSkinChange(BOOL bSet)
 		}
 		else
 		{
-			pDlg->m_pSkin = NULL;
+			pDlg->RemoveSkin();
 		}
 
 		pDlg->m_pGraph->m_crBack = Colors.m_crMonitorGraphBack;

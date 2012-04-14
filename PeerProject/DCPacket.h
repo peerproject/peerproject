@@ -1,7 +1,7 @@
 //
 // DCPacket.h
 //
-// This file is part of PeerProject (peerproject.org) © 2010
+// This file is part of PeerProject (peerproject.org) © 2010-2012
 // Portions copyright Shareaza Development Team, 2010.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -20,6 +20,7 @@
 
 #include "Packet.h"
 
+
 class CDCPacket : public CPacket
 {
 protected:
@@ -27,8 +28,12 @@ protected:
 	virtual ~CDCPacket();
 
 public:
+	virtual CString GetType() const;
+	virtual CString ToHex()   const;
+	virtual CString ToASCII() const;
 	virtual void Reset();
 	virtual void ToBuffer(CBuffer* pBuffer, bool bTCP = true) const;
+	static	CDCPacket*	ReadBuffer(CBuffer* pBuffer);
 
 #ifdef _DEBUG
 	virtual void Debug(LPCTSTR pszReason) const;	// Writes debug info about packet into the PeerProject.log file

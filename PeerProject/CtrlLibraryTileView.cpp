@@ -960,7 +960,7 @@ void CLibraryTileItem::Paint(CDC* pDC, const CRect& rcBlock, CDC* /*pMemDC*/, BO
 			rc.left + 5, rc.top + 4, CLR_NONE, m_bSelected );
 		if ( m_bCollection )
 			CoolInterface.Draw( pDC, IDI_COLLECTION_MASK, 16,
-				rc.left + 5 , rc.top + 4, CLR_NONE, m_bSelected );
+				rc.left + 5, rc.top + 4, CLR_NONE, m_bSelected );
 	}
 	else if ( m_nIcon32 >= 0 )
 	{

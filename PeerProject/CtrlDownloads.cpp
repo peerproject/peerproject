@@ -1007,7 +1007,7 @@ void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDown
 	}
 
 	if ( IsExpandable( pDownload ) )
-		dc.SelectObject( &CoolInterface.m_fntBold ) ;
+		dc.SelectObject( &CoolInterface.m_fntBold );
 
 	if ( bDrop )
 	{
@@ -1073,7 +1073,7 @@ void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDown
 		{
 		case DOWNLOAD_COLUMN_TITLE:
 			bLeftMargin = rcRow.left == rcCell.left;
-			crLeftMargin = ( bLeftMargin ? crNatural : bSelectmark ? -1 : crBack ) ;
+			crLeftMargin = ( bLeftMargin ? crNatural : bSelectmark ? -1 : crBack );
 			if ( bLeftMargin || ! bSelectmark && rcCell.Height() > 16 )
 				dc.FillSolidRect( rcCell.left, rcCell.top + 16, 32, rcCell.Height() - 16, crLeftMargin );
 			if ( IsExpandable( pDownload ) )
@@ -1277,7 +1277,7 @@ void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDown
 		}
 	}
 
-	dc.SelectObject( &CoolInterface.m_fntNormal ) ;
+	dc.SelectObject( &CoolInterface.m_fntNormal );
 }
 
 void CDownloadsCtrl::PaintSource(CDC& dc, const CRect& rcRow, CDownload* pDownload, CDownloadSource* pSource, BOOL bFocus)
@@ -1328,7 +1328,7 @@ void CDownloadsCtrl::PaintSource(CDC& dc, const CRect& rcRow, CDownload* pDownlo
 		{
 		case DOWNLOAD_COLUMN_TITLE:
 			bLeftMargin = rcRow.left == rcCell.left;
-			crLeftMargin = ( bLeftMargin ? crNatural : bSelectmark ? -1 : crBack ) ;
+			crLeftMargin = ( bLeftMargin ? crNatural : bSelectmark ? -1 : crBack );
 
 			if ( bLeftMargin || ! bSelectmark )
 				dc.FillSolidRect( rcCell.left, rcCell.top, 24, rcCell.Height(), crLeftMargin );

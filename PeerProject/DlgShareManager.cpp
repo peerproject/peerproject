@@ -112,7 +112,7 @@ void CShareManagerDlg::OnShareAdd()
 {
 	LibraryFolders.AddSharedFolder( m_wndList );
 
-	m_wndList.SetItemState( m_wndList.GetItemCount() - 1 , 2 << 12, LVIS_STATEIMAGEMASK );	// Checked box
+	m_wndList.SetItemState( m_wndList.GetItemCount() - 1, 2 << 12, LVIS_STATEIMAGEMASK );	// Checked box
 }
 
 void CShareManagerDlg::OnShareRemove()

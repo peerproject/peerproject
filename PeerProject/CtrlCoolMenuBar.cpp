@@ -155,7 +155,7 @@ void CCoolMenuBarCtrl::ShowMenu()
 	const UINT nFirstID = pMenu->GetMenuItemID( 0 );
 	if ( nFirstID == ID_WINDOW_NAVBAR || nFirstID == ID_WINDOW_CASCADE )	// Tabbed/Windowed modes
 		UpdateWindowMenu( pMenu );
-	else if ( nFirstID == ID_TOOLS_SETTINGS && Skin.m_bDropMenu )			// Get DropMenu submenu
+	else if ( nFirstID == ID_TOOLS_SETTINGS ) // && Skin.m_bDropMenu		// Get DropMenu submenu
 		UpdateWindowMenu( pMenu->GetSubMenu( 4 ) );
 
 	m_pDown = m_pHot;

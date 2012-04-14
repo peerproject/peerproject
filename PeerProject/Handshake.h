@@ -59,5 +59,5 @@ protected:
 	// Receive push requests
 	BOOL OnAcceptGive();				// The remote computer said GIV, see if we were expecting it
 	BOOL OnAcceptPush();				// The remote computer said PUSH, see if we were expecting it
-	BOOL OnPush(const Hashes::Guid& oGUID);		// See if a child window recognizes the guid
+//	BOOL OnPush(const Hashes::Guid& oGUID);		// See if a child window recognizes the guid
 };

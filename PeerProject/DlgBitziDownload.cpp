@@ -98,8 +98,8 @@ void CBitziDownloadDlg::OnRequesting(DWORD nIndex, LPCTSTR pszName)
 {
 	CString strMessage;
 
-	int nImage	= ShellIcons.Get( pszName, 16 );
-	int nItem	= m_wndFiles.InsertItem( LVIF_TEXT|LVIF_IMAGE,
+	int nImage = ShellIcons.Get( pszName, 16 );
+	int nItem  = m_wndFiles.InsertItem( LVIF_TEXT|LVIF_IMAGE,
 					m_wndFiles.GetItemCount(), pszName, 0, 0, nImage, nIndex );
 
 	m_wndFiles.EnsureVisible( nItem, FALSE );
@@ -148,6 +148,8 @@ void CBitziDownloadDlg::OnTimer(UINT_PTR /*nIDEvent*/)
 
 void CBitziDownloadDlg::OnCancel()
 {
+	GetDlgItem( IDCANCEL )->EnableWindow( FALSE );
+
 	m_pDownloader.Stop();
 
 	CSkinDialog::OnCancel();
@@ -169,9 +171,9 @@ HBRUSH CBitziDownloadDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 BOOL CBitziDownloadDlg::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 {
 	CPoint point;
-	CRect rc;
-
 	GetCursorPos( &point );
+
+	CRect rc;
 	m_wndWeb.GetWindowRect( &rc );
 
 	if ( rc.PtInRect( point ) )
@@ -186,7 +188,6 @@ BOOL CBitziDownloadDlg::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 void CBitziDownloadDlg::OnLButtonDown(UINT /*nFlags*/, CPoint point)
 {
 	CRect rc;
-
 	m_wndWeb.GetWindowRect( &rc );
 	ScreenToClient( &rc );
 

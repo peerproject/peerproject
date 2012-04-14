@@ -28,11 +28,14 @@
 #include "EDPacket.h"
 #include "EDClient.h"
 #include "EDClients.h"
-#include "GProfile.h"
+#include "Downloads.h"
 #include "Neighbours.h"
 #include "Transfers.h"
 #include "QueryHit.h"
+#include "SharedFile.h"
+#include "PeerProjectURL.h"
 #include "VendorCache.h"
+#include "GProfile.h"
 #include "XML.h"
 
 #ifdef _DEBUG
@@ -45,7 +48,7 @@ static char THIS_FILE[]=__FILE__;
 //////////////////////////////////////////////////////////////////////
 // CHostBrowser construction
 
-CHostBrowser::CHostBrowser(CBrowseHostWnd* pNotify, PROTOCOLID nProtocol, IN_ADDR* pAddress, WORD nPort, BOOL bMustPush, const Hashes::Guid& oClientID)
+CHostBrowser::CHostBrowser(CBrowseHostWnd* pNotify, PROTOCOLID nProtocol, IN_ADDR* pAddress, WORD nPort, BOOL bMustPush, const Hashes::Guid& oClientID, const CString& sNick)
 	: m_nState		( hbsNull )
 	, m_pNotify		( pNotify )
 	, m_pProfile	( NULL )
@@ -57,12 +60,13 @@ CHostBrowser::CHostBrowser(CBrowseHostWnd* pNotify, PROTOCOLID nProtocol, IN_ADD
 	, m_tPushed		( 0ul )
 	, m_bConnect	( FALSE )
 	, m_nHits		( 0 )
+	, m_sNick		( sNick )
 	, m_pVendor		( NULL )
 	, m_bCanChat	( FALSE )
 	, m_bDeflate	( FALSE )
 	, m_nLength		( ~0ul )
 	, m_nReceived	( 0ul )
-	, m_pBuffer		( NULL )
+	, m_pBuffer		( new CBuffer() )
 	, m_pInflate	( NULL )
 {
 	if ( pAddress )
@@ -78,6 +82,7 @@ CHostBrowser::~CHostBrowser()
 	Stop();
 
 	delete m_pProfile;
+	delete m_pBuffer;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -88,6 +93,8 @@ BOOL CHostBrowser::Browse()
 	CQuickLock oTransfersLock( Transfers.m_pSection );
 
 	m_sAddress = inet_ntoa( m_pAddress );
+	m_sServer = protocolAbbr[ m_nProtocol ];
+	m_pVendor = VendorCache.Lookup( m_sServer );
 
 	switch ( m_nProtocol )
 	{
@@ -110,8 +117,6 @@ BOOL CHostBrowser::Browse()
 	// (One connection used for many things)
 	if ( m_nProtocol == PROTOCOL_ED2K )
 	{
-		m_pVendor = VendorCache.Lookup( _T("ED2K") );
-
 		// Lock this object until we are finished with it
 		CQuickLock oCEDClientsLock( EDClients.m_pSection );
 
@@ -131,6 +136,19 @@ BOOL CHostBrowser::Browse()
 			theApp.Message( MSG_NOTICE, IDS_BROWSE_CANT_CONNECT_TO, (LPCTSTR)m_sAddress );
 			return FALSE;
 		}
+	}
+	else if ( m_nProtocol == PROTOCOL_DC )
+	{
+		CPeerProjectURL oURL;
+		oURL.m_nProtocol		= PROTOCOL_DC;
+		oURL.m_nAction			= CPeerProjectURL::uriDownload;
+		oURL.m_pServerAddress	= m_pAddress;
+		oURL.m_nServerPort		= m_nPort;
+		oURL.m_sLogin			= m_sNick;
+		oURL.m_sName.Format( _T("Files of %s.xml.bz2"), (LPCTSTR)SafeFilename( m_sNick ) );
+		oURL.m_sURL.Format( _T("dchub://%s@%s:%u/files.xml.bz2"), (LPCTSTR)URLEncode( m_sNick ), (LPCTSTR)CString( inet_ntoa( m_pAddress ) ), m_nPort );
+
+		return ( Downloads.Add( oURL ) != NULL );
 	}
 	else // G2/Gunetella
 	{
@@ -194,11 +212,8 @@ void CHostBrowser::Stop(BOOL bCompleted)
 	m_tPushed = 0;
 
 	// ED2K connections aren't handled here -they are in ED2KClient
-	if ( m_nProtocol != PROTOCOL_ED2K )
+	if ( m_nProtocol != PROTOCOL_ED2K && m_nProtocol != PROTOCOL_DC )
 		CTransfer::Close();
-
-	delete m_pBuffer;
-	m_pBuffer = NULL;
 
 	if ( m_pInflate )
 		GetInput()->InflateStreamCleanup( m_pInflate );
@@ -255,7 +270,7 @@ BOOL CHostBrowser::OnConnected()
 BOOL CHostBrowser::OnRead()
 {
 	// ED2K connections aren't handled here- they are in ED2KClient
-	if ( m_nProtocol == PROTOCOL_ED2K ) return TRUE;
+	if ( m_nProtocol == PROTOCOL_ED2K || m_nProtocol == PROTOCOL_DC ) return TRUE;
 
 	if ( ! IsInputExist() || ! IsOutputExist() ) return TRUE;
 
@@ -280,7 +295,7 @@ BOOL CHostBrowser::OnRead()
 
 void CHostBrowser::OnDropped()
 {
-	if ( m_nProtocol != PROTOCOL_ED2K )
+	if ( m_nProtocol != PROTOCOL_ED2K && m_nProtocol != PROTOCOL_DC )
 	{
 		if ( ! IsValid() ) return;
 
@@ -349,7 +364,7 @@ BOOL CHostBrowser::OnRun()
 BOOL CHostBrowser::SendPush(BOOL bMessage)
 {
 	// ED2K connections aren't handled here- they are in ED2KClient
-	if ( m_nProtocol == PROTOCOL_ED2K ) return FALSE;
+	if ( m_nProtocol == PROTOCOL_ED2K || m_nProtocol == PROTOCOL_DC ) return FALSE;
 
 	if ( ! m_bCanPush ) return FALSE;
 
@@ -370,9 +385,8 @@ BOOL CHostBrowser::SendPush(BOOL bMessage)
 BOOL CHostBrowser::OnPush(const Hashes::Guid& oClientID, CConnection* pConnection)
 {
 	// ED2K connections aren't handled here- they are in ED2KClient
-	if ( m_nProtocol == PROTOCOL_ED2K || m_tPushed == 0 ) return FALSE;
-	if ( IsValid() || ! pConnection->IsValid() ) return FALSE;
-	if ( ! validAndEqual( m_oClientID, oClientID ) ) return FALSE;
+	if ( m_nProtocol == PROTOCOL_ED2K || m_nProtocol == PROTOCOL_DC || m_tPushed == 0 ) return FALSE;
+	if ( IsValid() || ! pConnection->IsValid() || ! validAndEqual( m_oClientID, oClientID ) ) return FALSE;
 
 	AttachTo( pConnection );
 
@@ -384,12 +398,122 @@ BOOL CHostBrowser::OnPush(const Hashes::Guid& oClientID, CConnection* pConnectio
 	return TRUE;
 }
 
+BOOL CHostBrowser::OnNewFile(CLibraryFile* pFile)
+{
+	if ( m_nProtocol == PROTOCOL_DC && ! m_sNick.IsEmpty() )
+	{
+		CString strName;
+		strName.Format( _T("Files of %s.xml.bz2"), (LPCTSTR)SafeFilename( m_sNick ) );
+		if ( strName == pFile->m_sName )
+		{
+			CQueryHit* pHits = NULL;
+
+			if ( LoadDC( pFile->GetPath(), pHits ) )
+			{
+				if ( pHits != NULL )
+					OnQueryHits( pHits );
+
+				DeleteFileEx( pFile->GetPath(), TRUE, TRUE, TRUE );
+			}
+
+			return TRUE;
+		}
+	}
+	return FALSE;
+}
+
+BOOL CHostBrowser::LoadDC(LPCTSTR pszFile, CQueryHit*& pHits)
+{
+	CFile pFile;
+	if ( ! pFile.Open( pszFile, CFile::modeRead | CFile::shareDenyWrite ) )
+		return FALSE;	// File open error
+
+	UINT nInSize = (UINT)pFile.GetLength();
+	if ( ! nInSize )
+		return FALSE;	// Empty file
+
+	CBuffer pBuffer;
+	if ( ! pBuffer.EnsureBuffer( nInSize ) )
+		return FALSE;	// Out of memory
+
+	if ( pFile.Read( pBuffer.GetData(), nInSize ) != nInSize )
+		return FALSE;	// File read error
+	pBuffer.m_nLength = nInSize;
+
+	if ( ! pBuffer.UnBZip() )
+		return FALSE;	// Decompression error
+
+	auto_ptr< CXMLElement > pXML ( CXMLElement::FromString( pBuffer.ReadString( pBuffer.m_nLength, CP_UTF8 ), TRUE ) );
+	if ( ! pXML.get() )
+		return FALSE;	// XML decoding error
+
+	// <FileListing Version="1" CID="SKCB4ZF4PZUDF7RKQ5LX6SVAARQER7QEVELZ2TY" Base="/" Generator="DC++ 0.762">
+
+	if ( ! pXML->IsNamed( _T("FileListing") ) )
+		return FALSE;	// Invalid XML file format
+
+//	CString strTitle = pXML->GetAttributeValue( _T("CID") );
+
+	return LoadDCDirectory( pXML.get(), pHits );
+}
+
+BOOL CHostBrowser::LoadDCDirectory(CXMLElement* pRoot, CQueryHit*& pHits)
+{
+	for ( POSITION pos = pRoot->GetElementIterator() ; pos ; )
+	{
+		CXMLElement* pElement = pRoot->GetNextElement( pos );
+		if ( pElement->IsNamed( _T("Directory") ) )
+		{
+			// <Directory Name="Downloads">
+
+			if ( ! LoadDCDirectory( pElement, pHits ) )
+				return FALSE;
+		}
+		else if ( pElement->IsNamed( _T("File") ) )
+		{
+			// <File Name="music.mp3" Size="100000" TTH="3A6D6T2NDRLU6BGSTSJNW3R3QWTV6A44M6AGXMA"/>
+
+			CString sName = pElement->GetAttributeValue( _T("Name") );
+			QWORD nSize;
+			if ( _stscanf( pElement->GetAttributeValue( _T("Size") ), _T("%I64i"), &nSize ) != 1 )
+				nSize = SIZE_UNKNOWN;
+			CString sTiger = pElement->GetAttributeValue( _T("TTH") );
+
+			if ( sName.IsEmpty() || nSize == SIZE_UNKNOWN )
+				return FALSE;
+
+			if ( CQueryHit* pHit = new CQueryHit( PROTOCOL_DC ) )
+			{
+				pHit->m_sName		= sName;
+				pHit->m_nSize		= nSize;
+				pHit->m_bSize		= TRUE;
+				pHit->m_bChat		= TRUE;
+				pHit->m_bBrowseHost	= TRUE;
+				pHit->m_oTiger.fromString( sTiger );
+				pHit->m_sNick		= m_sNick;
+				pHit->m_bBusy		= TRI_FALSE;
+				pHit->m_bPush		= TRI_TRUE;
+				pHit->m_pAddress	= m_pAddress;
+				pHit->m_nPort		= m_nPort;
+				pHit->m_sCountry	= theApp.GetCountryCode( m_pAddress );
+				pHit->m_pVendor		= m_pVendor ? m_pVendor : VendorCache.m_pNull;
+
+				pHit->Resolve();
+
+				pHit->m_pNext = pHits;
+				pHits = pHit;
+			}
+		}
+	}
+	return TRUE;
+}
+
 //////////////////////////////////////////////////////////////////////
 // CHostBrowser send request
 
 void CHostBrowser::SendRequest()
 {
-	if ( m_nProtocol != PROTOCOL_ED2K )
+	if ( m_nProtocol != PROTOCOL_ED2K && m_nProtocol != PROTOCOL_DC )
 	{
 		if ( ! IsValid() ) return;
 
@@ -445,7 +569,7 @@ void CHostBrowser::SendRequest()
 BOOL CHostBrowser::ReadResponseLine()
 {
 	// ED2K connections aren't handled here- they are in ED2KClient
-	ASSERT ( m_nProtocol != PROTOCOL_ED2K );
+	ASSERT ( m_nProtocol != PROTOCOL_ED2K && m_nProtocol != PROTOCOL_DC );
 
 	CString strLine, strCode, strMessage;
 
@@ -475,8 +599,7 @@ BOOL CHostBrowser::ReadResponseLine()
 	}
 	else
 	{
-		theApp.Message( MSG_DEBUG, _T("UNKNOWN BROWSE RESPONSE: %s: %s"),
-			m_sAddress, strLine );
+		theApp.Message( MSG_DEBUG, _T("UNKNOWN BROWSE RESPONSE: %s: %s"), m_sAddress, strLine );
 		theApp.Message( MSG_ERROR, IDS_BROWSE_NOT_HTTP, m_sAddress );
 		Stop();
 		return FALSE;
@@ -507,7 +630,7 @@ BOOL CHostBrowser::ReadResponseLine()
 BOOL CHostBrowser::OnHeaderLine(CString& strHeader, CString& strValue)
 {
 	// ED2K connections aren't handled here- they are in ED2KClient
-	ASSERT ( m_nProtocol != PROTOCOL_ED2K );
+	ASSERT ( m_nProtocol != PROTOCOL_ED2K && m_nProtocol != PROTOCOL_DC );
 
 	if ( ! CTransfer::OnHeaderLine( strHeader, strValue ) )
 		return FALSE;
@@ -545,6 +668,8 @@ BOOL CHostBrowser::OnHeaderLine(CString& strHeader, CString& strValue)
 
 BOOL CHostBrowser::OnHeadersComplete()
 {
+	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+
 	if ( m_nState == hbsContent )
 		return TRUE;
 
@@ -555,35 +680,13 @@ BOOL CHostBrowser::OnHeadersComplete()
 		return FALSE;
 	}
 
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
-
 	m_nState		= hbsContent;
 	m_nReceived		= 0ul;
-	m_pBuffer		= new CBuffer();
+	m_pBuffer->Clear();
 	m_mInput.tLast	= GetTickCount();
 
-	switch ( m_nProtocol )
-	{
-	case PROTOCOL_NULL:
-		theApp.Message( MSG_INFO, IDS_BROWSE_DOWNLOADING_FROM,
-			m_sAddress, _T("HTML") );
-		break;
-	case PROTOCOL_G1:
-		theApp.Message( MSG_INFO, IDS_BROWSE_DOWNLOADING_FROM,
-			m_sAddress, _T("Gnutella-1") );
-		break;
-	case PROTOCOL_G2:
-		theApp.Message( MSG_INFO, IDS_BROWSE_DOWNLOADING_FROM,
-			m_sAddress, _T("Gnutella-2") );
-		break;
-	case PROTOCOL_ED2K:
-		theApp.Message( MSG_INFO, IDS_BROWSE_DOWNLOADING_FROM,
-			m_sAddress, _T("eD2K") );
-		break;
-	default:
-		theApp.Message( MSG_ERROR,
-			_T("CHostBrowser::OnHeadersComplete(): Unknown Browse Protocol") );
-	}
+	theApp.Message( MSG_INFO, IDS_BROWSE_DOWNLOADING_FROM,
+		m_sAddress, protocolNames[ m_nProtocol == PROTOCOL_NULL ? PROTOCOL_HTTP : m_nProtocol ]);
 
 	return TRUE;
 }
@@ -595,7 +698,7 @@ BOOL CHostBrowser::ReadContent()
 {
 	CSingleLock pLock( &Transfers.m_pSection, TRUE );
 
-	if ( m_nProtocol != PROTOCOL_ED2K )
+	if ( m_nProtocol != PROTOCOL_ED2K && m_nProtocol != PROTOCOL_DC )
 	{
 		if ( m_nReceived < m_nLength )
 		{
@@ -615,7 +718,6 @@ BOOL CHostBrowser::ReadContent()
 			}
 			else
 			{
-				ASSERT( m_pBuffer );
 				m_pBuffer->AddBuffer( pInput, nVolume );
 			}
 		}
@@ -626,18 +728,20 @@ BOOL CHostBrowser::ReadContent()
 	case PROTOCOL_NULL:
 		if ( ! StreamHTML() ) return FALSE;
 		break;
-	case PROTOCOL_G1:
-		if ( ! StreamPacketsG1() ) return FALSE;
-		break;
 	case PROTOCOL_G2:
 		if ( ! StreamPacketsG2() ) return FALSE;
 		break;
-	case PROTOCOL_ED2K:
-		// Skip
+	case PROTOCOL_G1:
+		if ( ! StreamPacketsG1() ) return FALSE;
 		break;
-	default:
-		theApp.Message( MSG_ERROR,
-			_T("CHostBrowser::ReadContent(): Unknown Browse Protocol") );
+	//case PROTOCOL_ED2K:
+	//	// Skip
+	//	break;
+	//case PROTOCOL_DC:
+	//	// Skip
+	//	break;
+	//default:
+	//	theApp.Message( MSG_ERROR, _T("CHostBrowser::ReadContent(): Unknown Browse Protocol") );
 	}
 
 	if ( m_nReceived < m_nLength ) return TRUE;
@@ -919,7 +1023,7 @@ BOOL CHostBrowser::StreamHTML()
 /////////////////////////////////////////////////////////////////////////////
 // CHostBrowser serialize
 
-void CHostBrowser::Serialize(CArchive& ar)
+void CHostBrowser::Serialize(CArchive& ar, int nVersion)	// BROWSER_SER_VERSION
 {
 	BOOL bProfilePresent = FALSE;
 
@@ -932,10 +1036,11 @@ void CHostBrowser::Serialize(CArchive& ar)
 		ar << m_bCanPush;
 		SerializeOut( ar, m_oPushID );
 		SerializeOut( ar, m_oClientID );
-		ar << m_nHits;
+		ar << m_sNick;
 		ar << m_bCanChat;
 		ar << m_sServer;
 		ar << m_nProtocol;
+		ar << m_nHits;
 		ar << m_nLength;
 		ar << m_nReceived;
 
@@ -953,10 +1058,12 @@ void CHostBrowser::Serialize(CArchive& ar)
 		ar >> m_bCanPush;
 		SerializeIn( ar, m_oPushID, 31 );
 		SerializeIn( ar, m_oClientID, 31 );
-		ar >> m_nHits;
+		//if ( nVersion >= 2 )
+			ar >> m_sNick;
 		ar >> m_bCanChat;
 		ar >> m_sServer;
 		ar >> m_nProtocol;
+		ar >> m_nHits;
 		ar >> m_nLength;
 		ar >> m_nReceived;
 
@@ -968,5 +1075,5 @@ void CHostBrowser::Serialize(CArchive& ar)
 	}
 
 	if ( m_pProfile && bProfilePresent )
-		m_pProfile->Serialize( ar );
+		m_pProfile->Serialize( ar, nVersion );
 }

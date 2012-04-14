@@ -1,7 +1,7 @@
 //
 // DlgSettingsManager.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -36,6 +36,7 @@
 #include "PageSettingsNetworks.h"
 #include "PageSettingsGnutella.h"
 #include "PageSettingsDonkey.h"
+#include "PageSettingsDC.h"
 #include "PageSettingsBitTorrent.h"
 #include "PageSettingsProtocols.h"
 #include "PageSettingsPlugins.h"
@@ -91,7 +92,7 @@ void CSettingsManagerDlg::OnSkinChange(BOOL bSet)
 
 	if ( ! bSet )
 	{
-		m_pThis->m_pSkin = NULL;
+		m_pThis->RemoveSkin();
 		return;
 	}
 
@@ -125,7 +126,7 @@ INT_PTR CSettingsManagerDlg::DoModal(LPCTSTR pszWindow)
 	CNetworksSettingsPage	gNetworks;
 	CGnutellaSettingsPage	pGnutella;
 	CDonkeySettingsPage		pDonkey;
-//	CDCSettingsPage 		pDC;
+	CDCSettingsPage 		pDC;
 	CBitTorrentSettingsPage	pTorrent;
 	CSkinsSettingsPage		pSkins;
 	CPluginsSettingsPage	pPlugins;
@@ -154,7 +155,7 @@ INT_PTR CSettingsManagerDlg::DoModal(LPCTSTR pszWindow)
 			//if ( Settings.eDonkey.ShowInterface )
 			AddPage( &pDonkey );	// IDD_SETTINGS_DONKEY
 			//if ( Settings.DC.ShowInterface )
-			//	AddPage( &pDC );	// IDD_SETTINGS_DC
+			AddPage( &pDC );		// IDD_SETTINGS_DC
 			AddPage( &pTorrent );	// IDD_SETTINGS_BITTORRENT
 		}
 	}

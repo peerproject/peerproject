@@ -19,10 +19,9 @@
 #pragma once
 
 #include "ThreadImpl.h"
-#include "EDClient.h"
+#include "ChatSession.h"
+//#include "EDClient.h"
 
-class CConnection;
-class CChatSession;
 class CEDClient;
 class CPacket;
 
@@ -36,7 +35,7 @@ public:
 
 // Attributes
 public:
-	CMutex			m_pSection;
+	CMutexEx		m_pSection;
 
 protected:
 	CList< CChatSession* > m_pSessions;
@@ -49,11 +48,8 @@ public:
 	INT_PTR			GetCount() const { return m_pSessions.GetCount(); }
 	BOOL			Check(CChatSession* pSession) const;
 	void			Close();
-	void			OnAccept(CConnection* pConnection, PROTOCOLID nProtocol = PROTOCOL_NULL);
+	BOOL			OnAccept(CConnection* pConnection);
 	BOOL			OnPush(const Hashes::Guid& oGUID, CConnection* pConnection);
-	void			OnED2KMessage(CEDClient* pClient, CEDPacket* pPacket);
-	void			OnDropped(CEDClient* pClient);
-	CChatSession*	FindSession(CEDClient* pClient, BOOL bCreate = TRUE);
 
 	template< typename T > void OnMessage(const T* pClient, CPacket* pPacket = NULL)
 	{
@@ -71,52 +67,52 @@ public:
 		}
 	}
 
-//	template< typename T > void OnDropped(const T* pClient)
-//	{
-//		CSingleLock pLock( &m_pSection );
-//		if ( pLock.Lock( 250 ) )
-//		{
-//			if ( CChatSession* pSession = FindSession< T >( pClient, FALSE ) )
-//			{
-//				pSession->OnDropped();
-//			}
-//		}
-//	}
-//
-//	template< typename T > void OnAddUser(const T* pClient, CChatUser* pUser)
-//	{
-//		CSingleLock pLock( &m_pSection );
-//		if ( pLock.Lock( 250 ) )
-//		{
-//			if ( CChatSession* pSession = FindSession< T >( pClient, FALSE ) )
-//			{
-//				pSession->AddUser( pUser );
-//				return;
-//			}
-//		}
-//		delete pUser;
-//	}
-//
-//	template< typename T > void OnDeleteUser(const T* pClient, CString* pUser)
-//	{
-//		CSingleLock pLock( &m_pSection );
-//		if ( pLock.Lock( 250 ) )
-//		{
-//			if ( CChatSession* pSession = FindSession< T >( pClient, FALSE ) )
-//			{
-//				pSession->DeleteUser( pUser );
-//				return;
-//			}
-//		}
-//		delete pUser;
-//	}
+	template< typename T > void OnDropped(const T* pClient)
+	{
+		CSingleLock pLock( &m_pSection );
+		if ( pLock.Lock( 250 ) )
+		{
+			if ( CChatSession* pSession = FindSession< T >( pClient, FALSE ) )
+			{
+				pSession->OnDropped();
+			}
+		}
+	}
+
+	template< typename T > void OnAddUser(const T* pClient, CChatUser* pUser)
+	{
+		CSingleLock pLock( &m_pSection );
+		if ( pLock.Lock( 250 ) )
+		{
+			if ( CChatSession* pSession = FindSession< T >( pClient, FALSE ) )
+			{
+				pSession->AddUser( pUser );
+				return;
+			}
+		}
+		delete pUser;
+	}
+
+	template< typename T > void OnDeleteUser(const T* pClient, CString* pUser)
+	{
+		CSingleLock pLock( &m_pSection );
+		if ( pLock.Lock( 250 ) )
+		{
+			if ( CChatSession* pSession = FindSession< T >( pClient, FALSE ) )
+			{
+				pSession->DeleteUser( pUser );
+				return;
+			}
+		}
+		delete pUser;
+	}
 
 protected:
-	void			Add(CChatSession* pSession);
-	void			Remove(CChatSession* pSession);
+	void		Add(CChatSession* pSession);
+	void		Remove(CChatSession* pSession);
 
-	void			StartThread();
-	void			OnRun();
+	void		StartThread();
+	void		OnRun();
 
 	friend class CChatSession;
 };

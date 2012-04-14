@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default English Skin File -->
 
-<!-- Translation based on default-en.xml r76 -->
+<!-- Translation based on default-en.xml r77 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3220,6 +3220,7 @@
 	<string id="20505" value="None"/>
 	<string id="20506" value="Connecting"/>
 	<string id="20507" value="Current:"/>
+	<string id="20509" value="DC++ Client-to-Hub Connection"/>
 	<string id="20510" value="eDonkey Server Connection"/>
 	<string id="20511" value="eDonkey (HighID)"/>
 	<string id="20512" value="eDonkey Server Connection (LOWID: %lu)"/>
@@ -3799,20 +3800,24 @@
 		<control caption="_Delete"/>
 		<control caption="(Drag'n'drop priority)"/>
 	</dialog>
-	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Networks">
+	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="Networks">
 		<control caption="PeerProject is a general-purpose file-sharing application that can utilize several P2P networks simultaneously. On this page you can select which P2P networks you want to connect to, and then adjust specific settings for each network."/>
 		<control caption="Gnutella2 Network:"/>
 		<control caption="The G2 network is PeerProject's premiere protocol, offering more features and performance than any other P2P net. (Shareaza)"/>
-		<control caption="Connect to Gnutella2 (G2)"/>
+		<control caption="Show Gnutella2 (G2)"/>
 		<control caption="Configure Gnutella2"/>
 		<control caption="Gnutella Network:"/>
 		<control caption="The original Gnutella network is less feature-rich than G2, and returns search spam, yet remains a valuable resource. (Limewire)"/>
-		<control caption="Connect to Gnutella (G1)"/>
+		<control caption="Show Gnutella (G1)"/>
 		<control caption="Configure Gnutella"/>
 		<control caption="eDonkey Network:"/>
 		<control caption="The eDonkey network is a popular server-based network.  Not as feature-rich or fast as G2, but ED2K has an impressive size. (eMule)"/>
-		<control caption="Connect to eDonkey2000 (ED2K)"/>
+		<control caption="Show eDonkey2000 (ED2K)"/>
 		<control caption="Configure eDonkey"/>
+		<control caption="DC++ Network:"/>
+		<control caption="The DC++ network is a community hub-based network.    (DC++)"/>
+		<control caption="Show DC++ (DC)"/>
+		<control caption="Configure DC++"/>
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Gnutella2 Network:"/>
@@ -3869,6 +3874,21 @@
 		<control caption="eDonkey _Tools:"/>
 		<control caption="Download..."/>
 		<control caption="Update eDonkey server list from the web.  (MET file)"/>
+	</dialog>
+	<dialog name="CDCSettingsPage" cookie="BuBuBuBuStEdmsStBuStBuBuSt" caption="DC++">
+		<control caption="_DC++ Network:"/>
+		<control caption="Connect to DC++ now"/>
+		<control caption="Connect to DC++ at startup"/>
+		<control caption="_Hubs:"/>
+		<control caption="Connect by default to:"/>
+		<control/>
+		<control/>
+		<control caption="DC++ hubs."/>
+		<control caption="_Info:"/>
+		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
+		<control caption="_Tools:"/>
+		<control caption="Download..."/>
+		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Download Connections:"/>

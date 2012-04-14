@@ -1149,6 +1149,9 @@
     <ClCompile Include="PageSettingsConnection.cpp">
       <Filter>Source Files\Pages</Filter>
     </ClCompile>
+    <ClCompile Include="PageSettingsDC.cpp">
+      <Filter>Source Files\Pages</Filter>
+    </ClCompile>
     <ClCompile Include="PageSettingsDonkey.cpp">
       <Filter>Source Files\Pages</Filter>
     </ClCompile>
@@ -2661,6 +2664,9 @@
       <Filter>Header Files\Pages</Filter>
     </ClInclude>
     <ClInclude Include="PageSettingsConnection.h">
+      <Filter>Header Files\Pages</Filter>
+    </ClInclude>
+    <ClInclude Include="PageSettingsDC.h">
       <Filter>Header Files\Pages</Filter>
     </ClInclude>
     <ClInclude Include="PageSettingsDonkey.h">

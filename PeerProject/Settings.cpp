@@ -82,8 +82,8 @@ void CSettings::Load()
 	// Add all settings
 	Add( _T(""), _T("DebugBTSources"), &General.DebugBTSources, false );
 	Add( _T(""), _T("DebugLog"), &General.DebugLog, false );
-	Add( _T(""), _T("DiskSpaceStop"), &General.DiskSpaceStop, 50, 1, 0, 1000 , _T(" MB") );
-	Add( _T(""), _T("DiskSpaceWarning"), &General.DiskSpaceWarning, 550, 1, 1, 2000 , _T(" MB") );
+	Add( _T(""), _T("DiskSpaceStop"), &General.DiskSpaceStop, 50, 1, 0, 1000, _T(" MB") );
+	Add( _T(""), _T("DiskSpaceWarning"), &General.DiskSpaceWarning, 550, 1, 1, 2000, _T(" MB") );
 	Add( _T(""), _T("HashIntegrity"), &General.HashIntegrity, true );
 	Add( _T(""), _T("ItWasLimited"), &General.ItWasLimited, false, true );
 	Add( _T(""), _T("MaxDebugLogSize"), &General.MaxDebugLogSize, 10*MegaByte, MegaByte, 0, 100, _T(" MB") );
@@ -324,7 +324,7 @@ void CSettings::Load()
 	Add( _T("Community"), _T("ServeFiles"), &Community.ServeFiles, true );
 	Add( _T("Community"), _T("ServeProfile"), &Community.ServeProfile, true );
 	Add( _T("Community"), _T("Timestamp"), &Community.Timestamp, true );
-//	Add( _T("Community"), _T("UserPanelSize"), &Community.UserPanelSize, 180, 1, 0, 1024, _T(" px") );
+	Add( _T("Community"), _T("UserPanelSize"), &Community.UserPanelSize, 150, 1, 0, 1024, _T(" px") );
 
 	Add( _T("Discovery"), _T("AccessThrottle"), &Discovery.AccessThrottle, 60*60, 60, 1, 180, _T(" m") );
 	Add( _T("Discovery"), _T("BootstrapCount"), &Discovery.BootstrapCount, 10, 1, 0, 20 );
@@ -458,7 +458,7 @@ void CSettings::Load()
 
 	Add( _T("DC"), _T("ShowInterface"), &DC.ShowInterface, true );
 	Add( _T("DC"), _T("EnableAlways"), &DC.EnableAlways, false );
-	Add( _T("DC"), _T("NumServers"), &DC.NumServers, 1, 1, 1, 5 );
+	Add( _T("DC"), _T("NumServers"), &DC.NumServers, 1, 1, 0, 5 );
 	Add( _T("DC"), _T("QueryThrottle"), &DC.QueryThrottle, 2*60, 1, 30, 60*60, _T(" s") );
 	Add( _T("DC"), _T("ReAskTime"), &DC.ReAskTime, 60*1000, 1000, 30, 60*60, _T(" s") );
 	Add( _T("DC"), _T("DequeueTime"), &DC.DequeueTime, 5*60*1000, 1000, 2*60, 60*60, _T(" s") );
@@ -695,10 +695,10 @@ void CSettings::Load()
 		Search.AdvancedPanel = ! Interface.LowResMode;
 
 	// Set current networks
-	Gnutella1.Enabled	= Gnutella1.EnableAlways;
 	Gnutella2.Enabled	= Gnutella2.EnableAlways;
-	eDonkey.Enabled		= eDonkey.EnableAlways;
-	DC.Enabled			= DC.EnableAlways;
+	Gnutella1.Enabled	= Gnutella1.EnableAlways && Gnutella1.ShowInterface;
+	eDonkey.Enabled		= eDonkey.EnableAlways && eDonkey.ShowInterface;
+	DC.Enabled			= DC.EnableAlways && DC.ShowInterface;
 	BitTorrent.Enabled	= BitTorrent.EnableAlways;
 
 	// Reset certain ed2k/G1 network variables if bandwidth is too low
@@ -724,9 +724,7 @@ void CSettings::Load()
 	// Make sure download/incomplete folders aren't the same
 	if ( _tcsicmp( Downloads.IncompletePath, Downloads.CompletePath ) == 0 )
 	{
-		CString strMessage;
-		LoadString( strMessage, IDS_SETTINGS_FILEPATH_NOT_SAME );
-		AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
+		AfxMessageBox( IDS_SETTINGS_FILEPATH_NOT_SAME, MB_ICONEXCLAMATION );
 		// Downloads.IncompletePath = General.Path + _T("\\Incomplete");
 	}
 
@@ -838,8 +836,7 @@ void CSettings::SmartUpgrade()
 
 	if ( General.SmartVersion > SMART_VERSION )
 		General.SmartVersion = SMART_VERSION;
-
-	if ( General.SmartVersion < SMART_VERSION )
+	else if ( General.SmartVersion < SMART_VERSION )
 	{
 		// 'SmartUpgrade' setting updates:
 		// Change any settings that were mis-set in previous versions

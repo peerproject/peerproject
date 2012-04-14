@@ -199,7 +199,7 @@ BOOL CPeerProjectURL::ParseRoot(LPCTSTR pszURL, BOOL bResolve)
 		Root[ L"gnutella1:" ] = 'u';
 		Root[ L"gnutella2:" ] = 'u';
 		Root[ L"mp2p:" ]	= 'p';
-	//	Root[ L"adc:" ] 	= 'd';
+		Root[ L"adc:" ] 	= 'd';
 		Root[ L"dchub:" ]	= 'd';
 		Root[ L"dcfile:" ]	= 'c';
 		Root[ L"foxy:" ]	= 'x';
@@ -244,9 +244,9 @@ BOOL CPeerProjectURL::ParseRoot(LPCTSTR pszURL, BOOL bResolve)
 	case 'p':	// mp2p:
 		SkipSlashes( pszURL, nRoot );
 		return ParsePiolet( pszURL );
-	case 'd':	// dchub://1.2.3.4:411
+	case 'd':	// dchub://1.2.3.4:411	(adc:// ?)
 		return ParseDCHub( pszURL, bResolve );
-	case 'c':	// dcfile://
+	case 'c':	// dcfile:// (Deprecated?)
 		return ParseDCFile( pszURL, FALSE );
 	case 'x':	// foxy://download?
 		pszURL = SkipSlashes( pszURL, nRoot );
@@ -573,25 +573,78 @@ BOOL CPeerProjectURL::ParseED2KFTP(LPCTSTR pszURL, BOOL bResolve)
 //////////////////////////////////////////////////////////////////////
 // CPeerProjectURL DC
 
-BOOL CPeerProjectURL::ParseDCHub(LPCTSTR pszURL, BOOL /*bResolve*/)
+BOOL CPeerProjectURL::ParseDCHub(LPCTSTR pszURL, BOOL bResolve)
 {
 	Clear();
 
-	m_nPort = protocolPorts[ PROTOCOL_DC ];
+	// dchub://[login@]address:port/[filepath]	-Can be regular path or "files.xml.bz2" or "TTH:tiger_hash/size/"
 
-	pszURL = SkipSlashes( pszURL, 8 );	// "dchub://"  ToDo: "adc://"
+	if ( pszURL[0] == _T('a') )
+		pszURL = SkipSlashes( pszURL, 6 );	// "adc://"
+	else
+		pszURL = SkipSlashes( pszURL, 8 );	// "dchub://"
 
-	if ( ! ParsePeerProjectHost( pszURL, FALSE ) )
-		return FALSE;
+	CString strURL = pszURL;
 
-	m_nProtocol = PROTOCOL_DC;
+	int nSlash = strURL.Find( _T('/') );
 
-	return TRUE;
+	// Short version (hub address only)
+	if ( nSlash == -1 || nSlash == strURL.GetLength() - 1 )		// || strURL.IsEmpty()
+	{
+		m_sAddress.Empty();
+		m_nPort = protocolPorts[ PROTOCOL_DC ];
+		if ( ! ParsePeerProjectHost( pszURL ) )
+			return FALSE;
+		m_nProtocol = PROTOCOL_DC;
+		return TRUE;
+	}
+
+	// Full version (file URL)
+
+	m_sAddress	= strURL.Left( nSlash );
+	strURL		= strURL.Mid( nSlash + 1 ).TrimLeft( _T("/") );
+
+	int nAt = m_sAddress.Find( _T('@') );
+	if ( nAt > 0 )
+	{
+		m_sLogin = URLDecode( m_sAddress.Left( nAt ) );
+		m_sAddress = m_sAddress.Mid( nAt + 1 );
+	}
+
+	int nHash = strURL.Find( _T("TTH:") );
+	if ( nHash != -1 )
+	{
+		CString strHash = strURL.Mid( nHash + 4, 39 );
+		strURL = strURL.Mid( nHash + 4 + 39 );
+
+		if ( ! m_oTiger.fromString( strHash ) )
+			return FALSE;
+
+		if ( _stscanf( strURL, _T("/%I64i"), &m_nSize ) == 1 )
+			m_bSize = TRUE;
+	}
+	else
+	{
+		m_sName = URLDecode( strURL );
+	}
+
+	SOCKADDR_IN saHost = {};
+	BOOL bResult = Network.Resolve( m_sAddress, protocolPorts[ PROTOCOL_DC ], &saHost, bResolve );
+
+	m_pServerAddress	= saHost.sin_addr;
+	m_nServerPort		= htons( saHost.sin_port );
+	m_sURL.Format( _T("dchub://%s"), pszURL );
+	m_nProtocol			= PROTOCOL_DC;
+	m_nAction			= uriDownload;
+
+	return bResult;
 }
 
 BOOL CPeerProjectURL::ParseDCFile(LPCTSTR pszURL, BOOL bResolve)
 {
 	Clear();
+
+	// dcfile://address:port/login/TTH:tiger_hash/size/	(Deprecated?)
 
 	//if ( _tcsnicmp( pszURL, _T("dcfile://"), 6 ) != 0 ) return FALSE;
 
@@ -909,6 +962,14 @@ BOOL CPeerProjectURL::ParsePeerProjectHost(LPCTSTR pszURL, BOOL bBrowse)
 	{
 		_stscanf( m_sName.Mid( nPos + 1 ), _T("%i"), &m_nPort );
 		m_sName = m_sName.Left( nPos );
+	}
+
+	int nAt = m_sName.Find( _T('@') );
+	if ( nAt >= 0 )
+	{
+		if ( nAt > 0 )
+			m_sLogin = URLDecode( m_sName.Left( nAt ) );
+		m_sName = m_sName.Mid( nAt + 1 );
 	}
 
 	m_sName.Trim();
@@ -1333,8 +1394,10 @@ CQuerySearchPtr CPeerProjectURL::ToQuery() const
 void CPeerProjectURL::Register(/*BOOL bRegister,*/ BOOL bOnStartup)
 {
 	RegisterShellType( _T("Classes"), _T("peerproject"), _T("URL:PeerProject P2P"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
-//	RegisterShellType( _T("Classes"), _T("shareaza"), _T("URL:PeerProject P2P"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
-	RegisterMagnetHandler( _T("PeerProject"), _T("PeerProject P2P"), _T("PeerProject can automatically search and download the selected content on its peer-to-peer networks."), _T("PeerProject"), IDR_MAINFRAME );
+	RegisterMagnetHandler( _T("PeerProject"), _T("PeerProject P2P"), _T("PeerProject can automatically search and download selected content on its peer-to-peer networks."), _T("PeerProject"), IDR_MAINFRAME );
+
+	if ( CRegistry::GetString( _T("Software\\Shareaza\\Shareaza"), _T("Path") ).IsEmpty() )
+		RegisterShellType( _T("Classes"), _T("shareaza"), _T("URL:Shareaza P2P"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
 
 	if ( Settings.Web.Magnet )
 		RegisterShellType( _T("Classes"), _T("magnet"), _T("URL:Magnet Protocol"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
@@ -1372,11 +1435,13 @@ void CPeerProjectURL::Register(/*BOOL bRegister,*/ BOOL bOnStartup)
 	if ( Settings.Web.DC )
 	{
 		// ToDo: Support "adc:" hubs
+		RegisterShellType( NULL, _T("adc"),    _T("URL:DirectConnect Protocol"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
 		RegisterShellType( NULL, _T("dchub"),  _T("URL:DirectConnect Protocol"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
 		RegisterShellType( NULL, _T("dcfile"), _T("URL:DirectConnect Protocol"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
 	}
 	else
 	{
+		UnregisterShellType( _T("Classes"), _T("adc") );
 		UnregisterShellType( _T("Classes"), _T("dchub") );
 		UnregisterShellType( _T("Classes"), _T("dcfile") );
 	}

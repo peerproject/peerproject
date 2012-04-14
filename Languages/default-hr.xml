@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Croatian Skin File -->
 
-<!-- Translation based on default-en.xml r76 --> <!-- (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r77 --> <!-- (Shareaza 2.2.0.2) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2647,6 +2647,7 @@
 	<string id="20505" value="Ništa"/>
 	<string id="20506" value="Spajam"/>
 	<string id="20507" value="Trenutno:"/>
+	<string id="20509" value="DC++: Client-to-Hub Veza"/>
 	<string id="20510" value="eDonkey2000 Server Veza"/>
 	<string id="20511" value="eDonkey2000 (HighID)"/>
 	<string id="20512" value="eDonkey Server Veza (LOWID: %lu)"/>
@@ -3089,20 +3090,24 @@
 		<control caption="Pomoć:"/>
 		<control caption="PeerProject pristup na daljinu vam omogučava da ostavite upaljen PC sa pokrenutom PeerProjectom, i njome upravljate sa druge lokacije. Da bi ste koristili ovu opciju morate biti u mogučnosti primati dolazeće veze(npr. podešen ruter, itd)."/>
 	</dialog>
-	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Mreže">
+	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="Mreže">
 		<control caption="PeerProject je program za djeljenje i skidanje datoteka opčenitog sadržaja, i može se istovremeno spojiti na više P2P mreža.Ovdje možete odabrati kojim mrežama želite pristupiti, te podesiti svaku posebno."/>
 		<control caption="Gnutella2 Mreža:"/>
 		<control caption="Gnutella2 mreža je PeerProject osnovna mreža, nudi najviše opcija i najbrža je od svih ostalih P2P mreža. Preporučamo"/>
-		<control caption="Spoji se na Gnutellu2 (G2)"/>
+		<control caption="Prikaži Gnutellu2 (G2)"/>
 		<control caption="Podesi Gnutellu2"/>
 		<control caption="Originalna Gnutella Mreža:"/>
 		<control caption="Iako originalna Gnutellina mreža ima manje mogučnosti od Gnutelle2, manje datoteka od eDonkey, i dalje je vrijedan izvor datoteka."/>
-		<control caption="Spoji se na Originalnu Gnutellu"/>
-		<control caption="Podesi Gnutellu1"/>
+		<control caption="Prikaži Gnutellu"/>
+		<control caption="Podesi Gnutellu"/>
 		<control caption="eDonkey2000 Mreža:"/>
 		<control caption="eDonkey mreža je popularna server-bazirana mreža. Iako nema mogučnosti kao Gnutella2, posjeduje impresivnu zbirku datoteka."/>
-		<control caption="Spoji se na eDonkey"/>
+		<control caption="Prikaži eDonkey"/>
 		<control caption="Podesi eDonkey"/>
+		<control caption="DC++ Mreža:"/>
+		<control caption="DC++ mreža je popularna server-bazirana mreža. Iako nema mogučnosti kao Gnutella2, posjeduje impresivnu zbirku datoteka."/>
+		<control caption="Prikaži DC++"/>
+		<control caption="Podesi DC++"/>
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Gnutella2 Mreža:"/>
@@ -3156,9 +3161,24 @@
 		<control/>
 		<control caption="rezultata potrage."/>
 		<control caption="Update global listu servera sa connected server"/>
-		<control caption="Ubaci..."/>
+		<control caption="Ubaci:"/>
 		<control caption="Skini..."/>
 		<control caption="Skini eDonkey listu servera sa neta"/>
+	</dialog>
+	<dialog name="CDCSettingsPage" cookie="BuBuBuBuStEdmsStBuStBuBuSt" caption="DC++">
+		<control caption="_DC++ Mreža:"/>
+		<control caption="Spoji se na DC++"/>
+		<control caption="Spoji se svaki put (Automatski)"/>
+		<control caption="_Hubs:"/>
+		<control caption="Connect by default to:"/>
+		<control/>
+		<control/>
+		<control caption="DC++ hubs."/>
+		<control caption="_Info:"/>
+		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
+		<control caption="_Ubaci:"/>
+		<control caption="Skini..."/>
+		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="Postavke ski_danja:"/>

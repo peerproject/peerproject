@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Traditional) Skin File -->
 
-<!-- Translation based on default-en.xml r76 --> <!-- (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r77 --> <!-- (Shareaza 2.2.2.12) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2863,6 +2863,7 @@
 	<string id="20505" value="無"/>
 	<string id="20506" value="連線中"/>
 	<string id="20507" value="目前:"/>
+	<string id="20509" value="DC++: 葉節點對結點 連線"/>
 	<string id="20510" value="eDonkey2000 伺服器連線"/>
 	<string id="20511" value="eDonkey2000 (高 ID)"/>
 	<string id="20512" value="eDonkey 伺服器連線 (低 ID: %lu)"/>
@@ -3366,20 +3367,24 @@
 		<control caption="說明:"/>
 		<control caption="PeerProject 在您的電腦上運作時, 您可以從遠端使用瀏覽器操控它. 您的電腦必須能夠啟用輸入連線以使用這個功能(例: 正確設定的路由器...等等)."/>
 	</dialog>
-	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="網路">
-		<control caption="PeerProject 為萬用檔案分享軟體, 可同時連線到多個 P2P 網路.  本頁可以選擇您要連線的 P2P 網路, 以及每個網路的專用設定."/>
+	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="網路">
+		<control caption="PeerProject 為萬用檔案分享軟體, 可同時連線到多個 P2P 網路. 本頁可以選擇您要連線的 P2P 網路, 以及每個網路的專用設定."/>
 		<control caption="Gnutella2 網路:"/>
 		<control caption="Gnutella2 網路是 PeerProject 初次推出的網路, 提供比其他 P2P 網路更多的功能與更佳的效能.強烈推薦使用!!"/>
-		<control caption="連線至 Gnutella2 (G2)"/>
+		<control caption="顯示 Gnutella2 (G2)"/>
 		<control caption="規劃 Gnutella2"/>
 		<control caption="原始 Gnutella 網路:"/>
 		<control caption="雖然原始的 Gnutella 網路的功能不如 Gnutella2, 而且擁有的檔案數又少於 eDonkey, 它仍舊是寶貴的資源."/>
-		<control caption="連線至原始的 Gnutella"/>
-		<control caption="規劃 Gnutella1"/>
+		<control caption="顯示 Gnutella"/>
+		<control caption="規劃 Gnutella"/>
 		<control caption="eDonkey 網路:"/>
-		<control caption="The eDonkey 網路是一個十分熱門, 以伺服器構成的網路.  功能的多樣性不如 Gnutella2, 但是 eDonkey 擁有十分龐大的檔案數量."/>
-		<control caption="連線至 eDonkey2000 (ED2K)"/>
+		<control caption="The eDonkey 網路是一個十分熱門, 以伺服器構成的網路. 功能的多樣性不如 Gnutella2, 但是 eDonkey 擁有十分龐大的檔案數量."/>
+		<control caption="顯示 eDonkey2000 (ED2K)"/>
 		<control caption="規劃 eDonkey"/>
+		<control caption="DC++ 網路:"/>
+		<control caption="The DC++ 網路是一個十分熱門, 以伺服器構成的網路. 功能的多樣性不如 Gnutella2, 但是 eDonkey 擁有十分龐大的檔案數量."/>
+		<control caption="顯示 DC++ (DC)"/>
+		<control caption="規劃 DC++"/>
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Gnutella2 網路:"/>
@@ -3436,6 +3441,21 @@
 		<control caption="eDonkey 工具箱:"/>
 		<control caption="下載..."/>
 		<control caption="從網際網路下載 eDonkey 伺服器清單:"/>
+	</dialog>
+	<dialog name="CDCSettingsPage" cookie="BuBuBuBuStEdmsStBuStBuBuSt" caption="DC++">
+		<control caption="_DC++ 網路:"/>
+		<control caption="Connect to DC++ now"/>
+		<control caption="Connect to DC++ at startup"/>
+		<control caption="_Hubs:"/>
+		<control caption="Connect by default to:"/>
+		<control/>
+		<control/>
+		<control caption="DC++ hubs."/>
+		<control caption="_Info:"/>
+		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
+		<control caption="_工具箱:"/>
+		<control caption="下載..."/>
+		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="下載連線:"/>

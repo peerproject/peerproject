@@ -597,7 +597,7 @@ void CRichViewCtrl::Layout(CDC* pDC, CRect* pRect)
 
 		for ( int nChar = 0 ; nChar <= pElement->m_sText.GetLength() ; nChar++, pszText++ )
 		{
-			if ( *pszText != ' ' && *pszText != '\t' && *pszText != 0 ) continue;
+			if ( *pszText > ' ' ) continue;
 
 			if ( nChar > nWordStart || *pszText == 0 )
 			{

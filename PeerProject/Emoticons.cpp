@@ -389,7 +389,7 @@ BOOL CEmoticons::LoadXML(LPCTSTR pszFile)
 
 void CEmoticons::FormatText(CRichDocument* pDocument, LPCTSTR pszBody, BOOL bNewlines, COLORREF cr)
 {
-	static LPCTSTR pszURLs[] = { _T("\r"), _T("\n"), _T("http://"), _T("https://"), _T("ftp://"), _T("mailto:"), _T("aim:"), _T("www."), _T("magnet:?"), _T("ed2k://"), _T("gnutella:"), _T("gnutella1:"), _T("gnutella2:"), _T("g2://"), _T("gnet:"), _T("peer:"), _T("peerproject:"), _T("shareaza:"), _T("raza:"), _T("gwc:"), _T("uhc:"), _T("ukhl:"), _T("mp2p:"), _T("sig2dat:"), NULL };
+	static LPCTSTR pszURLs[] = { _T("\r"), _T("\n"), _T("http://"), _T("https://"), _T("ftp://"), _T("mailto:"), _T("aim:"), _T("www."), _T("magnet:?"), _T("ed2k://"), _T("dchub://"), _T("gnutella:"), _T("gnutella1:"), _T("gnutella2:"), _T("g2://"), _T("gnet:"), _T("peer:"), _T("peerproject:"), _T("shareaza:"), _T("raza:"), _T("gwc:"), _T("uhc:"), _T("ukhl:"), _T("mp2p:"), _T("sig2dat:"), NULL };
 	BOOL bBold = FALSE, bItalic = FALSE, bUnderline = FALSE;
 	CString str;
 

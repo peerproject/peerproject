@@ -42,10 +42,10 @@ IMPLEMENT_DYNAMIC(CBrowseFrameCtrl, CWnd)
 BEGIN_MESSAGE_MAP(CBrowseFrameCtrl, CWnd)
 	ON_WM_CREATE()
 	ON_WM_DESTROY()
+	ON_WM_PAINT()
+	ON_WM_SIZE()
 	ON_WM_SETCURSOR()
 	ON_WM_LBUTTONDOWN()
-	ON_WM_SIZE()
-	ON_WM_PAINT()
 	ON_NOTIFY(BTN_SELCHANGED, IDC_BROWSE_TREE, OnTreeSelection)
 	ON_UPDATE_COMMAND_UI(ID_SEARCH_DETAILS, OnUpdateSearchDetails)
 	ON_COMMAND(ID_SEARCH_DETAILS, OnSearchDetails)
@@ -569,7 +569,7 @@ void CBrowseFrameCtrl::OnLibraryTreeVirtual()
 /////////////////////////////////////////////////////////////////////////////
 // CBrowseFrameCtrl serialize
 
-void CBrowseFrameCtrl::Serialize(CArchive& ar)
+void CBrowseFrameCtrl::Serialize(CArchive& ar, int /*nVersion*/)	// BROWSER_SER_VERSION
 {
 	CSingleLock lRoot( m_wndTree.SyncRoot(), TRUE );
 	DWORD nBuffer = 0;

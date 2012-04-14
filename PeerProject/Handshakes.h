@@ -1,7 +1,7 @@
 //
 // Handshakes.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -43,14 +43,14 @@ protected:
 	CList< CHandshake* > m_pList;			// The list of pointers to CHandshake objects
 	mutable CMutex m_pSection;				// Use to make sure only one thread accesses the list at a time
 
-	void Substitute(CHandshake* pOld, CHandshake* pNew);	// Replace an old CHandshake object in the list with a new one
-	void Remove(CHandshake* pHandshake);					// Remove a CHandshake object from the list
+	void Add(CHandshake* pHandshake);		// Add a CHandshake object to the list
+	void Remove(CHandshake* pHandshake);	// Remove a CHandshake object from the list
 
 	void OnRun();							// Accept incoming connections from remote computers
 	void RunHandshakes();					// Send and receive data with each remote computer in the list
-	BOOL AcceptConnection();				// Accept a connection, making a new CHandshake object in the list for it
-	void CreateHandshake(SOCKET hSocket, SOCKADDR_IN* pHost); // Make the new CHandshake object for the new connection
 	void RunStableUpdate();					// Update the discovery services (do)
+	BOOL AcceptConnection();				// Accept a connection, making a new CHandshake object in the list for it
+//	void CreateHandshake(SOCKET hSocket, SOCKADDR_IN* pHost); // Make the new CHandshake object for the new connection
 
 	// Tell WSAAccept if we want to accept a connection from a computer that just called us
 	static int CALLBACK AcceptCheck(IN LPWSABUF lpCallerId, IN LPWSABUF lpCallerData, IN OUT LPQOS lpSQOS, IN OUT LPQOS lpGQOS, IN LPWSABUF lpCalleeId, IN LPWSABUF lpCalleeData, OUT GROUP FAR * g, IN DWORD_PTR dwCallbackData);

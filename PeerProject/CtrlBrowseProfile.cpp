@@ -1,7 +1,7 @@
 //
 // CtrlBrowseProfile.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -19,16 +19,16 @@
 #include "StdAfx.h"
 #include "Settings.h"
 #include "PeerProject.h"
+#include "CtrlBrowseProfile.h"
 #include "GProfile.h"
 #include "G2Packet.h"
 #include "HostBrowser.h"
-#include "XML.h"
 
 #include "RichElement.h"
 #include "RichDocument.h"
-#include "CtrlBrowseProfile.h"
 #include "Colors.h"
 #include "Skin.h"
+#include "XML.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -531,7 +531,7 @@ void CBrowseProfileCtrl::OnClickView(NMHDR* pNotify, LRESULT* /*pResult*/)
 /////////////////////////////////////////////////////////////////////////////
 // CBrowseProfileCtrl serialize
 
-void CBrowseProfileCtrl::Serialize(CArchive& ar)
+void CBrowseProfileCtrl::Serialize(CArchive& ar, int /*nVersion*/)	// BROWSER_SER_VERSION
 {
 	m_imgHead.Serialize( ar );
 

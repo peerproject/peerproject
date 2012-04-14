@@ -24,6 +24,7 @@ class CBuffer;
 class CPacket;
 class CG2Packet;
 class CNeighbour;
+class CConnection;
 class CLocalSearch;
 class CRouteCache;
 class CQueryKeys;
@@ -210,7 +211,7 @@ public:
 	void		OnWinsock(WPARAM wParam, LPARAM lParam);
 	void		OnQuerySearch(CLocalSearch* pSearch);	// Add query search to queue
 	void		OnQueryHits(CQueryHit* pHits);			// Add query hit to queue
-//	BOOL		OnPush(const Hashes::Guid& oGUID, CConnection* pConnection);	// Handle push for downloads, chats and browsers
+	BOOL		OnPush(const Hashes::Guid& oGUID, CConnection* pConnection);	// Handle push for downloads, chat, and browse
 
 	// Safe ways to: accept/close socket, send/recieve data
 	static SOCKET AcceptSocket(SOCKET hSocket, SOCKADDR_IN* addr, LPCONDITIONPROC lpfnCondition, DWORD_PTR dwCallbackData = 0);

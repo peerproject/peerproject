@@ -310,7 +310,7 @@ BOOL CUploadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 	//		m_bNotPeerProject = TRUE;	// PeerProject/Shareaza doesn't send this value ?
 		break;
 	case 'n':		// "X-Nick" "X-Name" "X-UserName"
-		m_sNick = URLDecode( strValue );
+		m_sRemoteNick = URLDecode( strValue );
 		break;
 	case 'f':		// "X-Features"
 		if ( _tcsistr( strValue, _T("g2/") ) != NULL ||

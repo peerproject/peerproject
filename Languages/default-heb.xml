@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hebrew Skin File -->
 
-<!-- Translation based on default-en.xml r76 -->
+<!-- Translation based on default-en.xml r77 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3133,7 +3133,7 @@ gap i newline
 		<control caption=":מדריך"/>
 		<control caption="אפשרות השליטה מרחוק של שרזה מאפשרת לך להשאיר את שרזה פועלת על המחשב, ולשלוט בה מרחוק בעזרת דפדפן האינטרנט, יהיה עלייך לדאוג שתוכל לקבל התקשרויות נכנסות - ראוטר מוגדר וכדומה"/>
 	</dialog>
-	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="רשתות">
+	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="רשתות">
 		<control caption="שרזה היא תוכנת שיתוף לשימוש כללי שמסוגלת לגשת למספר רשתות שיתוף קבצים בו זמנית. כאן אתה יכול לבחור לאילו רשתות תרצה לגשת ולקבוע הגדרות ספציפיות לכל רשת"/>
 		<control caption=":רשת גנוטלה2"/>
 		<control caption="רשת גנוטלה2 היא הרשת הראשית של שרזה, המציעה יותר אופציות וביצועים מכל רשת שיתוף אחרת - מאוד מומלץ"/>
@@ -3142,11 +3142,15 @@ gap i newline
 		<control caption=":רשת גנוטלה המקורית"/>
 		<control caption="למרוח שרשת גנוטלה המקורית היא עם פחות אופציות מגנוטלה2 ועם פחות קבצים מאידונקי היא עדיין מקור בעל ערך"/>
 		<control caption="התחבר לגנוטה המקורית"/>
-		<control caption="קבע הגדרות לגנוטלה1"/>
+		<control caption="קבע הגדרות לגנוטלה"/>
 		<control caption=":רשת אידונקי2000"/>
 		<control caption="רשת אידונקי היא רשת מבוססת שרת פופלרית. יש בה פחות אופציות מגונטלה2 אבל עם כמות קבצים מרשימה"/>
 		<control caption="התחבר לאידונקי2000"/>
 		<control caption="קבע הגדרות לאידונקי 2000"/>
+		<control caption=":רשת אידונקי DC++"/>
+		<control caption="רשת אידונקי היא רשת מבוססת שרת פופלרית. יש בה פחות אופציות מגונטלה2 אבל עם כמות קבצים מרשימה"/>
+		<control caption="התחבר לאידונקי DC++"/>
+		<control caption="קבע הגדרות לאידונקי DC++"/>
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="גונטלה">
 		<control caption=":רשת גנוטלה2"/>
@@ -3203,6 +3207,21 @@ gap i newline
 		<control caption=":כלים של אי-דונקי 2000"/>
 		<control caption="...הורד"/>
 		<control caption="הורד רשימת שרתים של אידונקי מהרשת"/>
+	</dialog>
+	<dialog name="CDCSettingsPage" cookie="BuBuBuBuStEdmsStBuStBuBuSt" caption="DC++">
+		<control caption="_DC++ רשת:"/>
+		<control caption="Connect to DC++ now"/>
+		<control caption="Connect to DC++ at startup"/>
+		<control caption="_Hubs:"/>
+		<control caption="Connect by default to:"/>
+		<control/>
+		<control/>
+		<control caption="DC++ hubs."/>
+		<control caption="_Info:"/>
+		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
+		<control caption="_Tools:"/>
+		<control caption="...הורד"/>
+		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="ביט-טורנט">
 		<control caption=":הגדרות הורדה בביט-טורנט"/>

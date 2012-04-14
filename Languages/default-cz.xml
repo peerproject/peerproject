@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Czech Skin File -->
 
-<!-- Translation based on default-en.xml r76 --> <!-- (Shareaza 2.2.5.7) -->
+<!-- Translation based on default-en.xml r77 --> <!-- (Shareaza 2.2.5.7) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2939,6 +2939,7 @@
 	<string id="20505" value="Žádný"/>
 	<string id="20506" value="Připojuji"/>
 	<string id="20507" value="Aktuální:"/>
+	<string id="20509" value="DC++: Připojení Client-to-Hub"/>
 	<string id="20510" value="Připojení serveru eDonkey"/>
 	<string id="20511" value="eDonkey (HighID)"/>
 	<string id="20512" value="Připojení serveru eDonkey (LOWID: %lu)"/>
@@ -3447,20 +3448,24 @@
 		<control caption="Nápověda:"/>
 		<control caption="Pokud zrovna nejste u svého počítače, mužete PeerProject ovládat vzdáleně po internetu. Abyste mohli používat tuto možnost a přijímat příchozí spojení, musíte především správně nastavit router (směrovač), dále musíte nastavit heslo a povolit vzdálený přístup."/>
 	</dialog>
-	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Sítě">
+	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="Sítě">
 		<control caption="PeerProject je aplikace pro víceúčelové sdílení souborů, která může zároveň zpřístupnit více P2P sítí. Na této kartě si můžete vybrat kterou síť P2P chcete připojit, a pak nastavit specifické nastavení pro každou síť."/>
 		<control caption="Síť Gnutella2:"/>
 		<control caption="Gnutella2 síť je PeerProject hlavní síť, nabízející více možností než jakákoli jiná síť P2P. Velmi ji doporučujeme."/>
-		<control caption="Připojit ke Gnutella2 (G2)"/>
+		<control caption="Zobrazit Gnutella2 (G2)"/>
 		<control caption="Konfigurovat Gnutella2"/>
-		<control caption="Původní síť Gnutella:"/>
+		<control caption="Síť Gnutella:"/>
 		<control caption="Ačkoli původní síť Gnutella má méně možností než Gnutella2, a má méně souborů než eDonkey, zůstává cenným rezervním zdrojem."/>
-		<control caption="Připojit k původní síti Gnutella (G1)"/>
+		<control caption="Zobrazit síti Gnutella (G1)"/>
 		<control caption="Konfigurovat Gnutella1"/>
 		<control caption="Síť eDonkey:"/>
 		<control caption="eDonkey je také oblíbená síť. Zatím nemá tak bohaté možnosti jako Gnutella2, eDonkey má ale impozantní sbírku souborů."/>
-		<control caption="Připojit k eDonkey2000 (ED2K)"/>
+		<control caption="Zobrazit eDonkey2000 (ED2K)"/>
 		<control caption="Konfigurovat eDonkey"/>
+		<control caption="Síť DC++:"/>
+		<control caption="eDonkey je také oblíbená síť. Zatím nemá tak bohaté možnosti jako Gnutella2, DC++ má ale impozantní sbírku souborů."/>
+		<control caption="Zobrazit DC++ (DC)"/>
+		<control caption="Konfigurovat DC++"/>
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Síť Gnutella2:"/>
@@ -3517,6 +3522,21 @@
 		<control caption="Nás_troje eDonkey:"/>
 		<control caption="Stáhnout..."/>
 		<control caption="Stáhnout seznam serverů eDonkey z webu"/>
+	</dialog>
+	<dialog name="CDCSettingsPage" cookie="BuBuBuBuStEdmsStBuStBuBuSt" caption="DC++">
+		<control caption="Síť _DC++:"/>
+		<control caption="Connect to DC++ now"/>
+		<control caption="Connect to DC++ at startup"/>
+		<control caption="_Hubs:"/>
+		<control caption="Connect by default to:"/>
+		<control/>
+		<control/>
+		<control caption="DC++ hubs."/>
+		<control caption="_Info:"/>
+		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
+		<control caption="Nás_troje:"/>
+		<control caption="Stáhnout..."/>
+		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Připojená stahování:"/>

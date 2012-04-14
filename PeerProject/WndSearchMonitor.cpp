@@ -102,7 +102,7 @@ int CSearchMonitorWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_pSizer.Attach( &m_wndList );
 
 //	VERIFY( m_gdiImageList.Create( 16, 16, ILC_MASK|ILC_COLOR32, 1, 1 ) );
-//	AddIcon( IDR_SEARCHMONITORFRAME , m_gdiImageList );
+//	AddIcon( IDR_SEARCHMONITORFRAME, m_gdiImageList );
 //	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
 //	m_wndList.SetFont( &theApp.m_gdiFont );
 

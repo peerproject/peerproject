@@ -1,7 +1,7 @@
 //
 // UploadTransferED2K.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -62,7 +62,7 @@ CUploadTransferED2K::CUploadTransferED2K(CEDClient* pClient)
 
 	m_sUserAgent		= pClient->m_sUserAgent;
 	m_bClientExtended	= pClient->m_bClientExtended;
-	m_sNick				= pClient->m_sNick;
+	m_sRemoteNick		= pClient->m_sNick;
 	m_nState			= upsReady;
 
 	m_pClient->m_mOutput.pLimit = &m_nBandwidth;

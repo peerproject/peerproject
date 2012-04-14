@@ -20,7 +20,6 @@
 #include "Settings.h"
 #include "PeerProject.h"
 #include "DCClient.h"
-#include "DCClients.h"
 #include "DCNeighbour.h"
 #include "Download.h"
 #include "DownloadTransfer.h"
@@ -53,12 +52,26 @@ CDownloadTransferDC::~CDownloadTransferDC()
 	ASSERT( m_pClient == NULL );
 }
 
+BOOL CDownloadTransferDC::IsIdle() const
+{
+	return ( m_nState == dtsBusy );
+}
+
 void CDownloadTransferDC::AttachTo(CConnection* pConnection)
 {
 	ASSUME_LOCK( Transfers.m_pSection );
 	ASSERT( m_pClient == NULL );
 
 	m_pClient = static_cast< CDCClient* >( pConnection );
+
+	m_sUserAgent	= m_pClient->GetUserAgent();
+	m_pHost			= m_pClient->m_pHost;
+	m_sAddress		= m_pClient->m_sAddress;
+	UpdateCountry();
+
+	m_pSource->m_sServer		= m_sUserAgent;
+	m_pSource->m_sCountry		= m_sCountry;
+	m_pSource->m_sCountryName	= m_sCountryName;
 
 	m_pClient->AttachDownload( this );
 }
@@ -71,8 +84,7 @@ BOOL CDownloadTransferDC::Initiate()
 
 // ToDo: ?
 //	theApp.Message( MSG_INFO, IDS_DOWNLOAD_CONNECTING,
-//		(LPCTSTR)CString( inet_ntoa( m_pSource->m_pServerAddress ) ),
-//		m_pSource->m_nServerPort,
+//		(LPCTSTR)CString( inet_ntoa( m_pSource->m_pServerAddress ) ), m_pSource->m_nServerPort,
 //		(LPCTSTR)m_pDownload->GetDisplayName() );
 //
 //	m_pClient = DCClients.Connect( this );
@@ -100,10 +112,11 @@ void CDownloadTransferDC::Close(TRISTATE bKeepSource, DWORD nRetryAfter)
 {
 	ASSUME_LOCK( Transfers.m_pSection );
 
-	if ( m_pClient != NULL )
+	if ( CDCClient* pClient = m_pClient )
 	{
-		m_pClient->OnDownloadClose();
 		m_pClient = NULL;
+
+		pClient->OnDownloadClose();
 	}
 
 	CDownloadTransfer::Close( bKeepSource, nRetryAfter );
@@ -136,7 +149,7 @@ BOOL CDownloadTransferDC::OnConnected()
 	ASSERT( m_pClient != NULL );
 	ASSERT( m_pSource != NULL );
 
-	m_sUserAgent	= m_pClient->m_sUserAgent;
+	m_sUserAgent	= m_pClient->GetUserAgent();
 	m_pHost			= m_pClient->m_pHost;
 	m_sAddress		= m_pClient->m_sAddress;
 	UpdateCountry();
@@ -277,6 +290,12 @@ BOOL CDownloadTransferDC::ReadContent()
 	{
 		m_pSource->AddFragment( m_nOffset, m_nLength );
 
+		if ( m_pDownload->m_nSize == SIZE_UNKNOWN )
+		{
+			m_pDownload->m_nSize = m_nLength;
+			m_pDownload->MakeComplete();
+		}
+
 		return StartNextFragment();
 	}
 
@@ -312,40 +331,67 @@ BOOL CDownloadTransferDC::OnDownload(const std::string& strType, const std::stri
 	m_pClient->m_mInput.pLimit = &m_nBandwidth;
 	m_pClient->m_mOutput.pLimit	= &Settings.Bandwidth.Request;
 
+	m_nLength = min( nLength, m_nLength );
+
 	BOOL bZip = ( strOptions.find("ZL1") != std::string::npos );
 
-	if ( strFilename.substr( 0, 4 ) != "TTH/" )
-		return FALSE;	// Unsupported hash
+	if ( strFilename.substr( 0, 4 ) == "TTH/" )
+	{
+		Hashes::TigerHash oTiger;
+		if ( ! oTiger.fromString( CA2W( strFilename.substr( 4 ).c_str() ) ) )
+		{
+			// Invalid TigerTree hash encoding
+			Close( TRI_FALSE );
+			return FALSE;
+		}
 
-	Hashes::TigerHash oTiger;
-	if ( ! oTiger.fromString( CA2W( strFilename.substr( 4 ).c_str() ) ) )
-		return FALSE;	// Invalid TigerTree hash encoding
-
-	if ( ! m_pDownload || m_pDownload->m_oTiger != oTiger )
-		return FALSE;	// Wrong file
+		if ( m_pDownload && ! validAndEqual( m_pDownload->m_oTiger, oTiger ) )
+		{
+			// Wrong file
+			Close( TRI_FALSE );
+			return FALSE;
+		}
+	}
 
 	if ( strType == "file" )
 	{
-		if ( m_nLength != nLength || m_nOffset != nOffset || bZip )
-			return FALSE;	// Invalid parameters
+		if ( m_nOffset != nOffset || bZip )
+		{
+			// Invalid parameters
+			Close( TRI_FALSE );
+			return FALSE;
+		}
 
 		SetState( dtsDownloading );
+
+		m_pSource->SetLastSeen();
+		m_pSource->m_nFailures = 0;
+		m_pSource->m_nBusyCount = 0;
 
 		return TRUE;
 	}
 	else if ( strType == "tthl" )
 	{
 		if ( nOffset != 0 || nLength == 0 || nLength == SIZE_UNKNOWN || bZip )
-			return FALSE;	// Invalid parameters
+		{
+			// Invalid parameters
+			Close( TRI_FALSE );
+			return FALSE;
+		}
 
 		m_nTigerLength = nLength;
 
 		SetState( dtsTiger );
 
+		m_pSource->SetLastSeen();
+		m_pSource->m_nFailures = 0;
+		m_pSource->m_nBusyCount = 0;
+
 		return TRUE;
 	}
 
 	// Unsupported
+	Close( TRI_FALSE );
 	return FALSE;
 }
 
@@ -413,49 +459,66 @@ BOOL CDownloadTransferDC::StartNextFragment()
 	m_nOffset = SIZE_UNKNOWN;
 	m_nPosition = 0;
 
-	if ( m_pDownload->NeedTigerTree() )
+	CString strName;
+	if ( m_pDownload->m_oTiger )
+		strName = _T("TTH/") + m_pDownload->m_oTiger.toString();
+	else
+		strName = m_pSource->m_sName;
+
+	if ( m_pDownload->m_nSize == SIZE_UNKNOWN )
 	{
-		// Requesting TigerTree
-		CString strRequest;
-		strRequest.Format( _T("$ADCGET tthl TTH/%s 0 -1|"),
-			(LPCTSTR)m_pDownload->m_oTiger.toString() );
-		m_pClient->SendCommand( strRequest );
+		m_nOffset = 0;
+		m_nLength = SIZE_UNKNOWN;
 
 		SetState( dtsRequesting );
 		m_tRequest = GetTickCount();
+
+		m_pClient->SendCommand( _T("$ADCGET file ") + strName + _T(" 0 -1|") );
+
+		theApp.Message( MSG_INFO, IDS_DOWNLOAD_FRAGMENT_REQUEST,
+			0ui64, 0ui64, (LPCTSTR)m_pDownload->GetDisplayName(), (LPCTSTR)m_sAddress );
+		return TRUE;
+	}
+
+	if ( m_pDownload->m_oTiger && m_pDownload->NeedTigerTree() )
+	{
+		// Requesting TigerTree
+		m_nOffset = 0;
+		m_nLength = SIZE_UNKNOWN;
+
+		SetState( dtsRequesting );
+		m_tRequest = GetTickCount();
+
+		m_pClient->SendCommand( _T("$ADCGET tthl ") + strName + _T(" 0 -1|") );
 
 		theApp.Message( MSG_INFO, IDS_DOWNLOAD_TIGER_REQUEST,
 			(LPCTSTR)m_pDownload->GetDisplayName(), (LPCTSTR)m_sAddress );
 		return TRUE;
 	}
-	else if ( m_pDownload->GetFragment( this ) )
+
+	if ( m_pDownload->GetFragment( this ) )
 	{
 		// Downloading
 		ChunkifyRequest( &m_nOffset, &m_nLength, Settings.Downloads.ChunkSize, TRUE );
 
-		CString strRequest;
-		strRequest.Format( _T("$ADCGET file TTH/%s %I64u %I64u|"),
-			(LPCTSTR)m_pDownload->m_oTiger.toString(), m_nOffset, m_nLength );
-		m_pClient->SendCommand( strRequest );
-
-		// Sending request
 		SetState( dtsRequesting );
 		m_tRequest = GetTickCount();
 
-		m_pSource->SetLastSeen();
+		CString strRequest;
+		strRequest.Format( _T("$ADCGET file %s %I64u %I64u|"), (LPCTSTR)strName, m_nOffset, m_nLength );
+		m_pClient->SendCommand( strRequest );
 
 		theApp.Message( MSG_INFO, IDS_DOWNLOAD_FRAGMENT_REQUEST,
-			m_nOffset, m_nOffset + m_nLength - 1,
-			(LPCTSTR)m_pDownload->GetDisplayName(), (LPCTSTR)m_sAddress );
+			m_nOffset, m_nOffset + m_nLength - 1, (LPCTSTR)m_pDownload->GetDisplayName(), (LPCTSTR)m_sAddress );
 		return TRUE;
 	}
-	else
-	{
-		if ( m_pSource )
-			m_pSource->SetAvailableRanges( NULL );
 
-		theApp.Message( MSG_INFO, IDS_DOWNLOAD_FRAGMENT_END, (LPCTSTR)m_sAddress );
-		Close( TRI_TRUE );
-		return FALSE;
-	}
+	if ( m_pSource )
+		m_pSource->SetAvailableRanges( NULL );
+
+	SetState( dtsBusy );
+
+	theApp.Message( MSG_INFO, IDS_DOWNLOAD_FRAGMENT_END, (LPCTSTR)m_sAddress );
+	Close( TRI_TRUE );
+	return FALSE;
 }

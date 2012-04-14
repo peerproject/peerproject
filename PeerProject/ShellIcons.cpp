@@ -70,7 +70,7 @@ void CShellIcons::Clear()
 	m_i48.Create( 48, 48, ILC_COLOR16|ILC_MASK, 0, 16 );
 
 	// SHI_FILE = 0
-	VERIFY( AddIcon( CoolInterface.ExtractIcon( IDI_FILE, FALSE, LVSIL_SMALL) , m_i16 ) == SHI_FILE );
+	VERIFY( AddIcon( CoolInterface.ExtractIcon( IDI_FILE, FALSE, LVSIL_SMALL), m_i16 ) == SHI_FILE );
 	VERIFY( AddIcon( CoolInterface.ExtractIcon( IDI_FILE, FALSE, LVSIL_NORMAL), m_i32 ) == SHI_FILE );
 	VERIFY( AddIcon( CoolInterface.ExtractIcon( IDI_FILE, FALSE, LVSIL_BIG), m_i48 ) == SHI_FILE );
 

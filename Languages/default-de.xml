@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default German Skin File -->
 
-<!-- Translation based on default-en.xml r76 -->
+<!-- Translation based on default-en.xml r77 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3112,6 +3112,7 @@
 	<string id="20505" value="Keine"/>
 	<string id="20506" value="Verbinden..."/>
 	<string id="20507" value="Bandbreite:"/>
+	<string id="20509" value="DC++: Client-to-Hub-Verbindung"/>
 	<string id="20510" value="eDonkey-Serververbindung"/>
 	<string id="20511" value="eDonkey (HighID)"/>
 	<string id="20512" value="eDonkey-Server-Verbindung (LowID: %lu)"/>
@@ -3680,20 +3681,24 @@
 		<control caption="Hilfe:"/>
 		<control caption="PeerProjekt's Remote-Access erlaubt es Ihnen, PeerProjekt auf ihrem PC laufen zu lassen und es über einen Webbrowser zu bedienen. Sie müssen eingehende Verbindungen akzeptieren können, um diese Funktion zu benutzen. (Korrekt konfigurierter Router, usw.)"/>
 	</dialog>
-	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Netzwerke">
+	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="Netzwerke">
 		<control caption="PeerProjekt ist ein Allround-File-Sharing-Programm, das auf mehrere P2P-Netzwerke gleichzeitig zugreifen kann. Hier können Sie einstellen, welche Netzwerke Sie verwenden möchten und können netzwerkspezifische Einstellungen vornehmen."/>
 		<control caption="Gnutella2-Netzwerk:"/>
 		<control caption="Gnutella2 ist das Hauptnetzwerk von PeerProjekt. Empfohlen."/>
-		<control caption="Gnutella2 (G2) verwenden"/>
+		<control caption="Gnutella2 (G2) Zeige"/>
 		<control caption="Gnutella2 konfigurieren"/>
-		<control caption="Gnutella1-Netzwerk:"/>
+		<control caption="Gnutella-Netzwerk:"/>
 		<control caption="Obwohl das ursprüngliche Gnutella-Netzwerk weniger Funktionen als Gnutella2 und weniger Dateien als eDonkey hat, bleibt es eine wertvolle Resource."/>
-		<control caption="Gnutella1 (G1) verwenden"/>
-		<control caption="Gnutella1 konfigurieren"/>
+		<control caption="Gnutella (G1) Zeige"/>
+		<control caption="Gnutella konfigurieren"/>
 		<control caption="eDonkey-Netzwerk:"/>
 		<control caption="Das eDonkey-Netzwerk ist ein beliebtes serverbasiertes Netzwerk. Obwohl es nicht so viele Funktionen wie Gnutella2 bietet, findet man viele Dateien."/>
-		<control caption="eDonkey2000 (ED2K) verwenden"/>
+		<control caption="eDonkey2000 (ED2K) Zeige"/>
 		<control caption="eDonkey konfigurieren"/>
+		<control caption="DC++-Netzwerk:"/>
+		<control caption="Das DC++-Netzwerk ist ein beliebtes serverbasiertes Netzwerk. Obwohl es nicht so viele Funktionen wie Gnutella2 bietet, findet man viele Dateien."/>
+		<control caption="DC++ (DC) Zeige"/>
+		<control caption="DC++ konfigurieren"/>
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Gnutella2-Netzwerk:"/>
@@ -3750,6 +3755,21 @@
 		<control caption="eDonkey-_Tools:"/>
 		<control caption="Herunterladen..."/>
 		<control caption="Serverliste aus dem Internet herunterladen"/>
+	</dialog>
+	<dialog name="CDCSettingsPage" cookie="BuBuBuBuStEdmsStBuStBuBuSt" caption="DC++">
+		<control caption="_DC++-Netzwerk:"/>
+		<control caption="Heute zu DC++ verbinden"/>
+		<control caption="Immer zu DC++ verbinden"/>
+		<control caption="_Hubs:"/>
+		<control caption="Connect by default to:"/>
+		<control/>
+		<control/>
+		<control caption="DC++ hubs."/>
+		<control caption="_Info:"/>
+		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
+		<control caption="_Tools:"/>
+		<control caption="Herunterladen..."/>
+		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Download-Verbindungen:"/>

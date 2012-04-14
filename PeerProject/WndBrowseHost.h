@@ -26,17 +26,20 @@
 class CHostBrowser;
 class CG2Packet;
 
+#define BROWSER_SER_VERSION 2	// 1000		// ToDo: INTERNAL_VERSION ?
+// History:
+// 2 - Added CHostBrowser::m_sNick (ryo-oh-ki) (Shareaza 2.5.4.0)
 
 class CBrowseHostWnd : public CBaseMatchWnd
 {
-// Construction
-public:
-	CBrowseHostWnd(PROTOCOLID nProtocol, SOCKADDR_IN* pHost, const Hashes::Guid& pClientID = Hashes::Guid());
-	CBrowseHostWnd(PROTOCOLID nProtocol = PROTOCOL_ANY, IN_ADDR* pAddress = NULL, WORD nPort = 0, BOOL bMustPush = FALSE, const Hashes::Guid& pClientID = Hashes::Guid());
-	virtual ~CBrowseHostWnd();
-
 	DECLARE_DYNCREATE(CBrowseHostWnd)
 
+// Construction
+public:
+	CBrowseHostWnd(PROTOCOLID nProtocol = PROTOCOL_ANY, SOCKADDR_IN* pHost = NULL, BOOL bMustPush = FALSE, const Hashes::Guid& pClientID = Hashes::Guid(), const CString& sNick = CString());
+	virtual ~CBrowseHostWnd();
+
+public:
 	inline CHostBrowser* GetBrowser() const { return m_pBrowser; }
 
 // Attributes
@@ -50,7 +53,7 @@ protected:
 
 // Operations
 public:
-	void			Serialize(CArchive& ar);
+	void			Serialize(CArchive& ar, int nVersion = BROWSER_SER_VERSION);
 	virtual void	OnSkinChange();
 	virtual void	OnProfileReceived();
 	virtual BOOL	OnQueryHits(const CQueryHit* pHits);
@@ -58,6 +61,7 @@ public:
 	virtual void	OnPhysicalTree(CG2Packet* pPacket);
 	virtual void	OnVirtualTree(CG2Packet* pPacket);
 	virtual BOOL	OnPush(const Hashes::Guid& pClientID, CConnection* pConnection);
+	virtual BOOL	OnNewFile(CLibraryFile* pFile);
 	virtual void	UpdateMessages(BOOL bActive = TRUE);
 
 	virtual BOOL	OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO* pHandlerInfo);

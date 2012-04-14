@@ -615,7 +615,7 @@ void CDownloadTipCtrl::PrepareDownloadInfo(CDownload* pDownload)
 	if ( pDownload->IsTorrent() )
 	{
 		m_sURL = pDownload->m_pTorrent.GetTrackerAddress();
-	
+
 		if ( pDownload->m_pTorrent.m_nTrackerSeeds || pDownload->m_pTorrent.m_nTrackerPeers )
 			m_sSeedsPeers.Format( _T("   ( %i seeds %i peers )"),	// ToDo: Translation ?
 				pDownload->m_pTorrent.m_nTrackerSeeds, pDownload->m_pTorrent.m_nTrackerPeers );

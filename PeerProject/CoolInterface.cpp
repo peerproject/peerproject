@@ -218,8 +218,7 @@ HICON CCoolInterface::ExtractIcon(UINT nID, BOOL bMirrored, int nImageListType)
 			cx = 48;
 			break;
 		}
-		hIcon = (HICON)LoadImage( AfxGetResourceHandle(),
-			MAKEINTRESOURCE( nID ), IMAGE_ICON, cx, cx, 0 );
+		hIcon = (HICON)LoadImage( AfxGetResourceHandle(), MAKEINTRESOURCE( nID ), IMAGE_ICON, cx, cx, 0 );
 		if ( hIcon )
 			AddIcon( nID, hIcon, nImageListType );
 #ifdef _DEBUG
@@ -227,13 +226,10 @@ HICON CCoolInterface::ExtractIcon(UINT nID, BOOL bMirrored, int nImageListType)
 			theApp.Message( MSG_ERROR, _T("Failed to load icon %d (%dx%d)."), nID, cx, cx );
 #endif // _DEBUG
 	}
-	if ( hIcon )
+	if ( hIcon && bMirrored && nID != ID_HELP_ABOUT )
 	{
-		if ( bMirrored && nID != ID_HELP_ABOUT )
-		{
-			hIcon = CreateMirroredIcon( hIcon );
-			ASSERT( hIcon != NULL );
-		}
+		hIcon = CreateMirroredIcon( hIcon );
+		ASSERT( hIcon != NULL );
 	}
 	return hIcon;
 }
@@ -628,17 +624,13 @@ void CCoolInterface::CreateFonts(LPCTSTR pszFace, int nSize)
 
 BOOL CCoolInterface::EnableTheme(CWnd* pWnd, BOOL bEnable)
 {
-	BOOL bResult = FALSE;
+	if ( ! theApp.m_pfnSetWindowTheme )
+		return FALSE;	// Win2K
 
-	if ( theApp.m_pfnSetWindowTheme )
-	{
-		if ( bEnable )
-			bResult = SUCCEEDED( theApp.m_pfnSetWindowTheme( pWnd->GetSafeHwnd(), NULL, NULL ) );
-		else
-			bResult = SUCCEEDED( theApp.m_pfnSetWindowTheme( pWnd->GetSafeHwnd(), L" ", L" " ) );
-	}
-
-	return bResult;
+	if ( bEnable )
+		return SUCCEEDED( theApp.m_pfnSetWindowTheme( pWnd->GetSafeHwnd(), NULL, NULL ) );
+	else
+		return SUCCEEDED( theApp.m_pfnSetWindowTheme( pWnd->GetSafeHwnd(), L" ", L" " ) );
 }
 
 int CCoolInterface::GetImageCount(int nImageListType)

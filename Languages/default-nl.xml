@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Dutch Skin File -->
 
-<!-- Translation based on default-en.xml r76 -->
+<!-- Translation based on default-en.xml r77 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3066,6 +3066,7 @@
 	<string id="20505" value="Geen"/>
 	<string id="20506" value="Verbinden"/>
 	<string id="20507" value="Actueel:"/>
+	<string id="20509" value="DC++: Client-naar-hub verbinding"/>
 	<string id="20510" value="eDonkey Server verbinding"/>
 	<string id="20511" value="eDonkey (HighID)"/>
 	<string id="20512" value="eDonkey Server verbinding (LOWID: %lu)"/>
@@ -3620,20 +3621,24 @@
 		<control caption="Handleiding:"/>
 		<control caption="PeerProject's Web Interface maakt het mogelijk om PeerProject op je PC te laten draaien, en het op afstand te bedienen via een browser. Je moet wel binnenkomende verbindingen kunnen ontvangen om gebruik te kunnen maken van deze functie zoals een goed ingestelde router."/>
 	</dialog>
-	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Netwerken">
+	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="Netwerken">
 		<control caption="PeerProject kan met meerdere P2P netwerken tegelijkertijd verbinden. Je kunt hier selecteren met welke P2P netwerken je verbinding wilt maken en vervolgens voor elk netwerk de specifieke instellingen aanpassen."/>
 		<control caption="Gnutella2 netwerk:"/>
 		<control caption="Het Gnutella2 netwerk is PeerProject's belangrijkste netwerk, het biedt meer eigenschappen en vermogen dan enig ander P2P-netwerk. Aanbevolen."/>
-		<control caption="Verbinden met Gnutella2 (G2)"/>
+		<control caption="Toon Gnutella2 (G2)"/>
 		<control caption="Gnutella2 instellingen"/>
 		<control caption="Originele Gnutella netwerk:"/>
 		<control caption="Is minder rijk aan eigenschappen dan Gnutella2 en heeft minder bestanden dan eDonkey, maar toch blijft dit een waardevolle bron."/>
-		<control caption="Verbinden met het originele Gnutella"/>
-		<control caption="Gnutella1 instellingen"/>
+		<control caption="Toon Gnutella (G1)"/>
+		<control caption="Gnutella instellingen"/>
 		<control caption="eDonkey netwerk:"/>
 		<control caption="eDonkey is een populair, op servers gebaseerd netwerk. Het heeft minder opties dan Gnutella2, maar een indrukwekkende bestandencollectie."/>
-		<control caption="Verbinden met eDonkey2000"/>
+		<control caption="Toon eDonkey2000 (ED2K)"/>
 		<control caption="eDonkey instellingen"/>
+		<control caption="DC++ netwerk:"/>
+		<control caption="DC++ is een populair, op servers gebaseerd netwerk. Het heeft minder opties dan Gnutella2, maar een indrukwekkende bestandencollectie."/>
+		<control caption="Toon DC++ (DC)"/>
+		<control caption="DC++ instellingen"/>
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Gnutella2 netwerk:"/>
@@ -3688,8 +3693,23 @@
 		<control caption="zoekresultaten."/>
 		<control caption="Ontvang en werk de server lijst bij via de verbonden server."/>
 		<control caption="eDonkey _hulpmiddelen:"/>
-		<control caption="Downloaden"/>
+		<control caption="Downloaden..."/>
 		<control caption="eDonkey Serverlijst downloaden van het internet:"/>
+	</dialog>
+	<dialog name="CDCSettingsPage" cookie="BuBuBuBuStEdmsStBuStBuBuSt" caption="DC++">
+		<control caption="_DC++ netwerk:"/>
+		<control caption="Nu verbinden met DC++"/>
+		<control caption="Altijd verbinden met DC++"/>
+		<control caption="_Hubs:"/>
+		<control caption="Connect by default to:"/>
+		<control/>
+		<control/>
+		<control caption="DC++ hubs."/>
+		<control caption="_Info:"/>
+		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
+		<control caption="_Hulpmiddelen:"/>
+		<control caption="Downloaden..."/>
+		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Download verbindingen:"/>

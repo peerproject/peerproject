@@ -209,8 +209,8 @@ CAlbumFolder* CAlbumFolder::GetTarget(CSchemaMember* pMember, LPCTSTR pszValue) 
 
 	for ( POSITION pos = GetFolderIterator() ; pos ; )
 	{
-		CAlbumFolder* pCheck	= GetNextFolder( pos );
-		CAlbumFolder* pResult	= pCheck->GetTarget( pMember, pszValue );
+		CAlbumFolder* pCheck  = GetNextFolder( pos );
+		CAlbumFolder* pResult = pCheck->GetTarget( pMember, pszValue );
 		if ( pResult ) return pResult;
 	}
 
@@ -259,7 +259,7 @@ bool CAlbumFolder::OnFolderDelete(CAlbumFolder* pFolder)
 	else
 		return false;
 
-	ASSERT( ! LibraryFolders.CheckAlbum( pFolder ) ) ;
+	ASSERT( ! LibraryFolders.CheckAlbum( pFolder ) );
 
 	Library.Update();
 	m_nUpdateCookie++;

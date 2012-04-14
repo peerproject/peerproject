@@ -1187,7 +1187,7 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 		// ToDo: Fix mess in function prototype. Why pass "bTransparent" and then ignore it? (Temp Watermark)
 		pDC->SetBkMode( TRANSPARENT );
 		crBackground = CLR_NONE;
-		rc.OffsetRect( 1 , 0 );
+		rc.OffsetRect( 1, 0 );
 	}
 	else if ( m_bEnabled && ( bHot || bDown || m_bChecked ) )
 	{

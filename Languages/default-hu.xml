@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hungarian Skin File -->
 
-<!-- Translation based on default-en.xml r76 -->
+<!-- Translation based on default-en.xml r77 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2982,6 +2982,7 @@
 	<string id="20505" value="Nincs"/>
 	<string id="20506" value="Kapcsolódás"/>
 	<string id="20507" value="Jelenleg:"/>
+	<string id="20509" value="DC++: Client-to-Hub kapcsolat"/>
 	<string id="20510" value="eDonkey kapcsolat"/>
 	<string id="20511" value="eDonkey (HighID)"/>
 	<string id="20512" value="eDonkey kapcsolat (LOWID: %lu)"/>
@@ -3534,19 +3535,23 @@
 		<control caption="Súgó:"/>
 		<control caption="Ezzel a szolgáltatással egy webböngészőn keresztül távolról is irányíthatja a PeerProject. Ehhez azonban a PeerProject futtató gépnek tudnia kell fogadni a bejövő kapcsolatokat."/>
 	</dialog>
-	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Hálózatok">
+	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="Hálózatok">
 		<control caption="A PeerProject egy fájlmegosztó program, amely egyszerre több p2p hálózathoz is tud csatlakozni. Ezen az oldalon beállíthatja, hogy melyik hálózathoz akar kapcsolódni."/>
 		<control caption="Gnutella2"/>
 		<control caption="A Gnutella2 a PeerProject fő hálózata, p2p rendszerű. Rengeteg szolgáltatás és nagy sebesség jellemzi. Erősen ajánlott!"/>
-		<control caption="Kapcsolódás a Gnutella2-höz (G2)"/>
+		<control caption="Mutasd Gnutella2-höz (G2)"/>
 		<control caption="Részletes beállítás"/>
-		<control caption="Gnutella1"/>
+		<control caption="Gnutella"/>
 		<control caption="A G2 elődje. Kevesebb fájlt tartalmaz, mint az eD2k, de azért sokminden megtalálható rajta."/>
-		<control caption="Kapcsolódás a Gnutella1-hez (G1)"/>
+		<control caption="Mutasd Gnutella1-hez (G1)"/>
 		<control caption="Részletes beállítás"/>
 		<control caption="eDonkey"/>
 		<control caption="Az eDonkey egy népszerű kliens-szerver rendszerű hálózat. Nincs annyi szolgáltatása, mint a G2-nek, de gyakorlatilag minden megtalálható rajta."/>
-		<control caption="Kapcsolódás az eDonkey-hoz"/>
+		<control caption="Mutasd eDonkey-hoz (ED2K)"/>
+		<control caption="Részletes beállítás"/>
+		<control caption="DC++"/>
+		<control caption="Az DC++ egy népszerű kliens-szerver rendszerű hálózat. Nincs annyi szolgáltatása, mint a G2-nek, de gyakorlatilag minden megtalálható rajta."/>
+		<control caption="Mutasd DC++-hoz (DC)"/>
 		<control caption="Részletes beállítás"/>
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
@@ -3604,6 +3609,21 @@
 		<control caption="eDonkey e_szközök"/>
 		<control caption="Letöltés..."/>
 		<control caption="eDonkey szerverlista letöltése az internetről:"/>
+	</dialog>
+	<dialog name="CDCSettingsPage" cookie="BuBuBuBuStEdmsStBuStBuBuSt" caption="DC++">
+		<control caption="_DC++ hálózat:"/>
+		<control caption="Egyszer kapcsolódjon az DC++-hez"/>
+		<control caption="Mindig kapcsolódjon"/>
+		<control caption="_Hubs:"/>
+		<control caption="Connect by default to:"/>
+		<control/>
+		<control/>
+		<control caption="DC++ hubs."/>
+		<control caption="_Info:"/>
+		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
+		<control caption="e_szközök:"/>
+		<control caption="Letöltés..."/>
+		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Letöltési kapcsolatok"/>

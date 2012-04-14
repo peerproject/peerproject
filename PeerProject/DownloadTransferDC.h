@@ -1,7 +1,7 @@
 //
 // DownloadTransferDC.h
 //
-// This file is part of PeerProject (peerproject.org) © 2011
+// This file is part of PeerProject (peerproject.org) © 2011-2012
 // Portions copyright Shareaza Development Team, 2010.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -28,6 +28,7 @@ public:
 	CDownloadTransferDC(CDownloadSource* pSource, CDCClient* pClient);
 	virtual ~CDownloadTransferDC();
 
+public:
 	CDCClient*	m_pClient;		// Download owner
 
 	virtual void	AttachTo(CConnection* pConnection);
@@ -44,6 +45,7 @@ public:
 	BOOL			OnQueue(int nQueue);	// Got $MaxedOut command with queue position
 	BOOL			OnBusy();				// Got $MaxedOut command without queue position
 	BOOL			OnError();				// Got $Error command
+	BOOL			IsIdle() const; 		// Check if transfer idle
 
 protected:
 	QWORD			m_nTigerLength;

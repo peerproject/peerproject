@@ -1,7 +1,7 @@
 //
 // DownloadTransfer.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -27,7 +27,7 @@ class CDownloadSource;
 
 typedef std::pair< QWORD, QWORD > blockPair;
 
-class CDownloadTransfer : public CTransfer
+class CDownloadTransfer abstract : public CTransfer
 {
 // Construction
 public:

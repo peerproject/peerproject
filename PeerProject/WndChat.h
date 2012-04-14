@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include "WndChild.h"	// Remove?
+#include "WndChild.h"
 #include "WndPanel.h"
 #include "RichElement.h"
 #include "RichDocument.h"
@@ -98,8 +98,8 @@ private:
 	CEdit				m_wndEdit;
 	CListCtrl			m_wndUsers;		// Chat users list
 	int					m_nUsersSize;	// Width of chat users panel (pixels)
-	CArray< CString >	m_pHistory;
 	int					m_nHistory;
+	CArray< CString >	m_pHistory;
 	CString				m_sCaption;
 
 public:
@@ -123,8 +123,8 @@ protected:
 	void AddText(LPCTSTR pszText);
 	void AddText(bool bAction, bool bOutgoing, LPCTSTR pszNick, LPCTSTR pszBody);
 	void OnMessage(bool bAction, const CString& sChatID, bool bOutgoing, const CString& sFrom, const CString& sTo, const CString& sText);
-	BOOL DoSizeView();
 	void DeleteAllUsers();
+	BOOL DoSizeView();
 
 // Overrides
 public:
@@ -142,7 +142,7 @@ protected:
 	//{{AFX_MSG(CChatWnd)
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
-//	afx_msg void OnPaint();
+	afx_msg void OnPaint();
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
 	afx_msg void OnUpdateChatBold(CCmdUI* pCmdUI);
@@ -161,12 +161,12 @@ protected:
 	afx_msg void OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct);
 	afx_msg void OnSetFocus(CWnd* pOldWnd);
 	afx_msg void OnClickView(NMHDR* pNotify, LRESULT *pResult);
-//	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
 //	afx_msg void OnTimer(UINT_PTR nIDEvent);
-//	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
-//	afx_msg LRESULT OnChatMessage(WPARAM wParam, LPARAM lParam);
-//	afx_msg LRESULT OnChatAddUser(WPARAM wParam, LPARAM lParam);
-//	afx_msg LRESULT OnChatDeleteUser(WPARAM wParam, LPARAM lParam);
+	afx_msg LRESULT OnChatMessage(WPARAM wParam, LPARAM lParam);
+	afx_msg LRESULT OnChatAddUser(WPARAM wParam, LPARAM lParam);
+	afx_msg LRESULT OnChatDeleteUser(WPARAM wParam, LPARAM lParam);
 	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
@@ -174,8 +174,8 @@ protected:
 
 #define IDC_CHAT_TEXT	100
 #define IDC_CHAT_EDIT	101
-//#define IDC_CHAT_USERS 102
-//
-//#define WM_CHAT_MESSAGE			(WM_APP+70)		// (WPARAM: unused, LPARAM: CChatMessage* pMsg)
-//#define WM_CHAT_ADD_USER			(WM_APP+71)		// (WPARAM: unused, LPARAM: CChatUser* pAddUser)
-//#define WM_CHAT_DELETE_USER		(WM_APP+72)		// (WPARAM: unused, LPARAM: CString* pDeleteUser). pDeleteUser == NULL - delete all users.
+#define IDC_CHAT_USERS	102
+
+#define WM_CHAT_MESSAGE			(WM_APP+70)		// (WPARAM: unused, LPARAM: CChatMessage* pMsg)
+#define WM_CHAT_ADD_USER		(WM_APP+71)		// (WPARAM: unused, LPARAM: CChatUser* pAddUser)
+#define WM_CHAT_DELETE_USER 	(WM_APP+72)		// (WPARAM: unused, LPARAM: CString* pDeleteUser). pDeleteUser == NULL - delete all users.

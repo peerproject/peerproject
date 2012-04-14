@@ -125,14 +125,18 @@ void CDownloads::StopTrying(bool bIsTorrent)
 //////////////////////////////////////////////////////////////////////
 // CDownloads add an empty download (privileged)
 
-CDownload* CDownloads::Add()
+CDownload* CDownloads::Add(BOOL bAddToHead)
 {
 	ASSUME_LOCK( Transfers.m_pSection );
 
 	CDownload* pDownload = new CDownload();
 	if ( ! pDownload ) return NULL;		// Out of memory
 
-	m_pList.AddTail( pDownload );
+	if ( bAddToHead )
+		m_pList.AddHead( pDownload );
+	else
+		m_pList.AddTail( pDownload );
+
 	return pDownload;
 }
 
@@ -167,13 +171,9 @@ CDownload* CDownloads::Add(CQueryHit* pHit, BOOL bAddToHead)
 	}
 	else // pDownload == NULL
 	{
-		pDownload = new CDownload();
-		pDownload->AddSourceHit( pHit, TRUE );
+		pDownload = Add( bAddToHead );	// new CDownload()
 
-		if ( bAddToHead )
-			m_pList.AddHead( pDownload );
-		else
-			m_pList.AddTail( pDownload );
+		pDownload->AddSourceHit( pHit, TRUE );
 
 		theApp.Message( MSG_NOTICE, IDS_DOWNLOAD_ADDED,
 			(LPCTSTR)pDownload->GetDisplayName(), pDownload->GetSourceCount() );
@@ -223,11 +223,7 @@ CDownload* CDownloads::Add(CMatchFile* pFile, BOOL bAddToHead)
 	}
 	else // pDownload == NULL
 	{
-		pDownload = new CDownload();
-		if ( bAddToHead )
-			m_pList.AddHead( pDownload );
-		else
-			m_pList.AddTail( pDownload );
+		pDownload = Add( bAddToHead );	// new CDownload()
 
 		pFile->AddHitsToDownload( pDownload, TRUE );
 
@@ -283,7 +279,7 @@ CDownload* CDownloads::Add(const CPeerProjectURL& oURL)
 		bNew = FALSE;
 	}
 	else
-		pDownload = new CDownload();
+		pDownload = Add();	// new CDownload()
 
 	if ( ! pDownload->m_oSHA1 && oURL.m_oSHA1 )
 	{
@@ -329,7 +325,7 @@ CDownload* CDownloads::Add(const CPeerProjectURL& oURL)
 		{
 			if ( oURL.m_nAction == CPeerProjectURL::uriSource )
 			{
-				delete pDownload;
+				Remove( pDownload );	// delete pDownload
 				return NULL;
 			}
 		}
@@ -354,8 +350,6 @@ CDownload* CDownloads::Add(const CPeerProjectURL& oURL)
 
 	if ( bNew )
 	{
-		m_pList.AddTail( pDownload );
-
 		theApp.Message( MSG_NOTICE, IDS_DOWNLOAD_ADDED,
 			(LPCTSTR)pDownload->GetDisplayName(), pDownload->GetEffectiveSourceCount() );
 
@@ -641,7 +635,7 @@ CDownload* CDownloads::FindByURN(LPCTSTR pszURN, BOOL bSharedOnly) const
 
 CDownload* CDownloads::FindBySHA1(const Hashes::Sha1Hash& oSHA1, BOOL bSharedOnly) const
 {
-	ASSUME_LOCK( Transfers.m_pSection );
+//	ASSUME_LOCK( Transfers.m_pSection );
 
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
@@ -658,7 +652,7 @@ CDownload* CDownloads::FindBySHA1(const Hashes::Sha1Hash& oSHA1, BOOL bSharedOnl
 
 CDownload* CDownloads::FindByTiger(const Hashes::TigerHash& oTiger, BOOL bSharedOnly) const
 {
-	ASSUME_LOCK( Transfers.m_pSection );
+//	ASSUME_LOCK( Transfers.m_pSection );
 
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
@@ -675,7 +669,7 @@ CDownload* CDownloads::FindByTiger(const Hashes::TigerHash& oTiger, BOOL bShared
 
 CDownload* CDownloads::FindByED2K(const Hashes::Ed2kHash& oED2K, BOOL bSharedOnly) const
 {
-	ASSUME_LOCK( Transfers.m_pSection );
+//	ASSUME_LOCK( Transfers.m_pSection );
 
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
@@ -693,7 +687,7 @@ CDownload* CDownloads::FindByED2K(const Hashes::Ed2kHash& oED2K, BOOL bSharedOnl
 
 CDownload* CDownloads::FindByBTH(const Hashes::BtHash& oBTH, BOOL bSharedOnly) const
 {
-	ASSUME_LOCK( Transfers.m_pSection );
+//	ASSUME_LOCK( Transfers.m_pSection );
 
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
@@ -710,7 +704,7 @@ CDownload* CDownloads::FindByBTH(const Hashes::BtHash& oBTH, BOOL bSharedOnly) c
 
 CDownload* CDownloads::FindByMD5(const Hashes::Md5Hash& oMD5, BOOL bSharedOnly) const
 {
-	ASSUME_LOCK( Transfers.m_pSection );
+//	ASSUME_LOCK( Transfers.m_pSection );
 
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
@@ -731,7 +725,7 @@ CDownload* CDownloads::FindByMD5(const Hashes::Md5Hash& oMD5, BOOL bSharedOnly) 
 
 CDownload* CDownloads::FindBySID(DWORD nSerID) const
 {
-	ASSUME_LOCK( Transfers.m_pSection );
+//	ASSUME_LOCK( Transfers.m_pSection );
 
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
@@ -784,9 +778,9 @@ BOOL CDownloads::Move(CDownload* pDownload, int nDelta)
 	else if ( nDelta == 1 )
 		m_pList.GetNext( posOther );
 	else if ( nDelta < -1 )
-		posOther = m_pList.GetHeadPosition() ;
+		posOther = m_pList.GetHeadPosition();
 	else if ( nDelta > 1 )
-		posOther = m_pList.GetTailPosition() ;
+		posOther = m_pList.GetTailPosition();
 	if ( posOther == NULL) return FALSE;
 
 	if ( nDelta <= 0 )
@@ -1254,7 +1248,7 @@ void CDownloads::PreLoad()
 			CString strPath( strRoot );
 			strPath.Append( pFind.cFileName );
 
-			auto_ptr< CDownload > pDownload( new CDownload() );
+			CDownload* pDownload = new CDownload();
 			if ( pDownload->Load( strPath ) )
 			{
 				if ( pDownload->IsSeeding() )
@@ -1270,7 +1264,7 @@ void CDownloads::PreLoad()
 					pDownload->m_bComplete = true;
 					pDownload->m_bVerify = TRI_TRUE;
 				}
-				m_pList.AddTail( pDownload.release() );
+				m_pList.AddTail( pDownload );
 			}
 			else
 			{
@@ -1280,6 +1274,10 @@ void CDownloads::PreLoad()
 				DeleteFileEx( strPath, FALSE, TRUE, TRUE );
 				DeleteFileEx( strPath + _T(".sav"), FALSE, FALSE, TRUE );
 				DeleteFileEx( strPath + _T(".png"), FALSE, FALSE, TRUE );
+			//	strPath = strRoot + _T("Preview ");
+			//	strPath.Append( pFind.cFileName );
+			//	DeleteFileEx( strPath, FALSE, FALSE, TRUE );
+				delete pDownload;
 			}
 		}
 		while ( FindNextFile( hSearch, &pFind ) );
@@ -1453,7 +1451,7 @@ void CDownloads::PurgePreviews()
 //
 //	for ( DWORD_PTR nCount = ar.ReadCount() ; nCount > 0 ; nCount-- )
 //	{
-//		CDownload* pDownload = new CDownload();
+//		CDownload* pDownload = Add();	// new CDownload()
 //		m_pList.AddTail( pDownload );
 //		pDownload->Serialize( ar, nVersion );
 //	}

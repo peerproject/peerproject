@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default French Skin File -->
 
-<!-- Translation based on default-en.xml r76 -->
+<!-- Translation based on default-en.xml r77 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3134,6 +3134,7 @@
 	<string id="20505" value="Aucune"/>
 	<string id="20506" value="Connexion"/>
 	<string id="20507" value="Courant :"/>
+	<string id="20509" value="DC++ : Connexion Client-to-Hub"/>
 	<string id="20510" value="Connexion serveur eDonkey"/>
 	<string id="20511" value="eDonkey (HighID)"/>
 	<string id="20512" value="Connexion serveur eDonkey (LOWID : %lu)"/>
@@ -3688,20 +3689,24 @@
 		<control caption="Aide:"/>
 		<control caption="L'accès à distance vous permet de laisser PeerProject en exécution sur votre PC, et de contrôler PeerProject à distance depuis n'importe quel autre ordinateur en utilisant un navigateur Internet. Vous devez pouvoir accepter les connexions entrantes (routeur, pare-feu, etc. correctement configurés)."/>
 	</dialog>
-	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Réseaux">
+	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="Réseaux">
 		<control caption="PeerProject est un client P2P multi-réseaux. Il peut se connecter à plusieurs réseaux en même temps. Sur cette page, vous pouvez sélectionner à quels réseaux vous souhaitez vous connecter, puis paramétrer des réglages spécifiques pour chacun."/>
 		<control caption="Réseau Gnutella2&#160;:"/>
 		<control caption="Le réseau Gnutella2 est le réseau de prédilection de PeerProject, et il est le plus performant des réseaux P2P. Hautement recommandé."/>
-		<control caption="Se connecter à Gnutella2 (G2)"/>
+		<control caption="Afficher Gnutella2 (G2)"/>
 		<control caption="Configurer Gnutella2"/>
 		<control caption="Réseau Gnutella original&#160;:"/>
 		<control caption="Le réseau Gnutella original est moins performant chez PeerProject que G2 et possède moins de fichiers qu'eDonkey, mais il reste une ressource importante."/>
-		<control caption="Se connecter à Gnutella (G1)"/>
+		<control caption="Afficher Gnutella (G1)"/>
 		<control caption="Configurer Gnutella"/>
 		<control caption="Réseau eDonkey&#160;:"/>
 		<control caption="Le réseau eDonkey est un réseau populaire basé sur des serveurs. Il est quelques fois moins performant que Gnutella2 mais possède plus de contenu."/>
-		<control caption="Se connecter à eDonkey2000 (ED2K)"/>
+		<control caption="Afficher eDonkey2000 (ED2K)"/>
 		<control caption="Configurer eDonkey"/>
+		<control caption="Réseau DC++&#160;:"/>
+		<control caption="Le réseau DC++ est un réseau populaire basé sur des serveurs. Il est quelques fois moins performant que Gnutella2 mais possède plus de contenu."/>
+		<control caption="Afficher DC++ (DC)"/>
+		<control caption="Configurer DC++"/>
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Réseau Gnutella2&#160;:"/>
@@ -3740,7 +3745,7 @@
 		<control caption="Hub à Hub"/>
 	</dialog>
 	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuStEdmsStBuBuStEdmsStBuBuBuSt" caption="eDonkey">
-		<control caption="Réseau _eDonkey:"/>
+		<control caption="Réseau _eDonkey :"/>
 		<control caption="Connexion à eDonkey maintenant"/>
 		<control caption="Connexion auto. au démarrage"/>
 		<control caption="Connexions aux _clients&#160;:"/>
@@ -3755,9 +3760,24 @@
 		<control/>
 		<control caption="résultats."/>
 		<control caption="Mettre la liste des serveurs à jour via le serveur contacté"/>
-		<control caption="Ou_tils eDonkey:"/>
+		<control caption="Ou_tils eDonkey :"/>
 		<control caption="Télécharger..."/>
 		<control caption="Télécharger la liste des serveurs ED2K sur le Web&#160;:"/>
+	</dialog>
+	<dialog name="CDCSettingsPage" cookie="BuBuBuBuStEdmsStBuStBuBuSt" caption="DC++">
+		<control caption="Réseau _DC++ :"/>
+		<control caption="Connexion à DC++ maintenant"/>
+		<control caption="Connexion auto. au démarrage"/>
+		<control caption="_Hubs:"/>
+		<control caption="Connecter à default :"/>
+		<control/>
+		<control/>
+		<control caption="DC++ hubs."/>
+		<control caption="_Info :"/>
+		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
+		<control caption="Ou_tils :"/>
+		<control caption="Télécharger..."/>
+		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="Connexions de _Téléchargement :"/>

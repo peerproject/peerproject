@@ -20,6 +20,9 @@
 
 #define MATCHLIST_SER_VERSION	1000	// 15	// Use INTERNAL_VERSION ?
 // History:
+// 12 - Shareaza 2.2 (Rolandas)
+// 13 - Shareaza 2.3 (ryo-oh-ki)
+// 14 - Shareaza 2.4 (ryo-oh-ki)
 // 15 - Added CQueryHit::m_sNick for DC++ hits (ryo-oh-ki) (Shareaza 2.5.5.0)
 // 1000 - PeerProject 1.0 (15)
 
@@ -128,7 +131,7 @@ public:
 	void		ClearUpdated();
 	void		ClearNew();
 	void		SanityCheck();
-	void		Serialize(CArchive& ar);	// int nVersion = MATCHLIST_SER_VERSION (or INTERNAL_VERSION?)
+	void		Serialize(CArchive& ar, int nVersion = MATCHLIST_SER_VERSION);	// INTERNAL_VERSION?
 
 	CBaseMatchWnd* GetParent() const
 	{
@@ -194,7 +197,7 @@ public:
 	BOOL		Expand(BOOL bExpand = TRUE);
 	inline int	Compare(CMatchFile* pFile) const;
 	CString		GetURN() const;
-	void		Serialize(CArchive& ar, int nVersion);	// MATCHLIST_SER_VERSION
+	void		Serialize(CArchive& ar, int nVersion = 0);	// MATCHLIST_SER_VERSION
 	void		Ban(int nBanLength);	// Ban by hashes and by hit host IPs
 
 	inline DWORD GetFilteredCount()

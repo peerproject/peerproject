@@ -884,21 +884,24 @@ void CSearchAdvancedBox::OnSize(UINT nType, int cx, int cy)
 			SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOZORDER );
 	}
 
-	const int nY = ( Settings.DC.ShowInterface && Settings.eDonkey.ShowInterface && Settings.Gnutella1.ShowInterface ) ? 8 : 26;
+	int nY = ( Settings.DC.ShowInterface && Settings.eDonkey.ShowInterface && Settings.Gnutella1.ShowInterface ) ? 8 : 26;
 	const int nX = ( cx / 2 ) + BOX_MARGIN + 25;
 	const int nWidth = ( cx - BOX_MARGIN * 3 ) / 2 - 26;
 
 	if ( m_wndCheckBoxG2.m_hWnd )
 		DeferWindowPos( hDWP, m_wndCheckBoxG2, NULL, nX, nY, nWidth, 14,			// G2 Checkbox Pos
 			SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOZORDER );
+	/*if ( Settings.Gnutella2.ShowInterface )*/ nY += 20;
 	if ( m_wndCheckBoxG1.m_hWnd )
-		DeferWindowPos( hDWP, m_wndCheckBoxG1, NULL, nX, nY + 20, nWidth, 14,		// G1 Checkbox Pos
+		DeferWindowPos( hDWP, m_wndCheckBoxG1, NULL, nX, nY, nWidth, 14,			// G1 Checkbox Pos
 			SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOZORDER );
+	if ( Settings.Gnutella1.ShowInterface ) nY += 20;
 	if ( m_wndCheckBoxED2K.m_hWnd )
-		DeferWindowPos( hDWP, m_wndCheckBoxED2K, NULL, nX, nY + 40, nWidth, 14,		// ED2K Checkbox Pos
+		DeferWindowPos( hDWP, m_wndCheckBoxED2K, NULL, nX, nY, nWidth, 14,			// ED2K Checkbox Pos
 			SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOZORDER );
+	if ( Settings.eDonkey.ShowInterface ) nY += 20;
 	if ( m_wndCheckBoxDC.m_hWnd )
-		DeferWindowPos( hDWP, m_wndCheckBoxDC, NULL, nX, nY + 60, nWidth, 14,		// DC++ Checkbox Pos
+		DeferWindowPos( hDWP, m_wndCheckBoxDC, NULL, nX, nY, nWidth, 14,			// DC++ Checkbox Pos
 			SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOZORDER );
 
 	EndDeferWindowPos( hDWP );
@@ -958,14 +961,28 @@ void CSearchAdvancedBox::OnPaint()
 		pDC->FillSolidRect( &rc, Colors.m_crTaskBoxClient );		// Paint remaining background for unskinned Advanced box
 
 	const int nX = rc.right / 2 + BOX_MARGIN + 1;
-	const int nY = ( Settings.DC.ShowInterface && Settings.eDonkey.ShowInterface && Settings.Gnutella1.ShowInterface ) ? 6 : 24;
-	m_gdiProtocols.Draw( pDC, PROTOCOL_G2, CPoint( nX, nY ), ILD_NORMAL );				// G2 Icon
-	if ( Settings.Gnutella1.ShowInterface || Settings.Gnutella1.Enabled )
-		m_gdiProtocols.Draw( pDC, PROTOCOL_G1, CPoint( nX, nY + 20 ), ILD_NORMAL );		// G1 Icon
-	if ( Settings.eDonkey.ShowInterface || Settings.eDonkey.Enabled )
-		m_gdiProtocols.Draw( pDC, PROTOCOL_ED2K, CPoint( nX, nY + 40 ), ILD_NORMAL );	// ED2K Icon
-	if ( Settings.DC.ShowInterface || Settings.DC.Enabled )
-		m_gdiProtocols.Draw( pDC, PROTOCOL_DC, CPoint( nX, nY + 60 ), ILD_NORMAL ); 	// DC++ Icon
+	int nY = ( Settings.DC.ShowInterface && Settings.eDonkey.ShowInterface && Settings.Gnutella1.ShowInterface ) ? 6 : 24;
+
+	//if ( Settings.Gnutella2.ShowInterface )
+	{
+		m_gdiProtocols.Draw( pDC, PROTOCOL_G2, CPoint( nX, nY ), ILD_NORMAL );		// G2 Icon
+		nY += 20;
+	}
+	if ( Settings.Gnutella1.ShowInterface )
+	{
+		m_gdiProtocols.Draw( pDC, PROTOCOL_G1, CPoint( nX, nY ), ILD_NORMAL );		// G1 Icon
+		nY += 20;
+	}
+	if ( Settings.eDonkey.ShowInterface )
+	{
+		m_gdiProtocols.Draw( pDC, PROTOCOL_ED2K, CPoint( nX, nY ), ILD_NORMAL );	// ED2K Icon
+		nY += 20;
+	}
+	if ( Settings.DC.ShowInterface )
+	{
+		m_gdiProtocols.Draw( pDC, PROTOCOL_DC, CPoint( nX, nY ), ILD_NORMAL );		// DC++ Icon
+	//	nY += 20;
+	}
 
 	if ( pDC != &dc )
 		dc.BitBlt( 0, 0, rc.Width(), rc.Height(), pDC, 0, 0, SRCCOPY );
@@ -975,18 +992,18 @@ void CSearchAdvancedBox::OnPaint()
 	m_wndCheckBoxED2K.EnableWindow( Settings.eDonkey.Enabled );
 	m_wndCheckBoxDC.EnableWindow( Settings.DC.Enabled );
 
-	if ( Settings.Gnutella1.ShowInterface || Settings.Gnutella1.Enabled )
-		m_wndCheckBoxG1.ModifyStyle( 0 , WS_VISIBLE );
+	if ( Settings.Gnutella1.ShowInterface )
+		m_wndCheckBoxG1.ModifyStyle( 0, WS_VISIBLE );
 	else
 		m_wndCheckBoxG1.ModifyStyle( WS_VISIBLE, 0 );
 
-	if ( Settings.eDonkey.ShowInterface || Settings.eDonkey.Enabled )
-		m_wndCheckBoxED2K.ModifyStyle( 0 , WS_VISIBLE );
+	if ( Settings.eDonkey.ShowInterface )
+		m_wndCheckBoxED2K.ModifyStyle( 0, WS_VISIBLE );
 	else
 		m_wndCheckBoxED2K.ModifyStyle( WS_VISIBLE, 0 );
 
-	if ( Settings.DC.ShowInterface || Settings.DC.Enabled )
-		m_wndCheckBoxDC.ModifyStyle( 0 , WS_VISIBLE );
+	if ( Settings.DC.ShowInterface )
+		m_wndCheckBoxDC.ModifyStyle( 0, WS_VISIBLE );
 	else
 		m_wndCheckBoxDC.ModifyStyle( WS_VISIBLE, 0 );
 }
@@ -1104,13 +1121,13 @@ void CSearchResultsBox::Update(BOOL bSearching, DWORD nHubs, DWORD nLeaves, DWOR
 
 void CSearchResultsBox::OnPaint()
 {
-	CString strFormat, strText;
-	CPaintDC dc( this );
-	CRect rc;
-
+	CString strText, strFormat;
 	UINT nFlags = ETO_CLIPPED;
+
+	CPaintDC dc( this );
 	CDC* pDC = &dc;
 
+	CRect rc;
 	GetClientRect( &rc );
 
 	if ( m_bmWatermark.m_hObject )

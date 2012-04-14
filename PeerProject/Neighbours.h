@@ -33,6 +33,11 @@ public:
 	virtual ~CNeighbours();
 
 public:
+	CString GetName(const CNeighbour* pNeighbour) const;
+	CString GetAgent(const CNeighbour* pNeighbour) const;
+	CString GetNick(const CNeighbour* pNeighbour) const;
+	CString GetNeighbourList(LPCTSTR szFormat) const;
+
 	// Let CNeighbour and CShakeNeighbour look at private members of CNeighbours class
 	friend class CNeighbour;
 	friend class CShakeNeighbour;

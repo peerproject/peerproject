@@ -17,11 +17,14 @@
 //
 
 #include "StdAfx.h"
+#include "Settings.h"
 #include "PeerProject.h"
-#include "EDClient.h"
-#include "ChatSession.h"
 #include "ChatCore.h"
+#include "ChatSession.h"
 #include "Buffer.h"
+#include "EDClient.h"
+#include "DCNeighbour.h"
+#include "GProfile.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -49,33 +52,54 @@ CChatCore::~CChatCore()
 
 POSITION CChatCore::GetIterator() const
 {
-	//ASSUME_LOCK( m_pSection );
+	ASSUME_LOCK( m_pSection );
 	return m_pSessions.GetHeadPosition();
 }
 
 CChatSession* CChatCore::GetNext(POSITION& pos) const
 {
-	//ASSUME_LOCK( m_pSection );
+	ASSUME_LOCK( m_pSection );
 	return m_pSessions.GetNext( pos );
 }
 
 BOOL CChatCore::Check(CChatSession* pSession) const
 {
-	//ASSUME_LOCK( m_pSection );
+	ASSUME_LOCK( m_pSection );
 	return m_pSessions.Find( pSession ) != NULL;
 }
 
 //////////////////////////////////////////////////////////////////////
 // CChatCore accept new connections
 
-void CChatCore::OnAccept(CConnection* pConnection, PROTOCOLID nProtocol)
+BOOL CChatCore::OnAccept(CConnection* pConnection)
 {
+	if ( ! Settings.Community.ChatEnable || ! MyProfile.IsValid() )
+	{
+		theApp.Message( MSG_ERROR, _T("Rejecting incoming connection from %s, chat disabled."), (LPCTSTR)pConnection->m_sAddress );
+
+		pConnection->Write( _P("CHAT/0.2 503 Unavailable\r\n\r\n") );
+		pConnection->LogOutgoing();
+		pConnection->DelayClose( IDS_CONNECTION_CLOSED );
+		return TRUE;
+	}
+
 	CSingleLock pLock( &m_pSection );
-	if ( ! pLock.Lock( 250 ) ) return;
+	if ( pLock.Lock( 250 ) )
+	{
+		if ( CChatSession* pSession = new CChatSession( PROTOCOL_NULL ) )
+		{
+			pSession->AttachTo( pConnection );
+			return FALSE;
+		}
+		pLock.Unlock();
+	}
 
-	CChatSession* pSession = new CChatSession( nProtocol );
+	theApp.Message( MSG_ERROR, _T("Rejecting %s connection from %s, network core overloaded."), _T("chat"), (LPCTSTR)pConnection->m_sAddress );
 
-	pSession->AttachTo( pConnection );
+	pConnection->Write( _P("CHAT/0.2 503 Busy\r\n\r\n") );
+	pConnection->LogOutgoing();
+	pConnection->DelayClose( IDS_CONNECTION_CLOSED );
+	return TRUE;
 }
 
 BOOL CChatCore::OnPush(const Hashes::Guid& oGUID, CConnection* pConnection)
@@ -95,37 +119,54 @@ BOOL CChatCore::OnPush(const Hashes::Guid& oGUID, CConnection* pConnection)
 //////////////////////////////////////////////////////////////////////
 // CChatCore ED2K chat handling
 
-void CChatCore::OnED2KMessage(CEDClient* pClient, CEDPacket* pPacket)
+template<>
+CChatSession* CChatCore::FindSession< CDCNeighbour >(const CDCNeighbour* pClient, BOOL bCreate)
 {
-	ASSERT ( pClient != NULL );
-	// Note: Null packet is valid- in that case we have no pending message, but want to open a chat window.
+	ASSUME_LOCK( m_pSection );
 
-	CSingleLock pLock( &m_pSection );
-	if ( ! pLock.Lock( 250 ) ) return;
-
-	if ( CChatSession* pSession = FindSession( pClient, TRUE ) )
+	for ( POSITION pos = GetIterator() ; pos ; )
 	{
-		pSession->OnED2KMessage( pPacket );
+		CChatSession* pSession = GetNext( pos );
+
+		// Check if we already have a session
+		if ( pSession->m_pHost.sin_addr.s_addr == pClient->m_pHost.sin_addr.s_addr &&
+			 pSession->m_nProtocol == pClient->m_nProtocol )
+		{
+			// Update details
+			pSession->m_oGUID		= pClient->m_oGUID;
+			pSession->m_pHost		= pClient->m_pHost;
+			pSession->m_sAddress	= pClient->m_sAddress;
+			pSession->m_sNick		= pClient->m_sServerName;
+			pSession->m_sUserAgent	= pClient->m_sUserAgent;
+
+			// Return existing session
+			return pSession;
+		}
 	}
+
+	if ( ! bCreate )
+		return NULL;
+
+	// Create a new chat session
+	CChatSession* pSession = new CChatSession( pClient->m_nProtocol );
+	pSession->m_oGUID		= pClient->m_oGUID;
+	pSession->m_pHost		= pClient->m_pHost;
+	pSession->m_sAddress	= pClient->m_sAddress;
+	pSession->m_sNick		= pClient->m_sServerName;
+	pSession->m_sUserAgent	= pClient->m_sUserAgent;
+
+	// Make new input and output buffer objects
+	pSession->CreateBuffers();
+
+	pSession->MakeActive( FALSE );
+
+	return pSession;
 }
 
-void CChatCore::OnDropped(CEDClient* pClient)
+template<>
+CChatSession* CChatCore::FindSession< CEDClient >(const CEDClient* pClient, BOOL bCreate)
 {
-	ASSERT ( pClient != NULL );
-	// Note: Null packet is valid- in that case we have no pending message, but want to open a chat window.
-
-	CSingleLock pLock( &m_pSection );
-	if ( ! pLock.Lock( 250 ) ) return;
-
-	if ( CChatSession* pSession = FindSession( pClient, FALSE ) )
-	{
-		pSession->OnDropped();
-	}
-}
-
-CChatSession* CChatCore::FindSession(CEDClient* pClient, BOOL bCreate)
-{
-//	ASSUME_LOCK( m_pSection );
+	ASSUME_LOCK( m_pSection );
 
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
@@ -140,7 +181,7 @@ CChatSession* CChatCore::FindSession(CEDClient* pClient, BOOL bCreate)
 			pSession->m_oGUID		= pClient->m_oGUID;
 			pSession->m_pHost		= pClient->m_pHost;
 			pSession->m_sAddress	= pClient->m_sAddress;
-			pSession->m_sUserNick	= pClient->m_sNick;
+			pSession->m_sNick		= pClient->m_sNick;
 			pSession->m_sUserAgent	= pClient->m_sUserAgent;
 			pSession->m_bUnicode	= pClient->m_bEmUnicode;
 			pSession->m_nClientID	= pClient->m_nClientID;
@@ -159,26 +200,24 @@ CChatSession* CChatCore::FindSession(CEDClient* pClient, BOOL bCreate)
 	// Create a new chat session
 	CChatSession* pSession = new CChatSession( pClient->m_nProtocol );
 
-	pSession->m_nState		= cssActive;
-	pSession->m_bConnected	= TRUE;
-	pSession->m_tConnected	= GetTickCount();
-
-	// Set details
 	pSession->m_oGUID		= pClient->m_oGUID;
 	pSession->m_pHost		= pClient->m_pHost;
 	pSession->m_sAddress	= pClient->m_sAddress;
-	pSession->m_sUserNick	= pClient->m_sNick;
+	pSession->m_sNick		= pClient->m_sNick;
 	pSession->m_sUserAgent	= pClient->m_sUserAgent;
 	pSession->m_bUnicode	= pClient->m_bEmUnicode;
 	pSession->m_nClientID	= pClient->m_nClientID;
 	pSession->m_pServer		= pClient->m_pServer;
-
 	pSession->m_bMustPush	= ( pClient->m_nClientID > 0 && pClient->m_nClientID < 16777216 );
+
+	//pSession->m_nState	 = cssActive;
+	//pSession->m_bConnected = TRUE;
+	//pSession->m_tConnected = GetTickCount();
 
 	// Make new input and output buffer objects
 	pSession->CreateBuffers();
 
-	//pSession->MakeActive();	// ToDo:?
+	pSession->MakeActive();
 
 	return pSession;
 }

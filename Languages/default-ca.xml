@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Catalan Skin File -->
 
-<!-- Translation based on default-en.xml r76 -->
+<!-- Translation based on default-en.xml r77 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2955,6 +2955,7 @@
 	<string id="20505" value="Cap"/>
 	<string id="20506" value="Connectant"/>
 	<string id="20507" value="Actual:"/>
+	<string id="20509" value="DC++: Connexió Client-to-Hub"/>
 	<string id="20510" value="Connexió Servidor eDonkey"/>
 	<string id="20511" value="eDonkey (HighID)"/>
 	<string id="20512" value="Connexió Servidor eDonkey(LOWID: %lu)"/>
@@ -3465,20 +3466,24 @@
 		<control caption="Ajuda:"/>
 		<control caption="L'accès remot de PeerProject et permet deixar PeerProject executant-se al teu PC, i controlar-lo usant un navegador. Necessitaràs acceptar connexions entrants per a usar aquesta característica (ex: Configurar el teu router, etc)."/>
 	</dialog>
-	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Xarxes">
+	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="Xarxes">
 		<control caption="PeerProject té l'habilitat d'accedir a vàries xarxes de compartició d'arxius. En aquesta pàgina es poden seleccionar les xarxes que seràn usadas i ajustar les configuracions de les mateixes."/>
 		<control caption="Xarxa Gnutella2:"/>
 		<control caption="Gnutella2 és la Xarxa principal de PeerProject, aquesta ofereix el millor rendiment i funcions. Altament recomanada."/>
-		<control caption="Connecta a Gnutella2 (G2)"/>
+		<control caption="Mostra Gnutella2 (G2)"/>
 		<control caption="Configura Gnutella2"/>
 		<control caption="Xarxa original de Gnutella:"/>
 		<control caption="Aquesta xarxa té menys funcions i menys arxius que eDonkey, però pot seguir essent un recurs valuós."/>
-		<control caption="Connecta a Gnutella1"/>
+		<control caption="Mostra Gnutella (G1)"/>
 		<control caption="Configura Gnutella"/>
 		<control caption="Xarxa eDonkey:"/>
 		<control caption="La Xarxa de eDonkey és popular, i basada en servidors. No té tantes funcions com Gnutella2, però sí té una gran quantitat d'usuaris."/>
-		<control caption="Connecta a eDonkey2000 (ED2K)"/>
+		<control caption="Mostra eDonkey2000 (ED2K)"/>
 		<control caption="Configura eDonkey"/>
+		<control caption="Xarxa DC++:"/>
+		<control caption="La Xarxa de DC++ és popular, i basada en servidors. No té tantes funcions com Gnutella2, però sí té una gran quantitat d'usuaris."/>
+		<control caption="Mostra DC++ (DC)"/>
+		<control caption="Configura DC++"/>
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Xarxa Gnutella2:"/>
@@ -3535,6 +3540,21 @@
 		<control caption="_Eines d'eDonkey:"/>
 		<control caption="Descarrega..."/>
 		<control caption="Descarrega una llista de servidors de eDonkey de la web"/>
+	</dialog>
+	<dialog name="CDCSettingsPage" cookie="BuBuBuBuStEdmsStBuStBuBuSt" caption="DC++">
+		<control caption="Xarxa _DC++:"/>
+		<control caption="Connecta a DC++ ara"/>
+		<control caption="Connecta sempre a DC++ en l'inici"/>
+		<control caption="_Hubs:"/>
+		<control caption="Connect by default to:"/>
+		<control/>
+		<control/>
+		<control caption="DC++ hubs."/>
+		<control caption="_Info:"/>
+		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
+		<control caption="_Eines:"/>
+		<control caption="Descarrega..."/>
+		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Connexions de descàrrega:"/>

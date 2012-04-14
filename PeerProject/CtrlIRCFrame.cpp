@@ -266,7 +266,7 @@ void CIRCFrame::FillChanListCount(const CString& strUserCount, const CString& st
 
 	strCount.Format( _T("%d"), nCountWnd );
 	if ( ! bFound )
-		nList = wndChanList.InsertItem( wndChanList.GetItemCount() , strDisplay );
+		nList = wndChanList.InsertItem( wndChanList.GetItemCount(), strDisplay );
 	wndChanList.SetItemText( nList, 1, strCount );
 }
 
@@ -2390,11 +2390,10 @@ void CIRCFrame::OnClickTab(NMHDR* /*pNMHDR*/, LRESULT* pResult)
 	TabClick();
 }
 
+// Why? User list is sorted automatically...
 //void CIRCFrame::SortUserList()
 //{
-//	// Why? User list is sorted automatically...
-//
-//	int nCmpResult, nBiggest, nUser1 , nUser2;
+//	int nCmpResult, nBiggest, nUser1, nUser2;
 //	CString strUser1, strUser2;
 //	for ( nUser1 = 0 ; nUser1 < m_wndPanel.m_boxUsers.m_wndUserList.GetCount() ; nUser1++ )
 //	{
@@ -2551,7 +2550,8 @@ void CIRCFrame::OnRichDblClk(NMHDR* /*pNMHDR*/, LRESULT* pResult)
 		SetSelectedUser( nIndex );
 		UserListDblClick();
 	}
-	else if ( strText.Left( 1 ) == _T("#") && strText.GetLength() > 3 &&
+	else if ( strText[0] == _T('#') &&
+		strText.GetLength() > 3 &&
 		strText.Compare( GetTabText() ) != 0 )
 	{
 		int nTab = GetTabIndex( strText );
@@ -2573,29 +2573,42 @@ void CIRCFrame::OnRichDblClk(NMHDR* /*pNMHDR*/, LRESULT* pResult)
 		strText.Left( 8 ) == _T("https://") ||
 		strText.Left( 4 ) == _T("www.") ||
 		strText.Left( 7 ) == _T("HTTP://") ||
-		strText.Left( 4 ) == _T("WWW.") ||
-		strText.Mid( 1, 7 ) == _T("http://") ||
+		strText.Left( 4 ) == _T("WWW.") )
+	{
+		if ( strText[0] == _T('w') || strText[0] == _T('W') )
+			strText = _T("http://") + strText;
+
+		theApp.InternalURI( strText );
+	}
+	else if ( strText.Mid( 1, 7 ) == _T("http://") ||
 		strText.Mid( 1, 4 ) == _T("www.") )
 	{
-		if ( strText.Mid( 1, 7 ) == _T("http://") || strText.Mid( 1, 4 ) == _T("www.") )
-			strText = strText.Mid( 1 );
-		if ( strText.Left( 4 ) == _T("www.") || strText.Left( 4 ) == _T("WWW.") )
+		strText = strText.Mid( 1 );
+		if ( strText[0] == _T('w') )
 			strText = _T("http://") + strText;
 
 		theApp.InternalURI( strText );
 	}
 	else if ( strText.Left( 7 ) == _T("magnet:") ||
-		strText.Left( 4 ) == _T("ed2k:") ||
+		strText.Left( 5 ) == _T("ed2k:") ||
+		strText.Left( 3 ) == _T("g2:") ||
+		strText.Left( 9 ) == _T("gnutella:") ||
+		strText.Left( 6 ) == _T("dchub:") ||
 		strText.Left( 7 ) == _T("MAGNET:") ||
-		strText.Left( 4 ) == _T("ED2K:") ||
-		strText.Mid( 1, 7 ) == _T("magnet:") ||
-		strText.Mid( 1, 4 ) == _T("ed2k:") )
+		strText.Left( 5 ) == _T("ED2K:") )
 	{
-		if ( strText.Mid( 1, 7 ) == _T("magnet:") || strText.Mid( 1, 4 ) == _T("ed2k:") )
-			strText = strText.Mid( 1 );
+		theApp.InternalURI( strText );
+	}
+	else if ( strText.Mid( 1, 7 ) == _T("magnet:") ||
+		strText.Mid( 1, 5 ) == _T("ed2k:") ||
+		strText.Mid( 1, 3 ) == _T("g2:") ||
+		strText.Mid( 1, 9 ) == _T("gnutella:") )
+	{
+		strText = strText.Mid( 1 );
 
 		theApp.InternalURI( strText );
 	}
+
 	*pResult = 0;
 }
 

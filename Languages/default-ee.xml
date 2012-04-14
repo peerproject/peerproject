@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Estonian Skin File -->
 
-<!-- Translation based on default-en.xml r76 --> <!-- (Shareaza 2.2.2.9) -->
+<!-- Translation based on default-en.xml r77 --> <!-- (Shareaza 2.2.2.9) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2854,6 +2854,7 @@
 	<string id="20505" value="Ühtegi"/>
 	<string id="20506" value="Ühendan"/>
 	<string id="20507" value="Käesolev:"/>
+	<string id="20509" value="DC++: Client-to-Hub Ühendus"/>
 	<string id="20510" value="eDonkey2000 Server Ühendus"/>
 	<string id="20511" value="eDonkey2000 (HighID)"/>
 	<string id="20512" value="eDonkey Serveri Ühendus (LOWID: %lu)"/>
@@ -3353,20 +3354,24 @@
 		<control caption="Abi:"/>
 		<control caption="PeerProject Kaugtöö laseb sul jätta PeerProject tööle ja kontrollida seda eemalt, kasutades weebibrauserit.  Sa pead selle võimaluse kasutamiseks lubama sissetulevad ühendused (näiteks: seadistama ruuteri, jne.)."/>
 	</dialog>
-	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Võrgud">
+	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="Võrgud">
 		<control caption="PeerProject üldotstarbeline failijagamisprogramm, mis on suuteline ühenduma mitmesse P2P võrkku korraga.  Sellel lehel saad sa valida, millistesse P2P võrkudesse sa tahad ühendada ja siis iga võrgustiku seadeid muuta."/>
 		<control caption="Gnutella2 Võrgustik:"/>
 		<control caption="Gnutella2 võrk on PeerProject peamine töövõrk, pakkudes rohkem kohandamis võimalusi, kui ükski teine P2P programm.  Väga soovituslik."/>
-		<control caption="Ühenda Gnutella2 -te(G2)"/>
+		<control caption="Näita Gnutella2 -te(G2)"/>
 		<control caption="Seadista Gnutella2"/>
 		<control caption="Algupärane Gnutella Võrgustik:"/>
 		<control caption="Algupärane Gnutella võrk ei ole nii võimaluste rohke kui Gnutella2 ja omab vähem faile kui eDonkey2000 on see siiski arvestatav allikas failijagamiseks."/>
-		<control caption="Ühenda Gnutella (G1)"/>
+		<control caption="Näita Gnutella (G1)"/>
 		<control caption="Seadista Gnutella -te"/>
 		<control caption="eDonkey Võrgustik:"/>
-		<control caption="eDonkey on populaarne serveritel baseeruv võrgustik.  Kuigi, mitte nii võimaluste rohke kui Gnutella2 on eDonkey-l muljetavaldav failide valik."/>
-		<control caption="Ühenda eDonkey2000 -e (ED2K)"/>
+		<control caption="eDonkey on populaarne serveritel baseeruv võrgustik. Kuigi, mitte nii võimaluste rohke kui Gnutella2 on eDonkey-l muljetavaldav failide valik."/>
+		<control caption="Näita eDonkey2000 -e (ED2K)"/>
 		<control caption="Seadista eDonkey"/>
+		<control caption="DC++ Võrgustik:"/>
+		<control caption="DC++ on populaarne serveritel baseeruv võrgustik. Kuigi, mitte nii võimaluste rohke kui Gnutella2 on eDonkey-l muljetavaldav failide valik."/>
+		<control caption="Näita DC++ -e (DC)"/>
+		<control caption="Seadista DC++"/>
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Gnutella2 Võrgustik:"/>
@@ -3423,6 +3428,21 @@
 		<control caption="eDonkey _Tööriistad:"/>
 		<control caption="Tõmba..."/>
 		<control caption="Tõmba weebist eDonkey serverite nimekiri"/>
+	</dialog>
+	<dialog name="CDCSettingsPage" cookie="BuBuBuBuStEdmsStBuStBuBuSt" caption="DC++">
+		<control caption="_DC++ Võrgustik:"/>
+		<control caption="Connect to DC++ now"/>
+		<control caption="Connect to DC++ at startup"/>
+		<control caption="_Hubs:"/>
+		<control caption="Connect by default to:"/>
+		<control/>
+		<control/>
+		<control caption="DC++ hubs."/>
+		<control caption="_Info:"/>
+		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
+		<control caption="_Tööriistad:"/>
+		<control caption="Tõmba..."/>
+		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Allalaadimisühendused:"/>

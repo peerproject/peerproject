@@ -62,7 +62,8 @@ static char THIS_FILE[]=__FILE__;
 // CEDClient construction
 
 CEDClient::CEDClient()
-	: m_pEdPrev				( NULL )
+	: CTransfer				( PROTOCOL_ED2K )
+	, m_pEdPrev				( NULL )
 	, m_pEdNext				( NULL )
 
 	, m_nClientID			( 0ul )
@@ -304,16 +305,14 @@ void CEDClient::CopyCapabilities(CEDClient* pClient)
 //////////////////////////////////////////////////////////////////////
 // CEDClient send a packet
 
-void CEDClient::Send(CEDPacket* pPacket, BOOL bRelease)
+void CEDClient::Send(CPacket* pPacket, BOOL bRelease)
 {
 	if ( pPacket != NULL )
 	{
-		ASSERT( pPacket->m_nProtocol == PROTOCOL_ED2K );
-		ASSERT( pPacket->m_nEdProtocol == ED2K_PROTOCOL_EDONKEY || m_bEmule || pPacket->m_nType == ED2K_C2C_EMULEINFO );
-
 		if ( IsValid() )
 		{
 			pPacket->SmartDump( &m_pHost, FALSE, TRUE );
+
 			Write( pPacket );
 			OnWrite();
 		}
@@ -448,7 +447,7 @@ BOOL CEDClient::OnRun()
 		if ( m_bOpenChat )
 		{
 			// Open a chat window.
-			if ( Settings.Community.ChatEnable ) ChatCore.OnED2KMessage( this, NULL );
+			ChatCore.OnMessage( this );
 			m_bOpenChat = FALSE;
 		}
 		else if ( tNow > m_mInput.tLast + Settings.Connection.TimeoutTraffic &&
@@ -1678,17 +1677,12 @@ BOOL CEDClient::OnChatMessage(CEDPacket* pPacket)
 	if ( MessageFilter.IsFiltered( strMessage ) )
 		return TRUE;	// General spam filter (if enabled)
 
-	// Check chat settings.
-	if ( Settings.Community.ChatEnable && Settings.Community.ChatAllNetworks )
-	{
-		// Chat is enabled, open/update a chat window
-		ChatCore.OnED2KMessage( this, pPacket );
-	}
-	else
-	{
-		// Chat is disabled- don't open a chat window. Display in system window instead.
+	// Check chat settings to open/update a chat window
+	if ( Settings.Community.ChatEnable )	// && Settings.Community.ChatAllNetworks
+		ChatCore.OnMessage( this, pPacket );
+	else // Chat is disabled- don't open a chat window. Display in system window instead.
 		theApp.Message( MSG_INFO, _T("Message from %s: %s"), (LPCTSTR)m_sAddress, strMessage );
-	}
+
 	return TRUE;
 }
 
@@ -1715,7 +1709,7 @@ BOOL CEDClient::OnCaptchaRequest(CEDPacket* pPacket)
 	// Read image
 	DWORD nSize = pPacket->GetRemaining();
 	if ( nSize > 128 && nSize < 4096 )
-		ChatCore.OnED2KMessage( this, pPacket );
+		ChatCore.OnMessage( this, pPacket );
 	else
 		theApp.Message( MSG_ERROR, _T("Wrong CAPTHA request packet received from %s"), (LPCTSTR)m_sAddress );
 
@@ -1731,7 +1725,7 @@ BOOL CEDClient::OnCaptchaResult(CEDPacket* pPacket)
 		return TRUE;
 	}
 
-	ChatCore.OnED2KMessage( this, pPacket );
+	ChatCore.OnMessage( this, pPacket );
 
 	return TRUE;
 }

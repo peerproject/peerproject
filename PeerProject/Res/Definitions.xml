@@ -116,6 +116,8 @@
 	<resource code="212" id="IDI_FAVICON"/>
 	<resource code="214" id="IDI_INCOMING"/>
 	<resource code="215" id="IDI_OUTGOING"/>
+	<resource code="216" id="IDI_USER"/>
+	<resource code="218" id="IDI_USER_ME"/>
 	<!-- Bitmaps -->
 	<resource code="300" id="IDB_MENUBAR"/>
 	<resource code="306" id="IDB_PROTOCOLS"/>

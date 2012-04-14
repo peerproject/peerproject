@@ -149,12 +149,12 @@ void CURLCopyDlg::OnIncludeSelf()
 		}
 	}
 
-	if ( bIncludeSelf )
-	{
-		CString strURL = m_pFile->GetURL( Network.m_pHost.sin_addr, htons( Network.m_pHost.sin_port ) );
-		if ( ! strURL.IsEmpty() )
-			m_sMagnet += _T("&xs=") + URLEncode( strURL );
-	}
+	CString strSelf = bIncludeSelf ? m_pFile->GetURL( Network.m_pHost.sin_addr, htons( Network.m_pHost.sin_port ) ) : _T("");
+
+	if ( bIncludeSelf && ! strSelf.IsEmpty() )
+		m_sMagnet += _T("&xs=") + URLEncode( strSelf );
+	else if ( ! m_pFile->m_sURL.IsEmpty() )
+		m_sMagnet += _T("&xs=") + URLEncode( m_pFile->m_sURL );
 
 	if ( m_pFile->m_oSHA1 )
 	{
@@ -176,17 +176,15 @@ void CURLCopyDlg::OnIncludeSelf()
 		if ( bIncludeSelf )
 			m_sED2K += _T("|sources,") + HostToString( &Network.m_pHost ) + _T("|/");
 
-			//CString strURL2;	// Obsolete
-			//strURL2.Format ( _T("%s:%i"),
-			//		(LPCTSTR)CString( inet_ntoa( Network.m_pHost.sin_addr ) ),
-			//		htons( Network.m_pHost.sin_port ) );
-			//m_sED2K += _T("|sources,") + strURL2 + _T("|/");
+			//CString strURL;	// Obsolete
+			//strURL.Format( _T("%s:%i"), (LPCTSTR)CString( inet_ntoa( Network.m_pHost.sin_addr ) ), htons( Network.m_pHost.sin_port ) );
+			//m_sED2K += _T("|sources,") + strURL + _T("|/");
 	}
 
-	if ( ! m_pFile->m_sURL.IsEmpty() )
+	if ( bIncludeSelf )
+		m_sHost = strSelf;
+	else if ( ! m_pFile->m_sURL.IsEmpty() )
 		m_sHost = m_pFile->m_sURL;
-	else if ( bIncludeSelf )
-		m_sHost = m_pFile->GetURL( Network.m_pHost.sin_addr, htons( Network.m_pHost.sin_port ) );
 	else
 		m_sHost.Empty();
 
@@ -224,13 +222,12 @@ BOOL CURLCopyDlg::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 
 		if ( ! _tcsicmp( szName, _T("Static") ) && pWnd != &m_wndMessage )
 		{
-			CString strText;
 			CRect rc;
-
 			pWnd->GetWindowRect( &rc );
 
 			if ( rc.PtInRect( point ) )
 			{
+				CString strText;
 				pWnd->GetWindowText( strText );
 
 				if ( ! strText.IsEmpty() )

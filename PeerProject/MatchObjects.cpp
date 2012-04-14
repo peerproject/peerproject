@@ -1139,17 +1139,16 @@ void CMatchList::ClearNew()
 //////////////////////////////////////////////////////////////////////
 // CMatchList serialize
 
-#define MATCHLIST_SER_VERSION	1000	// 14
+//#define MATCHLIST_SER_VERSION	1000	// 15	// MatchObjects.h
 // nVersion History:
 // 12 - Shareaza 2.2 (Rolandas)
 // 13 - Shareaza 2.3 (ryo-oh-ki)
 // 14 - Shareaza 2.4 (ryo-oh-ki)
-// 1000 - (PeerProject 1.0) (14)
+// 15 - Added CQueryHit::m_sNick for DC++ hits (ryo-oh-ki) (Shareaza 2.5.5.0)
+// 1000 - (PeerProject 1.0) (15)
 
-void CMatchList::Serialize(CArchive& ar)
+void CMatchList::Serialize(CArchive& ar, int nVersion)
 {
-	int nVersion = MATCHLIST_SER_VERSION;	// ToDo: INTERNAL_VERSION ?
-
 	if ( ar.IsStoring() )
 	{
 		ar << nVersion;
@@ -2089,7 +2088,7 @@ CString CMatchFile::GetURN() const
 //////////////////////////////////////////////////////////////////////
 // CMatchFile serialize
 
-void CMatchFile::Serialize(CArchive& ar, int nVersion)
+void CMatchFile::Serialize(CArchive& ar, int nVersion)	// MATCHLIST_SER_VERSION
 {
 	if ( ar.IsStoring() )
 	{
@@ -2487,12 +2486,12 @@ void CMatchFile::GetStatusTip( CString& sStatus, COLORREF& crStatus)
 			if ( pExisting->IsAvailable() )
 			{
 				LoadString( sStatus, IDS_TIP_EXISTS_LIBRARY );
-				crStatus = Colors.m_crTextStatus ;
+				crStatus = Colors.m_crTextStatus;
 			}
 			else
 			{
 				LoadString( sStatus, IDS_TIP_EXISTS_DELETED );
-				crStatus = Colors.m_crTextAlert ;
+				crStatus = Colors.m_crTextAlert;
 
 				if ( ! pExisting->m_sComments.IsEmpty() )
 				{
@@ -2522,12 +2521,12 @@ void CMatchFile::GetStatusTip( CString& sStatus, COLORREF& crStatus)
 	else if ( m_bDownload || m_pBest->m_bDownload )
 	{
 		LoadString( sStatus, IDS_TIP_EXISTS_DOWNLOAD );
-		crStatus = Colors.m_crSearchQueued ;
+		crStatus = Colors.m_crSearchQueued;
 	}
 	else if ( m_pBest->m_bBogus || ! m_bOneValid )
 	{
 		LoadString( sStatus, IDS_TIP_BOGUS );
-		crStatus = Colors.m_crTextAlert ;
+		crStatus = Colors.m_crTextAlert;
 	}
 }
 

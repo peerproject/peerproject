@@ -901,7 +901,7 @@ void CMediaFrame::OnLButtonDown(UINT nFlags, CPoint point)
 	GetClientRect( &rcClient );
 	if ( theApp.m_bMenuWasVisible )
 	{
-		theApp.m_bMenuWasVisible = FALSE ;
+		theApp.m_bMenuWasVisible = FALSE;
 		return;
 	}
 	if ( m_bListVisible )
@@ -1825,7 +1825,7 @@ void CMediaFrame::UpdateState()
 		if ( m_pPlayer ) m_pPlayer->GetPosition( &m_nPosition );
 		const int nPosition = (int)( m_nPosition / TIME_FACTOR );
 
-		if ( ! m_wndPosition.IsWindowEnabled() ) 
+		if ( ! m_wndPosition.IsWindowEnabled() )
 			m_wndPosition.EnableWindow( TRUE );
 		m_wndPosition.SetRangeMax( nLength );
 		m_wndPosition.SetPos( nPosition );

@@ -70,7 +70,7 @@ BOOL CDecodeMetadataDlg::OnInitDialog()
 {
 	CSkinDialog::OnInitDialog();
 
-	SkinMe( _T("CDecodeMetadataDlg"), IDI_WORLD );
+	SkinMe( _T("CDecodeMetadataDlg"), ID_TOOLS_LANGUAGE );	// IDI_WORLD
 
 	UINT nID = GetACP();
 	for ( int i = 0 ; i < _countof( codePages ) ; ++i )
