@@ -1,7 +1,7 @@
 //
 // WndHome.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -104,8 +104,8 @@ void CHomeWnd::OnSize(UINT nType, int cx, int cy)
 {
 	CPanelWnd::OnSize( nType, cx, cy );
 
-	if ( m_wndPanel.m_hWnd ) m_wndPanel.SetWindowPos( NULL, 0, 0, Skin.m_nSidebarWidth, cy, SWP_NOZORDER );
-	if ( m_wndView.m_hWnd )  m_wndView.SetWindowPos( NULL, Skin.m_nSidebarWidth, 0, cx - Skin.m_nSidebarWidth, cy, SWP_NOZORDER|SWP_SHOWWINDOW );
+	if ( m_wndPanel.m_hWnd ) m_wndPanel.SetWindowPos( NULL, 0, 0, Settings.Skin.SidebarWidth, cy, SWP_NOZORDER );
+	if ( m_wndView.m_hWnd )  m_wndView.SetWindowPos( NULL, Settings.Skin.SidebarWidth, 0, cx - Settings.Skin.SidebarWidth, cy, SWP_NOZORDER|SWP_SHOWWINDOW );
 }
 
 void CHomeWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)

@@ -1,7 +1,7 @@
 //
 // Object.cpp : Implementation of CWebHook
 //
-// This file is part of PeerProject (peerproject.org) © 2009
+// This file is part of PeerProject (peerproject.org) © 2009,2012
 // Portions Copyright Shareaza Development Team, 2009.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -131,7 +131,7 @@ STDMETHODIMP CWebHook::Invoke(
 				ATLASSERT( pDispParams->rgvarg[ 5 ].pvarVal->vt == VT_BSTR );
 				BSTR& bstrURL = pDispParams->rgvarg[ 5 ].pvarVal->bstrVal;
 
-				ATLTRACE( _T("[Raza Web Hook] Before navigate: %s\n"), bstrURL );
+				ATLTRACE( "[Web Hook] Before navigate: %s\n", bstrURL );
 				m_sURL.Empty();
 
 				CString sURL( bstrURL );
@@ -160,7 +160,7 @@ STDMETHODIMP CWebHook::Invoke(
 
 				if ( ! m_sURL.IsEmpty() )
 				{
-					ATLTRACE( _T("[Raza Web Hook] File download: %s\n"), m_sURL );
+					ATLTRACE( "[Web Hook] File download: %s\n", m_sURL );
 					AddLink( m_sURL );
 					m_sURL.Empty();
 					*pCancel = VARIANT_TRUE;
@@ -191,7 +191,7 @@ STDMETHODIMP CWebHook::AddLink(
 {
 	if ( oLink.vt == VT_BSTR )
 	{
-		ATLTRACE( _T("[Raza Web Hook] Menu call: %s\n"), (LPCTSTR)oLink.bstrVal );
+		ATLTRACE( "[Web Hook] Menu call: %s\n", (LPCTSTR)oLink.bstrVal );
 		AddLink( CString( oLink.bstrVal ) );
 	}
 	return S_OK;

@@ -38,7 +38,7 @@ static char THIS_FILE[]=__FILE__;
 #endif	// Filename
 
 // ToDo: Make these skinnable options ?
-//#define SPLIT_SIZE	6				// Skin.m_nSplitter
+//#define SPLIT_SIZE	6				// Settings.Skin.Splitter
 #define HEADER_HEIGHT	17
 #define STATUS_HEIGHT	18
 #define SIZE_INTERNAL	1982
@@ -423,23 +423,23 @@ void CMediaFrame::OnSize(UINT nType, int cx, int cy)
 
 	if ( rc.Width() < 32 || rc.Height() < 32 ) return;
 
-	if ( rc.Width() < m_nListSize + Skin.m_nSplitter )
-		m_nListSize = max( 0, rc.Width() - Skin.m_nSplitter );
+	if ( rc.Width() < m_nListSize + Settings.Skin.Splitter )
+		m_nListSize = max( 0, rc.Width() - (int)Settings.Skin.Splitter );
 
 	if ( m_bListVisible || ! m_bFullScreen )
 	{
-		rc.bottom -= Skin.m_nToolbarHeight;
+		rc.bottom -= Settings.Skin.ToolbarHeight;
 		m_wndToolBar.SetWindowPos( NULL, rc.left, rc.bottom, rc.Width(),
-			Skin.m_nToolbarHeight, SWP_NOZORDER|SWP_SHOWWINDOW );
+			Settings.Skin.ToolbarHeight, SWP_NOZORDER|SWP_SHOWWINDOW );
 
 		if ( m_bListVisible )
 		{
 			rc.right -= m_nListSize;
 			m_wndList.SetWindowPos( NULL, rc.right, rc.top + HEADER_HEIGHT, m_nListSize,
-				rc.bottom - Skin.m_nToolbarHeight - HEADER_HEIGHT, SWP_NOZORDER|SWP_SHOWWINDOW );
-			m_wndListBar.SetWindowPos( NULL, rc.right, rc.bottom - Skin.m_nToolbarHeight,
-				m_nListSize, Skin.m_nToolbarHeight, SWP_NOZORDER|SWP_SHOWWINDOW );
-			rc.right -= Skin.m_nSplitter;
+				rc.bottom - Settings.Skin.ToolbarHeight - HEADER_HEIGHT, SWP_NOZORDER|SWP_SHOWWINDOW );
+			m_wndListBar.SetWindowPos( NULL, rc.right, rc.bottom - Settings.Skin.ToolbarHeight,
+				m_nListSize, Settings.Skin.ToolbarHeight, SWP_NOZORDER|SWP_SHOWWINDOW );
+			rc.right -= Settings.Skin.Splitter;
 		}
 		else if ( m_wndList.IsWindowVisible() )
 		{
@@ -456,11 +456,11 @@ void CMediaFrame::OnSize(UINT nType, int cx, int cy)
 		}
 
 		DWORD tElapse = GetTickCount() - m_tBarTime;
-		int nBar = Skin.m_nToolbarHeight;
+		int nBar = Settings.Skin.ToolbarHeight;
 
 		if ( tElapse < TOOLBAR_STICK )
 		{
-			nBar = Skin.m_nToolbarHeight;
+			nBar = Settings.Skin.ToolbarHeight;
 		}
 		else if ( tElapse > TOOLBAR_STICK + TOOLBAR_ANIMATE )
 		{
@@ -471,11 +471,11 @@ void CMediaFrame::OnSize(UINT nType, int cx, int cy)
 		else
 		{
 			tElapse -= TOOLBAR_STICK;
-			nBar = Skin.m_nToolbarHeight - ( tElapse * Skin.m_nToolbarHeight / TOOLBAR_ANIMATE );
+			nBar = Settings.Skin.ToolbarHeight - ( tElapse * Settings.Skin.ToolbarHeight / TOOLBAR_ANIMATE );
 		}
 
 		m_wndToolBar.SetWindowPos( NULL, rc.left, rc.bottom - nBar, rc.Width(),
-			Skin.m_nToolbarHeight, SWP_NOZORDER|SWP_SHOWWINDOW );
+			Settings.Skin.ToolbarHeight, SWP_NOZORDER|SWP_SHOWWINDOW );
 	}
 
 	if ( m_bStatusVisible )
@@ -528,7 +528,7 @@ void CMediaFrame::OnPaint()
 
 	if ( m_bListVisible )
 	{
-		CRect rcBar( rcClient.right - m_nListSize - Skin.m_nSplitter,
+		CRect rcBar( rcClient.right - m_nListSize - Settings.Skin.Splitter,
 					 rcClient.top,
 					 rcClient.right - m_nListSize,
 					 rcClient.bottom );
@@ -869,11 +869,11 @@ BOOL CMediaFrame::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 		ClientToScreen( &rcClient );
 
 		rc.SetRect(	Settings.General.LanguageRTL ? rcClient.left + m_nListSize :
-					rcClient.right - m_nListSize - Skin.m_nSplitter,
+					rcClient.right - m_nListSize - Settings.Skin.Splitter,
 					rcClient.top,
-					Settings.General.LanguageRTL ? rcClient.left + m_nListSize + Skin.m_nSplitter :
+					Settings.General.LanguageRTL ? rcClient.left + m_nListSize + Settings.Skin.Splitter :
 					rcClient.right - m_nListSize,
-					rcClient.bottom - Skin.m_nToolbarHeight );
+					rcClient.bottom - Settings.Skin.ToolbarHeight );
 
 		if ( rc.PtInRect( point ) )
 		{
@@ -906,7 +906,7 @@ void CMediaFrame::OnLButtonDown(UINT nFlags, CPoint point)
 	}
 	if ( m_bListVisible )
 	{
-		CRect rcBar(	rcClient.right - m_nListSize - Skin.m_nSplitter,
+		CRect rcBar(	rcClient.right - m_nListSize - Settings.Skin.Splitter,
 						rcClient.top,
 						rcClient.right - m_nListSize,
 						rcClient.bottom );
@@ -919,15 +919,15 @@ void CMediaFrame::OnLButtonDown(UINT nFlags, CPoint point)
 	}
 
 	if ( ( m_bFullScreen && point.y <= STATUS_HEIGHT ) ||
-		 ( ! m_bFullScreen && point.y >= rcClient.bottom - STATUS_HEIGHT - Skin.m_nToolbarHeight ) )
+		 ( ! m_bFullScreen && point.y >= rcClient.bottom - STATUS_HEIGHT - Settings.Skin.ToolbarHeight ) )
 	{
 		OnMediaStatus();
 		return;
 	}
 
-	CRect rcSenseLess(	rcClient.right - m_nListSize - Skin.m_nSplitter - 30,
+	CRect rcSenseLess(	rcClient.right - m_nListSize - Settings.Skin.Splitter - 30,
 						rcClient.top,
-						rcClient.right - m_nListSize - Skin.m_nSplitter,
+						rcClient.right - m_nListSize - Settings.Skin.Splitter,
 						rcClient.bottom );
 
 	if ( rcSenseLess.PtInRect( point ) )
@@ -988,12 +988,12 @@ BOOL CMediaFrame::DoSizeList()
 		nSplit += nOffset;
 
 		nSplit = max( nSplit, 0 );
-		nSplit = min( nSplit, rcClient.right - Skin.m_nSplitter );
+		nSplit = min( nSplit, rcClient.right - (int)Settings.Skin.Splitter );
 
 		if ( nSplit < 8 )
 			nSplit = 0;
-		if ( nSplit > rcClient.right - Skin.m_nSplitter - 8 )
-			nSplit = rcClient.right - Skin.m_nSplitter;
+		if ( nSplit > rcClient.right - Settings.Skin.Splitter - 8 )
+			nSplit = rcClient.right - Settings.Skin.Splitter;
 
 		if ( nSplit != m_nListSize )
 		{

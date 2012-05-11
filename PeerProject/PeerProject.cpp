@@ -142,7 +142,7 @@ void CAppCommandLineInfo::ParseParam(const TCHAR* pszParam, BOOL bFlag, BOOL bLa
 			m_sTask = pszParam + 4;
 			return;
 		}
-		if ( ! _tcsicmp( pszParam, _T("help") ) || ! _tcsicmp( pszParam, _T("?") ) )
+		if ( ! _tcsicmp( pszParam, _T("help") ) || *pszParam == '?' )
 		{
 			m_bHelp = TRUE;
 			return;
@@ -210,6 +210,9 @@ CPeerProjectApp::CPeerProjectApp()
 	, m_pfnSHGetFolderPathW 	( NULL )
 	, m_pfnSHGetKnownFolderPath	( NULL )
 	, m_pfnSHQueryUserNotificationState	( NULL )
+	, m_pfnSHCreateItemFromParsingName  ( NULL )
+	, m_pfnSetCurrentProcessExplicitAppUserModelID ( NULL )
+	, m_pfnSHGetImageList		( NULL )
 
 	, m_hUser32					( NULL )
 	, m_pfnChangeWindowMessageFilter ( NULL )
@@ -228,10 +231,6 @@ CPeerProjectApp::CPeerProjectApp()
 
 	ZeroMemory( m_nVersion, sizeof( m_nVersion ) );
 	ZeroMemory( m_pBTVersion, sizeof( m_pBTVersion ) );
-
-#if defined(_MSC_VER) && (_MSC_VER >= 1500)	// No VS2005
-	AfxSetPerUserRegistration( TRUE );
-#endif
 
 // BugTrap (www.intellesoft.net)
 #ifdef _DEBUG
@@ -276,11 +275,12 @@ BOOL CPeerProjectApp::InitInstance()
 
 //	m_pFontManager = new CFontManager();
 //	AfxEnableControlContainer( m_pFontManager );
-	AfxEnableControlContainer();
+	AfxEnableControlContainer();			// Enable support for containment of OLE controls.
 
 	LoadStdProfileSettings();
 	EnableShellOpen();
 //	RegisterShellFileTypes();
+//	Register();					// Re-register PeerProject Type Library (In Splash)
 
 	AfxOleRegisterTypeLib( AfxGetInstanceHandle(), _tlid );
 	COleTemplateServer::RegisterAll();
@@ -297,7 +297,7 @@ BOOL CPeerProjectApp::InitInstance()
 //		m_pMutex = NULL;
 //
 //		// Show first instance instead
-//		if ( CWnd* pWnd = CWnd::FindWindow( _T("PeerProjectMainWnd"), NULL ) )
+//		if ( CWnd* pWnd = CWnd::FindWindow( CLIENT_HWND, NULL ) )	// _T("PeerProjectMainWnd")
 //		{
 //			pWnd->SendMessage( WM_SYSCOMMAND, SC_RESTORE );
 //			pWnd->ShowWindow( SW_SHOWNORMAL );
@@ -308,8 +308,26 @@ BOOL CPeerProjectApp::InitInstance()
 //	}
 //	// else only app instance, continue.
 
+	if ( m_pfnSetCurrentProcessExplicitAppUserModelID )
+		m_pfnSetCurrentProcessExplicitAppUserModelID( CLIENT_NAME );
+
 	if ( m_pfnRegisterApplicationRestart )
 		m_pfnRegisterApplicationRestart( _T("-nowarn"), 0 );
+
+	// Test and (re)register plugins
+	CComPtr< IUnknown > pTest( Plugins.GetPlugin( _T("ImageService"), _T(".png") ) );
+	if ( ! pTest || Settings.Live.FirstRun )
+	{
+		pTest.Release();
+		BOOL bReg = Plugins.Register( Settings.General.Path );
+		bReg &= Plugins.Register( Settings.General.Path + _T("\\Plugins" ) );
+		if ( ! bReg )
+		{
+			CString strPath = m_strBinaryPath.Left( m_strBinaryPath.ReverseFind( _T('\\') ) );
+			Plugins.Register( strPath );
+			Plugins.Register( strPath + _T("\\Plugins" ) );
+		}
+	}
 
 	ShowStartupText();
 
@@ -376,9 +394,6 @@ BOOL CPeerProjectApp::InitInstance()
 		if ( Settings.General.GUIMode != GUI_WINDOWED && Settings.General.GUIMode != GUI_TABBED && Settings.General.GUIMode != GUI_BASIC )
 			Settings.General.GUIMode = GUI_TABBED;
 
-		if ( Settings.Live.FirstRun )
-			Plugins.Register();
-
 		DDEServer.Create();
 		IEProtocol.Create();
 
@@ -398,8 +413,8 @@ BOOL CPeerProjectApp::InitInstance()
 		//	WSACleanup();
 		//}
 
-	SplashStep( L"P2P URIs" );
-		CPeerProjectURL::Register( TRUE );
+	SplashStep( L"Register" );
+		Register();		// CPeerProjectURL::Register( TRUE )
 	SplashStep( L"Profile" );
 		MyProfile.Load();
 	SplashStep( L"Vendor Data" );
@@ -620,6 +635,7 @@ int CPeerProjectApp::ExitInstance()
 		SplashStep( L"Finalizing" );
 		Downloads.Clear( true );
 		Library.Clear();
+		HostCache.Clear();
 		CoolMenu.Clear();
 		Skin.Clear();
 
@@ -757,7 +773,9 @@ BOOL CPeerProjectApp::ParseCommandLine()
 		return FALSE;
 	}
 
-//	AfxSetPerUserRegistration( m_cmdInfo.m_bRegisterPerUser || ! IsRunAsAdmin() );
+#if defined(_MSC_VER) && (_MSC_VER >= 1500)	// No VS2005
+	AfxSetPerUserRegistration( m_cmdInfo.m_bRegisterPerUser || ! IsRunAsAdmin() );
+#endif
 
 	if ( m_cmdInfo.m_nShellCommand == CCommandLineInfo::AppUnregister ||
 		 m_cmdInfo.m_nShellCommand == CCommandLineInfo::AppRegister )
@@ -772,7 +790,7 @@ BOOL CPeerProjectApp::ParseCommandLine()
 	HWND hWndPrior = NULL;
 	for (;;)	// Loop if "wait"
 	{
-		m_pMutex = CreateMutex( NULL, FALSE, _T("Global\\PeerProject") );	//CLIENT_NAME
+		m_pMutex = CreateMutex( NULL, FALSE, _T("Global\\PeerProject") );	// CLIENT_NAME
 
 		if ( m_pMutex == NULL )
 		{
@@ -790,11 +808,11 @@ BOOL CPeerProjectApp::ParseCommandLine()
 		{
 			CloseHandle( m_pMutex );
 			m_pMutex = NULL;
-			hWndPrior = FindWindow( _T("PeerProjectMainWnd"), NULL );
+			hWndPrior = FindWindow( CLIENT_HWND, NULL );	// "PeerProjectMainWnd"
 		}
 		// else we are first instance
 
-		if ( ! m_cmdInfo.m_bWait || ! hWndPrior || m_pMutex == NULL )
+		if ( ! m_cmdInfo.m_bWait || ! hWndPrior )
 			break;
 
 		Sleep( 500 );	// Wait for first instance exit, and try again
@@ -846,12 +864,58 @@ BOOL CPeerProjectApp::Register()
 	COleObjectFactory::UpdateRegistryAll();
 	AfxOleRegisterTypeLib( AfxGetInstanceHandle(), LIBID_PeerProject );
 
+	CPeerProjectURL::Register( TRUE, TRUE );
+
+	// See http://msdn.microsoft.com/en-us/gg465010 for TaskBar
+//	if ( theApp.m_bWinVer >= WIN_7 )
+//	{
+//#if defined(_MSC_VER) && (_MSC_VER >= 1600)
+//		// For VS2010:
+//		//	CJumpList oTasks;
+//		//	oTasks.ClearAllDestinations();
+//		//	oTasks.AddKnownCategory( KDC_RECENT );
+//		//	oTasks.AddTask( _T("peerproject:command:search"), _T(""), LoadString( IDS_SEARCH_TASK ) + _T("..."), theApp.m_strBinaryPath, - IDR_SEARCHFRAME );
+//		//	oTasks.AddTask( _T("peerproject:command:download"), _T(""), LoadString( IDS_DOWNLOAD_TASK ) + _T("..."), theApp.m_strBinaryPath, - IDR_DOWNLOADSFRAME );
+//#else
+//		// For VS2008:
+//		CComPtr< ICustomDestinationList > pList;
+//		if ( SUCCEEDED( pList.CoCreateInstance( CLSID_DestinationList ) ) )
+//		{
+//			VERIFY( SUCCEEDED( pList->SetAppID( CLIENT_NAME ) ) );
+//			UINT nMinSlots;
+//			CComPtr< IObjectArray > pRemoved;
+//			VERIFY( SUCCEEDED( pList->BeginList( &nMinSlots, IID_IObjectArray, (LPVOID*)&pRemoved ) ) );
+//			VERIFY( SUCCEEDED( pList->AppendKnownCategory( KDC_RECENT ) ) );
+//
+//			CComPtr< IObjectCollection > pTasks;
+//			if ( SUCCEEDED( pTasks.CoCreateInstance( CLSID_EnumerableObjectCollection ) ) )
+//			{
+//				CComPtr< IShellLink > pSearch = CreateShellLink( _T("peerproject:command:search"), _T(""),
+//					LoadString( IDS_SEARCH_TASK ) + _T("..."), theApp.m_strBinaryPath, - IDR_SEARCHFRAME, _T("") );
+//				ASSERT( pSearch );
+//				if ( pSearch )
+//					VERIFY( SUCCEEDED( pTasks->AddObject( pSearch ) ) );
+//
+//				CComPtr< IShellLink > pDownload = CreateShellLink( _T("peerproject:command:download"), _T(""),
+//					LoadString( IDS_DOWNLOAD_TASK ) + _T("..."), theApp.m_strBinaryPath, - IDR_DOWNLOADSFRAME, _T("") );
+//				ASSERT( pDownload );
+//				if ( pDownload )
+//					VERIFY( SUCCEEDED( pTasks->AddObject( pDownload ) ) );
+//
+//				VERIFY( SUCCEEDED( pList->AddUserTasks( pTasks ) ) );
+//			}
+//
+//			VERIFY( SUCCEEDED( pList->CommitList() ) );
+//		}
+//#endif
+//	}
+
 	return CWinApp::Register();
 }
 
 BOOL CPeerProjectApp::Unregister()
 {
-	CPeerProjectURL::Register( /*FALSE,*/ TRUE );
+	CPeerProjectURL::Register( FALSE, TRUE );
 
 	AfxOleUnregisterTypeLib( LIBID_PeerProject );
 	AfxOleUnregisterTypeLib( LIBID_PeerProject );
@@ -952,12 +1016,14 @@ BOOL CPeerProjectApp::OpenImport(LPCTSTR lpszFileName)
 {
 	//return HostCache.Import( lpszFileName );	// Obsolete
 
+	AddToRecentFileList( lpszFileName );
+
 	const size_t nLen = _tcslen( lpszFileName ) + 1;
-	auto_array< TCHAR > pszPath( new TCHAR[ nLen ] );
-	if ( pszPath.get() )
+	CAutoVectorPtr< TCHAR > pszPath( new TCHAR[ nLen ] );
+	if ( pszPath )
 	{
-		_tcscpy_s( pszPath.get(), nLen, lpszFileName );
-		if ( PostMainWndMessage( WM_IMPORT, (WPARAM)pszPath.release() ) )
+		_tcscpy_s( pszPath, nLen, lpszFileName );
+		if ( PostMainWndMessage( WM_IMPORT, (WPARAM)pszPath.Detach() ) )
 			return TRUE;
 	}
 
@@ -966,17 +1032,22 @@ BOOL CPeerProjectApp::OpenImport(LPCTSTR lpszFileName)
 
 BOOL CPeerProjectApp::OpenShellShortcut(LPCTSTR lpszFileName)
 {
-	CString sPath( ResolveShortcut( lpszFileName ) );
-	return ! sPath.IsEmpty() && Open( sPath );
+	CString strPath( ResolveShortcut( lpszFileName ) );
+	return ! strPath.IsEmpty() && Open( strPath );
 }
 
 BOOL CPeerProjectApp::OpenInternetShortcut(LPCTSTR lpszFileName)
 {
-	CString sURL;
+	CString strURL;
 	BOOL bResult = ( GetPrivateProfileString( _T("InternetShortcut"), _T("URL"),
-		_T(""), sURL.GetBuffer( MAX_PATH ), MAX_PATH, lpszFileName ) > 3 );
-	sURL.ReleaseBuffer();
-	return bResult && ! sURL.IsEmpty() && OpenURL( sURL );
+		_T(""), strURL.GetBuffer( MAX_PATH ), MAX_PATH, lpszFileName ) > 3 );
+	strURL.ReleaseBuffer();
+	if ( ! bResult || strURL.IsEmpty() )
+		return FALSE;
+
+	AddToRecentFileList( lpszFileName );
+
+	return OpenURL( strURL );
 }
 
 BOOL CPeerProjectApp::OpenTorrent(LPCTSTR lpszFileName)
@@ -986,13 +1057,15 @@ BOOL CPeerProjectApp::OpenTorrent(LPCTSTR lpszFileName)
 	//if ( ! pTorrent.get() ) return FALSE;
 	//if ( ! pTorrent->LoadTorrentFile( lpszFileName ) ) return FALSE;
 
+	AddToRecentFileList( lpszFileName );
+
 	// Open torrent
 	const size_t nLen = _tcslen( lpszFileName ) + 1;
-	auto_array< TCHAR > pszPath( new TCHAR[ nLen ] );
-	if ( pszPath.get() )
+	CAutoVectorPtr< TCHAR > pszPath( new TCHAR[ nLen ] );
+	if ( pszPath )
 	{
-		_tcscpy_s( pszPath.get(), nLen, lpszFileName );
-		if ( PostMainWndMessage( WM_TORRENT, (WPARAM)pszPath.release() ) )
+		_tcscpy_s( pszPath, nLen, lpszFileName );
+		if ( PostMainWndMessage( WM_TORRENT, (WPARAM)pszPath.Detach() ) )
 			return TRUE;
 	}
 
@@ -1001,12 +1074,14 @@ BOOL CPeerProjectApp::OpenTorrent(LPCTSTR lpszFileName)
 
 BOOL CPeerProjectApp::OpenCollection(LPCTSTR lpszFileName)
 {
+	AddToRecentFileList( lpszFileName );
+
 	const size_t nLen = _tcslen( lpszFileName ) + 1;
-	auto_array< TCHAR > pszPath( new TCHAR[ nLen ] );
-	if ( pszPath.get() )
+	CAutoVectorPtr< TCHAR > pszPath( new TCHAR[ nLen ] );
+	if ( pszPath )
 	{
-		_tcscpy_s( pszPath.get(), nLen, lpszFileName );
-		if ( PostMainWndMessage( WM_COLLECTION, (WPARAM)pszPath.release() ) )
+		_tcscpy_s( pszPath, nLen, lpszFileName );
+		if ( PostMainWndMessage( WM_COLLECTION, (WPARAM)pszPath.Detach() ) )
 			return TRUE;
 	}
 
@@ -1018,10 +1093,23 @@ BOOL CPeerProjectApp::OpenURL(LPCTSTR lpszFileName, BOOL bSilent)
 	if ( ! bSilent )
 		theApp.Message( MSG_NOTICE, IDS_URL_RECEIVED, lpszFileName );
 
-	auto_ptr< CPeerProjectURL > pURL( new CPeerProjectURL() );
-	if ( pURL.get() && pURL->Parse( lpszFileName ) )
+	CAutoPtr< CPeerProjectURL > pURL( new CPeerProjectURL() );
+	if ( pURL && pURL->Parse( lpszFileName ) )
 	{
-		PostMainWndMessage( WM_URL, (WPARAM)pURL.release() );
+		// "command:download" or "command:search" or ToDo: Others?
+		if ( pURL->m_nAction == CPeerProjectURL::uriCommand )
+		{
+			if ( pURL->m_sName == _T("download") )
+				PostMainWndMessage( WM_COMMAND, ID_TOOLS_DOWNLOAD );
+			else if ( pURL->m_sName == _T("search") )
+				PostMainWndMessage( WM_COMMAND, ID_NETWORK_SEARCH );
+			else
+				return FALSE;
+		}
+		else
+		{
+			PostMainWndMessage( WM_URL, (WPARAM)pURL.Detach() );
+		}
 		return TRUE;
 	}
 
@@ -1313,6 +1401,8 @@ void CPeerProjectApp::InitResources()
 		(FARPROC&)m_pfnSHGetKnownFolderPath = GetProcAddress( m_hShell32, "SHGetKnownFolderPath" );						// Vista+	SHGetKnownFolderPath()
 		(FARPROC&)m_pfnSHQueryUserNotificationState = GetProcAddress( m_hShell32, "SHQueryUserNotificationState" );		// Vista+	SHQueryUserNotificationState() for IsUserFullscreen()
 		(FARPROC&)m_pfnSHCreateItemFromParsingName = GetProcAddress( m_hShell32, "SHCreateItemFromParsingName" );		// Vista+	SHCreateItemFromParsingName() for CLibraryFolders::Maintain() (Win7 Libraries)
+		(FARPROC&)m_pfnSetCurrentProcessExplicitAppUserModelID = GetProcAddress( m_hShell32, "SetCurrentProcessExplicitAppUserModelID" );
+		(FARPROC&)m_pfnSHGetImageList = GetProcAddress( m_hShell32, MAKEINTRESOURCEA(727) );							// WinXP+	SHGetImageList() for CShellIcons::Get()
 	}
 
 	if ( ( m_hUser32 = LoadLibrary( _T("user32.dll") ) ) != NULL )
@@ -2689,17 +2779,20 @@ BOOL DeleteFileEx(LPCTSTR szFileName, BOOL bShared, BOOL bToRecycleBin, BOOL bEn
 	if ( ! bLong )
 		len = lstrlen( szFileName );
 
-	auto_array< TCHAR > szPath( new TCHAR[ len + 1 ] );
+	CAutoVectorPtr< TCHAR > szPath( new TCHAR[ len + 1 ] );
+	if ( ! szPath )
+		return FALSE;
+
 	if ( bLong )
-		GetLongPathName( szFileName, szPath.get(), len );
+		GetLongPathName( szFileName, szPath, len );
 	else
-		lstrcpy( szPath.get(), szFileName );
+		lstrcpy( szPath, szFileName );
 	szPath[ len ] = 0;
 
 	if ( bShared )	// Stop uploads
-		theApp.OnRename( szPath.get(), NULL );
+		theApp.OnRename( szPath, NULL );
 
-	DWORD dwAttr = GetFileAttributes( szPath.get() );
+	DWORD dwAttr = GetFileAttributes( szPath );
 	if ( ( dwAttr != INVALID_FILE_ATTRIBUTES ) &&		// Filename exist
 		( dwAttr & FILE_ATTRIBUTE_DIRECTORY ) == 0 )	// Not a folder
 	{
@@ -2708,16 +2801,16 @@ BOOL DeleteFileEx(LPCTSTR szFileName, BOOL bShared, BOOL bToRecycleBin, BOOL bEn
 			SHFILEOPSTRUCT sfo = {};
 			sfo.hwnd = GetDesktopWindow();
 			sfo.wFunc = FO_DELETE;
-			sfo.pFrom = szPath.get();
+			sfo.pFrom = szPath;
 			sfo.fFlags = FOF_ALLOWUNDO | FOF_FILESONLY | FOF_NORECURSION | FOF_NO_UI;
 			SHFileOperation( &sfo );
 		}
 		else
 		{
-			DeleteFile( szPath.get() );
+			DeleteFile( szPath );
 		}
 
-		dwAttr = GetFileAttributes( szPath.get() );
+		dwAttr = GetFileAttributes( szPath );
 		if ( dwAttr != INVALID_FILE_ATTRIBUTES )
 		{
 			// File still exists
@@ -2726,14 +2819,14 @@ BOOL DeleteFileEx(LPCTSTR szFileName, BOOL bShared, BOOL bToRecycleBin, BOOL bEn
 				// Set delayed deletion
 				CString sJob;
 				sJob.Format( _T("%d%d"), bShared, bToRecycleBin );
-				theApp.WriteProfileString( _T("Delete"), szPath.get(), sJob );
+				theApp.WriteProfileString( _T("Delete"), szPath, sJob );
 			}
 			return FALSE;
 		}
 	}
 
 	// Cancel delayed deletion (if any)
-	theApp.WriteProfileString( _T("Delete"), szPath.get(), NULL );
+	theApp.WriteProfileString( _T("Delete"), szPath, NULL );
 
 	return TRUE;
 }
@@ -2977,6 +3070,97 @@ bool ResourceRequest(const CString& strPath, CBuffer& pResponse, CString& sHeade
 	}
 
 	return ret;
+}
+
+BOOL SaveIcon(HICON hIcon, CBuffer& oBuffer, int colors)
+{
+	ASSERT( hIcon );
+	ASSERT( colors == -1 || colors == 1 || colors == 4 || colors == 8 || colors == 16 || colors == 24 || colors == 32 );
+
+	ICONINFO ii = {};
+	if ( ! GetIconInfo( hIcon, &ii ) )
+		return FALSE;
+
+	BITMAP biColor = {};
+	if ( GetObject( ii.hbmColor, sizeof( BITMAP ), &biColor ) != sizeof( BITMAP ) )
+		return FALSE;
+
+	int cx = biColor.bmWidth;
+	if ( colors == -1 )
+		colors = biColor.bmBitsPixel;
+	int palette = ( colors == 8 ) ? 256 : ( ( colors == 4 ) ? 16 : ( ( colors == 1 ) ? 2 : 0 ) );
+
+	CAutoVectorPtr< char >pHeader( new char[ sizeof( BITMAPINFOHEADER ) + sizeof( RGBQUAD ) * 256 ] );
+	if ( ! pHeader )
+		return FALSE;	// Out of memory
+
+	ZeroMemory( (char*)pHeader, sizeof( BITMAPINFOHEADER ) + sizeof( RGBQUAD ) * 256 );
+	BITMAPINFO& bih = *(BITMAPINFO*)(char*)pHeader;
+	bih.bmiHeader.biSize = sizeof( BITMAPINFOHEADER );
+	bih.bmiHeader.biWidth = bih.bmiHeader.biHeight = cx;
+	bih.bmiHeader.biPlanes = 1;
+
+	HDC hDC = GetDC( NULL );
+	if ( ! hDC )
+		return FALSE;
+
+	// Calculate mask size
+	bih.bmiHeader.biBitCount = 1;
+	if ( ! GetDIBits( hDC, ii.hbmMask, 0, cx, NULL, &bih, DIB_RGB_COLORS ) )
+		return FALSE;
+	DWORD nImageSize = bih.bmiHeader.biSizeImage;
+
+	// Calculate image size
+	bih.bmiHeader.biBitCount = (WORD)colors;
+	if ( ! GetDIBits( hDC, ii.hbmColor, 0, cx, NULL, &bih, DIB_RGB_COLORS ) )
+		return FALSE;
+	nImageSize += bih.bmiHeader.biSizeImage;
+
+	CAutoVectorPtr< char >pBuffer( new char[ nImageSize ] );
+	if ( ! pBuffer )
+		return FALSE;	// Out of memory
+	ZeroMemory( (char*)pBuffer,  nImageSize );
+
+	// Get mask bits
+	bih.bmiHeader.biBitCount = 1;
+	if ( GetDIBits( hDC, ii.hbmMask, 0, cx, (char*)pBuffer + bih.bmiHeader.biSizeImage, &bih, DIB_RGB_COLORS ) != cx )
+		return FALSE;
+
+	// Get image bits
+	bih.bmiHeader.biBitCount = (WORD)colors;
+	if ( GetDIBits( hDC, ii.hbmColor, 0, cx, (char*)pBuffer, &bih, DIB_RGB_COLORS ) != cx )
+		return FALSE;
+
+	VERIFY( ReleaseDC( NULL, hDC ) == 1 );
+
+	// Fill icon file header
+	bih.bmiHeader.biHeight = cx * 2;
+	bih.bmiHeader.biSizeImage = nImageSize;
+	bih.bmiHeader.biClrUsed = bih.bmiHeader.biClrImportant = palette;
+	ICONDIR id =
+	{
+		0,
+		1,
+		1
+	};
+	ICONDIRENTRY ide =
+	{
+		( ( cx < 256 ) ? (BYTE)cx : 0 ),
+		( ( cx < 256 ) ? (BYTE)cx : 0 ),
+		( ( colors < 8 ) ? ( 1 << colors ) : 0 ),
+		0,
+		1,
+		(WORD)colors,
+		sizeof( BITMAPINFOHEADER ) + sizeof( RGBQUAD ) * palette + nImageSize,
+		sizeof( ICONDIR ) + sizeof( ICONDIRENTRY )
+	};
+
+	oBuffer.Add( &id, sizeof( ICONDIR ) );
+	oBuffer.Add( &ide, sizeof( ICONDIRENTRY ) );
+	oBuffer.Add( &bih, sizeof( BITMAPINFOHEADER ) + sizeof( RGBQUAD ) * palette );
+	oBuffer.Add( pBuffer, nImageSize );
+
+	return TRUE;
 }
 
 bool MarkFileAsDownload(const CString& sFilename)

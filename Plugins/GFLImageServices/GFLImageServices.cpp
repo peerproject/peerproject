@@ -1,7 +1,7 @@
 //
 // GFLImageServices.cpp : Implementation of DLL Exports.
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Nikolay Raspopov, 2005.
 //
 // GFL Library, GFL SDK and XnView
@@ -24,7 +24,7 @@
 
 #include "stdafx.h"
 #include "Resource.h"
-#include "GFLImageServices.h"
+#include "GFLImageServices.h"	// Generated
 
 #define REG_IMAGESERVICE_KEY _T("Software\\PeerProject\\PeerProject\\Plugins\\ImageService")
 
@@ -40,12 +40,12 @@ HINSTANCE				_hModuleInstance = NULL;
 typedef ATL::CAtlMap <ATL::CString, ATL::CString> CAtlStrStrMap;
 CAtlStrStrMap			_ExtMap;
 
-inline void FillExtMap ()
+inline void FillExtMap()
 {
 	CString tmp;
-	_ExtMap.RemoveAll ();
-	GFL_INT32 count = gflGetNumberOfFormat ();
-	ATLTRACE( _T("Total %d formats:\n"), count );
+	_ExtMap.RemoveAll();
+	GFL_INT32 count = gflGetNumberOfFormat();
+	ATLTRACE( "Total %d formats:\n", count );
 	for ( GFL_INT32 i = 0; i < count; ++i )
 	{
 		GFL_FORMAT_INFORMATION info;
@@ -54,16 +54,16 @@ inline void FillExtMap ()
 		{
 			CString name (info.Name);
 			CString desc (info.Description);
-			ATLTRACE( _T("%3d. %7s %32s :"), i, name, desc );
+			ATLTRACE( "%3d. %7s %32s :", i, name, desc );
 			for ( GFL_UINT32 j = 0; j < info.NumberOfExtension; ++j )
 			{
 				CString ext (info.Extension [j]);
-				ext = ext.MakeLower ();
-				ATLTRACE( _T(" .%s"), ext );
-				if ( !_ExtMap.Lookup (ext, tmp) )
-					_ExtMap.SetAt (ext, name);
+				ext = ext.MakeLower();
+				ATLTRACE( " .%s", ext );
+				if ( !_ExtMap.Lookup(ext, tmp) )
+					_ExtMap.SetAt(ext, name);
 			}
-			ATLTRACE( _T("\n") );
+			ATLTRACE( "\n" );
 		}
 	}
 }
@@ -73,18 +73,18 @@ BOOL SafeGFLInit() throw()
 	__try
 	{
 		// Library initialization
-		if ( gflLibraryInit () != GFL_NO_ERROR )
+		if ( gflLibraryInit() != GFL_NO_ERROR )
 		{
-			ATLTRACE (_T("gflLibraryInit failed\n"));
+			ATLTRACE( "gflLibraryInit failed\n" );
 			return FALSE;
 		}
 		gflEnableLZW( GFL_TRUE );
-		FillExtMap ();
+		FillExtMap();
 		return TRUE;
 	}
 	__except ( EXCEPTION_EXECUTE_HANDLER )
 	{
-		ATLTRACE (_T("Exception in DLL_PROCESS_ATTACH\n"));
+		ATLTRACE( "Exception in DLL_PROCESS_ATTACH\n" );
 		return FALSE;
 	}
 }
@@ -93,15 +93,15 @@ void SafeGFLExit() throw()
 {
 	__try
 	{
-		gflLibraryExit ();
+		gflLibraryExit();
 	}
 	__except ( EXCEPTION_EXECUTE_HANDLER )
 	{
-		ATLTRACE (_T("Exception in DLL_PROCESS_DETACH\n"));
+		ATLTRACE( "Exception in DLL_PROCESS_DETACH\n" );
 	}
 }
 
-extern "C" BOOL WINAPI DllMain (HINSTANCE hInstance, DWORD dwReason, LPVOID lpReserved)
+extern "C" BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID lpReserved)
 {
 	if (_AtlModule.DllMain( dwReason, lpReserved ) )
 	{
@@ -119,35 +119,35 @@ extern "C" BOOL WINAPI DllMain (HINSTANCE hInstance, DWORD dwReason, LPVOID lpRe
 	}
 	else
 	{
-		ATLTRACE (_T("FALSE in _AtlModule.DllMain () call\n"));
+		ATLTRACE( "FALSE in _AtlModule.DllMain() call\n" );
 		return FALSE;
 	}
 }
 
 STDAPI DllCanUnloadNow(void)
 {
-	return _AtlModule.DllCanUnloadNow ();
+	return _AtlModule.DllCanUnloadNow();
 }
 
 STDAPI DllGetClassObject(REFCLSID rclsid, REFIID riid, LPVOID* ppv)
 {
-	return _AtlModule.DllGetClassObject (rclsid, riid, ppv);
+	return _AtlModule.DllGetClassObject(rclsid, riid, ppv);
 }
 
 STDAPI DllRegisterServer(void)
 {
-	HRESULT hr = _AtlModule.DllRegisterServer ();
+	HRESULT hr = _AtlModule.DllRegisterServer();
 
 	// Registering extensions using GFL
 	CString ext, tmp;
-	POSITION pos = _ExtMap.GetStartPosition ();
+	POSITION pos = _ExtMap.GetStartPosition();
 	while (pos)
 	{
-		_ExtMap.GetNextAssoc (pos, ext, tmp);
+		_ExtMap.GetNextAssoc(pos, ext, tmp);
 		if ( ext == _T("vst") ) continue;
 		ext.Insert (0, _T('.'));
-		ATLTRACE (_T("Add %s\n"), ext);
-		SHSetValue (HKEY_CURRENT_USER, REG_IMAGESERVICE_KEY, ext, REG_SZ,
+		ATLTRACE( "Add %s\n", ext);
+		SHSetValue(HKEY_CURRENT_USER, REG_IMAGESERVICE_KEY, ext, REG_SZ,
 			_T("{C9314782-CB91-40B8-B375-F631FF30C1C8}"),
 			38 * sizeof (TCHAR));
 	}
@@ -157,18 +157,18 @@ STDAPI DllRegisterServer(void)
 
 STDAPI DllUnregisterServer(void)
 {
-	HRESULT hr = _AtlModule.DllUnregisterServer ();
+	HRESULT hr = _AtlModule.DllUnregisterServer();
 
 	// Unregistering extensions using GFL
 	CString ext, tmp;
-	POSITION pos = _ExtMap.GetStartPosition ();
+	POSITION pos = _ExtMap.GetStartPosition();
 	while (pos)
 	{
-		_ExtMap.GetNextAssoc (pos, ext, tmp);
+		_ExtMap.GetNextAssoc(pos, ext, tmp);
 		if ( ext == _T("vst") ) continue;
-		ext.Insert (0, _T('.'));
-		ATLTRACE (_T("Remove %s\n"), ext);
-		SHDeleteValue (HKEY_CURRENT_USER, REG_IMAGESERVICE_KEY, ext);
+		ext.Insert(0, _T('.'));
+		ATLTRACE( "Remove %s\n", ext);
+		SHDeleteValue(HKEY_CURRENT_USER, REG_IMAGESERVICE_KEY, ext);
 	}
 
 	return hr;
@@ -200,83 +200,83 @@ STDAPI DllInstall(BOOL bInstall, LPCWSTR pszCmdLine)
 }
 
 
-HRESULT SAFEgflLoadBitmap (const char * filename, GFL_BITMAP **bitmap, const GFL_LOAD_PARAMS *params, GFL_FILE_INFORMATION *info) throw ()
+HRESULT SAFEgflLoadBitmap(const char * filename, GFL_BITMAP **bitmap, const GFL_LOAD_PARAMS *params, GFL_FILE_INFORMATION *info) throw()
 {
 	HRESULT hr = E_FAIL;
 	__try
 	{
-		GFL_ERROR err = gflLoadBitmap (filename, bitmap, params, info);
+		GFL_ERROR err = gflLoadBitmap(filename, bitmap, params, info);
 		if (err == GFL_NO_ERROR)
 			hr = S_OK;
 		else
-			ATLTRACE (L"gflLoadBitmap() error : %s\n", CA2T (gflGetErrorString (err)));
+			ATLTRACE( "gflLoadBitmap() error : %s\n", CA2T(gflGetErrorString(err)));
 	}
 	__except (EXCEPTION_EXECUTE_HANDLER)
 	{
-		ATLTRACE (L"gflLoadBitmap() exception\n");
+		ATLTRACE( "gflLoadBitmap() exception\n" );
 	}
 	return hr;
 }
 
-HRESULT SAFEgflLoadBitmapFromMemory (const GFL_UINT8 * data, GFL_UINT32 data_length, GFL_BITMAP **bitmap, const GFL_LOAD_PARAMS *params, GFL_FILE_INFORMATION *info) throw ()
+HRESULT SAFEgflLoadBitmapFromMemory(const GFL_UINT8 * data, GFL_UINT32 data_length, GFL_BITMAP **bitmap, const GFL_LOAD_PARAMS *params, GFL_FILE_INFORMATION *info) throw()
 {
 	HRESULT hr = E_FAIL;
 	__try
 	{
-		GFL_ERROR err = gflLoadBitmapFromMemory (data, data_length, bitmap, params, info);
+		GFL_ERROR err = gflLoadBitmapFromMemory(data, data_length, bitmap, params, info);
 		if (err == GFL_NO_ERROR)
 			hr = S_OK;
 		else
-			ATLTRACE (L"gflLoadBitmapFromMemory() error : %s\n", CA2T (gflGetErrorString (err)));
+			ATLTRACE( "gflLoadBitmapFromMemory() error : %s\n", CA2T(gflGetErrorString(err)));
 	}
 	__except (EXCEPTION_EXECUTE_HANDLER)
 	{
-		ATLTRACE (L"gflLoadBitmapFromMemory() exception\n");
+		ATLTRACE( "gflLoadBitmapFromMemory() exception\n" );
 	}
 	return hr;
 }
 
-HRESULT SAFEgflSaveBitmapIntoMemory (GFL_UINT8 ** data, GFL_UINT32 * data_length, const GFL_BITMAP *bitmap, const GFL_SAVE_PARAMS *params) throw ()
+HRESULT SAFEgflSaveBitmapIntoMemory(GFL_UINT8 ** data, GFL_UINT32 * data_length, const GFL_BITMAP *bitmap, const GFL_SAVE_PARAMS *params) throw()
 {
 	HRESULT hr = E_FAIL;
 	__try
 	{
-		GFL_ERROR err = gflSaveBitmapIntoMemory (data, data_length, bitmap, params);
+		GFL_ERROR err = gflSaveBitmapIntoMemory(data, data_length, bitmap, params);
 		if (err == GFL_NO_ERROR)
 			hr = S_OK;
 		else
-			ATLTRACE (L"gflSaveBitmapIntoMemory() error : %s\n", CA2T (gflGetErrorString (err)));
+			ATLTRACE( "gflSaveBitmapIntoMemory() error : %s\n", CA2T(gflGetErrorString(err)));
 	}
 	__except (EXCEPTION_EXECUTE_HANDLER)
 	{
-		ATLTRACE (L"gflSaveBitmapIntoMemory() exception\n");
+		ATLTRACE( "gflSaveBitmapIntoMemory() exception\n" );
 	}
 	return hr;
 }
 
-HRESULT SAFEgflSaveBitmap (char *filename, const GFL_BITMAP *bitmap, const GFL_SAVE_PARAMS *params) throw ()
+HRESULT SAFEgflSaveBitmap(char *filename, const GFL_BITMAP *bitmap, const GFL_SAVE_PARAMS *params) throw()
 {
 	HRESULT hr = E_FAIL;
 	__try
 	{
-		GFL_ERROR err = gflSaveBitmap (filename, bitmap, params);
+		GFL_ERROR err = gflSaveBitmap(filename, bitmap, params);
 		if (err == GFL_NO_ERROR)
 			hr = S_OK;
 		else
-			ATLTRACE (L"gflSaveBitmap() error : %s\n", CA2T (gflGetErrorString (err)));
+			ATLTRACE( "gflSaveBitmap() error : %s\n", CA2T(gflGetErrorString(err)));
 	}
 	__except (EXCEPTION_EXECUTE_HANDLER)
 	{
-		ATLTRACE (L"gflSaveBitmap() exception\n");
+		ATLTRACE( "gflSaveBitmap() exception\n" );
 	}
 	return hr;
 }
 
-int GetFormatIndexByExt (LPCTSTR ext)
+int GetFormatIndexByExt(LPCTSTR ext)
 {
 	CString name;
-	if (_ExtMap.Lookup (ext, name))
-		return gflGetFormatIndexByName (CT2CA (name));
+	if (_ExtMap.Lookup(ext, name))
+		return gflGetFormatIndexByName(CT2CA(name));
 
 	return -1;
 }

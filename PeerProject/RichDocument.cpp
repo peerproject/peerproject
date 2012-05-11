@@ -248,11 +248,11 @@ BOOL CRichDocument::LoadXML(CXMLElement* pBase, CMap< CString, const CString&, C
 		m_crHover		= Colors.m_crTextLinkHot;
 		m_crHeading		= Colors.m_crRichdocHeading;
 
-		LoadXMLColor( pBase, _T("crBackground"), &m_crBackground );
-		LoadXMLColor( pBase, _T("crText"), &m_crText );
-		LoadXMLColor( pBase, _T("crLink"), &m_crLink );
-		LoadXMLColor( pBase, _T("crHover"), &m_crHover );
-		LoadXMLColor( pBase, _T("crHeading"), &m_crHeading );
+		Skin.LoadColor( pBase, _T("crBackground"), &m_crBackground );
+		Skin.LoadColor( pBase, _T("crText"), &m_crText );
+		Skin.LoadColor( pBase, _T("crLink"), &m_crLink );
+		Skin.LoadColor( pBase, _T("crHover"), &m_crHover );
+		Skin.LoadColor( pBase, _T("crHeading"), &m_crHeading );
 
 		strTemp = pBase->GetAttributeValue( _T("leftMargin") );
 		if ( ! strTemp.IsEmpty() ) _stscanf( strTemp, _T("%i"), &m_szMargin.cx );
@@ -316,12 +316,13 @@ BOOL CRichDocument::LoadXML(CXMLElement* pBase, CMap< CString, const CString&, C
 		}
 		else if ( pXML->IsNamed( _T("para") ) )
 		{
-			Add( pElement = new CRichElement( retAlign,
-				pXML->GetAttributeValue( _T("align") ) ) );
+			pElement = new CRichElement( retAlign, pXML->GetAttributeValue( _T("align") ) );
+			Add( pElement );
 
 			if ( pXML->GetElementCount() )
 			{
 				if ( ! LoadXML( pXML, pMap, nGroup ) ) return FALSE;
+
 				if ( pElement->m_sText.CompareNoCase( _T("left") ) )
 					Add( new CRichElement( retAlign, _T("left") ) );
 			}
@@ -366,21 +367,9 @@ BOOL CRichDocument::LoadXML(CXMLElement* pBase, CMap< CString, const CString&, C
 
 		if ( strTemp == _T("middle") ) pElement->m_nFlags |= retfMiddle;
 
-		strTemp = pXML->GetAttributeValue( _T("color") );
-		if ( strTemp.GetLength() == 6 )
-		{
+		if ( Skin.LoadColor( pXML, _T("color"),  &pElement->m_cColor ) ||
+			 Skin.LoadColor( pXML, _T("colour"), &pElement->m_cColor ) )
 			pElement->m_nFlags |= retfColor;
-			LoadXMLColor( pXML, _T("color"), &pElement->m_cColor );
-		}
-		else
-		{
-			strTemp = pXML->GetAttributeValue( _T("colour") );
-			if ( strTemp.GetLength() == 6 )
-			{
-				pElement->m_nFlags |= retfColor;
-				LoadXMLColor( pXML, _T("colour"), &pElement->m_cColor );
-			}
-		}
 
 		if ( pElement->m_nType == retIcon )
 		{
@@ -468,38 +457,22 @@ BOOL CRichDocument::LoadXMLStyles(CXMLElement* pParent)
 
 		if ( strName == _T("default") || strName.IsEmpty() )
 		{
-			LoadXMLColor( pColors, _T("text"), &m_crText );
-			LoadXMLColor( pColors, _T("link"), &m_crLink );
-			LoadXMLColor( pColors, _T("hover"), &m_crHover );
+			Skin.LoadColor( pColors, _T("text"), &m_crText );
+			Skin.LoadColor( pColors, _T("link"), &m_crLink );
+			Skin.LoadColor( pColors, _T("hover"), &m_crHover );
 
 			// Create specified fonts (using default font as heading font)
 			CreateFonts( &lf, NULL );
 		}
 		else if ( bHeading )
 		{
-			LoadXMLColor( pColors, _T("text"), &m_crHeading );
+			Skin.LoadColor( pColors, _T("text"), &m_crHeading );
 
 			// Create heading font
 			if ( m_fntHeading.m_hObject ) m_fntHeading.DeleteObject();
 			m_fntHeading.CreateFontIndirect( &lf );
 		}
 	}
-
-	return TRUE;
-}
-
-BOOL CRichDocument::LoadXMLColor(CXMLElement* pXML, LPCTSTR pszName, COLORREF* pColor)
-{
-	CString str = pXML->GetAttributeValue( pszName );
-	if ( str.GetLength() != 6 ) return FALSE;
-
-	int nRed, nGreen, nBlue;
-
-	if ( _stscanf( str.Mid( 0, 2 ), _T("%x"), &nRed ) != 1 ) return FALSE;
-	if ( _stscanf( str.Mid( 2, 2 ), _T("%x"), &nGreen ) != 1 ) return FALSE;
-	if ( _stscanf( str.Mid( 4, 2 ), _T("%x"), &nBlue ) != 1 ) return FALSE;
-
-	*pColor = RGB( nRed, nGreen, nBlue );
 
 	return TRUE;
 }

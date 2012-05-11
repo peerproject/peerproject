@@ -153,8 +153,8 @@ int CMainTabBarCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CControlBar::OnCreate( lpCreateStruct ) == -1 ) return -1;
 
-//	if ( Skin.m_bMenuBorders )
-		m_dwStyle |= CBRS_BORDER_3D;
+	//if ( Settings.Skin.MenuBorders )
+	m_dwStyle |= CBRS_BORDER_3D;
 
 	SetTimer( 1, 250, NULL );
 
@@ -188,7 +188,7 @@ void CMainTabBarCtrl::OnUpdateCmdUI(CFrameWnd* pTarget, BOOL /*bDisableIfNoHndle
 CSize CMainTabBarCtrl::CalcFixedLayout(BOOL bStretch, BOOL /*bHorz*/)
 {
 	CRect rcBackground;
-	CSize size( 0, Skin.m_nToolbarHeight );	// ToDo: Use Unique Size
+	CSize size( 0, Settings.Skin.ToolbarHeight );	// ToDo: Use Unique Size
 
 	if ( m_pSkin != NULL && m_pSkin->GetAnchor( _T("Background"), rcBackground ) )
 		size = rcBackground.Size();
@@ -291,7 +291,7 @@ void CMainTabBarCtrl::DoPaint(CDC* pDC)
 	CSize size = rc.Size();
 	CDC* pBuffer = CoolInterface.GetBuffer( *pDC, size );
 
-	if ( Skin.m_bMenuBorders )
+	if ( Settings.Skin.MenuBorders )
 		DrawBorders( pBuffer, rc );
 	else
 		rc.DeflateRect( 2, 2, 0, 0 );

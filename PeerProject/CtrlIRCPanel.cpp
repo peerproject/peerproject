@@ -1,7 +1,7 @@
 //
 // CtrlIRCPanel.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -116,15 +116,15 @@ void CIRCPanel::OnSkinChange()
 	LoadString( strCaption, IDS_IRC_USERLIST );
 	m_boxUsers.SetCaption( strCaption );
 
-	SetWatermark( Skin.GetWatermark( _T("CIRCPanel") ) );
-	SetFooter( Skin.GetWatermark( _T("CIRCPanel.Footer") ), TRUE );
+	SetWatermark( _T("CIRCPanel") );
+	SetFooter( _T("CIRCPanel.Footer") );
 
-	m_boxChans.SetWatermark( Skin.GetWatermark( _T("CIRCChannelsBox") ) );
-	m_boxChans.SetCaptionmark( Skin.GetWatermark( _T("CIRCChannelsBox.Caption") ) );
+	m_boxChans.SetWatermark( _T("CIRCChannelsBox") );
+	m_boxChans.SetCaptionmark( _T("CIRCChannelsBox.Caption") );
 	m_boxChans.OnSkinChange();
 
-	m_boxUsers.SetWatermark( Skin.GetWatermark( _T("CIRCUsersBox") ) );
-	m_boxUsers.SetCaptionmark( Skin.GetWatermark( _T("CIRCUsersBox.Caption") ) );
+	m_boxUsers.SetWatermark( _T("CIRCUsersBox") );
+	m_boxUsers.SetCaptionmark( _T("CIRCUsersBox.Caption") );
 	m_boxUsers.OnSkinChange();
 
 	Invalidate();

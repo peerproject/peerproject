@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Japanese Skin File -->
 
-<!-- Translation based on default-en.xml r77 --> <!-- (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r78 --> <!-- (Shareaza 2.2.0.2) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3533,13 +3533,16 @@
 		<control caption="設定..."/>
 		<control caption="更に追加"/>
 	</dialog>
-	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuSt" caption="高度設定">
+	<dialog name="CAdvancedSettingsPage" cookie="SyBuStEdmsEdCoBuBu" caption="高度設定">
 		<control/>
-		<control/>
-		<control/>
-		<control caption="Set Default"/>
 		<control caption="設定プロパティ:"/>
 		<control caption="値:"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="デフォルトに戻す"/>
 	</dialog>
 	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="プロトコル">
 		<control caption="PeerProject一般プロトコル構造エクスプローラ:"/>

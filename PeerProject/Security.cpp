@@ -2096,8 +2096,9 @@ BOOL CAdultFilter::IsChatFiltered(LPCTSTR pszText) const
 
 BOOL CAdultFilter::Censor(CString& sText) const
 {
+	if ( sText.GetLength() < 3 ) return FALSE;
+
 	BOOL bModified = FALSE;
-	if ( ! sText.GetLength() < 3 ) return FALSE;
 
 	// Check and replace blocked words
 	for ( LPCTSTR pszWord = m_pszBlockedWords ; pszWord && *pszWord ; )

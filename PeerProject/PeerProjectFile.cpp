@@ -1,7 +1,7 @@
 //
 // PeerProjectFile.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -170,12 +170,26 @@ CString CPeerProjectFile::GetURL(const IN_ADDR& nAddress, WORD nPort) const
 
 CString CPeerProjectFile::GetBitprint() const
 {
+	if ( m_oSHA1 || m_oTiger )
+		return GetURN();
+
+	return CString();
+}
+
+CString CPeerProjectFile::GetURN() const
+{
 	if ( m_oSHA1 && m_oTiger )
-		return CString( _T("urn:bitprint:") ) + m_oSHA1.toString() + _T(".") + m_oTiger.toString();
+		return _T("urn:bitprint:") + m_oSHA1.toString() + _T('.') + m_oTiger.toString();
 	if ( m_oSHA1 )
 		return m_oSHA1.toUrn();
 	if ( m_oTiger )
 		return m_oTiger.toUrn();
+	if ( m_oED2K )
+		return m_oED2K.toUrn();
+	if ( m_oBTH )
+		return m_oBTH.toUrn();
+	if ( m_oMD5 )
+		return m_oMD5.toUrn();
 
 	return CString();
 }
@@ -298,61 +312,36 @@ STDMETHODIMP CPeerProjectFile::XPeerProjectFile::get_URN(BSTR sURN, BSTR FAR* ps
 {
 	METHOD_PROLOGUE( CPeerProjectFile, PeerProjectFile )
 
-	if ( ! psURN )
-		return E_POINTER;
-
-	*psURN = NULL;
-
-	CString strURN = sURN;
+	CString strURN = sURN ? sURN : _T("");
 	CComBSTR bstrURN;
 
 	if ( strURN.IsEmpty() )
 	{
-		if ( pThis->m_oTiger && pThis->m_oSHA1 )
-			bstrURN = _T("urn:bitprint");
-		else if ( pThis->m_oTiger )
-			bstrURN = _T("urn:tree:tiger/");
-		else if ( pThis->m_oSHA1 )
-			bstrURN = _T("urn:sha1");
-		else
-			return E_FAIL;
+		bstrURN = pThis->GetURN();
 	}
-
-	if ( strURN.CompareNoCase( _T("urn:bitprint") ) == 0 )
+	else if ( strURN.CompareNoCase( _T("urn:bitprint") ) == 0 )
 	{
-		if ( ! pThis->m_oSHA1 || ! pThis->m_oTiger ) return E_FAIL;
-		bstrURN	= _T("urn:bitprint:")
-				+ pThis->m_oSHA1.toString() + '.'
-				+ pThis->m_oTiger.toString();
+		if ( pThis->m_oSHA1 && pThis->m_oTiger ) bstrURN = _T("urn:bitprint:") + pThis->m_oSHA1.toString() + _T('.') + pThis->m_oTiger.toString();
 	}
 	else if ( strURN.CompareNoCase( _T("urn:sha1") ) == 0 )
 	{
-		if ( ! pThis->m_oSHA1 ) return E_FAIL;
-		bstrURN = pThis->m_oSHA1.toUrn();
+		if ( pThis->m_oSHA1 ) bstrURN = pThis->m_oSHA1.toUrn();
 	}
 	else if ( strURN.CompareNoCase( _T("urn:tree:tiger/") ) == 0 )
 	{
-		if ( ! pThis->m_oTiger ) return E_FAIL;
-		bstrURN = pThis->m_oTiger.toUrn();
+		if ( pThis->m_oTiger ) bstrURN = pThis->m_oTiger.toUrn();
 	}
 	else if ( strURN.CompareNoCase( _T("urn:md5") ) == 0 )
 	{
-		if ( ! pThis->m_oMD5 ) return E_FAIL;
-		bstrURN = pThis->m_oMD5.toUrn();
+		if ( pThis->m_oMD5 ) bstrURN = pThis->m_oMD5.toUrn();
 	}
 	else if ( strURN.CompareNoCase( _T("urn:ed2k") ) == 0 )
 	{
-		if ( ! pThis->m_oED2K ) return E_FAIL;
-		bstrURN = pThis->m_oED2K.toUrn();
+		if ( pThis->m_oED2K ) bstrURN = pThis->m_oED2K.toUrn();
 	}
 	else if ( strURN.CompareNoCase( _T("urn:btih") ) == 0 )
 	{
-		if ( ! pThis->m_oBTH ) return E_FAIL;
-		bstrURN = pThis->m_oBTH.toUrn();
-	}
-	else
-	{
-		return E_FAIL;
+		if ( pThis->m_oBTH ) bstrURN = pThis->m_oBTH.toUrn();
 	}
 
 	*psURN = bstrURN.Detach();
@@ -363,10 +352,6 @@ STDMETHODIMP CPeerProjectFile::XPeerProjectFile::get_URN(BSTR sURN, BSTR FAR* ps
 STDMETHODIMP CPeerProjectFile::XPeerProjectFile::get_Hash(URN_TYPE nType, ENCODING nEncoding, BSTR FAR* psURN)
 {
 	METHOD_PROLOGUE( CPeerProjectFile, PeerProjectFile )
-
-	if ( ! psURN ) return E_POINTER;
-
-	*psURN = NULL;
 
 	CComBSTR bstrURN;
 
@@ -386,8 +371,8 @@ STDMETHODIMP CPeerProjectFile::XPeerProjectFile::get_Hash(URN_TYPE nType, ENCODI
 			case ENCODING_BASE32:
 				bstrURN = pThis->m_oSHA1.toString< Hashes::base32Encoding >();
 				break;
-			default:
-				return E_INVALIDARG;
+			//default:
+			//	;
 			}
 		}
 		break;
@@ -406,8 +391,8 @@ STDMETHODIMP CPeerProjectFile::XPeerProjectFile::get_Hash(URN_TYPE nType, ENCODI
 			case ENCODING_BASE32:
 				bstrURN = pThis->m_oTiger.toString< Hashes::base32Encoding >();
 				break;
-			default:
-				return E_INVALIDARG;
+			//default:
+			//	;
 			}
 		}
 		break;
@@ -426,8 +411,8 @@ STDMETHODIMP CPeerProjectFile::XPeerProjectFile::get_Hash(URN_TYPE nType, ENCODI
 			case ENCODING_BASE32:
 				bstrURN = pThis->m_oED2K.toString< Hashes::base32Encoding >();
 				break;
-			default:
-				return E_INVALIDARG;
+			//default:
+			//	;
 			}
 		}
 		break;
@@ -446,8 +431,8 @@ STDMETHODIMP CPeerProjectFile::XPeerProjectFile::get_Hash(URN_TYPE nType, ENCODI
 			case ENCODING_BASE32:
 				bstrURN = pThis->m_oMD5.toString< Hashes::base32Encoding >();
 				break;
-			default:
-				return E_INVALIDARG;
+			//default:
+			//	;
 			}
 		}
 		break;
@@ -466,14 +451,14 @@ STDMETHODIMP CPeerProjectFile::XPeerProjectFile::get_Hash(URN_TYPE nType, ENCODI
 			case ENCODING_BASE32:
 				bstrURN = pThis->m_oBTH.toString< Hashes::base32Encoding >();
 				break;
-			default:
-				return E_INVALIDARG;
+			//default:
+			//	;
 			}
 		}
 		break;
 
-	default:
-		return E_INVALIDARG;
+	//default:
+	//	;
 	}
 
 	*psURN = bstrURN.Detach();

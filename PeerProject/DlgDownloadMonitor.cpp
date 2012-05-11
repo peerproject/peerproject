@@ -86,6 +86,10 @@ CDownloadMonitorDlg::~CDownloadMonitorDlg()
 	if ( m_pGraph != NULL ) delete m_pGraph;
 	if ( POSITION pos = m_pWindows.Find( this ) )
 		m_pWindows.RemoveAt( pos );
+
+#ifdef __ITaskbarList3_INTERFACE_DEFINED__	// VS2010+
+	m_pTaskbar.Release();
+#endif
 }
 
 void CDownloadMonitorDlg::DoDataExchange(CDataExchange* pDX)
@@ -199,6 +203,11 @@ BOOL CDownloadMonitorDlg::OnInitDialog()
 	m_pGraph->m_crBack			= Colors.m_crMonitorGraphBack;	// RGB( 255, 255, 242 )
 
 	m_pGraph->AddItem( m_pItem );
+
+#ifdef __ITaskbarList3_INTERFACE_DEFINED__	// VS2010+
+	if ( theApp.m_nWinVer >= WIN_7 )
+		m_pTaskbar.CoCreateInstance( CLSID_TaskbarList );
+#endif
 
 	OnTimer( 2 );
 
@@ -496,7 +505,8 @@ void CDownloadMonitorDlg::OnTimer( UINT_PTR nIDEvent )
 	DoPaint( dc );
 
 	// AppBar on Windows 7
-	if ( theApp.m_nWinVer >= WIN_7 )
+#ifdef __ITaskbarList3_INTERFACE_DEFINED__	// VS2010+
+	if ( m_pTaskbar && theApp.m_nWinVer >= WIN_7 )
 	{
 		static bool bProgressShown = false;
 
@@ -505,22 +515,17 @@ void CDownloadMonitorDlg::OnTimer( UINT_PTR nIDEvent )
 		{
 			bProgressShown = true;
 
-			CComPtr< ITaskbarList3 > pTaskbar;
-			if ( SUCCEEDED( pTaskbar.CoCreateInstance( CLSID_TaskbarList ) ) )
-			{
-				pTaskbar->SetProgressState( GetSafeHwnd(), TBPF_NORMAL );
-				pTaskbar->SetProgressValue( GetSafeHwnd(), nComplete, nTotal );
-			}
+			m_pTaskbar->SetProgressState( GetSafeHwnd(), TBPF_NORMAL );
+			m_pTaskbar->SetProgressValue( GetSafeHwnd(), nComplete, nTotal );
 		}
 		else if ( bProgressShown )
 		{
 			bProgressShown = false;
 
-			CComPtr< ITaskbarList3 > pTaskbar;
-			if ( SUCCEEDED( pTaskbar.CoCreateInstance( CLSID_TaskbarList ) ) )
-				pTaskbar->SetProgressState( GetSafeHwnd(), TBPF_NOPROGRESS );
+			m_pTaskbar->SetProgressState( GetSafeHwnd(), TBPF_NOPROGRESS );
 		}
 	}
+#endif	// ITaskbarList3
 }
 
 void CDownloadMonitorDlg::Update(CWnd* pWnd, LPCTSTR pszText)
@@ -636,18 +641,21 @@ void CDownloadMonitorDlg::OnClose()
 
 void CDownloadMonitorDlg::OnSysCommand(UINT nID, LPARAM lParam)
 {
-	UINT nCommand = nID & 0xFFF0;
-	BOOL bShift = GetAsyncKeyState( VK_SHIFT ) & 0x8000;
+	const UINT nCommand = nID & 0xFFF0;
 
-	if ( nCommand == SC_MAXIMIZE || ( nCommand == SC_MINIMIZE && bShift ) )
+	switch ( nCommand )
 	{
+	case SC_MINIMIZE:
+		if ( ! ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) )
+			break;
+	case SC_MAXIMIZE:
 		if ( ! m_bTray )
 		{
 			m_pTray.cbSize				= sizeof(m_pTray);
 			m_pTray.hWnd				= GetSafeHwnd();
 			m_pTray.uID					= 0;
-			m_pTray.uFlags				= NIF_ICON | NIF_MESSAGE | NIF_TIP;
 			m_pTray.uCallbackMessage	= WM_TRAY;
+			m_pTray.uFlags				= NIF_ICON | NIF_MESSAGE | NIF_TIP;
 			m_pTray.hIcon				= CoolInterface.ExtractIcon( IDI_DOWNLOAD_MONITOR, FALSE );
 			_tcsncpy( m_pTray.szTip, Settings.SmartAgent(), _countof( m_pTray.szTip ) - 1 );
 			m_pTray.szTip[ _countof( m_pTray.szTip ) - 1 ] = _T('\0');
@@ -656,14 +664,12 @@ void CDownloadMonitorDlg::OnSysCommand(UINT nID, LPARAM lParam)
 			m_bTray = TRUE;
 		}
 		return;
-	}
-	else if ( nCommand == SC_RESTORE && m_bTray )
-	{
+	case SC_RESTORE:
+		if ( ! m_bTray )
+			break;
 		OnTray( WM_LBUTTONDBLCLK, 0 );
 		return;
-	}
-	else if ( nCommand == SC_NEXTWINDOW )
-	{
+	case SC_NEXTWINDOW:
 		if ( GetExStyle() & WS_EX_TOPMOST )
 			SetWindowPos( &wndNoTopMost, 0, 0, 0, 0, SWP_NOMOVE|SWP_NOSIZE );
 		else

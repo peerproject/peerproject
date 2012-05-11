@@ -41,7 +41,7 @@ static char THIS_FILE[] = __FILE__;
 #endif	// Filename
 
 #define HEADER_HEIGHT	20
-//#define ITEM_HEIGHT	17	// Skinnable Settings.Interface.RowSize
+//#define ITEM_HEIGHT	17	// Settings.Skin.RowSize
 
 
 BEGIN_MESSAGE_MAP(CMatchCtrl, CWnd)
@@ -181,7 +181,7 @@ void CMatchCtrl::OnSize(UINT nType, int cx, int cy)
 
 	m_nCurrentWidth = cx;
 
-	m_nPageCount = ( cy - HEADER_HEIGHT ) / Settings.Interface.RowSize;
+	m_nPageCount = ( cy - HEADER_HEIGHT ) / Settings.Skin.RowSize;
 	if ( m_nPageCount < 1 ) m_nPageCount = 1;
 	m_nBottomIndex = 0xFFFFFFFF;
 
@@ -654,8 +654,8 @@ void CMatchCtrl::OnPaint()
 	m_nTrailWidth = dc.GetTextExtent( _T("\x2026") ).cx;
 
 	rcItem.SetRect( rcClient.left, rcClient.top, rcClient.right, 0 );
-	rcItem.top -= m_nHitIndex * Settings.Interface.RowSize;
-	rcItem.bottom = rcItem.top + Settings.Interface.RowSize;
+	rcItem.top -= m_nHitIndex * Settings.Skin.RowSize;
+	rcItem.bottom = rcItem.top + Settings.Skin.RowSize;
 
 	CMatchFile** ppFile = m_pMatches->m_pFiles + m_nTopIndex;
 	BOOL bFocus = ( GetFocus() == this );
@@ -672,8 +672,8 @@ void CMatchCtrl::OnPaint()
 		if ( rcItem.top >= rcClient.top && dc.RectVisible( &rcItem ) )
 			DrawItem( dc, rcItem, pFile, NULL, bFocus && ( nIndex == m_nFocus ) );
 
-		rcItem.top += Settings.Interface.RowSize;
-		rcItem.bottom += Settings.Interface.RowSize;
+		rcItem.top += Settings.Skin.RowSize;
+		rcItem.bottom += Settings.Skin.RowSize;
 
 		if ( nCount > 1 && pFile->m_bExpanded )
 		{
@@ -685,8 +685,8 @@ void CMatchCtrl::OnPaint()
 				if ( rcItem.top >= rcClient.top && dc.RectVisible( &rcItem ) )
 					DrawItem( dc, rcItem, pFile, pHit, FALSE );
 
-				rcItem.top += Settings.Interface.RowSize;
-				rcItem.bottom += Settings.Interface.RowSize;
+				rcItem.top += Settings.Skin.RowSize;
+				rcItem.bottom += Settings.Skin.RowSize;
 
 				if ( rcItem.top >= rcClient.bottom ) break;
 			}
@@ -864,14 +864,14 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 				ShellIcons.Draw( &dc, pFile->m_nShellIndex, 16, rcCol.left + 16, rcCol.top,	crLeftMargin, bSelected );
 
 				if ( bLeftMargin || ! bSelectmark )
-					dc.FillSolidRect( rcCol.left, rcCol.top + 16, 32, Settings.Interface.RowSize - 16, crLeftMargin );
+					dc.FillSolidRect( rcCol.left, rcCol.top + 16, 32, Settings.Skin.RowSize - 16, crLeftMargin );
 
 				rcCol.left += 32;
 			}
 			else
 			{
 				if ( bLeftMargin || ! bSelectmark )
-					dc.FillSolidRect( rcCol.left, rcCol.top, ( pHit ? 24 : 16 ), Settings.Interface.RowSize, crLeftMargin );
+					dc.FillSolidRect( rcCol.left, rcCol.top, ( pHit ? 24 : 16 ), Settings.Skin.RowSize, crLeftMargin );
 				rcCol.left += ( pHit ? 24 : 16 );
 
 				// Draw file icon
@@ -887,7 +887,7 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 				}
 
 				if ( bLeftMargin || ! bSelectmark )
-					dc.FillSolidRect( rcCol.left, rcCol.top + 16, 16, Settings.Interface.RowSize - 16, crLeftMargin );
+					dc.FillSolidRect( rcCol.left, rcCol.top + 16, 16, Settings.Skin.RowSize - 16, crLeftMargin );
 
 				rcCol.left += 16;
 			}
@@ -896,7 +896,7 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 				CoolInterface.Draw( &dc, IDI_COMMERCIAL, 16, rcCol.left - 16, rcCol.top, CLR_NONE, bSelected );
 
 			if ( bLeftMargin || ! bSelectmark )
-				dc.FillSolidRect( rcCol.left, rcCol.top, 1, Settings.Interface.RowSize, crLeftMargin );
+				dc.FillSolidRect( rcCol.left, rcCol.top, 1, Settings.Skin.RowSize, crLeftMargin );
 			rcCol.left++;
 
 			if ( bSelected && bFocus )
@@ -905,7 +905,7 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 				if ( bLeftMargin ) rcFocus.left = rcCol.left;
 				dc.Draw3dRect( &rcFocus, Colors.m_crHiBorder, Colors.m_crHiBorder );
 
-				if ( Skin.m_bRoundedSelect )
+				if ( Settings.Skin.RoundedSelect )
 				{
 					dc.SetPixel( rcFocus.left, rcFocus.top, crWnd );
 					dc.SetPixel( rcFocus.left, rcFocus.bottom - 1, crWnd );
@@ -1389,8 +1389,8 @@ BOOL CMatchCtrl::HitTest(const CPoint& point, CMatchFile** poFile, CQueryHit** p
 	rcClient.top += HEADER_HEIGHT;
 
 	rcItem.SetRect( rcClient.left, rcClient.top, rcClient.right, 0 );
-	rcItem.top -= m_nHitIndex * Settings.Interface.RowSize;
-	rcItem.bottom = rcItem.top + Settings.Interface.RowSize;
+	rcItem.top -= m_nHitIndex * Settings.Skin.RowSize;
+	rcItem.bottom = rcItem.top + Settings.Skin.RowSize;
 
 	CMatchFile** ppFile = m_pMatches->m_pFiles + m_nTopIndex;
 
@@ -1411,8 +1411,8 @@ BOOL CMatchCtrl::HitTest(const CPoint& point, CMatchFile** poFile, CQueryHit** p
 			return TRUE;
 		}
 
-		rcItem.top += Settings.Interface.RowSize;
-		rcItem.bottom += Settings.Interface.RowSize;
+		rcItem.top += Settings.Skin.RowSize;
+		rcItem.bottom += Settings.Skin.RowSize;
 
 		if ( nCount > 1 && pFile->m_bExpanded )
 		{
@@ -1429,8 +1429,8 @@ BOOL CMatchCtrl::HitTest(const CPoint& point, CMatchFile** poFile, CQueryHit** p
 					return TRUE;
 				}
 
-				rcItem.top += Settings.Interface.RowSize;
-				rcItem.bottom += Settings.Interface.RowSize;
+				rcItem.top += Settings.Skin.RowSize;
+				rcItem.bottom += Settings.Skin.RowSize;
 
 				if ( rcItem.top >= rcClient.bottom ) break;
 			}
@@ -1450,9 +1450,9 @@ BOOL CMatchCtrl::GetItemRect(CMatchFile* pFindFile, CQueryHit* pFindHit, CRect* 
 	GetClientRect( &rcClient );
 	rcClient.top += HEADER_HEIGHT;
 
-	rcItem.SetRect( rcClient.left, rcClient.top, rcClient.right, rcClient.top + Settings.Interface.RowSize );
-	rcItem.top -= m_nHitIndex * Settings.Interface.RowSize;
-	rcItem.bottom = rcItem.top + Settings.Interface.RowSize;
+	rcItem.SetRect( rcClient.left, rcClient.top, rcClient.right, rcClient.top + Settings.Skin.RowSize );
+	rcItem.top -= m_nHitIndex * Settings.Skin.RowSize;
+	rcItem.bottom = rcItem.top + Settings.Skin.RowSize;
 
 	if ( m_nTopIndex > 0 )
 	{
@@ -1465,8 +1465,8 @@ BOOL CMatchCtrl::GetItemRect(CMatchFile* pFindFile, CQueryHit* pFindHit, CRect* 
 
 			if ( ! nCount ) continue;
 
-			rcItem.top -= Settings.Interface.RowSize;
-			rcItem.bottom -= Settings.Interface.RowSize;
+			rcItem.top -= Settings.Skin.RowSize;
+			rcItem.bottom -= Settings.Skin.RowSize;
 
 			if ( nCount > 1 && pFile->m_bExpanded )
 			{
@@ -1474,8 +1474,8 @@ BOOL CMatchCtrl::GetItemRect(CMatchFile* pFindFile, CQueryHit* pFindHit, CRect* 
 				{
 					if ( ! pHit->m_bFiltered ) continue;
 
-					rcItem.top -= Settings.Interface.RowSize;
-					rcItem.bottom -= Settings.Interface.RowSize;
+					rcItem.top -= Settings.Skin.RowSize;
+					rcItem.bottom -= Settings.Skin.RowSize;
 				}
 			}
 		}
@@ -1496,8 +1496,8 @@ BOOL CMatchCtrl::GetItemRect(CMatchFile* pFindFile, CQueryHit* pFindHit, CRect* 
 			return TRUE;
 		}
 
-		rcItem.top += Settings.Interface.RowSize;
-		rcItem.bottom += Settings.Interface.RowSize;
+		rcItem.top += Settings.Skin.RowSize;
+		rcItem.bottom += Settings.Skin.RowSize;
 
 		if ( nCount > 1 && pFile->m_bExpanded )
 		{
@@ -1511,8 +1511,8 @@ BOOL CMatchCtrl::GetItemRect(CMatchFile* pFindFile, CQueryHit* pFindHit, CRect* 
 					return TRUE;
 				}
 
-				rcItem.top += Settings.Interface.RowSize;
-				rcItem.bottom += Settings.Interface.RowSize;
+				rcItem.top += Settings.Skin.RowSize;
+				rcItem.bottom += Settings.Skin.RowSize;
 			}
 		}
 	}
@@ -1780,7 +1780,7 @@ BOOL CMatchCtrl::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 		rc.left		= ( rc.left + rc.right ) / 2 - 64;
 		rc.right	= rc.left + 128;
 		rc.top		= ( rc.top + rc.bottom ) / 2;
-		rc.bottom	= rc.top + Settings.Interface.RowSize - 1;
+		rc.bottom	= rc.top + Settings.Skin.RowSize - 1;
 		ClientToScreen( &rc );
 
 		GetCursorPos( &point );
@@ -1908,9 +1908,9 @@ void CMatchCtrl::MoveFocus(int nDelta, BOOL bShift)
 			rcClient.top += HEADER_HEIGHT;
 
 			if ( rcItem.top < rcClient.top )
-				ScrollBy( ( rcItem.top - rcClient.top - Settings.Interface.RowSize + 1 ) / Settings.Interface.RowSize );
+				ScrollBy( ( rcItem.top - rcClient.top - Settings.Skin.RowSize + 1 ) / Settings.Skin.RowSize );
 			else if ( rcItem.bottom > rcClient.bottom )
-				ScrollBy( ( rcItem.bottom - rcClient.bottom + Settings.Interface.RowSize - 1 ) / Settings.Interface.RowSize );
+				ScrollBy( ( rcItem.bottom - rcClient.bottom + Settings.Skin.RowSize - 1 ) / Settings.Skin.RowSize );
 		}
 
 		if ( bChanged ) NotifySelection();

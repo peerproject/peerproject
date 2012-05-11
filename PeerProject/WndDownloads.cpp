@@ -62,7 +62,7 @@ static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif	// Filename
 
-//#define GROUPSBAR 24	// Skin.m_nGroupsbarHeight
+//#define GROUPSBAR 24	// Settings.Skin.GroupsbarHeight
 
 
 IMPLEMENT_SERIAL(CDownloadsWnd, CPanelWnd, 0)
@@ -290,12 +290,12 @@ BOOL CDownloadsWnd::OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERIN
 
 void CDownloadsWnd::OnSize(UINT nType, int cx, int cy)
 {
-	CRect rc( 0, 0, cx, cy - Skin.m_nToolbarHeight );
+	CRect rc( 0, 0, cx, cy - Settings.Skin.ToolbarHeight );
 
 	BOOL bTabs = Settings.Downloads.ShowGroups && ( Settings.General.GUIMode != GUI_BASIC );
 
 	if ( bTabs )
-		rc.top += Skin.m_nGroupsbarHeight;
+		rc.top += Settings.Skin.GroupsbarHeight;
 	else
 		m_wndTabBar.ShowWindow( SW_HIDE );
 
@@ -303,9 +303,9 @@ void CDownloadsWnd::OnSize(UINT nType, int cx, int cy)
 	DeferWindowPos( hPos, m_wndDownloads, NULL,
 		0, rc.top, cx, rc.Height(), SWP_SHOWWINDOW|SWP_NOZORDER );
 	DeferWindowPos( hPos, m_wndToolBar, NULL,
-		0, rc.bottom, cx, Skin.m_nToolbarHeight, SWP_SHOWWINDOW|SWP_NOZORDER );
+		0, rc.bottom, cx, Settings.Skin.ToolbarHeight, SWP_SHOWWINDOW|SWP_NOZORDER );
 	if ( bTabs ) DeferWindowPos( hPos, m_wndTabBar, NULL,
-		0, 0, cx, Skin.m_nGroupsbarHeight, SWP_SHOWWINDOW|SWP_NOZORDER );
+		0, 0, cx, Settings.Skin.GroupsbarHeight, SWP_SHOWWINDOW|SWP_NOZORDER );
 	EndDeferWindowPos( hPos );
 
 	CPanelWnd::OnSize( nType, cx, cy );

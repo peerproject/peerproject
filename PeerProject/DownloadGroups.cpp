@@ -199,7 +199,7 @@ void CDownloadGroups::CreateDefault()
 
 	CDownloadGroup* pGroup	= GetSuperGroup();
 
-	BOOL bEng = Settings.General.Language.Left(2) == _T("en");	// Folder naming fixes
+	const BOOL bLang = ! Settings.General.LanguageDefault;		// Folder naming fixes
 
 	pGroup = Add( _T("DEFAULT") );			// DEFAULT Names are translated by Schema
 	pGroup->SetSchema( CSchema::uriAudio );
@@ -211,19 +211,19 @@ void CDownloadGroups::CreateDefault()
 	pGroup->SetFolder( pGroup->m_sName );
 	pGroup->SetDefaultFilters();
 
-	pGroup = Add( bEng ? _T("Images") : _T("DEFAULT") );
+	pGroup = Add( bLang ? _T("DEFAULT") : _T("Images") );
 	pGroup->SetSchema( CSchema::uriImage );
-	pGroup->SetFolder( bEng ? _T("Images") : pGroup->m_sName );
+	pGroup->SetFolder( bLang ? pGroup->m_sName : _T("Images") );
 	pGroup->SetDefaultFilters();
 
-	pGroup = Add( bEng ? _T("Documents") : _T("DEFAULT") );
+	pGroup = Add( bLang ? _T("DEFAULT") : _T("Documents") );
 	pGroup->SetSchema( CSchema::uriBook );
-	pGroup->SetFolder( bEng ? _T("Documents") : pGroup->m_sName );
+	pGroup->SetFolder( bLang ? pGroup->m_sName : _T("Documents") );
 	pGroup->SetDefaultFilters();
 
-	pGroup = Add( bEng ? _T("Archives") :_T("DEFAULT") );
+	pGroup = Add( bLang ? _T("DEFAULT") : _T("Archives") );
 	pGroup->SetSchema( CSchema::uriArchive );
-	pGroup->SetFolder( bEng ? _T("Archives") : pGroup->m_sName );
+	pGroup->SetFolder( bLang ? pGroup->m_sName : _T("Archives") );
 	pGroup->SetDefaultFilters();
 
 	pGroup = Add( _T("BitTorrent") );

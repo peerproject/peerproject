@@ -66,7 +66,7 @@ BEGIN_MESSAGE_MAP(CUploadsCtrl, CWnd)
 END_MESSAGE_MAP()
 
 #define HEADER_HEIGHT			20
-//#define ITEM_HEIGHT			17	// Skinnable Settings.Interface.RowSize
+//#define ITEM_HEIGHT			17	// Settings.Skin.RowSize
 
 #define UPLOAD_COLUMN_TITLE		0
 #define UPLOAD_COLUMN_SIZE		1
@@ -283,7 +283,7 @@ void CUploadsCtrl::SelectTo(int nIndex)
 	GetClientRect( &rcClient );
 
 	int nScroll = GetScrollPos( SB_VERT );
-	int nHeight = ( rcClient.bottom - HEADER_HEIGHT ) / Settings.Interface.RowSize - 1;
+	int nHeight = ( rcClient.bottom - HEADER_HEIGHT ) / Settings.Skin.RowSize - 1;
 	nHeight = max( 0, nHeight );
 
 	if ( m_nFocus < nScroll )
@@ -337,7 +337,7 @@ BOOL CUploadsCtrl::HitTest(const CPoint& point, CUploadQueue** ppQueue, CUploadF
 
 	rcItem.CopyRect( &rcClient );
 	rcItem.left -= GetScrollPos( SB_HORZ );
-	rcItem.bottom = rcItem.top + Settings.Interface.RowSize;
+	rcItem.bottom = rcItem.top + Settings.Skin.RowSize;
 
 	int nScroll = GetScrollPos( SB_VERT );
 	int nIndex = 0;
@@ -369,7 +369,7 @@ BOOL CUploadsCtrl::HitTest(const CPoint& point, CUploadQueue** ppQueue, CUploadF
 				if ( prcItem != NULL ) *prcItem = rcItem;
 				return TRUE;
 			}
-			rcItem.OffsetRect( 0, Settings.Interface.RowSize );
+			rcItem.OffsetRect( 0, Settings.Skin.RowSize );
 		}
 
 		nIndex ++;
@@ -393,7 +393,7 @@ BOOL CUploadsCtrl::HitTest(const CPoint& point, CUploadQueue** ppQueue, CUploadF
 					if ( prcItem != NULL ) *prcItem = rcItem;
 					return TRUE;
 				}
-				rcItem.OffsetRect( 0, Settings.Interface.RowSize );
+				rcItem.OffsetRect( 0, Settings.Skin.RowSize );
 			}
 
 			nIndex ++;
@@ -699,7 +699,7 @@ void CUploadsCtrl::OnSize(UINT nType, int cx, int cy)
 	pScroll.fMask	= SIF_RANGE|SIF_PAGE;
 	pScroll.nMin	= 0;
 	pScroll.nMax	= nHeight;
-	pScroll.nPage	= ( rcClient.bottom - HEADER_HEIGHT ) / Settings.Interface.RowSize + 1;
+	pScroll.nPage	= ( rcClient.bottom - HEADER_HEIGHT ) / Settings.Skin.RowSize + 1;
 	SetScrollInfo( SB_VERT, &pScroll, TRUE );
 
 	m_nFocus = min( m_nFocus, max( 0, nHeight - 1 ) );
@@ -731,7 +731,7 @@ void CUploadsCtrl::OnPaint()
 
 	rcItem.CopyRect( &rcClient );
 	rcItem.left -= GetScrollPos( SB_HORZ );
-	rcItem.bottom = rcItem.top + Settings.Interface.RowSize;
+	rcItem.bottom = rcItem.top + Settings.Skin.RowSize;
 
 	int nScroll = GetScrollPos( SB_VERT );
 	int nIndex = 0;
@@ -755,7 +755,7 @@ void CUploadsCtrl::OnPaint()
 		{
 			if ( rcItem.bottom > rcClient.top )
 				PaintQueue( dc, rcItem, pQueue, bFocus && ( m_nFocus == nIndex ) );
-			rcItem.OffsetRect( 0, Settings.Interface.RowSize );
+			rcItem.OffsetRect( 0, Settings.Skin.RowSize );
 		}
 
 		nIndex ++;
@@ -778,7 +778,7 @@ void CUploadsCtrl::OnPaint()
 			{
 				if ( rcItem.bottom > rcClient.top )
 					PaintFile( dc, rcItem, pQueue, pFile, nPosition, bFocus && ( m_nFocus == nIndex ) );
-				rcItem.OffsetRect( 0, Settings.Interface.RowSize );
+				rcItem.OffsetRect( 0, Settings.Skin.RowSize );
 			}
 
 			nIndex ++;
@@ -958,7 +958,7 @@ void CUploadsCtrl::PaintQueue(CDC& dc, const CRect& rcRow, CUploadQueue* pQueue,
 		CRect rcFocus( nTextLeft, rcRow.top, max( rcRow.right, nTextRight ), rcRow.bottom );
 		dc.Draw3dRect( &rcFocus, Colors.m_crHiBorder, Colors.m_crHiBorder );
 
-		if ( Skin.m_bRoundedSelect )
+		if ( Settings.Skin.RoundedSelect )
 		{
 			dc.SetPixel( rcFocus.left, rcFocus.top, crNatural );
 			dc.SetPixel( rcFocus.left, rcFocus.bottom - 1, crNatural );
@@ -1040,7 +1040,7 @@ void CUploadsCtrl::PaintFile(CDC& dc, const CRect& rcRow, CUploadQueue* /*pQueue
 			if ( bLeftMargin || ! bSelectmark )
 				dc.FillSolidRect( rcCell.left, rcCell.top, 24, rcCell.Height(), crLeftMargin );
 			rcCell.left += 24;
-			if ( bLeftMargin || ! bSelectmark && Settings.Interface.RowSize > 16 )
+			if ( bLeftMargin || ! bSelectmark && Settings.Skin.RowSize > 16 )
 				dc.FillSolidRect( rcCell.left, rcCell.top + 16, 16, rcCell.Height() - 16, crLeftMargin );
 
 			{
@@ -1189,7 +1189,7 @@ void CUploadsCtrl::PaintFile(CDC& dc, const CRect& rcRow, CUploadQueue* /*pQueue
 		CRect rcFocus( nTextLeft, rcRow.top, max( rcRow.right, nTextRight ), rcRow.bottom );
 		dc.Draw3dRect( &rcFocus, Colors.m_crHiBorder, Colors.m_crHiBorder );
 
-		if ( Skin.m_bRoundedSelect )
+		if ( Settings.Skin.RoundedSelect )
 		{
 			dc.SetPixel( rcFocus.left, rcFocus.top, crNatural );
 			dc.SetPixel( rcFocus.left, rcFocus.bottom - 1, crNatural );

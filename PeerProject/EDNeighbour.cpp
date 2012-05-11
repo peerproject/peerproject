@@ -491,9 +491,9 @@ BOOL CEDNeighbour::OnServerIdent(CEDPacket* pPacket)
 	}
 
 	if ( *m_oGUID.begin() == 0x2A2A2A2A )
-		m_sUserAgent = _T("eFarm Server");		// Very obsolete http://sourceforge.net/projects/efarm/
+		m_sUserAgent = _T("eFarm Server");			// Very obsolete http://sourceforge.net/projects/efarm/
 	else
-		m_sUserAgent = _T("eDonkey2000 Server");
+		m_sUserAgent = _T("eDonkey2000 Server");	// protocolNames[ PROTOCOL_ED2K ]
 
 	CQuickLock oLock( HostCache.eDonkey.m_pSection );
 

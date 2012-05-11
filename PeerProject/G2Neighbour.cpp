@@ -19,11 +19,11 @@
 #include "StdAfx.h"
 #include "Settings.h"
 #include "PeerProject.h"
-#include "Buffer.h"
 #include "Neighbours.h"
 #include "G2Neighbour.h"
 #include "G2Packet.h"
 #include "G1Packet.h"
+#include "Buffer.h"
 #include "Network.h"
 #include "Security.h"
 #include "Statistics.h"
@@ -190,8 +190,8 @@ BOOL CG2Neighbour::OnRun()
 
 	// Is it time to send HAW?
 	if ( tNow > m_tLastHAWOut + Settings.Gnutella2.HAWPeriod &&
-			m_nNodeType == ntNode && ! Neighbours.IsG2Leaf() &&
-			( Neighbours.IsG2Hub() || Neighbours.IsG2HubCapable() ) )
+		 m_nNodeType == ntNode && ! Neighbours.IsG2Leaf() &&
+		 ( Neighbours.IsG2Hub() || Neighbours.IsG2HubCapable() ) )
 		SendHAW();
 
 	return TRUE;
@@ -1004,7 +1004,7 @@ BOOL CG2Neighbour::ParseKHLPacket(CG2Packet* pPacket, const SOCKADDR_IN* pHost)
 		bInvalid = TRUE;
 
 	if ( bInvalid )
-		theApp.Message( MSG_ERROR, _T("G2: Invalid KHL packet received from %s"),
+		theApp.Message( MSG_ERROR, _T("[G2] Invalid KHL packet received from %s"),
 			(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ) );
 
 	return TRUE;

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Simplified) Skin File -->
 
-<!-- Translation based on default-en.xml r77 --> <!-- (Shareaza r6092) -->
+<!-- Translation based on default-en.xml r78 --> <!-- (Shareaza r6092) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -850,7 +850,7 @@
 		<item id="ID_TAB_NETWORK" text="网络(_N)"/>
 		<separator/>
 		<item id="ID_VIEW_SECURITY" text="安全(_C)"/>
-		<item id="ID_VIEW_SCHEDULER" text="Scheduler(_R)"/>
+		<item id="ID_VIEW_SCHEDULER" text="计划任务(_R)"/>
 		<item id="ID_VIEW_HOSTS" text="主机缓存(_H)"/>
 		<item id="ID_VIEW_DISCOVERY" text="探索(_V)"/>
 		<item id="ID_VIEW_TRAFFIC" text="图表(_G)"/>
@@ -1310,7 +1310,7 @@
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="获取元数据(_A)"/>
 		</menu>
 		<menu text="_Metadata">
-			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
+			<item id="ID_LIBRARY_REFRESH_METADATA" text="刷新元数据(_R)"/>
 			<item id="ID_LIBRARY_REBUILD_ANSI" text="本地化元数据"/>
 			<item id="ID_LIBRARY_COLUMNS" text="选择列(_C)..."/>
 		</menu>
@@ -1425,11 +1425,11 @@
 	<!-- SYSTEM WINDOW -->
 	<menu name="CSystemWnd">
 		<menu id="ID_SYSTEM_VERBOSE" text="详细模式(_M)">
-			<item id="ID_SYSTEM_VERBOSE_ERROR" text="_Error"/>
-			<item id="ID_SYSTEM_VERBOSE_WARNING" text="_Warning"/>
-			<item id="ID_SYSTEM_VERBOSE_NOTICE" text="_Notice"/>
-			<item id="ID_SYSTEM_VERBOSE_INFO" text="_Info"/>
-			<item id="ID_SYSTEM_VERBOSE_DEBUG" text="_Debug"/>
+			<item id="ID_SYSTEM_VERBOSE_ERROR" text="错误(_E)"/>
+			<item id="ID_SYSTEM_VERBOSE_WARNING" text="警告(_W)"/>
+			<item id="ID_SYSTEM_VERBOSE_NOTICE" text="注意(_N)"/>
+			<item id="ID_SYSTEM_VERBOSE_INFO" text="信息(_I)"/>
+			<item id="ID_SYSTEM_VERBOSE_DEBUG" text="调试(_D)"/>
 		</menu>
 		<item id="ID_SYSTEM_TIMESTAMP" text="时间戳(_T)"/>
 		<separator/>
@@ -1653,15 +1653,15 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
-		<heading align="middle">定 制 &#160;PEERPROJECT</heading>
+		<heading align="middle">定 制 &#160;PeerProject</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="196" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
 		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">皮肤外观</link><gap size="6"/>
 		<text align="middle">- 更改 PeerProject 的外观</text>
 		<newline gap="8"/>
 		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link><gap size="6"/>
-		<text align="middle">- Update blocklist</text>
+		<link target="command:ID_VIEW_SECURITY" align="middle">安全</link><gap size="6"/>
+		<text align="middle">- 添加/删除过滤以改进搜索结果</text>
 		<newline gap="8"/>
 		<icon res="197" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 		<link target="command:ID_TOOLS_WIZARD" align="middle">设置向导</link><gap size="6"/>
@@ -3579,13 +3579,16 @@
 		<control caption="安装..."/>
 		<control caption="获取更多"/>
 	</dialog>
-	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuSt" caption="高级">
+	<dialog name="CAdvancedSettingsPage" cookie="SyBuStEdmsEdCoBuBu" caption="高级">
 		<control/>
-		<control/>
-		<control/>
-		<control caption="Set Default"/>
 		<control caption="设置属性:"/>
 		<control caption="赋值:"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="恢复默认"/>
 	</dialog>
 	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="协议">
 		<control caption="PeerProject 通用协议架构浏览:"/>

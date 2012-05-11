@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Norwegian Skin File -->
 
-<!-- Translation based on default-en.xml r77 --> <!-- (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r78 --> <!-- (Shareaza 2.2.0.2) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1423,27 +1423,27 @@
 				<font size="13"/>
 			</style>
 			<style name="heading">
-				<font face="Trebuchet MS" size="16" weight="800"/>
+				<font face="Segoe UI" size="18" weight="400"/>
 			</style>
 		</styles>
 		<anchor id="Header" width="32" height="152"/>
 		<newline gap="0"/>
 		<group id="1">
 			<icon res="136" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">KOBLE TIL</heading>
+			<heading align="middle">Koble Til</heading>
 			<newline gap="8" indent="42"/>
-			<text>Velkommen til PeerProject! &#160;Du er ikke koblet til P2P-nettverket. &#160;</text>
-			<link target="command:ID_NETWORK_CONNECT">Klikk her for å starte!</link>
+			<text>Velkommen til PeerProject. &#160;Du er ikke koblet til P2P-nettverket. &#160;</text>
+			<link target="command:ID_NETWORK_CONNECT">Klikk her for å starte.</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="2">
 			<icon res="130" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">SØK MED</heading>
+			<heading align="middle">Søk Med</heading>
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="12" indent="0"/>
 			<icon res="122" width="32" height="32" target="command:shell:downloads"/><gap size="8"/>
-			<heading align="middle">MINE NEDLASTINGER</heading>
+			<heading align="middle">Mine Nedlastinger</heading>
 			<newline gap="8" indent="42"/>
 			<text>Or open your completed </text>
 			<link target="command:shell:downloads">downloads folder.</link>
@@ -1454,7 +1454,7 @@
 		</group>
 		<group id="3">
 			<icon res="120" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">OPPDATERINGSVARSEL</heading>
+			<heading align="middle">Oppdaeringsvarsel</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Oppdater"/>
 			<newline gap="6"/>
@@ -1463,7 +1463,7 @@
 		</group>
 		<group id="4">
 			<icon res="180" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
-			<heading align="middle">OBS - DU ER BAK EN BRANNMUR</heading>
+			<heading align="middle">Obs: Du Er Bak En Brannmur</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject har oppdaget at du er bak en NAT-router eller brannmur,
 			og klarer ikke å motta tilkoblinger fra internett. &#160;</text>
@@ -1473,7 +1473,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
-		<heading align="middle">MODIFISER PEERPROJECT</heading>
+		<heading align="middle">Modifiser PeerProject</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="196" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
 		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Skins</link><gap size="6"/>
@@ -1498,7 +1498,7 @@
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="120" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">FJERNKONSOLLEN ER PÅ</heading>
+			<heading align="middle">Fjernkonsollen Er På</heading>
 			<newline gap="8" indent="42"/>
 			<text>PeerProject Fjernkonsoll er skrudd på. Kjør og kontroller PeerProject med internettleseren din her:</text>
 			<newline gap="6"/>
@@ -2686,7 +2686,7 @@
 	<string id="20433" value="PeerProject klarte ikke å slette filen:\n\n%s"/>
 	<string id="20434" value="Din nedlastingsmappe &quot;%s&quot; er ikke i mine filer ennå.\n\nÅ inkludere din nedlastings mappe i mine filer gjør det lettere å se og organisere nye filer, dette lar deg også ta i bruk verifisering og automatisk oppdatering. Å lagre filer i mine filer betyr ikke at du må dele dem: du kan selv velge om du vil dele dem eller ikke.\n\nVil du legge til din nedlastingsmappe i mine filer nå?"/>
 	<string id="20435" value="Din nedlastingsmappe er lagt til i mine filer. Vil du dele den også?"/>
-	<!--string id="20436" value="Du har ikke valgt en mediaspiller å sende filer i kø til. Vil du velge en nå?\n\nPeerProject kan sende navnet til filen ved hjelp av &quot;--Legg til&quot; kommandoen."/>
+	<!--string id="20436" value="Du har ikke valgt en mediaspiller å sende filer i kø til. Vil du velge en nå?\n\nPeerProject kan sende navnet til filen ved hjelp av &quot;--ADD til&quot; kommandoen."-->
 	<string id="20436" value="Legg denne mappen til biblioteket?\n\n%s"/>
 	<string id="20437" value="Ghost Fil"/>
 	<string id="20438" value="Endrer metadata til %i filer."/>
@@ -3385,13 +3385,16 @@
 		<control caption="_Innstaller..."/>
 		<control caption="Flere..."/>
 	</dialog>
-	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuSt" caption="Avansert">
+	<dialog name="CAdvancedSettingsPage" cookie="SyBuStEdmsEdCoBuBu" caption="Avansert">
 		<control/>
-		<control/>
-		<control/>
-		<control caption="Set Default"/>
 		<control caption="Egenskaper:"/>
 		<control caption="Verdi:"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="Bruk Standard"/>
 	</dialog>
 	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protokoller">
 		<control caption="PeerProject Common Architecture protokollutforsker:"/>

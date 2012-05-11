@@ -24,6 +24,8 @@
 #define _P(x) (x),((sizeof(x))/sizeof((x)[0])-1)
 #define _PT(x) ( _T(x) ), ( (sizeof(_T(x)))/sizeof((_T(x))[0]) - 1 )
 
+#define IsSpace(ch)	((ch) == _T(' ') || (ch) == _T('\t') || (ch) == _T('\r') || (ch) == _T('\n'))
+
 class CLowerCaseTable
 {
 public:
@@ -109,7 +111,6 @@ CString HostToString(const SOCKADDR_IN* pHost);
 // IsValidIP("1.2.3.4:0000") is true
 BOOL IsValidIP(const CString& sInput);
 
-
 // Function is used to split a phrase in Asian languages to separate keywords
 // to ease keyword matching, allowing user to type as in the natural language.
 // Spacebar key is not a convenient way to separate keywords with IME,
@@ -133,3 +134,15 @@ struct CompareWordEntries : public std::binary_function< WordEntry, WordEntry, b
 typedef std::set< WordEntry, CompareWordEntries > WordTable;
 
 void BuildWordTable(LPCTSTR pszWord, WordTable& oWords, WordTable& oNegWords);
+
+// Skip slashes starting from nAdd position
+LPCTSTR SkipSlashes(LPCTSTR pszURL, int nAdd = 0);
+
+// Replace all symbols with code less than space by underscore symbols
+void SafeString(CString& strInput);
+
+// Escape unsafe symbols
+CString Escape(const CString& strValue);
+
+// Unescape unsafe symbols
+CString Unescape(LPCTSTR pszXML, int nLength = -1);

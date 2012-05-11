@@ -193,7 +193,7 @@ void CRichElement::PrePaint(CDC* pDC, BOOL bHover)
 		break;
 	}
 
-	if ( ( m_nFlags & retfBold ) && ( m_nFlags & retfUnderline ) )
+	if ( m_nFlags & retfBold )
 	{
 		pFont = ( m_nFlags & retfUnderline ) ? &m_pDocument->m_fntBoldUnder : &m_pDocument->m_fntBold;
 	}
@@ -228,12 +228,14 @@ void CRichElement::PrePaintBitmap(CDC* /*pDC*/)
 	}
 	else
 	{
-		CString strFile = Settings.General.Path + '\\' + m_sText;
+	//	CString strFile = Settings.General.Path + '\\' + m_sText;
+	//
+	//	CImageFile pFile;
+	//	if ( ! pFile.LoadFromFile( strFile ) ) return;
+	//	if ( ! pFile.EnsureRGB() ) return;	// ToDo: Support Alpha?
+	//	m_hImage = pFile.CreateBitmap();
 
-		CImageFile pFile;
-		if ( ! pFile.LoadFromFile( strFile ) ) return;
-		if ( ! pFile.EnsureRGB() ) return;	// ToDo: Support Alpha?
-		m_hImage = pFile.CreateBitmap();
+		m_hImage = CImageFile::LoadBitmapFromFile( Settings.General.Path + '\\' + m_sText );
 	}
 }
 

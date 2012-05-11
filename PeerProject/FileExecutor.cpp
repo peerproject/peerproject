@@ -135,8 +135,7 @@ void CFileExecutor::DetectFileType(LPCTSTR pszFile, LPCTSTR szType, bool& bVideo
 	// Detect type by MIME "Content Type"
 	if ( ! bAudio && ! bVideo && ! bImage )
 	{
-		CString strMime;
-		ShellIcons.Lookup( szType, NULL, NULL, NULL, &strMime );
+		CString strMime = ShellIcons.GetMIME( szType );
 		if ( ! strMime.IsEmpty() )
 		{
 			CString strMimeMajor = strMime.SpanExcluding( _T("/") );

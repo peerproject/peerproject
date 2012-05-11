@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Traditional) Skin File -->
 
-<!-- Translation based on default-en.xml r77 --> <!-- (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r78 --> <!-- (Shareaza 2.2.2.12) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1607,7 +1607,7 @@
 				<font size="13"/>
 			</style>
 			<style name="heading">
-				<font face="Trebuchet MS" size="16" weight="800"/>
+				<font face="Segoe UI" size="18" weight="400"/>
 			</style>
 		</styles>
 		<anchor id="Header" width="32" height="152"/>
@@ -3506,13 +3506,16 @@
 		<control caption="設定..."/>
 		<control caption="取得更多"/>
 	</dialog>
-	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuSt" caption="進階">
+	<dialog name="CAdvancedSettingsPage" cookie="SyBuStEdmsEdCoBuBu" caption="進階">
 		<control/>
-		<control/>
-		<control/>
-		<control caption="Set Default"/>
 		<control caption="敘述:"/>
 		<control caption="設定的屬性:"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="恢復默認"/>
 	</dialog>
 	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="協定">
 		<control caption="PeerProject 通用結構協定探索器:"/>

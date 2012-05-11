@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Brazilian Portuguese Skin File -->
 
-<!-- Translation based on default-en.xml r77 -->
+<!-- Translation based on default-en.xml r78 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -458,16 +458,6 @@
 	</toolbar>
 	<!--
 	<toolbar name="WebServices.ShareMonkey">
-		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Obter Dados"/>
-		<separator/>
-		<button id="ID_SHAREMONKEY_PREVIOUS" text="Anterior"/>
-		<button id="ID_SHAREMONKEY_NEXT" text="Próximo"/>
-		<separator/>
-		<button id="ID_SHAREMONKEY_PRICES" text="Obter Preços"/>
-		<button id="ID_SHAREMONKEY_COMPARE" text="Comparar"/>
-		<button id="ID_SHAREMONKEY_BUY" text="Comprar"/>
-	</toolbar>
-	<toolbar name="WebServices.ShareMonkey.WithSave">
 		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Obter Dados"/>
 		<button id="ID_SHAREMONKEY_SAVE" text="Salvar"/>
 		<control id="ID_SHAREMONKEY_SAVE_OPTION" text="Salvar Pré-Visualização" width="100" checked="true"/>
@@ -1674,7 +1664,7 @@
 		<icon res="136" width="32" height="32" target="command:ID_NETWORK_CONNECT"/><gap size="8"/>
 		<heading align="middle">Se Conecte</heading>
 		<newline gap="8" indent="42"/>
-		<text>Bem-vindo ao PeerProject!</text>
+		<text>Bem-vindo ao PeerProject.</text>
 		<newline gap="8" indent="42"/>
 		<text>Você não está conectado atualmente a quaisquer redes peer to peer.</text>
 		<newline gap="2" indent="42"/>
@@ -3795,13 +3785,16 @@
 		<control caption="_Configuração..."/>
 		<control caption="Obter Mais"/>
 	</dialog>
-	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuSt" caption="Avançado">
+	<dialog name="CAdvancedSettingsPage" cookie="SyBuStEdmsEdCoBuBu" caption="Avançado">
+		<control/>
+		<control caption="Propriedades da Configuração:"/>
+		<control caption="Valor:"/>
+		<control/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
 		<control caption="Definir Padrão"/>
-		<control caption="Propriedades da Configuração:"/>
-		<control caption="Valor:"/>
 	</dialog>
 	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protocolos">
 		<control caption="Explorador dos Protocolos de Arquitetura Comum do PeerProject:"/>

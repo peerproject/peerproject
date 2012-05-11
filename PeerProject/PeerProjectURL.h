@@ -42,7 +42,8 @@ public:
 		uriSearch,
 		uriHost,
 		uriBrowse,
-		uriDiscovery
+		uriDiscovery,
+		uriCommand
 	};
 
 	PROTOCOLID		m_nProtocol;
@@ -90,16 +91,12 @@ protected:
 	BOOL	ParsePiolet(LPCTSTR pszURL);					// mp2p://[|]file|{name}|{size}|{sha1_hash}/
 	BOOL	ParsePioletFile(LPCTSTR pszURL);
 
-	static LPCTSTR SkipSlashes(LPCTSTR pszURL, int nAdd = 0);
-	static void	SafeString(CString& strInput);
-
 // Registration Operations
 public:
-	static void	Register(/*BOOL bRegister = TRUE,*/ BOOL bOnStartup = FALSE);
+	static void	Register(BOOL bRegister = TRUE, BOOL bOnStartup = FALSE);
 
 protected:
 	static BOOL	RegisterMagnetHandler(LPCTSTR pszID, LPCTSTR pszName, LPCTSTR pszDescription, LPCTSTR pszApplication, UINT nIDIcon);
 	static BOOL	RegisterShellType(LPCTSTR pszRoot, LPCTSTR pszProtocol, LPCTSTR pszName, LPCTSTR pszType, LPCTSTR pszApplication, LPCTSTR pszTopic, UINT nIDIcon, BOOL bOverwrite = TRUE);
-	static BOOL	UnregisterShellType(LPCTSTR pszRoot, LPCTSTR pszProtocol = NULL);
-//	static void DeleteKey(HKEY hParent, LPCTSTR pszKey);	// Moved to CRegistry::DeleteKey
+	static BOOL	UnregisterShellType(LPCTSTR pszRoot);
 };

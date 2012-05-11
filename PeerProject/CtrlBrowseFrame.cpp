@@ -56,8 +56,8 @@ BEGIN_MESSAGE_MAP(CBrowseFrameCtrl, CWnd)
 END_MESSAGE_MAP()
 
 #define SIZE_INTERNAL	1982
-//#define SPLIT_SIZE	6	//Skin.m_nSplitter
-//#define BAR_HEIGHT	28	//Skin.m_nToolbarHeight
+//#define SPLIT_SIZE	6	// Settings.Skin.Splitter
+//#define BAR_HEIGHT	28	// Settings.Skin.ToolbarHeight
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -130,18 +130,18 @@ void CBrowseFrameCtrl::OnSize(UINT nType, int cx, int cy)
 
 	if ( rc.Height() < 32 ) return;
 
-	if ( rc.Width() < m_nTreeSize + Skin.m_nSplitter )
-		m_nTreeSize = max( 0, rc.Width() - Skin.m_nSplitter );
+	if ( rc.Width() < m_nTreeSize + Settings.Skin.Splitter )
+		m_nTreeSize = max( 0, rc.Width() - (int)Settings.Skin.Splitter );
 
 	HDWP hDWP = BeginDeferWindowPos( 4 );
 
 	if ( m_bTreeVisible )
 	{
 		DeferWindowPos( hDWP, m_wndTreeTop, NULL, rc.left, rc.top, m_nTreeSize,
-			Skin.m_nToolbarHeight, SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOZORDER );
-		DeferWindowPos( hDWP, m_wndTree, NULL, rc.left, rc.top + Skin.m_nToolbarHeight, m_nTreeSize,
-			rc.Height() - Skin.m_nToolbarHeight, SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOZORDER );
-		rc.left += m_nTreeSize + Skin.m_nSplitter;
+			Settings.Skin.ToolbarHeight, SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOZORDER );
+		DeferWindowPos( hDWP, m_wndTree, NULL, rc.left, rc.top + Settings.Skin.ToolbarHeight, m_nTreeSize,
+			rc.Height() - Settings.Skin.ToolbarHeight, SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOZORDER );
+		rc.left += m_nTreeSize + Settings.Skin.Splitter;
 	}
 	else
 	{
@@ -151,15 +151,15 @@ void CBrowseFrameCtrl::OnSize(UINT nType, int cx, int cy)
 
 	rc.top ++;
 
-	if ( rc.Height() < m_nPanelSize + Skin.m_nSplitter )
-		m_nPanelSize = max( 0, rc.Height() - Skin.m_nSplitter );
+	if ( rc.Height() < m_nPanelSize + Settings.Skin.Splitter )
+		m_nPanelSize = max( 0, rc.Height() - (int)Settings.Skin.Splitter );
 
 	if ( m_bPanelEnable && m_bPanelVisible )
 	{
 		DeferWindowPos( hDWP, m_wndDetails, NULL, rc.left,
 			rc.bottom - m_nPanelSize, rc.Width(),
 			m_nPanelSize, SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOZORDER );
-		rc.bottom -= m_nPanelSize + Skin.m_nSplitter;
+		rc.bottom -= m_nPanelSize + Settings.Skin.Splitter;
 	}
 	else
 	{
@@ -181,7 +181,7 @@ void CBrowseFrameCtrl::OnPaint()
 
 	CRect rcBar(	rcClient.left + m_nTreeSize,
 					rcClient.top,
-					rcClient.left + m_nTreeSize + Skin.m_nSplitter,
+					rcClient.left + m_nTreeSize + Settings.Skin.Splitter,
 					rcClient.bottom );
 
 	if ( m_wndTree.IsWindowVisible() )
@@ -199,13 +199,13 @@ void CBrowseFrameCtrl::OnPaint()
 	}
 
 	rcBar.SetRect(	rcClient.left,
-					rcClient.bottom - m_nPanelSize - Skin.m_nSplitter,
+					rcClient.bottom - m_nPanelSize - Settings.Skin.Splitter,
 					rcClient.right,
 					rcClient.bottom - m_nPanelSize );
 
 	if ( m_wndDetails.IsWindowVisible() )
 	{
-		if ( m_wndTree.IsWindowVisible() ) rcBar.left += m_nTreeSize + Skin.m_nSplitter;
+		if ( m_wndTree.IsWindowVisible() ) rcBar.left += m_nTreeSize + Settings.Skin.Splitter;
 
 		dc.FillSolidRect( rcBar.left, rcBar.top, rcBar.Width(), 1, Colors.m_crResizebarEdge );
 		dc.FillSolidRect( rcBar.left, rcBar.top + 1, rcBar.Width(), 1, Colors.m_crResizebarHighlight );
@@ -224,11 +224,11 @@ BOOL CBrowseFrameCtrl::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 	GetClientRect( &rcClient );
 	ClientToScreen( &rcClient );
 
-	rc.SetRect(	Settings.General.LanguageRTL ? rcClient.right - m_nTreeSize - Skin.m_nSplitter :
+	rc.SetRect(	Settings.General.LanguageRTL ? rcClient.right - m_nTreeSize - Settings.Skin.Splitter :
 				rcClient.left + m_nTreeSize,
 				rcClient.top,
 				Settings.General.LanguageRTL ? rcClient.right - m_nTreeSize :
-				rcClient.left + m_nTreeSize + Skin.m_nSplitter,
+				rcClient.left + m_nTreeSize + Settings.Skin.Splitter,
 				rcClient.bottom );
 
 	if ( m_wndTree.IsWindowVisible() && rc.PtInRect( point ) )
@@ -238,16 +238,16 @@ BOOL CBrowseFrameCtrl::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 	}
 
 	rc.SetRect(	rcClient.left,
-				rcClient.bottom - m_nPanelSize - Skin.m_nSplitter,
+				rcClient.bottom - m_nPanelSize - Settings.Skin.Splitter,
 				rcClient.right,
 				rcClient.bottom - m_nPanelSize );
 
 	if ( m_wndTree.IsWindowVisible() )
 	{
 		if ( Settings.General.LanguageRTL )
-			rc.right -= m_nTreeSize + Skin.m_nSplitter;
+			rc.right -= m_nTreeSize + Settings.Skin.Splitter;
 		else
-			rc.left += m_nTreeSize + Skin.m_nSplitter;
+			rc.left += m_nTreeSize + Settings.Skin.Splitter;
 	}
 
 	if ( m_wndDetails.IsWindowVisible() && rc.PtInRect( point ) )
@@ -266,7 +266,7 @@ void CBrowseFrameCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 
 	rc.SetRect(	rcClient.left + m_nTreeSize,
 				rcClient.top,
-				rcClient.left + m_nTreeSize + Skin.m_nSplitter,
+				rcClient.left + m_nTreeSize + Settings.Skin.Splitter,
 				rcClient.bottom );
 
 	if ( m_wndTree.IsWindowVisible() && rc.PtInRect( point ) )
@@ -276,11 +276,11 @@ void CBrowseFrameCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 	}
 
 	rc.SetRect(	rcClient.left,
-				rcClient.bottom - m_nPanelSize - Skin.m_nSplitter,
+				rcClient.bottom - m_nPanelSize - Settings.Skin.Splitter,
 				rcClient.right,
 				rcClient.bottom - m_nPanelSize );
 
-	if ( m_wndTree.IsWindowVisible() ) rc.left += m_nTreeSize + Skin.m_nSplitter;
+	if ( m_wndTree.IsWindowVisible() ) rc.left += m_nTreeSize + Settings.Skin.Splitter;
 
 	if ( m_wndDetails.IsWindowVisible() && rc.PtInRect( point ) )
 	{
@@ -325,12 +325,12 @@ BOOL CBrowseFrameCtrl::DoSizeTree()
 		nSplit += nOffset;
 
 		nSplit = max( nSplit, 0 );
-		nSplit = min( nSplit, rcClient.right - Skin.m_nSplitter );
+		nSplit = min( nSplit, rcClient.right - (int)Settings.Skin.Splitter );
 
 		if ( nSplit < 8 )
 			nSplit = 0;
-		if ( nSplit > rcClient.right - Skin.m_nSplitter - 8 )
-			nSplit = rcClient.right - Skin.m_nSplitter;
+		if ( nSplit > rcClient.right - Settings.Skin.Splitter - 8 )
+			nSplit = rcClient.right - Settings.Skin.Splitter;
 
 		if ( nSplit != m_nTreeSize )
 		{
@@ -354,7 +354,7 @@ BOOL CBrowseFrameCtrl::DoSizePanel()
 	CPoint point;
 
 	GetClientRect( &rcClient );
-	if ( m_bTreeVisible ) rcClient.left += m_nTreeSize + Skin.m_nSplitter;
+	if ( m_bTreeVisible ) rcClient.left += m_nTreeSize + Settings.Skin.Splitter;
 	ClientToScreen( &rcClient );
 	ClipCursor( &rcClient );
 	SetCapture();
@@ -383,8 +383,8 @@ BOOL CBrowseFrameCtrl::DoSizePanel()
 
 		if ( nSplit < 8 )
 			nSplit = 0;
-		if ( nSplit > rcClient.Height() - Skin.m_nSplitter - 8 )
-			nSplit = rcClient.Height() - Skin.m_nSplitter;
+		if ( nSplit > rcClient.Height() - Settings.Skin.Splitter - 8 )
+			nSplit = rcClient.Height() - Settings.Skin.Splitter;
 
 		if ( nSplit != m_nPanelSize )
 		{

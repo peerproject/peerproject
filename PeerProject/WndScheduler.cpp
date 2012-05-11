@@ -1,7 +1,7 @@
 //
 // WndScheduler.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2010-2011
+// This file is part of PeerProject (peerproject.org) © 2010-2012
 // Portions copyright Shareaza Development Team, 2010.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -270,7 +270,7 @@ void CSchedulerWnd::OnSize(UINT nType, int cx, int cy)
 	if ( ! m_wndList ) return;
 
 	CPanelWnd::OnSize( nType, cx, cy );
-	m_wndList.SetWindowPos( NULL, 0, 0, cx, cy - Skin.m_nToolbarHeight, SWP_NOZORDER );
+	m_wndList.SetWindowPos( NULL, 0, 0, cx, cy - Settings.Skin.ToolbarHeight, SWP_NOZORDER );
 	SizeListAndBar( &m_wndList, &m_wndToolBar );
 }
 

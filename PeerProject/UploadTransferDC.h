@@ -54,7 +54,4 @@ protected:
 	BOOL			RequestTigerTree(CLibraryFile* pFile, QWORD nOffset, QWORD nLength);
 	BOOL			RequestFile(CLibraryFile* pFile, QWORD nOffset, QWORD nLength);
 	BOOL			SendFile();
-	static void		LibraryToFileList(const CString& strRoot, CBuffer& pXML);
-	static void		FolderToFileList(const CLibraryFolder* pFolder, CBuffer& pXML);
-	static void		FileToFileList(const CLibraryFile* pFile, CBuffer& pXML);
 };

@@ -162,6 +162,7 @@ public:
 	CHostCacheList(PROTOCOLID nProtocol);
 	virtual ~CHostCacheList();
 
+public:
 	PROTOCOLID			m_nProtocol;
 	DWORD				m_nCookie;
 	mutable CMutex		m_pSection;
@@ -257,6 +258,7 @@ class CHostCache
 public:
 	CHostCache();
 
+public:
 	CHostCacheList		Gnutella2;
 	CHostCacheList		Gnutella1;
 	CHostCacheList		G1DNA;
@@ -267,6 +269,7 @@ public:
 
 	BOOL				Load();
 	BOOL				Save();
+	void				Clear();
 
 	// Import various host files, return imported host count
 	int					Import(LPCTSTR pszFile, BOOL bFreshOnly = FALSE);
@@ -339,7 +342,6 @@ protected:
 	DWORD		m_tLastPruneTime;
 
 	void		Serialize(CArchive& ar);
-	void		Clear();
 	int			LoadDefaultServers(PROTOCOLID nProtocol);
 };
 

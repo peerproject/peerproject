@@ -362,7 +362,7 @@ void CCollectionExportDlg::OnOK()
 
 		if ( m_pFolder && m_pFolder->GetFileCount() )
 		{
-			CXMLElement* pXML = m_pFolder->CreateXML( TRUE );
+			CXMLElement* pXML = m_pFolder->CreateXML();
 			CString strXML = pXML->ToString( TRUE, TRUE );
 			delete pXML;
 

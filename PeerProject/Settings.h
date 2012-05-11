@@ -64,12 +64,13 @@ public:
 		CString		LastSettingsPage;		// Last selected Settings dialog page
 		CString		Language;
 		bool		LanguageRTL;			// Right-to-Left GUI
+		bool		LanguageDefault;		// Assume English
 		bool		IgnoreXPsp2;			// Ignore the presence of Windows XPsp2 limits
 		bool		ItWasLimited;			// If user patches half-open connection limit change settings back to full speed
 		bool		DebugBTSources;			// Display received sources for BT download when seeding
 		bool		AlwaysOpenURLs;
 		bool		FirstRun;				// Original installation
-		bool		Running;				// ToDo: detect abnormal shutdown on startup
+		bool		Running;				// ToDo: Detect abnormal shutdown on startup
 	} General;
 
 	struct sVersionCheck
@@ -92,7 +93,6 @@ public:
 		bool		AutoComplete;			// Use text field histories
 		bool		CoolMenuEnable;			// Use skinned menus
 		bool		LowResMode;
-		DWORD		RowSize;				// 17 pixel ITEM_HEIGHT in custom-draw lists
 		DWORD		RefreshRateGraph;		// Data display update in milliseconds (set speed)
 		DWORD		RefreshRateText;		// Data display update in milliseconds
 		DWORD		RefreshRateUI;			// Button availability update in milliseconds (~4 chances per second)
@@ -106,6 +106,28 @@ public:
 		bool		TipNeighbours;
 		bool		TipMedia;
 	} Interface;
+
+	struct sSkin
+	{
+		bool		DropMenu;
+		bool		MenuBorders;
+		bool		MenuGripper;
+		bool		RoundedSelect;
+		DWORD		ButtonEdge;
+		DWORD		MenubarHeight;
+		DWORD		ToolbarHeight;
+		DWORD		TaskbarHeight;
+		DWORD		TaskbarTabWidth;
+		DWORD		GroupsbarHeight;
+		DWORD		HeaderbarHeight;
+		DWORD		MonitorbarWidth;
+		DWORD		SidebarWidth;
+		DWORD		SidebarPadding;
+		DWORD		Splitter;
+		DWORD		RowSize;				// 17 pixel ITEM_HEIGHT in custom-draw lists
+		DWORD		LibIconsX;
+		DWORD		LibIconsY;
+	} Skin;
 
 	struct sWindows
 	{
@@ -200,10 +222,11 @@ public:
 		bool		AutoPreview;			// Default thumbnail selected hit
 		bool		AdultFilter;
 		bool		AdvancedPanel;
-		bool		HideSearchPanel;
+		bool		ResultsPanel;			// Search Results Box state (open or closed) (Was Settings.General.SearchPanelResults)
 		bool		SearchPanel;
-		bool		ExpandMatches;
+		bool		HideSearchPanel;
 		bool		HighlightNew;
+		bool		ExpandMatches;
 		bool		SwitchToTransfers;
 		bool		SchemaTypes;
 		bool		ShowNames;
@@ -504,6 +527,7 @@ public:
 		bool		EnableDHT;				// Enable Mainline DHT protocol
 		bool		Endgame;				// Allow endgame mode when completing torrents. (Download same chunk from multiple sources)
 		bool		AutoSeed;				// Automatically re-seed most recently completed torrent on start-up
+		bool		AutoMerge;				// Automatically merge download with local files on start-up
 		bool		AutoClear;				// Clear completed torrents when they meet the required share ratio
 		DWORD		ClearRatio;				// Share ratio a torrent must reach to be cleared. (Minimum 100%)
 		DWORD		BandwidthPercentage;	// Percentage of bandwidth to use when BT active.
@@ -663,6 +687,11 @@ public:
 
 // Attributes : Item List
 public:
+	enum Type
+	{
+		setNull, setBool, setString, setFont, setPath, setReadOnly
+	};
+
 	class Item
 	{
 	public:
@@ -683,6 +712,7 @@ public:
 			, m_nMax		( 1 )
 			, m_szSuffix	( NULL )
 			, m_bHidden 	( bHidden )
+			, m_nType		( setBool )
 		{
 		}
 
@@ -703,6 +733,7 @@ public:
 			, m_nMax		( nMax )
 			, m_szSuffix	( szSuffix )
 			, m_bHidden 	( bHidden )
+			, m_nType		( setNull )
 		{
 		}
 
@@ -723,10 +754,11 @@ public:
 			, m_nMax		( 0 )
 			, m_szSuffix	( NULL )
 			, m_bHidden 	( bHidden )
+			, m_nType		( setNull )
 		{
 		}
 
-		inline Item(const LPCTSTR szSection, const LPCTSTR szName, CString* const pString, const LPCTSTR szDefault, const bool bHidden) throw()
+		inline Item(const LPCTSTR szSection, const LPCTSTR szName, CString* const pString, const LPCTSTR szDefault, const bool bHidden, const Type nType = setString) throw()
 			: m_szSection	( szSection )
 			, m_szName		( szName )
 			, m_pBool		( NULL )
@@ -743,6 +775,7 @@ public:
 			, m_nMax		( 0 )
 			, m_szSuffix	( NULL )
 			, m_bHidden 	( bHidden )
+			, m_nType		( nType )
 		{
 		}
 
@@ -763,6 +796,7 @@ public:
 			, m_nMax		( 0 )
 			, m_szSuffix	( NULL )
 			, m_bHidden 	( bHidden )
+			, m_nType		( setNull )
 		{
 		}
 
@@ -799,6 +833,7 @@ public:
 		const LPCTSTR		m_szSuffix;
 
 		const bool			m_bHidden;
+		const Type			m_nType;
 	};
 
 protected:
@@ -871,9 +906,9 @@ protected:
 		m_pItems.AddTail( new Item( szSection, szName, pDouble, dDefault, bHidden ) );
 	}
 
-	inline void Add(const LPCTSTR szSection, const LPCTSTR szName, CString* const pString, const LPCTSTR szDefault = NULL, const bool bHidden = false) throw()
+	inline void Add(const LPCTSTR szSection, const LPCTSTR szName, CString* const pString, const LPCTSTR szDefault = NULL, const bool bHidden = false, const Type nType = setString) throw()
 	{
-		m_pItems.AddTail( new Item( szSection, szName, pString, szDefault, bHidden ) );
+		m_pItems.AddTail( new Item( szSection, szName, pString, szDefault, bHidden, nType ) );
 	}
 
 	inline void Add(const LPCTSTR szSection, const LPCTSTR szName, string_set* const pSet, const LPCTSTR szDefault, const bool bHidden = false) throw()

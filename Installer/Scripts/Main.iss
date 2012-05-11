@@ -319,6 +319,7 @@ SetupAppTitle=Setup | {#internal_name}
 
 [Run]
 ; Register EXE servers
+Filename: "{app}\PeerProject.exe"; Parameters: "/RegServer"; WorkingDir: "{app}"
 ;Filename: "{app}\Plugins\WindowsThumbnail.exe"; Parameters: "/RegServer"; WorkingDir: "{app}"
 ;Filename: "{app}\Plugins\MediaImageServices.exe"; Parameters: "/RegServer"; WorkingDir: "{app}"
 ;Filename: "{app}\Plugins\MediaPlayer.exe"; Parameters: "/RegServer"; WorkingDir: "{app}"
@@ -331,6 +332,8 @@ Filename: "{app}\PeerProject.exe"; Description: "{cm:LaunchProgram,PeerProject}"
 [UninstallRun]
 ; Run the skin installer at start of uninstallation and make sure it only runs once
 Filename: "{app}\SkinInstaller.exe"; Parameters: "/uninstallsilent"; WorkingDir: "{app}"; StatusMsg: "{cm:run_skinexe}"; RunOnceId: "uninstallskinexe"
+;Filename: "{app}\Plugins\WindowsThumbnail.exe"; Parameters: "/UnRegServer"; WorkingDir: "{app}"
+Filename: "{app}\PeerProject.exe"; Parameters: "/UnRegServer"; WorkingDir: "{app}"
 
 [Registry]
 Root: HKLM; Subkey: "SOFTWARE\PeerProject\PeerProject"; ValueType: dword; ValueName: "MultiUser"; ValueData: 1; Flags: deletevalue uninsdeletekey; Tasks: multiuser

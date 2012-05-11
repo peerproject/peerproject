@@ -1,8 +1,8 @@
 //
 // CtrlFontCombo.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
-// Portions copyright Shareaza Development Team, 2002-2007.
+// This file is part of PeerProject (peerproject.org) © 2008-2012
+// Portions copyright Shareaza Development Team, 2005-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Affero General Public License
@@ -34,14 +34,14 @@ static char THIS_FILE[] = __FILE__;
 // CFontCombo construction
 
 CFontCombo::CFontCombo()
+	: m_nFontHeight	( 16 )
 {
-	m_nFontHeight = 16;
 	m_pImages.Create( IDB_FONT_SYMBOLS, SYMBOL_WIDTH, 2, RGB(255,255,255) );
 }
 
-CFontCombo::~CFontCombo()
-{
-}
+//CFontCombo::~CFontCombo()
+//{
+//}
 
 IMPLEMENT_DYNAMIC(CFontCombo, CComboBox)
 
@@ -49,8 +49,8 @@ BEGIN_MESSAGE_MAP(CFontCombo, CComboBox)
 	//{{AFX_MSG_MAP(CFontCombo)
 	ON_WM_CREATE()
 	ON_WM_DESTROY()
-	ON_MESSAGE(OCM_DRAWITEM, OnOcmDrawItem)
-	ON_CONTROL_REFLECT(CBN_DROPDOWN, OnDropdown)
+	ON_MESSAGE(OCM_DRAWITEM, &CFontCombo::OnOcmDrawItem)
+	ON_CONTROL_REFLECT(CBN_DROPDOWN, &CFontCombo::OnDropdown)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -93,8 +93,7 @@ void CFontCombo::Initialize()
 	SetCurSel( 0 );
 }
 
-BOOL CALLBACK CFontCombo::EnumFontProc(LPENUMLOGFONTEX lplf, NEWTEXTMETRICEX* lpntm,
-									   DWORD dwFontType, LPVOID lpData)
+BOOL CALLBACK CFontCombo::EnumFontProc(LPENUMLOGFONTEX lplf, NEWTEXTMETRICEX* lpntm, DWORD dwFontType, LPVOID lpData)
 {
 	CFontCombo *pThis = reinterpret_cast<CFontCombo*>(lpData);
 
@@ -102,7 +101,7 @@ BOOL CALLBACK CFontCombo::EnumFontProc(LPENUMLOGFONTEX lplf, NEWTEXTMETRICEX* lp
 		 dwFontType != DEVICE_FONTTYPE && _tcsicmp( lplf->elfLogFont.lfFaceName, _T("Small Fonts") ) != 0 )
 	{
 		int nFamily = lplf->elfLogFont.lfPitchAndFamily ? lplf->elfLogFont.lfPitchAndFamily >> 4 : 6;
-		if ( nFamily < 4 ) // Don't use unknown, decorative and script fonts
+		if ( nFamily < 4 )	// Don't use unknown, decorative and script fonts
 		{
 			// Filter out vertical fonts starting with @
 			if ( lplf->elfLogFont.lfFaceName[ 0 ] != '@' && pThis->AddFont( lplf->elfLogFont.lfFaceName ) )
@@ -224,40 +223,75 @@ void CFontCombo::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 BOOL CFontCombo::AddFont(const CString& strFontName)
 {
 	CFont* pFont = NULL;
-	// Sometimes font with the same name exists on the system; check it.
-	if ( m_pFonts.Lookup( strFontName, (void*&)pFont ) == NULL )
-	{
-		pFont = new CFont;
 
-		if ( pFont->CreateFont( m_nFontHeight, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
-			DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
-			theApp.m_nFontQuality, DEFAULT_PITCH, strFontName ) )
-		{
-			m_pFonts.SetAt( strFontName, pFont );
-		}
+	// Sometimes font with the same name exists on the system, check it.
+	if ( m_pFonts.Lookup( strFontName, (void*&)pFont ) != NULL )
+		return FALSE;
+
+	pFont = new CFont;
+
+	if ( pFont->CreateFont( m_nFontHeight, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
+		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
+		theApp.m_nFontQuality, DEFAULT_PITCH, strFontName ) )
+	{
+		m_pFonts.SetAt( strFontName, pFont );
 	}
-	else return FALSE;
 
 	return TRUE;
 }
 
-void CFontCombo::SetFontHeight(int nNewHeight, BOOL bReinitialize)
+void CFontCombo::SelectFont(const CString& strFontName)
 {
-	if ( nNewHeight == m_nFontHeight ) return;
-	m_nFontHeight = nNewHeight;
-	if ( bReinitialize ) Initialize();
+	int nIndex = FindString( -1, strFontName );
+	if ( nIndex != CB_ERR )
+	{
+		SetCurSel( nIndex );
+		m_sSelectedFont = strFontName;
+	}
+	else
+	{
+		nIndex = FindString( -1, Settings.Fonts.DefaultFont );
+		if ( nIndex != CB_ERR )
+		{
+			SetCurSel( nIndex );
+			if ( m_sSelectedFont.IsEmpty() )
+				m_sSelectedFont = Settings.Fonts.DefaultFont;
+		}
+		else
+			SetCurSel( 0 );
+	}
 }
 
-int CFontCombo::GetFontHeight()
+CString CFontCombo::GetSelectedFont() const
+{
+	int nIndex = GetCurSel();
+	if ( nIndex == CB_ERR )
+		return Settings.Fonts.DefaultFont;
+
+	CString strFontName;
+	GetLBText( nIndex, strFontName );
+	return strFontName;
+}
+
+void CFontCombo::SetFontHeight(int nNewHeight, BOOL bReinitialize)
+{
+	if ( nNewHeight == m_nFontHeight )
+		return;
+
+	m_nFontHeight = nNewHeight;
+	if ( bReinitialize )
+		Initialize();
+}
+
+int CFontCombo::GetFontHeight() const
 {
 	return m_nFontHeight;
 }
 
 void CFontCombo::DeleteAllFonts()
 {
-	POSITION pos;
 	CString str;
-	for ( pos = m_pFonts.GetStartPosition() ; pos ; )
+	for ( POSITION pos = m_pFonts.GetStartPosition() ; pos ; )
 	{
 		CFont* pFont = NULL;
 		m_pFonts.GetNextAssoc( pos, str, (void*&)pFont );
@@ -276,38 +310,45 @@ void PASCAL DDX_FontCombo(CDataExchange* pDX, int nIDC, CString& strFontName)
 
 	CFontCombo* pCombo = static_cast<CFontCombo*>(CWnd::FromHandle( hWndCtrl ));
 
-	// Data from control
-	if ( pDX->m_bSaveAndValidate )
-	{
-		int nIndex = pCombo->GetCurSel();
-		if ( nIndex != CB_ERR )
-		{
-			pCombo->GetLBText( nIndex, strFontName );
-			pCombo->m_sSelectedFont = strFontName;
-		}
-		else
-			strFontName = Settings.Fonts.DefaultFont;
-	}
-	else // Data to control
-	{
-		int nIndex = pCombo->FindString( -1, strFontName );
-		if ( nIndex != CB_ERR )
-		{
-			pCombo->SetCurSel( nIndex );
-			if ( pCombo->m_sSelectedFont.IsEmpty() )
-				pCombo->m_sSelectedFont = strFontName;
-		}
-		else
-		{
-			nIndex = pCombo->FindString( -1, Settings.Fonts.DefaultFont );
-			if ( nIndex != CB_ERR )
-			{
-				pCombo->SetCurSel( nIndex );
-				if ( pCombo->m_sSelectedFont.IsEmpty() )
-					pCombo->m_sSelectedFont = Settings.Fonts.DefaultFont;
-			}
-			else
-				pCombo->SetCurSel( 0 );
-		}
-	}
+	if ( pDX->m_bSaveAndValidate )	// Data from control
+		strFontName = pCombo->m_sSelectedFont = pCombo->GetSelectedFont();
+	else	// Data to control
+		pCombo->SelectFont( strFontName );
+
+	// Obsolete:
+	//if ( pDX->m_bSaveAndValidate )
+	//{
+	//	// Data from control
+	//	int nIndex = pCombo->GetCurSel();
+	//	if ( nIndex != CB_ERR )
+	//	{
+	//		pCombo->GetLBText( nIndex, strFontName );
+	//		pCombo->m_sSelectedFont = strFontName;
+	//	}
+	//	else
+	//		strFontName = Settings.Fonts.DefaultFont;
+	//}
+	//else
+	//{
+	//	// Data to control
+	//	int nIndex = pCombo->FindString( -1, strFontName );
+	//	if ( nIndex != CB_ERR )
+	//	{
+	//		pCombo->SetCurSel( nIndex );
+	//		if ( pCombo->m_sSelectedFont.IsEmpty() )
+	//			pCombo->m_sSelectedFont = strFontName;
+	//	}
+	//	else
+	//	{
+	//		nIndex = pCombo->FindString( -1, Settings.Fonts.DefaultFont );
+	//		if ( nIndex != CB_ERR )
+	//		{
+	//			pCombo->SetCurSel( nIndex );
+	//			if ( pCombo->m_sSelectedFont.IsEmpty() )
+	//				pCombo->m_sSelectedFont = Settings.Fonts.DefaultFont;
+	//		}
+	//		else
+	//			pCombo->SetCurSel( 0 );
+	//	}
+	//}
 }

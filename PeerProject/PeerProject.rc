@@ -567,13 +567,16 @@ CAPTION "Advanced"
 FONT 8, "Tahoma"
 BEGIN
 	CONTROL			"List1",IDC_PROPERTIES,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP,6,5,270,144
-	EDITTEXT		IDC_VALUE,60,170,45,12,ES_AUTOHSCROLL | ES_NUMBER
-	CONTROL			"Spin1",IDC_VALUE_SPIN,"msctls_updown32",UDS_SETBUDDYINT | UDS_AUTOBUDDY | UDS_ALIGNRIGHT | UDS_ARROWKEYS | UDS_NOTHOUSANDS | WS_DISABLED,105,170,8,12
-	PUSHBUTTON		"Restore Default",IDC_DEFAULT_VALUE,194,168,72,14
 	GROUPBOX		"&Setting Properties:",IDC_STATIC,6,154,270,58
-	LTEXT			" Value:",IDC_STATIC,15,170,40,12,SS_CENTERIMAGE
-	//LTEXT			"Description:",IDC_STATIC,15,180,40,12,SS_CENTERIMAGE | NOT WS_VISIBLE
-	//EDITTEXT		IDC_DESCRIPTION,60,180,206,25,ES_MULTILINE | ES_AUTOVSCROLL | ES_READONLY | NOT WS_VISIBLE | WS_VSCROLL
+	LTEXT			" Value:",IDC_STATIC,15,170,40,15,SS_CENTERIMAGE
+	EDITTEXT		IDC_VALUE,60,170,50,15,ES_AUTOHSCROLL | ES_NUMBER | NOT WS_VISIBLE
+	CONTROL			"Spin1",IDC_VALUE_SPIN,"msctls_updown32",UDS_SETBUDDYINT | UDS_AUTOBUDDY | UDS_ALIGNRIGHT | UDS_ARROWKEYS | UDS_NOTHOUSANDS | WS_DISABLED | NOT WS_VISIBLE,110,170,8,15
+	EDITTEXT		IDC_MESSAGE,60,170,125,15,ES_AUTOHSCROLL | NOT WS_VISIBLE
+	COMBOBOX        IDC_FONT,60,170,125,200,CBS_DROPDOWNLIST | CBS_OWNERDRAWFIXED | CBS_SORT | CBS_HASSTRINGS | NOT WS_VISIBLE | WS_VSCROLL | WS_TABSTOP
+	CONTROL         "",IDC_CHECK,"Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_TABSTOP,60,170,125,15
+	PUSHBUTTON		"Restore Default",IDC_DEFAULT_VALUE,194,170,72,15
+	//LTEXT			"Description:",IDC_STATIC,15,188,40,12,SS_CENTERIMAGE | NOT WS_VISIBLE
+	//EDITTEXT		IDC_DESCRIPTION,60,188,206,20,ES_MULTILINE | ES_AUTOVSCROLL | ES_READONLY | NOT WS_VISIBLE | WS_VSCROLL
 END
 
 IDD_SETTINGS_DOWNLOADS DIALOGEX 0, 0, 282, 220
@@ -874,7 +877,7 @@ BEGIN
 	LTEXT			"www.bitzi.com",IDC_WEB,10,110,50,10
 END
 
-IDD_FILE_COPY DIALOG  0, 0, 217, 190
+IDD_FILE_COPY DIALOG  0, 0, 216, 190
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Copy Files|Move Files"
 FONT 8, "Tahoma"
@@ -902,23 +905,23 @@ BEGIN
 	PUSHBUTTON		"Cancel",IDCANCEL,246,85,50,14
 END
 
-IDD_URL_ACTION DIALOGEX 0, 0, 292, 102
+IDD_URL_ACTION DIALOGEX 0, 0, 310, 102
 STYLE DS_SETFONT | DS_MODALFRAME | DS_3DLOOK | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "PeerProject URI Link Manager"
 FONT 8, "Tahoma"
 BEGIN
-	LTEXT			"You have clicked a PeerProject-powered URI that links to this network content:",IDC_MESSAGE_1,8,5,270,22,NOT WS_VISIBLE
-	LTEXT			"You have clicked a PeerProject-powered URL that will connect you to this host or server:",IDC_MESSAGE_2,8,5,270,22,NOT WS_VISIBLE
-	LTEXT			"You have clicked a PeerProject-powered URI that will allow you to browse the shared files available on this host:",IDC_MESSAGE_3,8,5,270,22,NOT WS_VISIBLE
-	LTEXT			"You have clicked a PeerProject-powered URI that will add this Discovery Service to your Discovery Services cache.",IDC_MESSAGE_4,8,5,270,22,NOT WS_VISIBLE
+	LTEXT			"You have clicked a PeerProject-powered URI link \nthat links to this network content:",IDC_MESSAGE_1,8,5,290,22,NOT WS_VISIBLE
+	LTEXT			"You have clicked a PeerProject-powered URL link \nthat will connect you to this host or server:",IDC_MESSAGE_2,8,5,290,22,NOT WS_VISIBLE
+	LTEXT			"You have clicked a PeerProject-powered URI link \nthat will allow you to browse the shared files available on this host:",IDC_MESSAGE_3,8,5,290,22,NOT WS_VISIBLE
+	LTEXT			"You have clicked a PeerProject-powered URI link \nthat will add this Discovery Service to your Discovery Services cache:",IDC_MESSAGE_4,8,5,290,22,NOT WS_VISIBLE
 	LTEXT			"Filename:",IDC_URL_NAME_TITLE,20,25,35,12
-	EDITTEXT		IDC_URL_NAME_VALUE,62,25,220,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER
+	EDITTEXT		IDC_URL_NAME_VALUE,62,25,240,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER
 	LTEXT			"URN:",IDC_URL_URN_TITLE,20,38,35,12
-	EDITTEXT		IDC_URL_URN_VALUE,62,38,220,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER
-	LTEXT			"Select what action you would like to take:",IDC_STATIC,8,55,250,10
+	EDITTEXT		IDC_URL_URN_VALUE,62,38,240,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER
+	LTEXT			"Select what action you would like to take:",IDC_STATIC,8,55,260,10
 	DEFPUSHBUTTON	"&Download Now",IDC_URL_DOWNLOAD,8,68,68,15,WS_GROUP
 	PUSHBUTTON		"&Search for File",IDC_URL_SEARCH,80,68,68,15
-	PUSHBUTTON		"Cancel",IDCANCEL,218,68,68,15
+	PUSHBUTTON		"Cancel",IDCANCEL,234,68,68,15
 	CONTROL			"&Use this selection by default",IDC_ALWAYS_OPEN,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,9,86,140,15
 	CONTROL			"Open download &monitor window",IDC_NEW_WINDOW,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,155,86,135,15
 END
@@ -1284,7 +1287,7 @@ BEGIN
 	LTEXT			"The webhook download manager plugin will only attempt to download file types listed here.  Other file types will be handled by your web browser.\n\n(PeerProject must be running to manage downloads.)",IDC_STATIC,150,130,120,70
 END
 
-IDD_PROFILE_IDENTITY DIALOG  0, 0, 282, 160
+IDD_PROFILE_IDENTITY DIALOGEX 0, 0, 282, 160
 STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "Identity"
 FONT 8, "Tahoma"
@@ -2233,7 +2236,7 @@ BEGIN
 	IDD_URL_ACTION, DIALOG
 	BEGIN
 		LEFTMARGIN, 7
-		RIGHTMARGIN, 285
+		RIGHTMARGIN, 304
 		TOPMARGIN, 7
 		BOTTOMMARGIN, 147
 	END
@@ -3845,6 +3848,9 @@ BEGIN
 	IDS_CHAT_RESPONSE_X 		"Received an unknown response: %s"
 	IDS_CHAT_UNCONNECTED_X		"You're not connected."
 	IDS_CHAT_UNRECOGNISED_X		"Unrecognised command ""%s""."
+	IDS_CHAT_CAPTCHA_ACCEPTED	"CAPTCHA accepted."
+	IDS_CHAT_CAPTCHA_DENIED 	"CAPTCHA denied."
+	IDS_CHAT_CAPTCHA_REQUEST	"Confirm CAPTCHA:"
 END
 
 STRINGTABLE
@@ -4116,19 +4122,20 @@ END
 STRINGTABLE
 BEGIN
 	IDS_LIBRARY_BITZI_HASHED	"The file ""%s"" has not yet been hashed.  Please wait for the file to be hashed, and then try again."
-	IDS_LIBRARY_BITZI_MESSAGE	"This option uses services provided by Bitzi.com for recognising and sharing information about selected files.\n\nPeerProject will transmit the SHA1 hash code for the selected file(s) in order to query the Bitzi database.  If you are concerned about privacy, you may wish to consult the Bitzi.com privacy policy.\n\nWould you like to proceed?"
+	IDS_LIBRARY_BITZI_MESSAGE	"This option uses services provided by Bitzi.com for recognising and sharing information about selected files.\n\nPeerProject will send the SHA1 hash code for selected files in order to query the Bitzi database.  If you are concerned, you may wish to consult the Bitzi.com privacy policy.\n\nWould you like to proceed?"
 	IDS_LIBRARY_COLLECTION_CANT_INSTALL "PeerProject was unable to install the collection file ""%s"" by copying it to the folder ""%s""."
-	IDS_LIBRARY_COLLECTION_DOWNLOAD_ALL "Would you like to download all files in this collection?\r\n\r\nChoose Cancel to stop any further prompts."
+	IDS_LIBRARY_COLLECTION_DOWNLOAD_ALL "Would you like to download all files in this collection?\n\nChoose Cancel to stop any further prompts."
 	IDS_LIBRARY_COLLECTION_INSTALLED "PeerProject has added the collection file ""%s"" to your library."
-	IDS_LIBRARY_COLLECTION_INVALID "PeerProject received a collection file:\r\n\r\n""%s""\r\n\r\nThis file does not appear to be a valid collection file."
+	IDS_LIBRARY_COLLECTION_INVALID "PeerProject received a collection file:\n\n""%s""\n\nThis file does not appear to be a valid collection file."
 	IDS_LIBRARY_COLLECTION_LOCKDOWN "Would you like to prevent this collection from prompting you to download anything else?"
+//	IDS_LIBRARY_COLLECTION_ACCESS "The collection has requested script access to the application. \nAllow this access?"
 	IDS_LIBRARY_CONFIRM_EXECUTE "Are you sure you want to launch the file ""%s"" ?\n\nSome files can be harmful to your computer.  Ensure you know what the file is before launching it."
-//	IDS_LIBRARY_DELETE			"Are you sure you want to permanently delete the %i selected files ?\n\nThe files will be moved to your ""recycle bin"" if it is enabled."
-	IDS_LIBRARY_DELETE_FOLDER	"Are you sure you want to delete the %i selected album folders ?\n\nNote that this action does not delete the files within the album folders, only the folders themselves."
+//	IDS_LIBRARY_DELETE			"Are you sure you want to permanently delete %i selected files ?\n\nThe files will be moved to your ""recycle bin"" if enabled."
+	IDS_LIBRARY_DELETE_FOLDER	"Are you sure you want to delete the %i selected album folders ?\n\nNote that this action does not delete the files within the album folders, only the virtual folders themselves."
 	IDS_LIBRARY_DELETE_FAIL		"PeerProject could not delete the file:\n\n%s"
 	IDS_LIBRARY_DOWNLOADS_ADD	"Your downloaded files folder ""%s"" is not yet in your library.\n\nIncluding your downloaded files folder in your library makes it easier to view and organise new downloads, and lets you take advantage of advanced PeerProject features such as download verification and automatic upgrading.  Placing downloaded files in your library does not necessarily require you to share them: you can choose whether or not to share files independently.\n\nWould you like to add your downloaded files folder to your library now?"
 	IDS_LIBRARY_DOWNLOADS_SHARE "Your downloads folder has been added to your local library. \nWould you like to publicly share it too?"
-//	IDS_LIBRARY_ENQUEUE			"You have not yet selected a media player to enqueue files with, such as Nullsoft Winamp.  Would you like to select one now?\n\nPeerProject will pass the name of the file to your selected program with the ""/ADD"" argument."
+//	IDS_LIBRARY_ENQUEUE			"You have not yet selected an external media player to enqueue files with. \n\nWould you like to select one now?"
 	IDS_LIBRARY_ADD_FOLDER		"\nAdd this folder to your Library?\n\n%s"
 END
 

@@ -21,6 +21,8 @@
 #include "ShellIcons.h"
 #include "CoolInterface.h"
 
+//#include <commoncontrols.h>	// IImageList interfaces
+
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
@@ -38,6 +40,8 @@ CShellIcons::CShellIcons()
 	m_m16.InitHashTable( 31 );
 	m_m32.InitHashTable( 31 );
 	m_m48.InitHashTable( 31 );
+	m_MIME.InitHashTable( 31 );
+	m_Name.InitHashTable( 31 );
 }
 
 //CShellIcons::~CShellIcons()
@@ -49,9 +53,13 @@ CShellIcons::CShellIcons()
 
 void CShellIcons::Clear()
 {
+	CQuickLock oLock( m_pSection );
+
 	m_m16.RemoveAll();
 	m_m32.RemoveAll();
 	m_m48.RemoveAll();
+	m_MIME.RemoveAll();
+	m_Name.RemoveAll();
 
 	if ( m_i16.m_hImageList ) m_i16.DeleteImageList();
 	if ( m_i32.m_hImageList ) m_i32.DeleteImageList();
@@ -116,9 +124,6 @@ void CShellIcons::Clear()
 
 int CShellIcons::Get(LPCTSTR pszFile, int nSize)
 {
-	if ( m_i16.m_hImageList == NULL )
-		Clear();
-
 	CImageList* pImage;
 	CIconMap* pIndex;
 	switch ( nSize )
@@ -146,78 +151,102 @@ int CShellIcons::Get(LPCTSTR pszFile, int nSize)
 	CString strType = PathFindExtension( pszFile );
 	if ( strType.IsEmpty() )
 		return SHI_FILE;	// No extension
-
 	strType.MakeLower();
+
+	// Test for individual icons
 	CString strFilename;
-	LPCTSTR pszFilename = PathFindFileName( pszFile );
-	if ( pszFilename != pszFile && ( strType == _T(".exe") ) )
+	if ( strType == _T(".exe") )
 	{
-		strFilename = pszFilename;
+		strFilename = pszFile;
 		strFilename.MakeLower();
 	}
+
+	CQuickLock oLock( m_pSection );
+
+	if ( m_i16.m_hImageList == NULL )
+		Clear();
 
 	HICON hIcon = NULL;
 	int nIndex = SHI_FILE;
 
-	if ( strFilename.IsEmpty() )
-	{
-		if ( pIndex->Lookup( strType, nIndex ) )
-			return nIndex;
+	if ( pIndex->Lookup( strFilename.IsEmpty() ? strType : strFilename, nIndex ) )
+		return nIndex;
 
-		Lookup( strType,
-			( ( nSize == 16 ) ? &hIcon : NULL ),
-			( ( nSize == 32 ) ? &hIcon : NULL ), NULL, NULL,
-			( ( nSize == 48 ) ? &hIcon : NULL ) );
-	}
-	else
-	{
-		if ( pIndex->Lookup( strFilename, nIndex ) )
-			return nIndex;
-	}
-
-	if ( ! hIcon && ! strFilename.IsEmpty() )
+	if ( ! strFilename.IsEmpty() )
 	{
 		LoadIcon( pszFile,
-				( ( nSize == 16 ) ? &hIcon : NULL ),
-				( ( nSize == 32 ) ? &hIcon : NULL ),
-				( ( nSize == 48 ) ? &hIcon : NULL ) );
+			( ( nSize == 16 ) ? &hIcon : NULL ),
+			( ( nSize == 32 ) ? &hIcon : NULL ),
+			( ( nSize == 48 ) ? &hIcon : NULL ) );
 
-		if ( hIcon && Settings.General.LanguageRTL )
-			hIcon = CreateMirroredIcon( hIcon );
+		if ( ! hIcon )
+		{
+			if ( pIndex->Lookup( strType, nIndex ) )
+			{
+				pIndex->SetAt( strFilename, nIndex );
+				return nIndex;
+			}
+		}
 	}
 
-	if ( ! hIcon && ! strFilename.IsEmpty() )
+	HICON hShellIcon = NULL;
+	if ( ! hIcon )
 	{
-		if ( pIndex->Lookup( strType, nIndex ) )
+		SHFILEINFO sfi = {};
+		DWORD dwFlags = ( strFilename.IsEmpty() ? SHGFI_USEFILEATTRIBUTES : 0 ) | SHGFI_ICON | ( ( nSize == 16 ) ? SHGFI_SMALLICON : SHGFI_LARGEICON );
+		if ( SHGetFileInfo( ( strFilename.IsEmpty() ? strType : strFilename ), FILE_ATTRIBUTE_NORMAL, &sfi, sizeof( SHFILEINFO ), dwFlags ) )
 		{
-			pIndex->SetAt( strFilename, nIndex );
-			return nIndex;
-		}
+			dwFlags = ( nSize == 16 ) ? SHIL_SMALL : ( ( nSize == 32 ) ? SHIL_LARGE : SHIL_EXTRALARGE );
+			CComPtr< IImageList > pImageList;
+			if ( theApp.m_pfnSHGetImageList &&
+				 SUCCEEDED( theApp.m_pfnSHGetImageList( dwFlags, IID_IImageList, (void**)&pImageList ) ) &&
+				 SUCCEEDED( pImageList->GetIcon( sfi.iIcon, ILD_NORMAL, &hShellIcon ) ) )
+			{
+				DestroyIcon( sfi.hIcon );
+			}
+			else
+			{
+				// Use previously loaded one
+				hShellIcon = sfi.hIcon;
+			}
 
-		Lookup( strType,
-			( ( nSize == 16 ) ? &hIcon : NULL ),
-			( ( nSize == 32 ) ? &hIcon : NULL ), NULL, NULL,
-			( ( nSize == 48 ) ? &hIcon : NULL ) );
+			if ( sfi.iIcon )
+			{
+				hIcon = hShellIcon;
+				hShellIcon = NULL;
+			}
+		}
 	}
 
 	if ( ! hIcon )
 	{
-		SHFILEINFO sfi = {};
-		if ( SHGetFileInfo( pszFile, 0, &sfi, sizeof( SHFILEINFO ),
-			( strFilename.IsEmpty() ? SHGFI_USEFILEATTRIBUTES : 0 ) |
-			SHGFI_ICON | ( ( nSize == 16 ) ? SHGFI_SMALLICON : SHGFI_LARGEICON ) ) )
-		{
-			hIcon = Settings.General.LanguageRTL ? CreateMirroredIcon( sfi.hIcon ) : sfi.hIcon;
-		}
+		Lookup( strType,
+			( ( nSize == 16 ) ? &hIcon : NULL ),
+			( ( nSize == 32 ) ? &hIcon : NULL ), NULL, NULL,
+			( ( nSize == 48 ) ? &hIcon : NULL ) );
+	}
+
+	if ( hShellIcon )
+	{
+		if ( hIcon )
+			DestroyIcon( hShellIcon );
+		else
+			hIcon = hShellIcon;
 	}
 
 	nIndex = hIcon ? pImage->Add( hIcon ) : SHI_FILE;
 	pIndex->SetAt( ( strFilename.IsEmpty() ? strType : strFilename ), nIndex );
 
-	if ( hIcon ) DestroyIcon( hIcon );
+#ifdef _DEBUG
+	ICONINFO ii = {};
+	GetIconInfo( hIcon, &ii );
+	BITMAP bi = {};
+	GetObject( ii.hbmColor, sizeof( bi ), &bi );
+	TRACE( "CShellIcons::Get %dx%d (real %dx%d %dbpp) icon #%d for %s\n", nSize, nSize, bi.bmWidth, bi.bmHeight, bi.bmBitsPixel, nIndex, (LPCSTR)CT2A( strFilename.IsEmpty() ? strType : strFilename ) );
+#endif // _DEBUG
 
-	TRACE( _T("Got %dx%d icon %d for %s\n"),
-		nSize, nSize, nIndex, ( strFilename.IsEmpty() ? strType : strFilename ) );
+	if ( hIcon )
+		DestroyIcon( hIcon );
 
 	return nIndex;
 }
@@ -228,7 +257,10 @@ int CShellIcons::Get(LPCTSTR pszFile, int nSize)
 
 int CShellIcons::Add(HICON hIcon, int nSize)
 {
-	if ( m_i16.m_hImageList == NULL ) Clear();
+	CQuickLock oLock( m_pSection );
+
+	if ( m_i16.m_hImageList == NULL )
+		Clear();
 
 	switch ( nSize )
 	{
@@ -249,6 +281,8 @@ int CShellIcons::Add(HICON hIcon, int nSize)
 
 HICON CShellIcons::ExtractIcon(int nIndex, int nSize)
 {
+	CQuickLock oLock( m_pSection );
+
 	HICON hIcon;
 	switch ( nSize )
 	{
@@ -277,26 +311,55 @@ HICON CShellIcons::ExtractIcon(int nIndex, int nSize)
 
 CString	CShellIcons::GetTypeString(LPCTSTR pszFile)
 {
-	CString strOutput;
+	LPCTSTR pszType = PathFindExtension( pszFile );
+	return GetName( pszType ) + _T(" (") + GetMIME( pszType ) + _T(")");
+}
 
-	LPCTSTR pszType = _tcsrchr( pszFile, '.' );
-	if ( ! pszType ) return strOutput;
+CString	CShellIcons::GetName(LPCTSTR pszType)
+{
+	CString strType( pszType );
+	strType.MakeLower();
 
-	CString strName, strMime;
-	Lookup( pszType, NULL, NULL, &strName, &strMime );
+	CQuickLock oLock( m_pSection );
 
-	if ( ! strName.IsEmpty() )
+	CString strName;
+	if ( ! m_Name.Lookup( strType, strName ) )
 	{
-		strOutput = strName;
-		if ( ! strMime.IsEmpty() )
-			strOutput += _T(" (") + strMime + _T(")");
-	}
-	else
-	{
-		strOutput = pszType + 1;
+		Lookup( pszType, NULL, NULL, &strName, NULL, NULL );
+
+		if ( strName.IsEmpty() )
+		{
+			if ( *pszType )
+				strName = pszType + 1;	// Use extension without dot
+			else
+				strName = LoadString( IDS_STATUS_UNKNOWN );
+		}
+
+		m_Name.SetAt( strType, strName );
 	}
 
-	return strOutput;
+	return strName;
+}
+
+CString	CShellIcons::GetMIME(LPCTSTR pszType)
+{
+	CString strType( pszType );
+	strType.MakeLower();
+
+	CQuickLock oLock( m_pSection );
+
+	CString strMIME;
+	if ( ! m_MIME.Lookup( strType, strMIME ) )
+	{
+		Lookup( pszType, NULL, NULL, NULL, &strMIME, NULL );
+
+		if ( strMIME.IsEmpty() )
+			strMIME = _T("application/x-binary");
+
+		m_MIME.SetAt( strType, strMIME );
+	}
+
+	return strMIME;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -311,7 +374,7 @@ BOOL CShellIcons::Lookup(LPCTSTR pszType, HICON* phSmallIcon, HICON* phLargeIcon
 	if ( phSmallIcon ) *phSmallIcon = NULL;
 	if ( phLargeIcon ) *phLargeIcon = NULL;
 	if ( phHugeIcon )  *phHugeIcon = NULL;
-	if ( psName ) *psName = pszType + 1;
+	if ( psName ) psName->Empty();
 	if ( psMIME ) psMIME->Empty();
 
 	if ( pszType == NULL || *pszType == 0 ) return FALSE;
@@ -320,7 +383,7 @@ BOOL CShellIcons::Lookup(LPCTSTR pszType, HICON* phSmallIcon, HICON* phLargeIcon
 
 	if ( psMIME )
 	{
-		nResult = sizeof(TCHAR) * MAX_PATH; nType = REG_SZ;
+		nResult = sizeof(TCHAR) * MAX_PATH;
 		if ( RegQueryValueEx( hKey, _T("Content Type"), NULL, &nType, (LPBYTE)szResult, &nResult ) == ERROR_SUCCESS )
 		{
 			szResult[ nResult / sizeof(TCHAR) ] = 0;
@@ -328,7 +391,7 @@ BOOL CShellIcons::Lookup(LPCTSTR pszType, HICON* phSmallIcon, HICON* phLargeIcon
 		}
 	}
 
-	nResult = sizeof(TCHAR) * MAX_PATH; nType = REG_SZ;
+	nResult = sizeof(TCHAR) * MAX_PATH;
 	if ( RegQueryValueEx( hKey, _T(""), NULL, &nType, (LPBYTE)szResult, &nResult ) != ERROR_SUCCESS )
 	{
 		RegCloseKey( hKey );
@@ -343,7 +406,6 @@ BOOL CShellIcons::Lookup(LPCTSTR pszType, HICON* phSmallIcon, HICON* phLargeIcon
 	if ( psName )
 	{
 		nResult = sizeof(TCHAR) * MAX_PATH;
-		nType = REG_SZ;
 		if ( RegQueryValueEx( hKey, _T(""), NULL, &nType, (LPBYTE)szResult, &nResult ) == ERROR_SUCCESS )
 		{
 			szResult[ nResult / sizeof(TCHAR) ] = 0;
@@ -391,7 +453,6 @@ BOOL CShellIcons::Lookup(LPCTSTR pszType, HICON* phSmallIcon, HICON* phLargeIcon
 	}
 
 	nResult = sizeof(TCHAR) * MAX_PATH;
-	nType = REG_SZ;
 	if ( RegQueryValueEx( hSub, _T(""), NULL, &nType, (LPBYTE)szResult, &nResult ) != ERROR_SUCCESS )
 	{
 		RegCloseKey( hSub );

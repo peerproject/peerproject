@@ -1,7 +1,7 @@
 //
 // PeerProjectFile.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -47,8 +47,11 @@ public:
 									// CDownload    : Path of .pd file (.sd)
 									// CUploadFile  : Path of requested file	// ToDo: Fix This?!
 
-	// Returns "urn:bitprint:SHA1.TIGER" or "urn:sha1:SHA1" or "urn:tree:tiger/:TIGER"
+	// Returns "urn:bitprint:SHA1.TIGER" or "urn:sha1:SHA1" or "urn:tree:tiger/:TIGER" or empty string
 	CString GetBitprint() const;
+
+	// Returns any available URNs
+	CString GetURN() const;
 
 	// Returns "sha1_SHA1", "ttr_TIGER" etc.
 	CString GetFilename() const;

@@ -37,8 +37,8 @@ static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif	// Filename
 
-//#define ICONGRID_X 222	// Skin.m_nLibIconsX
-//#define ICONGRID_Y 56		// Skin.m_nLibIconsY
+//#define ICONGRID_X 222	// Settings.Skin.LibIconsX
+//#define ICONGRID_Y 56		// Settings.Skin.LibIconsY
 
 
 BEGIN_MESSAGE_MAP(CLibraryTileView, CLibraryView)
@@ -100,17 +100,17 @@ BOOL CLibraryTileView::Create(CWnd* pParentWnd)
 {
 	CRect rect( 0, 0, 0, 0 );
 	SelClear( FALSE );
-	return CWnd::CreateEx( 0, NULL, _T("CLibraryTileView"), WS_CHILD | WS_VSCROLL | WS_TABSTOP,
-		 rect, pParentWnd, IDC_LIBRARY_VIEW );
+	return CWnd::CreateEx( 0, NULL, _T("CLibraryTileView"),
+		WS_CHILD | WS_VSCROLL | WS_TABSTOP, rect, pParentWnd, IDC_LIBRARY_VIEW );
 }
 
 int CLibraryTileView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CLibraryView::OnCreate( lpCreateStruct ) == -1 ) return -1;
 
-	//Set Icon Spacing
-	m_szBlock.cx	= Skin.m_nLibIconsX;	// 222
-	m_szBlock.cy	= Skin.m_nLibIconsY;	// 56
+	// Set Icon Spacing
+	m_szBlock.cx	= Settings.Skin.LibIconsX;	// 220
+	m_szBlock.cy	= Settings.Skin.LibIconsY;	// 56
 	m_nColumns		= 1;
 	m_nRows			= 0;
 
@@ -1068,7 +1068,7 @@ void CLibraryTileItem::Paint(CDC* pDC, const CRect& rcBlock, CDC* /*pMemDC*/, BO
 	{
 		pDC->Draw3dRect( &rcUnion, Colors.m_crHiBorder, Colors.m_crHiBorder );
 
-		if ( Skin.m_bRoundedSelect )
+		if ( Settings.Skin.RoundedSelect )
 		{
 			pDC->SetPixel( rcUnion.left, rcUnion.top, Colors.m_crWindow );
 			pDC->SetPixel( rcUnion.left, rcUnion.bottom - 1, Colors.m_crWindow );

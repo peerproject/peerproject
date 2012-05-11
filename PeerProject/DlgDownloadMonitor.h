@@ -1,7 +1,7 @@
 //
 // DlgDownloadMonitor.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -43,6 +43,10 @@ public:
 	BOOL			m_bCompleted;
 
 	static CList< CDownloadMonitorDlg* >	m_pWindows;
+
+#ifdef __ITaskbarList3_INTERFACE_DEFINED__	// VS2010+
+	CComPtr< ITaskbarList3 > m_pTaskbar;	// Windows task bar
+#endif
 
 // Operatons
 protected:
@@ -97,13 +101,13 @@ protected:
 	afx_msg void OnDownloadAction();
 	afx_msg void OnDownloadClose();
 	afx_msg void OnClose();
-	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
+	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
 	afx_msg void OnInitMenuPopup(CMenu* pPopupMenu, UINT nIndex, BOOL bSysMenu);
 	afx_msg LRESULT OnTray(WPARAM wParam, LPARAM lParam);
 	afx_msg BOOL OnNeedText(UINT nID, NMHDR* pTTT, LRESULT* pResult);
-	afx_msg void OnSize(UINT nType, int cx, int cy);
 	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hungarian Skin File -->
 
-<!-- Translation based on default-en.xml r77 -->
+<!-- Translation based on default-en.xml r78 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -429,16 +429,6 @@
 	</toolbar>
 	<!--
 	<toolbar name="WebServices.ShareMonkey">
-		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Adatok letöltése"/>
-		<separator/>
-		<button id="ID_SHAREMONKEY_PREVIOUS" text="Előző"/>
-		<button id="ID_SHAREMONKEY_NEXT" text="Következő"/>
-		<separator/>
-		<button id="ID_SHAREMONKEY_PRICES" text="Árak megtekintése"/>
-		<button id="ID_SHAREMONKEY_COMPARE" text="Összehasonlítás"/>
-		<button id="ID_SHAREMONKEY_BUY" text="Vásárlás"/>
-	</toolbar>
-	<toolbar name="WebServices.ShareMonkey.WithSave">
 		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Adatok letöltése"/>
 		<button id="ID_SHAREMONKEY_SAVE" text="Mentés"/>
 		<separator/>
@@ -1619,7 +1609,7 @@
 				<font size="13"/>
 			</style>
 			<style name="heading">
-				<font face="Trebuchet MS" size="16" weight="800"/>
+				<font face="Segoe UI" size="18" weight="400"/>
 			</style>
 		</styles>
 		<anchor id="Header" width="32" height="152"/>
@@ -1628,7 +1618,7 @@
 			<icon res="136" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">KAPCSOLÓDJON!</heading>
 			<newline gap="8" indent="42"/>
-			<text>Üdvözlöm a PeerProject!</text>
+			<text>Üdvözlöm a PeerProject.</text>
 			<newline gap="8" indent="42"/>
 			<text>Jelenleg egyik p2p hálózathoz sem csatlakozik. &#160;</text>
 			<link target="command:ID_NETWORK_CONNECT">Az indításhoz kattintson ide.</link>
@@ -3674,13 +3664,16 @@
 		<control caption="_Beállít..."/>
 		<control caption="Többet akarok"/>
 	</dialog>
-	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuSt" caption="Haladó">
+	<dialog name="CAdvancedSettingsPage" cookie="SyBuStEdmsEdCoBuBu" caption="Haladó">
 		<control/>
-		<control/>
-		<control/>
-		<control caption="Alapérték"/>
-		<control caption="Tulajdonság"/>
+		<control caption="Tulajdonság:"/>
 		<control caption="Érték:"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="Alapállapotba"/>
 	</dialog>
 	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protokollok">
 		<control caption="A PeerProject által támogatott protokollok"/>

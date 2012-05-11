@@ -1,7 +1,7 @@
 //
 // SharedFolder.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -18,18 +18,20 @@
 
 #pragma once
 
-class CLibraryFile;
+#include "LibraryFolders.h"
+
 class CLibraryList;
+class CXMLElement;
 
 
 class CLibraryFolder : public CComObject
 {
+	DECLARE_DYNAMIC(CLibraryFolder)
+
 // Construction
 public:
 	CLibraryFolder(CLibraryFolder* pParent, LPCTSTR pszPath = NULL);
 	virtual ~CLibraryFolder();
-
-	DECLARE_DYNAMIC(CLibraryFolder)
 
 // Attributes
 public:
@@ -55,6 +57,7 @@ protected:
 
 // Operations
 public:
+	CXMLElement*	CreateXML(CXMLElement* pRoot, BOOL bSharedOnly, XmlType nType) const;
 	POSITION		GetFolderIterator() const;
 	CLibraryFolder*	GetNextFolder(POSITION& pos) const;
 	CLibraryFolder*	GetFolderByName(LPCTSTR pszName) const;

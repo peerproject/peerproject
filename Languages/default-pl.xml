@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Polish Skin File -->
 
-<!-- Translation based on default-en.xml r77 --> <!-- (Shareaza 2.1.2.7) -->
+<!-- Translation based on default-en.xml r78 --> <!-- (Shareaza 2.1.2.7) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -47,7 +47,7 @@
 		<button id="ID_TAB_NETWORK" text="Sieć"/>
 		<button id="ID_TAB_LIBRARY" text="Zasoby"/>
 		<button id="ID_TAB_MEDIA" text="Media"/>
-		<button id="ID_TAB_IRC" text="RC"/>
+		<button id="ID_TAB_IRC" text="IRC"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Windowed">
 		<button id="ID_NETWORK_CONNECT" text="Połącz"/>
@@ -1421,7 +1421,7 @@
 				<font size="13"/>
 			</style>
 			<style name="heading">
-				<font face="Trebuchet MS" size="16" weight="800"/>
+				<font face="Segoe UI" size="18" weight="400"/>
 			</style>
 		</styles>
 		<anchor id="Header" width="32" height="152"/>
@@ -1474,7 +1474,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
-		<heading align="middle">DOSTOSUJ PEERPROJECT</heading>
+		<heading align="middle">DOSTOSUJ PeerProject</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="196" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
 		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Skórki</link><gap size="6"/>
@@ -3269,13 +3269,16 @@
 		<control caption="Ustaw..."/>
 		<control caption="Zdobądź więcej"/>
 	</dialog>
-	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuSt" caption="Zaawansowane">
+	<dialog name="CAdvancedSettingsPage" cookie="SyBuStEdmsEdCoBuBu" caption="Zaawansowane">
+		<control/>
+		<control caption="Właściwości ustawienia:"/>
+		<control caption="Wartość:"/>
+		<control/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
 		<control caption="Ustaw domyślne"/>
-		<control caption="Właściwości ustawienia:"/>
-		<control caption="Wartość:"/>
 	</dialog>
 	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protokoły">
 		<control caption="Przeglądarka Protokołu Wspólnej Architektury PeerProjecty:"/>

@@ -49,7 +49,7 @@ BEGIN_MESSAGE_MAP(CCoolBarCtrl, CControlBar)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
-//Skin  TOOLBAR_HEIGHT		28	// Skin.m_nToolbarHeight
+//Skin  TOOLBAR_HEIGHT		28	// Settings.Skin.ToolbarHeight
 #define DEFAULT_HEIGHT		30
 #define GRIPPER_WIDTH		4
 #define SEPARATOR_WIDTH		7
@@ -335,7 +335,7 @@ int CCoolBarCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	if ( CControlBar::OnCreate( lpCreateStruct ) == -1 )
 		return -1;
 
-//	if ( Skin.m_bMenuBorders )
+//	if ( Settings.Skin.MenuBorders )
 	m_dwStyle |= CBRS_BORDER_3D;
 
 	if ( m_bDropEnabled ) ENABLE_DROP()
@@ -588,7 +588,7 @@ void CCoolBarCtrl::DoPaint(CDC* pDC, CRect& rcClient, BOOL bTransparent)
 	CRect rcItem( rcClient.left + MARGIN_WIDTH, rcClient.top + 1, rcClient.right - MARGIN_WIDTH, rcClient.bottom - 1 );
 	CRect rcCopy;
 
-	if ( m_bGripper && Skin.m_bMenuGripper )
+	if ( m_bGripper && Settings.Skin.MenuGripper )
 	{
 		if ( bTransparent )
 		{

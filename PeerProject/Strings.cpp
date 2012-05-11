@@ -1002,6 +1002,177 @@ void BuildWordTable(LPCTSTR pszWord, WordTable& oWords, WordTable& oNegWords)
 	}
 }
 
+LPCTSTR SkipSlashes(LPCTSTR pszURL, int nAdd)
+{
+	for ( ; nAdd && *pszURL ; --nAdd, ++pszURL );
+	while ( *pszURL == _T('/') ) pszURL++;
+	return pszURL;
+}
+
+void SafeString(CString& strInput)
+{
+	strInput.Trim();
+
+	for ( int nIndex = strInput.GetLength() - 1 ; nIndex >= 0 ; nIndex-- )
+	{
+		if ( strInput.GetAt( nIndex ) < 32 )	// TCHAR
+			strInput.SetAt( nIndex, '_' );
+	}
+}
+
+CString Escape(const CString& strValue)
+{
+	bool bChanged = false;
+
+	CString strXML;
+	LPTSTR pszXML = strXML.GetBuffer( strValue.GetLength() * 8 + 1 );
+
+	for ( LPCTSTR pszValue = strValue ; *pszValue ; ++pszValue )
+	{
+		switch ( *pszValue )
+		{
+		case _T('\"'):
+			_tcscpy( pszXML, _T("&quot;") );
+			 pszXML += 6;
+			bChanged = true;
+			break;
+		case _T('\''):
+			_tcscpy( pszXML, _T("&apos;") );
+			 pszXML += 6;
+			bChanged = true;
+			break;
+		case _T('<'):
+			_tcscpy( pszXML, _T("&lt;") );
+			pszXML += 4;
+			bChanged = true;
+			break;
+		case _T('>'):
+			_tcscpy( pszXML, _T("&gt;") );
+			pszXML += 4;
+			bChanged = true;
+			break;
+		case _T('&'):
+			_tcscpy( pszXML, _T("&amp;") );
+			pszXML += 5;
+			bChanged = true;
+			break;
+		default:
+			if ( *pszValue < 32 || *pszValue > 127 )
+			{
+				pszXML += _stprintf_s( pszXML, 9, _T("&#%lu;"), *pszValue );
+				bChanged = true;
+				break;
+			}
+
+			*pszXML++ = *pszValue;
+			break;
+		}
+	}
+
+	*pszXML = 0;
+
+	strXML.ReleaseBuffer();
+
+	return bChanged ? strXML : strValue;
+}
+
+CString Unescape(LPCTSTR pszXML, int nLength)
+{
+	CString strValue;
+
+	if ( ! nLength || ! *pszXML )
+		return strValue;
+
+	if ( nLength < 0 )
+		nLength = (int)_tcslen( pszXML );
+
+	LPTSTR pszValue = strValue.GetBuffer( nLength + 4 );
+	LPTSTR pszOut = pszValue;
+	LPTSTR pszNull = (LPTSTR)pszXML + nLength;
+	TCHAR cNull = *pszNull;
+	*pszNull = 0;
+
+	while ( *pszXML && pszXML < pszNull )
+	{
+		if ( IsSpace( *pszXML ) && *pszXML != 0xa0 )	// Keep non-breaking space
+		{
+			if ( pszValue != pszOut ) *pszOut++ = ' ';
+			pszXML++;
+			while ( *pszXML && IsSpace( *pszXML ) && *pszXML != 0xa0 ) pszXML++;
+			if ( ! *pszXML || pszXML >= pszNull ) break;
+		}
+
+		if ( *pszXML == '&' )
+		{
+			pszXML++;
+			if ( ! *pszXML || pszXML >= pszNull ) break;
+
+			// http://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references
+
+			if ( *pszXML == '#' )
+			{
+				pszXML++;
+				if ( ! *pszXML || pszXML >= pszNull || ! _istdigit( *pszXML ) ) break;
+
+				int nChar;
+				if ( _stscanf( pszXML, _T("%lu;"), &nChar ) == 1 )
+				{
+					*pszOut++ = (TCHAR)nChar;
+					while ( *pszXML && *pszXML != ';' ) pszXML++;
+					if ( ! *pszXML || pszXML >= pszNull ) break;
+					pszXML++;
+				}
+			}
+			else if ( _tcsnicmp( pszXML, _T("quot;"), 5 ) == 0 )	// Most common
+			{
+				*pszOut++ = '\"';
+				pszXML += 5;
+			}
+			else if ( _tcsnicmp( pszXML, _T("apos;"), 5 ) == 0 )
+			{
+				*pszOut++ = '\'';
+				pszXML += 5;
+			}
+			else if ( _tcsnicmp( pszXML, _T("lt;"), 3 ) == 0 )
+			{
+				*pszOut++ = '<';
+				pszXML += 3;
+			}
+			else if ( _tcsnicmp( pszXML, _T("gt;"), 3 ) == 0 )
+			{
+				*pszOut++ = '>';
+				pszXML += 3;
+			}
+			else if ( _tcsnicmp( pszXML, _T("nbsp;"), 5 ) == 0 )	// Not XML spec, but common from HTML
+			{
+				*pszOut++ = ' ';
+				pszXML += 5;
+			}
+			else if ( _tcsnicmp( pszXML, _T("amp;"), 4 ) == 0 )
+			{
+				*pszOut++ = '&';
+				pszXML += 4;
+			}
+			else
+			{
+				*pszOut++ = '&';
+			}
+		}
+		else
+		{
+			*pszOut++ = *pszXML++;
+		}
+	}
+
+	ASSERT( pszNull == pszXML );
+	*pszNull = cNull;
+
+	ASSERT( pszOut - pszValue <= nLength );
+	strValue.ReleaseBuffer( (int)( pszOut - pszValue ) );
+
+	return strValue;
+}
+
 CString HostToString(const SOCKADDR_IN* pHost)
 {
 	CString strHost;

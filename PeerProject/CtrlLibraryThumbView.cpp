@@ -79,8 +79,8 @@ BOOL CLibraryThumbView::Create(CWnd* pParentWnd)
 {
 	CRect rect( 0, 0, 0, 0 );
 	SelClear( FALSE );
-	return CWnd::CreateEx( 0, NULL, _T("CLibraryThumbView"), WS_CHILD | WS_VSCROLL |
-		WS_TABSTOP | WS_GROUP, rect, pParentWnd, IDC_LIBRARY_VIEW );
+	return CWnd::CreateEx( 0, NULL, _T("CLibraryThumbView"),
+		WS_CHILD | WS_VSCROLL |WS_TABSTOP | WS_GROUP, rect, pParentWnd, IDC_LIBRARY_VIEW );
 }
 
 int CLibraryThumbView::OnCreate(LPCREATESTRUCT lpCreateStruct)
@@ -1005,7 +1005,7 @@ void CLibraryThumbItem::Paint(CDC* pDC, const CRect& rcBlock)
 	pDC->DrawText( m_sText, &rcText, nStyle );
 	pDC->SelectObject( pOldFont );
 
-	if ( m_bSelected && Skin.m_bRoundedSelect )
+	if ( m_bSelected && Settings.Skin.RoundedSelect )
 	{
 		pDC->SetPixel( rcText.left, rcText.top, Colors.m_crWindow );
 		pDC->SetPixel( rcText.left, rcText.bottom - 1, Colors.m_crWindow );

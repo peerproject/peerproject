@@ -1,7 +1,7 @@
 //
 // DlgAbout.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -157,7 +157,7 @@ void CAboutDlg::OnRButtonDown(UINT /*nFlags*/, CPoint point)
 		return;
 #endif
 
-	DWORD* pNullPtr = (DWORD*)NULL;
+	volatile DWORD* pNullPtr = (DWORD*)NULL;
 	*pNullPtr = 0xFFFFFFFF;				// Force program crash
 //#endif
 }

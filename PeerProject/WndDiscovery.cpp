@@ -293,7 +293,7 @@ void CDiscoveryWnd::OnSize(UINT nType, int cx, int cy)
 
 	CPanelWnd::OnSize(nType, cx, cy);
 	SizeListAndBar( &m_wndList, &m_wndToolBar );
-	m_wndList.SetWindowPos( NULL, 0, 0, cx, cy - Skin.m_nToolbarHeight, SWP_NOZORDER );
+	m_wndList.SetWindowPos( NULL, 0, 0, cx, cy - Settings.Skin.ToolbarHeight, SWP_NOZORDER );
 }
 
 void CDiscoveryWnd::OnTimer(UINT_PTR nIDEvent)

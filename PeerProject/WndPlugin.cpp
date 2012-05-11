@@ -124,9 +124,9 @@ void CPluginWnd::OnSize(UINT nType, int cx, int cy)
 		GetClientRect( &rc );
 
 		if ( m_nToolbar == 1 )
-			m_pToolbar->SetWindowPos( NULL, 0, 0, rc.right, Skin.m_nToolbarHeight, SWP_NOZORDER );
+			m_pToolbar->SetWindowPos( NULL, 0, 0, rc.right, Settings.Skin.ToolbarHeight, SWP_NOZORDER );
 		else if ( m_nToolbar == 2 )
-			m_pToolbar->SetWindowPos( NULL, 0, rc.bottom - Skin.m_nToolbarHeight, rc.Width(), Skin.m_nToolbarHeight, SWP_NOZORDER );
+			m_pToolbar->SetWindowPos( NULL, 0, rc.bottom - Settings.Skin.ToolbarHeight, rc.Width(), Settings.Skin.ToolbarHeight, SWP_NOZORDER );
 	}
 }
 

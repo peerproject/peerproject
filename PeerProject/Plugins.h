@@ -1,7 +1,7 @@
 //
 // Plugins.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -33,7 +33,7 @@ public:
 public:
 	CCriticalSection	m_pSection;
 
-	void		Register(); 	// Register all plugins in PeerProject installation folder
+	BOOL		Register(const CString& sPath); 					// Register all plugins in given PeerProject installation/plugin folder
 
 	void		Enumerate();
 	void		Clear();

@@ -438,10 +438,10 @@ void CIRCFrame::OnSize(UINT nType, int cx, int cy)
 
 	if ( rc.Width() < 32 || rc.Height() < 32 ) return;
 
-	m_wndPanel.SetWindowPos( NULL, 0, 0, Skin.m_nSidebarWidth, rc.Height(), SWP_NOZORDER );
+	m_wndPanel.SetWindowPos( NULL, 0, 0, Settings.Skin.SidebarWidth, rc.Height(), SWP_NOZORDER );
 
-	rc.left   += Skin.m_nSidebarWidth;
-	rc.bottom -= Skin.m_nToolbarHeight;
+	rc.left   += Settings.Skin.SidebarWidth;
+	rc.bottom -= Settings.Skin.ToolbarHeight;
 	if ( m_bConnected )
 	{
 		m_wndTab.SetWindowPos( NULL, rc.left, rc.top,
@@ -452,11 +452,11 @@ void CIRCFrame::OnSize(UINT nType, int cx, int cy)
 	{
 		m_wndTab.SetWindowPos( NULL, NULL, NULL,
 			NULL, NULL, SWP_NOZORDER|SWP_HIDEWINDOW );
-		rc.top += Skin.m_nHeaderbarHeight;
+		rc.top += Settings.Skin.HeaderbarHeight;
 	}
 
 	m_wndMainBar.SetWindowPos( NULL, rc.left, rc.bottom, rc.Width(),
-		Skin.m_nToolbarHeight, SWP_NOZORDER|SWP_SHOWWINDOW );
+		Settings.Skin.ToolbarHeight, SWP_NOZORDER|SWP_SHOWWINDOW );
 	m_wndEdit.SetWindowPos( NULL, rc.left, rc.bottom - EDITBOX_HEIGHT,
 		rc.Width(), EDITBOX_HEIGHT, SWP_NOZORDER|SWP_SHOWWINDOW );
 	rc.bottom -= EDITBOX_HEIGHT;
@@ -483,9 +483,9 @@ void CIRCFrame::OnPaint()
 	if ( ! m_bConnected )
 	{
 		rcComponent.right = rcClient.right;
-		rcComponent.left = rcClient.left + Skin.m_nSidebarWidth;
+		rcComponent.left = rcClient.left + Settings.Skin.SidebarWidth;
 		rcComponent.top = rcClient.top;
-		rcComponent.bottom = rcComponent.top + Skin.m_nHeaderbarHeight;
+		rcComponent.bottom = rcComponent.top + Settings.Skin.HeaderbarHeight;
 		PaintHeader( rcComponent, dc );
 		rcComponent.DeflateRect( 14, 0 );
 		CoolInterface.DrawEx( &dc, m_nHeaderIcon,
@@ -507,8 +507,8 @@ void CIRCFrame::OnPaint()
 
 	// "Chat:" Divider Area
 	rcComponent.right = rcClient.right;
-	rcComponent.left = rcClient.left + Skin.m_nSidebarWidth;
-	rcComponent.top = rcClient.bottom - Skin.m_nToolbarHeight -
+	rcComponent.left = rcClient.left + Settings.Skin.SidebarWidth;
+	rcComponent.top = rcClient.bottom - Settings.Skin.ToolbarHeight -
 		EDITBOX_HEIGHT - SMALLHEADER_HEIGHT;
 	rcComponent.bottom = rcComponent.top + SMALLHEADER_HEIGHT;
 	PaintHeader( rcComponent, dc );
@@ -519,8 +519,8 @@ void CIRCFrame::OnPaint()
 	DrawText( &dc, rcComponent.left, rcComponent.top, str );
 
 	rcComponent.right = rcClient.right;
-	rcComponent.left = rcClient.left + Skin.m_nSidebarWidth;
-	rcComponent.top = rcClient.bottom - Skin.m_nToolbarHeight -
+	rcComponent.left = rcClient.left + Settings.Skin.SidebarWidth;
+	rcComponent.top = rcClient.bottom - Settings.Skin.ToolbarHeight -
 		EDITBOX_HEIGHT - SMALLHEADER_HEIGHT - SEPERATOR_HEIGHT;
 	rcComponent.bottom = rcComponent.top + SEPERATOR_HEIGHT;
 	dc.FillSolidRect( rcComponent.left, rcComponent.top, 1,
@@ -1614,7 +1614,7 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 			oNewMessage.Add( _T("Connection Established."), m_sStatus, ID_COLOR_NOTICE );
 			OnIrcChanCmdOpen();
 			OnLocalText( _T("/list *PeerProject*") );
-			if ( Settings.General.Language != _T("en") )
+			if ( ! Settings.General.LanguageDefault )
 				OnLocalText( _T("/join PeerProject-") + Settings.General.Language.Left(2) );
 			OnLocalText( _T("/list *shareaza*") );
 			return;

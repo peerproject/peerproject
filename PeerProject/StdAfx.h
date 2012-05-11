@@ -144,13 +144,14 @@
 // WIN32
 //
 
+#include <commoncontrols.h>	// IImageList interfaces (For CShellIcons::Get)
 #include <winsock2.h>		// Windows sockets V2
 #include <wininet.h>		// Internet
 #include <wincrypt.h>		// Cryptographic API
 #include <ddeml.h>			// DDE
 #include <dde.h>			// DDE	(WM_DDE_INITIATE)
 #include <math.h>			// Math
-#include <winsvc.h>			// Services (excluded by VC_EXTRALEAN)
+#include <winsvc.h>			// Services (Excluded by VC_EXTRALEAN)
 #include <shlwapi.h>		// Windows Shell API
 #include <mmsystem.h>		// Multimedia
 #include <exdispid.h>		// Internet Explorer DISPID_ Messages (ctrlweb)

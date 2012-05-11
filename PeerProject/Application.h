@@ -1,7 +1,7 @@
 //
 // Application.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -21,12 +21,13 @@
 
 class CApplication : public CComObject
 {
-	DECLARE_DYNCREATE(CApplication)
+	DECLARE_DYNAMIC(CApplication)
 
 public:
 	CApplication();
 	virtual ~CApplication();
 
+public:
 	static HRESULT GetApp(IApplication** ppIApplication) throw();
 	static HRESULT GetUI(IUserInterface** ppIUserInterface) throw();
 	static HRESULT GetSettings(ISettings** ppISettings) throw();
@@ -65,7 +66,7 @@ protected:
 		STDMETHOD(GetValue)(VARIANT* value);	// Pass as BSTR path (ex. Gnutella2.EnableAlways, get back the actual value
 	END_INTERFACE_PART(Settings)
 
-	DECLARE_MESSAGE_MAP()
 	DECLARE_OLECREATE(CApplication)
 	DECLARE_INTERFACE_MAP()
+//	DECLARE_MESSAGE_MAP()
 };

@@ -1,7 +1,7 @@
 //
 // UploadTransferHTTP.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -46,6 +46,11 @@ protected:
 	BOOL		m_bRange;
 	BOOL		m_bQueueMe;
 	BOOL		m_bNotPeerProject;
+	// "Accept" header:
+	// 0 - unknown;
+	// 1 - Gnutella 1 (application/x-gnutella-packets);
+	// 2 - Gnutella 2 (application/x-gnutella2 or application/x-PeerProject).
+	int			m_nAccept;
 	// Gnutella functionality:
 	// 0 - Pure HTTP
 	// 1 - Pure G1

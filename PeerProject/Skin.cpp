@@ -74,16 +74,14 @@ void CSkin::Apply()
 {
 	Clear();
 
-	Settings.General.Language = _T("en");
-
 	CreateDefault();
 
-	Plugins.RegisterCommands();
-
 	ApplyRecursive( L"Languages\\" );
-	ApplyRecursive( NULL );
 
+	Plugins.RegisterCommands();
 	Plugins.InsertCommands();
+
+	ApplyRecursive( NULL );
 
 	CoolMenu.SetWatermark( GetWatermark( _T("CCoolMenu") ) );
 
@@ -99,30 +97,34 @@ void CSkin::CreateDefault()
 
 	CoolInterface.CreateFonts();
 
+	Settings.General.Language = _T("en");
+	Settings.General.LanguageRTL = false;
+	Settings.General.LanguageDefault = true;
+
 	// Default Skin Options:
-	m_nMenubarHeight	= 28;
-	m_nToolbarHeight	= 28;
-	m_nTaskbarHeight	= 26;
-	m_nTaskbarTabWidth	= 0;	// 200/140 set in WndMain
-	m_nGroupsbarHeight	= 24;
-	m_nHeaderbarHeight	= 64;
-	m_nMonitorbarWidth	= 120;
-	m_nSidebarWidth 	= 200;
-	m_nSidebarPadding 	= 12;
-	m_nSplitter			= 6;
-	m_nButtonEdge		= 4;
-	m_nLibIconsX		= 220;
-	m_nLibIconsY		= 56;
-	m_bMenuBorders		= TRUE;
-	m_bMenuGripper		= TRUE;
-	m_bRoundedSelect	= FALSE;
-	m_bDropMenu			= FALSE;
-	m_rcNavBarOffset	= CRect( 0, 0, 0, 0 );
+	Settings.SetDefault( &Settings.Skin.MenubarHeight );	// 28
+	Settings.SetDefault( &Settings.Skin.ToolbarHeight );	// 28
+	Settings.SetDefault( &Settings.Skin.TaskbarHeight );	// 26
+	Settings.SetDefault( &Settings.Skin.TaskbarTabWidth );	// 0	// 200/140 set in WndMain
+	Settings.SetDefault( &Settings.Skin.GroupsbarHeight );	// 24
+	Settings.SetDefault( &Settings.Skin.HeaderbarHeight );	// 64
+	Settings.SetDefault( &Settings.Skin.MonitorbarWidth );	// 120
+	Settings.SetDefault( &Settings.Skin.SidebarWidth ); 	// 200
+	Settings.SetDefault( &Settings.Skin.SidebarPadding );	// 12
+	Settings.SetDefault( &Settings.Skin.Splitter ); 		// 6
+	Settings.SetDefault( &Settings.Skin.ButtonEdge );		// 4
+	Settings.SetDefault( &Settings.Skin.LibIconsX );		// 220
+	Settings.SetDefault( &Settings.Skin.LibIconsY );		// 56
+	Settings.SetDefault( &Settings.Skin.MenuBorders );		// true
+	Settings.SetDefault( &Settings.Skin.MenuGripper );		// true
+	Settings.SetDefault( &Settings.Skin.RoundedSelect );	// false
+	Settings.SetDefault( &Settings.Skin.DropMenu ); 		// false
+	m_rcNavBarOffset = CRect( 0, 0, 0, 0 );
 
 	// Command Icons
 	if ( HICON hIcon = theApp.LoadIcon( IDI_CHECKMARK ) )
 	{
-		if ( Settings.General.LanguageRTL ) hIcon = CreateMirroredIcon( hIcon );
+	//	if ( Settings.General.LanguageRTL ) hIcon = CreateMirroredIcon( hIcon );	// Impossible?
 		CoolInterface.AddIcon( ID_CHECKMARK, hIcon );
 		VERIFY( DestroyIcon( hIcon ) );
 	}
@@ -483,6 +485,7 @@ BOOL CSkin::LoadFromXML(CXMLElement* pXML, const CString& strPath)
 			{
 				Settings.General.Language = pSub->GetAttributeValue( _T("language"), _T("en") );
 				Settings.General.LanguageRTL = ( pSub->GetAttributeValue( _T("dir"), _T("ltr") ) == "rtl" );
+				Settings.General.LanguageDefault = Settings.General.Language.Left(2) == _T("en");
 				TRACE( _T("Loading language: %s\r\n"), Settings.General.Language );
 				TRACE( _T("RTL: %d\r\n"), Settings.General.LanguageRTL );
 			}
@@ -668,129 +671,129 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 			break;
 		case 'd':	// "DropMenu" or "SubMenu"
 			if ( strValue == _T("true") )
-				m_bDropMenu = TRUE;
+				Settings.Skin.DropMenu = true;
 			else if ( strValue == _T("false") )
-				m_bDropMenu = FALSE;
+				Settings.Skin.DropMenu = false;
 			else if ( strValue == _T("on") )
-				m_bDropMenu = TRUE;
+				Settings.Skin.DropMenu = true;
 			else if ( strValue == _T("off") )
-				m_bDropMenu = FALSE;
+				Settings.Skin.DropMenu = false;
 			else if ( strValue == _T("1") )
-				m_bDropMenu = TRUE;
+				Settings.Skin.DropMenu = true;
 			else if ( strValue == _T("0") )
-				m_bDropMenu = FALSE;
+				Settings.Skin.DropMenu = false;
 			break;
 		case 'b':	// "MenuBorders" or "MenubarBevel"
 			if ( strValue == _T("true") )
-				m_bMenuBorders = TRUE;
+				Settings.Skin.MenuBorders = true;
 			else if ( strValue == _T("false") )
-				m_bMenuBorders = FALSE;
+				Settings.Skin.MenuBorders = false;
 			else if ( strValue == _T("on") )
-				m_bMenuBorders = TRUE;
+				Settings.Skin.MenuBorders = true;
 			else if ( strValue == _T("off") )
-				m_bMenuBorders = FALSE;
+				Settings.Skin.MenuBorders = false;
 			else if ( strValue == _T("1") )
-				m_bMenuBorders = TRUE;
+				Settings.Skin.MenuBorders = true;
 			else if ( strValue == _T("0") )
-				m_bMenuBorders = FALSE;
+				Settings.Skin.MenuBorders = false;
 			break;
 		case 'p':	// "MenuGripper" or "Grippers"
 			if ( strValue == _T("true") )
-				m_bMenuGripper = TRUE;
+				Settings.Skin.MenuGripper = true;
 			else if ( strValue == _T("false") )
-				m_bMenuGripper = FALSE;
+				Settings.Skin.MenuGripper = false;
 			else if ( strValue == _T("on") )
-				m_bMenuGripper = TRUE;
+				Settings.Skin.MenuGripper = true;
 			else if ( strValue == _T("off") )
-				m_bMenuGripper = FALSE;
+				Settings.Skin.MenuGripper = false;
 			else if ( strValue == _T("1") )
-				m_bMenuGripper = TRUE;
+				Settings.Skin.MenuGripper = true;
 			else if ( strValue == _T("0") )
-				m_bMenuGripper = FALSE;
+				Settings.Skin.MenuGripper = false;
 			break;
 		case 'c':	// "RoundedSelect" or "HighlightChamfer"
 			if ( strValue == _T("true") )
-				m_bRoundedSelect = TRUE;
+				Settings.Skin.RoundedSelect = true;
 			else if ( strValue == _T("false") )
-				m_bRoundedSelect = FALSE;
+				Settings.Skin.RoundedSelect = false;
 			else if ( strValue == _T("on") )
-				m_bRoundedSelect = TRUE;
+				Settings.Skin.RoundedSelect = true;
 			else if ( strValue == _T("off") )
-				m_bRoundedSelect = FALSE;
+				Settings.Skin.RoundedSelect = false;
 			else if ( strValue == _T("1") )
-				m_bRoundedSelect = TRUE;
+				Settings.Skin.RoundedSelect = true;
 			else if ( strValue == _T("0") )
-				m_bRoundedSelect = FALSE;
+				Settings.Skin.RoundedSelect = false;
 			break;
 		case 'm':	// "Menubar" or "Menubars"
 			if ( ! strHeight.IsEmpty() )
-				m_nMenubarHeight = _wtoi(strHeight);
+				Settings.Skin.MenubarHeight = _wtoi(strHeight);
 			else if ( ! strValue.IsEmpty() )
-				m_nMenubarHeight = _wtoi(strValue);
+				Settings.Skin.MenubarHeight = _wtoi(strValue);
 			break;
 		case 't':	// "Toolbar" or "Toolbars"
 			if ( ! strHeight.IsEmpty() )
-				m_nToolbarHeight = _wtoi(strHeight);
+				Settings.Skin.ToolbarHeight = _wtoi(strHeight);
 			else if ( ! strValue.IsEmpty() )
-				m_nToolbarHeight = _wtoi(strValue);
+				Settings.Skin.ToolbarHeight = _wtoi(strValue);
 			break;
 		case 'k':	// "Taskbar" or "TabBar"
 			if ( ! strWidth.IsEmpty() )
-				m_nTaskbarTabWidth = _wtoi(strWidth);
+				Settings.Skin.TaskbarTabWidth = _wtoi(strWidth);
 			if ( ! strHeight.IsEmpty() )
-				m_nTaskbarHeight = _wtoi(strHeight);
+				Settings.Skin.TaskbarHeight = _wtoi(strHeight);
 			else if ( ! strValue.IsEmpty() )
-				m_nTaskbarHeight = _wtoi(strValue);
+				Settings.Skin.TaskbarHeight = _wtoi(strValue);
 			break;
 		case 's':	// "Sidebar" or "SidePanel" or "TaskPanel"
 			if ( ! strWidth.IsEmpty() )
-				m_nSidebarWidth = _wtoi(strWidth);
+				Settings.Skin.SidebarWidth = _wtoi(strWidth);
 			else if ( ! strValue.IsEmpty() )
-				m_nSidebarWidth = _wtoi(strValue);
+				Settings.Skin.SidebarWidth = _wtoi(strValue);
 			break;
 		case 'a':	// "SidebarMargin" or "SidebarPadding" or "TaskPanelPadding"
 			if ( ! strWidth.IsEmpty() )
-				m_nSidebarPadding = _wtoi(strWidth);
+				Settings.Skin.SidebarPadding = _wtoi(strWidth);
 			else if ( ! strValue.IsEmpty() )
-				m_nSidebarPadding = _wtoi(strValue);
+				Settings.Skin.SidebarPadding = _wtoi(strValue);
 			break;
 		case 'h':	// "Titlebar" or "HeaderPanel"
 			if ( ! strHeight.IsEmpty() )
-				m_nHeaderbarHeight = _wtoi(strHeight);
+				Settings.Skin.HeaderbarHeight = _wtoi(strHeight);
 			else if ( ! strValue.IsEmpty() )
-				m_nHeaderbarHeight = _wtoi(strValue);
+				Settings.Skin.HeaderbarHeight = _wtoi(strValue);
 			break;
 		case 'g':	// "Groupsbar" or "DownloadGroups"
 			if ( ! strHeight.IsEmpty() )
-				m_nGroupsbarHeight = _wtoi(strHeight);
+				Settings.Skin.GroupsbarHeight = _wtoi(strHeight);
 			else if ( ! strValue.IsEmpty() )
-				m_nGroupsbarHeight = _wtoi(strValue);
+				Settings.Skin.GroupsbarHeight = _wtoi(strValue);
 			break;
 		case 'o':	// "Monitorbar" or "BandwidthWidget"
 			if ( ! strWidth.IsEmpty() )
-				m_nMonitorbarWidth = _wtoi(strWidth);
+				Settings.Skin.MonitorbarWidth = _wtoi(strWidth);
 			else if ( ! strValue.IsEmpty() )
-				m_nMonitorbarWidth = _wtoi(strValue);
+				Settings.Skin.MonitorbarWidth = _wtoi(strValue);
 			break;
 		case 'r':	// "Dragbar" or "Splitter"
 			if ( ! strWidth.IsEmpty() )
-				m_nSplitter = _wtoi(strWidth);
+				Settings.Skin.Splitter = _wtoi(strWidth);
 			else if ( ! strValue.IsEmpty() )
-				m_nSplitter = _wtoi(strValue);
+				Settings.Skin.Splitter = _wtoi(strValue);
 			break;
 		case 'e':	// "ButtonEdge" or "ButtonMap"
 			if ( ! strWidth.IsEmpty() )
-				m_nButtonEdge = _wtoi(strWidth);
+				Settings.Skin.ButtonEdge = _wtoi(strWidth);
 			else if ( ! strValue.IsEmpty() )
-				m_nButtonEdge = _wtoi(strValue);
+				Settings.Skin.ButtonEdge = _wtoi(strValue);
 			break;
 		case 'i':	// "IconGrid" or "LibraryTiles"
 			if ( ! strHeight.IsEmpty() )
-				m_nLibIconsY = _wtoi(strHeight);
+				Settings.Skin.LibIconsY = _wtoi(strHeight);
 			if ( ! strWidth.IsEmpty() )
-				m_nLibIconsX = _wtoi(strWidth);
+				Settings.Skin.LibIconsX = _wtoi(strWidth);
 			else if ( ! strValue.IsEmpty() )
-				m_nLibIconsX = _wtoi(strValue);
+				Settings.Skin.LibIconsX = _wtoi(strValue);
 			break;
 		case 'w':	// "RowSize" or "ListItem"
 			{
@@ -802,7 +805,7 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 				else
 					break;
 				if ( nSize >= 16 && nSize <= 20 )
-					Settings.Interface.RowSize = nSize;
+					Settings.Skin.RowSize = nSize;
 			}
 			break;
 		}
@@ -1606,7 +1609,7 @@ BOOL CSkin::Apply(LPCTSTR pszName, CDialog* pDialog, UINT nIconID, CToolTipCtrl*
 		strCaption.Replace( _T("\n"), _T("{n}") );
 		strCaption.Replace( _T("\r"), _T("") );
 		strCaption.Replace( _T("&"), _T("_") );
-		strCaption = CXMLNode::ValueToString( strCaption );
+		strCaption = Escape( strCaption );
 		pFile.WriteString( strCaption );
 
 		pFile.WriteString( _T("\">\r\n") );
@@ -1658,7 +1661,7 @@ BOOL CSkin::Apply(LPCTSTR pszName, CDialog* pDialog, UINT nIconID, CToolTipCtrl*
 				strCaption.Replace( _T("\n"), _T("{n}") );
 				strCaption.Replace( _T("\r"), _T("") );
 				strCaption.Replace( _T("&"), _T("_") );
-				strCaption = CXMLNode::ValueToString( strCaption );
+				strCaption = Escape( strCaption );
 				pFile.WriteString( _T("\t\t<control caption=\"") );
 				pFile.WriteString( strCaption );
 				pFile.WriteString( _T("\"/>\r\n") );
@@ -2479,28 +2482,28 @@ BOOL CSkin::LoadCommandBitmap(CXMLElement* pBase, const CString& strPath)
 
 	COLORREF crMask;
 	CString strMask = pBase->GetAttributeValue( _T("mask"), _T("00FF00") );
-	int nRed = 0, nGreen = 0, nBlue = 0;
-	if ( strMask.GetLength() == 6 &&
-		_stscanf( strMask.Mid( 0, 2 ), _T("%x"), &nRed ) == 1 &&
-		_stscanf( strMask.Mid( 2, 2 ), _T("%x"), &nGreen ) == 1 &&
-		_stscanf( strMask.Mid( 4, 2 ), _T("%x"), &nBlue ) == 1 )
+	if ( strMask.GetLength() >= 6 )
+		crMask = GetColor( strMask );
+
+	if ( crMask == NULL )
 	{
-		crMask = RGB( nRed, nGreen, nBlue );
-	}
-	else if ( strMask == _T("CLR_NONE") ||
-		! strMask.CompareNoCase( _T("Alpha") ) ||
-		! strMask.CompareNoCase( _T("Transparent") ) ||
-		! strMask.CompareNoCase( _T("None") ) ||
-		! strMask.CompareNoCase( _T("NULL") ) ||
-		! strMask.CompareNoCase( _T("PNG") ) ) 	// ToDo: Auto set mask to CLR_NONE for alpha PNGs, and cull this list
-	{
-		crMask = CLR_NONE; 	// 0 Alpha (or Black)
-	}
-	else
-	{
-		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
-			_T("Image has invalid mask"), pBase->ToString() );
-		return FALSE;
+		// ToDo: Auto set mask to CLR_NONE for alpha PNGs, and cull this list
+		strMask.MakeLower();
+		if ( strMask == _T("alpha") ||
+			 strMask == _T("transparent") ||
+			 strMask == _T("clr_none") ||
+			 strMask == _T("none") ||
+			 strMask == _T("null") ||
+			 strMask == _T("png") )
+		{
+			crMask = CLR_NONE; 	// 0 Alpha (or Black)
+		}
+		else
+		{
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
+				_T("Image has invalid mask"), pBase->ToString() );
+			crMask = RGB( 0, 255, 0 );
+		}
 	}
 
 	HBITMAP hBitmap;
@@ -2795,10 +2798,59 @@ void CSkin::DrawWrappedText(CDC* pDC, CRect* pBox, LPCTSTR pszText, CPoint ptSta
 }
 
 //////////////////////////////////////////////////////////////////////
+// CSkin hex color utility
+
+BOOL CSkin::LoadColor(CXMLElement* pXML, LPCTSTR pszName, COLORREF* pColor)
+{
+	CString str = pXML->GetAttributeValue( pszName );
+	if ( ! str.IsEmpty() )
+	{
+		*pColor = GetColor( str );
+		if ( *pColor )
+			return TRUE;
+
+		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Bad color attribute"), pXML->ToString() );
+	}
+
+	return FALSE;
+}
+
+COLORREF CSkin::GetColor(CString sColor)
+{
+	sColor.Trim( _T(" #") );
+
+	const int nLength = sColor.GetLength();
+	if ( nLength < 6 || nLength > 13 )
+		return NULL;
+
+	int nRed = 0, nGreen = 0, nBlue = 0;
+	if ( nLength == 6 &&
+		_stscanf( sColor.Mid( 0, 2 ), _T("%x"), &nRed ) == 1 &&
+		_stscanf( sColor.Mid( 2, 2 ), _T("%x"), &nGreen ) == 1 &&
+		_stscanf( sColor.Mid( 4, 2 ), _T("%x"), &nBlue ) == 1 )
+	{
+		return RGB( nRed, nGreen, nBlue );
+	}
+
+	if ( _stscanf( (LPCTSTR)sColor, _T("%i, %i, %i"), &nRed, &nGreen, &nBlue ) == 3 &&
+		 nRed < 256 && nGreen < 256 && nBlue < 256 )
+		return RGB( nRed, nGreen, nBlue );
+
+	if ( sColor == L"CLR_NONE" )
+		return CLR_NONE;
+
+	return NULL;
+}
+
+//////////////////////////////////////////////////////////////////////
 // CSkin load bitmap helper
 
 HBITMAP CSkin::LoadBitmap(const CString& strName)
 {
+	//HBITMAP hBitmap = NULL;
+	//if ( m_pBitmaps.Lookup( strName, hBitmap ) )
+	//	return hBitmap;
+
 	const int nPos = strName.Find( '$' );
 	if ( nPos < 0 )
 		return CImageFile::LoadBitmapFromFile( strName );
@@ -2812,6 +2864,17 @@ HBITMAP CSkin::LoadBitmap(const CString& strName)
 		return NULL;
 
 	return CImageFile::LoadBitmapFromResource( nID, hInstance );
+
+	//if ( hBitmap )
+	//	m_pBitmaps.SetAt( strName, hBitmap );
+	//return hBitmap;
+}
+
+HBITMAP CSkin::LoadBitmap(UINT nID)
+{
+	CString strName;
+	strName.Format( _T("%p$%lu"), (HINSTANCE)GetModuleHandle( NULL ), nID );
+	return LoadBitmap( strName );
 }
 
 //////////////////////////////////////////////////////////////////////

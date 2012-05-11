@@ -178,7 +178,7 @@ void CSecurityWnd::OnSize(UINT nType, int cx, int cy)
 	if ( ! m_wndList ) return;
 
 	CPanelWnd::OnSize( nType, cx, cy );
-	m_wndList.SetWindowPos( NULL, 0, 0, cx, cy - Skin.m_nToolbarHeight, SWP_NOZORDER );
+	m_wndList.SetWindowPos( NULL, 0, 0, cx, cy - Settings.Skin.ToolbarHeight, SWP_NOZORDER );
 	SizeListAndBar( &m_wndList, &m_wndToolBar );
 }
 

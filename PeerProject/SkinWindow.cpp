@@ -283,8 +283,7 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 			lf.lfOutPrecision	= OUT_DEFAULT_PRECIS;
 			lf.lfClipPrecision	= CLIP_DEFAULT_PRECIS;
 			lf.lfPitchAndFamily	= DEFAULT_PITCH|FF_DONTCARE;
-			_tcsncpy( lf.lfFaceName, ( strFont.IsEmpty() ?
-				Settings.Fonts.DefaultFont : strFont ), LF_FACESIZE );
+			_tcsncpy( lf.lfFaceName, ( strFont.IsEmpty() ? Settings.Fonts.DefaultFont : strFont ), LF_FACESIZE );
 
 			if ( _tcsistr( strSize, _T("pt") ) != NULL )
 			{
@@ -296,32 +295,24 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 				m_fnCaption.CreateFontIndirect( &lf );
 			}
 
-			str = pGroup->GetAttributeValue( _T("colour") );
-			ParseColor( str, m_crCaptionText );
-			str = pGroup->GetAttributeValue( _T("color") );
-			ParseColor( str, m_crCaptionText );
-			str = pGroup->GetAttributeValue( _T("inactiveColour") );
-			ParseColor( str, m_crCaptionInactive );
-			str = pGroup->GetAttributeValue( _T("inactiveColor") );
-			ParseColor( str, m_crCaptionInactive );
-			str = pGroup->GetAttributeValue( _T("outlineColour") );
-			ParseColor( str, m_crCaptionOutline );
-			str = pGroup->GetAttributeValue( _T("outlineColor") );
-			ParseColor( str, m_crCaptionOutline );
-			str = pGroup->GetAttributeValue( _T("shadowColour") );
-			ParseColor( str, m_crCaptionShadow );
-			str = pGroup->GetAttributeValue( _T("shadowColor") );
-			ParseColor( str, m_crCaptionShadow );
+			Skin.LoadColor( pGroup, _T("color"),  &m_crCaptionText ) ||
+			Skin.LoadColor( pGroup, _T("colour"), &m_crCaptionText );
+			Skin.LoadColor( pGroup, _T("inactiveColor"),  &m_crCaptionInactive ) ||
+			Skin.LoadColor( pGroup, _T("inactiveColour"), &m_crCaptionInactive );
+			Skin.LoadColor( pGroup, _T("outlineColor"),  &m_crCaptionOutline ) ||
+			Skin.LoadColor( pGroup, _T("outlineColour"), &m_crCaptionOutline );
+			Skin.LoadColor( pGroup, _T("shadowColor"),  &m_crCaptionShadow ) ||
+			Skin.LoadColor( pGroup, _T("shadowColour"), &m_crCaptionShadow );
 
 			str = pGroup->GetAttributeValue( _T("caps") );
 			m_bCaptionCaps = ! str.IsEmpty();
 
 			str = pGroup->GetAttributeValue( _T("align") );
-			if ( ! str.CompareNoCase( _T("left") ) )
+			if ( str.CompareNoCase( _T("left") ) == 0 )
 				m_nCaptionAlign = 0;
-			else if ( ! str.CompareNoCase( _T("center") ) )
+			else if ( str.CompareNoCase( _T("center") ) == 0 )
 				m_nCaptionAlign = 1;
-			else if ( ! str.CompareNoCase( _T("right") ) )
+			else if ( str.CompareNoCase( _T("right") ) == 0 )
 				m_nCaptionAlign = 2;
 
 			if ( m_bCaption && m_fnCaption.m_hObject == NULL )
@@ -363,7 +354,7 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 				if ( _stscanf( strRes, _T("%lu"), &nResID ) != 1 )
 				{
 					theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown [res] attribute in [image] element"), pGroup->ToString() );
-					return FALSE;
+					continue;
 				}
 
 				if ( Settings.General.LanguageRTL )
@@ -392,7 +383,7 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 			if ( ! hBitmap )
 			{
 				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Cannot load image"), pGroup->ToString() );
-				return FALSE;
+				continue;
 			}
 
 			str = pGroup->GetAttributeValue( _T("type") );
@@ -459,12 +450,12 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 
 BOOL CSkinWindow::ParseRect(CXMLElement* pXML, CRect* pRect)
 {
-	CString strValue = pXML->GetAttributeValue( _T("rect") );
+	CString strRect = pXML->GetAttributeValue( _T("rect") );
 
-	if ( ! strValue.IsEmpty() )
+	if ( ! strRect.IsEmpty() )
 	{
 		int x, y, cx, cy;
-		if ( _stscanf( strValue, _T("%i,%i,%i,%i"), &x, &y, &cx, &cy ) != 4 )
+		if ( _stscanf( strRect, _T("%i,%i,%i,%i"), &x, &y, &cx, &cy ) != 4 )
 		{
 			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Invalid [rect] attribute"), pXML->ToString() );
 			return FALSE;
@@ -473,15 +464,16 @@ BOOL CSkinWindow::ParseRect(CXMLElement* pXML, CRect* pRect)
 		pRect->top = y;
 		pRect->right = x + cx;
 		pRect->bottom = y + cy;
+
 		return TRUE;
 	}
 
-	strValue = pXML->GetAttributeValue( _T("point") );
+	CString strPoint = pXML->GetAttributeValue( _T("point") );
 
-	if ( ! strValue.IsEmpty() )
+	if ( ! strPoint.IsEmpty() )
 	{
 		int x, y;
-		if ( _stscanf( strValue, _T("%i,%i"), &x, &y ) != 2 )
+		if ( _stscanf( strPoint, _T("%i,%i"), &x, &y ) != 2 )
 		{
 			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Invalid [point] attribute"), pXML->ToString() );
 			return FALSE;
@@ -489,25 +481,11 @@ BOOL CSkinWindow::ParseRect(CXMLElement* pXML, CRect* pRect)
 		pRect->left = x;
 		pRect->top = y;
 		pRect->right = pRect->bottom = 0;
+
 		return TRUE;
 	}
 
 	return FALSE;
-}
-
-BOOL CSkinWindow::ParseColor(const CString& str, COLORREF& cr)
-{
-	if ( str.GetLength() != 6 ) return FALSE;
-
-	int nRed, nGreen, nBlue;
-
-	if ( _stscanf( str.Mid( 0, 2 ), _T("%x"), &nRed ) != 1 ) return FALSE;
-	if ( _stscanf( str.Mid( 2, 2 ), _T("%x"), &nGreen ) != 1 ) return FALSE;
-	if ( _stscanf( str.Mid( 4, 2 ), _T("%x"), &nBlue ) != 1 ) return FALSE;
-
-	cr = RGB( nRed, nGreen, nBlue );
-
-	return TRUE;
 }
 
 //////////////////////////////////////////////////////////////////////

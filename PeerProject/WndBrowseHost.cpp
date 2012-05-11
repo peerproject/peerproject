@@ -157,11 +157,11 @@ void CBrowseHostWnd::OnSize(UINT nType, int cx, int cy)
 	CRect rc;
 	GetClientRect( &rc );
 
-	rc.top += Skin.m_nHeaderbarHeight;
-	rc.bottom -= Skin.m_nToolbarHeight;
+	rc.top += Settings.Skin.HeaderbarHeight;
+	rc.bottom -= Settings.Skin.ToolbarHeight;
 
 	m_wndHeader.SetWindowPos( NULL, rc.left, 0, rc.Width(), rc.top, SWP_NOZORDER );
-	m_wndToolBar.SetWindowPos( NULL, rc.left, rc.bottom, rc.Width(), Skin.m_nToolbarHeight, SWP_NOZORDER );
+	m_wndToolBar.SetWindowPos( NULL, rc.left, rc.bottom, rc.Width(), Settings.Skin.ToolbarHeight, SWP_NOZORDER );
 	m_wndProfile.SetWindowPos( NULL, rc.left, rc.top, rc.Width(), rc.Height(), SWP_NOZORDER );
 	m_wndFrame.SetWindowPos( NULL, rc.left, rc.top, rc.Width(), rc.Height(), SWP_NOZORDER );
 }

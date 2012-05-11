@@ -1,7 +1,7 @@
 //
 // LibraryFolders.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -22,16 +22,23 @@ class CLibraryFolder;
 class CAlbumFolder;
 class CLibraryFile;
 class CCollectionFile;
+class CXMLElement;
+
+enum XmlType
+{
+	xmlDefault,		// Default
+	xmlDC			// DC++ file listing
+};
 
 
 class CLibraryFolders : public CComObject
 {
+	DECLARE_DYNAMIC(CLibraryFolders)
+
 // Construction
 public:
 	CLibraryFolders();
 	virtual ~CLibraryFolders();
-
-	DECLARE_DYNAMIC(CLibraryFolders)
 
 // Attributes
 protected:
@@ -40,6 +47,7 @@ protected:
 
 // Physical Folder Operations
 public:
+	CXMLElement*	CreateXML(LPCTSTR szRoot, BOOL bSharedOnly, XmlType nType) const;
 	POSITION		GetFolderIterator() const;
 	CLibraryFolder*	GetNextFolder(POSITION& pos) const;
 	INT_PTR			GetFolderCount() const { return m_pFolders.GetCount(); }

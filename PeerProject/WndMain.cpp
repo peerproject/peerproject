@@ -418,7 +418,7 @@ void CMainWnd::SaveState()
 
 BOOL CMainWnd::PreCreateWindow(CREATESTRUCT& cs)
 {
-	cs.lpszClass = _T("PeerProjectMainWnd");
+	cs.lpszClass = CLIENT_HWND;		// _T("PeerProjectMainWnd")
 	if ( ! ( cs.hInstance ) )
 		return FALSE;
 
@@ -445,6 +445,13 @@ int CMainWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	if ( CMDIFrameWnd::OnCreate( lpCreateStruct ) == -1 )
 		return -1;
 
+	// Task Bar
+
+#ifdef __ITaskbarList3_INTERFACE_DEFINED__	// VS2010+
+	if ( theApp.m_nWinVer >= WIN_VISTA )	// WIN_7 ?
+		m_pTaskbar.CoCreateInstance( CLSID_TaskbarList );
+#endif
+
 	// Tray
 	m_pTray.hWnd = GetSafeHwnd();
 	m_pTray.hIcon = CoolInterface.ExtractIcon( IDR_MAINFRAME, FALSE );
@@ -455,7 +462,7 @@ int CMainWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	// Status Bar
 	UINT wID[2] = { ID_SEPARATOR, ID_SEPARATOR };	// wID[3] + ID_SEPARATOR
 	if ( ! m_wndStatusBar.Create( this ) ) return -1;
-	m_wndStatusBar.SetIndicators( wID, 2 );		// 2 = _countof( wID )
+	m_wndStatusBar.SetIndicators( wID, 2 );			// 2 = _countof( wID )
 	m_wndStatusBar.SetPaneInfo( 0, ID_SEPARATOR, SBPS_STRETCH, 0 );
 	m_wndStatusBar.SetPaneInfo( 1, ID_SEPARATOR, SBPS_NORMAL, 220 );	// Status Panel Width (lower-right corner)
 	//m_wndStatusBar.SetPaneInfo( 2, ID_SEPARATOR, SBPS_NORMAL, 120 );	// IP address status panel?
@@ -588,7 +595,7 @@ void CMainWnd::OnClose()
 		// Delayed close
 		static int nStep = 0;
 		if ( nStep++ < 80 )
-			theApp.SplashStep( Settings.General.Language.Left(2) == _T("en") ? L"Waiting to Close" : LoadString( IDS_SCHEDULER_TASK_WAITING ), 80, true );
+			theApp.SplashStep( Settings.General.LanguageDefault ? L"Waiting to Close" : LoadString( IDS_SCHEDULER_TASK_WAITING ), 80, true );
 		SetTimer( 2, 550, NULL );
 		return;
 	}
@@ -632,6 +639,10 @@ void CMainWnd::OnClose()
 		m_wndRemoteWnd.DestroyWindow();
 
 	m_brDockArea.DeleteObject();
+
+#ifdef __ITaskbarList3_INTERFACE_DEFINED__	// VS2010+
+	m_pTaskbar.Release();
+#endif
 
 	// Destroy main window
 	CMDIFrameWnd::OnClose();
@@ -968,15 +979,9 @@ void CMainWnd::CloseToTray()
 {
 	if ( m_bTrayHide ) return;
 
-//	if ( theApp.m_nWinVer >= WIN_7 )
-//	{
-//		static volatile bool bClosingToTray = false;    // Workaround for TaskBar lag
-//		if ( bClosingToTray ) return;
-//		bClosingToTray = true;
-//		if ( ! IsIconic() )
-//			SendMessage( WM_SYSCOMMAND, SC_MINIMIZE );
-//		bClosingToTray = false;
-//	}
+//	// Workaround for TaskBar lag?
+//	if ( ! IsIconic() )
+//		SendMessage( WM_SYSCOMMAND, SC_MINIMIZE );
 //
 //	if ( IsWindowVisible() )
 		ShowWindow( SW_HIDE );
@@ -986,8 +991,11 @@ void CMainWnd::CloseToTray()
 
 void CMainWnd::OpenFromTray(int nShowCmd)
 {
-	if ( m_bTrayHide ) ShowWindow( nShowCmd );
-	if ( IsIconic() ) SendMessage( WM_SYSCOMMAND, SC_RESTORE );
+	if ( ! IsWindowVisible() )
+		ShowWindow( nShowCmd );		// m_bTrayHide
+
+	if ( IsIconic() )
+		ShowWindow( SW_RESTORE );	// SendMessage( WM_SYSCOMMAND, SC_RESTORE )
 
 	SetForegroundWindow();
 	m_bTrayHide = FALSE;
@@ -1190,7 +1198,7 @@ LRESULT CMainWnd::OnSkinChanged(WPARAM /*wParam*/, LPARAM /*lParam*/)
 
 	m_wndMenuBar.OnSkinChange();	// Set height here
 
-	if ( Skin.m_bDropMenu )
+	if ( Settings.Skin.DropMenu )
 	{
 		if ( CMenu* pMenu = Skin.GetMenu( _T("CMainWnd.DropMenu") ) )
 			m_wndMenuBar.SetMenu( pMenu->GetSafeHmenu() );
@@ -1310,6 +1318,8 @@ LRESULT CMainWnd::OnHandleCollection(WPARAM wParam, LPARAM /*lParam*/)
 	LPTSTR pszPath = (LPTSTR)wParam;
 	CString strPath( pszPath );
 	delete [] pszPath;
+
+	OpenFromTray();
 
 	if ( CLibraryWnd* pLibrary = (CLibraryWnd*)m_pWindows.Open( RUNTIME_CLASS(CLibraryWnd) ) )
 		pLibrary->OnCollection( strPath );
@@ -1464,8 +1474,9 @@ void CMainWnd::GetMessageString(UINT nID, CString& rMessage) const
 void CMainWnd::UpdateMessages()
 {
 	// StatusBar
+	//if ( IsForegroundWindow() )
 	{
-		CString strMessage;
+		CString strStatusbar, strOld;
 
 		QWORD nLocalVolume;
 		LibraryMaps.GetStatistics( NULL, &nLocalVolume );
@@ -1476,13 +1487,13 @@ void CMainWnd::UpdateMessages()
 			if ( Settings.General.GUIMode == GUI_BASIC )
 			{
 				// In the basic GUI, don't bother with mode details or neighbour count.
-				strMessage.Format( LoadString( IDS_STATUS_BAR_CONNECTED_SIMPLE ),
+				strStatusbar.Format( LoadString( IDS_STATUS_BAR_CONNECTED_SIMPLE ),
 					Settings.SmartVolume( nLocalVolume, KiloBytes ) );
 			}
 			else // Default Views
 			{
 				// Display node type and number of neighbours
-				strMessage.Format( LoadString( Neighbours.IsG2Hub() ?
+				strStatusbar.Format( LoadString( Neighbours.IsG2Hub() ?
 					( Neighbours.IsG1Ultrapeer() ? IDS_STATUS_BAR_CONNECTED_HUB_UP : IDS_STATUS_BAR_CONNECTED_HUB ) :
 					( Neighbours.IsG1Ultrapeer() ? IDS_STATUS_BAR_CONNECTED_UP : IDS_STATUS_BAR_CONNECTED ) ),
 					Neighbours.GetStableCount(), Settings.SmartVolume( nLocalVolume, KiloBytes ) );
@@ -1490,42 +1501,41 @@ void CMainWnd::UpdateMessages()
 		}
 		else if ( Network.IsConnected() )
 		{
-			// If only BitTorrent is enabled say connected (G1, G2, eDonkey are disabled)
-			if ( ! Settings.Gnutella1.Enabled && ! Settings.Gnutella2.Enabled && ! Settings.eDonkey.Enabled )
-				strMessage.Format( LoadString( IDS_STATUS_BAR_CONNECTED_SIMPLE ),
+			// If only BitTorrent is enabled say connected (others are disabled)
+			if ( ! Settings.Gnutella2.Enabled && ! Settings.Gnutella1.Enabled && ! Settings.eDonkey.Enabled && ! Settings.DC.Enabled )
+				strStatusbar.Format( LoadString( IDS_STATUS_BAR_CONNECTED_SIMPLE ),
 					Settings.SmartVolume( nLocalVolume, KiloBytes ) );
 			else	// Trying to connect
-				LoadString( strMessage, IDS_STATUS_BAR_CONNECTING );
+				LoadString( strStatusbar, IDS_STATUS_BAR_CONNECTING );
 		}
 		else	// Idle
 		{
-			LoadString( strMessage, IDS_STATUS_BAR_DISCONNECTED );
+			LoadString( strStatusbar, IDS_STATUS_BAR_DISCONNECTED );
 		}
 
 		if ( ! Settings.VersionCheck.Quote.IsEmpty() )
-			strMessage += _T("  ") + Settings.VersionCheck.Quote;
+			strStatusbar += _T("  ") + Settings.VersionCheck.Quote;
 
 		if ( m_nIDLastMessage == AFX_IDS_IDLEMESSAGE )
 		{
-			CString strOld;
 			m_wndStatusBar.GetWindowText( strOld );
-			if ( strMessage != strOld )
-				m_wndStatusBar.SetWindowText( strMessage );
+			if ( strStatusbar != strOld )
+				m_wndStatusBar.SetWindowText( strStatusbar );
 		}
 
-		m_sMsgStatus = strMessage;
+		m_sMsgStatus = strStatusbar;
 	}
 
 	// StatusBar pane 1
 	{
-		CString strStatusbar;
+		CString strStatusbar, strOld;
+
 		strStatusbar.Format( LoadString( IDS_STATUS_BAR_BANDWIDTH ),
 			Settings.SmartSpeed( CGraphItem::GetValue( GRC_TOTAL_BANDWIDTH_IN ), bits ),
 			Settings.SmartSpeed( CGraphItem::GetValue( GRC_TOTAL_BANDWIDTH_OUT ), bits ),
 			CGraphItem::GetValue( GRC_DOWNLOADS_TRANSFERS ),
 			CGraphItem::GetValue( GRC_UPLOADS_TRANSFERS ) );
 
-		CString strOld;
 		m_wndStatusBar.GetPaneText( 1, strOld );
 		if ( strStatusbar != strOld )
 			m_wndStatusBar.SetPaneText( 1, strStatusbar );
@@ -1533,9 +1543,7 @@ void CMainWnd::UpdateMessages()
 
 	// StatusBar pane 2  (Display IP address?)
 	//{
-	//	CString strStatusbar( HostToString( &Network.m_pHost ) );
-	//
-	//	CString strOld;
+	//	strStatusbar == HostToString( &Network.m_pHost ) );
 	//	m_wndStatusBar.GetPaneText( 2, strOld );
 	//	if ( strStatusbar != strOld )
 	//		m_wndStatusBar.SetPaneText( 2, strStatusbar );
@@ -1560,45 +1568,32 @@ void CMainWnd::UpdateMessages()
 		m_bTrayIcon = Shell_NotifyIcon( NIM_MODIFY, &m_pTray );
 	}
 
-	// AppBar on Windows 7
-	if ( theApp.m_nWinVer >= WIN_7 )
+	// Task Bar (AppBar Windows 7+ & VS2010+)
+#ifdef __ITaskbarList3_INTERFACE_DEFINED__	// VS2010+
+	if ( ! m_bTrayHide && m_pTaskbar )	// theApp.m_nWinVer >= WIN_7
 	{
-		static bool bProgressShown = false;
+		CString strAppBarTip;
+		HWND hWnd = GetSafeHwnd();
 
 		QWORD nTotal = Downloads.m_nTotal, nComplete = Downloads.m_nComplete;
 		if ( nTotal && nTotal != nComplete )
 		{
-			bProgressShown = true;
+			m_pTaskbar->SetProgressState( hWnd, TBPF_NORMAL );
+			m_pTaskbar->SetProgressValue( hWnd, nComplete, nTotal );
 
-			CComPtr< ITaskbarList3 > pTaskbar;
-			if ( SUCCEEDED( pTaskbar.CoCreateInstance( CLSID_TaskbarList ) ) )
-			{
-				pTaskbar->SetProgressState( GetSafeHwnd(), TBPF_NORMAL );
-				pTaskbar->SetProgressValue( GetSafeHwnd(), nComplete, nTotal );
-
-				CString strAppBarTip;
-				strAppBarTip.Format( _T("%s\r\n%s %.2f%%\r\n%s %s"), Settings.SmartAgent(),
-					LoadString( IDS_MONITOR_VOLUME_DOWNLOADED ), float( ( 10000 * nComplete ) / nTotal ) / 100.f,
-					LoadString( IDS_MONITOR_TOTAL_SPEED ), Settings.SmartSpeed( CGraphItem::GetValue( GRC_TOTAL_BANDWIDTH_IN ), bits ) );
-				pTaskbar->SetThumbnailTooltip( GetSafeHwnd(), strAppBarTip );
-			}
+			strAppBarTip.Format( _T("%s\r\n%s %.2f%%\r\n%s %s"), Settings.SmartAgent(),
+				LoadString( IDS_MONITOR_VOLUME_DOWNLOADED ), float( ( 10000 * nComplete ) / nTotal ) / 100.f,
+				LoadString( IDS_MONITOR_TOTAL_SPEED ), Settings.SmartSpeed( CGraphItem::GetValue( GRC_TOTAL_BANDWIDTH_IN ), bits ) );
 		}
-		else if ( bProgressShown )
+		else
 		{
-			bProgressShown = false;
-
-			CComPtr< ITaskbarList3 > pTaskbar;
-			if ( SUCCEEDED( pTaskbar.CoCreateInstance( CLSID_TaskbarList ) ) )
-			{
-				pTaskbar->SetProgressState( GetSafeHwnd(), TBPF_NOPROGRESS );
-				pTaskbar->SetThumbnailTooltip( GetSafeHwnd(), Settings.SmartAgent()
-#ifdef _DEBUG
-				+ _T(" Debug")
-#endif
-				);
-			}
+			m_pTaskbar->SetProgressState( hWnd, TBPF_NOPROGRESS );
+			strAppBarTip = Settings.SmartAgent();
+			DEBUG_ONLY( strAppBarTip += _T(" Debug") );
 		}
+		m_pTaskbar->SetThumbnailTooltip( hWnd, strAppBarTip );
 	}
+#endif	// ITaskbarList3
 }
 
 // This function runs some basic checks that everything is okay: disks, directories, local network, etc.
@@ -2501,6 +2496,7 @@ void CMainWnd::OnToolsLanguage()
 {
 	if ( ! IsWindowEnabled() )
 		return;
+
 	theApp.WriteProfileInt( _T("Windows"), _T("RunLanguage"), TRUE );
 
 	CLanguageDlg dlg;
@@ -2519,7 +2515,7 @@ void CMainWnd::OnToolsLanguage()
 	if ( bRestart )
 	{
 		HINSTANCE hResult = ShellExecute( AfxGetMainWnd()->GetSafeHwnd(), NULL,
-			theApp.m_strBinaryPath, _T("-wait -nowarn"), Settings.General.Path, SW_SHOWNORMAL );
+			theApp.m_strBinaryPath, _T("-nowarn -wait"), Settings.General.Path, SW_SHOWNORMAL );
 		if ( hResult > (HINSTANCE)32 )
 		{
 			PostMessage( WM_CLOSE );
@@ -2954,9 +2950,9 @@ void CMainWnd::OnHelpPromote()
 
 void CMainWnd::OnHelpFakeShareaza()
 {
-	if ( Settings.General.Language == _T("en") )
+	if ( Settings.General.LanguageDefault )
 	{
-		ShellExecute( GetSafeHwnd(), _T("open"), _T("http://fakeshareaza.com"),
+		ShellExecute( GetSafeHwnd(), _T("open"), _T("http://fakeshareaza.com"),		// ToDo: Update URL
 		NULL, NULL, SW_SHOWNORMAL );
 	}
 	else
@@ -3232,5 +3228,22 @@ UINT CMainWnd::OnPowerBroadcast(UINT nPowerEvent, UINT nEventData)
 	return CMDIFrameWnd::OnPowerBroadcast( nPowerEvent, nEventData );
 }
 
-// Note: Windows scheduler not implemented
-//BOOL CMainWnd::OnCopyData(CWnd* /*pWnd*/, COPYDATASTRUCT* pCopyDataStruct)
+BOOL CMainWnd::OnCopyData(CWnd* /*pWnd*/, COPYDATASTRUCT* pCopyDataStruct)
+{
+	if ( pCopyDataStruct )
+	{
+		switch ( pCopyDataStruct->dwData )
+		{
+		// Note: Windows scheduler not implemented
+		//case COPYDATA_SCHEDULER:
+		//	CScheduler::Execute( CString( (LPCTSTR)pCopyDataStruct->lpData,
+		//		(int)( pCopyDataStruct->cbData / sizeof( TCHAR ) ) ) );
+		//	break;
+
+		case COPYDATA_OPEN:
+			theApp.Open( CString( (LPCTSTR)pCopyDataStruct->lpData,
+				(int)( pCopyDataStruct->cbData / sizeof( TCHAR ) ) ), TRUE );
+		}
+	}
+	return TRUE;
+}

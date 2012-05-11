@@ -392,7 +392,7 @@ BOOL CManagedSearch::ExecuteG1Mesh(const DWORD /*tTicks*/, const DWORD /*tSecs*/
 {
 	ASSUME_LOCK( SearchManager.m_pSection );
 
-	theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("Multicast querying Gnutella 1 neighbours") );
+	theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("Multicast querying Gnutella neighbours") );	// protocolNames[ PROTOCOL_G1 ]
 
 	Neighbours.SendQuery( m_pSearch );
 

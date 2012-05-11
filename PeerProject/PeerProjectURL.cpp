@@ -34,6 +34,8 @@ static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
 #endif	// Filename
 
+#define REG_NUMBER(x) REG_DWORD,((LPBYTE)&(x)),(sizeof(DWORD))
+#define REG_STRING(x) REG_SZ,((LPBYTE)(LPCTSTR)(x)),((DWORD)(sizeof(TCHAR)*(_tcslen((LPCTSTR)(x))+1)))
 
 //////////////////////////////////////////////////////////////////////
 // CPeerProjectURL construction
@@ -767,9 +769,9 @@ BOOL CPeerProjectURL::ParseMagnet(LPCTSTR pszURL)
 		if ( _tcsicmp( strKey, _T("xt") ) == 0 ||
 			 _tcsicmp( strKey, _T("xs") ) == 0 ||
 			 _tcsicmp( strKey, _T("as") ) == 0 ||
-			 _tcsicmp( strKey, _T("tr") ) == 0 ||
 			 _tcsicmp( strKey, _T("mt") ) == 0 ||
-			 _tcsicmp( strKey, _T("xt.1") ) == 0 )
+			 _tcsnicmp( strKey, _T("tr"), 2 ) == 0 ||	// &tr{any}
+			 _tcsnicmp( strKey, _T("xt"), 2 ) == 0 )	// &xt.1
 		{
 			if ( StartsWith( strValue, _PT("urn:") ) ||
 				 StartsWith( strValue, _PT("sha1:") ) ||
@@ -799,7 +801,7 @@ BOOL CPeerProjectURL::ParseMagnet(LPCTSTR pszURL)
 				strValue.Replace( _T(" "), _T("%20") );
 				strValue.Replace( _T("%3A//"), _T("://") );
 
-				if ( _tcsicmp( strKey, _T("xt") ) == 0 )
+				if ( _tcsnicmp( strKey, _T("xt"), 2 ) == 0 )		// Compatibility hack: "&xt.{any}="
 				{
 					CString strURL = _T("@") + strValue;
 
@@ -808,7 +810,7 @@ BOOL CPeerProjectURL::ParseMagnet(LPCTSTR pszURL)
 					else
 						m_sURL = strURL;
 				}
-				else if ( _tcsicmp( strKey, _T("tr") ) == 0 )
+				else if ( _tcsnicmp( strKey, _T("tr"), 2 ) == 0 )	// Compatibility hack: "&tr{any}="
 				{
 					pTorrent->SetTracker( strValue );
 				}
@@ -848,6 +850,7 @@ BOOL CPeerProjectURL::ParseMagnet(LPCTSTR pszURL)
 		{
 			pTorrent->SetNode( strValue );
 		}
+		//else ToDo: Note unknown key?
 	}
 
 	if ( m_sName.GetLength() > 3 )
@@ -943,6 +946,14 @@ BOOL CPeerProjectURL::ParsePeerProject(LPCTSTR pszURL)
 		m_oBTH.clear();
 		return TRUE;
 	}
+	if ( _tcsnicmp( pszURL, _T("command:"), 8 ) == 0 )
+	{
+		m_sName = pszURL + 8;
+		if ( m_sName.IsEmpty() )
+			return FALSE;
+		m_nAction = uriCommand;
+		return TRUE;
+	}
 
 	return ParsePeerProjectFile( pszURL );
 }
@@ -956,6 +967,7 @@ BOOL CPeerProjectURL::ParsePeerProjectHost(LPCTSTR pszURL, BOOL bBrowse)
 
 	m_sName = pszURL;
 	m_sName = m_sName.SpanExcluding( _T("/\\") );
+	m_nPort = protocolPorts[ PROTOCOL_G2 ];
 
 	int nPos = m_sName.Find( ':' );
 	if ( nPos >= 0 )
@@ -1335,27 +1347,7 @@ BOOL CPeerProjectURL::ParseDiscovery(LPCTSTR pszURL, int nType)
 	return TRUE;
 }
 
-//////////////////////////////////////////////////////////////////////
-// CPeerProjectURL URL string helpers
-
-LPCTSTR CPeerProjectURL::SkipSlashes(LPCTSTR pszURL, int nAdd)
-{
-	for ( ; nAdd && *pszURL ; --nAdd, ++pszURL );
-	while ( *pszURL == _T('/') ) pszURL++;
-	return pszURL;
-}
-
-void CPeerProjectURL::SafeString(CString& strInput)
-{
-	strInput.Trim();
-
-	for ( int nIndex = 0 ; nIndex < strInput.GetLength() ; nIndex++ )
-	{
-		TCHAR nChar = strInput.GetAt( nIndex );
-		if ( nChar < 32 )
-			strInput.SetAt( nIndex, '_' );
-	}
-}
+// Note SkipSlashes/SafeString moved to Strings
 
 /////////////////////////////////////////////////////////////////////////////
 // CPeerProjectURL query constructor
@@ -1391,48 +1383,61 @@ CQuerySearchPtr CPeerProjectURL::ToQuery() const
 /////////////////////////////////////////////////////////////////////////////
 // CPeerProjectURL shell registration
 
-void CPeerProjectURL::Register(/*BOOL bRegister,*/ BOOL bOnStartup)
+void CPeerProjectURL::Register(BOOL bRegister, BOOL bOnStartup)
 {
-	RegisterShellType( _T("Classes"), _T("peerproject"), _T("URL:PeerProject P2P"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
-	RegisterMagnetHandler( _T("PeerProject"), _T("PeerProject P2P"), _T("PeerProject can automatically search and download selected content on its peer-to-peer networks."), _T("PeerProject"), IDR_MAINFRAME );
+	if ( bRegister )
+	{
+		RegisterShellType( NULL, _T("peerproject"), _T("URL:PeerProject P2P"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
+		RegisterMagnetHandler( _T("PeerProject"), _T("PeerProject P2P"), _T("PeerProject can automatically search and download selected content on peer-to-peer networks."), _T("PeerProject"), IDR_MAINFRAME );
+	}
+	else
+	{
+		UnregisterShellType( _T("peerproject") );
+		UnregisterShellType( _T("Applications\\PeerProject.exe") );		// CLIENT_NAME
+	}
 
 	if ( CRegistry::GetString( _T("Software\\Shareaza\\Shareaza"), _T("Path") ).IsEmpty() )
-		RegisterShellType( _T("Classes"), _T("shareaza"), _T("URL:Shareaza P2P"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
-
-	if ( Settings.Web.Magnet )
-		RegisterShellType( _T("Classes"), _T("magnet"), _T("URL:Magnet Protocol"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
-	else
-		UnregisterShellType( _T("Classes"), _T("magnet") );
-
-	if ( Settings.Web.Gnutella )
 	{
-		RegisterShellType( _T("Classes"), _T("gnutella"), _T("URL:Gnutella Protocol"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
-		RegisterShellType( _T("Classes"), _T("gnutella1"), _T("URL:Gnutella1 Bootstrap"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
-		RegisterShellType( _T("Classes"), _T("gnutella2"), _T("URL:Gnutella2 Bootstrap"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
-		RegisterShellType( _T("Classes"), _T("gwc"), _T("URL:GWC Protocol"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
-		RegisterShellType( _T("Classes"), _T("g2"), _T("URL:G2 Protocol"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
-		RegisterShellType( _T("Classes"), _T("gnet"), _T("URL:Gnutella Protocol"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
-		RegisterShellType( _T("Classes"), _T("uhc"), _T("URL:Gnutella1 UDP Host Cache"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
-		RegisterShellType( _T("Classes"), _T("ukhl"), _T("URL:Gnutella2 UDP known Hub Cache"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
+		if ( bRegister )
+			RegisterShellType( NULL, _T("shareaza"), _T("URL:Shareaza P2P"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
+		else
+			UnregisterShellType( _T("shareaza") );
+	}
+
+	if ( bRegister && Settings.Web.Magnet )
+		RegisterShellType( NULL, _T("magnet"), _T("URL:Magnet Protocol"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
+	else
+		UnregisterShellType( _T("magnet") );
+
+	if ( bRegister && Settings.Web.Gnutella )
+	{
+		RegisterShellType( NULL, _T("gnutella"), _T("URL:Gnutella Protocol"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
+		RegisterShellType( NULL, _T("gnutella1"), _T("URL:Gnutella1 Bootstrap"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
+		RegisterShellType( NULL, _T("gnutella2"), _T("URL:Gnutella2 Bootstrap"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
+		RegisterShellType( NULL, _T("gwc"), _T("URL:GWC Protocol"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
+		RegisterShellType( NULL, _T("g2"), _T("URL:G2 Protocol"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
+		RegisterShellType( NULL, _T("gnet"), _T("URL:Gnutella Protocol"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
+		RegisterShellType( NULL, _T("uhc"), _T("URL:Gnutella1 UDP Host Cache"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
+		RegisterShellType( NULL, _T("ukhl"), _T("URL:Gnutella2 UDP known Hub Cache"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
 	}
 	else
 	{
-		UnregisterShellType( _T("Classes"), _T("gnutella") );
-		UnregisterShellType( _T("Classes"), _T("gnutella1") );
-		UnregisterShellType( _T("Classes"), _T("gnutella2") );
-		UnregisterShellType( _T("Classes"), _T("gwc") );
-		UnregisterShellType( _T("Classes"), _T("g2") );
-		UnregisterShellType( _T("Classes"), _T("gnet") );
-		UnregisterShellType( _T("Classes"), _T("uhc") );
-		UnregisterShellType( _T("Classes"), _T("ukhl") );
+		UnregisterShellType( _T("gnutella") );
+		UnregisterShellType( _T("gnutella1") );
+		UnregisterShellType( _T("gnutella2") );
+		UnregisterShellType( _T("gwc") );
+		UnregisterShellType( _T("g2") );
+		UnregisterShellType( _T("gnet") );
+		UnregisterShellType( _T("uhc") );
+		UnregisterShellType( _T("ukhl") );
 	}
 
-	if ( Settings.Web.ED2K )
-		RegisterShellType( _T("Classes"), _T("ed2k"), _T("URL:eDonkey2000 Protocol"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
+	if ( bRegister && Settings.Web.ED2K )
+		RegisterShellType( NULL, _T("ed2k"), _T("URL:eDonkey2000 Protocol"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
 	else
-		UnregisterShellType( _T("Classes"), _T("ed2k") );
+		UnregisterShellType( _T("ed2k") );
 
-	if ( Settings.Web.DC )
+	if ( bRegister && Settings.Web.DC )
 	{
 		// ToDo: Support "adc:" hubs
 		RegisterShellType( NULL, _T("adc"),    _T("URL:DirectConnect Protocol"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
@@ -1441,53 +1446,64 @@ void CPeerProjectURL::Register(/*BOOL bRegister,*/ BOOL bOnStartup)
 	}
 	else
 	{
-		UnregisterShellType( _T("Classes"), _T("adc") );
-		UnregisterShellType( _T("Classes"), _T("dchub") );
-		UnregisterShellType( _T("Classes"), _T("dcfile") );
+		UnregisterShellType( _T("adc") );
+		UnregisterShellType( _T("dchub") );
+		UnregisterShellType( _T("dcfile") );
 	}
 
-	if ( Settings.Web.Piolet )
-		RegisterShellType( _T("Classes"), _T("mp2p"), _T("URL:Piolet Protocol"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
+	if ( bRegister && Settings.Web.Piolet )
+		RegisterShellType( NULL, _T("mp2p"), _T("URL:Piolet Protocol"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
 	else
-		UnregisterShellType( _T("Classes"), _T("mp2p") );
+		UnregisterShellType( _T("mp2p") );
 
-	if ( Settings.Web.Foxy )
-		RegisterShellType( _T("Classes"), _T("foxy"), _T("URL:Foxy Protocol"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
+	if ( bRegister && Settings.Web.Foxy )
+		RegisterShellType( NULL, _T("foxy"), _T("URL:Foxy Protocol"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
 	else
-		UnregisterShellType( _T("Classes"), _T("foxy") );
+		UnregisterShellType( _T("foxy") );
 
 	if ( ! Settings.Live.FirstRun || ! bOnStartup )
 	{
-		if ( Settings.Web.Torrent )
+		if ( bRegister && Settings.Web.Torrent )
 		{
-			RegisterShellType( _T("Classes"), _T("BitTorrent"), _T("Torrent File"), _T(".torrent"),
+			RegisterShellType( NULL, _T("BitTorrent"), _T("Torrent File"), _T(".torrent"),
 				_T("PeerProject"), _T("PEERFORMAT"), IDR_MAINFRAME );
-			RegisterShellType( _T("Classes\\Applications\\PeerProject.exe"), NULL, _T("Torrent File"), _T(".torrent"),
+			RegisterShellType( _T("Applications\\PeerProject.exe"), NULL, _T("Torrent File"), _T(".torrent"),
 				_T("PeerProject"), _T("PEERFORMAT"), IDR_MAINFRAME );
 		}
 		else
 		{
-			UnregisterShellType( _T("Classes"), _T("BitTorrent") );
-			UnregisterShellType( _T("Classes\\Applications\\PeerProject.exe"), NULL );
+			UnregisterShellType( _T("BitTorrent") );
+			UnregisterShellType( _T("Applications\\PeerProject.exe") );
 		}
 
 		// ToDo: .metalink files
 	}
 
-	RegisterShellType( _T("Classes"), _T("PeerProject.Collection"), _T("PeerProject Collection File"),
-		_T(".co"), _T("PeerProject"), _T("PEERFORMAT"), IDI_COLLECTION );
-	RegisterShellType( _T("Classes\\Applications\\PeerProject.exe"), NULL, _T("PeerProject Collection File"),
-		_T(".co"), _T("PeerProject"), _T("PEERFORMAT"), IDI_COLLECTION );
+	if (  bRegister )
+	{
+		RegisterShellType( NULL, _T("PeerProject.Collection"), _T("PeerProject Collection File"),
+			_T(".co"), _T("PeerProject"), _T("PEERFORMAT"), IDI_COLLECTION );
+		RegisterShellType( _T("Applications\\PeerProject.exe"), NULL, _T("PeerProject Collection File"),
+			_T(".co"), _T("PeerProject"), _T("PEERFORMAT"), IDI_COLLECTION );
 
-	RegisterShellType( _T("Classes"), _T("PeerProject.Collection"), _T("PeerProject Collection File"),
-		_T(".collection"), _T("PeerProject"), _T("PEERFORMAT"), IDI_COLLECTION );
-	RegisterShellType( _T("Classes\\Applications\\PeerProject.exe"), NULL, _T("PeerProject Collection File"),
-		_T(".collection"), _T("PeerProject"), _T("PEERFORMAT"), IDI_COLLECTION );
+		RegisterShellType( NULL, _T("PeerProject.Collection"), _T("PeerProject Collection File"),
+			_T(".collection"), _T("PeerProject"), _T("PEERFORMAT"), IDI_COLLECTION );
+		RegisterShellType( _T("Applications\\PeerProject.exe"), NULL, _T("PeerProject Collection File"),
+			_T(".collection"), _T("PeerProject"), _T("PEERFORMAT"), IDI_COLLECTION );
 
-	RegisterShellType( _T("Classes"), _T("eMule.Collection"), _T("eMule Collection File"),
-		_T(".emulecollection"), _T("PeerProject"), _T("PEERFORMAT"), IDI_COLLECTION );
-	RegisterShellType( _T("Classes\\Applications\\PeerProject.exe"), NULL, _T("eMule Collection File"),
-		_T(".emulecollection"), _T("PeerProject"), _T("PEERFORMAT"), IDI_COLLECTION );
+		RegisterShellType( NULL, _T("eMule.Collection"), _T("eMule Collection File"),
+			_T(".emulecollection"), _T("PeerProject"), _T("PEERFORMAT"), IDI_COLLECTION );
+		RegisterShellType( _T("Applications\\PeerProject.exe"), NULL, _T("eMule Collection File"),
+			_T(".emulecollection"), _T("PeerProject"), _T("PEERFORMAT"), IDI_COLLECTION );
+	}
+	else
+	{
+		UnregisterShellType( _T(".co") );
+		UnregisterShellType( _T(".collection") );
+		UnregisterShellType( _T(".emulecollection") );
+		UnregisterShellType( _T("eMule.Collection") );
+		UnregisterShellType( _T("PeerProject.Collection") );	// CLIENT_NAME
+	}
 
 	if ( ! bOnStartup )
 		SHChangeNotify( SHCNE_ASSOCCHANGED, SHCNF_IDLIST, NULL, NULL );
@@ -1498,19 +1514,29 @@ void CPeerProjectURL::Register(/*BOOL bRegister,*/ BOOL bOnStartup)
 
 BOOL CPeerProjectURL::RegisterShellType(LPCTSTR pszRoot, LPCTSTR pszProtocol, LPCTSTR pszName, LPCTSTR pszType, LPCTSTR pszApplication, LPCTSTR pszTopic, UINT nIDIcon, BOOL bOverwrite)
 {
+	HKEY hRootKey = AfxGetPerUserRegistration() ? HKEY_CURRENT_USER : HKEY_LOCAL_MACHINE;
+	LPCTSTR szRootKey = _T("Software\\Classes");
+
 	HKEY hKey, hSub1, hSub2, hSub3, hSub4;
-	CString strSubKey, strValue;
+	CString strValue;
 	DWORD nDisposition;
 
-	if ( pszRoot == NULL ) return FALSE;
+	CString strSubKey = szRootKey;
+	if ( pszRoot )
+	{
+		if ( ! strSubKey.IsEmpty() )
+			strSubKey += _T("\\");
+		strSubKey += pszRoot;
+	}
+	if ( pszProtocol )
+	{
+		if ( ! strSubKey.IsEmpty() )
+			strSubKey += _T("\\");
+		strSubKey += pszProtocol;
+	}
 
-	if ( pszProtocol == NULL )
-		strSubKey.Format( _T("Software\\%s"), pszRoot );
-	else
-		strSubKey.Format( _T("Software\\%s\\%s"), pszRoot, pszProtocol );
-
-	if ( RegCreateKeyEx( HKEY_CURRENT_USER, (LPCTSTR)strSubKey, 0, NULL, 0,
-		KEY_ALL_ACCESS, NULL, &hKey, &nDisposition ) ) return FALSE;
+	if ( RegCreateKeyEx( hRootKey, (LPCTSTR)strSubKey, 0, NULL, 0, KEY_ALL_ACCESS, NULL, &hKey, &nDisposition ) != ERROR_SUCCESS )
+		return FALSE;
 
 	if ( nDisposition == REG_OPENED_EXISTING_KEY && ! bOverwrite )
 	{
@@ -1518,17 +1544,26 @@ BOOL CPeerProjectURL::RegisterShellType(LPCTSTR pszRoot, LPCTSTR pszProtocol, LP
 		return FALSE;
 	}
 
-	BOOL bProtocol = _tcsncmp( pszName, _T("URL:"), 4 ) == 0;
+	const BOOL bProtocol = _tcsncmp( pszName, _T("URL:"), 4 ) == 0;
+	const BOOL bApplication = pszRoot && _tcsicmp( pszRoot, _T("Applications\\PeerProject.exe") ) == 0;		// CLIENT_NAME
 
-	if ( _tcscmp( pszRoot, _T("Classes\\Applications\\PeerProject.exe") ) != 0 )
+	// Register protocol to "Default Programs"
+	if ( bProtocol )
+	{
+		CString strUrlAssociations = _T("Software\\Microsoft\\Windows\\Shell\\Associations\\UrlAssociations\\");
+		strUrlAssociations += pszProtocol;
+		SHSetValue( hRootKey, strUrlAssociations + _T("\\UserChoice"), _T("Progid"), REG_STRING( CLIENT_NAME ) );
+	}
+
+	if ( ! bApplication )
 	{
 		RegSetValueEx( hKey, NULL, 0, REG_SZ, (LPBYTE)pszName,
 			static_cast< DWORD >( sizeof(TCHAR) * ( _tcslen( pszName ) + 1 ) ) );
 
 		if ( bProtocol )
-			RegSetValueEx( hKey, _T("URL Protocol"), 0, REG_SZ, (LPBYTE)(LPCTSTR)strValue, sizeof(TCHAR) );
+			RegSetValueEx( hKey, _T("URL Protocol"), 0, REG_SZ, (LPBYTE)(LPCTSTR)_T(""), sizeof(TCHAR) );
 
-		if ( ! RegCreateKey( hKey, _T("DefaultIcon"), &hSub1 ) )
+		if ( RegCreateKey( hKey, _T("DefaultIcon"), &hSub1 ) == ERROR_SUCCESS )
 		{
 			strValue = Skin.GetImagePath( nIDIcon );
 			RegSetValueEx( hSub1, NULL, 0, REG_SZ,
@@ -1538,42 +1573,52 @@ BOOL CPeerProjectURL::RegisterShellType(LPCTSTR pszRoot, LPCTSTR pszProtocol, LP
 	}
 	else if ( pszType != NULL )
 	{
-		HKEY hKeySupported;
-		if ( ! RegCreateKey( hKey, _T("SupportedTypes"), &hKeySupported ) )
-		{
-			RegSetValueEx( hKeySupported, pszType, 0, REG_SZ, NULL, 0 );
-			RegCloseKey( hKeySupported );
-		}
+	//	HKEY hKeySupported;
+	//	if ( RegCreateKey( hKey, _T("SupportedTypes"), &hKeySupported ) == ERROR_SUCCESS )
+	//	{
+	//		RegSetValueEx( hKeySupported, pszType, 0, REG_SZ, NULL, 0 );
+	//		RegCloseKey( hKeySupported );
+	//	}
+
+		RegSetValueEx( hKey, _T("FriendlyAppName"), 0, REG_STRING( CLIENT_NAME ) );
 	}
 
-	if ( ! RegCreateKey( hKey, _T("shell"), &hSub1 ) )
+	if ( RegCreateKey( hKey, _T("shell"), &hSub1 ) == ERROR_SUCCESS )
 	{
-		if ( ! RegCreateKey( hSub1, _T("open"), &hSub2 ) )
+		if ( RegCreateKey( hSub1, _T("open"), &hSub2 ) == ERROR_SUCCESS )
 		{
-			if ( ! RegCreateKey( hSub2, _T("command"), &hSub3 ) )
+			if ( RegCreateKey( hSub2, _T("command"), &hSub3 ) == ERROR_SUCCESS )
 			{
 				strValue.Format( _T("\"%s\" \"%%%c\""), theApp.m_strBinaryPath, bProtocol ? 'L' : '1' );
 				RegSetValueEx( hSub3, NULL, 0, REG_SZ, (LPBYTE)(LPCTSTR)strValue, sizeof(TCHAR) * ( strValue.GetLength() + 1 ) );
 				RegCloseKey( hSub3 );
 			}
 
-			if ( ! RegCreateKey( hSub2, _T("ddeexec"), &hSub3 ) )
+			if ( RegCreateKey( hSub2, _T("ddeexec"), &hSub3 ) == ERROR_SUCCESS )
 			{
-				RegSetValueEx( hSub3, NULL, 0, REG_SZ, (LPBYTE)_T("%1"), sizeof(TCHAR) * 3 );
+				RegSetValueEx( hSub3, NULL, 0, REG_SZ, (LPBYTE)_T("%1"), sizeof(_T("%1")) );
 
-				if ( ! RegCreateKey( hSub3, _T("Application"), &hSub4 ) )
+				if ( RegCreateKey( hSub3, _T("Application"), &hSub4 ) == ERROR_SUCCESS )
 				{
 					RegSetValueEx( hSub4, NULL, 0, REG_SZ, (LPBYTE)pszApplication,
 						static_cast< DWORD >( sizeof(TCHAR) * ( _tcslen( pszApplication ) + 1 ) ) );
 					RegCloseKey( hSub4 );
 				}
 
-				if ( ! RegCreateKey( hSub3, _T("Topic"), &hSub4 ) )
+				if ( RegCreateKey( hSub3, _T("Topic"), &hSub4 ) == ERROR_SUCCESS )
 				{
 					RegSetValueEx( hSub4, NULL, 0, REG_SZ, (LPBYTE)pszTopic,
 						static_cast< DWORD >( sizeof(TCHAR) * ( _tcslen( pszTopic ) + 1 ) ) );
 					RegCloseKey( hSub4 );
 				}
+
+				if ( RegCreateKey( hSub3, _T("IfExec"), &hSub4 ) == ERROR_SUCCESS )
+				{
+					RegSetValueEx( hSub4, NULL, 0, REG_STRING( _T("*") ) );
+					RegCloseKey( hSub4 );
+				}
+
+				RegSetValueEx( hSub3, _T("WindowClassName"), 0, REG_STRING( CLIENT_HWND ) );	// "PeerProjectMainWnd"
 
 				RegCloseKey( hSub3 );
 			}
@@ -1584,22 +1629,48 @@ BOOL CPeerProjectURL::RegisterShellType(LPCTSTR pszRoot, LPCTSTR pszProtocol, LP
 		RegCloseKey( hSub1 );
 	}
 
-	if ( pszType != NULL && _tcsncmp( pszType, _T("."), 1 ) == 0 )
+	if ( ! bApplication )
 	{
-		BYTE pData[4] = { 0x00, 0x11, 0x21, 0x00 };
-		RegSetValueEx( hKey, _T("EditFlags"), 0, REG_BINARY, pData, 4 );
+		if ( pszType && *pszType == _T('.') )
+		{
+			DWORD dwData = /* FTA_OpenIsSafe */ 0x00010000;	// FILETYPEATTRIBUTEFLAGS
+			RegSetValueEx( hKey, _T("EditFlags"), 0, REG_NUMBER( dwData ) );
+			RegSetValueEx( hKey, _T("AppUserModelID"), 0, REG_STRING( CLIENT_NAME ) );
+		}
+		else if ( bProtocol )
+		{
+			DWORD dwData = /* FTA_Show */ 0x00000002;		// FILETYPEATTRIBUTEFLAGS
+			RegSetValueEx( hKey, _T("EditFlags"), 0, REG_NUMBER( dwData ) );
+			RegSetValueEx( hKey, _T("AppUserModelID"), 0, REG_STRING( CLIENT_NAME ) );
+		}
 	}
 
 	RegCloseKey( hKey );
 
-	if ( pszType != NULL && pszProtocol != NULL )
+	if ( pszType && pszProtocol )
 	{
-		strSubKey.Format( _T("Software\\%s\\%s"), pszRoot, pszType );
-		if ( ! RegCreateKeyEx( HKEY_CURRENT_USER, (LPCTSTR)strSubKey, 0, NULL, 0,
-			KEY_ALL_ACCESS, NULL, &hKey, &nDisposition ) )
+		strSubKey = szRootKey;
+		if ( pszRoot )
+		{
+			if ( ! strSubKey.IsEmpty() )
+				strSubKey += _T("\\");
+			strSubKey += pszRoot;
+		}
+		if ( ! strSubKey.IsEmpty() )
+			strSubKey += _T("\\");
+		strSubKey += pszType;
+
+		if ( RegCreateKeyEx( hRootKey, (LPCTSTR)strSubKey, 0, NULL, 0, KEY_ALL_ACCESS, NULL, &hKey, &nDisposition ) == ERROR_SUCCESS )
 		{
 			RegSetValueEx( hKey, NULL, 0, REG_SZ, (LPBYTE)pszProtocol,
 				static_cast< DWORD >( sizeof(TCHAR) * ( _tcslen( pszProtocol ) + 1 ) ) );
+
+		//	if ( RegCreateKey( hKey, _T("OpenWithProgids"), &hSub1 ) == ERROR_SUCCESS )
+		//	{
+		//		RegSetValueEx( hSub1, pszProtocol, 0, REG_NONE, NULL, 0 );
+		//		RegCloseKey( hSub1 );
+		//	}
+
 			RegCloseKey( hKey );
 		}
 	}
@@ -1607,35 +1678,102 @@ BOOL CPeerProjectURL::RegisterShellType(LPCTSTR pszRoot, LPCTSTR pszProtocol, LP
 	return TRUE;
 }
 
-BOOL CPeerProjectURL::UnregisterShellType(LPCTSTR pszRoot, LPCTSTR pszProtocol)
+BOOL CPeerProjectURL::UnregisterShellType(LPCTSTR pszRoot)
 {
-	if ( pszRoot == NULL ) return FALSE;
+	HKEY hKey, hRootKey = AfxGetPerUserRegistration() ? HKEY_CURRENT_USER : HKEY_LOCAL_MACHINE;
+	LPCTSTR szRootKey = _T("Software\\Classes");
 
-	CString strSubKey;
-	if ( pszProtocol == NULL )
-		strSubKey.Format( _T("Software\\%s"), pszRoot );
-	else
-		strSubKey.Format( _T("Software\\%s\\%s"), pszRoot, pszProtocol );
+	BOOL bRegisteredUser = FALSE;
 
-	if ( pszProtocol )
+	CString strSubKey = szRootKey, strOldKey;
+	if ( pszRoot )
 	{
-		CString strSubKey;
-		strSubKey.Format( _T("Software\\Classes\\%s"), pszProtocol );
-		CString strPath = CRegistry::GetString( _T("shell\\open\\command"), NULL, NULL, strSubKey );
+		if ( ! strSubKey.IsEmpty() )
+			strSubKey += _T("\\");
+		strSubKey += pszRoot;
+	}
 
-		if ( _tcsistr( strPath, theApp.m_strBinaryPath ) != NULL ||
-			CRegistry::GetString( _T("shell\\open\\ddeexec\\Application"), NULL, NULL, strSubKey ) == _T("PeerProject") )
+	// Obsolete method:
+	//if ( ! bRegisteredUser )
+	//{
+	//	CString strSubKey;
+	//	strSubKey.Format( _T("Software\\Classes\\%s"), pszProtocol );
+	//	CString strPath = CRegistry::GetString( _T("shell\\open\\command"), NULL, NULL, strSubKey );
+	//	if ( _tcsistr( strPath, theApp.m_strBinaryPath ) != NULL ||
+	//		CRegistry::GetString( _T("shell\\open\\ddeexec\\Application"), NULL, NULL, strSubKey ) == _T("PeerProject") )
+	//	{
+	//		CRegistry::DeleteKey( HKEY_CURRENT_USER, (LPCTSTR)strSubKey );
+	//	}
+	//}
+
+	// Delete protocol from "Default Programs"
+	if ( pszRoot && *pszRoot != _T('.') )
+	{
+		CString strProgID;
+		CString strUrlAssociations = _T("Software\\Microsoft\\Windows\\Shell\\Associations\\UrlAssociations\\");
+		strUrlAssociations += pszRoot;
+		DWORD nType, nSize = MAX_PATH * sizeof( TCHAR );
+		LRESULT ret = SHGetValue( hRootKey, strUrlAssociations + _T("\\UserChoice"), _T("Progid"), &nType, strProgID.GetBuffer( MAX_PATH ), &nSize );
+		strProgID.ReleaseBuffer();
+		if ( ret == ERROR_SUCCESS && strProgID.CompareNoCase( CLIENT_NAME ) == 0 )
+			SHDeleteKey( hRootKey, strUrlAssociations );
+	}
+	else if ( pszRoot && *pszRoot == _T('.') )
+	{
+		// Get real key for file extension
+		if ( RegOpenKeyEx( hRootKey, strSubKey, 0, KEY_QUERY_VALUE, &hKey ) == ERROR_SUCCESS )
 		{
-			CRegistry::DeleteKey( HKEY_CURRENT_USER, (LPCTSTR)strSubKey );
-		//	RegDeleteKey( HKEY_CURRENT_USER, (LPCTSTR)strSubKey );	// Not needed
+			CString strPath;
+			DWORD dwType;
+			DWORD dwSize = MAX_PATH * sizeof( TCHAR );
+			RegQueryValueEx( hKey, NULL, NULL, &dwType, (LPBYTE)strPath.GetBuffer( MAX_PATH ), &dwSize );
+			strPath.ReleaseBuffer();
+			if ( ! strPath.IsEmpty() )
+			{
+				strOldKey = strSubKey;
+				strSubKey = szRootKey;
+				if ( ! strSubKey.IsEmpty() )
+					strSubKey += _T("\\");
+				strSubKey += strPath;
+			}
+			RegCloseKey( hKey );
 		}
 	}
 
-	return TRUE;
+	if ( RegOpenKeyEx( hRootKey, strSubKey + _T("\\shell\\open\\command"), 0, KEY_QUERY_VALUE, &hKey ) == ERROR_SUCCESS )
+	{
+		CString strPath;
+		DWORD dwType, dwSize = MAX_PATH * sizeof( TCHAR );
+		RegQueryValueEx( hKey, NULL, NULL, &dwType, (LPBYTE)strPath.GetBuffer( MAX_PATH ), &dwSize );
+		strPath.ReleaseBuffer();
+		if ( _tcsistr( strPath, theApp.m_strBinaryPath ) != NULL )
+			bRegisteredUser = TRUE;
+
+		RegCloseKey( hKey );
+	}
+
+	if ( ! bRegisteredUser )
+	{
+		if ( RegOpenKeyEx( hRootKey, strSubKey + _T("\\shell\\open\\ddeexec\\Application"), 0, KEY_QUERY_VALUE, &hKey ) == ERROR_SUCCESS )
+		{
+			CString strPath;
+			DWORD dwType, dwSize = MAX_PATH * sizeof( TCHAR );
+			RegQueryValueEx( hKey, NULL, NULL, &dwType, (LPBYTE)strPath.GetBuffer( MAX_PATH ), &dwSize );
+			strPath.ReleaseBuffer();
+			if ( _tcsistr( strPath, CLIENT_NAME ) != NULL )
+				bRegisteredUser = TRUE;
+
+			RegCloseKey( hKey );
+		}
+	}
+
+	if ( bRegisteredUser )
+		SHDeleteKey( hRootKey, strOldKey.IsEmpty() ? (LPCTSTR)strSubKey : (LPCTSTR)strOldKey );
+
+	return bRegisteredUser;
 }
 
-// Moved to CRegistry::DeleteKey(HKEY, LPCTSTR)
-//void CPeerProjectURL::DeleteKey(HKEY hParent, LPCTSTR pszKey)
+// Note recursive delete moved to CRegistry::DeleteKey(HKEY, LPCTSTR), SHDeleteKey is used
 
 /////////////////////////////////////////////////////////////////////////////
 // CPeerProjectURL magnet registration helper
@@ -1685,7 +1823,9 @@ BOOL CPeerProjectURL::RegisterMagnetHandler(LPCTSTR pszID, LPCTSTR pszName, LPCT
 	CString strIcon( Skin.GetImagePath( nIDIcon ) );
 	strCommand.Format( _T("\"%s\" \"%%URL\""), theApp.m_strBinaryPath );
 
-	RegSetValueEx( hHandler, _T(""), 0, REG_SZ, (LPBYTE)pszName, static_cast< DWORD >( sizeof(TCHAR) * ( _tcslen( pszName ) + 1 ) ) );
+	RegSetValueEx( hHandler, _T(""), 0, REG_SZ,
+		(LPBYTE)pszName, static_cast< DWORD >( sizeof(TCHAR) * ( _tcslen( pszName ) + 1 ) ) );
+
 	RegSetValueEx( hHandler, _T("Description"), 0, REG_SZ,
 		(LPBYTE)pszDescription, static_cast< DWORD >( sizeof(TCHAR) * ( _tcslen( pszDescription ) + 1 ) ) );
 
@@ -1698,7 +1838,8 @@ BOOL CPeerProjectURL::RegisterMagnetHandler(LPCTSTR pszID, LPCTSTR pszName, LPCT
 	RegSetValueEx( hHandler, _T("DdeApplication"), 0, REG_SZ,
 		(LPBYTE)pszApplication, static_cast< DWORD >( sizeof(TCHAR) * ( _tcslen( pszApplication ) + 1 ) ) );
 
-	RegSetValueEx( hHandler, _T("DdeTopic"), 0, REG_SZ, (LPBYTE)_T("URL"), sizeof(TCHAR) * 4 );
+	RegSetValueEx( hHandler, _T("DdeTopic"), 0, REG_SZ,
+		(LPBYTE)_T("URL"), sizeof(TCHAR) * 4 );
 
 	RegCloseKey( hHandler );
 	RegCloseKey( hHandlers );

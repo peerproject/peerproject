@@ -196,7 +196,6 @@ public:
 	BOOL		Check(CQueryHit* pHit) const;
 	BOOL		Expand(BOOL bExpand = TRUE);
 	inline int	Compare(CMatchFile* pFile) const;
-	CString		GetURN() const;
 	void		Serialize(CArchive& ar, int nVersion = 0);	// MATCHLIST_SER_VERSION
 	void		Ban(int nBanLength);	// Ban by hashes and by hit host IPs
 

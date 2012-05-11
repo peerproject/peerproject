@@ -29,6 +29,7 @@ public:
 	CCoolTipCtrl();
 	virtual ~CCoolTipCtrl();
 
+public:
 	virtual BOOL Create(CWnd* pParentWnd, bool* pbEnable = NULL);
 	virtual void Hide();
 
@@ -69,7 +70,7 @@ protected:
 	virtual void OnHide();
 	virtual void OnPaint(CDC* pDC);
 
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
 	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 	afx_msg void OnPaint();
@@ -95,5 +96,6 @@ protected:
 #define TIP_GRAPHHEIGHT	40
 #define TIP_BARHEIGHT	14
 #define TIP_TEXTHEIGHT	14
+#define TIP_ICONHEIGHT	16
 #define TIP_RULE		11
 #define TIP_GAP			5

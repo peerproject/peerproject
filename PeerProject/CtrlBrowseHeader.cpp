@@ -1,7 +1,7 @@
 //
 // CtrlBrowseHeader.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -166,8 +166,8 @@ void CBrowseHeaderCtrl::PrepareRect(CRect* pRect) const
 	pRect->left += 5;
 
 	pRect->top		= ( pRect->top + pRect->bottom ) / 2;
-	pRect->top		= pRect->top - ( Skin.m_nToolbarHeight / 2 ) + 1;
-	pRect->bottom	= pRect->top + Skin.m_nToolbarHeight - 2;
+	pRect->top		= pRect->top - ( Settings.Skin.ToolbarHeight / 2 ) + 1;
+	pRect->bottom	= pRect->top + Settings.Skin.ToolbarHeight - 2;
 }
 
 void CBrowseHeaderCtrl::DoPaint(CDC* pDC, CRect& rcClient, BOOL bTransparent)
@@ -181,8 +181,8 @@ void CBrowseHeaderCtrl::DoPaint(CDC* pDC, CRect& rcClient, BOOL bTransparent)
 	CRect rcBar;
 
 	rcBar.top		= ( rcClient.top + rcClient.bottom ) / 2;
-	rcBar.top		= rcBar.top - ( Skin.m_nToolbarHeight / 2 ) + 1;
-	rcBar.bottom	= rcBar.top + Skin.m_nToolbarHeight - 2;
+	rcBar.top		= rcBar.top - ( Settings.Skin.ToolbarHeight / 2 ) + 1;
+	rcBar.bottom	= rcBar.top + Settings.Skin.ToolbarHeight - 2;
 	rcBar.right		= rcClient.right;
 	rcBar.left		= rcBar.right - m_czLast.cx;
 

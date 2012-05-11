@@ -39,214 +39,61 @@ static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif	// Filename
 
-BEGIN_MESSAGE_MAP(CMatchTipCtrl, CWnd)
-	//{{AFX_MSG_MAP(CMatchTipCtrl)
-	ON_WM_TIMER()
-	ON_WM_ERASEBKGND()
-	ON_WM_PAINT()
-	ON_WM_CREATE()
-	ON_WM_DESTROY()
-	ON_WM_MOUSEMOVE()
-	ON_WM_KEYDOWN()
-	//}}AFX_MSG_MAP
+IMPLEMENT_DYNAMIC(CMatchTipCtrl, CCoolTipCtrl)
+
+BEGIN_MESSAGE_MAP(CMatchTipCtrl, CCoolTipCtrl)
 END_MESSAGE_MAP()
-
-#define TIP_TEXTHEIGHT	14
-#define TIP_ICONHEIGHT	16
-// In CtrlCoolTip.h:
-//#define TIP_OFFSET_X	0
-//#define TIP_OFFSET_Y	24
-//#define TIP_MARGIN	6
-
-LPCTSTR		CMatchTipCtrl::m_hClass = NULL;
-CBrush		CMatchTipCtrl::m_brBack;
-//COLORREF	CMatchTipCtrl::m_crBack;
-//COLORREF	CMatchTipCtrl::m_crText;
-//COLORREF	CMatchTipCtrl::m_crBorder;
-//COLORREF	CMatchTipCtrl::m_crWarnings;
-
 
 /////////////////////////////////////////////////////////////////////////////
 // CMatchTipCtrl construction
 
 CMatchTipCtrl::CMatchTipCtrl()
-	: m_pOwner		( NULL )
-	, m_bVisible	( FALSE )
-	, m_pFile		( NULL )
-	, m_pHit		( NULL )
-	, m_tOpen		( 0 )
-	, m_nIcon		( 0 )
-{
-	if ( ! m_hClass )
-		m_hClass = AfxRegisterWndClass( CS_SAVEBITS |
-			( ! Settings.Interface.TipShadow || theApp.m_bIsWin2000 ? 0 : CS_DROPSHADOW ) );
-}
-
-CMatchTipCtrl::~CMatchTipCtrl()
+	: m_pFile	( NULL )
+	, m_pHit	( NULL )
+	, m_nIcon	( 0 )
 {
 }
 
-/////////////////////////////////////////////////////////////////////////////
-// CMatchTipCtrl operations
-
-BOOL CMatchTipCtrl::Create(CWnd* pParentWnd)
-{
-	CRect rc( 0, 0, 0, 0 );
-	m_pOwner = pParentWnd;
-	DWORD dwStylesEx = WS_EX_TOPMOST | ( Settings.General.LanguageRTL ? WS_EX_LAYOUTRTL : 0 );
-	return CWnd::CreateEx( dwStylesEx, m_hClass, NULL, WS_POPUP|WS_DISABLED, rc, pParentWnd, 0, NULL );
-}
+//CMatchTipCtrl::~CMatchTipCtrl()
+//{
+//}
 
 void CMatchTipCtrl::Show(CMatchFile* pFile, CQueryHit* pHit)
 {
-	if ( AfxGetMainWnd() != GetForegroundWindow() ) return;
-	if ( ! Settings.Interface.TipSearch ) return;
+	bool bChanged = pFile != m_pFile || pHit != m_pHit;
 
-//	m_crBack	= Colors.m_crTipBack;
-//	m_crText	= Colors.m_crTipText;
-//	m_crBorder	= Colors.m_crTipBorder;
-//	m_crWarnings = Colors.m_crTipWarnings;	// Set color of warning messages
+	m_pFile	= pFile;
+	m_pHit	= pHit;
 
-	if ( m_brBack.m_hObject ) m_brBack.DeleteObject();
-	m_brBack.CreateSolidBrush( Colors.m_crTipBack );
-
-	CPoint point;
-	GetCursorPos( &point );
-
-	if ( m_bVisible )
-	{
-		if ( pFile == m_pFile && pHit == m_pHit ) return;
-
-		Hide();
-
-		m_pFile	= pFile;
-		m_pHit	= pHit;
-
-		ShowInternal();
-	}
-	else if ( point != m_pOpen )
-	{
-		m_pFile	= pFile;
-		m_pHit	= pHit;
-		m_pOpen	= point;
-		m_tOpen	= GetTickCount() + Settings.Interface.TipDelay;
-	}
+	ShowImpl( bChanged );
 }
 
-void CMatchTipCtrl::Hide()
+BOOL CMatchTipCtrl::OnPrepare()
+{
+	if ( ! Settings.Interface.TipSearch )
+		return FALSE;
+
+	if ( m_pHit )
+		LoadFromHit();
+	else if ( m_pFile )
+		LoadFromFile();
+	else
+		return FALSE;
+
+	CalcSizeHelper();
+
+	return ( m_sz.cx > 0 );
+}
+
+void CMatchTipCtrl::OnHide()
 {
 	m_pFile	= NULL;
 	m_pHit	= NULL;
 	m_pMetadata.Clear();
-	m_tOpen	= 0;
-
-	if ( m_bVisible )
-	{
-		ShowWindow( SW_HIDE );
-		ModifyStyleEx( WS_EX_LAYERED, 0 );
-		m_bVisible = FALSE;
-		GetCursorPos( &m_pOpen );
-	}
 }
 
-/////////////////////////////////////////////////////////////////////////////
-// CMatchTipCtrl system message handlers
-
-int CMatchTipCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
+void CMatchTipCtrl::OnShow()
 {
-	if ( CWnd::OnCreate( lpCreateStruct ) == -1 ) return -1;
-
-	SetTimer( 1, 250, NULL );
-
-	return 0;
-}
-
-void CMatchTipCtrl::OnDestroy()
-{
-	KillTimer( 1 );
-	CWnd::OnDestroy();
-}
-
-/////////////////////////////////////////////////////////////////////////////
-// CMatchTipCtrl show logic message handlers
-
-void CMatchTipCtrl::OnTimer(UINT_PTR /*nIDEvent*/)
-{
-	CPoint point;
-	if ( ! GetCursorPos( &point ) || WindowFromPoint( point ) != m_pOwner )
-	{
-		if ( m_bVisible )
-			Hide();
-		return;
-	}
-	else
-	{
-		CWnd* pWnd = GetForegroundWindow();
-
-		if ( pWnd != this && pWnd != AfxGetMainWnd() )
-		{
-			if ( m_bVisible )
-				Hide();
-			return;
-		}
-	}
-
-	if ( ! m_bVisible && m_tOpen && GetTickCount() >= m_tOpen )
-	{
-		m_tOpen = 0;
-		if ( point == m_pOpen )
-			ShowInternal();
-	}
-}
-
-void CMatchTipCtrl::ShowInternal()
-{
-	if ( m_bVisible )
-		return;
-
-	if ( m_pHit != NULL )
-		LoadFromHit();
-	else if ( m_pFile != NULL )
-		LoadFromFile();
-	else
-		return;
-
-	if ( m_sName.GetLength() > 128 )
-		m_sName = m_sName.Left( 128 );
-
-	m_bVisible = TRUE;
-
-	CSize sz = ComputeSize();
-
-	CRect rc( m_pOpen.x + TIP_OFFSET_X, m_pOpen.y + TIP_OFFSET_Y, 0, 0 );
-	rc.right = rc.left + sz.cx;
-	rc.bottom = rc.top + sz.cy;
-
-	HMONITOR hMonitor = MonitorFromPoint( m_pOpen, MONITOR_DEFAULTTONEAREST );
-
-	MONITORINFO oMonitor = {0};
-	oMonitor.cbSize = sizeof( MONITORINFO );
-	GetMonitorInfo( hMonitor, &oMonitor );
-
-	if ( rc.right >= oMonitor.rcWork.right)
-		rc.OffsetRect( oMonitor.rcWork.right - rc.right - 4, 0 );
-
-	if ( rc.bottom >= oMonitor.rcWork.bottom )
-		rc.OffsetRect( 0, -sz.cy - TIP_OFFSET_Y - 4 );
-
-	if ( Settings.Interface.TipAlpha == 255 )
-	{
-		ModifyStyleEx( WS_EX_LAYERED, 0 );
-	}
-	else
-	{
-		ModifyStyleEx( 0, WS_EX_LAYERED );
-		SetLayeredWindowAttributes( 0, (BYTE)Settings.Interface.TipAlpha, LWA_ALPHA );
-	}
-
-	SetWindowPos( &wndTopMost, rc.left, rc.top, rc.Width(), rc.Height(),
-		SWP_SHOWWINDOW|SWP_NOACTIVATE );
-	UpdateWindow();
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -265,7 +112,7 @@ void CMatchTipCtrl::LoadFromFile()
 		m_sCountryCode = _T("");
 		m_sCountry = _T("");
 	}
-	m_sSize = m_pFile->m_sSize;
+	m_sSize = LoadString( IDS_TIP_SIZE ) + _T(":  ") + m_pFile->m_sSize;
 	LoadTypeInfo();
 
 	if ( Settings.General.GUIMode == GUI_BASIC )
@@ -320,7 +167,7 @@ void CMatchTipCtrl::LoadFromFile()
 void CMatchTipCtrl::LoadFromHit()
 {
 	m_sName = m_pHit->m_sName;
-	m_sSize = Settings.SmartVolume( m_pHit->m_nSize );
+	m_sSize = LoadString( IDS_TIP_SIZE ) + _T(":  ") + Settings.SmartVolume( m_pHit->m_nSize );
 	LoadTypeInfo();
 
 	if ( Settings.General.GUIMode == GUI_BASIC )
@@ -341,27 +188,14 @@ void CMatchTipCtrl::LoadFromHit()
 	}
 
 	if ( m_pHit->m_nPartial )
-	{
-		CString strFormat;
-		LoadString( strFormat, IDS_TIP_PARTIAL );
-		m_sPartial.Format( strFormat, 100.0f * (float)m_pHit->m_nPartial / (float)m_pHit->m_nSize );
-	}
+		m_sPartial.Format( LoadString( IDS_TIP_PARTIAL ), 100.0f * (float)m_pHit->m_nPartial / (float)m_pHit->m_nSize );
 	else
-	{
 		m_sPartial.Empty();
-	}
 
 	if ( m_pHit->m_nUpSlots )
-	{
-		CString strFormat;
-		LoadString( strFormat, IDS_TIP_QUEUE );
-		m_sQueue.Format( strFormat, m_pHit->m_nUpSlots,
-			max( 0, m_pHit->m_nUpQueue - m_pHit->m_nUpSlots ) );
-	}
+		m_sQueue.Format( LoadString( IDS_TIP_QUEUE ), m_pHit->m_nUpSlots, max( 0, m_pHit->m_nUpQueue - m_pHit->m_nUpSlots ) );
 	else
-	{
 		m_sQueue.Empty();
-	}
 
 	m_pSchema = m_pHit->m_pSchema;
 
@@ -447,238 +281,168 @@ void CMatchTipCtrl::LoadFromHit()
 
 BOOL CMatchTipCtrl::LoadTypeInfo()
 {
-	int nPeriod = m_sName.ReverseFind( '.' );
-
-	m_sType.Empty();
-	m_nIcon = 0;
-
-	if ( nPeriod > 0 )
-	{
-		CString strType = m_sName.Mid( nPeriod );
-		CString strName, strMime;
-
-		ShellIcons.Lookup( strType, NULL, NULL, &strName, &strMime );
-		m_nIcon = ShellIcons.Get( strType, 32 );
-
-		if ( ! strName.IsEmpty() )
-		{
-			m_sType = strName;
-			if ( strMime.GetLength() )
-				m_sType += _T(" (") + strMime + _T(")");
-		}
-		else
-		{
-			m_sType = strType.Mid( 1 );
-		}
-	}
-
-	if ( m_sType.IsEmpty() )
-		m_sType = _T("Unknown");
-
+	m_nIcon = ShellIcons.Get( m_sName, 32 );
+	m_sType = LoadString( IDS_TIP_TYPE ) + _T(": ") + ShellIcons.GetTypeString( m_sName );
 	return FALSE;
 }
 
 /////////////////////////////////////////////////////////////////////////////
 // CMatchTipCtrl layout
 
-CSize CMatchTipCtrl::ComputeSize()
+void CMatchTipCtrl::OnCalcSize(CDC* pDC)
 {
-	CClientDC dc( this );
-	CSize sz( 0, 0 );
-
-	CFont* pOldFont = (CFont*)dc.SelectObject( &CoolInterface.m_fntBold );
-
-	ExpandSize( dc, sz, m_sName );
-	sz.cy += TIP_TEXTHEIGHT;
-
-	dc.SelectObject( &CoolInterface.m_fntNormal );
+	AddSize( pDC, m_sName );
+	m_sz.cy += TIP_ICONHEIGHT;
+	pDC->SelectObject( &CoolInterface.m_fntNormal );
 
 	if ( ! m_sUser.IsEmpty() )
 	{
-		ExpandSize( dc, sz, m_sUser );
-		sz.cy += TIP_TEXTHEIGHT;
+		AddSize( pDC, m_sUser );
+		m_sz.cy += TIP_TEXTHEIGHT;
 	}
 
 	if ( ! m_sCountry.IsEmpty() )
 	{
-		ExpandSize( dc, sz, m_sCountry, 18 + 2 );
-		sz.cy += TIP_TEXTHEIGHT;
+		AddSize( pDC, m_sCountry, 18 + 2 );
+		m_sz.cy += TIP_ICONHEIGHT;
 	}
-
-	sz.cy += 5 + 6;
 
 	if ( ! m_sStatus.IsEmpty() )
 	{
-		dc.SelectObject( &CoolInterface.m_fntBold );
-		ExpandSize( dc, sz, m_sStatus );
-		dc.SelectObject( &CoolInterface.m_fntNormal );
-		sz.cy += TIP_TEXTHEIGHT;
-		sz.cy += 5 + 6;
+		m_sz.cy += TIP_RULE;
+		pDC->SelectObject( &CoolInterface.m_fntBold );
+		AddSize( pDC, m_sStatus );
+		pDC->SelectObject( &CoolInterface.m_fntNormal );
+		m_sz.cy += TIP_TEXTHEIGHT;
 	}
 
-	sz.cy += 32;
-	CString strTest;
-	LoadString( strTest, IDS_TIP_SIZE );
-	strTest.Append( _T(": ") );
-	ExpandSize( dc, sz, strTest + m_sSize, 40 );
-	LoadString( strTest, IDS_TIP_TYPE );
-	strTest.Append( _T(": ") );
-	ExpandSize( dc, sz, strTest + m_sType, 40 );
+	m_sz.cy += TIP_RULE;
 
-	if ( ! m_sSHA1.IsEmpty() || ! m_sTiger.IsEmpty() || ! m_sED2K.IsEmpty() ||
-		! m_sBTH.IsEmpty() || ! m_sMD5.IsEmpty() )
+	// Icon
+	m_sz.cy += 32;	// max( 32, TIP_TEXTHEIGHT * 2 );
+	AddSize( pDC, m_sSize, 40 );
+	AddSize( pDC, m_sType, 40 );
+
+	if ( Settings.General.GUIMode != GUI_BASIC &&
+		( ! m_sSHA1.IsEmpty() || ! m_sTiger.IsEmpty() || ! m_sED2K.IsEmpty() || ! m_sBTH.IsEmpty() || ! m_sMD5.IsEmpty() ) )
 	{
-		sz.cy += 5 + 6;
+		m_sz.cy += TIP_RULE;
 
 		if ( ! m_sSHA1.IsEmpty() )
 		{
-			ExpandSize( dc, sz, m_sSHA1 );
-			sz.cy += TIP_TEXTHEIGHT;
+			AddSize( pDC, m_sSHA1 );
+			m_sz.cy += TIP_TEXTHEIGHT;
 		}
 
 		if ( ! m_sTiger.IsEmpty() )
 		{
-			ExpandSize( dc, sz, m_sTiger );
-			sz.cy += TIP_TEXTHEIGHT;
+			AddSize( pDC, m_sTiger );
+			m_sz.cy += TIP_TEXTHEIGHT;
 		}
 
 		if ( ! m_sED2K.IsEmpty() )
 		{
-			ExpandSize( dc, sz, m_sED2K );
-			sz.cy += TIP_TEXTHEIGHT;
+			AddSize( pDC, m_sED2K );
+			m_sz.cy += TIP_TEXTHEIGHT;
 		}
 
 		if ( ! m_sBTH.IsEmpty() )
 		{
-			ExpandSize( dc, sz, m_sBTH );
-			sz.cy += TIP_TEXTHEIGHT;
+			AddSize( pDC, m_sBTH );
+			m_sz.cy += TIP_TEXTHEIGHT;
 		}
 
 		if ( ! m_sMD5.IsEmpty() )
 		{
-			ExpandSize( dc, sz, m_sMD5 );
-			sz.cy += TIP_TEXTHEIGHT;
+			AddSize( pDC, m_sMD5 );
+			m_sz.cy += TIP_TEXTHEIGHT;
 		}
-	}
-
-	if ( m_pMetadata.GetCount() )
-	{
-		sz.cy += 5 + 6;
-
-		int nValueWidth = 0;
-		m_nKeyWidth = 0;
-
-		m_pMetadata.ComputeWidth( &dc, m_nKeyWidth, nValueWidth );
-
-		if ( m_nKeyWidth ) m_nKeyWidth += TIP_MARGIN;
-		sz.cx = max( sz.cx, m_nKeyWidth + nValueWidth );
-		sz.cy += LONG( TIP_TEXTHEIGHT * m_pMetadata.GetCount() );
 	}
 
 	// Busy/Firewalled/unstable warnings. Queue info.
 	if ( ! m_sBusy.IsEmpty() || ! m_sPush.IsEmpty() || ! m_sUnstable.IsEmpty() || ! m_sQueue.IsEmpty() )
 	{
-		sz.cy += 11;
+		m_sz.cy += TIP_RULE;
 
 		if ( ! m_sBusy.IsEmpty() )
 		{
-			dc.SelectObject( &CoolInterface.m_fntBold );
-			ExpandSize( dc, sz, m_sBusy, 20 );
-			dc.SelectObject( &CoolInterface.m_fntNormal );
-			sz.cy += TIP_ICONHEIGHT;
+			pDC->SelectObject( &CoolInterface.m_fntBold );
+			AddSize( pDC, m_sBusy, 20 );
+			pDC->SelectObject( &CoolInterface.m_fntNormal );
+			m_sz.cy += TIP_ICONHEIGHT;
 		}
 
 		if ( ! m_sQueue.IsEmpty() )
 		{
-			if ( ! m_sBusy.IsEmpty() )				// Align queue info with above (if present)
-				ExpandSize( dc, sz, m_sQueue, 20 );
+			if ( ! m_sBusy.IsEmpty() || ! m_sPush.IsEmpty() || ! m_sUnstable.IsEmpty() )	// Align queue info with above (if present)
+				AddSize( pDC, m_sQueue, 20 );
 			else
-				ExpandSize( dc, sz, m_sQueue );
-			sz.cy += TIP_TEXTHEIGHT;
+				AddSize( pDC, m_sQueue );
+			m_sz.cy += TIP_ICONHEIGHT;
 		}
 
 		if ( ! m_sPush.IsEmpty() )
 		{
-			dc.SelectObject( &CoolInterface.m_fntBold );
-			ExpandSize( dc, sz, m_sPush, 20 );
-			dc.SelectObject( &CoolInterface.m_fntNormal );
-			sz.cy += TIP_ICONHEIGHT;
+			pDC->SelectObject( &CoolInterface.m_fntBold );
+			AddSize( pDC, m_sPush, 20 );
+			pDC->SelectObject( &CoolInterface.m_fntNormal );
+			m_sz.cy += TIP_ICONHEIGHT;
 		}
 
 		if ( ! m_sUnstable.IsEmpty() )
 		{
-			dc.SelectObject( &CoolInterface.m_fntBold );
-			ExpandSize( dc, sz, m_sUnstable, 20 );
-			dc.SelectObject( &CoolInterface.m_fntNormal );
-			sz.cy += TIP_ICONHEIGHT;
+			pDC->SelectObject( &CoolInterface.m_fntBold );
+			AddSize( pDC, m_sUnstable, 20 );
+			pDC->SelectObject( &CoolInterface.m_fntNormal );
+			m_sz.cy += TIP_ICONHEIGHT;
 		}
 	}
 
 	// Partial warning
 	if ( ! m_sPartial.IsEmpty() )
 	{
-		sz.cy += 5 + 6;
-
-		ExpandSize( dc, sz, m_sPartial );
-		sz.cy += TIP_TEXTHEIGHT;
+		m_sz.cy += TIP_RULE;
+		AddSize( pDC, m_sPartial );
+		m_sz.cy += TIP_TEXTHEIGHT;
 	}
 
+	// Metadata
+	if ( int nCount = m_pMetadata.GetCount( TRUE ) )
+	{
+		m_sz.cy += TIP_RULE - 1;
 
-	dc.SelectObject( pOldFont );
+		int nMetaHeight = nCount * TIP_TEXTHEIGHT;
+		int nValueWidth = 0;
+		m_nKeyWidth = 40;
 
-	sz.cx += TIP_MARGIN * 2;
-	sz.cy += TIP_MARGIN * 2;
+		m_pMetadata.ComputeWidth( pDC, m_nKeyWidth, nValueWidth );
 
-	return sz;
-}
-
-void CMatchTipCtrl::ExpandSize(CDC& dc, CSize& sz, const CString& strText, int nBase)
-{
-	CSize szText = dc.GetTextExtent( strText );
-	szText.cx += nBase;
-	sz.cx = max( sz.cx, szText.cx );
+		if ( m_nKeyWidth ) m_nKeyWidth += TIP_GAP;
+		m_sz.cx  = min( max( m_sz.cx, (LONG)m_nKeyWidth + nValueWidth ), (LONG)GetSystemMetrics( SM_CXSCREEN ) / 2 );
+		m_sz.cy += nMetaHeight;
+	}
 }
 
 /////////////////////////////////////////////////////////////////////////////
 // CMatchTipCtrl painting
 
-BOOL CMatchTipCtrl::OnEraseBkgnd(CDC* /*pDC*/)
-{
-	return TRUE;
-}
-
-void CMatchTipCtrl::OnPaint()
+void CMatchTipCtrl::OnPaint(CDC* pDC)
 {
 	if ( ! IsWindow( GetSafeHwnd() ) || ! IsWindowVisible() ) return;
 
-	CPaintDC dc( this );
-	CRect rc;
-	GetClientRect( &rc );
+	CPoint pt( 0, 0 );
+	CSize sz( m_sz.cx, TIP_TEXTHEIGHT );
 
-	dc.Draw3dRect( &rc, Colors.m_crTipBorder, Colors.m_crTipBorder );
-	rc.DeflateRect( 1, 1 );
+	const COLORREF crBack = Skin.m_bmToolTip.m_hObject ? CLR_NONE : Colors.m_crTipBack;
 
-	if ( Skin.m_bmToolTip.m_hObject )	// Else paint solid color last
-		CoolInterface.DrawWatermark( &dc, &rc, &Skin.m_bmToolTip, FALSE );	// TEMPORARY skinning, use flicker-free pMemDC
+	DrawText( pDC, &pt, m_sName );
+	pt.y += TIP_ICONHEIGHT;
 
-	CFont* pOldFont = (CFont*)dc.SelectObject( &CoolInterface.m_fntBold );
-	CPoint pt( TIP_MARGIN, TIP_MARGIN );
-
-	if ( Skin.m_bmToolTip.m_hObject )
-		dc.SetBkMode( TRANSPARENT );
-	else
-		dc.SetBkColor( Colors.m_crTipBack );
-	dc.SetTextColor( Colors.m_crTipText );
-	COLORREF crBack = Skin.m_bmToolTip.m_hObject ? CLR_NONE : Colors.m_crTipBack;
-
-	DrawText( dc, pt, m_sName );
-	pt.y += TIP_TEXTHEIGHT;
-
-	dc.SelectObject( &CoolInterface.m_fntNormal );
+	pDC->SelectObject( &CoolInterface.m_fntNormal );
 
 	if ( ! m_sUser.IsEmpty() )
 	{
-		DrawText( dc, pt, m_sUser );
+		DrawText( pDC, &pt, m_sUser );
 		pt.y += TIP_TEXTHEIGHT;
 	}
 
@@ -687,119 +451,104 @@ void CMatchTipCtrl::OnPaint()
 		int nFlagIndex = Flags.GetFlagIndex( m_sCountryCode );
 		if ( nFlagIndex >= 0 )
 		{
-			Flags.Draw( nFlagIndex, dc, pt.x, pt.y, crBack );
-			dc.ExcludeClipRect( pt.x, pt.y, pt.x + 16, pt.y + 16 );
+			Flags.Draw( nFlagIndex, *pDC, pt.x, pt.y, crBack, crBack );
+			if ( ! Skin.m_bmToolTip.m_hObject )
+				pDC->ExcludeClipRect( pt.x, pt.y, pt.x + 16, pt.y + 16 );
 			pt.x += 20;
 			pt.y += 2;
 		}
-		DrawText( dc, pt, m_sCountry );
+		DrawText( pDC, &pt, m_sCountry );
 		if ( nFlagIndex >= 0 )
 		{
-			pt.y -= 2;
 			pt.x -= 20;
+			pt.y -= 2;
 		}
-		pt.y += TIP_TEXTHEIGHT;
+		pt.y += TIP_ICONHEIGHT;
 	}
-
-	pt.y += 5;
-	dc.Draw3dRect( rc.left + 2, pt.y, rc.Width() - 4, 1, Colors.m_crTipBorder, Colors.m_crTipBorder );
-	dc.ExcludeClipRect( rc.left + 2, pt.y, rc.right - 2, pt.y + 1 );
-	pt.y += 6;
 
 	if ( ! m_sStatus.IsEmpty() )
 	{
-		dc.SetTextColor( m_crStatus );
-		dc.SelectObject( &CoolInterface.m_fntBold );
-		DrawText( dc, pt, m_sStatus );
-		dc.SelectObject( &CoolInterface.m_fntNormal );
-		dc.SetTextColor( Colors.m_crTipText );
-		pt.y += TIP_TEXTHEIGHT;
+		DrawRule( pDC, &pt );
 
-		pt.y += 5;
-		dc.Draw3dRect( rc.left + 2, pt.y, rc.Width() - 4, 1, Colors.m_crTipBorder, Colors.m_crTipBorder );
-		dc.ExcludeClipRect( rc.left + 2, pt.y, rc.right - 2, pt.y + 1 );
-		pt.y += 6;
+		pDC->SetTextColor( m_crStatus );
+		pDC->SelectObject( &CoolInterface.m_fntBold );
+		DrawText( pDC, &pt, m_sStatus );
+		pDC->SelectObject( &CoolInterface.m_fntNormal );
+		pDC->SetTextColor( Colors.m_crTipText );
+		pt.y += TIP_TEXTHEIGHT;
 	}
 
-	ShellIcons.Draw( &dc, m_nIcon, 32, pt.x, pt.y, crBack );
-	dc.ExcludeClipRect( pt.x, pt.y, pt.x + 32, pt.y + 32 );
+	DrawRule( pDC, &pt );
+
+	pt.y--;
+	ShellIcons.Draw( pDC, m_nIcon, 32, pt.x, pt.y, crBack );
+	pDC->ExcludeClipRect( pt.x, pt.y, pt.x + 32, pt.y + 32 );
+	pt.y++;
 
 	if ( m_nRating > 1 )
 	{
-		CPoint ptStar( rc.right - 3, pt.y - 2 );
+		CPoint ptStar( m_sz.cx - 3, pt.y - 2 );
 
 		for ( int nRating = m_nRating - 1 ; nRating ; nRating-- )
 		{
 			ptStar.x -= 16;
-			CoolInterface.Draw( &dc, IDI_STAR, 16, ptStar.x, ptStar.y, crBack );
-			dc.ExcludeClipRect( ptStar.x, ptStar.y, ptStar.x + 16, ptStar.y + 16 );
+			CoolInterface.Draw( pDC, IDI_STAR, 16, ptStar.x, ptStar.y, crBack );
+			if ( ! Skin.m_bmToolTip.m_hObject )
+				pDC->ExcludeClipRect( ptStar.x, ptStar.y, ptStar.x + 16, ptStar.y + 16 );
 		}
 	}
 
 	pt.x += 40;
-	CString str;
-	LoadString( str, IDS_TIP_SIZE );
-	str.Append( _T(": ") );
-	DrawText( dc, pt, str );
-	CSize sz = dc.GetTextExtent( str );
-	pt.x += sz.cx;
-	DrawText( dc, pt, m_sSize );
-	pt.x -= sz.cx;
+	DrawText( pDC, &pt, m_sSize );
 	if ( m_sSize.Find( _T(" B") ) < 1 && m_nRating < 2 )
 	{
-		CString sSize;
-		sSize.Format( _T("(%I64i bytes)"), m_pFile->m_nSize );
-		sz = dc.GetTextExtent( sSize );
-		pt.x += ( rc.Width() - sz.cx - 50 );
-		DrawText( dc, pt, sSize );
-		pt.x -= ( rc.Width() - sz.cx - 50 );
+		CString strSize;
+		strSize.Format( _T("(%I64i bytes)"), m_pFile->m_nSize );
+		CSize szText = pDC->GetTextExtent( strSize );
+
+		int nPos = pt.x;
+		pt.x = m_sz.cx - szText.cx - 1;
+		DrawText( pDC, &pt, strSize );
+		pt.x = nPos;
 	}
-	pt.y += 16;
-	LoadString( str, IDS_TIP_TYPE );
-	str.Append( _T(": ") );
-	DrawText( dc, pt, str );
-	sz = dc.GetTextExtent( str );
-	pt.x += sz.cx;
-	DrawText( dc, pt, m_sType );
-	pt.x -= sz.cx + 40;
-	pt.y += 16;
+	pt.y += TIP_ICONHEIGHT;
+	DrawText( pDC, &pt, m_sType );
+	pt.y += TIP_TEXTHEIGHT;
+	pt.x -= 40;
 
 	// Hashes
-	if ( ! m_sSHA1.IsEmpty() || ! m_sTiger.IsEmpty() || ! m_sED2K.IsEmpty() ||
-		! m_sBTH.IsEmpty() || ! m_sMD5.IsEmpty() )
+	if ( Settings.General.GUIMode != GUI_BASIC &&
+		( ! m_sSHA1.IsEmpty() || ! m_sTiger.IsEmpty() || ! m_sED2K.IsEmpty() || ! m_sBTH.IsEmpty() || ! m_sMD5.IsEmpty() ) )
 	{
-		pt.y += 5;
-		dc.Draw3dRect( rc.left + 2, pt.y, rc.Width() - 4, 1, Colors.m_crTipBorder, Colors.m_crTipBorder );
-		dc.ExcludeClipRect( rc.left + 2, pt.y, rc.right - 2, pt.y + 1 );
-		pt.y += 6;
+		DrawRule( pDC, &pt );
 
 		if ( ! m_sSHA1.IsEmpty() )
 		{
-			DrawText( dc, pt, m_sSHA1 );
+			DrawText( pDC, &pt, m_sSHA1 );
 			pt.y += TIP_TEXTHEIGHT;
 		}
 
 		if ( ! m_sTiger.IsEmpty() )
 		{
-			DrawText( dc, pt, m_sTiger );
+			DrawText( pDC, &pt, m_sTiger );
 			pt.y += TIP_TEXTHEIGHT;
 		}
 
 		if ( ! m_sED2K.IsEmpty() )
 		{
-			DrawText( dc, pt, m_sED2K );
+			DrawText( pDC, &pt, m_sED2K );
 			pt.y += TIP_TEXTHEIGHT;
 		}
 
 		if ( ! m_sBTH.IsEmpty() )
 		{
-			DrawText( dc, pt, m_sBTH );
+			DrawText( pDC, &pt, m_sBTH );
 			pt.y += TIP_TEXTHEIGHT;
 		}
 
 		if ( ! m_sMD5.IsEmpty() )
 		{
-			DrawText( dc, pt, m_sMD5 );
+			DrawText( pDC, &pt, m_sMD5 );
 			pt.y += TIP_TEXTHEIGHT;
 		}
 	}
@@ -807,143 +556,100 @@ void CMatchTipCtrl::OnPaint()
 	// Busy, firewalled, unstabled warnings. Queue info
 	if ( ! m_sBusy.IsEmpty() || ! m_sPush.IsEmpty() || ! m_sUnstable.IsEmpty() || ! m_sQueue.IsEmpty() )
 	{
-		pt.y += 5;
-		dc.Draw3dRect( rc.left + 2, pt.y, rc.Width() - 4, 1, Colors.m_crTipBorder, Colors.m_crTipBorder );
-		if ( ! Skin.m_bmToolTip.m_hObject )
-			dc.ExcludeClipRect( rc.left + 2, pt.y, rc.right - 2, pt.y + 1 );
-		pt.y += 6;
+		DrawRule( pDC, &pt );
 
-		dc.SetTextColor( Colors.m_crTipWarnings );
-		dc.SelectObject( &CoolInterface.m_fntBold );
+		pDC->SetTextColor( Colors.m_crTipWarnings );
+		pDC->SelectObject( &CoolInterface.m_fntBold );
 
 		// Source busy warning
 		if ( ! m_sBusy.IsEmpty() )
 		{
-			CoolInterface.Draw( &dc, IDI_BUSY, 16, pt.x, pt.y, crBack );
+			CoolInterface.Draw( pDC, IDI_BUSY, 16, pt.x, pt.y, crBack );
 			if ( ! Skin.m_bmToolTip.m_hObject )
-				dc.ExcludeClipRect( pt.x, pt.y, pt.x + 16, pt.y + 16 );
+				pDC->ExcludeClipRect( pt.x, pt.y, pt.x + 16, pt.y + 16 );
 
-			CPoint ptTextWithIcon = pt;
-			ptTextWithIcon.x += 20;
-			ptTextWithIcon.y++;
-
-			DrawText ( dc, ptTextWithIcon, m_sBusy);
+			pt.x += 20;
+			pt.y++;
+			DrawText( pDC, &pt, m_sBusy);
+			pt.x -= 20;
 			pt.y += TIP_ICONHEIGHT;
 		}
 
-		dc.SetTextColor( Colors.m_crTipText );
-		dc.SelectObject( &CoolInterface.m_fntNormal );
+		pDC->SetTextColor( Colors.m_crTipText );
+		pDC->SelectObject( &CoolInterface.m_fntNormal );
 
 		// Queue info
 		if ( ! m_sQueue.IsEmpty() )
 		{
-			CPoint ptTextWithIcon = pt;
-			ptTextWithIcon.x += 20;
-
-			if ( ! m_sBusy.IsEmpty() )			// Align queue info with above (if present)
-				DrawText( dc, ptTextWithIcon, m_sQueue );
+			if ( m_sBusy.GetLength() || m_sPush.GetLength() || m_sUnstable.GetLength() ) // Align queue info with above (if present)
+			{
+				pt.x += 20;
+				DrawText( pDC, &pt, m_sQueue );
+				pt.x -= 20;
+			}
 			else
-				DrawText( dc, pt, m_sQueue );
+				DrawText( pDC, &pt, m_sQueue );
 
-			pt.y += TIP_TEXTHEIGHT;
+			pt.y += TIP_ICONHEIGHT;
 		}
 
-		dc.SetTextColor( Colors.m_crTipWarnings );
-		dc.SelectObject( &CoolInterface.m_fntBold );
+		pDC->SetTextColor( Colors.m_crTipWarnings );
+		pDC->SelectObject( &CoolInterface.m_fntBold );
 
 		// Source firewalled warning
 		if ( ! m_sPush.IsEmpty() )
 		{
-			CoolInterface.Draw( &dc, IDI_FIREWALLED, 16, pt.x, pt.y, crBack );
+			CoolInterface.Draw( pDC, IDI_FIREWALLED, 16, pt.x, pt.y, crBack );
 			if ( ! Skin.m_bmToolTip.m_hObject )
-				dc.ExcludeClipRect( pt.x, pt.y, pt.x + 16, pt.y + 16 );
+				pDC->ExcludeClipRect( pt.x, pt.y, pt.x + 16, pt.y + 16 );
 
-			CPoint ptTextWithIcon = pt;
-			ptTextWithIcon.x += 20;
-			ptTextWithIcon.y++;
-
-			DrawText ( dc, ptTextWithIcon, m_sPush);
+			pt.x += 20;
+			pt.y++;
+			DrawText( pDC, &pt, m_sPush);
+			pt.x -= 20;
 			pt.y += TIP_ICONHEIGHT;
 		}
 
 		// Source unstable warning
 		if ( ! m_sUnstable.IsEmpty() )
 		{
-			CoolInterface.Draw( &dc, IDI_UNSTABLE, 16, pt.x, pt.y, crBack );
+			CoolInterface.Draw( pDC, IDI_UNSTABLE, 16, pt.x, pt.y, crBack );
 			if ( ! Skin.m_bmToolTip.m_hObject )
-				dc.ExcludeClipRect( pt.x, pt.y, pt.x + 16, pt.y + 16 );
+				pDC->ExcludeClipRect( pt.x, pt.y, pt.x + 16, pt.y + 16 );
 
-			CPoint ptTextWithIcon = pt;
-			ptTextWithIcon.x += 20;
-			ptTextWithIcon.y++;
-
-			DrawText ( dc, ptTextWithIcon, m_sUnstable);
+			pt.x += 20;
+			pt.y++;
+			DrawText( pDC, &pt, m_sUnstable);
+			pt.x -= 20;
 			pt.y += TIP_ICONHEIGHT;
 		}
-		dc.SetTextColor( Colors.m_crTipText );
-		dc.SelectObject( &CoolInterface.m_fntNormal );
+		pDC->SetTextColor( Colors.m_crTipText );
+		pDC->SelectObject( &CoolInterface.m_fntNormal );
 	}
 
 	// Partial warning
 	if ( ! m_sPartial.IsEmpty() )
 	{
-		pt.y += 5;
-		dc.Draw3dRect( rc.left + 2, pt.y, rc.Width() - 4, 1, Colors.m_crTipBorder, Colors.m_crTipBorder );
-		if ( ! Skin.m_bmToolTip.m_hObject )
-			dc.ExcludeClipRect( rc.left + 2, pt.y, rc.right - 2, pt.y + 1 );
-		pt.y += 6;
-
-		DrawText( dc, pt, m_sPartial );
+		DrawRule( pDC, &pt );
+		DrawText( pDC, &pt, m_sPartial );
 		pt.y += TIP_TEXTHEIGHT;
 	}
 
 	// Metadata
-	if ( m_pMetadata.GetCount() )
+	if ( m_pMetadata.GetCount( TRUE ) )
 	{
-		pt.y += 5;
-		dc.Draw3dRect( rc.left + 2, pt.y, rc.Width() - 4, 1, Colors.m_crTipBorder, Colors.m_crTipBorder );
-		if ( ! Skin.m_bmToolTip.m_hObject )
-			dc.ExcludeClipRect( rc.left + 2, pt.y, rc.right - 2, pt.y + 1 );
-		pt.y += 6;
+		DrawRule( pDC, &pt );
 
 		for ( POSITION pos = m_pMetadata.GetIterator() ; pos ; )
 		{
-			CMetaItem* pItem = m_pMetadata.GetNext( pos );
+			const CMetaItem* pItem = m_pMetadata.GetNext( pos );
+			if ( pItem->m_pMember && pItem->m_pMember->m_bHidden ) continue;
 
-			DrawText( dc, pt, Settings.General.LanguageRTL ? ':' + pItem->m_sKey : pItem->m_sKey + ':' );
+			DrawText( pDC, &pt, Settings.General.LanguageRTL ? L':' + pItem->m_sKey : pItem->m_sKey + L':' );
 			pt.x += m_nKeyWidth;
-			DrawText( dc, pt, pItem->m_sValue );
+			DrawText( pDC, &pt, pItem->m_sValue );
 			pt.x -= m_nKeyWidth;
 			pt.y += TIP_TEXTHEIGHT;
 		}
 	}
-
-	dc.SelectObject( pOldFont );
-	if ( ! Skin.m_bmToolTip.m_hObject ) 	// Else watermark already painted
-		dc.FillSolidRect( &rc, crBack );
-}
-
-void CMatchTipCtrl::DrawText(CDC& dc, CPoint& pt, const CString& strText)
-{
-	DWORD dwFlags = ( Settings.General.LanguageRTL ? ETO_RTLREADING : 0 );
-	short nExtraPoint = ( Settings.General.LanguageRTL ? 1 : 0 );
-	CSize sz = dc.GetTextExtent( strText );
-	CRect rc( pt.x, pt.y, pt.x + sz.cx + nExtraPoint, pt.y + sz.cy );
-
-	if ( ! Skin.m_bmToolTip.m_hObject )
-		dc.SetBkColor( Colors.m_crTipBack );
-	dc.ExtTextOut( pt.x, pt.y,
-		ETO_CLIPPED|(Skin.m_bmToolTip.m_hObject ? 0 : ETO_OPAQUE)|dwFlags, &rc, strText, NULL );
-	dc.ExcludeClipRect( &rc );
-}
-
-void CMatchTipCtrl::OnMouseMove(UINT /*nFlags*/, CPoint /*point*/)
-{
-	Hide();
-}
-
-void CMatchTipCtrl::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
-{
-	Hide();
-	CWnd::OnKeyDown( nChar, nRepCnt, nFlags );
 }

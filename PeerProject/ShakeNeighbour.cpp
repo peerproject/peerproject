@@ -1021,7 +1021,7 @@ BOOL CShakeNeighbour::OnHeadersComplete()
 BOOL CShakeNeighbour::OnHeadersCompleteG2()
 {
 	// Report that a set of Gnutella2 headers from a remote computer are complete
-	theApp.Message( MSG_DEBUG, _T("Headers Complete: G2 client") );
+	theApp.Message( MSG_DEBUG, _T("Headers Complete: G2 client") );		// protocolNames[ PROTOCOL_G2 ]
 
 	if ( m_bUltraPeerSet == TRI_TRUE )	// Hub
 		HostCache.Gnutella2.Add( &m_pHost.sin_addr, htons( m_pHost.sin_port ) );
@@ -1253,13 +1253,13 @@ BOOL CShakeNeighbour::OnHeadersCompleteG2()
 BOOL CShakeNeighbour::OnHeadersCompleteG1()
 {
 	// Report that a set of Gnutella headers from a remote computer are complete
-	theApp.Message( MSG_DEBUG, _T("Headers Complete: G1 client") );
+	theApp.Message( MSG_DEBUG, _T("Headers Complete: G1 client") );		// protocolNames[ PROTOCOL_G1 ]
 
 	if ( m_bUltraPeerSet == TRI_TRUE )
 		HostCache.Gnutella1.Add( &m_pHost.sin_addr, htons( m_pHost.sin_port ) );
 
 	// Check if Gnutella1 is enabled before connecting to a gnutella client
-	if ( ! Settings.Gnutella1.Enabled && m_nState < nrsRejected )	// And make sure the state is before getting rejected
+	if ( ! Settings.Gnutella1.Enabled && m_nState < nrsRejected )		// And make sure the state is before getting rejected
 	{
 		// Tell the remote computer that we're only connecting to Gnutella2 today
 		Write( _P("GNUTELLA/0.6 503 G2 Required\r\n") );

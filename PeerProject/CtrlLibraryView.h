@@ -45,6 +45,9 @@ public:
 	BOOL				m_bGhostFolder;
 	CLibraryListItem	m_oDropItem;
 
+private:
+	CLibraryListPtr		m_pSelection;
+
 // Operations
 public:
 	inline CLibraryList* GetSelection() const
@@ -59,20 +62,18 @@ public:
 	virtual BOOL				Select(DWORD nObject);
 	virtual void				SelectAll() = 0;
 	virtual void				CacheSelection();
-	virtual CLibraryListItem	DropHitTest(const CPoint& point);
 	virtual CLibraryListItem	GetFolder() const;
+	virtual CLibraryListItem	DropHitTest(const CPoint& point);
 	virtual void				StartDragging(const CPoint& ptMouse);
 	virtual HBITMAP				CreateDragImage(const CPoint& ptMouse, CPoint& ptMiddle);
-	virtual void				OnSkinChange() {}
 	virtual DWORD_PTR			HitTestIndex(const CPoint& point) const = 0;
+	virtual void				OnSkinChange() {}
 
-private:
-	CLibraryListPtr		m_pSelection;
+	CLibraryFrame*		GetFrame() const;
+	CLibraryTipCtrl*	GetToolTip() const;
 
 protected:
 	void				PostUpdate();
-	CLibraryFrame*		GetFrame() const;
-	CLibraryTipCtrl*	GetToolTip() const;
 	DWORD				GetFolderCookie() const;
 	CLibraryTreeItem*	GetFolderSelection() const;
 	CAlbumFolder*		GetSelectedAlbum(CLibraryTreeItem* pSel = NULL) const;

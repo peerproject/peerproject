@@ -3,7 +3,7 @@
 
 <!-- PeerProject Korean Language Skin File -->
 
-<!-- Translation based on default-en.xml r77 --> <!--Machine Translated!-->
+<!-- Translation based on default-en.xml r78 --> <!--Machine Translated!-->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -24,6 +24,7 @@
 	language="ko"
 	prompt="여기를 클릭하여 자연 언어는 한국을 선택합니다."
 />
+
 
 <!-- Toolbar Definitions -->
 <toolbars>
@@ -2873,13 +2874,16 @@
 		<control caption="Setup..."/>
 		<control caption="Get More"/>
 	</dialog>
-	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuSt" caption="고급">
+	<dialog name="CAdvancedSettingsPage" cookie="SyBuStEdmsEdCoBuBu" caption="고급">
 		<control/>
-		<control/>
-		<control/>
-		<control caption="Restore Default"/>
 		<control caption="Setting Properties:"/>
-		<control caption="Value:"/>
+		<control caption=" 값:"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="기본값 복원"/>
 	</dialog>
 	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="프로토콜">
 		<control caption="PeerProject Common Architecture Protocol Explorer:"/>

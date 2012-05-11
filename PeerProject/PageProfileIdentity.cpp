@@ -1,7 +1,7 @@
 //
 // PageProfileIdentity.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -43,11 +43,11 @@ END_MESSAGE_MAP()
 
 CIdentityProfilePage::CIdentityProfilePage()
 	: CSettingsPage( CIdentityProfilePage::IDD )
-	, m_sNick	( _T("") )
-	, m_sFirst	( _T("") )
-	, m_sLast	( _T("") )
-	, m_sAge	( _T("") )
-	, m_sGender	( _T("") )
+//	, m_sNick	( _T("") )
+//	, m_sFirst	( _T("") )
+//	, m_sLast	( _T("") )
+//	, m_sAge	( _T("") )
+//	, m_sGender	( _T("") )
 	, m_bBrowseUser	( FALSE )
 {
 	//{{AFX_DATA_INIT(CIdentityProfilePage)
@@ -104,22 +104,12 @@ BOOL CIdentityProfilePage::OnInitDialog()
 		{
 			CComboBox* pGender = (CComboBox*) GetDlgItem( IDC_PROFILE_GENDER );
 			if ( m_sGender.CompareNoCase( _T("male") ) == 0 )
-			{
-				int nIndex = pGender->SelectString( 1, (LPCTSTR) strGenderMale );
-				ASSERT(nIndex != CB_ERR);
-				UNUSED_ALWAYS(nIndex);
-			}
+				pGender->SelectString( -1, (LPCTSTR)strGenderMale );
 			else if ( m_sGender.CompareNoCase( _T("female") ) == 0 )
-			{
-				int nIndex = pGender->SelectString( 2, (LPCTSTR) strGenderFemale );
-				ASSERT(nIndex != CB_ERR);
-				UNUSED_ALWAYS(nIndex);
-			}
+				pGender->SelectString( -1, (LPCTSTR)strGenderFemale );
 			else
 				m_sGender.Empty();
 		}
-		else
-			m_sGender.Empty();
 
 		int nAge = 0;
 
@@ -129,9 +119,9 @@ BOOL CIdentityProfilePage::OnInitDialog()
 			m_sAge.Empty();
 	}
 
+	CString str;
 	for ( int nAge = 10 ; nAge < 91 ; nAge++ )
 	{
-		CString str;
 		str.Format( _T("%i"), nAge );
 		m_wndAge.AddString( str );
 	}
@@ -154,17 +144,20 @@ void CIdentityProfilePage::OnOK()
 		if ( CXMLElement* pHandle = pIdentity->GetElementByName( _T("handle"), TRUE ) )
 		{
 			pHandle->AddAttribute( _T("primary"), m_sNick );
-			if ( m_sNick.IsEmpty() ) pHandle->Delete();
+			if ( m_sNick.IsEmpty() )
+				pHandle->Delete();
 		}
 
 		if ( CXMLElement* pName = pIdentity->GetElementByName( _T("name"), TRUE ) )
 		{
 			pName->AddAttribute( _T("first"), m_sFirst );
 			pName->AddAttribute( _T("last"), m_sLast );
-			if ( m_sFirst.IsEmpty() && m_sLast.IsEmpty() ) pName->Delete();
+			if ( m_sFirst.IsEmpty() && m_sLast.IsEmpty() )
+				pName->Delete();
 		}
 
-		if ( pIdentity->GetElementCount() == 0 ) pIdentity->Delete();
+		if ( pIdentity->GetElementCount() == 0 )
+			pIdentity->Delete();
 	}
 
 	if ( CXMLElement* pVitals = MyProfile.GetXML( _T("vitals"), TRUE ) )
@@ -192,14 +185,15 @@ void CIdentityProfilePage::OnOK()
 			pVitals->DeleteAttribute( _T("age") );
 
 		if ( pVitals->GetElementCount() == 0 &&
-			 pVitals->GetAttributeCount() == 0 ) pVitals->Delete();
+			 pVitals->GetAttributeCount() == 0 )
+			pVitals->Delete();
 	}
 }
 
 void CIdentityProfilePage::GetGenderTranslations(CString& pMale, CString& pFemale)
 {
-	// Using data from CBrowseHostProfile.1 translation since the
-	// control in the dialog may change its order and it does not have its identifier.
+	// Using data from CBrowseHostProfile.1 translation since
+	// the control in the dialog may change its order and it does not have its identifier.
 
 	BOOL bCollected = FALSE;
 

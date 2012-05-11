@@ -88,7 +88,6 @@ protected:
 	CSize		GetRegionSize();
 	void		Paint(CWnd* pWnd, TRISTATE bActive = TRI_UNKNOWN);
 	BOOL		ParseRect(CXMLElement* pXML, CRect* pRect);
-	BOOL		ParseColor(const CString& str, COLORREF& cr);
 	void		ResolveAnchor(const CRect& rcClient, CRect& rcAnchor, int nAnchor);
 	void		SelectRegion(CWnd* pWnd);
 };

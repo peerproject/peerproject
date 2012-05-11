@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Albanian Skin File -->
 
-<!-- Translation based on default-en.xml r77 -->
+<!-- Translation based on default-en.xml r78 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -453,16 +453,6 @@
 	<!--
 	<toolbar name="WebServices.ShareMonkey">
 		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Merr të Dhëna"/>
-		<separator/>
-		<button id="ID_SHAREMONKEY_PREVIOUS" text="Kaluar"/>
-		<button id="ID_SHAREMONKEY_NEXT" text="Tjetër"/>
-		<separator/>
-		<button id="ID_SHAREMONKEY_PRICES" text="Merr Çmime"/>
-		<button id="ID_SHAREMONKEY_COMPARE" text="Krahaso"/>
-		<button id="ID_SHAREMONKEY_BUY" text="Blije"/>
-	</toolbar>
-	<toolbar name="WebServices.ShareMonkey.WithSave">
-		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Merr të Dhêna"/>
 		<button id="ID_SHAREMONKEY_SAVE" text="Ruaj"/>
 		<control id="ID_SHAREMONKEY_SAVE_OPTION" text="Ruaj Parashikimin" width="100" checked="true"/>
 		<separator/>
@@ -1648,7 +1638,7 @@
 				<font size="13"/>
 			</style>
 			<style name="heading">
-				<font face="Trebuchet MS" size="16" weight="800"/>
+				<font face="Segoe UI" size="18" weight="400"/>
 			</style>
 		</styles>
 		<anchor id="Header" width="32" height="152"/>
@@ -1657,7 +1647,7 @@
 			<icon res="136" width="32" height="32" target="command:ID_NETWORK_CONNECT"/><gap size="8"/>
 			<heading align="middle">LIDHUNI</heading>
 			<newline gap="8" indent="42"/>
-			<text>Mirë se erdhët në PeerProject!</text>
+			<text>Mirë se erdhët në PeerProject.</text>
 			<newline gap="8" indent="42"/>
 			<text>Ju nuk jeni i lidhur te asnjë rrjet pikë më pikë. &#160;</text>
 			<link target="command:ID_NETWORK_CONNECT">Lidhuni Tani!</link>
@@ -3460,13 +3450,16 @@
 		<control caption="_Ndërto..."/>
 		<control caption="Gjej më Shumë"/>
 	</dialog>
-	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuSt" caption="Përparime">
+	<dialog name="CAdvancedSettingsPage" cookie="SyBuStEdmsEdCoBuBu" caption="Përparime">
+		<control/>
+		<control caption="Vetitë e Vendosjes:"/>
+		<control caption="Vlera:"/>
+		<control/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
 		<control caption="Vendos Tipiket"/>
-		<control caption="Vetitë e Vendosjes:"/>
-		<control caption="Vlera:"/>
 	</dialog>
 	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protokollet">
 		<control caption="Eksploruesi i Protokollit Arkitekturor të Zakontë i PeerProject-s:"/>

@@ -1,7 +1,7 @@
 ﻿//
 // CtrlWndTabBar.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -35,8 +35,8 @@ static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif	// Filename
 
-//#define TABBARHEIGHT 26	// Skin.m_nTaskbarHeight
-//#define TABWIDTH 140		// Skin.m_nTaskbarTabWidth
+//#define TABBARHEIGHT	26	// Settings.Skin.TaskbarHeight
+//#define TABWIDTH		140	// Settings.Skin.TaskbarTabWidth
 
 BEGIN_MESSAGE_MAP(CWndTabBar, CControlBar)
 	ON_WM_LBUTTONDOWN()
@@ -67,7 +67,7 @@ CWndTabBar::CWndTabBar()
 	, m_bCloseButton ( FALSE )
 	, m_nCloseImage	( 0 )
 	, m_nMessage	( 0 )
-	, m_nMaximumWidth( Skin.m_nTaskbarTabWidth )
+	, m_nMaximumWidth ( Settings.Skin.TaskbarTabWidth )
 {
 }
 
@@ -112,8 +112,8 @@ void CWndTabBar::SetMessage(LPCTSTR pszText)
 
 void CWndTabBar::SetMaximumWidth(int nWidth)
 {
-	if ( Skin.m_nTaskbarTabWidth > 40 )
-		nWidth = Skin.m_nTaskbarTabWidth;
+	if ( Settings.Skin.TaskbarTabWidth > 40 )
+		nWidth = Settings.Skin.TaskbarTabWidth;
 	if ( m_nMaximumWidth == nWidth ) return;
 	m_nMaximumWidth = nWidth;
 	Invalidate();
@@ -197,8 +197,8 @@ int CWndTabBar::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CControlBar::OnCreate( lpCreateStruct ) == -1 ) return -1;
 
-//	if ( Skin.m_bMenuBorders )
-		m_dwStyle |= CBRS_BORDER_3D;
+	//if ( Settings.Skin.MenuBorders )
+	m_dwStyle |= CBRS_BORDER_3D;
 
 	m_pImages.Create( 16, 16, ILC_COLOR32|ILC_MASK, 1, 1 );
 
@@ -218,7 +218,7 @@ void CWndTabBar::OnDestroy()
 
 CSize CWndTabBar::CalcFixedLayout(BOOL /*bStretch*/, BOOL /*bHorz*/)
 {
-	CSize size( 32767, Skin.m_nTaskbarHeight );
+	CSize size( 32767, Settings.Skin.TaskbarHeight );
 
 	if ( CWnd* pParent = AfxGetMainWnd() )
 	{
@@ -427,8 +427,8 @@ void CWndTabBar::DoPaint(CDC* pDC)
 	ASSERT_VALID(pDC);
 
 	CDC* pOutDC = pDC;
-	CRect rc;
 
+	CRect rc;
 	GetClientRect( &rc );
 
 	if ( m_bmImage.m_hObject != NULL )
@@ -438,7 +438,7 @@ void CWndTabBar::DoPaint(CDC* pDC)
 		CoolInterface.DrawWatermark( pDC, &rc, &m_bmImage );
 	}
 
-	if ( Skin.m_bMenuBorders )
+	if ( Settings.Skin.MenuBorders )
 		DrawBorders( pDC, rc );
 
 	CFont* pOldFont = (CFont*)pDC->SelectObject( &CoolInterface.m_fntNormal );
@@ -821,7 +821,7 @@ void CWndTabBar::TabItem::Paint(CWndTabBar* pBar, CDC* pDC, CRect* pRect, BOOL b
 	COLORREF crBack;
 	BOOL bSkinned = FALSE;
 
-	if ( ! Skin.m_bMenuBorders )
+	if ( ! Settings.Skin.MenuBorders )
 	{
 		if ( ! bTransparent )
 			pDC->FillSolidRect( rc , Colors.m_crMidtone );

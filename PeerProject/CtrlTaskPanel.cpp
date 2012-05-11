@@ -59,7 +59,7 @@ BEGIN_MESSAGE_MAP(CTaskBox, CButton)
 END_MESSAGE_MAP()
 
 #define CAPTION_HEIGHT	25
-//#define MARGIN_WIDTH	12	// Skin.m_nSidebarPadding, was m_nMargin
+//#define MARGIN_WIDTH	12	// Settings.Skin.SidebarPadding, was m_nMargin
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -150,19 +150,22 @@ void CTaskPanel::SetStretchBox(CTaskBox* pBox)
 //	m_nCurve  = nCurve;
 //}
 
-void CTaskPanel::SetWatermark(HBITMAP hBitmap)
+void CTaskPanel::SetWatermark(LPCTSTR szWatermark)
 {
 	if ( m_bmWatermark.m_hObject != NULL ) m_bmWatermark.DeleteObject();
+
+	HBITMAP hBitmap = Skin.GetWatermark( szWatermark );
 	if ( hBitmap != NULL ) m_bmWatermark.Attach( hBitmap );
 }
 
-void CTaskPanel::SetFooter(HBITMAP hBitmap, BOOL bDefault)
+void CTaskPanel::SetFooter(LPCTSTR szWatermark)
 {
 	if ( m_bmFooter.m_hObject != NULL ) m_bmFooter.DeleteObject();
 
+	HBITMAP hBitmap = Skin.GetWatermark( szWatermark );
 	if ( hBitmap != NULL)
 		m_bmFooter.Attach( hBitmap );
-	else if ( bDefault && Colors.m_crTaskPanelBack == RGB( 122, 160, 230 ) )
+	else if ( Colors.m_crTaskPanelBack == RGB( 122, 160, 230 ) )	// Not RGB_DEFAULT_CASE 
 		m_bmFooter.LoadBitmap( IDB_TASKPANEL_FOOTER );
 }
 
@@ -238,7 +241,7 @@ void CTaskPanel::Layout(CRect& rcClient)
 {
 	CRect rcBox( &rcClient );
 
-	rcBox.DeflateRect( Skin.m_nSidebarPadding, Skin.m_nSidebarPadding );
+	rcBox.DeflateRect( Settings.Skin.SidebarPadding, Settings.Skin.SidebarPadding );
 
 	int nStretch = rcBox.Height();
 
@@ -249,7 +252,7 @@ void CTaskPanel::Layout(CRect& rcClient)
 			CTaskBox* pBox = GetNextBox( pos );
 
 			if ( pBox->m_bVisible && pBox->m_nHeight && pBox != m_pStretch )
-				nStretch -= pBox->GetOuterHeight() + Skin.m_nSidebarPadding;
+				nStretch -= pBox->GetOuterHeight() + Settings.Skin.SidebarPadding;
 		}
 	}
 
@@ -278,7 +281,7 @@ void CTaskPanel::Layout(CRect& rcClient)
 				pChild->ShowWindow( pBox->m_bOpen ? SW_SHOW : SW_HIDE );
 			}
 
-			rcBox.OffsetRect( 0, nHeight + Skin.m_nSidebarPadding );
+			rcBox.OffsetRect( 0, nHeight + Settings.Skin.SidebarPadding );
 		}
 		else if ( pBox->IsWindowVisible() )
 		{
@@ -323,7 +326,7 @@ BOOL CTaskBox::Create(CTaskPanel* pPanel, int nHeight, LPCTSTR pszCaption, UINT 
 	if ( pPanel->m_hWnd )
 	{
 		pPanel->GetClientRect( &rect );
-		rect.DeflateRect( Skin.m_nSidebarPadding, 0 );
+		rect.DeflateRect( Settings.Skin.SidebarPadding, 0 );
 		rect.bottom = 0;
 	}
 
@@ -384,22 +387,26 @@ void CTaskBox::SetPrimary(BOOL bPrimary)
 	if ( m_pPanel ) m_pPanel->OnChanged();
 }
 
-void CTaskBox::SetWatermark(HBITMAP hBitmap)
+void CTaskBox::SetWatermark(LPCTSTR szWatermark)
 {
 	if ( m_bmWatermark.m_hObject != NULL ) m_bmWatermark.DeleteObject();
+
+	HBITMAP hBitmap = Skin.GetWatermark( szWatermark );
 	if ( hBitmap != NULL ) m_bmWatermark.Attach( hBitmap );
 }
 
-void CTaskBox::SetCaptionmark(HBITMAP hBitmap, BOOL bDefault)
+void CTaskBox::SetCaptionmark(LPCTSTR szWatermark)
 {
 	if ( m_bmCaptionmark.m_hObject != NULL ) m_bmCaptionmark.DeleteObject();
+
+	HBITMAP hBitmap = Skin.GetWatermark( szWatermark );
 
 	if ( hBitmap == NULL )
 		hBitmap = Skin.GetWatermark( _T("CTaskBox.Caption") );
 
 	if ( hBitmap != NULL )
 		m_bmCaptionmark.Attach( hBitmap );
-	else if ( bDefault && m_bPrimary && Colors.m_crTaskBoxPrimaryBack == RGB( 30, 87, 199 ) )	// RGB_DEFAULT_CASE ?
+	else if ( m_bPrimary && Colors.m_crTaskBoxPrimaryBack == RGB_DEFAULT_CASE )		// Was RGB( 30, 87, 199 )
 		m_bmCaptionmark.LoadBitmap( IDB_TASKBOX_CAPTION );
 
 	m_bCaptionCurve = TRUE;

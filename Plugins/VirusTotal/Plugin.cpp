@@ -48,7 +48,7 @@ void CPlugin::InsertCommand(ISMenu* pWebMenu, int nPos, UINT nID, LPCWSTR szItem
 
 HRESULT CPlugin::Request(LPCWSTR szHash)
 {
-	ATLTRACE( _T("CPlugin::Request( %ls )\n"), szHash );
+	ATLTRACE( "CPlugin::Request( %ls )\n", szHash );
 
 	ShellExecute( NULL, NULL, CString( VIRUSTOTAL_URL ) + szHash, NULL, NULL, SW_SHOWDEFAULT );
 
@@ -80,11 +80,11 @@ HRESULT CPlugin::Request(LPCWSTR szHash)
 //		else
 //		{
 //			pWebBrowserApp->Quit();
-//			ATLTRACE( _T("CPlugin::Request() : Internet Explorer navigate error: 0x%08x\n"), hr );
+//			ATLTRACE( "CPlugin::Request() : Internet Explorer navigate error: 0x%08x\n", hr );
 //		}
 //	}
 //	else
-//		ATLTRACE( _T("CPlugin::Request() : Create Internet Explorer instance error: 0x%08x\n"), hr );
+//		ATLTRACE( "CPlugin::Request() : Create Internet Explorer instance error: 0x%08x\n", hr );
 //
 //	return hr;
 }
@@ -208,11 +208,11 @@ STDMETHODIMP CPlugin::OnUpdate(
 STDMETHODIMP CPlugin::OnCommand(
 	/*[in]*/ UINT nCommandID)
 {
-	ATLTRACE( _T("CPlugin::OnCommand( %d )\n"), nCommandID );
+	ATLTRACE( "CPlugin::OnCommand( %d )\n", nCommandID );
 
 	if ( ! m_pUserInterface )
 	{
-		ATLTRACE( _T("CPlugin::OnCommand : No user interface.\n") );
+		ATLTRACE( "CPlugin::OnCommand : No user interface.\n" );
 		return E_UNEXPECTED;
 	}
 
@@ -232,7 +232,7 @@ STDMETHODIMP CPlugin::OnCommand(
 					hr = pGenericView->get_Item( CComVariant( i ), &pItem );
 					if ( FAILED( hr ) )
 					{
-						ATLTRACE( _T("CPlugin::OnCommand() : Get item error: 0x%08x\n"), hr );
+						ATLTRACE( "CPlugin::OnCommand() : Get item error: 0x%08x\n", hr );
 						break;
 					}
 
@@ -252,10 +252,10 @@ STDMETHODIMP CPlugin::OnCommand(
 								pLibraryFile->get_Hash( URN_SHA1, ENCODING_BASE16, &pSHA1 );
 							}
 							else
-								ATLTRACE( _T("CPlugin::OnCommand() : Find file by index error: 0x%08x\n"), hr );
+								ATLTRACE( "CPlugin::OnCommand() : Find file by index error: 0x%08x\n", hr );
 						}
 						else
-							ATLTRACE( _T("CPlugin::OnCommand() : Get Library error: 0x%08x\n"), hr );
+							ATLTRACE( "CPlugin::OnCommand() : Get Library error: 0x%08x\n", hr );
 
 					}
 					else if ( pItem.vt == VT_DISPATCH )
@@ -268,22 +268,22 @@ STDMETHODIMP CPlugin::OnCommand(
 						}
 					}
 					else
-						ATLTRACE( _T("CPlugin::OnCommand() : Unknown item data.\n") );
+						ATLTRACE( "CPlugin::OnCommand() : Unknown item data.\n" );
 
 					if ( pMD5.Length() )
 						Request( pMD5 );
 					else if ( pSHA1.Length() )
 						Request( pSHA1 );
 					else
-						ATLTRACE( _T("CPlugin::OnCommand() : No compatible hashes found.\n") );
+						ATLTRACE( "CPlugin::OnCommand() : No compatible hashes found.\n" );
 				}
 				return S_OK;
 			}
 			else
-				ATLTRACE( _T("CPlugin::OnCommand() : No files selected: 0x%08x\n"), hr );
+				ATLTRACE( "CPlugin::OnCommand() : No files selected: 0x%08x\n", hr );
 		}
 		else
-			ATLTRACE( _T("CPlugin::OnCommand() : Active view get error: 0x%08x\n"), hr );
+			ATLTRACE( "CPlugin::OnCommand() : Active view get error: 0x%08x\n", hr );
 	}
 
 	return S_FALSE;

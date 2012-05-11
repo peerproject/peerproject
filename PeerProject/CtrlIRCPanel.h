@@ -1,7 +1,7 @@
 //
 // CtrlIRCPanel.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -38,46 +38,48 @@
 
 class CIRCChannelsBox : public CTaskBox
 {
+	DECLARE_DYNAMIC(CIRCChannelsBox)
+
 public:
 	CIRCChannelsBox();
 	virtual ~CIRCChannelsBox();
-	DECLARE_DYNAMIC(CIRCChannelsBox)
 
-	CListCtrl			m_wndChanList;
-	CIconButtonCtrl		m_wndAddChannel;
-	CIconButtonCtrl		m_wndRemoveChannel;
-	HCURSOR				m_hHand;
-	CBitmap				m_bmWatermark;
-	CDC					m_dcBuffer;
-	CBitmap				m_bmBuffer;
-	HBITMAP				m_hBuffer;
-	CString				m_sPassedChannel;
+public:
+	CListCtrl		m_wndChanList;
+	CIconButtonCtrl	m_wndAddChannel;
+	CIconButtonCtrl	m_wndRemoveChannel;
+	HCURSOR			m_hHand;
+	CDC				m_dcBuffer;
+	HBITMAP			m_hBuffer;
+	CBitmap			m_bmWatermark;
+	CString			m_sPassedChannel;
 
 	void	OnSkinChange();
 
 protected:
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnPaint();
-	afx_msg void OnChansDoubleClick(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnAddChannel();
 	afx_msg void OnRemoveChannel();
+	afx_msg void OnChansDoubleClick(NMHDR* pNMHDR, LRESULT* pResult);
 
 	DECLARE_MESSAGE_MAP()
 };
 
 class CIRCUsersBox : public CTaskBox
 {
+	DECLARE_DYNAMIC(CIRCUsersBox)
+
 public:
 	CIRCUsersBox();
 	virtual ~CIRCUsersBox();
-	DECLARE_DYNAMIC(CIRCUsersBox)
 
-	CListBox			m_wndUserList;
-	CBitmap				m_bmWatermark;
-	CDC					m_dcBuffer;
-	CBitmap				m_bmBuffer;
-	HBITMAP				m_hBuffer;
+public:
+	CListBox		m_wndUserList;
+	CDC				m_dcBuffer;
+	HBITMAP			m_hBuffer;
+	CBitmap			m_bmWatermark;
 
 	void	OnSkinChange();
 	void	UpdateCaptionCount();
@@ -85,23 +87,25 @@ public:
 protected:
 	int		HitTest(const CPoint& pt) const;
 
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnPaint();
 	afx_msg void OnUsersDoubleClick();
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
-	afx_msg int OnCompareItem(int nIDCtl, LPCOMPAREITEMSTRUCT lpCompareItemStruct);
+	afx_msg int  OnCompareItem(int nIDCtl, LPCOMPAREITEMSTRUCT lpCompareItemStruct);
 
 	DECLARE_MESSAGE_MAP()
 };
 
 class CIRCPanel : public CTaskPanel
 {
+	DECLARE_DYNAMIC(CIRCPanel)
+
 public:
 	CIRCPanel();
 	virtual ~CIRCPanel();
-	DECLARE_DYNAMIC(CIRCPanel)
 
+public:
 	CIRCUsersBox	m_boxUsers;
 	CIRCChannelsBox	m_boxChans;
 
@@ -111,7 +115,7 @@ public:
 protected:
 	CFont	m_pFont;
 
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 
 	DECLARE_MESSAGE_MAP()
 };

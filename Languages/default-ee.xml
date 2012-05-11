@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Estonian Skin File -->
 
-<!-- Translation based on default-en.xml r77 --> <!-- (Shareaza 2.2.2.9) -->
+<!-- Translation based on default-en.xml r78 --> <!-- (Shareaza 2.2.2.9) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1532,14 +1532,14 @@
 				<font size="13"/>
 			</style>
 			<style name="heading">
-				<font face="Trebuchet MS" size="16" weight="800"/>
+				<font face="Segoe UI" size="18" weight="400"/>
 			</style>
 		</styles>
 		<anchor id="Header" width="32" height="152"/>
 		<newline gap="0"/>
 		<group id="1">
 			<icon res="136" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">OLE ÜHENDATUD</heading>
+			<heading align="middle">Ole Ühendatud</heading>
 			<newline gap="8" indent="42"/>
 			<text>Teretulemast PeerProjectsse! &#160;Sa ei ole praegu ühendatud ühtegi peer to peer võrku. &#160;</text>
 			<link target="command:ID_NETWORK_CONNECT">Kliki siia, et alustada!</link>
@@ -1547,12 +1547,12 @@
 		</group>
 		<group id="2">
 			<icon res="130" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">PEERPROJECT OTSING</heading>
+			<heading align="middle">PeerProject Otsing</heading>
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="14" indent="0"/>
 			<icon res="122" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
-			<heading align="middle">MINU TÕMBAMISED</heading>
+			<heading align="middle">Minu TÕmbamised</heading>
 			<newline gap="8" indent="42"/>
 			<text>Or open your completed </text>
 			<link target="command:shell:downloads">downloads folder.</link>
@@ -1563,7 +1563,7 @@
 		</group>
 		<group id="3">
 			<icon res="120" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">UUENDUS TEADE</heading>
+			<heading align="middle">Uuendus Teade</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
 			<newline gap="6"/>
@@ -1572,7 +1572,7 @@
 		</group>
 		<group id="4">
 			<icon res="180" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
-			<heading align="middle">HOIATUS - SA OLED TULEMÜÜRITUD</heading>
+			<heading align="middle">Hoiatus: Sa Oled Tulemüüritud</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject tuvastas, et sinu arvuti on NAT ruuteri või tulemüüri poolt suletud ja ei ole
 				suuteline sissetulevaid ühendusi vastu võtma. &#160;</text>
@@ -1582,7 +1582,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
-		<heading align="middle">KOHANDA PEERPROJECT</heading>
+		<heading align="middle">Kohanda PeerProject</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="196" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
 		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Nahad</link><gap size="6"/>
@@ -1607,7 +1607,7 @@
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="120" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">KAUGTÖÖ ON LUBATUD</heading>
+			<heading align="middle">Kaugtöö On Lubatud</heading>
 			<newline gap="8" indent="42"/>
 			<text>PeerProject Kaugtöö on lubatud. Kontrolli PeerProject, kasutades oma browserit:</text>
 			<newline gap="6"/>
@@ -2793,7 +2793,7 @@
 	<string id="20433" value="PeerProject ei suutnud kustutada:\n\n%s"/>
 	<string id="20434" value="Sinu allalaadimiste kaust &quot;%s&quot; ei ole veel sinu raamatukogus.\n\nLisades selle oma raamatukokku on seda lihtsam käsitleda ja saad ärakasutada täielikult PeerProject võimalusi, nagu allalaadimiste kinnitused ja automaatsed uuendused.  Allalaetud failide raamatukokku panemine ei tähenda tingimita, et sa pead neid jagama: sa saad jagada ka üksikuid faile.\n\nKas soovid lisada oma allalaadimiste kausta kohe raamatukokku?"/>
 	<string id="20435" value="Sinu allalaadimiste kaust on lisatud raamatukokku.  Kas sooviksid seda ka jagada?"/>
-	<!--string id="20436" value="Sa ei ole veel valinud meedia pleierit oma valitud failide jaoks, nagu WinAmp.  Kas sooviksid valida selle nüüd?\n\nPeerProject seob sinupoolt valitud failinime, valitud programmiga &quot;--Lisa&quot; argumendiga."/>
+	<!--string id="20436" value="Sa ei ole veel valinud meedia pleierit oma valitud failide jaoks, nagu WinAmp.  Kas sooviksid valida selle nüüd?\n\nPeerProject seob sinupoolt valitud failinime, valitud programmiga &quot;--ADD&quot; argumendiga."-->
 	<string id="20436" value="See kataloog lisada oma raamatukogu?\n\n%s"/>
 	<string id="20437" value="Ghost Faili"/>
 	<string id="20438" value="Faili %i andmebaasi muutmine."/>
@@ -3493,13 +3493,16 @@
 		<control caption="Seade..."/>
 		<control caption="Otsi lisaks"/>
 	</dialog>
-	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuSt" caption="Täpsem">
+	<dialog name="CAdvancedSettingsPage" cookie="SyBuStEdmsEdCoBuBu" caption="Täpsem">
 		<control/>
-		<control/>
-		<control/>
-		<control caption="Set Default"/>
 		<control caption="Kirjeldus:"/>
 		<control caption="Seadete Omadused:"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="Taasta Vaikimisi"/>
 	</dialog>
 	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protolollid">
 		<control caption="PeerProject Üldehituse Protokollide Teave:"/>
