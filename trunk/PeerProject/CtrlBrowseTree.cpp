@@ -36,16 +36,16 @@ static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif	// Filename
 
-//#define ITEM_HEIGHT 17	// Skinnable Settings.Interface.RowSize
+//#define ITEM_HEIGHT 17	// Settings.Skin.RowSize
 #define WM_UPDATE	(WM_APP+80)
 
 IMPLEMENT_DYNAMIC(CBrowseTreeCtrl, CWnd)
 
 BEGIN_MESSAGE_MAP(CBrowseTreeCtrl, CWnd)
 	ON_WM_SIZE()
-	ON_WM_VSCROLL()
-	ON_WM_ERASEBKGND()
 	ON_WM_PAINT()
+	ON_WM_ERASEBKGND()
+	ON_WM_VSCROLL()
 	ON_WM_LBUTTONDOWN()
 	ON_WM_LBUTTONDBLCLK()
 	ON_WM_LBUTTONUP()
@@ -471,7 +471,7 @@ void CBrowseTreeCtrl::OnKeyDown(UINT nChar, UINT /*nRepCnt*/, UINT /*nFlags*/)
 		if ( GetRect( m_pFocus, &rc ) )
 		{
 			CPoint pt( rc.left, ( rc.top + rc.bottom ) / 2 );
-			pt.y -= Settings.Interface.RowSize;
+			pt.y -= Settings.Skin.RowSize;
 			pTo = HitTest( pt );
 		}
 	}
@@ -480,7 +480,7 @@ void CBrowseTreeCtrl::OnKeyDown(UINT nChar, UINT /*nRepCnt*/, UINT /*nFlags*/)
 		if ( GetRect( m_pFocus, &rc ) )
 		{
 			CPoint pt( rc.left, ( rc.top + rc.bottom ) / 2 );
-			pt.y += Settings.Interface.RowSize;
+			pt.y += Settings.Skin.RowSize;
 			pTo = HitTest( pt );
 		}
 	}
@@ -569,7 +569,7 @@ void CBrowseTreeCtrl::UpdateScroll()
 	pInfo.cbSize	= sizeof(pInfo);
 	pInfo.fMask		= SIF_PAGE | SIF_POS | SIF_RANGE;
 	pInfo.nMin		= 0;
-	pInfo.nMax		= m_nTotal * Settings.Interface.RowSize;
+	pInfo.nMax		= m_nTotal * Settings.Skin.RowSize;
 	pInfo.nPage		= m_nVisible;
 	pInfo.nPos		= m_nScroll = max( 0, min( m_nScroll, pInfo.nMax - (int)pInfo.nPage + 1 ) );
 
@@ -607,7 +607,7 @@ void CBrowseTreeCtrl::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBa
 
 BOOL CBrowseTreeCtrl::OnMouseWheel(UINT /*nFlags*/, short zDelta, CPoint /*pt*/)
 {
-	ScrollBy( zDelta * 3 * -(int)Settings.Interface.RowSize / WHEEL_DELTA );
+	ScrollBy( zDelta * 3 * -(int)Settings.Skin.RowSize / WHEEL_DELTA );
 	return TRUE;
 }
 
@@ -664,8 +664,8 @@ void CBrowseTreeCtrl::OnPaint()
 
 void CBrowseTreeCtrl::Paint(CDC& dc, CRect& rcClient, CPoint& pt, CBrowseTreeItem* pItem)
 {
-	CRect rc( pt.x, pt.y, pt.x, pt.y + Settings.Interface.RowSize );
-	pt.y += Settings.Interface.RowSize;
+	CRect rc( pt.x, pt.y, pt.x, pt.y + Settings.Skin.RowSize );
+	pt.y += Settings.Skin.RowSize;
 
 	if ( rc.top >= rcClient.bottom )
 	{
@@ -729,13 +729,13 @@ CBrowseTreeItem* CBrowseTreeCtrl::HitTest(const POINT& point, RECT* pRect) const
 
 CBrowseTreeItem* CBrowseTreeCtrl::HitTest(CRect& rcClient, CPoint& pt, CBrowseTreeItem* pItem, const POINT& point, RECT* pRect) const
 {
-	CRect rc( rcClient.left, pt.y, rcClient.right, pt.y + Settings.Interface.RowSize );
-	pt.y += Settings.Interface.RowSize;
+	CRect rc( rcClient.left, pt.y, rcClient.right, pt.y + Settings.Skin.RowSize );
+	pt.y += Settings.Skin.RowSize;
 
-	if ( rc.top >= rcClient.bottom + (int)Settings.Interface.RowSize )
+	if ( rc.top >= rcClient.bottom + (int)Settings.Skin.RowSize )
 		return NULL;
 
-	if ( rc.bottom >= rcClient.top - (int)Settings.Interface.RowSize )
+	if ( rc.bottom >= rcClient.top - (int)Settings.Skin.RowSize )
 	{
 		if ( rc.PtInRect( point ) )
 		{
@@ -758,7 +758,7 @@ CBrowseTreeItem* CBrowseTreeCtrl::HitTest(CRect& rcClient, CPoint& pt, CBrowseTr
 		{
 			if ( CBrowseTreeItem* pHit = HitTest( rcClient, pt, *pChild, point, pRect ) )
 				return pHit;
-			if ( pt.y >= rcClient.bottom + (int)Settings.Interface.RowSize ) break;
+			if ( pt.y >= rcClient.bottom + (int)Settings.Skin.RowSize ) break;
 		}
 
 		pt.x -= 16;
@@ -796,7 +796,7 @@ BOOL CBrowseTreeCtrl::GetRect(CPoint& pt, CBrowseTreeItem* pItem, CBrowseTreeIte
 		pRect->left		= pt.x;
 		pRect->top		= pt.y;
 		pRect->right	= pt.x;
-		pRect->bottom	= pt.y = pRect->top + Settings.Interface.RowSize;
+		pRect->bottom	= pt.y = pRect->top + Settings.Skin.RowSize;
 
 		CClientDC dc( this );
 		CFont* pOld = (CFont*)dc.SelectObject( pItem->m_bBold ?
@@ -807,7 +807,7 @@ BOOL CBrowseTreeCtrl::GetRect(CPoint& pt, CBrowseTreeItem* pItem, CBrowseTreeIte
 		return TRUE;
 	}
 
-	pt.y += Settings.Interface.RowSize;
+	pt.y += Settings.Skin.RowSize;
 
 	if ( pItem->m_bExpanded && pItem->m_nCount )
 	{
@@ -1106,7 +1106,7 @@ void CBrowseTreeItem::Paint(CDC& dc, CRect& rc, BOOL bTarget, COLORREF crBack) c
 	RECT rcTick = { rc.left+2, rc.top+2, rc.left+14, rc.bottom-2 };
 
 	if ( crBack == CLR_NONE ) crBack = Colors.m_crWindow;
-	dc.FillSolidRect( rc.left, rc.top, 33, Settings.Interface.RowSize, crBack );
+	dc.FillSolidRect( rc.left, rc.top, 33, Settings.Skin.RowSize, crBack );
 
 	if ( m_bExpanded )
 	{

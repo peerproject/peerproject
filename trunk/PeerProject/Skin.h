@@ -47,11 +47,12 @@ public:
 	BOOL		SelectCaption(CWnd* pWnd, int nIndex);
 	BOOL		SelectCaption(CString& strCaption, int nIndex);
 	void		DrawWrappedText(CDC* pDC, CRect* pBox, LPCTSTR pszText, CPoint ptStart, BOOL bExclude = TRUE);
+	static BOOL LoadColor(CXMLElement* pXML, LPCTSTR pszName, COLORREF* pColor);
+	static COLORREF	GetColor(CString sColor);
 protected:
 	void		ApplyRecursive(LPCTSTR pszPath);
 	void		CreateDefault();
 	void		CreateDefaultColors();
-	HBITMAP		LoadBitmap(const CString& strName);
 
 // Strings
 public:
@@ -93,13 +94,16 @@ protected:
 	BOOL		LoadDocuments(CXMLElement* pBase);
 	CMap< CString, const CString&, CXMLElement*, CXMLElement* > m_pDocuments;
 
-// Watermarks
+// Watermarks (images)
 public:
 	HBITMAP		GetWatermark(LPCTSTR pszName);
 	BOOL		GetWatermark(CBitmap* pBitmap, LPCTSTR pszName);
+	HBITMAP		LoadBitmap(const CString& strName);
+	HBITMAP		LoadBitmap(UINT nID);
 protected:
 	BOOL		LoadWatermarks(CXMLElement* pSub, const CString& strPath);
 	CMap< CString, const CString&, CString, CString& > m_pWatermarks;
+//	CMap< CString, const CString&, HBITMAP, const HBITMAP& > m_pBitmaps;
 
 // Translate
 public:
@@ -172,26 +176,6 @@ public:
 protected:
 	BOOL		LoadNavBar(CXMLElement* pBase);
 	BOOL		LoadOptions(CXMLElement* pBase);
-
-// Option Settings
-public:
-	BOOL		m_bDropMenu;
-	BOOL		m_bMenuBorders;
-	BOOL		m_bMenuGripper;
-	BOOL		m_bRoundedSelect;
-	int			m_nButtonEdge;
-	int			m_nMenubarHeight;
-	int			m_nToolbarHeight;
-	int			m_nTaskbarHeight;
-	int			m_nTaskbarTabWidth;
-	int			m_nGroupsbarHeight;
-	int			m_nHeaderbarHeight;
-	int			m_nMonitorbarWidth;
-	int			m_nSidebarWidth;
-	int			m_nSidebarPadding;
-	int			m_nSplitter;
-	int 		m_nLibIconsX;
-	int 		m_nLibIconsY;
 
 private:
 	CSkin(const CSkin&);

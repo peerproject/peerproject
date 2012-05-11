@@ -128,10 +128,12 @@ public:
 
 	// Shell functions (Safe Vista+)
 	HINSTANCE		m_hShell32;
-	HRESULT			(WINAPI *m_pfnSHGetFolderPathW)(__reserved HWND hwnd, __in int csidl, __in_opt HANDLE hToken, __in DWORD dwFlags, __out_ecount(MAX_PATH) LPWSTR pszPath);		// Win2K+ ?	SHGetFolderPath()
+	HRESULT			(WINAPI *m_pfnSHGetFolderPathW)(__reserved HWND hwnd, __in int csidl, __in_opt HANDLE hToken, __in DWORD dwFlags, __out_ecount(MAX_PATH) LPWSTR pszPath);	// Win2K+ ?	SHGetFolderPath()
 	HRESULT			(WINAPI *m_pfnSHGetKnownFolderPath)(__in REFKNOWNFOLDERID rfid, __in DWORD dwFlags, __in_opt HANDLE hToken, __deref_out PWSTR *ppszPath);		// Vista+	SHGetKnownFolderPath()
 	HRESULT			(WINAPI *m_pfnSHCreateItemFromParsingName)(__in PCWSTR pszPath, __in_opt IBindCtx *pbc, __in REFIID riid, __deref_out void **ppv);				// Win7+	SHCreateItemFromParsingName()
 	HRESULT			(WINAPI *m_pfnSHQueryUserNotificationState)(__in QUERY_USER_NOTIFICATION_STATE *state);						// Vista+	SHQueryUserNotificationState() for IsUserFullscreen()
+	HRESULT			(WINAPI *m_pfnSetCurrentProcessExplicitAppUserModelID)(__in PCWSTR pszAppID);
+	HRESULT			(WINAPI *m_pfnSHGetImageList)(__in int iImageList, __in REFIID riid, __out void **ppv);						// WinXP+	SHGetImageList() for CShellIcons::Get()
 
 	// ShellWAPI functions (Safe IE6+)
 	HINSTANCE		m_hShlWapi;
@@ -174,14 +176,14 @@ public:
 	BOOL			KeepAlive();
 
 	virtual CDocument* OpenDocumentFile(LPCTSTR lpszFileName);		// Open file or url. Returns NULL always.
-	static BOOL		Open(LPCTSTR lpszFileName, BOOL bTest = FALSE);	// Open file or url (generic function)
-	static BOOL		OpenShellShortcut(LPCTSTR lpszFileName);		// Open .lnk file
-	static BOOL		OpenInternetShortcut(LPCTSTR lpszFileName);		// Open .url file
-	static BOOL		OpenTorrent(LPCTSTR lpszFileName);				// Open .torrent file
-	static BOOL		OpenCollection(LPCTSTR lpszFileName);			// Open Shareaza/eMule/DC++ file  (.co, .collection, .emulecollection, .files.xml.bz2)
-	static BOOL		OpenImport(LPCTSTR lpszFileName);				// Open eMule/DC++ servers file   (.met, .dat, hublist.xml.bz2)
-	static BOOL		OpenURL(LPCTSTR lpszFileName, BOOL bSilent = FALSE);	// Open url
-	static BOOL		OpenPath(LPCTSTR lpszFileName);					// Open/Share folder
+	BOOL			Open(LPCTSTR lpszFileName, BOOL bTest = FALSE);	// Open file or url (generic function)
+	BOOL			OpenShellShortcut(LPCTSTR lpszFileName);		// Open .lnk file
+	BOOL			OpenInternetShortcut(LPCTSTR lpszFileName);		// Open .url file
+	BOOL			OpenTorrent(LPCTSTR lpszFileName);				// Open .torrent file
+	BOOL			OpenCollection(LPCTSTR lpszFileName);			// Open Shareaza/eMule/DC++ file  (.co, .collection, .emulecollection, .files.xml.bz2)
+	BOOL			OpenImport(LPCTSTR lpszFileName);				// Open eMule/DC++ servers file   (.met, .dat, hublist.xml.bz2)
+	BOOL			OpenURL(LPCTSTR lpszFileName, BOOL bSilent = FALSE);	// Open url
+	BOOL			OpenPath(LPCTSTR lpszFileName);					// Open/Share folder
 
 	CString			GetWindowsFolder() const;
 	CString			GetProgramFilesFolder() const;
@@ -283,6 +285,9 @@ void	PurgeDeletes();						// Delete postponed file
 // Loads RT_HTML or RT_GZIP resource as string
 CString LoadHTML(HINSTANCE hInstance, UINT nResourceID);
 CString LoadRichHTML(UINT nResourceID, CString& strResponse, CPeerProjectFile* pFile = NULL);
+
+// Save icon in .ico-format to buffer
+BOOL	SaveIcon(HICON hIcon, CBuffer& oBuffer, int colors = -1);
 
 // Loads well-known resource for HTTP-uploading
 bool	ResourceRequest(const CString& strPath, CBuffer& pResponse, CString& sHeader);
@@ -419,8 +424,8 @@ const LPCTSTR RT_GZIP = _T("GZIP");
 #define WM_COPYGLOBALDATA		0x0049			// Undocumented way for drag-n-drop
 
 // Set Default Sizes in Pixels					// Skinnable Options:
-//#define PANEL_WIDTH			200				// Skin.m_nSidebarWidth
-//#define TOOLBAR_HEIGHT		28				// Skin.m_nToolbarHeight
+//#define PANEL_WIDTH			200				// Settings.Skin.SidebarWidth
+//#define TOOLBAR_HEIGHT		28				// Settings.Skin.ToolbarHeight
 //#define THUMB_STORE_SIZE		128				// Settings.Library.ThumbSize
 
 
@@ -434,8 +439,9 @@ const LPCTSTR RT_GZIP = _T("GZIP");
 // Network ID's:
 
 // Client's name
-#define CLIENT_NAME				L"PeerProject"
 #define CLIENT_NAME_CHAR		"PeerProject"
+#define CLIENT_NAME				L"PeerProject"
+#define CLIENT_HWND				L"PeerProjectMainWnd"
 
 // G1/G2 4 character vendor code
 // PEER, RAZA, RAZB, BEAR, LIME

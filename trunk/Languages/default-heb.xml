@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hebrew Skin File -->
 
-<!-- Translation based on default-en.xml r77 -->
+<!-- Translation based on default-en.xml r78 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -478,16 +478,6 @@ gap i newline
 	</toolbar>
 	<!--
 	<toolbar name="WebServices.ShareMonkey">
-		<button id="ID_SHAREMONKEY_DOWNLOAD" text="השג מידע"/>
-		<separator/>
-		<button id="ID_SHAREMONKEY_PREVIOUS" text="הקודם"/>
-		<button id="ID_SHAREMONKEY_NEXT" text="הבא"/>
-		<separator/>
-		<button id="ID_SHAREMONKEY_PRICES" text="השג מחירים"/>
-		<button id="ID_SHAREMONKEY_COMPARE" text="השווה"/>
-		<button id="ID_SHAREMONKEY_BUY" text="קנה"/>
-	</toolbar>
-	<toolbar name="WebServices.ShareMonkey.WithSave">
 		<button id="ID_SHAREMONKEY_DOWNLOAD" text="השג מידע"/>
 		<button id="ID_SHAREMONKEY_SAVE" text="שמור"/>
 		<separator/>
@@ -3272,13 +3262,16 @@ gap i newline
 		<control caption="...התקנה"/>
 		<control caption=":מידע נוסף"/>
 	</dialog>
-	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuSt" caption="מתקדם">
+	<dialog name="CAdvancedSettingsPage" cookie="SyBuStEdmsEdCoBuBu" caption="מתקדם">
 		<control/>
-		<control/>
-		<control/>
-		<control caption=":הגדרות"/>
 		<control caption=":ערך"/>
 		<control caption=":תיאור"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="הגדרות"/>
 	</dialog>
 	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="פרוטוקולים">
 		<control caption=":סייר ארכיטקטורת פרוטוקול משותף של שרזה"/>

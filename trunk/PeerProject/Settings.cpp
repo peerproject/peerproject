@@ -89,8 +89,8 @@ void CSettings::Load()
 	Add( _T(""), _T("MaxDebugLogSize"), &General.MaxDebugLogSize, 10*MegaByte, MegaByte, 0, 100, _T(" MB") );
 	Add( _T(""), _T("MinTransfersRest"), &General.MinTransfersRest, 40, 1, 1, 100, _T(" ms") );
 	Add( _T(""), _T("MultiUser"), &General.MultiUser, false, true );
-	Add( _T(""), _T("Path"), &General.Path );
-	Add( _T(""), _T("UserPath"), &General.UserPath );
+	Add( _T(""), _T("Path"), &General.Path, NULL, false, setReadOnly );
+	Add( _T(""), _T("UserPath"), &General.UserPath, NULL, false, setReadOnly );
 	Add( _T(""), _T("LogLevel"), &General.LogLevel, MSG_INFO, 1, MSG_ERROR, MSG_DEBUG, _T(" level") );
 	Add( _T(""), _T("SearchLog"), &General.SearchLog, true );
 	Add( _T(""), _T("DialogScan"), &General.DialogScan, false );
@@ -102,7 +102,8 @@ void CSettings::Load()
 	Add( _T("Settings"), _T("IgnoreXPsp2"), &General.IgnoreXPsp2, false );
 	Add( _T("Settings"), _T("Language"), &General.Language, _T("en") );
 	Add( _T("Settings"), _T("LanguageRTL"), &General.LanguageRTL, false );
-	Add( _T("Settings"), _T("LastSettingsPage"), &General.LastSettingsPage );
+	Add( _T("Settings"), _T("LanguageDefault"), &General.LanguageDefault, true );
+	Add( _T("Settings"), _T("LastSettingsPage"), &General.LastSettingsPage, NULL, true );
 	Add( _T("Settings"), _T("LastSettingsIndex"), &General.LastSettingsIndex, 0 );
 	Add( _T("Settings"), _T("RatesInBytes"), &General.RatesInBytes, true );
 	Add( _T("Settings"), _T("RatesUnit"), &General.RatesUnit, 0, 1, 0, 3 );
@@ -127,12 +128,11 @@ void CSettings::Load()
 	Add( _T("Interface"), _T("AutoComplete"), &Interface.AutoComplete, true );
 	Add( _T("Interface"), _T("CoolMenuEnable"), &Interface.CoolMenuEnable, true );
 	Add( _T("Interface"), _T("LowResMode"), &Interface.LowResMode, false );
-	Add( _T("Interface"), _T("RowSize"), &Interface.RowSize, 17, 1, 16, 20, _T(" px") );
 	Add( _T("Interface"), _T("RefreshRateGraph"), &Interface.RefreshRateGraph, 72, 1, 10, 60000, _T(" ms") );	// 30sec display areas
 	Add( _T("Interface"), _T("RefreshRateText"), &Interface.RefreshRateText, 650, 1, 10, 10000, _T(" ms") );	// 3x per 2 sec.
 	Add( _T("Interface"), _T("RefreshRateUI"), &Interface.RefreshRateUI, theApp.m_nWinVer < WIN_XP_64 ? 330 : 200, 1, 10, 2000, _T(" ms") );	// 3/5x per sec. (Button status)
 	Add( _T("Interface"), _T("TipDelay"), &Interface.TipDelay, 500, 1, 100, 5000, _T(" ms") );
-	Add( _T("Interface"), _T("TipAlpha"), &Interface.TipAlpha, 220, 1, 50, 255 );
+	Add( _T("Interface"), _T("TipAlpha"), &Interface.TipAlpha, 240, 1, 50, 255 );
 	Add( _T("Interface"), _T("TipDownloads"), &Interface.TipDownloads, true );
 	Add( _T("Interface"), _T("TipUploads"), &Interface.TipUploads, true );
 	Add( _T("Interface"), _T("TipLibrary"), &Interface.TipLibrary, true );
@@ -141,6 +141,25 @@ void CSettings::Load()
 	Add( _T("Interface"), _T("TipSearch"), &Interface.TipSearch, true );
 	Add( _T("Interface"), _T("TipShadow"), &Interface.TipShadow, theApp.m_bIsWin2000 ? false : true );
 
+	Add( _T("Skin"), _T("DropMenu"), &Skin.DropMenu, false );
+	Add( _T("Skin"), _T("MenuBorders"), &Skin.MenuBorders, true );
+	Add( _T("Skin"), _T("MenuGripper"), &Skin.MenuGripper, true );
+	Add( _T("Skin"), _T("RoundedSelect"), &Skin.RoundedSelect, false );
+	Add( _T("Skin"), _T("ButtonEdge"), &Skin.ButtonEdge, 4, 1, 0, 100, _T(" px") );
+	Add( _T("Skin"), _T("MenubarHeight"), &Skin.MenubarHeight, 28, 1, 0, 100, _T(" px") );
+	Add( _T("Skin"), _T("ToolbarHeight"), &Skin.ToolbarHeight, 28, 1, 0, 100, _T(" px") );
+	Add( _T("Skin"), _T("TaskbarHeight"), &Skin.TaskbarHeight, 26, 1, 0, 100, _T(" px") );
+	Add( _T("Skin"), _T("TaskbarTabWidth"), &Skin.TaskbarTabWidth, 200, 1, 0, 100, _T(" px") );
+	Add( _T("Skin"), _T("GroupsbarHeight"), &Skin.GroupsbarHeight, 24, 1, 0, 100, _T(" px") );
+	Add( _T("Skin"), _T("HeaderbarHeight"), &Skin.HeaderbarHeight, 64, 1, 0, 100, _T(" px") );
+	Add( _T("Skin"), _T("MonitorbarWidth"), &Skin.MonitorbarWidth, 120, 1, 0, 100, _T(" px") );
+	Add( _T("Skin"), _T("SidebarWidth"), &Skin.SidebarWidth, 200, 1, 0, 100, _T(" px") );
+	Add( _T("Skin"), _T("SidebarPadding"), &Skin.SidebarPadding, 12, 1, 0, 100, _T(" px") );
+	Add( _T("Skin"), _T("Splitter"), &Skin.Splitter, 6, 1, 1, 100, _T(" px") );
+	Add( _T("Skin"), _T("RowSize"), &Skin.RowSize, 17, 1, 16, 20, _T(" px") );
+	Add( _T("Skin"), _T("LibIconsX"), &Skin.LibIconsX, 220, 1, 30, 500, _T(" px") );
+	Add( _T("Skin"), _T("LibIconsY"), &Skin.LibIconsY, 56, 1, 30, 100, _T(" px") );
+
 	Add( _T("Windows"), _T("RunWizard"), &Windows.RunWizard, false );
 	Add( _T("Windows"), _T("RunWarnings"), &Windows.RunWarnings, false );
 	Add( _T("Windows"), _T("RunPromote"), &Windows.RunPromote, false );
@@ -148,10 +167,10 @@ void CSettings::Load()
 	Add( _T("Toolbars"), _T("ShowRemote"), &Toolbars.ShowRemote, true );
 	Add( _T("Toolbars"), _T("ShowMonitor"), &Toolbars.ShowMonitor, true );
 
-	Add( _T("Fonts"), _T("DefaultFont"), &Fonts.DefaultFont, theApp.m_bIsVistaOrNewer ? _T("Segoe UI") : _T("Tahoma") );
-	Add( _T("Fonts"), _T("SystemLogFont"), &Fonts.SystemLogFont, theApp.m_bIsVistaOrNewer ? _T("Segoe UI") : _T("Tahoma") );
-	Add( _T("Fonts"), _T("PacketDumpFont"), &Fonts.PacketDumpFont, theApp.m_bIsVistaOrNewer ? _T("Consolas") : _T("Lucida Console") );
-	Add( _T("Fonts"), _T("DefaultSize"), &Fonts.DefaultSize, 11, 1, 9, 12, _T(" pt") );
+	Add( _T("Fonts"), _T("DefaultFont"), &Fonts.DefaultFont, theApp.m_bIsVistaOrNewer ? _T("Segoe UI") : _T("Tahoma"), false, setFont );
+	Add( _T("Fonts"), _T("SystemLogFont"), &Fonts.SystemLogFont, theApp.m_bIsVistaOrNewer ? _T("Segoe UI") : _T("Tahoma"), false, setFont );
+	Add( _T("Fonts"), _T("PacketDumpFont"), &Fonts.PacketDumpFont, theApp.m_bIsVistaOrNewer ? _T("Consolas") : _T("Lucida Console"), false, setFont );
+	Add( _T("Fonts"), _T("DefaultSize"), &Fonts.DefaultSize, 11, 1, 9, 12, _T(" px") );
 
 	Add( _T("Library"), _T("CreateGhosts"), &Library.CreateGhosts, true );
 	Add( _T("Library"), _T("FilterURI"), &Library.FilterURI );
@@ -213,8 +232,8 @@ void CSettings::Load()
 //	Add( _T("WebServices"), _T("ShareMonkeyBaseURL"), &WebServices.ShareMonkeyBaseURL, _T("http://tools.sharemonkey.com/xml/") );	// Obsolete: Does not exist
 
 	Add( _T("Search"), _T("AdultFilter"), &Search.AdultFilter, false );
-	Add( _T("Search"), _T("AdvancedPanel"), &Search.AdvancedPanel, true );
 	Add( _T("Search"), _T("AutoPreview"), &Search.AutoPreview, true );
+	Add( _T("Search"), _T("AdvancedPanel"), &Search.AdvancedPanel, true );
 	Add( _T("Search"), _T("BlankSchemaURI"), &Search.BlankSchemaURI, CSchema::uriAudio );
 	Add( _T("Search"), _T("BrowseTreeSize"), &Search.BrowseTreeSize, 180 );
 	Add( _T("Search"), _T("DetailPanelSize"), &Search.DetailPanelSize, 100 );
@@ -229,9 +248,10 @@ void CSettings::Load()
 	Add( _T("Search"), _T("MonitorFilter"), &Search.MonitorFilter );
 	Add( _T("Search"), _T("MonitorQueue"), &Search.MonitorQueue, 128, 1, 1, 4096 );
 	Add( _T("Search"), _T("MonitorSchemaURI"), &Search.MonitorSchemaURI, CSchema::uriAudio );
-	Add( _T("Search"), _T("SchemaTypes"), &Search.SchemaTypes, true );
+	Add( _T("Search"), _T("ResultsPanel"), &Search.ResultsPanel, true );
 	Add( _T("Search"), _T("SearchPanel"), &Search.SearchPanel, true );
 	Add( _T("Search"), _T("ShowNames"), &Search.ShowNames, true );
+	Add( _T("Search"), _T("SchemaTypes"), &Search.SchemaTypes, true );
 	Add( _T("Search"), _T("SpamFilterThreshold"), &Search.SpamFilterThreshold, 20, 1, 0, 100, _T("%") );
 	Add( _T("Search"), _T("SwitchToTransfers"), &Search.SwitchToTransfers, true );
 	Add( _T("Search"), _T("SanityCheck"), &Search.SanityCheck, true );
@@ -465,6 +485,7 @@ void CSettings::Load()
 	Add( _T("DC"), _T("HubListURL"), &DC.HubListURL, _T("http://dchublist.com/hublist.xml.bz2") );
 
 	Add( _T("BitTorrent"), _T("AutoClear"), &BitTorrent.AutoClear, false );
+	Add( _T("BitTorrent"), _T("AutoMerge"), &BitTorrent.AutoMerge, true );
 	Add( _T("BitTorrent"), _T("AutoSeed"), &BitTorrent.AutoSeed, true );
 	Add( _T("BitTorrent"), _T("BandwidthPercentage"), &BitTorrent.BandwidthPercentage, 90, 1, 40, 99, _T(" %") );
 	Add( _T("BitTorrent"), _T("ClearRatio"), &BitTorrent.ClearRatio, 120, 1, 100, 999, _T(" %") );
@@ -596,8 +617,8 @@ void CSettings::Load()
 	Add( _T("IRC"), _T("Timestamp"), &IRC.Timestamp, false );
 	Add( _T("IRC"), _T("UserName"), &IRC.UserName, _T("PeerIRC") );
 	Add( _T("IRC"), _T("RealName"), &IRC.RealName, _T("PeerIRC") );
-	Add( _T("IRC"), _T("ScreenFont"), &IRC.ScreenFont );
-	Add( _T("IRC"), _T("FontSize"), &IRC.FontSize, 12, 1, 6, 50 );
+	Add( _T("IRC"), _T("ScreenFont"), &IRC.ScreenFont, theApp.m_bIsVistaOrNewer ? _T("Segoe UI") : NULL, false, setFont );
+	Add( _T("IRC"), _T("FontSize"), &IRC.FontSize, 12, 1, 6, 50, _T(" px") );
 	Add( _T("IRC"), _T("OnConnect"), &IRC.OnConnect, _T("") );
 
 	Add( _T("Remote"), _T("Enable"), &Remote.Enable, false );
@@ -639,11 +660,7 @@ void CSettings::Load()
 
 	// Set default program and user paths
 	if ( General.Path.IsEmpty() || ! PathFileExists( General.Path ) )
-	{
-		General.Path = theApp.m_strBinaryPath;
-		if ( General.Path.ReverseFind( '\\' ) >= 0 )
-			General.Path = General.Path.Left( General.Path.ReverseFind( '\\' ) );
-	}
+		General.Path = theApp.m_strBinaryPath.Left( theApp.m_strBinaryPath.ReverseFind( '\\' ) );
 
 	if ( General.MultiUser )
 	{
@@ -701,15 +718,13 @@ void CSettings::Load()
 	DC.Enabled			= DC.EnableAlways && DC.ShowInterface;
 	BitTorrent.Enabled	= BitTorrent.EnableAlways;
 
-	// Reset certain ed2k/G1 network variables if bandwidth is too low
+	// Reset certain G1/ed2k network variables if bandwidth is too low
 	if ( GetOutgoingBandwidth() < 2 )
 	{
-		DC.Enabled				= false;
-		DC.EnableAlways 		= false;
-		eDonkey.Enabled			= false;
-		eDonkey.EnableAlways	= false;
-		Gnutella1.Enabled		= false;
-		Gnutella1.EnableAlways	= false;
+		Gnutella1.Enabled = Gnutella1.EnableAlways = false;
+		eDonkey.Enabled = eDonkey.EnableAlways = false;
+		DC.Enabled = DC.EnableAlways = false;
+		BitTorrent.Enabled = false;
 	}
 
 	// ToDo: Temporary until G1 ultrapeer has been updated
@@ -745,8 +760,9 @@ void CSettings::Load()
 	{
 		Connection.IgnoreLocalIP = false;
 		Gnutella2.Enabled = Gnutella2.EnableAlways = true;
-		eDonkey.Enabled = eDonkey.EnableAlways = false;
 		Gnutella1.Enabled = Gnutella1.EnableAlways = false;
+		eDonkey.Enabled = eDonkey.EnableAlways = false;
+		DC.Enabled = DC.EnableAlways = false;
 		BitTorrent.Enabled = BitTorrent.EnableAlways = false;
 		Gnutella.MaxHits = 0;
 	}
@@ -1336,7 +1352,7 @@ BOOL CSettings::LoadList(LPCTSTR pszName, CListCtrl* pCtrl, int nSort)
 	SetWindowLongPtr( pCtrl->GetSafeHwnd(), GWLP_USERDATA, nSort );
 
 	CHeaderCtrl* pHeader = (CHeaderCtrl*)pCtrl->GetWindow( GW_CHILD );
-	if ( pHeader ) Skin.Translate( pszName, pHeader );
+	if ( pHeader ) ::Skin.Translate( pszName, pHeader );
 
 	return bSuccess;
 }

@@ -705,42 +705,19 @@ void CDownloadTipCtrl::PrepareFileInfo(CDownload* pDownload)	// CPeerProjectFile
 	m_sMD5.Empty();
 	m_sURL.Empty();
 
-	int nPeriod = m_sName.ReverseFind( '.' );
-
-	m_sType.Empty();
-	m_nIcon = 0;
-
+	// Special-case multifile icon handling
 	if ( pDownload->IsMultiFileTorrent() )
 	{
-		// Special-case multifile icon handling
-		m_sType.Format( ( Settings.General.Language.Left(2) == _T("en") ?		// ToDo: Translate properly (generic IDS_FILES)
-			_T("BitTorrent  ( %u files )") : _T("BitTorrent (%u)") ), pDownload->m_pTorrent.GetCount() );
-		m_nIcon = ShellIcons.Get( _T(".torrent"), 32 );							// ToDo: IDI_MULTIFILE
+		if ( Settings.General.LanguageDefault )
+			m_sType.Format( _T("BitTorrent  ( %u files )"), pDownload->m_pTorrent.GetCount() );
+		else
+			m_sType.Format( _T("BitTorrent  ( %u %s )"), pDownload->m_pTorrent.GetCount(), LoadString( IDS_FILES ) );
+		m_nIcon = ShellIcons.Get( _T(".torrent"), 32 );							// ToDo: IDI_MULTIFILE ?
 		return;
 	}
 
-	if ( nPeriod > 0 )
-	{
-		const CString strType = m_sName.Mid( nPeriod );
-		CString strName, strMime;
-
-		ShellIcons.Lookup( strType, NULL, NULL, &strName, &strMime );
-		m_nIcon = ShellIcons.Get( m_sName, 32 );
-
-		if ( ! strName.IsEmpty() )
-		{
-			m_sType = strName;
-			if ( ! strMime.IsEmpty() )
-				m_sType += _T("  (") + strMime + _T(")");
-		}
-		else
-		{
-			m_sType = strType.Mid( 1 );
-		}
-	}
-
-	if ( m_sType.IsEmpty() )
-		LoadString( m_sType, IDS_STATUS_UNKNOWN );
+	m_nIcon = ShellIcons.Get( m_sName, 32 );
+	m_sType = ShellIcons.GetTypeString( m_sName );
 }
 
 /////////////////////////////////////////////////////////////////////////////

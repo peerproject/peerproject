@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Greek Skin File -->
 
-<!-- Translation based on default-en.xml r77 -->
+<!-- Translation based on default-en.xml r78 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -434,16 +434,6 @@
 	</toolbar>
 	<!--
 	<toolbar name="WebServices.ShareMonkey">
-		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Λήψη Δεδομένων"/>
-		<separator/>
-		<button id="ID_SHAREMONKEY_PREVIOUS" text="Προηγούμενο"/>
-		<button id="ID_SHAREMONKEY_NEXT" text="Επόμενο"/>
-		<separator/>
-		<button id="ID_SHAREMONKEY_PRICES" text="Λήψη Τιμών"/>
-		<button id="ID_SHAREMONKEY_COMPARE" text="Σύγκριση"/>
-		<button id="ID_SHAREMONKEY_BUY" text="Αγορά"/>
-	</toolbar>
-	<toolbar name="WebServices.ShareMonkey.WithSave">
 		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Λήψη Δεδομένων"/>
 		<button id="ID_SHAREMONKEY_SAVE" text="Αποθήκευση"/>
 		<control id="ID_SHAREMONKEY_SAVE_OPTION" text="Αποθήκευση Προεπισκόπησης" width="100" checked="true"/>
@@ -1655,7 +1645,7 @@
 				<font size="13"/>
 			</style>
 			<style name="heading">
-				<font face="Trebuchet MS" size="16" weight="800"/>
+				<font face="Segoe UI" size="18" weight="400"/>
 			</style>
 		</styles>
 		<anchor id="Header" width="32" height="152"/>
@@ -1664,7 +1654,7 @@
 			<icon res="136" width="32" height="32" target="command:ID_NETWORK_CONNECT"/><gap size="8"/>
 			<heading align="middle">ΣΥΝΔΕΘΕΙΤΕ</heading>
 			<newline gap="8" indent="42"/>
-			<text>Καλώς ήρθατε στο PeerProject!</text>
+			<text>Καλώς ήρθατε στο PeerProject.</text>
 			<newline gap="8" indent="42"/>
 			<text>Αυτήν τη στιγμή δεν είστε ενωμένοι σε κανένα peer to peer δίκτυο. &#160;</text>
 			<link target="command:ID_NETWORK_CONNECT">Κλικ εδώ για να αρχίσετε!</link>
@@ -1731,7 +1721,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
-		<heading align="middle">ΠΡΟΣΑΡΜΟΓΗ TOΥ PEERPROJECT</heading>
+		<heading align="middle">ΠΡΟΣΑΡΜΟΓΗ TOΥ PeerProject</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="196" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
 		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Φλοιοί</link><gap size="6"/>
@@ -3750,13 +3740,16 @@
 		<control caption="_Εγκατάσταση..."/>
 		<control caption="Λήψη επιπλέων"/>
 	</dialog>
-	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuSt" caption="Προχωρημένες">
+	<dialog name="CAdvancedSettingsPage" cookie="SyBuStEdmsEdCoBuBu" caption="Προχωρημένες">
+		<control/>
+		<control caption="Εφαρμογή Τιμής:"/>
+		<control caption="Τιμή:"/>
+		<control/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
 		<control caption="Ορισμός Προεπιλογής"/>
-		<control caption="Εφαρμογή Τιμής:"/>
-		<control caption="Τιμή:"/>
 	</dialog>
 	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Πρωτόκολλα">
 		<control caption="Παράθεση Πρωτοκόλλων του PeerProject:"/>

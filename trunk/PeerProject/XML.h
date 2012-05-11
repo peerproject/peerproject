@@ -1,7 +1,7 @@
 //
 // XML.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -57,8 +57,6 @@ public:
 	BOOL			IsNamed(LPCTSTR pszName) const;
 	CString			GetValue() const;
 	void			SetValue(LPCTSTR pszValue);
-	static CString	StringToValue(LPCTSTR& pszXML, int nLength);
-	static CString	ValueToString(const CString& strValue);
 	static void		UniformString(CString& str);
 
 	friend class	CXMLElement;
@@ -79,10 +77,12 @@ protected:
 	CMap< CString, const CString&, CXMLAttribute*, CXMLAttribute* > m_pAttributes;
 
 	void			AddRecursiveWords(CString& strWords) const;
+	void			ToString(CString& strXML, BOOL bNewline) const;
 
 public:
 	CXMLElement*	Detach();
 	CXMLElement*	Clone(CXMLElement* pParent = NULL) const;
+	CXMLElement*	Prefix(const CString& sPrefix, CXMLElement* pParent = NULL) const;		// Clone element then rename all elements and attributes by using specified prefix
 	CXMLElement*	AddElement(LPCTSTR pszName);
 	CXMLElement*	AddElement(CXMLElement* pElement);
 	INT_PTR			GetElementCount() const;
@@ -94,6 +94,7 @@ public:
 	void			RemoveElement(CXMLElement* pElement);
 	void			DeleteAllElements();
 	CXMLAttribute*	AddAttribute(LPCTSTR pszName, LPCTSTR pszValue = NULL);
+	CXMLAttribute*	AddAttribute(LPCTSTR pszName, __int64 nValue);
 	CXMLAttribute*	AddAttribute(CXMLAttribute* pAttribute);
 	int				GetAttributeCount() const;
 	POSITION		GetAttributeIterator() const;
@@ -103,8 +104,7 @@ public:
 	void			RemoveAttribute(CXMLAttribute* pAttribute);
 	void			DeleteAttribute(LPCTSTR pszName);
 	void			DeleteAllAttributes();
-	CString			ToString(BOOL bHeader = FALSE, BOOL bNewline = FALSE) const;
-	void			ToString(CString& strXML, BOOL bNewline = FALSE) const;
+	CString			ToString(BOOL bHeader = FALSE, BOOL bNewline = FALSE, BOOL bEncoding = FALSE, TRISTATE bStandalone = TRI_UNKNOWN) const;
 	BOOL			ParseString(LPCTSTR& strXML);
 	BOOL			Equals(CXMLElement* pXML) const;
 	// Add missing elements and attributes from pInput, preserve or overwrite existing
@@ -125,6 +125,7 @@ public:
 	CXMLAttribute(CXMLElement* pParent, LPCTSTR pszName = NULL);
 	virtual ~CXMLAttribute();
 
+public:
 	static LPCTSTR	xmlnsSchema;
 	static LPCTSTR	xmlnsInstance;
 	static LPCTSTR	schemaName;

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default French Skin File -->
 
-<!-- Translation based on default-en.xml r77 -->
+<!-- Translation based on default-en.xml r78 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -464,16 +464,6 @@
 	</toolbar>
 	<!--
 	<toolbar name="WebServices.ShareMonkey">
-		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Informations"/>
-		<separator/>
-		<button id="ID_SHAREMONKEY_PREVIOUS" text="Précédent"/>
-		<button id="ID_SHAREMONKEY_NEXT" text="Suivant"/>
-		<separator/>
-		<button id="ID_SHAREMONKEY_PRICES" text="Prix"/>
-		<button id="ID_SHAREMONKEY_COMPARE" text="Comparer"/>
-		<button id="ID_SHAREMONKEY_BUY" text="Acheter"/>
-	</toolbar>
-	<toolbar name="WebServices.ShareMonkey.WithSave">
 		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Informations"/>
 		<button id="ID_SHAREMONKEY_SAVE" text="Enregistrer"/>
 		<control id="ID_SHAREMONKEY_SAVE_OPTION" text="Enregistrer la Prévisualisation" width="100" checked="true"/>
@@ -3072,7 +3062,7 @@
 	<string id="20433" value="PeerProject ne peut pas effacer le fichier :\n\n%s"/>
 	<string id="20434" value="Votre dossier de téléchargements « %s » ne fait pas partie de votre bibliothèque.\n\nInclure ce dossier dans votre bibliothèque rend plus simple l'organisation de vos nouveaux téléchargements et vous permet de bénéficier des fonctions avancées de PeerProject, comme la vérification automatique des téléchargements et les mises à jour automatiques. Placer ce dossier dans votre bibliothèque ne vous oblige pas à le partager : vous pouvez décider cela indépendamment.\n\nVoulez-vous ajouter votre dossier de téléchargements à votre bibliothèque maintenant ?"/>
 	<string id="20435" value="Votre dossier de téléchargements a été ajouté à votre bibliothèque. Voulez-vous qu'il soit partagé ?"/>
-	<!--string id="20436" value="Vous n'avez pas encore sélectionné un lecteur multimédia avec lequel mettre en file d'attente les fichiers, comme par exemple Nullsoft WinAmp. Voulez-vous en sélectionner un maintenant ?\n\nPeerProject enverra le nom de fichier à ce programme avec l'argument « --ADD »."/>
+	<!--string id="20436" value="Vous n'avez pas encore sélectionné un lecteur multimédia avec lequel mettre en file d'attente les fichiers, comme par exemple Nullsoft WinAmp. Voulez-vous en sélectionner un maintenant ?\n\nPeerProject enverra le nom de fichier à ce programme avec l'argument « --ADD »."-->
 	<string id="20436" value="Ajouter ce dossier à votre bibliothèque?\n\n%s"/>
 	<string id="20437" value="Fichier fantôme"/>
 	<string id="20438" value="Édition des métadonnées de %i fichiers."/>
@@ -3828,13 +3818,16 @@
 		<control caption="_Configurer..."/>
 		<control caption="Plus d'extensions"/>
 	</dialog>
-	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuSt" caption="Avancé">
+	<dialog name="CAdvancedSettingsPage" cookie="SyBuStEdmsEdCoBuBu" caption="Avancé">
+		<control/>
+		<control caption="Paramètres de la propriété&#160;:"/>
+		<control caption="Valeur&#160;:"/>
+		<control/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
 		<control caption="Par défaut"/>
-		<control caption="Paramètres de la propriété&#160;:"/>
-		<control caption="Valeur&#160;:"/>
 	</dialog>
 	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protocoles">
 		<control caption="Explorateur de l'architecture commune aux protocoles de PeerProject&#160;:"/>

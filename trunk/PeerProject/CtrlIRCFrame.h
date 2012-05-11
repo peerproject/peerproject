@@ -1,7 +1,7 @@
 //
 // CtrlIRCFrame.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -27,12 +27,12 @@
 
 
 // IRC Window Dimensions
-// Skin.m_nHeaderbarHeight				64
+// Settings.Skin.HeaderbarHeight		64
 #define TABBAR_HEIGHT					22
 #define SEPERATOR_HEIGHT				3
 #define SMALLHEADER_HEIGHT				20
 #define EDITBOX_HEIGHT					22
-// Skin.m_nToolbarHeight				28
+// Settings.Skin.ToolbarHeight			28
 #define STATUSBOX_WIDTH					330
 
 #define MAX_CHANNELS					12

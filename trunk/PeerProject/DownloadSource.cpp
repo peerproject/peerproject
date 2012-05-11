@@ -159,9 +159,9 @@ CDownloadSource::CDownloadSource(const CDownload* pDownload, DWORD nClientID,
 			(LPCTSTR)m_pDownload->m_oED2K.toString(), m_pDownload->m_nSize );
 	}
 
-	m_oGUID		= oGUID;
 	m_bED2K		= TRUE;
-	m_sServer	= _T("eDonkey2000");
+	m_oGUID		= oGUID;
+	m_sServer	= _T("eDonkey2000");	// protocolNames[ PROTOCOL_ED2K ]
 
 	ResolveURL();
 }

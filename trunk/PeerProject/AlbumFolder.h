@@ -94,10 +94,10 @@ public:
 	void			SetCollection(const Hashes::Sha1Hash& oSHA1, CCollectionFile* pCollection);
 	bool			OnFolderDelete(CAlbumFolder* pFolder);
 	void			OnFileDelete(CLibraryFile* pFile, BOOL bDeleteGhost = FALSE);
-	CXMLElement*	CreateXML(BOOL bMetadataAll = FALSE) const;
+	CXMLElement*	CreateXML() const;
 
 protected:
-	CXMLElement*	CopyMetadata(CXMLElement* pOriginMetadata) const;
+//	CXMLElement*	CopyMetadata(CXMLElement* pOriginMetadata) const;
 
 private:
 	CAlbumFolder(const CAlbumFolder&);

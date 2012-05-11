@@ -3,7 +3,7 @@
 
 <!-- PeerProject Arabic Language Skin File -->
 
-<!-- Translation based on default-en.xml r77 -->
+<!-- Translation based on default-en.xml r78 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -427,16 +427,6 @@
 	</toolbar>
 	<!--
 	<toolbar name="WebServices.ShareMonkey">
-		<button id="ID_SHAREMONKEY_DOWNLOAD" text="جلب البيانات" />
-		<separator />
-		<button id="ID_SHAREMONKEY_PREVIOUS" text="السابق" />
-		<button id="ID_SHAREMONKEY_NEXT" text="التالي" />
-		<separator />
-		<button id="ID_SHAREMONKEY_PRICES" text="جلب الأسعار" />
-		<button id="ID_SHAREMONKEY_COMPARE" text="مقارنة" />
-		<button id="ID_SHAREMONKEY_BUY" text="الشراء" />
-	</toolbar>
-	<toolbar name="WebServices.ShareMonkey.WithSave">
 		<button id="ID_SHAREMONKEY_DOWNLOAD" text="جلب البيانات" />
 		<button id="ID_SHAREMONKEY_SAVE" text="حفظ" />
 		<control id="ID_SHAREMONKEY_SAVE_OPTION" text="حفظ المعاينة" width="100" checked="true" />
@@ -1676,7 +1666,7 @@
 			<newline gap="18" indent="0" />
 		</group>
 		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS" /> <gap size="8" />
-		<heading align="middle">تــخــصــيــص PEERPROJECT</heading>
+		<heading align="middle">تــخــصــيــص PeerProject</heading>
 		<newline gap="12" indent="42" />
 		<icon res="196" width="16" height="16" target="command:ID_TOOLS_SKIN" /> <gap size="8" />
 		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">الغلافات</link>
@@ -3219,13 +3209,16 @@
 		<control caption="_تثبيت..." />
 		<control caption="احضر المزيد" />
 	</dialog>
-	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuSt" caption="متقدم">
+	<dialog name="CAdvancedSettingsPage" cookie="SyBuStEdmsEdCoBuBu" caption="متقدم">
+		<control />
+		<control caption=":إعداد الخصائص" />
+		<control caption=":القيمة" />
+		<control />
+		<control />
 		<control />
 		<control />
 		<control />
 		<control caption="وضع الإفتراضي"/>
-		<control caption=":إعداد الخصائص" />
-		<control caption=":القيمة" />
 	</dialog>
 	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="بروتوكول">
 		<control caption=": المشترك PeerProject مستكشف بروتوكول بنية" />

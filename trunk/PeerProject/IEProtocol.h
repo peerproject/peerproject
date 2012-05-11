@@ -1,7 +1,7 @@
 //
 // IEProtocol.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -18,20 +18,21 @@
 
 #pragma once
 
-class CBuffer;
-class CIEProtocolRequest;
+#include "Buffer.h"
 
-class CZIPFile;
+//class CIEProtocolRequest;
+//class CZIPFile;
+
 
 // {18D11ED9-1264-48A1-9E14-20F2C633242B}
 class CIEProtocol : public CComObject
 {
+	DECLARE_DYNAMIC(CIEProtocol)
+
 // Construction
 public:
 	CIEProtocol();
 	virtual ~CIEProtocol();
-
-	DECLARE_DYNCREATE(CIEProtocol)
 
 // Operations
 public:
@@ -47,8 +48,19 @@ protected:
 
 // Implementation
 protected:
-	HRESULT		OnRequestP2PCOL(LPCTSTR pszURL, CBuffer& oBuffer, CString& sMimeType, BOOL bParseOnly);
-	HRESULT		OnRequestP2PFILE(LPCTSTR pszURL, CBuffer& oBuffer, CString& sMimeType, BOOL bParseOnly);
+	// Loads file from zip-collection or simple collection itself
+	// p2p-col:[//]{URN|SHA1}/{relative path inside zip}
+	HRESULT		OnRequestCollection(LPCTSTR pszURL, CBuffer& oBuffer, CString& sMimeType, BOOL bParseOnly = FALSE);
+
+	// Loads preview (JPG), file metadata (XML), or icon
+	// p2p-file:[//]{URN|SHA1}/{preview|meta|icon16|icon32|icon48}
+	HRESULT		OnRequestFile(LPCTSTR pszURL, CBuffer& oBuffer, CString& sMimeType, BOOL bParseOnly = FALSE);
+
+	// Loads various application data
+	// p2p-app:[//]{history}
+	HRESULT		OnRequestApplication(LPCTSTR pszURL, CBuffer& oBuffer, CString& sMimeType, BOOL bParseOnly = FALSE);
+
+	CString		ToCSSColor(COLORREF rgb);	// Hex #code
 
 // COM
 protected:
@@ -65,12 +77,12 @@ protected:
 // {E1A67AE5-7041-4AE1-94F7-DE03EF759E27}
 class CIEProtocolRequest : public CComObject
 {
+	DECLARE_DYNAMIC(CIEProtocolRequest)
+
 // Construction
 public:
 	CIEProtocolRequest();
 	virtual ~CIEProtocolRequest();
-
-	DECLARE_DYNCREATE(CIEProtocolRequest)
 
 // Attributes
 protected:

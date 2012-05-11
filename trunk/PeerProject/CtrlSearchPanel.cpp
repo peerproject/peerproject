@@ -152,31 +152,26 @@ int CSearchPanel::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 void CSearchPanel::OnSkinChange()
 {
-	CString strCaption;
+	m_boxSearch.SetCaption( LoadString( IDS_SEARCH_PANEL_INPUT_CAPTION ) );
+	m_boxResults.SetCaption( LoadString( IDS_SEARCH_PANEL_RESULTS_CAPTION ) );
+	m_boxAdvanced.SetCaption( LoadString( IDS_SEARCH_PANEL_ADVANCED ) );
 
-	LoadString( strCaption, IDS_SEARCH_PANEL_INPUT_CAPTION );
-	m_boxSearch.SetCaption( strCaption );
-	LoadString( strCaption, IDS_SEARCH_PANEL_RESULTS_CAPTION );
-	m_boxResults.SetCaption( strCaption );
-	LoadString( strCaption, IDS_SEARCH_PANEL_ADVANCED );
-	m_boxAdvanced.SetCaption( strCaption );
+	SetWatermark( _T("CSearchPanel") );
+	SetFooter( _T("CSearchPanel.Footer") );
 
-	SetWatermark( Skin.GetWatermark( _T("CSearchPanel") ) );
-	SetFooter( Skin.GetWatermark( _T("CSearchPanel.Footer") ), TRUE );
-
-	m_boxSearch.SetWatermark( Skin.GetWatermark( _T("CSearchInputBox") ) );
-	m_boxSearch.SetCaptionmark( Skin.GetWatermark( _T("CSearchInputBox.Caption") ) );
+	m_boxSearch.SetWatermark( _T("CSearchInputBox") );
+	m_boxSearch.SetCaptionmark( _T("CSearchInputBox.Caption") );
 	m_boxSearch.OnSkinChange();
 
-	m_boxAdvanced.SetWatermark( Skin.GetWatermark( _T("CSearchAdvancedBox") ) );
-	m_boxAdvanced.SetCaptionmark( Skin.GetWatermark( _T("CSearchAdvancedBox.Caption") ) );
+	m_boxAdvanced.SetWatermark( _T("CSearchAdvancedBox") );
+	m_boxAdvanced.SetCaptionmark( _T("CSearchAdvancedBox.Caption") );
 	m_boxAdvanced.OnSkinChange();
 
-	m_boxSchema.SetWatermark( Skin.GetWatermark( _T("CSearchSchemaBox") ) );
-	m_boxSchema.SetCaptionmark( Skin.GetWatermark( _T("CSearchSchemaBox.Caption") ) );
+	m_boxSchema.SetWatermark( _T("CSearchSchemaBox") );
+	m_boxSchema.SetCaptionmark( _T("CSearchSchemaBox.Caption") );
 
-	m_boxResults.SetWatermark( Skin.GetWatermark( _T("CSearchResultsBox") ) );
-	m_boxResults.SetCaptionmark( Skin.GetWatermark( _T("CSearchResultsBox.Caption") ) );
+	m_boxResults.SetWatermark( _T("CSearchResultsBox") );
+	m_boxResults.SetCaptionmark( _T("CSearchResultsBox.Caption") );
 
 	Invalidate();
 }
@@ -1097,7 +1092,8 @@ CSearchResultsBox::CSearchResultsBox()
 	, m_nHubs		( 0 )
 	, m_nLeaves 	( 0 )
 {
-	Expand( theApp.GetProfileInt( _T("Settings"), _T("SearchPanelResults"), TRUE ) );
+	Expand( Settings.Search.ResultsPanel ? TRUE : FALSE );
+//	Expand( theApp.GetProfileInt( _T("Settings"), _T("SearchPanelResults"), TRUE ) );
 }
 
 CSearchResultsBox::~CSearchResultsBox()
@@ -1239,5 +1235,6 @@ void CSearchResultsBox::DrawText(CDC* pDC, int nX, int nY, UINT nFlags, LPCTSTR 
 
 void CSearchResultsBox::OnExpanded(BOOL bOpen)
 {
-	theApp.WriteProfileInt( _T("Settings"), _T("SearchPanelResults"), bOpen );
+	Settings.Search.ResultsPanel = ( bOpen != FALSE );
+//	theApp.WriteProfileInt( _T("Settings"), _T("SearchPanelResults"), bOpen );
 }

@@ -53,9 +53,9 @@ BEGIN_MESSAGE_MAP(CLibraryTreeView, CWnd)
 	ON_WM_CREATE()
 	ON_WM_DESTROY()
 	ON_WM_SIZE()
-	ON_WM_VSCROLL()
-	ON_WM_ERASEBKGND()
 	ON_WM_PAINT()
+	ON_WM_ERASEBKGND()
+	ON_WM_VSCROLL()
 	ON_WM_SETFOCUS()
 	ON_WM_GETDLGCODE()
 	ON_WM_MOUSEMOVE()
@@ -96,7 +96,7 @@ BEGIN_MESSAGE_MAP(CLibraryTreeView, CWnd)
 	ON_COMMAND(ID_LIBRARY_EXPORT_COLLECTION, OnLibraryExportCollection)
 END_MESSAGE_MAP()
 
-//#define ITEM_HEIGHT 17	// Skinnable Settings.Interface.RowSize
+//#define ITEM_HEIGHT 17	// Settings.Skin.RowSize
 
 /////////////////////////////////////////////////////////////////////////////
 // CLibraryTreeView construction
@@ -659,7 +659,7 @@ void CLibraryTreeView::OnKeyDown(UINT nChar, UINT /*nRepCnt*/, UINT /*nFlags*/)
 		if ( GetRect( m_pFocus, &rc ) )
 		{
 			CPoint pt( rc.left, ( rc.top + rc.bottom ) / 2 );
-			pt.y -= Settings.Interface.RowSize;
+			pt.y -= Settings.Skin.RowSize;
 			pTo = HitTest( pt );
 		}
 	}
@@ -668,7 +668,7 @@ void CLibraryTreeView::OnKeyDown(UINT nChar, UINT /*nRepCnt*/, UINT /*nFlags*/)
 		if ( GetRect( m_pFocus, &rc ) )
 		{
 			CPoint pt( rc.left, ( rc.top + rc.bottom ) / 2 );
-			pt.y += Settings.Interface.RowSize;
+			pt.y += Settings.Skin.RowSize;
 			pTo = HitTest( pt );
 		}
 	}
@@ -749,7 +749,7 @@ void CLibraryTreeView::UpdateScroll()
 	pInfo.cbSize	= sizeof(pInfo);
 	pInfo.fMask		= SIF_ALL & ~SIF_TRACKPOS;
 	pInfo.nMin		= 0;
-	pInfo.nMax		= (int)m_nTotal * Settings.Interface.RowSize;
+	pInfo.nMax		= (int)m_nTotal * Settings.Skin.RowSize;
 	pInfo.nPage		= m_nVisible;
 	pInfo.nPos		= m_nScroll = max( 0, min( m_nScroll, pInfo.nMax - (int)pInfo.nPage + 1 ) );
 
@@ -809,7 +809,7 @@ BOOL CLibraryTreeView::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 		}
 	}
 
-	ScrollBy( zDelta * 3 * -(int)Settings.Interface.RowSize / WHEEL_DELTA );
+	ScrollBy( zDelta * 3 * -(int)Settings.Skin.RowSize / WHEEL_DELTA );
 	return TRUE;
 }
 
@@ -862,8 +862,8 @@ void CLibraryTreeView::OnPaint()
 
 void CLibraryTreeView::Paint(CDC& dc, CRect& rcClient, CPoint& pt, CLibraryTreeItem* pItem)
 {
-	CRect rc( pt.x, pt.y, pt.x, pt.y + Settings.Interface.RowSize );
-	pt.y += Settings.Interface.RowSize;
+	CRect rc( pt.x, pt.y, pt.x, pt.y + Settings.Skin.RowSize );
+	pt.y += Settings.Skin.RowSize;
 
 	if ( rc.top >= rcClient.bottom )
 		return;
@@ -921,13 +921,13 @@ CLibraryTreeItem* CLibraryTreeView::HitTest(const POINT& point, RECT* pRect) con
 
 CLibraryTreeItem* CLibraryTreeView::HitTest(CRect& rcClient, CPoint& pt, CLibraryTreeItem* pItem, const POINT& point, RECT* pRect) const
 {
-	CRect rc( rcClient.left, pt.y, rcClient.right, pt.y + (long)Settings.Interface.RowSize );
-	pt.y += (long)Settings.Interface.RowSize;
+	CRect rc( rcClient.left, pt.y, rcClient.right, pt.y + (long)Settings.Skin.RowSize );
+	pt.y += (long)Settings.Skin.RowSize;
 
-	if ( rc.top >= ( rcClient.bottom + (long)Settings.Interface.RowSize ) )
+	if ( rc.top >= ( rcClient.bottom + (long)Settings.Skin.RowSize ) )
 		return NULL;
 
-	if ( rc.bottom >= ( rcClient.top - (long)Settings.Interface.RowSize ) )
+	if ( rc.bottom >= ( rcClient.top - (long)Settings.Skin.RowSize ) )
 	{
 		if ( rc.PtInRect( point ) )
 		{
@@ -948,7 +948,7 @@ CLibraryTreeItem* CLibraryTreeView::HitTest(CRect& rcClient, CPoint& pt, CLibrar
 		{
 			if ( CLibraryTreeItem* pHitItem = HitTest( rcClient, pt, &*pChild, point, pRect ) )
 				return pHitItem;
-			if ( pt.y >= ( rcClient.bottom + (long)Settings.Interface.RowSize ) )
+			if ( pt.y >= ( rcClient.bottom + (long)Settings.Skin.RowSize ) )
 				break;
 		}
 
@@ -983,7 +983,7 @@ BOOL CLibraryTreeView::GetRect(CPoint& pt, CLibraryTreeItem* pItem, CLibraryTree
 		pRect->left		= pt.x;
 		pRect->top		= pt.y;
 		pRect->right	= pt.x;
-		pRect->bottom	= pt.y = ( pRect->top + (long)Settings.Interface.RowSize );
+		pRect->bottom	= pt.y = ( pRect->top + (long)Settings.Skin.RowSize );
 
 		CClientDC dc( this );
 		CFont* pOld = (CFont*)dc.SelectObject( pItem->m_bBold ?
@@ -994,7 +994,7 @@ BOOL CLibraryTreeView::GetRect(CPoint& pt, CLibraryTreeItem* pItem, CLibraryTree
 		return TRUE;
 	}
 
-	pt.y += (long)Settings.Interface.RowSize;
+	pt.y += (long)Settings.Skin.RowSize;
 
 	if ( pItem->m_bExpanded && ! pItem->empty() )
 	{
@@ -1218,7 +1218,7 @@ void CLibraryTreeItem::Paint(CDC& dc, CRect& rc, BOOL bTarget, COLORREF crBack) 
 		dc.GetWindow()->ScreenToClient( &ptHover );
 
 	if ( crBack == CLR_NONE ) crBack = Colors.m_crWindow;
-	dc.FillSolidRect( rc.left, rc.top, 33, Settings.Interface.RowSize, crBack );
+	dc.FillSolidRect( rc.left, rc.top, 33, Settings.Skin.RowSize, crBack );
 
 	if ( ! empty() )
 	{

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default German Skin File -->
 
-<!-- Translation based on default-en.xml r77 -->
+<!-- Translation based on default-en.xml r78 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -462,16 +462,6 @@
 	<!--
 	<toolbar name="WebServices.ShareMonkey">
 		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Daten holen" />
-		<separator />
-		<button id="ID_SHAREMONKEY_PREVIOUS" text="Zurück" />
-		<button id="ID_SHAREMONKEY_NEXT" text="Vor" />
-		<separator />
-		<button id="ID_SHAREMONKEY_PRICES" text="Preisanfrage" />
-		<button id="ID_SHAREMONKEY_COMPARE" text="Vergleichen" />
-		<button id="ID_SHAREMONKEY_BUY" text="Kaufen" />
-	</toolbar>
-	<toolbar name="WebServices.ShareMonkey.WithSave">
-		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Daten holen" />
 		<button id="ID_SHAREMONKEY_SAVE" text="Speichern" />
 		<control id="ID_SHAREMONKEY_SAVE_OPTION" text="Vorschau speichern" width="100" checked="true"/>
 		<separator />
@@ -761,7 +751,7 @@
 			</menu>
 			<separator/>
 			<item id="ID_VIEW_BASIC" text="_Vereinfachter"/>
-			<item id="ID_VIEW_TABBED" text="_Powermodus"/>
+			<item id="ID_VIEW_TABBED" text="_Power-Modus"/>
 		</menu>
 		<menu text="_Extras">
 			<item id="ID_LIBRARY_FOLDERS" text="Dateien _freigeben..."/>
@@ -3820,13 +3810,16 @@
 		<control caption="_Einstellungen..."/>
 		<control caption="Mehr..."/>
 	</dialog>
-	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuSt" caption="Erweitert">
+	<dialog name="CAdvancedSettingsPage" cookie="SyBuStEdmsEdCoBuBu" caption="Erweitert">
+		<control/>
+		<control caption="Einstellungswert:"/>
+		<control caption="Wert:"/>
+		<control/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
 		<control caption="Standard"/>
-		<control caption="Einstellungswert:"/>
-		<control caption="Wert:"/>
 	</dialog>
 	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protokolle">
 		<control caption="Übersicht der von PeerProjekt verwendeten Protokolle:"/>
@@ -3947,10 +3940,10 @@
 	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="Willkommen bei PeerProjekt &#160;(6/8)">
 		<control caption="PeerProjekt bietet eine flexible Benutzeroberfläche. Sie können also wählen, was Ihnen am angenehmsten ist. Sie können diese Optionen jederzeit ändern."/>
 		<control caption="Bitte wählen Sie eine Benutzeroberfläche:"/>
-		<control caption="Basicmodus"/>
-		<control caption="Powermodus"/>
+		<control caption="Vereinfachter Modus"/>
+		<control caption="Power-Modus"/>
 		<control caption="Simple, einfach zu bedienende Menüs und Buttons."/>
-		<control caption="Der Powermodus bietet viele zusätzliche Befehle, Fenster, usw."/>
+		<control caption="Der Power-Modus bietet viele zusätzliche Befehle, Fenster, usw."/>
 		<control caption="Einfache Download-Fortschrittsanzeigen verwenden."/>
 		<control caption="Versuchen Sie, Mischen mehrere Skins."/>
 	</dialog>
@@ -4111,11 +4104,11 @@
 		<control caption="Abbrechen"/>
 	</dialog>
 	<dialog name="CFilterSearchDlg" cookie="BuEdBuStBuStEdStEdStEdmsBuBuBuBuBuBuBuBuBuBuBuBuBuCoBuBuBuBuBu" caption="Ergebnisse filtern">
-		<control caption="Nur Ergebnisse, die folgende _Wörter enthalten:"/>
+		<control caption="Suchfilter:"/>
 		<control/>
 		<control caption="Reg. Exp."/>
 		<control caption="(-Wort ausschließen)"/>
-		<control caption="Und folgende _Größe haben:"/>
+		<control caption="Dateigröße:"/>
 		<control caption="Minimum:"/>
 		<control/>
 		<control caption="Maximum:"/>

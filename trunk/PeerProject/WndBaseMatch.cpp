@@ -159,12 +159,12 @@ int CBaseMatchWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	if ( CPanelWnd::OnCreate( lpCreateStruct ) == -1 ) return -1;
 
 	m_wndList.Create( m_pMatches, this );
-	m_wndList.ModifyStyle( 0, WS_TABSTOP );
+//	m_wndList.ModifyStyle( 0, WS_TABSTOP );
 
 	if ( ! theApp.m_bIsWin2000 )
-		m_wndList.ModifyStyleEx( 0, WS_EX_COMPOSITED );	// Stop rare flicker XP+, CPU intensive
+		m_wndList.ModifyStyleEx( 0, WS_EX_COMPOSITED );		// Stop rare flicker XP+, CPU intensive
 
-	if ( ! m_wndToolBar.Create( this, WS_CHILD|WS_TABSTOP|WS_VISIBLE|CBRS_NOALIGN ) ) return -1;
+	if ( ! m_wndToolBar.Create( this, WS_CHILD|WS_CLIPSIBLINGS|WS_TABSTOP|WS_VISIBLE|CBRS_NOALIGN ) ) return -1;
 	m_wndToolBar.SetBarStyle( m_wndToolBar.GetBarStyle() | CBRS_TOOLTIPS | CBRS_BORDER_TOP );
 	m_wndToolBar.ModifyStyleEx( 0, WS_EX_CONTROLPARENT );
 

@@ -33,7 +33,8 @@ public:
 	int		Get(LPCTSTR pszFile, int nSize = 16);
 	HICON	ExtractIcon(int nIndex, int nSize = 16);
 	CString	GetTypeString(LPCTSTR pszFile);
-	BOOL	Lookup(LPCTSTR pszType, HICON* phSmallIcon, HICON* phLargeIcon, CString* psName, CString* psMIME, HICON* phHugeIcon = NULL);
+	CString	GetMIME(LPCTSTR pszType);
+	CString	GetName(LPCTSTR pszType);
 	void	AttachTo(CTreeCtrl* const pTree) const;						// pTree->SetImageList()
 	void	AttachTo(CListCtrl* const pList, int nSize = 16) const;		// pList->SetImageList()
 	BOOL	Draw(CDC* pDC, int nIcon, int nSize, int nX, int nY, COLORREF crBack = CLR_NONE, BOOL bSelected = FALSE) const;		// ImageList_DrawEx() default
@@ -74,13 +75,19 @@ public:
 // Attributes
 private:
 	typedef CMap< CString, const CString&, int, int > CIconMap;
+	typedef CMap< CString, const CString&, CString, const CString& > CStringMap;
 
+	CCriticalSection	m_pSection;
 	CImageList	m_i16;
 	CImageList	m_i32;
 	CImageList	m_i48;
 	CIconMap	m_m16;
 	CIconMap	m_m32;
 	CIconMap	m_m48;
+	CStringMap	m_MIME;
+	CStringMap	m_Name;
+
+	BOOL		Lookup(LPCTSTR pszType, HICON* phSmallIcon, HICON* phLargeIcon, CString* psName, CString* psMIME, HICON* phHugeIcon = NULL);
 
 	CShellIcons(const CShellIcons&);
 	CShellIcons& operator=(const CShellIcons&);

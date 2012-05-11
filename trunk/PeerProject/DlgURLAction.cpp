@@ -29,7 +29,6 @@
 #include "Library.h"
 #include "SharedFile.h"
 #include "HostCache.h"
-#include "Skin.h"
 #include "WndMain.h"
 #include "WndSearch.h"
 #include "WndDownloads.h"
@@ -105,6 +104,19 @@ BOOL CURLActionDlg::OnInitDialog()
 	m_bNewWindow  = Settings.Downloads.ShowMonitorURLs;
 
 	CString strMessage;
+	const BOOL bGoodURL =
+		( m_pURL->m_sName.GetLength() > 10 && m_pURL->m_sName.Find( '.', 5 ) > 5 && m_pURL->m_sName[ m_pURL->m_sName.GetLength() - 1 ] > '.' ) ||
+		( m_pURL->m_sURL.GetLength() > 8 && m_pURL->m_sURL.Find( '.' ) > 1 && m_pURL->m_sURL[ m_pURL->m_sURL.GetLength() - 1 ] > '.' ) ||
+		( m_pURL->m_oSHA1 || m_pURL->m_oTiger || m_pURL->m_oBTH || m_pURL->m_oED2K || m_pURL->m_oMD5 ) ||
+		( m_pURL->m_nAction == CPeerProjectURL::uriSearch );
+
+	if ( ! bGoodURL )
+	{
+		// Malformed?
+		ShowWindow( SW_HIDE );
+		DestroyWindow();
+		return TRUE;
+	}
 
 	if ( m_pURL->m_nAction == CPeerProjectURL::uriHost )
 	{

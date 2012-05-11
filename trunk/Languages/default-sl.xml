@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Slovenian Skin File -->
 
-<!-- Translation based on default-en.xml r77 --> <!-- (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r78 --> <!-- (Shareaza 2.2.2.12) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1516,7 +1516,7 @@
 				<font size="13"/>
 			</style>
 			<style name="heading">
-				<font face="Trebuchet MS" size="16" weight="800"/>
+				<font face="Segoe UI" size="18" weight="400"/>
 			</style>
 		</styles>
 		<anchor id="Header" width="32" height="152"/>
@@ -1531,7 +1531,7 @@
 		</group>
 		<group id="2">
 			<icon res="130" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">IŠČI PO PEERPROJECT</heading>
+			<heading align="middle">IŠČI PO PeerProject</heading>
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="14" indent="0"/>
@@ -1569,7 +1569,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
-		<heading align="middle">PRILAGODI PEERPROJECT</heading>
+		<heading align="middle">PRILAGODI PeerProject</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="196" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
 		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Preobleke</link><gap size="6"/>
@@ -3490,13 +3490,16 @@
 		<control caption="_Namestitev..."/>
 		<control caption="Več"/>
 	</dialog>
-	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuSt" caption="Napredno">
+	<dialog name="CAdvancedSettingsPage" cookie="SyBuStEdmsEdCoBuBu" caption="Napredno">
 		<control/>
-		<control/>
-		<control/>
-		<control caption="Set Default"/>
 		<control caption="Nastavitve:"/>
 		<control caption="Vrednost:"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="Obnovi Privzeto"/>
 	</dialog>
 	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protokoli">
 		<control caption="PeerProject skupni raziskovalec arhitekturnih protokolov:"/>

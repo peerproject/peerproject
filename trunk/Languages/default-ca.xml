@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Catalan Skin File -->
 
-<!-- Translation based on default-en.xml r77 -->
+<!-- Translation based on default-en.xml r78 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1584,16 +1584,16 @@
 				<font size="13"/>
 			</style>
 			<style name="heading">
-				<font face="Trebuchet MS" size="16" weight="800"/>
+				<font face="Segoe UI" size="18" weight="400"/>
 			</style>
 		</styles>
 		<anchor id="Header" width="32" height="152"/>
 		<newline gap="0"/>
 		<group id="1">
 			<icon res="136" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">CONNECTA ' T</heading>
+			<heading align="middle">Connecta ' T</heading>
 			<newline gap="8" indent="42"/>
-			<text>Benvingut/da a PeerProject!</text>
+			<text>Benvingut/da a PeerProject.</text>
 			<newline gap="8" indent="42"/>
 			<text>No estàs connectat a cap xarxa Peer 2 Peer. &#160;</text>
 			<link target="command:ID_NETWORK_CONNECT">¡Fes clic aquí per a començar!</link>
@@ -1601,12 +1601,12 @@
 		</group>
 		<group id="2">
 			<icon res="130" width="32" height="32" target="command:ID_TAB_SEARCH"/><gap size="8"/>
-			<heading align="middle">CERCA UN A ARXIU</heading>
+			<heading align="middle">Cerca un a Arxiu</heading>
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="14" indent="0"/>
 			<icon res="122" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
-			<heading align="middle">COMENÇA A DESCARREGAR</heading>
+			<heading align="middle">Comença a Descarregar</heading>
 			<newline gap="8" indent="42"/>
 			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Fes click aquí per a començar</link>
 			<text>&#160; a descarregar un nou arxiu o torrent.</text>
@@ -1620,7 +1620,7 @@
 		</group>
 		<group id="3">
 			<icon res="120" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">ADVERTIMENT D'ACTUALITZACIÓ</heading>
+			<heading align="middle">Advertiment D'Actualització</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
 			<newline gap="6"/>
@@ -1629,7 +1629,7 @@
 		</group>
 		<group id="4">
 			<icon res="180" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
-			<heading align="middle">ADVERTIMENT - PROBLEMA AMB CONNEXIONS ENTRANTS</heading>
+			<heading align="middle">Advertiment: Problema amb Connexions Entrants</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject ha detectat que estàs sota un NAT, router o un tallafocs,
 			i no pots rebre connexions entrants d'Internet. &#160;</text>
@@ -1640,7 +1640,7 @@
 		</group>
 		<group id="6">
 			<icon res="180" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">ADVERTIMENT - EL TEU PORT TCP ESTÀ TALLAT</heading>
+			<heading align="middle">Advertiment: El Teu Port TCP Està Tallat</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject ha detectat que estàs sota un NAT, router o un tallafocs,
 			i no pots rebre connexions entrants d'Internet. &#160;</text>
@@ -1651,7 +1651,7 @@
 		</group>
 		<group id="7">
 			<icon res="180" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">ADVERTIMENT - EL TEU PORT UDP ESTÀ TALLAT</heading>
+			<heading align="middle">Advertiment: El Teu Port UDP Està Tallat</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject ha detectat que estàs sota un NAT, router o un tallafocs,
 			i no pots rebre connexions entrants d'Internet. &#160;</text>
@@ -1661,7 +1661,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
-		<heading align="middle">PERSONALITZA PEERPROJECT</heading>
+		<heading align="middle">Personalitza PeerProject</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="196" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
 		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Skins</link><gap size="6"/>
@@ -1690,7 +1690,7 @@
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="120" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">ACCÈS REMOT HABILITAT</heading>
+			<heading align="middle">Accès Remot Habilitat</heading>
 			<newline gap="8" indent="42"/>
 			<text>Accès remot de PeerProject habilitat. Controla PeerProject usant el teu navegador en:</text>
 			<newline gap="6"/>
@@ -3605,13 +3605,16 @@
 		<control caption="_Configura..."/>
 		<control caption="Obtén més..."/>
 	</dialog>
-	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuSt" caption="Avançades">
+	<dialog name="CAdvancedSettingsPage" cookie="SyBuStEdmsEdCoBuBu" caption="Avançades">
 		<control/>
-		<control/>
-		<control/>
-		<control caption="Set Default"/>
 		<control caption="Configuració:"/>
 		<control caption="Valor:"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="Predeterminats"/>
 	</dialog>
 	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protocols">
 		<control caption="Explorador d'arquitectures comuns dels protocols de PeerProject:"/>

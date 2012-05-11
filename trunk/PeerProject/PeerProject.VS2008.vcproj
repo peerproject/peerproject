@@ -81,6 +81,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="rasapi32.lib winmm.lib version.lib ws2_32.lib wininet.lib Iphlpapi.lib msi.lib powrprof.lib"
+				DelayLoadDLLs="shell32.dll;shlwapi.dll;rasapi32.dll;winmm.dll;version.dll;ws2_32.dll;wininet.dll;iphlpapi.dll;msi.dll;powrprof.dll;winspool.drv;comdlg32.dll;comctl32.dll;oledlg.dll;ole32.dll;oleaut32.dll;oleacc.dll;urlmon.dll"
 				LinkIncremental="2"
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
@@ -173,6 +174,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="rasapi32.lib winmm.lib version.lib ws2_32.lib wininet.lib Iphlpapi.lib msi.lib powrprof.lib"
+				DelayLoadDLLs="shell32.dll;shlwapi.dll;rasapi32.dll;winmm.dll;version.dll;ws2_32.dll;wininet.dll;iphlpapi.dll;msi.dll;powrprof.dll;winspool.drv;comdlg32.dll;comctl32.dll;oledlg.dll;ole32.dll;oleaut32.dll;oleacc.dll;urlmon.dll"
 				LinkIncremental="2"
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
@@ -271,6 +273,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="rasapi32.lib winmm.lib version.lib ws2_32.lib wininet.lib Iphlpapi.lib msi.lib powrprof.lib"
+				DelayLoadDLLs="shell32.dll;shlwapi.dll;rasapi32.dll;winmm.dll;version.dll;ws2_32.dll;wininet.dll;iphlpapi.dll;msi.dll;powrprof.dll;winspool.drv;comdlg32.dll;comctl32.dll;oledlg.dll;ole32.dll;oleaut32.dll;oleacc.dll;urlmon.dll"
 				IgnoreDefaultLibraryNames=""
 				SubSystem="2"
 				OptimizeReferences="2"
@@ -371,6 +374,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="rasapi32.lib winmm.lib version.lib ws2_32.lib wininet.lib Iphlpapi.lib msi.lib powrprof.lib"
+				DelayLoadDLLs="shell32.dll;shlwapi.dll;rasapi32.dll;winmm.dll;version.dll;ws2_32.dll;wininet.dll;iphlpapi.dll;msi.dll;powrprof.dll;winspool.drv;comdlg32.dll;comctl32.dll;oledlg.dll;ole32.dll;oleaut32.dll;oleacc.dll;urlmon.dll"
 				IgnoreDefaultLibraryNames=""
 				SubSystem="2"
 				OptimizeReferences="2"

@@ -963,20 +963,30 @@ BOOL CAlbumFolder::OrganiseFile(CLibraryFile* pFile)
 				}
 				GlobalFree( szResults );
 
-				if ( nCount < 4 )
-					return FALSE;
+				return FALSE;
 			}
 
 			// nCount >= 4
 
-			CString strTemp( results[1].c_str() );
-			strTemp.TrimRight( L"- " );
+			strSeries = results[1].c_str();
+			strSeries.TrimRight( L"- " );
 
-			if ( strTemp.IsEmpty() )
-				return FALSE;
+			if ( strSeries.IsEmpty() )
+				return FALSE;	// Bad detection
 
-			pFile->m_pMetadata->AddAttribute( _T("series"), strTemp );
-			strSeries = strTemp;
+			TCHAR cLast = strSeries.GetAt( strSeries.GetLength() - 1 );
+			if ( cLast == _T('[') || cLast == _T('(') || cLast == _T('{') )
+				return FALSE;	// Bad detection
+
+			int nSeriesNumber = _tstoi( results[2].c_str() );
+			int nEpisodeNumber = _tstoi( results[3].c_str() );
+			if ( nSeriesNumber < 0 || nSeriesNumber > 200 || nEpisodeNumber < 0 || nEpisodeNumber > 400 )
+				return FALSE;	// Bad detection
+
+			// Capitalize first letter
+			strSeries = strSeries.Left( 1 ).MakeUpper() + strSeries.Mid( 1 );
+
+			pFile->m_pMetadata->AddAttribute( _T("series"), strSeries );
 
 			CXMLAttribute* pAttribute = pFile->m_pMetadata->GetAttribute( _T("seriesnumber") );
 			if ( ! pAttribute )
@@ -1283,92 +1293,109 @@ void CAlbumFolder::Clear()
 //////////////////////////////////////////////////////////////////////
 // CAlbumFolder Create XML collection
 
-CXMLElement* CAlbumFolder::CreateXML(BOOL bMetadataAll) const
+CXMLElement* CAlbumFolder::CreateXML() const
 {
 	// Collect wizard entries
 	CXMLElement* pRoot = new CXMLElement( NULL, _T("collection") );
-	pRoot->AddAttribute( _T("xmlns"), CSchema::uriCollection );
-
-	CXMLElement* pProperties = pRoot->AddElement( _T("properties") );
-	pProperties->AddElement( _T("title") )->SetValue(
-		m_sName.IsEmpty() ? _T("PeerProject Collection") : (LPCTSTR)m_sName );
-
-	if ( m_pXML && ! m_sSchemaURI.IsEmpty() )
+	if ( pRoot )
 	{
-		CXMLElement* pMeta = pProperties->AddElement( _T("metadata") );
-		pMeta->AddAttribute( _T("xmlns:s"), m_sSchemaURI );
-		pMeta->AddElement( CopyMetadata( m_pXML ) );
-	}
-	else
-	{
-		CXMLElement* pMounting = pProperties->AddElement( _T("mounting") );
-		CXMLElement* pElement = pMounting->AddElement( _T("parent") );
-		pElement->AddAttribute( _T("uri"), CSchema::uriCollectionsFolder );
-		pElement = pMounting->AddElement( _T("this") );
-		pElement->AddAttribute( _T("uri"), CSchema::uriFolder );
-	}
+		pRoot->AddAttribute( _T("xmlns"), CSchema::uriCollection );
 
-	CXMLElement* pContents = pRoot->AddElement( _T("contents") );
-
-	for ( POSITION pos = GetFileIterator() ; pos ; )
-	{
-		const CLibraryFile* pFile = GetNextFile( pos );
-		if ( pFile == NULL ) continue;
-
-		CXMLElement* pFileRoot = pContents->AddElement( _T("file") );
-
-		if ( pFile->m_oSHA1 && pFile->m_oTiger )
-			pFileRoot->AddElement( _T("id") )->SetValue(
-				_T("urn:bitprint:") + pFile->m_oSHA1.toString() + '.' + pFile->m_oTiger.toString() );
-		else if ( pFile->m_oSHA1 )
-			pFileRoot->AddElement( _T("id") )->SetValue( pFile->m_oSHA1.toUrn() );
-		else if ( pFile->m_oTiger )
-			pFileRoot->AddElement( _T("id") )->SetValue( pFile->m_oTiger.toUrn() );
-
-		if ( pFile->m_oMD5 )
-			pFileRoot->AddElement( _T("id") )->SetValue( pFile->m_oMD5.toUrn() );
-
-		if ( pFile->m_oED2K )
-			pFileRoot->AddElement( _T("id") )->SetValue( pFile->m_oED2K.toUrn() );
-
-		if ( pFile->m_oBTH )
-			pFileRoot->AddElement( _T("id") )->SetValue( pFile->m_oBTH.toUrn() );
-
-		CXMLElement* pDescription = pFileRoot->AddElement( _T("description") );
-		pDescription->AddElement( _T("name") )->SetValue( pFile->m_sName );
-
-		CString str;
-		str.Format( _T("%I64u"), pFile->GetSize() );
-		pDescription->AddElement( _T("size") )->SetValue( str );
-
-		if ( bMetadataAll && pFile->m_pMetadata && pFile->m_pSchema )
+		if ( CXMLElement* pProperties = pRoot->AddElement( _T("properties") ) )
 		{
-			CXMLElement* pMetadata = pFileRoot->AddElement( _T("metadata") );
-			pMetadata->AddAttribute( _T("xmlns:s"), pFile->m_pSchema->GetURI() );
-			pMetadata->AddElement( CopyMetadata( pFile->m_pMetadata ) );
+			pProperties->AddElement( _T("title") )->SetValue(
+				m_sName.IsEmpty() ? _T("PeerProject Collection") : (LPCTSTR)m_sName );
+
+			if ( m_pXML && ! m_sSchemaURI.IsEmpty() )
+			{
+				if ( CXMLElement* pMeta = pProperties->AddElement( _T("metadata") ) )
+				{
+					pMeta->AddAttribute( _T("xmlns:s"), m_sSchemaURI );
+					pMeta->AddElement( m_pXML->Prefix( _T("s:") ) );
+				}
+			}
+			else
+			{
+				if ( CXMLElement* pMounting = pProperties->AddElement( _T("mounting") ) )
+				{
+					if ( CXMLElement* pParent = pMounting->AddElement( _T("parent") ) )
+					{
+						pParent->AddAttribute( _T("uri"), CSchema::uriCollectionsFolder );
+
+						if ( CXMLElement* pElement = pMounting->AddElement( _T("this") ) )
+						{
+							pElement->AddAttribute( _T("uri"), CSchema::uriFolder );
+						}
+					}
+				}
+			}
 		}
+
+		if ( CXMLElement* pContents = pRoot->AddElement( _T("contents") ) )
+		{
+			for ( POSITION pos = GetFileIterator() ; pos ; )
+			{
+				if ( const CLibraryFile* pFile = GetNextFile( pos ) )
+				{
+					pFile->CreateXML( pContents, FALSE, xmlDefault );
+				}
+			}
+		}
+
+	//	CXMLElement* pFileRoot = pContents->AddElement( _T("file") );
+	//
+	//	if ( pFile->m_oSHA1 && pFile->m_oTiger )
+	//		pFileRoot->AddElement( _T("id") )->SetValue(
+	//			_T("urn:bitprint:") + pFile->m_oSHA1.toString() + '.' + pFile->m_oTiger.toString() );
+	//	else if ( pFile->m_oSHA1 )
+	//		pFileRoot->AddElement( _T("id") )->SetValue( pFile->m_oSHA1.toUrn() );
+	//	else if ( pFile->m_oTiger )
+	//		pFileRoot->AddElement( _T("id") )->SetValue( pFile->m_oTiger.toUrn() );
+	//
+	//	if ( pFile->m_oMD5 )
+	//		pFileRoot->AddElement( _T("id") )->SetValue( pFile->m_oMD5.toUrn() );
+	//
+	//	if ( pFile->m_oED2K )
+	//		pFileRoot->AddElement( _T("id") )->SetValue( pFile->m_oED2K.toUrn() );
+	//
+	//	if ( pFile->m_oBTH )
+	//		pFileRoot->AddElement( _T("id") )->SetValue( pFile->m_oBTH.toUrn() );
+	//
+	//	CXMLElement* pDescription = pFileRoot->AddElement( _T("description") );
+	//	pDescription->AddElement( _T("name") )->SetValue( pFile->m_sName );
+	//
+	//	CString str;
+	//	str.Format( _T("%I64u"), pFile->GetSize() );
+	//	pDescription->AddElement( _T("size") )->SetValue( str );
+	//
+	//	if ( bMetadataAll && pFile->m_pMetadata && pFile->m_pSchema )
+	//	{
+	//		CXMLElement* pMetadata = pFileRoot->AddElement( _T("metadata") );
+	//		pMetadata->AddAttribute( _T("xmlns:s"), pFile->m_pSchema->GetURI() );
+	//		pMetadata->AddElement( CopyMetadata( pFile->m_pMetadata ) );
+	//	}
 	}
 
 	return pRoot;
 }
 
-CXMLElement* CAlbumFolder::CopyMetadata(CXMLElement* pOriginMetadata) const
-{
-	CXMLElement* pMetadata = pOriginMetadata->Clone();
-
-	pMetadata->SetName( _T("s:") + pMetadata->GetName() );
-
-	for ( POSITION pos = pMetadata->GetElementIterator() ; pos ; )
-	{
-		CXMLElement* pNode = pMetadata->GetNextElement( pos );
-		pNode->SetName( _T("s:") + pNode->GetName() );
-	}
-
-	for ( POSITION pos = pMetadata->GetAttributeIterator() ; pos ; )
-	{
-		CXMLAttribute* pNode = pMetadata->GetNextAttribute( pos );
-		pNode->SetName( _T("s:") + pNode->GetName() );
-	}
-
-	return pMetadata;
-}
+//CXMLElement* CAlbumFolder::CopyMetadata(CXMLElement* pOriginMetadata) const
+//{
+//	CXMLElement* pMetadata = pOriginMetadata->Clone();
+//
+//	pMetadata->SetName( _T("s:") + pMetadata->GetName() );
+//
+//	for ( POSITION pos = pMetadata->GetElementIterator() ; pos ; )
+//	{
+//		CXMLElement* pNode = pMetadata->GetNextElement( pos );
+//		pNode->SetName( _T("s:") + pNode->GetName() );
+//	}
+//
+//	for ( POSITION pos = pMetadata->GetAttributeIterator() ; pos ; )
+//	{
+//		CXMLAttribute* pNode = pMetadata->GetNextAttribute( pos );
+//		pNode->SetName( _T("s:") + pNode->GetName() );
+//	}
+//
+//	return pMetadata;
+//}

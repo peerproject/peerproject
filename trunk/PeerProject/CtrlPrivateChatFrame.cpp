@@ -1,7 +1,7 @@
 //
 // CtrlPrivateChatFrame.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -51,7 +51,7 @@ BEGIN_MESSAGE_MAP(CPrivateChatFrame, CChatFrame)
 END_MESSAGE_MAP()
 
 #define EDIT_HEIGHT		32
-//define TOOLBAR_HEIGHT	30	// Skin.m_nToolbarHeight
+//define TOOLBAR_HEIGHT	30	// Settings.Skin.ToolbarHeight
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -120,11 +120,11 @@ void CPrivateChatFrame::OnSize(UINT nType, int cx, int cy)
 	HDWP hDWP = BeginDeferWindowPos( 3 );
 
 	DeferWindowPos( hDWP, m_wndView, NULL, rc.left, rc.top,
-		rc.Width(), rc.Height() - Skin.m_nToolbarHeight - EDIT_HEIGHT, SWP_NOZORDER );
+		rc.Width(), rc.Height() - Settings.Skin.ToolbarHeight - EDIT_HEIGHT, SWP_NOZORDER );
 
 	DeferWindowPos( hDWP, m_wndToolBar, NULL,
-		rc.left, rc.bottom - Skin.m_nToolbarHeight - EDIT_HEIGHT,
-		rc.Width(), Skin.m_nToolbarHeight, SWP_NOZORDER );
+		rc.left, rc.bottom - Settings.Skin.ToolbarHeight - EDIT_HEIGHT,
+		rc.Width(), Settings.Skin.ToolbarHeight, SWP_NOZORDER );
 
 	DeferWindowPos( hDWP, m_wndEdit, NULL, rc.left, rc.bottom - EDIT_HEIGHT,
 		rc.Width(), EDIT_HEIGHT, SWP_NOZORDER );

@@ -1,7 +1,7 @@
 //
 // DlgSplash.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -82,9 +82,14 @@ BOOL CSplashDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
+//	if ( ! theApp.m_bIsWin2000 )
+//		SetClassLongPtr( GetSafeHwnd(), GCL_STYLE, GetClassLongPtr( GetSafeHwnd(), GCL_STYLE ) | CS_SAVEBITS | CS_DROPSHADOW );
+
 	SetWindowText( m_sState );
 
 	CClientDC dcScreen( this );
+
+	//m_bmSplash.Attach( CImageFile::LoadBitmapFromFile( Settings.General.Path + L"\\Data\\Splash.png" ) );
 
 	CImageFile pFile;
 	if ( pFile.LoadFromFile( Settings.General.Path + L"\\Data\\Splash.png" ) )
@@ -92,20 +97,23 @@ BOOL CSplashDlg::OnInitDialog()
 		pFile.EnsureRGB();
 		HBITMAP bmHandle = pFile.CreateBitmap();
 		m_bmSplash.Attach( bmHandle );
-
-		BITMAP bmInfo;
-		m_bmSplash.GetObject( sizeof(BITMAP), &bmInfo );
-		if ( bmInfo.bmHeight > 20 && bmInfo.bmWidth > 280 )
-		{
-			m_nWidth = bmInfo.bmWidth;
-			m_nHeight = bmInfo.bmHeight;
-		}
 	}
 	else if ( pFile.LoadFromResource( AfxGetResourceHandle(), IDR_LARGE_LOGO, RT_PNG ) )
 	{
 		// ToDo: Built-in media splash currently works as fallback, but this should be commented out if changed. (Note flat-color otherwise)
 		HBITMAP bmHandle = pFile.CreateBitmap();
 		m_bmSplash.Attach( bmHandle );
+	}
+
+	if ( m_bmSplash.m_hObject )
+	{
+		BITMAP bmInfo;
+		m_bmSplash.GetObject( sizeof(BITMAP), &bmInfo );
+		if ( bmInfo.bmHeight > 20 && bmInfo.bmWidth > 280 )
+		{
+			m_nWidth  = bmInfo.bmWidth;
+			m_nHeight = bmInfo.bmHeight;
+		}
 	}
 
 	m_bmBuffer.CreateCompatibleBitmap( &dcScreen, m_nWidth, m_nHeight );

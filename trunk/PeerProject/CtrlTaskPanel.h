@@ -49,8 +49,8 @@ public:
 	void		ClearBoxes(BOOL bDelete);
 
 	void		SetStretchBox(CTaskBox* pBox);
-	void		SetWatermark(HBITMAP hBitmap);
-	void		SetFooter(HBITMAP hBitmap, BOOL bDefault = TRUE);
+	void		SetWatermark(LPCTSTR szWatermark);
+	void		SetFooter(LPCTSTR szWatermark);
 //	void		SetMargin(int nMargin, int nCurve = 2);
 	void		OnChanged();
 protected:
@@ -68,7 +68,7 @@ protected:
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnPaint();
 	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
@@ -91,8 +91,8 @@ public:
 	void		SetIcon(HICON hIcon);
 	void		SetSize(int nHeight);
 	void		SetPrimary(BOOL bPrimary = TRUE);
-	void		SetWatermark(HBITMAP hBitmap);
-	void		SetCaptionmark(HBITMAP hBitmap, BOOL bDefault = TRUE);
+	void		SetWatermark(LPCTSTR szWatermark);
+	void		SetCaptionmark(LPCTSTR szWatermark);
 	void		Expand(BOOL bOpen = TRUE);
 
 protected:

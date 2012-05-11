@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Lithuanian Skin File -->
 
-<!-- Translation based on default-en.xml r77 -->
+<!-- Translation based on default-en.xml r78 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -452,16 +452,6 @@
 	</toolbar>
 	<!--
 	<toolbar name="WebServices.ShareMonkey">
-		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Gauti duomenis"/>
-		<separator/>
-		<button id="ID_SHAREMONKEY_PREVIOUS" text="Ankstesnis"/>
-		<button id="ID_SHAREMONKEY_NEXT" text="Toliau"/>
-		<separator/>
-		<button id="ID_SHAREMONKEY_PRICES" text="gauti kainas"/>
-		<button id="ID_SHAREMONKEY_COMPARE" text="Palyginti"/>
-		<button id="ID_SHAREMONKEY_BUY" text="Pirkti"/>
-	</toolbar>
-	<toolbar name="WebServices.ShareMonkey.WithSave">
 		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Gauti duomenis"/>
 		<button id="ID_SHAREMONKEY_SAVE" text="Išsaugoti"/>
 		<control id="ID_SHAREMONKEY_SAVE_OPTION" text="Išsaugoti paveikslą" width="100" checked="true"/>
@@ -1656,7 +1646,7 @@
 				<font size="13"/>
 			</style>
 			<style name="heading">
-				<font face="Trebuchet MS" size="16" weight="800"/>
+				<font face="Segoe UI" size="18" weight="400"/>
 			</style>
 		</styles>
 		<anchor id="Header" width="32" height="152"/>
@@ -2996,7 +2986,7 @@
 	<string id="20433" value="„PeerProject“ negalėjo ištrinti failo:\n\n%s"/>
 	<string id="20434" value="Jūsų parsisiųstų failų aplankas „%s“ dar nėra įtrauktas į Jūsų kolekciją.\n\nĮtraukę parsisiųstų failų aplanką į savo kolekciją, Jūs galėsite lengviau tvarkyti ir peržiūrėti naujai parsisiųstus failus, o taip pat pasinaudoti tokiomis papildomomis PeerProject funkcijomis, kaip failų patikra ir savaiminis PeerProject atnaujinimas. Parsisiųstų failų laikymas Jūsų kolekcijoje nereikalauja, kad Jūs jas bendrintumėte: Jūs galite pasirinkti kiekvienam failui atskirai, ar jį bendrinti ar ne.\n\nAr norėtumėte dabar įtraukti parsisiųstų failų aplanką į savo kolekciją?"/>
 	<string id="20435" value="Jūsų parsisiųstų failų aplankas įtrauktas į kolekciją. Ar norėtumėte jį irgi bendrinti?"/>
-	<!--string id="20436" value="Jūs dar nenurodėte grotuvo programos, pvz., Nullsoft WinAmp, į kurio grojaraštį norite įtraukti savo failus. Ar norite dabar jį nurodyti?\n\nPeerProject perduos failo pavadinimą Jūsų pasirinktai programai kartu su „--ADD“ argumentu."/>
+	<!--string id="20436" value="Jūs dar nenurodėte grotuvo programos, pvz., Nullsoft WinAmp, į kurio grojaraštį norite įtraukti savo failus. Ar norite dabar jį nurodyti?\n\nPeerProject perduos failo pavadinimą Jūsų pasirinktai programai kartu su „--ADD“ argumentu."-->
 	<string id="20436" value="Pridėti šį aplanką į savo biblioteką?\n\n%s"/>
 	<string id="20437" value="Šešėlinis failas"/>
 	<string id="20438" value="Taisomi %i failų(-os) meta duomenys."/>
@@ -3748,13 +3738,16 @@
 		<control caption="_Nustatyti..."/>
 		<control caption="Gauti daugiau"/>
 	</dialog>
-	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuSt" caption="Kita">
+	<dialog name="CAdvancedSettingsPage" cookie="SyBuStEdmsEdCoBuBu" caption="Kita">
+		<control/>
+		<control caption="Nuostatos ypatybės:"/>
+		<control caption="Reikšmė:"/>
+		<control/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
 		<control caption="Numatytoji reikšmė"/>
-		<control caption="Nuostatos ypatybės:"/>
-		<control caption="Reikšmė:"/>
 	</dialog>
 	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protokolai">
 		<control caption="„PeerProject“ bendros architektūros protokolų naršyklė:"/>

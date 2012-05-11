@@ -1,7 +1,7 @@
 //
 // CtrlMatchTip.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -18,28 +18,30 @@
 
 #pragma once
 
+#include "CtrlCoolTip.h"
 #include "MetaList.h"
 
 class CMatchFile;
 class CQueryHit;
 
 
-class CMatchTipCtrl : public CWnd
+class CMatchTipCtrl : public CCoolTipCtrl
 {
+	DECLARE_DYNAMIC(CMatchTipCtrl)
+
 // Construction
 public:
 	CMatchTipCtrl();
-	virtual ~CMatchTipCtrl();
+//	virtual ~CMatchTipCtrl();
+
+public:
+	void			Show(CMatchFile* pFile, CQueryHit* pHit);
 
 // Attributes
 protected:
-	CWnd*			m_pOwner;
-	BOOL			m_bVisible;
 	CMatchFile*		m_pFile;
 	CQueryHit*		m_pHit;
-	CPoint			m_pOpen;
-	DWORD			m_tOpen;
-protected:
+
 	CString			m_sName;
 	CString			m_sUser;
 	CString			m_sCountryCode;
@@ -64,47 +66,18 @@ protected:
 	int				m_nKeyWidth;
 	int				m_nRating;
 
-public:
-	static LPCTSTR	m_hClass;		// CWnd Style
-protected:
-	static CBrush	m_brBack;
-	static COLORREF	m_crBack;
-	static COLORREF	m_crText;
-	static COLORREF	m_crBorder;
-	static COLORREF	m_crWarnings;	// Color of warning messages
-
 // Operations
-public:
-	void		Show(CMatchFile* pFile, CQueryHit* pHit);
-	void		Hide();
 protected:
-	void		ShowInternal();
-	void		LoadFromFile();
-	void		LoadFromHit();
-	BOOL		LoadTypeInfo();
-	CSize		ComputeSize();
-	void		ExpandSize(CDC& dc, CSize& sz, const CString& strText, int nBase = 0);
-	void		DrawText(CDC& dc, CPoint& pt, const CString& strText);
+	void			LoadFromFile();
+	void			LoadFromHit();
+	BOOL			LoadTypeInfo();
 
-// Overrides
-public:
-	//{{AFX_VIRTUAL(CMatchTipCtrl)
-	virtual BOOL Create(CWnd* pParentWnd);
-	//}}AFX_VIRTUAL
-
-// Implementation
 protected:
-	//{{AFX_MSG(CMatchTipCtrl)
-	afx_msg void OnTimer(UINT_PTR nIDEvent);
-	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
-	afx_msg void OnPaint();
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
-	afx_msg void OnDestroy();
-	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
-	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
-	//}}AFX_MSG
+	virtual void OnShow();
+	virtual void OnHide();
+	virtual void OnPaint(CDC* pDC);
+	virtual void OnCalcSize(CDC* pDC);
+	virtual BOOL OnPrepare();
 
 	DECLARE_MESSAGE_MAP()
 };
-
-#define IDC_MATCH_TIP	111

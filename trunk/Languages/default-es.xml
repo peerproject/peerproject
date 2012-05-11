@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Spanish (International) Skin File -->
 
-<!-- Translation based on default-en.xml r77 -->
+<!-- Translation based on default-en.xml r78 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -347,9 +347,9 @@
 	</toolbar>
 	<!-- IRC WINDOW -->
 	<toolbar name="CIRCFrame">
-		<button id="ID_IRC_SENDTEXT" text="Enviar" tip="Post Your Comments"/>
+		<button id="ID_IRC_SENDTEXT" text="Enviar" tip="Publicar sus comentarios"/>
 		<separator/>
-		<button id="ID_IRC_CLOSETAB" text="Cerrar" tip="Exit Current Channel Window"/>
+		<button id="ID_IRC_CLOSETAB" text="Cerrar" tip="Salir de la ventana del canal actual"/>
 		<rightAlign/>
 		<button id="ID_IRC_CONNECT" text="Conectar" tip="Conectar a IRC"/>
 		<button id="ID_IRC_DISCONNECT" text="Desconectar" tip="Desconectar de IRC"/>
@@ -430,16 +430,6 @@
 	</toolbar>
 	<!--
 	<toolbar name="WebServices.ShareMonkey">
-		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Obtener datos"/>
-		<separator/>
-		<button id="ID_SHAREMONKEY_PREVIOUS" text="Anterior"/>
-		<button id="ID_SHAREMONKEY_NEXT" text="Siguiente"/>
-		<separator/>
-		<button id="ID_SHAREMONKEY_PRICES" text="Premiar"/>
-		<button id="ID_SHAREMONKEY_COMPARE" text="Comparar"/>
-		<button id="ID_SHAREMONKEY_BUY" text="Compar"/>
-	</toolbar>
-	<toolbar name="WebServices.ShareMonkey.WithSave">
 		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Obtener datos"/>
 		<button id="ID_SHAREMONKEY_SAVE" text="Guardar"/>
 		<control id="ID_SHAREMONKEY_SAVE_OPTION" text="Guardar previsualizacion" width="100" checked="true"/>
@@ -1329,11 +1319,11 @@
 		</menu>
 		<menu text="_Web Servicios">
 			<item id="ID_LIBRARY_BITZI_WEB" text="Ver _Bitzi Ticket"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Adquirir Metadata"/>
+			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Adquirir Metadatos"/>
 		</menu>
-		<menu text="_Metadata">
-			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
-			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Ubicar Metadata"/>
+		<menu text="_Metadatos">
+			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refrescar Metadatos"/>
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Ubicar Metadatos"/>
 			<item id="ID_LIBRARY_COLUMNS" text="Seleccionar _Columnas..."/>
 		</menu>
 		<separator/>
@@ -1537,6 +1527,21 @@
 		<separator/>
 		<item id="ID_SECURITY_EDIT" text="_Propiedades"/>
 	</menu>
+	<!-- SCHEDULER WINDOW -->
+	<menu name="CSchedulerWnd">
+		<item id="ID_SCHEDULER_ADD" text="_Añadir Tarea"/>
+		<separator/>
+		<item id="ID_SCHEDULER_EDIT" text="Editar"/>
+		<item id="ID_SCHEDULER_REMOVE" text="Eliminar"/>
+		<separator/>
+		<item id="ID_SCHEDULER_ACTIVATE" text="Activar"/>
+		<item id="ID_SCHEDULER_DEACTIVATE" text="Desactivar"/>
+		<separator/>
+		<item id="ID_SCHEDULER_IMPORT" text="_Importar..."/>
+		<item id="ID_SCHEDULER_EXPORT" text="E_xportar..."/>
+		<separator/>
+		<item id="ID_SCHEDULER_REMOVE_ALL" text="Eliminar Todas"/>
+	</menu>
 	<!-- DISCOVERY SERVICES WINDOW -->
 	<menu name="CDiscoveryWnd">
 		<item id="ID_DISCOVERY_ADD" text="_Agregar Servicio..."/>
@@ -1571,7 +1576,7 @@
 		</menu>
 		<separator/>
 		<item id="ID_CHAT_TIMESTAMP" text="Marca del _Tiempo"/>
-		<item id="ID_CHAT_CLEAR" text="Eliminar"/>
+		<item id="ID_CHAT_CLEAR" text="Limpiar ventana"/>
 	</menu>
 	<!-- IRC WINDOW -->
 	<menu name="CIRCTabRClick">
@@ -2344,6 +2349,7 @@
 	<tip id="ID_HELP_HOMEPAGE" message="Visitar el sitio de PeerProject."/>
 	<tip id="ID_HELP_SECURITY" message="Ayuda protegiendo tu sistema de programas hostiles"/>
 	<tip id="ID_HELP_UPDATE" message="Ver noticias y actualizaciones."/>
+	<tip id="ID_HELP_VERSION_CHECK" message="Buscar nueva versión."/>
 	<tip id="ID_HELP_TEST" message="Ejecutar el test de conexión."/>
 	<tip id="ID_HELP_WEB_1" message="Visitar este sitio"/>
 	<tip id="ID_HELP_WEB_2" message="Visitar este sitio"/>
@@ -2393,7 +2399,7 @@
 	<tip id="ID_LIBRARY_REBUILD" message="Reconstruir mi Colección, escaneandolo, y adquiriendo la metadata de nuevo."/>
 	<tip id="ID_LIBRARY_REBUILD_ANSI" message="Reconstrir metadata utilizando otro lenguaje."/>
 	<tip id="ID_LIBRARY_REFRESH" message="Actualizar la vista de mi Colección."/>
-	<tip id="ID_LIBRARY_REMOVE" message="Eliminar esta carpeta de mi Colección."/>
+	<tip id="ID_LIBRARY_REMOVE" message="Eliminar las carpetas compartidas seleccionadas."/>
 	<tip id="ID_LIBRARY_RENAME" message="Renombrar el archivo."/>
 	<tip id="ID_LIBRARY_SCAN" message="Escanear los cambios en los archivos/carpetas."/>
 	<tip id="ID_LIBRARY_SEARCH" message="Buscar en mi Colección..."/>
@@ -2448,6 +2454,8 @@
 	<tip id="ID_MEDIA_STOP" message="Parar reproducción."/>
 	<tip id="ID_MEDIA_VIS" message="Seleccionar un componente de visualización de audio(plugin)..."/>
 	<tip id="ID_MEDIA_ZOOM" message="Ajustar la proporción del video."/>
+	<tip id="ID_MUSICBRAINZ_ALBUMS" message="Buscar todos los albums de este artista."/>
+	<tip id="ID_MUSICBRAINZ_MATCHES" message="Buscar otras copias del archivo seleccionado."/>
 	<tip id="ID_MONITOR_CLOSE" message="Cerrar el monitor."/>
 	<tip id="ID_NEIGHBOURS_CHAT" message="Comenzar un chat con el usuario."/>
 	<tip id="ID_NEIGHBOURS_URI" message="Copiar enlace (URI) del usuario."/>
@@ -2460,13 +2468,13 @@
 	<tip id="ID_NETWORK_BROWSE_TO" message="Explorar al usuario, muestra sus archivos compartidos y perfil..."/>
 	<tip id="ID_NETWORK_CONNECT" message="Conectar a la red o redes."/>
 	<tip id="ID_NETWORK_CONNECT_TO" message="Conectar manualmente al usuario..."/>
-	<tip id="ID_NETWORK_DISCONNECT" message="Desconectar de la red o redes."/>
+	<tip id="ID_NETWORK_DISCONNECT" message="Desconectar de todas las redes."/>
 	<tip id="ID_NETWORK_EXIT" message="Salir de PeerProject"/>
 	<tip id="ID_NETWORK_ED2K" message="Conectar a la red de eDonkey."/>
 	<tip id="ID_NETWORK_DC" message="Conectar a la red de DC++."/>
 	<tip id="ID_NETWORK_BT" message="Conectar a la red de BitTorrent."/>
-	<tip id="ID_NETWORK_G1" message="Conectar a la red original de Gnutella."/>
-	<tip id="ID_NETWORK_G2" message="Conectar a la red Gnutella2 (Muy recomendado)."/>
+	<tip id="ID_NETWORK_G1" message="Conectar a la red de Gnutella original."/>
+	<tip id="ID_NETWORK_G2" message="Conectar a la red Gnutella2 (altamente recomendado)."/>
 	<tip id="ID_NETWORK_SEARCH" message="Empezar una nueva búsqueda"/>
 	<tip id="ID_SEARCH_CHAT" message="Abre un chat con el usuario."/>
 	<tip id="ID_SEARCH_CLEAR" message="Borrar los resultados."/>
@@ -2585,6 +2593,7 @@
 </commandTips>
 <!-- Tips displayed when mouse is moved over controls in the dialogs -->
 <controlTips>
+	<tip id="IDC_REGEXP" message="Introduce expresiones regulares en la sintaxis de Perl.{n}Las palabras clave pueden ser especificadas en forma de &lt;n&gt;, donde n es un numero entre 1 y 9. Si quieres poner todas las palabras una tras otra, usa el símbolo &lt;_&gt;."/>
 	<tip id="IDC_THROTTLE_MODE" message="En el modo máximo el ancho de banda no superará el valor especificado. En el modo medio esto fluctuará alrededor del valor a ambos lados."/>
 	<tip id="IDC_SHARE_PARTIALS" message="Este ajuste no tiene ningún efecto sobre descargas previamente iniciadas, también este ajuste es ignorado si el archivo tiene el hash(clave) de eDonkey y la red eDonkey esta conectada o si es un torrent. {n}Sin embargo este ajuste no es ignorado si la descarga es pausada. {n}{n} ATENCIÓN: Use esta opción sólo en caso de necesidad real, si abusas de esta opción puedes ser baneado(prohibido)."/>
 </controlTips>
@@ -2744,6 +2753,9 @@
 	<string id="20189" value="Recibida una respuesta desconocida: %s"/>
 	<string id="20190" value="PeerProject no está conectado."/>
 	<string id="20191" value="Comando no conocido &quot;%s&quot;."/>
+	<string id="20192" value="CAPTCHA aceptado."/>
+	<string id="20193" value="CAPTCHA erroneo."/>
+	<string id="20194" value="Introduce CAPTCHA:"/>
 	<string id="20196" value="Este template no tiene ningún cambio."/>
 	<string id="20197" value="Este template es invalido."/>
 	<string id="20198" value="El texto copiado al portapapeles:"/>
@@ -3713,13 +3725,16 @@
 		<control caption="Configurar..."/>
 		<control caption="Buscar más"/>
 	</dialog>
-	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuSt" caption="Avanzadas">
+	<dialog name="CAdvancedSettingsPage" cookie="SyBuStEdmsEdCoBuBu" caption="Avanzadas">
+		<control/>
+		<control caption="Configuración:"/>
+		<control caption="Valor:"/>
+		<control/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
 		<control caption="Restaurar"/>
-		<control caption="Configuración:"/>
-		<control caption="Valor:"/>
 	</dialog>
 	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protocolos">
 		<control caption="PeerProject Common Architecture Protocol Explorer:"/>
@@ -4489,14 +4504,14 @@
 	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Alerta de Actualización">
 		<control caption="Una nueva versión de PeerProject esta disponible. ¿Deseas actualizar?"/>
 		<control caption="Si seleccionas actualizar ahora, PeerProject va a agregar la actualizacion a tu cola de descarga y automaticamente lo va a descargar."/>
-		<control caption="No chequear si hay nuevas versiones"/>
+		<control caption="No buscar nuevas versiones"/>
 		<control caption="_Actualizar Ahora"/>
 		<control caption="Cancelar"/>
 	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Ubicar Metadata">
 		<control caption="Por favor selecciona un metodo de codificación"/>
 		<control caption="Arabico|Baltico|Europa Central|Chino Simplificado|Chino Traducional|Cirílico|Griego|Hebreo|Japonés|Koreano|Taílandes|Turco|Vietnamita"/>
-		<control caption="Preview:"/>
+		<control caption="Previsualización:"/>
 		<control/>
 		<control/>
 		<control/>
@@ -4511,13 +4526,13 @@
 		<control caption="Cancelar"/>
 		<control/>
 	</dialog>
-	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Reason Why">
+	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Nombre del Canal|Motivo">
 		<control/>
 		<control caption="OK"/>
 		<control caption="Cancelar"/>
-		<control caption="Add a channel name:|Enter kick/ban reason:"/>
+		<control caption="Añadir un nombre para el canal:|Introducir la razon del kick/ban:"/>
 	</dialog>
-	<dialog name="CDownloadReviewDlg" cookie="BuSyEd" caption="Descargar Reviews">
+	<dialog name="CDownloadReviewDlg" cookie="BuSyEd" caption="Descargar Comentarios">
 		<control caption="OK"/>
 		<control/>
 		<control/>

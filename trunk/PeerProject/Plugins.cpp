@@ -43,37 +43,46 @@ CPlugins::CPlugins()
 	ZeroMemory( &m_inCLSID, sizeof( m_inCLSID ) );
 }
 
-void CPlugins::Register()
+BOOL CPlugins::Register(const CString& sPath)
 {
+	Clear();
+
+	BOOL bError = FALSE;
 	CList< HINSTANCE > oModules;	// Cache
 
-//	LPCTSTR szParam = AfxGetPerUserRegistration() ? _T("/RegServerPerUser") : _T("/RegServer");
+	LPCTSTR szParam =
+#if defined(_MSC_VER) && (_MSC_VER >= 1500)	// No VS2005
+	AfxGetPerUserRegistration() ? _T("/RegServerPerUser") :
+#endif
+	_T("/RegServer");
 
 	CFileFind finder;
-	BOOL bWorking = finder.FindFile( Settings.General.Path + _T("\\Plugins\\*.*") );	// .DLLs +.EXEs
+	BOOL bWorking = finder.FindFile( sPath + _T("\\*.*") );	// .DLLs +.EXEs
 	while ( bWorking )
 	{
 		bWorking = finder.FindNextFile();
-		const CString sPath = finder.GetFilePath();
-		const CString sName = finder.GetFileName();
-		const CString sExt = PathFindExtension( sName );
+		const CString strPath = finder.GetFilePath();
+		const CString strName = finder.GetFileName();
+		const CString strExt  = PathFindExtension( strName );
 
-		if ( ! sExt.CompareNoCase( _T(".dll") ) )
+		if ( strExt.CompareNoCase( _T(".dll") ) == 0 )
 		{
-			if ( sName == _T("WebHook.dll") && ! Settings.Downloads.WebHookEnable )
+			if ( strName == _T("WebHook.dll") && ! Settings.Downloads.WebHookEnable )
 				continue;	// Skip WebHook Integration
 
-			if ( HINSTANCE hDll = LoadLibrary( sPath ) )
+			if ( HINSTANCE hDll = LoadLibrary( strPath ) )
 			{
 				HRESULT hr = S_FALSE;
 
+#if defined(_MSC_VER) && (_MSC_VER >= 1500)		// Legacy VS2005 No AfxGetPerUserRegistration
 				HRESULT (WINAPI *pfnDllInstall)(BOOL bInstall, LPCWSTR pszCmdLine);
 				(FARPROC&)pfnDllInstall = GetProcAddress( hDll, "DllInstall" );
-				if ( pfnDllInstall )
+				if ( pfnDllInstall && AfxGetPerUserRegistration() )
 				{
 					hr = pfnDllInstall( TRUE, L"user" );
 				}
 				else
+#endif
 				{
 					HRESULT (WINAPI *pfnDllRegisterServer)(void);
 					(FARPROC&)pfnDllRegisterServer = GetProcAddress( hDll, "DllRegisterServer" );
@@ -82,16 +91,21 @@ void CPlugins::Register()
 				}
 
 				if ( hr == S_OK )
-					theApp.Message( MSG_NOTICE, _T("Registered plugin: %s"), sName );
+					theApp.Message( MSG_NOTICE, _T("Registered plugin: %s"), strName );
 				else if ( FAILED( hr ) )
-					theApp.Message( MSG_ERROR, _T("Failed to register plugin: %s : 0x%08x"), sName, hr );
+				{
+					theApp.Message( MSG_ERROR, _T("Failed to register plugin: %s : 0x%08x"), strName, hr );
+					bError = TRUE;
+				}
 
 				oModules.AddTail( hDll );
 			}
+			else
+				bError = TRUE;
 		}
-		else if ( ! sExt.CompareNoCase( _T(".exe") ) )
+		else if ( strExt.CompareNoCase( _T(".exe") ) == 0 )
 		{
-			DWORD dwSize = GetFileVersionInfoSize( sPath, &dwSize );
+			DWORD dwSize = GetFileVersionInfoSize( strPath, &dwSize );
 			auto_array< BYTE > pBuffer( new BYTE[ dwSize ] );
 			if ( GetFileVersionInfo( sPath, NULL, dwSize, pBuffer.get() ) )
 			{
@@ -102,51 +116,19 @@ void CPlugins::Register()
 					pValue && dwSize &&
 					_wcsicmp( pValue, _T("plugin") ) == 0 )
 				{
-					if ( (DWORD_PTR)ShellExecute( NULL, NULL, sPath, _T("/RegServerPerUser"), NULL, SW_HIDE ) > 32 )
-						theApp.Message( MSG_NOTICE, _T("Registered plugin: %s"), sName );
+					if ( (DWORD_PTR)ShellExecute( NULL, NULL, strPath, szParam, NULL, SW_HIDE ) > 32 )	// "/RegServerPerUser"
+						theApp.Message( MSG_NOTICE, _T("Registered plugin: %s"), strName );
 					else
-						theApp.Message( MSG_ERROR, _T("Failed to register plugin: %s : 0x%08x"), sName, GetLastError() );
+						theApp.Message( MSG_ERROR, _T("Failed to register plugin: %s : 0x%08x"), strName, GetLastError() );
 				}
 			}
 		}
 	}
 
-	// Root DLLs	ToDo: Minimize duplicate code block ?
-	bWorking = finder.FindFile( Settings.General.Path + _T("\\*.dll") );
-	while ( bWorking )
-	{
-		bWorking = finder.FindNextFile();
-		CString sDllPath = finder.GetFilePath().MakeLower();
-
-		if ( HINSTANCE hDll = LoadLibrary( sDllPath ) )
-		{
-			HRESULT hr = S_FALSE;
-
-			HRESULT (WINAPI *pfnDllInstall)(BOOL bInstall, LPCWSTR pszCmdLine);
-			(FARPROC&)pfnDllInstall = GetProcAddress( hDll, "DllInstall" );
-			if ( pfnDllInstall )
-			{
-				hr = pfnDllInstall( TRUE, L"user" );
-			}
-			else
-			{
-				HRESULT (WINAPI *pfnDllRegisterServer)(void);
-				(FARPROC&)pfnDllRegisterServer = GetProcAddress( hDll, "DllRegisterServer" );
-				if ( pfnDllRegisterServer )
-					hr = pfnDllRegisterServer();
-			}
-
-			if ( hr == S_OK )
-				theApp.Message( MSG_NOTICE, _T("Registered plugin: %s"), sDllPath );
-			else if ( FAILED( hr ) )
-				theApp.Message( MSG_ERROR, _T("Failed to register plugin: %s : 0x%08x"), sDllPath, hr );
-
-			oModules.AddTail( hDll );
-		}
-	}
-
 	for ( POSITION pos = oModules.GetHeadPosition() ; pos ; )
 		FreeLibrary( oModules.GetNext( pos ) );
+
+	return ! bError;
 }
 
 //////////////////////////////////////////////////////////////////////

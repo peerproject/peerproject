@@ -1,7 +1,7 @@
 //
 // CollectionFile.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2008
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -27,12 +27,14 @@ class CLibraryFile;
 
 class CCollectionFile : public CComObject
 {
+	DECLARE_DYNAMIC(CCollectionFile)
+
 // Construction
 public:
 	CCollectionFile();
 	virtual ~CCollectionFile();
-	DECLARE_DYNAMIC(CCollectionFile)
 
+public:
 	enum CollectionType { PeerProjectCollection, SimpleCollection };
 
 // Member File Class
@@ -78,7 +80,7 @@ public:
 
 	File*		FindByURN(LPCTSTR pszURN);
 	File*		FindFile(CLibraryFile* pShared, BOOL bApply = FALSE);
-	int			GetMissingCount();
+	int			GetMissingCount() const;
 
 protected:
 	BOOL		LoadCollection(LPCTSTR pszFile);	// Load zipped PeerProject collection

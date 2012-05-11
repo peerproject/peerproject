@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Dutch Skin File -->
 
-<!-- Translation based on default-en.xml r77 -->
+<!-- Translation based on default-en.xml r78 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -455,16 +455,6 @@
 	</toolbar>
 	<!--
 	<toolbar name="WebServices.ShareMonkey">
-		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Verkrijg Data"/>
-		<separator/>
-		<button id="ID_SHAREMONKEY_PREVIOUS" text="Vorige"/>
-		<button id="ID_SHAREMONKEY_NEXT" text="Volgende"/>
-		<separator/>
-		<button id="ID_SHAREMONKEY_PRICES" text="Verkrijg Prijzen"/>
-		<button id="ID_SHAREMONKEY_COMPARE" text="Vergelijken"/>
-		<button id="ID_SHAREMONKEY_BUY" text="Buy It"/>
-	</toolbar>
-	<toolbar name="WebServices.ShareMonkey.WithSave">
 		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Verkrijg Data"/>
 		<button id="ID_SHAREMONKEY_SAVE" text="Opslaan"/>
 		<control id="ID_SHAREMONKEY_SAVE_OPTION" text="Voorvertoning Opslaan" width="100" checked="true"/>
@@ -1656,16 +1646,16 @@
 				<font size="13"/>
 			</style>
 			<style name="heading">
-				<font face="Trebuchet MS" size="16" weight="800"/>
+				<font face="Segoe UI" size="18" weight="400"/>
 			</style>
 		</styles>
 		<anchor id="Header" width="32" height="152"/>
 		<newline gap="0"/>
 		<group id="1">
 			<icon res="136" width="32" height="32" target="command:ID_NETWORK_CONNECT"/><gap size="8"/>
-			<heading align="middle">VERBINDING MAKEN</heading>
+			<heading align="middle">Verbinding Maken</heading>
 			<newline gap="8" indent="42"/>
-			<text>Welcome bij PeerProject!</text>
+			<text>Welcome bij PeerProject.</text>
 			<newline gap="8" indent="42"/>
 			<text>Je bent momenteel niet verbonden met één van de peer-to-peer netwerken. &#160;</text>
 			<link target="command:ID_NETWORK_CONNECT">Klik hier om te starten!</link>
@@ -1673,12 +1663,12 @@
 		</group>
 		<group id="2">
 			<icon res="130" width="32" height="32" target="command:ID_TAB_SEARCH"/><gap size="8"/>
-			<heading align="middle">ZOEK VOOR EEN BESTAND</heading>
+			<heading align="middle">Zoek Voor Een Bestand</heading>
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="12" indent="0"/>
 			<icon res="122" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
-			<heading align="middle">START DOWNLOAD</heading>
+			<heading align="middle">Start Download</heading>
 			<newline gap="8" indent="42"/>
 			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Klik hier om te starten</link>
 			<text align="middle">&#160; bezig aan het downloaden.</text>
@@ -1691,7 +1681,7 @@
 		</group>
 		<group id="3">
 			<icon res="120" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">UPGRADE MEDEDELING</heading>
+			<heading align="middle">Upgrade Mededeling</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
 			<newline gap="6"/>
@@ -1700,7 +1690,7 @@
 		</group>
 		<group id="4">
 			<icon res="180" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
-			<heading align="middle">WAARSCHUWING: JE HEBT EEN SLECHT INGESTELDE ROUTER OF FIREWALL</heading>
+			<heading align="middle">Waarschuwing: Je Hebt een Slecht Ingestelde Router of Firewall</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject heeft gemerkt dat je achter een NAT router of firewall zit,
 			en niet in staat bent om verbindingen te ontvangen van het internet. &#160;</text>
@@ -1711,7 +1701,7 @@
 		</group>
 		<group id="6">
 			<icon res="180" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">WAARSCHUWING: JE TCP POORT IS GEBLOKKEERD DOOR JE ROUTER OF FIREWALL</heading>
+			<heading align="middle">Waarschuwing: Je TCP Poort is Geblokkeerd Door Je Router of Firewall</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject heeft gemerkt dat je achter een NAT router of firewall zit,
 			en niet in staat bent om verbindingen te ontvangen van het internet. &#160;</text>
@@ -1722,7 +1712,7 @@
 		</group>
 		<group id="7">
 			<icon res="180" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">WAARSCHUWING: JE UDP POORT IS GEBLOKKEERD DOOR JE ROUTER OF FIREWALL</heading>
+			<heading align="middle">Waarschuwing: Je UDP Poort is Geblokkeerd Door Je Router of Firewall</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject heeft gemerkt dat je achter een NAT router of firewall zit,
 			en niet in staat bent om verbindingen te ontvangen van het internet. &#160;</text>
@@ -1732,7 +1722,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
-		<heading align="middle">PEERPROJECT AANPASSEN</heading>
+		<heading align="middle">PeerProject Aanpassen</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="196" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
 		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Skins</link><gap size="6"/>
@@ -1757,7 +1747,7 @@
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="120" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">BESTURING VIA INTERNET IS INGESCHAKELD</heading>
+			<heading align="middle">Besturing via Internet is Ingeschakeld</heading>
 			<newline gap="8" indent="42"/>
 			<text>PeerProject's Web Interface is ingeschakeld. Bedien PeerProject met je browser via:</text>
 			<newline gap="6"/>
@@ -3760,13 +3750,16 @@
 		<control caption="Instellingen..."/>
 		<control caption="Meer..."/>
 	</dialog>
-	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuSt" caption="Geadvanceerd">
+	<dialog name="CAdvancedSettingsPage" cookie="SyBuStEdmsEdCoBuBu" caption="Geadvanceerd">
 		<control/>
-		<control/>
-		<control/>
-		<control caption="Set Default"/>
 		<control caption="Eigenschappen van de instelling:"/>
 		<control caption="Waarde:"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="Herstel Verzuim"/>
 	</dialog>
 	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protocollen">
 		<control caption="PeerProject's algemene architectuur protocolverkenner:"/>

@@ -40,15 +40,15 @@ static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif	// Filename
 
-IMPLEMENT_DYNCREATE(CApplication, CComObject)
+IMPLEMENT_DYNAMIC(CApplication, CComObject)
 
 // {E9B2EF9B-4A0C-451e-801F-257861B87FAD}
-IMPLEMENT_OLECREATE_FLAGS(CApplication, "PeerProject.Application",
+IMPLEMENT_OLECREATE_FLAGS(CApplication, "PeerProject.Application",		// CLIENT_NAME_CHAR
 	afxRegFreeThreading|afxRegApartmentThreading,
 	0xe9b2ef9b, 0x4a0c, 0x451e, 0x80, 0x1f, 0x25, 0x78, 0x61, 0xb8, 0x7f, 0xad)
 
-BEGIN_MESSAGE_MAP(CApplication, CComObject)
-END_MESSAGE_MAP()
+//BEGIN_MESSAGE_MAP(CApplication, CComObject)
+//END_MESSAGE_MAP()
 
 BEGIN_INTERFACE_MAP(CApplication, CComObject)
 	INTERFACE_PART(CApplication, IID_IApplication, Application)
@@ -79,8 +79,12 @@ HRESULT CApplication::GetApp(IApplication** ppIApplication) throw()
 	if ( ! ppIApplication )
 		return E_POINTER;
 
-	return CoCreateInstance( CLSID_PeerProjectApplication, NULL, CLSCTX_ALL,
-		IID_IApplication, (void**)ppIApplication );
+//	return CoCreateInstance( CLSID_PeerProjectApplication, NULL, CLSCTX_ALL, IID_IApplication, (void**)ppIApplication );
+
+	CApplication* pApp = new CApplication;
+	if ( ! pApp ) return E_OUTOFMEMORY;
+	*ppIApplication = static_cast< IApplication* >( pApp->GetInterface( IID_IApplication ) );
+	return *ppIApplication ? S_OK : E_NOINTERFACE;
 }
 
 HRESULT CApplication::GetUI(IUserInterface** ppIUserInterface) throw()
@@ -88,8 +92,12 @@ HRESULT CApplication::GetUI(IUserInterface** ppIUserInterface) throw()
 	if ( ! ppIUserInterface )
 		return E_POINTER;
 
-	return CoCreateInstance( CLSID_PeerProjectApplication, NULL, CLSCTX_ALL,
-		IID_IUserInterface, (void**)ppIUserInterface );
+//	return CoCreateInstance( CLSID_PeerProjectApplication, NULL, CLSCTX_ALL, IID_IUserInterface, (void**)ppIUserInterface );
+
+	CApplication* pApp = new CApplication;
+	if ( ! pApp ) return E_OUTOFMEMORY;
+	*ppIUserInterface = static_cast< IUserInterface* >( pApp->GetInterface( IID_IUserInterface ) );
+	return *ppIUserInterface ? S_OK : E_NOINTERFACE;
 }
 
 HRESULT CApplication::GetSettings(ISettings** ppISettings) throw()
@@ -97,8 +105,12 @@ HRESULT CApplication::GetSettings(ISettings** ppISettings) throw()
 	if ( ! ppISettings )
 		return E_POINTER;
 
-	return CoCreateInstance( CLSID_PeerProjectApplication, NULL, CLSCTX_ALL,
-		IID_ISettings, (void**)ppISettings );
+//	return CoCreateInstance( CLSID_PeerProjectApplication, NULL, CLSCTX_ALL, IID_ISettings, (void**)ppISettings );
+
+	CApplication* pApp = new CApplication;
+	if ( ! pApp ) return E_OUTOFMEMORY;
+	*ppISettings = static_cast< ISettings* >( pApp->GetInterface( IID_ISettings ) );
+	return *ppISettings ? S_OK : E_NOINTERFACE;
 }
 
 /////////////////////////////////////////////////////////////////////////////

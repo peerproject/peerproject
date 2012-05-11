@@ -1072,7 +1072,7 @@ BOOL CG2Packet::OnPush(const SOCKADDR_IN* pHost)
 
 	if ( ! SkipCompound( nLength, 6 ) )
 	{
-		theApp.Message( MSG_ERROR, _T("G2UDP: Invalid PUSH packet received from %s"),
+		theApp.Message( MSG_ERROR, _T("[G2] UDP: Invalid PUSH packet received from %s"),
 			(LPCTSTR)inet_ntoa( pHost->sin_addr ) );
 		Statistics.Current.Gnutella2.Dropped++;
 		return FALSE;

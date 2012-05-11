@@ -273,7 +273,7 @@ int CG1Packet::GGEPReadCachedHosts(const CGGEPBlock& pGGEP)
 			WORD nPort = 0;
 			pIPPs->Read( (void*)&nAddress, 4 );
 			pIPPs->Read( (void*)&nPort, 2 );
-			DEBUG_ONLY( theApp.Message( MSG_DEBUG, _T("Got G1 host %s:%i"),
+			DEBUG_ONLY( theApp.Message( MSG_DEBUG, _T("[G1] Got host %s:%i"),
 				(LPCTSTR)CString( inet_ntoa( *(IN_ADDR*)&nAddress ) ), nPort ) );
 			CHostCacheHostPtr pCachedHost =
 				HostCache.Gnutella1.Add( (IN_ADDR*)&nAddress, nPort );
@@ -368,7 +368,7 @@ void CG1Packet::GGEPWriteRandomCache(CGGEPBlock& pGGEP, LPCTSTR pszID)
 		{
 			pItem->Write( (void*)&pHosts.GetAt( i ).sin_addr.s_addr, 4 );
 			pItem->Write( (void*)&pHosts.GetAt( i ).sin_port, 2 );
-			DEBUG_ONLY( theApp.Message( MSG_DEBUG, _T("Sending G1 host through pong (%s)"), (LPCTSTR)HostToString( &pHosts.GetAt( i ) ) ) );
+			DEBUG_ONLY( theApp.Message( MSG_DEBUG, _T("[G1] Sending host through pong (%s)"), (LPCTSTR)HostToString( &pHosts.GetAt( i ) ) ) );
 		}
 	}
 }

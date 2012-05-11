@@ -1,7 +1,7 @@
 //
 // DDEServer.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -176,8 +176,8 @@ CString CDDEServer::ReadArgument(LPCTSTR& pszMessage)
 
 BOOL CDDEServer::CheckAccept(LPCTSTR pszTopic)
 {
-	BOOL bResult = _tcsicmp( pszTopic, _T("URL") ) == 0 ||
-			_tcsicmp( pszTopic, _T("PEERFORMAT") ) == 0;
+	BOOL bResult =	_tcsicmp( pszTopic, _T("URL") ) == 0 ||
+					_tcsicmp( pszTopic, _T("PEERFORMAT") ) == 0;
 	if ( ! bResult )
 		theApp.Message( MSG_ERROR, _T("Received an unsupported topic in the DDE message: %s"), pszTopic );
 
@@ -235,9 +235,9 @@ BOOL CDDEServer::Execute(LPCTSTR pszTopic, LPCTSTR pszMessage)
 	ASSERT( pszMessage );
 
 	if ( _tcscmp( pszTopic, _T("URL") ) == 0 )
-		return CPeerProjectApp::OpenURL( pszMessage );
-	else if ( _tcscmp( pszTopic, _T("PEERFORMAT") ) == 0 )
-		return CPeerProjectApp::Open( pszMessage );
+		return theApp.OpenURL( pszMessage );
+	if ( _tcscmp( pszTopic, _T("PEERFORMAT") ) == 0 )
+		return theApp.Open( pszMessage );
 
 	return FALSE;
 }

@@ -19,6 +19,7 @@
 #pragma once
 
 #include "PeerProjectFile.h"
+#include "LibraryFolders.h"
 #include "Schema.h"
 
 class CLibraryFolder;
@@ -39,6 +40,7 @@ public:
 	CLibraryFile(CLibraryFolder* pFolder, LPCTSTR pszName = NULL);
 	virtual ~CLibraryFile();
 
+public:
 	CLibraryFile*	m_pNextSHA1;
 	CLibraryFile*	m_pNextTiger;
 	CLibraryFile*	m_pNextED2K;
@@ -81,6 +83,7 @@ public:
 	CString			GetFolder() const;
 	CString 		GetSearchName() const;
 	const CLibraryFolder* GetFolderPtr() const;
+	CXMLElement*	CreateXML(CXMLElement* pRoot, BOOL bSharedOnly, XmlType nType) const;
 
 	bool			IsPrivateTorrent() const;
 	DWORD			GetCreationTime();				// Get network wide file creation time (seconds, as time())

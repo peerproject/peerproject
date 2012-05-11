@@ -1,5 +1,5 @@
 /*
-** sqlite3.h  (3.7.10) (Jan.2012)
+** sqlite3.h  (3.7.11) (Mar.2012)
 **
 ** This file is part of PeerProject (peerproject.org) © 2008-2012
 ** The original author disclaimed copyright to this source code.
@@ -83,9 +83,9 @@ extern "C" {
 /*
 ** Compile-Time Library Version Numbers
 */
-#define SQLITE_VERSION        "3.7.10"
-#define SQLITE_VERSION_NUMBER 3007010
-#define SQLITE_SOURCE_ID      "2012-01-16 13:28:40 ebd01a8deffb5024a5d7494eef800d2366d97204"
+#define SQLITE_VERSION        "3.7.11"
+#define SQLITE_VERSION_NUMBER 3007011
+#define SQLITE_SOURCE_ID      "2012-03-20 11:35:50 00bb9c9ce4f465e6ac321ced2a9d0062dc364669"
 
 /*
 ** Run-Time Library Version Numbers
@@ -224,6 +224,7 @@ SQLITE_API int sqlite3_exec(
 #define SQLITE_CORRUPT_VTAB            (SQLITE_CORRUPT  | (1<<8))
 #define SQLITE_READONLY_RECOVERY       (SQLITE_READONLY | (1<<8))
 #define SQLITE_READONLY_CANTLOCK       (SQLITE_READONLY | (2<<8))
+#define SQLITE_ABORT_ROLLBACK          (SQLITE_ABORT | (2<<8))
 
 /*
 ** Flags For File Open Operations
@@ -234,6 +235,7 @@ SQLITE_API int sqlite3_exec(
 #define SQLITE_OPEN_DELETEONCLOSE    0x00000008  /* VFS only */
 #define SQLITE_OPEN_EXCLUSIVE        0x00000010  /* VFS only */
 #define SQLITE_OPEN_AUTOPROXY        0x00000020  /* VFS only */
+#define SQLITE_OPEN_URI              0x00000040  /* Ok for sqlite3_open_v2() */
 #define SQLITE_OPEN_MAIN_DB          0x00000100  /* VFS only */
 #define SQLITE_OPEN_TEMP_DB          0x00000200  /* VFS only */
 #define SQLITE_OPEN_TRANSIENT_DB     0x00000400  /* VFS only */
@@ -333,6 +335,7 @@ struct sqlite3_io_methods {
 #define SQLITE_FCNTL_OVERWRITE              11
 #define SQLITE_FCNTL_VFSNAME                12
 #define SQLITE_FCNTL_POWERSAFE_OVERWRITE    13
+#define SQLITE_FCNTL_PRAGMA                 14
 
 /*
 ** Mutex Handle
@@ -809,9 +812,9 @@ SQLITE_API int sqlite3_data_count(sqlite3_stmt *pStmt);
 #ifdef SQLITE_TEXT
 # undef SQLITE_TEXT
 #else
-# define SQLITE_TEXT     3
+# define SQLITE_TEXT    3
 #endif
-#define SQLITE3_TEXT     3
+#define SQLITE3_TEXT    3
 
 /*
 ** Result Values From A Query
@@ -1026,6 +1029,11 @@ SQLITE_API sqlite3 *sqlite3_db_handle(sqlite3_stmt*);
 ** Return The Filename For A Database Connection
 */
 SQLITE_API const char *sqlite3_db_filename(sqlite3 *db, const char *zDbName);
+
+/*
+** Determine if a database is read-only
+*/
+SQLITE_API int sqlite3_db_readonly(sqlite3 *db, const char *zDbName);
 
 /*
 ** Find the next prepared statement
@@ -1522,6 +1530,7 @@ SQLITE_API int sqlite3_unlock_notify(
 /*
 ** String Comparison
 */
+SQLITE_API int sqlite3_stricmp(const char *, const char *);
 SQLITE_API int sqlite3_strnicmp(const char *, const char *, int);
 
 /*
@@ -1613,6 +1622,7 @@ SQLITE_API int sqlite3_vtab_on_conflict(sqlite3 *);
 
 /*
 ** 2010 August 30
+**
 *************************************************************************
 */
 

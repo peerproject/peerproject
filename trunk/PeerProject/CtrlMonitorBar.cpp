@@ -31,7 +31,7 @@ static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
 #endif	// Filename
 
-//#define MONITORBARWIDTH 120	// Skin.m_nMonitorbarWidth
+//#define MONITORBARWIDTH 120	// Settings.Skin.MonitorbarWidth
 
 
 BEGIN_MESSAGE_MAP(CMonitorBarCtrl, CControlBar)
@@ -84,7 +84,7 @@ int CMonitorBarCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CControlBar::OnCreate( lpCreateStruct ) == -1 ) return -1;
 
-	if ( Skin.m_bMenuBorders )
+	if ( Settings.Skin.MenuBorders )
 		m_dwStyle |= CBRS_BORDER_3D;	// CBRS_TOOLTIPS in WndMain
 
 	if ( lpCreateStruct->dwExStyle & WS_EX_LAYOUTRTL )
@@ -146,7 +146,7 @@ INT_PTR CMonitorBarCtrl::OnToolHitTest(CPoint point, TOOLINFO* pTI) const
 CSize CMonitorBarCtrl::CalcFixedLayout(BOOL /*bStretch*/, BOOL /*bHorz*/)
 {
 	const int nHeight = Settings.General.GUIMode == GUI_WINDOWED ? 30 : 38;
-	CSize size( Skin.m_nMonitorbarWidth, nHeight );
+	CSize size( Settings.Skin.MonitorbarWidth, nHeight );
 
 	for ( int nSnap = 1 ; nSnap >= 0 ; nSnap-- )
 	{
@@ -220,7 +220,7 @@ void CMonitorBarCtrl::DoPaint(CDC* pDC)
 	if ( ! CoolInterface.DrawWatermark( pMemDC, &rcClient, &m_bmWatermark ) )
 		pMemDC->FillSolidRect( &rcClient, Colors.m_crMidtone );
 
-	if ( Skin.m_bMenuBorders )
+	if ( Settings.Skin.MenuBorders )
 		DrawBorders( pMemDC, rcClient );
 	else
 		rcClient.DeflateRect( 2, 3, 2, 1 );

@@ -1226,16 +1226,18 @@ void CRemote::PageNetwork()
 			pNeighbour->Close( IDS_CONNECTION_CLOSED );
 	}
 
-	CString str;
-
 	Prepare();
+
+	CString str;
 	str.Format( _T("%i"), GetRandomNum( 0i32, _I32_MAX ) );
 	Add( _T("random"), str );
 	Output( _T("networkHeader") );
 
-	PageNetworkNetwork( PROTOCOL_G2, &Settings.Gnutella2.Enabled, _T("Gnutella2") );
-	PageNetworkNetwork( PROTOCOL_G1, &Settings.Gnutella1.Enabled, _T("Gnutella1") );
-	PageNetworkNetwork( PROTOCOL_ED2K, &Settings.eDonkey.Enabled, _T("eDonkey") );
+	PageNetworkNetwork( PROTOCOL_G2, &Settings.Gnutella2.Enabled, _T("Gnutella2") );	// protocolNames[ PROTOCOL_G2 ]
+	PageNetworkNetwork( PROTOCOL_G1, &Settings.Gnutella1.Enabled, _T("Gnutella") ); 	// protocolNames[ PROTOCOL_G1 ]
+	PageNetworkNetwork( PROTOCOL_ED2K, &Settings.eDonkey.Enabled, _T("eDonkey") );		// protocolNames[ PROTOCOL_ED2K ]
+	PageNetworkNetwork( PROTOCOL_DC, &Settings.DC.Enabled, _T("DC++") );				// protocolNames[ PROTOCOL_DC ] )
+	PageNetworkNetwork( PROTOCOL_BT, &Settings.BitTorrent.Enabled, _T("BitTorrent") );	// protocolNames[ PROTOCOL_BT ] )
 
 	Output( _T("networkFooter") );
 }
@@ -1243,7 +1245,6 @@ void CRemote::PageNetwork()
 void CRemote::PageNetworkNetwork(int nID, bool* pbConnect, LPCTSTR pszName)
 {
 	CString str;
-
 	str.Format( _T("%i"), nID );
 
 	if ( GetKey( _T("connect") ) == str )

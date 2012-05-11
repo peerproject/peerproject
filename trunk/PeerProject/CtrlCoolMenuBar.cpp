@@ -25,7 +25,6 @@
 #include "CoolMenu.h"
 #include "WndMain.h"
 #include "WndChild.h"
-#include "Skin.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -33,7 +32,7 @@ static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif	// Filename
 
-#define MENUBAR_HEIGHT 28	// Placeholder for Skin.m_nMenubarHeight
+#define MENUBAR_HEIGHT 28	// Placeholder for Settings.Skin.MenubarHeight
 
 
 BEGIN_MESSAGE_MAP(CCoolMenuBarCtrl, CCoolBarCtrl)
@@ -62,7 +61,7 @@ CCoolMenuBarCtrl::CCoolMenuBarCtrl()
 
 	m_bStretch	= theApp.GetProfileInt( _T(""), _T("MenuStretch"), TRUE );
 	if ( theApp.GetProfileInt( _T(""), _T("MenuHalfHeight"), TRUE ) )
-		m_nHeight = MENUBAR_HEIGHT;		// Skin.m_nMenubarHeight set later
+		m_nHeight = MENUBAR_HEIGHT;		// Settings.Skin.MenubarHeight set later
 }
 
 CCoolMenuBarCtrl::~CCoolMenuBarCtrl()
@@ -155,7 +154,7 @@ void CCoolMenuBarCtrl::ShowMenu()
 	const UINT nFirstID = pMenu->GetMenuItemID( 0 );
 	if ( nFirstID == ID_WINDOW_NAVBAR || nFirstID == ID_WINDOW_CASCADE )	// Tabbed/Windowed modes
 		UpdateWindowMenu( pMenu );
-	else if ( nFirstID == ID_TOOLS_SETTINGS ) // && Skin.m_bDropMenu		// Get DropMenu submenu
+	else if ( nFirstID == ID_TOOLS_SETTINGS ) // && Settings.Skin.DropMenu	// Get DropMenu submenu
 		UpdateWindowMenu( pMenu->GetSubMenu( 4 ) );
 
 	m_pDown = m_pHot;
@@ -301,7 +300,7 @@ void CCoolMenuBarCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 
 void CCoolMenuBarCtrl::OnSkinChange()
 {
-	m_nHeight = Skin.m_nMenubarHeight;
+	m_nHeight = Settings.Skin.MenubarHeight;
 }
 
 /////////////////////////////////////////////////////////////////////////////

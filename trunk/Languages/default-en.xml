@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default English Skin File -->
 
-<!-- Translation based on default-en.xml r77 -->
+<!-- Translation based on default-en.xml r78 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -484,16 +484,6 @@
 	</toolbar>
 	<!--
 	<toolbar name="WebServices.ShareMonkey">
-		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Get Data"/>
-		<separator/>
-		<button id="ID_SHAREMONKEY_PREVIOUS" text="Previous"/>
-		<button id="ID_SHAREMONKEY_NEXT" text="Next"/>
-		<separator/>
-		<button id="ID_SHAREMONKEY_PRICES" text="Get Prices"/>
-		<button id="ID_SHAREMONKEY_COMPARE" text="Compare"/>
-		<button id="ID_SHAREMONKEY_BUY" text="Buy It"/>
-	</toolbar>
-	<toolbar name="WebServices.ShareMonkey.WithSave">
 		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Get Data"/>
 		<button id="ID_SHAREMONKEY_SAVE" text="Save"/>
 		<control id="ID_SHAREMONKEY_SAVE_OPTION" text="Save Preview" width="100" checked="true"/>
@@ -2521,6 +2511,7 @@
 	<tip id="ID_HELP_HOMEPAGE" message="Visit the PeerProject web site."/>
 	<tip id="ID_HELP_SECURITY" message="Help protecting your system from hostile programs."/>
 	<tip id="ID_HELP_UPDATE" message="Check for news and updates."/>
+	<tip id="ID_HELP_VERSION_CHECK" message="Check for new version."/>
 	<tip id="ID_HELP_TEST" message="Run the connection test."/>
 	<tip id="ID_HELP_WEB_1" message="Visit this website"/>
 	<tip id="ID_HELP_WEB_2" message="Visit this website"/>
@@ -2628,6 +2619,8 @@
 	<tip id="ID_MEDIA_STOP" message="Stop playing the media file." tip="Stop"/>
 	<tip id="ID_MEDIA_VIS" message="Select an audio visualisation plugin..."/>
 	<tip id="ID_MEDIA_ZOOM" message="Adjust video zoom and aspect ratio settings."/>
+	<tip id="ID_MUSICBRAINZ_ALBUMS" message="Look for all albums by this artist."/>
+	<tip id="ID_MUSICBRAINZ_MATCHES" message="Look for other copies of the selected file."/>
 	<tip id="ID_MONITOR_CLOSE" message="Close the monitor window."/>
 	<tip id="ID_NEIGHBOURS_CHAT" message="Open a chat session with the selected user."/>
 	<tip id="ID_NEIGHBOURS_URI" message="Copy URI (P2P Link) to access the selected host."/>
@@ -2938,6 +2931,9 @@
 	<string id="20189" value="Received an unknown response: %s"/>
 	<string id="20190" value="You're not connected."/>
 	<string id="20191" value="Unrecognised command &quot;%s&quot;."/>
+	<string id="20192" value="CAPTCHA accepted."/>
+	<string id="20193" value="CAPTCHA denied."/>
+	<string id="20194" value="Confirm CAPTCHA:"/>
 	<string id="20196" value="This template does not have any customizations."/>
 	<string id="20197" value="This template is invalid."/>
 	<string id="20198" value="Text copied to Clipboard:"/>
@@ -3939,13 +3935,16 @@
 		<control caption="_Setup..."/>
 		<control caption="Get More"/>
 	</dialog>
-	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuSt" caption="Advanced">
+	<dialog name="CAdvancedSettingsPage" cookie="SyBuStEdmsEdCoBuBu" caption="Advanced">
+		<control/>
+		<control caption="Setting Properties:"/>
+		<control caption="Value:"/>
+		<control/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
 		<control caption="Restore Default"/>
-		<control caption="Setting Properties:"/>
-		<control caption="Value:"/>
 	</dialog>
 	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protocols">
 		<control caption="PeerProject Common Architecture Protocol Explorer:"/>

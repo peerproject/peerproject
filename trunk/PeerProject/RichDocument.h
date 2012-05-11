@@ -65,5 +65,4 @@ protected:
 	CList< CRichElement* >	m_pElements;
 
 	BOOL			LoadXMLStyles(CXMLElement* pParent);
-	BOOL			LoadXMLColor(CXMLElement* pXML, LPCTSTR pszName, COLORREF* pColor);
 };

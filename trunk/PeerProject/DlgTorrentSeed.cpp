@@ -119,35 +119,55 @@ void CTorrentSeedDlg::OnDownload()
 	CSingleLock oLibraryLock( &Library.m_pSection, TRUE );
 
 	CExistingFileDlg::Action action = CExistingFileDlg::CheckExisting( &oURL );
-	if ( action == CExistingFileDlg::Cancel )
-		return;
+
 	if ( action != CExistingFileDlg::Download )
 	{
-		EndDialog( IDOK );
+		if ( action != CExistingFileDlg::Cancel )
+			EndDialog( IDOK );
 		return;
 	}
 
 	oLibraryLock.Unlock();
 
-	CDownload* pDownload = Downloads.Add( oURL );
-
-	if ( pDownload == NULL )
+	if ( CDownload* pDownload = Downloads.Add( oURL ) )
 	{
-		EndDialog( IDOK );
-		return;
-	}
+		pDownload->PrepareFile();
 
-	if ( ! Network.IsWellConnected() && ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) == 0 )
-		Network.Connect( TRUE );
+		// Automatically merge download with local files on start-up
+		if ( Settings.BitTorrent.AutoMerge && pDownload->m_pTorrent.GetCount() > 1 )
+		{
+			oLibraryLock.Lock();
 
-	CMainWnd* pMainWnd = (CMainWnd*)AfxGetMainWnd();
-	pMainWnd->m_pWindows.Open( RUNTIME_CLASS(CDownloadsWnd) );
+			CList< CString > oFiles;
+			for ( POSITION pos = pDownload->m_pTorrent.m_pFiles.GetHeadPosition() ; pos ; )
+			{
+				const CBTInfo::CBTFile* pBTFile = pDownload->m_pTorrent.m_pFiles.GetNext( pos );
+				if ( CLibraryFile* pFile = LibraryMaps.LookupFileByName( pBTFile->m_sPath, pBTFile->m_nSize, FALSE, TRUE ) )
+				{
+					oFiles.AddTail( pFile->GetPath() );
+				}
+			}
 
-	if ( Settings.Downloads.ShowMonitorURLs )
-	{
-		CSingleLock pTransfersLock( &Transfers.m_pSection, TRUE );
-		if ( Downloads.Check( pDownload ) )
-			pDownload->ShowMonitor( &pTransfersLock );
+			oLibraryLock.Unlock();
+
+			if ( oFiles.GetCount() )
+				CDownloadTask::MergeFile( pDownload, &oFiles );
+		}
+
+		if ( ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) == 0 && ! Network.IsWellConnected() )
+			Network.Connect( TRUE );
+
+		if ( CMainWnd* pMainWnd = (CMainWnd*)AfxGetMainWnd() )
+		{
+			pMainWnd->m_pWindows.Open( RUNTIME_CLASS(CDownloadsWnd) );
+		}
+
+		if ( Settings.Downloads.ShowMonitorURLs )
+		{
+			CSingleLock pTransfersLock( &Transfers.m_pSection, TRUE );
+			//if ( Downloads.Check( pDownload ) )
+				pDownload->ShowMonitor( &pTransfersLock );
+		}
 	}
 
 	EndDialog( IDOK );

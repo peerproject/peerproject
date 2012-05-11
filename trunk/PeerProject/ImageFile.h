@@ -1,7 +1,7 @@
 //
 // ImageFile.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -53,7 +53,7 @@ public:
 	BOOL	EnsureRGB(COLORREF crBack = 0xFFFFFFFF);
 	BOOL	SwapRGB();
 
-	static HBITMAP LoadBitmapFromFile(LPCTSTR pszFile);
+	static HBITMAP LoadBitmapFromFile(LPCTSTR pszFile, BOOL bRGB = FALSE);
 	static HBITMAP LoadBitmapFromResource(UINT nResourceID, HINSTANCE hInstance = AfxGetResourceHandle());
 
 	enum ImageFlags

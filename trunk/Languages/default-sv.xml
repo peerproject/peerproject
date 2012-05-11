@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Swedish Skin File -->
 
-<!-- Translation based on default-en.xml r77 -->
+<!-- Translation based on default-en.xml r78 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1591,29 +1591,29 @@
 				<font size="13"/>
 			</style>
 			<style name="heading">
-				<font face="Trebuchet MS" size="16" weight="800"/>
+				<font face="Segoe UI" size="18" weight="400"/>
 			</style>
 		</styles>
 		<anchor id="Header" width="32" height="152"/>
 		<newline gap="0"/>
 		<group id="1">
 			<icon res="136" width="32" height="32" target="command:ID_NETWORK_CONNECT"/><gap size="8"/>
-			<heading align="middle">BLI ANSLUTEN</heading>
+			<heading align="middle">Bli Ansluten</heading>
 			<newline gap="8" indent="42"/>
-			<text>Welcome to PeerProject!</text>
+			<text>Welcome to PeerProject.</text>
 			<newline gap="8" indent="42"/>
 			<text>Du är för tillfället inte ansluten till något fildelningsnätverk. &#160;</text>
-			<link target="command:ID_NETWORK_CONNECT">Klicka här för att starta!</link>
+			<link target="command:ID_NETWORK_CONNECT">Klicka här för att starta.</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="2">
 			<icon res="130" width="32" height="32" target="command:ID_TAB_SEARCH"/><gap size="8"/>
-			<heading align="middle">SÖK HÄR</heading>
+			<heading align="middle">Sök Här</heading>
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="14" indent="0"/>
 			<icon res="122" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
-			<heading align="middle">START NEDLADDAD</heading>
+			<heading align="middle">Start Nedladdad</heading>
 			<newline gap="8" indent="42"/>
 			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Klicka här för att starta</link>
 			<text>&#160;nedladdning av ny fil eller torrent.</text>
@@ -1627,7 +1627,7 @@
 		</group>
 		<group id="3">
 			<icon res="120" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">UPPGRADERINGSNOTIS</heading>
+			<heading align="middle">Uppgraderingsnotis</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Uppgradera"/>
 			<newline gap="6"/>
@@ -1636,7 +1636,7 @@
 		</group>
 		<group id="4">
 			<icon res="180" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
-			<heading align="middle">VARNING: DU ÄR BAKOM BRANDVÄGG</heading>
+			<heading align="middle">Varning: Du Är Bakom Brandvägg</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject har detekterat att du är bakom en NAT-router eller en brandvägg,
 				och inte kan ta emot anslutningar från Internet. &#160;</text>
@@ -1647,7 +1647,7 @@
 		</group>
 		<group id="6">
 			<icon res="180" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">VARNING: DIN TCP PORT ÄR BLOCKERAD</heading>
+			<heading align="middle">Varning: Din TCP Port Är Blockerad</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject har upptäckt att du sitter bakom en NAT router eller brandvägg,
 			och kan ej ta emot TCP anslutningar från Internet. &#160;</text>
@@ -1658,7 +1658,7 @@
 		</group>
 		<group id="7">
 			<icon res="180" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">VARNING: DIN UDP PORT ÄR BLOCKERAD</heading>
+			<heading align="middle">Varning: Din UDP Port Är Blockerad</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject har upptäckt att du sitter bakom en NAT router eller brandvägg,
 			och inte kan ta emot UDP meddelanden från Internet. &#160;</text>
@@ -1668,7 +1668,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
-		<heading align="middle">ANPASSA PEERPROJECT</heading>
+		<heading align="middle">Anpassa PeerProject</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="196" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
 		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Skinn</link><gap size="6"/>
@@ -1693,7 +1693,7 @@
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="120" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">FJÄRRÅTKOMST ÄR AKTIVERAD</heading>
+			<heading align="middle">Fjärråtkomst Är Aktiverad</heading>
 			<newline gap="8" indent="42"/>
 			<text>PeerProjects fjärråtkomst är aktiverad. Kontrollera PeerProject via din webbläsare här:</text>
 			<newline gap="6"/>
@@ -3666,13 +3666,16 @@
 		<control caption="_Inställningar…"/>
 		<control caption="Skaffa fler"/>
 	</dialog>
-	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuSt" caption="Avancerat">
+	<dialog name="CAdvancedSettingsPage" cookie="SyBuStEdmsEdCoBuBu" caption="Avancerat">
 		<control/>
-		<control/>
-		<control/>
-		<control caption="Set Default"/>
 		<control caption="Egenskaper för inställning:"/>
 		<control caption="Värde:"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="Återställ Standard"/>
 	</dialog>
 	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protokoll">
 		<control caption="PeerProjects gemensamma protokollutforskare:"/>

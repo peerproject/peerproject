@@ -452,7 +452,7 @@ void CPacketWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 //	pTypesBT.CreatePopupMenu();
 //	pTypesBT.AppendMenu( MF_STRING|( m_bTypeBT ? MF_CHECKED : 0 ), ID_BASE_BT, LoadString( IDS_GENERAL_ALL ) );
 
-	const CString strType = Settings.General.Language.Left(2) == _T("en") ? L"Types" : LoadString( IDS_TIP_TYPE );
+	const CString strType = Settings.General.LanguageDefault ? L"Types" : LoadString( IDS_TIP_TYPE );
 
 	pMenu.CreatePopupMenu();
 	pMenu.AppendMenu( MF_STRING|MF_POPUP, (UINT_PTR)pHosts[0].GetSafeHmenu(), _T("&Incoming") );

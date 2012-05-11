@@ -126,7 +126,7 @@ int CLibraryHeaderPanel::Update()
 
 	// Set Skinable Header Height (64px)
 	int nHeight = static_cast< int >( m_pMetadata.GetCount() * 12 + 8 );
-	nHeight = max( Skin.m_nHeaderbarHeight, nHeight );
+	nHeight = max( (int)Settings.Skin.HeaderbarHeight, nHeight );
 
 	// Set Home View Header Differently?
 	//if ( pFolder->GetParent() == NULL ) nHeight = 56;

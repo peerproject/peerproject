@@ -109,62 +109,65 @@ void CSettingsManagerDlg::OnSkinChange(BOOL bSet)
 
 INT_PTR CSettingsManagerDlg::DoModal(LPCTSTR pszWindow)
 {
-	const BOOL bAdvanced	= Settings.General.GUIMode != GUI_BASIC;
+	const BOOL bAdvanced = Settings.General.GUIMode != GUI_BASIC;
 
-	CRichSettingsPage		gGeneral( _T("CGeneralSettingsGroup") );
-	CGeneralSettingsPage	pGeneral;
-	CLibrarySettingsPage	pLibrary;
-	CMediaSettingsPage		pMedia;
-	CIRCSettingsPage		pIRC;
-	CCommunitySettingsPage	pCommunity;
-	CRemoteSettingsPage		pRemote;
-	CWebSettingsPage		pWeb;
-	CRichSettingsPage		gInternet( _T("CInternetSettingsGroup") );
-	CConnectionSettingsPage	pConnection;
-	CDownloadsSettingsPage	pDownloads;
-	CUploadsSettingsPage	pUploads;
-	CNetworksSettingsPage	gNetworks;
-	CGnutellaSettingsPage	pGnutella;
-	CDonkeySettingsPage		pDonkey;
-	CDCSettingsPage 		pDC;
-	CBitTorrentSettingsPage	pTorrent;
-	CSkinsSettingsPage		pSkins;
-	CPluginsSettingsPage	pPlugins;
-	CAdvancedSettingsPage	pAdvanced;
-	CProtocolsSettingsPage	pProtocols;
+	CAutoPtr< CRichSettingsPage >		gGeneral( new CRichSettingsPage( _T("CGeneralSettingsGroup") ) );
+	CAutoPtr< CGeneralSettingsPage >	pGeneral( new CGeneralSettingsPage );
+	CAutoPtr< CLibrarySettingsPage >	pLibrary( new CLibrarySettingsPage );
+	CAutoPtr< CMediaSettingsPage >		pMedia( new CMediaSettingsPage );
+	CAutoPtr< CIRCSettingsPage >		pIRC( new CIRCSettingsPage );
+	CAutoPtr< CCommunitySettingsPage >	pCommunity( new CCommunitySettingsPage );
+	CAutoPtr< CRemoteSettingsPage >		pRemote( new CRemoteSettingsPage );
+	CAutoPtr< CWebSettingsPage >		pWeb( new CWebSettingsPage );
+	CAutoPtr< CRichSettingsPage >		gInternet( new CRichSettingsPage( _T("CInternetSettingsGroup") ) );
+	CAutoPtr< CConnectionSettingsPage >	pConnection( new CConnectionSettingsPage );
+	CAutoPtr< CDownloadsSettingsPage >	pDownloads( new CDownloadsSettingsPage );
+	CAutoPtr< CUploadsSettingsPage >	pUploads( new CUploadsSettingsPage );
+	CAutoPtr< CNetworksSettingsPage >	gNetworks( new CNetworksSettingsPage );
+	CAutoPtr< CGnutellaSettingsPage >	pGnutella( new CGnutellaSettingsPage );
+	CAutoPtr< CDonkeySettingsPage >		pDonkey( new CDonkeySettingsPage );
+	CAutoPtr< CDCSettingsPage > 		pDC( new CDCSettingsPage );
+	CAutoPtr< CBitTorrentSettingsPage >	pTorrent( new CBitTorrentSettingsPage );
+	CAutoPtr< CSkinsSettingsPage >		pSkins( new CSkinsSettingsPage );
+	CAutoPtr< CPluginsSettingsPage >	pPlugins( new CPluginsSettingsPage );
+	CAutoPtr< CAdvancedSettingsPage >	pAdvanced( new CAdvancedSettingsPage );
+	CAutoPtr< CProtocolsSettingsPage >	pProtocols( new CProtocolsSettingsPage );
 
-	AddGroup( &gGeneral );			// Richdoc CGeneralSettingsGroup
-	AddPage( &pGeneral );			// IDD_SETTINGS_GENERAL
-	AddPage( &pLibrary );			// IDD_SETTINGS_LIBRARY
-	AddPage( &pMedia ); 			// IDD_SETTINGS_MEDIA
-	AddPage( &pIRC );				// IDD_SETTINGS_IRC
-	AddPage( &pCommunity );			// IDD_SETTINGS_COMMUNITY
+	AddGroup( gGeneral );			// Richdoc CGeneralSettingsGroup
+	AddPage( pGeneral );			// IDD_SETTINGS_GENERAL
+	AddPage( pLibrary );			// IDD_SETTINGS_LIBRARY
+	AddPage( pMedia ); 				// IDD_SETTINGS_MEDIA
+	AddPage( pIRC );				// IDD_SETTINGS_IRC
+	AddPage( pCommunity );			// IDD_SETTINGS_COMMUNITY
 	if ( bAdvanced )
-		AddPage( &pRemote );		// IDD_SETTINGS_REMOTE
-	AddPage( &pWeb );				// IDD_SETTINGS_WEB
-	AddGroup( &gInternet ); 		// Richdoc CInternetSettingsGroup
-	AddPage( &pConnection );		// IDD_SETTINGS_CONNECTION
-	AddPage( &pDownloads ); 		// IDD_SETTINGS_DOWNLOADS
-	AddPage( &pUploads );			// IDD_SETTINGS_UPLOADS
+		AddPage( pRemote );			// IDD_SETTINGS_REMOTE
+	AddPage( pWeb );				// IDD_SETTINGS_WEB
+
+	AddGroup( gInternet ); 			// Richdoc CInternetSettingsGroup
+	AddPage( pConnection );			// IDD_SETTINGS_CONNECTION
+	AddPage( pDownloads ); 			// IDD_SETTINGS_DOWNLOADS
+	AddPage( pUploads );			// IDD_SETTINGS_UPLOADS
+
 	if ( bAdvanced )
 	{
-		AddGroup( &gNetworks ); 	// IDD_SETTINGS_NETWORKS
-		AddPage( &pGnutella );		// IDD_SETTINGS_GNUTELLA
+		AddGroup( gNetworks ); 		// IDD_SETTINGS_NETWORKS
+		AddPage( pGnutella );		// IDD_SETTINGS_GNUTELLA
 		if ( ! Settings.Experimental.LAN_Mode )
 		{
 			//if ( Settings.eDonkey.ShowInterface )
-			AddPage( &pDonkey );	// IDD_SETTINGS_DONKEY
+			AddPage( pDonkey );		// IDD_SETTINGS_DONKEY
 			//if ( Settings.DC.ShowInterface )
-			AddPage( &pDC );		// IDD_SETTINGS_DC
-			AddPage( &pTorrent );	// IDD_SETTINGS_BITTORRENT
+			AddPage( pDC );			// IDD_SETTINGS_DC
+			AddPage( pTorrent );	// IDD_SETTINGS_BITTORRENT
 		}
 	}
-	AddGroup( &pSkins );			// IDD_SETTINGS_SKINS
+
+	AddGroup( pSkins );				// IDD_SETTINGS_SKINS
 	if ( bAdvanced )
 	{
-		AddGroup( &pPlugins );		// IDD_SETTINGS_PLUGINS
-		AddGroup( &pAdvanced ); 	// IDD_SETTINGS_ADVANCED
-		AddPage( &pProtocols ); 	// IDD_SETTINGS_PROTOCOLS	ToDo: Remove or Improve?
+		AddGroup( pPlugins );		// IDD_SETTINGS_PLUGINS
+		AddGroup( pAdvanced ); 		// IDD_SETTINGS_ADVANCED
+		AddPage( pProtocols ); 		// IDD_SETTINGS_PROTOCOLS	ToDo: Remove or Improve?
 	}
 
 	SetActivePage( GetPage( pszWindow ? pszWindow : Settings.General.LastSettingsPage ) );

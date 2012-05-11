@@ -64,6 +64,50 @@ CLibraryFolders::~CLibraryFolders()
 	delete m_pAlbumRoot;
 }
 
+CXMLElement* CLibraryFolders::CreateXML(LPCTSTR szRoot, BOOL bSharedOnly, XmlType nType) const
+{
+	CXMLElement* pRoot;
+
+	switch ( nType )
+	{
+	case xmlDC:
+		pRoot = new CXMLElement( NULL, _T("filelisting") );
+		if ( pRoot )
+		{
+			pRoot->AddAttribute( _T("version"), 1 );
+			pRoot->AddAttribute( _T("base"), szRoot );
+			pRoot->AddAttribute( _T("generator"), Settings.SmartAgent() );
+		}
+		break;
+
+	default:
+		pRoot = new CXMLElement( NULL, _T("folders") );
+		if ( pRoot )
+			pRoot->AddAttribute( _T("xmlns"), CSchema::uriFolder );
+	}
+
+	if ( ! pRoot )
+		return NULL;	// Out of memory
+
+	CSingleLock oLock( &Library.m_pSection, TRUE );
+
+	if ( _tcsicmp( szRoot, _T("/") ) == 0 )
+	{
+		// All folders
+		for ( POSITION pos = LibraryFolders.GetFolderIterator() ; pos ; )
+		{
+			LibraryFolders.GetNextFolder( pos )->CreateXML( pRoot, bSharedOnly, nType );
+		}
+	}
+	else if ( const CLibraryFolder* pFolder = LibraryFolders.GetFolderByName( szRoot ) )
+	{
+		// Specified folder
+		pFolder->CreateXML( pRoot, bSharedOnly, nType );
+	}
+
+	return pRoot;
+}
+
 //////////////////////////////////////////////////////////////////////
 // CLibraryFolders physical folder enumeration
 
@@ -721,6 +765,13 @@ void CLibraryFolders::Maintain()
 {
 	CQuickLock oLock( Library.m_pSection );
 
+#ifndef __IShellLibrary_INTERFACE_DEFINED__	// ~VS2008
+	for ( POSITION pos = GetFolderIterator() ; pos ; )
+	{
+		GetNextFolder( pos )->Maintain( TRUE );
+	}
+#else	// VS2010+
+
 	// Update desktop.ini's only
 	if ( ! Settings.Library.UseWindowsLibrary || theApp.m_nWinVer < WIN_7 )
 	{
@@ -732,7 +783,6 @@ void CLibraryFolders::Maintain()
 	}
 
 	// Update Windows 7/8 Libraries too
-
 	CComPtr< IShellLibrary > pIShellLib;
 	pIShellLib.CoCreateInstance( CLSID_ShellLibrary );
 
@@ -753,7 +803,8 @@ void CLibraryFolders::Maintain()
 
 	if ( pIShellLib )
 	{
-		LPCTSTR pszPath = Settings.General.Path + L"\\Schemas\\WindowsLibrary.ico";
+		CString strPath = Settings.General.Path + L"\\Schemas\\WindowsLibrary.ico";
+		LPCTSTR pszPath = strPath;
 		if ( ! PathFileExists( pszPath ) )
 			pszPath = (LPCWSTR)CT2W( Skin.GetImagePath( IDI_COLLECTION ) );
 		pIShellLib->SetIcon( pszPath );
@@ -761,6 +812,7 @@ void CLibraryFolders::Maintain()
 		CComPtr< IShellItem > psiLibrary;
 		pIShellLib->SaveInKnownFolder( FOLDERID_UsersLibraries, CLIENT_NAME, LSF_OVERRIDEEXISTING, &psiLibrary );
 	}
+#endif	// IShellLibrary
 }
 
 //////////////////////////////////////////////////////////////////////

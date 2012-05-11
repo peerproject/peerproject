@@ -1,7 +1,7 @@
 //
 // Builder.cpp : Implementation of CBuilder
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions Copyright Nikolay Raspopov, 2005-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -177,23 +177,23 @@ HRESULT CBuilder::SafeProcess(BSTR sFile, ISXMLElement* pXML)
 						LPWSTR clsid = NULL;
 						if (SUCCEEDED (StringFromCLSID (mt.subtype, &clsid)))
 						{
-							ATLTRACE( _T("Video format: %s\n"), clsid);
+							ATLTRACE( "Video format: %s\n", clsid);
 							CoTaskMemFree (clsid);
 						}
 #endif // _DEBUG
 						codec = _T("Unknown");
 					}
 
-					pISXMLAttributes->Add (CComBSTR ("codec"), CComBSTR (codec));
+					pISXMLAttributes->Add(CComBSTR ("codec"), CComBSTR (codec));
 
 					int nWidth = pVih->bmiHeader.biWidth;
 					int nHeight = pVih->bmiHeader.biHeight;				    
 					if (nHeight < 0)
 						nHeight = -nHeight;
 					tmp.Format (_T("%lu"), nWidth);
-					pISXMLAttributes->Add (CComBSTR ("width"), CComBSTR (tmp));
+					pISXMLAttributes->Add(CComBSTR ("width"), CComBSTR (tmp));
 					tmp.Format (_T("%lu"), nHeight);
-					pISXMLAttributes->Add (CComBSTR ("height"), CComBSTR (tmp));
+					pISXMLAttributes->Add(CComBSTR ("height"), CComBSTR (tmp));
 
 					if ( mt.cbFormat )
 						CoTaskMemFree( mt.pbFormat );
@@ -210,7 +210,7 @@ HRESULT CBuilder::SafeProcess(BSTR sFile, ISXMLElement* pXML)
 						StringCbPrintf( tmp.GetBuffer( 32 ), 32 * sizeof( TCHAR ),
 							_T("%.3f"), total_time / 60.0 );
 						tmp.ReleaseBuffer();
-						pISXMLAttributes->Add (CComBSTR ("minutes"), CComBSTR (tmp));
+						pISXMLAttributes->Add(CComBSTR ("minutes"), CComBSTR (tmp));
 					}
 				}
 
@@ -223,19 +223,19 @@ HRESULT CBuilder::SafeProcess(BSTR sFile, ISXMLElement* pXML)
 						StringCbPrintf( tmp.GetBuffer( 32 ), 32 * sizeof( TCHAR ),
 							_T("%.2f"), fps );
 						tmp.ReleaseBuffer();
-						pISXMLAttributes->Add (CComBSTR ("frameRate"), CComBSTR (tmp));
+						pISXMLAttributes->Add(CComBSTR ("frameRate"), CComBSTR (tmp));
 					}
 				}
 				return S_OK;
 			}
 			else
-				ATLTRACE( _T("Cannot get streams: 0x%08x\n"), hr);
+				ATLTRACE( "Cannot get streams: 0x%08x\n", hr);
 		}
 		else
-			ATLTRACE( _T("Cannot open file: 0x%08x\n"), hr);
+			ATLTRACE( "Cannot open file: 0x%08x\n", hr);
 	}
 	else
-		ATLTRACE( _T("Cannot instantiate MediaDet object: 0x%08x\n"), hr);
+		ATLTRACE( "Cannot instantiate MediaDet object: 0x%08x\n", hr);
 
 	return hr;
 }

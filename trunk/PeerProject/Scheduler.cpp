@@ -593,9 +593,9 @@ void CScheduler::ExecuteScheduledTask(CScheduleTask *pSchTask)
 		Settings.Bandwidth.Downloads	= ( Settings.Connection.InSpeed * 1024) / 8;
 		Settings.Bandwidth.Uploads		= ( ( ( Settings.Connection.OutSpeed * ( 100 - Settings.Uploads.FreeBandwidthFactor ) ) / 100 ) / 8 ) * 1024;
 		Settings.Gnutella2.Enabled		= true;
-		Settings.Gnutella1.Enabled		= pSchTask->m_bLimitedNetworks ? FALSE : Settings.Gnutella1.EnableAlways;
-		Settings.eDonkey.Enabled		= pSchTask->m_bLimitedNetworks ? FALSE : Settings.eDonkey.EnableAlways;
-		Settings.DC.Enabled 			= pSchTask->m_bLimitedNetworks ? FALSE : Settings.DC.EnableAlways;
+		Settings.Gnutella1.Enabled		= pSchTask->m_bLimitedNetworks ? false : Settings.Gnutella1.EnableAlways;
+		Settings.eDonkey.Enabled		= pSchTask->m_bLimitedNetworks ? false : Settings.eDonkey.EnableAlways;
+		Settings.DC.Enabled 			= pSchTask->m_bLimitedNetworks ? false : Settings.DC.EnableAlways;
 	//	Settings.BitTorrent.Enabled		= true;
 		if ( ! Network.IsConnected() )
 			Network.Connect( TRUE );

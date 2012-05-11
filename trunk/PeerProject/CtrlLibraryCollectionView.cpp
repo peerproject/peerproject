@@ -24,6 +24,7 @@
 #include "CtrlLibraryTip.h"
 #include "CtrlWeb.h"
 
+#include "Application.h"
 #include "Network.h"
 #include "Library.h"
 #include "AlbumFolder.h"
@@ -33,8 +34,8 @@
 #include "Download.h"
 #include "FileExecutor.h"
 #include "PeerProjectURL.h"
-#include "IEProtocol.h"
 #include "CollectionFile.h"
+#include "IEProtocol.h"
 #include "Skin.h"
 
 #ifdef _DEBUG
@@ -43,20 +44,22 @@ static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
 #endif	// Filename
 
-IMPLEMENT_DYNCREATE(CLibraryCollectionView, CLibraryFileView)
+IMPLEMENT_DYNAMIC(CLibraryCollectionView, CLibraryFileView)
 
-BEGIN_INTERFACE_MAP(CLibraryCollectionView::External, CComObject)
-	INTERFACE_PART(CLibraryCollectionView::External, IID_ICollectionHtmlView, View)
+IMPLEMENT_DYNAMIC(CHtmlCollection, CComObject)
+
+BEGIN_INTERFACE_MAP(CHtmlCollection, CComObject)
+	INTERFACE_PART(CHtmlCollection, IID_ICollectionHtmlView, View)
 END_INTERFACE_MAP()
 
 BEGIN_MESSAGE_MAP(CLibraryCollectionView, CLibraryFileView)
 	ON_WM_CREATE()
 	ON_WM_DESTROY()
 	ON_WM_SIZE()
-	ON_NOTIFY(WVN_CONTEXTMENU, AFX_IDW_PANE_FIRST, OnWebContextMenu)
-	ON_UPDATE_COMMAND_UI(ID_LIBRARY_FOLDER_DOWNLOAD, OnUpdateLibraryFolderDownload)
-	ON_COMMAND(ID_LIBRARY_FOLDER_DOWNLOAD, OnLibraryFolderDownload)
 	ON_WM_GETDLGCODE()
+	ON_NOTIFY(WVN_CONTEXTMENU, AFX_IDW_PANE_FIRST, &CLibraryCollectionView::OnWebContextMenu)
+	ON_UPDATE_COMMAND_UI(ID_LIBRARY_FOLDER_DOWNLOAD, &CLibraryCollectionView::OnUpdateLibraryFolderDownload)
+	ON_COMMAND(ID_LIBRARY_FOLDER_DOWNLOAD, &CLibraryCollectionView::OnLibraryFolderDownload)
 END_MESSAGE_MAP()
 
 
@@ -64,13 +67,14 @@ END_MESSAGE_MAP()
 // CLibraryCollectionView construction
 
 CLibraryCollectionView::CLibraryCollectionView()
+	: m_pWebCtrl	( NULL )
+	, m_nWebIndex	( 0 )
+	, m_pCollection	( new CCollectionFile() )
+	, m_bTrusted	( TRI_UNKNOWN )
+	, m_bLockdown	( FALSE )
 {
 	m_nCommandID	= ID_LIBRARY_VIEW_COLLECTION;
 	m_pszToolBar	= _T("CLibraryCollectionView");
-
-	m_nWebIndex		= 0;
-	m_pWebCtrl		= NULL;
-	m_pCollection	= new CCollectionFile();
 
 	m_xExternal.m_pView = this;
 }
@@ -100,6 +104,8 @@ BOOL CLibraryCollectionView::CheckAvailable(CLibraryTreeItem* pSel)
 {
 	BOOL bAvailable = FALSE;
 
+	CQuickLock oLock( Library.m_pSection );
+
 	if ( CAlbumFolder* pFolder = GetSelectedAlbum( pSel ) )
 	{
 		if ( pFolder->m_oCollSHA1 )
@@ -110,7 +116,6 @@ BOOL CLibraryCollectionView::CheckAvailable(CLibraryTreeItem* pSel)
 			}
 			else
 			{
-				CQuickLock oLock( Library.m_pSection );
 				pFolder->m_oCollSHA1.clear();
 				Library.Update();
 			}
@@ -120,7 +125,7 @@ BOOL CLibraryCollectionView::CheckAvailable(CLibraryTreeItem* pSel)
 	if ( bAvailable != m_bAvailable )
 	{
 		m_bAvailable = bAvailable;
-		m_xExternal.m_bLockdown = FALSE;
+		m_bLockdown = FALSE;
 	}
 
 	return m_bAvailable;
@@ -150,6 +155,8 @@ BOOL CLibraryCollectionView::ShowCollection(CLibraryFile* pFile)
 		if ( m_pCollection->IsOpen() && validAndEqual( m_oSHA1, pFile->m_oSHA1 ) )
 			return TRUE;	// Already opened
 
+		m_bTrusted = TRI_UNKNOWN;
+
 		if ( m_pCollection->Open( pFile->GetPath() ) )
 		{
 			if ( SUCCEEDED( m_pWebCtrl->Navigate( CString( _T("p2p-col://") ) +
@@ -160,6 +167,8 @@ BOOL CLibraryCollectionView::ShowCollection(CLibraryFile* pFile)
 			}
 		}
 	}
+
+	m_bTrusted = TRI_UNKNOWN;
 
 	if ( m_pCollection->IsOpen() )
 	{
@@ -183,9 +192,9 @@ int CLibraryCollectionView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	if ( m_pWebCtrl->Create( 0, this ) != -1 )
 	{
-		// ToDo: Fix this for RTL
-		// Disable cool menu here because in RTL mode the text is drawn mirrored
-		// It worked before, but somehow was broken and nothing helps.
+		// ToDo: Verify and fix this for RTL
+		// Disable cool menu here, because in RTL mode the text is drawn mirrored.
+		// It worked before, but somehow was broken and nothing helps. (r5143)
 		if ( ! Settings.General.LanguageRTL )
 			m_pWebCtrl->EnableCoolMenu();
 		m_pWebCtrl->EnableSandbox();
@@ -211,6 +220,8 @@ void CLibraryCollectionView::OnDestroy()
 	}
 
 	m_pCollection->Close();
+
+	m_bTrusted = TRI_UNKNOWN;
 
 	CLibraryFileView::OnDestroy();
 }
@@ -278,115 +289,158 @@ UINT CLibraryCollectionView::OnGetDlgCode()
 }
 
 /////////////////////////////////////////////////////////////////////////////
-// CLibraryCollectionView::External construction
+// CCollectionHtmlView construction
 
-CLibraryCollectionView::External::External()
+CHtmlCollection::CHtmlCollection()
+	: m_pView	( NULL )
 {
 	EnableDispatch( IID_ICollectionHtmlView );
-	m_bLockdown = FALSE;
 }
 
-/////////////////////////////////////////////////////////////////////////////
-// CLibraryCollectionView::External ICollectionHtmlView implementation
-
-IMPLEMENT_DISPATCH(CLibraryCollectionView::External, View)
-
-STDMETHODIMP CLibraryCollectionView::External::XView::get_Application(IApplication **ppApplication)
+CHtmlCollection::~CHtmlCollection()
 {
-	METHOD_PROLOGUE(CLibraryCollectionView::External, View)
-	*ppApplication = NULL;
-	return E_NOTIMPL;
 }
 
-STDMETHODIMP CLibraryCollectionView::External::XView::Detect(BSTR sURN, BSTR *psState)
+IMPLEMENT_DISPATCH(CHtmlCollection, View)
+
+STDMETHODIMP CHtmlCollection::XView::get_Application(IApplication **ppApplication)
 {
-	METHOD_PROLOGUE(CLibraryCollectionView::External, View)
+	METHOD_PROLOGUE(CHtmlCollection, View)
+	CLibraryCollectionView* pView = pThis->m_pView;
 
-	if ( pThis->m_bLockdown )
-	{
-		*psState = CComBSTR( _T("Lockdown") ).Detach();
-	}
-	else if ( pThis->m_pView->m_pCollection->FindByURN( CString( sURN ) ) == NULL )
-	{
-		*psState = CComBSTR( _T("NotInCollection") ).Detach();
-	}
-	else if ( LibraryMaps.LookupFileByURN( CString( sURN ), FALSE, TRUE ) )
-	{
-		*psState = CComBSTR( _T("Complete") ).Detach();
-	}
-	else
-	{
-		CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	if ( pView->m_bTrusted == TRI_UNKNOWN )
+		pView->m_bTrusted = ( AfxMessageBox( /*IDS_LIBRARY_COLLECTION_ACCESS*/_T("The collection has requested script access to the application. \nAllow this access?"), MB_ICONEXCLAMATION | MB_YESNO ) == IDYES ) ? TRI_TRUE : TRI_FALSE;
 
-		if ( CDownload* pDownload = Downloads.FindByURN( CString( sURN ) ) )
+	return ( pView->m_bTrusted == TRI_TRUE ) ? CApplication::GetApp( ppApplication ) : E_ACCESSDENIED;
+}
+
+STDMETHODIMP CHtmlCollection::XView::Detect(BSTR sURN, BSTR *psState)
+{
+	METHOD_PROLOGUE(CHtmlCollection, View)
+	CQuickLock oLock( Library.m_pSection );
+	CLibraryCollectionView* pView = pThis->m_pView;
+
+	CString str;
+	if ( sURN && *sURN )
+	{
+		CString strURN( sURN );
+
+		if ( pView->m_bLockdown )
 		{
-			CString str;
-			str.Format( _T("%.2f%%"), pDownload->GetProgress() );
-			*psState = CComBSTR( str ).Detach();
+			str = _T("Lockdown");
+		}
+		else if ( pView->m_pCollection->FindByURN( strURN ) == NULL )
+		{
+			str = _T("NotInCollection");
 		}
 		else
 		{
-			*psState = CComBSTR( _T("") ).Detach();
+			CSingleLock pLock( &Transfers.m_pSection );
+			if ( pLock.Lock( 250 ) )
+			{
+				if ( CDownload* pDownload = Downloads.FindByURN( strURN ) )
+				{
+					str.Format( _T("%.2f%%"), pDownload->GetProgress() );
+				}
+				pLock.Unlock();
+			}
+
+			if ( str.IsEmpty() )
+			{
+				if ( CLibraryFile* pFile = LibraryMaps.LookupFileByURN( strURN ) )
+				{
+					str = pFile->IsAvailable() ? _T("Complete") : _T("Ghost");
+				}
+			}
 		}
 	}
+
+	*psState = CComBSTR( str ).Detach();
 
 	return S_OK;
 }
 
-STDMETHODIMP CLibraryCollectionView::External::XView::Hover(BSTR sURN)
+STDMETHODIMP CHtmlCollection::XView::Hover(BSTR sURN)
 {
-	METHOD_PROLOGUE(CLibraryCollectionView::External, View)
-	if ( pThis->m_bLockdown ) return S_OK;
-
+	METHOD_PROLOGUE(CHtmlCollection, View)
+	CQuickLock oLock( Library.m_pSection );
 	CLibraryCollectionView* pView = pThis->m_pView;
-	if ( pView->m_pWebCtrl == NULL ) return S_OK;
-	if ( pView->GetFrame() == NULL ) return S_OK;
+
+	if ( pView->m_bLockdown )
+		return S_OK;
+
+	if ( pView->m_pWebCtrl == NULL )
+		return S_OK;
+
+	if ( pView->GetFrame() == NULL )
+		return S_OK;
 
 	pView->m_nWebIndex = 0;
 
-	if ( sURN != NULL && SysStringLen( sURN ) != 0 )	// wcslen
+	if ( sURN && *sURN )	// wcslen
 	{
-		if ( pThis->m_pView->m_pCollection->FindByURN( CString( sURN ) ) != NULL )
+		if ( CLibraryFile* pFile = LibraryMaps.LookupFileByURN( CString( sURN ) ) )
 		{
-			CQuickLock oLock( Library.m_pSection );
-			if ( CLibraryFile* pFile = LibraryMaps.LookupFileByURN( CString( sURN ), FALSE, TRUE ) )
-				pView->m_nWebIndex = pFile->m_nIndex;
+			pView->m_nWebIndex = pFile->m_nIndex;
 		}
 	}
 
 	if ( pView->m_nWebIndex != 0 )
-	{
-		HWND hWnd = pView->m_pWebCtrl->GetSafeHwnd();
-		pView->GetToolTip()->Show( pView->m_nWebIndex, hWnd );
-	}
+		pView->GetToolTip()->Show( pView->m_nWebIndex, pView->m_pWebCtrl->GetSafeHwnd() );
 	else
-	{
 		pView->GetToolTip()->Hide();
+
+	return S_OK;
+}
+
+STDMETHODIMP CHtmlCollection::XView::Open(BSTR sURN, VARIANT_BOOL *pbResult)
+{
+	METHOD_PROLOGUE(CHtmlCollection, View)
+	*pbResult = VARIANT_FALSE;
+	CSingleLock oLock( &Library.m_pSection, TRUE );
+	CLibraryCollectionView* pView = pThis->m_pView;
+
+	if ( pView->m_bLockdown )
+		return S_OK;
+
+	if ( sURN && *sURN )
+	{
+		if ( pView->m_pCollection->FindByURN( CString( sURN ) ) != NULL )
+		{
+			if ( CLibraryFile* pFile = LibraryMaps.LookupFileByURN( CString( sURN ), FALSE, TRUE ) )
+			{
+				if ( pFile->IsAvailable() )
+				{
+					CString strPath = pFile->GetPath();
+					oLock.Unlock();
+					*pbResult = CFileExecutor::Execute( strPath ) ? VARIANT_TRUE : VARIANT_FALSE;
+				}
+			}
+		}
 	}
 
 	return S_OK;
 }
 
-STDMETHODIMP CLibraryCollectionView::External::XView::Open(BSTR sURN, VARIANT_BOOL *pbResult)
+STDMETHODIMP CHtmlCollection::XView::Enqueue(BSTR sURN, VARIANT_BOOL *pbResult)
 {
-	METHOD_PROLOGUE(CLibraryCollectionView::External, View)
+	METHOD_PROLOGUE(CHtmlCollection, View)
 	*pbResult = VARIANT_FALSE;
-	if ( pThis->m_bLockdown ) return S_OK;
+	CSingleLock oLock( &Library.m_pSection, TRUE );
+	CLibraryCollectionView* pView = pThis->m_pView;
 
-	if ( pThis->m_pView->m_pCollection->FindByURN( CString( sURN ) ) != NULL )
+	if ( pView->m_bLockdown )
+		return S_OK;
+
+	if ( sURN && *sURN )
 	{
-		CSingleLock oLock( &Library.m_pSection, TRUE );
-		if ( CLibraryFile* pFile = LibraryMaps.LookupFileByURN( CString( sURN ), FALSE, TRUE ) )
+		if ( pView->m_pCollection->FindByURN( CString( sURN ) ) != NULL )
 		{
-			if ( pFile->IsAvailable() )
+			if ( CLibraryFile* pFile = LibraryMaps.LookupFileByURN( CString( sURN ), FALSE, TRUE ) )
 			{
 				CString strPath = pFile->GetPath();
 				oLock.Unlock();
-				*pbResult = CFileExecutor::Execute( strPath ) ? VARIANT_TRUE : VARIANT_FALSE;
-			}
-			else
-			{
-				*pbResult = VARIANT_FALSE;
+				*pbResult = CFileExecutor::Enqueue( strPath ) ? VARIANT_TRUE : VARIANT_FALSE;
 			}
 		}
 	}
@@ -394,65 +448,60 @@ STDMETHODIMP CLibraryCollectionView::External::XView::Open(BSTR sURN, VARIANT_BO
 	return S_OK;
 }
 
-STDMETHODIMP CLibraryCollectionView::External::XView::Enqueue(BSTR sURN, VARIANT_BOOL *pbResult)
+STDMETHODIMP CHtmlCollection::XView::Download(BSTR sURN, VARIANT_BOOL *pbResult)
 {
-	METHOD_PROLOGUE(CLibraryCollectionView::External, View)
+	METHOD_PROLOGUE(CHtmlCollection, View)
 	*pbResult = VARIANT_FALSE;
-	if ( pThis->m_bLockdown ) return S_OK;
+	CQuickLock oLock( Library.m_pSection );
+	CLibraryCollectionView* pView = pThis->m_pView;
 
-	if ( pThis->m_pView->m_pCollection->FindByURN( CString( sURN ) ) != NULL )
+	if ( pView->m_bLockdown )
+		return S_OK;
+
+	if ( sURN && *sURN )
 	{
-		CSingleLock oLock( &Library.m_pSection, TRUE );
-		if ( CLibraryFile* pFile = LibraryMaps.LookupFileByURN( CString( sURN ), FALSE, TRUE ) )
+		if ( CCollectionFile::File* pFile = pView->m_pCollection->FindByURN( CString( sURN ) ) )
 		{
-			CString strPath = pFile->GetPath();
-			oLock.Unlock();
-			*pbResult = CFileExecutor::Enqueue( strPath ) ? VARIANT_TRUE : VARIANT_FALSE;
+			*pbResult = pFile->Download() ? VARIANT_TRUE : VARIANT_FALSE;
 		}
 	}
 
 	return S_OK;
 }
 
-STDMETHODIMP CLibraryCollectionView::External::XView::Download(BSTR sURN, VARIANT_BOOL *pbResult)
+STDMETHODIMP CHtmlCollection::XView::DownloadAll()
 {
-	METHOD_PROLOGUE(CLibraryCollectionView::External, View)
-	*pbResult = VARIANT_FALSE;
-	if ( pThis->m_bLockdown ) return S_OK;
+	METHOD_PROLOGUE(CHtmlCollection, View)
+	CLibraryCollectionView* pView = pThis->m_pView;
 
-	if ( CCollectionFile::File* pFile = pThis->m_pView->m_pCollection->FindByURN( CString( sURN ) ) )
-		*pbResult = pFile->Download() ? VARIANT_TRUE : VARIANT_FALSE;
+	if ( pView->m_bLockdown )
+		return S_OK;
 
-	return S_OK;
-}
-
-STDMETHODIMP CLibraryCollectionView::External::XView::DownloadAll()
-{
-	METHOD_PROLOGUE(CLibraryCollectionView::External, View)
-	if ( pThis->m_bLockdown ) return S_OK;
-
-	INT_PTR nResponse = AfxMessageBox( LoadString( IDS_LIBRARY_COLLECTION_DOWNLOAD_ALL ), MB_ICONQUESTION|MB_YESNOCANCEL );
+	INT_PTR nResponse = AfxMessageBox( IDS_LIBRARY_COLLECTION_DOWNLOAD_ALL, MB_ICONQUESTION|MB_YESNOCANCEL );
 
 	if ( nResponse == IDYES )
+	{
 		pThis->m_pView->PostMessage( WM_COMMAND, ID_LIBRARY_FOLDER_DOWNLOAD );
+	}
 	else if ( nResponse == IDCANCEL )
-		pThis->CheckLockdown();
-
+	{
+		if ( AfxMessageBox( IDS_LIBRARY_COLLECTION_LOCKDOWN, MB_YESNO|MB_DEFBUTTON2|MB_ICONEXCLAMATION ) == IDYES )
+			pView->m_bLockdown = TRUE;
+	}
 	return S_OK;
 }
 
-STDMETHODIMP CLibraryCollectionView::External::XView::get_MissingCount(LONG *pnCount)
+STDMETHODIMP CHtmlCollection::XView::get_MissingCount(LONG *pnCount)
 {
-	METHOD_PROLOGUE(CLibraryCollectionView::External, View)
-	if ( pThis->m_bLockdown ) return S_OK;
+	METHOD_PROLOGUE(CHtmlCollection, View)
+	*pnCount = 0;
+	CQuickLock oLock( Library.m_pSection );
+	CLibraryCollectionView* pView = pThis->m_pView;
 
-	*pnCount = pThis->m_pView->m_pCollection->GetMissingCount();
+	if ( pView->m_bLockdown )
+		return S_OK;
+
+	*pnCount = pView->m_pCollection->GetMissingCount();
 
 	return S_OK;
-}
-
-void CLibraryCollectionView::External::CheckLockdown()
-{
-	if ( AfxMessageBox( LoadString( IDS_LIBRARY_COLLECTION_LOCKDOWN ), MB_YESNO|MB_DEFBUTTON2|MB_ICONEXCLAMATION ) == IDYES )
-		m_bLockdown = TRUE;
 }

@@ -661,7 +661,7 @@ BOOL CImageFile::SwapRGB()
 /////////////////////////////////////////////////////////////////////////////
 // CImageFile image loading
 
-HBITMAP CImageFile::LoadBitmapFromFile(LPCTSTR pszFile)
+HBITMAP CImageFile::LoadBitmapFromFile(LPCTSTR pszFile, BOOL bRGB)
 {
 	if ( _tcsicmp( PathFindExtension( pszFile ), _T(".bmp") ) == 0 )
 		return (HBITMAP)LoadImage( NULL, pszFile, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE );
@@ -669,9 +669,8 @@ HBITMAP CImageFile::LoadBitmapFromFile(LPCTSTR pszFile)
 	CImageFile pFile;
 	if ( pFile.LoadFromFile( pszFile, FALSE, FALSE ) )
 	{
-#ifndef WIN64
-		if ( theApp.m_bIsWin2000 ) pFile.EnsureRGB();	// Support Alpha otherwise?
-#endif
+		if ( bRGB || theApp.m_bIsWin2000 )
+			pFile.EnsureRGB();	// Support Alpha otherwise?
 		return pFile.CreateBitmap();
 	}
 
@@ -685,13 +684,34 @@ HBITMAP CImageFile::LoadBitmapFromResource(UINT nResourceID, HINSTANCE hInstance
 	if ( ! hBitmap )
 	{
 		CImageFile pFile;
-		if ( pFile.LoadFromResource( hInstance, nResourceID, RT_PNG ) && pFile.EnsureRGB() )	// ToDo: Allow Alpha?
+		if ( pFile.LoadFromResource( hInstance, nResourceID, RT_PNG )
+#ifndef WIN64
+			&& ! theApp.m_bIsWin2000 || pFile.EnsureRGB()	// Allow alpha otherwise?
+#endif
+		)
 			hBitmap = pFile.CreateBitmap();
-		else if ( pFile.LoadFromResource( hInstance, nResourceID, RT_JPEG ) && pFile.EnsureRGB() )
+		else if ( pFile.LoadFromResource( hInstance, nResourceID, RT_JPEG ) )
 			hBitmap = pFile.CreateBitmap();
-		else
-			hBitmap = NULL;
 	}
 
 	return hBitmap;
 }
+
+// Alternatively:
+//HBITMAP CImageFile::LoadBitmapFromResource(UINT nResourceID, HINSTANCE hInstance)
+//{
+//	if ( HBITMAP hBitmap = (HBITMAP)LoadImage( hInstance, MAKEINTRESOURCE( nResourceID ), IMAGE_BITMAP, 0, 0, 0 ) )
+//		return hBitmap;
+//
+//	static const LPCTSTR pTypes[] = { RT_PNG, RT_JPEG };
+//	static const int nCount = _countof( pTypes );
+//
+//	for ( int i = 0 ; i < nCount ; ++i )
+//	{
+//		CImageFile pFile;
+//		if ( pFile.LoadFromResource( hInstance, nResourceID, pTypes[ i ] ) && ! theApp.m_bIsWin2000 || pFile.EnsureRGB() )
+//			return pFile.CreateBitmap();
+//	}
+//
+//	return NULL;
+//}

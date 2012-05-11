@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Italian Skin File -->
 
-<!-- Translation based on default-en.xml r77 -->
+<!-- Translation based on default-en.xml r78 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -451,16 +451,6 @@
 	</toolbar>
 	<!--
 	<toolbar name="WebServices.ShareMonkey">
-		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Ottieni Dati"/>
-		<separator/>
-		<button id="ID_SHAREMONKEY_PREVIOUS" text="Precedente"/>
-		<button id="ID_SHAREMONKEY_NEXT" text="Successivo"/>
-		<separator/>
-		<button id="ID_SHAREMONKEY_PRICES" text="Ottieni Prezzi"/>
-		<button id="ID_SHAREMONKEY_COMPARE" text="Confronta"/>
-		<button id="ID_SHAREMONKEY_BUY" text="Compralo"/>
-	</toolbar>
-	<toolbar name="WebServices.ShareMonkey.WithSave">
 		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Ottieni Dati"/>
 		<button id="ID_SHAREMONKEY_SAVE" text="Salva"/>
 		<control id="ID_SHAREMONKEY_SAVE_OPTION" text="Salva Anteprima" width="100" checked="true"/>
@@ -1634,16 +1624,16 @@
 				<font size="13"/>
 			</style>
 			<style name="heading">
-				<font face="Trebuchet MS" size="16" weight="800"/>
+				<font face="Segoe UI" size="18" weight="400"/>
 			</style>
 		</styles>
 		<anchor id="Header" width="32" height="152"/>
 		<newline gap="0"/>
 		<group id="1">
 			<icon res="136" width="32" height="32" target="command:ID_NETWORK_CONNECT"/><gap size="8"/>
-			<heading align="middle">CONNESSIONE</heading>
+			<heading align="middle">Connessione</heading>
 			<newline gap="8" indent="42"/>
-			<text>Benvenuto su PeerProject!</text>
+			<text>Benvenuto su PeerProject.</text>
 			<newline gap="8" indent="42"/>
 			<text>Attualmente non sei connesso a nessuna delle reti peer to peer. &#160;</text>
 			<link target="command:ID_NETWORK_CONNECT">Clicca qui per iniziare!</link>
@@ -1651,12 +1641,12 @@
 		</group>
 		<group id="2">
 			<icon res="130" width="32" height="32" target="command:ID_TAB_SEARCH"/><gap size="8"/>
-			<heading align="middle">CERCA UN FILE</heading>
+			<heading align="middle">Cerca un File</heading>
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="14" indent="0"/>
 			<icon res="122" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
-			<heading align="middle">AVVIA IL DOWNLOAD</heading>
+			<heading align="middle">Avvia il Download</heading>
 			<newline gap="8" indent="42"/>
 			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Fai click qui per iniziare</link>
 			<text align="middle">&#160;il download di un nuovo file o torrent.</text>
@@ -1670,7 +1660,7 @@
 		</group>
 		<group id="3">
 			<icon res="120" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">AVVISO DI AGGIORNAMENTO</heading>
+			<heading align="middle">Avviso di Aggiornamento</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
 			<newline gap="6"/>
@@ -1679,7 +1669,7 @@
 		</group>
 		<group id="4">
 			<icon res="180" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
-			<heading align="middle">ATTENZIONE: SEI PROTETTO DA UN FIREWALL</heading>
+			<heading align="middle">Attenzione: Sei Protetto da un Firewall</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject ha rivelato che sei dietro un router NAT o un firewall,
 			e quindi non puoi ricevere connessioni da internet. &#160;</text>
@@ -1690,7 +1680,7 @@
 		</group>
 		<group id="6">
 			<icon res="180" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">ATTENZIONE: LA PORTA TCP È PROTETTA DA UN FIREWALL</heading>
+			<heading align="middle">Attenzione: La Porta TCP é Protetta da un Firewall</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject ha rivelato che sei dietro un router NAT o un firewall,
 			e quindi non puoi ricevere connessioni TCP da internet. &#160;</text>
@@ -1701,7 +1691,7 @@
 		</group>
 		<group id="7">
 			<icon res="180" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">ATTENZIONE: LA PORTA UDP È PROTETTA DA UN FIREWALL</heading>
+			<heading align="middle">Attenzione: La Porta UDP é Protetta da un Firewall</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject ha rivelato che sei dietro un router NAT o un firewall,
 			e quindi non puoi ricevere messaggi UDP da internet. &#160;</text>
@@ -1711,7 +1701,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
-		<heading align="middle">PERSONALIZZA PEERPROJECT</heading>
+		<heading align="middle">Personalizza PeerProject</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="196" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
 		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Skin</link><gap size="6"/>
@@ -1740,7 +1730,7 @@
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="120" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">ACCESSO REMOTO ABILITATO</heading>
+			<heading align="middle">Accesso Remoto Abiliato</heading>
 			<newline gap="8" indent="42"/>
 			<text>L'accesso remoto di PeerProject è abilitato. Controlla PeerProject usando il tuo browser Internet su:</text>
 			<newline gap="6"/>
@@ -3748,13 +3738,16 @@
 		<control caption="_Installa..."/>
 		<control caption="Altri plugin"/>
 	</dialog>
-	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuSt" caption="Avanzate">
+	<dialog name="CAdvancedSettingsPage" cookie="SyBuStEdmsEdCoBuBu" caption="Avanzate">
 		<control/>
-		<control/>
-		<control/>
-		<control caption="Imposta come default"/>
 		<control caption="Regolazione delle proprietà:"/>
 		<control caption="Valore:"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="Ripristina default"/>
 	</dialog>
 	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protocolli">
 		<control caption="Esploratore protocollo di struttura comune per PeerProject:"/>

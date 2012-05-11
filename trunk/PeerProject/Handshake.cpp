@@ -52,7 +52,8 @@ static char THIS_FILE[]=__FILE__;
 
 // Make a new CHandshake object
 CHandshake::CHandshake()
-	: m_bPushing ( FALSE )
+	: m_bPushing	( FALSE )
+	, m_nIndex		( 0 )
 {
 	// Set pointers so the input and output bandwidth limits are read from the DWORD in settings
 	m_mInput.pLimit = m_mOutput.pLimit = &Settings.Bandwidth.Request;
@@ -62,7 +63,8 @@ CHandshake::CHandshake()
 // Make a new CHanshake object given a socket, and a MFC SOCKADDR_IN structure which contains an IP address and port number
 // Uses AcceptFrom to make a new object with this socket and ip address
 CHandshake::CHandshake(SOCKET hSocket, SOCKADDR_IN* pHost)
-	: m_bPushing ( FALSE )
+	: m_bPushing	( FALSE )
+	, m_nIndex		( 0 )
 {
 	// Call CConnection::AcceptFrom to setup this object with the socket and
 	AcceptFrom( hSocket, pHost );

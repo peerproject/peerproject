@@ -72,10 +72,10 @@ static LPCTSTR GetFORMATLIST(UINT id)
 		{ 0, NULL }
 	};
 	static TCHAR buf [256] = { 0 };
-	for ( int i = 0 ; FORMATLIST [i].name ; i++ )
+	for ( int i = 0 ; FORMATLIST[i].name ; i++ )
 	{
-		if ( FORMATLIST [i].id == id )
-			return FORMATLIST [i].name;
+		if ( FORMATLIST[i].id == id )
+			return FORMATLIST[i].name;
 	}
 	if ( ! GetClipboardFormatName( id, buf, _countof( buf ) ) )
 		_stprintf_s( buf, _countof( buf ), _T("0x%x"), id );
@@ -176,7 +176,7 @@ UINT AsyncFileOperationThread(LPVOID param)
 DECLARE_INTERFACE_(IEnumVOID, IUnknown)
 {
 	STDMETHOD(QueryInterface)(REFIID, LPVOID*) PURE;
-	STDMETHOD_(ULONG,AddRef)()  PURE;
+	STDMETHOD_(ULONG,AddRef)() PURE;
 	STDMETHOD_(ULONG,Release)() PURE;
 	STDMETHOD(Next)(ULONG, void*, ULONG*) PURE;
 	STDMETHOD(Skip)(ULONG) PURE;
@@ -344,12 +344,14 @@ HRESULT CPeerProjectDataSource::DoDragDrop(const CLibraryTreeItem* pList, HBITMA
 template < typename T >
 HRESULT CPeerProjectDataSource::DoDragDropHelper(const T* pList, HBITMAP pImage, const Hashes::Guid& oGUID, const CPoint& ptOffset)
 {
-	ASSERT_VALID( pList );
+	HRESULT hr = E_FAIL;
 
 	// Create drag-n-drop data object
+	CPeerProjectDataSource* pSrc = new CPeerProjectDataSource;
+	if ( ! pSrc ) return E_OUTOFMEMORY;
 	CComPtr< IDataObject > pIDataObject;
-	HRESULT hr = pIDataObject.CoCreateInstance( CLSID_PeerProjectDataSource );
-	if ( SUCCEEDED( hr ) )
+	pIDataObject.Attach( static_cast< IDataObject* >( pSrc->GetInterface( IID_IDataObject ) ) );
+	if ( pIDataObject )
 	{
 		// Set flag to detect self drag-n-drop
 		hr = Add( pIDataObject );

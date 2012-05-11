@@ -162,13 +162,13 @@ CCollectionFile::File* CCollectionFile::FindFile(CLibraryFile* pShared, BOOL bAp
 /////////////////////////////////////////////////////////////////////////////
 // CCollectionFile get count
 
-int CCollectionFile::GetMissingCount()
+int CCollectionFile::GetMissingCount() const
 {
 	int nCount = 0;
 
 	for ( POSITION pos = GetFileIterator() ; pos ; )
 	{
-		File* pFile = GetNextFile( pos );
+		const File* pFile = GetNextFile( pos );
 		if ( ! pFile->IsComplete() && ! pFile->IsDownloading() ) nCount++;
 	}
 
@@ -187,6 +187,9 @@ BOOL CCollectionFile::LoadCollection(LPCTSTR pszFile)
 
 	CZIPFile::File* pFile = pZIP.GetFile( _T("Collection.xml"), TRUE );
 	if ( ! pFile ) return FALSE;
+
+	if ( pZIP.GetCount() == 1 )		// xml-only
+		m_nType = SimpleCollection;
 
 	auto_ptr< CBuffer > pBuffer ( pFile->Decompress() );
 	if ( ! pBuffer.get() ) return FALSE;

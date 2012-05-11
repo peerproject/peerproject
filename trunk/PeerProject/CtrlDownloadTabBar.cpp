@@ -115,14 +115,14 @@ void CDownloadTabBar::OnSkinChange()
 int CDownloadTabBar::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CControlBar::OnCreate( lpCreateStruct ) == -1 ) return -1;
-	//if ( Skin.m_bMenuBorders )
-		m_dwStyle |= CBRS_BORDER_3D;
+	//if ( Settings.Skin.MenuBorders )
+	m_dwStyle |= CBRS_BORDER_3D;
 	return 0;
 }
 
 CSize CDownloadTabBar::CalcFixedLayout(BOOL /*bStretch*/, BOOL /*bHorz*/)
 {
-	CSize size( 32767, Skin.m_nGroupsbarHeight );
+	CSize size( 32767, Settings.Skin.GroupsbarHeight );
 
 	if ( CWnd* pParent = AfxGetMainWnd() )
 	{
@@ -236,18 +236,16 @@ INT_PTR CDownloadTabBar::OnToolHitTest(CPoint point, TOOLINFO* pTI) const
 	if ( pTI == NULL ) return 1;
 
 	CString strTip;
-	LoadString( strTip, IDS_GENERAL_ALL );
-	if ( pItem->m_sName == strTip )
+	if ( pItem->m_sName == LoadString( IDS_GENERAL_ALL ) )
 	{
 		LoadString( strTip, IDS_DOWNLOAD_GROUP_DEFAULT );
 	}
 	else // All other groups
 	{
-		LoadString( strTip, IDS_DOWNLOAD_GROUP );
-		strTip.Format( strTip, (LPCTSTR)pItem->m_sName );
+		strTip.Format( LoadString( IDS_DOWNLOAD_GROUP ), (LPCTSTR)pItem->m_sName );
 
 		// Special case tutorial (No translation needed?)
-		if ( pItem->m_sName == _T("Custom") )	// Assume default Settings.General.Language == _T("en")
+		if ( pItem->m_sName == _T("Custom") )	// Assume Settings.General.LanguageDefault
 			strTip += _T(", or right-click to customize this tab now.");
 	}
 
@@ -266,8 +264,8 @@ void CDownloadTabBar::DoPaint(CDC* pDC)
 	ASSERT_VALID(pDC);
 
 	CDC* pOutDC = pDC;
-	CRect rc;
 
+	CRect rc;
 	GetClientRect( &rc );
 
 	if ( m_bmImage.m_hObject != NULL )

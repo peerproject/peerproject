@@ -40,8 +40,8 @@ static char THIS_FILE[] = __FILE__;
 #define NEWLINE_FORMAT	_T("2")
 #define EDIT_HISTORY	256
 #define EDIT_HEIGHT		32
-//#define TOOLBAR_HEIGHT 30	// Skin.m_nToolbarHeight
-//#define SPLIT_SIZE	6	// Skin.m_nSplitter
+//#define TOOLBAR_HEIGHT 30	// Settings.Skin.ToolbarHeight
+//#define SPLIT_SIZE	6	// Settings.Skin.Splitter
 
 const static UINT nImageID[] =
 {
@@ -577,20 +577,20 @@ void CChatWnd::OnSize(UINT nType, int cx, int cy)
 	CRect rc;
 	GetClientRect( &rc );
 
-	if ( rc.Width() < m_nUsersSize + Skin.m_nSplitter + 2 )
-		m_nUsersSize = rc.Width() > Skin.m_nSplitter + 2 ? rc.Width() - Skin.m_nSplitter : 0;
+	if ( rc.Width() < m_nUsersSize + Settings.Skin.Splitter + 2 )
+		m_nUsersSize = rc.Width() > Settings.Skin.Splitter + 2 ? rc.Width() - Settings.Skin.Splitter : 0;
 
 	HDWP hDWP = BeginDeferWindowPos( 4 );
 
 	DeferWindowPos( hDWP, m_wndView, NULL, rc.left, rc.top,
-		rc.Width() - m_nUsersSize - Skin.m_nSplitter, rc.Height() - Skin.m_nToolbarHeight - EDIT_HEIGHT, SWP_NOZORDER );
+		rc.Width() - m_nUsersSize - Settings.Skin.Splitter, rc.Height() - Settings.Skin.ToolbarHeight - EDIT_HEIGHT, SWP_NOZORDER );
 
 	DeferWindowPos( hDWP, m_wndUsers, NULL, rc.left + rc.Width() - m_nUsersSize, rc.top,
-		m_nUsersSize, rc.Height() - Skin.m_nToolbarHeight - EDIT_HEIGHT, SWP_NOZORDER );
+		m_nUsersSize, rc.Height() - Settings.Skin.ToolbarHeight - EDIT_HEIGHT, SWP_NOZORDER );
 
 	DeferWindowPos( hDWP, m_wndToolBar, NULL,
-		rc.left, rc.bottom - Skin.m_nToolbarHeight - EDIT_HEIGHT,
-		rc.Width(), Skin.m_nToolbarHeight, SWP_NOZORDER );
+		rc.left, rc.bottom - Settings.Skin.ToolbarHeight - EDIT_HEIGHT,
+		rc.Width(), Settings.Skin.ToolbarHeight, SWP_NOZORDER );
 
 	DeferWindowPos( hDWP, m_wndEdit, NULL, rc.left, rc.bottom - EDIT_HEIGHT,
 		rc.Width(), EDIT_HEIGHT, SWP_NOZORDER );
@@ -609,10 +609,10 @@ void CChatWnd::OnPaint()
 	CRect rcClient;
 	GetClientRect( &rcClient );
 
-	CRect rc( rcClient.right - m_nUsersSize - Skin.m_nSplitter,
+	CRect rc( rcClient.right - m_nUsersSize - Settings.Skin.Splitter,
 			  rcClient.top,
 			  rcClient.right - m_nUsersSize,
-			  rcClient.bottom - Skin.m_nToolbarHeight - EDIT_HEIGHT );
+			  rcClient.bottom - Settings.Skin.ToolbarHeight - EDIT_HEIGHT );
 
 	if ( ! m_nUsersSize && ! m_wndUsers.GetItemCount() )
 	{
@@ -768,10 +768,10 @@ BOOL CChatWnd::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 	GetClientRect( &rcClient );
 	ClientToScreen( &rcClient );
 
-	CRect rc( rcClient.right - m_nUsersSize - Skin.m_nSplitter,
+	CRect rc( rcClient.right - m_nUsersSize - Settings.Skin.Splitter,
 		rcClient.top,
 		rcClient.right - m_nUsersSize,
-		rcClient.bottom - Skin.m_nToolbarHeight - EDIT_HEIGHT );
+		rcClient.bottom - Settings.Skin.ToolbarHeight - EDIT_HEIGHT );
 
 	if ( rc.PtInRect( point ) )
 	{
@@ -788,10 +788,10 @@ void CChatWnd::OnLButtonDown(UINT nFlags, CPoint point)
 	CRect rcClient;
 	GetClientRect( &rcClient );
 
-	CRect rc( rcClient.right - m_nUsersSize - Skin.m_nSplitter,
+	CRect rc( rcClient.right - m_nUsersSize - Settings.Skin.Splitter,
 		rcClient.top,
 		rcClient.right - m_nUsersSize,
-		rcClient.bottom - Skin.m_nToolbarHeight - EDIT_HEIGHT );
+		rcClient.bottom - Settings.Skin.ToolbarHeight - EDIT_HEIGHT );
 
 	if ( rc.PtInRect( point ) )
 	{
@@ -837,12 +837,12 @@ BOOL CChatWnd::DoSizeView()
 		nSplit += nOffset;
 
 		nSplit = max( nSplit, 0 );
-		nSplit = min( nSplit, (int)rcClient.right - Skin.m_nSplitter );
+		nSplit = min( nSplit, (int)rcClient.right - (int)Settings.Skin.Splitter );
 
 		if ( nSplit < 8 )
 			nSplit = 0;
-		if ( nSplit > rcClient.right - Skin.m_nSplitter - 8 )
-			nSplit = rcClient.right - Skin.m_nSplitter;
+		if ( nSplit > rcClient.right - Settings.Skin.Splitter - 8 )
+			nSplit = rcClient.right - Settings.Skin.Splitter;
 
 		if ( nSplit != m_nUsersSize )
 		{
@@ -1020,8 +1020,8 @@ void CChatWnd::DeleteAllUsers()
 //
 //	HDWP hDWP = BeginDeferWindowPos( 3 );
 //
-//	DeferWindowPos( hDWP, m_wndView, NULL, rc.left, rc.top, rc.Width(), rc.Height() - Skin.m_nToolbarHeight - EDIT_HEIGHT, SWP_NOZORDER );
-//	DeferWindowPos( hDWP, m_wndToolBar, NULL, rc.left, rc.bottom - Skin.m_nToolbarHeight - EDIT_HEIGHT, rc.Width(), Skin.m_nToolbarHeight, SWP_NOZORDER );
+//	DeferWindowPos( hDWP, m_wndView, NULL, rc.left, rc.top, rc.Width(), rc.Height() - Settings.Skin.ToolbarHeight - EDIT_HEIGHT, SWP_NOZORDER );
+//	DeferWindowPos( hDWP, m_wndToolBar, NULL, rc.left, rc.bottom - Settings.Skin.ToolbarHeight - EDIT_HEIGHT, rc.Width(), Settings.Skin.ToolbarHeight, SWP_NOZORDER );
 //	DeferWindowPos( hDWP, m_wndEdit, NULL, rc.left, rc.bottom - EDIT_HEIGHT, rc.Width(), EDIT_HEIGHT, SWP_NOZORDER );
 //	EndDeferWindowPos( hDWP );
 //
@@ -1037,7 +1037,7 @@ void CChatWnd::DeleteAllUsers()
 //	}
 //	else if ( nIDEvent == 2 && m_pFrame != NULL )
 //	{
-//		if ( Settings.General.Language.Left(2) != _T("en") )
+//		if ( ! Settings.General.LanguageDefault )
 //		{
 //			CString str;
 //			m_pFrame->GetWindowText( str );

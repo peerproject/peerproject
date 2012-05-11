@@ -72,6 +72,9 @@ protected:
 	CRemoteWnd			m_wndRemoteWnd;
 	CHashProgressBar	m_wndHashProgressBar;
 
+#ifdef __ITaskbarList3_INTERFACE_DEFINED__	// VS2010+
+	CComPtr< ITaskbarList3 > m_pTaskbar;	// Windows task bar
+#endif
 	NOTIFYICONDATA		m_pTray;			// Tray icon data
 	BOOL				m_bTrayHide;		// Is main window hidden to tray?
 	BOOL				m_bTrayIcon;		// Is tray icon available?
@@ -279,7 +282,7 @@ protected:
 	afx_msg LRESULT OnSanityCheck(WPARAM wParam, LPARAM lParam);
 	afx_msg LRESULT OnNowUploading(WPARAM wParam, LPARAM lParam);
 	afx_msg UINT OnPowerBroadcast(UINT nPowerEvent, UINT nEventData);
-//	afx_msg BOOL OnCopyData(CWnd* pWnd,COPYDATASTRUCT* pCopyDataStruct);	// Windows scheduler not implemented
+	afx_msg BOOL OnCopyData(CWnd* pWnd,COPYDATASTRUCT* pCopyDataStruct);	// Windows scheduler not implemented
 
 	DECLARE_MESSAGE_MAP()
 	DECLARE_DROP()

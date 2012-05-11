@@ -248,7 +248,7 @@ BOOL CDiscoveryServices::Add(CDiscoveryService* pService)
 		if ( m_pList.Find( pService ) == NULL )
 		{
 			// It's a new service, but we don't want more. We should delete it.
-			theApp.Message( MSG_DEBUG, _T("Maximum discovery service count reached- %s not added"), pService->m_sAddress );
+			theApp.Message( MSG_DEBUG, _T("[DiscoveryServices] Maximum discovery service count reached, %s not added"), pService->m_sAddress );
 			delete pService;
 			return FALSE;
 		}
@@ -450,10 +450,12 @@ BOOL CDiscoveryServices::Load()
 		Save();			// And save it
 	}
 
-	if ( ! bSuccess )
-		theApp.Message( MSG_ERROR, _T("Failed to load discovery service list: %s"), strFile );
+	if ( bSuccess )
+		return TRUE;
 
-	return TRUE;
+	theApp.Message( MSG_ERROR, _T("[DiscoveryServices] Failed to load discovery service list: %s"), strFile );
+
+	return FALSE;
 }
 
 BOOL CDiscoveryServices::Save()
@@ -689,7 +691,8 @@ void CDiscoveryServices::AddDefaults()
 void CDiscoveryServices::MergeURLs()
 {
 	CArray< CDiscoveryService* > G1URLs, G2URLs, MultiURLs, OtherURLs;
-	theApp.Message( MSG_DEBUG, _T("CDiscoveryServices::MergeURLs(): Checking the discovery service WebCache URLs") );
+//	theApp.Message( MSG_DEBUG, _T("CDiscoveryServices::MergeURLs(): Checking the discovery service WebCache URLs") );
+
 	// Building the arrays...
 	for ( POSITION pos = m_pList.GetHeadPosition() ; pos ; )
 	{
@@ -717,7 +720,7 @@ void CDiscoveryServices::MergeURLs()
 				// Checking for identical duplicate.
 				if ( MultiURLs.GetAt( index )->m_sAddress == MultiURLs.GetAt( dup_index )->m_sAddress && index != dup_index )
 				{
-					theApp.Message( MSG_NOTICE, _T("CDiscoveryServices::MergeURLs(): Removed %s from the multi list"), (LPCTSTR)MultiURLs.GetAt( dup_index )->m_sAddress );
+				//	theApp.Message( MSG_NOTICE, _T("CDiscoveryServices::MergeURLs(): Removed %s from the multi list"), (LPCTSTR)MultiURLs.GetAt( dup_index )->m_sAddress );
 					MultiURLs.RemoveAt( dup_index );
 				}
 			}
@@ -728,7 +731,7 @@ void CDiscoveryServices::MergeURLs()
 				{
 					if ( MultiURLs.GetAt( index )->m_sAddress == G1URLs.GetAt( index2 )->m_sAddress )
 					{
-						theApp.Message( MSG_NOTICE, _T("CDiscoveryServices::MergeURLs(): Removed %s from the Gnutella list"), (LPCTSTR)G1URLs.GetAt( index2 )->m_sAddress );
+					//	theApp.Message( MSG_NOTICE, _T("CDiscoveryServices::MergeURLs(): Removed %s from the Gnutella list"), (LPCTSTR)G1URLs.GetAt( index2 )->m_sAddress );
 						G1URLs.RemoveAt( index2 );
 					}
 				}
@@ -740,7 +743,7 @@ void CDiscoveryServices::MergeURLs()
 				{
 					if ( MultiURLs.GetAt( index )->m_sAddress == G2URLs.GetAt( index3 )->m_sAddress )
 					{
-						theApp.Message( MSG_NOTICE, _T("CDiscoveryServices::MergeURLs(): Removed %s from the Gnutella2 list"), (LPCTSTR)G2URLs.GetAt( index3 )->m_sAddress );
+					//	theApp.Message( MSG_NOTICE, _T("CDiscoveryServices::MergeURLs(): Removed %s from the Gnutella2 list"), (LPCTSTR)G2URLs.GetAt( index3 )->m_sAddress );
 						G2URLs.RemoveAt( index3 );
 					}
 				}
@@ -756,7 +759,7 @@ void CDiscoveryServices::MergeURLs()
 				// Checking for identical duplicate.
 				if ( G1URLs.GetAt( index4 )->m_sAddress == G1URLs.GetAt( dup_index2 )->m_sAddress && index4 != dup_index2 )
 				{
-					theApp.Message( MSG_NOTICE, _T("CDiscoveryServices::MergeURLs(): Removed %s from the Gnutella list"), (LPCTSTR)G1URLs.GetAt( dup_index2 )->m_sAddress );
+				//	theApp.Message( MSG_NOTICE, _T("CDiscoveryServices::MergeURLs(): Removed %s from the Gnutella list"), (LPCTSTR)G1URLs.GetAt( dup_index2 )->m_sAddress );
 					G1URLs.RemoveAt( dup_index2 );
 				}
 			}
@@ -770,7 +773,7 @@ void CDiscoveryServices::MergeURLs()
 						CDiscoveryService* pService = G1URLs[index4];
 						pService->m_bGnutella2 = true;
 						G1URLs[index4] = pService;
-						theApp.Message( MSG_NOTICE, _T("CDiscoveryServices::MergeURLs(): Merged %s into the multi list"), (LPCTSTR)G2URLs.GetAt( index5 )->m_sAddress );
+					//	theApp.Message( MSG_NOTICE, _T("CDiscoveryServices::MergeURLs(): Merged %s into the multi list"), (LPCTSTR)G2URLs.GetAt( index5 )->m_sAddress );
 						G2URLs.RemoveAt( index5 );
 					}
 				}
@@ -786,7 +789,7 @@ void CDiscoveryServices::MergeURLs()
 				// Checking for identical duplicate
 				if ( G2URLs.GetAt( index6 )->m_sAddress == G2URLs.GetAt( dup_index3 )->m_sAddress && index6 != dup_index3 )
 				{
-					theApp.Message( MSG_NOTICE, _T("CDiscoveryServices::MergeURLs(): Removed %s from the Gnutella2 list"), (LPCTSTR)G2URLs.GetAt( dup_index3 )->m_sAddress );
+				//	theApp.Message( MSG_NOTICE, _T("CDiscoveryServices::MergeURLs(): Removed %s from the Gnutella2 list"), (LPCTSTR)G2URLs.GetAt( dup_index3 )->m_sAddress );
 					G2URLs.RemoveAt( dup_index3 );
 				}
 			}
@@ -1173,7 +1176,7 @@ CDiscoveryService* CDiscoveryServices::GetRandomWebCache(PROTOCOLID nProtocol, B
 							pWebCaches.Add( pService );
 						break;
 					default:
-						theApp.Message( MSG_ERROR, _T("CDiscoveryServices::GetRandomWebCache() was passed an invalid protocol") );
+					//	theApp.Message( MSG_ERROR, _T("CDiscoveryServices::GetRandomWebCache() was passed an invalid protocol") );
 						ASSERT( FALSE );
 						return NULL;
 					}
@@ -1418,8 +1421,8 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 		if ( strLine.IsEmpty() )
 			continue;
 
-		theApp.Message( MSG_DEBUG, _T("GWebCache %s : %s"),
-			(LPCTSTR)m_pWebCache->m_sAddress, (LPCTSTR)strLine );
+	//	theApp.Message( MSG_DEBUG, _T("GWebCache %s : %s"),
+	//		(LPCTSTR)m_pWebCache->m_sAddress, (LPCTSTR)strLine );
 
 		// Split line to parts
 		CArray< CString > oParts;
@@ -1601,8 +1604,8 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 					// Usage here: Used to check if cache supports requested network.
 					if ( m_nLastQueryProtocol != PROTOCOL_G2 )
 					{
-						// Mystery pong received - possibly a hosted static webpage.
-						theApp.Message( MSG_ERROR, _T("GWebCache %s : PONG received when no ping was given"), (LPCTSTR)m_pWebCache->m_sAddress );
+						// Mystery pong received - possibly a hosted static web page.
+						theApp.Message( MSG_ERROR, _T("[DiscoveryServices] Mystery PONG received when no ping was given: GWebCache %s"), (LPCTSTR)m_pWebCache->m_sAddress );
 						return FALSE;
 					}
 					if ( oParts.GetCount() >= 3 )
@@ -1711,8 +1714,8 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 			// pong v1
 			if ( m_nLastQueryProtocol != PROTOCOL_G2 )
 			{
-				// Mystery pong received - possibly a hosted static webpage.
-				theApp.Message( MSG_ERROR, _T("GWebCache %s : Mystery PONG received"), (LPCTSTR)m_pWebCache->m_sAddress );
+				// Mystery pong received - possibly a hosted static web page.
+				theApp.Message( MSG_ERROR, _T("[DiscoveryServices] Mystery PONG received: GWebCache %s"), (LPCTSTR)m_pWebCache->m_sAddress );
 				return FALSE;
 			}
 		}
@@ -1842,14 +1845,14 @@ BOOL CDiscoveryServices::RunWebCacheUpdate()
 	// Split answer to lines
 	while ( ! strOutput.IsEmpty() )
 	{
-		CString strLine	= strOutput.SpanExcluding( _T("\r\n") );
+		CString strLine = strOutput.SpanExcluding( _T("\r\n") );
 		strOutput = strOutput.Mid( strLine.GetLength() + 1 );
 		strLine.Trim( _T("\r\n \t") );
 		if ( strLine.IsEmpty() )
 			continue;
 
-		theApp.Message( MSG_DEBUG, _T("GWebCache(update) %s : %s"),
-			(LPCTSTR)m_pWebCache->m_sAddress, (LPCTSTR)strLine );
+	//	theApp.Message( MSG_DEBUG, _T("[DiscoveryServices] GWebCache(update) %s : %s"),
+	//		(LPCTSTR)m_pWebCache->m_sAddress, (LPCTSTR)strLine );
 
 	//	// Split line to parts
 	//	CArray< CString > oParts;
@@ -1904,7 +1907,7 @@ BOOL CDiscoveryServices::RunWebCacheUpdate()
 }
 
 //////////////////////////////////////////////////////////////////////
-// CDiscoveryServices HTTP request controllor
+// CDiscoveryServices HTTP request
 
 BOOL CDiscoveryServices::SendWebCacheRequest(CString strURL, CString& strOutput)
 {
@@ -1914,10 +1917,18 @@ BOOL CDiscoveryServices::SendWebCacheRequest(CString strURL, CString& strOutput)
 	if ( ! m_pRequest.SetURL( strURL ) )
 		return FALSE;
 
+	theApp.Message( MSG_DEBUG | MSG_FACILITY_OUTGOING, _T("[DiscoveryServices] Request: %s"), (LPCTSTR)strURL );
+
 	if ( ! m_pRequest.Execute( false ) )
 		return FALSE;
 
+	int nStatusCode = m_pRequest.GetStatusCode();
+	if ( nStatusCode < 200 || nStatusCode > 299 )
+		return FALSE;
+
 	strOutput = m_pRequest.GetResponseString();
+
+	theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, _T("[DiscoveryServices] Response: %s"), (LPCTSTR)strOutput );
 
 	return TRUE;
 }

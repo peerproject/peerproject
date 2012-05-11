@@ -935,7 +935,7 @@ void CDownloadWithTorrent::ChokeTorrent(DWORD tNow)
 
 BOOL CDownloadWithTorrent::FindMoreSources()
 {
-	if ( IsFileOpen() && m_bTorrentRequested )
+	if ( m_bTorrentRequested )
 	{
 		ASSERT( IsTorrent() );
 
@@ -959,9 +959,9 @@ BOOL CDownloadWithTorrent::SeedTorrent(CString& sErrorMessage)
 	if ( IsMoving() || IsCompleted() )
 		return FALSE;
 
-	ASSERT( IsFileOpen() == FALSE );
-	if ( IsFileOpen() )
-		return FALSE;
+	//ASSERT( IsFileOpen() == FALSE );
+	//if ( IsFileOpen() )
+	//	return FALSE;
 
 	GenerateTorrentDownloadID();
 

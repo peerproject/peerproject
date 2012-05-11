@@ -1052,7 +1052,7 @@ void CImages::Load()
 		m_bmButtonMapRichdoc.Attach( hButtonMap );
 		m_bmButtonMapRichdoc.GetObject( sizeof(BITMAP), &bmInfo );
 		m_bmButtonMapRichdoc.SetBitmapDimension(
-			bmInfo.bmWidth > Skin.m_nButtonEdge ? Skin.m_nButtonEdge : 0, bmInfo.bmHeight / STATE_COUNT );
+			bmInfo.bmWidth > Settings.Skin.ButtonEdge ? Settings.Skin.ButtonEdge : 0, bmInfo.bmHeight / STATE_COUNT );
 	}
 
 	if ( HBITMAP hButtonMap = Skin.GetWatermark( _T("ButtonMap.Toolbar") ) )
@@ -1062,7 +1062,7 @@ void CImages::Load()
 		m_bmButtonMapToolbar.Attach( hButtonMap );
 		m_bmButtonMapToolbar.GetObject( sizeof(BITMAP), &bmInfo );
 		m_bmButtonMapToolbar.SetBitmapDimension(
-			bmInfo.bmWidth > Skin.m_nButtonEdge ? Skin.m_nButtonEdge : 0, bmInfo.bmHeight / STATE_COUNT );
+			bmInfo.bmWidth > Settings.Skin.ButtonEdge ? Settings.Skin.ButtonEdge : 0, bmInfo.bmHeight / STATE_COUNT );
 	}
 
 	if ( HBITMAP hButtonMap = Skin.GetWatermark( _T("ButtonMap.Menubar") ) )
@@ -1072,7 +1072,7 @@ void CImages::Load()
 		m_bmButtonMapMenubar.Attach( hButtonMap );
 		m_bmButtonMapMenubar.GetObject( sizeof(BITMAP), &bmInfo );
 		m_bmButtonMapMenubar.SetBitmapDimension(
-			bmInfo.bmWidth > Skin.m_nButtonEdge ? Skin.m_nButtonEdge : 0, bmInfo.bmHeight / STATE_COUNT );
+			bmInfo.bmWidth > Settings.Skin.ButtonEdge ? Settings.Skin.ButtonEdge : 0, bmInfo.bmHeight / STATE_COUNT );
 	}
 
 	if ( HBITMAP hButtonMap = Skin.GetWatermark( _T("ButtonMap.MenuText") ) )
@@ -1082,7 +1082,7 @@ void CImages::Load()
 		m_bmButtonMapMenutext.Attach( hButtonMap );
 		m_bmButtonMapMenutext.GetObject( sizeof(BITMAP), &bmInfo );
 		m_bmButtonMapMenutext.SetBitmapDimension(
-			bmInfo.bmWidth > Skin.m_nButtonEdge ? Skin.m_nButtonEdge : 0, bmInfo.bmHeight / 3 );
+			bmInfo.bmWidth > Settings.Skin.ButtonEdge ? Settings.Skin.ButtonEdge : 0, bmInfo.bmHeight / 3 );
 	}
 
 	if ( HBITMAP hButtonMap = Skin.GetWatermark( _T("ButtonMap.MenuSelect") ) )
@@ -1092,7 +1092,7 @@ void CImages::Load()
 		m_bmButtonMapMenuselect.Attach( hButtonMap );
 		m_bmButtonMapMenuselect.GetObject( sizeof(BITMAP), &bmInfo );
 		m_bmButtonMapMenuselect.SetBitmapDimension(
-			bmInfo.bmWidth > Skin.m_nButtonEdge ? Skin.m_nButtonEdge : 0, bmInfo.bmHeight / 3 );
+			bmInfo.bmWidth > Settings.Skin.ButtonEdge ? Settings.Skin.ButtonEdge : 0, bmInfo.bmHeight / 3 );
 	}
 
 	if ( HBITMAP hButtonMap = Skin.GetWatermark( _T("ButtonMap.ProgressBar") ) )
@@ -1102,7 +1102,7 @@ void CImages::Load()
 		m_bmButtonMapProgressbar.Attach( hButtonMap );
 		m_bmButtonMapProgressbar.GetObject( sizeof(BITMAP), &bmInfo );
 		m_bmButtonMapProgressbar.SetBitmapDimension(
-			bmInfo.bmWidth > Skin.m_nButtonEdge ? Skin.m_nButtonEdge : 0, bmInfo.bmHeight / 3 );
+			bmInfo.bmWidth > Settings.Skin.ButtonEdge ? Settings.Skin.ButtonEdge : 0, bmInfo.bmHeight / 3 );
 	}
 
 	if ( HBITMAP hButtonMap = Skin.GetWatermark( _T("ButtonMap.DownloadGroup") ) )
@@ -1112,7 +1112,7 @@ void CImages::Load()
 		m_bmButtonMapDownloadgroup.Attach( hButtonMap );
 		m_bmButtonMapDownloadgroup.GetObject( sizeof(BITMAP), &bmInfo );
 		m_bmButtonMapDownloadgroup.SetBitmapDimension(
-			bmInfo.bmWidth > Skin.m_nButtonEdge ? Skin.m_nButtonEdge : 0, bmInfo.bmHeight / STATE_COUNT );
+			bmInfo.bmWidth > Settings.Skin.ButtonEdge ? Settings.Skin.ButtonEdge : 0, bmInfo.bmHeight / STATE_COUNT );
 	}
 
 	if ( HBITMAP hButtonMap = Skin.GetWatermark( _T("ButtonMap.Taskbar") ) )
@@ -1122,7 +1122,7 @@ void CImages::Load()
 		m_bmButtonMapTaskbar.Attach( hButtonMap );
 		m_bmButtonMapTaskbar.GetObject( sizeof(BITMAP), &bmInfo );
 		m_bmButtonMapTaskbar.SetBitmapDimension(
-			bmInfo.bmWidth > Skin.m_nButtonEdge ? Skin.m_nButtonEdge : 0, bmInfo.bmHeight / STATE_COUNT );
+			bmInfo.bmWidth > Settings.Skin.ButtonEdge ? Settings.Skin.ButtonEdge : 0, bmInfo.bmHeight / STATE_COUNT );
 	}
 }
 

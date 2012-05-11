@@ -1,7 +1,7 @@
 //
 // Colors.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2009-2011
+// This file is part of PeerProject (peerproject.org) © 2009-2012
 //
 // PeerProject is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Affero General Public License
@@ -98,13 +98,13 @@ void CColors::CalculateColors(BOOL bCustom)
 	m_crTipBorder				= CalculateColor( m_crTipBack, (COLORREF)0, 100 );
 	m_crTipGraph				= CalculateColor( RGB( 255, 255, 255 ), m_crTipBack, 80 );
 	m_crTipGraphGrid			= CalculateColor( Colors.m_crTipBorder, m_crTipGraph, 180 );
-	m_crTipWarnings				= RGB( 64, 64, 64 );	// Grey warning messages
+	m_crTipWarnings				= RGB( 64, 64, 64 );		// Grey warning messages
 
-	m_crTaskPanelBack			= RGB( 122, 161, 230 );
-	m_crTaskBoxCaptionBack		= RGB( 250, 250, 255 );
-	m_crTaskBoxPrimaryBack		= RGB( 30, 87, 199 );	// RGB_DEFAULT_CASE ?
-	m_crTaskBoxCaptionText		= RGB( 34, 93, 217 );
+	m_crTaskPanelBack			= RGB( 122, 160, 230 );		// Not RGB_DEFAULT_CASE
+	m_crTaskBoxPrimaryBack		= RGB_DEFAULT_CASE;			// Was RGB( 30, 87, 199 )
 	m_crTaskBoxPrimaryText		= RGB( 255, 255, 255 );
+	m_crTaskBoxCaptionBack		= RGB( 250, 250, 255 );
+	m_crTaskBoxCaptionText		= RGB( 34, 93, 217 );
 	m_crTaskBoxCaptionHover		= RGB( 84, 143, 255 );
 	m_crTaskBoxClient			= RGB( 214, 223, 247 );
 

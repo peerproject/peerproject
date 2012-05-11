@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Turkish Skin File -->
 
-<!-- Translation based on default-en.xml r77 -->
+<!-- Translation based on default-en.xml r78 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -427,16 +427,6 @@
 	</toolbar>
 	<!--
 	<toolbar name="WebServices.ShareMonkey">
-		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Bilgi istemi"/>
-		<separator/>
-		<button id="ID_SHAREMONKEY_PREVIOUS" text="Önceki"/>
-		<button id="ID_SHAREMONKEY_NEXT" text="Sonraki"/>
-		<separator/>
-		<button id="ID_SHAREMONKEY_PRICES" text="Fiyat bilgisi"/>
-		<button id="ID_SHAREMONKEY_COMPARE" text="Karşılaştır"/>
-		<button id="ID_SHAREMONKEY_BUY" text="Satın al"/>
-	</toolbar>
-	<toolbar name="WebServices.ShareMonkey.WithSave">
 		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Bilgi istemi"/>
 		<button id="ID_SHAREMONKEY_SAVE" text="Kaydet"/>
 		<control id="ID_SHAREMONKEY_SAVE_OPTION" text="Ön İzlemeyi Kaydet" width="100" checked="true"/>
@@ -1623,7 +1613,7 @@
 				<font size="13"/>
 			</style>
 			<style name="heading">
-				<font face="Trebuchet MS" size="16" weight="800"/>
+				<font face="Segoe UI" size="18" weight="400"/>
 			</style>
 		</styles>
 		<anchor id="Header" width="32" height="152"/>
@@ -1638,7 +1628,7 @@
 		</group>
 		<group id="2">
 			<icon res="130" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">PEERPROJECT ARAMA</heading>
+			<heading align="middle">PeerProject Arama</heading>
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="14" indent="0"/>
@@ -1665,7 +1655,7 @@
 		</group>
 		<group id="4">
 			<icon res="180" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
-			<heading align="middle">UYARI - GÜVENLİK DUVARI AÇIK</heading>
+			<heading align="middle">Uyari: GÜVENLİK DUVARI AÇIK</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject sizin bir güvenlik duvarının ya da NAT yönlendiricinin arkasında olduğunuzu tespit etti ve internetten gelecek olan bağlantıları alamazsınız. &#160;</text>
 			<text color="FF0000" format="b">Bu düşük performansla download etmenize neden olur.</text>
@@ -1675,7 +1665,7 @@
 		</group>
 		<group id="6">
 			<icon res="180" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">UYARI - TCP PORTUNUZ GÜVENLİK DUVARI ARKASINDA</heading>
+			<heading align="middle">Uyari: TCP PORTUNUZ GÜVENLİK DUVARI ARKASINDA</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject sizin bir güvenlik duvarının ya da NAT yönlendiricinin arkasında olduğunuzu ve İnternet'ten
 			TCP bağlantılarını alamayacağınızı tespit etti. &#160;</text>
@@ -1686,7 +1676,7 @@
 		</group>
 		<group id="7">
 			<icon res="180" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">UYARI - UDP PORTUNUZ GÜVENLİK DUVARI ARKASINDA</heading>
+			<heading align="middle">Uyari: UDP PORTUNUZ GÜVENLİK DUVARI ARKASINDA</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject sizin bir güvenlik duvarının ya da NAT yönlendiricinin arkasında olduğunuzu ve İnternet'ten
 			UDP bağlantılarını alamayacağınızı tespit etti. &#160;</text>
@@ -1696,7 +1686,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
-		<heading align="middle">PEERPROJECT İstemcisine</heading>
+		<heading align="middle">PeerProject İstemcisine</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="196" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
 		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Arayüzler</link><gap size="6"/>
@@ -2937,7 +2927,7 @@
 	<string id="20433" value="PeerProject bu dosyayı silemiyor:\n\n%s"/>
 	<string id="20434" value="Henüz kütüphanenizde olmayan &quot;%s&quot; dosyalar klasörü indirildi.\n\nİndirme dosyalarınızın kütüphanenizdeki klasör içinde yer alması yeni indirmelerin gösteriminde ve yönetiminde kolaylık sağlar ve indirme gerçekleme ve otomatik güncelleme gibi PeerProject'nın ileri özelliklerine sahip olmanıza izin verir. İndirme dosyalarınızın kütüphane içine yerleştirimi ille de onları paylaştırmanı istemez: bağımsızca dosyaları paylaştıp paylaştırmayacağını seçebilirsin.\n\nKütüphanenize şimdi indirme dosyalarınızın klasörünü eklemek ister misiniz?"/>
 	<string id="20435" value="İndirme klasörleriniz kütüphanenize eklendi. Daha paylaşmak ister misiniz?"/>
-	<!--string id="20436" value="Sıralı dosyalar için henüz Nullsoft WinAmp gibi bir ortam oynatıcısı seçmediniz. Şimdi bir tane seçmek ister misiniz? \n\nPeerProject &quot;--EKLE&quot; butonuyla seçtiğiniz programın dosya adını kabul edecektir."/>
+	<!--string id="20436" value="Sıralı dosyalar için henüz Nullsoft WinAmp gibi bir ortam oynatıcısı seçmediniz. Şimdi bir tane seçmek ister misiniz? \n\nPeerProject &quot;--ADD&quot; butonuyla seçtiğiniz programın dosya adını kabul edecektir."-->
 	<string id="20436" value="Library bu klasör ekle?\n\n%s"/>
 	<string id="20437" value="Hayalet Dosya"/>
 	<string id="20438" value="%i dosyada veri yayınlanıyor."/>
@@ -3693,13 +3683,16 @@
 		<control caption="_Kur..."/>
 		<control caption="Dahası"/>
 	</dialog>
-	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuSt" caption="İleri">
+	<dialog name="CAdvancedSettingsPage" cookie="SyBuStEdmsEdCoBuBu" caption="İleri">
+		<control/>
+		<control caption="Özellik ayarları:"/>
+		<control caption="Değer:"/>
+		<control/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
 		<control caption="Temel Yap"/>
-		<control caption="Özellik ayarları:"/>
-		<control caption="Değer:"/>
 	</dialog>
 	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protokoller">
 		<control caption="PeerProject Genel Mimarlık Protokol Araştırıcısı:"/>

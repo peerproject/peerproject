@@ -1,7 +1,7 @@
 //
 // PageSettingsAdvanced.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -19,24 +19,30 @@
 #pragma once
 
 #include "WndSettingsPage.h"
+#include "CtrlFontCombo.h"
 
 class CSettingEdit;
 
 
 class CAdvancedSettingsPage : public CSettingsPage
 {
+	DECLARE_DYNCREATE(CAdvancedSettingsPage)
+
 public:
 	CAdvancedSettingsPage();
-	virtual ~CAdvancedSettingsPage();
-
-	DECLARE_DYNCREATE(CAdvancedSettingsPage)
+//	virtual ~CAdvancedSettingsPage();
 
 protected:
 	enum { IDD = IDD_SETTINGS_ADVANCED };
 
+	CListCtrl		m_wndList;
 	CSpinButtonCtrl	m_wndValueSpin;
 	CEdit			m_wndValue;
-	CListCtrl		m_wndList;
+	CEdit			m_wndText;
+	CFontCombo		m_wndFonts;
+	CButton			m_wndBool;
+	CButton			m_wndDefault;
+	bool			m_bUpdating;
 
 	void	AddSettings();				// Add settings to list
 	void	UpdateListItem(int nItem);	// Update list item
@@ -48,14 +54,16 @@ protected:
 	class EditItem
 	{
 	public:
-		EditItem(CSettings::Item* pItem);
+		EditItem(const CSettings::Item* pItem);
 
-		CSettings::Item*	m_pItem;	// Parent item
-		CString				m_sName;	// Item name
-		DWORD				m_nValue;	// Current value for DWORD
-		bool				m_bValue;	// Current value for bool
-		DWORD				m_nOriginalValue;	// Original value for DWORD
-		bool				m_bOriginalValue;	// Original value for bool
+		CSettings::Item* m_pItem;		// Parent item
+		CString	m_sName;				// Item name
+		DWORD	m_nValue;				// Current value for DWORD
+		bool	m_bValue;				// Current value for bool
+		CString	m_sValue;				// Current value for CString
+		DWORD	m_nOriginalValue;		// Original value for DWORD
+		bool	m_bOriginalValue;		// Original value for bool
+		CString	m_sOriginalValue;		// Original value for CString
 
 		void	Update();				// Reload data from parent item
 		void	Commit();				// Commit data to parent item
@@ -69,8 +77,8 @@ protected:
 	virtual BOOL OnInitDialog();
 
 	afx_msg void OnDestroy();
-	afx_msg void OnItemChangedProperties(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnChangeValue();
+	afx_msg void OnItemChangedProperties(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnColumnClickProperties(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnBnClickedDefaultValue();
 

@@ -4,7 +4,7 @@
 <!-- PeerProject Default Afrikaans Skin File -->
 <!-- Weergawe: 27 Oktober 2005 vir Shareaza 2.2.0.2 -->
 
-<!-- Translation based on default-en.xml r77 -->
+<!-- Translation based on default-en.xml r78 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1600,14 +1600,14 @@
 				<font size="13"/>
 			</style>
 			<style name="heading">
-				<font face="Trebuchet MS" size="16" weight="800"/>
+				<font face="Segoe UI" size="18" weight="400"/>
 			</style>
 		</styles>
 		<anchor id="Header" width="32" height="152"/>
 		<newline gap="0"/>
 		<group id="1">
 			<icon res="136" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">KONNEKTEER NOU</heading>
+			<heading align="middle">Konnekteer Nou</heading>
 			<newline gap="8" indent="42"/>
 			<text>Welkom by PeerProject! &#160;Jy is nie tans aan enige persoon-tot-persoon netwerke gekonnekteer nie. &#160;</text>
 			<link target="command:ID_NETWORK_CONNECT">Kliek hier om te begin!</link>
@@ -1615,12 +1615,12 @@
 		</group>
 		<group id="2">
 			<icon res="130" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">SOEK MET PEERPROJECT</heading>
+			<heading align="middle">Soek Met PeerProject</heading>
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="12" indent="0"/>
 			<icon res="122" width="32" height="32" target="command:shell:downloads"/><gap size="8"/>
-			<heading align="middle">AFLAAIE</heading>
+			<heading align="middle">Aflaaie</heading>
 			<newline gap="8" indent="42"/>
 			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Click here to start</link>
 			<text>&#160;downloading a new file or torrent link.</text>
@@ -1634,7 +1634,7 @@
 		</group>
 		<group id="3">
 			<icon res="120" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">OPGRADEER NOTA</heading>
+			<heading align="middle">Opgradeer Nota</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
 			<newline gap="6"/>
@@ -1643,7 +1643,7 @@
 		</group>
 		<group id="4">
 			<icon res="180" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
-			<heading align="middle">WAARSKUWING: AGTER 'N NETSKANS</heading>
+			<heading align="middle">Waarskuwing: Agter 'n Netskans</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject het raakgesien dat jy agter 'n NAT roeteerder of netskans is
 			en nie inkomende konneksies van die Internet kan ontvang nie. &#160;</text>
@@ -1654,7 +1654,7 @@
 		</group>
 		<group id="6">
 			<icon res="180" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">WARNING: YOUR TCP PORT IS FIREWALLED</heading>
+			<heading align="middle">Waarskuwing: Your TCP Port Is Firewalled</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject has detected that you are behind a NAT router or firewall,
 			and are unable to receive TCP connections from the Internet. &#160;</text>
@@ -1665,7 +1665,7 @@
 		</group>
 		<group id="7">
 			<icon res="180" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">WARNING: YOUR UDP PORT IS FIREWALLED</heading>
+			<heading align="middle">Waarskuwing: Your UDP Port Is Firewalled</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject has detected that you are behind a NAT router or firewall,
 			and are unable to receive UDP messages from the Internet. &#160;</text>
@@ -1675,7 +1675,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
-		<heading align="middle">VERANDER PEERPROJECT</heading>
+		<heading align="middle">Verander PeerProject</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="196" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
 		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Omslae</link><gap size="6"/>
@@ -1700,7 +1700,7 @@
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="120" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">WEB TOEGANG IS AANGESKAKEL</heading>
+			<heading align="middle">Web Toegang Is Aangeskakel</heading>
 			<newline gap="8" indent="42"/>
 			<text>PeerProject Web Toegang is aangeskakel.  Beheer PeerProject deur jou web blaaier by:</text>
 			<newline gap="6"/>
@@ -3628,13 +3628,16 @@
 		<control caption="_Verstel..."/>
 		<control caption="Kry meer"/>
 	</dialog>
-	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuSt" caption="Gevorderd">
+	<dialog name="CAdvancedSettingsPage" cookie="SyBuStEdmsEdCoBuBu" caption="Gevorderd">
 		<control/>
-		<control/>
-		<control/>
-		<control caption="Set Default"/>
 		<control caption="Verstellings Eienskappe:"/>
 		<control caption="Waarde:"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="Herstel Standaard"/>
 	</dialog>
 	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protokolle">
 		<control caption="PeerProject Algemene Argitektuur Protokolverkenner:"/>

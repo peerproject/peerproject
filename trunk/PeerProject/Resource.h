@@ -348,6 +348,7 @@
 #define IDC_EXT_LIST                        1104
 #define IDC_EXT_REMOVE                      1105
 #define IDC_FAIRUSE_MODE                    1106
+#define IDC_FONT                            1107
 #define IDC_FOLDER                          1108
 #define IDC_FILES                           1110
 #define IDC_FILESIZE                        1111
@@ -807,7 +808,8 @@
 #define IDC_CHECK_FRI                       1725
 #define IDC_CHECK_SAT                       1726
 #define IDC_CHECK_SUN                       1727
-// Generic Workarounds (unused):
+#define IDC_CHECK                           1728
+// Generic:
 #define IDC_STATIC_0                        1800
 #define IDC_STATIC_1                        1801
 #define IDC_STATIC_2                        1802
@@ -1184,6 +1186,7 @@
 #define IDS_LIBRARY_COLLECTION_INSTALLED    20427
 #define IDS_LIBRARY_COLLECTION_INVALID      20428
 #define IDS_LIBRARY_COLLECTION_LOCKDOWN     20429
+//#define IDS_LIBRARY_COLLECTION_ACCESS     20430
 #define IDS_LIBRARY_CONFIRM_EXECUTE         20430
 //#define IDS_LIBRARY_DELETE                20431
 #define IDS_LIBRARY_DELETE_FOLDER           20432
