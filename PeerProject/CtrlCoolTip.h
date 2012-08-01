@@ -88,7 +88,7 @@ protected:
 
 
 //#define TIP_TIMER_GRAPH 72	// 30s display (Settings.Interface.RefreshRateGraph)
-#define TIP_TIMER_TEXT	400		// (Settings.Interface.RefreshRateText ?)
+#define TIP_TIMER_ASYNC	1000	// Tracker scrape etc.
 #define TIP_OFFSET_X	0
 #define TIP_OFFSET_Y	24
 #define TIP_MARGIN		7

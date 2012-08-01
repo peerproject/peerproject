@@ -284,8 +284,7 @@ BOOL CDownloadWithTiger::SetTigerTree(BYTE* pTiger, DWORD nTiger, BOOL bLevel1)
 		m_pTigerTree.FromBytesLevel1( pTiger, nTiger, m_nSize ) :
 		m_pTigerTree.FromBytes( pTiger, nTiger, Settings.Library.TigerHeight, m_nSize ) ) )
 	{
-		theApp.Message( MSG_ERROR, IDS_DOWNLOAD_TIGER_CORRUPT,
-			(LPCTSTR)GetDisplayName() );
+		theApp.Message( MSG_ERROR, IDS_DOWNLOAD_TIGER_CORRUPT, (LPCTSTR)GetDisplayName() );
 		return FALSE;
 	}
 
@@ -296,8 +295,7 @@ BOOL CDownloadWithTiger::SetTigerTree(BYTE* pTiger, DWORD nTiger, BOOL bLevel1)
 	if ( validAndUnequal( m_oTiger, oRoot ) )
 	{
 		m_pTigerTree.Clear();
-		theApp.Message( MSG_ERROR, IDS_DOWNLOAD_TIGER_MISMATCH,
-			(LPCTSTR)GetDisplayName() );
+		theApp.Message( MSG_ERROR, IDS_DOWNLOAD_TIGER_MISMATCH, (LPCTSTR)GetDisplayName() );
 		return FALSE;
 	}
 	else if ( ! m_oTiger )
@@ -313,9 +311,7 @@ BOOL CDownloadWithTiger::SetTigerTree(BYTE* pTiger, DWORD nTiger, BOOL bLevel1)
 
 	SetModified();
 
-	theApp.Message( MSG_INFO, IDS_DOWNLOAD_TIGER_READY,
-		GetDisplayName(), m_pTigerTree.GetHeight(),
-		Settings.SmartVolume( m_nTigerSize ) );
+	theApp.Message( MSG_INFO, IDS_DOWNLOAD_TIGER_READY, GetDisplayName(), m_pTigerTree.GetHeight(), Settings.SmartVolume( m_nTigerSize ) );
 
 	return TRUE;
 }
@@ -357,8 +353,7 @@ BOOL CDownloadWithTiger::SetHashset(BYTE* pSource, DWORD nSource)
 		if ( validAndUnequal( m_oED2K, oRoot ) )
 		{
 			m_pHashset.Clear();
-			theApp.Message( MSG_ERROR, IDS_DOWNLOAD_HASHSET_CORRUPT,
-				(LPCTSTR)GetDisplayName() );
+			theApp.Message( MSG_ERROR, IDS_DOWNLOAD_HASHSET_CORRUPT, (LPCTSTR)GetDisplayName() );
 			return FALSE;
 		}
 		else if ( ! m_oED2K )
@@ -368,8 +363,7 @@ BOOL CDownloadWithTiger::SetHashset(BYTE* pSource, DWORD nSource)
 	}
 	else
 	{
-		theApp.Message( MSG_ERROR, IDS_DOWNLOAD_HASHSET_CORRUPT,
-			(LPCTSTR)GetDisplayName() );
+		theApp.Message( MSG_ERROR, IDS_DOWNLOAD_HASHSET_CORRUPT, (LPCTSTR)GetDisplayName() );
 		return FALSE;
 	}
 
@@ -380,8 +374,7 @@ BOOL CDownloadWithTiger::SetHashset(BYTE* pSource, DWORD nSource)
 
 	SetModified();
 
-	theApp.Message( MSG_INFO, IDS_DOWNLOAD_HASHSET_READY,
-		GetDisplayName(), Settings.SmartVolume( ED2K_PART_SIZE ) );
+	theApp.Message( MSG_INFO, IDS_DOWNLOAD_HASHSET_READY, GetDisplayName(), Settings.SmartVolume( ED2K_PART_SIZE ) );
 
 	Neighbours.SendDonkeyDownload( static_cast< CDownload * >( this ) );
 

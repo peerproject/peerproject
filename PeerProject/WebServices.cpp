@@ -804,9 +804,9 @@ BOOL CWebServices::ShowBitziTicket(DWORD nIndex)
 					{
 						if ( strExt == _T("MP3") )
 						{
-							if ( ! strReplace.CompareNoCase( _T("Stereo") ) || ! strReplace.CompareNoCase( _T("Joint Stereo" ) ) || ! strReplace.CompareNoCase( _T("Dual Channel") ) )
+							if ( strReplace.CompareNoCase( _T("Stereo") ) == 0 || strReplace.CompareNoCase( _T("Joint Stereo" ) ) == 0 || strReplace.CompareNoCase( _T("Dual Channel") ) == 0 )
 								strAudioTag += _T("&tag.mp3.stereo=y");
-							else if ( ! strReplace.CompareNoCase( _T("Single Channel") ) || ! strReplace.CompareNoCase( _T("Mono" ) ) )
+							else if ( strReplace.CompareNoCase( _T("Single Channel") ) == 0 || strReplace.CompareNoCase( _T("Mono" ) ) == 0 )
 								strAudioTag += _T("&tag.mp3.stereo=n");
 							else
 								strReplace.Empty();

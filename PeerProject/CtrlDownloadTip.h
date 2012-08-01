@@ -1,7 +1,7 @@
 //
 // CtrlDownloadTip.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -36,6 +36,7 @@ public:
 	CDownloadTipCtrl();
 	virtual ~CDownloadTipCtrl();
 
+public:
 	void Show(CDownload* pContext, HWND hAltWnd = NULL)
 	{
 		bool bChanged = ( pContext != m_pDownload );
@@ -63,13 +64,12 @@ protected:
 	CString 			m_sTiger;
 	CString 			m_sED2K;
 	CString 			m_sBTH;
-	CString  			m_sMD5;
+	CString 			m_sMD5;
 	CString 			m_sURL;
 	CString 			m_sSize;
 	CString 			m_sType;
 	CString 			m_sSeedsPeers;
 	CString 			m_sCountryName;
-	CRect				m_rcUpdateText;
 	int 				m_nIcon;
 	int 				m_nHeaderWidth;
 	int 				m_nStatWidth;
@@ -99,7 +99,7 @@ protected:
 	void DrawProgressBar(CDC* pDC, CPoint* pPoint, CDownloadSource* pSource);
 
 // Overrides
-public:
+//public:
 	//{{AFX_VIRTUAL(CDownloadTipCtrl)
 	//}}AFX_VIRTUAL
 

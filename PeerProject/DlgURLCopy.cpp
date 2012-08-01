@@ -257,8 +257,7 @@ BOOL CURLCopyDlg::SetClipboardText(CString& strText)
 			GlobalUnlock( hMem );
 			SetClipboardData( CF_UNICODETEXT, hMem );
 
-			theApp.Message( MSG_TRAY, LoadString( IDS_COPIED_TO_CLIPBOARD ) +
-				_T("\n(") + strText.Left( strText.Find( _T(":") ) + 1 ) + _T(")") );		// + strText.Left( 180 ) Crash?
+			theApp.Message( MSG_TRAY, LoadString( IDS_COPIED_TO_CLIPBOARD ) + _T("\n(") + strText.Left( strText.Find( _T(":") ) + 1 ) + _T(")") );		// + strText.Left( 180 ) Crash?
 		}
 	}
 

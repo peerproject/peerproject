@@ -111,6 +111,10 @@ CString HostToString(const SOCKADDR_IN* pHost);
 // IsValidIP("1.2.3.4:0000") is true
 BOOL IsValidIP(const CString& sInput);
 
+// Format long paths if needed "\\?\"
+LPCTSTR SafePath(const CString& sPath);
+BOOL GetSafePath(CString& sPath);
+
 // Function is used to split a phrase in Asian languages to separate keywords
 // to ease keyword matching, allowing user to type as in the natural language.
 // Spacebar key is not a convenient way to separate keywords with IME,

@@ -130,7 +130,7 @@ BOOL CExpertPage::OnInitDialog()
 		CString strName, strURL;
 		strName.Format( _T("%.3i.URL"), nItem + 1 );
 		strURL = theApp.GetProfileString( _T("Trackers"), strName );
-		if ( strURL.GetLength() )
+		if ( ! strURL.IsEmpty() )
 		{
 			m_wndTracker.AddString( strURL );
 			m_wndTracker2.AddString( strURL );
@@ -480,7 +480,10 @@ void CExpertPage::OnRemoveFile()
 
 void CExpertPage::AddFile(LPCTSTR pszFile)
 {
-	HANDLE hFile = CreateFile( pszFile, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL );
+	LPCTSTR szFilepath = ( _tcsclen( pszFile ) < MAX_PATH ) ?
+		pszFile : (LPCTSTR)( CString( _T("\\\\?\\") ) + pszFile );
+
+	HANDLE hFile = CreateFile( szFilepath, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL );
 
 	if ( hFile == INVALID_HANDLE_VALUE )
 	{
@@ -509,7 +512,7 @@ void CExpertPage::AddFile(LPCTSTR pszFile)
 	QWORD nSize = ( (QWORD)nHigh << 32 ) + (QWORD)nLow;
 	CloseHandle( hFile );
 
-	SHFILEINFO pInfo;
+	SHFILEINFO pInfo = {};
 	ZeroMemory( &pInfo, sizeof(pInfo) );
 
 	HIMAGELIST hIL = (HIMAGELIST)SHGetFileInfo( pszFile, 0, &pInfo, sizeof(pInfo),
@@ -543,12 +546,11 @@ void CExpertPage::AddFile(LPCTSTR pszFile)
 void CExpertPage::AddFolder(LPCTSTR pszPath, int nRecursive)
 {
 	WIN32_FIND_DATA pFind;
-	CString strPath;
-	HANDLE hSearch;
 
+	CString strPath;
 	strPath.Format( _T("%s\\*.*"), pszPath );
 
-	hSearch = FindFirstFile( strPath, &pFind );
+	HANDLE hSearch = FindFirstFile( strPath, &pFind );
 
 	if ( hSearch != INVALID_HANDLE_VALUE )
 	{

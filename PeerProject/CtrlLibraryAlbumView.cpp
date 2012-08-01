@@ -1,7 +1,7 @@
 //
 // CtrlLibraryAlbumView.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -279,8 +279,8 @@ int CLibraryAlbumView::SortList(LPCVOID pA, LPCVOID pB)
 	{
 		if ( ppA->m_nTrack != ppB->m_nTrack )
 			return ( ppA->m_nTrack < ppB->m_nTrack ) ? -1 : 1;
-		else
-			return _tcsicoll( ppA->m_sTitle, ppB->m_sTitle );
+
+		return _tcsicoll( ppA->m_sTitle, ppB->m_sTitle );
 	}
 	else if ( m_pStaticStyle == CSchema::uriMusicArtist )
 	{
@@ -288,8 +288,8 @@ int CLibraryAlbumView::SortList(LPCVOID pA, LPCVOID pB)
 
 		if ( nCompare )
 			return nCompare;
-		else
-			return _tcsicoll( ppA->m_sTitle, ppB->m_sTitle );
+
+		return _tcsicoll( ppA->m_sTitle, ppB->m_sTitle );
 	}
 	else
 	{
@@ -297,10 +297,11 @@ int CLibraryAlbumView::SortList(LPCVOID pA, LPCVOID pB)
 
 		if ( nCompare )
 			return nCompare;
-		else if ( ( nCompare = _tcsicoll( ppA->m_sAlbum, ppB->m_sAlbum ) ) != 0 )
+
+		if ( ( nCompare = _tcsicoll( ppA->m_sAlbum, ppB->m_sAlbum ) ) != 0 )
 			return nCompare;
-		else
-			return _tcsicoll( ppA->m_sTitle, ppB->m_sTitle );
+
+		return _tcsicoll( ppA->m_sTitle, ppB->m_sTitle );
 	}
 }
 
@@ -454,8 +455,8 @@ BOOL CLibraryAlbumView::SelectTo(CLibraryAlbumTrack* pTrack)
 		else if ( rcItem.bottom > rcClient.bottom )
 			ScrollBy( rcItem.bottom - rcClient.bottom );
 	}
-	else if (	( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) == 0 &&
-				( GetAsyncKeyState( VK_CONTROL ) & 0x8000 ) == 0 )
+	else if ( ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) == 0 &&
+			  ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 ) == 0 )
 	{
 		bChanged = DeselectAll();
 	}
@@ -482,7 +483,8 @@ void CLibraryAlbumView::SelectTo(int nDelta)
 		if ( nFocus >= m_nCount ) nFocus = m_nCount - 1;
 	}
 
-	if ( SelectTo( m_pList[ nFocus ] ) ) Invalidate();
+	if ( SelectTo( m_pList[ nFocus ] ) )
+		Invalidate();
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -501,11 +503,10 @@ void CLibraryAlbumView::OnSize(UINT nType, int cx, int cy)
 
 void CLibraryAlbumView::UpdateScroll()
 {
-	SCROLLINFO pInfo;
 	CRect rc;
-
 	GetClientRect( &rc );
 
+	SCROLLINFO pInfo;
 	pInfo.cbSize	= sizeof(pInfo);
 	pInfo.fMask		= SIF_ALL & ~SIF_TRACKPOS;
 	pInfo.nMin		= 0;
@@ -1007,7 +1008,7 @@ CLibraryAlbumTrack::~CLibraryAlbumTrack()
 
 BOOL CLibraryAlbumTrack::Update(CLibraryFile* pFile)
 {
-	BOOL bShared = pFile->IsShared();
+	const BOOL bShared = pFile->IsShared();
 
 	if ( m_nCookie == pFile->m_nUpdateCookie && m_bShared == bShared ) return FALSE;
 
@@ -1021,12 +1022,12 @@ BOOL CLibraryAlbumTrack::Update(CLibraryFile* pFile)
 	m_sTitle.Empty();
 	m_sArtist.Empty();
 	m_sAlbum.Empty();
-	m_nLength	= 0;
 	m_sLength.Empty();
-	m_nBitrate	= 0;
+	m_nLength	= 0;
 	m_sBitrate.Empty();
+	m_nBitrate	= 0;
 
-	if ( pFile->IsSchemaURI( CSchema::uriAudio ) )	// Music file
+	if ( pFile->m_pMetadata && pFile->IsSchemaURI( CSchema::uriAudio ) )	// Music file
 	{
 		CString str = pFile->m_pMetadata->GetAttributeValue( _T("track") );
 		LPCTSTR psz = str;

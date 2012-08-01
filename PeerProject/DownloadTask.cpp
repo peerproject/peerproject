@@ -291,7 +291,7 @@ DWORD CALLBACK CDownloadTask::CopyProgressRoutine(LARGE_INTEGER TotalFileSize,
 
 BOOL CDownloadTask::CopyFile(HANDLE hSource, LPCTSTR pszTarget, QWORD nLength)
 {
-	HANDLE hTarget = CreateFile( pszTarget, GENERIC_WRITE,
+	HANDLE hTarget = CreateFile( SafePath( pszTarget ), GENERIC_WRITE,
 		0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL|FILE_FLAG_SEQUENTIAL_SCAN, NULL );
 	m_nFileError = GetLastError();
 	VERIFY_FILE_ACCESS( hTarget, pszTarget )
@@ -612,8 +612,7 @@ CBuffer* CDownloadTask::IsPreviewAnswerValid() const
 
 	if ( m_pRequest->GetStatusSuccess() == FALSE )
 	{
-		theApp.Message( MSG_DEBUG, L"Preview failed: HTTP status code %i",
-			m_pRequest->GetStatusCode() );
+		theApp.Message( MSG_DEBUG, L"Preview failed: HTTP status code %i", m_pRequest->GetStatusCode() );
 		return NULL;
 	}
 

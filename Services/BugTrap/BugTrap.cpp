@@ -269,8 +269,8 @@ static inline CLogFile* GetLogFileObject(INT_PTR iHandle)
 {
 	if (iHandle >= 1 && iHandle <= (INT_PTR)g_arrLogFiles.GetCount())
 		return g_arrLogFiles[(size_t)(iHandle - 1)];
-	else
-		return NULL;
+
+	return NULL;
 }
 
 /**
@@ -1674,8 +1674,8 @@ extern "C" BUGTRAP_API LPCTSTR APIENTRY BT_GetDialogMessage(BUGTRAP_DIALOGMESSAG
 	CStrHolder* pstrDialogMessage = GetDialogMessage(eDialogMessage);
 	if (pstrDialogMessage == NULL || pstrDialogMessage->IsEmpty())
 		return NULL;
-	else
-		return (PCTSTR)*pstrDialogMessage;
+
+	return (PCTSTR)*pstrDialogMessage;
 }
 
 /**
@@ -2161,8 +2161,8 @@ static BOOL InitSnapshot(void)
 		ReadVersionInfo();
 		return TRUE;
 	}
-	else
-		return FALSE;
+
+	return FALSE;
 }
 
 /**
@@ -2289,56 +2289,58 @@ static PTOP_LEVEL_EXCEPTION_FILTER WINAPI DummySetUnhandledExceptionFilter(PTOP_
 
 static HMODULE WINAPI DummyLoadLibraryW(LPCWSTR lpLibFileName)
 {
-	HMODULE hModule = g_LoadLibrary.GetOriginalProcAddress()( lpLibFileName );
-	if ( hModule )
-	{
-		OverrideSUEF( hModule );
-	}
+	PFLoadLibraryW pLoadLibrary = g_LoadLibrary.GetOriginalProcAddress();
+	if (pLoadLibrary == DummyLoadLibraryW)
+		return NULL;
+	HMODULE hModule = pLoadLibrary(lpLibFileName);
+	if (hModule)
+		OverrideSUEF(hModule);
 	return hModule;
 }
 
 static HMODULE WINAPI DummyLoadLibraryExW(LPCWSTR lpLibFileName, HANDLE hFile, DWORD dwFlags)
 {
-	HMODULE hModule = g_LoadLibraryEx.GetOriginalProcAddress()( lpLibFileName, hFile, dwFlags );
-	if ( hModule )
-	{
-		OverrideSUEF( hModule );
-	}
+	PFLoadLibraryExW pLoadLibraryEx = g_LoadLibraryEx.GetOriginalProcAddress();
+	if (pLoadLibraryEx == DummyLoadLibraryExW)
+		return NULL;
+	HMODULE hModule = g_LoadLibraryEx.GetOriginalProcAddress()(lpLibFileName, hFile, dwFlags);
+	if (hModule)
+		OverrideSUEF(hModule);
 	return hModule;
 }
 
-/*typedef struct
-{
-	LPTHREAD_START_ROUTINE lpStartAddress;
-	LPVOID lpParameter;
-} ThreadData;
+//typedef struct
+//{
+//	LPTHREAD_START_ROUTINE lpStartAddress;
+//	LPVOID lpParameter;
+//} ThreadData;
 
-static DWORD WINAPI BugTrapThread(LPVOID lpParameter)
-{
-	__try
-	{
-		BT_SetTerminate();
-		ThreadData Data = *(ThreadData*)lpParameter;
-		delete (ThreadData*)lpParameter;
-		return Data.lpStartAddress( Data.lpParameter );
-	}
-	__except(BT_SehFilter(GetExceptionInformation()))
-	{
-		return (DWORD)-1;
-	}
-}
+//static DWORD WINAPI BugTrapThread(LPVOID lpParameter)
+//{
+//	__try
+//	{
+//		BT_SetTerminate();
+//		ThreadData Data = *(ThreadData*)lpParameter;
+//		delete (ThreadData*)lpParameter;
+//		return Data.lpStartAddress( Data.lpParameter );
+//	}
+//	__except(BT_SehFilter(GetExceptionInformation()))
+//	{
+//		return (DWORD)-1;
+//	}
+//}
 
-static HANDLE WINAPI DummyCreateThread(LPSECURITY_ATTRIBUTES lpThreadAttributes, SIZE_T dwStackSize, LPTHREAD_START_ROUTINE lpStartAddress, LPVOID lpParameter, DWORD dwCreationFlags, LPDWORD lpThreadId)
-{
-	ThreadData* pData = new ThreadData;
-	if ( ! pData )
-		return NULL;
-
-	pData->lpStartAddress = lpStartAddress;
-	pData->lpParameter = lpParameter;
-
-	DWORD id;
-	HANDLE hThread = g_CreateThread.GetOriginalProcAddress()( lpThreadAttributes, dwStackSize, BugTrapThread, (LPVOID)pData, dwCreationFlags, &id );
-	if ( lpThreadId ) *lpThreadId = id;
-	return hThread;
-}*/
+//static HANDLE WINAPI DummyCreateThread(LPSECURITY_ATTRIBUTES lpThreadAttributes, SIZE_T dwStackSize, LPTHREAD_START_ROUTINE lpStartAddress, LPVOID lpParameter, DWORD dwCreationFlags, LPDWORD lpThreadId)
+//{
+//	ThreadData* pData = new ThreadData;
+//	if (! pData)
+//		return NULL;
+//
+//	pData->lpStartAddress = lpStartAddress;
+//	pData->lpParameter = lpParameter;
+//
+//	DWORD id;
+//	HANDLE hThread = g_CreateThread.GetOriginalProcAddress()( lpThreadAttributes, dwStackSize, BugTrapThread, (LPVOID)pData, dwCreationFlags, &id );
+//	if (lpThreadId) *lpThreadId = id;
+//	return hThread;
+//}

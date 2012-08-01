@@ -316,7 +316,7 @@ DWORD CLibraryFile::GetCreationTime()
 	if ( m_pFolder && m_pFolder->IsOffline() )
 		return 0;
 
-	HANDLE hFile = CreateFile( GetPath(), FILE_READ_ATTRIBUTES,
+	HANDLE hFile = CreateFile( SafePath( GetPath() ), FILE_READ_ATTRIBUTES,
 		FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE, NULL,
 		OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL );
 	if ( hFile == INVALID_HANDLE_VALUE )
@@ -344,7 +344,7 @@ BOOL CLibraryFile::SetCreationTime(DWORD tTime)
 	if ( m_pFolder && m_pFolder->IsOffline() )
 		return FALSE;
 
-	HANDLE hFile = CreateFile( GetPath(), FILE_WRITE_ATTRIBUTES,
+	HANDLE hFile = CreateFile( SafePath( GetPath() ), FILE_WRITE_ATTRIBUTES,
 		FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE, NULL,
 		OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL );
 	if ( hFile == INVALID_HANDLE_VALUE )
@@ -1072,7 +1072,7 @@ BOOL CLibraryFile::IsReadable() const
 	if ( ! m_pFolder )
 		return FALSE;
 
-	HANDLE hFile = CreateFile( GetPath(), GENERIC_READ,
+	HANDLE hFile = CreateFile( SafePath( GetPath() ), GENERIC_READ,
 		FILE_SHARE_READ | FILE_SHARE_DELETE, NULL,
 		OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL );
 	if ( hFile != INVALID_HANDLE_VALUE )

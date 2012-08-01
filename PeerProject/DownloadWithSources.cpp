@@ -20,14 +20,16 @@
 #include "Settings.h"
 #include "PeerProject.h"
 #include "DownloadWithSources.h"
-#include "DownloadTransfer.h"
 #include "DownloadSource.h"
-#include "Downloads.h"
+#include "DownloadTransfer.h"
 #include "Download.h"
-#include "Network.h"
-#include "Neighbours.h"
+#include "Downloads.h"
 #include "Transfer.h"
 #include "Transfers.h"
+#include "MatchObjects.h"
+#include "Network.h"
+#include "Neighbours.h"
+
 #include "Library.h"
 #include "SharedFile.h"
 #include "Schema.h"
@@ -241,12 +243,14 @@ void CDownloadWithSources::ClearSources()
 //////////////////////////////////////////////////////////////////////
 // CDownloadWithSources add a query-hit source
 
-BOOL CDownloadWithSources::AddSourceHit(const CQueryHit* pHit, BOOL bForce)
+BOOL CDownloadWithSources::AddSource(const CPeerProjectFile* pHit, BOOL bForce)
 {
-	CQuickLock pLock( Transfers.m_pSection );
+	ASSUME_LOCK( Transfers.m_pSection );
 
 	BOOL bHash = FALSE;
 	BOOL bUpdated = FALSE;
+	const BOOL bHitHasName = ( ! pHit->m_sName.IsEmpty() );
+	const BOOL bHitHasSize = ( pHit->m_nSize && pHit->m_nSize != SIZE_UNKNOWN );
 
 	if ( ! bForce )
 	{
@@ -276,24 +280,24 @@ BOOL CDownloadWithSources::AddSourceHit(const CQueryHit* pHit, BOOL bForce)
 		}
 		if ( ! bHash && m_oBTH && pHit->m_oBTH )
 		{
-			// btih check is last chance
+			// btih check last chance
 			if ( m_oBTH != pHit->m_oBTH ) return FALSE;
 			bHash = TRUE;
 		}
+
+		if ( ! bHash )
+		{
+			if ( Settings.General.HashIntegrity ) return FALSE;
+
+			if ( m_sName.IsEmpty() || ! bHitHasName ) return FALSE;
+			if ( m_nSize == SIZE_UNKNOWN || ! bHitHasSize ) return FALSE;
+
+			if ( m_nSize != pHit->m_nSize ) return FALSE;
+			if ( m_sName.CompareNoCase( pHit->m_sName ) ) return FALSE;
+		}
 	}
 
-	if ( ! bHash && ! bForce )
-	{
-		if ( Settings.General.HashIntegrity ) return FALSE;
-
-		if ( m_sName.IsEmpty() || pHit->m_sName.IsEmpty() ) return FALSE;
-		if ( m_nSize == SIZE_UNKNOWN || ! pHit->m_bSize ) return FALSE;
-
-		if ( m_nSize != pHit->m_nSize ) return FALSE;
-		if ( m_sName.CompareNoCase( pHit->m_sName ) ) return FALSE;
-	}
-
-	if ( m_nSize != SIZE_UNKNOWN && pHit->m_bSize && m_nSize != pHit->m_nSize )
+	if ( m_nSize != SIZE_UNKNOWN && bHitHasSize && m_nSize != pHit->m_nSize )
 		return FALSE;
 
 	if ( ! m_oSHA1 && pHit->m_oSHA1 )
@@ -321,45 +325,93 @@ BOOL CDownloadWithSources::AddSourceHit(const CQueryHit* pHit, BOOL bForce)
 		m_oMD5 = pHit->m_oMD5;
 		bUpdated = TRUE;
 	}
-	if ( m_nSize == SIZE_UNKNOWN && pHit->m_bSize )
+	if ( m_nSize == SIZE_UNKNOWN && bHitHasSize )
 	{
 		m_nSize = pHit->m_nSize;
 		bUpdated = TRUE;
 	}
-	if ( m_sName.IsEmpty() && ! pHit->m_sName.IsEmpty() )
+	if ( m_sName.IsEmpty() && bHitHasName )
 	{
 		Rename( pHit->m_sName );
 		bUpdated = TRUE;
 	}
 
-	if ( Settings.Downloads.Metadata && m_pXML == NULL )
+	if ( bUpdated )
 	{
-		if ( pHit->m_pXML && pHit->m_pSchema )
+		((CDownload*)this)->m_bUpdateSearch = TRUE;
+
+		QueryHashMaster.Invalidate();
+	}
+
+	return TRUE;
+}
+
+BOOL CDownloadWithSources::AddSourceHit(const CQueryHit* pHit, BOOL bForce)
+{
+	CQuickLock oLock( Transfers.m_pSection );
+
+	if ( ! AddSource( pHit, bForce ) )
+		return FALSE;
+
+	if ( Settings.Downloads.Metadata && m_pXML == NULL &&
+		 pHit->m_pXML && pHit->m_pSchema )
+	{
+		m_pXML = pHit->m_pSchema->Instantiate( TRUE );
+		m_pXML->AddElement( pHit->m_pXML->Clone() );
+		pHit->m_pSchema->Validate( m_pXML, TRUE );
+	}
+
+	//if ( pHit->m_nProtocol == PROTOCOL_ED2K )
+	//	Neighbours.FindDonkeySources( pHit->m_oED2K,
+	//		(IN_ADDR*)pHit->m_oClientID.begin(), (WORD)pHit->m_oClientID.begin()[1] );
+
+	// No URL, stop now with success
+	if ( ! pHit->m_sURL.IsEmpty() &&
+		 ! AddSourceInternal( new CDownloadSource( (CDownload*)this, pHit ) ) )
+		return FALSE;
+
+	return TRUE;
+}
+
+BOOL CDownloadWithSources::AddSourceHit(const CMatchFile* pMatchFile, BOOL bForce)
+{
+	BOOL bRet = FALSE;
+
+	// Best goes first if forced
+	const CQueryHit* pBestHit = pMatchFile->GetBest();
+	if ( bForce && pBestHit )
+		bRet = AddSourceHit( pBestHit, TRUE );
+
+	for ( const CQueryHit* pHit = pMatchFile->GetHits() ; pHit; pHit = pHit->m_pNext )
+	{
+		if ( bForce )
 		{
-			m_pXML = pHit->m_pSchema->Instantiate( TRUE );
-			m_pXML->AddElement( pHit->m_pXML->Clone() );
-			pHit->m_pSchema->Validate( m_pXML, TRUE );
+			// Best already added
+			if ( pHit != pBestHit )
+				bRet = AddSourceHit( pHit, TRUE ) || bRet;
+		}
+		else
+		{
+			bRet = AddSourceHit( pHit, FALSE ) || bRet;
 		}
 	}
 
-	if ( bUpdated )
-		((CDownload*)this)->m_bUpdateSearch = TRUE;
+	return bRet;
+}
 
-	//if ( pHit->m_nProtocol == PROTOCOL_ED2K )
-	//{
-	//	Neighbours.FindDonkeySources( pHit->m_oED2K,
-	//		(IN_ADDR*)pHit->m_oClientID.begin(), (WORD)pHit->m_oClientID.begin()[1] );
-	//}
+BOOL CDownloadWithSources::AddSourceHit(const CPeerProjectURL& oURL, BOOL bForce)
+{
+	CQuickLock oLock( Transfers.m_pSection );
 
-	// No URL, stop now with success
-	if ( ! pHit->m_sURL.IsEmpty() )
-	{
-		if ( ! AddSourceInternal( new CDownloadSource( (CDownload*)this, pHit ) ) )
-			return FALSE;
-	}
+	if ( ! AddSource( &oURL, bForce ) )
+		return FALSE;
 
-	if ( bUpdated )
-		QueryHashMaster.Invalidate();
+	if ( oURL.m_pTorrent )
+		((CDownload*)this)->SetTorrent( oURL.m_pTorrent );
+
+	if ( ! oURL.m_sURL.IsEmpty() &&
+		 ! AddSourceURLs( oURL.m_sURL ) )
+		return FALSE;
 
 	return TRUE;
 }
@@ -525,8 +577,6 @@ int CDownloadWithSources::AddSourceURLs(LPCTSTR pszURLs, BOOL bURN, BOOL bFailed
 		ClearSources();
 		return 0;
 	}
-	if ( IsPaused() )
-		return 0;
 
 	int nCount = 0;
 
@@ -802,9 +852,7 @@ void CDownloadWithSources::RemoveOverlappingSources(QWORD nOffset, QWORD nLength
 		if ( pSource->TouchedRange( nOffset, nLength ) )
 		{
 			theApp.Message( MSG_ERROR, IDS_DOWNLOAD_VERIFY_DROP,
-				(LPCTSTR)CString( inet_ntoa( pSource->m_pAddress ) ),
-				(LPCTSTR)pSource->m_sServer, (LPCTSTR)m_sName,
-				nOffset, nOffset + nLength - 1 );
+				(LPCTSTR)CString( inet_ntoa( pSource->m_pAddress ) ), (LPCTSTR)pSource->m_sServer, (LPCTSTR)m_sName, nOffset, nOffset + nLength - 1 );
 			pSource->Remove( TRUE, FALSE );
 		}
 	}

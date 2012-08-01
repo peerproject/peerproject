@@ -49,6 +49,7 @@ void CImages::DeleteObjects()
 	if ( m_bmPanelMark.m_hObject ) m_bmPanelMark.DeleteObject();
 
 	if ( m_bmSelected.m_hObject ) m_bmSelected.DeleteObject();
+	if ( m_bmSelectedGrey.m_hObject ) m_bmSelectedGrey.DeleteObject();
 	if ( m_bmMenuSelected.m_hObject ) m_bmMenuSelected.DeleteObject();
 	if ( m_bmMenuSelectedEdge.m_hObject ) m_bmMenuSelectedEdge.DeleteObject();
 	if ( m_bmMenuDisabled.m_hObject ) m_bmMenuDisabled.DeleteObject();
@@ -140,6 +141,11 @@ void CImages::Load()
 		m_bmSelected.Attach( hSelected );
 	else if ( HBITMAP hSelected = Skin.GetWatermark( _T("CTransfers.Selected") ) )
 		m_bmSelected.Attach( hSelected );
+
+	if ( HBITMAP hSelected = Skin.GetWatermark( _T("System.Highlight.Inactive") ) )
+		m_bmSelectedGrey.Attach( hSelected );
+	else if ( HBITMAP hSelected = Skin.GetWatermark( _T("CTransfers.Selected.Inactive") ) )
+		m_bmSelectedGrey.Attach( hSelected );
 
 	if ( HBITMAP hButton = Skin.GetWatermark( _T("System.MenuSelected") ) )
 	{

@@ -1,7 +1,7 @@
 //
 // PageSettingsSkins.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -279,9 +279,9 @@ BOOL CSkinsSettingsPage::AddSkin(LPCTSTR pszPath, LPCTSTR pszName)
 		strIcon = strIcon.Left( strIcon.GetLength() - 3 ) + _T("ico");
 	}
 
-	if ( strURL.Find( _T("http://") ) == 0 )
+	if ( StartsWith( strURL, _PT("http://") ) )
 		; // Do nothing
-	else if ( strURL.Find( _T("www.") ) == 0 )
+	else if ( StartsWith( strURL, _PT("www.") ) )
 		strURL = _T("http://") + strURL;
 	else
 		strURL.Empty();
@@ -289,9 +289,9 @@ BOOL CSkinsSettingsPage::AddSkin(LPCTSTR pszPath, LPCTSTR pszName)
 	if ( strEmail.Find( '@' ) < 0 ) strEmail.Empty();
 
 	CLiveItem pItem( 7, 0 );
-	HICON hIcon;
-
-	if ( ExtractIconEx( strIcon, 0, NULL, &hIcon, 1 ) != NULL && hIcon != NULL )
+	HICON hIcon = NULL;
+	ExtractIconEx( strIcon, 0, NULL, &hIcon, 1 );
+	if ( hIcon )
 	{
 		pItem.SetImage( m_gdiImageList.Add( hIcon ));
 		DestroyIcon( hIcon );

@@ -229,7 +229,7 @@ BOOL CBTClient::OnRun()
 			m_tLastKeepAlive = tNow;
 		}
 
-		ASSERT ( m_pUploadTransfer != NULL );
+		ASSERT( m_pUploadTransfer != NULL );
 		if ( tNow >= m_tLastUtPex + Settings.BitTorrent.UtPexPeriod )
 		{
 			SendUtPex( m_tLastUtPex );
@@ -524,8 +524,7 @@ BOOL CBTClient::OnHandshake2()
 	DetermineUserAgent();
 
 	// OnOnline
-	theApp.Message( MSG_INFO, IDS_BT_CLIENT_ONLINE, (LPCTSTR)m_sAddress,
-		(LPCTSTR)m_pDownload->GetDisplayName() );
+	theApp.Message( MSG_INFO, IDS_BT_CLIENT_ONLINE, (LPCTSTR)m_sAddress, (LPCTSTR)m_pDownload->GetDisplayName() );
 
 	if ( ! m_pDownload->IsTorrent() )	// Perhaps download just finished, ToDo: Investigate this.
 	{

@@ -119,22 +119,19 @@ CString	CBTInfo::CBTFile::FindFile()
 	// Try find file by hash/size
 	const CLibraryFile* pShared = LibraryMaps.LookupFileByHash( this, FALSE, TRUE );
 	if ( pShared )
-		strFile = pShared->GetPath();
-	if ( strFile.GetLength() > MAX_PATH )
-		strFile = _T("\\\\?\\") + strFile;
+		strFile = SafePath( pShared->GetPath() );
+
 	if ( ! pShared || GetFileSize( strFile ) != m_nSize )
 	{
 		// Try complete folder
-		strFile = Settings.Downloads.CompletePath + _T("\\") + m_sPath;
-		if ( strFile.GetLength() > MAX_PATH )
-			strFile = _T("\\\\?\\") + strFile;
+		strFile = SafePath( Settings.Downloads.CompletePath + _T("\\") + m_sPath );
+
 		if ( GetFileSize( strFile ) != m_nSize )
 		{
 			// Try folder of original .torrent
 			CString strTorrentPath = m_pInfo->m_sPath.Left( m_pInfo->m_sPath.ReverseFind( _T('\\') ) + 1 );
-			strFile = strTorrentPath + m_sPath;
-			if ( strFile.GetLength() > MAX_PATH )
-				strFile = _T("\\\\?\\") + strFile;
+			strFile = SafePath( strTorrentPath + m_sPath );
+
 			if ( GetFileSize( strFile ) != m_nSize )
 			{
 				// Try complete folder without outer file directory
@@ -142,25 +139,19 @@ CString	CBTInfo::CBTFile::FindFile()
 				int nSlash = m_sPath.Find( _T('\\') );
 				if ( nSlash != -1 )
 					strShortPath = m_sPath.Mid( nSlash + 1 );
-				strFile = Settings.Downloads.CompletePath + _T("\\") + strShortPath;
-				if ( strFile.GetLength() > MAX_PATH )
-					strFile = _T("\\\\?\\") + strFile;
+				strFile = SafePath( Settings.Downloads.CompletePath + _T("\\") + strShortPath );
+
 				if ( strShortPath.IsEmpty() || GetFileSize( strFile ) != m_nSize )
 				{
 					// Try folder of original .torrent without outer file directory
-					strFile = strTorrentPath + strShortPath;
-					if ( strFile.GetLength() > MAX_PATH )
-						strFile = _T("\\\\?\\") + strFile;
+					strFile = SafePath( strTorrentPath + strShortPath );
+
 					if ( strShortPath.IsEmpty() || GetFileSize( strFile ) != m_nSize )
 					{
 						// Try find by name only
 						pShared = LibraryMaps.LookupFileByName( m_sName, m_nSize, FALSE, TRUE );
 						if ( pShared )
-						{
-							strFile = pShared->GetPath();
-							if ( strFile.GetLength() > MAX_PATH )
-								strFile = _T("\\\\?\\") + strFile;
-						}
+							strFile = SafePath( pShared->GetPath() );
 						if ( ! pShared || GetFileSize( strFile ) != m_nSize )
 							return m_sPath;
 					}
@@ -1622,6 +1613,8 @@ void CBTInfo::RemoveAllTrackers()
 
 BOOL CBTInfo::ScrapeTracker()
 {
+	ASSUME_NO_LOCK( Transfers.m_pSection );		// Custom Debug !ASSUME_LOCK
+
 	if ( m_tTrackerScrape )
 	{
 		// Support rare min_request_interval flag,  Low default throttle is enough in practice
@@ -1631,9 +1624,12 @@ BOOL CBTInfo::ScrapeTracker()
 
 	m_tTrackerScrape = GetTickCount();
 
+	if ( theApp.m_bClosing )
+		return FALSE;
+
 	CString strURL = GetTrackerAddress();
-	if ( strURL.Find( _T("http") ) != 0 )
-		return FALSE;	// ToDo: Support UDP Tracker scrape & handle rare HTTPS
+	if ( ! StartsWith( strURL, _PT("http://") ) )
+		return FALSE;	// ToDo: Support UDP Tracker scrape & handle rare HTTPS?
 
 	if ( strURL.Replace( _T("/announce"), _T("/scrape") ) != 1 )
 		return FALSE;
@@ -1641,11 +1637,14 @@ BOOL CBTInfo::ScrapeTracker()
 	// Fetch scrape only for the given info hash
 	strURL = strURL.TrimRight( _T('&') ) + ( ( strURL.Find( _T('?') ) != -1 ) ? _T('&') : _T('?') ) + _T("info_hash=");
 
+	// m_oBTH must be protected by Transfers.m_pSection
 	CSingleLock oLock( &Transfers.m_pSection );
 	if ( ! oLock.Lock( 500 ) ) return FALSE;
 
 	strURL += CBTTrackerRequest::Escape( m_oBTH );
 		// + _T("&peer_id=") + CBTTrackerRequest::Escape( pDownload.m_pPeerID ); 	// ToDo: Is this needed?
+
+	LPBYTE nKey = &m_oBTH[ 0 ];
 
 	oLock.Unlock();
 
@@ -1653,7 +1652,6 @@ BOOL CBTInfo::ScrapeTracker()
 	pRequest.SetURL( strURL );
 	pRequest.AddHeader( _T("Accept-Encoding"), _T("deflate, gzip") );
 	pRequest.EnableCookie( false );
-	pRequest.SetUserAgent( Settings.SmartAgent() );
 
 	// Wait for thread
 	if ( ! pRequest.Execute( FALSE ) || ! pRequest.InflateResponse() )
@@ -1667,11 +1665,9 @@ BOOL CBTInfo::ScrapeTracker()
 	{
 		theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, _T("[BT] Recieved BitTorrent tracker response: %s"), pNode->Encode() );
 
-		if ( ! oLock.Lock( 300 ) ) return FALSE;
-
-		LPBYTE nKey = &m_oBTH[ 0 ];
-
-		oLock.Unlock();
+		//if ( ! oLock.Lock( 500 ) ) return FALSE;
+		//LPBYTE nKey = &m_oBTH[ 0 ];		// Above
+		//oLock.Unlock();
 
 		CBENode* pFiles = pNode->GetNode( "files" );
 		CBENode* pFile = pFiles->GetNode( nKey, Hashes::BtHash::byteCount );

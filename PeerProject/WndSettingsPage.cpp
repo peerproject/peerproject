@@ -318,8 +318,7 @@ void CEditPath::OnLButtonDblClk(UINT nFlags, CPoint point)
 	if ( strPath.IsEmpty() )
 		return;
 
-	if ( strPath.GetLength() > MAX_PATH )
-		strPath = CString( _T("\\\\?\\") ) + strPath;	// Very long path (255+ char support)
+	GetSafePath( strPath );
 
 	if ( PathIsDirectory( strPath ) )
 		ShellExecute( GetSafeHwnd(), NULL, strPath, NULL, NULL, SW_SHOWDEFAULT );

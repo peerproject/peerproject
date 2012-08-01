@@ -1,7 +1,7 @@
 //
 // DownloadWithSources.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -22,6 +22,8 @@
 
 class CDownloadSource;
 class CQueryHit;
+class CMatchFile;
+class CPeerProjectURL;
 class CXMLElement;
 
 class CFailedSource
@@ -31,8 +33,8 @@ public:
 		: m_nTimeAdded		( GetTickCount() )
 		, m_nPositiveVotes	( 0 )
 		, m_nNegativeVotes	( 0 )
-		, m_sURL		( pszURL )
-		, m_bLocal		( bLocal )
+		, m_sURL			( pszURL )
+		, m_bLocal			( bLocal )
 		, m_bOffline		( bOffline )
 	{
 	}
@@ -83,6 +85,8 @@ public:
 	void			ClearFailedSources();
 	void			MergeMetadata(const CXMLElement* pXML);
 	BOOL			AddSourceHit(const CQueryHit* pHit, BOOL bForce = FALSE);
+	BOOL			AddSourceHit(const CMatchFile* pMatchFile, BOOL bForce = FALSE);
+	BOOL			AddSourceHit(const CPeerProjectURL& oURL, BOOL bForce = FALSE);
 	BOOL			AddSourceED2K(DWORD nClientID, WORD nClientPort, DWORD nServerIP, WORD nServerPort, const Hashes::Guid& oGUID);
 	BOOL			AddSourceBT(const Hashes::BtGuid& oGUID, const IN_ADDR* pAddress, WORD nPort);
 	BOOL			AddSourceURL(LPCTSTR pszURL, BOOL bURN = FALSE, FILETIME* pLastSeen = NULL, int nRedirectionCount = 0, BOOL bFailed = FALSE);
@@ -103,12 +107,12 @@ public:
 
 // Implementation
 protected:
-	void			RemoveOverlappingSources(QWORD nOffset, QWORD nLength);
+	BOOL			AddSource(const CPeerProjectFile* pHit, BOOL bForce = FALSE);
 	BOOL			AddSourceInternal(CDownloadSource* pSource);
+	void			RemoveOverlappingSources(QWORD nOffset, QWORD nLength);
 	void			SortSource(CDownloadSource* pSource, BOOL bTop);
 	void			SortSource(CDownloadSource* pSource);
 	void			InternalAdd(const CDownloadSource* pSource);		// Add new source to list, update counters
-	void			InternalRemove(const CDownloadSource* pSource);	// Remove existing source from list, update counters
+	void			InternalRemove(const CDownloadSource* pSource);		// Remove existing source from list, update counters
 	void			VoteSource(LPCTSTR pszUrl, bool bPositively);
-
 };

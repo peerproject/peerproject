@@ -141,7 +141,10 @@ void CSinglePage::OnBrowseFile()
 
 void CSinglePage::Update()
 {
-	HANDLE hFile = CreateFile( m_sFileName, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL );
+	const CString strFileName = ( m_sFileName.GetLength() < MAX_PATH ) ?
+		m_sFileName : ( CString( _T("\\\\?\\") ) + m_sFileName );
+
+	HANDLE hFile = CreateFile( strFileName, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL );
 
 	if ( hFile != INVALID_HANDLE_VALUE )
 	{
@@ -176,7 +179,10 @@ LRESULT CSinglePage::OnWizardNext()
 {
 	UpdateData();
 
-	if ( m_sFileName.IsEmpty() || GetFileAttributes( m_sFileName ) == 0xFFFFFFFF )
+	const CString strFileName = ( m_sFileName.GetLength() < MAX_PATH ) ?
+		m_sFileName : ( CString( _T("\\\\?\\") ) + m_sFileName );
+
+	if ( m_sFileName.IsEmpty() || GetFileAttributes( strFileName ) == 0xFFFFFFFF )
 	{
 		AfxMessageBox( IDS_SINGLE_NEED_FILE, MB_ICONEXCLAMATION );
 		return -1;

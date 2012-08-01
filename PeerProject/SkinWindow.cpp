@@ -1384,7 +1384,7 @@ void CSkinWindow::Paint(CWnd* pWnd, TRISTATE bActive)
 				}
 			}
 		}
-		else if ( m_bPart[ SKINPART_RIGHT ] && rcRight.top < rcRight.bottom )
+		else if ( m_bPart[ SKINPART_RIGHT ] )
 		{
 			CRect* pRect = &m_rcPart[ SKINPART_RIGHT ];
 
@@ -1524,7 +1524,9 @@ void CSkinWindow::Paint(CWnd* pWnd, TRISTATE bActive)
 
 	dc.BitBlt( 0, 0, rc.Width(), nCaptionHeight, pDC, 0, 0, SRCCOPY );
 
-	dc.SelectObject( GetStockObject( ANSI_VAR_FONT ) );		// Comctl32.dll font leak fix
+//	dc.SelectObject( GetStockObject( ANSI_VAR_FONT ) );		// Comctl32.dll font leak fix
+	dc.SelectStockObject( SYSTEM_FONT );	// GDI font leak fix
+	dc.SelectStockObject( NULL_BRUSH ); 	// GDI brush leak fix
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -1613,7 +1615,7 @@ void CSkinWindow::SelectRegion(CWnd* pWnd)
 		CString strType = pXML->GetAttributeValue( _T("type") );
 		HRGN hPart = NULL;
 
-		if ( ! strType.CompareNoCase( _T("rectangle") ) || ! strType.CompareNoCase( _T("rect") ) )
+		if ( strType.CompareNoCase( _T("rectangle") ) == 0 || strType.CompareNoCase( _T("rect") ) == 0 )
 		{
 			hPart = CreateRectRgnIndirect( &rcPart );
 		}

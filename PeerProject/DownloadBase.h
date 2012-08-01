@@ -1,7 +1,7 @@
 //
 // DownloadBase.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -45,13 +45,13 @@ protected:
 public:
 	void			SetModified();
 	bool			IsModified() const;
-	bool			Rename(const CString& strName);	// Set download safe name
 
 	dtask			GetTaskType() const;
 	void			SetTask(CDownloadTask* pTask);
 	bool			CheckTask(CDownloadTask* pTask) const;
 	void			AbortTask();
 
+	virtual bool	Rename(const CString& strName) = 0;		// Set download new name safely (DownloadWithFile)
 	virtual bool	IsMoving() const;
 	virtual bool	IsTasking() const;	// Check if a task is already running
 	virtual bool	IsTrying() const = 0;

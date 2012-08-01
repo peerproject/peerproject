@@ -1,7 +1,7 @@
 //
 // GraphItem.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -254,10 +254,10 @@ QWORD CGraphItem::GetValue(const DWORD nCode, const float nMultiplier)
 		Network.m_pSection.Unlock();
 		break;
 	case GRC_GNUTELLA_BANDWIDTH_IN:
-		nValue = Neighbours.m_nBandwidthIn * 8;
+		nValue = Neighbours.BandwidthIn() * 8;
 		break;
 	case GRC_GNUTELLA_BANDWIDTH_OUT:
-		nValue = Neighbours.m_nBandwidthOut * 8;
+		nValue = Neighbours.BandwidthOut() * 8;
 		break;
 	case GRC_GNUTELLA_PACKETS_IN:
 		if ( ! Network.m_pSection.Lock( 20 ) ) break;
@@ -309,6 +309,7 @@ QWORD CGraphItem::GetValue(const DWORD nCode, const float nMultiplier)
 		nValue = (long double)Statistics.Last.Gnutella1.Lost + Statistics.Last.Gnutella2.Lost;
 		Network.m_pSection.Unlock();
 		break;
+
 	case GRC_GNUTELLA_QUERIES:	// Incoming
 		if ( ! Network.m_pSection.Lock( 20 ) ) break;
 		Statistics.Update();
@@ -343,7 +344,7 @@ QWORD CGraphItem::GetValue(const DWORD nCode, const float nMultiplier)
 		Statistics.Update();
 		if ( Statistics.Ever.Connections.Incoming + Statistics.Ever.Connections.Outgoing )
 			nValue = (long double)Statistics.Ever.Connections.Errors /
-				( Statistics.Ever.Connections.Incoming + Statistics.Ever.Connections.Outgoing ) * 100;
+					 ( Statistics.Ever.Connections.Incoming + Statistics.Ever.Connections.Outgoing ) * 100;
 		Network.m_pSection.Unlock();
 	};
 

@@ -1230,3 +1230,21 @@ BOOL IsValidIP(const CString& sInput)
 
 	return TRUE;
 }
+
+LPCTSTR SafePath(const CString& sPath)
+{
+	return ( sPath.GetLength() < MAX_PATH - 4 || sPath[2] == _T('?') ) ?
+		(LPCTSTR)sPath : CString( _T("\\\\?\\") ) + sPath;
+}
+
+BOOL GetSafePath(CString& sPath)
+{
+	if ( sPath.GetLength() < MAX_PATH - 4 )
+		return FALSE;
+
+	ASSERT( StartsWith( sPath, _PT("\\\\?\\") ) );
+
+	if ( sPath[2] != _T('?') )
+		sPath = CString( _T("\\\\?\\") ) + sPath;
+	return TRUE;
+}

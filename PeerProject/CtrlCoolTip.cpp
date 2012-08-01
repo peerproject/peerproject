@@ -102,6 +102,7 @@ void CCoolTipCtrl::Hide()
 	if ( m_bTimer )
 	{
 		KillTimer( 1 );
+		KillTimer( 2 );
 		m_bTimer = FALSE;
 	}
 }
@@ -131,7 +132,7 @@ void CCoolTipCtrl::ShowImpl(bool bChanged)
 		if ( ! m_bTimer )
 		{
 			SetTimer( 1, Settings.Interface.RefreshRateGraph, NULL );
-			SetTimer( 2, TIP_TIMER_TEXT, NULL );
+			SetTimer( 2, TIP_TIMER_ASYNC, NULL );
 			m_bTimer = TRUE;
 		}
 		return;
@@ -182,7 +183,7 @@ void CCoolTipCtrl::ShowImpl(bool bChanged)
 	if ( ! m_bTimer )
 	{
 		SetTimer( 1, Settings.Interface.RefreshRateGraph, NULL );
-		SetTimer( 2, TIP_TIMER_TEXT, NULL );
+		SetTimer( 2, TIP_TIMER_ASYNC, NULL );
 		m_bTimer = TRUE;
 	}
 }
@@ -340,47 +341,59 @@ void CCoolTipCtrl::OnPaint()
 	if ( ! IsWindow( GetSafeHwnd() ) || ! IsWindowVisible() ) return;
 
 	CPaintDC dc( this );
+
 	CRect rc;
 	GetClientRect( &rc );
 
-	if ( ! Skin.m_bmToolTip.m_hObject ) 	// Solid color default
-	{
-		CFont* pOldFont = (CFont*)dc.SelectObject( &CoolInterface.m_fntBold );
+	// Obsolete: Unbuffered solid color default
+//	if ( ! Skin.m_bmToolTip.m_hObject )
+//	{
+//		CFont* pOldFont = (CFont*)dc.SelectObject( &CoolInterface.m_fntBold );
+//
+//		dc.Draw3dRect( &rc, Colors.m_crTipBorder, Colors.m_crTipBorder );
+//		rc.DeflateRect( 1, 1 );
+//
+//		dc.SetViewportOrg( TIP_MARGIN, TIP_MARGIN );
+//		dc.SetTextColor( Colors.m_crTipText );
+//		dc.SetBkMode( TRANSPARENT );
+//		OnPaint( &dc );
+//		dc.SetViewportOrg( 0, 0 );
+//		dc.FillSolidRect( &rc, Colors.m_crTipBack );
+//		dc.SelectObject( pOldFont );
+//		return;
+//	}
 
-		dc.Draw3dRect( &rc, Colors.m_crTipBorder, Colors.m_crTipBorder );
-		rc.DeflateRect( 1, 1 );
-
-		dc.SetViewportOrg( TIP_MARGIN, TIP_MARGIN );
-		dc.SetTextColor( Colors.m_crTipText );
-		dc.SetBkMode( TRANSPARENT );
-		OnPaint( &dc );
-		dc.SetViewportOrg( 0, 0 );
-		dc.FillSolidRect( &rc, Colors.m_crTipBack );
-		dc.SelectObject( pOldFont );
-		return;
-	}
-
-	// Flicker-free skinning (System.ToolTip):
+	// Flicker-free:
 
 	CSize size = rc.Size();
 	CDC* pMemDC = CoolInterface.GetBuffer( dc, size );
 //	if ( Settings.General.LanguageRTL )
 //		SetLayout( pMemDC->m_hDC, 0 );
 
-	pMemDC->SelectObject( &CoolInterface.m_fntBold );
+	CFont* pOldFont = (CFont*)pMemDC->SelectObject( &CoolInterface.m_fntBold );
 
 	pMemDC->Draw3dRect( &rc, Colors.m_crTipBorder, Colors.m_crTipBorder );
 	rc.DeflateRect( 1, 1 );
 
-	CoolInterface.DrawWatermark( pMemDC, &rc, &Skin.m_bmToolTip, FALSE );
+	if ( Skin.m_bmToolTip.m_hObject )	// (System.ToolTip)
+	{
+		CoolInterface.DrawWatermark( pMemDC, &rc, &Skin.m_bmToolTip, FALSE );
+		pMemDC->SetBkMode( TRANSPARENT );
+	}
+	else
+	{
+		pMemDC->FillSolidRect( &rc, Colors.m_crTipBack );
+		pMemDC->SetBkColor( Colors.m_crTipBack );
+		pMemDC->SetBkMode( OPAQUE );
+	}
 
-	pMemDC->SetViewportOrg( TIP_MARGIN, TIP_MARGIN );
 	pMemDC->SetTextColor( Colors.m_crTipText );
-	pMemDC->SetBkMode( TRANSPARENT );
+	pMemDC->SetViewportOrg( TIP_MARGIN, TIP_MARGIN );
 	OnPaint( pMemDC );
 	pMemDC->SetViewportOrg( 0, 0 );
-	rc.InflateRect( 1, 1 );
+	pMemDC->SelectObject( pOldFont );
 
+	rc.InflateRect( 1, 1 );
 	dc.BitBlt( 0, 0, rc.Width(), rc.Height(), pMemDC, 0, 0, SRCCOPY );
 
 //	if ( Settings.General.LanguageRTL )

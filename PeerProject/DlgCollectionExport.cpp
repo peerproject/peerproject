@@ -37,6 +37,18 @@ static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
 #endif	// Filename
 
+// Set Column Order
+enum {
+	COL_NAME,
+	COL_AUTHOR,
+	COL_VERSION,
+	COL_PATH,
+	COL_URL,
+	COL_EMAIL,
+	COL_INFO,
+	COL_LAST	// Count
+};
+
 IMPLEMENT_DYNAMIC(CCollectionExportDlg, CSkinDialog)
 
 BEGIN_MESSAGE_MAP(CCollectionExportDlg, CSkinDialog)
@@ -90,16 +102,15 @@ BOOL CCollectionExportDlg::OnInitDialog()
 	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
 
 	// Show template name, author and version number columns, hide the rest info
-	m_wndList.InsertColumn( 0, _T("Name"), LVCFMT_LEFT, 134, 0 );
-	m_wndList.InsertColumn( 1, _T("Author"), LVCFMT_LEFT, 114, 1 );
-	m_wndList.InsertColumn( 2, _T("Version"), LVCFMT_LEFT, 32, 2 );
-	m_wndList.InsertColumn( 3, _T("Path"), LVCFMT_LEFT, 0, 3 );
-	m_wndList.InsertColumn( 4, _T("URL"), LVCFMT_LEFT, 0, 4 );
-	m_wndList.InsertColumn( 5, _T("Email"), LVCFMT_LEFT, 0, 5 );
-	m_wndList.InsertColumn( 6, _T("Description"), LVCFMT_LEFT, 0, 6 );
+	m_wndList.InsertColumn( COL_NAME,	_T("Name"), LVCFMT_LEFT, 134, 0 );
+	m_wndList.InsertColumn( COL_AUTHOR,	_T("Author"), LVCFMT_LEFT, 114, 1 );
+	m_wndList.InsertColumn( COL_VERSION, _T("Version"), LVCFMT_LEFT, 32, 2 );
+	m_wndList.InsertColumn( COL_PATH,	_T("Path"), LVCFMT_LEFT, 0, 3 );
+	m_wndList.InsertColumn( COL_URL,	_T("URL"), LVCFMT_LEFT, 0, 4 );
+	m_wndList.InsertColumn( COL_EMAIL,	_T("Email"), LVCFMT_LEFT, 0, 5 );
+	m_wndList.InsertColumn( COL_INFO,	_T("Description"), LVCFMT_LEFT, 0, 6 );
 
-	m_wndList.SendMessage( LVM_SETEXTENDEDLISTVIEWSTYLE,
-		LVS_EX_FULLROWSELECT, LVS_EX_FULLROWSELECT );
+	m_wndList.SetExtendedStyle( LVS_EX_FULLROWSELECT );
 
 	// Translate window
 	SkinMe( _T("CCollectionExportDlg"), IDI_COLLECTION );
@@ -156,9 +167,9 @@ BOOL CCollectionExportDlg::OnInitDialog()
 void CCollectionExportDlg::EnumerateTemplates(LPCTSTR pszPath)
 {
 	WIN32_FIND_DATA pFind;
-	CString strPath;
 	HANDLE hSearch;
 
+	CString strPath;
 	strPath.Format( _T("%s\\Templates\\%s*.*"),
 		(LPCTSTR)Settings.General.Path, pszPath ? pszPath : _T("") );
 
@@ -230,11 +241,14 @@ BOOL CCollectionExportDlg::AddTemplate(LPCTSTR pszPath, LPCTSTR pszName)
 
 	CString strIcon		= pManifest->GetAttributeValue( _T("icon") );
 	CString	strName		= pManifest->GetAttributeValue( _T("name"), pszName );
-	CString strAuthor	= pManifest->GetAttributeValue( _T("author"), _T("Unknown") );
-	CString strVersion	= pManifest->GetAttributeValue( _T("version"), _T("Unknown") );
+	CString strAuthor	= pManifest->GetAttributeValue( _T("author"), _T("-") );
+	CString strVersion	= pManifest->GetAttributeValue( _T("version"), _T("-") );
 	CString strURL		= pManifest->GetAttributeValue( _T("link") );
 	CString strEmail	= pManifest->GetAttributeValue( _T("email") );
 	CString strDesc		= pManifest->GetAttributeValue( _T("description") );
+
+	CString strPath;
+	strPath.Format( _T("%s%s"), pszPath ? pszPath : _T(""), pszName );
 
 	delete pXML;
 
@@ -246,14 +260,14 @@ BOOL CCollectionExportDlg::AddTemplate(LPCTSTR pszPath, LPCTSTR pszName)
 
 	if ( ! strIcon.IsEmpty() )
 	{
-		if ( pszPath != NULL )
+		if ( pszPath )
 			strIcon = Settings.General.Path + _T("\\Templates\\") + pszPath + strIcon;
 		else
 			strIcon = Settings.General.Path + _T("\\Templates\\") + strIcon;
 	}
 	else
 	{
-		if ( pszPath != NULL )
+		if ( pszPath )
 			strIcon = Settings.General.Path + _T("\\Templates\\") + pszPath + strIcon + pszName;
 		else
 			strIcon = Settings.General.Path + _T("\\Templates\\") + strIcon + pszName;
@@ -261,34 +275,33 @@ BOOL CCollectionExportDlg::AddTemplate(LPCTSTR pszPath, LPCTSTR pszName)
 		strIcon = strIcon.Left( strIcon.GetLength() - 3 ) + _T("ico");
 	}
 
-	if ( strURL.Find( _T("http://") ) == 0 )
-		;
-	else if ( strURL.Find( _T("www.") ) == 0 )
+	if ( StartsWith( strURL, _PT("http://") ) )
+		; // Do nothing
+	else if ( StartsWith( strURL, _PT("www.") ) )
 		strURL = _T("http://") + strURL;
 	else
 		strURL.Empty();
 
-	if ( strEmail.Find( '@' ) < 0 ) strEmail.Empty();
+	if ( strEmail.Find( '@' ) < 1 )
+		strEmail.Empty();
 
-	CLiveItem pItem( 7, 0 );
+	CLiveItem pItem( COL_LAST, 0 );
+
 	HICON hIcon;
-
 	if ( ExtractIconEx( strIcon, 0, NULL, &hIcon, 1 ) != NULL && hIcon != NULL )
 		pItem.SetImage( AddIcon( hIcon, m_gdiImageList ) );
 	else
 		pItem.SetImage( 0 );
 
-	pItem.Set( 0, strName );
-	pItem.Set( 1, strAuthor );
-	pItem.Set( 2, strVersion );
-	pItem.Set( 4, strURL );
-	pItem.Set( 5, strEmail );
-	pItem.Set( 6, strDesc );
+	pItem.Set( COL_NAME,	strName );
+	pItem.Set( COL_AUTHOR,	strAuthor );
+	pItem.Set( COL_VERSION,	strVersion );
+	pItem.Set( COL_PATH,	strPath );
+	pItem.Set( COL_URL, 	strURL );
+	pItem.Set( COL_EMAIL,	strEmail );
+	pItem.Set( COL_INFO,	strDesc );
 
-	strName.Format( _T("%s%s"), pszPath ? pszPath : _T(""), pszName );
-	pItem.Set( 3, strName );
-
-	/*int nItem =*/ pItem.Add( &m_wndList, -1, 7 );
+	/*int nItem =*/ pItem.Add( &m_wndList, -1, COL_LAST );
 
 	return TRUE;
 }
@@ -389,20 +402,14 @@ void CCollectionExportDlg::OnOK()
 							strTemplateName != m_wndWizard.m_sOddFilePath )
 					{
 						strNewFilePath = strPath + _T("\\") +
-							strTemplateName.Left( strTemplateName.ReverseFind( '.' ) ) +
-							_T(".htm");
+							strTemplateName.Left( strTemplateName.ReverseFind( '.' ) ) + _T(".htm");
 
 						CString strTemplatePath;
 						if ( strTemplateName != "index.htm" )
-						{
-							strTemplatePath = DirFromPath( m_wndWizard.m_sXMLPath ) +
-								_T("\\") + strTemplateName;
-						}
+							strTemplatePath = DirFromPath( m_wndWizard.m_sXMLPath ) + _T("\\") + strTemplateName;
 						else
-						{
-							strTemplatePath = DirFromPath( m_wndWizard.m_sXMLPath ) +
-								_T("\\") + m_wndWizard.m_sMainFilePath;
-						}
+							strTemplatePath = DirFromPath( m_wndWizard.m_sXMLPath ) + _T("\\") + m_wndWizard.m_sMainFilePath;
+
 						strSource = LoadFile( strTemplatePath );
 					}
 					else
@@ -590,10 +597,8 @@ void CCollectionExportDlg::OnTemplatesDeleteOrBack()
 			CString strName = m_wndList.GetItemText( m_nSelected, 0 );
 			CString strBase = m_wndList.GetItemText( m_nSelected, 3 );
 
-			CString strFormat, strPrompt;
-
-			LoadString( strFormat, IDS_TEMPLATE_DELETE );
-			strPrompt.Format( strFormat, (LPCTSTR)strName );
+			CString strPrompt;
+			strPrompt.Format( LoadString( IDS_TEMPLATE_DELETE ), (LPCTSTR)strName );
 
 			if ( AfxMessageBox( strPrompt, MB_ICONQUESTION|MB_OKCANCEL|MB_DEFBUTTON2 ) != IDOK ) return;
 
@@ -686,8 +691,8 @@ void CCollectionExportDlg::OnItemChangedTemplates(NMHDR* /*pNMHDR*/, LRESULT *pR
 	if ( nItem >= 0 )
 	{
 		m_wndName.SetWindowText( m_wndList.GetItemText( nItem, 0 ) );
-		m_wndAuthor.SetWindowText( m_wndList.GetItemText( nItem, 1 ) );
-		m_wndDesc.SetWindowText( m_wndList.GetItemText( nItem, 6 ) );
+		m_wndAuthor.SetWindowText( m_wndList.GetItemText( nItem, COL_AUTHOR ) );
+		m_wndDesc.SetWindowText( m_wndList.GetItemText( nItem, COL_INFO ) );
 		m_wndDelete.EnableWindow( TRUE );
 		m_wndOK.EnableWindow( TRUE );
 	}
@@ -709,7 +714,7 @@ HBRUSH CCollectionExportDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	{
 		if ( pWnd == &m_wndName )
 		{
-			if ( m_wndList.GetItemText( m_nSelected, 4 ).GetLength() )
+			if ( m_wndList.GetItemText( m_nSelected, COL_URL ).GetLength() )
 			{
 				pDC->SetTextColor( Colors.m_crTextLink );
 				pDC->SelectObject( &theApp.m_gdiFontLine );
@@ -717,7 +722,7 @@ HBRUSH CCollectionExportDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 		}
 		else if ( pWnd == &m_wndAuthor )
 		{
-			if ( m_wndList.GetItemText( m_nSelected, 5 ).GetLength() )
+			if ( m_wndList.GetItemText( m_nSelected, COL_EMAIL ).GetLength() )
 			{
 				pDC->SetTextColor( Colors.m_crTextLink );
 				pDC->SelectObject( &theApp.m_gdiFontLine );
@@ -733,22 +738,24 @@ BOOL CCollectionExportDlg::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 	if ( m_nSelected >= 0 && m_nStep == 1 )
 	{
 		CPoint point;
-		CRect rc;
-
 		GetCursorPos( &point );
+
+		CRect rc;
 		m_wndName.GetWindowRect( &rc );
 
-		if ( rc.PtInRect( point ) && m_wndList.GetItemText( m_nSelected, 4 ).GetLength() )
+		if ( rc.PtInRect( point ) )
 		{
-			SetCursor( theApp.LoadCursor( IDC_HAND ) );
+			if ( m_wndList.GetItemText( m_nSelected, COL_URL ).GetLength() )
+				SetCursor( theApp.LoadCursor( IDC_HAND ) );
 			return TRUE;
 		}
 
 		m_wndAuthor.GetWindowRect( &rc );
 
-		if ( rc.PtInRect( point ) && m_wndList.GetItemText( m_nSelected, 5 ).GetLength() )
+		if ( rc.PtInRect( point ) )
 		{
-			SetCursor( theApp.LoadCursor( IDC_HAND ) );
+			if ( m_wndList.GetItemText( m_nSelected, COL_EMAIL ).GetLength() )
+				SetCursor( theApp.LoadCursor( IDC_HAND ) );
 			return TRUE;
 		}
 	}
@@ -760,19 +767,18 @@ void CCollectionExportDlg::OnLButtonUp(UINT /*nFlags*/, CPoint point)
 {
 	if ( m_nSelected < 0 ) return;
 
-	CRect rc;
 	ClientToScreen( &point );
+
+	CRect rc;
 	m_wndName.GetWindowRect( &rc );
 
 	if ( rc.PtInRect( point ) )
 	{
-		CString strURL = m_wndList.GetItemText( m_nSelected, 4 );
+		CString strURL = m_wndList.GetItemText( m_nSelected, COL_URL );
 
 		if ( ! strURL.IsEmpty() )
-		{
-			ShellExecute( GetSafeHwnd(), _T("open"), strURL,
-				NULL, NULL, SW_SHOWNORMAL );
-		}
+			ShellExecute( GetSafeHwnd(), _T("open"), strURL, NULL, NULL, SW_SHOWNORMAL );
+
 		return;
 	}
 
@@ -780,13 +786,11 @@ void CCollectionExportDlg::OnLButtonUp(UINT /*nFlags*/, CPoint point)
 
 	if ( rc.PtInRect( point ) )
 	{
-		CString strEmail = m_wndList.GetItemText( m_nSelected, 5 );
+		CString strEmail = m_wndList.GetItemText( m_nSelected, COL_EMAIL );
 
 		if ( ! strEmail.IsEmpty() )
-		{
-			ShellExecute( GetSafeHwnd(), _T("open"), _T("mailto:") + strEmail,
-				NULL, NULL, SW_SHOWNORMAL );
-		}
+			ShellExecute( GetSafeHwnd(), _T("open"), _T("mailto:") + strEmail, NULL, NULL, SW_SHOWNORMAL );
+
 		return;
 	}
 }

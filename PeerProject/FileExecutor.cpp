@@ -94,7 +94,7 @@ int PathGetArgsIndex(const CString& str)
 	for ( ;; )
 	{
 		const int slash = str.Find( _T('\\'), i + 1 );
-		if ( slash == -1 || GetFileAttributes( str.Mid( 0, slash + 1 ) ) == INVALID_FILE_ATTRIBUTES )
+		if ( slash == -1 || GetFileAttributes( SafePath( str.Mid( 0, slash + 1 ) ) ) == INVALID_FILE_ATTRIBUTES )
 			return str.Find( _T(' '), i + 1 );
 
 		i = slash;
@@ -119,7 +119,7 @@ CLibraryWnd* CFileExecutor::GetLibraryWindow()
 
 void CFileExecutor::DetectFileType(LPCTSTR pszFile, LPCTSTR szType, bool& bVideo, bool& bAudio, bool& bImage)
 {
-	if ( GetFileAttributes( pszFile ) & FILE_ATTRIBUTE_DIRECTORY )
+	if ( GetFileAttributes( SafePath( pszFile ) ) & FILE_ATTRIBUTE_DIRECTORY )
 		return;
 
 	if ( CSchemaPtr pSchema = SchemaCache.GuessByFilename( szType ) )
@@ -264,7 +264,7 @@ BOOL CFileExecutor::Execute(LPCTSTR pszFile, LPCTSTR pszExt)
 		return TRUE;		// Skip file
 
 	CString strType;
-	if ( ! ( GetFileAttributes( pszFile ) & FILE_ATTRIBUTE_DIRECTORY ) )
+	if ( ! ( GetFileAttributes( SafePath( pszFile ) ) & FILE_ATTRIBUTE_DIRECTORY ) )
 		strType = CString( PathFindExtension( pszFile ) ).MakeLower();
 
 	// Handle collections
@@ -397,7 +397,7 @@ BOOL CFileExecutor::Enqueue(LPCTSTR pszFile, LPCTSTR pszExt)
 		return TRUE;	// Skip file
 
 	CString strType;
-	if ( ! ( GetFileAttributes( pszFile ) & FILE_ATTRIBUTE_DIRECTORY ) )
+	if ( ! ( GetFileAttributes( SafePath( pszFile ) ) & FILE_ATTRIBUTE_DIRECTORY ) )
 		strType = CString( PathFindExtension( pszFile ) ).MakeLower();
 
 	// Prepare partials

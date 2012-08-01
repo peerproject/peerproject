@@ -297,17 +297,17 @@ void CRouteCacheTable::Resize(DWORD nSize)
 
 		m_nBuffer = nSize;
 		m_pBuffer = nSize ? ( new CRouteCacheItem[ m_nBuffer ] ) : NULL;
-		ASSERT ( m_pBuffer != NULL );
+		ASSERT( m_pBuffer != NULL );
 		if ( m_pBuffer == NULL )
 		{
 			m_nBuffer = nPrevSize;
 			m_pBuffer = new CRouteCacheItem[ m_nBuffer ];
-			ASSERT ( m_pBuffer != NULL );
+			ASSERT( m_pBuffer != NULL );
 			if ( m_pBuffer == NULL )
 			{
 				m_nBuffer = ( ( MIN_BUFFER_SIZE + BUFFER_BLOCK_SIZE - 1 ) / BUFFER_BLOCK_SIZE * BUFFER_BLOCK_SIZE );
 				m_pBuffer = new CRouteCacheItem[ m_nBuffer ];
-				ASSERT ( m_pBuffer != NULL );	// Buffer memory Allocation error (serious problem should abort running and restart)
+				ASSERT( m_pBuffer != NULL );	// Buffer memory Allocation error (serious problem should abort running and restart)
 			}
 		}
 	}

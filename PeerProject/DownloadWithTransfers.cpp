@@ -29,6 +29,7 @@
 #include "DownloadTransferED2K.h"
 #include "DownloadTransferBT.h"
 #include "Network.h"
+#include "Neighbours.h"
 #include "EDClient.h"
 
 #ifdef _DEBUG
@@ -185,11 +186,7 @@ BOOL CDownloadWithTransfers::CanStartTransfers(DWORD tNow)
 	if ( ! Network.ReadyToTransfer( tNow ) ) return FALSE;
 
 	// Limit the connection rate
-	if ( Settings.Downloads.ConnectThrottle != 0 )
-	{
-		if ( tNow < Downloads.m_tLastConnect ) return FALSE;	// Is this really necesary?
-		if ( tNow <= Downloads.m_tLastConnect + Settings.Downloads.ConnectThrottle ) return FALSE;
-	}
+	if ( Settings.Downloads.ConnectThrottle && tNow <= Neighbours.LastConnect() + Settings.Downloads.ConnectThrottle ) return FALSE;
 
 	// Limit amount of connecting sources (half-open). (Very important for XP sp2)
 	if ( Downloads.GetConnectingTransferCount() >= Settings.Downloads.MaxConnectingSources ) return FALSE;

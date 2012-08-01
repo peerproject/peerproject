@@ -1,7 +1,7 @@
 //
 // DownloadWithFile.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -75,6 +75,7 @@ public:
 	DWORD			GetFileError() const;
 	void			SetFileError(DWORD nFileError);
 	void			ClearFileError();
+	virtual bool	Rename(const CString& strName);		// Set download new name safely
 	DWORD			MoveFile(LPCTSTR pszDestination, LPPROGRESS_ROUTINE lpProgressRoutine = NULL, LPVOID lpData = NULL);
 protected:
 	BOOL			OpenFile();

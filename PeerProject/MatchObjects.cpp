@@ -2195,30 +2195,31 @@ DWORD CMatchFile::GetTotalHitsSpeed() const
 	return m_nSpeed;
 }
 
-void CMatchFile::AddHitsToDownload(CDownload* pDownload, BOOL bForce) const
-{
-	// Best goes first if forced
-	if ( bForce && m_pBest != NULL )
-		pDownload->AddSourceHit( m_pBest, TRUE );
-
-	for ( CQueryHit* pHit = m_pHits ; pHit ; pHit = pHit->m_pNext )
-	{
-		if ( bForce )
-		{
-			// Best already added
-			if ( pHit != m_pBest )
-				pDownload->AddSourceHit( pHit, TRUE );
-		}
-		else
-		{
-			pDownload->AddSourceHit( pHit );
-		}
-
-		// Send any reviews to the download, so they can be viewed later
-		if ( pHit->IsRated() )
-			pDownload->AddReview( &pHit->m_pAddress, 2, pHit->m_nRating, pHit->m_sNick, pHit->m_sComments );
-	}
-}
+// Obsolete: (r9172)
+//void CMatchFile::AddHitsToDownload(CDownload* pDownload, BOOL bForce) const
+//{
+//	// Best goes first if forced
+//	if ( bForce && m_pBest != NULL )
+//		pDownload->AddSourceHit( m_pBest, TRUE );
+//
+//	for ( CQueryHit* pHit = m_pHits ; pHit ; pHit = pHit->m_pNext )
+//	{
+//		if ( bForce )
+//		{
+//			// Best already added
+//			if ( pHit != m_pBest )
+//				pDownload->AddSourceHit( pHit, TRUE );
+//		}
+//		else
+//		{
+//			pDownload->AddSourceHit( pHit );
+//		}
+//
+//		// Send any reviews to the download, so they can be viewed later
+//		if ( pHit->IsRated() )
+//			pDownload->AddReview( &pHit->m_pAddress, 2, pHit->m_nRating, pHit->m_sNick, pHit->m_sComments );
+//	}
+//}
 
 void CMatchFile::AddHitsToXML(CXMLElement* pXML) const
 {

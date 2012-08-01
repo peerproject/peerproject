@@ -132,8 +132,7 @@ void CConnection::LogOutgoing()
 		if ( pOutput->m_nLength )
 		{
 			CStringA msg( (const char*)pOutput->m_pBuffer, pOutput->m_nLength );
-			theApp.Message( MSG_DEBUG | MSG_FACILITY_OUTGOING,
-				_T("%s << %s"), (LPCTSTR)m_sAddress, (LPCTSTR)CString( msg ) );
+			theApp.Message( MSG_DEBUG | MSG_FACILITY_OUTGOING, _T("%s << %s"), (LPCTSTR)m_sAddress, (LPCTSTR)CString( msg ) );
 		}
 	}
 }
@@ -726,7 +725,6 @@ BOOL CConnection::SendMyAddress()
 	{
 		// Compose header text
 		CString strHeader;
-
 		strHeader.Format(
 			_T("Listen-IP: %s:%hu\r\n"),								// Make it like "Listen-IP: 67.176.34.172:6346\r\n"
 			(LPCTSTR)CString( inet_ntoa( Network.m_pHost.sin_addr ) ),	// Insert the IP address like "67.176.34.172"

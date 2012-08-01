@@ -246,9 +246,9 @@ BOOL CUploadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 	{
 
 	case 'c':		// "Connection"
-		if ( ! strValue.CompareNoCase( _T("Keep-Alive") ) )
+		if ( strValue.CompareNoCase( _T("Keep-Alive") ) == 0 )
 			m_bKeepAlive = TRUE;
-		else if ( ! strValue.CompareNoCase( _T("close") ) )
+		else if ( strValue.CompareNoCase( _T("close") ) == 0 )
 			m_bKeepAlive = FALSE;
 		m_bConnectHdr = TRUE;
 		break;
@@ -973,8 +973,7 @@ BOOL CUploadTransferHTTP::QueueRequest()
 				Settings.Uploads.QueuePollMax / nTimeScale,
 				(LPCTSTR)strName );
 
-			theApp.Message( MSG_INFO, IDS_UPLOAD_QUEUED,
-				(LPCTSTR)m_sName, (LPCTSTR)m_sAddress, nPosition, m_pQueue->GetQueuedCount(), (LPCTSTR)strName );
+			theApp.Message( MSG_INFO, IDS_UPLOAD_QUEUED, (LPCTSTR)m_sName, (LPCTSTR)m_sAddress, nPosition, m_pQueue->GetQueuedCount(), (LPCTSTR)strName );
 		}
 
 		pLock.Unlock();
@@ -988,8 +987,8 @@ BOOL CUploadTransferHTTP::QueueRequest()
 	}
 	else
 	{
-		theApp.Message( MSG_ERROR, ( nError ? nError : ( m_bQueueMe ?
-			IDS_UPLOAD_BUSY_QUEUE : IDS_UPLOAD_BUSY_OLD ) ),
+		theApp.Message( MSG_ERROR,
+			( nError ? nError : ( m_bQueueMe ? IDS_UPLOAD_BUSY_QUEUE : IDS_UPLOAD_BUSY_OLD ) ),
 			(LPCTSTR)m_sName, (LPCTSTR)m_sAddress, (LPCTSTR)m_sUserAgent );
 		SendResponse( IDR_HTML_BUSY, TRUE );
 	}
@@ -1012,8 +1011,7 @@ void CUploadTransferHTTP::SendDefaultHeaders()
 
 	if ( ! m_bInitiated )
 	{
-		strLine.Format( _T("Remote-IP: %s\r\n"),
-			(LPCTSTR)CString( inet_ntoa( m_pHost.sin_addr ) ) );
+		strLine.Format( _T("Remote-IP: %s\r\n"), (LPCTSTR)CString( inet_ntoa( m_pHost.sin_addr ) ) );
 		Write( strLine );
 	}
 
@@ -1800,15 +1798,9 @@ void CUploadTransferHTTP::SendResponse(UINT nResourceID, BOOL bFileHeaders)
 		else if ( strReplace.CompareNoCase( _T("ListenIP") ) == 0 )
 		{
 			if ( Network.IsListening() )
-			{
-				strReplace.Format( _T("%s:%i"),
-					(LPCTSTR)CString( inet_ntoa( Network.m_pHost.sin_addr ) ),
-					htons( Network.m_pHost.sin_port ) );
-			}
+				strReplace.Format( _T("%s:%i"), (LPCTSTR)CString( inet_ntoa( Network.m_pHost.sin_addr ) ), htons( Network.m_pHost.sin_port ) );
 			else
-			{
 				strReplace.Empty();
-			}
 		}
 
 		strBody = strBody.Left( nStart ) + strReplace + strBody.Mid( nEnd + 2 );

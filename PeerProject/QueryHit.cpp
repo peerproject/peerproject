@@ -371,8 +371,7 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 				}
 				else
 				{
-					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
-						_T("[G2 Hit] Error: Got hit descriptor without compound flag") );
+					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G2 Hit] Error: Got hit descriptor without compound flag") );
 				}
 				break;
 
@@ -412,8 +411,7 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 				}
 				else
 				{
-					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
-						_T("[G2] Hit Error: Got hit group without compound flag") );
+					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G2] Hit Error: Got hit group without compound flag") );
 				}
 				break;
 
@@ -441,8 +439,7 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 				}
 				else
 				{
-					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
-						_T("[G2] Hit Error: Got profile without compound flag") );
+					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G2] Hit Error: Got profile without compound flag") );
 				}
 				break;
 
@@ -459,8 +456,7 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 				}
 				else
 				{
-					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
-						_T("[G2] Hit Error: Got neighbour hub with invalid length (%u bytes)"), nLength );
+					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G2] Hit Error: Got neighbour hub with invalid length (%u bytes)"), nLength );
 				}
 				break;
 
@@ -472,8 +468,7 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 				}
 				else
 				{
-					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
-						_T("[G2] Hit Error: Got node guid with invalid length (%u bytes)"), nLength );
+					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G2] Hit Error: Got node guid with invalid length (%u bytes)"), nLength );
 				}
 				break;
 
@@ -488,8 +483,7 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 				}
 				else
 				{
-					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
-						_T("[G2] Hit Error: Got node address with invalid length (%u bytes)"), nLength );
+					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G2] Hit Error: Got node address with invalid length (%u bytes)"), nLength );
 				}
 				break;
 
@@ -499,8 +493,7 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 					CString strVendor = pPacket->ReadString( 4 );
 					if ( Security.IsVendorBlocked( strVendor ) )
 					{
-						theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
-							_T("[G2] Hit packet from banned client") );
+						theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G2] Hit packet from banned client") );
 						AfxThrowUserException();
 					}
 
@@ -510,8 +503,7 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 				}
 				else
 				{
-					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
-						_T("[G2] Hit Error: Got vendor with invalid length (%u bytes)"), nLength );
+					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G2] Hit Error: Got vendor with invalid length (%u bytes)"), nLength );
 				}
 				break;
 
@@ -576,14 +568,12 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 				}
 				else
 				{
-					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
-						_T("[G2] Hit Error: Got peer status with invalid length (%u bytes)"), nLength );
+					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G2] Hit Error: Got peer status with invalid length (%u bytes)"), nLength );
 				}
 				break;
 
 			default:
-				theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
-					_T("[G2] Hit Error: Got unknown type (0x%08I64x +%u)"), nType, pPacket->m_nPosition - 8 );
+				theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G2] Hit Error: Got unknown type (0x%08I64x +%u)"), nType, pPacket->m_nPosition - 8 );
 			}
 
 			pPacket->m_nPosition = nSkip;
@@ -591,14 +581,12 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 
 		if ( ! oClientID )
 		{
-			theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
-				_T("[G2] Hit Error: Node guid missed") );
+			theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G2] Hit Error: Node guid missed") );
 			AfxThrowUserException();
 		}
 		if ( pPacket->GetRemaining() < 17 )
 		{
-			theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
-				_T("[G2] Hit Error: Too short packet (remaining %u bytes)"), pPacket->GetRemaining() );
+			theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G2] Hit Error: Too short packet (remaining %u bytes)"), pPacket->GetRemaining() );
 			AfxThrowUserException();
 		}
 
@@ -1180,16 +1168,14 @@ void CQueryHit::ReadGGEP(CG1Packet* pPacket)
 				else if ( oBTH.fromUrn(   strURN ) );	// Got BTH base32
 				else if ( oBTH.fromUrn< Hashes::base16Encoding >( strURN ) );	// Got BTH base16
 				else
-					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
-						_T("[G1] Got hit packet with unknown GGEP URN: \"%s\""), strURN );
+					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got hit packet with unknown GGEP URN: \"%s\""), strURN );
 			}
 			else if ( pItemPos->IsNamed( GGEP_HEADER_TTROOT ) )
 			{
 				if ( pItemPos->m_nLength == 24 || pItemPos->m_nLength == 25 )	// Fix
 					oTiger = reinterpret_cast< Hashes::TigerHash::RawStorage& >( pItemPos->m_pBuffer[ 0 ] );
 				else
-					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
-						_T("[G1] Got hit packet with GGEP \"TT\" unknown size (%d bytes)"), pItemPos->m_nLength );
+					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got hit packet with GGEP \"TT\" unknown size (%d bytes)"), pItemPos->m_nLength );
 			}
 			else if ( pItemPos->IsNamed( GGEP_HEADER_LARGE_FILE ) )
 			{
@@ -1202,8 +1188,7 @@ void CQueryHit::ReadGGEP(CG1Packet* pPacket)
 				}
 				else
 				{
-					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
-						_T("[G1] Got hit packet with GGEP \"LF\" unknown size (%d bytes)"), pItemPos->m_nLength );
+					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got hit packet with GGEP \"LF\" unknown size (%d bytes)"), pItemPos->m_nLength );
 				}
 			}
 			else if ( pItemPos->IsNamed( GGEP_HEADER_ALTS ) )
@@ -1221,8 +1206,7 @@ void CQueryHit::ReadGGEP(CG1Packet* pPacket)
 			}
 			else
 			{
-				DEBUG_ONLY( theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
-					_T("[G1] Got hit packet with unknown GGEP \"%s\" (%d bytes)"), pItemPos->m_sID, pItemPos->m_nLength ) );
+				DEBUG_ONLY( theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got hit packet with unknown GGEP \"%s\" (%d bytes)"), pItemPos->m_sID, pItemPos->m_nLength ) );
 			}
 
 		//	if ( validAndUnequal( oSHA1, m_oSHA1 ) ||
@@ -1386,15 +1370,13 @@ void CQueryHit::ReadG2Packet(CG2Packet* pPacket, DWORD nLength)
 				}
 				else
 				{
-					theApp.Message( MSG_DEBUG,
-						_T("[G2] Hit Error: Got invalid metadata (%s)"), (LPCTSTR)strXML );
+					theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got invalid metadata (%s)"), (LPCTSTR)strXML );
 					AfxThrowUserException();
 				}
 			}
 			else
 			{
-				theApp.Message( MSG_DEBUG,
-					_T("[G2] Hit Error: Got empty metadata") );
+				theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got empty metadata") );
 			}
 			break;
 
@@ -1410,7 +1392,9 @@ void CQueryHit::ReadG2Packet(CG2Packet* pPacket, DWORD nLength)
 				m_nSize = pPacket->ReadInt64();
 			}
 			else
+			{
 				theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got invalid packet size") );
+			}
 			break;
 
 		case G2_PACKET_GROUP_ID:
@@ -1422,8 +1406,7 @@ void CQueryHit::ReadG2Packet(CG2Packet* pPacket, DWORD nLength)
 			}
 			else
 			{
-				theApp.Message( MSG_DEBUG,
-					_T("[G2] Hit Error: Got invalid group id") );
+				theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got invalid group id") );
 			}
 			break;
 
@@ -1489,8 +1472,7 @@ void CQueryHit::ReadG2Packet(CG2Packet* pPacket, DWORD nLength)
 			break;
 
 		default:
-			theApp.Message( MSG_DEBUG,
-				_T("[G2] Hit Error: Got unknown type (0x%08I64x +%u)"), nType, pPacket->m_nPosition - 8 );
+			theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got unknown type (0x%08I64x +%u)"), nType, pPacket->m_nPosition - 8 );
 		}
 
 		pPacket->m_nPosition = nSkip;

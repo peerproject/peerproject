@@ -1136,9 +1136,9 @@ CLibraryTreeItem::CLibraryTreeItem(CLibraryTreeItem* pParent, const CString& nam
 /////////////////////////////////////////////////////////////////////////////
 // CLibraryTreeItem add
 
-//! \todo  _tcsicoll isn't really suitable here since it can fail
 struct CLibraryTreeItemCompare
 {
+	// ToDo: _tcsicoll isn't really suitable here since it can fail
 	bool operator()(const CLibraryTreeItem& lhs, const CLibraryTreeItem& rhs) const
 	{
 		return _tcsicoll( lhs.m_sText, rhs.m_sText ) < 0;
@@ -1155,8 +1155,7 @@ struct CLibraryTreeItemCompare
 
 CLibraryTreeItem* CLibraryTreeItem::addItem(const CString& name)
 {
-	return &*m_oList.insert( std::upper_bound( begin(), end(), name, CLibraryTreeItemCompare() ),
-		new CLibraryTreeItem( this, name ) );
+	return &*m_oList.insert( std::upper_bound( begin(), end(), name, CLibraryTreeItemCompare() ), new CLibraryTreeItem( this, name ) );
 }
 
 /////////////////////////////////////////////////////////////////////////////

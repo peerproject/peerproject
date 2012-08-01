@@ -82,15 +82,23 @@ public:
 	// Trying codepages: nCodePage, m_nDefaultCP, OEM, ANSI, as-is
 	CString DecodeString(UINT nCodePage) const;
 
-	inline void SetString(LPCSTR psz)
-	{
-		SetString( psz, strlen(psz), TRUE );
-	}
+	CString GetString() const;
 
-	inline void SetString(LPCWSTR psz)
+//	inline void SetString(LPCSTR psz)
+//	{
+//		SetString( psz, strlen(psz), TRUE );
+//	}
+
+//	inline void SetString(LPCWSTR psz)
+//	{
+//		CW2A pszASCII( psz );
+//		SetString( (LPCSTR)pszASCII, strlen( (LPCSTR)pszASCII ), TRUE );
+//	}
+
+	inline void SetString(const CString& strInput)
 	{
-		CW2A pszASCII( psz );
-		SetString( (LPCSTR)pszASCII, strlen( (LPCSTR)pszASCII ), TRUE );
+		CStringA strUTF8 = UTF8Encode( strInput );
+		SetString( strUTF8, strUTF8.GetLength(), TRUE );
 	}
 
 	inline void SetString(LPCVOID pString, size_t nLength, BOOL bNull = FALSE)
@@ -102,8 +110,6 @@ public:
 		CopyMemory( m_pValue, pString, nLength + ( bNull ? 1 : 0 ) );
 	}
 
-	CString GetString() const;
-
 //#ifdef HASHES_HPP_INCLUDED
 
 	bool GetString(Hashes::BtGuid& oGUID) const;
@@ -112,6 +118,7 @@ public:
 	{
 		SetString( &oGUID[0], oGUID.byteCount );
 	}
+
 //#endif // HASHES_HPP_INCLUDED
 
 	inline CBENode* Add(LPCSTR pszKey = NULL)

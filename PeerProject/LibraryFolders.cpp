@@ -710,7 +710,7 @@ BOOL CLibraryFolders::ThreadScan(const BOOL bForce)
 	{
 		CLibraryFolder* pFolder = GetNextFolder( pos );
 
-		if ( GetFileAttributes( pFolder->m_sPath ) != INVALID_FILE_ATTRIBUTES )
+		if ( GetFileAttributes( SafePath( pFolder->m_sPath ) ) != INVALID_FILE_ATTRIBUTES )
 		{
 			if ( pFolder->SetOnline() ) bChanged = TRUE;
 

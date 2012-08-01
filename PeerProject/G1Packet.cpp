@@ -273,10 +273,8 @@ int CG1Packet::GGEPReadCachedHosts(const CGGEPBlock& pGGEP)
 			WORD nPort = 0;
 			pIPPs->Read( (void*)&nAddress, 4 );
 			pIPPs->Read( (void*)&nPort, 2 );
-			DEBUG_ONLY( theApp.Message( MSG_DEBUG, _T("[G1] Got host %s:%i"),
-				(LPCTSTR)CString( inet_ntoa( *(IN_ADDR*)&nAddress ) ), nPort ) );
-			CHostCacheHostPtr pCachedHost =
-				HostCache.Gnutella1.Add( (IN_ADDR*)&nAddress, nPort );
+			DEBUG_ONLY( theApp.Message( MSG_DEBUG, _T("[G1] Got host %s:%i"), (LPCTSTR)CString( inet_ntoa( *(IN_ADDR*)&nAddress ) ), nPort ) );
+			CHostCacheHostPtr pCachedHost = HostCache.Gnutella1.Add( (IN_ADDR*)&nAddress, nPort );
 			if ( pCachedHost ) nCount++;
 		}
 	}
@@ -295,10 +293,8 @@ int CG1Packet::GGEPReadCachedHosts(const CGGEPBlock& pGGEP)
 				WORD nPort = 0;
 				pGDNAs->Read( (void*)&nAddress, 4 );
 				pGDNAs->Read( (void*)&nPort, 2 );
-				DEBUG_ONLY( theApp.Message( MSG_DEBUG, _T("Got GDNA host %s:%i"),
-					(LPCTSTR)CString( inet_ntoa( *(IN_ADDR*)&nAddress ) ), nPort ) );
-				CHostCacheHostPtr pCachedHost =
-					HostCache.Gnutella1.Add( (IN_ADDR*)&nAddress, nPort );
+				DEBUG_ONLY( theApp.Message( MSG_DEBUG, _T("Got GDNA host %s:%i"), (LPCTSTR)CString( inet_ntoa( *(IN_ADDR*)&nAddress ) ), nPort ) );
+				CHostCacheHostPtr pCachedHost = HostCache.Gnutella1.Add( (IN_ADDR*)&nAddress, nPort );
 				if ( pCachedHost ) nCount++;
 				HostCache.G1DNA.Add( (IN_ADDR*)&nAddress, nPort, 0, _T("GDNA") );
 			}
@@ -375,7 +371,7 @@ void CG1Packet::GGEPWriteRandomCache(CGGEPBlock& pGGEP, LPCTSTR pszID)
 
 bool CG1Packet::ReadHUGE(CPeerProjectFile* pFile)
 {
-	DWORD rem = GetRemaining();
+	const DWORD rem = GetRemaining();
 	if ( rem == 0 )
 		return false;	// End of packet
 
@@ -423,7 +419,7 @@ bool CG1Packet::ReadHUGE(CPeerProjectFile* pFile)
 
 bool CG1Packet::ReadXML(CSchemaPtr& pSchema, CXMLElement*& pXML)
 {
-	DWORD rem = GetRemaining();
+	const DWORD rem = GetRemaining();
 	if ( rem == 0 )
 		return false;	// End of packet
 
@@ -432,7 +428,7 @@ bool CG1Packet::ReadXML(CSchemaPtr& pSchema, CXMLElement*& pXML)
 
 	// Find length of extension (till packet end, G1_PACKET_HIT_SEP or null bytes)
 	DWORD len = 0;
-	for ( ; *p != G1_PACKET_HIT_SEP && *p && len < rem; ++p, ++len );
+	for ( ; *p != G1_PACKET_HIT_SEP && *p && len < rem ; ++p, ++len );
 
 	p = GetCurrent();
 	Seek( len, seekCurrent );
@@ -512,12 +508,10 @@ CXMLElement* CG1Packet::AutoDetectAudio(LPCTSTR pszInfo)
 	int nSeconds	= 0;
 	BOOL bVariable	= FALSE;
 
-	if ( _stscanf( pszInfo, _T("%i Kbps %i kHz %i:%i"), &nBitrate, &nFrequency,
-		&nMinutes, &nSeconds ) != 4 )
+	if ( _stscanf( pszInfo, _T("%i Kbps %i kHz %i:%i"), &nBitrate, &nFrequency, &nMinutes, &nSeconds ) != 4 )
 	{
 		bVariable = TRUE;
-		if ( _stscanf( pszInfo, _T("%i Kbps(VBR) %i kHz %i:%i"), &nBitrate, &nFrequency,
-			&nMinutes, &nSeconds ) != 4 )
+		if ( _stscanf( pszInfo, _T("%i Kbps(VBR) %i kHz %i:%i"), &nBitrate, &nFrequency, &nMinutes, &nSeconds ) != 4 )
 			return NULL;
 	}
 
@@ -761,8 +755,7 @@ BOOL CG1Packet::OnPong(const SOCKADDR_IN* pHost)
 	if ( nCachedHostsCount > 0 )
 	{
 		if ( CDiscoveryService* pService = DiscoveryServices.GetByAddress(
-			&(pHost->sin_addr), ntohs( pHost->sin_port ),
-			CDiscoveryService::dsGnutellaUDPHC ) )
+			&(pHost->sin_addr), ntohs( pHost->sin_port ), CDiscoveryService::dsGnutellaUDPHC ) )
 		{
 			pService->OnSuccess();
 			pService->m_nHosts = nCachedHostsCount;

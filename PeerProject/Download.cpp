@@ -641,6 +641,7 @@ BOOL CDownload::Load(LPCTSTR pszName)
 {
 	ASSERT( m_sPath.IsEmpty() );
 	m_sPath = pszName;
+	GetSafePath( m_sPath );
 
 	BOOL bSuccess = FALSE;
 	CFile pFile;
@@ -701,13 +702,13 @@ BOOL CDownload::Save(BOOL bFlush)
 {
 	CSingleLock pTransfersLock( &Transfers.m_pSection, TRUE );
 
-	if ( m_sPath.Right( 3 ) != L".pd" )		// Remove imported .sd files, .pd will be created below
+	if ( ! m_sPath.IsEmpty() && m_sPath.Right( 3 ) != L".pd" )		// Remove imported .sd files, .pd will be created below
 		DeleteFileEx( LPCTSTR( m_sPath ), FALSE, FALSE, FALSE );
 
 	if ( m_sPath.IsEmpty() || m_sPath.Right( 3 ) != L".pd" )		// From incomplete folder or .sd imports
-		m_sPath = Settings.Downloads.IncompletePath + _T("\\") + GetFilename() + _T(".pd");
+		m_sPath = SafePath( Settings.Downloads.IncompletePath + _T("\\") + GetFilename() + _T(".pd") );
 
-	// Escape Windows path length limit with \\?\ if needed?
+	// Escape Windows path length limit with \\?\ if needed?  (SafePath() above)
 	//const CString strPath = ( m_sPath.GetLength() > ( MAX_PATH - 4 ) ) ? ( _T("\\\\?\\")  + m_sPath ) : m_sPath;
 
 	m_nSaveCookie = m_nCookie;

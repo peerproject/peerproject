@@ -187,7 +187,7 @@ BOOL CDownloadMonitorDlg::OnInitDialog()
 	{
 		m_sName = m_pDownload->m_sName;
 		m_wndIcon.SetIcon( ShellIcons.ExtractIcon(
-			ShellIcons.Get( m_sName.Find( '.' ) < 1 ? _T(".torrent") : m_sName, 32 ), 32 ) );
+			ShellIcons.Get( m_pDownload->IsMultiFileTorrent() ? _T(".torrent") : m_sName, 32 ), 32 ) );		// Was m_sName.Find( '.' ) < 1
 		m_wndFile.SetWindowText( m_sName );
 	}
 

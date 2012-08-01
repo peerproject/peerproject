@@ -438,7 +438,7 @@ BOOL CChatSession::ReadHandshake()
 
 BOOL CChatSession::OnHeaderLine(CString& strHeader, CString& strValue)
 {
-	ASSERT ( m_nProtocol != PROTOCOL_ED2K && m_nProtocol != PROTOCOL_DC );
+	ASSERT( m_nProtocol != PROTOCOL_ED2K && m_nProtocol != PROTOCOL_DC );
 
 	if ( ! CConnection::OnHeaderLine( strHeader, strValue ) )
 		return FALSE;
@@ -555,7 +555,7 @@ BOOL CChatSession::SendDC()
 
 	while ( CDCPacket* pPacket = CDCPacket::ReadBuffer( GetOutput() ) )
 	{
-		ASSERT ( pPacket != NULL );
+		ASSERT( pPacket != NULL );
 
 		if ( ! Send( pPacket ) )
 		{
@@ -1392,7 +1392,7 @@ void CChatSession::NotifyMessage(MessageType bType, const CString& sFrom, const 
 
 	// Obsolete:
 	//if ( m_pWndPrivate )
- 	//	m_pWndPrivate->PostMessage( WM_CHAT_MESSAGE, 0, (LPARAM)new CChatMessage( bType, sFrom, sMessage, hBitmap ) );
+	//	m_pWndPrivate->PostMessage( WM_CHAT_MESSAGE, 0, (LPARAM)new CChatMessage( bType, sFrom, sMessage, hBitmap ) );
 	//else if ( hBitmap )
 	//	DeleteObject( hBitmap );
 }

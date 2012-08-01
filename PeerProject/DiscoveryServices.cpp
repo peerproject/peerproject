@@ -1272,7 +1272,7 @@ BOOL CDiscoveryServices::RequestWebCache(CDiscoveryService* pService, Mode nMode
 	case wcmServerList:
 		if ( nProtocol != PROTOCOL_ED2K && nProtocol != PROTOCOL_DC )
 		{
-			ASSERT ( FALSE );
+			ASSERT( FALSE );
 			return FALSE;
 		}
 		if ( m_pWebCache != NULL )
@@ -1284,7 +1284,7 @@ BOOL CDiscoveryServices::RequestWebCache(CDiscoveryService* pService, Mode nMode
 		}
 		break;
 	default:
-		ASSERT ( FALSE );
+		ASSERT( FALSE );
 		return FALSE;
 	}
 
@@ -1421,19 +1421,18 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 		if ( strLine.IsEmpty() )
 			continue;
 
-	//	theApp.Message( MSG_DEBUG, _T("GWebCache %s : %s"),
-	//		(LPCTSTR)m_pWebCache->m_sAddress, (LPCTSTR)strLine );
+		//theApp.Message( MSG_DEBUG, _T("GWebCache %s : %s"), (LPCTSTR)m_pWebCache->m_sAddress, (LPCTSTR)strLine );
 
 		// Split line to parts
 		CArray< CString > oParts;
 		for ( CString strTmp = strLine ; ! strTmp.IsEmpty() ; )
 		{
-			CString sPart = strTmp.SpanExcluding( _T("|") );
-			strTmp = strTmp.Mid( sPart.GetLength() + 1 );
-			oParts.Add( sPart.Trim() );
+			CString strPart = strTmp.SpanExcluding( _T("|") );
+			strTmp = strTmp.Mid( strPart.GetLength() + 1 );
+			oParts.Add( strPart.Trim() );
 		}
 
-		if ( ! oParts[ 0 ].CompareNoCase( _T("h") ) )
+		if ( oParts[ 0 ].CompareNoCase( _T("h") ) == 0 )
 		{
 			// Hosts: "h|Host:Port|Age|Cluster|CurrentLeaves|VendorCode|Uptime|LeafLimit"
 			if ( oParts.GetCount() >= 3 )
@@ -1532,72 +1531,66 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 			else
 				return FALSE;		// Empty
 		}
-		else if ( ! oParts[ 0 ].CompareNoCase( _T("u") ) )
+		else if ( oParts[ 0 ].CompareNoCase( _T("u") ) == 0 )
 		{
 			// URLs: "u|URL|Age"
-			if ( oParts.GetCount() >= 2 )
+			if ( oParts.GetCount() < 2 )
+				return FALSE;		// Empty
+
+			if ( _tcsnicmp( oParts[ 1 ], _T("http://"), 7 ) == 0 )
 			{
-				if ( _tcsnicmp( oParts[ 1 ], _T("http://"), 7 ) == 0 )
+				if ( Add( oParts[ 1 ], CDiscoveryService::dsWebCache, m_nLastQueryProtocol ) )
 				{
-					if ( Add( oParts[ 1 ], CDiscoveryService::dsWebCache, m_nLastQueryProtocol ) )
-					{
-						m_pWebCache->OnURLAdd();
-						nCaches++;
-					}
-				}
-				else if ( ( _tcsnicmp( oParts[ 1 ], _T("uhc://"),  6 ) == 0 && m_nLastQueryProtocol != PROTOCOL_G2 ) ||
-						  ( _tcsnicmp( oParts[ 1 ], _T("ukhl://"), 7 ) == 0 && m_nLastQueryProtocol == PROTOCOL_G2 ) )
-				{
-					if ( Add( oParts[ 1 ], CDiscoveryService::dsGnutella, m_nLastQueryProtocol ) )
-					{
-						m_pWebCache->OnURLAdd();
-						nCaches++;
-					}
+					m_pWebCache->OnURLAdd();
+					nCaches++;
 				}
 			}
-			else
-				return FALSE;		// Empty
+			else if ( ( _tcsnicmp( oParts[ 1 ], _T("uhc://"),  6 ) == 0 && m_nLastQueryProtocol != PROTOCOL_G2 ) ||
+					  ( _tcsnicmp( oParts[ 1 ], _T("ukhl://"), 7 ) == 0 && m_nLastQueryProtocol == PROTOCOL_G2 ) )
+			{
+				if ( Add( oParts[ 1 ], CDiscoveryService::dsGnutella, m_nLastQueryProtocol ) )
+				{
+					m_pWebCache->OnURLAdd();
+					nCaches++;
+				}
+			}
 		}
-		else if ( ! oParts[ 0 ].CompareNoCase( _T("UHC") ) )
+		else if ( oParts[ 0 ].CompareNoCase( _T("UHC") ) == 0 )
 		{
 			// UDP Host Cache URL (For Gnutella1 ONLY)
-			if ( oParts.GetCount() >= 2 )
+			if ( oParts.GetCount() < 2 )
+				return FALSE;		// Empty
+
+			if ( m_nLastQueryProtocol != PROTOCOL_G2 )
 			{
-				if ( m_nLastQueryProtocol != PROTOCOL_G2 )
+				if ( Add( oParts[ 1 ], CDiscoveryService::dsGnutella, m_nLastQueryProtocol ) )
 				{
-					if ( Add( oParts[ 1 ], CDiscoveryService::dsGnutella, m_nLastQueryProtocol ) )
-					{
-						m_pWebCache->OnURLAdd();
-						nCaches++;
-					}
+					m_pWebCache->OnURLAdd();
+					nCaches++;
 				}
 			}
-			else
-				return FALSE;		// Empty
 		}
-		else if ( ! oParts[ 0 ].CompareNoCase( _T("UKHL") ) )
+		else if ( oParts[ 0 ].CompareNoCase( _T("UKHL") ) == 0 )
 		{
 			// UDP Known Hub List URL (For Gnutella2 ONLY)
-			if ( oParts.GetCount() >= 2 )
+			if ( oParts.GetCount() < 2 )
+				return FALSE;		// Empty
+
+			if ( m_nLastQueryProtocol == PROTOCOL_G2 )
 			{
-				if ( m_nLastQueryProtocol == PROTOCOL_G2 )
+				if ( Add( oParts[ 1 ], CDiscoveryService::dsGnutella, m_nLastQueryProtocol ) )
 				{
-					if ( Add( oParts[ 1 ], CDiscoveryService::dsGnutella, m_nLastQueryProtocol ) )
-					{
-						m_pWebCache->OnURLAdd();
-						nCaches++;
-					}
+					m_pWebCache->OnURLAdd();
+					nCaches++;
 				}
 			}
-			else
-				return FALSE;		// Empty
 		}
-		else if ( ! oParts[ 0 ].CompareNoCase( _T("i") ) )
+		else if ( oParts[ 0 ].CompareNoCase( _T("i") ) == 0 )
 		{
 			// Informational Response: "i|command|...."
 			if ( oParts.GetCount() >= 2 )
 			{
-				if ( ! oParts[ 1 ].CompareNoCase( _T("pong") ) )
+				if ( oParts[ 1 ].CompareNoCase( _T("pong") ) == 0 )
 				{
 					// "i|pong|vendor x.x.x|networks"
 					// pong v2 (Skulls-type PONG network extension usage)
@@ -1617,11 +1610,11 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 							BOOL bIsNetwork = FALSE;
 							for ( int i = 0 ; ; )
 							{
-								CString sNetwork = oParts[ 3 ].Tokenize( _T("-"), i );
+								CString strNetwork = oParts[ 3 ].Tokenize( _T("-"), i );
 								if ( i == -1 )
 									break;
-								if ( ( ! sNetwork.CompareNoCase( _T("gnutella2") ) && m_nLastQueryProtocol == PROTOCOL_G2 ) ||
-									 ( ! sNetwork.CompareNoCase( _T("gnutella") ) && m_nLastQueryProtocol != PROTOCOL_G2 ) )
+								if ( ( strNetwork.CompareNoCase( _T("gnutella2") ) == 0 && m_nLastQueryProtocol == PROTOCOL_G2 ) ||
+									 ( strNetwork.CompareNoCase( _T("gnutella") )  == 0 && m_nLastQueryProtocol != PROTOCOL_G2 ) )
 								{
 									bIsNetwork = TRUE;
 								}
@@ -1631,11 +1624,11 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 						}
 					}
 				}
-				else if ( ! oParts[ 1 ].CompareNoCase( _T("access") ) )
+				else if ( oParts[ 1 ].CompareNoCase( _T("access") ) == 0 )
 				{
 					// "i|access|..."
 					if ( oParts.GetCount() >= 4 &&
-						! oParts[ 2 ].CompareNoCase( _T("period") ) )
+						 oParts[ 2 ].CompareNoCase( _T("period") ) == 0 )
 					{
 						// "i|access|period|access period"
 						DWORD nAccessPeriod;
@@ -1643,30 +1636,30 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 							m_pWebCache->m_nAccessPeriod = nAccessPeriod;
 					}
 				}
-				else if ( ! oParts[ 1 ].CompareNoCase( _T("force") ) )
+				else if ( oParts[ 1 ].CompareNoCase( _T("force") ) == 0 )
 				{
 					// "i|force|..."
 					if ( oParts.GetCount() >= 3 &&
-						! oParts[ 2 ].CompareNoCase( _T("remove") ) )
+						 oParts[ 2 ].CompareNoCase( _T("remove") ) == 0 )
 					{
 						// "i|force|remove"
 						m_pWebCache->Remove();
 						return FALSE;
 					}
 				}
-				else if ( ! oParts[ 1 ].CompareNoCase( _T("update") ) )
+				else if ( oParts[ 1 ].CompareNoCase( _T("update") ) == 0 )
 				{
 					// "i|update|..."
 					if ( oParts.GetCount() >= 4 &&
-						! oParts[ 2 ].CompareNoCase( _T("warning") ) &&
-						! oParts[ 3 ].CompareNoCase( _T("bad url") ) )
+						 oParts[ 2 ].CompareNoCase( _T("warning") ) == 0 &&
+						 oParts[ 3 ].CompareNoCase( _T("bad url") ) == 0 )
 					{
 						// "i|update|warning|bad url"
 						m_pWebCache->Remove();
 						return FALSE;
 					}
 				}
-				else if ( ! oParts[ 1 ].CompareNoCase( _T("networks") ) )
+				else if ( oParts[ 1 ].CompareNoCase( _T("networks") ) == 0 )
 				{
 					// Beacon Cache type output
 					// Used to check if cache supports requested network.
@@ -1675,8 +1668,8 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 						BOOL IsNetwork = FALSE;
 						for ( int i = 2 ; i < oParts.GetCount() ; i++ )
 						{
-							if ( ( ! oParts[ i ].CompareNoCase( _T("gnutella2") ) && m_nLastQueryProtocol == PROTOCOL_G2 ) ||
-								 ( ! oParts[ i ].CompareNoCase( _T("gnutella") )  && m_nLastQueryProtocol != PROTOCOL_G2 ) )
+							if ( ( oParts[ i ].CompareNoCase( _T("gnutella2") ) == 0 && m_nLastQueryProtocol == PROTOCOL_G2 ) ||
+								 ( oParts[ i ].CompareNoCase( _T("gnutella") )  == 0 && m_nLastQueryProtocol != PROTOCOL_G2 ) )
 							{
 								IsNetwork = TRUE;
 							}
@@ -1685,7 +1678,7 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 							return FALSE;
 					}
 				}
-				else if ( ! oParts[ 1 ].CompareNoCase( _T("nets") ) )
+				else if ( oParts[ 1 ].CompareNoCase( _T("nets") ) == 0 )
 				{
 					// Skulls type output
 					// Used to check if cache supports requested network.
@@ -1696,9 +1689,9 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 						{
 							if ( i == -1 )
 								break;
-							CString sNetwork = oParts[ 2 ].Tokenize( _T("-"), i );
-							if ( ( ! sNetwork.CompareNoCase( _T("gnutella2") ) && m_nLastQueryProtocol == PROTOCOL_G2 ) ||
-								 ( ! sNetwork.CompareNoCase( _T("gnutella") )  && m_nLastQueryProtocol != PROTOCOL_G2 ) )
+							CString strNetwork = oParts[ 2 ].Tokenize( _T("-"), i );
+							if ( ( strNetwork.CompareNoCase( _T("gnutella2") ) == 0 && m_nLastQueryProtocol == PROTOCOL_G2 ) ||
+								 ( strNetwork.CompareNoCase( _T("gnutella") )  == 0 && m_nLastQueryProtocol != PROTOCOL_G2 ) )
 							{
 								IsNetwork = TRUE;
 							}
@@ -1851,8 +1844,7 @@ BOOL CDiscoveryServices::RunWebCacheUpdate()
 		if ( strLine.IsEmpty() )
 			continue;
 
-	//	theApp.Message( MSG_DEBUG, _T("[DiscoveryServices] GWebCache(update) %s : %s"),
-	//		(LPCTSTR)m_pWebCache->m_sAddress, (LPCTSTR)strLine );
+	//	theApp.Message( MSG_DEBUG, _T("[DiscoveryServices] GWebCache(update) %s : %s"), (LPCTSTR)m_pWebCache->m_sAddress, (LPCTSTR)strLine );
 
 	//	// Split line to parts
 	//	CArray< CString > oParts;
@@ -1872,7 +1864,9 @@ BOOL CDiscoveryServices::RunWebCacheUpdate()
 			return TRUE;
 		}
 
-		if ( _tcsistr( strLine, _T("i|warning|client|early") ) != NULL || _tcsistr( strLine, _T("i|warning|You came back too early") ) != NULL || _tcsistr( strLine, _T("WARNING: You came back too early") ) != NULL )
+		if ( _tcsistr( strLine, _T("i|warning|client|early") ) != NULL ||
+			 _tcsistr( strLine, _T("i|warning|You came back too early") ) != NULL ||
+			 _tcsistr( strLine, _T("WARNING: You came back too early") ) != NULL )
 		{
 			// Old Beacon Cache type flood warning (404s for 0.4.1+).
 			return FALSE;

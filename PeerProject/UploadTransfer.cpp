@@ -1,7 +1,7 @@
 //
 // UploadTransfer.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -290,9 +290,7 @@ void CUploadTransfer::LongTermAverage(DWORD tNow)
 		m_nBandwidth = min( nAverage, m_nBandwidth );
 
 		theApp.Message( MSG_DEBUG, _T("Changing upload throttle on %s from %s to %s"),
-			m_sAddress,
-			Settings.SmartSpeed( nOld ),
-			Settings.SmartSpeed( m_nBandwidth ) );
+			m_sAddress, Settings.SmartSpeed( nOld ), Settings.SmartSpeed( m_nBandwidth ) );
 	}
 	else if ( m_pQueue && m_pQueue->GetAvailableBandwidth() )
 	{
@@ -307,9 +305,7 @@ void CUploadTransfer::LongTermAverage(DWORD tNow)
 			m_nBandwidth = m_nMaxRate;
 
 		theApp.Message( MSG_DEBUG, _T("Changing upload throttle on %s from %s to %s"),
-			m_sAddress,
-			Settings.SmartSpeed( nOld ),
-			Settings.SmartSpeed( m_nBandwidth ) );
+			m_sAddress, Settings.SmartSpeed( nOld ), Settings.SmartSpeed( m_nBandwidth ) );
 	}
 }
 
@@ -527,7 +523,7 @@ BOOL CUploadTransfer::IsFileOpen() const
 BOOL CUploadTransfer::OpenFile()
 {
 	auto_ptr< CFragmentedFile > pFile( new CFragmentedFile );
-	if ( pFile.get() && pFile->Open( *this, FALSE ) )
+	if ( pFile.get() && pFile->Open( this, FALSE ) )
 	{
 		AttachFile( pFile );
 		return TRUE;

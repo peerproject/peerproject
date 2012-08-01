@@ -624,20 +624,20 @@ public:
 
 	struct sIRC
 	{
-		COLORREF		Colors[12];
-		bool			Show;
-		bool			Timestamp;
-		bool			FloodEnable;
-		DWORD			FloodLimit;
-		CString			OnConnect;
-		CString			UserName;
-		CString			RealName;
-		CString			Nick;
-		CString			Alternate;
-		CString			ServerName;
-		DWORD			ServerPort;
-		DWORD			FontSize;
-		CString			ScreenFont;
+		COLORREF	Colors[12];
+		bool		Show;
+		bool		Timestamp;
+		bool		FloodEnable;
+		DWORD		FloodLimit;
+		CString		OnConnect;
+		CString		UserName;
+		CString		RealName;
+		CString		Nick;
+		CString		Alternate;
+		CString		ServerName;
+		DWORD		ServerPort;
+		DWORD		FontSize;
+		CString		ScreenFont;
 	} IRC;
 
 	struct sLive
@@ -696,114 +696,113 @@ public:
 	{
 	public:
 		inline Item(const LPCTSTR szSection, const LPCTSTR szName, bool* const pBool, const bool bDefault, const bool bHidden) throw()
-			: m_szSection	( szSection )
-			, m_szName		( szName )
-			, m_pBool		( pBool )
-			, m_pDword		( NULL )
-			, m_pFloat		( NULL )
-			, m_pString 	( NULL )
-			, m_pSet		( NULL )
-			, m_BoolDefault ( bDefault )
-			, m_StringDefault ( NULL )
-			, m_DwordDefault ( 0 )
-			, m_FloatDefault ( 0.0 )
-			, m_nScale		( 1 )
-			, m_nMin		( 0 )
-			, m_nMax		( 1 )
-			, m_szSuffix	( NULL )
-			, m_bHidden 	( bHidden )
-			, m_nType		( setBool )
+			: m_szSection		( szSection )
+			, m_szName			( szName )
+			, m_pBool			( pBool )
+			, m_pDword			( NULL )
+			, m_pFloat			( NULL )
+			, m_pString 		( NULL )
+			, m_pSet			( NULL )
+			, m_BoolDefault		( bDefault )
+			, m_StringDefault	( NULL )
+			, m_DwordDefault	( 0 )
+			, m_FloatDefault	( 0.0 )
+			, m_nScale			( 1 )
+			, m_nMin			( 0 )
+			, m_nMax			( 1 )
+			, m_szSuffix		( NULL )
+			, m_bHidden 		( bHidden )
+			, m_nType			( setBool )
 		{
 		}
 
 		inline Item(const LPCTSTR szSection, const LPCTSTR szName, DWORD* const pDword, const DWORD nDefault, const DWORD nScale, const DWORD nMin, const DWORD nMax, const LPCTSTR szSuffix, const bool bHidden) throw()
-			: m_szSection	( szSection )
-			, m_szName		( szName )
-			, m_pBool		( NULL )
-			, m_pDword		( pDword )
-			, m_pFloat		( NULL )
-			, m_pString 	( NULL )
-			, m_pSet		( NULL )
-			, m_BoolDefault	( false )
-			, m_StringDefault ( NULL )
-			, m_DwordDefault ( nDefault )
-			, m_FloatDefault ( 0.0 )
-			, m_nScale		( nScale )
-			, m_nMin		( nMin )
-			, m_nMax		( nMax )
-			, m_szSuffix	( szSuffix )
-			, m_bHidden 	( bHidden )
-			, m_nType		( setNull )
+			: m_szSection		( szSection )
+			, m_szName			( szName )
+			, m_pBool			( NULL )
+			, m_pDword			( pDword )
+			, m_pFloat			( NULL )
+			, m_pString 		( NULL )
+			, m_pSet			( NULL )
+			, m_BoolDefault		( false )
+			, m_StringDefault	( NULL )
+			, m_DwordDefault	( nDefault )
+			, m_FloatDefault	( 0.0 )
+			, m_nScale			( nScale )
+			, m_nMin			( nMin )
+			, m_nMax			( nMax )
+			, m_szSuffix		( szSuffix )
+			, m_bHidden 		( bHidden )
+			, m_nType			( setNull )
 		{
 		}
 
 		inline Item(const LPCTSTR szSection, const LPCTSTR szName, DOUBLE* const pFloat, const DOUBLE dDefault, const bool bHidden) throw()
-			: m_szSection	( szSection )
-			, m_szName		( szName )
-			, m_pBool		( NULL )
-			, m_pDword		( NULL )
-			, m_pFloat		( pFloat )
-			, m_pString 	( NULL )
-			, m_pSet		( NULL )
-			, m_BoolDefault ( false )
-			, m_StringDefault ( NULL )
-			, m_DwordDefault ( 0 )
-			, m_FloatDefault ( dDefault )
-			, m_nScale		( 0 )
-			, m_nMin		( 0 )
-			, m_nMax		( 0 )
-			, m_szSuffix	( NULL )
-			, m_bHidden 	( bHidden )
-			, m_nType		( setNull )
+			: m_szSection		( szSection )
+			, m_szName			( szName )
+			, m_pBool			( NULL )
+			, m_pDword			( NULL )
+			, m_pFloat			( pFloat )
+			, m_pString 		( NULL )
+			, m_pSet			( NULL )
+			, m_BoolDefault 	( false )
+			, m_StringDefault	( NULL )
+			, m_DwordDefault	( 0 )
+			, m_FloatDefault	( dDefault )
+			, m_nScale			( 0 )
+			, m_nMin			( 0 )
+			, m_nMax			( 0 )
+			, m_szSuffix		( NULL )
+			, m_bHidden 		( bHidden )
+			, m_nType			( setNull )
 		{
 		}
 
 		inline Item(const LPCTSTR szSection, const LPCTSTR szName, CString* const pString, const LPCTSTR szDefault, const bool bHidden, const Type nType = setString) throw()
-			: m_szSection	( szSection )
-			, m_szName		( szName )
-			, m_pBool		( NULL )
-			, m_pDword		( NULL )
-			, m_pFloat		( NULL )
-			, m_pString 	( pString )
-			, m_pSet		( NULL )
-			, m_BoolDefault ( false )
-			, m_StringDefault ( szDefault )
-			, m_DwordDefault ( 0 )
-			, m_FloatDefault ( 0.0 )
-			, m_nScale		( 0 )
-			, m_nMin		( 0 )
-			, m_nMax		( 0 )
-			, m_szSuffix	( NULL )
-			, m_bHidden 	( bHidden )
-			, m_nType		( nType )
+			: m_szSection		( szSection )
+			, m_szName			( szName )
+			, m_pBool			( NULL )
+			, m_pDword			( NULL )
+			, m_pFloat			( NULL )
+			, m_pString 		( pString )
+			, m_pSet			( NULL )
+			, m_BoolDefault		( false )
+			, m_StringDefault	( szDefault )
+			, m_DwordDefault	( 0 )
+			, m_FloatDefault	( 0.0 )
+			, m_nScale			( 0 )
+			, m_nMin			( 0 )
+			, m_nMax			( 0 )
+			, m_szSuffix		( NULL )
+			, m_bHidden 		( bHidden )
+			, m_nType			( nType )
 		{
 		}
 
 		inline Item(const LPCTSTR szSection, const LPCTSTR szName, string_set* const pSet, const LPCTSTR szDefault, const bool bHidden) throw()
-			: m_szSection	( szSection )
-			, m_szName		( szName )
-			, m_pBool		( NULL )
-			, m_pDword		( NULL )
-			, m_pFloat		( NULL )
-			, m_pString 	( NULL )
-			, m_pSet		( pSet )
-			, m_BoolDefault ( false )
-			, m_StringDefault ( szDefault )
-			, m_DwordDefault ( 0 )
-			, m_FloatDefault ( 0.0 )
-			, m_nScale		( 0 )
-			, m_nMin		( 0 )
-			, m_nMax		( 0 )
-			, m_szSuffix	( NULL )
-			, m_bHidden 	( bHidden )
-			, m_nType		( setNull )
+			: m_szSection		( szSection )
+			, m_szName			( szName )
+			, m_pBool			( NULL )
+			, m_pDword			( NULL )
+			, m_pFloat			( NULL )
+			, m_pString 		( NULL )
+			, m_pSet			( pSet )
+			, m_BoolDefault		( false )
+			, m_StringDefault	( szDefault )
+			, m_DwordDefault	( 0 )
+			, m_FloatDefault	( 0.0 )
+			, m_nScale			( 0 )
+			, m_nMin			( 0 )
+			, m_nMax			( 0 )
+			, m_szSuffix		( NULL )
+			, m_bHidden 		( bHidden )
+			, m_nType			( setNull )
 		{
 		}
 
 		inline bool operator==(LPVOID p) const
 		{
-			return ( m_pBool == p || m_pDword == p || m_pFloat == p ||
-				m_pString == p || m_pSet == p );
+			return ( m_pBool == p || m_pDword == p || m_pFloat == p || m_pString == p || m_pSet == p );
 		}
 
 		void	Load();
@@ -891,6 +890,8 @@ public:
 	void	SetStartup(BOOL bStartup);
 
 protected:
+	void	SmartUpgrade();
+
 	inline void Add(const LPCTSTR szSection, const LPCTSTR szName, bool* const pBool, const bool bDefault, const bool bHidden = false) throw()
 	{
 		m_pItems.AddTail( new Item( szSection, szName, pBool, bDefault, bHidden ) );
@@ -916,12 +917,13 @@ protected:
 		m_pItems.AddTail( new Item( szSection, szName, pSet, szDefault, bHidden ) );
 	}
 
-	void	SmartUpgrade();
-
 // Inlines
 public:
 	// CSettings configurable user agent (Client Name + Version)
-	CString SmartAgent() const throw() { return theApp.m_sSmartAgent; }
+	inline const CString& SmartAgent() const throw()
+	{
+		return theApp.m_sSmartAgent;
+	}
 
 private:
 	CSettings(const CSettings&);

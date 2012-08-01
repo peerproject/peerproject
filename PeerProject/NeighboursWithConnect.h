@@ -34,8 +34,9 @@ protected:
 	virtual ~CNeighboursWithConnect();
 
 public:
-	DWORD	m_nBandwidthIn;			// All neighbours average incoming speed (bytes/second)
-	DWORD	m_nBandwidthOut;		// All neighbours average outgoing speed (bytes/second)
+	// All neighbours average incoming/outgoing speed (bytes/second)
+	DWORD BandwidthIn() const { return m_nBandwidthIn; }
+	DWORD BandwidthOut() const { return m_nBandwidthOut; }
 
 	// Determine our role on the Gnutella2 network
 	bool  IsG2Leaf() const;								// Are we acting as a Gnutella2 leaf on at least one connection
@@ -47,24 +48,33 @@ public:
 	bool  IsG1Ultrapeer() const;						// Are we acting as a Gnutella ultrapeer on at least one connection
 	DWORD IsG1UltrapeerCapable(BOOL bIgnoreTime = FALSE, BOOL bDebug = FALSE) const;	// True if computer/connection are sufficient to become a Gnutella ultrapeer	(bIgnoreTime unused, bDebug pre-run info)
 
-	DWORD CalculateSystemPerformanceScore(BOOL bDebug) const;	// Hub promotion "Points"
+	// Number of connections we have older than 1.5 seconds and finished handshake
+	DWORD GetStableCount() const { return m_nStableCount; }
 
-	DWORD GetStableCount() const;
+	// Last time a neighbour connection attempt was made (in ticks)
+	DWORD LastConnect() const { return m_tLastConnect; }
 
 	// Determine our needs on the given network, Gnutella or Gnutella2
 	bool  NeedMoreHubs(PROTOCOLID nProtocol) const;		// Do we need more hub connections on the given network
 	bool  NeedMoreLeafs(PROTOCOLID nProtocol) const;	// Do we need more leaf connections on the given network
 	//bool  IsHubLoaded(PROTOCOLID nProtocol) const;	// Do we have more than 75% of the number of hub connections settings says is our limit
 
-protected:
+	void PeerPrune(PROTOCOLID nProtocol);				// Close hub to hub connections when we get demoted to the leaf role (do)
+
+private:
+	DWORD m_nBandwidthIn;				// All neighbours average incoming speed (bytes/second)
+	DWORD m_nBandwidthOut;				// All neighbours average outgoing speed (bytes/second)
+
 	// Member variables that tell our current role on the Gnutella and Gnutella2 networks
 	BOOL  m_bG2Leaf;					// Are we a leaf to at least one computer on the Gnutella2 network
 	BOOL  m_bG2Hub;						// Are we a hub to at least one computer on the Gnutella2 network
 	BOOL  m_bG1Leaf;					// Are we a leaf to at least one computer on the Gnutella network
 	BOOL  m_bG1Ultrapeer;				// Are we an ultrapeer to at least one computer on the Gnutella network
 	DWORD m_nStableCount;				// Number of connections we have older than 1.5 seconds and finished with the handshake
-	DWORD m_tHubG2Promotion;			// Time we were promoted to a G2 hub
-	DWORD m_tPresent[ PROTOCOL_LAST ];	// Tick count when we last connected to a hub for each network
+	DWORD m_tHubG2Promotion;			// Time we were promoted to a G2 hub (in seconds)
+	DWORD m_tPresent[ PROTOCOL_LAST ];	// Tick count when we last connected to a hub for each network (in seconds)
+	DWORD m_tPriority[ PROTOCOL_LAST ];	// Time when we last connected to priority server, to make delay between priority and regular servers (in seconds)
+	DWORD m_tLastConnect;				// Last time a neighbour connection attempt was made (in ticks)
 
 public:
 	// Connect to a computer at an IP address, and accept a connection from a computer that has connected to us
@@ -75,9 +85,9 @@ public:
 	virtual void OnRun();				// Call DoRun on each neighbour in the list, and maintain the network auto connection
 	virtual void Close();
 
-protected:
+private:
 	// Make new connections and close existing ones
 	void MaintainNodeStatus();					// Determine our node status
 	void Maintain();							// Count how many connections we have, and initiate or close them to match the ideal numbers in settings
-	void PeerPrune(PROTOCOLID nProtocol);		// Close hub to hub connections when we get demoted to the leaf role (do)
+	DWORD CalculateSystemPerformanceScore(BOOL bDebug) const;	// Hub promotion "Points"
 };

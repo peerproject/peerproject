@@ -19,9 +19,9 @@
 #include "StdAfx.h"
 #include "Settings.h"
 #include "PeerProject.h"
-#include "SearchManager.h"
 #include "ManagedSearch.h"
 #include "QuerySearch.h"
+#include "SearchManager.h"
 #include "Network.h"
 #include "HostCache.h"
 #include "Neighbours.h"
@@ -103,7 +103,7 @@ void CManagedSearch::Serialize(CArchive& ar)
 	else // Loading
 	{
 		ar >> nVersion;
-		if ( nVersion < 2 ) AfxThrowUserException();
+		if ( nVersion < 4 ) AfxThrowUserException();
 
 		m_pSearch->Serialize( ar );
 
@@ -117,7 +117,7 @@ void CManagedSearch::Serialize(CArchive& ar)
 		ar >> m_bAllowG2;
 		ar >> m_bAllowG1;
 		ar >> m_bAllowED2K;
-		if ( nVersion >= 4 )
+		//if ( nVersion >= 4 )
 			ar >> m_bAllowDC;
 	}
 }
@@ -178,7 +178,7 @@ BOOL CManagedSearch::Execute(int nPriorityClass)
 	const DWORD tTicks = GetTickCount();
 	const DWORD tSecs = static_cast< DWORD >( time( NULL ) );
 
-	if ( tTicks - m_tExecute < nThrottle )
+	if ( tTicks < m_tExecute + nThrottle )
 		return FALSE;
 	m_tExecute = tTicks;
 
@@ -238,7 +238,7 @@ BOOL CManagedSearch::ExecuteNeighbours(const DWORD tTicks, const DWORD tSecs)
 			continue;
 
 		// Must be stable for 15 seconds
-		if ( tTicks - pNeighbour->m_tConnected < 15000 )
+		if ( tTicks < pNeighbour->m_tConnected + 15000 )
 			continue;
 
 		// Request more ed2k results (if appropriate)
@@ -262,8 +262,7 @@ BOOL CManagedSearch::ExecuteNeighbours(const DWORD tTicks, const DWORD tSecs)
 			m_tMoreResults = tTicks;
 			m_pNodes.SetAt( nAddress, tSecs );
 
-			theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
-				_T("Asking ed2k neighbour for additional search results") );
+			theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("Asking ed2k neighbour for additional search results") );
 			continue;
 		}
 
@@ -411,7 +410,7 @@ BOOL CManagedSearch::ExecuteG2Mesh(const DWORD /*tTicks*/, const DWORD tSecs)
 	CQuickLock oLock( HostCache.Gnutella2.m_pSection );
 
 	for ( CHostCacheIterator i = HostCache.Gnutella2.Begin() ;
-		i != HostCache.Gnutella2.End();	++i )
+		i != HostCache.Gnutella2.End() ; ++i )
 	{
 		CHostCacheHostPtr pHost = (*i);
 
@@ -503,8 +502,7 @@ BOOL CManagedSearch::ExecuteG2Mesh(const DWORD /*tTicks*/, const DWORD tSecs)
 			{
 				if ( Datagrams.Send( &pHost->m_pAddress, pHost->m_nPort, pPacket, TRUE, this, TRUE ) )
 				{
-					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
-						_T("Querying %s"), (LPCTSTR)CString( inet_ntoa( pHost->m_pAddress ) ) );
+					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("Querying %s"), (LPCTSTR)CString( inet_ntoa( pHost->m_pAddress ) ) );
 					return TRUE;
 				}
 			}
@@ -561,10 +559,8 @@ BOOL CManagedSearch::ExecuteG2Mesh(const DWORD /*tTicks*/, const DWORD tSecs)
 						pHost->m_tKeyTime = tSecs;
 						pHost->m_nKeyValue = 0;
 
-						theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
-							_T("Requesting query key from %s through %s"),
-							(LPCTSTR)CString( inet_ntoa( pHost->m_pAddress ) ),
-							(LPCTSTR)CString( inet_ntoa( pReceiver->sin_addr ) ) );
+						theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("Requesting query key from %s through %s"),
+							(LPCTSTR)CString( inet_ntoa( pHost->m_pAddress ) ), (LPCTSTR)CString( inet_ntoa( pReceiver->sin_addr ) ) );
 						return TRUE;
 					}
 				}
@@ -591,16 +587,13 @@ BOOL CManagedSearch::ExecuteG2Mesh(const DWORD /*tTicks*/, const DWORD tSecs)
 
 						if ( pReceiver == &Network.m_pHost )
 						{
-							theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
-								_T("Requesting query key from %s"),
+							theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("Requesting query key from %s"),
 								(LPCTSTR)CString( inet_ntoa( pHost->m_pAddress ) ) );
 						}
 						else
 						{
-							theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
-								_T("Requesting query key from %s for %s"),
-								(LPCTSTR)CString( inet_ntoa( pHost->m_pAddress ) ),
-								(LPCTSTR)CString( inet_ntoa( pReceiver->sin_addr ) ) );
+							theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("Requesting query key from %s for %s"),
+								(LPCTSTR)CString( inet_ntoa( pHost->m_pAddress ) ), (LPCTSTR)CString( inet_ntoa( pReceiver->sin_addr ) ) );
 						}
 						return TRUE;
 					}
@@ -652,9 +645,7 @@ BOOL CManagedSearch::ExecuteDonkeyMesh(const DWORD /*tTicks*/, const DWORD tSecs
 			// Send the datagram if possible
 			if ( Datagrams.Send( &pHost->m_pAddress, pHost->m_nPort + 4, pPacket, TRUE ) )
 			{
-				theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
-					_T("Sending UDP query to %s"),
-					(LPCTSTR)CString( inet_ntoa( pHost->m_pAddress ) ) );
+				theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("Sending UDP query to %s"), (LPCTSTR)CString( inet_ntoa( pHost->m_pAddress ) ) );
 
 				return TRUE;
 			}

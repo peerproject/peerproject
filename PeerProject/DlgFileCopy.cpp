@@ -1,7 +1,7 @@
 //
 // DlgFileCopy.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -330,18 +330,18 @@ void CFileCopyDlg::OnRun()
 
 bool CFileCopyDlg::ProcessFile(const CString& strName, const CString& strPath)
 {
-	if ( ! strPath.CompareNoCase( m_sTarget ) )
+	if ( strPath.CompareNoCase( m_sTarget ) == 0 )
 		return false;
 
-	const CString sSource = strPath + _T("\\") + strName;
-	const CString sTarget = m_sTarget + _T("\\") + strName;
+	const CString strSource = strPath + _T("\\") + strName;
+	const CString strTarget = m_sTarget + _T("\\") + strName;
 
 	// Check if we can move the file first
 	if ( m_bMove )
 	{
-		HANDLE hFile = CreateFile( sSource, GENERIC_WRITE, 0, NULL,
+		HANDLE hFile = CreateFile( strSource, GENERIC_WRITE, 0, NULL,
 			OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL );
-		VERIFY_FILE_ACCESS( hFile, sSource )
+		VERIFY_FILE_ACCESS( hFile, strSource )
 		if ( hFile == INVALID_HANDLE_VALUE )
 		{
 			CString strMessage;
@@ -363,9 +363,9 @@ bool CFileCopyDlg::ProcessFile(const CString& strName, const CString& strPath)
 
 	// Copy/Move the file
 	if ( m_bMove )
-		return ProcessMove( sSource, sTarget );
+		return ProcessMove( strSource, strTarget );
 	else
-		return ProcessCopy( sSource, sTarget );
+		return ProcessCopy( strSource, strTarget );
 }
 
 bool CFileCopyDlg::CheckTarget(const CString& strTarget)
@@ -373,10 +373,8 @@ bool CFileCopyDlg::CheckTarget(const CString& strTarget)
 	if ( GetFileAttributes( strTarget ) == 0xFFFFFFFF )
 		return true;
 
-	CString strFormat, strMessage;
-
-	LoadString( strFormat, IDS_LIBRARY_TARGET_EXISTS );
-	strMessage.Format( strFormat, strTarget );
+	CString strMessage;
+	strMessage.Format( LoadString( IDS_LIBRARY_TARGET_EXISTS ), strTarget );
 
 	switch ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNOCANCEL|MB_DEFBUTTON2 ) )
 	{
@@ -394,8 +392,7 @@ bool CFileCopyDlg::CheckTarget(const CString& strTarget)
 
 	CString strError = GetErrorString();
 
-	LoadString( strFormat, IDS_LIBRARY_DELETE_FAIL );
-	strMessage.Format( strFormat, strTarget );
+	strMessage.Format( LoadString( IDS_LIBRARY_DELETE_FAIL ), strTarget );
 	strMessage += _T("\r\n\r\n") + strError;
 
 	AfxMessageBox( strMessage, MB_ICONEXCLAMATION );

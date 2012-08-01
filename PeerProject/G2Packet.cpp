@@ -106,7 +106,8 @@ CG2Packet* CG2Packet::New(BYTE* pSource)
 	else
 	{
 		BYTE* pLenOut = (BYTE*)&nLength;
-		while ( nLenLen-- ) *pLenOut++ = *pSource++;
+		while ( nLenLen-- )
+			*pLenOut++ = *pSource++;
 	}
 
 	nTypeLen++;
@@ -167,8 +168,8 @@ void CG2Packet::WritePacket(G2_PACKET nType, DWORD nLength, BOOL bCompound)
 	ASSERT( G2_TYPE_LEN( nType ) > 0 && G2_TYPE_LEN( nType ) < 9 );
 	ASSERT( nLength <= 0xFFFFFF );
 
-	BYTE nTypeLen	= (BYTE)( G2_TYPE_LEN( nType ) - 1 ) & 0x07;	// 0..7
-	BYTE nLenLen	= 1;	// 1, 2, 3
+	BYTE nTypeLen = (BYTE)( G2_TYPE_LEN( nType ) - 1 ) & 0x07;	// 0..7
+	BYTE nLenLen  = 1;	// 1, 2, 3
 
 	if ( nLength > 0xFF )
 	{
@@ -297,8 +298,7 @@ BOOL CG2Packet::SkipCompound(DWORD& nLength, DWORD nRemaining)
 			Read( &nPacket, nLenLen );
 		}
 
-		if ( m_nPosition + nTypeLen + 1 + nPacket > nEnd )
-			AfxThrowUserException();
+		if ( m_nPosition + nTypeLen + 1 + nPacket > nEnd ) AfxThrowUserException();
 
 		m_nPosition += nPacket + nTypeLen + 1;
 	}
@@ -412,8 +412,8 @@ void CG2Packet::ToBuffer(CBuffer* pBuffer, bool /*bTCP*/) const
 {
 	ASSERT( G2_TYPE_LEN( m_nType ) > 0 );
 
-	BYTE nLenLen	= 1;
-	BYTE nTypeLen	= (BYTE)( G2_TYPE_LEN( m_nType ) - 1 ) & 0x07;
+	BYTE nLenLen  = 1;
+	BYTE nTypeLen = (BYTE)( G2_TYPE_LEN( m_nType ) - 1 ) & 0x07;
 
 	if ( m_nLength > 0xFF )
 	{
@@ -549,7 +549,8 @@ CString CG2Packet::Dump(DWORD nTotal)
 	{
 		DWORD nOffset = m_nPosition + nLength;
 
-		if ( ! sASCII.IsEmpty() ) sASCII += _T(", ");
+		if ( ! sASCII.IsEmpty() )
+			sASCII += _T(", ");
 
 		CStringA sType;
 		sType.Append( (LPCSTR)&nType, G2_TYPE_LEN( nType ) );
@@ -562,7 +563,9 @@ CString CG2Packet::Dump(DWORD nTotal)
 			sASCII += sTmp;
 
 			if ( bCompound )
+			{
 				sASCII += _T("{ ") + Dump( m_nPosition + nLength ) + _T(" }");
+			}
 			else if ( nType == G2_PACKET_HUB_STATUS )
 			{
 				WORD nLeafCount = ReadShortBE();
@@ -1072,8 +1075,7 @@ BOOL CG2Packet::OnPush(const SOCKADDR_IN* pHost)
 
 	if ( ! SkipCompound( nLength, 6 ) )
 	{
-		theApp.Message( MSG_ERROR, _T("[G2] UDP: Invalid PUSH packet received from %s"),
-			(LPCTSTR)inet_ntoa( pHost->sin_addr ) );
+		theApp.Message( MSG_ERROR, _T("[G2] UDP: Invalid PUSH packet received from %s"), (LPCTSTR)inet_ntoa( pHost->sin_addr ) );
 		Statistics.Current.Gnutella2.Dropped++;
 		return FALSE;
 	}
@@ -1336,7 +1338,7 @@ BOOL CG2Packet::OnKHLA(const SOCKADDR_IN* pHost)
 		DWORD nNext = m_nPosition + nLength;
 
 		if ( nType == G2_PACKET_NEIGHBOUR_HUB ||
-			nType == G2_PACKET_CACHED_HUB )
+			 nType == G2_PACKET_CACHED_HUB )
 		{
 			DWORD nAddress = 0, tSeen = tNow;
 			WORD nPort = 0;

@@ -1,7 +1,7 @@
 //
 // HttpRequest.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -114,12 +114,6 @@ void CHttpRequest::AddHeader(LPCTSTR pszKey, LPCTSTR pszValue)
 //	}
 //}
 
-void CHttpRequest::SetUserAgent(LPCTSTR pszUserAgent)
-{
-	if ( IsPending() ) return;
-	m_sUserAgent = pszUserAgent;
-}
-
 void CHttpRequest::LimitContentLength(DWORD nLimit)
 {
 	if ( IsPending() ) return;
@@ -179,7 +173,7 @@ BOOL CHttpRequest::InflateResponse()
 
 	if ( strEncoding.CompareNoCase( _T("deflate") ) == 0 )
 		return m_pResponse->Inflate();
-	else if ( strEncoding.CompareNoCase( _T("gzip") ) == 0 )
+	if ( strEncoding.CompareNoCase( _T("gzip") ) == 0 )
 		return m_pResponse->Ungzip();
 
 	return TRUE;
@@ -201,9 +195,6 @@ bool CHttpRequest::Execute(bool bBackground)
 	if ( m_pResponse )
 		delete m_pResponse;
 	m_pResponse = NULL;
-
-	if ( m_sUserAgent.IsEmpty() )
-		m_sUserAgent = Settings.SmartAgent();
 
 	if ( ! BeginThread( "HTTPRequest" ) )
 		return false;
@@ -243,18 +234,17 @@ void CHttpRequest::Cancel()
 
 void CHttpRequest::OnRun()
 {
-	ASSERT( ! m_sUserAgent.IsEmpty() );
 	ASSERT( ! m_sURL.IsEmpty() );	// ToDo: Track Failures from CBTTrackerRequest::OnRun()
 	ASSERT( m_pResponse == NULL );
 
 	if ( m_sURL.GetLength() < 14 )
 		return;		// Torrent Crash Prevention
 
-	m_hInternet = InternetOpen( m_sUserAgent, INTERNET_OPEN_TYPE_DIRECT, NULL, NULL, 0 );
+	m_hInternet = CNetwork::SafeInternetOpen();
 	if ( m_hInternet )
 	{
-		HINTERNET hURL = CNetwork::InternetOpenUrl( m_hInternet, m_sURL,
-			m_sRequestHeaders, m_sRequestHeaders.GetLength(),
+		HINTERNET hURL = CNetwork::InternetOpenUrl( m_hInternet,
+			m_sURL, m_sRequestHeaders, m_sRequestHeaders.GetLength(),
 			INTERNET_FLAG_KEEP_CONNECTION | INTERNET_FLAG_RELOAD |
 			INTERNET_FLAG_PRAGMA_NOCACHE | INTERNET_FLAG_NO_CACHE_WRITE |
 			( m_bUseCookie ? 0 : INTERNET_FLAG_NO_COOKIES ) );
@@ -272,7 +262,7 @@ void CHttpRequest::OnRun()
 				for ( ; IsThreadEnabled() &&
 					InternetQueryDataAvailable( hURL, &nRemaining, 0, 0 ) &&
 					nRemaining > 0 &&
-					m_pResponse->EnsureBuffer( nRemaining ); )
+					m_pResponse->EnsureBuffer( nRemaining ) ; )
 				{
 					if ( ! InternetReadFile( hURL, m_pResponse->m_pBuffer +
 						m_pResponse->m_nLength, nRemaining, &nRemaining ) ) break;

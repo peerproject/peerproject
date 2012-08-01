@@ -82,13 +82,11 @@ BOOL CEDNeighbour::ConnectTo(const IN_ADDR* pAddress, WORD nPort, BOOL bAutomati
 	{
 		WSAEventSelect( m_hSocket, Network.GetWakeupEvent(), FD_CONNECT|FD_READ|FD_WRITE|FD_CLOSE );
 
-		theApp.Message( MSG_INFO, IDS_ED2K_SERVER_CONNECTING,
-			(LPCTSTR)m_sAddress, htons( m_pHost.sin_port ) );
+		theApp.Message( MSG_INFO, IDS_ED2K_SERVER_CONNECTING, (LPCTSTR)m_sAddress, htons( m_pHost.sin_port ) );
 	}
 	else
 	{
-		theApp.Message( MSG_ERROR, IDS_CONNECTION_CONNECT_FAIL,
-			(LPCTSTR)CString( inet_ntoa( m_pHost.sin_addr ) ) );
+		theApp.Message( MSG_ERROR, IDS_CONNECTION_CONNECT_FAIL, (LPCTSTR)CString( inet_ntoa( m_pHost.sin_addr ) ) );
 		return FALSE;
 	}
 
@@ -308,8 +306,7 @@ BOOL CEDNeighbour::OnServerMessage(CEDPacket* pPacket)
 		if ( ! strLine.IsEmpty() )
 		{
 			strMessage = strMessage.Mid( strLine.GetLength() );
-			theApp.Message( MSG_NOTICE, IDS_ED2K_SERVER_MESSAGE,
-				(LPCTSTR)m_sAddress, (LPCTSTR)strLine );
+			theApp.Message( MSG_NOTICE, IDS_ED2K_SERVER_MESSAGE, (LPCTSTR)m_sAddress, (LPCTSTR)strLine );
 		}
 
 		if ( ! strMessage.IsEmpty() )
@@ -383,19 +380,22 @@ BOOL CEDNeighbour::OnIdChange(CEDPacket* pPacket)
 		}
 	}
 
-	CString strServerFlags;
-	strServerFlags.Format(
-		_T( "Server Flags 0x%08x -> Zlib: %s, Short Tags: %s, Unicode: %s, GetSources2: %s, Related Search: %s, Int type tags: %s, 64 bit size: %s, TCP obfscation: %s" ),
-		m_nTCPFlags,
-		( ( m_nTCPFlags & ED2K_SERVER_TCP_DEFLATE ) ? _T("Yes") : _T("No") ),
-		( ( m_nTCPFlags & ED2K_SERVER_TCP_SMALLTAGS ) ? _T("Yes") : _T("No") ),
-		( ( m_nTCPFlags & ED2K_SERVER_TCP_UNICODE ) ? _T("Yes") : _T("No") ),
-		( ( m_nTCPFlags & ED2K_SERVER_TCP_GETSOURCES2 ) ? _T("Yes") : _T("No") ),
-		( ( m_nTCPFlags & ED2K_SERVER_TCP_RELATEDSEARCH ) ? _T("Yes") : _T("No") ),
-		( ( m_nTCPFlags & ED2K_SERVER_TCP_TYPETAGINTEGER ) ? _T("Yes") : _T("No") ),
-		( ( m_nTCPFlags & ED2K_SERVER_TCP_64BITSIZE ) ? _T("Yes") : _T("No") ),
-		( ( m_nTCPFlags & ED2K_SERVER_TCP_TCPOBFUSCATION ) ? _T("Yes") : _T("No") ) );
-	theApp.Message( MSG_DEBUG, strServerFlags );
+	if ( Settings.General.LogLevel >= MSG_DEBUG )
+	{
+		CString strServerFlags;
+		strServerFlags.Format(
+			_T( "Server Flags 0x%08x -> Zlib: %s, Short Tags: %s, Unicode: %s, GetSources2: %s, Related Search: %s, Int type tags: %s, 64 bit size: %s, TCP obfscation: %s" ),
+			m_nTCPFlags,
+			( ( m_nTCPFlags & ED2K_SERVER_TCP_DEFLATE ) ? _T("Yes") : _T("No") ),
+			( ( m_nTCPFlags & ED2K_SERVER_TCP_SMALLTAGS ) ? _T("Yes") : _T("No") ),
+			( ( m_nTCPFlags & ED2K_SERVER_TCP_UNICODE ) ? _T("Yes") : _T("No") ),
+			( ( m_nTCPFlags & ED2K_SERVER_TCP_GETSOURCES2 ) ? _T("Yes") : _T("No") ),
+			( ( m_nTCPFlags & ED2K_SERVER_TCP_RELATEDSEARCH ) ? _T("Yes") : _T("No") ),
+			( ( m_nTCPFlags & ED2K_SERVER_TCP_TYPETAGINTEGER ) ? _T("Yes") : _T("No") ),
+			( ( m_nTCPFlags & ED2K_SERVER_TCP_64BITSIZE ) ? _T("Yes") : _T("No") ),
+			( ( m_nTCPFlags & ED2K_SERVER_TCP_TCPOBFUSCATION ) ? _T("Yes") : _T("No") ) );
+		theApp.Message( MSG_DEBUG, strServerFlags );
+	}
 
 	return TRUE;
 }
@@ -413,8 +413,7 @@ BOOL CEDNeighbour::OnServerList(CEDPacket* pPacket)
 		WORD nPort		= pPacket->ReadShortLE();
 
 		theApp.Message( MSG_DEBUG, _T("CEDNeighbour::OnServerList(): %s: %s:%i"),
-			(LPCTSTR)m_sAddress,
-			(LPCTSTR)CString( inet_ntoa( (IN_ADDR&)nAddress ) ), nPort );
+			(LPCTSTR)m_sAddress, (LPCTSTR)CString( inet_ntoa( (IN_ADDR&)nAddress ) ), nPort );
 
 		if ( Settings.eDonkey.LearnNewServers )
 			HostCache.eDonkey.Add( (IN_ADDR*)&nAddress, nPort );

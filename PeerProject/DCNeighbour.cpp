@@ -117,11 +117,9 @@ BOOL CDCNeighbour::ConnectTo(const IN_ADDR* pAddress, WORD nPort, BOOL bAutomati
 
 	if ( CConnection::ConnectTo( pAddress, nPort ) )
 	{
-		WSAEventSelect( m_hSocket, Network.GetWakeupEvent(),
-			FD_CONNECT | FD_READ | FD_WRITE | FD_CLOSE );
+		WSAEventSelect( m_hSocket, Network.GetWakeupEvent(), FD_CONNECT | FD_READ | FD_WRITE | FD_CLOSE );
 
-		theApp.Message( MSG_INFO, IDS_CONNECTION_ATTEMPTING,
-			(LPCTSTR)sHost, htons( m_pHost.sin_port ) );
+		theApp.Message( MSG_INFO, IDS_CONNECTION_ATTEMPTING, (LPCTSTR)sHost, htons( m_pHost.sin_port ) );
 	}
 	else
 	{
@@ -250,8 +248,7 @@ BOOL CDCNeighbour::OnConnected()
 	if ( ! CNeighbour::OnConnected() )
 		return FALSE;
 
-	theApp.Message( MSG_INFO, IDS_CONNECTION_CONNECTED,
-		(LPCTSTR)HostToString( &m_pHost ) );
+	theApp.Message( MSG_INFO, IDS_CONNECTION_CONNECTED, (LPCTSTR)HostToString( &m_pHost ) );
 
 	m_nState = nrsHandshake1;	// Waiting for $Lock
 
@@ -542,8 +539,7 @@ BOOL CDCNeighbour::OnPacket(CDCPacket* pPacket)
 BOOL CDCNeighbour::OnUnknown(CDCPacket* pPacket)
 {
 	theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, _T("%s >> UNKNOWN COMMAND: %s"),
-		(LPCTSTR)HostToString( &m_pHost ),
-		(LPCTSTR)CString( (LPCSTR)pPacket->m_pBuffer, (int)pPacket->m_nLength ) );
+		(LPCTSTR)HostToString( &m_pHost ), (LPCTSTR)CString( (LPCSTR)pPacket->m_pBuffer, (int)pPacket->m_nLength ) );
 
 	return TRUE;
 }

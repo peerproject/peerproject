@@ -1,7 +1,7 @@
 //
 // FragmentedFile.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -33,7 +33,10 @@ class CFragmentedFile : public CObject
 
 public:
 	CFragmentedFile();
+protected:
+	virtual ~CFragmentedFile();
 
+public:
 #ifdef _DEBUG
 	virtual void AssertValid() const;
 	virtual void Dump(CDumpContext& dc) const;
@@ -45,8 +48,6 @@ public:
 	enum { prUnwanted, prLow, prNormal, prHigh };
 
 protected:
-	virtual ~CFragmentedFile();
-
 	class CVirtualFilePart : public CPeerProjectFile
 	{
 	public:
@@ -151,17 +152,19 @@ protected:
 	BOOL	VirtualWrite(QWORD nOffset, const char* pBuffer, QWORD nBuffer, QWORD* pnWritten);
 
 	// Get completed size of defined range (in bytes)
-	QWORD GetCompleted(QWORD nOffset, QWORD nLength) const;
+	QWORD	GetCompleted(QWORD nOffset, QWORD nLength) const;
+
+public:
+	// By hash from library: Open file from disk or create file inside incomplete folder
+	BOOL	Open(const CPeerProjectFile* pPPFile, BOOL bWrite);
+	// By .torrent: Open file from disk or create file inside incomplete folder file(s)
+	BOOL	Open(const CBTInfo& oInfo, BOOL bWrite, CString& sErrorMessage);
+protected:
+	// By path: Open file from disk
+	BOOL	Open(LPCTSTR pszFile, QWORD nOffset = 0, QWORD nLength = SIZE_UNKNOWN, BOOL bWrite = FALSE, LPCTSTR pszName = NULL, int nPriority = prNormal );
 
 public:
 	void	SetDownload(const CDownload* pDownload);
-	// Open file from disk
-	BOOL	Open(LPCTSTR pszFile, QWORD nOffset = 0, QWORD nLength = SIZE_UNKNOWN,
-			BOOL bWrite = FALSE, LPCTSTR pszName = NULL, int nPriority = prNormal );
-	// Open file from disk or create file inside incomplete folder from library by hash
-	BOOL	Open(CPeerProjectFile& oSHFile, BOOL bWrite);
-	// Open file from disk or create file inside incomplete folder file(s) from .torrent
-	BOOL	Open(const CBTInfo& oInfo, BOOL bWrite, CString& sErrorMessage);
 	ULONG	AddRef();
 	ULONG	Release();
 	BOOL	Flush();
