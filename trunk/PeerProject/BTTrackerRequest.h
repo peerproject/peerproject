@@ -214,18 +214,23 @@ public:
 // BitTorrent tracker request
 //
 
-class CBTTrackerRequest		// ToDo: Redo to smart object
+class CBTTrackerRequest		// ToDo: Redo to smart object?
 {
 public:
 	CBTTrackerRequest(CDownload* pDownload, DWORD nEvent, DWORD nNumWant, CTrackerEvent* pOnTrackerEvent);
-	~CBTTrackerRequest();
+protected:
+	virtual ~CBTTrackerRequest();
 
-	DWORD			m_nSeeders;			// Scrape
-	DWORD			m_nLeechers;		// Scrape
-	DWORD			m_nDownloaded;		// Scrape
+public:
+	DWORD		m_nSeeders;			// Scrape
+	DWORD		m_nLeechers;		// Scrape
+	DWORD		m_nDownloaded;		// Scrape
 
-	static CString	Escape(const Hashes::BtHash& oBTH);
-	static CString	Escape(const Hashes::BtGuid& oGUID);
+	ULONG		AddRef();
+	ULONG		Release();
+
+	static CString Escape(const Hashes::BtHash& oBTH);
+	static CString Escape(const Hashes::BtGuid& oGUID);
 
 	inline void Cancel()
 	{
@@ -234,9 +239,7 @@ public:
 		m_pCancel.SetEvent();
 
 		if ( m_pRequest )
-		{
 			m_pRequest->Cancel();
-		}
 	}
 
 	inline bool IsCanceled() const
@@ -250,6 +253,7 @@ public:
 	BOOL		OnError(CBTTrackerPacket* pPacket);
 
 protected:
+	volatile LONG m_dwRef;				// Reference counter
 	bool		m_bHTTP;				// HTTP = TRUE, UDP = FALSE.
 	CDownload*	m_pDownload;			// Handle of owner download
 	CString		m_sName;				// Name of download
@@ -271,6 +275,16 @@ protected:
 	void		OnTrackerEvent(bool bSuccess, LPCTSTR pszReason, LPCTSTR pszTip = NULL);
 };
 
+template<>
+inline void CAutoPtr< CBTTrackerRequest >::Free() throw()
+{
+	if ( m_p )
+	{
+		m_p->Release();
+		m_p = NULL;
+	}
+}
+
 
 //
 // BitTorrent Tracker request manager
@@ -282,8 +296,10 @@ public:
 	CBTTrackerRequests();
 	~CBTTrackerRequests();
 
+public:
 	DWORD Add(CBTTrackerRequest* pRequest);
 	void Remove(DWORD nTransactionID);
+	BOOL Check(DWORD nTransactionID) const;
 	CBTTrackerRequest* Lookup(DWORD nTransactionID) const;
 
 protected:

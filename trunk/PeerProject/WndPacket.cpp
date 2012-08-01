@@ -129,7 +129,16 @@ CPacketWnd::CPacketWnd(CChildWnd* pOwner)
 
 CPacketWnd::~CPacketWnd()
 {
-//	theApp.m_pPacketWnd = NULL;
+	CSingleLock pLock( &m_pSection, TRUE );
+
+	m_bPaused = TRUE;
+	theApp.m_pPacketWnd = NULL;
+
+	for ( POSITION pos = m_pQueue.GetHeadPosition() ; pos ; )
+	{
+		delete m_pQueue.GetNext( pos );
+	}
+	m_pQueue.RemoveAll();
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -164,23 +173,17 @@ int CPacketWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	SetTimer( 2, 500, NULL );
 
+	theApp.m_pPacketWnd = this;
+
 	return 0;
 }
 
 void CPacketWnd::OnDestroy()
 {
-	KillTimer( 2 );
-
-	CSingleLock pLock( &m_pSection, TRUE );
 	m_bPaused = TRUE;
+	theApp.m_pPacketWnd = NULL;
 
-	for ( POSITION pos = m_pQueue.GetHeadPosition() ; pos ; )
-	{
-		delete m_pQueue.GetNext( pos );
-	}
-	m_pQueue.RemoveAll();
-
-	pLock.Unlock();
+	KillTimer( 2 );
 
 	Settings.SaveList( _T("CPacketWnd"), &m_wndList );
 	SaveState( _T("CPacketWnd") );
@@ -301,7 +304,8 @@ void CPacketWnd::SmartDump(const CPacket* pPacket, const SOCKADDR_IN* pAddress, 
 			return;
 	}
 
-	CLiveItem* pItem = new CLiveItem( COL_LAST, bOutgoing );
+	CAutoPtr< CLiveItem > pItem( new CLiveItem( COL_LAST, bOutgoing ) );
+	if ( ! pItem ) return;		// Out of memory
 
 	CTime pNow( CTime::GetCurrentTime() );
 	CString strNow;
@@ -330,9 +334,12 @@ void CPacketWnd::SmartDump(const CPacket* pPacket, const SOCKADDR_IN* pAddress, 
 		pItem->Format( COL_GUID, _T("(%u)"), pPacket->m_nLength );
 	}
 
-	CSingleLock pLock( &m_pSection, TRUE );
+	CQuickLock pLock( m_pSection );
 
-	m_pQueue.AddTail( pItem );
+	if ( ! theApp.m_pPacketWnd )
+		return;
+
+	m_pQueue.AddTail( pItem.Detach() );
 }
 
 void CPacketWnd::OnTimer(UINT_PTR nIDEvent)

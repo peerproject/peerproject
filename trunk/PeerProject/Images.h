@@ -32,6 +32,7 @@ public:
 	CBitmap		m_bmToolTip;
 
 	CBitmap		m_bmSelected;
+	CBitmap		m_bmSelectedGrey;
 	CBitmap		m_bmMenuSelected;
 	CBitmap		m_bmMenuSelectedEdge;
 	CBitmap		m_bmMenuDisabled;

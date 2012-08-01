@@ -300,8 +300,7 @@ void CSecurity::Ban(const IN_ADDR* pAddress, int nBanLength, BOOL bMessage, LPCT
 			else if ( nBanLength == banForever && ( pRule->m_nExpire != CSecureRule::srIndefinite ) )
 				pRule->m_nExpire = CSecureRule::srIndefinite;
 			else if ( bMessage && pAddress )
-				theApp.Message( MSG_NOTICE, IDS_NETWORK_SECURITY_ALREADY_BLOCKED,
-					(LPCTSTR)CString( inet_ntoa( *pAddress ) ) );
+				theApp.Message( MSG_NOTICE, IDS_NETWORK_SECURITY_ALREADY_BLOCKED, (LPCTSTR)CString( inet_ntoa( *pAddress ) ) );
 			return;
 		}
 	}

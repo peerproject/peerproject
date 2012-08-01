@@ -157,6 +157,12 @@ static void InitStackTrace(HWND hwnd)
 	CSymEngine::CStackTraceEntry Entry;
 	if (g_pSymEngine->GetFirstStackTraceEntry(Entry))
 	{
+		DWORD dwWritten;
+		const BYTE arrUnicode[] = { 0xFF, 0xFE };
+		HANDLE hFile = CreateFile(_T("StackTrace.txt"), GENERIC_WRITE, 0, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+		WriteFile(hFile, arrUnicode, sizeof(arrUnicode), &dwWritten, NULL);
+		WriteFile(hFile, _T("Crash Report Stack Trace:\r\n\r\n"), 58, &dwWritten, NULL);
+
 		LVITEM lvi;
 		ZeroMemory(&lvi, sizeof(lvi));
 		lvi.mask = LVIF_TEXT;
@@ -171,9 +177,20 @@ static void InitStackTrace(HWND hwnd)
 			ListView_SetItemText(hwndStack, iItemPos, CID_WIN32_ENTRY_LINE, Entry.m_szLineInfo);
 			ListView_SetItemText(hwndStack, iItemPos, CID_WIN32_ENTRY_MODULE, Entry.m_szModule);
 			ListView_SetItemText(hwndStack, iItemPos, CID_WIN32_ENTRY_ADDRESS, Entry.m_szAddress);
+
+			TCHAR szLine[ sizeof(Entry.m_szFunctionInfo) + sizeof(Entry.m_szSourceFile) + sizeof(Entry.m_szLineInfo) ];
+			_stprintf_s(szLine, sizeof(szLine), _T("%s\t\t%s\t\t%s\r\n"), Entry.m_szSourceFile, Entry.m_szLineInfo, Entry.m_szFunctionInfo);
+			WriteFile(hFile, &szLine, (DWORD)_tcslen(szLine) * sizeof(TCHAR), &dwWritten, NULL);
+
 			++iItemPos;
 		}
 		while (g_pSymEngine->GetNextStackTraceEntry(Entry));
+
+		CloseHandle(hFile);
+		TCHAR szFileName[MAX_PATH];
+		PathCombine(szFileName, g_szInternalReportFolder, _T("StackTrace.txt"));
+		CopyFile(_T("StackTrace.txt"), szFileName, FALSE);
+		g_pSymEngine->AppendFileToReport(g_szInternalReportFilePath, szFileName);
 	}
 
 	ListView_SetColumnWidth(hwndStack, CID_WIN32_ENTRY_FUNCTION, LVSCW_AUTOSIZE_USEHEADER);
@@ -280,7 +297,7 @@ static void InitControls(HWND hwnd)
 
 	if (*g_szSupportHost == _T('\0') || g_nSupportPort == 0)
 	{
-		EnableWindow(hwndMailTo, FALSE);
+	//	EnableWindow(hwndMailTo, FALSE);
 		if (*g_szSupportEMail == _T('\0'))
 			EnableWindow(hwndSubmitBug, FALSE);
 	}

@@ -60,7 +60,7 @@ CBTTrackerRequests TrackerRequests;
 // CBTTrackerPacket construction
 
 CBTTrackerPacket::CBTTrackerPacket()
-	: CPacket			( PROTOCOL_BT )		// ToDo: Make new one
+	: CPacket			( PROTOCOL_BT )		// ToDo: Make new one?
 	, m_nAction			( 0 )
 	, m_nTransactionID	( 0 )
 	, m_nConnectionID	( 0 )
@@ -110,7 +110,7 @@ CBTTrackerPacket* CBTTrackerPacket::New(const BYTE* pBuffer, DWORD nLength)
 		return NULL;	// Unknown or too short packet
 
 	DWORD nTransactionID = ntohl( ((DWORD*)pBuffer)[ 1 ] );
-	if ( ! TrackerRequests.Lookup( nTransactionID ) )
+	if ( ! TrackerRequests.Check( nTransactionID ) )
 		return NULL;	// Unknown transaction ID
 
 	CBTTrackerPacket* pPacket = (CBTTrackerPacket*)POOL.New();
@@ -166,30 +166,30 @@ void CBTTrackerPacket::SmartDump(const SOCKADDR_IN* pAddress, BOOL bUDP, BOOL bO
 
 CString CBTTrackerPacket::GetType() const
 {
-	CString sType;
+	CString strType;
 	switch ( m_nAction )
 	{
 	case BTA_TRACKER_CONNECT:
-		sType = _T("Connect");
+		strType = _T("Connect");
 		break;
 
 	case BTA_TRACKER_ANNOUNCE:
-		sType = _T("Announce");
+		strType = _T("Announce");
 		break;
 
 	case BTA_TRACKER_SCRAPE:
-		sType = _T("Scrape");
+		strType = _T("Scrape");
 		break;
 
 	case BTA_TRACKER_ERROR:
-		sType = _T("Error");
+		strType = _T("Error");
 		break;
 
 	default:
-		sType.Format( _T("%d"), m_nAction );
+		strType.Format( _T("%d"), m_nAction );
 	}
 
-	return sType;
+	return strType;
 }
 
 CString CBTTrackerPacket::ToHex() const
@@ -212,12 +212,12 @@ BOOL CBTTrackerPacket::OnPacket(const SOCKADDR_IN* pHost)
 {
 	SmartDump( pHost, TRUE, FALSE );
 
-	CSingleLock oLock( &Transfers.m_pSection, FALSE );
-	if ( ! oLock.Lock( 250 ) )
-		return FALSE;
-
-	if ( CBTTrackerRequest* pRequest = TrackerRequests.Lookup( m_nTransactionID ) )
+	CAutoPtr< CBTTrackerRequest > pRequest( TrackerRequests.Lookup( m_nTransactionID ) );
+	if ( pRequest )
 	{
+		CSingleLock oLock( &Transfers.m_pSection, FALSE );
+		if ( ! oLock.Lock( 250 ) ) return FALSE;
+
 		switch ( m_nAction )
 		{
 		case BTA_TRACKER_CONNECT:
@@ -244,7 +244,8 @@ BOOL CBTTrackerPacket::OnPacket(const SOCKADDR_IN* pHost)
 // CBTTrackerRequest construction
 
 CBTTrackerRequest::CBTTrackerRequest(CDownload* pDownload, DWORD nEvent, DWORD nNumWant, CTrackerEvent* pOnTrackerEvent)
-	: m_bHTTP			( false )
+	: m_dwRef			( 1 )
+	, m_bHTTP			( false )
 	, m_pDownload		( pDownload )
 	, m_sName			( pDownload->GetDisplayName() )
 	, m_pCancel			( FALSE, TRUE )
@@ -352,18 +353,33 @@ CBTTrackerRequest::CBTTrackerRequest(CDownload* pDownload, DWORD nEvent, DWORD n
 	}
 	// else Unsupported protocol
 
-	//theApp.Message( MSG_DEBUG | MSG_FACILITY_OUTGOING,
-	//	_T("[BT] Sending BitTorrent tracker announce: %s"), m_sURL );
+	//theApp.Message( MSG_DEBUG | MSG_FACILITY_OUTGOING, _T("[BT] Sending BitTorrent tracker announce: %s"), m_sURL );
 
 	BeginThread( "BT Tracker Request", ThreadStart, this );
 }
 
 CBTTrackerRequest::~CBTTrackerRequest()
 {
+	ASSERT( m_dwRef == 0 );
+
 	TrackerRequests.Remove( m_nTransactionID );
 
 	if ( m_pDownload )
 		m_pDownload->RemoveRequest( this );
+}
+
+ULONG CBTTrackerRequest::AddRef()
+{
+	return (ULONG)InterlockedIncrement( &m_dwRef );
+}
+
+ULONG CBTTrackerRequest::Release()
+{
+	ULONG ref_count = (ULONG)InterlockedDecrement( &m_dwRef );
+	if ( ref_count )
+		return ref_count;
+	delete this;
+	return 0;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -481,7 +497,7 @@ void CBTTrackerRequest::OnRun()
 	else
 		ProcessUDP();
 
-	delete this;
+	Release();
 }
 
 void CBTTrackerRequest::OnTrackerEvent(bool bSuccess, LPCTSTR pszReason, LPCTSTR pszTip)
@@ -509,7 +525,6 @@ void CBTTrackerRequest::ProcessHTTP()
 
 	m_pRequest->AddHeader( _T("Accept-Encoding"), _T("deflate, gzip") );
 	m_pRequest->EnableCookie( false );
-	m_pRequest->SetUserAgent( Settings.SmartAgent() );
 
 	const bool bSuccess = m_pRequest->Execute( false );
 
@@ -573,8 +588,7 @@ void CBTTrackerRequest::ProcessHTTP()
 		OnTrackerEvent( false, LoadString( IDS_BT_TRACK_PARSE_ERROR ) );
 
 		CString strData( (const char*)pBuffer->m_pBuffer, pBuffer->m_nLength );
-		theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING,
-			_T("[BT] Recieved BitTorrent tracker response: %s"), strData.Trim() );
+		theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, _T("[BT] Recieved BitTorrent tracker response: %s"), strData.Trim() );
 	}
 
 	delete pRoot;
@@ -582,8 +596,7 @@ void CBTTrackerRequest::ProcessHTTP()
 
 void CBTTrackerRequest::Process(const CBENode* pRoot)
 {
-	theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING,
-		_T("[BT] Recieved BitTorrent tracker response: %s"), pRoot->Encode() );
+	theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, _T("[BT] Recieved BitTorrent tracker response: %s"), pRoot->Encode() );
 
 	// Check for failure
 	if ( const CBENode* pError = pRoot->GetNode( BT_DICT_FAILURE ) )	// "failure reason"
@@ -885,6 +898,7 @@ CBTTrackerRequests::CBTTrackerRequests()
 
 CBTTrackerRequests::~CBTTrackerRequests()
 {
+	ASSERT( m_pTrackerRequests.IsEmpty() );
 }
 
 DWORD CBTTrackerRequests::Add(CBTTrackerRequest* pRequest)
@@ -914,6 +928,14 @@ CBTTrackerRequest* CBTTrackerRequests::Lookup(DWORD nTransactionID) const
 	CQuickLock oLock( m_pSection );
 
 	CBTTrackerRequest* pRequest = NULL;
-	m_pTrackerRequests.Lookup( nTransactionID, pRequest );
+	if ( m_pTrackerRequests.Lookup( nTransactionID, pRequest ) )
+		pRequest->AddRef();
 	return pRequest;
+}
+
+BOOL CBTTrackerRequests::Check(DWORD nTransactionID) const
+{
+	CQuickLock oLock( m_pSection );
+
+	return ( m_pTrackerRequests.PLookup( nTransactionID ) != NULL );
 }

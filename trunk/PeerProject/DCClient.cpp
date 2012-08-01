@@ -221,16 +221,13 @@ BOOL CDCClient::ConnectTo(const IN_ADDR* pAddress, WORD nPort)
 
 	if ( CTransfer::ConnectTo( pAddress, nPort ) )
 	{
-		WSAEventSelect( m_hSocket, Network.GetWakeupEvent(),
-			FD_CONNECT | FD_READ | FD_WRITE | FD_CLOSE );
+		WSAEventSelect( m_hSocket, Network.GetWakeupEvent(), FD_CONNECT | FD_READ | FD_WRITE | FD_CLOSE );
 
-		theApp.Message( MSG_INFO, IDS_CONNECTION_ATTEMPTING,
-			(LPCTSTR)sHost, htons( m_pHost.sin_port ) );
+		theApp.Message( MSG_INFO, IDS_CONNECTION_ATTEMPTING, (LPCTSTR)sHost, htons( m_pHost.sin_port ) );
 	}
 	else
 	{
-		theApp.Message( MSG_ERROR, IDS_CONNECTION_CONNECT_FAIL,
-			(LPCTSTR)sHost );
+		theApp.Message( MSG_ERROR, IDS_CONNECTION_CONNECT_FAIL, (LPCTSTR)sHost );
 		return FALSE;
 	}
 
@@ -367,8 +364,7 @@ BOOL CDCClient::OnRead()
 		if ( ! ReadCommand( strLine ) )
 			break;
 
-		theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING,
-			_T("%s >> %s|"), (LPCTSTR)m_sAddress, (LPCTSTR)CA2CT( strLine.c_str() ) );
+		theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, _T("%s >> %s|"), (LPCTSTR)m_sAddress, (LPCTSTR)CA2CT( strLine.c_str() ) );
 
 		std::string strCommand, strParams;
 		std::string::size_type nPos = strLine.find( ' ' );

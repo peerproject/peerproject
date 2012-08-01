@@ -799,27 +799,32 @@ void CUploadsCtrl::PaintQueue(CDC& dc, const CRect& rcRow, CUploadQueue* pQueue,
 {
 	ASSUME_LOCK( UploadQueues.m_pSection );
 
-	BOOL bSelected = pQueue->m_bSelected;
+	const BOOL bSelected = pQueue->m_bSelected;
+	//const BOOL bActive = bSelected && ( GetFocus() == this );
 	BOOL bLeftMargin = TRUE;
 
 	COLORREF crNatural	= Colors.m_crWindow;
 	COLORREF crBack		= bSelected ? Colors.m_crHighlight : crNatural;
 	COLORREF crLeftMargin = crBack;
 
-	// Update Full Row Highlight
-	dc.FillSolidRect( rcRow, crBack );
-
 	// Skinnable Selection Highlight
 	BOOL bSelectmark = FALSE;
 	if ( bSelected && Skin.m_bmSelected.m_hObject )
 	{
-		CRect rcDraw = rcRow;
-		CoolInterface.DrawWatermark( &dc, &rcDraw, &Skin.m_bmSelected );
+		CRect rcDraw = rcRow;	// non-const
+		if ( Skin.m_bmSelectedGrey.m_hObject && GetFocus() != this )
+			CoolInterface.DrawWatermark( &dc, &rcDraw, &Skin.m_bmSelectedGrey );
+		else
+			CoolInterface.DrawWatermark( &dc, &rcDraw, &Skin.m_bmSelected );
 		bSelectmark = TRUE;
 	}
-
-	if ( ! bSelectmark )
+	else
+	{
+		// Update Full Row Highlight
+		dc.FillSolidRect( rcRow, crBack );
 		dc.SetBkColor( crBack );
+	}
+
 	dc.SetBkMode( bSelectmark ? TRANSPARENT : OPAQUE );
 	dc.SetTextColor( bSelected ? Colors.m_crHiText : Colors.m_crText );
 
@@ -979,6 +984,7 @@ void CUploadsCtrl::PaintFile(CDC& dc, const CRect& rcRow, CUploadQueue* /*pQueue
 	//ASSUME_LOCK( Transfers.m_pSection );
 
 	const BOOL bSelected = pFile->m_bSelected;
+	//const BOOL bFocus = bSelected && ( GetFocus() == this );
 	BOOL bLeftMargin = TRUE;
 
 	CUploadTransfer* pTransfer = pFile->GetActive();
@@ -987,20 +993,24 @@ void CUploadsCtrl::PaintFile(CDC& dc, const CRect& rcRow, CUploadQueue* /*pQueue
 	COLORREF crBack			= bSelected ? Colors.m_crHighlight : crNatural;
 	COLORREF crLeftMargin	= crBack;
 
-	// Update Full Row Highlight
-	dc.FillSolidRect( rcRow, crBack );
-
 	// Skinnable Selection Highlight
 	BOOL bSelectmark = FALSE;
 	if ( bSelected && Skin.m_bmSelected.m_hObject )
 	{
 		CRect rcDraw = rcRow;
-		CoolInterface.DrawWatermark( &dc, &rcDraw, &Skin.m_bmSelected );
+		if ( Skin.m_bmSelectedGrey.m_hObject && GetFocus() != this )
+			CoolInterface.DrawWatermark( &dc, &rcDraw, &Skin.m_bmSelectedGrey );
+		else
+			CoolInterface.DrawWatermark( &dc, &rcDraw, &Skin.m_bmSelected );
 		bSelectmark = TRUE;
 	}
-
-	if ( ! bSelectmark )
+	else
+	{
+		// Update Full Row Highlight
+		dc.FillSolidRect( rcRow, crBack );
 		dc.SetBkColor( crBack );
+	}
+
 	dc.SetBkMode( bSelectmark ? TRANSPARENT : OPAQUE );
 
 	if ( pFile->m_bSelected )

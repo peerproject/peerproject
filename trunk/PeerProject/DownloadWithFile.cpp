@@ -186,7 +186,7 @@ BOOL CDownloadWithFile::OpenFile()
 			// ToDo: Refactor m_sTorrentTrackerError
 			pThis->m_sTorrentTrackerError.Empty();
 
-			if ( m_pFile->Open( *this, ! IsCompleted() ) )
+			if ( m_pFile->Open( this, ! IsCompleted() ) )
 				return TRUE;
 		}
 
@@ -195,8 +195,7 @@ BOOL CDownloadWithFile::OpenFile()
 	else if ( m_nSize != SIZE_UNKNOWN &&
 		! Downloads.IsSpaceAvailable( m_nSize, Downloads.dlPathIncomplete ) )
 	{
-		theApp.Message( MSG_ERROR, IDS_DOWNLOAD_DISK_SPACE,
-			m_sName, Settings.SmartVolume( m_nSize ) );
+		theApp.Message( MSG_ERROR, IDS_DOWNLOAD_DISK_SPACE, m_sName, Settings.SmartVolume( m_nSize ) );
 
 		m_nFileError = ERROR_DISK_FULL;
 	}
@@ -256,6 +255,50 @@ void CDownloadWithFile::DeleteFile()
 	}
 
 	SetModified();
+}
+
+//////////////////////////////////////////////////////////////////////
+// CDownloadWithFile rename the file
+
+bool CDownloadWithFile::Rename(const CString& strName)
+{
+	CString strNewName = SafeFilename( strName );
+
+	// Don't bother if renaming to same name.
+	if ( m_sName == strNewName )
+		return false;
+
+	// Rename fragmented files
+	if ( m_pFile.get() )
+	{
+		const DWORD nCount = m_pFile->GetCount();
+		for( DWORD nIndex = 0 ; nIndex < nCount ; ++nIndex )
+		{
+			CString strFragmentName = m_pFile->GetName( nIndex ), strLeftover;
+			if ( ! strFragmentName.IsEmpty() )
+			{
+				int nPos = strFragmentName.Find( _T('\\') );
+				if ( nPos != -1 )
+				{
+					strLeftover = strFragmentName.Mid( nPos );
+					strFragmentName = strFragmentName.Left( nPos );
+				}
+
+				if ( strFragmentName.CompareNoCase( m_sName ) == 0 )
+					strFragmentName = strNewName + strLeftover;
+				else
+					strFragmentName = strNewName + _T("\\") + strFragmentName + strLeftover;
+
+				m_pFile->SetName( nIndex, strFragmentName );
+			}
+		}
+	}
+
+	// Set new name
+	m_sName = strNewName;
+	SetModified();
+
+	return true;
 }
 
 // Move file(s) to destination. Returns 0 on success or file error number.
@@ -354,10 +397,8 @@ DWORD CDownloadWithFile::MoveFile(LPCTSTR pszDestination, LPPROGRESS_ROUTINE lpP
 		if ( dwError != ERROR_SUCCESS )
 		{
 			CString strMessage;
-			strMessage.Format( LoadString( IDS_DOWNLOAD_CANT_MOVE ),
-				GetDisplayName(), pszDestination );
-			theApp.Message( MSG_ERROR | MSG_TRAY, _T("%s %s"),
-				strMessage, GetErrorString( dwError ) );
+			strMessage.Format( LoadString( IDS_DOWNLOAD_CANT_MOVE ), GetDisplayName(), pszDestination );
+			theApp.Message( MSG_ERROR | MSG_TRAY, _T("%s %s"), strMessage, GetErrorString( dwError ) );
 			return dwError;
 		}
 
@@ -406,8 +447,7 @@ DWORD CDownloadWithFile::MoveFile(LPCTSTR pszDestination, LPPROGRESS_ROUTINE lpP
 		}
 	}
 
-	theApp.Message( MSG_NOTICE, IDS_DOWNLOAD_MOVED,
-		(LPCTSTR)GetDisplayName(), (LPCTSTR)pszDestination );
+	theApp.Message( MSG_NOTICE, IDS_DOWNLOAD_MOVED, (LPCTSTR)GetDisplayName(), (LPCTSTR)pszDestination );
 
 	return ERROR_SUCCESS;
 }

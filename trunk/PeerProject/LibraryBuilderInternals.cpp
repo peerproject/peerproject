@@ -780,15 +780,15 @@ bool CLibraryBuilderInternals::CopyID3v2Field(CXMLElement* pXML, LPCTSTR pszAttr
 	if ( ! _tcsnicmp( strResult, L"musicbrainz ", 12 ) )
 	{
 		CString strField = strResult.Mid( 12, nSlash - 12 );
-		if ( ! strField.CompareNoCase( L"Artist Id" ) )
+		if ( strField.CompareNoCase( L"Artist Id" ) == 0 )
 			pXML->AddAttribute( L"mbartistid", strValue );
-		else if ( ! strField.CompareNoCase( L"Album Id" ) )
+		else if ( strField.CompareNoCase( L"Album Id" ) == 0 )
 			pXML->AddAttribute( L"mbalbumid", strValue );
-		else if ( ! strField.CompareNoCase( L"Album Type" ) )
+		else if ( strField.CompareNoCase( L"Album Type" ) == 0 )
 			pXML->AddAttribute( L"type", strValue );
-		else if ( ! strField.CompareNoCase( L"Album Status" ) )
+		else if ( strField.CompareNoCase( L"Album Status" ) == 0 )
 			pXML->AddAttribute( L"albumStatus", strValue );
-		else if ( ! strField.CompareNoCase( L"Album Artist Id" ) )
+		else if ( strField.CompareNoCase( L"Album Artist Id" ) == 0 )
 			pXML->AddAttribute( L"mbalbumartistid", strValue );
 
 		// "Album Artist", "Album Artist Sortname", "Album Release Country", "Non-Album"

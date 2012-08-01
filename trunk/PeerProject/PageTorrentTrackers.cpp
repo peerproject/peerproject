@@ -663,8 +663,7 @@ void CTorrentTrackersPage::OnCustomDrawList(NMHDR* pNMHDR, LRESULT* pResult)
 //				m_pRequest.EnableCookie( false );
 //				m_pRequest.SetUserAgent( Settings.SmartAgent() );
 //
-//				theApp.Message( MSG_DEBUG | MSG_FACILITY_OUTGOING,
-//					_T("[BT] Sending BitTorrent tracker scrape: %s"), strURL );
+//				theApp.Message( MSG_DEBUG | MSG_FACILITY_OUTGOING, _T("[BT] Sending BitTorrent tracker scrape: %s"), strURL );
 //
 //				if ( m_pRequest.Execute( FALSE ) && m_pRequest.InflateResponse() )
 //				{
@@ -673,8 +672,7 @@ void CTorrentTrackersPage::OnCustomDrawList(NMHDR* pNMHDR, LRESULT* pResult)
 //					{
 //						if ( CBENode* pNode = CBENode::Decode( pResponse ) )
 //						{
-//							theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING,
-//								_T("[BT] Recieved BitTorrent tracker response: %s"), pNode->Encode() );
+//							theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, _T("[BT] Recieved BitTorrent tracker response: %s"), pNode->Encode() );
 //
 //							if ( oLock.Lock( 250 ) )
 //							{

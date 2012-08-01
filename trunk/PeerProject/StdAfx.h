@@ -49,35 +49,35 @@
 #if 1
 
 // Warnings that are normally ON by default
-#pragma warning ( disable : 4350 )	// (Level 1)	behavior change: 'member1' called instead of 'member2'
-#pragma warning ( disable : 4351 )	// (Level 1)	new behavior: elements of array 'array' will be default initialized
+//#pragma warning ( disable : 4350 )	// (Level 1)	behavior change: 'member1' called instead of 'member2'
+//#pragma warning ( disable : 4351 )	// (Level 1)	new behavior: elements of array 'array' will be default initialized
 
-#pragma warning ( disable : 4244 )	// (Level 2)	'argument' : conversion from 'type1' to 'type2', possible loss of data
+//#pragma warning ( disable : 4244 )	// (Level 2)	'argument' : conversion from 'type1' to 'type2', possible loss of data
 
-#pragma warning ( disable : 4347 )	// (Level 4)	behavior change: 'function template' is called instead of 'function'
-#pragma warning ( disable : 4512 )	// (Level 4)	'class' : assignment operator could not be generated
+//#pragma warning ( disable : 4347 )	// (Level 4)	behavior change: 'function template' is called instead of 'function'
+//#pragma warning ( disable : 4512 )	// (Level 4)	'class' : assignment operator could not be generated
 
-// Warnings that are normally OFF by default (enabled by using /Wall)
-#pragma warning ( disable : 4264 )	// (Level 1)	'virtual_function' : no override available for virtual member function from base 'class'; function is hidden
-#pragma warning ( disable : 4555 )	// (Level 1)	expression has no effect; expected expression with side-effect
-#pragma warning ( disable : 4711 )	// (Level 1)	function 'function' selected for inline expansion
-#pragma warning ( disable : 4548 )	// (Level 1)	expression before comma has no effect; expected expression with side-effect
+// Warnings that are normally OFF by default (enabled by /Wall)
+//#pragma warning ( disable : 4264 )	// (Level 1)	'virtual_function' : no override available for virtual member function from base 'class'; function is hidden
+//#pragma warning ( disable : 4555 )	// (Level 1)	expression has no effect; expected expression with side-effect
+//#pragma warning ( disable : 4711 )	// (Level 1)	function 'function' selected for inline expansion
+//#pragma warning ( disable : 4548 )	// (Level 1)	expression before comma has no effect; expected expression with side-effect
 
-#pragma warning ( disable : 4191 )	// (Level 3)	'operator/operation' : unsafe conversion from 'type of expression' to 'type required'
-#pragma warning ( disable : 4640 )	// (Level 3)	'instance' : construction of local static object is not thread-safe
-#pragma warning ( disable : 4738 )	// (Level 3)	storing 32-bit float result in memory, possible loss of performance
+//#pragma warning ( disable : 4191 )	// (Level 3)	'operator/operation' : unsafe conversion from 'type of expression' to 'type required'
+//#pragma warning ( disable : 4640 )	// (Level 3)	'instance' : construction of local static object is not thread-safe
+//#pragma warning ( disable : 4738 )	// (Level 3)	storing 32-bit float result in memory, possible loss of performance
 
-#pragma warning ( disable : 4061 )	// (Level 4)	enumerator 'identifier' in switch of enum 'enumeration' is not explicitly handled by a case label
-#pragma warning ( disable : 4062 )	// (Level 4)	enumerator 'identifier' in switch of enum 'enumeration' is not handled
-#pragma warning ( disable : 4263 )	// (Level 4)	'function' : member function does not override any base class virtual member function
-#pragma warning ( disable : 4266 )	// (Level 4)	'function' : no override available for virtual member function from base 'type'; function is hidden
-#pragma warning ( disable : 4365 )	// (Level 4)	'action' : conversion from 'type_1' to 'type_2', signed/unsigned mismatch
-#pragma warning ( disable : 4514 )	// (Level 4)	'function' : unreferenced inline function has been removed
-#pragma warning ( disable : 4571 )	// (Level 4)	Informational: catch(...) semantics changed since Visual C++ 7.1; structured exceptions (SEH) are no longer caught
-#pragma warning ( disable : 4625 )	// (Level 4)	'derived class' : copy constructor could not be generated because a base class copy constructor is inaccessible
-#pragma warning ( disable : 4626 )	// (Level 4)	'derived class' : assignment operator could not be generated because a base class assignment operator is inaccessible
-#pragma warning ( disable : 4710 )	// (Level 4)	'function' : function not inlined
-#pragma warning ( disable : 4820 )	// (Level 4)	'bytes' bytes padding added after construct 'member_name'
+//#pragma warning ( disable : 4061 )	// (Level 4)	enumerator 'identifier' in switch of enum 'enumeration' is not explicitly handled by a case label
+//#pragma warning ( disable : 4062 )	// (Level 4)	enumerator 'identifier' in switch of enum 'enumeration' is not handled
+//#pragma warning ( disable : 4263 )	// (Level 4)	'function' : member function does not override any base class virtual member function
+//#pragma warning ( disable : 4266 )	// (Level 4)	'function' : no override available for virtual member function from base 'type'; function is hidden
+//#pragma warning ( disable : 4365 )	// (Level 4)	'action' : conversion from 'type_1' to 'type_2', signed/unsigned mismatch
+//#pragma warning ( disable : 4514 )	// (Level 4)	'function' : unreferenced inline function has been removed
+//#pragma warning ( disable : 4571 )	// (Level 4)	Informational: catch(...) semantics changed since Visual C++ 7.1; structured exceptions (SEH) are no longer caught
+//#pragma warning ( disable : 4625 )	// (Level 4)	'derived class' : copy constructor could not be generated because a base class copy constructor is inaccessible
+//#pragma warning ( disable : 4626 )	// (Level 4)	'derived class' : assignment operator could not be generated because a base class assignment operator is inaccessible
+//#pragma warning ( disable : 4710 )	// (Level 4)	'function' : function not inlined
+//#pragma warning ( disable : 4820 )	// (Level 4)	'bytes' bytes padding added after construct 'member_name'
 
 #define _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES 1
 #define _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES_COUNT 1
@@ -92,12 +92,19 @@
 
 #endif	// 1
 
-// WINVER Target features available from Windows Vista onwards.
+// WINVER Target features available from Windows Vista/7 onwards.
 // To find features that need guards for Windows 2000/XP temporarily use:
-//	#define NTDDI_VERSION	NTDDI_WIN2K
-//	#define _WIN32_WINNT	0x0500
-#define NTDDI_VERSION	NTDDI_LONGHORN	// Minimum build target Vista
+#if 0
+#define NTDDI_VERSION	NTDDI_WIN2K
+#define _WIN32_WINNT	0x0500
+//#elif defined(_MSC_VER) && (_MSC_VER >= 1600)	// Features require WinSDK 7.0+ (Assume VS2010)
+//#define NTDDI_VERSION	NTDDI_WIN7		// Minimum build target Win7
+//#define _WIN32_WINNT	0x0601			// Win7/2008.2
+#else
+#define NTDDI_VERSION	NTDDI_LONGHORN	// Minimum build target Vista (Support VS2008 rtm)
 #define _WIN32_WINNT	0x0600			// Vista/2008
+#endif
+
 #include <sdkddkver.h>					// Setup versioning for Windows SDK
 
 // Add defines missed/messed up when Microsoft converted to NTDDI macros
@@ -130,9 +137,9 @@
 //#include <afxdtctl.h>		// MFC date & time controls  (In DlgScheduleTask & PageDownloadEdit)
 #include <afxtempl.h>		// MFC templates
 #include <afxmt.h>			// MFC threads
-#include <afxhtml.h>		// MFC HTML	(For CtrlWeb)
-#include <afxpriv.h>		// MFC UI
 #include <afxole.h>			// MFC OLE
+#include <afxpriv.h>		// MFC UI
+#include <afxhtml.h>		// MFC HTML	(For CtrlWeb)
 //#ifndef VCEXPRESS
 #include <afxocc.h> 		// MFC OCC	(For CtrlWeb)
 //#else
@@ -160,8 +167,8 @@
 #include <atltime.h>		// Time classes
 //#include <atlenc.h>		// Base64Encode, UUEncode etc.
 
-// If header is not found, install Windows SDK from microsoft.com
-// ( Vista SDK 6.0 or later -previously XP Platform SDK )
+// If header is not found, install latest Windows SDK from microsoft.com
+// (Vista SDK 6.0 or later -previously XP Platform SDK)
 
 #include <netfw.h>
 #include <upnp.h>
@@ -170,6 +177,12 @@
 #include <MsiQuery.h>
 #include <MsiDefs.h>
 #include <Powrprof.h>		// Power policy applicator
+
+// (Windows SDK 7.0 or later, do not assume VS2008)
+#if defined(_MSC_VER) && (_MSC_VER >= 1600)
+#include <propkey.h>		// PKEY_Title (For CreateShellLink)		#ifdef _INC_PROPKEY
+#include <propvarutil.h>	// InitPropVariantFromString (For CreateShellLink)	Requires XP sp2
+#endif
 
 // Intrinsics  (Workaround for Microsoft double declaration in legacy Visual Studio 2005)
 #if defined(_MSC_VER) && (_MSC_VER < 1500)
@@ -660,7 +673,7 @@ private:
 
 #ifdef _DEBUG
 
-	// Assume we already entered to this lock
+	// Assume we already entered this lock
 	#define ASSUME_LOCK(lock) \
 	if ( (lock).m_nEnterCount < 1 || (lock).m_nThreadId != (LONG)GetCurrentThreadId() ) { \
 		static char BUF[1024] = {}; \
@@ -668,12 +681,20 @@ private:
 		strcat_s(BUF,1024,"\n\nThis code must be protected by " #lock "!"); \
 		if ( ::AfxAssertFailedLine(BUF, __LINE__) ) AfxDebugBreak(); }
 
-	// Assume we already entered to this lock only once
+	// Assume we already entered this lock only once
 	#define ASSUME_SINGLE_LOCK(lock) \
 	if ( (lock).m_nEnterCount != 1 || (lock).m_nThreadId != (LONG)GetCurrentThreadId() ) { \
 		static char BUF[1024] = {}; \
 		strcpy_s(BUF,1024,THIS_FILE); \
 		strcat_s(BUF,1024,"\n\nThis code must be protected by " #lock "!"); \
+		if ( ::AfxAssertFailedLine(BUF, __LINE__) ) AfxDebugBreak(); }
+
+	// Assume we have not entered this lock here
+	#define ASSUME_NO_LOCK(lock) \
+	if ( (lock).m_nEnterCount && (lock).m_nThreadId == (LONG)GetCurrentThreadId() ) { \
+		static char BUF[1024] = {}; \
+		strcpy_s(BUF,1024,THIS_FILE); \
+		strcat_s(BUF,1024,"\n\nThis code must not be protected by " #lock "!"); \
 		if ( ::AfxAssertFailedLine(BUF, __LINE__) ) AfxDebugBreak(); }
 
 	class CMutexEx : public CMutex
@@ -716,6 +737,7 @@ private:
 
 	#define ASSUME_LOCK(lock) ((void)0)
 	#define ASSUME_SINGLE_LOCK(lock) ((void)0)
+	#define ASSUME_NO_LOCK(lock) ((void)0)
 	typedef CMutex CMutexEx;
 
 #endif	// _DEBUG

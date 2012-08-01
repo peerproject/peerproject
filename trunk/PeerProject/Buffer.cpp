@@ -134,8 +134,8 @@ void CBuffer::Remove(const size_t nLength) //throw()
 // Returns the number of bytes moved
 DWORD CBuffer::AddBuffer(CBuffer* pBuffer, const size_t nLength)
 {
-	ASSERT( pBuffer );
-	if ( pBuffer == NULL ) return 0;
+	ASSERT( pBuffer && pBuffer != this );
+	if ( ! pBuffer || pBuffer == this ) return 0;
 
 	// Primitive overflow protection (relevant for 64bit)
 	if ( nLength > INT_MAX ) return 0;
@@ -157,8 +157,8 @@ DWORD CBuffer::AddBuffer(CBuffer* pBuffer, const size_t nLength)
 
 void CBuffer::Attach(CBuffer* pBuffer)
 {
-	ASSERT( pBuffer );
-	if ( ! pBuffer ) return;
+	ASSERT( pBuffer && pBuffer != this );
+	if ( ! pBuffer || pBuffer == this ) return;
 
 	if ( m_pBuffer ) free( m_pBuffer );
 	m_pBuffer = pBuffer->m_pBuffer;
@@ -516,7 +516,10 @@ BOOL CBuffer::Deflate(BOOL bIfSmaller)
 
 	// If compressing the data actually made it bigger, and we were told to watch for this happening
 	if ( bIfSmaller && nCompress >= m_nLength )
+	{
+		free( pCompress );
 		return FALSE;
+	}
 
 	// Old method:
 	// Move the compressed data from the buffer Compress returned to this one
@@ -618,8 +621,8 @@ BOOL CBuffer::Ungzip()
 
 	// After removing all that header information from the front, remove the last 8 bytes from the end
 	if ( m_nLength <= 8 )
-		return FALSE;		// Make sure the buffer has more than 8 bytes
-	m_nLength -= 8;			// Remove the last 8 bytes in the buffer
+		return FALSE;					// Make sure the buffer has more than 8 bytes
+	m_nLength -= 8;						// Remove the last 8 bytes in the buffer
 
 	// Make a new buffer for the output.
 	// Guess that inflating the data won't make it more than 6 times as big
@@ -628,13 +631,13 @@ BOOL CBuffer::Ungzip()
 	for (;;)
 	{
 		if ( ! pOutput.EnsureBuffer( nLength ) )
-			return FALSE;	// Out of memory
+			return FALSE;				// Out of memory
 
 		// Setup a z_stream structure to perform a raw inflate
 		z_stream pStream = { 0 };
-		if ( Z_OK != inflateInit2(	// Initialize a stream inflation with more options than just inflateInit
-			&pStream,			// Stream structure to initialize
-			-MAX_WBITS ) )		// Window bits value of -15 to perform a raw inflate
+		if ( Z_OK != inflateInit2(		// Initialize a stream inflation with more options than just inflateInit
+			&pStream,					// Stream structure to initialize
+			-MAX_WBITS ) )				// Window bits value of -15 to perform a raw inflate
 		{
 			// The Zlib function inflateInit2 returned something other than Z_OK, report error
 			return FALSE;
@@ -654,7 +657,7 @@ BOOL CBuffer::Ungzip()
 		{
 			// Move the decompressed data from the output buffer into this one
 			Clear();					// Record there are no bytes stored here, doesn't change the allocated block size
-			Add(pOutput.m_pBuffer,		// Add the memory at the start of the output buffer
+			Add( pOutput.m_pBuffer,		// Add the memory at the start of the output buffer
 				pOutput.GetBufferSize()	// The amount of space the buffer had when we gave it to Zlib
 				- pStream.avail_out );	// Minus the amount it said it left, this is the number of bytes it wrote
 

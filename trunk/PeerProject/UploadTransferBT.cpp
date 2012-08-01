@@ -103,8 +103,7 @@ void CUploadTransferBT::SetChoke(BOOL bChoke)
 		m_pClient->UnChoke();		// BT_PACKET_UNCHOKE
 	}
 
-	theApp.Message( MSG_DEBUG, _T("%s upload to %s"),
-		bChoke ? _T("Choking") : _T("Unchoking"), (LPCTSTR)m_sAddress );
+	theApp.Message( MSG_DEBUG, _T("%s upload to %s"), bChoke ? _T("Choking") : _T("Unchoking"), (LPCTSTR)m_sAddress );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -237,8 +236,7 @@ BOOL CUploadTransferBT::OnRequest(CBTPacket* pPacket)
 	{
 		m_nState = upsRequest;
 		AllocateBaseFile();
-		theApp.Message( MSG_NOTICE, IDS_UPLOAD_FILE,
-			(LPCTSTR)m_sName, (LPCTSTR)m_sAddress );
+		theApp.Message( MSG_NOTICE, IDS_UPLOAD_FILE, (LPCTSTR)m_sName, (LPCTSTR)m_sAddress );
 	}
 
 	return ServeRequests();
@@ -335,9 +333,7 @@ BOOL CUploadTransferBT::ServeRequests()
 	{
 		if ( ! OpenFile() ) return FALSE;
 
-		theApp.Message( MSG_DEBUG, IDS_UPLOAD_CONTENT,
-			m_nOffset, m_nOffset + m_nLength - 1,
-			(LPCTSTR)m_sName, (LPCTSTR)m_sAddress, _T("BT") );
+		theApp.Message( MSG_DEBUG, IDS_UPLOAD_CONTENT, m_nOffset, m_nOffset + m_nLength - 1, (LPCTSTR)m_sName, (LPCTSTR)m_sAddress, _T("BT") );
 
 		CBuffer pBuffer;
 		pBuffer.EnsureBuffer( m_nLength );

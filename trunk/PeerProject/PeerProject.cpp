@@ -69,6 +69,7 @@
 
 #include "WndMain.h"
 #include "WndMedia.h"
+#include "WndPacket.h"
 #include "WndSystem.h"
 #include "WndLibrary.h"
 
@@ -188,9 +189,10 @@ CPeerProjectApp::CPeerProjectApp()
 	, m_bMenuWasVisible			( FALSE )
 	, m_nLastInput				( 0ul )
 	, m_nWinVer					( 0ul )
-	, m_hHookKbd				( NULL )
-	, m_hHookMouse				( NULL )
 	, m_nMouseWheel 			( 3 )
+	, m_hHookMouse				( NULL )
+	, m_hHookKbd				( NULL )
+	, m_pPacketWnd				( NULL )
 	, m_nFontQuality			( DEFAULT_QUALITY )
 
 	, m_hCryptProv				( NULL )
@@ -222,6 +224,7 @@ CPeerProjectApp::CPeerProjectApp()
 	, m_hGeoIP					( NULL )
 	, m_pGeoIP					( NULL )
 	, m_pfnGeoIP_delete			( NULL )
+	, m_pfnGeoIP_cleanup		( NULL )
 	, m_pfnGeoIP_country_code_by_ipnum ( NULL )
 	, m_pfnGeoIP_country_name_by_ipnum ( NULL )
 {
@@ -314,21 +317,6 @@ BOOL CPeerProjectApp::InitInstance()
 	if ( m_pfnRegisterApplicationRestart )
 		m_pfnRegisterApplicationRestart( _T("-nowarn"), 0 );
 
-	// Test and (re)register plugins
-	CComPtr< IUnknown > pTest( Plugins.GetPlugin( _T("ImageService"), _T(".png") ) );
-	if ( ! pTest || Settings.Live.FirstRun )
-	{
-		pTest.Release();
-		BOOL bReg = Plugins.Register( Settings.General.Path );
-		bReg &= Plugins.Register( Settings.General.Path + _T("\\Plugins" ) );
-		if ( ! bReg )
-		{
-			CString strPath = m_strBinaryPath.Left( m_strBinaryPath.ReverseFind( _T('\\') ) );
-			Plugins.Register( strPath );
-			Plugins.Register( strPath + _T("\\Plugins" ) );
-		}
-	}
-
 	ShowStartupText();
 
 
@@ -363,12 +351,16 @@ BOOL CPeerProjectApp::InitInstance()
 	if ( ! m_cmdInfo.m_bNoAlphaWarning && m_cmdInfo.m_bShowSplash )
 	{
 		if ( MsgBox(
-			L"\nWARNING: This is a BETA TEST version of PeerProject p2p"
- #ifdef __REVISION__
+#ifdef _DEBUG
+			L"\nWARNING: This is a DEBUG TEST version of PeerProject p2p"
+#else
+			L"\nWARNING: This is a PUBLIC TEST version of PeerProject p2p"
+#endif
+#ifdef __REVISION__
 			L", r" _T(__REVISION__)
- #endif
+#endif
 			L".\n\nNOT FOR GENERAL USE, it is intended for pre-release testing in controlled environments.  "
-			L"It may stop running or display Debug info for testing.\n\n"
+			L"It may stop running or display debug info.\n\n"
 			L"If you wish to simply use this software, then download the current\n"
 			L"stable release from PeerProject.org.  If you continue past this point,\n"
 			L"you could possibly experience system instability or lose files.\n"
@@ -382,7 +374,25 @@ BOOL CPeerProjectApp::InitInstance()
 	// END NO PUBLIC RELEASE
 	// *********************
 
+
+	// Go Live
+	
 	m_bInteractive = true;
+
+	// Test and (re)register plugins first
+
+	CComPtr< IUnknown > pTest( Plugins.GetPlugin( _T("ImageService"), _T(".png") ) );
+	if ( ! pTest || Settings.Live.FirstRun )
+	{
+		pTest.Release();
+		if ( ! Plugins.Register( Settings.General.Path ) ||
+			 ! Plugins.Register( Settings.General.Path + _T("\\Plugins" ) ) )
+		{
+			CString strPath = m_strBinaryPath.Left( m_strBinaryPath.ReverseFind( _T('\\') ) );
+			Plugins.Register( strPath );
+			Plugins.Register( strPath + _T("\\Plugins" ) );
+		}
+	}
 
 	// Show Startup Splash Screen
 
@@ -867,7 +877,7 @@ BOOL CPeerProjectApp::Register()
 	CPeerProjectURL::Register( TRUE, TRUE );
 
 	// See http://msdn.microsoft.com/en-us/gg465010 for TaskBar
-//	if ( theApp.m_bWinVer >= WIN_7 )
+//	if ( theApp.m_nWinVer >= WIN_7 )
 //	{
 //#if defined(_MSC_VER) && (_MSC_VER >= 1600)
 //		// For VS2010:
@@ -932,6 +942,26 @@ void CPeerProjectApp::WinHelp(DWORD_PTR /*dwData*/, UINT /*nCmd*/)
 	// Suppress F1
 }
 
+void CPeerProjectApp::AddToRecentFileList(LPCTSTR lpszPathName)
+{
+	SHAddToRecentDocs( SHARD_PATHW, lpszPathName );
+
+// For VS2008, No need VS2010+ (Confirm?)
+// SHARDAPPIDINFO Requires #define NTDDI_VERSION NTDDI_WIN7 in StdAfx.h (May be NTDDI_LONGHORN fallback or NTDDI_WIN2K test)
+// For applicability here, need to detect VS2008 with WinSDK 7.0+ added.
+#if defined(_MSC_VER) && (_MSC_VER < 1600) && (NTDDI_VERSION > NTDDI_LONGHORN)
+	if ( theApp.m_nWinVer >= WIN_7 && m_pfnSHCreateItemFromParsingName )
+	{
+		CComPtr< IShellItem > pItem;
+		if ( SUCCEEDED( m_pfnSHCreateItemFromParsingName( lpszPathName, NULL, IID_IShellItem, (LPVOID*)&pItem ) ) )
+		{
+			SHARDAPPIDINFO info = { pItem, CLIENT_NAME };
+			SHAddToRecentDocs( SHARD_APPIDINFO, &info );
+		}
+	}
+#endif	// WinSDK 7.0+
+}
+
 CDocument* CPeerProjectApp::OpenDocumentFile(LPCTSTR lpszFileName)
 {
 	if ( lpszFileName )
@@ -939,7 +969,7 @@ CDocument* CPeerProjectApp::OpenDocumentFile(LPCTSTR lpszFileName)
 	return NULL;
 }
 
-BOOL CPeerProjectApp::Open(LPCTSTR lpszFileName, BOOL bTest)		// Note: Not BOOL bDoIt
+BOOL CPeerProjectApp::Open(LPCTSTR lpszFileName, BOOL bTest /*FALSE*/)		// Note: Not BOOL bDoIt
 {
 	CString strExt( PathFindExtension( lpszFileName ) );
 	if ( strExt.IsEmpty() )
@@ -1057,7 +1087,8 @@ BOOL CPeerProjectApp::OpenTorrent(LPCTSTR lpszFileName)
 	//if ( ! pTorrent.get() ) return FALSE;
 	//if ( ! pTorrent->LoadTorrentFile( lpszFileName ) ) return FALSE;
 
-	AddToRecentFileList( lpszFileName );
+	if ( PathFileExists( lpszFileName ) )	// Skip temp file?
+		AddToRecentFileList( lpszFileName );
 
 	// Open torrent
 	const size_t nLen = _tcslen( lpszFileName ) + 1;
@@ -1648,9 +1679,7 @@ void CPeerProjectApp::PrintMessage(WORD nType, const CString& strLog)
 
 void CPeerProjectApp::LogMessage(const CString& strLog)
 {
-	CString strPath = Settings.General.UserPath + _T("\\Data\\PeerProject.log");
-	if ( strPath.GetLength() > MAX_PATH + 4 )
-		strPath = _T("\\\\?\\") + strPath;
+	const CString strPath = SafePath( Settings.General.UserPath + _T("\\Data\\PeerProject.log") );
 
 	CQuickLock pLock( m_csMessage );
 
@@ -1686,8 +1715,7 @@ void CPeerProjectApp::LogMessage(const CString& strLog)
 	{
 		CTime pNow = CTime::GetCurrentTime();
 		CString strLine;
-		strLine.Format( _T("[%.2i:%.2i:%.2i] "),
-			pNow.GetHour(), pNow.GetMinute(), pNow.GetSecond() );
+		strLine.Format( _T("[%.2i:%.2i:%.2i] "), pNow.GetHour(), pNow.GetMinute(), pNow.GetSecond() );
 		pFile.Write( (LPCTSTR)strLine, sizeof(TCHAR) * strLine.GetLength() );
 	}
 
@@ -1774,7 +1802,8 @@ void CPeerProjectApp::LoadCountry()
 	if ( ( m_hGeoIP = CustomLoadLibrary( _T("GeoIP.dll") ) ) != NULL )
 	{
 		GeoIP_newFunc pfnGeoIP_new = (GeoIP_newFunc)GetProcAddress( m_hGeoIP, "GeoIP_new" );
-		m_pfnGeoIP_delete = (GeoIP_deleteFunc)GetProcAddress( m_hGeoIP, "GeoIP_delete" );
+		m_pfnGeoIP_delete  = (GeoIP_deleteFunc)GetProcAddress( m_hGeoIP, "GeoIP_delete" );
+		m_pfnGeoIP_cleanup = (GeoIP_cleanupFunc)GetProcAddress( m_hGeoIP, "GeoIP_cleanup" );
 		m_pfnGeoIP_country_code_by_ipnum = (GeoIP_country_code_by_ipnumFunc)GetProcAddress( m_hGeoIP, "GeoIP_country_code_by_ipnum" );
 		m_pfnGeoIP_country_name_by_ipnum = (GeoIP_country_name_by_ipnumFunc)GetProcAddress( m_hGeoIP, "GeoIP_country_name_by_ipnum" );
 		if ( pfnGeoIP_new )
@@ -1784,7 +1813,7 @@ void CPeerProjectApp::LoadCountry()
 
 void CPeerProjectApp::FreeCountry()
 {
-	if ( m_hGeoIP != NULL )
+	if ( m_hGeoIP )
 	{
 		if ( m_pGeoIP && m_pfnGeoIP_delete )
 		{
@@ -1797,6 +1826,18 @@ void CPeerProjectApp::FreeCountry()
 			}
 			m_pGeoIP = NULL;
 		}
+
+		if ( m_pfnGeoIP_cleanup )
+		{
+			__try
+			{
+				m_pfnGeoIP_cleanup();
+			}
+			__except( EXCEPTION_EXECUTE_HANDLER )
+			{
+			}
+		}
+
 		FreeLibrary( m_hGeoIP );
 		m_hGeoIP = NULL;
 	}
@@ -2661,25 +2702,26 @@ CString SafeFilename(CString strName, bool bPath)
 	LPCTSTR szExt = PathFindExtension( strName );
 	int nExtLen = lstrlen( szExt );
 
-	// Limit maximum filepath length
-	int nMaxFilenameLength = MAX_PATH - 1 - max( max(
-		Settings.Downloads.IncompletePath.GetLength(),
-		Settings.Downloads.CompletePath.GetLength() ),
-		Settings.Downloads.TorrentPath.GetLength() );
-	if ( strName.GetLength() > nMaxFilenameLength )
-		strName = strName.Left( nMaxFilenameLength - nExtLen ) + strName.Right( nExtLen );
+	// Limit maximum filepath length (Obsolete)
+	//int nMaxFilenameLength = MAX_PATH - 1 - max( max(
+	//	Settings.Downloads.IncompletePath.GetLength(),
+	//	Settings.Downloads.CompletePath.GetLength() ),
+	//	Settings.Downloads.TorrentPath.GetLength() );
+	//if ( strName.GetLength() > nMaxFilenameLength )
+	//	strName = strName.Left( nMaxFilenameLength - nExtLen ) + strName.Right( nExtLen );
+
+	// Note: Use SafePath() elsewhere to prepend "\\?\" for long paths
 
 	return strName;
 }
 
 BOOL CreateDirectory(LPCTSTR szPath)
 {
-	CString strDir( szPath );
-	BOOL bMax = strDir.GetLength() > MAX_PATH;
+	CString strDir = SafePath( szPath );
 	if ( strDir.GetLength() == 2 )	//&& strDir.GetAt( 1 ) == ':'
 		strDir.AppendChar( '\\' );	// Root Drive
 
-	DWORD dwAttr = GetFileAttributes( bMax ? _T("\\\\?\\") + strDir : strDir );
+	DWORD dwAttr = GetFileAttributes( strDir );
 
 	if ( dwAttr != INVALID_FILE_ATTRIBUTES && ( dwAttr & FILE_ATTRIBUTE_DIRECTORY ) )
 		return TRUE;
@@ -2689,9 +2731,7 @@ BOOL CreateDirectory(LPCTSTR szPath)
 		const int nSlash = strDir.Find( _T('\\'), nStart );
 		if ( nSlash == -1 || nSlash == strDir.GetLength() - 1 )
 			break;
-		CString strSubDir = strDir.Left( nSlash + 1 );
-		if ( strSubDir.GetLength() > MAX_PATH )
-			strSubDir = _T("\\\\?\\") + strSubDir;
+		CString strSubDir = SafePath( strDir.Left( nSlash + 1 ) );
 		dwAttr = GetFileAttributes( strSubDir );
 		if ( ( dwAttr == INVALID_FILE_ATTRIBUTES ) || ! ( dwAttr & FILE_ATTRIBUTE_DIRECTORY ) )
 		{
@@ -2700,12 +2740,12 @@ BOOL CreateDirectory(LPCTSTR szPath)
 		}
 		nStart = nSlash + 1;
 	}
-	return CreateDirectory( bMax ? CString( _T("\\\\?\\") ) + szPath : szPath, NULL );
+	return CreateDirectory( strDir, NULL );
 }
 
 void DeleteFolders(CStringList& pList)
 {
-	// Primarily from WndDownloads torrents
+	// From WndDownloads torrents
 	while ( ! pList.IsEmpty() )
 	{
 		const CString strPath = pList.RemoveHead();
@@ -2761,8 +2801,8 @@ BOOL DeleteFiles(CStringList& pList)
 			}
 
 			// It's a wild file
-			BOOL bToRecycleBin = ( ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) == 0 );
-			DeleteFileEx( strPath, TRUE, bToRecycleBin, TRUE );
+			const BOOL bRecycleBin = ( ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) == 0 );
+			DeleteFileEx( strPath, TRUE, bRecycleBin, TRUE );
 		}
 	}
 
@@ -2774,34 +2814,38 @@ BOOL DeleteFiles(CStringList& pList)
 BOOL DeleteFileEx(LPCTSTR szFileName, BOOL bShared, BOOL bToRecycleBin, BOOL bEnableDelayed)
 {
 	// Should be double zeroed long path
-	DWORD len = GetLongPathName( szFileName, NULL, 0 );
+	ASSERT( szFileName && *szFileName );
+	CString strFileName = SafePath( szFileName );
+	if ( strFileName.GetLength() < 8 ) return FALSE;
+	const int nPrefix = strFileName[2] == _T('?') ? 4 : 0;		// "//?/"
+	DWORD len = GetLongPathName( strFileName, NULL, 0 );
 	BOOL bLong = len ? TRUE : FALSE;
 	if ( ! bLong )
-		len = lstrlen( szFileName );
+		len = lstrlen( strFileName );
 
 	CAutoVectorPtr< TCHAR > szPath( new TCHAR[ len + 1 ] );
 	if ( ! szPath )
 		return FALSE;
 
 	if ( bLong )
-		GetLongPathName( szFileName, szPath, len );
+		GetLongPathName( strFileName, szPath, len );
 	else
-		lstrcpy( szPath, szFileName );
+		lstrcpy( szPath, strFileName );
 	szPath[ len ] = 0;
 
 	if ( bShared )	// Stop uploads
-		theApp.OnRename( szPath, NULL );
+		theApp.OnRename( szPath + nPrefix, NULL );
 
 	DWORD dwAttr = GetFileAttributes( szPath );
 	if ( ( dwAttr != INVALID_FILE_ATTRIBUTES ) &&		// Filename exist
-		( dwAttr & FILE_ATTRIBUTE_DIRECTORY ) == 0 )	// Not a folder
+		 ( dwAttr & FILE_ATTRIBUTE_DIRECTORY ) == 0 )	// Not a folder
 	{
 		if ( bToRecycleBin )
 		{
 			SHFILEOPSTRUCT sfo = {};
 			sfo.hwnd = GetDesktopWindow();
 			sfo.wFunc = FO_DELETE;
-			sfo.pFrom = szPath;
+			sfo.pFrom = szPath + nPrefix;
 			sfo.fFlags = FOF_ALLOWUNDO | FOF_FILESONLY | FOF_NORECURSION | FOF_NO_UI;
 			SHFileOperation( &sfo );
 		}
@@ -2819,14 +2863,14 @@ BOOL DeleteFileEx(LPCTSTR szFileName, BOOL bShared, BOOL bToRecycleBin, BOOL bEn
 				// Set delayed deletion
 				CString sJob;
 				sJob.Format( _T("%d%d"), bShared, bToRecycleBin );
-				theApp.WriteProfileString( _T("Delete"), szPath, sJob );
+				theApp.WriteProfileString( _T("Delete"), szPath + nPrefix, sJob );
 			}
 			return FALSE;
 		}
 	}
 
 	// Cancel delayed deletion (if any)
-	theApp.WriteProfileString( _T("Delete"), szPath, NULL );
+	theApp.WriteProfileString( _T("Delete"), szPath + nPrefix, NULL );
 
 	return TRUE;
 }
@@ -3165,130 +3209,144 @@ BOOL SaveIcon(HICON hIcon, CBuffer& oBuffer, int colors)
 
 bool MarkFileAsDownload(const CString& sFilename)
 {
+	if ( ! Settings.Library.MarkFileAsDownload )
+		return false;
+
 	LPCTSTR pszExt = PathFindExtension( (LPCTSTR)sFilename );
 	if ( ! pszExt ) return false;
 
+	CString strFilename = SafePath( sFilename );
+
+	// ToDo: pFile->m_bVerify and IDS_LIBRARY_VERIFY_FIX warning features
+	// could be merged with this function, because they resemble the security warning.
+	// Shouldn't we unblock files from the application without forcing user to do that manually?
+	if ( CFileExecutor::IsSafeExecute( pszExt ) )
+		return false;
+
+	// Temporary clear R/O attribute
+	BOOL bChanged = FALSE;
+	DWORD dwOrigAttr = GetFileAttributes( strFilename );
+	if ( dwOrigAttr != INVALID_FILE_ATTRIBUTES && ( dwOrigAttr & FILE_ATTRIBUTE_READONLY ) )
+		bChanged = SetFileAttributes( strFilename, dwOrigAttr & ~FILE_ATTRIBUTE_READONLY );
+
+	HANDLE hStream = CreateFile( strFilename + _T(":Zone.Identifier"),
+		GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE, NULL,
+		OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL );
+
+	if ( hStream == INVALID_HANDLE_VALUE )
+	{
+		HANDLE hFile = CreateFile( strFilename,
+			GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE, NULL,
+			OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_BACKUP_SEMANTICS, NULL );
+
+		if ( hFile != INVALID_HANDLE_VALUE )
+		{
+			hStream = CreateFile( strFilename + _T(":Zone.Identifier"),
+				GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE, NULL,
+				CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL );
+			CloseHandle( hFile );
+		}
+	}
+
 	bool bSuccess = false;
 
-	if ( Settings.Library.MarkFileAsDownload )
+	if ( hStream != INVALID_HANDLE_VALUE )
 	{
-		// ToDo: pFile->m_bVerify and IDS_LIBRARY_VERIFY_FIX warning features
-		// could be merged with this function, because they resemble the security warning.
-		// Shouldn't we unblock files from the application without forcing user to do that manually?
-		if ( CFileExecutor::IsSafeExecute( pszExt ) )
-			return false;
-
-		// Temporary clear R/O attribute
-		BOOL bChanged = FALSE;
-		DWORD dwOrigAttr = GetFileAttributes( sFilename );
-		if ( dwOrigAttr != INVALID_FILE_ATTRIBUTES && ( dwOrigAttr & FILE_ATTRIBUTE_READONLY ) )
-			bChanged = SetFileAttributes( sFilename, dwOrigAttr & ~FILE_ATTRIBUTE_READONLY );
-
-		HANDLE hStream = CreateFile( sFilename + _T(":Zone.Identifier"),
-			GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE, NULL,
-			OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL );
-
-		if ( hStream == INVALID_HANDLE_VALUE )
-		{
-			HANDLE hFile = CreateFile( sFilename,
-				GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE, NULL,
-				OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_BACKUP_SEMANTICS, NULL );
-
-			if ( hFile != INVALID_HANDLE_VALUE )
-			{
-				hStream = CreateFile( sFilename + _T(":Zone.Identifier"),
-					GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE, NULL,
-					CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL );
-				CloseHandle( hFile );
-			}
-		}
-
-		if ( hStream != INVALID_HANDLE_VALUE )
-		{
-			DWORD dwWritten = 0;
-			bSuccess = ( WriteFile( hStream, "[ZoneTransfer]\r\nZoneID=3\r\n", 26,
-				&dwWritten, NULL ) && dwWritten == 26 );
-			CloseHandle( hStream );
-		}
-		else
-		{
-			TRACE( "MarkFileAsDownload() : CreateFile \"%s\" error %d\n", (LPCSTR)CT2A( sFilename ), GetLastError() );
-		}
-
-		if ( bChanged )
-			SetFileAttributes( sFilename, dwOrigAttr );
+		DWORD dwWritten = 0;
+		bSuccess = ( WriteFile( hStream, "[ZoneTransfer]\r\nZoneID=3\r\n", 26,
+			&dwWritten, NULL ) && dwWritten == 26 );
+		CloseHandle( hStream );
 	}
+	else
+	{
+		TRACE( "MarkFileAsDownload() : CreateFile \"%s\" error %d\n", (LPCSTR)CT2A( strFilename ), GetLastError() );
+	}
+
+	if ( bChanged )
+		SetFileAttributes( strFilename, dwOrigAttr );
+
 	return bSuccess;
 }
 
 bool LoadGUID(const CString& sFilename, Hashes::Guid& oGUID)
 {
+	if ( ! Settings.Library.UseFolderGUID )
+		return false;
+
 	bool bSuccess = false;
-	if ( Settings.Library.UseFolderGUID )
+
+	HANDLE hFile = CreateFile( SafePath( sFilename + _T(":PeerProject.GUID") ),
+		GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE, NULL,
+		OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL );
+
+	if ( hFile != INVALID_HANDLE_VALUE )
 	{
-		HANDLE hFile = CreateFile( sFilename + _T(":PeerProject.GUID"),
-			GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE, NULL,
-			OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL );
-		if ( hFile != INVALID_HANDLE_VALUE )
+		Hashes::Guid oTmpGUID;
+		DWORD dwReaded = 0;
+		bSuccess = ( ReadFile( hFile, &*oTmpGUID.begin(), oTmpGUID.byteCount,
+			&dwReaded, NULL ) && dwReaded == oTmpGUID.byteCount );
+		if ( bSuccess )
 		{
-			Hashes::Guid oTmpGUID;
-			DWORD dwReaded = 0;
-			bSuccess = ( ReadFile( hFile, &*oTmpGUID.begin(), oTmpGUID.byteCount,
-				&dwReaded, NULL ) && dwReaded == oTmpGUID.byteCount );
-			if ( bSuccess )
-			{
-				oTmpGUID.validate();
-				oGUID = oTmpGUID;
-			}
-			CloseHandle( hFile );
+			oTmpGUID.validate();
+			oGUID = oTmpGUID;
 		}
+		CloseHandle( hFile );
 	}
+
 	return bSuccess;
 }
 
 bool SaveGUID(const CString& sFilename, const Hashes::Guid& oGUID)
 {
-	bool bSuccess = false;
-	if ( Settings.Library.UseFolderGUID )
+	if ( ! Settings.Library.UseFolderGUID )
+		return false;
+
+	CString strFilename = SafePath( sFilename );
+
+	Hashes::Guid oCurrentGUID;
+	if ( LoadGUID( strFilename, oCurrentGUID ) && oCurrentGUID == oGUID )
+		return true;
+
+	// Temporary clear R/O attribute
+	BOOL bChanged = FALSE;
+	DWORD dwOrigAttr = GetFileAttributes( strFilename );
+	if ( dwOrigAttr != 0xffffffff && ( dwOrigAttr & FILE_ATTRIBUTE_READONLY ) )
+		bChanged = SetFileAttributes( strFilename, dwOrigAttr & ~FILE_ATTRIBUTE_READONLY );
+
+	HANDLE hStream = CreateFile( strFilename + _T(":PeerProject.GUID"),
+		GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE, NULL,
+		OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL );
+
+	if ( hStream == INVALID_HANDLE_VALUE )
 	{
-		// Temporary clear R/O attribute
-		BOOL bChanged = FALSE;
-		DWORD dwOrigAttr = GetFileAttributes( sFilename );
-		if ( dwOrigAttr != 0xffffffff && ( dwOrigAttr & FILE_ATTRIBUTE_READONLY ) )
-			bChanged = SetFileAttributes( sFilename, dwOrigAttr & ~FILE_ATTRIBUTE_READONLY );
-
-		HANDLE hStream = CreateFile( sFilename + _T(":PeerProject.GUID"),
+		HANDLE hFile = CreateFile( strFilename,
 			GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE, NULL,
-			OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL );
+			OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_BACKUP_SEMANTICS, NULL );
 
-		if ( hStream == INVALID_HANDLE_VALUE )
+		if ( hFile != INVALID_HANDLE_VALUE )
 		{
-			HANDLE hFile = CreateFile( sFilename,
+			hStream = CreateFile( strFilename + _T(":PeerProject.GUID"),
 				GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE, NULL,
-				OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_BACKUP_SEMANTICS, NULL );
-
-			if ( hFile != INVALID_HANDLE_VALUE )
-			{
-				hStream = CreateFile( sFilename + _T(":PeerProject.GUID"),
-					GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE, NULL,
-					CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL );
-				CloseHandle( hFile );
-			}
+				CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL );
+			CloseHandle( hFile );
 		}
-
-		if ( hStream != INVALID_HANDLE_VALUE )
-		{
-			DWORD dwWritten = 0;
-			bSuccess = ( WriteFile( hStream, &*oGUID.begin(), oGUID.byteCount, &dwWritten, NULL ) &&
-				dwWritten == oGUID.byteCount );
-			CloseHandle( hStream );
-		}
-		//else
-		//	TRACE( "SaveGUID() : CreateFile \"%s\" error %d\n", sFilename, GetLastError() );
-
-		if ( bChanged )
-			SetFileAttributes( sFilename, dwOrigAttr );
 	}
+
+	bool bSuccess = false;
+
+	if ( hStream != INVALID_HANDLE_VALUE )
+	{
+		DWORD dwWritten = 0;
+		bSuccess = ( WriteFile( hStream, &*oGUID.begin(), oGUID.byteCount, &dwWritten, NULL ) &&
+			dwWritten == oGUID.byteCount );
+		CloseHandle( hStream );
+	}
+	//else
+	//	TRACE( "SaveGUID() : CreateFile \"%s\" error %d\n", strFilename, GetLastError() );
+
+	if ( bChanged )
+		SetFileAttributes( strFilename, dwOrigAttr );
+
 	return bSuccess;
 }
 
@@ -3304,11 +3362,11 @@ CString ResolveShortcut(LPCTSTR lpszFileName)
 			SUCCEEDED( pIShellLink->Resolve( AfxGetMainWnd()->GetSafeHwnd(),
 			SLR_NO_UI | SLR_NOUPDATE | SLR_NOSEARCH | SLR_NOTRACK | SLR_NOLINKINFO ) ) )
 		{
-			CString sPath;
-			BOOL bResult = SUCCEEDED( pIShellLink->GetPath( sPath.GetBuffer( MAX_PATH ), MAX_PATH, NULL, 0 ) );
-			sPath.ReleaseBuffer();
+			CString strPath;
+			BOOL bResult = SUCCEEDED( pIShellLink->GetPath( strPath.GetBuffer( MAX_PATH ), MAX_PATH, NULL, 0 ) );
+			strPath.ReleaseBuffer();
 			if ( bResult )
-				return sPath;
+				return strPath;
 		}
 	}
 	return CString();
@@ -3504,6 +3562,34 @@ BOOL IsUserFullscreen()
 	}
 
 	return FALSE;
+}
+
+// Unused, ToDo: r9146
+IShellLink* CreateShellLink(LPCWSTR szTargetExecutablePath, LPCWSTR szCommandLineArgs, LPCWSTR szTitle, LPCWSTR szIconPath, int nIconIndex, LPCWSTR szDescription)
+{
+	CComPtr< IShellLink > pLink;
+	if ( SUCCEEDED( pLink.CoCreateInstance( CLSID_ShellLink ) ) )
+	{
+		pLink->SetPath( szTargetExecutablePath );
+		pLink->SetArguments( szCommandLineArgs );
+		pLink->SetIconLocation( szIconPath, nIconIndex );
+		pLink->SetDescription( szDescription );
+
+#ifdef _INC_PROPKEY		// <propkey.h> <propvarutil.h> Req. WinSDK 7.0+ XPsp2 (for InitPropVariantFromString + PKEY_Title)
+		CComQIPtr< IPropertyStore > pProp( pLink );
+		if ( pProp )
+		{
+			PROPVARIANT var;
+			if ( SUCCEEDED( InitPropVariantFromString( szTitle, &var ) ) )
+			{
+				if ( SUCCEEDED( pProp->SetValue( PKEY_Title, var ) ) )
+					pProp->Commit();
+				PropVariantClear( &var );
+			}
+		}
+#endif
+	}
+	return pLink.Detach();
 }
 
 void ClearSkins()

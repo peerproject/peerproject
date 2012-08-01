@@ -983,7 +983,8 @@ void CDownloadsCtrl::OnPaint()
 
 void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDownload, BOOL bFocus, BOOL bDrop)
 {
-	BOOL bSelected = pDownload->m_bSelected;
+	const BOOL bSelected = pDownload->m_bSelected;
+	//const BOOL bActive = bSelected && ( GetFocus() == this );
 	BOOL bLeftMargin = TRUE;
 
 	COLORREF crNatural		= m_bCreateDragImage ? DRAG_COLOR_KEY : Colors.m_crWindow;
@@ -997,14 +998,20 @@ void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDown
 	if ( bSelected && Skin.m_bmSelected.m_hObject )
 	{
 		CRect rcDraw( rcRow );	// non-const
-		CoolInterface.DrawWatermark( &dc, &rcDraw, &Skin.m_bmSelected );
+		if ( Skin.m_bmSelectedGrey.m_hObject && GetFocus() != this )
+			CoolInterface.DrawWatermark( &dc, &rcDraw, &Skin.m_bmSelectedGrey );
+		else
+			CoolInterface.DrawWatermark( &dc, &rcDraw, &Skin.m_bmSelected );
 		bSelectmark = TRUE;
 	}
 	else
 	{
 		// Update Full Row Highlight
 		dc.FillSolidRect( rcRow, crBack );
+		dc.SetBkColor( crBack );
 	}
+
+	dc.SetBkMode( bSelectmark ? TRANSPARENT : OPAQUE );
 
 	if ( IsExpandable( pDownload ) )
 		dc.SelectObject( &CoolInterface.m_fntBold );
@@ -1015,10 +1022,6 @@ void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDown
 		dc.Draw3dRect( &rcDrop, 0, 0 );
 		dc.ExcludeClipRect( &rcDrop );
 	}
-
-	if ( ! bSelectmark )
-		dc.SetBkColor( crBack );
-	dc.SetBkMode( bSelectmark ? TRANSPARENT : OPAQUE );
 
 	// Modify Text color if needed
 	if ( pDownload->m_bClearing )
@@ -1101,12 +1104,12 @@ void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDown
 			if ( pDownload->IsMultiFileTorrent() )	// Special case
 			{
 				CoolInterface.Draw( &dc, IDI_MULTIFILE, 16,
-					rcCell.left, rcCell.top, crLeftMargin, pDownload->m_bSelected );
+					rcCell.left, rcCell.top, crLeftMargin, bSelected );
 			}
 			else
 			{
 				ShellIcons.Draw( &dc, ShellIcons.Get( pDownload->m_sName, 16 ), 16,
-					rcCell.left, rcCell.top, crLeftMargin, pDownload->m_bSelected );
+					rcCell.left, rcCell.top, crLeftMargin, bSelected );
 			}
 
 			// Add rating overlay
@@ -1116,17 +1119,17 @@ void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDown
 				break;
 			case 1:		// Ratings suggest fake file
 				CoolInterface.Draw( &dc, IDI_RATING_FAKE, 16,
-					rcCell.left, rcCell.top, CLR_NONE, pDownload->m_bSelected );
+					rcCell.left, rcCell.top, CLR_NONE, bSelected );
 				break;
 			case 2:
 			case 3:
 			case 4:		// Ratings suggest average file
 				CoolInterface.Draw( &dc, IDI_RATING_AVERAGE, 16,
-					rcCell.left, rcCell.top, CLR_NONE, pDownload->m_bSelected );
+					rcCell.left, rcCell.top, CLR_NONE, bSelected );
 				break;
 			default:	// Ratings suggest good file
 				CoolInterface.Draw( &dc, IDI_RATING_GOOD, 16,
-					rcCell.left, rcCell.top, CLR_NONE, pDownload->m_bSelected );
+					rcCell.left, rcCell.top, CLR_NONE, bSelected );
 				break;
 			}
 
@@ -1282,7 +1285,8 @@ void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDown
 
 void CDownloadsCtrl::PaintSource(CDC& dc, const CRect& rcRow, CDownload* pDownload, CDownloadSource* pSource, BOOL bFocus)
 {
-	BOOL bSelected = pSource->m_bSelected;
+	const BOOL bSelected = pSource->m_bSelected;
+	//const BOOL bActive = bSelected && ( GetFocus() == this );
 	BOOL bLeftMargin = TRUE;
 
 	COLORREF crNatural		= m_bCreateDragImage ? DRAG_COLOR_KEY : Colors.m_crWindow;
@@ -1290,20 +1294,24 @@ void CDownloadsCtrl::PaintSource(CDC& dc, const CRect& rcRow, CDownload* pDownlo
 	COLORREF crLeftMargin	= crBack;
 	COLORREF crBorder		= bSelected ? Colors.m_crFragmentBorderSelected : Colors.m_crFragmentBorder;
 
-	// Update Full Row Highlight
-	dc.FillSolidRect( rcRow, crBack );
-
 	// Skinnable Selection Highlight
 	BOOL bSelectmark = FALSE;
 	if ( bSelected && Skin.m_bmSelected.m_hObject )
 	{
-		CRect rcDraw = rcRow;
-		CoolInterface.DrawWatermark( &dc, &rcDraw, &Skin.m_bmSelected );
+		CRect rcDraw = rcRow;	// non-const
+		if ( Skin.m_bmSelectedGrey.m_hObject && GetFocus() != this )
+			CoolInterface.DrawWatermark( &dc, &rcDraw, &Skin.m_bmSelectedGrey );
+		else
+			CoolInterface.DrawWatermark( &dc, &rcDraw, &Skin.m_bmSelected );
 		bSelectmark = TRUE;
 	}
-
-	if ( ! bSelectmark )
+	else
+	{
+		// Update Full Row Highlight
+		dc.FillSolidRect( rcRow, crBack );
 		dc.SetBkColor( crBack );
+	}
+
 	dc.SetBkMode( bSelectmark ? TRANSPARENT : OPAQUE );
 	dc.SetTextColor( bSelected ? Colors.m_crHiText : Colors.m_crTransferSource );
 
@@ -1453,7 +1461,7 @@ void CDownloadsCtrl::PaintSource(CDC& dc, const CRect& rcRow, CDownload* pDownlo
 			break;
 
 		case DOWNLOAD_COLUMN_COUNTRY:
-			int nFlagImage = Flags.GetFlagIndex(pSource->m_sCountry);
+			int nFlagImage = Flags.GetFlagIndex( pSource->m_sCountry );
 
 			if ( ! bSelectmark )
 				dc.FillSolidRect( rcCell.left, rcCell.top, 20, rcCell.Height(), crBack );
@@ -1958,7 +1966,10 @@ void CDownloadsCtrl::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 			GetOwner()->PostMessage( WM_COMMAND, ID_DOWNLOADS_VIEW_REVIEWS );
 		return;
 	case VK_DELETE:
-		GetOwner()->PostMessage( WM_COMMAND, ID_DOWNLOADS_CLEAR );
+		if ( bControl || ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) != 0 )
+			GetOwner()->PostMessage( WM_COMMAND, ID_DOWNLOADS_FILE_DELETE );
+		else
+			GetOwner()->PostMessage( WM_COMMAND, ID_DOWNLOADS_CLEAR );
 		return;
 	case VK_RETURN:			// If the enter key is pressed activate the function relevant to the current focus
 		OnEnterKey();		// Run the function that does the actions on the download window when enter key is pressed

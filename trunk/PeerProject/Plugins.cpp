@@ -142,8 +142,8 @@ void CPlugins::Enumerate()
 
 	for ( DWORD nKey = 0 ; ; nKey++ )
 	{
-		TCHAR szName[128], szCLSID[64];
-		DWORD dwType, dwName = 128, dwCLSID = 64 * sizeof(TCHAR);
+		TCHAR szName[ 128 ], szCLSID[ 64 ];
+		DWORD dwType, dwName = _countof( szName ), dwCLSID = sizeof( szCLSID );
 
 		if ( SHRegEnumUSValue( hKey, nKey, szName, &dwName, &dwType,
 			(LPBYTE)szCLSID, &dwCLSID, SHREGENUM_DEFAULT ) != ERROR_SUCCESS ) break;
@@ -153,6 +153,8 @@ void CPlugins::Enumerate()
 
 		CLSID pCLSID;
 		if ( ! Hashes::fromGuid( szCLSID, &pCLSID ) ) continue;
+
+		CQuickLock oLock( m_pSection );
 
 		for ( POSITION pos = GetIterator() ; pos ; )
 		{
@@ -167,8 +169,6 @@ void CPlugins::Enumerate()
 
 		if ( CPlugin* pPlugin = new CPlugin( pCLSID, szName ) )
 		{
-			CQuickLock oLock( m_pSection );
-
 			m_pList.AddTail( pPlugin );
 
 			if ( LookupEnable( pCLSID ) )
@@ -363,10 +363,10 @@ void CPlugins::OnRun()
 	{
 		Doze();
 
-		CQuickLock oLock( m_pSection );
-
 		if ( ! IsThreadEnabled() )
 			break;
+
+		CQuickLock oLock( m_pSection );
 
 		// Revoke interface
 		CPluginPtr* pGITPlugin = NULL;

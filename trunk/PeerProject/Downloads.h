@@ -42,7 +42,6 @@ public:
 public:
 	DWORD			m_tBandwidthAtMax;			// Last time download bandwidth was all in use
 	DWORD			m_tBandwidthAtMaxED2K;		// Last time all ed2k bandwidth was used
-	DWORD			m_tLastConnect;
 	DWORD			m_nTransfers;
 	DWORD			m_nBandwidth;
 	QWORD			m_nComplete;				// Last completed size of incomplete downloads (For Win7 Progress Bar)
@@ -66,7 +65,7 @@ public:
 	CDownload*	Add(BOOL bAddToHead = FALSE);
 	CDownload*	Add(CQueryHit* pHit, BOOL bAddToHead = FALSE);
 	CDownload*	Add(CMatchFile* pFile, BOOL bAddToHead = FALSE);
-	CDownload*	Add(const CPeerProjectURL& oURL);
+	CDownload*	Add(const CPeerProjectURL& oURL, BOOL bAddToHead = FALSE);
 	void		PauseAll();
 	void		ClearCompleted();
 	void		ClearPaused();
@@ -102,7 +101,7 @@ public:
 	BOOL		OnPush(const Hashes::Guid& oGUID, CConnection* pConnection);
 	bool		OnQueryHits(const CQueryHit* pHits);
 	void		OnVerify(LPCTSTR pszPath, BOOL bVerified);
-	void		OnRename(LPCTSTR pszSource, LPCTSTR pszTarget);	// pszTarget: 0 = delete file, 1 = release file.
+	void		OnRename(LPCTSTR pszSource, LPCTSTR pszTarget);		// pszTarget: 0 = delete file, 1 = release file.
 	void		SetPerHostLimit(IN_ADDR* pAddress, DWORD nLimit);
 	BOOL		IsSpaceAvailable(QWORD nVolume, int nPath = dlPathNull);
 

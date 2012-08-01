@@ -47,7 +47,7 @@ static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
 #endif	// Filename
 
-#define Z_TIMER 200	//  1/5th of a second
+#define Z_TIMER 200		// 1/5th of a second
 
 //////////////////////////////////////////////////////////////////////
 // CNeighbour construction
@@ -321,9 +321,8 @@ BOOL CNeighbour::OnRun()
 			if ( m_pQueryTableLocal->PatchTo( &QueryHashMaster, this ) )
 			{
 				// Error
-				theApp.Message( MSG_NOTICE, IDS_PROTOCOL_QRP_SENT, (LPCTSTR)m_sAddress,
-					m_pQueryTableLocal->m_nBits, m_pQueryTableLocal->m_nHash,
-					m_pQueryTableLocal->m_nInfinity, m_pQueryTableLocal->GetPercent() );
+				theApp.Message( MSG_NOTICE, IDS_PROTOCOL_QRP_SENT,
+					(LPCTSTR)m_sAddress, m_pQueryTableLocal->m_nBits, m_pQueryTableLocal->m_nHash, m_pQueryTableLocal->m_nInfinity, m_pQueryTableLocal->GetPercent() );
 			}
 		}
 	}
@@ -344,8 +343,7 @@ void CNeighbour::OnDropped()
 
 	// Report these times in a message about the connection being dropped
 	theApp.Message( MSG_DEBUG, _T("Dropped neighbour %s (%s), conn: %.2i:%.2i, packet: %.2i:%.2i"),
-		(LPCTSTR)m_sAddress, (LPCTSTR)m_sUserAgent,
-		nTime1 / 60, nTime1 % 60, nTime2 / 60, nTime2 % 60 );
+		(LPCTSTR)m_sAddress, (LPCTSTR)m_sUserAgent, nTime1 / 60, nTime1 % 60, nTime2 / 60, nTime2 % 60 );
 
 	// Close the connection, citing the reason as dropped
 	Close( IDS_CONNECTION_DROPPED );
@@ -545,9 +543,8 @@ BOOL CNeighbour::OnCommonQueryHash(CPacket* pPacket)
 
 	if ( m_pQueryTableRemote->m_bLive && ! bLive )
 	{
-		theApp.Message( MSG_INFO, IDS_PROTOCOL_QRP_UPDATED, (LPCTSTR)m_sAddress,
-			m_pQueryTableRemote->m_nBits, m_pQueryTableRemote->m_nHash,
-			m_pQueryTableRemote->m_nInfinity, m_pQueryTableRemote->GetPercent() );
+		theApp.Message( MSG_INFO, IDS_PROTOCOL_QRP_UPDATED,
+			(LPCTSTR)m_sAddress, m_pQueryTableRemote->m_nBits, m_pQueryTableRemote->m_nHash, m_pQueryTableRemote->m_nInfinity, m_pQueryTableRemote->GetPercent() );
 	}
 
 	if ( m_nNodeType == ntLeaf && m_pQueryTableRemote->m_pGroup == NULL )

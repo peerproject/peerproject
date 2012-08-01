@@ -156,8 +156,7 @@ bool CEDClients::PushTo(DWORD nClientID, WORD nClientPort)
 	pClient->m_bCallbackRequested = true;
 
 	// Log request
-	theApp.Message( MSG_DEBUG, _T("[ED2K] Push request received for %s"),
-		CString( inet_ntoa( pClient->m_pHost.sin_addr ) ) );
+	theApp.Message( MSG_DEBUG, _T("[ED2K] Push request received for %s"), CString( inet_ntoa( pClient->m_pHost.sin_addr ) ) );
 
 	// Set up succeeded
 	return true;
@@ -433,8 +432,7 @@ BOOL CEDClients::OnPacket(const SOCKADDR_IN* pHost, CEDPacket* pPacket)
 	CSingleLock pLock( &Transfers.m_pSection );
 	if ( ! pLock.Lock( 250 ) )
 	{
-		theApp.Message( MSG_DEBUG, _T("Rejecting ed2k UDP from %s, network core overloaded."),
-			(LPCTSTR)CString( inet_ntoa( (IN_ADDR&)pHost->sin_addr ) ) );
+		theApp.Message( MSG_DEBUG, _T("Rejecting ed2k UDP from %s, network core overloaded."), (LPCTSTR)CString( inet_ntoa( (IN_ADDR&)pHost->sin_addr ) ) );
 		return FALSE;
 	}
 
@@ -547,11 +545,8 @@ void CEDClients::OnServerStatus(const SOCKADDR_IN* /*pHost*/, CEDPacket* pPacket
 		theApp.Message( MSG_INFO, _T("Server status received, but server not found in host cache") );
 		return;
 	}
-	if ( ! pServer->m_sName.IsEmpty() )
-		theApp.Message( MSG_INFO, _T("Server status received from %s"), pServer->m_sName );
-	else
-		theApp.Message( MSG_INFO, _T("Server status received from %s"),
-			(LPCTSTR)CString( inet_ntoa( m_pLastServer ) ) );
+	theApp.Message( MSG_INFO, _T("Server status received from %s"),
+		( ! pServer->m_sName.IsEmpty() ) ? pServer->m_sName : (LPCTSTR)CString( inet_ntoa( m_pLastServer ) ) );
 
 	// Read in the status packet
 	nLen = pPacket->GetRemaining();
@@ -603,19 +598,22 @@ void CEDClients::OnServerStatus(const SOCKADDR_IN* /*pHost*/, CEDPacket* pPacket
 	if ( nUDPFlags & ED2K_SERVER_UDP_GETSOURCES2 )
 		pServer->m_nTCPFlags |= ED2K_SERVER_TCP_GETSOURCES2;
 
-	CString strServerFlags;
-	strServerFlags.Format(
-		_T( "Server Flags 0x%08x -> GetSources1: %s, GetFiles: %s, Short Tags: %s, Unicode: %s, GetSources2: %s, 64 bit size: %s, UDP obfscation: %s, TCP obfscation: %s" ),
-		nUDPFlags,
-		( ( nUDPFlags & ED2K_SERVER_UDP_GETSOURCES ) ? _T("Yes") : _T("No") ),
-		( ( nUDPFlags & ED2K_SERVER_UDP_GETFILES ) ? _T("Yes") : _T("No") ),
-		( ( nUDPFlags & ED2K_SERVER_UDP_NEWTAGS ) ? _T("Yes") : _T("No") ),
-		( ( nUDPFlags & ED2K_SERVER_UDP_UNICODE ) ? _T("Yes") : _T("No") ),
-		( ( nUDPFlags & ED2K_SERVER_UDP_GETSOURCES2 ) ? _T("Yes") : _T("No") ),
-		( ( nUDPFlags & ED2K_SERVER_UDP_64BITSIZE ) ? _T("Yes") : _T("No") ),
-		( ( nUDPFlags & ED2K_SERVER_UDP_UDPOBFUSCATION ) ? _T("Yes") : _T("No") ),
-		( ( nUDPFlags & ED2K_SERVER_UDP_TCPOBFUSCATION ) ? _T("Yes") : _T("No") ) );
-	theApp.Message( MSG_DEBUG, strServerFlags );
+	if ( Settings.General.LogLevel >= MSG_DEBUG )
+	{
+		CString strServerFlags;
+		strServerFlags.Format(
+			_T( "Server Flags 0x%08x -> GetSources1: %s, GetFiles: %s, Short Tags: %s, Unicode: %s, GetSources2: %s, 64 bit size: %s, UDP obfscation: %s, TCP obfscation: %s" ),
+			nUDPFlags,
+			( ( nUDPFlags & ED2K_SERVER_UDP_GETSOURCES ) ? _T("Yes") : _T("No") ),
+			( ( nUDPFlags & ED2K_SERVER_UDP_GETFILES ) ? _T("Yes") : _T("No") ),
+			( ( nUDPFlags & ED2K_SERVER_UDP_NEWTAGS ) ? _T("Yes") : _T("No") ),
+			( ( nUDPFlags & ED2K_SERVER_UDP_UNICODE ) ? _T("Yes") : _T("No") ),
+			( ( nUDPFlags & ED2K_SERVER_UDP_GETSOURCES2 ) ? _T("Yes") : _T("No") ),
+			( ( nUDPFlags & ED2K_SERVER_UDP_64BITSIZE ) ? _T("Yes") : _T("No") ),
+			( ( nUDPFlags & ED2K_SERVER_UDP_UDPOBFUSCATION ) ? _T("Yes") : _T("No") ),
+			( ( nUDPFlags & ED2K_SERVER_UDP_TCPOBFUSCATION ) ? _T("Yes") : _T("No") ) );
+		theApp.Message( MSG_DEBUG, strServerFlags );
+	}
 }
 
 // Send a server status request

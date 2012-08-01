@@ -181,11 +181,13 @@ BOOL CFragmentedFile::Open(LPCTSTR pszFile, QWORD nOffset, QWORD nLength, BOOL b
 	}
 
 	CTransferFile* pFile = NULL;
+	CString& strPath = (*pItr).m_sPath;
 	QWORD nRealLength = SIZE_UNKNOWN;
-	// Allow fallback loading methods, currently none available  (Previously checked non-default path)
-	//for ( int nMethod = 0 ; nMethod < 2 ; ++nMethod )
-	//{
-		pFile = TransferFiles.Open( (*pItr).m_sPath, bWrite );
+
+	// Allow fallback loading methods, currently 2 available  (Previously checked non-default path)
+	for ( int nMethod = 0 ; ; ++nMethod )
+	{
+		pFile = TransferFiles.Open( strPath, bWrite );
 		if ( pFile )
 		{
 			m_nFileError = ERROR_SUCCESS;
@@ -201,26 +203,43 @@ BOOL CFragmentedFile::Open(LPCTSTR pszFile, QWORD nOffset, QWORD nLength, BOOL b
 				pFile = NULL;
 				m_nFileError = ERROR_FILE_INVALID;
 			}
-			//break;
-		}
-		else
-		{
-			m_nFileError = ::GetLastError();
-	//		if ( ! bWrite )
-	//			break;	// Do nothing for read only files
+			break;
 		}
 
-	//	CString strPath( pszFile );
-	//	switch( nMethod )
-	//	{
-	//	case 0:
-	//		// Redundant: Try to open file for write from current incomplete folder (in case of changed folder)
-	//		(*pItr).m_sPath = Settings.Downloads.IncompletePath + strPath.Mid( strPath.ReverseFind( _T('\\') ) );
-	//		break;
-	//
-	//	// ToDo: Other methods
-	//	}
-	//}
+		m_nFileError = ::GetLastError();
+		if ( ! bWrite )
+			break;	// Do nothing for read only files
+
+		if ( nMethod == 0 )
+		{
+			// Try to open file from current incomplete folder (in case of changed folder)
+			CString strIncompletePath = Settings.Downloads.IncompletePath + _T("\\") + PathFindFileName( strPath );
+			if ( strIncompletePath.CompareNoCase( strPath ) != 0 )
+			{
+				strPath = strIncompletePath;
+				continue;
+			}
+			++nMethod;
+		}
+
+		if ( nMethod == 1 )
+		{
+			// Try to open file from .PD-file path
+			if ( m_pDownload )
+			{
+				CString strPdPath = m_pDownload->m_sPath.Left( m_pDownload->m_sPath.ReverseFind( _T('\\') ) + 1 ) + PathFindFileName( strPath );
+				if ( strPdPath.CompareNoCase( strPath ) != 0 )
+				{
+					strPath = strPdPath;
+					continue;
+				}
+			}
+			++nMethod;
+		}
+
+		// ToDo: Other methods
+		break;
+	}
 
 	(*pItr).m_nSize = nLength;
 	(*pItr).m_pFile = pFile;
@@ -232,19 +251,19 @@ BOOL CFragmentedFile::Open(LPCTSTR pszFile, QWORD nOffset, QWORD nLength, BOOL b
 	m_oFList.ensure( ( nLastBlockLength == SIZE_UNKNOWN ) ? SIZE_UNKNOWN :
 		( m_oFile.back().m_nOffset + nLastBlockLength ) );
 
-	// Add empty fragment for new file
+	// Add empty fragment for new file, or remove empty fragment for complete file
 	if ( ! pFile || ! pFile->IsExists() || ( m_oFList.empty() && nRealLength != nLength ) )
-		InvalidateRange( nOffset, nLength );
+		m_oFList.insert( Fragments::Fragment( nOffset, nOffset + nLength ) );		// InvalidateRange( nOffset, nLength )
+	else if ( pFile && pFile->IsExists() && ! bWrite && ! m_oFList.empty() )
+		m_oFList.erase( Fragments::Fragment( nOffset, nOffset + nRealLength ) );
 
 	ASSERT_VALID( this );
 
 	return pFile && ( m_nFileError == ERROR_SUCCESS );
 }
 
-BOOL CFragmentedFile::Open(CPeerProjectFile& oSHFile, BOOL bWrite)
+BOOL CFragmentedFile::Open(const CPeerProjectFile* pPPFile, BOOL bWrite)
 {
-	CString strUniqueName = oSHFile.GetFilename();
-
 	CString strSource;
 	if ( ! m_oFile.empty() )
 	{
@@ -255,46 +274,43 @@ BOOL CFragmentedFile::Open(CPeerProjectFile& oSHFile, BOOL bWrite)
 	{
 		// Generate new filename (inside incomplete folder)
 		strSource.Format( _T("%s\\%s.partial"),
-			(LPCTSTR)Settings.Downloads.IncompletePath, (LPCTSTR)strUniqueName );
+			(LPCTSTR)Settings.Downloads.IncompletePath, (LPCTSTR)pPPFile->GetFilename() );
 	}
-	else if ( GetFileAttributes( oSHFile.m_sPath ) != INVALID_FILE_ATTRIBUTES )
+	else if ( GetFileAttributes( SafePath( pPPFile->m_sPath ) ) != INVALID_FILE_ATTRIBUTES )
 	{
 		// Use specified file path
-		strSource = oSHFile.m_sPath;
+		strSource = pPPFile->m_sPath;
 	}
 	else
 	{
 		// Open existing file from library
 		CSingleLock oLock( &Library.m_pSection, TRUE );
-		if ( CLibraryFile* pFile = LibraryMaps.LookupFileByHash( &oSHFile, TRUE, TRUE ) )
+		if ( CLibraryFile* pFile = LibraryMaps.LookupFileByHash( pPPFile, TRUE, TRUE ) )
 			strSource = pFile->GetPath();
 	}
 
 	//ASSERT( lstrcmpi( PathFindExtension( strSource ), _T(".pd") ) != 0 );
 
-	if ( oSHFile.m_sPath.IsEmpty() )
-		oSHFile.m_sPath = strSource;	// For seeded file uploading via Gnutella
+	//if ( pPPFile->m_sPath.IsEmpty() )
+	//	pPPFile->m_sPath = strSource;	// For seeded file uploading via Gnutella
 
-	if ( ! Open( strSource, 0, oSHFile.m_nSize, bWrite, oSHFile.m_sName ) )
+	if ( ! Open( strSource, 0, pPPFile->m_nSize, bWrite, pPPFile->m_sName ) )
 	{
 		CString strMessage;
-		strMessage.Format( LoadString( bWrite ?
-			IDS_DOWNLOAD_FILE_CREATE_ERROR : IDS_DOWNLOAD_FILE_OPEN_ERROR ), (LPCTSTR)strSource );
-		theApp.Message( MSG_ERROR, _T("%s %s"),
-			strMessage, (LPCTSTR)GetErrorString( m_nFileError ) );
+		strMessage.Format( LoadString( bWrite ? IDS_DOWNLOAD_FILE_CREATE_ERROR : IDS_DOWNLOAD_FILE_OPEN_ERROR ), (LPCTSTR)strSource );
+		theApp.Message( MSG_ERROR, _T("%s %s"), strMessage, (LPCTSTR)GetErrorString( m_nFileError ) );
 
 		Close();
 		return FALSE;
 	}
 
-	TRACE( _T("Fragmented File : Opened from disk \"%s\"\n"), strUniqueName );
+	//TRACE( _T("Fragmented File : Opened from disk \"%s\"\n"), (LPCTSTR)pPPFile->GetFilename() );
 
 	return TRUE;
 }
 
-BOOL CFragmentedFile::Open(const CBTInfo& oInfo, const BOOL bWrite,	CString& strErrorMessage)
+BOOL CFragmentedFile::Open(const CBTInfo& oInfo, const BOOL bWrite, CString& strErrorMessage)
 {
-	CString strUniqueName = oInfo.GetFilename();
 	const size_t nCount = m_oFile.size();
 	QWORD nOffset = 0;
 	size_t i = 0;
@@ -320,7 +336,7 @@ BOOL CFragmentedFile::Open(const CBTInfo& oInfo, const BOOL bWrite,	CString& str
 		{
 			// Generate new temp filename (inside incomplete folder)
 			strSource.Format( _T("%s\\%s_%u.partial"),
-				(LPCTSTR)Settings.Downloads.IncompletePath, (LPCTSTR)strUniqueName, (DWORD)i );
+				(LPCTSTR)Settings.Downloads.IncompletePath, (LPCTSTR)oInfo.GetFilename(), (DWORD)i );
 		}
 		else
 		{
@@ -585,7 +601,7 @@ void CFragmentedFile::Delete()
 
 DWORD CFragmentedFile::Move(DWORD nIndex, LPCTSTR pszDestination, LPPROGRESS_ROUTINE lpProgressRoutine, LPVOID lpData)
 {
-	CString sPath, sName;
+	CString strPath, strName;
 	bool bSkip;
 
 	// Get subfile attributes
@@ -595,8 +611,8 @@ DWORD CFragmentedFile::Move(DWORD nIndex, LPCTSTR pszDestination, LPPROGRESS_ROU
 		if ( nIndex >= m_oFile.size() )
 			return ERROR_FILE_NOT_FOUND;
 
-		sPath = m_oFile[ nIndex ].m_sPath;
-		sName = m_oFile[ nIndex ].m_sName;
+		strPath = m_oFile[ nIndex ].m_sPath;
+		strName = m_oFile[ nIndex ].m_sName;
 		bSkip = m_oFile[ nIndex ].m_nPriority == prUnwanted;
 
 		// Close our handle
@@ -606,24 +622,23 @@ DWORD CFragmentedFile::Move(DWORD nIndex, LPCTSTR pszDestination, LPPROGRESS_ROU
 		m_oFile[ nIndex ].m_bWrite = FALSE;
 	}
 
-	ASSERT( ! sName.IsEmpty() );
+	ASSERT( ! strName.IsEmpty() );
 
-	CString strTarget( CString( pszDestination ) + _T("\\") + sName );
+	CString strTarget( CString( pszDestination ) + _T("\\") + strName );
 
-	if ( ! strTarget.CompareNoCase( sPath ) )
+	if ( strTarget.CompareNoCase( strPath ) == 0 )
 		return ERROR_SUCCESS;		// Already moved
 
 	if ( bSkip )
-		theApp.Message( MSG_DEBUG, _T("Skipping \"%s\"..."), sPath );
+		theApp.Message( MSG_DEBUG, _T("Skipping \"%s\"..."), strPath );
 	else
-		theApp.Message( MSG_DEBUG, _T("Moving \"%s\" to \"%s\"..."),
-			(LPCTSTR)sPath, (LPCTSTR)strTarget.Left( strTarget.ReverseFind( _T('\\') ) + 1 ) );
+		theApp.Message( MSG_DEBUG, _T("Moving \"%s\" to \"%s\"..."), (LPCTSTR)strPath, (LPCTSTR)strTarget.Left( strTarget.ReverseFind( _T('\\') ) + 1 ) );
 
-	if ( sPath.GetLength() > MAX_PATH ) sPath = _T("\\\\?\\") + sPath;
-	if ( strTarget.GetLength() > MAX_PATH ) strTarget = _T("\\\\?\\") + strTarget;
+	GetSafePath( strPath );			// "\\\\?\\"
+	GetSafePath( strTarget );
 
 	// Close chained uploads
-	theApp.OnRename( sPath );
+	theApp.OnRename( strPath );
 
 	// Create directory for file recursively
 	BOOL bSuccess = CreateDirectory( strTarget.Left( strTarget.ReverseFind( _T('\\') ) ) );
@@ -631,17 +646,16 @@ DWORD CFragmentedFile::Move(DWORD nIndex, LPCTSTR pszDestination, LPPROGRESS_ROU
 	if ( bSuccess )
 	{
 		if ( bSkip )
-			bSuccess = DeleteFileEx( sPath, FALSE, TRUE, TRUE );	// Breaks possible seeds?
+			bSuccess = DeleteFileEx( strPath, FALSE, TRUE, TRUE );	// Breaks possible seeds?
 		else
-			bSuccess = MoveFileWithProgress( sPath, strTarget, lpProgressRoutine, lpData,
+			bSuccess = MoveFileWithProgress( strPath, strTarget, lpProgressRoutine, lpData,
 				MOVEFILE_REPLACE_EXISTING | MOVEFILE_COPY_ALLOWED | MOVEFILE_WRITE_THROUGH );
 
 		dwError = ::GetLastError();
 	}
 
 	if ( ! bSuccess )
-		theApp.Message( MSG_DEBUG, _T("Moving \"%s\" failed with error: %s"),
-			(LPCTSTR)sPath, (LPCTSTR)GetErrorString( dwError ) );
+		theApp.Message( MSG_DEBUG, _T("Moving \"%s\" failed with error: %s"), (LPCTSTR)strPath, (LPCTSTR)GetErrorString( dwError ) );
 
 	// Set subfile new attributes
 	if ( bSuccess )
@@ -649,7 +663,7 @@ DWORD CFragmentedFile::Move(DWORD nIndex, LPCTSTR pszDestination, LPPROGRESS_ROU
 
 	// ReEnable uploads
 	if ( ! bSkip )
-		theApp.OnRename( sPath, bSuccess ? strTarget : sPath );
+		theApp.OnRename( strPath, bSuccess ? strTarget : strPath );
 
 	Library.Update( true );
 

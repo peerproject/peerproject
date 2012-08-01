@@ -1,7 +1,7 @@
 //
 // WndPanel.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -47,7 +47,6 @@ BEGIN_MESSAGE_MAP(CPanelWnd, CChildWnd)
 END_MESSAGE_MAP()
 
 #define CAPTION_HEIGHT	20
-#define CLOSEBOX		10
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -97,12 +96,13 @@ void CPanelWnd::OnNcCalcSize(BOOL bCalcValidRects, NCCALCSIZE_PARAMS FAR* lpncsp
 {
 	if ( m_bPanelMode && m_pSkin == NULL )
 	{
-		NCCALCSIZE_PARAMS* pSize = (NCCALCSIZE_PARAMS*)lpncsp;
-
-		BITMAP info = { 0, 0, CAPTION_HEIGHT };
-		if ( Skin.m_bmPanelMark.m_hObject) Skin.m_bmPanelMark.GetBitmap( &info );
-
-		pSize->rgrc[0].top += info.bmHeight;
+		if ( Skin.m_bmPanelMark.m_hObject)
+		{
+			NCCALCSIZE_PARAMS* pSize = (NCCALCSIZE_PARAMS*)lpncsp;
+			BITMAP info = { 0, 0, CAPTION_HEIGHT };
+			Skin.m_bmPanelMark.GetBitmap( &info );
+			pSize->rgrc[0].top += info.bmHeight;
+		}
 		return;
 	}
 
@@ -164,7 +164,7 @@ LRESULT CPanelWnd::OnSetText(WPARAM /*wParam*/, LPARAM /*lParam*/)
 
 		return lResult;
 	}
-	else if ( m_bPanelMode )
+	if ( m_bPanelMode )
 	{
 		BOOL bVisible = IsWindowVisible();
 		if ( bVisible ) ModifyStyle( WS_VISIBLE, 0 );
@@ -198,31 +198,27 @@ void CPanelWnd::PaintCaption(CDC& dc)
 	if ( ! CoolInterface.DrawWatermark( pBuffer, &rc, &Skin.m_bmPanelMark ) )
 		pBuffer->FillSolidRect( &rc, Colors.m_crPanelBack );
 
-	int nIconY = rc.Height() / 2 - 8;
+	const int nIconY = rc.Height() / 2 - 8;
 	DrawIconEx( pBuffer->GetSafeHdc(), 4, nIconY,
 		GetIcon( FALSE ), 16, 16, 0, NULL, DI_NORMAL );
 
 	CFont* pOldFont	= (CFont*)pBuffer->SelectObject( &CoolInterface.m_fntCaption );
 	CSize szCaption	= pBuffer->GetTextExtent( strCaption );
+	const int nTextY = rc.Height() / 2 - szCaption.cy / 2 - 1;
 
 	pBuffer->SetBkMode( TRANSPARENT );
 
 	if ( Colors.m_crPanelBorder != CLR_NONE )
 	{
 		pBuffer->SetTextColor( Colors.m_crPanelBorder );
-		pBuffer->ExtTextOut( 8 + 16 - 1, rc.Height() / 2 - szCaption.cy / 2 - 1,
-			ETO_CLIPPED, &rc, strCaption, NULL );
-		pBuffer->ExtTextOut( 8 + 16 + 1, rc.Height() / 2 - szCaption.cy / 2 - 1,
-			ETO_CLIPPED, &rc, strCaption, NULL );
-		pBuffer->ExtTextOut( 8 + 16, rc.Height() / 2 - szCaption.cy / 2 - 1 - 1,
-			ETO_CLIPPED, &rc, strCaption, NULL );
-		pBuffer->ExtTextOut( 8 + 16, rc.Height() / 2 - szCaption.cy / 2 - 1 + 1,
-			ETO_CLIPPED, &rc, strCaption, NULL );
+		pBuffer->ExtTextOut( 8 + 16 - 1, nTextY, ETO_CLIPPED, &rc, strCaption, NULL );
+		pBuffer->ExtTextOut( 8 + 16 + 1, nTextY, ETO_CLIPPED, &rc, strCaption, NULL );
+		pBuffer->ExtTextOut( 8 + 16, nTextY - 1, ETO_CLIPPED, &rc, strCaption, NULL );
+		pBuffer->ExtTextOut( 8 + 16, nTextY + 1, ETO_CLIPPED, &rc, strCaption, NULL );
 	}
 
 	pBuffer->SetTextColor( Colors.m_crPanelText );
-	pBuffer->ExtTextOut( 8 + 16, rc.Height() / 2 - szCaption.cy / 2 - 1,
-		ETO_CLIPPED, &rc, strCaption, NULL );
+	pBuffer->ExtTextOut( 8 + 16, nTextY, ETO_CLIPPED, &rc, strCaption, NULL );
 
 	if ( m_bPanelClose )
 	{
@@ -242,31 +238,35 @@ void CPanelWnd::PaintCaption(CDC& dc)
 	dc.BitBlt( rc.left, rc.top, rc.Width(), rc.Height(), pBuffer, 0, 0, SRCCOPY );
 
 	dc.SelectStockObject( SYSTEM_FONT );	// GDI font leak fix
+	dc.SelectStockObject( NULL_BRUSH ); 	// GDI brush leak fix
 }
 
 BOOL CPanelWnd::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 {
-	if ( nHitTest == HTCAPTION && m_bGroupMode && m_pGroupParent )
+	if ( nHitTest == HTCAPTION )
 	{
-		SetCursor( AfxGetApp()->LoadStandardCursor( IDC_SIZENS ) );
-		return TRUE;
-	}
-	else if ( nHitTest == HTCAPTION && m_bPanelClose && m_pSkin == NULL )
-	{
-		CPoint pt;
-		GetCursorPos( &pt );
-
-		if ( Settings.General.LanguageRTL )
+		if ( m_bGroupMode && m_pGroupParent )
 		{
-			CRect rc;
-			pWnd->GetWindowRect( &rc );
-			pt.x = 2 * rc.left + rc.Width() - pt.x;
-		}
-
-		if ( m_rcClose.PtInRect( pt ) )
-		{
-			SetCursor( AfxGetApp()->LoadCursor( IDC_HAND ) );
+			SetCursor( AfxGetApp()->LoadStandardCursor( IDC_SIZENS ) );
 			return TRUE;
+		}
+		if ( m_bPanelClose && m_pSkin == NULL )
+		{
+			CPoint pt;
+			GetCursorPos( &pt );
+
+			if ( Settings.General.LanguageRTL )
+			{
+				CRect rc;
+				pWnd->GetWindowRect( &rc );
+				pt.x = 2 * rc.left + rc.Width() - pt.x;
+			}
+
+			if ( m_rcClose.PtInRect( pt ) )
+			{
+				SetCursor( AfxGetApp()->LoadCursor( IDC_HAND ) );
+				return TRUE;
+			}
 		}
 	}
 
@@ -275,24 +275,27 @@ BOOL CPanelWnd::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 
 void CPanelWnd::OnNcLButtonDown(UINT nHitTest, CPoint point)
 {
-	if ( nHitTest == HTCAPTION && m_bGroupMode && m_pGroupParent )
+	if ( nHitTest == HTCAPTION )
 	{
-		PanelSizeLoop();
-		return;
-	}
-	else if ( nHitTest == HTCAPTION && m_bPanelClose && m_pSkin == NULL )
-	{
-		if ( Settings.General.LanguageRTL )
+		if ( m_bGroupMode && m_pGroupParent )
 		{
-			CRect rc;
-			GetWindowRect( &rc );
-			point.x = 2 * rc.left + rc.Width() - point.x;
-		}
-
-		if ( m_rcClose.PtInRect( point ) )
-		{
-			PostMessage( WM_SYSCOMMAND, SC_CLOSE );
+			PanelSizeLoop();
 			return;
+		}
+		if ( m_bPanelClose && m_pSkin == NULL )
+		{
+			if ( Settings.General.LanguageRTL )
+			{
+				CRect rc;
+				GetWindowRect( &rc );
+				point.x = 2 * rc.left + rc.Width() - point.x;
+			}
+
+			if ( m_rcClose.PtInRect( point ) )
+			{
+				PostMessage( WM_SYSCOMMAND, SC_CLOSE );
+				return;
+			}
 		}
 	}
 

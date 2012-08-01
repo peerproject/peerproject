@@ -268,11 +268,6 @@ void CUploadTipCtrl::OnPaint(CDC* pDC)
 	if ( pUpload->m_nProtocol == PROTOCOL_BT )
 		strStatus += m_sSeedsPeers;
 
-	// Starting dynamic text
-	m_rcUpdateText.top = pt.y;
-	m_rcUpdateText.right = m_sz.cx - 2;
-	m_rcUpdateText.left = 80;
-
 	LoadString( strText, IDS_TIP_STATUS );
 	DrawText( pDC, &pt, strText );
 	DrawText( pDC, &pt, strStatus, 80 );
@@ -292,9 +287,6 @@ void CUploadTipCtrl::OnPaint(CDC* pDC)
 	DrawText( pDC, &pt, strText );
 	DrawText( pDC, &pt, strTransfer, 80 );
 	pt.y += TIP_TEXTHEIGHT;
-
-	// End dynamic text
-	m_rcUpdateText.bottom = pt.y + TIP_TEXTHEIGHT;
 
 	// Progress Bar
 	pt.y += TIP_GAP;
@@ -343,12 +335,6 @@ void CUploadTipCtrl::OnTimer(UINT_PTR nIDEvent)
 {
 	CCoolTipCtrl::OnTimer( nIDEvent );
 
-	if ( nIDEvent == 2 )
-	{
-		InvalidateRect( &m_rcUpdateText, FALSE );
-		return;
-	}
-
 	if ( m_pGraph == NULL ) return;
 
 	CSingleLock pLock( &Transfers.m_pSection );
@@ -365,31 +351,34 @@ void CUploadTipCtrl::OnTimer(UINT_PTR nIDEvent)
 		DWORD nSpeed = pUpload->GetMeasuredSpeed();
 		pLock.Unlock();
 
-		m_pItem->Add( nSpeed );
-		m_pGraph->m_nUpdates++;
-		m_pGraph->m_nMaximum = max( m_pGraph->m_nMaximum, nSpeed );
-
-		if ( pUpload->m_nState != upsNull && m_pGraph->m_nMaximum >= 8 )
+		if ( nIDEvent == 1 )
 		{
-			CRect rcUpdateGraph;
-			SystemParametersInfo( SPI_GETWORKAREA, 0, rcUpdateGraph, 0 );
-			rcUpdateGraph.top += TIP_TEXTHEIGHT * 8 + TIP_GAP + TIP_GAP ;
-			InvalidateRect( &rcUpdateGraph, FALSE );
+			m_pItem->Add( nSpeed );
+			m_pGraph->m_nUpdates++;
+			m_pGraph->m_nMaximum = max( m_pGraph->m_nMaximum, nSpeed );
+
+		//	if ( pUpload->m_nState != upsNull && m_pGraph->m_nMaximum >= 8 )
+		//	{
+		//		CRect rcUpdateGraph;
+		//		SystemParametersInfo( SPI_GETWORKAREA, 0, rcUpdateGraph, 0 );
+		//		rcUpdateGraph.top += TIP_TEXTHEIGHT * 8 + TIP_GAP + TIP_GAP ;
+		//		InvalidateRect( &rcUpdateGraph, FALSE );
+		//	}
 		}
 
 		// Update torrent Seeds/Peers asynchronously, Scrape if needed
-		if ( pUpload->m_nProtocol == PROTOCOL_BT && m_sSeedsPeers.IsEmpty() )
+		if ( nIDEvent == 2 && pUpload->m_nProtocol == PROTOCOL_BT && m_sSeedsPeers.IsEmpty() )
 		{
 			pLock.Lock();
-			if ( CDownload* pDownload = Downloads.FindByBTH( m_pUploadFile->GetActive()->m_oBTH ) )
+			if ( CDownload* pDownload = Downloads.FindByBTH( m_pUploadFile->GetActive()->m_oBTH ) )		// Transfers lock required
 			{
-				if ( pDownload->m_pTorrent.ScrapeTracker() )
-				{
+				pLock.Unlock();
+				if ( pDownload->m_pTorrent.ScrapeTracker() )	// No transfers lock allowed
 					m_sSeedsPeers.Format( _T("   ( %i seeds %i peers )"),	// ToDo: Translation ?
 						pDownload->m_pTorrent.m_nTrackerSeeds, pDownload->m_pTorrent.m_nTrackerPeers );
-					InvalidateRect( &m_rcUpdateText, FALSE );
-				}
 			}
 		}
+
+		Invalidate( FALSE );
 	}
 }

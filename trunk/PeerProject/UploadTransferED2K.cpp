@@ -106,8 +106,7 @@ BOOL CUploadTransferED2K::Request(const Hashes::Ed2kHash& oED2K)
 		{
 			UploadQueues.Dequeue( this );
 
-			theApp.Message( MSG_ERROR, IDS_UPLOAD_FILENOTFOUND, (LPCTSTR)m_sAddress,
-				(LPCTSTR)oED2K.toUrn() );
+			theApp.Message( MSG_ERROR, IDS_UPLOAD_FILENOTFOUND, (LPCTSTR)m_sAddress, (LPCTSTR)oED2K.toUrn() );
 
 			CEDPacket* pReply = CEDPacket::New( ED2K_C2C_FILENOTFOUND );
 			pReply->Write( oED2K );
@@ -120,8 +119,7 @@ BOOL CUploadTransferED2K::Request(const Hashes::Ed2kHash& oED2K)
 
 	if ( UploadQueues.GetPosition( this, FALSE ) < 0 && ! UploadQueues.Enqueue( this ) )
 	{
-		theApp.Message( MSG_ERROR, IDS_UPLOAD_BUSY_QUEUE,
-			(LPCTSTR)m_sName, (LPCTSTR)m_sAddress, _T("ED2K") );
+		theApp.Message( MSG_ERROR, IDS_UPLOAD_BUSY_QUEUE, (LPCTSTR)m_sName, (LPCTSTR)m_sAddress, _T("ED2K") );
 
 		CEDPacket* pReply = CEDPacket::New( ED2K_C2C_FILENOTFOUND );
 		pReply->Write( oED2K );
@@ -133,8 +131,7 @@ BOOL CUploadTransferED2K::Request(const Hashes::Ed2kHash& oED2K)
 
 	AllocateBaseFile();
 
-	theApp.Message( MSG_NOTICE, IDS_UPLOAD_FILE,
-		(LPCTSTR)m_sName, (LPCTSTR)m_sAddress );
+	theApp.Message( MSG_NOTICE, IDS_UPLOAD_FILE, (LPCTSTR)m_sName, (LPCTSTR)m_sAddress );
 
 	m_nRanking = -1;
 	return CheckRanking();
@@ -558,10 +555,7 @@ BOOL CUploadTransferED2K::StartNextRequest()
 		m_nState	= upsUploading;
 		m_tContent	= m_pClient->m_mOutput.tLast = GetTickCount();
 
-		theApp.Message( MSG_INFO, IDS_UPLOAD_CONTENT,
-			m_nOffset, m_nOffset + m_nLength - 1,
-			(LPCTSTR)m_sName, (LPCTSTR)m_sAddress,
-			(LPCTSTR)m_sUserAgent );
+		theApp.Message( MSG_INFO, IDS_UPLOAD_CONTENT, m_nOffset, m_nOffset + m_nLength - 1, (LPCTSTR)m_sName, (LPCTSTR)m_sAddress, (LPCTSTR)m_sUserAgent );
 
 		return TRUE;
 	}
@@ -712,8 +706,7 @@ BOOL CUploadTransferED2K::CheckFinishedRequest()
 		! Settings.Connection.RequireForTransfers ) )
 		return FALSE;
 
-	theApp.Message( MSG_INFO, IDS_UPLOAD_FINISHED,
-		(LPCTSTR)m_sName, (LPCTSTR)m_sAddress );
+	theApp.Message( MSG_INFO, IDS_UPLOAD_FINISHED, (LPCTSTR)m_sName, (LPCTSTR)m_sAddress );
 
 	m_oServed.push_back( Fragments::Fragment( m_nOffset, m_nOffset + m_nLength ) );
 	m_pBaseFile->AddFragment( m_nOffset, m_nLength );
@@ -782,11 +775,7 @@ BOOL CUploadTransferED2K::CheckRanking()
 			CSingleLock pLock( &UploadQueues.m_pSection, TRUE );
 
 			if ( UploadQueues.Check( m_pQueue ) )
-			{
-				theApp.Message( MSG_INFO, IDS_UPLOAD_QUEUED, (LPCTSTR)m_sName,
-					(LPCTSTR)m_sAddress, nPosition, m_pQueue->GetQueuedCount(),
-					(LPCTSTR)m_pQueue->m_sName );
-			}
+				theApp.Message( MSG_INFO, IDS_UPLOAD_QUEUED, (LPCTSTR)m_sName, (LPCTSTR)m_sAddress, nPosition, m_pQueue->GetQueuedCount(), (LPCTSTR)m_pQueue->m_sName );
 
 			pLock.Unlock();
 

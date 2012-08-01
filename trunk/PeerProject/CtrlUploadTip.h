@@ -1,7 +1,7 @@
 //
 // CtrlUploadTip.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -34,6 +34,7 @@ public:
 	CUploadTipCtrl();
 	virtual ~CUploadTipCtrl();
 
+public:
 	void Show(CUploadFile* pContext, HWND hAltWnd = NULL)
 	{
 		bool bChanged = ( pContext != m_pUploadFile );
@@ -49,7 +50,6 @@ protected:
 	CGraphItem*			m_pItem;
 	CString				m_sAddress;
 	CString				m_sSeedsPeers;
-	CRect				m_rcUpdateText;
 	int					m_nHeaderWidth;
 	CArray< CString >	m_pHeaderName;
 	CArray< CString >	m_pHeaderValue;
@@ -65,7 +65,7 @@ protected:
 	virtual void OnPaint(CDC* pDC);
 
 // Overrides
-public:
+//public:
 	//{{AFX_VIRTUAL(CUploadTipCtrl)
 	//}}AFX_VIRTUAL
 

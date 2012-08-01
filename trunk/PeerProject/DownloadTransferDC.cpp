@@ -84,8 +84,7 @@ BOOL CDownloadTransferDC::Initiate()
 
 // ToDo: ?
 //	theApp.Message( MSG_INFO, IDS_DOWNLOAD_CONNECTING,
-//		(LPCTSTR)CString( inet_ntoa( m_pSource->m_pServerAddress ) ), m_pSource->m_nServerPort,
-//		(LPCTSTR)m_pDownload->GetDisplayName() );
+//		(LPCTSTR)CString( inet_ntoa( m_pSource->m_pServerAddress ) ), m_pSource->m_nServerPort, (LPCTSTR)m_pDownload->GetDisplayName() );
 //
 //	m_pClient = DCClients.Connect( this );
 //	if ( ! m_pClient )
@@ -173,8 +172,7 @@ void CDownloadTransferDC::OnDropped()
 {
 	if ( m_nState == dtsQueued )
 	{
-		theApp.Message( MSG_INFO, IDS_DOWNLOAD_QUEUE_DROP,
-			(LPCTSTR)m_pDownload->GetDisplayName() );
+		theApp.Message( MSG_INFO, IDS_DOWNLOAD_QUEUE_DROP, (LPCTSTR)m_pDownload->GetDisplayName() );
 	}
 	else
 	{
@@ -196,8 +194,7 @@ BOOL CDownloadTransferDC::OnRun()
 	case dtsConnecting:
 		if ( tNow > m_tConnected + Settings.Connection.TimeoutConnect )
 		{
-			theApp.Message( MSG_ERROR, IDS_CONNECTION_TIMEOUT_CONNECT,
-				(LPCTSTR)m_sAddress );
+			theApp.Message( MSG_ERROR, IDS_CONNECTION_TIMEOUT_CONNECT, (LPCTSTR)m_sAddress );
 			Close( TRI_TRUE );
 			return FALSE;
 		}
@@ -206,8 +203,7 @@ BOOL CDownloadTransferDC::OnRun()
 	case dtsRequesting:
 		if ( tNow > m_tRequest + Settings.Connection.TimeoutHandshake )
 		{
-			theApp.Message( MSG_ERROR, IDS_DOWNLOAD_REQUEST_TIMEOUT,
-				(LPCTSTR)m_sAddress );
+			theApp.Message( MSG_ERROR, IDS_DOWNLOAD_REQUEST_TIMEOUT, (LPCTSTR)m_sAddress );
 			Close( TRI_TRUE );
 			return FALSE;
 		}
@@ -218,8 +214,7 @@ BOOL CDownloadTransferDC::OnRun()
 	case dtsTiger:
 		if ( tNow > m_mInput.tLast + Settings.Connection.TimeoutTraffic )
 		{
-			theApp.Message( MSG_ERROR, IDS_DOWNLOAD_TRAFFIC_TIMEOUT,
-				(LPCTSTR)m_sAddress );
+			theApp.Message( MSG_ERROR, IDS_DOWNLOAD_TRAFFIC_TIMEOUT, (LPCTSTR)m_sAddress );
 			Close( TRI_TRUE );
 			return FALSE;
 		}
@@ -413,15 +408,12 @@ BOOL CDownloadTransferDC::OnQueue(int nQueue)
 
 	if ( Settings.Downloads.QueueLimit && m_nQueuePos > Settings.Downloads.QueueLimit )
 	{
-		theApp.Message( MSG_ERROR, IDS_DOWNLOAD_QUEUE_HUGE,
-			(LPCTSTR)m_sAddress, (LPCTSTR)m_pDownload->GetDisplayName(), m_nQueuePos );
+		theApp.Message( MSG_ERROR, IDS_DOWNLOAD_QUEUE_HUGE, (LPCTSTR)m_sAddress, (LPCTSTR)m_pDownload->GetDisplayName(), m_nQueuePos );
 		Close( TRI_FALSE );
 		return FALSE;
 	}
 
-	theApp.Message( MSG_INFO, IDS_DOWNLOAD_QUEUED,
-		(LPCTSTR)m_sAddress, m_nQueuePos, m_nQueueLen,
-		(LPCTSTR)m_sQueueName );
+	theApp.Message( MSG_INFO, IDS_DOWNLOAD_QUEUED, (LPCTSTR)m_sAddress, m_nQueuePos, m_nQueueLen, (LPCTSTR)m_sQueueName );
 	return TRUE;
 }
 
@@ -432,8 +424,7 @@ BOOL CDownloadTransferDC::OnBusy()
 	m_pSource->SetLastSeen();
 	m_pSource->m_nBusyCount++;
 
-	theApp.Message( MSG_INFO, IDS_DOWNLOAD_BUSY,
-		(LPCTSTR)m_sAddress, Settings.Downloads.RetryDelay / 1000 );
+	theApp.Message( MSG_INFO, IDS_DOWNLOAD_BUSY, (LPCTSTR)m_sAddress, Settings.Downloads.RetryDelay / 1000 );
 	Close( TRI_TRUE );
 	return TRUE;
 }
@@ -442,8 +433,7 @@ BOOL CDownloadTransferDC::OnError()
 {
 	ASSERT( m_pClient );
 
-	theApp.Message( MSG_ERROR, IDS_DOWNLOAD_FILENOTFOUND,
-		(LPCTSTR)m_sAddress, (LPCTSTR)m_pDownload->GetDisplayName() );
+	theApp.Message( MSG_ERROR, IDS_DOWNLOAD_FILENOTFOUND, (LPCTSTR)m_sAddress, (LPCTSTR)m_pDownload->GetDisplayName() );
 	Close( TRI_FALSE );
 	return TRUE;
 }
@@ -475,8 +465,7 @@ BOOL CDownloadTransferDC::StartNextFragment()
 
 		m_pClient->SendCommand( _T("$ADCGET file ") + strName + _T(" 0 -1|") );
 
-		theApp.Message( MSG_INFO, IDS_DOWNLOAD_FRAGMENT_REQUEST,
-			0ui64, 0ui64, (LPCTSTR)m_pDownload->GetDisplayName(), (LPCTSTR)m_sAddress );
+		theApp.Message( MSG_INFO, IDS_DOWNLOAD_FRAGMENT_REQUEST, 0ui64, 0ui64, (LPCTSTR)m_pDownload->GetDisplayName(), (LPCTSTR)m_sAddress );
 		return TRUE;
 	}
 
@@ -491,8 +480,7 @@ BOOL CDownloadTransferDC::StartNextFragment()
 
 		m_pClient->SendCommand( _T("$ADCGET tthl ") + strName + _T(" 0 -1|") );
 
-		theApp.Message( MSG_INFO, IDS_DOWNLOAD_TIGER_REQUEST,
-			(LPCTSTR)m_pDownload->GetDisplayName(), (LPCTSTR)m_sAddress );
+		theApp.Message( MSG_INFO, IDS_DOWNLOAD_TIGER_REQUEST, (LPCTSTR)m_pDownload->GetDisplayName(), (LPCTSTR)m_sAddress );
 		return TRUE;
 	}
 
@@ -508,8 +496,7 @@ BOOL CDownloadTransferDC::StartNextFragment()
 		strRequest.Format( _T("$ADCGET file %s %I64u %I64u|"), (LPCTSTR)strName, m_nOffset, m_nLength );
 		m_pClient->SendCommand( strRequest );
 
-		theApp.Message( MSG_INFO, IDS_DOWNLOAD_FRAGMENT_REQUEST,
-			m_nOffset, m_nOffset + m_nLength - 1, (LPCTSTR)m_pDownload->GetDisplayName(), (LPCTSTR)m_sAddress );
+		theApp.Message( MSG_INFO, IDS_DOWNLOAD_FRAGMENT_REQUEST, m_nOffset, m_nOffset + m_nLength - 1, (LPCTSTR)m_pDownload->GetDisplayName(), (LPCTSTR)m_sAddress );
 		return TRUE;
 	}
 

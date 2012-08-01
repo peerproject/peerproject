@@ -300,7 +300,9 @@
  <image target="ButtonMap.MenuSelect"			path="ButtonmapMenuSelect.png"/>
 
  <!--image target="CTranfers.Selected"			path="Highlight.png"-->
+ <!--image target="CTranfers.Selected.Inactive"		path="HighlightGrey.png"-->
  <image target="System.Highlight"			path="Highlight.png"/>
+ <image target="System.Highlight.Inactive"		path="HighlightGrey.png"/>
  <image target="System.Progress"			path="Progress.png"/>
  <image target="System.Progress.Edge"			path="ProgressEdge.png"/>
  <image target="System.Progress.None"			path="ProgressNone.png"/>

@@ -1,7 +1,7 @@
 //
 // WndSystem.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -154,38 +154,27 @@ BOOL CSystemWnd::PreTranslateMessage(MSG* pMsg)
 {
 	if ( pMsg->message == WM_KEYDOWN )
 	{
-		if ( pMsg->wParam == VK_PRIOR )
+		switch ( pMsg->wParam )
 		{
-			m_wndText.PostMessage( WM_VSCROLL, MAKELONG( SB_PAGEUP, 0 ), NULL );
-			return TRUE;
-		}
-		if ( pMsg->wParam == VK_NEXT )
-		{
-			m_wndText.PostMessage( WM_VSCROLL, MAKELONG( SB_PAGEDOWN, 0 ), NULL );
-			return TRUE;
-		}
-		if ( pMsg->wParam == VK_HOME )
-		{
-			m_wndText.PostMessage( WM_VSCROLL, MAKELONG( SB_TOP, 0 ), NULL );
-			return TRUE;
-		}
-		if ( pMsg->wParam == VK_END )
-		{
-			m_wndText.PostMessage( WM_VSCROLL, MAKELONG( SB_BOTTOM, 0 ), NULL );
-			return TRUE;
-		}
-		if ( pMsg->wParam == VK_UP )
-		{
+		case VK_UP:
 			m_wndText.PostMessage( WM_VSCROLL, MAKELONG( SB_LINEUP, 0 ), NULL );
 			return TRUE;
-		}
-		if ( pMsg->wParam == VK_DOWN )
-		{
+		case VK_DOWN:
 			m_wndText.PostMessage( WM_VSCROLL, MAKELONG( SB_LINEDOWN, 0 ), NULL );
 			return TRUE;
-		}
-		if ( pMsg->wParam == VK_TAB )
-		{
+		case VK_PRIOR:
+			m_wndText.PostMessage( WM_VSCROLL, MAKELONG( SB_PAGEUP, 0 ), NULL );
+			return TRUE;
+		case VK_NEXT:
+			m_wndText.PostMessage( WM_VSCROLL, MAKELONG( SB_PAGEDOWN, 0 ), NULL );
+			return TRUE;
+		case VK_HOME:
+			m_wndText.PostMessage( WM_VSCROLL, MAKELONG( SB_TOP, 0 ), NULL );
+			return TRUE;
+		case VK_END:
+			m_wndText.PostMessage( WM_VSCROLL, MAKELONG( SB_BOTTOM, 0 ), NULL );
+			return TRUE;
+		case VK_TAB:
 			GetManager()->Open( RUNTIME_CLASS(CNeighboursWnd) );
 			return TRUE;
 		}
@@ -269,12 +258,7 @@ void CSystemWnd::OnSystemTest()
 	CrawlSession.m_bActive = ! CrawlSession.m_bActive;
 
 	if ( CrawlSession.m_bActive )
-	{
 		CrawlSession.Bootstrap();
-	}
 	else
-	{
-		theApp.Message( MSG_NOTICE, _T("CCrawlSession: %i hubs, %i leaves"),
-			CrawlSession.GetHubCount(), CrawlSession.GetLeafCount() );
-	}
+		theApp.Message( MSG_NOTICE, _T("CCrawlSession: %i hubs, %i leaves"), CrawlSession.GetHubCount(), CrawlSession.GetLeafCount() );
 }

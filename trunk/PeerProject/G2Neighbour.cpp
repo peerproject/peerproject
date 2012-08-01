@@ -89,8 +89,7 @@ CG2Neighbour::CG2Neighbour(CNeighbour* pBase)
 	, m_tLastQueryIn		( 0 )
 	, m_nCountQueryIn		( 0 )
 {
-	theApp.Message( MSG_INFO, IDS_HANDSHAKE_ONLINE_G2, (LPCTSTR)m_sAddress,
-		m_sUserAgent.IsEmpty() ? _T("Unknown") : (LPCTSTR)m_sUserAgent );
+	theApp.Message( MSG_INFO, IDS_HANDSHAKE_ONLINE_G2, (LPCTSTR)m_sAddress, m_sUserAgent.IsEmpty() ? _T("Unknown") : (LPCTSTR)m_sUserAgent );
 
 	SendStartups();
 }
@@ -699,13 +698,11 @@ BOOL CG2Neighbour::OnLNI(CG2Packet* pPacket)
 			if ( nLength == 0 )
 			{
 				theApp.Message( MSG_INFO, _T("Received /LNI/FW from %s:%lu"),
-					(LPCTSTR)CString( inet_ntoa( m_pHost.sin_addr ) ),
-					htons( m_pHost.sin_port ) );
+					(LPCTSTR)CString( inet_ntoa( m_pHost.sin_addr ) ), htons( m_pHost.sin_port ) );
 
 				if ( m_nNodeType == ntHub )
 					theApp.Message( MSG_ERROR, _T("Hub %s:%lu sent LNI with firewall flag"),
-					(LPCTSTR)CString( inet_ntoa( m_pHost.sin_addr ) ),
-					htons( m_pHost.sin_port ) );
+						(LPCTSTR)CString( inet_ntoa( m_pHost.sin_addr ) ), htons( m_pHost.sin_port ) );
 
 				m_bFirewalled = TRUE;
 			}
@@ -1004,8 +1001,7 @@ BOOL CG2Neighbour::ParseKHLPacket(CG2Packet* pPacket, const SOCKADDR_IN* pHost)
 		bInvalid = TRUE;
 
 	if ( bInvalid )
-		theApp.Message( MSG_ERROR, _T("[G2] Invalid KHL packet received from %s"),
-			(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ) );
+		theApp.Message( MSG_ERROR, _T("[G2] Invalid KHL packet received from %s"), (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ) );
 
 	return TRUE;
 }

@@ -1,7 +1,7 @@
 //
 // PageFileSources.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -35,10 +35,10 @@ IMPLEMENT_DYNCREATE(CFileSourcesPage, CFilePropertiesPage)
 BEGIN_MESSAGE_MAP(CFileSourcesPage, CFilePropertiesPage)
 	//{{AFX_MSG_MAP(CFileSourcesPage)
 	ON_NOTIFY(LVN_ITEMCHANGED, IDC_FILE_SOURCES, OnItemChangedFileSources)
-	ON_EN_CHANGE(IDC_FILE_SOURCE, OnChangeFileSource)
+	ON_NOTIFY(NM_DBLCLK, IDC_FILE_SOURCES, OnDblClk)
 	ON_BN_CLICKED(IDC_SOURCE_REMOVE, OnSourceRemove)
 	ON_BN_CLICKED(IDC_SOURCE_NEW, OnSourceNew)
-	ON_NOTIFY(NM_DBLCLK, IDC_FILE_SOURCES, OnDblClk)
+	ON_EN_CHANGE(IDC_FILE_SOURCE, OnChangeFileSource)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -77,6 +77,7 @@ BOOL CFileSourcesPage::OnInitDialog()
 	CRect rc;
 	m_wndList.GetClientRect( &rc );
 	rc.right -= GetSystemMetrics( SM_CXVSCROLL );
+
 	m_wndList.InsertColumn( 0, _T("URL"), LVCFMT_LEFT, rc.right - 128, -1 );
 	m_wndList.InsertColumn( 1, _T("Expires"), LVCFMT_RIGHT, 128, 0 );
 
@@ -86,8 +87,7 @@ BOOL CFileSourcesPage::OnInitDialog()
 	AddIcon( IDI_WEB_URL, m_gdiImageList );
 	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
 
-	m_wndList.SendMessage( LVM_SETEXTENDEDLISTVIEWSTYLE,
-		LVS_EX_FULLROWSELECT | LVS_EX_LABELTIP, LVS_EX_FULLROWSELECT | LVS_EX_LABELTIP );
+	m_wndList.SetExtendedStyle( LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP );
 
 	{
 		CQuickLock oLock( Library.m_pSection );
@@ -149,7 +149,7 @@ void CFileSourcesPage::OnItemChangedFileSources(NMHDR* /*pNMHDR*/, LRESULT* pRes
 void CFileSourcesPage::OnChangeFileSource()
 {
 	UpdateData();
-	m_wndNew.EnableWindow( m_sSource.Find( _T("http://") ) == 0 );
+	m_wndNew.EnableWindow( StartsWith( m_sSource, _PT("http://") ) );
 }
 
 void CFileSourcesPage::OnSourceRemove()
@@ -181,7 +181,7 @@ void CFileSourcesPage::OnSourceNew()
 {
 	UpdateData();
 
-	if ( m_sSource.Find( _T("http://") ) == 0 )
+	if ( StartsWith( m_sSource, _PT("http://") ) )
 	{
 		CSingleLock oLock( &Library.m_pSection, TRUE );
 		if ( CLibraryFile* pFile = GetFile() )

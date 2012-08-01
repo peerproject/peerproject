@@ -1,7 +1,7 @@
 //
 // CrawlSession.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -85,8 +85,7 @@ void CCrawlSession::Bootstrap()
 
 void CCrawlSession::SendCrawl(SOCKADDR_IN* pHost)
 {
-	theApp.Message( MSG_DEBUG, _T("CRAWL: Crawling host %s"),
-		(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ) );
+	theApp.Message( MSG_DEBUG, _T("CRAWL: Crawling host %s"), (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ) );
 
 	CG2Packet* pPacket = CG2Packet::New( G2_PACKET_CRAWL_REQ, TRUE );
 	pPacket->WritePacket( G2_PACKET_CRAWL_RLEAF, 0 );
@@ -155,8 +154,7 @@ void CCrawlSession::OnCrawl(const SOCKADDR_IN* pHost, CG2Packet* pPacket)
 {
 	if ( ! m_bActive ) return;
 
-	theApp.Message( MSG_DEBUG, _T("CRAWL: Response from %s"),
-		(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ) );
+	theApp.Message( MSG_DEBUG, _T("CRAWL: Response from %s"), (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ) );
 
 	CCrawlNode* pNode = Find( &pHost->sin_addr, TRUE );
 

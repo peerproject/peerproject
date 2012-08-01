@@ -143,6 +143,7 @@ public:
 	CBitmap		m_bmPanelMark;
 
 	CBitmap		m_bmSelected;
+	CBitmap		m_bmSelectedGrey;
 	CBitmap		m_bmToolTip;
 
 protected:

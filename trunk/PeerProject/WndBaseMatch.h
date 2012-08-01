@@ -1,7 +1,7 @@
 //
 // WndBaseMatch.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -28,12 +28,12 @@ class CCoolMenu;
 
 class CBaseMatchWnd : public CPanelWnd
 {
+	DECLARE_DYNCREATE(CBaseMatchWnd)
+
 // Construction
 public:
 	CBaseMatchWnd();
 	virtual ~CBaseMatchWnd();
-
-	DECLARE_DYNCREATE(CBaseMatchWnd)
 
 // Attributes
 public:
@@ -76,11 +76,15 @@ public:
 protected:
 	virtual void	OnSkinChange();
 
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	void			OnDownload(BOOL bAddToHead = FALSE);
+
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
+	afx_msg BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
+	afx_msg void OnMDIActivate(BOOL bActivate, CWnd* pActivateWnd, CWnd* pDeactivateWnd);
 	afx_msg void OnMeasureItem(int nIDCtl, LPMEASUREITEMSTRUCT lpMeasureItemStruct);
 	afx_msg void OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct);
 	afx_msg void OnUpdateSearchDownload(CCmdUI* pCmdUI);
@@ -102,8 +106,6 @@ protected:
 	afx_msg void OnSecurityBan();
 	afx_msg void OnUpdateHitMonitorSearch(CCmdUI* pCmdUI);
 	afx_msg void OnHitMonitorSearch();
-	afx_msg BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
-	afx_msg void OnMDIActivate(BOOL bActivate, CWnd* pActivateWnd, CWnd* pDeactivateWnd);
 	afx_msg void OnUpdateBrowseLaunch(CCmdUI* pCmdUI);
 	afx_msg void OnBrowseLaunch();
 	afx_msg void OnSearchFilterRaw();
@@ -117,14 +119,14 @@ protected:
 	afx_msg void OnSearchForAlbum();
 	afx_msg void OnUpdateSearchForSeries(CCmdUI* pCmdUI);
 	afx_msg void OnSearchForSeries();
-	//afx_msg void OnUpdateLibraryJigle(CCmdUI* pCmdUI);
-	//afx_msg void OnLibraryJigle();
-	afx_msg void OnKillFocusFilter();
-	afx_msg void OnToolbarReturn();
-	afx_msg void OnToolbarEscape();
 	afx_msg void OnUpdateBlocker(CCmdUI* pCmdUI);
 	afx_msg void OnUpdateFilters(CCmdUI* pCmdUI);
 	afx_msg void OnFilters(UINT nID);
+	afx_msg void OnKillFocusFilter();
+	afx_msg void OnToolbarReturn();
+	afx_msg void OnToolbarEscape();
+	//afx_msg void OnUpdateLibraryJigle(CCmdUI* pCmdUI);
+	//afx_msg void OnLibraryJigle();
 	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()

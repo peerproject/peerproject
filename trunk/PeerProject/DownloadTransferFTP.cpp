@@ -116,8 +116,7 @@ CDownloadTransferFTP::CDownloadTransferFTP(CDownloadSource* pSource)
 BOOL CDownloadTransferFTP::Initiate()
 {
 	theApp.Message( MSG_INFO, IDS_DOWNLOAD_CONNECTING,
-		(LPCTSTR)CString( inet_ntoa( m_pSource->m_pAddress ) ), m_pSource->m_nPort,
-		(LPCTSTR)m_pDownload->GetDisplayName() );
+		(LPCTSTR)CString( inet_ntoa( m_pSource->m_pAddress ) ), m_pSource->m_nPort, (LPCTSTR)m_pDownload->GetDisplayName() );
 
 	m_tConnected	= GetTickCount();
 	m_FtpState		= ftpConnecting;
@@ -134,12 +133,10 @@ BOOL CDownloadTransferFTP::Initiate()
 
 		return TRUE;
 	}
-	else
-	{
-		theApp.Message( MSG_ERROR, IDS_DOWNLOAD_CONNECT_ERROR, (LPCTSTR)m_sAddress );
-		Close();
-		return FALSE;
-	}
+
+	theApp.Message( MSG_ERROR, IDS_DOWNLOAD_CONNECT_ERROR, (LPCTSTR)m_sAddress );
+	Close();
+	return FALSE;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -232,8 +229,7 @@ BOOL CDownloadTransferFTP::StartNextFragment()
 		// Downloading
 		// ChunkifyRequest( &m_nOffset, &m_nLength, Settings.Downloads.ChunkSize, TRUE );
 		theApp.Message( MSG_INFO, IDS_DOWNLOAD_FRAGMENT_REQUEST,
-			m_nOffset, m_nOffset + m_nLength - 1,
-			(LPCTSTR)m_pDownload->GetDisplayName(), (LPCTSTR)m_sAddress );
+			m_nOffset, m_nOffset + m_nLength - 1, (LPCTSTR)m_pDownload->GetDisplayName(), (LPCTSTR)m_sAddress );
 		// Sending request
 		m_FtpState = ftpRETR_TYPE;
 		SetState( dtsDownloading );
@@ -460,18 +456,16 @@ BOOL CDownloadTransferFTP::OnHeaderLine( CString& strHeader, CString& strValue )
 				return FALSE;
 			}
 			if ( m_pDownload->m_nSize == SIZE_UNKNOWN )
-				m_pDownload->m_nSize = size;
-			else
 			{
-				if ( m_pDownload->m_nSize != size )
-				{
-					// File size changed!
-					theApp.Message( MSG_ERROR, IDS_DOWNLOAD_WRONG_SIZE,
-						(LPCTSTR)m_sAddress, (LPCTSTR)m_pDownload->GetDisplayName() );
-					// Ban
-					Close( TRI_FALSE );
-					return FALSE;
-				}
+				m_pDownload->m_nSize = size;
+			}
+			else if ( m_pDownload->m_nSize != size )
+			{
+				// File size changed!
+				theApp.Message( MSG_ERROR, IDS_DOWNLOAD_WRONG_SIZE, (LPCTSTR)m_sAddress, (LPCTSTR)m_pDownload->GetDisplayName() );
+				// Ban
+				Close( TRI_FALSE );
+				return FALSE;
 			}
 			m_bSizeChecked = TRUE;
 
@@ -480,10 +474,9 @@ BOOL CDownloadTransferFTP::OnHeaderLine( CString& strHeader, CString& strValue )
 			SetState( dtsRequesting );
 			return StartNextFragment();
 		}
-		else if ( strHeader == _T("550") )	// File unavailable
+		if ( strHeader == _T("550") )	// File unavailable
 		{
-			theApp.Message( MSG_ERROR, IDS_DOWNLOAD_FILENOTFOUND,
-				(LPCTSTR)m_sAddress, (LPCTSTR)m_pDownload->GetDisplayName() );
+			theApp.Message( MSG_ERROR, IDS_DOWNLOAD_FILENOTFOUND, (LPCTSTR)m_sAddress, (LPCTSTR)m_pDownload->GetDisplayName() );
 			// Ban
 			Close( TRI_FALSE );
 			return FALSE;
@@ -524,8 +517,7 @@ BOOL CDownloadTransferFTP::OnHeaderLine( CString& strHeader, CString& strValue )
 				if ( ! m_LIST.ConnectTo( &host ) )
 				{
 					// Cannot connect
-					theApp.Message( MSG_ERROR, IDS_DOWNLOAD_CONNECT_ERROR,
-						(LPCTSTR)m_sAddress );
+					theApp.Message( MSG_ERROR, IDS_DOWNLOAD_CONNECT_ERROR, (LPCTSTR)m_sAddress );
 					Close();
 					return FALSE;
 				}
@@ -545,7 +537,7 @@ BOOL CDownloadTransferFTP::OnHeaderLine( CString& strHeader, CString& strValue )
 			// Downloading
 			return TRUE;
 		}
-		else if ( strHeader == _T("226") )	// Transfer completed
+		if ( strHeader == _T("226") )	// Transfer completed
 		{
 			// Extract file size
 			QWORD size = m_LIST.ExtractFileSize();
@@ -561,17 +553,13 @@ BOOL CDownloadTransferFTP::OnHeaderLine( CString& strHeader, CString& strValue )
 			{
 				m_pDownload->m_nSize = size;
 			}
-			else
+			else if ( m_pDownload->m_nSize != size )
 			{
-				if ( m_pDownload->m_nSize != size )
-				{
-					// File size changed!
-					theApp.Message( MSG_ERROR, IDS_DOWNLOAD_WRONG_SIZE,
-						(LPCTSTR)m_sAddress, (LPCTSTR)m_pDownload->GetDisplayName() );
-					// Ban
-					Close( TRI_FALSE );
-					return FALSE;
-				}
+				// File size changed!
+				theApp.Message( MSG_ERROR, IDS_DOWNLOAD_WRONG_SIZE, (LPCTSTR)m_sAddress, (LPCTSTR)m_pDownload->GetDisplayName() );
+				// Ban
+				Close( TRI_FALSE );
+				return FALSE;
 			}
 			m_bSizeChecked = TRUE;
 
@@ -581,10 +569,9 @@ BOOL CDownloadTransferFTP::OnHeaderLine( CString& strHeader, CString& strValue )
 			SetState( dtsRequesting );
 			return SendCommand();
 		}
-		else if ( strHeader == _T("550") )	// File unavailable
+		if ( strHeader == _T("550") )	// File unavailable
 		{
-			theApp.Message( MSG_ERROR, IDS_DOWNLOAD_FILENOTFOUND,
-				(LPCTSTR)m_sAddress, (LPCTSTR)m_pDownload->GetDisplayName() );
+			theApp.Message( MSG_ERROR, IDS_DOWNLOAD_FILENOTFOUND, (LPCTSTR)m_sAddress, (LPCTSTR)m_pDownload->GetDisplayName() );
 			// Ban
 			Close( TRI_FALSE );
 			return FALSE;
@@ -621,8 +608,7 @@ BOOL CDownloadTransferFTP::OnHeaderLine( CString& strHeader, CString& strValue )
 				if ( ! m_RETR.ConnectTo( &host ) )
 				{
 					// Cannot connect
-					theApp.Message( MSG_ERROR, IDS_DOWNLOAD_CONNECT_ERROR,
-						(LPCTSTR)m_sAddress );
+					theApp.Message( MSG_ERROR, IDS_DOWNLOAD_CONNECT_ERROR, (LPCTSTR)m_sAddress );
 					Close();
 					return FALSE;
 				}
@@ -652,12 +638,12 @@ BOOL CDownloadTransferFTP::OnHeaderLine( CString& strHeader, CString& strValue )
 			// Downloading
 			return TRUE;
 		}
-		else if ( strHeader == _T("226") )		// Transfer completed
+		if ( strHeader == _T("226") )		// Transfer completed
 		{
 			// Waiting for last chunk
 			return TRUE;
 		}
-		else if ( strHeader == _T("426") )		// Transfer completed
+		if ( strHeader == _T("426") )		// Transfer completed
 		{
 			// Aborting
 			m_RETR.Close();
@@ -665,10 +651,9 @@ BOOL CDownloadTransferFTP::OnHeaderLine( CString& strHeader, CString& strValue )
 			SetState( dtsDownloading );
 			return SendCommand();
 		}
-		else if ( strHeader == _T("550") )		// File unavailable
+		if ( strHeader == _T("550") )		// File unavailable
 		{
-			theApp.Message( MSG_ERROR, IDS_DOWNLOAD_FILENOTFOUND,
-				(LPCTSTR)m_sAddress, (LPCTSTR)m_pDownload->GetDisplayName() );
+			theApp.Message( MSG_ERROR, IDS_DOWNLOAD_FILENOTFOUND, (LPCTSTR)m_sAddress, (LPCTSTR)m_pDownload->GetDisplayName() );
 			// Ban
 			Close( TRI_FALSE );
 			return FALSE;
@@ -686,8 +671,7 @@ BOOL CDownloadTransferFTP::OnHeaderLine( CString& strHeader, CString& strValue )
 		ASSERT( FALSE );
 	}
 
-	theApp.Message( MSG_ERROR, IDS_DOWNLOAD_HTTPCODE,
-		(LPCTSTR)m_sAddress, (LPCTSTR)strHeader, (LPCTSTR)strValue);
+	theApp.Message( MSG_ERROR, IDS_DOWNLOAD_HTTPCODE, (LPCTSTR)m_sAddress, (LPCTSTR)strHeader, (LPCTSTR)strValue);
 	Close();
 	return FALSE;
 }

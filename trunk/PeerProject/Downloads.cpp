@@ -51,7 +51,6 @@ CDownloads::CDownloads()
 	: m_tBandwidthAtMax		( 0 )
 	, m_tBandwidthAtMaxED2K	( 0 )
 	, m_tBandwidthLastCalc	( 0 )
-	, m_tLastConnect		( 0 )
 	, m_nTransfers			( 0 )
 	, m_nBandwidth			( 0 )
 	, m_nComplete			( 0 )
@@ -160,25 +159,27 @@ CDownload* CDownloads::Add(CQueryHit* pHit, BOOL bAddToHead)
 	if ( pDownload == NULL && pHit->m_oMD5 )
 		pDownload = FindByMD5( pHit->m_oMD5 );
 
-	if ( pDownload )
+	if ( pDownload && ! pDownload->IsSeeding() )
 	{
-		theApp.Message( MSG_NOTICE, IDS_DOWNLOAD_ALREADY, (LPCTSTR)pHit->m_sName );
+		pDownload->AddSourceHit( pHit, FALSE );
 
-		pDownload->AddSourceHit( pHit );
+		theApp.Message( MSG_NOTICE, IDS_DOWNLOAD_ALREADY, (LPCTSTR)pDownload->GetDisplayName() );	// pHit->m_sName
 
 		//if ( pDownload->IsPaused() )
-			pDownload->Resume();
+		//	pDownload->Resume();
 	}
-	else // pDownload == NULL
+	else // New Download
 	{
 		pDownload = Add( bAddToHead );	// new CDownload()
+		if ( ! pDownload )
+			return NULL;
 
 		pDownload->AddSourceHit( pHit, TRUE );
 
-		theApp.Message( MSG_NOTICE, IDS_DOWNLOAD_ADDED,
-			(LPCTSTR)pDownload->GetDisplayName(), pDownload->GetSourceCount() );
+		theApp.Message( MSG_NOTICE, IDS_DOWNLOAD_ADDED, (LPCTSTR)pDownload->GetDisplayName(), pDownload->GetSourceCount() );
 
 		if ( pDownload->m_oSHA1 ) pDownload->m_bSHA1Trusted = true;
+		if ( pDownload->m_oTiger ) pDownload->m_bTigerTrusted = true;
 		if ( pDownload->m_oED2K ) pDownload->m_bED2KTrusted = true;
 		if ( pDownload->m_oBTH ) pDownload->m_bBTHTrusted = true;
 		if ( pDownload->m_oMD5 ) pDownload->m_bMD5Trusted = true;
@@ -212,25 +213,27 @@ CDownload* CDownloads::Add(CMatchFile* pFile, BOOL bAddToHead)
 	if ( pDownload == NULL && pFile->m_oMD5 )
 		pDownload = FindByMD5( pFile->m_oMD5 );
 
-	if ( pDownload )
+	if ( pDownload && ! pDownload->IsSeeding() )
 	{
-		theApp.Message( MSG_NOTICE, IDS_DOWNLOAD_ALREADY, (LPCTSTR)pFile->m_sName );
+		pDownload->AddSourceHit( pFile, FALSE );
 
-		pFile->AddHitsToDownload( pDownload );
+		theApp.Message( MSG_NOTICE, IDS_DOWNLOAD_ALREADY, (LPCTSTR)pDownload->GetDisplayName() );	// pFile->m_sName
 
-		if ( pDownload->IsPaused() )
-			pDownload->Resume();
+		//if ( pDownload->IsPaused() )
+		//	pDownload->Resume();
 	}
-	else // pDownload == NULL
+	else // New Download
 	{
 		pDownload = Add( bAddToHead );	// new CDownload()
+		if ( ! pDownload )
+			return NULL;
 
-		pFile->AddHitsToDownload( pDownload, TRUE );
+		pDownload->AddSourceHit( pFile, TRUE );
 
-		theApp.Message( MSG_NOTICE, IDS_DOWNLOAD_ADDED,
-			(LPCTSTR)pDownload->GetDisplayName(), pDownload->GetSourceCount() );
+		theApp.Message( MSG_NOTICE, IDS_DOWNLOAD_ADDED, (LPCTSTR)pDownload->GetDisplayName(), pDownload->GetEffectiveSourceCount() );
 
 		if ( pDownload->m_oSHA1 ) pDownload->m_bSHA1Trusted = true;
+		if ( pDownload->m_oTiger ) pDownload->m_bTigerTrusted = true;
 		if ( pDownload->m_oED2K ) pDownload->m_bED2KTrusted = true;
 		if ( pDownload->m_oBTH ) pDownload->m_bBTHTrusted = true;
 		if ( pDownload->m_oMD5 ) pDownload->m_bMD5Trusted = true;
@@ -250,7 +253,7 @@ CDownload* CDownloads::Add(CMatchFile* pFile, BOOL bAddToHead)
 //////////////////////////////////////////////////////////////////////
 // CDownloads add download from a URL
 
-CDownload* CDownloads::Add(const CPeerProjectURL& oURL)
+CDownload* CDownloads::Add(const CPeerProjectURL& oURL, BOOL bAddToHead)
 {
 	if ( oURL.m_nAction != CPeerProjectURL::uriDownload &&
 		 oURL.m_nAction != CPeerProjectURL::uriSource ) return NULL;
@@ -258,7 +261,6 @@ CDownload* CDownloads::Add(const CPeerProjectURL& oURL)
 	CSingleLock pLock( &Transfers.m_pSection, TRUE );
 
 	CDownload* pDownload = NULL;
-	BOOL bNew = TRUE;
 
 	if ( /*pDownload == NULL &&*/ oURL.m_oSHA1 )
 		pDownload = FindBySHA1( oURL.m_oSHA1 );
@@ -273,69 +275,48 @@ CDownload* CDownloads::Add(const CPeerProjectURL& oURL)
 
 	if ( pDownload && ! pDownload->IsSeeding() )
 	{
-		theApp.Message( MSG_NOTICE, IDS_DOWNLOAD_ALREADY,
-			(LPCTSTR)pDownload->GetDisplayName() );
+		pDownload->AddSourceHit( oURL, FALSE );
 
-		bNew = FALSE;
+		theApp.Message( MSG_NOTICE, IDS_DOWNLOAD_ALREADY, (LPCTSTR)pDownload->GetDisplayName() );
 	}
-	else
-		pDownload = Add();	// new CDownload()
+	else	// New Download
+	{
+		pDownload = Add( bAddToHead );	// new CDownload()
+		if ( ! pDownload )
+			return NULL;
 
-	if ( ! pDownload->m_oSHA1 && oURL.m_oSHA1 )
-	{
-		pDownload->m_oSHA1 = oURL.m_oSHA1;
-		pDownload->m_bSHA1Trusted = true;
-	}
-	if ( ! pDownload->m_oTiger && oURL.m_oTiger )
-	{
-		pDownload->m_oTiger = oURL.m_oTiger;
-		pDownload->m_bTigerTrusted = true;
-	}
-	if ( ! pDownload->m_oED2K && oURL.m_oED2K )
-	{
-		pDownload->m_oED2K = oURL.m_oED2K;
-		pDownload->m_bED2KTrusted = true;
-		pDownload->Share( TRUE );
-	}
-	if ( ! pDownload->m_oBTH && oURL.m_oBTH )
-	{
-		pDownload->m_oBTH = oURL.m_oBTH;
-		pDownload->m_bBTHTrusted = true;
-		pDownload->Share( TRUE );
-	}
-	if ( ! pDownload->m_oMD5 && oURL.m_oMD5 )
-	{
-		pDownload->m_oMD5 = oURL.m_oMD5;
-		pDownload->m_bMD5Trusted = true;
-		pDownload->Share( TRUE );
+		pDownload->AddSourceHit( oURL, TRUE );
+
+		theApp.Message( MSG_NOTICE, IDS_DOWNLOAD_ADDED, (LPCTSTR)pDownload->GetDisplayName(), pDownload->GetEffectiveSourceCount() );
+
+		if ( pDownload->m_oSHA1 ) pDownload->m_bSHA1Trusted = true;
+		if ( pDownload->m_oTiger ) pDownload->m_bTigerTrusted = true;
+		if ( pDownload->m_oED2K ) pDownload->m_bED2KTrusted = true;
+		if ( pDownload->m_oBTH ) pDownload->m_bBTHTrusted = true;
+		if ( pDownload->m_oMD5 ) pDownload->m_bMD5Trusted = true;
 	}
 
-	if ( pDownload->m_sName.IsEmpty() && ! oURL.m_sName.IsEmpty() )
-		pDownload->Rename( oURL.m_sName );
+	DownloadGroups.Link( pDownload );
+	Transfers.StartThread();
 
-	if ( pDownload->m_nSize == SIZE_UNKNOWN && oURL.m_bSize )
-		pDownload->m_nSize = oURL.m_nSize;
+	if ( bAddToHead )
+		pDownload->Resume();
 
-	if ( bNew || pDownload->m_tDate == NULL )
-		pDownload->m_tDate = CTime::GetCurrentTime();
+	// Obsolete:
+	//if ( ! pDownload->AddSourceURLs( oURL.m_sURL, FALSE ) && bNew )
+	//{
+	//	if ( oURL.m_nAction == CPeerProjectURL::uriSource )
+	//	{
+	//		Remove( pDownload );	// delete pDownload
+	//		return NULL;
+	//	}
+	//}
 
-	if ( ! oURL.m_sURL.IsEmpty() )
-	{
-		if ( ! pDownload->AddSourceURLs( oURL.m_sURL, FALSE ) && bNew )
-		{
-			if ( oURL.m_nAction == CPeerProjectURL::uriSource )
-			{
-				Remove( pDownload );	// delete pDownload
-				return NULL;
-			}
-		}
-	}
-
-	if ( oURL.m_pTorrent )
-	{
-		pDownload->SetTorrent( oURL.m_pTorrent );
-
-	// Obsolete (Moved to DownloadWithTorrent)
+	//if ( oURL.m_pTorrent )
+	//{
+	//	pDownload->SetTorrent( oURL.m_pTorrent );
+	//
+	// Obsolete: (Moved to DownloadWithTorrent)
 	//	// Add sources from torrents
 	//	if ( oURL.m_pTorrent->m_sURLs.GetCount() )
 	//	{
@@ -346,12 +327,7 @@ CDownload* CDownloads::Add(const CPeerProjectURL& oURL)
 	//		}
 	//		oURL.m_pTorrent->m_sURLs.RemoveAll();
 	//	}
-	}
-
-	if ( bNew )
-	{
-		theApp.Message( MSG_NOTICE, IDS_DOWNLOAD_ADDED,
-			(LPCTSTR)pDownload->GetDisplayName(), pDownload->GetEffectiveSourceCount() );
+	//}
 
 	// Obsolete: Remove this
 	//	if ( ( pDownload->IsTorrent() && GetTryingCount( true ) < Settings.BitTorrent.DownloadTorrents )
@@ -361,10 +337,6 @@ CDownload* CDownloads::Add(const CPeerProjectURL& oURL)
 	//		if ( pDownload->GetEffectiveSourceCount() <= 1 )
 	//			pDownload->FindMoreSources();
 	//	}
-
-		DownloadGroups.Link( pDownload );
-		Transfers.StartThread();
-	}
 
 	return pDownload;
 }
@@ -725,7 +697,7 @@ CDownload* CDownloads::FindByMD5(const Hashes::Md5Hash& oMD5, BOOL bSharedOnly) 
 
 CDownload* CDownloads::FindBySID(DWORD nSerID) const
 {
-//	ASSUME_LOCK( Transfers.m_pSection );
+	ASSUME_LOCK( Transfers.m_pSection );
 
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
@@ -739,10 +711,10 @@ CDownload* CDownloads::FindBySID(DWORD nSerID) const
 
 DWORD CDownloads::GetFreeSID()
 {
+	ASSUME_LOCK( Transfers.m_pSection );
+
 	for ( ;; )
 	{
-		CQuickLock pLock( Transfers.m_pSection );
-
 		DWORD nSerID = GetRandomNum( 0ui32, _UI32_MAX );
 		for ( POSITION pos = GetIterator() ; pos ; )
 		{
@@ -960,7 +932,7 @@ void CDownloads::OnRun()
 	// Re-calculating bandwidth may be a little CPU heavy if there are many transfers, limit it to ~4 times per second
 	if ( tNow < m_tBandwidthLastCalc + Settings.Interface.RefreshRateUI )
 	{
-		// Just run the downloads, don't bother re-calulating bandwidth
+		// Just run the downloads, don't bother re-calculating bandwidth
 		++m_nRunCookie;
 
 		QWORD nComplete = 0, nTotal = 0;
@@ -968,8 +940,11 @@ void CDownloads::OnRun()
 		{
 			CDownload* pDownload = GetNext( pos );
 
-			if ( pDownload->m_nSize > 0 && pDownload->m_nSize < SIZE_UNKNOWN &&
-				! pDownload->IsSeeding() && ! pDownload->IsComplete() && ! pDownload->IsPaused() && ! pDownload->IsMoving() )
+			if (  pDownload->m_nSize &&
+				  pDownload->m_nSize < SIZE_UNKNOWN &&
+				! pDownload->IsSeeding() &&
+				! pDownload->IsPaused() &&
+				! pDownload->IsMoving() )
 			{
 				nComplete += pDownload->GetVolumeComplete();
 				nTotal += pDownload->m_nSize;
@@ -1255,10 +1230,11 @@ void CDownloads::PreLoad()
 				{
 					if ( ! Settings.BitTorrent.AutoSeed )
 					{
-						theApp.Message( MSG_NOTICE, IDS_DOWNLOAD_REMOVE, pDownload->m_sName );
+						GetSafePath( strPath );
 						DeleteFileEx( strPath, FALSE, TRUE, TRUE );
 						DeleteFileEx( strPath + _T(".sav"), FALSE, FALSE, TRUE );
 						DeleteFileEx( strPath + _T(".png"), FALSE, FALSE, TRUE );
+						theApp.Message( MSG_NOTICE, IDS_DOWNLOAD_REMOVE, pDownload->m_sName );
 						continue;
 					}
 					pDownload->m_bComplete = true;
@@ -1268,15 +1244,15 @@ void CDownloads::PreLoad()
 			}
 			else
 			{
-				theApp.Message( MSG_ERROR, IDS_DOWNLOAD_REMOVE,
-					( pDownload->m_sName.IsEmpty() ? strPath : pDownload->m_sName ) );
 				// Remove orphaned .pd/.sd files at startup
+				GetSafePath( strPath );
 				DeleteFileEx( strPath, FALSE, TRUE, TRUE );
 				DeleteFileEx( strPath + _T(".sav"), FALSE, FALSE, TRUE );
 				DeleteFileEx( strPath + _T(".png"), FALSE, FALSE, TRUE );
 			//	strPath = strRoot + _T("Preview ");
 			//	strPath.Append( pFind.cFileName );
 			//	DeleteFileEx( strPath, FALSE, FALSE, TRUE );
+				theApp.Message( MSG_ERROR, IDS_DOWNLOAD_REMOVE, ( pDownload->m_sName.IsEmpty() ? strPath : pDownload->m_sName ) );
 				delete pDownload;
 			}
 		}
@@ -1324,7 +1300,7 @@ void CDownloads::Save(BOOL bForce)
 void CDownloads::PurgePreviews()
 {
 	const CString strRoot = Settings.Downloads.IncompletePath + _T("\\");
-	CString strPath = strRoot + _T("Preview *.*");		// Text defined in DlgFilePreview
+	const CString strPath = strRoot + _T("Preview *.*");		// Text defined in DlgFilePreview
 
 	WIN32_FIND_DATA pFind = {};
 	HANDLE hSearch = FindFirstFile( strPath, &pFind );
@@ -1332,11 +1308,8 @@ void CDownloads::PurgePreviews()
 
 	do
 	{
-		if ( _tcsnicmp( pFind.cFileName, _T("Preview "), 11 ) == 0 )
-		{
-			strPath = strRoot + pFind.cFileName;
-			DeleteFileEx( strPath, FALSE, FALSE, TRUE );
-		}
+		if ( _tcsnicmp( pFind.cFileName, _PT("Preview ") ) == 0 )
+			DeleteFileEx( SafePath( strRoot + pFind.cFileName ), FALSE, FALSE, TRUE );
 	}
 	while ( FindNextFile( hSearch, &pFind ) );
 
@@ -1451,8 +1424,10 @@ void CDownloads::PurgePreviews()
 //
 //	for ( DWORD_PTR nCount = ar.ReadCount() ; nCount > 0 ; nCount-- )
 //	{
-//		CDownload* pDownload = Add();	// new CDownload()
-//		m_pList.AddTail( pDownload );
-//		pDownload->Serialize( ar, nVersion );
+//		if ( CDownload* pDownload = Add() )	// new CDownload()
+//		{
+//			m_pList.AddTail( pDownload );
+//			pDownload->Serialize( ar, nVersion );
+//		}
 //	}
 //}

@@ -569,15 +569,14 @@ void CHostBrowser::SendRequest()
 BOOL CHostBrowser::ReadResponseLine()
 {
 	// ED2K connections aren't handled here- they are in ED2KClient
-	ASSERT ( m_nProtocol != PROTOCOL_ED2K && m_nProtocol != PROTOCOL_DC );
+	ASSERT( m_nProtocol != PROTOCOL_ED2K && m_nProtocol != PROTOCOL_DC );
 
 	CString strLine, strCode, strMessage;
 
 	if ( ! Read( strLine ) ) return TRUE;
 	if ( strLine.IsEmpty() ) return TRUE;
 
-	theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING,
-		_T("%s >> %s"), (LPCTSTR)m_sAddress, (LPCTSTR)strLine );
+	theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, _T("%s >> %s"), (LPCTSTR)m_sAddress, (LPCTSTR)strLine );
 
 	if ( strLine.GetLength() > HTTP_HEADER_MAX_LINE )
 		strLine = _T("#LINE_TOO_LONG#");
@@ -630,7 +629,7 @@ BOOL CHostBrowser::ReadResponseLine()
 BOOL CHostBrowser::OnHeaderLine(CString& strHeader, CString& strValue)
 {
 	// ED2K connections aren't handled here- they are in ED2KClient
-	ASSERT ( m_nProtocol != PROTOCOL_ED2K && m_nProtocol != PROTOCOL_DC );
+	ASSERT( m_nProtocol != PROTOCOL_ED2K && m_nProtocol != PROTOCOL_DC );
 
 	if ( ! CTransfer::OnHeaderLine( strHeader, strValue ) )
 		return FALSE;
@@ -707,18 +706,14 @@ BOOL CHostBrowser::ReadContent()
 			DWORD nVolume = min( m_nLength - m_nReceived, pInput->m_nLength );
 			m_nReceived += nVolume;
 
-			if ( m_bDeflate )
-			{
-				// Try to decompress the stream
-				if ( ! pInput->InflateStreamTo( *m_pBuffer, m_pInflate ) )
-				{
-					Stop();			// Clean up
-					return FALSE;	// Report failure
-				}
-			}
-			else
+			if ( ! m_bDeflate )
 			{
 				m_pBuffer->AddBuffer( pInput, nVolume );
+			}
+			else if ( ! pInput->InflateStreamTo( *m_pBuffer, m_pInflate ) )		// Try to decompress the stream
+			{
+				Stop();			// Clean up
+				return FALSE;	// Report failure
 			}
 		}
 	}
@@ -757,7 +752,7 @@ BOOL CHostBrowser::ReadContent()
 BOOL CHostBrowser::StreamPacketsG1()
 {
 	ASSUME_LOCK( Transfers.m_pSection );
-	ASSERT ( m_nProtocol == PROTOCOL_G1 );
+	ASSERT( m_nProtocol == PROTOCOL_G1 );
 
 	BOOL bSuccess = TRUE;
 	for ( ; bSuccess ; )
@@ -801,7 +796,7 @@ BOOL CHostBrowser::StreamPacketsG1()
 BOOL CHostBrowser::StreamPacketsG2()
 {
 	ASSUME_LOCK( Transfers.m_pSection );
-	ASSERT ( m_nProtocol == PROTOCOL_G2 );
+	ASSERT( m_nProtocol == PROTOCOL_G2 );
 
 	while ( CG2Packet* pPacket = CG2Packet::ReadBuffer( m_pBuffer ) )
 	{
@@ -944,7 +939,7 @@ void CHostBrowser::OnProfilePacket(CG2Packet* pPacket)
 BOOL CHostBrowser::StreamHTML()
 {
 	ASSUME_LOCK( Transfers.m_pSection );
-	ASSERT ( m_nProtocol == PROTOCOL_NULL );
+	ASSERT( m_nProtocol == PROTOCOL_NULL );
 
 	CString strLine;
 

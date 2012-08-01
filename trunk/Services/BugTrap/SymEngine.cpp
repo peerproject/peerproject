@@ -831,7 +831,7 @@ void CSymEngine::GetRegistersValues(CRegistersValues& rRegVals)
  */
 void CSymEngine::GetRegistersString(PTSTR pszRegString, DWORD dwRegStringSize)
 {
-	if (m_pExceptionPointers == NULL && dwRegStringSize)
+	if (m_pExceptionPointers == NULL /*&& dwRegStringSize*/)
 	{
 		*pszRegString = _T('\0');
 		return;
@@ -2220,15 +2220,15 @@ void CSymEngine::GetCpusInfo(CXmlWriter& rXmlWriter)
 	 rXmlWriter.WriteElementString(_T("architecture"), CpusInfo.m_pszCpuArch); // <architecture>...</architecture>
 	 for (DWORD dwCpuNum = 0; dwCpuNum < CpusInfo.m_dwNumCpus; ++dwCpuNum)
 	 {
-	 	CCpuInfo CpuInfo;
-	 	if (GetCpuInfo(dwCpuNum, CpuInfo))
-	 	{
-	 		rXmlWriter.WriteStartElement(_T("cpu")); // <cpu>
-	 		 rXmlWriter.WriteElementString(_T("id"), CpuInfo.m_szCpuId); // <id>...</id>
-	 		 rXmlWriter.WriteElementString(_T("speed"), CpuInfo.m_szCpuSpeed); // <speed>...</speed>
-	 		 rXmlWriter.WriteElementString(_T("description"), CpuInfo.m_szCpuDescription); // <description>...</description>
-	 		rXmlWriter.WriteEndElement(); // </cpu>
-	 	}
+		CCpuInfo CpuInfo;
+		if (GetCpuInfo(dwCpuNum, CpuInfo))
+		{
+			rXmlWriter.WriteStartElement(_T("cpu")); // <cpu>
+			 rXmlWriter.WriteElementString(_T("id"), CpuInfo.m_szCpuId); // <id>...</id>
+			 rXmlWriter.WriteElementString(_T("speed"), CpuInfo.m_szCpuSpeed); // <speed>...</speed>
+			 rXmlWriter.WriteElementString(_T("description"), CpuInfo.m_szCpuDescription); // <description>...</description>
+			rXmlWriter.WriteEndElement(); // </cpu>
+		}
 	 }
 	rXmlWriter.WriteEndElement(); // </cpus>
 }
@@ -2595,17 +2595,15 @@ BOOL CSymEngine::WriteLog(PCTSTR pszFileName, CEnumProcess* pEnumProcess)
 		GetErrorLog(EncStream, pEnumProcess);
 		return TRUE;
 	}
-	else if (g_eReportFormat == BTRF_XML)
+	if (g_eReportFormat == BTRF_XML)
 	{
 		CXmlWriter XmlWriter(&FileStream);
 		GetErrorLog(XmlWriter, pEnumProcess);
 		return TRUE;
 	}
-	else
-	{
-		_ASSERT(FALSE);
-		return FALSE;
-	}
+
+	_ASSERT(FALSE);
+	return FALSE;
 }
 
 /**
@@ -2644,7 +2642,7 @@ BOOL CSymEngine::GetNextStackTraceEntry(CStackTraceEntry& rEntry)
 	            _T("%04lX:%016lX"), wExceptionSegment, dwExceptionAddress);
 #elif defined _WIN32
 	_stprintf_s(rEntry.m_szAddress, countof(rEntry.m_szAddress),
-	            _T("%04lX:%08lX"), wExceptionSegment, dwExceptionAddress);
+	            _T("%04lX:%08I64X"), wExceptionSegment, dwExceptionAddress);
 #endif
 
 	BYTE arrSymBuffer[512];
@@ -2782,13 +2780,11 @@ PCTSTR CSymEngine::GetLogFileExtension(void)
 {
 	if (g_eReportFormat == BTRF_TEXT)
 		return _T("log");
-	else if (g_eReportFormat == BTRF_XML)
+	if (g_eReportFormat == BTRF_XML)
 		return _T("xml");
-	else
-	{
-		_ASSERT(FALSE);
-		return NULL;
-	}
+
+	_ASSERT(FALSE);
+	return NULL;
 }
 
 /**

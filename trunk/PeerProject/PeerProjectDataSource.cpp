@@ -311,10 +311,10 @@ UINT CPeerProjectDataSource::DragDropThread(LPVOID param)
 			DWORD dwEffect = DROPEFFECT_NONE;
 			hr = ::DoDragDrop( pIDataObject, pIDropSource,
 				DROPEFFECT_MOVE | DROPEFFECT_COPY, &dwEffect );
-			ASSERT ( SUCCEEDED( hr ) );
+			ASSERT( SUCCEEDED( hr ) );
 
 			// ToDo: Detect unoptimized move and delete dragged items
-			ASSERT ( dwEffect != DROPEFFECT_MOVE );
+			ASSERT( dwEffect != DROPEFFECT_MOVE );
 		}
 	}
 
@@ -435,18 +435,18 @@ HRESULT CPeerProjectDataSource::ObjectToFiles(IDataObject* pIDataObject, CList <
 				UINT nCount = DragQueryFile( hDropInfo, 0xFFFFFFFF, NULL, 0 );
 				for ( UINT nFile = 0 ; nFile < nCount ; nFile++ )
 				{
-					CString sFile;
-					DragQueryFile( hDropInfo, nFile, sFile.GetBuffer( MAX_PATH ), MAX_PATH );
-					sFile.ReleaseBuffer();
+					CString strFile;
+					DragQueryFile( hDropInfo, nFile, strFile.GetBuffer( MAX_PATH ), MAX_PATH );
+					strFile.ReleaseBuffer();
 
-					if ( sFile.GetLength() > 4 && ! lstrcmpi( (LPCTSTR)sFile +
-						sFile.GetLength() - 4, _T(".lnk") ) )
+					if ( strFile.GetLength() > 4 &&
+						 lstrcmpi( (LPCTSTR)strFile + strFile.GetLength() - 4, _T(".lnk") ) == 0 )
 					{
-						sFile = ResolveShortcut( sFile );
+						strFile = ResolveShortcut( strFile );
 					}
 
-					if ( ! sFile.IsEmpty() )
-						oFiles.AddTail( sFile );
+					if ( ! strFile.IsEmpty() )
+						oFiles.AddTail( strFile );
 				}
 				hr = ( oFiles.GetCount() > 0 ) ? S_OK : S_FALSE;
 				GlobalUnlock( medium.hGlobal );
@@ -679,7 +679,7 @@ BOOL CPeerProjectDataSource::DropToAlbum(IDataObject* pIDataObject, DWORD grfKey
 							}
 							else
 							{
-								// if pFolder == NULL than file is not from album
+								// if pFolder == NULL then file is not from album
 
 								bRet = TRUE;
 								if ( bDrop )
@@ -1401,8 +1401,8 @@ void CPeerProjectDataSource::FillBuffer(const CLibraryList* pList, LPTSTR& buf_H
 						pFile->m_nSize != 0 && pFile->m_nSize != SIZE_UNKNOWN &&
 						pFile->m_sName )
 					{
-						CString sTemp;
-						sTemp.Format(
+						CString strTemp;
+						strTemp.Format(
 							_T("magnet:?xt=urn:bitprint:%s.%s&xt=%s&xl=%I64u&dn=%s"),
 							pFile->m_oSHA1.toString(),
 							pFile->m_oTiger.toString(),
@@ -1411,7 +1411,7 @@ void CPeerProjectDataSource::FillBuffer(const CLibraryList* pList, LPTSTR& buf_H
 							URLEncode( pFile->m_sName ) );
 						if ( ! buf_Text.IsEmpty() )
 							buf_Text += _T("\r\n\r\n");
-						buf_Text += sTemp;
+						buf_Text += strTemp;
 					}
 
 					if ( int len = pFile->GetPath().GetLength() )

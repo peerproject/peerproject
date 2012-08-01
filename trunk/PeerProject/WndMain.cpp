@@ -595,10 +595,24 @@ void CMainWnd::OnClose()
 		// Delayed close
 		static int nStep = 0;
 		if ( nStep++ < 80 )
-			theApp.SplashStep( Settings.General.LanguageDefault ? L"Waiting to Close" : LoadString( IDS_SCHEDULER_TASK_WAITING ), 80, true );
-		SetTimer( 2, 550, NULL );
+#ifdef _DEBUG
+		{
+			CString strMessage = Settings.General.LanguageDefault ? L"Waiting to Close [%ld]" : ( LoadString( IDS_SCHEDULER_TASK_WAITING ) + L" [%ld]" );
+			strMessage.Format( strMessage, theApp.m_bBusy );
+			theApp.SplashStep( strMessage, 80, true );
+		}
+		else if ( nStep == 80 )
+#endif
+		{
+			CString strMessage = Settings.General.LanguageDefault ? L"Waiting to Close" : LoadString( IDS_SCHEDULER_TASK_WAITING );
+			theApp.SplashStep( strMessage, 80, true );
+		}
+		SetTimer( 2, 500, NULL );
 		return;
 	}
+
+	KillTimer( 1 );
+	KillTimer( 2 );
 
 	theApp.SplashStep();
 
@@ -609,9 +623,6 @@ void CMainWnd::OnClose()
 
 	theApp.m_bClosing = true;
 	theApp.m_pSafeWnd = NULL;
-
-	KillTimer( 1 );
-	KillTimer( 2 );
 
 	DISABLE_DROP()
 
@@ -2002,6 +2013,12 @@ void CMainWnd::OnNetworkAutoClose()
 
 void CMainWnd::OnNetworkExit()
 {
+	SetWindowText( LoadString( IDR_MAINFRAME ) + _T(" (") + LoadString( IDS_NEIGHBOUR_CLOSING ) + _T(")") );
+
+	//PostMessage( WM_SYSCOMMAND, SC_MINIMIZE );
+	if ( ! m_bTrayHide )
+		CloseToTray();
+
 	PostMessage( WM_CLOSE );
 }
 

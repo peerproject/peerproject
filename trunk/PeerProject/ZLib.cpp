@@ -1,7 +1,7 @@
 //
 // ZLib.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -39,8 +39,14 @@ static char THIS_FILE[]=__FILE__;
 
 auto_array< BYTE > CZLib::Compress(LPCVOID pInput, DWORD nInput, DWORD* pnOutput, DWORD nSuggest)
 {
+	if ( ! nInput )
+	{
+		*pnOutput = 0;
+		return auto_array< BYTE >();
+	}
+
 	// Use nSuggest as the output buffer size if given,
- 	// Otherwise call compressBound to set it just using math to guess, it doesn't look at the data
+	// Otherwise call compressBound to set it just using math to guess, it doesn't look at the data
 	*pnOutput = nSuggest ? nSuggest : compressBound( nInput );
 
 	// Allocate a new buffer of pnOutput bytes
@@ -52,12 +58,13 @@ auto_array< BYTE > CZLib::Compress(LPCVOID pInput, DWORD nInput, DWORD* pnOutput
 	}
 
 	// Compress the data at pInput into pBuffer, putting how many bytes it wrote under pnOutput
-	const int nRes = compress2( pBuffer.get(), pnOutput, (const BYTE *)pInput, nInput, Settings.Connection.ZLibCompressionLevel );
+	int nRes = compress2( pBuffer.get(), pnOutput, (const BYTE *)pInput, nInput, Settings.Connection.ZLibCompressionLevel );
 
 	if ( nRes != Z_OK )
 	{
 		// The compress function reported error
 		ASSERT( Z_BUF_ERROR != nRes );	// ToDo: Error
+		*pnOutput = 0;
 		return auto_array< BYTE >();
 	}
 
@@ -71,6 +78,12 @@ auto_array< BYTE > CZLib::Compress(LPCVOID pInput, DWORD nInput, DWORD* pnOutput
 
 BYTE* CZLib::Compress2(LPCVOID pInput, DWORD nInput, DWORD* pnOutput, DWORD nSuggest)
 {
+	if ( ! nInput )
+	{
+		*pnOutput = 0;
+		return NULL;
+	}
+
 	*pnOutput = nSuggest ? nSuggest : compressBound( nInput );
 
 	// Allocate a new buffer of pnOutput bytes
@@ -82,7 +95,7 @@ BYTE* CZLib::Compress2(LPCVOID pInput, DWORD nInput, DWORD* pnOutput, DWORD nSug
 	}
 
 	// Compress the data at pInput into pBuffer, putting how many bytes it wrote under pnOutput
-	int nRes = compress( pBuffer, pnOutput, (const BYTE *)pInput, nInput );
+	int nRes = compress2( pBuffer, pnOutput, (const BYTE *)pInput, nInput, Settings.Connection.ZLibCompressionLevel );
 	if ( nRes != Z_OK )
 	{
 		// The compress function reported error
@@ -119,7 +132,7 @@ auto_array< BYTE > CZLib::Decompress(LPCVOID pInput, DWORD nInput, DWORD* pnOutp
 		}
 
 		// Uncompress the data from pInput into pBuffer, writing how big it is now in pnOutput
-		const int nRes = uncompress( pBuffer.get(), pnOutput, (const BYTE *)pInput, nInput );
+		int nRes = uncompress( pBuffer.get(), pnOutput, (const BYTE *)pInput, nInput );
 
 		if ( Z_OK == nRes )
 			return pBuffer;
@@ -134,9 +147,9 @@ auto_array< BYTE > CZLib::Decompress(LPCVOID pInput, DWORD nInput, DWORD* pnOutp
 
 	// The pBuffer buffer is bigger than necessary, move its bytes into one perfectly sized, and return it
 	//auto_array< BYTE > pOutput( new BYTE[ *pnOutput ] );	// Make a new buffer exactly the right size
-	//memcpy( pOutput.get(), pBuffer, *pnOutput );		// Copy the data from the one that's too big
+	//memcpy( pOutput.get(), pBuffer, *pnOutput );			// Copy the data from the one that's too big
 	//delete [] pBuffer;
-	//return pOutput;									// Return a pointer to the perfectly sized one
+	//return pOutput;										// Return a pointer to the perfectly sized one
 }
 
 
@@ -162,7 +175,7 @@ BYTE* CZLib::Decompress2(LPCVOID pInput, DWORD nInput, DWORD* pnOutput)
 		// Uncompress the data from pInput into pBuffer, writing how big it is now in pnOutput
 		int nRes = uncompress( pBuffer, pnOutput, (const BYTE *)pInput, nInput );
 		if ( Z_OK == nRes )
-			break;
+			return pBuffer;
 
 		if ( Z_BUF_ERROR != nRes )
 		{
@@ -172,6 +185,4 @@ BYTE* CZLib::Decompress2(LPCVOID pInput, DWORD nInput, DWORD* pnOutput)
 			return NULL;
 		}
 	}
-
-	return pBuffer;
 }

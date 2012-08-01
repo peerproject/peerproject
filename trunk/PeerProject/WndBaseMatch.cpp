@@ -270,19 +270,13 @@ void CBaseMatchWnd::OnDrawItem(int /*nIDCtl*/, LPDRAWITEMSTRUCT lpDrawItemStruct
 	if ( m_pCoolMenu ) m_pCoolMenu->OnDrawItem( lpDrawItemStruct );
 }
 
-void CBaseMatchWnd::OnUpdateSearchDownload(CCmdUI* pCmdUI)
-{
-	pCmdUI->Enable( m_pMatches->GetSelectedCount() > 0 );
-}
-
-void CBaseMatchWnd::OnSearchDownload()
+void CBaseMatchWnd::OnDownload(BOOL bAddToHead)
 {
 	CSingleLock pSingleLock( &m_pMatches->m_pSection, TRUE );
 	CList< CMatchFile* > pFiles;
 	CList< CQueryHit* > pHits;
-	POSITION pos;
 
-	for ( pos = m_pMatches->m_pSelectedFiles.GetHeadPosition() ; pos ; )
+	for ( POSITION pos = m_pMatches->m_pSelectedFiles.GetHeadPosition() ; pos ; )
 	{
 		CMatchFile* pFile = m_pMatches->m_pSelectedFiles.GetNext( pos );
 
@@ -302,7 +296,7 @@ void CBaseMatchWnd::OnSearchDownload()
 		pSingleLock.Lock();
 	}
 
-	for ( pos = m_pMatches->m_pSelectedHits.GetHeadPosition() ; pos ; )
+	for ( POSITION pos = m_pMatches->m_pSelectedHits.GetHeadPosition() ; pos ; )
 	{
 		CQueryHit* pHit = m_pMatches->m_pSelectedHits.GetNext( pos );
 
@@ -329,22 +323,24 @@ void CBaseMatchWnd::OnSearchDownload()
 	CSyncObject* pSync[2] = { &Network.m_pSection, &Transfers.m_pSection };
 	CMultiLock pMultiLock( pSync, 2, TRUE );
 
-	for ( pos = pFiles.GetHeadPosition() ; pos ; )
+	for ( POSITION pos = pFiles.GetHeadPosition() ; pos ; )
 	{
 		CMatchFile* pFile = pFiles.GetNext( pos );
 		if ( m_pMatches->m_pSelectedFiles.Find( pFile ) != NULL )
-			Downloads.Add( pFile );
+			Downloads.Add( pFile, bAddToHead );
 	}
 
-	for ( pos = pHits.GetHeadPosition() ; pos ; )
+	for ( POSITION pos = pHits.GetHeadPosition() ; pos ; )
 	{
 		CQueryHit* pHit = pHits.GetNext( pos );
 		if ( m_pMatches->m_pSelectedHits.Find( pHit ) != NULL )
 		{
-			CDownload *pDownload = Downloads.Add( pHit );
-			// Send any reviews to the download, so they can be viewed later
-			if ( pDownload && pHit->IsRated() )
-				pDownload->AddReview( &pHit->m_pAddress, 2, pHit->m_nRating, pHit->m_sNick, pHit->m_sComments );
+			if ( CDownload *pDownload = Downloads.Add( pHit, bAddToHead ) )
+			{
+				// Send any reviews to the download, so they can be viewed later
+				if ( pHit->IsRated() )
+					pDownload->AddReview( &pHit->m_pAddress, 2, pHit->m_nRating, pHit->m_sNick, pHit->m_sComments );
+			}
 		}
 	}
 
@@ -352,8 +348,18 @@ void CBaseMatchWnd::OnSearchDownload()
 
 	m_wndList.Invalidate();
 
-	if ( Settings.Search.SwitchToTransfers && ! m_bContextMenu && GetTickCount() - m_tContextMenu > 5000 )
+	if ( Settings.Search.SwitchToTransfers && ! m_bContextMenu && GetTickCount() > m_tContextMenu + 5000 )
 		GetManager()->Open( RUNTIME_CLASS(CDownloadsWnd) );
+}
+
+void CBaseMatchWnd::OnUpdateSearchDownload(CCmdUI* pCmdUI)
+{
+	pCmdUI->Enable( m_pMatches->GetSelectedCount() > 0 );
+}
+
+void CBaseMatchWnd::OnSearchDownload()
+{
+	OnDownload( FALSE );
 }
 
 void CBaseMatchWnd::OnUpdateSearchDownloadNow(CCmdUI* pCmdUI)
@@ -363,99 +369,17 @@ void CBaseMatchWnd::OnUpdateSearchDownloadNow(CCmdUI* pCmdUI)
 
 void CBaseMatchWnd::OnSearchDownloadNow()
 {
-	CSingleLock pSingleLock( &m_pMatches->m_pSection, TRUE );
-	CList< CMatchFile* > pFiles;
-	CList< CQueryHit* > pHits;
-	POSITION pos;
-
-	for ( pos = m_pMatches->m_pSelectedFiles.GetHeadPosition() ; pos ; )
-	{
-		CMatchFile* pFile = m_pMatches->m_pSelectedFiles.GetNext( pos );
-
-		pSingleLock.Unlock();
-
-		switch ( CExistingFileDlg::CheckExisting( pFile ) )
-		{
-		case CExistingFileDlg::Download:
-			pFiles.AddTail( pFile );
-			break;
-		case CExistingFileDlg::Cancel:
-			return;
-		//default:
-		//	;
-		}
-
-		pSingleLock.Lock();
-	}
-
-	for ( pos = m_pMatches->m_pSelectedHits.GetHeadPosition() ; pos ; )
-	{
-		CQueryHit* pHit = m_pMatches->m_pSelectedHits.GetNext( pos );
-
-		pSingleLock.Unlock();
-
-		switch ( CExistingFileDlg::CheckExisting( pHit ) )
-		{
-		case CExistingFileDlg::Download:
-			pHits.AddTail( pHit );
-			break;
-		case CExistingFileDlg::Cancel:
-			return;
-		//default:
-		//	;
-		}
-
-		pSingleLock.Lock();
-	}
-
-	pSingleLock.Unlock();
-
-	if ( pFiles.IsEmpty() && pHits.IsEmpty() ) return;
-
-	CSyncObject* pSync[2] = { &Network.m_pSection, &Transfers.m_pSection };
-	CMultiLock pMultiLock( pSync, 2, TRUE );
-
-	for ( pos = pFiles.GetHeadPosition() ; pos ; )
-	{
-		CMatchFile* pFile = pFiles.GetNext( pos );
-		if ( m_pMatches->m_pSelectedFiles.Find( pFile ) != NULL )
-			Downloads.Add( pFile, TRUE );
-	}
-
-	for ( pos = pHits.GetHeadPosition() ; pos ; )
-	{
-		CQueryHit* pHit = pHits.GetNext( pos );
-		if ( m_pMatches->m_pSelectedHits.Find( pHit ) != NULL )
-			Downloads.Add( pHit, TRUE );
-	}
-
-	for ( pos = pHits.GetHeadPosition() ; pos ; )
-	{
-		CQueryHit* pHit = pHits.GetNext( pos );
-		if ( m_pMatches->m_pSelectedHits.Find( pHit ) != NULL )
-		{
-			CDownload *pDownload = Downloads.Add( pHit );
-			// Send any reviews to the download, so they can be viewed later
-			if ( pDownload && pHit->IsRated() )
-				pDownload->AddReview( &pHit->m_pAddress, 2, pHit->m_nRating, pHit->m_sNick, pHit->m_sComments );
-		}
-	}
-
-	pMultiLock.Unlock();
-
-	m_wndList.Invalidate();
-
-	if ( Settings.Search.SwitchToTransfers && ! m_bContextMenu && GetTickCount() - m_tContextMenu > 5000 )
-		GetManager()->Open( RUNTIME_CLASS(CDownloadsWnd) );
+	OnDownload( TRUE );
 }
 
 void CBaseMatchWnd::OnUpdateSearchURI(CCmdUI* pCmdUI)
 {
-	CString strMessage;
-	BOOL bSelected = m_pMatches->m_pSelectedFiles.GetCount() ||
+	const BOOL bSelected = m_pMatches->m_pSelectedFiles.GetCount() ||
 		m_pMatches->m_pSelectedHits.GetCount();
 	pCmdUI->Enable( bSelected );
-	bSelected > 1 ? LoadString( strMessage, IDS_LIBRARY_URI_EXPORT ) : LoadString( strMessage, IDS_LIBRARY_URI_COPY );
+
+	CString strMessage;
+	m_pMatches->m_pSelectedFiles.GetCount() > 1 ? LoadString( strMessage, IDS_LIBRARY_URI_EXPORT ) : LoadString( strMessage, IDS_LIBRARY_URI_COPY );
 	pCmdUI->SetText( strMessage );
 }
 

@@ -78,19 +78,19 @@ BOOL COutputPage::OnInitDialog()
 {
 	CWizardPage::OnInitDialog();
 
-	int nCount = theApp.GetProfileInt( _T("Folders"), _T("Count"), 0 );
-	m_bAutoPieces = theApp.GetProfileInt( _T("Folders"), _T("AutoPieceSize"), TRUE );
-	m_nPieceIndex = theApp.GetProfileInt( _T("Folders"), _T("PieceSize"), 0 );
-	m_bSHA1 = theApp.GetProfileInt( _T("Folders"), _T("SHA1"), TRUE );
-	m_bED2K = theApp.GetProfileInt( _T("Folders"), _T("ED2K"), TRUE );
-	m_bMD5 = theApp.GetProfileInt( _T("Folders"), _T("MD5"), TRUE );
+	int nCount		= theApp.GetProfileInt( _T("Folders"), _T("Count"), 0 );
+	m_bAutoPieces	= theApp.GetProfileInt( _T("Folders"), _T("AutoPieceSize"), TRUE );
+	m_nPieceIndex	= theApp.GetProfileInt( _T("Folders"), _T("PieceSize"), 0 );
+	m_bSHA1 		= theApp.GetProfileInt( _T("Folders"), _T("SHA1"), TRUE );
+	m_bED2K 		= theApp.GetProfileInt( _T("Folders"), _T("ED2K"), TRUE );
+	m_bMD5			= theApp.GetProfileInt( _T("Folders"), _T("MD5"), TRUE );
 
 	for ( int nItem = 0 ; nItem < nCount ; nItem++ )
 	{
-		CString strName, strURL;
+		CString strName;
 		strName.Format( _T("%.3i.Path"), nItem + 1 );
-		strURL = theApp.GetProfileString( _T("Folders"), strName );
-		if ( strURL.GetLength() )
+		CString strURL = theApp.GetProfileString( _T("Folders"), strName );
+		if ( ! strURL.IsEmpty() )
 			m_wndFolders.AddString( strURL );
 	}
 
@@ -103,7 +103,7 @@ void COutputPage::OnReset()
 {
 	m_sName.Empty();
 	m_sFolder.Empty();
-	m_wndPieceSize.EnableWindow( !m_bAutoPieces );
+	m_wndPieceSize.EnableWindow( ! m_bAutoPieces );
 	UpdateData( FALSE );
 }
 
@@ -141,7 +141,7 @@ BOOL COutputPage::OnSetActive()
 			CString sName2 = pPackage->m_wndList.GetItemText( nCount - 1, 0 );
 			LPCTSTR pszName1 = sName;
 			LPCTSTR pszName2 = sName2;
-			for ( int i = 0; *pszName1 && *pszName2; ++pszName1, ++pszName2, ++i )
+			for ( int i = 0 ; *pszName1 && *pszName2 ; ++pszName1, ++pszName2, ++i )
 			{
 				if ( *pszName1 != *pszName2 )
 				{
@@ -240,17 +240,19 @@ LRESULT COutputPage::OnWizardNext()
 		return -1;
 	}
 
-	if ( GetFileAttributes( m_sFolder ) == 0xFFFFFFFF )
-	{
-		CString strFormat, strMessage;
+	const CString strFolder = ( m_sFolder.GetLength() < MAX_PATH ) ?
+		m_sFolder : ( CString( _T("\\\\?\\") ) + m_sFolder );
 
+	if ( GetFileAttributes( strFolder ) == 0xFFFFFFFF )
+	{
+		CString strMessage, strFormat;
 		strFormat.LoadString( IDS_OUTPUT_CREATE_FOLDER );
 		strMessage.Format( strFormat, (LPCTSTR)m_sFolder );
 
 		if ( IDYES != AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO ) )
 			return -1;
 
-		if ( ! CreateDirectory( m_sFolder, NULL ) )
+		if ( ! CreateDirectory( strFolder, NULL ) )
 		{
 			strFormat.LoadString( IDS_OUTPUT_CANT_CREATE_FOLDER );
 			strMessage.Format( strFormat, (LPCTSTR)m_sFolder );
@@ -285,6 +287,8 @@ LRESULT COutputPage::OnWizardNext()
 	}
 
 	CString strPath = m_sFolder + '\\' + m_sName;
+	if ( strPath.GetLength() > MAX_PATH )
+		strPath = CString( _T("\\\\?\\") ) + strPath;
 
 	if ( GetFileAttributes( strPath ) != INVALID_FILE_ATTRIBUTES )
 	{

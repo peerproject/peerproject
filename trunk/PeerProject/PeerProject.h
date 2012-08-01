@@ -25,6 +25,7 @@ class CBuffer;
 class CDatabase;
 class CPeerProjectFile;
 class CMainWnd;
+class CPacketWnd;
 class CSplashDlg;
 
 
@@ -101,6 +102,7 @@ public:
 	HHOOK			m_hHookKbd;
 	HHOOK			m_hHookMouse;
 	UINT			m_nMouseWheel;				// System-defined number of lines to move with mouse wheel
+	CPacketWnd*		m_pPacketWnd;				// Packet Window (NULL - not opened)
 
 	HCRYPTPROV		m_hCryptProv;				// Cryptography Context handle
 
@@ -143,11 +145,13 @@ public:
 	HINSTANCE		m_hGeoIP;
 	GeoIP*			m_pGeoIP;
 	typedef GeoIP*	(*GeoIP_newFunc)(int);
+	typedef int 	(*GeoIP_cleanupFunc)(void);
 	typedef void	(*GeoIP_deleteFunc)(GeoIP* gi);
 	typedef const char * (*GeoIP_country_code_by_ipnumFunc) (GeoIP* gi, unsigned long ipnum);
 	typedef const char * (*GeoIP_country_name_by_ipnumFunc) (GeoIP* gi, unsigned long ipnum);
 	GeoIP_country_code_by_ipnumFunc	m_pfnGeoIP_country_code_by_ipnum;
 	GeoIP_country_name_by_ipnumFunc	m_pfnGeoIP_country_name_by_ipnum;
+	GeoIP_cleanupFunc	m_pfnGeoIP_cleanup;
 	GeoIP_deleteFunc	m_pfnGeoIP_delete;
 
 	CString 		GetCountryCode(IN_ADDR pAddress) const;
@@ -203,6 +207,7 @@ protected:
 	virtual int		ExitInstance();
 	virtual BOOL	Register();
 	virtual BOOL	Unregister();
+	virtual void	AddToRecentFileList(LPCTSTR lpszPathName);
 	virtual void	WinHelp(DWORD_PTR dwData, UINT nCmd = HELP_CONTEXT);
 
 	void			GetVersionNumber();
@@ -320,6 +325,9 @@ BOOL	IsUserFullscreen();
 
 // Handle "-noskin" flag
 void	ClearSkins();
+
+// Creates shell link (context menus)
+IShellLink* CreateShellLink(LPCWSTR szTargetExecutablePath, LPCWSTR szCommandLineArgs, LPCWSTR szTitle, LPCWSTR szIconPath, int nIconIndex, LPCWSTR szDescription);
 
 struct CompareNums
 {

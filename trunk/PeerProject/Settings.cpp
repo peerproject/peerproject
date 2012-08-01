@@ -149,11 +149,11 @@ void CSettings::Load()
 	Add( _T("Skin"), _T("MenubarHeight"), &Skin.MenubarHeight, 28, 1, 0, 100, _T(" px") );
 	Add( _T("Skin"), _T("ToolbarHeight"), &Skin.ToolbarHeight, 28, 1, 0, 100, _T(" px") );
 	Add( _T("Skin"), _T("TaskbarHeight"), &Skin.TaskbarHeight, 26, 1, 0, 100, _T(" px") );
-	Add( _T("Skin"), _T("TaskbarTabWidth"), &Skin.TaskbarTabWidth, 200, 1, 0, 100, _T(" px") );
+	Add( _T("Skin"), _T("TaskbarTabWidth"), &Skin.TaskbarTabWidth, 200, 1, 0, 1000, _T(" px") );
 	Add( _T("Skin"), _T("GroupsbarHeight"), &Skin.GroupsbarHeight, 24, 1, 0, 100, _T(" px") );
 	Add( _T("Skin"), _T("HeaderbarHeight"), &Skin.HeaderbarHeight, 64, 1, 0, 100, _T(" px") );
-	Add( _T("Skin"), _T("MonitorbarWidth"), &Skin.MonitorbarWidth, 120, 1, 0, 100, _T(" px") );
-	Add( _T("Skin"), _T("SidebarWidth"), &Skin.SidebarWidth, 200, 1, 0, 100, _T(" px") );
+	Add( _T("Skin"), _T("MonitorbarWidth"), &Skin.MonitorbarWidth, 120, 1, 0, 1000, _T(" px") );
+	Add( _T("Skin"), _T("SidebarWidth"), &Skin.SidebarWidth, 200, 1, 0, 500, _T(" px") );
 	Add( _T("Skin"), _T("SidebarPadding"), &Skin.SidebarPadding, 12, 1, 0, 100, _T(" px") );
 	Add( _T("Skin"), _T("Splitter"), &Skin.Splitter, 6, 1, 1, 100, _T(" px") );
 	Add( _T("Skin"), _T("RowSize"), &Skin.RowSize, 17, 1, 16, 20, _T(" px") );
@@ -308,9 +308,9 @@ void CSettings::Load()
 	Add( _T("Connection"), _T("InBind"), &Connection.InBind, false );
 	Add( _T("Connection"), _T("InHost"), &Connection.InHost );
 	Add( _T("Connection"), _T("InPort"), &Connection.InPort, protocolPorts[ PROTOCOL_NULL ], 1, 1, 65535 );	// 6480... or 6346?
-	Add( _T("Connection"), _T("InSpeed"), &Connection.InSpeed, 4096, 25000 );
+	Add( _T("Connection"), _T("InSpeed"), &Connection.InSpeed, 4096 );	// , 25000
+	Add( _T("Connection"), _T("OutSpeed"), &Connection.OutSpeed, 768 );	// , 15000
 	Add( _T("Connection"), _T("OutHost"), &Connection.OutHost );
-	Add( _T("Connection"), _T("OutSpeed"), &Connection.OutSpeed, 768, 15000 );
 	Add( _T("Connection"), _T("RandomPort"), &Connection.RandomPort, false );
 	Add( _T("Connection"), _T("RequireForTransfers"), &Connection.RequireForTransfers, true );
 	Add( _T("Connection"), _T("SendBuffer"), &Connection.SendBuffer, 2*KiloByte, 1, 64, 10*KiloByte );
@@ -1641,6 +1641,7 @@ bool CSettings::GetValue(LPCTSTR pszPath, VARIANT* value)
 
 void CSettings::Item::Load()
 {
+	// Assert above Add() parameters
 	if ( m_pBool )
 	{
 		ASSERT( ! m_pDword && ! m_pFloat && ! m_pString && ! m_pSet );
@@ -1650,13 +1651,13 @@ void CSettings::Item::Load()
 	else if ( m_pDword )
 	{
 		ASSERT( ! m_pFloat && ! m_pString && ! m_pSet );
-	//	ASSERT( m_nScale == 0 && m_nMin == 0 && m_nMax == 0 );
-	//	ASSERT( m_nScale && m_nMin < m_nMax );
+		ASSERT( ( m_nScale == 0 && m_nMin == 0 && m_nMax == 0 ) \
+			 || ( m_nScale && m_nMin < m_nMax ) );
 		*m_pDword = CRegistry::GetDword( m_szSection, m_szName, m_DwordDefault );
 		if ( m_nScale && m_nMin < m_nMax )
 		{
 			ASSERT( ( m_DwordDefault >= m_nMin * m_nScale ) \
-				&& ( m_DwordDefault <= m_nMax * m_nScale ) );
+				 && ( m_DwordDefault <= m_nMax * m_nScale ) );
 			*m_pDword = max( min( *m_pDword, m_nMax * m_nScale ), m_nMin * m_nScale );
 		}
 	}

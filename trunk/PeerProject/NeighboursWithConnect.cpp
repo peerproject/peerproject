@@ -33,7 +33,6 @@
 #include "Datagrams.h"
 #include "Security.h"
 #include "HostCache.h"
-#include "Downloads.h"
 #include "DiscoveryServices.h"
 //#include "Scheduler.h"
 
@@ -56,6 +55,8 @@ CNeighboursWithConnect::CNeighboursWithConnect()
 	, m_bG1Ultrapeer	( FALSE )
 	, m_tHubG2Promotion	( 0 )
 	, m_tPresent		( )
+	, m_tPriority		( )
+	, m_tLastConnect	( 0 )
 {
 }
 
@@ -74,6 +75,9 @@ void CNeighboursWithConnect::Close()
 	m_bG2Hub		= FALSE;
 	m_bG1Leaf		= FALSE;
 	m_bG1Ultrapeer	= FALSE;
+	m_tHubG2Promotion = 0;
+	ZeroMemory( &m_tPresent, sizeof( m_tPresent ) );
+	ZeroMemory( &m_tPriority, sizeof( m_tPriority ) );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -888,16 +892,12 @@ void CNeighboursWithConnect::MaintainNodeStatus()
 void CNeighboursWithConnect::Maintain()
 {
 	// Get the time
-	const DWORD tTimer = GetTickCount();						// Tick count (milliseconds)
-	const DWORD tNow   = static_cast< DWORD >( time( NULL ) );	// Time (in seconds)
+	const DWORD tTimer = GetTickCount();						// Time in ticks (milliseconds)
+	const DWORD tNow   = static_cast< DWORD >( time( NULL ) );	// Time in seconds
 
 	// Don't initiate neighbour connections too quickly if connections are limited
-	if ( Settings.Connection.ConnectThrottle && tTimer >= Network.m_tLastConnect )
-	{
-		// If we've started a new connection recently, wait a little before starting another
-		if ( tTimer < Network.m_tLastConnect + Settings.Connection.ConnectThrottle )
-			return;
-	}
+	if ( Settings.Connection.ConnectThrottle && tTimer >= m_tLastConnect && tTimer <= m_tLastConnect + Settings.Connection.ConnectThrottle )
+		return;
 
 	DWORD nCount[ PROTOCOL_LAST ][3] = {}, nLimit[ PROTOCOL_LAST ][3] = {};
 
@@ -927,7 +927,7 @@ void CNeighboursWithConnect::Maintain()
 			{
 				// This connection is to a hub above us, or a hub just like us:
 				// Count one more hub for this connection's protocol only if we've been connected for several seconds.
-				if ( tNow > pNeighbour->m_tConnected + 8000 )
+				if ( tTimer > pNeighbour->m_tConnected + 8000 )
 					nCount[ pNeighbour->m_nProtocol ][ ntHub ]++;
 			}
 			else
@@ -941,7 +941,7 @@ void CNeighboursWithConnect::Maintain()
 		{
 			// We're still going through the handshake with this remote computer
 			// Count one more connection in the 0 column for this protocol
-			nCount[ pNeighbour->m_nProtocol ][ 0 ]++;	// This is the same as ntNode, which is 0
+			nCount[ pNeighbour->m_nProtocol ][ ntNode ]++;	// ntNode is 0
 		}
 	}
 
@@ -955,7 +955,7 @@ void CNeighboursWithConnect::Maintain()
 	if ( ! Settings.Gnutella2.HubVerified && m_tHubG2Promotion > 0 && Network.IsConnected() )
 	{
 		// If we have been a hub for at least 8 hours
-		if ( tNow > m_tHubG2Promotion + ( 8 * 60 * 60 ) )
+		if ( tNow > m_tHubG2Promotion + 8 * 60 * 60 )
 		{
 			// And we're loaded ( 75% capacity ), then we probably make a pretty good hub
 			if ( nCount[ PROTOCOL_G2 ][ ntHub ] > ( Settings.Gnutella2.NumLeafs * 3 / 4 ) )
@@ -1005,8 +1005,8 @@ void CNeighboursWithConnect::Maintain()
 	nLimit[ PROTOCOL_DC ][ ntHub ] = Settings.DC.Enabled ? Settings.DC.NumServers : 0;					// 1 hub by default
 
 	// Add the count of connections where we don't know the network yet to the 0 column of both Gnutella and Gnutella2
-	nCount[ PROTOCOL_G1 ][0] += nCount[ PROTOCOL_NULL ][0];
-	nCount[ PROTOCOL_G2 ][0] += nCount[ PROTOCOL_NULL ][0];
+	nCount[ PROTOCOL_G1 ][ ntNode ] += nCount[ PROTOCOL_NULL ][ ntNode ];
+	nCount[ PROTOCOL_G2 ][ ntNode ] += nCount[ PROTOCOL_NULL ][ ntNode ];
 
 	// Connect to more computers or disconnect from some to get the connection counts where settings wants them to be
 	for ( PROTOCOLID nProtocol = PROTOCOL_NULL ; nProtocol < PROTOCOL_LAST ; ++nProtocol )		// Loop once for each protocol
@@ -1058,7 +1058,7 @@ void CNeighboursWithConnect::Maintain()
 			// Handle priority servers
 			// Loop into the host cache until we have as many handshaking connections as we need hub connections
 			for ( CHostCacheIterator i = pCache->Begin() ;
-				i != pCache->End() && nCount[ nProtocol ][0] < nAttempt ;
+				i != pCache->End() && nCount[ nProtocol ][ ntNode ] < nAttempt ;
 				++i )
 			{
 				CHostCacheHostPtr pHost = (*i);
@@ -1068,12 +1068,14 @@ void CNeighboursWithConnect::Maintain()
 					 pHost->CanConnect( tNow ) &&
 					 pHost->ConnectTo( TRUE ) )
 				{
+					m_tPriority[ nProtocol ] = tNow;
+
 					pHost->m_nFailures = 0;
 					pHost->m_tFailure = 0;
 					pHost->m_bCheckedLocally = TRUE;
 
 					// Count that we now have one more connection, and we don't know its network role yet
-					nCount[ nProtocol ][0]++;
+					nCount[ nProtocol ][ ntNode ]++;
 
 					// Prevent queries while we connect with this computer (do)
 					pHost->m_tQuery = tNow;
@@ -1081,50 +1083,52 @@ void CNeighboursWithConnect::Maintain()
 					// If settings wants to limit how frequently this method can run
 					if ( Settings.Connection.ConnectThrottle )
 					{
-						Network.m_tLastConnect = tTimer;
-						Downloads.m_tLastConnect = tTimer;
+						m_tLastConnect = tTimer;
 						return;
 					}
 				}
 			}
 
-			// Handle regular servers, if we need more connections for this network, get IP addresses from the host cache and try to connect to them
-			for ( CHostCacheIterator i = pCache->Begin() ;
-				i != pCache->End() && nCount[ nProtocol ][0] < nAttempt ;
-				++i )
+			// 10 second delay between priority and regular servers
+			if ( tNow > m_tPriority[ nProtocol ] + 10 )
 			{
-				CHostCacheHostPtr pHost = (*i);
-
-				// If we can connect to this IP address from the host cache, try it
-				if ( ! pHost->m_bPriority &&
-					pHost->CanConnect( tNow ) &&
-					pHost->ConnectTo( TRUE ) )
+				// Handle regular servers, if we need more connections for this network, get IP addresses from the host cache and try to connect to them
+				for ( CHostCacheIterator i = pCache->Begin() ;
+					i != pCache->End() && nCount[ nProtocol ][ ntNode ] < nAttempt ;
+					++i )
 				{
-					// Make sure the connection we just made matches the protocol we're looping for right now
-					//ASSERT( pHost->m_nProtocol == nProtocol );
-					pHost->m_nFailures = 0;
-					pHost->m_tFailure = 0;
-					pHost->m_bCheckedLocally = TRUE;
+					CHostCacheHostPtr pHost = (*i);
 
-					// Count that we now have one more handshaking connection for this network
-					nCount[ nProtocol ][0]++;
-
-					// Prevent queries while we log on (do)
-					pHost->m_tQuery = tNow;
-
-					// If settings wants to limit how frequently this method can run
-					if ( Settings.Connection.ConnectThrottle )
+					// If we can connect to this IP address from the host cache, try it
+					if ( ! pHost->m_bPriority &&
+						pHost->CanConnect( tNow ) &&
+						pHost->ConnectTo( TRUE ) )
 					{
-						Network.m_tLastConnect = tTimer;
-						Downloads.m_tLastConnect = tTimer;
-						return;
+						// Make sure the connection we just made matches the protocol we're looping for right now
+						//ASSERT( pHost->m_nProtocol == nProtocol );
+						pHost->m_nFailures = 0;
+						pHost->m_tFailure = 0;
+						pHost->m_bCheckedLocally = TRUE;
+
+						// Count that we now have one more handshaking connection for this network
+						nCount[ nProtocol ][ ntNode ]++;
+
+						// Prevent queries while we log on (do)
+						pHost->m_tQuery = tNow;
+
+						// If settings wants to limit how frequently this method can run
+						if ( Settings.Connection.ConnectThrottle )
+						{
+							m_tLastConnect = tTimer;
+							return;
+						}
 					}
 				}
 			}
 
 			// If we don't have any handshaking connections for this network, and we've been connected to a hub for more than 30 seconds
-			if ( nCount[ nProtocol ][ 0 ] == 0 ||			// We don't have any handshaking connections for this network, or
-				 tNow >= m_tPresent[ nProtocol ] + 30 )		// We've been connected to a hub for more than 30 seconds
+			if ( nCount[ nProtocol ][ ntNode ] == 0 ||			// We don't have any handshaking connections for this network, or
+				 tNow > m_tPresent[ nProtocol ] + 30 )			// We've been connected to a hub for more than 30 seconds
 			{
 				const DWORD tDiscoveryLastExecute = DiscoveryServices.LastExecute();
 
@@ -1132,14 +1136,14 @@ void CNeighboursWithConnect::Maintain()
 				{
 					// We're looping for Gnutella2 right now
 					// Execute the discovery services (do)
-					if ( pCache->IsEmpty() && ( tDiscoveryLastExecute == 0 || tNow - tDiscoveryLastExecute >= 8 ) )
+					if ( pCache->IsEmpty() && tNow >= tDiscoveryLastExecute + 8 )
 						DiscoveryServices.Execute( TRUE, PROTOCOL_G2, 1 );
 				}
 				else if ( nProtocol == PROTOCOL_G1 && Settings.Gnutella1.Enabled )
 				{
 					// We're looping for Gnutella right now
 					// If the Gnutella host cache is empty (do), execute discovery services (do)
-					if ( pCache->IsEmpty() && ( tDiscoveryLastExecute == 0 || tNow - tDiscoveryLastExecute >= 8 ) )
+					if ( pCache->IsEmpty() && tNow >= tDiscoveryLastExecute + 8 )
 						DiscoveryServices.Execute( TRUE, PROTOCOL_G1, 1 );
 				}
 			}
@@ -1194,11 +1198,6 @@ void CNeighboursWithConnect::Maintain()
 			if ( pNewest ) pNewest->Close();	// Close the connection
 		}
 	}
-}
-
-DWORD CNeighboursWithConnect::GetStableCount() const
-{
-	return m_nStableCount;
 }
 
 //////////////////////////////////////////////////////////////////////

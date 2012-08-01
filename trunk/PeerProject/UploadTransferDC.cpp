@@ -192,8 +192,7 @@ BOOL CUploadTransferDC::OnWrite()
 
 			m_pBaseFile->AddFragment( m_nOffset, m_nLength );
 
-			theApp.Message( MSG_INFO, IDS_UPLOAD_FINISHED,
-				(LPCTSTR)m_sName, (LPCTSTR)m_sAddress );
+			theApp.Message( MSG_INFO, IDS_UPLOAD_FINISHED, (LPCTSTR)m_sName, (LPCTSTR)m_sAddress );
 		}
 		else
 		{
@@ -201,8 +200,7 @@ BOOL CUploadTransferDC::OnWrite()
 			QWORD nToRead = min( m_nLength - m_nPosition, 256 * 1024ull );
 			QWORD nRead = 0;
 			auto_array< BYTE > pBuffer( new BYTE[ nToRead ] );
-			if ( ! ReadFile( m_nFileBase + m_nOffset + m_nPosition,
-				pBuffer.get(), nToRead, &nRead ) || nToRead != nRead )
+			if ( ! ReadFile( m_nFileBase + m_nOffset + m_nPosition, pBuffer.get(), nToRead, &nRead ) || nToRead != nRead )
 			{
 				// File error
 				return FALSE;
@@ -338,8 +336,7 @@ BOOL CUploadTransferDC::OnUpload(const std::string& strType, const std::string& 
 		return FALSE;
 	}
 
-	theApp.Message( MSG_ERROR, IDS_UPLOAD_FILENOTFOUND,
-		(LPCTSTR)m_sAddress, (LPCTSTR)CA2CT( strFilename.c_str() ) );
+	theApp.Message( MSG_ERROR, IDS_UPLOAD_FILENOTFOUND, (LPCTSTR)m_sAddress, (LPCTSTR)CA2CT( strFilename.c_str() ) );
 
 	m_pClient->SendCommand( FILE_NOT_AVAILABLE );
 
@@ -386,8 +383,7 @@ BOOL CUploadTransferDC::RequestFile(CLibraryFile* pFile, QWORD nOffset, QWORD nL
 
 	if ( ! UploadQueues.CanUpload( PROTOCOL_DC, pFile, FALSE ) )
 	{
-		theApp.Message( MSG_ERROR, IDS_UPLOAD_FILENOTFOUND,
-			(LPCTSTR)m_sAddress, (LPCTSTR)m_sName );
+		theApp.Message( MSG_ERROR, IDS_UPLOAD_FILENOTFOUND, (LPCTSTR)m_sAddress, (LPCTSTR)m_sName );
 
 		m_pClient->SendCommand( FILE_NOT_AVAILABLE );
 
@@ -403,8 +399,7 @@ BOOL CUploadTransferDC::RequestFile(CLibraryFile* pFile, QWORD nOffset, QWORD nL
 
 	if ( m_nLength > m_nSize || m_nOffset + m_nLength > m_nSize )
 	{
-		theApp.Message( MSG_ERROR, IDS_UPLOAD_BAD_RANGE,
-			(LPCTSTR)m_sAddress, (LPCTSTR)m_sName );
+		theApp.Message( MSG_ERROR, IDS_UPLOAD_BAD_RANGE, (LPCTSTR)m_sAddress, (LPCTSTR)m_sName );
 
 		m_pClient->SendCommand( FILE_NOT_AVAILABLE );
 
@@ -440,9 +435,7 @@ BOOL CUploadTransferDC::RequestFile(CLibraryFile* pFile, QWORD nOffset, QWORD nL
 	else if ( nPosition > 0 )
 	{
 		// Queued
-		theApp.Message( MSG_INFO, IDS_UPLOAD_QUEUED, (LPCTSTR)m_sName,
-			(LPCTSTR)m_sAddress, nPosition, m_pQueue->GetQueuedCount(),
-			(LPCTSTR)m_pQueue->m_sName );
+		theApp.Message( MSG_INFO, IDS_UPLOAD_QUEUED, (LPCTSTR)m_sName, (LPCTSTR)m_sAddress, nPosition, m_pQueue->GetQueuedCount(), (LPCTSTR)m_pQueue->m_sName );
 
 		CString strQueued;
 		strQueued.Format( UPLOAD_QUEUE, nPosition );
@@ -461,8 +454,7 @@ BOOL CUploadTransferDC::RequestFile(CLibraryFile* pFile, QWORD nOffset, QWORD nL
 		UploadQueues.Dequeue( this );
 		ASSERT( m_pQueue == NULL );
 
-		theApp.Message( MSG_ERROR, IDS_UPLOAD_BUSY_QUEUE,
-			(LPCTSTR)m_sName, (LPCTSTR)m_sAddress, (LPCTSTR)m_sUserAgent );
+		theApp.Message( MSG_ERROR, IDS_UPLOAD_BUSY_QUEUE, (LPCTSTR)m_sName, (LPCTSTR)m_sAddress, (LPCTSTR)m_sUserAgent );
 
 		m_pClient->SendCommand( UPLOAD_BUSY );
 
@@ -474,8 +466,7 @@ BOOL CUploadTransferDC::SendFile()
 {
 	if ( ! IsFileOpen() && ! OpenFile() )
 	{
-		theApp.Message( MSG_ERROR, IDS_UPLOAD_CANTOPEN,
-			(LPCTSTR)m_sName, (LPCTSTR)m_sAddress);
+		theApp.Message( MSG_ERROR, IDS_UPLOAD_CANTOPEN, (LPCTSTR)m_sName, (LPCTSTR)m_sAddress);
 
 		m_pClient->SendCommand( FILE_NOT_AVAILABLE );
 
@@ -488,27 +479,23 @@ BOOL CUploadTransferDC::SendFile()
 	}
 	else
 	{
-		CString sAnswer;
-		sAnswer.Format( _T("$ADCSND file TTH/%s %I64u %I64u|"),
-			m_oTiger.toString(), m_nOffset, m_nLength );
+		CString strAnswer;
+		strAnswer.Format( _T("$ADCSND file TTH/%s %I64u %I64u|"), m_oTiger.toString(), m_nOffset, m_nLength );
 
-		m_pClient->SendCommand( sAnswer );
+		m_pClient->SendCommand( strAnswer );
 	}
 
 	StartSending( upsUploading );
 
 	if ( m_pBaseFile->m_nRequests++ == 0 )
 	{
-		theApp.Message( MSG_NOTICE, IDS_UPLOAD_FILE,
-			(LPCTSTR)m_sName, (LPCTSTR)m_sAddress );
+		theApp.Message( MSG_NOTICE, IDS_UPLOAD_FILE, (LPCTSTR)m_sName, (LPCTSTR)m_sAddress );
 
 		ASSERT( m_pBaseFile->m_sPath.GetLength() );
 		PostMainWndMessage( WM_NOWUPLOADING, 0, (LPARAM)new CString( m_pBaseFile->m_sPath ) );
 	}
 
-	theApp.Message( MSG_INFO, IDS_UPLOAD_CONTENT,
-		m_nOffset, m_nOffset + m_nLength - 1, (LPCTSTR)m_sName,
-		(LPCTSTR)m_sAddress, (LPCTSTR)m_sUserAgent );
+	theApp.Message( MSG_INFO, IDS_UPLOAD_CONTENT, m_nOffset, m_nOffset + m_nLength - 1, (LPCTSTR)m_sName, (LPCTSTR)m_sAddress, (LPCTSTR)m_sUserAgent );
 
 	return TRUE;
 }
@@ -523,8 +510,7 @@ BOOL CUploadTransferDC::RequestTigerTree(CLibraryFile* pFile, QWORD nOffset, QWO
 		return FALSE;
 	}
 
-	theApp.Message( MSG_INFO, IDS_UPLOAD_TIGER_SEND,
-		(LPCTSTR)m_sName, (LPCTSTR)m_sAddress );
+	theApp.Message( MSG_INFO, IDS_UPLOAD_TIGER_SEND, (LPCTSTR)m_sName, (LPCTSTR)m_sAddress );
 
 	CAutoPtr< CTigerTree > pTigerTree( pFile->GetTigerTree() );
 	if ( ! pTigerTree )
@@ -570,8 +556,7 @@ BOOL CUploadTransferDC::RequestFileList(BOOL bFile, BOOL bZip, const std::string
 {
 	m_pXML.Clear();
 
-	theApp.Message( MSG_NOTICE, IDS_UPLOAD_BROWSE,
-		(LPCTSTR)m_sAddress, (LPCTSTR)m_sUserAgent );
+	theApp.Message( MSG_NOTICE, IDS_UPLOAD_BROWSE, (LPCTSTR)m_sAddress, (LPCTSTR)m_sUserAgent );
 
 	BOOL bBZip = bFile && ( strFilename == "files.xml.bz2" );
 	m_sName = ( bFile ? "/" : strFilename.c_str() );

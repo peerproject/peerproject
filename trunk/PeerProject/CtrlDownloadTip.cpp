@@ -439,15 +439,6 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownload* pDownload)
 		DrawRule( pDC, &pt );
 	}
 
-	// Starting dynamic text
-	if ( ! Skin.m_bmToolTip.m_hObject )
-	{
-		// Unskinned, no double-buffer
-		m_rcUpdateText.top = pt.y;
-		m_rcUpdateText.right = m_sz.cx;
-		m_rcUpdateText.left = m_nStatWidth;
-	}
-
 	if ( pDownload->IsTasking() )
 	{
 		// Moving or Merging
@@ -507,9 +498,6 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownload* pDownload)
 		DrawText( pDC, &pt, strReviews, m_nStatWidth );
 		pt.y += TIP_TEXTHEIGHT;
 	}
-
-	// End dynamic text
-	m_rcUpdateText.bottom = pt.y + TIP_TEXTHEIGHT;
 
 	// Draw URL if present
 	if ( ! m_sURL.IsEmpty() )
@@ -653,8 +641,7 @@ void CDownloadTipCtrl::PrepareDownloadInfo(CDownload* pDownload)
 	//			{
 	//				if ( CBENode* pNode = CBENode::Decode( pResponse ) )
 	//				{
-	//					theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING,
-	//						_T("[BT] Recieved BitTorrent tracker response: %s"), pNode->Encode() );
+	//					theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, _T("[BT] Recieved BitTorrent tracker response: %s"), pNode->Encode() );
 	//
 	//					if ( ! oLock.Lock( 300 ) ) return;
 	//					if ( ! Downloads.Check( m_pDownload ) || ! m_pDownload->IsTorrent() ) return;
@@ -865,15 +852,6 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownloadSource* pSource)
 		LoadString( strSpeed, IDS_TIP_NA );
 	}
 
-
-	// Starting dynamic text
-	if ( ! Skin.m_bmToolTip.m_hObject ) 	// Unskinned, no double buffer
-	{
-		m_rcUpdateText.top = pt.y;
-		m_rcUpdateText.left = 80;
-		m_rcUpdateText.right = 220;
-	}
-
 	LoadString( strText, IDS_TIP_SPEED );
 	DrawText( pDC, &pt, strText );
 	DrawText( pDC, &pt, strSpeed, 80 );
@@ -883,10 +861,6 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownloadSource* pSource)
 	DrawText( pDC, &pt, strText );
 	DrawText( pDC, &pt, strStatus, 80 );
 	pt.y += TIP_TEXTHEIGHT;
-
-	// End dynamic text
-	if ( ! Skin.m_bmToolTip.m_hObject )
-		m_rcUpdateText.bottom = pt.y + TIP_TEXTHEIGHT;
 
 	LoadString( strText, IDS_TIP_USERAGENT );
 	DrawText( pDC, &pt, strText );
@@ -967,16 +941,21 @@ void CDownloadTipCtrl::OnTimer(UINT_PTR nIDEvent)
 {
 	CCoolTipCtrl::OnTimer( nIDEvent );
 
-	if ( nIDEvent == 2 )
+	if ( nIDEvent == 2 )	// Async
 	{
-		if ( Skin.m_bmToolTip.m_hObject )
-			Invalidate();						// No flicker when skinned (buffered)
-		else
-			InvalidateRect( &m_rcUpdateText );	// Limit flicker when unbuffered
+		CSingleLock pLock( &Transfers.m_pSection );
+		if ( ! pLock.Lock( 100 ) )
+			return;
 
-		// Trigger async tracker scrape if needed
-		if ( m_pDownload->IsTorrent() )
-			m_pDownload->m_pTorrent.ScrapeTracker();
+		// Trigger tracker scrape if needed
+		if ( ! m_pDownload || ! m_pDownload->IsTorrent() )
+			return;
+
+		pLock.Unlock();
+
+		if ( m_pDownload->m_pTorrent.ScrapeTracker() )
+			Invalidate( FALSE );
+
 		return;
 	}
 
@@ -1002,10 +981,12 @@ void CDownloadTipCtrl::OnTimer(UINT_PTR nIDEvent)
 	m_pGraph->m_nUpdates++;
 	m_pGraph->m_nMaximum = max( m_pGraph->m_nMaximum, nSpeed );
 
-	CRect rcUpdateGraph;
-	rcUpdateGraph.top    = m_sz.cy - TIP_BARHEIGHT - TIP_GAP - TIP_GRAPHHEIGHT;
-	rcUpdateGraph.bottom = m_sz.cy + TIP_GAP + 2;	// ?
-	rcUpdateGraph.right  = m_sz.cx + TIP_GAP;	// ?
-	rcUpdateGraph.left   = TIP_GAP;
-	InvalidateRect( &rcUpdateGraph, FALSE );
+//	CRect rcUpdateGraph;
+//	rcUpdateGraph.top    = m_sz.cy - TIP_BARHEIGHT - TIP_GAP - TIP_GRAPHHEIGHT;
+//	rcUpdateGraph.bottom = m_sz.cy + TIP_GAP + 2;	// ?
+//	rcUpdateGraph.right  = m_sz.cx + TIP_GAP;	// ?
+//	rcUpdateGraph.left   = TIP_GAP;
+//	InvalidateRect( &rcUpdateGraph, FALSE );
+
+	Invalidate( FALSE );
 }

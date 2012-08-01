@@ -1,7 +1,7 @@
 //
 // TorrentBuilder.cpp
 //
-// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2011
+// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2012
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
@@ -315,6 +315,8 @@ BOOL CTorrentBuilder::ScanFiles()
 	for ( POSITION pos = m_pFiles.GetHeadPosition() ; pos && ! m_bAbort ; nFile++ )
 	{
 		CString strFile = m_pFiles.GetNext( pos );
+		if ( strFile.GetLength() > MAX_PATH )
+			strFile = CString( _T("\\\\?\\") ) + strFile;
 
 		HANDLE hFile = CreateFile( strFile, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL );
 
@@ -440,7 +442,10 @@ BOOL CTorrentBuilder::ProcessFile(DWORD nFile, LPCTSTR pszFile)
 	m_sThisFile = pszFile;
 	m_pSection.Unlock();
 
-	HANDLE hFile = CreateFile( pszFile, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL );
+	LPCTSTR szFilepath = ( _tcsclen( pszFile ) < MAX_PATH ) ?
+		pszFile : (LPCTSTR)( CString( _T("\\\\?\\") ) + pszFile );
+
+	HANDLE hFile = CreateFile( szFilepath, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL );
 	if ( hFile == INVALID_HANDLE_VALUE )
 		return FALSE;
 
@@ -454,8 +459,8 @@ BOOL CTorrentBuilder::ProcessFile(DWORD nFile, LPCTSTR pszFile)
 
 	while ( nSize > 0 && ! m_bAbort )
 	{
-		DWORD nLimit	= min( m_nBuffer, m_nPieceSize - m_nPieceUsed );
-		DWORD nRead		= ( nSize > (QWORD)nLimit ) ? nLimit : (DWORD)nSize;
+		DWORD nLimit = min( m_nBuffer, m_nPieceSize - m_nPieceUsed );
+		DWORD nRead  = ( nSize > (QWORD)nLimit ) ? nLimit : (DWORD)nSize;
 
 		if ( ! ReadFile( hFile, m_pBuffer, nRead, &nRead, NULL ) || nRead == 0 )
 			break;
@@ -537,6 +542,10 @@ BOOL CTorrentBuilder::WriteOutput()
 		CBENode* pDate = pRoot.Add( "creation date" );
 		pDate->SetInt( (QWORD)time( NULL ) );
 	}
+	{
+		CBENode* pDate = pRoot.Add( "encoding" );
+		pDate->SetString( _T("UTF-8") );
+	}
 	CBENode* pInfo = pRoot.Add( "info" );
 	{
 		CBENode* pPL = pInfo->Add( "piece length" );
@@ -603,8 +612,8 @@ BOOL CTorrentBuilder::WriteOutput()
 
 			if ( nFile == 0 ) continue;
 
-			LPCTSTR pszFirst	= strFirst;
-			LPCTSTR pszThis		= strThis;
+			LPCTSTR pszFirst = strFirst;
+			LPCTSTR pszThis  = strThis;
 
 			for ( int nPos = 0, nSlash = 0 ; nPos < nCommonPath ; nPos++ )
 			{
@@ -681,14 +690,16 @@ BOOL CTorrentBuilder::WriteOutput()
 	CBuffer pOutput;
 	pRoot.Encode( &pOutput );
 
-	HANDLE hFile = CreateFile( m_sOutput, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS,
-		FILE_ATTRIBUTE_NORMAL, NULL );
+	const CString strOutput = ( m_sOutput.GetLength() < MAX_PATH ) ?
+		m_sOutput  : ( CString( _T("\\\\?\\") ) + m_sOutput );
+
+	HANDLE hFile = CreateFile( strOutput, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL );
 
 	if ( hFile == INVALID_HANDLE_VALUE )
 	{
-		m_pSection.Lock();
 		CString strFormat;
 		strFormat.LoadString( IDS_BUILDER_CANT_SAVE );
+		m_pSection.Lock();
 		m_sMessage.Format( strFormat, (LPCTSTR)m_sOutput );
 		m_bAbort = TRUE;
 		m_pSection.Unlock();

@@ -1,7 +1,7 @@
 //
 // BitziDownloader.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -22,6 +22,7 @@
 #include "BitziDownloader.h"
 
 #include "DlgBitziDownload.h"
+#include "Network.h"
 #include "Library.h"
 #include "SharedFile.h"
 #include "Schema.h"
@@ -80,9 +81,7 @@ BOOL CBitziDownloader::Start(CBitziDownloadDlg* pDlg)
 {
 	if ( m_hInternet ) return FALSE;
 
-	CString strAgent = Settings.SmartAgent();
-
-	m_hInternet = InternetOpen( strAgent, INTERNET_OPEN_TYPE_PRECONFIG, NULL, NULL, 0 );
+	m_hInternet = CNetwork::SafeInternetOpen();
 	if ( ! m_hInternet ) return FALSE;
 
 	m_hSession	= NULL;
@@ -110,7 +109,7 @@ void CBitziDownloader::Stop()
 
 	CloseThread();
 
-	m_pDlg		= NULL;
+	m_pDlg = NULL;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -226,23 +225,21 @@ BOOL CBitziDownloader::BuildRequest()
 
 BOOL CBitziDownloader::ExecuteRequest()
 {
-	theApp.Message( MSG_DEBUG | MSG_FACILITY_OUTGOING,
-		_T("[Bitzi] Sent request: %s"), m_sURL );
+	const DWORD tTime = GetTickCount();
 
-	DWORD nTime = GetTickCount();
+	theApp.Message( MSG_DEBUG | MSG_FACILITY_OUTGOING, _T("[Bitzi] Sent request: %s"), m_sURL );
 
-	int nPos, nPort = INTERNET_DEFAULT_HTTP_PORT;
-	CString strHost, strPath;
-
-	strHost = m_sURL;
-	nPos = strHost.Find( _T("http://") );
+	CString strHost = m_sURL;
+	int nPos = strHost.Find( _T("http://") );
 	if ( nPos != 0 ) return FALSE;
 	strHost = strHost.Mid( 7 );
 	nPos = strHost.Find( '/' );
 	if ( nPos < 0 ) return FALSE;
-	strPath = strHost.Mid( nPos );
+	CString strPath = strHost.Mid( nPos );
 	strHost = strHost.Left( nPos );
 	nPos = strHost.Find( ':' );
+
+	int nPort = INTERNET_DEFAULT_HTTP_PORT;
 
 	if ( nPos > 0 )
 	{
@@ -326,7 +323,7 @@ BOOL CBitziDownloader::ExecuteRequest()
 	if ( m_hRequest ) InternetCloseHandle( m_hRequest );
 	m_hRequest = NULL;
 
-	m_nDelay = ( GetTickCount() - nTime ) * 2;
+	m_nDelay = ( GetTickCount() - tTime ) * 2;
 
 	return TRUE;
 }
@@ -338,8 +335,7 @@ BOOL CBitziDownloader::DecodeResponse()
 {
 	if ( m_pXML ) delete m_pXML;
 
-	theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING,
-		_T("[Bitzi] Got response: %s"), m_sResponse );
+	theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, _T("[Bitzi] Got response: %s"), m_sResponse );
 
 	m_pXML = CXMLElement::FromString( m_sResponse, TRUE );
 	if ( m_pXML == NULL )

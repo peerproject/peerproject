@@ -1,7 +1,7 @@
 //
 // TransferFile.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -72,7 +72,7 @@ CTransferFile* CTransferFiles::Open(LPCTSTR pszFile, BOOL bWrite)
 
 		m_pMap.SetAt( pFile->m_sPath, pFile );
 
-		TRACE( _T("Transfer Files : Opened \"%s\" [%d]\n"), pszFile, bWrite );
+		TRACE( "Transfer Files : Opened \"%s\" [%s]\n", (LPCSTR)CT2A( pszFile ), ( bWrite ? "write" : "read" ) );
 	}
 
 	return pFile;
@@ -85,15 +85,15 @@ void CTransferFiles::Close()
 {
 	CSingleLock pLock( &m_pSection, TRUE );
 
+	CString strPath;
+
 	for ( POSITION pos = m_pMap.GetStartPosition() ; pos ; )
 	{
 		CTransferFile* pFile;
-		CString strPath;
 		m_pMap.GetNextAssoc( pos, strPath, pFile );
-
-		TRACE( _T("Transfer Files : Closed \"%s\"\n"), (LPCTSTR)strPath );
-
 		pFile->Release();
+
+		TRACE( "Transfer Files : Closed \"%s\"\n", (LPCSTR)CT2A( strPath ) );
 	}
 
 	m_pMap.RemoveAll();
@@ -134,7 +134,7 @@ void CTransferFiles::Remove(CTransferFile* pFile)
 {
 	CSingleLock pLock( &m_pSection, TRUE );
 
-	TRACE( _T("Transfer Files : Closed \"%s\"\n"), (LPCTSTR)pFile->m_sPath );
+	TRACE( "Transfer Files : Closed \"%s\"\n", (LPCSTR)CT2A( pFile->m_sPath ) );
 
 	m_pMap.RemoveKey( pFile->m_sPath );
 
@@ -146,12 +146,12 @@ void CTransferFiles::Remove(CTransferFile* pFile)
 // CTransferFile construction
 
 CTransferFile::CTransferFile(LPCTSTR pszPath)
-	: m_sPath( pszPath )
-	, m_hFile( INVALID_HANDLE_VALUE )
-	, m_bExists( FALSE )
-	, m_bWrite( FALSE )
-	, m_nRefCount( 1 )
-	, m_nDeferred( 0 )
+	: m_sPath		( pszPath )
+	, m_hFile		( INVALID_HANDLE_VALUE )
+	, m_bExists		( FALSE )
+	, m_bWrite		( FALSE )
+	, m_nRefCount	( 1 )
+	, m_nDeferred	( 0 )
 {
 	ZeroMemory( m_pDeferred, sizeof( m_pDeferred ) );
 }
@@ -209,19 +209,19 @@ BOOL CTransferFile::Open(BOOL bWrite)
 {
 	if ( m_hFile != INVALID_HANDLE_VALUE ) return FALSE;
 
-	m_bExists = ( GetFileAttributes( CString( _T("\\\\?\\") ) + m_sPath ) != INVALID_FILE_ATTRIBUTES );
-	m_hFile = CreateFile( CString( _T("\\\\?\\") ) + m_sPath,
+	m_bExists = ( GetFileAttributes( SafePath( m_sPath ) ) != INVALID_FILE_ATTRIBUTES );
+	m_hFile = CreateFile( SafePath( m_sPath ),
 		GENERIC_READ | ( bWrite ? GENERIC_WRITE : 0 ),
-		FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE,
-		NULL, ( bWrite ? OPEN_ALWAYS : OPEN_EXISTING ), FILE_ATTRIBUTE_NORMAL, NULL );
+		FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE, NULL,
+		( bWrite ? OPEN_ALWAYS : OPEN_EXISTING ), FILE_ATTRIBUTE_NORMAL, NULL );
 
 	if ( m_hFile != INVALID_HANDLE_VALUE )
 	{
 		m_bWrite = bWrite;
 		return TRUE;
 	}
-	else
-		return FALSE;
+
+	return FALSE;
 }
 
 QWORD CTransferFile::GetSize() const
@@ -229,8 +229,8 @@ QWORD CTransferFile::GetSize() const
 	LARGE_INTEGER nSize;
 	if ( m_hFile != INVALID_HANDLE_VALUE && GetFileSizeEx( m_hFile, &nSize ) )
 		return nSize.QuadPart;
-	else
-		return SIZE_UNKNOWN;
+
+	return SIZE_UNKNOWN;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -278,8 +278,8 @@ BOOL CTransferFile::Read(QWORD nOffset, LPVOID pBuffer, QWORD nBuffer, QWORD* pn
 	if ( m_hFile == INVALID_HANDLE_VALUE ) return FALSE;
 	if ( m_nDeferred > 0 ) DeferredWrite();
 
-	DWORD nOffsetLow	= (DWORD)( nOffset & 0x00000000FFFFFFFF );
-	DWORD nOffsetHigh	= (DWORD)( ( nOffset & 0xFFFFFFFF00000000 ) >> 32 );
+	DWORD nOffsetLow  = (DWORD)( nOffset & 0x00000000FFFFFFFF );
+	DWORD nOffsetHigh = (DWORD)( ( nOffset & 0xFFFFFFFF00000000 ) >> 32 );
 	SetFilePointer( m_hFile, nOffsetLow, (PLONG)&nOffsetHigh, FILE_BEGIN );
 
 	if ( ! ReadFile( m_hFile, pBuffer, (DWORD)nBuffer, (DWORD*)pnRead, NULL ) )
@@ -318,9 +318,9 @@ BOOL CTransferFile::Write(QWORD nOffset, LPCVOID pBuffer, QWORD nBuffer, QWORD* 
 
 			DefWrite* pWrite = &m_pDeferred[ m_nDeferred++ ];
 
-			pWrite->m_nOffset	= nOffset;
-			pWrite->m_nLength	= (DWORD)nBuffer;
-			pWrite->m_pBuffer	= new BYTE[ (DWORD)nBuffer ];
+			pWrite->m_nOffset = nOffset;
+			pWrite->m_nLength = (DWORD)nBuffer;
+			pWrite->m_pBuffer = new BYTE[ (DWORD)nBuffer ];
 			CopyMemory( pWrite->m_pBuffer, pBuffer, (DWORD)nBuffer );
 			*pnWritten = nBuffer;
 
@@ -354,8 +354,8 @@ void CTransferFile::DeferredWrite(BOOL /*bOffline*/)
 
 	for ( int nDeferred = 0 ; nDeferred < m_nDeferred ; nDeferred++, pWrite++ )
 	{
-		DWORD nOffsetLow	= (DWORD)( pWrite->m_nOffset & 0x00000000FFFFFFFF );
-		DWORD nOffsetHigh	= (DWORD)( ( pWrite->m_nOffset & 0xFFFFFFFF00000000 ) >> 32 );
+		DWORD nOffsetLow  = (DWORD)( pWrite->m_nOffset & 0x00000000FFFFFFFF );
+		DWORD nOffsetHigh = (DWORD)( ( pWrite->m_nOffset & 0xFFFFFFFF00000000 ) >> 32 );
 		SetFilePointer( m_hFile, nOffsetLow, (PLONG)&nOffsetHigh, FILE_BEGIN );
 
 		DWORD nWritten = 0;

@@ -1,7 +1,7 @@
 //
 // DownloadBase.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -114,21 +114,7 @@ void CDownloadBase::SetModified()
 }
 
 //////////////////////////////////////////////////////////////////////
-// CDownload control : safe rename
-
-bool CDownloadBase::Rename(const CString& strName)
-{
-	CString sNewName = SafeFilename( strName );
-
-	// Don't bother renaming to same name.
-	if ( m_sName == sNewName ) return false;
-
-	m_sName = sNewName;	// Set new name
-
-	SetModified();
-
-	return true;
-}
+// CDownload control : safe rename (moved to DownloadWithFile)
 
 //////////////////////////////////////////////////////////////////////
 // CDownloadBase serialize

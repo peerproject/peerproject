@@ -558,7 +558,7 @@ CEDPacket* CQuerySearch::ToEDPacket(BOOL bUDP, DWORD nServerFlags) const
 
 BOOL CQuerySearch::WriteHashesToEDPacket(CEDPacket* pPacket, BOOL bUDP) const
 {
-	ASSERT ( ( pPacket->m_nType == bUDP ) ? ED2K_C2SG_GETSOURCES2 : ED2K_C2S_GETSOURCES );
+	ASSERT( ( pPacket->m_nType == bUDP ) ? ED2K_C2SG_GETSOURCES2 : ED2K_C2S_GETSOURCES );
 
 	CSingleLock pLock( &Transfers.m_pSection );
 	if ( ! pLock.Lock( 250 ) ) return FALSE;
@@ -1378,8 +1378,7 @@ BOOL CQuerySearch::CheckValid(bool bExpression)
 				nValidCharacters = nLength * 2;
 			}
 			else if ( 0x3041 <= szChar && 0x30fe >= szChar ) // These regions are for Japanese Hiragana/Katakana chars (3Bytes).
-			{												// Because of number of chars exist in that region they are counted as 2byte chars,
-															// making only 2 or longer chars accepted on Query.
+			{												// Because of number of chars exist in that region they are counted as 2byte chars, making only 2 or longer chars accepted on Query.
 				nValidCharacters = nLength * 2;
 				//bExtendChar = true;						// Set Extended char flag
 			}

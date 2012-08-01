@@ -67,7 +67,6 @@ public:
 	volatile bool	m_bConnected;				// Network has finished initializing and is connected
 	BOOL			m_bAutoConnect;
 	DWORD			m_tStartedConnecting;		// Time PeerProject started trying to connect
-	DWORD			m_tLastConnect;				// Last time a neighbor connection attempt was made
 	DWORD			m_tLastED2KServerHop;		// Last time ed2k server was changed
 	TRISTATE		m_bUPnPPortsForwarded;		// UPnP values are assigned when the discovery is complete
 
@@ -220,6 +219,7 @@ public:
 	static int	SendTo(SOCKET s, const char* buf, int len, const SOCKADDR_IN* pTo);  // UDP
 	static int	Recv(SOCKET s, char* buf, int len);  // TCP
 	static int	RecvFrom(SOCKET s, char* buf, int len, SOCKADDR_IN* pFrom);  // UDP
+	static HINTERNET SafeInternetOpen();	// Safe way to call InternetOpen
 	static HINTERNET InternetOpenUrl(HINTERNET hInternet, LPCWSTR lpszUrl, LPCWSTR lpszHeaders, DWORD dwHeadersLength, DWORD dwFlags);	// HTTP
 	static void Cleanup();	// Safe way to call WSACleanup
 

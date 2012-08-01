@@ -87,7 +87,7 @@ BOOL CTaskPanel::Create(LPCTSTR lpszWindowName, DWORD dwStyle, const RECT& rect,
 
 CTaskBox* CTaskPanel::AddBox(CTaskBox* pBox, POSITION posBefore)
 {
-	ASSERT ( pBox != NULL );
+	ASSERT( pBox != NULL );
 	if ( posBefore )
 		m_pBoxes.InsertBefore( posBefore, pBox );
 	else
@@ -165,7 +165,7 @@ void CTaskPanel::SetFooter(LPCTSTR szWatermark)
 	HBITMAP hBitmap = Skin.GetWatermark( szWatermark );
 	if ( hBitmap != NULL)
 		m_bmFooter.Attach( hBitmap );
-	else if ( Colors.m_crTaskPanelBack == RGB( 122, 160, 230 ) )	// Not RGB_DEFAULT_CASE 
+	else if ( Colors.m_crTaskPanelBack == RGB( 122, 160, 230 ) )	// Not RGB_DEFAULT_CASE
 		m_bmFooter.LoadBitmap( IDB_TASKPANEL_FOOTER );
 }
 
@@ -588,6 +588,8 @@ void CTaskBox::PaintBorders()
 		rc.top = rcc.bottom - 1;
 		dc.Draw3dRect( &rc, Colors.m_crTaskBoxCaptionBack, Colors.m_crTaskBoxCaptionBack );
 	}
+
+	dc.SelectStockObject( SYSTEM_FONT );	// GDI font leak fix
 }
 
 void CTaskBox::InvalidateNonclient()

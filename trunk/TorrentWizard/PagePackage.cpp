@@ -298,7 +298,10 @@ BOOL CPackagePage::PreTranslateMessage(MSG* pMsg)
 
 void CPackagePage::AddFile(LPCTSTR pszFile)
 {
-	HANDLE hFile = CreateFile( pszFile, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL );
+	LPCTSTR szFilepath = ( _tcsclen( pszFile ) < MAX_PATH ) ?
+		pszFile : (LPCTSTR)( CString( _T("\\\\?\\") ) + pszFile );
+
+	HANDLE hFile = CreateFile( szFilepath, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL );
 
 	if ( hFile == INVALID_HANDLE_VALUE )
 	{
@@ -327,8 +330,7 @@ void CPackagePage::AddFile(LPCTSTR pszFile)
 	QWORD nSize = ( (QWORD)nHigh << 32 ) + (QWORD)nLow;
 	CloseHandle( hFile );
 
-	SHFILEINFO pInfo;
-	ZeroMemory( &pInfo, sizeof(pInfo) );
+	SHFILEINFO pInfo = {};
 
 	HIMAGELIST hIL = (HIMAGELIST)SHGetFileInfo( pszFile, 0, &pInfo, sizeof(pInfo),
 		SHGFI_SYSICONINDEX|SHGFI_SMALLICON );
@@ -345,11 +347,11 @@ void CPackagePage::AddFile(LPCTSTR pszFile)
 	const int nItem = m_wndList.InsertItem( LVIF_TEXT|LVIF_IMAGE, m_wndList.GetItemCount(),
 		pszFile, 0, 0, pInfo.iIcon, NULL );
 
-	CString sBytes;
-	sBytes.Format( _T("%i"), nSize );
+	CString strBytes;
+	strBytes.Format( _T("%i"), nSize );
 
 	m_wndList.SetItemText( nItem, 1, SmartSize( nSize ) );
-	m_wndList.SetItemText( nItem, 2, sBytes );
+	m_wndList.SetItemText( nItem, 2, strBytes );
 
 	m_nTotalSize += nSize;
 	m_sTotalSize.Format( _T("%s"), SmartSize( m_nTotalSize ) );
