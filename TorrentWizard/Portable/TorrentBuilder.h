@@ -44,7 +44,7 @@ public:
 	BOOL	AddTrackerURL(LPCTSTR pszURL);
 	BOOL	AddTrackerURL2(LPCTSTR pszURL);
 	BOOL	SetComment(LPCTSTR pszComment);
-public:
+
 	BOOL	Start();
 	void	Stop();
 	BOOL	SetPriority(int nPriority);
@@ -66,18 +66,18 @@ protected:
 	BOOL				m_bFinished;
 	BOOL				m_bAbort;
 	CString				m_sMessage;
-protected:
+
 	CString				m_sName;
 	CString				m_sOutput;
 	CString				m_sTracker;
 	CString				m_sTracker2;
 	CString				m_sComment;
 	CStringList			m_pFiles;
-protected:
+
 	CString				m_sThisFile;
 	QWORD				m_nTotalSize;
 	QWORD				m_nTotalPos;
-protected:
+
 	BOOL				m_bSHA1;		// Enable SHA1 creation
 	BOOL				m_bED2K;		// Enable MD4 creation
 	BOOL				m_bMD5;			// Enable MD5 creation
@@ -86,14 +86,14 @@ protected:
 	QWORD*				m_pFileSize;
 	CHashSHA1*			m_pFileSHA1;
 	CHashMD4*			m_pFileED2K;
-protected:
+
 	CHashSHA1*			m_pPieceSHA1;
 	DWORD				m_nPieceSize;
 	DWORD				m_nPieceCount;
 	DWORD				m_nPiecePos;
 	DWORD				m_nPieceUsed;
 	BOOL				m_bAutoPieces;
-protected:
+
 	BYTE*				m_pBuffer;
 	DWORD				m_nBuffer;
 	CSHA1*				m_phPieceSHA1;

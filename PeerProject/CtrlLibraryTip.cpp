@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -36,7 +36,7 @@
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 IMPLEMENT_DYNAMIC(CLibraryTipCtrl, CCoolTipCtrl)
 
@@ -145,11 +145,11 @@ BOOL CLibraryTipCtrl::OnPrepare()
 
 	if ( pLibraryFile )
 	{
-		CString sData, sFormat = LoadString( IDS_TIP_TODAYTOTAL );
-		sData.Format( sFormat, pLibraryFile->m_nHitsToday, pLibraryFile->m_nHitsTotal );
-		m_pMetadata.Add( LoadString( IDS_TIP_HITS ), sData );
-		sData.Format( sFormat, pLibraryFile->m_nUploadsToday, pLibraryFile->m_nUploadsTotal );
-		m_pMetadata.Add( LoadString( IDS_TIP_UPLOADS ), sData );
+		CString strData, strFormat = LoadString( IDS_TIP_TODAYTOTAL );
+		strData.Format( strFormat, pLibraryFile->m_nHitsToday, pLibraryFile->m_nHitsTotal );
+		m_pMetadata.Add( LoadString( IDS_TIP_HITS ), strData );
+		strData.Format( strFormat, pLibraryFile->m_nUploadsToday, pLibraryFile->m_nUploadsTotal );
+		m_pMetadata.Add( LoadString( IDS_TIP_UPLOADS ), strData );
 
 		if ( pLibraryFile->m_pMetadata && pSchema )
 		{

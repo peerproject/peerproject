@@ -20,9 +20,9 @@
 #   pragma warning(push)
 #   pragma warning(disable: 4121 4512) // alignment is sensitive to packing
 #endif
-#if defined(__BORLANDC__) && (__BORLANDC__ < 0x600)
-#pragma option push -Vx- -Ve-
-#endif
+//#if defined(__BORLANDC__) && (__BORLANDC__ < 0x600)
+//#pragma option push -Vx- -Ve-
+//#endif
 
 namespace boost {
 
@@ -97,13 +97,13 @@ struct alignment_of<T&>
 {
 };
 #endif
-#ifdef __BORLANDC__
-// long double gives an incorrect value of 10 (!)
-// unless we do this...
-struct long_double_wrapper{ long double ld; };
-template<> struct alignment_of<long double>
-   : public alignment_of<long_double_wrapper>{};
-#endif
+//#ifdef __BORLANDC__
+//// long double gives an incorrect value of 10 (!)
+//// unless we do this...
+//struct long_double_wrapper{ long double ld; };
+//template<> struct alignment_of<long double>
+//   : public alignment_of<long_double_wrapper>{};
+//#endif
 
 // void has to be treated specially:
 BOOST_TT_AUX_SIZE_T_TRAIT_SPEC1(alignment_of,void,0)
@@ -115,9 +115,9 @@ BOOST_TT_AUX_SIZE_T_TRAIT_SPEC1(alignment_of,void const volatile,0)
 
 } // namespace boost
 
-#if defined(__BORLANDC__) && (__BORLANDC__ < 0x600)
-#pragma option pop
-#endif
+//#if defined(__BORLANDC__) && (__BORLANDC__ < 0x600)
+//#pragma option pop
+//#endif
 #ifdef BOOST_MSVC
 #   pragma warning(pop)
 #endif

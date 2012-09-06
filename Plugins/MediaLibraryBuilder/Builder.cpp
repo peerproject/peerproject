@@ -99,7 +99,7 @@ HRESULT CBuilder::SafeProcess(BSTR sFile, ISXMLElement* pXML)
 						{
 							hr = pDet->get_StreamMediaType (&mt);
 							if ( SUCCEEDED( hr ) &&
-								mt.formattype == FORMAT_VideoInfo && 
+								mt.formattype == FORMAT_VideoInfo &&
 								mt.cbFormat >= sizeof(VIDEOINFOHEADER) &&
 								mt.pbFormat != NULL )
 							{
@@ -187,7 +187,7 @@ HRESULT CBuilder::SafeProcess(BSTR sFile, ISXMLElement* pXML)
 					pISXMLAttributes->Add(CComBSTR ("codec"), CComBSTR (codec));
 
 					int nWidth = pVih->bmiHeader.biWidth;
-					int nHeight = pVih->bmiHeader.biHeight;				    
+					int nHeight = pVih->bmiHeader.biHeight;
 					if (nHeight < 0)
 						nHeight = -nHeight;
 					tmp.Format (_T("%lu"), nWidth);
@@ -205,7 +205,7 @@ HRESULT CBuilder::SafeProcess(BSTR sFile, ISXMLElement* pXML)
 				hr = pDet->get_StreamLength (&total_time);
 				if ( SUCCEEDED( hr ) )
 				{
-					if ( total_time != .0 ) 
+					if ( total_time != .0 )
 					{
 						StringCbPrintf( tmp.GetBuffer( 32 ), 32 * sizeof( TCHAR ),
 							_T("%.3f"), total_time / 60.0 );

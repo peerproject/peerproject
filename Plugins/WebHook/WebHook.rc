@@ -22,7 +22,7 @@
 #ifdef _WIN32
 LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
 #pragma code_page(1251)
-#endif //_WIN32
+#endif // _WIN32
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -49,12 +49,12 @@ BEGIN
             VALUE "Comments", "PeerProject Web Link Handler"
             VALUE "CompanyName", "PeerProject Development Team"
             VALUE "FileDescription", "PeerProject Web Hook"
-            VALUE "FileVersion", "1, 0, 0, 0"
+            VALUE "FileVersion", "1.0.0.0"
             VALUE "InternalName", "WebHook"
             VALUE "LegalCopyright", "© PeerProject Development Team, 2009-2010"
             VALUE "OriginalFilename", "WebHook.dll"
             VALUE "ProductName", "PeerProject"
-            VALUE "ProductVersion", "1, 0, 0, 0"
+            VALUE "ProductVersion", "1.0.0.0"
         END
     END
     BLOCK "VarFileInfo"
@@ -112,7 +112,7 @@ END
 #ifdef _WIN32
 LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 #pragma code_page(1252)
-#endif //_WIN32
+#endif // _WIN32
 
 #ifdef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////
@@ -156,4 +156,3 @@ END
 
 /////////////////////////////////////////////////////////////////////////////
 #endif    // not APSTUDIO_INVOKED
-

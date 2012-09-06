@@ -30,7 +30,7 @@
 ; #####################################################################################################################
 
                         .586p
-                        .model      flat, stdcall 
+                        .model      flat, stdcall
                         option      casemap:none                    ; case sensitive
                         option      prologue:none                   ; we generate our own entry/exit code
                         option      epilogue:none
@@ -62,7 +62,7 @@ MD4_S33                 equ         11
 MD4_S34                 equ         15
 
 						.data
-						
+
 const_5A827999			dq			2 dup (5A8279995A827999H)
 const_6ED9EBA1			dq			2 dup (6ED9EBA16ED9EBA1H)
 

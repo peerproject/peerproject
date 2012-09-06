@@ -25,9 +25,9 @@ void ExtToInt(const char *Src,char *Dest)
 {
 #ifdef _WIN_ALL
   CharToOemA(Src,Dest);
-#else
-  if (Dest!=Src)
-    strcpy(Dest,Src);
+//#else
+//if (Dest!=Src)
+//  strcpy(Dest,Src);
 #endif
 }
 
@@ -36,9 +36,9 @@ void IntToExt(const char *Src,char *Dest)
 {
 #ifdef _WIN_ALL
   OemToCharA(Src,Dest);
-#else
-  if (Dest!=Src)
-    strcpy(Dest,Src);
+//#else
+//if (Dest!=Src)
+//  strcpy(Dest,Src);
 #endif
 }
 
@@ -47,9 +47,9 @@ char* strlower(char *Str)
 {
 #ifdef _WIN_ALL
   CharLowerA((LPSTR)Str);
-#else
-  for (char *ChPtr=Str;*ChPtr;ChPtr++)
-    *ChPtr=(char)loctolower(*ChPtr);
+//#else
+//for (char *ChPtr=Str;*ChPtr;ChPtr++)
+//  *ChPtr=(char)loctolower(*ChPtr);
 #endif
   return(Str);
 }
@@ -59,9 +59,9 @@ char* strupper(char *Str)
 {
 #ifdef _WIN_ALL
   CharUpperA((LPSTR)Str);
-#else
-  for (char *ChPtr=Str;*ChPtr;ChPtr++)
-    *ChPtr=(char)loctoupper(*ChPtr);
+//#else
+//for (char *ChPtr=Str;*ChPtr;ChPtr++)
+//  *ChPtr=(char)loctoupper(*ChPtr);
 #endif
   return(Str);
 }
@@ -114,8 +114,8 @@ unsigned char loctolower(unsigned char ch)
 #ifdef _WIN_ALL
   // Convert to LPARAM first to avoid a warning in 64 bit mode.
   return((int)(LPARAM)CharLowerA((LPSTR)ch));
-#else
-  return(tolower(ch));
+//#else
+//return(tolower(ch));
 #endif
 }
 
@@ -125,8 +125,8 @@ unsigned char loctoupper(unsigned char ch)
 #ifdef _WIN_ALL
   // Convert to LPARAM first to avoid a warning in 64 bit mode.
   return((int)(LPARAM)CharUpperA((LPSTR)ch));
-#else
-  return(toupper(ch));
+//#else
+//return(toupper(ch));
 #endif
 }
 
@@ -235,11 +235,11 @@ int stricompc(const char *Str1,const char *Str2)
 #ifndef SFX_MODULE
 int wcsicompc(const wchar *Str1,const wchar *Str2)
 {
-#if defined(_UNIX)
-  return(wcscmp(Str1,Str2));
-#else
+//#if defined(_UNIX)
+//return(wcscmp(Str1,Str2));
+//#else
   return(wcsicomp(Str1,Str2));
-#endif
+//#endif
 }
 #endif
 
@@ -362,6 +362,14 @@ const wchar* GetWide(const char *Src)
   CharToWide(Src,Str,MaxLength);
   Str[MaxLength-1]=0;
   return(Str);
+}
+
+
+const wchar* GetWide(const char *Src,const wchar *SrcW)
+{
+  if (SrcW!=NULL && *SrcW!=0)
+    return SrcW;
+  return GetWide(Src);
 }
 
 

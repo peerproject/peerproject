@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -41,9 +41,9 @@
 
 #ifdef _DEBUG
 #undef THIS_FILE
-static char THIS_FILE[]=__FILE__;
+static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 
 //////////////////////////////////////////////////////////////////////
@@ -607,19 +607,19 @@ BOOL CChatSession::OnChatMessage(CDCPacket* pPacket)
 
 	if ( *pPacket->m_pBuffer == '<' )
 	{
-		CString sMsg( UTF8Decode( (LPCSTR)&pPacket->m_pBuffer[ 1 ], pPacket->m_nLength - 1 - 1 ) );
-		int nPos = sMsg.Find( _T('>') );
-		OnChatMessage( sMsg.Left( nPos ), sMsg.Mid( nPos + 2 ) );
+		CString strMsg( UTF8Decode( (LPCSTR)&pPacket->m_pBuffer[ 1 ], pPacket->m_nLength - 1 - 1 ) );
+		int nPos = strMsg.Find( _T('>') );
+		OnChatMessage( strMsg.Left( nPos ), strMsg.Mid( nPos + 2 ) );
 	}
 	else if ( pPacket->Compare( _P("$HubTopic ") ) )
 	{
-		CString sTopic( UTF8Decode( (LPCSTR)&pPacket->m_pBuffer[ 10 ], pPacket->m_nLength - 10 - 1 ) );
-		NotifyMessage( cmtCaption, m_sNick, sTopic );
+		CString strTopic( UTF8Decode( (LPCSTR)&pPacket->m_pBuffer[ 10 ], pPacket->m_nLength - 10 - 1 ) );
+		NotifyMessage( cmtCaption, m_sNick, strTopic );
 	}
 	else if ( pPacket->Compare( _P("$HubName ") ) )
 	{
-		CString sTopic( UTF8Decode( (LPCSTR)&pPacket->m_pBuffer[ 9 ], pPacket->m_nLength - 9 - 1 ) );
-		NotifyMessage( cmtCaption, m_sNick, sTopic );
+		CString strTopic( UTF8Decode( (LPCSTR)&pPacket->m_pBuffer[ 9 ], pPacket->m_nLength - 9 - 1 ) );
+		NotifyMessage( cmtCaption, m_sNick, strTopic );
 	}
 
 	return TRUE;
@@ -966,7 +966,7 @@ BOOL CChatSession::ReadG2()
 
 		try
 		{
-			switch( pPacket->m_nType )
+			switch ( pPacket->m_nType )
 			{
 			case G2_PACKET_CHAT_MESSAGE:
 				return OnChatMessage( pPacket );

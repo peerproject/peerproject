@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -41,9 +41,9 @@
 
 #ifdef _DEBUG
 #undef THIS_FILE
-static char THIS_FILE[]=__FILE__;
+static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 
 //////////////////////////////////////////////////////////////////////
@@ -570,8 +570,8 @@ BOOL CBTClient::OnHandshake2()
 // Legacy Method:
 //CString CBTClient::GetUserAgentAzureusStyle(LPBYTE pVendor, size_t nVendor)
 //{
-//	CString sUserAgent;
-//	if ( ! pVendor ) return sUserAgent;
+//	CString strUserAgent;
+//	if ( ! pVendor ) return strUserAgent;
 //
 //	// Azureus style "-SSVVVV-"
 //
@@ -662,24 +662,24 @@ BOOL CBTClient::OnHandshake2()
 //		{
 //			if ( nVendor == 6 )
 //			{
-//				sUserAgent.Format( _T( "%s %i.%i.%i.%i" ),
+//				strUserAgent.Format( _T("%s %i.%i.%i.%i"),
 //					azureusStyleClients[ i ].client,
 //					( pVendor[ 2 ] - '0' ), ( pVendor[ 3 ] - '0' ),
 //					( pVendor[ 4 ] - '0' ), ( pVendor[ 5 ] - '0' ) );
 //			}
 //			else if ( nVendor == 4 )
 //			{
-//				sUserAgent.Format( _T( "%s %i.%i" ),
+//				strUserAgent.Format( _T("%s %i.%i"),
 //					azureusStyleClients[ i ].client, pVendor[ 2 ], pVendor[ 3 ] );
 //			}
 //			break;
 //		}
 //	}
 //
-//	if ( sUserAgent.IsEmpty() ) 	// If we don't want the version, etc.
-//		sUserAgent.Format( _T("BitTorrent (%c%c)"), pVendor[ 0 ], pVendor[ 1 ] );
+//	if ( strUserAgent.IsEmpty() ) 	// If we don't want the version, etc.
+//		strUserAgent.Format( _T("BitTorrent (%c%c)"), pVendor[ 0 ], pVendor[ 1 ] );
 //
-//	return sUserAgent;
+//	return strUserAgent;
 //}
 
 CString CBTClient::GetUserAgentAzureusStyle(LPBYTE pVendor, size_t nVendor)
@@ -779,10 +779,10 @@ CString CBTClient::GetUserAgentAzureusStyle(LPBYTE pVendor, size_t nVendor)
 
 CString CBTClient::GetUserAgentOtherStyle(LPBYTE pVendor, CString* strNick)
 {
-	CString sUserAgent, strVer;
+	CString strUserAgent, strVer;
 	int nNickStart = 0, nNickEnd = 13;
 
-	if ( ! pVendor ) return sUserAgent;
+	if ( ! pVendor ) return strUserAgent;
 
 	if ( m_oGUID[4] == '-' && m_oGUID[5] == '-' && m_oGUID[6] == '-' && m_oGUID[7] == '-' )
 	{
@@ -790,141 +790,141 @@ CString CBTClient::GetUserAgentOtherStyle(LPBYTE pVendor, CString* strNick)
 		switch ( m_oGUID[0] )
 		{
 		case 'A':
-			sUserAgent = L"ABC";
+			strUserAgent = L"ABC";
 			break;
 		case 'O':
-			sUserAgent = L"Osprey";
+			strUserAgent = L"Osprey";
 			break;
 		case 'Q':
-			sUserAgent = L"BTQueue";
+			strUserAgent = L"BTQueue";
 			break;
 		case 'R':
-			sUserAgent = L"Tribler";
+			strUserAgent = L"Tribler";
 			break;
 		case 'S':
-			sUserAgent = L"Shadow";
+			strUserAgent = L"Shadow";
 			break;
 		case 'T':
-			sUserAgent = L"BitTornado";
+			strUserAgent = L"BitTornado";
 			break;
 		case 'U':
-			sUserAgent = L"UPnP NAT BT";
+			strUserAgent = L"UPnP NAT BT";
 			break;
 		default:	// Unknown client using this naming.
-			sUserAgent.Format(_T("%c"), m_oGUID[0]);
+			strUserAgent.Format(_T("%c"), m_oGUID[0]);
 		}
 
 		strVer.Format( _T(" %i.%i.%i"),
 			( m_oGUID[1] - '0' ), ( m_oGUID[2] - '0' ), ( m_oGUID[3] - '0' ) );
-		sUserAgent += strVer;
+		strUserAgent += strVer;
 
-		return sUserAgent;
+		return strUserAgent;
 	}
 
 	if ( m_oGUID[0] == 'M' && m_oGUID[2] == '-' && m_oGUID[4] == '-' && m_oGUID[6] == '-' )
 	{
 		// BitTorrent (Mainline standard client, newer version)
-		sUserAgent.Format( _T("BitTorrent %i.%i.%i"), m_oGUID[1] - '0' , m_oGUID[3] - '0' , m_oGUID[5]- '0' );
+		strUserAgent.Format( _T("BitTorrent %i.%i.%i"), m_oGUID[1] - '0' , m_oGUID[3] - '0' , m_oGUID[5]- '0' );
 	}
 	else if ( m_oGUID[0] == 'P' && m_oGUID[1] == 'l' && m_oGUID[2] == 'u' && m_oGUID[3] == 's' )
 	{
 		// BitTorrent Plus
-		sUserAgent.Format( _T("BitTorrent Plus %i.%i%i%c"), m_oGUID[4] - '0', m_oGUID[5] - '0', m_oGUID[6] - '0', m_oGUID[7] );
+		strUserAgent.Format( _T("BitTorrent Plus %i.%i%i%c"), m_oGUID[4] - '0', m_oGUID[5] - '0', m_oGUID[6] - '0', m_oGUID[7] );
 	}
 	else if ( m_oGUID[0] == 'e' && m_oGUID[1] == 'x' && m_oGUID[2] == 'b' && m_oGUID[3] == 'c' )
 	{
 		// BitLord
 		if ( m_oGUID[6] == 'L' && m_oGUID[7] == 'O' && m_oGUID[8] == 'R' && m_oGUID[9] == 'D' )
-			sUserAgent.Format( _T("BitLord %i.%02i"), m_oGUID[4], m_oGUID[5] );
+			strUserAgent.Format( _T("BitLord %i.%02i"), m_oGUID[4], m_oGUID[5] );
 		else // Old BitComet
-			sUserAgent.Format( _T("BitComet %i.%02i"), m_oGUID[4], m_oGUID[5] );
+			strUserAgent.Format( _T("BitComet %i.%02i"), m_oGUID[4], m_oGUID[5] );
 	}
 	else if ( ( m_oGUID[0] == 'B' && m_oGUID[1] == 'S' ) || ( m_oGUID[2] == 'B' && m_oGUID[3] == 'S' ) )
 	{
 		// BitSpirit
-		sUserAgent.Format( _T("BitSpirit") );
+		strUserAgent.Format( _T("BitSpirit") );
 	}
 	else if ( m_oGUID[0] == 'B' && m_oGUID[1] == 'T' && m_oGUID[2] == 'M' )
 	{
 		// BTuga Revolution
-		sUserAgent.Format( _T("BTuga Rv %i.%i"), m_oGUID[3] - '0', m_oGUID[4] - '0' );
+		strUserAgent.Format( _T("BTuga Rv %i.%i"), m_oGUID[3] - '0', m_oGUID[4] - '0' );
 		nNickStart = 5;
 	}
 	else if ( ( m_oGUID[0] == 'b' && m_oGUID[1] == 't' && m_oGUID[2] == 'u' && m_oGUID[3] == 'g' && m_oGUID[4] == 'a' ) || ( m_oGUID[0] == 'o' && m_oGUID[1] == 'e' && m_oGUID[2] == 'r' && m_oGUID[3] == 'n' && m_oGUID[4] == 'u' ) )
 	{
 		// BTugaXP
-		sUserAgent.Format( _T("BTugaXP") );
+		strUserAgent.Format( _T("BTugaXP") );
 	}
 	else if ( m_oGUID[0] == 'M' && m_oGUID[1] == 'b' && m_oGUID[2] == 'r' && m_oGUID[3] == 's' && m_oGUID[4] == 't' )
 	{
 		// Burst
-		sUserAgent.Format( _T("Burst %i.%i.%i"), m_oGUID[5] - '0', m_oGUID[7] - '0', m_oGUID[9] - '0' );
+		strUserAgent.Format( _T("Burst %i.%i.%i"), m_oGUID[5] - '0', m_oGUID[7] - '0', m_oGUID[9] - '0' );
 	}
 	else if ( m_oGUID[0] == 'L' && m_oGUID[1] == 'I' && m_oGUID[2] == 'M' && m_oGUID[3] == 'E' )
 	{
 		// LimeWire
-		sUserAgent = _T("Limewire");
+		strUserAgent = _T("Limewire");
 	}
 	else if ( m_oGUID[0] == '-' && m_oGUID[1] == 'M' && m_oGUID[2] == 'L' )
 	{
 		// MLdonkey
-		sUserAgent.Format( _T("MLdonkey %i.%i.%i"), m_oGUID[3] - '0' , m_oGUID[5] - '0' , m_oGUID[7] - '0' );
+		strUserAgent.Format( _T("MLdonkey %i.%i.%i"), m_oGUID[3] - '0' , m_oGUID[5] - '0' , m_oGUID[7] - '0' );
 	}
 	else if ( m_oGUID[0] == '-' && m_oGUID[1] == 'F' && m_oGUID[2] == 'G' )
 	{
 		// FlashGet 	// This is never reached (Azureus-style but vXX.XX)
-		sUserAgent.Format( _T("FlashGet %i.%i%i"), ( ( m_oGUID[3] - '0' ) * 10 + ( m_oGUID[4] - '0' ) ), m_oGUID[5] - '0', m_oGUID[6] - '0' );
+		strUserAgent.Format( _T("FlashGet %i.%i%i"), ( ( m_oGUID[3] - '0' ) * 10 + ( m_oGUID[4] - '0' ) ), m_oGUID[5] - '0', m_oGUID[6] - '0' );
 	}
 	else if ( m_oGUID[0] == '-' && m_oGUID[1] == 'G' && m_oGUID[2] == '3' )
 	{
 		// G3 Torrent
-		sUserAgent.Format( _T("G3 Torrent") );
+		strUserAgent.Format( _T("G3 Torrent") );
 		nNickStart = 3;
 		nNickEnd = 11;
 	}
 	else if ( m_oGUID[0] == '1' && m_oGUID[1] == '0' && m_oGUID[2] == '-' && m_oGUID[3] == '-' && m_oGUID[4] == '-' && m_oGUID[5] == '-' && m_oGUID[6] == '-' && m_oGUID[7] == '-' && m_oGUID[8] == '-' )
 	{
-		sUserAgent = _T("JVTorrent");
+		strUserAgent = _T("JVTorrent");
 	}
 	else if ( m_oGUID[2] == 'B' && m_oGUID[3] == 'M' )
 	{
 		// BitMagnet, former Rufus
-		sUserAgent.Format( _T("BitMagnet") );
+		strUserAgent.Format( _T("BitMagnet") );
 		nNickStart = 4;
 		nNickEnd = 12;
 	}
 	else if ( m_oGUID[2] == 'R' && m_oGUID[3] == 'S' )
 	{
 		// Rufus (and BitMagnet) Obsolete. First two bits are version numbers: 0.6.5 = (0)(6+5) = char(0)char(11)
-		sUserAgent.Format( _T("Rufus") );
+		strUserAgent.Format( _T("Rufus") );
 		nNickStart = 4;
 		nNickEnd = 12;
 	}
 	else if ( m_oGUID[0] == 'O' && m_oGUID[1] == 'P' )
 	{
 		// Opera
-		sUserAgent.Format( _T("Opera %i%i%i%i"), m_oGUID[2] - '0', m_oGUID[3] - '0', m_oGUID[4] - '0', m_oGUID[5] - '0' );
+		strUserAgent.Format( _T("Opera %i%i%i%i"), m_oGUID[2] - '0', m_oGUID[3] - '0', m_oGUID[4] - '0', m_oGUID[5] - '0' );
 	}
 	else if ( m_oGUID[0] == 'a' && m_oGUID[1] == '0' && ( m_oGUID[2] == '0' || m_oGUID[2] == '2' ) && m_oGUID[3] == '-' && m_oGUID[4] == '-' && m_oGUID[5] == '-' && m_oGUID[6] == '0' )
 	{
 		// Swarmy
-		sUserAgent.Format( _T("Swarmy") );
+		strUserAgent.Format( _T("Swarmy") );
 	}
 	else if ( m_oGUID[0] == '3' && m_oGUID[1] == '4' && m_oGUID[2] == '6' && m_oGUID[3] == '-' )
 	{
 		// TorrentTopia
-		sUserAgent = _T("TorrentTopia");
+		strUserAgent = _T("TorrentTopia");
 	}
 	else if ( m_oGUID[0] == 'e' && m_oGUID[1] == 'X' )
 	{
 		// eXeem
-		sUserAgent.Format( _T("eXeem") );
+		strUserAgent.Format( _T("eXeem") );
 		nNickStart = 2;
 	}
 	else if ( m_oGUID[0] == 'X' && m_oGUID[1] == 'B' && m_oGUID[2] == 'T' )
 	{
 		// XBT
-		sUserAgent.Format( _T("XBT %i.%i.%i"), m_oGUID[3] - '0', m_oGUID[4] - '0', m_oGUID[5] - '0' );
+		strUserAgent.Format( _T("XBT %i.%i.%i"), m_oGUID[3] - '0', m_oGUID[4] - '0', m_oGUID[5] - '0' );
 	}
 	else if ( ! m_oGUID[0] && ! m_oGUID[1] && ! m_oGUID[2] && ! m_oGUID[3] && ! m_oGUID[4] && ! m_oGUID[5] && ! m_oGUID[6] && ! m_oGUID[7]
 			&& m_oGUID[8] && m_oGUID[9] && m_oGUID[10] && m_oGUID[11] && m_oGUID[12] && m_oGUID[13] && m_oGUID[14] && m_oGUID[15]
@@ -932,7 +932,7 @@ CString CBTClient::GetUserAgentOtherStyle(LPBYTE pVendor, CString* strNick)
 	{
 		// BitSpirit (Spoofed Client ID)
 		// GUID 0-7: 0	GUID 8-15: !0 	GUID 16-19: UDP0	// ToDo: Check that other clients don't use this method
-		sUserAgent.Format( _T("BitSpirit Spoof") );
+		strUserAgent.Format( _T("BitSpirit Spoof") );
 	}
 
 	if ( nNickStart > 0 )
@@ -945,7 +945,7 @@ CString CBTClient::GetUserAgentOtherStyle(LPBYTE pVendor, CString* strNick)
 		}
 	}
 
-	return sUserAgent;
+	return strUserAgent;
 }
 
 void CBTClient::DetermineUserAgent()
@@ -1301,10 +1301,13 @@ BOOL CBTClient::OnExtendedHandshake(CBTPacket* pPacket)
 		}
 		if ( CBENode* pLtTexTrackers = pRoot->GetNode( BT_DICT_TRACKERS ) )
 		{
-			CString sRemoteHash = pLtTexTrackers->GetString();
-			CString sLocalHash = m_pDownload->m_pTorrent.GetTrackerHash();
-			if ( sRemoteHash != sLocalHash && m_nLtTexID )
-				SendLtTex();
+			if ( m_nLtTexID )
+			{
+				CString strRemoteHash = pLtTexTrackers->GetString();
+				CString strLocalHash = m_pDownload->m_pTorrent.GetTrackerHash();
+				if ( strRemoteHash != strLocalHash )
+					SendLtTex();
+			}
 		}
 	}
 

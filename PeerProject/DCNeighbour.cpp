@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2010-2012
 // Portions copyright Shareaza Development Team, 2010.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -36,9 +36,9 @@
 
 #ifdef _DEBUG
 #undef THIS_FILE
-static char THIS_FILE[]=__FILE__;
+static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 CDCNeighbour::CDCNeighbour()
 	: CNeighbour	( PROTOCOL_DC )
@@ -113,17 +113,17 @@ void CDCNeighbour::OnChatOpen(CChatSession* pSession)
 
 BOOL CDCNeighbour::ConnectTo(const IN_ADDR* pAddress, WORD nPort, BOOL bAutomatic)
 {
-	CString sHost( inet_ntoa( *pAddress ) );
+	CString strHost( inet_ntoa( *pAddress ) );
 
 	if ( CConnection::ConnectTo( pAddress, nPort ) )
 	{
 		WSAEventSelect( m_hSocket, Network.GetWakeupEvent(), FD_CONNECT | FD_READ | FD_WRITE | FD_CLOSE );
 
-		theApp.Message( MSG_INFO, IDS_CONNECTION_ATTEMPTING, (LPCTSTR)sHost, htons( m_pHost.sin_port ) );
+		theApp.Message( MSG_INFO, IDS_CONNECTION_ATTEMPTING, (LPCTSTR)strHost, htons( m_pHost.sin_port ) );
 	}
 	else
 	{
-		theApp.Message( MSG_ERROR, IDS_CONNECTION_CONNECT_FAIL, (LPCTSTR)sHost );
+		theApp.Message( MSG_ERROR, IDS_CONNECTION_CONNECT_FAIL, (LPCTSTR)strHost );
 		return FALSE;
 	}
 
@@ -361,7 +361,7 @@ BOOL CDCNeighbour::OnPacket(CDCPacket* pPacket)
 //	//	Command[ "$Version" ]		= 'x';
 //	}
 //
-//	switch( Command[ strCommand ] )
+//	switch ( Command[ strCommand ] )
 //	{
 //	case 's':		// $Search SenderIP:SenderPort (F|T)?(F|T)?Size?Type?String|
 //		{
@@ -820,16 +820,16 @@ BOOL CDCNeighbour::OnUserInfo(LPSTR szInfo)
 		{
 			*szDescription++ = 0;
 
-			CString sNick( UTF8Decode( szNick ) );
+			CString strNick( UTF8Decode( szNick ) );
 
 			CChatUser* pUser;
-			if ( ! m_oUsers.Lookup( sNick, pUser ) )
+			if ( ! m_oUsers.Lookup( strNick, pUser ) )
 			{
 				pUser = new CChatUser;
-				m_oUsers.SetAt( sNick, pUser );
+				m_oUsers.SetAt( strNick, pUser );
 			}
-			pUser->m_bType = ( sNick == m_sNick ) ? cutMe : cutUser;
-			pUser->m_sNick = sNick;
+			pUser->m_bType = ( strNick == m_sNick ) ? cutMe : cutUser;
+			pUser->m_sNick = strNick;
 
 			if ( LPSTR szConnection = strchr( szDescription, '$' ) )
 			{
@@ -902,9 +902,9 @@ BOOL CDCNeighbour::OnUserIP(LPSTR szIP)
 		{
 			*szAddress++ = 0;
 
-			CString sNick( UTF8Decode( szMyNick ) );
+			CString strNick( UTF8Decode( szMyNick ) );
 
-			if ( m_bNickValid && m_sNick == sNick )
+			if ( m_bNickValid && m_sNick == strNick )
 			{
 				IN_ADDR nAddress;
 				nAddress.s_addr = inet_addr( szAddress );
@@ -923,11 +923,11 @@ BOOL CDCNeighbour::OnQuit(LPSTR szNick)
 
 	if ( szNick )
 	{
-		CString sNick = UTF8Decode( szNick );
+		CString strNick = UTF8Decode( szNick );
 		CChatUser* pUser;
-		if ( m_oUsers.Lookup( sNick, pUser ) )
+		if ( m_oUsers.Lookup( strNick, pUser ) )
 		{
-			m_oUsers.RemoveKey( sNick );
+			m_oUsers.RemoveKey( strNick );
 			delete pUser;
 		}
 
@@ -935,7 +935,7 @@ BOOL CDCNeighbour::OnQuit(LPSTR szNick)
 			HostCache.DC.Add( &m_pHost.sin_addr, htons( m_pHost.sin_port ), 0, 0, 0, GetUserCount() );
 
 		// Notify chat window
-		ChatCore.OnDeleteUser( this, new CString( sNick ) );
+		ChatCore.OnDeleteUser( this, new CString( strNick ) );
 	}
 
 	return TRUE;
@@ -964,8 +964,8 @@ BOOL CDCNeighbour::OnConnectToMe(LPSTR szParams)
 				szSenderNick = "";
 			}
 
-			CString sMyNick( UTF8Decode( szMyNick) );
-			CString sSenderNick( UTF8Decode( szSenderNick ) );
+			CString strMyNick( UTF8Decode( szMyNick) );
+			CString strSenderNick( UTF8Decode( szSenderNick ) );
 
 			if ( LPSTR szPort = strchr( szAddress, ':' ) )
 			{
@@ -973,8 +973,8 @@ BOOL CDCNeighbour::OnConnectToMe(LPSTR szParams)
 				int nPort = atoi( szPort );
 				IN_ADDR nAddress;
 				nAddress.s_addr = inet_addr( szAddress );
-				if ( m_sNick == sMyNick )	// Ok
-					DCClients.ConnectTo( &nAddress, (WORD)nPort, this, sSenderNick );
+				if ( m_sNick == strMyNick )	// Ok
+					DCClients.ConnectTo( &nAddress, (WORD)nPort, this, strSenderNick );
 				//else
 					// Wrong nick, bad IP
 			}

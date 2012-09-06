@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -29,6 +29,7 @@
 #include "ShellIcons.h"
 #include "CoolInterface.h"
 #include "Colors.h"
+#include "Images.h"
 #include "Schema.h"
 #include "SchemaCache.h"
 #include "PeerProjectDataSource.h"
@@ -37,7 +38,7 @@
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 IMPLEMENT_DYNCREATE(CLibraryThumbView, CLibraryFileView)
 
@@ -452,16 +453,15 @@ void CLibraryThumbView::UpdateScroll()
 {
 	if ( m_nColumns == 0 ) return;
 
-	SCROLLINFO pInfo;
 	CRect rc;
-
 	GetClientRect( &rc );
 
+	SCROLLINFO pInfo = {};
 	pInfo.cbSize	= sizeof(pInfo);
 	pInfo.fMask		= SIF_ALL & ~SIF_TRACKPOS;
 	pInfo.nMin		= 0;
 	pInfo.nMax		= ( ( m_nCount + m_nColumns - 1 ) / m_nColumns ) * CY;
-	pInfo.nPage		= rc.Height();;
+	pInfo.nPage		= rc.Height();
 	pInfo.nPos		= m_nScroll = max( 0, min( m_nScroll, pInfo.nMax - (int)pInfo.nPage + 1 ) );
 
 	SetScrollInfo( SB_VERT, &pInfo, TRUE );
@@ -979,7 +979,7 @@ void CLibraryThumbItem::Paint(CDC* pDC, const CRect& rcBlock)
 
 	CRect rcText( rcBlock.left + 4, rcThumb.bottom + 4, rcBlock.right - 4, rcBlock.bottom );
 
-	BOOL bSelectmark = m_bSelected && Skin.m_bmSelected.m_hObject != NULL;
+	BOOL bSelectmark = m_bSelected && Images.m_bmSelected.m_hObject != NULL;
 
 	if ( m_bSelected )
 	{
@@ -999,7 +999,7 @@ void CLibraryThumbItem::Paint(CDC* pDC, const CRect& rcBlock)
 	}
 
 	if ( bSelectmark )
-		CoolInterface.DrawWatermark( pDC, &rcText, &Skin.m_bmSelected, FALSE ); 	// No overdraw
+		CoolInterface.DrawWatermark( pDC, &rcText, &Images.m_bmSelected, FALSE ); 	// No overdraw
 	else
 		pDC->FillSolidRect( &rcText, pDC->GetBkColor() );
 	pDC->DrawText( m_sText, &rcText, nStyle );

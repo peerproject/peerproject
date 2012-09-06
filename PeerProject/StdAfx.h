@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -49,35 +49,36 @@
 #if 1
 
 // Warnings that are normally ON by default
-//#pragma warning ( disable : 4350 )	// (Level 1)	behavior change: 'member1' called instead of 'member2'
-//#pragma warning ( disable : 4351 )	// (Level 1)	new behavior: elements of array 'array' will be default initialized
+#pragma warning ( disable : 4350 )		// (Level 1)	behavior change: 'member1' called instead of 'member2'
+#pragma warning ( disable : 4351 )		// (Level 1)	new behavior: elements of array 'array' will be default initialized
 
-//#pragma warning ( disable : 4244 )	// (Level 2)	'argument' : conversion from 'type1' to 'type2', possible loss of data
+#pragma warning ( disable : 4244 )		// (Level 2)	'argument' : conversion from 'type1' to 'type2', possible loss of data
 
-//#pragma warning ( disable : 4347 )	// (Level 4)	behavior change: 'function template' is called instead of 'function'
-//#pragma warning ( disable : 4512 )	// (Level 4)	'class' : assignment operator could not be generated
+#pragma warning ( disable : 4347 )		// (Level 4)	behavior change: 'function template' is called instead of 'function'
+#pragma warning ( disable : 4512 )		// (Level 4)	'class' : assignment operator could not be generated
 
 // Warnings that are normally OFF by default (enabled by /Wall)
-//#pragma warning ( disable : 4264 )	// (Level 1)	'virtual_function' : no override available for virtual member function from base 'class'; function is hidden
-//#pragma warning ( disable : 4555 )	// (Level 1)	expression has no effect; expected expression with side-effect
+#pragma warning ( disable : 4264 )		// (Level 1)	'virtual_function' : no override available for virtual member function from base 'class'; function is hidden
+#pragma warning ( disable : 4555 )		// (Level 1)	expression has no effect; expected expression with side-effect
 //#pragma warning ( disable : 4711 )	// (Level 1)	function 'function' selected for inline expansion
 //#pragma warning ( disable : 4548 )	// (Level 1)	expression before comma has no effect; expected expression with side-effect
 
-//#pragma warning ( disable : 4191 )	// (Level 3)	'operator/operation' : unsafe conversion from 'type of expression' to 'type required'
-//#pragma warning ( disable : 4640 )	// (Level 3)	'instance' : construction of local static object is not thread-safe
+#pragma warning ( disable : 4018 )		// (Level 3)	'<' signed/unsigned mismatch
+#pragma warning ( disable : 4191 )		// (Level 3)	'operator/operation' : unsafe conversion from 'type of expression' to 'type required'
+#pragma warning ( disable : 4640 )		// (Level 3)	'instance' : construction of local static object is not thread-safe
 //#pragma warning ( disable : 4738 )	// (Level 3)	storing 32-bit float result in memory, possible loss of performance
 
-//#pragma warning ( disable : 4061 )	// (Level 4)	enumerator 'identifier' in switch of enum 'enumeration' is not explicitly handled by a case label
-//#pragma warning ( disable : 4062 )	// (Level 4)	enumerator 'identifier' in switch of enum 'enumeration' is not handled
-//#pragma warning ( disable : 4263 )	// (Level 4)	'function' : member function does not override any base class virtual member function
-//#pragma warning ( disable : 4266 )	// (Level 4)	'function' : no override available for virtual member function from base 'type'; function is hidden
-//#pragma warning ( disable : 4365 )	// (Level 4)	'action' : conversion from 'type_1' to 'type_2', signed/unsigned mismatch
-//#pragma warning ( disable : 4514 )	// (Level 4)	'function' : unreferenced inline function has been removed
-//#pragma warning ( disable : 4571 )	// (Level 4)	Informational: catch(...) semantics changed since Visual C++ 7.1; structured exceptions (SEH) are no longer caught
-//#pragma warning ( disable : 4625 )	// (Level 4)	'derived class' : copy constructor could not be generated because a base class copy constructor is inaccessible
-//#pragma warning ( disable : 4626 )	// (Level 4)	'derived class' : assignment operator could not be generated because a base class assignment operator is inaccessible
-//#pragma warning ( disable : 4710 )	// (Level 4)	'function' : function not inlined
-//#pragma warning ( disable : 4820 )	// (Level 4)	'bytes' bytes padding added after construct 'member_name'
+#pragma warning ( disable : 4061 )		// (Level 4)	enumerator 'identifier' in switch of enum 'enumeration' is not explicitly handled by a case label
+#pragma warning ( disable : 4062 )		// (Level 4)	enumerator 'identifier' in switch of enum 'enumeration' is not handled
+#pragma warning ( disable : 4263 )		// (Level 4)	'function' : member function does not override any base class virtual member function
+#pragma warning ( disable : 4266 )		// (Level 4)	'function' : no override available for virtual member function from base 'type'; function is hidden
+#pragma warning ( disable : 4365 )		// (Level 4)	'action' : conversion from 'type_1' to 'type_2', signed/unsigned mismatch
+#pragma warning ( disable : 4514 )		// (Level 4)	'function' : unreferenced inline function has been removed
+#pragma warning ( disable : 4571 )		// (Level 4)	Informational: catch(...) semantics changed since Visual C++ 7.1; structured exceptions (SEH) are no longer caught
+#pragma warning ( disable : 4625 )		// (Level 4)	'derived class' : copy constructor could not be generated because a base class copy constructor is inaccessible
+#pragma warning ( disable : 4626 )		// (Level 4)	'derived class' : assignment operator could not be generated because a base class assignment operator is inaccessible
+#pragma warning ( disable : 4710 )		// (Level 4)	'function' : function not inlined
+#pragma warning ( disable : 4820 )		// (Level 4)	'bytes' bytes padding added after construct 'member_name'
 
 #define _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES 1
 #define _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES_COUNT 1
@@ -913,7 +914,7 @@ INT_PTR MsgBox(UINT nIDPrompt, UINT nType = MB_OK, UINT nIDHelp = 0, DWORD* pnDe
 //		Text[ L"text1" ] = 'A';
 //		Text[ L"text2" ] = 'b';
 //	}
-//	switch( Text[ str ] )
+//	switch ( Text[ str ] )
 //	{
 //	case 'A':	// "text1"
 //	case 'b':	// "text2"

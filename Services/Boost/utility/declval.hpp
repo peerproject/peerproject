@@ -13,14 +13,15 @@
 //----------------------------------------------------------------------------//
 
 #include <boost/type_traits/add_rvalue_reference.hpp>
+//#include <boost/type_traits/add_lvalue_reference.hpp>
 
 //----------------------------------------------------------------------------//
 //                                                                            //
 //                           C++03 implementation of                          //
 //                          Written by Vicente J. Botet Escriba               //
 //~ 20.3.4 Function template declval [declval]
-//~ 1 The library provides the function template declval to simplify the definition of expressions which occur as
-//~ unevaluated operands.
+//~ 1 The library provides the function template declval to simplify the definition of expressions
+//~ which occur as unevaluated operands.
 //~ 2 Remarks: If this function is used, the program is ill-formed.
 //~ 3 Remarks: The template parameter T of declval may be an incomplete type.
 //~ [ Example:
@@ -36,9 +37,13 @@
 
 namespace boost {
 
+//#if !defined(BOOST_NO_RVALUE_REFERENCES)
     template <typename T>
-    typename add_rvalue_reference<T>::type declval(); //noexcept; // as unevaluated operand
-
+    typename add_rvalue_reference<T>::type declval() BOOST_NOEXCEPT; // as unevaluated operand
+//#else
+//    template <typename T>
+//    typename add_lvalue_reference<T>::type declval() BOOST_NOEXCEPT; // as unevaluated operand
+//#endif
 }  // namespace boost
 
 #endif  // BOOST_TYPE_TRAITS_EXT_DECLVAL__HPP

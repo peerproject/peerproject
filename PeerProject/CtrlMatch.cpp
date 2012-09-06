@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -29,6 +29,7 @@
 #include "VendorCache.h"
 #include "CoolInterface.h"
 #include "Colors.h"
+#include "Images.h"
 #include "ShellIcons.h"
 #include "Schema.h"
 #include "Skin.h"
@@ -38,7 +39,7 @@
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 #define HEADER_HEIGHT	20
 //#define ITEM_HEIGHT	17	// Settings.Skin.RowSize
@@ -425,7 +426,7 @@ BOOL CMatchCtrl::LoadColumnState()
 
 void CMatchCtrl::UpdateScroll(DWORD nScroll)
 {
-	SCROLLINFO pInfo;
+	SCROLLINFO pInfo = {};
 
 	pInfo.cbSize	= sizeof(pInfo);
 	pInfo.fMask		= SIF_ALL & ~SIF_TRACKPOS;
@@ -497,8 +498,7 @@ void CMatchCtrl::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar*/)
 
 void CMatchCtrl::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar*/)
 {
-	SCROLLINFO pInfo;
-
+	SCROLLINFO pInfo = {};
 	pInfo.cbSize	= sizeof(pInfo);
 	pInfo.fMask		= SIF_ALL & ~SIF_TRACKPOS;
 
@@ -723,7 +723,7 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 	int nNameLen	= static_cast< int >( pszType ? pszType - pszName : _tcslen( pszName ) );
 
 	BOOL bSelected	= pHit ? pHit->m_bSelected : pFile->m_bSelected;
-	BOOL bSelectmark = bSelected && Skin.m_bmSelected.m_hObject != NULL;
+	BOOL bSelectmark = bSelected && Images.m_bmSelected.m_hObject != NULL;
 	BOOL bLeftMargin = TRUE;
 
 	COLORREF crWnd	= Colors.m_crWindow;
@@ -804,7 +804,7 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 	if ( bSelectmark )
 	{
 		CRect rcDraw = rcRow;
-		CoolInterface.DrawWatermark( &dc, &rcDraw, &Skin.m_bmSelected );
+		CoolInterface.DrawWatermark( &dc, &rcDraw, &Images.m_bmSelected );
 	}
 
 	dc.SetBkMode( bSelectmark ? TRANSPARENT : OPAQUE );

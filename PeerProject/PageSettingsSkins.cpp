@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -29,7 +29,20 @@
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
+
+// Set Column Order
+enum {
+	COL_NAME,
+	COL_AUTHOR,
+	COL_VERSION,
+	COL_PATH,
+	COL_URL,
+	COL_EMAIL,
+	COL_INFO,
+	COL_DEPEND,
+	COL_LAST	// Count
+};
 
 IMPLEMENT_DYNCREATE(CSkinsSettingsPage, CSettingsPage)
 
@@ -85,13 +98,14 @@ BOOL CSkinsSettingsPage::OnInitDialog()
 	AddIcon( IDI_SKIN, m_gdiImageList );
 
 	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
-	m_wndList.InsertColumn( 0, _T("Name"), LVCFMT_LEFT, 220, 0 );
-	m_wndList.InsertColumn( 1, _T("Author"), LVCFMT_LEFT, 120, 1 );
-	m_wndList.InsertColumn( 2, _T("Version"), LVCFMT_LEFT, 42, 2 );
-	m_wndList.InsertColumn( 3, _T("Path"), LVCFMT_LEFT, 0, 3 );
-	m_wndList.InsertColumn( 4, _T("URL"), LVCFMT_LEFT, 0, 4 );
-	m_wndList.InsertColumn( 5, _T("Email"), LVCFMT_LEFT, 0, 5 );
-	m_wndList.InsertColumn( 6, _T("Description"), LVCFMT_LEFT, 0, 6 );
+	m_wndList.InsertColumn( COL_NAME,	_T("Name"), LVCFMT_LEFT, 220, 0 );
+	m_wndList.InsertColumn( COL_AUTHOR,	_T("Author"), LVCFMT_LEFT, 120, 1 );
+	m_wndList.InsertColumn( COL_VERSION, _T("Version"), LVCFMT_LEFT, 42, 2 );
+	m_wndList.InsertColumn( COL_PATH,	_T("Path"), LVCFMT_LEFT, 0, 3 );
+	m_wndList.InsertColumn( COL_URL,	_T("URL"), LVCFMT_LEFT, 0, 4 );
+	m_wndList.InsertColumn( COL_EMAIL,	_T("Email"), LVCFMT_LEFT, 0, 5 );
+	m_wndList.InsertColumn( COL_INFO,	_T("Description"), LVCFMT_LEFT, 0, 6 );
+	m_wndList.InsertColumn( COL_DEPEND,	_T("Dependencies"), LVCFMT_LEFT, 0, 7 );
 	m_wndList.SetExtendedStyle( LVS_EX_CHECKBOXES|LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP );
 
 	if ( Settings.General.LanguageRTL )
@@ -113,9 +127,9 @@ BOOL CSkinsSettingsPage::OnInitDialog()
 void CSkinsSettingsPage::EnumerateSkins(LPCTSTR pszPath)
 {
 	WIN32_FIND_DATA pFind;
-	CString strPath;
 	HANDLE hSearch;
 
+	CString strPath;
 	strPath.Format( _T("%s\\Skins\\%s*.*"),
 		(LPCTSTR)Settings.General.Path, pszPath ? pszPath : _T("") );
 
@@ -253,6 +267,9 @@ BOOL CSkinsSettingsPage::AddSkin(LPCTSTR pszPath, LPCTSTR pszName)
 	CString strURL		= pManifest->GetAttributeValue( _T("link") );
 	CString strEmail	= pManifest->GetAttributeValue( _T("email") );
 	CString strDesc		= pManifest->GetAttributeValue( _T("description") );
+	CString strDepend	= pManifest->GetAttributeValue( _T("dependencies") );
+//	CString strPlatform	= pManifest->GetAttributeValue( _T("platform") );
+//	CString strLicense	= pManifest->GetAttributeValue( _T("license") );
 
 	if ( Settings.General.LanguageRTL )
 	{
@@ -288,7 +305,7 @@ BOOL CSkinsSettingsPage::AddSkin(LPCTSTR pszPath, LPCTSTR pszName)
 
 	if ( strEmail.Find( '@' ) < 0 ) strEmail.Empty();
 
-	CLiveItem pItem( 7, 0 );
+	CLiveItem pItem( COL_LAST, 0 );
 	HICON hIcon = NULL;
 	ExtractIconEx( strIcon, 0, NULL, &hIcon, 1 );
 	if ( hIcon )
@@ -301,17 +318,18 @@ BOOL CSkinsSettingsPage::AddSkin(LPCTSTR pszPath, LPCTSTR pszName)
 		pItem.SetImage( 0 );
 	}
 
-	pItem.Set( 0, strName );
-	pItem.Set( 1, strAuthor );
-	pItem.Set( 2, strVersion );
-	pItem.Set( 4, strURL );
-	pItem.Set( 5, strEmail );
-	pItem.Set( 6, strDesc );
+	pItem.Set( COL_NAME, strName );
+	pItem.Set( COL_AUTHOR, strAuthor );
+	pItem.Set( COL_VERSION, strVersion );
+	pItem.Set( COL_URL, strURL );
+	pItem.Set( COL_EMAIL, strEmail );
+	pItem.Set( COL_INFO, strDesc );
+	pItem.Set( COL_DEPEND, strDepend );
 
 	strName.Format( _T("%s%s"), pszPath ? pszPath : _T(""), pszName );
-	pItem.Set( 3, strName );
+	pItem.Set( COL_PATH, strName );
 
-	int nItem = pItem.Add( &m_wndList, -1, 7 );
+	int nItem = pItem.Add( &m_wndList, -1, COL_LAST );
 
 	if ( theApp.GetProfileInt( _T("Skins"), strName, FALSE ) )
 		m_wndList.SetItemState( nItem, 2 << 12, LVIS_STATEIMAGEMASK );
@@ -321,18 +339,74 @@ BOOL CSkinsSettingsPage::AddSkin(LPCTSTR pszPath, LPCTSTR pszName)
 	return TRUE;
 }
 
-void CSkinsSettingsPage::OnItemChangedSkins(NMHDR* /*pNMHDR*/, LRESULT* pResult)
+void CSkinsSettingsPage::CheckDependencies(CString sPaths)
 {
-//	NM_LISTVIEW* pNMListView = (NM_LISTVIEW*)pNMHDR;
+	if ( sPaths.GetLength() < 5 ) return;
+
+	CString strPath;
+	CStringArray oPaths;
+	INT_PTR nTotal = 1;
+
+	if ( sPaths.Find( _T(','), 4 ) < 4 )
+	{
+		strPath = sPaths;
+		strPath.Trim();
+	}
+	else
+	{
+		CStringArray oTokens;
+		Split( sPaths, _T(','), oTokens );
+
+		nTotal = oTokens.GetCount();
+		for ( INT_PTR nToken = 0 ; nToken < nTotal ; nToken++ )
+		{
+			CString strToken = oTokens.GetAt( nToken );
+			strToken.Trim( _T(" \t\r\n,") );
+			if ( strToken.GetLength() < 5 )
+				continue;
+			if ( strToken.Right( 4 ) == _T(".xml") || strToken.Right( 4 ) == _T(".XML") )
+				oPaths.Add( strToken );
+		}
+
+		nTotal = oPaths.GetCount();
+		if ( ! nTotal ) return;
+		if ( nTotal == 1 )
+			strPath = oTokens.GetAt( 0 );
+	}
+
+	const int nCount = m_wndList.GetItemCount();
+	for ( int nItem = 0 ; nItem < nCount ; nItem++ )
+	{
+		CString strName = m_wndList.GetItemText( nItem, COL_PATH );
+		strName = strName.Mid( strName.ReverseFind( _T('\\') ) + 1 );
+
+		if ( nTotal == 1 )
+		{
+			if ( strName.CompareNoCase( strPath ) == 0 )
+				m_wndList.SetItemState( nItem, UINT( 2 << 12 ), LVIS_STATEIMAGEMASK );
+			continue;
+		}
+
+		for ( INT_PTR nToken = 0 ; nToken < nTotal ; nToken++ )
+		{
+			 if ( strName.CompareNoCase( oPaths.GetAt( nToken ) ) == 0 )
+				 m_wndList.SetItemState( nItem, UINT( 2 << 12 ), LVIS_STATEIMAGEMASK );
+		}
+	}
+}
+
+void CSkinsSettingsPage::OnItemChangedSkins(NMHDR* pNMHDR, LRESULT* pResult)
+{
+	NM_LISTVIEW* pNMListView = (NM_LISTVIEW*)pNMHDR;
 	*pResult = 0;
 
 	m_nSelected = m_wndList.GetNextItem( -1, LVNI_SELECTED );
 
 	if ( m_nSelected >= 0 )
 	{
-		m_wndName.SetWindowText( m_wndList.GetItemText( m_nSelected, 0 ) );
-		m_wndAuthor.SetWindowText( m_wndList.GetItemText( m_nSelected, 1 ) );
-		m_wndDesc.SetWindowText( m_wndList.GetItemText( m_nSelected, 6 ) );
+		m_wndName.SetWindowText( m_wndList.GetItemText( m_nSelected, COL_NAME ) );
+		m_wndAuthor.SetWindowText( m_wndList.GetItemText( m_nSelected, COL_AUTHOR ) );
+		m_wndDesc.SetWindowText( m_wndList.GetItemText( m_nSelected, COL_INFO ) );
 		m_wndDelete.EnableWindow( TRUE );
 	}
 	else
@@ -342,6 +416,17 @@ void CSkinsSettingsPage::OnItemChangedSkins(NMHDR* /*pNMHDR*/, LRESULT* pResult)
 		m_wndDesc.SetWindowText( _T("") );
 		m_wndDelete.EnableWindow( FALSE );
 	}
+
+	// Checkbox
+	const BOOL bChecked = (BOOL)( ( ( pNMListView->uNewState & LVIS_STATEIMAGEMASK ) >> 12 ) - 1 );
+	if ( ! bChecked || bChecked < 0 ) return;	// Non-checkbox notifications
+
+	const BOOL bPrevState = (BOOL)( ( ( pNMListView->uOldState & LVIS_STATEIMAGEMASK) >> 12 ) - 1 );
+	if ( bPrevState < 0 ) return;				// No previous state at startup
+
+	if ( bChecked == bPrevState ) return;		// No change
+
+	CheckDependencies( m_wndList.GetItemText( pNMListView->iItem, COL_DEPEND ) );
 }
 
 HBRUSH CSkinsSettingsPage::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
@@ -413,7 +498,7 @@ void CSkinsSettingsPage::OnLButtonUp(UINT /*nFlags*/, CPoint point)
 	m_wndName.GetWindowRect( &rc );
 	if ( rc.PtInRect( point ) )
 	{
-		CString strURL = m_wndList.GetItemText( m_nSelected, 4 );
+		CString strURL = m_wndList.GetItemText( m_nSelected, COL_URL );
 
 		if ( ! strURL.IsEmpty() )
 			ShellExecute( GetSafeHwnd(), _T("open"), strURL, NULL, NULL, SW_SHOWNORMAL );
@@ -424,7 +509,7 @@ void CSkinsSettingsPage::OnLButtonUp(UINT /*nFlags*/, CPoint point)
 	m_wndAuthor.GetWindowRect( &rc );
 	if ( rc.PtInRect( point ) )
 	{
-		CString strEmail = m_wndList.GetItemText( m_nSelected, 5 );
+		CString strEmail = m_wndList.GetItemText( m_nSelected, COL_EMAIL );
 
 		if ( ! strEmail.IsEmpty() )
 			ShellExecute( GetSafeHwnd(), _T("open"), _T("mailto:") + strEmail, NULL, NULL, SW_SHOWNORMAL );
@@ -443,6 +528,8 @@ void CSkinsSettingsPage::OnDoubleClick(NMHDR* /*pNMHDR*/, LRESULT* pResult)
 	{
 		m_wndList.SetItemState( nItem, UINT( ( nItem != m_nSelected ? 1 : 2 ) << 12 ), LVIS_STATEIMAGEMASK );
 	}
+
+	CheckDependencies( m_wndList.GetItemText( m_nSelected, COL_DEPEND ) );
 }
 
 void CSkinsSettingsPage::OnSkinsBrowse()
@@ -462,8 +549,7 @@ void CSkinsSettingsPage::OnSkinsWeb()
 	const CString strWebSite( WEB_SITE );
 
 	ShellExecute( GetSafeHwnd(), _T("open"),
-		strWebSite + _T("Skins?Version=") + theApp.m_sVersion,
-		NULL, NULL, SW_SHOWNORMAL );
+		strWebSite + _T("Skins?Version=") + theApp.m_sVersion, NULL, NULL, SW_SHOWNORMAL );
 }
 
 void CSkinsSettingsPage::OnOK()
@@ -492,15 +578,15 @@ void CSkinsSettingsPage::OnSkinsDelete()
 {
 	if ( m_nSelected < 0 ) return;
 
-	CString strName = m_wndList.GetItemText( m_nSelected, 0 );
-	CString strBase = m_wndList.GetItemText( m_nSelected, 3 );
+	CString strName = m_wndList.GetItemText( m_nSelected, COL_NAME );
+	CString strBase = m_wndList.GetItemText( m_nSelected, COL_PATH );
 
 	CString strFormat, strPrompt;
 
 	Skin.LoadString( strFormat, IDS_SKIN_DELETE );
 	strPrompt.Format( strFormat, (LPCTSTR)strName );
 
-	if ( AfxMessageBox( strPrompt, MB_ICONQUESTION|MB_OKCANCEL|MB_DEFBUTTON2 ) != IDOK ) return;
+	if ( MsgBox( strPrompt, MB_ICONQUESTION|MB_OKCANCEL|MB_DEFBUTTON2 ) != IDOK ) return;
 
 	theApp.WriteProfileString( _T("Skins"), strBase, NULL );
 

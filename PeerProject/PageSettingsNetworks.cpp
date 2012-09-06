@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -30,7 +30,7 @@
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 IMPLEMENT_DYNCREATE(CNetworksSettingsPage, CSettingsPage)
 
@@ -241,16 +241,11 @@ void CNetworksSettingsPage::OnG2Enable()
 {
 	UpdateData();
 
-	if ( ! m_bG2Enable )
+	if ( ! m_bG2Enable &&
+		 MsgBox( IDS_NETWORK_DISABLE_G2, MB_ICONEXCLAMATION|MB_YESNO|MB_DEFBUTTON2 ) != IDYES )
 	{
-		CString strMessage;
-		LoadString( strMessage, IDS_NETWORK_DISABLE_G2 );
-
-		if ( AfxMessageBox( strMessage, MB_ICONEXCLAMATION|MB_YESNO|MB_DEFBUTTON2 ) != IDYES )
-		{
-			m_bG2Enable = TRUE;
-			UpdateData( FALSE );
-		}
+		m_bG2Enable = TRUE;
+		UpdateData( FALSE );
 	}
 
 //	CGnutellaSettingsPage* ppGnutella =
@@ -270,9 +265,9 @@ void CNetworksSettingsPage::OnG1Enable()
 {
 	UpdateData();
 
-	if ( m_bG1Enable && ( Settings.GetOutgoingBandwidth() < 2 ) )
+	if ( m_bG1Enable && Settings.GetOutgoingBandwidth() < 2 )
 	{
-		AfxMessageBox( IDS_NETWORK_BANDWIDTH_LOW, MB_OK );
+		MsgBox( IDS_NETWORK_BANDWIDTH_LOW, MB_OK );
 		m_bG1Enable = FALSE;
 		UpdateData( FALSE );
 	}
@@ -294,9 +289,9 @@ void CNetworksSettingsPage::OnEd2kEnable()
 {
 	UpdateData();
 
-	if ( m_bEDEnable && ( Settings.GetOutgoingBandwidth() < 2 ) )
+	if ( m_bEDEnable && Settings.GetOutgoingBandwidth() < 2 )
 	{
-		AfxMessageBox( IDS_NETWORK_BANDWIDTH_LOW, MB_OK );
+		MsgBox( IDS_NETWORK_BANDWIDTH_LOW, MB_OK );
 		m_bEDEnable = FALSE;
 		UpdateData( FALSE );
 	}
@@ -318,9 +313,9 @@ void CNetworksSettingsPage::OnDCEnable()
 {
 	UpdateData();
 
-	if ( m_bDCEnable && ( Settings.GetOutgoingBandwidth() < 2 ) )
+	if ( m_bDCEnable && Settings.GetOutgoingBandwidth() < 2 )
 	{
-		AfxMessageBox( IDS_NETWORK_BANDWIDTH_LOW, MB_OK );
+		MsgBox( IDS_NETWORK_BANDWIDTH_LOW, MB_OK );
 		m_bDCEnable = FALSE;
 		UpdateData( FALSE );
 	}

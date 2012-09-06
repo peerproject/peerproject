@@ -1,18 +1,18 @@
 //
 // Hashes.hpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2005.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -23,6 +23,10 @@
 //! to a Hash template class. Contains some utility functions and hash ids.
 
 #pragma once
+
+#ifndef HASHES_HPP_INCLUDED
+#define HASHES_HPP_INCLUDED
+#endif
 
 #include "Hashes/Hash.hpp"
 #include "Hashes/HashDescriptors.hpp"
@@ -98,18 +102,17 @@ namespace Hashes
 	{
 		BtGuid result;
 		memcpy( &result[ 0 ], &other[ 0 ], result.byteCount );
-		*( result.end() - 1 )
-				= *other.begin() ^ swapEndianess( *( other.end() - 1 ) );
+		*( result.end() - 1 ) = *other.begin() ^ swapEndianess( *( other.end() - 1 ) );
 		result.validate();
 		return result;
 	}
 
-	//! \brief Predicate checking if a given Bittorrent Guid uses
-	//!		special signature to signal it belong to PeerProject client.
+	//! \brief Predicate checking if a given Bittorrent Guid uses a
+	//!		special signature to signal it belongs to PeerProject/Shareaza client.
 	inline bool isExtendedBtGuid(const BtGuid& hash)
 	{
-		return hash.isValid() && *( hash.end() - 1 )
-				== ( *hash.begin() ^ swapEndianess( *( hash.end() - 2 ) ) );
+		return hash.isValid() &&
+			*( hash.end() - 1 ) == ( *hash.begin() ^ swapEndianess( *( hash.end() - 2 ) ) );
 	}
 
 } // namespace Hashes

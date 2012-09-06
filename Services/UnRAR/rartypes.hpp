@@ -11,8 +11,7 @@ typedef unsigned int     uint32; // 32 bits exactly
 typedef   signed int     int32;  // signed 32 bits exactly
 
 // If compiler does not support 64 bit variables, we can define
-// uint64 and int64 as 32 bit, but it will limit the maximum processed
-// file size to 2 GB.
+// uint64 and int64 as 32 bit, but it will limit the maximum processed file size to 2 GB.
 #if defined(__BORLANDC__) || defined(_MSC_VER)
 typedef   unsigned __int64 uint64; // unsigned 64 bits
 typedef     signed __int64  int64; // signed 64 bits
@@ -29,10 +28,10 @@ typedef ushort wchar;
 #endif
 
 // Get lowest 16 bits.
-#define SHORT16(x) (sizeof(ushort)==2 ? (ushort)(x):((x)&0xffff))
+#define GET_SHORT16(x) (sizeof(ushort)==2 ? (ushort)(x):((x)&0xffff))
 
 // Get lowest 32 bits.
-#define UINT32(x)  (sizeof(uint32)==4 ? (uint32)(x):((x)&0xffffffff))
+#define GET_UINT32(x)  (sizeof(uint32)==4 ? (uint32)(x):((x)&0xffffffff))
 
 // Make 64 bit integer from two 32 bit.
 #define INT32TO64(high,low) ((((uint64)(high))<<32)+((uint64)low))

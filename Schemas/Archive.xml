@@ -329,6 +329,7 @@
 		<type extension="sks"/>
 		<type extension="gz"/>
 		<type extension="gzip"/>
+		<type extension="lz"/>
 		<type extension="lzma"/>
 		<type extension="r00"/>
 		<type extension="r01"/>
@@ -391,6 +392,16 @@
 		<type extension="r58"/>
 		<type extension="r59"/>
 		<type extension="r60"/>
+		<type extension="r61"/>
+		<type extension="r62"/>
+		<type extension="r63"/>
+		<type extension="r64"/>
+		<type extension="r65"/>
+		<type extension="r66"/>
+		<type extension="r67"/>
+		<type extension="r68"/>
+		<type extension="r69"/>
+		<type extension="r70"/>
 		<type extension="rar"/>
 		<type extension="tar"/>
 		<type extension="tgz"/>

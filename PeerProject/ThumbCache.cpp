@@ -1,18 +1,18 @@
 //
 // ThumbCache.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -28,9 +28,9 @@
 
 #ifdef _DEBUG
 #undef THIS_FILE
-static char THIS_FILE[]=__FILE__;
+static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 //////////////////////////////////////////////////////////////////////
 // CThumbCache init
@@ -93,11 +93,11 @@ BOOL CThumbCache::Load(LPCTSTR pszPath, CImageFile* pImage)
 		return FALSE;
 	}
 
-	CString sPath( pszPath );
-	sPath.MakeLower();
+	CString strPath( pszPath );
+	strPath.MakeLower();
 
 	if ( ! db->Prepare( _T("SELECT FileSize, LastWriteTime, Image FROM Files WHERE Filename == ?;") ) ||
-		 ! db->Bind( 1, sPath ) ||
+		 ! db->Bind( 1, strPath ) ||
 		 ! db->Step() ||
 		 ! ( db->GetCount() == 0 || db->GetCount() == 3 ) )
 	{
@@ -145,11 +145,11 @@ void CThumbCache::Delete(LPCTSTR pszPath)
 		return;
 	}
 
-	CString sPath( pszPath );
-	sPath.MakeLower();
+	CString strPath( pszPath );
+	strPath.MakeLower();
 
 	if ( ! db->Prepare( _T("DELETE FROM Files WHERE Filename == ?;") ) ||
-		 ! db->Bind( 1, sPath ) )
+		 ! db->Bind( 1, strPath ) )
 	{
 		TRACE( _T("CThumbCache::Load : Database error: %s\n"), db->GetLastErrorMessage() );
 		return;
@@ -182,8 +182,8 @@ BOOL CThumbCache::Store(LPCTSTR pszPath, CImageFile* pImage)
 		return FALSE;
 	}
 
-	CString sPath( pszPath );
-	sPath.MakeLower();
+	CString strPath( pszPath );
+	strPath.MakeLower();
 
 	// Save to memory as JPEG image
 	BYTE* buf = NULL;
@@ -197,7 +197,7 @@ BOOL CThumbCache::Store(LPCTSTR pszPath, CImageFile* pImage)
 
 	// Remove old image
 	if ( ! db->Prepare( _T("DELETE FROM Files WHERE Filename == ?;") ) ||
-		 ! db->Bind( 1, sPath ) )
+		 ! db->Bind( 1, strPath ) )
 	{
 		TRACE( _T("CThumbCache::Store : Database error: %s\n"), db->GetLastErrorMessage() );
 		return FALSE;
@@ -206,7 +206,7 @@ BOOL CThumbCache::Store(LPCTSTR pszPath, CImageFile* pImage)
 
 	// Store new one
 	if ( ! db->Prepare( _T("INSERT INTO Files ( Filename, FileSize, LastWriteTime, Image ) VALUES ( ?, ?, ?, ? );") ) ||
-		 ! db->Bind( 1, sPath ) ||
+		 ! db->Bind( 1, strPath ) ||
 		 ! db->Bind( 2, (__int64)MAKEQWORD( fd.nFileSizeLow, fd.nFileSizeHigh ) ) ||
 		 ! db->Bind( 3, (__int64)MAKEQWORD( fd.ftLastWriteTime.dwLowDateTime, fd.ftLastWriteTime.dwHighDateTime ) ) ||
 		 ! db->Bind( 4, data.get(), data_len ) ||
@@ -223,7 +223,7 @@ BOOL CThumbCache::Store(LPCTSTR pszPath, CImageFile* pImage)
 
 	if ( CLibraryFile* pFile = LibraryMaps.LookupFileByPath( pszPath ) )
 	{
-		ASSERT( pFile->GetPath().MakeLower() == sPath );
+		ASSERT( pFile->GetPath().MakeLower() == strPath );
 		pFile->m_bCachedPreview = TRUE;
 		Library.Update();
 	}

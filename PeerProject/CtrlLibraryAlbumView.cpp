@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -30,8 +30,9 @@
 #include "Schema.h"
 #include "SchemaCache.h"
 #include "ShellIcons.h"
-#include "Colors.h"
 #include "CoolInterface.h"
+#include "Colors.h"
+#include "Images.h"
 #include "Skin.h"
 #include "XML.h"
 
@@ -39,7 +40,7 @@
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 #define ROW_HEIGHT		22
 #define ICON_WIDTH		24
@@ -506,7 +507,7 @@ void CLibraryAlbumView::UpdateScroll()
 	CRect rc;
 	GetClientRect( &rc );
 
-	SCROLLINFO pInfo;
+	SCROLLINFO pInfo = {};
 	pInfo.cbSize	= sizeof(pInfo);
 	pInfo.fMask		= SIF_ALL & ~SIF_TRACKPOS;
 	pInfo.nMin		= 0;
@@ -1269,10 +1270,10 @@ void CLibraryAlbumTrack::PaintText(CDC* pDC, const CRect& rcTrack, int nFrom, in
 	rcText.right = rcTrack.left + rcTrack.Width() * nTo / 100 - 1;
 
 	//COLORREF crOld = pDC->GetPixel( rcText.left, rcText.top );
-	BOOL bSelectmark = pDC->GetBkColor() == Colors.m_crHighlight && Skin.m_bmSelected.m_hObject != NULL;
+	BOOL bSelectmark = pDC->GetBkColor() == Colors.m_crHighlight && Images.m_bmSelected.m_hObject != NULL;
 	if ( bSelectmark)
 	{
-		CoolInterface.DrawWatermark( pDC, &rcText, &Skin.m_bmSelected, FALSE ); 	// No overdraw
+		CoolInterface.DrawWatermark( pDC, &rcText, &Images.m_bmSelected, FALSE ); 	// No overdraw
 		pDC->SetBkMode( TRANSPARENT );
 	}
 

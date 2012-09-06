@@ -51,15 +51,15 @@ BOOL CRTFCompactDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
 	m_wndProgress.SetRange( 0, 100 );
-	
+
 	return TRUE;	// Return TRUE unless you set the focus to a control
 }
 
 // If you add a minimize button to your dialog, you will need the code below
-//  to draw the icon.  For MFC applications using the document/view model,
-//  this is automatically done for you by the framework.
+// to draw the icon.  For MFC applications using the document/view model,
+// this is automatically done for you by the framework.
 
-void CRTFCompactDlg::OnPaint() 
+void CRTFCompactDlg::OnPaint()
 {
 	if (IsIconic())
 	{
@@ -129,7 +129,7 @@ void CRTFCompactDlg::OnOpenFile()
 
 void CRTFCompactDlg::OnClose()
 {
-	if ( hFile ) 
+	if ( hFile )
         CloseHandle( hFile );
 
 	CDialog::OnClose();
@@ -248,13 +248,13 @@ void CRTFCompactDlg::OnRun()
 	m_wndProgress.ShowWindow( SW_HIDE );
 	m_wndProgress.SetPos( 0 );
 	UpdateData( FALSE );
-	
+
 	if ( nGain < 100 )
 	{
 		CString strMessage;
 		DeleteFile( m_sPath );
 		MoveFile( strOutPath, m_sPath );
-		strMessage.Format( "Success! The final size is %i%% of original size.", nGain );
+		strMessage.Format( "Success. Final size %i%% of original size.", nGain );
 		MessageBox( strMessage, "Done", MB_OK | MB_ICONINFORMATION );
 	}
 	else

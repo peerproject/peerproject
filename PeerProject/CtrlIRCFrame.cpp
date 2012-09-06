@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2005-2008.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 // Original Author: peer_l_@hotmail.com
@@ -40,9 +40,9 @@
 
 #ifdef _DEBUG
 #undef THIS_FILE
-static char THIS_FILE[]=__FILE__;
+static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 #define SIZE_INTERNAL	1982
 #define SIZE_BARSLIDE	1983
@@ -222,7 +222,8 @@ int CIRCFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 void CIRCFrame::ClearChanListCount()
 {
 	CListCtrl& wndChanList = m_wndPanel.m_boxChans.m_wndChanList;
-	for ( int i = 0 ; i < wndChanList.GetItemCount() ; ++i )
+	const int nChanCount = wndChanList.GetItemCount();
+	for ( int i = 0 ; i < nChanCount ; ++i )
 	{
 		wndChanList.SetItemText( i, 1, _T("") );
 	}
@@ -242,7 +243,8 @@ void CIRCFrame::FillChanListCount(const CString& strUserCount, const CString& st
 
 	strDisplay = m_pChanList.GetDisplayOfIndex( nIndex );
 
-	for ( nList = 0 ; nList < wndChanList.GetItemCount() ; nList++ )
+	const int nChanCount = wndChanList.GetItemCount();
+	for ( nList = 0 ; nList < nChanCount ; nList++ )
 	{
 		strList = wndChanList.GetItemText( nList, 0 );
 		if ( strDisplay.CompareNoCase( strList ) == 0 )
@@ -266,7 +268,7 @@ void CIRCFrame::FillChanListCount(const CString& strUserCount, const CString& st
 
 	strCount.Format( _T("%d"), nCountWnd );
 	if ( ! bFound )
-		nList = wndChanList.InsertItem( wndChanList.GetItemCount(), strDisplay );
+		nList = wndChanList.InsertItem( nChanCount, strDisplay );
 	wndChanList.SetItemText( nList, 1, strCount );
 }
 
@@ -588,7 +590,8 @@ void CIRCFrame::OnContextMenu(CWnd* pWnd, CPoint point)
 	if ( pWnd->m_hWnd == m_wndTab.m_hWnd )
 	{
 		CRect rcTab;
-		for ( int nTab = 0 ; nTab < m_wndTab.GetItemCount() ; nTab++ )
+		const int nTabCount = m_wndTab.GetItemCount();
+		for ( int nTab = 0 ; nTab < nTabCount ; nTab++ )
 		{
 			m_wndTab.GetItemRect( nTab, rcTab );
 			m_wndTab.ClientToScreen( rcTab );
@@ -879,13 +882,13 @@ void CIRCFrame::OnIrcSendText()
 
 	if ( m_wndEdit.GetLineCount() > m_nLocalLinesLimit )
 	{
-		AfxMessageBox( _T("Exceeded Max number of lines allowed.") );
+		MsgBox( _T("Exceeded Max number of lines allowed.") );
 		return;
 	}
 
 	if ( m_sCurrent.GetLength() > m_nLocalTextLimit )
 	{
-		AfxMessageBox( _T("Exceeded Max length of text allowed.") );
+		MsgBox( _T("Exceeded Max length of text allowed.") );
 		return;
 	}
 
@@ -983,16 +986,16 @@ CString CIRCFrame::GetTabText(int nTabIndex) const
 	if ( nTabIndex == -1 )
 		nTabIndex = m_wndTab.GetCurSel();
 
-	CString sBuffer;
+	CString strBuffer;
 	TCITEM item = { TCIF_IMAGE | TCIF_PARAM | TCIF_TEXT };
 
-	item.pszText = sBuffer.GetBuffer( 1024 );
+	item.pszText = strBuffer.GetBuffer( 1024 );
 	item.cchTextMax = 1023;
 
 	BOOL ret = m_wndTab.GetItem( nTabIndex, &item );
-	sBuffer.ReleaseBuffer();
+	strBuffer.ReleaseBuffer();
 
-	return ret ? sBuffer : CString();
+	return ret ? strBuffer : CString();
 }
 
 void CIRCFrame::OnLocalText(LPCTSTR pszText)
@@ -2071,7 +2074,8 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 			CString strChannelName = GetTabText();
 			CString strCurUser, strTmp;
 			int nListUser, nTab;
-			for ( nTab = 0 ; nTab < m_wndTab.GetItemCount() ; nTab++ )
+			const int nTabCount = m_wndTab.GetItemCount();
+			for ( nTab = 0 ; nTab < nTabCount ; nTab++ )
 			{
 				nListUser = FindInList( strNick, 2, nTab );
 				if ( nListUser != -1 )
@@ -2359,7 +2363,8 @@ CString CIRCFrame::TrimString(CString strMessage) const
 
 int CIRCFrame::GetTabIndex(const CString& strTabName) const
 {
-	for ( int nTab = 0 ; nTab < m_wndTab.GetItemCount() ; nTab++ )
+	const int nTabCount = m_wndTab.GetItemCount();
+	for ( int nTab = 0 ; nTab < nTabCount ; nTab++ )
 	{
 		if ( GetTabText( nTab ).CompareNoCase( strTabName ) == 0 )
 			return nTab;

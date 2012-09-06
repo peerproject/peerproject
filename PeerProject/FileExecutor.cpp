@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -36,9 +36,9 @@
 
 #ifdef _DEBUG
 #undef THIS_FILE
-static char THIS_FILE[]=__FILE__;
+static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 //#define TOO_MANY_FILES_LIMIT	20	// Settings.Library.ManyFilesCount
 
@@ -195,7 +195,7 @@ TRISTATE CFileExecutor::IsSafeExecute(LPCTSTR szExt, LPCTSTR szFile)
 		TCHAR szPrettyPath[ 60 ];
 		PathCompactPathEx( szPrettyPath, szFile, _countof( szPrettyPath ) - 1, 0 );
 		strPrompt.Format( LoadString( IDS_LIBRARY_CONFIRM_EXECUTE ), szPrettyPath );
-		switch ( AfxMessageBox( strPrompt,
+		switch ( MsgBox( strPrompt,
 			MB_ICONQUESTION | MB_YESNOCANCEL | MB_DEFBUTTON2 ) )
 		{
 		case IDYES:
@@ -227,15 +227,14 @@ TRISTATE CFileExecutor::IsVerified(LPCTSTR szFile)
 
 	CString strMessage;
 	strMessage.Format( LoadString( IDS_LIBRARY_VERIFY_FAIL ), szFile );
-	INT_PTR nResponse = AfxMessageBox( strMessage,
+	INT_PTR nResponse = MsgBox( strMessage,
 		MB_ICONEXCLAMATION|MB_YESNOCANCEL|MB_DEFBUTTON2 );
 	if ( nResponse == IDCANCEL )
 		return TRI_UNKNOWN;	// Cancel file operation
 	if ( nResponse == IDNO )
 		return TRI_FALSE;	// Skip it
 
-	nResponse = AfxMessageBox( LoadString( IDS_LIBRARY_VERIFY_FIX ),
-		MB_ICONQUESTION|MB_YESNOCANCEL|MB_DEFBUTTON2 );
+	nResponse = MsgBox( IDS_LIBRARY_VERIFY_FIX, MB_ICONQUESTION|MB_YESNOCANCEL|MB_DEFBUTTON2 );
 	if ( nResponse == IDCANCEL )
 		return TRI_UNKNOWN;		// Cancel file operation
 	if ( nResponse == IDYES )
@@ -365,13 +364,10 @@ BOOL CFileExecutor::Execute(const CStringList& pList)
 {
 	if ( pList.GetCount() > Settings.Library.ManyFilesCount )	// TOO_MANY_FILES_LIMIT
 	{
-		CString sMessage;
-		sMessage.Format( LoadString( IDS_TOO_MANY_FILES ), pList.GetCount() );
-		if ( MsgBox( sMessage, MB_ICONQUESTION | MB_YESNO, 0,
-			&Settings.Library.ManyFilesWarning ) != IDYES )
-		{
+		CString strMessage;
+		strMessage.Format( LoadString( IDS_TOO_MANY_FILES ), pList.GetCount() );
+		if ( MsgBox( strMessage, MB_ICONQUESTION | MB_YESNO, 0, &Settings.Library.ManyFilesWarning ) != IDYES )
 			return FALSE;
-		}
 	}
 
 	for ( POSITION pos = pList.GetHeadPosition() ; pos ; )
@@ -558,13 +554,10 @@ BOOL CFileExecutor::Enqueue(const CStringList& pList)
 {
 	if ( pList.GetCount() > Settings.Library.ManyFilesCount )	// TOO_MANY_FILES_LIMIT
 	{
-		CString sMessage;
-		sMessage.Format( LoadString( IDS_TOO_MANY_FILES ), pList.GetCount() );
-		if ( MsgBox( sMessage, MB_ICONQUESTION | MB_YESNO, 0,
-			&Settings.Library.ManyFilesWarning ) != IDYES )
-		{
+		CString strMessage;
+		strMessage.Format( LoadString( IDS_TOO_MANY_FILES ), pList.GetCount() );
+		if ( MsgBox( strMessage, MB_ICONQUESTION | MB_YESNO, 0, &Settings.Library.ManyFilesWarning ) != IDYES )
 			return FALSE;
-		}
 	}
 
 	for ( POSITION pos = pList.GetHeadPosition() ; pos ; )
@@ -609,8 +602,7 @@ BOOL CFileExecutor::Enqueue(const CStringList& pList)
 //		strCommand.Format( _T("\"%s\",,0"), pszURL );
 //		CT2A pszCommand( (LPCTSTR)strCommand );
 //
-//		DdeClientTransaction( (LPBYTE)pszCommand, pszCommand,
-//			 hConv, 0, 0, XTYP_EXECUTE, 4000, NULL );
+//		DdeClientTransaction( (LPBYTE)pszCommand, pszCommand, hConv, 0, 0, XTYP_EXECUTE, 4000, NULL );
 //
 //		DdeDisconnect( hConv );
 //	}

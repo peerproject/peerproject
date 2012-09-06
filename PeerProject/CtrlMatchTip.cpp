@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -23,6 +23,7 @@
 #include "CtrlMatchTip.h"
 #include "CoolInterface.h"
 #include "Colors.h"
+#include "Images.h"
 #include "Library.h"
 #include "SharedFile.h"
 #include "MatchObjects.h"
@@ -37,7 +38,7 @@
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 IMPLEMENT_DYNAMIC(CMatchTipCtrl, CCoolTipCtrl)
 
@@ -433,7 +434,7 @@ void CMatchTipCtrl::OnPaint(CDC* pDC)
 	CPoint pt( 0, 0 );
 	CSize sz( m_sz.cx, TIP_TEXTHEIGHT );
 
-	const COLORREF crBack = Skin.m_bmToolTip.m_hObject ? CLR_NONE : Colors.m_crTipBack;
+	const COLORREF crBack = Images.m_bmToolTip.m_hObject ? CLR_NONE : Colors.m_crTipBack;
 
 	DrawText( pDC, &pt, m_sName );
 	pt.y += TIP_ICONHEIGHT;
@@ -452,7 +453,7 @@ void CMatchTipCtrl::OnPaint(CDC* pDC)
 		if ( nFlagIndex >= 0 )
 		{
 			Flags.Draw( nFlagIndex, *pDC, pt.x, pt.y, crBack, crBack );
-			if ( ! Skin.m_bmToolTip.m_hObject )
+			if ( ! Images.m_bmToolTip.m_hObject )
 				pDC->ExcludeClipRect( pt.x, pt.y, pt.x + 16, pt.y + 16 );
 			pt.x += 20;
 			pt.y += 2;
@@ -493,7 +494,7 @@ void CMatchTipCtrl::OnPaint(CDC* pDC)
 		{
 			ptStar.x -= 16;
 			CoolInterface.Draw( pDC, IDI_STAR, 16, ptStar.x, ptStar.y, crBack );
-			if ( ! Skin.m_bmToolTip.m_hObject )
+			if ( ! Images.m_bmToolTip.m_hObject )
 				pDC->ExcludeClipRect( ptStar.x, ptStar.y, ptStar.x + 16, ptStar.y + 16 );
 		}
 	}
@@ -565,7 +566,7 @@ void CMatchTipCtrl::OnPaint(CDC* pDC)
 		if ( ! m_sBusy.IsEmpty() )
 		{
 			CoolInterface.Draw( pDC, IDI_BUSY, 16, pt.x, pt.y, crBack );
-			if ( ! Skin.m_bmToolTip.m_hObject )
+			if ( ! Images.m_bmToolTip.m_hObject )
 				pDC->ExcludeClipRect( pt.x, pt.y, pt.x + 16, pt.y + 16 );
 
 			pt.x += 20;
@@ -600,7 +601,7 @@ void CMatchTipCtrl::OnPaint(CDC* pDC)
 		if ( ! m_sPush.IsEmpty() )
 		{
 			CoolInterface.Draw( pDC, IDI_FIREWALLED, 16, pt.x, pt.y, crBack );
-			if ( ! Skin.m_bmToolTip.m_hObject )
+			if ( ! Images.m_bmToolTip.m_hObject )
 				pDC->ExcludeClipRect( pt.x, pt.y, pt.x + 16, pt.y + 16 );
 
 			pt.x += 20;
@@ -614,7 +615,7 @@ void CMatchTipCtrl::OnPaint(CDC* pDC)
 		if ( ! m_sUnstable.IsEmpty() )
 		{
 			CoolInterface.Draw( pDC, IDI_UNSTABLE, 16, pt.x, pt.y, crBack );
-			if ( ! Skin.m_bmToolTip.m_hObject )
+			if ( ! Images.m_bmToolTip.m_hObject )
 				pDC->ExcludeClipRect( pt.x, pt.y, pt.x + 16, pt.y + 16 );
 
 			pt.x += 20;

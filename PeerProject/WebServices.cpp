@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2011-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -37,9 +37,9 @@
 
 #ifdef _DEBUG
 #undef THIS_FILE
-static char THIS_FILE[]=__FILE__;
+static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 // Move from CLibraryFileView?
 //BEGIN_MESSAGE_MAP(CWebServices)
@@ -134,7 +134,7 @@ static char THIS_FILE[]=__FILE__;
 //	{
 //		CString strFormat;
 //		Skin.LoadString( strFormat, IDS_LIBRARY_BITZI_MESSAGE );
-//		if ( AfxMessageBox( strFormat, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
+//		if ( MsgBox( strFormat, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
 //		Settings.WebServices.BitziOkay = true;
 //		Settings.Save();
 //	}
@@ -318,7 +318,7 @@ static char THIS_FILE[]=__FILE__;
 //{
 //	if ( ! Settings.WebServices.ShareMonkeyOkay )
 //	{
-//		if ( AfxMessageBox( IDS_SHAREMONKEY_MESSAGE, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
+//		if ( MsgBox( IDS_SHAREMONKEY_MESSAGE, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
 //		Settings.WebServices.ShareMonkeyOkay = true;
 //		Settings.Save();
 //	}
@@ -577,7 +577,7 @@ BOOL CWebServices::ShowBitziTicket(DWORD nIndex)
 {
 	if ( ! Settings.WebServices.BitziOkay )
 	{
-		if ( AfxMessageBox( LoadString( IDS_LIBRARY_BITZI_MESSAGE ), MB_ICONQUESTION|MB_YESNO ) != IDYES )
+		if ( MsgBox( IDS_LIBRARY_BITZI_MESSAGE, MB_ICONQUESTION|MB_YESNO ) != IDYES )
 			return FALSE;
 		Settings.WebServices.BitziOkay = true;
 		Settings.Save();
@@ -593,7 +593,7 @@ BOOL CWebServices::ShowBitziTicket(DWORD nIndex)
 		CString strMessage;
 		strMessage.Format( LoadString( IDS_LIBRARY_BITZI_HASHED ), (LPCTSTR)pFile->m_sName );
 		pLock.Unlock();
-		AfxMessageBox( strMessage, MB_ICONINFORMATION );
+		MsgBox( strMessage, MB_ICONINFORMATION );
 		return FALSE;
 	}
 
@@ -992,7 +992,7 @@ BOOL CWebServices::ShowBitziTicket(DWORD nIndex)
 			FileExt[ L"EXE" ]	= 'X';
 		}
 
-		switch( FileExt[ strExt ] )
+		switch ( FileExt[ strExt ] )
 		{
 		case 'a':		// avi
 			strINFO += _T("&tag.video.format=AVI");

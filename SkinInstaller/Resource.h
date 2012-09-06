@@ -1,7 +1,5 @@
-//{{NO_DEPENDENCIES}}
-// Used by Resource.rc
-
-// Resource.h
+//
+// Resource.h	(Used by Resource.rc)
 //
 // This file is part of PeerProject (peerproject.org) © 2008
 //
@@ -10,12 +8,12 @@
 
 
 #define IDI_ICON			101
-//#define IDR_VERSION			102
+//#define IDR_VERSION		102
 #define IDD_MAIN			103
 #define IDB_BANNER			104
-#define IDC_WHITERECT			105
-#define IDI_PEERPROJECT			106
-#define IDC_PROGRESS			107
+#define IDC_WHITERECT		105
+#define IDI_PEERPROJECT		106
+#define IDC_PROGRESS		107
 #define IDC_CONFIG			108
 #define IDC_STATUS			109
 #define IDC_INSTALL			110
@@ -24,7 +22,7 @@
 
 
 // Next default values for new objects
-// 
+//
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NO_MFC                     1

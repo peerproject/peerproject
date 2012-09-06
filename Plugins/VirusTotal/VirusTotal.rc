@@ -22,7 +22,7 @@
 #ifdef _WIN32
 LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
 #pragma code_page(1251)
-#endif //_WIN32
+#endif // _WIN32
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -49,12 +49,12 @@ BEGIN
             VALUE "Comments", "VirusTotal.com file hash check against known viruses."
             VALUE "CompanyName", "PeerProject"
             VALUE "FileDescription", "VirusTotal plugin for PeerProject"
-            VALUE "FileVersion", "1, 0, 0, 0"
+            VALUE "FileVersion", "1.0.0.0"
             VALUE "InternalName", "VirusTotal.dll"
             VALUE "LegalCopyright", "© Nikolay Raspopov, 2009"
             VALUE "OriginalFilename", "VirusTotal.dll"
             VALUE "ProductName", "VirusTotal plugin for PeerProject"
-            VALUE "ProductVersion", "1, 0, 0, 0"
+            VALUE "ProductVersion", "1.0.0.0"
         END
     END
     BLOCK "VarFileInfo"
@@ -102,7 +102,7 @@ END
 #ifdef _WIN32
 LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 #pragma code_page(1252)
-#endif //_WIN32
+#endif // _WIN32
 
 #ifdef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////
@@ -146,4 +146,3 @@ END
 
 /////////////////////////////////////////////////////////////////////////////
 #endif    // not APSTUDIO_INVOKED
-

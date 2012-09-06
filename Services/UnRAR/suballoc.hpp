@@ -1,7 +1,6 @@
 /****************************************************************************
  *  This file is part of PPMd project                                       *
- *  Written and distributed to public domain by Dmitry Shkarin 1997,        *
- *  1999-2000                                                               *
+ *  Written and distributed to public domain by Dmitry Shkarin 1997,1999-2000                                                               *
  *  Contents: interface to memory allocation routines                       *
  ****************************************************************************/
 #if !defined(_SUBALLOC_H_)

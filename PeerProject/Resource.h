@@ -424,8 +424,9 @@
 #define IDC_GRAPH_SPEED                     1192
 #define IDC_GRAPH_SPEED_SPIN                1193
 #define IDC_GRAPH_UNITS                     1194
-#define IDC_GROUP_CONTENT                   1195
-#define IDC_GROUP_NETWORK                   1196
+#define IDC_GROUP_NETWORK                   1195
+#define IDC_GROUP_CONTENT                   1196
+#define IDC_GROUP_EXTERNAL                  1197
 #define IDC_GUID                            1200
 #define IDC_GUID_BT                         1201
 #define IDC_GUID_CREATE                     1202

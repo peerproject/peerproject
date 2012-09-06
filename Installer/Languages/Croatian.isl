@@ -2,11 +2,9 @@
 ;
 ; Translated by: Krunoslav Kanjuh (krunoslav.kanjuh@zg.t-com.hr)
 ;
-; http://www.jrsoftware.org/files/istrans/ (user-contributed translations) 
+; http://www.jrsoftware.org/files/istrans/ (user-contributed translations)
 ;
-; Note: Do not add periods (.) to messages that don't have them already,
-; because for those messages Inno Setup adds the periods automatically.
-; (appending a period will result in two periods being displayed.)
+; Note: Do not add periods (.), where added automatically.
 
 [LangOptions]
 LanguageName=Hrvatski
@@ -14,8 +12,8 @@ LanguageID=$041a
 LanguageCodePage=1250
 [Messages]
 
-; If the language you are translating to requires special font faces or
-; sizes, uncomment any of the following entries and change them accordingly.
+; If the language you are translating to requires special font faces or sizes,
+; uncomment any of the following entries and change them accordingly.
 ;DialogFontName=MS Shell Dlg
 ;DialogFontSize=8
 ;DialogFontStandardHeight=13
@@ -292,7 +290,7 @@ OnlyAdminCanUninstall=Ova instalacija može biti uklonjena samo od korisnika sa a
 UninstallStatusLabel=Prièekajte dok %1 ne bude uklonjen s vašeg raèunala.
 UninstalledAll=Program %1 je uspješno uklonjen sa vašeg raèunala.
 UninstalledMost=Deinstalacija programa %1 je završena.%n%nNeke elemente nije bilo moguæe ukloniti. Molimo vas da to uèinite ruèno.
-UninstalledAndNeedsRestart=Da bi završili deinstalaciju %1, Vaše raèunalo morate ponovno pokrenuti%n%nŽelite li to uèiniti sada? 
+UninstalledAndNeedsRestart=Da bi završili deinstalaciju %1, Vaše raèunalo morate ponovno pokrenuti%n%nŽelite li to uèiniti sada?
 UninstallDataCorrupted="%1" datoteka je ošteæena. Deinstalacija nije moguæa.
 
 ; *** Uninstallation phase messages

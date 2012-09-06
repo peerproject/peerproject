@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -29,7 +29,7 @@
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 IMPLEMENT_DYNCREATE(CWizardProfilePage, CWizardPage)
 
@@ -322,18 +322,18 @@ LRESULT CWizardProfilePage::OnWizardNext()
 	//if ( MyProfile.GetNick().IsEmpty() )
 	//{
 	//	LoadString( strMessage, IDS_PROFILE_NO_NICK );
-	//	AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
+	//	MsgBox( strMessage, MB_ICONEXCLAMATION );
 	//	return -1;
 	//}
 	//if ( MyProfile.GetXML( _T("vitals") ) == NULL )
 	//{
 	//	LoadString( strMessage, IDS_PROFILE_NO_VITALS );
-	//	if ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 ) != IDYES ) return -1;
+	//	if ( MsgBox( strMessage, MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 ) != IDYES ) return -1;
 	//}
 	//if ( MyProfile.GetLocation().IsEmpty() )
 	//{
 	//	LoadString( strMessage, IDS_PROFILE_NO_LOCATION );
-	//	if ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 ) != IDYES ) return -1;
+	//	if ( MsgBox( strMessage, MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 ) != IDYES ) return -1;
 	//}
 
 	MyProfile.Save();

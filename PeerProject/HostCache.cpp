@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -31,9 +31,9 @@
 
 #ifdef _DEBUG
 #undef THIS_FILE
-static char THIS_FILE[]=__FILE__;
+static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 CHostCache HostCache;
 
@@ -823,25 +823,25 @@ int CHostCache::Import(LPCTSTR pszFile, BOOL bFreshOnly)
 
 	int nImported = 0;
 
-	if ( ! _tcsicmp( szExt, _T(".met") ) )
+	if ( _tcsicmp( szExt, _T(".met") ) == 0 )
 	{
 		theApp.Message( MSG_NOTICE, _T("Importing MET file: %s"), pszFile );
 
 		nImported = ImportMET( &pFile );
 	}
-	else if ( ! _tcsicmp( szExt, _T(".bz2") ) )		// hublist.xml.bz2
+	else if ( _tcsicmp( szExt, _T(".bz2") ) == 0 )		// hublist.xml.bz2
 	{
 		theApp.Message( MSG_NOTICE, _T("Importing HubList file: %s"), pszFile );
 
 		nImported = ImportHubList( &pFile );
 	}
-	else if ( ! _tcsicmp( szExt, _T(".dat") ) )
+	else if ( _tcsicmp( szExt, _T(".dat") ) == 0 )
 	{
 		theApp.Message( MSG_NOTICE, _T("Importing Nodes file: %s"), pszFile );
 
 		nImported = ImportNodes( &pFile );
 	}
-//	else if ( ! _tcsicmp( szExt, _T(".xml") ) || ! _tcsicmp( szExt, _T(".dat") ) ) 	// ToDo: G2/Gnutella import/export
+//	else if ( _tcsicmp( szExt, _T(".xml") ) == 0 || _tcsicmp( szExt, _T(".dat") ) == 0 ) 	// ToDo: G2/Gnutella import/export
 //	{
 //		theApp.Message( MSG_NOTICE, _T("Importing cache file: %s"), pszFile );
 //
@@ -896,12 +896,12 @@ int CHostCache::ImportHubList(CFile* pFile)
 		CXMLElement* pHub = pHubs->GetNextElement( pos );
 		if ( pHub->IsNamed( _T("Hub") ) )
 		{
-			CString sAddress = pHub->GetAttributeValue( _T("Address") );
-			if ( _tcsnicmp( sAddress, _T("dchub://"), 8 ) == 0 )
-				sAddress = sAddress.Mid( 8 );
-			else if ( _tcsnicmp( sAddress, _T("adc://"), 6 ) == 0 )
+			CString strAddress = pHub->GetAttributeValue( _T("Address") );
+			if ( _tcsnicmp( strAddress, _T("dchub://"), 8 ) == 0 )
+				strAddress = strAddress.Mid( 8 );
+			else if ( _tcsnicmp( strAddress, _T("adc://"), 6 ) == 0 )
 				continue;	// Skip ADC-hubs
-			else if ( _tcsnicmp( sAddress, _T("adcs://"), 7 ) == 0 )
+			else if ( _tcsnicmp( strAddress, _T("adcs://"), 7 ) == 0 )
 				continue;	// Skip ADCS-hubs
 
 			const int nUsers	= _tstoi( pHub->GetAttributeValue( _T("Users") ) );
@@ -909,7 +909,7 @@ int CHostCache::ImportHubList(CFile* pFile)
 
 			CQuickLock oLock( DC.m_pSection );
 			CHostCacheHostPtr pServer = DC.Add( NULL, protocolPorts[ PROTOCOL_DC ], 0,
-				protocolNames[ PROTOCOL_DC ], 0, nUsers, nMaxusers, sAddress );
+				protocolNames[ PROTOCOL_DC ], 0, nUsers, nMaxusers, strAddress );
 			if ( pServer )
 			{
 				pServer->m_sName = pHub->GetAttributeValue( _T("Name") );
@@ -1059,7 +1059,7 @@ bool CHostCache::CheckMinimumServers(PROTOCOLID nProtocol)
 	// Get the server list from local eMule/mods if possible
 	if ( nProtocol == PROTOCOL_ED2K )
 	{
-		const LPCTSTR sServerMetPathes[ 8 ] =
+		const LPCTSTR sServerMetPaths[ 8 ] =
 		{
 			{ _T("\\eMule\\config\\server.met") },
 			{ _T("\\eMule\\server.met") },
@@ -1071,17 +1071,17 @@ bool CHostCache::CheckMinimumServers(PROTOCOLID nProtocol)
 			{ _T("\\aMule\\server.met") }
 		};
 
-		CString sRootPathes[ 3 ];
-		sRootPathes[ 0 ] = theApp.GetProgramFilesFolder();
-		sRootPathes[ 1 ] = theApp.GetLocalAppDataFolder();
-		sRootPathes[ 2 ] = theApp.GetAppDataFolder();
+		CString strRootPaths[ 3 ];
+		strRootPaths[ 0 ] = theApp.GetProgramFilesFolder();
+		strRootPaths[ 1 ] = theApp.GetLocalAppDataFolder();
+		strRootPaths[ 2 ] = theApp.GetAppDataFolder();
 
-		for ( int i = 0 ; i < _countof( sRootPathes ) ; ++i )
-			for ( int j = 0 ; j < _countof( sServerMetPathes ) ; ++j )
-				Import( sRootPathes[ i ] + sServerMetPathes[ j ], TRUE );
+		for ( int i = 0 ; i < _countof( strRootPaths ) ; ++i )
+			for ( int j = 0 ; j < _countof( sServerMetPaths ) ; ++j )
+				Import( strRootPaths[ i ] + sServerMetPaths[ j ], TRUE );
 	}
 
-	// ToDo: Try local Shareaza too
+	// ToDo: Try local Shareaza Servers.dat too
 
 	if ( EnoughServers( nProtocol ) )
 		return true;
@@ -1112,7 +1112,7 @@ int CHostCache::LoadDefaultServers(PROTOCOLID nProtocol)
 
 	// Format: PE 255.255.255.255:1024	# NameForConvenience
 
-	for (;;)
+	for ( ;; )
 	{
 		CString strLine;
 		if ( ! pFile.ReadString( strLine ) )

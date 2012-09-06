@@ -38,8 +38,8 @@ HKCU
 					{
 					}
 					NoRemove General
-	{
- val 'PeerProject Preview Plugin' = s '{0F74BA53-C842-4CB5-B388-DD5663F62479}'
+					{
+						val 'PeerProject Preview Plugin' = s '{0F74BA53-C842-4CB5-B388-DD5663F62479}'
 					}
 				}
 			}

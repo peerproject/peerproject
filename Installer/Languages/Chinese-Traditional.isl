@@ -1,20 +1,16 @@
-; Inno Setup 5.1.11+ Chinese (Traditional) Messages (PeerProject: tw)
+; *** Inno Setup 5.1.11+ Chinese (Traditional) Messages (PeerProject: tw)
 ;
 ; Translated by: Patrick Pang (uncleleft at yahoo.com.hk)
 ;
-; http://www.jrsoftware.org/files/istrans/ (user-contributed translations) 
-;
-; Note: Do not add periods (.) to messages that don't have them already,
-; because for those messages Inno Setup adds the periods automatically.
-; (appending a period will result in two periods being displayed.)
-; 
+; Note: Do not add periods (.), where added automatically.
 
 [LangOptions]
 LanguageName=<7e41><9ad4><4e2d><6587>
 LanguageID=$0404
 LanguageCodepage=950
-; If the language you are translating to requires special font faces or
-; sizes, uncomment any of the following entries and change them accordingly.
+
+; If the language you are translating to requires special font faces or sizes,
+; uncomment any of the following entries and change them accordingly.
 DialogFontName=新細明體
 DialogFontSize=9
 TitleFontName=Arial
@@ -47,6 +43,10 @@ LastErrorMessage=%1%n%n錯誤 %2: %3
 SetupFileMissing=安裝資料夾中遺失檔案 %1。請修正此問題或重新取得此軟體。
 SetupFileCorrupt=安裝檔案已經損毀。請重新取得此軟體。
 SetupFileCorruptOrWrongVer=安裝檔案已經損毀，或與安裝程式的版本不符。請重新取得此軟體。
+InvalidParameter=珨跺渣昫腔統杅掩換菰善賸韜鍔俴ㄩ%n%n%1
+SetupAlreadyRunning=假蚾眒冪堍俴﹝
+WindowsVersionNotSupported=掛最唗祥盓厥蠟腔萇齟奻堍俴腔 Windows 唳掛﹝
+WindowsServicePackRequired=掛最唗剒猁 %1 Service Pack %2 麼載陔腔唳掛﹝
 NotOnThisPlatform=這個程式無法在 %1 執行。
 OnlyOnThisPlatform=這個程式必須在 %1 執行。
 OnlyOnTheseArchitectures=這個程式只能在專門為以下處理器架構而設計的 Windows 上安裝:%n%n%1
@@ -137,7 +137,8 @@ SelectDirDesc=選擇安裝程式安裝 [name] 的位置。
 SelectDirLabel3=安裝程式將會把 [name] 安裝到下面的資料夾。
 SelectDirBrowseLabel=按 [確定] 繼續，如果您想選擇另一個資料夾，請按 [瀏覽]。
 DiskSpaceMBLabel=最少需要 [mb] MB 磁碟空間。
-ToUNCPathname=安裝程式無法安裝於 UNC 路徑名稱。如果您希望安裝於網路上其他電腦中，您必須建立一個固定連接的網路磁碟機。
+CannotInstallToNetworkDrive=安裝程式無法安裝於 Net 路徑名稱。如果您希望安裝於網路上其他電腦中，您必須建立一個固定連接的網路磁碟機。
+CannotInstallToUNCPath=安裝程式無法安裝於 UNC 路徑名稱。如果您希望安裝於網路上其他電腦中，您必須建立一個固定連接的網路磁碟機。
 InvalidPath=您必須輸入完整的路徑名稱及磁碟機代碼。%n%n例如 C:\App 或 UNC 路徑格式 \\伺服器\共用資料夾。
 InvalidDrive=您選取的磁碟機或 UNC 名稱不存在或無法存取，請選擇其他的目的地。
 DiskSpaceWarningTitle=磁碟空間不足
@@ -197,6 +198,10 @@ WizardPreparing=準備安裝程式
 PreparingDesc=安裝程式準備將 [name] 安裝到您的電腦上。
 PreviousInstallNotCompleted=先前的安裝/ 解除安裝尚未完成，您必須重新啟動電腦以完成該安裝。%n%n在重新啟動電腦之後，請再執行這個程式來安裝 [name]。
 CannotContinue=安裝程式無法繼續。請按 [取消] 離開。
+ApplicationsFound=假蚾砃絳剒猁載陔掩狟蹈茼蚚最唗梩蚚腔恅璃﹝膘祜斕埰勍赻雄壽敕涴虳茼蚚最唗﹝
+ApplicationsFound2=假蚾砃絳剒猁載陔掩狟蹈茼蚚最唗梩蚚腔恅璃﹝膘祜斕埰勍赻雄壽敕涴虳茼蚚最唗﹝假蚾俇傖綴ㄛ假蚾砃絳頗郭彸笭陔ゐ雄涴虳茼蚚最唗﹝
+CloseApplications=赻雄壽敕茼蚚最唗(&A)
+DontCloseApplications=祥赻雄壽敕茼蚚最唗(&D)
 
 ; *** "Installing" wizard page
 WizardInstalling=正在安裝
@@ -229,6 +234,7 @@ SetupAborted=安裝沒有完成。%n%n請更正問題後重新安裝一次。
 EntryAbortRetryIgnore=按 [重試] 重試一次，按下 [略過] 跳過這個檔案，或按下 [中止] 結束安裝。
 
 ; *** Installation status messages
+StatusClosingApplications=淏婓壽敕茼蚚最唗＃
 StatusCreateDirs=正在建立資料夾...
 StatusExtractFiles=正在解壓縮檔案...
 StatusCreateIcons=正在建立程式集圖示...
@@ -237,6 +243,7 @@ StatusCreateRegistryEntries=正在更新系統登錄...
 StatusRegisterFiles=正在登錄檔案...
 StatusSavingUninstall=儲存解除安裝資訊...
 StatusRunProgram=正在完成安裝...
+StatusRestartingApplications=淏婓笭ゐ茼蚚最唗＃
 StatusRollback=正在復原變更...
 
 ; *** Misc. errors
@@ -300,8 +307,12 @@ SharedFileLocationLabel=位置:
 WizardUninstalling=解除安裝狀態
 StatusUninstalling=正在解除安裝 %1...
 
-; The custom messages below aren't used by Setup itself, but if you make
-; use of them in your scripts, you'll want to translate them.
+; *** Shutdown block reasons
+ShutdownBlockReasonInstallingApp=淏婓假蚾 %1﹝
+ShutdownBlockReasonUninstallingApp=淏婓迠婥 %1﹝
+
+; The custom messages below aren't used by Setup itself,
+; but if you make use of them in your scripts, you'll want to translate them.
 
 [CustomMessages]
 
@@ -314,3 +325,6 @@ UninstallProgram=解除安裝 %1
 LaunchProgram=啟動 %1
 AssocFileExtension=將 %1 與檔案副檔名 %2 產生關聯(&A)
 AssocingFileExtension=正在將 %1 與檔案副檔名 %2 產生關聯...
+AutoStartProgramGroupDescription=ゐ雄ㄩ
+AutoStartProgram=赻雄ゐ雄 %1
+AddonHostProgramNotFound=婓斕恁寁腔恅璃標笢梑祥善 %1﹝%n%n岆瘁�埱遞昐齮�

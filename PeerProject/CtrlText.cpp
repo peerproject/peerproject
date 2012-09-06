@@ -4,34 +4,34 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
-// System Window Drawing (Network Tab)
+// System Window Display (Network Tab)
 
 #include "StdAfx.h"
 #include "Settings.h"
 #include "PeerProject.h"
 #include "CtrlText.h"
 
-#include "Skin.h"
-#include "Colors.h"
 #include "CoolInterface.h"
+#include "Colors.h"
+#include "Images.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 BEGIN_MESSAGE_MAP(CTextCtrl, CWnd)
 	//{{AFX_MSG_MAP(CTextCtrl)
@@ -49,6 +49,8 @@ END_MESSAGE_MAP()
 #define LINE_BUFFER_LIMIT		4096
 #define LINE_BUFFER_BLOCK		64
 
+#define LINE_GAP				1	// px
+#define OFFSET					4	// px
 
 /////////////////////////////////////////////////////////////////////////////
 // CTextCtrl construction
@@ -56,6 +58,7 @@ END_MESSAGE_MAP()
 CTextCtrl::CTextCtrl()
 	: m_nPosition	( 0 )
 	, m_nTotal		( 0 )
+	, m_nHeight		( 0 )
 	, m_bProcess	( TRUE )
 	, m_nLastClicked ( -1 )
 {
@@ -77,7 +80,6 @@ CTextCtrl::CTextCtrl()
 	m_pFont.CreateFont( -(int)Settings.Fonts.DefaultSize, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, theApp.m_nFontQuality,
 		DEFAULT_PITCH|FF_DONTCARE, Settings.Fonts.SystemLogFont );
-	m_cCharacter = CSize( 0, 0 );
 }
 
 CTextCtrl::~CTextCtrl()
@@ -96,15 +98,15 @@ BOOL CTextCtrl::Create(DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT n
 
 void CTextCtrl::Add(WORD nType, const CString& strText)
 {
-	CQuickLock pLock( m_pSection );
-
 	CString strTime;
 	if ( Settings.General.ShowTimestamp )
 	{
 		CTime pNow = CTime::GetCurrentTime();
-		strTime.Format( _T("[%02d:%02d:%02d] "),
+		strTime.Format( _T("[%02d:%02d:%02d]  "),
 			pNow.GetHour(), pNow.GetMinute(), pNow.GetSecond() );
 	}
+
+	CQuickLock pLock( m_pSection );
 
 	for ( int pos = 0 ; ; )
 	{
@@ -180,7 +182,7 @@ void CTextCtrl::UpdateScroll(BOOL bFull)
 
 		si.fMask	= SIF_POS|SIF_PAGE|SIF_RANGE|SIF_DISABLENOSCROLL;
 		si.nPos		= m_nPosition;
-		si.nPage	= rc.Height() / m_cCharacter.cy;
+		si.nPage	= rc.Height() / m_nHeight;
 		si.nMax		= m_nTotal + si.nPage - 1;
 		si.nMin		= 0;
 	}
@@ -250,22 +252,26 @@ BOOL CTextCtrl::OnEraseBkgnd(CDC* /*pDC*/)
 
 void CTextCtrl::OnPaint()
 {
-	CQuickLock pLock( m_pSection );
 	CRect rcClient;
-	CPaintDC dc( this );
-
 	GetClientRect( &rcClient );
+
+	CQuickLock pLock( m_pSection );
+	CPaintDC dc( this );
 
 	CFont* pOldFont = (CFont*)dc.SelectObject( &m_pFont );
 
-	if ( m_cCharacter.cx == 0 ) m_cCharacter = dc.GetTextExtent( _T("X") );
+	if ( ! m_nHeight )
+	{
+		CSize size = dc.GetTextExtent( _T("X") );
+		m_nHeight = size.cy += LINE_GAP;
+	}
+
+	const int nWidth = rcClient.right - OFFSET;
 
 	BOOL bBottom	= ( m_nPosition >= m_nTotal );
 	BOOL bModified	= m_bProcess;
 
 	if ( m_bProcess ) m_nTotal = 0;
-
-	int nWidth = ( rcClient.right - 4 ) / m_cCharacter.cx;
 
 	for ( int nLine = 0 ; nLine < m_pLines.GetSize() ; nLine++ )
 	{
@@ -273,7 +279,7 @@ void CTextCtrl::OnPaint()
 
 		if ( m_bProcess || ! pLine->m_nLine )
 		{
-			m_nTotal += pLine->Process( nWidth );
+			m_nTotal += pLine->Process( &dc, nWidth );
 			bModified = TRUE;
 		}
 	}
@@ -283,20 +289,22 @@ void CTextCtrl::OnPaint()
 	m_bProcess = FALSE;
 
 	CRect rcLine( rcClient );
-	rcLine.bottom += ( m_nTotal - m_nPosition ) * m_cCharacter.cy;
-	rcLine.top = rcLine.bottom - m_cCharacter.cy;
+	rcLine.bottom += ( m_nTotal - m_nPosition ) * m_nHeight;
+	rcLine.top = rcLine.bottom - m_nHeight;		// Note: Consider multi-line wrap and gap elsewhere
 
 	dc.SetBkMode( OPAQUE );
 
 	for ( INT_PTR nLine = m_pLines.GetSize() - 1 ; nLine >= 0 && rcLine.bottom > 0 ; nLine-- )
 	{
 		CTextLine* pLine = m_pLines.GetAt( nLine );
-		if ( pLine->m_bSelected && Skin.m_bmSelected.m_hObject )	// Skinned
+		if ( pLine->m_bSelected && Images.m_bmSelected.m_hObject )	// Skinned
 		{
+			CRect rcPaint( rcLine );
+			rcPaint.bottom++;	// Set wider for highlight
+			if ( pLine->m_nLine > 1 )
+				rcPaint.top -= ( pLine->m_nLine - 1 ) * m_nHeight;
 			dc.SetBkMode( TRANSPARENT );
-			rcLine.bottom++;	// Set wider for highlight
-			CoolInterface.DrawWatermark( &dc, &rcLine, &Skin.m_bmSelected, FALSE ); 	// No overdraw
-			rcLine.bottom--;
+			CoolInterface.DrawWatermark( &dc, &rcPaint, &Images.m_bmSelected, FALSE ); 	// No overdraw
 			dc.SetTextColor( m_crText[ pLine->m_nType & MSG_SEVERITY_MASK ] );
 			pLine->Paint( &dc, &rcLine, TRUE );
 			dc.SetBkMode( OPAQUE );
@@ -324,20 +332,20 @@ int CTextCtrl::HitTest(const CPoint& pt) const
 {
 	CQuickLock pLock( m_pSection );
 
-	if ( m_cCharacter.cy != 0 )
+	if ( m_nHeight != 0 )
 	{
 		CRect rcClient;
 		GetClientRect( &rcClient );
 		CRect rcLine( rcClient );
-		rcLine.bottom += ( m_nTotal - m_nPosition ) * m_cCharacter.cy;
+		rcLine.bottom += ( m_nTotal - m_nPosition ) * m_nHeight;
 		for ( int nLine = m_pLines.GetCount() - 1 ;
 			nLine >= 0 && rcLine.bottom > rcClient.top ; nLine-- )
 		{
 			CTextLine* pLine = m_pLines.GetAt( nLine );
-			rcLine.top = rcLine.bottom - pLine->m_nLine * m_cCharacter.cy;
+			rcLine.top = rcLine.bottom - pLine->m_nLine * m_nHeight;
 			if ( rcLine.PtInRect( pt ) )
 				return nLine;
-			rcLine.bottom -= pLine->m_nLine * m_cCharacter.cy;
+			rcLine.bottom -= pLine->m_nLine * m_nHeight;
 		}
 	}
 	return -1;
@@ -534,11 +542,23 @@ CTextLine::~CTextLine()
 /////////////////////////////////////////////////////////////////////////////
 // CTextLine process
 
-int CTextLine::Process(int nWidth)
+int CTextLine::Process(CDC* pDC, int nWidth)
 {
 	delete [] m_pLine;
 	m_pLine = NULL;
 	m_nLine = 0;
+
+	// Single-line
+	if ( m_sText.GetLength() < 100 ||
+		 pDC->GetTextExtent( m_sText ).cx < nWidth )
+	{
+		AddLine( m_sText.GetLength() );
+		return m_nLine;
+	}
+
+	// Multi-line wrap
+	static const CSize size = pDC->GetTextExtent( _T("X") );
+	const int nMax = nWidth / size.cx + 4;
 
 	int nLength = 0;
 	int nLast = 0;
@@ -547,7 +567,7 @@ int CTextLine::Process(int nWidth)
 	{
 		if ( *pszText == 32 || *pszText == 0 )
 		{
-			if ( nLength <= nWidth )
+			if ( nLength <= nMax )
 			{
 				nLast = nLength;
 			}
@@ -585,12 +605,30 @@ void CTextLine::AddLine(int nLength)
 
 void CTextLine::Paint(CDC* pDC, CRect* pRect, BOOL bSkinned)
 {
-	int nHeight = pRect->bottom - pRect->top;
+	const int nHeight = pRect->bottom - pRect->top;		// m_nHeight
+	LPCTSTR pszLine	= m_sText;
+
+	// Single-line increment:
+
+	if ( m_nLine == 1 )
+	{
+		if ( m_pLine && pDC->RectVisible( pRect ) )
+		{
+			pDC->ExtTextOut( pRect->left + OFFSET, pRect->top,
+				ETO_CLIPPED|( bSkinned ? 0 : ETO_OPAQUE ),
+				pRect, pszLine, m_pLine[ 0 ], NULL );
+		}
+
+		pRect->top -= nHeight;
+		pRect->bottom -= nHeight;
+
+		return;
+	}
+
+	// Multi-line wrap:
 
 	pRect->top		-= ( m_nLine - 1 ) * nHeight;
 	pRect->bottom	-= ( m_nLine - 1 ) * nHeight;
-
-	LPCTSTR pszLine	= m_sText;
 
 	for ( int nLine = 0 ; nLine < m_nLine ; nLine++ )
 	{
@@ -598,7 +636,7 @@ void CTextLine::Paint(CDC* pDC, CRect* pRect, BOOL bSkinned)
 		{
 			if ( pDC->RectVisible( pRect ) )
 			{
-				pDC->ExtTextOut( pRect->left + 2, pRect->top,
+				pDC->ExtTextOut( pRect->left + OFFSET, pRect->top,
 					ETO_CLIPPED|( bSkinned ? 0 : ETO_OPAQUE ),
 					pRect, pszLine, m_pLine[ nLine ], NULL );
 			}

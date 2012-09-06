@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -31,14 +31,14 @@
 #include "ShellIcons.h"
 #include "CoolInterface.h"
 #include "Colors.h"
-#include "Skin.h"
+#include "Images.h"
 #include "Flags.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
-static char THIS_FILE[]=__FILE__;
+static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 IMPLEMENT_DYNAMIC(CUploadsCtrl, CWnd)
 
@@ -809,13 +809,13 @@ void CUploadsCtrl::PaintQueue(CDC& dc, const CRect& rcRow, CUploadQueue* pQueue,
 
 	// Skinnable Selection Highlight
 	BOOL bSelectmark = FALSE;
-	if ( bSelected && Skin.m_bmSelected.m_hObject )
+	if ( bSelected && Images.m_bmSelected.m_hObject )
 	{
 		CRect rcDraw = rcRow;	// non-const
-		if ( Skin.m_bmSelectedGrey.m_hObject && GetFocus() != this )
-			CoolInterface.DrawWatermark( &dc, &rcDraw, &Skin.m_bmSelectedGrey );
+		if ( Images.m_bmSelectedGrey.m_hObject && GetFocus() != this )
+			CoolInterface.DrawWatermark( &dc, &rcDraw, &Images.m_bmSelectedGrey );
 		else
-			CoolInterface.DrawWatermark( &dc, &rcDraw, &Skin.m_bmSelected );
+			CoolInterface.DrawWatermark( &dc, &rcDraw, &Images.m_bmSelected );
 		bSelectmark = TRUE;
 	}
 	else
@@ -995,13 +995,13 @@ void CUploadsCtrl::PaintFile(CDC& dc, const CRect& rcRow, CUploadQueue* /*pQueue
 
 	// Skinnable Selection Highlight
 	BOOL bSelectmark = FALSE;
-	if ( bSelected && Skin.m_bmSelected.m_hObject )
+	if ( bSelected && Images.m_bmSelected.m_hObject )
 	{
 		CRect rcDraw = rcRow;
-		if ( Skin.m_bmSelectedGrey.m_hObject && GetFocus() != this )
-			CoolInterface.DrawWatermark( &dc, &rcDraw, &Skin.m_bmSelectedGrey );
+		if ( Images.m_bmSelectedGrey.m_hObject && GetFocus() != this )
+			CoolInterface.DrawWatermark( &dc, &rcDraw, &Images.m_bmSelectedGrey );
 		else
-			CoolInterface.DrawWatermark( &dc, &rcDraw, &Skin.m_bmSelected );
+			CoolInterface.DrawWatermark( &dc, &rcDraw, &Images.m_bmSelected );
 		bSelectmark = TRUE;
 	}
 	else
@@ -1231,7 +1231,7 @@ void CUploadsCtrl::OnSkinChange()
 
 void CUploadsCtrl::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar*/)
 {
-	SCROLLINFO pInfo;
+	SCROLLINFO pInfo = {};
 
 	pInfo.cbSize	= sizeof(pInfo);
 	pInfo.fMask		= SIF_ALL & ~SIF_TRACKPOS;
@@ -1274,7 +1274,7 @@ void CUploadsCtrl::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar*/
 
 void CUploadsCtrl::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar*/)
 {
-	SCROLLINFO pInfo;
+	SCROLLINFO pInfo = {};
 
 	pInfo.cbSize	= sizeof(pInfo);
 	pInfo.fMask		= SIF_ALL & ~SIF_TRACKPOS;

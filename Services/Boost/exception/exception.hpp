@@ -7,8 +7,8 @@
 #define UUID_274DA366004E11DCB1DDFE2E56D89593
 #if defined(_MSC_VER) && !defined(BOOST_EXCEPTION_ENABLE_WARNINGS)
 #pragma warning(push,1)
-#elif defined(__GNUC__) && !defined(BOOST_EXCEPTION_ENABLE_WARNINGS)
-#pragma GCC system_header
+//#elif defined(__GNUC__) && !defined(BOOST_EXCEPTION_ENABLE_WARNINGS)
+//#pragma GCC system_header
 #endif
 
 namespace
@@ -409,8 +409,15 @@ boost
         class
         clone_impl:
             public T,
-            public clone_base
+            public virtual clone_base
             {
+            struct clone_tag { };
+            clone_impl( clone_impl const & x, clone_tag ):
+                T(x)
+                {
+                copy_boost_exception(this,&x);
+                }
+
             public:
 
             explicit
@@ -429,7 +436,7 @@ boost
             clone_base const *
             clone() const
                 {
-                return new clone_impl(*this);
+                return new clone_impl(*this,clone_tag());
                 }
 
             void

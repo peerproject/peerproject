@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -42,7 +42,7 @@
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 // Set Common-Column Order
 enum {
@@ -536,9 +536,9 @@ void CLibraryDetailView::OnGetDispInfoW(NMHDR* pNMHDR, LRESULT* pResult)
 	{
 		if ( pNotify.iSubItem < pItem->pText->GetSize() )
 		{
-			CString sText = pItem->pText->GetAt( pNotify.iSubItem );
+			CString strText = pItem->pText->GetAt( pNotify.iSubItem );
 			wcsncpy_s( (LPWSTR)pNotify.pszText, pNotify.cchTextMax,
-				sText, pNotify.cchTextMax - 1 );
+				strText, pNotify.cchTextMax - 1 );
 		}
 	}
 
@@ -574,8 +574,8 @@ void CLibraryDetailView::OnGetDispInfoA(NMHDR* pNMHDR, LRESULT* pResult)
 	{
 		if ( pNotify.iSubItem < pItem->pText->GetSize() )
 		{
-			CString sText = pItem->pText->GetAt( pNotify.iSubItem );
-			WideCharToMultiByte( CP_ACP, 0, sText, -1,
+			CString strText = pItem->pText->GetAt( pNotify.iSubItem );
+			WideCharToMultiByte( CP_ACP, 0, strText, -1,
 				(LPSTR)pNotify.pszText, pNotify.cchTextMax, NULL, NULL );
 		}
 	}
@@ -620,7 +620,7 @@ int CLibraryDetailView::ListCompare(LPCVOID pA, LPCVOID pB)
 
 	if ( ! pfA || ! pfB ) return 0;
 
-	for (;;)
+	for ( ;; )
 	{
 		switch ( nSortColumn )
 		{
@@ -833,7 +833,7 @@ void CLibraryDetailView::OnEndLabelEditW(NMHDR* pNotify, LRESULT* pResult)
 				LoadString( strFormat, IDS_LIBRARY_RENAME_FAIL );
 				strMessage.Format( strFormat, (LPCTSTR)pFile->m_sName, (LPCTSTR)strName );
 				strMessage += _T("\r\n\r\n") + strError;
-				AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
+				MsgBox( strMessage, MB_ICONEXCLAMATION );
 			}
 		}
 	}
@@ -864,7 +864,7 @@ void CLibraryDetailView::OnEndLabelEditA(NMHDR* pNotify, LRESULT* pResult)
 				LoadString( strFormat, IDS_LIBRARY_RENAME_FAIL );
 				strMessage.Format( strFormat, (LPCTSTR)pFile->m_sName, (LPCTSTR)strName );
 				strMessage += _T("\r\n\r\n") + strError;
-				AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
+				MsgBox( strMessage, MB_ICONEXCLAMATION );
 			}
 		}
 	}
@@ -903,7 +903,7 @@ void CLibraryDetailView::OnFindItemW(NMHDR* pNotify, LRESULT* pResult)
 
 void CLibraryDetailView::OnFindItemA(NMHDR* pNotify, LRESULT* pResult)
 {
-	CString sFind( (LPCSTR)((NMLVFINDITEM*) pNotify)->lvfi.psz );
+	CString strFind( (LPCSTR)((NMLVFINDITEM*) pNotify)->lvfi.psz );
 
 	GET_LIST();
 	CQuickLock oLock( Library.m_pSection );
@@ -916,7 +916,7 @@ void CLibraryDetailView::OnFindItemA(NMHDR* pNotify, LRESULT* pResult)
 			{
 				if ( ((NMLVFINDITEM*) pNotify)->lvfi.flags & LVFI_STRING )
 				{
-					if ( _tcsnicmp( sFind, pFile->m_sName, sFind.GetLength() ) == 0 )
+					if ( _tcsnicmp( strFind, pFile->m_sName, strFind.GetLength() ) == 0 )
 					{
 						*pResult = nItem;
 						return;

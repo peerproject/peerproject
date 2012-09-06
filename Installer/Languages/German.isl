@@ -1,7 +1,8 @@
-; Inno Setup 5.1.11+ German Messages (PeerProject: de)
+; *** Inno Setup 5.5.0+ German Messages (PeerProject: de)
 ;
 ; Original Author: Michael Reitz (innosetup@assimilate.de)
-; Contributors:    Roland Ruder (info@rr4u.de)
+; Contributors:    Peter Stadler(Peter.Stadler@univie.ac.at)
+;                  Roland Ruder (info@rr4u.de)
 ;                  LaughingMan (puma.d@web.de)
 ;
 ; Diese Übersetzung hält sich an die neue deutsche Rechtschreibung.
@@ -10,6 +11,17 @@
 LanguageName=Deutsch
 LanguageID=$0407
 LanguageCodePage=1252
+
+; If the language you are translating to requires special font faces or sizes,
+; uncomment any of the following entries and change them accordingly.
+;DialogFontName=
+;DialogFontSize=8
+;WelcomeFontName=Verdana
+;WelcomeFontSize=12
+;TitleFontName=Arial
+;TitleFontSize=29
+;CopyrightFontName=Arial
+;CopyrightFontSize=8
 
 [Messages]
 
@@ -34,6 +46,10 @@ LastErrorMessage=%1.%n%nFehler %2: %3
 SetupFileMissing=Die Datei %1 fehlt im Installations-Ordner. Bitte beheben Sie das Problem, oder besorgen Sie sich eine neue Kopie des Programms.
 SetupFileCorrupt=Die Setup-Dateien sind beschädigt. Besorgen Sie sich bitte eine neue Kopie des Programms.
 SetupFileCorruptOrWrongVer=Die Setup-Dateien sind beschädigt oder inkompatibel zu dieser Version des Setups. Bitte beheben Sie das Problem, oder besorgen Sie sich eine neue Kopie des Programms.
+InvalidParameter=Ein ungültiger Paramter wurde auf der Kommandozeile übergeben:%n%n%1
+SetupAlreadyRunning=Setup läuft bereits.
+WindowsVersionNotSupported=Dieses Programm unterstützt die auf Ihrem Computer installierte Windows-Version nicht.
+WindowsServicePackRequired=Dieses Programm benötigt %1 Service Pack %2 oder höher.
 NotOnThisPlatform=Dieses Programm kann nicht unter %1 ausgeführt werden.
 OnlyOnThisPlatform=Dieses Programm muss unter %1 ausgeführt werden.
 OnlyOnTheseArchitectures=Dieses Programm kann nur auf Windows-Versionen installiert werden, die folgende Prozessor-Architekturen unterstützen:%n%n%1
@@ -56,7 +72,7 @@ AboutSetupMenuItem=&Über das Setup ...
 AboutSetupTitle=Über das Setup
 AboutSetupMessage=%1 Version %2%n%3%n%n%1 Internet-Seite:%n%4
 AboutSetupNote=
-TranslatorNote=German translation maintained by Michael Reitz (innosetup@assimilate.de)
+TranslatorNote=German translation maintained by Peter Stadler (Peter.Stadler@univie.ac.at)
 
 ; *** Buttons
 ButtonBack=< &Zurück
@@ -124,7 +140,8 @@ SelectDirDesc=Wohin soll [name] installiert werden?
 SelectDirLabel3=Das Setup wird [name] in den folgenden Ordner installieren.
 SelectDirBrowseLabel=Klicken Sie auf "Weiter", um fortzufahren. Klicken Sie auf "Durchsuchen", falls Sie einen anderen Ordner auswählen möchten.
 DiskSpaceMBLabel=Mindestens [mb] MB freier Speicherplatz ist erforderlich.
-ToUNCPathname=Das Setup kann nicht in einen UNC-Pfad installieren. Wenn Sie auf ein Netzlaufwerk installieren möchten, müssen Sie dem Netzwerkpfad einen Laufwerksbuchstaben zuordnen.
+CannotInstallToNetworkDrive=Das Setup kann nicht in einen Netzwerk-Pfad installieren.
+CannotInstallToUNCPath=Das Setup kann nicht in einen UNC-Pfad installieren. Wenn Sie auf ein Netzlaufwerk installieren möchten, müssen Sie dem Netzwerkpfad einen Laufwerksbuchstaben zuordnen.
 InvalidPath=Sie müssen einen vollständigen Pfad mit einem Laufwerksbuchstaben angeben; z.B.:%n%nC:\Beispiel%n%noder einen UNC-Pfad in der Form:%n%n\\Server\Freigabe
 InvalidDrive=Das angegebene Laufwerk bzw. der UNC-Pfad existiert nicht oder es kann nicht darauf zugegriffen werden. Wählen Sie bitte einen anderen Ordner.
 DiskSpaceWarningTitle=Nicht genug freier Speicherplatz
@@ -142,6 +159,7 @@ WizardSelectComponents=Komponenten auswählen
 SelectComponentsDesc=Welche Komponenten sollen installiert werden?
 SelectComponentsLabel2=Wählen Sie die Komponenten aus, die Sie installieren möchten. Klicken Sie auf "Weiter", wenn sie bereit sind fortzufahren.
 FullInstallation=Vollständige Installation
+; if possible don't translate 'Compact' as 'Minimal' (I mean 'Minimal' in your language)
 CompactInstallation=Kompakte Installation
 CustomInstallation=Benutzerdefinierte Installation
 NoUninstallWarningTitle=Komponenten vorhanden
@@ -167,7 +185,7 @@ BadGroupName=Der Ordnername darf keine der folgenden Zeichen enthalten:%n%n%1
 NoProgramGroupCheck2=&Keinen Ordner im Startmenü erstellen
 
 ; *** "Ready to Install" wizard page
-WizardReady=Installation durchführen
+WizardReady=Bereit zur Installation.
 ReadyLabel1=Das Setup ist jetzt bereit, [name] auf Ihrem Computer zu installieren.
 ReadyLabel2a=Klicken Sie auf "Installieren", um mit der Installation zu beginnen, oder auf "Zurück", um Ihre Einstellungen zu überprüfen oder zu ändern.
 ReadyLabel2b=Klicken Sie auf "Installieren", um mit der Installation zu beginnen.
@@ -183,6 +201,11 @@ WizardPreparing=Vorbereitung der Installation
 PreparingDesc=Das Setup bereitet die Installation von [name] auf diesen Computer vor.
 PreviousInstallNotCompleted=Eine vorherige Installation/Deinstallation eines Programms wurde nicht abgeschlossen. Der Computer muss neu gestartet werden, um die Installation/Deinstallation zu beenden.%n%nStarten Sie das Setup nach dem Neustart Ihres Computers erneut, um die Installation von [name] durchzuführen.
 CannotContinue=Das Setup kann nicht fortfahren. Bitte klicken Sie auf "Abbrechen" zum Verlassen.
+ApplicationsFound=Die folgenden Anwendungen benutzen Files, die upgedated werden müssen. Es wird empfohlen, Setup zu erlauben, diese Anwendungen zu schliessen.
+ApplicationsFound2=Die folgenden Anwendungen benutzen Files, die upgedated werden müssen. Es wird empfohlen, Setup zu erlauben, diese Anwendungen zu schliessen. Nachdem die Installation fertiggestellt wurde, versucht Setup diese Anwendungen wieder zu starten.
+CloseApplications=&Schliesse automatisch die Anwendungen
+DontCloseApplications=&Schliesse die Anwendungen nicht
+
 
 ; *** "Installing" wizard page
 WizardInstalling=Installiere ...
@@ -198,7 +221,9 @@ FinishedRestartMessage=Um die Installation von [name] abzuschließen, muss das Se
 ShowReadmeCheck=Ja, ich möchte die LIESMICH-Datei sehen
 YesRadio=&Ja, Computer jetzt neu starten
 NoRadio=&Nein, ich werde den Computer später neu starten
+; used for example as 'Run MyProg.exe'
 RunEntryExec=%1 starten
+; used for example as 'View Readme.txt'
 RunEntryShellExec=%1 anzeigen
 
 ; *** "Setup Needs the Next Disk" stuff
@@ -213,6 +238,7 @@ SetupAborted=Das Setup konnte nicht abgeschlossen werden.%n%nBeheben Sie bitte d
 EntryAbortRetryIgnore=Klicken Sie auf "Wiederholen" für einen weiteren Versuch, "Ignorieren", um trotzdem fortzufahren, oder "Abbrechen", um die Installation abzubrechen.
 
 ; *** Installation status messages
+StatusClosingApplications=Anwendungen werden geschlossen...
 StatusCreateDirs=Ordner werden erstellt ...
 StatusExtractFiles=Dateien werden entpackt ...
 StatusCreateIcons=Verknüpfungen werden erstellt ...
@@ -221,6 +247,7 @@ StatusCreateRegistryEntries=Registry-Einträge werden erstellt ...
 StatusRegisterFiles=Dateien werden registriert ...
 StatusSavingUninstall=Deinstallations-Informationen werden gespeichert ...
 StatusRunProgram=Installation wird beendet ...
+StatusRestartingApplications=Neustart der Anwendungen...
 StatusRollback=Änderungen werden rückgängig gemacht ...
 
 ; *** Misc. errors
@@ -284,6 +311,13 @@ SharedFileLocationLabel=Ordner:
 WizardUninstalling=Entfernen (Status)
 StatusUninstalling=Entferne %1 ...
 
+; *** Shutdown block reasons
+ShutdownBlockReasonInstallingApp=Installation von %1.
+ShutdownBlockReasonUninstallingApp=Deinstallation von %1.
+
+; The custom messages below aren't used by Setup itself,
+; but if you make use of them in your scripts, you'll want to translate them.
+
 [CustomMessages]
 
 NameAndVersion=%1 Version %2
@@ -295,3 +329,6 @@ UninstallProgram=%1 entfernen
 LaunchProgram=%1 starten
 AssocFileExtension=&Registriere %1 mit der %2-Dateierweiterung
 AssocingFileExtension=%1 wird mit der %2-Dateierweiterung registriert...
+AutoStartProgramGroupDescription=Beginn des Setups:
+AutoStartProgram=Starte automatisch%1
+AddonHostProgramNotFound=%1 konnte im ausgwählten Ordner nicht gefunden werden.%n%nMöchten Sie dennoch fortfahren?

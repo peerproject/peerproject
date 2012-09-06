@@ -1,18 +1,18 @@
 //
 // G1Neighbour.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -31,15 +31,12 @@ class CGGEPItem;
 // A CG1Neighbour object represents a remote computer running Gnutella software with which we are exchanging Gnutella packets
 class CG1Neighbour : public CNeighbour		// Inherit from CNeighbour and from that CConnection to get compression features and the connection socket
 {
-
 public:
-
 	// Make a new CG1Neighbour object, and delete this one
 	CG1Neighbour(CNeighbour* pBase);		// Takes a pointer to a CShakeNeighbour object that determined the remote computer is running Gnutella
 	virtual ~CG1Neighbour();
 
 protected:
-
 	// The tick count when something last happened
 	DWORD m_tLastPingIn;		// When the remote computer last sent us a ping packet
 	DWORD m_tLastPingOut;		// When we last sent a ping packet to the remote computer
@@ -60,7 +57,6 @@ protected:
 	CG1PacketBuffer* m_pOutbound;
 
 public:
-
 	// Send a packet to the remote computer
 	virtual BOOL Send(CPacket* pPacket, BOOL bRelease = TRUE, BOOL bBuffered = FALSE);
 
@@ -75,14 +71,12 @@ public:
 	void OnNewPong(CPongItem* pPong);
 
 protected:
-
 	// Send and recieve packets
 	virtual BOOL OnRead();		// Read in data from the socket, decompress it, and call ProcessPackets
 	virtual BOOL OnWrite();		// Sends all the packets from the outbound packet buffer to the remote computer
 	virtual BOOL OnRun();		// Makes sure the remote computer hasn't been silent too long, and sends a ping every so often
 
 protected:
-
 	// Read and respond to packets from the remote computer
 	BOOL ProcessPackets();				// Cuts up the recieved data into packets, and calls OnPacket for each one
 	BOOL OnPacket(CG1Packet* pPacket);	// Sorts the packet and calls one of the methods below

@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -42,9 +42,9 @@
 
 #ifdef _DEBUG
 #undef THIS_FILE
-static char THIS_FILE[]=__FILE__;
+static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 IMPLEMENT_DYNAMIC(CQuerySearch, CComObject)
 
@@ -531,7 +531,7 @@ CEDPacket* CQuerySearch::ToEDPacket(BOOL bUDP, DWORD nServerFlags) const
 			pPacket->WriteByte( 1 );
 			// Check if this is a "search for similar files"
 			if ( ( m_oSimilarED2K ) && ( ! bUDP ) && ( nServerFlags & ED2K_SERVER_TCP_RELATEDSEARCH ) )
-				pPacket->WriteEDString( _T( "related::" ) + m_oSimilarED2K.toString(), bUTF8 );
+				pPacket->WriteEDString( _T("related::") + m_oSimilarED2K.toString(), bUTF8 );
 			else	// Regular search
 				pPacket->WriteEDString( ! m_sSearch.IsEmpty() ? m_sSearch : strWords, bUTF8 );
 		}
@@ -1797,7 +1797,7 @@ void CQuerySearch::BuildWordList(bool bExpression, bool /*bLocal*/ )
 	}
 
 	// Split search string to keywords
-	CString sKeywords = m_sSearch;
+	CString strKeywords = m_sSearch;
 
 	// Split metadata to keywords
 	if ( m_pXML && m_pSchema )
@@ -1805,14 +1805,14 @@ void CQuerySearch::BuildWordList(bool bExpression, bool /*bLocal*/ )
 		CString strWords = m_pSchema->GetIndexedWords( m_pXML->GetFirstElement() );
 		if ( ! strWords.IsEmpty() )
 		{
-			if ( ! sKeywords.IsEmpty() )
-				sKeywords += _T(" ");
-			sKeywords += strWords;
+			if ( ! strKeywords.IsEmpty() )
+				strKeywords += _T(" ");
+			strKeywords += strWords;
 		}
 	}
-	sKeywords.TrimRight();
+	strKeywords.TrimRight();
 
-	m_sKeywords = MakeKeywords( sKeywords, bExpression );
+	m_sKeywords = MakeKeywords( strKeywords, bExpression );
 
 	// Build word pos/neg tables (m_oWords/m_oNegWords) from m_sKeywords
 	BuildWordTable( m_sKeywords, m_oWords, m_oNegWords );

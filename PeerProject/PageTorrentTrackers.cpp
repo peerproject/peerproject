@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -35,7 +35,7 @@
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 IMPLEMENT_DYNCREATE(CTorrentTrackersPage, CPropertyPageAdv)
 
@@ -156,7 +156,7 @@ BOOL CTorrentTrackersPage::ApplyTracker()
 		CSingleLock oLock( &Transfers.m_pSection );
 
 		// Display warning
-		if ( AfxMessageBox( IDS_BT_TRACK_CHANGE, MB_ICONQUESTION | MB_YESNO ) != IDYES || ! oLock.Lock( 250 ) )
+		if ( MsgBox( IDS_BT_TRACK_CHANGE, MB_ICONQUESTION | MB_YESNO ) != IDYES || ! oLock.Lock( 250 ) )
 		{
 			// Restore original settings
 			m_wndTracker.SetWindowText( m_sOriginalTracker );
@@ -228,7 +228,7 @@ void CTorrentTrackersPage::InsertTracker()
 
 void CTorrentTrackersPage::EditTracker(int nItem, LPCTSTR szText)
 {
-	CString sEditedTracker = m_wndTrackers.GetItemText( nItem, 0 );
+	CString strEditedTracker = m_wndTrackers.GetItemText( nItem, 0 );
 	if ( szText )
 	{
 		// User entered text
@@ -262,7 +262,7 @@ void CTorrentTrackersPage::EditTracker(int nItem, LPCTSTR szText)
 		LVFINDINFO fi =
 		{
 			LVFI_PARTIAL | LVFI_STRING,
-			sEditedTracker
+			strEditedTracker
 		};
 		if ( m_wndTrackers.FindItem( &fi ) != nItem )
 			m_wndTrackers.DeleteItem( nItem );
@@ -594,8 +594,6 @@ void CTorrentTrackersPage::OnCustomDrawList(NMHDR* pNMHDR, LRESULT* pResult)
 //
 //	CDownloadSheet* pSheet = (CDownloadSheet*)GetParent();
 //
-//
-//
 //	CSingleLock oLock( &Transfers.m_pSection );
 //	if ( ! oLock.Lock( 500 ) )
 //		return FALSE;
@@ -616,7 +614,7 @@ void CTorrentTrackersPage::OnCustomDrawList(NMHDR* pNMHDR, LRESULT* pResult)
 //		GetDlgItem( IDC_TORRENT_TRACKER )->SetFocus();
 //
 //		// Display warning
-//		if ( AfxMessageBox( IDS_BT_TRACK_CHANGE, MB_ICONQUESTION | MB_YESNO ) != IDYES )
+//		if ( MsgBox( IDS_BT_TRACK_CHANGE, MB_ICONQUESTION | MB_YESNO ) != IDYES )
 //			return FALSE;
 //
 //		if ( ! oLock.Lock( 250 ) )

@@ -290,8 +290,8 @@ SharedFileLocationLabel=Location:
 WizardUninstalling=Uninstall Status
 StatusUninstalling=Uninstalling %1...
 
-; The custom messages below aren't used by Setup itself, but if you make
-; use of them in your scripts, you'll want to translate them.
+; The custom messages below aren't used by Setup itself,
+; but if you make use of them in your scripts, you'll want to translate them.
 
 [CustomMessages]
 

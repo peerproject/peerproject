@@ -1,18 +1,18 @@
 //
 // DlgSecureRule.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -27,7 +27,7 @@
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 BEGIN_MESSAGE_MAP(CSecureRuleDlg, CSkinDialog)
 	ON_CBN_SELCHANGE(IDC_RULE_EXPIRE, OnSelChangeRuleExpire)
@@ -155,9 +155,13 @@ BOOL CSecureRuleDlg::OnInitDialog()
 		m_nMatch = 2;
 		m_sContent = m_pRule->GetContentWords();
 		break;
+	case CSecureRule::srExternal:
+	//	m_nType  = 2;
+	//	m_nMatch = 0;
+	//	m_sContent = m_pRule->GetContentWords();
+	//	break;
 	case CSecureRule::srContentHash:
 	case CSecureRule::srSizeType:
-	case CSecureRule::srExternal:
 	default:
 		m_nType  = 1;
 		m_nMatch = 0;
@@ -193,7 +197,8 @@ void CSecureRuleDlg::ShowGroup(CWnd* pWnd, BOOL bShow)
 
 		if ( pWnd->GetStyle() & WS_GROUP )
 		{
-			if ( pWnd->GetDlgCtrlID() != IDC_RULE_MATCH_ANY ) break;
+			if ( pWnd->GetDlgCtrlID() != IDC_RULE_MATCH_ANY )
+				break;
 		}
 	}
 }
@@ -204,15 +209,20 @@ void CSecureRuleDlg::OnSelChangeRuleType()
 
 	ShowGroup( &m_wndGroupNetwork, m_nType == 0 );
 	ShowGroup( &m_wndGroupContent, m_nType == 1 );
+//	ShowGroup( &m_wndGroupExternal, m_nType == 2 );
 
-	if ( m_nType == 0 )
+	switch ( m_nType )
 	{
+	case 0:		// IP
 		m_wndIP1.SetFocus();
 		m_wndIP1.SetSel( 0, -1 );
-	}
-	else
-	{
+		break;
+	case 1:		// Content
 		m_wndContent.SetFocus();
+		break;
+//	case 2:		// Extenal
+//		m_wndExternal.SetFocus();
+//		break;
 	}
 }
 
@@ -370,7 +380,7 @@ BOOL CSecureRuleDlg::GetClipboardAddress()
 					( strIP[2] != _T("255") && strIP[3] != _T("0") ) ||
 					( strIP[3] != _T("255") && strIP[3] != _T("254") && strIP[3] != _T("252") && strIP[3] != _T("248") && strIP[3] != _T("240") && strIP[3] != _T("224") && strIP[3] != _T("192") && strIP[3] != _T("128") && strIP[3] != _T("0") ) ||
 					( strIP[2] != _T("254") && strIP[2] != _T("252") && strIP[2] != _T("248") && strIP[2] != _T("240") && strIP[2] != _T("224") && strIP[2] != _T("192") && strIP[2] != _T("128") && strIP[2] != _T("0") ) ) )
-					AfxMessageBox( IDS_SECURITY_NETMASK );
+					MsgBox( IDS_SECURITY_NETMASK );
 			}
 			return TRUE;
 		}
@@ -432,7 +442,7 @@ void CSecureRuleDlg::OnOK()
 			}
 		}
 		if ( bWarning )
-			AfxMessageBox( IDS_SECURITY_NETMASK );
+			MsgBox( IDS_SECURITY_NETMASK );
 	}
 	else if ( m_nType == 1 && ! m_sContent.IsEmpty() )
 	{
@@ -443,7 +453,7 @@ void CSecureRuleDlg::OnOK()
 		else if ( StartsWith( m_sContent, _T("hostiles."), 9 ) || PathFileExists( Settings.General.UserPath + _T("\\Data\\") + m_sContent ) || PathFileExists( m_sContent ) )
 			m_pRule->m_nType = CSecureRule::srExternal;
 		else if ( m_sContent.FindOneOf( _T("/:<>|\"") ) >= 0 )
-			MsgBox( LoadString( IDS_BT_ENCODING ) );	// ToDo: Better response (return)
+			MsgBox( IDS_BT_ENCODING );	// ToDo: Better response (return)
 		else
 			m_pRule->m_nType = (CSecureRule::RuleType)(m_nMatch + 1);	// Note: Change if enum does not match radio button order
 

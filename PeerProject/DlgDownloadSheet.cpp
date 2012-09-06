@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -22,6 +22,7 @@
 
 #include "CoolInterface.h"
 #include "Colors.h"
+#include "Images.h"
 #include "Downloads.h"
 #include "Transfers.h"
 
@@ -35,7 +36,7 @@
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 IMPLEMENT_DYNAMIC(CDownloadSheet, CPropertySheetAdv)
 
@@ -149,8 +150,8 @@ BOOL CDownloadSheet::OnInitDialog()
 //	GetClientRect( &rc );
 ////	rc.top = Skin.m_nBanner;	// No banner in properties window?
 //
-//	if ( Skin.m_bmDialog.m_hObject )
-//		CoolInterface.DrawWatermark( pDC, &rc, &Skin.m_bmDialog );
+//	if ( Images.m_bmDialog.m_hObject )
+//		CoolInterface.DrawWatermark( pDC, &rc, &Images.m_bmDialog );
 //	else
 //		pDC->FillSolidRect( &rc, Colors.m_crDialog );
 //
@@ -161,7 +162,7 @@ BOOL CDownloadSheet::OnInitDialog()
 //{
 //	HBRUSH hbr = CWnd::OnCtlColor( pDC, pWnd, nCtlColor );
 //
-//	if ( Skin.m_bmDialog.m_hObject )	// && nCtlColor == CTLCOLOR_BTN )	// Buttons (edge)
+//	if ( Images.m_bmDialog.m_hObject )	// && nCtlColor == CTLCOLOR_BTN )	// Buttons (edge)
 //	{
 //			CRect rc;
 //			pWnd->GetWindowRect( &rc );
@@ -171,7 +172,7 @@ BOOL CDownloadSheet::OnInitDialog()
 //		//	if ( rcPos.top > Skin.m_nBanner )
 //		//		rcPos.top -= Skin.m_nBanner;
 //
-//			CoolInterface.DrawWatermark( pDC, &rc, &Skin.m_bmDialog, FALSE, -rcPos.left, -rcPos.top );
+//			CoolInterface.DrawWatermark( pDC, &rc, &Images.m_bmDialog, FALSE, -rcPos.left, -rcPos.top );
 //			hbr = (HBRUSH)GetStockObject( NULL_BRUSH );
 //	}
 //

@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -32,7 +32,7 @@
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 BEGIN_MESSAGE_MAP(CFileCopyDlg, CSkinDialog)
 	//{{AFX_MSG_MAP(CFileCopyDlg)
@@ -217,9 +217,7 @@ void CFileCopyDlg::StopOperation()
 	CloseThread();
 
 	//m_wndCancel.SetWindowText( _T("&Close") );
-	CString sText;
-	LoadString ( sText, IDS_GENERAL_CLOSE );
-	m_wndCancel.SetWindowText( sText );
+	m_wndCancel.SetWindowText( LoadString( IDS_GENERAL_CLOSE ) );
 	m_wndProgress.EnableWindow( FALSE );
 }
 
@@ -231,13 +229,13 @@ void CFileCopyDlg::OnRun()
 	while ( IsThreadEnabled() )
 	{
 		CString strName, strPath;
+		CString strComments, strShareTags;
 		CSchemaPtr pSchema = NULL;
 		CXMLElement* pMetadata = NULL;
 		BOOL bMetadataAuto = FALSE;
 		int nRating = 0;
-		CString sComments;
-		CString sShareTags;
 		CLibraryFile* pFile;
+
 		{
 			CQuickLock oLock( Library.m_pSection );
 
@@ -255,8 +253,8 @@ void CFileCopyDlg::OnRun()
 				pMetadata	= pFile->m_pMetadata ? pFile->m_pMetadata->Clone() : NULL;
 				bMetadataAuto = pFile->m_bMetadataAuto;
 				nRating 	= pFile->m_nRating;
-				sComments	= pFile->m_sComments;
-				sShareTags	= pFile->m_sShareTags;
+				strComments	= pFile->m_sComments;
+				strShareTags	= pFile->m_sShareTags;
 			}
 		}
 
@@ -282,8 +280,8 @@ void CFileCopyDlg::OnRun()
 				}
 				pTargetFile->m_bMetadataAuto = bMetadataAuto;
 				pTargetFile->m_nRating = nRating;
-				pTargetFile->m_sComments = sComments;
-				pTargetFile->m_sShareTags = sShareTags;
+				pTargetFile->m_sComments = strComments;
+				pTargetFile->m_sShareTags = strShareTags;
 				if ( pMetadata )
 				{
 					if ( pTargetFile->m_pMetadata )
@@ -305,17 +303,15 @@ void CFileCopyDlg::OnRun()
 
 	// Alternate code to check if file is hashing first:
 
-	//	CString sCurrent, sFile;
 	//	int nRemaining;
-	//	LibraryBuilder.UpdateStatus( &sCurrent, &nRemaining );
-	//	sFile = strPath + _T("\\") + strName;
-	//	if ( sFile == sCurrent )
+	//	CString strCurrent;
+	//	LibraryBuilder.UpdateStatus( &strCurrent, &nRemaining );
+	//	CString strFile = strPath + _T("\\") + strName;
+	//	if ( strFile == strCurrent )
 	//	{
-	//		LoadString ( sFile, IDS_LIBRARY_BITZI_HASHED );
-	//		sCurrent.Format( sFile, strName );
-	//		theApp.Message( MSG_NOTICE, sCurrent );
-	//		LoadString ( sCurrent, IDS_STATUS_FILEERROR );
-	//		m_wndFileName.SetWindowText( sCurrent );
+	//		strCurrent.Format( LoadString( IDS_LIBRARY_BITZI_HASHED ), strName );
+	//		theApp.Message( MSG_NOTICE, strCurrent );
+	//		m_wndFileName.SetWindowText( LoadString( IDS_STATUS_FILEERROR ) );
 	//	}
 	//	else
 	//	{
@@ -347,7 +343,7 @@ bool CFileCopyDlg::ProcessFile(const CString& strName, const CString& strPath)
 			CString strMessage;
 			strMessage.Format( LoadString( IDS_LIBRARY_MOVE_FAIL ), strName );
 
-			switch ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 ) )
+			switch ( MsgBox( strMessage, MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 ) )
 			{
 			case IDYES:
 				m_bMove = FALSE;
@@ -376,7 +372,7 @@ bool CFileCopyDlg::CheckTarget(const CString& strTarget)
 	CString strMessage;
 	strMessage.Format( LoadString( IDS_LIBRARY_TARGET_EXISTS ), strTarget );
 
-	switch ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNOCANCEL|MB_DEFBUTTON2 ) )
+	switch ( MsgBox( strMessage, MB_ICONQUESTION|MB_YESNOCANCEL|MB_DEFBUTTON2 ) )
 	{
 	case IDYES:
 		break;
@@ -395,7 +391,7 @@ bool CFileCopyDlg::CheckTarget(const CString& strTarget)
 	strMessage.Format( LoadString( IDS_LIBRARY_DELETE_FAIL ), strTarget );
 	strMessage += _T("\r\n\r\n") + strError;
 
-	AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
+	MsgBox( strMessage, MB_ICONEXCLAMATION );
 
 	return false;
 }

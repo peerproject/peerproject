@@ -1,5 +1,6 @@
-Boost 1.47.0
-Updated Oct.2011
+Boost 1.50.0
+
+Updated Aug.2012
 
 http://www.boost.org
 
@@ -13,4 +14,4 @@ boost::checked_delete in /Augment etc.,
 boost::shared_ptr in StdAfx.h,
 boost::ptr_list in LibraryTileView,
 boost::bind in LiveList & UPnPFinder,
-and std::tr1:: _HAS_TR1 fallbacks for regex, array, etc.
+std::tr1:: _HAS_TR1 fallbacks for regex, array, etc.

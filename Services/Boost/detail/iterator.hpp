@@ -1,6 +1,6 @@
 // (C) Copyright David Abrahams 2002.
-// Distributed under the Boost Software License, Version 1.0. (See
-// accompanying file LICENSE_1_0.txt or copy at
+// Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 // Boost versions of
@@ -26,8 +26,7 @@
 // 03 Mar 2001 - Put all implementation into namespace
 //               boost::detail::iterator_traits_. Some progress made on fixes
 //               for Intel compiler. (David Abrahams)
-// 02 Mar 2001 - Changed BOOST_MSVC to BOOST_MSVC_STD_ITERATOR in a few
-//               places. (Jeremy Siek)
+// 02 Mar 2001 - Changed BOOST_MSVC to BOOST_MSVC_STD_ITERATOR in a few places. (Jeremy Siek)
 // 19 Feb 2001 - Improved workarounds for stock MSVC6; use yes_type and
 //               no_type from type_traits.hpp; stopped trying to remove_cv
 //               before detecting is_pointer, in honor of the new type_traits
@@ -44,8 +43,7 @@
 // 07 Feb 2001 - Support for more of the traits members where possible, making
 //               this useful as a replacement for std::iterator_traits<T> when
 //               used as a default template parameter.
-// 06 Feb 2001 - Removed useless #includes of standard library headers
-//               (David Abrahams)
+// 06 Feb 2001 - Removed useless #includes of standard library headers (David Abrahams)
 
 #ifndef ITERATOR_DWA122600_HPP_
 # define ITERATOR_DWA122600_HPP_
@@ -173,8 +171,8 @@ template <class T>
 type_traits::yes_type is_mutable_iterator_helper(T const*, BOOST_DEDUCED_TYPENAME T::value_type*);
 
 // Since you can't take the address of an rvalue, the guts of
-// is_mutable_iterator_impl will fail if we use &*t directly.  This
-// makes sure we can still work with non-lvalue iterators.
+// is_mutable_iterator_impl will fail if we use &*t directly.
+// This makes sure we can still work with non-lvalue iterators.
 template <class T> T* mutable_iterator_lvalue_helper(T& x);
 int mutable_iterator_lvalue_helper(...);
 
@@ -275,8 +273,8 @@ struct pointer_iterator_traits<T*>
 #   else
 
 // In case of no template partial specialization, and if T is a
-// pointer, iterator_traits<T>::value_type can still be computed.  For
-// some basic types, remove_pointer is manually defined in
+// pointer, iterator_traits<T>::value_type can still be computed.
+// For some basic types, remove_pointer is manually defined in
 // type_traits/broken_compiler_spec.hpp. For others, do it yourself.
 
 template<class P> class please_invoke_BOOST_TT_BROKEN_COMPILER_SPEC_on_cv_unqualified_pointee;

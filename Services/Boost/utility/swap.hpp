@@ -1,7 +1,7 @@
 // Copyright (C) 2007, 2008 Steven Watanabe, Joseph Gauterin, Niels Dekker
 //
-// Distributed under the Boost Software License, Version 1.0. (See
-// accompanying file LICENSE_1_0.txt or copy at
+// Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 // For more information, see http://www.boost.org
 
@@ -11,8 +11,7 @@
 
 // Note: the implementation of this utility contains various workarounds:
 // - swap_impl is put outside the boost namespace, to avoid infinite
-// recursion (causing stack overflow) when swapping objects of a primitive
-// type.
+// recursion (causing stack overflow) when swapping objects of a primitive type.
 // - swap_impl has a using-directive, rather than a using-declaration,
 // because some compilers (including MSVC 7.1, Borland 5.9.3, and
 // Intel 8.1) don't do argument-dependent lookup when it has a

@@ -3,7 +3,7 @@
 
 // MS compatible compilers support #pragma once
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif
 
@@ -12,8 +12,8 @@
 //
 //  Copyright 2005, 2006 Peter Dimov
 //
-// Distributed under the Boost Software License, Version 1.0. (See
-// accompanying file LICENSE_1_0.txt or copy at
+// Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 //
 
@@ -58,6 +58,9 @@
 
 #elif defined( WIN32 ) || defined( _WIN32 ) || defined( __WIN32__ ) || defined(__CYGWIN__)
 # include <boost/smart_ptr/detail/sp_counted_base_w32.hpp>
+
+#elif defined( _AIX )
+# include <boost/smart_ptr/detail/sp_counted_base_aix.hpp>
 
 #elif !defined( BOOST_HAS_THREADS )
 # include <boost/smart_ptr/detail/sp_counted_base_nt.hpp>

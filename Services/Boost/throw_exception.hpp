@@ -25,9 +25,9 @@
 #include <boost/config.hpp>
 #include <exception>
 
-#if !defined( BOOST_EXCEPTION_DISABLE ) && defined( __BORLANDC__ ) && BOOST_WORKAROUND( __BORLANDC__, BOOST_TESTED_AT(0x593) )
-# define BOOST_EXCEPTION_DISABLE
-#endif
+//#if !defined( BOOST_EXCEPTION_DISABLE ) && defined( __BORLANDC__ ) && BOOST_WORKAROUND( __BORLANDC__, BOOST_TESTED_AT(0x593) )
+//# define BOOST_EXCEPTION_DISABLE
+//#endif
 
 #if !defined( BOOST_EXCEPTION_DISABLE ) && defined( BOOST_MSVC ) && BOOST_WORKAROUND( BOOST_MSVC, < 1310 )
 # define BOOST_EXCEPTION_DISABLE
@@ -79,7 +79,7 @@ template<class E> BOOST_ATTRIBUTE_NORETURN inline void throw_exception( E const 
                 set_info(
                     set_info(
                         set_info(
-                            boost::enable_error_info(x),
+                            enable_error_info(x),
                             throw_function(current_function)),
                         throw_file(file)),
                     throw_line(line)));
@@ -87,5 +87,9 @@ template<class E> BOOST_ATTRIBUTE_NORETURN inline void throw_exception( E const 
     }
 #endif
 } // namespace boost
+
+#if defined(_MSC_VER) && !defined(BOOST_EXCEPTION_ENABLE_WARNINGS)
+#pragma warning(pop)
+#endif
 
 #endif // #ifndef BOOST_THROW_EXCEPTION_HPP_INCLUDED

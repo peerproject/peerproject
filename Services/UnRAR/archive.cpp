@@ -58,7 +58,7 @@ void Archive::CheckArc(bool EnableBroken)
   if (!IsArchive(EnableBroken))
   {
     Log(FileName,St(MBadArc),FileName);
-    ErrHandler.Exit(FATAL_ERROR);
+    ErrHandler.Exit(RARX_FATAL);
   }
 }
 #endif
@@ -89,24 +89,23 @@ bool Archive::WCheckOpen(const char *Name,const wchar *NameW)
 }
 
 
-bool Archive::IsSignature(byte *D)
+ARCSIGN_TYPE Archive::IsSignature(const byte *D,size_t Size)
 {
-  bool Valid=false;
-  if (D[0]==0x52)
+  ARCSIGN_TYPE Type=ARCSIGN_NONE;
+  if (Size>=1 && D[0]==0x52)
 #ifndef SFX_MODULE
-    if (D[1]==0x45 && D[2]==0x7e && D[3]==0x5e)
-    {
-      OldFormat=true;
-      Valid=true;
-    }
+    if (Size>=4 && D[1]==0x45 && D[2]==0x7e && D[3]==0x5e)
+      Type=ARCSIGN_OLD;
     else
 #endif
-      if (D[1]==0x61 && D[2]==0x72 && D[3]==0x21 && D[4]==0x1a && D[5]==0x07 && D[6]==0x00)
+      if (Size>=7 && D[1]==0x61 && D[2]==0x72 && D[3]==0x21 && D[4]==0x1a && D[5]==0x07)
       {
-        OldFormat=false;
-        Valid=true;
+        // We check for non-zero last signature byte,
+        // so we can return a sensible warning in case we'll want to
+        // change the archive format sometimes in the future.
+        Type=D[6]==0 ? ARCSIGN_CURRENT:ARCSIGN_FUTURE;
       }
-  return(Valid);
+  return Type;
 }
 
 
@@ -125,8 +124,11 @@ bool Archive::IsArchive(bool EnableBroken)
   if (Read(MarkHead.Mark,SIZEOF_MARKHEAD)!=SIZEOF_MARKHEAD)
     return(false);
   SFXSize=0;
-  if (IsSignature(MarkHead.Mark))
+
+  ARCSIGN_TYPE Type;
+  if ((Type=IsSignature(MarkHead.Mark,sizeof(MarkHead.Mark)))!=ARCSIGN_NONE)
   {
+    OldFormat=(Type==ARCSIGN_OLD);
     if (OldFormat)
       Seek(0,SEEK_SET);
   }
@@ -136,8 +138,9 @@ bool Archive::IsArchive(bool EnableBroken)
     long CurPos=(long)Tell();
     int ReadSize=Read(&Buffer[0],Buffer.Size()-16);
     for (int I=0;I<ReadSize;I++)
-      if (Buffer[I]==0x52 && IsSignature((byte *)&Buffer[I]))
+      if (Buffer[I]==0x52 && (Type=IsSignature((byte *)&Buffer[I],ReadSize-I))!=ARCSIGN_NONE)
       {
+        OldFormat=(Type==ARCSIGN_OLD);
         if (OldFormat && I>0 && CurPos<28 && ReadSize>31)
         {
           char *D=&Buffer[28-CurPos];
@@ -151,7 +154,14 @@ bool Archive::IsArchive(bool EnableBroken)
         break;
       }
     if (SFXSize==0)
-      return(false);
+      return false;
+  }
+  if (Type==ARCSIGN_FUTURE)
+  {
+#if !defined(SHELL_EXT) && !defined(SFX_MODULE)
+    Log(FileName,St(MNewRarFormat));
+#endif
+    return false;
   }
   ReadHeader();
   SeekToNext();
@@ -187,7 +197,7 @@ bool Archive::IsArchive(bool EnableBroken)
 #ifdef RARDLL
     Cmd->DllError=ERAR_UNKNOWN_FORMAT;
 #else
-    ErrHandler.SetErrorCode(WARNING);
+    ErrHandler.SetErrorCode(RARX_WARNING);
   #if !defined(SILENT) && !defined(SFX_MODULE)
       Log(FileName,St(MUnknownMeth),FileName);
       Log(FileName,St(MVerRequired),NewMhd.EncryptVer/10,NewMhd.EncryptVer%10);
@@ -198,8 +208,7 @@ bool Archive::IsArchive(bool EnableBroken)
 #ifdef RARDLL
   // If callback function is not set, we cannot get the password,
   // so we skip the initial header processing for encrypted header archive.
-  // It leads to skipped archive comment, but the rest of archive data
-  // is processed correctly.
+  // It leads to skipped archive comment, but the rest of archive data is processed correctly.
   if (Cmd->Callback==NULL)
     SilentOpen=true;
 #endif

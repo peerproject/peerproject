@@ -3,7 +3,7 @@
 
 // MS compatible compilers support #pragma once
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif
 
@@ -12,16 +12,14 @@
 //
 //  Copyright (c) 2001, 2002, 2003 Peter Dimov and Multi Media Ltd.
 //
-// Distributed under the Boost Software License, Version 1.0. (See
-// accompanying file LICENSE_1_0.txt or copy at
+// Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 //
 
 #include <exception>
 
-#ifdef __BORLANDC__
-# pragma warn -8026     // Functions with excep. spec. are not expanded inline
-#endif
+// Removed #ifdef __BORLANDC__ pragmas
 
 namespace boost
 {
@@ -30,11 +28,7 @@ namespace boost
 // defines std::exception and its members as having C calling
 // convention (-pc). When the definition of bad_weak_ptr
 // is compiled with -ps, the compiler issues an error.
-// Hence, the temporary #pragma option -pc below.
-
-#if defined(__BORLANDC__) && __BORLANDC__ <= 0x564
-# pragma option push -pc
-#endif
+// Hence, the temporary #pragma option -pc below. (Removed)
 
 class bad_weak_ptr: public std::exception
 {
@@ -46,14 +40,6 @@ public:
     }
 };
 
-#if defined(__BORLANDC__) && __BORLANDC__ <= 0x564
-# pragma option pop
-#endif
-
 } // namespace boost
-
-#ifdef __BORLANDC__
-# pragma warn .8026     // Functions with excep. spec. are not expanded inline
-#endif
 
 #endif  // #ifndef BOOST_SMART_PTR_BAD_WEAK_PTR_HPP_INCLUDED

@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -52,7 +52,7 @@
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 IMPLEMENT_DYNAMIC(CLibraryFileView, CLibraryView)
 
@@ -515,15 +515,15 @@ void CLibraryFileView::OnLibraryCreateTorrent()
 
 		if ( CLibraryFile* pFile = GetSelectedFile() )
 		{
-			CString sCommandLine, sPath = pFile->GetPath();
+			CString strPath = pFile->GetPath();
 			pLock.Unlock();
 
-			if ( ! sPath.IsEmpty() )
+			if ( ! strPath.IsEmpty() )
 			{
-				sCommandLine = _T(" -sourcefile \"") + sPath + _T("\" -destination \"") +
+				CString strCommandLine = _T(" -sourcefile \"") + strPath + _T("\" -destination \"") +
 					Settings.Downloads.TorrentPath + _T("\" -tracker \"") + Settings.BitTorrent.DefaultTracker + _T("\"");
 
-				ShellExecute( GetSafeHwnd(), _T("open"), Settings.BitTorrent.TorrentCreatorPath, sCommandLine, NULL, SW_SHOWNORMAL );
+				ShellExecute( GetSafeHwnd(), _T("open"), Settings.BitTorrent.TorrentCreatorPath, strCommandLine, NULL, SW_SHOWNORMAL );
 
 				return;
 			}
@@ -893,7 +893,7 @@ void CLibraryFileView::OnLibraryBitziDownload()
 	{
 		CString strFormat;
 		Skin.LoadString( strFormat, IDS_LIBRARY_BITZI_MESSAGE );
-		if ( AfxMessageBox( strFormat, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
+		if ( MsgBox( strFormat, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
 		Settings.WebServices.BitziOkay = true;
 		Settings.Save();
 	}

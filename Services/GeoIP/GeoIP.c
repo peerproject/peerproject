@@ -1,7 +1,7 @@
 //
 // GeoIP.c
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions Copyright MaxMind LLC, 2006-2007. (v1.4.2)
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -879,3 +879,25 @@ int GeoIP_id_by_code(const char *country)
 //{
 //       return num_GeoIP_countries;
 //}
+
+//const char * GeoIP_lib_version(void)
+//{
+//       return "1.4.2";
+//}
+
+int GeoIP_cleanup(void)
+{
+	int i, result = 0;
+	if (GeoIPDBFileName) {
+		for (i = 0; i < NUM_DB_TYPES; i++) {
+			if (GeoIPDBFileName[i]) free(GeoIPDBFileName[i]);
+		}
+
+		free(GeoIPDBFileName);
+		GeoIPDBFileName = NULL;
+		result = 1;
+	}
+
+	return result;
+}
+

@@ -24,7 +24,7 @@
 #include "Resource.h"
 #include "SkinScan.h"
 
-class ATL_NO_VTABLE CSkinScan : 
+class ATL_NO_VTABLE CSkinScan :
 	public CComObjectRootEx< CComMultiThreadModel >,
 	public CComCoClass< CSkinScan, &CLSID_SkinScan >,
 	public ILibraryBuilderPlugin

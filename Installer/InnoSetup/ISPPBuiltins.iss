@@ -58,7 +58,7 @@
 #define True               1
 #define False              0
 #define Yes                True
-#define No								 False
+#define No                 False
 //
 #define MaxInt             0x7FFFFFFFL
 #define MinInt             0x80000000L
@@ -117,7 +117,7 @@
 #define FIND_BEGINS        0x01
 #define FIND_ENDS          0x02
 #define FIND_CONTAINS      0x03
-#define FIND_CASESENSITIVE 0x04 
+#define FIND_CASESENSITIVE 0x04
 #define FIND_SENSITIVE     FIND_CASESENSITIVE
 #define FIND_AND           0x00
 #define FIND_OR            0x08
@@ -158,8 +158,8 @@
 //
 // Macro internally calls GetFileVersion function and parses string returned
 // by that function (in form "0.0.0.0"). All four version elements are stored
-// in by-reference parameters Major, Minor, Rev, and Build. Macro returns
-// string returned by GetFileVersion.
+// in by-reference parameters Major, Minor, Rev, and Build.
+// Macro returns string returned by GetFileVersion.
 //
 #define DeleteToFirstPeriod(str *S) \
   Local[1] = Copy(S, 1, (Local[0] = Pos(".", S)) - 1), \
@@ -186,8 +186,8 @@
 // DecodeVer
 //
 // Decodes given 32 bit integer encoded version to its string representation,
-// Digits parameter indicates how many elements to show (if the fourth element
-// is 0, it won't be shown anyway).
+// Digits parameter indicates how many elements to show (if the fourth element is 0,
+// it won't be shown anyway).
 //
 #define DecodeVer(int Ver, int Digits = 3) \
   Str(Ver >> 0x18 & 0xFF) + (Digits > 1 ? "." : "") + \
@@ -223,8 +223,8 @@
 //
 // FindCode
 //
-// Returns index of the line (of translation) following either [Code]
-// section header, or "program" keyword, if any.
+// Returns index of the line (of translation) following either
+// [Code] section header, or "program" keyword, if any.
 //
 #define FindCode() \
     Local[1] = FindSection("Code"), \
@@ -233,9 +233,8 @@
 //
 // ExtractFilePath
 //
-// Returns directory portion of the given filename without backslash
-// (unless it is a root directory). If PathName doesn't contain directory portion,
-// the result is an empty string.
+// Returns directory portion of the given filename without backslash (unless it is a root directory).
+// If PathName doesn't contain directory portion, the result is an empty string.
 //
 #define ExtractFilePath(str PathName) \
   (Local[0] = \
@@ -255,8 +254,8 @@
 //
 // ExtractFileName
 //
-// Returns name portion of the given filename. If PathName ends with
-// a backslash, the result is an empty string.
+// Returns name portion of the given filename.
+// If PathName ends with a backslash, the result is an empty string.
 //
 #define ExtractFileName(str PathName) \
   !(Local[0] = RPos("\", PathName)) ? \
@@ -281,8 +280,7 @@
 //
 // RemoveBackslash
 //
-// Removes trailing backslash from the string unless the string points to
-// a root directory.
+// Removes trailing backslash from the string unless the string points to a root directory.
 //
 #define RemoveBackslash(str S) \
   Local[0] = Len(S), \
@@ -296,17 +294,17 @@
 //
 // Delete
 //
-// Deletes specified number of characters beginning with Index from S. S is
-// passed by reference (therefore is modified). Acts like Delete function in
-// Delphi (from System unit).
+// Deletes specified number of characters beginning with Index from S.
+// S is passed by reference (therefore is modified).
+// Acts like Delete function in Delphi (from System unit).
 //
 #define Delete(str *S, int Index, int Count = MaxInt) \
   S = Copy(S, 1, Index - 1) + Copy(S, Index + Count)
 //
 // Insert
 //
-// Inserts specified Substr at Index'th character into S. S is passed by
-// reference (therefore is modified).
+// Inserts specified Substr at Index'th character into S.
+// S is passed by reference (therefore is modified).
 //
 #define Insert(str *S, int Index, str Substr) \
   Index > Len(S) + 1 ? \
@@ -315,9 +313,9 @@
 //
 // YesNo, IsDirSet
 //
-// Returns nonzero value if given string is "yes", "true" or "1". Intended to
-// be used with SetupSetting function. This macro replaces YesNo function
-// available in previous releases.
+// Returns nonzero value if given string is "yes", "true" or "1".
+// Intended to be used with SetupSetting function.
+// This macro replaces YesNo function available in previous releases.
 //
 #define YesNo(str S) \
   (S = LowerCase(S)) == "yes" || S == "true" || S == "1"

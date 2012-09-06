@@ -4,19 +4,17 @@
 ; $Translator:NL=%n:TB=%t
 ;
 ; ID: Danish.isl,v 5.1.11 2008/02/26 12:37:00 Thomas Vedel, veco@veco.dk
-; http://www.jrsoftware.org/files/istrans/ (user-contributed translations) 
+; http://www.jrsoftware.org/files/istrans/ (user-contributed translations)
 ;
-; Note: Do not add periods (.) to messages that don't have them already,
-; because for those messages Inno Setup adds the periods automatically.
-; (appending a period will result in two periods being displayed.)
+; Note: Do not add periods (.), where added automatically.
 
 [LangOptions]
 LanguageName=Dansk
 LanguageID=$0406
 LanguageCodePage=1252
 
-; If the language you are translating to requires special font faces or
-; sizes, uncomment any of the following entries and change them accordingly.
+; If the language you are translating to requires special font faces or sizes,
+; uncomment any of the following entries and change them accordingly.
 ;DialogFontName=MS Shell Dlg
 ;DialogFontSize=8
 ;DialogFontStandardHeight=13

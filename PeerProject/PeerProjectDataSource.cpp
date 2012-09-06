@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -36,7 +36,7 @@
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 #ifdef _DEBUG
 
@@ -89,7 +89,7 @@ void DumpIDataObject(IDataObject* pIDataObject)
 	{
 		TRACE( _T("IDataObject = {\n") );
 		pIEnumFORMATETC->Reset();
-		for (;;)
+		for ( ;; )
 		{
 			FORMATETC formatetc = {};
 			ULONG celtFetched = 0;
@@ -149,11 +149,11 @@ UINT AsyncFileOperationThread(LPVOID param)
 	// Notify Shell about changes (first file/folder only)
 	if ( ! bCopy )
 	{
-		CString sFromDir = pAFOP->sFrom.GetData();
-		int nSlash = sFromDir.ReverseFind( _T('\\') );
+		CString strFromDir = pAFOP->sFrom.GetData();
+		int nSlash = strFromDir.ReverseFind( _T('\\') );
 		if ( nSlash != -1 )
-			sFromDir = sFromDir.Left( nSlash );
-		SHChangeNotify( SHCNE_UPDATEDIR, SHCNF_PATH, (LPCVOID)(LPCTSTR)sFromDir, 0 );
+			strFromDir = strFromDir.Left( nSlash );
+		SHChangeNotify( SHCNE_UPDATEDIR, SHCNF_PATH, (LPCVOID)(LPCTSTR)strFromDir, 0 );
 	}
 	SHChangeNotify( SHCNE_UPDATEDIR, SHCNF_PATH, (LPCVOID)(LPCTSTR)pAFOP->sTo.GetData(), 0 );
 
@@ -1108,7 +1108,7 @@ STDMETHODIMP CPeerProjectDataSource::XDataObject::QueryGetData (FORMATETC* pform
 	return hr;
 }
 
-STDMETHODIMP CPeerProjectDataSource::XDataObject::GetCanonicalFormatEtc(FORMATETC* /* pformatectIn */,FORMATETC* /* pformatetcOut */)
+STDMETHODIMP CPeerProjectDataSource::XDataObject::GetCanonicalFormatEtc(FORMATETC* /*pformatectIn*/, FORMATETC* /*pformatetcOut*/)
 {
 	METHOD_PROLOGUE( CPeerProjectDataSource, DataObject )
 

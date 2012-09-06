@@ -1,27 +1,24 @@
-; Inno Setup 5.1.11+ Korean Messages (PeerProject: ko)
+; *** Inno Setup 5.1.11+ Korean Messages (PeerProject: ko)
 ;
 ; Translated : Woong-Jae An (a183393@hanmail.net)
 ; Cyworld: http://cyworld.nate.com/nuclear_mine (for Korean Users Only)
-; 
+;
 ; 번역은 기본적으로 직역이 원칙이나, 한글로 직역 시 어색하거나 매끄럽지 않은 부분은 의역을 하였습니다.
 ; 제가 번역한 문장들이 원본과 뜻이 상이하거나 좀 더 매끈한 표현으로 바꿨으면 하는 부분, 그 밖에 건의 사항이나 질문이 있으시다면 제 싸이월드에 방문하셔서 방명록에 글을 남겨주시기 바랍니다.
 ; 단, 이 Translation File에 대한 문의만 받으며, 그 밖에 Inno Setup 사용 중 생긴 문제는 제가 프로그래머가 아닌 관계로 답변하여 드리지 못할 수도 있습니다.
 ; 스팸 메일(Spam Mail) 때문에 메일은 더 이상 확인하지 않으니 양해하여 주시기 바랍니다.
 ;
-; http://www.jrsoftware.org/files/istrans/ (user-contributed translations) 
-;
-; Note: Do not add periods (.) to messages that don't have them already,
-; because for those messages Inno Setup adds the periods automatically.
-; (appending a period will result in two periods being displayed.)
+; Note: Do not add periods (.), where added automatically.
 
 [LangOptions]
-; The following three entries are very important. Be sure to read and 
+; The following three entries are very important. Be sure to read and
 ; understand the '[LangOptions] section' topic in the help file.
 LanguageName=<D55C><AD6D><C5B4>
 LanguageID=$0412
 LanguageCodePage=949
-; If the language you are translating to requires special font faces or
-; sizes, uncomment any of the following entries and change them accordingly.
+
+; If the language you are translating to requires special font faces or sizes,
+; uncomment any of the following entries and change them accordingly.
 ;DialogFontName=
 ;DialogFontSize=8
 ;WelcomeFontName=Verdana
@@ -144,7 +141,8 @@ SelectDirDesc=어디에 [name] 을(를) 설치하시겠습니까?
 SelectDirLabel3=설치 프로그램은 [name] 을(를) 다음 폴더에 설치할 것입니다.
 SelectDirBrowseLabel=계속하시려면 "다음"을 클릭하십시오. 다른 폴더를 선택하시려면, "찾아보기"를 클릭하십시오.
 DiskSpaceMBLabel=최소 [mb] MB 의 디스크 여유 공간이 설치에 필요합니다.
-ToUNCPathname=선택하신 네트워크 경로로 설치할 수 없습니다. 네트워크 드라이브에 설치하시려면, 네트워크 드라이브에 접근할 수 있어야 합니다.
+CannotInstallToNetworkDrive=선택하신 네트워크 경로로 설치할 수 없습니다. 네트워크 드라이브에 설치하시려면, 네트워크 드라이브에 접근할 수 있어야 합니다.
+CannotInstallToUNCPath=선택하신 네트워크 경로로 설치할 수 없습니다. 네트워크 드라이브에 설치하시려면, 네트워크 드라이브에 접근할 수 있어야 합니다.
 InvalidPath=드라이브 문자를 포함한 전체 경로를 입력하셔야 합니다. 예:%n%nC:\APP%n%n 네트워크 드라이브의 예:%n%n\\server\share
 InvalidDrive=설치할 드라이브나 네트워크 경로가 존재하지 않거나 접근할 수 없습니다. 다른 경로를 선택하십시오.
 DiskSpaceWarningTitle=디스크 공간 부족
@@ -307,8 +305,8 @@ SharedFileLocationLabel=경로:
 WizardUninstalling=설치 제거 상태
 StatusUninstalling=%1 제거 중...
 
-; The custom messages below aren't used by Setup itself, but if you make
-; use of them in your scripts, you'll want to translate them.
+; The custom messages below aren't used by Setup itself,
+; but if you make use of them in your scripts, you'll want to translate them.
 
 [CustomMessages]
 

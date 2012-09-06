@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -96,7 +96,7 @@
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 IMPLEMENT_DYNCREATE(CMainWnd, CMDIFrameWnd)
 
@@ -1355,7 +1355,7 @@ LRESULT CMainWnd::OnHandleTorrent(WPARAM wParam, LPARAM /*lParam*/)
 LRESULT CMainWnd::OnVersionCheck(WPARAM wParam, LPARAM /*lParam*/)
 {
 	if ( wParam == VC_MESSAGE_AND_CONFIRM && ! VersionChecker.m_sMessage.IsEmpty() )
-		AfxMessageBox( VersionChecker.m_sMessage, MB_ICONINFORMATION );
+		MsgBox( VersionChecker.m_sMessage, MB_ICONINFORMATION );
 
 	if ( wParam == VC_MESSAGE_AND_CONFIRM || wParam == VC_CONFIRM )
 	{
@@ -1371,7 +1371,7 @@ LRESULT CMainWnd::OnVersionCheck(WPARAM wParam, LPARAM /*lParam*/)
 		}
 		else if ( VersionChecker.IsVerbose() )
 		{
-			AfxMessageBox( IDS_UPGRADE_NO_NEW, MB_ICONINFORMATION | MB_OK );
+			MsgBox( IDS_UPGRADE_NO_NEW, MB_ICONINFORMATION | MB_OK );
 		}
 		else
 		{
@@ -1382,7 +1382,7 @@ LRESULT CMainWnd::OnVersionCheck(WPARAM wParam, LPARAM /*lParam*/)
 	{
 		CString strMessage;
 		strMessage.Format( LoadString( IDS_UPGRADE_LAUNCH ), (LPCTSTR)Settings.VersionCheck.UpgradeFile );
-		if ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO ) == IDYES )
+		if ( MsgBox( strMessage, MB_ICONQUESTION|MB_YESNO ) == IDYES )
 		{
 			ShellExecute( GetSafeHwnd(), _T("open"), VersionChecker.m_sUpgradePath,
 				_T("/launch"), NULL, SW_SHOWNORMAL );
@@ -1836,7 +1836,7 @@ void CMainWnd::OnNetworkG2()
 {
 	if ( Settings.Gnutella2.Enabled )
 	{
-		if ( AfxMessageBox( IDS_NETWORK_DISABLE_G2, MB_ICONEXCLAMATION|MB_YESNO|MB_DEFBUTTON2 ) != IDYES )
+		if ( MsgBox( IDS_NETWORK_DISABLE_G2, MB_ICONEXCLAMATION|MB_YESNO|MB_DEFBUTTON2 ) != IDYES )
 			return;
 	}
 
@@ -1851,7 +1851,7 @@ void CMainWnd::OnNetworkG2()
 		DiscoveryServices.Execute( FALSE, PROTOCOL_G2, FALSE );
 
 	if ( ! Settings.Gnutella2.EnableAlways &&
-		 AfxMessageBox( IDS_NETWORK_ALWAYS, MB_ICONQUESTION|MB_YESNO ) == IDYES )
+		 MsgBox( IDS_NETWORK_ALWAYS, MB_ICONQUESTION|MB_YESNO ) == IDYES )
 		Settings.Gnutella1.EnableAlways = true;
 }
 
@@ -1884,7 +1884,7 @@ void CMainWnd::OnNetworkG1()
 		DiscoveryServices.Execute( FALSE, PROTOCOL_G1, FALSE );
 
 	if ( ! Settings.Gnutella1.EnableAlways &&
-		 AfxMessageBox( IDS_NETWORK_ALWAYS, MB_ICONQUESTION|MB_YESNO ) == IDYES )
+		 MsgBox( IDS_NETWORK_ALWAYS, MB_ICONQUESTION|MB_YESNO ) == IDYES )
 		Settings.Gnutella1.EnableAlways = true;
 }
 
@@ -1915,7 +1915,7 @@ void CMainWnd::OnNetworkED2K()
 		Network.Connect( TRUE );
 
 	if ( ! Settings.eDonkey.EnableAlways &&
-		 AfxMessageBox( IDS_NETWORK_ALWAYS, MB_ICONQUESTION|MB_YESNO ) == IDYES )
+		 MsgBox( IDS_NETWORK_ALWAYS, MB_ICONQUESTION|MB_YESNO ) == IDYES )
 		Settings.eDonkey.EnableAlways = true;
 }
 
@@ -1946,7 +1946,7 @@ void CMainWnd::OnNetworkDC()
 		Network.Connect( TRUE );
 
 	if ( ! Settings.DC.EnableAlways &&
-		 AfxMessageBox( IDS_NETWORK_ALWAYS, MB_ICONQUESTION|MB_YESNO ) == IDYES )
+		 MsgBox( IDS_NETWORK_ALWAYS, MB_ICONQUESTION|MB_YESNO ) == IDYES )
 		Settings.DC.EnableAlways = true;
 }
 
@@ -1977,7 +1977,7 @@ void CMainWnd::OnNetworkBT()
 		Network.Connect( TRUE );
 
 	if ( ! Settings.BitTorrent.EnableAlways &&
-		 AfxMessageBox( IDS_NETWORK_ALWAYS, MB_ICONQUESTION|MB_YESNO ) == IDYES )
+		 MsgBox( IDS_NETWORK_ALWAYS, MB_ICONQUESTION|MB_YESNO ) == IDYES )
 		Settings.BitTorrent.EnableAlways = true;
 }
 
@@ -2033,7 +2033,7 @@ void CMainWnd::OnUpdateViewBasic(CCmdUI* pCmdUI)
 void CMainWnd::OnViewBasic()
 {
 	if ( Settings.General.GUIMode == GUI_BASIC ) return;
-	//if ( AfxMessageBox( IDS_VIEW_MODE_CONFIRM, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
+	//if ( MsgBox( IDS_VIEW_MODE_CONFIRM, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
 	CWaitCursor pCursor;
 	SetGUIMode( GUI_BASIC );
 }
@@ -2046,7 +2046,7 @@ void CMainWnd::OnUpdateViewTabbed(CCmdUI* pCmdUI)
 void CMainWnd::OnViewTabbed()
 {
 	if ( Settings.General.GUIMode == GUI_TABBED ) return;
-	//if ( AfxMessageBox( IDS_VIEW_MODE_CONFIRM, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
+	//if ( MsgBox( IDS_VIEW_MODE_CONFIRM, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
 	CWaitCursor pCursor;
 	SetGUIMode( GUI_TABBED );
 }
@@ -2059,7 +2059,7 @@ void CMainWnd::OnUpdateViewWindowed(CCmdUI* pCmdUI)
 void CMainWnd::OnViewWindowed()
 {
 	if ( Settings.General.GUIMode == GUI_WINDOWED ) return;
-	//if ( AfxMessageBox( IDS_VIEW_MODE_CONFIRM, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
+	//if ( MsgBox( IDS_VIEW_MODE_CONFIRM, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
 	CWaitCursor pCursor;
 	SetGUIMode( GUI_WINDOWED );
 }
@@ -2267,15 +2267,12 @@ void CMainWnd::OnUpdateTabConnect(CCmdUI* /*pCmdUI*/)
 		nTipID	= ID_NETWORK_CONNECT;
 	}
 
-	CString strText;
-
-	LoadString( strText, nTextID );
-	if ( pItem ) pItem->SetText( strText );
-
-	LoadString( strText, nTipID );
-	if ( pItem ) pItem->SetTip( strText );
-
-	if ( pItem ) pItem->SetImage( nTipID );
+	if ( pItem )
+	{
+		pItem->SetText( LoadString( nTextID ) );
+		pItem->SetTip( LoadString( nTipID ) );
+		pItem->SetImage( nTipID );
+	}
 }
 
 void CMainWnd::OnTabConnect()
@@ -2284,7 +2281,7 @@ void CMainWnd::OnTabConnect()
 	{
 		if ( ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) ||
 			 ! Network.IsWellConnected() ||
-			 AfxMessageBox( LoadString( IDS_NETWORK_DISCONNECT_CONFIRM ), MB_ICONQUESTION|MB_YESNO ) == IDYES )
+			 MsgBox( IDS_NETWORK_DISCONNECT_CONFIRM, MB_ICONQUESTION|MB_YESNO ) == IDYES )
 		{
 			Network.Disconnect();
 		}
@@ -2521,7 +2518,7 @@ void CMainWnd::OnToolsLanguage()
 		 return;
 
 	bool bRestart = Settings.General.LanguageRTL != dlg.m_bLanguageRTL &&
-		AfxMessageBox( IDS_WARNING_RTL, MB_ICONQUESTION | MB_YESNO ) == IDYES;
+		MsgBox( IDS_WARNING_RTL, MB_ICONQUESTION | MB_YESNO ) == IDYES;
 
 	CWaitCursor pCursor;
 
@@ -2569,8 +2566,8 @@ void CMainWnd::OnToolsCreateTorrent()
 {
 // ToDo: Detect Selected Files for Command Line Message
 //	if ( CLibraryFile* pFile = GetSelectedFile() )
-//		CString sCommandLine = _T(" -sourcefile \"") + pFile->GetPath() );
-//	ShellExecute( GetSafeHwnd(), _T("open"), Settings.BitTorrent.TorrentCreatorPath, sCommandLine, NULL, SW_SHOWNORMAL );
+//		CString strCommandLine = _T(" -sourcefile \"") + pFile->GetPath() );
+//	ShellExecute( GetSafeHwnd(), _T("open"), Settings.BitTorrent.TorrentCreatorPath, strCommandLine, NULL, SW_SHOWNORMAL );
 	ShellExecute( GetSafeHwnd(), _T("open"), Settings.BitTorrent.TorrentCreatorPath, NULL, NULL, SW_SHOWNORMAL );
 }
 

@@ -563,7 +563,7 @@
 			<title language="zht">品質注解</title>
 		</member>
 		<member name="Distributer" search="indexed">
-			<title language="en">Distributer</title>
+			<title language="en">Distributor</title>
 			<title language="af">Verspreider</title>
 			<title language="ca">Distribuïdor</title>
 			<title language="cz">Distributor</title>
@@ -574,7 +574,7 @@
 			<title language="fr">Distributeur</title>
 			<title language="gr">Διανομέας</title>
 			<title language="heb">מפיץ</title>
-			<title language="hr">Distributer</title>
+			<title language="hr">Distributor</title>
 			<title language="hu">Árusító</title>
 			<title language="it">Distributore</title>
 			<title language="ja">配布者</title>
@@ -583,16 +583,16 @@
 			<title language="no">Distributør</title>
 			<title language="pt-br">Distribuidor</title>
 			<title language="ru">Дистрибьютер</title>
-			<title language="sl">Distributer</title>
+			<title language="sl">Distributor</title>
 			<title language="sq">Distributori</title>
-			<title language="sr">Distributer</title>
+			<title language="sr">Distributor</title>
 			<title language="sv">Distributör</title>
 			<title language="tr">Dağıtıcı</title>
 			<title language="zhs">内容提供商</title>
 			<title language="zht">經銷商</title>
 		</member>
 		<member name="DistributerLink">
-			<title language="en">Distributer Link</title>
+			<title language="en">Distributor Link</title>
 			<title language="af">Verspreider Skakel</title>
 			<title language="ca">Enllaç del distribuïdor</title>
 			<title language="cz">Odkaz na distributora</title>

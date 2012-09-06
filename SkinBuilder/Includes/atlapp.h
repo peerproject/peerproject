@@ -1,9 +1,9 @@
-// Windows Template Library - WTL version 8.0
+// Windows Template Library - WTL version 8.1
 // Copyright (C) Microsoft Corporation. All rights reserved.
 //
 // This file is a part of the Windows Template Library.
 // The use and distribution terms for this software are covered by the
-// Common Public License 1.0 (http://opensource.org/osi3.0/licenses/cpl1.0.php)
+// Common Public License 1.0 (http://opensource.org/licenses/cpl1.0.php)
 // which can be found in the file CPL.TXT at the root of this distribution.
 // By using this software in any fashion, you are agreeing to be bound by
 // the terms of this license. You must not remove this notice,
@@ -14,11 +14,10 @@
 #ifndef __ATLAPP_H__
 #define __ATLAPP_H__
 
-
 #pragma once
 
 #ifndef __cplusplus
-	#error ATL requires C++ compilation (use a .cpp suffix)
+	#error ATL/WTL requires C++ compilation (use a .cpp suffix)
 #endif
 
 #ifndef __ATLBASE_H__
@@ -159,30 +158,35 @@ inline bool AtlIsOldWindows()
 	return (!bRet || !((ovi.dwMajorVersion >= 5) || (ovi.dwMajorVersion == 4 && ovi.dwMinorVersion >= 90)));
 }
 
-// default GUI font helper
+// Default GUI font helper - "MS Shell Dlg" stock font
 inline HFONT AtlGetDefaultGuiFont()
 {
 	return (HFONT)::GetStockObject(DEFAULT_GUI_FONT);
 }
 
-// bold font helper (NOTE: Caller owns the font, and should destroy it when done using it)
+// Control font helper - default font for controls not in a dialog
+// (NOTE: Caller owns the font, and should destroy it when it's no longer needed)
+inline HFONT AtlCreateControlFont()
+{
+	LOGFONT lf = { 0 };
+	ATLVERIFY(::SystemParametersInfo(SPI_GETICONTITLELOGFONT, sizeof(LOGFONT), &lf, 0) != FALSE);
+	HFONT hFont = ::CreateFontIndirect(&lf);
+	ATLASSERT(hFont != NULL);
+	return hFont;
+}
+
+// Bold font helper
+// (NOTE: Caller owns the font, and should destroy it when it's no longer needed)
 inline HFONT AtlCreateBoldFont(HFONT hFont = NULL)
 {
-	if(hFont == NULL)
-		hFont = AtlGetDefaultGuiFont();
-	ATLASSERT(hFont != NULL);
-	HFONT hFontBold = NULL;
 	LOGFONT lf = { 0 };
-	if(::GetObject(hFont, sizeof(LOGFONT), &lf) == sizeof(LOGFONT))
-	{
-		lf.lfWeight = FW_BOLD;
-		hFontBold =  ::CreateFontIndirect(&lf);
-		ATLASSERT(hFontBold != NULL);
-	}
+	if(hFont == NULL)
+		ATLVERIFY(::SystemParametersInfo(SPI_GETICONTITLELOGFONT, sizeof(LOGFONT), &lf, 0) != FALSE);
 	else
-	{
-		ATLASSERT(FALSE);
-	}
+		ATLVERIFY(::GetObject(hFont, sizeof(LOGFONT), &lf) == sizeof(LOGFONT));
+	lf.lfWeight = FW_BOLD;
+	HFONT hFontBold =  ::CreateFontIndirect(&lf);
+	ATLASSERT(hFontBold != NULL);
 	return hFontBold;
 }
 
@@ -215,7 +219,7 @@ inline BOOL AtlInitCommonControls(DWORD dwFlags)
 
 #if (_WIN32_WINNT >= 0x0600) && !defined(LVTILEINFO_V5_SIZE)
   #define LVTILEINFO_V5_SIZE   _SIZEOF_STRUCT(LVTILEINFO, puColumns)
-#endif 
+#endif
 
 #if defined(NTDDI_VERSION) && (NTDDI_VERSION >= NTDDI_LONGHORN) && !defined(MCHITTESTINFO_V1_SIZE)
   #define MCHITTESTINFO_V1_SIZE   _SIZEOF_STRUCT(MCHITTESTINFO, st)
@@ -241,6 +245,69 @@ namespace RunTimeHelper
 		OSVERSIONINFO ovi = { sizeof(OSVERSIONINFO) };
 		BOOL bRet = ::GetVersionEx(&ovi);
 		return ((bRet != FALSE) && (ovi.dwMajorVersion >= 6));
+	}
+
+	inline bool IsThemeAvailable()
+	{
+		bool bRet = false;
+
+		if(IsCommCtrl6())
+		{
+			HMODULE hThemeDLL = ::LoadLibrary(_T("uxtheme.dll"));
+			if(hThemeDLL != NULL)
+			{
+				typedef BOOL (STDAPICALLTYPE *PFN_IsThemeActive)();
+				PFN_IsThemeActive pfnIsThemeActive = (PFN_IsThemeActive)::GetProcAddress(hThemeDLL, "IsThemeActive");
+				ATLASSERT(pfnIsThemeActive != NULL);
+				bRet = (pfnIsThemeActive != NULL) && (pfnIsThemeActive() != FALSE);
+				if(bRet)
+				{
+					typedef BOOL (STDAPICALLTYPE *PFN_IsAppThemed)();
+					PFN_IsAppThemed pfnIsAppThemed = (PFN_IsAppThemed)::GetProcAddress(hThemeDLL, "IsAppThemed");
+					ATLASSERT(pfnIsAppThemed != NULL);
+					bRet = (pfnIsAppThemed != NULL) && (pfnIsAppThemed() != FALSE);
+				}
+
+				::FreeLibrary(hThemeDLL);
+			}
+		}
+
+		return bRet;
+	}
+
+	inline bool IsWin7()
+	{
+		OSVERSIONINFO ovi = { sizeof(OSVERSIONINFO) };
+		BOOL bRet = ::GetVersionEx(&ovi);
+		return ((bRet != FALSE) && (ovi.dwMajorVersion == 6) && (ovi.dwMinorVersion >= 1));
+	}
+
+	inline bool IsRibbonUIAvailable()
+	{
+		static INT iRibbonUI = -1;
+
+#if defined(NTDDI_WIN7) && (NTDDI_VERSION >= NTDDI_WIN7)
+		if (iRibbonUI == -1)
+		{
+			HMODULE hRibbonDLL = ::LoadLibrary(_T("propsys.dll"));
+			if (hRibbonDLL != NULL)
+			{
+				const GUID CLSID_UIRibbonFramework = { 0x926749fa, 0x2615, 0x4987, { 0x88, 0x45, 0xc3, 0x3e, 0x65, 0xf2, 0xb9, 0x57 } };
+				// block - create instance
+				{
+					ATL::CComPtr<IUnknown> pIUIFramework;
+					iRibbonUI = SUCCEEDED(pIUIFramework.CoCreateInstance(CLSID_UIRibbonFramework)) ? 1 : 0;
+				}
+				::FreeLibrary(hRibbonDLL);
+			}
+			else
+			{
+				iRibbonUI = 0;
+			}
+		}
+#endif // defined(NTDDI_WIN7) && (NTDDI_VERSION >= NTDDI_WIN7)
+
+		return (iRibbonUI == 1);
 	}
 
 	inline int SizeOf_REBARBANDINFO()
@@ -488,7 +555,9 @@ namespace SecureHelper
 		return _vstprintf_s(lpstrBuff, cchBuff, lpstrFormat, args);
 #else
 		cchBuff;   // Avoid unused argument warning
+#pragma warning(disable: 4996)
 		return _vstprintf(lpstrBuff, lpstrFormat, args);
+#pragma warning(default: 4996)
 #endif
 	}
 
@@ -520,6 +589,91 @@ namespace SecureHelper
 		return nRes;
 	}
 }; // namespace SecureHelper
+
+
+///////////////////////////////////////////////////////////////////////////////
+// MinCrtHelper - helper functions for using _ATL_MIN_CRT
+
+namespace MinCrtHelper
+{
+	inline int _isspace(TCHAR ch)
+	{
+#ifndef _ATL_MIN_CRT
+		return _istspace(ch);
+#else // _ATL_MIN_CRT
+		WORD type = 0;
+		::GetStringTypeEx(::GetThreadLocale(), CT_CTYPE1, &ch, 1, &type);
+		return (type & C1_SPACE) == C1_SPACE;
+#endif // _ATL_MIN_CRT
+	}
+
+	inline int _isdigit(TCHAR ch)
+	{
+#ifndef _ATL_MIN_CRT
+		return _istdigit(ch);
+#else // _ATL_MIN_CRT
+		WORD type = 0;
+		::GetStringTypeEx(::GetThreadLocale(), CT_CTYPE1, &ch, 1, &type);
+		return (type & C1_DIGIT) == C1_DIGIT;
+#endif // _ATL_MIN_CRT
+	}
+
+	inline int _atoi(LPCTSTR str)
+	{
+#ifndef _ATL_MIN_CRT
+		return _ttoi(str);
+#else // _ATL_MIN_CRT
+		while(_isspace(*str) != 0)
+			++str;
+
+		TCHAR ch = *str++;
+		TCHAR sign = ch;   // save sign indication
+		if(ch == _T('-') || ch == _T('+'))
+			ch = *str++;   // skip sign
+
+		int total = 0;
+		while(_isdigit(ch) != 0)
+		{
+			total = 10 * total + (ch - '0');   // accumulate digit
+			ch = *str++;        // get next char
+		}
+
+		return (sign == '-') ? -total : total;   // return result, negated if necessary
+#endif // _ATL_MIN_CRT
+	}
+
+	inline LPCTSTR _strrchr(LPCTSTR str, TCHAR ch)
+	{
+#ifndef _ATL_MIN_CRT
+		return _tcsrchr(str, ch);
+#else // _ATL_MIN_CRT
+		LPCTSTR lpsz = NULL;
+		while(*str != 0)
+		{
+			if(*str == ch)
+				lpsz = str;
+			str = ::CharNext(str);
+		}
+		return lpsz;
+#endif // _ATL_MIN_CRT
+	}
+
+	inline LPTSTR _strrchr(LPTSTR str, TCHAR ch)
+	{
+#ifndef _ATL_MIN_CRT
+		return _tcsrchr(str, ch);
+#else // _ATL_MIN_CRT
+		LPTSTR lpsz = NULL;
+		while(*str != 0)
+		{
+			if(*str == ch)
+				lpsz = str;
+			str = ::CharNext(str);
+		}
+		return lpsz;
+#endif // _ATL_MIN_CRT
+	}
+}; // namespace MinCrtHelper
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1095,16 +1249,103 @@ public:
 
 
 ///////////////////////////////////////////////////////////////////////////////
-// General DLL version helpers (excluded from atlbase.h if _ATL_DLL is defined)
+// General DLL version helpers
+// (ATL11: removed)
 
-//#if (_ATL_VER < 0x0700) && defined(_ATL_DLL)
+#if (_ATL_VER >= 0x0B00)
+
+namespace ATL
+{
+
+inline HRESULT AtlGetDllVersion(HINSTANCE hInstDLL, DLLVERSIONINFO* pDllVersionInfo)
+{
+	ATLASSERT(pDllVersionInfo != NULL);
+	if(pDllVersionInfo == NULL)
+		return E_INVALIDARG;
+
+	// We must get this function explicitly because some DLLs don't implement it.
+	DLLGETVERSIONPROC pfnDllGetVersion = (DLLGETVERSIONPROC)::GetProcAddress(hInstDLL, "DllGetVersion");
+	if(pfnDllGetVersion == NULL)
+		return E_NOTIMPL;
+
+	return (*pfnDllGetVersion)(pDllVersionInfo);
+}
+
+inline HRESULT AtlGetDllVersion(LPCTSTR lpstrDllName, DLLVERSIONINFO* pDllVersionInfo)
+{
+	HINSTANCE hInstDLL = ::LoadLibrary(lpstrDllName);
+	if(hInstDLL == NULL)
+		return E_FAIL;
+	HRESULT hRet = AtlGetDllVersion(hInstDLL, pDllVersionInfo);
+	::FreeLibrary(hInstDLL);
+	return hRet;
+}
 
 // Common Control Versions:
 //   Win95/WinNT 4.0    maj=4 min=00
-//   IE 3.x     maj=4 min=70
 //   IE 4.0     maj=4 min=71
+inline HRESULT AtlGetCommCtrlVersion(LPDWORD pdwMajor, LPDWORD pdwMinor)
+{
+	ATLASSERT(pdwMajor != NULL && pdwMinor != NULL);
+	if(pdwMajor == NULL || pdwMinor == NULL)
+		return E_INVALIDARG;
 
-//#endif // (_ATL_VER < 0x0700 Unsupported)
+	DLLVERSIONINFO dvi;
+	::ZeroMemory(&dvi, sizeof(dvi));
+	dvi.cbSize = sizeof(dvi);
+	HRESULT hRet = AtlGetDllVersion(_T("comctl32.dll"), &dvi);
+
+	if(SUCCEEDED(hRet))
+	{
+		*pdwMajor = dvi.dwMajorVersion;
+		*pdwMinor = dvi.dwMinorVersion;
+	}
+	else if(hRet == E_NOTIMPL)
+	{
+		// If DllGetVersion is not there, then the DLL is a version
+		// previous to the one shipped with IE 3.x
+		*pdwMajor = 4;
+		*pdwMinor = 0;
+		hRet = S_OK;
+	}
+
+	return hRet;
+}
+
+// Shell Versions:
+//   Win95/WinNT 4.0                    maj=4 min=00
+//   IE 4.01 with Web Integrated Desktop        maj=4 min=72
+inline HRESULT AtlGetShellVersion(LPDWORD pdwMajor, LPDWORD pdwMinor)
+{
+	ATLASSERT(pdwMajor != NULL && pdwMinor != NULL);
+	if(pdwMajor == NULL || pdwMinor == NULL)
+		return E_INVALIDARG;
+
+	DLLVERSIONINFO dvi;
+	::ZeroMemory(&dvi, sizeof(dvi));
+	dvi.cbSize = sizeof(dvi);
+	HRESULT hRet = AtlGetDllVersion(_T("shell32.dll"), &dvi);
+
+	if(SUCCEEDED(hRet))
+	{
+		*pdwMajor = dvi.dwMajorVersion;
+		*pdwMinor = dvi.dwMinorVersion;
+	}
+	else if(hRet == E_NOTIMPL)
+	{
+		// If DllGetVersion is not there, then the DLL is a version
+		// previous to the one shipped with IE 4.x
+		*pdwMajor = 4;
+		*pdwMinor = 0;
+		hRet = S_OK;
+	}
+
+	return hRet;
+}
+
+}; // namespace ATL
+
+#endif	// (_ATL_VER >= 0x0B00 Removed)
 
 
 // These are always included

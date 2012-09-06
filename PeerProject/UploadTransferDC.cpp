@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2010-2012
 // Portions copyright Shareaza Development Team, 2010.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -36,9 +36,9 @@
 
 #ifdef _DEBUG
 #undef THIS_FILE
-static char THIS_FILE[]=__FILE__;
+static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 #define FILE_NOT_AVAILABLE	_T("$Error File Not Available|")
 #define UPLOAD_BUSY			_T("$MaxedOut|")
@@ -532,11 +532,11 @@ BOOL CUploadTransferDC::RequestTigerTree(CLibraryFile* pFile, QWORD nOffset, QWO
 		return FALSE;
 	}
 
-	CString sAnswer;
-	sAnswer.Format( _T("$ADCSND tthl TTH/%s %I64u %I64u|"),
+	CString strAnswer;
+	strAnswer.Format( _T("$ADCSND tthl TTH/%s %I64u %I64u|"),
 		m_oTiger.toString(), nOffset, nLength );
 
-	m_pClient->SendCommand( sAnswer );
+	m_pClient->SendCommand( strAnswer );
 
 	m_pClient->Write( pSerialTree + nOffset, nLength );
 
@@ -595,20 +595,20 @@ BOOL CUploadTransferDC::RequestFileList(BOOL bFile, BOOL bZip, const std::string
 
 	if ( m_bGet )
 	{
-		CString sAnswer;
-		sAnswer.Format( _T("$FileLength %I64u|"), nLength );
+		CString strAnswer;
+		strAnswer.Format( _T("$FileLength %I64u|"), nLength );
 
-		m_pClient->SendCommand( sAnswer );
+		m_pClient->SendCommand( strAnswer );
 
 		return TRUE;
 	}
 
-	CString sAnswer;
-	sAnswer.Format( _T("$ADCSND %hs %hs %I64u %I64u%hs|"),
+	CString strAnswer;
+	strAnswer.Format( _T("$ADCSND %hs %hs %I64u %I64u%hs|"),
 		( bFile ? "file" : "list" ), strFilename.c_str(),
 		nOffset, nLength, ( bZip ? " ZL1" : "") );
 
-	m_pClient->SendCommand( sAnswer );
+	m_pClient->SendCommand( strAnswer );
 
 	StartSending( upsBrowse );
 

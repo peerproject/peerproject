@@ -5,7 +5,7 @@
 	<mapping>
 		<network name="ed2k" value="Image"/>
 	</mapping>
-	
+
 	<element name="images">
 		<complexType>
 			<element name="image" type="imageType" minOccurs="1" maxOccurs="unbounded"/>
@@ -61,7 +61,7 @@
 			<attribute name="releasegroup" type="string"/>
 			<attribute name="releasegroupLink" type="uriReference"/>
 			<attribute name="keywords" type="string"/>
-		 	<attribute name="link" type="uriReference"/>
+			<attribute name="link" type="uriReference"/>
 		</all>
 	</complexType>
 

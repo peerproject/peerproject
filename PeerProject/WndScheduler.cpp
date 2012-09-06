@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2010-2012
 // Portions copyright Shareaza Development Team, 2010.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -33,7 +33,7 @@
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 // Set Column Order
 enum {
@@ -497,7 +497,7 @@ void CSchedulerWnd::OnSchedulerRemoveAll()
 {
 	CString strMessage;
 	LoadString( strMessage, IDS_SCHEDULER_REMOVEALL_CONFIRM );
-	if ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
+	if ( MsgBox( strMessage, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
 
 	CQuickLock oLock( Scheduler.m_pSection);
 
@@ -530,7 +530,7 @@ void CSchedulerWnd::OnSchedulerExport()
 
 	if ( ! pFile.Open( dlg.GetPathName(), CFile::modeWrite|CFile::modeCreate ) )
 	{
-		AfxMessageBox( _T("Error: Can not export Scheduler list to file."), MB_ICONSTOP|MB_OK );	// ToDo: Translate?
+		MsgBox( _T("Error: Can not export Scheduler list to file."), MB_ICONSTOP|MB_OK );	// ToDo: Translate?
 		return;
 	}
 
@@ -574,7 +574,7 @@ void CSchedulerWnd::OnSchedulerImport()
 	if ( Scheduler.Import( dlg.GetPathName() ) )
 		Scheduler.Save();
 	else
-		AfxMessageBox( _T("Error: Can not import Scheduler list from file."), MB_ICONSTOP|MB_OK );	// ToDo: Translate?
+		MsgBox( _T("Error: Can not import Scheduler list from file."), MB_ICONSTOP|MB_OK );	// ToDo: Translate?
 }
 
 BOOL CSchedulerWnd::PreTranslateMessage(MSG* pMsg)

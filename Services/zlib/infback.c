@@ -1,5 +1,5 @@
 /* infback.c -- inflate using a call-back interface
- * Copyright (C) 1995-2009 Mark Adler
+ * Copyright (C) 1995-2012 Mark Adler
  * For conditions of distribution and use, see copyright notice in zlib.h
  */
 
@@ -19,8 +19,8 @@
 local void fixedtables OF((struct inflate_state FAR *state));
 
 /*
-   strm provides memory allocation functions in zalloc and zfree, or
-   Z_NULL to use the library memory allocation functions.
+   strm provides memory allocation functions in zalloc and zfree,
+   or Z_NULL to use the library memory allocation functions.
 
    windowBits is in the range 8..15, and window is a user-supplied
    window and output buffer that is 2**windowBits bytes.
@@ -42,10 +42,19 @@ int stream_size;
         return Z_STREAM_ERROR;
     strm->msg = Z_NULL;                 /* in case we return an error */
     if (strm->zalloc == (alloc_func)0) {
+#ifdef Z_SOLO
+        return Z_STREAM_ERROR;
+#else
         strm->zalloc = zcalloc;
         strm->opaque = (voidpf)0;
+#endif
     }
-    if (strm->zfree == (free_func)0) strm->zfree = zcfree;
+    if (strm->zfree == (free_func)0)
+#ifdef Z_SOLO
+        return Z_STREAM_ERROR;
+#else
+    strm->zfree = zcfree;
+#endif
     state = (struct inflate_state FAR *)ZALLOC(strm, 1,
                                                sizeof(struct inflate_state));
     if (state == Z_NULL) return Z_MEM_ERROR;
@@ -168,9 +177,8 @@ struct inflate_state FAR *state;
         bits += 8; \
     } while (0)
 
-/* Assure that there are at least n bits in the bit accumulator.  If there is
-   not enough available input to do that, then return from inflateBack() with
-   an error. */
+/* Assure that there are at least n bits in the bit accumulator.  If there is not enough
+   available input to do that, then return from inflateBack() with an error. */
 #define NEEDBITS(n) \
     do { \
         while (bits < (unsigned)(n)) \
@@ -195,9 +203,8 @@ struct inflate_state FAR *state;
         bits -= bits & 7; \
     } while (0)
 
-/* Assure that some output space is available, by writing out the window
-   if it's full.  If the write fails, return from inflateBack() with a
-   Z_BUF_ERROR. */
+/* Assure that some output space is available, by writing out the window if it's full.
+   If the write fails, return from inflateBack() with a Z_BUF_ERROR. */
 #define ROOM() \
     do { \
         if (left == 0) { \
@@ -394,7 +401,6 @@ void FAR *out_desc;
                     PULLBYTE();
                 }
                 if (here.val < 16) {
-                    NEEDBITS(here.bits);
                     DROPBITS(here.bits);
                     state->lens[state->have++] = here.val;
                 }

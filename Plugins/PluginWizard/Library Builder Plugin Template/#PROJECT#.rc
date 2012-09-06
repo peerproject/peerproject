@@ -19,7 +19,7 @@
 #ifdef _WIN32
 LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
 #pragma code_page(1257)
-#endif //_WIN32
+#endif // _WIN32
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -46,12 +46,12 @@ BEGIN
             VALUE "Comments", "#PROJECTNAME#"
             VALUE "CompanyName", "PeerProject Development Team"
             VALUE "FileDescription", "#PROJECTNAME#"
-            VALUE "FileVersion", "1, 0, 0, 0"
+            VALUE "FileVersion", "1.0.0.0"
             VALUE "InternalName", "#PROJECT#"
             VALUE "LegalCopyright", "#COPYRIGHT#"
             VALUE "OriginalFilename", "#PROJECT#.dll"
             VALUE "ProductName", "PeerProject"
-            VALUE "ProductVersion", "1, 0, 0, 0"
+            VALUE "ProductVersion", "1.0.0.0"
         END
     END
     BLOCK "VarFileInfo"
@@ -85,7 +85,7 @@ IDR_CLASS		REGISTRY		"Class.rgs"
 // String Table
 //
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_PROJNAME	"#PROJECT#"
 END

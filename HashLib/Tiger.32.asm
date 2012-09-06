@@ -1297,7 +1297,7 @@ TIGERKEYSCHEDULE        MACRO
                         LOADX       b_h, b_l, 4
                         XOR64       b_h, b_l, a_h, a_l
                         STOREX      b_h, b_l, 4
-                        
+
 ; x[5] = x[5] + x[4]
                         LOADX       c_h, c_l, 5
                         ADD64       c_h, c_l, b_h, b_l
@@ -1328,7 +1328,7 @@ TIGERKEYSCHEDULE        MACRO
                         LOADX       a_h, a_l, 1
                         SUB64       a_h, a_l, c_h, c_l
                         STOREX      a_h, a_l, 1
-                        
+
 ; x[2] = x[2] ^ x[1]
                         LOADX       b_h, b_l, 2
                         XOR64       b_h, b_l, a_h, a_l
@@ -1362,7 +1362,7 @@ TIGERKEYSCHEDULE        MACRO
                         SUB64MR     _x+7*8, c_h, c_l
 
                         TIGERRESTOREVARS
-                        
+
                         ENDM
 
                         ALIGN       16
@@ -1372,7 +1372,7 @@ TigerTree_Tiger_p5      PROC        PUBLIC  _Data:DWORD, _State:DWORD
                         pusha
 
 __Data                  textequ     <[esp+36+96]>
-__State                 textequ     <[esp+40+96]>                        
+__State                 textequ     <[esp+40+96]>
 _x                      textequ     <esp+32>
 _t                      textequ     <esp+24>
 _aa                     textequ     <esp+16>
@@ -1490,7 +1490,7 @@ TIGERRNDSSE2            MACRO       count:REQ,mulval:REQ
                         shr         reg_temp4, 16
                         pxor        mmx_temp2, qword ptr [T4+reg_temp4*8]
                         psubq       mmx_a, mmx_temp2
-                        
+
                         movd        reg_temp1, mmx_c
                         mov         reg_temp2, reg_temp1
                         and         reg_temp1, 0ff00h

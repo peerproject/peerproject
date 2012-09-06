@@ -1,7 +1,7 @@
 
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TorrentWizard", "TorrentWizardPortable.VS2008.vcproj", "{F02EDE36-E2AC-40E8-B6DC-76B1D53F9A5A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TorrentWizard", "TorrentWizardPortable.vcproj", "{F02EDE36-E2AC-40E8-B6DC-76B1D53F9A5A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

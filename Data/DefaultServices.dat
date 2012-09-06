@@ -2,7 +2,8 @@ M http://gwebcache.ns1.net/
 M http://cachechu.technutopia.com/
 M http://beacon.technutopia.com/gwc.php
 M http://fascination77.free.fr/cachechu/
-M http://www.5s7.com/g12cache/skulls.php
+M http://www.jdgcs.org/Beacon2/gwc.php
+# http://www.5s7.com/g12cache/skulls.php
 # http://aniraws.com/bootstrap/skulls.php
 # http://witch.frodoslair.net/gwc/Beacon2/gwc.php
 # http://cache.leite.us/
@@ -13,11 +14,11 @@ M http://www.5s7.com/g12cache/skulls.php
 2 http://brov.mine.nu/Beacon/gwc.php
 2 http://gwc2.wodi.org/skulls.php
 2 http://gwc.dyndns.info:28960/gwc.php
-2 http://dogma.cloud.bishopston.net:33559/
-2 http://karma.cloud.bishopston.net:33559/
+# http://dogma.cloud.bishopston.net:33559/
+# http://karma.cloud.bishopston.net:33559/
+2 http://htmlhell.com/
 2 http://midian.jayl.de/g2/bazooka.php
 2 http://cache2.bazookanetworks.com/g2/bazooka.php
-2 http://htmlhell.com/
 2 http://cache.wru.pl/skulls.php
 2 http://cache.ce3c.be/
 2 http://cache2.leite.us/
@@ -27,8 +28,9 @@ M http://www.5s7.com/g12cache/skulls.php
 # http://cache.pongwar.com/
 
 1 http://beacon.numberzero.org/gwc.php
-1 http://gwc.dietpac.com:8080/
-1 http://gwc.glucolene.com:8080/
+1 http://skulls.technutopia.com/skulls.php
+# http://gwc.dietpac.com:8080/
+# http://gwc.glucolene.com:8080/
 # http://gwc.ak-electron.eu:12050/
 # http://leet.gtkg.org:8080/gwc/
 # http://ein.gtkg.net:8080/gwc/
@@ -66,7 +68,7 @@ X http://gwc.eod.cc.nyud.net/skulls.php
 # http://gwc.gofoxy.net:2108/gwc/cgi-bin/fc
 
 #
-# Last updated Jan. 2012
+# Last updated Aug. 2012
 #
 # Keep at least four gwebcache links and one link to a .met/hublist file
 # or they'll keep getting added every time they're removed

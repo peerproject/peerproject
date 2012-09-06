@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -60,7 +60,7 @@
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 //#define GROUPSBAR 24	// Settings.Skin.GroupsbarHeight
 
@@ -1340,7 +1340,7 @@ void CDownloadsWnd::OnDownloadsMergeLocal()
 	if ( pDownload->NeedTigerTree() && pDownload->NeedHashset() && ! pDownload->IsTorrent() )
 	{
 		pLock.Unlock();
-		AfxMessageBox( IDS_DOWNLOAD_EDIT_COMPLETE_NOHASH, MB_ICONEXCLAMATION );
+		MsgBox( IDS_DOWNLOAD_EDIT_COMPLETE_NOHASH, MB_ICONEXCLAMATION );
 		return; 	// No hashsets
 	}
 
@@ -1374,19 +1374,19 @@ void CDownloadsWnd::OnDownloadsMergeLocal()
 		if ( ! Downloads.Check( pDownload ) || pDownload->IsTasking() )
 		{
 			pLock.Unlock();
-			AfxMessageBox( IDS_DOWNLOAD_EDIT_ACTIVE_TASK, MB_ICONEXCLAMATION );
+			MsgBox( IDS_DOWNLOAD_EDIT_ACTIVE_TASK, MB_ICONEXCLAMATION );
 			return;
 		}
 
 		CList< CString > oFiles;
-		CString sFolder = (LPCTSTR)szFiles;
+		CString strFolder = (LPCTSTR)szFiles;
 		for ( LPCTSTR szFile = szFiles ; *szFile ; )
 		{
 			szFile += _tcslen( szFile ) + 1;
 			if ( *szFile )	// Folder + files
-				oFiles.AddTail( sFolder + _T("\\") + szFile );
+				oFiles.AddTail( strFolder + _T("\\") + szFile );
 			else	// Single file
-				oFiles.AddTail( sFolder );
+				oFiles.AddTail( strFolder );
 		}
 
 		if ( oFiles.GetCount() )
@@ -1407,7 +1407,7 @@ void CDownloadsWnd::OnDownloadsMergeLocal()
 		if ( ! Downloads.Check( pDownload ) || pDownload->IsTasking() )
 		{
 			pLock.Unlock();
-			AfxMessageBox( IDS_DOWNLOAD_EDIT_ACTIVE_TASK, MB_ICONEXCLAMATION );
+			MsgBox( IDS_DOWNLOAD_EDIT_ACTIVE_TASK, MB_ICONEXCLAMATION );
 			return;
 		}
 
@@ -1969,7 +1969,7 @@ void CDownloadsWnd::OnDownloadsClearCompleted()
 
 void CDownloadsWnd::OnDownloadsClearPaused()
 {
-	if ( AfxMessageBox( IDS_DOWNLOAD_CONFIRM_CLEAR_PAUSED, MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 ) == IDYES )
+	if ( MsgBox( IDS_DOWNLOAD_CONFIRM_CLEAR_PAUSED, MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 ) == IDYES )
 	{
 		Downloads.ClearPaused();
 		Update();

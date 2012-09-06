@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -30,7 +30,7 @@
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 //const static UINT nImageIDs[] =
 //{
@@ -329,7 +329,7 @@ void CSecurityWnd::OnSecurityRemove()
 	if ( m_wndList.GetSelectedCount() < 1 || m_wndList.GetItemCount() <= 1 )
 		return;
 
-	if ( AfxMessageBox( IDS_SECURITY_REMOVE_CONFIRM, MB_ICONQUESTION|MB_YESNO ) != IDYES )
+	if ( MsgBox( IDS_SECURITY_REMOVE_CONFIRM, MB_ICONQUESTION|MB_YESNO ) != IDYES )
 		return;
 
 	for ( int nItem = -1 ; ( nItem = m_wndList.GetNextItem( nItem, LVIS_SELECTED ) ) >= 0 ; )
@@ -416,7 +416,7 @@ void CSecurityWnd::OnSecurityExport()
 
 	if ( ! pFile.Open( dlg.GetPathName(), CFile::modeWrite|CFile::modeCreate ) )
 	{
-		AfxMessageBox( _T("Error") );	// ToDo: Security Export Error
+		MsgBox( _T("Error") );	// ToDo: Security Export Error
 		return;
 	}
 
@@ -487,7 +487,7 @@ void CSecurityWnd::OnSecurityImport()
 	if ( Security.Import( dlg.GetPathName() ) )
 		Security.Save();
 	else
-		AfxMessageBox( _T("Import Failed.") );	// ToDo: Error message, unable to import rules
+		MsgBox( _T("Import Failed.") );	// ToDo: Error message, unable to import rules
 }
 
 void CSecurityWnd::OnUpdateSecurityPolicyAccept(CCmdUI* pCmdUI)

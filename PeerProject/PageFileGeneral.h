@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -23,12 +23,12 @@
 
 class CFileGeneralPage : public CFilePropertiesPage
 {
+	DECLARE_DYNCREATE(CFileGeneralPage)
+
 // Construction
 public:
 	CFileGeneralPage();
 	virtual ~CFileGeneralPage();
-
-	DECLARE_DYNCREATE(CFileGeneralPage)
 
 	enum { IDD = IDD_FILE_GENERAL };
 
@@ -49,9 +49,8 @@ public:
 // Overrides
 public:
 	//{{AFX_VIRTUAL(CFileGeneralPage)
-	public:
 	virtual void OnOK();
-	protected:
+protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
 	//}}AFX_VIRTUAL
 

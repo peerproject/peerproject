@@ -157,11 +157,18 @@ static void InitStackTrace(HWND hwnd)
 	CSymEngine::CStackTraceEntry Entry;
 	if (g_pSymEngine->GetFirstStackTraceEntry(Entry))
 	{
-		DWORD dwWritten;
-		const BYTE arrUnicode[] = { 0xFF, 0xFE };
+		DWORD dwBytesWritten;
+		const BYTE arrUTF8[] = { 0xEF, 0xBB, 0xBF };
+		const int nSize = sizeof(Entry.m_szFunctionInfo) + sizeof(Entry.m_szSourceFile) + sizeof(Entry.m_szLineInfo);
+		TCHAR szLine[ nSize ];
+		char *utf8 = (char *) malloc(nSize * sizeof(TCHAR));
+
+		// Custom output file:
 		HANDLE hFile = CreateFile(_T("StackTrace.txt"), GENERIC_WRITE, 0, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
-		WriteFile(hFile, arrUnicode, sizeof(arrUnicode), &dwWritten, NULL);
-		WriteFile(hFile, _T("Crash Report Stack Trace:\r\n\r\n"), 58, &dwWritten, NULL);
+		WriteFile(hFile, arrUTF8, sizeof(arrUTF8), &dwBytesWritten, NULL);
+
+		DWORD nBytes = WideCharToMultiByte(CP_UTF8, 0, _T("Crash Report Stack Trace:\r\n\r\n"), -1, utf8, 60, NULL, NULL) - 1;
+		WriteFile(hFile, utf8, nBytes, &dwBytesWritten, NULL);
 
 		LVITEM lvi;
 		ZeroMemory(&lvi, sizeof(lvi));
@@ -178,15 +185,17 @@ static void InitStackTrace(HWND hwnd)
 			ListView_SetItemText(hwndStack, iItemPos, CID_WIN32_ENTRY_MODULE, Entry.m_szModule);
 			ListView_SetItemText(hwndStack, iItemPos, CID_WIN32_ENTRY_ADDRESS, Entry.m_szAddress);
 
-			TCHAR szLine[ sizeof(Entry.m_szFunctionInfo) + sizeof(Entry.m_szSourceFile) + sizeof(Entry.m_szLineInfo) ];
 			_stprintf_s(szLine, sizeof(szLine), _T("%s\t\t%s\t\t%s\r\n"), Entry.m_szSourceFile, Entry.m_szLineInfo, Entry.m_szFunctionInfo);
-			WriteFile(hFile, &szLine, (DWORD)_tcslen(szLine) * sizeof(TCHAR), &dwWritten, NULL);
+			nBytes = WideCharToMultiByte(CP_UTF8, 0, szLine, -1, utf8, nSize, NULL, NULL) - 1;
+			WriteFile(hFile, utf8, nBytes, &dwBytesWritten, NULL);
 
 			++iItemPos;
 		}
 		while (g_pSymEngine->GetNextStackTraceEntry(Entry));
 
+		SetEndOfFile(hFile);
 		CloseHandle(hFile);
+		free(utf8);
 		TCHAR szFileName[MAX_PATH];
 		PathCombine(szFileName, g_szInternalReportFolder, _T("StackTrace.txt"));
 		CopyFile(_T("StackTrace.txt"), szFileName, FALSE);

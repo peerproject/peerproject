@@ -15,9 +15,9 @@
 
 #ifdef _DEBUG
 #undef THIS_FILE
-static char THIS_FILE[]=__FILE__;
+static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 CImages Images;
 
@@ -38,8 +38,8 @@ CImages Images;
 
 void CImages::DeleteObjects()
 {
-	if ( m_brDialogControl.m_hObject ) m_brDialogControl.DeleteObject();
-	if ( m_brDialogPanelControl.m_hObject ) m_brDialogPanelControl.DeleteObject();
+	if ( m_brDialog.m_hObject ) m_brDialog.DeleteObject();
+	if ( m_brDialogPanel.m_hObject ) m_brDialogPanel.DeleteObject();
 	if ( m_brMediaControl.m_hObject ) m_brMediaControl.DeleteObject();
 
 	if ( m_bmBanner.m_hObject ) m_bmBanner.DeleteObject();
@@ -47,6 +47,7 @@ void CImages::DeleteObjects()
 	if ( m_bmDialog.m_hObject ) m_bmDialog.DeleteObject();
 	if ( m_bmDialogPanel.m_hObject ) m_bmDialogPanel.DeleteObject();
 	if ( m_bmPanelMark.m_hObject ) m_bmPanelMark.DeleteObject();
+	if ( m_bmMediaStatusBar.m_hObject ) m_bmMediaStatusBar.DeleteObject();
 
 	if ( m_bmSelected.m_hObject ) m_bmSelected.DeleteObject();
 	if ( m_bmSelectedGrey.m_hObject ) m_bmSelectedGrey.DeleteObject();
@@ -128,6 +129,7 @@ void CImages::DeleteObjects()
 	if ( m_bmButtonMapMenubar.m_hObject ) m_bmButtonMapMenubar.DeleteObject();
 	if ( m_bmButtonMapMenutext.m_hObject ) m_bmButtonMapMenutext.DeleteObject();
 	if ( m_bmButtonMapMenuselect.m_hObject ) m_bmButtonMapMenuselect.DeleteObject();
+	if ( m_bmButtonMapSelect.m_hObject ) m_bmButtonMapSelect.DeleteObject();
 	if ( m_bmButtonMapProgressbar.m_hObject ) m_bmButtonMapProgressbar.DeleteObject();
 	if ( m_bmButtonMapDownloadgroup.m_hObject ) m_bmButtonMapDownloadgroup.DeleteObject();
 	if ( m_bmButtonMapTaskbar.m_hObject ) m_bmButtonMapTaskbar.DeleteObject();
@@ -255,35 +257,41 @@ void CImages::Load()
 	// Related brushes:
 	// (Note skinnable dialogs:  Brush applies to opaque text/control bg.  Body in DlgSkinDialog, WndSettingPage, etc.)
 
+	if ( m_bmDialog.m_hObject )
+		m_brDialog.CreatePatternBrush( & m_bmDialog );	// Attach( (HBRUSH)GetStockObject( NULL_BRUSH ) );
+	else
+		m_brDialog.CreateSolidBrush( Colors.m_crDialog );
+
+	if ( m_bmDialogPanel.m_hObject )
+		m_brDialogPanel.CreatePatternBrush( & m_bmDialogPanel );
+	else
+		m_brDialogPanel.CreateSolidBrush( Colors.m_crDialogPanel );
+
 	if ( HBITMAP hControl = Skin.GetWatermark( _T("System.Dialogs.Control") ) )
 	{
 		CBitmap bmControl;
 		bmControl.Attach( hControl );
-		m_brDialogControl.CreatePatternBrush( &bmControl ); 	// Attach( (HBRUSH)GetStockObject( NULL_BRUSH ) ); ?
+		m_brDialog.CreatePatternBrush( &bmControl ); 	// Attach( (HBRUSH)GetStockObject( NULL_BRUSH ) ); ?
 	}
 	else if ( HBITMAP hControl = Skin.GetWatermark( _T("CDialog.Control") ) )
 	{
 		CBitmap bmControl;
 		bmControl.Attach( hControl );
-		m_brDialogControl.CreatePatternBrush( &bmControl );
+		m_brDialog.CreatePatternBrush( &bmControl );
 	}
-	else
-		m_brDialogControl.CreateSolidBrush( Colors.m_crDialog );
 
 	if ( HBITMAP hControl = Skin.GetWatermark( _T("System.DialogPanels.Control") ) )
 	{
 		CBitmap bmControl;
 		bmControl.Attach( hControl );
-		m_brDialogControl.CreatePatternBrush( &bmControl );
+		m_brDialog.CreatePatternBrush( &bmControl );
 	}
 	else if ( HBITMAP hControl = Skin.GetWatermark( _T("CDialog.Panel.Control") ) )
 	{
 		CBitmap bmControl;
 		bmControl.Attach( hControl );
-		m_brDialogPanelControl.CreatePatternBrush( &bmControl );
+		m_brDialogPanel.CreatePatternBrush( &bmControl );
 	}
-	else
-		m_brDialogPanelControl.CreateSolidBrush( Colors.m_crDialogPanel );
 
 	if ( HBITMAP hControl = Skin.GetWatermark( _T("CMediaFrame.Slider") ) )
 	{
@@ -310,6 +318,7 @@ void CImages::Load()
 		m_bmBanner.GetObject( sizeof(BITMAP), &bmInfo );
 		m_bmBanner.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		m_nBanner = bmInfo.bmHeight;
+		Skin.m_nBanner = m_nBanner;
 
 		if ( HBITMAP hEdge = Skin.GetWatermark( _T("System.Header.Edge") ) )
 		{
@@ -325,6 +334,7 @@ void CImages::Load()
 		m_bmBanner.GetObject( sizeof(BITMAP), &bmInfo );
 		m_bmBanner.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		m_nBanner = bmInfo.bmHeight;
+		Skin.m_nBanner = m_nBanner;
 
 		if ( HBITMAP hEdge = Skin.GetWatermark( _T("Banner.Edge") ) )
 		{
@@ -339,6 +349,8 @@ void CImages::Load()
 	else if ( Colors.m_crPanelBack == RGB_DEFAULT_CASE )
 		m_bmPanelMark.LoadBitmap( IDB_PANEL_MARK );				// Special-case default resource handling
 
+	if ( HBITMAP hPanelMark = Skin.GetWatermark( _T("CMediaFrame.StatusBar") ) )
+		m_bmMediaStatusBar.Attach( hPanelMark );
 
 	// Note "System.Toolbars" fallback handled at toolbar creation
 
@@ -1101,6 +1113,25 @@ void CImages::Load()
 			bmInfo.bmWidth > Settings.Skin.ButtonEdge ? Settings.Skin.ButtonEdge : 0, bmInfo.bmHeight / 3 );
 	}
 
+	if ( HBITMAP hButtonMap = Skin.GetWatermark( _T("ButtonMap.Select") ) )
+	{
+		BITMAP bmInfo;
+		PreBlend( hButtonMap );
+		m_bmButtonMapSelect.Attach( hButtonMap );
+		m_bmButtonMapSelect.GetObject( sizeof(BITMAP), &bmInfo );
+		m_bmButtonMapSelect.SetBitmapDimension(
+			bmInfo.bmWidth > Settings.Skin.ButtonEdge ? Settings.Skin.ButtonEdge : 0, bmInfo.bmHeight / 3 );	// 2?
+	}
+	else if ( HBITMAP hButtonMap = Skin.GetWatermark( _T("ButtonMap.Highlight") ) )
+	{
+		BITMAP bmInfo;
+		PreBlend( hButtonMap );
+		m_bmButtonMapSelect.Attach( hButtonMap );
+		m_bmButtonMapSelect.GetObject( sizeof(BITMAP), &bmInfo );
+		m_bmButtonMapSelect.SetBitmapDimension(
+			bmInfo.bmWidth > Settings.Skin.ButtonEdge ? Settings.Skin.ButtonEdge : 0, bmInfo.bmHeight / 3 );	// 2?
+	}
+
 	if ( HBITMAP hButtonMap = Skin.GetWatermark( _T("ButtonMap.ProgressBar") ) )
 	{
 		BITMAP bmInfo;
@@ -1171,7 +1202,7 @@ BOOL CImages::DrawIconButton(CDC* pDC, CRect rc, CBitmap* bmButton)
 	CSize szButton( bmButton->GetBitmapDimension() );
 	if ( szButton.cx > 16 && szButton.cy > 16 && szButton.cx < rc.Width() + 2 && szButton.cy < rc.Height() + 2 )
 	{
-		if ( ! Skin.m_bmDialog.m_hObject )
+		if ( ! m_bmDialog.m_hObject )
 			pDC->FillSolidRect( &rc, pDC->GetBkColor() );
 
 		// Set button rect to centered image size
@@ -1355,7 +1386,7 @@ BOOL CImages::DrawButtonState(CDC* pDC, const CRect rc, const int nResource)
 
 	// Abstracted pass-through for convenience/consistency elsewhere:
 
-	switch( nResource )
+	switch ( nResource )
 	{
 	case IMAGE_BANNER:
 		if ( m_nBanner < 2 ) return FALSE;
@@ -1370,7 +1401,11 @@ BOOL CImages::DrawButtonState(CDC* pDC, const CRect rc, const int nResource)
 		return DrawButton( pDC, rc, &m_bmToolTip );		// ToDo: &m_bmToolTipEdge?
 
 	case IMAGE_SELECTED:	// + IMAGE_HIGHLIGHT
-		return DrawButton( pDC, rc, &m_bmSelected );	// ToDo: &m_bmSelectedEdge?
+		return DrawButton( pDC, rc, &m_bmSelected ) ||	// ToDo: &m_bmSelectedEdge?
+			DrawButtonMap( pDC, rc, &m_bmButtonMapSelect, STATE_DEFAULT, TRUE );
+	case IMAGE_SELECTEDGREY:
+		return DrawButton( pDC, rc, &m_bmSelectedGrey ) ||
+			DrawButtonMap( pDC, rc, &m_bmButtonMapSelect, STATE_DEFAULT+1, TRUE );
 	case IMAGE_MENUSELECTED:
 		return DrawButton( pDC, rc, &m_bmMenuSelected, &m_bmMenuSelectedEdge, TRUE ) ||
 			DrawButtonMap( pDC, rc, &m_bmButtonMapMenuselect, STATE_HOVER, TRUE );

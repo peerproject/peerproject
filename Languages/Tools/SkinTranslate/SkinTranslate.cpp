@@ -328,10 +328,9 @@ bool CXMLLoader::SaveXML(LPCTSTR szFilename) const
 	if ( SUCCEEDED( m_pXMLDoc->save( CComVariant( szFilename ) ) ) )
 		return true;
 	else
-	{
 		_tprintf( _T("ERROR: Can't save .xml-file: %s\n"), szFilename );
-		return false;
-	}
+
+	return false;
 }
 
 bool CXMLLoader::SavePO(LPCTSTR szFilename) const
@@ -1554,7 +1553,7 @@ int _tmain(int argc, _TCHAR* argv[])
 			CXMLLoader oTemplate;
 			CXMLLoader oTranslated;
 
-			if ( bPoMode )		// Load translated text as XML			
+			if ( bPoMode )		// Load translated text as XML
 				bResult = oTranslated.LoadXML( sFile );
 			else if ( bXMLMode )	// Load translated text as PO
 				bResult = oTranslated.LoadPO( sFile );

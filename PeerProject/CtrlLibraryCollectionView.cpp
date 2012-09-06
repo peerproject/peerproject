@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -40,9 +40,9 @@
 
 #ifdef _DEBUG
 #undef THIS_FILE
-static char THIS_FILE[]=__FILE__;
+static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 IMPLEMENT_DYNAMIC(CLibraryCollectionView, CLibraryFileView)
 
@@ -309,7 +309,7 @@ STDMETHODIMP CHtmlCollection::XView::get_Application(IApplication **ppApplicatio
 	CLibraryCollectionView* pView = pThis->m_pView;
 
 	if ( pView->m_bTrusted == TRI_UNKNOWN )
-		pView->m_bTrusted = ( AfxMessageBox( /*IDS_LIBRARY_COLLECTION_ACCESS*/_T("The collection has requested script access to the application. \nAllow this access?"), MB_ICONEXCLAMATION | MB_YESNO ) == IDYES ) ? TRI_TRUE : TRI_FALSE;
+		pView->m_bTrusted = ( MsgBox( /*IDS_LIBRARY_COLLECTION_ACCESS*/_T("The collection has requested script access to the application. \nAllow this access?"), MB_ICONEXCLAMATION | MB_YESNO ) == IDYES ) ? TRI_TRUE : TRI_FALSE;
 
 	return ( pView->m_bTrusted == TRI_TRUE ) ? CApplication::GetApp( ppApplication ) : E_ACCESSDENIED;
 }
@@ -477,7 +477,7 @@ STDMETHODIMP CHtmlCollection::XView::DownloadAll()
 	if ( pView->m_bLockdown )
 		return S_OK;
 
-	INT_PTR nResponse = AfxMessageBox( IDS_LIBRARY_COLLECTION_DOWNLOAD_ALL, MB_ICONQUESTION|MB_YESNOCANCEL );
+	INT_PTR nResponse = MsgBox( IDS_LIBRARY_COLLECTION_DOWNLOAD_ALL, MB_ICONQUESTION|MB_YESNOCANCEL );
 
 	if ( nResponse == IDYES )
 	{
@@ -485,7 +485,7 @@ STDMETHODIMP CHtmlCollection::XView::DownloadAll()
 	}
 	else if ( nResponse == IDCANCEL )
 	{
-		if ( AfxMessageBox( IDS_LIBRARY_COLLECTION_LOCKDOWN, MB_YESNO|MB_DEFBUTTON2|MB_ICONEXCLAMATION ) == IDYES )
+		if ( MsgBox( IDS_LIBRARY_COLLECTION_LOCKDOWN, MB_YESNO|MB_DEFBUTTON2|MB_ICONEXCLAMATION ) == IDYES )
 			pView->m_bLockdown = TRUE;
 	}
 	return S_OK;

@@ -43,7 +43,8 @@ int main(int argc, char *argv[])
 #endif
 
 #if defined(_WIN_ALL) && !defined(SFX_MODULE) && !defined(SHELL_EXT)
-  bool ShutdownOnClose;
+  // Must be initialized, normal initialization can be skipped in case of exception.
+  bool ShutdownOnClose=false;
 #endif
 
 #ifdef ALLOW_EXCEPTIONS
@@ -78,7 +79,7 @@ int main(int argc, char *argv[])
           Cmd.Command[0]=UpperCmd;
           break;
         case '?':
-          Cmd.OutHelp();
+          Cmd.OutHelp(RARX_SUCCESS);
           break;
       }
     }
@@ -107,19 +108,20 @@ int main(int argc, char *argv[])
     Cmd.ProcessCommand();
   }
 #ifdef ALLOW_EXCEPTIONS
-  catch (int ErrCode)
+  catch (RAR_EXIT ErrCode)
   {
     ErrHandler.SetErrorCode(ErrCode);
   }
 #ifdef ENABLE_BAD_ALLOC
-  catch (bad_alloc)
+  catch (std::bad_alloc)
   {
-    ErrHandler.SetErrorCode(MEMORY_ERROR);
+    ErrHandler.MemoryErrorMsg();
+    ErrHandler.SetErrorCode(RARX_MEMORY);
   }
 #endif
   catch (...)
   {
-    ErrHandler.SetErrorCode(FATAL_ERROR);
+    ErrHandler.SetErrorCode(RARX_FATAL);
   }
 #endif
 

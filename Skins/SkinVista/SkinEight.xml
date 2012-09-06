@@ -9,6 +9,7 @@
  link="http://PeerProject.org"
  email="Contact(at)PeerProject.org"
  license="Persistent Public Domain (PPD)"
+ dependencies="SkinEightFrames.xml, SkinEightRemote.xml"
  platform="PeerProject 1.0"
  path="SkinVista"
  version="1.0"
@@ -39,7 +40,7 @@
  <!--option name="Sidebar" value="200"-->
  <!--option name="SidebarPadding" value="12"-->
  <!--option name="Splitter" value="6"-->
- <option name="RoundedSelect" value="true"/>
+ <option name="RoundedSelect" value="false"/>
 </options>
 
 <colors>
@@ -51,7 +52,7 @@
  <color name="System.Base.Midtone"			value="F9F8F6"/>  <!--toolbars-->
  <color name="System.Base.Text" 			value="1A100A"/>
  <color name="System.Base.HiText" 			value="000000"/>
- <color name="System.Base.HiBorder"			value="90B8E6"/>
+ <color name="System.Base.HiBorder"			value="66A8E8"/>
  <!--color name="System.Base.HiBorderIn"		value="E2EEFB"-->
  <color name="System.Base.Highlight"			value="DFEDFE"/>
  <color name="System.Back.Checked"			value="F8F6F4"/>
@@ -167,23 +168,23 @@
 </colors>
 
 <images>  <!--watermarks-->
- <image target="CCoolMenu"				path="Seven\MenuBkg.png"/>
+ <image target="CCoolMenu"				path="Eight\MenuBkg.png"/>
  <!--image target="CCoolMenu.Hover"			path="Seven\MenuHover.png"-->
  <!--image target="CCoolMenu.Hover.Edge"		path="Seven\MenuHoverEdge.png"-->
  <!--image target="CCoolMenu.Disabled"			path="Seven\MenuHoverDisabled.png"-->
  <!--image target="CCoolMenu.Disabled.Edge"		path="Seven\MenuHoverDisabledEdge.png"-->
- <image target="CCoolMenuBar"				path="Eight\RibbonMenubar.png"/>
- <image target="CWndTabBar"				path="Eight\RibbonTaskbar.png"/>
- <image target="CMonitorBar"				path="Eight\RibbonMonitorBkg.png"/>
+ <image target="CCoolMenuBar"				path="EightAlt\RibbonMenubar.png"/>
+ <image target="CWndTabBar"				path="EightAlt\RibbonTaskbar.png"/>
+ <image target="CMonitorBar"				path="EightAlt\RibbonMonitorBkg.png"/>
  <image target="CHashProgressBar"			path="Eight\HashWnd.png"/>
- <image target="CMainWnd"				path="Eight\RibbonTabsBkg.png"/>
- <image target="CMainWnd.Toolbar"			path="Eight\RibbonTabsBkg.png"/>
+ <image target="CMainWnd"				path="EightAlt\RibbonTabsBkg.png"/>
+ <image target="CMainWnd.Toolbar"			path="EightAlt\RibbonTabsBkg.png"/>
  <image target="CMediaFrame.Toolbar"			path="Mediabar.png"/>
- <!--image target="CMediaList.Toolbar"			path="ToolbarLt.png"-->
+ <!--image target="CMediaList.Toolbar"			path="Toolbar.png"-->
  <image target="CDownloadTabBar"			path="DownloadgroupsToolbar.png"/>
- <image target="CDownloadsWnd.Toolbar"			path="ToolbarLt.png"/>
+ <!--image target="CDownloadsWnd.Toolbar"		path="ToolbarLt.png"/>
  <!--image target="CUploadsWnd.Toolbar" 		path="Toolbar.png"-->
- <!--image target="CPrivateChatWnd.Toolbar"		path="ToolbarLt.png"-->
+ <!--image target="CPrivateChatWnd.Toolbar"		path="Toolbar.png"-->
  <!--image target="CBrowseHostWnd.Toolbar"		path="Toolbar.png"-->
  <!--image target="CBrowseTree.Top.Toolbar" 		path="Toolbar.png"-->
  <!--image target="CLibraryTree.Top.Toolbar"		path="Toolbar.png"-->
@@ -203,32 +204,32 @@
  <!--image target="CHitMonitorWnd.Toolbar"		path="Toolbar.png"-->
  <!--image target="CSchedulerWnd.Toolbar"		path="Toolbar.png"-->
  <!--image target="CSecurityWnd.Toolbar"		path="Toolbar.png"-->
- <image target="ImageViewerWnd.Toolbar" 		path="Toolbar.png"/>
- <image target="CNeighboursWnd.Toolbar" 		path="ToolbarLt.png"/>
- <image target="CSearchWnd.Panel.Toolbar"		path="Toolbar.png"/>
- <image target="CSearchWnd.Full.Toolbar"		path="ToolbarLt.png"/>
- <image target="CSearchPanel"				path="Eight\Sidebar.png"/>
+ <!--image target="ImageViewerWnd.Toolbar" 		path="Toolbar.png"-->
+ <!--image target="CNeighboursWnd.Toolbar" 		path="ToolbarLt.png"-->
+ <!--image target="CSearchWnd.Panel.Toolbar"		path="Toolbar.png"-->
+ <!--image target="CSearchWnd.Full.Toolbar"		path="Toolbar.png"-->
+ <image target="CSearchPanel"				path="EightAlt\Sidebar.png"/>
  <!--image target="CSearchPanel.Footer" 		path="Seven\SidebarFooter.jpg"-->
- <image target="CHomePanel" 				path="Eight\Sidebar.png"/>
+ <image target="CHomePanel" 				path="EightAlt\Sidebar.png"/>
  <!--image target="CHomePanel.Footer"			path="Seven\SidebarFooter.jpg"-->
- <image target="CIRCPanel"				path="Eight\Sidebar.png"/>
+ <image target="CIRCPanel"				path="EightAlt\Sidebar.png"/>
  <!--image target="CIRCPanel.Footer" 			path="Seven\SidebarFooter.jpg"-->
  <image target="CIRCWaterMarkPanel" 			path="Seven\MenuBkg.png"/>
  <image target="CIRCHeaderPanel"			path="BrowseBanner.png"/>
  <image target="CLibraryHeaderPanel"			path="BrowseBanner.png"/>
  <image target="CBrowseHeaderCtrl.Toolbar"		path="BrowseBanner.png"/>
  <!--image target="CPanelWnd.Caption"			path="Footer.png"-->
- <image target="CTaskBox.Caption"			path="Eight\SidebarCaption.png"/>
- <!--image target="CIRCUsersBox.Caption"		path="Eight\SidebarCaption.png"-->
- <!--image target="CIRCChannelsBox.Caption"		path="Eight\SidebarCaption.png"-->
- <!--image target="CHomeConnectionBox.Caption"		path="Eight\SidebarCaption.png"-->
- <!--image target="CHomeLibraryBox.Caption"		path="Eight\SidebarCaption.png"-->
- <!--image target="CHomeDownloadsBox.Caption"		path="Eight\SidebarCaption.png"-->
- <!--image target="CHomeUploadsBox.Caption"		path="Eight\SidebarCaption.png"-->
- <!--image target="CSearchInputBox.Caption"		path="Eight\SidebarCaption.png"-->
- <!--image target="CSearchAdvancedBox.Caption"		path="Eight\SidebarCaption.png"-->
- <!--image target="CSearchSchemaBox.Caption"		path="Eight\SidebarCaption.png"-->
- <!--image target="CSearchResultsBox.Caption"		path="Eight\SidebarCaption.png"-->
+ <image target="CTaskBox.Caption"			path="EightAlt\SidebarCaption.png"/>
+ <!--image target="CIRCUsersBox.Caption"		path="EightAlt\SidebarCaption.png"-->
+ <!--image target="CIRCChannelsBox.Caption"		path="EightAlt\SidebarCaption.png"-->
+ <!--image target="CHomeConnectionBox.Caption"		path="EightAlt\SidebarCaption.png"-->
+ <!--image target="CHomeLibraryBox.Caption"		path="EightAlt\SidebarCaption.png"-->
+ <!--image target="CHomeDownloadsBox.Caption"		path="EightAlt\SidebarCaption.png"-->
+ <!--image target="CHomeUploadsBox.Caption"		path="EightAlt\SidebarCaption.png"-->
+ <!--image target="CSearchInputBox.Caption"		path="EightAlt\SidebarCaption.png"-->
+ <!--image target="CSearchAdvancedBox.Caption"		path="EightAlt\SidebarCaption.png"-->
+ <!--image target="CSearchSchemaBox.Caption"		path="EightAlt\SidebarCaption.png"-->
+ <!--image target="CSearchResultsBox.Caption"		path="EightAlt\SidebarCaption.png"-->
  <!--image target="CSearchResultsBox"			path="Seven\SideBlock.png"/>
  <!--image target="CSearchInputBox"			path="Seven\SideBlock.png"-->
  <!--image target="CSearchAdvancedBox"			path="Seven\SideBlock.png"-->
@@ -242,19 +243,19 @@
  <image target="CDialog"				path="Dialog.png"/> <!--settings bg-->
  <image target="CMediaList"				path="Playlist.png"/>
  <image target="CMediaList.Header"			path="PlaylistHeader.png"/>
- <!--image target="CMediaFrame.StatusBar"		path="MediaStatus.png"--> <!--note: causes flickering-->
+ <!--image target="CMediaFrame.StatusBar"		path="PlaylistHeader.png"-->
  <!--image target="CHomeViewCtrl.Header"		path="###.png"--> <!--hometab logo-->
  <!--image target="CHomeViewCtrl.HeaderRepeat"		path="###.png"--> <!--hometab repeat-->
  <!--image target="LargeLogo"				path="###.png"--> <!--mediaplayer-->
 
- <!--image target="CWndTabBar.Active"			path="Eight\RibbonTaskbarTabActive.png"-->
- <!--image target="CWndTabBar.Hover"			path="Eight\RibbonTaskbarTabActive.png"-->
- <!--image target="CWndTabBar.Active.Hover"		path="Eight\RibbonTaskbarTabAlt.png"-->
- <!--image target="CWndTabBar.Tab"			path="Eight\RibbonTaskbarTab.png"-->
- <!--image target="CWndTabBar.Edge"			path="Eight\RibbonTaskbarTabEdge.png"-->
- <!--image target="CWndTabBar.Active.Edge"		path="Eight\RibbonTaskbarTabActiveEdge.png"-->
- <!--image target="CWndTabBar.Hover.Edge"		path="Eight\RibbonTaskbarTabActiveEdge.png"-->
- <!--image target="CWndTabBar.Active.Hover.Edge" 	path="Eight\RibbonTaskbarTabActiveEdge.png"-->
+ <!--image target="CWndTabBar.Active"			path="EightAlt\RibbonTaskbarTabActive.png"-->
+ <!--image target="CWndTabBar.Hover"			path="EightAlt\RibbonTaskbarTabActive.png"-->
+ <!--image target="CWndTabBar.Active.Hover"		path="EightAlt\RibbonTaskbarTabAlt.png"-->
+ <!--image target="CWndTabBar.Tab"			path="EightAlt\RibbonTaskbarTab.png"-->
+ <!--image target="CWndTabBar.Edge"			path="EightAlt\RibbonTaskbarTabEdge.png"-->
+ <!--image target="CWndTabBar.Active.Edge"		path="EightAlt\RibbonTaskbarTabActiveEdge.png"-->
+ <!--image target="CWndTabBar.Hover.Edge"		path="EightAlt\RibbonTaskbarTabActiveEdge.png"-->
+ <!--image target="CWndTabBar.Active.Hover.Edge" 	path="EightAlt\RibbonTaskbarTabActiveEdge.png"-->
  <!--image target="CDownloadTabBar.Active"		path="DownloadgroupsHover.png"-->
  <!--image target="CDownloadTabBar.Hover" 		path="DownloadgroupsHover.png"-->
  <!--image target="CDownloadTabBar.Active.Hover" 	path="DownloadgroupsActive.png"-->
@@ -267,7 +268,7 @@
  <image target="CCoolMenuBar.Down"			path="Seven\MenuButtonState.png"/>
  <image target="CCoolMenuBar.Checked"			path="Seven\MenuButtonState.png"/>
  <image target="CCoolbar.Control"			path="MediaSlider.png"/>
- <image target="CCoolbar.Separator"			path="ToolbarSeparator.png"/>
+ <image target="CCoolbar.Separator"			path="Eight\ToolbarSeparator.png"/>
 
  <!--image target="CCoolbar.Disabled"			path="ToolbarButtonHover.png"-->
  <!--image target="CCoolbar.Up" 			path="ToolbarButtonHover.png"-->
@@ -290,192 +291,38 @@
  <!--image target="IconButton.Press"			path="Buttons\IconButtonPress.png"-->
  <!--image target="IconButton.Disabled" 		path="Buttons\IconButtonDisabled.png"-->
 
- <image target="ButtonMap.Iconbox"			path="ButtonmapIconbox.png"/>
- <image target="ButtonMap.Richdoc"			path="ButtonmapRichdoc.png"/>
- <image target="ButtonMap.Toolbar"			path="ButtonmapToolbar.png"/>
- <image target="ButtonMap.Taskbar"			path="Eight\ButtonmapTaskbar.png"/>
+ <image target="ButtonMap.Iconbox"			path="Eight\ButtonmapIconbox.png"/>
+ <image target="ButtonMap.Richdoc"			path="Eight\ButtonmapRichdoc.png"/>
+ <image target="ButtonMap.Toolbar"			path="Eight\ButtonmapToolbar.png"/>
+ <image target="ButtonMap.Taskbar"			path="EightAlt\ButtonmapTaskbar.png"/>
  <image target="ButtonMap.DownloadGroup" 		path="ButtonmapGroupsbar.png"/>
  <!--image target="ButtonMap.Menubar" 			path="ButtonmapMenuBar.png"-->
  <image target="ButtonMap.MenuText"			path="ButtonmapMenuText.png"/>
- <image target="ButtonMap.MenuSelect"			path="ButtonmapMenuSelect.png"/>
+ <image target="ButtonMap.MenuSelect"			path="Eight\ButtonmapMenuSelect.png"/>
+ <!--image target="ButtonMap.Select"			path="ButtonmapSelect.png"--> <!--highlight/inactive-->
 
- <!--image target="CTranfers.Selected"			path="Highlight.png"-->
- <!--image target="CTranfers.Selected.Inactive"		path="HighlightGrey.png"-->
- <image target="System.Highlight"			path="Highlight.png"/>
- <image target="System.Highlight.Inactive"		path="HighlightGrey.png"/>
+ <!--image target="CTranfers.Selected"			path="Eight\Highlight.png"-->
+ <!--image target="CTranfers.Selected.Inactive"		path="Eight\HighlightGrey.png"-->
+ <image target="System.Highlight"			path="Eight\Highlight.png"/>
+ <image target="System.Highlight.Inactive"		path="Eight\HighlightGrey.png"/>
  <image target="System.Progress"			path="Progress.png"/>
  <image target="System.Progress.Edge"			path="ProgressEdge.png"/>
  <image target="System.Progress.None"			path="ProgressNone.png"/>
  <image target="System.Progress.Shaded" 		path="ProgressNone.png"/>
- <image target="System.Tooltips"			path="ToolTip.png"/>
- <image target="System.Toolbars"			path="Toolbar.png"/>
+ <image target="System.Tooltips"			path="Eight\ToolTip.png"/>
+ <image target="System.Toolbars"			path="Eight\Toolbar.png"/>
 </images>
 
 <windowskins>
 
-<!-- Main Window -->
-
-<windowskin>
-<image path="FrameEight.png"/>
-<target window="CMainWnd"/>
-<parts>
- <part name="TopLeft"		rect="0,31,140,30"/>
- <part name="Top"		rect="140,31,40,30"/>
- <part name="TopRight"		rect="180,31,120,30"/>
- <part name="LeftTop"		rect="0,61,5,10"/>
- <part name="Left"		rect="0,100,5,40" mode="stretch"/>
- <part name="LeftBottom"	rect="0,140,5,35"/>
- <part name="RightTop"		rect="295,61,5,20"/>
- <part name="Right"		rect="295,100,5,40" mode="stretch"/>
- <part name="RightBottom"	rect="295,140,5,35"/>
- <part name="BottomLeft"	rect="0,195,40,5"/>
- <part name="Bottom"		rect="100,195,40,5" mode="stretch"/>
- <part name="BottomRight"	rect="260,195,40,5"/>
- <part name="TopLeftAlt" 	rect="0,0,140,30"/>
- <part name="TopAlt"		rect="140,0,40,30"/>
- <part name="TopRightAlt"	rect="180,0,120,30"/>
- <part name="LeftTopAlt"	rect="14,175,5,6"/>
- <part name="LeftAlt"		rect="14,175,5,6"/>
- <part name="LeftBottomAlt"	rect="14,175,5,6"/>
- <part name="RightTopAlt"	rect="281,175,5,6"/>
- <part name="RightAlt"		rect="281,175,5,6"/>
- <part name="RightBottomAlt"	rect="281,175,5,6"/>
- <part name="BottomLeftAlt"	rect="14,181,40,5"/>
- <part name="BottomAlt"		rect="100,181,40,5"/>
- <part name="BottomRightAlt"	rect="246,181,40,5"/>
- <part name="MinimiseHover"	rect="178,120,29,20"/>
- <part name="MinimiseDown"	rect="178,150,29,20"/>
- <part name="MaximiseHover"	rect="207,120,27,20"/>
- <part name="MaximiseDown"	rect="207,150,27,20"/>
- <part name="CloseHover"	rect="234,120,47,20"/>
- <part name="CloseDown" 	rect="234,150,47,20"/>
- <part name="MenuHover" 	rect="5,33,21,22"/>
- <part name="MenuDown"  	rect="5,2,21,22"/>
-</parts>
-<anchors>
- <!--anchor name="System"	rect="5,3,21,20"-->
- <anchor name="Menu"		rect="5,2,21,22"/>
- <anchor name="Minimise"	rect="-109,3,29,20"/>
- <anchor name="Maximise"	rect="-80,3,27,20"/>
- <anchor name="Close"		rect="-53,3,47,20"/>
-</anchors>
-<region>
- <shape type="rectangle"	rect="0,2,-1,-1"/>
- <shape type="rectangle"	rect="5,1,26,2" combine="or"/>
-</region>
-<!--maximiseCrop rect="0,0,0,0"-->
-<minimumSize width="700" height="260"/>
-</windowskin>
-
-<!-- Settings Window / Dialogs -->
-
-<windowskin>
-<image path="FrameEight.png"/>
-<target window="CDialog"/>
-<parts>
- <part name="TopLeft"		rect="7,90,50,26"/>
- <part name="Top"		rect="55,90,5,26"/>
- <part name="TopRight"		rect="132,90,40,26"/>
- <part name="TopLeftAlt"	rect="7,62,50,26"/>
- <part name="TopAlt"		rect="55,62,5,26"/>
- <part name="TopRightAlt"	rect="132,62,40,26"/>
- <part name="LeftTop"		rect="7,116,5,20"/>
- <part name="Left"		rect="7,140,5,40"/>
- <part name="RightTop"		rect="288,130,5,20"/>
- <part name="Right"		rect="288,160,5,20"/>
- <part name="BottomLeft"	rect="7,188,40,5"/>
- <part name="Bottom"		rect="220,188,20,5"/>
- <part name="BottomRight"	rect="273,188,20,5"/>
- <part name="CloseHover"	rect="138,120,29,20"/>
- <part name="CloseDown" 	rect="138,150,29,20"/>
-</parts>
-<anchors>
- <anchor name="Close"		rect="-34,1,29,20"/>
- <anchor name="Icon"		rect="6,5,16,16"/>
-</anchors>
-<region>
- <shape type="rectangle"	rect="0,0,-1,-1"/>
-</region>
-<caption align="left" rect="26,1,260,24" fontFace="Segoe UI" fontSize="12" fontWeight="Normal" color="000000" outlinecolor="D0D0D0" inactivecolor="606060"/>
-</windowskin>
-
-<!-- Download Monitor Window -->
-
-<windowskin>
-<image path="FrameEight.png"/>
-<target window="CDownloadMonitorDlg"/>
-<parts>
- <part name="TopLeft"		rect="7,90,50,26"/>
- <part name="Top"		rect="55,90,5,26"/>
- <part name="TopRight"		rect="60,90,66,26"/>
- <part name="TopLeftAlt"	rect="7,62,50,26"/>
- <part name="TopAlt"		rect="55,62,5,26"/>
- <part name="TopRightAlt"	rect="60,62,66,26"/>
- <part name="LeftTop"		rect="7,116,5,20"/>
- <part name="Left"		rect="7,140,5,40"/>
- <part name="RightTop"		rect="288,130,5,20"/>
- <part name="Right"		rect="288,160,5,20"/>
- <part name="BottomLeft"	rect="7,188,20,5"/>
- <part name="Bottom"		rect="120,188,20,5"/>
- <part name="BottomRight"	rect="273,188,20,5"/>
- <part name="MinimiseHover"	rect="18,120,29,20"/>
- <part name="MinimiseDown"	rect="18,150,29,20"/>
- <part name="CloseHover"	rect="138,120,29,20"/>
- <part name="CloseDown" 	rect="138,150,29,20"/>
-</parts>
-<anchors>
- <anchor name="Icon"		rect="6,5,16,16"/>
- <anchor name="Minimise"	rect="-62,1,29,20"/>
- <anchor name="Close"		rect="-34,1,29,20"/>
-</anchors>
-<region>
- <shape type="rectangle"	rect="0,0,-1,-1"/>
-</region>
-<caption align="left" rect="26,1,314,24" fontFace="Segoe UI" fontSize="12" fontWeight="Normal" color="000000" outlinecolor="D0D0D0" inactivecolor="707070"/>
-</windowskin>
-
-<!-- Floating windows -->
-
-<windowskin>
-<image path="FrameEight.png"/>
-<target window="CChildWnd"/>
-<parts>
- <part name="TopLeft"		rect="7,62,50,26"/>
- <part name="Top"		rect="55,62,5,26"/>
- <part name="TopRight"		rect="181,62,112,26"/>
- <part name="TopRightAlt"	rect="181,90,112,26"/>
- <part name="LeftTop"		rect="7,116,5,20"/>
- <part name="Left"		rect="7,140,5,40" mode="stretch"/>
- <part name="RightTop"		rect="288,130,5,20"/>
- <part name="Right"		rect="288,160,5,20" mode="stretch"/>
- <part name="BottomLeft"	rect="7,188,40,5"/>
- <part name="Bottom"		rect="120,188,20,5" mode="stretch"/>
- <part name="BottomRight"	rect="273,188,20,5"/>
- <part name="MinimiseHover"	rect="18,120,29,20"/>
- <part name="MinimiseDown"	rect="18,150,29,20"/>
- <part name="MaximiseHover"	rect="47,120,27,20"/>
- <part name="MaximiseDown"	rect="47,150,27,20"/>
- <part name="CloseHover"	rect="74,120,47,20"/>
- <part name="CloseDown" 	rect="74,150,47,20"/>
-</parts>
-<anchors>
- <anchor name="Icon"		rect="6,5,16,16"/>
- <anchor name="Minimise"	rect="-108,1,29,20"/>
- <anchor name="Maximise"	rect="-79,1,27,20"/>
- <anchor name="Close"		rect="-52,1,47,20"/>
-</anchors>
-<region>
- <shape type="rectangle"	rect="0,0,-1,-1"/>
-</region>
-<caption align="left" rect="26,1,-110,24" fontFace="Segoe UI" fontSize="12" fontWeight="Normal" color="000000" outlinecolor="D0D0D0" inactivecolor="707070"/>
-</windowskin>
+<!-- Use SkinEightMetroFrames.xml -->
 
 <!-- PANEL HEADERS -->
 
 <!-- HOME HEADER -->
 
 <windowskin>
-<image path="Seven\Header.png"/>
+<image path="Eight\Header.png"/>
 <target window="CHomeWnd.Panel"/>
 <target window="CIRCWnd.Panel"/>
 <parts>
@@ -489,7 +336,7 @@
 <!-- SEARCH HEADER -->
 
 <windowskin>
-<image path="Seven\Header.png"/>
+<image path="Eight\Header.png"/>
 <target window="CSearchWnd.Panel"/>
 <parts>
  <part name="TopLeft"		rect="56,1,120,25"/>
@@ -508,7 +355,7 @@
 <!-- TRANSFER DOWNLOADS HEADER -->
 
 <windowskin>
-<image path="Seven\Header.png"/>
+<image path="Eight\Header.png"/>
 <target window="CDownloadsWnd.Panel"/>
 <parts>
  <part name="TopLeft"		rect="0,1,90,25"/>
@@ -521,7 +368,7 @@
 <!-- TRANSFER UPLOADS HEADER -->
 
 <windowskin>
-<image path="Seven\Header.png"/>
+<image path="Eight\Header.png"/>
 <target window="CUploadsWnd.Panel"/>
 <parts>
  <part name="TopLeft"		rect="0,0,74,25"/>
@@ -534,7 +381,7 @@
 <!-- NETWORK NEIGHBORS HEADER -->
 
 <windowskin>
-<image path="Seven\Header.png"/>
+<image path="Eight\Header.png"/>
 <target window="CNeighboursWnd.Panel"/>
 <parts>
  <part name="TopLeft"		rect="0,1,86,25"/>
@@ -547,7 +394,7 @@
 <!-- NETOWRK SYSTEM HEADER -->
 
 <windowskin>
-<image path="Seven\Header.png"/>
+<image path="Eight\Header.png"/>
 <target window="CSystemWnd.Panel"/>
 <parts>
  <part name="TopLeft"		rect="0,0,66,25"/>
@@ -560,7 +407,7 @@
 <!-- LIBRARY HEADER -->
 
 <windowskin>
-<image path="Seven\Header.png"/>
+<image path="Eight\Header.png"/>
 <target window="CLibraryWnd.Panel"/>
 <parts>
  <part name="TopLeft"		rect="0,1,64,25"/>
@@ -573,7 +420,7 @@
 <!-- MEDIA PLAYER HEADER -->
 
 <windowskin>
-<image path="Seven\Header.png"/>
+<image path="Eight\Header.png"/>
 <target window="CMediaWnd.Panel"/>
 <parts>
  <part name="TopLeft"		rect="0,1,100,25"/>
@@ -592,7 +439,7 @@
 <!-- SECURITY/SCHEDULER HEADER -->
 
 <windowskin>
-<image path="Seven\Header.png"/>
+<image path="Eight\Header.png"/>
 <target window="CSecurityWnd.Panel"/>
 <target window="CSchedulerWnd.Panel"/>
 <parts>
@@ -612,7 +459,7 @@
 <!-- Other Panel Headers -->
 
 <windowskin>
-<image path="Seven\Header.png"/>
+<image path="Eight\Header.png"/>
 <target window="CHostCacheWnd.Panel"/>
 <target window="CDiscoveryWnd.Panel"/>
 <target window="CPacketWnd.Panel"/>
@@ -653,7 +500,7 @@
  <control id="IDC_MEDIA_VOLUME" width="70" height="24"/>
  <separator/>
  <button id="ID_MEDIA_ZOOM"/>
- <button id="ID_MEDIA_VIS"/>
+ <button id="ID_MEDIA_SETTINGS"/>
  <button id="ID_WINDOW_REMOTE"/>
  <button id="ID_MEDIA_PLAYLIST"/>
  <separator/>
@@ -672,7 +519,7 @@
  <control id="116" width="70" height="24"/>
  <separator/>
  <button id="ID_MEDIA_ZOOM"/>
- <button id="ID_MEDIA_VIS"/>
+ <button id="ID_MEDIA_SETTINGS"/>
  <button id="ID_WINDOW_REMOTE"/>
  <button id="ID_MEDIA_PLAYLIST"/>
  <separator/>
@@ -721,17 +568,83 @@
 <!-- END INTERFACE -->
 
 
-
-<!-- MULTILINGUAL NAVBARS -->
-
 <windowskins>
 
+<!-- Media Remote -->
+
+<windowskin>
+<image path="RemoteMetro.png"/>
+<target window="CRemoteWnd"/>
+<region>
+ <shape type="rectangle" rect="0,1,412,85"/>
+ <shape type="rectangle" rect="5,0,26,1" combine="or"/>
+</region>
+<anchors>
+ <anchor name="StatusText"		rect="40,5,332,16"/>
+ <anchor name="MediaSeekTrack" 		rect="6,28,400,5"/>
+ <anchor name="MediaVolTrack"		rect="328,50,70,13"/>
+ <!--anchor name="MediaStatePlaying" 	rect=""-->
+ <!--anchor name="MediaStatePaused"	rect=""-->
+ <!--anchor name="MediaStateStopped" 	rect=""-->
+ <!--anchor name="ScalerTrack" 		rect=""-->
+ <!--anchor name="History" 		rect=""-->
+ <anchor name="_ID_MONITOR_CLOSE"	rect="376,2,31,20"/>
+ <anchor name="_ID_MEDIA_PLAY" 		rect="184,35,44,45"/>
+ <anchor name="_ID_MEDIA_PAUSE"		rect="184,35,44,45"/>
+ <anchor name="_ID_MEDIA_STOP" 		rect="100,45,25,25"/>
+ <anchor name="_ID_MEDIA_PREVIOUS"	rect="133,45,51,25"/>
+ <anchor name="_ID_MEDIA_NEXT" 		rect="228,45,51,25"/>
+ <anchor name="_ID_MEDIA_MUTE" 		rect="294,49,21,18"/>
+ <anchor name="_ID_MEDIA_RANDOM"	rect="26,50,16,15"/>
+ <anchor name="_ID_MEDIA_REPEAT"	rect="57,47,16,19"/>
+ <anchor name="_ID_MEDIA_ADD"		rect="5,1,21,23"/>
+</anchors>
+<parts>
+ <part name="Background" 		rect="0,0,412,85"/>
+ <part name="MediaSeekBar" 		rect="0,85,400,5"/>
+ <part name="MediaSeekTab" 		rect="388,85,12,5"/>
+ <part name="MediaVolBar"		rect="327,142,70,13"/>
+ <part name="MediaVolTab"		rect="388,142,12,13"/>
+ <!--part name="MediaStatePlaying"	rect=""-->
+ <!--part name="MediaStatePaused"	rect=""-->
+ <!--part name="MediaStateStopped"	rect=""-->
+ <!--part name="HistoryTx1"		rect=""-->
+ <!--part name="HistoryRx1"		rect=""-->
+ <!--part name="ScalerTab"		rect=""-->
+ <part name="_ID_MONITOR_CLOSE.Hover"	rect="0,115,31,20"/>
+ <part name="_ID_MONITOR_CLOSE.Down" 	rect="31,115,31,20"/>
+ <part name="_ID_MEDIA_PLAY.Up"		rect="184,35,44,45"/>
+ <part name="_ID_MEDIA_PLAY.Hover"	rect="250,115,44,45"/>
+ <part name="_ID_MEDIA_PLAY.Down"	rect="206,115,44,45"/>
+ <part name="_ID_MEDIA_PAUSE.Up"	rect="74,115,44,45"/>
+ <part name="_ID_MEDIA_PAUSE.Hover"	rect="118,115,44,45"/>
+ <part name="_ID_MEDIA_PAUSE.Down"	rect="162,115,44,45"/>
+ <part name="_ID_MEDIA_STOP.Hover"	rect="0,90,25,25"/>
+ <part name="_ID_MEDIA_STOP.Down"	rect="25,90,25,25"/>
+ <part name="_ID_MEDIA_STOP.Disabled"	rect="362,90,25,25"/>
+ <part name="_ID_MEDIA_PREVIOUS.Hover"	rect="102,90,51,25"/>
+ <part name="_ID_MEDIA_PREVIOUS.Down"	rect="154,90,51,25"/>
+ <part name="_ID_MEDIA_PREVIOUS.Disabled" rect="50,90,51,25"/>
+ <part name="_ID_MEDIA_NEXT.Hover"	rect="259,90,51,25"/>
+ <part name="_ID_MEDIA_NEXT.Down"	rect="207,90,51,25"/>
+ <part name="_ID_MEDIA_NEXT.Disabled"	rect="311,90,51,25"/>
+ <part name="_ID_MEDIA_MUTE.Checked" 	rect="390,94,21,18"/>
+ <part name="_ID_MEDIA_RANDOM.Checked"	rect="367,121,16,15"/>
+ <part name="_ID_MEDIA_REPEAT.Checked"	rect="392,118,16,19"/>
+ <part name="_ID_MEDIA_ADD.Hover"	rect="0,137,21,23"/>
+ <part name="_ID_MEDIA_ADD.Down" 	rect="21,137,21,23"/>
+</parts>
+<caption fontFace="Segoe UI" fontSize="13" fontWeight="Normal" color="000000" outlineColor="" />
+</windowskin>
+
+
+<!-- MULTILINGUAL NAVBARS -->
 
 <!-- English Default -->
 
 <windowskin>
-<image type="image" path="Eight\RibbonTabsBlank.png"/>
-<image type="watermark" path="Eight\RibbonTabsBkg.png"/>
+<image type="image" path="EightAlt\RibbonTabsBlank.png"/>
+<image type="watermark" path="EightAlt\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
@@ -780,8 +693,8 @@
 <!-- English Basic -->
 
 <windowskin>
-<image type="image" path="Eight\RibbonTabsBlank.png"/>
-<image type="watermark" path="Eight\RibbonTabsBkg.png"/>
+<image type="image" path="EightAlt\RibbonTabsBlank.png"/>
+<image type="watermark" path="EightAlt\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl.Basic"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="60,0,66,24"/>
@@ -823,8 +736,8 @@
 <!-- Afrikaans -->
 
 <windowskin>
-<image type="image" language="af" path="Eight\RibbonTabsBlank.png"/>
-<image type="watermark" path="Eight\RibbonTabsBkg.png"/>
+<image type="image" language="af" path="EightAlt\RibbonTabsBlank.png"/>
+<image type="watermark" path="EightAlt\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
 <target window="CMainTabBarCtrl.Tabbed"/>
@@ -874,8 +787,8 @@
 <!-- Catalan -->
 
 <windowskin>
-<image type="image" language="ca" path="Eight\RibbonTabsBlank.png"/>
-<image type="watermark" path="Eight\RibbonTabsBkg.png"/>
+<image type="image" language="ca" path="EightAlt\RibbonTabsBlank.png"/>
+<image type="watermark" path="EightAlt\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
 <target window="CMainTabBarCtrl.Tabbed"/>
@@ -925,8 +838,8 @@
 <!-- Czech -->
 
 <windowskin>
-<image type="image" language="cz" path="Eight\RibbonTabsBlank.png"/>
-<image type="watermark" path="Eight\RibbonTabsBkg.png"/>
+<image type="image" language="cz" path="EightAlt\RibbonTabsBlank.png"/>
+<image type="watermark" path="EightAlt\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
 <target window="CMainTabBarCtrl.Tabbed"/>
@@ -976,8 +889,8 @@
 <!-- Estonian -->
 
 <windowskin>
-<image type="image" language="ee" path="Eight\RibbonTabsBlank.png"/>
-<image type="watermark" path="Eight\RibbonTabsBkg.png"/>
+<image type="image" language="ee" path="EightAlt\RibbonTabsBlank.png"/>
+<image type="watermark" path="EightAlt\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
 <target window="CMainTabBarCtrl.Tabbed"/>
@@ -1027,8 +940,8 @@
 <!-- German -->
 
 <windowskin>
-<image type="image" language="de" path="Eight\RibbonTabsBlank.png"/>
-<image type="watermark" path="Eight\RibbonTabsBkg.png"/>
+<image type="image" language="de" path="EightAlt\RibbonTabsBlank.png"/>
+<image type="watermark" path="EightAlt\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
 <target window="CMainTabBarCtrl.Tabbed"/>
@@ -1078,8 +991,8 @@
 <!-- Spanish -->
 
 <windowskin>
-<image type="image" language="es" path="Eight\RibbonTabsBlank.png"/>
-<image type="watermark" path="Eight\RibbonTabsBkg.png"/>
+<image type="image" language="es" path="EightAlt\RibbonTabsBlank.png"/>
+<image type="watermark" path="EightAlt\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
 <target window="CMainTabBarCtrl.Tabbed"/>
@@ -1129,8 +1042,8 @@
 <!-- Spanish-Mexican -->
 
 <windowskin>
-<image type="image" language="es-mx" path="Eight\RibbonTabsBlank.png"/>
-<image type="watermark" path="Eight\RibbonTabsBkg.png"/>
+<image type="image" language="es-mx" path="EightAlt\RibbonTabsBlank.png"/>
+<image type="watermark" path="EightAlt\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
 <target window="CMainTabBarCtrl.Tabbed"/>
@@ -1180,8 +1093,8 @@
 <!-- Finnish -->
 
 <windowskin>
-<image type="image" language="fi" path="Eight\RibbonTabsBlank.png"/>
-<image type="watermark" path="Eight\RibbonTabsBkg.png"/>
+<image type="image" language="fi" path="EightAlt\RibbonTabsBlank.png"/>
+<image type="watermark" path="EightAlt\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
 <target window="CMainTabBarCtrl.Tabbed"/>
@@ -1231,8 +1144,8 @@
 <!-- French -->
 
 <windowskin>
-<image type="image" language="fr" path="Eight\RibbonTabsBlank.png"/>
-<image type="watermark" path="Eight\RibbonTabsBkg.png"/>
+<image type="image" language="fr" path="EightAlt\RibbonTabsBlank.png"/>
+<image type="watermark" path="EightAlt\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
 <target window="CMainTabBarCtrl.Tabbed"/>
@@ -1282,8 +1195,8 @@
 <!-- Greek -->
 
 <windowskin>
-<image type="image" language="gr" path="Eight\RibbonTabsBlank.png"/>
-<image type="watermark" path="Eight\RibbonTabsBkg.png"/>
+<image type="image" language="gr" path="EightAlt\RibbonTabsBlank.png"/>
+<image type="watermark" path="EightAlt\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
 <target window="CMainTabBarCtrl.Tabbed"/>
@@ -1333,8 +1246,8 @@
 <!-- Croatian -->
 
 <windowskin>
-<image type="image" language="hr" path="Eight\RibbonTabsBlank.png"/>
-<image type="watermark" path="Eight\RibbonTabsBkg.png"/>
+<image type="image" language="hr" path="EightAlt\RibbonTabsBlank.png"/>
+<image type="watermark" path="EightAlt\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
 <target window="CMainTabBarCtrl.Tabbed"/>
@@ -1384,8 +1297,8 @@
 <!-- Hungarian -->
 
 <windowskin>
-<image type="image" language="hu" path="Eight\RibbonTabsBlank.png"/>
-<image type="watermark" path="Eight\RibbonTabsBkg.png"/>
+<image type="image" language="hu" path="EightAlt\RibbonTabsBlank.png"/>
+<image type="watermark" path="EightAlt\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
 <target window="CMainTabBarCtrl.Tabbed"/>
@@ -1435,8 +1348,8 @@
 <!-- Italian -->
 
 <windowskin>
-<image type="image" language="it" path="Eight\RibbonTabsBlank.png"/>
-<image type="watermark" path="Eight\RibbonTabsBkg.png"/>
+<image type="image" language="it" path="EightAlt\RibbonTabsBlank.png"/>
+<image type="watermark" path="EightAlt\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
 <target window="CMainTabBarCtrl.Tabbed"/>
@@ -1486,8 +1399,8 @@
 <!-- Lithuanian -->
 
 <windowskin>
-<image type="image" language="lt" path="Eight\RibbonTabsBlank.png"/>
-<image type="watermark" path="Eight\RibbonTabsBkg.png"/>
+<image type="image" language="lt" path="EightAlt\RibbonTabsBlank.png"/>
+<image type="watermark" path="EightAlt\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
 <target window="CMainTabBarCtrl.Tabbed"/>
@@ -1537,8 +1450,8 @@
 <!-- Dutch -->
 
 <windowskin>
-<image type="image" language="nl" path="Eight\RibbonTabsBlank.png"/>
-<image type="watermark" path="Eight\RibbonTabsBkg.png"/>
+<image type="image" language="nl" path="EightAlt\RibbonTabsBlank.png"/>
+<image type="watermark" path="EightAlt\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
 <target window="CMainTabBarCtrl.Tabbed"/>
@@ -1588,8 +1501,8 @@
 <!-- Norwegian -->
 
 <windowskin>
-<image type="image" language="no" path="Eight\RibbonTabsBlank.png"/>
-<image type="watermark" path="Eight\RibbonTabsBkg.png"/>
+<image type="image" language="no" path="EightAlt\RibbonTabsBlank.png"/>
+<image type="watermark" path="EightAlt\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
 <target window="CMainTabBarCtrl.Tabbed"/>
@@ -1639,8 +1552,8 @@
 <!-- Polish -->
 
 <windowskin>
-<image type="image" language="pl" path="Eight\RibbonTabsBlank.png"/>
-<image type="watermark" path="Eight\RibbonTabsBkg.png"/>
+<image type="image" language="pl" path="EightAlt\RibbonTabsBlank.png"/>
+<image type="watermark" path="EightAlt\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
 <target window="CMainTabBarCtrl.Tabbed"/>
@@ -1690,8 +1603,8 @@
 <!-- Portuguese -->
 
 <windowskin>
-<image type="image" language="pt-br" path="Eight\RibbonTabsBlank.png"/>
-<image type="watermark" path="Eight\RibbonTabsBkg.png"/>
+<image type="image" language="pt-br" path="EightAlt\RibbonTabsBlank.png"/>
+<image type="watermark" path="EightAlt\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
 <target window="CMainTabBarCtrl.Tabbed"/>
@@ -1741,8 +1654,8 @@
 <!-- Russian -->
 
 <windowskin>
-<image type="image" language="ru" path="Eight\RibbonTabsBlank.png"/>
-<image type="watermark" path="Eight\RibbonTabsBkg.png"/>
+<image type="image" language="ru" path="EightAlt\RibbonTabsBlank.png"/>
+<image type="watermark" path="EightAlt\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
 <target window="CMainTabBarCtrl.Tabbed"/>
@@ -1792,8 +1705,8 @@
 <!-- Slovenian -->
 
 <windowskin>
-<image type="image" language="sl" path="Eight\RibbonTabsBlank.png"/>
-<image type="watermark" path="Eight\RibbonTabsBkg.png"/>
+<image type="image" language="sl" path="EightAlt\RibbonTabsBlank.png"/>
+<image type="watermark" path="EightAlt\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
 <target window="CMainTabBarCtrl.Tabbed"/>
@@ -1843,8 +1756,8 @@
 <!-- Serbian -->
 
 <windowskin>
-<image type="image" language="sr" path="Eight\RibbonTabsBlank.png"/>
-<image type="watermark" path="Eight\RibbonTabsBkg.png"/>
+<image type="image" language="sr" path="EightAlt\RibbonTabsBlank.png"/>
+<image type="watermark" path="EightAlt\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
 <target window="CMainTabBarCtrl.Tabbed"/>
@@ -1894,8 +1807,8 @@
 <!-- Albanian -->
 
 <windowskin>
-<image type="image" language="sq" path="Eight\RibbonTabsBlank.png"/>
-<image type="watermark" path="Eight\RibbonTabsBkg.png"/>
+<image type="image" language="sq" path="EightAlt\RibbonTabsBlank.png"/>
+<image type="watermark" path="EightAlt\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
 <target window="CMainTabBarCtrl.Tabbed"/>
@@ -1945,8 +1858,8 @@
 <!-- Swedish -->
 
 <windowskin>
-<image type="image" language="sv" path="Eight\RibbonTabsBlank.png"/>
-<image type="watermark" path="Eight\RibbonTabsBkg.png"/>
+<image type="image" language="sv" path="EightAlt\RibbonTabsBlank.png"/>
+<image type="watermark" path="EightAlt\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
 <target window="CMainTabBarCtrl.Tabbed"/>
@@ -1996,8 +1909,8 @@
 <!-- Turkish -->
 
 <windowskin>
-<image type="image" language="tr" path="Eight\RibbonTabsBlank.png"/>
-<image type="watermark" path="Eight\RibbonTabsBkg.png"/>
+<image type="image" language="tr" path="EightAlt\RibbonTabsBlank.png"/>
+<image type="watermark" path="EightAlt\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
 <target window="CMainTabBarCtrl.Tabbed"/>
@@ -2047,8 +1960,8 @@
 <!-- Japanese -->
 
 <windowskin>
-<image type="image" language="ja" path="Eight\RibbonTabsBlank.png"/>
-<image type="watermark" path="Eight\RibbonTabsBkg.png"/>
+<image type="image" language="ja" path="EightAlt\RibbonTabsBlank.png"/>
+<image type="watermark" path="EightAlt\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
 <target window="CMainTabBarCtrl.Tabbed"/>
@@ -2098,8 +2011,8 @@
 <!-- Korean -->
 
 <windowskin>
-<image type="image" language="ko" path="Eight\RibbonTabsBlank.png"/>
-<image type="watermark" path="Eight\RibbonTabsBkg.png"/>
+<image type="image" language="ko" path="EightAlt\RibbonTabsBlank.png"/>
+<image type="watermark" path="EightAlt\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
 <target window="CMainTabBarCtrl.Tabbed"/>
@@ -2149,8 +2062,8 @@
 <!-- Chinese Simple -->
 
 <windowskin>
-<image type="image" language="zhs" path="Eight\RibbonTabsBlank.png"/>
-<image type="watermark" path="Eight\RibbonTabsBkg.png"/>
+<image type="image" language="zhs" path="EightAlt\RibbonTabsBlank.png"/>
+<image type="watermark" path="EightAlt\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
 <target window="CMainTabBarCtrl.Tabbed"/>
@@ -2200,8 +2113,8 @@
 <!-- Chinese Traditional -->
 
 <windowskin>
-<image type="image" language="zht" path="Eight\RibbonTabsBlank.png"/>
-<image type="watermark" path="Eight\RibbonTabsBkg.png"/>
+<image type="image" language="zht" path="EightAlt\RibbonTabsBlank.png"/>
+<image type="watermark" path="EightAlt\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
 <target window="CMainTabBarCtrl.Tabbed"/>

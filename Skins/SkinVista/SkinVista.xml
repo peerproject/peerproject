@@ -5,10 +5,11 @@
  name="SkinVista"
  author="SkinVista"
  icon="PeerProject.ico"
- description="PeerProject's Windows Vista Theme"
+ description="PeerProject's Original Windows Vista Theme"
  link="http://PeerProject.org"
  email="Contact(at)PeerProject.org"
  license="Persistent Public Domain (PPD)"
+ dependencies="SkinVistaFrames.xml"
  platform="PeerProject 1.0"
  path="SkinVista"
  version="2.0"
@@ -31,7 +32,7 @@
   <color name="System.Base.Midtone"			value="FCFBFA"/>   <!--toolbars-->
   <color name="System.Base.Text" 			value="1A100A"/>
   <color name="System.Base.HiText" 			value="000000"/>
-  <color name="System.Base.HiBorder"	  		value="D8F0FD"/>
+  <color name="System.Base.HiBorder"			value="D8F0FD"/>
   <color name="System.Base.Highlight"    		value="F0FBFE"/>
   <color name="System.Back.Checked"			value="F8F6F4"/>
   <color name="System.Back.Selected"			value="F8F6F4"/>   <!--button hover-->
@@ -71,9 +72,9 @@
   <color name="Media.Panel.Active.Text" 		value="FFFFFF"/>
   <color name="Media.Panel.Caption"			value="343232"/>
   <color name="Media.Panel.Caption.Text"		value="FDFCFA"/>
-  <color name="Traffic.Window.Back"	 		value="1A1816"/>
-  <color name="Traffic.Window.Text"	 		value="68625A"/>
-  <color name="Traffic.Window.Grid"	 		value="343232"/>
+  <color name="Traffic.Window.Back"			value="1A1816"/>
+  <color name="Traffic.Window.Text"			value="68625A"/>
+  <color name="Traffic.Window.Grid"			value="343232"/>
   <color name="Monitor.History.Text" 			value="7A726A"/>
   <color name="Monitor.History.Back" 			value="000000"/>
   <color name="Monitor.History.Back.Max" 		value="444240"/>
@@ -94,9 +95,9 @@
   <color name="Richdoc.Text"				value="4A4840"/>
   <color name="Richdoc.Heading" 			value="B03020"/>
 
-  <color name="System.Base.Chat.In"	 		value="0660CC"/>
-  <color name="System.Base.Chat.Out"	 		value="EA4A60"/>
-  <color name="System.Base.Chat.Null"	 		value="D0CDCB"/>
+  <color name="System.Base.Chat.In"			value="0660CC"/>
+  <color name="System.Base.Chat.Out"			value="EA4A60"/>
+  <color name="System.Base.Chat.Null"			value="D0CDCB"/>
   <color name="System.Base.Network.Null" 		value="D0CDCB"/>
   <color name="System.Base.Network.G1"			value="888888"/>
   <color name="System.Base.Network.G2"			value="2000D0"/>
@@ -119,11 +120,11 @@
   <color name="System.Base.Transfer.Source" 		value="202020"/>
 
   <color name="FragmentBar.Shaded" 			value="F6F4F2"/>
-  <color name="FragmentBar.Complete"	 		value="D4F8B4"/>
-  <color name="FragmentBar.Pass"	 		value="40F020"/>
+  <color name="FragmentBar.Complete"			value="D4F8B4"/>
+  <color name="FragmentBar.Pass"			value="40F020"/>
   <color name="FragmentBar.Fail"			value="F01000"/>
   <color name="FragmentBar.Request"			value="F0FF20"/>
-  <color name="FragmentBar.Border"	 		value="888888"/>
+  <color name="FragmentBar.Border"			value="888888"/>
   <color name="FragmentBar.Border.Selected" 		value="808080"/>
   <color name="FragmentBar.Border.Simplebar" 		value="888888"/>
   <color name="FragmentBar.Border.Simplebar.Selected" 	value="808080"/>
@@ -166,7 +167,7 @@
   <watermark target="CLibraryTileView.Virtual.Toolbar"	path="Toolbar.png"/>
   <watermark target="CLibraryCollectionView.Virtual.Toolbar" path="Toolbar.png"/>
   <watermark target="ImageViewerWnd.Toolbar"		path="Toolbar.png"/>
-  <watermark target="CIRCFrame.Toolbar"	 		path="Toolbar.png"/>
+  <watermark target="CIRCFrame.Toolbar"			path="Toolbar.png"/>
   <watermark target="CNeighboursWnd.Toolbar"		path="ToolbarLt.png"/>
   <watermark target="CDiscoveryWnd.Toolbar"  		path="Toolbar.png"/>
   <watermark target="CHostCacheWnd.Toolbar"  		path="Toolbar.png"/>
@@ -201,8 +202,8 @@
   <!--watermark target="CSearchAdvancedBox"		path="MenuBkg.png"-->
   <!--watermark target="CSearchResultsBox"  		path="MenuBkg.png"-->
   <!--watermark target="CSearchSchemaBox"  		path="MenuBkg.png"-->
-  <!--watermark target="CHomeViewCtrl.Header1"		path="###.png"-->
-  <!--watermark target="CHomeViewCtrl.Header2"		path="###.png"-->
+  <!--watermark target="CHomeViewCtrl.Header"		path="###.png"-->
+  <!--watermark target="CHomeViewCtrl.HeaderRepeat"	path="###.png"-->
 
   <watermark target="CWndTabBar.Active" 		path="Vista\RibbonBaselineTabActive.png"/>
   <watermark target="CWndTabBar.Hover"  		path="Vista\RibbonBaselineTabActive.png"/>
@@ -212,11 +213,11 @@
   <watermark target="CDownloadTabBar.Active.Hover" 	path="DownloadgroupsHover.png"/>
   <watermark target="CCoolMenuItem.Hover" 		path="Vista\CoolMenuBarHover.png"/>
   <watermark target="CCoolMenuItem.Down" 		path="Vista\CoolMenuBarDown.png"/>
-  <!--watermark target="CCoolbar.Disabled" 		path="ToolbarButtonHover.png"-->
-  <!--watermark target="CCoolbar.Up" 			path="ToolbarButtonHover.png"-->
-  <watermark target="CCoolbar.Down" 			path="ToolbarButtonDown.png"/>
-  <watermark target="CCoolbar.Hover" 			path="ToolbarButtonHover.png"/>
-  <watermark target="CCoolbar.Checked" 			path="ToolbarButtonDown.png"/>
+  <!--watermark target="CCoolbar.Disabled" 		path="Vista\ToolbarButtonHover.png"-->
+  <!--watermark target="CCoolbar.Up" 			path="Vista\ToolbarButtonHover.png"-->
+  <watermark target="CCoolbar.Down" 			path="Vista\ToolbarButtonDown.png"/>
+  <watermark target="CCoolbar.Hover" 			path="Vista\ToolbarButtonHover.png"/>
+  <watermark target="CCoolbar.Checked" 			path="Vista\ToolbarButtonDown.png"/>
   <watermark target="CCoolbar.Separator"		path="ToolbarSeparator.png"/>
 </watermarks>
 

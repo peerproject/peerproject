@@ -28,7 +28,7 @@ class CmdExtract
     char ArcName[NM];
     wchar ArcNameW[NM];
 
-    wchar Password[MAXPASSWORD];
+    SecPassword Password;
     bool PasswordAll;
     bool PrevExtracted;
     char DestFileName[NM];
@@ -39,8 +39,7 @@ class CmdExtract
     ~CmdExtract();
     void DoExtract(CommandData *Cmd);
     void ExtractArchiveInit(CommandData *Cmd,Archive &Arc);
-    bool ExtractCurrentFile(CommandData *Cmd,Archive &Arc,size_t HeaderSize,
-                            bool &Repeat);
+    bool ExtractCurrentFile(CommandData *Cmd,Archive &Arc,size_t HeaderSize,bool &Repeat);
     static void UnstoreFile(ComprDataIO &DataIO,int64 DestUnpSize);
 
     bool SignatureFound;

@@ -3,15 +3,15 @@
 //
 // This file is part of PeerProject (peerproject.org) © 2011-2012
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -31,7 +31,7 @@
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 IMPLEMENT_DYNCREATE(CWizardFoldersPage, CWizardPage)
 
@@ -124,14 +124,14 @@ void CWizardFoldersPage::OnDownloadsBrowse()
 	// Warn user about a path that's too long
 	if ( _tcslen( strPath ) > MAX_PATH - 33 )
 	{
-		AfxMessageBox( IDS_SETTINGS_FILEPATH_TOO_LONG, MB_ICONEXCLAMATION );
+		MsgBox( IDS_SETTINGS_FILEPATH_TOO_LONG, MB_ICONEXCLAMATION );
 		return;
 	}
 
 	// Make sure download/incomplete folders aren't the same
 	if ( _tcsicmp( strPath, m_sIncompletePath ) == 0 )
 	{
-		AfxMessageBox( IDS_SETTINGS_FILEPATH_NOT_SAME, MB_ICONEXCLAMATION );
+		MsgBox( IDS_SETTINGS_FILEPATH_NOT_SAME, MB_ICONEXCLAMATION );
 		return;
 	}
 
@@ -150,21 +150,21 @@ void CWizardFoldersPage::OnIncompleteBrowse()
 	// Warn user about a path that's too long
 	if ( _tcslen( strPath ) > MAX_PATH - 52 )
 	{
-		AfxMessageBox( IDS_SETTINGS_FILEPATH_TOO_LONG, MB_ICONEXCLAMATION );
+		MsgBox( IDS_SETTINGS_FILEPATH_TOO_LONG, MB_ICONEXCLAMATION );
 		return;
 	}
 
 	// Make sure download/incomplete folders aren't the same
 	if ( _tcsicmp( strPath, m_sDownloadsPath ) == 0 )
 	{
-		AfxMessageBox( IDS_SETTINGS_FILEPATH_NOT_SAME, MB_ICONEXCLAMATION );
+		MsgBox( IDS_SETTINGS_FILEPATH_NOT_SAME, MB_ICONEXCLAMATION );
 		return;
 	}
 
 	// Warn user about an incomplete folder in the library
 	if ( LibraryFolders.IsFolderShared( strPath ) )
 	{
-		AfxMessageBox( IDS_SETTINGS_INCOMPLETE_LIBRARY, MB_ICONEXCLAMATION );
+		MsgBox( IDS_SETTINGS_INCOMPLETE_LIBRARY, MB_ICONEXCLAMATION );
 		return;
 	}
 

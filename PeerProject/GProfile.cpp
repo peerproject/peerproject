@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -25,9 +25,9 @@
 
 #ifdef _DEBUG
 #undef THIS_FILE
-static char THIS_FILE[]=__FILE__;
+static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 #define WORDLIM(x)  (WORD)( ( (x) < 0 ) ? 0 : ( ( (x) > 65535 ) ? 65535 : (x) ) )
 
@@ -318,7 +318,7 @@ DWORD CGProfile::GetPackedGPS() const
 		if ( const CXMLElement* pCoordinates = pLocation->GetElementByName( _T("coordinates") ) )
 		{
 			float nLatitude = 0, nLongitude = 0;
-			if ( _stscanf( pCoordinates->GetAttributeValue( _T("latitude") ) , _T("%f"), &nLatitude  ) == 1 &&
+			if ( _stscanf( pCoordinates->GetAttributeValue( _T("latitude") ),  _T("%f"), &nLatitude  ) == 1 &&
 				 _stscanf( pCoordinates->GetAttributeValue( _T("longitude") ), _T("%f"), &nLongitude ) == 1 )
 			{
 				return ( (DWORD)WORDLIM( ( nLatitude  + 90.0f )  * 65535.0f / 180.0f ) << 16 ) +

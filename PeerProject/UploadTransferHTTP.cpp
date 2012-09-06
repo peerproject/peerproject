@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2008.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -55,9 +55,9 @@
 
 #ifdef _DEBUG
 #undef THIS_FILE
-static char THIS_FILE[]=__FILE__;
+static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 
 //////////////////////////////////////////////////////////////////////
@@ -242,9 +242,8 @@ BOOL CUploadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 		Text[ L"fp-auth-challenge" ]	= 'x';
 	}
 
-	switch( Text[ strCase ] )
+	switch ( Text[ strCase ] )
 	{
-
 	case 'c':		// "Connection"
 		if ( strValue.CompareNoCase( _T("Keep-Alive") ) == 0 )
 			m_bKeepAlive = TRUE;
@@ -408,15 +407,15 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 	//}
 
 	CBuffer pResponse;
-	CString sHeader;
-	if ( ResourceRequest( m_sRequest, pResponse, sHeader ) )
+	CString strHeader;
+	if ( ResourceRequest( m_sRequest, pResponse, strHeader ) )
 	{
 		Write( _P("HTTP/1.1 200 OK\r\n") );
 		CString strLength;
 		strLength.Format( _T("Content-Length: %u\r\n"), pResponse.m_nLength );
 		Write( strLength );
-		if ( ! sHeader.IsEmpty() )
-			Write( sHeader );
+		if ( ! strHeader.IsEmpty() )
+			Write( strHeader );
 		Write( _P("\r\n") );
 		Write( &pResponse );
 		StartSending( upsResponse );
@@ -1774,7 +1773,7 @@ void CUploadTransferHTTP::SendResponse(UINT nResourceID, BOOL bFileHeaders)
 	strBody		= strBody.Mid( nBreak );
 
 	// Process custom keywords:
-	for (;;)
+	for ( ;; )
 	{
 		const int nStart = strBody.Find( _T("<%") );
 		if ( nStart < 0 ) break;

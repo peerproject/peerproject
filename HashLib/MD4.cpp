@@ -76,7 +76,7 @@ void CMD4::Add(const void* pData, std::size_t nLength)
 	MD4_Add_p5( &m_State, pData, nLength );
 }
 
-#else // HASHLIB_USE_ASM
+#else // No HASHLIB_USE_ASM
 
 namespace
 {
@@ -184,7 +184,7 @@ void CMD4::Transform(const uint32* data)
 	H< 13 >( data, d, a, b, c );
 	H< 14 >( data, c, d, a, b );
 	H< 15 >( data, b, c, d, a );
-	
+
 	m_State.m_nState[ 0 ] += a;
 	m_State.m_nState[ 1 ] += b;
 	m_State.m_nState[ 2 ] += c;

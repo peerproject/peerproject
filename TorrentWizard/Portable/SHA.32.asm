@@ -30,7 +30,7 @@
 ; #####################################################################################################################
 
                         .586p
-                        .model      flat, stdcall 
+                        .model      flat, stdcall
                         option      casemap:none                    ; case sensitive
                         option      prologue:none                   ; we generate our own entry/exit code
                         option      epilogue:none
@@ -49,7 +49,7 @@ m_nCount1				equ			28
 m_nBuffer				equ         32
 
 						.data
-						
+
 						ALIGN		16
 const_FFFFFFFFFFFFFFFF	dq			0FFFFFFFFFFFFFFFFH
 						dq			0FFFFFFFFFFFFFFFFH
@@ -130,7 +130,7 @@ reg_b					textequ		reg_temp1
 reg_temp1				textequ		reg_t
 count                   =           count + 1
                         ENDM                                                ; RND_MAJ
-                        
+
 INIT_REG_ALIAS          MACRO
 reg_i_1                 textequ     <eax>
 reg_i_2                 textequ     <ebx>
@@ -138,7 +138,7 @@ reg_i_3                 textequ     <ecx>
 reg_i_15                textequ     <edx>
 reg_i_16                textequ     <esi>
                         ENDM
-                        
+
                         .code
 
                         ALIGN       16
@@ -188,7 +188,7 @@ reg_i_14                textequ     reg_i_16                                ; we
                         xor         reg_i_3, [_w+(count-8)*4]
                         rol         reg_i_3, 1
                         mov         [_w+count*4], reg_i_3
-;now we prepare for the next iteration                        
+;now we prepare for the next iteration
 reg_i_0                 textequ     reg_i_3
 reg_i_3                 textequ     reg_i_2
 reg_i_2                 textequ     reg_i_1
@@ -234,7 +234,7 @@ count                   =           0
                         add         [reg_temp2+m_nHash2], reg_c
                         add         [reg_temp2+m_nHash3], reg_d
                         add         [reg_temp2+m_nHash4], reg_e
- 
+
                         ret
 
 SHA_Compile_p5          ENDP

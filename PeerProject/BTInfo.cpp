@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -35,9 +35,9 @@
 
 #ifdef _DEBUG
 #undef THIS_FILE
-static char THIS_FILE[]=__FILE__;
+static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 // Check if a string is a valid path/file name.
 static bool IsValid(const CString& str)
@@ -372,17 +372,17 @@ void CBTInfo::Serialize(CArchive& ar)
 			m_pFiles.AddTail( pBTFile.Detach() );
 		}
 
-		//if ( nVersion < 7 )	// Shareaza 2.3 Import
+		//if ( nVersion < 7 )	// Shareaza 2.3
 		//{
-		//	CString sTracker;
-		//	ar >> sTracker;
-		//	SetTracker( sTracker );
+		//	CString strTracker;
+		//	ar >> strTracker;
+		//	SetTracker( strTracker );
 		//}
 
 		ar >> m_nTrackerIndex;
 		ar >> m_nTrackerMode;
 
-		//if ( nVersion < 7 )	// Shareaza 2.3 Import
+		//if ( nVersion < 7 )	// Shareaza 2.3
 		//{
 		//	int nTrackers = (int)ar.ReadCount();
 		//	if ( nTrackers )

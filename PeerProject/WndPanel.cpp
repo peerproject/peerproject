@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -22,6 +22,7 @@
 #include "WndPanel.h"
 #include "CoolInterface.h"
 #include "Colors.h"
+#include "Images.h"
 #include "Skin.h"
 #include "SkinWindow.h"
 
@@ -29,7 +30,7 @@
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 IMPLEMENT_DYNCREATE(CPanelWnd, CChildWnd)
 
@@ -96,11 +97,11 @@ void CPanelWnd::OnNcCalcSize(BOOL bCalcValidRects, NCCALCSIZE_PARAMS FAR* lpncsp
 {
 	if ( m_bPanelMode && m_pSkin == NULL )
 	{
-		if ( Skin.m_bmPanelMark.m_hObject)
+		if ( Images.m_bmPanelMark.m_hObject)
 		{
 			NCCALCSIZE_PARAMS* pSize = (NCCALCSIZE_PARAMS*)lpncsp;
 			BITMAP info = { 0, 0, CAPTION_HEIGHT };
-			Skin.m_bmPanelMark.GetBitmap( &info );
+			Images.m_bmPanelMark.GetBitmap( &info );
 			pSize->rgrc[0].top += info.bmHeight;
 		}
 		return;
@@ -114,7 +115,7 @@ LRESULT CPanelWnd::OnNcHitTest(CPoint point)
 	if ( m_bPanelMode && ! m_pSkin )
 	{
 		BITMAP info = { 0, 0, CAPTION_HEIGHT };
-		if ( Skin.m_bmPanelMark.m_hObject) Skin.m_bmPanelMark.GetBitmap( &info );
+		if ( Images.m_bmPanelMark.m_hObject) Images.m_bmPanelMark.GetBitmap( &info );
 
 		CRect rc;
 		GetWindowRect( &rc );
@@ -186,7 +187,7 @@ void CPanelWnd::PaintCaption(CDC& dc)
 	CRect rc, rcWnd;
 
 	BITMAP info = { 0, 0, CAPTION_HEIGHT };
-	if ( Skin.m_bmPanelMark.m_hObject) Skin.m_bmPanelMark.GetBitmap( &info );
+	if ( Images.m_bmPanelMark.m_hObject) Images.m_bmPanelMark.GetBitmap( &info );
 
 	GetWindowRect( &rcWnd );
 	rc.SetRect( 0, 0, rcWnd.Width(), info.bmHeight );
@@ -195,7 +196,7 @@ void CPanelWnd::PaintCaption(CDC& dc)
 	CSize size = rc.Size();
 	CDC* pBuffer = CoolInterface.GetBuffer( dc, size );
 
-	if ( ! CoolInterface.DrawWatermark( pBuffer, &rc, &Skin.m_bmPanelMark ) )
+	if ( ! CoolInterface.DrawWatermark( pBuffer, &rc, &Images.m_bmPanelMark ) )
 		pBuffer->FillSolidRect( &rc, Colors.m_crPanelBack );
 
 	const int nIconY = rc.Height() / 2 - 8;

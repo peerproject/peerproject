@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -39,6 +39,10 @@ class CDownloadTask : public CAppThread
 {
 	DECLARE_DYNAMIC(CDownloadTask)
 
+protected:
+	CDownloadTask(CDownload* pDownload, dtask nTask);
+	virtual ~CDownloadTask();
+
 public:
 	static void			Copy(CDownload* pDownload);
 	static void			PreviewRequest(CDownload* pDownload, LPCTSTR szURL);
@@ -55,9 +59,6 @@ public:
 	CBuffer*			IsPreviewAnswerValid() const;
 
 protected:
-	CDownloadTask(CDownload* pDownload, dtask nTask);
-	virtual ~CDownloadTask();
-
 	dtask				m_nTask;
 	CHttpRequest*		m_pRequest;
 //	CString				m_sURL;				// Request URL

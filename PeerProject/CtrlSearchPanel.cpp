@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -35,7 +35,7 @@
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 IMPLEMENT_DYNAMIC(CSearchPanel, CTaskPanel)
 BEGIN_MESSAGE_MAP(CSearchPanel, CTaskPanel)
@@ -315,21 +315,21 @@ CSearchPtr CSearchPanel::GetSearch()
 	CSearchPtr pManaged( new CManagedSearch() );
 	CQuerySearchPtr pSearch = pManaged->GetSearch();
 
-	CString sSearch;
-	m_boxSearch.m_wndSearch.GetWindowText( sSearch );
+	CString strSearch;
+	m_boxSearch.m_wndSearch.GetWindowText( strSearch );
 
-	pSearch->m_oSHA1.fromUrn( sSearch ) ||
-		pSearch->m_oSHA1.fromString( sSearch );
-	pSearch->m_oTiger.fromUrn( sSearch ) ||
-		pSearch->m_oTiger.fromString( sSearch );
-	pSearch->m_oED2K.fromUrn( sSearch ) ||
-		pSearch->m_oED2K.fromString( sSearch );
-	pSearch->m_oMD5.fromUrn( sSearch ) ||
-		pSearch->m_oMD5.fromString( sSearch );
-	pSearch->m_oBTH.fromUrn( sSearch ) ||
-		pSearch->m_oBTH.fromString( sSearch ) ||
-		pSearch->m_oBTH.fromUrn< Hashes::base16Encoding >( sSearch ) ||
-		pSearch->m_oBTH.fromString< Hashes::base16Encoding >( sSearch );
+	pSearch->m_oSHA1.fromUrn( strSearch ) ||
+		pSearch->m_oSHA1.fromString( strSearch );
+	pSearch->m_oTiger.fromUrn( strSearch ) ||
+		pSearch->m_oTiger.fromString( strSearch );
+	pSearch->m_oED2K.fromUrn( strSearch ) ||
+		pSearch->m_oED2K.fromString( strSearch );
+	pSearch->m_oMD5.fromUrn( strSearch ) ||
+		pSearch->m_oMD5.fromString( strSearch );
+	pSearch->m_oBTH.fromUrn( strSearch ) ||
+		pSearch->m_oBTH.fromString( strSearch ) ||
+		pSearch->m_oBTH.fromUrn< Hashes::base16Encoding >( strSearch ) ||
+		pSearch->m_oBTH.fromString< Hashes::base16Encoding >( strSearch );
 	if ( pSearch->m_oSHA1 ||
 		pSearch->m_oTiger ||
 		pSearch->m_oED2K ||
@@ -341,7 +341,7 @@ CSearchPtr CSearchPanel::GetSearch()
 	else
 	{
 		// Keyword search
-		pSearch->m_sSearch = sSearch;
+		pSearch->m_sSearch = strSearch;
 	}
 
 	if ( CSchemaPtr pSchema = m_boxSearch.m_wndSchemas.GetSelected() )
@@ -670,96 +670,96 @@ void CSearchInputBox::OnSearchPrefix()
 
 void CSearchInputBox::OnSearchPrefixSHA1()
 {
-	CString sSearch;
-	m_wndSearch.GetWindowText( sSearch );
+	CString strSearch;
+	m_wndSearch.GetWindowText( strSearch );
 	Hashes::Sha1Hash oSHA1;
-	if ( oSHA1.fromUrn( sSearch ) || oSHA1.fromString( sSearch ) )
-		sSearch = oSHA1.toUrn();
+	if ( oSHA1.fromUrn( strSearch ) || oSHA1.fromString( strSearch ) )
+		strSearch = oSHA1.toUrn();
 	else
-		sSearch = _T("urn:sha1:[SHA1]");
+		strSearch = _T("urn:sha1:[SHA1]");
 
-	m_wndSearch.SetWindowText( sSearch );
+	m_wndSearch.SetWindowText( strSearch );
 	m_wndSearch.SetFocus();
 	m_wndSearch.SetSel( 9, -1 );
 }
 
 void CSearchInputBox::OnSearchPrefixTiger()
 {
-	CString sSearch;
-	m_wndSearch.GetWindowText( sSearch );
+	CString strSearch;
+	m_wndSearch.GetWindowText( strSearch );
 	Hashes::TigerHash oTiger;
-	if ( oTiger.fromUrn( sSearch ) || oTiger.fromString( sSearch ) )
-		sSearch = oTiger.toUrn();
+	if ( oTiger.fromUrn( strSearch ) || oTiger.fromString( strSearch ) )
+		strSearch = oTiger.toUrn();
 	else
-		sSearch = _T("urn:tree:tiger/:[Tiger]");
+		strSearch = _T("urn:tree:tiger/:[Tiger]");
 
-	m_wndSearch.SetWindowText( sSearch );
+	m_wndSearch.SetWindowText( strSearch );
 	m_wndSearch.SetFocus();
 	m_wndSearch.SetSel( 16, -1 );
 }
 
 void CSearchInputBox::OnSearchPrefixSHA1Tiger()
 {
-	CString sSearch;
-	m_wndSearch.GetWindowText( sSearch );
+	CString strSearch;
+	m_wndSearch.GetWindowText( strSearch );
 	Hashes::Sha1Hash oSHA1;
 	Hashes::TigerHash oTiger;
-	oSHA1.fromUrn( sSearch ) || oSHA1.fromString( sSearch );
-	oTiger.fromUrn( sSearch ) || oTiger.fromString( sSearch );
-	sSearch = _T("urn:bitprint:");
-	sSearch += oSHA1 ? oSHA1.toString() : _T("[SHA1]");
-	sSearch += _T(".");
-	sSearch += oTiger ? oTiger.toString() : _T("[Tiger]");
+	oSHA1.fromUrn( strSearch ) || oSHA1.fromString( strSearch );
+	oTiger.fromUrn( strSearch ) || oTiger.fromString( strSearch );
+	strSearch = _T("urn:bitprint:");
+	strSearch += oSHA1 ? oSHA1.toString() : _T("[SHA1]");
+	strSearch += _T(".");
+	strSearch += oTiger ? oTiger.toString() : _T("[Tiger]");
 
-	m_wndSearch.SetWindowText( sSearch );
+	m_wndSearch.SetWindowText( strSearch );
 	m_wndSearch.SetFocus();
 	m_wndSearch.SetSel( 13, -1 );
 }
 
 void CSearchInputBox::OnSearchPrefixED2K()
 {
-	CString sSearch;
-	m_wndSearch.GetWindowText( sSearch );
+	CString strSearch;
+	m_wndSearch.GetWindowText( strSearch );
 	Hashes::Ed2kHash oEd2k;
-	if ( oEd2k.fromUrn( sSearch ) || oEd2k.fromString( sSearch ) )
-		sSearch = oEd2k.toUrn();
+	if ( oEd2k.fromUrn( strSearch ) || oEd2k.fromString( strSearch ) )
+		strSearch = oEd2k.toUrn();
 	else
-		sSearch = _T("urn:ed2khash:[ED2K]");
+		strSearch = _T("urn:ed2khash:[ED2K]");
 
-	m_wndSearch.SetWindowText( sSearch );
+	m_wndSearch.SetWindowText( strSearch );
 	m_wndSearch.SetFocus();
 	m_wndSearch.SetSel( 13, -1 );
 }
 
 void CSearchInputBox::OnSearchPrefixBTH()
 {
-	CString sSearch;
-	m_wndSearch.GetWindowText( sSearch );
+	CString strSearch;
+	m_wndSearch.GetWindowText( strSearch );
 	Hashes::BtHash oBTH;
-	if ( oBTH.fromUrn( sSearch ) ||
-		 oBTH.fromString( sSearch ) ||
-		 oBTH.fromUrn< Hashes::base16Encoding >( sSearch ) ||
-		 oBTH.fromString< Hashes::base16Encoding >( sSearch ) )
-		sSearch = oBTH.toUrn();
+	if ( oBTH.fromUrn( strSearch ) ||
+		 oBTH.fromString( strSearch ) ||
+		 oBTH.fromUrn< Hashes::base16Encoding >( strSearch ) ||
+		 oBTH.fromString< Hashes::base16Encoding >( strSearch ) )
+		strSearch = oBTH.toUrn();
 	else
-		sSearch = _T("urn:btih:[BTIH]");
+		strSearch = _T("urn:btih:[BTIH]");
 
-	m_wndSearch.SetWindowText( sSearch );
+	m_wndSearch.SetWindowText( strSearch );
 	m_wndSearch.SetFocus();
 	m_wndSearch.SetSel( 9, -1 );
 }
 
 void CSearchInputBox::OnSearchPrefixMD5()
 {
-	CString sSearch;
-	m_wndSearch.GetWindowText( sSearch );
+	CString strSearch;
+	m_wndSearch.GetWindowText( strSearch );
 	Hashes::Md5Hash oMD5;
-	if ( oMD5.fromUrn( sSearch ) || oMD5.fromString( sSearch ) )
-		sSearch = oMD5.toUrn();
+	if ( oMD5.fromUrn( strSearch ) || oMD5.fromString( strSearch ) )
+		strSearch = oMD5.toUrn();
 	else
-		sSearch = _T("urn:md5:[MD5]");
+		strSearch = _T("urn:md5:[MD5]");
 
-	m_wndSearch.SetWindowText( sSearch );
+	m_wndSearch.SetWindowText( strSearch );
 	m_wndSearch.SetFocus();
 	m_wndSearch.SetSel( 8, -1 );
 }

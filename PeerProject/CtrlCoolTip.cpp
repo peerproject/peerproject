@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -21,6 +21,7 @@
 #include "PeerProject.h"
 #include "CtrlCoolTip.h"
 
+#include "Images.h"
 #include "Colors.h"
 #include "CoolInterface.h"
 #include "GraphLine.h"
@@ -29,7 +30,7 @@
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 IMPLEMENT_DYNAMIC(CCoolTipCtrl, CWnd)
 
@@ -243,10 +244,10 @@ void CCoolTipCtrl::DrawText(CDC* pDC, POINT* pPoint, LPCTSTR pszText, SIZE* pTex
 			rcText.bottom = rcText.top + pTextMaxSize->cy;
 	}
 	rcText.MoveToXY( pPoint->x, pPoint->y );
-	if ( ! Skin.m_bmToolTip.m_hObject )
+	if ( ! Images.m_bmToolTip.m_hObject )
 		pDC->FillSolidRect( &rcText, Colors.m_crTipBack );
 	pDC->DrawText( pszText, -1, &rcText, dwFlags | DT_END_ELLIPSIS );
-	if ( ! Skin.m_bmToolTip.m_hObject )
+	if ( ! Images.m_bmToolTip.m_hObject )
 		pDC->ExcludeClipRect( &rcText );
 }
 
@@ -346,7 +347,7 @@ void CCoolTipCtrl::OnPaint()
 	GetClientRect( &rc );
 
 	// Obsolete: Unbuffered solid color default
-//	if ( ! Skin.m_bmToolTip.m_hObject )
+//	if ( ! Images.m_bmToolTip.m_hObject )
 //	{
 //		CFont* pOldFont = (CFont*)dc.SelectObject( &CoolInterface.m_fntBold );
 //
@@ -375,9 +376,9 @@ void CCoolTipCtrl::OnPaint()
 	pMemDC->Draw3dRect( &rc, Colors.m_crTipBorder, Colors.m_crTipBorder );
 	rc.DeflateRect( 1, 1 );
 
-	if ( Skin.m_bmToolTip.m_hObject )	// (System.ToolTip)
+	if ( Images.m_bmToolTip.m_hObject )	// (System.ToolTip)
 	{
-		CoolInterface.DrawWatermark( pMemDC, &rc, &Skin.m_bmToolTip, FALSE );
+		CoolInterface.DrawWatermark( pMemDC, &rc, &Images.m_bmToolTip, FALSE );
 		pMemDC->SetBkMode( TRANSPARENT );
 	}
 	else

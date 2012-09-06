@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -22,7 +22,7 @@
 #include "DlgSkinDialog.h"
 #include "CoolInterface.h"
 #include "Colors.h"
-//#include "Images.h"
+#include "Images.h"
 #include "Skin.h"
 #include "SkinWindow.h"
 
@@ -30,7 +30,7 @@
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 IMPLEMENT_DYNAMIC(CSkinDialog, CDialog)
 
@@ -112,7 +112,7 @@ void CSkinDialog::EnableBanner(BOOL bEnable)
 		SetWindowPos( NULL, 0, 0, rcWindow.Width(), rcWindow.Height() - Skin.m_nBanner,
 			SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOZORDER );
 	}
-	else if ( bEnable && ! m_oBanner.m_hWnd && Skin.m_bmBanner.m_hObject )
+	else if ( bEnable && ! m_oBanner.m_hWnd && Images.m_bmBanner.m_hObject )
 	{
 		// Resize window
 		CRect rcWindow;
@@ -135,12 +135,12 @@ void CSkinDialog::EnableBanner(BOOL bEnable)
 		CRect rcBanner;
 		GetClientRect( &rcBanner );
 		if ( Settings.General.LanguageRTL )
-			rcBanner.left -= Skin.m_bmBanner.GetBitmapDimension().cx - rcBanner.Width();
-		rcBanner.right = rcBanner.left + Skin.m_bmBanner.GetBitmapDimension().cx;
+			rcBanner.left -= Images.m_bmBanner.GetBitmapDimension().cx - rcBanner.Width();
+		rcBanner.right = rcBanner.left + Images.m_bmBanner.GetBitmapDimension().cx;
 		rcBanner.bottom = rcBanner.top + Skin.m_nBanner;
 		VERIFY( m_oBanner.Create( NULL, WS_CHILD | WS_VISIBLE |
 			SS_BITMAP | SS_REALSIZEIMAGE, rcBanner, this, IDC_BANNER ) );
-		m_oBanner.SetBitmap( (HBITMAP)Skin.m_bmBanner.m_hObject );
+		m_oBanner.SetBitmap( (HBITMAP)Images.m_bmBanner.m_hObject );
 	}
 }
 
@@ -297,8 +297,8 @@ BOOL CSkinDialog::OnEraseBkgnd(CDC* pDC)
 	GetClientRect( &rc );
 	rc.top = Skin.m_nBanner;
 
-	if ( Skin.m_bmDialog.m_hObject )
-		CoolInterface.DrawWatermark( pDC, &rc, &Skin.m_bmDialog );
+	if ( Images.m_bmDialog.m_hObject )
+		CoolInterface.DrawWatermark( pDC, &rc, &Images.m_bmDialog );
 	else
 		pDC->FillSolidRect( &rc, Colors.m_crDialog );
 
@@ -310,18 +310,18 @@ HBRUSH CSkinDialog::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	HBRUSH hbr = CDialog::OnCtlColor( pDC, pWnd, nCtlColor );
 
 	// Skinned dialog controls
-	if ( Skin.m_bmDialog.m_hObject && ( nCtlColor == CTLCOLOR_STATIC || nCtlColor == CTLCOLOR_BTN ) )
+	if ( Images.m_bmDialog.m_hObject && ( nCtlColor == CTLCOLOR_STATIC || nCtlColor == CTLCOLOR_BTN ) )
 	{
 	// Obsolete Handling:
 	//	if ( pWnd->GetDlgCtrlID() != IDC_STATIC )					// Named controls  (Dynamic handling)
 	//	{
 	//		//if ( ! pWnd->IsWindowEnabled() || ( pWnd->GetStyle() & ES_READONLY ) )	// (Note SS_REALSIZEIMAGE conflict)
-	//		//	return Skin.m_brDialog;								// Skip disabled edit boxes
+	//		//	return Images.m_brDialog;								// Skip disabled edit boxes
 	//
 	//		// Handle exceptions (Icons)
 	//		const int nCtrlID = pWnd->GetDlgCtrlID();
 	//		if ( nCtrlID == IDC_MONITOR_ICON || nCtrlID == IDC_INFO_ICON )	// || nCtrlID == IDC_BANDWIDTH_SLIDER )
-	//			return Skin.m_brDialog;								// Dynmic controls (UploadQueue slider, variable icon, etc.)
+	//			return Images.m_brDialog;								// Dynmic controls (UploadQueue slider, variable icon, etc.)
 	//
 	//		//TCHAR szName[24];
 	//		//GetClassName( pWnd->GetSafeHwnd(), szName, 24 );		// Alt detection method
@@ -335,11 +335,11 @@ HBRUSH CSkinDialog::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	//		ScreenToClient( &rcPos );
 	//		rcPos.top -= Skin.m_nBanner;
 	//
-	//		CoolInterface.DrawWatermark( pDC, &rc, &Skin.m_bmDialog, FALSE, -rcPos.left, -rcPos.top );
+	//		CoolInterface.DrawWatermark( pDC, &rc, &Images.m_bmDialog, FALSE, -rcPos.left, -rcPos.top );
 	//		//pDC->BitBlt( 0, 0, rc.right, rc.bottom, pWnd->GetDC(), 0, 0, SRCCOPY );
 	//	}
 	//	else if ( pWnd->GetStyle() & SS_ICON )						// Static icon handling 32
-	//		return Skin.m_brDialog;
+	//		return Images.m_brDialog;
 
 		if ( pWnd->GetDlgCtrlID() != IDC_STATIC || ( pWnd->GetStyle() & SS_ICON ) )		// || ( pWnd->GetStyle() & SS_REALSIZEIMAGE ) )
 		{
@@ -350,7 +350,7 @@ HBRUSH CSkinDialog::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 			rc.top -= Skin.m_nBanner;
 			pDC->SetBrushOrg( -rc.left, -rc.top );
 
-			hbr = Skin.m_brDialog;
+			hbr = Images.m_brDialog;
 		}
 		else	// Static text
 			hbr = (HBRUSH)GetStockObject( NULL_BRUSH );
@@ -362,8 +362,8 @@ HBRUSH CSkinDialog::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	{
 		pDC->SetTextColor( Colors.m_crDialogText );
 		pDC->SetBkColor( Colors.m_crDialog );
-		if ( Skin.m_brDialog.m_hObject )
-			hbr = Skin.m_brDialog;
+		if ( Images.m_brDialog.m_hObject )
+			hbr = Images.m_brDialog;
 		else	// Pre-run message boxes (startup help/warning screens initial null used as white brush in some areas)
 			hbr = CreateSolidBrush( Colors.m_crDialog );
 	}
@@ -376,7 +376,7 @@ HBRUSH CSkinDialog::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 //	CDialog::OnUpdateUIState( nAction, nUIElement );
 //
 //	// Obsolete workaround fix for skinned repaint bug when Alt key is first pressed (Accelerators activated)
-//	if ( nAction == 2 && Skin.m_bmDialog.m_hObject )
+//	if ( nAction == 2 && Images.m_bmDialog.m_hObject )
 //		Invalidate();
 //}
 

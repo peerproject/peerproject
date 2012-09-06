@@ -1,20 +1,17 @@
-; Inno Setup 5.1.11+ Afrikaans Messages (PeerProject: af)
+; *** Inno Setup 5.1.11+ Afrikaans Messages (PeerProject: af)
 ;
 ; Created by: Hermien Pellissier (hermien@hmk.co.za)
 ;
 ; Made with Translator 1.32 (http://www2.arnes.si/~sopjsimo/translator.html)
 ; $Translator:NL=%n:TB=%t
 ;
-; http://www.jrsoftware.org/files/istrans/ (user-contributed translations) 
-;
-; Note: Do not add periods (.) to messages that don't have them already,
-; because for those messages Inno Setup adds the periods automatically.
-; (appending a period will result in two periods being displayed.)
+; Note: Do not add periods (.), where added automatically.
 
 [LangOptions]
 LanguageName=Afrikaans
 LanguageID=$0436
 LanguageCodePage=0
+
 ; If the language you are translating to requires special font faces or sizes,
 ; uncomment any of the following entries and change them accordingly.
 ;DialogFontName=
@@ -139,7 +136,8 @@ SelectDirDesc=Waar moet [name] geïnstalleer word?
 SelectDirLabel3=Die installeerder sal [name] installeer in die volgende gids.
 SelectDirBrowseLabel=Om voort te gaan, kliek Volgende. Indien u 'n ander gids wil kies, kliek Rondblaai.
 DiskSpaceMBLabel=Ten minste [mb] MG oop hardeskyfspasie word benodig.
-ToUNCPathname=Die installeerder kan nie installeer na 'n UNC-gidsnaam nie. Indien u probeer om te installeer op 'n netwerk, sal u 'n netwerkaandrywer moet afbeeld.
+CannotInstallToNetworkDrive=Die installeerder kan nie installeer na 'n Net-gidsnaam nie. Indien u probeer om te installeer op 'n netwerk, sal u 'n netwerkaandrywer moet afbeeld.
+CannotInstallToUNCPath=Die installeerder kan nie installeer na 'n UNC-gidsnaam nie. Indien u probeer om te installeer op 'n netwerk, sal u 'n netwerkaandrywer moet afbeeld.
 InvalidPath=U moet 'n volledige pad insleutel met 'n aandrywerletter; bv.:%n%nC:\APP%n%nof 'n UNC-pad in die vorm:%n%n\\server\share
 InvalidDrive=Die aandrywer of UNC-netwerkgids wat u gekies het, bestaan nie of is nie toeganklik nie. Kies asb. 'n ander een.
 DiskSpaceWarningTitle=Onvoldoende skyfspasie
@@ -301,6 +299,7 @@ SharedFileNameLabel=Leêrnaam:
 SharedFileLocationLabel=Ligging:
 WizardUninstalling=Verwyderingstatus
 StatusUninstalling=Verwyder %1...
+
 [CustomMessages]
 
 NameAndVersion=%1 weergawe %2
