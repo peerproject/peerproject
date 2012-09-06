@@ -569,10 +569,14 @@ void CommandData::ProcessSwitch(const char *Switch,const wchar *SwitchW)
         case 'I':
           {
             Priority=atoi(Switch+2);
+            if (Priority<0 || Priority>15)
+              BadSwitch(Switch);
             const char *ChPtr=strchr(Switch+2,':');
             if (ChPtr!=NULL)
             {
               SleepTime=atoi(ChPtr+1);
+              if (SleepTime>1000)
+                BadSwitch(Switch);
               InitSystemOptions(SleepTime);
             }
             SetPriority(Priority);
@@ -647,13 +651,16 @@ void CommandData::ProcessSwitch(const char *Switch,const wchar *SwitchW)
     case 'P':
       if (Switch[1]==0)
       {
-        GetPassword(PASSWORD_GLOBAL,NULL,NULL,Password,ASIZE(Password));
+        GetPassword(PASSWORD_GLOBAL,NULL,NULL,&Password);
         eprintf("\n");
       }
       else
       {
-        CharToWide(Switch+1,Password,ASIZE(Password));
-        Password[ASIZE(Password)-1]=0;
+        wchar PlainPsw[MAXPASSWORD];
+        CharToWide(Switch+1,PlainPsw,ASIZE(PlainPsw));
+        PlainPsw[ASIZE(PlainPsw)-1]=0;
+        Password.Set(PlainPsw);
+        cleandata(PlainPsw,ASIZE(PlainPsw));
       }
       break;
     case 'H':
@@ -662,13 +669,16 @@ void CommandData::ProcessSwitch(const char *Switch,const wchar *SwitchW)
         EncryptHeaders=true;
         if (Switch[2]!=0)
         {
-          CharToWide(Switch+2,Password,ASIZE(Password));
-          Password[ASIZE(Password)-1]=0;
+          wchar PlainPsw[MAXPASSWORD];
+          CharToWide(Switch+2,PlainPsw,ASIZE(PlainPsw));
+          PlainPsw[ASIZE(PlainPsw)-1]=0;
+          Password.Set(PlainPsw);
+          cleandata(PlainPsw,ASIZE(PlainPsw));
         }
         else
-          if (*Password==0)
+          if (!Password.IsSet())
           {
-            GetPassword(PASSWORD_GLOBAL,NULL,NULL,Password,ASIZE(Password));
+            GetPassword(PASSWORD_GLOBAL,NULL,NULL,&Password);
             eprintf("\n");
           }
       }
@@ -695,7 +705,7 @@ void CommandData::ProcessSwitch(const char *Switch,const wchar *SwitchW)
           {
             const char *Str=Switch+2;
             if (*Str=='-')
-              for (int I=0;I<sizeof(FilterModes)/sizeof(FilterModes[0]);I++)
+              for (uint I=0;I<ASIZE(FilterModes);I++)
                 FilterModes[I].State=FILTER_DISABLE;
             else
               while (*Str)
@@ -769,10 +779,10 @@ void CommandData::ProcessSwitch(const char *Switch,const wchar *SwitchW)
             }
           }
           break;
-#ifdef PACK_SMP
+#ifdef RAR_SMP
         case 'T':
           Threads=atoi(Switch+2);
-          if (Threads>16)
+          if (Threads>MaxPoolThreads || Threads<1)
             BadSwitch(Switch);
           else
           {
@@ -803,7 +813,7 @@ void CommandData::ProcessSwitch(const char *Switch,const wchar *SwitchW)
           VolSize=0;
           break;
         default:
-          VolSize=INT64NDF; // UnRAR -v switch for list command.
+          VolSize=VOLSIZE_AUTO; // UnRAR -v switch for list command.
           break;
       }
       break;
@@ -928,7 +938,7 @@ void CommandData::ProcessSwitch(const char *Switch,const wchar *SwitchW)
       break;
 #ifndef GUI
     case '?' :
-      OutHelp();
+      OutHelp(RARX_SUCCESS);
       break;
 #endif
     default :
@@ -943,7 +953,7 @@ void CommandData::ProcessSwitch(const char *Switch,const wchar *SwitchW)
 void CommandData::BadSwitch(const char *Switch)
 {
   mprintf(St(MUnknownOption),Switch);
-  ErrHandler.Exit(USER_ERROR);
+  ErrHandler.Exit(RARX_USERERROR);
 }
 #endif
 
@@ -989,7 +999,7 @@ inline bool CmpMSGID(MSGID i1,MSGID i2)
 #endif
 }
 
-void CommandData::OutHelp()
+void CommandData::OutHelp(RAR_EXIT ExitCode)
 {
 #if !defined(GUI) && !defined(SILENT)
   OutTitle();
@@ -1047,7 +1057,7 @@ void CommandData::OutHelp()
     if (CmpMSGID(Help[I],MCHelpSwOL))
       continue;
 #endif
-#ifndef PACK_SMP
+#ifndef RAR_SMP
     if (CmpMSGID(Help[I],MCHelpSwMT))
       continue;
 #endif
@@ -1066,7 +1076,7 @@ void CommandData::OutHelp()
     mprintf(St(Help[I]));
   }
   mprintf("\n");
-  ErrHandler.Exit(USER_ERROR);
+  ErrHandler.Exit(ExitCode);
 #endif
 }
 
@@ -1133,7 +1143,7 @@ bool CommandData::ExclCheckArgs(StringList *Args,bool Dir,char *CheckName,bool C
     if (CheckFullPath && IsFullPath(CurMask))
     {
       // We do not need to do the special "*\" processing here, because
-      // onlike the "else" part of this "if", now we convert names to full
+      // unlike the "else" part of this "if", now we convert names to full
       // format, so they all include the path, which is matched by "*\"
       // correctly. Moreover, removing "*\" from mask would break
       // the comparison, because now all names have the path.
@@ -1280,7 +1290,7 @@ void CommandData::ProcessCommand()
 
   const char *SingleCharCommands="FUADPXETK";
   if (Command[0]!=0 && Command[1]!=0 && strchr(SingleCharCommands,*Command)!=NULL || *ArcName==0)
-    OutHelp();
+    OutHelp(*Command==0 ? RARX_SUCCESS:RARX_USERERROR); // Return 'success' for 'rar' without parameters.
 
 #ifdef _UNIX
   if (GetExt(ArcName)==NULL && (!FileExist(ArcName) || IsDir(GetFileAttr(ArcName))))
@@ -1324,7 +1334,7 @@ void CommandData::ProcessCommand()
       ListArchive(this);
       break;
     default:
-      OutHelp();
+      OutHelp(RARX_USERERROR);
 #endif
   }
   if (!BareOutput)

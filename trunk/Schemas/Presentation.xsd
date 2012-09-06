@@ -54,7 +54,7 @@
 					<enumeration value="Sun StarOffice Impress Template"/>
 				</simpleType>
 			</attribute>
-	
+
 			<attribute name="formatVersion" type="string"/>
 			<attribute name="slides" type="int"/>
 			<attribute name="link" type="uriReference"/>

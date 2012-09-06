@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -31,7 +31,7 @@
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 IMPLEMENT_SERIAL(CLibraryWnd, CPanelWnd, 0)
 
@@ -172,7 +172,7 @@ BOOL CLibraryWnd::OnCollection(LPCTSTR pszPath)
 	{
 		// User clicked an invalid collection
 		strMessage.Format( LoadString( IDS_LIBRARY_COLLECTION_INVALID ), pszPath );
-		AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
+		MsgBox( strMessage, MB_ICONEXCLAMATION );
 		return FALSE;
 	}
 
@@ -229,7 +229,7 @@ BOOL CLibraryWnd::OnCollection(LPCTSTR pszPath)
 				if ( pLibFolder != NULL ) pLibFolder->Scan();
 
 				strMessage.Format( LoadString( IDS_LIBRARY_COLLECTION_INSTALLED ), (LPCTSTR)pCollection.GetTitle() );
-				AfxMessageBox( strMessage, MB_ICONINFORMATION );
+				MsgBox( strMessage, MB_ICONINFORMATION );
 
 				oLock.Lock();
 				if ( CLibraryFolder* pLibFolder = LibraryFolders.GetFolder( Settings.Downloads.CollectionPath ) )
@@ -250,7 +250,7 @@ BOOL CLibraryWnd::OnCollection(LPCTSTR pszPath)
 				// Best bet is to pretend everything is okay, since the delay it takes the user to respond may fix everything.
 
 				strMessage.Format( LoadString( IDS_LIBRARY_COLLECTION_INSTALLED ), (LPCTSTR)pCollection.GetTitle() );
-				AfxMessageBox( strMessage, MB_ICONINFORMATION );
+				MsgBox( strMessage, MB_ICONINFORMATION );
 
 				oLock.Lock();
 				if ( CLibraryFile* pTargetFile1 = LibraryMaps.LookupFileByPath( strTarget, FALSE, TRUE ) )
@@ -265,13 +265,13 @@ BOOL CLibraryWnd::OnCollection(LPCTSTR pszPath)
 					// Most likely cause- Corrupt file in collection folder.
 					oLock.Unlock();
 					strMessage.Format( LoadString( IDS_LIBRARY_COLLECTION_CANT_INSTALL ), (LPCTSTR)pCollection.GetTitle(), (LPCTSTR)Settings.Downloads.CollectionPath );
-					AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
+					MsgBox( strMessage, MB_ICONEXCLAMATION );
 				}
 			}
 			else	// Was not able to copy collection to the collection folder for Unknown reason -Display an error message
 			{
 				strMessage.Format( LoadString( IDS_LIBRARY_COLLECTION_CANT_INSTALL ), (LPCTSTR)pCollection.GetTitle(), (LPCTSTR)Settings.Downloads.CollectionPath );
-				AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
+				MsgBox( strMessage, MB_ICONEXCLAMATION );
 			}
 		}
 	}

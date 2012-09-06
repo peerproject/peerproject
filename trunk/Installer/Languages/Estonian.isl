@@ -10,18 +10,15 @@
 ; To download user-contributed translations of this file, go to:
 ;   http://www.jrsoftware.org/is3rdparty.php
 ;
-; Note: When translating this text, do not add periods (.) to the end of
-; messages that didn't have them already, because on those messages Inno
-; Setup adds the periods automatically (appending a period would result in
-; two periods being displayed).
+; Note: Do not add periods (.), where added automatically.
 ;
 ; $jrsoftware: issrc/Files/Languages/Estonian.isl,v 1.7 2005/06/01 16:58:26 jr Exp $
 
 [LangOptions]
 LanguageName=Estonian
 LanguageID=$0425
-; If the language you are translating to requires special font faces or
-; sizes, uncomment any of the following entries and change them accordingly.
+; If the language you are translating to requires special font faces or sizes,
+; uncomment any of the following entries and change them accordingly.
 ;DialogFontName=MS Shell Dlg
 ;DialogFontSize=8
 ;DialogFontStandardHeight=13

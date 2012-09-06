@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -34,7 +34,7 @@
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 IMPLEMENT_DYNCREATE(CWizardConnectionPage, CWizardPage)
 
@@ -166,19 +166,27 @@ BOOL CWizardConnectionPage::OnInitDialog()
 		m_nPort	= protocolPorts[ PROTOCOL_NULL ];		// Substitute Non-standard Port (6480)
 
 		// Obsolete check:
-		//CString sRegName = _T("InPort");
-		//CString sRegPath = _T("Connection");
-		//DWORD nPort = CRegistry::GetDword( (LPCTSTR)sRegPath, (LPCTSTR)sRegName );
+		//CString strRegName = _T("InPort");
+		//CString strRegPath = _T("Connection");
+		//DWORD nPort = CRegistry::GetDword( (LPCTSTR)strRegPath, (LPCTSTR)strRegName );
 
-		// Initially try using Shareaza's port to accomodate possible existing port-forwarding ...with conflict?
-		CString sRegName = _T("InPort");
-		CString sRegPath = _T("Software\\Shareaza\\Shareaza\\Connection");
-		DWORD nType = 0, nPort, nSize = sizeof( m_nPort );
-		LONG nErrorCode = SHRegGetUSValue( (LPCTSTR)sRegPath, (LPCTSTR)sRegName,
-			&nType, (PBYTE)&nPort, &nSize, FALSE, NULL, 0 );
+		// Initially try Shareaza's port to accomodate possible existing port-forwarding (with conflict)
+		const CString strRegPath = _T("Software\\Shareaza\\Shareaza\\Connection");
+		DWORD nType = 0, nEnabled = 1, nPort, nSize = sizeof( m_nPort );
 
-		if ( nErrorCode == ERROR_SUCCESS && nPort > 1030 && nPort < 65535 ) 	//&& nType == REG_DWORD && nSize == sizeof( nPort ) )
-			m_nPort	= nPort;
+		CString strRegName = _T("EnableUPnP");
+		LONG nErrorCode = SHRegGetUSValue( (LPCTSTR)strRegPath, (LPCTSTR)strRegName,
+			&nType, (PBYTE)&nEnabled, &nSize, FALSE, NULL, 0 );
+
+		if ( nErrorCode == ERROR_SUCCESS && nEnabled == 0 )	// Plug'n'Play disabled, assume deliberately
+		{
+			strRegName = _T("InPort");
+			nErrorCode = SHRegGetUSValue( (LPCTSTR)strRegPath, (LPCTSTR)strRegName,
+				&nType, (PBYTE)&nPort, &nSize, FALSE, NULL, 0 );
+
+			if ( nErrorCode == ERROR_SUCCESS && nPort > 1030 && nPort < 65535 ) 	//&& nType == REG_DWORD && nSize == sizeof( nPort ) )
+				m_nPort	= nPort;
+		}
 	}
 
 	// 3 steps with 30 sub-steps each
@@ -267,7 +275,7 @@ LRESULT CWizardConnectionPage::OnWizardNext()
 	if ( m_nPort > 1022 && m_nPort < 65536 )
 		Settings.Connection.InPort = m_nPort;
 	else
-		AfxMessageBox( L"Port number ignored.  (Use 1030-65530)" );
+		MsgBox( L"Port number ignored.  (Use 1030-65530)" );
 	Settings.Connection.RandomPort = ( m_bRandom == TRUE );
 	Settings.Connection.EnableUPnP = ( m_wndUPnP.GetCurSel() == 0 );
 
@@ -295,7 +303,7 @@ LRESULT CWizardConnectionPage::OnWizardNext()
 
 	if ( nDownloadSpeed < 2 || nUploadSpeed < 2 )
 	{
-		AfxMessageBox( IDS_WIZARD_NEED_SPEED, MB_ICONEXCLAMATION );
+		MsgBox( IDS_WIZARD_NEED_SPEED, MB_ICONEXCLAMATION );
 		return -1;
 	}
 
@@ -467,7 +475,7 @@ void CWizardConnectionPage::OnTimer(UINT_PTR nIDEvent)
 	//{
 	//	CString strMessage;
 	//	strMessage.Format( LoadString( IDS_WIZARD_PORT_FORWARD ), Settings.Connection.InPort );
-	//	AfxMessageBox( strMessage, MB_ICONINFORMATION );
+	//	MsgBox( strMessage, MB_ICONINFORMATION );
 	//}
 }
 

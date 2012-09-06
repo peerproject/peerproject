@@ -29,7 +29,7 @@
 </options>
 
 <images>
- <image target="Banner" path="Slim\Banner.png"/>
+ <image target="Banner" path="SlimBanner.png"/>
 </images>
 
 <windowskins>
@@ -65,9 +65,9 @@
 <target window="CUploadsWnd.Panel"/>
 <target window="CSystemWnd.Panel"/>
 <parts>
- <part name="TopLeft"	rect="0,6,24,14"/>
- <part name="Top"	rect="140,6,20,14"/>
- <part name="TopRight"	rect="170,6,165,14"/>
+ <part name="TopLeft" rect="0,6,24,14"/>
+ <part name="Top" rect="140,6,20,14"/>
+ <part name="TopRight" rect="170,6,165,14"/>
 </parts>
 <caption align="left" rect="20,2,500,21" fontFace="Segoe UI" fontSize="10" fontWeight="Normal" color="FFFFFF" inactivecolor="FFFFFF"/>
 </windowskin>
@@ -78,15 +78,15 @@
 <image path="Seven\Header.png"/>
 <target window="CSearchWnd.Panel"/>
 <parts>
- <part name="TopLeft"	rect="56,3,120,18"/>
- <part name="Top"	rect="140,3,10,18"/>
- <part name="TopRight"	rect="170,3,180,18"/>
- <part name="Close"	rect="334,8,12,12"/>
+ <part name="TopLeft" rect="56,3,120,18"/>
+ <part name="Top" rect="140,3,10,18"/>
+ <part name="TopRight" rect="170,3,180,18"/>
+ <part name="Close" rect="334,8,12,12"/>
  <part name="CloseHover" rect="349,8,12,12"/>
- <part name="CloseDown"  rect="348,7,12,12"/>
+ <part name="CloseDown" rect="348,7,12,12"/>
 </parts>
 <anchors>
- <anchor name="Close"	rect="-16,4,12,12"/>
+ <anchor name="Close" rect="-16,4,12,12"/>
 </anchors>
 <caption align="left" rect="20,1,500,18" fontFace="Segoe UI" fontSize="10" fontWeight="Normal" color="0666CC" outlinecolor="FFFFFF" inactivecolor="B0CAD0"/>
 </windowskin>

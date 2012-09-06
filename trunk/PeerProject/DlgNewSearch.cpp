@@ -1,18 +1,18 @@
 //
 // DlgNewSearch.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -22,15 +22,16 @@
 #include "QuerySearch.h"
 #include "DlgNewSearch.h"
 
+#include "Images.h"
+#include "Skin.h"
 #include "Schema.h"
 #include "XML.h"
-#include "Skin.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 #define PART_GAP		8
 #define PART_HEIGHT 	20
@@ -118,7 +119,7 @@ void CNewSearchDlg::OnGetMinMaxInfo(MINMAXINFO FAR* lpMMI)
 {
 	CSkinDialog::OnGetMinMaxInfo( lpMMI );
 	lpMMI->ptMinTrackSize.y = Skin.m_nBanner + 4 * PART_GAP + 3 * BUTTON_HEIGHT + 30; 	// 30 = default frame
-	lpMMI->ptMaxTrackSize.x = max( Skin.m_bmBanner.GetBitmapDimension().cx + 8, 400 );	//  8 = typical frame
+	lpMMI->ptMaxTrackSize.x = max( Images.m_bmBanner.GetBitmapDimension().cx + 8, 400 );	//  8 = typical frame
 	lpMMI->ptMinTrackSize.x = PART_GAP * 3 + BUTTON_WIDTH * 2 + 13;						// 13 = default frame
 }
 

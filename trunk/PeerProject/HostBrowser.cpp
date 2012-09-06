@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -40,9 +40,9 @@
 
 #ifdef _DEBUG
 #undef THIS_FILE
-static char THIS_FILE[]=__FILE__;
+static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 
 //////////////////////////////////////////////////////////////////////
@@ -152,7 +152,8 @@ BOOL CHostBrowser::Browse()
 	}
 	else // G2/Gunetella
 	{
-		if ( IsValid() ) return FALSE;
+		if ( IsValid() )
+			return FALSE;
 
 		if ( m_bMustPush )
 		{
@@ -473,23 +474,23 @@ BOOL CHostBrowser::LoadDCDirectory(CXMLElement* pRoot, CQueryHit*& pHits)
 		{
 			// <File Name="music.mp3" Size="100000" TTH="3A6D6T2NDRLU6BGSTSJNW3R3QWTV6A44M6AGXMA"/>
 
-			CString sName = pElement->GetAttributeValue( _T("Name") );
+			CString strName = pElement->GetAttributeValue( _T("Name") );
 			QWORD nSize;
 			if ( _stscanf( pElement->GetAttributeValue( _T("Size") ), _T("%I64i"), &nSize ) != 1 )
 				nSize = SIZE_UNKNOWN;
-			CString sTiger = pElement->GetAttributeValue( _T("TTH") );
+			CString strTiger = pElement->GetAttributeValue( _T("TTH") );
 
-			if ( sName.IsEmpty() || nSize == SIZE_UNKNOWN )
+			if ( strName.IsEmpty() || nSize == SIZE_UNKNOWN )
 				return FALSE;
 
 			if ( CQueryHit* pHit = new CQueryHit( PROTOCOL_DC ) )
 			{
-				pHit->m_sName		= sName;
+				pHit->m_sName		= strName;
 				pHit->m_nSize		= nSize;
 				pHit->m_bSize		= TRUE;
 				pHit->m_bChat		= TRUE;
 				pHit->m_bBrowseHost	= TRUE;
-				pHit->m_oTiger.fromString( sTiger );
+				pHit->m_oTiger.fromString( strTiger );
 				pHit->m_sNick		= m_sNick;
 				pHit->m_bBusy		= TRI_FALSE;
 				pHit->m_bPush		= TRI_TRUE;
@@ -846,7 +847,7 @@ BOOL CHostBrowser::OnPacket(CG1Packet* pPacket)
 
 BOOL CHostBrowser::OnPacket(CG2Packet* pPacket)
 {
-	switch( pPacket->m_nType )
+	switch ( pPacket->m_nType )
 	{
 	case G2_PACKET_HIT:
 		if ( CQueryHit* pHits = CQueryHit::FromG2Packet( pPacket ) )

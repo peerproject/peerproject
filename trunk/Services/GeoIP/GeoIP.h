@@ -1,7 +1,7 @@
 //
 // GeoIP.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions Copyright MaxMind LLC, 2006-2007. (v1.4.2)
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -180,6 +180,13 @@ GEOIP_API int GeoIP_id_by_code(const char *country);
 
 /* Get timezone from country and region code */
 //GEOIP_API const char * GeoIP_time_zone_by_country_and_region(const char *country_code, const char *region_code);
+
+/* Returns the library version in use. Helpful if your loading dynamically. */
+//GEOIP_API const char * GeoIP_lib_version(void);
+
+/* Cleans up memory used to hold file name paths. Returns 1 if successful; otherwise 0.
+ * */
+GEOIP_API int GeoIP_cleanup(void);
 
 #ifdef __cplusplus
 }

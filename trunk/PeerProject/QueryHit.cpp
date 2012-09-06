@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -38,9 +38,9 @@
 
 #ifdef _DEBUG
 #undef THIS_FILE
-static char THIS_FILE[]=__FILE__;
+static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 
 //////////////////////////////////////////////////////////////////////
@@ -997,9 +997,9 @@ BOOL CQueryHit::CheckValid() const
 		int nPos = m_sName.ReverseFind( _T('.') );
 		if ( nPos >= 0 )
 		{
-			CString sExt = m_sName.Mid( nPos + 1 );
-			if ( sExt.CompareNoCase( _T("wma") ) == 0 ||
-				 sExt.CompareNoCase( _T("wmv") ) == 0 )
+			CString strExt = m_sName.Mid( nPos + 1 );
+			if ( strExt.CompareNoCase( _T("wma") ) == 0 ||
+				 strExt.CompareNoCase( _T("wmv") ) == 0 )
 			{
 				theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("Got bogus hit packet from %s. No metadata in extended client. File \"%s\"."), (LPCTSTR)CString( inet_ntoa( m_pAddress ) ), m_sName );
 				return FALSE;
@@ -1039,10 +1039,10 @@ BOOL CQueryHit::CheckValid() const
 	{
 		if ( CXMLAttribute* pAttribute = m_pXML->GetAttribute( L"title" ) )
 		{
-			CString sValue = pAttribute->GetValue();
-			if ( _tcsnistr( (LPCTSTR)sValue, L"not related", 11 ) )
+			CString strValue = pAttribute->GetValue();
+			if ( _tcsnistr( (LPCTSTR)strValue, L"not related", 11 ) )
 			{
-				theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("Got bogus hit packet from %s.  Bogus metadata: \"%s\".  File \"%s\"."), (LPCTSTR)CString( inet_ntoa( m_pAddress ) ), sValue, m_sName );
+				theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("Got bogus hit packet from %s.  Bogus metadata: \"%s\".  File \"%s\"."), (LPCTSTR)CString( inet_ntoa( m_pAddress ) ), strValue, m_sName );
 				return FALSE;
 			}
 		}
@@ -1634,15 +1634,15 @@ void CQueryHit::ReadEDPacket(CEDPacket* pPacket, const SOCKADDR_IN* pServer, BOO
 			break;
 		//default:	// Debug check.  Remove this when working
 			//{
-			//	CString s;
-			//	s.Format ( _T("Tag: %u sTag: %s Type: %u"), pTag.m_nKey, pTag.m_sKey, pTag.m_nType );
-			//	theApp.Message( MSG_NOTICE, s );
+			//	CString str;
+			//	str.Format ( _T("Tag: %u sTag: %s Type: %u"), pTag.m_nKey, pTag.m_sKey, pTag.m_nType );
+			//	theApp.Message( MSG_NOTICE, str );
 
 			//	if ( pTag.m_nType == 2 )
-			//		s.Format ( _T("Value: %s"), pTag.m_sValue);
+			//		str.Format ( _T("Value: %s"), pTag.m_sValue);
 			//	else
-			//		s.Format ( _T("Value: %d"), pTag.m_nValue);
-			//	theApp.Message( MSG_NOTICE, s );
+			//		str.Format ( _T("Value: %d"), pTag.m_nValue);
+			//	theApp.Message( MSG_NOTICE, str );
 			//}
 		}
 	}
@@ -1841,8 +1841,8 @@ BOOL CQueryHit::ParseXML(CXMLElement* pMetaData, DWORD nRealIndex)
 		{
 			CXMLElement* pHit = pXML->GetNextElement( pos2 );
 
-			CString sIndex = pHit->GetAttributeValue( _T("index"), _T("-1") );
-			if ( _tstoi( sIndex ) == (int)nRealIndex )
+			CString strIndex = pHit->GetAttributeValue( _T("index"), _T("-1") );
+			if ( _tstoi( strIndex ) == (int)nRealIndex )
 			{
 				if ( m_pXML ) m_pXML->Delete();
 				m_pXML = NULL;
@@ -2062,13 +2062,13 @@ void CQueryHit::Serialize(CArchive& ar, int nVersion)	// MATCHLIST_SER_VERSION
 		//if ( nVersion >= 11 )
 			ar >> m_bCollection;
 
-		CString sSchemaURI, sSchemaPlural;
-		ar >> sSchemaURI;
-		ar >> sSchemaPlural;	// Unused
+		CString strSchemaURI, strSchemaPlural;
+		ar >> strSchemaURI;
+		ar >> strSchemaPlural;	// Unused
 
-		if ( ! sSchemaURI.IsEmpty() )
+		if ( ! strSchemaURI.IsEmpty() )
 		{
-			m_pSchema = SchemaCache.Get( sSchemaURI );
+			m_pSchema = SchemaCache.Get( strSchemaURI );
 			m_pXML = new CXMLElement();
 			m_pXML->Serialize( ar );
 		}

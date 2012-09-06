@@ -1,18 +1,18 @@
 //
 // AutocompleteEdit.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2008.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -24,6 +24,7 @@ public:
 	CRegEnum();
 	virtual ~CRegEnum();
 
+public:
 	// Create IAutoComplete object and attach HWND to it
 	//	szSection	: HKCU\SOFTWARE\{CompanyKey}\{ApplicationKey}\{szSection}
 	//	szRoot		: Must contain inside a "%i" format specifier (n = 1,2..200)
@@ -33,27 +34,27 @@ public:
 	void AddString(const CString& rString) const;
 
 protected:
+	CString						m_sect;
+	CString						m_root;
+	int							m_iter;
+	CComPtr< IAutoComplete >	m_pIAutoComplete;
+
+protected:
 	BEGIN_INTERFACE_PART(EnumString, IEnumString)
 		STDMETHOD(Next)(
-			/* [in] */ ULONG celt,
-			/* [length_is][size_is][out] */ LPOLESTR* rgelt,
-			/* [out] */ ULONG *pceltFetched);
+			/*[in]*/ ULONG celt,
+			/*[length_is][size_is][out]*/ LPOLESTR* rgelt,
+			/*[out]*/ ULONG *pceltFetched);
 		STDMETHOD(Skip)(
-			/* [in] */ ULONG celt);
+			/*[in]*/ ULONG celt);
 		STDMETHOD(Reset)(void);
 		STDMETHOD(Clone)(
-			/* [out] */ IEnumString** ppenum);
+			/*[out]*/ IEnumString** ppenum);
 	END_INTERFACE_PART(EnumString)
 
 	DECLARE_DYNCREATE(CRegEnum)
 	DECLARE_OLECREATE(CRegEnum)
 	DECLARE_INTERFACE_MAP()
-
-protected:
-	CString						m_sect;
-	CString						m_root;
-	int							m_iter;
-	CComPtr< IAutoComplete >	m_pIAutoComplete;
 };
 
 class CAutocompleteEdit : public CEdit
@@ -65,8 +66,7 @@ public:
 	virtual ~CAutocompleteEdit();
 
 public:
-	BOOL Create(DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID,
-		LPCTSTR szSection, LPCTSTR szRoot);
+	BOOL Create(DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID, LPCTSTR szSection, LPCTSTR szRoot);
 
 	virtual int GetWindowText(LPTSTR lpszStringBuf, int nMaxCount) const;
 	virtual void GetWindowText(CString& rString) const;

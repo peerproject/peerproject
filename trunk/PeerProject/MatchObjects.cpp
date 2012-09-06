@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -44,9 +44,9 @@
 
 #ifdef _DEBUG
 #undef THIS_FILE
-static char THIS_FILE[]=__FILE__;
+static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 #define MAP_SIZE		256
 #define BUFFER_GROW		64
@@ -77,7 +77,9 @@ CMatchList::CMatchList(CBaseMatchWnd* pParent)
 	m_pResultFilters = new CResultFilters;
 	m_pResultFilters->Load();
 
-	int nDefaultFilter = m_pResultFilters->m_nDefault;
+	const int nDefaultFilter = m_pResultFilters->m_nDefault;
+
+	const BOOL bBrowsing = ( pParent && ! pParent->IsKindOf( RUNTIME_CLASS( CSearchWnd ) ) );	// No Search assume Browse
 
 	if ( ( nDefaultFilter != NONE ) && ( (int)m_pResultFilters->m_nFilters >= nDefaultFilter + 1 ) )
 	{
@@ -104,7 +106,7 @@ CMatchList::CMatchList(CBaseMatchWnd* pParent)
 		m_bFilterUnstable	= ( Settings.Search.FilterMask & ( 1 << 2 ) ) > 0;	// 0;
 		m_bFilterBusy		= ( Settings.Search.FilterMask & ( 1 << 3 ) ) > 0;	// 0;
 		m_bFilterLocal		= ( Settings.Search.FilterMask & ( 1 << 4 ) ) > 0;	// 0;
-		m_bFilterReject		= ( Settings.Search.FilterMask & ( 1 << 5 ) ) > 0;	// 0;
+		m_bFilterReject		= ( Settings.Search.FilterMask & ( 1 << 5 ) ) > 0 || bBrowsing;	// 0;
 		m_bFilterBogus		= ( Settings.Search.FilterMask & ( 1 << 6 ) ) > 0;	// 0;
 		m_bFilterDRM		= ( Settings.Search.FilterMask & ( 1 << 7 ) ) > 0;	// 1;
 		m_bFilterRestricted	= ( Settings.Search.FilterMask & ( 1 << 8 ) ) > 0;	// 0;
@@ -384,7 +386,7 @@ CMatchFile* CMatchList::FindFileAndAddHit(CQueryHit* pHit, const findType nFindF
 {
 	CMatchFile** pMap;
 
-	switch( nFindFlag )
+	switch ( nFindFlag )
 	{
 	case fSHA1:
 		pMap = m_pMapSHA1 + pHit->m_oSHA1[ 0 ];
@@ -412,7 +414,7 @@ CMatchFile* CMatchList::FindFileAndAddHit(CQueryHit* pHit, const findType nFindF
 	{
 		bool bValid = false;
 
-		switch( nFindFlag )
+		switch ( nFindFlag )
 		{
 		case fSHA1:
 			bValid = validAndEqual( pSeek->m_oSHA1, pHit->m_oSHA1 );
@@ -465,7 +467,7 @@ CMatchFile* CMatchList::FindFileAndAddHit(CQueryHit* pHit, const findType nFindF
 			Stats->bHadMD5 = false;
 		}
 
-		switch( nFindFlag )
+		switch ( nFindFlag )
 		{
 		case fSHA1:
 			pSeek = pSeek->m_pNextSHA1;
@@ -891,13 +893,13 @@ BOOL CMatchList::FilterHit(CQueryHit* pHit)
 	}
 
 	if ( ( m_bFilterBusy && pHit->m_bBusy == TRI_TRUE ) ||
-	//	( m_bFilterPush && pHit->m_bPush == TRI_TRUE && pHit->m_nProtocol != PROTOCOL_ED2K ) ||
-		( m_bFilterPush && pHit->m_bPush == TRI_TRUE ) ||
-		( m_bFilterUnstable && pHit->m_bStable == TRI_FALSE ) ||
-		( m_bFilterReject && pHit->m_bMatched == FALSE ) ||
-		( m_bFilterBogus && pHit->m_bBogus ) ||
-		( m_nFilterMinSize > 0 && pHit->m_nSize < m_nFilterMinSize ) ||
-		( m_nFilterMaxSize > 0 && pHit->m_nSize > m_nFilterMaxSize ) )
+	//	 ( m_bFilterPush && pHit->m_bPush == TRI_TRUE && pHit->m_nProtocol != PROTOCOL_ED2K ) ||
+		 ( m_bFilterPush && pHit->m_bPush == TRI_TRUE ) ||
+		 ( m_bFilterUnstable && pHit->m_bStable == TRI_FALSE ) ||
+		 ( m_bFilterReject && pHit->m_bMatched == FALSE ) ||
+		 ( m_bFilterBogus && pHit->m_bBogus ) ||
+		 ( m_nFilterMinSize > 0 && pHit->m_nSize < m_nFilterMinSize ) ||
+		 ( m_nFilterMaxSize > 0 && pHit->m_nSize > m_nFilterMaxSize ) )
 		return FALSE;
 
 	if ( m_pszFilter )

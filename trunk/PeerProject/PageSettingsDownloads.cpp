@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -29,7 +29,7 @@
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 IMPLEMENT_DYNCREATE(CDownloadsSettingsPage, CSettingsPage)
 
@@ -128,14 +128,14 @@ void CDownloadsSettingsPage::OnDownloadsBrowse()
 	// Warn user about a path that's too long
 	if ( _tcslen( strPath ) > MAX_PATH - 33 )
 	{
-		AfxMessageBox( IDS_SETTINGS_FILEPATH_TOO_LONG, MB_ICONEXCLAMATION );
+		MsgBox( IDS_SETTINGS_FILEPATH_TOO_LONG, MB_ICONEXCLAMATION );
 		return;
 	}
 
 	// Make sure download/incomplete folders aren't the same
 	if ( _tcsicmp( strPath, m_sIncompletePath ) == 0 )
 	{
-		AfxMessageBox( IDS_SETTINGS_FILEPATH_NOT_SAME, MB_ICONEXCLAMATION );
+		MsgBox( IDS_SETTINGS_FILEPATH_NOT_SAME, MB_ICONEXCLAMATION );
 		return;
 	}
 
@@ -154,21 +154,21 @@ void CDownloadsSettingsPage::OnIncompleteBrowse()
 	// Warn user about a path that's too long
 	if ( _tcslen( strPath ) > MAX_PATH - 60 )
 	{
-		AfxMessageBox( IDS_SETTINGS_FILEPATH_TOO_LONG, MB_ICONEXCLAMATION );
+		MsgBox( IDS_SETTINGS_FILEPATH_TOO_LONG, MB_ICONEXCLAMATION );
 		return;
 	}
 
 	// Make sure download/incomplete folders aren't the same
 	if ( _tcsicmp( strPath, m_sDownloadsPath ) == 0 )
 	{
-		AfxMessageBox( IDS_SETTINGS_FILEPATH_NOT_SAME, MB_ICONEXCLAMATION );
+		MsgBox( IDS_SETTINGS_FILEPATH_NOT_SAME, MB_ICONEXCLAMATION );
 		return;
 	}
 
 	// Warn user about an incomplete folder in the library
 	if ( LibraryFolders.IsFolderShared( strPath ) )
 	{
-		AfxMessageBox( IDS_SETTINGS_INCOMPLETE_LIBRARY, MB_ICONEXCLAMATION );
+		MsgBox( IDS_SETTINGS_INCOMPLETE_LIBRARY, MB_ICONEXCLAMATION );
 		return;
 	}
 
@@ -183,7 +183,7 @@ BOOL CDownloadsSettingsPage::OnKillActive()
 
 	if ( IsLimited( m_sBandwidthLimit ) && ! Settings.ParseVolume( m_sBandwidthLimit ) )
 	{
-		AfxMessageBox( IDS_SETTINGS_NEED_BANDWIDTH, MB_ICONEXCLAMATION );
+		MsgBox( IDS_SETTINGS_NEED_BANDWIDTH, MB_ICONEXCLAMATION );
 		GetDlgItem( IDC_DOWNLOADS_BANDWIDTH_LIMIT )->SetFocus();
 		return FALSE;
 	}
@@ -222,7 +222,7 @@ void CDownloadsSettingsPage::OnOK()
 		! Settings.Live.QueueLimitWarning && ( Settings.eDonkey.Enabled || Settings.eDonkey.EnableAlways ) )
 	{
 		// Warn the user about setting the max queue wait limit too low
-		if ( AfxMessageBox( IDS_SETTINGS_WARN_QUEUELIMIT, MB_ICONQUESTION|MB_YESNO ) == IDNO )
+		if ( MsgBox( IDS_SETTINGS_WARN_QUEUELIMIT, MB_ICONQUESTION|MB_YESNO ) == IDNO )
 			nQueueLimit = 0;
 		else
 			Settings.Live.QueueLimitWarning = true;		// Don't need to warn the user again.
@@ -282,7 +282,7 @@ void CDownloadsSettingsPage::OnOK()
 			LoadString( strFormat, IDS_LIBRARY_DOWNLOADS_ADD );
 			strMessage.Format( strFormat, (LPCTSTR)m_sDownloadsPath );
 
-			if ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO ) == IDYES )
+			if ( MsgBox( strMessage, MB_ICONQUESTION|MB_YESNO ) == IDYES )
 			{
 				CLibraryFolder* pFolder = LibraryFolders.AddFolder( m_sDownloadsPath );
 
@@ -290,7 +290,7 @@ void CDownloadsSettingsPage::OnOK()
 				{
 					LoadString( strMessage, IDS_LIBRARY_DOWNLOADS_SHARE );
 
-					BOOL bShare = AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO ) == IDYES;
+					BOOL bShare = MsgBox( strMessage, MB_ICONQUESTION|MB_YESNO ) == IDYES;
 
 					CQuickLock oLock( Library.m_pSection );
 					if ( LibraryFolders.CheckFolder( pFolder, TRUE ) )

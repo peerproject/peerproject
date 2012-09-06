@@ -1,8 +1,8 @@
 // (C) Copyright David Abrahams 2002.
 // (C) Copyright Jeremy Siek    2002.
 // (C) Copyright Thomas Witt    2002.
-// Distributed under the Boost Software License, Version 1.0. (See
-// accompanying file LICENSE_1_0.txt or copy at
+// Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 // no include guard multiple inclusion intended
@@ -24,8 +24,7 @@
 
 // We enable this always now.  Otherwise, the simple case in
 // libs/iterator/test/constant_iterator_arrow.cpp fails to compile
-// because the operator-> return is improperly deduced as a non-const
-// pointer.
+// because the operator-> return is improperly deduced as a non-const pointer.
 #if 1 || defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)           \
     || BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x531))
 
@@ -122,16 +121,16 @@
 #  define BOOST_ARG_DEPENDENT_TYPENAME
 # endif
 
-# if BOOST_WORKAROUND(__GNUC__, == 2) && BOOST_WORKAROUND(__GNUC_MINOR__, BOOST_TESTED_AT(95)) \
-    || BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x564))
-
+//# if BOOST_WORKAROUND(__GNUC__, == 2) && BOOST_WORKAROUND(__GNUC_MINOR__, BOOST_TESTED_AT(95)) \
+//  || BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x564))
+//
 // GCC-2.95 eagerly instantiates templated constructors and conversion
 // operators in convertibility checks, causing premature errors.
 //
 // Borland's problems are harder to diagnose due to lack of an
 // instantiation stack backtrace.  They may be due in part to the fact
 // that it drops cv-qualification willy-nilly in templates.
-#  define BOOST_NO_ONE_WAY_ITERATOR_INTEROP
-# endif
+//#  define BOOST_NO_ONE_WAY_ITERATOR_INTEROP
+//# endif
 
 // no include guard; multiple inclusion intended

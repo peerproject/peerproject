@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -42,7 +42,7 @@
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 IMPLEMENT_DYNAMIC(CSearchDetailPanel, CPanelCtrl)
 
@@ -332,11 +332,11 @@ void CSearchDetailPanel::OnPaint()
 
 	dc.SelectObject( &CoolInterface.m_fntNormal );
 	{
-		CString sSize;
-		sSize.Format( _T("%s   (%I64i bytes)"), m_sSize, m_pFile->m_nSize );
-		CSize sz = dc.GetTextExtent( sSize );
+		CString strSize;
+		strSize.Format( _T("%s   (%I64i bytes)"), m_sSize, m_pFile->m_nSize );
+		CSize sz = dc.GetTextExtent( strSize );
 		int nOffset = sz.cx + 2;
-		DrawText( &dc, rcWork.right - nOffset, rcWork.top, sSize );
+		DrawText( &dc, rcWork.right - nOffset, rcWork.top, strSize );
 		dc.SelectObject( &CoolInterface.m_fntBold );
 		LoadString( str, IDS_TIP_SIZE );
 		sz = dc.GetTextExtent( str );

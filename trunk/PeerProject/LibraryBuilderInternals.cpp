@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -39,9 +39,9 @@
 
 #ifdef _DEBUG
 #undef THIS_FILE
-static char THIS_FILE[]=__FILE__;
+static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 #define ReadDwordOrBreak(hFile, nID, nRead) \
 	if ( ! ReadFile( hFile, &nID, 4, &nRead, NULL ) || nRead != 4 ) break;
@@ -116,7 +116,7 @@ bool CLibraryBuilderInternals::ExtractMetadata(DWORD nIndex, const CString& strP
 		// ToDo: Generic Fallback "Uknown Type"
 	}
 
-	switch( FileType[ strType ] )
+	switch ( FileType[ strType ] )
 	{
 	case '3':	// .mp3/.aac/.flac + .mpc/.mpp/.mp+ (musepack)
 		if ( ! Settings.Library.ScanMP3 )			return false;
@@ -476,7 +476,7 @@ bool CLibraryBuilderInternals::ReadID3v2(DWORD nIndex, HANDLE hFile)
 		if ( nBuffer < nFrameSize || ! szFrameTag[0] )
 			break;
 
-		switch( Tag[ CString(szFrameTag) ] )
+		switch ( Tag[ CString(szFrameTag) ] )
 		{
 		case 'i':		// "TIT2" "TT2"
 			CopyID3v2Field( pXML.get(), _T("title"), pBuffer, nFrameSize );
@@ -2310,9 +2310,8 @@ bool CLibraryBuilderInternals::ReadAPE(DWORD nIndex, HANDLE hFile, bool bPreferF
 		{
 			strKey.MakeLower();
 
-			switch( Text[ strKey ] )
+			switch ( Text[ strKey ] )
 			{
-
 			case 't':		// "title"
 				pXML->AddAttribute( L"title", strValue );
 				break;
@@ -2727,7 +2726,7 @@ bool CLibraryBuilderInternals::ReadAVI(DWORD nIndex, HANDLE hFile)
 			else if ( nID == FCC('INFO') )
 			{
 				bInfoFound = true;
-				for ( ; ; )
+				for ( ;; )
 				{
 					ReadDwordOrBreak( hFile, nID, nRead )
 					if ( (CHAR)( nID & 0x000000FF ) != 'I' )
@@ -3993,9 +3992,9 @@ bool CLibraryBuilderInternals::ReadTorrent(DWORD nIndex, HANDLE /*hFile*/, LPCTS
 		pXML->AddAttribute( L"tracker", oTorrent.GetTrackerAddress() );
 	if ( oTorrent.m_nEncoding )
 	{
-		CString sEncoding;
-		sEncoding.Format( _T("CP%u"), oTorrent.m_nEncoding );
-		pXML->AddAttribute( L"encoding", sEncoding );
+		CString strEncoding;
+		strEncoding.Format( _T("CP%u"), oTorrent.m_nEncoding );
+		pXML->AddAttribute( L"encoding", strEncoding );
 	}
 	if ( oTorrent.m_tCreationDate )
 	{

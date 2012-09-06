@@ -26,13 +26,13 @@
 #ifndef BOOST_CONFIG_SUFFIX_HPP
 #define BOOST_CONFIG_SUFFIX_HPP
 
-#if defined(__GNUC__) && (__GNUC__ >= 4)
+//#if defined(__GNUC__) && (__GNUC__ >= 4)
 //
 // Some GCC-4.x versions issue warnings even when __extension__ is used,
 // so use this as a workaround:
 //
-#pragma GCC system_header
-#endif
+//#pragma GCC system_header
+//#endif
 
 //
 // ensure that visibility macros are always defined, thus symplifying use
@@ -66,9 +66,9 @@
 // GCC 3.x will clean up all of those nasty macro definitions that
 // BOOST_NO_CTYPE_FUNCTIONS is intended to help work around, so undefine
 // it under GCC 3.x.
-#if defined(__GNUC__) && (__GNUC__ >= 3) && defined(BOOST_NO_CTYPE_FUNCTIONS)
-#  undef BOOST_NO_CTYPE_FUNCTIONS
-#endif
+//#if defined(__GNUC__) && (__GNUC__ >= 3) && defined(BOOST_NO_CTYPE_FUNCTIONS)
+//#  undef BOOST_NO_CTYPE_FUNCTIONS
+//#endif
 
 //
 // Assume any extensions are in namespace std:: unless stated otherwise:
@@ -336,17 +336,6 @@
 #endif
 
 //
-// Set BOOST_NO_INITIALIZER_LISTS if there is no library support.
-//
-
-#if defined(BOOST_NO_0X_HDR_INITIALIZER_LIST) && !defined(BOOST_NO_INITIALIZER_LISTS)
-#  define BOOST_NO_INITIALIZER_LISTS
-#endif
-#if defined(BOOST_NO_INITIALIZER_LISTS) && !defined(BOOST_NO_0X_HDR_INITIALIZER_LIST)
-#  define BOOST_NO_0X_HDR_INITIALIZER_LIST
-#endif
-
-//
 // Set BOOST_HAS_RVALUE_REFS when BOOST_NO_RVALUE_REFERENCES is not defined
 //
 #if !defined(BOOST_NO_RVALUE_REFERENCES) && !defined(BOOST_HAS_RVALUE_REFS)
@@ -358,6 +347,13 @@
 //
 #if !defined(BOOST_NO_VARIADIC_TEMPLATES) && !defined(BOOST_HAS_VARIADIC_TMPL)
 #define BOOST_HAS_VARIADIC_TMPL
+#endif
+
+//
+// Set BOOST_NO_DECLTYPE_N3276 when BOOST_NO_DECLTYPE is defined
+//
+#if !defined(BOOST_NO_DECLTYPE_N3276) && defined(BOOST_NO_DECLTYPE)
+#define BOOST_NO_DECLTYPE_N3276
 #endif
 
 //  BOOST_HAS_ABI_HEADERS
@@ -630,6 +626,20 @@ namespace std{ using ::type_info; }
 #define BOOST_DO_JOIN2( X, Y ) X##Y
 
 //
+// Helper macros BOOST_NOEXCEPT, BOOST_NOEXCEPT_IF, BOOST_NOEXCEPT_EXPR
+// These aid the transition to C++11 while still supporting C++03 compilers
+//
+#ifdef BOOST_NO_NOEXCEPT
+#  define BOOST_NOEXCEPT
+#  define BOOST_NOEXCEPT_IF(Predicate)
+#  define BOOST_NOEXCEPT_EXPR(Expression) false
+#else
+#  define BOOST_NOEXCEPT noexcept
+#  define BOOST_NOEXCEPT_IF(Predicate) noexcept((Predicate))
+#  define BOOST_NOEXCEPT_EXPR(Expression) noexcept((Expression))
+#endif
+
+//
 // Set some default values for compiler/library/platform names.
 // These are for debugging config setup only:
 //
@@ -679,5 +689,98 @@ namespace std{ using ::type_info; }
 #    define BOOST_FORCEINLINE inline
 #  endif
 #endif
+
+
+//  -------------------- Deprecated macros for 1.50 ---------------------------
+//  These will go away in a future release
+
+//  Use BOOST_NO_CXX11_HDR_INITIALIZER_LIST instead of BOOST_NO_INITIALIZER_LISTS
+#if defined(BOOST_NO_CXX11_HDR_INITIALIZER_LIST) && !defined(BOOST_NO_INITIALIZER_LISTS)
+#  define BOOST_NO_INITIALIZER_LISTS
+#endif
+
+//  Use BOOST_NO_CXX11_HDR_ARRAY instead of BOOST_NO_0X_HDR_ARRAY
+#if defined(BOOST_NO_CXX11_HDR_ARRAY) && !defined(BOOST_NO_BOOST_NO_0X_HDR_ARRAY)
+#  define BOOST_NO_0X_HDR_ARRAY
+#endif
+//  Use BOOST_NO_CXX11_HDR_CHRONO instead of BOOST_NO_0X_HDR_CHRONO
+#if defined(BOOST_NO_CXX11_HDR_CHRONO) && !defined(BOOST_NO_0X_HDR_CHRONO)
+#  define BOOST_NO_0X_HDR_CHRONO
+#endif
+//  Use BOOST_NO_CXX11_HDR_CODECVT instead of BOOST_NO_0X_HDR_CODECVT
+#if defined(BOOST_NO_CXX11_HDR_CODECVT) && !defined(BOOST_NO_0X_HDR_CODECVT)
+#  define BOOST_NO_0X_HDR_CODECVT
+#endif
+//  Use BOOST_NO_CXX11_HDR_CONDITION_VARIABLE instead of BOOST_NO_0X_HDR_CONDITION_VARIABLE
+#if defined(BOOST_NO_CXX11_HDR_CONDITION_VARIABLE) && !defined(BOOST_NO_0X_HDR_CONDITION_VARIABLE)
+#  define BOOST_NO_0X_HDR_CONDITION_VARIABLE
+#endif
+//  Use BOOST_NO_CXX11_HDR_FORWARD_LIST instead of BOOST_NO_0X_HDR_FORWARD_LIST
+#if defined(BOOST_NO_CXX11_HDR_FORWARD_LIST) && !defined(BOOST_NO_0X_HDR_FORWARD_LIST)
+#  define BOOST_NO_0X_HDR_FORWARD_LIST
+#endif
+//  Use BOOST_NO_CXX11_HDR_FUTURE instead of BOOST_NO_0X_HDR_FUTURE
+#if defined(BOOST_NO_CXX11_HDR_FUTURE) && !defined(BOOST_NO_0X_HDR_FUTURE)
+#  define BOOST_NO_0X_HDR_FUTURE
+#endif
+
+//  Use BOOST_NO_CXX11_HDR_INITIALIZER_LIST
+//  instead of BOOST_NO_0X_HDR_INITIALIZER_LIST or BOOST_NO_INITIALIZER_LISTS
+#ifdef BOOST_NO_CXX11_HDR_INITIALIZER_LIST
+# ifndef BOOST_NO_0X_HDR_INITIALIZER_LIST
+#  define BOOST_NO_0X_HDR_INITIALIZER_LIST
+# endif
+# ifndef BOOST_NO_INITIALIZER_LISTS
+#  define BOOST_NO_INITIALIZER_LISTS
+# endif
+#endif
+
+//  Use BOOST_NO_CXX11_HDR_MUTEX instead of BOOST_NO_0X_HDR_MUTEX
+#if defined(BOOST_NO_CXX11_HDR_MUTEX) && !defined(BOOST_NO_0X_HDR_MUTEX)
+#  define BOOST_NO_0X_HDR_MUTEX
+#endif
+//  Use BOOST_NO_CXX11_HDR_RANDOM instead of BOOST_NO_0X_HDR_RANDOM
+#if defined(BOOST_NO_CXX11_HDR_RANDOM) && !defined(BOOST_NO_0X_HDR_RANDOM)
+#  define BOOST_NO_0X_HDR_RANDOM
+#endif
+//  Use BOOST_NO_CXX11_HDR_RATIO instead of BOOST_NO_0X_HDR_RATIO
+#if defined(BOOST_NO_CXX11_HDR_RATIO) && !defined(BOOST_NO_0X_HDR_RATIO)
+#  define BOOST_NO_0X_HDR_RATIO
+#endif
+//  Use BOOST_NO_CXX11_HDR_REGEX instead of BOOST_NO_0X_HDR_REGEX
+#if defined(BOOST_NO_CXX11_HDR_REGEX) && !defined(BOOST_NO_0X_HDR_REGEX)
+#  define BOOST_NO_0X_HDR_REGEX
+#endif
+//  Use BOOST_NO_CXX11_HDR_SYSTEM_ERROR instead of BOOST_NO_0X_HDR_SYSTEM_ERROR
+#if defined(BOOST_NO_CXX11_HDR_SYSTEM_ERROR) && !defined(BOOST_NO_0X_HDR_SYSTEM_ERROR)
+#  define BOOST_NO_0X_HDR_SYSTEM_ERROR
+#endif
+//  Use BOOST_NO_CXX11_HDR_THREAD instead of BOOST_NO_0X_HDR_THREAD
+#if defined(BOOST_NO_CXX11_HDR_THREAD) && !defined(BOOST_NO_0X_HDR_THREAD)
+#  define BOOST_NO_0X_HDR_THREAD
+#endif
+//  Use BOOST_NO_CXX11_HDR_TUPLE instead of BOOST_NO_0X_HDR_TUPLE
+#if defined(BOOST_NO_CXX11_HDR_TUPLE) && !defined(BOOST_NO_0X_HDR_TUPLE)
+#  define BOOST_NO_0X_HDR_TUPLE
+#endif
+//  Use BOOST_NO_CXX11_HDR_TYPE_TRAITS instead of BOOST_NO_0X_HDR_TYPE_TRAITS
+#if defined(BOOST_NO_CXX11_HDR_TYPE_TRAITS) && !defined(BOOST_NO_0X_HDR_TYPE_TRAITS)
+#  define BOOST_NO_0X_HDR_TYPE_TRAITS
+#endif
+//  Use BOOST_NO_CXX11_HDR_TYPEINDEX instead of BOOST_NO_0X_HDR_TYPEINDEX
+#if defined(BOOST_NO_CXX11_HDR_TYPEINDEX) && !defined(BOOST_NO_0X_HDR_TYPEINDEX)
+#  define BOOST_NO_0X_HDR_TYPEINDEX
+#endif
+//  Use BOOST_NO_CXX11_HDR_UNORDERED_MAP instead of BOOST_NO_0X_HDR_UNORDERED_MAP
+#if defined(BOOST_NO_CXX11_HDR_UNORDERED_MAP) && !defined(BOOST_NO_0X_HDR_UNORDERED_MAP)
+#  define BOOST_NO_0X_HDR_UNORDERED_MAP
+#endif
+//  Use BOOST_NO_CXX11_HDR_UNORDERED_SET instead of BOOST_NO_0X_HDR_UNORDERED_SET
+#if defined(BOOST_NO_CXX11_HDR_UNORDERED_SET) && !defined(BOOST_NO_0X_HDR_UNORDERED_SET)
+#  define BOOST_NO_0X_HDR_UNORDERED_SET
+#endif
+
+//  ------------------ End of deprecated macros for 1.50 ---------------------------
+
 
 #endif

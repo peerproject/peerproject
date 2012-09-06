@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -33,9 +33,9 @@
 
 #ifdef _DEBUG
 #undef THIS_FILE
-static char THIS_FILE[]=__FILE__;
+static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 // Set Column Order
 enum {
@@ -443,7 +443,7 @@ void CCollectionExportDlg::OnOK()
 						}
 						else // Something wrong
 						{
-							AfxMessageBox( _T("BUG: Controls placed badly.") );
+							MsgBox( _T("BUG: Controls placed badly.") );
 							break;
 						}
 
@@ -500,7 +500,7 @@ void CCollectionExportDlg::OnOK()
 										// Create dirs recursively
 										CreateDirectory( strTarget.Left( strTarget.ReverseFind( _T('\\') ) ) );
 										if ( ! CopyFile( strSourceFile, strTarget, TRUE ) )
-											AfxMessageBox( _T("ToDo: File disappeared: \n") + strReplace );
+											MsgBox( _T("ToDo: File disappeared: \n") + strReplace );
 									}
 								}
 								if ( strMap == "m" ) break;
@@ -559,7 +559,7 @@ void CCollectionExportDlg::OnOK()
 							// Create dirs recursively
 							CreateDirectory( strTarget.Left( strTarget.ReverseFind( _T('\\') ) ) );
 							if ( ! CopyFile( strSource, strTarget, TRUE ) )
-								AfxMessageBox( _T("ToDo: Can't write to ") + strFile );
+								MsgBox( _T("ToDo: Can't write to ") + strFile );
 						}
 					}
 				} // While Image
@@ -569,14 +569,14 @@ void CCollectionExportDlg::OnOK()
 			else
 			{
 				pLock.Unlock();
-				AfxMessageBox( _T("ToDo: Can't write to ") + strFile );
+				MsgBox( _T("ToDo: Can't write to ") + strFile );
 				m_nStep--;
 			}
 		}
 		else
 		{
 			pLock.Unlock();
-			AfxMessageBox( _T("ToDo: Folder disappeared.") );
+			MsgBox( _T("ToDo: Folder disappeared.") );
 			m_nStep--;
 		}
 		break;	// case 2:
@@ -600,7 +600,7 @@ void CCollectionExportDlg::OnTemplatesDeleteOrBack()
 			CString strPrompt;
 			strPrompt.Format( LoadString( IDS_TEMPLATE_DELETE ), (LPCTSTR)strName );
 
-			if ( AfxMessageBox( strPrompt, MB_ICONQUESTION|MB_OKCANCEL|MB_DEFBUTTON2 ) != IDOK ) return;
+			if ( MsgBox( strPrompt, MB_ICONQUESTION|MB_OKCANCEL|MB_DEFBUTTON2 ) != IDOK ) return;
 
 			CString strPath;
 			strPath.Format( _T("%s\\Templates\\%s"),

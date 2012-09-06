@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -36,9 +36,9 @@
 
 #ifdef _DEBUG
 #undef THIS_FILE
-static char THIS_FILE[]=__FILE__;
+static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 CDHT DHT;	// Services/MainlineDHT
 
@@ -280,7 +280,7 @@ void CDHT::OnPacket(const SOCKADDR_IN* pHost, CBTPacket* pPacket)
 	// ToDo: Remove extra copy
 	CBuffer pBufffer;
 	pPacket->ToBuffer( &pBufffer, false );
-	pBufffer.Add( "", 1 );	// zero terminated
+	pBufffer.Add( "", 1 );	// Zero terminated
 
 	time_t tosleep = 0;
 	dht_periodic( pBufffer.m_pBuffer, pBufffer.m_nLength - 1, (sockaddr*)pHost, sizeof( SOCKADDR_IN ), &tosleep, &CDHT::OnEvent, NULL );
@@ -587,7 +587,7 @@ CString CBTPacket::GetType() const
 	case BT_PACKET_KEEPALIVE:
 		return _T("Keep-Alive");
 	case BT_PACKET_EXTENSION:
-		switch( m_nExtension )
+		switch ( m_nExtension )
 		{
 		case BT_EXTENSION_HANDSHAKE:
 			return _T("Handshake");
@@ -691,16 +691,16 @@ BOOL CBTPacket::OnPacket(const SOCKADDR_IN* pHost)
 //		if ( ! pQueryMethod || ! pQueryMethod->IsType( CBENode::beString ) )
 //			return FALSE;
 //
-//		CString sQueryMethod = pQueryMethod->GetString();
-//		if ( sQueryMethod == BT_DICT_PING ) 								// "ping"
+//		CString strQueryMethod = pQueryMethod->GetString();
+//		if ( strQueryMethod == BT_DICT_PING ) 								// "ping"
 //			return OnPing( pHost );
-//		//else if ( sQueryMethod == BT_DICT_FIND_NODE ) 					// "find_node"
+//		//else if ( strQueryMethod == BT_DICT_FIND_NODE ) 					// "find_node"
 //		//	; // ToDo: Find node
-//		//else if ( sQueryMethod == BT_DICT_GET_PEERS ) 					// "get_peers"
+//		//else if ( strQueryMethod == BT_DICT_GET_PEERS ) 					// "get_peers"
 //		//	; // ToDo: Get peers
-//		//else if ( sQueryMethod == BT_DICT_ANNOUNCE_PEER )					// "announce_peer"
+//		//else if ( strQueryMethod == BT_DICT_ANNOUNCE_PEER )					// "announce_peer"
 //		//	; // ToDo: Announce peer
-//		//else if ( sQueryMethod == BT_DICT_ERROR_LONG )					// "error"
+//		//else if ( strQueryMethod == BT_DICT_ERROR_LONG )					// "error"
 //		//	; // ToDo: ??
 //
 //		return TRUE;

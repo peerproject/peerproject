@@ -94,7 +94,7 @@ void CTorrentBuilder::Enable(BOOL bSHA1, BOOL bED2K, BOOL bMD5)
 {
 	m_bSHA1 = bSHA1;
 	m_bED2K = bED2K;
-	m_bMD5 = bMD5;
+	m_bMD5  = bMD5;
 }
 
 BOOL CTorrentBuilder::SetOutputFile(LPCTSTR pszPath)
@@ -691,7 +691,7 @@ BOOL CTorrentBuilder::WriteOutput()
 	pRoot.Encode( &pOutput );
 
 	const CString strOutput = ( m_sOutput.GetLength() < MAX_PATH ) ?
-		m_sOutput  : ( CString( _T("\\\\?\\") ) + m_sOutput );
+		m_sOutput : ( CString( _T("\\\\?\\") ) + m_sOutput );
 
 	HANDLE hFile = CreateFile( strOutput, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL );
 

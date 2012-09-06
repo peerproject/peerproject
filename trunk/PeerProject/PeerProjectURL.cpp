@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -30,9 +30,9 @@
 
 #ifdef _DEBUG
 #undef THIS_FILE
-static char THIS_FILE[]=__FILE__;
+static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 #define REG_NUMBER(x) REG_DWORD,((LPBYTE)&(x)),(sizeof(DWORD))
 #define REG_STRING(x) REG_SZ,((LPBYTE)(LPCTSTR)(x)),((DWORD)(sizeof(TCHAR)*(_tcslen((LPCTSTR)(x))+1)))
@@ -126,32 +126,33 @@ BOOL CPeerProjectURL::Parse(const CString& sText, CList< CString >& pURLs, BOOL 
 	pURLs.RemoveAll();
 
 	// Split text to reverse string list
-	CString sPart;
-	int curPos = 0;
 	CList< CString > oReverse;
-	while ( ( sPart = sText.Tokenize( _T("\n"), curPos ) ).GetLength() )
+
+	int curPos = 0;
+	CString strPart;
+	while ( ( strPart = sText.Tokenize( _T("\n"), curPos ) ).GetLength() )
 	{
-		oReverse.AddHead( sPart.Trim( _T("\r\n\t >< ") ) );		// Second space is #160
+		oReverse.AddHead( strPart.Trim( _T("\r\n\t >< ") ) );		// Second space is #160
 	}
 
-	CString sBuf;
+	CString strBuf;
 	for ( POSITION pos = oReverse.GetHeadPosition() ; pos ; )
 	{
-		CString sLine( oReverse.GetNext( pos ) );
-		if ( sLine.IsEmpty() )
+		CString strLine( oReverse.GetNext( pos ) );
+		if ( strLine.IsEmpty() )
 		{
 			// Empty strings breaks URL
-			sBuf.Empty();
+			strBuf.Empty();
 		}
 		else
 		{
 			// Append new line to current URL and parse
-			sBuf.Insert( 0, sLine );
-			if ( Parse( sBuf, bResolve ) )
+			strBuf.Insert( 0, strLine );
+			if ( Parse( strBuf, bResolve ) )
 			{
 				// OK, new URL found
-				pURLs.AddTail( sBuf );
-				sBuf.Empty();
+				pURLs.AddTail( strBuf );
+				strBuf.Empty();
 			}
 		}
 	}
@@ -208,7 +209,7 @@ BOOL CPeerProjectURL::ParseRoot(LPCTSTR pszURL, BOOL bResolve)
 		Root[ L"irc:" ]		= 'i';
 	}
 
-	switch( Root[ strRoot ] )
+	switch ( Root[ strRoot ] )
 	{
 	case 'h':	// http:// https://
 		return ParseHTTP( pszURL, bResolve );
@@ -1087,12 +1088,12 @@ BOOL CPeerProjectURL::ParseDonkey(LPCTSTR pszURL)
 	if ( ! _tcsnicmp( pszURL, _T("|search|"), 8 ) )
 	{
 		// ed2k://|search|text_to_find|/
-		CString sURL( pszURL + 8 );
+		CString strURL( pszURL + 8 );
 
-		const int nSep = sURL.Find( _T('|') );
+		const int nSep = strURL.Find( _T('|') );
 		if ( nSep <= 0 ) return FALSE;
 
-		m_sName = URLDecode( sURL.Mid( 0, nSep ) ).Trim();
+		m_sName = URLDecode( strURL.Mid( 0, nSep ) ).Trim();
 		if ( m_sName.IsEmpty() ) return FALSE;
 
 		m_nAction = uriSearch;

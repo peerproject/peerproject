@@ -8,11 +8,11 @@
  The free distribution and use of this software in both source and binary
  form is allowed (with or without changes) provided that:
 
-   1. distributions of this source code include the above copyright
-      notice, this list of conditions and the following disclaimer;
+   1. distributions of this source code include the above copyright notice,
+      this list of conditions and the following disclaimer;
 
-   2. distributions in binary form include the above copyright
-      notice, this list of conditions and the following disclaimer
+   2. distributions in binary form include the above copyright notice,
+      this list of conditions and the following disclaimer
       in the documentation and/or other associated materials;
 
    3. the copyright holder's name is not used to endorse products
@@ -34,7 +34,7 @@
  stored in memory. It runs at 22 cycles per byte on a Pentium P4 processor
 */
 
-#include "StdAfx.h"
+#include <StdAfx.h>
 #include "SHA1.h"
 
 BYTE CSHA1::SHA1_PADDING[64] =

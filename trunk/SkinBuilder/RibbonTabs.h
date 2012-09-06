@@ -361,7 +361,11 @@ public:
 	{
 		// Only need to handle this message when source of the message is an accelerator
 		if (uNotifyCode == 1)
-			UpdateSelectedTab(CPoint(0, 0), uID);
+		{
+			CPoint pt(0, 0);
+			UpdateSelectedTab(pt, uID);
+			// UpdateSelectedTab(CPoint(0, 0), uID); Gets warning
+		}
 		else
 			SetMsgHandled(FALSE);
 	}

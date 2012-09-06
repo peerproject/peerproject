@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -23,12 +23,12 @@
 
 class CIdentityProfilePage : public CSettingsPage
 {
+	DECLARE_DYNCREATE(CIdentityProfilePage)
+
 // Construction
 public:
 	CIdentityProfilePage();
 	virtual ~CIdentityProfilePage();
-
-	DECLARE_DYNCREATE(CIdentityProfilePage)
 
 	enum { IDD = IDD_PROFILE_IDENTITY };
 
@@ -45,9 +45,8 @@ public:
 	//}}AFX_DATA
 
 // Overrides
-public:
+protected:
 	//{{AFX_VIRTUAL(CIdentityProfilePage)
-	protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
 	virtual void OnOK();
 	//}}AFX_VIRTUAL
@@ -57,6 +56,7 @@ protected:
 	//{{AFX_MSG(CIdentityProfilePage)
 	virtual BOOL OnInitDialog();
 	//}}AFX_MSG
+
 	void GetGenderTranslations(CString& pMale, CString& pFemale);
 
 	DECLARE_MESSAGE_MAP()

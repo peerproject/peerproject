@@ -37,7 +37,7 @@ void Archive::UnexpEndArcMsg()
 #ifndef SHELL_EXT
     Log(FileName,St(MLogUnexpEOF));
 #endif
-    ErrHandler.SetErrorCode(WARNING);
+    ErrHandler.SetErrorCode(RARX_WARNING);
   }
 }
 
@@ -88,7 +88,7 @@ size_t Archive::ReadHeader()
     Log(FileName,St(MLogFileHead),"???");
 #endif
     BrokenFileHeader=true;
-    ErrHandler.SetErrorCode(CRC_ERROR);
+    ErrHandler.SetErrorCode(RARX_CRC);
     return(0);
   }
 
@@ -272,7 +272,7 @@ size_t Archive::ReadHeader()
           if (hd->HeadType==NEWSUB_HEAD && strlen(hd->FileName)<ASIZE(hd->FileName)-5)
             strcat(hd->FileName,"- ???");
           BrokenFileHeader=true;
-          ErrHandler.SetErrorCode(WARNING);
+          ErrHandler.SetErrorCode(RARX_WARNING);
 
           // If we have a broken encrypted header, we do not need to display
           // the error message here, because it will be displayed for such
@@ -410,7 +410,7 @@ size_t Archive::ReadHeader()
         FailedHeaderDecryption=true;
         BrokenFileHeader=true;
 
-        ErrHandler.SetErrorCode(CRC_ERROR);
+        ErrHandler.SetErrorCode(RARX_CRC);
         return(0);
       }
     }
@@ -422,7 +422,7 @@ size_t Archive::ReadHeader()
     Log(FileName,St(MLogFileHead),"???");
 #endif
     BrokenFileHeader=true;
-    ErrHandler.SetErrorCode(CRC_ERROR);
+    ErrHandler.SetErrorCode(RARX_CRC);
     return(0);
   }
   return(Raw.Size());
@@ -650,8 +650,7 @@ void Archive::ConvertUnknownHeader()
     // ':' in file names is allowed in Unix, but not in Windows.
     // Even worse, file data will be written to NTFS stream on NTFS,
     // so automatic name correction on file create error in extraction
-    // routine does not work. In Windows and DOS versions we better
-    // replace ':' now.
+    // routine does not work. In Windows & DOS versions we better replace ':' now.
     if (*s==':')
       *s='_';
 #endif
@@ -667,7 +666,7 @@ bool Archive::ReadSubData(Array<byte> *UnpData,File *DestFile)
 #ifndef SHELL_EXT
     Log(FileName,St(MSubHeadCorrupt));
 #endif
-    ErrHandler.SetErrorCode(CRC_ERROR);
+    ErrHandler.SetErrorCode(RARX_CRC);
     return(false);
   }
   if (SubHead.Method<0x30 || SubHead.Method>0x35 || SubHead.UnpVer>/*PACK_VER*/36)
@@ -691,8 +690,8 @@ bool Archive::ReadSubData(Array<byte> *UnpData,File *DestFile)
     SubDataIO.SetUnpackToMemory(&(*UnpData)[0],SubHead.UnpSize);
   }
   if (SubHead.Flags & LHD_PASSWORD)
-    if (*Cmd->Password!=0)
-      SubDataIO.SetEncryption(SubHead.UnpVer,Cmd->Password,
+    if (Cmd->Password.IsSet())
+      SubDataIO.SetEncryption(SubHead.UnpVer,&Cmd->Password,
              (SubHead.Flags & LHD_SALT) ? SubHead.Salt:NULL,false,
              SubHead.UnpVer>=36);
     else
@@ -713,7 +712,7 @@ bool Archive::ReadSubData(Array<byte> *UnpData,File *DestFile)
 #ifndef SHELL_EXT
     Log(FileName,St(MSubHeadDataCRC),SubHead.FileName);
 #endif
-    ErrHandler.SetErrorCode(CRC_ERROR);
+    ErrHandler.SetErrorCode(RARX_CRC);
     if (UnpData!=NULL)
       UnpData->Reset();
     return(false);

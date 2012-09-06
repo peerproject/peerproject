@@ -5,20 +5,17 @@
 ; Made with Stonevoice Translator 2.1 (http://www.stonevoice.com/auto/translator)
 ; $Translator:NL=%n:TB=%t
 ;
-; http://www.jrsoftware.org/files/istrans/ (user-contributed translations) 
-;
-; Note: Do not add periods (.) to messages that don't have them already,
-; because for those messages Inno Setup adds the periods automatically.
-; (appending a period will result in two periods being displayed.)
+; Note: Do not add periods (.), where added automatically.
 
 [LangOptions]
-; The following three entries are very important. Be sure to read and 
+; The following three entries are very important. Be sure to read and
 ; understand the '[LangOptions] section' topic in the help file.
 LanguageName=Romana
 LanguageID=$0418
 LanguageCodePage=1252
-; If the language you are translating to requires special font faces or
-; sizes, uncomment any of the following entries and change them accordingly.
+
+; If the language you are translating to requires special font faces or sizes,
+; uncomment any of the following entries and change them accordingly.
 ;DialogFontName=
 ;DialogFontSize=8
 ;WelcomeFontName=Verdana
@@ -304,8 +301,8 @@ SharedFileLocationLabel=Localizare:
 WizardUninstalling=Status dezinstalare
 StatusUninstalling=Dezinstalez %1...
 
-; The custom messages below aren't used by Setup itself, but if you make
-; use of them in your scripts, you'll want to translate them.
+; The custom messages below aren't used by Setup itself,
+; but if you make use of them in your scripts, you'll want to translate them.
 
 [CustomMessages]
 

@@ -22,7 +22,7 @@
 #ifdef _WIN32
 LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
 #pragma code_page(1251)
-#endif //_WIN32
+#endif // _WIN32
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -46,15 +46,15 @@ BEGIN
     BEGIN
         BLOCK "000004b0"
         BEGIN
-            VALUE "Comments", "Uses avaialable Windows thumbnails in PeerProject."
+            VALUE "Comments", "Use avaialable Windows thumbnails in PeerProject."
             VALUE "CompanyName", "PeerProject"
-            VALUE "FileDescription", "Windows Thumbnail Support Plugin"
-            VALUE "FileVersion", "1, 0, 0, 0"
+            VALUE "FileDescription", "PeerProject Thumbnail Plugin"
+            VALUE "FileVersion", "1.0.0.0"
             VALUE "InternalName", "WindowsThumbnail.exe"
             VALUE "LegalCopyright", "© Nikolay Raspopov, 2009."
             VALUE "OriginalFilename", "WindowsThumbnail.exe"
             VALUE "ProductName", "Windows Thumbnail Support Plugin"
-            VALUE "ProductVersion", "1, 0, 0, 0"
+            VALUE "ProductVersion", "1.0.0.0"
         END
     END
     BLOCK "VarFileInfo"
@@ -70,7 +70,7 @@ END
 //
 
 IDR_WINDOWSTHUMBNAIL	REGISTRY		"WindowsThumbnail.rgs"
-IDR_IMAGESERVICE	REGISTRY		"ImageService.rgs"
+IDR_IMAGESERVICE		REGISTRY		"ImageService.rgs"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -87,12 +87,12 @@ IDI_ICON		ICON			"Icon.ico"
 // TEXTINCLUDE
 //
 
-1 TEXTINCLUDE 
+1 TEXTINCLUDE
 BEGIN
     "Resource.h\0"
 END
 
-2 TEXTINCLUDE 
+2 TEXTINCLUDE
 BEGIN
     "#ifndef APSTUDIO_INVOKED\r\n"
     "#include ""TargetVer.h""\r\n"
@@ -101,7 +101,7 @@ BEGIN
     "\0"
 END
 
-3 TEXTINCLUDE 
+3 TEXTINCLUDE
 BEGIN
     "1 TYPELIB ""WindowsThumbnail.tlb""\r\n"
     "\0"
@@ -115,14 +115,13 @@ END
 // String Table
 //
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_PROJNAME	"Windows Thumbnail Plugin"
 END
 
 #endif    // Neutral resources
 /////////////////////////////////////////////////////////////////////////////
-
 
 
 #ifndef APSTUDIO_INVOKED

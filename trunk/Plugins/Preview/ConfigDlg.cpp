@@ -37,10 +37,9 @@ void CConfigDlg::Load()
 
 	for ( POSITION pos = oData.GetStartPosition(); pos; )
 	{
-		CString sExt, sCommand;
-		oData.GetNextAssoc( pos, sExt, sCommand );
-
-		Add( sExt, sCommand );
+		CString strExt, strCommand;
+		oData.GetNextAssoc( pos, strExt, strCommand );
+		Add( strExt, strCommand );
 	}
 }
 
@@ -78,9 +77,7 @@ int CConfigDlg::GetActive() const
 	for ( int i = 0; i < nCount; i++ )
 	{
 		if ( ListView_GetItemState( wndList.m_hWnd, i, LVIS_SELECTED ) == LVIS_SELECTED )
-		{
 			return i;
-		}
 	}
 
 	return -1;
@@ -142,7 +139,7 @@ void CConfigDlg::AddNew()
 {
 	Select( Add( _T("ext"), _T("\"foo.exe\" \"%1\" \"%2\"") ) );
 	GetDlgItem( IDC_EXT ).SetFocus();
-	GetDlgItem( IDC_EXT ).SendMessage( EM_SETSEL, 0, (LPARAM)-1 );  
+	GetDlgItem( IDC_EXT ).SendMessage( EM_SETSEL, 0, (LPARAM)-1 );
 }
 
 int CConfigDlg::Add(LPCTSTR szExt, LPCTSTR szCommand)
@@ -168,7 +165,7 @@ void CConfigDlg::Delete(int nIndex)
 
 	CWindow wndList = GetDlgItem( IDC_LIST );
 
-	ListView_DeleteItem( wndList.m_hWnd, nIndex );				
+	ListView_DeleteItem( wndList.m_hWnd, nIndex );
 }
 
 LRESULT CConfigDlg::OnInitDialog(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
@@ -298,15 +295,9 @@ LRESULT CConfigDlg::OnBnClickedBrowse(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /
 			// Detect well-known previewers
 			LPCTSTR szFilename = &szPath[ ofn.nFileOffset ];
 			if ( lstrcmpi( szFilename, _T("DivFix++.exe") ) == 0 )
-			{
-				// DivFix++
 				lstrcat( szCommand, _T(" -i \"%1\" -o \"%2\"") );
-			}
-			else
-			{
-				// Unknown
+			else // Unknown
 				lstrcat( szCommand, _T(" \"%1\" \"%2\"") );
-			}
 
 			SetDlgItemText( IDC_COMMAND, szCommand );
 			ListView_SetItemText( wndList.m_hWnd, m_nActive, 1, szCommand );
@@ -366,7 +357,7 @@ LRESULT CConfigDlg::OnEnChangeCommand(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /
 LRESULT CConfigDlg::OnBnClickedWeb(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& bHandled)
 {
 	ShellExecute( GetActiveWindow(), _T("open"),
-		_T("http://shareaza.sourceforge.net/help/?preview"), NULL, NULL, SW_SHOWNORMAL ); 
+		_T("http://shareaza.sourceforge.net/help/?preview"), NULL, NULL, SW_SHOWNORMAL );
 
 	bHandled = TRUE;
 	return 0;

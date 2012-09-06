@@ -1,18 +1,18 @@
 //
 // PagePropertyAdv.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -20,15 +20,16 @@
 #include "Settings.h"
 #include "PeerProject.h"
 #include "PagePropertyAdv.h"
-#include "Colors.h"
 #include "CoolInterface.h"
+#include "Colors.h"
+#include "Images.h"
 #include "ShellIcons.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 // CPropertyPageAdv
 
@@ -93,7 +94,7 @@ void CPropertyPageAdv::OnPaint()
 			PaintStaticHeader( &dc, &rc, str );
 	}
 
-	dc.SetBkColor( Skin.m_bmDialog.m_hObject ? CLR_NONE : Colors.m_crDialogPanel );
+	dc.SetBkColor( Images.m_bmDialog.m_hObject ? CLR_NONE : Colors.m_crDialogPanel );
 }
 
 void CPropertyPageAdv::PaintStaticHeader(CDC* pDC, CRect* prc, LPCTSTR psz)
@@ -126,8 +127,8 @@ BOOL CPropertyPageAdv::OnEraseBkgnd(CDC* pDC)
 	CRect rc;
 	GetClientRect( &rc );
 
-	if ( Skin.m_bmDialogPanel.m_hObject )
-		CoolInterface.DrawWatermark( pDC, &rc, &Skin.m_bmDialogPanel );
+	if ( Images.m_bmDialogPanel.m_hObject )
+		CoolInterface.DrawWatermark( pDC, &rc, &Images.m_bmDialogPanel );
 	else
 		pDC->FillSolidRect( &rc, Colors.m_crDialogPanel );
 
@@ -139,14 +140,14 @@ HBRUSH CPropertyPageAdv::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	HBRUSH hbr = CPropertyPage::OnCtlColor(pDC, pWnd, nCtlColor);
 
 	// Skinned dialog control panels	(Download/File Properties Tabs + QuickStart Wizard)
-	if ( nCtlColor == CTLCOLOR_STATIC && Skin.m_bmDialogPanel.m_hObject )
+	if ( nCtlColor == CTLCOLOR_STATIC && Images.m_bmDialogPanel.m_hObject )
 	{
 		const int nID = pWnd->GetDlgCtrlID();
 		if ( nID != IDC_STATIC || ( pWnd->GetStyle() & SS_REALSIZEIMAGE ) )		// || ( pWnd->GetStyle() & SS_ICON )
 		{
 			// Handle exceptions:
 			// Skip disabled edit boxes (but not selectable metadata or icons, note SS_REALSIZEIMAGE/ES_READONLY conflict)
-			if ( ( pWnd->GetStyle() & ES_READONLY ) && ! ( pWnd->GetStyle() & WS_BORDER ) && nID != IDC_STATIC )
+			if ( ( pWnd->GetStyle() & ES_READONLY ) && ( pWnd->GetStyle() & WS_BORDER ) && nID != IDC_STATIC )
 				return hbr;
 
 			// Obsolete skinning fix for checkbox labels, dynamic text, etc., for reference
@@ -155,7 +156,7 @@ HBRUSH CPropertyPageAdv::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 		//	CRect rcPos = rc;
 		//	pWnd->ScreenToClient( &rc );
 		//	ScreenToClient( &rcPos );
-		//	CoolInterface.DrawWatermark( pDC, &rc, &Skin.m_bmDialogPanel, FALSE, -rcPos.left, -rcPos.top );
+		//	CoolInterface.DrawWatermark( pDC, &rc, &Images.m_bmDialogPanel, FALSE, -rcPos.left, -rcPos.top );
 
 			// Offset background image brush to mimic transparency
 			CRect rc;
@@ -163,7 +164,7 @@ HBRUSH CPropertyPageAdv::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 			ScreenToClient( &rc );
 			pDC->SetBrushOrg( -rc.left, -rc.top );
 
-			hbr = Skin.m_brDialogPanel;
+			hbr = Images.m_brDialogPanel;
 		}
 		else	// Static text	(Note, use IDC_STATIC_1+ for an IDC_STATIC to avoid NULL brush)
 			hbr = (HBRUSH)GetStockObject( NULL_BRUSH );
@@ -175,7 +176,7 @@ HBRUSH CPropertyPageAdv::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	{
 		pDC->SetTextColor( Colors.m_crDialogPanelText );
 		pDC->SetBkColor( Colors.m_crDialogPanel );
-		hbr = Skin.m_brDialogPanel;
+		hbr = Images.m_brDialogPanel;
 	}
 
 	return hbr;
@@ -335,8 +336,8 @@ BOOL CPropertySheetAdv::OnHelpInfo(HELPINFO* /*pHelpInfo*/)
 //	CRect rc;
 //	GetClientRect( &rc );
 //
-//	if ( Skin.m_bmDialogPanel.m_hObject )
-//		CoolInterface.DrawWatermark( pDC, &rc, &Skin.m_bmDialog );
+//	if ( Images.m_bmDialogPanel.m_hObject )
+//		CoolInterface.DrawWatermark( pDC, &rc, &Images.m_bmDialog );
 //	else
 //		pDC->FillSolidRect( &rc, Colors.m_crDialog );
 //

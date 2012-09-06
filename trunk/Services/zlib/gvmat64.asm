@@ -2,14 +2,30 @@
 ;    deflate_state *s,
 ;    IPos cur_match);                             /* current match */
 
-; gvmat64.asm -- Asm portion of the optimized longest_match for 32 bits x86
-; Copyright (C) 1995-2005 Jean-loup Gailly, Brian Raiter and Gilles Vollant.
+; gvmat64.asm -- Asm portion of the optimized longest_match for 32 bits x86_64
+; Copyright (C) 1995-2010 Jean-loup Gailly, Brian Raiter and Gilles Vollant.
 ;
 ; File written by Gilles Vollant, by converting to assembly the longest_match
 ;  from Jean-loup Gailly in deflate.c of zLib and infoZip zip.
 ;
 ;  and by taking inspiration on asm686 with masm, optimised assembly code
 ;        from Brian Raiter, written 1998
+;
+;  This software is provided 'as-is', without any express or implied
+;  warranty.  In no event will the authors be held liable for any damages
+;  arising from the use of this software.
+;
+;  Permission is granted to anyone to use this software for any purpose,
+;  including commercial applications, and to alter it and redistribute it freely,
+;  subject to the following restrictions:
+;
+;  1. The origin of this software must not be misrepresented; you must not
+;     claim that you wrote the original software. If you use this software
+;     in a product, an acknowledgment in the product documentation would be
+;     appreciated but is not required.
+;  2. Altered source versions must be plainly marked as such, and must not be
+;     misrepresented as being the original software
+;  3. This notice may not be removed or altered from any source distribution.
 ;
 ;         http://www.zlib.net
 ;         http://www.winimage.com/zLibDll
@@ -26,10 +42,10 @@
 ;
 ; This file compile with Microsoft Macro Assembler (x64) for AMD64
 ;
-;   ml64.exe is given with Visual Studio 2005 and Windows 2003 server DDK
+;   ml64.exe is given with Visual Studio 2005/2008/2010 and Windows WDK
 ;
-;   (you can get Windows 2003 server DDK with ml64 and cl for AMD64 from
-;      http://www.microsoft.com/whdc/devtools/ddk/default.mspx for low price)
+;   (you can get Windows WDK with ml64 for AMD64 from
+;      http://www.microsoft.com/whdc/Devtools/wdk/default.mspx for low price)
 ;
 
 
@@ -71,6 +87,25 @@ save_r13        equ  rsp + 64 - LocalVarsSize
 ;save_r15        equ  rsp + 80 - LocalVarsSize
 
 
+; summary of register usage
+; scanend     ebx
+; scanendw    bx
+; chainlenwmask   edx
+; curmatch    rsi
+; curmatchd   esi
+; windowbestlen   r8
+; scanalign   r9
+; scanalignd  r9d
+; window      r10
+; bestlen     r11
+; bestlend    r11d
+; scanstart   r12d
+; scanstartw  r12w
+; scan        r13
+; nicematch   r14d
+; limit       r15
+; limitd      r15d
+; prev        rcx
 
 ;  all the +4 offsets are due to the addition of pending_buf_size (in zlib
 ;  in the deflate_state structure since the asm code was first written
@@ -406,7 +441,8 @@ LoopCmps:
 
         add rdx,8+8+8
 
-        jmp short LoopCmps
+        jnz short LoopCmps
+        jmp short LenMaximum
 LeaveLoopCmps16: add rdx,8
 LeaveLoopCmps8: add rdx,8
 LeaveLoopCmps:
@@ -502,7 +538,7 @@ ENDIF
 ; please don't remove this string !
 ; Your can freely use gvmat64 in any free or commercial app
 ; but it is far better don't remove the string in the binary!
-    db     0dh,0ah,"asm686 with masm, optimised assembly code from Brian Raiter, written 1998, converted to amd 64 by Gilles Vollant 2005",0dh,0ah,0
+    db     0dh,0ah,"asm686 with masm, optimised assembly code written 1998, converted to amd64 2005",0dh,0ah,0
 longest_match   ENDP
 
 match_init PROC

@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -38,7 +38,7 @@
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 IMPLEMENT_DYNAMIC(CApplication, CComObject)
 
@@ -141,8 +141,9 @@ STDMETHODIMP CApplication::XApplication::CheckVersion(BSTR sVersion)
 
 	int nDesired[4];
 
-	if ( swscanf_s( sVersion, L"%i.%i.%i.%i", &nDesired[3], &nDesired[2],
-		&nDesired[1], &nDesired[0] ) != 4 ) return E_INVALIDARG;
+	if ( swscanf_s( sVersion, L"%i.%i.%i.%i",
+		 &nDesired[3], &nDesired[2], &nDesired[1], &nDesired[0] ) != 4 )
+		return E_INVALIDARG;
 
 	// Note: Assumes each version component is 8 bit
 	BOOL bOk = ( theApp.m_nVersion[0] << 24 ) + ( theApp.m_nVersion[1] << 16 ) + ( theApp.m_nVersion[2] << 8 ) + theApp.m_nVersion[3]

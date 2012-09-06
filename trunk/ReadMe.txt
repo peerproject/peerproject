@@ -12,21 +12,26 @@ ___________________________
    OR Install Visual Studio 2008 SP1
 	- http://www.microsoft.com/downloads/details.aspx?FamilyID=83c3a1ec-ed72-4a79-8961-25635db0192b  (90day Trial)
 	- http://www.microsoft.com/downloads/details.aspx?FamilyID=fbee1648-7106-44a7-9649-6d9f6d58056e  (Service Pack)
+	- http://www.microsoft.com/downloads/details.aspx?familyid=C17BA869-9671-4330-A63E-1FD44E0E2505  (Win7 SDK)
+
+   OR Install Visual Studio 2012
+	- http://www.microsoft.com/visualstudio/11/en-us/downloads  (90day Trial)
+	- Note: No Windows XP support
 
 2. Locate this complete PeerProject sourcecode set.
 	- http://peerproject.svn.sourceforge.net/viewvc/peerproject/trunk.tar.gz
 	- That's it, there are no external dependencies or setup.
-	- Open \VS2010\PeerProject.sln and click "Build Solution"
+	- Open \VS20XX\PeerProject.sln and click "Build Solution"
 
 
 
 
-Note. Cost-Free alternative for Browse/Edit only:
-	- Visual C++ Express can be configured, but some projects STILL FAIL to build.
-	- Note legacy Visual Studio 2005 files also still available but likely outdated.
+Note. Alternative for Browse/Edit only:
+	- Free Visual C++ Express can be configured, but some projects STILL FAIL to build.
+	- Note legacy Visual Studio 2005 files also still available but outdated.
 
 X. Install Visual C++ Express + Windows SDK + WDK
-	- http://www.microsoft.com/express/downloads  ( Visual C++ 2008 Express, and/or 2010 )
+	- http://www.microsoft.com/express/downloads  (Visual C++ 2010 Express, and/or 2008)
 	- http://www.microsoft.com/downloads/details.aspx?familyid=C17BA869-9671-4330-A63E-1FD44E0E2505  (Win7 SDK)
 	- http://www.microsoft.com/downloads/details.aspx?FamilyID=36a2630f-5d56-43b5-b996-7633f2ec14ff  (WDK 7.1)
 	- http://download.microsoft.com/download/9/0/f/90f019ac-8243-48d3-91cf-81fc4093ecfd/1830_usa_ddk.iso  (DDK)

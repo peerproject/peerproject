@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PeerProject", "..\PeerProject\PeerProject.VS2008.vcproj", "{F9C719B3-35FB-427D-A795-91105DFECAAF}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PeerProject", "..\PeerProject\PeerProject.vcproj", "{F9C719B3-35FB-427D-A795-91105DFECAAF}"
 	ProjectSection(ProjectDependencies) = postProject
 		{0A0B10C7-CDF6-4A48-8F7B-B66A88154AAE} = {0A0B10C7-CDF6-4A48-8F7B-B66A88154AAE}
 		{DFAB04E0-9275-42FB-BCBB-2F153EB7D253} = {DFAB04E0-9275-42FB-BCBB-2F153EB7D253}
@@ -9,84 +9,84 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PeerProject", "..\PeerProje
 		{E8CF1ADA-264A-4127-86C2-FD7057D3792C} = {E8CF1ADA-264A-4127-86C2-FD7057D3792C}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TorrentWizard", "..\TorrentWizard\TorrentWizard.VS2008.vcproj", "{F02EDE36-E2AC-40E8-B6DC-76B1D53F9A5A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TorrentWizard", "..\TorrentWizard\TorrentWizard.vcproj", "{F02EDE36-E2AC-40E8-B6DC-76B1D53F9A5A}"
 	ProjectSection(ProjectDependencies) = postProject
 		{196C99FC-9A4E-421F-B44C-8E3FD177122F} = {196C99FC-9A4E-421F-B44C-8E3FD177122F}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SkinInstaller", "..\SkinInstaller\SkinInstaller.VS2008.vcproj", "{CAA6FCC8-27B1-42B9-B647-976E7BE79C70}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SkinInstaller", "..\SkinInstaller\SkinInstaller.vcproj", "{CAA6FCC8-27B1-42B9-B647-976E7BE79C70}"
 	ProjectSection(ProjectDependencies) = postProject
 		{39F34F2C-D42A-41D2-A0BC-54D7972E2BC5} = {39F34F2C-D42A-41D2-A0BC-54D7972E2BC5}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SkinBuilder", "..\SkinBuilder\SkinBuilder.VS2008.vcproj", "{40448DA0-0373-4BFB-8A21-2C7F3A02A327}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SkinBuilder", "..\SkinBuilder\SkinBuilder.vcproj", "{40448DA0-0373-4BFB-8A21-2C7F3A02A327}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zlibwapi", "..\Services\zlib\zlibwapi.VS2008.vcproj", "{39F34F2C-D42A-41D2-A0BC-54D7972E2BC5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zlibwapi", "..\Services\zlib\zlibwapi.vcproj", "{39F34F2C-D42A-41D2-A0BC-54D7972E2BC5}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GeoIP", "..\Services\GeoIP\GeoIP.VS2008.vcproj", "{DFAB04E0-9275-42FB-BCBB-2F153EB7D253}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HashLib", "..\HashLib\HashLib.vcproj", "{196C99FC-9A4E-421F-B44C-8E3FD177122F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HashLib", "..\HashLib\HashLib.VS2008.vcproj", "{196C99FC-9A4E-421F-B44C-8E3FD177122F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GeoIP", "..\Services\GeoIP\GeoIP.vcproj", "{DFAB04E0-9275-42FB-BCBB-2F153EB7D253}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SQLite", "..\Services\SQLite\sqlite3.VS2008.vcproj", "{0A0B10C7-CDF6-4A48-8F7B-B66A88154AAE}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SQLite", "..\Services\SQLite\sqlite3.vcproj", "{0A0B10C7-CDF6-4A48-8F7B-B66A88154AAE}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BugTrap", "..\Services\BugTrap\BugTrap.VS2008.vcproj", "{E8CF1ADA-264A-4127-86C2-FD7057D3792C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BugTrap", "..\Services\BugTrap\BugTrap.vcproj", "{E8CF1ADA-264A-4127-86C2-FD7057D3792C}"
 	ProjectSection(ProjectDependencies) = postProject
 		{39F34F2C-D42A-41D2-A0BC-54D7972E2BC5} = {39F34F2C-D42A-41D2-A0BC-54D7972E2BC5}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SkinScan", "..\Plugins\SkinScan\SkinScan.VS2008.vcproj", "{C5594A56-ED24-44C8-B6DA-BDC1BCF809DD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SkinScan", "..\Plugins\SkinScan\SkinScan.vcproj", "{C5594A56-ED24-44C8-B6DA-BDC1BCF809DD}"
 	ProjectSection(ProjectDependencies) = postProject
 		{39F34F2C-D42A-41D2-A0BC-54D7972E2BC5} = {39F34F2C-D42A-41D2-A0BC-54D7972E2BC5}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DocumentReader", "..\Plugins\DocumentReader\DocumentReader.VS2008.vcproj", "{0B9C08B4-0C49-4473-B46A-A0291FA844E8}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DocumentReader", "..\Plugins\DocumentReader\DocumentReader.vcproj", "{0B9C08B4-0C49-4473-B46A-A0291FA844E8}"
 	ProjectSection(ProjectDependencies) = postProject
 		{39F34F2C-D42A-41D2-A0BC-54D7972E2BC5} = {39F34F2C-D42A-41D2-A0BC-54D7972E2BC5}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GFLImageServices", "..\Plugins\GFLImageServices\GFLImageServices.VS2008.vcproj", "{4B685EDA-C0D9-43E9-8822-9CA35947C11B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GFLImageServices", "..\Plugins\GFLImageServices\GFLImageServices.vcproj", "{4B685EDA-C0D9-43E9-8822-9CA35947C11B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GFLLibraryBuilder", "..\Plugins\GFLLibraryBuilder\GFLLibraryBuilder.VS2008.vcproj", "{76CC356F-EFFD-4926-8DB3-D54AF496D431}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GFLLibraryBuilder", "..\Plugins\GFLLibraryBuilder\GFLLibraryBuilder.vcproj", "{76CC356F-EFFD-4926-8DB3-D54AF496D431}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ImageViewer", "..\Plugins\ImageViewer\ImageViewer.VS2008.vcproj", "{DBF979BF-E64E-402E-AE56-ACF58E543C38}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ImageViewer", "..\Plugins\ImageViewer\ImageViewer.vcproj", "{DBF979BF-E64E-402E-AE56-ACF58E543C38}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MediaImageServices", "..\Plugins\MediaImageServices\MediaImageServices.VS2008.vcproj", "{4351215D-CBA6-4F34-A99E-2FA87F969CA5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MediaImageServices", "..\Plugins\MediaImageServices\MediaImageServices.vcproj", "{4351215D-CBA6-4F34-A99E-2FA87F969CA5}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MediaLibraryBuilder", "..\Plugins\MediaLibraryBuilder\MediaLibraryBuilder.VS2008.vcproj", "{6591E1B2-D3E7-4B83-9A40-67AC0E98B255}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MediaLibraryBuilder", "..\Plugins\MediaLibraryBuilder\MediaLibraryBuilder.vcproj", "{6591E1B2-D3E7-4B83-9A40-67AC0E98B255}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MediaPlayer", "..\Plugins\MediaPlayer\MediaPlayer.VS2008.vcproj", "{10123040-AFB5-4741-9548-36C6B7B337C4}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MediaPlayer", "..\Plugins\MediaPlayer\MediaPlayer.vcproj", "{10123040-AFB5-4741-9548-36C6B7B337C4}"
 	ProjectSection(ProjectDependencies) = postProject
 		{F9C719B3-35FB-427D-A795-91105DFECAAF} = {F9C719B3-35FB-427D-A795-91105DFECAAF}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SearchExport", "..\Plugins\SearchExport\SearchExport.VS2008.vcproj", "{5386DFF4-2E92-4932-8706-AB5BD79E04FE}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SearchExport", "..\Plugins\SearchExport\SearchExport.vcproj", "{5386DFF4-2E92-4932-8706-AB5BD79E04FE}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WebHook", "..\Plugins\WebHook\WebHook.VS2008.vcproj", "{7030A905-13CF-40FF-A7CC-9FBA3B6EDF92}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WebHook", "..\Plugins\WebHook\WebHook.vcproj", "{7030A905-13CF-40FF-A7CC-9FBA3B6EDF92}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WindowsThumbnail", "..\Plugins\WindowsThumbnail\WindowsThumbnail.VS2008.vcproj", "{A3CA6023-3655-4BBB-95CC-5ED4EA8075C8}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WindowsThumbnail", "..\Plugins\WindowsThumbnail\WindowsThumbnail.vcproj", "{A3CA6023-3655-4BBB-95CC-5ED4EA8075C8}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VirusTotal", "..\Plugins\VirusTotal\VirusTotal.VS2008.vcproj", "{F61F2F18-7F7A-4C44-8762-8D4565CC987F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VirusTotal", "..\Plugins\VirusTotal\VirusTotal.vcproj", "{F61F2F18-7F7A-4C44-8762-8D4565CC987F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SWFPlugin", "..\Plugins\SWFPlugin\SWFPlugin.VS2008.vcproj", "{4491782A-4BD5-45E3-AD2F-F03EE6CE3F9E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SWFPlugin", "..\Plugins\SWFPlugin\SWFPlugin.vcproj", "{4491782A-4BD5-45E3-AD2F-F03EE6CE3F9E}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RatDVDReader", "..\Plugins\RatDVDPlugin\RatDVDReader.VS2008.vcproj", "{86944913-9269-4B41-AA2F-C2A37E68C50E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RatDVDReader", "..\Plugins\RatDVDPlugin\RatDVDReader.vcproj", "{86944913-9269-4B41-AA2F-C2A37E68C50E}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RARBuilder", "..\Plugins\RARBuilder\RARBuilder.VS2008.vcproj", "{C2F61D04-BE35-4AE3-84A8-BE140613E26D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RARBuilder", "..\Plugins\RARBuilder\RARBuilder.vcproj", "{C2F61D04-BE35-4AE3-84A8-BE140613E26D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ZIPBuilder", "..\Plugins\ZIPBuilder\ZIPBuilder.VS2008.vcproj", "{C2AC3234-100D-4CC4-BCBB-ACF5F18D4854}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ZIPBuilder", "..\Plugins\ZIPBuilder\ZIPBuilder.vcproj", "{C2AC3234-100D-4CC4-BCBB-ACF5F18D4854}"
 	ProjectSection(ProjectDependencies) = postProject
 		{39F34F2C-D42A-41D2-A0BC-54D7972E2BC5} = {39F34F2C-D42A-41D2-A0BC-54D7972E2BC5}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "7ZipBuilder", "..\Plugins\7ZipBuilder\7ZipBuilder.VS2008.vcproj", "{C2D1E91C-5C0B-4F01-BA5A-447D1F28A53B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "7ZipBuilder", "..\Plugins\7ZipBuilder\7ZipBuilder.vcproj", "{C2D1E91C-5C0B-4F01-BA5A-447D1F28A53B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BZlib", "..\Services\BZlib\BZlib.VS2008.vcproj", "{A14F5E46-C04C-4F32-9985-2E15819A722A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BZlib", "..\Services\BZlib\BZlib.vcproj", "{A14F5E46-C04C-4F32-9985-2E15819A722A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{9296CFD2-D5ED-449A-9D40-0F3274AA095F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{6DBC265D-4CA8-40A3-836D-7E48AB217A5C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Installer", "..\Installer\Installer.VS2008.vcproj", "{3D7C87D6-A044-4334-8BB4-3B88B4E1757D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Installer", "..\Installer\Installer.vcproj", "{3D7C87D6-A044-4334-8BB4-3B88B4E1757D}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C2F61D04-BE35-4AE3-84A8-BE140613E26D} = {C2F61D04-BE35-4AE3-84A8-BE140613E26D}
 		{7030A905-13CF-40FF-A7CC-9FBA3B6EDF92} = {7030A905-13CF-40FF-A7CC-9FBA3B6EDF92}

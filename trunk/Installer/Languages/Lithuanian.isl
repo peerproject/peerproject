@@ -1,20 +1,17 @@
-; Inno Setup 5.1.11+ Lithuanian Messages (PeerProject: lt)
+; *** Inno Setup 5.1.11+ Lithuanian Messages (PeerProject: lt)
 ;
 ; Translated by Robertas Rimas (Loptar AT takas.lt)
 ; Corrected and updated by Rolandas Rudomanskis (rolandasr AT gmail.com)
 ;
-; http://www.jrsoftware.org/files/istrans/ (user-contributed translations) 
-;
-; Note: Do not add periods (.) to messages that don't have them already,
-; because for those messages Inno Setup adds the periods automatically.
-; (appending a period will result in two periods being displayed.)
+; Note: Do not add periods (.), where added automatically.
 
 [LangOptions]
 LanguageName=Lietuvi<0173>
 LanguageID=$0427
 LanguageCodePage=1257
-; If the language you are translating to requires special font faces or
-; sizes, uncomment any of the following entries and change them accordingly.
+
+; If the language you are translating to requires special font faces or sizes,
+; uncomment any of the following entries and change them accordingly.
 DialogFontName=Tahoma
 DialogFontSize=8
 WelcomeFontName=Tahoma
@@ -137,7 +134,8 @@ SelectDirDesc=Kur turi bûti ádiegta „[name]“?
 SelectDirLabel3=Ádiegimo programa ádiegs „[name]“ á nurodytà katalogà.
 SelectDirBrowseLabel=Norëdami tæsti ádiegimà spauskite „Pirmyn“. Jei norite pasirinkti kità katalogà, spauskite „Nurodyti“.
 DiskSpaceMBLabel=Reikia maþiausiai [mb] MB laisvos vietos kietajame diske.
-ToUNCPathname=Ádiegimo programa negali ádiegti á UNC tipo katalogà. Jeigu bandote ádiegti programà tinkle, reikia sukurti tinkliná diskà ir nurodyti reikiamà katalogà.
+CannotInstallToNetworkDrive=Ádiegimo programa negali ádiegti á Net tipo katalogà. Jeigu bandote ádiegti programà tinkle, reikia sukurti tinkliná diskà ir nurodyti reikiamà katalogà.
+CannotInstallToUNCPath=Ádiegimo programa negali ádiegti á UNC tipo katalogà. Jeigu bandote ádiegti programà tinkle, reikia sukurti tinkliná diskà ir nurodyti reikiamà katalogà.
 InvalidPath=Jûs privalote áraðyti pilnà kelià su disko raide; pavyzdþiui:%n%nC:\APP%n% ir negalima nurodyti UNC tipo katalogà:%n%n\\Serveris\share
 InvalidDrive=Diskas, kurá nurodëte, neegzistuoja arba yra neprieinamas. Praðome nurodyti kità diskà ir/arba katalogà.
 DiskSpaceWarningTitle=Nepakanka laisvos vietos diske
@@ -300,8 +298,8 @@ SharedFileLocationLabel=Vieta:
 WizardUninstalling=Paðalinimo eiga
 StatusUninstalling=Ðalinama „%1“...
 
-; The custom messages below aren't used by Setup itself, but if you make
-; use of them in your scripts, you'll want to translate them.
+; The custom messages below aren't used by Setup itself,
+; but if you make use of them in your scripts, you'll want to translate them.
 
 [CustomMessages]
 

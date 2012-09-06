@@ -1,18 +1,18 @@
 //
 // PageSettingsMedia.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -30,7 +30,7 @@
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 #define INTERNAL_INDEX	1
 #define CUSTOM_INDEX	0
@@ -121,15 +121,15 @@ BOOL CMediaSettingsPage::OnInitDialog()
 	for ( string_set::const_iterator i = Settings.MediaPlayer.ServicePath.begin() ;
 		i != Settings.MediaPlayer.ServicePath.end() ; ++i )
 	{
-		CString sPlayer = *i;
-		int nAstrix = sPlayer.ReverseFind( _T('*') );
-		sPlayer.Remove( _T('*') );
+		CString strPlayer = *i;
+		int nAstrix = strPlayer.ReverseFind( _T('*') );
+		strPlayer.Remove( _T('*') );
 
-		int nIndex = m_wndServices.AddString( PathFindFileName( sPlayer ) );
+		int nIndex = m_wndServices.AddString( PathFindFileName( strPlayer ) );
 		if ( nAstrix != -1 )		// Selected player
 			nSelected = nIndex;
 
-		m_wndServices.SetItemDataPtr( nIndex, new CString( sPlayer ) );
+		m_wndServices.SetItemDataPtr( nIndex, new CString( strPlayer ) );
 	}
 
 	m_wndServices.SetCurSel( nSelected );
@@ -282,7 +282,7 @@ void CMediaSettingsPage::OnSelChangeMediaService()
 			return;
 		}
 
-		CString sNewPlayer = dlg.GetPathName();
+		CString strNewPlayer = dlg.GetPathName();
 
 		const int nCount = m_wndServices.GetCount();
 		for ( int i = 0 ; i < nCount ; ++i )
@@ -291,7 +291,7 @@ void CMediaSettingsPage::OnSelChangeMediaService()
 			if ( ! psPlayer )
 				continue;
 
-			if ( psPlayer->CompareNoCase( sNewPlayer ) == 0 )	// Duplicate
+			if ( psPlayer->CompareNoCase( strNewPlayer ) == 0 )	// Duplicate
 			{
 				m_wndServices.SetCurSel( i );
 				Update();
@@ -299,8 +299,8 @@ void CMediaSettingsPage::OnSelChangeMediaService()
 			}
 		}
 
-		const int nIndex = m_wndServices.AddString( PathFindFileName( sNewPlayer ) );
-		m_wndServices.SetItemDataPtr( nIndex, new CString( sNewPlayer ) );
+		const int nIndex = m_wndServices.AddString( PathFindFileName( strNewPlayer ) );
+		m_wndServices.SetItemDataPtr( nIndex, new CString( strNewPlayer ) );
 		m_wndServices.SetCurSel( nIndex );
 
 		m_bEnablePlay = m_bEnableEnqueue = FALSE;

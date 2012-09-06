@@ -9,10 +9,11 @@
  *
  * (C) Copyright Nicolai M. Josuttis 2001.
  *
- * Distributed under the Boost Software License, Version 1.0. (See
- * accompanying file LICENSE_1_0.txt or copy at
+ * Distributed under the Boost Software License, Version 1.0.
+ * (See accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
  *
+ * 14 Apr 2012 - (mtc) Added support for boost::hash (Unused)
  * 28 Dec 2010 - (mtc) Added cbegin and cend (and crbegin and crend) for C++Ox compatibility.
  * 10 Mar 2010 - (mtc) fill method added, matching resolution of the standard library working group.
  *      See <http://www.open-std.org/jtc1/sc22/wg21/docs/lwg-defects.html#776> or Trac issue #3168
@@ -46,6 +47,7 @@
 // Handles broken standard libraries better than <iterator>
 #include <boost/detail/iterator.hpp>
 #include <boost/throw_exception.hpp>
+//#include <boost/functional/hash_fwd.hpp>
 #include <algorithm>
 
 // FIXES for broken compilers
@@ -82,12 +84,12 @@ namespace boost {
 #if !defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION) && !defined(BOOST_MSVC_STD_ITERATOR) && !defined(BOOST_NO_STD_ITERATOR_TRAITS)
         typedef std::reverse_iterator<iterator> reverse_iterator;
         typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
-#elif defined(_MSC_VER) && (_MSC_VER == 1300) && defined(BOOST_DINKUMWARE_STDLIB) && (BOOST_DINKUMWARE_STDLIB == 310)
-        // workaround for broken reverse_iterator in VC7
-        typedef std::reverse_iterator<std::_Ptrit<value_type, difference_type, iterator,
-                                      reference, iterator, reference> > reverse_iterator;
-        typedef std::reverse_iterator<std::_Ptrit<value_type, difference_type, const_iterator,
-                                      const_reference, iterator, reference> > const_reverse_iterator;
+//#elif defined(_MSC_VER) && (_MSC_VER == 1300) && defined(BOOST_DINKUMWARE_STDLIB) && (BOOST_DINKUMWARE_STDLIB == 310)
+//      // workaround for broken reverse_iterator in VC7
+//      typedef std::reverse_iterator<std::_Ptrit<value_type, difference_type, iterator,
+//                                    reference, iterator, reference> > reverse_iterator;
+//      typedef std::reverse_iterator<std::_Ptrit<value_type, difference_type, const_iterator,
+//                                    const_reference, iterator, reference> > const_reverse_iterator;
 #elif defined(_RWSTD_NO_CLASS_PARTIAL_SPEC)
         typedef std::reverse_iterator<iterator, std::random_access_iterator_tag,
               value_type, reference, iterator, difference_type> reverse_iterator;
@@ -268,8 +270,8 @@ namespace boost {
         }
 
         // at() with range check
-        reference at(size_type /*i*/)               {   return failed_rangecheck(); }
-        const_reference at(size_type /*i*/) const   {   return failed_rangecheck(); }
+        reference at(size_type /*i*/)               { return failed_rangecheck(); }
+        const_reference at(size_type /*i*/) const   { return failed_rangecheck(); }
 
         // front() and back()
         reference front()
@@ -399,6 +401,12 @@ namespace boost {
         return static_cast<T(&)[N]>(arg);
     }
 #endif
+
+//  template<class T, std::size_t N>
+//  std::size_t hash_value(const array<T,N>& arr)
+//  {
+//      return boost::hash_range(arr.begin(), arr.end());
+//  }
 
 } /* namespace boost */
 

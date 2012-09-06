@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -23,8 +23,9 @@
 
 #include "PeerProjectThread.h"
 #include "G2Packet.h"
-#include "Colors.h"
 #include "CoolInterface.h"
+#include "Colors.h"
+#include "Images.h"
 #include "Schema.h"
 #include "SchemaCache.h"
 #include "ShellIcons.h"
@@ -34,7 +35,7 @@
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 //#define ITEM_HEIGHT 17	// Settings.Skin.RowSize
 #define WM_UPDATE	(WM_APP+80)
@@ -486,7 +487,7 @@ void CBrowseTreeCtrl::OnKeyDown(UINT nChar, UINT /*nRepCnt*/, UINT /*nFlags*/)
 	}
 	else if ( ( nChar == VK_LEFT || nChar == VK_SUBTRACT ) && m_pFocus != NULL )
 	{
-		for (;;)
+		for ( ;; )
 		{
 			if ( m_pFocus->m_bExpanded && m_pFocus->m_nCount )
 			{
@@ -564,8 +565,8 @@ void CBrowseTreeCtrl::OnKeyDown(UINT nChar, UINT /*nRepCnt*/, UINT /*nFlags*/)
 void CBrowseTreeCtrl::UpdateScroll()
 {
 	CSingleLock lRoot( &m_csRoot, TRUE );
-	SCROLLINFO pInfo;
 
+	SCROLLINFO pInfo = {};
 	pInfo.cbSize	= sizeof(pInfo);
 	pInfo.fMask		= SIF_PAGE | SIF_POS | SIF_RANGE;
 	pInfo.nMin		= 0;
@@ -1136,7 +1137,7 @@ void CBrowseTreeItem::Paint(CDC& dc, CRect& rc, BOOL bTarget, COLORREF crBack) c
 	crBack = ( m_bSelected || bTarget ) ? Colors.m_crHighlight : crBack;
 	COLORREF crText = ( m_bSelected || bTarget ) ? Colors.m_crHiText : Colors.m_crText;
 
-	BOOL bSelectmark = ( m_bSelected || bTarget ) && ( Skin.m_bmSelected.m_hObject != NULL );
+	BOOL bSelectmark = ( m_bSelected || bTarget ) && ( Images.m_bmSelected.m_hObject != NULL );
 
 	rc.left += 33;
 	dc.SetTextColor( crText );
@@ -1144,7 +1145,7 @@ void CBrowseTreeItem::Paint(CDC& dc, CRect& rc, BOOL bTarget, COLORREF crBack) c
 	dc.SetBkMode( bSelectmark ? TRANSPARENT : OPAQUE );
 
 	if ( bSelectmark )
-		CoolInterface.DrawWatermark( &dc, &rc, &Skin.m_bmSelected );
+		CoolInterface.DrawWatermark( &dc, &rc, &Images.m_bmSelected );
 
 	dc.ExtTextOut( rc.left + 2, rc.top + 1,
 		ETO_CLIPPED|( bSelectmark ? 0 : ETO_OPAQUE ),

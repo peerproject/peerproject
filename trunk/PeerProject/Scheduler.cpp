@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007, 2010.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 // Explanation:
@@ -32,15 +32,15 @@
 #include "Network.h"
 #include "XML.h"
 
-#include "atltime.h"
-#include "Reason.h"	// Shutdown code define
-#include "Ras.h"	// Dialup disconnect
+//#include <atltime.h>
+#include <Reason.h>	// Shutdown code define
+#include <Ras.h>	// Dialup disconnect
 
 #ifdef _DEBUG
 #undef THIS_FILE
-static char THIS_FILE[]=__FILE__;
+static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 CScheduler Scheduler;
 
@@ -660,7 +660,7 @@ void CScheduler::ExecuteScheduledTask(CScheduleTask *pSchTask)
 		PostMainWndMessage( WM_COMMAND, ID_TRAY_OPEN );
 
 		pSchTask->m_bActive = false;	// Repeat MsgBox workaround
-		AfxMessageBox( LoadString( IDS_SCHEDULER_REMINDER_NOTICE ) + _T("\n\n") + pSchTask->m_sDescription, MB_OK );
+		MsgBox( LoadString( IDS_SCHEDULER_REMINDER_NOTICE ) + _T("\n\n") + pSchTask->m_sDescription, MB_OK );
 		pSchTask->m_bActive = true;
 		break;
 
@@ -678,7 +678,7 @@ void CScheduler::HangUpConnection()
 	RASCONN* lpRasConn = NULL;
 	LPRASCONNSTATUS RasConStatus = 0;
 
-	for (;;)
+	for ( ;; )
 	{
 		// Free memory if necessary
 		if ( lpRasConn != NULL )

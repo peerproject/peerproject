@@ -19,7 +19,7 @@
 #ifdef _WIN32
 LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
 #pragma code_page(1251)
-#endif //_WIN32
+#endif // _WIN32
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -46,12 +46,12 @@ BEGIN
 			VALUE "Comments", "BZip2 Library for lossless, block-sorting data compression."
 			VALUE "CompanyName", "Julian Seward"
 			VALUE "FileDescription", "bzlib DLL"
-			VALUE "FileVersion", "1, 0, 6, 0"
+			VALUE "FileVersion", "1.0.6.0"
 			VALUE "InternalName", "bzlib"
 			VALUE "LegalCopyright", "© 1996-2007 Julian Seward (bzip.org)"
 			VALUE "OriginalFilename", "bzlib.dll"
 			VALUE "ProductName", "PeerProject"
-			VALUE "ProductVersion", "1, 0, 0, 0"
+			VALUE "ProductVersion", "1.0.0.0"
 		END
 	END
 	BLOCK "VarFileInfo"
@@ -97,4 +97,3 @@ END
 
 /////////////////////////////////////////////////////////////////////////////
 #endif    // not APSTUDIO_INVOKED
-

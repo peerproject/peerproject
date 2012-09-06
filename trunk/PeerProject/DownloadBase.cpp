@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -25,9 +25,9 @@
 
 #ifdef _DEBUG
 #undef THIS_FILE
-static char THIS_FILE[]=__FILE__;
+static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 IMPLEMENT_DYNAMIC(CDownloadBase, CPeerProjectFile)
 
@@ -126,8 +126,8 @@ void CDownloadBase::Serialize(CArchive& ar, int nVersion)
 		ar << m_sName;
 		ar << m_nSize;
 		ar << m_tDate;
-	//	CString sSearchKeyword;
-	//	ar << sSearchKeyword;	// ToDo: ShareazaPlus feature?
+	//	CString strSearchKeyword;
+	//	ar << strSearchKeyword;	// ToDo: ShareazaPlus feature?
 		SerializeOut( ar, m_oSHA1 );
 		ar << (uint32)m_bSHA1Trusted;
 		SerializeOut( ar, m_oTiger );
@@ -145,8 +145,8 @@ void CDownloadBase::Serialize(CArchive& ar, int nVersion)
 
 		if ( nVersion < 100 && nVersion > 32 )
 		{
-			CString sSearchKeyword;
-			ar >> sSearchKeyword;		// Shareaza compatibility for ShareazaPlus
+			CString strSearchKeyword;
+			ar >> strSearchKeyword;		// Shareaza compatibility for ShareazaPlus
 		}
 
 		//if ( nVersion < 28 )
@@ -163,8 +163,8 @@ void CDownloadBase::Serialize(CArchive& ar, int nVersion)
 		else	// Shareaza import
 			m_tDate = CTime::GetCurrentTime();
 
-	//	CString sSearchKeyword;
-	//	ar >> sSearchKeyword;			// ToDo: SharazaPlus feature?
+	//	CString strSearchKeyword;
+	//	ar >> strSearchKeyword;			// ToDo: SharazaPlus feature?
 
 		uint32 b;
 		SerializeIn( ar, m_oSHA1, nVersion );

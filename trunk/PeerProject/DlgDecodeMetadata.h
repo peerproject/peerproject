@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -27,9 +27,10 @@ class CDecodeMetadataDlg : public CSkinDialog
 public:
 	CDecodeMetadataDlg(CWnd* pParent = NULL);
 
+	enum { IDD = IDD_CODEPAGES };
+
 // Dialog Data
 public:
-	enum { IDD = IDD_CODEPAGES };
 	CButton		m_wndOK;
 	CComboBox	m_wndCodepages;
 	CString		m_sOriginalWords;
@@ -49,14 +50,14 @@ protected:
 public:
 	virtual BOOL OnInitDialog();
 	virtual void OnOK();
-			void AddFile(CLibraryFile* pFile);
-			void GetEncodedText(CString& strText, int nMethod = 0) const;
+	void AddFile(CLibraryFile* pFile);
+	void GetEncodedText(CString& strText, int nMethod = 0) const;
 
 protected:
-	DECLARE_MESSAGE_MAP()
-
 	afx_msg void OnClickedMethod1();
 	afx_msg void OnClickedMethod2();
 	afx_msg void OnCloseupCodepages();
 	afx_msg void OnSelchangeCodepages();
+
+	DECLARE_MESSAGE_MAP()
 };

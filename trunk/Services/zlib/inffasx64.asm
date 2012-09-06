@@ -8,12 +8,15 @@
 ; to compile this file, I use option
 ;   ml64.exe /Flinffasx64 /c /Zi inffasx64.asm
 ;   with Microsoft Macro Assembler (x64) for AMD64
+
+; This file compiles with Microsoft Macro Assembler (x64) for AMD64
 ;
-;   ml64.exe is given with Visual Studio 2005, Windows 2003 server DDK
+;   ml64.exe is given with Visual Studio 2005/2008/2010 and Windows WDK
 ;
-;   (you can get Windows 2003 server DDK with ml64 and cl.exe for AMD64 from
-;      http://www.microsoft.com/whdc/devtools/ddk/default.mspx for low price)
+;   (you can get Windows WDK with ml64 for AMD64 from
+;      http://www.microsoft.com/whdc/Devtools/wdk/default.mspx cost-free)
 ;
+
 
 .code
 inffas8664fnc PROC
@@ -38,7 +41,7 @@ inffas8664fnc PROC
 	mov	[rax+8], rbp       ; /* save regs rbp and rsp */
 	mov	[rax], rsp
 
-	mov	rsp, rax          ; /* make rsp point to &ar */
+	mov	rsp, rax           ; /* make rsp point to &ar */
 
 	mov	rsi, [rsp+16]      ; /* rsi  = in */
 	mov	rdi, [rsp+32]      ; /* rdi  = out */
@@ -69,7 +72,7 @@ L_one_time:
 
 	lodsd                         ; /* eax = *(uint *)in++ */
 	mov	cl, bl            ; /* cl = bits, needs it for shifting */
-	add	bl, 32             ; /* bits += 32 */
+	add	bl, 32            ; /* bits += 32 */
 	shl	rax, cl
 	or	rdx, rax          ; /* hold |= *((uint *)in)++ << bits */
 	jmp	L_get_length_code_one_time
@@ -88,7 +91,7 @@ L_do_loop:
 
 	lodsd                         ; /* eax = *(uint *)in++ */
 	mov	cl, bl            ; /* cl = bits, needs it for shifting */
-	add	bl, 32             ; /* bits += 32 */
+	add	bl, 32            ; /* bits += 32 */
 	shl	rax, cl
 	or	rdx, rax          ; /* hold |= *((uint *)in)++ << bits */
 
@@ -126,7 +129,7 @@ L_dolen:
 ALIGN 4
 L_test_for_length_base:
 	mov	r14d, eax         ; /* len = this */
-	shr	r14d, 16           ; /* len = this.val */
+	shr	r14d, 16          ; /* len = this.val */
 	mov	cl, al
 
 	test	al, 16
@@ -151,7 +154,7 @@ L_decode_distance:
 
 	lodsd                         ; /* eax = *(uint *)in++ */
 	mov	cl, bl            ; /* cl = bits, needs it for shifting */
-	add	bl, 32             ; /* bits += 32 */
+	add	bl, 32            ; /* bits += 32 */
 	shl	rax, cl
 	or	rdx, rax          ; /* hold |= *((uint *)in)++ << bits */
 
@@ -161,7 +164,7 @@ L_get_distance_code:
 
 L_dodist:
 	mov	r15d, eax         ; /* dist = this */
-	shr	r15d, 16           ; /* dist = this.val */
+	shr	r15d, 16          ; /* dist = this.val */
 	mov	cl, ah
 	sub	bl, ah            ; /* bits -= this.bits */
 	shr	rdx, cl           ; /* hold >>= this.bits */
@@ -287,12 +290,12 @@ L_clip_window:
 
 ALIGN 4
 L_wrap_around_window:
-	mov	eax, [rsp+96]     ; /* eax = write */
+	mov	eax, [rsp+96]    ; /* eax = write */
 	cmp	ecx, eax
 	jbe	L_contiguous_in_window ; /* if (write >= nbytes) */
 
-	mov	esi, [rsp+92]     ; /* from  = wsize */
-	add	rsi, [rsp+56]     ; /* from += window */
+	mov	esi, [rsp+92]    ; /* from  = wsize */
+	add	rsi, [rsp+56]    ; /* from += window */
 	add	rsi, rax         ; /* from += write */
 	sub	rsi, rcx         ; /* from -= nbytes */
 	sub	ecx, eax         ; /* nbytes -= write */
@@ -366,7 +369,7 @@ L_break_loop_with_status:
 	mov	[rsp+88], ebx     ; /* bits */
 	mov	[rsp+80], rdx     ; /* hold */
 
-	mov	rax, [rsp]       ; /* restore rbp and rsp */
+	mov	rax, [rsp]        ; /* restore rbp and rsp */
 	mov	rbp, [rsp+8]
 	mov	rsp, rax
 

@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -29,7 +29,7 @@
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 IMPLEMENT_DYNCREATE(CAdvancedSettingsPage, CSettingsPage)
 
@@ -129,7 +129,8 @@ void CAdvancedSettingsPage::AddSettings()
 }
 void CAdvancedSettingsPage::CommitAll()
 {
-	for ( int nItem = 0 ; nItem < m_wndList.GetItemCount() ; nItem++ )
+	const int nCount = m_wndList.GetItemCount();
+	for ( int nItem = 0 ; nItem < nCount ; nItem++ )
 	{
 		EditItem* pItem = (EditItem*)m_wndList.GetItemData( nItem );
 		pItem->Commit();
@@ -138,7 +139,8 @@ void CAdvancedSettingsPage::CommitAll()
 
 void CAdvancedSettingsPage::UpdateAll()
 {
-	for ( int nItem = 0 ; nItem < m_wndList.GetItemCount() ; nItem++ )
+	const int nCount = m_wndList.GetItemCount();
+	for ( int nItem = 0 ; nItem < nCount ; nItem++ )
 	{
 		EditItem* pItem = (EditItem*)m_wndList.GetItemData( nItem );
 		pItem->Update();
@@ -335,7 +337,8 @@ void CAdvancedSettingsPage::OnDestroy()
 {
 	Settings.General.LastSettingsIndex = m_wndList.GetTopIndex();
 
-	for ( int nItem = 0 ; nItem < m_wndList.GetItemCount() ; nItem++ )
+	const int nCount = m_wndList.GetItemCount();
+	for ( int nItem = 0 ; nItem < nCount ; nItem++ )
 	{
 		delete (EditItem*)m_wndList.GetItemData( nItem );
 	}
@@ -358,7 +361,8 @@ void CAdvancedSettingsPage::OnBnClickedDefaultValue()
 
 bool CAdvancedSettingsPage::IsModified() const
 {
-	for ( int nItem = 0 ; nItem < m_wndList.GetItemCount() ; nItem++ )
+	const int nCount = m_wndList.GetItemCount();
+	for ( int nItem = 0 ; nItem < nCount ; nItem++ )
 	{
 		const EditItem* pItem = (EditItem*)m_wndList.GetItemData( nItem );
 		if ( pItem->IsModified() )
@@ -367,20 +371,21 @@ bool CAdvancedSettingsPage::IsModified() const
 	return false;
 }
 
+
 /////////////////////////////////////////////////////////////////////////////
 // CSettingEdit construction
 
 CAdvancedSettingsPage::EditItem::EditItem(const CSettings::Item* pItem)
-	: m_pItem( const_cast<CSettings::Item*>( pItem ) )
-	, m_nValue( pItem->m_pDword ? *pItem->m_pDword : 0 )
-	, m_bValue( pItem->m_pBool ? *pItem->m_pBool : false )
-	, m_sValue( pItem->m_pString ? *pItem->m_pString : CString() )
-	, m_nOriginalValue( pItem->m_pDword ? *pItem->m_pDword : 0 )
-	, m_bOriginalValue( pItem->m_pBool ? *pItem->m_pBool : false )
-	, m_sOriginalValue( pItem->m_pString ? *pItem->m_pString : CString() )
-	, m_sName(  ( ! *pItem->m_szSection ||				// Settings.Name -> General.Name
-		! lstrcmpi( pItem->m_szSection, L"Settings" ) )	// .Name -> General.Name
-		? L"General" : pItem->m_szSection )
+	: m_pItem			( const_cast<CSettings::Item*>( pItem ) )
+	, m_nValue			( pItem->m_pDword ? *pItem->m_pDword : 0 )
+	, m_bValue			( pItem->m_pBool ? *pItem->m_pBool : false )
+	, m_sValue			( pItem->m_pString ? *pItem->m_pString : CString() )
+	, m_nOriginalValue	( pItem->m_pDword ? *pItem->m_pDword : 0 )
+	, m_bOriginalValue	( pItem->m_pBool ? *pItem->m_pBool : false )
+	, m_sOriginalValue	( pItem->m_pString ? *pItem->m_pString : CString() )
+	, m_sName			( ( ! *pItem->m_szSection ||							// Settings.Name -> General.Name
+							! lstrcmpi( pItem->m_szSection, L"Settings" ) )		// .Name -> General.Name
+							? L"General" : pItem->m_szSection )
 {
 	m_sName += L".";
 	m_sName += pItem->m_szName;

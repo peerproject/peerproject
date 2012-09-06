@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -35,7 +35,7 @@
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 #define NEWLINE_FORMAT	_T("2")
 #define EDIT_HISTORY	256
@@ -459,11 +459,11 @@ void CChatWnd::OnMessage(bool bAction, const CString& sChatID, bool bOutgoing, c
 	Plugins.OnChatMessage( sChatID, bOutgoing, sFrom, sTo, sText );
 
 	// Adult filter (if enabled)
-	CString sCensoredText( sText );
+	CString strCensoredText( sText );
 	if ( Settings.Community.ChatCensor )
-		AdultFilter.Censor( sCensoredText );
+		AdultFilter.Censor( strCensoredText );
 
-	AddText( bAction, bOutgoing, sFrom, sCensoredText );
+	AddText( bAction, bOutgoing, sFrom, strCensoredText );
 
 	SetAlert();
 
@@ -908,7 +908,7 @@ LRESULT CChatWnd::OnChatAddUser(WPARAM /*wParam*/, LPARAM lParam)
 
 	LVFINDINFO lvfi = { LVFI_STRING, pUser->m_sNick };
 	int index = -1;
-	for (;;)
+	for ( ;; )
 	{
 		index = m_wndUsers.FindItem( &lvfi, index );
 		if ( index == -1 )
@@ -953,7 +953,7 @@ LRESULT CChatWnd::OnChatDeleteUser(WPARAM /*wParam*/, LPARAM lParam)
 
 	LVFINDINFO lvfi = { LVFI_STRING, *psNick };
 	int index = -1;
-	for (;;)
+	for ( ;; )
 	{
 		index = m_wndUsers.FindItem( &lvfi, index );
 		if ( index == -1 )

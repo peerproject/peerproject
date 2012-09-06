@@ -19,6 +19,7 @@
 #include "errhnd.hpp"
 #include "array.hpp"
 #include "timefn.hpp"
+#include "secpassword.hpp"
 #include "options.hpp"
 #include "headers.hpp"
 #include "pathfn.hpp"
@@ -51,17 +52,14 @@
 #include "resource.hpp"
 #include "compress.hpp"
 
-
 #include "rarvm.hpp"
 #include "model.hpp"
-
 
 #include "unpack.hpp"
 
 
 #include "extinfo.hpp"
 #include "extract.hpp"
-
 
 
 #include "list.hpp"

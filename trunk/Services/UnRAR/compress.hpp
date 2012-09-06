@@ -6,7 +6,6 @@ class PackingFileTable;
 
 #define MAX_LZ_MATCH    0x101
 
-#define CODEBUFSIZE     0x4000
 #define MAXWINSIZE      0x400000
 #define MAXWINMASK      (MAXWINSIZE-1)
 
@@ -30,7 +29,6 @@ class PackingFileTable;
 
 enum {CODE_HUFFMAN,CODE_LZ,CODE_LZ2,CODE_REPEATLZ,CODE_CACHELZ,
       CODE_STARTFILE,CODE_ENDFILE,CODE_VM,CODE_VMDATA};
-
 
 enum FilterType {
   FILTER_NONE, FILTER_PPM /*dummy*/, FILTER_E8, FILTER_E8E9,

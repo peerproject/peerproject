@@ -116,19 +116,19 @@ STDMETHODIMP CSkinScan::Process(/*[in]*/ BSTR sFile, /*[in]*/ ISXMLElement* pXML
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// 
+//
 // ScanFile() is a helper function which accepts an XML string, decodes it,
 // checks if it is a PeerProject skin file, and copies <manifest> metadata to the output.
-// 
+//
 // pszXML  : The XML string
 // pOutput : An empty XML element to build metadata in
-// 
+//
 
 BOOL CSkinScan::ScanFile(LPCSTR pszXML, ISXMLElement* pOutput)
 {
 	// Put the XML string in a BSTR
 	BOOL bBOMPresent = FALSE;
-	if ( lstrlenA( pszXML ) > 3 && (UCHAR)pszXML[0] == 0xEF && 
+	if ( lstrlenA( pszXML ) > 3  && (UCHAR)pszXML[0] == 0xEF &&
 		(UCHAR)pszXML[1] == 0xBB && (UCHAR)pszXML[2] == 0xBF )
 	{
 		bBOMPresent = TRUE;

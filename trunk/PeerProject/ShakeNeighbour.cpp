@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -36,9 +36,9 @@
 
 #ifdef _DEBUG
 #undef THIS_FILE
-static char THIS_FILE[]=__FILE__;
+static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 
 //////////////////////////////////////////////////////////////////////
@@ -700,9 +700,8 @@ BOOL CShakeNeighbour::OnHeaderLine(CString& strHeader, CString& strValue)
 		//Text[ L"peers" ]				= '#';
 	}
 
-	switch( Text[ strCase ] )
+	switch ( Text[ strCase ] )
 	{
-
 	case 'u':		// "User-Agent"
 		// Save the name and version of the remote program
 		m_sUserAgent = strValue;
@@ -732,7 +731,6 @@ BOOL CShakeNeighbour::OnHeaderLine(CString& strHeader, CString& strValue)
 			m_bBadClient	= TRUE; 	// Remember this is a bad client.
 		}
 		break;
-
 	case 'i':		// "Remote-IP"
 		// Remote computer is telling us our IP address
 		// Give the value, which is text like "1.2.3.4", to the Network object
@@ -869,10 +867,10 @@ BOOL CShakeNeighbour::OnHeaderLine(CString& strHeader, CString& strValue)
 			m_sTryUltrapeers = strValue;
 		break;
 
-	case 'x':		// Known Unsupported Headers
-	default:		// Unknown Header?
-		// ToDo: Different system message?
-		break;
+	//case 'x':		// Known Unsupported Headers
+	//default:		// Unknown Header?
+	//	// ToDo: Different system message?
+	//	break;
 	}
 
 	return TRUE;
@@ -956,7 +954,7 @@ BOOL CShakeNeighbour::OnHeadersComplete()
 
 		int nCount = 0;
 		// Append a comma onto the end of the value text once, and then loop forever
-		for ( m_sTryUltrapeers += ',' ; ; )				// for (;;) is forever
+		for ( m_sTryUltrapeers += ',' ; ; )				// for ( ;; ) is forever
 		{
 			// Find the first comma in the value text
 			int nPos = m_sTryUltrapeers.Find( ',' );	// Set nPos to the distance in characters from the start to the comma

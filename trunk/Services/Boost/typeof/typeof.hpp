@@ -57,48 +57,48 @@
 #       define BOOST_TYPEOF_KEYWORD __typeof__
 #   endif
 
-#elif defined(__MWERKS__)
-#   if(__MWERKS__ <= 0x3003)  // 8.x
-#       ifndef BOOST_TYPEOF_EMULATION
-#           ifndef BOOST_TYPEOF_NATIVE
-#               define BOOST_TYPEOF_NATIVE
-#           endif
-#           define BOOST_TYPEOF_KEYWORD __typeof__
-#       else
-#           define BOOST_TYPEOF_EMULATION_UNSUPPORTED
-#       endif
-#   else // 9.x
-#       ifndef BOOST_TYPEOF_EMULATION
-#           ifndef BOOST_TYPEOF_NATIVE
-#               define BOOST_TYPEOF_NATIVE
-#           endif
-#           define BOOST_TYPEOF_KEYWORD __typeof__
-#       endif
-#   endif
-#elif defined __CODEGEARC__
-#   ifndef BOOST_TYPEOF_EMULATION
-#       ifndef BOOST_TYPEOF_NATIVE
-#           define BOOST_TYPEOF_EMULATION_UNSUPPORTED
-#       endif
-#   else
-#       define BOOST_TYPEOF_EMULATION_UNSUPPORTED
-#   endif
-#elif defined __BORLANDC__
-#   ifndef BOOST_TYPEOF_EMULATION
-#       ifndef BOOST_TYPEOF_NATIVE
-#           define BOOST_TYPEOF_EMULATION_UNSUPPORTED
-#       endif
-#   else
-#       define BOOST_TYPEOF_EMULATION_UNSUPPORTED
-#   endif
-#elif defined __DMC__
-#   ifndef BOOST_TYPEOF_EMULATION
-#       ifndef BOOST_TYPEOF_NATIVE
-#           define BOOST_TYPEOF_NATIVE
-#       endif
-#       include <boost/typeof/dmc/typeof_impl.hpp>
-#       define MSVC_TYPEOF_HACK
-#   endif
+//#elif defined(__MWERKS__)
+//#   if(__MWERKS__ <= 0x3003)  // 8.x
+//#       ifndef BOOST_TYPEOF_EMULATION
+//#           ifndef BOOST_TYPEOF_NATIVE
+//#               define BOOST_TYPEOF_NATIVE
+//#           endif
+//#           define BOOST_TYPEOF_KEYWORD __typeof__
+//#       else
+//#           define BOOST_TYPEOF_EMULATION_UNSUPPORTED
+//#       endif
+//#   else // 9.x
+//#       ifndef BOOST_TYPEOF_EMULATION
+//#           ifndef BOOST_TYPEOF_NATIVE
+//#               define BOOST_TYPEOF_NATIVE
+//#           endif
+//#           define BOOST_TYPEOF_KEYWORD __typeof__
+//#       endif
+//#   endif
+//#elif defined __CODEGEARC__
+//#   ifndef BOOST_TYPEOF_EMULATION
+//#       ifndef BOOST_TYPEOF_NATIVE
+//#           define BOOST_TYPEOF_EMULATION_UNSUPPORTED
+//#       endif
+//#   else
+//#       define BOOST_TYPEOF_EMULATION_UNSUPPORTED
+//#   endif
+//#elif defined __BORLANDC__
+//#   ifndef BOOST_TYPEOF_EMULATION
+//#       ifndef BOOST_TYPEOF_NATIVE
+//#           define BOOST_TYPEOF_EMULATION_UNSUPPORTED
+//#       endif
+//#   else
+//#       define BOOST_TYPEOF_EMULATION_UNSUPPORTED
+//#   endif
+//#elif defined __DMC__
+//#   ifndef BOOST_TYPEOF_EMULATION
+//#       ifndef BOOST_TYPEOF_NATIVE
+//#           define BOOST_TYPEOF_NATIVE
+//#       endif
+//#       include <boost/typeof/dmc/typeof_impl.hpp>
+//#       define MSVC_TYPEOF_HACK
+//#   endif
 #elif defined(_MSC_VER)
 #   if (_MSC_VER <= 1300)  // 6.5, 7.0
 #       ifndef BOOST_TYPEOF_EMULATION
@@ -143,18 +143,18 @@
 #       error native typeof is not supported
 #   endif
 
-#elif defined(__BORLANDC__)
-#   if (__BORLANDC__ < 0x590)
-#       define BOOST_TYPEOF_NO_FUNCTION_TYPES
-#       define BOOST_TYPEOF_NO_MEMBER_FUNCTION_TYPES
-#   endif
-#   ifndef BOOST_TYPEOF_NATIVE
-#       ifndef BOOST_TYPEOF_EMULATION
-#           define BOOST_TYPEOF_EMULATION
-#       endif
-#   else
-#       error native typeof is not supported
-#   endif
+//#elif defined(__BORLANDC__)
+//#   if (__BORLANDC__ < 0x590)
+//#       define BOOST_TYPEOF_NO_FUNCTION_TYPES
+//#       define BOOST_TYPEOF_NO_MEMBER_FUNCTION_TYPES
+//#   endif
+//#   ifndef BOOST_TYPEOF_NATIVE
+//#       ifndef BOOST_TYPEOF_EMULATION
+//#           define BOOST_TYPEOF_EMULATION
+//#       endif
+//#   else
+//#       error native typeof is not supported
+//#   endif
 
 #else //unknown compiler
 #   ifndef BOOST_TYPEOF_NATIVE

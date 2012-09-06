@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -30,7 +30,7 @@
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 IMPLEMENT_DYNAMIC(CCoolBarCtrl, CControlBar)
 
@@ -669,14 +669,9 @@ void CCoolBarCtrl::SmartMove(CWnd* pCtrl, CRect* pRect)
 	ScreenToClient( &rc );
 
 	if ( rc != *pRect )
-	{
-		pCtrl->SetWindowPos( NULL, pRect->left, pRect->top, pRect->Width(),
-			pRect->Height(), SWP_NOZORDER|SWP_SHOWWINDOW );
-	}
+		pCtrl->SetWindowPos( NULL, pRect->left, pRect->top, pRect->Width(), pRect->Height(), SWP_NOZORDER|SWP_SHOWWINDOW );
 	else if ( ! pCtrl->IsWindowVisible() )
-	{
 		pCtrl->ShowWindow( SW_SHOW );
-	}
 }
 
 HBRUSH CCoolBarCtrl::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
@@ -687,7 +682,7 @@ HBRUSH CCoolBarCtrl::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	{
 		// Skin media sliders
 		if ( pWnd->GetDlgCtrlID() == IDC_MEDIA_POSITION || pWnd->GetDlgCtrlID() == IDC_MEDIA_VOLUME || pWnd->GetDlgCtrlID() == IDC_MEDIA_SPEED )
-			return (HBRUSH)Skin.m_brMediaSlider;
+			return (HBRUSH)Images.m_brMediaControl;		// m_brMediaSlider
 
 		// ToDo: Is this Toolbar brush member needed?
 		pDC->SetBkColor( Colors.m_crMidtone );

@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -131,20 +131,20 @@ protected:
 
 // Watermarks + Color Scheme (CColors/CImages)
 public:
-	CBitmap		m_bmBanner;
-	int 		m_nBanner;
+	int 		m_nBanner;	// Set in Images (Duplicate for convenience)
+//	CBitmap		m_bmBanner;
 
-	CBrush		m_brDialog;
-	CBrush		m_brDialogPanel;
-	CBrush		m_brMediaSlider;
+//	CBrush		m_brDialog;
+//	CBrush		m_brDialogPanel;
+//	CBrush		m_brMediaSlider;
 
-	CBitmap		m_bmDialog;
-	CBitmap		m_bmDialogPanel;
-	CBitmap		m_bmPanelMark;
+//	CBitmap		m_bmDialog;
+//	CBitmap		m_bmDialogPanel;
+//	CBitmap		m_bmPanelMark;
 
-	CBitmap		m_bmSelected;
-	CBitmap		m_bmSelectedGrey;
-	CBitmap		m_bmToolTip;
+//	CBitmap		m_bmSelected;
+//	CBitmap		m_bmSelectedGrey;
+//	CBitmap		m_bmToolTip;
 
 protected:
 	BOOL		LoadColorScheme(CXMLElement* pBase);

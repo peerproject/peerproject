@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -27,12 +27,12 @@ class CMonitorBarCtrl;
 
 class CRemoteWnd : public CWnd
 {
+	DECLARE_DYNAMIC(CRemoteWnd)
+
 // Construction
 public:
 	CRemoteWnd();
 	virtual ~CRemoteWnd();
-
-	DECLARE_DYNAMIC(CRemoteWnd)
 
 // Command Button Class
 protected:
@@ -145,7 +145,6 @@ protected:
 
 // Message Map
 protected:
-	DECLARE_MESSAGE_MAP()
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
 	afx_msg void OnWindowPosChanging(WINDOWPOS FAR* lpwndpos);
@@ -165,4 +164,6 @@ protected:
 	afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
 	afx_msg BOOL OnHelpInfo(HELPINFO* pHelpInfo);
 	virtual INT_PTR OnToolHitTest(CPoint point, TOOLINFO* pTI) const;
+
+	DECLARE_MESSAGE_MAP()
 };

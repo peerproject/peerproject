@@ -1,15 +1,12 @@
-; Inno Setup 5.1.11+ Dutch Messages (PeerProject: nl)
+; *** Inno Setup 5.5.0+ Dutch Messages (PeerProject: nl)
 ;
 ; Maintained by Martijn Laan (mlaan@jrsoftware.org)
 ; This file is based on user-contributed translations by various authors
 ;
 ; $jrsoftware: issrc/Files/Languages/Dutch.isl,v 1.21 2007/03/06 12:56:38 mlaan Exp $
 ; $jrsoftware: issrc/Files/Languages/Dutch.isl,v 1.27 2010/03/25 09:49:38 mlaan Exp $
-; http://www.jrsoftware.org/files/istrans/ (user-contributed translations)
 ;
-; Note: Do not add periods (.) to messages that don't have them already,
-; because for those messages Inno Setup adds the periods automatically.
-; (appending a period will result in two periods being displayed.)
+; Note: Do not add periods (.), where added automatically.
 
 [LangOptions]
 LanguageName=Nederlands
@@ -39,6 +36,10 @@ LastErrorMessage=%1.%n%nFout %2: %3
 SetupFileMissing=Het bestand %1 ontbreekt in de installatiemap. Corrigeer dit probleem of gebruik een andere kopie van het programma.
 SetupFileCorrupt=De installatiebestanden zijn beschadigd. Gebruik een andere kopie van het programma.
 SetupFileCorruptOrWrongVer=De installatiebestanden zijn beschadigd, of zijn niet compatibel met deze versie van Setup. Corrigeer dit probleem of gebruik een andere kopie van het programma.
+InvalidParameter=Er werd een ongeldige schakeloptie opgegeven op de opdrachtregel:%n%n%1
+SetupAlreadyRunning=Setup is al gestart.
+WindowsVersionNotSupported=Dit programma ondersteunt de versie van Windows die u gebruikt niet.
+WindowsServicePackRequired=Dit programma vereist %1 Service Pack %2 of hoger.
 NotOnThisPlatform=Dit programma kan niet worden uitgevoerd onder %1.
 OnlyOnThisPlatform=Dit programma moet worden uitgevoerd onder %1.
 OnlyOnTheseArchitectures=Dit programma kan alleen geïnstalleerd worden onder versies van Windows ontworpen voor de volgende processor architecturen:%n%n%1
@@ -129,8 +130,9 @@ SelectDirDesc=Waar moet [name] geïnstalleerd worden?
 SelectDirLabel3=Setup zal [name] in de volgende map installeren.
 SelectDirBrowseLabel=Klik op Volgende om door te gaan. Klik op Bladeren om een andere map te kiezen.
 DiskSpaceMBLabel=Er is ten minste [mb] MB vrije schijfruimte vereist.
-ToUNCPathname=Setup kan niet installeren naar een UNC-padnaam. Als u wilt installeren naar een netwerk, moet u een netwerkverbinding maken.
-InvalidPath=U moet een volledig pad met stationsletter invoeren; bijvoorbeeld:%nC:\APP%n%nof een UNC pad zoals:%n%n\\server\share
+CannotInstallToNetworkDrive=Setup kan niet installeren naar een netwerkstation.
+CannotInstallToUNCPath=Setup kan niet installeren naar een UNC-pad.
+InvalidPath=U moet een volledig pad met stationsletter invoeren; bijvoorbeeld:%nC:\APP%n%nof een UNC-pad zoals:%n%n\\server\share
 InvalidDrive=Het geselecteerde station bestaat niet. Kies een ander station.
 DiskSpaceWarningTitle=Onvoldoende schijfruimte
 DiskSpaceWarning=Setup vereist ten minste %1 kB vrije schijfruimte voor het installeren, maar het geselecteerde station heeft slechts %2 kB beschikbaar.%n%nWilt u toch doorgaan?
@@ -185,9 +187,13 @@ ReadyMemoTasks=Extra taken:
 
 ; *** "Preparing to Install" wizard page
 WizardPreparing=Bezig met het voorbereiden van de installatie
-PreparingDesc=Bezig met het voorbereiden van [name] installatie.
+PreparingDesc=Setup is bezig met het voorbereiden van de installatie van [name].
 PreviousInstallNotCompleted=De installatie/verwijdering van een vorig programma is niet voltooid. U moet uw computer opnieuw opstarten om die installatie te voltooien.%n%nStart [name] Setup nogmaals als uw computer opnieuw is opgestart.
 CannotContinue=Setup kan niet doorgaan. Klik op annuleren om af te sluiten.
+ApplicationsFound=De volgende programma's gebruiken bestanden die moeten worden bijgewerkt door Setup. U wordt aanbevolen Setup toe te staan om automatisch deze programma's af te sluiten.
+ApplicationsFound2=De volgende programma's gebruiken bestanden die moeten worden bijgewerkt door Setup. U wordt aanbevolen Setup toe te staan om automatisch deze programma's af te sluiten. Nadat de installatie is voltooid zal Setup proberen de applicaties opnieuw op te starten.
+CloseApplications=&Programma's automatisch afsluiten
+DontCloseApplications=Programma's &niet afsluiten
 
 ; *** "Installing" wizard page
 WizardInstalling=Bezig met installeren
@@ -218,6 +224,7 @@ SetupAborted=Setup is niet voltooid.%n%nCorrigeer het probleem en voer Setup opn
 EntryAbortRetryIgnore=Klik op Opnieuw om het opnieuw te proberen, op Negeren om toch door te gaan, of op Afbreken om de installatie af te breken.
 
 ; *** Installation status messages
+StatusClosingApplications=Programma's afsluiten...
 StatusCreateDirs=Mappen maken...
 StatusExtractFiles=Bestanden uitpakken...
 StatusCreateIcons=Snelkoppelingen maken...
@@ -226,6 +233,7 @@ StatusCreateRegistryEntries=Registergegevens instellen...
 StatusRegisterFiles=Bestanden registreren...
 StatusSavingUninstall=Verwijderingsinformatie opslaan...
 StatusRunProgram=Installatie voltooien...
+StatusRestartingApplications=Programma's opnieuw starten...
 StatusRollback=Veranderingen ongedaan maken...
 
 ; *** Misc. errors
@@ -289,6 +297,10 @@ SharedFileLocationLabel=Locatie:
 WizardUninstalling=Verwijderingsstatus
 StatusUninstalling=Verwijderen van %1...
 
+; *** Shutdown block reasons
+ShutdownBlockReasonInstallingApp=Installeren van %1.
+ShutdownBlockReasonUninstallingApp=Verwijderen van %1.
+
 [CustomMessages]
 
 NameAndVersion=%1 versie %2
@@ -300,3 +312,6 @@ UninstallProgram=Verwijder %1
 LaunchProgram=&Start %1
 AssocFileExtension=&Koppel %1 aan de %2 bestandsextensie
 AssocingFileExtension=Bezig met koppelen van %1 aan de %2 bestandsextensie...
+AutoStartProgramGroupDescription=Opstarten:
+AutoStartProgram=%1 automatisch starten
+AddonHostProgramNotFound=%1 kon niet worden gevonden in de geselecteerde map.%n%nWilt u toch doorgaan?

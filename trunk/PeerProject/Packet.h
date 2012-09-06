@@ -1,18 +1,18 @@
 //
 // Packet.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -33,22 +33,20 @@ class CPacket
 {
 
 protected:
-
 	// Create a new CPacket object, and delete this one
-	CPacket(PROTOCOLID nProtocol);	// Make a new CPacket object for the given protocol id, like Gnutella or eDonkey2000
+	CPacket(PROTOCOLID nProtocol);	// Make a new CPacket object for the given protocol id, like Gnutella
 	virtual ~CPacket();				// The destructor is virtual, meaning classes that inherit from CPacket may replace it with their own destructor
 
+protected:
 	volatile LONG m_nReference;		// The number of other objects that need this packet and point to it, 0 if everyone is done with it
 
 public:
-
 	PROTOCOLID m_nProtocol;			// The network this packet is on, like Gnutella or eDonkey2000
 
 	// List pointer and reference count
 	CPacket* m_pNext;		// Unused packets in the packet pool are linked together from m_pFree, through each packet's m_pNext pointer
 
 public:
-
 	// Packet data
 	BYTE* m_pBuffer;		// A pointer to memory we allocated to hold the bytes of the payload of the packet, this is not a CBuffer object
 	DWORD m_nBuffer;		// The size of the allocated block of memory that holds the payload
@@ -95,7 +93,6 @@ public:
 	BYTE* WriteGetPointer(DWORD nLength, DWORD nOffset = 0xFFFFFFFF); // Makes room at the given spot, and returns a pointer to it
 
 public:
-
 	// Inheriting classes will override this to return text describing what type of packet this is
 	virtual CString GetType() const;
 

@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -29,7 +29,7 @@
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 BEGIN_MESSAGE_MAP(CLanguageDlg, CSkinDialog)
 	//{{AFX_MSG_MAP(CLanguageDlg)
@@ -270,7 +270,7 @@ void CLanguageDlg::PaintItem(int nItem, CDC* pDC, CRect* pRect)
 
 void CLanguageDlg::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar*/)
 {
-	SCROLLINFO pInfo;
+	SCROLLINFO pInfo = {};
 
 	pInfo.cbSize = sizeof(pInfo);
 	pInfo.fMask  = SIF_ALL & ~SIF_TRACKPOS;
@@ -426,9 +426,10 @@ void CLanguageDlg::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		{
 			m_nHover--;
 			m_bKeyMode = TRUE;
-			SCROLLINFO pInfo;
+			SCROLLINFO pInfo = {};
 			pInfo.cbSize = sizeof(pInfo);
 			pInfo.fMask  = SIF_ALL & ~SIF_TRACKPOS;
+
 			GetScrollInfo( SB_VERT, &pInfo );
 			if ( m_nHover <= 0 )
 			{
@@ -452,10 +453,11 @@ void CLanguageDlg::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		{
 			m_nHover++;
 			m_bKeyMode = TRUE;
-			SCROLLINFO pInfo;
+			SCROLLINFO pInfo = {};
 			pInfo.cbSize = sizeof(pInfo);
 			pInfo.fMask  = SIF_ALL & ~SIF_TRACKPOS;
 			GetScrollInfo( SB_VERT, &pInfo );
+
 			if ( m_nHover > m_pPaths.GetSize() )
 			{
 				m_nHover = 1;
@@ -472,7 +474,8 @@ void CLanguageDlg::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		}
 		return;
 	case VK_RETURN:
-		if ( m_nHover && ! m_nDown ) Execute( m_nHover );
+		if ( m_nHover && ! m_nDown )
+			Execute( m_nHover );
 		return;
 	}
 
@@ -678,7 +681,7 @@ void CLanguageDlg::Execute(int nSelected)
 	//if ( Settings.General.LanguageRTL != ( bRTL != FALSE ) )
 	//{
 	//	Settings.General.LanguageRTL = bRTL != FALSE;
-	//	if ( AfxMessageBox( IDS_WARNING_RTL, MB_ICONQUESTION|MB_YESNO ) == IDYES )
+	//	if ( MsgBox( IDS_WARNING_RTL, MB_ICONQUESTION|MB_YESNO ) == IDYES )
 	//	{
 	//		GetParent()->PostMessage( WM_CLOSE, NULL, NULL );
 	//		EndDialog( IDCANCEL );

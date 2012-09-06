@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -46,9 +46,9 @@
 
 #ifdef _DEBUG
 #undef THIS_FILE
-static char THIS_FILE[]=__FILE__;
+static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 
 //////////////////////////////////////////////////////////////////////
@@ -244,16 +244,15 @@ void CDownloadWithTorrent::Serialize(CArchive& ar, int nVersion)
 		//{
 		//	// Get old file name
 		//	ASSERT( GetFileCount() == 1 );
-		//	CString sPath = GetPath( 0 );
-		//	if ( sServingFileName.IsEmpty() )
-		//		sServingFileName = sPath;
+		//	CString strPath = GetPath( 0 );
+		//	CString strServingFileName = strPath;
 		//
 		//	CProgressBarDlg oProgress( AfxGetMainWnd() );
 		//	oProgress.SetWindowText( LoadString( IDS_BT_UPDATE_TITLE ) );
 		//	oProgress.SetActionText( LoadString( IDS_BT_UPDATE_CONVERTING ) );
 		//	oProgress.SetEventText( m_sName );
 		//	oProgress.SetEventRange( 0, (int)( m_pTorrent.m_nSize / 1024ull ) );
-		//	oProgress.SetSubEventText( sServingFileName );
+		//	oProgress.SetSubEventText( strServingFileName );
 		//	oProgress.SetSubEventRange( 0, (int)( m_pTorrent.m_nSize / 1024ull ) );
 		//	oProgress.CenterWindow();
 		//	oProgress.ShowWindow( SW_SHOW );
@@ -262,11 +261,11 @@ void CDownloadWithTorrent::Serialize(CArchive& ar, int nVersion)
 		//
 		//	// Create a bunch of new empty files
 		//	ClearFile();	// Close old files
-		//	CString sErrorMessage;
+		//	CString strErrorMessage;
 		//	CComPtr< CFragmentedFile > pFragFile = GetFile();
 		//	if ( ! pFragFile )
 		//		AfxThrowMemoryException();
-		//	if ( ! pFragFile->Open( m_pTorrent, ! IsSeeding(), sErrorMessage ) )
+		//	if ( ! pFragFile->Open( m_pTorrent, ! IsSeeding(), strErrorMessage ) )
 		//		AfxThrowFileException( CFileException::genericException );
 		//
 		//	if ( ! IsSeeding() )
@@ -274,7 +273,7 @@ void CDownloadWithTorrent::Serialize(CArchive& ar, int nVersion)
 		//		// Check for free space, then open file
 		//		if ( ! Downloads.IsSpaceAvailable( m_pTorrent.m_nSize, Downloads.dlPathIncomplete ) )
 		//			AfxThrowFileException( CFileException::diskFull );
-		//		CFile oSource( sServingFileName, CFile::modeRead | CFile::shareDenyWrite | CFile::osSequentialScan );
+		//		CFile oSource( strServingFileName, CFile::modeRead | CFile::shareDenyWrite | CFile::osSequentialScan );
 		//
 		//		// Copy data from old file to new files
 		//		const QWORD BUFFER_SIZE = 4ul * 1024ul * 1024ul;	// 4 MB
@@ -311,9 +310,9 @@ void CDownloadWithTorrent::Serialize(CArchive& ar, int nVersion)
 		//	}
 		//
 		//	// Delete old multifile
-		//	DeleteFileEx( sServingFileName, FALSE, FALSE, TRUE );
-		//	if ( sServingFileName != sPath )
-		//		DeleteFileEx( sPath, FALSE, FALSE, TRUE );
+		//	DeleteFileEx( strServingFileName, FALSE, FALSE, TRUE );
+		//	if ( strServingFileName != strPath )
+		//		DeleteFileEx( strPath, FALSE, FALSE, TRUE );
 		//}
 	}
 }
@@ -984,7 +983,7 @@ BOOL CDownloadWithTorrent::SeedTorrent(CString& sErrorMessage)
 	AttachFile( pFragmentedFile );
 
 	CBTInfo::CBTFile* pFile = m_pTorrent.m_pFiles.GetHead();
-	CString sPath = pFile->FindFile();
+	CString strPath = pFile->FindFile();
 	if ( m_pTorrent.GetCount() == 1 )
 	{
 		// Refill missed hashes for single-file torrent

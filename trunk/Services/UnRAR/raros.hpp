@@ -19,15 +19,15 @@
   #endif
 #endif
 
-#ifdef _WIN32_WCE
-  #define _WIN_ALL
-  #define _WIN_CE
-  #ifdef WM_FILECHANGEINFO
-    #define PC2002
-  #else
-    #undef PC2002
-  #endif
-#endif
+//#ifdef _WIN32_WCE
+//  #define _WIN_ALL
+//  #define _WIN_CE
+//  #ifdef WM_FILECHANGEINFO
+//    #define PC2002
+//  #else
+//    #undef PC2002
+//  #endif
+//#endif
 
 //#ifdef __BEOS__
 //  #define _UNIX

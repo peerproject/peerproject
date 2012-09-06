@@ -14,8 +14,8 @@
 //  Copyright (c) 2001 David Abrahams
 //  Copyright (c) 2005 Peter Dimov
 //
-// Distributed under the Boost Software License, Version 1.0. (See
-// accompanying file LICENSE_1_0.txt or copy at
+// Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 //
 //  See http://www.boost.org/libs/bind/bind.html for documentation.
@@ -1679,7 +1679,7 @@ template< class R, class T > struct add_cref< R (T::*) (), 1 >
     typedef void type;
 };
 
-#if !( defined(__IBMCPP__) && BOOST_WORKAROUND( __IBMCPP__, BOOST_TESTED_AT(600) ) )
+#if !defined(__IBMCPP__) || __IBMCPP_FUNC_CV_TMPL_ARG_DEDUCTION
 
 template< class R, class T > struct add_cref< R (T::*) () const, 1 >
 {

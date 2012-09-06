@@ -22,14 +22,15 @@ public:
 	CBitmap		m_bmBanner;
 	CBitmap		m_bmBannerEdge;
 
-	CBrush		m_brDialogControl;
-	CBrush		m_brDialogPanelControl;
-	CBrush		m_brMediaControl;
+	CBrush		m_brDialog;
+	CBrush		m_brDialogPanel;
+	CBrush		m_brMediaControl;	// m_brMediaSlider
 
 	CBitmap		m_bmDialog;
 	CBitmap		m_bmDialogPanel;
 	CBitmap		m_bmPanelMark;
 	CBitmap		m_bmToolTip;
+	CBitmap		m_bmMediaStatusBar;
 
 	CBitmap		m_bmSelected;
 	CBitmap		m_bmSelectedGrey;
@@ -112,6 +113,7 @@ public:
 	CBitmap		m_bmButtonMapMenubar;
 	CBitmap		m_bmButtonMapMenutext;
 	CBitmap		m_bmButtonMapMenuselect;
+	CBitmap		m_bmButtonMapSelect;
 	CBitmap		m_bmButtonMapProgressbar;
 	CBitmap		m_bmButtonMapDownloadgroup;
 	CBitmap		m_bmButtonMapTaskbar;
@@ -145,6 +147,7 @@ extern CImages Images;
 
 #define IMAGE_HIGHLIGHT			10
 #define IMAGE_SELECTED			10
+#define IMAGE_SELECTEDGREY		11
 #define IMAGE_MENUSELECTED		12
 #define IMAGE_MENUDISABLED		14
 #define IMAGE_PROGRESSBAR		16

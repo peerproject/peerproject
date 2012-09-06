@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -58,9 +58,9 @@
 
 #ifdef _DEBUG
 #undef THIS_FILE
-static char THIS_FILE[]=__FILE__;
+static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 //////////////////////////////////////////////////////////////////////
 // CLocalSearch construction
@@ -705,11 +705,11 @@ void CLocalSearch::AddHitDC(CDCPacket* pPacket, CSchemaMap& /*pSchemas*/, CLibra
 	int nActiveSlots = pQueue ? pQueue->GetActiveCount() : 0;
 	int nFreeSlots = nTotalSlots > nActiveSlots ? ( nTotalSlots - nActiveSlots ) : 0;
 
-	CString sHubName;
+	CString strHubName;
 	if ( pFile->m_oTiger )	// It's TTH search
-		sHubName = _T("TTH:") + pFile->m_oTiger.toString();
+		strHubName = _T("TTH:") + pFile->m_oTiger.toString();
 	else
-		sHubName = m_pSearch->m_sMyHub;
+		strHubName = m_pSearch->m_sMyHub;
 
 	CBuffer pAnswer;
 	pAnswer.Add( _P("$SR ") );
@@ -721,7 +721,7 @@ void CLocalSearch::AddHitDC(CDCPacket* pPacket, CSchemaMap& /*pSchemas*/, CLibra
 	strSize.Format( _T("%I64u %d/%d"), pFile->m_nSize, nFreeSlots, nTotalSlots );
 	pAnswer.Print( strSize );
 	pAnswer.Add( _P("\x05") );
-	pAnswer.Print( sHubName );
+	pAnswer.Print( strHubName );
 	pAnswer.Add( _P(" (") );
 	pAnswer.Print( HostToString( &m_pSearch->m_pMyHub ) );
 	pAnswer.Add( _P(")") );

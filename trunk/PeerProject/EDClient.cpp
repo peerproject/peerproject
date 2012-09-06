@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -53,9 +53,9 @@
 
 #ifdef _DEBUG
 #undef THIS_FILE
-static char THIS_FILE[]=__FILE__;
+static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 
 //////////////////////////////////////////////////////////////////////
@@ -1194,22 +1194,22 @@ void CEDClient::DetermineUserAgent()
 {
 	// ToDo: Abstract and Update ED2K Client Codes
 	// EMule			 0	0x00
-	// LMule			 2	0x02	
-	// AMule			 3	0x03	
-	// Shareaza(old)	 4	0x04	
-	// EMule Plus		 5	0x05	
-	// Hydranode		 6	0x06	
-	// MLDonkey(new)	10	0x0A	
-	// LPHANT			20	0x14	
-	// Shareaza(new)	40	0x28	
-	// EDonkeyHybrid 	50	0x32	
-	// EDonkey			51	0x33	
-	// MLDonkey			52	0x34	
-	// EMule(old)		53	0x35	
-	// PeerProject		80	0x50	
-	// MLDonkey(new)	152	0x98	
-	// JMule			170	0xAA	
-	// Shareaza Plus	203	0xCB	
+	// LMule			 2	0x02
+	// AMule			 3	0x03
+	// Shareaza(old)	 4	0x04
+	// EMule Plus		 5	0x05
+	// Hydranode		 6	0x06
+	// MLDonkey(new)	10	0x0A
+	// LPHANT			20	0x14
+	// Shareaza(new)	40	0x28
+	// EDonkeyHybrid 	50	0x32
+	// EDonkey			51	0x33
+	// MLDonkey			52	0x34
+	// EMule(old)		53	0x35
+	// PeerProject		80	0x50
+	// MLDonkey(new)	152	0x98
+	// JMule			170	0xAA
+	// Shareaza Plus	203	0xCB
 
 	// Newer clients send the 24 bit software version + client ID
 	if ( m_nSoftwareVersion )
@@ -1788,8 +1788,8 @@ BOOL CEDClient::OnAskSharedDirs(CEDPacket* /*pPacket*/)
 
 				for ( POSITION pos = oFolderPath.GetHeadPosition() ; pos ; )
 				{
-					CString sPath = oFolderPath.GetNext( pos );
-					pReply->WriteEDString( sPath, m_bEmUnicode );
+					CString strPath = oFolderPath.GetNext( pos );
+					pReply->WriteEDString( strPath, m_bEmUnicode );
 				}
 
 				Send( pReply );
@@ -1810,14 +1810,14 @@ BOOL CEDClient::OnAskSharedDirs(CEDPacket* /*pPacket*/)
 
 BOOL CEDClient::OnViewSharedDir(CEDPacket* pPacket)
 {
-	CString sDir = pPacket->ReadEDString( m_bEmUnicode );
+	CString strDir = pPacket->ReadEDString( m_bEmUnicode );
 
 	if ( Settings.Community.ServeFiles )
 	{
 		CSingleLock oLock( &Library.m_pSection );
 		if ( oLock.Lock( 1000 ) )
 		{
-			CLibraryFolder* pFolder = LibraryFolders.GetFolderByName( sDir );
+			CLibraryFolder* pFolder = LibraryFolders.GetFolderByName( strDir );
 			if ( pFolder && pFolder->IsShared() )
 			{
 				// Count files
@@ -1835,7 +1835,7 @@ BOOL CEDClient::OnViewSharedDir(CEDPacket* pPacket)
 				if ( CEDPacket* pReply = CEDPacket::New( ED2K_C2C_VIEWSHAREDDIRANSWER ) )
 				{
 					// Original dir name
-					pReply->WriteEDString( sDir, m_bEmUnicode );
+					pReply->WriteEDString( strDir, m_bEmUnicode );
 
 					// Number of files
 					pReply->WriteLongLE( nCount );
@@ -2003,14 +2003,14 @@ BOOL CEDClient::OnAskSharedDirsAnswer(CEDPacket* pPacket)
 				break;
 
 			// Read directory name
-			CString sDir = pPacket->ReadEDString( m_bEmUnicode );
+			CString strDir = pPacket->ReadEDString( m_bEmUnicode );
 
-			TRACE( _T("Folder: %s\n"), sDir );
+			TRACE( _T("Folder: %s\n"), strDir );
 
 			// Request directory content
 			if ( CEDPacket* pReply = CEDPacket::New( ED2K_C2C_VIEWSHAREDDIR ) )
 			{
-				pReply->WriteEDString( sDir, m_bEmUnicode );
+				pReply->WriteEDString( strDir, m_bEmUnicode );
 
 				Send( pReply );
 
@@ -2031,8 +2031,8 @@ BOOL CEDClient::OnViewSharedDirAnswer(CEDPacket* pPacket)
 
 	if ( pPacket->GetRemaining() >= 2 )
 	{
-		// Read original directory name
-		CString sDir = pPacket->ReadEDString( m_bEmUnicode );
+		// Read original directory name (Unused?)
+		CString strDir = pPacket->ReadEDString( m_bEmUnicode );
 
 		if ( pPacket->GetRemaining() >= 4 )
 		{

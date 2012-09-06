@@ -27,7 +27,7 @@
 #endif
 
 // Flags determined by comparing output of 'icpc -dM -E' with and without '-std=c++0x'
-#if (!(defined(_WIN32) || defined(_WIN64)) && defined(__STDC_HOSTED__) && __STDC_HOSTED__) || defined(__GXX_EXPERIMENTAL_CPP0X__)
+#if (!(defined(_WIN32) || defined(_WIN64)) && defined(__STDC_HOSTED__) && (__STDC_HOSTED__ && (BOOST_INTEL_CXX_VERSION <= 1200))) || defined(__GXX_EXPERIMENTAL_CPP0X__)
 #  define BOOST_INTEL_STDCXX0X
 #endif
 #if defined(_MSC_VER) && (_MSC_VER >= 1600)
@@ -98,20 +98,20 @@
 #  endif
 #endif
 
-#if defined(__GNUC__) && !defined(BOOST_FUNCTION_SCOPE_USING_DECLARATION_BREAKS_ADL)
-//
-// Figure out when Intel is emulating this gcc bug
-// (All Intel versions prior to 9.0.26, and versions
-// later than that if they are set up to emulate gcc 3.2 or earlier):
-//
-#  if ((__GNUC__ == 3) && (__GNUC_MINOR__ <= 2)) || (BOOST_INTEL < 900) || (__INTEL_COMPILER_BUILD_DATE < 20050912)
-#     define BOOST_FUNCTION_SCOPE_USING_DECLARATION_BREAKS_ADL
-#  endif
-#endif
-#if (defined(__GNUC__) && (__GNUC__ < 4)) || defined(_WIN32) || (BOOST_INTEL_CXX_VERSION <= 1200)
-// GCC or VC emulation:
-#define BOOST_NO_TWO_PHASE_NAME_LOOKUP
-#endif
+//#if defined(__GNUC__) && !defined(BOOST_FUNCTION_SCOPE_USING_DECLARATION_BREAKS_ADL)
+////
+//// Figure out when Intel is emulating this gcc bug
+//// (All Intel versions prior to 9.0.26, and versions
+//// later than that if they are set up to emulate gcc 3.2 or earlier):
+////
+//#  if ((__GNUC__ == 3) && (__GNUC_MINOR__ <= 2)) || (BOOST_INTEL < 900) || (__INTEL_COMPILER_BUILD_DATE < 20050912)
+//#     define BOOST_FUNCTION_SCOPE_USING_DECLARATION_BREAKS_ADL
+//#  endif
+//#endif
+//#if (defined(__GNUC__) && (__GNUC__ < 4)) || defined(_WIN32) || (BOOST_INTEL_CXX_VERSION <= 1200)
+//// GCC or VC emulation:
+//#define BOOST_NO_TWO_PHASE_NAME_LOOKUP
+//#endif
 //
 // Verify that we have actually got BOOST_NO_INTRINSIC_WCHAR_T
 // set correctly, if we don't do this now, we will get errors later
@@ -185,11 +185,11 @@ template<> struct assert_intrinsic_wchar_t<unsigned short> {};
 //
 // Dynamic shared object (DSO) and dynamic-link library (DLL) support
 //
-#if defined(__GNUC__) && (__GNUC__ >= 4)
-#  define BOOST_SYMBOL_EXPORT __attribute__((visibility("default")))
-#  define BOOST_SYMBOL_IMPORT
-#  define BOOST_SYMBOL_VISIBLE __attribute__((visibility("default")))
-#endif
+//#if defined(__GNUC__) && (__GNUC__ >= 4)
+//#  define BOOST_SYMBOL_EXPORT __attribute__((visibility("default")))
+//#  define BOOST_SYMBOL_IMPORT
+//#  define BOOST_SYMBOL_VISIBLE __attribute__((visibility("default")))
+//#endif
 //
 // C++0x features
 //     - ICC added static_assert in 11.0 (first version with C++0x support)
@@ -201,20 +201,48 @@ template<> struct assert_intrinsic_wchar_t<unsigned short> {};
 // http://software.intel.com/en-us/articles/c0x-features-supported-by-intel-c-compiler/
 //
 //#  undef  BOOST_NO_LAMBDAS
+//#  undef  BOOST_NO_LOCAL_CLASS_TEMPLATE_PARAMETERS
 //#  undef  BOOST_NO_DECLTYPE
 //#  undef  BOOST_NO_AUTO_DECLARATIONS
 //#  undef  BOOST_NO_AUTO_MULTIDECLARATIONS
 #endif
 
 #if defined(BOOST_INTEL_STDCXX0X) && (BOOST_INTEL_CXX_VERSION >= 1200)
-#  undef  BOOST_NO_RVALUE_REFERENCES // Enabling this breaks Filesystem and Exception libraries
+//#  undef  BOOST_NO_RVALUE_REFERENCES // Enabling this breaks Filesystem and Exception libraries
 //#  undef  BOOST_NO_SCOPED_ENUMS  // doesn't really work!!
 #  undef  BOOST_NO_DELETED_FUNCTIONS
 #  undef  BOOST_NO_DEFAULTED_FUNCTIONS
 #  undef  BOOST_NO_LAMBDAS
+#  undef  BOOST_NO_LOCAL_CLASS_TEMPLATE_PARAMETERS
 #  undef  BOOST_NO_DECLTYPE
 #  undef  BOOST_NO_AUTO_DECLARATIONS
 #  undef  BOOST_NO_AUTO_MULTIDECLARATIONS
+#endif
+
+// icl Version 12.1.0.233 Build 20110811 and possibly some other builds
+// had an incorrect __INTEL_COMPILER value of 9999. Intel say this has been fixed.
+#if defined(BOOST_INTEL_STDCXX0X) && (BOOST_INTEL_CXX_VERSION > 1200)
+#  undef  BOOST_NO_FUNCTION_TEMPLATE_DEFAULT_ARGS
+#  undef  BOOST_NO_NULLPTR
+#  undef  BOOST_NO_RVALUE_REFERENCES
+#  undef  BOOST_NO_SFINAE_EXPR
+#  undef  BOOST_NO_TEMPLATE_ALIASES
+#  undef  BOOST_NO_VARIADIC_TEMPLATES
+
+// http://software.intel.com/en-us/articles/c0x-features-supported-by-intel-c-compiler/
+// continues to list scoped enum support as "Partial"
+//#  undef  BOOST_NO_SCOPED_ENUMS
+#endif
+
+#if defined(_MSC_VER) && (_MSC_VER <= 1700)
+//
+// Although the Intel compiler is capable of supporting these, it appears not to in MSVC compatibility mode:
+//
+#  define  BOOST_NO_CXX11_HDR_INITIALIZER_LIST
+#  define  BOOST_NO_VARIADIC_TEMPLATES
+#  define  BOOST_NO_DELETED_FUNCTIONS
+#  define  BOOST_NO_DEFAULTED_FUNCTIONS
+#  define  BOOST_NO_TEMPLATE_ALIASES
 #endif
 
 #if (BOOST_INTEL_CXX_VERSION < 1200)

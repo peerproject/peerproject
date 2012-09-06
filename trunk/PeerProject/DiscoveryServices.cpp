@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -36,9 +36,9 @@
 
 #ifdef _DEBUG
 #undef THIS_FILE
-static char THIS_FILE[]=__FILE__;
+static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 CDiscoveryServices DiscoveryServices;
 
@@ -202,7 +202,7 @@ BOOL CDiscoveryServices::Add(LPCTSTR pszAddress, int nType, PROTOCOLID nProtocol
 		return FALSE;
 
 	// Set the appropriate protocol flags
-	switch( nProtocol )
+	switch ( nProtocol )
 	{
 	case PROTOCOL_G2:
 		pService->m_bGnutella2 = TRUE;
@@ -633,7 +633,7 @@ void CDiscoveryServices::AddDefaults()
 				cType = strLine.GetAt( 0 );
 				strService = strLine.Right( strLine.GetLength() - 2 );
 
-				switch( cType )		// Protocol is ignored and later detected...
+				switch ( cType )		// Protocol is ignored and later detected...
 				{
 				case '1': Add( strService, CDiscoveryService::dsWebCache, PROTOCOL_G1 );	// G1 service
 					break;
@@ -1028,7 +1028,7 @@ int CDiscoveryServices::ExecuteBootstraps(int nCount, BOOL bUDP, PROTOCOLID nPro
 	BOOL bGnutella1 = FALSE;
 	BOOL bGnutella2 = FALSE;
 
-	switch( nProtocol )
+	switch ( nProtocol )
 	{
 	case PROTOCOL_NULL:
 		bGnutella1 = TRUE;
@@ -1109,19 +1109,22 @@ CDiscoveryService* CDiscoveryServices::GetRandomService(PROTOCOLID nProtocol)
 		switch ( nProtocol )
 		{
 		case PROTOCOL_G1:
-			if ( Settings.Discovery.EnableG1GWC &&	// Default false
-				( pService->m_nType == CDiscoveryService::dsWebCache ) && ( pService->m_bGnutella1 ) &&
+			if ( Settings.Discovery.EnableG1GWC && pService->m_bGnutella1 &&		// EnableG1GWC default true (was false) 
+				( pService->m_nType == CDiscoveryService::dsWebCache ) &&
 				( tNow > pService->m_tAccessed + pService->m_nAccessPeriod ) )
 				pServices.Add( pService );
-			else if ( ( pService->m_nType == CDiscoveryService::dsGnutella ) && ( pService->m_nSubType == CDiscoveryService::dsGnutellaUDPHC ) &&
+			else if ( ( pService->m_nType == CDiscoveryService::dsGnutella ) &&
+				( pService->m_nSubType == CDiscoveryService::dsGnutellaUDPHC ) &&
 				time( NULL ) - pService->m_tAccessed >= 300 )
 				pServices.Add( pService );
 			break;
 		case PROTOCOL_G2:
-			if ( ( pService->m_nType == CDiscoveryService::dsWebCache ) && ( pService->m_bGnutella2 ) &&
+			if ( pService->m_bGnutella2 &&
+				( pService->m_nType == CDiscoveryService::dsWebCache ) &&
 				( tNow > pService->m_tAccessed + pService->m_nAccessPeriod ) )
 				pServices.Add( pService );
-			else if ( ( pService->m_nType == CDiscoveryService::dsGnutella ) && ( pService->m_nSubType == CDiscoveryService::dsGnutella2UDPKHL ) &&
+			else if ( ( pService->m_nType == CDiscoveryService::dsGnutella ) &&
+				( pService->m_nSubType == CDiscoveryService::dsGnutella2UDPKHL ) &&
 				time( NULL ) - pService->m_tAccessed >= 300 )
 				pServices.Add( pService );
 			break;
@@ -1131,8 +1134,8 @@ CDiscoveryService* CDiscoveryServices::GetRandomService(PROTOCOLID nProtocol)
 				( tNow > pService->m_tAccessed + pService->m_nAccessPeriod ) )
 				pServices.Add( pService );
 			break;
-		default:
-			break;
+		//default:
+		//	break;
 		}
 	}
 
@@ -1304,37 +1307,36 @@ void CDiscoveryServices::OnRun()
 
 	BOOL bSuccess = TRUE;
 
-	if ( m_nWebCache == wcmServerList )
+	switch ( m_nWebCache )
 	{
+	case wcmServerList:
 		bSuccess = RunServerList();
-	}
-	else if ( m_nWebCache == wcmHosts )
-	{
+		break;
+	case wcmHosts:
 		bSuccess = RunWebCacheGet( FALSE );
-
-		CSingleLock pLock( &Network.m_pSection, FALSE );
-		if ( pLock.Lock( 250 ) && bSuccess )
 		{
-			if ( m_bFirstTime || ( GetCount( CDiscoveryService::dsWebCache ) < Settings.Discovery.Lowpoint ) )
+			CSingleLock pLock( &Network.m_pSection, FALSE );
+			if ( pLock.Lock( 250 ) && bSuccess )
 			{
-				m_bFirstTime = FALSE;
-				pLock.Unlock();
+				if ( m_bFirstTime || ( GetCount( CDiscoveryService::dsWebCache ) < Settings.Discovery.Lowpoint ) )
+				{
+					m_bFirstTime = FALSE;
+					pLock.Unlock();
 
-				bSuccess = RunWebCacheGet( TRUE );
+					bSuccess = RunWebCacheGet( TRUE );
+				}
 			}
 		}
-	}
-	else if ( m_nWebCache == wcmCaches )
-	{
+		break;
+	case wcmCaches:
 		bSuccess = RunWebCacheGet( TRUE );
-	}
-	else if ( m_nWebCache == wcmUpdate )
-	{
+		break;
+	case wcmUpdate:
 		bSuccess = RunWebCacheUpdate();
-	}
-	else if ( m_nWebCache == wcmSubmit )
-	{
+		break;
+	case wcmSubmit:
 		bSuccess = RunWebCacheUpdate();
+		break;
 	}
 
 	if ( ! bSuccess )
@@ -1373,11 +1375,11 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 	m_pWebCache->OnAccess();
 	m_pWebCache->OnGivenHosts();
 
-	CString strURL;
+	CString strURL = m_pWebCache->m_sAddress;
 	if ( bCaches )
-		strURL = m_pWebCache->m_sAddress + _T("?get=1&urlfile=1");
+		strURL += _T("?get=1&urlfile=1");
 	else
-		strURL = m_pWebCache->m_sAddress + _T("?get=1&hostfile=1");
+		strURL += _T("?get=1&hostfile=1");
 
 	//	strURL += _T("&support=1");					// GWC network and status - ToDo : Use this parameter's output to check GWCs for self-network support relay.
 	//	strURL += _T("&info=1");					// Maintainer Info - ToDo : Use this parameter's output to add info (about maintainer etc.) into new Discovery window columns.
@@ -1471,10 +1473,10 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 					CVendor* pVendor = NULL;
 					if ( oParts.GetCount() >= 6 && ! oParts[ 5 ].IsEmpty() )
 					{
-						CString sVendor = oParts[ 5 ].Left( 4 );
-						if ( Security.IsVendorBlocked( sVendor ) )
+						CString strVendor = oParts[ 5 ].Left( 4 );
+						if ( Security.IsVendorBlocked( strVendor ) )
 							return FALSE;	// Invalid client
-						pVendor = VendorCache.Lookup( sVendor );
+						pVendor = VendorCache.Lookup( strVendor );
 					}
 
 					// Get uptime field
@@ -1850,10 +1852,10 @@ BOOL CDiscoveryServices::RunWebCacheUpdate()
 	//	CArray< CString > oParts;
 	//	for ( int i = 0 ; ; )
 	//	{
-	//		CString sPart = strLine.Tokenize( _T("|"), i ).MakeLower();
+	//		CString strPart = strLine.Tokenize( _T("|"), i ).MakeLower();
 	//		if ( i == -1 )
 	//			break;
-	//		oParts.Add( sPart );
+	//		oParts.Add( strPart );
 	//	}
 
 		if ( _tcsstr( strLine, _T("OK") ) != NULL )

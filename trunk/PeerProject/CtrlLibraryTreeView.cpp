@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -25,6 +25,7 @@
 #include "CtrlCoolTip.h"
 #include "CoolInterface.h"
 #include "Colors.h"
+#include "Images.h"
 #include "Library.h"
 #include "LibraryFolders.h"
 #include "SharedFile.h"
@@ -45,7 +46,7 @@
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 IMPLEMENT_DYNAMIC(CLibraryTreeView, CWnd)
 
@@ -674,7 +675,7 @@ void CLibraryTreeView::OnKeyDown(UINT nChar, UINT /*nRepCnt*/, UINT /*nFlags*/)
 	}
 	else if ( ( nChar == VK_LEFT || nChar == VK_SUBTRACT ) && m_pFocus != NULL )
 	{
-		for (;;)
+		for ( ;; )
 		{
 			if ( m_pFocus->m_bExpanded && ! m_pFocus->empty() )
 			{
@@ -744,8 +745,7 @@ void CLibraryTreeView::OnKeyDown(UINT nChar, UINT /*nRepCnt*/, UINT /*nFlags*/)
 
 void CLibraryTreeView::UpdateScroll()
 {
-	SCROLLINFO pInfo;
-
+	SCROLLINFO pInfo = {};
 	pInfo.cbSize	= sizeof(pInfo);
 	pInfo.fMask		= SIF_ALL & ~SIF_TRACKPOS;
 	pInfo.nMin		= 0;
@@ -1250,7 +1250,7 @@ void CLibraryTreeItem::Paint(CDC& dc, CRect& rc, BOOL bTarget, COLORREF crBack) 
 	crBack = ( m_bSelected || bTarget ) ? Colors.m_crHighlight : crBack;
 	COLORREF crText = ( m_bSelected || bTarget ) ? Colors.m_crHiText : Colors.m_crText;
 
-	const BOOL bSelectmark = ( m_bSelected || bTarget ) && ( Skin.m_bmSelected.m_hObject != NULL );
+	const BOOL bSelectmark = ( m_bSelected || bTarget ) && ( Images.m_bmSelected.m_hObject != NULL );
 
 	rc.left += 33;
 	dc.SetTextColor( crText );
@@ -1258,7 +1258,7 @@ void CLibraryTreeItem::Paint(CDC& dc, CRect& rc, BOOL bTarget, COLORREF crBack) 
 	dc.SetBkMode( bSelectmark ? TRANSPARENT : OPAQUE );
 
 	if ( bSelectmark )
-		CoolInterface.DrawWatermark( &dc, &rc, &Skin.m_bmSelected );
+		CoolInterface.DrawWatermark( &dc, &rc, &Images.m_bmSelected );
 
 	CString strName = m_sText;
 	if ( Settings.General.LanguageRTL ) strName = _T("\x202A") + strName;
@@ -1881,7 +1881,7 @@ void CLibraryTreeView::OnLibraryFolderDelete()
 	Skin.LoadString( strFormat, IDS_LIBRARY_DELETE_FOLDER );
 	strMessage.Format( strFormat, m_nSelected );
 
-	if ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_OKCANCEL ) != IDOK ) return;
+	if ( MsgBox( strMessage, MB_ICONQUESTION|MB_OKCANCEL ) != IDOK ) return;
 
 	{
 		CQuickLock oLock( Library.m_pSection );

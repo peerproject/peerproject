@@ -21,14 +21,14 @@
 #define RAR_OM_EXTRACT           1
 #define RAR_OM_LIST_INCSPLIT     2
 
-#define RAR_SKIP              0
-#define RAR_TEST              1
-#define RAR_EXTRACT           2
+#define RAR_SKIP                 0
+#define RAR_TEST                 1
+#define RAR_EXTRACT              2
 
-#define RAR_VOL_ASK           0
-#define RAR_VOL_NOTIFY        1
+#define RAR_VOL_ASK              0
+#define RAR_VOL_NOTIFY           1
 
-#define RAR_DLL_VERSION       5
+#define RAR_DLL_VERSION          5
 
 #ifdef _UNIX
 #define CALLBACK
@@ -114,7 +114,7 @@ struct RAROpenArchiveDataEx
 };
 
 enum UNRARCALLBACK_MESSAGES {
-  UCM_CHANGEVOLUME,UCM_PROCESSDATA,UCM_NEEDPASSWORD
+  UCM_CHANGEVOLUME,UCM_PROCESSDATA,UCM_NEEDPASSWORD,UCM_CHANGEVOLUMEW,UCM_NEEDPASSWORDW
 };
 
 typedef int (PASCAL *CHANGEVOLPROC)(char *ArcName,int Mode);

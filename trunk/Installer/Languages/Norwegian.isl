@@ -1,4 +1,4 @@
-; Inno Setup 5.1.11+ Norwegian Messages (PeerProject: no)
+; *** Inno Setup 5.5.0+ Norwegian Messages (PeerProject: no)
 ;
 ; Norwegian translation by Jostein Christoffer Andersen
 ; E-mail: jostein@josander.net
@@ -10,11 +10,7 @@
 ;
 ; $jrsoftware: issrc/Files/Languages/Norwegian.isl,v 1.15 2007/04/23 15:03:35 josander+ Exp $
 ;
-; http://www.jrsoftware.org/files/istrans/ (user-contributed translations) 
-;
-; Note: Do not add periods (.) to messages that don't have them already,
-; because for those messages Inno Setup adds the periods automatically.
-; (appending a period will result in two periods being displayed.)
+; Note: Do not add periods (.), where added automatically.
 
 [LangOptions]
 LanguageName=Norsk
@@ -44,6 +40,10 @@ LastErrorMessage=%1.%n%nFeil %2: %3
 SetupFileMissing=Filen %1 mangler i installasjonskatalogen. Vennligst korriger problemet eller skaff deg en ny kopi av programmet.
 SetupFileCorrupt=Installasjonsfilene er ødelagte. Vennligst skaff deg en ny kopi av programmet.
 SetupFileCorruptOrWrongVer=Installasjonsfilene er ødelagte eller ikke kompatible med dette installasjonsprogrammet. Vennligst korriger problemet eller skaff deg en ny kopi av programmet.
+InvalidParameter=Kommandolinjen hadde en ugyldig parameter:%n%n%1
+SetupAlreadyRunning=Dette programmet kjører allerede.
+WindowsVersionNotSupported=Dette programmet støtter ikke Windows-versjonen på denne maskinen.
+WindowsServicePackRequired=Dette programmet krever %1 Service Pack %2 eller nyere.
 NotOnThisPlatform=Dette programmet kjører ikke på %1.
 OnlyOnThisPlatform=Dette programmet kjører kun på %1.
 OnlyOnTheseArchitectures=Dette programmet kan kun installeres i Windows-versjoner som er beregnet på følgende prossessorarkitekturer:%n%n%1
@@ -134,7 +134,8 @@ SelectDirDesc=Hvor skal [name] installeres?
 SelectDirLabel3=Installasjonsprogrammet vil installere [name] i følgende mappe.
 SelectDirBrowseLabel=Klikk på Neste for å fortsette. Klikk på Bla gjennom hvis du vil velge en annen mappe.
 DiskSpaceMBLabel=Programmet krever minst [mb] MB med diskplass.
-ToUNCPathname=Kan ikke installere på en UNC-bane. Du må tilordne nettverksstasjonen hvis du vil installere i et nettverk.
+CannotInstallToNetworkDrive=Kan ikke installere på en nettverksstasjon.
+CannotInstallToUNCPath=Kan ikke installere på en UNC-bane. Du må tilordne nettverksstasjonen hvis du vil installere i et nettverk.
 InvalidPath=Du må angi en full bane med stasjonsbokstav, for eksempel:%n%nC:\APP%n%Du kan ikke bruke formen:%n%n\\server\share
 InvalidDrive=Den valgte stasjonen eller UNC-delingen finnes ikke, eller er ikke tilgjengelig. Vennligst velg en annen
 DiskSpaceWarningTitle=For lite diskplass
@@ -194,6 +195,10 @@ WizardPreparing=Forbereder installasjonen
 PreparingDesc=Installasjonsprogrammet forbereder installasjon av [name] på den maskin.
 PreviousInstallNotCompleted=Installasjonen/fjerningen av et tidligere program ble ikke ferdig. Du må starte maskinen på nytt.%n%nEtter omstarten må du kjøre installasjonsprogrammet på nytt for å fullføre installasjonen av [name].
 CannotContinue=Installasjonsprogrammet kan ikke fortsette. Klikk på Avbryt for å avslutte.
+ApplicationsFound=Disse applikasjonene bruker filer som vil oppdateres av installasjonen. Det anbefales å la installasjonen automatisk avslutte disse applikasjonene.
+ApplicationsFound2=Disse applikasjonene bruker filer som vil oppdateres av installasjonen. Det anbefales å la installasjonen automatisk avslutte disse applikasjonene. Installasjonen vil prøve å starte applikasjonene på nytt etter at installasjonen er avsluttet.
+CloseApplications=&Automatically close the applications
+DontCloseApplications=&Do not close the applications
 
 ; *** "Installing" wizard page
 WizardInstalling=Installerer
@@ -226,6 +231,7 @@ SetupAborted=Installasjonen ble avbrutt.%n%nVennligst korriger problemet og prøv
 EntryAbortRetryIgnore=Klikk Prøv igjen for å forsøke på nytt, Ignorér for å fortsette eller Avslutt for å avslutte installasjonen.
 
 ; *** Installation status messages
+StatusClosingApplications=Lukker applikasjoner...
 StatusCreateDirs=Lager mapper...
 StatusExtractFiles=Pakker ut filer...
 StatusCreateIcons=Lager programikoner...
@@ -234,6 +240,7 @@ StatusCreateRegistryEntries=Lager innstillinger i registeret...
 StatusRegisterFiles=Registrerer filer...
 StatusSavingUninstall=Lagrer info for avinstallering...
 StatusRunProgram=Gjør ferdig installasjonen...
+StatusRestartingApplications=Restarter applikasjoner...
 StatusRollback=Tilbakestiller forandringer...
 
 ; *** Misc. errors
@@ -297,8 +304,12 @@ SharedFileLocationLabel=Plassering:
 WizardUninstalling=Avinstallerings-status:
 StatusUninstalling=Avinstallerer %1...
 
-; The custom messages below aren't used by Setup itself, but if you make
-; use of them in your scripts, you'll want to translate them.
+; *** Shutdown block reasons
+ShutdownBlockReasonInstallingApp=Installerer %1.
+ShutdownBlockReasonUninstallingApp=Avinstallerer %1.
+
+; The custom messages below aren't used by Setup itself,
+; but if you make use of them in your scripts, you'll want to translate them.
 
 [CustomMessages]
 
@@ -311,3 +322,6 @@ UninstallProgram=Avinstaller %1
 LaunchProgram=Kjør %1
 AssocFileExtension=&Koble %1 med filetternavnet %2
 AssocingFileExtension=Kobler %1 med filetternavnet %2...
+AutoStartProgramGroupDescription=Oppstart:
+AutoStartProgram=Start %1 automatisk
+AddonHostProgramNotFound=%1 ble ikke funnet i katalogen du valgte.%n%nVil du fortsette likevel?

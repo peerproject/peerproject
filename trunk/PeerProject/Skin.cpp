@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -36,9 +36,9 @@
 
 #ifdef _DEBUG
 #undef THIS_FILE
-static char THIS_FILE[]=__FILE__;
+static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 CSkin Skin;
 
@@ -227,17 +227,17 @@ void CSkin::Clear()
 	m_pFontPaths.RemoveAll();
 	m_pImages.RemoveAll();
 
-	if ( m_brDialog.m_hObject ) m_brDialog.DeleteObject();
-	if ( m_brDialogPanel.m_hObject ) m_brDialogPanel.DeleteObject();
-	if ( m_brMediaSlider.m_hObject ) m_brMediaSlider.DeleteObject();
+//	if ( m_brDialog.m_hObject ) m_brDialog.DeleteObject();
+//	if ( m_brDialogPanel.m_hObject ) m_brDialogPanel.DeleteObject();
+//	if ( m_brMediaSlider.m_hObject ) m_brMediaSlider.DeleteObject();
 
-	if ( m_bmDialog.m_hObject ) m_bmDialog.DeleteObject();
-	if ( m_bmDialogPanel.m_hObject ) m_bmDialogPanel.DeleteObject();
-	if ( m_bmToolTip.m_hObject ) m_bmToolTip.DeleteObject();
-	if ( m_bmSelected.m_hObject ) m_bmSelected.DeleteObject();
+//	if ( m_bmDialog.m_hObject ) m_bmDialog.DeleteObject();
+//	if ( m_bmDialogPanel.m_hObject ) m_bmDialogPanel.DeleteObject();
+//	if ( m_bmToolTip.m_hObject ) m_bmToolTip.DeleteObject();
+//	if ( m_bmSelected.m_hObject ) m_bmSelected.DeleteObject();
 
-	if ( m_bmPanelMark.m_hObject ) m_bmPanelMark.DeleteObject();
-	if ( m_bmBanner.m_hObject ) m_bmBanner.DeleteObject();
+//	if ( m_bmPanelMark.m_hObject ) m_bmPanelMark.DeleteObject();
+//	if ( m_bmBanner.m_hObject ) m_bmBanner.DeleteObject();
 
 	Images.DeleteObjects();
 
@@ -411,7 +411,7 @@ BOOL CSkin::LoadFromXML(CXMLElement* pXML, const CString& strPath)
 		strElement.MakeLower();
 		bSuccess = FALSE;
 
-		switch( Text[ strElement ] )
+		switch ( Text[ strElement ] )
 		{
 		case 'w':	// windowSkins, windows
 			if ( ! LoadWindowSkins( pSub, strPath ) )
@@ -549,7 +549,7 @@ BOOL CSkin::LoadStrings(CXMLElement* pBase)
 			{
 				CString strValue = pXML->GetAttributeValue( _T("value") );
 
-				for (;;)
+				for ( ;; )
 				{
 					int nPos = strValue.Find( _T("\\n") );
 					if ( nPos < 0 ) break;
@@ -656,7 +656,7 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 			Text[ L"librarytiles" ]	= 'i';
 		}
 
-		switch( Text[ strName ] )
+		switch ( Text[ strName ] )
 		{
 		case 'n':	// "Navbar"
 			if ( ! LoadNavBar( pXML ) )
@@ -1321,92 +1321,95 @@ BOOL CSkin::LoadWatermarks(CXMLElement* pSub, const CString& strPath)
 	// Common system-wide volatile bitmaps (buttons):
 	Images.Load();
 
+// Obsolete: Moved to Images
 
-	if ( m_bmSelected.m_hObject ) m_bmSelected.DeleteObject();
-	if ( HBITMAP hSelected = GetWatermark( _T("System.Highlight") ) )
-		m_bmSelected.Attach( hSelected );
-	else if ( HBITMAP hSelected = GetWatermark( _T("CTransfers.Selected") ) )
-		m_bmSelected.Attach( hSelected );
-
-	if ( m_bmSelectedGrey.m_hObject ) m_bmSelectedGrey.DeleteObject();
-	if ( HBITMAP hSelected = GetWatermark( _T("System.Highlight.Inactive") ) )
-		m_bmSelectedGrey.Attach( hSelected );
-	else if ( HBITMAP hSelected = GetWatermark( _T("CTransfers.Selected.Inactive") ) )
-		m_bmSelectedGrey.Attach( hSelected );
-
-	if ( m_bmToolTip.m_hObject ) m_bmToolTip.DeleteObject();
-	if ( HBITMAP hToolTip = GetWatermark( _T("System.ToolTip") ) )
-		m_bmToolTip.Attach( hToolTip );
-	else if ( HBITMAP hToolTip = GetWatermark( _T("System.Tooltips") ) )
-		m_bmToolTip.Attach( hToolTip );
-
-	if ( m_bmDialog.m_hObject ) m_bmDialog.DeleteObject();
-	if ( HBITMAP hDialog = GetWatermark( _T("System.Dialogs") ) )
-		m_bmDialog.Attach( hDialog );
-	else if ( HBITMAP hDialog = GetWatermark( _T("CDialog") ) )
-		m_bmDialog.Attach( hDialog );
-
-	if ( m_bmDialogPanel.m_hObject ) m_bmDialogPanel.DeleteObject();
-	if ( HBITMAP hDialog = GetWatermark( _T("System.DialogPanels") ) )
-		m_bmDialogPanel.Attach( hDialog );
-	else if ( HBITMAP hDialog = GetWatermark( _T("CDialog.Panel") ) )
-		m_bmDialogPanel.Attach( hDialog );
-
-	if ( m_brMediaSlider.m_hObject ) m_brMediaSlider.DeleteObject();
-	if ( HBITMAP hSlider = GetWatermark( _T("CCoolbar.Control") ) )
-	{
-		CBitmap bmSlider;
-		bmSlider.Attach( hSlider );
-		m_brMediaSlider.CreatePatternBrush( &bmSlider );
-	}
-	else if ( HBITMAP hSlider = GetWatermark( _T("CMediaFrame.Slider") ) )
-	{
-		CBitmap bmSlider;
-		bmSlider.Attach( hSlider );
-		m_brMediaSlider.CreatePatternBrush( &bmSlider );
-	}
-	else
-		m_brMediaSlider.CreateSolidBrush( Colors.m_crMidtone );
-
-	m_nBanner = 0;
-	if ( m_bmBanner.m_hObject ) m_bmBanner.DeleteObject();
-	if ( HBITMAP hBanner = GetWatermark( _T("System.Header") ) )
-	{
-		BITMAP bmInfo;
-		m_bmBanner.Attach( hBanner );
-		m_bmBanner.GetObject( sizeof(BITMAP), &bmInfo );
-		m_bmBanner.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
-		m_nBanner = bmInfo.bmHeight;
-	}
-	else if ( HBITMAP hBanner = GetWatermark( _T("Banner") ) )
-	{
-		BITMAP bmInfo;
-		m_bmBanner.Attach( hBanner );
-		m_bmBanner.GetObject( sizeof(BITMAP), &bmInfo );
-		m_bmBanner.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
-		m_nBanner = bmInfo.bmHeight;
-	}
+//	if ( m_bmSelected.m_hObject ) m_bmSelected.DeleteObject();
+//	if ( HBITMAP hSelected = GetWatermark( _T("System.Highlight") ) )
+//		m_bmSelected.Attach( hSelected );
+//	else if ( HBITMAP hSelected = GetWatermark( _T("CTransfers.Selected") ) )
+//		m_bmSelected.Attach( hSelected );
+//
+//	if ( m_bmSelectedGrey.m_hObject ) m_bmSelectedGrey.DeleteObject();
+//	if ( HBITMAP hSelected = GetWatermark( _T("System.Highlight.Inactive") ) )
+//		m_bmSelectedGrey.Attach( hSelected );
+//	else if ( HBITMAP hSelected = GetWatermark( _T("CTransfers.Selected.Inactive") ) )
+//		m_bmSelectedGrey.Attach( hSelected );
+//
+//	if ( m_bmToolTip.m_hObject ) m_bmToolTip.DeleteObject();
+//	if ( HBITMAP hToolTip = GetWatermark( _T("System.ToolTip") ) )
+//		m_bmToolTip.Attach( hToolTip );
+//	else if ( HBITMAP hToolTip = GetWatermark( _T("System.Tooltips") ) )
+//		m_bmToolTip.Attach( hToolTip );
+//
+//	if ( m_bmDialog.m_hObject ) m_bmDialog.DeleteObject();
+//	if ( HBITMAP hDialog = GetWatermark( _T("System.Dialogs") ) )
+//		m_bmDialog.Attach( hDialog );
+//	else if ( HBITMAP hDialog = GetWatermark( _T("CDialog") ) )
+//		m_bmDialog.Attach( hDialog );
+//
+//	if ( m_bmDialogPanel.m_hObject ) m_bmDialogPanel.DeleteObject();
+//	if ( HBITMAP hDialog = GetWatermark( _T("System.DialogPanels") ) )
+//		m_bmDialogPanel.Attach( hDialog );
+//	else if ( HBITMAP hDialog = GetWatermark( _T("CDialog.Panel") ) )
+//		m_bmDialogPanel.Attach( hDialog );
+//
+//	if ( m_bmPanelMark.m_hObject != NULL ) m_bmPanelMark.DeleteObject();
+//	if ( HBITMAP hPanelMark = GetWatermark( _T("CPanelWnd.Caption") ) )
+//		m_bmPanelMark.Attach( hPanelMark );
+//	else if ( Colors.m_crPanelBack == RGB_DEFAULT_CASE )
+//		m_bmPanelMark.LoadBitmap( IDB_PANEL_MARK );				// Default resource handling
 
 	// Related brushes:
 
-	// Skinnable Dialogs  (This brush applies to text bg.  Body in DlgSkinDialog, WndSettingPage, etc.)
-	if ( m_brDialog.m_hObject ) m_brDialog.DeleteObject();
-	if ( m_bmDialog.m_hObject )
-		m_brDialog.CreatePatternBrush( &m_bmDialog );	//Attach( (HBRUSH)GetStockObject( NULL_BRUSH ) );
-	else
-		m_brDialog.CreateSolidBrush( Colors.m_crDialog );
+//	// Skinnable Dialogs  (This brush applies to text bg.  Body in DlgSkinDialog, WndSettingPage, etc.)
+//	if ( Images.m_brDialog.m_hObject ) Images.m_brDialog.DeleteObject();
+//	if ( Images.m_bmDialog.m_hObject )
+//		Images.m_brDialog.CreatePatternBrush( & Images.m_bmDialog );	//Attach( (HBRUSH)GetStockObject( NULL_BRUSH ) );
+//	else
+//		Images.m_brDialog.CreateSolidBrush( Colors.m_crDialog );
+//
+//	if ( Images.m_brDialogPanel.m_hObject ) Images.m_brDialogPanel.DeleteObject();
+//	if ( Images.m_bmDialogPanel.m_hObject )
+//		Images.m_brDialogPanel.CreatePatternBrush( & Images.m_bmDialogPanel );
+//	else
+//		Images.m_brDialogPanel.CreateSolidBrush( Colors.m_crDialogPanel );
+//
+//	if ( Images.m_brMediaSlider.m_hObject ) Images.m_brMediaSlider.DeleteObject();
+//	if ( HBITMAP hSlider = GetWatermark( _T("CCoolbar.Control") ) )
+//	{
+//		CBitmap bmSlider;
+//		bmSlider.Attach( hSlider );
+//		Images.m_brMediaSlider.CreatePatternBrush( &bmSlider );
+//	}
+//	else if ( HBITMAP hSlider = GetWatermark( _T("CMediaFrame.Slider") ) )
+//	{
+//		CBitmap bmSlider;
+//		bmSlider.Attach( hSlider );
+//		Images.m_brMediaSlider.CreatePatternBrush( &bmSlider );
+//	}
+//	else
+//		Images.m_brMediaSlider.CreateSolidBrush( Colors.m_crMidtone );
 
-	if ( m_brDialogPanel.m_hObject ) m_brDialogPanel.DeleteObject();
-	if ( m_bmDialogPanel.m_hObject )
-		m_brDialogPanel.CreatePatternBrush( &m_bmDialogPanel );
-	else
-		m_brDialogPanel.CreateSolidBrush( Colors.m_crDialogPanel );
+	// Dialog Header:
 
-	if ( m_bmPanelMark.m_hObject != NULL ) m_bmPanelMark.DeleteObject();
-	if ( HBITMAP hPanelMark = GetWatermark( _T("CPanelWnd.Caption") ) )
-		m_bmPanelMark.Attach( hPanelMark );
-	else if ( Colors.m_crPanelBack == RGB_DEFAULT_CASE )
-		m_bmPanelMark.LoadBitmap( IDB_PANEL_MARK );				// Default resource handling
+//	m_nBanner = 0;	// Defined in Images
+//	if ( m_bmBanner.m_hObject ) m_bmBanner.DeleteObject();
+//	if ( HBITMAP hBanner = GetWatermark( _T("System.Header") ) )
+//	{
+//		BITMAP bmInfo;
+//		m_bmBanner.Attach( hBanner );
+//		m_bmBanner.GetObject( sizeof(BITMAP), &bmInfo );
+//		m_bmBanner.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+//		m_nBanner = bmInfo.bmHeight;
+//	}
+//	else if ( HBITMAP hBanner = GetWatermark( _T("Banner") ) )
+//	{
+//		BITMAP bmInfo;
+//		m_bmBanner.Attach( hBanner );
+//		m_bmBanner.GetObject( sizeof(BITMAP), &bmInfo );
+//		m_bmBanner.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+//		m_nBanner = bmInfo.bmHeight;
+//	}
 
 	// "System.Toolbars" fallback at toolbar creation
 	// Button states in CImages
@@ -1820,11 +1823,11 @@ CSkinWindow* CSkin::GetWindowSkin(CWnd* pWnd)
 	for ( CRuntimeClass* pClass = pWnd->GetRuntimeClass() ; pClass ; pClass = pClass->m_pBaseClass )
 #endif
 	{
-		CString sClassName( pClass->m_lpszClassName );
+		CString strClassName( pClass->m_lpszClassName );
 
 		if ( bPanel )
 		{
-			CSkinWindow* pSkin = GetWindowSkin( (LPCTSTR)sClassName, _T(".Panel") );
+			CSkinWindow* pSkin = GetWindowSkin( (LPCTSTR)strClassName, _T(".Panel") );
 			if ( pSkin != NULL ) return pSkin;
 		}
 
@@ -1832,7 +1835,7 @@ CSkinWindow* CSkin::GetWindowSkin(CWnd* pWnd)
 		{
 			if ( pszModeSuffix[ nSuffix ][0] != 0 || ! bPanel )
 			{
-				CSkinWindow* pSkin = GetWindowSkin( (LPCTSTR)sClassName, pszModeSuffix[ nSuffix ] );
+				CSkinWindow* pSkin = GetWindowSkin( (LPCTSTR)strClassName, pszModeSuffix[ nSuffix ] );
 				if ( pSkin != NULL ) return pSkin;
 			}
 		}
@@ -2203,7 +2206,7 @@ BOOL CSkin::LoadFonts(CXMLElement* pBase, const CString& strPath)
 					Font[ L"rich.heading" ]		= 'h';
 				}
 
-				switch( Font[ strName ] )
+				switch ( Font[ strName ] )
 				{
 				case 'd':	// system.default, system.plain, system
 					pFont = &CoolInterface.m_fntNormal;
@@ -2772,10 +2775,10 @@ BOOL CSkin::LoadColor(CXMLElement* pXML, LPCTSTR pszName, COLORREF* pColor)
 	if ( ! str.IsEmpty() )
 	{
 		*pColor = GetColor( str );
-		if ( *pColor )
+		if ( *pColor || str == _T("000000") )
 			return TRUE;
 
-		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Bad color attribute"), pXML->ToString() );
+		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Bad color attribute (") + str + _T(")"), pXML->ToString() );
 	}
 
 	return FALSE;
@@ -2786,7 +2789,7 @@ COLORREF CSkin::GetColor(CString sColor)
 	sColor.Trim( _T(" #") );
 
 	const int nLength = sColor.GetLength();
-	if ( nLength < 6 || nLength > 13 )
+	if ( nLength < 6 || nLength > 14 )
 		return NULL;
 
 	int nRed = 0, nGreen = 0, nBlue = 0;

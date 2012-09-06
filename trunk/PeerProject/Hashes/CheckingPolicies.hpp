@@ -13,7 +13,7 @@
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 // See the See the GNU General Public License for more details.
-// 
+//
 // You should have received a copy of the GNU General Public License 3.0
 // along with PeerProject; if not, write to Free Software Foundation, Inc.
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
@@ -217,8 +217,7 @@ namespace Hashes
 			}
 			//! \brief Add an entry to the blacklist.
 			//! If no argument is given, the current value of this hash is used.
-			void addBlacklisted(const AlignedStorage&
-					storage = alignedStorage())
+			void addBlacklisted(const AlignedStorage& storage = alignedStorage())
 			{
 				// We don't want duplicates
 				if ( ! std::binary_search( m_blacklist.begin(),
@@ -230,8 +229,7 @@ namespace Hashes
 			}
 			//! \brief Remove an entry from the blacklist.
 			//! If no argument is given, the current value of this hash is used.
-			void removeBlackListed(const AlignedStorage&
-					storage = alignedStorage())
+			void removeBlackListed(const AlignedStorage& storage = alignedStorage())
 			{
 				if ( std::binary_search( m_blacklist.begin(),
 						m_blackList.end(), storage() ) )

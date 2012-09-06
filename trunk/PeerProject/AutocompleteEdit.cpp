@@ -1,18 +1,18 @@
 //
 // AutocompleteEdit.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2008.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -39,9 +39,9 @@ CRegEnum::~CRegEnum()
 IMPLEMENT_UNKNOWN(CRegEnum, EnumString)
 
 STDMETHODIMP CRegEnum::XEnumString::Next(
-	/* [in] */ ULONG celt,
-	/* [length_is][size_is][out] */ LPOLESTR* rgelt,
-	/* [out] */ ULONG *pceltFetched)
+	/*[in]*/ ULONG celt,
+	/*[length_is][size_is][out]*/ LPOLESTR* rgelt,
+	/*[out]*/ ULONG *pceltFetched)
 {
 	METHOD_PROLOGUE( CRegEnum, EnumString )
 
@@ -77,7 +77,7 @@ STDMETHODIMP CRegEnum::XEnumString::Next(
 }
 
 STDMETHODIMP CRegEnum::XEnumString::Skip(
-	/* [in] */ ULONG celt)
+	/*[in]*/ ULONG celt)
 {
 	METHOD_PROLOGUE( CRegEnum, EnumString )
 
@@ -107,7 +107,7 @@ STDMETHODIMP CRegEnum::XEnumString::Reset(void)
 }
 
 STDMETHODIMP CRegEnum::XEnumString::Clone(
-	/* [out] */ IEnumString** ppEnum)
+	/*[out]*/ IEnumString** ppEnum)
 {
 	METHOD_PROLOGUE( CRegEnum, EnumString )
 
@@ -154,10 +154,7 @@ BOOL CRegEnum::AttachTo(HWND hWnd, LPCTSTR szSection, LPCTSTR szRoot)
 				hr = m_pIAutoComplete->QueryInterface( IID_IAutoComplete2,
 					(LPVOID*)&pIAutoComplete2 );
 				if ( SUCCEEDED( hr ) )
-				{
-					hr = pIAutoComplete2->SetOptions( ACO_AUTOSUGGEST |
-						ACO_AUTOAPPEND | ACO_UPDOWNKEYDROPSLIST );
-				}
+					hr = pIAutoComplete2->SetOptions( ACO_AUTOSUGGEST | ACO_AUTOAPPEND | ACO_UPDOWNKEYDROPSLIST );
 			}
 		}
 	}
@@ -167,8 +164,8 @@ BOOL CRegEnum::AttachTo(HWND hWnd, LPCTSTR szSection, LPCTSTR szRoot)
 
 void CRegEnum::AddString(const CString& rString) const
 {
-	CString sKeyString = rString.SpanExcluding( _T("\n") );
-	if ( sKeyString.IsEmpty() ) return;
+	const CString strKeyString = rString.SpanExcluding( _T("\n") );
+	if ( strKeyString.IsEmpty() ) return;
 
 	// Load list
 	CStringList oList;
@@ -181,7 +178,7 @@ void CRegEnum::AddString(const CString& rString) const
 		if ( strValue.IsEmpty() ) break;
 
 		CString strShortValue = strValue.SpanExcluding( _T("\n") );
-		if ( sKeyString.CompareNoCase( strShortValue ) )
+		if ( strKeyString.CompareNoCase( strShortValue ) )		// != 0 ?
 			oList.AddTail( strValue );
 	}
 

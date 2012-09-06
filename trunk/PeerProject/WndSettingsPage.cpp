@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -24,13 +24,14 @@
 
 #include "CoolInterface.h"
 #include "Colors.h"
+#include "Images.h"
 #include "Skin.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 IMPLEMENT_DYNAMIC(CSettingsPage, CDialog)
 
@@ -161,12 +162,12 @@ void CSettingsPage::OnSkinChange()
 
 	Skin.Apply( m_sName, this, 0, &m_wndToolTip );
 
-	if ( Skin.m_bmDialog.m_hObject )
+	if ( Images.m_bmDialog.m_hObject )
 	{
 		CDC* pDC = GetDC();
 		CRect rc;
 		GetClientRect( &rc );
-		CoolInterface.DrawWatermark( pDC, &rc, &Skin.m_bmDialog );
+		CoolInterface.DrawWatermark( pDC, &rc, &Images.m_bmDialog );
 	}
 }
 
@@ -224,8 +225,8 @@ BOOL CSettingsPage::OnEraseBkgnd(CDC* pDC)
 	CRect rc;
 	GetClientRect( &rc );
 
-	if ( Skin.m_bmDialog.m_hObject )
-		CoolInterface.DrawWatermark( pDC, &rc, &Skin.m_bmDialog );
+	if ( Images.m_bmDialog.m_hObject )
+		CoolInterface.DrawWatermark( pDC, &rc, &Images.m_bmDialog );
 	else
 		pDC->FillSolidRect( &rc, Colors.m_crDialog );
 
@@ -237,7 +238,7 @@ HBRUSH CSettingsPage::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	HBRUSH hbr = CDialog::OnCtlColor( pDC, pWnd, nCtlColor );
 
 	// Skinned dialog controls
-	if ( nCtlColor == CTLCOLOR_STATIC && Skin.m_bmDialog.m_hObject )
+	if ( nCtlColor == CTLCOLOR_STATIC && Images.m_bmDialog.m_hObject )
 	{
 		pDC->SetTextColor( Colors.m_crDialogText );
 		pDC->SetBkMode( TRANSPARENT );
@@ -245,13 +246,13 @@ HBRUSH CSettingsPage::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 		if ( pWnd->GetDlgCtrlID() != IDC_STATIC )						// Named controls  (Dynamic handling)	 // || ( pWnd->GetStyle() & SS_REALSIZEIMAGE ) || ( pWnd->GetStyle() & SS_ICON )
 		{
 			if ( ( pWnd->GetStyle() & ES_READONLY ) )
-				return Skin.m_brDialog;									// Skip disabled edit boxes (Not disabled text)
+				return Images.m_brDialog;									// Skip disabled edit boxes (Not disabled text)
 
 			//if ( ! pWnd->IsWindowEnabled() )
 			//{
 			//	const int nID = pWnd->GetDlgCtrlID();
 			//	if ( nID != IDC_REMOTE_URL && nID != IDC_INBOUND_BIND && nID != IDC_G1_SETUP && nID != IDC_ED2K_SETUP && nID != IDC_DC_SETUP )	// Keep exception list updated
-			//		return Skin.m_brDialog;								// Skip disabled edit boxes (Not disabled text)
+			//		return Images.m_brDialog;								// Skip disabled edit boxes (Not disabled text)
 			//}
 
 			//TCHAR szName[24];
@@ -263,7 +264,7 @@ HBRUSH CSettingsPage::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 			pWnd->GetWindowRect( &rc );
 			ScreenToClient( &rc );
 			pDC->SetBrushOrg( -rc.left, -rc.top );
-			return Skin.m_brDialog;
+			return Images.m_brDialog;
 		}
 
 		hbr = (HBRUSH)GetStockObject( NULL_BRUSH );
@@ -272,7 +273,7 @@ HBRUSH CSettingsPage::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	{
 		pDC->SetTextColor( Colors.m_crDialogText );
 		pDC->SetBkColor( Colors.m_crDialog );
-		hbr = Skin.m_brDialog;
+		hbr = Images.m_brDialog;
 	}
 
 	return hbr;

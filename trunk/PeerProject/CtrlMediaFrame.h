@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -66,7 +66,6 @@ class CMediaFrame : public CWnd
 public:
 	CMediaFrame();
 	virtual ~CMediaFrame();
-
 
 // Operations
 public:
@@ -170,7 +169,6 @@ public:
 
 // Implementation
 protected:
-	DECLARE_MESSAGE_MAP()
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
 	afx_msg void OnPaint();
@@ -223,13 +221,13 @@ protected:
 
 	afx_msg void OnNewCurrent(NMHDR* pNotify, LRESULT* pResult);
 	afx_msg LRESULT OnMediaKey(WPARAM wParam, LPARAM lParam);
+
+	DECLARE_MESSAGE_MAP()
 };
 
-//{{AFX_INSERT_LOCATION}}
+#define IDC_MEDIA_PLAYLIST		120
 
-#define IDC_MEDIA_PLAYLIST	120
-
-#define VK_MEDIA_NEXT_TRACK    0xB0
-#define VK_MEDIA_PREV_TRACK    0xB1
-#define VK_MEDIA_STOP          0xB2
-#define VK_MEDIA_PLAY_PAUSE    0xB3
+#define VK_MEDIA_NEXT_TRACK		0xB0
+#define VK_MEDIA_PREV_TRACK		0xB1
+#define VK_MEDIA_STOP			0xB2
+#define VK_MEDIA_PLAY_PAUSE		0xB3

@@ -19,7 +19,7 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#include "StdAfx.h"
+#include <StdAfx.h>
 #include "TorrentBuilder.h"
 #include "..\TorrentWizard.h"
 #include "..\Buffer.h"
@@ -87,7 +87,7 @@ void CTorrentBuilder::Enable(BOOL bSHA1, BOOL bED2K, BOOL bMD5)
 {
 	m_bSHA1 = bSHA1;
 	m_bED2K = bED2K;
-	m_bMD5 = bMD5;
+	m_bMD5  = bMD5;
 }
 
 BOOL CTorrentBuilder::SetOutputFile(LPCTSTR pszPath)
@@ -262,11 +262,8 @@ int CTorrentBuilder::Run()
 
 	if ( ScanFiles() && ! m_bAbort )
 	{
-		if ( ProcessFiles() )
-		{
-			if ( WriteOutput() )
-				m_bFinished = TRUE;
-		}
+		if ( ProcessFiles() && WriteOutput() )
+			m_bFinished = TRUE;
 	}
 
 	if ( m_pSection.Lock() )
@@ -308,6 +305,8 @@ BOOL CTorrentBuilder::ScanFiles()
 	for ( POSITION pos = m_pFiles.GetHeadPosition() ; pos && ! m_bAbort ; nFile++ )
 	{
 		CString strFile = m_pFiles.GetNext( pos );
+		if ( strFile.GetLength() > MAX_PATH )
+			strFile = CString( _T("\\\\?\\") ) + strFile;
 
 		HANDLE hFile = CreateFile( strFile, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL );
 
@@ -454,7 +453,7 @@ BOOL CTorrentBuilder::ProcessFile(LPCTSTR pszFile)
 	while ( nSize > 0 && ! m_bAbort )
 	{
 		DWORD nLimit	= min( m_nBuffer, m_nPieceSize - m_nPieceUsed );
-		DWORD nRead		= ( nSize > (QWORD)nLimit ) ? nLimit : (DWORD)nSize;
+		DWORD nRead 	= ( nSize > (QWORD)nLimit ) ? nLimit : (DWORD)nSize;
 
 		ReadFile( hFile, m_pBuffer, nRead, &nRead, NULL );
 		if ( nRead == 0 ) break;
@@ -633,14 +632,16 @@ BOOL CTorrentBuilder::WriteOutput()
 	CBuffer pOutput;
 	pRoot.Encode( &pOutput );
 
-	HANDLE hFile = CreateFile( m_sOutput, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS,
-		FILE_ATTRIBUTE_NORMAL, NULL );
+	const CString strOutput = ( m_sOutput.GetLength() < MAX_PATH ) ?
+		m_sOutput : ( CString( _T("\\\\?\\") ) + m_sOutput );
+
+	HANDLE hFile = CreateFile( strOutput, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL );
 
 	if ( hFile == INVALID_HANDLE_VALUE )
 	{
-		m_pSection.Lock();
 		CString strFormat;
 		strFormat.LoadString( IDS_BUILDER_CANT_SAVE );
+		m_pSection.Lock();
 		m_sMessage.Format( strFormat, (LPCTSTR)m_sOutput );
 		m_bAbort = TRUE;
 		m_pSection.Unlock();

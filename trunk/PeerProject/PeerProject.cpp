@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -37,6 +37,7 @@
 #include "IEProtocol.h"
 #include "ImageServices.h"
 #include "ImageFile.h"	// AfxMsgBox Banners
+#include "Images.h"
 #include "Library.h"
 #include "LibraryFolders.h"
 #include "LibraryBuilder.h"
@@ -77,7 +78,7 @@
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -97,53 +98,53 @@ void CAppCommandLineInfo::ParseParam(const TCHAR* pszParam, BOOL bFlag, BOOL bLa
 {
 	if ( bFlag )
 	{
-		if ( ! _tcsicmp( pszParam, _T("tray") ) )	// lstrcmpi()
+		if ( _tcsicmp( pszParam, _T("tray") ) == 0 )	// lstrcmpi()
 		{
 			m_bTray = TRUE;
 			m_bNoSplash = TRUE;
 			return;
 		}
-		if ( ! _tcsicmp( pszParam, _T("nosplash") ) )
+		if ( _tcsicmp( pszParam, _T("nosplash") ) == 0 )
 		{
 			m_bNoSplash = TRUE;
 			return;
 		}
-		if ( ! _tcsicmp( pszParam, _T("nowarn") ) )
+		if ( _tcsicmp( pszParam, _T("nowarn") ) == 0 )
 		{
 			m_bNoAlphaWarning = TRUE;
 			return;
 		}
-		if ( ! _tcsicmp( pszParam, _T("noskin") ) )
+		if ( _tcsicmp( pszParam, _T("noskin") ) == 0 )
 		{
 			ClearSkins();
 			return;
 		}
-		if ( ! _tcsicmp( pszParam, _T("basic") ) )
+		if ( _tcsicmp( pszParam, _T("basic") ) == 0 )
 		{
 			m_nGUIMode = GUI_BASIC;
 			return;
 		}
-		if ( ! _tcsicmp( pszParam, _T("tabbed") ) )
+		if ( _tcsicmp( pszParam, _T("tabbed") ) == 0 )
 		{
 			m_nGUIMode = GUI_TABBED;
 			return;
 		}
-		if ( ! _tcsicmp( pszParam, _T("windowed") ) )
+		if ( _tcsicmp( pszParam, _T("windowed") ) == 0 )
 		{
 			m_nGUIMode = GUI_WINDOWED;
 			return;
 		}
-		if ( ! _tcsicmp( pszParam, _T("wait") ) )
+		if ( _tcsicmp( pszParam, _T("wait") ) == 0 )
 		{
 			m_bWait = TRUE;
 			return;
 		}
-		if ( ! _tcsncicmp( pszParam, _T("task"), 4 ) )
+		if ( _tcsncicmp( pszParam, _T("task"), 4 ) == 0 )
 		{
 			m_sTask = pszParam + 4;
 			return;
 		}
-		if ( ! _tcsicmp( pszParam, _T("help") ) || *pszParam == '?' )
+		if ( _tcsicmp( pszParam, _T("help") ) == 0 || *pszParam == '?' )
 		{
 			m_bHelp = TRUE;
 			return;
@@ -327,7 +328,7 @@ BOOL CPeerProjectApp::InitInstance()
 #if defined(_DEBUG) || defined(__REVISION__)		// Show for "pre-release release builds."
 
 	// Unskinned Banner Workaround:
-	Skin.m_bmBanner.Attach( CImageFile::LoadBitmapFromResource( IDB_BANNER ) );
+	Images.m_bmBanner.Attach( CImageFile::LoadBitmapFromResource( IDB_BANNER ) );
 	Skin.m_nBanner = 50;
 
 
@@ -354,7 +355,7 @@ BOOL CPeerProjectApp::InitInstance()
 #ifdef _DEBUG
 			L"\nWARNING: This is a DEBUG TEST version of PeerProject p2p"
 #else
-			L"\nWARNING: This is a PUBLIC TEST version of PeerProject p2p"
+			L"\nWARNING: This is a PRIVATE TEST version of PeerProject p2p"
 #endif
 #ifdef __REVISION__
 			L", r" _T(__REVISION__)
@@ -376,7 +377,7 @@ BOOL CPeerProjectApp::InitInstance()
 
 
 	// Go Live
-	
+
 	m_bInteractive = true;
 
 	// Test and (re)register plugins first
@@ -449,14 +450,14 @@ BOOL CPeerProjectApp::InitInstance()
 			Message( MSG_ERROR, _T("Failed to load Flags.") );
 	SplashStep( L"Metadata Schemas" );
 		if ( SchemaCache.Load() < 48 &&		// Presumed number of .xsd files in Schemas folder
-			 AfxMessageBox( IDS_SCHEMA_LOAD_ERROR, MB_ICONWARNING|MB_OKCANCEL ) != IDOK )
+			 MsgBox( IDS_SCHEMA_LOAD_ERROR, MB_ICONWARNING|MB_OKCANCEL ) != IDOK )
 		{
 			SplashAbort();
 			return FALSE;
 		}
 		if ( ! Settings.MediaPlayer.FileTypes.size() )
 		{
-			CString sTypeFilter;
+			CString strTypeFilter;
 			static const LPCTSTR szTypes[] =
 			{
 				CSchema::uriAudio,
@@ -466,13 +467,13 @@ BOOL CPeerProjectApp::InitInstance()
 			for ( int i = 0 ; szTypes[ i ] ; ++ i )
 			{
 				if ( CSchemaPtr pSchema = SchemaCache.Get( szTypes[ i ] ) )
-					sTypeFilter += pSchema->GetFilterSet();
+					strTypeFilter += pSchema->GetFilterSet();
 			}
-			CSettings::LoadSet( &Settings.MediaPlayer.FileTypes, sTypeFilter );
+			CSettings::LoadSet( &Settings.MediaPlayer.FileTypes, strTypeFilter );
 		}
 		if ( ! Settings.Library.SafeExecute.size() )
 		{
-			CString sTypeFilter;
+			CString strTypeFilter;
 			static const LPCTSTR szTypes[] =
 			{
 				CSchema::uriArchive,
@@ -487,9 +488,9 @@ BOOL CPeerProjectApp::InitInstance()
 			for ( int i = 0 ; szTypes[ i ] ; ++ i )
 			{
 				if ( CSchemaPtr pSchema = SchemaCache.Get( szTypes[ i ] ) )
-					sTypeFilter += pSchema->GetFilterSet();
+					strTypeFilter += pSchema->GetFilterSet();
 			}
-			CSettings::LoadSet( &Settings.Library.SafeExecute, sTypeFilter );
+			CSettings::LoadSet( &Settings.Library.SafeExecute, strTypeFilter );
 		}
 
 	//CWaitCursor pCursor;
@@ -754,7 +755,7 @@ BOOL CPeerProjectApp::ParseCommandLine()
 	if ( m_cmdInfo.m_bHelp )
 	{
 		// Unskinned Banner/Font Workaround:
-		Skin.m_bmBanner.Attach( CImageFile::LoadBitmapFromResource( IDB_BANNER ) );
+		Images.m_bmBanner.Attach( CImageFile::LoadBitmapFromResource( IDB_BANNER ) );
 		Skin.m_nBanner = 50;
 
 		OSVERSIONINFOEX pVersion = { sizeof( OSVERSIONINFOEX ) };
@@ -765,7 +766,7 @@ BOOL CPeerProjectApp::ParseCommandLine()
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
 		DEFAULT_PITCH|FF_DONTCARE, bVistaOrNewer ? _T("Segoe UI") : _T("Tahoma") );
 
-		AfxMessageBox( //IDS_COMMANDLINE,	// No translation available yet
+		MsgBox( //IDS_COMMANDLINE,	// No translation available yet
 			L"\nPeerProject command-line options:\n\n"
 			L" -help   -? \tDisplay this help screen\n"
 			L" -tray\t\tStart quietly in system tray\n"
@@ -798,14 +799,14 @@ BOOL CPeerProjectApp::ParseCommandLine()
 	}
 
 	HWND hWndPrior = NULL;
-	for (;;)	// Loop if "wait"
+	for ( ;; )	// Loop if "wait"
 	{
 		m_pMutex = CreateMutex( NULL, FALSE, _T("Global\\PeerProject") );	// CLIENT_NAME
 
 		if ( m_pMutex == NULL )
 		{
 			// Mutex likely created in another multi-user session
-			Skin.m_bmBanner.Attach( CImageFile::LoadBitmapFromResource( IDB_BANNER ) );
+			Images.m_bmBanner.Attach( CImageFile::LoadBitmapFromResource( IDB_BANNER ) );
 			Skin.m_nBanner = 50;
 			AfxMessageBox(
 				L"PeerProject appears to be open in another user session."
@@ -992,7 +993,7 @@ BOOL CPeerProjectApp::Open(LPCTSTR lpszFileName, BOOL bTest /*FALSE*/)		// Note:
 	//	Ext[ L".magma" ]	= 'a';
 	}
 
-	switch( Ext[ strExt ] )
+	switch ( Ext[ strExt ] )
 	{
 	case 't':	// .torrent
 		return bTest || OpenTorrent( lpszFileName );
@@ -1007,10 +1008,10 @@ BOOL CPeerProjectApp::Open(LPCTSTR lpszFileName, BOOL bTest /*FALSE*/)		// Note:
 	case 'l':	// .lnk
 		return bTest || OpenShellShortcut( lpszFileName );
 	case 'b':	// .xml.bz2 (DC++)
-		if ( ! _tcsicmp( lpszFileName + ( _tcslen( lpszFileName ) - 8 ), _T(".xml.bz2") ) )
+		if ( _tcsicmp( lpszFileName + ( _tcslen( lpszFileName ) - 8 ), _T(".xml.bz2") ) == 0 )
 		{
 			if ( bTest ) return TRUE;
-			if ( ! _tcsicmp( PathFindFileName( lpszFileName ), _T("hublist.xml.bz2") ) )
+			if ( _tcsicmp( PathFindFileName( lpszFileName ), _T("hublist.xml.bz2") ) == 0 )
 				return OpenImport( lpszFileName );
 			return OpenCollection( lpszFileName );
 		}
@@ -1018,26 +1019,26 @@ BOOL CPeerProjectApp::Open(LPCTSTR lpszFileName, BOOL bTest /*FALSE*/)		// Note:
 	}
 
 	// Legacy method for reference:
-//	if ( nLength > 8  &&  ! _tcsicmp( lpszFileName + nLength - 8,  _T(".torrent") ) )
-//		return OpenTorrent( lpszFileName );
-//	if (/*nLength > 3 &&*/! _tcsicmp( lpszFileName + nLength - 3,  _T(".co") ) )
-//		return OpenCollection( lpszFileName );
-//	if ( nLength > 11 &&  ! _tcsicmp( lpszFileName + nLength - 11, _T(".collection") ) )
-//		return OpenCollection( lpszFileName );
-//	if ( nLength > 16 &&  ! _tcsicmp( lpszFileName + nLength - 16, _T(".emulecollection") ) )
-//		return OpenCollection( lpszFileName );
-//	if ( nLength > 14 &&  ! _tcsicmp( lpszFileName + nLength - 15, _T("hublist.xml.bz2") ) )
-//		return OpenImport( lpszFileName );
-//	if ( nLength > 8  &&  ! _tcsicmp( lpszFileName + nLength - 8,  _T(".xml.bz2") ) )
-//		return OpenCollection( lpszFileName );
-//	if (/*nLength > 4 &&*/! _tcsicmp( lpszFileName + nLength - 4,  _T(".met") ) )
-//		return OpenImport( lpszFileName );
-//	if (/*nLength > 4 &&*/! _tcsicmp( lpszFileName + nLength - 4,  _T(".dat") ) )
-//		return OpenImport( lpszFileName );
-//	if (/*nLength > 4 &&*/! _tcsicmp( lpszFileName + nLength - 4,  _T(".url") ) )
-//		return OpenInternetShortcut( lpszFileName );
-//	if (/*nLength > 4 &&*/! _tcsicmp( lpszFileName + nLength - 4,  _T(".lnk") ) )
-//		return OpenShellShortcut( lpszFileName );
+	//if ( nLength > 8  &&   _tcsicmp( lpszFileName + nLength - 8,  _T(".torrent") ) == 0 )
+	//	return OpenTorrent( lpszFileName );
+	//if (/*nLength > 3 &&*/ _tcsicmp( lpszFileName + nLength - 3,  _T(".co") ) == 0 )
+	//	return OpenCollection( lpszFileName );
+	//if ( nLength > 11 &&   _tcsicmp( lpszFileName + nLength - 11, _T(".collection") ) == 0 )
+	//	return OpenCollection( lpszFileName );
+	//if ( nLength > 16 &&   _tcsicmp( lpszFileName + nLength - 16, _T(".emulecollection") ) == 0 )
+	//	return OpenCollection( lpszFileName );
+	//if ( nLength > 14 &&   _tcsicmp( lpszFileName + nLength - 15, _T("hublist.xml.bz2") ) == 0 )
+	//	return OpenImport( lpszFileName );
+	//if ( nLength > 8  &&   _tcsicmp( lpszFileName + nLength - 8,  _T(".xml.bz2") ) == 0 )
+	//	return OpenCollection( lpszFileName );
+	//if (/*nLength > 4 &&*/ _tcsicmp( lpszFileName + nLength - 4,  _T(".met") ) == 0 )
+	//	return OpenImport( lpszFileName );
+	//if (/*nLength > 4 &&*/ _tcsicmp( lpszFileName + nLength - 4,  _T(".dat") ) == 0 )
+	//	return OpenImport( lpszFileName );
+	//if (/*nLength > 4 &&*/ _tcsicmp( lpszFileName + nLength - 4,  _T(".url") ) == 0 )
+	//	return OpenInternetShortcut( lpszFileName );
+	//if (/*nLength > 4 &&*/ _tcsicmp( lpszFileName + nLength - 4,  _T(".lnk") ) == 0 )
+	//	return OpenShellShortcut( lpszFileName );
 
 	return OpenURL( lpszFileName, bTest );
 }
@@ -1178,15 +1179,14 @@ BOOL CPeerProjectApp::OpenPath(LPCTSTR lpszFileName)
 	}
 
 	CString strMessage;
-	strMessage.Format( IDS_LIBRARY_ADD_FOLDER, lpszFileName );
+	strMessage.Format( LoadString( IDS_LIBRARY_ADD_FOLDER ), lpszFileName );
 	if ( MsgBox( (LPCTSTR)strMessage, MB_ICONQUESTION|MB_YESNO ) != IDYES )
 		return FALSE;
 
 	if ( LibraryFolders.IsSubFolderShared( (CString)lpszFileName ) )
 	{
-		LoadString( strMessage, IDS_LIBRARY_SUBFOLDER_IN_LIBRARY );
-		strMessage.Format( strMessage, lpszFileName );
-		if ( MsgBox( strMessage, MB_ICONQUESTION|MB_YESNO ) != IDYES );
+		strMessage.Format( LoadString( IDS_LIBRARY_SUBFOLDER_IN_LIBRARY ), lpszFileName );
+		if ( MsgBox( (LPCTSTR)strMessage, MB_ICONQUESTION|MB_YESNO ) != IDYES )
 			return FALSE;
 	}
 
@@ -1200,8 +1200,7 @@ BOOL CPeerProjectApp::OpenPath(LPCTSTR lpszFileName)
 			pFrame->Display( pFolder );
 		}
 
-		LoadString( strMessage, IDS_LIBRARY_DOWNLOADS_SHARE );
-		BOOL bShare = AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO ) == IDYES;
+		BOOL bShare = MsgBox( IDS_LIBRARY_DOWNLOADS_SHARE, MB_ICONQUESTION|MB_YESNO ) == IDYES;
 
 		CQuickLock oLock( Library.m_pSection );
 		if ( LibraryFolders.CheckFolder( pFolder, TRUE ) )
@@ -1729,7 +1728,7 @@ CString GetErrorString(DWORD dwError)
 {
 	LPTSTR MessageBuffer = NULL;
 	CString strMessage;
-	if ( FormatMessage (
+	if ( FormatMessage(
 		FORMAT_MESSAGE_ALLOCATE_BUFFER |
 		FORMAT_MESSAGE_IGNORE_INSERTS |
 		FORMAT_MESSAGE_FROM_SYSTEM,
@@ -1775,9 +1774,9 @@ CString GetErrorString(DWORD dwError)
 
 //void ReportError(DWORD dwError)
 //{
-//	CString sError = GetErrorString( dwError );
-//	theApp.Message( MSG_ERROR, _T("%s"), sError );
-//	AfxMessageBox( sError, MB_OK | MB_ICONEXCLAMATION );
+//	CString strError = GetErrorString( dwError );
+//	theApp.Message( MSG_ERROR, _T("%s"), strError );
+//	MsgBox( strError, MB_OK | MB_ICONEXCLAMATION );
 //}
 
 /////////////////////////////////////////////////////////////////////////////
@@ -2441,7 +2440,7 @@ LRESULT CALLBACK MouseHook(int nCode, WPARAM wParam, LPARAM lParam)
 CString CPeerProjectApp::GetWindowsFolder() const
 {
 	HRESULT hr;
-	CString sWindows;
+	CString strWindows;
 
 	// Vista+
 	if ( m_pfnSHGetKnownFolderPath )
@@ -2451,34 +2450,34 @@ CString CPeerProjectApp::GetWindowsFolder() const
 			KF_FLAG_CREATE | KF_FLAG_INIT, NULL, &pPath );
 		if ( pPath )
 		{
-			sWindows = pPath;
+			strWindows = pPath;
 			CoTaskMemFree( pPath );
 		}
 
-		if ( SUCCEEDED( hr ) && ! sWindows.IsEmpty() )
-			return sWindows;
+		if ( SUCCEEDED( hr ) && ! strWindows.IsEmpty() )
+			return strWindows;
 	}
 
 	// XP
 	if ( m_pfnSHGetFolderPathW )
 	{
 		hr = m_pfnSHGetFolderPathW( NULL, CSIDL_WINDOWS, NULL, NULL,
-			sWindows.GetBuffer( MAX_PATH ) );
-		sWindows.ReleaseBuffer();
-		if ( SUCCEEDED( hr ) && ! sWindows.IsEmpty() )
-			return sWindows;
+			strWindows.GetBuffer( MAX_PATH ) );
+		strWindows.ReleaseBuffer();
+		if ( SUCCEEDED( hr ) && ! strWindows.IsEmpty() )
+			return strWindows;
 	}
 
 	// Legacy
-	GetWindowsDirectory( sWindows.GetBuffer( MAX_PATH ), MAX_PATH );
-	sWindows.ReleaseBuffer();
-	return sWindows;
+	GetWindowsDirectory( strWindows.GetBuffer( MAX_PATH ), MAX_PATH );
+	strWindows.ReleaseBuffer();
+	return strWindows;
 }
 
 CString CPeerProjectApp::GetProgramFilesFolder() const
 {
 	HRESULT hr;
-	CString sProgramFiles;
+	CString strProgramFiles;
 
 	// Vista+
 	if ( m_pfnSHGetKnownFolderPath )
@@ -2488,34 +2487,34 @@ CString CPeerProjectApp::GetProgramFilesFolder() const
 			KF_FLAG_CREATE | KF_FLAG_INIT, NULL, &pPath );
 		if ( pPath )
 		{
-			sProgramFiles = pPath;
+			strProgramFiles = pPath;
 			CoTaskMemFree( pPath );
 		}
 
-		if ( SUCCEEDED( hr ) && ! sProgramFiles.IsEmpty() )
-			return sProgramFiles;
+		if ( SUCCEEDED( hr ) && ! strProgramFiles.IsEmpty() )
+			return strProgramFiles;
 	}
 
 	// XP
 	if ( m_pfnSHGetFolderPathW )
 	{
 		hr = m_pfnSHGetFolderPathW( NULL, CSIDL_PROGRAM_FILES, NULL, NULL,
-			sProgramFiles.GetBuffer( MAX_PATH ) );
-		sProgramFiles.ReleaseBuffer();
-		if ( SUCCEEDED( hr ) && ! sProgramFiles.IsEmpty() )
-			return sProgramFiles;
+			strProgramFiles.GetBuffer( MAX_PATH ) );
+		strProgramFiles.ReleaseBuffer();
+		if ( SUCCEEDED( hr ) && ! strProgramFiles.IsEmpty() )
+			return strProgramFiles;
 	}
 
 	// Legacy
-	sProgramFiles = GetWindowsFolder().Left( 1 ) + _T(":\\Program Files");
+	strProgramFiles = GetWindowsFolder().Left( 1 ) + _T(":\\Program Files");
 
-	return sProgramFiles;
+	return strProgramFiles;
 }
 
 CString CPeerProjectApp::GetDocumentsFolder() const
 {
 	HRESULT hr;
-	CString sDocuments;
+	CString strDocuments;
 
 	// Vista+
 	if ( m_pfnSHGetKnownFolderPath )
@@ -2525,29 +2524,29 @@ CString CPeerProjectApp::GetDocumentsFolder() const
 			KF_FLAG_CREATE | KF_FLAG_INIT, NULL, &pPath );
 		if ( pPath )
 		{
-			sDocuments = pPath;
+			strDocuments = pPath;
 			CoTaskMemFree( pPath );
 		}
 
-		if ( SUCCEEDED( hr ) && ! sDocuments.IsEmpty() )
-			return sDocuments;
+		if ( SUCCEEDED( hr ) && ! strDocuments.IsEmpty() )
+			return strDocuments;
 	}
 
 	// XP
 	if ( m_pfnSHGetFolderPathW )
 	{
 		hr = m_pfnSHGetFolderPathW( NULL, CSIDL_PERSONAL, NULL, NULL,
-			sDocuments.GetBuffer( MAX_PATH ) );
-		sDocuments.ReleaseBuffer();
-		if ( SUCCEEDED( hr ) && ! sDocuments.IsEmpty() )
-			return sDocuments;
+			strDocuments.GetBuffer( MAX_PATH ) );
+		strDocuments.ReleaseBuffer();
+		if ( SUCCEEDED( hr ) && ! strDocuments.IsEmpty() )
+			return strDocuments;
 	}
 
 	// Legacy
-	sDocuments = CRegistry::GetString( _T("Shell Folders"), _T("Personal"),
+	strDocuments = CRegistry::GetString( _T("Shell Folders"), _T("Personal"),
 		_T(""), _T("Software\\Microsoft\\Windows\\CurrentVersion\\Explorer") );
 
-	return sDocuments;
+	return strDocuments;
 }
 
 CString CPeerProjectApp::GetDownloadsFolder() const
@@ -2580,7 +2579,7 @@ CString CPeerProjectApp::GetDownloadsFolder() const
 CString CPeerProjectApp::GetAppDataFolder() const
 {
 	HRESULT hr;
-	CString sAppData;
+	CString strAppData;
 
 	// Vista+
 	if ( m_pfnSHGetKnownFolderPath )
@@ -2590,35 +2589,35 @@ CString CPeerProjectApp::GetAppDataFolder() const
 			KF_FLAG_CREATE | KF_FLAG_INIT, NULL, &pPath );
 		if ( pPath )
 		{
-			sAppData = pPath;
+			strAppData = pPath;
 			CoTaskMemFree( pPath );
 		}
 
-		if ( SUCCEEDED( hr ) && ! sAppData.IsEmpty() )
-			return sAppData;
+		if ( SUCCEEDED( hr ) && ! strAppData.IsEmpty() )
+			return strAppData;
 	}
 
 	// XP
 	if ( m_pfnSHGetFolderPathW )
 	{
 		hr = m_pfnSHGetFolderPathW( NULL, CSIDL_APPDATA, NULL, NULL,
-			sAppData.GetBuffer( MAX_PATH ) );
-		sAppData.ReleaseBuffer();
-		if ( SUCCEEDED( hr ) && ! sAppData.IsEmpty() )
-			return sAppData;
+			strAppData.GetBuffer( MAX_PATH ) );
+		strAppData.ReleaseBuffer();
+		if ( SUCCEEDED( hr ) && ! strAppData.IsEmpty() )
+			return strAppData;
 	}
 
 	// Legacy
-	sAppData = CRegistry::GetString( _T("Shell Folders"), _T("AppData"),
+	strAppData = CRegistry::GetString( _T("Shell Folders"), _T("AppData"),
 		_T(""), _T("Software\\Microsoft\\Windows\\CurrentVersion\\Explorer") );
 
-	return sAppData;
+	return strAppData;
 }
 
 CString CPeerProjectApp::GetLocalAppDataFolder() const
 {
 	HRESULT hr;
-	CString sLocalAppData;
+	CString strLocalAppData;
 
 	// Vista+
 	if ( m_pfnSHGetKnownFolderPath )
@@ -2628,28 +2627,28 @@ CString CPeerProjectApp::GetLocalAppDataFolder() const
 			KF_FLAG_CREATE | KF_FLAG_INIT, NULL, &pPath );
 		if ( pPath )
 		{
-			sLocalAppData = pPath;
+			strLocalAppData = pPath;
 			CoTaskMemFree( pPath );
 		}
-		if ( SUCCEEDED( hr ) && ! sLocalAppData.IsEmpty() )
-			return sLocalAppData;
+		if ( SUCCEEDED( hr ) && ! strLocalAppData.IsEmpty() )
+			return strLocalAppData;
 	}
 
 	// XP
 	if ( m_pfnSHGetFolderPathW )
 	{
 		hr = m_pfnSHGetFolderPathW( NULL, CSIDL_LOCAL_APPDATA, NULL, NULL,
-			sLocalAppData.GetBuffer( MAX_PATH ) );
-		sLocalAppData.ReleaseBuffer();
-		if ( SUCCEEDED( hr ) && ! sLocalAppData.IsEmpty() )
-			return sLocalAppData;
+			strLocalAppData.GetBuffer( MAX_PATH ) );
+		strLocalAppData.ReleaseBuffer();
+		if ( SUCCEEDED( hr ) && ! strLocalAppData.IsEmpty() )
+			return strLocalAppData;
 	}
 
 	// Legacy
-	sLocalAppData = CRegistry::GetString( _T("Shell Folders"), _T("Local AppData"),
+	strLocalAppData = CRegistry::GetString( _T("Shell Folders"), _T("Local AppData"),
 		_T(""), _T("Software\\Microsoft\\Windows\\CurrentVersion\\Explorer") );
-	if ( ! sLocalAppData.IsEmpty() )
-		return sLocalAppData;
+	if ( ! strLocalAppData.IsEmpty() )
+		return strLocalAppData;
 
 	// Failsafe
 	return GetAppDataFolder();
@@ -2699,10 +2698,10 @@ CString SafeFilename(CString strName, bool bPath)
 		strName.SetAt( nChar, _T('_') );
 	}
 
-	LPCTSTR szExt = PathFindExtension( strName );
-	int nExtLen = lstrlen( szExt );
-
 	// Limit maximum filepath length (Obsolete)
+	//LPCTSTR szExt = PathFindExtension( strName );
+	//int nExtLen = lstrlen( szExt );
+	//
 	//int nMaxFilenameLength = MAX_PATH - 1 - max( max(
 	//	Settings.Downloads.IncompletePath.GetLength(),
 	//	Settings.Downloads.CompletePath.GetLength() ),
@@ -2861,9 +2860,9 @@ BOOL DeleteFileEx(LPCTSTR szFileName, BOOL bShared, BOOL bToRecycleBin, BOOL bEn
 			if ( bEnableDelayed )
 			{
 				// Set delayed deletion
-				CString sJob;
-				sJob.Format( _T("%d%d"), bShared, bToRecycleBin );
-				theApp.WriteProfileString( _T("Delete"), szPath + nPrefix, sJob );
+				CString strJob;
+				strJob.Format( _T("%d%d"), bShared, bToRecycleBin );
+				theApp.WriteProfileString( _T("Delete"), szPath + nPrefix, strJob );
 			}
 			return FALSE;
 		}
@@ -2973,7 +2972,7 @@ CString LoadRichHTML(UINT nResourceID, CString& strResponse, CPeerProjectFile* p
 	strResponse	= strBody.Left( nBreak + ( bWindowsEOL ? 2 : 1 ) );
 	strBody = strBody.Mid( nBreak + ( bWindowsEOL ? 2 : 1 ) );
 
-	for (;;)
+	for ( ;; )
 	{
 		int nStart = strBody.Find( _T("<%") );
 		if ( nStart < 0 ) break;
@@ -2993,7 +2992,7 @@ CString LoadRichHTML(UINT nResourceID, CString& strResponse, CPeerProjectFile* p
 		else if ( strReplace.CompareNoCase( _T("Name") ) == 0 )
 			strReplace = pFile ? pFile->m_sName : _T("");
 		else if ( strReplace.CompareNoCase( _T("SHA1") ) == 0 )
-            strReplace = pFile ? pFile->m_oSHA1.toString() : _T("");
+			strReplace = pFile ? pFile->m_oSHA1.toString() : _T("");
 		else if ( strReplace.CompareNoCase( _T("URN") ) == 0 )
 			strReplace = pFile ? pFile->m_oSHA1.toUrn() : _T("");
 		else if ( strReplace.CompareNoCase( _T("Version") ) == 0 )
@@ -3418,9 +3417,7 @@ static int CALLBACK BrowseCallbackProc(HWND hWnd, UINT uMsg, LPARAM lParam, LPAR
 // Displays a dialog box enabling the user to select a Shell folder
 CString BrowseForFolder(UINT nTitle, LPCTSTR szInitialPath, HWND hWnd)
 {
-	CString strTitle;
-	LoadString( strTitle, nTitle );
-	return BrowseForFolder( strTitle, szInitialPath, hWnd );
+	return BrowseForFolder( LoadString( nTitle ), szInitialPath, hWnd );
 }
 
 // Displays a dialog box enabling the user to select a Shell folder
@@ -3619,7 +3616,7 @@ INT_PTR MsgBox(LPCTSTR lpszText, UINT nType, UINT nIDHelp, DWORD* pnDefault, DWO
 
 INT_PTR MsgBox(UINT nIDPrompt, UINT nType, UINT nIDHelp, DWORD* pnDefault, DWORD nTimer)
 {
-	return MsgBox( LoadString( nIDPrompt ), nType, nIDHelp, pnDefault, nTimer );
+	return MsgBox( (LPCTSTR)LoadString( nIDPrompt ), nType, nIDHelp, pnDefault, nTimer );
 }
 
 /////////////////////////////////////////////////////////////////////////////

@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -29,13 +29,14 @@
 #include "DlgMediaVis.h"
 #include "CoolInterface.h"
 #include "Colors.h"
+#include "Images.h"
 #include "Skin.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
-static char THIS_FILE[]=__FILE__;
+static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 // ToDo: Make these skinnable options ?
 //#define SPLIT_SIZE	6				// Settings.Skin.Splitter
@@ -278,7 +279,7 @@ BOOL CMediaFrame::PreTranslateMessage(MSG* pMsg)
 {
 	if ( pMsg->message == WM_KEYDOWN )
 	{
-		switch( pMsg->wParam )
+		switch ( pMsg->wParam )
 		{
 		case VK_ESCAPE:
 			if ( m_bFullScreen )
@@ -612,14 +613,14 @@ void CMediaFrame::PaintSplash(CDC& dc, CRect& /*rcBar*/)
 void CMediaFrame::PaintListHeader(CDC& dc, CRect& rcBar)
 {
 	CString strText;
-	CPoint pt = rcBar.CenterPoint();
 	LoadString( strText, IDS_MEDIA_PLAYLIST );
 	CSize szText = dc.GetTextExtent( strText );
+	CPoint pt = rcBar.CenterPoint();
 	pt.x -= szText.cx / 2;
 	pt.y -= szText.cy / 2 + 1;
 
 	CBitmap bmHeader;
-	if ( Skin.GetWatermark( &bmHeader, _T("CMediaList.Header") ) )
+	if ( Skin.GetWatermark( &bmHeader, _T("CMediaList.Header") ) )	// ToDo: Load once
 	{
 		if ( CoolInterface.DrawWatermark( &dc, &rcBar, &bmHeader ) )
 		{
@@ -650,12 +651,11 @@ void CMediaFrame::PaintStatus(CDC& dc, CRect& rcBar)
 	CString str;
 	CSize sz;
 
-	CBitmap bmStatusBar;
 	BOOL bSkinned = FALSE;
 
-	//if ( Skin.m_bmMediaStatusBar.m_hObject )	// Called every OnPaint, ToDo: Persistent Skin member + double-buffer?
-	if ( Skin.GetWatermark( &bmStatusBar, _T("CMediaFrame.StatusBar") ) )
-		bSkinned = CoolInterface.DrawWatermark( &dc, &rcBar, &bmStatusBar );	// Causes Flicker Below
+	//if ( Skin.GetWatermark( &bmStatusBar, _T("CMediaFrame.StatusBar") ) )
+	if ( Images.m_bmMediaStatusBar.m_hObject )
+		bSkinned = CoolInterface.DrawWatermark( &dc, &rcBar, &Images.m_bmMediaStatusBar );
 
 	int nState = 0;
 	if ( m_nState >= smsPlaying )
@@ -719,9 +719,7 @@ void CMediaFrame::PaintStatus(CDC& dc, CRect& rcBar)
 
 	if ( m_nState >= smsOpen )
 	{
-		CString strFormat;
-		LoadString( strFormat, IDS_MEDIA_TIMESPLIT );
-		strFormat = _T("%.2i:%.2i") + strFormat + _T("%.2i:%.2i");
+		CString strFormat = _T("%.2i:%.2i") + LoadString( IDS_MEDIA_TIMESPLIT ) + _T("%.2i:%.2i");
 		if ( Settings.General.LanguageRTL ) strFormat = _T("\x200F") + strFormat;
 
 		str.Format( strFormat,
@@ -756,9 +754,7 @@ BOOL CMediaFrame::PaintStatusMicro(CDC& dc, CRect& rcBar)
 	DWORD dwOptions = Settings.General.LanguageRTL ? DT_RTLREADING : 0;
 	if ( m_nState >= smsOpen )
 	{
-		CString strFormat;
-		LoadString( strFormat, IDS_MEDIA_TIMESPLIT );
-		strFormat = _T("%.2i:%.2i") + strFormat + _T("%.2i:%.2i");
+		CString strFormat = _T("%.2i:%.2i") + LoadString( IDS_MEDIA_TIMESPLIT ) + _T("%.2i:%.2i");
 		if ( Settings.General.LanguageRTL ) strFormat = _T("\x200F") + strFormat;
 
 		str.Format( strFormat,
@@ -1591,7 +1587,7 @@ BOOL CMediaFrame::Prepare()
 		pCursor.Restore();
 		CString strMessage;
 		Skin.LoadString( strMessage, IDS_MEDIA_PLUGIN_CREATE );
-		AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
+		MsgBox( strMessage, MB_ICONEXCLAMATION );
 		return FALSE;
 	}
 

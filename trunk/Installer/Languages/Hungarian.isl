@@ -1,26 +1,24 @@
-; Inno Setup 5.1.11+ Hungarian Messages (PeerProject: hu)
+; *** Inno Setup 5.5.0+ Hungarian Messages (PeerProject: hu)
 ; with "a(z)" definite articles
 
 ; Copyright (C) 1999-2008 Kornél Pál (kornelpal@gmail.com)
 ; Hungarian Inno Setup translation home page: http://www.kornelpal.hu/ishu
 ;
-; You can download the versions with "a" and "az" definite articles 
+; You can download the versions with "a" and "az" definite articles
 ; and read about the usage of different Hungarian definite articles on this page.
 ;
 ; For conditions of use and distribution see Readme.htm file contained in the
 ; Hungarian Inno Setup messages package available on the above home page.
-; http://www.jrsoftware.org/files/istrans/ (user-contributed translations) 
 ;
-; Note: Do not add periods (.) to messages that don't have them already,
-; because for those messages Inno Setup adds the periods automatically.
-; (appending a period will result in two periods being displayed.)
+; Note: Do not add periods (.), where added automatically.
 
 [LangOptions]
-; The following three entries are very important. Be sure to read and 
+; The following three entries are very important. Be sure to read and
 ; understand the '[LangOptions] section' topic in the help file.
 LanguageName=Magyar
 LanguageID=$040E
 LanguageCodePage=1250
+
 ; If the language you are translating to requires special font faces or sizes,
 ; uncomment any of the following entries and change them accordingly.
 ;DialogFontName=
@@ -55,6 +53,10 @@ LastErrorMessage=%1.%n%nHiba %2: %3
 SetupFileMissing=A(z) %1 fájl hiányzik a telepítõ könyvtárából. Hárítsa el a hibát, vagy szerezzen be egy új másolatot a programról.
 SetupFileCorrupt=A telepítõ fájlok megsérültek. Szerezzen be egy új másolatot a programról.
 SetupFileCorruptOrWrongVer=A telepítõ fájlok megsérültek, vagy nem kompatibilisek a Telepítõ jelen verziójával. Hárítsa el a hibát, vagy szerezzen be egy új másolatot a programról.
+InvalidParameter=Az egyik parancssorban átadott paraméter érvénytelen:%n%n%1
+SetupAlreadyRunning=A Telepítõ már fut.
+WindowsVersionNotSupported=A program nem támogatja a Windows számítógépén futó verzióját.
+WindowsServicePackRequired=A program futtatásához %1 Service Pack %2 vagy késõbbi verzió szükséges.
 NotOnThisPlatform=Ez a program nem futtatható %1 alatt.
 OnlyOnThisPlatform=Ezt a programot %1 alatt kell futtatni.
 OnlyOnTheseArchitectures=Ezt a programot csak a Windows következõ processzorarchitektúrákhoz tervezett változataira lehet telepíteni:%n%n%1
@@ -77,7 +79,7 @@ AboutSetupMenuItem=&Névjegy...
 AboutSetupTitle=Telepítõ névjegye
 AboutSetupMessage=%1 %2 verzió%n%3%n%nAz %1 honlapja:%n%4
 AboutSetupNote=
-TranslatorNote=Magyar változat:%nCopyright (C) 1999-2008 Pál Kornél%nMinden jog fenntartva.%n%nMagyar Inno Setup oldal:%nhttp://www.palkornel.hu/innosetup
+TranslatorNote=Magyar változat:%nCopyright (C) 1999-2012 Pál Kornél%nMinden jog fenntartva.%n%nMagyar Inno Setup oldal:%nhttp://www.palkornel.hu/innosetup
 
 ; *** Buttons
 ButtonBack=< &Vissza
@@ -145,7 +147,8 @@ SelectDirDesc=Hova kerüljön telepítésre a(z) [name]?
 SelectDirLabel3=A Telepítõ a(z) [name] alkalmazást a következõ mappába fogja telepíteni.
 SelectDirBrowseLabel=A folytatáshoz kattintson a Tovább gombra. Másik mappa kiválasztásához kattintson a Tallózás gombra.
 DiskSpaceMBLabel=Legalább [mb] MB szabad lemezterületre van szükség.
-ToUNCPathname=A Telepítõ nem tud hálózati útvonalra telepíteni. Ha hálózatra kíván telepíteni, csatlakoztatnia kell egy hálózati meghajtót.
+CannotInstallToNetworkDrive=A Telepítõ nem tud hálózati meghajtóra telepíteni.
+CannotInstallToUNCPath=A Telepítõ nem tud hálózati UNC elérési útra telepíteni.
 InvalidPath=Teljes útvonalat írjon be a meghajtó betûjelével; például:%n%nC:\Alkalmazás%n%nvagy egy hálózati útvonalat a következõ alakban:%n%n\\kiszolgáló\megosztás
 InvalidDrive=A kiválasztott meghajtó vagy hálózati megosztás nem létezik vagy nem érhetõ el. Válasszon másikat.
 DiskSpaceWarningTitle=Nincs elég szabad lemezterület a meghajtón
@@ -205,6 +208,10 @@ WizardPreparing=Felkészülés a telepítésre
 PreparingDesc=A Telepítõ felkészül a(z) [name] számítógépére történõ telepítésére.
 PreviousInstallNotCompleted=Egy korábbi program telepítése/eltávolítása nem fejezõdött be. Újra kell indítania a számítógépét a másik telepítés befejezéséhez.%n%nA számítógépe újraindítása után ismét futtassa a Telepítõt a(z) [name] telepítésének befejezéséhez.
 CannotContinue=A telepítés nem folytatható. A kilépéshez kattintson a Mégse gombra.
+ApplicationsFound=A következõ alkalmazások olyan fájlokat használnak, amelyeket a Telepítõnek frissíteni kell. Ajánlott, hogy engedélyezze a Telepítõnek ezen alkalmazások automatikus bezárását.
+ApplicationsFound2=A következõ alkalmazások olyan fájlokat használnak, amelyeket a Telepítõnek frissíteni kell. Ajánlott, hogy engedélyezze a Telepítõnek ezen alkalmazások automatikus bezárását. A telepítés befejezése után a Telepítõ megkísérli az alkalmazások újraindítását.
+CloseApplications=&Alkalmazások automatikus bezárása
+DontCloseApplications=&Ne zárja be az alkalmazásokat
 
 ; *** "Installing" wizard page
 WizardInstalling=Telepítés állapota
@@ -237,6 +244,7 @@ SetupAborted=A telepítés nem fejezõdött be.%n%nHárítsa el a hibát, és futtassa ú
 EntryAbortRetryIgnore=Kilépés: megszakítás, Ismét: megismétlés, Tovább: folytatás
 
 ; *** Installation status messages
+StatusClosingApplications=Alkalmazások bezárása...
 StatusCreateDirs=Könyvtárak létrehozása...
 StatusExtractFiles=Fájlok kibontása...
 StatusCreateIcons=Parancsikonok létrehozása...
@@ -245,6 +253,7 @@ StatusCreateRegistryEntries=Rendszerleíró bejegyzések létrehozása...
 StatusRegisterFiles=Fájlok regisztrálása...
 StatusSavingUninstall=Eltávolító információk mentése...
 StatusRunProgram=Telepítés befejezése...
+StatusRestartingApplications=Alkalmazások újraindítása...
 StatusRollback=Változtatások visszavonása...
 
 ; *** Misc. errors
@@ -279,7 +288,7 @@ ErrorReplacingExistingFile=Hiba lépett fel a létezõ fájl cseréje közben:
 ErrorRestartReplace=A fájl cseréje az újraindítás után sikertelen volt:
 ErrorRenamingTemp=Hiba lépett fel fájl telepítési könyvtárban történõ átnevezése közben:
 ErrorRegisterServer=Nem lehet regisztrálni a DLL-t/OCX-et: %1
-ErrorRegSvr32Failed=sikertelen RegSvr32. A visszaadott kód: %1
+ErrorRegSvr32Failed=Sikertelen RegSvr32. A visszaadott kód: %1
 ErrorRegisterTypeLib=Nem lehet regisztrálni a típustárat: %1
 
 ; *** Post-installation errors
@@ -308,8 +317,12 @@ SharedFileLocationLabel=Helye:
 WizardUninstalling=Eltávolítás állapota
 StatusUninstalling=%1 eltávolítása...
 
-; The custom messages below aren't used by Setup itself, but if you make
-; use of them in your scripts, you'll want to translate them.
+; *** Shutdown block reasons
+ShutdownBlockReasonInstallingApp=%1 telepítése.
+ShutdownBlockReasonUninstallingApp=%1 eltávolítása.
+
+; The custom messages below aren't used by Setup itself,
+; but if you make use of them in your scripts, you'll want to translate them.
 
 [CustomMessages]
 
@@ -322,3 +335,6 @@ UninstallProgram=%1 eltávolítása
 LaunchProgram=%1 elindítása
 AssocFileExtension=A(z) %1 &társítása a(z) %2 fájlkiterjesztéssel
 AssocingFileExtension=A(z) %1 társítása a(z) %2 fájlkiterjesztéssel...
+AutoStartProgramGroupDescription=Indítópult:
+AutoStartProgram=%1 automatikus indítása
+AddonHostProgramNotFound=A(z) %1 nem található a kiválasztott mappában.%n%nMindenképpen folytatni kívánja?

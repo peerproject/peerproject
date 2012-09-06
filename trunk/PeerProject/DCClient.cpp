@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2010-2012
 // Portions copyright Shareaza Development Team, 2010.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -36,9 +36,9 @@
 
 #ifdef _DEBUG
 #undef THIS_FILE
-static char THIS_FILE[]=__FILE__;
+static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 CDCClient::CDCClient(const IN_ADDR* pHubAddress, WORD nHubPort, LPCTSTR szNick, LPCTSTR szRemoteNick)
 	: CTransfer				( PROTOCOL_DC )
@@ -217,17 +217,17 @@ BOOL CDCClient::Connect()
 
 BOOL CDCClient::ConnectTo(const IN_ADDR* pAddress, WORD nPort)
 {
-	CString sHost( inet_ntoa( *pAddress ) );
+	CString strHost( inet_ntoa( *pAddress ) );
 
 	if ( CTransfer::ConnectTo( pAddress, nPort ) )
 	{
 		WSAEventSelect( m_hSocket, Network.GetWakeupEvent(), FD_CONNECT | FD_READ | FD_WRITE | FD_CLOSE );
 
-		theApp.Message( MSG_INFO, IDS_CONNECTION_ATTEMPTING, (LPCTSTR)sHost, htons( m_pHost.sin_port ) );
+		theApp.Message( MSG_INFO, IDS_CONNECTION_ATTEMPTING, (LPCTSTR)strHost, htons( m_pHost.sin_port ) );
 	}
 	else
 	{
-		theApp.Message( MSG_ERROR, IDS_CONNECTION_CONNECT_FAIL, (LPCTSTR)sHost );
+		theApp.Message( MSG_ERROR, IDS_CONNECTION_CONNECT_FAIL, (LPCTSTR)strHost );
 		return FALSE;
 	}
 
@@ -443,11 +443,10 @@ BOOL CDCClient::OnCommand(const std::string& strCommand, const std::string& strP
 	if ( strCommand == "$Error" )
 		return OnError( strParams );
 
-	if (
-		strCommand == "$GetZBlock" ||
-		strCommand == "$UGetBlock" ||
-		strCommand == "$UGetZBlock" ||
-		strCommand == "$GetListLen" )
+	if ( strCommand == "$GetZBlock" ||
+		 strCommand == "$UGetBlock" ||
+		 strCommand == "$UGetZBlock" ||
+		 strCommand == "$GetListLen" )
 	{
 		Write( _P("$Error Command not supported. Use ADCGET/ADCSND instead|") );
 	}

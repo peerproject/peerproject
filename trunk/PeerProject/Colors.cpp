@@ -3,15 +3,15 @@
 //
 // This file is part of PeerProject (peerproject.org) © 2009-2012
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -20,9 +20,9 @@
 
 #ifdef _DEBUG
 #undef THIS_FILE
-static char THIS_FILE[]=__FILE__;
+static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 CColors Colors;
 
@@ -69,7 +69,7 @@ void CColors::CalculateColors(BOOL bCustom)
 
 	m_crDialog					= CalculateColor( m_crSysBtnFace, m_crSysWindow, 100 );
 	m_crDialogText				= RGB( 0, 0, 0 );
-	m_crDialogMenu  			= m_crWindow;
+	m_crDialogMenu				= m_crWindow;
 	m_crDialogMenuText			= m_crText;
 	m_crDialogPanel 			= m_crWindow;
 	m_crDialogPanelText			= m_crText;
@@ -113,7 +113,7 @@ void CColors::CalculateColors(BOOL bCustom)
 	m_crMediaStatusBack			= RGB( 0x1B, 0x1D, 0x20 );
 	m_crMediaStatusText			= RGB( 254, 254, 254 );
 	m_crMediaPanelBack 			= RGB( 0x1A, 0x18, 0x16 );
-	m_crMediaPanelText  		= RGB( 0x68, 0x62, 0x5A );
+	m_crMediaPanelText			= RGB( 0x68, 0x62, 0x5A );
 	m_crMediaPanelActiveBack	= RGB( 0x1C, 0x1B, 0x1A );
 	m_crMediaPanelActiveText	= RGB( 0xFF, 0xFF, 0xFF );
 	m_crMediaPanelCaptionBack	= RGB( 0x34, 0x32, 0x32 );
@@ -148,21 +148,21 @@ void CColors::CalculateColors(BOOL bCustom)
 	m_crRichdocHeading 			= RGB( 180, 50, 10 );
 	m_crTextAlert 				= RGB( 255, 0, 0 );
 	m_crTextStatus 				= RGB( 0, 128, 0 );
-	m_crTextLink  				= RGB( 0, 0, 255 );
+	m_crTextLink				= RGB( 0, 0, 255 );
 	m_crTextLinkHot				= RGB( 255, 0, 0 );
 
 	m_crChatIn					= RGB( 0, 0, 255 );
 	m_crChatOut					= RGB( 255, 0, 0 );
 	m_crChatNull				= RGB( 128, 128, 128 );
-	m_crSearchExists  			= RGB( 0, 128, 0 );
+	m_crSearchExists			= RGB( 0, 128, 0 );
 	m_crSearchExistsHit			= RGB( 0, 64, 0 );
 	m_crSearchExistsSelected	= RGB( 0, 255, 0 );
 	m_crSearchGhostrated		= RGB( 200, 90, 0 );
 	m_crSearchQueued 			= RGB( 0, 0, 160 );
 	m_crSearchQueuedHit			= RGB( 0, 0, 100 );
 	m_crSearchQueuedSelected	= GetSysColor( COLOR_HIGHLIGHTTEXT );
-	m_crSearchNull  			= m_crSys3DShadow;
-	//m_crSearchTorrent  		= CalculateColor( m_crWindow, RGB( 244, 242, 240 ), 10 );
+	m_crSearchNull				= m_crSys3DShadow;
+	//m_crSearchTorrent 		= CalculateColor( m_crWindow, RGB( 244, 242, 240 ), 10 );
 	//m_crSearchCollection 		= CalculateColor( m_crWindow, RGB( 254, 120, 10 ), 25 );
 	//m_crSearchHighrated 		= CalculateColor( m_crWindow, RGB( 255, 250, 50 ), 20 );
 	m_crTransferSource			= RGB( 30, 30, 30 );
@@ -173,9 +173,9 @@ void CColors::CalculateColors(BOOL bCustom)
 	m_crTransferCompletedSelected	= RGB( 0, 255, 0 );
 	m_crTransferVerifyPassSelected	= RGB( 0, 255, 0 );
 	m_crTransferVerifyFailSelected	= RGB( 255, 0, 0 );
-	m_crNetworkNull  			= RGB( 192, 192, 192 );
-	m_crNetworkG1  				= RGB( 80, 80, 80 );
-	m_crNetworkG2  				= RGB( 100, 100, 255 );
+	m_crNetworkNull 			= RGB( 192, 192, 192 );
+	m_crNetworkG1				= RGB( 80, 80, 80 );
+	m_crNetworkG2				= RGB( 100, 100, 255 );
 	m_crNetworkED2K				= RGB( 128, 128, 0 );
 	m_crNetworkDC				= RGB( 128, 192, 20 );
 	m_crNetworkUp				= RGB( 128, 0, 0 );

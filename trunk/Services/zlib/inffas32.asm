@@ -12,9 +12,9 @@
 ; * the gcc -S output of zlib-1.2.0/inffast.c.  Zlib-1.2.0 is in beta release at
 ; * the moment.  I have successfully compiled and tested this code with gcc2.96,
 ; * gcc3.2, icc5.0, msvc6.0.  It is very close to the speed of inffast.S
-; * compiled with gcc -DNO_MMX, but inffast.S is still faster on the P3 with MMX
-; * enabled.  I will attempt to merge the MMX code into this version.  Newer
-; * versions of this and inffast.S can be found at
+; * compiled with gcc -DNO_MMX, but inffast.S is still faster on the P3 with
+; * MMX enabled.  I will attempt to merge the MMX code into this version.
+; * Newer versions of this and inffast.S can be found at
 ; * http://www.eetbeetee.com/zlib/ and http://www.charm.net/~christop/zlib/
 ; *
 ; * 2005 : modification by Gilles Vollant
@@ -23,7 +23,6 @@
 ;   ml.exe is in directory \MASM611C of Win95 DDK
 ;   ml.exe is also distributed in http://www.masm32.com/masmdl.htm
 ;    and in VC++2003 toolkit at http://msdn.microsoft.com/visualc/vctoolkit2003/
-;
 ;
 ;   compile with command line option
 ;   ml  /coff /Zi /c /Flinffas32.lst inffas32.asm
@@ -73,11 +72,6 @@ inflate_fast_use_mmx:
 
 
 _TEXT			segment
-PUBLIC _inflate_fast
-
-ALIGN 4
-_inflate_fast:
-	jmp inflate_fast_entry
 
 
 
@@ -163,7 +157,8 @@ distbits_state	 equ	(76+4+zlib1222sup)	;/* state->distbits */
 ;SECTION .text
 
 ALIGN 4
-inflate_fast_entry:
+_inflate_fast proc near
+.FPO (16, 4, 0, 0, 1, 0)
 	push  edi
 	push  esi
 	push  ebp
@@ -1078,6 +1073,7 @@ L_done:
 	pop  esi
 	pop  edi
 	ret
+_inflate_fast endp
 
 _TEXT	ends
 end

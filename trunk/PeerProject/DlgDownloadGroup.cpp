@@ -1,18 +1,18 @@
 //
 // DlgDownloadGroup.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -35,7 +35,7 @@
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 BEGIN_MESSAGE_MAP(CDownloadGroupDlg, CSkinDialog)
 	ON_BN_CLICKED(IDC_DOWNLOADS_BROWSE, &CDownloadGroupDlg::OnBrowse)
@@ -255,14 +255,14 @@ void CDownloadGroupDlg::OnBrowse()
 	{
 		CString strMessage;
 		LoadString( strMessage, IDS_SETTINGS_FILEPATH_NOT_SAME );
-		AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
+		MsgBox( strMessage, MB_ICONEXCLAMATION );
 		return;
 	}
 
 	// If the group folder and download folders are the same, use the default download folder
-	CString sSchema = m_wndSchemas.GetSelectedURI();
-	if ( sSchema != CSchema::uriBitTorrent &&
-		 sSchema != CSchema::uriCollection &&
+	CString strSchema = m_wndSchemas.GetSelectedURI();
+	if ( strSchema != CSchema::uriBitTorrent &&
+		 strSchema != CSchema::uriCollection &&
 		! strPath.CompareNoCase( Settings.Downloads.CompletePath ) )
 		m_sFolder.Empty();
 	else
@@ -275,10 +275,10 @@ void CDownloadGroupDlg::OnBnClickedDownloadDefault()
 {
 	UpdateData();
 
-	CString sSchema = m_wndSchemas.GetSelectedURI();
-	if ( sSchema == CSchema::uriBitTorrent )
+	CString strSchema = m_wndSchemas.GetSelectedURI();
+	if ( strSchema == CSchema::uriBitTorrent )
 		m_sFolder = Settings.Downloads.TorrentPath;
-	else if ( sSchema == CSchema::uriCollection )
+	else if ( strSchema == CSchema::uriCollection )
 		m_sFolder = Settings.Downloads.CollectionPath;
 	else if ( m_pGroup == DownloadGroups.GetSuperGroup() )
 		m_sFolder = theApp.GetDownloadsFolder();
@@ -350,7 +350,7 @@ void CDownloadGroupDlg::OnOK()
 			LoadString( strFormat, IDS_LIBRARY_DOWNLOADS_ADD );
 			strMessage.Format( strFormat, (LPCTSTR)m_sFolder );
 
-			BOOL bAdd = ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO ) == IDYES );
+			BOOL bAdd = ( MsgBox( strMessage, MB_ICONQUESTION|MB_YESNO ) == IDYES );
 			if ( bAdd )
 			{
 				if ( LibraryFolders.IsSubFolderShared( m_sFolder ) )
@@ -358,7 +358,7 @@ void CDownloadGroupDlg::OnOK()
 					LoadString( strFormat, IDS_LIBRARY_SUBFOLDER_IN_LIBRARY );
 					strMessage.Format( strFormat, (LPCTSTR)m_sFolder );
 
-					bAdd = ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO ) == IDYES );
+					bAdd = ( MsgBox( strMessage, MB_ICONQUESTION|MB_YESNO ) == IDYES );
 					if ( bAdd )
 					{
 						CLibraryFolder* pFolder;
@@ -383,7 +383,7 @@ void CDownloadGroupDlg::OnOK()
 					{
 						LoadString( strMessage, IDS_LIBRARY_DOWNLOADS_SHARE );
 
-						BOOL bShare = AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO ) == IDYES;
+						BOOL bShare = MsgBox( strMessage, MB_ICONQUESTION|MB_YESNO ) == IDYES;
 
 						CQuickLock oLock( Library.m_pSection );
 						if ( LibraryFolders.CheckFolder( pFolder, TRUE ) )

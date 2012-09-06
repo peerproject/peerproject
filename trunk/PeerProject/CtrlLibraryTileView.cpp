@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -25,17 +25,18 @@
 #include "LibraryFolders.h"
 #include "AlbumFolder.h"
 #include "DlgFolderProperties.h"
-#include "Schema.h"
-#include "Colors.h"
 #include "CoolInterface.h"
+#include "Colors.h"
+#include "Images.h"
 #include "ShellIcons.h"
+#include "Schema.h"
 #include "Skin.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 //#define ICONGRID_X 222	// Settings.Skin.LibIconsX
 //#define ICONGRID_Y 56		// Settings.Skin.LibIconsY
@@ -460,16 +461,15 @@ void CLibraryTileView::UpdateScroll()
 
 	if ( m_nColumns == 0 ) return;
 
-	SCROLLINFO pInfo;
 	CRect rc;
-
 	GetClientRect( &rc );
 
+	SCROLLINFO pInfo = {};
 	pInfo.cbSize	= sizeof(pInfo);
 	pInfo.fMask		= SIF_ALL & ~SIF_TRACKPOS;
 	pInfo.nMin		= 0;
 	pInfo.nMax		= (int)( ( size() + m_nColumns - 1 ) / m_nColumns ) * m_szBlock.cy;
-	pInfo.nPage		= rc.Height();;
+	pInfo.nPage		= rc.Height();
 	pInfo.nPos		= m_nScroll = max( 0, min( m_nScroll, pInfo.nMax - (int)pInfo.nPage + 1 ) );
 
 	SetScrollInfo( SB_VERT, &pInfo, TRUE );
@@ -974,7 +974,7 @@ void CLibraryTileItem::Paint(CDC* pDC, const CRect& rcBlock, CDC* /*pMemDC*/, BO
 	rc.left += 48 + 5;
 	rc.DeflateRect( 10, 5 );
 
-	BOOL bSelectmark = m_bSelected && Skin.m_bmSelected.m_hObject != NULL;
+	BOOL bSelectmark = m_bSelected && Images.m_bmSelected.m_hObject != NULL;
 
 	if ( m_bSelected )
 	{
@@ -1021,13 +1021,13 @@ void CLibraryTileItem::Paint(CDC* pDC, const CRect& rcBlock, CDC* /*pMemDC*/, BO
 			rcUnion.left -= 4;
 			rcUnion.right += 4;
 			rcUnion.bottom += 2;
-			CoolInterface.DrawWatermark( pDC, &rcUnion, &Skin.m_bmSelected, FALSE );	// No overdraw
+			CoolInterface.DrawWatermark( pDC, &rcUnion, &Images.m_bmSelected, FALSE );	// No overdraw
 			DrawText( pDC, &rc, nX, nY, m_sTitle, NULL, bSelectmark );					// Duplicate Workaround
 		}
 		else
 		{
 			rcUnion.InflateRect( 1, 1 );
-			if ( bFocus && Skin.m_bmSelected.m_hObject )
+			if ( bFocus && Images.m_bmSelected.m_hObject )
 			{
 				rcUnion.left -= 3;
 				rcUnion.right += 3;
@@ -1047,13 +1047,13 @@ void CLibraryTileItem::Paint(CDC* pDC, const CRect& rcBlock, CDC* /*pMemDC*/, BO
 			rcUnion.left -= 4;
 			rcUnion.right += 4;
 			rcUnion.bottom += 2;
-			CoolInterface.DrawWatermark( pDC, &rcUnion, &Skin.m_bmSelected, FALSE );	// No overdraw
+			CoolInterface.DrawWatermark( pDC, &rcUnion, &Images.m_bmSelected, FALSE );	// No overdraw
 			DrawText( pDC, &rc, nX, nY, m_sTitle, NULL, bSelectmark );					// Duplicate Workaround
 		}
 		else if ( bFocus )
 		{
 			rcUnion.InflateRect( 1, 1 );
-			if ( Skin.m_bmSelected.m_hObject )
+			if ( Images.m_bmSelected.m_hObject )
 			{
 				rcUnion.left -= 3;
 				rcUnion.right += 3;
@@ -1137,7 +1137,7 @@ void CLibraryTileView::OnLibraryAlbumDelete()
 	Skin.LoadString( strFormat, IDS_LIBRARY_DELETE_FOLDER );
 	strMessage.Format( strFormat, m_nSelected );
 
-	if ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_OKCANCEL ) != IDOK ) return;
+	if ( MsgBox( strMessage, MB_ICONQUESTION|MB_OKCANCEL ) != IDOK ) return;
 
 	{
 		CQuickLock oLock( Library.m_pSection );

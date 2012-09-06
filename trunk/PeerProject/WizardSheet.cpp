@@ -1,18 +1,18 @@
 //
 // WizardSheet.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -21,7 +21,7 @@
 #include "PeerProject.h"
 #include "CoolInterface.h"
 #include "Colors.h"
-//#include "Images.h"
+#include "Images.h"
 #include "GProfile.h"
 #include "WizardSheet.h"
 
@@ -38,7 +38,7 @@
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 #define CONTROLBAR_HEIGHT	44
 
@@ -146,7 +146,7 @@ BOOL CWizardSheet::OnInitDialog()
 	// ATL_IDC_STATIC1?
 	if ( GetDlgItem( 0x3026 ) ) GetDlgItem( 0x3026 )->ShowWindow( SW_HIDE );
 
-	//m_bmHeader.Attach( Skin.GetWatermark( _T("Banner") ) );	// Use Skin.m_bmBanner
+	//m_bmHeader.Attach( Skin.GetWatermark( _T("Banner") ) );	// Use Images.m_bmBanner
 
 	return TRUE;
 }
@@ -213,7 +213,7 @@ void CWizardSheet::OnPaint()
 
 	CDC mdc;
 	mdc.CreateCompatibleDC( &dc );
-	CBitmap* pOldBitmap = (CBitmap*)mdc.SelectObject( &Skin.m_bmBanner );
+	CBitmap* pOldBitmap = (CBitmap*)mdc.SelectObject( &Images.m_bmBanner );
 	dc.BitBlt( 0, 0, rc.right + 1, Skin.m_nBanner, &mdc, 0, 0, SRCCOPY );
 	mdc.SelectObject( pOldBitmap );
 	mdc.DeleteDC();
@@ -225,8 +225,8 @@ void CWizardSheet::OnPaint()
 
 	dc.Draw3dRect( 0, rc.top - 2, rc.Width() + 1, 2, RGB( 142, 141, 140 ), RGB( 255, 255, 255 ) );	// ToDo: Skinned bevel color?
 
-	if ( Skin.m_bmDialog.m_hObject )
-		CoolInterface.DrawWatermark( &dc, &rc, &Skin.m_bmDialog );
+	if ( Images.m_bmDialog.m_hObject )
+		CoolInterface.DrawWatermark( &dc, &rc, &Images.m_bmDialog );
 	else
 		dc.FillSolidRect( rc.left, rc.top, rc.Width(), CONTROLBAR_HEIGHT, Colors.m_crSysBtnFace );	// Colors.m_crDialog?
 }
@@ -295,7 +295,7 @@ void CWizardPage::StaticReplace(LPCTSTR pszSearch, LPCTSTR pszReplace)
 		CString strText;
 		pChild->GetWindowText( strText );
 
-		for (;;)
+		for ( ;; )
 		{
 			int nPos = strText.Find( pszSearch );
 			if ( nPos < 0 ) break;

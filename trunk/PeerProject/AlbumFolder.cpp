@@ -4,15 +4,15 @@
 // This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
-// PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Affero General Public License
+// PeerProject is free software. You may redistribute and/or modify it
+// under the terms of the GNU Affero General Public License
 // as published by the Free Software Foundation (fsf.org);
-// either version 3 of the License, or later version at your option.
+// version 3 or later at your option. (AGPLv3)
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Affero General Public License 3.0 (AGPLv3) for details:
+// See the GNU Affero General Public License 3.0 for details:
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
@@ -22,8 +22,8 @@
 #include "AlbumFolder.h"
 #include "Library.h"
 #include "LibraryFolders.h"
-#include "SharedFile.h"
 #include "CollectionFile.h"
+#include "SharedFile.h"
 #include "Schema.h"
 #include "SchemaChild.h"
 #include "SchemaCache.h"
@@ -32,9 +32,9 @@
 
 #ifdef _DEBUG
 #undef THIS_FILE
-static char THIS_FILE[]=__FILE__;
+static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif	// Filename
+#endif	// Debug
 
 
 //////////////////////////////////////////////////////////////////////
@@ -914,14 +914,14 @@ BOOL CAlbumFolder::OrganiseFile(CLibraryFile* pFile)
 			if ( ! Settings.Library.SmartSeriesDetection )
 				return FALSE;
 
-			CString sFileName = (LPCTSTR)pFile->m_sName;
-			CXMLNode::UniformString( sFileName );
+			CString strFileName = (LPCTSTR)pFile->m_sName;
+			CXMLNode::UniformString( strFileName );
 
 			std::vector<std::wstring> results;
 
 			LPTSTR szResults = NULL;
 			size_t nCount = RegExp::Split( _T("(.*)(\\bse?a?s?o?n?)\\s*([0-9]+)\\s*(ep?i?s?o?d?e?)\\s*([0-9]+)[^0-9]+.*"),
-				sFileName, &szResults );
+				strFileName, &szResults );
 			LPCTSTR p = szResults;
 			for ( size_t i = 0 ; i < nCount ; ++i )
 			{
@@ -954,7 +954,7 @@ BOOL CAlbumFolder::OrganiseFile(CLibraryFile* pFile)
 			if ( nCount < 4 )
 			{
 				nCount = RegExp::Split( _T("(.*[^0-9]+\\b)([0-9]+)\\s*[xX]\\s*([0-9]+)[^0-9]+.*"),
-					sFileName, &szResults );
+					strFileName, &szResults );
 				p = szResults;
 				for ( size_t i = 0 ; i < nCount ; ++i )
 				{

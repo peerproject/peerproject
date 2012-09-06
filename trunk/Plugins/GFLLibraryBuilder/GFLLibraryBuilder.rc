@@ -19,7 +19,7 @@
 #ifdef _WIN32
 LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 #pragma code_page(1252)
-#endif //_WIN32
+#endif // _WIN32
 
 #ifdef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////
@@ -57,7 +57,7 @@ END
 #ifdef _WIN32
 LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
 #pragma code_page(1257)
-#endif //_WIN32
+#endif // _WIN32
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -84,12 +84,12 @@ BEGIN
             VALUE "Comments", "Extract matadata from images."
             VALUE "CompanyName", "PeerProject Development Team"
             VALUE "FileDescription", "GFL Library Builder Plugin"
-            VALUE "FileVersion", "1, 0, 0, 0"
+            VALUE "FileVersion", "1.0.0.0"
             VALUE "InternalName", "GFLLibraryBuilder"
             VALUE "LegalCopyright", "© PeerProject Development Team, 2008-2010"
             VALUE "OriginalFilename", "GFLLibraryBuilder.dll"
             VALUE "ProductName", "PeerProject"
-            VALUE "ProductVersion", "1, 0, 0, 0"
+            VALUE "ProductVersion", "1.0.0.0"
         END
     END
     BLOCK "VarFileInfo"
@@ -142,4 +142,3 @@ END
 
 /////////////////////////////////////////////////////////////////////////////
 #endif    // not APSTUDIO_INVOKED
-

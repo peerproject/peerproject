@@ -27,7 +27,7 @@ using boost::math::fabs;
 
 #else
 
-#  ifdef BOOST_HAS_INCLUDE_NEXT
+#  if defined(BOOST_HAS_INCLUDE_NEXT) && !defined(BOOST_TR1_DISABLE_INCLUDE_NEXT)
 #     include_next BOOST_TR1_HEADER(complex)
 #  else
 #     include <boost/tr1/detail/config_all.hpp>
@@ -241,4 +241,3 @@ inline complex<typename boost::tr1_detail::promote_to_real<T, U>::type>
 #endif
 
 #endif
-

@@ -15,6 +15,7 @@ EXPORTS
     deflateParams
     deflateTune
     deflateBound
+    deflatePending
     deflatePrime
     deflateSetHeader
     inflateSetDictionary
@@ -57,6 +58,13 @@ EXPORTS
     gzclose_w
     gzerror
     gzclearerr
+; large file functions
+    gzopen64
+    gzseek64
+    gztell64
+    gzoffset64
+    adler32_combine64
+    crc32_combine64
 ; checksum functions
     adler32
     crc32
@@ -68,10 +76,14 @@ EXPORTS
     inflateInit_
     inflateInit2_
     inflateBackInit_
+    gzgetc_
     zError
     inflateSyncPoint
     get_crc_table
     inflateUndermine
+    inflateResetKeep
+    deflateResetKeep
+    gzopen_w
 
     unzOpen
     unzClose
@@ -95,13 +107,13 @@ EXPORTS
 
     zipOpen
     zipOpenNewFileInZip
+    zipOpenNewFileInZip2
+    zipOpenNewFileInZip3
     zipWriteInFileInZip
     zipCloseFileInZip
-    zipClose
-    zipOpenNewFileInZip2
     zipCloseFileInZipRaw
+    zipClose
     zipOpen2
-    zipOpenNewFileInZip3
 
     unzGetFilePos
     unzGoToFilePos

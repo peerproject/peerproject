@@ -19,7 +19,7 @@
 #ifdef _WIN32
 LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
 #pragma code_page(1251)
-#endif //_WIN32
+#endif // _WIN32
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -90,7 +90,7 @@ END
 #ifdef _WIN32
 LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 #pragma code_page(1252)
-#endif //_WIN32
+#endif // _WIN32
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -118,24 +118,24 @@ BEGIN
             VALUE "Comments", "BugTrap - softwarefehler berichterstattung"
             VALUE "CompanyName", "IntelleSoft"
             VALUE "FileDescription", "BugTrap DLL"
-            VALUE "FileVersion", "1, 4, 0, 0"
+            VALUE "FileVersion", "1.4.0.0"
             VALUE "InternalName", "BugTrap"
             VALUE "LegalCopyright", "© 2005-2010 IntelleSoft"
             VALUE "OriginalFilename", "BugTrap.dll"
             VALUE "ProductName", "PeerProject"
-            VALUE "ProductVersion", "1, 0, 0, 0"
+            VALUE "ProductVersion", "1.0.0.0"
         END
         BLOCK "040904b0"
         BEGIN
             VALUE "Comments", "BugTrap - Error reporting tool"
             VALUE "CompanyName", "IntelleSoft"
             VALUE "FileDescription", "BugTrap DLL"
-            VALUE "FileVersion", "1, 4, 0, 0"
+            VALUE "FileVersion", "1.4.0.0"
             VALUE "InternalName", "BugTrap"
             VALUE "LegalCopyright", "© 2005-2010 IntelleSoft"
             VALUE "OriginalFilename", "BugTrap.dll"
             VALUE "ProductName", "PeerProject"
-            VALUE "ProductVersion", "1, 0, 0, 0"
+            VALUE "ProductVersion", "1.0.0.0"
         END
     END
     BLOCK "VarFileInfo"
@@ -251,7 +251,7 @@ BEGIN
     LTEXT           "",IDC_INTRO_BKGND,0,0,330,53,SS_NOPREFIX
     CONTROL         112,IDC_DIALOG_ICON,"Static",SS_BITMAP | WS_GROUP,7,7,15,13
     LTEXT           "A crash has been detected by BugTrap",IDC_INTRO1,35,7,288,8
-    LTEXT           "To help the development process, this program will try and gather the information about the crash, and the state of your machine at the time of the crash. This data can then be submitted to product support or saved to a file.",IDC_INTRO2,35,19,288,26,SS_NOPREFIX
+    LTEXT           "To help the development process, this program will try to gather information about the crash, and the state of your machine at the time of the crash. This data can then be submitted to product support or saved to a file.",IDC_INTRO2,35,19,288,26,SS_NOPREFIX
     CONTROL         "",-1,"Static",SS_ETCHEDHORZ | WS_GROUP,0,52,330,1
     LTEXT           "Product support site:",IDC_URL_PREFIX,7,59,71,8
     LTEXT           "",IDC_URL,78,59,245,10,WS_TABSTOP
@@ -267,8 +267,8 @@ CAPTION "Preview Report Files"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
     CONTROL         "",IDC_SPLITTER,"Static",SS_BLACKRECT | WS_GROUP,3,3,336,182
-    CONTROL         "",IDC_FILESLIST,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_SHAREIMAGELISTS | LVS_ALIGNLEFT | WS_BORDER | WS_GROUP | WS_TABSTOP,3,3,336,55
-    CONTROL         "",IDC_FILEVIEW,"Static",SS_GRAYRECT | WS_BORDER | WS_GROUP | WS_TABSTOP,3,61,336,125
+    CONTROL         "",IDC_FILESLIST,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_SHAREIMAGELISTS | LVS_ALIGNLEFT | WS_BORDER | WS_GROUP | WS_TABSTOP,3,3,336,62
+    CONTROL         "",IDC_FILEVIEW,"Static",SS_GRAYRECT | WS_BORDER | WS_GROUP | WS_TABSTOP,3,61,336,118
     CONTROL         "",IDC_FILEFORMAT_FRAME,"Static",SS_ETCHEDFRAME | NOT WS_VISIBLE | WS_GROUP,3,190,122,18,WS_EX_TRANSPARENT
     CONTROL         "&Text View",IDC_TEXTVIEW,"Button",BS_AUTORADIOBUTTON | NOT WS_VISIBLE | WS_GROUP | WS_TABSTOP,13,194,47,10
     CONTROL         "&Hex View",IDC_HEXVIEW,"Button",BS_AUTORADIOBUTTON | NOT WS_VISIBLE,68,194,45,10
@@ -545,7 +545,7 @@ END
 #ifdef _WIN32
 LANGUAGE LANG_GERMAN, SUBLANG_NEUTRAL
 #pragma code_page(1252)
-#endif //_WIN32
+#endif // _WIN32
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -723,7 +723,7 @@ END
 #ifdef _WIN32
 LANGUAGE LANG_GERMAN, SUBLANG_GERMAN
 #pragma code_page(1252)
-#endif //_WIN32
+#endif // _WIN32
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -920,4 +920,3 @@ END
 
 /////////////////////////////////////////////////////////////////////////////
 #endif    // not APSTUDIO_INVOKED
-

@@ -8,7 +8,7 @@
 		</complexType>
 	</element>
 	<complexType name="collectionType">
-	
+
 		<attribute name="title" type="string"/>
 		<attribute name="version" type="string"/>
 		<attribute name="fileDescription" type="string"/>
@@ -17,12 +17,12 @@
 		<attribute name="originalFileName" type="string"/>
 		<attribute name="company" type="string"/>
 		<attribute name="copyright" type="string"/>
-				
+
 		<attribute name="type">
 			<simpleType base="string">
 				<enumeration value="Book"/>
-			    <enumeration value="Development"/>
-			    <enumeration value="Document"/>
+				<enumeration value="Development"/>
+				<enumeration value="Document"/>
 				<enumeration value="Entertainment"/>
 				<enumeration value="Game"/>
 				<enumeration value="Image"/>
@@ -48,6 +48,7 @@
 				<enumeration value="Windows"/>
 				<enumeration value="Windows 95/98/Me"/>
 				<enumeration value="Windows NT/2000/XP"/>
+				<enumeration value="Windows Vista/7/8"/>
 				<enumeration value="Windows CE"/>
 				<enumeration value="Windows Mobile"/>
 				<enumeration value="MacOS"/>
