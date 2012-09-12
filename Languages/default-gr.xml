@@ -4198,10 +4198,10 @@
 		<control/>
 		<control caption="_Αφαίρεση"/>
 	</dialog>
-	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Κανόνας">
+	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuEdBuBuStCoStCoEdStEdStEdStBuBu" caption="Κανόνας">
 		<control caption="_Κανόνας:"/>
 		<control caption="Τύπος:"/>
-		<control caption="Διεύθυνση Δικτύου (IP)|Φίλτρο Περιεχομένου"/>
+		<control caption="Διεύθυνση Δικτύου (IP)|Φίλτρο Περιεχομένου|λίστα μπλοκ"/>
 		<control caption="Σχόλιο:"/>
 		<control/>
 		<control caption="_Διεύθυνση Δικτύου:"/>
@@ -4220,6 +4220,9 @@
 		<control caption="Ταίριασμα Κάποιου"/>
 		<control caption="Ταίριασμα Όλων"/>
 		<control caption="Καν. Έκφ."/>
+		<control caption="λίστα μπλοκ αρχείου:"/>
+		<control/>
+		<control caption="Αναζήτηση"/>
 		<control caption="_Επιλογές:"/>
 		<control caption="Ενέργεια:"/>
 		<control caption="Καμία|Αποδοχή|Άρνηση"/>

@@ -18,6 +18,8 @@
 
 #pragma once
 
+#include "ThreadImpl.h"		// CListLoader
+
 class CPeerProjectFile;
 
 class CLiveList;
@@ -74,15 +76,18 @@ protected:
 		DWORD	m_nExpire;
 		BYTE	m_nScore;
 	} CComplain;
+
 	typedef CMap< DWORD, DWORD, CComplain*, CComplain* > CComplainMap;
-//	typedef std::map< DWORD, CSecureRule* > CAddressRuleMap;
-//	typedef std::map< CString, CSecureRule* > CHashRuleMap;
+	typedef std::map< DWORD, BYTE > CAddressMap;
+	typedef std::map< LPCTSTR, BYTE > CHashMap;
+	typedef std::map< BYTE, CSecureRule* > CRuleIndexMap;
 
 	CComplainMap				m_Complains;
-//	CHashRuleMap				m_pHashRules;	// Consolidated blacklist filters (Unimplemented)
-//	CAddressRuleMap				m_pIPRules;		// Consolidated single-IP filters (Unimplemented)
+	CAddressMap					m_pAddressMap;		// Consolidated single-IP filters
+	CHashMap					m_pHashMap;			// Consolidated blacklist filters
+	CRuleIndexMap				m_pRuleIndexMap;	// Applicable rule to index byte (memory efficiency)
 	CList< CSecureRule* >		m_pRules;
-	std::set< DWORD >			m_Cache;		// Known good addresses
+	std::set< DWORD >			m_Cache;			// Known good addresses
 
 // Operations
 public:
@@ -110,6 +115,9 @@ public:
 	void			Expire();
 	CLiveList*		GetList() const;	// Creates new CLiveList object filled by all security rules
 
+	BYTE			SetRuleIndex(CSecureRule* pRule);
+	CSecureRule*	GetRuleByIndex(BYTE nIndex);
+
 	// Don't ban GPL breakers, but don't offer leaf slots to them. Ban others.
 	BOOL			IsClientBad(const CString& sUserAgent) const;
 	BOOL			IsClientBanned(const CString& sUserAgent);
@@ -122,6 +130,8 @@ protected:
 	CXMLElement*	ToXML(BOOL bRules = TRUE);
 	BOOL			FromXML(CXMLElement* pXML);
 	void			Serialize(CArchive& ar);
+
+	friend class CListLoader;
 };
 
 class CSecureRule
@@ -213,6 +223,28 @@ public:
 	BOOL		IsFiltered( LPCTSTR );		// Chat message spam filter
 };
 
-extern CMessageFilter MessageFilter;
-extern CAdultFilter AdultFilter;
+// Async external blocklist handling (may take minutes)
+class CListLoader : public CThreadImpl
+{
+// Construction
+public:
+	CListLoader();
+	~CListLoader();
+
+// Attributes
+protected:
+//	CCriticalSection		m_pSection;
+	CList< CSecureRule* >	m_pQueue;
+
+// Operations
+public:
+	void		OnRun();
+	void		StopThread();
+	void		Cancel(CSecureRule* pRule);
+	void		AddList(CSecureRule* pRule);
+};
+
 extern CSecurity Security;
+extern CAdultFilter AdultFilter;
+extern CMessageFilter MessageFilter;
+extern CListLoader ListLoader;

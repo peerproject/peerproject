@@ -4196,10 +4196,10 @@
 		<control/>
 		<control caption="Š_alinti"/>
 	</dialog>
-	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Saugos taisyklė">
+	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuEdBuBuStCoStCoEdStEdStEdStBuBu" caption="Saugos taisyklė">
 		<control caption="_Taisyklė:"/>
 		<control caption="Tipas:"/>
-		<control caption="Tinklo (IP) adresas|Turinio filtras"/>
+		<control caption="Tinklo adresas (IP)|Turinio filtras|Blokuoti sąrašas"/>
 		<control caption="Komentaras:"/>
 		<control/>
 		<control caption="Tinklo _adresas:"/>
@@ -4218,6 +4218,9 @@
 		<control caption="Bet kuris žodis"/>
 		<control caption="Visi žodžiai"/>
 		<control caption="Reg. Exp."/>
+		<control caption="Blokuoti sąrašas Failą:"/>
+		<control/>
+		<control caption="Naršyti"/>
 		<control caption="_Parinktys:"/>
 		<control caption="Veiksmas:"/>
 		<control caption="Jokio|Prileisti|Drausti"/>

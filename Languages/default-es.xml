@@ -4183,10 +4183,10 @@
 		<control/>
 		<control caption="_Eliminar"/>
 	</dialog>
-	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Reglas de seguridad">
+	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuEdBuBuStCoStCoEdStEdStEdStBuBu" caption="Reglas de seguridad">
 		<control caption="_Regla:"/>
 		<control caption="Tipo:"/>
-		<control caption="Dirección de Red (IP)|Filtro de contenido"/>
+		<control caption="Dirección de Red (IP)|Filtro de contenido|ListaBloqueados"/>
 		<control caption="Comentario:"/>
 		<control/>
 		<control caption="Dirección de red:"/>
@@ -4205,6 +4205,9 @@
 		<control caption="Cualquiera"/>
 		<control caption="Todas"/>
 		<control caption="Reg. Exp."/>
+		<control caption="ListaBloqueados del Archivo:"/>
+		<control/>
+		<control caption="Navegar"/>
 		<control caption="_Opciones:"/>
 		<control caption="Acción:"/>
 		<control caption="Ninguno|Aceptar|Denegar"/>

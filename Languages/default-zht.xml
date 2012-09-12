@@ -3964,10 +3964,10 @@
 		<control/>
 		<control caption="移除"/>
 	</dialog>
-	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="安全性規則">
+	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuEdBuBuStCoStCoEdStEdStEdStBuBu" caption="安全性規則">
 		<control caption="規則:"/>
 		<control caption="類型:"/>
-		<control caption="網路 (IP) 位址|內容過濾"/>
+		<control caption="網路 位址 (IP)|內容過濾|黑名單"/>
 		<control caption="備註:"/>
 		<control/>
 		<control caption="網路位址:"/>
@@ -3986,6 +3986,9 @@
 		<control caption="部份比對"/>
 		<control caption="完全比對"/>
 		<control caption="Reg. Exp."/>
+		<control caption="黑名單文件:"/>
+		<control/>
+		<control caption="瀏覽"/>
 		<control caption="選項:"/>
 		<control caption="動作:"/>
 		<control caption="無|接受|拒絕"/>

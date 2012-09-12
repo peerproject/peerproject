@@ -584,7 +584,7 @@ int CPeerProjectApp::ExitInstance()
 		//CWaitCursor pCursor;
 		m_bInteractive = false;
 
-		const int nSplashSteps = 6 + ( m_bLive ? 3 : 0 );
+		const int nSplashSteps = 7 + ( m_bLive ? 3 : 0 );
 
 		SplashStep( L"Disconnecting", nSplashSteps, true );
 		VersionChecker.Stop();
@@ -594,6 +594,9 @@ int CPeerProjectApp::ExitInstance()
 		SplashStep( L"Stopping Library Tasks" );
 		LibraryBuilder.CloseThread();
 		Library.CloseThread();
+
+		SplashStep( L"Stopping Security Tasks" );
+		ListLoader.CloseThread();
 
 		SplashStep( L"Stopping Transfers" );
 		Transfers.StopThread();

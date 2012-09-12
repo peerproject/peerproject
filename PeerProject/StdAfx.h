@@ -219,8 +219,17 @@
 #include <string>
 #include <utility>
 #include <vector>
+//#include <memory>
 
-//#include <memory>		// ?
+
+//
+// C++11
+//
+
+//#if defined(_MSC_VER) && (_MSC_VER >= 1600)	// VS2010 for C++0x
+  //#include <forward_list>
+  //#if (_MSC_VER >= 1700)	// VS2012 for C++11
+//#endif
 
 
 //
@@ -229,16 +238,18 @@
 // ToDo: See Shareaza r8451 for some tr1 implementation
 
 //#ifdef _HAS_TR1	// defined(_MSC_VER) && (_MSC_FULL_VER > 150030000)	// VS2008 SP1 for tr1
-  //#include <type_traits>				// In MinMax.hpp
   //#include <array>
   //#include <memory>
   //#include <regex>					// In RegExp.cpp
+  //#include <type_traits>				// In MinMax.hpp
+  //#include <unordered_map>
 //#else	// Boost fallback
-  //#include <Boost/tr1/type_traits.hpp>
   //#include <Boost/tr1/array.hpp>
   //#include <Boost/tr1/memory.hpp>
-  //#include <Boost/tr1/utility.hpp>
   //#include <Boost/tr1/regex.hpp>
+  //#include <Boost/tr1/type_traits.hpp>
+  //#include <Boost/tr1/unordered_map.hpp>
+  //#include <Boost/tr1/utility.hpp>
 //#endif
 
 
@@ -269,10 +280,10 @@
 
 // Handle static_assert(false,"text") prior to VS2010
 #if _MSC_VER < 1600
-	#ifdef _STATIC_ASSERT( expr )		// VS2008
+	#ifdef _STATIC_ASSERT( expr )			// VS2008
 		#define static_assert( expr, text ) _STATIC_ASSERT( expr )
 	#else
-		#define static_assert( expr, text )
+		#define static_assert( expr, text ) ;
 	#endif
 #endif
 

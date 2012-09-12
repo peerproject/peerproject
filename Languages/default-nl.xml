@@ -4208,10 +4208,10 @@
 		<control/>
 		<control caption="_Verwijderen"/>
 	</dialog>
-	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Beveiligingsregel">
+	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuEdBuBuStCoStCoEdStEdStEdStBuBu" caption="Beveiligingsregel">
 		<control caption="_Regel:"/>
 		<control caption="Type:"/>
-		<control caption="Netwerk (IP) adres|Inhoudfilter"/>
+		<control caption="Netwerk adres (IP)|Inhoudfilter|Blok lijst"/>
 		<control caption="Opmerking:"/>
 		<control/>
 		<control caption="_Netwerk adres:"/>
@@ -4230,6 +4230,9 @@
 		<control caption="Elk woord"/>
 		<control caption="Complete regel"/>
 		<control caption="Reg. Exp."/>
+		<control caption="Blok lijst Bestand:"/>
+		<control/>
+		<control caption="Bladeren"/>
 		<control caption="_Opties:"/>
 		<control caption="Actie:"/>
 		<control caption="Geen|Accepteer|Weiger"/>

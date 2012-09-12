@@ -3720,10 +3720,10 @@ gap i newline
 		<control/>
 		<control caption="הסר"/>
 	</dialog>
-	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="חוק אבטחה">
+	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuEdBuBuStCoStCoEdStEdStEdStBuBu" caption="חוק אבטחה">
 		<control caption=":חוק"/>
 		<control caption=":סוג"/>
-		<control caption="כתובת רשת IP|מסנן תכנים"/>
+		<control caption="כתובת רשת IP|מסנן תכנים|רשימת חסומים"/>
 		<control caption=":הערה"/>
 		<control/>
 		<control caption=":כתובת רשת"/>
@@ -3742,6 +3742,9 @@ gap i newline
 		<control caption="שיתאים חלקית"/>
 		<control caption="שיתאים להכל"/>
 		<control caption="Reg. Exp."/>
+		<control caption="מסנן תכנים קובץ:"/>
+		<control/>
+		<control caption="לדפדף"/>
 		<control caption=":אפשרויות"/>
 		<control caption=":פעולה"/>
 		<control caption="אין|קבל|חסום"/>

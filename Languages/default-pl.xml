@@ -3727,10 +3727,10 @@
 		<control/>
 		<control caption="Usuń"/>
 	</dialog>
-	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Reguła bezpieczeństwa">
+	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuEdBuBuStCoStCoEdStEdStEdStBuBu" caption="Reguła bezpieczeństwa">
 		<control caption="Reguła:"/>
 		<control caption="Typ:"/>
-		<control caption="Adres sieciowy (IP)|Filtr zawartości"/>
+		<control caption="Adres sieciowy (IP)|Filtr zawartości|Lista zablokowanych"/>
 		<control caption="Komentarz:"/>
 		<control/>
 		<control caption="Adres sieciowy:"/>
@@ -3749,6 +3749,9 @@
 		<control caption="Którekolwiek"/>
 		<control caption="Wszystkie"/>
 		<control caption="Reg. Exp."/>
+		<control caption="Lista zablokowanych Plik:"/>
+		<control/>
+		<control caption="Znajdź"/>
 		<control caption="Opcje:"/>
 		<control caption="Akcja:"/>
 		<control caption="Żadna|Akceptuj|Odmawiaj"/>

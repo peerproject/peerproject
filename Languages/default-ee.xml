@@ -3949,10 +3949,10 @@
 		<control/>
 		<control caption="_Eemalda"/>
 	</dialog>
-	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Turva Reeglid">
+	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuEdBuBuStCoStCoEdStEdStEdStBuBu" caption="Turva Reeglid">
 		<control caption="_Reegel:"/>
 		<control caption="Tüüp:"/>
-		<control caption="Võrgu (IP) Aadress|Sisu Filter"/>
+		<control caption="Võrgu (IP) Aadress|Sisu Filter|Blocklisti"/>
 		<control caption="Kommentaar:"/>
 		<control/>
 		<control caption="_Võrgu Aadress:"/>
@@ -3970,6 +3970,10 @@
 		<control/>
 		<control caption="Leia sobiv"/>
 		<control caption="Sobita kõik"/>
+		<control caption="Reg. Exp."/>
+		<control caption="Blocklisti dokument:"/>
+		<control/>
+		<control caption="Sirvima"/>
 		<control caption="_Seaded:"/>
 		<control caption="Tegevus:"/>
 		<control caption="Ära tee midagi|Luba|Keela"/>

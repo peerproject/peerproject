@@ -1173,11 +1173,40 @@ CString Unescape(LPCTSTR pszXML, int nLength)
 	return strValue;
 }
 
-CString HostToString(const SOCKADDR_IN* pHost)
+DWORD IPStringToDWORD(LPCTSTR pszIP)
 {
-	CString strHost;
-	strHost.Format( _T("%s:%hu"), (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ), ntohs( pHost->sin_port ) );
-	return strHost;
+	DWORD nIP = 0;
+	UINT nCurrent = 0;
+	UINT nSet = 0;
+
+	for ( UINT i = 16 ; i ; i--, pszIP++ )
+	{
+		if ( *pszIP == '.' || *pszIP == 0 || *pszIP == ':' || i == 1 )
+		{
+			nIP <<= 8;
+			nIP += nCurrent;
+			nCurrent = 0;
+			nSet++;
+
+			if ( *pszIP == '.' )
+				continue;
+
+			break;
+		}
+
+		if ( *pszIP < '0' || *pszIP > '9' )
+			return 0;
+
+		nCurrent *= 10;
+		nCurrent += (*pszIP - '0');
+		if ( nCurrent > 255 )
+			return 0;
+	}
+
+	if ( nSet != 4 )
+		return 0;
+
+	return nIP;
 }
 
 BOOL IsValidIP(const CString& sInput)
@@ -1229,6 +1258,13 @@ BOOL IsValidIP(const CString& sInput)
 	}
 
 	return TRUE;
+}
+
+CString HostToString(const SOCKADDR_IN* pHost)
+{
+	CString strHost;
+	strHost.Format( _T("%s:%hu"), (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ), ntohs( pHost->sin_port ) );
+	return strHost;
 }
 
 LPCTSTR SafePath(const CString& sPath)

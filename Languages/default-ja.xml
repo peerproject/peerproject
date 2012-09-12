@@ -3991,10 +3991,10 @@
 		<control/>
 		<control caption="削除(_R)"/>
 	</dialog>
-	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="セキュリティ規則">
+	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuEdBuBuStCoStCoEdStEdStEdStBuBu" caption="セキュリティ規則">
 		<control caption="規則:"/>
 		<control caption="種類:"/>
-		<control caption="ネットワーク(IP) アドレス|内容フィルタ"/>
+		<control caption="ネットワーク アドレス (IP)|内容フィルタ|ブロックリスト"/>
 		<control caption="コメント:"/>
 		<control/>
 		<control caption="ネットワークアドレス:"/>
@@ -4013,6 +4013,9 @@
 		<control caption="何れかに一致"/>
 		<control caption="全て一致"/>
 		<control caption="Reg. Exp."/>
+		<control caption="ファイルをブロックリスト:"/>
+		<control/>
+		<control caption="ブラウズ"/>
 		<control caption="オプション:"/>
 		<control caption="動作:"/>
 		<control caption="無し|受理|拒否"/>

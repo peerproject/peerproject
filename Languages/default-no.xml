@@ -3843,10 +3843,10 @@
 		<control/>
 		<control caption="_Fjern"/>
 	</dialog>
-	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Sikkerhetsregel">
+	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuEdBuBuStCoStCoEdStEdStEdStBuBu" caption="Sikkerhetsregel">
 		<control caption="_Regel:"/>
 		<control caption="Type:"/>
-		<control caption="Nettverksadresse (IP)|Innholdsfilter"/>
+		<control caption="Nettverksadresse (IP)|Innholdsfilter|Blokkeringslisten"/>
 		<control caption="Merknad:"/>
 		<control/>
 		<control caption="_Nettverksadresse:"/>
@@ -3864,6 +3864,10 @@
 		<control/>
 		<control caption="Match tilfeldig"/>
 		<control caption="Match alle"/>
+		<control caption="Reg. Exp."/>
+		<control caption="Blokkeringslisten Fil:"/>
+		<control/>
+		<control caption="Bla"/>
 		<control caption="_Valg:"/>
 		<control caption="Reaksjon:"/>
 		<control caption="Ingen|Aksepter|Nekt"/>

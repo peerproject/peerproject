@@ -4037,10 +4037,10 @@
 		<control/>
 		<control caption="移除(_R)"/>
 	</dialog>
-	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="安全策略">
+	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuEdBuBuStCoStCoEdStEdStEdStBuBu" caption="安全策略">
 		<control caption="规则:"/>
 		<control caption="类型:"/>
-		<control caption="网络 (IP) 地址|内容过滤"/>
+		<control caption="网络 地址 (IP)|内容过滤|黑名单"/>
 		<control caption="注释:"/>
 		<control/>
 		<control caption="网络地址:"/>
@@ -4059,6 +4059,9 @@
 		<control caption="任意匹配"/>
 		<control caption="完全匹配"/>
 		<control caption="Reg. Exp."/>
+		<control caption="黑名单文件:"/>
+		<control/>
+		<control caption="浏览"/>
 		<control caption="选项:"/>
 		<control caption="操作:"/>
 		<control caption="无|接受|拒绝"/>

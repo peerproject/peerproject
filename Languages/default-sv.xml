@@ -4124,10 +4124,10 @@
 		<control/>
 		<control caption="_Radera"/>
 	</dialog>
-	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Säkerhetsregel">
+	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuEdBuBuStCoStCoEdStEdStEdStBuBu" caption="Säkerhetsregel">
 		<control caption="_Regel:"/>
 		<control caption="Typ:"/>
-		<control caption="Network (IP) Address|Content Filter"/>
+		<control caption="Nätverksadress (IP)|Innehåll Filter|Blockeringslista"/>
 		<control caption="Kommentar:"/>
 		<control/>
 		<control caption="_Nätverksadress:"/>
@@ -4146,6 +4146,9 @@
 		<control caption="Matcha någon"/>
 		<control caption="Matcha alla"/>
 		<control caption="Reg. Exp."/>
+		<control caption="Blockeringslista Fil:"/>
+		<control/>
+		<control caption="Bläddra"/>
 		<control caption="_Alternativ:"/>
 		<control caption="Effekt:"/>
 		<control caption="Ingen|Acceptera|Neka"/>

@@ -4231,10 +4231,10 @@
 		<control/>
 		<control caption="_Удалить"/>
 	</dialog>
-	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Правило безопасности">
+	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuEdBuBuStCoStCoEdStEdStEdStBuBu" caption="Правило безопасности">
 		<control caption="_Правило:"/>
 		<control caption="Тип:"/>
-		<control caption="Адрес сети (IP)|Фильтр содержания"/>
+		<control caption="Адрес сети (IP)|Фильтр содержания|Черный список"/>
 		<control caption="Заметка:"/>
 		<control/>
 		<control caption="_Сетевой адрес:"/>
@@ -4253,6 +4253,9 @@
 		<control caption="Удовл. любое"/>
 		<control caption="Удовл. всем"/>
 		<control caption="Рег. Выражение"/>
+		<control caption="Черный список файлов:"/>
+		<control/>
+		<control caption="просматривать"/>
 		<control caption="_Опции:"/>
 		<control caption="Действие:"/>
 		<control caption="Никакое|Допустить|Запретить"/>

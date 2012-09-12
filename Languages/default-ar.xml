@@ -3666,10 +3666,10 @@
 		<control />
 		<control caption="_إزالة" />
 	</dialog>
-	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuStCoStCoEdStEdStEdStBuBu" caption="قاعدة الأمان">
+	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuEdBuBuStCoStCoEdStEdStEdStBuBu" caption="قاعدة الأمان">
 		<control caption=":ال_قاعدة" />
 		<control caption=":النوع" />
-		<control caption="الشبكة (IP) عنوان|مرشح المحتوى" />
+		<control caption=" عنوان الشبكة (IP)|تصفية المحتوى | قائمة ممنوعة" />
 		<control caption=":التعليق" />
 		<control />
 		<control caption=":عنوان ال_شبكة" />
@@ -3687,6 +3687,10 @@
 		<control />
 		<control caption="مطابقة" />
 		<control caption="مطابقة الكل" />
+		<control caption="Reg. Exp."/>
+		<control caption="قائمة ممنوعة الملف:"/>
+		<control/>
+		<control caption="تصفح"/>
 		<control caption="_:خيارات" />
 		<control caption=":الإجراء" />
 		<control caption="بدون|قبول|رفض" />
