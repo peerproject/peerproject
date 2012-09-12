@@ -4141,10 +4141,10 @@
 		<control/>
 		<control caption="Kaldır"/>
 	</dialog>
-	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Güvenlik Kuralı">
+	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuEdBuBuStCoStCoEdStEdStEdStBuBu" caption="Güvenlik Kuralı">
 		<control caption="Kural:"/>
 		<control caption="Tür:"/>
-		<control caption="Ağ Adresi(IP)|İçerik Filtresi"/>
+		<control caption="Ağ Adresi(IP)|İçerik Filtresi|Blok Liste"/>
 		<control caption="Açıklama:"/>
 		<control/>
 		<control caption="Ağ Adresi:"/>
@@ -4163,6 +4163,9 @@
 		<control caption="Herhangi Eşleme"/>
 		<control caption="Tümünü Eşleştir"/>
 		<control caption="Düz. İfa."/>
+		<control caption="Dosya Engelenenler:"/>
+		<control/>
+		<control caption="Gözat"/>
 		<control caption="_Seçenekler:"/>
 		<control caption="Faaliyet:"/>
 		<control caption="Hiçbiri|Onayla|Yoksay"/>

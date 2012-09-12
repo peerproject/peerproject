@@ -37,7 +37,9 @@ public:
 	//{{AFX_DATA(CSecureRuleDlg)
 	CButton	m_wndGroupNetwork;
 	CButton	m_wndGroupContent;
-//	CButton	m_wndGroupExternal;
+	CButton	m_wndGroupExternal;
+	CButton	m_wndBrowse;
+	CEdit	m_wndPath;
 	CEdit	m_wndContent;
 	CEdit	m_wndExpireM;
 	CEdit	m_wndExpireH;
@@ -59,6 +61,7 @@ public:
 	int		m_nMatch;	// Radio Button Select
 	CString	m_sComment;
 	CString	m_sContent;
+	CString	m_sPath;
 	//}}AFX_DATA
 
 	CSecureRule*	m_pRule;
@@ -83,6 +86,7 @@ protected:
 	virtual void OnOK();
 	afx_msg void OnSelChangeRuleExpire();
 	afx_msg void OnSelChangeRuleType();
+	afx_msg void OnBrowse();
 	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()

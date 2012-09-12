@@ -4197,10 +4197,10 @@
 		<control/>
 		<control caption="_Rimuovi"/>
 	</dialog>
-	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Regole di sicurezza">
+	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuEdBuBuStCoStCoEdStEdStEdStBuBu" caption="Regole di sicurezza">
 		<control caption="_Regola:"/>
 		<control caption="Tipo:"/>
-		<control caption="Indirizzo rete (IP)|Filtro contenuti"/>
+		<control caption="Indirizzo rete (IP)|Filtro contenuti|Elenco dei blocchi"/>
 		<control caption="Commento:"/>
 		<control/>
 		<control caption="_Indirizzo rete:"/>
@@ -4219,6 +4219,9 @@
 		<control caption="Una"/>
 		<control caption="Tutte"/>
 		<control caption="Reg. Exp."/>
+		<control caption="Elenco dei blocchi del file:"/>
+		<control/>
+		<control caption="Sfogliare"/>
 		<control caption="_Opzioni:"/>
 		<control caption="Azione:"/>
 		<control caption="Nessuna|Accetta|Non accetta"/>

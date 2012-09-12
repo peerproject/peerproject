@@ -105,11 +105,14 @@ CString LoadFile(LPCTSTR pszPath);
 // Replaces a substring with another (case-insensitive)
 BOOL ReplaceNoCase(CString& sInStr, LPCTSTR pszOldStr, LPCTSTR pszNewStr);
 
-// Returns "a.a.a.a:port"
-CString HostToString(const SOCKADDR_IN* pHost);
-
 // IsValidIP("1.2.3.4:0000") is true
 BOOL IsValidIP(const CString& sInput);
+
+// "1.2.3.4:0000" to ~0x11223344, 0 for invalid
+DWORD IPStringToDWORD(LPCTSTR pszIP);
+
+// Returns "a.a.a.a:port"
+CString HostToString(const SOCKADDR_IN* pHost);
 
 // Format long paths if needed "\\?\"
 LPCTSTR SafePath(const CString& sPath);

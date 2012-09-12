@@ -4243,10 +4243,10 @@
 		<control/>
 		<control caption="_Remover"/>
 	</dialog>
-	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Regra de Segurança">
+	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuEdBuBuStCoStCoEdStEdStEdStBuBu" caption="Regra de Segurança">
 		<control caption="_Regra:"/>
 		<control caption="Tipo:"/>
-		<control caption="Rede (IP) Filtro de Endereço/Conteúdo"/>
+		<control caption="Endereço de Rede (IP)|Filtro de Conteúdo|Lista de Bloqueio"/>
 		<control caption="Comentário:"/>
 		<control/>
 		<control caption="_Endereço da Rede:"/>
@@ -4265,6 +4265,9 @@
 		<control caption="Combinar Qualquer Um"/>
 		<control caption="Combinar com Todos"/>
 		<control caption="Reg. Exp."/>
+		<control caption="Lista de Bloqueio Arquivo:"/>
+		<control/>
+		<control caption="Procurar"/>
 		<control caption="_Opções:"/>
 		<control caption="Ação:"/>
 		<control caption="Nenhuma|Aceitar|Negar"/>

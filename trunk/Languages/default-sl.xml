@@ -3948,10 +3948,10 @@
 		<control/>
 		<control caption="_Odstrani"/>
 	</dialog>
-	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Varnostno pravilo">
+	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuEdBuBuStCoStCoEdStEdStEdStBuBu" caption="Varnostno pravilo">
 		<control caption="_Pravilo:"/>
 		<control caption="Tip:"/>
-		<control caption="IP naslov|Vebinski filter"/>
+		<control caption="IP naslov|Vebinski filter|Blok seznam"/>
 		<control caption="Komentar:"/>
 		<control/>
 		<control caption="_Omrežni naslov:"/>
@@ -3970,6 +3970,9 @@
 		<control caption="ali (or)"/>
 		<control caption="in (and)"/>
 		<control caption="Reg. Exp."/>
+		<control caption="Blok seznam datoteke:"/>
+		<control/>
+		<control caption="Brskajte"/>
 		<control caption="_Možnosti:"/>
 		<control caption="Dejanje:"/>
 		<control caption="Nobeno|Sprejmi|Zavrni"/>

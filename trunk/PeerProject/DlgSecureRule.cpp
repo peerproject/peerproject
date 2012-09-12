@@ -32,6 +32,7 @@ static char THIS_FILE[] = __FILE__;
 BEGIN_MESSAGE_MAP(CSecureRuleDlg, CSkinDialog)
 	ON_CBN_SELCHANGE(IDC_RULE_EXPIRE, OnSelChangeRuleExpire)
 	ON_CBN_SELCHANGE(IDC_RULE_TYPE, OnSelChangeRuleType)
+	ON_COMMAND(IDC_BROWSE_FILES, OnBrowse)
 END_MESSAGE_MAP()
 
 
@@ -64,9 +65,11 @@ void CSecureRuleDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CSkinDialog::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CSecureRuleDlg)
-	DDX_Control(pDX, IDC_RULE_CONTENT, m_wndContent);
-	DDX_Control(pDX, IDC_GROUP_CONTENT, m_wndGroupContent);
 	DDX_Control(pDX, IDC_GROUP_NETWORK, m_wndGroupNetwork);
+	DDX_Control(pDX, IDC_GROUP_CONTENT, m_wndGroupContent);
+	DDX_Control(pDX, IDC_GROUP_EXTERNAL, m_wndGroupExternal);
+	DDX_Control(pDX, IDC_RULE_CONTENT, m_wndContent);
+	DDX_Control(pDX, IDC_FILE_PATH, m_wndPath);
 	DDX_Control(pDX, IDC_IP_1, m_wndIP1);
 	DDX_Control(pDX, IDC_IP_2, m_wndIP2);
 	DDX_Control(pDX, IDC_IP_3, m_wndIP3);
@@ -83,6 +86,7 @@ void CSecureRuleDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EXPIRE_M, m_nExpireM);
 	DDX_Text(pDX, IDC_RULE_CONTENT, m_sContent);
 	DDX_Text(pDX, IDC_RULE_COMMENT, m_sComment);
+	DDX_Text(pDX, IDC_FILE_PATH, m_sPath);
 	DDX_CBIndex(pDX, IDC_RULE_TYPE, m_nType);
 	DDX_CBIndex(pDX, IDC_RULE_ACTION, m_nAction);
 	DDX_CBIndex(pDX, IDC_RULE_EXPIRE, m_nExpire);
@@ -156,10 +160,10 @@ BOOL CSecureRuleDlg::OnInitDialog()
 		m_sContent = m_pRule->GetContentWords();
 		break;
 	case CSecureRule::srExternal:
-	//	m_nType  = 2;
-	//	m_nMatch = 0;
-	//	m_sContent = m_pRule->GetContentWords();
-	//	break;
+		m_nType  = 2;
+		m_nMatch = 0;
+		m_sPath = m_pRule->GetContentWords();
+		break;
 	case CSecureRule::srContentHash:
 	case CSecureRule::srSizeType:
 	default:
@@ -171,6 +175,15 @@ BOOL CSecureRuleDlg::OnInitDialog()
 	m_sComment = m_pRule->m_sComment;
 	m_nAction  = m_pRule->m_nAction;
 	m_nExpire  = min( m_pRule->m_nExpire, 2ul );
+
+	if ( m_pRule->m_nType == CSecureRule::srExternal && m_sComment.GetLength() > 2 && m_sComment.Find( _T('•') ) >= 0 )
+	{
+		// Strip load count
+		if ( m_sComment.ReverseFind( _T('•') ) == 0 )
+			m_sComment.Empty();
+		else
+			m_sComment = m_sComment.Left( m_sComment.ReverseFind( _T('•') - 3 ) );
+	}
 
 	if ( m_nExpire == 2 )
 	{
@@ -209,7 +222,7 @@ void CSecureRuleDlg::OnSelChangeRuleType()
 
 	ShowGroup( &m_wndGroupNetwork, m_nType == 0 );
 	ShowGroup( &m_wndGroupContent, m_nType == 1 );
-//	ShowGroup( &m_wndGroupExternal, m_nType == 2 );
+	ShowGroup( &m_wndGroupExternal, m_nType == 2 );
 
 	switch ( m_nType )
 	{
@@ -220,9 +233,9 @@ void CSecureRuleDlg::OnSelChangeRuleType()
 	case 1:		// Content
 		m_wndContent.SetFocus();
 		break;
-//	case 2:		// Extenal
-//		m_wndExternal.SetFocus();
-//		break;
+	case 2:		// Extenal
+		m_wndPath.SetFocus();
+		break;
 	}
 }
 
@@ -232,6 +245,18 @@ void CSecureRuleDlg::OnSelChangeRuleExpire()
 	m_wndExpireD.EnableWindow( m_nExpire == 2 );
 	m_wndExpireH.EnableWindow( m_nExpire == 2 );
 	m_wndExpireM.EnableWindow( m_nExpire == 2 );
+}
+
+void CSecureRuleDlg::OnBrowse()
+{
+	CFileDialog dlg( TRUE, NULL, Settings.General.UserPath + _T("\\Data\\"), OFN_HIDEREADONLY|OFN_FILEMUSTEXIST,
+		_T("Text Files|*.txt;*.dat;*.p2p|") + LoadString( IDS_FILES_ALL ) + _T("|*.*||"), this );
+
+	if ( dlg.DoModal() != IDOK ) return;
+
+	UpdateData( TRUE );
+	m_sPath = dlg.GetPathName();
+	UpdateData( FALSE );
 }
 
 BOOL CSecureRuleDlg::PreTranslateMessage(MSG* pMsg)
@@ -444,20 +469,41 @@ void CSecureRuleDlg::OnOK()
 		if ( bWarning )
 			MsgBox( IDS_SECURITY_NETMASK );
 	}
-	else if ( m_nType == 1 && ! m_sContent.IsEmpty() )
+	else if ( m_nType == 1 && ! m_sContent.IsEmpty() )	// sr... (by dropdown index)
 	{
 		if ( StartsWith( m_sContent, _T("size:"), 5 ) || StartsWith( m_sContent, _T("type:"), 5 ) )
 			m_pRule->m_nType = CSecureRule::srSizeType;
 		else if ( StartsWith( m_sContent, _T("urn:"), 4 ) && m_sContent.GetLength() > 20 )
 			m_pRule->m_nType = CSecureRule::srContentHash;
-		else if ( StartsWith( m_sContent, _T("hostiles."), 9 ) || PathFileExists( Settings.General.UserPath + _T("\\Data\\") + m_sContent ) || PathFileExists( m_sContent ) )
-			m_pRule->m_nType = CSecureRule::srExternal;
 		else if ( m_sContent.FindOneOf( _T("/:<>|\"") ) >= 0 )
 			MsgBox( IDS_BT_ENCODING );	// ToDo: Better response (return)
 		else
 			m_pRule->m_nType = (CSecureRule::RuleType)(m_nMatch + 1);	// Note: Change if enum does not match radio button order
 
 		m_pRule->SetContentWords( m_sContent );
+	}
+	else if ( m_nType == 2 )	// srExternal (by dropdown index)
+	{
+		if ( m_sPath.GetLength() < 8 )
+			return;
+		if ( m_sPath.ReverseFind( _T(':') ) != 1 )
+		{
+			MsgBox( IDS_GENERAL_TRYAGAIN );
+			return;
+		}
+
+		for ( POSITION pos = Security.GetIterator() ; pos ; )
+		{
+			CSecureRule* pRule = Security.GetNext( pos );
+			if ( pRule->m_pContent == m_sPath )
+			{
+				MsgBox( IDS_TIP_EXISTS_LIBRARY );
+				return;
+			}
+		}
+
+		m_pRule->m_nType = CSecureRule::srExternal;
+		m_pRule->SetContentWords( m_sPath );
 	}
 
 	m_pRule->m_sComment	= m_sComment;

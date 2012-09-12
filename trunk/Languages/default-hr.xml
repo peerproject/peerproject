@@ -3683,10 +3683,10 @@
 		<control/>
 		<control caption="Makni"/>
 	</dialog>
-	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Sigurnosna Pravila">
+	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuEdBuBuStCoStCoEdStEdStEdStBuBu" caption="Sigurnosna Pravila">
 		<control caption="P_ravilo:"/>
 		<control caption="Tip:"/>
-		<control caption="Network (IP) Address|Content Filter"/>
+		<control caption="Mreža Adresa (IP)|Sadržaj Filter|Blok Popis"/>
 		<control caption="Komentar:"/>
 		<control/>
 		<control caption="Mrež_na Adresa:"/>
@@ -3704,6 +3704,10 @@
 		<control/>
 		<control caption="Nešto Isto"/>
 		<control caption="Sve Isto"/>
+		<control caption="Reg. Exp."/>
+		<control caption="Blok Popis Datoteku:"/>
+		<control/>
+		<control caption="Brstiti"/>
 		<control caption="_Opcije:"/>
 		<control caption="Akcija:"/>
 		<control caption="Ništa|Prihvačam|Odbijam"/>

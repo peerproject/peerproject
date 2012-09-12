@@ -3908,10 +3908,10 @@
 		<control/>
 		<control caption="_Fshije"/>
 	</dialog>
-	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Rregulli i Sigurisë">
+	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuEdBuBuStCoStCoEdStEdStEdStBuBu" caption="Rregulli i Sigurisë">
 		<control caption="_Rregulli:"/>
 		<control caption="Lloji:"/>
-		<control caption="Adresë Rrjeti (IP)|Filtër i Përmbajtjes"/>
+		<control caption="Adresë Rrjeti (IP)|Filtër i Përmbajtjes|Lista bllok"/>
 		<control caption="Komenti:"/>
 		<control/>
 		<control caption="Adresa e _Rrjetit:"/>
@@ -3930,6 +3930,9 @@
 		<control caption="Krahaso Disa"/>
 		<control caption="Krahaso Gjithçka"/>
 		<control caption="Reg. Exp."/>
+		<control caption="Lista bllok File:"/>
+		<control/>
+		<control caption="Shfletoj"/>
 		<control caption="_Mundësi:"/>
 		<control caption="Veprimi:"/>
 		<control caption="Asnjë|Pranoje|Mohoje"/>

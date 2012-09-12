@@ -4268,10 +4268,10 @@
 		<control/>
 		<control caption="_Entfernen"/>
 	</dialog>
-	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Regel">
+	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuEdBuBuStCoStCoEdStEdStEdStBuBu" caption="Regel">
 		<control caption="_Regel:"/>
 		<control caption="Typ:"/>
-		<control caption="IP-Adresse|Inhaltsfilter"/>
+		<control caption="IP-Adresse|Inhaltsfilter|Blockliste"/>
 		<control caption="Kommentar:"/>
 		<control/>
 		<control caption="_Netzwerkadresse:"/>
@@ -4290,6 +4290,9 @@
 		<control caption="logisch UND"/>
 		<control caption="logisch ODER"/>
 		<control caption="Reg. Exp."/>
+		<control caption="_Blockliste Datei:"/>
+		<control/>
+		<control caption="Blättern"/>
 		<control caption="_Optionen:"/>
 		<control caption="Aktion:"/>
 		<control caption="Keine|Erlauben|Verweigern"/>

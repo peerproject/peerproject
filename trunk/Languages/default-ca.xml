@@ -4063,10 +4063,10 @@
 		<control/>
 		<control caption="_Esborra"/>
 	</dialog>
-	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Normes de seguretat">
+	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuEdBuBuStCoStCoEdStEdStEdStBuBu" caption="Normes de seguretat">
 		<control caption="_Norma:"/>
 		<control caption="Tipus:"/>
-		<control caption="Adreça de xarxa (IP)|Filtre de contingut"/>
+		<control caption="Adreça de xarxa (IP)|Filtre de contingut|ListaBloqueados"/>
 		<control caption="Comentari:"/>
 		<control/>
 		<control caption="Adreça de xarxa:"/>
@@ -4085,6 +4085,9 @@
 		<control caption="Coincideix qualsevol"/>
 		<control caption="Coincideixen totes"/>
 		<control caption="Reg. Exp."/>
+		<control caption="ListaBloqueados de l'arxiu:"/>
+		<control/>
+		<control caption="Navegar"/>
 		<control caption="_Opcions:"/>
 		<control caption="Acció:"/>
 		<control caption="Cap|Accepta|Denega"/>

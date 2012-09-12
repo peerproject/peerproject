@@ -236,7 +236,6 @@ void CImages::Load()
 	else if ( HBITMAP hProgress = Skin.GetWatermark( _T("ProgressBar.Shaded") ) )
 		m_bmProgressShaded.Attach( hProgress );
 
-
 	if ( HBITMAP hToolTip = Skin.GetWatermark( _T("System.ToolTip") ) )
 		m_bmToolTip.Attach( hToolTip );
 	else if ( HBITMAP hToolTip = Skin.GetWatermark( _T("System.Tooltips") ) )

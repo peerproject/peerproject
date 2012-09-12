@@ -4045,10 +4045,10 @@
 		<control/>
 		<control caption="Odst_ranit"/>
 	</dialog>
-	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Bezpeč.pravidla">
+	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuEdBuBuStCoStCoEdStEdStEdStBuBu" caption="Bezpeč.pravidla">
 		<control caption="P_ravidlo:"/>
 		<control caption="Typ:"/>
-		<control caption="Síť (IP) Adresa|Obsah filtru"/>
+		<control caption="Síť Adresa (IP)|Obsah filtru|Blok listina"/>
 		<control caption="Komentář:"/>
 		<control/>
 		<control caption="_Adresa sítě:"/>
@@ -4067,6 +4067,9 @@
 		<control caption="Přizpůsobit jakékoli"/>
 		<control caption="Přizpůsobit vše"/>
 		<control caption="Reg. Exp."/>
+		<control caption="Blok listina soubor:"/>
+		<control/>
+		<control caption="Prohlížet"/>
 		<control caption="_Nastavení:"/>
 		<control caption="Akce:"/>
 		<control caption="Žádný|Přijmout|Odepřít"/>

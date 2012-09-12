@@ -2149,7 +2149,7 @@
 		sont détectées, PeerProject les réparera automatiquement.</text>
 	</document>
 	<document name="DownloadHelp.Downloading">
-		<text format="b">Ce téléchargement est actif&#160;!</text>
+		<text format="b">Ce téléchargement est actif !</text>
 		<newline gap="8"/>
 		<text>Ce téléchargement est en cours.</text>
 		<newline gap="4"/>
@@ -2687,7 +2687,7 @@
 <controlTips>
 	<tip id="IDC_THROTTLE_MODE" message="Sur maximum, la bande passante ne dépassera pas la limite. Sur moyenne, elle variera autour de la limite."/>
 	<tip id="IDC_REGEXP" message="Entrez des expression régulières selon la syntaxe de Perl.{n}Les mots-clefs pour la recherche peuvent être spécifiés sous la forme de &lt;n&gt;, où n est un chiffre entre 1 et 9. Si vous voulez entrer tous les mots-clés les uns après les autres, utilisez la balise &lt;_&gt;."/>
-	<tip id="IDC_SHARE_PARTIALS" message="Cette configuration n'a pas d'effet sur les téléchargements commencés antérieurement&#160;; de plus cette configuration est ignorée si le fichier a le hash eDonkey et que le reseau eDonkey est activé, ou si c'est un torrent.{n}Cette configuration n'est pas ignorée si le téléchargement est en pause.{n}{n}ATTENTION&#160;: N'utilisez pas cette option qu'en cas de vraie nécessité, si vous abusez de cette option vous pourriez être banni."/>
+	<tip id="IDC_SHARE_PARTIALS" message="Cette configuration n'a pas d'effet sur les téléchargements commencés antérieurement&#160;; de plus cette configuration est ignorée si le fichier a le hash eDonkey et que le reseau eDonkey est activé, ou si c'est un torrent.{n}Cette configuration n'est pas ignorée si le téléchargement est en pause.{n}{n}ATTENTION : N'utilisez pas cette option qu'en cas de vraie nécessité, si vous abusez de cette option vous pourriez être banni."/>
 </controlTips>
 <!-- Localized Strings -->
 <strings>
@@ -3445,85 +3445,85 @@
 	<dialog name="CGeneralSettingsGroup" cookie="Af" caption="Général"/>
 	<dialog name="CInternetSettingsGroup" cookie="Af" caption="Internet"/>
 	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuBuBuBuBuStCoBuBuBuBuBuBuSyStEdmsStmsBuBuStCoStCo" caption="Général">
-		<control caption="_Général&#160;:"/>
+		<control caption="_Général :"/>
 		<control caption="Démarrer PeerProject avec Windows"/>
 		<control caption="Connexion automatique au démarrage"/>
 		<control caption="Prévenir avant d'ouvrir les URI"/>
 		<control caption="Vérifier les mises à jour"/>
-		<control caption="_Téléchargements&#160;:"/>
+		<control caption="_Téléchargements :"/>
 		<control caption="Développer les nouveaux téléchargements"/>
 		<control caption="Afficher la barre de progression simple"/>
-		<control caption="Vitesses en&#160;:"/>
+		<control caption="Vitesses en :"/>
 		<control caption="bits/seconde|octets/seconde|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
-		<control caption="_Recherche&#160;:"/>
+		<control caption="_Recherche :"/>
 		<control caption="Développer les fichiers multi-sources"/>
 		<control caption="Passage automatique à l'onglet Transferts"/>
 		<control caption="Masquer auto. le panneau de recherche"/>
 		<control caption="Filtrer le contenu adulte des recherches"/>
-		<control caption="_Infobulles&#160;:"/>
+		<control caption="_Infobulles :"/>
 		<control/>
-		<control caption="Délai (ms)&#160;:"/>
+		<control caption="Délai (ms) :"/>
 		<control/>
 		<control/>
-		<control caption="Opacité&#160;:"/>
+		<control caption="Opacité :"/>
 		<control/>
 		<control caption="Ombres"/>
-		<control caption="_Icône système&#160;:"/>
-		<control caption="Quand je clique sur Fermer&#160;:"/>
+		<control caption="_Icône système :"/>
+		<control caption="Quand je clique sur Fermer :"/>
 		<control caption="Me demander|Minimiser dans la barre des tâches|Fermer immédiatement|Fermer à la fin des transferts"/>
-		<control caption="Qd je clique sur Minimiser&#160;:"/>
+		<control caption="Qd je clique sur Minimiser :"/>
 		<control caption="Normal|Minimiser dans la barre des tâches"/>
 	</dialog>
 	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="Bibliothèque">
-		<control caption="_Options&#160;:"/>
+		<control caption="_Options :"/>
 		<control caption="Autoriser l'affich. de mes partages"/>
 		<control caption="Surveiller les dossiers"/>
 		<control caption="Hachage rapide, plus le CPU"/>
 		<control caption="Mémoriser l'affichage de Hachage"/>
 		<control caption="Détection des séries vidéo"/>
 		<control caption="Créer des fichiers fantômes"/>
-		<control caption="Fichiers _récents&#160;:"/>
-		<control caption="Mémoriser&#160;:"/>
+		<control caption="Fichiers _récents :"/>
+		<control caption="Mémoriser :"/>
 		<control/>
 		<control/>
 		<control caption="fichiers"/>
-		<control caption="Jusqu'à&#160;:"/>
+		<control caption="Jusqu'à :"/>
 		<control/>
 		<control/>
 		<control caption="jours"/>
 		<control caption="Effacer l'historique"/>
 		<control caption="Effacer fantômes"/>
-		<control caption="_Ouverture sûre&#160;:"/>
+		<control caption="_Ouverture sûre :"/>
 		<control/>
 		<control caption="_Ajouter"/>
 		<control caption="Enleve_r"/>
-		<control caption="Ne _jamais partager&#160;:"/>
+		<control caption="Ne _jamais partager :"/>
 		<control/>
 		<control caption="_Ajouter"/>
 		<control caption="Enleve_r"/>
-		<control caption="Stocker les _collections ici&#160;:"/>
+		<control caption="Stocker les _collections ici :"/>
 		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="Lecteur multimédia">
 		<control caption="_MultiMédia"/>
-		<control caption="_Choissisez un logiciel"/>	<!-- Insufficient space to end with:  pour les services Multimédia&#160;: -->
+		<control caption="_Choissisez un logiciel"/>	<!-- Insufficient space to end with:  pour les services Multimédia : -->
 		<control/>
 		<control caption="Lire dans PeerProject les types de fichier ci-dessous"/>
 		<control caption="Mettre en file d'attente dans PeerProject les types de fichier ci-dessous"/>
-		<control caption="_Types de Fichier&#160;:"/>
+		<control caption="_Types de Fichier :"/>
 		<control/>
 		<control caption="_Ajouter"/>
 		<control caption="Enleve_r"/>
-		<control caption="Plugin de _Visualisation Audio&#160;:"/>
+		<control caption="Plugin de _Visualisation Audio :"/>
 		<control caption="_Sélectionner un Plugin..."/>
-		<control caption="Attention&#160;: L'utilisation d'un logiciel externe pour jouer les fichiers MultiMédia désactivera les extensions multimédia de PeerProject&#160;!"/>
+		<control caption="Attention : L'utilisation d'un logiciel externe pour jouer les fichiers MultiMédia désactivera les extensions multimédia de PeerProject !"/>
 	</dialog>
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Communauté">
-		<control caption="Mon _Profil&#160;:"/>
+		<control caption="Mon _Profil :"/>
 		<control caption="Utiliser votre Profil Utilisateur Gnutella afin de vous faire connaître des autres utilisateurs, partager vos centres d'intérêt, vos fichiers recommandés, etc."/>
 		<control caption="Éditer Mon Profil"/>
-		<control caption="_Discussion&#160;:"/>
+		<control caption="_Discussion :"/>
 		<control caption="Activer la discussion avec les clients P2P compatibles"/>
 		<control caption="Activer la discussion sur tous les réseaux"/>
 		<control caption="Filtrer le spam sur les messages de discussion"/>
@@ -3533,14 +3533,14 @@
 		<control caption="_Options du client :"/>
 		<control caption="Afficher l'horodateur"/>
 		<control caption="Montrer l'intégration IRC"/>
-		<control caption="Protection contre le flood&#160;:"/>
+		<control caption="Protection contre le flood :"/>
 		<control caption="Lignes"/>
 		<control/>
-		<control caption="Font&#160;:"/>
+		<control caption="Font :"/>
 		<control caption="Taille"/>
 		<control/>
 		<control/>
-		<control caption="_Couleurs&#160;:"/>
+		<control caption="_Couleurs :"/>
 		<control/>
 		<control caption="Arrière-plan"/>
 		<control/>
@@ -3557,25 +3557,25 @@
 		<control caption="Notifications"/>
 		<control/>
 		<control caption="Sujets"/>
-		<control caption="_Réglages de connexion&#160;:"/>
-		<control caption="Pseudonyme&#160;:"/>
+		<control caption="_Réglages de connexion :"/>
+		<control caption="Pseudonyme :"/>
 		<control/>
-		<control caption="Nom d'utilisateur&#160;:"/>
+		<control caption="Nom d'utilisateur :"/>
 		<control/>
-		<control caption="Pseudonyme alternatif&#160;:"/>
+		<control caption="Pseudonyme alternatif :"/>
 		<control/>
-		<control caption="Nom réel&#160;:"/>
+		<control caption="Nom réel :"/>
 		<control/>
-		<control caption="Serveur&#160;:"/>
+		<control caption="Serveur :"/>
 		<control/>
-		<control caption="Port&#160;:"/>
+		<control caption="Port :"/>
 		<control/>
 		<control caption="Commande exécuter dans le cadre"/>
 		<control/>
 	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
-		<control caption="_Prise en charge des liens P2P (URI)&#160;:"/>
-		<control caption="Utiliser PeerProject pour ouvrir ces types de lien&#160;:"/>
+		<control caption="_Prise en charge des liens P2P (URI) :"/>
+		<control caption="Utiliser PeerProject pour ouvrir ces types de lien :"/>
 		<control caption="Magnet ( magnet: )"/>
 		<control caption="Gnutella ( gnutella: )"/>
 		<control caption="eDonkey ( ed2k: )"/>
@@ -3583,84 +3583,84 @@
 		<control caption="DC++ ( dchub:/dcfile: )"/>
 		<control caption="BitTorrent ( .torrent )"/>
 		<control caption="_Gestionnaire de Téléchargements:"/>
-		<control caption="Utiliser PeerProject pour tous les téléchargements Web&#160;:"/>
+		<control caption="Utiliser PeerProject pour tous les téléchargements Web :"/>
 		<control/>
 		<control caption="_Ajouter"/>
 		<control caption="Enleve_r"/>
 		<control caption="Le gestionnaire de téléchargement ne téléchargera que les fichiers dont le type est dans cette liste. Les autres types de fichier seront gérés par votre navigateur Web. PeerProject doit être lancé pour que cette gestion soit active."/>
 	</dialog>
 	<dialog name="CConnectionSettingsPage" cookie="BuStCoStCoStEdBuBuBuStCoStCoBuStCoBuBuBuStEdmsStEdms" caption="Connexion">
-		<control caption="Adresse _entrante&#160;:"/>
-		<control caption="Adresse&#160;:"/>
+		<control caption="Adresse _entrante :"/>
+		<control caption="Adresse :"/>
 		<control caption="Automatique"/>
-		<control caption="Vitesse&#160;:"/>
+		<control caption="Vitesse :"/>
 		<control/>
-		<control caption="Port&#160;:"/>
+		<control caption="Port :"/>
 		<control/>
 		<control caption="Aléatoire"/>
 		<control caption="Rester sur cette adresse"/>
-		<control caption="Adresse _sortante&#160;:"/>
-		<control caption="Adresse&#160;:"/>
+		<control caption="Adresse _sortante :"/>
+		<control caption="Adresse :"/>
 		<control caption="Automatique"/>
-		<control caption="Vitesse&#160;:"/>
+		<control caption="Vitesse :"/>
 		<control/>
-		<control caption="O_ptions&#160;:"/>
+		<control caption="O_ptions :"/>
 		<control caption="Je peux accepter les connexions entrantes"/>
 		<control/>
 		<control caption="Ignorer les IP privées/locales"/>
 		<control caption="Activer la configuration automatique via UPnP"/>
-		<control caption="_Délai avant expiration&#160;:"/>
-		<control caption="Connexion&#160;:"/>
+		<control caption="_Délai avant expiration :"/>
+		<control caption="Connexion :"/>
 		<control/>
 		<control/>
-		<control caption="Poignée de m.&#160;:"/>
+		<control caption="Poignée de m. :"/>
 		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CDownloadsSettingsPage" cookie="BuEdBuBuEdBuBuStEdmsStEdmsStEdmsBuStCoStCoBuBu" caption="Téléchargements">
-		<control caption="_Sauvegarder les fichiers terminés ici&#160;:"/>
+		<control caption="_Sauvegarder les fichiers terminés ici :"/>
 		<control/>
 		<control/>
-		<control caption="Stocker les fichiers _incomplets ici&#160;:"/>
+		<control caption="Stocker les fichiers _incomplets ici :"/>
 		<control/>
 		<control/>
-		<control caption="_Nombre de téléchargements&#160;:"/>
-		<control caption="Nb max. de fichiers&#160;:"/>
+		<control caption="_Nombre de téléchargements :"/>
+		<control caption="Nb max. de fichiers :"/>
 		<control/>
 		<control/>
-		<control caption="Nb max. de transferts&#160;:"/>
+		<control caption="Nb max. de transferts :"/>
 		<control/>
 		<control/>
-		<control caption="Transferts par fichier&#160;:"/>
+		<control caption="Transferts par fichier :"/>
 		<control/>
 		<control/>
-		<control caption="Bande passante&#160;:"/>
-		<control caption="Limite en réception&#160;:"/>
+		<control caption="Bande passante :"/>
+		<control caption="Limite en réception :"/>
 		<control/>
-		<control caption="Taille de la file d'attente&#160;:"/>
+		<control caption="Taille de la file d'attente :"/>
 		<control/>
 		<control/>
 		<control caption="Télécharger et envoyer uniquement sur les réseaux connectés."/>
 	</dialog>
 	<dialog name="CUploadsSettingsPage" cookie="BuBuBuBuBuStEdmsBuCoBuBuBuStCoStCoBuSyBuBuBuSt" caption="Envois">
-		<control caption="_Options&#160;:"/>
+		<control caption="_Options :"/>
 		<control caption="Partage limité en mode Hub"/>
 		<control caption="Partager les téléch. partiels"/>
 		<control caption="Partager les prévisualisations"/>
 		<control caption="Fair-Use mode (10% media limit)"/>
-		<control caption="Limite par hôte&#160;:"/>
+		<control caption="Limite par hôte :"/>
 		<control/>
 		<control/>
-		<control caption="Filtre agent _utilisateur&#160;:"/>
+		<control caption="Filtre agent _utilisateur :"/>
 		<control/>
 		<control caption="+"/>
 		<control caption="-"/>
-		<control caption="_Bande passante&#160;:"/>
-		<control caption="Limite&#160;:"/>
+		<control caption="_Bande passante :"/>
+		<control caption="Limite :"/>
 		<control/>
-		<control caption="Mode&#160;:"/>
+		<control caption="Mode :"/>
 		<control caption="Maximum|Moyenne"/>
-		<control caption="_Files d'attentes&#160;:"/>
+		<control caption="_Files d'attentes :"/>
 		<control/>
 		<control caption="_Nouveau"/>
 		<control caption="_Éditer..."/>
@@ -3668,12 +3668,12 @@
 		<control caption="(Effet immédiat)"/>
 	</dialog>
 	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Accès à distance">
-		<control caption="Activ_er&#160;:"/>
-		<control caption="Activer l'accès à distance PeerProject&#160;:"/>
+		<control caption="Activ_er :"/>
+		<control caption="Activer l'accès à distance PeerProject :"/>
 		<control caption="..."/>
-		<control caption="Compte utilisateur&#160;:"/>
-		<control caption="Nom d'utilisateur&#160;:"/>
-		<control caption="Mot de passe&#160;:"/>
+		<control caption="Compte utilisateur :"/>
+		<control caption="Nom d'utilisateur :"/>
+		<control caption="Mot de passe :"/>
 		<control/>
 		<control/>
 		<control caption="Aide:"/>
@@ -3681,55 +3681,55 @@
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="Réseaux">
 		<control caption="PeerProject est un client P2P multi-réseaux. Il peut se connecter à plusieurs réseaux en même temps. Sur cette page, vous pouvez sélectionner à quels réseaux vous souhaitez vous connecter, puis paramétrer des réglages spécifiques pour chacun."/>
-		<control caption="Réseau Gnutella2&#160;:"/>
+		<control caption="Réseau Gnutella2 :"/>
 		<control caption="Le réseau Gnutella2 est le réseau de prédilection de PeerProject, et il est le plus performant des réseaux P2P. Hautement recommandé."/>
 		<control caption="Afficher Gnutella2 (G2)"/>
 		<control caption="Configurer Gnutella2"/>
-		<control caption="Réseau Gnutella original&#160;:"/>
+		<control caption="Réseau Gnutella original :"/>
 		<control caption="Le réseau Gnutella original est moins performant chez PeerProject que G2 et possède moins de fichiers qu'eDonkey, mais il reste une ressource importante."/>
 		<control caption="Afficher Gnutella (G1)"/>
 		<control caption="Configurer Gnutella"/>
-		<control caption="Réseau eDonkey&#160;:"/>
+		<control caption="Réseau eDonkey :"/>
 		<control caption="Le réseau eDonkey est un réseau populaire basé sur des serveurs. Il est quelques fois moins performant que Gnutella2 mais possède plus de contenu."/>
 		<control caption="Afficher eDonkey2000 (ED2K)"/>
 		<control caption="Configurer eDonkey"/>
-		<control caption="Réseau DC++&#160;:"/>
+		<control caption="Réseau DC++ :"/>
 		<control caption="Le réseau DC++ est un réseau populaire basé sur des serveurs. Il est quelques fois moins performant que Gnutella2 mais possède plus de contenu."/>
 		<control caption="Afficher DC++ (DC)"/>
 		<control caption="Configurer DC++"/>
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
-		<control caption="Réseau Gnutella2&#160;:"/>
+		<control caption="Réseau Gnutella2 :"/>
 		<control caption="Connexion à G2 maintenant"/>
 		<control caption="Connexion à G2 au démarrage"/>
-		<control caption="Mode&#160;:"/>
+		<control caption="Mode :"/>
 		<control caption="Optimal|Terminal|Hub"/>
-		<control caption="Connexions G_2&#160;:"/>
-		<control caption="Terminal à Hub&#160;:"/>
+		<control caption="Connexions G_2 :"/>
+		<control caption="Terminal à Hub :"/>
 		<control/>
 		<control/>
-		<control caption="Hub à Terminal&#160;:"/>
+		<control caption="Hub à Terminal :"/>
 		<control/>
 		<control/>
-		<control caption="Hub à Hub&#160;:"/>
+		<control caption="Hub à Hub :"/>
 		<control/>
 		<control/>
-		<control caption="Réseau Gnutella&#160;:"/>
+		<control caption="Réseau Gnutella :"/>
 		<control caption="Connexion à Gnutella maintenant"/>
 		<control caption="Connexion à Gnutella au démarrage"/>
-		<control caption="Mode&#160;:"/>
+		<control caption="Mode :"/>
 		<control caption="Optimal|Terminal|Ultrapeer"/>
-		<control caption="Connexions G_1&#160;:"/>
-		<control caption="Terminal à Ultrapeer&#160;:"/>
+		<control caption="Connexions G_1 :"/>
+		<control caption="Terminal à Ultrapeer :"/>
 		<control/>
 		<control/>
-		<control caption="Ultrapeer à Terminal&#160;:"/>
+		<control caption="Ultrapeer à Terminal :"/>
 		<control/>
 		<control/>
-		<control caption="Pair à Pair&#160;:"/>
+		<control caption="Pair à Pair :"/>
 		<control/>
 		<control/>
-		<control caption="Compression de _lien&#160;:"/>
+		<control caption="Compression de _lien :"/>
 		<control caption="Hub à Terminal"/>
 		<control caption="Terminal à Hub"/>
 		<control caption="Hub à Hub"/>
@@ -3738,21 +3738,21 @@
 		<control caption="Réseau _eDonkey :"/>
 		<control caption="Connexion à eDonkey maintenant"/>
 		<control caption="Connexion auto. au démarrage"/>
-		<control caption="Connexions aux _clients&#160;:"/>
-		<control caption="Ne pas se connecter à + de&#160;:"/>
+		<control caption="Connexions aux _clients :"/>
+		<control caption="Ne pas se connecter à + de :"/>
 		<control/>
 		<control/>
 		<control caption="autres clients eDonkey."/>
-		<control caption="Reche_rche globale&#160;:"/>
-		<control caption="Rechercher les serveurs connus dans le cache&#160;:"/>
-		<control caption="Cesser les recherches après&#160;:"/>
+		<control caption="Reche_rche globale :"/>
+		<control caption="Rechercher les serveurs connus dans le cache :"/>
+		<control caption="Cesser les recherches après :"/>
 		<control/>
 		<control/>
 		<control caption="résultats."/>
 		<control caption="Mettre la liste des serveurs à jour via le serveur contacté"/>
 		<control caption="Ou_tils eDonkey :"/>
 		<control caption="Télécharger..."/>
-		<control caption="Télécharger la liste des serveurs ED2K sur le Web&#160;:"/>
+		<control caption="Télécharger la liste des serveurs ED2K sur le Web :"/>
 	</dialog>
 	<dialog name="CDCSettingsPage" cookie="BuBuBuBuStEdmsStBuStBuBuSt" caption="DC++">
 		<control caption="Réseau _DC++ :"/>
@@ -3796,12 +3796,12 @@
 	</dialog>
 	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdStBuBuBu" caption="Thème">
 		<control/>
-		<control caption="Information sur le thème&#160;:"/>
-		<control caption="Nom&#160;:"/>
+		<control caption="Information sur le thème :"/>
+		<control caption="Nom :"/>
 		<control/>
-		<control caption="Auteur&#160;:"/>
+		<control caption="Auteur :"/>
 		<control/>
-		<control caption="Description&#160;:"/>
+		<control caption="Description :"/>
 		<control/>
 		<control caption="*Sélectionner de multiples skins pour mélanger"/>
 		<control caption="Supprimer"/>
@@ -3810,18 +3810,18 @@
 	</dialog>
 	<dialog name="CPluginsSettingsPage" cookie="SyBuStStStEdBuBu" caption="Extensions">
 		<control/>
-		<control caption="Informations sur l'extension&#160;:"/>
-		<control caption="Nom&#160;:"/>
+		<control caption="Informations sur l'extension :"/>
+		<control caption="Nom :"/>
 		<control/>
-		<control caption="Description&#160;:"/>
+		<control caption="Description :"/>
 		<control/>
 		<control caption="_Configurer..."/>
 		<control caption="Plus d'extensions"/>
 	</dialog>
 	<dialog name="CAdvancedSettingsPage" cookie="SyBuStEdmsEdCoBuBu" caption="Avancé">
 		<control/>
-		<control caption="Paramètres de la propriété&#160;:"/>
-		<control caption="Valeur&#160;:"/>
+		<control caption="Paramètres de la propriété :"/>
+		<control caption="Valeur :"/>
 		<control/>
 		<control/>
 		<control/>
@@ -3830,44 +3830,44 @@
 		<control caption="Par défaut"/>
 	</dialog>
 	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protocoles">
-		<control caption="Explorateur de l'architecture commune aux protocoles de PeerProject&#160;:"/>
+		<control caption="Explorateur de l'architecture commune aux protocoles de PeerProject :"/>
 		<control/>
 	</dialog>
 	<dialog name="CQueuePropertiesDlg" cookie="BuEdBuBuBuBuBuEdBuEdBuCoBuEdBuSyBuBuStEdmsStEdmsStEdmsBuStEdStEdmsBuEdmsBuBuBu" caption="Propriétés des files d'attente d'envois">
-		<control caption="_Nom&#160;:"/>
+		<control caption="_Nom :"/>
 		<control/>
-		<control caption="Critère d'_entrée&#160;:"/>
+		<control caption="Critère d'_entrée :"/>
 		<control caption="Seulement les fichiers incomplets"/>
 		<control caption="Seulement les fichiers complets"/>
 		<control caption="Les fichiers incomplets et les fichiers complets"/>
-		<control caption="Taille min. du fichier&#160;:"/>
+		<control caption="Taille min. du fichier :"/>
 		<control/>
-		<control caption="Taille max. du fichier&#160;:"/>
+		<control caption="Taille max. du fichier :"/>
 		<control/>
-		<control caption="Fichiers marqués&#160;:"/>
+		<control caption="Fichiers marqués :"/>
 		<control caption="Populaire|Release"/>
-		<control caption="Nom de fichier&#160;:"/>
+		<control caption="Nom de fichier :"/>
 		<control/>
-		<control caption="Protocoles&#160;:"/>
+		<control caption="Protocoles :"/>
 		<control/>
-		<control caption="_Capacité&#160;:"/>
+		<control caption="_Capacité :"/>
 		<control caption="Activer cette file d'attente"/>
-		<control caption="Nombre minimum de transferts&#160;:"/>
+		<control caption="Nombre minimum de transferts :"/>
 		<control/>
 		<control/>
-		<control caption="Nombre maximum de transferts&#160;:"/>
+		<control caption="Nombre maximum de transferts :"/>
 		<control/>
 		<control/>
-		<control caption="Nombre max. en attente dans la file&#160;:"/>
+		<control caption="Nombre max. en attente dans la file :"/>
 		<control/>
 		<control/>
-		<control caption="Paramètres du _service&#160;:"/>
-		<control caption="pourcentage de bande passante saturée&#160;:"/>
+		<control caption="Paramètres du _service :"/>
+		<control caption="pourcentage de bande passante saturée :"/>
 		<control/>
-		<control caption="Bande passante pour cette file&#160;:"/>
+		<control caption="Bande passante pour cette file :"/>
 		<control/>
 		<control/>
-		<control caption="Alterner après # secondes&#160;:"/>
+		<control caption="Alterner après # secondes :"/>
 		<control/>
 		<control/>
 		<control caption="Valider"/>
@@ -3878,7 +3878,7 @@
 		<control caption="PeerProject vous souhaite la bienvenue!"/>
 		<control caption="Si vous n'avez jamais utilisé PeerProject ou un autre client P2P, cet assistant vous aidera à le configurer en quelques étapes."/>
 		<control caption="Si vous êtes un utilisateur avancé, vous pouvez accéder à toutes les options de PeerProject via le menu &#171;&#160;Outils&#160;&#187;. Cliquez sur &#171;&#160;Quitter&#160;&#187; pour quitter l'assistant à n'importe quel moment."/>
-		<control caption="Cet assistant vous aidera à&#160;:"/>
+		<control caption="Cet assistant vous aidera à :"/>
 		<control/>
 		<control caption="Configurer votre connexion Internet."/>
 		<control/>
@@ -3890,18 +3890,18 @@
 	</dialog>
 	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="PeerProject vous souhaite la bienvenue &#160;(2/8)">
 		<control caption="Pour des performances optimales, PeerProject doit en connaître un peu plus sur votre connexion à Internet."/>
-		<control caption="Veuillez sélectionner le type de connexion&#160;:"/>
+		<control caption="Veuillez sélectionner le type de connexion :"/>
 		<control caption="|Modem Dial-up|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Modem Câble"/>
-		<control caption="Ou, choisissez la vitesse téléchargement&#160;:"/>
+		<control caption="Ou, choisissez la vitesse téléchargement :"/>
 		<control/>
-		<control caption="et la vitesse d'envoi&#160;:"/>
+		<control caption="et la vitesse d'envoi :"/>
 		<control/>
-		<control caption="Voulez-vous configurer votre routeur en utilisant UPnP&#160;?"/>
+		<control caption="Voulez-vous configurer votre routeur en utilisant UPnP ?"/>
 		<control/>
 		<control caption="Port :&#160; (Numéro 4-5 chiffres)"/>
 		<control/>
 		<control caption="Aléatoire"/>
-		<control caption="Statut&#160;:"/>
+		<control caption="Statut :"/>
 		<control/>
 	</dialog>
 	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="PeerProject vous souhaite la bienvenue &#160;(3/8)">
@@ -3916,13 +3916,13 @@
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="PeerProject vous souhaite la bienvenue &#160;(4/8)">
 		<control caption="PeerProject abord partielle des fichiers dans un dossier privé, puis les transfère une fois complété selon les Groupes de téléchargement."/>
-		<control caption="Stocker les fichiers incomplets ici&#160;:"/>
+		<control caption="Stocker les fichiers incomplets ici :"/>
 		<control/>
 		<control/>
-		<control caption="Sauvegarder les fichiers terminés ici&#160;:"/>
+		<control caption="Sauvegarder les fichiers terminés ici :"/>
 		<control/>
 		<control/>
-		<control caption="Stocker les .Torrents ici&#160;:"/>
+		<control caption="Stocker les .Torrents ici :"/>
 		<control/>
 		<control/>
 		<control caption="Types de fichiers communs sont d'abord l'installation en sous-dossiers, mais les groupes peuvent être personnalisés. Glisser-déposer des fichiers."/>
@@ -3939,15 +3939,15 @@
 	<dialog name="CFolderScanDlg" cookie="StStStStStStBu" caption="Index le dossier...">
 		<control/>
 		<control caption="..."/>
-		<control caption="Fichiers&#160;:"/>
+		<control caption="Fichiers :"/>
 		<control caption="0"/>
-		<control caption="Volume&#160;:"/>
+		<control caption="Volume :"/>
 		<control caption="0"/>
 		<control caption="Fermer"/>
 	</dialog>
 	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="PeerProject vous souhaite la bienvenue &#160;(6/8)">
 		<control caption="PeerProject offre une interface utilisateur flexible, vous pouvez ainsi choisir ce qui vous paraît le plus confortable."/>
-		<control caption="Veuillez sélectionner l'interface utilisateur&#160;:"/>
+		<control caption="Veuillez sélectionner l'interface utilisateur :"/>
 		<control caption="Mode Normal"/>
 		<control caption="Mode Expert"/>
 		<control caption="Simple, facile d'utilisation. Il sera familier pour les utilisateurs d'autres clients P2P."/>
@@ -3957,12 +3957,12 @@
 	</dialog>
 	<dialog name="CWizardProfilePage" cookie="StStEdStCoCoStCoStCoStEd" caption="PeerProject vous souhaite la bienvenue &#160;(7/8)">
 		<control caption="PeerProject est beaucoup plus amical quand chacun écrit quelques informations basiques à propos d'eux-mêmes."/>
-		<control caption="J'utilise le nom&#160;:"/>
+		<control caption="J'utilise le nom :"/>
 		<control/>
-		<control caption="et je suis&#160;:"/>
+		<control caption="et je suis :"/>
 		<control caption="&#160;(choisir)"/>
 		<control caption="&#160;(choisir)| un homme| une femme| un garçon| une fille"/>
-		<control caption="résidant à&#160;:"/>
+		<control caption="résidant à :"/>
 		<control/>
 		<control caption="Locale:"/>
 		<control/>
@@ -3970,15 +3970,15 @@
 		<control/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="PeerProject vous souhaite la bienvenue &#160;(8/8)">
-		<control caption="C'est fait&#160;! PeerProject a été configuré pour fonctionner sur votre ordinateur&#160;!"/>
+		<control caption="C'est fait ! PeerProject a été configuré pour fonctionner sur votre ordinateur !"/>
 		<control caption="Si vous voulez par la suite modifier vos paramètres, vous pouvez relancer cet assistant de configuration en le sélectionnant dans le menu outils."/>
 		<control caption="Après avoir fermé cet assistant en cliquant sur terminer, vous pouvez vous connecter aux réseaux que vous avez sélectionnés et commencer une recherche."/>
 		<control caption="Lancer PeerProject au démarrage de &#171;&#160;Windows&#160;&#187;"/>
 		<control caption="Se connecter au réseau à chaque lancement de PeerProject"/>
-		<control caption="Vous pouvez maintenant apprécier PeerProject&#160;!"/>
+		<control caption="Vous pouvez maintenant apprécier PeerProject !"/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="Importer des téléchargements eDonkey">
-		<control caption="PeerProject a détecté que vous aviez un autre client eDonkey installé sur votre ordinateur. Souhaitez-vous importer ses téléchargements en cours dans PeerProject&#160;?"/>
+		<control caption="PeerProject a détecté que vous aviez un autre client eDonkey installé sur votre ordinateur. Souhaitez-vous importer ses téléchargements en cours dans PeerProject ?"/>
 		<control caption="Oui"/>
 		<control caption="Non|Annuler"/>
 		<control/>
@@ -3992,15 +3992,15 @@
 		<control/>
 	</dialog>
 	<dialog name="CIdentityProfilePage" cookie="BuStStEdEdEdBuStStCoCoBuStBuBu" caption="Identité">
-		<control caption="_Nom&#160;:"/>
-		<control caption="Pseudonyme&#160;:"/>
-		<control caption="Nom réel&#160;:"/>
+		<control caption="_Nom :"/>
+		<control caption="Pseudonyme :"/>
+		<control caption="Nom réel :"/>
 		<control/>
 		<control/>
 		<control/>
-		<control caption="Attributs physiques&#160;:"/>
-		<control caption="Civilité&#160;:"/>
-		<control caption="Age&#160;:"/>
+		<control caption="Attributs physiques :"/>
+		<control caption="Civilité :"/>
+		<control caption="Age :"/>
 		<control caption="|Masculin|Féminin"/>
 		<control/>
 		<control caption="Info :"/>
@@ -4009,35 +4009,35 @@
 		<control caption="Autoriser les utilisateurs à voir mon profil."/>
 	</dialog>
 	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Avatar">
-		<control caption="_Prévisualiser&#160;:"/>
+		<control caption="_Prévisualiser :"/>
 		<control/>
-		<control caption="_Sélectionner&#160;:"/>
+		<control caption="_Sélectionner :"/>
 		<control caption="Les autres utilisateurs de Gnutella qui parcourent votre profil et vos fichiers partagés verront votre avatar. Les avatars personnalisés doivent avoir une taille de 128x128 pixels et peuvent être de n'importe quel format supporté par votre PC."/>
 		<control caption="Parcourir..."/>
 		<control caption="Enleve_r"/>
 	</dialog>
 	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="Lieu">
-		<control caption="_Lieu&#160;:"/>
-		<control caption="Pays&#160;:"/>
+		<control caption="_Lieu :"/>
+		<control caption="Pays :"/>
 		<control/>
-		<control caption="Ville&#160;:"/>
+		<control caption="Ville :"/>
 		<control/>
-		<control caption="Sur une carte&#160;:"/>
-		<control caption="Latitude&#160;:"/>
+		<control caption="Sur une carte :"/>
+		<control caption="Latitude :"/>
 		<control/>
-		<control caption="Longitude&#160;:"/>
+		<control caption="Longitude :"/>
 		<control/>
-		<control caption="Centres d'_intérêt&#160;:"/>
+		<control caption="Centres d'_intérêt :"/>
 		<control/>
 		<control caption="Ajouter &gt;"/>
 		<control caption="&lt; Enlever"/>
 		<control/>
 	</dialog>
 	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEdStEdStEdStEd" caption="Contact">
-		<control caption="Adresses email&#160;:"/>
-		<control caption="Principale&#160;:"/>
+		<control caption="Adresses email :"/>
+		<control caption="Principale :"/>
 		<control/>
-		<control caption="Messagerie instantanée&#160;:"/>
+		<control caption="Messagerie instantanée :"/>
 		<control caption="PeerProject.org:"/>
 		<control/>
 		<control caption="Facebook:"/>
@@ -4059,22 +4059,22 @@
 		<control/>
 	</dialog>
 	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Fichiers">
-		<control caption="_Fichiers favoris&#160;:"/>
+		<control caption="_Fichiers favoris :"/>
 		<control caption="Les fichiers favoris sont recommandés aux utilisateurs qui parcourent votre profil. Ajoutez des favoris au dossier &#171;&#160;Favoris&#160;&#187; de votre bibliothèque."/>
 		<control/>
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Favoris">
 		<control/>
-		<control caption="Modifier&#160;:"/>
-		<control caption="Titre&#160;:"/>
+		<control caption="Modifier :"/>
+		<control caption="Titre :"/>
 		<control/>
-		<control caption="URL&#160;:"/>
+		<control caption="URL :"/>
 		<control/>
 		<control caption="Nouveau"/>
 		<control caption="Enlever"/>
 	</dialog>
 	<dialog name="CCertificateProfilePage" cookie="BuStStStStBuBuSt" caption="Certificat">
-		<control caption="_Certificat d'identification unique&#160;:"/>
+		<control caption="_Certificat d'identification unique :"/>
 		<control caption="Gnutella/G2 GUID :"/>
 		<control/>
 		<control caption="BitTorrent GUID :"/>
@@ -4086,7 +4086,7 @@
 	<dialog name="CLanguageDlg" cookie="" caption="Choisir la langue">
 	</dialog>
 	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="Se connecter à|Parcourir l'hôte|Chat with User">
-		<control caption="Établir une nouvelle connexion avec l'hôte ou le serveur&#160;:|Parcourir cet hôte&#160;:|Messagerie cet user&#160;:"/>
+		<control caption="Établir une nouvelle connexion avec l'hôte ou le serveur :|Parcourir cet hôte :|Messagerie cet user :"/>
 		<control/>
 		<control/>
 		<control caption="_Protocole réseau:"/>
@@ -4113,19 +4113,19 @@
 		<control caption="Annuler"/>
 	</dialog>
 	<dialog name="CFilterSearchDlg" cookie="BuEdBuStBuStEdStEdStEdmsBuBuBuBuBuBuBuBuBuBuBuBuBuCoBuBuBuBuBu" caption="Assortiments du filtre">
-		<control caption="Montrer seulement les résultats qui contiennent les mots&#160;:"/>
+		<control caption="Montrer seulement les résultats qui contiennent les mots :"/>
 		<control/>
 		<control caption="Reg. Exp."/>
 		<control caption="(Exclure -mots)"/>
-		<control caption="Et qui ont une taille de&#160;:"/>
-		<control caption="Minimum&#160;:"/>
+		<control caption="Et qui ont une taille de :"/>
+		<control caption="Minimum :"/>
 		<control/>
-		<control caption="Maximum&#160;:"/>
+		<control caption="Maximum :"/>
 		<control/>
-		<control caption="Avec au moins sources.&#160;:"/>
+		<control caption="Avec au moins sources. :"/>
 		<control/>
 		<control/>
-		<control caption="Masquer&#160;:"/>
+		<control caption="Masquer :"/>
 		<control caption="Fichiers possédés"/>
 		<control caption="Sans correspondance"/>
 		<control caption="Fichiers suspects"/>
@@ -4141,7 +4141,7 @@
 		<control caption="Régler par défaut"/>
 		<control caption="_Sauvegarder sous"/>
 		<control caption="_Effacer"/>
-		<control caption="Filtres&#160;:"/>
+		<control caption="Filtres :"/>
 		<control caption="Annuler"/>
 	</dialog>
 	<dialog name="CSaveFilterAsDlg" cookie="EdBuBuSt" caption="Sauvegarder le filtre sous">
@@ -4151,9 +4151,9 @@
 		<control caption="Sauvegarder le filtre actuel sous"/>
 	</dialog>
 	<dialog name="CDiscoveryServiceDlg" cookie="BuEdStCoBuBu" caption="Services de découverte">
-		<control caption="_Adresse du service&#160;:"/>
+		<control caption="_Adresse du service :"/>
 		<control/>
-		<control caption="Type de service&#160;:"/>
+		<control caption="Type de service :"/>
 		<control caption="Gnutella Bootstrap|GWebCache|Server.met URL|Bloqué"/>
 		<control caption="Valider"/>
 		<control caption="Annuler"/>
@@ -4163,13 +4163,13 @@
 		<control/>
 		<control/>
 		<control/>
-		<control caption="Nombre de sources&#160;:"/>
+		<control caption="Nombre de sources :"/>
 		<control caption="..."/>
-		<control caption="Vitesse totale&#160;:"/>
+		<control caption="Vitesse totale :"/>
 		<control caption="..."/>
-		<control caption="Temps restant estimé&#160;:"/>
+		<control caption="Temps restant estimé :"/>
 		<control caption="..."/>
-		<control caption="Volume téléchargé&#160;:"/>
+		<control caption="Volume téléchargé :"/>
 		<control caption="..."/>
 		<control caption="Voir"/>
 		<control caption="Arrêter"/>
@@ -4179,10 +4179,10 @@
 	<dialog name="CFileGeneralPage" cookie="EdStStStStStEdEdEdEdEdStEdEdEdEd" caption="Général">
 		<control/>
 		<control caption="Attributs du fichier"/>
-		<control caption="Origine&#160;:"/>
-		<control caption="Type&#160;:"/>
-		<control caption="Modifié le&#160;:"/>
-		<control caption="Taille&#160;:"/>
+		<control caption="Origine :"/>
+		<control caption="Type :"/>
+		<control caption="Modifié le :"/>
+		<control caption="Taille :"/>
 		<control/>
 		<control/>
 		<control/>
@@ -4200,7 +4200,7 @@
 	</dialog>
 	<dialog name="CFileCommentsPage" cookie="StStCoStEdEd" caption="Description">
 		<control caption="Mon évaluation"/>
-		<control caption="J'évalue ce fichier&#160;:"/>
+		<control caption="J'évalue ce fichier :"/>
 		<control caption="(Pas d'évaluation)|Faux/Corrompu/Trompeur|Pauvre|Moyen|Bon|Très bon|Excellent"/>
 		<control caption="Ma description et mes commentaires"/>
 		<control/>
@@ -4210,7 +4210,7 @@
 		<control/>
 		<control caption="Partage simple"/>
 		<control caption="Partager ce fichier si le dossier parent est partagé"/>
-		<control caption="Paramètres personnalisés pour ce fichier&#160;:"/>
+		<control caption="Paramètres personnalisés pour ce fichier :"/>
 		<control caption="Laisser ce fichier disponible aux autres utilisateurs"/>
 		<control caption="Tag de file d'attente"/>
 		<control/>
@@ -4225,8 +4225,8 @@
 		<control/>
 	</dialog>
 	<dialog name="CFileCopyDlg" cookie="StStStmsmsStBuBu" caption="Copier des fichiers|Déplacer des fichiers">
-		<control caption="Vous avez sélectionné %i fichiers à copier dans ce dossier&#160;:"/>
-		<control caption="Vous avez sélectionné %i fichiers à déplacer dans ce dossier&#160;:"/>
+		<control caption="Vous avez sélectionné %i fichiers à copier dans ce dossier :"/>
+		<control caption="Vous avez sélectionné %i fichiers à déplacer dans ce dossier :"/>
 		<control/>
 		<control/>
 		<control/>
@@ -4235,9 +4235,9 @@
 		<control caption="Annuler"/>
 	</dialog>
 	<dialog name="CFolderPropertiesDlg" cookie="StEdStCoBuStBuBu" caption="Propriétés du dossier">
-		<control caption="Titre du dossier&#160;:"/>
+		<control caption="Titre du dossier :"/>
 		<control/>
-		<control caption="Type de dossier&#160;:"/>
+		<control caption="Type de dossier :"/>
 		<control/>
 		<control caption="Tout"/>
 		<control caption="Copier ces propriétés communes à chacun des fichiers du dossier."/>
@@ -4253,12 +4253,12 @@
 		<control caption="Grille"/>
 		<control caption="Axe vertical"/>
 		<control caption="Légende"/>
-		<control caption="Fréquence de mise à jour&#160;:"/>
-		<control caption="Temps entre chaque MàJ&#160;:"/>
+		<control caption="Fréquence de mise à jour :"/>
+		<control caption="Temps entre chaque MàJ :"/>
 		<control/>
 		<control/>
 		<control caption="ms"/>
-		<control caption="_Nom&#160;:"/>
+		<control caption="_Nom :"/>
 		<control/>
 		<control caption="Valider"/>
 		<control caption="Annuler"/>
@@ -4266,30 +4266,30 @@
 	<dialog name="CGraphItemDlg" cookie="BuBuBuCoStEdStEdBuBuStBu" caption="Propriétés du graphique">
 		<control caption="Valider"/>
 		<control caption="Annuler"/>
-		<control caption="_Source&#160;:"/>
+		<control caption="_Source :"/>
 		<control/>
-		<control caption="Paramètre&#160;:"/>
+		<control caption="Paramètre :"/>
 		<control/>
-		<control caption="Unités&#160;:"/>
+		<control caption="Unités :"/>
 		<control/>
-		<control caption="Affichage&#160;:"/>
+		<control caption="Affichage :"/>
 		<control caption="Couleur..."/>
 		<control/>
 		<control caption="_Retirer"/>
 	</dialog>
-	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Règle de sécurité">
-		<control caption="_Règle&#160;:"/>
-		<control caption="Type&#160;:"/>
-		<control caption="Adresse (IP) réseau|Filtre de contenu"/>
-		<control caption="Commentaire&#160;:"/>
+	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuEdBuBuStCoStCoEdStEdStEdStBuBu" caption="Règle de sécurité">
+		<control caption="_Règle :"/>
+		<control caption="Type :"/>
+		<control caption="Adresse réseau (IP)|Filtre de contenu|Liste de blocage"/>
+		<control caption="Commentaire :"/>
 		<control/>
-		<control caption="Adresse _réseau&#160;:"/>
-		<control caption="Adresse IP&#160;:"/>
-		<control/>
-		<control/>
+		<control caption="Adresse _réseau :"/>
+		<control caption="Adresse IP :"/>
 		<control/>
 		<control/>
-		<control caption="Netmask&#160;:"/>
+		<control/>
+		<control/>
+		<control caption="Netmask :"/>
 		<control/>
 		<control/>
 		<control/>
@@ -4299,11 +4299,14 @@
 		<control caption="Au moins un mot"/>
 		<control caption="Tous les mots"/>
 		<control caption="Reg. Exp."/>
-		<control caption="_Options&#160;:"/>
-		<control caption="Action&#160;:"/>
+		<control caption="Liste de blocage Fichier :"/>
+		<control/>
+		<control caption="Feuilleter"/>
+		<control caption="_Options :"/>
+		<control caption="Action :"/>
 		<control caption="Aucune|Accepter|Refuser"/>
-		<control caption="Expire&#160;:"/>
-		<control caption="Jamais (Indéfini)|A la fin de la session|Après&#160;:"/>
+		<control caption="Expire :"/>
+		<control caption="Jamais (Indéfini)|A la fin de la session|Après :"/>
 		<control/>
 		<control caption="j"/>
 		<control/>
@@ -4358,7 +4361,7 @@
 		<control caption="Annuler"/>
 	</dialog>
 	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="Copie d'URI">
-		<control caption="Vous pouvez copier une URI de cet objet dans différents formats. Veuillez choisir le format à utiliser en cliquant sur une des URI ci-dessous&#160;:"/>
+		<control caption="Vous pouvez copier une URI de cet objet dans différents formats. Veuillez choisir le format à utiliser en cliquant sur une des URI ci-dessous :"/>
 		<control/>
 		<control/>
 		<control/>
@@ -4366,11 +4369,11 @@
 		<control caption="Annuler"/>
 	</dialog>
 	<dialog name="CURLExportDlg" cookie="StEdStCoStCoBuBumsBu" caption="Exporter les URI">
-		<control caption="Vous avez sélectionné %lu fichiers à exporter en tant qu'URI PeerProject. Sélectionnez le format des URI, puis cliquez sur Sauvegarder&#160;:"/>
+		<control caption="Vous avez sélectionné %lu fichiers à exporter en tant qu'URI PeerProject. Sélectionnez le format des URI, puis cliquez sur Sauvegarder :"/>
 		<control/>
 		<control caption="&#171;&#160;jeton&#160;&#187;:"/>
 		<control caption="Tiger Root|SHA1|MD5|ED2K (CMD4)|Nom de fichier|Nom de fichier (URI)|Nom de fichier Base|Extension du fichier|Taille du fichier|Taille du fichier (octets)|Chemin du dossier|Hôte local|Port local"/>
-		<control caption="Présélection&#160;:"/>
+		<control caption="Présélection :"/>
 		<control caption="Magnet|eDonkey|Magnet HTML|eDonkey HTML"/>
 		<control caption="_Copier"/>
 		<control caption="Sauvegarder"/>
@@ -4378,15 +4381,15 @@
 		<control caption="Annuler"/>
 	</dialog>
 	<dialog name="CURLActionDlg" cookie="StStStStStStEdStEdStBuBuBuBuBu" caption="Gestionnaire d'URI PeerProject">
-		<control caption="Vous avez cliqué sur une URI PeerProject qui pointe sur le contenu suivant&#160;:"/>
-		<control caption="Vous avez cliqué sur une URL PeerProject qui va vous connecter à l'hôte ou au serveur suivant&#160;:"/>
-		<control caption="Vous avez cliqué sur une URI PeerProject qui va vous permettre de parcourir les fichiers partagés sur l'hôte suivant&#160;:"/>
+		<control caption="Vous avez cliqué sur une URI PeerProject qui pointe sur le contenu suivant :"/>
+		<control caption="Vous avez cliqué sur une URL PeerProject qui va vous connecter à l'hôte ou au serveur suivant :"/>
+		<control caption="Vous avez cliqué sur une URI PeerProject qui va vous permettre de parcourir les fichiers partagés sur l'hôte suivant :"/>
 		<control caption="Vous avez cliqué sur une URI PeerProject qui va ajouter le Service de Découverte suivant à votre cache de Services de Découverte."/>
 		<control/>
 		<control/>
 		<control/>
 		<control/>
-		<control caption="Veuillez sélectionner ce que PeerProject doit faire&#160;:"/>
+		<control caption="Veuillez sélectionner ce que PeerProject doit faire :"/>
 		<control caption="Télécharger!"/>
 		<control caption="_Chercher le fichier"/>
 		<control caption="Annuler"/>
@@ -4403,27 +4406,27 @@
 	</dialog>
 	<dialog name="CFilePreviewDlg" cookie="StStStmsStBu" caption="Prévisualisation du téléchargement...">
 		<control/>
-		<control caption="PeerProject crée une prévisualisation du téléchargement&#160;:"/>
+		<control caption="PeerProject crée une prévisualisation du téléchargement :"/>
 		<control/>
 		<control/>
 		<control caption="(copie des segments téléchargés vers un fichier de prévisualisation)"/>
 		<control caption="Annuler"/>
 	</dialog>
-	<dialog name="CWarningsDlg" cookie="StStStStStStBu" caption="PeerProject respecte ses utilisateurs&#160;!">
-		<control caption="Saviez-vous que PeerProject était un produit totalement libre et gratuit&#160;?"/>
+	<dialog name="CWarningsDlg" cookie="StStStStStStBu" caption="PeerProject respecte ses utilisateurs !">
+		<control caption="Saviez-vous que PeerProject était un produit totalement libre et gratuit ?"/>
 		<control caption="PeerProject ne contient AUCUN &#171;&#160;spyware&#160;&#187;, &#171;&#160;adware&#160;&#187; ou autre logiciel de ce type. Il n'affiche JAMAIS de publicités ou &#171;&#160;popup&#160;&#187;.{n}{n}Si vous rencontrez des publicités ou des fenêtres intempestives en utilisant PeerProject, vous pouvez être sûr qu'ils ne proviennent pas de ce logiciel."/>
 		<control caption="Malheureusement, beaucoup d'autres logiciels contiennent des &#171;&#160;adware&#160;&#187; ou &#171;&#160;spyware&#160;&#187;, donc si vous suspectez quelque chose, vous devriez désinfecter votre PC avec un logiciel spécialisé."/>
 		<control caption="Il n'est pas nécessaire de payer quoique ce soit pour PeerProject. PeerProject peut être téléchargé librement sur http://PeerProject.org. Si vous payez quelqu'un pour PeerProject, demandez immédiatement un remboursement."/>
-		<control caption="PeerProject respecte ses utilisateurs&#160;!"/>
+		<control caption="PeerProject respecte ses utilisateurs !"/>
 		<control caption="http://PeerProject.org"/>
 		<control caption="Fermer"/>
 	</dialog>
-	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Faire passer le message&#160;!">
-		<control caption="Aidez nous à faire passer le message&#160;!"/>
+	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Faire passer le message !">
+		<control caption="Aidez nous à faire passer le message !"/>
 		<control caption="Nous espérons que vous appréciez PeerProject. Nous pensons que c'est le meilleur logiciel P2P."/>
-		<control caption="Malheureusement, beaucoup ne savent pas ce qu'ils ratent&#160;!"/>
-		<control caption="Si vous connaissez quelqu'un qui apprécierait PeerProject, qu'il soit déjà ou pas utilisateur de logiciel P2P, pourquoi ne pas lui faire savoir qu'il existe une meilleure alternative&#160;?"/>
-		<control caption="Il y a des chances qu'il vous soit reconnaissant de l'avoir aidé&#160;!"/>
+		<control caption="Malheureusement, beaucoup ne savent pas ce qu'ils ratent !"/>
+		<control caption="Si vous connaissez quelqu'un qui apprécierait PeerProject, qu'il soit déjà ou pas utilisateur de logiciel P2P, pourquoi ne pas lui faire savoir qu'il existe une meilleure alternative ?"/>
+		<control caption="Il y a des chances qu'il vous soit reconnaissant de l'avoir aidé !"/>
 		<control caption="http://PeerProject.org"/>
 		<control caption="Valider"/>
 	</dialog>
@@ -4431,14 +4434,14 @@
 		<control/>
 		<control/>
 		<control/>
-		<control caption="Ce fichier est déjà présent dans votre bibliothèque. Que voulez-vous faire&#160;?"/>
+		<control caption="Ce fichier est déjà présent dans votre bibliothèque. Que voulez-vous faire ?"/>
 		<control caption="Voir le fichier de ma bibliothèque"/>
 		<control caption="Télécharger le fichier à nouveau"/>
 		<control caption="Ne pas télécharger ce fichier"/>
 		<control caption="Valider"/>
 		<control caption="Annuler"/>
-		<control caption="Vous avez déjà téléchargé puis supprimé ce fichier. Que voulez-vous faire&#160;?"/>
-		<control caption="Attention&#160;!&#160;!&#160;! Fichiers multiples détectés. Il existe des logiciels malveillants qui peuvent infecter vos dossiers. Soyez certain que vous connaissez bien ces fichiers. Sinon, fermer PeerProject et scannez votre système avec un logiciel antivirus/antispyware."/>
+		<control caption="Vous avez déjà téléchargé puis supprimé ce fichier. Que voulez-vous faire ?"/>
+		<control caption="Attention ! Fichiers multiples détectés. Il existe des logiciels malveillants qui peuvent infecter vos dossiers. Soyez certain que vous connaissez bien ces fichiers. Sinon, fermer PeerProject et scannez votre système avec un logiciel antivirus/antispyware."/>
 	</dialog>
 	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Bouton Fermer">
 		<control caption="C'est la première fois que vous cliquez sur le bouton &#171;&#160;Quitter&#160;&#187;. Sélectionnez ce que PeerProject doit faire lorsque vous cliquerez sur ce même bouton à l'avenir:"/>
@@ -4456,7 +4459,7 @@
 		<control caption="Annuler"/>
 	</dialog>
 	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStBuStStStStCoCoEd" caption="Supprimer un fichier">
-		<control caption="Êtes-vous certain de vouloir supprimer ce fichier&#160;?"/>
+		<control caption="Êtes-vous certain de vouloir supprimer ce fichier ?"/>
 		<control/>
 		<control caption="Supprimer"/>
 		<control caption="Tout suppr."/>
@@ -4464,8 +4467,8 @@
 		<control/>
 		<control caption="Créér un fichier fantôme."/>
 		<control caption="PeerProject peut mémoriser ce fichier et vous avertir si vous le rencontrez à nouveau lors d'une autre recherche. Un fichier fantôme sera créé avec vos commentaires:"/>
-		<control caption="Évaluation&#160;:"/>
-		<control caption="Raisons de la suppression&#160;:"/>
+		<control caption="Évaluation :"/>
+		<control caption="Raisons de la suppression :"/>
 		<control caption="!"/>
 		<control caption="(Pas d'évaluation)|Faux/Corrompu/Trompeur|Pauvre|Moyen|Bon|Très bon|Excellent"/>
 		<control caption="Je supprime, mais garder mes commentaires|Ce fichier est de pauvre qualité|Ce fichier est mal nommé|Ce fichier est un faux, est corrompu ou inutilisable|Restricted copyright material|Éditer mes anciens commentaires..."/>
@@ -4473,21 +4476,21 @@
 		<control/>
 	</dialog>
 	<dialog name="CCollectionExportDlg" cookie="StSyBuStStStStStEdBuBuBu" caption="Exporter un dossier">
-		<control caption="Cette fonction permet d'exporter le contenu d'un dossier de votre bibliothèque dans un fichier collection. Veillez choisir un template, puis continuer.|Ajouter des détails&#160;:"/>
+		<control caption="Cette fonction permet d'exporter le contenu d'un dossier de votre bibliothèque dans un fichier collection. Veillez choisir un template, puis continuer.|Ajouter des détails :"/>
 		<control/>
 		<control caption="Information Template"/>
-		<control caption="Nom&#160;:"/>
+		<control caption="Nom :"/>
 		<control caption="..."/>
-		<control caption="Auteur&#160;:"/>
+		<control caption="Auteur :"/>
 		<control caption="..."/>
-		<control caption="Description&#160;:"/>
+		<control caption="Description :"/>
 		<control/>
 		<control caption="_Supprimer|_Retour"/>
 		<control caption="_Prochain|Export..."/>
 		<control caption="_Annuler"/>
 	</dialog>
 	<dialog name="CTorrentSeedDlg" cookie="StBuBuBuStms" caption="Ouvrir un fichier Torrent">
-		<control caption="Vous avez ouvert un fichier Torrent. Voulez-vous télécharger ses contenus, ou le mettre en seed de nouveau&#160;?"/>
+		<control caption="Vous avez ouvert un fichier Torrent. Voulez-vous télécharger ses contenus, ou le mettre en seed de nouveau ?"/>
 		<control caption="Télécharger"/>
 		<control caption="Seed"/>
 		<control caption="Annuler"/>
@@ -4503,11 +4506,11 @@
 		<control/>
 		<control/>
 		<control/>
-		<control caption="Traqueur&#160;:"/>
-		<control caption="_Traqueur actuel&#160;:"/>
-		<control caption="Seeds (Complets)&#160;:"/>
-		<control caption="Peers (Incomplets)&#160;:"/>
-		<control caption="Mode&#160;:"/>
+		<control caption="Traqueur :"/>
+		<control caption="_Traqueur actuel :"/>
+		<control caption="Seeds (Complets) :"/>
+		<control caption="Peers (Incomplets) :"/>
+		<control caption="Mode :"/>
 		<control caption="Inemployé|Déterminer|Traqueur unique|Multi-traqueur|Multi-tracker (défini)"/>
 		<control caption="Q_uérir"/>
 		<control caption="_Ajouter"/>
@@ -4521,42 +4524,42 @@
 		<control/>
 		<control caption=" Selon le besoin| Quand le ratio dépasse 100%| Seulement si requis| Jamais"/>
 		<control/>
-		<control caption="_Information Torrent&#160;:"/>
-		<control caption="Nom&#160;:"/>
-		<control caption="Date de création&#160;:"/>
-		<control caption="Auteur&#160;:"/>
-		<control caption="Commentaire&#160;:"/>
-		<control caption="Transferts&#160;:"/>
-		<control caption="Commencer des nouveaux transferts:"/>
-		<control caption="Total Envoyé&#160;:"/>
-		<control caption="Notes&#160;:"/>
+		<control caption="_Information Torrent :"/>
+		<control caption="Nom :"/>
+		<control caption="Date de création :"/>
+		<control caption="Auteur :"/>
+		<control caption="Commentaire :"/>
+		<control caption="Transferts :"/>
+		<control caption="Commencer des nouveaux transferts :"/>
+		<control caption="Total Envoyé :"/>
+		<control caption="Notes :"/>
 	</dialog>
 	<dialog name="CDownloadEditPage" cookie="StBuStStStStBuStEdEdEdSyBuEdBuEdBuEdBuEdBuEd" caption="Général">
-		<control caption="Attention&#160;: Utilisateurs avertis... Cette fenêtre donne accès à des paramètres avancés qui, s'ils sont mal renseignés, peuvent corrompre un fichier."/>
-		<control caption="Nom et Taille&#160;:"/>
-		<control caption="Nom de Fichier&#160;:"/>
-		<control caption="Fichier&#160;:"/>
-		<control caption="Taille de Octets&#160;:"/>
-		<control caption="Date&#160;:"/>
-		<control caption="URN&#160;:"/>
-		<control caption="Fiable&#160;?"/>
+		<control caption="Attention : Utilisateurs avertis... Cette fenêtre donne accès à des paramètres avancés qui, s'ils sont mal renseignés, peuvent corrompre un fichier."/>
+		<control caption="Nom et Taille :"/>
+		<control caption="Nom de Fichier :"/>
+		<control caption="Fichier :"/>
+		<control caption="Taille de Octets :"/>
+		<control caption="Date :"/>
+		<control caption="URN :"/>
+		<control caption="Fiable ?"/>
 		<control/>
 		<control/>
 		<control/>
 		<control/>
-		<control caption="&#160;SHA1&#160;:"/>
+		<control caption="&#160;SHA1 :"/>
 		<control/>
-		<control caption="&#160;ED2K&#160;:"/>
+		<control caption="&#160;ED2K :"/>
 		<control/>
-		<control caption="&#160;MD5&#160;:"/>
+		<control caption="&#160;MD5 :"/>
 		<control/>
-		<control caption="&#160;Tiger-Root&#160;:"/>
+		<control caption="&#160;Tiger-Root :"/>
 		<control/>
-		<control caption="&#160;BitTorrent&#160;:"/>
+		<control caption="&#160;BitTorrent :"/>
 		<control/>
 	</dialog>
 	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="Acciones">
-		<control caption="Attention&#160;: Utilisateurs avertis... Cette fenêtre donne accès à des paramètres avancés qui, s'ils sont mal renseignés, peuvent corrompre un fichier."/>
+		<control caption="Attention : Utilisateurs avertis... Cette fenêtre donne accès à des paramètres avancés qui, s'ils sont mal renseignés, peuvent corrompre un fichier."/>
 		<control caption="Oublier toutes les sources connues"/>
 		<control caption="Oublier le statut de vérification actuelle et revérifier"/>
 		<control caption="Considérer que le fichier est complet à 100% et revérifier"/>
@@ -4564,31 +4567,31 @@
 		<control caption="Annuler le téléchargement mais enregistrer le ou les fichiers incomplets"/>
 		<control/>
 		<control/>
-		<control caption="Acciones&#160;:"/>
-		<control caption="_Effaceur de données&#160;:"/>
-		<control caption="Effacer le champ entre les octets&#160;:"/>
+		<control caption="Acciones :"/>
+		<control caption="_Effaceur de données :"/>
+		<control caption="Effacer le champ entre les octets :"/>
 		<control caption="à"/>
 		<control caption="Effacer"/>
 	</dialog>
 	<dialog name="CDownloadGroupDlg" cookie="BuEdBuEdBuBuBuCoBuBuBuCoStBuBu" caption="Propriétés du groupe de téléchargement">
-		<control caption="_Nom du groupe&#160;:"/>
+		<control caption="_Nom du groupe :"/>
 		<control/>
-		<control caption="_Dossiers des fichiers terminés&#160;:"/>
+		<control caption="_Dossiers des fichiers terminés :"/>
 		<control/>
 		<control/>
 		<control/>
-		<control caption="_Filtres&#160;:"/>
+		<control caption="_Filtres :"/>
 		<control/>
 		<control caption="_Ajouter"/>
 		<control caption="_Enlever"/>
-		<control caption="_Type de fichier:"/>
+		<control caption="_Type de fichier :"/>
 		<control/>
 		<control caption="*Drag&apos;n&apos;Drop téléchargements."/>
 		<control caption="Valider"/>
 		<control caption="Annuler"/>
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="BuSyCoBuBuBu" caption="Sélectionner la visualisation">
-		<control caption="Sélectionner une visualisation audio dans la liste&#160;:"/>
+		<control caption="Sélectionner une visualisation audio dans la liste :"/>
 		<control/>
 		<control caption="Affichage en bas|Affichage taille complète|Affichage taille large|Affichage taille moyenne|Affichage taille réduite"/>
 		<control caption="Configurer..."/>
@@ -4596,7 +4599,7 @@
 		<control caption="Annuler"/>
 	</dialog>
 	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Notification de mise à jour">
-		<control caption="Une nouvelle version de PeerProject est maintenant disponible. Voulez-vous mettre à jour&#160;?"/>
+		<control caption="Une nouvelle version de PeerProject est maintenant disponible. Voulez-vous mettre à jour ?"/>
 		<control caption="Si vous sélectionnez Mettre à jour, PeerProject va ajouter la mise à jour à votre liste de téléchargements et commencer à la télécharger."/>
 		<control caption="Ne pas vérifier les MàJ"/>
 		<control caption="_Mettre à Jour"/>
@@ -4605,7 +4608,7 @@
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Localisation des métadonnées">
 		<control caption="Merci de sélectionner la méthode de réencodage"/>
 		<control caption="Arabe|Balte|Européen de l'Est|Chinois simplifié|Chinois traditionnel|Cyrillique|Grec|Hébreu|Japonais|Coréen|Thaï|Turc|Vietnamien"/>
-		<control caption="Prévisualisation&#160;:"/>
+		<control caption="Prévisualisation :"/>
 		<control/>
 		<control/>
 		<control/>
@@ -4614,7 +4617,7 @@
 		<control caption="Annuler"/>
 	</dialog>
 	<dialog name="CSelectDialog" cookie="StCoBuBu" caption="Sélectionnez">
-		<control caption="Sélectionner une file:"/>
+		<control caption="Sélectionner une file :"/>
 		<control/>
 		<control caption="Valider"/>
 		<control caption="Annuler"/>
@@ -4624,7 +4627,7 @@
 		<control/>
 		<control caption="Valider"/>
 		<control caption="Annuler"/>
-		<control caption="Entrez le canal que vous voulez ajouter&#160;:|Entrez la justification du kick/ban&#160;:"/>
+		<control caption="Entrez le canal que vous voulez ajouter :|Entrez la justification du kick/ban :"/>
 	</dialog>
 	<dialog name="CDownloadReviewDlg" cookie="BuSyEd" caption="Télécharger les Revues">
 		<control caption="Valider"/>

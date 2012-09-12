@@ -4122,10 +4122,10 @@
 		<control/>
 		<control caption="_Eltávolít"/>
 	</dialog>
-	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Biztonsági szabály">
+	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuEdBuBuStCoStCoEdStEdStEdStBuBu" caption="Biztonsági szabály">
 		<control caption="_Szabály"/>
 		<control caption="Típus:"/>
-		<control caption="Hálózati (IP) cím|Tartalomszűrő"/>
+		<control caption="Hálózati cím (IP)|Tartalomszűrő|Tiltólista"/>
 		<control caption="Megjegyzés:"/>
 		<control/>
 		<control caption="_Hálózati adatok"/>
@@ -4143,8 +4143,11 @@
 		<control/>
 		<control caption="Bármilyen egyezés"/>
 		<control caption="Pontos egyezés"/>
-		<control caption="Reguláris kifejezés egyezés"/>
-		<control caption="_Beállítások"/>
+		<control caption="Reguláris"/>
+		<control caption="Tiltólista Fájl:"/>
+		<control/>
+		<control caption="Böngészik"/>
+		<control caption="_Beállítások:"/>
 		<control caption="Feladat:"/>
 		<control caption="Semmi|Elfogad|Blokkol"/>
 		<control caption="Lejárat:"/>

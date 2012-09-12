@@ -628,6 +628,7 @@ void CSettings::Load()
 	Add( _T("Live"), _T("BandwidthScaleIn"), &Live.BandwidthScaleIn, 101, 1, 0, 101, _T(" %") );
 	Add( _T("Live"), _T("BandwidthScaleOut"), &Live.BandwidthScaleOut, 101, 1, 0, 101, _T(" %") );
 
+	Add( _T("Security"), _T("ListRangeLimit"), &Security.ListRangeLimit, 100, 1, 1, 65550 );	// 256*256
 	Add( _T("Security"), _T("DefaultBan"), &Security.DefaultBan, 100*24*3600, 24*3600, 1, 1000, _T(" d") );
 	Add( _T("Scheduler"), _T("ValidityPeriod"), &Scheduler.ValidityPeriod, 60, 1, 1, 1400, _T(" m") );
 

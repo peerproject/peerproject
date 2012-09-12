@@ -3853,10 +3853,10 @@
 		<control/>
 		<control caption="Ukloni"/>
 	</dialog>
-	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Sigurnosna Pravila">
+	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuEdBuBuStCoStCoEdStEdStEdStBuBu" caption="Sigurnosna Pravila">
 		<control caption="P_ravilo:"/>
 		<control caption="Vrsta:"/>
-		<control caption="Network (IP) Address|Content Filter"/>
+		<control caption="Мрежна адреса (IP)|Садржај филтер|блок листу"/>
 		<control caption="Komentar:"/>
 		<control/>
 		<control caption="Mrež_na Adresa:"/>
@@ -3875,6 +3875,9 @@
 		<control caption="Nešto Isto"/>
 		<control caption="Sve Isto"/>
 		<control caption="Reg. Exp."/>
+		<control caption="блок листу Филе:"/>
+		<control/>
+		<control caption="Претражити"/>
 		<control caption="_Opcije:"/>
 		<control caption="Akcija:"/>
 		<control caption="Ništa|Prihvatam|Odbijam"/>

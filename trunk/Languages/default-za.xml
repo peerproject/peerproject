@@ -4086,10 +4086,10 @@
 		<control/>
 		<control caption="_Verwyder"/>
 	</dialog>
-	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Sekuriteitsreëls">
+	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuEdBuBuStCoStCoEdStEdStEdStBuBu" caption="Sekuriteitsreëls">
 		<control caption="_Reël:"/>
 		<control caption="Tipe:"/>
-		<control caption="Netwerk (IP) Adres|Inhoud Filter"/>
+		<control caption="Netwerk Adres (IP)|Inhoud Filter|Blokkering"/>
 		<control caption="Kommentaar:"/>
 		<control/>
 		<control caption="_Netwerkadres:"/>
@@ -4108,6 +4108,9 @@
 		<control caption="Tref Enige"/>
 		<control caption="Tref Almal"/>
 		<control caption="Reg. Exp."/>
+		<control caption="Blokkering Lêer:"/>
+		<control/>
+		<control caption="Blaai"/>
 		<control caption="_Opsies:"/>
 		<control caption="Aksie:"/>
 		<control caption="Geen|Aanvaar|Weier"/>

@@ -3258,13 +3258,13 @@
 		<control/>
 		<control caption="Remove"/>
 	</dialog>
-	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Security Rule">
-		<control caption="Rule:"/>
-		<control caption="Type:"/>
-		<control caption="Network (IP) Address|Content Filter"/>
-		<control caption="Comment:"/>
+	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuEdBuBuStCoStCoEdStEdStEdStBuBu" caption="보안 규칙">
+		<control caption="지배:"/>
+		<control caption="유형:"/>
+		<control caption="네트워크 주소 (IP)|콘텐츠 필터|차단 목록"/>
+		<control caption="논평:"/>
 		<control/>
-		<control caption="Network Address:"/>
+		<control caption="네트워크 주소:"/>
 		<control caption="IP Address:"/>
 		<control/>
 		<control/>
@@ -3275,15 +3275,18 @@
 		<control/>
 		<control/>
 		<control/>
-		<control caption="Content Filter:"/>
+		<control caption="콘텐츠 필터:"/>
 		<control/>
-		<control caption="Match Any"/>
-		<control caption="Match All"/>
+		<control caption="일치"/>
+		<control caption="모든 경기"/>
 		<control caption="Reg. Exp."/>
+		<control caption="파일 차단 목록:"/>
+		<control/>
+		<control caption="찾아보기"/>
 		<control caption="옵션:"/>
-		<control caption="Action:"/>
-		<control caption="None|Accept|Deny"/>
-		<control caption="Expire:"/>
+		<control caption="행동:"/>
+		<control caption="None|동의|부정하다"/>
+		<control caption="만기:"/>
 		<control caption="Never (Indefinite)|At End of Session|After:"/>
 		<control/>
 		<control caption="d"/>
