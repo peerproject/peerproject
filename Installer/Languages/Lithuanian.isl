@@ -44,6 +44,10 @@ LastErrorMessage=%1.%n%nKlaida %2: %3
 SetupFileMissing=Ádiegimo kataloge byla „%1“ nerasta. Praðome iðtaisyti ðià problemà arba ásigyti naujà programos kopijà.
 SetupFileCorrupt=Ádiegimo bylos sugadintos. Ásigykite naujà programos kopijà.
 SetupFileCorruptOrWrongVer=Ádiegiamos bylos yra sugadintos arba nesuderinamos su ádiegimo programa. Iðtaisykite problemà arba ásigykite naujà programos kopijà.
+InvalidParameter=An invalid parameter was passed on the command line:%n%n%1
+SetupAlreadyRunning=Saranka jau paleista.
+WindowsVersionNotSupported=This program does not support the version of Windows your computer is running.
+WindowsServicePackRequired=This program requires %1 Service Pack %2 or later.
 NotOnThisPlatform=Ði programa negali bûti paleista %1 aplinkoje.
 OnlyOnThisPlatform=Ði programa turi bûti leidþiama %1 aplinkoje.
 OnlyOnTheseArchitectures=Ði programa gali bûti ádiegta tik Windows versijose, turinèiose ðias procesoriaus architektûras:%n%n%1
@@ -134,8 +138,8 @@ SelectDirDesc=Kur turi bûti ádiegta „[name]“?
 SelectDirLabel3=Ádiegimo programa ádiegs „[name]“ á nurodytà katalogà.
 SelectDirBrowseLabel=Norëdami tæsti ádiegimà spauskite „Pirmyn“. Jei norite pasirinkti kità katalogà, spauskite „Nurodyti“.
 DiskSpaceMBLabel=Reikia maþiausiai [mb] MB laisvos vietos kietajame diske.
-CannotInstallToNetworkDrive=Ádiegimo programa negali ádiegti á Net tipo katalogà. Jeigu bandote ádiegti programà tinkle, reikia sukurti tinkliná diskà ir nurodyti reikiamà katalogà.
-CannotInstallToUNCPath=Ádiegimo programa negali ádiegti á UNC tipo katalogà. Jeigu bandote ádiegti programà tinkle, reikia sukurti tinkliná diskà ir nurodyti reikiamà katalogà.
+CannotInstallToNetworkDrive=Ádiegimo programa negali ádiegti á Net tipo katalogà.
+CannotInstallToUNCPath=Ádiegimo programa negali ádiegti á UNC tipo katalogà.
 InvalidPath=Jûs privalote áraðyti pilnà kelià su disko raide; pavyzdþiui:%n%nC:\APP%n% ir negalima nurodyti UNC tipo katalogà:%n%n\\Serveris\share
 InvalidDrive=Diskas, kurá nurodëte, neegzistuoja arba yra neprieinamas. Praðome nurodyti kità diskà ir/arba katalogà.
 DiskSpaceWarningTitle=Nepakanka laisvos vietos diske
@@ -195,6 +199,10 @@ WizardPreparing=Pasirengimas ádiegimui
 PreparingDesc=Ádiegimo programa pasirengusi „[name]“ ádiegimui Jûsø kompiuteryje.
 PreviousInstallNotCompleted=Ankstesnës programos ádiegimas/ðalinimas buvo neuþbaigtas. Jums reikëtø perkrauti kompiuterá, kad uþbaigtumëte ádiegimà.%n%nKai perkrausite kompiuterá, paleiskite ádiegimo programà dar kartà, kad pabaigtumëte „[name]“ ádiegimà.
 CannotContinue=Ádiegimas negali bûti tæsiamas. Praðome paspausti „Atðaukti“, kad baigtumëte ádiegimà.
+ApplicationsFound=The following applications are using files that need to be updated by Setup. It is recommended that you allow Setup to automatically close these applications.
+ApplicationsFound2=The following applications are using files that need to be updated by Setup. It is recommended that you allow Setup to automatically close these applications. After the installation has completed, Setup will attempt to restart the applications.
+CloseApplications=&Automatically close the applications
+DontCloseApplications=&Do not close the applications
 
 ; *** "Installing" wizard page
 WizardInstalling=Ádiegimas vyksta
@@ -227,6 +235,7 @@ SetupAborted=Ádiegimas nebuvo baigtas.%n%nPraðome iðspræsti problemà ir paleisti
 EntryAbortRetryIgnore=Spauskite „Retry“, jeigu norite bandyti vël, „Ignore“ - tæsti vistiek arba „Abort“, kad nutrauktumëte ádiegimà.
 
 ; *** Installation status messages
+StatusClosingApplications=Uždarymas programos...
 StatusCreateDirs=Kuriami katalogai...
 StatusExtractFiles=Iðpakuojamos bylos...
 StatusCreateIcons=Kuriamos nuorodos...
@@ -235,6 +244,7 @@ StatusCreateRegistryEntries=Kuriami registro áraðai...
 StatusRegisterFiles=Registruojamos bylos...
 StatusSavingUninstall=Iðsaugoma informacija programos paðalinimui...
 StatusRunProgram=Baigiamas ádiegimas...
+StatusRestartingApplications=Atnaujindamas programas...
 StatusRollback=Anuliuojami pakeitimai...
 
 ; *** Misc. errors
@@ -298,6 +308,10 @@ SharedFileLocationLabel=Vieta:
 WizardUninstalling=Paðalinimo eiga
 StatusUninstalling=Ðalinama „%1“...
 
+; *** Shutdown block reasons
+ShutdownBlockReasonInstallingApp=Diegimas %1.
+ShutdownBlockReasonUninstallingApp=Ðalinama %1.
+
 ; The custom messages below aren't used by Setup itself,
 ; but if you make use of them in your scripts, you'll want to translate them.
 
@@ -312,3 +326,6 @@ UninstallProgram=Paðalinti „%1“
 LaunchProgram=Paleisti „%1“
 AssocFileExtension=&Susieti „%1“ programà su bylos plëtiniu %2
 AssocingFileExtension=„%1“ programa susiejama su bylos plëtiniu %2...
+AutoStartProgramGroupDescription=Startup:
+AutoStartProgram=Automatically start %1
+AddonHostProgramNotFound=%1 could not be located in the folder you selected.%n%nDo you want to continue anyway?

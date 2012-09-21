@@ -176,13 +176,14 @@ BOOL CSecureRuleDlg::OnInitDialog()
 	m_nAction  = m_pRule->m_nAction;
 	m_nExpire  = min( m_pRule->m_nExpire, 2ul );
 
-	if ( m_pRule->m_nType == CSecureRule::srExternal && m_sComment.GetLength() > 2 && m_sComment.Find( _T('•') ) >= 0 )
+	if ( m_pRule->m_nType == CSecureRule::srExternal && m_sComment.GetLength() > 2 )
 	{
 		// Strip load count
-		if ( m_sComment.ReverseFind( _T('•') ) == 0 )
+		const int nToken = m_sComment.ReverseFind( _T('•') );
+		if ( nToken == 0 )
 			m_sComment.Empty();
-		else
-			m_sComment = m_sComment.Left( m_sComment.ReverseFind( _T('•') - 3 ) );
+		else if ( nToken > 3 )
+			m_sComment = m_sComment.Left( nToken - 2 );
 	}
 
 	if ( m_nExpire == 2 )
@@ -486,7 +487,9 @@ void CSecureRuleDlg::OnOK()
 	{
 		if ( m_sPath.GetLength() < 8 )
 			return;
-		if ( m_sPath.ReverseFind( _T(':') ) != 1 )
+
+		if ( m_sPath.ReverseFind( _T(':') ) != 1 &&
+			! PathFileExists( Settings.General.UserPath + _T("\\Data\\") + m_sPath ) )
 		{
 			MsgBox( IDS_GENERAL_TRYAGAIN );
 			return;
@@ -495,7 +498,7 @@ void CSecureRuleDlg::OnOK()
 		for ( POSITION pos = Security.GetIterator() ; pos ; )
 		{
 			CSecureRule* pRule = Security.GetNext( pos );
-			if ( pRule->m_pContent == m_sPath )
+			if ( pRule->m_nType == CSecureRule::srExternal && (LPCTSTR)pRule->m_pContent == (LPCTSTR)m_sPath )
 			{
 				MsgBox( IDS_TIP_EXISTS_LIBRARY );
 				return;

@@ -848,16 +848,15 @@ void CWndTabBar::TabItem::Paint(CWndTabBar* pBar, CDC* pDC, CRect* pRect, BOOL b
 	}
 	else
 	{
-		if ( bSelected && pBar->m_bMenuGray )
-		{
-			crBack = Colors.m_crBackNormal;
-			pDC->Draw3dRect( &rc, Colors.m_crDisabled, Colors.m_crDisabled );
-		}
-
 		if ( bHot || ( bSelected && m_bVisible ) )
 		{
 			crBack = ( bHot && bSelected ) ? Colors.m_crBackCheckSel : Colors.m_crBackSel;
 			pDC->Draw3dRect( &rc, Colors.m_crBorder, Colors.m_crBorder );
+		}
+		else if ( bSelected && pBar->m_bMenuGray )
+		{
+			crBack = Colors.m_crBackNormal;
+			pDC->Draw3dRect( &rc, Colors.m_crDisabled, Colors.m_crDisabled );
 		}
 		else
 		{
@@ -920,9 +919,11 @@ void CWndTabBar::TabItem::Paint(CWndTabBar* pBar, CDC* pDC, CRect* pRect, BOOL b
 		ptImage.x = rc.right;
 		CoolInterface.DrawEx( pDC, pBar->m_nCloseImage,
 			ptImage, CSize( 0, 0 ), crBack, Colors.m_crShadow, ( bHot && pBar->m_bCloseButton ) ? ILD_NORMAL : ILD_BLEND50 );
-		pDC->ExcludeClipRect( ptImage.x, ptImage.y, ptImage.x + 16, ptImage.y + 16 );
 		if ( crBack != CLR_NONE )
-			pDC->FillSolidRect( rc.right, rc.top, 18, rc.Height(), crBack );
+		{
+			pDC->ExcludeClipRect( ptImage.x, ptImage.y, ptImage.x + 16, ptImage.y + 16 );
+			pDC->FillSolidRect( rc.right, rc.top, 16, rc.Height(), crBack );
+		}
 	}
 
 	CString strText = m_sCaption;

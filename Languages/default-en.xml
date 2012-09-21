@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default English Skin File -->
 
-<!-- Translation based on default-en.xml r80 -->
+<!-- Translation based on default-en.xml r82 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3405,7 +3405,7 @@
 	<string id="20731" value="Seeding"/>
 	<string id="20732" value="source"/>  <!-- one -->
 	<string id="20733" value="sources"/> <!-- many -->
-	<string id="20734" value="sources"/> <!-- few  2,3,4 -->
+	<string id="20734" value="sources"/> <!-- few  2-4 -->
 	<string id="20735" value="sources"/> <!-- ones 21,31,... -->
 	<string id="20736" value="(No Sources)"/>
 	<string id="20740" value="TigerTree"/>
@@ -3705,12 +3705,12 @@
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Web Links">
 		<control caption="_Peer to Peer Link Handling:"/>
 		<control caption="Use PeerProject to open these types of links:"/>
-		<control caption="Magnet ( magnet: )"/>
-		<control caption="Gnutella ( gnutella: )"/>
-		<control caption="eDonkey ( ed2k: )"/>
-		<control caption="Piolet ( mp2p: )"/>
-		<control caption="DC++ ( dchub:/dcfile: )"/>
-		<control caption="BitTorrent ( .torrent )"/>
+		<control caption="Magnet (magnet:)"/>
+		<control caption="Gnutella (gnutella:)"/>
+		<control caption="eDonkey (ed2k:)"/>
+		<control caption="Piolet (mp2p:)"/>
+		<control caption="DC++ (dchub:)"/>
+		<control caption="BitTorrent (.torrent)"/>
 		<control caption="_Download Manager:"/>
 		<control caption="Use PeerProject to manage all my web downloads:"/>
 		<control/>

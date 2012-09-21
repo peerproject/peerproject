@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Norwegian Skin File -->
 
-<!-- Translation based on default-en.xml r80 --> <!-- (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r82 --> <!-- (Shareaza 2.2.0.2) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3143,12 +3143,12 @@
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Internett">
 		<control caption="_Bruk av peer to peer linker:"/>
 		<control caption="Bruk PeerProject til å åpne denne typen linker:"/>
-		<control caption="Magnet ( magnet: )"/>
-		<control caption="Gnutella ( gnutella: )"/>
-		<control caption="eDonkey2000 ( ed2k: )"/>
-		<control caption="Piolet ( mp2p: )"/>
-		<control caption="DC++ ( dchub:/dcfile: )"/>
-		<control caption="BitTorrent ( .torrent )"/>
+		<control caption="Magnet (magnet:)"/>
+		<control caption="Gnutella (gnutella:)"/>
+		<control caption="eDonkey2000 (ed2k:)"/>
+		<control caption="Piolet (mp2p:)"/>
+		<control caption="DC++ (dchub:)"/>
+		<control caption="BitTorrent (.torrent)"/>
 		<control caption="Nedlastingsguide:"/>
 		<control caption="Bruk PeerProject til alle mine nedlastinger fra nettet:"/>
 		<control/>

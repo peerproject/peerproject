@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Albanian Skin File -->
 
-<!-- Translation based on default-en.xml r80 -->
+<!-- Translation based on default-en.xml r82 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3208,12 +3208,12 @@
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Rrjeti">
 		<control caption="Trajtimi i Linkeve _Pikë më Pikë:"/>
 		<control caption="PeerProject do të hapë këto lloje linkesh:"/>
-		<control caption="Magnet ( magnet: )"/>
-		<control caption="Gnutella ( gnutella: )"/>
-		<control caption="eDonkey ( ed2k: )"/>
-		<control caption="Piolet ( mp2p: )"/>
-		<control caption="DC++ ( dchub:/dcfile: )"/>
-		<control caption="BitTorrent ( .torrent )"/>
+		<control caption="Magnet (magnet:)"/>
+		<control caption="Gnutella (gnutella:)"/>
+		<control caption="eDonkey (ed2k:)"/>
+		<control caption="Piolet (mp2p:)"/>
+		<control caption="DC++ (dchub:)"/>
+		<control caption="BitTorrent (.torrent)"/>
 		<control caption="Menaxheri _Shkarkues:"/>
 		<control caption="PeerProject do të menaxhojë gjithë shkarkesat e mia nga rrjeti:"/>
 		<control/>

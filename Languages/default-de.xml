@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default German Skin File -->
 
-<!-- Translation based on default-en.xml r80 -->
+<!-- Translation based on default-en.xml r82 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -351,7 +351,7 @@
 	<toolbar name="CIRCFrame">
 		<button id="ID_IRC_SENDTEXT" text="Send" tip="Post Your Comments"/>
 		<separator/>
-		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
+		<button id="ID_IRC_CLOSETAB" text="Schließen" tip="Exit Current Channel Window"/>
 		<rightAlign/>
 		<button id="ID_IRC_CONNECT" text="Verbinden" tip="Mit IRC verbinden"/>
 		<button id="ID_IRC_DISCONNECT" text="Verbindung trennen" tip="Verbindung mit IRC-Chat trennen"/>
@@ -1635,7 +1635,7 @@
 		<item id="ID_IRC_CLOSETAB" text="_Schließen"/>
 	</menu>
 	<menu name="CIRCUserList">
-		<item id="ID_IRC_WHOIS" text="_Whois"/>	<!-- TRNASLATION STILL NEEDED -->
+		<item id="ID_IRC_WHOIS" text="_Whois"/>	<!-- TRANSLATION STILL NEEDED -->
 		<item id="ID_IRC_QUERY" text="_Abfragen"/>
 		<separator/>
 		<menu text="Aktionen">
@@ -3178,7 +3178,7 @@
 	<string id="20600" value="Bandbreite: Volle"/>
 	<string id="20601" value="Bandbreite: Reduzieren"/>
 	<string id="20602" value="Bandbreite: Stoppen"/>
-	<string id="20603" value="System: PeerProject Beenden"/>
+	<string id="20603" value="System: PeerProjekt Beenden"/>
 	<string id="20604" value="System: Computer Abschalten"/>
 	<string id="20605" value="System: Wählverbindung Trennen"/>
 	<string id="20606" value="System: Reminder Notice"/>
@@ -3568,12 +3568,12 @@
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
 		<control caption="_Peer-to-Peer-Links:"/>
 		<control caption="Folgende Linktypen mit PeerProjekt öffnen"/>
-		<control caption="Magnet ( magnet: )"/>
-		<control caption="Gnutella ( gnutella: )"/>
-		<control caption="eDonkey ( ed2k: )"/>
-		<control caption="Piolet ( mp2p: )"/>
-		<control caption="DC++ ( dchub:/dcfile: )"/>
-		<control caption="BitTorrent ( .torrent )"/>
+		<control caption="Magnet (magnet:)"/>
+		<control caption="Gnutella (gnutella:)"/>
+		<control caption="eDonkey (ed2k:)"/>
+		<control caption="Piolet (mp2p:)"/>
+		<control caption="DC++ (dchub:)"/>
+		<control caption="BitTorrent (.torrent)"/>
 		<control caption="_Downloadmanager:"/>
 		<control caption="PeerProjekt für alle Internetdownloads benutzen"/>
 		<control/>
@@ -3896,7 +3896,7 @@
 		<control caption="Fortschritt:"/>
 		<control/>
 	</dialog>
-	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="Willkommen bei &#160;(3/8)">
+	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="Willkommen bei PeerProjekt &#160;(3/8)">
 		<control caption="PeerProjekt ist ein Allround-File-Sharing-Programm, das auf mehrere P2P-Netzwerke gleichzeitig zugreifen kann. Hier können Sie einstellen, welche Netzwerke Sie verwenden möchten. Sie können später jederzeit andere Netzwerke auswählen."/>
 		<control caption="Zu Gnutella2 verbinden (Empfohlen)"/>
 		<control caption="Das Gnutella2-Netzwerk ist das Hauptnetzwerk von PeerProjekt."/>
@@ -3906,7 +3906,7 @@
 		<control caption="Das eDonkey-Netzwerk ist ein beliebtes serverbasiertes Netzwerk. Obwohl es nicht so viele Funktionen wie Gnutella2 bietet, findet man viele Dateien."/>
 		<control caption="PeerProjekt mit .torrent-Dateien verknüpfen."/>
 	</dialog>
-	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Welcome to PeerProject &#160;(4/8)">
+	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Willkommen bei PeerProjekt &#160;(4/8)">
 		<control caption="PeerProject ersten Downloads teilweise Dateien in einen privaten Ordner, dann bewegt sie, wenn nach Download Gruppen abgeschlossen."/>
 		<control caption="Unvollständige Dateien:"/>
 		<control/>

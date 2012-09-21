@@ -1,14 +1,10 @@
 ; Inno Setup version 5.1.0+ Estonian Messages (PeerProject: ee)
 ; Translation made with Translator 1.32 (http://www2.arnes.si/~sopjsimo/translator.html)
-
+;
 ; Estonian translation by rix
 ; E-mail: admin@mmaailm.net
 ; Last modification date: 2005-6-01
 ; Tõlge on valminud Märt Kelderi esialgse versiooni baasil ning kohandatud uuemale versioonile.
-
-;
-; To download user-contributed translations of this file, go to:
-;   http://www.jrsoftware.org/is3rdparty.php
 ;
 ; Note: Do not add periods (.), where added automatically.
 ;
@@ -17,27 +13,19 @@
 [LangOptions]
 LanguageName=Estonian
 LanguageID=$0425
+LanguageCodePage=0
 ; If the language you are translating to requires special font faces or sizes,
 ; uncomment any of the following entries and change them accordingly.
 ;DialogFontName=MS Shell Dlg
 ;DialogFontSize=8
-;DialogFontStandardHeight=13
-;TitleFontName=Arial
-;TitleFontSize=29
 ;WelcomeFontName=Verdana
 ;WelcomeFontSize=12
+;TitleFontName=Arial
+;TitleFontSize=29
 ;CopyrightFontName=Arial
 ;CopyrightFontSize=8
 
-LanguageCodePage=0
-DialogFontName=
-DialogFontSize=8
-WelcomeFontName=Verdana
-WelcomeFontSize=12
-TitleFontName=Arial
-TitleFontSize=29
-CopyrightFontName=Arial
-CopyrightFontSize=8
+
 [Messages]
 
 ; *** Application titles
@@ -61,6 +49,10 @@ LastErrorMessage=%1.%n%nViga %2: %3
 SetupFileMissing=Fail %1 puudub paigaldamise kaustast. Palun parandage see viga või leidke uus versioon programmist.
 SetupFileCorrupt=Paigaldaja failid on rikutud. Palun laadige paigaldaja uuesti alla.
 SetupFileCorruptOrWrongVer=Paigaldaja failid on rikutud või ei tööta selle paigaldaja versiooniga. Palun parandage see viga või leidke uus versioon programmist.
+InvalidParameter=An invalid parameter was passed on the command line:%n%n%1
+SetupAlreadyRunning=Setup is already running.
+WindowsVersionNotSupported=This program does not support the version of Windows your computer is running.
+WindowsServicePackRequired=This program requires %1 Service Pack %2 or later.
 NotOnThisPlatform=%1 - programm ei tööta sellel platvormil.
 OnlyOnThisPlatform=%1 - programm töötab ainult sellel platvormil.
 OnlyOnTheseArchitectures=Seda programmi saab installida ainult Windowsi versioonidel, mis on mõeldud järgmistele protsessori arhitektuuridele:%n%n%1
@@ -83,9 +75,9 @@ AboutSetupMenuItem=&Paigaldajast...
 AboutSetupTitle=Paigaldajast
 AboutSetupMessage=%1 versioon %2%n%3%n%n%1 koduleht:%n%4
 AboutSetupNote=
+TranslatorNote=
 
 ; *** Buttons
-TranslatorNote=
 ButtonBack=< &Tagasi
 ButtonNext=&Edasi >
 ButtonInstall=&Paigalda
@@ -97,21 +89,21 @@ ButtonNo=&Ei
 ButtonNoToAll=E&i kõigile
 ButtonFinish=&Lõpeta
 ButtonBrowse=&Sirvi...
-
-; *** "Select Language" dialog messages
 ButtonWizardBrowse=Si&rvi...
 ButtonNewFolder=&Loo uus kaust
+
+; *** "Select Language" dialog messages
 SelectLanguageTitle=Valige paigaldaja keel
 SelectLanguageLabel=Valige paigaldamise keel:
 
 ; *** Common wizard text
 ClickNext=Jätkamiseks vajutage Edasi, katkestamiseks Loobu.
 BeveledLabel=
-
-; *** "Welcome" wizard page
 BrowseDialogTitle=Sirvi kausta
 BrowseDialogLabel=Valige listist kaust ja klikkige OK.
 NewFolderName=Uus kaust
+
+; *** "Welcome" wizard page
 WelcomeLabel1=[name]  paigaldaja
 WelcomeLabel2=Nüüd paigaldatakse [name/ver] teie arvutisse.%n%nEnne jätkamist on soovitatav sulgeda kõik programmid.
 
@@ -151,7 +143,8 @@ SelectDirDesc=Kuhu [name] paigaldada?
 SelectDirLabel3=Paigaldaja installib [name] järgnevasse kausta.
 SelectDirBrowseLabel=Jätkamiseks kliki Järgmine. Kui soovite valida teise kausta, klikkige Sirvi.
 DiskSpaceMBLabel=Programm vajab vähemalt [mb] MB kõvakettaruumi.
-ToUNCPathname=Paigaldaja ei saa paigaldada UNC kataloogi. Kui te üritate programmi võrku paigaldada, siis peate võrguketta enne määrama.
+CannotInstallToNetworkDrive=Paigaldaja ei saa paigaldada Network kataloogi.
+CannotInstallToUNCPath=Paigaldaja ei saa paigaldada UNC kataloogi.
 InvalidPath=Te peate sisestama täis tee koos ketta nimega;
 InvalidDrive=Ketas või UNC share mille valisite, ei eksisteeri või pole ligipääsetav. Palun valige mõni teine.
 DiskSpaceWarningTitle=Liiga vähe ruumi kõvakettal
@@ -211,6 +204,10 @@ WizardPreparing=Paigaldamiseks valmistumine
 PreparingDesc=Paigaldaja valmistub paigaldama [name] sinu arvutisse.
 PreviousInstallNotCompleted=Eelmise programmi paigaldamine/kustutamine ei olnud lõpetanud. Te peate arvuti restartima ja lõpetama selle paigaldamise.%n%nPärast restarti käivitage [name] Paigaldaja uuesti.
 CannotContinue=Paigaldaja ei saa jätkata. Väljumiseks vajutage Loobu.
+ApplicationsFound=The following applications are using files that need to be updated by Setup. It is recommended that you allow Setup to automatically close these applications.
+ApplicationsFound2=The following applications are using files that need to be updated by Setup. It is recommended that you allow Setup to automatically close these applications. After the installation has completed, Setup will attempt to restart the applications.
+CloseApplications=&Automatically close the applications
+DontCloseApplications=&Do not close the applications
 
 ; *** "Installing" wizard page
 WizardInstalling=Paigaldamine
@@ -243,6 +240,7 @@ SetupAborted=Paigaldamist ei lõpetetud.%n%nPalun parandage viga ja käivitage pai
 EntryAbortRetryIgnore=Uuesti proovimiseks vajutage Retry, jätkamiseks Ignore või lõpetamisks Loobu.
 
 ; *** Installation status messages
+StatusClosingApplications=Rakenduste sulgemine...
 StatusCreateDirs=Kaustade loomine...
 StatusExtractFiles=Failide lahtipakkimine...
 StatusCreateIcons=Otseteede loomine...
@@ -251,6 +249,7 @@ StatusCreateRegistryEntries=Registrisse lisamine...
 StatusRegisterFiles=Failide registreerimine...
 StatusSavingUninstall=Info salvestamise kustutamiseks...
 StatusRunProgram=Paigaldamise lõpetamine...
+StatusRestartingApplications=Taaskäivitamine rakendusi...
 StatusRollback=Tehtud muudatuste kustutamine...
 
 ; *** Misc. errors
@@ -313,7 +312,16 @@ SharedFileNameLabel=Faili nimi:
 SharedFileLocationLabel=Asukoht:
 WizardUninstalling=Kustutamise staatus
 StatusUninstalling=%1 - kustutan
+
+; *** Shutdown block reasons
+ShutdownBlockReasonInstallingApp=Paigalda %1.
+ShutdownBlockReasonUninstallingApp=Kustutan %1.
+
+; The custom messages below aren't used by Setup itself, but if you make
+; use of them in your scripts, you'll want to translate them.
+
 [CustomMessages]
+
 NameAndVersion=%1 versioon %2.
 AdditionalIcons=Täiendavad ikoonid:
 CreateDesktopIcon=Loo &töölaua ikoon
@@ -323,3 +331,6 @@ UninstallProgram=Eemalda %1
 LaunchProgram=Käivita %1
 AssocFileExtension=&Seosta %1 faili %2 laiendiga.
 AssocingFileExtension=Seostan %1 faili %2 laiendiga...
+AutoStartProgramGroupDescription=Startup:
+AutoStartProgram=Automatically start %1
+AddonHostProgramNotFound=%1 could not be located in the folder you selected.%n%nDo you want to continue anyway?

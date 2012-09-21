@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hebrew Skin File -->
 
-<!-- Translation based on default-en.xml r80 -->
+<!-- Translation based on default-en.xml r82 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3020,12 +3020,12 @@ gap i newline
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="רשת">
 		<control caption=":צורת השימוש בלינקים לתקשורת ישירה"/>
 		<control caption=":השתמש בשרזה לפתיחת סוגי הלינקים הבאים"/>
-		<control caption="מגנט ( magnet: )"/>
-		<control caption="גונוטלה ( gnutella: )"/>
-		<control caption="אי-דונקי 2000 ( ed2k: )"/>
-		<control caption="פיולט ( mp2p: )"/>
-		<control caption="DC++ ( dchub:/dcfile: )"/>
-		<control caption="ביט-טורנט ( .torrent )"/>
+		<control caption="מגנט (magnet:)"/>
+		<control caption="גונוטלה (gnutella:)"/>
+		<control caption="אי-דונקי 2000 (ed2k:)"/>
+		<control caption="פיולט (mp2p:)"/>
+		<control caption="DC++ (dchub:)"/>
+		<control caption="ביט-טורנט (.torrent)"/>
 		<control caption=":מנהל ההורדות"/>
 		<control caption=":התשמש בשרזה לניהול כל ההורדות מסוגים אלה באינטרנט"/>
 		<control/>

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Spanish (International) Skin File -->
 
-<!-- Translation based on default-en.xml r80 -->
+<!-- Translation based on default-en.xml r82 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -793,8 +793,8 @@
 			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Abrir mi carpeta de Descargas completadas"/>
 			<separator/>
 			<item id="ID_TOOLS_DOWNLOAD" text="_Descargar Archivo/Torrent..."/>
-			<item id="ID_TOOLS_SEEDTORRENT" 	text="_Seed New Torrent..."/>
-			<item id="ID_TOOLS_CREATETORRENT" 	text="_Create New .Torrent..."/>
+			<item id="ID_TOOLS_SEEDTORRENT" text="_Seed New Torrent..."/>
+			<item id="ID_TOOLS_CREATETORRENT" text="_Create New .Torrent..."/>
 			<item id="ID_IMPORT_DOWNLOADS" text="_Importar descargas parciales de eMule..."/>
 			<separator/>
 			<item id="ID_TOOLS_LANGUAGE" text="Seleccionar un _Idioma..."/>
@@ -2784,7 +2784,7 @@
 	<string id="20222" value="El valor del hash de %s asignado no es válido. Por favor, revíselo e intentelo de nuevo."/>
 	<string id="20223" value="¿Estás seguro de cambiar el hash de %s?"/>
 	<string id="20224" value="Usted ha cambiado el nombre del archivo. ¿Está seguro de renombrarlo?"/>
-	<string id="20225" value="Has hecho cambios en el tamaño del archivo.  ¿Estas seguro que quieres cambiar el tamaño de esta descarga?"/>
+	<string id="20225" value="Has hecho cambios en el tamaño del archivo. ¿Estas seguro que quieres cambiar el tamaño de esta descarga?"/>
 	<string id="20226" value="Esta descarga no se puede asumir completa, porque falta información sobre el hash, que es necesaria para verificarla."/>
 	<string id="20227" value="¿Estás seguro de asumir esta descarga como completa y reverificarla? PeerProject reverificará el archivo, y aceptará las partes correctas, y descarga de nuevo aquellas incorrectas."/>
 	<string id="20228" value="¿Estás seguro de olvidar el estado actual de verificación? Toda la información de la descarga va a ser tratada como inseguro, para reverificarla."/>
@@ -2910,8 +2910,8 @@
 	<string id="20371" value="Paquetes Gnutella Transmitidos"/>
 	<string id="20372" value="Ratio Gnutella de Pings Recibidos/Enviados"/>
 	<string id="20373" value="Ratio Gnutella de Pongs Recibidos/Enviados"/>
-	<string id="20374" value="Búsquedas locales de Gnutella"/>
-	<string id="20375" value="Búsquedas locales de Gnutella"/>
+	<string id="20374" value="Consultas Gnutella entrantes"/>
+	<string id="20375" value="Consultas Gnutella procesados"/>
 	<string id="20376" value="Paquetes Gnutella Ruteados"/>
 	<string id="20377" value="Total Ancho de Banda Genérica Recibida"/>
 	<string id="20378" value="Total Ancho de Banda Genérica Transmitida"/>
@@ -2969,8 +2969,8 @@
 	<string id="20432" value="¿Estás seguro(a) de eliminar %i carpetas virtuales con información sobre albums?\n\nEsto no elimina los archivos fisicamente del disco duro, solo elimina la carpeta seleccionada de Colección."/>
 	<string id="20433" value="PeerProject no pudo eliminar:\n\n%s"/>
 	<string id="20434" value="Tu carpeta de archivos descargados &quot;%s&quot; todavia no se encuentra en Colección.\n\nIncluyendo tu carpeta de archivos descargados en Colección hace más fácil ver y organizar tus nuevas descargas, y permite tomar las ventajas de las características avanzadas de PeerProject.orgo verificación de descarga y actualización automatica.  Poniendo los archivos descargados en Colección no necesariamente requiere que los compartas: puedes Seleccionar si deseas o no compartir los archivos independientemente.\n\n¿Deseas agregar tu carpeta de descargas a Colección ahora?"/>
-	<string id="20435" value="La carpeta de archivos descargados fué agregada a Colección.  ¿Quieres compartirla también?"/>
-	<!--string id="20436" value="No ha seleccionado un reproductor para los archivos de media.  ¿Quieres seleccionar uno ahora?\n\nEl archivo va a ser pasado con el argumento &quot;/ADD&quot;."-->
+	<string id="20435" value="La carpeta de archivos descargados fué agregada a Colección. ¿Quieres compartirla también?"/>
+	<!--string id="20436" value="No ha seleccionado un reproductor para los archivos de media. ¿Quieres seleccionar uno ahora?\n\nEl archivo va a ser pasado con el argumento &quot;/ADD&quot;."-->
 	<string id="20436" value="¿Agregar esta carpeta a la biblioteca?\n\n%s"/>
 	<string id="20437" value="Huella del archivo (Ghost File)"/>
 	<string id="20438" value="Editando metadata de %i archivos."/>
@@ -2981,7 +2981,7 @@
 	<string id="20443" value="Mostrar todos los tipos de archivo"/>
 	<string id="20444" value="Copiar URI"/>
 	<string id="20445" value="Exportar URIs..."/>
-	<string id="20446" value="El archivo &quot;%s&quot; falló la verificación, y puede no ser el correcto.  ¿Estás seguro(a) de abrirlo?"/>
+	<string id="20446" value="El archivo &quot;%s&quot; falló la verificación, y puede no ser el correcto. ¿Estás seguro(a) de abrirlo?"/>
 	<string id="20447" value="¿Quieres quitar el atributo de &quot;potencialmente inseguro&quot; de este archivo?"/>
 	<string id="20448" value="El archivo &quot;%s&quot; no ha sido escaneado. Por favor espere a que sea escaneado, e intente más tarde."/>
 	<string id="20449" value="Esto usa un servicio ofrecido por Bitzi.com, para adquirir metadata acerca del archivo.\n\nPeerProject va a enviar una pequeña información sobre la huella digital 'bitprint' del archivo para que Bitzi lo pueda reconocer. Si tienes alguna duda sobre la privacidad de este servicio, visita bitzi.com para más información.\n\n¿Quieres continuar?"/>
@@ -3260,7 +3260,7 @@
 	<string id="20808" value="Rechazando subida de &quot;%s&quot; a %s (%s), ocupado o el cliente no soporta colas."/>
 	<string id="20809" value="Rechazando subida de &quot;%s&quot; a %s (%s), todas las colas llenas."/>
 	<string id="20810" value="Host de subida %s solicitó un rango de contenido no obtenido &quot;%s&quot;."/>
-	<string id="20811" value="Subidas eDonkey no deberían ser canceladas.  ¿Estas seguro que deseas cancelar esta subida?"/>
+	<string id="20811" value="Subidas eDonkey no deberían ser canceladas. ¿Estas seguro que deseas cancelar esta subida?"/>
 	<string id="20812" value="No se pudo abrir &quot;%s&quot; para subir a host %s, disco/error de archivo."/>
 	<string id="20813" value="Iniciando conexión push con %s. %s"/>
 	<string id="20814" value="No fue posible conectar con %s en push."/>
@@ -3321,7 +3321,7 @@
 	<string id="20874" value="URL:"/>
 	<string id="20875" value="No (inespecífico)"/>
 	<string id="20880" value="Editar Mi Perfil"/>
-	<string id="20881" value="%u Archivos seleccionados.  ¿Esta seguro?"/>
+	<string id="20881" value="%u Archivos seleccionados. ¿Esta seguro?"/>
 	<string id="20882" value="No hay URN disponible"/>
 	<string id="20883" value="El servicio de red para Dispositivo UPnP no está ejecutado. Este servicio es requerido completar la configuración.\nNecesitas completar el inicio del servicio como automático."/>
 	<string id="20885" value="Cambiado de vista va a cerrar todas las ventanas que tienes abiertas. ¿Deseas cambiar ahora?"/>
@@ -3483,12 +3483,12 @@
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
 		<control caption="Manejar enlaces avanzados:"/>
 		<control caption="Usar PeerProject para abrir estos enlaces:"/>
-		<control caption="Magnet ( magnet: )"/>
-		<control caption="Gnutella ( gnutella: )"/>
-		<control caption="eDonkey ( ed2k: )"/>
-		<control caption="Piolet ( mp2p: )"/>
-		<control caption="DC++ ( dchub:/dcfile: )"/>
-		<control caption="BitTorrent ( .torrent )"/>
+		<control caption="Magnet (magnet:)"/>
+		<control caption="Gnutella (gnutella:)"/>
+		<control caption="eDonkey (ed2k:)"/>
+		<control caption="Piolet (mp2p:)"/>
+		<control caption="DC++ (dchub:)"/>
+		<control caption="BitTorrent (.torrent)"/>
 		<control caption="Manejador de _Descargas:"/>
 		<control caption="Usar PeerProject para descargar todos los archivos de internet:"/>
 		<control/>
@@ -4315,7 +4315,7 @@
 		<control caption="PeerProject esta creando la vista previa:"/>
 		<control/>
 		<control/>
-		<control caption="(copiando el archivo, a un archivo de vista previa)"/>
+		<control caption="(copiando los fragmentos descargados a un archivo de vista previa)"/>
 		<control caption="Cancelar"/>
 	</dialog>
 	<dialog name="CWarningsDlg" cookie="StStStStStStBu" caption="PeerProject Respeta sus Usuarios">
@@ -4323,7 +4323,7 @@
 		<control caption="No contiene ningún &quot;spyware&quot;, &quot;adware&quot; o cualquier otro tipo de programas deshonestos. PeerProject no tiene ni propagandas, ni &quot;popups&quot;, nunca.{n}{n}Si en algún momento ve una propaganda o un &quot;popup&quot; puedes tener por seguro que no fué causado por PeerProject."/>
 		<control caption="Desafortunadamente, muchos softwares están incluyendo este tipo de aplicaciones que consumen recursos, y no son amigables. Si crees que tu pc está infectada con uno de estos programas, chequeela con programas especializados en quitar este tipo de software."/>
 		<control caption="Usted no debe pagar para obtener PeerProject.  PeerProject se puede distribuir libremente, y descargar de http://peerproject.org/.  Si usted pagó por PeerProject, pida un reembolso de inmediato."/>
-		<control caption="PeerProject respeta sus usuarios!"/>
+		<control caption="¡PeerProject respeta sus usuarios!"/>
 		<control caption="http://PeerProject.org"/>
 		<control caption="Cerrar"/>
 	</dialog>
@@ -4340,14 +4340,14 @@
 		<control/>
 		<control/>
 		<control/>
-		<control caption="Este archivo ya está en Colección.  ¿Qué quiere hacer?"/>
-		<control caption="Ubicarlo en Colección"/>
+		<control caption="Este archivo ya está en Colección. ¿Qué quiere hacer?"/>
+		<control caption="Mostrarlo en Colección"/>
 		<control caption="Descargarlo de nuevo"/>
 		<control caption="Nada, dejar el archivo original"/>
 		<control caption="Continuar"/>
 		<control caption="Cancelar"/>
-		<control caption="Ya has descargado y borrado este archivo antes.  ¿Qué deseas hacer?"/>
-		<control caption="Advertencia! Archivos duplicados detectados. Un archivo malicioso puede afectar a tu librería. Asegurate de que te descargaste o pusiste este archivo manualmente. De otra forma, cierra PeerProject y escanea tu computadora con un antivirus."/>
+		<control caption="Ya has descargado y borrado este archivo antes. ¿Qué deseas hacer?"/>
+		<control caption="Advertencia. Archivos duplicados detectados. Un archivo malicioso puede afectar a tu librería. Asegurate de que te descargaste o pusiste este archivo manualmente. De otra forma, cierra PeerProject y escanea tu computadora con un antivirus."/>
 	</dialog>
 	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Botón de cerrar">
 		<control caption="Esta es la primera vez que el botón de cerrar ha sido apretado. Por favor seleccione la acción deseada a efectuar, cada vez que este botón séa apretado:"/>
@@ -4365,7 +4365,7 @@
 		<control caption="Cancelar"/>
 	</dialog>
 	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStBuStStStStCoCoEd" caption="Eliminar Archivo">
-		<control caption="¿Estás seguro de eliminar?"/>
+		<control caption="¿Estás seguro de que quieres eliminar?"/>
 		<control/>
 		<control caption="Eliminar"/>
 		<control caption="Eliminar Todos"/>
@@ -4396,7 +4396,7 @@
 		<control caption="_Cancelar"/>
 	</dialog>
 	<dialog name="CTorrentSeedDlg" cookie="StBuBuBuStms" caption="Abrir Archivo Torrent">
-		<control caption="Has abierto un archivo Torrent.  ¿Deseas volver a bajar sus componentes?, o ¿volverlo a compartir?"/>
+		<control caption="Has abierto un archivo Torrent. ¿Deseas volver a bajar sus componentes?, o ¿volverlo a compartir?"/>
 		<control caption="Descargar"/>
 		<control caption="Compartir"/>
 		<control caption="Cancelar"/>
@@ -4651,7 +4651,7 @@
 	</list>
 	<list name="CSchedulerWnd">
 		<column from="Task" to="Acción"/>
-		<column from="Date" to="Dias"/>
+		<column from="Date" to="Días"/>
 		<column from="Time" to="Tiempo"/>
 		<column from="Status" to="Estado"/>
 		<column from="Activity" to="Activo"/>

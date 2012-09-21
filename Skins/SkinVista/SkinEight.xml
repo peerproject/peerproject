@@ -562,8 +562,11 @@
  <image id="ID_TAB_HOME"/>
 </bitmap>
 
-</commandImages>
+<bitmap path="Eight/Checked.png" mask="CLR_NONE">
+ <image id="ID_CHECKMARK"/>
+</bitmap>
 
+</commandImages>
 
 <!-- END INTERFACE -->
 
@@ -573,7 +576,7 @@
 <!-- Media Remote -->
 
 <windowskin>
-<image path="RemoteMetro.png"/>
+<image path="RemoteEight.png"/>
 <target window="CRemoteWnd"/>
 <region>
  <shape type="rectangle" rect="0,1,412,85"/>
@@ -583,11 +586,11 @@
  <anchor name="StatusText"		rect="40,5,332,16"/>
  <anchor name="MediaSeekTrack" 		rect="6,28,400,5"/>
  <anchor name="MediaVolTrack"		rect="328,50,70,13"/>
- <!--anchor name="MediaStatePlaying" 	rect=""-->
- <!--anchor name="MediaStatePaused"	rect=""-->
- <!--anchor name="MediaStateStopped" 	rect=""-->
- <!--anchor name="ScalerTrack" 		rect=""-->
- <!--anchor name="History" 		rect=""-->
+ <!--anchor name="MediaStatePlaying"-->
+ <!--anchor name="MediaStatePaused"-->
+ <!--anchor name="MediaStateStopped"-->
+ <!--anchor name="History"-->
+ <!--anchor name="ScalerTrack"-->
  <anchor name="_ID_MONITOR_CLOSE"	rect="376,2,31,20"/>
  <anchor name="_ID_MEDIA_PLAY" 		rect="184,35,44,45"/>
  <anchor name="_ID_MEDIA_PAUSE"		rect="184,35,44,45"/>
@@ -605,12 +608,12 @@
  <part name="MediaSeekTab" 		rect="388,85,12,5"/>
  <part name="MediaVolBar"		rect="327,142,70,13"/>
  <part name="MediaVolTab"		rect="388,142,12,13"/>
- <!--part name="MediaStatePlaying"	rect=""-->
- <!--part name="MediaStatePaused"	rect=""-->
- <!--part name="MediaStateStopped"	rect=""-->
- <!--part name="HistoryTx1"		rect=""-->
- <!--part name="HistoryRx1"		rect=""-->
- <!--part name="ScalerTab"		rect=""-->
+ <!--part name="MediaStatePlaying"-->
+ <!--part name="MediaStatePaused"-->
+ <!--part name="MediaStateStopped"-->
+ <!--part name="HistoryTx1"-->
+ <!--part name="HistoryRx1"-->
+ <!--part name="ScalerTab"-->
  <part name="_ID_MONITOR_CLOSE.Hover"	rect="0,115,31,20"/>
  <part name="_ID_MONITOR_CLOSE.Down" 	rect="31,115,31,20"/>
  <part name="_ID_MEDIA_PLAY.Up"		rect="184,35,44,45"/>

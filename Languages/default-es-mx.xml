@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Spanish (Mexican) Skin File -->
 
-<!-- Translation based on default-en.xml r80 -->
+<!-- Translation based on default-en.xml r82 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -788,8 +788,8 @@
 			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Abrir mi carpeta de Descargas completadas"/>
 			<separator/>
 			<item id="ID_TOOLS_DOWNLOAD" text="_Descargar Archivo/Torrent..."/>
-			<item id="ID_TOOLS_SEEDTORRENT" 	text="_Seed New Torrent..."/>
-			<item id="ID_TOOLS_CREATETORRENT" 	text="_Create New .Torrent..."/>
+			<item id="ID_TOOLS_SEEDTORRENT" text="_Seed New Torrent..."/>
+			<item id="ID_TOOLS_CREATETORRENT" text="_Create New .Torrent..."/>
 			<item id="ID_IMPORT_DOWNLOADS" text="_Importar descargas parciales de eMule..."/>
 			<separator/>
 			<item id="ID_TOOLS_LANGUAGE" text="Seleccionar un _Idioma..."/>
@@ -2709,7 +2709,7 @@
 	<string id="20149" value="Hubo un error con el archivo &quot;%s&quot;."/>
 	<string id="20150" value="No se pudo comunicar al tracker"/>
 	<string id="20151" value="Tracker fallido- Intentando siguiente tracker (%i of %i)"/>
-	<string id="20152" value="Ha cambiado la dirección del tracker de este torrent.  ¿Estás seguro de cambiarlo?\n\nUn tracker inválido puede prevenir que este archivo sea descargado."/>
+	<string id="20152" value="Ha cambiado la dirección del tracker de este torrent. ¿Estás seguro de cambiarlo?\n\nUn tracker inválido puede prevenir que este archivo sea descargado."/>
 	<string id="20153" value="Hubo un error consultando el servicio de BitTorrent &quot;%s&quot; : &quot;%s&quot;."/>
 	<string id="20154" value="Hubo un error analizando la información del servicio de BitTorrent."/>
 	<string id="20155" value="El servicio de BitTorrent para &quot;%s&quot;, agregó %i fuentes nuevas."/>
@@ -2777,8 +2777,8 @@
 	<string id="20221" value="Por favor entre un rango válido."/>
 	<string id="20222" value="El valor del hash de %s asignado no es válido."/>
 	<string id="20223" value="¿Estás seguro de cambiar el hash de %s?"/>
-	<string id="20224" value="Usted ha cambiado el nombre del archivo.  ¿Está seguro de cambiarlo?"/>
-	<string id="20225" value="Has hecho cambios en el tamao del archivo.  ¿Estas seguro que quieres cambiar el tamao de esta descarga?"/>
+	<string id="20224" value="Usted ha cambiado el nombre del archivo. ¿Está seguro de cambiarlo?"/>
+	<string id="20225" value="Has hecho cambios en el tamao del archivo. ¿Estas seguro que quieres cambiar el tamao de esta descarga?"/>
 	<string id="20226" value="Esta descarga no se puede asumir completa, porque falta información sobre el hash, que es necesaria para verificarla."/>
 	<string id="20227" value="¿Estás seguro de asumir esta descara como completa y reverificarla? PeerProject reverificará el archivo, y aceptará las partes correctas, y descarga de nuevo aquellas incorrectas."/>
 	<string id="20228" value="¿Estás seguro de olvidar el estado actual de verificación? Toda la información de la descarga va a ser tratada como inseguro, para reverificarla."/>
@@ -2904,8 +2904,8 @@
 	<string id="20371" value="Paquetes Gnutella Transmitidos"/>
 	<string id="20372" value="Gnutella Ratio of Received/Sent Pings"/>
 	<string id="20373" value="Gnutella Ratio of Received/Sent Pongs"/>
-	<string id="20374" value="Búsquedas locales de Gnutella"/>
-	<string id="20375" value="Búsquedas locales de Gnutella"/>
+	<string id="20374" value="Consultas Gnutella entrantes"/>
+	<string id="20375" value="Consultas Gnutella procesados"/>
 	<string id="20376" value="Paquetes Gnutella Ruteados"/>
 	<string id="20377" value="Total Banda Ancha Recibida Genérica"/>
 	<string id="20378" value="Total Banda Ancha Transmitida Genérica"/>
@@ -3103,7 +3103,7 @@
 	<string id="20620" value="PeerProject esta buscando activamente en la red..."/>
 	<string id="20621" value="Haz click aquí para buscar de nuevo"/>
 	<string id="20622" value="Todas las redes"/>
-	<string id="20623" value="Se va a iniciar una nueva búsqueda.  ¿Quieres eliminar los resltados actuales?"/>
+	<string id="20623" value="Se va a iniciar una nueva búsqueda. ¿Quieres eliminar los resltados actuales?"/>
 	<string id="20624" value="Esta área muestra información sobre los archivos que selecciones."/>
 	<string id="20625" value="%s escribe:"/>
 	<string id="20626" value="%s le da rating al archivo:"/>
@@ -3241,7 +3241,7 @@
 	<string id="20794" value="User Agent:"/>
 	<string id="20795" value="%s entra : %s sale (d:%I64i/u:%I64i/c:%I64i)"/>
 	<string id="20796" value="Archivos compartidos a través de Internet"/>
-	<string id="20798" value="PeerProject ha terminado de bajar PeerProject versión (%s).  ¿Deseas actualizar ahora?\n\nSi seleccionas si, PeerProject se va a cerrar temporalmente para poder instalar la nueva versión."/>
+	<string id="20798" value="PeerProject ha terminado de bajar PeerProject versión (%s). ¿Deseas actualizar ahora?\n\nSi seleccionas si, PeerProject se va a cerrar temporalmente para poder instalar la nueva versión."/>
 	<string id="20799" value="No hay nueva versión de PeerProject detecta."/>
 	<string id="20800" value="Enviando respuesta HTML por defecto a host de subida %s (%s)."/>
 	<string id="20801" value="Conexión entrante de %s es un pedido de subida HTTP."/>
@@ -3254,7 +3254,7 @@
 	<string id="20808" value="Rechazando subida de &quot;%s&quot; a %s (%s), ocupado o el cliente no soporta colas."/>
 	<string id="20809" value="Rechazando subida de &quot;%s&quot; a %s (%s), todas las colas llenas."/>
 	<string id="20810" value="Host de subida %s pido un rango de contenido no obtenido &quot;%s&quot;."/>
-	<string id="20811" value="Subidas eDonkey no deben ser canceladas.  ¿Estas seguro que deseas cancelar esta subida?"/>
+	<string id="20811" value="Subidas eDonkey no deben ser canceladas. ¿Estas seguro que deseas cancelar esta subida?"/>
 	<string id="20812" value="No se pudo abrir &quot;%s&quot; para subir a host %s, disco/error de archivo."/>
 	<string id="20813" value="Iniciando conexión push con %s. %s"/>
 	<string id="20814" value="No fue posible conectar con %s en push."/>
@@ -3328,7 +3328,7 @@
 	<!--string id="20895" value="Por favor espera: Encontrando dispositivos UPnP y configurandolos..."-->
 	<!--string id="20896" value="Has seleccionado utilizar reenvio de puertos en tu NAT router o firewall.\n\nPor favor configure su red para reenviar el puerto TCP %i a su PC."-->
 	<string id="20897" value="Esta carpeta ya está compartida como parte de:\n\n%s"/>
-	<string id="20898" value="No ha especificado ninguna carpeta para compartir. Recuerda que la calidad de la red esta basada en la cantidad de archivos que los demás comparten, por lo tanto si compartes tus carpetas, la red va a tener más contenido.  ¿Estás seguro(a) de no compartir tus carpetas?"/>
+	<string id="20898" value="No ha especificado ninguna carpeta para compartir. Recuerda que la calidad de la red esta basada en la cantidad de archivos que los demás comparten, por lo tanto si compartes tus carpetas, la red va a tener más contenido. ¿Estás seguro(a) de no compartir tus carpetas?"/>
 	<string id="20899" value="Años"/>
 	<!-- string value="Información Torrent"-->
 	<!-- string value="El tracker no respondio, tratando otra vez (%i of %i)"-->
@@ -3478,12 +3478,12 @@
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
 		<control caption="Manejar enlaces avanzados:"/>
 		<control caption="Usar PeerProject para abrir estos enlaces:"/>
-		<control caption="Magnet ( magnet: )"/>
-		<control caption="Gnutella ( gnutella: )"/>
-		<control caption="eDonkey ( ed2k: )"/>
-		<control caption="Piolet ( mp2p: )"/>
-		<control caption="DC++ ( dchub:/dcfile: )"/>
-		<control caption="BitTorrent ( .torrent )"/>
+		<control caption="Magnet (magnet:)"/>
+		<control caption="Gnutella (gnutella:)"/>
+		<control caption="eDonkey (ed2k:)"/>
+		<control caption="Piolet (mp2p:)"/>
+		<control caption="DC++ (dchub:)"/>
+		<control caption="BitTorrent (.torrent)"/>
 		<control caption="Manejador de _Descargas:"/>
 		<control caption="Usar PeerProject para descargar todos los archivos de internet:"/>
 		<control/>
@@ -4310,7 +4310,7 @@
 		<control caption="PeerProject esta creando la vista previa:"/>
 		<control/>
 		<control/>
-		<control caption="(copiando el archivo, a un archivo de vista previa)"/>
+		<control caption="(copiando los fragmentos descargados a un archivo de vista previa)"/>
 		<control caption="Cancelar"/>
 	</dialog>
 	<dialog name="CWarningsDlg" cookie="StStStStStStBu" caption="PeerProject Respeta sus Usuarios">
@@ -4318,7 +4318,7 @@
 		<control caption="No contiene ningún &quot;spyware&quot;, &quot;adware&quot; o cualquier otro tipo de programas deshonestos. PeerProject no tiene ni propagandas, ni &quot;popups&quot;, nunca.{n}{n}Si en algún momento ve una propaganda o un &quot;popup&quot; puedes tener por seguro que no fué causado por PeerProject."/>
 		<control caption="Desafortunadamente, muchos softwares están incluyendo este tipo de aplicaciones que consumen recursos, y no son amigables. Si crees que tu pc está infectada con uno de estos programas, chequeela con programas especializados en quitar este tipo de software."/>
 		<control caption="Usted no debe pagar para obtener PeerProject.  PeerProject se puede distribuir libremente, y descargar de http://peerproject.org/.  Si usted pagó por PeerProject, pida un reembolso de inmediato."/>
-		<control caption="PeerProject respeta sus usuarios!"/>
+		<control caption="¡PeerProject respeta sus usuarios!"/>
 		<control caption="http://PeerProject.org"/>
 		<control caption="Cerrar"/>
 	</dialog>
@@ -4335,13 +4335,13 @@
 		<control/>
 		<control/>
 		<control/>
-		<control caption="Este archivo ya está en Colección.  ¿Qué quiere hacer?"/>
-		<control caption="Ubicarlo en Colección"/>
+		<control caption="Este archivo ya está en Colección. ¿Qué quiere hacer?"/>
+		<control caption="Mostrarlo en Colección"/>
 		<control caption="Descargarlo de nuevo"/>
 		<control caption="Nada, dejar el archivo original"/>
 		<control caption="Continuar"/>
 		<control caption="Cancelar"/>
-		<control caption="Ya has descargado este archivo antes.  ¿Qué deseas hacer?"/>
+		<control caption="Ya has descargado este archivo antes. ¿Qué deseas hacer?"/>
 		<control caption="Advertencia! Archivos duplicados detectados. Un archivo malicioso puede ver afectado tu librera. Asegurate de que t descargaste o pusiste este archivo manualmente. De otra forma, cierra PeerProject y escanea tu computadora con un antivirus."/>
 	</dialog>
 	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Botón de cerrar">
@@ -4360,7 +4360,7 @@
 		<control caption="Cancelar"/>
 	</dialog>
 	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStBuStStStStCoCoEd" caption="Eliminar Archivo">
-		<control caption="¿Estás seguro de eliminar?"/>
+		<control caption="¿Estás seguro de que quieres eliminar?"/>
 		<control/>
 		<control caption="Eliminar"/>
 		<control caption="Eliminar Todos"/>
@@ -4391,11 +4391,11 @@
 		<control caption="_Cancelar"/>
 	</dialog>
 	<dialog name="CTorrentSeedDlg" cookie="StBuBuBuStms" caption="Abrir Archivo Torrent">
-		<control caption="Has abierto un archivo Torrent.  ¿Deseas volver a bajar sus componentes?, o ¿volverlo a compartir?"/>
+		<control caption="Has abierto un archivo Torrent. ¿Deseas volver a bajar sus componentes?, o ¿volverlo a compartir?"/>
 		<control caption="Descargar"/>
 		<control caption="Compartir"/>
 		<control caption="Cancelar"/>
-		<control caption="Para compartir archivos completados usando BitTorrent deben estar seeded.  Cuando este proceso esté completo el Torrent va aparecer como un nuevo artículo en archivos descargados."/>
+		<control caption="Para compartir archivos completados usando BitTorrent deben estar seeded. Cuando este proceso esté completo el Torrent va aparecer como un nuevo artículo en archivos descargados."/>
 		<control/>
 	</dialog>
 	<dialog name="CTorrentFilesPage" cookie="StSy" caption="Archivos">
@@ -4646,7 +4646,7 @@
 	</list>
 	<list name="CSchedulerWnd">
 		<column from="Task" to="Acción"/>
-		<column from="Date" to="Dias"/>
+		<column from="Date" to="Días"/>
 		<column from="Time" to="Tiempo"/>
 		<column from="Status" to="Estado"/>
 		<column from="Activity" to="Activo"/>

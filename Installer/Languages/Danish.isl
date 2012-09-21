@@ -26,6 +26,7 @@ LanguageCodePage=1252
 ;CopyrightFontSize=8
 
 [Messages]
+
 ; *** Application titles
 SetupAppTitle=Installationsguide
 SetupWindowTitle=Installationsguide - %1
@@ -47,6 +48,10 @@ LastErrorMessage=%1.%n%nFejl %2: %3
 SetupFileMissing=Filen %1 mangler i installations-mappen. Ret fejlen eller skaf en ny kopi af programmet.
 SetupFileCorrupt=Installationsfilerne er ødelagt. Skaf en ny kopi af installationsprogrammet.
 SetupFileCorruptOrWrongVer=Installationsfilerne er ødelagt, eller også passer de ikke til denne version af installationen. Ret fejlen eller skaf en ny kopi af installationsprogrammet.
+InvalidParameter=An invalid parameter was passed on the command line:%n%n%1
+SetupAlreadyRunning=Installation kører allerede.
+WindowsVersionNotSupported=This program does not support the version of Windows your computer is running.
+WindowsServicePackRequired=This program requires %1 Service Pack %2 or later.
 NotOnThisPlatform=Programmet kan ikke anvendes på %1.
 OnlyOnThisPlatform=Programmet kan kun anvendes på %1.
 OnlyOnTheseArchitectures=Dette program kan kun installeres på Windows-versioner som er designet til denne processortype:%n%n%1
@@ -69,9 +74,9 @@ AboutSetupMenuItem=&Om installationsguiden...
 AboutSetupTitle=Om installationsguiden
 AboutSetupMessage=%1 version %2%n%3%n%n%1 hjemmeside:%n%4
 AboutSetupNote=
+TranslatorNote=
 
 ; *** Buttons
-TranslatorNote=
 ButtonBack=< &Tilbage
 ButtonNext=Næ&ste >
 ButtonInstall=&Installer
@@ -137,7 +142,8 @@ SelectDirDesc=Hvor skal [name] installeres?
 SelectDirLabel3=Guiden installerer [name] i følgende mappe.
 SelectDirBrowseLabel=Klik Næste for at fortsætte. Hvis du vil vælge en anden mappe skal du klikke Gennemse.
 DiskSpaceMBLabel=Der skal være mindst [mb] MB fri diskplads.
-ToUNCPathname=Guiden kan ikke installere på et UNC-stinavn. Hvis du prøver på at installere på et netværk, er du nødt til at oprette et netværksdrev.
+CannotInstallToNetworkDrive=Guiden kan ikke installere på et Network-stinavn.
+CannotInstallToUNCPath=Guiden kan ikke installere på et UNC-stinavn.
 InvalidPath=Du skal indtaste den fulde sti med drevangivelse; for eksempel:%n%nC:\APP%n%neller et UNC-stinavn på formen:%n%n\\server\share
 InvalidDrive=Drevet eller UNC-stien du valgte eksisterer ikke. Vælg venligst noget andet.
 DiskSpaceWarningTitle=Ikke nok fri diskplads.
@@ -197,6 +203,10 @@ WizardPreparing=Klargør installationen
 PreparingDesc=Installationsguiden klargør installationen af [name] på din computer.
 PreviousInstallNotCompleted=Den foregående installation eller fjernelse af et program er ikke afsluttet. Du skal genstarte computeren for at afslutte den foregående installation.%n%nEfter genstarten skal du køre installationsguiden igen for at fuldføre installationen af [name].
 CannotContinue=Installationsguiden kan ikke fortsætte. Klik på Fortryd for at afslutte.
+ApplicationsFound=The following applications are using files that need to be updated by Setup. It is recommended that you allow Setup to automatically close these applications.
+ApplicationsFound2=The following applications are using files that need to be updated by Setup. It is recommended that you allow Setup to automatically close these applications. After the installation has completed, Setup will attempt to restart the applications.
+CloseApplications=&Automatisk lukke de programmer
+DontCloseApplications=&Må ikke lukke de programmer
 
 ; *** "Installing" wizard page
 WizardInstalling=Installerer
@@ -229,6 +239,7 @@ SetupAborted=Installationen blev ikke gennemført.%n%nInstaller igen, hent progra
 EntryAbortRetryIgnore=Klik Gentag for at forsøge igen, Ignorer for at fortsætte alligevel, eller Afbryd for at annullere installationen.
 
 ; *** Installation status messages
+StatusClosingApplications=Lukning af programmer...
 StatusCreateDirs=Opretter mapper...
 StatusExtractFiles=Udpakker filer...
 StatusCreateIcons=Opretter program-genveje...
@@ -237,6 +248,7 @@ StatusCreateRegistryEntries=Opdaterer registrerings-databasen...
 StatusRegisterFiles=Registrerer filer...
 StatusSavingUninstall=Gemmer information om afinstallation...
 StatusRunProgram=Færdiggør installation...
+StatusRestartingApplications=Genstart applikationer...
 StatusRollback=Fjerner programmet igen...
 
 ; *** Misc. errors
@@ -300,7 +312,15 @@ SharedFileLocationLabel=Placering:
 WizardUninstalling=Status for afinstallation
 StatusUninstalling=Afinstallerer %1...
 
+; *** Shutdown block reasons
+ShutdownBlockReasonInstallingApp=Installerer %1.
+ShutdownBlockReasonUninstallingApp=Afinstallerer %1.
+
+; The custom messages below aren't used by Setup itself,
+; but if you make use of them in your scripts, you'll want to translate them.
+
 [CustomMessages]
+
 NameAndVersion=%1 version %2
 AdditionalIcons=Ekstra ikoner:
 CreateDesktopIcon=Lav ikon på skrive&bordet
@@ -310,3 +330,6 @@ UninstallProgram=Afinstaller (fjern) %1
 LaunchProgram=&Kør %1
 AssocFileExtension=Sammen&kæd %1 med filtypen %2
 AssocingFileExtension=Sammenkæder %1 med filtypen %2...
+AutoStartProgramGroupDescription=Startup:
+AutoStartProgram=Start automatisk %1
+AddonHostProgramNotFound=%1 could not be located in the folder you selected.%n%nDo you want to continue anyway?

@@ -1,13 +1,13 @@
 //
 // Extract.c
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 //
 // Portions of this page have been previously released into the public domain.
 // You are free to redistribute and modify it without any restrictions
 // with the exception of the following notice:
 //
-// The Zlib library is Copyright (C) 1995-2002 Jean-loup Gailly and Mark Adler.
+// The Zlib  library is Copyright (C) 1995-2002 Jean-loup Gailly and Mark Adler.
 // The Unzip library is Copyright (C) 1998-2003 Gilles Vollant.
 
 #include "Skin.h"
@@ -56,7 +56,11 @@ void GetInstallDirectory()
 		if ( tmp ) *tmp = 0;
 	}
 
-	wcscat( skins_dir, L"\\Skins\\" );
+	wcscat( skins_dir,
+		!skinType ? L"\\Skins\\" :
+		skinType == typePlugin ? L"\\Plugins\\" :
+		skinType == typeData ? L"\\Data\\" :
+		L"\\Skins\\" );
 	SetCurrentDirectory( skins_dir );
 }
 
@@ -241,15 +245,15 @@ int ExtractSkin(LPTSTR pszFile, HWND hwndDlg)
 	if ( err != UNZ_OK ) return 0;
 
 	wcscpy(prefix, skins_dir );
-    if ( skinType == 1 )
+    if ( skinType == typeLang )
 	{
     	wcscat(prefix, L"Languages\\");
 	}
-    else
+    else if ( !skinType )
 	{
         wcscat(prefix, szPath);
-        //Create Directory for the new skin
-        if (!MakeDirectory((LPCTSTR)prefix))
+        // Create Directory for new skin
+        if ( !MakeDirectory((LPCTSTR)prefix) )
 		{
     		unzClose(ufile);
 			return 0;

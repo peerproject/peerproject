@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Czech Skin File -->
 
-<!-- Translation based on default-en.xml r80 --> <!-- (Shareaza 2.2.5.7) -->
+<!-- Translation based on default-en.xml r82 --> <!-- (Shareaza 2.2.5.7) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3102,7 +3102,7 @@
 	<string id="20731" value="Seeding"/>
 	<string id="20732" value="zdroj"/>
 	<string id="20733" value="zdrojů"/> <!-- many -->
-	<string id="20734" value="zdroje"/> <!-- few  2,3,4 -->
+	<string id="20734" value="zdroje"/> <!-- few  2-4 -->
 	<string id="20735" value="zdrojů"/> <!-- ones 21,31,... -->
 	<string id="20736" value="(Nejsou zdroje)"/>
 	<string id="20740" value="TigerTree"/>
@@ -3349,7 +3349,7 @@
 		<control caption="Gnutella (gnutella:)"/>
 		<control caption="eDonkey (ed2k:)"/>
 		<control caption="Piolet (mp2p:)"/>
-		<control caption="DC++ ( dchub:/dcfile: )"/>
+		<control caption="DC++ (dchub:)"/>
 		<control caption="BitTorrent (.torrent)"/>
 		<control caption="_Správce stahování:"/>
 		<control caption="Používat PeerProject pro všechna stahování z webu:"/>

@@ -1,13 +1,13 @@
 //
 // Utils.c
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 //
 // Portions of this page have been previously released into the public domain.
 // You are free to redistribute and modify it without any restrictions
 // with the exception of the following notice:
 //
-// The Zlib library is Copyright (C) 1995-2002 Jean-loup Gailly and Mark Adler.
+// The Zlib  library is Copyright (C) 1995-2002 Jean-loup Gailly and Mark Adler.
 // The Unzip library is Copyright (C) 1998-2003 Gilles Vollant.
 
 #include "Skin.h"
@@ -32,13 +32,20 @@ void LoadManifestInfo(char *buf)
 
 	if ( ( p=(TCHAR*)GetManifestValue(pszBuf, L"type") ) != NULL )
 	{
-		if ( !_wcsicmp(p, L"language") )
-			skinType = 1;
-		if ( !_wcsicmp(p, L"plugin") )
-			skinType = 2;
-
-	//	if (!_wcsicmp(p, L"template")) skinType = 0;
-	//	else skinType = 0; //("skin")
+		if ( !_wcsicmp(p, L"skin") )
+			;	//skinType = typeSkin;	// 0
+		else if ( !_wcsicmp(p, L"language") )
+			skinType = typeLang;	// 1
+		else if ( !_wcsicmp(p, L"plugin") )
+			skinType = typePlugin;	// 2
+		else if ( !_wcsicmp(p, L"data") )
+			skinType = typeData;	// 3
+		else if ( !_wcsicmp(p, L"security") )
+			skinType = typeData;	// 3
+		//else if (!_wcsicmp(p, L"template"))
+		//	skinType = typeSkin;	// 0
+		//else
+		//	skinType = typeSkin;	// ("skin")
 		free(p);
 	}
 	if ( (p=(TCHAR*)GetManifestValue(pszBuf, L"name")) != NULL )

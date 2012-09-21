@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Estonian Skin File -->
 
-<!-- Translation based on default-en.xml r80 --> <!-- (Shareaza 2.2.2.9) -->
+<!-- Translation based on default-en.xml r82 --> <!-- (Shareaza 2.2.2.9) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3252,12 +3252,12 @@
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Weeb">
 		<control caption="_P2P linkide käsitlus:"/>
 		<control caption="Kasuta PeerProjectt, et avada seda tüüpi faile:"/>
-		<control caption="Magnet ( magnet: )"/>
-		<control caption="Gnutella ( gnutella: )"/>
-		<control caption="eDonkey2000 ( ed2k: )"/>
-		<control caption="Piolet ( mp2p: )"/>
-		<control caption="DC++ ( dchub:/dcfile: )"/>
-		<control caption="BitTorrent ( .torrent )"/>
+		<control caption="Magnet (magnet:)"/>
+		<control caption="Gnutella (gnutella:)"/>
+		<control caption="eDonkey2000 (ed2k:)"/>
+		<control caption="Piolet (mp2p:)"/>
+		<control caption="DC++ (dchub:)"/>
+		<control caption="BitTorrent (.torrent)"/>
 		<control caption="_Allalaadimiste Haldus:"/>
 		<control caption="Kasuta PeerProjectt kõikideks weebi allalaadimisteks:"/>
 		<control/>
@@ -3587,7 +3587,7 @@
 		<control caption="eDonkey (ED2K) on levinud srerveritel baseeruv võrk.  Küll mitte nii võimaluste rohke, kui Gnutella2, on eDonkey-l muljetavaldav kogus faile ringluses."/>
 		<control caption="Käsitle .torrent linke."/>
 	</dialog>
-	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Welcome to PeerProject (4/8)">
+	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Teretulemast PeerProject (4/8)">
 		<control caption="PeerProject esimene downloads osaline faile erasektori kausta, siis liigub neid, kui täidetakse vastavalt Lae rühmad."/>
 		<control caption="Salvesta Ajutised Poolikud Failid Siia:"/>
 		<control/>
