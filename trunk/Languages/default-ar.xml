@@ -3,7 +3,7 @@
 
 <!-- PeerProject Arabic Language Skin File -->
 
-<!-- Translation based on default-en.xml r80 -->
+<!-- Translation based on default-en.xml r82 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2967,12 +2967,12 @@
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="ويب">
 		<control caption="معالجة رابط _نظير إلى نظر:" />
 		<control caption="إستعمال PeerProject لفتح هذه الأنواع من الروابط :" />
-		<control caption="Magnet ( magnet: )" />
-		<control caption="Gnutella ( gnutella: )" />
-		<control caption="eDonkey ( ed2k: )" />
-		<control caption="Piolet ( mp2p: )" />
-		<control caption="DC++ ( dchub:/dcfile: )"/>
-		<control caption="BitTorrent ( .torrent )" />
+		<control caption="Magnet (magnet:)" />
+		<control caption="Gnutella (gnutella:)" />
+		<control caption="eDonkey (ed2k:)" />
+		<control caption="Piolet (mp2p:)" />
+		<control caption="DC++ (dchub:)"/>
+		<control caption="BitTorrent (.torrent)" />
 		<control caption="_:مدير التحميل" />
 		<control caption=":لإدارة جميع تحميلات إنترنت PeerProject إستخدام" />
 		<control />

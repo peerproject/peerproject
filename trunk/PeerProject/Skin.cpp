@@ -122,12 +122,12 @@ void CSkin::CreateDefault()
 	m_rcNavBarOffset = CRect( 0, 0, 0, 0 );
 
 	// Command Icons
-	if ( HICON hIcon = theApp.LoadIcon( IDI_CHECKMARK ) )
-	{
-	//	if ( Settings.General.LanguageRTL ) hIcon = CreateMirroredIcon( hIcon );	// Impossible?
-		CoolInterface.AddIcon( ID_CHECKMARK, hIcon );
-		VERIFY( DestroyIcon( hIcon ) );
-	}
+	//if ( HICON hIcon = theApp.LoadIcon( IDI_CHECKMARK ) )
+	//{
+	//	//if ( Settings.General.LanguageRTL ) hIcon = CreateMirroredIcon( hIcon );	// Impossible?
+	//	CoolInterface.AddIcon( ID_CHECKMARK, hIcon );
+	//	VERIFY( DestroyIcon( hIcon ) );
+	//}
 
 	// Load Definitions
 	LoadFromResource( NULL, IDR_XML_DEFINITIONS );

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Russian Skin File -->
 
-<!-- Translation based on default-en.xml r80 -->
+<!-- Translation based on default-en.xml r82 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -348,7 +348,7 @@
 	<toolbar name="CIRCFrame">
 		<button id="ID_IRC_SENDTEXT" text="Чат" tip="Post Your Comments"/>
 		<separator/>
-		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
+		<button id="ID_IRC_CLOSETAB" text="Закрыть" tip="Exit Current Channel Window"/>
 		<rightAlign/>
 		<button id="ID_IRC_CONNECT" text="Подключиться" tip="Подключиться к IRC"/>
 		<button id="ID_IRC_DISCONNECT" text="Отключиться" tip="Отключиться от IRC"/>
@@ -3244,7 +3244,7 @@
 	<string id="20731" value="Раздача"/>
 	<string id="20732" value="источник"/>
 	<string id="20733" value="источников"/> <!-- many -->
-	<string id="20734" value="источника"/>  <!-- few  2,3,4 -->
+	<string id="20734" value="источника"/>  <!-- few  2-4 -->
 	<string id="20735" value="источник"/>   <!-- ones 21,31,... -->
 	<string id="20736" value="(нет источников)"/>
 	<string id="20740" value="TigerTree"/>
@@ -3531,12 +3531,12 @@
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Веб">
 		<control caption="Обработка _пиринговых (P2P) ссылок:"/>
 		<control caption="Использовать PeerProject для перехвата следующих типов ссылок:"/>
-		<control caption="Magnet ( magnet: )"/>
-		<control caption="Gnutella ( gnutella: )"/>
-		<control caption="eDonkey ( ed2k: )"/>
-		<control caption="Piolet ( mp2p: )"/>
-		<control caption="DC++ ( dchub:/dcfile: )"/>
-		<control caption="BitTorrent ( .torrent )"/>
+		<control caption="Magnet (magnet:)"/>
+		<control caption="Gnutella (gnutella:)"/>
+		<control caption="eDonkey (ed2k:)"/>
+		<control caption="Piolet (mp2p:)"/>
+		<control caption="DC++ (dchub:)"/>
+		<control caption="BitTorrent (.torrent)"/>
 		<control caption="_Менеджер загрузок:"/>
 		<control caption="Обрабатывать PeerProject'ой все мои веб загрузки:"/>
 		<control/>

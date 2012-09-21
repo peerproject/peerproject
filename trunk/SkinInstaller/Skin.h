@@ -1,13 +1,13 @@
 //
 // Skin.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 //
 // Portions of this page have been previously released into the public domain.
 // You are free to redistribute and modify it without any restrictions
 // with the exception of the following notice:
 //
-// The Zlib library is Copyright (C) 1995-2002 Jean-loup Gailly and Mark Adler.
+// The Zlib  library is Copyright (C) 1995-2002 Jean-loup Gailly and Mark Adler.
 // The Unzip library is Copyright (C) 1998-2003 Gilles Vollant.
 
 #pragma once
@@ -26,7 +26,15 @@
 #define VERSION				L"1.0.0.0"
 #define SKIN_MAIN_HWND		L"PeerProjectMainWnd"
 #define SKIN_SKIN_TITLE 	L"PeerProject Skin Installer"
-#define SKIN_ADDON_TITLE	L"PeerProject Add-on Installer"
+#define SKIN_PACKAGE_TITLE	L"PeerProject Package Installer"
+
+enum 
+{
+	typeSkin,
+	typeLang,
+	typePlugin,
+	typeData
+};
 
 // Globals
 extern int	  skinType;

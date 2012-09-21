@@ -46,6 +46,10 @@ LastErrorMessage=%1.%n%nFout %2: %3
 SetupFileMissing=Die lêer %1 word vermis in die installasiegids. Korrigeer die fout of verkry 'n nuwe weergawe van die program.
 SetupFileCorrupt=Die installasie lêers is korrup. Verkry 'n nuwe weergawe van die program.
 SetupFileCorruptOrWrongVer=Die installasielêers is korrup, of onversoenbaar met hierdie weergawe van Installeerder. Korrigeer die problem of verkry 'n nuwe weergawe van die program.
+InvalidParameter=An invalid parameter was passed on the command line:%n%n%1
+SetupAlreadyRunning=Installasie loop reeds.
+WindowsVersionNotSupported=This program does not support the version of Windows your computer is running.
+WindowsServicePackRequired=This program requires %1 Service Pack %2 or later.
 NotOnThisPlatform=Hierdie program sal nie loop op %1 nie.
 OnlyOnThisPlatform=Hierdie program moet geloop word op %1.
 OnlyOnTheseArchitectures=Hierdie program kan net geïnstalleer word op weergawes van Windows ontwerp vir die volgende verwerkerargitekture:%n%n%1
@@ -136,8 +140,8 @@ SelectDirDesc=Waar moet [name] geïnstalleer word?
 SelectDirLabel3=Die installeerder sal [name] installeer in die volgende gids.
 SelectDirBrowseLabel=Om voort te gaan, kliek Volgende. Indien u 'n ander gids wil kies, kliek Rondblaai.
 DiskSpaceMBLabel=Ten minste [mb] MG oop hardeskyfspasie word benodig.
-CannotInstallToNetworkDrive=Die installeerder kan nie installeer na 'n Net-gidsnaam nie. Indien u probeer om te installeer op 'n netwerk, sal u 'n netwerkaandrywer moet afbeeld.
-CannotInstallToUNCPath=Die installeerder kan nie installeer na 'n UNC-gidsnaam nie. Indien u probeer om te installeer op 'n netwerk, sal u 'n netwerkaandrywer moet afbeeld.
+CannotInstallToNetworkDrive=Die installeerder kan nie installeer na 'n Net-gidsnaam nie.
+CannotInstallToUNCPath=Die installeerder kan nie installeer na 'n UNC-gidsnaam nie.
 InvalidPath=U moet 'n volledige pad insleutel met 'n aandrywerletter; bv.:%n%nC:\APP%n%nof 'n UNC-pad in die vorm:%n%n\\server\share
 InvalidDrive=Die aandrywer of UNC-netwerkgids wat u gekies het, bestaan nie of is nie toeganklik nie. Kies asb. 'n ander een.
 DiskSpaceWarningTitle=Onvoldoende skyfspasie
@@ -197,6 +201,10 @@ WizardPreparing=Voorbereiding om te Installeer
 PreparingDesc=Die installeerder is besig om voor te berei om [name] op u rekenaar te installeer.
 PreviousInstallNotCompleted=Die installasie/verwydering van 'n vorige program is nie voltooi nie. U moet u rekenaar restart om daardie installasie te voltooi.%n%nNadat u die rekenaar restart het, kan u die instaleerder weer uitvoer om die installasie van [name] te voltooi.
 CannotContinue=Die installeerder kan nie voortgaan nie. Kliek asb. Kanselleer om dit te verlaat.
+ApplicationsFound=The following applications are using files that need to be updated by Setup. It is recommended that you allow Setup to automatically close these applications.
+ApplicationsFound2=The following applications are using files that need to be updated by Setup. It is recommended that you allow Setup to automatically close these applications. After the installation has completed, Setup will attempt to restart the applications.
+CloseApplications=&Sluit outomaties die aansoeke
+DontCloseApplications=&Moenie naby die aansoeke
 
 ; *** "Installing" wizard page
 WizardInstalling=Besig om te Installeer
@@ -229,6 +237,7 @@ SetupAborted=Die installasie is nie voltooi nie.%n%nKorrigeer asb. die probleem 
 EntryAbortRetryIgnore=Kliek Probeer weer om weer te probeer, Ignoreer om ten spyte hiervan voort te gaan, of Stop om die installasie te kanselleer.
 
 ; *** Installation status messages
+StatusClosingApplications=Sluiting...
 StatusCreateDirs=Skep nou gidse...
 StatusExtractFiles=Pak nou lêers uit...
 StatusCreateIcons=Skep nou kortpaaie...
@@ -237,6 +246,7 @@ StatusCreateRegistryEntries=Skep nou van registerinskrywings...
 StatusRegisterFiles=Registreer nou lêers...
 StatusSavingUninstall=Stoor nou verwyderingsinligting...
 StatusRunProgram=Voltooi nou installasie...
+StatusRestartingApplications=Weer te begin...
 StatusRollback=Rol nou veranderinge terug...
 
 ; *** Misc. errors
@@ -300,6 +310,13 @@ SharedFileLocationLabel=Ligging:
 WizardUninstalling=Verwyderingstatus
 StatusUninstalling=Verwyder %1...
 
+; *** Shutdown block reasons
+ShutdownBlockReasonInstallingApp=Installering %1.
+ShutdownBlockReasonUninstallingApp=Verwyder %1.
+
+; The custom messages below aren't used by Setup itself,
+; but if you make use of them in your scripts, you'll want to translate them.
+
 [CustomMessages]
 
 NameAndVersion=%1 weergawe %2
@@ -311,3 +328,6 @@ UninstallProgram=Verwyder %1
 LaunchProgram=Voer %1 uit
 AssocFileExtension=&Assosieer %1 met die %2 lêeruitbreiding
 AssocingFileExtension=Assosieer %1 met die %2 lêeruitbreiding...
+AutoStartProgramGroupDescription=Startup:
+AutoStartProgram=Outomaties begin %1
+AddonHostProgramNotFound=%1 could not be located in the folder you selected.%n%nDo you want to continue anyway?

@@ -45,6 +45,10 @@ LastErrorMessage=%1.%n%nGabim %2: %3
 SetupFileMissing=Skeda %1 mungon në direktorinë e instalimit. Të lutem korrigjo problemin ose gjej një kopje të re të programit.
 SetupFileCorrupt=Skedat e sistemimit janë prishur. Të lutem gjej një kopje të re të programit.
 SetupFileCorruptOrWrongVer=Skedat e sistemimit janë prishur ose nuk pajtohen me këtë version të Sistemimit. Të lutem korrigjo problemin ose gjej një kopje të re të programit.
+InvalidParameter=An invalid parameter was passed on the command line:%n%n%1
+SetupAlreadyRunning=Setup është tashmë running.
+WindowsVersionNotSupported=This program does not support the version of Windows your computer is running.
+WindowsServicePackRequired=This program requires %1 Service Pack %2 or later.
 NotOnThisPlatform=Ky program nuk do veprojë në %1.
 OnlyOnThisPlatform=Ky program duhet të veprojë në %1.
 OnlyOnTheseArchitectures=Ky program mund të instalohet vetëm në versionet e Windows-it që janë modeluar për këto modele arkitekturore të procesorit:%n%n%1
@@ -135,8 +139,8 @@ SelectDirDesc=Ku duhet të instalohet [name]?
 SelectDirLabel3=Sistemimi do e instalojë [name] në këtë dosje.
 SelectDirBrowseLabel=Për të vijuar, kliko Tjetër. Nëse do të zgjedhësh një dosje ndryshe, kliko Shfleto.
 DiskSpaceMBLabel=Kërkon jo më pak se [mb] MB hapësirë të lirë në disk.
-CannotInstallToNetworkDrive=Sistemimi nuk mund të instalojë në një shteg net. Nëse po provon instalimin në rrjet, duhet të lokalizosh drajvin e rrjetit.
-CannotInstallToUNCPath=Sistemimi nuk mund të instalojë në një shteg UNC. Nëse po provon instalimin në rrjet, duhet të lokalizosh drajvin e rrjetit.
+CannotInstallToNetworkDrive=Sistemimi nuk mund të instalojë në një shteg net.
+CannotInstallToUNCPath=Sistemimi nuk mund të instalojë në një shteg UNC.
 InvalidPath=Duhet të shkruhet shtegu i plotë me shkronjën e drajvit; për shembull:%n%nC:\APP%n%nose shtegu UNC në formën:%n%n\\server\share
 InvalidDrive=Drajvi ose shpërndarësi UNC i zgjedhur nuk ekziston ose nuk hapet. Të lutem zgjidhe një tjetër.
 DiskSpaceWarningTitle=Hapësirë e Pamjaftueshme
@@ -196,6 +200,10 @@ WizardPreparing=Gati të Instalohet
 PreparingDesc=Sistemimi është gati të instalojë [name] në kompjuter.
 PreviousInstallNotCompleted=Nuk plotësohet instalimi/heqja e programit të mëparshëm. Kompjuteri duhet të rinisë që të plotësohet instalimi.%n%nPasi kompjuteri të riniset, vepro përsëri Sistemimin që të plotësohet instalimi i [name].
 CannotContinue=Sistemimi nuk mund të vijojë. Të lutem kliko Anulo për të dalë.
+ApplicationsFound=The following applications are using files that need to be updated by Setup. It is recommended that you allow Setup to automatically close these applications.
+ApplicationsFound2=The following applications are using files that need to be updated by Setup. It is recommended that you allow Setup to automatically close these applications. After the installation has completed, Setup will attempt to restart the applications.
+CloseApplications=&Automatikisht mbyllur aplikimet
+DontCloseApplications=&Mos mbyllur aplikimet
 
 ; *** "Installing" wizard page
 WizardInstalling=Instalim
@@ -228,6 +236,7 @@ SetupAborted=Nuk plotësohet sistemimi.%n%nTë lutem korrigjo problemin dhe lëshoj
 EntryAbortRetryIgnore=Kliko Riprovo për të provuar përsëri, Përbuz për të vijuar gjithsesi, ose Ndërprit që instalimi të anulohet.
 
 ; *** Installation status messages
+StatusClosingApplications=Aplikacionet e mbylljes...
 StatusCreateDirs=Krijon direktoritë...
 StatusExtractFiles=Nxjerr skedat...
 StatusCreateIcons=Krijon shkurtoret...
@@ -236,6 +245,7 @@ StatusCreateRegistryEntries=Krijon hyrjet në regjistër...
 StatusRegisterFiles=Regjistron skedat...
 StatusSavingUninstall=Ruan informacionin e çinstalimit...
 StatusRunProgram=Përfundon instalimin...
+StatusRestartingApplications=Rifillimi aplikacionet...
 StatusRollback=Kthen ndryshimin...
 
 ; *** Misc. errors
@@ -299,6 +309,10 @@ SharedFileLocationLabel=Vendi:
 WizardUninstalling=Statusi i Çinstalimit
 StatusUninstalling=Çinstalon %1...
 
+; *** Shutdown block reasons
+ShutdownBlockReasonInstallingApp=Instalimi %1.
+ShutdownBlockReasonUninstallingApp=Çinstalon %1.
+
 ; The custom messages below aren't used by Setup itself,
 ; but if you make use of them in your scripts, you'll want to translate them.
 
@@ -313,3 +327,6 @@ UninstallProgram=Çinstalo %1
 LaunchProgram=Lësho %1
 AssocFileExtension=&Shoqëro %1 me siglën e skedës %2
 AssocingFileExtension=%1 shoqërohet me siglën e skedës %2...
+AutoStartProgramGroupDescription=Startup:
+AutoStartProgram=Të fillojë automatikisht %1
+AddonHostProgramNotFound=%1 could not be located in the folder you selected.%n%nDo you want to continue anyway?

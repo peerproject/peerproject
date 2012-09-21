@@ -3,7 +3,7 @@
 
 <!-- PeerProject/ПеерПројецт Default Serbian Skin File -->
 
-<!-- Translation based on default-en.xml r80 -->
+<!-- Translation based on default-en.xml r82 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2962,7 +2962,7 @@
 	<string id="20731" value="Seeding"/>
 	<string id="20732" value="izvor"/>
 	<string id="20733" value="izvora"/> <!-- many -->
-	<string id="20734" value="izvora"/> <!-- few  2,3,4 -->
+	<string id="20734" value="izvora"/> <!-- few  2-4 -->
 	<string id="20735" value="izvor"/>  <!-- ones 21,31,... -->
 	<string id="20736" value="(Nema Izvora)"/>
 	<string id="20740" value="TigerTree"/>
@@ -3157,12 +3157,12 @@
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
 		<control caption="Upravljanje _Peer to Peer Linkovima:"/>
 		<control caption="Koristi PeerProject za otvaranje ovih vrsta linkova:"/>
-		<control caption="Magnet ( magnet: )"/>
-		<control caption="Gnutella ( gnutella: )"/>
-		<control caption="eDonkey2000 ( ed2k: )"/>
-		<control caption="DC++ ( dchub:/dcfile: )"/>
-		<control caption="Piolet ( mp2p: )"/>
-		<control caption="BitTorrent ( .torrent )"/>
+		<control caption="Magnet (magnet:)"/>
+		<control caption="Gnutella (gnutella:)"/>
+		<control caption="eDonkey2000 (ed2k:)"/>
+		<control caption="DC++ (dchub:)"/>
+		<control caption="Piolet (mp2p:)"/>
+		<control caption="BitTorrent (.torrent)"/>
 		<control caption="Upravitelj Ski_danja:"/>
 		<control caption="Koristi PeerProject za svo skidanje sa interneta:"/>
 		<control/>

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Slovenian Skin File -->
 
-<!-- Translation based on default-en.xml r80 --> <!-- (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r82 --> <!-- (Shareaza 2.2.2.12) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3009,7 +3009,7 @@
 	<string id="20731" value="Sejem (seeding)"/>
 	<string id="20732" value="vir"/>
 	<string id="20733" value="virov"/> <!-- many -->
-	<string id="20734" value="viri"/>  <!-- few  2,3,4 -->
+	<string id="20734" value="viri"/>  <!-- few  2-4 -->
 	<string id="20735" value="virov"/> <!-- ones 21,31,... -->
 	<string id="20736" value="(Ni virov)"/>
 	<string id="20740" value="TigerTree"/>
@@ -3248,12 +3248,12 @@
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Splet">
 		<control caption="_P2P obdelava povezav:"/>
 		<control caption="Uporabi PeerProject za odpiranje naslednjih vrst povezav:"/>
-		<control caption="Magnet ( magnet: )"/>
-		<control caption="Gnutella ( gnutella: )"/>
-		<control caption="eDonkey2000 ( ed2k: )"/>
-		<control caption="Piolet ( mp2p: )"/>
-		<control caption="DC++ ( dchub:/dcfile: )"/>
-		<control caption="BitTorrent ( .torrent )"/>
+		<control caption="Magnet (magnet:)"/>
+		<control caption="Gnutella (gnutella:)"/>
+		<control caption="eDonkey2000 (ed2k:)"/>
+		<control caption="Piolet (mp2p:)"/>
+		<control caption="DC++ (dchub:)"/>
+		<control caption="BitTorrent (.torrent)"/>
 		<control caption="_Upravljalec prenosov:"/>
 		<control caption="Uporabi PeerProject za upravljanje vseh spletnih prenosov:"/>
 		<control/>

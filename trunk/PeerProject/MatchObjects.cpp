@@ -892,6 +892,13 @@ BOOL CMatchList::FilterHit(CQueryHit* pHit)
 			return FALSE;
 	}
 
+	if ( ( pHit->m_oSHA1 && Security.IsDenied( pHit->m_oSHA1.toUrn() ) ) ||
+		 ( pHit->m_oTiger && Security.IsDenied( pHit->m_oTiger.toUrn() ) ) ||
+		 ( pHit->m_oED2K && Security.IsDenied( pHit->m_oED2K.toUrn() ) ) ||
+		 ( pHit->m_oBTH && Security.IsDenied( pHit->m_oBTH.toUrn() ) ) ||
+		 ( pHit->m_oMD5 && Security.IsDenied( pHit->m_oMD5.toUrn() ) ) )
+		return FALSE;
+
 	if ( ( m_bFilterBusy && pHit->m_bBusy == TRI_TRUE ) ||
 	//	 ( m_bFilterPush && pHit->m_bPush == TRI_TRUE && pHit->m_nProtocol != PROTOCOL_ED2K ) ||
 		 ( m_bFilterPush && pHit->m_bPush == TRI_TRUE ) ||

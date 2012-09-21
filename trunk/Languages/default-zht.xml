@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Traditional) Skin File -->
 
-<!-- Translation based on default-en.xml r80 --> <!-- (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r82 --> <!-- (Shareaza 2.2.2.12) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1650,7 +1650,7 @@
 			<heading align="middle">警告! 你受到防火牆的保護</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject 偵測到你受到 NAT 路由器或是防火牆的保護,
-			  所以無法由網際網路接收到連線&#160;</text>
+			 所以無法由網際網路接收到連線&#160;</text>
 			<text color="FF0000" format="b">這可能導致不良的下載效能.</text>
 			<newline gap="6"/>
 			<link target="command:ID_HELP_ROUTER">點選這裡學習如何設定您的路由器或是防火牆</link>
@@ -2561,7 +2561,7 @@
 	<string id="20144" value="無法製作 BitTorrent 分享檔 &quot;%s&quot;."/>
 	<string id="20145" value="嘗試做種 &quot;%s&quot; 時, 發生未知的錯誤."/>
 	<string id="20146" value="載入此 torrent 檔時發生錯誤: &quot;%s&quot;. 這個 torrent 檔可能是無效的."/>
-	<string id="20147" value="這個 torrent 內含檔案 &quot;%s&quot;, 不過 PeerProject 在收藏中找不到這個檔案.  可能的話, 將這個檔案與 torrent 檔置於同一個資料夾並重試."/>
+	<string id="20147" value="這個 torrent 內含檔案 &quot;%s&quot;, 不過 PeerProject 在收藏中找不到這個檔案. 可能的話, 將這個檔案與 torrent 檔置於同一個資料夾並重試."/>
 	<string id="20148" value="這個 torrent 包含檔案 &quot;%s&quot; 但是應該為 %s, 不過您的檔案版本應為 %s."/>
 	<string id="20149" value="在這個檔案發現錯誤: &quot;%s&quot;."/>
 	<string id="20150" value="無法與伺服器(Tracker)通訊"/>
@@ -2801,7 +2801,7 @@
 	<!--string id="20431" value="您要永久刪除%i 個選擇的檔案嗎?\n\n這些檔案將移至 &quot;資訊回收筒&quot;, 如果您有啟用它的話."-->
 	<string id="20432" value="您確定要刪除 %i 選擇的專輯資料夾嗎?\n\n請留意這個動作不會刪除專輯資料夾內的檔案, 只會刪除資料夾本身."/>
 	<string id="20433" value="PeerProject 無法刪除檔案 \n\n%s"/>
-	<string id="20434" value="您的已下載檔案資料夾 &quot;%s&quot; 不在您的收藏裡.\n\n將您的已下載檔案資料夾放入收藏允許您更簡單地檢視與整理新的下載; 您還可以利用進階的PeerProject 功能, 像是下載檔驗證與自動更新.  將已下載檔放在您的收藏裡不代表一定要分享他們: 您可以為每個檔案選擇是否要分享.\n\n您現在要新增已下載檔資料夾至您的收藏嗎?"/>
+	<string id="20434" value="您的已下載檔案資料夾 &quot;%s&quot; 不在您的收藏裡.\n\n將您的已下載檔案資料夾放入收藏允許您更簡單地檢視與整理新的下載; 您還可以利用進階的PeerProject 功能, 像是下載檔驗證與自動更新. 將已下載檔放在您的收藏裡不代表一定要分享他們: 您可以為每個檔案選擇是否要分享.\n\n您現在要新增已下載檔資料夾至您的收藏嗎?"/>
 	<string id="20435" value="您的下載資料夾已經加入至您的收藏. 您也要分享它嗎?"/>
 	<!--string id="20436" value="您還沒有選擇一個與檔案產生關聯的多媒體播放程式, 像是 Nullsoft WinAmp. 您現在要選擇嗎?\n\nPeerProject will pass the name of the file to your selected program with the &quot;/ADD&quot; argument."-->
 	<string id="20436" value="此文件夾添加到庫中?\n\n%s"/>
@@ -2816,7 +2816,7 @@
 	<string id="20445" value="匯出 URIs..."/>
 	<string id="20446" value="這個檔案 &quot;%s&quot; 無法通過切細驗證測試, 可能不是您想要下載的檔案. 您確定要開啟它嗎?"/>
 	<string id="20447" value="您要將&quot;潛在不安全的&quot;屬性從這個檔案移除嗎?"/>
-	<string id="20448" value="這個檔案 &quot;%s&quot; 尚未切細.  請等到檔案完成切細後,再試一次."/>
+	<string id="20448" value="這個檔案 &quot;%s&quot; 尚未切細. 請等到檔案完成切細後,再試一次."/>
 	<string id="20450" value="選擇的資料夾的次資料夾 &quot;%s&quot; 已經是您的收藏的一部份了.\n新增這個資料夾會引起某些檔案被重新切細.\n\n您要繼續嗎?"/>
 	<string id="20451" value="目前沒有播放任何檔案. 在您的收藏裡雙點一個多媒體檔案播放."/>
 	<string id="20452" value="所有的多媒體檔案|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|播放清單|*.asx;*.wax;*.m3u;*.wvx;*.wmx|音訊檔|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|視訊檔|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD 音軌|*.cda|MIDI 檔|*.mid;*.rmi;*.midi|所有的檔案|*.*||"/>
@@ -2897,7 +2897,7 @@
 	<string id="20545" value="由網路中斷連線."/>
 	<string id="20546" value="您要中斷連線嗎?"/>
 	<string id="20547" value="Gnutella2 是 PeerProject's 首次推出的網路. 停用對它的支援將可能嚴重影響搜尋結果的數量與品質. 您確定要這樣做嗎?"/>
-	<string id="20548" value="無法 bind to %s 連接埠 %i 用於輸入的連線.  將不支援輸入連線."/>
+	<string id="20548" value="無法 bind to %s 連接埠 %i 用於輸入的連線. 將不支援輸入連線."/>
 	<string id="20549" value="無法解析 %s 的輸出連線. 輸出的連線將會使用預設的介面."/>
 	<string id="20550" value="您的輸出頻寬太小, 無法啟用這個網路"/>
 	<string id="20551" value="受到防火牆保護, 無法監聽 輸入 連線."/>
@@ -2937,7 +2937,7 @@
 	<string id="20620" value="PeerProject 正在活躍地搜尋網路..."/>
 	<string id="20621" value="點選這裡再次搜尋"/>
 	<string id="20622" value="所有網路"/>
-	<string id="20623" value="您即將開始一個新的搜尋.  您要清除上一個搜尋的結果嗎?"/>
+	<string id="20623" value="您即將開始一個新的搜尋. 您要清除上一個搜尋的結果嗎?"/>
 	<string id="20624" value="這個區域顯示您選擇的檔案的更多資訊."/>
 	<string id="20625" value="%s 寫下:"/>
 	<string id="20626" value="%s 為這個檔案評分:"/>
@@ -2987,12 +2987,12 @@
 	<string id="20677" value="請以這樣的方式輸入您想要設定的頻寬限制 &quot;123 kb/s&quot; =每秒123 kb, or &quot;123 KB/s&quot; =每秒123KB."/>
 	<string id="20678" value="eDonkey 網路實施漫長的排隊長度與很長的等待時間. 如果您限制您能接受的排隊隊伍的長度, 您可能無法開始下載.\n您確定要限制您能夠接受的排隊隊伍的長度嗎?"/>
 	<string id="20680" value="PeerProject 設定"/>
-	<string id="20684" value="您確定要刪除 &quot;%s&quot; 外觀嗎?  這個動作將不能回復."/>
+	<string id="20684" value="您確定要刪除 &quot;%s&quot; 外觀嗎? 這個動作將不能回復."/>
 	<string id="20700" value="%s in : %s out (d:%I64i/u:%I64i)"/>
-	<string id="20701" value="已連線至 %lu 鄰居.  %s 在本地收藏."/>
-	<string id="20702" value="結點模式 %lu 鄰居.  %s 在本地的收藏."/>
-	<string id="20703" value="結點/超級用戶模式 %lu 鄰居.  %s 在本地的收藏."/>
-	<string id="20704" value="超級用戶模式 %lu 鄰居.  %s 在本地的收藏."/>
+	<string id="20701" value="已連線至 %lu 鄰居. %s 在本地收藏."/>
+	<string id="20702" value="結點模式 %lu 鄰居. %s 在本地的收藏."/>
+	<string id="20703" value="結點/超級用戶模式 %lu 鄰居. %s 在本地的收藏."/>
+	<string id="20704" value="超級用戶模式 %lu 鄰居. %s 在本地的收藏."/>
 	<string id="20705" value="已連線. %s 在本地的收藏."/>
 	<string id="20706" value="連線到網路中..."/>
 	<string id="20707" value="還沒連線到網路."/>
@@ -3035,8 +3035,8 @@
 	<string id="20747" value="已驗證"/>
 	<string id="20748" value="驗證中"/>
 	<string id="20750" value="!歡迎使用 PeerProject (版本) !\n.\nPeerProject 是完全免費的軟體.\n請有責任地使用, 並尊重智慧財產權.\n."/>
-	<string id="20751" value="目前沒有活躍中的搜尋.  點選這裡搜尋檔案."/>
-	<string id="20752" value="您還尚未連線.  點選連線鈕開始."/>
+	<string id="20751" value="目前沒有活躍中的搜尋. 點選這裡搜尋檔案."/>
+	<string id="20752" value="您還尚未連線. 點選連線鈕開始."/>
 	<string id="20755" value="您確定要刪除樣版 &quot;%s&quot; ?\n 此動作不能回復."/>
 	<string id="20760" value="優先"/>
 	<string id="20762" value="這個檔案看起來是垃圾(spam)."/>
@@ -3072,8 +3072,8 @@
 	<string id="20793" value="URL:"/>
 	<string id="20794" value="使用者代理:"/>
 	<string id="20795" value="%s in : %s out (d:%I64i/u:%I64i/s:%I64i)"/>
-	<string id="20798" value="PeerProject 已經完成下載最新的PeerProject 版本(%s).  您要立刻升級嗎?\n\n如果您選擇Yes, 在安裝升級版時會暫時關閉 PeerProject."/>
-	<string id="20800" value="正在傳送預設 HTML 回應至上傳主機  %s (%s)."/>
+	<string id="20798" value="PeerProject 已經完成下載最新的PeerProject 版本(%s). 您要立刻升級嗎?\n\n如果您選擇Yes, 在安裝升級版時會暫時關閉 PeerProject."/>
+	<string id="20800" value="正在傳送預設 HTML 回應至上傳主機 %s (%s)."/>
 	<string id="20801" value="來自於 %s 的輸入連線是 HTTP 上傳要求."/>
 	<string id="20802" value="上傳主機 %s (%s) 傳甕了一個瀏覽使用者的要求, 回應中..."/>
 	<string id="20803" value="在使用者代理黑名單上找到上傳主機 %s, 正在拒絕要求."/>
@@ -3084,7 +3084,7 @@
 	<string id="20808" value="正在拒絕上傳 &quot;%s&quot; 至 %s (%s), 因為忙錄, 以及客戶端不支援排隊."/>
 	<string id="20809" value="正在拒絕上傳 &quot;%s&quot; 至 %s (%s), 所有匹配的排隊隊伍已無空位."/>
 	<string id="20810" value="上傳主機 %s 要求了一個不滿意的檔案分塊 &quot;%s&quot;."/>
-	<string id="20811" value="eDonkey2000 上傳不應該被取消.  您確定要取消這個上傳嗎?"/>
+	<string id="20811" value="eDonkey2000 上傳不應該被取消. 您確定要取消這個上傳嗎?"/>
 	<string id="20812" value="無法開啟 &quot;%s&quot; 以上傳至主機 %s, 磁碟/檔案錯誤."/>
 	<string id="20813" value="正在啟始一個推播連線至 %s. %s"/>
 	<string id="20814" value="無法連線至主機 %s 進行推播."/>
@@ -3264,18 +3264,18 @@
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="網際網路">
 		<control caption="P2P 連結處理:"/>
 		<control caption="使用 PeerProject 開啟下列類型的連結:"/>
-		<control caption="Magnet ( magnet: )"/>
-		<control caption="Gnutella ( gnutella: )"/>
-		<control caption="eDonkey2000 ( ed2k: )"/>
-		<control caption="Piolet ( mp2p: )"/>
-		<control caption="DC++ ( dchub:/dcfile: )"/>
-		<control caption="BitTorrent ( .torrent )"/>
+		<control caption="Magnet (magnet:)"/>
+		<control caption="Gnutella (gnutella:)"/>
+		<control caption="eDonkey2000 (ed2k:)"/>
+		<control caption="Piolet (mp2p:)"/>
+		<control caption="DC++ (dchub:)"/>
+		<control caption="BitTorrent (.torrent)"/>
 		<control caption="下載管理員:"/>
 		<control caption="使用 PeerProject 管理所有的網際網路的下載:"/>
 		<control/>
 		<control caption="新增"/>
 		<control caption="移除"/>
-		<control caption="這個下載管理員外掛將只嘗試下載以下的檔案類型.  其他的檔案類型交由您的瀏覽器來處理.  PeerProject 在執行時才能管理下載."/>
+		<control caption="這個下載管理員外掛將只嘗試下載以下的檔案類型. 其他的檔案類型交由您的瀏覽器來處理. PeerProject 在執行時才能管理下載."/>
 	</dialog>
 	<dialog name="CConnectionSettingsPage" cookie="BuStCoStCoStEdBuBuBuStCoStCoBuStCoBuBuBuStEdmsStEdms" caption="連線">
 		<control caption="輸入位址:"/>
@@ -3455,7 +3455,7 @@
 		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
 		<control caption="_工具箱:"/>
 		<control caption="下載..."/>
-		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
+		<control caption="Update DC++ hubs from the web. (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="下載連線:"/>
@@ -3593,7 +3593,7 @@
 		<control/>
 	</dialog>
 	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="歡迎來到 PeerProject (3/8)">
-		<control caption="PeerProject 為萬用型檔案交換程式, 可同時連線至多種 P2P 網路.  您可在這邊選擇要連線的網路. 您可稍後任意調整這些設定."/>
+		<control caption="PeerProject 為萬用型檔案交換程式, 可同時連線至多種 P2P 網路. 您可在這邊選擇要連線的網路. 您可稍後任意調整這些設定."/>
 		<control caption="連線至 Gnutella2 (強烈建議)"/>
 		<control caption=" Gnutella2 網路是 PeerProject 首次推出的網路, 比其他P2P 網路提供更多的功能與更佳的效能."/>
 		<control caption="連線至原始的 Gnutella"/>
@@ -3616,7 +3616,7 @@
 		<control caption="常見的文件類型設置為子最初的默認位置，但組可以很容易地定制右鍵單擊。只需拖放文件。"/>
 	</dialog>
 	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="歡迎使用 PeerProject (5/8)">
-		<control caption="P2P 網路的有效性取決於使用它的用戶.  所有可以下載的檔案內容都是由其他使用者貢獻的."/>
+		<control caption="P2P 網路的有效性取決於使用它的用戶. 所有可以下載的檔案內容都是由其他使用者貢獻的."/>
 		<control caption="分享您的檔案並不是使用 PeerProject 的所需條件, 但是某些軟體對於不分享任何檔案的使用者會採取不同的對待方式."/>
 		<control caption="如果您想要分享您的資料夾(如果有的話), 請指示. 按下新增鈕即可新增資料夾."/>
 		<control/>
@@ -3748,7 +3748,7 @@
 	</dialog>
 	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="檔案">
 		<control caption="我最愛的檔案:"/>
-		<control caption="您可以推薦最愛的檔案給瀏覽您的個人檔案的使用者.  要加入您最愛的檔案, 增加檔案到 &quot;Favourites&quot; 收藏資料夾."/>
+		<control caption="您可以推薦最愛的檔案給瀏覽您的個人檔案的使用者. 要加入您最愛的檔案, 增加檔案到 &quot;Favourites&quot; 收藏資料夾."/>
 		<control/>
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="我的最愛">
@@ -3786,7 +3786,7 @@
 	<dialog name="CDownloadDlg" cookie="StStStEdStBuBuBu" caption="下載檔案或 Torrent">
 		<control/>
 		<control caption="PeerProject 可以由網際網路 下載檔案, 以及自動搜尋與下載 P2P 連結. 使用 PeerProject 下載檔案很簡單. 只要在下方的框框鍵入或是貼上 指向檔案的 URL/URI. (http:, ftp:, ed2k:, magnet:, etc.)"/>
-		<control caption="PeerProject 也可以下載 BitTorrent 檔案.  xyz.torrent 檔 敘述了一個 torrent 的樣子;  或是連接到 .torrent 檔的 HTTP 超連結.  想要下載一個 torrent HTTP 連結, 就將它貼在上方的框框.  如果您手上已經有一個 .torrent 檔, 點選 開啟 Torrent:"/>
+		<control caption="PeerProject 也可以下載 BitTorrent 檔案. xyz.torrent 檔 敘述了一個 torrent 的樣子; 或是連接到 .torrent 檔的 HTTP 超連結. 想要下載一個 torrent HTTP 連結, 就將它貼在上方的框框. 如果您手上已經有一個 .torrent 檔, 點選 開啟 Torrent:"/>
 		<control/>
 		<control/>
 		<control caption="下載"/>
@@ -4040,7 +4040,7 @@
 		<control caption="Select a schema from the list, then select the fields to display as columns."/>
 	</dialog>
 	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="分享的資料夾管理員">
-		<control caption="這是您的收藏的資料夾清單. 您可以使用左方按鈕新增或移除資料夾.  任何一個新增的資料夾將預設為開放給其他使用者分享, 不過您可以在 PeerProject 收藏停止分享."/>
+		<control caption="這是您的收藏的資料夾清單. 您可以使用左方按鈕新增或移除資料夾. 任何一個新增的資料夾將預設為開放給其他使用者分享, 不過您可以在 PeerProject 收藏停止分享."/>
 		<control/>
 		<control caption="新增"/>
 		<control caption="移除"/>
@@ -4048,7 +4048,7 @@
 		<control caption="取消"/>
 	</dialog>
 	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="複製 URI">
-		<control caption="您可以為選擇的項目使用不同的格式複製 URL.  請點選以下其中一個 URI 決定您要使用的格式:"/>
+		<control caption="您可以為選擇的項目使用不同的格式複製 URL. 請點選以下其中一個 URI 決定您要使用的格式:"/>
 		<control/>
 		<control/>
 		<control/>
@@ -4056,7 +4056,7 @@
 		<control caption="取消"/>
 	</dialog>
 	<dialog name="CURLExportDlg" cookie="StEdStCoStCoBuBumsBu" caption="匯出 URI">
-		<control caption="您已經選擇將 %lu 檔案匯出至 PeerProject 驅動的 URI references.  請選擇 URI 的格式, 然後按下儲存:"/>
+		<control caption="您已經選擇將 %lu 檔案匯出至 PeerProject 驅動的 URI references. 請選擇 URI 的格式, 然後按下儲存:"/>
 		<control/>
 		<control caption="放入 Token:"/>
 		<control caption="Tiger Root|SHA1|MD5|ED2K (CMD4)|檔案名稱|檔案名稱 (URI)|Base Filename|File Extension|檔案大小|檔案大小 (位元組)|資料夾路徑|本地主機|本地連接埠"/>
@@ -4127,7 +4127,7 @@
 		<control caption="不要下載這個檔案"/>
 		<control caption="確定"/>
 		<control caption="取消"/>
-		<control caption="您曾經下載過並且刪除這個檔案.  請問你要如何處理?"/>
+		<control caption="您曾經下載過並且刪除這個檔案. 請問你要如何處理?"/>
 		<control caption="警告！检测到重复文件.一些恶意软件可能感染您的收藏.请确认您是手动下载或存放此文件.否则，请关闭 PeerProject 并用杀毒软件扫描您的电脑."/>
 	</dialog>
 	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="關閉鈕">
@@ -4163,7 +4163,7 @@
 		<control/>
 	</dialog>
 	<dialog name="CCollectionExportDlg" cookie="StSyBuStStStStStEdBuBuBu" caption="組檔匯出">
-		<control caption="您可以使用這個功能匯出資料夾或是播放清單的內容至 rich 組檔.  請選擇一個樣版並按下一個按鈕繼續.|請在下方輸入資料自訂您的 collection."/>
+		<control caption="您可以使用這個功能匯出資料夾或是播放清單的內容至 rich 組檔. 請選擇一個樣版並按下一個按鈕繼續.|請在下方輸入資料自訂您的 collection."/>
 		<control/>
 		<control caption="樣版資訊 :"/>
 		<control caption="名稱:"/>

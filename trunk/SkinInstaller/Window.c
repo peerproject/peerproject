@@ -1,13 +1,13 @@
 //
 // Window.c
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 //
 // Portions of this page have been previously released into the public domain.
 // You are free to redistribute and modify it without any restrictions
 // with the exception of the following notice:
 //
-// The Zlib library is Copyright (C) 1995-2002 Jean-loup Gailly and Mark Adler.
+// The Zlib  library is Copyright (C) 1995-2002 Jean-loup Gailly and Mark Adler.
 // The Unzip library is Copyright (C) 1998-2003 Gilles Vollant.
 
 #include "Skin.h"
@@ -44,14 +44,15 @@ INT_PTR CALLBACK ExtractProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lPara
 				EnableWindow(GetDlgItem(hwndDlg, IDOK), TRUE);
 				EnableWindow(GetDlgItem(hwndDlg, IDC_INSTALL), FALSE);
 			}
-			else if ( skinType == 1 )
+			else if ( !skinType )	// Default typeSkin
 			{
-				SetWindowText(hwndDlg, SKIN_ADDON_TITLE);
-				SetWindowText(GetDlgItem(hwndDlg, IDC_CONFIG), L"Configure &Language...");
+				SetWindowText(hwndDlg, SKIN_SKIN_TITLE);
 			}
 			else
 			{
-				SetWindowText(hwndDlg, SKIN_SKIN_TITLE);
+				SetWindowText(hwndDlg, SKIN_PACKAGE_TITLE);
+				if ( skinType == typeLang )
+					SetWindowText(GetDlgItem(hwndDlg, IDC_CONFIG), L"Configure &Language...");
 			}
 
 			{
@@ -67,7 +68,7 @@ INT_PTR CALLBACK ExtractProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lPara
 			{
 				TCHAR buf[MAX_PATH], tbuf[MAX_PATH];
 				_snwprintf(buf, MAX_PATH, L"%s %s", szName, szVersion?szVersion:L"");
-				_snwprintf(tbuf, MAX_PATH, L"%s - %s", szName, skinType? SKIN_ADDON_TITLE : SKIN_SKIN_TITLE);
+				_snwprintf(tbuf, MAX_PATH, L"%s - %s", szName, skinType ? SKIN_PACKAGE_TITLE : SKIN_SKIN_TITLE);
 				SetDlgItemText(hwndDlg, IDC_NAME, buf);
 				SetWindowText(hwndDlg, tbuf);
 			}
@@ -145,15 +146,19 @@ INT_PTR CALLBACK ExtractProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lPara
 				if ( !ExtractSkin(szFile, hwndDlg) )
 				{
 					SendDlgItemMessage(hwndDlg, IDC_PROGRESS, PBM_SETPOS, maxPos, 0);
-					SetWindowText(GetDlgItem(hwndDlg, IDC_STATUS), L"An error occured while extracting the skin.  Please try again.");
+					SetWindowText(GetDlgItem(hwndDlg, IDC_STATUS),
+						!skinType ? L"An error occured while extracting the skin.  Please try again." :
+						L"An error occured while extracting the package.  Please try again." );
 					EnableWindow(GetDlgItem(hwndDlg, IDOK), TRUE);
 					break;
 				}
 				SendDlgItemMessage(hwndDlg, IDC_PROGRESS, PBM_SETPOS, maxPos, 0);
-				if ( skinType == 1 )
-					SetWindowText(GetDlgItem(hwndDlg, IDC_STATUS), L"Language successfully installed.");
-				else
-					SetWindowText(GetDlgItem(hwndDlg, IDC_STATUS), L"Skin successfully installed.");
+				SetWindowText(GetDlgItem(hwndDlg, IDC_STATUS),
+					skinType == typeSkin ? L"Skin successfully installed." :
+					skinType == typeLang ? L"Language successfully installed." :
+					skinType == typePlugin ? L"Plugin successfully installed." :
+				//	skinType == typeData ? L"Data successfully installed." :
+					L"Package successfully installed.");
 				EnableWindow(GetDlgItem(hwndDlg, IDOK), TRUE);
 				EnableWindow(GetDlgItem(hwndDlg, IDC_INSTALL), FALSE);
 				if ( FindWindow(SKIN_MAIN_HWND,NULL) )
@@ -169,7 +174,7 @@ INT_PTR CALLBACK ExtractProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lPara
 						PostMessage(app,WM_SYSCOMMAND,SC_RESTORE,0);
 						PostMessage(app,WM_COMMAND,32879,0);
 					SetFocus(app);
-					if ( skinType == 1 )
+					if ( skinType == typeLang )
 					{
 						PostMessage(app,WM_COMMAND,32974,0);
 					}

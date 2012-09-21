@@ -3,7 +3,7 @@
 
 <!-- PeerProject UK English Skin File -->
 
-<!-- Translation based on default-en.xml r80 -->
+<!-- Translation based on default-en.xml r82 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -193,7 +193,7 @@
 			<item id="ID_TOOLS_DOWNLOAD" text="_Download File/Torrent..."/>
 			<item id="ID_TOOLS_SEEDTORRENT" text="_Seed New Torrent..."/>
 			<item id="ID_TOOLS_CREATETORRENT" text="_Create New .Torrent..."/>
-			<item id="ID_IMPORT_DOWNLOADS"	text="_Import eMule Partials..."/>
+			<item id="ID_IMPORT_DOWNLOADS" text="_Import eMule Partials..."/>
 			<separator/>
 			<item id="ID_TOOLS_LANGUAGE" text="Choose a _Language..."/>
 			<item id="ID_TOOLS_SKIN" text="Choose a S_kin..."/>
@@ -293,7 +293,7 @@
 			<item id="ID_TOOLS_DOWNLOAD" text="_Download File/Torrent..."/>
 			<item id="ID_TOOLS_SEEDTORRENT" text="_Seed New Torrent..."/>
 			<item id="ID_TOOLS_CREATETORRENT" text="_Create New .Torrent..."/>
-			<item id="ID_IMPORT_DOWNLOADS"	text="_Import eMule Partials..."/>
+			<item id="ID_IMPORT_DOWNLOADS" text="_Import eMule Partials..."/>
 			<separator/>
 			<item id="ID_TOOLS_LANGUAGE" text="Choose a _Language..."/>
 			<item id="ID_TOOLS_SKIN" text="Choose a S_kin..."/>

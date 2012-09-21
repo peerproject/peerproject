@@ -48,6 +48,10 @@ LastErrorMessage=%1.%n%nEroare %2: %3
 SetupFileMissing=Fisierul %1 lipseste din directorul de instalare. Va rog corectati problema sau utilizati o alta copie a programului.
 SetupFileCorrupt=Integritatea fisierului de instalare este compromisa. Va rog utilizati o alta copie.
 SetupFileCorruptOrWrongVer=Integritatea fisierelor de instalare este compromisa sau acestea nu sunt compatibile cu aceasta versiune de Setup. Corectati problema sau utilizati o noua copie de program.
+InvalidParameter=An invalid parameter was passed on the command line:%n%n%1
+SetupAlreadyRunning=Configurarea se executa deja.
+WindowsVersionNotSupported=This program does not support the version of Windows your computer is running.
+WindowsServicePackRequired=This program requires %1 Service Pack %2 or later.
 NotOnThisPlatform=Acest program nu ruleaza pe %1.
 OnlyOnThisPlatform=Acest program trebuie rulat pe %1.
 OnlyOnTheseArchitectures=Acest program poate fi instalat pe versiuni de Windows ce permit urmatoarele arhitecturi de procesor:%n%n%1
@@ -138,7 +142,8 @@ SelectDirDesc=Unde ar trebui instalata aplicatia [name] ?
 SelectDirLabel3=Setup va instala aplicatia [name] in folder-ul de mai jos.
 SelectDirBrowseLabel=Pentru a continua, apasati <Inainte>. Daca doriti sa selectati un alt folder, apasati <Cautare>.
 DiskSpaceMBLabel=Cel putin [mb] MB spatiu liber este necesar pentru o instalare sigura.
-ToUNCPathname=Setup nu poate instala pe o cale descrisa UNC. Daca incercati sa instalati pe retea, trebuie mai intai sa asignati o litera de disc caii dorite utilizand c-da "map".
+CannotInstallToNetworkDrive=Setup nu poate instala pe o cale descrisa Net.
+CannotInstallToUNCPath=Setup nu poate instala pe o cale descrisa UNC.
 InvalidPath=Trebuie sa introduceti o cale completa, cu litera de disc cu tot; de exemplu:%n%nC:\APP%n%nsau o definitie UNC in forma:%n%n\\server\share
 InvalidDrive=Discul sau definitia UNC partajata nu sunt accesibile sau nu exista. Faceti alta selectie.
 DiskSpaceWarningTitle=Nu exista suficient spatiu disc.
@@ -198,6 +203,10 @@ WizardPreparing=Pregatire pentru instalare
 PreparingDesc=Setup se pregateste sa instaleze aplicatia [name] pe calculatorul dvs.
 PreviousInstallNotCompleted=Instalarea/Dezinstalarea anterioara nu a fost COMPLETA. Este necesar sa reporniti calculatorul pentru a completa acel proces anterior.%n%nDupa repornire, rulati din nou Setup pentru a face o instalare completa a aplicatiei [name].
 CannotContinue=Setup nu poate continua. Va rog, apasati <Abandon> pentru a termina executia.
+ApplicationsFound=The following applications are using files that need to be updated by Setup. It is recommended that you allow Setup to automatically close these applications.
+ApplicationsFound2=The following applications are using files that need to be updated by Setup. It is recommended that you allow Setup to automatically close these applications. After the installation has completed, Setup will attempt to restart the applications.
+CloseApplications=&Automatically close the applications
+DontCloseApplications=&Do not close the applications
 
 ; *** "Installing" wizard page
 WizardInstalling=Instalez
@@ -230,6 +239,7 @@ SetupAborted=Setup este INCOMPLET.%n%nVa rog, corectati problema si reluati rula
 EntryAbortRetryIgnore=Apasati <Retry> pentru a reincerca din nou, <Ignore> pentru a forta continuarea, sau <Abort> pentru a termina procesul de instalare.
 
 ; *** Installation status messages
+StatusClosingApplications=Cererile de închidere...
 StatusCreateDirs=Creare directoare...
 StatusExtractFiles=Extrag fisierele...
 StatusCreateIcons=Creez shortcut-urile...
@@ -238,6 +248,7 @@ StatusCreateRegistryEntries=Creez intrarile in registry sistemului...
 StatusRegisterFiles=Inregistrez fisierele...
 StatusSavingUninstall=Salvez informatiile pentru dezinstalarea ulterioara...
 StatusRunProgram=Inchei instalarea...
+StatusRestartingApplications=Reluarea aplica?ii...
 StatusRollback=Refac modificarile la starea anterioara instalarii...
 
 ; *** Misc. errors
@@ -301,6 +312,10 @@ SharedFileLocationLabel=Localizare:
 WizardUninstalling=Status dezinstalare
 StatusUninstalling=Dezinstalez %1...
 
+; *** Shutdown block reasons
+ShutdownBlockReasonInstallingApp=Instalarea %1.
+ShutdownBlockReasonUninstallingApp=Dezinstalez %1.
+
 ; The custom messages below aren't used by Setup itself,
 ; but if you make use of them in your scripts, you'll want to translate them.
 
@@ -315,3 +330,6 @@ UninstallProgram=Dezinstalez aplicatia %1
 LaunchProgram=Lansez aplicatia %1
 AssocFileExtension=&Asociez aplicatia %1 la extensia de fisier %2
 AssocingFileExtension=Procedez la asocierea aplicatiei %1 la extensia de fisier %2
+AutoStartProgramGroupDescription=Startup:
+AutoStartProgram=Automatically start %1
+AddonHostProgramNotFound=%1 could not be located in the folder you selected.%n%nDo you want to continue anyway?

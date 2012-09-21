@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Turkish Skin File -->
 
-<!-- Translation based on default-en.xml r80 -->
+<!-- Translation based on default-en.xml r82 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2077,7 +2077,7 @@
 		<newline gap="8"/>
 		<text>Maalesef aradığınız dosyaya sahip olan kimse online durumda değil.
 		Tek çare birinin online duruma gelmesini beklemek ya da vazgeçmek ve daha
-		geniş bir alanda bulabileceğiniz benzer bir dosya aramak. 	</text>
+		geniş bir alanda bulabileceğiniz benzer bir dosya aramak.	</text>
 	</document>
 	<document name="DownloadHelp.Creating">
 		<text format="b">İndirme Oluşturuluyor</text>
@@ -3441,12 +3441,12 @@
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
 		<control caption="E_şli bağlantı kullanılıyor:"/>
 		<control caption="Bu bağlantı türlerini açmak için PeerProject kullan:"/>
-		<control caption="Magnet ( magnet: )"/>
-		<control caption="Gnutella ( gnutella: )"/>
-		<control caption="eDonkey2000 ( ed2k: )"/>
-		<control caption="Piolet ( mp2p: )"/>
-		<control caption="DC++ ( dchub:/dcfile: )"/>
-		<control caption="BitTorrent ( .torrent )"/>
+		<control caption="Magnet (magnet:)"/>
+		<control caption="Gnutella (gnutella:)"/>
+		<control caption="eDonkey2000 (ed2k:)"/>
+		<control caption="Piolet (mp2p:)"/>
+		<control caption="DC++ (dchub:)"/>
+		<control caption="BitTorrent (.torrent)"/>
 		<control caption="_İndirme Yönetimi:"/>
 		<control caption="Tüm web indirmelerinin yönetiminde PeerProject'yı kullan:"/>
 		<control/>

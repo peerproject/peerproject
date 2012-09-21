@@ -55,6 +55,15 @@ enum {
 	banForever
 };
 
+enum {
+	urnSHA,
+	urnTiger,
+	urnBTH,
+	urnED2K,
+	urnMD5,
+	urnLast
+};
+
 
 class CSecurity
 {
@@ -78,16 +87,17 @@ protected:
 	} CComplain;
 
 	typedef CMap< DWORD, DWORD, CComplain*, CComplain* > CComplainMap;
-	typedef std::map< DWORD, BYTE > CAddressMap;
-	typedef std::map< LPCTSTR, BYTE > CHashMap;
-	typedef std::map< BYTE, CSecureRule* > CRuleIndexMap;
+	typedef std::map< DWORD, BYTE > AddressMap;
+	typedef std::map< CString, BYTE > HashMap;
+	typedef std::map< BYTE, CSecureRule* > RuleIndexMap;
 
 	CComplainMap				m_Complains;
-	CAddressMap					m_pAddressMap;		// Consolidated single-IP filters
-	CHashMap					m_pHashMap;			// Consolidated blacklist filters
-	CRuleIndexMap				m_pRuleIndexMap;	// Applicable rule to index byte (memory efficiency)
-	CList< CSecureRule* >		m_pRules;
+	AddressMap					m_AddressMap;		// Consolidated single-IP filters
+	HashMap						m_HashMap[urnLast];	// Consolidated blacklist filters (by enum)
+	RuleIndexMap				m_pRuleIndexMap;	// Applicable rule to index byte (memory efficiency)
+//	std::vector< CSecureRule* >	m_pRuleIndex;		// Alt applicable rule to map index byte (memory efficiency)
 	std::set< DWORD >			m_Cache;			// Known good addresses
+	CList< CSecureRule* >		m_pRules;
 
 // Operations
 public:
@@ -117,6 +127,16 @@ public:
 
 	BYTE			SetRuleIndex(CSecureRule* pRule);
 	CSecureRule*	GetRuleByIndex(BYTE nIndex);
+	void			SetHashMap(CString sHash, BYTE nIndex);
+	BYTE			GetHashMap(CString sHash);
+	inline void		SetAddressMap(DWORD nIP, BYTE nIndex)
+	{
+		m_AddressMap[ nIP ] = nIndex;
+	}
+	inline BYTE		GetAddressMap(DWORD nIP)
+	{
+		return m_AddressMap.count( nIP ) ? m_AddressMap[ nIP ] : 0;
+	}
 
 	// Don't ban GPL breakers, but don't offer leaf slots to them. Ban others.
 	BOOL			IsClientBad(const CString& sUserAgent) const;
@@ -130,8 +150,6 @@ protected:
 	CXMLElement*	ToXML(BOOL bRules = TRUE);
 	BOOL			FromXML(CXMLElement* pXML);
 	void			Serialize(CArchive& ar);
-
-	friend class CListLoader;
 };
 
 class CSecureRule
@@ -240,7 +258,7 @@ protected:
 public:
 	void		OnRun();
 	void		StopThread();
-	void		Cancel(CSecureRule* pRule);
+//	void		Cancel(CSecureRule* pRule);
 	void		AddList(CSecureRule* pRule);
 };
 

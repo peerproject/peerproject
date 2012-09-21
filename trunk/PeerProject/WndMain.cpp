@@ -619,7 +619,7 @@ void CMainWnd::OnClose()
 	//CWaitCursor pCursor;
 
 	// Show Shutdown Splash, continued in ExitInstance() (PeerProject.cpp)
-	theApp.SplashStep( L"Preparing to Close", 10, true );
+	theApp.SplashStep( L"Preparing to Close", 11, true );
 
 	theApp.m_bClosing = true;
 	theApp.m_pSafeWnd = NULL;

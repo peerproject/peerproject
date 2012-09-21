@@ -3,7 +3,7 @@
 
 <!-- PeerProject Korean Language Skin File -->
 
-<!-- Translation based on default-en.xml r80 --> <!--Machine Translated!-->
+<!-- Translation based on default-en.xml r82 --> <!--Machine Translated!-->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -527,9 +527,9 @@
 				<item id="ID_OPEN_DOWNLOADS_FOLDER" text="다운로드 폴더를 완료"/>
 				<separator/>
 				<item id="ID_TOOLS_DOWNLOAD" text="다운로드 파일/Torrent..."/>
-				<item id="ID_TOOLS_SEEDTORRENT"	text="종자 뉴 Torrent..."/>
+				<item id="ID_TOOLS_SEEDTORRENT" text="종자 뉴 Torrent..."/>
 				<item id="ID_TOOLS_CREATETORRENT" text="새. Torrent 만들기..."/>
-				<item id="ID_IMPORT_DOWNLOADS"	text="가져오기 eMule 부분..."/>
+				<item id="ID_IMPORT_DOWNLOADS" text="가져오기 eMule 부분..."/>
 				<separator/>
 				<item id="ID_TOOLS_LANGUAGE" text="언어 선택 항목 ID를..."/>
 				<item id="ID_TOOLS_SKIN" text="Skin 선택..."/>
@@ -659,9 +659,9 @@
 			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="다운로드 폴더를 완료"/>
 			<separator/>
 			<item id="ID_TOOLS_DOWNLOAD" text="다운로드 파일/Torrent..."/>
-			<item id="ID_TOOLS_SEEDTORRENT" 	text="종자 뉴 Torrent..."/>
-			<item id="ID_TOOLS_CREATETORRENT" 	text="새. Torrent 만들기..."/>
-			<item id="ID_IMPORT_DOWNLOADS"	text="가져오기 eMule 부분..."/>
+			<item id="ID_TOOLS_SEEDTORRENT" text="종자 뉴 Torrent..."/>
+			<item id="ID_TOOLS_CREATETORRENT" text="새. Torrent 만들기..."/>
+			<item id="ID_IMPORT_DOWNLOADS" text="가져오기 eMule 부분..."/>
 			<separator/>
 			<item id="ID_TOOLS_LANGUAGE" text="언어 선택 항목 ID를..."/>
 			<item id="ID_TOOLS_SKIN" text="Skin 선택..."/>
@@ -829,7 +829,7 @@
 			<item id="ID_TOOLS_DOWNLOAD" text="다운로드 파일Torrent..."/>
 			<item id="ID_TOOLS_SEEDTORRENT" text="종자 뉴 Torrent..."/>
 			<item id="ID_TOOLS_CREATETORRENT" text="새. Torrent 만들기..."/>
-			<item id="ID_IMPORT_DOWNLOADS"	text="가져오기 eMule 부분..."/>
+			<item id="ID_IMPORT_DOWNLOADS" text="가져오기 eMule 부분..."/>
 			<separator/>
 			<item id="ID_TOOLS_LANGUAGE" text="언어 선택 항목 ID를..."/>
 			<item id="ID_TOOLS_SKIN" text="스킨 선택..."/>
@@ -1110,7 +1110,7 @@
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Resume"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="일시 중지"/>
-		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="_Cancel"/>
+		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="취소"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SOURCES" text="_Find More Sources"/>
 		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Re_mote Preview"/>
@@ -1125,7 +1125,7 @@
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Resume"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="일시 중지"/>
-		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="_Cancel"/>
+		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="취소"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="Vie_w Reviews"/>
 		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Re_mote Preview"/>
@@ -1947,6 +1947,7 @@
 	<string id="20066" value="아주좋음"/>
 	<string id="20080" value="This is a pre-release version of PeerProject, and the beta testing period has ended. Please download the full, official release from http://PeerProject.org/."/>
 	<string id="20081" value="닫기"/>
+<!--
 	<string id="20082" value="Finished, click Close"/>
 	<string id="20083" value="Requesting..."/>
 	<string id="20084" value="Success!"/>
@@ -2010,6 +2011,7 @@
 	<string id="20160" value="Accepted incoming chat request from %s, handshaking..."/>
 	<string id="20161" value="Unable to create a connection to %s."/>
 	<string id="20162" value="Unable to request a push connection from %s, no route available."/>
+-->
 	<string id="20163" value="연결이 닫혔습니다."/>
 	<string id="20164" value="Connection to %s closed."/>
 	<string id="20165" value="Connection established, handshaking..."/>
@@ -2042,7 +2044,8 @@
 	<string id="20196" value="This template does not have any customizations."/>
 	<string id="20197" value="This template is invalid."/>
 	<string id="20199" value="(전송 후 종료)"/>
-<!--	<string id="20200" value="Added &quot;%s&quot; to download queue with %i sources."/>
+<!--
+	<string id="20200" value="Added &quot;%s&quot; to download queue with %i sources."/>
 	<string id="20201" value="The file &quot;%s&quot; is already being downloaded, adding sources."/>
 	<string id="20202" value="Received a faulty push connection from %s, closing connection."/>
 	<string id="20203" value="Boosting download &quot;%s&quot; by removing bandwidth caps."/>
@@ -2091,7 +2094,8 @@
 	<string id="20258" value="Receiving tiger-tree data from %s (%s)..."/>
 	<string id="20259" value="Requesting metadata for &quot;%s&quot; from %s..."/>
 	<string id="20260" value="다운로드 등록"/>
-<!--	<string id="20261" value="Download host %s responded with %s (%s)."/>
+<!--
+	<string id="20261" value="Download host %s responded with %s (%s)."/>
 	<string id="20262" value="Download host %s responded with an invalid HTTP response."/>
 	<string id="20263" value="Host %s is pushing download &quot;%s&quot;, accepting."/>
 	<string id="20264" value="Sending push request for download &quot;%s&quot;..."/>
@@ -2217,7 +2221,8 @@
 	<string id="20397" value="Connection to %s rejected (%s)."/>
 	<string id="20398" value="Closing surplus connection from %s."/>
 	<string id="20399" value="Timed out handshaking with %s."/>
--->	<string id="20400" value="PeerProject is creating hashes for %Iu files:"/>
+	<string id="20400" value="PeerProject is creating hashes for %Iu files:"/>
+-->
 	<string id="20401" value="나의 선택을 다음 번에 기억"/>
 	<string id="20402" value="추가"/>
 	<string id="20403" value="채"/>
@@ -2335,11 +2340,11 @@
 	<string id="20536" value="Rejected"/>
 	<string id="20538" value="Unknown"/>
 -->
-	<!-- Missing Scheduler/Security Strings -->
 	<string id="20540" value="연결"/>
 	<string id="20541" value="연결 중..."/>
 	<string id="20542" value="연결"/>
 	<string id="20543" value="연결 끊기"/>
+<!--
 	<string id="20544" value="Shutting down PeerProject network core..."/>
 	<string id="20545" value="Disconnected."/>
 	<string id="20546" value="Are you sure you want to disconnect?"/>
@@ -2381,6 +2386,7 @@
 	<string id="20591" value="http://%s:%i/remote - Username/password required."/>
 	<string id="20592" value="Unable to accept connections, URL unavailable."/>
 	<string id="20599" value="&amp;Schemas"/>
+-->
 	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="PeerProject 적극적으로 네트워크를 찾고있습니다..."/>
 	<string id="20621" value="여기를 클릭하여 다시 검색을"/>
@@ -2526,6 +2532,7 @@
 	<string id="20796" value="Files shared over the Internet"/>
 	<string id="20798" value="PeerProject has finished downloading the next PeerProject version (%s). Would you like to upgrade now?\n\nIf you select Yes, PeerProject will close temporarily while the upgrade is installed."/>
 	<string id="20799" value="새로 PeerProject 버전 감지."/>
+<!--
 	<string id="20800" value="Sending default HTML response to upload host %s (%s)."/>
 	<string id="20801" value="Incoming connection from %s is a HTTP upload request."/>
 	<string id="20802" value="Upload host %s (%s) sent a browse user request, responding..."/>
@@ -2563,6 +2570,7 @@
 	<string id="20836" value="Refusing push request to %s because it has too many upload connections."/>
 	<string id="20838" value="Too busy to upload &quot;%s&quot; to %s, queued at #%i of %i (&quot;%s&quot;.."/>
 	<string id="20840" value="Upload connection to %s was lost, preserving queue position."/>
+-->
 	<string id="20841" value="New 대기열"/>
 	<string id="20842" value="모든 파일"/>
 	<string id="20843" value="DC++ Guard"/>
@@ -2746,12 +2754,12 @@
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="웹 링크">
 		<control caption="Peer to Peer Link Handling:"/>
 		<control caption="Use PeerProject to open these types of links:"/>
-		<control caption="Magnet ( magnet: )"/>
-		<control caption="Gnutella ( gnutella: )"/>
-		<control caption="eDonkey ( ed2k: )"/>
-		<control caption="Piolet ( mp2p: )"/>
-		<control caption="DC++ ( dchub:/dcfile: )"/>
-		<control caption="BitTorrent ( .torrent )"/>
+		<control caption="Magnet (magnet:)"/>
+		<control caption="Gnutella (gnutella:)"/>
+		<control caption="eDonkey (ed2k:)"/>
+		<control caption="Piolet (mp2p:)"/>
+		<control caption="DC++ (dchub:)"/>
+		<control caption="BitTorrent (.torrent)"/>
 		<control caption="Download Manager:"/>
 		<control caption="Use PeerProject to manage all my web downloads:"/>
 		<control/>
@@ -3157,7 +3165,7 @@
 		<control caption="Close"/>
 		<control caption="자동"/>
 	</dialog>
-<!--	<dialog name="CFileGeneralPage" cookie="EdStStStStStEdEdEdEdEdStEdEdEdEd" caption="General">
+	<dialog name="CFileGeneralPage" cookie="EdStStStStStEdEdEdEdEdStEdEdEdEd" caption="General">
 		<control/>
 		<control caption="File Info"/>
 		<control caption="위치:"/>
@@ -3174,11 +3182,11 @@
 		<control/>
 		<control/>
 		<control/>
-	</dialog> -->
-<!--	<dialog name="CFileMetadataPage" cookie="CoEd" caption="메타 데이터">
+	</dialog>
+	<dialog name="CFileMetadataPage" cookie="CoEd" caption="메타 데이터">
 		<control/>
 		<control/>
-	</dialog> -->
+	</dialog>
 <!--	<dialog name="CFileCommentsPage" cookie="StStCoStEdEd" caption="Comments">
 		<control caption="My Rating"/>
 		<control caption="I rate this file:"/>
@@ -3196,7 +3204,7 @@
 		<control caption="Upload Queue Selection Tags"/>
 		<control/>
 	</dialog> -->
-<!--	<dialog name="CFileSourcesPage" cookie="StStEdSyBuBuEd" caption="Sources">
+	<dialog name="CFileSourcesPage" cookie="StStEdSyBuBuEd" caption="Sources">
 		<control caption="Known Sources"/>
 		<control caption="Add New Source"/>
 		<control/>
@@ -3204,7 +3212,7 @@
 		<control caption="추가"/>
 		<control caption="제거"/>
 		<control/>
-	</dialog> -->
+	</dialog>
 	<dialog name="CFileCopyDlg" cookie="StStStmsmsStBuBu" caption="Copy Files|Move Files">
 		<control caption="You have selected %i files to copy to the following folder:"/>
 		<control caption="You have selected %i files to move to the following folder:"/>
@@ -3468,7 +3476,7 @@
 		<control/>
 		<control caption="Delete|Back"/>
 		<control caption="Next|Export..."/>
-		<control caption="Cancel"/>
+		<control caption="취소"/>
 	</dialog>
 	<dialog name="CTorrentSeedDlg" cookie="StBuBuBuStms" caption="Open Torrent File">
 		<control caption="You have opened a BitTorrent torrent file. Would you like to download its contents, or re-seed it?"/>
@@ -3545,7 +3553,7 @@
 		<control caption="Forget current verification status and reverify"/>
 		<control caption="Assume file is 100% complete and reverify"/>
 		<control caption="Merge with local file and verify"/>
-		<control caption="Cancel download but save incomplete files"/>
+		<control caption="취소 Cancel download but save incomplete files"/>
 		<control/>
 		<control/>
 		<control caption="행위:"/>

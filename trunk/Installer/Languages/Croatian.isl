@@ -10,7 +10,6 @@
 LanguageName=Hrvatski
 LanguageID=$041a
 LanguageCodePage=1250
-[Messages]
 
 ; If the language you are translating to requires special font faces or sizes,
 ; uncomment any of the following entries and change them accordingly.
@@ -23,6 +22,9 @@ LanguageCodePage=1250
 ;WelcomeFontSize=12
 ;CopyrightFontName=Arial
 ;CopyrightFontSize=8
+
+[Messages]
+
 ; *** Application titles
 SetupAppTitle=Instalacija
 SetupWindowTitle=Instalacija - %1
@@ -44,6 +46,10 @@ LastErrorMessage=%1.%n%nGreška %2: %3
 SetupFileMissing=Datoteka %1 se ne nalazi u instalacijskom direktoriju. Molimo vas riješite problem ili nabavite novu kopiju programa.
 SetupFileCorrupt=Instalacijske datoteke sadrže grešku. Nabavite novu kopiju programa.
 SetupFileCorruptOrWrongVer=Instalacijske datoteke sadrže grešku, ili nisu kompatibilne sa ovom verzijom instalacije. Molimo vas riješite problem ili nabavite novu kopiju programa.
+InvalidParameter=An invalid parameter was passed on the command line:%n%n%1
+SetupAlreadyRunning=Postavljanje je vec pokrenut.
+WindowsVersionNotSupported=This program does not support the version of Windows your computer is running.
+WindowsServicePackRequired=This program requires %1 Service Pack %2 or later.
 NotOnThisPlatform=Ovaj program neæe raditi na %1.
 OnlyOnThisPlatform=Ovaj program se mora pokrenuti na %1.
 OnlyOnTheseArchitectures=Ovaj program može biti instaliran na verziji Windowsa dizajniranim za sljedeæu procesorsku arhitekturu:%n%n%1
@@ -134,7 +140,8 @@ SelectDirDesc=Direktorij gdje æe biti instaliran program.
 SelectDirLabel3=Instalacija æe instalirati [name] u sljedeæi direktorij
 SelectDirBrowseLabel=Da bi nastavio klikni na Nastavak. Ako želiš odabrati drugi direktorij klikni na ODABERI
 DiskSpaceMBLabel=Ovaj program zahtjeva minimalno [mb] MB slobodnog prostora na disku.
-ToUNCPathname=Instalacija ne može instalirati na UNC datoteku. Ako pokušavate instalirati na mrežu, morate mapirati mrežni disk.
+CannotInstallToNetworkDrive=Instalacija ne može instalirati na Network datoteku.
+CannotInstallToUNCPath=Instalacija ne može instalirati na UNC datoteku.
 InvalidPath=Morate unijeti punu stazu zajedno sa slovom diska; npr:%nC:\APP
 InvalidDrive=Disk koji ste odabrali ne postoji. Odaberite neki drugi.
 DiskSpaceWarningTitle=Nedovoljno prostora na disku
@@ -152,7 +159,6 @@ WizardSelectComponents=Odaberite komponente
 SelectComponentsDesc=Koje komponente želite instalirati?
 SelectComponentsLabel2=Odaberite komponente koje želite instalirati ili uklonite kvaèicu uz komponente koje ne želite:
 FullInstallation=Puna instalacija
-
 ; if possible don't translate 'Compact' as 'Minimal' (I mean 'Minimal' in your language)
 CompactInstallation=Kompakt (minimalna) instalacija
 CustomInstallation=Instalacija prema želji
@@ -195,6 +201,10 @@ WizardPreparing=Pripremam instalaciju
 PreparingDesc=Instalacija se priprema da instalira [name] na vaše raèunalo.
 PreviousInstallNotCompleted=Instalacija/deinstalacija prethodnog programa nije završena. Morate restartati raèunalo kako bi završili tu instalaciju.%n%nNakon restartanja raèunala, ponovno pokrenite Setup kako bi dovršili instalaciju [name].
 CannotContinue=Instalacija ne može nastaviti. Molimo kliknite na Odustani za izlaz.
+ApplicationsFound=The following applications are using files that need to be updated by Setup. It is recommended that you allow Setup to automatically close these applications.
+ApplicationsFound2=The following applications are using files that need to be updated by Setup. It is recommended that you allow Setup to automatically close these applications. After the installation has completed, Setup will attempt to restart the applications.
+CloseApplications=&Automatski zatvaranje programa
+DontCloseApplications=&Nemojte zatvaranje programa
 
 ; *** "Installing" wizard page
 WizardInstalling=Instaliram
@@ -210,10 +220,8 @@ FinishedRestartMessage=Završitak instalacija programa [name], zahtijeva ponovno 
 ShowReadmeCheck=Da, želim proèitati README datoteku.
 YesRadio=&Da, želim sada ponovno pokrenuti raèunalo
 NoRadio=&Ne, kasnije æu ga ponovno pokrenuti
-
 ; used for example as 'Run MyProg.exe'
 RunEntryExec=Pokreni %1
-
 ; used for example as 'View Readme.txt'
 RunEntryShellExec=Pogledati %1
 
@@ -229,6 +237,7 @@ SetupAborted=Instalacija nije završena.%n%nMolimo vas, riješite problem i opet p
 EntryAbortRetryIgnore=Kliknite na Ponovi da pokušate opet, Ignoriraj da nastavite, ili Prekid za prekid instalacije.
 
 ; *** Installation status messages
+StatusClosingApplications=Zatvaranje aplikacije...
 StatusCreateDirs=Kreiram direktorije...
 StatusExtractFiles=Izdvajam datoteke...
 StatusCreateIcons=Kreiram ikone...
@@ -237,6 +246,7 @@ StatusCreateRegistryEntries=Kreiram podatke za registry...
 StatusRegisterFiles=Registriram datoteke...
 StatusSavingUninstall=Snimam deinstalacijske informacije...
 StatusRunProgram=Završavam instalaciju...
+StatusRestartingApplications=Ponovno pokretanje aplikacije...
 StatusRollback=Poništavam promjene...
 
 ; *** Misc. errors
@@ -272,8 +282,8 @@ ErrorRestartReplace=Zamjena nakon ponovnog pokretanja nije uspjela:
 ErrorRenamingTemp=Pojavila se greška prilikom pokušaja preimenovanja datoteke u odredisnom direktoriju:
 ErrorRegisterServer=Ne mogu registrirati DLL/OCX: %1
 ErrorRegSvr32Failed=Greška u RegSvr32: greška %1
-;ErrorRegisterServerMissingExport=DllRegisterServer export nije pronaðen
 ErrorRegisterTypeLib=Ne mogu registrirati type library: %1
+;ErrorRegisterServerMissingExport=DllRegisterServer export nije pronaðen
 
 ; *** Post-installation errors
 ErrorOpeningReadme=Pojavila se greška prilikom pokušaja otvaranja README datoteke.
@@ -300,7 +310,16 @@ SharedFileNameLabel=Datoteka:
 SharedFileLocationLabel=Staza:
 WizardUninstalling=Deinstalacija
 StatusUninstalling=Deinstaliram %1...
+
+; *** Shutdown block reasons
+ShutdownBlockReasonInstallingApp=Instaliram %1.
+ShutdownBlockReasonUninstallingApp=Deinstaliram %1.
+
+; The custom messages below aren't used by Setup itself,
+; but if you make use of them in your scripts, you'll want to translate them.
+
 [CustomMessages]
+
 NameAndVersion=%1 verzija %2
 AdditionalIcons=Dodatne ikone:
 CreateDesktopIcon=Kreiraj ikonu na &desktopu
@@ -310,3 +329,6 @@ UninstallProgram=Deinstaliraj %1
 LaunchProgram=Pokreni %1
 AssocFileExtension=Pridru&ži %1 sa %2 ekstenzijom datoteke
 AssocingFileExtension=Pridružujem %1 sa %2 ekstenzijom datoteke
+AutoStartProgramGroupDescription=Startup:
+AutoStartProgram=Automatski start %1
+AddonHostProgramNotFound=%1 could not be located in the folder you selected.%n%nDo you want to continue anyway?

@@ -146,8 +146,8 @@ IDI_POINTER_ARROW_OUT	ICON		"Res\\PointerArrowOut.ico"
 //IDI_OUTGOING			ICON		"Res\\PacketOut.ico"
 //IDI_USER				ICON		"Res\\PacketIn.ico"
 //IDI_USER_ME			ICON		"Res\\PacketOut.ico"
+//IDI_CHECKMARK			ICON		"Res\\Checkmark.ico"
 IDI_COMPUTER			ICON		"Res\\Computer.ico"
-IDI_CHECKMARK			ICON		"Res\\Checkmark.ico"
 IDI_EXECUTABLE			ICON		"Res\\Executable.ico"
 IDI_FILE				ICON		"Res\\File.ico"
 IDI_HELP				ICON		"Res\\Help.ico"
@@ -1275,12 +1275,12 @@ FONT 8, "Tahoma"
 BEGIN
 	GROUPBOX		"&Peer-to-Peer Link Handling:",IDC_STATIC,6,5,270,85,WS_GROUP
 	LTEXT			"Use PeerProject to open these types of links:",IDC_STATIC,15,20,250,10
-	CONTROL			"Magnet  ( magnet: )",IDC_URI_MAGNET,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,20,35,105,12
-	CONTROL			"Gnutella  ( gnutella: )",IDC_URI_GNUTELLA,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,20,50,105,12
-	CONTROL			"eDonkey  ( ed2k: )",IDC_URI_ED2K,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,20,65,105,12
-	CONTROL			"Piolet  ( mp2p: )",IDC_URI_PIOLET,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,150,35,105,12
-	CONTROL			"DC++  ( dchub: )",IDC_URI_DC,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,150,50,105,12
-	CONTROL			"BitTorrent  ( .torrent )",IDC_URI_TORRENT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,150,65,105,12
+	CONTROL			"Magnet  (magnet:)",IDC_URI_MAGNET,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,20,35,105,12
+	CONTROL			"Gnutella  (gnutella:)",IDC_URI_GNUTELLA,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,20,50,105,12
+	CONTROL			"eDonkey  (ed2k:)",IDC_URI_ED2K,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,20,65,105,12
+	CONTROL			"Piolet  (mp2p:)",IDC_URI_PIOLET,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,150,35,105,12
+	CONTROL			"DC++  (dchub:)",IDC_URI_DC,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,150,50,105,12
+	CONTROL			"BitTorrent  (.torrent)",IDC_URI_TORRENT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,150,65,105,12
 	GROUPBOX		"&Download Manager:",IDC_STATIC,6,95,132,120,WS_GROUP
 	CONTROL			"Manage all web downloads:",IDC_WEB_HOOK,"Button",BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,12,112,122,12
 	COMBOBOX		IDC_EXT_LIST,20,130,60,80,CBS_SIMPLE | CBS_AUTOHSCROLL | CBS_SORT | CBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
@@ -1436,12 +1436,12 @@ STYLE DS_SETFONT | DS_MODALFRAME | DS_3DLOOK | DS_CENTER | WS_POPUP | WS_CAPTION
 CAPTION "Shared Folders Manager"
 FONT 8, "Tahoma"
 BEGIN
-	LTEXT			"This is a list of root folders in your personal library. \nFirst add folders here, then click the checkboxes to publicly share or hide them. Specific files and subfolders can be shared/unshared from the Library.",IDC_STATIC,8,5,280,30
+	LTEXT			"This is a list of root folders in your personal library. \nFirst add folders here, then click the checkboxes to publicly share or hide them. Specific files and subfolders can be shared/unshared from the Library.",IDC_STATIC,8,5,282,30
 	CONTROL			"List1",IDC_SHARE_FOLDERS,"SysListView32",LVS_REPORT | LVS_SHAREIMAGELISTS | LVS_ALIGNLEFT | LVS_NOCOLUMNHEADER | WS_BORDER | WS_TABSTOP,8,40,276,85
-	PUSHBUTTON		"&Add...",IDC_SHARE_ADD,8,130,45,15
-	PUSHBUTTON		"&Remove",IDC_SHARE_REMOVE,58,130,45,15,WS_DISABLED
-	DEFPUSHBUTTON	"OK",IDOK,190,130,45,15
-	PUSHBUTTON		"Cancel",IDCANCEL,240,130,45,15
+	PUSHBUTTON		"&Add...",IDC_SHARE_ADD,8,131,48,15
+	PUSHBUTTON		"&Remove",IDC_SHARE_REMOVE,60,131,48,15,WS_DISABLED
+	DEFPUSHBUTTON	"OK",IDOK,184,131,48,15
+	PUSHBUTTON		"Cancel",IDCANCEL,236,131,48,15
 END
 
 IDD_MEDIA_VIS DIALOGEX 0, 0, 292, 168

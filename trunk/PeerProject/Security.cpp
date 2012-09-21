@@ -111,13 +111,12 @@ void CSecurity::Add(CSecureRule* pRule)
 					m_Cache.clear();
 
 				if ( *(DWORD*)pRule->m_nMask == 0xffffffff && pRule->m_nExpire == CSecureRule::srIndefinite )
-					m_pAddressMap[ *(DWORD*)pRule->m_nIP ] = SetRuleIndex( pRule );
-					//m_pAddressMap.SetAt( *(DWORD*)pRule->m_nIP, pRule );	// CMap
+					SetAddressMap( *(DWORD*)pRule->m_nIP, SetRuleIndex( pRule ) );
 			}
 			else if ( pRule->m_nType == CSecureRule::srContentHash )
 			{
 				if ( pRule->m_nExpire == CSecureRule::srIndefinite )
-					m_pHashMap[ (LPCTSTR)pRule->m_pContent ] = SetRuleIndex( pRule );
+					SetHashMap( (CString)(LPCTSTR)(LPTSTR)pRule->m_pContent, SetRuleIndex( pRule ) );
 			}
 			else if ( pRule->m_nType == CSecureRule::srExternal )
 			{
@@ -145,17 +144,17 @@ void CSecurity::Remove(CSecureRule* pRule)
 {
 	CQuickLock oLock( m_pSection );
 
-	if ( pRule->m_nType == CSecureRule::srExternal )
-		ListLoader.Cancel( pRule );
+	//if ( pRule->m_nType == CSecureRule::srExternal )
+	//	ListLoader.Cancel( pRule );
 
 	if ( POSITION pos = m_pRules.Find( pRule ) )
 	{
 		m_pRules.RemoveAt( pos );
 	}
 
-	for ( BYTE nIndex = m_pRuleIndexMap.size() + 1 ; nIndex ; nIndex-- )
+	for ( BYTE nIndex = (BYTE)m_pRuleIndexMap.size() ; nIndex ; nIndex-- )
 	{
-		if ( GetRuleByIndex(nIndex) == pRule )
+		if ( GetRuleByIndex( nIndex ) == pRule )
 		{
 			m_pRuleIndexMap[ nIndex ] = NULL;
 			break;
@@ -232,34 +231,28 @@ void CSecurity::Clear()
 	}
 	m_pRules.RemoveAll();
 
-	//for ( CAddressMap::const_iterator i = m_pAddressMap.begin() ; i != m_pAddressMap.end() ; ++i )
-	//{
-	//	delete (*i).second;
-	//}
-	//for ( POSITION pos = m_pAddressMap.GetStartPosition() ; pos ; )
-	//{
-	//	DWORD pAddress;
-	//	CSecureRule* pRule;
-	//	m_pAddressMap.GetNextAssoc( pos, pAddress, pRule );
-	//	delete pRule;
-	//}
-	//m_pAddressMap.RemoveAll();
-	m_pAddressMap.clear();
-
-	//for ( CHashMap::const_iterator i = m_pHashMap.begin() ; i != m_pHashMap.end() ; ++i )
-	//{
-	//	delete (*i).second;
-	//}
-	m_pHashMap.clear();
-
 	m_Cache.clear();
+	m_AddressMap.clear();
+	m_HashMap[urnSHA].clear();
+	m_HashMap[urnTiger].clear();
+	m_HashMap[urnED2K].clear();
+	m_HashMap[urnBTH].clear();
+	m_HashMap[urnMD5].clear();
+	m_pRuleIndexMap.clear();
 }
 
 BYTE CSecurity::SetRuleIndex(CSecureRule* pRule)
 {
 	const size_t nSize = m_pRuleIndexMap.size() + 1;
-	const BYTE nIndex = nSize < 255 ? (BYTE)nSize : 255;	// Special case limit
-	if ( nIndex < 255 )
+
+	for ( BYTE nTest = 1 ; nTest < (BYTE)nSize ; nTest++ )
+	{
+		if ( m_pRuleIndexMap[ nTest ] == pRule )
+			return nTest;
+	}
+
+	const BYTE nIndex = nSize <= 255 ? (BYTE)nSize : 0;		// Special case limit
+	if ( nIndex && ( nIndex < 250 || pRule->m_nType == CSecureRule::srExternal ) )
 		m_pRuleIndexMap[ nIndex ] = pRule;
 	return nIndex;
 }
@@ -267,6 +260,42 @@ BYTE CSecurity::SetRuleIndex(CSecureRule* pRule)
 CSecureRule* CSecurity::GetRuleByIndex(BYTE nIndex)
 {
 	return nIndex < 255 ? m_pRuleIndexMap[ nIndex ] : NULL;
+}
+
+void CSecurity::SetHashMap(CString sHash, BYTE nIndex)
+{
+	if ( ! nIndex || sHash.GetLength() < 30 )
+		return;
+
+	if ( StartsWith( sHash, _PT("urn:sha1:") ) )
+		m_HashMap[urnSHA][ sHash ] = nIndex;
+	else if ( StartsWith( sHash, _PT("urn:tree:") ) )
+		m_HashMap[urnTiger][ sHash ] = nIndex;
+	else if ( StartsWith( sHash, _PT("urn:ed2k:") ) )
+		m_HashMap[urnED2K][ sHash ] = nIndex;
+	else if ( StartsWith( sHash, _PT("urn:bth:") ) )
+		m_HashMap[urnBTH][ sHash ] = nIndex;
+	else if ( StartsWith( sHash, _PT("urn:md5:") ) )
+		m_HashMap[urnMD5][ sHash ] = nIndex;
+}
+
+BYTE CSecurity::GetHashMap(CString sHash)
+{
+	if ( sHash.GetLength() < 30 || ( sHash[0] != _T('u') && sHash[0] != _T('U') ) )
+		return 0;
+
+	if ( StartsWith( sHash, _PT("urn:sha1:") ) )
+		return m_HashMap[urnSHA].count( sHash ) ? m_HashMap[urnSHA][ sHash ] : 0;
+	if ( StartsWith( sHash, _PT("urn:tree:") ) )
+		return m_HashMap[urnTiger].count( sHash ) ? m_HashMap[urnTiger][ sHash ] : 0;
+	if ( StartsWith( sHash, _PT("urn:ed2k:") ) )
+		return m_HashMap[urnED2K].count( sHash ) ? m_HashMap[urnED2K][ sHash ] : 0;
+	if ( StartsWith( sHash, _PT("urn:bth:") ) )
+		return m_HashMap[urnBTH].count( sHash ) ? m_HashMap[urnBTH][ sHash ] : 0;
+	if ( StartsWith( sHash, _PT("urn:md5:") ) )
+		return m_HashMap[urnMD5].count( sHash ) ? m_HashMap[urnMD5][ sHash ] : 0;
+
+	return 0;
 }
 
 
@@ -464,16 +493,12 @@ BOOL CSecurity::IsDenied(const IN_ADDR* pAddress)
 		return m_bDenyPolicy;
 		//theApp.Message( MSG_DEBUG, _T("Skipped Repeat IP Security Check  (%i Cached)"), m_Cache.size() );
 
-	//if ( m_pAddressMap.count( *(DWORD*)pAddress ) )
+	//if ( m_AddressMap.count( *(DWORD*)pAddress ) )
 	{
-		//CSecureRule* pRule;
-		//if ( m_pAddressMap.Lookup( *(DWORD*)pAddress, pRule ) )		// pAddress->s_addr
-
-		if ( BYTE nIndex = m_pAddressMap[ *(DWORD*)pAddress ] )
+		if ( BYTE nIndex = m_AddressMap[ *(DWORD*)pAddress ] )
 		{
-			if ( nIndex != 255 )		// Special case
+			if ( CSecureRule* pRule = m_pRuleIndexMap[ nIndex ] )
 			{
-				CSecureRule* pRule = m_pRuleIndexMap[ nIndex ];
 				pRule->m_nToday ++;
 				pRule->m_nEver ++;
 				if ( pRule->m_nAction == CSecureRule::srDeny )   return TRUE;
@@ -522,21 +547,20 @@ BOOL CSecurity::IsDenied(const IN_ADDR* pAddress)
 
 BOOL CSecurity::IsDenied(LPCTSTR pszContent)
 {
-	if ( CString(pszContent).GetLength() > 30 && m_pHashMap.size() && StartsWith( pszContent, _PT("urn:") ) )
+	if ( CString(pszContent).GetLength() > 30 && StartsWith( pszContent, _PT("urn:") ) )
 	{
-		//if ( m_pHashMap.count( pszContent ) )
-		//{
-			if ( BYTE nIndex = m_pHashMap[ pszContent ] )
+		if ( BYTE nIndex = GetHashMap( pszContent ) )
+		{
+			if ( CSecureRule* pRule = GetRuleByIndex( nIndex ) )
 			{
-				if ( CSecureRule* pRule = GetRuleByIndex( nIndex ) )
-				{
-					pRule->m_nToday ++;
-					pRule->m_nEver ++;
-					if ( pRule->m_nAction == CSecureRule::srDeny )   return TRUE;
-					if ( pRule->m_nAction == CSecureRule::srAccept ) return FALSE;
-				}
+				pRule->m_nToday ++;
+				pRule->m_nEver ++;
+				if ( pRule->m_nAction == CSecureRule::srDeny )   return TRUE;
+				if ( pRule->m_nAction == CSecureRule::srAccept ) return FALSE;
 			}
-		//}
+		}
+
+		return m_bDenyPolicy;
 	}
 
 	const DWORD tNow = static_cast< DWORD >( time( NULL ) );
@@ -573,70 +597,65 @@ BOOL CSecurity::IsDenied(LPCTSTR pszContent)
 
 BOOL CSecurity::IsDenied(const CPeerProjectFile* pFile)
 {
-	// TIMER_START
-	if ( m_pHashMap.size() )
-	{
-		if ( pFile->m_oSHA1 )
-			if ( BYTE nIndex = m_pHashMap[ pFile->m_oSHA1.toUrn() ] )
+	if ( pFile->m_oSHA1 && ! m_HashMap[urnSHA].empty() )
+		if ( BYTE nIndex = GetHashMap( pFile->m_oSHA1.toUrn() ) )
+		{
+			if ( CSecureRule* pRule = GetRuleByIndex( nIndex ) )
 			{
-				if ( CSecureRule* pRule = GetRuleByIndex( nIndex ) )
-				{
-					pRule->m_nToday ++;
-					pRule->m_nEver ++;
-					if ( pRule->m_nAction == CSecureRule::srDeny )   return TRUE;
-					if ( pRule->m_nAction == CSecureRule::srAccept ) return FALSE;
-				}
+				pRule->m_nToday ++;
+				pRule->m_nEver ++;
+				if ( pRule->m_nAction == CSecureRule::srDeny )   return TRUE;
+				if ( pRule->m_nAction == CSecureRule::srAccept ) return FALSE;
 			}
+		}
 
-		if ( pFile->m_oTiger )
-			if ( BYTE nIndex = m_pHashMap[ pFile->m_oTiger.toUrn() ] )
+	if ( pFile->m_oTiger && ! m_HashMap[urnTiger].empty() )
+		if ( BYTE nIndex = GetHashMap( pFile->m_oTiger.toUrn() ) )
+		{
+			if ( CSecureRule* pRule = GetRuleByIndex( nIndex ) )
 			{
-				if ( CSecureRule* pRule = GetRuleByIndex( nIndex ) )
-				{
-					pRule->m_nToday ++;
-					pRule->m_nEver ++;
-					if ( pRule->m_nAction == CSecureRule::srDeny )   return TRUE;
-					if ( pRule->m_nAction == CSecureRule::srAccept ) return FALSE;
-				}
+				pRule->m_nToday ++;
+				pRule->m_nEver ++;
+				if ( pRule->m_nAction == CSecureRule::srDeny )   return TRUE;
+				if ( pRule->m_nAction == CSecureRule::srAccept ) return FALSE;
 			}
+		}
 
-		if ( pFile->m_oED2K )
-			if ( BYTE nIndex = m_pHashMap[ pFile->m_oED2K.toUrn() ] )
+	if ( pFile->m_oED2K && ! m_HashMap[urnED2K].empty() )
+		if ( BYTE nIndex = GetHashMap( pFile->m_oED2K.toUrn() ) )
+		{
+			if ( CSecureRule* pRule = GetRuleByIndex( nIndex ) )
 			{
-				if ( CSecureRule* pRule = GetRuleByIndex( nIndex ) )
-				{
-					pRule->m_nToday ++;
-					pRule->m_nEver ++;
-					if ( pRule->m_nAction == CSecureRule::srDeny )   return TRUE;
-					if ( pRule->m_nAction == CSecureRule::srAccept ) return FALSE;
-				}
+				pRule->m_nToday ++;
+				pRule->m_nEver ++;
+				if ( pRule->m_nAction == CSecureRule::srDeny )   return TRUE;
+				if ( pRule->m_nAction == CSecureRule::srAccept ) return FALSE;
 			}
+		}
 
-		if ( pFile->m_oBTH )
-			if ( BYTE nIndex = m_pHashMap[ pFile->m_oBTH.toUrn() ] )
+	if ( pFile->m_oBTH && ! m_HashMap[urnBTH].empty() )
+		if ( BYTE nIndex = GetHashMap( pFile->m_oBTH.toUrn() ) )
+		{
+			if ( CSecureRule* pRule = GetRuleByIndex( nIndex ) )
 			{
-				if ( CSecureRule* pRule = GetRuleByIndex( nIndex ) )
-				{
-					pRule->m_nToday ++;
-					pRule->m_nEver ++;
-					if ( pRule->m_nAction == CSecureRule::srDeny )   return TRUE;
-					if ( pRule->m_nAction == CSecureRule::srAccept ) return FALSE;
-				}
+				pRule->m_nToday ++;
+				pRule->m_nEver ++;
+				if ( pRule->m_nAction == CSecureRule::srDeny )   return TRUE;
+				if ( pRule->m_nAction == CSecureRule::srAccept ) return FALSE;
 			}
+		}
 
-		if ( pFile->m_oMD5 )
-			if ( BYTE nIndex = m_pHashMap[ pFile->m_oMD5.toUrn() ] )
+	if ( pFile->m_oMD5 && ! m_HashMap[urnMD5].empty() )
+		if ( BYTE nIndex = GetHashMap( pFile->m_oMD5.toUrn() ) )
+		{
+			if ( CSecureRule* pRule = GetRuleByIndex( nIndex ) )
 			{
-				if ( CSecureRule* pRule = GetRuleByIndex( nIndex ) )
-				{
-					pRule->m_nToday ++;
-					pRule->m_nEver ++;
-					if ( pRule->m_nAction == CSecureRule::srDeny )   return TRUE;
-					if ( pRule->m_nAction == CSecureRule::srAccept ) return FALSE;
-				}
+				pRule->m_nToday ++;
+				pRule->m_nEver ++;
+				if ( pRule->m_nAction == CSecureRule::srDeny )   return TRUE;
+				if ( pRule->m_nAction == CSecureRule::srAccept ) return FALSE;
 			}
-	}
-	// TIMER_STOP
+		}
 
 	const DWORD tNow = static_cast< DWORD >( time( NULL ) );
 
@@ -672,9 +691,9 @@ BOOL CSecurity::IsDenied(const CPeerProjectFile* pFile)
 
 BOOL CSecurity::IsDenied(const CQuerySearch* pQuery, const CString& strContent)
 {
-	CQuickLock oLock( m_pSection );
-
 	const DWORD tNow = static_cast< DWORD >( time( NULL ) );
+
+	CQuickLock oLock( m_pSection );
 
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
@@ -731,15 +750,6 @@ void CSecurity::Expire()
 			delete pRule;
 		}
 	}
-
-	// Unimplemented
-	//for ( CAddressRuleMap::const_iterator i = m_pIPRules.begin() ; i != m_pIPRules.end() ; i++ )
-	//{
-	//	if ( (*i).second->IsExpired( tNow ) )
-	//		i = m_pIPRules.erase( i );
-	//	else
-	//		++i;
-	//}
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -883,16 +893,14 @@ void CSecurity::Serialize(CArchive& ar)
 				 pRule->m_nAction == CSecureRule::srDeny &&
 				*(DWORD*)pRule->m_nMask == 0xffffffff )
 			{
-			//	m_pAddressMap.SetAt( *(DWORD*)pRule->m_nIP, pRule );	// CMap
-				m_pAddressMap[ *(DWORD*)pRule->m_nIP ] = 255;
+				SetAddressMap( *(DWORD*)pRule->m_nIP, SetRuleIndex( pRule ) );
 				continue;
 			}
 
 			if ( pRule->m_nType == CSecureRule::srContentHash &&
 				 pRule->m_nAction == CSecureRule::srDeny )
 			{
-			//	m_pHashMap.SetAt( *(DWORD*)pRule->m_pContent, pRule );	// CMap
-				m_pHashMap[ (LPCTSTR)pRule->m_pContent ] = 255;
+				SetHashMap( (CString)(LPCTSTR)(LPTSTR)pRule->m_pContent, SetRuleIndex( pRule ) );
 				continue;
 			}
 
@@ -2535,24 +2543,24 @@ void CListLoader::StopThread()
 	Wakeup();
 }
 
-void CListLoader::Cancel(CSecureRule* pRule)
-{
-	if ( ! IsThreadEnabled() )
-		return;
-
-	if ( pRule == m_pQueue.GetHead() )
-	{
-		StopThread();
-		m_pQueue.RemoveHead();
-		Sleep( 10 );
-		if ( m_pQueue.GetCount() )
-			BeginThread( "ListLoader" );
-		return;
-	}
-
-	if ( POSITION pos = m_pQueue.Find( pRule ) )
-		m_pQueue.RemoveAt( pos );
-}
+//void CListLoader::Cancel(CSecureRule* pRule)
+//{
+//	if ( ! IsThreadEnabled() )
+//		return;
+//
+//	if ( pRule == m_pQueue.GetHead() )
+//	{
+//		StopThread();
+//		m_pQueue.RemoveHead();
+//		Sleep( 10 );
+//		if ( m_pQueue.GetCount() )
+//			BeginThread( "ListLoader" );
+//		return;
+//	}
+//
+//	if ( POSITION pos = m_pQueue.Find( pRule ) )
+//		m_pQueue.RemoveAt( pos );
+//}
 
 void CListLoader::AddList(CSecureRule* pRule)
 {
@@ -2573,8 +2581,9 @@ void CListLoader::OnRun()
 
 		const BYTE nIndex = Security.SetRuleIndex( pRule );
 
-		CString strPath = pRule->m_pContent;
+		CString strPath = (LPCTSTR)pRule->m_pContent;
 		ASSERT( pRule->m_nType == CSecureRule::srExternal );
+		if ( strPath.GetLength() < 6 ) continue;
 
 		CString strCommentBase = pRule->m_sComment;
 		if ( strCommentBase.IsEmpty() )
@@ -2583,6 +2592,9 @@ void CListLoader::OnRun()
 			strCommentBase = strCommentBase.Left( strCommentBase.ReverseFind( _T('•') ) + 1 ) + _T(" %u");
 		else
 			strCommentBase += _T("  • %u");
+
+		if ( strPath[1] != _T(':') )
+			strPath = Settings.General.UserPath + _T("\\Data\\") + strPath;
 
 		CFile pFile;
 		if ( ! pFile.Open( (LPCTSTR)strPath.GetBuffer(), CFile::modeRead ) )
@@ -2603,7 +2615,7 @@ void CListLoader::OnRun()
 			DWORD nCount = 0;
 			int nPos;
 
-TIMER_START
+//TIMER_START
 			while ( pBuffer.ReadLine( strLine ) && IsThreadEnabled() && pRule )
 			{
 				strLine.Trim();
@@ -2613,15 +2625,16 @@ TIMER_START
 
 				if ( strLine[ 0 ] == '#' )
 				{
-					if ( strLine.Right( 0 ) == _T(':') && strLine.Find( _T("urn:") ) > 0 )
+					if ( strLine.Right( 1 ) == _T(':') && strLine.Find( _T("urn:") ) > 0 )
 						strURN = strLine.Mid( strLine.Find( _T("urn:") ) );		// Default "# urn:type:"
 					continue;									// Comment line
 				}
 
-				if ( nCount % 10 == 0 )
-					Sleep( 1 );		// Limit CPU 
-
-				pRule->m_sComment.Format( strCommentBase, nCount++ );
+				if ( ++nCount % 10 == 0 )
+				{
+					pRule->m_sComment.Format( strCommentBase, nCount );
+					Sleep( 1 );		// Limit CPU
+				}
 
 				if ( StartsWith( strLine, _PT("urn:") ) || ( ! strURN.IsEmpty() && strLine.Find( _T('.'), 5 ) < 0 ) )
 				{
@@ -2630,8 +2643,7 @@ TIMER_START
 					nPos = strLine.Find( _T("\t") );
 					if ( nPos > 0 )
 						strLine = strLine.Left( nPos );			// Trim at whitespace (remove any trailing comments)
-					if ( strLine.GetLength() > 30 )				// ToDo: Better validation?
-						Security.m_pHashMap[ (LPCTSTR)strLine ] = nIndex;
+					Security.SetHashMap( strLine, nIndex );
 					continue;
 				}
 
@@ -2642,8 +2654,7 @@ TIMER_START
 				nPos = strLine.Find( _T('-') );					// Possible Range
 				if ( nPos < 0 )									// Single IP
 				{
-				//	Security.m_pAddressMap.SetAt( inet_addr( (LPCSTR)(LPCTSTR)strLine ), pRule );	// CMap
-					Security.m_pAddressMap[ IPStringToDWORD( strLine ) ] = nIndex;
+					Security.SetAddressMap( IPStringToDWORD( strLine ), nIndex );
 					continue;
 				}
 
@@ -2652,8 +2663,7 @@ TIMER_START
 
 				if ( strFirst == strLast )
 				{
-				//	Security.m_pAddressMap.SetAt( inet_addr( (LPCSTR)(LPCTSTR)strLine ), pRule );	// CMap
-					Security.m_pAddressMap[ IPStringToDWORD( strLine ) ] = nIndex;
+					Security.SetAddressMap( IPStringToDWORD( strLine ), nIndex );
 					continue;
 				}
 
@@ -2675,11 +2685,15 @@ TIMER_START
 
 				for ( DWORD nRange = Settings.Security.ListRangeLimit ; nFirst <= nLast && nRange ; nFirst++, nRange-- )
 				{
-				//	Security.m_pAddressMap.SetAt( nFirst, pRule );	// CMap
-					Security.m_pAddressMap[ nFirst ] = nIndex;
+					Security.SetAddressMap( nFirst, nIndex );
 				}
 			}
-TIMER_STOP
+
+			if ( pRule )
+				pRule->m_sComment.Format( strCommentBase, nCount );		// Final update
+
+			PostMainWndMessage( WM_SANITY_CHECK );
+//TIMER_STOP
 		}
 		catch ( CException* pException )
 		{
