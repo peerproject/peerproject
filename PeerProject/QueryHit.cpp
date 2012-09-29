@@ -960,7 +960,6 @@ CXMLElement* CQueryHit::ReadXML(CG1Packet* pPacket, int nSize)
 
 			if ( ! pXML ) break;		// Invalid XML
 
-
 			if ( ! pRoot )
 			{
 				pRoot = new CXMLElement( NULL, _T("Metadata") );

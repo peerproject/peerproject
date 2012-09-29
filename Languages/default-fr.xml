@@ -2427,7 +2427,7 @@
 	<tip id="ID_DOWNLOADS_SHARE" message="Partager ce téléchargement partiel avec les autres utilisateurs."/>
 	<tip id="ID_DOWNLOADS_SHOW_SOURCES" message="Afficher les sources actuellement utilisées."/>
 	<tip id="ID_DOWNLOADS_SOURCES" message="Rechercher plus de sources pour cette sélection de téléchargements."/>
-	<tip id="ID_DOWNLOADS_TORRENT_INFO" message="Voir des informations sur le téléchargement BitTorrent sélectionné..."/>
+	<!--tip id="ID_DOWNLOADS_TORRENT_INFO" message="Voir des informations sur le téléchargement BitTorrent sélectionné..."-->
 	<tip id="ID_DOWNLOADS_ADD_SOURCE" message="Ajouter une nouvelle source URL au téléchargement sélectionné..."/>
 	<tip id="ID_DOWNLOADS_VIEW_REVIEWS" message="Voir les revues pour le téléchargement sélectionné"/>
 	<tip id="ID_HELP_ABOUT" message="Affiche le dialogue &#171;&#160;À propos de PeerProject&#160;&#187;..."/>
@@ -2608,7 +2608,7 @@
 	<tip id="ID_SYSTEM_TIMESTAMP" message="Enregistrer l'horodatage pour chaque ligne."/>
 	<tip id="ID_SYSTEM_VERBOSE" message="Affiche un journal détaillé de l'activité du système."/>
 	<tip id="ID_TAB_CONNECT" message="Se connecter ou se déconnecter au réseau."/>
-	<tip id="ID_TAB_HELP" message="Obtenir de l'aide sur l'utilisation de PeerProject."/>
+	<!--tip id="ID_TAB_HELP" message="Obtenir de l'aide sur l'utilisation de PeerProject."-->
 	<tip id="ID_TAB_HOME" message="Revenir à la page d'accueil de PeerProject"/>
 	<tip id="ID_TAB_IRC" message="Montre la fenêtre de discussion IRC."/>
 	<tip id="ID_TAB_LIBRARY" message="Voir et gérer le contenu de votre bibliothèque."/>
@@ -2653,7 +2653,6 @@
 	<tip id="ID_VIEW_BASIC" message="Utiliser PeerProject en mode normal."/>
 	<tip id="ID_VIEW_DISCOVERY" message="Afficher ou masquer la fenêtre SERVICES DE DÉCOUVERTE."/>
 	<tip id="ID_VIEW_DOWNLOADS" message="Afficher ou masquer la fenêtre TÉLÉCHARGEMENTS."/>
-	<tip id="ID_VIEW_HELP" message="Affiche ou masquer la fenêtre AIDE."/>
 	<tip id="ID_VIEW_HOSTS" message="Afficher ou masquer la fenêtre HÔTES EN CACHE."/>
 	<tip id="ID_VIEW_LIBRARY" message="Afficher ou masquer la fenêtre BIBLIOTHÈQUE."/>
 	<tip id="ID_VIEW_MEDIA" message="Afficher ou masquer la fenêtre LECTEUR MULTIMEDIA."/>
@@ -2712,7 +2711,7 @@
 	<string id="WINDOW_MEDIA" value="Lecteur Multimédia"/>
 	<string id="WINDOW_IRC" value="Salon IRC PeerProject"/>
 	<string id="WINDOW_CHAT" value="Discussion"/>
-	<string id="WINDOW_HELP" value="Aide PeerProject"/>
+	<!--string id="WINDOW_HELP" value="Aide PeerProject"-->
 	<string id="20001" value="Oui"/>
 	<string id="20002" value="Non"/>
 	<string id="20003" value="Valider"/>
@@ -3301,7 +3300,7 @@
 	<string id="20746" value="Non vérifié"/>
 	<string id="20747" value="Vérifié"/>
 	<string id="20748" value="Vérification"/>
-	<string id="20750" value="!PeerProject (version) vous souhaite la bienvenue!n.nPeerProject est un logiciel complètement libre et gratuit.nMerci de l'utiliser de manière responsable et de respecter les lois sur la propriété intellectuelle.n."/>
+	<string id="20750" value="!{version} vous souhaite la bienvenue.\n\nPeerProject est un logiciel complètement libre et gratuit.\nMerci de l'utiliser de manière responsable et de respecter les lois sur la propriété intellectuelle."/>
 	<string id="20751" value="Il n'y a pas de recherche active. Cliquez ici pour rechercher des fichiers."/>
 	<string id="20752" value="Vous n'êtes pas connecté. Cliquez sur le boutton « Se connecter » pour commencer."/>
 	<string id="20755" value="Vous avez choisi de supprimer le gabarit, continuer ?"/>

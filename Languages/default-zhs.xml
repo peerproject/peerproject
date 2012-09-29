@@ -2265,7 +2265,7 @@
 	<tip id="ID_DOWNLOADS_SHARE" message="将未完全下载的文件同样共享给其它用户。"/>
 	<tip id="ID_DOWNLOADS_SHOW_SOURCES" message="显示目前未被使用的资源。"/>
 	<tip id="ID_DOWNLOADS_SOURCES" message="为选定的文件搜索更多的资源。"/>
-	<tip id="ID_DOWNLOADS_TORRENT_INFO" message="查看选定 BitTorrent 下载的信息..."/>
+	<!--tip id="ID_DOWNLOADS_TORRENT_INFO" message="查看选定 BitTorrent 下载的信息..."-->
 	<tip id="ID_DOWNLOADS_ADD_SOURCE" message="添加一个资源链接到选定的下载..."/>
 	<tip id="ID_DOWNLOADS_VIEW_REVIEWS" message="查看选定下载的评价"/>
 	<tip id="ID_HELP_ABOUT" message="显示 PeerProject 关于对话框..."/>
@@ -2441,7 +2441,7 @@
 	<tip id="ID_SYSTEM_TIMESTAMP" message="记录每行的时间戳。"/>
 	<tip id="ID_SYSTEM_VERBOSE" message="显示详细的系统活动日志。"/>
 	<tip id="ID_TAB_CONNECT" message="连接或断开网络。"/>
-	<tip id="ID_TAB_HELP" message="获取使用 PeerProject 的帮助。"/>
+	<!--tip id="ID_TAB_HELP" message="获取使用 PeerProject 的帮助。"-->
 	<tip id="ID_TAB_HOME" message="返回 PeerProject 首页。"/>
 	<tip id="ID_TAB_LIBRARY" message="查看和管理收藏的内容。"/>
 	<tip id="ID_TAB_MEDIA" message="在您的收藏中播放视频或音频文件。"/>
@@ -2485,7 +2485,6 @@
 	<tip id="ID_VIEW_BASIC" message="使用 PeerProject 的普通模式。"/>
 	<tip id="ID_VIEW_DISCOVERY" message="显示或隐藏探索服务窗口。"/>
 	<tip id="ID_VIEW_DOWNLOADS" message="显示或隐藏下载窗口。"/>
-	<tip id="ID_VIEW_HELP" message="显示或隐藏帮助窗口。"/>
 	<tip id="ID_VIEW_HOSTS" message="显示或隐藏主机缓存窗口。"/>
 	<tip id="ID_VIEW_LIBRARY" message="显示或隐藏收藏窗口。"/>
 	<tip id="ID_VIEW_MEDIA" message="显示或隐藏媒体播放器窗口。"/>
@@ -2530,7 +2529,7 @@
 	<string id="WINDOW_DISCOVERY" value="探索服务"/>
 	<string id="WINDOW_BROWSEHOST" value="浏览"/>
 	<string id="WINDOW_MEDIA" value="媒体播放器"/>
-	<string id="WINDOW_HELP" value="PeerProject 帮助"/>
+	<!--string id="WINDOW_HELP" value="PeerProject 帮助"-->
 	<string id="20001" value="是"/>
 	<string id="20002" value="否"/>
 	<string id="20003" value="确定"/>
@@ -3107,7 +3106,7 @@
 	<string id="20746" value="未校验"/>
 	<string id="20747" value="已校验"/>
 	<string id="20748" value="校验中"/>
-	<string id="20750" value="!欢迎使用 PeerProject (version) !\n.\nPeerProject 是完全免费的软件。\n请遵照知识产权法负责使用。\n."/>
+	<string id="20750" value="!欢迎使用 {version}\n\nPeerProject 是完全免费的软件。\n请遵照知识产权法负责使用。"/>
 	<string id="20751" value="没有活动的搜索。请单击搜索开始。"/>
 	<string id="20752" value="您还未连接。请单击连接按钮开始。"/>
 	<string id="20755" value="您确定要删除 &quot;%s&quot; 模板？\n此操作无法恢复。"/>

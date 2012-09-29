@@ -2660,7 +2660,7 @@
 	<string id="WINDOW_DISCOVERY" value="Serviços de Descobrimento"/>
 	<string id="WINDOW_BROWSEHOST" value="Navegar"/>
 	<string id="WINDOW_MEDIA" value="Media Player"/>
-	<string id="WINDOW_HELP" value="Ajuda do PeerProject"/>
+	<!--string id="WINDOW_HELP" value="Ajuda do PeerProject"-->
 	<string id="WINDOW_IRC" value="Chat do PeerProject"/>
 	<string id="20001" value="Sim"/>
 	<string id="20002" value="Não"/>
@@ -3268,7 +3268,7 @@
 	<string id="20746" value="Não Verificado"/>
 	<string id="20747" value="Verificado"/>
 	<string id="20748" value="Verificando"/>
-	<string id="20750" value="!Bem-vindo ao PeerProject (versão) !\n\nO PeerProject é um programa completamente gratuito.\nPor favor, use-o de maneira responsável e respeite a lei de propriedade intelectual.\n."/>
+	<string id="20750" value="!Bem-vindo ao {version}\n\nO PeerProject é um programa completamente gratuito.\nPor favor, use-o de maneira responsável e respeite a lei de propriedade intelectual."/>
 	<string id="20751" value="Não há buscas ativas. Clique aqui para procurar arquivos."/>
 	<string id="20752" value="Você não está conectado. Clique no botão Conectar para começar."/>
 	<string id="20755" value="Você tem certeza de que quer apagar o &quot;%s&quot; template?\nIsto não pode ser desfeito."/>

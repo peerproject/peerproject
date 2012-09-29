@@ -562,7 +562,6 @@ BOOL CDownloadWithSources::AddSourceURL(LPCTSTR pszURL, BOOL bURN, FILETIME* pLa
 	if ( m_sName.IsEmpty() && ! pURL.m_sName.IsEmpty() )
 		Rename( pURL.m_sName );
 
-
 	return AddSourceInternal( new CDownloadSource( static_cast< const CDownload* >( this ),
 		pszURL, bURN, bHashAuth, pLastSeen, nRedirectionCount ) );
 }
@@ -676,7 +675,7 @@ BOOL CDownloadWithSources::AddSourceInternal(CDownloadSource* pSource)
 				}
 				else // We are not downloading
 				{
-					// We are not downloading so we can replace non-HTTP source with a new one
+					// ...So we can replace non-HTTP source with a new one
 					if ( ! bExistingHTTPSource && bHTTPSource )
 					{
 						// Set connection delay the same as for the old source
@@ -858,10 +857,9 @@ void CDownloadWithSources::RemoveOverlappingSources(QWORD nOffset, QWORD nLength
 	}
 }
 
-// The function takes an URL and finds a failed source in the list;
-// If bReliable is true, it checks only localy checked failed sources
-// and those which have more than 20 votes from other users and negative
-// votes compose 2/3 of the total number of votes.
+// The function takes an URL and finds a failed source in the list.
+// If bReliable is true, it checks only localy checked failed sources and those which have more than 20 votes
+// from other users and negative votes compose 2/3 of the total number of votes.
 CFailedSource* CDownloadWithSources::LookupFailedSource(LPCTSTR pszUrl, bool bReliable)
 {
 	CQuickLock pLock( Transfers.m_pSection );
@@ -1178,7 +1176,7 @@ void CDownloadWithSources::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER
 		ar.WriteCount( m_pXML != NULL ? 1 : 0 );
 		if ( m_pXML ) m_pXML->Serialize( ar );
 	}
-	else  // Loading
+	else // Loading
 	{
 		for ( DWORD_PTR nSources = ar.ReadCount() ; nSources ; nSources-- )
 		{

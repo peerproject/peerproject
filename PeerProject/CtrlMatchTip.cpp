@@ -582,7 +582,7 @@ void CMatchTipCtrl::OnPaint(CDC* pDC)
 		// Queue info
 		if ( ! m_sQueue.IsEmpty() )
 		{
-			if ( m_sBusy.GetLength() || m_sPush.GetLength() || m_sUnstable.GetLength() ) // Align queue info with above (if present)
+			if ( m_sBusy.GetLength() || m_sPush.GetLength() || m_sUnstable.GetLength() )	// Align queue info with above (if present)
 			{
 				pt.x += 20;
 				DrawText( pDC, &pt, m_sQueue );

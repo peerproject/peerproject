@@ -1230,7 +1230,7 @@ void CDownloads::PreLoad()
 				{
 					if ( ! Settings.BitTorrent.AutoSeed )
 					{
-						GetSafePath( strPath );
+						MakeSafePath( strPath );
 						DeleteFileEx( strPath, FALSE, TRUE, TRUE );
 						DeleteFileEx( strPath + _T(".sav"), FALSE, FALSE, TRUE );
 						DeleteFileEx( strPath + _T(".png"), FALSE, FALSE, TRUE );
@@ -1245,7 +1245,7 @@ void CDownloads::PreLoad()
 			else
 			{
 				// Remove orphaned .pd/.sd files at startup
-				GetSafePath( strPath );
+				MakeSafePath( strPath );
 				DeleteFileEx( strPath, FALSE, TRUE, TRUE );
 				DeleteFileEx( strPath + _T(".sav"), FALSE, FALSE, TRUE );
 				DeleteFileEx( strPath + _T(".png"), FALSE, FALSE, TRUE );

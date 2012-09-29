@@ -19,7 +19,6 @@
 // A CG1Neighbour object represents a remote computer running Gnutella software with which we are exchanging Gnutella packets
 // http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CG1Neighbour
 
-
 #include "StdAfx.h"
 #include "Settings.h"
 #include "PeerProject.h"
@@ -336,7 +335,7 @@ BOOL CG1Neighbour::OnPacket(CG1Packet* pPacket)
 	case G1_PACKET_PING:		return OnPing( pPacket );			// Ping
 	case G1_PACKET_PONG:		return OnPong( pPacket );			// Pong, response to a ping
 	case G1_PACKET_BYE:			return OnBye( pPacket );			// Bye message
-	case G1_PACKET_QUERY_ROUTE:	return OnCommonQueryHash( pPacket );  // Common query hash
+	case G1_PACKET_QUERY_ROUTE:	return OnCommonQueryHash( pPacket ); // Common query hash
 	case G1_PACKET_VENDOR:
 	case G1_PACKET_VENDOR_APP:	return OnVendor( pPacket );			// Vendor-specific message
 	case G1_PACKET_PUSH:		return OnPush( pPacket );			// Push open a connection
@@ -362,7 +361,7 @@ BOOL CG1Neighbour::SendPing(const Hashes::Guid& oGUID)
 		return FALSE;
 
 	// If the CNeighbours object says we need more Gnutella hubs or leaves, set bNeedPeers to true
-	bool bNeedHubs = Neighbours.NeedMoreHubs( PROTOCOL_G1 ) == TRUE;
+	bool bNeedHubs  = Neighbours.NeedMoreHubs( PROTOCOL_G1 ) == TRUE;
 	bool bNeedLeafs = Neighbours.NeedMoreLeafs( PROTOCOL_G1 ) == TRUE;
 	bool bNeedPeers = bNeedHubs || bNeedLeafs;
 
@@ -841,7 +840,6 @@ BOOL CG1Neighbour::OnVendor(CG1Packet* pPacket)
 	WORD nFunction = pPacket->ReadShortLE();	// 2 bytes, function (do)
 	WORD nVersion  = pPacket->ReadShortLE();	// 2 bytes, version (do)
 
-
 	if ( nVendor == 0 && nFunction == 0 )	// If the packet has 0 for the vendor and function (do)
 	{
 		// Supported vendor messages array (do)
@@ -894,7 +892,7 @@ BOOL CG1Neighbour::OnVendor(CG1Packet* pPacket)
 			Send( pReply ); // Send the reply packet to the remote computer
 		}
 		// Vendor is the ASCII text "BEAR" for BearShare
-		else if ( nVendor == 'BEAR' ) // It's backwards because of network byte order (Confirm?)
+		else if ( nVendor == 'BEAR' || nVendor == 'RAEB' )	// It's backwards because of network byte order (Confirm?)
 		{
 			// Function code query for "BEAR"
 			CG1Packet* pReply = CG1Packet::New( pPacket->m_nType, 1, pPacket->m_oGUID );	// Create a reply packet
@@ -959,7 +957,7 @@ BOOL CG1Neighbour::OnVendor(CG1Packet* pPacket)
 			break;
 		}
 	}
-	else if ( nVendor == 'BEAR' )	 // The vendor is "BEAR" for BearShare
+	else if ( nVendor == 'BEAR' )	// The vendor is "BEAR" for BearShare
 	{
 		// Sort by the function number to see what the vendor specific packet from BearShare wants
 		switch ( nFunction )

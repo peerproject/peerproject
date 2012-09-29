@@ -243,16 +243,16 @@ HBRUSH CSettingsPage::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 		pDC->SetTextColor( Colors.m_crDialogText );
 		pDC->SetBkMode( TRANSPARENT );
 
-		if ( pWnd->GetDlgCtrlID() != IDC_STATIC )						// Named controls  (Dynamic handling)	 // || ( pWnd->GetStyle() & SS_REALSIZEIMAGE ) || ( pWnd->GetStyle() & SS_ICON )
+		if ( pWnd->GetDlgCtrlID() != IDC_STATIC )						// Named controls  (Dynamic handling)	// || ( pWnd->GetStyle() & SS_REALSIZEIMAGE ) || ( pWnd->GetStyle() & SS_ICON )
 		{
 			if ( ( pWnd->GetStyle() & ES_READONLY ) )
-				return Images.m_brDialog;									// Skip disabled edit boxes (Not disabled text)
+				return Images.m_brDialog;								// Skip disabled edit boxes (Not disabled text)
 
 			//if ( ! pWnd->IsWindowEnabled() )
 			//{
 			//	const int nID = pWnd->GetDlgCtrlID();
 			//	if ( nID != IDC_REMOTE_URL && nID != IDC_INBOUND_BIND && nID != IDC_G1_SETUP && nID != IDC_ED2K_SETUP && nID != IDC_DC_SETUP )	// Keep exception list updated
-			//		return Images.m_brDialog;								// Skip disabled edit boxes (Not disabled text)
+			//		return Images.m_brDialog;							// Skip disabled edit boxes (Not disabled text)
 			//}
 
 			//TCHAR szName[24];
@@ -319,7 +319,7 @@ void CEditPath::OnLButtonDblClk(UINT nFlags, CPoint point)
 	if ( strPath.IsEmpty() )
 		return;
 
-	GetSafePath( strPath );
+	MakeSafePath( strPath );
 
 	if ( PathIsDirectory( strPath ) )
 		ShellExecute( GetSafeHwnd(), NULL, strPath, NULL, NULL, SW_SHOWDEFAULT );

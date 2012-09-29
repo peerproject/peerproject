@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+﻿3<?xml version="1.0" encoding="UTF-8"?>
 <skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <!-- PeerProject Default Japanese Skin File -->
@@ -2228,7 +2228,7 @@
 	<tip id="ID_DOWNLOADS_SHARE" message="他のユーザとこの部分ダウンロードを共有します"/>
 	<tip id="ID_DOWNLOADS_SHOW_SOURCES" message="現在使用されていないソースを表示します"/>
 	<tip id="ID_DOWNLOADS_SOURCES" message="選択したダウンロード用のソースを更に検索します"/>
-	<tip id="ID_DOWNLOADS_TORRENT_INFO" message="選択したBitTorrentダウンロードについての情報を表示します..."/>
+	<!--tip id="ID_DOWNLOADS_TORRENT_INFO" message="選択したBitTorrentダウンロードについての情報を表示します..."-->
 	<tip id="ID_DOWNLOADS_ADD_SOURCE" message="選択したダウンロードへURLソースを追加します..."/>
 	<tip id="ID_DOWNLOADS_VIEW_REVIEWS" message="選択したダウンロードのレビューを表示します"/>
 	<tip id="ID_HELP_ABOUT" message="PeerProjectのアバウトダイアログを表示します..."/>
@@ -2403,7 +2403,7 @@
 	<tip id="ID_SYSTEM_TIMESTAMP" message="各行のタイムスタンプを記録します"/>
 	<tip id="ID_SYSTEM_VERBOSE" message="詳細なシステム稼働ログを表示します"/>
 	<tip id="ID_TAB_CONNECT" message="ネットワークに接続・切断します"/>
-	<tip id="ID_TAB_HELP" message="PeerProjectを使用してヘルプを参照します"/>
+	<!--tip id="ID_TAB_HELP" message="PeerProjectを使用してヘルプを参照します"-->
 	<tip id="ID_TAB_HOME" message="PeerProjectホームページに戻ります"/>
 	<tip id="ID_TAB_LIBRARY" message="ローカルのライブラリを表示・管理します"/>
 	<tip id="ID_TAB_MEDIA" message="ライブラリ内からオーディオ・ビデオファイルを再生します"/>
@@ -2447,7 +2447,6 @@
 	<tip id="ID_VIEW_BASIC" message="PeerProjectを標準モードで使用します"/>
 	<tip id="ID_VIEW_DISCOVERY" message="ディスカバリーサービスウィンドウを表示・非表示します"/>
 	<tip id="ID_VIEW_DOWNLOADS" message="ダウンロードウィンドウを表示/非表示します"/>
-	<tip id="ID_VIEW_HELP" message="ヘルプウィンドウを表示・非表示します"/>
 	<tip id="ID_VIEW_HOSTS" message="ホストキャッシュウィンドウを表示/非表示します"/>
 	<tip id="ID_VIEW_LIBRARY" message="ライブラリウィンドウを表示/非表示します"/>
 	<tip id="ID_VIEW_MEDIA" message="メディアプレイヤーウィンドウを表示・非表示します"/>
@@ -2498,7 +2497,7 @@
 	<string id="WINDOW_DISCOVERY" value="ディスカバリサービス"/>
 	<string id="WINDOW_BROWSEHOST" value="参照"/>
 	<string id="WINDOW_MEDIA" value="メディアプレーヤー"/>
-	<string id="WINDOW_HELP" value="PeerProjectヘルプ"/>
+	<!--string id="WINDOW_HELP" value="PeerProjectヘルプ"-->
 	<string id="20001" value="はい"/>
 	<string id="20002" value="いいえ"/>
 	<string id="20003" value="OK"/>
@@ -3061,7 +3060,7 @@
 	<string id="20746" value="未検証"/>
 	<string id="20747" value="検証済"/>
 	<string id="20748" value="検証中"/>
-	<string id="20750" value="!PeerProject (version) へようこそ!n.nPeerProjectは完全にフリーなソフトウェアですn責任を持って使用し、著作権法を遵守して下さいn"/>
+	<string id="20750" value="!へようこそ {version}\n\nPeerProjectは完全にフリーなソフトウェアです, 責任を持って使用し、著作権法を遵守して下さい"/>
 	<string id="20751" value="アクティブな検索はありません。ここをクリックすればファイルを検索できます"/>
 	<string id="20752" value="ネットワークに未接続です。開始するには接続ボタンをクリックして下さい"/>
 	<string id="20755" value="テンプレート &quot;%s&quot; を削除してよろしいですか?n一旦削除すると元に戻すことはできません。"/>

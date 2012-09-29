@@ -2543,7 +2543,7 @@
 	<tip id="ID_SYSTEM_TIMESTAMP" message="Καταγραφή χρονικής επισήμανσης σε κάθε γραμμή."/>
 	<tip id="ID_SYSTEM_VERBOSE" message="Εμφάνιση λεπτομερούς ιστορικού δραστηριότητας συστήματος."/>
 	<tip id="ID_TAB_CONNECT" message="Σύνδεση ή αποσύνδεση από το δίκτυο."/>
-	<tip id="ID_TAB_HELP" message="Παροχή βοήθειας χρήσης του PeerProject."/>
+	<!--tip id="ID_TAB_HELP" message="Παροχή βοήθειας χρήσης του PeerProject."-->
 	<tip id="ID_TAB_HOME" message="Μετάβαση στην οθόνη υποδοχής του PeerProject."/>
 	<tip id="ID_TAB_LIBRARY" message="Οργάνωση και διαχείριση των τοπικών αρχείων."/>
 	<tip id="ID_TAB_MEDIA" message="Αναπαραγωγή αρχείων πολυμέσων."/>
@@ -2587,7 +2587,6 @@
 	<tip id="ID_VIEW_BASIC" message="Εμφάνιση του PeerProject στη Βασική μορφή."/>
 	<tip id="ID_VIEW_DISCOVERY" message="Εναλλαγή παραθύρου Υπηρεσιών Ανακάλυψης."/>
 	<tip id="ID_VIEW_DOWNLOADS" message="Εναλλαγή παραθύρου Λήψεων."/>
-	<tip id="ID_VIEW_HELP" message="Εναλλαγή παραθύρου Βοήθειας."/>
 	<tip id="ID_VIEW_HOSTS" message="Εναλλαγή παραθύρου Host Cache."/>
 	<tip id="ID_VIEW_LIBRARY" message="Εναλλαγή παραθύρου Βιβλιοθήκης."/>
 	<tip id="ID_VIEW_MEDIA" message="Εναλλαγή παραθύρου Αναπαραγωγής Πολυμέσων."/>
@@ -2645,7 +2644,7 @@
 	<string id="WINDOW_DISCOVERY" value="Υπηρεσίες Ανακάλυψης"/>
 	<string id="WINDOW_BROWSEHOST" value="Περιήγηση"/>
 	<string id="WINDOW_MEDIA" value="Πολυμέσα"/>
-	<string id="WINDOW_HELP" value="Βοήθεια PeerProject"/>
+	<!--string id="WINDOW_HELP" value="Βοήθεια PeerProject"-->
 	<string id="WINDOW_IRC" value="Συνομιλία με Χρήστη"/>
 	<string id="20001" value="Ναι"/>
 	<string id="20002" value="Όχι"/>
@@ -3224,8 +3223,8 @@
 	<string id="20746" value="Μη Επαληθευμένο"/>
 	<string id="20747" value="Επαληθευμένο"/>
 	<string id="20748" value="Επαλήθευση"/>
-	<string id="20750" value="Καλώς ήρθατε στο PeerProject!nnΤο PeerProject είναι ένα εντελώς ελεύθερο λογισμικό.nΠαρακαλώ χρησιμοποιήστε το υπεύθυνα, έχοντας υπόψη τους νόμους πνευματικής ιδιοκτησίας.n"/>
-	<string id="20751" value="Δεν υπάρχουν ενεργές αναζητήσεις.  Κλικ εδώ για να αναζητήσετε αρχεία."/>
+	<string id="20750" value="!Καλώς ήρθατε στο {version}\n\nΤο PeerProject είναι ένα εντελώς ελεύθερο λογισμικό.\nΠαρακαλώ χρησιμοποιήστε το υπεύθυνα, έχοντας υπόψη τους νόμους πνευματικής ιδιοκτησίας."/>
+	<string id="20751" value="Δεν υπάρχουν ενεργές αναζητήσεις. Κλικ εδώ για να αναζητήσετε αρχεία."/>
 	<string id="20752" value="Δεν είστε ενωμένοι. Κλικ στο κουμπί Σύνδεση για να αρχίσετε."/>
 	<string id="20755" value="Θέλετε σίγουρα να διαγράψετε το πρότυπο &quot;%s&quot;.nΑυτό δεν μπορεί να αναιρεθεί!"/>
 	<string id="20760" value="προτεραιότητα"/>

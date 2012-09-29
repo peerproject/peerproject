@@ -2330,7 +2330,7 @@
 	<tip id="ID_DOWNLOADS_SHARE" message="Compartir este archivo parcial con otros."/>
 	<tip id="ID_DOWNLOADS_SHOW_SOURCES" message="Mostrar todas las fuentes."/>
 	<tip id="ID_DOWNLOADS_SOURCES" message="Buscar más fuentes para este archivo en la red."/>
-	<tip id="ID_DOWNLOADS_TORRENT_INFO" message="Ver información de la descarga BitTorrent seleccionado..."/>
+	<!--tip id="ID_DOWNLOADS_TORRENT_INFO" message="Ver información de la descarga BitTorrent seleccionado..."-->
 	<tip id="ID_DOWNLOADS_ADD_SOURCE" message="Agregar fuente (URI)..."/>
 	<tip id="ID_DOWNLOADS_VIEW_REVIEWS" message="Ver reviews para la descarga seleccionada"/>
 	<tip id="ID_HELP_ABOUT" message="Información acerca de PeerProject..."/>
@@ -2513,7 +2513,7 @@
 	<tip id="ID_SYSTEM_TIMESTAMP" message="Dejar estampa del tiempo en la historia."/>
 	<tip id="ID_SYSTEM_VERBOSE" message="Mostrar detalles."/>
 	<tip id="ID_TAB_CONNECT" message="Conectar o desconectar."/>
-	<tip id="ID_TAB_HELP" message="Ayuda sobre el uso de PeerProject."/>
+	<!--tip id="ID_TAB_HELP" message="Ayuda sobre el uso de PeerProject."-->
 	<tip id="ID_TAB_HOME" message="Ir a la página de inicio"/>
 	<tip id="ID_TAB_LIBRARY" message="Ver Colección Local."/>
 	<tip id="ID_TAB_MEDIA" message="Mostrar archivos de media."/>
@@ -2557,7 +2557,6 @@
 	<tip id="ID_VIEW_BASIC" message="Usar PeerProject en el modo Sencillo."/>
 	<tip id="ID_VIEW_DISCOVERY" message="Mostrar u ocultar los servicios de descubrimiento."/>
 	<tip id="ID_VIEW_DOWNLOADS" message="Muestra u oculta las subidas de archivos."/>
-	<tip id="ID_VIEW_HELP" message="Mostrar u ocultar ventana de ayuda."/>
 	<tip id="ID_VIEW_HOSTS" message="Muestra u oculta la memoria de usuarios (Host Cache)."/>
 	<tip id="ID_VIEW_LIBRARY" message="Muestra u oculta mi Colección."/>
 	<tip id="ID_VIEW_MEDIA" message="Mostrar u ocultar el Reproductor."/>
@@ -2613,7 +2612,7 @@
 	<string id="WINDOW_DISCOVERY" value="Servicios de descubrimiento"/>
 	<string id="WINDOW_BROWSEHOST" value="Explorar usuario"/>
 	<string id="WINDOW_MEDIA" value="Reproductor de media"/>
-	<string id="WINDOW_HELP" value="Ayuda de PeerProject"/>
+	<!--string id="WINDOW_HELP" value="Ayuda de PeerProject"-->
 	<string id="20001" value="Sì"/>
 	<string id="20002" value="No"/>
 	<string id="20003" value="Aceptar"/>
@@ -3202,9 +3201,9 @@
 	<string id="20746" value="No Verificado"/>
 	<string id="20747" value="Verificado"/>
 	<string id="20748" value="Verificando"/>
-	<string id="20750" value="¡Bienvenido a PeerProject! (version) !n.nPeerProject es un software completamente libre!.nPor favor utilizalo con responsabilidad y respetando las leyes intelectuales.n."/>
-	<string id="20751" value="No hay búsquedas activas.  Haz click aquí para empezar."/>
-	<string id="20752" value="No estas conectado.  Haz click a conectar para empezar."/>
+	<string id="20750" value="!Bienvenido a {version}\n\nPeerProject es un software completamente libre.\nPor favor utilizalo con responsabilidad y respetando las leyes intelectuales."/>
+	<string id="20751" value="No hay búsquedas activas. Haz click aquí para empezar."/>
+	<string id="20752" value="No estas conectado. Haz click a conectar para empezar."/>
 	<string id="20755" value="Estás seguro que deseas borrar el template &quot;%s&quot;.nEso no se puede deshacer."/>
 	<string id="20760" value="Prioridad"/>
 	<string id="20762" value="Este archivo parece spam."/>

@@ -93,7 +93,7 @@ protected:
 
 	CComplainMap				m_Complains;
 	AddressMap					m_AddressMap;		// Consolidated single-IP filters
-	HashMap						m_HashMap[urnLast];	// Consolidated blacklist filters (by enum)
+	HashMap						m_HashMap[urnLast];	// Consolidated blacklist filters (raw hashstrings, by enum)
 	RuleIndexMap				m_pRuleIndexMap;	// Applicable rule to index byte (memory efficiency)
 //	std::vector< CSecureRule* >	m_pRuleIndex;		// Alt applicable rule to map index byte (memory efficiency)
 	std::set< DWORD >			m_Cache;			// Known good addresses
@@ -127,8 +127,8 @@ public:
 
 	BYTE			SetRuleIndex(CSecureRule* pRule);
 	CSecureRule*	GetRuleByIndex(BYTE nIndex);
-	void			SetHashMap(CString sHash, BYTE nIndex);
-	BYTE			GetHashMap(CString sHash);
+	void			SetHashMap(CString sURN, BYTE nIndex);
+	BYTE			GetHashMap(CString sURN);
 	inline void		SetAddressMap(DWORD nIP, BYTE nIndex)
 	{
 		m_AddressMap[ nIP ] = nIndex;

@@ -262,7 +262,7 @@ BOOL CPeerProjectURL::ParseRoot(LPCTSTR pszURL, BOOL bResolve)
 	//	SkipSlashes( pszURL, nRoot );
 		return FALSE;	// ToDo: IRC link support
 	default:
-		if ( IsValidIP( CString( pszURL ).Trim( _T(" \t\r\n/") ) ) )
+		if ( IPStringToDWORD( CString( pszURL ).Trim( _T(" \t\r\n/") ) ) )
 			return ParsePeerProject( pszURL );
 		//return FALSE;		// Unknown? See http://en.wikipedia.org/wiki/URI_scheme
 	}
@@ -395,7 +395,7 @@ BOOL CPeerProjectURL::ParseHTTP(LPCTSTR pszURL, BOOL bResolve)
 	}
 
 	// Detect mistaken IP:port
-	if ( m_sPath == _T("/") && m_sAddress.Find( _T(':') ) > 8 && IsValidIP( m_sAddress ) )
+	if ( m_sPath == _T("/") && m_sAddress.Find( _T(':') ) > 8 && IPStringToDWORD( m_sAddress ) )
 		return ParsePeerProject( m_sAddress );
 
 	const int nAt = m_sAddress.Find( _T('@') );
@@ -1011,7 +1011,7 @@ BOOL CPeerProjectURL::ParsePeerProjectFile(LPCTSTR pszURL)
 			 StartsWith( strPart, _PT("btih:") ) ||
 			 StartsWith( strPart, _PT("ed2k:") ) ||
 			 StartsWith( strPart, _PT("md5:") ) ||
-			 StartsWith( strPart, _PT("tree:tiger") ) )	// tree:tiger: tree:tiger/: tree:tiger/1024:
+			 StartsWith( strPart, _PT("tree:tiger") ) )		// tree:tiger: tree:tiger/: tree:tiger/1024:
 		{
 			if ( ! m_oSHA1 ) m_oSHA1.fromUrn( strPart );
 			if ( ! m_oTiger ) m_oTiger.fromUrn( strPart );
@@ -1030,8 +1030,8 @@ BOOL CPeerProjectURL::ParsePeerProjectFile(LPCTSTR pszURL)
 			m_sURL += URLEncode( strSource );
 			m_sURL += _T("/(^name^)");
 		}
-		else if ( ! _tcsnicmp( strPart, _T("name:"), 5 ) ||
-				  ! _tcsnicmp( strPart, _T("file:"), 5 ) )
+		else if ( _tcsnicmp( strPart, _T("name:"), 5 ) == 0 ||
+				  _tcsnicmp( strPart, _T("file:"), 5 ) == 0 )
 		{
 			m_sName = URLDecode( strPart.Mid( 5 ) );
 			SafeString( m_sName );
@@ -1151,26 +1151,26 @@ BOOL CPeerProjectURL::ParseDonkeyFile(LPCTSTR pszURL)
 	strURL	= strURL.Mid( nSep + 1 );
 	while ( strPart != _T("/") )
 	{
-		if ( ! _tcsncmp( strPart, _T("h="), 2 ) )
+		if ( _tcsncmp( strPart, _T("h="), 2 ) == 0 )
 		{
 			// AICH hash
-			 // theApp.Message(MSG_INFO, _T("AICH") );
-			 strPart = strPart.Mid( 2 );
+			//theApp.Message(MSG_INFO, _T("AICH") );
+			strPart = strPart.Mid( 2 );
 		}
-		else if ( ! _tcsncmp( strPart, _T("s="), 2 ) )
+		else if ( _tcsncmp( strPart, _T("s="), 2 ) == 0 )
 		{
 			// HTTP source
-			// theApp.Message(MSG_INFO, _T("HTTP") );
+			//theApp.Message(MSG_INFO, _T("HTTP") );
 			strPart = strPart.Mid( 2 );
 
 			if ( ! m_sURL.IsEmpty() ) m_sURL += _T(", ");
 			SafeString( strPart );
 			m_sURL += strPart;
 		}
-		else if ( ! _tcsncmp( strPart, _T("p="), 2 ) )
+		else if ( _tcsncmp( strPart, _T("p="), 2 ) == 0 )
 		{
 			// Hash set
-			// theApp.Message(MSG_INFO, _T("hash set") );
+			//theApp.Message(MSG_INFO, _T("hash set") );
 			strPart = strPart.Mid( 2 );
 		}
 

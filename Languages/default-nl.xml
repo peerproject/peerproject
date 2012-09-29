@@ -2354,7 +2354,7 @@
 	<tip id="ID_DOWNLOADS_SHARE" message="Deel dit gedeeltelijk gedownloade bestand met andere gebruikers."/>
 	<tip id="ID_DOWNLOADS_SHOW_SOURCES" message="De bronnen weergeven die momenteel niet worden gebruikt."/>
 	<tip id="ID_DOWNLOADS_SOURCES" message="Zoek naar meer bronnen voor de geselecteerde downloads."/>
-	<tip id="ID_DOWNLOADS_TORRENT_INFO" message="Bekijk informatie over de geselecteerde BitTorrent download..."/>
+	<!--tip id="ID_DOWNLOADS_TORRENT_INFO" message="Bekijk informatie over de geselecteerde BitTorrent download..."-->
 	<tip id="ID_DOWNLOADS_ADD_SOURCE" message="Voeg een bron URL toe aan de geselecteerde download..."/>
 	<tip id="ID_DOWNLOADS_VIEW_REVIEWS" message="Bekijkt commentaar voor de geselecteerde download..."/>
 	<tip id="ID_HELP_ABOUT" message="Open het Over PeerProject... venster."/>
@@ -2534,7 +2534,7 @@
 	<tip id="ID_SYSTEM_TIMESTAMP" message="Geef elke regel een tijdstempel."/>
 	<tip id="ID_SYSTEM_VERBOSE" message="Een uitgebreider logboek weergeven van de systeemactiviteiten."/>
 	<tip id="ID_TAB_CONNECT" message="Met het netwerk verbinden of de verbinding verbreken."/>
-	<tip id="ID_TAB_HELP" message="Krijg hulp over het gebruik van PeerProject."/>
+	<!--tip id="ID_TAB_HELP" message="Krijg hulp over het gebruik van PeerProject."-->
 	<tip id="ID_TAB_HOME" message="Ga terug naar het PeerProject startpagina venster."/>
 	<tip id="ID_TAB_LIBRARY" message="Je lokale bestandenbibliotheek openen en beheren."/>
 	<tip id="ID_TAB_MEDIA" message="Audio- en videobestanden uit je bibliotheek afspelen."/>
@@ -2578,7 +2578,6 @@
 	<tip id="ID_VIEW_BASIC" message="Gebruik PeerProject in de normale stijl."/>
 	<tip id="ID_VIEW_DISCOVERY" message="Toon of verberg het discovery services venster."/>
 	<tip id="ID_VIEW_DOWNLOADS" message="Toon of verberg het downloadvenster."/>
-	<tip id="ID_VIEW_HELP" message="Toon of verberg het helpvenster."/>
 	<tip id="ID_VIEW_HOSTS" message="Toon of verberg het host cache venster."/>
 	<tip id="ID_VIEW_LIBRARY" message="Toon of verberg het bibliotheekvenster."/>
 	<tip id="ID_VIEW_MEDIA" message="Toon of verberg het mediaspelervenster."/>
@@ -2634,7 +2633,7 @@
 	<string id="WINDOW_DISCOVERY" value="Discovery services"/>
 	<string id="WINDOW_BROWSEHOST" value="Bekijken"/>
 	<string id="WINDOW_MEDIA" value="Media"/>
-	<string id="WINDOW_HELP" value="PeerProject help"/>
+	<!--string id="WINDOW_HELP" value="PeerProject help"-->
 	<string id="WINDOW_IRC" value="PeerProject chat"/>
 <!--
 	<string id="X154" value="Weet je zeker dat je alle geplande taken wilt verwijderen? Dit kan niet ongedaan worden gemaakt."/>
@@ -3231,7 +3230,7 @@
 	<string id="20746" value="Niet decontroleerd"/>
 	<string id="20747" value="Gecontroleerd"/>
 	<string id="20748" value="Controleert..."/>
-	<string id="20750" value="!Welkom bij PeerProject (version)!\n.\nPeerProject is volledig gratis software.\nGebruik het alsjeblieft verantwoord en respecteer intellectuele eigendomsrechten.\n."/>
+	<string id="20750" value="!Welkom bij {version}\n\nPeerProject is volledig gratis software.\nGebruik het alsjeblieft verantwoord en respecteer intellectuele eigendomsrechten."/>
 	<string id="20751" value="Er zijn geen actieve zoekopdrachten. Klik hier om naar bestanden te zoeken."/>
 	<string id="20752" value="Je bent niet verbonden. Klik op &quot;verbinden&quot; om te starten."/>
 	<string id="20755" value="Ben je zeker dat je de &quot;%s&quot; sjabloon wil verwijderen?\nDit kan niet ongedaan gemaakt worden.."/>

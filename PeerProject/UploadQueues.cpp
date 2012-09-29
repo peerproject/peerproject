@@ -340,7 +340,6 @@ DWORD CUploadQueues::GetMinimumDonkeyBandwidth()
 
 	if ( nTotalPoints < 1 ) nTotalPoints = 1;
 
-
 	nBandwidth = nLimit * nDonkeyPoints / nTotalPoints;
 
 	return nBandwidth;
@@ -512,6 +511,8 @@ BOOL CUploadQueues::Save()
 					ar.Close();
 				}
 
+				pFile.Close();
+
 				if ( MoveFileEx( strTemp, strFile, MOVEFILE_COPY_ALLOWED | MOVEFILE_REPLACE_EXISTING ) )
 					return TRUE;	// Success
 			}
@@ -520,14 +521,12 @@ BOOL CUploadQueues::Save()
 				ar.Abort();
 				pFile.Abort();
 				pException->Delete();
-				return FALSE;
 			}
 		}
 		catch ( CException* pException )
 		{
 			pFile.Abort();
 			pException->Delete();
-			return FALSE;
 		}
 
 		pFile.Close();
@@ -1039,5 +1038,5 @@ void CUploadQueues::Validate()
 
 	// Display warning if needed
 	if ( m_bDonkeyLimited && Settings.eDonkey.Enabled || Settings.eDonkey.EnableAlways )
-			theApp.Message( MSG_NOTICE, _T("eDonkey upload ratio active: Low uploads may slow downloads.") );
+		theApp.Message( MSG_NOTICE, _T("eDonkey upload ratio active: Low uploads may slow downloads.") );
 }

@@ -107,13 +107,9 @@ BOOL CConnectionSettingsPage::OnInitDialog()
 	pOutHost->AddString( strAutomatic );
 
 	// Firewall status
-	CString str;
-	LoadString( str, IDS_GENERAL_AUTO );
-	m_wndCanAccept.AddString( str );
-	LoadString( str, IDS_GENERAL_NO );
-	m_wndCanAccept.AddString( str );
-	LoadString( str, IDS_GENERAL_YES );
-	m_wndCanAccept.AddString( str );
+	m_wndCanAccept.AddString( LoadString( IDS_GENERAL_AUTO ) );
+	m_wndCanAccept.AddString( LoadString( IDS_GENERAL_NO ) );
+	m_wndCanAccept.AddString( LoadString( IDS_GENERAL_YES ) );
 	//m_wndCanAccept.AddString( _T("TCP-Only") );
 	//m_wndCanAccept.AddString( _T("UDP-Only") );	// "Temp disabled"  ToDo:?
 
@@ -139,7 +135,7 @@ BOOL CConnectionSettingsPage::OnInitDialog()
 
 	if ( GetIpAddrTable( ipAddr, &nSize, TRUE ) == NO_ERROR )
 	{
-		DWORD nCount = ipAddr->dwNumEntries;
+		const DWORD nCount = ipAddr->dwNumEntries;
 		for ( DWORD nIf = 0 ; nIf < nCount ; nIf++ )
 		{
 			ip = ipAddr->table[ nIf ].dwAddr;
@@ -233,18 +229,14 @@ BOOL CConnectionSettingsPage::OnKillActive()
 
 	if ( ! Settings.ParseVolume( m_sInSpeed, Kilobits ) )
 	{
-		CString strMessage;
-		LoadString( strMessage, IDS_SETTINGS_NEED_BANDWIDTH );
-		MsgBox( strMessage, MB_ICONEXCLAMATION );
+		MsgBox( IDS_SETTINGS_NEED_BANDWIDTH, MB_ICONEXCLAMATION );
 		m_wndInSpeed.SetFocus();
 		return FALSE;
 	}
 
 	if ( ! Settings.ParseVolume( m_sOutSpeed, Kilobits ) )
 	{
-		CString strMessage;
-		LoadString( strMessage, IDS_SETTINGS_NEED_BANDWIDTH );
-		MsgBox( strMessage, MB_ICONEXCLAMATION );
+		MsgBox( IDS_SETTINGS_NEED_BANDWIDTH, MB_ICONEXCLAMATION );
 		m_wndOutSpeed.SetFocus();
 		return FALSE;
 	}
@@ -348,37 +340,37 @@ CString CConnectionSettingsPage::GetInOutHostTranslation()
 void CConnectionSettingsPage::OnShowWindow(BOOL bShow, UINT nStatus)
 {
 	CSettingsPage::OnShowWindow(bShow, nStatus);
-	if ( bShow )
+
+	if ( ! bShow ) return;
+
+	// Update the bandwidth combo values
+
+	// Update speed units
+	m_sOutSpeed	= Settings.SmartSpeed( Settings.Connection.OutSpeed, Kilobits );
+	m_sInSpeed	= Settings.SmartSpeed( Settings.Connection.InSpeed, Kilobits );
+
+	// Remove any existing strings
+	m_wndInSpeed.ResetContent();
+	m_wndOutSpeed.ResetContent();
+
+	// Add the new ones
+	const DWORD nSpeeds[] =
 	{
-		// Update the bandwidth combo values
-
-		// Update speed units
-		m_sOutSpeed	= Settings.SmartSpeed( Settings.Connection.OutSpeed, Kilobits );
-		m_sInSpeed	= Settings.SmartSpeed( Settings.Connection.InSpeed, Kilobits );
-
-		// Remove any existing strings
-		m_wndInSpeed.ResetContent();
-		m_wndOutSpeed.ResetContent();
-
-		// Add the new ones
-		const DWORD nSpeeds[] =
+		56, 128, 256, 384, 512, 640, 768, 1024, 1550, 2048, 3072,
+		4096, 5120, 8192, 10240, 12288, 24576, 45000, 102400, 155000
+	};
+	for ( int nSpeed = 0 ; nSpeed < sizeof( nSpeeds ) / sizeof( DWORD ) ; nSpeed++ )
+	{
+		CString strSpeed = Settings.SmartSpeed( nSpeeds[ nSpeed ], Kilobits );
+		if ( Settings.ParseVolume( strSpeed, Kilobits )
+			&& m_wndInSpeed.FindStringExact( -1, strSpeed ) == CB_ERR )
 		{
-			56, 128, 256, 384, 512, 640, 768, 1024, 1550, 2048, 3072,
-			4096, 5120, 8192, 10240, 12288, 24576, 45000, 102400, 155000
-		};
-		for ( int nSpeed = 0 ; nSpeed < sizeof( nSpeeds ) / sizeof( DWORD ) ; nSpeed++ )
-		{
-			CString strSpeed = Settings.SmartSpeed( nSpeeds[ nSpeed ], Kilobits );
-			if ( Settings.ParseVolume( strSpeed, Kilobits )
-				&& m_wndInSpeed.FindStringExact( -1, strSpeed ) == CB_ERR )
-			{
-				m_wndInSpeed.AddString( strSpeed );
-				m_wndOutSpeed.AddString( strSpeed );
-			}
+			m_wndInSpeed.AddString( strSpeed );
+			m_wndOutSpeed.AddString( strSpeed );
 		}
-
-		UpdateData( FALSE );
 	}
+
+	UpdateData( FALSE );
 }
 
 void CConnectionSettingsPage::OnClickedEnableUpnp()

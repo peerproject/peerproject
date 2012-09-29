@@ -145,7 +145,7 @@ BOOL CUploadsSettingsPage::OnInitDialog()
 	if ( Settings.Bandwidth.Uploads )
 		m_sBandwidthLimit = Settings.SmartSpeed( Settings.Bandwidth.Uploads );
 	else
-		m_sBandwidthLimit	= _T("MAX");
+		m_sBandwidthLimit = _T("MAX");
 
 	UpdateData( FALSE );
 
@@ -180,7 +180,6 @@ void CUploadsSettingsPage::UpdateQueues()
 		// If queue is ed2k only and we need to be connected to upload, Then queue is inactive ed2k isn't enabled
 		if ( ( ( pQueue->m_nProtocols & ( 1 << PROTOCOL_ED2K ) ) != 0 ) && ( Settings.Connection.RequireForTransfers ) )
 			bDonkeyOnlyDisabled = !( Settings.eDonkey.EnableAlways | Settings.eDonkey.Enabled );
-
 
 		// If the queue is inactive and we're in basic GUI mode
 		if ( ( bDonkeyOnlyDisabled ) && (Settings.General.GUIMode == GUI_BASIC) )
@@ -336,9 +335,7 @@ BOOL CUploadsSettingsPage::OnKillActive()
 
 	if ( IsLimited( m_sBandwidthLimit ) && ! Settings.ParseVolume( m_sBandwidthLimit ) )
 	{
-		CString strMessage;
-		LoadString( strMessage, IDS_SETTINGS_NEED_BANDWIDTH );
-		MsgBox( strMessage, MB_ICONEXCLAMATION );
+		MsgBox( IDS_SETTINGS_NEED_BANDWIDTH, MB_ICONEXCLAMATION );
 		GetDlgItem( IDC_UPLOADS_BANDWIDTH_LIMIT )->SetFocus();
 		return FALSE;
 	}
@@ -360,11 +357,10 @@ void CUploadsSettingsPage::OnOK()
 	Settings.Uploads.FairUseMode	= m_bFairUseMode != FALSE;
 	Settings.Bandwidth.Uploads		= static_cast< DWORD >( Settings.ParseVolume( m_sBandwidthLimit ) );
 
-
 	// Warn the user about the effects of upload limiting
 	if ( ! Settings.Live.UploadLimitWarning && Settings.Bandwidth.Uploads > 0 && Settings.Bandwidth.Uploads != nOldLimit )
 	{
-		QWORD nDownload = max( Settings.Bandwidth.Downloads, Settings.Connection.InSpeed  * Kilobits / Bytes );
+		QWORD nDownload	= max( Settings.Bandwidth.Downloads, Settings.Connection.InSpeed  * Kilobits / Bytes );
 		QWORD nUpload	= min( Settings.Bandwidth.Uploads,   Settings.Connection.OutSpeed * Kilobits / Bytes );
 
 		if ( nUpload * 16 < nDownload )
@@ -397,48 +393,47 @@ void CUploadsSettingsPage::OnOK()
 	UpdateQueues();
 }
 
-
 void CUploadsSettingsPage::OnShowWindow(BOOL bShow, UINT nStatus)
 {
 	CSettingsPage::OnShowWindow(bShow, nStatus);
-	if ( bShow )
+
+	if ( ! bShow ) return;
+
+	// Update the bandwidth limit combo values
+
+	// Update speed units
+	if ( Settings.Bandwidth.Uploads )
+		m_sBandwidthLimit = Settings.SmartSpeed( Settings.Bandwidth.Uploads );
+	else
+		m_sBandwidthLimit = _T("MAX");
+
+	// Remove any existing strings
+	m_wndBandwidthLimit.ResetContent();
+
+	// Add the new ones
+	const DWORD nSpeeds[] =
 	{
-		// Update the bandwidth limit combo values
-
-		// Update speed units
-		if ( Settings.Bandwidth.Uploads )
-			m_sBandwidthLimit = Settings.SmartSpeed( Settings.Bandwidth.Uploads );
-		else
-			m_sBandwidthLimit = _T("MAX");
-
-		// Remove any existing strings
-		m_wndBandwidthLimit.ResetContent();
-
-		// Add the new ones
-		const DWORD nSpeeds[] =
+		Settings.Connection.OutSpeed / 4,			//  25%
+		Settings.Connection.OutSpeed / 2,			//  50%
+		( Settings.Connection.OutSpeed * 3 ) / 4,	//  75%
+		( Settings.Connection.OutSpeed * 9 ) / 10,	//  90%
+		Settings.Connection.OutSpeed				// 100%
+	};
+	for ( int nSpeed = 0 ; nSpeed < sizeof( nSpeeds ) / sizeof( DWORD ) ; nSpeed++ )
+	{
+		CString strSpeed = Settings.SmartSpeed( nSpeeds[ nSpeed ], Kilobits );
+		if ( Settings.ParseVolume( strSpeed, Kilobits )
+			&& m_wndBandwidthLimit.FindStringExact( -1, strSpeed ) == CB_ERR )
 		{
-			Settings.Connection.OutSpeed / 4,			//  25%
-			Settings.Connection.OutSpeed / 2,			//  50%
-			( Settings.Connection.OutSpeed * 3 ) / 4,	//  75%
-			( Settings.Connection.OutSpeed * 9 ) / 10,	//  90%
-			Settings.Connection.OutSpeed				// 100%
-		};
-		for ( int nSpeed = 0 ; nSpeed < sizeof( nSpeeds ) / sizeof( DWORD ) ; nSpeed++ )
-		{
-			CString strSpeed = Settings.SmartSpeed( nSpeeds[ nSpeed ], Kilobits );
-			if ( Settings.ParseVolume( strSpeed, Kilobits )
-				&& m_wndBandwidthLimit.FindStringExact( -1, strSpeed ) == CB_ERR )
-			{
-				m_wndBandwidthLimit.AddString( strSpeed );
-			}
+			m_wndBandwidthLimit.AddString( strSpeed );
 		}
-		m_wndBandwidthLimit.AddString( _T("MAX") );
-
-		UpdateData( FALSE );
-
-		// Update queue window to show current limit
-		UpdateQueues();
 	}
+	m_wndBandwidthLimit.AddString( _T("MAX") );
+
+	UpdateData( FALSE );
+
+	// Update queue window to show current limit
+	UpdateQueues();
 }
 
 bool CUploadsSettingsPage::IsLimited(CString& strText) const

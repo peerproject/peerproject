@@ -1322,9 +1322,9 @@ void CDownloadsCtrl::PaintSource(CDC& dc, const CRect& rcRow, CDownload* pDownlo
 
 	for ( int nColumn = 0 ; m_wndHeader.GetItem( nColumn, &pColumn ) ; nColumn++ )
 	{
-		CString strText;
 		CRect rcCell;
-		BOOL bDisplayText	= TRUE;
+		CString strText;
+		BOOL bDisplayText = TRUE;
 
 		m_wndHeader.GetItemRect( nColumn, &rcCell );
 		rcCell.left		+= rcRow.left;
@@ -1409,8 +1409,7 @@ void CDownloadsCtrl::PaintSource(CDC& dc, const CRect& rcRow, CDownload* pDownlo
 				if ( pSource->GetState() > dtsHeaders && pSource->m_oAvailable.empty() )
 					rcCell.Width() > 50 ? strText = _T("100.00%") : strText = _T("100%");
 				else if ( rcCell.Width() > 50 )
-					strText.Format( _T("%.2f%%"),
-						float( pSource->m_oAvailable.length_sum() * 10000 / pSource->m_pDownload->m_nSize ) / 100 );
+					strText.Format( _T("%.2f%%"), float( pSource->m_oAvailable.length_sum() * 10000 / pSource->m_pDownload->m_nSize ) / 100 );
 				else
 					strText.Format( _T("%i%%"), int( pSource->m_oAvailable.length_sum() * 100 / pSource->m_pDownload->m_nSize ) );
 			}
@@ -1427,7 +1426,9 @@ void CDownloadsCtrl::PaintSource(CDC& dc, const CRect& rcRow, CDownload* pDownlo
 
 		case DOWNLOAD_COLUMN_STATUS:
 			if ( ! pSource->IsIdle() )
+			{
 				strText = pSource->GetState( FALSE );
+			}
 			else if ( pSource->m_tAttempt && pDownload->IsTrying() )
 			{
 				DWORD nTime = GetTickCount();
@@ -1610,8 +1611,8 @@ void CDownloadsCtrl::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar
 void CDownloadsCtrl::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar*/)
 {
 	SCROLLINFO pInfo = {};
-	pInfo.cbSize	= sizeof(pInfo);
-	pInfo.fMask		= SIF_ALL & ~SIF_TRACKPOS;
+	pInfo.cbSize = sizeof(pInfo);
+	pInfo.fMask  = SIF_ALL & ~SIF_TRACKPOS;
 
 	GetScrollInfo( SB_HORZ, &pInfo );
 	int nDelta = pInfo.nPos;
@@ -1823,7 +1824,6 @@ void CDownloadsCtrl::OnSortPanelItems(NMHDR* pNotifyStruct, LRESULT* /*pResult*/
 	BubbleSortDownloads( pLV->iItem );
 	Invalidate();
 }
-
 
 void CDownloadsCtrl::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
@@ -2096,7 +2096,6 @@ void CDownloadsCtrl::OnLButtonDblClk(UINT nFlags, CPoint point)
 					for ( POSITION posSource = pDownload->GetIterator() ; posSource ; )
 					{
 						CDownloadSource* pDownloadSource = pDownload->GetNext( posSource );
-
 						pDownloadSource->m_bSelected = FALSE;
 					}
 				}
@@ -2359,8 +2358,8 @@ int CDownloadsCtrl::GetExpandableColumnX() const
 	{
 		if ( pColumn.lParam == DOWNLOAD_COLUMN_TITLE )
 			break;
-		else
-			nTitleStarts += pColumn.cxy;
+
+		nTitleStarts += pColumn.cxy;
 	}
 
 	return nTitleStarts;

@@ -2191,7 +2191,7 @@
 	<tip id="ID_DOWNLOADS_FILTER_QUEUED" message="顯示排隊中的下載."/>
 	<tip id="ID_DOWNLOADS_FILTER_SOURCES" message="顯示等待來源中的下載."/>
 	<tip id="ID_DOWNLOADS_HELP" message="檢視這個下載的說明資訊..."/>
-	<tip id="ID_DOWNLOADS_LAUNCH" message="Preview the selected file(s) in place."/>
+	<tip id="ID_DOWNLOADS_LAUNCH" message="Preview the selected files in place."/>
 	<tip id="ID_DOWNLOADS_LAUNCH_COMPLETE" message="開啟或播放選擇的檔案."/>
 	<tip id="ID_DOWNLOADS_LAUNCH_COPY" message="聰明地預覽選擇的下載."/>
 	<tip id="ID_DOWNLOADS_MONITOR" message="為這個下載開啟一個下載監控視窗..."/>
@@ -2205,7 +2205,7 @@
 	<tip id="ID_DOWNLOADS_SHARE" message="與其他使用者分享這個部份完成的檔案."/>
 	<tip id="ID_DOWNLOADS_SHOW_SOURCES" message="顯示目前沒有用到的來源."/>
 	<tip id="ID_DOWNLOADS_SOURCES" message="為選擇的下載搜尋更多的來源."/>
-	<tip id="ID_DOWNLOADS_TORRENT_INFO" message="檢視選擇的 BitTorrent 下載的資訊..."/>
+	<!--tip id="ID_DOWNLOADS_TORRENT_INFO" message="檢視選擇的 BitTorrent 下載的資訊..."-->
 	<tip id="ID_DOWNLOADS_ADD_SOURCE" message="將來源的 URL 新增至選擇的下載..."/>
 	<tip id="ID_DOWNLOADS_VIEW_REVIEWS" message="檢視選擇的下載的評論"/>
 	<tip id="ID_HELP_ABOUT" message="顯示 PeerProject 關於對話框..."/>
@@ -2382,7 +2382,7 @@
 	<tip id="ID_SYSTEM_TIMESTAMP" message="為每一列附上時間郵戳."/>
 	<tip id="ID_SYSTEM_VERBOSE" message="顯示詳細系統活動記錄."/>
 	<tip id="ID_TAB_CONNECT" message="由網路連線或是中斷連線."/>
-	<tip id="ID_TAB_HELP" message="取得使用 PeerProject 的說明."/>
+	<!--tip id="ID_TAB_HELP" message="取得使用 PeerProject 的說明."-->
 	<tip id="ID_TAB_HOME" message="回到 PeerProject 主頁"/>
 	<tip id="ID_TAB_LIBRARY" message="檢視與編輯您的本地收藏內容."/>
 	<tip id="ID_TAB_MEDIA" message="播放我的收藏裡的音訊與視訊檔案."/>
@@ -2426,7 +2426,6 @@
 	<tip id="ID_VIEW_BASIC" message="使用 PeerProject 的標準模式."/>
 	<tip id="ID_VIEW_DISCOVERY" message="顯示或隱藏揭示服務視窗."/>
 	<tip id="ID_VIEW_DOWNLOADS" message="顯示或隱藏 下載視窗."/>
-	<tip id="ID_VIEW_HELP" message="顯示或隱藏 說明視窗."/>
 	<tip id="ID_VIEW_HOSTS" message="顯示或隱藏 主機快取視窗."/>
 	<tip id="ID_VIEW_LIBRARY" message="顯示或隱藏 收藏視窗."/>
 	<tip id="ID_VIEW_MEDIA" message="顯示或隱藏 多媒體播放程式視窗."/>
@@ -2471,7 +2470,7 @@
 	<string id="WINDOW_DISCOVERY" value="揭示服務"/>
 	<string id="WINDOW_BROWSEHOST" value="瀏覽"/>
 	<string id="WINDOW_MEDIA" value="多媒體播放程式"/>
-	<string id="WINDOW_HELP" value="PeerProject 說明"/>
+	<!--string id="WINDOW_HELP" value="PeerProject 說明"-->
 	<string id="20001" value="可以"/>
 	<string id="20002" value="不行"/>
 	<string id="20003" value="確定"/>
@@ -3034,7 +3033,7 @@
 	<string id="20746" value="未驗證"/>
 	<string id="20747" value="已驗證"/>
 	<string id="20748" value="驗證中"/>
-	<string id="20750" value="!歡迎使用 PeerProject (版本) !\n.\nPeerProject 是完全免費的軟體.\n請有責任地使用, 並尊重智慧財產權.\n."/>
+	<string id="20750" value="!歡迎使用 {version}\n\nPeerProject 是完全免費的軟體.\n請有責任地使用, 並尊重智慧財產權."/>
 	<string id="20751" value="目前沒有活躍中的搜尋. 點選這裡搜尋檔案."/>
 	<string id="20752" value="您還尚未連線. 點選連線鈕開始."/>
 	<string id="20755" value="您確定要刪除樣版 &quot;%s&quot; ?\n 此動作不能回復."/>

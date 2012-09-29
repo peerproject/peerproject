@@ -2783,16 +2783,13 @@ int CIRCFrame::FindInList(CString strName, int nList, int nTab)
 //	{
 //		if ( strText.GetAt( 256 ) == ' ' )
 //			strText = strText.Left( 255 );
+//		else if ( strText.GetAt( 255 ) == ' ' )
+//			strText = strText.Left( 254 ) + _T("\x2026");
 //		else
 //		{
-//			if ( strText.GetAt( 255 ) == ' ' )
-//				strText = strText.Left( 254 ) + _T("\x2026");
-//			else
-//			{
-//				strText = strText.Left( 254 );
-//				int nLastWord = strText.ReverseFind( ' ' );
-//				strText = strText.Left( nLastWord ) + _T("\x2026");
-//			}
+//			strText = strText.Left( 254 );
+//			int nLastWord = strText.ReverseFind( ' ' );
+//			strText = strText.Left( nLastWord ) + _T("\x2026");
 //		}
 //	}
 //	// Balloon title text can be up to 63 chars long.
@@ -2815,7 +2812,7 @@ int CIRCFrame::FindInList(CString strName, int nList, int nTab)
 //	else
 //		m_pTray.szInfoTitle[0] = _T('\0');
 //	m_pTray.dwInfoFlags = dwIcon;
-//	m_pTray.uTimeout = uTimeout * 1000;   // Convert time to ms
+//	m_pTray.uTimeout = uTimeout * 1000;		// Convert time to ms
 //	m_pTray.szInfo[0] = _T('\0');
 //
 //	return (BOOL)Shell_NotifyIcon( NIM_MODIFY, &m_pTray );

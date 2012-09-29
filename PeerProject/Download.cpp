@@ -640,8 +640,7 @@ void CDownload::OnMoved()
 BOOL CDownload::Load(LPCTSTR pszName)
 {
 	ASSERT( m_sPath.IsEmpty() );
-	m_sPath = pszName;
-	GetSafePath( m_sPath );
+	m_sPath = SafePath( pszName );
 
 	BOOL bSuccess = FALSE;
 	CFile pFile;

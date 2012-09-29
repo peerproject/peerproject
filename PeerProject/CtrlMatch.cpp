@@ -861,7 +861,8 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 				}
 
 				// Draw file icon
-				ShellIcons.Draw( &dc, pFile->m_nShellIndex, 16, rcCol.left + 16, rcCol.top,	crLeftMargin, bSelected );
+				ShellIcons.Draw( &dc, pFile->m_nShellIndex,
+					16, rcCol.left + 16, rcCol.top,	crLeftMargin, bSelected );
 
 				if ( bLeftMargin || ! bSelectmark )
 					dc.FillSolidRect( rcCol.left, rcCol.top + 16, 32, Settings.Skin.RowSize - 16, crLeftMargin );
@@ -1625,7 +1626,7 @@ void CMatchCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 				}
 			}
 		}
-		else
+		else	// ! MK_SHIFT
 		{
 			m_pLastSelectedFile = pFile;
 			m_pLastSelectedHit = pHit;
@@ -1647,7 +1648,7 @@ void CMatchCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 			}
 		}
 	}
-	else
+	else	// ! pFile
 	{
 		m_pLastSelectedFile = NULL;
 		m_pLastSelectedHit = NULL;
@@ -1694,11 +1695,10 @@ void CMatchCtrl::OnMouseMove(UINT nFlags, CPoint point)
 BOOL CMatchCtrl::PixelTest(const CPoint& point)
 {
 	POINT pNESW[4] = { { 0, -1 }, { 1, 0 }, { 0, 1 }, { -1, 0 } };
+	COLORREF crEmpty = Colors.m_crWindow;
 	CClientDC dc( this );
-	COLORREF crEmpty;
 	CRect rc;
 
-	crEmpty = Colors.m_crWindow;
 	if ( dc.GetPixel( point ) != crEmpty ) return TRUE;
 	GetClientRect( &rc );
 
@@ -1864,8 +1864,8 @@ void CMatchCtrl::MoveFocus(int nDelta, BOOL bShift)
 	CMatchFile** ppFile = m_pMatches->m_pFiles + m_nFocus;
 	int nSign = ( nDelta > 0 ) ? 1 : -1;
 
-	for ( ;	m_nFocus < m_pMatches->m_nFiles
-		  ;	m_nFocus += nSign, ppFile += nSign )
+	for ( ; m_nFocus < m_pMatches->m_nFiles ;
+		  m_nFocus += nSign, ppFile += nSign )
 	{
 		CMatchFile* pFile = *ppFile;
 		if ( pFile->GetItemCount() ) break;
@@ -1967,9 +1967,8 @@ void CMatchCtrl::DoExpand(BOOL bExpand)
 void CMatchCtrl::SelectAll()
 {
 	CSingleLock pLock( &m_pMatches->m_pSection, TRUE );
-	BOOL bChanged = FALSE;
 
-	bChanged |= m_pMatches->ClearSelection();
+	BOOL bChanged = m_pMatches->ClearSelection();
 
 	CMatchFile** ppCurFile = m_pMatches->m_pFiles;
 	for ( DWORD i = 0 ; i < m_pMatches->m_nFiles ; i++, ppCurFile++ )

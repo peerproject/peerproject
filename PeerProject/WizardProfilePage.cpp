@@ -1,7 +1,7 @@
 //
 // WizardProfilePage.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -212,8 +212,6 @@ LRESULT CWizardProfilePage::OnWizardBack()
 
 LRESULT CWizardProfilePage::OnWizardNext()
 {
-	CString strMessage;
-
 	UpdateData( TRUE );
 
 	if ( CXMLElement* pIdentity = MyProfile.GetXML( _T("identity"), TRUE ) )
@@ -321,19 +319,16 @@ LRESULT CWizardProfilePage::OnWizardNext()
 
 	//if ( MyProfile.GetNick().IsEmpty() )
 	//{
-	//	LoadString( strMessage, IDS_PROFILE_NO_NICK );
-	//	MsgBox( strMessage, MB_ICONEXCLAMATION );
+	//	MsgBox( IDS_PROFILE_NO_NICK, MB_ICONEXCLAMATION );
 	//	return -1;
 	//}
 	//if ( MyProfile.GetXML( _T("vitals") ) == NULL )
 	//{
-	//	LoadString( strMessage, IDS_PROFILE_NO_VITALS );
-	//	if ( MsgBox( strMessage, MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 ) != IDYES ) return -1;
+	//	if ( MsgBox( IDS_PROFILE_NO_VITALS, MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 ) != IDYES ) return -1;
 	//}
 	//if ( MyProfile.GetLocation().IsEmpty() )
 	//{
-	//	LoadString( strMessage, IDS_PROFILE_NO_LOCATION );
-	//	if ( MsgBox( strMessage, MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 ) != IDYES ) return -1;
+	//	if ( MsgBox( IDS_PROFILE_NO_LOCATION, MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 ) != IDYES ) return -1;
 	//}
 
 	MyProfile.Save();
