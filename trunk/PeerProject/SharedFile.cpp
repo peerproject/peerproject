@@ -424,7 +424,7 @@ BOOL CLibraryFile::Rebuild()
 	if ( m_pMetadata && m_bMetadataAuto )
 	{
 		delete m_pMetadata;
-		m_pMetadata	= NULL;
+		m_pMetadata = NULL;
 	}
 
 	Library.AddFile( this );
@@ -957,7 +957,6 @@ void CLibraryFile::Serialize(CArchive& ar, int nVersion)
 		}
 		if ( m_pSchema == NULL )
 			m_pSchema = SchemaCache.GuessByFilename( m_sName );
-
 
 		ar >> m_nRating;
 		ar >> m_sComments;

@@ -2309,7 +2309,7 @@
 	<tip id="ID_DOWNLOADS_SHARE" message="Deel hierdie onvoltooide lêer met ander gebruikers."/>
 	<tip id="ID_DOWNLOADS_SHOW_SOURCES" message="Vertoon bronne wat nie tans gebruik word nie."/>
 	<tip id="ID_DOWNLOADS_SOURCES" message="Soek vir meer bronne vir die geselekteerde aflaai(e)."/>
-	<tip id="ID_DOWNLOADS_TORRENT_INFO" message="Vertoon inligting oor die geselekteerde BitTorrent aflaai..."/>
+	<!--tip id="ID_DOWNLOADS_TORRENT_INFO" message="Vertoon inligting oor die geselekteerde BitTorrent aflaai..."-->
 	<tip id="ID_DOWNLOADS_ADD_SOURCE" message="Voeg 'n bron URL by die geselekteerde aflaai..."/>
 	<tip id="ID_DOWNLOADS_VIEW_REVIEWS" message="Vertoon resensies van die geselekteerde aflaai"/>
 	<tip id="ID_HELP_ABOUT" message="Vertoon inligting oor PeerProject..."/>
@@ -2488,7 +2488,7 @@
 	<tip id="ID_SYSTEM_TIMESTAMP" message="Hou rekord van die tyd van elke lyn."/>
 	<tip id="ID_SYSTEM_VERBOSE" message="Vertoon 'n gedetailleerde stelselaktiwiteitslog."/>
 	<tip id="ID_TAB_CONNECT" message="Konnekteer aan, of diskonnekteer van die netwerk."/>
-	<tip id="ID_TAB_HELP" message="Verkry hulp met die gebruik van PeerProject."/>
+	<!--tip id="ID_TAB_HELP" message="Verkry hulp met die gebruik van PeerProject."-->
 	<tip id="ID_TAB_HOME" message="Keer terug na die PeerProject Tuisblad"/>
 	<tip id="ID_TAB_LIBRARY" message="Vertoon en beheer jou lokale lêerbiblioteek."/>
 	<tip id="ID_TAB_MEDIA" message="Speel klank- en videolêers vanaf jou biblioteek."/>
@@ -2532,7 +2532,6 @@
 	<tip id="ID_VIEW_BASIC" message="Gebruik PeerProject in Normale modus."/>
 	<tip id="ID_VIEW_DISCOVERY" message="Vertoon of verwyder die ONTDEKKINGSDIENSTE venster."/>
 	<tip id="ID_VIEW_DOWNLOADS" message="Vertoon of verwyder die AFLAAIE venster."/>
-	<tip id="ID_VIEW_HELP" message="Vertoon of verwyder die HULP venster."/>
 	<tip id="ID_VIEW_HOSTS" message="Vertoon of verwyder die GASHEERLYS venster."/>
 	<tip id="ID_VIEW_LIBRARY" message="Vertoon of verwyder die BIBLIOTEEK venster."/>
 	<tip id="ID_VIEW_MEDIA" message="Vertoon die MEDIA SPELER venster."/>
@@ -2581,7 +2580,7 @@
 	<string id="WINDOW_DISCOVERY" value="Ontdekkingsdienste"/>
 	<string id="WINDOW_BROWSEHOST" value="Blaai Deur"/>
 	<string id="WINDOW_MEDIA" value="Media Speler"/>
-	<string id="WINDOW_HELP" value="PeerProject Hulp"/>
+	<!--string id="WINDOW_HELP" value="PeerProject Hulp"-->
 	<string id="20001" value="Ja"/>
 	<string id="20002" value="Nee"/>
 	<string id="20003" value="OK"/>
@@ -3158,9 +3157,9 @@
 	<string id="20746" value="Nie Gekontroleer"/>
 	<string id="20747" value="Gekontroleer"/>
 	<string id="20748" value="Kontroleer"/>
-	<string id="20750" value="!Welkom by PeerProject (version) !\n.\nPeerProject is heeltemal gratis sagteware.\nGebruik dit asseblief verantwoordelik en respekteer intellektuele goederereg.\n."/>
-	<string id="20751" value="Daar is geen aktiewe soektogte nie.  Kliek hier om vir lêers te soek."/>
-	<string id="20752" value="Jy is nie gekonnekteer nie.  Kliek die Konnekteer-knoppie om te begin."/>
+	<string id="20750" value="!Welkom by {version}\n\nPeerProject is heeltemal gratis sagteware.\nGebruik dit asseblief verantwoordelik en respekteer intellektuele goederereg."/>
+	<string id="20751" value="Daar is geen aktiewe soektogte nie. Kliek hier om vir lêers te soek."/>
+	<string id="20752" value="Jy is nie gekonnekteer nie. Kliek die Konnekteer-knoppie om te begin."/>
 	<string id="20755" value="Are you sure you want to delete the &quot;%s&quot; template?\nThis cannot be undone."/>
 	<string id="20760" value="Prioriteit"/>
 	<string id="20762" value="Hierdie lêer blyk gemors (spam) te wees."/>

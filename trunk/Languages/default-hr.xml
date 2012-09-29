@@ -2284,7 +2284,7 @@
 	<tip id="ID_SEARCHMONITOR_PAUSE" message="Pause search monitoring."/>
 	<!-- MISSING Security/Scheduler Tips -->
 	<tip id="ID_TAB_CONNECT" message="Spoji se ili isključi sa mreže."/>
-	<tip id="ID_TAB_HELP" message="Potraži pomoć u korištenju PeerProject."/>
+	<!--tip id="ID_TAB_HELP" message="Potraži pomoć u korištenju PeerProject."/>
 	<tip id="ID_TAB_HOME" message="Vrača PeerProject na početnu stranicu"/>
 	<tip id="ID_TAB_LIBRARY" message="Pregledajte ili sredite vašu kolekciju datoteka."/>
 	<tip id="ID_TAB_MEDIA" message="Pustite vašu omiljenu pjesmi ili film iz vaše kolekcije."/>
@@ -2321,7 +2321,7 @@
 	<string id="WINDOW_DISCOVERY" value="Discovery Services"/>
 	<string id="WINDOW_BROWSEHOST" value="Pogledaj što djeli"/>
 	<string id="WINDOW_MEDIA" value="Media Player"/>
-	<string id="WINDOW_HELP" value="PeerProject Pomoć"/>
+	<!--string id="WINDOW_HELP" value="PeerProject Pomoć"-->
 	<string id="20001" value="Da"/>
 	<string id="20002" value="Ne"/>
 	<string id="20003" value="OK"/>
@@ -2803,7 +2803,7 @@
 	<string id="20746" value="Nepotvrđeno"/>
 	<string id="20747" value="Potvrđeno"/>
 	<string id="20748" value="Potvrđujem"/>
-	<string id="20750" value="!Dobrodošli u PeerProject (version) !\n.nPeerProject je potpuno besplatan program.\nMolimo da ga koristite odgovorno i poštujte zakone o autorskim pravima.\n."/>
+	<string id="20750" value="!Dobrodošli u {version}\n\nPeerProject je potpuno besplatan program.\nMolimo da ga koristite odgovorno i poštujte zakone o autorskim pravima."/>
 	<string id="20751" value="Nema aktivnih traženja. Stisni ovdje ako želiš započeti traženje"/>
 	<string id="20752" value="PeerProject nije spojena. Stisni Spoji botun."/>
 	<string id="20760" value="Prioritet"/>

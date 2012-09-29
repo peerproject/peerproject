@@ -279,7 +279,7 @@ BOOL CPeerProjectApp::InitInstance()
 
 //	m_pFontManager = new CFontManager();
 //	AfxEnableControlContainer( m_pFontManager );
-	AfxEnableControlContainer();			// Enable support for containment of OLE controls.
+	AfxEnableControlContainer();	// Enable support for containment of OLE controls.
 
 	LoadStdProfileSettings();
 	EnableShellOpen();
@@ -584,9 +584,9 @@ int CPeerProjectApp::ExitInstance()
 		//CWaitCursor pCursor;
 		m_bInteractive = false;
 
-		const int nSplashSteps = 7 + ( m_bLive ? 3 : 0 );
+		//const int nSplashSteps = 7 + ( m_bLive ? 3 : 0 );
 
-		SplashStep( L"Disconnecting", nSplashSteps, true );
+		SplashStep( L"Disconnecting" );
 		VersionChecker.Stop();
 		DiscoveryServices.Stop();
 		Network.Disconnect();
@@ -1565,26 +1565,25 @@ void CPeerProjectApp::ShowStartupText()
 	CString strBody;
 	LoadString( strBody, IDS_SYSTEM_MESSAGE );
 
-	strBody.Replace( _T("(version)"), (LPCTSTR)(theApp.m_sVersion + _T(" (") + theApp.m_sBuildDate + _T(")")) );
+	strBody.Replace( _T("{version}"), (LPCTSTR)theApp.m_sVersionLong );
 
-	for ( strBody += '\n' ; strBody.GetLength() ; )
+	for ( ; strBody.GetLength() ; )
 	{
 		CString strLine = strBody.SpanExcluding( _T("\r\n") );
 		strBody = strBody.Mid( strLine.GetLength() + 1 );
 
 		strLine.Trim();
-		if ( strLine.IsEmpty() ) continue;
+		if ( strLine.IsEmpty() )
+			strLine = _T(" ");
 
-		if ( strLine == _T(".") ) strLine.Empty();
-
-		if ( _tcsnicmp( strLine, _T("!"), 1 ) == 0 )
+		if ( strLine[ 0 ] == _T('!') )
 			PrintMessage( MSG_NOTICE, (LPCTSTR)strLine + 1 );
 		else
 			PrintMessage( MSG_INFO, strLine );
 	}
 
 	CString strCPU;
-	strCPU.Format( _T("\n%u x CPU. Features:"), System.dwNumberOfProcessors );
+	strCPU.Format( _T("%u x CPU.  Features:"), System.dwNumberOfProcessors );
 	if ( Machine::SupportsMMX() )
 		strCPU += _T(" MMX");
 	if ( Machine::SupportsSSE() )
@@ -1672,7 +1671,7 @@ void CPeerProjectApp::PrintMessage(WORD nType, const CString& strLog)
 
 	CQuickLock pLock( m_csMessage );
 
-	// Max 1000 lines
+	// Max 1000 lines	// ToDo: Setting?
 	if ( m_oMessages.GetCount() >= 1000 )
 		delete m_oMessages.RemoveHead();
 

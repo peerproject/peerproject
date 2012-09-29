@@ -634,8 +634,8 @@ DWORD CFragmentedFile::Move(DWORD nIndex, LPCTSTR pszDestination, LPPROGRESS_ROU
 	else
 		theApp.Message( MSG_DEBUG, _T("Moving \"%s\" to \"%s\"..."), (LPCTSTR)strPath, (LPCTSTR)strTarget.Left( strTarget.ReverseFind( _T('\\') ) + 1 ) );
 
-	GetSafePath( strPath );			// "\\\\?\\"
-	GetSafePath( strTarget );
+	MakeSafePath( strPath );		// "\\\\?\\"
+	MakeSafePath( strTarget );
 
 	// Close chained uploads
 	theApp.OnRename( strPath );

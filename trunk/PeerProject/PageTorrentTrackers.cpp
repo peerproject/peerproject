@@ -150,7 +150,6 @@ BOOL CTorrentTrackersPage::ApplyTracker()
 	else
 		bListChanged = true;
 
-
 	if ( bAddressChanged || bModeChanged || bListChanged )
 	{
 		CSingleLock oLock( &Transfers.m_pSection );

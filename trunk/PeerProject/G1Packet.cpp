@@ -105,7 +105,6 @@ CG1Packet* CG1Packet::New(int nType, DWORD nTTL, const Hashes::Guid& oGUID)
 	// No hash yet
 	pPacket->m_nHash = 0;
 
-
 	if ( oGUID )			// If the caller has given us a GUID to use in the packet
 		pPacket->m_oGUID = oGUID;				// Copy the GUID into the packet
 	else					// If the caller didn't give us a GUID to use
@@ -149,8 +148,8 @@ BOOL CG1Packet::Hop()
 	if ( m_nTTL < 2 ) return FALSE;
 
 	// Record a trip across the Internet
-	m_nTTL--;  // One less trip to live
-	m_nHops++; // One more hop made
+	m_nTTL--;	// One less trip to live
+	m_nHops++;	// One more hop made
 
 	// Report that we checked and changed the numbers
 	return TRUE;

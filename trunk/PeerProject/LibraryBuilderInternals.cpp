@@ -2878,7 +2878,7 @@ bool CLibraryBuilderInternals::ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 	if ( strLine.IsEmpty() )
 		strLine = ReadPDFLine( hFile, false, true );
 	nCount = 0;
-	while ( ! strLine.IsEmpty() && nCount < 9 && nVersion > 1 ) // Read dictionary entries only from 8 lines max
+	while ( ! strLine.IsEmpty() && nCount < 9 && nVersion > 1 )		// Read dictionary entries only from 8 lines max
 	{
 		int nData = strLine.Find( _T(" ") );
 		if ( nData > 0 )
@@ -3721,7 +3721,7 @@ bool CLibraryBuilderInternals::ReadCHM(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 
 	if ( ! ReadFile( hFile, szMagic, 4, &nRead, NULL ) )
 		return false;
-	if ( nRead != 4 || strncmp( szMagic, "LZXC", 4 ) != 0 ) // Compression method
+	if ( nRead != 4 || strncmp( szMagic, "LZXC", 4 ) != 0 )		// Compression method
 		return false;
 	ReadFile( hFile, &nComprVersion, sizeof(nComprVersion), &nRead, NULL );
 	if ( nRead != sizeof(nComprVersion) || nComprVersion != 2 )		// Note: MS Reader books has version 3

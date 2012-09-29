@@ -116,7 +116,7 @@ void CSecurity::Add(CSecureRule* pRule)
 			else if ( pRule->m_nType == CSecureRule::srContentHash )
 			{
 				if ( pRule->m_nExpire == CSecureRule::srIndefinite )
-					SetHashMap( (CString)(LPCTSTR)(LPTSTR)pRule->m_pContent, SetRuleIndex( pRule ) );
+					SetHashMap( pRule->GetContentWords(), SetRuleIndex( pRule ) );
 			}
 			else if ( pRule->m_nType == CSecureRule::srExternal )
 			{
@@ -233,12 +233,9 @@ void CSecurity::Clear()
 
 	m_Cache.clear();
 	m_AddressMap.clear();
-	m_HashMap[urnSHA].clear();
-	m_HashMap[urnTiger].clear();
-	m_HashMap[urnED2K].clear();
-	m_HashMap[urnBTH].clear();
-	m_HashMap[urnMD5].clear();
 	m_pRuleIndexMap.clear();
+	for ( BYTE nType = 0 ; nType < urnLast ; nType++ )
+		m_HashMap[ nType ].clear();
 }
 
 BYTE CSecurity::SetRuleIndex(CSecureRule* pRule)
@@ -262,38 +259,42 @@ CSecureRule* CSecurity::GetRuleByIndex(BYTE nIndex)
 	return nIndex < 255 ? m_pRuleIndexMap[ nIndex ] : NULL;
 }
 
-void CSecurity::SetHashMap(CString sHash, BYTE nIndex)
+void CSecurity::SetHashMap(CString sURN, BYTE nIndex)
 {
-	if ( ! nIndex || sHash.GetLength() < 30 )
+	if ( ! nIndex || sURN.GetLength() < 36 )
 		return;
 
-	if ( StartsWith( sHash, _PT("urn:sha1:") ) )
-		m_HashMap[urnSHA][ sHash ] = nIndex;
-	else if ( StartsWith( sHash, _PT("urn:tree:") ) )
-		m_HashMap[urnTiger][ sHash ] = nIndex;
-	else if ( StartsWith( sHash, _PT("urn:ed2k:") ) )
-		m_HashMap[urnED2K][ sHash ] = nIndex;
-	else if ( StartsWith( sHash, _PT("urn:bth:") ) )
-		m_HashMap[urnBTH][ sHash ] = nIndex;
-	else if ( StartsWith( sHash, _PT("urn:md5:") ) )
-		m_HashMap[urnMD5][ sHash ] = nIndex;
+	const CString strHash = sURN.Mid( sURN.ReverseFind( _T(':') ) + 1 );
+
+	if ( StartsWith( sURN, _PT("urn:sha1:") ) )
+		m_HashMap[urnSHA][ strHash ] = nIndex;
+	else if ( StartsWith( sURN, _PT("urn:tree:") ) )
+		m_HashMap[urnTiger][ strHash ] = nIndex;
+	else if ( StartsWith( sURN, _PT("urn:ed2k:") ) )
+		m_HashMap[urnED2K][ strHash ] = nIndex;
+	else if ( StartsWith( sURN, _PT("urn:bth:") ) )
+		m_HashMap[urnBTH][ strHash ] = nIndex;
+	else if ( StartsWith( sURN, _PT("urn:md5:") ) )
+		m_HashMap[urnMD5][ strHash ] = nIndex;
 }
 
-BYTE CSecurity::GetHashMap(CString sHash)
+BYTE CSecurity::GetHashMap(CString sURN)
 {
-	if ( sHash.GetLength() < 30 || ( sHash[0] != _T('u') && sHash[0] != _T('U') ) )
+	if ( sURN.GetLength() < 36 || ( sURN[0] != _T('u') && sURN[0] != _T('U') ) )
 		return 0;
 
-	if ( StartsWith( sHash, _PT("urn:sha1:") ) )
-		return m_HashMap[urnSHA].count( sHash ) ? m_HashMap[urnSHA][ sHash ] : 0;
-	if ( StartsWith( sHash, _PT("urn:tree:") ) )
-		return m_HashMap[urnTiger].count( sHash ) ? m_HashMap[urnTiger][ sHash ] : 0;
-	if ( StartsWith( sHash, _PT("urn:ed2k:") ) )
-		return m_HashMap[urnED2K].count( sHash ) ? m_HashMap[urnED2K][ sHash ] : 0;
-	if ( StartsWith( sHash, _PT("urn:bth:") ) )
-		return m_HashMap[urnBTH].count( sHash ) ? m_HashMap[urnBTH][ sHash ] : 0;
-	if ( StartsWith( sHash, _PT("urn:md5:") ) )
-		return m_HashMap[urnMD5].count( sHash ) ? m_HashMap[urnMD5][ sHash ] : 0;
+	const CString strHash = sURN.Mid( sURN.ReverseFind( _T(':') ) + 1 );
+
+	if ( StartsWith( sURN, _PT("urn:sha1:") ) )
+		return m_HashMap[urnSHA].count( strHash ) ? m_HashMap[urnSHA][ strHash ] : 0;
+	if ( StartsWith( sURN, _PT("urn:tree:") ) )
+		return m_HashMap[urnTiger].count( strHash ) ? m_HashMap[urnTiger][ strHash ] : 0;
+	if ( StartsWith( sURN, _PT("urn:ed2k:") ) )
+		return m_HashMap[urnED2K].count( strHash ) ? m_HashMap[urnED2K][strHash ] : 0;
+	if ( StartsWith( sURN, _PT("urn:bth:") ) )
+		return m_HashMap[urnBTH].count( strHash ) ? m_HashMap[urnBTH][ strHash ] : 0;
+	if ( StartsWith( sURN, _PT("urn:md5:") ) )
+		return m_HashMap[urnMD5].count( strHash ) ? m_HashMap[urnMD5][ strHash ] : 0;
 
 	return 0;
 }
@@ -900,7 +901,7 @@ void CSecurity::Serialize(CArchive& ar)
 			if ( pRule->m_nType == CSecureRule::srContentHash &&
 				 pRule->m_nAction == CSecureRule::srDeny )
 			{
-				SetHashMap( (CString)(LPCTSTR)(LPTSTR)pRule->m_pContent, SetRuleIndex( pRule ) );
+				SetHashMap( pRule->GetContentWords(), SetRuleIndex( pRule ) );
 				continue;
 			}
 
@@ -1665,6 +1666,11 @@ CXMLElement* CSecureRule::ToXML()
 			pXML->AddAttribute( _T("mask"), strValue );
 		}
 	}
+	else if ( m_nType == srExternal )
+	{
+		pXML->AddAttribute( _T("type"), _T("list") );
+		pXML->AddAttribute( _T("path"), GetContentWords() );
+	}
 	else
 	{
 		switch ( m_nType )
@@ -1685,9 +1691,9 @@ CXMLElement* CSecureRule::ToXML()
 		case srSizeType:
 			strValue = L"size";
 			break;
-		case srExternal:
-			strValue = L"list";
-			break;
+		//case srExternal:
+		//	strValue = L"list";
+		//	break;
 		default:
 			strValue = L"null";
 		}
@@ -1763,6 +1769,12 @@ BOOL CSecureRule::FromXML(CXMLElement* pXML)
 			m_nType = srContentAny;
 
 		SetContentWords( pXML->GetAttributeValue( _T("content") ) );
+		if ( m_pContent == NULL ) return FALSE;
+	}
+	else if ( strType.CompareNoCase( _T("list") ) == 0 || strType.CompareNoCase( _T("external") ) == 0 )
+	{
+		m_nType = srExternal;
+		SetContentWords( pXML->GetAttributeValue( _T("path") ) );
 		if ( m_pContent == NULL ) return FALSE;
 	}
 	else
@@ -2264,7 +2276,8 @@ BOOL CAdultFilter::IsChatFiltered(LPCTSTR pszText) const
 
 BOOL CAdultFilter::Censor(CString& sText) const
 {
-	if ( sText.GetLength() < 3 ) return FALSE;
+	if ( sText.GetLength() < 3 )
+		return FALSE;
 
 	BOOL bModified = FALSE;
 
@@ -2282,22 +2295,14 @@ BOOL CAdultFilter::Censor(CString& sText) const
 
 BOOL CAdultFilter::IsChildPornography(LPCTSTR pszText) const
 {
-	if ( pszText )
+	if ( ! pszText )
+		return FALSE;
+
+	for ( LPCTSTR pszWord = m_pszChildWords ; *pszWord ; )
 	{
-		LPCTSTR pszWord;
-		bool bFound = false;
-
-		for ( pszWord = m_pszChildWords ; *pszWord ; )
-		{
-			if ( _tcsistr( pszText, pszWord ) != NULL )
-			{
-				bFound = true;
-				break;
-			}
-			pszWord += _tcslen( pszWord ) + 1;
-		}
-
-		return ( bFound && IsFiltered( pszText ) );
+		if ( _tcsistr( pszText, pszWord ) != NULL )
+			return ( IsFiltered( pszText ) );
+		pszWord += _tcslen( pszWord ) + 1;
 	}
 
 	return FALSE;
@@ -2305,31 +2310,29 @@ BOOL CAdultFilter::IsChildPornography(LPCTSTR pszText) const
 
 BOOL CAdultFilter::IsFiltered(LPCTSTR pszText) const
 {
-	if ( pszText )
+	if ( ! pszText )
+		return FALSE;
+
+	// Check blocked words
+	if ( m_pszBlockedWords )
 	{
-		LPCTSTR pszWord;
-
-		// Check blocked words
-		if ( m_pszBlockedWords )
+		for ( LPCTSTR pszWord = m_pszBlockedWords ; *pszWord ; )
 		{
-			for ( pszWord = m_pszBlockedWords ; *pszWord ; )
-			{
-				if ( _tcsistr( pszText, pszWord ) != NULL ) return TRUE;
-				pszWord += _tcslen( pszWord ) + 1;
-			}
+			if ( _tcsistr( pszText, pszWord ) != NULL ) return TRUE;
+			pszWord += _tcslen( pszWord ) + 1;
 		}
+	}
 
-		// Check dubious words
-		if ( m_pszDubiousWords )
+	// Check dubious words
+	if ( m_pszDubiousWords )
+	{
+		size_t nDubiousWords = 0, nWordsPermitted = min( _tcslen( pszText ) / 8, 4u );
+
+		for ( LPCTSTR pszWord = m_pszDubiousWords ; *pszWord ; )
 		{
-			size_t nDubiousWords = 0, nWordsPermitted = min( _tcslen( pszText ) / 8, 4u );
-
-			for ( pszWord = m_pszDubiousWords ; *pszWord ; )
-			{
-				if ( _tcsistr( pszText, pszWord ) != NULL ) nDubiousWords++;
-				if ( nDubiousWords > nWordsPermitted ) return TRUE;
-				pszWord += _tcslen( pszWord ) + 1;
-			}
+			if ( _tcsistr( pszText, pszWord ) != NULL ) nDubiousWords++;
+			if ( nDubiousWords > nWordsPermitted ) return TRUE;
+			pszWord += _tcslen( pszWord ) + 1;
 		}
 	}
 
@@ -2397,7 +2400,6 @@ void CMessageFilter::Load()
 
 	if ( strFilteredPhrases.IsEmpty() )
 		strFilteredPhrases = _T("");
-
 
 	// Load the ED2K spam into the filter
 	if ( strED2KSpamPhrases.GetLength() > 3 )
@@ -2488,18 +2490,14 @@ void CMessageFilter::Load()
 
 BOOL CMessageFilter::IsED2KSpam( LPCTSTR pszText )
 {
-	if ( ! Settings.Community.ChatFilterED2K || ! pszText )
+	if ( ! Settings.Community.ChatFilterED2K || ! m_pszED2KSpam || ! pszText )
 		return FALSE;
 
 	// Check for Ed2K spam phrases
-	if ( m_pszED2KSpam )
+	for ( LPCTSTR pszWord = m_pszED2KSpam ; *pszWord ; )
 	{
-		LPCTSTR pszWord;
-		for ( pszWord = m_pszED2KSpam ; *pszWord ; )
-		{
-			if ( _tcsistr( pszText, pszWord ) != NULL ) return TRUE;
-			pszWord += _tcslen( pszWord ) + 1;
-		}
+		if ( _tcsistr( pszText, pszWord ) != NULL ) return TRUE;
+		pszWord += _tcslen( pszWord ) + 1;
 	}
 
 	return FALSE;
@@ -2507,18 +2505,14 @@ BOOL CMessageFilter::IsED2KSpam( LPCTSTR pszText )
 
 BOOL CMessageFilter::IsFiltered(LPCTSTR pszText)
 {
-	if ( ! Settings.Community.ChatFilter || ! pszText )
+	if ( ! Settings.Community.ChatFilter|| ! m_pszFilteredPhrases || ! pszText )
 		return FALSE;
 
 	// Check for filtered (spam) phrases
-	if ( m_pszFilteredPhrases )
+	for ( LPCTSTR pszWord = m_pszFilteredPhrases ; *pszWord ; )
 	{
-		LPCTSTR pszWord;
-		for ( pszWord = m_pszFilteredPhrases ; *pszWord ; )
-		{
-			if ( _tcsistr( pszText, pszWord ) != NULL ) return TRUE;
-			pszWord += _tcslen( pszWord ) + 1;
-		}
+		if ( _tcsistr( pszText, pszWord ) != NULL ) return TRUE;
+		pszWord += _tcslen( pszWord ) + 1;
 	}
 
 	return FALSE;
@@ -2564,6 +2558,10 @@ void CListLoader::StopThread()
 
 void CListLoader::AddList(CSecureRule* pRule)
 {
+	ASSERT( pRule->m_nType == CSecureRule::srExternal );
+	if ( ! pRule || pRule->m_nType != CSecureRule::srExternal || ! pRule->m_pContent )
+		return;
+
 	if ( ! m_pQueue.Find( pRule ) )
 		m_pQueue.AddTail( pRule );
 
@@ -2577,13 +2575,18 @@ void CListLoader::OnRun()
 	{
 		CSecureRule* pRule = m_pQueue.GetHead();
 
-		if ( ! pRule ) continue;
+		if ( ! pRule || ! pRule->m_pContent || pRule->m_nType != CSecureRule::srExternal )
+		{
+			m_pQueue.RemoveHead();
+			continue;
+		}
 
-		const BYTE nIndex = Security.SetRuleIndex( pRule );
-
-		CString strPath = (LPCTSTR)pRule->m_pContent;
-		ASSERT( pRule->m_nType == CSecureRule::srExternal );
-		if ( strPath.GetLength() < 6 ) continue;
+		CString strPath = pRule->GetContentWords();
+		if ( strPath.GetLength() < 6 )
+		{
+			m_pQueue.RemoveHead();
+			continue;
+		}
 
 		CString strCommentBase = pRule->m_sComment;
 		if ( strCommentBase.IsEmpty() )
@@ -2598,7 +2601,12 @@ void CListLoader::OnRun()
 
 		CFile pFile;
 		if ( ! pFile.Open( (LPCTSTR)strPath.GetBuffer(), CFile::modeRead ) )
-			return;
+		{
+			m_pQueue.RemoveHead();
+			continue;
+		}
+
+		const BYTE nIndex = Security.SetRuleIndex( pRule );
 
 		try
 		{
@@ -2618,36 +2626,47 @@ void CListLoader::OnRun()
 //TIMER_START
 			while ( pBuffer.ReadLine( strLine ) && IsThreadEnabled() && pRule )
 			{
-				strLine.Trim();
+				strLine.TrimRight();
 
 				if ( strLine.GetLength() < 7 )
 					continue;									// Blank/Invalid line
 
 				if ( strLine[ 0 ] == '#' )
 				{
-					if ( strLine.Right( 1 ) == _T(':') && strLine.Find( _T("urn:") ) > 0 )
+					if ( strLine[ strLine.GetLength() - 1 ] == _T(':') && strLine.Find( _T("urn:") ) > 0 )
 						strURN = strLine.Mid( strLine.Find( _T("urn:") ) );		// Default "# urn:type:"
 					continue;									// Comment line
 				}
 
+				if ( strLine[ 0 ] < '0' || strLine[ 0 ] > 'z' )	// Whitespace/Chars
+					continue;									// Invalid line
+
 				if ( ++nCount % 10 == 0 )
 				{
+					if ( pRule->m_sComment.IsEmpty() )
+						strCommentBase = _T("• %u");
+					else if ( pRule->m_sComment.ReverseFind( _T('•') ) < 0 )
+						strCommentBase = pRule->m_sComment + _T("  • %u");
+
 					pRule->m_sComment.Format( strCommentBase, nCount );
 					Sleep( 1 );		// Limit CPU
 				}
 
 				if ( StartsWith( strLine, _PT("urn:") ) || ( ! strURN.IsEmpty() && strLine.Find( _T('.'), 5 ) < 0 ) )
 				{
+					nPos = strLine.FindOneOf( _T(" \t") );
+					if ( nPos > 0 )
+						strLine.Truncate( nPos );				// Trim at whitespace (remove any trailing comments)
 					if ( ! strURN.IsEmpty() && ! StartsWith( strLine, _PT("urn:") ) )
 						strLine = strURN + strLine;				// Default "urn:type:" prepended
-					nPos = strLine.Find( _T("\t") );
-					if ( nPos > 0 )
-						strLine = strLine.Left( nPos );			// Trim at whitespace (remove any trailing comments)
-					Security.SetHashMap( strLine, nIndex );
+					if ( strLine.GetLength() > 35 )
+						Security.SetHashMap( strLine, nIndex );
+					else
+						nCount--;
 					continue;
 				}
 
-				nPos = strLine.Find( _T(':') );
+				nPos = strLine.ReverseFind( _T(':') );
 				if ( nPos > 0 )
 					strLine = strLine.Mid( nPos + 1 );			// Remove leading comment for some formats
 

@@ -2558,7 +2558,7 @@
 	<string id="WINDOW_DISCOVERY" value="Serveis de descobriment"/>
 	<string id="WINDOW_BROWSEHOST" value="Explora usuari"/>
 	<string id="WINDOW_MEDIA" value="Reproductor de multimèdia"/>
-	<string id="WINDOW_HELP" value="Ajuda de PeerProject"/>
+	<!--string id="WINDOW_HELP" value="Ajuda de PeerProject"-->
 	<string id="20001" value="Sí"/>
 	<string id="20002" value="No"/>
 	<string id="20003" value="Accepta"/>
@@ -3130,9 +3130,9 @@
 	<string id="20746" value="No verificat"/>
 	<string id="20747" value="Verificat"/>
 	<string id="20748" value="Verificant"/>
-	<string id="20750" value="Benvingut/uda a PeerProject! (versió) !n.nPeerProject és programari completament lliure!.nSi us plau, utilitza'l amb responsabilitat i respetant les lleis de propietat intelectual.n."/>
+	<string id="20750" value="!Benvingut/uda a {version}\n\nPeerProject és programari completament lliure.\nSi us plau, utilitza'l amb responsabilitat i respetant les lleis de propietat intelectual."/>
 	<string id="20751" value="No hi ha cerques actives. Fes clic aquí per a començar."/>
-	<string id="20752" value="No estàs connectat.  Fes clic a &quot;Connecta&quot; per a començar."/>
+	<string id="20752" value="No estàs connectat. Fes clic a &quot;Connecta&quot; per a començar."/>
 	<string id="20755" value="Està segur de que vol eliminar la plantilla &quot;%s&quot; ?nAçò no podrà ser revertit."/>
 	<string id="20760" value="Prioritat"/>
 	<string id="20762" value="Aquest arxiu sembla publicitat no desitjada (spam)."/>

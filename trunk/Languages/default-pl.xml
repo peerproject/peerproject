@@ -2093,7 +2093,7 @@
 	<tip id="ID_DOWNLOADS_SHARE" message="Dziel się tym częściowo pobranym plikiem z innymi użytkownikami."/>
 	<tip id="ID_DOWNLOADS_SHOW_SOURCES" message="Wyświetl źródła które nie są w użyciu."/>
 	<tip id="ID_DOWNLOADS_SOURCES" message="Szukaj więcej źródeł dla zaznaczonego(ych) pobierania (pobierań)."/>
-	<tip id="ID_DOWNLOADS_TORRENT_INFO" message="Pokaż informacje o zaznaczonym pobieraniu BitTorrent..."/>
+	<!--tip id="ID_DOWNLOADS_TORRENT_INFO" message="Pokaż informacje o zaznaczonym pobieraniu BitTorrent..."-->
 	<tip id="ID_DOWNLOADS_ADD_SOURCE" message="Dodaj URL źródła dla zaznaczonego pobierania..."/>
 	<tip id="ID_DOWNLOADS_VIEW_REVIEWS" message="Pokaż recenzje zaznaczonego pobierania"/>
 	<tip id="ID_HELP_ABOUT" message="Wyświetl okno O PeerProject..."/>
@@ -2269,7 +2269,7 @@
 	<tip id="ID_SYSTEM_TIMESTAMP" message="Zapisuj znacznik czasu dla każdej linijki."/>
 	<tip id="ID_SYSTEM_VERBOSE" message="Pokaż dokładny log aktywności systemu."/>
 	<tip id="ID_TAB_CONNECT" message="Podłącz lub rozłącz się z siecią."/>
-	<tip id="ID_TAB_HELP" message="Uzyskaj pomoc w użytkowaniu PeerProject."/>
+	<!--tip id="ID_TAB_HELP" message="Uzyskaj pomoc w użytkowaniu PeerProject."-->
 	<tip id="ID_TAB_HOME" message="Powróć do strony głównej PeerProject"/>
 	<tip id="ID_TAB_LIBRARY" message="Przeglądaj i zarządzaj lokalną biblioteką plików."/>
 	<tip id="ID_TAB_MEDIA" message="Odtważaj pliki muzyczne i wideo z twojej biblioteki."/>
@@ -2313,7 +2313,6 @@
 	<tip id="ID_VIEW_BASIC" message="Użyj PeerProject w normalnym trybie."/>
 	<tip id="ID_VIEW_DISCOVERY" message="Pokaż lub ukryj okno usług DISCOVERY."/>
 	<tip id="ID_VIEW_DOWNLOADS" message="Pokaż lub uryj okno pobierania."/>
-	<tip id="ID_VIEW_HELP" message="Pokaż lub ukryj okno Pomocy."/>
 	<tip id="ID_VIEW_HOSTS" message="Pokaż lub ukryj okna Cache-a Hostów."/>
 	<tip id="ID_VIEW_LIBRARY" message="Pokaż lub ukryj okno biblioteki."/>
 	<tip id="ID_VIEW_MEDIA" message="Pokaż lub ukryj okno odtwarzacza."/>
@@ -2371,7 +2370,7 @@
 	<string id="WINDOW_DISCOVERY" value="Serwisy Discovery"/>
 	<string id="WINDOW_BROWSEHOST" value="Przeglądaj"/>
 	<string id="WINDOW_MEDIA" value="Odtwarzacz"/>
-	<string id="WINDOW_HELP" value="Pomoc PeerProject"/>
+	<!--string id="WINDOW_HELP" value="Pomoc PeerProject"-->
 	<string id="WINDOW_IRC" value="Czat PeerProject"/>
 	<string id="20001" value="Tak"/>
 	<string id="20002" value="Nie"/>
@@ -2785,7 +2784,7 @@
 	<string id="20746" value="Nie zweryfikowano"/>
 	<string id="20747" value="Zweryfikowano"/>
 	<string id="20748" value="Weryfikowanie"/>
-	<string id="20750" value="!Witaj w PeerProjecte (version) !\n.\nPeerProject jest całkowicie wolnym oprogramowaniem.\nProszę używaj jej odpowiedzialnie i szanuj prawo własności intelektualnej.\n."/>
+	<string id="20750" value="!Witaj w {version}\n\nPeerProjecte jest całkowicie wolnym oprogramowaniem.\nProszę używaj jej odpowiedzialnie i szanuj prawo własności intelektualnej."/>
 	<string id="20751" value="Brak aktywnych wyszukiwań. Kliknij tutaj, aby wyszukać pliki."/>
 	<string id="20752" value="Nie jesteś połączony. Kliknij przycisk Połącz aby uruchomić."/>
 	<string id="20755" value="Czy jesteś pewien, że chcesz usunąć szablon &quot;%s&quot; ?\nTo działanie nie może być cofnięte."/>

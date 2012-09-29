@@ -937,7 +937,7 @@ CString CBTClient::GetUserAgentOtherStyle(LPBYTE pVendor, CString* strNick)
 
 	if ( nNickStart > 0 )
 	{
-		for ( int i = nNickStart ; i <= nNickEnd ; i++ )		// Extract nick from m_oGUID
+		for ( int i = nNickStart ; i <= nNickEnd ; i++ )	// Extract nick from m_oGUID
 		{
 			if ( m_oGUID[i] == NULL ) break;
 
@@ -1466,7 +1466,7 @@ void CBTClient::SendUtPex(DWORD tConnectedAfter)
 		CBTPacket* pResponse = CBTPacket::New( BT_PACKET_EXTENSION, m_nUtPexID );
 		CBENode* pRoot = pResponse->m_pNode.get();
 
-		pRoot->Add( BT_DICT_ADDED )->SetString( pAddedBuffer.m_pBuffer, pAddedBuffer.m_nLength );	 // "added"
+		pRoot->Add( BT_DICT_ADDED )->SetString( pAddedBuffer.m_pBuffer, pAddedBuffer.m_nLength );	// "added"
 		pRoot->Add( BT_DICT_ADDED_F )->SetString( pAddedFlagsBuffer.m_pBuffer, pAddedFlagsBuffer.m_nLength );	// "added.f"
 
 		Send( pResponse );

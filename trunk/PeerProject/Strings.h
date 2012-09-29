@@ -106,7 +106,7 @@ CString LoadFile(LPCTSTR pszPath);
 BOOL ReplaceNoCase(CString& sInStr, LPCTSTR pszOldStr, LPCTSTR pszNewStr);
 
 // IsValidIP("1.2.3.4:0000") is true
-BOOL IsValidIP(const CString& sInput);
+//BOOL IsValidIP(const CString& sInput);
 
 // "1.2.3.4:0000" to ~0x11223344, 0 for invalid
 DWORD IPStringToDWORD(LPCTSTR pszIP);
@@ -116,7 +116,7 @@ CString HostToString(const SOCKADDR_IN* pHost);
 
 // Format long paths if needed "\\?\"
 LPCTSTR SafePath(const CString& sPath);
-BOOL GetSafePath(CString& sPath);
+BOOL MakeSafePath(CString& sPath);
 
 // Function is used to split a phrase in Asian languages to separate keywords
 // to ease keyword matching, allowing user to type as in the natural language.

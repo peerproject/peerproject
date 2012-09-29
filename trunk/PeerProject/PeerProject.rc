@@ -4480,7 +4480,7 @@ BEGIN
 	IDS_STATUS_BAR_CONNECTED_SIMPLE "Connected.  %s in local library."
 	IDS_STATUS_BAR_CONNECTING	"Connecting to the network..."
 	IDS_STATUS_BAR_DISCONNECTED	"Not connected to the network."
-	IDS_SYSTEM_MESSAGE			"!Welcome to PeerProject (version) !\n.\nPeerProject is completely free software.\nPlease use it responsibly and respect local laws.\n."
+	IDS_SYSTEM_MESSAGE			"!Welcome to {version}\n\nPeerProject is completely free software, please use it responsibly."
 	IDS_TABBAR_CONNECTED		"There are no active searches.  Click here to search for files."
 	IDS_TABBAR_NOT_CONNECTED	"You're not connected.  Click the Connect button to get started."
 	IDS_TEMPLATE_DELETE			"Are you sure you want to delete the ""%s"" template?\nThis cannot be undone."

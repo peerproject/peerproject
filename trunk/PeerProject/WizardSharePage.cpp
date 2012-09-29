@@ -237,9 +237,7 @@ LRESULT CWizardSharePage::OnWizardNext()
 
 	if ( m_wndList.GetItemCount() == 0 )
 	{
-		CString strMessage;
-		Skin.LoadString( strMessage, IDS_WIZARD_SHARE_CONFIRM );
-		if ( MsgBox( strMessage, MB_ICONQUESTION|MB_YESNO ) == IDNO )
+		if ( MsgBox( IDS_WIZARD_SHARE_CONFIRM, MB_ICONQUESTION|MB_YESNO ) == IDNO )
 			return -1;
 	}
 

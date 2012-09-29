@@ -996,7 +996,7 @@ void BuildWordTable(LPCTSTR pszWord, WordTable& oWords, WordTable& oNegWords)
 		{
 			bool bWord = false, bDigit = false, bMix = false;
 			IsType( pszWord, 0, pszPtr - pszWord, bWord, bDigit, bMix );
-			if ( ( bWord || bMix ) || ( bDigit && pszPtr - pszWord > 3 ) )
+			if ( bWord || bMix || ( bDigit && pszPtr - pszWord > 3 ) )
 				oWords.insert( std::make_pair( pszWord, pszPtr - pszWord ) );
 		}
 	}
@@ -1173,6 +1173,57 @@ CString Unescape(LPCTSTR pszXML, int nLength)
 	return strValue;
 }
 
+//BOOL IsValidIP(const CString& sInput)
+//{
+//	const int nLength = sInput.GetLength();
+//	if ( nLength > 21 || nLength < 8 )
+//		return FALSE;
+//
+//	//int nIP[5] = { 0 };
+//	//if ( _stscanf( sInput, _T("%i.%i.%i.%i:%i"), &nIP[0], &nIP[1], &nIP[2], &nIP[3], &nIP[4] ) == 5 ||
+//	//	   _stscanf( sInput, _T("%i.%i.%i.%i"), &nIP[0], &nIP[1], &nIP[2], &nIP[3] ) == 4 )
+//	//	return nIP[0] < 256 && nIP[1] < 256 && nIP[2] < 256 && nIP[3] < 256 && nIP[4] < 65000;
+//	//return FALSE;
+//
+//	CString strIP;
+//	for ( int i = 0, d = 0 ; i < nLength ; i++ )
+//	{
+//		TCHAR Ch = sInput.GetAt( i );
+//		if ( _istdigit( Ch ) )
+//		{
+//			strIP.AppendChar( Ch );
+//			if ( d == 4 )
+//			{
+//				if ( strIP.GetLength() > 5 || strIP.GetLength() == 5 && _tstoi( strIP ) > 65000 )
+//					return FALSE;
+//				continue;
+//			}
+//			if ( strIP.GetLength() > 3 || strIP.GetLength() == 3 && _tstoi( strIP ) > 255 )
+//				return FALSE;
+//			continue;
+//		}
+//		if ( Ch == _T('.') )
+//		{
+//			if ( d++ > 3 || strIP.IsEmpty() )
+//				return FALSE;
+//			strIP.Empty();
+//			continue;
+//		}
+//		if ( Ch == _T(':') )
+//		{
+//			if ( d != 3 || strIP.IsEmpty() )
+//				return FALSE;
+//			d = 4;
+//			strIP.Empty();
+//			continue;
+//		}
+//
+//		return FALSE;
+//	}
+//
+//	return TRUE;
+//}
+
 DWORD IPStringToDWORD(LPCTSTR pszIP)
 {
 	DWORD nIP = 0;
@@ -1209,57 +1260,6 @@ DWORD IPStringToDWORD(LPCTSTR pszIP)
 	return nIP;
 }
 
-BOOL IsValidIP(const CString& sInput)
-{
-	const int nLength = sInput.GetLength();
-	if ( nLength > 21 || nLength < 8 )
-		return FALSE;
-
-//	int nIP[5] = { 0 };
-//	if ( _stscanf( sInput, _T("%i.%i.%i.%i:%i"), &nIP[0], &nIP[1], &nIP[2], &nIP[3], &nIP[4] ) == 5 ||
-//		 _stscanf( sInput, _T("%i.%i.%i.%i"), &nIP[0], &nIP[1], &nIP[2], &nIP[3] ) == 4 )
-//		return nIP[0] < 256 && nIP[1] < 256 && nIP[2] < 256 && nIP[3] < 256 && nIP[4] < 65000;
-//	return FALSE;
-
-	CString strIP;
-	for ( int i = 0, d = 0 ; i < nLength ; i++ )
-	{
-		TCHAR Ch = sInput.GetAt( i );
-		if ( _istdigit( Ch ) )
-		{
-			strIP.AppendChar( Ch );
-			if ( d == 4 )
-			{
-				if ( strIP.GetLength() > 5 || strIP.GetLength() == 5 && _tstoi( strIP ) > 65000 )
-					return FALSE;
-				continue;
-			}
-			if ( strIP.GetLength() > 3 || strIP.GetLength() == 3 && _tstoi( strIP ) > 255 )
-				return FALSE;
-			continue;
-		}
-		if ( Ch == _T('.') )
-		{
-			if ( d++ > 3 || strIP.IsEmpty() )
-				return FALSE;
-			strIP.Empty();
-			continue;
-		}
-		if ( Ch == _T(':') )
-		{
-			if ( d != 3 || strIP.IsEmpty() )
-				return FALSE;
-			d = 4;
-			strIP.Empty();
-			continue;
-		}
-
-		return FALSE;
-	}
-
-	return TRUE;
-}
-
 CString HostToString(const SOCKADDR_IN* pHost)
 {
 	CString strHost;
@@ -1273,13 +1273,12 @@ LPCTSTR SafePath(const CString& sPath)
 		(LPCTSTR)sPath : CString( _T("\\\\?\\") ) + sPath;
 }
 
-BOOL GetSafePath(CString& sPath)
+BOOL MakeSafePath(CString& sPath)
 {
 	if ( sPath.GetLength() < MAX_PATH - 4 )
 		return FALSE;
 
 	ASSERT( StartsWith( sPath, _PT("\\\\?\\") ) );
-
 	if ( sPath[2] != _T('?') )
 		sPath = CString( _T("\\\\?\\") ) + sPath;
 	return TRUE;
