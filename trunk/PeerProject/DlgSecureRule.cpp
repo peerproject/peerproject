@@ -250,7 +250,7 @@ void CSecureRuleDlg::OnSelChangeRuleExpire()
 
 void CSecureRuleDlg::OnBrowse()
 {
-	CFileDialog dlg( TRUE, NULL, Settings.General.UserPath + _T("\\Data\\"), OFN_HIDEREADONLY|OFN_FILEMUSTEXIST,
+	CFileDialog dlg( TRUE, NULL, Settings.General.DataPath, OFN_HIDEREADONLY|OFN_FILEMUSTEXIST,
 		_T("Text Files|*.txt;*.dat;*.p2p|") + LoadString( IDS_FILES_ALL ) + _T("|*.*||"), this );
 
 	if ( dlg.DoModal() != IDOK ) return;
@@ -489,7 +489,7 @@ void CSecureRuleDlg::OnOK()
 			return;
 
 		if ( m_sPath.ReverseFind( _T(':') ) != 1 &&
-			! PathFileExists( Settings.General.UserPath + _T("\\Data\\") + m_sPath ) )
+			! PathFileExists( Settings.General.DataPath + m_sPath ) )
 		{
 			MsgBox( IDS_GENERAL_TRYAGAIN );
 			return;

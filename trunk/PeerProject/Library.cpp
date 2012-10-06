@@ -366,20 +366,17 @@ BOOL CLibrary::Load()
 	const __int64 nBenchmarkStart = GetMicroCount();
 #endif
 
-	CSingleLock pLock( &m_pSection, TRUE );
-
-	BOOL bFileDat, bFileBak;
 	CFile pFileDat, pFileBak;
 	FILETIME pFileDatTime = { 0, 0 }, pFileBakTime = { 0, 0 };
 
-	const CString strPath = Settings.General.UserPath + _T("\\Data\\");
+	CSingleLock pLock( &m_pSection, TRUE );
 
-	bFileDat = pFileDat.Open( strPath + _T("Library.dat"), CFile::modeRead ) && SafeReadTime( pFileDat, &pFileDatTime );
-	bFileBak = pFileBak.Open( strPath + _T("Library.bak"), CFile::modeRead ) && SafeReadTime( pFileBak, &pFileBakTime );
+	BOOL bFileDat = pFileDat.Open( Settings.General.DataPath + _T("Library.dat"), CFile::modeRead ) && SafeReadTime( pFileDat, &pFileDatTime );
+	BOOL bFileBak = pFileBak.Open( Settings.General.DataPath + _T("Library.bak"), CFile::modeRead ) && SafeReadTime( pFileBak, &pFileBakTime );
 
 	// Try legacy format fallback
 	if ( ! bFileDat && ! bFileBak )
-		bFileDat = pFileDat.Open( strPath + _T("Library1.dat"), CFile::modeRead ) && SafeReadTime( pFileDat, &pFileDatTime );
+		bFileDat = pFileDat.Open( Settings.General.DataPath + _T("Library1.dat"), CFile::modeRead ) && SafeReadTime( pFileDat, &pFileDatTime );
 
 	if ( bFileDat && bFileBak )
 	{
@@ -445,8 +442,8 @@ BOOL CLibrary::Save()
 {
 	static BOOL bFileSwitch = FALSE;
 
-	const CString strFile = Settings.General.UserPath +
-		( bFileSwitch ? _T("\\Data\\Library.bak") : _T("\\Data\\Library.dat") );
+	const CString strFile = Settings.General.DataPath +
+		( bFileSwitch ? _T("Library.bak") : _T("Library.dat") );
 
 	bFileSwitch = ! bFileSwitch;
 	m_nSaveTime = GetTickCount();

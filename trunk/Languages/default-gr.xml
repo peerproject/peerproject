@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Greek Skin File -->
 
-<!-- Translation based on default-en.xml r82 -->
+<!-- Translation based on default-en.xml r84 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2074,7 +2074,7 @@
 		<text format="b">Ο Δίσκος είναι Γεμάτος</text>
 		<newline gap="8"/>
 		<text>Το PeerProject έχει διακόψει αυτόματα αυτήν τη λήψη, επειδή ο σκληρός δίσκος
-		φαίνετε να είναι γεμάτος ή το υπό λήψη αρχείο δεν μπορεί να γραφτεί σε αυτόν.  Αν θέλετε
+		φαίνετε να είναι γεμάτος ή το υπό λήψη αρχείο δεν μπορεί να γραφτεί σε αυτόν. Αν θέλετε
 		να συνεχίσετε τη λήψη, παρακαλώ ελευθερώστε κάποιο χώρο απο τον σκληρό δίσκο σας ή/και βεβαιωθείτε
 		ότι ο φάκελος του ημιτελούς αρχείου είναι προσπελάσιμος και μετά συνεχίστε τη
 		λήψη.</text>
@@ -2083,7 +2083,7 @@
 		<text format="b">Αυτή η Λήψη Επαληθεύεται</text>
 		<newline gap="8"/>
 		<text>Αυτό η λήψη έχει ολοκληρωθεί και τώρα το PeerProject την ελέγχει για να βεβαιωθεί
-		ότι είναι ακριβώς ίδια με το πρωτότυπο αρχείο.  Αν βρεθούν φθαρμένα τμήματα,
+		ότι είναι ακριβώς ίδια με το πρωτότυπο αρχείο. Αν βρεθούν φθαρμένα τμήματα,
 		το PeerProject θα τα επιδιορθώσει αυτόματα.</text>
 	</document>
 	<document name="DownloadHelp.Downloading">
@@ -2111,14 +2111,14 @@
 		<text>Αυτή η λήψη περιμένει από κάποια από τις υπόλοιπες λήψεις σας να ολοκληρωθεί.
 		Οι ρυθμίσεις λήψης σας περιορίζουν τον αριθμό των λήψεων που μπορούν να είναι ενεργές ανά
 		πάσα στιγμή, για να εγγυηθεί βεβαιωθεί ότι κάθε λήψη παίρνει ένα καλό μερίδιο του διαθέσιμου
-		εύρους ζώνης.  Μπορείτε να αλλάξετε αυτές τις ρυθμίσεις από τα Εργαλεία &gt; Ρυθμίσεις PeerProject.
+		εύρους ζώνης. Μπορείτε να αλλάξετε αυτές τις ρυθμίσεις από τα Εργαλεία &gt; Ρυθμίσεις PeerProject.
 		Εναλλακτικά, μπορείτε να αρχίσετε αυτήν τη λήψη χειροκίνητα με την εντολή συνέχισης.</text>
 	</document>
 	<document name="DownloadHelp.Searching">
 		<text format="b">Αυτή η Λήψη Αναζητά</text>
 		<newline gap="8"/>
 		<text>Δεν υπάρχουν γνωστές πηγές για αυτήν τη λήψη, ώστε το PeerProject ψάχνει
-		όλα τα ενωμένα P2P δίκτυα για νέες πηγές.  Όταν βρεθούν νέες πηγές, η
+		όλα τα ενωμένα P2P δίκτυα για νέες πηγές. Όταν βρεθούν νέες πηγές, η
 		λήψη θα αρχίσει αυτόματα. Το PeerProject ψάχνει για πηγές αυτόματα,
 		παρόλα αυτά μπορείτε να επιταχύνετε τη διαδικασία χρησιμοποιώντας την εντολή </text>
 		<text format="b">Εύρεση Επιπλέον Πηγών</text><text>.</text>
@@ -3115,11 +3115,7 @@
 	<string id="20586" value="Αγνόηση μη αναγνωρίσιμου πακέτου, προωθημένου από τον γείτονα %s (0x%.2x)."/>
 	<string id="20587" value="Αγνόηση πακέτου pong με μη έγκυρα δεδομένα διεύθυνσης, προωθημένο από τον γείτονα %s."/>
 	<string id="20588" value="Αγνόηση πακέτου αίτησης push προς διεύθυνση πίσω από firewall, προωθημένο από τον γείτονα %s."/>
-	<string id="20590" value="Η απομακρυσμένη πρόσβαση είναι απενεργοποιημένη."/>
-	<string id="20591" value="http://%s:%i/remote - Πρέπει να διαλέξετε ένα όνομα και έναν κωδικό."/>
-	<string id="20592" value="Αδυναμία υποδοχής συνδέσεων, μη διαθέσιμο URL."/>
-	<string id="20597" value="Θέλετε σίγουρα να διαγράψετε τους επιλεγμένους κανόνες ασφαλείας;"/>
-	<string id="20599" value="&amp;Schemas"/>
+	<string id="20598" value="Θέλετε σίγουρα να διαγράψετε τους επιλεγμένους κανόνες ασφαλείας;"/>
 	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="Ενεργή αναζήτηση..."/>
 	<string id="20621" value="Κλικ εδώ για επαναζήτηση."/>
@@ -3176,7 +3172,11 @@
 	<string id="20677" value="Παρακαλώ εισάγετε όριο του εύρους ζώνης που επιθυμείτε &quot;123 kb/s&quot; για kilobits ανά δευτερόλεπτο ή &quot;123 KB/s&quot; για kiloBytes ανά δευτερόλεπτο."/>
 	<string id="20678" value="Το δίκτυο ED2K χρησιμοποιεί μακριές ουρές με μεγάλους χρόνους αναμονής. Περιορίζοντας τη μέγιστη θέση αναμονής σε ουρά, ίσως δυσκολευτείται να ξεκινήσετε λήψεις!nΘέλετε σίγουρα να περιορίσετε τη θέση αναμονής σε ουρά που θα ανέχεστε;"/>
 	<string id="20680" value="Οι ρυθμίσεις του PeerProject"/>
-	<string id="20684" value="Θέλετε σίγουρα να διαγράψετε τον φλοιό &quot;%s&quot;. Αυτό δεν μπορεί να αναιρεθεί!"/>
+	<string id="20682" value="Η απομακρυσμένη πρόσβαση είναι απενεργοποιημένη."/>
+	<string id="20684" value="http://%s:%i/remote - Πρέπει να διαλέξετε ένα όνομα και έναν κωδικό."/>
+	<string id="20685" value="Αδυναμία υποδοχής συνδέσεων, μη διαθέσιμο URL."/>
+	<string id="20692" value="Θέλετε σίγουρα να διαγράψετε τον φλοιό &quot;%s&quot;. Αυτό δεν μπορεί να αναιρεθεί!"/>
+	<string id="20699" value="&amp;Schemas"/>
 	<string id="20700" value="%s μέσα : %s έξω (D:%I64i/U:%I64i)"/>
 	<string id="20701" value="Ενωμένο σε %lu γείτονες. %s στην τοπική Βιβλιοθήκη."/>
 	<string id="20702" value="Λειτουργία Κόμβου με %lu γείτονες. %s στην τοπική Βιβλιοθήκη."/>
@@ -3688,7 +3688,7 @@
 		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
 		<control caption="_Εργαλεία:"/>
 		<control caption="Λήψη..."/>
-		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
+		<control caption="Update DC++ hubs from the web. (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="Συνδέσεις _Λήψης:"/>

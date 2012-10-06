@@ -252,11 +252,9 @@ BOOL CSchema::LoadSchema(LPCTSTR pszFile)
 				CString strName = pNetwork->GetAttributeValue( _T("name") );
 				if ( ! bFound || strName != _T("ed2k") )
 					continue;
-				else
-				{
-					m_sDonkeyType = pNetwork->GetAttributeValue( _T("value") );
-					break;
-				}
+
+				m_sDonkeyType = pNetwork->GetAttributeValue( _T("value") );
+				break;
 			}
 		}
 	}
@@ -910,3 +908,4 @@ LPCTSTR CSchema::uriBitTorrent				= _T("http://www.shareaza.com/schemas/bittorre
 //LPCTSTR CSchema::uriComments				= _T("http://www.shareaza.com/schemas/comments.xsd");	// http://schemas.peerproject.org/Comments.xsd ?
 
 //LPCTSTR CSchema::uriSkin					= _T("http://schemas.peerproject.org/Skin.xsd");
+//LPCTSTR CSchema::uriPackage				= _T("http://schemas.peerproject.org/Package.xsd");

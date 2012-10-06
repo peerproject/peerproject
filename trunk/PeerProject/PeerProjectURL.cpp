@@ -262,7 +262,7 @@ BOOL CPeerProjectURL::ParseRoot(LPCTSTR pszURL, BOOL bResolve)
 	//	SkipSlashes( pszURL, nRoot );
 		return FALSE;	// ToDo: IRC link support
 	default:
-		if ( IPStringToDWORD( CString( pszURL ).Trim( _T(" \t\r\n/") ) ) )
+		if ( IPStringToDWORD( CString( pszURL ).Trim( _T(" \t\r\n/") ), FALSE ) )
 			return ParsePeerProject( pszURL );
 		//return FALSE;		// Unknown? See http://en.wikipedia.org/wiki/URI_scheme
 	}
@@ -395,7 +395,7 @@ BOOL CPeerProjectURL::ParseHTTP(LPCTSTR pszURL, BOOL bResolve)
 	}
 
 	// Detect mistaken IP:port
-	if ( m_sPath == _T("/") && m_sAddress.Find( _T(':') ) > 8 && IPStringToDWORD( m_sAddress ) )
+	if ( m_sPath == _T("/") && m_sAddress.Find( _T(':') ) > 8 && IPStringToDWORD( m_sAddress, FALSE ) )
 		return ParsePeerProject( m_sAddress );
 
 	const int nAt = m_sAddress.Find( _T('@') );

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hebrew Skin File -->
 
-<!-- Translation based on default-en.xml r82 -->
+<!-- Translation based on default-en.xml r84 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2684,7 +2684,7 @@ gap i newline
 	<string id="20485" value="מגבלת מהירות ההעלאה"/>
 	<string id="20490" value="‪‪כפול"/>
 	<string id="20491" value="‪‪ערכים כפולים"/>
-	<string id="20494" value="You haven't entered your location in your user profile.\n\nIt's a good idea to enter your location so that other users can see which country you are from.  Note that entering a location does not reveal any compromising information.\n\nAre you sure you want to continue without entering your location?"/>
+	<string id="20494" value="You haven't entered your location in your user profile.\n\nIt's a good idea to enter your location so that other users can see which country you are from. Note that entering a location does not reveal any compromising information.\n\nAre you sure you want to continue without entering your location?"/>
 	<string id="20495" value="You haven't entered a screen name in your user profile."/>
 	<string id="20496" value="‪?לא בחרת גיל ומין, אתה בטוח שאתה רוצה להמשיך"/>
 	<string id="20499" value="תיקיה חדשה"/>
@@ -2722,7 +2722,7 @@ gap i newline
 	<string id="20545" value="‪‪‪.מנותק מהרשת"/>
 	<string id="20546" value="‪?האם אתה בטוח שברצונך להתנתק"/>
 	<string id="20548" value="‪‪‏נכנסים‎ ‏לחיבורים‎ ‏תמיכה‎ ‏תיהיה‎ ‏לא‎ ‏לכן‎ ‏נכנסים‎. ‏לחיבורים‎ %s ‏של‎ %i ‏פורט‎ ‏את‎ ‏לקבוע‎ ‏ניתן‎ ‏לא"/>
-	<string id="20549" value="‪Can't resolve %s for outgoing connections.  Outgoing connections will use the default interface."/>
+	<string id="20549" value="‪Can't resolve %s for outgoing connections. Outgoing connections will use the default interface."/>
 	<string id="20551" value="חומת האש, לא מקשיב לחיבורים נכנסים."/>
 	<string id="20553" value="‪‪%s ‏של‎ %i  ‏מפורט‎ ‏נכנסים‎ TCP ‏חיבורי‎ ‏מקבל"/>
 	<string id="20554" value="‪Listening for UDP datagrams on %s port %i."/>
@@ -2736,11 +2736,7 @@ gap i newline
 	<string id="20564" value="‪מאתחל את בסיס הרשת של שרזה..."/>
 	<string id="20566" value="UPnP port mapping failed after 10 attempts."/>
 	<string id="20576" value="‪‪%s  ‏משכן‎ ‏ניווט‎ ‏בקשת‎ (‏ ‪%i bit = %lu[%i], %i%% full)"/>
-	<string id="20590" value="‪גישה מרחוק לא מאופשרת"/>
-	<string id="20591" value="‪.אתה חייב לבחור שם משתמש וסיסמא http://%s:%i/remote"/>
-	<string id="20592" value="‪לא מצליח לקבל התקשרויות, כתובת האינטרנט לא זמינה"/>
-	<string id="20597" value="האם אתה בטוח שאתה רוצה למחוק את כללי הביטחון שנבחרו? זה לא ניתן לבטל."/>
-	<string id="20599" value="‪‪סכמות"/>
+	<string id="20598" value="האם אתה בטוח שאתה רוצה למחוק את כללי הביטחון שנבחרו? זה לא ניתן לבטל."/>
 	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="‪...שרזה מחפשת ברשת באופן פעיל"/>
 	<string id="20621" value="‪.לחץ כאן בכדי לחפש שנית"/>
@@ -2793,7 +2789,11 @@ gap i newline
 	<string id="20674" value="שמות ספריית הקבצים השלמים והחלקיים חייבים להיות שונים"/>
 	<string id="20677" value="‪Please type the bandwidth limit you wish to set in the form &quot;123 kb/s&quot; for kilobits per second, or &quot;123 KB/s&quot; for kilobytes per second."/>
 	<string id="20680" value="‪‪הגדרות שרזה"/>
-	<string id="20684" value="‪.המעטפת תימחק לקיבעון &quot;%s&quot; האם אתה בטוח שברצונך למחוק את המעטפת"/>
+	<string id="20682" value="‪גישה מרחוק לא מאופשרת"/>
+	<string id="20684" value="‪.אתה חייב לבחור שם משתמש וסיסמא http://%s:%i/remote"/>
+	<string id="20685" value="‪לא מצליח לקבל התקשרויות, כתובת האינטרנט לא זמינה"/>
+	<string id="20692" value="‪.המעטפת תימחק לקיבעון &quot;%s&quot; האם אתה בטוח שברצונך למחוק את המעטפת"/>
+	<string id="20699" value="‪‪סכמות"/>
 	<string id="20700" value="‪‪%s :‏נכנס‎ %s :‏יוצא‎ (D:%I64i/U:%I64i)"/>
 	<string id="20701" value="‪‏‪‏שכנים‎ %lu ‏אל‎ ‏מחובר‎ , %s ‏מקומית‎ ‏בספריה"/>
 	<string id="20702" value="‪‪%lu ‏מצב‎: ‏מוקד‎ ‏עם‎ ‏שכנים‎ , %s ‏מקומית‎ ‏בספריה"/>
@@ -3210,7 +3210,7 @@ gap i newline
 		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
 		<control caption="_Tools:"/>
 		<control caption="...הורד"/>
-		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
+		<control caption="Update DC++ hubs from the web. (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="ביט-טורנט">
 		<control caption=":הגדרות הורדה בביט-טורנט"/>
@@ -3858,7 +3858,7 @@ gap i newline
 		<control caption="?הידעת ששרזה היא תוכנה חינמית לחלוטין"/>
 		<control caption="שרזה לא מכילה רוגלות, תוספי פרסומות או תוכנה כלשהי נוספת בתוכה. שרזה לא מציגה פרסומות קופצות אף פעם \n\n אם אי פעם תראי פרסומות &quot;פרסומות קופצות&quot; בעת שאתה משתמש בשרזה, .הינך יכול להיות בטוח שהם אינם מגיעים משרזה"/>
 		<control caption="לצערנו הרבה תוכנות אחרות כן מגיעות עם תוספי פרסומות ורוגלות, לכן אם הינך רואה משהו חשוד כדאי שתבדוק את המחשב עם תוכנה לניקוי רוגלות ותוספי פרסומות"/>
-		<control caption="אינך אמור לשלם כלל כדי לקבל את שרזה. שרזה ניתנת להורדה בחינם על ידי כל אחד מהאתר  http://PeerProject.sourceforge.net/.  אם נדרשת לשלם למישהו תמורת שרזה.עלייך לבקש החזר מלא לכספך באופן מיידי."/>
+		<control caption="אינך אמור לשלם כלל כדי לקבל את שרזה. שרזה ניתנת להורדה בחינם על ידי כל אחד מהאתר  http://PeerProject.sourceforge.net/. אם נדרשת לשלם למישהו תמורת שרזה.עלייך לבקש החזר מלא לכספך באופן מיידי."/>
 		<control caption="!שרזה מכבדת את משתמשיה"/>
 		<control caption="http://PeerProject.sourceforge.net/"/>
 		<control caption="סגור"/>

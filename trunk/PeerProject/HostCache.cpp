@@ -74,7 +74,7 @@ void CHostCache::Clear()
 
 BOOL CHostCache::Load()
 {
-	const CString strFile = Settings.General.UserPath + _T("\\Data\\HostCache.dat");
+	const CString strFile = Settings.General.DataPath + _T("HostCache.dat");
 
 	BOOL bSuccess = FALSE;
 
@@ -129,8 +129,8 @@ BOOL CHostCache::Load()
 
 BOOL CHostCache::Save()
 {
-	const CString strFile = Settings.General.UserPath + _T("\\Data\\HostCache.dat");
-	const CString strTemp = Settings.General.UserPath + _T("\\Data\\HostCache.tmp");
+	const CString strFile = Settings.General.DataPath + _T("HostCache.dat");
+	const CString strTemp = Settings.General.DataPath + _T("HostCache.tmp");
 
 	CFile pFile;
 	if ( ! pFile.Open( strTemp, CFile::modeWrite | CFile::modeCreate | CFile::shareExclusive | CFile::osSequentialScan ) )

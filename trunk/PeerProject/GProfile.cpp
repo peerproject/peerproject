@@ -102,7 +102,7 @@ CXMLElement* CGProfile::GetPublicXML(CString strClient, BOOL bChallenge)
 
 //#ifdef _DEBUG
 //	CFile pFile;
-//	pFile.Open( Settings.General.UserPath + _T("\\Data\\Profile.Public.xml"), CFile::modeWrite | CFile::modeCreate );
+//	pFile.Open( Settings.General.DataPath + _T("Profile.Public.xml"), CFile::modeWrite | CFile::modeCreate );
 //	CStringA strUTF8 = UTF8Encode( m_pXMLExport->ToString( TRUE, TRUE ) );
 //	pFile.Write( (LPCSTR)strUTF8, strUTF8.GetLength() );
 //#endif  // TESTING
@@ -149,7 +149,7 @@ void CGProfile::CreateBT()
 BOOL CGProfile::Load()
 {
 	const CXMLElement* pXML = CXMLElement::FromFile(
-		Settings.General.UserPath + _T("\\Data\\Profile.xml"), TRUE );
+		Settings.General.DataPath + _T("Profile.xml"), TRUE );
 	if ( pXML == NULL )
 	{
 		Create();
@@ -176,7 +176,7 @@ BOOL CGProfile::Load()
 BOOL CGProfile::Save()
 {
 	CFile pFile;
-	if ( ! pFile.Open( Settings.General.UserPath + _T("\\Data\\Profile.xml"),
+	if ( ! pFile.Open( Settings.General.DataPath + _T("Profile.xml"),
 		CFile::modeWrite | CFile::modeCreate ) )
 		return FALSE;
 

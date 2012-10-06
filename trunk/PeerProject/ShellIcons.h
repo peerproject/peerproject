@@ -40,8 +40,7 @@ public:
 	BOOL	Draw(CDC* pDC, int nIcon, int nSize, int nX, int nY, COLORREF crBack = CLR_NONE, BOOL bSelected = FALSE) const;		// ImageList_DrawEx() default
 	BOOL	Draw(CDC* pDC, int nIcon, int nSize, int nX, int nY, COLORREF crBack, COLORREF crBlend, UINT nStyle) const;			// ImageList_DrawEx() specific
 
-// Inlines  (Transitional, for reference & deletion)
-//public:
+// Obsolete: For reference & deletion
 //	inline CImageList* GetObject(int nSize) const
 //	{
 //		switch ( nSize )
@@ -56,7 +55,6 @@ public:
 //			return NULL;
 //		}
 //	}
-//
 //	inline HIMAGELIST GetHandle(int nSize) const
 //	{
 //		switch ( nSize )
@@ -108,5 +106,6 @@ enum
 
 enum
 {
-	SHI_O_LOCKED	= 1
+//	SHI_OVERLAY_NONE	= 0,
+	SHI_OVERLAY_LOCKED	= 1		// Was SHI_O_LOCKED
 };

@@ -99,8 +99,8 @@ bool CLibraryBuilderInternals::ExtractMetadata(DWORD nIndex, const CString& strP
 		FileType[ L".mac" ]  = 'a';
 	//	FileType[ L".wav" ]  = 'i';
 	//	FileType[ L".webp" ] = 'i';	// ToDo: RIFF-type Files?
-		FileType[ L".psk" ]  = 'k';
-		FileType[ L".sks" ]  = 'k';
+		FileType[ L".psk" ]  = 'k';	// SkinScan
+		FileType[ L".sks" ]  = 'k';	// SkinScan
 		FileType[ L".bz2" ]  = 'c';	// .xml.bz2
 		FileType[ L".co" ]   = 'c';
 		FileType[ L".collection" ] = 'c';
@@ -4017,10 +4017,12 @@ bool CLibraryBuilderInternals::ReadTorrent(DWORD nIndex, HANDLE /*hFile*/, LPCTS
 
 bool CLibraryBuilderInternals::ReadSkin(DWORD nIndex)
 {
-	// .PSK inclusion workaround
-	auto_ptr< CXMLElement > pXML( new CXMLElement( NULL, L"application" ) );	// Set "Schema"
-	//pXML->AddAttribute( L"company", L"PeerProject" );							// No metadata (SkinScan)
-	return LibraryBuilder.SubmitMetadata( nIndex, CSchema::uriApplication, pXML.release() ) != 0;
+	// .PSK Library inclusion workaround
+	auto_ptr< CXMLElement > pXMLApp( new CXMLElement( NULL, L"application" ) );	// Set Schema
+	auto_ptr< CXMLElement > pXMLArchive( new CXMLElement( NULL, L"archive" ) );	// Set Schema
+	pXMLApp->AddAttribute( L"company", L"PeerProject" );						// Hackish workaround: Invalid skin schema item so dual schema works. (SkinScan metadata)
+	return	LibraryBuilder.SubmitMetadata( nIndex, CSchema::uriApplication, pXMLApp.release() ) != 0 &&
+			LibraryBuilder.SubmitMetadata( nIndex, CSchema::uriArchive, pXMLArchive.release() ) != 0;
 }
 
 bool CLibraryBuilderInternals::ReadBook(DWORD nIndex, CString strPath)

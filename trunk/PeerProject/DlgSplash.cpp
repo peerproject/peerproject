@@ -92,7 +92,7 @@ BOOL CSplashDlg::OnInitDialog()
 	//m_bmSplash.Attach( CImageFile::LoadBitmapFromFile( Settings.General.Path + L"\\Data\\Splash.png" ) );
 
 	CImageFile pFile;
-	if ( pFile.LoadFromFile( Settings.General.Path + L"\\Data\\Splash.png" ) )
+	if ( pFile.LoadFromFile( Settings.General.Path + L"\\Data\\Splash.png" ) )	// Settings.General.DataPath ?
 	{
 		pFile.EnsureRGB();
 		HBITMAP bmHandle = pFile.CreateBitmap();

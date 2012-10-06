@@ -76,7 +76,6 @@
 	<resource code="164" id="IDI_COLORS"/>
 	<resource code="165" id="IDI_COMMERCIAL"/>
 	<resource code="170" id="IDI_COMPUTER"/>
-	<resource code="171" id="IDI_COMPUTER_GRAY"/>
 	<resource code="172" id="IDI_DISCOVERY_BLUE"/>
 	<resource code="173" id="IDI_DISCOVERY_GRAY"/>
 	<resource code="174" id="IDI_DOWNLOAD_MONITOR"/>

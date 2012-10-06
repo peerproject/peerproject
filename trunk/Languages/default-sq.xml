@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Albanian Skin File -->
 
-<!-- Translation based on default-en.xml r82 -->
+<!-- Translation based on default-en.xml r84 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1916,7 +1916,7 @@
 		<text format="b">Mirë se erdhët te Menaxheri për Kuadrot e PeerProject-s</text>
 		<newline gap="16"/>
 		<text>Menaxheri për Kuadrot e PeerProject-s bën që përdoruesit e përparuar të porositin tërësisht mënyrën si
-			PeerProject funksionon.  Kuadrot e seksionit </text>
+			PeerProject funksionon. Kuadrot e seksionit </text>
 		<text format="b">Interneti </text>
 		<text>tregojnë si ndërvepron PeerProject me nyjet e tjera në rrjetet pikë-më-pikë të klasifikuara.</text>
 		<newline gap="16" indent="16"/>
@@ -2047,7 +2047,7 @@
 		<text format="b">Kjo Shkarkesë Përfundoi</text>
 		<newline gap="8"/>
 		<text>PeerProject e përfundoi shkarkimin e kësaj skede, dhe verifikoi se ajo
-		është 100% korrekte.  Skeda gjithashtu ka lëvizur në dosjen e shkarkesave tuaja.</text>
+		është 100% korrekte. Skeda gjithashtu ka lëvizur në dosjen e shkarkesave tuaja.</text>
 	</document>
 	<document name="DownloadHelp.Moving">
 		<text format="b">Kjo Shkarkesë po Lëviz</text>
@@ -2084,7 +2084,7 @@
 		mund të provoni të kërkoni rrjetin për më shumë burime me komandën '</text>
 		<text format="b">Gjej më Shumë Burime</text><text>'. Nëse shpejtësia nuk përmirësohet,
 		shkaku mund të jetë shpejtësia e kufizuar e ngarkimit për përdoruesit nga të cilët po
-		shkarkoni.  Shpejtësia e shkarkimit zakonisht rritet me kohë.</text>
+		shkarkoni. Shpejtësia e shkarkimit zakonisht rritet me kohë.</text>
 	</document>
 	<document name="DownloadHelp.Pending">
 		<text format="b">Kjo Shkarkesë Varet</text>
@@ -2102,20 +2102,20 @@
 		<text>Kjo shkarkesë po pret që disa nga shkarkesat e tjera të përfundojnë.
 		Vendosjet e shkarkimit e kufizojnë numrin e shkarkesave që mund të jenë aktive
 		në një kohë të dhënë, për t'u siguruar që secila shkarkesë të marrë një masë të mirë
-		të shtrirjes së vlefshme të bandës.  Këto vendosje mund t'i ndryshoni tek Mjete, Vendosjet e PeerProject-s.
+		të shtrirjes së vlefshme të bandës. Këto vendosje mund t'i ndryshoni tek Mjete, Vendosjet e PeerProject-s.
 		Si alternativë, këtë shkarkesë mund ta nisni edhe me dorë sipas komandës 'Rimerre'.</text>
 	</document>
 	<document name="DownloadHelp.Searching">
 		<text format="b">Kjo Shkarkesë Kërkon</text>
 		<newline gap="8"/>
 		<text>Për këtë shkarkesë ka burime të njohura, ndaj edhe PeerProject po kërkon në
-		gjithë rrjet e lidhura P2P për burime të reja.  Sapo burimet të gjenden, shkarkimi
-		do të nisë automatikisht.  PeerProject kërkon automatikisht për burime, gjithsesi
+		gjithë rrjet e lidhura P2P për burime të reja. Sapo burimet të gjenden, shkarkimi
+		do të nisë automatikisht. PeerProject kërkon automatikisht për burime, gjithsesi
 		mund ta shpejtoni procesin duke përdorur komandën </text>
 		<text format="b">Gjej më Tepër Burime </text><text>.</text>
 		<newline gap="8"/>
 		<text>Për fat të keq, në linjë mundet të mos ketë përdorues për skedën
-		që po kërkoni.  I vetmi rend veprimi në këtë rast, është të prisni që
+		që po kërkoni. I vetmi rend veprimi në këtë rast, është të prisni që
 		dikush të vijë në linjë, ose ta anuloni atë dhe të provoni të gjeni një skedë
 		të ngjashme pak më të vlefshme.</text>
 	</document>
@@ -2129,7 +2129,7 @@
 		<text format="b">Gjurmuesi BitTorrent Bie</text>
 		<newline gap="8"/>
 		<text>Serveri gjurmues BitTorrent për këtë shkarkesë duket se është prishur ose
-		po keqfunksionon.  PeerProject nuk mund të kontaktojë me të për të marrë
+		po keqfunksionon. PeerProject nuk mund të kontaktojë me të për të marrë
 		listën e pikave.</text>
 	</document>
 	<!-- Upload help documents -->
@@ -2720,14 +2720,14 @@
 	<string id="20196" value="Kjo tempujkë nuk të jep mundësi zgjedhjeje."/>
 	<string id="20197" value="Kjo tempujkë është jokorrekte."/>
 	<string id="20199" value="(mbylle pas transferimit)"/>
-	<string id="20221" value="Ju lutemi shkruani një kufi të vlefshëm për të fshirë.  Fusha &quot;nga&quot; është bajti i parë për t'u fshirë, fusha &quot;fundit&quot; është bajti i fundit për t'u fshirë."/>
+	<string id="20221" value="Ju lutemi shkruani një kufi të vlefshëm për të fshirë. Fusha &quot;nga&quot; është bajti i parë për t'u fshirë, fusha &quot;fundit&quot; është bajti i fundit për t'u fshirë."/>
 	<string id="20222" value="Ju shkruat një vlerë hashi për %s, gjithsesi nuk ka vlerë. Ju lutemi rishikoni dhe provoni përsëri."/>
-	<string id="20223" value="Ju dhatë një vlerë hashi %s që ndryshon nga ajo që aktualisht shoqërohet me këtë shkarkesë.  A jeni i sigurt se tani doni të ndryshoni hashin %s?"/>
-	<string id="20224" value="Ju kryet ndryshime te fusha e emrit.  A jeni i sigurt se doni të riemërtoni shkarkesën?"/>
+	<string id="20223" value="Ju dhatë një vlerë hashi %s që ndryshon nga ajo që aktualisht shoqërohet me këtë shkarkesë. A jeni i sigurt se tani doni të ndryshoni hashin %s?"/>
+	<string id="20224" value="Ju kryet ndryshime te fusha e emrit. A jeni i sigurt se doni të riemërtoni shkarkesën?"/>
 	<string id="20225" value="Ju kryet ndryshime në masën e skedës. A jeni i sigurt se doni të ndryshoni masën për këtë shkarkesë?"/>
-	<string id="20226" value="Nuk mund të supozoni se kjo shkarkesë ka përfunduar dhe ta riverifikoni atë, pasi nuk keni akoma ndonjë të dhënë të pjesshme verifikuese, si vëllimin tiger-tree, hashsetin eDonkey ose atë BitTorrent.  Pa informacion verifikues shkarkesa nuk mund të riverifikohet."/>
-	<string id="20227" value="A jeni i sigurt se doni të supozoni se kjo shkarkesë ka përfunduar dhe do e riverifikoni atë?  E tërë skeda do të merret parasysh dhe PeerProject do të pranojë pjesë të cilat e kalojnë verifikimin dhe do të rishkarkojë pjesët që nuk e kalojnë atë."/>
-	<string id="20228" value="A jeni i sigurt se doni të harroni statusin aktual të verifikimit?  Gjithë të dhënat e shkarkuara do të trajtohen si të pabesueshme, dhe hash-pemët e depozituara do të shpërbëhen."/>
+	<string id="20226" value="Nuk mund të supozoni se kjo shkarkesë ka përfunduar dhe ta riverifikoni atë, pasi nuk keni akoma ndonjë të dhënë të pjesshme verifikuese, si vëllimin tiger-tree, hashsetin eDonkey ose atë BitTorrent. Pa informacion verifikues shkarkesa nuk mund të riverifikohet."/>
+	<string id="20227" value="A jeni i sigurt se doni të supozoni se kjo shkarkesë ka përfunduar dhe do e riverifikoni atë? E tërë skeda do të merret parasysh dhe PeerProject do të pranojë pjesë të cilat e kalojnë verifikimin dhe do të rishkarkojë pjesët që nuk e kalojnë atë."/>
+	<string id="20228" value="A jeni i sigurt se doni të harroni statusin aktual të verifikimit? Gjithë të dhënat e shkarkuara do të trajtohen si të pabesueshme, dhe hash-pemët e depozituara do të shpërbëhen."/>
 	<string id="20229" value="A jeni i sigurt se doni të harroni gjithë burimet për shkarkesën e zgjedhur?"/>
 	<string id="20231" value="Nuk mund të fshij nga shkarkesa kufirin e zgjedhur sepse asnjë pjesë e kufirit nuk është e pranishme."/>
 	<string id="20232" value="Fshiva %I64i bajte nga shkarkesa."/>
@@ -2810,16 +2810,16 @@
 	<string id="20443" value="Shfaqi Gjithë Llojet"/>
 	<string id="20444" value="Kopjo URI-n"/>
 	<string id="20445" value="Eksporto URI-t..."/>
-	<string id="20446" value="The file &quot;%s&quot; failed a hash verification test, and might not be the file you intended to download.  Are you sure you want to open it?"/>
+	<string id="20446" value="The file &quot;%s&quot; failed a hash verification test, and might not be the file you intended to download. Are you sure you want to open it?"/>
 	<string id="20447" value="Would you like to remove the &quot;potentially unsafe&quot; attribute from this file?"/>
 	<string id="20450" value="A subfolder of the selected folder &quot;%s&quot; is already part of your library.\nAdding this folder will cause re-hashing of some files.\n\nDo you want to continue ?"/>
-	<string id="20451" value="There is no file playing.  Double-click a media file in your library to play it."/>
+	<string id="20451" value="There is no file playing. Double-click a media file in your library to play it."/>
 	<string id="20452" value="Tërë Skedat Mediatike|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Lista|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Skeda Zanore|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Skeda Filmike|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Kolona CD Audio|*.cda|Skeda MIDI|*.mid;*.rmi;*.midi|Tërë Skedat|*.*||"/>
 	<string id="20453" value="Nuk mund të ngarkohet kjo skedë mediatike &quot;%s&quot;"/>
 	<string id="20454" value="The file may be damaged, or you may not have the necessary codecs to play it."/>
 	<string id="20455" value="Part of this file could not be played, you may need to download additional codecs."/>
 	<string id="20456" value="Lista:"/>
-	<string id="20457" value="PeerProject could not instantiate its MediaServices plugin.  Please reinstall PeerProject, and confirm that you have the necessary media codecs and output drivers installed."/>
+	<string id="20457" value="PeerProject could not instantiate its MediaServices plugin. Please reinstall PeerProject, and confirm that you have the necessary media codecs and output drivers installed."/>
 	<string id="20458" value="MediaLuajtësi i PeerProject-s"/>
 	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
 	<string id="20462" value="(Asnjë vegim)"/>
@@ -2849,7 +2849,7 @@
 	<string id="20491" value="Vlera Shumëfishe"/>
 	<string id="20494" value="Në profilin e përdoruesit nuk keni shkruar vendin tuaj.\n\nËshtë mirë që ta shkruani atë që përdoruesit e tjerë ta shohin se nga cili vend jeni. Vëreni se hyrja e vendit nuk zbulon ndonjë informacion me rrezik.\n\nA jeni i sigurt se doni të vijoni pa shkruar vendin nga jeni?"/>
 	<string id="20495" value="Në profilin e përdoruesit nuk keni shkruar asnjë emër."/>
-	<string id="20496" value="You have not selected your age and gender.  Are you sure you want to continue without doing this?"/>
+	<string id="20496" value="You have not selected your age and gender. Are you sure you want to continue without doing this?"/>
 	<string id="20499" value="Re Dosja"/>
 	<string id="20500" value="Shtype butonin Lidhu që të fillosh."/>
 	<string id="20500" value="Shtype butonin Lidhu që të nisësh."/>
@@ -2891,11 +2891,7 @@
 	<string id="20584" value="Fqinji %s përcolli një paketë me masë të tepërt, lëshim i lidhjes."/>
 	<string id="20586" value="Fqinji %s përcolli një paketë të panjohur (0x%.2x), përbuzje."/>
 	<string id="20587" value="Fqinji %s përcolli një pong me të dhëna adrese invalide, përbuzje."/>
-	<string id="20590" value="Hyrja në largësi është çaktivizuar."/>
-	<string id="20591" value="http://%s:%i/remote - një emër përdoruesi dhe fjalëkalimi."/>
-	<string id="20592" value="Nuk mund të pranoj lidhjet, URLi pa vlerë."/>
-	<string id="20597" value="A jeni i sigurt se doni të fshini rregullat e zgjedhur të sigurisë?"/>
-	<string id="20599" value="&amp;Skema"/>
+	<string id="20598" value="A jeni i sigurt se doni të fshini rregullat e zgjedhur të sigurisë?"/>
 	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="PeerProject kërkon me ngulm në rrjet..."/>
 	<string id="20621" value="Klikoni që të kërkoni përsëri"/>
@@ -2952,12 +2948,16 @@
 	<string id="20677" value="Please type the bandwidth limit you wish to set in the form &quot;123 kb/s&quot; for kilobits per second, or &quot;123 KB/s&quot; for kilobytes per second."/>
 	<string id="20678" value="The eDonkey network uses large queues with long wait times. By limiting the maximum queue position you will accept so strictly, you may have trouble getting downloads to begin.\nAre you sure you want to limit what queue positions you will accept?"/>
 	<string id="20680" value="Vendosjet e PeerProject-s"/>
-	<string id="20684" value="A jeni i sigurt se doni të fshini lëvoren &quot;%s&quot;. Këtë nuk mund ta ktheni."/>
+	<string id="20682" value="Hyrja në largësi është çaktivizuar."/>
+	<string id="20684" value="http://%s:%i/remote - një emër përdoruesi dhe fjalëkalimi."/>
+	<string id="20685" value="Nuk mund të pranoj lidhjet, URLi pa vlerë."/>
+	<string id="20692" value="A jeni i sigurt se doni të fshini lëvoren &quot;%s&quot;. Këtë nuk mund ta ktheni."/>
+	<string id="20699" value="&amp;Skema"/>
 	<string id="20700" value="%s brenda : %s jashtë (s:%I64i/n:%I64i)"/>
-	<string id="20701" value="I lidhur te %lu fqinjë.  %s në librarinë lokale."/>
-	<string id="20702" value="Mënyrë Nyje me %lu hoste.  %s në librarinë lokale."/>
-	<string id="20703" value="Mënyrë Nyje/Ultrapikë me %lu hoste.  %s në librarinë lokale."/>
-	<string id="20704" value="Mënyrë Ultrapikë me %lu hoste.  %s në librarinë lokale."/>
+	<string id="20701" value="I lidhur te %lu fqinjë. %s në librarinë lokale."/>
+	<string id="20702" value="Mënyrë Nyje me %lu hoste. %s në librarinë lokale."/>
+	<string id="20703" value="Mënyrë Nyje/Ultrapikë me %lu hoste. %s në librarinë lokale."/>
+	<string id="20704" value="Mënyrë Ultrapikë me %lu hoste. %s në librarinë lokale."/>
 	<string id="20705" value="I lidhur. %s në librarinë lokale."/>
 	<string id="20706" value="Lidhje në rrjet..."/>
 	<string id="20707" value="Nuk jeni i Lidhur në Rrjet."/>
@@ -3399,7 +3399,7 @@
 		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
 		<control caption="_Mjetet:"/>
 		<control caption="Shkarko..."/>
-		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
+		<control caption="Update DC++ hubs from the web. (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="Lidhjet për _Shkarkim:"/>

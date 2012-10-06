@@ -28,10 +28,11 @@
 #define SKIN_SKIN_TITLE 	L"PeerProject Skin Installer"
 #define SKIN_PACKAGE_TITLE	L"PeerProject Package Installer"
 
-enum 
+enum
 {
 	typeSkin,
 	typeLang,
+	typeSchemas,
 	typePlugin,
 	typeData
 };

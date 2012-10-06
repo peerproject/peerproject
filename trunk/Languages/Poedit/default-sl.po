@@ -4381,7 +4381,7 @@ msgid "Requesting..."
 msgstr "Naprošam..."
 
 #: string;20084
-msgid "Success!"
+msgid "Success."
 msgstr "Uspeh!"
 
 #: string;20100
@@ -5105,7 +5105,7 @@ msgid "Dropping source %s (%s) for sending corrupted parts of \"%s\" (%I64i-%I64
 msgstr "Opuščam vir %s (%s) zaradi pošiljanja pokvarjenih delov \"%s\" (%I64i-%I64i)."
 
 #: string;20293
-msgid "WARNING: Download \"%s\" failed verification, it may not be the file you intended to download!"
+msgid "WARNING: Download \"%s\" failed verification, it may not be the file you intended to download."
 msgstr "POZOR: Prenos \"%s\" ni uspešno prestal preverjanja, prav mogoče je, da to ni datoteka, ki ste jo nameravali prenesti!"
 
 #: string;20294
@@ -6229,7 +6229,7 @@ msgid "No tasks scheduled."
 msgstr ""
 
 #: string;20619
-msgid "Last number is 254,252,248,240,224,192,128, or 0.  Others must be 255.\\n\\n(For Netmasked IP ranges.)"
+msgid "Last number is 254,252,248,240,224,192,128, or 0. Others must be 255.\n\n(For Netmasked IP ranges.)\n\nSee perproject.org/wiki for help."
 msgstr ""
 
 #: string;20620
@@ -6609,8 +6609,8 @@ msgid "Verifying"
 msgstr "Preverjam"
 
 #: string;20750
-msgid "!Welcome to PeerProject (version) !\\n.\\nPeerProject is completely free software.\\nPlease use it responsibly and respect local laws.\\n."
-msgstr "!Dobrodošli v PeerProject (version) !\\n.\\nPeerProject je popolnoma brezplačen program.\\nUporabljajte ga odgovorno in ob upoštevanju veljavne zakonodaje s področja intelektualne lastnine.\\n."
+msgid "!Welcome to {version}\n\nPeerProject is completely free software, please use it responsibly."
+msgstr "!Dobrodošli v PeerProject {version}\n\nPeerProject je popolnoma brezplačen program.\\nUporabljajte ga odgovorno in ob upoštevanju veljavne zakonodaje s področja intelektualne lastnine.\\n."
 
 #: string;20751
 msgid "There are no active searches. Click here to search for files."

@@ -443,7 +443,7 @@ bool CLibraryFolders::IsShareable(const CString& strPath)
 	CString strGeneralPathLow = Settings.General.Path;
 	ToLower( strGeneralPathLow );
 
-	CString strUserPathLow = Settings.General.UserPath;
+	CString strUserPathLow = Settings.General.UserPath;		// Settings.General.DataPath
 	ToLower( strUserPathLow );
 
 	return ! (

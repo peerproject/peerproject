@@ -53,7 +53,7 @@ BOOL CFlags::Load()
 {
 	Clear();
 
-	const CString strFile = Settings.General.Path + _T("\\Data\\Flags.png");
+	const CString strFile = Settings.General.Path + _T("\\Data\\Flags.png");	// Settings.General.DataPath ?
 
 	m_pImage.Create( IMAGELIST_FLAG_WIDTH, IMAGELIST_FLAG_HEIGHT, ILC_COLOR32|ILC_MASK, 26 * 26, 8 ) ||
 		m_pImage.Create( IMAGELIST_FLAG_WIDTH, IMAGELIST_FLAG_HEIGHT, ILC_COLOR24|ILC_MASK, 26 * 26, 8 ) ||

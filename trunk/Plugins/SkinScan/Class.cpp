@@ -1,7 +1,7 @@
 //
 // Class.cpp : Implementation of CClass
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -150,13 +150,20 @@ BOOL CSkinScan::ScanFile(LPCSTR pszXML, ISXMLElement* pOutput)
 		return FALSE;
 	}
 
-	// Test if the root element of the document is called "skin"
+	//BOOL bSkin = TRUE;
+
+	// Test if the root element of the document is called "skin" (or "package")
 	VARIANT_BOOL bNamed = VARIANT_FALSE;
 	pFile->IsNamed( CComBSTR( _T("skin") ), &bNamed );
 	if ( ! bNamed )
 	{
-		pFile->Delete();
-		return FALSE;
+		pFile->IsNamed( CComBSTR( _T("package") ), &bNamed );
+		if ( ! bNamed )
+		{
+			pFile->Delete();
+			return FALSE;
+		}
+	//	bSkin = FALSE;
 	}
 
 	// Get the Elements collection from the XML document
@@ -184,7 +191,7 @@ BOOL CSkinScan::ScanFile(LPCSTR pszXML, ISXMLElement* pOutput)
 			pFile->Delete();
 			return FALSE;
 		}
-		pElements->Create( CComBSTR( _T("PeerProjectSkins") ), &pPlural );
+		pElements->Create( CComBSTR( _T("PeerProjectSkins") ), &pPlural );	// "PeerProjectPackages" requires schema xml
 	}
 
 	// Add xsi:noNamespaceSchemaLocation="http://schemas.peerproject.org/Skin.xsd"
@@ -193,11 +200,11 @@ BOOL CSkinScan::ScanFile(LPCSTR pszXML, ISXMLElement* pOutput)
 		CComPtr< ISXMLAttributes > pAttrs;
 		pPlural->get_Attributes( &pAttrs );
 		pAttrs->Add( CComBSTR( _T("xsi:noNamespaceSchemaLocation") ),
-			CComBSTR( _T("http://schemas.peerproject.org/Skin.xsd") ) );
+			CComBSTR( _T("http://schemas.peerproject.org/Skin.xsd") ) );	// "Package.xsd" requires schema xml
 	}
 
 	// Change <manifest> to <PeerProjectSkin>
-	pManifest->put_Name( CComBSTR( _T("PeerProjectSkin") ) );
+	pManifest->put_Name( CComBSTR( _T("PeerProjectSkin") ) );				// "PeerProjectPackage" requires schema xml
 
 	// Detach <manifest> from the file document and add it to the output XML document
 	pManifest->Detach();

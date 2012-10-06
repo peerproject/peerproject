@@ -92,7 +92,7 @@ protected:
 	typedef std::map< BYTE, CSecureRule* > RuleIndexMap;
 
 	CComplainMap				m_Complains;
-	AddressMap					m_AddressMap;		// Consolidated single-IP filters
+	AddressMap					m_AddressMap;		// Consolidated single-IP filters (in reverse byte order)
 	HashMap						m_HashMap[urnLast];	// Consolidated blacklist filters (raw hashstrings, by enum)
 	RuleIndexMap				m_pRuleIndexMap;	// Applicable rule to index byte (memory efficiency)
 //	std::vector< CSecureRule* >	m_pRuleIndex;		// Alt applicable rule to map index byte (memory efficiency)
@@ -150,6 +150,8 @@ protected:
 	CXMLElement*	ToXML(BOOL bRules = TRUE);
 	BOOL			FromXML(CXMLElement* pXML);
 	void			Serialize(CArchive& ar);
+
+	friend class CListLoader;
 };
 
 class CSecureRule

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Slovenian Skin File -->
 
-<!-- Translation based on default-en.xml r82 --> <!-- (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r84 --> <!-- (Shareaza 2.2.2.12) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1890,7 +1890,7 @@
 		<text format="b">Ta prenos je končan</text>
 		<newline gap="8"/>
 		<text>PeerProject je končala prenašanje te datoteke. Datoteko je tudi preverila, tako da
-		je 100% pravilna.  Datoteko je prav tako premaknila v vašo mapo s prenešenimi datotekami.</text>
+		je 100% pravilna. Datoteko je prav tako premaknila v vašo mapo s prenešenimi datotekami.</text>
 	</document>
 	<document name="DownloadHelp.Moving">
 		<text format="b">Ta prenos se premika</text>
@@ -1901,7 +1901,7 @@
 	<document name="DownloadHelp.Paused">
 		<text format="b">Ta prenos je trenutno prekinjen</text>
 		<newline gap="8"/>
-		<text>Prenos te datoteke je trenutno prekinjen.  Če želite prenos nadaljevati, kliknite na
+		<text>Prenos te datoteke je trenutno prekinjen. Če želite prenos nadaljevati, kliknite na
 		ukaz '</text><text format="b">Nadaljuj prenos</text><text>'.</text>
 	</document>
 	<document name="DownloadHelp.DiskFull">
@@ -2623,7 +2623,7 @@
 	<string id="20225" value="Spremenili ste velikost datoteke. Ste prepričani, da želite spremeniti velikost datoteke za ta prenos?"/>
 	<string id="20226" value="Ne smete sklepati, da je prenos zaključen in ponovno preverjen, ker še nimate na voljo katerekoli delne podatke za preverjanje (partial verification data), kot npr. 'tiger-tree' zvezek, eDonkey nabor izvlečkov (hashset) ali BitTorrent nabor izvlečkov. Brez podatkov o preverjanju se prenos ne more ponovno preveriti."/>
 	<string id="20227" value="Ste prepričani, da želite sklepati, da je prenos zaključen in ga ponovno preveriti? V poštev bo prišla celotna datoteka in PeerProject bo potrdila dele, ki opravijo preverjanje ter prenese dele, ki preverjanja ne opravijo."/>
-	<string id="20228" value="Ste prepričani, da želite pozabiti trenutno preveritveni status?  Vsi prenešeni podatki se bodo smatrali, kot varni (trusted) in medpomnjeni izvečki (hashtrees oz. hashsets)se bodo pobrisali."/>
+	<string id="20228" value="Ste prepričani, da želite pozabiti trenutno preveritveni status? Vsi prenešeni podatki se bodo smatrali, kot varni (trusted) in medpomnjeni izvečki (hashtrees oz. hashsets)se bodo pobrisali."/>
 	<string id="20229" value="Ste prepričani, da želite pozabiti vse vire za izbran prenos?"/>
 	<string id="20231" value="Brisanje izbranega razpona iz prenosa ni uspelo, ker v prenosu ni navdenega razpona."/>
 	<string id="20232" value="Brisal %I64i bajtov v prenosu."/>
@@ -2915,10 +2915,6 @@
 	<string id="20586" value="Sosed %s je posredoval neprepoznaven paket (0x%.2x), ignoriram."/>
 	<string id="20587" value="Sosed %s je posredoval pong z neveljavnimi naslovnimi podatki (invalid address data), ignoriram."/>
 	<string id="20588" value="Sosed %s je posredoval potisno (push) prošnjo v naslov, ki je za požarnim zidom, ignoriram."/>
-	<string id="20590" value="Oddaljen dostop je onemogočen."/>
-	<string id="20591" value="http://%s:%i/remote - Vnesti morate uporabniško ime in geslo."/>
-	<string id="20592" value="Sprejemanje povezav ni mogoče, URL ni na voljo."/>
-	<string id="20599" value="&amp;Sheme"/>
 	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="PeerProject aktivno išče po omrežju..."/>
 	<string id="20621" value="Kliknite sem za novo iskanje"/>
@@ -2973,11 +2969,15 @@
 	<string id="20677" value="Vnesite omejitev pasovne širine, ki jo želite nastaviti, in sicer v obliki &quot;123 kb/s&quot; za kilobite na sekundo ali &quot;123 KB/s&quot; za kilobyte na sekundo."/>
 	<string id="20678" value="eDonkey omrežje uporablja dolge čakalne vrste z dolgimi čakalnimi dobami. Z omejevanjem največjega mesta v čakalni vrsti boste lahko imeli težave pri pridobivanju rež za prenose saj se lahko zgodi, da nikakor ne boste mogli priti na vrsto.\nSte prepričani, da želite omejiti največjo dovoljeno mesto v čakalni vrsti?"/>
 	<string id="20680" value="PeerProject nastavitve"/>
-	<string id="20684" value="Ste prepričani, da želite brisati preobleko &quot;%s&quot;.  Dejanja ne bo mogoče razveljaviti."/>
+	<string id="20682" value="Oddaljen dostop je onemogočen."/>
+	<string id="20684" value="http://%s:%i/remote - Vnesti morate uporabniško ime in geslo."/>
+	<string id="20685" value="Sprejemanje povezav ni mogoče, URL ni na voljo."/>
+	<string id="20692" value="Ste prepričani, da želite brisati preobleko &quot;%s&quot;. Dejanja ne bo mogoče razveljaviti."/>
+	<string id="20699" value="&amp;Sheme"/>
 	<string id="20700" value="%s not : %s ven (d:%I64i/u:%I64i)"/>
 	<string id="20701" value="Povezan s sosedi: %lu. V lokalni knjižnici: %s."/>
 	<string id="20702" value="Način vozlišča s številom sosedov: %lu. V lokalni knjižnici: %s."/>
-	<string id="20703" value="Način Hub/Ultrapeer s številom sosedov: %lu.  V lokalni knjižnici: %s."/>
+	<string id="20703" value="Način Hub/Ultrapeer s številom sosedov: %lu. V lokalni knjižnici: %s."/>
 	<string id="20704" value="Način Ultrapeer s številom sosedov: %lu. V lokalni knjižnici: %s."/>
 	<string id="20705" value="Povezan. V lokalni knjižnici: %s."/>
 	<string id="20706" value="Povezujem na omrežje..."/>
@@ -3058,7 +3058,7 @@
 	<string id="20793" value="URL:"/>
 	<string id="20794" value="Uporabniški agent:"/>
 	<string id="20795" value="%s not : %s ven (d:%I64i/u:%I64i/s:%I64i)"/>
-	<string id="20798" value="PeerProject je končala prenos različice (%s).  Želite posodobiti takoj?\n\nV primeru, da izberete Da(Yes), se bo PeerProject, medtem, ko se bo posodabljala, začasno zaprla"/>
+	<string id="20798" value="PeerProject je končala prenos različice (%s). Želite posodobiti takoj?\n\nV primeru, da izberete Da(Yes), se bo PeerProject, medtem, ko se bo posodabljala, začasno zaprla"/>
 	<string id="20800" value="Pošiljam privzet HTML odgovor do gostitelja za nalaganje %s (%s)."/>
 	<string id="20801" value="Vhodna povezava od %s je dejansko HTTP prošnja za nalaganje (upload)."/>
 	<string id="20802" value="Gostitelj za nalaganje %s (%s) je poslal uporabniški zahtevek za brskanje, odgovarjam..."/>
@@ -3438,7 +3438,7 @@
 		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
 		<control caption="_Orodja:"/>
 		<control caption="Prenesi..."/>
-		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
+		<control caption="Update DC++ hubs from the web. (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Prenosne povezave:"/>

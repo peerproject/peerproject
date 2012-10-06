@@ -230,7 +230,7 @@ int CMediaFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_pIcons.Create( 16, 16, ILC_COLOR16|ILC_MASK, 3, 0 );
 	m_pIcons.Add( &bmIcons, RGB( 0, 255, 0 ) );
 
-	m_wndList.LoadTextList( Settings.General.UserPath + _T("\\Data\\Playlist.m3u") );
+	m_wndList.LoadTextList( Settings.General.DataPath + _T("Playlist.m3u") );
 
 	UpdateState();
 
@@ -241,7 +241,7 @@ int CMediaFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 void CMediaFrame::OnDestroy()
 {
-	m_wndList.SaveTextList( Settings.General.UserPath + _T("\\Data\\Playlist.m3u") );
+	m_wndList.SaveTextList( Settings.General.DataPath + _T("Playlist.m3u") );
 
 	Settings.MediaPlayer.ListSize		= m_nListSize;
 	Settings.MediaPlayer.ListVisible	= m_bListVisible != FALSE;
@@ -1723,11 +1723,7 @@ BOOL CMediaFrame::OpenFile(LPCTSTR pszFile)
 	}
 
 	if ( hr != S_OK )
-	{
-		CString strMessage;
-		LoadString( strMessage, IDS_MEDIA_PARTIAL_RENDER );
-		m_pMetadata.Add( _T("Warning"), strMessage );
-	}
+		m_pMetadata.Add( _T("Warning"), LoadString( IDS_MEDIA_PARTIAL_RENDER ) );
 
 	return TRUE;
 }

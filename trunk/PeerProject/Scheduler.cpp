@@ -62,7 +62,7 @@ CScheduler::~CScheduler()
 
 BOOL CScheduler::Load()
 {
-	const CString strFile = Settings.General.UserPath + _T("\\Data\\Scheduler.dat");
+	const CString strFile = Settings.General.DataPath + _T("Scheduler.dat");
 
 	CQuickLock oLock( Scheduler.m_pSection );
 
@@ -91,7 +91,7 @@ BOOL CScheduler::Load()
 
 BOOL CScheduler::Save()
 {
-	const CString strFile = Settings.General.UserPath + _T("\\Data\\Scheduler.dat");
+	const CString strFile = Settings.General.DataPath + _T("Scheduler.dat");
 
 	CQuickLock oLock( Scheduler.m_pSection );
 

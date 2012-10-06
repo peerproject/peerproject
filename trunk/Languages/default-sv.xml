@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Swedish Skin File -->
 
-<!-- Translation based on default-en.xml r82 -->
+<!-- Translation based on default-en.xml r84 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3041,11 +3041,7 @@
 	<string id="20586" value="Grannen %s skickade vidare ett felaktigt paket (0x%.2x), ignorerar."/>
 	<string id="20587" value="Grannen %s skickade ett pongpaket med en felaktig adress, ignorerar."/>
 	<string id="20588" value="Grannen %s skickade vidare en anslutningsbegäran till en adress bakom brandvägg, ignorerar."/>
-	<string id="20590" value="Fjärråtkomst är avstängd."/>
-	<string id="20591" value="http://%s:%i/remote - välja ett användarnamn och lösenord."/>
-	<string id="20592" value="Kan inte acceptera anslutningar. URL otillgänlig."/>
-	<string id="20597" value="Är du säker p å att du vill radera de valda säkerhetsreglerna?"/>
-	<string id="20599" value="&amp;Scheman"/>
+	<string id="20598" value="Är du säker p å att du vill radera de valda säkerhetsreglerna?"/>
 	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="PeerProject söker aktivt på nätverket…"/>
 	<string id="20621" value="Klicka här för att söka igen."/>
@@ -3102,7 +3098,11 @@
 	<string id="20677" value="Skriv bandbreddsbegräsningen du vill använda på formen &quot;123 kb/s&quot; för kbit/s eller &quot;123 KB/s&quot; för kbyte/s."/>
 	<string id="20678" value="Nätverket eDonkey använder långa köer med långa väntetider. Om du begränsar den maximala köpositionen kan du få problem med att ladda ner filer.\nÄr du säker på att du vill begränsa köpositioner?"/>
 	<string id="20680" value="Inställningar"/>
-	<string id="20684" value="Är du säker på att du vill radera skinnet &quot;%s&quot;. Detta kan inte ångras."/>
+	<string id="20682" value="Fjärråtkomst är avstängd."/>
+	<string id="20684" value="http://%s:%i/remote - välja ett användarnamn och lösenord."/>
+	<string id="20685" value="Kan inte acceptera anslutningar. URL otillgänlig."/>
+	<string id="20692" value="Är du säker på att du vill radera skinnet &quot;%s&quot;. Detta kan inte ångras."/>
+	<string id="20699" value="&amp;Scheman"/>
 	<string id="20700" value="%s in : %s ut (d:%I64i/u:%I64i)"/>
 	<string id="20701" value="Ansluten till %lu grannar. %s i ditt lokala bibliotek."/>
 	<string id="20702" value="Navläge med %lu grannar. %s i ditt lokala bibliotek."/>
@@ -3614,7 +3614,7 @@
 		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
 		<control caption="_Verktyg:"/>
 		<control caption="Ladda ned…"/>
-		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
+		<control caption="Update DC++ hubs from the web. (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Nedladdningsanslutning:"/>

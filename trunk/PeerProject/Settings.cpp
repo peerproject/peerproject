@@ -91,6 +91,7 @@ void CSettings::Load()
 	Add( _T(""), _T("MultiUser"), &General.MultiUser, false, true );
 	Add( _T(""), _T("Path"), &General.Path, NULL, false, setReadOnly );
 	Add( _T(""), _T("UserPath"), &General.UserPath, NULL, false, setReadOnly );
+	Add( _T(""), _T("DataPath"), &General.DataPath, NULL, false, setReadOnly );
 	Add( _T(""), _T("LogLevel"), &General.LogLevel, MSG_INFO, 1, MSG_ERROR, MSG_DEBUG, _T(" level") );
 	Add( _T(""), _T("SearchLog"), &General.SearchLog, true );
 	Add( _T(""), _T("DialogScan"), &General.DialogScan, false );
@@ -128,6 +129,7 @@ void CSettings::Load()
 	Add( _T("Interface"), _T("AutoComplete"), &Interface.AutoComplete, true );
 	Add( _T("Interface"), _T("CoolMenuEnable"), &Interface.CoolMenuEnable, true );
 	Add( _T("Interface"), _T("LowResMode"), &Interface.LowResMode, false );
+	Add( _T("Interface"), _T("SaveOpenWindows"), &Interface.SaveOpenWindows, General.GUIMode != GUI_BASIC );
 	Add( _T("Interface"), _T("RefreshRateGraph"), &Interface.RefreshRateGraph, 72, 1, 10, 60000, _T(" ms") );	// 30sec display areas
 	Add( _T("Interface"), _T("RefreshRateText"), &Interface.RefreshRateText, 650, 1, 10, 10000, _T(" ms") );	// 3x per 2 sec.
 	Add( _T("Interface"), _T("RefreshRateUI"), &Interface.RefreshRateUI, theApp.m_nWinVer < WIN_XP_64 ? 330 : 200, 1, 10, 2000, _T(" ms") );	// 3/5x per sec. (Button status)
@@ -667,6 +669,8 @@ void CSettings::Load()
 	{
 		if ( General.UserPath.IsEmpty() )
 			General.UserPath = theApp.GetAppDataFolder() + _T("\\PeerProject");
+		if ( General.DataPath.IsEmpty() )
+			General.DataPath = General.UserPath + _T("\\Data\\");
 		if ( Downloads.IncompletePath.IsEmpty() )
 			Downloads.IncompletePath = theApp.GetLocalAppDataFolder() + _T("\\PeerProject\\Incomplete");
 		if ( Downloads.CompletePath.IsEmpty() )
@@ -676,6 +680,8 @@ void CSettings::Load()
 	{
 		if ( General.UserPath.IsEmpty() )
 			General.UserPath = General.Path;
+		if ( General.DataPath.IsEmpty() )
+			General.DataPath = General.UserPath + _T("\\Data\\");
 		if ( Downloads.IncompletePath.IsEmpty() )
 			Downloads.IncompletePath = General.Path + _T("\\Incomplete");
 		if ( Downloads.CompletePath.IsEmpty() )
@@ -701,7 +707,7 @@ void CSettings::Load()
 
 	// Make sure some needed paths exist
 	CreateDirectory( General.Path + _T("\\Data") );
-	CreateDirectory( General.UserPath + _T("\\Data") );
+	CreateDirectory( General.DataPath.Left( General.DataPath.GetLength() - 1 ) );		// General.UserPath + _T("\\Data")
 	CreateDirectory( Downloads.IncompletePath );
 	CreateDirectory( Downloads.CompletePath );
 	CreateDirectory( Downloads.TorrentPath );

@@ -131,10 +131,10 @@ void CDCSettingsPage::OnDiscoveryGo()
 {
 	// Load hublist.xml.bz2 from web various ways
 
-	//if ( PathFileExists( Settings.General.UserPath + _T("\\Data\\hublist.xml.bz2") ) &&
+	//if ( PathFileExists( Settings.General.DataPath + _T("hublist.xml.bz2") ) &&
 	//	MsgBox( L"Load local file?", MB_ICONQUESTION | MB_YESNO ) == IDYES ) )
 	//{
-	//	theApp.OpenImport( Settings.General.UserPath + _T("\\Data\\hublist.xml.bz2") );
+	//	theApp.OpenImport( Settings.General.DataPath + _T("hublist.xml.bz2") );
 	//	return;
 	//}
 

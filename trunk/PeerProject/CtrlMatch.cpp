@@ -959,10 +959,10 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 						_sntprintf( szBuffer, sizeof( szBuffer ) / sizeof( TCHAR ), _T("%s"), (LPCTSTR)strTemp );
 					szBuffer[ sizeof( szBuffer ) / sizeof( TCHAR ) - 1 ] = 0;
 				}
-				else if ( ( ppHit->m_nProtocol == PROTOCOL_ED2K ) && ( ppHit->m_bPush == TRI_TRUE ) )
+				else if ( ppHit->m_nProtocol == PROTOCOL_ED2K && ppHit->m_bPush == TRI_TRUE )
 				{
+					strTemp.Format( _T("@%s"), (LPCTSTR)CString( inet_ntoa( (IN_ADDR&)*ppHit->m_oClientID.begin() ) ) );
 					//strText.Format( _T("%lu@%s"), ppHit->m_oClientID.begin()[2], (LPCTSTR)CString( inet_ntoa( (IN_ADDR&)*ppHit->m_oClientID.begin() ) ) );
-					strTemp.Format( _T("%s"), (LPCTSTR)CString( inet_ntoa( (IN_ADDR&)*ppHit->m_oClientID.begin() ) ) );
 
 					if ( ppHit->GetSources() > 1 )
 						_sntprintf( szBuffer, sizeof( szBuffer ) / sizeof( TCHAR ), _T("%s+%u"), (LPCTSTR)strTemp, ppHit->GetSources() - 1 );
@@ -975,8 +975,7 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 					if ( ppHit->GetSources() > 1 )
 					{
 						_sntprintf( szBuffer, sizeof( szBuffer ) / sizeof( TCHAR ), _T("%s+%u"),
-							(LPCTSTR)CString( inet_ntoa( ppHit->m_pAddress ) ),
-							ppHit->GetSources() - 1 );
+							(LPCTSTR)CString( inet_ntoa( ppHit->m_pAddress ) ), ppHit->GetSources() - 1 );
 						szBuffer[ sizeof( szBuffer ) / sizeof( TCHAR ) - 1 ] = 0;
 					}
 					else

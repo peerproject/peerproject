@@ -36,18 +36,18 @@ static char THIS_FILE[] = __FILE__;
 
 BEGIN_MESSAGE_MAP(CLibraryFolderCtrl, CTreeCtrl)
 	//{{AFX_MSG_MAP(CLibraryFolderCtrl)
-	ON_WM_LBUTTONDOWN()
-	ON_WM_KEYDOWN()
 	ON_WM_CREATE()
+	ON_WM_NCPAINT()
+	ON_WM_KEYDOWN()
 	ON_WM_LBUTTONDBLCLK()
 	ON_WM_LBUTTONUP()
+	ON_WM_LBUTTONDOWN()
+	ON_WM_RBUTTONDOWN()
 	ON_NOTIFY_REFLECT(TVN_ITEMEXPANDEDW, OnItemExpanded)
 	ON_NOTIFY_REFLECT(TVN_ITEMEXPANDEDA, OnItemExpanded)
 	ON_NOTIFY_REFLECT(TVN_SELCHANGEDW, OnSelChanged)
 	ON_NOTIFY_REFLECT(TVN_SELCHANGEDA, OnSelChanged)
 	ON_NOTIFY_REFLECT(NM_CUSTOMDRAW, OnCustomDraw)
-	ON_WM_RBUTTONDOWN()
-	ON_WM_NCPAINT()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -71,7 +71,7 @@ CLibraryFolderCtrl::~CLibraryFolderCtrl()
 
 BOOL CLibraryFolderCtrl::Create(DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID)
 {
-	dwStyle |= WS_CHILD|/*TVS_PRIVATEIMAGELISTS|*/TVS_HASLINES|TVS_LINESATROOT;
+	dwStyle |= WS_CHILD|TVS_HASLINES|TVS_LINESATROOT;	// TVS_PRIVATEIMAGELISTS
 	dwStyle |= TVS_HASBUTTONS|TVS_SHOWSELALWAYS;
 	return CTreeCtrl::Create( dwStyle, rect, pParentWnd, nID );
 }
@@ -122,7 +122,7 @@ void CLibraryFolderCtrl::Update(CLibraryFolder* pFolder, HTREEITEM hFolder, HTRE
 {
 	if ( ! hFolder )
 	{
-		DWORD dwStyle = INDEXTOOVERLAYMASK( pFolder->IsShared() ? 0 : SHI_O_LOCKED );
+		DWORD dwStyle = INDEXTOOVERLAYMASK( pFolder->IsShared() ? 0 : SHI_OVERLAY_LOCKED );
 
 		if ( pFolder->m_sPath.CompareNoCase( Settings.Downloads.CompletePath ) == 0 ) dwStyle |= TVIS_BOLD;
 
@@ -133,13 +133,11 @@ void CLibraryFolderCtrl::Update(CLibraryFolder* pFolder, HTREEITEM hFolder, HTRE
 
 		if ( pFolder->m_pParent == NULL )
 		{
-			CString strDrive;
-			if ( pFolder->m_sPath.Find( _T(":\\") ) == 1 || pFolder->m_sPath.GetLength() == 2 )
-				strDrive.Format( _T(" (%c:)"), pFolder->m_sPath[0] );
-			else
-				strDrive = _T(" (Net)");
+			if ( pFolder->m_sPath[1] == _T(':') )
+				strName += _T("  (") + pFolder->m_sPath.Left( 1 ) + _T(":)");
+			else if ( pFolder->m_sPath[1] == _T('\\') )
+				strName += _T("  (") + pFolder->m_sPath.Mid( 2, pFolder->m_sPath.Find( L'\\', 3 ) - 2 ) + _T(")");
 
-			strName += strDrive;
 			dwStyle |= TVIS_EXPANDED;
 		}
 
@@ -149,8 +147,8 @@ void CLibraryFolderCtrl::Update(CLibraryFolder* pFolder, HTREEITEM hFolder, HTRE
 	}
 	else
 	{
-		DWORD dwMask = TVIS_OVERLAYMASK | TVIS_BOLD;
-		DWORD dwStyle = INDEXTOOVERLAYMASK( pFolder->IsShared() ? 0 : SHI_O_LOCKED );
+		DWORD dwMask  = TVIS_OVERLAYMASK|TVIS_BOLD;
+		DWORD dwStyle = INDEXTOOVERLAYMASK( pFolder->IsShared() ? 0 : SHI_OVERLAY_LOCKED );
 
 		if ( pFolder->m_sPath.CompareNoCase( Settings.Downloads.CompletePath ) == 0 ) dwStyle |= TVIS_BOLD;
 
@@ -310,7 +308,7 @@ void CLibraryFolderCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 			UINT nNewState = GetItemState( hItem, TVIS_SELECTED ) & TVIS_SELECTED ?
 				0 : TVIS_SELECTED;
 
-			SetItemState( hItem, nNewState,  TVIS_SELECTED );
+			SetItemState( hItem, nNewState, TVIS_SELECTED );
 			m_hFirstSelected = NULL;
 			NotifySelectionChanged();
 		}

@@ -120,10 +120,7 @@ LRESULT CWizardNetworksPage::OnWizardNext()
 
 	if ( ! m_bG2Enable )
 	{
-		CString strMessage;
-		LoadString( strMessage, IDS_NETWORK_DISABLE_G2 );
-
-		if ( MsgBox( strMessage, MB_ICONEXCLAMATION|MB_YESNO|MB_DEFBUTTON2 ) != IDYES )
+		if ( MsgBox( IDS_NETWORK_DISABLE_G2, MB_ICONEXCLAMATION|MB_YESNO|MB_DEFBUTTON2 ) != IDYES )
 		{
 			m_bG2Enable = TRUE;
 			UpdateData( FALSE );
@@ -153,8 +150,8 @@ LRESULT CWizardNetworksPage::OnWizardNext()
 
 	// Load hublist.xml.bz2 from web if needed, various ways
 	if ( HostCache.DC.GetCount() < 5 &&
-		! ( PathFileExists( Settings.General.UserPath + _T("\\Data\\hublist.xml.bz2") ) &&
-			theApp.OpenImport( Settings.General.UserPath + _T("\\Data\\hublist.xml.bz2") ) ) )
+		! ( PathFileExists( Settings.General.DataPath + _T("hublist.xml.bz2") ) &&
+			theApp.OpenImport( Settings.General.DataPath + _T("hublist.xml.bz2") ) ) )
 	{
 		CUpdateServersDlg dlg;
 		dlg.m_sURL = Settings.DC.HubListURL;

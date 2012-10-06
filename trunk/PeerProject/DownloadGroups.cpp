@@ -56,10 +56,10 @@ CDownloadGroups::~CDownloadGroups()
 
 CDownloadGroup* CDownloadGroups::GetSuperGroup()
 {
-	CQuickLock pLock( m_pSection );
-
 	CString strCaption;
 	LoadString( strCaption, IDS_GENERAL_ALL );
+
+	CQuickLock pLock( m_pSection );
 
 	if ( ! m_pSuper )
 		return m_pSuper = Add( (LPCTSTR)strCaption );
@@ -295,7 +295,7 @@ void CDownloadGroups::Clear()
 
 BOOL CDownloadGroups::Load()
 {
-	const CString strFile = Settings.General.UserPath + _T("\\Data\\DownloadGroups.dat");
+	const CString strFile = Settings.General.DataPath + _T("DownloadGroups.dat");
 
 	CFile pFile;
 	if ( ! pFile.Open( strFile, CFile::modeRead | CFile::shareDenyWrite | CFile::osSequentialScan ) )
@@ -341,8 +341,8 @@ BOOL CDownloadGroups::Save(BOOL bForce)
 	if ( ! bForce && m_nBaseCookie == m_nSaveCookie )
 		return FALSE;
 
-	const CString strFile = Settings.General.UserPath + _T("\\Data\\DownloadGroups.dat");
-	const CString strTemp = Settings.General.UserPath + _T("\\Data\\DownloadGroups.tmp");
+	const CString strFile = Settings.General.DataPath + _T("DownloadGroups.dat");
+	const CString strTemp = Settings.General.DataPath + _T("DownloadGroups.tmp");
 
 	CFile pFile;
 	if ( ! pFile.Open( strTemp, CFile::modeWrite | CFile::modeCreate | CFile::shareExclusive | CFile::osSequentialScan ) )

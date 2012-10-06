@@ -2094,7 +2094,7 @@ msgstr "Шкурки"
 
 #: chomeviewctrl;text;8002
 msgid "- Mix'n'match changes to visual appearances"
-msgstr "- Измeнение обликa Sharеaza"
+msgstr "- Измeнение обликa PeerProject"
 
 #: chomeviewctrl;link;8003 string;window_scheduler
 msgid "Scheduler"
@@ -2110,7 +2110,7 @@ msgstr "Мaстер Устанoвок"
 
 #: chomeviewctrl;text;8006
 msgid "- Update blocklist to avoid bad search results"
-msgstr "- Пошaговый мaстер устанoвок Sharеaza"
+msgstr "- Пошaговый мaстер устанoвок PeerProject"
 
 #: chomeviewctrl;link;8007
 msgid "Settings Wizard"
@@ -4381,7 +4381,7 @@ msgid "Requesting..."
 msgstr "Запрашивается..."
 
 #: string;20084
-msgid "Success!"
+msgid "Success."
 msgstr "Успех!"
 
 #: string;20100
@@ -5105,7 +5105,7 @@ msgid "Dropping source %s (%s) for sending corrupted parts of \"%s\" (%I64i-%I64
 msgstr "Удаляю источник %s (%s) из-за пересылок испорченных частей «%s» (%I64i-%I64i)."
 
 #: string;20293
-msgid "WARNING: Download \"%s\" failed verification, it may not be the file you intended to download!"
+msgid "WARNING: Download \"%s\" failed verification, it may not be the file you intended to download."
 msgstr "ПРЕДУПРЕЖДЕНИЕ: Загрузка «%s» не прошла проверку, этот файл может быть не тот, которого Вы собирались загрузить!"
 
 #: string;20294
@@ -6229,7 +6229,7 @@ msgid "No tasks scheduled."
 msgstr ""
 
 #: string;20619
-msgid "Last number is 254,252,248,240,224,192,128, or 0.  Others must be 255.\\n\\n(For Netmasked IP ranges.)"
+msgid "Last number is 254,252,248,240,224,192,128, or 0. Others must be 255.\n\n(For Netmasked IP ranges.)\n\nSee perproject.org/wiki for help."
 msgstr ""
 
 #: string;20620
@@ -6609,8 +6609,8 @@ msgid "Verifying"
 msgstr "Проверка"
 
 #: string;20750
-msgid "!Welcome to PeerProject (version) !\\n.\\nPeerProject is completely free software.\\nPlease use it responsibly and respect local laws.\\n."
-msgstr "!Добро пожаловать в PeerProject (version) !\\n.\\nPeerProject полностью бесплатная программа.\\nПожалуйста используйте её с уважением к законам интеллектуальной собственности.\\n."
+msgid "!Welcome to {version}\n\nPeerProject is completely free software, please use it responsibly."
+msgstr "!Добро пожаловать в PeerProject {version}\n\nPeerProject полностью бесплатная программа.\\nПожалуйста используйте её с уважением к законам интеллектуальной собственности.\\n."
 
 #: string;20751
 msgid "There are no active searches. Click here to search for files."

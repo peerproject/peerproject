@@ -722,7 +722,7 @@ void CIRCFrame::OnIrcUserCmdDeop()
 
 void CIRCFrame::OnIrcChanCmdOpen()
 {
-	CString strPath = Settings.General.UserPath + _T("\\Data\\ChatChanlist.dat");
+	CString strPath = Settings.General.DataPath + _T("ChatChanlist.dat");
 
 	CFile pFile;
 	if ( ! pFile.Open( strPath, CFile::modeRead ) ) return;
@@ -750,7 +750,7 @@ void CIRCFrame::OnIrcChanCmdOpen()
 void CIRCFrame::OnIrcChanCmdSave()
 {
 	CFile pFile;
-	if ( ! pFile.Open( Settings.General.UserPath + _T("\\Data\\ChatChanlist.dat"),
+	if ( ! pFile.Open( Settings.General.DataPath + _T("ChatChanlist.dat"),
 		CFile::modeWrite | CFile::modeCreate ) )
 		return;
 

@@ -438,7 +438,7 @@ void CUploadQueues::Clear()
 
 BOOL CUploadQueues::Load()
 {
-	const CString strFile = Settings.General.UserPath + _T("\\Data\\UploadQueues.dat");
+	const CString strFile = Settings.General.DataPath + _T("UploadQueues.dat");
 
 	{
 		CQuickLock oLock( m_pSection );
@@ -493,8 +493,8 @@ BOOL CUploadQueues::Load()
 
 BOOL CUploadQueues::Save()
 {
-	CString strFile = Settings.General.UserPath + _T("\\Data\\UploadQueues.dat");
-	CString strTemp = Settings.General.UserPath + _T("\\Data\\UploadQueues.tmp");
+	CString strFile = Settings.General.DataPath + _T("UploadQueues.dat");
+	CString strTemp = Settings.General.DataPath + _T("UploadQueues.tmp");
 
 	CFile pFile;
 	if ( pFile.Open( strTemp, CFile::modeWrite | CFile::modeCreate | CFile::shareExclusive | CFile::osSequentialScan ) )

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Finnish Skin File -->
 
-<!-- Translation based on default-en.xml r80 --> <!-- (Shareaza 2.1.3.7) -->
+<!-- Translation based on default-en.xml r84 --> <!-- (Shareaza 2.1.3.7) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1725,7 +1725,7 @@
 		<text format="b">Tervetuloa PeerProjectn Asetus Manageriin</text>
 		<newline gap="16"/>
 		<text>PeerProject Asetus Manageri antaa käyttäjien kustomoida täysin kuinka
-			PeerProject toimii.  Asetukset	</text>
+			PeerProject toimii. Asetukset </text>
 		<text format="b">Yleiset </text>
 		<text>alue joka liittyy käyttö kokemukseen.</text>
 		<newline gap="16" indent="16"/>
@@ -1754,7 +1754,7 @@
 		<text format="b">Tervetuloa PeerProjectn Asetus Manageriin</text>
 		<newline gap="16"/>
 		<text>PeerProject Asetus Manageri antaa käyttäjien kustomoida täysin kuinka
-			PeerProject toimii.  Asetukset </text>
+			PeerProject toimii. Asetukset </text>
 		<text format="b">Internet </text>
 		<text>alue joka kontrolloi kuinka PeerProject käyttäytyy toisien koneiden kanssa jaetuissa p2p verkoissa.</text>
 		<newline gap="16" indent="16"/>
@@ -1879,13 +1879,13 @@
 		<text format="b">Tämä lataus on valmis</text>
 		<newline gap="8"/>
 		<text>PeerProject on lopettanut tämän tiedoston lataamisen ja varmistanut, että
-		se 100% ladattu.  Se on myös siirtänyt tiedoston sinun lataukset kansioon.</text>
+		se 100% ladattu. Se on myös siirtänyt tiedoston sinun lataukset kansioon.</text>
 	</document>
 	<document name="DownloadHelp.Moving">
 		<text format="b">Tätä latausta siirretään</text>
 		<newline gap="8"/>
 		<text>PeerProject on lopettanut tämän tiedoston lataamisen ja varmistanut, että
-		se on ladattu kokonaan.  Sitä ollaan nyt siirtämässä ja/tai purkamassa lataukset kansioosi.</text>
+		se on ladattu kokonaan. Sitä ollaan nyt siirtämässä ja/tai purkamassa lataukset kansioosi.</text>
 	</document>
 	<document name="DownloadHelp.Paused">
 		<text format="b">Tämä lataus on pysäytetty</text>
@@ -1912,9 +1912,9 @@
 	<document name="DownloadHelp.Downloading">
 		<text format="b">Tämä lataus on aktiivinen!</text>
 		<newline gap="8"/>
-		<text>Tämä tiedosto on nyt latauksessa.  Jos tiedosto latautuu liian hitaasti,
+		<text>Tämä tiedosto on nyt latauksessa. Jos tiedosto latautuu liian hitaasti,
 		sinä voit yrittää etsiä verkosta lisää lähteitä</text>
-		<text format="b"> Etsi Lisää Lähteitä</text><text> komennolla.  Jos nopeus ei
+		<text format="b"> Etsi Lisää Lähteitä</text><text> komennolla. Jos nopeus ei
 		parannu se voi johtua rajoitetusta lähetys nopeudesta jota käyttäjä jolta lataat käyttää.
 		Lataus nopeus yleensä nopeentuu ajan kuluessa.</text>
 	</document>
@@ -1934,7 +1934,7 @@
 		<text>Tämä lataus odottaa, että joku muu sinun latauksistasi valmistuisi.
 		Sinu lataus rajoituksesi määrittävät kuinka monta latausta sinulla voi olla aktiivisena
 		mihinkä annettuna aikana tahansa, varmistakseen että jokaine lataus saa hyvän nopeuden saatavasta
-		lataus nopeudesta.  Voit muuttaa näitä asetuksia Työkalu, PeerProjectn Asetukset.
+		lataus nopeudesta. Voit muuttaa näitä asetuksia Työkalu, PeerProjectn Asetukset.
 		Kuitenkin voit manuaalisesti aloittaa latauksen jatka komennolla.</text>
 	</document>
 	<document name="DownloadHelp.Searching">
@@ -1942,7 +1942,7 @@
 		<newline gap="8"/>
 		<text>Tälle lataukselle ei ole olemassa tunnettuja lähteitä, joten PeerProject etsii
 		kaikista yhdistetyistä P2P verkoista uusia lähteitä. Kun lähteet on löydetty
-		lataus alkaa automaattisesti.  PeerProject etsii lähteitä automaattisesti,
+		lataus alkaa automaattisesti. PeerProject etsii lähteitä automaattisesti,
 		kuitenkin voit nopeuttaa prosessia käyttämällä</text>
 		<text format="b"> Etsi Lisää Lähteitä</text><text> komennolla.</text>
 		<newline gap="8"/>
@@ -1961,7 +1961,7 @@
 		<text format="b">BitTorrent Jäjitin Alhaalla</text>
 		<newline gap="8"/>
 		<text>The BitTorrent jäljitys palvelin tälle lataukselle näyttää olevan
-		suljettu tai epäkunnossa.  PeerProject ei voi ottaa siihen yhteyttä saadakseen
+		suljettu tai epäkunnossa. PeerProject ei voi ottaa siihen yhteyttä saadakseen
 		listan peereistä.</text>
 	</document>
 	<!-- Upload help documents -->

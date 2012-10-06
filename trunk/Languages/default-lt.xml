@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Lithuanian Skin File -->
 
-<!-- Translation based on default-en.xml r82 -->
+<!-- Translation based on default-en.xml r84 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3114,11 +3114,7 @@
 	<string id="20586" value="Kaimynas adresu %s persiuntė neatpažintą paketą (0x%.2x), ignoruojama."/>
 	<string id="20587" value="Kaimynas adresu %s persiuntė pong paketą su netesingais adreso duomenimis, ignoruojama."/>
 	<string id="20588" value="Kaimynas adresu %s persiuntė įstūmiančiojo susijungimo užklausą adresatui už užkardos, ignoruojama."/>
-	<string id="20590" value="Nuotolinė prieiga neįgalinta."/>
-	<string id="20591" value="http://%s:%i/remote - įrašyti naudotojo vardą ir slaptažodį."/>
-	<string id="20592" value="Neįmanoma priimti susijungimų, nuoroda nepasiekiama."/>
-	<string id="20597" value="Ar tikrai norite ištrinti pasirinktas saugos taisykles?"/>
-	<string id="20599" value="&amp;Schemos"/>
+	<string id="20598" value="Ar tikrai norite ištrinti pasirinktas saugos taisykles?"/>
 	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="„PeerProject“ aktyviai ieško tinkle..."/>
 	<string id="20621" value="Paieškos pakartojimui spauskite čia"/>
@@ -3174,7 +3170,11 @@
 	<string id="20677" value="Įveskite norimą greitaveikos limitą „123 kb/s“ pavidalu, jei spartą renkatės kilobitais per sekundę, arba „123 KB/s“, jei renkatės kilobaitais per sekundę."/>
 	<string id="20678" value="eDonkey tinkle naudojamos didelės eilės, ir jose laukiama ilgai. Sumažinę eilės dydį Jūs priimsite susijungimus labai griežtomis sąlygomis ir galite turėti problemų su atsisiuntimu.\nAr įsitikinę, kad norite apriboti eilės numerius?"/>
 	<string id="20680" value="„PeerProject“ nuostatos"/>
-	<string id="20684" value="Ar tikrai norite ištrinti „%s“ apvalkalą? Atstatyti vėliau bus neįmanoma."/>
+	<string id="20682" value="Nuotolinė prieiga neįgalinta."/>
+	<string id="20684" value="http://%s:%i/remote - įrašyti naudotojo vardą ir slaptažodį."/>
+	<string id="20685" value="Neįmanoma priimti susijungimų, nuoroda nepasiekiama."/>
+	<string id="20692" value="Ar tikrai norite ištrinti „%s“ apvalkalą? Atstatyti vėliau bus neįmanoma."/>
+	<string id="20699" value="&amp;Schemos"/>
 	<string id="20700" value="%s įein. : %s išein. (a:%I64i/i:%I64i)"/>
 	<string id="20701" value="Prisijungta prie %lu kaimynų(-o). %s asmeninėje kolekcijoje."/>
 	<string id="20702" value="Mazgo veiksena su %lu kaimynais(-ų). %s asmeninėje kolekcijoje."/>
@@ -3686,7 +3686,7 @@
 		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
 		<control caption="_į_rankiai:"/>
 		<control caption="Parsisiųsti..."/>
-		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
+		<control caption="Update DC++ hubs from the web. (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Atsisiuntimų susijungimai:"/>

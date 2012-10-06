@@ -145,7 +145,7 @@ void CResultFilters::Remove(DWORD index)
 
 BOOL CResultFilters::Load()
 {
-	const CString strFile = Settings.General.UserPath + _T("\\Data\\Filters.dat");
+	const CString strFile = Settings.General.DataPath + _T("Filters.dat");
 
 	// Delete old content first
 	Clear();
@@ -186,8 +186,8 @@ BOOL CResultFilters::Load()
 
 BOOL CResultFilters::Save()
 {
-	CString strFile = Settings.General.UserPath + _T("\\Data\\Filters.dat");
-	CString strTemp = Settings.General.UserPath + _T("\\Data\\Filters.tmp");
+	CString strFile = Settings.General.DataPath + _T("Filters.dat");
+	CString strTemp = Settings.General.DataPath + _T("Filters.tmp");
 
 	if ( m_nFilters == 0 )
 	{

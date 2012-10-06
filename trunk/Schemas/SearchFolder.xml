@@ -6,7 +6,7 @@
 
 	<object type="folder" availability="system" private="true"/>
 	<images>
-		<icon path="searchFolder.ico"/>
+		<icon path="SearchFolder.ico"/>
 	</images>
 	<titles>
 		<title language="en">Search:Search Results</title>

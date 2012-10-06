@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Estonian Skin File -->
 
-<!-- Translation based on default-en.xml r82 --> <!-- (Shareaza 2.2.2.9) -->
+<!-- Translation based on default-en.xml r84 --> <!-- (Shareaza 2.2.2.9) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1753,7 +1753,7 @@
 		<text format="b">Teretulemast PeerProject seadmehaldurisse</text>
 		<newline gap="16"/>
 		<text>PeerProject Seadehaldur lubab edasijõudnud kasutajal täielikult kohandada
-			PeerProject töötamist.  Seaded </text>
+			PeerProject töötamist. Seaded </text>
 		<text format="b">Üldine </text>
 		<text>osas on seotud kasutusmugavusega.</text>
 		<newline gap="16" indent="16"/>
@@ -1782,7 +1782,7 @@
 		<text format="b">Teretulemast PeerProject seadehaldurisse</text>
 		<newline gap="16"/>
 		<text>PeerProject Seadehaldur lubab edasijõudnud kasutajal täielikult kohandada
-			PeerProject töötamist.  Seaded </text>
+			PeerProject töötamist. Seaded </text>
 		<text format="b">Internet </text>
 		<text>osas, kontrollib kuidas PeerProject suhtleb teiste serveritega peer-to-peer võrgus.</text>
 		<newline gap="16" indent="16"/>
@@ -1904,25 +1904,25 @@
 		<text format="b">See laadimine on lõpetatud</text>
 		<newline gap="8"/>
 		<text>PeerProject on lõpetanud selle faili allalaadimise ja on kinnitanud, et
-		see on 100% korras.  See on samuti viidud Sinu Allalaaditud failide kausta.</text>
+		see on 100% korras. See on samuti viidud Sinu Allalaaditud failide kausta.</text>
 	</document>
 	<document name="DownloadHelp.Moving">
 		<text format="b">Seda Faili viiakse Failide kausta</text>
 		<newline gap="8"/>
 		<text>PeerProject on lõpetanud selle faili allalaadimise ja on kinnitanud, et see on
-		korralik.  Seda parajasti viiakse ja/või pakitakse lahti sinu Allalaaditud failide kausta.</text>
+		korralik. Seda parajasti viiakse ja/või pakitakse lahti sinu Allalaaditud failide kausta.</text>
 	</document>
 	<document name="DownloadHelp.Paused">
 		<text format="b">See allalaadimine on peataud</text>
 		<newline gap="8"/>
-		<text>Sa oled selle allalaadimise peatanud.  Kui tahad allalaadimist jätkata, siis
+		<text>Sa oled selle allalaadimise peatanud. Kui tahad allalaadimist jätkata, siis
 		kliki '</text><text format="b">Jätka Allalaadimist</text><text>' käsklust.</text>
 	</document>
 	<document name="DownloadHelp.DiskFull">
 		<text format="b">Ketas on täis</text>
 		<newline gap="8"/>
 		<text>PeerProject on peatanud automaatselt allalaadimise, sest kõvaketas tundub täis olevat,
-		või faili ei ole võimalik sellele kirjutada.  Kui sa soovid allalaadimist jätkata, palun
+		või faili ei ole võimalik sellele kirjutada. Kui sa soovid allalaadimist jätkata, palun
 		tee kõvakettale vaba ruumi juurde, ja/või kontrolli, et poolikute failide kaust on
 		ligipääsetav ja jätka allalaadimist.</text>
 	</document>
@@ -1930,17 +1930,17 @@
 		<text format="b">Seda allalaadimist kinnitatakse</text>
 		<newline gap="8"/>
 		<text>See allalaadimine on lõpetatud ja PeerProject kontrollib nüüd, et
-		fail vastaks originaalile.  Kui leitakse kahjustatud osasid, siis
+		fail vastaks originaalile. Kui leitakse kahjustatud osasid, siis
 		PeerProject üritab need ise parandada.</text>
 	</document>
 	<document name="DownloadHelp.Downloading">
 		<text format="b">See allalaadimine on Aktiivne!</text>
 		<newline gap="8"/>
-		<text>Sea allalaadimist parajasti töödeldakse.  Kui ta tõmbab liiga aeglaselt,
+		<text>Sea allalaadimist parajasti töödeldakse. Kui ta tõmbab liiga aeglaselt,
 		proovi otsida lisa allikaid '</text>
 		<text format="b">Leia Rohkem Kasutajaid</text><text>' käsuga. Kui kiirus ei parane
 		võib see olla põhjustatud üleslaadimis kiiruse piirangust, mille on määranud faili
-		kautaja, kellelt faili tõmbad.  Tavaliselt kiirused ajapikku tõusevad.</text>
+		kautaja, kellelt faili tõmbad. Tavaliselt kiirused ajapikku tõusevad.</text>
 	</document>
 	<document name="DownloadHelp.Pending">
 		<text format="b">See allalaadimine on Ootel</text>
@@ -1964,8 +1964,8 @@
 		<text format="b">See allalaadimine otsib</text>
 		<newline gap="8"/>
 		<text>Sellele allalaadimisele ei ole hetkel ühtegi allikat ja PeerProject otsib
-		kõigist P2P võrkudest uusi allikaid.  Kui allikas on leitud algalab
-		allalaadimine automaatselt.  PeerProject otsib allikaid automaatselt, aga
+		kõigist P2P võrkudest uusi allikaid. Kui allikas on leitud algalab
+		allalaadimine automaatselt. PeerProject otsib allikaid automaatselt, aga
 		sa saad protsessi kiirendada, kasutades </text>
 		<text format="b">Leia Rohkem Kasutajaid </text><text>käsklust.</text>
 		<newline gap="8"/>
@@ -1984,7 +1984,7 @@
 		<text format="b">BitTorrenti Jälitus ei vasta</text>
 		<newline gap="8"/>
 		<text>BitTorrenti server selle allalaadimiseks tundub olevat maas
-		või ei vasta.  PeerProjectl ei ole võimalik saada selle faili
+		või ei vasta. PeerProjectl ei ole võimalik saada selle faili
 		jagajate kohta infot.</text>
 	</document>
 	<!-- Upload help documents -->
@@ -2502,7 +2502,7 @@
 	<string id="20064" value="Hea"/>
 	<string id="20065" value="Väga Hea"/>
 	<string id="20066" value="Suurepärane"/>
-	<string id="20080" value="See on PeerProject eelversioon ja beta testid on lõppenud.  Tõmba täis-, ametlik versioon http://peerproject.org/."/>
+	<string id="20080" value="See on PeerProject eelversioon ja beta testid on lõppenud. Tõmba täis-, ametlik versioon http://peerproject.org/."/>
 	<string id="20081" value="&amp;Sule"/>
 	<string id="20082" value="Lõpetatud, kliki Sule"/>
 	<string id="20083" value="Saadan päringu..."/>
@@ -2521,7 +2521,7 @@
 	<string id="20111" value="Leitud %i jagatud faili %s's raamatukogus."/>
 	<string id="20112" value="Sirvitud kasutaja %s vastas koodiga %s (%s)."/>
 	<string id="20113" value="Sirvitud kasutaja %s andis vigase HTTP vastuse."/>
-	<string id="20114" value="Ei suuda failide nimekirja tõmmata.  Kasutaja ei pruugi sirvimist toetada."/>
+	<string id="20114" value="Ei suuda failide nimekirja tõmmata. Kasutaja ei pruugi sirvimist toetada."/>
 	<string id="20115" value="Viga Gnutella pakettide kodeerimisel, sirvides kasutajat %s."/>
 	<string id="20116" value="Saadetud päring, ootan ühendust..."/>
 	<string id="20117" value="Saadetud kontroll päring kasutaja %s sirvimiseks."/>
@@ -2552,13 +2552,13 @@
 	<string id="20143" value="Ilmnes viga, kopeerides &quot;%s&quot;  BitTorrenti jagatavaks failiks."/>
 	<string id="20144" value="Ei saa luua BitTorrenti faili &quot;%s&quot;."/>
 	<string id="20145" value="Ilmnes tundmatu viga, proovides jagada &quot;%s&quot;."/>
-	<string id="20146" value="Viga, laadides torrent faili &quot;%s&quot;.  See ei pruugi torrent olla."/>
-	<string id="20147" value="See torrent sisaldab faili &quot;%s&quot;, aga PeerProject ei suuda seda sinu raamatukogust leida.  Kui võimalik, tõsta fail torrentiga samasse kausta ja proovi uuesti."/>
+	<string id="20146" value="Viga, laadides torrent faili &quot;%s&quot;. See ei pruugi torrent olla."/>
+	<string id="20147" value="See torrent sisaldab faili &quot;%s&quot;, aga PeerProject ei suuda seda sinu raamatukogust leida. Kui võimalik, tõsta fail torrentiga samasse kausta ja proovi uuesti."/>
 	<string id="20148" value="See torrent sisaldab faili &quot;%s&quot; mis sisaldab %s, aga sinu versioon failist on %s."/>
 	<string id="20149" value="Failis &quot;%s&quot; tuvastati viga."/>
 	<string id="20150" value="Ei suuda jälitajaga suhelda"/>
 	<string id="20151" value="Jälitamine ebaõnnestus- Proovin järgmist (%i of %i)"/>
-	<string id="20152" value="Sa oled muutnud jälitaja URL -i sellele torrentile.  Oled kindel, et tahad need muudatused salvestada?\n\nVigane URL -i jälitus võib mõjutada allalaadimist."/>
+	<string id="20152" value="Sa oled muutnud jälitaja URL -i sellele torrentile. Oled kindel, et tahad need muudatused salvestada?\n\nVigane URL -i jälitus võib mõjutada allalaadimist."/>
 	<string id="20153" value="Veateade BitTorrenti jälitajalt &quot;%s&quot; : &quot;%s&quot;."/>
 	<string id="20154" value="Veateade saades BitTorrenti jälitaja vastust."/>
 	<string id="20155" value="Vastuvõetud BitTorrenti jälituse vastus &quot;%s&quot;, %i uut allikat."/>
@@ -2579,8 +2579,8 @@
 	<string id="20172" value="Kinnitus ebaõnnestus, kasutaja ei pruugi vestlust toetada."/>
 	<string id="20173" value="Kinnitus lõpetatud, vestlusprotokolli versioon on %s."/>
 	<string id="20174" value="Vahetan profiili infot..."/>
-	<string id="20175" value="Sa ei ole veel täitnud oma kasutaja profiili.  Sa pead enne teistega vestlemist, täitma oma profiili.\n\nKas soovid kohe oma profiili teha?"/>
-	<string id="20176" value="Ei saa sõnumit saata, sa ei ole ühendatud.  PeerProject proovib ühendada..."/>
+	<string id="20175" value="Sa ei ole veel täitnud oma kasutaja profiili. Sa pead enne teistega vestlemist, täitma oma profiili.\n\nKas soovid kohe oma profiili teha?"/>
+	<string id="20176" value="Ei saa sõnumit saata, sa ei ole ühendatud. PeerProject proovib ühendada..."/>
 	<string id="20177" value="Ei saa sõnumit saata, ühendus on loomisel."/>
 	<string id="20178" value="%s on nüüd ümbernimetatud %s."/>
 	<string id="20179" value="Nüüd vestled %s (%s)."/>
@@ -2605,13 +2605,13 @@
 	<string id="20203" value="Kiirendan allalaadimist &quot;%s&quot; eemaldades läbilaske piirangud."/>
 	<string id="20204" value="Server %s on kinni, proovin uuesti %i sekundi pärast."/>
 	<string id="20205" value="Ebapiisav ketta ruum allalaadimaks &quot;%s&quot; (%s)."/>
-	<string id="20206" value="Ei saanud ümber tõsta faili &quot;%s&quot;  &quot;%s&quot;.  Kontrolli, et poolik fail ei oleks kasutuses ja, et sul oleks ikka allalaadimis kaust ja sinna oleks võimalik kirjutada."/>
+	<string id="20206" value="Ei saanud ümber tõsta faili &quot;%s&quot;  &quot;%s&quot;. Kontrolli, et poolik fail ei oleks kasutuses ja, et sul oleks ikka allalaadimis kaust ja sinna oleks võimalik kirjutada."/>
 	<string id="20207" value="Oled kindel, et tahad peatada/tühistada terve selle allalaadimisgrupi?"/>
 	<string id="20208" value="Sulgen ühenduse %s, ei ole rohkem vaja."/>
 	<string id="20209" value="Server %s saatis küsimata andmeid, sulgen ühenduse."/>
 	<string id="20210" value="Lõpetatud allalaadimine &quot;%s&quot;."/>
 	<string id="20211" value="Oled kindel, et tahad puhastada &quot;%s&quot;.\n\nKui allalaadimine on eemaldatud Allalaadimiste aknast, ei saa selle allalaadimist hiljem jätkata."/>
-	<string id="20212" value="Oled kindel, et tahad eemaldada kõik peatatud allalaadimised?  Kui see on juba tehtud ei saa neid allalaadimisi enam jätkata."/>
+	<string id="20212" value="Oled kindel, et tahad eemaldada kõik peatatud allalaadimised? Kui see on juba tehtud ei saa neid allalaadimisi enam jätkata."/>
 	<string id="20213" value="Oled kindel, et tahad kustutada &quot;%s&quot;."/>
 	<string id="20214" value="Loodud ühendus allalaadimiseks %s."/>
 	<string id="20215" value="Alustan ühenduse loomist %s porti %i  &quot;%s&quot; allalaadimiseks..."/>
@@ -2620,12 +2620,12 @@
 	<string id="20218" value="Katkestan allalaadimise &quot;%s&quot; serverist %s (%s), võrk ei vasta."/>
 	<string id="20219" value="Ühendus %s katkes."/>
 	<string id="20221" value="Palun sisesta kustutamise ulatus. &quot;alates&quot; väljal on esimesed baidid, mis kustutatakse ja &quot;viimane&quot; väljal viimased baidid."/>
-	<string id="20222" value="Sa oled sisestanud %s hash väärtuse, mis aga on vale.  Palun kontrolli seda ja proovi uuesti."/>
-	<string id="20223" value="Sa oled andnud uue %s hash väärtuse, mis on aga erinev käesolevast.  Oled kindel, et tahad muuta %s hash -i?"/>
-	<string id="20224" value="Sa oled teinud muutusi nimes.  Oled kindel, et tahad faili ümber nimetada?"/>
-	<string id="20225" value="Sa oled muutnud faili suurust.  Oled kindel, et tahad selle tõmbamise failisuurust muuta?"/>
-	<string id="20226" value="Sa ei saa eeldada, et fail on tervenisti alla tõmmatud ja seda kinnitada, sest sul ei ole veel ühtegi kinnituse osa, nagu tiger-tree suurus, eDonkey hashset ja BitTorrenti hashset.  Ilma kinnituse teabeta ei saa allalaadimist üle kinnitada."/>
-	<string id="20227" value="Oled kindel, et tahad eeldada, et fail on tervenisti alla tõmmatud ja üle kinnitada?  Terve fail vaadatakse üle ja PeerProject nõustub kinnitatud faili osadega ja tõmbab uuesti need osad, mis kinnitust ei läbinud."/>
+	<string id="20222" value="Sa oled sisestanud %s hash väärtuse, mis aga on vale. Palun kontrolli seda ja proovi uuesti."/>
+	<string id="20223" value="Sa oled andnud uue %s hash väärtuse, mis on aga erinev käesolevast. Oled kindel, et tahad muuta %s hash -i?"/>
+	<string id="20224" value="Sa oled teinud muutusi nimes. Oled kindel, et tahad faili ümber nimetada?"/>
+	<string id="20225" value="Sa oled muutnud faili suurust. Oled kindel, et tahad selle tõmbamise failisuurust muuta?"/>
+	<string id="20226" value="Sa ei saa eeldada, et fail on tervenisti alla tõmmatud ja seda kinnitada, sest sul ei ole veel ühtegi kinnituse osa, nagu tiger-tree suurus, eDonkey hashset ja BitTorrenti hashset. Ilma kinnituse teabeta ei saa allalaadimist üle kinnitada."/>
+	<string id="20227" value="Oled kindel, et tahad eeldada, et fail on tervenisti alla tõmmatud ja üle kinnitada? Terve fail vaadatakse üle ja PeerProject nõustub kinnitatud faili osadega ja tõmbab uuesti need osad, mis kinnitust ei läbinud."/>
 	<string id="20228" value="Oled kindel, et tahad unustada praeguse kinnituse seisu? Kõiki allalaaditud andmeid käsitletakse kui ebausaldatavat ja kogu andmebaas ehitatakse uuesti."/>
 	<string id="20229" value="Oled kindel, et tahad selle allalaadimise allikad unustada?"/>
 	<string id="20231" value="Ei saa kustutada valitud ulatust, kuna neid osasid ei ole."/>
@@ -2786,13 +2786,13 @@
 	<string id="20427" value="PeerProject lisas kollektsiooni faili &quot;%s&quot; sinu raamatukokku."/>
 	<string id="20428" value="PeerProject võttis vastu kolleksiooni faili:\n\n&quot;%s&quot;\n\nSee ei paista õige fail olema."/>
 	<string id="20429" value="Kas soovid ära hoida selle kollektsiooni küsimusi järgmiste tõmbamiste kohta?"/>
-	<string id="20430" value="Oled kuindel, et tahad selle faili käivitada &quot;%s&quot; ?\n\nMõned failid võivad sinu arvutile kahjulikud olla.  Ole enne faili käivitamist kindel, millega tegu."/>
+	<string id="20430" value="Oled kuindel, et tahad selle faili käivitada &quot;%s&quot; ?\n\nMõned failid võivad sinu arvutile kahjulikud olla. Ole enne faili käivitamist kindel, millega tegu."/>
 	<!--string id="20431" value="Oled kindel, et tahad lõplikult kustutada %i faili ?\n\nFailid viiakse sinu &quot;prügikasti&quot; kui see on võimaldatud."-->
 	<string id="20432" value="Oled kindel, et tahad kustutada %i valitud albumi kausta?\n\nSee tegevus ei kustuta faile endid, vaid ainult kausta."/>
 	<string id="20433" value="PeerProject ei suutnud kustutada:\n\n%s"/>
-	<string id="20434" value="Sinu allalaadimiste kaust &quot;%s&quot; ei ole veel sinu raamatukogus.\n\nLisades selle oma raamatukokku on seda lihtsam käsitleda ja saad ärakasutada täielikult PeerProject võimalusi, nagu allalaadimiste kinnitused ja automaatsed uuendused.  Allalaetud failide raamatukokku panemine ei tähenda tingimita, et sa pead neid jagama: sa saad jagada ka üksikuid faile.\n\nKas soovid lisada oma allalaadimiste kausta kohe raamatukokku?"/>
-	<string id="20435" value="Sinu allalaadimiste kaust on lisatud raamatukokku.  Kas sooviksid seda ka jagada?"/>
-	<!--string id="20436" value="Sa ei ole veel valinud meedia pleierit oma valitud failide jaoks, nagu WinAmp.  Kas sooviksid valida selle nüüd?\n\nPeerProject seob sinupoolt valitud failinime, valitud programmiga &quot;--ADD&quot; argumendiga."-->
+	<string id="20434" value="Sinu allalaadimiste kaust &quot;%s&quot; ei ole veel sinu raamatukogus.\n\nLisades selle oma raamatukokku on seda lihtsam käsitleda ja saad ärakasutada täielikult PeerProject võimalusi, nagu allalaadimiste kinnitused ja automaatsed uuendused. Allalaetud failide raamatukokku panemine ei tähenda tingimita, et sa pead neid jagama: sa saad jagada ka üksikuid faile.\n\nKas soovid lisada oma allalaadimiste kausta kohe raamatukokku?"/>
+	<string id="20435" value="Sinu allalaadimiste kaust on lisatud raamatukokku. Kas sooviksid seda ka jagada?"/>
+	<!--string id="20436" value="Sa ei ole veel valinud meedia pleierit oma valitud failide jaoks, nagu WinAmp. Kas sooviksid valida selle nüüd?\n\nPeerProject seob sinupoolt valitud failinime, valitud programmiga &quot;--ADD&quot; argumendiga."-->
 	<string id="20436" value="See kataloog lisada oma raamatukogu?\n\n%s"/>
 	<string id="20437" value="Ghost Faili"/>
 	<string id="20438" value="Faili %i andmebaasi muutmine."/>
@@ -2805,16 +2805,16 @@
 	<string id="20445" value="Ekspordi URI-d..."/>
 	<string id="20446" value="Fail &quot;%s&quot; ei läbimnud kinnitust ja ei pruugi olla see fail mida, sa tahtsid. Oled kindel, et tahad selle faili avada?"/>
 	<string id="20447" value="Kas tahad eemaldada &quot;ebaturvalisee&quot; osa, sellest failist?"/>
-	<string id="20448" value="Fail &quot;%s&quot; on alles segamini.  Palun oota kuni fail koos on ja proovi siis uuesti."/>
-	<string id="20449" value="See võimalus kasutab teenuseid, mida pakub Bitzi.com failide tuvastamise ja jagamiste kohta.\n\nPeerProject võtab SHA1 koodi, valitud failide kohta Bitzi andmebaasist.  Kui oled mures oma turvalisuse pärast, siis võid tutvuda Bitzi.com privaatsus poliitikaga.\n\nKas tahad jätkata?"/>
+	<string id="20448" value="Fail &quot;%s&quot; on alles segamini. Palun oota kuni fail koos on ja proovi siis uuesti."/>
+	<string id="20449" value="See võimalus kasutab teenuseid, mida pakub Bitzi.com failide tuvastamise ja jagamiste kohta.\n\nPeerProject võtab SHA1 koodi, valitud failide kohta Bitzi andmebaasist. Kui oled mures oma turvalisuse pärast, siis võid tutvuda Bitzi.com privaatsus poliitikaga.\n\nKas tahad jätkata?"/>
 	<string id="20450" value="Valitud kausta alamkaust &quot;%s&quot; on juba sinu raamatukogus.nSelle kausta lisamine võib mõnede failide ümberjagamist mõjutada.\n\nKas soovid jätkata ?"/>
-	<string id="20451" value="Ühtegi faili ei mängi hetkel.  Topeltklikk failil, et alustada meediafaili mängimist."/>
+	<string id="20451" value="Ühtegi faili ei mängi hetkel. Topeltklikk failil, et alustada meediafaili mängimist."/>
 	<string id="20452" value="Kõik Meedia Failid|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Playlistid|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Audio Failid|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Video Failid|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD Audio Tracks|*.cda|MIDI Failid|*.mid;*.rmi;*.midi|Kõik Failid|*.*||"/>
 	<string id="20453" value="Ei saa avada meedia faili &quot;%s&quot;"/>
 	<string id="20454" value="Fail võib olla kahjustunud või ei ole sul selle mängimiseks vajalikke koodekeid."/>
 	<string id="20455" value="Ühte osa failist ei ole võimalik avada, sa pead tõmbama lisa koodekeid."/>
 	<string id="20456" value="Playlist:"/>
-	<string id="20457" value="PeerProject ei suutnud oma Meediateenuste lisa käivitada.  Palun installi PeerProject uuesti ja kontrolli, et sul on vajalikud meedia koodekid ja draiverid installitud."/>
+	<string id="20457" value="PeerProject ei suutnud oma Meediateenuste lisa käivitada. Palun installi PeerProject uuesti ja kontrolli, et sul on vajalikud meedia koodekid ja draiverid installitud."/>
 	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
 	<string id="20462" value="(Ilma Visualisatioonita)"/>
 	<!--string id="20464" value="PeerProject on lõpetanud allalaadimise:"-->
@@ -2841,9 +2841,9 @@
 	<string id="20485" value="Piirata üleslaadimise ribalaiust"/>
 	<string id="20490" value="Erinevad"/>
 	<string id="20491" value="Erinevad väärtused"/>
-	<string id="20494" value="Sa ei ole sisestanud oma asukohta oma profiili.\n\nKasulikum oleks määrata oma asukoht, et teised kasutajad teaksid millisest riigist sa oled.  Oma asukoha avalikustamine ei anna sinukohta midagi üleliigset välja.\n\nOled kindel, et tahad jätkata ilma asukohta sisestamata?"/>
+	<string id="20494" value="Sa ei ole sisestanud oma asukohta oma profiili.\n\nKasulikum oleks määrata oma asukoht, et teised kasutajad teaksid millisest riigist sa oled. Oma asukoha avalikustamine ei anna sinukohta midagi üleliigset välja.\n\nOled kindel, et tahad jätkata ilma asukohta sisestamata?"/>
 	<string id="20495" value="Sa ei ole veel andnud oma kasutajale nime."/>
-	<string id="20496" value="Sa ei ole valinud oma sugu ega vanust.  Oled kindel, et tahad jätkata seda tegemata?"/>
+	<string id="20496" value="Sa ei ole valinud oma sugu ega vanust. Oled kindel, et tahad jätkata seda tegemata?"/>
 	<string id="20499" value="Uus Kataloog"/>
 	<string id="20500" value="Kliki alustamiseks Ühenda nuppu."/>
 	<string id="20501" value="Sa ei ole võrku ühendatud."/>
@@ -2886,12 +2886,12 @@
 	<string id="20544" value="Sulgen PeerProject võrgu tuuma..."/>
 	<string id="20545" value="Ühendus võrguga katkestatud."/>
 	<string id="20546" value="Oled kindel, et tahad selle ühenduse katkestada?"/>
-	<string id="20547" value="Gnutella2 on PeerProject esmane võrk.  Peatades selle töö piirab nii arvuliselt kui kvaliteedilt sinu otsinute tulemusi. Oled kindel, et tahad seda teha?"/>
-	<string id="20548" value="Ei saa kasutada %s porti %i sissetulevateks ühendusteks.  Sissetulevaid ühendusi ei toetata"/>
-	<string id="20549" value="Ei suuda suunata %s väljuvateks ühenduskteks.  Väljuvad ühendused kasutavad vaikimisi seadeid."/>
+	<string id="20547" value="Gnutella2 on PeerProject esmane võrk. Peatades selle töö piirab nii arvuliselt kui kvaliteedilt sinu otsinute tulemusi. Oled kindel, et tahad seda teha?"/>
+	<string id="20548" value="Ei saa kasutada %s porti %i sissetulevateks ühendusteks. Sissetulevaid ühendusi ei toetata"/>
+	<string id="20549" value="Ei suuda suunata %s väljuvateks ühenduskteks. Väljuvad ühendused kasutavad vaikimisi seadeid."/>
 	<string id="20550" value="Sinu võrgu läbilaskevõime on liiga madal, et võimaldada võrgul korralikult töötada"/>
 	<string id="20551" value="Tulemüüritud, ei kuula sissetulevaid ühendusi."/>
-	<string id="20552" value="Sundides oma arvutit jaoturiks võivad mõjutada sinu arvutit ja P2P võrku.  Tavakasutajal on parem lasta PeerProjectl otsustada kas olla jaotur või mitte.\n\nJaoturiks olek paranda otsingu tulemusi, ega anna sulle mingit muud eelist.\n\nOled kindel, et tahad seda teha, vaatamata eespool öeldule?"/>
+	<string id="20552" value="Sundides oma arvutit jaoturiks võivad mõjutada sinu arvutit ja P2P võrku. Tavakasutajal on parem lasta PeerProjectl otsustada kas olla jaotur või mitte.\n\nJaoturiks olek paranda otsingu tulemusi, ega anna sulle mingit muud eelist.\n\nOled kindel, et tahad seda teha, vaatamata eespool öeldule?"/>
 	<string id="20553" value="Nõustun sissetulevate TCP ühendustega %s porti %i."/>
 	<string id="20554" value="Kuulan UDP andmete liikuvust %s portis %i."/>
 	<string id="20555" value="Väljuvad ühendused suunatakse %s porti %i."/>
@@ -2919,15 +2919,11 @@
 	<string id="20586" value="%s saatis tundmatu paketi (0x%.2x), ignoreerin."/>
 	<string id="20587" value="%s saatis vigase aadressiga andme pongi, ignoreerin."/>
 	<string id="20588" value="%s saatis päringu tulemüüri aadressiga, ignoreerin."/>
-	<string id="20590" value="Kaugtöö ei ole käivitatud."/>
-	<string id="20591" value="http://%s:%i/remote - Sa pead valima kasutajanime ja salasõna."/>
-	<string id="20592" value="Ei saa ühendust, URL ei ole saadaval."/>
-	<string id="20599" value="&amp;Skeemid"/>
 	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="PeerProject otsib aktiivselt võrgust..."/>
 	<string id="20621" value="Klikka uueks otsinguks siia"/>
 	<string id="20622" value="Kõik võrgud"/>
-	<string id="20623" value="Sa oled alustamas uut otsingut.  Kas soovid eelmise otsingu tulemused kustutada?"/>
+	<string id="20623" value="Sa oled alustamas uut otsingut. Kas soovid eelmise otsingu tulemused kustutada?"/>
 	<string id="20624" value="Siin näed valitud faili kohta rohkem informatsiooni."/>
 	<string id="20625" value="%s kirjutab:"/>
 	<string id="20626" value="%s hindab seda faili:"/>
@@ -2977,12 +2973,16 @@
 	<string id="20677" value="Palun vali ülekannete limiidi ühik, mida sa soovid &quot;123 kb/s&quot; kilobitti sekundis, või &quot;123 KB/s&quot; kilobaiti sekundis."/>
 	<string id="20678" value="eDonkey võrk kasutab suuri järjekordi ja pikki ooteaegu. Piirates maksimaalset järjekorra kohta, võib sul tekkida probleeme allalaadimiste alustusega.nOled kindel, et tahad seada piirangu, millise järjekorra kohaga leppida?"/>
 	<string id="20680" value="PeerProject Seaded"/>
-	<string id="20684" value="Oled kindel, et tahad kustutada &quot;%s&quot; naha?  Seda ei saa enam tagasi võtta."/>
+	<string id="20682" value="Kaugtöö ei ole käivitatud."/>
+	<string id="20684" value="http://%s:%i/remote - Sa pead valima kasutajanime ja salasõna."/>
+	<string id="20685" value="Ei saa ühendust, URL ei ole saadaval."/>
+	<string id="20692" value="Oled kindel, et tahad kustutada &quot;%s&quot; naha? Seda ei saa enam tagasi võtta."/>
+	<string id="20699" value="&amp;Skeemid"/>
 	<string id="20700" value="%s sisse : %s välja (A:%I64i/Ü:%I64i)"/>
-	<string id="20701" value="Ühendatud %lu naabriga.  %s kohalikus raamatukogus."/>
-	<string id="20702" value="Hub mode with %lu neighbour(s).  %s kohalikus raamatukogus."/>
-	<string id="20703" value="Hub/Ultrapeer mode with %lu neighbour(s).  %s kohalikus raamatukogus."/>
-	<string id="20704" value="Ultrapeer mode with %lu neighbour(s).  %s kohalikus raamatukogus."/>
+	<string id="20701" value="Ühendatud %lu naabriga. %s kohalikus raamatukogus."/>
+	<string id="20702" value="Hub mode with %lu neighbour(s). %s kohalikus raamatukogus."/>
+	<string id="20703" value="Hub/Ultrapeer mode with %lu neighbour(s). %s kohalikus raamatukogus."/>
+	<string id="20704" value="Ultrapeer mode with %lu neighbour(s). %s kohalikus raamatukogus."/>
 	<string id="20705" value="Ühendatud. %s kohalikus raamatukogus."/>
 	<string id="20706" value="Ühendan võrku..."/>
 	<string id="20707" value="Ei ole võrguga ühendust."/>
@@ -3062,7 +3062,7 @@
 	<string id="20793" value="URL:"/>
 	<string id="20794" value="Kasutaja agent:"/>
 	<string id="20795" value="%s alla : %s üles (A:%I64i/Ü:%I64i/H:%I64i)"/>
-	<string id="20798" value="PeerProject on lõpetanud uue PeerProject versiooni (%s) allalaadimise.  Kas soovid kohe uuendada?\n\nKui valid Jah, PeerProject peab ajutiselt sulguma, kuni uuendus on lõpetatud."/>
+	<string id="20798" value="PeerProject on lõpetanud uue PeerProject versiooni (%s) allalaadimise. Kas soovid kohe uuendada?\n\nKui valid Jah, PeerProject peab ajutiselt sulguma, kuni uuendus on lõpetatud."/>
 	<string id="20800" value="Saadan vaikimisi HTML vastuse serverile %s (%s)."/>
 	<string id="20801" value="Sissetulev ühendus %s on HTTP üleslaadimise päring."/>
 	<string id="20802" value="Server %s (%s) saatis kasutaja sirvimise päringu, vastan..."/>
@@ -3074,7 +3074,7 @@
 	<string id="20808" value="Keeldun &quot;%s&quot; üleslaadimisest %s (%s), hõivatud ja klient ei toeta järjekordi."/>
 	<string id="20809" value="Keeldun &quot;%s&quot; üleslaadimisest %s (%s), kõik sobivad järjekorrad on täis."/>
 	<string id="20810" value="Server %s saatis ebarahuldavas ulatuses päringu &quot;%s&quot;."/>
-	<string id="20811" value="eDonkey2000 üleslaadimisi ei tohiks tühistada.  Oled kindel, et tahad tühistada?"/>
+	<string id="20811" value="eDonkey2000 üleslaadimisi ei tohiks tühistada. Oled kindel, et tahad tühistada?"/>
 	<string id="20812" value="Ei saa avada &quot;%s&quot; et üleslaadida serverile %s, ketta/faili viga."/>
 	<string id="20813" value="Üritan tõukeühendust serveriga %s. %s"/>
 	<string id="20814" value="Ei suuda luua ühendust %s tõukeks."/>
@@ -3262,7 +3262,7 @@
 		<control/>
 		<control caption="_Lisa"/>
 		<control caption="_Eemalda"/>
-		<control caption="Allalaadimishalduri plugin proovib tõmmata ainult nimekirjas olevaid faile.  Teisi failitüüpe käsitleb sinu weebibrauser.  PeerProject peab allalaadimiste haldamiseks töötama."/>
+		<control caption="Allalaadimishalduri plugin proovib tõmmata ainult nimekirjas olevaid faile. Teisi failitüüpe käsitleb sinu weebibrauser. PeerProject peab allalaadimiste haldamiseks töötama."/>
 	</dialog>
 	<dialog name="CConnectionSettingsPage" cookie="BuStCoStCoStEdBuBuBuStCoStCoBuStCoBuBuStEdmsStEdms" caption="Ühendused">
 		<control caption="_Sissetulevad Aadressid:"/>
@@ -3351,12 +3351,12 @@
 		<control/>
 		<control/>
 		<control caption="Abi:"/>
-		<control caption="PeerProject Kaugtöö laseb sul jätta PeerProject tööle ja kontrollida seda eemalt, kasutades weebibrauserit.  Sa pead selle võimaluse kasutamiseks lubama sissetulevad ühendused (näiteks: seadistama ruuteri, jne.)."/>
+		<control caption="PeerProject Kaugtöö laseb sul jätta PeerProject tööle ja kontrollida seda eemalt, kasutades weebibrauserit. Sa pead selle võimaluse kasutamiseks lubama sissetulevad ühendused (näiteks: seadistama ruuteri, jne.)."/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="Võrgud">
-		<control caption="PeerProject üldotstarbeline failijagamisprogramm, mis on suuteline ühenduma mitmesse P2P võrkku korraga.  Sellel lehel saad sa valida, millistesse P2P võrkudesse sa tahad ühendada ja siis iga võrgustiku seadeid muuta."/>
+		<control caption="PeerProject üldotstarbeline failijagamisprogramm, mis on suuteline ühenduma mitmesse P2P võrkku korraga. Sellel lehel saad sa valida, millistesse P2P võrkudesse sa tahad ühendada ja siis iga võrgustiku seadeid muuta."/>
 		<control caption="Gnutella2 Võrgustik:"/>
-		<control caption="Gnutella2 võrk on PeerProject peamine töövõrk, pakkudes rohkem kohandamis võimalusi, kui ükski teine P2P programm.  Väga soovituslik."/>
+		<control caption="Gnutella2 võrk on PeerProject peamine töövõrk, pakkudes rohkem kohandamis võimalusi, kui ükski teine P2P programm. Väga soovituslik."/>
 		<control caption="Näita Gnutella2 -te(G2)"/>
 		<control caption="Seadista Gnutella2"/>
 		<control caption="Algupärane Gnutella Võrgustik:"/>
@@ -3441,7 +3441,7 @@
 		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
 		<control caption="_Tööriistad:"/>
 		<control caption="Tõmba..."/>
-		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
+		<control caption="Update DC++ hubs from the web. (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Allalaadimisühendused:"/>
@@ -3549,7 +3549,7 @@
 	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="Teretulemast PeerProject (1/8)">
 		<control caption="Teretulemast PeerProjectsse!"/>
 		<control caption="Kui sa ei ole varem PeerProjectt või mõnda muud P2P klienti kasutanud, siis see Kiire abiline aitab sul paari lihtsa sammuga oma klienti kohandada."/>
-		<control caption="Kui sa oled juba kogenenum kasutaja, siis saad täies ulatuses ligipääsu PeerProject seadetele läbi Tööriistade menüü.  Kliki Välja, et sulgeda see abiline suvalisel hetkel."/>
+		<control caption="Kui sa oled juba kogenenum kasutaja, siis saad täies ulatuses ligipääsu PeerProject seadetele läbi Tööriistade menüü. Kliki Välja, et sulgeda see abiline suvalisel hetkel."/>
 		<control caption="See abiline aitab sul:"/>
 		<control/>
 		<control caption="Täpsustada oma Interneti ühendust"/>
@@ -3577,13 +3577,13 @@
 		<control/>
 	</dialog>
 	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="Teretulemast PeerProject (3/8)">
-		<control caption="PeerProject on üldptstarbeline failijagamisprogramm, mis suudab ühenduda paljudesse P2P võrkudesse samaegselt.  Siin saad sa valida, millistesse võrkudesse sa tahad ühendada.  Sa saad ka hiljem valida erinevadi võrke."/>
+		<control caption="PeerProject on üldptstarbeline failijagamisprogramm, mis suudab ühenduda paljudesse P2P võrkudesse samaegselt. Siin saad sa valida, millistesse võrkudesse sa tahad ühendada. Sa saad ka hiljem valida erinevadi võrke."/>
 		<control caption="Ühenda Gnutella2 (Soovituslik)"/>
 		<control caption="Gnutella2 võrk (G2) on PeerProject's peamine töö võrk, pakkudes rohkem võimalusi ja paremat esitust, kui mõni teine P2P võrk."/>
 		<control caption="Ühenda Algupärasesse Gnutella võrkku"/>
 		<control caption="Samuti algne Gnutella võrk (G1), ei ole küll nii võimaluste rohke kui Gnutella2 ja on vähem faile kui eDonkey-l, aga on siiski väärtuslik failijagamise allikas."/>
 		<control caption="Ühenda eDonkey2000"/>
-		<control caption="eDonkey (ED2K) on levinud srerveritel baseeruv võrk.  Küll mitte nii võimaluste rohke, kui Gnutella2, on eDonkey-l muljetavaldav kogus faile ringluses."/>
+		<control caption="eDonkey (ED2K) on levinud srerveritel baseeruv võrk. Küll mitte nii võimaluste rohke, kui Gnutella2, on eDonkey-l muljetavaldav kogus faile ringluses."/>
 		<control caption="Käsitle .torrent linke."/>
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Teretulemast PeerProject (4/8)">
@@ -3600,9 +3600,9 @@
 		<control caption="Ühine failitüüpe on esialgu setup alamkaustadena vaikimisi asukohta, kuid Gruppide saab kohandada. Lihtsalt drag&apos;n&apos;drop faile."/>
 	</dialog>
 	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Teretulemast PeerProject (5/8)">
-		<control caption="P2P võrgud on ainult nii head kui head on nende võrkude kasutajad.  Kõiki saadaolevaid faile jagavad teised kasutajad."/>
+		<control caption="P2P võrgud on ainult nii head kui head on nende võrkude kasutajad. Kõiki saadaolevaid faile jagavad teised kasutajad."/>
 		<control caption="Sa ei pea PeerProject kasutamiseks faile jagama, aga mõni progremm käitub mittemidagi jagavate kasutajatega teistmoodi."/>
-		<control caption="Palun näita, milliseid kaustu jagada.  Kliki Lisa nuppu, et lisada uus kaust."/>
+		<control caption="Palun näita, milliseid kaustu jagada. Kliki Lisa nuppu, et lisada uus kaust."/>
 		<control/>
 		<control caption="_Lisa..."/>
 		<control caption="_Eemalda"/>
@@ -3650,7 +3650,7 @@
 		<control caption="Alusta PeerProject nautimist!"/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="Impordi eDonkey2000 Allalaadimised">
-		<control caption="PeerProject on avastanud sinu arvutis teise eDonkey2000 programmi.  Kas tahad selle programmi poolikud allalaadimised PeerProjectsse tuua?"/>
+		<control caption="PeerProject on avastanud sinu arvutis teise eDonkey2000 programmi. Kas tahad selle programmi poolikud allalaadimised PeerProjectsse tuua?"/>
 		<control caption="Jah"/>
 		<control caption="Ei|Tühista"/>
 		<control/>
@@ -3684,7 +3684,7 @@
 		<control caption="_Eelvaade:"/>
 		<control/>
 		<control caption="_Vali:"/>
-		<control caption="Teised Gnutella kasutajad, sirvides sinu profiili ja jagatud faile näevad sinu pilti.  Pildi mõõdud peaksid jääma 128x128 piksilile ja võivad olla igas sinu arvuti poolt toetatavas formaadis."/>
+		<control caption="Teised Gnutella kasutajad, sirvides sinu profiili ja jagatud faile näevad sinu pilti. Pildi mõõdud peaksid jääma 128x128 piksilile ja võivad olla igas sinu arvuti poolt toetatavas formaadis."/>
 		<control caption="_Sirvi..."/>
 		<control caption="_Eemalda"/>
 	</dialog>
@@ -3732,7 +3732,7 @@
 	</dialog>
 	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Failid">
 		<control caption="_Lemmikud:"/>
-		<control caption="Lemmikfailid on soovitused sinu profiili vaatavatele teistele kasutajatele.  Sa saad luua lemmikfaile lisadeas nad &quot;Lemmikud&quot; Raamatukogu kausta."/>
+		<control caption="Lemmikfailid on soovitused sinu profiili vaatavatele teistele kasutajatele. Sa saad luua lemmikfaile lisadeas nad &quot;Lemmikud&quot; Raamatukogu kausta."/>
 		<control/>
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Lemmikud">
@@ -3753,7 +3753,7 @@
 		<control/>
 		<control caption="Genereeri Uus"/>
 		<control caption="Info:"/>
-		<control caption="Gnutella kasutajate (globally unique identifier) unikaalne id number mille abil tuvastatakse võrgus olev arvuti.  Tavaliselt ei ole uut ID vaja luua, aga PeerProject pakub sellist võimalust arenenumatele kasutajatele."/>
+		<control caption="Gnutella kasutajate (globally unique identifier) unikaalne id number mille abil tuvastatakse võrgus olev arvuti. Tavaliselt ei ole uut ID vaja luua, aga PeerProject pakub sellist võimalust arenenumatele kasutajatele."/>
 	</dialog>
 	<dialog name="CLanguageDlg" cookie="" caption="Vali keel">
 	</dialog>
@@ -3769,8 +3769,8 @@
 	</dialog>
 	<dialog name="CDownloadDlg" cookie="StStStEdStBuBuBu" caption="Tõmba Fail või Torrent">
 		<control/>
-		<control caption="Suudab tõmmata faile weebist, automaatselt otsida ja tõmmata P2P linke. Failide allalaadimine PeerProjectga on lihtne.  Lihtsalt trüki või kleebi faili URL või URI all asuvasse kasti ja vajuta Enter oma klaviatuuril. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
-		<control caption="PeerProject tõmbab samuti ka BitTorrenti faile. Torrenti saab kirjeldada kui xyz.torrent faili, või HTTP linki .torrent failile.  Et tõmmata torrenti HTTP lingilt, kleebi see üleval olevasse kasti.  Kui sul juba on .torrent fail, kliki Ava Torrent:"/>
+		<control caption="Suudab tõmmata faile weebist, automaatselt otsida ja tõmmata P2P linke. Failide allalaadimine PeerProjectga on lihtne. Lihtsalt trüki või kleebi faili URL või URI all asuvasse kasti ja vajuta Enter oma klaviatuuril. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
+		<control caption="PeerProject tõmbab samuti ka BitTorrenti faile. Torrenti saab kirjeldada kui xyz.torrent faili, või HTTP linki .torrent failile. Et tõmmata torrenti HTTP lingilt, kleebi see üleval olevasse kasti. Kui sul juba on .torrent fail, kliki Ava Torrent:"/>
 		<control/>
 		<control/>
 		<control caption="Tõmba"/>
@@ -4023,7 +4023,7 @@
 		<control caption="Tühista"/>
 		<control caption="Vali nimekirjast teema, seejärel vali milliseid pealkirju kuvada."/>
 	</dialog>	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Jagatud Kausta Haldur">
-		<control caption="See on nimekiri sinu Raamautukogus olevatest kaustadest.  Sa võid vasakul asuvatest nuppudest lisada või kustutada kaustu.  Kui lisad uue kausta siis seda jagatakse automaatselt teistega, aga sa saad selle soovi korral ka keelata, PeerProject Raamatukogust."/>
+		<control caption="See on nimekiri sinu Raamautukogus olevatest kaustadest. Sa võid vasakul asuvatest nuppudest lisada või kustutada kaustu. Kui lisad uue kausta siis seda jagatakse automaatselt teistega, aga sa saad selle soovi korral ka keelata, PeerProject Raamatukogust."/>
 		<control/>
 		<control caption="_Lisa..."/>
 		<control caption="_Eemalda"/>
@@ -4031,7 +4031,7 @@
 		<control caption="Tühista"/>
 	</dialog>
 	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="Kopeeri URI">
-		<control caption="Kopeeri valitud faili URI, erinevates formaatides.  Palun vali formaat, klikkides allpool oleval URI-l:"/>
+		<control caption="Kopeeri valitud faili URI, erinevates formaatides. Palun vali formaat, klikkides allpool oleval URI-l:"/>
 		<control/>
 		<control/>
 		<control/>
@@ -4039,7 +4039,7 @@
 		<control caption="Tühista"/>
 	</dialog>
 	<dialog name="CURLExportDlg" cookie="StEdStCoStCoBuBumsBu" caption="Ekspordi URI">
-		<control caption="Sa oled valinud %lu faili, eksportimiseks PeerProject URI soovitustesse.  Palun valie URI jaoks formaat ja kliki Salvesta:"/>
+		<control caption="Sa oled valinud %lu faili, eksportimiseks PeerProject URI soovitustesse. Palun valie URI jaoks formaat ja kliki Salvesta:"/>
 		<control/>
 		<control caption="Sisesta Märk:"/>
 		<control caption="Tiger Root|SHA1|MD5|ED2K (CMD4)|Failinimi|Failinimi (URI)|Algne failinimi|Faililaiend|Faili Suurus|Faili Suurus(baitides)|Kausta asukoht|Kohalik Server|Kohalik Port"/>
@@ -4086,14 +4086,14 @@
 		<control caption="Kas teadsid, et PeerProject on 100% vabavara?"/>
 		<control caption="PeerProject ei sisalda &quot;spyware&quot;, &quot;adware&quot; ega mõnda muud lisaprogramme. Ta kuva mingeid reklaame ega &quot;hüpikaknaid&quot;, mitte kunagi.{n}{n}Kui peaksid reklaami nägema &quot;hüpikaknaid&quot; kasutades PeerProjectt, võid kindel olla, et need ei tule sellest programmist."/>
 		<control caption="Kahjuks paljud teised programmid tulevad koos adware'i või spyware'iga, nii et kui näed midagi kahtlast siis peaksid oma arvutit kontrollima spyware eemaldus programmiga (nt.ad-aware)."/>
-		<control caption="Sa ei pea maksma raha PeerProject omandamise eest.  PeerProject on vabalt saadaval kodulehel http://peerproject.org/.  Kui sa oled oma programmi eest maksnud siis peaksid koheselt raha tagasi nõudma."/>
+		<control caption="Sa ei pea maksma raha PeerProject omandamise eest. PeerProject on vabalt saadaval kodulehel http://peerproject.org/. Kui sa oled oma programmi eest maksnud siis peaksid koheselt raha tagasi nõudma."/>
 		<control caption="PeerProject austab oma kasutajaid!"/>
 		<control caption="http://peerproject.org/"/>
 		<control caption="Sule"/>
 	</dialog>
 	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Levita">
 		<control caption="Aita meil PeerProjectt levitada"/>
-		<control caption="Loodetavasti on PeerProject sulle meeldinud.  Meie usume, et see on parim failijagamis programm, mis saadaval."/>
+		<control caption="Loodetavasti on PeerProject sulle meeldinud. Meie usume, et see on parim failijagamis programm, mis saadaval."/>
 		<control caption="Kahjuks paljud jagajad ei tea millest nad ilma jäävad!"/>
 		<control caption="Kui sa tead kedagi kellele PeerProject võiks meeldida, siis anna talle sellest teada."/>
 		<control caption="Tõenäoliselt on nad sulle tänulikud!"/>
@@ -4104,17 +4104,17 @@
 		<control/>
 		<control/>
 		<control/>
-		<control caption="See fail on sul juba Raamatukogus olemas.  Mida sa soovid teha?"/>
+		<control caption="See fail on sul juba Raamatukogus olemas. Mida sa soovid teha?"/>
 		<control caption="Näita seda faili Raamatukogus"/>
 		<control caption="Tõmba see fail uuesti"/>
 		<control caption="Ära tõmba seda faili"/>
 		<control caption="OK"/>
 		<control caption="Tühista"/>
-		<control caption="Sa oled varem selle faili juba tõmmanud ja siis kustutanud.  Mida sa soovid edasi teha?"/>
+		<control caption="Sa oled varem selle faili juba tõmmanud ja siis kustutanud. Mida sa soovid edasi teha?"/>
 		<control caption="Warning! Duplicate files detected. Some malicious software may infect your Library. Make sure that you downloaded this file or placed it manually. Otherwise, shutdown PeerProject and scan your computer with an antivirus program."/>
 	</dialog>
 	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Sule Nupp">
-		<control caption="See on esimene kord kui oled PeerProject sule nuppu klikkinud.  Palun vali, mida PeerProject peaks tegema:"/>
+		<control caption="See on esimene kord kui oled PeerProject sule nuppu klikkinud. Palun vali, mida PeerProject peaks tegema:"/>
 		<control caption="Minimeeri tööriistaribale"/>
 		<control caption="Sulge PeerProject kohe"/>
 		<control caption="Sulge PeerProject pärast alla- või üleslaadimiste lõppu"/>
@@ -4136,7 +4136,7 @@
 		<control caption="Tühista"/>
 		<control/>
 		<control caption="Ma ei taha kommentaari lisada."/>
-		<control caption="PeerProject jätab selle faili meelde ja hoiatab sind kui proovid seda faili uuesti allalaadida.  Vali faili kustutamiseks põhjus:"/>
+		<control caption="PeerProject jätab selle faili meelde ja hoiatab sind kui proovid seda faili uuesti allalaadida. Vali faili kustutamiseks põhjus:"/>
 		<control caption="File rating:"/>
 		<control caption="Reason for deleting:"/>
 		<control caption="!"/>
@@ -4146,7 +4146,7 @@
 		<control/>
 	</dialog>
 	<dialog name="CCollectionExportDlg" cookie="StSyBuStStStStStEdBuBuBu" caption="Kollektsiooni Eksport">
-		<control caption="Seda võimalus kastutakse kausta või playlisti sisu eksportimiseks kollektsioon faili.  Vali näidis ja vajuta jätkamiseks Järgmine nuppu.|Kohanda kollektsiooni sisestades siia oma andmed."/>
+		<control caption="Seda võimalus kastutakse kausta või playlisti sisu eksportimiseks kollektsioon faili. Vali näidis ja vajuta jätkamiseks Järgmine nuppu.|Kohanda kollektsiooni sisestades siia oma andmed."/>
 		<control/>
 		<control caption="Näidise Informatsioon:"/>
 		<control caption="Nimi:"/>
@@ -4160,11 +4160,11 @@
 		<control caption="_Tühista"/>
 	</dialog>
 	<dialog name="CTorrentSeedDlg" cookie="StBuBuBuStms" caption="Ava Torrent Fail">
-		<control caption="Oled avanud BitTorrenti torrenti.  Kas soovid selle alla laadida, või edasi jagada?"/>
+		<control caption="Oled avanud BitTorrenti torrenti. Kas soovid selle alla laadida, või edasi jagada?"/>
 		<control caption="Laadi alla"/>
 		<control caption="Jaga"/>
 		<control caption="Tühista"/>
-		<control caption="Et jagada faile kasutades BitTorrentit, peavad nad olema jagatud.  Kui see on tehtud siis ilmub Torrent uue failina sinu allalaadimiste nimekirja"/>
+		<control caption="Et jagada faile kasutades BitTorrentit, peavad nad olema jagatud. Kui see on tehtud siis ilmub Torrent uue failina sinu allalaadimiste nimekirja"/>
 		<control/>
 	</dialog>
 	<dialog name="CTorrentFilesPage" cookie="StSy" caption="Failid">

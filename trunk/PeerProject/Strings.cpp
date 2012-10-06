@@ -698,8 +698,8 @@ BOOL StartsWith(const CString& strInput, LPCTSTR pszText, size_t nLen)
 	if ( nLen == 0 )
 		nLen = _tcslen( pszText );
 
-	return ( strInput[0] == *pszText || ( strInput[0] & ~0x20 ) == pszText[0] || strInput[0] == ( pszText[0] & ~0x20 ) ) &&		// Fast case-insensitive char
-		(size_t)strInput.GetLength() >= nLen &&
+	return (size_t)strInput.GetLength() >= nLen &&
+		( strInput[0] == *pszText || ( strInput[0] & ~0x20 ) == pszText[0] || strInput[0] == ( pszText[0] & ~0x20 ) ) &&		// Fast case-insensitive char
 		_tcsnicmp( (LPCTSTR)strInput, pszText, nLen ) == 0;
 }
 
@@ -1224,7 +1224,7 @@ CString Unescape(LPCTSTR pszXML, int nLength)
 //	return TRUE;
 //}
 
-DWORD IPStringToDWORD(LPCTSTR pszIP)
+DWORD IPStringToDWORD(LPCTSTR pszIP, BOOL bReverse)
 {
 	DWORD nIP = 0;
 	UINT nCurrent = 0;
@@ -1256,6 +1256,9 @@ DWORD IPStringToDWORD(LPCTSTR pszIP)
 
 	if ( nSet != 4 )
 		return 0;
+
+	if ( bReverse )
+		nIP = htonl( nIP );		// Reverse byte order ( Little-Endian/Big-Endian host/network )
 
 	return nIP;
 }
