@@ -27,7 +27,9 @@
 					<enumeration value="Language"/>
 					<enumeration value="Template"/>
 					<enumeration value="Schemas"/>
+					<enumeration value="Security"/>
 					<enumeration value="Plugin"/>
+					<enumeration value="Data"/>
 				</simpleType>
 			</attribute>
 		</all>

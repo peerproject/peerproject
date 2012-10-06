@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Polish Skin File -->
 
-<!-- Translation based on default-en.xml r82 --> <!-- (Shareaza 2.1.2.7) -->
+<!-- Translation based on default-en.xml r84 --> <!-- (Shareaza 2.1.2.7) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2430,7 +2430,7 @@
 	<string id="20111" value="Found %i shared files in %s's library."/>
 	<string id="20112" value="Browse host %s responded with code %s (%s)."/>
 	<string id="20113" value="Browse host %s responded with an invalid HTTP response."/>
-	<string id="20114" value="Nie można pobrać listy plików.  Ten Serwer może nie obsługiwać przeglądania."/>
+	<string id="20114" value="Nie można pobrać listy plików. Ten Serwer może nie obsługiwać przeglądania."/>
 	<string id="20115" value="Error decoding Gnutella packets from browse host %s."/>
 	<string id="20116" value="Wysłano żądanie PUSH, oczekuję na połączenie..."/>
 	<string id="20117" value="Sent a push request to %s to browse user."/>
@@ -2580,13 +2580,13 @@
 	<string id="20437" value="Plik Ducha"/>
 	<string id="20444" value="Kopiuj URI"/>
 	<string id="20445" value="Eksportuj URI..."/>
-	<string id="20451" value="There is no file playing.  Double-click a media file in your library to play it."/>
+	<string id="20451" value="There is no file playing. Double-click a media file in your library to play it."/>
 	<string id="20452" value="All Media Files|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Playlists|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Audio Files|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Video Files|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD Audio Tracks|*.cda|MIDI Files|*.mid;*.rmi;*.midi|All Files|*.*||"/>
 	<string id="20453" value="Unable to load media file &quot;%s&quot;"/>
 	<string id="20454" value="The file may be damaged, or you may not have the necessary codecs to play it."/>
 	<string id="20455" value="Part of this file could not be played, you may need to download additional codecs."/>
 	<string id="20456" value="Lista Odtwarzania:"/>
-	<string id="20457" value="PeerProject could not instantiate its MediaServices plugin.  Please reinstall PeerProject, and confirm that you have the necessary media codecs and output drivers installed."/>
+	<string id="20457" value="PeerProject could not instantiate its MediaServices plugin. Please reinstall PeerProject, and confirm that you have the necessary media codecs and output drivers installed."/>
 	<string id="20458" value="Odtwarzacz Multimedialny PeerProject"/>
 	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
 	<string id="20462" value="(Bez wizualizacji)"/>
@@ -2614,9 +2614,9 @@
 	<string id="20485" value="Ograniczyć prędkość wysyłania"/>
 	<string id="20490" value="Wiele"/>
 	<string id="20491" value="Wiele wartości"/>
-	<string id="20494" value="You haven't entered your location in your user profile.\n\nIt's a good idea to enter your location so that other users can see which country you are from.  Note that entering a location does not reveal any compromising information.\n\nAre you sure you want to continue without entering your location?"/>
+	<string id="20494" value="You haven't entered your location in your user profile.\n\nIt's a good idea to enter your location so that other users can see which country you are from. Note that entering a location does not reveal any compromising information.\n\nAre you sure you want to continue without entering your location?"/>
 	<string id="20495" value="You haven't entered a screen name in your user profile."/>
-	<string id="20496" value="You have not selected your age and gender.  Are you sure you want to continue without doing this?"/>
+	<string id="20496" value="You have not selected your age and gender. Are you sure you want to continue without doing this?"/>
 	<string id="20499" value="Nowy Folder"/>
 	<string id="20502" value="Zamykanie"/>
 	<string id="20503" value="Kompresja:"/>
@@ -2659,7 +2659,7 @@
 	<string id="20546" value="Napewno chcesz rozłączyć?"/>
 	<string id="20547" value="Gnutella 2 jest podstawową siecią PeerProject. Wyłączenie wsparcia dla niej może dotkliwie ograniczyć zarówno liczbę jak jakość Twoich wyników wyszukiwania. Czy jseteś PEWIEN że chcesz to zrobić?"/>
 	<string id="20548" value="Nie można przydzielić portu %s %i dla połączeń przychodzących. Połączenia przychodzące nie będą aktywne"/>
-	<string id="20549" value="Nie można przekierować połączeń wychodzących na %s.  Połączenia wychodzące będą wykonywane na domyślnych ustawieniach."/>
+	<string id="20549" value="Nie można przekierować połączeń wychodzących na %s. Połączenia wychodzące będą wykonywane na domyślnych ustawieniach."/>
 	<string id="20550" value="Szerokość Twojego pasma połączenia wychodzacego jest za mała aby umożliwić połączyć się z tą siecią."/>
 	<string id="20551" value="Za Firewallem, bez nasłuchu połączeń przychodzacych."/>
 	<string id="20552" value="Zmuszanie Twojego komputera do pracy w trybie hub może mieć szkodliwy wpływ na wydajność sieci P2P. Generalnie lepiej pozwolić PeerProjecte zdecydować czy używać trybu hub lub nie. Tryb \n\nHub NIE powoduje uzyskania lepszych rezultatów szukania ani żadnych innych korzyści dla Ciebie.\n\nDo czy napewno chcesz to zrobić, pomimo tych niekorzyści?"/>
@@ -2676,11 +2676,7 @@
 	<string id="20564" value="Startuje jądro PeerProjecty..."/>
 	<string id="20565" value="Używasz narzędzia Scheduler w trybie 'tylko G2' mode. Czy chciałbyś wyłączyć ten tryb, żeby wszystkie aktywne sieci pozostały połączone?"/>
 	<string id="20566" value="Po 10 próbach mapowanie UPnP portu nie powiodło się."/>
-	<string id="20590" value="Zdalny dostęp jest wyłączony."/>
-	<string id="20591" value="http://%s:%i/remote - Musisz wybrać nazwę użytkownika i hasło."/>
-	<string id="20592" value="Unable to accept connections, URL unavailable."/>
-	<string id="20597" value="Czy jesteś pewny, że chcesz usunąć zaznaczone reguły bezpieczeństwa?"/>
-	<string id="20599" value="&amp;Schematy"/>	<!-- wzorce? wyszukiwania? Schema - schematy? -->
+	<string id="20598" value="Czy jesteś pewny, że chcesz usunąć zaznaczone reguły bezpieczeństwa?"/>
 	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="PeerProject aktywnie przeszukuje sieć..."/>
 	<string id="20621" value="Kliknij tutaj, aby wyszukać ponownie"/>
@@ -2737,12 +2733,16 @@
 	<string id="20677" value="Please type the bandwidth limit you wish to set in the form &quot;123 kb/s&quot; for kilobits per second, or &quot;123 KB/s&quot; for kilobytes per second."/>
 	<string id="20678" value="The eDonkey network uses large queues with long wait times. By limiting the maximum queue position you will accept so strictly, you may have trouble getting downloads to begin.\nAre you sure you want to limit what queue positions you will accept?"/>
 	<string id="20680" value="Ustawienia PeerProject"/>
-	<string id="20684" value="Czy jesteś pewien że chcesz usunąć skórę &quot;%s&quot; ? Ta operacja jest nieodwracalna."/>
+	<string id="20682" value="Zdalny dostęp jest wyłączony."/>
+	<string id="20684" value="http://%s:%i/remote - Musisz wybrać nazwę użytkownika i hasło."/>
+	<string id="20685" value="Unable to accept connections, URL unavailable."/>
+	<string id="20692" value="Czy jesteś pewien że chcesz usunąć skórę &quot;%s&quot; ? Ta operacja jest nieodwracalna."/>
+	<string id="20699" value="&amp;Schematy"/>	<!-- wzorce? wyszukiwania? Schema - schematy? -->
 	<string id="20700" value="%s do : %s z (Pob:%I64i/Wys:%I64i)"/>
 	<string id="20701" value="Połączony do %lu host(ów). %s w lokalnej bibliotece (zasobów)."/>
-	<string id="20702" value="Tryb Hub z %lu Sąsiadem(ami).  %s w lokalnej bibliotece."/>
-	<string id="20703" value="Tryb Hub/Ultrapeer z %lu Sąsiadem(ami).  %s w lokalnej bibliotece."/>
-	<string id="20704" value="Tryb Ultrapeer z %lu Sąsiadem(ami).  %s w lokalnej bibliotece."/>
+	<string id="20702" value="Tryb Hub z %lu Sąsiadem(ami). %s w lokalnej bibliotece."/>
+	<string id="20703" value="Tryb Hub/Ultrapeer z %lu Sąsiadem(ami). %s w lokalnej bibliotece."/>
+	<string id="20704" value="Tryb Ultrapeer z %lu Sąsiadem(ami). %s w lokalnej bibliotece."/>
 	<string id="20705" value="Połączony. %s w lokalnej bibliotece (zasobów)."/>
 	<string id="20706" value="Łączenie do sieci..."/>
 	<string id="20707" value="Nie połączony do sieci."/>
@@ -2823,7 +2823,7 @@
 	<string id="20794" value="Zdalny klient:"/>
 	<string id="20795" value="%s do : %s z (Pob:%I64i/Wys:%I64i/Z:%I64i)"/>
 	<string id="20796" value="Files shared over the Internet"/>
-	<string id="20798" value="PeerProject zakończyła pobieranie następnej wersji programu (%s).  Czy chciałbyś upgradeować teraz?\n\nJeżeli wybierzesz tak, PeerProject chwilowo zamknie się na czas instalacji aktualizacji."/>
+	<string id="20798" value="PeerProject zakończyła pobieranie następnej wersji programu (%s). Czy chciałbyś upgradeować teraz?\n\nJeżeli wybierzesz tak, PeerProject chwilowo zamknie się na czas instalacji aktualizacji."/>
 	<string id="20811" value="Wysyłania eDonkey nie powinny być anulowane. Czy jesteś pewien, że chcesz anulować to wysyłanie?"/>
 	<string id="20841" value="Nowa kolejka"/>
 	<string id="20842" value="Wszystkie pliki"/>
@@ -2862,11 +2862,11 @@
 	<string id="20891" value="Wyjście"/>
 	<string id="20892" value="Proszę czekać: Aktualizowanie listy serwera eDonkey..."/>
 	<string id="20893" value="Proszę czekać: Aktualizowanie usług discovery..."/>
-	<string id="20894" value="You have not yet specified a connection speed.  Before continuing, please either choose your Internet connection type, or type in a connection speed."/>
+	<string id="20894" value="You have not yet specified a connection speed. Before continuing, please either choose your Internet connection type, or type in a connection speed."/>
 	<!--string id="20895" value="Proszę czekać: Szukanie urządzeń UPnP i ustawianie ich..."-->
 	<!--string id="20896" value="PeerProject nie była w stanie ustawić forewardowania portu na Twoim routerze NAT lub firewallu. \n\nProszę skonfiguruj swoją sieć aby przeforewardować porty %i , TCP i UDP, do Twojego lokalnego PC."-->
 	<string id="20897" value="The folder you are sharing is already shared as part of another shared folder:\n\n%s"/>
-	<string id="20898" value="You have not specified any folders to share.  Are you sure?"/>
+	<string id="20898" value="You have not specified any folders to share. Are you sure?"/>
 	<string id="20899" value="lat"/>
 	<!--string value="Informacje Torrentu"-->
 	<!--string id="16801" value="Proszę najpierw wybrać jakiego rodzaju połączenia Internetowego używasz zanim będziesz kontynuować."--> <!-- String is NOT present in 2.4.0.0 file -->
@@ -3205,7 +3205,7 @@
 		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
 		<control caption="_Narzędzia:"/>
 		<control caption="Pobierz..."/>
-		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
+		<control caption="Update DC++ hubs from the web. (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="Połączenia pobierające:"/>
@@ -3871,17 +3871,17 @@
 		<control/>
 		<control/>
 		<control/>
-		<control caption="Masz już ten plik w bibliotece.  Co chciałbyś zrobić?"/>
+		<control caption="Masz już ten plik w bibliotece. Co chciałbyś zrobić?"/>
 		<control caption="Pokaż mi pliki w mojej bibliotece"/>
 		<control caption="Ściągnij plik jeszcze raz"/>
 		<control caption="Nie ściągaj tego pliku"/>
 		<control caption="OK"/>
 		<control caption="Anuluj"/>
-		<control caption="Już sciągnąłeś ten plik ale go usunąłeś.  co chciałbyś zrobić?"/>
+		<control caption="Już sciągnąłeś ten plik ale go usunąłeś. co chciałbyś zrobić?"/>
 		<control caption="Warning! Duplicate files detected. Some malicious software may infect your Library. Make sure that you downloaded this file or placed it manually. Otherwise, shutdown PeerProject and scan your computer with an antivirus program."/>
 	</dialog>
 	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Close Button">
-		<control caption="To jest pierwszy raz kiedy kliknąłeś przycisk zamykania PeerProject.  Wybierz co PeerProject ma zrobic gdy będziesz klikać na ten przycisk:"/>
+		<control caption="To jest pierwszy raz kiedy kliknąłeś przycisk zamykania PeerProject. Wybierz co PeerProject ma zrobic gdy będziesz klikać na ten przycisk:"/>
 		<control caption="Zminimalizuj do traya"/>
 		<control caption="Zamknij program natychmiast"/>
 		<control caption="Zamknij PeerProject po zakończeniu pobierania"/>
@@ -4036,7 +4036,7 @@
 		<control caption="Anuluj"/>
 	</dialog>
 	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Alert aktualizacji">
-		<control caption="Nowa wersj PeerProject jest dostępna.  Czy chciałbyś aktualizować?"/>
+		<control caption="Nowa wersj PeerProject jest dostępna. Czy chciałbyś aktualizować?"/>
 		<control caption="Jeśli wybierzesz aktualizuj teraz to PeerProject doda aktualizacje do twojej kolejki pobierania."/>
 		<control caption="Nie sprawdzaj czy są nowe wersje"/>
 		<control caption="Aktualizuj teraz"/>

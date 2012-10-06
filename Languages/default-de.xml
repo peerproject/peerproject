@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default German Skin File -->
 
-<!-- Translation based on default-en.xml r82 -->
+<!-- Translation based on default-en.xml r84 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1798,7 +1798,7 @@
 			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">Remote Access Ist Aktiviert</heading>
 			<newline gap="8" indent="42"/>
-			<text>PeerProjekt-Remote-Access ist aktiviert.  Sie können PeerProjekt über ihren Webbrowser steuern:</text>
+			<text>PeerProjekt-Remote-Access ist aktiviert. Sie können PeerProjekt über ihren Webbrowser steuern:</text>
 			<newline gap="6"/>
 			<link id="RemoteAccessURL1"/>
 			<text>&#160; oder &#160;</text>
@@ -2112,14 +2112,14 @@
 	<document name="DownloadHelp.Paused">
 		<text format="b">Dieser Download ist angehalten</text>
 		<newline gap="8"/>
-		<text>Sie haben diesen Download angehalten.  Wenn Sie das Herunterladen fortsetzen möchten, können Sie den </text>
+		<text>Sie haben diesen Download angehalten. Wenn Sie das Herunterladen fortsetzen möchten, können Sie den </text>
 		<text format="b">Wiederaufnehmen </text><text>-Befehl benutzen.</text>
 	</document>
 	<document name="DownloadHelp.DiskFull">
 		<text format="b">Die Festplatte ist voll</text>
 		<newline gap="8"/>
 		<text>PeerProjekt hat diesen Download automatisch angehalten, weil die Festplatte voll zu sein scheint
-		oder die Datei nicht geschrieben werden kann.  Wenn Sie den Download fortsetzen möchten,
+		oder die Datei nicht geschrieben werden kann. Wenn Sie den Download fortsetzen möchten,
 		machen Sie bitte etwas Platz auf ihrer Festplatte und / oder prüfen Sie, ob auf das Verzeichnis
 		für unvollständige Dateien zugegriffen werden kann und nehmen Sie dann den
 		Download wieder auf.</text>
@@ -2128,13 +2128,13 @@
 		<text format="b">Dieser Download wird überprüft</text>
 		<newline gap="8"/>
 		<text>Dieser Download ist beendet und PeerProjekt überprüft jetzt, ob die Datei absolut fehlerfrei
-		übertragen wurde.  Wenn beschädigte Teile gefunden werden,
+		übertragen wurde. Wenn beschädigte Teile gefunden werden,
 		wird PeerProjekt diese automatisch reparieren.</text>
 	</document>
 	<document name="DownloadHelp.Downloading">
 		<text format="b">Dieser Download ist aktiv</text>
 		<newline gap="8"/>
-		<text>Diese Datei wird gerade heruntergeladen.  Wenn der Download zu langsam ist,
+		<text>Diese Datei wird gerade heruntergeladen. Wenn der Download zu langsam ist,
 		können Sie versuchen das Netzwerk mit dem </text>
 		<text format="b">Zusätzliche Quellen suchen </text><text>-Befehl nach zusätzlichen Quellen durchsuchen.
 		Wenn sich die Downloadgeschwindigkeit nicht verbessert, liegt das wahrscheinlich an der begrenzten Uploadgeschwindigkeit
@@ -2163,8 +2163,8 @@
 		<text format="b">Für diesen Download werden Quellen gesucht</text>
 		<newline gap="8"/>
 		<text>Für diesen Download sind keine Quellen bekannt. Deshalb durchsucht PeerProjekt
-		alle verbundenen P2P-Netzwerke nach neuen Quellen.  Sobald Quellen gefunden werden, wird
-		der Download automatisch gestartet.  PeerProjekt sucht automatisch nach Quellen,
+		alle verbundenen P2P-Netzwerke nach neuen Quellen. Sobald Quellen gefunden werden, wird
+		der Download automatisch gestartet. PeerProjekt sucht automatisch nach Quellen,
 		Sie können den Vorgang jedoch beschleunigen, indem Sie den</text>
 		<text format="b">Zusätzliche Quellen suchen </text>
 		<text>-Befehl benutzen.</text>
@@ -2782,7 +2782,7 @@
 	<string id="20143" value="Beim Kopieren von &quot;%s&quot; in eine BitTorrent-Freigabedatei ist ein Fehler aufgetreten."/>
 	<string id="20144" value="Kann BitTorrent-Freigabedatei für &quot;%s&quot; nicht erstellen."/>
 	<string id="20145" value="Beim Senden von &quot;%s&quot; trat ein unbekannter Fehler auf."/>
-	<string id="20146" value="Fehler beim Laden der Torrent-Datei &quot;%s&quot;.  Das ist möglicherweise kein gültiger Torrent."/>
+	<string id="20146" value="Fehler beim Laden der Torrent-Datei &quot;%s&quot;. Das ist möglicherweise kein gültiger Torrent."/>
 	<string id="20147" value="Dieser Torrent enthält die Datei &quot;%s&quot;. PeerProjekt kann die Datei in ihrer Bibliothek aber nicht finden. Verschieben Sie die Datei in den selben Ordner wie das Torrent und versuchen Sie es erneut."/>
 	<string id="20148" value="Dieser Torrent enthält die Datei &quot;%s&quot; die %s groß sein sollte, die Größe ihrer Datei ist %s."/>
 	<string id="20149" value="In der Datei &quot;%s&quot; wurde ein Fehler gefunden."/>
@@ -2810,7 +2810,7 @@
 	<string id="20173" value="Handshake vollständig, Chat-Protokoll Version: %s."/>
 	<string id="20174" value="Profilinformationen austauschen..."/>
 	<string id="20175" value="Sie haben Ihr Benutzerprofil nicht ausgefüllt. Sie müssen ein Profil anlegen, bevor Sie mit anderen Benutzern chatten können.\n\nMöchten Sie Ihr Profil jetzt ausfüllen?"/>
-	<string id="20176" value="Nachricht konnte nicht gesendet werden. Sie sind nicht verbunden.  Verbinden..."/>
+	<string id="20176" value="Nachricht konnte nicht gesendet werden. Sie sind nicht verbunden. Verbinden..."/>
 	<string id="20177" value="Nachricht konnte nicht gesendet werden. Es wurde noch keine Verbindung hergestellt."/>
 	<string id="20178" value="%s heißt jetzt %s."/>
 	<string id="20179" value="Chatten mit %s (%s)."/>
@@ -2835,13 +2835,13 @@
 	<string id="20203" value="Der Download &quot;%s&quot; wird beschleunigt, indem die Zeitsteuerung deaktiviert wird."/>
 	<string id="20204" value="Download Host %s hat keine freien Slots, erneut versuchen in %i Sekunden."/>
 	<string id="20205" value="Nicht genügend Speicherplatz um &quot;%s&quot; herunterzuladen (%s)."/>
-	<string id="20206" value="Der Download &quot;%s&quot; konnte nicht verschoben werden.  Überprüfen Sie ob die unvollständige Datei nicht in Gebrauch ist, und ob ihr Downloadverzeichnis existiert bzw. beschreibbar ist."/>
+	<string id="20206" value="Der Download &quot;%s&quot; konnte nicht verschoben werden. Überprüfen Sie ob die unvollständige Datei nicht in Gebrauch ist, und ob ihr Downloadverzeichnis existiert bzw. beschreibbar ist."/>
 	<string id="20207" value="Sind Sie sicher, dass Sie alle Downloads dieser Gruppe abbrechen möchten?"/>
 	<string id="20208" value="Nicht mehr benötigte Verbindung zu %s geschlossen."/>
 	<string id="20209" value="Host %s hat unverlangte Daten gesendet, Verbindung geschlossen."/>
 	<string id="20210" value="Download von &quot;%s&quot; abgeschlossen."/>
 	<string id="20211" value="Wollen Sie &quot;%s&quot; wirklich entfernen?\n\nWenn ein Download von der Downloadliste entfernt wurde, kann er nicht wieder aufgenommen werden."/>
-	<string id="20212" value="Wollen Sie wirklich alle angehaltenen Downloads entfernen?  Wenn ein Download von der Downloadliste entfernt wurde, kann er nicht wieder aufgenommen werden."/>
+	<string id="20212" value="Wollen Sie wirklich alle angehaltenen Downloads entfernen? Wenn ein Download von der Downloadliste entfernt wurde, kann er nicht wieder aufgenommen werden."/>
 	<string id="20213" value="Sind Sie sicher, dass Sie die heruntergeladene Datei &quot;%s&quot; löschen möchten?"/>
 	<string id="20214" value="Verbindung zum Herunterladen von %s hergestellt."/>
 	<string id="20215" value="Verbindung zu %s Port %i wird hergestellt um &quot;%s&quot; herunterzuladen..."/>
@@ -2855,7 +2855,7 @@
 	<string id="20224" value="Sie haben das Namensfeld geändert. Sind Sie sicher, dass Sie diesen Download umbenennen wollen?"/>
 	<string id="20225" value="Sie wollen Änderungen an der Dateigröße vornehmen. Sind Sie sicher, dass Sie die Dateigröße dieses Downloads ändern wollen?"/>
 	<string id="20226" value="Sie können diesen Download nicht als komplett annehemen und verifizieren, weil Sie keine Verifizierungsdaten (tiger-tree-Volumen, eD2k-Hashset oder BitTorrent-Hashset) haben. Ohne Verifizierungsinformationen kann der Download nicht erneut verifiziert werden."/>
-	<string id="20227" value="Sind Sie sicher, dass Sie diesen Download als komplett annehmen und neu verifizieren wollen?  Die ganze Datei wird untersucht und PeerProjekt wird die Teile akzeptieren, die die Verifizierung bestehen und die, die sie nicht bestehen neu herunterladen."/>
+	<string id="20227" value="Sind Sie sicher, dass Sie diesen Download als komplett annehmen und neu verifizieren wollen? Die ganze Datei wird untersucht und PeerProjekt wird die Teile akzeptieren, die die Verifizierung bestehen und die, die sie nicht bestehen neu herunterladen."/>
 	<string id="20228" value="Sind Sie sicher, dass Sie den aktuellen Verifizierungsstatus vergessen wollen? Alle heruntergeladenen Daten werden als nicht verifiziert betrachtet und gepufferte Hashtrees und Hashsets werden gelöscht."/>
 	<string id="20229" value="Sind Sie sicher, dass Sie alle Quellen für den markierten Download vergessen wollen?"/>
 	<string id="20231" value="Kann den gewählten Bereich nicht von dem Downlaod entfernen, weil keine Teile aus diesem Bereich vorhanden sind."/>
@@ -3134,7 +3134,7 @@
 	<string id="20544" value="Der PeerProjekt-Netzwerkkern wird heruntergefahren..."/>
 	<string id="20545" value="Mit keinem Netzwerk verbunden."/>
 	<string id="20546" value="Sind Sie sicher, dass Sie die Verbindung trennen möchten?"/>
-	<string id="20547" value="Gnutella2 ist PeerProjekts Hauptnetzwerk.  Wenn sie die Unterstützung für Gnutella2 deaktivieren, könnten sich die Anzahl und die Qualität Ihrer Suchergebnisse stark verschlechtern.  Sind Sie SICHER, dass Sie das wollen?"/>
+	<string id="20547" value="Gnutella2 ist PeerProjekts Hauptnetzwerk. Wenn sie die Unterstützung für Gnutella2 deaktivieren, könnten sich die Anzahl und die Qualität Ihrer Suchergebnisse stark verschlechtern. Sind Sie SICHER, dass Sie das wollen?"/>
 	<string id="20548" value="Kann nicht an %s Port %i für eingehende Verbindungen binden. Eingehende Verbindungen nicht möglich."/>
 	<string id="20549" value="Kann %s für ausgehende Verbindungen nicht auflösen. Ausgehende Verbindungen benutzen das Standardinterface."/>
 	<string id="20550" value="Ihre Uploadbandbreite reicht nicht aus, um dieses Netzwerk zu aktivieren"/>
@@ -3169,11 +3169,8 @@
 	<string id="20586" value="Host %s hat ein unbekanntes Paket weitergeleitet (0x%.2x), ignoriert."/>
 	<string id="20587" value="Host %s hat einen Pong mit ungültigen Adressdaten weitergeleitet, ignoriert."/>
 	<string id="20588" value="Host %s hat einen push-request an eine Adresse mit geschlossener Firewall weitergeleitet, ignoriert."/>
-	<string id="20590" value="Remote-Zugriff ist deaktiviert."/>
-	<string id="20591" value="http://%s:%i/remote - Benutzername und Passwort angeben."/>
-	<string id="20592" value="Kann keine eingehenden Verbindungen akzeptieren, URL nicht verfügbar."/>
-	<string id="20597" value="Sind Sie sicher, dass Sie die ausgewählten Sicherheitsregeln löschen möchten?"/>
-	<string id="20599" value="&amp;Schemas"/>
+	<!-- Missing Security Strings -->
+	<string id="20598" value="Sind Sie sicher, dass Sie die ausgewählten Sicherheitsregeln löschen möchten?"/>
 	<string id="20600" value="Bandbreite: Volle"/>
 	<string id="20601" value="Bandbreite: Reduzieren"/>
 	<string id="20602" value="Bandbreite: Stoppen"/>
@@ -3243,14 +3240,18 @@
 	<string id="20675" value="Windows unterstützt keine Dateipfade länger als 256 Zeichen.nBitte wählen Sie einen Ordner mit einem kürzeren Pfad."/>
 	<string id="20676" value="Ein Unterordner des gewählten Ordners &quot;%s&quot; ist schon in ihrer Bibliothek.nBeim Hinzufügen des Ordners müssen einige Dateien neu verifiziert werden.\n\nWollen Sie fortfahren ?"/>
 	<string id="20677" value="Bitte geben sie das gewünschte Bandbreitenlimit ein. &quot;123 kb/s&quot; für Kilobits pro Sekunde, oder &quot;123 KB/s&quot; für Kilobytes pro Sekunde."/>
-	<string id="20678" value="Das eDonkey-Netzwerk benutzt lange Warteschlangen mit langen Wartezeiten. Wenn Sie die Maximale Warteschlangenlänge zu strikt einstellen, könnten Sie Probleme bekommen, Dateien herunterzuladen.nSind Sie sicher, dass Sie die Maximale Warteschlangenposition auf diesen Wert setzen wollen?"/>
+	<string id="20678" value="Das eDonkey-Netzwerk benutzt lange Warteschlangen mit langen Wartezeiten. Wenn Sie die Maximale Warteschlangenlänge zu strikt einstellen, könnten Sie Probleme bekommen, Dateien herunterzuladen. \nSind Sie sicher, dass Sie die Maximale Warteschlangenposition auf diesen Wert setzen wollen?"/>
 	<string id="20680" value="Einstellungen"/>
-	<string id="20684" value="Wollen Sie den Skin &quot;%s&quot; wirklich löschen?  Dies kann nicht rückgängig gemacht werden."/>
+	<string id="20682" value="Remote-Zugriff ist deaktiviert."/>
+	<string id="20684" value="http://%s:%i/remote - Benutzername und Passwort angeben."/>
+	<string id="20685" value="Kann keine eingehenden Verbindungen akzeptieren, URL nicht verfügbar."/>
+	<string id="20692" value="Wollen Sie den Skin &quot;%s&quot; wirklich löschen? Dies kann nicht rückgängig gemacht werden."/>
+	<string id="20699" value="&amp;Schemas"/>
 	<string id="20700" value="%s ein : %s aus (d:%I64i/u:%I64i)"/>
 	<string id="20701" value="Verbunden mit %lu Hosts, %s in der lokalen Bibliothek."/>
-	<string id="20702" value="Hub-Modus mit %lu Leaves.  %s in ihrer Bibliothek."/>
-	<string id="20703" value="Hub/Ultrapeer-Modus mit %lu Leaves.  %s in ihrer Bibliothek."/>
-	<string id="20704" value="Ultrapeer-Modus mit %lu Leaves.  %s in ihrer Bibliothek."/>
+	<string id="20702" value="Hub-Modus mit %lu Leaves. %s in ihrer Bibliothek."/>
+	<string id="20703" value="Hub/Ultrapeer-Modus mit %lu Leaves. %s in ihrer Bibliothek."/>
+	<string id="20704" value="Ultrapeer-Modus mit %lu Leaves. %s in ihrer Bibliothek."/>
 	<string id="20705" value="Verbunden. %s in lokaler Bibliothek."/>
 	<string id="20706" value="Verbindung mit Netzwerken herstellen..."/>
 	<string id="20707" value="Mit keinem Netzwerk verbunden."/>
@@ -3331,7 +3332,7 @@
 	<string id="20794" value="User-Agent:"/>
 	<string id="20795" value="%s ein : %s aus (d:%I64i/u:%I64i/h:%I64i)"/>
 	<string id="20796" value="Über das Internet freigegebene Dateien"/>
-	<string id="20798" value="Die neuste PeerProjekt-Version wurde heruntergeladen (%s).  Wollen Sie das Update jetzt installieren?\n\nWenn Sie auf Ja klicken wird PeerProjekt kurzzeitig beendet, um das Update zu installieren."/>
+	<string id="20798" value="Die neuste PeerProjekt-Version wurde heruntergeladen (%s). Wollen Sie das Update jetzt installieren?\n\nWenn Sie auf Ja klicken wird PeerProjekt kurzzeitig beendet, um das Update zu installieren."/>
 	<string id="20800" value="Standard-HTML-Antwort an Upload Host %s senden (%s)."/>
 	<string id="20801" value="Eingehende Verbindung von %s ist eine HTTP-Uploadanforderung."/>
 	<string id="20802" value="Upload-Host %s (%s) hat eine Dateiliste angefordert, antworten..."/>
@@ -3758,7 +3759,7 @@
 		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
 		<control caption="_Tools:"/>
 		<control caption="Herunterladen..."/>
-		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
+		<control caption="Update DC++ hubs from the web. (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Download-Verbindungen:"/>
@@ -3868,7 +3869,7 @@
 	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="Willkommen bei PeerProjekt &#160;(1/8)">
 		<control caption="Willkommen bei PeerProjekt!"/>
 		<control caption="Wenn Sie PeerProjekt oder einen anderen P2P-Client noch nie benutzt haben, kann Ihnen dieser Assistent bei der Konfiguration in einigen einfachen Schritten helfen."/>
-		<control caption="Wenn Sie ein fortgeschrittener Benutzer sind, können Sie alle Einstellungen unter Extras -&gt; Einstellungen verändern.  Klicken Sie auf Schließen, um den Assistenten zu beenden."/>
+		<control caption="Wenn Sie ein fortgeschrittener Benutzer sind, können Sie alle Einstellungen unter Extras -&gt; Einstellungen verändern. Klicken Sie auf Schließen, um den Assistenten zu beenden."/>
 		<control caption="Dieser Assistent wird ihnen dabei helfen:"/>
 		<control/>
 		<control caption="PeerProjekt über den Typ ihrer Internetverbindung zu informieren"/>
@@ -4406,7 +4407,7 @@
 		<control caption="Wussten Sie, dass PeerProjekt 100%ig kostenlose Software ist"/>
 		<control caption="PeerProjekt enthält KEINE &quot;spyware&quot;, &quot;adware&quot; oder andere zusätzliche Software. Es zeigt keine Werbung oder &quot;popups&quot; an.{n}{n}Wenn Sie Werbung oder &quot;popups&quot; sehen während Sie PeerProjekt benutzen, können Sie sicher sein, dass diese nicht von PeerProjekt stammen."/>
 		<control caption="Leider installieren viele andere Programme unerwünschte Adware oder Spyware. Falls Sie etwas Verdächtiges beobachten, können Sie ihren PC mit einem Anti-Spyware-Programm überprüfen."/>
-		<control caption="PeerProjekt kostet nichts und kann von jedem kostenlos von http://peerproject.org/ heruntergeladen werden.  Wenn Sie jemandem Geld für PeerProjekt bezahlt haben, sollten Sie sofort ihr Geld zurückverlangen."/>
+		<control caption="PeerProjekt kostet nichts und kann von jedem kostenlos von http://peerproject.org/ heruntergeladen werden. Wenn Sie jemandem Geld für PeerProjekt bezahlt haben, sollten Sie sofort ihr Geld zurückverlangen."/>
 		<control caption="PeerProjekt respektiert seine Benutzer!"/>
 		<control caption="http://PeerProject.org/"/>
 		<control caption="Schließen"/>
@@ -4434,7 +4435,7 @@
 		<control caption="Achtung. Doppelte Dateien erkannt! Installierte Programme könnten Ihre Bibliothek gefährden. Sind Sie sicher, dass Sie diese Datei herunterladen möchten ? Haben Sie diese Datei manuell eingefügt ? Wenn Sie unsicher sind, schalten Sie ihren Computer aus und überprüfen sie diesen mit einem Anitivirusprogramm."/>
 	</dialog>
 	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Schließen">
-		<control caption="Sie haben auf das Schließen-Symbol geklickt.  Bitte wählen Sie die Aktion aus, die in Zukunft bei einem Klick auf das Schließen-Symbol ausgefûhrt werden soll:"/>
+		<control caption="Sie haben auf das Schließen-Symbol geklickt. Bitte wählen Sie die Aktion aus, die in Zukunft bei einem Klick auf das Schließen-Symbol ausgefûhrt werden soll:"/>
 		<control caption="In den Tray schicken"/>
 		<control caption="Sofort beenden"/>
 		<control caption="PeerProjekt nach Abschluß aller Tranfers beenden."/>

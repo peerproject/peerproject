@@ -42,6 +42,7 @@ public:
 	{
 		CString		Path;					// Installation path for PeerProject
 		CString		UserPath;				// Path for user data. (May be the same as above for single user installs)
+		CString		DataPath;				// Full path for user data. (Same as above plus \Data\)
 		bool		MultiUser;				// Multiuser installation
 		bool		DialogScan;				// Create "C:\Dialogs.xml" translation template, with Skin engine in "dialog scan" mode.
 		bool		DebugLog;				// Create a log file
@@ -93,6 +94,7 @@ public:
 		bool		AutoComplete;			// Use text field histories
 		bool		CoolMenuEnable;			// Use skinned menus
 		bool		LowResMode;
+		bool		SaveOpenWindows;		// Remember open windows next session
 		DWORD		RefreshRateGraph;		// Data display update in milliseconds (set speed)
 		DWORD		RefreshRateText;		// Data display update in milliseconds
 		DWORD		RefreshRateUI;			// Button availability update in milliseconds (~4 chances per second)

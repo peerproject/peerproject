@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Catalan Skin File -->
 
-<!-- Translation based on default-en.xml r82 -->
+<!-- Translation based on default-en.xml r84 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1835,7 +1835,7 @@
 		<text format="b">Configuració de PeerProject</text>
 		<newline gap="16"/>
 		<text>Aquesta pantalla permet configurar una gran quantitat de paràmetres del funcionament
-			de PeerProject.  La configuració </text>
+			de PeerProject. La configuració </text>
 		<text format="b">General </text>
 		<text>està relacionada amb l'experiència de l'usuari.</text>
 		<newline gap="16" indent="16"/>
@@ -1864,7 +1864,7 @@
 		<text format="b">Configuració de PeerProject</text>
 		<newline gap="16"/>
 		<text>Aquesta pantalla permet configurar una gran quantitat de paràmetres del funcionament
-			de PeerProject.  La configuració de </text>
+			de PeerProject. La configuració de </text>
 		<text format="b">Internet </text>
 		<text>permet configurar la interacció de PeerProject amb les xarxes peer-to-peer.</text>
 		<newline gap="16" indent="16"/>
@@ -1986,7 +1986,7 @@
 		<text format="b">Transferència completada</text>
 		<newline gap="8"/>
 		<text>PeerProject ha acabat de descarregar l'arxiu, i l'ha verificat i és
-		100% correcte.  També ha mogut aquesta descàrrega a la carpeta de descàrregues.</text>
+		100% correcte. També ha mogut aquesta descàrrega a la carpeta de descàrregues.</text>
 	</document>
 	<document name="DownloadHelp.Moving">
 		<text format="b">Movent l'arxiu transferit</text>
@@ -2004,14 +2004,14 @@
 		<text format="b">El disc està ple</text>
 		<newline gap="8"/>
 		<text>PeerProject ha posat aquesta transferència en pausa, perquè no hi ha prou espai al
-		disc dur per a continuar o no es pot escriure al disc.  Per favor, fes espai al disc per a poder descarregant l'arxiu, o assegura't que l'arxiu no estigui
+		disc dur per a continuar o no es pot escriure al disc. Per favor, fes espai al disc per a poder descarregant l'arxiu, o assegura't que l'arxiu no estigui
 		sent utilitzat per altra aplicació. Després, reinicia la transferència.</text>
 	</document>
 	<document name="DownloadHelp.Verifying">
 		<text format="b">Verificant l'arxiu</text>
 		<newline gap="8"/>
 		<text>PeerProject ha acabat de descarregar l'arxiu i està verificant per a
-		assegurar-se que l'arxiu descarregat sigui idèntic a l'original.  Si alguna part ha estat
+		assegurar-se que l'arxiu descarregat sigui idèntic a l'original. Si alguna part ha estat
 		transferida incorrectament, PeerProject s'encarregarà de restaurar-la de forma automàtica.</text>
 	</document>
 	<document name="DownloadHelp.Downloading">
@@ -2061,7 +2061,7 @@
 		<text format="b">Tracker de BitTorrent fora de servei</text>
 		<newline gap="8"/>
 		<text>El tracker de BitTorrent per a aquesta transferència sembla estar
-		desconnectat o té problemes.  PeerProject no ha pogut contactar per a
+		desconnectat o té problemes. PeerProject no ha pogut contactar per a
 		rebre la informació de la transferència.</text>
 	</document>
 	<!-- Upload help documents -->
@@ -2642,8 +2642,8 @@
 	<string id="20143" value="Ha hagut un error copiant de &quot;%s&quot; a l'arxiu de compartir torrents."/>
 	<string id="20144" value="No s'ha pogut crear l'arxiu per a compartir el torrent &quot;%s&quot;."/>
 	<string id="20145" value="Ha hagut un error inesperat compartint l'arxiu &quot;%s&quot;."/>
-	<string id="20146" value="Error al carregar el torrent &quot;%s&quot;.  Potser no és vàlid."/>
-	<string id="20147" value="Aquest torrent inclou l'arxiu &quot;%s&quot;, però PeerProject no ho ha pogut aconsegueix a La meva Col·lecció.  Muou tots els arxius corresponents al torrent a la mateixa carpeta compartida."/>
+	<string id="20146" value="Error al carregar el torrent &quot;%s&quot;. Potser no és vàlid."/>
+	<string id="20147" value="Aquest torrent inclou l'arxiu &quot;%s&quot;, però PeerProject no ho ha pogut aconsegueix a La meva Col·lecció. Muou tots els arxius corresponents al torrent a la mateixa carpeta compartida."/>
 	<string id="20148" value="Aquest torrent inclou l'arxiu &quot;%s&quot; que hauria de ser %s, però tu versió de l'arxiu és %s."/>
 	<string id="20149" value="Ha hagut un error amb l'arxiu &quot;%s&quot;."/>
 	<string id="20150" value="Ha estat impossible comunicar-se amb el tracker"/>
@@ -2695,7 +2695,7 @@
 	<string id="20203" value="Incrementant la velocitat de descarregada %s treient límits d' ample de banda."/>
 	<string id="20204" value="L'usuari %s està ocupat, reintentant en %i segons."/>
 	<string id="20205" value="Insuficient espai de disc per a descarregar &quot;%s&quot; (%s)."/>
-	<string id="20206" value="ha estat imposible moure l'arxiu descarregat %s a %s.  Revisa que l'arxiu no està essent utilitzat, i que tingui Accès d'escriptura a la carpeta compartida."/>
+	<string id="20206" value="ha estat imposible moure l'arxiu descarregat %s a %s. Revisa que l'arxiu no està essent utilitzat, i que tingui Accès d'escriptura a la carpeta compartida."/>
 	<string id="20207" value="Estàs segur(a) que vols cancel·lar/abortar totes les descàrregues d'aquest grup?"/>
 	<string id="20208" value="Tancant la connexió de descàrrega a %s, per no ser requerida."/>
 	<string id="20209" value="La font de descàrrega %s ha enviat dades no solicitades, tancant connexió."/>
@@ -2712,8 +2712,8 @@
 	<string id="20221" value="Si us plau, introdueix un rang vàlid. El valor &quot;de&quot; és el primer byte a esborrar i l'&quot;últim&quot; és l'últim byte a esborrar."/>
 	<string id="20222" value="El valor del hash de %s asignat no és vàlid."/>
 	<string id="20223" value="Estàs canviant el %s a un diferent a l'associat amb aquesta descàrrega. Vols continuar?"/>
-	<string id="20224" value="Has canviat el Nom de l'arxiu.  ¿Estàs segur de canviar-lo?"/>
-	<string id="20225" value="Has fet canvis a la mida de l'arxiu.  Estàs segur de que vols canviar la mida d'aquesta descàrrega?"/>
+	<string id="20224" value="Has canviat el Nom de l'arxiu. ¿Estàs segur de canviar-lo?"/>
+	<string id="20225" value="Has fet canvis a la mida de l'arxiu. ¿Estàs segur de que vols canviar la mida d'aquesta descàrrega?"/>
 	<string id="20226" value="Aquesta descàrrega no es pot asumir completa, perquè falta informació sobre el hash, que és necessària per a verificar-la."/>
 	<string id="20227" value="Estàs segur/a d'asumir aquesta descàrrega com completa i reverificar-la? PeerProject reverificarà l'arxiu, i acceptarà les parts correctes, i descarregarà de nou aquelles incorrectes."/>
 	<string id="20228" value="Estàs segur/a d'oblidar l'estat actual de verificació? Tota la informació de la descàrrega serà tractada com insegur/a, per a tornar a verificar-la."/>
@@ -2891,7 +2891,7 @@
 	<!--string id="20431" value="Estàs segur(a) d'esborrar els %i arxiu(s) seleccionats de forma permanent ?\n\nEs portaran a la Paperera de reciclatge si està activada."-->
 	<string id="20432" value="Estàs segur(a) de esborrar %i carpetes virtuals amb informació sobre àlbums?\n\nAixò no esborra els arxius físicament del disc dur, sols esborra la carpeta seleccionada de la col·lecció."/>
 	<string id="20433" value="PeerProject no ha pogut esborrar l'arxiu:\n\n%s"/>
-	<string id="20434" value="La teva carpeta d'arxius descarregats &quot;%s&quot; encara no es troba a la col·lecció.\n\nIncloent-hi la teva carpeta d'arxius descarregats en la col·lecció fa més fàcil veure i organitzar les noves descàrregues, i altres opcions avançades i característiques de PeerProject.org la verificació de descàrregues i actualitzacions automàtiques.  Posant els arxius descarregats a la col·lecció no necesàriament requereix que els comparteixis: pots elegir si vols o no compartir els arxius independentment.\n\nVols afegir la teva carpeta de descàrregues a la col·lecció ara?"/>
+	<string id="20434" value="La teva carpeta d'arxius descarregats &quot;%s&quot; encara no es troba a la col·lecció.\n\nIncloent-hi la teva carpeta d'arxius descarregats en la col·lecció fa més fàcil veure i organitzar les noves descàrregues, i altres opcions avançades i característiques de PeerProject.org la verificació de descàrregues i actualitzacions automàtiques. Posant els arxius descarregats a la col·lecció no necesàriament requereix que els comparteixis: pots elegir si vols o no compartir els arxius independentment.\n\nVols afegir la teva carpeta de descàrregues a la col·lecció ara?"/>
 	<string id="20435" value="La carpeta d'arxius descarregats ha estat afegida a la col·lecció. Vols compartir-la també?"/>
 	<!--string id="20436" value="No has seleccionat un reproductor per als arxius de multimèdia. Vols seleccionar-ne un ara?\n\nL'arxiu serà passat amb l'argument &quot;/ADD&quot;."-->
 	<string id="20436" value="Afegeix aquesta carpeta a la biblioteca?\n\n%s"/>
@@ -2906,16 +2906,16 @@
 	<string id="20445" value="Exportar URIs..."/>
 	<string id="20446" value="L'arxiu %s ha fallat la verificació, i pot no ser el correcte. Estàs segur(a) d'obrir-lo?"/>
 	<string id="20447" value="Vols treure l'atribut &quot;potencialment insegur&quot; d'aquest arxiu?"/>
-	<string id="20448" value="l'arxiu %s no ha estat escanejat.  Per favor, espera a que sigui escanejat i intenta-ho més tard."/>
+	<string id="20448" value="l'arxiu %s no ha estat escanejat. Per favor, espera a que sigui escanejat i intenta-ho més tard."/>
 	<string id="20449" value="Aquesta opció utilitza un servei ofrerit per Bitzi, per a adquirir metainformació de l'arxiu.\n\nPeerProject enviarà una petita informació sobre la marca digital 'bitprint' de l'arxiu per a que Bitzi el pugui reconèixer. Si tens algun dubte sobre la privacitat d'aquest servei, visita bitzi.com per a més informació.\n\nVols continuar?"/>
 	<string id="20450" value="Una subcarpeta de la carpeta seleccionada &quot;%s&quot; ja és actualment part de la col·lecció.nAfegir aquesta carpeta causarà una reverificació dels arxius.\n\nDe segur que dessitja continuar?"/>
-	<string id="20451" value="No hi ha cap arxiu reproduïnt-se.  Fes doble clic a un arxiu de media en la teva biblioteca per a reproduir-lo."/>
+	<string id="20451" value="No hi ha cap arxiu reproduïnt-se. Fes doble clic a un arxiu de media en la teva biblioteca per a reproduir-lo."/>
 	<string id="20452" value="Tots els arxius de Media|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Playlists|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Audio Files|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Video Files|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD Audio Tracks|*.cda|MIDI Files|*.mid;*.rmi;*.midi|All Files|*.*||"/>
 	<string id="20453" value="l'arxiu &quot;%s&quot;, no es pogué carregar."/>
 	<string id="20454" value="Pot estar corrupte, o no tens els Còdecs necesaris per a la seva reproducció."/>
 	<string id="20455" value="part d'aquest arxiu no ha pogut ser reproduït. Pots necessitar Codecs adicionals."/>
 	<string id="20456" value="LLISTA:"/>
-	<string id="20457" value="PeerProject no ha pogut iniciar els serveis de reproducció.  per favor reinstala PeerProject, i confirma que tens tots els codecs, filtres i controladors necesaris.."/>
+	<string id="20457" value="PeerProject no ha pogut iniciar els serveis de reproducció. per favor reinstala PeerProject, i confirma que tens tots els codecs, filtres i controladors necesaris.."/>
 	<string id="20458" value="PeerProject Media Player"/>
 	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
 	<string id="20462" value="(No Visualització)"/>
@@ -2988,8 +2988,8 @@
 	<string id="20544" value="Tancant el nucli de la xarxa..."/>
 	<string id="20545" value="Desconnectat."/>
 	<string id="20546" value="Estàs segur que vols desconnectar-te?"/>
-	<string id="20547" value="Gnutella2 és la xarxa predeterminada de PeerProject.  Deshabilitant el suport a aquesta la teva cerca empitjorarà notablement. Estàs segur que vols fer això?"/>
-	<string id="20548" value="Ha estat impossible associar %s amb el port %i per a connexions entrants.  No seran suportades connexions entrants."/>
+	<string id="20547" value="Gnutella2 és la xarxa predeterminada de PeerProject. Deshabilitant el suport a aquesta la teva cerca empitjorarà notablement. Estàs segur que vols fer això?"/>
+	<string id="20548" value="Ha estat impossible associar %s amb el port %i per a connexions entrants. No seran suportades connexions entrants."/>
 	<string id="20549" value="No s'ha pogut resoldre %s per a connexions sortints. Les connexions sortints usaran la interfície predeterminada."/>
 	<string id="20550" value="La teva banda ampla de pujada és molt baixa per a aquesta xarxa"/>
 	<string id="20551" value="Està sota un tallafocs. No respondrà a les connexions entrants."/>
@@ -3022,11 +3022,7 @@
 	<string id="20586" value="%s ha enviat un paquet desconegut (0x%.2x)."/>
 	<string id="20587" value="%s ha enviat un pong invàlid."/>
 	<string id="20588" value="El veí %s ha enviat un push a una adreça sota tallafocs, ignorant..."/>
-	<string id="20590" value="L'accès remot està deshabilitat."/>
-	<string id="20591" value="http://%s:%i/remote - Nom d'usuari i contrasenya?"/>
-	<string id="20592" value="No es poden acceptar connexions, URL no disponible."/>
-	<string id="20597" value="Estàs segur de esborrar les normes de seguretat seleccionades?"/>
-	<string id="20599" value="&amp;Esquemes"/>
+	<string id="20598" value="Estàs segur de esborrar les normes de seguretat seleccionades?"/>
 	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="PeerProject està cercant activament a la xarxa..."/>
 	<string id="20621" value="Fes clic aquí per a cercar de nou"/>
@@ -3083,9 +3079,13 @@
 	<string id="20677" value="Si us Plau inclou les unitats per al límit de l'ample de banda de la següent forma &quot;123 kb/s&quot; per a kilobits per segon, o &quot;123 KB/s&quot; per a kiloBytes per segon."/>
 	<string id="20678" value="La Xarxa eDonkey utilitza llargues cues amb temps llargs d' espera. Limitant la teva màxima cua de posició pots tenir problemes per a iniciar les descàrregues.nEstàs segur/a que vols limitar les posicions de cua que acceptaràs?"/>
 	<string id="20680" value="Configuració de PeerProject"/>
-	<string id="20684" value="Estàs segur que vols esborrar l'interfície &quot;%s&quot;. Aquesta decisió no es pot desfer."/>
+	<string id="20682" value="L'accès remot està deshabilitat."/>
+	<string id="20684" value="http://%s:%i/remote - Nom d'usuari i contrasenya?"/>
+	<string id="20685" value="No es poden acceptar connexions, URL no disponible."/>
+	<string id="20692" value="Estàs segur que vols esborrar l'interfície &quot;%s&quot;. Aquesta decisió no es pot desfer."/>
+	<string id="20699" value="&amp;Esquemes"/>
 	<string id="20700" value="%s Entra : %s Surt (d:%I64i/u:%I64i)"/>
-	<string id="20701" value="Connectat amb %lu veí(ïns).  Tens %s a la col·lecció local."/>
+	<string id="20701" value="Connectat amb %lu veí(ïns). Tens %s a la col·lecció local."/>
 	<string id="20702" value="Mode Hub amb %lu veí(ïns). %s a la meva col·lecció."/>
 	<string id="20703" value="Mode Hub/Ultrapeer amb %lu veí(ïns. %s a la meva col·lecció local."/>
 	<string id="20704" value="Mode Ultrapeer amb %lu veí(ïns). %s a la col·lecció local."/>
@@ -3182,7 +3182,7 @@
 	<string id="20808" value="Actualitzant pujada de &quot;%s&quot; a %s (%s), ocupat o el client no suporta cues."/>
 	<string id="20809" value="Rebutjant la pujada de &quot;%s&quot; a %s (%s), totes les cues estan plenes."/>
 	<string id="20810" value="El servidor de pujada %s ha demanat un rang de contingut impossible de &quot;%s&quot;."/>
-	<string id="20811" value="Les pujades eDonkey no han de ser cancel·lades.  Estàs segur(a) que vols cancel·lar aquesta pujada?"/>
+	<string id="20811" value="Les pujades eDonkey no han de ser cancel·lades. Estàs segur(a) que vols cancel·lar aquesta pujada?"/>
 	<string id="20812" value="No s'ha pogut obrir &quot;%s&quot; per a pujar al servidor %s, error d'arxiu o disc."/>
 	<string id="20813" value="Iniciant Connexió push amb %s. %s"/>
 	<string id="20814" value="No ha estat posible connectar amb %s en push."/>
@@ -3252,15 +3252,15 @@
 	<string id="20891" value="Sortir"/>
 	<string id="20892" value="Si us plau, esperi: Actualitzant la llista de servidors d'eDonkey..."/>
 	<string id="20893" value="Si us plau, esperi: Actualitzant serveis de descobriment..."/>
-	<string id="20894" value="encara no ha especificat la velocitat de Connexió.  Abans de continuar, per favor escull o escriu la velocitat de la teva Connexió."/>
+	<string id="20894" value="encara no ha especificat la velocitat de Connexió. Abans de continuar, per favor escull o escriu la velocitat de la teva Connexió."/>
 	<!--string id="20895" value="Si us plau, esperi: Cercant dispositius UPnP i configurant-los..."-->
 	<!--string id="20896" value="Has seleccionat utilitzar reenviament de ports en el teu NAT router o tallafocs.\n\nSi us Plau configura la teva Xarxa per a reenviar el port TCP %i al teu PC."-->
 	<string id="20897" value="Aquesta carpeta ja està compartida com part de:\n\n%s"/>
-	<string id="20898" value="No has especificat cap carpeta per a compartir. Recorda que la qualitat de la Xarxa està basada a la quantitat d'arxius que els demés comparteixen, per tant si comparteixes les teves carpetes, la Xarxa tindrà més contingut.  ¿Estàs segur(a) de no compartir les teves carpetes?"/>
+	<string id="20898" value="No has especificat cap carpeta per a compartir. Recorda que la qualitat de la Xarxa està basada a la quantitat d'arxius que els demés comparteixen, per tant si comparteixes les teves carpetes, la Xarxa tindrà més contingut. ¿Estàs segur(a) de no compartir les teves carpetes?"/>
 	<string id="20899" value="anys"/>
 	<!-- string value="Informació del Torrent"-->
 	<!-- string value="El Tracker no respongué. Reintentant l'anunci (%i de %i)"-->
-	<!-- string value="L'arxiu &quot;%s&quot; ja està en La meva Col·lecció.  ¿Vols descarregar-lo de totes formes?"-->
+	<!-- string value="L'arxiu &quot;%s&quot; ja està en La meva Col·lecció. ¿Vols descarregar-lo de totes formes?"-->
 	<!-- string id="17500" value="El Tracker no respongué. Reintentant l'anunci (%i de %i)"-->
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
@@ -3374,7 +3374,7 @@
 		<control/>
 		<control caption="_Afegeix"/>
 		<control caption="_Treu"/>
-		<control caption="El controlador de descàrregues sols funcionarà amb els següents tipus d'arxius.  Els demés seran controlats pel teu navegador.  PeerProject ha d'estar executant-se per a que el controlador de descàrregues funcioni correctament."/>
+		<control caption="El controlador de descàrregues sols funcionarà amb els següents tipus d'arxius. Els demés seran controlats pel teu navegador. PeerProject ha d'estar executant-se per a que el controlador de descàrregues funcioni correctament."/>
 	</dialog>
 	<dialog name="CConnectionSettingsPage" cookie="BuStCoStCoStEdBuBuBuStCoStCoBuStCoBuBuBuStEdmsStEdms" caption="Connexió">
 		<control caption="_Adreça d'entrada:"/>
@@ -3554,7 +3554,7 @@
 		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
 		<control caption="_Eines:"/>
 		<control caption="Descarrega..."/>
-		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
+		<control caption="Update DC++ hubs from the web. (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Connexions de descàrrega:"/>
@@ -3692,7 +3692,7 @@
 		<control/>
 	</dialog>
 	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="Benvingut a PeerProject (3/8)">
-		<control caption="PeerProject és una aplicació per a compartir arxius de forma general que pot accedir a diverses xarxes P2P al mateix temps.  Aquí pots seleccionar a quines xarxes et vols connectar. Recorda que després pots seleccionar altres xarxes."/>
+		<control caption="PeerProject és una aplicació per a compartir arxius de forma general que pot accedir a diverses xarxes P2P al mateix temps. Aquí pots seleccionar a quines xarxes et vols connectar. Recorda que després pots seleccionar altres xarxes."/>
 		<control caption="Connecta a Gnutella2 (altament recomanat)"/>
 		<control caption="La xarxa Gnutella2 és la xarxa preferida per PeerProject, ofrerint més característiques i rendiment que lees altres."/>
 		<control caption="Connecta a Gnutella original"/>
@@ -4202,7 +4202,7 @@
 		<control caption="PeerProject és 100% gratuït."/>
 		<control caption="No conté cap programari espia (&quot;spyware&quot;, &quot;adware&quot;) ni qualsevol altre tipus de programes. PeerProject no té ni propaganda, ni &quot;finestres emergents&quot;, mai.{n}{n}Si apareix alguna cosa, estigues segur que no és causa de PeerProject."/>
 		<control caption="Per desgràcia, hi ha programes que instal·len programes espia o virus. Si us plau, comprova-ho amb programes especialitzats i neteja el teu ordinador."/>
-		<control caption="No has de pagar per a obtindre PeerProject. PeerProject es pot distribueix lliurement, i descarregar de http://peerproject.org/.  Si has pagat per ell, ¡demana que et tornin els diners!"/>
+		<control caption="No has de pagar per a obtindre PeerProject. PeerProject es pot distribueix lliurement, i descarregar de http://peerproject.org/. Si has pagat per ell, ¡demana que et tornin els diners!"/>
 		<control caption="PeerProject respecta els seus usuaris!"/>
 		<control caption="http://PeerProject.org"/>
 		<control caption="Tanca"/>
@@ -4226,7 +4226,7 @@
 		<control caption="Res, deixa l'arxiu original"/>
 		<control caption="Continua"/>
 		<control caption="Cancel·la"/>
-		<control caption="Ja has descarregat i esborrat aquest arxiu anteriorment.  Qué vols fer?"/>
+		<control caption="Ja has descarregat i esborrat aquest arxiu anteriorment. Qué vols fer?"/>
 		<control caption="Atenció!! S'han detectat arxius duplicats. Potser algun programa maliciós hagi infectat la teva col·lecció. Assegura't que has sigut tu. Si no és així, tanca el PeerProject i escaneja els teus discos durs amb un programa antivíric."/>
 	</dialog>
 	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Botó de tancament">

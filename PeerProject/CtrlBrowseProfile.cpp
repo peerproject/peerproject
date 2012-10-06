@@ -402,10 +402,11 @@ void CBrowseProfileCtrl::UpdateDocument2(CHostBrowser* pBrowser)
 
 void CBrowseProfileCtrl::OnHeadPacket(CG2Packet* pPacket)
 {
-	CSingleLock pLock( &m_pSection, TRUE );
 	CString strFile;
 	G2_PACKET nType;
 	DWORD nLength;
+
+	CSingleLock pLock( &m_pSection, TRUE );
 
 	while ( pPacket->ReadPacket( nType, nLength ) )
 	{
@@ -438,9 +439,9 @@ void CBrowseProfileCtrl::LoadDefaultHead()
 
 	if ( m_imgHead.m_bLoaded ) return;
 
-	if ( m_imgHead.LoadFromFile( Settings.General.Path + _T("\\Data\\DefaultAvatar.png") ) &&
-		m_imgHead.EnsureRGB( Colors.m_crWindow ) &&
-		m_imgHead.Resample( 128, 128 ) )
+	if ( m_imgHead.LoadFromFile( Settings.General.Path + _T("\\Data\\DefaultAvatar.png") ) &&		// Settings.General.DataPath ?
+		 m_imgHead.EnsureRGB( Colors.m_crWindow ) &&
+		 m_imgHead.Resample( 128, 128 ) )
 	{
 		Invalidate();
 	}

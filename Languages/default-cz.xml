@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Czech Skin File -->
 
-<!-- Translation based on default-en.xml r82 --> <!-- (Shareaza 2.2.5.7) -->
+<!-- Translation based on default-en.xml r84 --> <!-- (Shareaza 2.2.5.7) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3005,11 +3005,7 @@
 	<string id="20586" value="Soused %s poslal neznámý paket (0x%.2x), ignoruji."/>
 	<string id="20587" value="Soused %s poslal pong s nesprávnými adresnými daty, ignoruji."/>
 	<string id="20588" value="Soused %s násilím prosadil žádost na adresu firewallu, ignoruji."/>
-	<string id="20590" value="Vzdálený přístup je vypnutý."/>
-	<string id="20591" value="http://%s:%i/remote - Musíte zadat uživatelské jméno a heslo."/>
-	<string id="20592" value="Nelze přijmout spojení, URL je nedostupné."/>
-	<string id="20597" value="Checte smazat vybraná bezpoečnostní pravidla? Tato operace je nevratná."/>
-	<string id="20599" value="schéma"/>
+	<string id="20598" value="Checte smazat vybraná bezpoečnostní pravidla? Tato operace je nevratná."/>
 	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="PeerProject aktivně prohledává síť..."/>
 	<string id="20621" value="Kliknutím zde hledáte znovu"/>
@@ -3066,7 +3062,11 @@
 	<string id="20677" value="Prosím zadejte omezení šířky pásma které si přejete nastavit ve tvaru &quot;123 kb/s&quot; pro kilobajty za vteřinu, nebo &quot;123 KB/s&quot; pro kilobajty za vteřinu."/>
 	<string id="20678" value="Síť eDonkey používá velké fronty a dlouhé čekání. Striktní omezení délky fronty může způsobit problém se stahováním souborů.nOpravdu chcete omezit délku fronty?"/>
 	<string id="20680" value="Nastavení PeerProject"/>
-	<string id="20684" value="Opravdu chcete vymazat skin &quot;%s&quot;. Tento skin nemůže být odstraněný."/>
+	<string id="20682" value="Vzdálený přístup je vypnutý."/>
+	<string id="20684" value="http://%s:%i/remote - Musíte zadat uživatelské jméno a heslo."/>
+	<string id="20685" value="Nelze přijmout spojení, URL je nedostupné."/>
+	<string id="20692" value="Opravdu chcete vymazat skin &quot;%s&quot;. Tento skin nemůže být odstraněný."/>
+	<string id="20699" value="schéma"/>
 	<string id="20700" value="%s přích : %s odch (St:%I64i/Od:%I64i)"/>
 	<string id="20701" value="Připojeno ke %lu uzlům. %s v místní knihovně."/>
 	<string id="20702" value="Režim uzle se sousedem(y) %lu. %s v místní knihovně."/>
@@ -3535,7 +3535,7 @@
 		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
 		<control caption="Nás_troje:"/>
 		<control caption="Stáhnout..."/>
-		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
+		<control caption="Update DC++ hubs from the web. (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Připojená stahování:"/>

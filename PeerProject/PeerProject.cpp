@@ -1680,7 +1680,7 @@ void CPeerProjectApp::PrintMessage(WORD nType, const CString& strLog)
 
 void CPeerProjectApp::LogMessage(const CString& strLog)
 {
-	const CString strPath = SafePath( Settings.General.UserPath + _T("\\Data\\PeerProject.log") );
+	const CString strPath = SafePath( Settings.General.DataPath + _T("PeerProject.log") );
 
 	CQuickLock pLock( m_csMessage );
 
@@ -2231,12 +2231,12 @@ BOOL LoadIcon(LPCTSTR szFilename, HICON* phSmallIcon, HICON* phLargeIcon, HICON*
 	if ( phHugeIcon )
 	{
 		UINT nLoadedID;
-		PrivateExtractIcons( strIcon, nIcon, 48, 48,
-			phHugeIcon, &nLoadedID, 1, 0 );
+		PrivateExtractIcons( strIcon, nIcon, 48, 48, phHugeIcon, &nLoadedID, 1, 0 );
 	}
 
-	return ( phLargeIcon && *phLargeIcon ) || ( phSmallIcon && *phSmallIcon ) ||
-		( phHugeIcon && *phHugeIcon );
+	return ( phLargeIcon && *phLargeIcon ) ||
+		   ( phSmallIcon && *phSmallIcon ) ||
+		   ( phHugeIcon && *phHugeIcon );
 }
 
 //HICON LoadCLSIDIcon(LPCTSTR szCLSID)
@@ -2679,8 +2679,8 @@ void CPeerProjectApp::OnRename(LPCTSTR pszSource, LPCTSTR pszTarget)
 
 CDatabase* CPeerProjectApp::GetDatabase(bool bGeneral) const
 {
-	return new CDatabase( Settings.General.UserPath +
-		( bGeneral ? _T("\\Data\\PeerProject.db3") : _T("\\Data\\Thumbnails.db3") ) );
+	return new CDatabase( Settings.General.DataPath +
+		( bGeneral ? _T("PeerProject.db3") : _T("Thumbnails.db3") ) );
 }
 
 CString SafeFilename(CString strName, bool bPath)
@@ -3164,7 +3164,7 @@ BOOL SaveIcon(HICON hIcon, CBuffer& oBuffer, int colors)
 	CAutoVectorPtr< char >pBuffer( new char[ nImageSize ] );
 	if ( ! pBuffer )
 		return FALSE;	// Out of memory
-	ZeroMemory( (char*)pBuffer,  nImageSize );
+	ZeroMemory( (char*)pBuffer, nImageSize );
 
 	// Get mask bits
 	bih.bmiHeader.biBitCount = 1;
@@ -3644,7 +3644,7 @@ void CProgressDialog::Progress(LPCTSTR szText, QWORD nCompleted, QWORD nTotal)
 {
 	if ( p )
 	{
-		p->SetLine( 2,  szText, TRUE, NULL );
+		p->SetLine( 2, szText, TRUE, NULL );
 		p->SetProgress64( nCompleted, nTotal );
 	}
 }

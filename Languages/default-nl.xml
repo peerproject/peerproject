@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Dutch Skin File -->
 
-<!-- Translation based on default-en.xml r82 -->
+<!-- Translation based on default-en.xml r84 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2815,7 +2815,7 @@
 	<string id="20223" value="Je hebt een %s hash waarde ingegeven die anders is als degene die momenteel met deze download is geassocieerd. Weet je zeker dat je de %s hash nu wilt veranderen?"/>
 	<string id="20224" value="Je hebt de bestandsnaam aangepast. Weet je zeker dat je deze download wilt hernoemen?"/>
 	<string id="20225" value="Je hebt de wijzigingen aangebracht in de bestandsgrootte. Weet u zeker dat u het bestandgrootte wilt wijzigen voor deze download?"/>
-	<string id="20226" value="Je kunt deze download niet als volledig beschouwen en opnieuw controleren want je hebt nog geen gedeeltelijke verificatie data, zoals het tiger-tree volume, de eDonkey hashset of de BitTorrent hashset.  Zonder deze verificatiegegevens kan de download niet opnieuw worden gecontroleerd."/>
+	<string id="20226" value="Je kunt deze download niet als volledig beschouwen en opnieuw controleren want je hebt nog geen gedeeltelijke verificatie data, zoals het tiger-tree volume, de eDonkey hashset of de BitTorrent hashset. Zonder deze verificatiegegevens kan de download niet opnieuw worden gecontroleerd."/>
 	<string id="20227" value="Weet je zeker dat je om aan te nemen deze download is compleet en het opnieuw te controleren? Het hele bestand zal worden overwogen, en PeerProject zal de succesvol gecontroleerde delen behouden en de mislukte delen opnieuw downloaden."/>
 	<string id="20228" value="Weet je zeker dat je de huidige verificatie status wilt vergeten? Alle gedownloade data zal als onbetrouwbaar worden beschouwd, en opgeslagen hashtrees en hashsets zullen worden verwijderd."/>
 	<string id="20229" value="Weet je zeker dat je alle bronnen wilt vergeten voor de geselecteerde download?"/>
@@ -3122,11 +3122,7 @@
 	<string id="20586" value="Bron %s heeft een onherkenbaar pakket doorgestuurd (0x%.2x), het wordt genegeerd."/>
 	<string id="20587" value="Bron %s heeft een pong pakket met een ongeldig data adres doorgestuurd, het wordt genegeerd."/>
 	<string id="20588" value="Bron %s heeft een pushaanvraag doorgestuurd naar een adres met een firewall, het wordt genegeerd."/>
-	<string id="20590" value="Web Interface is uitgeschakeld."/>
-	<string id="20591" value="http://%s:%i/remote - Gebruikersnaam en wachtwoord kiezen."/>
-	<string id="20592" value="Niet mogelijk om verbindingen te accepteren, de URL is niet beschikbaar."/>
-	<string id="20597" value="Ben je zeker dat je deze veiligheidsregels wilt verwijderen?"/>
-	<string id="20599" value="&amp;Schemas"/>
+	<string id="20598" value="Ben je zeker dat je deze veiligheidsregels wilt verwijderen?"/>
 	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="PeerProject is actief aan het zoeken op het netwerk..."/>
 	<string id="20621" value="Klik hier om opnieuw te zoeken"/>
@@ -3183,7 +3179,11 @@
 	<string id="20677" value="Geef alsjeblieft de bandbreedtelimiet die je wilt invoeren in de vorm van &quot;123 kb/s&quot; voor kilobits per seconde, of &quot;123 KB/s&quot; voor kilobytes per seconde."/>
 	<string id="20678" value="Het eDonkey netwerk gebruikt grote wachtrijen met grote wachttijden. Door de maximum rijpositie te beperken zal u zo strikt goedkeuren, dat u problemen kunt ondervinden bij downloads om te beginnen.\nWeet u zeker dat u de maximale rijpositie die u wilt goedkeuren, beperken?"/>
 	<string id="20680" value="PeerProject instellingen"/>
-	<string id="20684" value="Weet je zeker dat je de skin &quot;%s&quot; wilt verwijderen? Dit kan niet ongedaan worden gemaakt."/>
+	<string id="20682" value="Web Interface is uitgeschakeld."/>
+	<string id="20684" value="http://%s:%i/remote - Gebruikersnaam en wachtwoord kiezen."/>
+	<string id="20685" value="Niet mogelijk om verbindingen te accepteren, de URL is niet beschikbaar."/>
+	<string id="20692" value="Weet je zeker dat je de skin &quot;%s&quot; wilt verwijderen? Dit kan niet ongedaan worden gemaakt."/>
+	<string id="20699" value="&amp;Schemas"/>
 	<string id="20700" value="%s in: %s uit (d:%I64i/u:%I64i)"/>
 	<string id="20701" value="Verbonden met %lu gastheren. %s in lokale bibliotheek."/>
 	<string id="20702" value="Hub Modus met %lu buurmannen. %s in lokale bibliotheek."/>
@@ -3698,7 +3698,7 @@
 		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
 		<control caption="_Hulpmiddelen:"/>
 		<control caption="Downloaden..."/>
-		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
+		<control caption="Update DC++ hubs from the web. (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Download verbindingen:"/>

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default English Skin File -->
 
-<!-- Translation based on default-en.xml r82 -->
+<!-- Translation based on default-en.xml r84 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3285,16 +3285,17 @@
 	<string id="20586" value="Neighbor %s forwarded an unrecognised packet (0x%.2x), ignoring."/>
 	<string id="20587" value="Neighbor %s forwarded a pong with invalid address data, ignoring."/>
 	<string id="20588" value="Neighbor %s forwarded a push request to a firewalled address, ignoring."/>
-	<string id="20590" value="Remote access is disabled."/>
-	<string id="20591" value="http://%s:%i/remote - Username/password required."/>
-	<string id="20592" value="Unable to accept connections, URL unavailable."/>
-	<string id="20593" value="Accept"/>
-	<string id="20594" value="Deny"/>
-	<string id="20595" value="Never"/>
-	<string id="20596" value="Default Policy"/>
-	<string id="20597" value="Are you sure you wish to delete selected security rules?"/>
-	<string id="20598" value="Failed to load Library metadata schemas. Please reinstall application. Continue loading?"/>
-	<string id="20599" value="&amp;Schemas"/>
+	<string id="20589" value="Default Policy"/>
+	<string id="20590" value="Accept"/>
+	<string id="20591" value="Deny"/>
+	<string id="20592" value="Any"/>
+	<string id="20593" value="All"/>
+	<string id="20594" value="Hash"/>
+	<string id="20595" value="List"/>
+	<string id="20596" value="Never"/>
+	<string id="20597" value="Session"/>
+	<string id="20598" value="Are you sure you wish to delete selected security rules?"/>
+	<string id="20599" value="Last number is 254,252,248,240,224,192,128, or 0. Others must be 255.\n\n(For Netmasked IP ranges.)\n\nSee perproject.org/wiki for help."/>
 	<string id="20600" value="Bandwidth: Full"/>
 	<string id="20601" value="Bandwidth: Limited"/>
 	<string id="20602" value="Bandwidth: Stop"/>
@@ -3311,7 +3312,6 @@
 	<string id="20615" value="Done Today"/>
 	<string id="20616" value="Done"/>
 	<string id="20618" value="No tasks scheduled."/>
-	<string id="20619" value="Last number is 254,252,248,240,224,192,128, or 0.  Others must be 255.\n\n(For Netmasked IP ranges.)"/>
 	<string id="20620" value="PeerProject is actively searching the network..."/>
 	<string id="20621" value="Click here to search again"/>
 	<string id="20622" value="All Networks"/>
@@ -3368,9 +3368,14 @@
 	<string id="20677" value="Please type the bandwidth limit you wish to set in the form &quot;123 kb/s&quot; for kilobits per second, or &quot;123 KB/s&quot; for kilobytes per second."/>
 	<string id="20678" value="The eDonkey network uses large queues with long wait times. By limiting the maximum queue position you will accept so strictly, you may have trouble getting downloads to begin.\nAre you sure you want to limit what queue positions you will accept?"/>
 	<string id="20680" value="PeerProject Settings"/>
-	<string id="20681" value="Loading skin: %s"/>
-	<string id="20682" value="Skin load error: %s. Element: %s"/>
-	<string id="20684" value="Are you sure you wish to delete the &quot;%s&quot; skin? This cannot be undone."/>
+	<string id="20682" value="Remote access is disabled."/>
+	<string id="20684" value="http://%s:%i/remote - Username/password required."/>
+	<string id="20685" value="Unable to accept connections, URL unavailable."/>
+	<string id="20690" value="Loading skin: %s"/>
+	<string id="20691" value="Skin load error: %s. Element: %s"/>
+	<string id="20692" value="Are you sure you wish to delete the &quot;%s&quot; skin? This cannot be undone."/>
+	<string id="20698" value="Failed to load Library metadata schemas. Please reinstall application. Continue loading?"/>
+	<string id="20699" value="&amp;Schemas"/>
 	<string id="20700" value="%s in : %s out  (d:%I64i/u:%I64i)"/>
 	<string id="20701" value="Connected to %lu neighbors. %s in local library."/>
 	<string id="20702" value="Hub mode with %lu neighbors. %s in local library."/>

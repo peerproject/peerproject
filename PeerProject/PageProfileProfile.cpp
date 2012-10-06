@@ -161,7 +161,7 @@ int CProfileProfilePage::LoadDefaultInterests()
 {
 	CFile pFile;
 	int nCount = 0;
-	const CString strFile = Settings.General.Path + _T("\\Data\\Interests.dat");
+	const CString strFile = Settings.General.Path + _T("\\Data\\Interests.dat");	// Settings.General.DataPath ?
 
 	if ( ! pFile.Open( strFile, CFile::modeRead ) )
 		return nCount;

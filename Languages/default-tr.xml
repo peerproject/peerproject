@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Turkish Skin File -->
 
-<!-- Translation based on default-en.xml r82 -->
+<!-- Translation based on default-en.xml r84 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2695,8 +2695,8 @@
 	<string id="20172" value="Anlaşma sona erdirildi, host sohbeti desteklemiyor olabilir."/>
 	<string id="20173" value="Anlaşma tamamlandı, sohbet protokol versiyonu %s."/>
 	<string id="20174" value="Bilgi profili değiştiriliyor..."/>
-	<string id="20175" value="Kullanıcı profilinizi henüz doldurmadınız.  Diğer kullanıcılarla sohbet etmeden önce bir profil sağlamalısınız.\n\nProfilinizi şimdi doldurmak ister misiniz?"/>
-	<string id="20176" value="Bağlanmadınız, mesaj gönderemezsiniz.  PeerProject bağlanmayı deniyor..."/>
+	<string id="20175" value="Kullanıcı profilinizi henüz doldurmadınız. Diğer kullanıcılarla sohbet etmeden önce bir profil sağlamalısınız.\n\nProfilinizi şimdi doldurmak ister misiniz?"/>
+	<string id="20176" value="Bağlanmadınız, mesaj gönderemezsiniz. PeerProject bağlanmayı deniyor..."/>
 	<string id="20177" value="Henüz bir bağlantı kurulmadı, mesaj gönderemezsiniz."/>
 	<string id="20178" value="%s %s gibi biliniyor."/>
 	<string id="20179" value="%s (%s) ile sohbet ediyor."/>
@@ -2741,7 +2741,7 @@
 	<string id="20224" value="İsim alanında değişiklikler yaptınız. Bu indirme ismini değiştirmek istediğinize emin misiniz?"/>
 	<string id="20225" value="Dosya boyutunda değişiklikler yaptınız. Bu indirme için dosya boyutunu değiştirmek istediğinize emin misiniz?"/>
 	<string id="20226" value="Bu indirmenin tamamlanmasını kabul edemezsiniz çünkü tiger-tree bölümü, eDonkey hashset ya da BitTorrent hashset gibi bazı veri doğrulama parçalarına sahip değilsiniz. Doğrulama bilgileri olmadan indirme gerçekleştirilemez."/>
-	<string id="20227" value="Bu indirmeyi tamamlanmış kabul etmek istediğine emin misiniz?  Bütün dosya hesaba katılacak ve PeerProject doğrulanan parçaları kabul edecek, doğrulanmayan parçalar kabul edilmeyecek."/>
+	<string id="20227" value="Bu indirmeyi tamamlanmış kabul etmek istediğine emin misiniz? Bütün dosya hesaba katılacak ve PeerProject doğrulanan parçaları kabul edecek, doğrulanmayan parçalar kabul edilmeyecek."/>
 	<string id="20228" value="Güncel doğrulama durumlarını kaybetmek istediğinize emin misiniz? Tüm İndirme verilerine güvenilmeyecektir ve hashtrees-hashsets zulaları temizlenecektir."/>
 	<string id="20229" value="Seçilen indirme için bütün kaynakları kaybetmek istediğinize emin misiniz?"/>
 	<string id="20231" value="İndirmeden seçilen alan silinemez çünkü alanın hiçbir parçası tanınmadı."/>
@@ -3056,11 +3056,7 @@
 	<string id="20586" value="Komşu %s onaylanmayan bir paket gönderdi(0x%.2x), görmezlikten geliniyor."/>
 	<string id="20587" value="Komşu %s geçersiz adres verisiyle bir pong gönderdi, görmezlikten geliniyor."/>
 	<string id="20588" value="Komşu %s güvenlik duvarına sıkıştırılmış bir istek gönderdi, görmezlikten geliniyor."/>
-	<string id="20590" value="Uzaktan erişim engellendi."/>
-	<string id="20591" value="http://%s:%i/remote - Bir kullanıcı adı ve şifresi seçmelisiniz."/>
-	<string id="20592" value="Bağlantı onaylanılamaz, URL kullanılamaz."/>
-	<string id="20597" value="Seçilen güvenlik kuralını silmek istediğinizden emin misiniz?"/>
-	<string id="20599" value="Şemalar"/>
+	<string id="20598" value="Seçilen güvenlik kuralını silmek istediğinizden emin misiniz?"/>
 	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="PeerProject etkin ağ arıyor..."/>
 	<string id="20621" value="Tekrar aramak için tıklayınız"/>
@@ -3117,11 +3113,15 @@
 	<string id="20677" value="Lütfen &quot;123 kb/s&quot; kilobits saniye ya da &quot;123 KB/s&quot; kilobayt saniye olarak belirlediğiniz bantgenişliği limitinizi yazınız."/>
 	<string id="20678" value="eDonkey ağı uzun zamanla uzun sıra kullanılır. Maksimum sıra pozisyonu limitini kabul ederken dikkatli olmalısınız, indirmelere başlamak zor olabilir.\nKabul edeceğin sıra pozisyonunu kısıtlamak istediğinden emin misin?"/>
 	<string id="20680" value="PeerProject Ayarları"/>
-	<string id="20684" value="&quot;%s&quot; arayüzünü silmek istediğinizden emin misiniz? Bu yapılamaz."/>
+	<string id="20682" value="Uzaktan erişim engellendi."/>
+	<string id="20684" value="http://%s:%i/remote - Bir kullanıcı adı ve şifresi seçmelisiniz."/>
+	<string id="20685" value="Bağlantı onaylanılamaz, URL kullanılamaz."/>
+	<string id="20692" value="&quot;%s&quot; arayüzünü silmek istediğinizden emin misiniz? Bu yapılamaz."/>
+	<string id="20699" value="Şemalar"/>
 	<string id="20700" value="%s içeride : %s dışarıda (d:%I64i/u:%I64i)"/>
-	<string id="20701" value="Komşu(lar)ya %lu bağlandı.  %s yerel kütüphane."/>
-	<string id="20702" value="%lu komşu(lar)la Hub modu.  %s yerel kütüphane."/>
-	<string id="20703" value="%lu komşusu ile Hub/Ultrapeer mod.  %s yerel kütüphanede."/>
+	<string id="20701" value="Komşu(lar)ya %lu bağlandı. %s yerel kütüphane."/>
+	<string id="20702" value="%lu komşu(lar)la Hub modu. %s yerel kütüphane."/>
+	<string id="20703" value="%lu komşusu ile Hub/Ultrapeer mod. %s yerel kütüphanede."/>
 	<string id="20704" value="%lu komşusu ile Ultrapeer mod. %s yerel kütüphanede."/>
 	<string id="20705" value="Bağlandı. %s yerel kütüphane."/>
 	<string id="20706" value="Ağa bağlanıyor..."/>
@@ -3631,7 +3631,7 @@
 		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
 		<control caption="_Tools:"/>
 		<control caption="Download..."/>
-		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
+		<control caption="Update DC++ hubs from the web. (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_İndirme Bağlantıları:"/>
@@ -4352,7 +4352,7 @@
 		<control caption="İ_ptal"/>
 	</dialog>
 	<dialog name="CTorrentSeedDlg" cookie="StBuBuBuStms" caption="Torrent Dosyası Aç">
-		<control caption="BitTorrent torrent dosyası açtınız.  Onun içindekileri indirmemek ya da tekrar besleme yapmak ister misiniz?"/>
+		<control caption="BitTorrent torrent dosyası açtınız. Onun içindekileri indirmemek ya da tekrar besleme yapmak ister misiniz?"/>
 		<control caption="İndirme"/>
 		<control caption="Köken"/>
 		<control caption="İptal"/>

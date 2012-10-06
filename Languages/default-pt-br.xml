@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Brazilian Portuguese Skin File -->
 
-<!-- Translation based on default-en.xml r82 -->
+<!-- Translation based on default-en.xml r84 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3145,11 +3145,8 @@
 	<string id="20586" value="O Vizinho %s repassou um pacote desconhecido (0x%.2x), ignorando."/>
 	<string id="20587" value="O Vizinho %s repassou um pong com dados de endereço inválidos, ignorando."/>
 	<string id="20588" value="O Vizinho %s enviou uma requisição de push para um endereço atrás de um firewall, ignorando."/>
-	<string id="20590" value="O acesso remoto está desativado."/>
-	<string id="20591" value="http://%s:%i/remote - Escolher um nome de usuário e senha."/>
-	<string id="20592" value="Incapaz de aceitar conexões, URL indisponível."/>
-	<string id="20597" value="Você tem certeza de que você quer apagar as regras de segurança selecionadas?"/>
-	<string id="20599" value="&amp;Schemas"/>
+	<!-- Missing Security Strings -->
+	<string id="20598" value="Você tem certeza de que você quer apagar as regras de segurança selecionadas?"/>
 	<string id="20600" value="Banda: Completa"/>
 	<string id="20601" value="Banda: Reduzida"/>
 	<string id="20602" value="Banda: Parar"/>
@@ -3221,7 +3218,11 @@
 	<string id="20677" value="Por favor digite o limite de banda que você deseja pôr no formulário &quot;123 kb/s&quot; para kilobits por segundo, ou &quot;123 KB/s&quot; para kilobytes por segundo."/>
 	<string id="20678" value="A rede eDonkey faz uso de longas filas com longos tempos de espera. Em limitar a posição máxima na fila que você aceitará tão estritamente, você pode ter problemas para iniciar seu downloads.\nVocê tem certeza que você quer limitar quais as posições máximas na fila que você aceitará?"/>
 	<string id="20680" value="Configurações do PeerProject"/>
-	<string id="20684" value="Você tem certeza que você quer apagar a &quot;%s&quot; skin? Isto não pode ser desfeito."/>
+	<string id="20682" value="O acesso remoto está desativado."/>
+	<string id="20684" value="http://%s:%i/remote - Escolher um nome de usuário e senha."/>
+	<string id="20685" value="Incapaz de aceitar conexões, URL indisponível."/>
+	<string id="20692" value="Você tem certeza que você quer apagar a &quot;%s&quot; skin? Isto não pode ser desfeito."/>
+	<string id="20699" value="&amp;Schemas"/>
 	<string id="20700" value="%s entram : %s saem (d:%I64i/u:%I64i)"/>
 	<string id="20701" value="Conectado com %lu vizinhos. %s na biblioteca local."/>
 	<string id="20702" value="Modo Hub com %lu vizinhos. %s na biblioteca local."/>
@@ -3734,7 +3735,7 @@
 		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
 		<control caption="_Ferramentas:"/>
 		<control caption="Baixar..."/>
-		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
+		<control caption="Update DC++ hubs from the web. (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Conexões de Download:"/>
@@ -3872,7 +3873,7 @@
 		<control/>
 	</dialog>
 	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="Bem-Vindo ao PeerProject &#160;(3/8)">
-		<control caption="O PeerProject é um aplicativo de compartilhamento de arquivos de propósito geral que pode acessar muitas redes P2p ao mesmo tempo.  Aqui você pode selecionar quais redes você gostaria de acessar.  Note que você pode sempre selecionar diferentes redes mais tarde."/>
+		<control caption="O PeerProject é um aplicativo de compartilhamento de arquivos de propósito geral que pode acessar muitas redes P2p ao mesmo tempo. Aqui você pode selecionar quais redes você gostaria de acessar. Note que você pode sempre selecionar diferentes redes mais tarde."/>
 		<control caption="Conectar a Gnutella2 (Altamente Recomendado)"/>
 		<control caption="A rede Gnutella2 é a rede premiere do PeerProject, oferecendo mais funções e performance do que qualquer outra rede P2P."/>
 		<control caption="Conectar a Gnutella Original"/>
@@ -4064,7 +4065,7 @@
 	</dialog>
 	<dialog name="CDownloadDlg" cookie="StStStEdStBuBuBu" caption="Baixar Arquivo ou Torrent">
 		<control/>
-		<control caption="Pode baixar arquivos da rede, e automaticamente procurar e baixar links P2P.  Simplesmente digite ou cole a URL ou URI descrevendo o arquivo na caixa abaixo e pressione Enter. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
+		<control caption="Pode baixar arquivos da rede, e automaticamente procurar e baixar links P2P. Simplesmente digite ou cole a URL ou URI descrevendo o arquivo na caixa abaixo e pressione Enter. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
 		<control caption="Também baixa arquivos BitTorrent. Um Torrent é descrito por um arquivo .torrent ou um link HTTP para o arquivo .torrent. Para baixar um link HTTP de torrent cole-o na caixa acima. Se você tem um arquivo .torrent, clique em Abrir Torrent:"/>
 		<control/>
 		<control/>
@@ -4335,7 +4336,7 @@
 		<control caption="Cancelar"/>
 	</dialog>
 	<dialog name="CURLExportDlg" cookie="StEdStCoStCoBuBumsBu" caption="Exportar URIs">
-		<control caption="Você selecionou %lu arquivos para exportar como referências URI feitas pelo PeerProject.  Por favor selecione o formato para as URIs e clique em Salvar:"/>
+		<control caption="Você selecionou %lu arquivos para exportar como referências URI feitas pelo PeerProject. Por favor selecione o formato para as URIs e clique em Salvar:"/>
 		<control/>
 		<control caption="Inserir Token:"/>
 		<control caption="Tiger Root|SHA1|MD5|ED2K (CMD4)|Nome do Arq|Nome do Arq|Nome do Arq (URI)|Nome do Arq da Base|Extensão do Arq|Tamanho do Arq|Tamanho do Arq (bytes)|Caminho da Pasta|Host Local|Porta Local|Link|Link (URI)"/>

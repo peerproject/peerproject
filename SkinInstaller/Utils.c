@@ -36,12 +36,14 @@ void LoadManifestInfo(char *buf)
 			;	//skinType = typeSkin;	// 0
 		else if ( !_wcsicmp(p, L"language") )
 			skinType = typeLang;	// 1
+		else if ( !_wcsicmp(p, L"schemas") )
+			skinType = typeSchemas;	// 2
 		else if ( !_wcsicmp(p, L"plugin") )
-			skinType = typePlugin;	// 2
+			skinType = typePlugin;	// 3
 		else if ( !_wcsicmp(p, L"data") )
-			skinType = typeData;	// 3
+			skinType = typeData;	// 4
 		else if ( !_wcsicmp(p, L"security") )
-			skinType = typeData;	// 3
+			skinType = typeData;	// 4
 		//else if (!_wcsicmp(p, L"template"))
 		//	skinType = typeSkin;	// 0
 		//else

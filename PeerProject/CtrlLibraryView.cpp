@@ -102,7 +102,7 @@ void CLibraryView::GetHeaderContent(int& nImage, CString& str)
 
 		LoadString( strFormat, IDS_LIBHEAD_EXPLORE_FOLDER );
 		if ( Settings.General.LanguageRTL )
-			str =  _T("\x202A") + str + _T(" \x200E") + strFormat;
+			str = _T("\x202A") + str + _T(" \x200E") + strFormat;
 		else
 			str = strFormat + ' ' + str;
 
@@ -435,7 +435,7 @@ BOOL CLibraryView::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 		if ( pWnd != this )
 		{
 			if ( pWnd == FindWindowEx( GetParent()->GetSafeHwnd(), NULL, NULL, _T("CPanelCtrl") ) ||
-				pWnd == FindWindowEx( GetParent()->GetSafeHwnd(), NULL, NULL, _T("CLibraryTreeView") ) )
+				 pWnd == FindWindowEx( GetParent()->GetSafeHwnd(), NULL, NULL, _T("CLibraryTreeView") ) )
 			{
 				pWnd->PostMessage( WM_MOUSEWHEEL, MAKEWPARAM( nFlags, zDelta ), MAKELPARAM( pt.x, pt.y ) );
 				return TRUE;

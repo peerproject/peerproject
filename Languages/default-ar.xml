@@ -3,7 +3,7 @@
 
 <!-- PeerProject Arabic Language Skin File -->
 
-<!-- Translation based on default-en.xml r82 -->
+<!-- Translation based on default-en.xml r84 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2697,13 +2697,11 @@
 	<string id="20541" value="إتصال..." />
 	<string id="20542" value="متصل" />
 	<string id="20543" value="قطع الإتصال" />
-	<!-- Missing Strings -->
-	<string id="20599" value="ال&amp;مخطط" />
 	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="PeerProject is actively searching the network..." />
 	<string id="20621" value="اضغط هنا للبحث مره اخرى" />
 	<string id="20622" value="All Networks" />
-	<string id="20623" value="You are about to start a new search.  Would you like to clear the results of your previous search?" />
+	<string id="20623" value="You are about to start a new search. Would you like to clear the results of your previous search?" />
 	<string id="20624" value="هذه المنطقة تعرض المزيد من المعلومات حول الملف المحدد." />
 	<string id="20625" value="%s يكتب:" />
 	<string id="20626" value="%s rates this file:" />
@@ -2747,7 +2745,8 @@
 	<string id="20668" value="البحث..." />
 	<!-- Missing Strings -->
 	<string id="20680" value="إعدادات شير-أزا" />
-	<string id="20684" value="هل تريد فعلا حذف غلاف &quot;%s&quot; ؟ هذا لا يمكن التراجع عنه" />
+	<string id="20692" value="هل تريد فعلا حذف غلاف &quot;%s&quot; ؟ هذا لا يمكن التراجع عنه" />
+	<string id="20699" value="ال&amp;مخطط" />
 	<string id="20700" value="%s في : %s خارج (d:%I64i/u:%I64i)" />
 	<string id="20701" value="متصلة الجيران %lu. %s في المكتبة المحلية." />
 	<string id="20702" value="وضع المركز مع جيرانها %lu. %s في المكتبة المحلية." />
@@ -3157,7 +3156,7 @@
 		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected." />
 		<control caption=":أدوات" />
 		<control caption="تحميل..." />
-		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)" />
+		<control caption="Update DC++ hubs from the web. (hublist.xml.bz2)" />
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption=":إ_تصالات التحميل" />
@@ -3749,7 +3748,7 @@
 		<control caption="إلغاء الأمر" />
 	</dialog>
 	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="نسخ الرابط">
-		<control caption="You can copy a URI for the selected item in a variety of different formats.  Please choose the format you wish to use by clicking one of the URIs below:" />
+		<control caption="You can copy a URI for the selected item in a variety of different formats. Please choose the format you wish to use by clicking one of the URIs below:" />
 		<control />
 		<control />
 		<control />
@@ -3757,7 +3756,7 @@
 		<control caption="إلغاء الأمر" />
 	</dialog>
 	<dialog name="CURLExportDlg" cookie="StEdStCoStCoBuBumsBu" caption="تصدير الروابط">
-		<control caption="You have selected %lu files to export as PeerProject-powered URI references.  Please select the format for the URIs, and click Save:" />
+		<control caption="You have selected %lu files to export as PeerProject-powered URI references. Please select the format for the URIs, and click Save:" />
 		<control />
 		<control caption="Insert Token:" />
 		<control caption="Tiger Root|SHA1|MD5|ED2K (CMD4)|Filename|Filename (URI)|Base Filename|File Extension|File Size|File Size (bytes)|Folder Path|Local Host|Local Port" />
@@ -3811,7 +3810,7 @@
 	</dialog>
 	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Spread the Word">
 		<control caption="Help Us Spread the Word" />
-		<control caption="We hope you have enjoyed using PeerProject so far.  We believe it is the best file sharing application around." />
+		<control caption="We hope you have enjoyed using PeerProject so far. We believe it is the best file sharing application around." />
 		<control caption="Unfortunately, a lot of file sharers don't know what they're missing!" />
 		<control caption="If you know someone who would like PeerProject, whether they're a new user or someone still putting up with an inferior product, why not let them know there is a better alternative?" />
 		<control caption="Chances are they'll be grateful you rescued them!" />
@@ -3878,11 +3877,11 @@
 		<control caption="_إلغاء الأمر" />
 	</dialog>
 	<dialog name="CTorrentSeedDlg" cookie="StBuBuBuStms" caption=" فتح ملف Torrent">
-		<control caption="You have opened a BitTorrent torrent file.  Would you like to download its contents, or re-seed it?" />
+		<control caption="You have opened a BitTorrent torrent file. Would you like to download its contents, or re-seed it?" />
 		<control caption="Download" />
 		<control caption="Seed" />
 		<control caption="إلغاء الأمر" />
-		<control caption="To share complete files using BitTorrent they must first be seeded.  Once this process is complete the Torrent will appear as a new item in your download list." />
+		<control caption="To share complete files using BitTorrent they must first be seeded. Once this process is complete the Torrent will appear as a new item in your download list." />
 		<control />
 	</dialog>
 	<dialog name="CTorrentFilesPage" cookie="StSy" caption="Files">
@@ -3986,7 +3985,7 @@
 		<control caption="إلغاء الأمر" />
 	</dialog>
 	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="New Version Available">
-		<control caption="A new version of PeerProject is now available.  Would you like to upgrade?" />
+		<control caption="A new version of PeerProject is now available. Would you like to upgrade?" />
 		<control caption="To update now, the upgrade installer will simply be added to your download queue." />
 		<control caption="Don't check for new versions" />
 		<control caption="_رفع الملفات الان" />

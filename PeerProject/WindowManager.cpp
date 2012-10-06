@@ -44,8 +44,8 @@ IMPLEMENT_DYNCREATE(CWindowManager, CWnd)
 BEGIN_MESSAGE_MAP(CWindowManager, CWnd)
 	//{{AFX_MSG_MAP(CWindowManager)
 	ON_WM_SIZE()
-	ON_WM_ERASEBKGND()
 	ON_WM_PAINT()
+	ON_WM_ERASEBKGND()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -99,8 +99,8 @@ CChildWnd* CWindowManager::GetActive() const
 
 	if ( pActive && pActive->IsKindOf( RUNTIME_CLASS(CChildWnd) ) )
 		return (CChildWnd*)pActive;
-	else
-		return NULL;
+
+	return NULL;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -335,8 +335,7 @@ void CWindowManager::SetGUIMode(int nMode, BOOL bSaveState)
 	{
 		SaveSearchWindows();
 		SaveBrowseHostWindows();
-		if ( Settings.General.GUIMode == GUI_WINDOWED )
-			SaveWindowStates();
+		SaveWindowStates();
 	}
 
 	Close();
@@ -344,68 +343,98 @@ void CWindowManager::SetGUIMode(int nMode, BOOL bSaveState)
 	Settings.General.GUIMode = nMode;
 	Settings.Save();
 
-	if ( Settings.General.GUIMode != GUI_WINDOWED )
-		CreateTabbedWindows();
-	else
-		LoadWindowStates();
-
 	LoadSearchWindows();
 	LoadBrowseHostWindows();
+	LoadWindowStates();
 
 	AutoResize();
 	ShowWindow( SW_SHOW );
 }
 
 //////////////////////////////////////////////////////////////////////
-// CWindowManager create tabbed windows
+// CWindowManager create tabbed windows (Obsolete)
 
-void CWindowManager::CreateTabbedWindows()
-{
-	CDownloadsWnd* pDownloads = new CDownloadsWnd();
-
-	if ( Settings.General.GUIMode != GUI_BASIC )
-	{
-		CUploadsWnd* pUploads = new CUploadsWnd();
-		pUploads->m_pGroupParent = pDownloads;
-
-		CNeighboursWnd* pNeighbours = new CNeighboursWnd();
-		CSystemWnd* pSystem = new CSystemWnd();
-		pSystem->m_pGroupParent = pNeighbours;
-	}
-
-	/*CHomeWnd* pHome =*/ new CHomeWnd();
-}
+//void CWindowManager::CreateTabbedWindows()
+//{
+//	CDownloadsWnd* pDownloads = new CDownloadsWnd();
+//
+//	if ( Settings.General.GUIMode != GUI_BASIC )
+//	{
+//		CUploadsWnd* pUploads = new CUploadsWnd();
+//		pUploads->m_pGroupParent = pDownloads;
+//
+//		CNeighboursWnd* pNeighbours = new CNeighboursWnd();
+//		CSystemWnd* pSystem = new CSystemWnd();
+//		pSystem->m_pGroupParent = pNeighbours;
+//	}
+//
+//	/*CHomeWnd* pHome =*/ new CHomeWnd();
+//}
 
 //////////////////////////////////////////////////////////////////////
 // CWindowManager load complex window states
 
 void CWindowManager::LoadWindowStates()
 {
-	if ( Settings.General.GUIMode != GUI_WINDOWED ) return;
+	CString strWindows = theApp.GetProfileString( _T("Windows"), _T("State") );		// , _T("CSystemWnd|CNeighboursWnd")
 
-	CString strWindows = theApp.GetProfileString( _T("Windows"), _T("State"),
-		_T("CSystemWnd|CNeighboursWnd") );
+	CChildWnd* pDownloads = NULL;
+	CChildWnd* pUploads = NULL;
+	CChildWnd* pNeighbours = NULL;
+	CChildWnd* pSystem = NULL;
 
-	for ( strWindows += '|' ; strWindows.GetLength() ; )
+	switch ( Settings.General.GUIMode )
 	{
-		CString strClass = strWindows.SpanExcluding( _T("| ,.\t") );
-		strWindows = strWindows.Mid( strClass.GetLength() + 1 );
+	case GUI_BASIC:
+		pDownloads	=	Open( RUNTIME_CLASS( CDownloadsWnd ) );
+		break;
 
-		if ( strClass.Find( _T("TG#") ) == 0 )
+	case GUI_TABBED:
+		pDownloads	=	Open( RUNTIME_CLASS( CDownloadsWnd ) );
+		pUploads	=	Open( RUNTIME_CLASS( CUploadsWnd ) );
+		if ( pUploads )	pUploads->m_pGroupParent = pDownloads;
+		pNeighbours	=	Open( RUNTIME_CLASS( CNeighboursWnd ) );
+		pSystem 	=	Open( RUNTIME_CLASS( CSystemWnd ) );
+		if ( pSystem )	pSystem->m_pGroupParent = pNeighbours;
+		break;
+
+	case GUI_WINDOWED:
+		break;
+	}
+
+	if ( Settings.Interface.SaveOpenWindows && Settings.General.GUIMode != GUI_BASIC )
+	{
+		for ( strWindows += '|' ; strWindows.GetLength() > 1 ; )
 		{
-			DWORD nUnique;
+			CString strClass = strWindows.SpanExcluding( _T("| ,.\t") );
+			strWindows = strWindows.Mid( strClass.GetLength() + 1 );
 
-			if ( _stscanf( (LPCTSTR)strClass + 3, _T("%lu"), &nUnique ) == 1 )
-				new CTrafficWnd( nUnique );
-		}
-		else if ( ! strClass.IsEmpty() )
-		{
-			CRuntimeClass* pClass = AfxClassForName( strClass );
+			if ( strClass.Find( _T("TG#") ) == 0 )
+			{
+				DWORD nUnique;
 
-			if ( pClass && pClass->IsDerivedFrom( RUNTIME_CLASS(CChildWnd) ) )
-				Open( pClass );
+				if ( _stscanf( (LPCTSTR)strClass + 3, _T("%lu"), &nUnique ) == 1 )
+					new CTrafficWnd( nUnique );
+			}
+			else if ( ! strClass.IsEmpty() &&
+				strClass != _T("CMediaWnd") &&		// Never?
+				strClass != _T("CSearchWnd") &&		// Open by LoadSearchWindows()
+				strClass != _T("CBrowseHostWnd") &&	// Open by LoadBrowseHostWindows()
+				( ! pDownloads  || strClass != _T("CDownloadsWnd") ) &&
+				( ! pUploads    || strClass != _T("CUploadsWnd") ) &&
+				( ! pNeighbours || strClass != _T("CNeighboursWnd") ) &&
+				( ! pSystem     || strClass != _T("CSystemWnd") ) )
+			{
+				CRuntimeClass* pClass = AfxClassForName( strClass );
+
+				if ( pClass && pClass->IsDerivedFrom( RUNTIME_CLASS(CChildWnd) ) )
+					Open( pClass );
+			}
 		}
 	}
+
+	if ( Settings.General.GUIMode != GUI_WINDOWED )
+		Open( RUNTIME_CLASS(CHomeWnd) );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -413,7 +442,11 @@ void CWindowManager::LoadWindowStates()
 
 void CWindowManager::SaveWindowStates() const
 {
-//	if ( Settings.General.GUIMode != GUI_WINDOWED ) return;
+	if ( ! Settings.Interface.SaveOpenWindows )
+	{
+		theApp.WriteProfileString( _T("Windows"), _T("State"), _T("") );
+		return;
+	}
 
 	CString strWindows;
 
@@ -446,7 +479,13 @@ void CWindowManager::SaveWindowStates() const
 
 BOOL CWindowManager::LoadSearchWindows()
 {
-	const CString strFile = Settings.General.UserPath + _T("\\Data\\Searches.dat");
+	const CString strFile = Settings.General.DataPath + _T("Searches.dat");
+
+	if ( ! Settings.Interface.SaveOpenWindows || Settings.General.GUIMode == GUI_BASIC )
+	{
+		DeleteFile( strFile );
+		return FALSE;
+	}
 
 	CFile pFile;
 	if ( ! pFile.Open( strFile, CFile::modeRead | CFile::shareDenyWrite | CFile::osSequentialScan ) )
@@ -482,21 +521,28 @@ BOOL CWindowManager::LoadSearchWindows()
 
 	pFile.Close();
 
-	if ( Settings.General.GUIMode != GUI_WINDOWED )
-		Open( RUNTIME_CLASS(CHomeWnd) );
+	if ( ! bSuccess )
+	{
+		theApp.Message( MSG_ERROR, _T("Failed to load search windows: %s"), strFile );
+		return FALSE;
+	}
 
-	if ( bSuccess )
-		return TRUE;
+	PostMainWndMessage( WM_SANITY_CHECK );
 
-	theApp.Message( MSG_ERROR, _T("Failed to load search windows: %s"), strFile );
-	return FALSE;
+	return TRUE;
 }
 
 BOOL CWindowManager::SaveSearchWindows() const
 {
-	const CString strFile = Settings.General.UserPath + _T("\\Data\\Searches.dat");
-	const CString strTemp = Settings.General.UserPath + _T("\\Data\\Searches.tmp");
+	const CString strFile = Settings.General.DataPath + _T("Searches.dat");
+	const CString strTemp = Settings.General.DataPath + _T("Searches.tmp");
 	int nCount = 0;
+
+	if ( ! Settings.Interface.SaveOpenWindows )
+	{
+		DeleteFile( strFile );
+		return FALSE;
+	}
 
 	CFile pFile;
 	if ( ! pFile.Open( strTemp, CFile::modeWrite | CFile::modeCreate | CFile::shareExclusive | CFile::osSequentialScan ) )
@@ -566,7 +612,13 @@ BOOL CWindowManager::SaveSearchWindows() const
 
 BOOL CWindowManager::LoadBrowseHostWindows()
 {
-	const CString strFile = Settings.General.UserPath + _T("\\Data\\BrowseHosts.dat");
+	const CString strFile = Settings.General.DataPath + _T("BrowseHosts.dat");
+
+	if ( ! Settings.Interface.SaveOpenWindows || Settings.General.GUIMode == GUI_BASIC )
+	{
+		DeleteFile( strFile );
+		return FALSE;
+	}
 
 	CFile pFile;
 	if ( ! pFile.Open( strFile, CFile::modeRead | CFile::shareDenyWrite | CFile::osSequentialScan ) )
@@ -603,17 +655,20 @@ BOOL CWindowManager::LoadBrowseHostWindows()
 
 	pFile.Close();
 
-	if ( Settings.General.GUIMode != GUI_WINDOWED )
-		Open( RUNTIME_CLASS(CHomeWnd) );
-
 	return TRUE;
 }
 
 BOOL CWindowManager::SaveBrowseHostWindows() const
 {
-	const CString strFile = Settings.General.UserPath + _T("\\Data\\BrowseHosts.dat");
-	const CString strTemp = Settings.General.UserPath + _T("\\Data\\BrowseHosts.tmp");
+	const CString strFile = Settings.General.DataPath + _T("BrowseHosts.dat");
+	const CString strTemp = Settings.General.DataPath + _T("BrowseHosts.tmp");
 	int nCount = 0;
+
+	if ( ! Settings.Interface.SaveOpenWindows )
+	{
+		DeleteFile( strFile );
+		return FALSE;
+	}
 
 	CFile pFile;
 	if ( ! pFile.Open( strTemp, CFile::modeWrite | CFile::modeCreate | CFile::shareExclusive | CFile::osSequentialScan ) )

@@ -37,7 +37,7 @@ void ExtractSkinFile(LPCTSTR szFile)
 
 void GetInstallDirectory()
 {
-	DWORD dwBufLen;
+	DWORD dwBufLen = MAX_PATH;
 	DWORD dwType;
 	LSTATUS lRet;
 	TCHAR* tmp;
@@ -46,7 +46,17 @@ void GetInstallDirectory()
 	// Check for "Path hack" first @ http://shareazawiki.anenga.com/tiki-index.php?page=FAQ%3AMiscellaneous
 	//lRet = RegOpenKeyEx( HKEY_CURRENT_USER, L"Software\\PeerProject\\PeerProject", 0, KEY_QUERY_VALUE, &hKey );
 
-	dwBufLen=MAX_PATH;
+	if ( skinType == typeData )
+	{
+		lRet = SHGetValue( HKEY_CURRENT_USER, L"Software\\PeerProject\\PeerProject", L"DataPath",
+			&dwType, (LPBYTE)skins_dir, &dwBufLen );
+		if ( lRet == ERROR_SUCCESS )
+		{
+			SetCurrentDirectory( skins_dir );
+			return;
+		}
+	}
+
 	lRet = SHGetValue( HKEY_CURRENT_USER, L"Software\\PeerProject\\PeerProject", L"Path",
 		&dwType, (LPBYTE)skins_dir, &dwBufLen );
 	if ( lRet != ERROR_SUCCESS )
@@ -58,6 +68,7 @@ void GetInstallDirectory()
 
 	wcscat( skins_dir,
 		!skinType ? L"\\Skins\\" :
+		skinType == typeSchemas ? L"\\Schemas\\" :
 		skinType == typePlugin ? L"\\Plugins\\" :
 		skinType == typeData ? L"\\Data\\" :
 		L"\\Skins\\" );
@@ -158,7 +169,7 @@ int ValidateSkin(LPTSTR pszFile, HWND hwndDlg) {
 			if ( err != UNZ_OK ) return 0;
 			do
 			{
-				err = unzReadCurrentFile(ufile, buf, fi.uncompressed_size);
+				err = unzReadCurrentFile( ufile, buf, fi.uncompressed_size );
 				if ( err < 0 )
 				{
 					free(buf);
@@ -171,7 +182,7 @@ int ValidateSkin(LPTSTR pszFile, HWND hwndDlg) {
 					// Make sure the string is NULL terminated
 					buf[err] = '\0';
 
-					if ((tmp=strstr(buf, "<manifest"))!=NULL)
+					if ( (tmp=strstr(buf, "<manifest")) != NULL )
 						LoadManifestInfo(tmp);
 				}
 			}

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Simplified) Skin File -->
 
-<!-- Translation based on default-en.xml r82 --> <!-- (Shareaza r6092) -->
+<!-- Translation based on default-en.xml r84 --> <!-- (Shareaza r6092) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2986,10 +2986,7 @@
 	<string id="20586" value="邻居 %s 主机发来未被识别的数据包 (0x%.2x)，忽略数据包。"/>
 	<string id="20587" value="邻居 %s 主机发来非法的 pong 地址，忽略数据包。"/>
 	<string id="20588" value="邻居主机 %s 前送了请求到防火墙阻隔的地址，正被忽略。"/>
-	<string id="20590" value="远程访问已禁用。"/>
-	<string id="20591" value="http://%s:%i/remote - 您必须选择一个用户名和密码。"/>
-	<string id="20592" value="未能接受连接，链接不可用。"/>
-	<string id="20599" value="构架"/>
+	<!-- Missing Security Strings -->
 	<string id="20600" value="带宽： 全速"/>
 	<string id="20601" value="带宽： 减速"/>
 	<string id="20602" value="带宽： 停止"/>
@@ -3059,7 +3056,11 @@
 	<string id="20677" value="请输入您希望设置的带宽限制，以格式 &quot;123 kb/s&quot; 千比特每秒，或 &quot;123 KB/s&quot; 千字节每秒。"/>
 	<string id="20678" value="eDonkey 网络使用需要等待很长时间的队列。限制最大可接受的队列位置如果非常严格的话，您可能难以开始下载。\n您确定要限制您能接受的队列位置吗？"/>
 	<string id="20680" value="PeerProject 设置"/>
-	<string id="20684" value="您确定要删除 &quot;%s&quot; 皮肤吗？ 此操作不可逆。"/>
+	<string id="20682" value="远程访问已禁用。"/>
+	<string id="20684" value="http://%s:%i/remote - 您必须选择一个用户名和密码。"/>
+	<string id="20685" value="未能接受连接，链接不可用。"/>
+	<string id="20692" value="您确定要删除 &quot;%s&quot; 皮肤吗？ 此操作不可逆。"/>
+	<string id="20699" value="构架"/>
 	<string id="20700" value="%s传入:%s传出 (下载:%I64i/上传:%I64i)"/>
 	<string id="20701" value="连接到 %lu 个邻居。%s 处于本地收藏中。"/>
 	<string id="20702" value="集端模式有 %lu 个邻居。%s 处于本地收藏中。"/>
@@ -3527,7 +3528,7 @@
 		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
 		<control caption="工具:"/>
 		<control caption="下载..."/>
-		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
+		<control caption="Update DC++ hubs from the web. (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="下载连接:"/>

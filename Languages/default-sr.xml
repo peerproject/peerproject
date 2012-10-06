@@ -3,7 +3,7 @@
 
 <!-- PeerProject/ПеерПројецт Default Serbian Skin File -->
 
-<!-- Translation based on default-en.xml r82 -->
+<!-- Translation based on default-en.xml r84 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1948,7 +1948,7 @@
 		<newline gap="8"/>
 		<text>Ovu datoteku upravo skidam.Ako je skidanje sporo,	probajte
 		potražiti više izvora naredbom </text>
-		<text format="b"> Nađi više izvora</text><text>.  Ako ni to ne pomogne
+		<text format="b"> Nađi više izvora</text><text>. Ako ni to ne pomogne
 		može biti da korisnici koji dele imaju malu brzinu davanja.
 		Brzina skidanja se obično poveća s vremenom.</text>
 	</document>
@@ -2853,7 +2853,7 @@
 	<string id="20546" value="Jeste li sigurni da se želite isključiti?"/>
 	<string id="20547" value="Gnutella2 je PeerProject glavna mreža. Obustavljanje podrške može ozbiljno smanjiti broj i kvalitetu rezultata potrage. Jeste li sigurni da to želite?"/>
 	<string id="20548" value="ne mogu se spojiti na %s port %i. Primanje poziva nije moguće"/>
-	<string id="20549" value="Greška na %s za odlazeće veze.  Odlazeće veze će koristiti osnovn izgled(interface)."/>
+	<string id="20549" value="Greška na %s za odlazeće veze. Odlazeće veze će koristiti osnovn izgled(interface)."/>
 	<string id="20550" value="Brzina slanja podataka je premala da bi se omogućila ova mreža"/>
 	<string id="20551" value="Iza vatrozida, ne slušam dolazeće pozive."/>
 	<string id="20552" value="Forcing your PC into hub mode may have adverse effects on performance and the P2P networkIt is generally better to allow PeerProject to decide whether or not hub mode should be used.\n\nHub mode does NOT produce better search results, or have any other advantages for you.\n\nDo you really want to do this, despite these disadvantages?"/>
@@ -2868,10 +2868,6 @@
 	<string id="20562" value="Veza od %s je odbijena iz sigurnosnih razloga."/>
 	<string id="20563" value="Veza sa %s je blokirana iz sigurnosnih razloga."/>
 	<string id="20564" value="Pokrećem mrežnu jezgro..."/>
-	<string id="20590" value="Pristup na daljinu je onemogućen."/>
-	<string id="20591" value="http://%s:%i/remote - Morate odabrati ime i lozinku"/>
-	<string id="20592" value="U nemogućnosti sam primati veze, URL je nedostupan."/>
-	<string id="20599" value="Šeme"/>
 	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="PeerProject naporno i temeljito traži..."/>
 	<string id="20621" value="Stisni ovde ako želiš ponoviti traženje"/>
@@ -2926,7 +2922,11 @@
 	<string id="20677" value="Please type the bandwidth limit you wish to set in the form &quot;123 kb/s&quot; for kilobits per second, or &quot;123 KB/s&quot; for kilobytes per second."/>
 	<string id="20678" value="The eDonkey network uses large queues with long wait times. By limiting the maximum queue position you will accept so strictly, you may have trouble getting downloads to begin.\nAre you sure you want to limit what queue positions you will accept?"/>
 	<string id="20680" value="PeerProject Podešavanja"/>
-	<string id="20684" value="Jeste li sigurni da želite izbrisati &quot;%s&quot; skin?Ne može se povratiti."/>
+	<string id="20682" value="Pristup na daljinu je onemogućen."/>
+	<string id="20684" value="http://%s:%i/remote - Morate odabrati ime i lozinku"/>
+	<string id="20685" value="U nemogućnosti sam primati veze, URL je nedostupan."/>
+	<string id="20692" value="Jeste li sigurni da želite izbrisati &quot;%s&quot; skin?Ne može se povratiti."/>
+	<string id="20699" value="Šeme"/>
 	<string id="20700" value="%s primljeno : %s poslano (d:%I64i/u:%I64i)"/>
 	<string id="20701" value="Spojeno na %lu suseda.%s u vašoj kolekciji."/>
 	<string id="20702" value="Hub način sa %lu suseda.%s u vašoj kolekciji."/>
@@ -3346,7 +3346,7 @@
 		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
 		<control caption="_Tools:"/>
 		<control caption="Skini..."/>
-		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
+		<control caption="Update DC++ hubs from the web. (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="Podešavanja ski_danja:"/>
@@ -4014,7 +4014,7 @@
 		<control caption="Nemoj skinuti, to već imam"/>
 		<control caption="OK"/>
 		<control caption="Odustani"/>
-		<control caption="Ovu datoteku ste već skinuli, pa obrisali.  Šta želite učiniti?"/>
+		<control caption="Ovu datoteku ste već skinuli, pa obrisali. Šta želite učiniti?"/>
 		<control caption="Warning:"/>
 	</dialog>
 	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Zatvaranje">

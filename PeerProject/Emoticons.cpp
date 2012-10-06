@@ -172,7 +172,7 @@ BOOL CEmoticons::Load()
 		m_pImage.Create( EMOTICON_SIZE, EMOTICON_SIZE, ILC_COLOR24|ILC_MASK, 1, 8 ) ||
 		m_pImage.Create( EMOTICON_SIZE, EMOTICON_SIZE, ILC_COLOR16|ILC_MASK, 1, 8 );
 
-	if ( ! LoadXML( Settings.General.Path + _T("\\Data\\Emoticons.xml") ) )
+	if ( ! LoadXML( Settings.General.Path + _T("\\Data\\Emoticons.xml") ) )		// Settings.General.DataPath ?
 		return FALSE;
 
 	BuildTokens();
@@ -199,7 +199,7 @@ void CEmoticons::Clear()
 
 int CEmoticons::AddEmoticon(LPCTSTR pszText, CImageFile* pImage, CRect* pRect, COLORREF crBack, BOOL bButton)
 {
-	ASSERT( pImage->m_bLoaded && pImage->m_nComponents == 3 );
+	ASSERT( pImage->m_bLoaded && pImage->m_nComponents == 3 );	// ToDo: Allow alpha?
 
 	if ( pRect->left < 0 || pRect->left + EMOTICON_SIZE > pImage->m_nWidth ) return -1;
 	if ( pRect->top < 0 || pRect->top > pImage->m_nHeight + EMOTICON_SIZE ) return -1;

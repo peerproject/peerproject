@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Spanish (International) Skin File -->
 
-<!-- Translation based on default-en.xml r82 -->
+<!-- Translation based on default-en.xml r84 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1880,7 +1880,7 @@
 		<text format="b">Configuración de PeerProject</text>
 		<newline gap="16"/>
 		<text>Esta pantalla permite configurar una gran cantidad de parámetros del funcionamiento
-			de PeerProject.  La configuración </text>
+			de PeerProject. La configuración </text>
 		<text format="b">General </text>
 		<text>esta relacionada con la experiencia del usuario.</text>
 		<newline gap="16" indent="16"/>
@@ -1909,7 +1909,7 @@
 		<text format="b">Configuración de PeerProject</text>
 		<newline gap="16"/>
 		<text>Esta pantalla permite configurar una gran cantidad de parámetros del funcionamiento
-			de PeerProject.  La configuración de </text>
+			de PeerProject. La configuración de </text>
 		<text format="b">Internet </text>
 		<text>permite configurar la interacción de PeerProject con las redes peer-to-peer.</text>
 		<newline gap="16" indent="16"/>
@@ -2031,7 +2031,7 @@
 		<text format="b">Transferencia completada</text>
 		<newline gap="8"/>
 		<text>PeerProject ha terminado de descargar el archivo, y lo ha verificado y es
-		100% correcto.  También ha movido esta descarga a la carpeta de descargas.</text>
+		100% correcto. También ha movido esta descarga a la carpeta de descargas.</text>
 	</document>
 	<document name="DownloadHelp.Moving">
 		<text format="b">Moviendo el archivo transferido</text>
@@ -2049,21 +2049,21 @@
 		<text format="b">El disco está lleno</text>
 		<newline gap="8"/>
 		<text>PeerProject ha puesto esta transferencia en pausa, por que no hay espacio en el
-		disco duro para continuar, el disco parece estar lleno.  Por favor haga espacio en
+		disco duro para continuar, el disco parece estar lleno. Por favor haga espacio en
 		el disco para poder seguir descargando el archivo, o asegúrese que el archivo no esté
-		siendo utilizado por otra aplicación.  Y reinicie la transferencia.</text>
+		siendo utilizado por otra aplicación. Y reinicie la transferencia.</text>
 	</document>
 	<document name="DownloadHelp.Verifying">
 		<text format="b">Verificando el archivo</text>
 		<newline gap="8"/>
 		<text>PeerProject ha terminado de descargar el archivo, ahora esta verificando para
-		asegurarse que el archivo descargado sea idéntico al original.  Si alguna parte fué
+		asegurarse que el archivo descargado sea idéntico al original. Si alguna parte fué
 		transferida incorrectamente, PeerProject se encargará de repararla de forma automática.</text>
 	</document>
 	<document name="DownloadHelp.Downloading">
 		<text format="b">¡Transferencia Activa!</text>
 		<newline gap="8"/>
-		<text>Esta descarga está en progreso.  Si está bajando demásiado lento,
+		<text>Esta descarga está en progreso. Si está bajando demásiado lento,
 		puedes tratar de buscar en la red más fuentes usando el comando </text>
 		<text format="b">Buscar Más Fuentes. </text><text>  Si la velocidad no incrementa y no mejora puede ser que los usuarios
 		de los que estas descargando el archivo tienen una velocidad de subida muy baja. La velocidad de descarga mejora con el tiempo.</text>
@@ -2075,7 +2075,7 @@
 		aquellas que estén arriba de esta.
 		El número de transferencias activas en cualquier momento es limitado por la opción
 		que se encuentra en la parte de descargas de la configuración, esto es para asegurar
-		el buen uso del ancho de banda.  Esto se puede cambiar en Herramientas, Configurar PeerProject. Probablemente estás esperando en las colas de otros usuarios,
+		el buen uso del ancho de banda. Esto se puede cambiar en Herramientas, Configurar PeerProject. Probablemente estás esperando en las colas de otros usuarios,
 		y la descarga Puede comenzar a transferir en cualquier momento.</text>
 	</document>
 	<document name="DownloadHelp.Queued">
@@ -2090,13 +2090,13 @@
 		<text format="b">Buscando Más fuentes</text>
 		<newline gap="8"/>
 		<text>No hay fuentes conocidas para descargar este archivo, PeerProject esta buscando
-		más fuentes en las redes conectadas.  Cuando se consigan nuevas fuentes, la
-		transferencia empezará automáticamente.  PeerProject busca fuentes automaticamente,
+		más fuentes en las redes conectadas. Cuando se consigan nuevas fuentes, la
+		transferencia empezará automáticamente. PeerProject busca fuentes automaticamente,
 		sin embargo, puedes hacer más rápido el proceso usando: </text>
 		<text format="b">Buscar Más Fuentes </text><text>comando.</text>
 		<newline gap="8"/>
 		<text>Desafortunadamente hay casos en que la persona que tiene el archivo que a
-		usted le interesa, no está conectada.  Lo único que se puede hacer es
+		usted le interesa, no está conectada. Lo único que se puede hacer es
 		esperar, o cancelar la transferencia, y descargar un archivo similar que esté
 		más disponible.</text>
 	</document>
@@ -2110,7 +2110,7 @@
 		<text format="b">Tracker de BitTorrent fuera de servicio</text>
 		<newline gap="8"/>
 		<text>El tracker de BitTorrent para esta transferencia, parece estar
-		desconectado o tiene problemas.  PeerProject no puede contactar con él para
+		desconectado o tiene problemas. PeerProject no puede contactar con él para
 		recibir la información de la transferencia.</text>
 	</document>
 	<!-- Upload help documents -->
@@ -2658,7 +2658,7 @@
 	<string id="20064" value="Bueno"/>
 	<string id="20065" value="Muy Bueno"/>
 	<string id="20066" value="Excelente"/>
-	<string id="20080" value="Esta es una versión pre-release de PeerProject, y el periodo de Beta Testing ha terminado.  Por favor descarga la versión completa de http://peerproject.org/."/>
+	<string id="20080" value="Esta es una versión pre-release de PeerProject, y el periodo de Beta Testing ha terminado. Por favor descarga la versión completa de http://peerproject.org/."/>
 	<string id="20081" value="&amp;Cerrar"/>
 	<string id="20082" value="Terminado, haz click para cerrar"/>
 	<string id="20083" value="Pidiendo..."/>
@@ -2765,13 +2765,13 @@
 	<string id="20203" value="Incrementando velocidad de descarga &quot;%s&quot; quitando limites de ancho de banda."/>
 	<string id="20204" value="El usuario %s esta ocupado, reintentando en %i segundos."/>
 	<string id="20205" value="Insuficiente espacio de disco para descargar &quot;%s&quot; (%s)."/>
-	<string id="20206" value="Fué imposible mover el archivo descargado &quot;%s&quot; a &quot;%s&quot;.  Revise que el archivo no este siendo utilizado, y que tenga acceso de escritura a la carpeta compartida."/>
+	<string id="20206" value="Fué imposible mover el archivo descargado &quot;%s&quot; a &quot;%s&quot;. Revise que el archivo no este siendo utilizado, y que tenga acceso de escritura a la carpeta compartida."/>
 	<string id="20207" value="¿Estás seguro que deseas cancelar/abortar todas las descargas en este grupo?"/>
 	<string id="20208" value="Cerrando conexión de descarga a %s, no sige siendo requerido."/>
 	<string id="20209" value="La fuente de descarga %s envió datos no solicitados, cerrando conexión."/>
 	<string id="20210" value="Completada descarga de &quot;%s&quot;."/>
 	<string id="20211" value="¿Estás seguro(a) de eliminar la transferencia de &quot;%s&quot;?\n\nUna vez que esta sea eliminada, es imposible reanudarla."/>
-	<string id="20212" value="¿Estás seguro(a) de cancelar todos los downloads en pausa?  Una vez cancelados, no se pueden continuar."/>
+	<string id="20212" value="¿Estás seguro(a) de cancelar todos los downloads en pausa? Una vez cancelados, no se pueden continuar."/>
 	<string id="20213" value="¿Estás seguro(a) de eliminar el archivo &quot;%s&quot; actualmente descargándose?"/>
 	<string id="20214" value="Conexión para descarga fué establecida con %s."/>
 	<string id="20215" value="Iniciando conexión con %s puerto %i para descargar &quot;%s&quot;..."/>
@@ -2967,7 +2967,7 @@
 	<!--string id="20431" value="¿Estás seguro(a) de eliminar los %i archivos seleccionados de forma permanente ?\n\nEllos van a ser movidos a &quot;la Papelera de reciclaje&quot; si esta esta activada."-->
 	<string id="20432" value="¿Estás seguro(a) de eliminar %i carpetas virtuales con información sobre albums?\n\nEsto no elimina los archivos fisicamente del disco duro, solo elimina la carpeta seleccionada de Colección."/>
 	<string id="20433" value="PeerProject no pudo eliminar:\n\n%s"/>
-	<string id="20434" value="Tu carpeta de archivos descargados &quot;%s&quot; todavia no se encuentra en Colección.\n\nIncluyendo tu carpeta de archivos descargados en Colección hace más fácil ver y organizar tus nuevas descargas, y permite tomar las ventajas de las características avanzadas de PeerProject.orgo verificación de descarga y actualización automatica.  Poniendo los archivos descargados en Colección no necesariamente requiere que los compartas: puedes Seleccionar si deseas o no compartir los archivos independientemente.\n\n¿Deseas agregar tu carpeta de descargas a Colección ahora?"/>
+	<string id="20434" value="Tu carpeta de archivos descargados &quot;%s&quot; todavia no se encuentra en Colección.\n\nIncluyendo tu carpeta de archivos descargados en Colección hace más fácil ver y organizar tus nuevas descargas, y permite tomar las ventajas de las características avanzadas de PeerProject.orgo verificación de descarga y actualización automatica. Poniendo los archivos descargados en Colección no necesariamente requiere que los compartas: puedes Seleccionar si deseas o no compartir los archivos independientemente.\n\n¿Deseas agregar tu carpeta de descargas a Colección ahora?"/>
 	<string id="20435" value="La carpeta de archivos descargados fué agregada a Colección. ¿Quieres compartirla también?"/>
 	<!--string id="20436" value="No ha seleccionado un reproductor para los archivos de media. ¿Quieres seleccionar uno ahora?\n\nEl archivo va a ser pasado con el argumento &quot;/ADD&quot;."-->
 	<string id="20436" value="¿Agregar esta carpeta a la biblioteca?\n\n%s"/>
@@ -2985,7 +2985,7 @@
 	<string id="20448" value="El archivo &quot;%s&quot; no ha sido escaneado. Por favor espere a que sea escaneado, e intente más tarde."/>
 	<string id="20449" value="Esto usa un servicio ofrecido por Bitzi.com, para adquirir metadata acerca del archivo.\n\nPeerProject va a enviar una pequeña información sobre la huella digital 'bitprint' del archivo para que Bitzi lo pueda reconocer. Si tienes alguna duda sobre la privacidad de este servicio, visita bitzi.com para más información.\n\n¿Quieres continuar?"/>
 	<string id="20450" value="Una subcarpeta de la carpeta seleccionada &quot;%s&quot; forma parte de Colección.\nAñadir esta carpeta causará la refusión de algunos ficheros.\n\n¿Quieres continuar?"/>
-	<string id="20451" value="No hay ningún archivo reproduciendose.  Haz doble click a un archivo de media en tu librería para reproducirlo."/>
+	<string id="20451" value="No hay ningún archivo reproduciendose. Haz doble click a un archivo de media en tu librería para reproducirlo."/>
 	<string id="20452" value="Todos los archivos de Media|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Playlists|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Audio Files|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Video Files|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD Audio Tracks|*.cda|MIDI Files|*.mid;*.rmi;*.midi|All Files|*.*||"/>
 	<string id="20453" value="El archivo &quot;%s&quot;, no se pudo cargar."/>
 	<string id="20454" value="Puede estar corrupto, o usted no tiene los Codecs necesarios para su reproducción."/>
@@ -3064,9 +3064,9 @@
 	<string id="20544" value="Cerrando el nucleo de la red..."/>
 	<string id="20545" value="Desconectado."/>
 	<string id="20546" value="Estas seguro que deseas desconectarte?"/>
-	<string id="20547" value="Gnutella2 es la Red Premiere de PeerProject. Deshabilitando soporte a esta va a empeorar severamente tu búsqueda y cálidad de resultados.  Estas SEGURO que deseas hacer esto?"/>
+	<string id="20547" value="Gnutella2 es la Red Premiere de PeerProject. Deshabilitando soporte a esta va a empeorar severamente tu búsqueda y cálidad de resultados. Estas SEGURO que deseas hacer esto?"/>
 	<string id="20548" value="Imposible asociar %s con el puerto %i para conexiones entrantes. Conexiones entrantes no van a ser soportadas."/>
-	<string id="20549" value="No se puede resolver %s para conexiones salientes.  Conexiones salientes van a usar la interfaz predeterminada."/>
+	<string id="20549" value="No se puede resolver %s para conexiones salientes. Conexiones salientes van a usar la interfaz predeterminada."/>
 	<string id="20550" value="Tu ancho de banda de subida es muy baja para esta red"/>
 	<string id="20551" value="Hay un firewall. No se van a escuchar las conexiones entrantes."/>
 	<string id="20552" value="Forzando tu PC en modo hub puede hacer efectos en el rendimiento y en la red P2P Es generalmente mejor dejar a PeerProject eligir si ser modo hub o leaf.\n\nEl modo Hub no produce mejores búsquedas, u otra ventaja para ti.\n\nEstas seguro que quieres hacer esto, a pesar de estas desventajas?"/>
@@ -3098,17 +3098,13 @@
 	<string id="20586" value="%s envió un paquete desconocido (0x%.2x), ignorando."/>
 	<string id="20587" value="%s envió un pong inválido, ignorando."/>
 	<string id="20588" value="El vecino %s envió un push a dirección inalcanzable(firewalled), ignorando."/>
-	<string id="20590" value="El Acceso Remoto esta deshabilitado."/>
-	<string id="20591" value="http://%s:%i/remote - ¿Nombre de usuario y contraseña?"/>
-	<string id="20592" value="No se puede aceptar conexiones, URL no disponible."/>
-	<string id="20597" value="¿Estas seguro que quieres borrar las reglas de seguridad seleccionadas?"/>
-	<string id="20599" value="&amp;Schemas"/>
+	<string id="20598" value="¿Estas seguro que quieres borrar las reglas de seguridad seleccionadas?"/>
 	<!-- Missing Scheduler/Security Strings -->
 	<string id="20614" value="Esperando"/>
 	<string id="20620" value="PeerProject esta buscando activamente en la red..."/>
 	<string id="20621" value="Haz click aquí para buscar de nuevo"/>
 	<string id="20622" value="Todas las redes"/>
-	<string id="20623" value="Se va a iniciar una nueva búsqueda.¿Quieres eliminar los resultados actuales?"/>
+	<string id="20623" value="Se va a iniciar una nueva búsqueda. ¿Quieres eliminar los resultados actuales?"/>
 	<string id="20624" value="Esta área muestra información sobre los archivos que selecciones."/>
 	<string id="20625" value="%s escribe:"/>
 	<string id="20626" value="%s le da rating al archivo:"/>
@@ -3160,7 +3156,11 @@
 	<string id="20677" value="Por favor incluya la unidades para el límite del ancho de banda de la siguiente forma &quot;123 kb/s&quot; para kilobits por segundo, o &quot;123 KB/s&quot; para kiloBytes por segundo."/>
 	<string id="20678" value="La red eDonkey utiliza largas colas con tiempos largos de espera. Limitando la posición máxima de cola de espera,puede que te de problemas para iniciar las descargas.nEstas seguro que deseas limitar las posiciones de cola que vas a aceptar?"/>
 	<string id="20680" value="Configuración de PeerProject"/>
-	<string id="20684" value="¿Estas seguro que deseas eliminar &quot;%s&quot; skin?  Esto no se puede deshacer."/>
+	<string id="20682" value="El Acceso Remoto esta deshabilitado."/>
+	<string id="20684" value="http://%s:%i/remote - ¿Nombre de usuario y contraseña?"/>
+	<string id="20685" value="No se puede aceptar conexiones, URL no disponible."/>
+	<string id="20692" value="¿Estas seguro que deseas eliminar &quot;%s&quot; skin? Esto no se puede deshacer."/>
+	<string id="20699" value="&amp;Schemas"/>
 	<string id="20700" value="%s entra : %s sale (d:%I64i/u:%I64i)"/>
 	<string id="20701" value="Conectado a %lu vecinos. Tienes %s en Colección."/>
 	<string id="20702" value="Modo Hub %lu en redes. %s en Colección."/>
@@ -3673,7 +3673,7 @@
 		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
 		<control caption="_Herramientas:"/>
 		<control caption="Descargar..."/>
-		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
+		<control caption="Update DC++ hubs from the web. (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Conexiones de descarga:"/>
@@ -3811,13 +3811,13 @@
 		<control/>
 	</dialog>
 	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="Bienvenido a PeerProjec &#160;(3/8)">
-		<control caption="PeerProject es una aplicacion para compartir archivos de proposito en general y puede acceder a varias redes P2P al mismo tiempo. Aquí puedes seleccionar a que redes te quieres conectar.  Pero recuerda que luego puedes seleccionar otras redes."/>
+		<control caption="PeerProject es una aplicacion para compartir archivos de proposito en general y puede acceder a varias redes P2P al mismo tiempo. Aquí puedes seleccionar a que redes te quieres conectar. Pero recuerda que luego puedes seleccionar otras redes."/>
 		<control caption="Conectar a Gnutella2 (Altamente Recomendado)"/>
 		<control caption="La Red Gnutella2 (G2) es la red principal de PeerProject, ofreciendo más características y rendimiento que otra red P2P."/>
 		<control caption="Conectar al Gnutella"/>
 		<control caption="Aunque la red Gnutella Original (G1) no tiene tantas características como G2, y no tiene tantos archivos como ED2K, continua siendo un recurso válido."/>
 		<control caption="Conectar a eDonkey2000"/>
-		<control caption="La red eDonkey (ED2K) es una red popular basada en servidores.  No es tan rico en características como G2, eDonkey tiene una colección muy grande de archivos."/>
+		<control caption="La red eDonkey (ED2K) es una red popular basada en servidores. No es tan rico en características como G2, eDonkey tiene una colección muy grande de archivos."/>
 		<control caption="Manejar enlaces .torrent."/>
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Bienvenido a PeerProject &#160;(4/8)">
@@ -3834,7 +3834,7 @@
 		<control caption="Tipos de archivos comunes son inicialmente de configuración de las subcarpetas, pero los grupos se pueden personalizar. Arrastrar y soltar archivos."/>
 	</dialog>
 	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Bienvenido a PeerProject &#160;(5/8)">
-		<control caption="Las redes P2P son buenas si son como la gente que los usa.  Todo el contenido disponible para descargar esta siendo compartido por otro usuario."/>
+		<control caption="Las redes P2P son buenas si son como la gente que los usa. Todo el contenido disponible para descargar esta siendo compartido por otro usuario."/>
 		<control caption="Tu no tienes que compartir contenido para usar PeerProject, de todas maneras algunos software van a comportarse diferente si no compartes nada."/>
 		<control caption="Por favor indica que carpetas, si hay alguna, que tu deseas compartir. Solamente haz click en el botón agregar para agregar una carpeta."/>
 		<control/>
@@ -3918,7 +3918,7 @@
 		<control caption="Vista _previa:"/>
 		<control/>
 		<control caption="_Seleccionar:"/>
-		<control caption="Otros usuarios que vean tu perfil, tambien van a ver tu avatar.  Avatares personales deben ser de 128x128 pixels, y pueden ser en cualquier formato soportado por tu PC."/>
+		<control caption="Otros usuarios que vean tu perfil, tambien van a ver tu avatar. Avatares personales deben ser de 128x128 pixels, y pueden ser en cualquier formato soportado por tu PC."/>
 		<control caption="_Explorar..."/>
 		<control caption="_Quitar"/>
 	</dialog>
@@ -3966,7 +3966,7 @@
 	</dialog>
 	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Archivos">
 		<control caption="Archivos _favoritos:"/>
-		<control caption="Estos son recomendados, cuando los usuarios exploran Colección.  Los puedes crear agregandolos a la carpeta de &quot;Favoritos&quot; en Colección."/>
+		<control caption="Estos son recomendados, cuando los usuarios exploran Colección. Los puedes crear agregandolos a la carpeta de &quot;Favoritos&quot; en Colección."/>
 		<control/>
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Favoritos">
@@ -3987,7 +3987,7 @@
 		<control/>
 		<control caption="Generar Nuevo"/>
 		<control caption="Ayuda:"/>
-		<control caption="Los usuarios de Gnutella son identificados, para mantener el orden en la red.  Normalmente no hay necesidad de crear una identidad nueva, pero PeerProject le da esta opción a los usuarios avanzados."/>
+		<control caption="Los usuarios de Gnutella son identificados, para mantener el orden en la red. Normalmente no hay necesidad de crear una identidad nueva, pero PeerProject le da esta opción a los usuarios avanzados."/>
 	</dialog>
 	<dialog name="CLanguageDlg" cookie="" caption="Seleccionar Idioma">
 	</dialog>
@@ -4003,7 +4003,7 @@
 	</dialog>
 	<dialog name="CDownloadDlg" cookie="StStStEdStBuBuBu" caption="Descargar Archivo O Torrent">
 		<control/>
-		<control caption="Puede descargar archivos de la web, o usando enlaces de P2P para buscarlos en la red.  Simplemente escriba o pegue el URI del archivo en le recuadro, y haz click en Descargar. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
+		<control caption="Puede descargar archivos de la web, o usando enlaces de P2P para buscarlos en la red. Simplemente escriba o pegue el URI del archivo en le recuadro, y haz click en Descargar. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
 		<control caption="Para descargar y compartir archivos de BitTorrent, los torrent pueden ser un archivo o un URL(link HTTP). Para decargarlo de un enlace, póngalo en el recuadro anterior. Si ya tienes el archivo del torrent, haz click aqui."/>
 		<control/>
 		<control/>
@@ -4258,7 +4258,7 @@
 		<control caption="Seleccione un tipo de archivo, y después seleccione los campos a mostrar."/>
 	</dialog>
 	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Manejador de carpetas en Colección">
-		<control caption="Esta es la lista de carpetas en Colección.  Puedes agregar o quitar carpetas usando los botones en la derecha. Cuando añadas una nueva carpeta va a ser inicialmente compartida con los usuarios, puedes descompartirla desde Mis Colecciones"/>
+		<control caption="Esta es la lista de carpetas en Colección. Puedes agregar o quitar carpetas usando los botones en la derecha. Cuando añadas una nueva carpeta va a ser inicialmente compartida con los usuarios, puedes descompartirla desde Mis Colecciones"/>
 		<control/>
 		<control caption="_Agregar..."/>
 		<control caption="_Quitar"/>
@@ -4266,7 +4266,7 @@
 		<control caption="Cancelar"/>
 	</dialog>
 	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="Copiar URI">
-		<control caption="El URI para el archivo seleccionado puede ser copiado de varias formás.  Seleccione su forma favorita, magnet es recomendado:"/>
+		<control caption="El URI para el archivo seleccionado puede ser copiado de varias formás. Seleccione su forma favorita, magnet es recomendado:"/>
 		<control/>
 		<control/>
 		<control/>
@@ -4274,7 +4274,7 @@
 		<control caption="Cancelar"/>
 	</dialog>
 	<dialog name="CURLExportDlg" cookie="StEdStCoStCoBuBumsBu" caption="Exportar URIs">
-		<control caption="Ha seleccionado %lu archivos para exportar como referencias de URI para PeerProject.  Por favor seleccione el formato, y haz click en Guardar:"/>
+		<control caption="Ha seleccionado %lu archivos para exportar como referencias de URI para PeerProject. Por favor seleccione el formato, y haz click en Guardar:"/>
 		<control/>
 		<control caption="Insertar campo:"/>
 		<control caption="Tiger Root|SHA1|MD5|ED2K (CMD4)|Nombre de Archivo|Archivo (URI)|Nombre de Archivo Base|Extensión de Archivo|Tamaño de Archivo|Tamaño de Archivo (bytes)|Ruta de Archivo|Host Local|Puerto Local"/>
@@ -4321,8 +4321,8 @@
 		<control caption="PeerProject es 100% gratuito"/>
 		<control caption="No contiene ningún &quot;spyware&quot;, &quot;adware&quot; o cualquier otro tipo de programas deshonestos. PeerProject no tiene ni propagandas, ni &quot;popups&quot;, nunca.{n}{n}Si en algún momento ve una propaganda o un &quot;popup&quot; puedes tener por seguro que no fué causado por PeerProject."/>
 		<control caption="Desafortunadamente, muchos softwares están incluyendo este tipo de aplicaciones que consumen recursos, y no son amigables. Si crees que tu pc está infectada con uno de estos programas, chequeela con programas especializados en quitar este tipo de software."/>
-		<control caption="Usted no debe pagar para obtener PeerProject.  PeerProject se puede distribuir libremente, y descargar de http://peerproject.org/.  Si usted pagó por PeerProject, pida un reembolso de inmediato."/>
-		<control caption="¡PeerProject respeta sus usuarios!"/>
+		<control caption="Usted no debe pagar para obtener PeerProject. PeerProject se puede distribuir libremente, y descargar de http://peerproject.org/. Si usted pagó por PeerProject, pida un reembolso de inmediato."/>
+		<control caption="PeerProject respeta sus usuarios."/>
 		<control caption="http://PeerProject.org"/>
 		<control caption="Cerrar"/>
 	</dialog>
@@ -4399,7 +4399,7 @@
 		<control caption="Descargar"/>
 		<control caption="Compartir"/>
 		<control caption="Cancelar"/>
-		<control caption="Para compartir archivos completados usando BitTorrent deben estar seeded.  Cuando este proceso esté completo el Torrent va aparecer como un nuevo artículo en archivos descargados."/>
+		<control caption="Para compartir archivos completados usando BitTorrent deben estar seeded. Cuando este proceso esté completo el Torrent va aparecer como un nuevo artículo en archivos descargados."/>
 		<control/>
 	</dialog>
 	<dialog name="CTorrentFilesPage" cookie="StSy" caption="Archivos">

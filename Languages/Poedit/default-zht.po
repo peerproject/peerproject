@@ -4381,7 +4381,7 @@ msgid "Requesting..."
 msgstr "要求..."
 
 #: string;20084
-msgid "Success!"
+msgid "Success."
 msgstr "成功!"
 
 #: string;20100
@@ -5105,7 +5105,7 @@ msgid "Dropping source %s (%s) for sending corrupted parts of \"%s\" (%I64i-%I64
 msgstr "正在忽略來源 %s (%s), 因為它送出毀損的 \"%s\" 的部份(%I64i-%I64i)."
 
 #: string;20293
-msgid "WARNING: Download \"%s\" failed verification, it may not be the file you intended to download!"
+msgid "WARNING: Download \"%s\" failed verification, it may not be the file you intended to download."
 msgstr "警告: 下載檔 \"%s\" 驗證失敗 ; 這可能不是你想要下載的檔案!"
 
 #: string;20294
@@ -6229,7 +6229,7 @@ msgid "No tasks scheduled."
 msgstr ""
 
 #: string;20619
-msgid "Last number is 254,252,248,240,224,192,128, or 0.  Others must be 255.\\n\\n(For Netmasked IP ranges.)"
+msgid "Last number is 254,252,248,240,224,192,128, or 0. Others must be 255.\n\n(For Netmasked IP ranges.)\n\nSee perproject.org/wiki for help."
 msgstr ""
 
 #: string;20620
@@ -6609,7 +6609,7 @@ msgid "Verifying"
 msgstr "驗證中"
 
 #: string;20750
-msgid "!Welcome to PeerProject (version) !\\n.\\nPeerProject is completely free software.\\nPlease use it responsibly and respect local laws.\\n."
+msgid "!Welcome to {version}\n\nPeerProject is completely free software, please use it responsibly."
 msgstr "!歡迎使用 PeerProject (版本) !\\n.\\nPeerProject 是完全免費的軟體.\\n請有責任地使用, 並尊重智慧財產權.\\n."
 
 #: string;20751

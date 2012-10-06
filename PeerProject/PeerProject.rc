@@ -4314,12 +4314,6 @@ BEGIN
 	IDS_REMOTE_DISABLED			"Remote access is disabled."
 	IDS_REMOTE_ENABLED			"http://%s:%i/remote  -  Username/password required."
 	IDS_REMOTE_UNAVAILABLE		"Unable to accept connections, URL unavailable."
-	IDS_SECURITY_ACCEPT			"Accept"
-	IDS_SECURITY_DENY			"Deny"
-	IDS_SECURITY_NOEXPIRE		"Never"
-	IDS_SECURITY_DEFAULT		"Default Policy"
-	IDS_SECURITY_NETMASK		"Last number is 254,252,248,240,224,192,128, or 0.  Others must be 255.\n\n(For Netmasked IP ranges.)"
-	IDS_SECURITY_REMOVE_CONFIRM	"Are you sure you wish to delete selected security rules?"
 	IDS_SCHEMA_LOAD_ERROR		"Failed to load Library metadata schemas.  Please reinstall application.\n\nContinue loading?"
 	IDS_SCHEMAS					"&Schemas"
 END
@@ -4342,6 +4336,21 @@ BEGIN
 	IDS_SCHEDULER_TASK_DONE		"Done"
 	IDS_SCHEDULER_TASK_NONE		"No Tasks scheduled."
 	IDS_SCHEDULER_TIME_PASSED	"Scheduled time has passed.\n\nPlease select a new time."
+END
+
+STRINGTABLE
+BEGIN
+	IDS_SECURITY_DEFAULT		"Default Policy"
+	IDS_SECURITY_ACCEPT			"Accept"
+	IDS_SECURITY_DENY			"Deny"
+	IDS_SECURITY_ANY			"Any"
+	IDS_SECURITY_ALL			"All"
+	IDS_SECURITY_HASH			"Hash"
+	IDS_SECURITY_LIST			"List"
+	IDS_SECURITY_NOEXPIRE		"Never"
+	IDS_SECURITY_SESSION		"Session"
+	IDS_SECURITY_REMOVE_CONFIRM	"Are you sure you wish to delete selected security rules?"
+	IDS_SECURITY_NETMASK		"Last number is 254,252,248,240,224,192,128, or 0.  Others must be 255.\n\n(For Netmasked IP ranges.)\n\nSee perproject.org/wiki for help."
 END
 
 STRINGTABLE

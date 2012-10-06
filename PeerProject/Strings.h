@@ -108,8 +108,8 @@ BOOL ReplaceNoCase(CString& sInStr, LPCTSTR pszOldStr, LPCTSTR pszNewStr);
 // IsValidIP("1.2.3.4:0000") is true
 //BOOL IsValidIP(const CString& sInput);
 
-// "1.2.3.4:0000" to ~0x11223344, 0 for invalid
-DWORD IPStringToDWORD(LPCTSTR pszIP);
+// "1.2.3.4:0000" to ~0x11223344, 0 for invalid	(Alt ~0x44332211)
+DWORD IPStringToDWORD(LPCTSTR pszIP, BOOL bReverse = TRUE);
 
 // Returns "a.a.a.a:port"
 CString HostToString(const SOCKADDR_IN* pHost);

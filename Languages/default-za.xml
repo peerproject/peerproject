@@ -4,7 +4,7 @@
 <!-- PeerProject Default Afrikaans Skin File -->
 <!-- Weergawe: 27 Oktober 2005 vir Shareaza 2.2.0.2 -->
 
-<!-- Translation based on default-en.xml r82 -->
+<!-- Translation based on default-en.xml r84 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1702,7 +1702,7 @@
 			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">Web Toegang Is Aangeskakel</heading>
 			<newline gap="8" indent="42"/>
-			<text>PeerProject Web Toegang is aangeskakel.  Beheer PeerProject deur jou web blaaier by:</text>
+			<text>PeerProject Web Toegang is aangeskakel. Beheer PeerProject deur jou web blaaier by:</text>
 			<newline gap="6"/>
 			<link id="RemoteAccessURL1"/>
 			<text>&#160;- of -&#160;</text>
@@ -2002,19 +2002,19 @@
 		<text format="b">Hierdie Aflaai is besig om te Skuif</text>
 		<newline gap="8"/>
 		<text>PeerProject het die aflaai van hierdie lêer voltooi en het seker gemaak dat dit
-		korrek is.  Dit is tans besig om geskuif en/of ontpak te word na jou aflaaie-gids.</text>
+		korrek is. Dit is tans besig om geskuif en/of ontpak te word na jou aflaaie-gids.</text>
 	</document>
 	<document name="DownloadHelp.Paused">
 		<text format="b">Hierdie Aflaai is Gevries</text>
 		<newline gap="8"/>
-		<text>Jy het hierdie aflaai gevries.  Indien jy die aflaai weer wil hervat, kan jy die
+		<text>Jy het hierdie aflaai gevries. Indien jy die aflaai weer wil hervat, kan jy die
 		</text><text format="b">Hervat Aflaai </text><text>opdrag kliek.</text>
 	</document>
 	<document name="DownloadHelp.DiskFull">
 		<text format="b">Die Skyf is Vol</text>
 		<newline gap="8"/>
 		<text>PeerProject het hierdie aflaai outomaties gevries, omdat die hardeskyf
-		vol is, of die aflaailêer nie na geskryf kan word nie.  As jy met die aflaai wil
+		vol is, of die aflaailêer nie na geskryf kan word nie. As jy met die aflaai wil
 		voortgaan, maak asseblief van die skyfspasie skoon en/of maak seker dat
 		die 'incomplete'-gids toeganklik is, en hervat dan die aflaai.</text>
 	</document>
@@ -2022,17 +2022,17 @@
 		<text format="b">Hierdie Aflaai word Gekontroleer</text>
 		<newline gap="8"/>
 		<text>Hierdie aflaai is voltooi en PeerProject is nou besig om te kontroleer
-		dat dit presies dieselfde as die oorspronklike lêer is.  As enige beskadigde dele
+		dat dit presies dieselfde as die oorspronklike lêer is. As enige beskadigde dele
 		gevind word, sal PeerProject hulle outomaties herstel.</text>
 	</document>
 	<document name="DownloadHelp.Downloading">
 		<text format="b">Hierdie Aflaai is Aktief!</text>
 		<newline gap="8"/>
-		<text>Hierdie aflaai is tans aktief.  As dit te stadig aflaai,
+		<text>Hierdie aflaai is tans aktief. As dit te stadig aflaai,
 		kan jy probeer om die netwerk te deursoek vir meer bronne met die </text>
-		<text format="b">Vind Meer Bronne </text><text>opdrag.  As die spoed nie
+		<text format="b">Vind Meer Bronne </text><text>opdrag. As die spoed nie
 		verbeter nie, mag dit wees as gevolg van beperkte oplaai-badwydte van die gebruikers
-		waarvan jy aflaai.  Aflaaispoed vermeerder gewoonlik met tyd.</text>
+		waarvan jy aflaai. Aflaaispoed vermeerder gewoonlik met tyd.</text>
 	</document>
 	<document name="DownloadHelp.Pending">
 		<text format="b">Hierdie Aflaai is Hangende</text>
@@ -2058,7 +2058,7 @@
 		<text format="b">Hierdie Aflaai is besig om te Soek</text>
 		<newline gap="8"/>
 		<text>Daar is geen bekende bronne vir hierdie aflaai nie, so PeerProject is besig
-		om alle gekonnekteerde P2P netwerke te deursoek vir nuwe bronne.  Sodra bronne
+		om alle gekonnekteerde P2P netwerke te deursoek vir nuwe bronne. Sodra bronne
 		gevind is, sal die aflaai outomaties begin. Alhoewel PeerProject outomaties vir bronne soek,
 		kan jy die proses versnel deur die</text>
 		<text format="b"> Vind Meer Bronne</text><text> opdrag te gebruik.</text>
@@ -2078,7 +2078,7 @@
 		<text format="b">BitTorrent Verwyser Van Lyn Af</text>
 		<newline gap="8"/>
 		<text>Die BitTorrent verwyser-bediener vir hierdie aflaai blyk van lyn af
-		of buite werking te wees.  PeerProject kan dit nie kontak om 'n lys van aflaai-kliënte
+		of buite werking te wees. PeerProject kan dit nie kontak om 'n lys van aflaai-kliënte
 		te verkry nie.</text>
 	</document>
 	<!-- Upload help documents -->
@@ -2639,7 +2639,7 @@
 	<string id="20111" value="%i gedeelde lêers in %s se biblioteek gevind."/>
 	<string id="20112" value="Gasheer %s het gereageer met kode %s (%s)."/>
 	<string id="20113" value="Gasheer %s het gereageer met 'n foutiewe HTTP antwoord."/>
-	<string id="20114" value="Kon nie die lêerlys aflaai nie.  Hierdie gasheer mag dalk nie deurblaaie ondersteun nie."/>
+	<string id="20114" value="Kon nie die lêerlys aflaai nie. Hierdie gasheer mag dalk nie deurblaaie ondersteun nie."/>
 	<string id="20115" value="Kan nie Gnutella pakkies dekodeer van gasheer %s nie."/>
 	<string id="20116" value="Drukkonneksie-versoek is gestuur, wag vir konneksie..."/>
 	<string id="20117" value="Drukkonneksie-versoek na %s gestuur om gebruiker se inligting te sien."/>
@@ -2697,8 +2697,8 @@
 	<string id="20172" value="Bladskud misluk, gasheer mag dalk nie geselskappe ondersteun nie."/>
 	<string id="20173" value="Bladskud voltooi, geselsprotokol weergawe %s."/>
 	<string id="20174" value="Profiel-inligting word verruil..."/>
-	<string id="20175" value="Jy het nog nie jou gebruikersprofiel ingevul nie.  Jy moet jou profiel invul voordat jy kan gesels met ander gebruikers.\n\nWil jy nou jou profiel invul?"/>
-	<string id="20176" value="Kan nie die boodskap stuur nie, aangesien jy nie gekonnekteer is nie.  PeerProject probeer konnekteer..."/>
+	<string id="20175" value="Jy het nog nie jou gebruikersprofiel ingevul nie. Jy moet jou profiel invul voordat jy kan gesels met ander gebruikers.\n\nWil jy nou jou profiel invul?"/>
+	<string id="20176" value="Kan nie die boodskap stuur nie, aangesien jy nie gekonnekteer is nie. PeerProject probeer konnekteer..."/>
 	<string id="20177" value="Kan nie die boodskap stuur nie, aangesien 'n konneksie nog nie bewerkstellig is nie."/>
 	<string id="20178" value="%s is nou bekend as %s."/>
 	<string id="20179" value="Nou besig om met %s (%s) te gesels."/>
@@ -2729,7 +2729,7 @@
 	<string id="20209" value="Aflaaigasheer %s het foutiewe data gestuur, konneksie word gesluit."/>
 	<string id="20210" value="Aflaai van &quot;%s&quot; suksesvol voltooi."/>
 	<string id="20211" value="Is jy seker jy wil &quot;%s&quot; verwyder?\n\nAs 'n aflaai-oordrag eers verwyder is van die aflaai venster, kan dit nie later hervat word nie."/>
-	<string id="20212" value="Is jy seker jy wil alle gevriesde aflaaie verwyder?  As 'n aflaai eers verwyder is van die aflaai venster, kan dit nie later hervat word nie."/>
+	<string id="20212" value="Is jy seker jy wil alle gevriesde aflaaie verwyder? As 'n aflaai eers verwyder is van die aflaai venster, kan dit nie later hervat word nie."/>
 	<string id="20213" value="Is jy seker jy wil die aflaai &quot;%s&quot; verwyder?"/>
 	<string id="20214" value="Aflaaikonneksie na %s bewerkstellig."/>
 	<string id="20215" value="Inisieer 'n konneksie na %s poort %i om die lêer &quot;%s&quot; af te laai..."/>
@@ -2915,13 +2915,13 @@
 	<string id="20427" value="PeerProject het die versamelingslêer &quot;%s&quot; by jou biblioteek gevoeg."/>
 	<string id="20428" value="PeerProject het 'n versamelingslêer ontvang:\n\n&quot;%s&quot;.\n\nHierdie lêer blyk nie 'n bruikbare versamelingslêer te wees nie."/>
 	<string id="20429" value="Wil jy hierdie versameling verhoed om jou te vra om enigeiets anders af te laai?"/>
-	<string id="20430" value="Is jy seker jy wil die lêer &quot;%s&quot; oopmaak ?\n\nSommige lêers mag dalk skadelik wees vir jou rekenaar.  Maak seker jy weet wat die lêer is voordat jy dit oopmaak."/>
+	<string id="20430" value="Is jy seker jy wil die lêer &quot;%s&quot; oopmaak ?\n\nSommige lêers mag dalk skadelik wees vir jou rekenaar. Maak seker jy weet wat die lêer is voordat jy dit oopmaak."/>
 	<!--string id="20431" value="Is jy seker jy wil die %i geselekteerde lêers permanent skrap?\n\nDie lêers sal verskuif word na jou &quot;recycle bin&quot; as dit aangeskakel is."-->
 	<string id="20432" value="Is jy seker jy wil die %i geselekteerde albumgidse skrap ?\n\nHierdie aksie skrap nie die lêers binne die albumgidse nie, maar net die gidse self."/>
 	<string id="20433" value="PeerProject kon nie die lêer:\n\n%s skrap nie"/>
-	<string id="20434" value="Jou aflaai gids &quot;%s&quot; is nog nie by jou biblioteek gevoeg nie.\n\nDeur jou aflaai gids in jou biblioteek in te sluit, word dit makliker gemaak om nuwe aflaaie te organiseer en dit laat jou voordeel trek uit gevorderde PeerProject-funksies soos aflaaikontrole en outomatiese opgradering.  Deur aflaaie in jou biblioteek te plaas beteken nie dat jy verplig is om dit te deel nie, jy kan kies of jy dit wil deel of nie.\n\nWil jy jou aflaai gids nou by jou biblioteek voeg?"/>
-	<string id="20435" value="Jou aflaai gids is by jou biblioteek gevoeg.  Wil jy dit deel ook?"/>
-	<!--string id="20436" value="Jy het nog nie 'n media speler geselekteer waarmee lêers gelys moet word nie, soos byvoorbeeld Nullsoft WinAmp.  Wil jy nou een selekteer?\n\nPeerProject sal die naam van die lêer aanpas met die &quot;/ADD&quot; argument."-->
+	<string id="20434" value="Jou aflaai gids &quot;%s&quot; is nog nie by jou biblioteek gevoeg nie.\n\nDeur jou aflaai gids in jou biblioteek in te sluit, word dit makliker gemaak om nuwe aflaaie te organiseer en dit laat jou voordeel trek uit gevorderde PeerProject-funksies soos aflaaikontrole en outomatiese opgradering. Deur aflaaie in jou biblioteek te plaas beteken nie dat jy verplig is om dit te deel nie, jy kan kies of jy dit wil deel of nie.\n\nWil jy jou aflaai gids nou by jou biblioteek voeg?"/>
+	<string id="20435" value="Jou aflaai gids is by jou biblioteek gevoeg. Wil jy dit deel ook?"/>
+	<!--string id="20436" value="Jy het nog nie 'n media speler geselekteer waarmee lêers gelys moet word nie, soos byvoorbeeld Nullsoft WinAmp. Wil jy nou een selekteer?\n\nPeerProject sal die naam van die lêer aanpas met die &quot;/ADD&quot; argument."-->
 	<string id="20436" value="Voeg hierdie gids aan die biblioteek?\n\n%s"/>
 	<string id="20437" value="Gees Lêer"/>
 	<string id="20438" value="Metadata van %i lêers word verander."/>
@@ -2932,18 +2932,18 @@
 	<string id="20443" value="Vertoon Alle Lêertipes"/>
 	<string id="20444" value="Kopieer URI"/>
 	<string id="20445" value="Voer URI's Uit..."/>
-	<string id="20446" value="Die lêer &quot;%s&quot; het 'n prosesserings-validasie toets gefaal en mag dalk nie die lêer wees wat jy wou aflaai nie.  Is jy seker jy wil dit oopmaak?"/>
+	<string id="20446" value="Die lêer &quot;%s&quot; het 'n prosesserings-validasie toets gefaal en mag dalk nie die lêer wees wat jy wou aflaai nie. Is jy seker jy wil dit oopmaak?"/>
 	<string id="20447" value="Wil jy die &quot;moontlik skadelik&quot; eienskap van hierdie lêer verwyder?"/>
-	<string id="20448" value="Die lêer &quot;%s&quot; is nog nie geprosesseer nie.  Wag asseblief vir die lêer om geprosesseer te word en probeer weer."/>
-	<string id="20449" value="Hierdie opsie gebruik dienste verskaf deur Bitzi.com vir herkenning en deel van inligting oor sekere lêers.\n\nPeerProject sal die SHA1 hash-kode vir die geselekteerde lêer(s) stuur sodat die Bitzi databasis geraadpleeg kan word.  As jy bekommerd is oor privaatheid, kan jy gerus die Bitzi.com privaatheidsbeleid lees.\n\nWil jy voortgaan?"/>
+	<string id="20448" value="Die lêer &quot;%s&quot; is nog nie geprosesseer nie. Wag asseblief vir die lêer om geprosesseer te word en probeer weer."/>
+	<string id="20449" value="Hierdie opsie gebruik dienste verskaf deur Bitzi.com vir herkenning en deel van inligting oor sekere lêers.\n\nPeerProject sal die SHA1 hash-kode vir die geselekteerde lêer(s) stuur sodat die Bitzi databasis geraadpleeg kan word. As jy bekommerd is oor privaatheid, kan jy gerus die Bitzi.com privaatheidsbeleid lees.\n\nWil jy voortgaan?"/>
 	<string id="20450" value="'n Subgids van die geselekteerde gids &quot;%s&quot; is alreeds deel van jou biblioteek.\nDie byvoeging van hierdie gids sal die herprosessering van sommige lêers veroorsaak.\n\nIs jy seker jy wil voortgaan ?"/>
-	<string id="20451" value="Daar is geen lêers wat speel nie.  Dubbelkliek 'n medialêer in jou biblioteek om dit te speel, of kliek op Open"/>
+	<string id="20451" value="Daar is geen lêers wat speel nie. Dubbelkliek 'n medialêer in jou biblioteek om dit te speel, of kliek op Open"/>
 	<string id="20452" value="Alle Media Lêers|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Medialyste|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Klanklêers|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Video Lêers|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD Klank Snitte|*.cda|MIDI Lêers|*.mid;*.rmi;*.midi|Alle Lêers|*.*||"/>
 	<string id="20453" value="Kon nie medialêer &quot;%s&quot; laai nie"/>
 	<string id="20454" value="Die lêer mag dalk beskadig wees, of jy het nie die nodige kodeks om dit te speel nie."/>
 	<string id="20455" value="Dele van hierdie lêer kan nie gespeel word nie, jy mag dalk addisionele kodeks moet aflaai."/>
 	<string id="20456" value="Medialys:"/>
-	<string id="20457" value="PeerProject kon nie die MediaDienste inpropprogram instansieer nie.  Herinstalleer PeerProject en maak seker dat jy die nodige media kodeks en afvoerdrywers geinstalleer het."/>
+	<string id="20457" value="PeerProject kon nie die MediaDienste inpropprogram instansieer nie. Herinstalleer PeerProject en maak seker dat jy die nodige media kodeks en afvoerdrywers geinstalleer het."/>
 	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
 	<string id="20462" value="(Geen Visualisering)"/>
 	<!--string id="20464" value="Aflaai is voltooi:"-->
@@ -2970,7 +2970,7 @@
 	<string id="20485" value="Perk oplaai spoed"/>
 	<string id="20490" value="Veelvoudige"/>
 	<string id="20491" value="Veelvoudige Waardes"/>
-	<string id="20494" value="Jy het nog nie jou ligging in jou gebruikersprofiel ingevul nie.\n\nDit is 'n goeie idee om jou ligging in te vul sodat ander gebruikers kan sien waar jy vandaan kom.  Deur 'n ligging in te vul word geen private inligting ontbloot nie.\n\nIs jy seker jy wil voortgaan sonder om jou ligging in te vul?"/>
+	<string id="20494" value="Jy het nog nie jou ligging in jou gebruikersprofiel ingevul nie.\n\nDit is 'n goeie idee om jou ligging in te vul sodat ander gebruikers kan sien waar jy vandaan kom. Deur 'n ligging in te vul word geen private inligting ontbloot nie.\n\nIs jy seker jy wil voortgaan sonder om jou ligging in te vul?"/>
 	<string id="20495" value="Jy het nog nie 'n bynaam in jou gebruikersprofiel ingevul nie."/>
 	<string id="20496" value="Jy het nie jou ouderdom en geslag geselekteer nie. Is jy seker jy wil voortgaan sonder om dit te doen?"/>
 	<string id="20499" value="Nuwe Gids"/>
@@ -3015,12 +3015,12 @@
 	<string id="20544" value="PeerProject netwerkkern word gesluit..."/>
 	<string id="20545" value="Gediskonnekteer."/>
 	<string id="20546" value="Is jy seker jy wil diskonnekteer?"/>
-	<string id="20547" value="Gnutella2 is PeerProject se primêre netwerk.  Deur ondersteuning daarvan af te skakel mag dit die aantal en kwaliteit van jou soekresultate aansienlik benadeel.  Is jy SEKER jy wil dit doen?"/>
-	<string id="20548" value="Kan nie na %s poort %i koppel vir inkomende konneksies nie.  Inkomende konneksies sal nie ondersteun word nie."/>
-	<string id="20549" value="Kan nie %s gebruik vir uitgaande konneksies nie.  Uitgaande konneksies sal die standaardkoppelvlak gebruik."/>
+	<string id="20547" value="Gnutella2 is PeerProject se primêre netwerk. Deur ondersteuning daarvan af te skakel mag dit die aantal en kwaliteit van jou soekresultate aansienlik benadeel. Is jy SEKER jy wil dit doen?"/>
+	<string id="20548" value="Kan nie na %s poort %i koppel vir inkomende konneksies nie. Inkomende konneksies sal nie ondersteun word nie."/>
+	<string id="20549" value="Kan nie %s gebruik vir uitgaande konneksies nie. Uitgaande konneksies sal die standaardkoppelvlak gebruik."/>
 	<string id="20550" value="Jou uitgaande bandwydte is te laag om hierdie netwerk aan te skakel"/>
 	<string id="20551" value="Agter 'n netskans, luister nie vir inkomende konneksies nie."/>
-	<string id="20552" value="Deur jou rekenaar te forseer om in hub-modus te werk, mag 'n negatiewe impak hê op werksverrigting, asook die P2P netwerk.  Dit is normaalweg beter om PeerProject toe te laat om te besluit of hub-modus gebruik moet word of nie.\n\nHub-modus lewer NIE beter soekresultate nie en hou ook geen ander voordele vir jou in nie.\n\nIs jy seker jy wil dit nogsteeds doen, ten spyte van die nadele?"/>
+	<string id="20552" value="Deur jou rekenaar te forseer om in hub-modus te werk, mag 'n negatiewe impak hê op werksverrigting, asook die P2P netwerk. Dit is normaalweg beter om PeerProject toe te laat om te besluit of hub-modus gebruik moet word of nie.\n\nHub-modus lewer NIE beter soekresultate nie en hou ook geen ander voordele vir jou in nie.\n\nIs jy seker jy wil dit nogsteeds doen, ten spyte van die nadele?"/>
 	<string id="20553" value="Inkomende TCP konneksies van %s poort %i word goedgekeur."/>
 	<string id="20554" value="Daar word vir UDP datagramme van %s poort %i geluister."/>
 	<string id="20555" value="Uitgaande konneksies sal van %s poort %i wees."/>
@@ -3050,15 +3050,11 @@
 	<string id="20586" value="Gasheer %s het 'n vreemde pakkie aangestuur (0x%.2x), oorgesien."/>
 	<string id="20587" value="Gasheer %s het 'n pong pakkie met foutiewe adresdata aangestuur, oorgesien."/>
 	<string id="20588" value="Gasheer %s het 'n druk-aanvraag aangestuur na 'n gasheer agter 'n netskans, oorgesien."/>
-	<string id="20590" value="Web toegang is afgeskakel."/>
-	<string id="20591" value="http://%s:%i/remote - Jy moet 'n gebruikersnaam en wagwoord kies."/>
-	<string id="20592" value="Kan nie konneksies ontvang nie, URL nie beskikbaar."/>
-	<string id="20599" value="&amp;Skemas"/>
 	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="PeerProject is aktief besig om die netwerk deur te soek..."/>
 	<string id="20621" value="Kliek hier om weer te soek"/>
 	<string id="20622" value="Alle Netwerke"/>
-	<string id="20623" value="Jy is op pad om 'n nuwe soektog te begin.  Wil jy die resultate van jou vorige soektog verwyder?"/>
+	<string id="20623" value="Jy is op pad om 'n nuwe soektog te begin. Wil jy die resultate van jou vorige soektog verwyder?"/>
 	<string id="20624" value="Hierdie area vertoon meer inligting oor lêers wat jy selekteer."/>
 	<string id="20625" value="%s skryf:"/>
 	<string id="20626" value="%s gradeer hierdie lêer:"/>
@@ -3110,12 +3106,16 @@
 	<string id="20677" value="Tik asseblief die bandwydte limiet wat jy wil hê, in die vorm &quot;123 kb/s&quot; vir kilobits per sekonde, of &quot;123 KB/s&quot; vir kilobytes per sekonde."/>
 	<string id="20678" value="Die eDonkey netwerk gebruik groot waglyste met lang wagtye. Deur die maksimum aanvaarde waglysposisie so streng te beperk, mag jou aflaaie dalk sukkel om te begin.\nIs jy seker jy wil die waglysposisies beperk?"/>
 	<string id="20680" value="PeerProject Verstellings"/>
-	<string id="20684" value="Is jy seker jy wil die &quot;%s&quot; omslag skrap?  Dit kan nie herroep word nie."/>
+	<string id="20682" value="Web toegang is afgeskakel."/>
+	<string id="20684" value="http://%s:%i/remote - Jy moet 'n gebruikersnaam en wagwoord kies."/>
+	<string id="20685" value="Kan nie konneksies ontvang nie, URL nie beskikbaar."/>
+	<string id="20692" value="Is jy seker jy wil die &quot;%s&quot; omslag skrap? Dit kan nie herroep word nie."/>
+	<string id="20699" value="&amp;Skemas"/>
 	<string id="20700" value="%s in : %s uit (a:%I64i/o:%I64i)"/>
-	<string id="20701" value="Gekonnekteer aan %lu gashere.  %s in lokale biblioteek."/>
-	<string id="20702" value="Hub modus met %lu kliënt(e).  %s in lokale biblioteek."/>
-	<string id="20703" value="Hub/Ultrapeer modus met %lu kliënt(e).  %s in lokale biblioteek."/>
-	<string id="20704" value="Ultrapeer modus met %lu kliënt(e).  %s in lokale biblioteek."/>
+	<string id="20701" value="Gekonnekteer aan %lu gashere. %s in lokale biblioteek."/>
+	<string id="20702" value="Hub modus met %lu kliënt(e). %s in lokale biblioteek."/>
+	<string id="20703" value="Hub/Ultrapeer modus met %lu kliënt(e). %s in lokale biblioteek."/>
+	<string id="20704" value="Ultrapeer modus met %lu kliënt(e). %s in lokale biblioteek."/>
 	<string id="20705" value="Gekonnekteer. %s in lokale biblioteek."/>
 	<string id="20706" value="Besig om aan die netwerk te konnekteer..."/>
 	<string id="20707" value="Nie aan die netwerk gekonnekteer nie."/>
@@ -3196,7 +3196,7 @@
 	<string id="20794" value="Program:"/>
 	<string id="20795" value="%s in : %s uit (a:%I64i/o:%I64i/h:%I64i)"/>
 	<string id="20796" value="Files shared over the Internet"/>
-	<string id="20798" value="PeerProject het die aflaai van die volgende weergawe van PeerProject voltooi (%s).  Wil jy nou opgradeer?\n\nAs jy Ja selekteer, sal jy PeerProject tydelik verlaat terwyl die opgradering installeer."/>
+	<string id="20798" value="PeerProject het die aflaai van die volgende weergawe van PeerProject voltooi (%s). Wil jy nou opgradeer?\n\nAs jy Ja selekteer, sal jy PeerProject tydelik verlaat terwyl die opgradering installeer."/>
 	<string id="20799" value="Geen nuwe PeerProject uitgawe ontdek."/>
 	<string id="20800" value="Standaard HTML-antwoord word gestuur aan oplaaigasheer %s (%s)."/>
 	<string id="20801" value="Inkomende konneksie vanaf %s is 'n HTTP oplaai-navraag."/>
@@ -3209,7 +3209,7 @@
 	<string id="20808" value="Oplaai van &quot;%s&quot; na %s (%s) word geweier, beset en kliënt ondersteun nie waglyste nie."/>
 	<string id="20809" value="Oplaai van &quot;%s&quot; na %s (%s) word geweier, alle toepaslike waglyste is vol."/>
 	<string id="20810" value="Oplaaigasheer %s versoek 'n onbevredigende deel van die lêer &quot;%s&quot;."/>
-	<string id="20811" value="eDonkey2000 oplaaie moet nie gekanselleer word nie.  Is jy seker jy wil hierdie oplaai kanselleer?"/>
+	<string id="20811" value="eDonkey2000 oplaaie moet nie gekanselleer word nie. Is jy seker jy wil hierdie oplaai kanselleer?"/>
 	<string id="20812" value="Kan nie &quot;%s&quot; oopmaak om na gasheer %s op te laai nie, skyf/lêer foutief."/>
 	<string id="20813" value="'n Druk-aanvraag word geïnisieer na %s. %s"/>
 	<string id="20814" value="Kon nie na gasheer %s konnekteer vir druk nie."/>
@@ -3272,16 +3272,16 @@
 	<string id="20880" value="Verander My Profiel"/>
 	<string id="20881" value="%u lêers gekies. Is jy seker?"/>
 	<string id="20882" value="Geen URN beskikbaar"/>
-	<string id="20885" value="Verandering van die aansig sal enige oop vensters toemaak.  Wil jy nou verander?"/>
+	<string id="20885" value="Verandering van die aansig sal enige oop vensters toemaak. Wil jy nou verander?"/>
 	<string id="20886" value="Verandering van die koppelvlak rigting vereis die oorbegin van PeerProject.\n\nVerlaat PeerProject nou?"/>
 	<string id="20890" value="Welkom by PeerProject"/>
 	<string id="20891" value="Maak Toe"/>
-	<string id="20894" value="Jy het nog nie 'n konneksie-spoed gespesifiseer nie.  Voor jy aangaan, selekteer asseblief jou internet konneksietipe, of sleutel 'n konneksiespoed in."/>
+	<string id="20894" value="Jy het nog nie 'n konneksie-spoed gespesifiseer nie. Voor jy aangaan, selekteer asseblief jou internet konneksietipe, of sleutel 'n konneksiespoed in."/>
 	<!--string id="20896" value="Jy het aangedui dat jy poort-aanstuur wil opstel op jou NAT roeteerder of netskans.\n\nStel asseblief jou netwerk om TCP poort %i aan te stuur na jou lokale rekenaar."-->
 	<string id="20897" value="Hierdie gids word alreeds as deel van die volgende gids gedeel:\n\n%s"/>
-	<string id="20898" value="Jy het nie enige gidse geselekteer om te deel nie.  Is jy seker?"/>
+	<string id="20898" value="Jy het nie enige gidse geselekteer om te deel nie. Is jy seker?"/>
 	<string id="20899" value="jaar oue"/>
-	<!--string id="16771" value="Jy het alreeds die lêer &quot;%s&quot; in jou biblioteek.  Wil jy dit in elk geval aflaai?"-->
+	<!--string id="16771" value="Jy het alreeds die lêer &quot;%s&quot; in jou biblioteek. Wil jy dit in elk geval aflaai?"-->
 	<!--string id="16801" value="Kies asseblief die tipe internet konneksie wat jy gebruik, voor jy aangaan."-->
 	<!--string id="17500" value="Verwyser het nie geantwoord nie- Probeer weer aankondiging (%i van %i)"-->
 </strings>
@@ -3396,7 +3396,7 @@
 		<control/>
 		<control caption="_Voeg by"/>
 		<control caption="V_erwyder"/>
-		<control caption="Die aflaai-hanteerder inpropprogram sal net lêertipes probeer aflaai wat hier gelys is.  Ander lêertipes sal hanteer word deur jou webblaaier.  PeerProject moet oop wees om aflaaie te hanteer."/>
+		<control caption="Die aflaai-hanteerder inpropprogram sal net lêertipes probeer aflaai wat hier gelys is. Ander lêertipes sal hanteer word deur jou webblaaier. PeerProject moet oop wees om aflaaie te hanteer."/>
 	</dialog>
 	<dialog name="CConnectionSettingsPage" cookie="BuStCoStCoStEdBuBuBuStCoStCoBuStCoBuBuBuStEdmsStEdms" caption="Konneksie">
 		<control caption="_Inkomende Adres:"/>
@@ -3489,9 +3489,9 @@
 		<control caption="PeerProject Web Toegang laat jou toe om PeerProject op jou rekenaar aan te los en dit vanaf 'n afgeleë plek te beheer deur middel van 'n web blaaier. Jy sal inkomende konneksies moet kan ontvang om hierdie funksie te gebruik ('n korrek opgestelde roeteerder, ens)."/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="Netwerke">
-		<control caption="PeerProject is 'n algemeendoelige lêerdelingsprogram wat toegang tot verskeie P2P netwerke gelyktydig bied.  Op hierdie bladsy kan jy kies aan watter P2P netwerke jy wil konnekteer en daarna spesifieke verstellings maak vir elke netwerk."/>
+		<control caption="PeerProject is 'n algemeendoelige lêerdelingsprogram wat toegang tot verskeie P2P netwerke gelyktydig bied. Op hierdie bladsy kan jy kies aan watter P2P netwerke jy wil konnekteer en daarna spesifieke verstellings maak vir elke netwerk."/>
 		<control caption="Gnutella2 Netwerk:"/>
-		<control caption="Die Gnutella2 Netwerk is PeerProject se primêre netwerk en bied meer funksies en beter werkverrigting as enige ander P2P netwerk.  Word sterk aanbeveel."/>
+		<control caption="Die Gnutella2 Netwerk is PeerProject se primêre netwerk en bied meer funksies en beter werkverrigting as enige ander P2P netwerk. Word sterk aanbeveel."/>
 		<control caption="Wys Gnutella2 (G2)"/>
 		<control caption="Konfigureer Gnutella2"/>
 		<control caption="Oorspronklike Gnutella Netwerk:"/>
@@ -3576,7 +3576,7 @@
 		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
 		<control caption="_Opsies:"/>
 		<control caption="Laai Af..."/>
-		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
+		<control caption="Update DC++ hubs from the web. (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Aflaai Koppellings:"/>
@@ -3714,13 +3714,13 @@
 		<control/>
 	</dialog>
 	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="Welkom by PeerProject (3/8)">
-		<control caption="PeerProject is 'n algemeendoelige lêerdelingsprogram wat toegang tot verskeie P2P netwerke gelyktydig bied.  Op hierdie bladsy kan jy kies aan watter P2P netwerke jy wil koppel. Let wel dat jy altyd later ander netwerke kan selekteer."/>
+		<control caption="PeerProject is 'n algemeendoelige lêerdelingsprogram wat toegang tot verskeie P2P netwerke gelyktydig bied. Op hierdie bladsy kan jy kies aan watter P2P netwerke jy wil koppel. Let wel dat jy altyd later ander netwerke kan selekteer."/>
 		<control caption="Koppel aan Gnutella2 (Sterk Aanbeveel)"/>
-		<control caption="Die Gnutella2 Netwerk is PeerProject se primêre netwerk en bied meer funksies en beter werkverrigting as enige ander P2P netwerk.  Word sterk aanbeveel."/>
+		<control caption="Die Gnutella2 Netwerk is PeerProject se primêre netwerk en bied meer funksies en beter werkverrigting as enige ander P2P netwerk. Word sterk aanbeveel."/>
 		<control caption="Koppel aan Gnutella"/>
 		<control caption="Alhoewel die oorspronklike Gnutella netwerk minder funksieryk as Gnutella2 is en ook minder lêers het as eDonkey2000, bly dit 'n waardevolle hulpbron."/>
 		<control caption="Koppel aan eDonkey2000"/>
-		<control caption="Die eDonkey netwerk (ED2K) is 'n populêre bediener-gebaseerde netwerk.  Nie so funksieryk soos Gnutella2 nie, maar dit het 'n groot hoeveelheid lêers."/>
+		<control caption="Die eDonkey netwerk (ED2K) is 'n populêre bediener-gebaseerde netwerk. Nie so funksieryk soos Gnutella2 nie, maar dit het 'n groot hoeveelheid lêers."/>
 		<control caption="Hanteer torrent skakels."/>
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Welkom by PeerProject (4/8)">
@@ -3737,9 +3737,9 @@
 		<control caption="Algemene tipes is aanvanklik opgestel om in subgidse, maar groepe kan verander word. Eenvoudig drag&apos;n&apos;drop lêers."/>
 	</dialog>
 	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Welkom by PeerProject (5/8)">
-		<control caption="P2P netwerke is net so goed soos die mense wat hulle gebruik.  Al die inhoud beskikbaar vir aflaai word gedeel deur 'n ander gebruiker."/>
+		<control caption="P2P netwerke is net so goed soos die mense wat hulle gebruik. Al die inhoud beskikbaar vir aflaai word gedeel deur 'n ander gebruiker."/>
 		<control caption="Dit is nie noodsaaklik om inhoud te deel om PeerProject te gebruik nie, alhoewel sommige sagteware verskillend optree teenoor gebruikers wat niks deel nie."/>
-		<control caption="Dui asseblief aan watter gidse, indien enige, jy wil deel.  Kliek eenvoudig op die Voeg By knoppie om 'n gids by te voeg."/>
+		<control caption="Dui asseblief aan watter gidse, indien enige, jy wil deel. Kliek eenvoudig op die Voeg By knoppie om 'n gids by te voeg."/>
 		<control/>
 		<control caption="_Voeg By..."/>
 		<control caption="_Verwyder"/>
@@ -3787,7 +3787,7 @@
 		<control caption="Geniet PeerProject."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="Trek eDonkey2000 Aflaaie In">
-		<control caption="PeerProject het raakgesien dat jy 'n ander eDonkey2000 program geinstalleer het op jou rekenaar.  Wil jy enige onvolledige aflaaie in PeerProject intrek?"/>
+		<control caption="PeerProject het raakgesien dat jy 'n ander eDonkey2000 program geinstalleer het op jou rekenaar. Wil jy enige onvolledige aflaaie in PeerProject intrek?"/>
 		<control caption="Ja"/>
 		<control caption="Nee|Kanselleer"/>
 		<control/>
@@ -3821,7 +3821,7 @@
 		<control caption="_Voorskou:"/>
 		<control/>
 		<control caption="_Selekteer:"/>
-		<control caption="Ander Gnutella gebruikers wat na jou profiel en gedeelde lêers kyk sal jou avatar sien.  Pasgemaakte avatars moet 128x128 beeldpunte wees en kan in enige ondersteunde fotolêertipe op jou rekenaar wees."/>
+		<control caption="Ander Gnutella gebruikers wat na jou profiel en gedeelde lêers kyk sal jou avatar sien. Pasgemaakte avatars moet 128x128 beeldpunte wees en kan in enige ondersteunde fotolêertipe op jou rekenaar wees."/>
 		<control caption="_Kies..."/>
 		<control caption="_Verwyder"/>
 	</dialog>
@@ -3869,7 +3869,7 @@
 	</dialog>
 	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Lêers">
 		<control caption="_Gunstelling Lêers:"/>
-		<control caption="Gunstelling lêers word aanbeveel aan mense wat jou profiel lees.  Skep gunstelling lêers deur hulle by die &quot;Gunstellinge&quot; biblioteekgids by te voeg."/>
+		<control caption="Gunstelling lêers word aanbeveel aan mense wat jou profiel lees. Skep gunstelling lêers deur hulle by die &quot;Gunstellinge&quot; biblioteekgids by te voeg."/>
 		<control/>
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Gunstellinge">
@@ -3890,7 +3890,7 @@
 		<control/>
 		<control caption="Genereer Nuwe"/>
 		<control caption="Info:"/>
-		<control caption="Gnutella gebruikers word geidentifiseer deur 'n globaal unieke sertifikaat en 'n ooreenstemmende publieke en privaat sleutelpaar.  Normaalweg is dit nie nodig om 'n nuwe ID te genereer nie, maar PeerProject bied hierdie opsie vir gevorderde gebruikers."/>
+		<control caption="Gnutella gebruikers word geidentifiseer deur 'n globaal unieke sertifikaat en 'n ooreenstemmende publieke en privaat sleutelpaar. Normaalweg is dit nie nodig om 'n nuwe ID te genereer nie, maar PeerProject bied hierdie opsie vir gevorderde gebruikers."/>
 	</dialog>
 	<dialog name="CLanguageDlg" cookie="" caption="Selekteer Taal">
 	</dialog>
@@ -3906,8 +3906,8 @@
 	</dialog>
 	<dialog name="CDownloadDlg" cookie="StStStEdStBuBuBu" caption="Laai Lêer of Torrent Af">
 		<control/>
-		<control caption="PeerProject kan lêers van die Web aflaai, en outomaties P2P skakels soek en aflaai.  Plaas net eenvoudig die URL of URI van die lêer in die spasie hieronder en druk Enter. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
-		<control caption="PeerProject kan ook BitTorrent lêers aflaai.  'n Torrent kan beskryf word as 'n xyz.torrent lêer, of 'n HTTP-skakel na die .torrent lêer.  Om 'n torrent HTTP-skakel af te laai, plaas dit in die spasie hierbo.  As jy alreeds 'n .torrent lêer het, kliek Open Torrent:"/>
+		<control caption="PeerProject kan lêers van die Web aflaai, en outomaties P2P skakels soek en aflaai. Plaas net eenvoudig die URL of URI van die lêer in die spasie hieronder en druk Enter. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
+		<control caption="PeerProject kan ook BitTorrent lêers aflaai. 'n Torrent kan beskryf word as 'n xyz.torrent lêer, of 'n HTTP-skakel na die .torrent lêer. Om 'n torrent HTTP-skakel af te laai, plaas dit in die spasie hierbo. As jy alreeds 'n .torrent lêer het, kliek Open Torrent:"/>
 		<control/>
 		<control/>
 		<control caption="Laai Af"/>
@@ -4161,7 +4161,7 @@
 		<control caption="Selekteer 'n skema van die lys en selekteer dan die velde wat as kolomme vertoon moet word."/>
 	</dialog>
 	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Gedeelde Lêers Beheerder">
-		<control caption="Hierdie is 'n lys van gidse in jou biblioteek.  Jy kan gidse byvoeg of verwyder deur die knoppies aan die linkerkant te gebruik.  Wanneer jy 'n nuwe gids byvoeg word dit outomaties gedeel met ander gebruikers, maar jy kan dit afskakel vanuit die PeerProject biblioteek as jy wil."/>
+		<control caption="Hierdie is 'n lys van gidse in jou biblioteek. Jy kan gidse byvoeg of verwyder deur die knoppies aan die linkerkant te gebruik. Wanneer jy 'n nuwe gids byvoeg word dit outomaties gedeel met ander gebruikers, maar jy kan dit afskakel vanuit die PeerProject biblioteek as jy wil."/>
 		<control/>
 		<control caption="_Voeg By..."/>
 		<control caption="_Verwyder"/>
@@ -4169,7 +4169,7 @@
 		<control caption="Kanselleer"/>
 	</dialog>
 	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="Kopieer URI">
-		<control caption="Jy kan 'n URI van die geselekteerde item kopieer in 'n verskeidenheid formate.  Kies asseblief die formaat wat jy wil gebruik deur op een van die URIs hieronder te kliek:"/>
+		<control caption="Jy kan 'n URI van die geselekteerde item kopieer in 'n verskeidenheid formate. Kies asseblief die formaat wat jy wil gebruik deur op een van die URIs hieronder te kliek:"/>
 		<control/>
 		<control/>
 		<control/>
@@ -4177,7 +4177,7 @@
 		<control caption="Kanselleer"/>
 	</dialog>
 	<dialog name="CURLExportDlg" cookie="StEdStCoStCoBuBumsBu" caption="Voer URIs Uit">
-		<control caption="Jy het %lu lêers geselekteer om uit te voer as PeerProject ondersteunende URI verwysings.  Selekteer asseblief die formaat van die URIs en kliek Stoor:"/>
+		<control caption="Jy het %lu lêers geselekteer om uit te voer as PeerProject ondersteunende URI verwysings. Selekteer asseblief die formaat van die URIs en kliek Stoor:"/>
 		<control/>
 		<control caption="Voeg Teken By:"/>
 		<control caption="Tiger Root|SHA1|MD5|ED2K (CMD4)|Lêernaam|Lêernaam (URI)|Lêernaam Basis|Lêeruitbreiding|Lêer Grootte|Lêer Grootte (bytes)|Gids Pad|Lokale Gasheer|Lokale Poort"/>
@@ -4224,14 +4224,14 @@
 		<control caption="Het jy geweet PeerProject is 'n 100% gratis program?"/>
 		<control caption="PeerProject bevat GEEN &quot;spioenware&quot;, &quot;advertensieware&quot; of enige ander ongewenste sagteware nie. Dit vertoon ook GEEN advertensies of &quot;opspringboodskappe&quot; ooit nie.{n}{n}As jy ooit advertensies of &quot;opspringboodskappe&quot; sien terwyl jy PeerProject gebruik, wees gerus dat hulle NIE van hierdie program afkomstig is nie."/>
 		<control caption="Ongelukkig kom 'n groot aantal ander sagteware met spioen- of advertensieware uit, so as jy iets verdags sien, word jy aangeraai om jou rekenaar met 'n spioen- of advertensieware verwyderaarsprogram te laat deursoek."/>
-		<control caption="Jy moes nie enige geld betaal het vir PeerProject nie.  PeerProject kan gratis afgelaai word deur enige iemand vanaf http://peerproject.org/.  As jy iemand geld betaal het vir PeerProject, moet jy 'n volle terugbetaling onmiddellik eis."/>
+		<control caption="Jy moes nie enige geld betaal het vir PeerProject nie. PeerProject kan gratis afgelaai word deur enige iemand vanaf http://peerproject.org/. As jy iemand geld betaal het vir PeerProject, moet jy 'n volle terugbetaling onmiddellik eis."/>
 		<control caption="PeerProject respekteer sy gebruikers!"/>
 		<control caption="http://PeerProject.org"/>
 		<control caption="Maak toe"/>
 	</dialog>
 	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Versprei die Nuus">
 		<control caption="Help ons om die nuus te versprei"/>
-		<control caption="Ons hoop jy het dit sover geniet om PeerProject te gebruik.  Ons glo dat dit die beste lêerdelingsprogram beskikbaar is."/>
+		<control caption="Ons hoop jy het dit sover geniet om PeerProject te gebruik. Ons glo dat dit die beste lêerdelingsprogram beskikbaar is."/>
 		<control caption="Ongelukkig weet 'n groot aantal lêerdelers nie wat hulle mis nie!"/>
 		<control caption="As jy van iemand weet wat van PeerProject sal hou, of hulle 'n nuwe gebruiker is, of iemand wat steeds probeer uithou met 'n ondergeskikte program, hoekom hulle nie laat weet dat daar 'n beter alternatief is nie?"/>
 		<control caption="Die kanse is goed dat hulle dankbaar sal wees dat jy hulle gered het!"/>
@@ -4242,17 +4242,17 @@
 		<control/>
 		<control/>
 		<control/>
-		<control caption="Jy het hierdie lêer alreeds in jou biblioteek.  Wat wil jy graag doen?"/>
+		<control caption="Jy het hierdie lêer alreeds in jou biblioteek. Wat wil jy graag doen?"/>
 		<control caption="Wys my die lêer in my biblioteek"/>
 		<control caption="Laai die lêer weer af"/>
 		<control caption="Moet nie die lêer aflaai nie"/>
 		<control caption="OK"/>
 		<control caption="Kanselleer"/>
-		<control caption="Jy het hierdie lêer voorheen afgelaai en geskrap.  Wat wil jy graag doen?"/>
+		<control caption="Jy het hierdie lêer voorheen afgelaai en geskrap. Wat wil jy graag doen?"/>
 		<control caption="Warning: Duplicate files detected. Some malicious software may infect your Library. Make sure that you downloaded this file or placed it manually. Otherwise, shutdown PeerProject and scan your computer with an antivirus program."/>
 	</dialog>
 	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Sluitingsknoppie">
-		<control caption="Hierdie is die eerste keer wat jy PeerProject se sluitingsknoppie gekliek het.  Kies asseblief watter aksie jy wil hê PeerProject moet uitvoer as jy die sluitingsknoppie in die vervolg kliek:"/>
+		<control caption="Hierdie is die eerste keer wat jy PeerProject se sluitingsknoppie gekliek het. Kies asseblief watter aksie jy wil hê PeerProject moet uitvoer as jy die sluitingsknoppie in die vervolg kliek:"/>
 		<control caption="Minimeer na die taakbalkarea"/>
 		<control caption="Verlaat PeerProject dadelik"/>
 		<control caption="Verlaat PeerProject nadat enige aflaai- of oplaaioordragte voltooi is"/>
@@ -4274,7 +4274,7 @@
 		<control caption="Kanselleer"/>
 		<control/>
 		<control caption="Create Ghost File"/>
-		<control caption="PeerProject kan hierdie lêer onthou en jou waarsku as jy dit weer teëkom in 'n ander soektog.  Selekteer asseblief die rede waarom jy die lêer skrap:"/>
+		<control caption="PeerProject kan hierdie lêer onthou en jou waarsku as jy dit weer teëkom in 'n ander soektog. Selekteer asseblief die rede waarom jy die lêer skrap:"/>
 		<control caption="File rating:"/>
 		<control caption="Reason for deleting:"/>
 		<control caption="!"/>

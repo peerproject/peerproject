@@ -4381,7 +4381,7 @@ msgid "Requesting..."
 msgstr "要求中..."
 
 #: string;20084
-msgid "Success!"
+msgid "Success."
 msgstr "成功!"
 
 #: string;20100
@@ -5105,7 +5105,7 @@ msgid "Dropping source %s (%s) for sending corrupted parts of \"%s\" (%I64i-%I64
 msgstr "ソース %s (%s) は、\"%s\".破損した部品(%I64i-%I64i)を送信した為、廃棄されました"
 
 #: string;20293
-msgid "WARNING: Download \"%s\" failed verification, it may not be the file you intended to download!"
+msgid "WARNING: Download \"%s\" failed verification, it may not be the file you intended to download."
 msgstr "警告: ダウンロード \"%s\" の検証に失敗しました。あなたが要求したファイルでない可能性があります!"
 
 #: string;20294
@@ -6229,7 +6229,7 @@ msgid "No tasks scheduled."
 msgstr ""
 
 #: string;20619
-msgid "Last number is 254,252,248,240,224,192,128, or 0.  Others must be 255.\\n\\n(For Netmasked IP ranges.)"
+msgid "Last number is 254,252,248,240,224,192,128, or 0. Others must be 255.\n\n(For Netmasked IP ranges.)\n\nSee perproject.org/wiki for help."
 msgstr ""
 
 #: string;20620
@@ -6609,8 +6609,8 @@ msgid "Verifying"
 msgstr "検証中"
 
 #: string;20750
-msgid "!Welcome to PeerProject (version) !\\n.\\nPeerProject is completely free software.\\nPlease use it responsibly and respect local laws.\\n."
-msgstr "!PeerProject (version) へようこそ!n.nPeerProjectは完全にフリーなソフトウェアですn責任を持って使用し、著作権法を遵守して下さいn"
+msgid "!Welcome to {version}\n\nPeerProject is completely free software, please use it responsibly."
+msgstr "!PeerProject {version} へようこそ!n.nPeerProjectは完全にフリーなソフトウェアですn責任を持って使用し、著作権法を遵守して下さいn"
 
 #: string;20751
 msgid "There are no active searches. Click here to search for files."

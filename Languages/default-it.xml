@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Italian Skin File -->
 
-<!-- Translation based on default-en.xml r82 -->
+<!-- Translation based on default-en.xml r84 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3111,11 +3111,7 @@
 	<string id="20586" value="L'host %s ha inviato un pacchetto sconosciuto (0x%.2x), ignorato."/>
 	<string id="20587" value="L'host %s ha inviato un pong con indirizzi errati, ignorato."/>
 	<string id="20588" value="L'host %s ha inviato una richiesta push a un indirizzo con un firewall, ignorato."/>
-	<string id="20590" value="Accesso remoto è disabilitato."/>
-	<string id="20591" value="http://%s:%i/remote - Scegliere un nome utente e password."/>
-	<string id="20592" value="Impossibile accettare connessioni, URL non disponibile."/>
-	<string id="20597" value="Sei sicuro di voler cancellare le regole di sicurezza selezionate?"/>
-	<string id="20599" value="&amp;Schemi"/>
+	<string id="20598" value="Sei sicuro di voler cancellare le regole di sicurezza selezionate?"/>
 	<!-- Missing Scheduler/Security Strings -->
 	<string id="20614" value="Attesa"/>
 	<string id="20620" value="PeerProject sta cercando nella rete..."/>
@@ -3173,7 +3169,11 @@
 	<string id="20677" value="Inserisci il limite di banda che desideri impostare nella forma &quot;123 kb/s&quot; per kilobit al secondo, oppure &quot;123 KB/s&quot; per kilobyte al secondo."/>
 	<string id="20678" value="La rete eDonkey usa grandi code con lunghi tempi di attesa. Limitando la posizione massima in coda puoi avere problemi nella partenza dei download.nSei sicuro di voler limitare la posizione massima in coda da accettare?"/>
 	<string id="20680" value="Opzioni di PeerProject"/>
-	<string id="20684" value="Desideri eliminare la skin &quot;%s&quot;. Quest'azione non potrà essere annullata."/>
+	<string id="20682" value="Accesso remoto è disabilitato."/>
+	<string id="20684" value="http://%s:%i/remote - Scegliere un nome utente e password."/>
+	<string id="20685" value="Impossibile accettare connessioni, URL non disponibile."/>
+	<string id="20692" value="Desideri eliminare la skin &quot;%s&quot;. Quest'azione non potrà essere annullata."/>
+	<string id="20699" value="&amp;Schemi"/>
 	<string id="20700" value="%s in : %s out (d:%I64i/u:%I64i)"/>
 	<string id="20701" value="Connesso con %lu host. %s nella libreria locale."/>
 	<string id="20702" value="Modalità Hub con %lu vicino(i). %s nella tua libreria locale."/>
@@ -3687,7 +3687,7 @@
 		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
 		<control caption="_Strumenti:"/>
 		<control caption="Scarica..."/>
-		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
+		<control caption="Update DC++ hubs from the web. (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Connessioni di download:"/>

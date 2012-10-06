@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hungarian Skin File -->
 
-<!-- Translation based on default-en.xml r82 -->
+<!-- Translation based on default-en.xml r84 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2727,7 +2727,7 @@
 	<string id="20219" value="A letöltési kapcsolat megszakadt: %s."/>
 	<string id="20221" value="Adjon meg egy érvényes törlendő részt. A(z) &quot;from&quot; mező az első bájt, a(z) &quot;last&quot; mező az utolsó bájt, amit törölni kell."/>
 	<string id="20222" value="A beírt %s érték érvénytelen. Ellenőrizze és próbálja meg újra."/>
-	<string id="20223" value="Egy más %s hash értéket adott meg, ami különbözik a jelenlegitől.  Biztos ki akarja cserélni?"/>
+	<string id="20223" value="Egy más %s hash értéket adott meg, ami különbözik a jelenlegitől. Biztos ki akarja cserélni?"/>
 	<string id="20224" value="Megváltoztatta a letöltés nevét. Biztos át akarja nevezni?"/>
 	<string id="20225" value="BitTorrent kapcsolódás visszautasítva: %s, több kapcsolat már nem hozható létre."/>
 	<string id="20226" value="Nem tudja a letöltést késznek tekinteni és ellenőrizni, mert nincs hozzá megfelelő hash érték."/>
@@ -3039,11 +3039,7 @@
 	<string id="20586" value="%s ismeretlen csomagot küldött tovább (0x%.2x), ignorálás."/>
 	<string id="20587" value="%s érvénytelen címmel rendelkező pong csomagot küldött tovább, ignorálás."/>
 	<string id="20588" value="%s továbbküldött egy push request-et egy tűzfallal védett címre, ignorálás."/>
-	<string id="20590" value="Távoli használat kikapcsolva."/>
-	<string id="20591" value="http://%s:%i/remote - Egy felhasználónevet és egy jelszót kell választania."/>
-	<string id="20592" value="Nem tudom fogadni a kapcsolatokat, URL érvénytelen."/>
-	<string id="20597" value="Biztosan törölni akarja a kiválasztott biztonsági szabályokat?"/>
-	<string id="20599" value="&amp;Sémák"/>
+	<string id="20598" value="Biztosan törölni akarja a kiválasztott biztonsági szabályokat?"/>
 	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="Aktív keresés folyamatban..."/>
 	<string id="20621" value="Kattintson ide az újrakereséshez"/>
@@ -3100,12 +3096,16 @@
 	<string id="20677" value="Írja be a sávszél-korlátozást: &quot;123 kb/s&quot; kilobit per másodperc vagy &quot;123 KB/s&quot; kilobájt per másodperc formában."/>
 	<string id="20678" value="Az eDonkey hálózaton sokáig kell sorbanállni és várakozni egy fájlért. Ha csökkenti a sorok maximális számát, valószínűleg nem fognak elidulni a letöltések.\nBiztos csökkenteni akarja a számodra kirendelt sorszámot?"/>
 	<string id="20680" value="Beállítások"/>
-	<string id="20684" value="Biztos, hogy törölni akarja a(z) &quot;%s&quot; kinézetet? Ezt már nem lehet később visszavonni."/>
+	<string id="20682" value="Távoli használat kikapcsolva."/>
+	<string id="20684" value="http://%s:%i/remote - Egy felhasználónevet és egy jelszót kell választania."/>
+	<string id="20685" value="Nem tudom fogadni a kapcsolatokat, URL érvénytelen."/>
+	<string id="20692" value="Biztos, hogy törölni akarja a(z) &quot;%s&quot; kinézetet? Ezt már nem lehet később visszavonni."/>
+	<string id="20699" value="&amp;Sémák"/>
 	<string id="20700" value="Le: %s | Fel: %s (d:%I64i/u:%I64i)"/>
-	<string id="20701" value="Kapcsolódva %lu szomszéddal.  %s a megosztás mérete."/>
-	<string id="20702" value="Hub mód %lu szomszéddal.  %s a helyi könyvtárban."/>
-	<string id="20703" value="Hub/Ultrapeer mód %lu szomszéddal.  %s a helyi könyvtárban."/>
-	<string id="20704" value="Ultrapeer mód %lu szomszéddal.  %s a helyi könyvtárban."/>
+	<string id="20701" value="Kapcsolódva %lu szomszéddal. %s a megosztás mérete."/>
+	<string id="20702" value="Hub mód %lu szomszéddal. %s a helyi könyvtárban."/>
+	<string id="20703" value="Hub/Ultrapeer mód %lu szomszéddal. %s a helyi könyvtárban."/>
+	<string id="20704" value="Ultrapeer mód %lu szomszéddal. %s a helyi könyvtárban."/>
 	<string id="20705" value="Kapcsolódva. %s a helyi könyvtárban."/>
 	<string id="20706" value="Kapcsolódás..."/>
 	<string id="20707" value="Nincs kapcsolat."/>
@@ -3612,7 +3612,7 @@
 		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
 		<control caption="e_szközök:"/>
 		<control caption="Letöltés..."/>
-		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
+		<control caption="Update DC++ hubs from the web. (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Letöltési kapcsolatok"/>

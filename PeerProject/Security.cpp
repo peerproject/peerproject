@@ -494,17 +494,14 @@ BOOL CSecurity::IsDenied(const IN_ADDR* pAddress)
 		return m_bDenyPolicy;
 		//theApp.Message( MSG_DEBUG, _T("Skipped Repeat IP Security Check  (%i Cached)"), m_Cache.size() );
 
-	//if ( m_AddressMap.count( *(DWORD*)pAddress ) )
+	if ( BYTE nIndex = GetAddressMap( *(DWORD*)pAddress ) )
 	{
-		if ( BYTE nIndex = m_AddressMap[ *(DWORD*)pAddress ] )
+		if ( CSecureRule* pRule = m_pRuleIndexMap[ nIndex ] )
 		{
-			if ( CSecureRule* pRule = m_pRuleIndexMap[ nIndex ] )
-			{
-				pRule->m_nToday ++;
-				pRule->m_nEver ++;
-				if ( pRule->m_nAction == CSecureRule::srDeny )   return TRUE;
-				if ( pRule->m_nAction == CSecureRule::srAccept ) return FALSE;
-			}
+			pRule->m_nToday ++;
+			pRule->m_nEver ++;
+			if ( pRule->m_nAction == CSecureRule::srDeny )   return TRUE;
+			if ( pRule->m_nAction == CSecureRule::srAccept ) return FALSE;
 		}
 	}
 
@@ -758,7 +755,7 @@ void CSecurity::Expire()
 
 BOOL CSecurity::Load()
 {
-	const CString strFile = Settings.General.UserPath + _T("\\Data\\Security.dat");
+	const CString strFile = Settings.General.DataPath + _T("Security.dat");
 
 	CFile pFile;
 	if ( pFile.Open( strFile, CFile::modeRead | CFile::shareDenyWrite | CFile::osSequentialScan ) )
@@ -800,8 +797,8 @@ BOOL CSecurity::Load()
 
 BOOL CSecurity::Save()
 {
-	const CString strFile = Settings.General.UserPath + _T("\\Data\\Security.dat");
-	const CString strTemp = Settings.General.UserPath + _T("\\Data\\Security.tmp");
+	const CString strFile = Settings.General.DataPath + _T("Security.dat");
+	const CString strTemp = Settings.General.DataPath + _T("Security.tmp");
 
 	CFile pFile;
 	if ( pFile.Open( strTemp, CFile::modeWrite | CFile::modeCreate | CFile::shareExclusive | CFile::osSequentialScan ) )
@@ -1999,22 +1996,22 @@ void CSecureRule::ToList(CLiveList* pLiveList, int nCount, DWORD tNow) const
 		pItem->Set( COL_SECURITY_TYPE, _T("IP") );
 		break;
 	case CSecureRule::srContentAny:
-		pItem->Set( COL_SECURITY_TYPE, _T("Any") );
+		pItem->Set( COL_SECURITY_TYPE, LoadString( IDS_SECURITY_ANY ) );
 		break;
 	case CSecureRule::srContentAll:
-		pItem->Set( COL_SECURITY_TYPE, _T("All") );
+		pItem->Set( COL_SECURITY_TYPE, LoadString( IDS_SECURITY_ALL ) );
 		break;
 	case CSecureRule::srContentRegExp:
 		pItem->Set( COL_SECURITY_TYPE, _T("RegExp") );
 		break;
 	case CSecureRule::srContentHash:
-		pItem->Set( COL_SECURITY_TYPE, _T("Hash") );
+		pItem->Set( COL_SECURITY_TYPE, LoadString( IDS_SECURITY_HASH ) );
 		break;
 	case CSecureRule::srSizeType:
-		pItem->Set( COL_SECURITY_TYPE, _T("Size") );
+		pItem->Set( COL_SECURITY_TYPE, LoadString( IDS_TIP_SIZE ) );
 		break;
 	case CSecureRule::srExternal:
-		pItem->Set( COL_SECURITY_TYPE, _T("List") );
+		pItem->Set( COL_SECURITY_TYPE, LoadString( IDS_SECURITY_LIST ) );
 		break;
 	}
 
@@ -2024,7 +2021,7 @@ void CSecureRule::ToList(CLiveList* pLiveList, int nCount, DWORD tNow) const
 	}
 	else if ( m_nExpire == CSecureRule::srSession )
 	{
-		pItem->Set( COL_SECURITY_EXPIRES, _T("Session") );
+		pItem->Set( COL_SECURITY_EXPIRES, LoadString( IDS_SECURITY_SESSION ) );
 	}
 	else if ( m_nExpire >= tNow )
 	{
@@ -2064,7 +2061,7 @@ void CAdultFilter::Load()
 {
 	CFile pFile;
 	CString strBlockedWords, strDubiousWords, strChildWords;
-	const CString strFile = Settings.General.Path + _T("\\Data\\AdultFilter.dat");
+	const CString strFile = Settings.General.Path + _T("\\Data\\AdultFilter.dat");	// Settings.General.DataPath ?
 
 	// Delete current adult filters (if present)
 	if ( m_pszBlockedWords ) delete [] m_pszBlockedWords;
@@ -2597,7 +2594,7 @@ void CListLoader::OnRun()
 			strCommentBase += _T("  • %u");
 
 		if ( strPath[1] != _T(':') )
-			strPath = Settings.General.UserPath + _T("\\Data\\") + strPath;
+			strPath = Settings.General.DataPath + strPath;
 
 		CFile pFile;
 		if ( ! pFile.Open( (LPCTSTR)strPath.GetBuffer(), CFile::modeRead ) )
@@ -2673,7 +2670,7 @@ void CListLoader::OnRun()
 				nPos = strLine.Find( _T('-') );					// Possible Range
 				if ( nPos < 0 )									// Single IP
 				{
-					Security.SetAddressMap( IPStringToDWORD( strLine ), nIndex );
+					Security.SetAddressMap( IPStringToDWORD( strLine, TRUE ), nIndex );
 					continue;
 				}
 
@@ -2682,13 +2679,13 @@ void CListLoader::OnRun()
 
 				if ( strFirst == strLast )
 				{
-					Security.SetAddressMap( IPStringToDWORD( strLine ), nIndex );
+					Security.SetAddressMap( IPStringToDWORD( strLine, TRUE ), nIndex );
 					continue;
 				}
 
 				// inet_addr( CT2CA( (LPCTSTR)strLast )
-				DWORD nFirst = IPStringToDWORD( strFirst );
-				DWORD nLast  = IPStringToDWORD( strLast );
+				DWORD nFirst = IPStringToDWORD( strFirst, FALSE );
+				DWORD nLast  = IPStringToDWORD( strLast, FALSE );
 
 				if ( nFirst < 10 || nFirst >= 0xE0000000 )	// 0 or "0.0." or "224-255"
 					continue;		// Redundant/Invalid
@@ -2704,7 +2701,7 @@ void CListLoader::OnRun()
 
 				for ( DWORD nRange = Settings.Security.ListRangeLimit ; nFirst <= nLast && nRange ; nFirst++, nRange-- )
 				{
-					Security.SetAddressMap( nFirst, nIndex );
+					Security.SetAddressMap( htonl( nFirst ), nIndex );	// Reverse host-byte order
 				}
 			}
 
@@ -2725,4 +2722,12 @@ void CListLoader::OnRun()
 	}
 
 	StopThread();
+
+	// Recheck
+	Sleep( 5000 );
+	{
+		CQuickLock oLock( Security.m_pSection );
+		Security.m_Cache.clear();
+	}
+	PostMainWndMessage( WM_SANITY_CHECK );
 }

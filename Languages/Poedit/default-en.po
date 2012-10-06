@@ -4381,8 +4381,8 @@ msgid "Requesting..."
 msgstr "Requesting..."
 
 #: string;20084
-msgid "Success!"
-msgstr "Success!"
+msgid "Success."
+msgstr "Success."
 
 #: string;20100
 msgid "Closing browse user connection to %s."
@@ -5105,8 +5105,8 @@ msgid "Dropping source %s (%s) for sending corrupted parts of \"%s\" (%I64i-%I64
 msgstr "Dropping source %s (%s) for sending corrupted parts of \"%s\" (%I64i-%I64i)."
 
 #: string;20293
-msgid "WARNING: Download \"%s\" failed verification, it may not be the file you intended to download!"
-msgstr "WARNING: Download \"%s\" failed verification, it may not be the file you intended to download!"
+msgid "WARNING: Download \"%s\" failed verification, it may not be the file you intended to download."
+msgstr "WARNING: Download \"%s\" failed verification, it may not be the file you intended to download."
 
 #: string;20294
 msgid "Successfully verified download \"%s\"."
@@ -6229,8 +6229,8 @@ msgid "No tasks scheduled."
 msgstr "No tasks scheduled."
 
 #: string;20619
-msgid "Last number is 254,252,248,240,224,192,128, or 0.  Others must be 255.\\n\\n(For Netmasked IP ranges.)"
-msgstr "Last number is 254,252,248,240,224,192,128, or 0.  Others must be 255.\\n\\n(For Netmasked IP ranges.)"
+msgid "Last number is 254,252,248,240,224,192,128, or 0. Others must be 255.\n\n(For Netmasked IP ranges.)\n\nSee perproject.org/wiki for help."
+msgstr "Last number is 254,252,248,240,224,192,128, or 0. Others must be 255.\n\n(For Netmasked IP ranges.)\n\nSee perproject.org/wiki for help."
 
 #: string;20620
 msgid "PeerProject is actively searching the network..."
@@ -6609,8 +6609,8 @@ msgid "Verifying"
 msgstr "Verifying"
 
 #: string;20750
-msgid "!Welcome to PeerProject (version) !\\n.\\nPeerProject is completely free software.\\nPlease use it responsibly and respect local laws.\\n."
-msgstr "!Welcome to PeerProject (version) !\\n.\\nPeerProject is completely free software.\\nPlease use it responsibly and respect local laws.\\n."
+msgid "!Welcome to {version}\n\nPeerProject is completely free software, please use it responsibly."
+msgstr "!Welcome to {version}\n\nPeerProject is completely free software, please use it responsibly."
 
 #: string;20751
 msgid "There are no active searches. Click here to search for files."

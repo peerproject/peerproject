@@ -1335,12 +1335,12 @@ BOOL CLibraryTreeView::Update(CLibraryFolder* pFolder, CLibraryTreeItem* pItem, 
 	if ( pItem == NULL )
 	{
 		CString strName = pFolder->m_sName;
-		if ( pFolder->m_pParent == NULL )
+		if ( pFolder->m_pParent == NULL && Settings.General.GUIMode != GUI_BASIC )
 		{
-			CString strDrive = _T(" (Net)");
-			if ( pFolder->m_sPath.Find( _T(":\\") ) == 1 || pFolder->m_sPath.GetLength() == 2 )
-				strDrive.Format( _T(" (%C:)"), pFolder->m_sPath[0] );
-			strName += strDrive;
+			if ( pFolder->m_sPath[1] == _T(':') )
+				strName += _T("  (") + pFolder->m_sPath.Left( 1 ) + _T(":)");
+			else if ( pFolder->m_sPath[1] == _T('\\') )
+				strName += _T("  (") + pFolder->m_sPath.Mid( 2, pFolder->m_sPath.Find( L'\\', 3 ) - 2 ) + _T(")");
 		}
 		pItem = pParent->addItem( strName );
 		if ( bVisible ) m_nTotal++;

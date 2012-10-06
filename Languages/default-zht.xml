@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Traditional) Skin File -->
 
-<!-- Translation based on default-en.xml r82 --> <!-- (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r84 --> <!-- (Shareaza 2.2.2.12) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2928,10 +2928,6 @@
 	<string id="20586" value="鄰居 %s 轉送了一個無法辨認的封包 (0x%.2x), 忽略中."/>
 	<string id="20587" value="鄰居 %s 轉送了一個無效位址資料的 pong, 忽略中."/>
 	<string id="20588" value="鄰居 %s 轉送了一個推播要求至 a firewalled 位址, 忽略中."/>
-	<string id="20590" value="遠端操控已經停用"/>
-	<string id="20591" value="http://%s:%i/remote - 您必須選擇一個使用者名稱與密碼"/>
-	<string id="20592" value="無法接受連線, 沒有可用的URL."/>
-	<string id="20599" value="构架"/>
 	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="PeerProject 正在活躍地搜尋網路..."/>
 	<string id="20621" value="點選這裡再次搜尋"/>
@@ -2986,7 +2982,11 @@
 	<string id="20677" value="請以這樣的方式輸入您想要設定的頻寬限制 &quot;123 kb/s&quot; =每秒123 kb, or &quot;123 KB/s&quot; =每秒123KB."/>
 	<string id="20678" value="eDonkey 網路實施漫長的排隊長度與很長的等待時間. 如果您限制您能接受的排隊隊伍的長度, 您可能無法開始下載.\n您確定要限制您能夠接受的排隊隊伍的長度嗎?"/>
 	<string id="20680" value="PeerProject 設定"/>
-	<string id="20684" value="您確定要刪除 &quot;%s&quot; 外觀嗎? 這個動作將不能回復."/>
+	<string id="20682" value="遠端操控已經停用"/>
+	<string id="20684" value="http://%s:%i/remote - 您必須選擇一個使用者名稱與密碼"/>
+	<string id="20685" value="無法接受連線, 沒有可用的URL."/>
+	<string id="20692" value="您確定要刪除 &quot;%s&quot; 外觀嗎? 這個動作將不能回復."/>
+	<string id="20699" value="构架"/>
 	<string id="20700" value="%s in : %s out (d:%I64i/u:%I64i)"/>
 	<string id="20701" value="已連線至 %lu 鄰居. %s 在本地收藏."/>
 	<string id="20702" value="結點模式 %lu 鄰居. %s 在本地的收藏."/>

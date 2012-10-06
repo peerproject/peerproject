@@ -3,7 +3,7 @@
 
 <!-- PeerProject Korean Language Skin File -->
 
-<!-- Translation based on default-en.xml r82 --> <!--Machine Translated!-->
+<!-- Translation based on default-en.xml r84 --> <!--Machine Translated!-->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2227,7 +2227,7 @@
 	<string id="20402" value="추가"/>
 	<string id="20403" value="채"/>
 	<string id="20404" value="채팅:"/>
-	<string id="20405" value="Please respect others while using this service.  Press Connect below to start."/>
+	<string id="20405" value="Please respect others while using this service. Press Connect below to start."/>
 	<string id="20406" value="Welcome to the PeerProject IRC Chatrooms"/>
 	<string id="20407" value="제"/>
 	<string id="20408" value="사용자"/>
@@ -2382,10 +2382,6 @@
 	<string id="20586" value="Neighbor %s forwarded an unrecognised packet (0x%.2x), ignoring."/>
 	<string id="20587" value="Neighbor %s forwarded a pong with invalid address data, ignoring."/>
 	<string id="20588" value="Neighbor %s forwarded a push request to a firewalled address, ignoring."/>
-	<string id="20590" value="Remote access is disabled."/>
-	<string id="20591" value="http://%s:%i/remote - Username/password required."/>
-	<string id="20592" value="Unable to accept connections, URL unavailable."/>
-	<string id="20599" value="&amp;Schemas"/>
 -->
 	<!-- Missing Scheduler/Security Strings -->
 	<string id="20620" value="PeerProject 적극적으로 네트워크를 찾고있습니다..."/>
@@ -2439,12 +2435,16 @@
 	<string id="20672" value="Select the eDonkey/eMule temp folder:"/>
 	<string id="20673" value="자동"/>
 	<string id="20674" value="The complete and incomplete folders should not be the same"/>
-	<string id="20675" value="Windows doesn't support paths longer than 256 characters.nPlease select a folder with a shorter path."/>
+	<string id="20675" value="Windows doesn't support paths longer than 256 characters.\nPlease select a folder with a shorter path."/>
 	<string id="20676" value="The incomplete files folder should not be in the library, as it would reduce performance. Incomplete files may be shared directly from the transfers window."/>
 	<string id="20677" value="Please type the bandwidth limit you wish to set in the form &quot;123 kb/s&quot; for kilobits per second, or &quot;123 KB/s&quot; for kilobytes per second."/>
 	<string id="20678" value="The eDonkey network uses large queues with long wait times. By limiting the maximum queue position you will accept so strictly, you may have trouble getting downloads to begin.nAre you sure you want to limit what queue positions you will accept?"/>
 	<string id="20680" value="PeerProject 설정"/>
-	<string id="20684" value="Are you sure you want to delete the &quot;%s&quot; skin? This cannot be undone."/>
+	<string id="20682" value="Remote access is disabled."/>
+	<string id="20684" value="http://%s:%i/remote - Username/password required."/>
+	<string id="20685" value="Unable to accept connections, URL unavailable."/>
+	<string id="20692" value="Are you sure you want to delete the &quot;%s&quot; skin? This cannot be undone."/>
+	<string id="20699" value="&amp;Schemas"/>
 	<string id="20700" value="%s in : %s out (d:%I64i/u:%I64i)"/>
 	<string id="20701" value=" %lu 이웃에 연결됨. %s 지방 컬렉션."/>
 	<string id="20702" value="Hub mode with %lu neighbours. %s 개 지역 도서관에."/>
@@ -2855,7 +2855,7 @@
 		<control/>
 		<control/>
 		<control caption="도움:"/>
-		<control caption="PeerProject Remote Access allows you to leave PeerProject running on your PC, and control it remotely using a web browser.  You will need to be able to accept incoming connections to use this feature.  (Ensure port-forwarding.)"/>
+		<control caption="PeerProject Remote Access allows you to leave PeerProject running on your PC, and control it remotely using a web browser. You will need to be able to accept incoming connections to use this feature. (Ensure port-forwarding.)"/>
 	</dialog>
 	<!-- MISSING DIALOG PAGES -->
 	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdStBuBuBu" caption="테마">
@@ -2941,7 +2941,7 @@
 	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="피어 프로젝트에 오신 것을 환영합니다. (1/8) &apos;PeerProject&apos;">
 		<control caption="피어 프로젝트에 오신 것을 환영합니다 (PeerProject)"/>
 		<control caption="If you haven&apos;t used PeerProject or another P2P client before, this QuickStart wizard can help you configure your copy in a few simple steps."/>
-		<control caption="If you&apos;re a more advanced user, you can access the full range of PeerProject&apos;s options via the Tools menu.  Click Exit to close the wizard at any time."/>
+		<control caption="If you&apos;re a more advanced user, you can access the full range of PeerProject&apos;s options via the Tools menu. Click Exit to close the wizard at any time."/>
 		<control caption="This wizard will assist you to:"/>
 		<control/>
 		<control caption="Tell PeerProject about your Internet connection"/>
@@ -2975,7 +2975,7 @@
 		<control caption="Connect to Gnutella"/>
 		<control caption="The original Gnutella network (G1) is less feature-rich than G2, with more unwanted spam, yet remains a valuable resource. (LimeWire)"/>
 		<control caption="Connect to eDonkey2000"/>
-		<control caption="The eDonkey network (ED2K) is a popular server-based network.  While not as feature-rich or fast as G2, ED2K has a vast file collection. (eMule)"/>
+		<control caption="The eDonkey network (ED2K) is a popular server-based network. While not as feature-rich or fast as G2, ED2K has a vast file collection. (eMule)"/>
 		<control caption="Associate .Torrent Files  (Handle BitTorrent links by default)"/>
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="피어 프로젝트에 오신 것을 환영합니다 (4/8)">
@@ -3034,7 +3034,7 @@
 		<control/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="피어 프로젝트에 오신 것을 환영합니다 (8/8)">
-		<control caption="That&apos;s it.  PeerProject has been configured to work with your computer."/>
+		<control caption="That&apos;s it. PeerProject has been configured to work with your computer."/>
 		<control caption="If you ever need to change your settings, you can re-run this QuickStart wizard by selecting it from the Tools menu or Home tab."/>
 		<control caption="After closing this wizard, try running a fake search to Ban the spammers. Explore toolbar tabs while waiting."/>
 		<control caption="Start PeerProject every time Windows starts"/>
@@ -3087,8 +3087,8 @@
 	</dialog>
 	<dialog name="CDownloadDlg" cookie="StStStEdStBuBuBu" caption="Download File from Link">
 		<control/>
-		<control caption="New files can be downloaded directly from Web and P2P links.  Simply copy/paste the URL or URI link for the file into the box below. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
-		<control caption="A small .torrent file is needed to begin BitTorrent downloads.  Paste the .torrent's direct link above, or select a local .torrent file. (Use drag'n'drop any time.)"/>
+		<control caption="New files can be downloaded directly from Web and P2P links. Simply copy/paste the URL or URI link for the file into the box below. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
+		<control caption="A small .torrent file is needed to begin BitTorrent downloads. Paste the .torrent's direct link above, or select a local .torrent file. (Use drag'n'drop any time.)"/>
 		<control/>
 		<control/>
 		<control caption="다운로드"/>
@@ -3404,8 +3404,8 @@
 	<dialog name="CWarningsDlg" cookie="StStStStStStBu" caption="PeerProject Respects its Users">
 		<control caption="Did you know PeerProject is 100% free software?"/>
 		<control caption="PeerProject does not contain any spyware, adware or bundled software;{n}it does not display any advertisements, popups, or other bad behavior.{n}{n}If you ever see such activity be assured that it is not coming from this program."/>
-		<control caption="PeerProject is proud to be Free and Open-Source Software.  A non-profit team of passionate volunteers shares this product with all the freedoms of GPL and Creative Commons Licenses, in the hope that it might be useful."/>
-		<control caption="You must not have paid any money to obtain this program.  PeerProject can be freely downloaded from PeerProject.org, if you've paid anyone for this demand a full refund immediately."/>
+		<control caption="PeerProject is proud to be Free and Open-Source Software. A non-profit team of passionate volunteers shares this product with all the freedoms of GPL and Creative Commons Licenses, in the hope that it might be useful."/>
+		<control caption="You must not have paid any money to obtain this program. PeerProject can be freely downloaded from PeerProject.org, if you've paid anyone for this demand a full refund immediately."/>
 		<control caption="PeerProject respects and appreciates its users."/>
 		<control caption="http://PeerProject.org"/>
 		<control caption="닫기"/>

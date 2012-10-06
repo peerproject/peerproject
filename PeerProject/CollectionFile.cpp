@@ -67,7 +67,7 @@ BOOL CCollectionFile::Open(LPCTSTR lpszFileName)
 	const int nLength = (int)_tcslen( lpszFileName );
 	if ( nLength < 4 ) return FALSE;
 
-	if ( _tcsicmp( lpszFileName + nLength - 3,  _T(".co") ) == 0 ||
+	if ( _tcsicmp( lpszFileName + nLength - 3, _T(".co") ) == 0 ||
 		 nLength > 11 && _tcsicmp( lpszFileName + nLength - 11, _T(".collection") ) == 0 )
 	{
 		if ( LoadCollection( lpszFileName ) )
@@ -78,7 +78,7 @@ BOOL CCollectionFile::Open(LPCTSTR lpszFileName)
 		if ( LoadEMule( lpszFileName ) )
 			return TRUE;
 	}
-	else if ( nLength > 8  && _tcsicmp( lpszFileName + nLength - 8,  _T(".xml.bz2") ) == 0 )
+	else if ( nLength > 8  && _tcsicmp( lpszFileName + nLength - 8, _T(".xml.bz2") ) == 0 )
 	{
 		if ( LoadDC( lpszFileName ) )
 			return TRUE;

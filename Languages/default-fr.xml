@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default French Skin File -->
 
-<!-- Translation based on default-en.xml r82 -->
+<!-- Translation based on default-en.xml r84 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3191,11 +3191,7 @@
 	<string id="20586" value="Le voisin %s a fait suivre un paquet inconnu (0x%.2x), ignore."/>
 	<string id="20587" value="Le voisin %s a fait suivre un paquet de pong avec adresse invalide, ignore."/>
 	<string id="20588" value="Le voisin %s a fait suivre une demande poussée à une adresse derrière un pare-feu, on l'ignore."/>
-	<string id="20590" value="L'accès à distance est désactivé."/>
-	<string id="20591" value="http://%s:%i/remote - Nom d'utilisateur et passe ?"/>
-	<string id="20592" value="Impossible d'accepter des connexions, URL indisponible."/>
-	<string id="20597" value="Êtes-vous certain de vouloir supprimer ces règles ?"/>
-	<string id="20599" value="&amp;Schémas"/>
+	<string id="20598" value="Êtes-vous certain de vouloir supprimer ces règles ?"/>
 	<!-- Missing Scheduler/Security Strings -->
 	<string id="20614" value="Attente"/>
 	<string id="20620" value="PeerProject recherche activement sur le réseau..."/>
@@ -3253,7 +3249,11 @@
 	<string id="20677" value="Merci d'entrer la limite de bande passante que vous voulez appliquer sous la forme « 123 kb/s » pour kilobits par seconde, ou « 123 KB/s » pour kilooctets par seconde."/>
 	<string id="20678" value="Le réseau eDonkey utilise de larges files d'attente avec de longs temps d'attente. En acceptant de limiter trop strictement le nombre maximum de place dans la file d'attente, vous pourriez avoir des problèmes pour avoir des téléchargements qui commencent.nÊtes-vous certain de vouloir limiter le nombre de positions en file d'attente que vous acceptez ?"/>
 	<string id="20680" value="Réglages PeerProject"/>
-	<string id="20684" value="Êtes-vous certain de vouloir supprimer le thème « %s »? Ceci est irréversible."/>
+	<string id="20682" value="L'accès à distance est désactivé."/>
+	<string id="20684" value="http://%s:%i/remote - Nom d'utilisateur et passe ?"/>
+	<string id="20685" value="Impossible d'accepter des connexions, URL indisponible."/>
+	<string id="20692" value="Êtes-vous certain de vouloir supprimer le thème « %s »? Ceci est irréversible."/>
+	<string id="20699" value="&amp;Schémas"/>
 	<string id="20700" value="%s e. : %s s. (t:%I64i/e:%I64i)"/>
 	<string id="20701" value="Connecté à %lu voisins. %s dans votre bibliothèque locale."/>
 	<string id="20702" value="En mode Hub avec %lu voisins. %s dans votre bibliothèque locale."/>
@@ -3766,7 +3766,7 @@
 		<control caption="DC++ works by connecting to specific &quot;hub&quot; communities. Please select hubs from the &quot;Hostcache&quot; advanced view window (F8), otherwise one will be randomly selected."/>
 		<control caption="Ou_tils :"/>
 		<control caption="Télécharger..."/>
-		<control caption="Update DC++ hubs from the web.  (hublist.xml.bz2)"/>
+		<control caption="Update DC++ hubs from the web. (hublist.xml.bz2)"/>
 	</dialog>
 	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="Connexions de _Téléchargement :"/>
