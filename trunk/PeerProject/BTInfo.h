@@ -60,7 +60,7 @@ public:
 	class CBTFile : public CPeerProjectFile
 	{
 	public:
-		CString	FindFile();	// Find file on disk
+		CString	FindFile() const;		// Find file on disk
 
 	private:
 		const CBTInfo*	m_pInfo;		// Parent torrent handler

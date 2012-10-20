@@ -1783,11 +1783,12 @@
 #define ID_LIBRARY_DELETE                   40226
 #define ID_LIBRARY_COPY                     40227
 #define ID_LIBRARY_MOVE                     40228
-#define ID_LIBRARY_ADD                      40230
-#define ID_LIBRARY_REMOVE                   40231
-#define ID_LIBRARY_RENAME                   40232
-#define ID_LIBRARY_REBUILD                  40233
-#define ID_LIBRARY_REBUILD_ANSI             40234
+#define ID_LIBRARY_ADD                      40229
+#define ID_LIBRARY_REMOVE                   40230
+#define ID_LIBRARY_RENAME                   40231
+#define ID_LIBRARY_REBUILD                  40232
+#define ID_LIBRARY_REBUILD_ANSI             40233
+#define ID_LIBRARY_REBUILD_FILE             40234
 #define ID_LIBRARY_REFRESH                  40235
 #define ID_LIBRARY_REFRESH_METADATA         40236
 #define ID_LIBRARY_SCAN                     40237

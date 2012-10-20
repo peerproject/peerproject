@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Norwegian Skin File -->
 
-<!-- Translation based on default-en.xml r84 --> <!-- (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r85 --> <!-- (Shareaza 2.2.0.2) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -409,7 +409,7 @@
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="Utforsk bruker"/>
 		<button id="ID_CHAT_PRIORITY" text="Gi prioritet"/>
-		<!-- <button id="ID_CHAT_SEND_FILE" text="Send fil"/> -->
+		<!--button id="ID_CHAT_SEND_FILE" text="Send fil"-->
 		<separator/>
 		<button id="ID_CHAT_CONNECT" text="Koble til" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="Koble fra"/>
@@ -1134,8 +1134,6 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Episode fra samme serie"/>
 		</menu>
 		<menu text="_Webtjenester">
-			<item id="ID_LIBRARY_REBUILD_ANSI" text="Lokaliser metadata"/>
-			<separator/>
 			<item id="ID_LIBRARY_BITZI_WEB" text="Søk med Bitzi Ticket"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Hent Metadata"/>
 			<separator/>
@@ -1175,6 +1173,7 @@
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Hent metadata"/>
 		</menu>
 		<menu text="_Metadata">
+			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh metadata"/>
 			<item id="ID_LIBRARY_REBUILD_ANSI" text="Lokaliser metadata"/>
 			<item id="ID_LIBRARY_COLUMNS" text="Velg kolonner"/>
@@ -1399,7 +1398,7 @@
 		<item id="ID_CHAT_DISCONNECT" text="Koble fra"/>
 		<separator/>
 		<item id="ID_CHAT_BROWSE" text="Utforsk bruker"/>
-		<!-- <item id="ID_CHAT_SEND_FILE" text="Send fil..."/> -->
+		<!--item id="ID_CHAT_SEND_FILE" text="Send fil..."-->
 		<item id="ID_CHAT_PRIORITY" text="Gi prioritet"/>
 		<separator/>
 		<menu text="_Format">
@@ -1480,8 +1479,8 @@
 		<text align="middle">- Endre PeerProject's utseende</text>
 		<newline gap="8"/>
 		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link><gap size="6"/>
-		<text align="middle">- Update blocklist to avoid bad search results</text>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Sikkerhetsmessige Filters</link><gap size="6"/>
+		<text align="middle">- Oppdater BlockList å unngå dårlig søkeresultatene</text>
 		<newline gap="8"/>
 		<icon res="197" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 		<link target="command:ID_TOOLS_WIZARD" align="middle">Innstillingsveiviser</link><gap size="6"/>
@@ -2047,7 +2046,7 @@
 	<tip id="ID_CHAT_EMOTICONS" message="Sett inn et uttrykksikon."/>
 	<tip id="ID_CHAT_ITALIC" message="Velg kursiv skrift (Ctrl+I)"/>
 	<tip id="ID_CHAT_PRIORITY" message="Gi opplastingsprioritet til bruker."/>
-	<!-- <tip id="ID_CHAT_SEND_FILE" message="Send en fil til bruker..."/> -->
+	<!--tip id="ID_CHAT_SEND_FILE" message="Send en fil til bruker..."-->
 	<tip id="ID_CHAT_TIMESTAMP" message="Vis tidspunkt for når hver melding ble mottatt."/>
 	<tip id="ID_CHAT_UNDERLINE" message="Velg understreking (Ctrl+U)"/>
 	<tip id="ID_CHILD_CLOSE" message="Lukk det aktive vinduet."/>
@@ -2161,6 +2160,7 @@
 	<tip id="ID_LIBRARY_PARENT" message="Gå et steg tilbake."/>
 	<tip id="ID_LIBRARY_PROPERTIES" message="Vis og endre egenskapene til valgte filer..."/>
 	<tip id="ID_LIBRARY_REBUILD" message="Oppdater metadata og hash, til valgte mapper eller filer."/>
+	<tip id="ID_LIBRARY_REBUILD_FILE" message="Oppdater metadata og hash, til valgte mapper eller filer."/>
 	<tip id="ID_LIBRARY_REBUILD_ANSI" message="Gjenoppbygg metadata ved hjelp av et annet språk."/>
 	<tip id="ID_LIBRARY_REFRESH" message="Oppdater biblioteket."/>
 	<tip id="ID_LIBRARY_REMOVE" message="Fjern de valgte mappene."/>

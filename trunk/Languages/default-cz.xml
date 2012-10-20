@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Czech Skin File -->
 
-<!-- Translation based on default-en.xml r84 --> <!-- (Shareaza 2.2.5.7) -->
+<!-- Translation based on default-en.xml r85 --> <!-- (Shareaza 2.2.5.7) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -411,7 +411,7 @@
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="Prohlédnout uživatele"/>
 		<button id="ID_CHAT_PRIORITY" text="Udělit přednost"/>
-		<!--<button id="ID_CHAT_SEND_FILE" text="Send File"/> -->
+		<!--button id="ID_CHAT_SEND_FILE" text="Send File"-->
 		<separator/>
 		<button id="ID_CHAT_CONNECT" text="Připojit" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="Odpojit"/>
@@ -1258,7 +1258,6 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Epizody ze stejné série"/>
 		</menu>
 		<menu text="_Webové služby">
-			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Místní popisky"/>
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
 			<separator/>
 			<item id="ID_LIBRARY_BITZI_WEB" text="Prohlížet _Bitzi Ticket"/>
@@ -1300,6 +1299,7 @@
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Stáhnout popisky"/>
 		</menu>
 		<menu text="_Metadata">
+			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
 			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Místní popisky"/>
 			<item id="ID_LIBRARY_COLUMNS" text="Vyberte _sloupce..."/>
@@ -1527,7 +1527,7 @@
 		<item id="ID_CHAT_DISCONNECT" text="_Odpojit"/>
 		<separator/>
 		<item id="ID_CHAT_BROWSE" text="P_rohlédnout uživatele"/>
-		<!-- <item id="ID_CHAT_SEND_FILE" text="Ode_slat soubor..."/> -->
+		<!--item id="ID_CHAT_SEND_FILE" text="Ode_slat soubor..."-->
 		<item id="ID_CHAT_PRIORITY" text="Udělit _přednost"/>
 		<separator/>
 		<menu text="_Formát">
@@ -1644,8 +1644,8 @@
 		<text align="middle">- Změní vzhled &amp; prostředí PeerProject</text>
 		<newline gap="8"/>
 		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link><gap size="6"/>
-		<text align="middle">- Update blocklist</text>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Bezpečnostní Filtr</link><gap size="6"/>
+		<text align="middle">- Aktualizace blocklist</text>
 		<newline gap="8"/>
 		<icon res="197" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 		<link target="command:ID_TOOLS_WIZARD" align="middle">Průvodce nastavením</link><gap size="6"/>
@@ -2211,7 +2211,7 @@
 	<tip id="ID_CHAT_EMOTICONS" message="Vložit smajlíky."/>
 	<tip id="ID_CHAT_ITALIC" message="Použít kurzívu (Ctrl+I)"/>
 	<tip id="ID_CHAT_PRIORITY" message="Udělit přednost odesílání pro tohoto uživatele."/>
-	<!-- <tip id="ID_CHAT_SEND_FILE" message="Poslat soubor uživateli..."/> -->
+	<!--tip id="ID_CHAT_SEND_FILE" message="Poslat soubor uživateli..."-->
 	<tip id="ID_CHAT_TIMESTAMP" message="Ukázat čas kdy byla každá zpráva přijata."/>
 	<tip id="ID_CHAT_UNDERLINE" message="Použít podtržení textu (Ctrl+U)"/>
 	<tip id="ID_CHILD_CLOSE" message="Zavřít aktivní okno."/>
@@ -2325,6 +2325,7 @@
 	<tip id="ID_LIBRARY_PARENT" message="Posunout nahoru do hlavní složky."/>
 	<tip id="ID_LIBRARY_PROPERTIES" message="Prohlížet a editovat vlastnosti vybraných souborů..."/>
 	<tip id="ID_LIBRARY_REBUILD" message="Předělat popisky a rozdělit je pro vybrané složky nebo soubory."/>
+	<tip id="ID_LIBRARY_REBUILD_FILE" message="Předělat popisky a rozdělit je pro vybrané složky nebo soubory."/>
 	<tip id="ID_LIBRARY_REBUILD_ANSI" message="Upravit popisky zhotovené v jiném jazyce."/>
 	<tip id="ID_LIBRARY_REFRESH" message="Obnovit zobrazení knihoven."/>
 	<tip id="ID_LIBRARY_REMOVE" message="Odstranit označené sdílené složky."/>

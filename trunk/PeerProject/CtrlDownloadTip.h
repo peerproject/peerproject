@@ -78,7 +78,6 @@ protected:
 	CLineGraph* 		m_pGraph;
 	CGraphItem* 		m_pItem;
 	BOOL				m_bDrawGraph;		// Draw the download graph?
-	BOOL				m_bDrawError;		// Display the tracker error?
 
 // Operations
 protected:

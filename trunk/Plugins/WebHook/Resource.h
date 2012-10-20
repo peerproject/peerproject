@@ -3,7 +3,7 @@
 // Used by WebHook.rc
 //
 #define IDS_PROJNAME                    100
-#define IDR_WebHook                     101
+#define IDR_WEBHOOK                     101
 #define IDR_OBJECT                      102
 
 // Next default values for new objects

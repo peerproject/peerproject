@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Estonian Skin File -->
 
-<!-- Translation based on default-en.xml r84 --> <!-- (Shareaza 2.2.2.9) -->
+<!-- Translation based on default-en.xml r85 --> <!-- (Shareaza 2.2.2.9) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -422,7 +422,7 @@
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="Sirvi kasutajat"/>
 		<button id="ID_CHAT_PRIORITY" text="Sea esmaseks"/>
-		<!--<button id="ID_CHAT_SEND_FILE" text="Send File"/> -->
+		<!--button id="ID_CHAT_SEND_FILE" text="Send File"-->
 		<separator/>
 		<button id="ID_CHAT_CONNECT" text="Ühenda" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="Katkesta ühendus"/>
@@ -1247,7 +1247,6 @@
 			<separator/>
 			<item id="ID_LIBRARY_URI" text="_URI"/>
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Kohanda Andmebaas"/>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Omadused"/>
 	</menu>
@@ -1282,6 +1281,7 @@
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Tõmba Andmebaas"/>
 		</menu>
 		<menu text="_Metadata">
+			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
 			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Kohanda Andmebaas"/>
 			<item id="ID_LIBRARY_COLUMNS" text="Seadista _Veerg..."/>
@@ -1507,7 +1507,7 @@
 		<item id="ID_CHAT_DISCONNECT" text="_Katkesta Ühendus"/>
 		<separator/>
 		<item id="ID_CHAT_BROWSE" text="_Sirvi Kasutajat"/>
-		<!-- <item id="ID_CHAT_SEND_FILE" text="Saa_da Fail..."/> -->
+		<!--item id="ID_CHAT_SEND_FILE" text="Saa_da Fail..."-->
 		<item id="ID_CHAT_PRIORITY" text="Anna _Eelistusi"/>
 		<separator/>
 		<menu text="_Teksti Formaat">
@@ -1589,8 +1589,8 @@
 		<text align="middle">- Muuda PeerProject välimust</text>
 		<newline gap="8"/>
 		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link><gap size="6"/>
-		<text align="middle">- Update blocklist to avoid bad search results</text>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Turvalisus Filtrid</link><gap size="6"/>
+		<text align="middle">- Uuenda blocklisti vältida halb otsingutulemustes</text>
 		<newline gap="8"/>
 		<icon res="197" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 		<link target="command:ID_TOOLS_WIZARD" align="middle">Seadete Abiline</link><gap size="6"/>
@@ -2153,7 +2153,7 @@
 	<tip id="ID_CHAT_EMOTICONS" message="Sisesta emotikon."/>
 	<tip id="ID_CHAT_ITALIC" message="Kinnita kaldkiri (Ctrl+I)"/>
 	<tip id="ID_CHAT_PRIORITY" message="Anna kasutajale eesõigus."/>
-	<!-- <tip id="ID_CHAT_SEND_FILE" message="Saada kasutajale faile..."/> -->
+	<!--tip id="ID_CHAT_SEND_FILE" message="Saada kasutajale faile..."-->
 	<tip id="ID_CHAT_TIMESTAMP" message="Näita sõnumite vastuvõtuaega."/>
 	<tip id="ID_CHAT_UNDERLINE" message="Kinnita alakriips (Ctrl+U)"/>
 	<tip id="ID_CHILD_CLOSE" message="Sulge aken."/>
@@ -2242,7 +2242,7 @@
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="Kustuta valitud Albumi kaust."/>
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="Ava valitud Albumi kaust."/>
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="Vaata ja muuda valitud Albumi kausta omadusi..."/>
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Tõmba Bitzist™ valitud faili kohta andmebaas ..."/>
+	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Tõmba Bitzist™ valitud faili kohta andmebaas..."/>
 	<tip id="ID_LIBRARY_BITZI_WEB" message="Vaata Bitzi™ infot valitud faili kohta."/>
 	<tip id="ID_LIBRARY_COLUMNS" message="Vali andmebaasi info, mida kuvada..."/>
 	<tip id="ID_LIBRARY_COPY" message="Kopeeri valitud failid raamatukogu teise kausta..."/>
@@ -2266,6 +2266,7 @@
 	<tip id="ID_LIBRARY_PARENT" message="Liigu üles peakausta."/>
 	<tip id="ID_LIBRARY_PROPERTIES" message="Vaata ja muuda valitud failide omadusi..."/>
 	<tip id="ID_LIBRARY_REBUILD" message="Taasloo andmebaas ja failiosad valitud kaustas."/>
+	<tip id="ID_LIBRARY_REBUILD_FILE" message="Taasloo andmebaas ja failiosad valitud kaustas."/>
 	<tip id="ID_LIBRARY_REBUILD_ANSI" message="Taasloo andmebaas kasutades teist keelt."/>
 	<tip id="ID_LIBRARY_REFRESH" message="Värskenda raamatukogu vaadet."/>
 	<tip id="ID_LIBRARY_REMOVE" message="Eemalda valitud jagatud kaustad."/>

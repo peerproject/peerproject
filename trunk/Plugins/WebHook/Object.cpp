@@ -24,8 +24,8 @@
 
 // CWebHook
 
-CWebHook::CWebHook() :
-	m_dwCookie( 0 )
+CWebHook::CWebHook()
+	: m_dwCookie( 0 )
 {
 }
 
@@ -34,8 +34,7 @@ HRESULT CWebHook::FinalConstruct()
 	if ( ! IsEnabled() )
 		return E_FAIL;
 
-	return CoCreateFreeThreadedMarshaler(
-		GetControllingUnknown(), &m_pUnkMarshaler.p);
+	return CoCreateFreeThreadedMarshaler( GetControllingUnknown(), &m_pUnkMarshaler.p );
 }
 
 void CWebHook::FinalRelease()
@@ -75,11 +74,8 @@ void CWebHook::Connect()
 		if ( pContainer )
 		{
 			CComPtr< IConnectionPoint > pPoint;
-			if ( SUCCEEDED( pContainer->FindConnectionPoint( DIID_DWebBrowserEvents2,
-				&pPoint ) ) )
-			{
+			if ( SUCCEEDED( pContainer->FindConnectionPoint( DIID_DWebBrowserEvents2, &pPoint ) ) )
 				pPoint->Advise( static_cast< IDispatch* >( this ), &m_dwCookie );
-			}
 		}
 	}
 }
@@ -92,8 +88,7 @@ void CWebHook::Disconnect()
 		if ( pContainer )
 		{
 			CComPtr< IConnectionPoint > pPoint;
-			if ( SUCCEEDED( pContainer->FindConnectionPoint( DIID_DWebBrowserEvents2,
-				&pPoint ) ) )
+			if ( SUCCEEDED( pContainer->FindConnectionPoint( DIID_DWebBrowserEvents2, &pPoint ) ) )
 			{
 				pPoint->Unadvise( m_dwCookie );
 				m_dwCookie = 0;
@@ -104,19 +99,18 @@ void CWebHook::Disconnect()
 
 void CWebHook::AddLink(const CString& sURL)
 {
-	ShellExecute( NULL, NULL, CString( _T("peerproject://url:") ) + sURL,
-		NULL, NULL, SW_SHOWDEFAULT );
+	ShellExecute( NULL, NULL, CString( _T("peerproject://url:") ) + sURL, NULL, NULL, SW_SHOWDEFAULT );
 }
 
 STDMETHODIMP CWebHook::Invoke(
-	/* [in] */ DISPID dispIdMember,
-	/* [in] */ REFIID riid,
-	/* [in] */ LCID lcid,
-	/* [in] */ WORD wFlags,
-	/* [out][in] */ DISPPARAMS *pDispParams,
-	/* [out] */ VARIANT* pVarResult,
-	/* [out] */ EXCEPINFO* pExcepInfo,
-	/* [out] */ UINT* puArgErr)
+	/*[in]*/ DISPID dispIdMember,
+	/*[in]*/ REFIID riid,
+	/*[in]*/ LCID lcid,
+	/*[in]*/ WORD wFlags,
+	/*[out][in]*/ DISPPARAMS *pDispParams,
+	/*[out]*/ VARIANT* pVarResult,
+	/*[out]*/ EXCEPINFO* pExcepInfo,
+	/*[out]*/ UINT* puArgErr)
 {
 	if ( IsEnabled() )
 	{
@@ -175,7 +169,7 @@ STDMETHODIMP CWebHook::Invoke(
 }
 
 STDMETHODIMP CWebHook::SetSite(
-	/* [in] */ IUnknown* pUnkSite)
+	/*[in]*/ IUnknown* pUnkSite)
 {
 	Disconnect();
 
@@ -187,7 +181,7 @@ STDMETHODIMP CWebHook::SetSite(
 }
 
 STDMETHODIMP CWebHook::AddLink(
-	/* [in] */ VARIANT oLink)
+	/*[in]*/ VARIANT oLink)
 {
 	if ( oLink.vt == VT_BSTR )
 	{

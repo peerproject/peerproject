@@ -57,6 +57,43 @@ static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif	// Debug
 
+inline bool IsValidDomainSymbol(TCHAR c)
+{
+	return  ( c == _T('.') ) ||
+			( c >= _T('a') && c <= _T('z') ) ||
+			( c >= _T('0') && c <= _T('9') ) ||
+			( c >= _T('A') && c <= _T('Z') ) ||
+			( c == _T('-') );
+}
+
+inline bool IsValidDomain(LPCTSTR pszHost)
+{
+	if ( ! pszHost || ! *pszHost )
+		return false;	// Empty
+
+	int dot = 0;
+	for ( LPCTSTR p = pszHost ; *p ; ++p )
+	{
+		if ( ! IsValidDomainSymbol( *p ) )
+			return false;	// Invalid symbol
+
+		if ( *p == _T('.') )
+		{
+			if ( dot == 0 )
+				return false;	// Two dots or starting dot
+			dot = 0;
+		}
+		else if ( dot++ > 63 )
+		{
+			return false;	// Sub-name too long
+		}
+	}
+	if ( dot == 0 )
+		return false;	// Ending dot
+
+	return true;
+}
+
 CNetwork Network;
 
 IMPLEMENT_DYNCREATE(CNetwork, CComObject)
@@ -471,6 +508,9 @@ BOOL CNetwork::Resolve(LPCTSTR pszHost, int nPort, SOCKADDR_IN* pHost, BOOL bNam
 
 		strHost = strHost.Left( nColon );
 	}
+
+	if ( ! IsValidDomain( strHost ) )
+		return FALSE;
 
 	CT2CA pszaHost( (LPCTSTR)strHost );
 

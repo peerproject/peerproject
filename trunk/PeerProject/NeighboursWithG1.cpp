@@ -170,7 +170,7 @@ void CNeighboursWithG1::OnG1Pong(CG1Neighbour* pFrom, IN_ADDR* pAddress, WORD nP
 	ASSUME_LOCK( Network.m_pSection );
 
 	// Add the information from the pong packet to the pong cache (do)
-	CPongItem* pPongCache = AddPong( pFrom, pAddress, nPort, nHops, nFiles, nVolume );
+	const CPongItem* pPongCache = AddPong( pFrom, pAddress, nPort, nHops, nFiles, nVolume );
 	if ( pPongCache == NULL )
 		return;		// If Add didn't return a CPongItem, (do)
 

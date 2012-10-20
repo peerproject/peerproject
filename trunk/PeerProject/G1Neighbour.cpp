@@ -762,7 +762,7 @@ BOOL CG1Neighbour::OnPong(CG1Packet* pPacket)
 // Called by CNeighboursWithG1::OnG1Pong (do)
 // Takes a pointer to a CPongItem object (do)
 // If the pong is needed, sends it to the remote computer (do)
-void CG1Neighbour::OnNewPong(CPongItem* pPong)
+void CG1Neighbour::OnNewPong(const CPongItem* pPong)
 {
 	// If we need a pong with the number of hops that this one has (do)
 	if ( m_nPongNeeded[ pPong->m_nHops ] > 0 )

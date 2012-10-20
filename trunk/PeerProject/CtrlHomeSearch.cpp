@@ -154,9 +154,7 @@ void CHomeSearchCtrl::FillHistory()
 		m_wndText.SetItemData( nIndex, (DWORD_PTR)pSchema );
 	}
 
-	CString strClear;
-	LoadString( strClear, IDS_SEARCH_PAD_CLEAR_HISTORY );
-	m_wndText.SetItemData( m_wndText.AddString( strClear ), 0 );
+	m_wndText.SetItemData( m_wndText.AddString( LoadString( IDS_SEARCH_PAD_CLEAR_HISTORY ) ), 0 );
 }
 
 void CHomeSearchCtrl::OnSize(UINT nType, int cx, int cy)
@@ -237,15 +235,7 @@ void CHomeSearchCtrl::OnCloseUpText()
 		m_wndText.SetWindowText( _T("") );
 
 		// Delete all
-		for ( int i = 0 ; ; i++ )
-		{
-			CString strEntry;
-			strEntry.Format( _T("Search.%.2i"), i + 1 );
-			CString strValue( theApp.GetProfileString( _T("Search"), strEntry ) );
-			if ( strValue.IsEmpty() )
-				break;
-			theApp.WriteProfileString( _T("Search"), strEntry, NULL );
-		}
+		Settings.ClearSearches();
 
 		m_wndSchema.Select( (CSchemaPtr)NULL );
 		FillHistory();

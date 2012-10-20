@@ -95,12 +95,13 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}";
 Name: "desktopiconwizard"; Description: "{cm:CreateDesktopIconWizard}"; Languages: en en_uk;
 Name: "language"; Description: "{cm:tasks_languages}";
 Name: "multiuser"; Description: "{cm:tasks_multisetup}"; Flags: unchecked;
+Name: "webhook"; Description: "{cm:tasks_webhook}";
+Name: "firewall"; Description: "{cm:tasks_firewall}"; MinVersion: 0,5.01sp2;
 ;Name: "upnp"; Description: "{cm:tasks_upnp}"; MinVersion: 0,5.01; Check: CanUserModifyServices;
-;Name: "firewall"; Description: "{cm:tasks_firewall}"; MinVersion: 0,5.01sp2;
-Name: "resetdiscoveryhostcache"; Description: "{cm:tasks_resetdiscoveryhostcache}"; Check: EnableDeleteOldSetup; Flags: unchecked;
-#if alpha == "No"
-Name: "deleteoldsetup"; Description: "{cm:tasks_deleteoldsetup}"; Check: EnableDeleteOldSetup;
-#endif
+Name: "resetdiscoveryhostcache"; Description: "{cm:tasks_resetdiscoveryhostcache}"; Check: WasInstalled; Flags: unchecked;
+;#if alpha == "No"
+Name: "deleteoldsetup"; Description: "{cm:tasks_deleteoldsetup}"; Check: WasInstalled;
+;#endif
 
 [Files]
 ; Main files
@@ -369,8 +370,12 @@ Root: HKCU; Subkey: "AppEvents\Schemes\Apps\PeerProject\Sound_IncomingChat\.defa
 ;Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Connection"; ValueType: dword; ValueName: "EnableUPnP"; ValueData: 1; Flags: deletevalue; Tasks: upnp
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Connection"; ValueType: dword; ValueName: "EnableUPnP"; ValueData: 1; Flags: uninsdeletekey createvalueifdoesntexist
 
+; Enable/Disable WebHook
+Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Downloads"; ValueType: dword; ValueName: "WebHookEnable"; ValueData: 1; Flags: uninsdeletekey deletevalue; Tasks: webhook
+Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Downloads"; ValueType: dword; ValueName: "WebHookEnable"; ValueData: 0; Flags: uninsdeletekey deletevalue; Tasks: not webhook
+
 ; ShareMonkey CID
-Root: HKCU; Subkey: "Software\PeerProject\PeerProject\WebServices"; ValueType: string; ValueName: "ShareMonkeyCid"; ValueData: "197506"; Flags: deletevalue uninsdeletekey
+;Root: HKCU; Subkey: "Software\PeerProject\PeerProject\WebServices"; ValueType: string; ValueName: "ShareMonkeyCid"; ValueData: "197506"; Flags: deletevalue uninsdeletekey
 
 ; Delete keys at uninstall
 Root: HKU; Subkey: ".DEFAULT\Software\PeerProject"; Flags: dontcreatekey uninsdeletekey
@@ -570,8 +575,8 @@ const
   KeyLoc1 = 'SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\PeerProject_is1';
   KeyLoc2 = 'SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\PeerProject';
   KeyName = 'UninstallString';
-//NET_FW_SCOPE_ALL = 0;
-//NET_FW_IP_VERSION_ANY  = 2;
+  NET_FW_SCOPE_ALL = 0;
+  NET_FW_IP_VERSION_ANY  = 2;
 //SERVICE_QUERY_CONFIG   = $1;
 //SERVICE_CHANGE_CONFIG  = $2;
 //SERVICE_QUERY_STATUS   = $4;
@@ -587,10 +592,10 @@ var
   CurrentPath: string;
   Installed: Boolean;
   MalwareDetected: Boolean;
-//FirewallFailed: string;
+  FirewallFailed: string;
 //HasUserPrivileges: Boolean;
 
-// NT API functions for services (Unused Firewall/UPnP)
+// NT API functions for services (Unused UPnP)
 //Function OpenSCManager(lpMachineName, lpDatabaseName: string; dwDesiredAccess: cardinal): HANDLE;
 //external 'OpenSCManagerA@advapi32.dll stdcall setuponly';
 //
@@ -776,7 +781,8 @@ Begin
   Result := MalwareDetected;
 End;
 
-Function EnableDeleteOldSetup: Boolean;
+// Was EnableDeleteOldSetup
+Function WasInstalled: Boolean;
 Begin
   Result := Installed;
 End;
@@ -803,7 +809,8 @@ Begin
   DelayDeleteFile(Filename,3);
 End;
 
-// We don't allow to modify the setting of MultiUser if was already selected.
+// Update Tasks Page
+// We don't allow to modify the setting of MultiUser if already selected.
 Procedure CurPageChanged(const CurrentPage: integer);
 var
   i : integer;
@@ -817,6 +824,19 @@ Begin
         WizardForm.TasksList.ItemEnabled[i] := false;
       End;
     End;
+    i := WizardForm.TasksList.Items.IndexOf(ExpandConstant('{cm:tasks_webhook}'));
+    if i <> -1 then begin
+      if RegQueryDWordValue(HKEY_CURRENT_USER, 'SOFTWARE\PeerProject\PeerProject\Downloads', 'WebHookEnable', MultiUserValue) then begin
+        Wizardform.TasksList.Checked[i] := (MultiUserValue = 1);
+      End;
+    End;
+#if alpha == "Yes" | ConfigurationName == "Debug"
+    i := WizardForm.TasksList.Items.IndexOf(ExpandConstant('{cm:tasks_deleteoldsetup}'));
+    if i <> -1 then begin
+       Wizardform.TasksList.Checked[i] := false;
+       WizardForm.TasksList.ItemEnabled[i] := false;
+    End;
+#endif
   End;
 End;
 
@@ -920,7 +940,7 @@ end;
 Procedure CurStepChanged(CurStep: TSetupStep);
 var
   InstallFolder: string;
-//FirewallObject: Variant;
+  FirewallObject: Variant;
   FirewallManager: Variant;
   FirewallProfile: Variant;
 //Success: boolean;
@@ -928,39 +948,39 @@ var
   Path: string;
 Begin
   if CurStep=ssPostInstall then begin
-//  if IsTaskSelected('firewall') then begin
-//    if WizardSilent = True then begin
-//      try
-//        FirewallObject := CreateOleObject('HNetCfg.FwAuthorizedApplication');
-//        InstallFolder := ExpandConstant('{app}\PeerProject.exe');
-//        FirewallObject.ProcessImageFileName := InstallFolder;
-//        FirewallObject.Name := 'PeerProject';
-//        FirewallObject.Scope := NET_FW_SCOPE_ALL;
-//        FirewallObject.IpVersion := NET_FW_IP_VERSION_ANY;
-//        FirewallObject.Enabled := True;
-//        FirewallManager := CreateOleObject('HNetCfg.FwMgr');
-//        FirewallProfile := FirewallManager.LocalPolicy.CurrentProfile;
-//        FirewallProfile.AuthorizedApplications.Add(FirewallObject);
-//      except
-//      End;
-//    End else begin
-//      FirewallFailed := ExpandConstant('{cm:dialog_firewall}')
-//      try
-//        FirewallObject := CreateOleObject('HNetCfg.FwAuthorizedApplication');
-//        InstallFolder := ExpandConstant('{app}\PeerProject.exe');
-//        FirewallObject.ProcessImageFileName := InstallFolder;
-//        FirewallObject.Name := 'PeerProject';
-//        FirewallObject.Scope := NET_FW_SCOPE_ALL;
-//        FirewallObject.IpVersion := NET_FW_IP_VERSION_ANY;
-//        FirewallObject.Enabled := True;
-//        FirewallManager := CreateOleObject('HNetCfg.FwMgr');
-//        FirewallProfile := FirewallManager.LocalPolicy.CurrentProfile;
-//        FirewallProfile.AuthorizedApplications.Add(FirewallObject);
-//      except
-//        MsgBox(FirewallFailed, mbInformation, MB_OK);
-//      End;
-//    End;
-//  End;
+    if IsTaskSelected('firewall') then begin
+      if WizardSilent = True then begin
+        try
+          FirewallObject := CreateOleObject('HNetCfg.FwAuthorizedApplication');
+          InstallFolder := ExpandConstant('{app}\PeerProject.exe');
+          FirewallObject.ProcessImageFileName := InstallFolder;
+          FirewallObject.Name := 'PeerProject';
+          FirewallObject.Scope := NET_FW_SCOPE_ALL;
+          FirewallObject.IpVersion := NET_FW_IP_VERSION_ANY;
+          FirewallObject.Enabled := True;
+          FirewallManager := CreateOleObject('HNetCfg.FwMgr');
+          FirewallProfile := FirewallManager.LocalPolicy.CurrentProfile;
+          FirewallProfile.AuthorizedApplications.Add(FirewallObject);
+        except
+        End;
+      End else begin
+        FirewallFailed := ExpandConstant('{cm:dialog_firewall}')
+        try
+          FirewallObject := CreateOleObject('HNetCfg.FwAuthorizedApplication');
+          InstallFolder := ExpandConstant('{app}\PeerProject.exe');
+          FirewallObject.ProcessImageFileName := InstallFolder;
+          FirewallObject.Name := 'PeerProject';
+          FirewallObject.Scope := NET_FW_SCOPE_ALL;
+          FirewallObject.IpVersion := NET_FW_IP_VERSION_ANY;
+          FirewallObject.Enabled := True;
+          FirewallManager := CreateOleObject('HNetCfg.FwMgr');
+          FirewallProfile := FirewallManager.LocalPolicy.CurrentProfile;
+          FirewallProfile.AuthorizedApplications.Add(FirewallObject);
+        except
+          MsgBox(FirewallFailed, mbInformation, MB_OK);
+        End;
+      End;
+    End;
 //  if IsTaskSelected('upnp') then begin
 //    if (HasUserPrivileges) then begin
 //      Success := false;

@@ -1,7 +1,7 @@
 //
 // FileFragments.hpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -45,12 +45,13 @@ public:
 	range_size_type limit() const { return m_limit; }
 	range_size_type length_sum() const { return m_length_sum; }
 	range_size_type missing() const { return limit() - length_sum(); }
+
 	void ensure(range_size_type limit)
 	{
-		m_limit = max( m_limit, limit );
+		m_limit = ( m_limit == SIZE_UNKNOWN ) ? limit : max( m_limit, limit );
 	}
 
-// The following functions have to be declared
+// Following functions have to be declared
 protected:
 	typedef range_size_type ctor_arg_type;
 	explicit ListTraits(ctor_arg_type limit) : m_limit( limit ), m_length_sum( 0 ) { }

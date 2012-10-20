@@ -26,6 +26,7 @@ class CLibraryFolder;
 class CXMLElement;
 class CSharedSource;
 class CQuerySearch;
+class CLibraryRecent;
 class CLibraryDownload;
 class CDownload;
 class CTigerTree;
@@ -104,9 +105,10 @@ public:
 	BOOL			Rebuild();
 	BOOL			Rename(LPCTSTR pszName);
 	BOOL			Delete(BOOL bDeleteGhost = FALSE);
-	void			UpdateMetadata(CDownload* pDownload);
+	void			UpdateMetadata(const CDownload* pDownload);
 	BOOL			SetMetadata(CXMLElement*& pXML, BOOL bMerge = FALSE, BOOL bOverwrite = FALSE);
 	BOOL			MergeMetadata(CXMLElement*& pXML, BOOL bOverwrite);
+	BOOL			MergeMetadata(const CXMLElement* pXML);
 	void			ModifyMetadata();		// Mark metadata as modified
 	void			ClearMetadata();
 	CString			GetMetadataWords() const;
@@ -115,6 +117,7 @@ public:
 	CSharedSource*	AddAlternateSource(LPCTSTR pszURL, FILETIME* tSeen = NULL);
 	CSharedSource*	AddAlternateSources(LPCTSTR pszURL);
 	CString			GetAlternateSources(CList< CString >* pState, int nMaximum, PROTOCOLID nProtocol);
+	BOOL			OnVerifyDownload(const CLibraryRecent* pRecent);
 
 	// Adds file data to string array using template. Supported template variables:
 	// $meta:name$		- file name
@@ -166,13 +169,6 @@ protected:
 	BOOL			ThreadScan(CSingleLock& pLock, DWORD nScanCookie, QWORD nSize, FILETIME* pTime/*, LPCTSTR pszMetaData*/);
 	void			OnDelete(BOOL bDeleteGhost = FALSE, TRISTATE bCreateGhost = TRI_UNKNOWN);
 	void			Ghost();
-	BOOL			OnVerifyDownload(
-						const Hashes::Sha1ManagedHash& oSHA1,
-						const Hashes::TigerManagedHash& oTiger,
-						const Hashes::Ed2kManagedHash& oED2K,
-						const Hashes::BtManagedHash& oBTH,
-						const Hashes::Md5ManagedHash& oMD5,
-						LPCTSTR pszSources);
 
 	BEGIN_INTERFACE_PART(LibraryFile, ILibraryFile)
 		DECLARE_DISPATCH()
@@ -205,7 +201,6 @@ protected:
 	friend class CLibrary;
 	friend class CLibraryFolder;
 	friend class CLibraryMaps;
-	friend class CLibraryRecent;
 	friend class CDeleteFileDlg;
 };
 

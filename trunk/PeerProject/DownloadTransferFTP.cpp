@@ -392,12 +392,15 @@ BOOL CDownloadTransferFTP::OnHeaderLine( CString& strHeader, CString& strValue )
 		{
 			m_LIST.m_sUserAgent = m_RETR.m_sUserAgent = m_sUserAgent =
 				m_pSource->m_sServer = strValue.Trim( _T(" \t\r\n-=_") );
-			if ( Security.IsAgentBlocked( m_sUserAgent ) )
+
+			// Empty User Agent is ok for secure FTP
+			if ( ! m_sUserAgent.IsEmpty() && Security.IsAgentBlocked( m_sUserAgent ) )
 			{
 				// Ban
 				Close( TRI_FALSE );
 				return FALSE;
 			}
+
 			// Sending login
 			m_FtpState = ftpUSER;
 			SetState( dtsRequesting );
@@ -446,8 +449,8 @@ BOOL CDownloadTransferFTP::OnHeaderLine( CString& strHeader, CString& strValue )
 	case ftpSIZE:
 		if ( strHeader == _T("213") )		// SIZE reply
 		{
-			QWORD size = _tstoi64( strValue );
-			if ( size <= 0 )
+			QWORD nTotal;
+			if ( _stscanf( strValue, _T("%I64u"), &nTotal ) != 1 || nTotal == 0 )
 			{
 				// Wrong SIZE reply format
 				ASSERT( FALSE );
@@ -457,11 +460,11 @@ BOOL CDownloadTransferFTP::OnHeaderLine( CString& strHeader, CString& strValue )
 			}
 			if ( m_pDownload->m_nSize == SIZE_UNKNOWN )
 			{
-				m_pDownload->m_nSize = size;
+				m_pDownload->SetSize( nTotal );
 			}
-			else if ( m_pDownload->m_nSize != size )
+			else if ( m_pDownload->m_nSize != nTotal )
 			{
-				// File size changed!
+				// File size changed
 				theApp.Message( MSG_ERROR, IDS_DOWNLOAD_WRONG_SIZE, (LPCTSTR)m_sAddress, (LPCTSTR)m_pDownload->GetDisplayName() );
 				// Ban
 				Close( TRI_FALSE );
@@ -537,11 +540,11 @@ BOOL CDownloadTransferFTP::OnHeaderLine( CString& strHeader, CString& strValue )
 			// Downloading
 			return TRUE;
 		}
-		if ( strHeader == _T("226") )	// Transfer completed
+		if ( strHeader == _T("226") )		// Transfer completed
 		{
 			// Extract file size
-			QWORD size = m_LIST.ExtractFileSize();
-			if ( size == SIZE_UNKNOWN )
+			QWORD nSize = m_LIST.ExtractFileSize();
+			if ( nSize == SIZE_UNKNOWN )
 			{
 				// Wrong LIST reply format
 				ASSERT( FALSE );
@@ -551,11 +554,11 @@ BOOL CDownloadTransferFTP::OnHeaderLine( CString& strHeader, CString& strValue )
 			}
 			if ( m_pDownload->m_nSize == SIZE_UNKNOWN )
 			{
-				m_pDownload->m_nSize = size;
+				m_pDownload->SetSize( nSize );
 			}
-			else if ( m_pDownload->m_nSize != size )
+			else if ( m_pDownload->m_nSize != nSize )
 			{
-				// File size changed!
+				// File size changed
 				theApp.Message( MSG_ERROR, IDS_DOWNLOAD_WRONG_SIZE, (LPCTSTR)m_sAddress, (LPCTSTR)m_pDownload->GetDisplayName() );
 				// Ban
 				Close( TRI_FALSE );
@@ -569,7 +572,7 @@ BOOL CDownloadTransferFTP::OnHeaderLine( CString& strHeader, CString& strValue )
 			SetState( dtsRequesting );
 			return SendCommand();
 		}
-		if ( strHeader == _T("550") )	// File unavailable
+		if ( strHeader == _T("550") )		// File unavailable
 		{
 			theApp.Message( MSG_ERROR, IDS_DOWNLOAD_FILENOTFOUND, (LPCTSTR)m_sAddress, (LPCTSTR)m_pDownload->GetDisplayName() );
 			// Ban

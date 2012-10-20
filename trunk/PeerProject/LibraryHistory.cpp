@@ -21,6 +21,7 @@
 #include "PeerProject.h"
 #include "LibraryHistory.h"
 #include "Library.h"
+#include "Download.h"
 #include "SharedFile.h"
 
 #ifdef _DEBUG
@@ -55,7 +56,7 @@ CLibraryHistory::CLibraryHistory()
 
 CLibraryHistory::~CLibraryHistory()
 {
-	Clear();
+	ASSERT( m_pList.IsEmpty() );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -63,11 +64,15 @@ CLibraryHistory::~CLibraryHistory()
 
 POSITION CLibraryHistory::GetIterator() const
 {
+	ASSUME_LOCK( Library.m_pSection );
+
 	return m_pList.GetHeadPosition();
 }
 
 CLibraryRecent* CLibraryHistory::GetNext(POSITION& pos) const
 {
+	ASSUME_LOCK( Library.m_pSection );
+
 	return m_pList.GetNext( pos );
 }
 
@@ -76,6 +81,8 @@ CLibraryRecent* CLibraryHistory::GetNext(POSITION& pos) const
 
 void CLibraryHistory::Clear()
 {
+	ASSUME_LOCK( Library.m_pSection );
+
 	for ( POSITION pos = GetIterator() ; pos ; )
 		delete GetNext( pos );
 	m_pList.RemoveAll();
@@ -108,6 +115,8 @@ BOOL CLibraryHistory::Check(CLibraryRecent* pRecent, int nScope) const
 
 CLibraryRecent* CLibraryHistory::GetByPath(LPCTSTR pszPath) const
 {
+	ASSUME_LOCK( Library.m_pSection );
+
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
 		CLibraryRecent* pRecent = GetNext( pos );
@@ -121,24 +130,18 @@ CLibraryRecent* CLibraryHistory::GetByPath(LPCTSTR pszPath) const
 //////////////////////////////////////////////////////////////////////
 // CLibraryHistory add new download
 
-void CLibraryHistory::Add(
-	LPCTSTR pszPath,
-	const Hashes::Sha1ManagedHash& oSHA1,
-	const Hashes::TigerManagedHash& oTiger,
-	const Hashes::Ed2kManagedHash& oED2K,
-	const Hashes::BtManagedHash& oBTH,
-	const Hashes::Md5ManagedHash& oMD5,
-	LPCTSTR pszSources)
+void CLibraryHistory::Add(LPCTSTR pszPath, const CDownload* pDownload)
 {
 	CSingleLock pLock( &Library.m_pSection, TRUE );
 
 	CLibraryRecent* pRecent = GetByPath( pszPath );
 	if ( pRecent == NULL )
 	{
-		pRecent = new CLibraryRecent( pszPath, oSHA1, oTiger, oED2K, oBTH, oMD5, pszSources );
-		m_pList.AddHead( pRecent );
-
-		Prune();
+		if ( CLibraryRecent* pNewRecent = new CLibraryRecent( pszPath, pDownload ) )
+		{
+			m_pList.AddHead( pNewRecent );
+			Prune();
+		}
 	}
 }
 
@@ -149,12 +152,13 @@ void CLibraryHistory::Submit(CLibraryFile* pFile)
 {
 	CSingleLock pLock( &Library.m_pSection, TRUE );
 
-	CLibraryRecent* pRecent = GetByPath( pFile->GetPath() );
-	if ( pRecent )
+	if ( CLibraryRecent* pRecent = GetByPath( pFile->GetPath() ) )
 	{
-		pRecent->RunVerify( pFile );
-
-		Prune();
+		if ( pRecent->m_pFile == NULL )
+		{
+			pRecent->m_pFile = pFile;
+			pFile->OnVerifyDownload( pRecent );
+		}
 	}
 }
 
@@ -163,6 +167,8 @@ void CLibraryHistory::Submit(CLibraryFile* pFile)
 
 void CLibraryHistory::Prune()
 {
+	ASSUME_LOCK( Library.m_pSection );
+
 	FILETIME tNow;
 	GetSystemTimeAsFileTime( &tNow );
 
@@ -212,7 +218,7 @@ void CLibraryHistory::OnFileDelete(CLibraryFile* pFile)
 
 void CLibraryHistory::Serialize(CArchive& ar, int nVersion)
 {
-	CSingleLock pLock( &Library.m_pSection, TRUE );
+	ASSUME_LOCK( Library.m_pSection );
 
 	if ( nVersion < 7 ) return;
 
@@ -250,13 +256,12 @@ void CLibraryHistory::Serialize(CArchive& ar, int nVersion)
 
 		for ( nCount = ar.ReadCount() ; nCount > 0 ; nCount-- )
 		{
-			CLibraryRecent* pRecent = new CLibraryRecent();
+			//CLibraryRecent* pRecent = new CLibraryRecent();
+			CAutoPtr< CLibraryRecent > pRecent( new CLibraryRecent() );
 			pRecent->Serialize( ar, nVersion );
 
-			if ( pRecent->m_pFile != NULL )
-				m_pList.AddTail( pRecent );
-			else
-				delete pRecent;
+			if ( pRecent->m_pFile )
+				m_pList.AddTail( pRecent.Detach() );
 		}
 
 		//if ( nVersion > 22 )
@@ -281,40 +286,31 @@ void CLibraryHistory::Serialize(CArchive& ar, int nVersion)
 // CLibraryRecent construction
 
 CLibraryRecent::CLibraryRecent()
-	: m_pFile		( NULL )
+	: m_pFile	( NULL )
 {
 	ZeroMemory( &m_tAdded, sizeof( m_tAdded ) );
 }
 
-CLibraryRecent::CLibraryRecent( LPCTSTR pszPath,
-	const Hashes::Sha1ManagedHash& oSHA1,
-	const Hashes::TigerManagedHash& oTiger,
-	const Hashes::Ed2kManagedHash& oED2K,
-	const Hashes::BtManagedHash& oBTH,
-	const Hashes::Md5ManagedHash& oMD5,
-	LPCTSTR pszSources )
-	: m_pFile		( NULL )
-	, m_sSources	( pszSources )
-	, m_oSHA1		( oSHA1 )
-	, m_oTiger		( oTiger )
-	, m_oED2K		( oED2K )
-	, m_oBTH		( oBTH )
-	, m_oMD5		( oMD5 )
+CLibraryRecent::CLibraryRecent(LPCTSTR pszPath, const CDownload* pDownload)
+	: m_pFile	( NULL )
+	, m_sPath	( pszPath )
 {
-	m_sPath = pszPath;
-	GetSystemTimeAsFileTime( &m_tAdded );
-}
-
-//////////////////////////////////////////////////////////////////////
-// CLibraryRecent verification
-
-void CLibraryRecent::RunVerify(CLibraryFile* pFile)
-{
-	if ( m_pFile == NULL )
+	if ( pDownload )
 	{
-		m_pFile = pFile;
-		m_pFile->OnVerifyDownload( m_oSHA1, m_oTiger, m_oED2K, m_oBTH, m_oMD5, m_sSources );
+		Hashes::Sha1ManagedHash oSHA1( pDownload->m_oSHA1 );
+		if ( pDownload->m_bSHA1Trusted ) oSHA1.signalTrusted();
+		Hashes::TigerManagedHash oTiger( pDownload->m_oTiger );
+		if ( pDownload->m_bTigerTrusted ) oTiger.signalTrusted();
+		Hashes::Ed2kManagedHash oED2K( pDownload->m_oED2K );
+		if ( pDownload->m_bED2KTrusted ) oED2K.signalTrusted();
+		Hashes::BtManagedHash oBTH( pDownload->m_oBTH );
+		if ( pDownload->m_bBTHTrusted ) oBTH.signalTrusted();
+		Hashes::Md5ManagedHash oMD5( pDownload->m_oMD5 );
+		if ( pDownload->m_bMD5Trusted ) oMD5.signalTrusted();
+		m_sSources = pDownload->GetSourceURLs();
 	}
+
+	GetSystemTimeAsFileTime( &m_tAdded );
 }
 
 //////////////////////////////////////////////////////////////////////

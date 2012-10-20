@@ -1341,7 +1341,7 @@
 		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="_Play Album"/>
 		<item id="ID_LIBRARY_FOLDER_DELETE" text="_Delete"/>
 		<separator/>
-		<item id="ID_LIBRARY_REBUILD" text="_Rebuild"/>
+		<item id="ID_LIBRARY_REBUILD" text="Re_build"/>
 		<item id="ID_LIBRARY_EXPORT_COLLECTION" text="_Export Collection..."/>
 		<separator/>
 		<item id="ID_LIBRARY_FOLDER_NEW" text="_New Group Folder..."/>
@@ -1417,6 +1417,7 @@
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Download Metadata"/>
 		</menu>
 		<menu text="_Metadata">
+			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
 			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localize Metadata"/>
 			<item id="ID_LIBRARY_COLUMNS" text="C_hoose Detail Columns..."/>
@@ -2659,7 +2660,7 @@
 		<!--System-->
 		<image id="ID_SECURITY_ADD" id1="ID_SECURITY_EDIT"/>
 		<image id="ID_VIEW_TRAFFIC" id1="ID_TRAFFIC_WINDOW"/>
-		<image id="ID_VIEW_HOSTS" id1="ID_LIBRARY_REBUILD"/>
+		<image id="ID_VIEW_HOSTS" id1="ID_LIBRARY_REBUILD" id2="ID_LIBRARY_REBUILD_FILE"/>
 		<image id="ID_TAB_HOME" id1="ID_LIBRARY_VIEW_HOME"/>
 		<image id="ID_VIEW_SYSTEM" id1="ID_VIEW_NEIGHBOURS"/>
 		<image id="ID_DOWNLOADS_REMOTE_PREVIEW"/>

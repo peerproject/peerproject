@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Albanian Skin File -->
 
-<!-- Translation based on default-en.xml r84 -->
+<!-- Translation based on default-en.xml r85 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -439,7 +439,7 @@
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="Shfleto"/>
 		<button id="ID_CHAT_PRIORITY" text="Përparësia e Dhënies"/>
-		<!-- <button id="ID_CHAT_SEND_FILE" text="Dërgo një Skedë"/> -->
+		<!--button id="ID_CHAT_SEND_FILE" text="Dërgo një Skedë"-->
 		<separator/>
 		<button id="ID_CHAT_CONNECT" text="Lidhu" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="Shkëputu"/>
@@ -1300,7 +1300,6 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episode në këtë Serial"/>
 		</menu>
 		<menu text="Shërbime _Rrjeti">
-			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokalizo Metadatat"/>
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Rifresko Metadata"/>
 			<separator/>
 			<item id="ID_LIBRARY_BITZI_WEB" text="Shiko Biletën _Bitzi"/>
@@ -1342,6 +1341,7 @@
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Përfto Metadatat"/>
 		</menu>
 		<menu text="_Metadatat">
+			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Rifresko Metadatat"/>
 			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokalizo Metadatat"/>
 			<item id="ID_LIBRARY_COLUMNS" text="Zgjidhi _Kolonat..."/>
@@ -1573,7 +1573,7 @@
 		<separator/>
 		<item id="ID_CHAT_BROWSE" text="_Shfleto"/>
 		<item id="ID_CHAT_PRIORITY" text="Parësi e _Dhënies"/>
-		<!--<item id="ID_CHAT_SEND_FILE" text="_Dërgo një Skedë..."/>-->
+		<!--item id="ID_CHAT_SEND_FILE" text="_Dërgo një Skedë..."-->
 		<separator/>
 		<menu text="_Formati">
 			<item id="ID_CHAT_BOLD" text="Trashësi"/>
@@ -1721,8 +1721,8 @@
 		<text align="middle">- Ndryshoni pamjen &amp; ndjesinë e PeerProject-s</text>
 		<newline gap="8"/>
 		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link><gap size="6"/>
-		<text align="middle">- Update blocklist to avoid bad search results</text>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Filtra Siguri</link><gap size="6"/>
+		<text align="middle">- Update blocklist për të shmangur rezultatet e kërkimit të këqija</text>
 		<newline gap="8"/>
 		<icon res="197" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 		<link target="command:ID_TOOLS_WIZARD" align="middle">Uizardi i Shpejtë</link><gap size="6"/>
@@ -2300,7 +2300,7 @@
 	<tip id="ID_CHAT_EMOTICONS" message="Vendos një emoticon."/>
 	<tip id="ID_CHAT_ITALIC" message="Zbaton formatim të pjerrët (Ctrl+I)"/>
 	<tip id="ID_CHAT_PRIORITY" message="Lejon parësinë e ngarkimit tek përdoruesi."/>
-	<!-- <tip id="ID_CHAT_SEND_FILE" message="I dërgon përdoruesit një skedë..."/> -->
+	<!--tip id="ID_CHAT_SEND_FILE" message="I dërgon përdoruesit një skedë..."-->
 	<tip id="ID_CHAT_TIMESTAMP" message="Tregon kohën kur shfaqen mesazhet."/>
 	<tip id="ID_CHAT_UNDERLINE" message="Zbaton formatim me nënvizim (Ctrl+U)"/>
 	<tip id="ID_CHILD_CLOSE" message="Mbyll dritaren aktive."/>
@@ -2416,6 +2416,7 @@
 	<tip id="ID_LIBRARY_PARENT" message="Lëviz sipër në dosjen mëmë."/>
 	<tip id="ID_LIBRARY_PROPERTIES" message="Tregon dhe editon vetitë e skedës së zgjedhur..."/>
 	<tip id="ID_LIBRARY_REBUILD" message="Rindërton metadatat dhe hashet për dosjen apo skedën e zgjedhur."/>
+	<tip id="ID_LIBRARY_REBUILD_FILE" message="Rindërton metadatat dhe hashet për dosjen apo skedën e zgjedhur."/>
 	<tip id="ID_LIBRARY_REBUILD_ANSI" message="Rindërton metadatat duke përdorur një gjuhë tjetër."/>
 	<tip id="ID_LIBRARY_REFRESH" message="Rifreskon pamjen e librarisë."/>
 	<tip id="ID_LIBRARY_REMOVE" message="Fshin dosjen e zgjedhur që shpërndahet."/>

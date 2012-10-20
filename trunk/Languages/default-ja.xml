@@ -1,9 +1,9 @@
-﻿3<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <!-- PeerProject Default Japanese Skin File -->
 
-<!-- Translation based on default-en.xml r84 --> <!-- (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r85 --> <!-- (Shareaza 2.2.0.2) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -25,6 +25,13 @@
 	language="ja"
 	prompt="アプリケーションで日本語を使用したい場合はここをクリックして下さい"
 />
+
+<fonts> <!--Vista+ face="メイリオ"-->
+  <font name="System.Plain"  face="Meiryo" size="11" weight="Normal"/>
+  <font name="System.Bold"   face="Meiryo" size="11" weight="Bold"/>
+  <font name="Panel.Caption" face="Meiryo" size="12" weight="Normal"/>
+  <font name="Navbar.Caption" face="Meiryo" size="12" weight="Normal"/>
+</fonts>
 
 <!-- Toolbar Definitions -->
 <toolbars>
@@ -411,7 +418,7 @@
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="参照"/>
 		<button id="ID_CHAT_PRIORITY" text="転送順位を優先"/>
-		<!--<button id="ID_CHAT_SEND_FILE" text="Send File"/> -->
+		<!--button id="ID_CHAT_SEND_FILE" text="Send File"-->
 		<separator/>
 		<button id="ID_CHAT_CONNECT" text="接続" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="切断"/>
@@ -1239,8 +1246,6 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="同じシリーズのエピソード"/>
 		</menu>
 		<menu text="ウェブサービス(_W)">
-			<item id="ID_LIBRARY_REBUILD_ANSI" text="メタデータをローカライズ(_L)"/>
-			<separator/>
 			<item id="ID_LIBRARY_BITZI_WEB" text="Bitzi Ticketを表示(_B)"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="メタデータをダウンロード(_D)"/>
 			<separator/>
@@ -1280,6 +1285,7 @@
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="メタデータを取得(_A)"/>
 		</menu>
 		<menu text="_Metadata">
+			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
 			<item id="ID_LIBRARY_REBUILD_ANSI" text="メタデータをローカライズ(_L)"/>
 			<item id="ID_LIBRARY_COLUMNS" text="カラム選択(_C)..."/>
@@ -1507,7 +1513,7 @@
 		<item id="ID_CHAT_DISCONNECT" text="切断(_D)"/>
 		<separator/>
 		<item id="ID_CHAT_BROWSE" text="参照(_B)"/>
-		<!-- <item id="ID_CHAT_SEND_FILE" text="ファイルを送信(_S)..."/> -->
+		<!--item id="ID_CHAT_SEND_FILE" text="ファイルを送信(_S)..."-->
 		<item id="ID_CHAT_PRIORITY" text="認証優先順位(_P)"/>
 		<separator/>
 		<menu text="_Format">
@@ -1540,7 +1546,7 @@
 				<font size="13"/>
 			</style>
 			<style name="heading">
-				<font face="ＭＳ ゴシック" size="16" weight="800"/>
+				<font size="16" weight="800"/> <!--face="ＭＳ ゴシック"-->
 			</style>
 		</styles>
 		<anchor id="Header" width="32" height="152"/>
@@ -1551,24 +1557,24 @@
 			<newline gap="8" indent="42"/>
 			<text>PeerProjectへようこそ! &#160;現時点ではまだどのピア・ツー・ピアネットワークにも接続していません。 &#160;</text>
 			<newline gap="8" indent="42"/>
-			<text>You are not currently connected to any peer to peer networks. &#160;</text>
+			<text>あなたは、現在のネットワークをピアにどのピアに接続されていません。 &#160;</text>
 			<link target="command:ID_NETWORK_CONNECT">ここをクリックすると接続を開始します!</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="2">
 			<icon res="130" width="32" height="32" target="command:ID_TAB_SEARCH"/><gap size="8"/>
-			<heading align="middle">Search for Files</heading>
+			<heading align="middle">ファイルの検索</heading>
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="12" indent="0"/>
 			<icon res="122" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
 			<heading align="middle">PeerProject 検 索</heading>
 			<newline gap="8" indent="42"/>
-			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Click here to start</link>
-			<text>&#160;downloading a new file or torrent.</text>
+			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">開始するにはここをクリック</link>
+			<text>&#160;新しいファイルやtorrentをダウンロードします。</text>
 			<newline gap="2" indent="42"/>
-			<text>Or open your completed </text>
-			<link target="command:shell:downloads">downloads folder.</link>
+			<text>または完成した </text>
+			<link target="command:shell:downloads">ダウンロードフォルダ.</link>
 			<newline gap="4" indent="42"/>
 			<text>で共有するファイル </text>
 			<link id="RemoteBrowseURL"/>
@@ -1576,7 +1582,7 @@
 		</group>
 		<group id="3">
 			<icon res="120" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">Upgrade 通 知</heading>
+			<heading align="middle">アップグレード 通 知</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
 			<newline gap="6"/>
@@ -1625,7 +1631,7 @@
 		<newline gap="8"/>
 		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
 		<link target="command:ID_VIEW_SECURITY" align="middle">セキュリティフィルタ</link><gap size="6"/>
-		<text align="middle">- Update blocklist</text>
+		<text align="middle">- 更新ブロックリスト</text>
 		<newline gap="8"/>
 		<icon res="197" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 		<link target="command:ID_TOOLS_WIZARD" align="middle">設定ウィザード</link><gap size="6"/>
@@ -2173,7 +2179,7 @@
 	<tip id="ID_CHAT_EMOTICONS" message="絵文字を挿入します"/>
 	<tip id="ID_CHAT_ITALIC" message="イタリック体フォーマットを適用します(Ctrl+I)"/>
 	<tip id="ID_CHAT_PRIORITY" message="このユーザにアップロード優先権を与えます"/>
-	<!-- <tip id="ID_CHAT_SEND_FILE" message="ユーザへファイルを送信します..."/> -->
+	<!--tip id="ID_CHAT_SEND_FILE" message="ユーザへファイルを送信します..."-->
 	<tip id="ID_CHAT_TIMESTAMP" message="各メッセージを受信した時間を表示します"/>
 	<tip id="ID_CHAT_UNDERLINE" message="アンダーライン属性のフォーマットを適用します(Ctrl+U)"/>
 	<tip id="ID_CHILD_CLOSE" message="アクティブウィンドウを閉じます"/>
@@ -2286,6 +2292,7 @@
 	<tip id="ID_LIBRARY_PARENT" message="現在のフォルダを上に移動します"/>
 	<tip id="ID_LIBRARY_PROPERTIES" message="選択したファイルのプロパティを表示・編集します..."/>
 	<tip id="ID_LIBRARY_REBUILD" message="選択したフォルダ又はファイル用のメタデータとハッシュを再構築します"/>
+	<tip id="ID_LIBRARY_REBUILD_FILE" message="選択したフォルダ又はファイル用のメタデータとハッシュを再構築します"/>
 	<tip id="ID_LIBRARY_REBUILD_ANSI" message="他の言語を使用してメタデータを再構築します"/>
 	<tip id="ID_LIBRARY_REFRESH" message="ライブラリの表示を更新します"/>
 	<tip id="ID_LIBRARY_REMOVE" message="選択した共有フォルダを取り除きます"/>
@@ -3134,7 +3141,7 @@
 	<string id="20834" value="アップロードホスト %s が &quot;%s&quot; のプレビューを要求しましたが、利用可能なプレビューがありません"/>
 	<string id="20835" value="&quot;%s&quot; のプレビューを %s へアップロードしています"/>
 	<string id="20836" value="あまりに多すぎるアップロード接続を持っているため %s へのプッシュ要求を拒否しました"/>
-	<!--string id="20837" value="%s からのレガシープッシュ要求は未知のファイルを要求していますが、接続試行しています..."/>
+	<!--string id="20837" value="%s からのレガシープッシュ要求は未知のファイルを要求していますが、接続試行しています..."-->
 	<string id="20838" value="&quot;%s&quot; を %s へアップロードするにはビジーすぎる為、キュー(#%i/%i)で順番待ちしています(&quot;%s&quot;."/>
 	<string id="20840" value="%s へのアップロード接続が失われた為、キュー位置を保存しています"/>
 	<string id="20841" value="新規キュー"/>

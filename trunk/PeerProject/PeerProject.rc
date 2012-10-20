@@ -3378,7 +3378,6 @@ BEGIN
 	ID_LIBRARY_BITZI_DOWNLOAD	"Download metadata for the selected files from Bitzi..."
 	ID_LIBRARY_BITZI_WEB		"View the Bitzi™ ticket for the selected file on the web."
 	ID_LIBRARY_COLUMNS			"Select metadata columns to be displayed..."
-	ID_LIBRARY_COPY				"Copy selected files to another library folder..."
 	ID_LIBRARY_CREATETORRENT	"Create a .torrent for this file to upload to a website."
 	ID_LIBRARY_DELETE			"Delete the selected files permanently."
 	ID_LIBRARY_ENQUEUE			"Add selected files to your media playlist."
@@ -3399,12 +3398,14 @@ END
 
 STRINGTABLE
 BEGIN
+	ID_LIBRARY_COPY				"Copy selected files to another library folder..."
 	ID_LIBRARY_MOVE				"Move selected files to another library folder..."
 	ID_LIBRARY_PANEL			"Show or hide the library detail panel."
 	ID_LIBRARY_PARENT			"Go back to the parent folder."
 	ID_LIBRARY_PROPERTIES		"View and edit the properties of the selected files..."
-	ID_LIBRARY_REBUILD			"Rebuild metadata and hashes for the selected folders or files."
-	ID_LIBRARY_REBUILD_ANSI		"Rebuild metadata using other language."
+	ID_LIBRARY_REBUILD			"Rebuild metadata and hashes for selected folders or files."
+	ID_LIBRARY_REBUILD_FILE		"Rebuild metadata and hashes for selected files."
+	ID_LIBRARY_REBUILD_ANSI		"Rebuild metadata using another language."
 	ID_LIBRARY_REFRESH			"Refresh the library view."
 	ID_LIBRARY_REMOVE			"Remove selected folders from the Libary."
 	ID_LIBRARY_RENAME			"Rename the selected file in-place."
@@ -3413,7 +3414,7 @@ BEGIN
 	ID_LIBRARY_SEARCH_QUICK		"Search your file library..."
 	ID_LIBRARY_SEED_TORRENT		"Seed the selected Torrent on BitTorrent."
 	ID_LIBRARY_SELECT_ALL		"Select and view all folders in your library."
-	ID_LIBRARY_SHARED_FILE		"Share or unshare the selected files."
+	ID_LIBRARY_SHARED_FILE		"Share or unshare selected files."
 	ID_LIBRARY_SHARED_FOLDER	"Share or unshare selected folders."
 	ID_LIBRARY_TREE_PHYSICAL	"View the physical folders in your library."
 	ID_LIBRARY_TREE_VIRTUAL		"Organize your library."

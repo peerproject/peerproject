@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default French Skin File -->
 
-<!-- Translation based on default-en.xml r84 -->
+<!-- Translation based on default-en.xml r85 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -451,7 +451,7 @@
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="Browse User"/>
 		<button id="ID_CHAT_PRIORITY" text="Grant Priority"/>
-		<!-- <button id="ID_CHAT_SEND_FILE" text="Send File"/> -->
+		<!--button id="ID_CHAT_SEND_FILE" text="Envoyer un fichier"-->
 		<separator/>
 		<button id="ID_CHAT_CONNECT" text="Se connecter" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="Se déconnecter"/>
@@ -1397,6 +1397,7 @@
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Télécharger les méta_données"/>
 		</menu>
 		<menu text="_Metadata">
+			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Rafraîchir les métadonnées"/>
 			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localiser les métadonnées"/>
 			<item id="ID_LIBRARY_COLUMNS" text="Choisir les _colonnes..."/>
@@ -1639,7 +1640,7 @@
 		<item id="ID_CHAT_DISCONNECT" text="Se _Déconnecter"/>
 		<separator/>
 		<item id="ID_CHAT_BROWSE" text="Parcourir l'utilisateur"/>
-		<!-- <item id="ID_CHAT_SEND_FILE" text="Envoyer un fichier..."/> -->
+		<!--item id="ID_CHAT_SEND_FILE" text="Envoyer un fichier..."-->
 		<item id="ID_CHAT_PRIORITY" text="Octroi la _priorité"/>
 		<separator/>
 		<menu text="_Format">
@@ -2372,7 +2373,7 @@
 	<tip id="ID_CHAT_EMOTICONS" message="Insérer une émoticône."/>
 	<tip id="ID_CHAT_ITALIC" message="Appliquer le formatage en italique (Ctrl+I)"/>
 	<tip id="ID_CHAT_PRIORITY" message="Octroyer la priorité à cet utilisateur."/>
-	<!-- <tip id="ID_CHAT_SEND_FILE" message="Envoyer un fichier à l'utilisateur..."/> -->
+	<!--tip id="ID_CHAT_SEND_FILE" message="Envoyer un fichier à l'utilisateur..."-->
 	<tip id="ID_CHAT_TIMESTAMP" message="Afficher la date à laquelle chacun des messages a été reçu."/>
 	<tip id="ID_CHAT_UNDERLINE" message="Appliquer le formatage en souligné (Ctrl+U)"/>
 	<tip id="ID_CHILD_CLOSE" message="Fermer la fenêtre active."/>
@@ -2488,6 +2489,7 @@
 	<tip id="ID_LIBRARY_PARENT" message="Remonter vers le dossier parent."/>
 	<tip id="ID_LIBRARY_PROPERTIES" message="Voir et éditer les propriétés de cette sélection de fichiers..."/>
 	<tip id="ID_LIBRARY_REBUILD" message="Reconstruire les métadonnées et recalculer les hachages de cette sélection de dossiers ou fichiers."/>
+	<tip id="ID_LIBRARY_REBUILD_FILE" message="Reconstruire les métadonnées et recalculer les hachages de cette sélection de fichiers."/>
 	<tip id="ID_LIBRARY_REBUILD_ANSI" message="Reconstruire les métadonnées en utilisant une autre langue."/>
 	<tip id="ID_LIBRARY_REFRESH" message="Actualiser l'affichage de la bibliothèque."/>
 	<tip id="ID_LIBRARY_REMOVE" message="Enlever cette sélection de dossiers partagés."/>

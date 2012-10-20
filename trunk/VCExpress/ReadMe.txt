@@ -33,37 +33,14 @@ Note. Alternative for Browse/Edit only:
 
 X. Install Visual C++ Express + Windows SDK + WDK
 	- http://www.microsoft.com/express/downloads  (Visual C++ 2010 Express, and/or 2008)
-	- See VCEXpress/ReadMe.txt for configuration details.
+	- http://www.microsoft.com/downloads/details.aspx?familyid=C17BA869-9671-4330-A63E-1FD44E0E2505  (Win7 SDK)
+	- http://www.microsoft.com/downloads/details.aspx?FamilyID=36a2630f-5d56-43b5-b996-7633f2ec14ff  (WDK 7.1)
+	- http://download.microsoft.com/download/9/0/f/90f019ac-8243-48d3-91cf-81fc4093ecfd/1830_usa_ddk.iso  (DDK)
 
-
-
-
-
-
-PeerProject License Notes:
-_________________________
-
-
-0. This sourcecode package contains files under many licenses.  READ THEM.
-
-
-1. Code is GPL/AGPLv3, except where noted otherwise.
-	- Any resulting build or reuse must be AGPL 3+ compliant, including section 7 "Additional Terms."
-	- As this is network server software affecting others, Affero REQUIRES PUBLIC AVAILABILITY OF MODIFIED CODE.
-	- Other original work not covered by a prior license is available as Persistent Public Domain license (PPD).
-
-2. Original visual resources are Creative Commons BY-NC-SA or PPD.
-	- Many Images = Attribution, Non-Commercial, Share-Alike.
-
-3. "PeerProject" is a protected trademark.
-	- Does not prevent cost-free AGPLv3/CC-compliant "mods" that both properly attribute and distinguish.
-
-4. COMMERCIAL USE OF THIS SOURCEPACKAGE AS-IS IS NOT PERMITTED.
-	- Some Non-GPL "aggregate" resources do not provide for normal GPL-compliant commercial usage.
-	- Most Images and LibGFL.dll graphic library must first be removed! Etc.
-
-
-PeerProject is copyright PeerProject Development Team. (peerproject.org)
-Some portions previously copyright Shareaza Development Team, and others.
-
-All good-faith use is encouraged, no scams or misrepresentation will be tolerated.  Proud to be Open Source.
+ 	- See http://www.codeproject.com/KB/MFC/MFCinVisualStudioExpress.aspx
+	- For Windows SDK web installer, "Documentation" and "Samples" are not needed: uncheck them.
+	- For WDK (Windows Driver Kit) installer, only "Build Environments" is needed: leave others unchecked.
+	- To add MFC in VC2008 go to:  Tools > Options > Projects and Solutions > VC++ Directories > (See dropdown at upper-right)
+	--  In "Include Directories" add to top:  c:\<WDK>\inc\atl71  and  c:\<WDK>\inc\mfc42  and  c:\<Win7 SDK>\Include
+	--  In "Library Directores"  add to end:  c:\<WDK>\lib\ATL\i386  and  c:\<WDK>\lib\MFC\i386  (Use actual paths)
+	- Uncomment "//#define VCEXPRESS" early in file StdAfx.h	-Note MFC file afxocc.h is still missing

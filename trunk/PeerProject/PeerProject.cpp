@@ -650,6 +650,7 @@ int CPeerProjectApp::ExitInstance()
 		Downloads.Clear( true );
 		Library.Clear();
 		HostCache.Clear();
+		DiscoveryServices.Clear();
 		CoolMenu.Clear();
 		Skin.Clear();
 
@@ -1607,6 +1608,7 @@ void CPeerProjectApp::ShowStartupText()
 	if ( Machine::Supports3DNOWEXT() )
 		strCPU += _T(" 3DNowExt");
 	PrintMessage( MSG_INFO, strCPU );
+	PrintMessage( MSG_DEBUG, IsRunAsAdmin() ? _T("Running with administrative privileges.") : _T("Running without administrative privileges.") );
 }
 
 void CPeerProjectApp::Message(WORD nType, UINT nID, ...)
@@ -1669,13 +1671,17 @@ void CPeerProjectApp::PrintMessage(WORD nType, const CString& strLog)
 	if ( Settings.General.DebugLog )
 		LogMessage( strLog );
 
+	CAutoPtr< CLogMessage > pMsg( new CLogMessage( nType, strLog ) );
+	if ( ! pMsg )
+		return;		// Out of memory
+
 	CQuickLock pLock( m_csMessage );
 
 	// Max 1000 lines	// ToDo: Setting?
 	if ( m_oMessages.GetCount() >= 1000 )
 		delete m_oMessages.RemoveHead();
 
-	m_oMessages.AddTail( new CLogMessage( nType, strLog ) );
+	m_oMessages.AddTail( pMsg.Detach() );
 }
 
 void CPeerProjectApp::LogMessage(const CString& strLog)
@@ -1979,19 +1985,14 @@ BOOL CPeerProjectApp::InternalURI(LPCTSTR pszURI)
 
 BOOL IsRunAsAdmin()
 {
+	BOOL bIsRunAsAdmin = FALSE;
 	PSID pAdministratorsGroup = NULL;
 	SID_IDENTIFIER_AUTHORITY NtAuthority = SECURITY_NT_AUTHORITY;
-	if ( ! AllocateAndInitializeSid( &NtAuthority, 2, SECURITY_BUILTIN_DOMAIN_RID,
-		DOMAIN_ALIAS_RID_ADMINS, 0, 0, 0, 0, 0, 0, &pAdministratorsGroup ) )
+	if ( AllocateAndInitializeSid( &NtAuthority, 2, SECURITY_BUILTIN_DOMAIN_RID, DOMAIN_ALIAS_RID_ADMINS, 0, 0, 0, 0, 0, 0, &pAdministratorsGroup ) )
 	{
-		return FALSE;
+		CheckTokenMembership( NULL, pAdministratorsGroup, &bIsRunAsAdmin );
+		FreeSid( pAdministratorsGroup );
 	}
-
-	BOOL bIsRunAsAdmin = FALSE;
-	if ( ! CheckTokenMembership( NULL, pAdministratorsGroup, &bIsRunAsAdmin ) )
-		bIsRunAsAdmin = FALSE;
-
-	FreeSid( pAdministratorsGroup );
 
 	return bIsRunAsAdmin;
 }
@@ -2677,10 +2678,13 @@ void CPeerProjectApp::OnRename(LPCTSTR pszSource, LPCTSTR pszTarget)
 	}
 }
 
-CDatabase* CPeerProjectApp::GetDatabase(bool bGeneral) const
+CDatabase* CPeerProjectApp::GetDatabase(int nType) const
 {
-	return new CDatabase( Settings.General.DataPath +
-		( bGeneral ? _T("PeerProject.db3") : _T("Thumbnails.db3") ) );
+	ASSERT( nType < DB_LAST );
+	return new CDatabase( Settings.General.DataPath + 
+		( nType == DB_THUMBS ? _T("Thumbnails.db3") :
+		//nType == DB_SECURITY ? _T("Security.db3") :
+		/*nType == DB_DEFAULT ?*/ _T("PeerProject.db3") ) );
 }
 
 CString SafeFilename(CString strName, bool bPath)
@@ -2692,7 +2696,7 @@ CString SafeFilename(CString strName, bool bPath)
 	for ( ;; )
 	{
 		const int nChar = strName.FindOneOf(
-			bPath ? _T("/:*?\"<>|") : _T("\\/:*?\"<>|") );
+			bPath ? _T("/:*?<>|\"") : _T("\\/:*?<>|\"") );
 
 		if ( nChar == -1 )
 			break;
@@ -3630,7 +3634,7 @@ CProgressDialog::CProgressDialog(LPCTSTR szTitle, DWORD dwFlags)
 	{
 		p->SetTitle( CLIENT_NAME );
 		p->SetLine( 1, szTitle, FALSE, NULL );
-		p->StartProgressDialog( theApp.SafeMainWnd()->GetSafeHwnd(), NULL, dwFlags, NULL );
+		p->StartProgressDialog( theApp.SafeMainWnd() ? theApp.SafeMainWnd()->GetSafeHwnd() : GetDesktopWindow(), NULL, dwFlags, NULL );
 	}
 }
 
@@ -3645,7 +3649,8 @@ void CProgressDialog::Progress(LPCTSTR szText, QWORD nCompleted, QWORD nTotal)
 	if ( p )
 	{
 		p->SetLine( 2, szText, TRUE, NULL );
-		p->SetProgress64( nCompleted, nTotal );
+		if ( nTotal || nCompleted )
+			p->SetProgress64( nCompleted, nTotal );
 	}
 }
 

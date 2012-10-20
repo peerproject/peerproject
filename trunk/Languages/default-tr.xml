@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Turkish Skin File -->
 
-<!-- Translation based on default-en.xml r84 -->
+<!-- Translation based on default-en.xml r85 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -414,7 +414,7 @@
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="Kullanıcı Ara"/>
 		<button id="ID_CHAT_PRIORITY" text="Öncelik Ver"/>
-		<!--<button id="ID_CHAT_SEND_FILE" text="Dosya Gönder"/> -->
+		<!--button id="ID_CHAT_SEND_FILE" text="Dosya Gönder"-->
 		<separator/>
 		<button id="ID_CHAT_CONNECT" text="Bağlan" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="Bağlantıyı Kes"/>
@@ -1320,6 +1320,7 @@
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Veri Edinmek"/>
 		</menu>
 		<menu text="_Meta Verileri">
+			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Meta Verileri Tazele"/>
 			<item id="ID_LIBRARY_REBUILD_ANSI" text="Sı_nırlı Veri"/>
 			<item id="ID_LIBRARY_COLUMNS" text="Sü_tun Seç..."/>
@@ -1547,7 +1548,7 @@
 		<item id="ID_CHAT_DISCONNECT" text="Bağlantı _Kes"/>
 		<separator/>
 		<item id="ID_CHAT_BROWSE" text="Kullanıcı _Ara"/>
-		<!-- <item id="ID_CHAT_SEND_FILE" text="_Dosya Gönder..."/> -->
+		<!--item id="ID_CHAT_SEND_FILE" text="_Dosya Gönder..."-->
 		<item id="ID_CHAT_PRIORITY" text="Ö_ncelik Ver"/>
 		<separator/>
 		<menu text="B_içim">
@@ -1693,8 +1694,8 @@
 		<text align="middle">- PeerProject'nın görüntüsünü değiştir.</text>
 		<newline gap="8"/>
 		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link><gap size="6"/>
-		<text align="middle">- Update blocklist to avoid bad search results</text>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Güvenlik Filtreler</link><gap size="6"/>
+		<text align="middle">- Kötü arama sonuçları önlemek için Engelenenler güncelleyin</text>
 		<newline gap="8"/>
 		<icon res="197" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 		<link target="command:ID_TOOLS_WIZARD" align="middle">Ayarlar Sihirbazı</link><gap size="6"/>
@@ -2239,7 +2240,7 @@
 	<tip id="ID_CHAT_EMOTICONS" message="İkon ekle."/>
 	<tip id="ID_CHAT_ITALIC" message="İtalik biçimini uygula (Ctrl+I)"/>
 	<tip id="ID_CHAT_PRIORITY" message="Kullanıcının aktarım üstünlüğünü onayla."/>
-	<!-- <tip id="ID_CHAT_SEND_FILE" message="Kullanıcıya dosya gönder..."/> -->
+	<!--tip id="ID_CHAT_SEND_FILE" message="Kullanıcıya dosya gönder..."-->
 	<tip id="ID_CHAT_TIMESTAMP" message="Mesajların gönderildiği zamanı göster."/>
 	<tip id="ID_CHAT_UNDERLINE" message="Altı çizili biçimini uygula (Ctrl+U)"/>
 	<tip id="ID_CHILD_CLOSE" message="Etkin olan pencereyi kapat."/>
@@ -2355,6 +2356,7 @@
 	<tip id="ID_LIBRARY_PARENT" message="Benzer klasörü bir yukarı taşı."/>
 	<tip id="ID_LIBRARY_PROPERTIES" message="Seçilmiş dosyaların özelliklerini göster ve yayınla..."/>
 	<tip id="ID_LIBRARY_REBUILD" message="Seçilen dosya ve klasörleri verileri düzenle."/>
+	<tip id="ID_LIBRARY_REBUILD_FILE" message="Seçilen dosya ve klasörleri verileri düzenle."/>
 	<tip id="ID_LIBRARY_REBUILD_ANSI" message="Diğer dillerin kullanımında veri düzenle."/>
 	<tip id="ID_LIBRARY_REFRESH" message="Kütüphane görünümünü yenile."/>
 	<tip id="ID_LIBRARY_REMOVE" message="Seçilmiş paylaşım dosyalarını kaldır."/>
@@ -3093,7 +3095,7 @@
 	<string id="20655" value="Olmalı:"/>
 	<string id="20656" value="Daha fazla arama"/>
 	<string id="20657" value="Arama panelini göster"/>
-	<string id="20658" value="Aramaya başla"/>
+	<string id="20658" value="Aramaya"/>
 	<string id="20659" value="Durdur"/>
 	<string id="20660" value="Dosya bulunamadı"/>
 	<string id="20661" value="%lu hub, %lu eşler"/>

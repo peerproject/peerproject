@@ -22,13 +22,14 @@
 
 class CLibraryRecent;
 class CLibraryFile;
+class CDownload;
 
 
 class CLibraryHistory
 {
 public:
 	CLibraryHistory();
-	virtual ~CLibraryHistory();
+	~CLibraryHistory();
 
 public:
 	struct sTorrentDetails
@@ -50,14 +51,7 @@ public:
 	void			Clear();
 
 	BOOL			Check(CLibraryRecent* pRecent, int nScope = 0) const;
-	void			Add(
-						LPCTSTR pszPath,
-						const Hashes::Sha1ManagedHash& oSHA1,
-						const Hashes::TigerManagedHash& oTiger,
-						const Hashes::Ed2kManagedHash& oED2K,
-						const Hashes::BtManagedHash& oBTH,
-						const Hashes::Md5ManagedHash& oMD5,
-						LPCTSTR pszSources = _T(""));
+	void			Add(LPCTSTR pszPath, const CDownload* pDownload = NULL);
 	void			Submit(CLibraryFile* pFile);
 	void			OnFileDelete(CLibraryFile* pFile);
 	void			Serialize(CArchive& ar, int nVersion);
@@ -70,12 +64,17 @@ protected:
 };
 
 
-class CLibraryRecent : public CPeerProjectFile
+class CLibraryRecent
 {
+protected:
+	CLibraryRecent();
+	CLibraryRecent(LPCTSTR pszPath, const CDownload* pDownload = NULL);
+
 public:
 	FILETIME					m_tAdded;
 	CLibraryFile*				m_pFile;
 	CString						m_sSources;
+	CString						m_sPath;
 	Hashes::Sha1ManagedHash		m_oSHA1;
 	Hashes::TigerManagedHash	m_oTiger;
 	Hashes::Md5ManagedHash		m_oMD5;
@@ -83,17 +82,6 @@ public:
 	Hashes::BtManagedHash		m_oBTH;
 
 protected:
-	CLibraryRecent();
-	CLibraryRecent(
-		LPCTSTR pszPath,
-		const Hashes::Sha1ManagedHash& oSHA1,
-		const Hashes::TigerManagedHash&	oTiger,
-		const Hashes::Ed2kManagedHash& oED2K,
-		const Hashes::BtManagedHash& oBTH,
-		const Hashes::Md5ManagedHash& oMD5,
-		LPCTSTR pszSources);
-
-	void	RunVerify(CLibraryFile* pFile);
 	void	Serialize(CArchive& ar, int nVersion);
 
 	friend class CLibraryHistory;

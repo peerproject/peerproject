@@ -145,6 +145,7 @@ protected:
 	QWORD						m_nUnflushed;
 	Fragments::List				m_oFList;
 	DWORD						m_nFileError;
+	CString						m_sFileError;
 	volatile LONG				m_dwRef;
 	const CDownload*			m_pDownload;	// Reference download object (optional)
 
@@ -158,7 +159,7 @@ public:
 	// By hash from library: Open file from disk or create file inside incomplete folder
 	BOOL	Open(const CPeerProjectFile* pPPFile, BOOL bWrite);
 	// By .torrent: Open file from disk or create file inside incomplete folder file(s)
-	BOOL	Open(const CBTInfo& oInfo, BOOL bWrite, CString& sErrorMessage);
+	BOOL	Open(const CBTInfo& oInfo, BOOL bWrite);
 protected:
 	// By path: Open file from disk
 	BOOL	Open(LPCTSTR pszFile, QWORD nOffset = 0, QWORD nLength = SIZE_UNKNOWN, BOOL bWrite = FALSE, LPCTSTR pszName = NULL, int nPriority = prNormal );
@@ -167,8 +168,9 @@ public:
 	void	SetDownload(const CDownload* pDownload);
 	ULONG	AddRef();
 	ULONG	Release();
-	BOOL	Flush();
-	void	Close();
+	BOOL	Flush();				// Flush unsaved data to disk
+	void	Close();				// Close all subfiles
+	BOOL	SetSize(QWORD nSize);	// Set new file size
 	BOOL	MakeComplete();
 	void	Serialize(CArchive& ar, int nVersion);
 	BOOL	EnsureWrite();
@@ -231,6 +233,12 @@ public:
 	inline DWORD GetFileError() const
 	{
 		return m_nFileError;
+	}
+
+	// Get last file/disk error message
+	inline const CString& GetFileErrorString() const
+	{
+		return m_sFileError;
 	}
 
 	// Is file has size?

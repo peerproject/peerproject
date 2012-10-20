@@ -3,7 +3,7 @@
 
 <!-- PeerProject Arabic Language Skin File -->
 
-<!-- Translation based on default-en.xml r84 -->
+<!-- Translation based on default-en.xml r85 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -414,7 +414,7 @@
 		<separator />
 		<button id="ID_CHAT_BROWSE" text="معلومات عن المستخدم" />
 		<button id="ID_CHAT_PRIORITY" text="أولوية المحادثة" />
-		<!-- <button id="ID_CHAT_SEND_FILE" text="إرسال ملف"/> -->
+		<!--button id="ID_CHAT_SEND_FILE" text="إرسال ملف"-->
 		<separator />
 		<button id="ID_CHAT_CONNECT" text="إتصال" visible="false" />
 		<button id="ID_CHAT_DISCONNECT" text="قطع الإتصال" />
@@ -1280,6 +1280,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="الأحداث في نفس السلسلة" />
 		</menu>
 		<menu text="_خدمات الانترنت">
+			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata" />
 			<item id="ID_LIBRARY_REBUILD_ANSI" text="_توطين ملف تعريف" />
 			<separator />
@@ -1554,8 +1555,8 @@
 		<item id="ID_CHAT_DISCONNECT" text="_قطع الإتصال" />
 		<separator />
 		<item id="ID_CHAT_BROWSE" text="_معلومات عن المستخدم" />
-		<item id="ID_CHAT_SEND_FILE" text="_ارسال ملف..." />
 		<item id="ID_CHAT_PRIORITY" text="منح _أولوية" />
+		<!--item id="ID_CHAT_SEND_FILE" text="_ارسال ملف..."-->
 		<separator />
 		<menu text="_تنسيق">
 			<item id="ID_CHAT_BOLD" text="وضع _عريض" />
@@ -1672,20 +1673,20 @@
 		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">الغلافات</link>
 		<text align="middle"> - تغيير غلاف PeerProject و سمته</text>
 		<newline gap="8" />
-		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link><gap size="6"/>
-		<text align="middle">- Update blocklist</text>
+		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY" /><gap size="8"/>
+		<link target="command:ID_VIEW_SECURITY" align="middle">تصفية الأمن</link><gap size="6" />
+		<text align="middle">- تحديث قائمة ممنوعة</text>
 		<newline gap="8"/>
 		<icon res="197" width="16" height="16" target="command:ID_TOOLS_WIZARD" /> <gap size="8" />
 		<link target="command:ID_TOOLS_WIZARD" align="middle">معالج الإعدادات</link><gap size="6"/>
 		<text align="middle">- تحرير إعدادات PeerProject</text>
 		<newline gap="8" />
 		<icon res="182" width="16" height="16" target="command:ID_HELP_FAQ" /> <gap size="8" />
-		<link target="command:ID_HELP_FAQ" align="middle">تعليمات سريعة</link><gap size="6"/>
+		<link target="command:ID_HELP_FAQ" align="middle">تعليمات سريعة</link><gap size="6" />
 		<text align="middle">- أحصل على بعض التعليمات الأساسية عن PeerProject</text>
 		<newline gap="8"/>
-		<icon res="201" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
-		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">المحلية المنتدى</link><gap size="6"/>
+		<icon res="201" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8" />
+		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">المحلية المنتدى</link><gap size="6" />
 		<text align="middle">- اذهب الى حسابك في اللغة العربية مناقشة منتدى</text>
 		<newline gap="18" indent="0" />
 		<group id="5">
@@ -2253,7 +2254,7 @@
 	<tip id="ID_CHAT_EMOTICONS" message="إدراج مشاعر" />
 	<tip id="ID_CHAT_ITALIC" message="(Ctrl+I) تطبيق تنسيق خط مائل" />
 	<tip id="ID_CHAT_PRIORITY" message="إكتساب لأولوية إرسال إلى هذا المستخدم" />
-	<!-- <tip id="ID_CHAT_SEND_FILE" message="إرسال ملف إلى مستخدم ..."/> -->
+	<!--tip id="ID_CHAT_SEND_FILE" message="إرسال ملف إلى مستخدم ..."-->
 	<tip id="ID_CHAT_TIMESTAMP" message="إظعار الوقت عند وصول كل رسالة" />
 	<tip id="ID_CHAT_UNDERLINE" message="(Ctrl+U) تطبيق تنسيق خط تحته سطر" />
 	<tip id="ID_CHILD_CLOSE" message="إغلاق النافذة النشطة" />
@@ -3884,7 +3885,7 @@
 		<control caption="To share complete files using BitTorrent they must first be seeded. Once this process is complete the Torrent will appear as a new item in your download list." />
 		<control />
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="StSy" caption="Files">
+	<dialog name="CTorrentFilesPage" cookie="StSy" caption="ملفات">
 		<control />
 		<control />
 	</dialog>
@@ -3903,62 +3904,7 @@
 		<control caption="إ_ضافة" />
 		<control caption="إ_زالة" />
 	</dialog>
-	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="General">
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control caption=" As needed| When ratio over 100%| Only when requested| Never" />
-		<control caption="Torrent _Information:" />
-		<control caption="Name:" />
-		<control caption="Created:" />
-		<control caption="By:" />
-		<control caption="Comments:" />
-		<control caption="Transfers:" />
-		<control caption="Start new download transfers:" />
-		<control caption="Total Uploaded:" />
-		<control caption="Notes:" />
-	</dialog>
-	<dialog name="CDownloadEditPage" cookie="StBuStStStStBuStEdEdEdSyBuEdBuEdBuEdBuEdBuEd" caption="General">
-		<control caption="Caution: This dialog provides advanced download editing features for power users, that may cause corruption when used incorrectly."/>
-		<control caption="Details:"/>
-		<control caption="Filename:"/>
-		<control caption="Location:"/>
-		<control caption="Byte Size:"/>
-		<control caption="تاريخ:"/>
-		<control caption="URN Hashes:"/>
-		<control caption="Trusted?"/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control caption="&#160;SHA1:"/>
-		<control/>
-		<control caption="&#160;ED2K:"/>
-		<control/>
-		<control caption="&#160;MD5:"/>
-		<control/>
-		<control caption="&#160;Tiger-Root:"/>
-		<control/>
-		<control caption="&#160;BitTorrent:"/>
-		<control/>
-	</dialog>
-	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="_Actions:">
-		<control caption="Caution: This dialog provides advanced download editing features for power users, that may cause corruption when used incorrectly." />
-		<control caption="Forget all known sources" />
-		<control caption="Forget current verification status and reverify" />
-		<control caption="Assume file is 100% complete and reverify" />
-		<control caption="Merge with local file and verify" />
-		<control caption="Cancel download but save incomplete file" />
-		<control />
-		<control />
-		<control caption="_Actions:" />
-		<control caption="Data _Eraser:" />
-		<control caption="Byte range:" />
-		<control caption="to" />
-		<control caption="مسح" />
-	</dialog>
+	<!-- Missing Dialogs "CTorrentGeneralPage" "CDownloadEditPage" "CDownloadActionsPage"-->
 	<dialog name="CDownloadGroupDlg" cookie="BuEdBuEdBuBuBuCoBuBuBuCoStBuBu" caption="Download Group Properties">
 		<control caption="_Group Name:" />
 		<control />

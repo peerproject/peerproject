@@ -3,7 +3,7 @@
 
 <!-- PeerProject UK English Skin File -->
 
-<!-- Translation based on default-en.xml r84 -->
+<!-- Translation based on default-en.xml r85 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -428,6 +428,7 @@
 			<separator/>
 		</menu>
 		<menu text="_Metadata">
+			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
 			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localise Metadata"/>
 			<item id="ID_LIBRARY_COLUMNS" text="Choose Detail _Columns..."/>
@@ -551,7 +552,11 @@
 		<newline gap="12" indent="42"/>
 		<icon res="196" width="16" height="16" target="command:ID_TOOLS_SKIN"/><gap size="8"/>
 		<link target="command:ID_TOOLS_SKIN" align="middle" format="bu">Skins</link><gap size="6"/>
-		<text align="middle">- Change PeerProject's visual appearance</text>
+		<text align="middle">- Mix&apos;n&apos;match changes to visual appearances</text>
+		<newline gap="8"/>
+		<icon res="139" width="16" height="16" target="command:ID_VIEW_SCHEDULER"/><gap size="8"/>
+		<link target="command:ID_VIEW_SCHEDULER" align="middle">Scheduler</link><gap size="6"/>
+		<text align="middle">- Set automated tasks to occur at specific times</text>
 		<newline gap="8"/>
 		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
 		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link><gap size="6"/>
@@ -563,7 +568,8 @@
 		<newline gap="8"/>
 		<icon res="182" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="command:ID_HELP_FAQ" align="middle">Quick Help</link><gap size="6"/>
-		<text align="middle">- Get online support using PeerProject</text>
+		<text align="middle">- Get online support using PeerProject, or try </text>
+		<link target="command:ID_TAB_IRC" align="middle">live chat.</link>
 		<newline gap="8"/>
 		<icon res="201" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
 		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Local Forums</link><gap size="6"/>

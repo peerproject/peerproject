@@ -1,7 +1,7 @@
 //
 // PongCache.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -28,7 +28,7 @@ class CPongCache
 // Construction
 public:
 	CPongCache();
-	virtual ~CPongCache();
+	~CPongCache();
 
 // Operations
 public:
@@ -36,8 +36,8 @@ public:
 	void		ClearNeighbour(CNeighbour* pNeighbour);
 	BOOL		ClearIfOld();
 	CPongItem*	Add(CNeighbour* pNeighbour, IN_ADDR* pAddress, WORD nPort, BYTE nHops, DWORD nFiles, DWORD nVolume);
-	CPongItem*	Lookup(CNeighbour* pNotFrom, BYTE nHops, CList< CPongItem* >* pIgnore);
-	CPongItem*	Lookup(CNeighbour* pFrom);
+	CPongItem*	Lookup(CNeighbour* pNotFrom, BYTE nHops, CList< CPongItem* >* pIgnore) const;
+	CPongItem*	Lookup(CNeighbour* pFrom) const;
 
 //	POSITION	GetIterator() const;
 //	CPongItem*	GetNext(POSITION& pos) const;
@@ -54,7 +54,7 @@ class CPongItem
 // Construction
 public:
 	CPongItem(CNeighbour* pNeighbour, IN_ADDR* pAddress, WORD nPort, BYTE nHops, DWORD nFiles, DWORD nVolume);
-	virtual ~CPongItem();
+//	virtual ~CPongItem();
 
 // Attributes
 public:
@@ -65,5 +65,5 @@ public:
 	DWORD		m_nFiles;
 	DWORD		m_nVolume;
 
-	CG1Packet*	ToPacket(int nTTL, const Hashes::Guid& oGUID);
+	CG1Packet*	ToPacket(int nTTL, const Hashes::Guid& oGUID) const;
 };

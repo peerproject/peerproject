@@ -89,7 +89,7 @@ protected:
 	void				RunMerge();
 	void				RunMergeFile(CDownload* pDownload, LPCTSTR szFilename, BOOL bMergeValidation, const Fragments::List& oMissedGaps, float fProgress = 100.0f);
 //	void				CreatePathForFile(const CString& strBase, const CString& strPath);
-	BOOL				CopyFile(HANDLE hSource, LPCTSTR pszTarget, QWORD nLength);
+//	BOOL				CopyFile(HANDLE hSource, LPCTSTR pszTarget, QWORD nLength);
 	BOOL				CopyFileToBatch(HANDLE hSource, QWORD nOffset, QWORD nLength, LPCTSTR pszPath);
 	BOOL				MakeBatchTorrent();
 

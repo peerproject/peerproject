@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Italian Skin File -->
 
-<!-- Translation based on default-en.xml r84 -->
+<!-- Translation based on default-en.xml r85 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -438,7 +438,7 @@
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="Esplora utente"/>
 		<button id="ID_CHAT_PRIORITY" text="Concedi priorità"/>
-		<!--<button id="ID_CHAT_SEND_FILE" text="Invia file"/> -->
+		<!--button id="ID_CHAT_SEND_FILE" text="Invia file"-->
 		<separator/>
 		<button id="ID_CHAT_CONNECT" text="Connetti" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="Disconnetti"/>
@@ -1328,6 +1328,7 @@
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Acquisisci metadata"/>
 		</menu>
 		<menu text="_Metadata">
+			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="Aggiorna _metadata"/>
 			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localizza metadata"/>
 			<item id="ID_LIBRARY_COLUMNS" text="Modifica colonne..."/>
@@ -1558,7 +1559,7 @@
 		<item id="ID_CHAT_DISCONNECT" text="Disconnetti"/>
 		<separator/>
 		<item id="ID_CHAT_BROWSE" text="Esplora utente"/>
-		<!-- <item id="ID_CHAT_SEND_FILE" text="Invia file..."/> -->
+		<!--item id="ID_CHAT_SEND_FILE" text="Invia file..."-->
 		<item id="ID_CHAT_PRIORITY" text="Concedi priorità"/>
 		<separator/>
 		<menu text="Formato">
@@ -1708,8 +1709,8 @@
 		<text align="middle">- Cambia l'aspetto di PeerProject</text>
 		<newline gap="8"/>
 		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link><gap size="6"/>
-		<text align="middle">- Update blocklist to avoid bad search results</text>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Filtri di Sicurezza</link><gap size="6"/>
+		<text align="middle">- Aggiornamento elenco dei blocchi per evitare cattivi risultati della ricerca</text>
 		<newline gap="8"/>
 		<icon res="197" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 		<link target="command:ID_TOOLS_WIZARD" align="middle">Configurazione guidata</link><gap size="6"/>
@@ -2288,7 +2289,7 @@
 	<tip id="ID_CHAT_EMOTICONS" message="Inserisci una emoticon."/>
 	<tip id="ID_CHAT_ITALIC" message="Applica la formattazione in corsivo (Ctrl+I)"/>
 	<tip id="ID_CHAT_PRIORITY" message="Concedi priorità in upload a questo utente."/>
-	<!-- <tip id="ID_CHAT_SEND_FILE" message="Invia un file all'utente..."/> -->
+	<!--tip id="ID_CHAT_SEND_FILE" message="Invia un file all'utente..."-->
 	<tip id="ID_CHAT_TIMESTAMP" message="Mostra l'orario in cui ogni messaggio è stato ricevuto."/>
 	<tip id="ID_CHAT_UNDERLINE" message="Applica la formattazione in sottolineato (Ctrl+U)"/>
 	<tip id="ID_CHILD_CLOSE" message="Chiudi la finestra attiva."/>
@@ -2404,6 +2405,7 @@
 	<tip id="ID_LIBRARY_PARENT" message="Livello superiore."/>
 	<tip id="ID_LIBRARY_PROPERTIES" message="Visualizza e modifica le proprietà dei file selezionati..."/>
 	<tip id="ID_LIBRARY_REBUILD" message="Ricostruisci i metadata e hash per la cartella o per il file selezionato."/>
+	<tip id="ID_LIBRARY_REBUILD_FILE" message="Ricostruisci i metadata e hash per il file selezionato."/>
 	<tip id="ID_LIBRARY_REBUILD_ANSI" message="Ricostruisci i metadata usando un'altra lingua."/>
 	<tip id="ID_LIBRARY_REFRESH" message="Aggiorna la visualizzazzione della libreria."/>
 	<tip id="ID_LIBRARY_REMOVE" message="Rimuovi le cartelle in condivisione selezionate."/>

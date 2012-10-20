@@ -414,19 +414,15 @@ BOOL CPeerProjectURL::ParseHTTP(LPCTSTR pszURL, BOOL bResolve)
 		else if ( m_oMD5.fromUrn( strURL ) ) ;
 		else return FALSE;
 
-		m_nAction	= uriSource;
+		m_nAction = uriSource;
 	}
 	else
 	{
-		m_nAction	= uriDownload;
+		m_nAction = uriDownload;
 
-		const int nPos = m_sPath.ReverseFind( '/' );
-		if ( nPos >= 0 )
-		{
-			const CString sName( URLDecode( m_sPath.Mid( nPos + 1 ).SpanExcluding( _T("?") ) ) );
-			if ( ! sName.IsEmpty() )
-				m_sName = sName;
-		}
+		CString strName( URLDecode( m_sPath.Mid( m_sPath.ReverseFind( '/' ) + 1 ).SpanExcluding( _T("?") ) ) );
+		if ( ! strName.IsEmpty() )
+			m_sName = strName;
 	}
 
 	SOCKADDR_IN saHost;
@@ -1319,22 +1315,13 @@ BOOL CPeerProjectURL::ParseDiscovery(LPCTSTR pszURL, int nType)
 			bG1 = TRUE;
 
 		if ( bG1 && bG2 )
-		{
-			// Do nothing
-		}
+			;	// Do nothing
 		else if ( bG2 )
-		{
 			m_nProtocol = PROTOCOL_G2;
-		}
-		else if ( bG1 )
-		{
-			if ( ! Settings.Discovery.EnableG1GWC ) return FALSE;
+		else if ( bG1 && Settings.Discovery.EnableG1GWC )
 			m_nProtocol = PROTOCOL_G1;
-		}
 		else
-		{
 			return FALSE;
-		}
 	}
 
 	nPos = strURL.Find( '|' );

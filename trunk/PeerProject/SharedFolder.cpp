@@ -391,9 +391,11 @@ void CLibraryFolder::Serialize(CArchive& ar, int nVersion)
 
 		for ( ; nCount > 0 ; nCount-- )
 		{
-			CLibraryFile* pFile = new CLibraryFile( this );
+			//CLibraryFile* pFile = new CLibraryFile( this );
+			CAutoPtr< CLibraryFile > pFile( new CLibraryFile( this ) );
 			if ( ! pFile )
-				break;		// theApp.Message( MSG_DEBUG, _T("Memory allocation error in CLibraryFolder::Serialize") );
+				AfxThrowMemoryException();
+				// theApp.Message( MSG_DEBUG, _T("Memory allocation error in CLibraryFolder::Serialize") );
 
 			pFile->Serialize( ar, nVersion );
 
@@ -401,6 +403,8 @@ void CLibraryFolder::Serialize(CArchive& ar, int nVersion)
 
 			m_nFiles++;
 			m_nVolume += pFile->m_nSize;
+
+			Library.AddFile( pFile.Detach() );
 
 			theApp.KeepAlive();
 		}
@@ -845,22 +849,21 @@ void CLibraryFolder::Maintain(BOOL bAdd)
 			_T("\\Schemas\\WindowsFolder.ico") : _T("\\Schemas\\WindowsFolder.Safe.ico") );
 		if ( PathFileExists( strIconFile ) )
 		{
-			CString strIconIndex( _T("0") );
-			//int nPos = strIconFile.ReverseFind( _T(',') );
-			//if ( nPos != -1 && nPos > strIconFile.ReverseFind( _T('\\') ) )
-			//{
-			//	strIconIndex = strIconFile.Mid( nPos + 1 );
-			//	strIconFile = strIconFile.Left( nPos );
-			//}
-
 			WritePrivateProfileString( _T(".ShellClassInfo"), _T("ConfirmFileOp"), _T("0"), strDesktopINI );
 			WritePrivateProfileString( _T(".ShellClassInfo"), _T("InfoTip"), LoadString( IDS_FOLDER_TIP ), strDesktopINI );
 			WritePrivateProfileString( _T(".ShellClassInfo"), _T("IconFile"), strIconFile, strDesktopINI );
-			WritePrivateProfileString( _T(".ShellClassInfo"), _T("IconIndex"), strIconIndex, strDesktopINI );
+			WritePrivateProfileString( _T(".ShellClassInfo"), _T("IconIndex"), _T("0"), strDesktopINI );
 		}
 		else
 		{
 			strIconFile = Skin.GetImagePath( IDI_COLLECTION );
+			//CString strIconIndex( _T("0") );
+			//int nPos = strIconFile.ReverseFind( _T(',') );
+			//if ( nPos != -1 && nPos > strIconFile.ReverseFind( _T('\\') ) )
+			//{
+			//	strIconIndex = strIconFile.Mid( nPos + 1 );
+			//	strIconFile  = strIconFile.Left( nPos );
+			//}
 			WritePrivateProfileString( _T(".ShellClassInfo"), _T("ConfirmFileOp"), _T("0"), strDesktopINI );
 			WritePrivateProfileString( _T(".ShellClassInfo"), _T("InfoTip"), LoadString( IDS_FOLDER_TIP ), strDesktopINI );
 			WritePrivateProfileString( _T(".ShellClassInfo"), _T("IconResource"), strIconFile, strDesktopINI );

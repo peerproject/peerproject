@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CrashExplorer", "CrashExplorer.VS2008.vcproj", "{E6EDE286-05E0-4396-B551-AB273111E967}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CrashExplorer", "CrashExplorer.vcproj", "{E6EDE286-05E0-4396-B551-AB273111E967}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

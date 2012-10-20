@@ -431,6 +431,9 @@ void CDownload::OnRun()
 		}
 		else if ( IsTrying() || IsSeeding() )
 		{
+			// This download is trying to download
+			OpenDownload();
+
 			// Dead Download Check: if download appears dead, give up and allow another to start.
 			// Incomplete, and trying for at least 3 hours:
 			if ( ! IsCompleted() && tNow > GetStartTimer() + ( 3 * 60 * 60 * 1000 ) )
@@ -547,9 +550,11 @@ void CDownload::OnDownloaded()
 	m_tCompleted = GetTickCount();
 	m_bDownloading = false;
 
+	StopSearch();
+
 	CloseTransfers();
 
-	// AppendMetadata();
+	//AppendMetadata();
 
 	if ( GetTaskType() == dtaskMergeFile || GetTaskType() == dtaskPreviewRequest )
 		AbortTask();
@@ -583,7 +588,7 @@ void CDownload::OnTaskComplete(const CDownloadTask* pTask)
 		LibraryBuilder.m_bBusy = false;
 
 		if ( ! pTask->HasSucceeded() )
-			SetFileError( pTask->GetFileError() );
+			SetFileError( pTask->GetFileError(), _T("") );
 		else
 			OnMoved();
 	}
@@ -595,33 +600,36 @@ void CDownload::OnTaskComplete(const CDownloadTask* pTask)
 void CDownload::OnMoved()
 {
 	// Just completed torrent
-	if ( IsTorrent() && IsFullyVerified() )
+	if ( IsTorrent() )
 	{
-		// Set FALSE to prevent sending 'stop' announce to tracker
-		m_bTorrentRequested = FALSE;
-		StopTrying();
+		if ( IsFullyVerified() )
+		{
+			// Set FALSE to prevent sending 'stop' announce to tracker
+			m_bTorrentRequested = FALSE;
+			StopTrying();
 
-		// Send 'completed' announce to tracker
-		SendCompleted();
+			// Send 'completed' announce to tracker
+			SendCompleted();
 
-		// This torrent is now seeding
-		m_bSeeding = TRUE;
-		m_bVerify = TRI_TRUE;
-		m_bTorrentStarted = TRUE;
-		m_bTorrentRequested = TRUE;
+			// This torrent is now seeding
+			m_bSeeding = TRUE;
+			m_bVerify = TRI_TRUE;
+			m_bTorrentStarted = TRUE;
+			m_bTorrentRequested = TRUE;
+		}
+		else	// Something wrong, since we moved the torrent ?
+		{
+			// Explicitly set flag to send stop announce to tracker
+			m_bTorrentRequested = TRUE;
+			StopTrying();
+		}
 	}
-	else if ( IsTorrent() )	// Something wrong, since we moved the torrent ?
+	else
 	{
-		// Explicitly set flag to send stop announce to tracker
-		m_bTorrentRequested = TRUE;
-		StopTrying();
-	}
-	else	// Not torrent?
-	{
 		StopTrying();
 	}
 
-	ClearSources();
+//	ClearSources();
 
 	ASSERT( ! m_sPath.IsEmpty() );
 	DeleteFileEx( m_sPath + _T(".png"), FALSE, FALSE, TRUE );
@@ -632,6 +640,128 @@ void CDownload::OnMoved()
 	// Download finalized, tracker notified, set flags that we completed
 	m_bComplete  = true;
 	m_tCompleted = GetTickCount();
+}
+
+//////////////////////////////////////////////////////////////////////
+// CDownload open the file
+
+BOOL CDownload::OpenDownload()
+{
+	if ( m_sName.IsEmpty() )
+		return TRUE;
+
+	if ( IsFileOpen() )
+		return TRUE;
+
+	SetModified();
+
+	if ( IsTorrent() )
+	{
+		if ( Open( m_pTorrent ) )
+			return TRUE;
+	}
+	else
+	{
+		if ( Open() )
+			return TRUE;
+	}
+
+	if ( m_nSize != SIZE_UNKNOWN && ! Downloads.IsSpaceAvailable( m_nSize, Downloads.dlPathIncomplete ) )
+	{
+		CString strFileError;
+		strFileError.Format( LoadString( IDS_DOWNLOAD_DISK_SPACE ), m_sName, Settings.SmartVolume( m_nSize ) );
+		SetFileError( ERROR_DISK_FULL, strFileError );
+
+		theApp.Message( MSG_ERROR, _T("%s"), strFileError );
+	}
+
+	return FALSE;
+}
+
+//////////////////////////////////////////////////////////////////////
+// CDownload prepare file
+
+BOOL CDownload::PrepareFile()
+{
+	return OpenDownload() && IsRemaining();
+}
+
+//////////////////////////////////////////////////////////////////////
+// CDownload seed
+
+BOOL CDownload::SeedTorrent()
+{
+	if ( IsMoving() || IsCompleted() )
+		return FALSE;
+
+	ASSERT( IsFileOpen() == FALSE );
+	if ( IsFileOpen() )
+		return FALSE;
+
+	ASSERT( m_pTorrent.GetCount() );
+
+	auto_ptr< CFragmentedFile > pFragmentedFile( new CFragmentedFile );
+	if ( ! pFragmentedFile.get() )
+		return FALSE;	// Out of memory
+
+	if ( ! pFragmentedFile->Open( m_pTorrent, FALSE ) )
+	{
+		SetFileError( pFragmentedFile->GetFileError(), pFragmentedFile->GetFileErrorString() );
+		return FALSE;
+	}
+
+	AttachFile( pFragmentedFile );
+
+	if ( IsSingleFileTorrent() )
+	{
+		// Refill missed hashes for single-file torrent
+		const CBTInfo::CBTFile* pBTFile = m_pTorrent.m_pFiles.GetHead();
+		if ( ! m_pTorrent.m_oSHA1 && pBTFile->m_oSHA1 )
+			m_pTorrent.m_oSHA1 = pBTFile->m_oSHA1;
+		if ( ! m_pTorrent.m_oTiger && pBTFile->m_oTiger )
+			m_pTorrent.m_oTiger = pBTFile->m_oTiger;
+		if ( ! m_pTorrent.m_oED2K && pBTFile->m_oED2K )
+			m_pTorrent.m_oED2K = pBTFile->m_oED2K;
+		if ( ! m_pTorrent.m_oMD5 && pBTFile->m_oMD5 )
+			m_pTorrent.m_oMD5 = pBTFile->m_oMD5;
+
+		// Refill missed hash for library file
+		CQuickLock oLock( Library.m_pSection );
+		if ( CLibraryFile* pLibraryFile = LibraryMaps.LookupFileByPath( pBTFile->FindFile() ) )
+		{
+			if ( ! pLibraryFile->m_oBTH && m_oBTH )
+			{
+				Library.RemoveFile( pLibraryFile );
+				pLibraryFile->m_oBTH = m_oBTH;
+				Library.AddFile( pLibraryFile );
+			}
+		}
+	}
+
+	// Refill missed hashes
+	if ( ! m_oSHA1 && m_pTorrent.m_oSHA1 )
+		m_oSHA1 = m_pTorrent.m_oSHA1;
+	if ( ! m_oTiger && m_pTorrent.m_oTiger )
+		 m_oTiger = m_pTorrent.m_oTiger;
+	if ( ! m_oED2K && m_pTorrent.m_oED2K )
+		m_oED2K = m_pTorrent.m_oED2K;
+	if ( ! m_oMD5 && m_pTorrent.m_oMD5 )
+		m_oMD5 = m_pTorrent.m_oMD5;
+
+	GenerateTorrentDownloadID();
+
+	m_bSeeding = TRUE;
+	m_bComplete = true;
+	m_tCompleted = GetTickCount();
+	m_bVerify = TRI_TRUE;
+
+	memset( m_pTorrentBlock, TRI_TRUE, m_nTorrentBlock );
+	m_nTorrentSuccess = m_nTorrentBlock;
+
+	MakeComplete();
+	ResetVerification();
+
+	return TRUE;
 }
 
 //////////////////////////////////////////////////////////////////////

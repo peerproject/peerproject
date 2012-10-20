@@ -779,14 +779,15 @@ void CCoolBarCtrl::OnTimer(UINT_PTR nIDEvent)
 
 	if ( nIDEvent == 1 && ( ! m_bMenuGray || m_pDown == NULL ) )
 	{
-		CRect rcWindow;
 		CPoint point;
+		CRect rcWindow;
 
 		GetCursorPos( &point );
 		ScreenToClient( &point );
 		GetClientRect( &rcWindow );
 
-		if ( rcWindow.PtInRect( point ) && GetTopLevelParent()->IsWindowEnabled() )
+		CWnd* pParent;
+		if ( rcWindow.PtInRect( point ) && ( pParent = GetTopLevelParent() ) != NULL && pParent->IsWindowEnabled() )
 		{
 			CCoolBarItem* pItem = HitTest( point );
 

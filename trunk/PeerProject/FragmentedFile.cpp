@@ -264,6 +264,8 @@ BOOL CFragmentedFile::Open(LPCTSTR pszFile, QWORD nOffset, QWORD nLength, BOOL b
 
 BOOL CFragmentedFile::Open(const CPeerProjectFile* pPPFile, BOOL bWrite)
 {
+	m_sFileError.Empty();
+
 	CString strSource;
 	if ( ! m_oFile.empty() )
 	{
@@ -296,9 +298,8 @@ BOOL CFragmentedFile::Open(const CPeerProjectFile* pPPFile, BOOL bWrite)
 
 	if ( ! Open( strSource, 0, pPPFile->m_nSize, bWrite, pPPFile->m_sName ) )
 	{
-		CString strMessage;
-		strMessage.Format( LoadString( bWrite ? IDS_DOWNLOAD_FILE_CREATE_ERROR : IDS_DOWNLOAD_FILE_OPEN_ERROR ), (LPCTSTR)strSource );
-		theApp.Message( MSG_ERROR, _T("%s %s"), strMessage, (LPCTSTR)GetErrorString( m_nFileError ) );
+		m_sFileError.Format( LoadString( bWrite ? IDS_DOWNLOAD_FILE_CREATE_ERROR : IDS_DOWNLOAD_FILE_OPEN_ERROR ), (LPCTSTR)strSource );
+		theApp.Message( MSG_ERROR, _T("%s %s"), m_sFileError, (LPCTSTR)GetErrorString( m_nFileError ) );
 
 		Close();
 		return FALSE;
@@ -309,8 +310,10 @@ BOOL CFragmentedFile::Open(const CPeerProjectFile* pPPFile, BOOL bWrite)
 	return TRUE;
 }
 
-BOOL CFragmentedFile::Open(const CBTInfo& oInfo, const BOOL bWrite, CString& strErrorMessage)
+BOOL CFragmentedFile::Open(const CBTInfo& oInfo, BOOL bWrite)
 {
+	m_sFileError.Empty();
+
 	const size_t nCount = m_oFile.size();
 	QWORD nOffset = 0;
 	size_t i = 0;
@@ -346,14 +349,26 @@ BOOL CFragmentedFile::Open(const CBTInfo& oInfo, const BOOL bWrite, CString& str
 
 		if ( ! Open( strSource, nOffset, pBTFile->m_nSize, bWrite, pBTFile->m_sPath ) )
 		{
-			strErrorMessage.Format( LoadString( bWrite ?
-				IDS_DOWNLOAD_FILE_CREATE_ERROR : IDS_BT_SEED_SOURCE_LOST ), strSource );
-			strErrorMessage += _T(" ");
-			strErrorMessage += GetErrorString( m_nFileError );
-			theApp.Message( MSG_ERROR, _T("%s"), strErrorMessage );
+			m_sFileError.Format( LoadString( bWrite ?
+				IDS_DOWNLOAD_FILE_CREATE_ERROR : IDS_BT_SEED_SOURCE_LOST ), (LPCTSTR)strSource );
+			theApp.Message( MSG_ERROR, _T("%s %s"), (LPCTSTR)m_sFileError, (LPCTSTR)GetErrorString( m_nFileError ) );
 
 			Close();
 			return FALSE;
+		}
+
+		// Refill missed hashes
+		CQuickLock oLock( Library.m_pSection );
+		if ( const CLibraryFile* pLibraryFile = LibraryMaps.LookupFileByPath( strSource ) )
+		{
+			if ( ! pBTFile->m_oSHA1 && pLibraryFile->m_oSHA1 )
+				pBTFile->m_oSHA1 = pLibraryFile->m_oSHA1;
+			if ( ! pBTFile->m_oTiger && pLibraryFile->m_oTiger )
+				pBTFile->m_oTiger = pLibraryFile->m_oTiger;
+			if ( ! pBTFile->m_oED2K && pLibraryFile->m_oED2K )
+				pBTFile->m_oED2K = pLibraryFile->m_oED2K;
+			if ( ! pBTFile->m_oMD5 && pLibraryFile->m_oMD5 )
+				pBTFile->m_oMD5 = pLibraryFile->m_oMD5;
 		}
 
 		nOffset += pBTFile->m_nSize;
@@ -722,6 +737,40 @@ void CFragmentedFile::Close()
 //
 //	m_oFile.clear();
 //}
+
+BOOL CFragmentedFile::SetSize(QWORD nSize)
+{
+	CQuickLock oLock( m_pSection );
+
+	if ( m_oFile.empty() )
+		return TRUE;	// File is not opened
+
+	// Erase tail if any
+	if ( ! m_oFList.empty() )
+		m_oFList.erase( Fragments::Fragment( nSize, SIZE_UNKNOWN ) );
+
+	m_oFList.ensure( nSize );
+
+	QWORD nFileSize = 0;
+	for ( CVirtualFile::iterator i = m_oFile.begin() ; i != m_oFile.end() ; ++i )
+	{
+		CVirtualFilePart& file = (*i);
+
+		if ( file.m_nSize == SIZE_UNKNOWN )
+		{
+			ASSERT( nFileSize < nSize );	// Too short?
+			if ( nFileSize < nSize )
+				file.m_nSize = nSize - nFileSize;
+			ASSERT( ++i == m_oFile.end() ); // Last file only
+			break;
+		}
+		nFileSize += file.m_nSize;
+	}
+
+	ASSERT_VALID( this );
+
+	return TRUE;
+}
 
 //////////////////////////////////////////////////////////////////////
 // CFragmentedFile make complete

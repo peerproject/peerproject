@@ -284,11 +284,10 @@ BOOL CUploadTransferBT::OpenFile()
 		// HACK: Open from disk (ToDo: Replace this with SeedTorrent in OnDownloadComplete)
 		if ( m_pClient->m_pDownload->IsSeeding() )
 		{
-			CString strFoo;
 			auto_ptr< CFragmentedFile > pFile( new CFragmentedFile );
 			if ( pFile.get() )
 			{
-				if ( pFile->Open( m_pClient->m_pDownload->m_pTorrent, FALSE, strFoo ) )
+				if ( pFile->Open( m_pClient->m_pDownload->m_pTorrent, FALSE ) )
 				{
 					AttachFile( pFile );
 					return TRUE;
@@ -329,7 +328,7 @@ BOOL CUploadTransferBT::ServeRequests()
 		m_oRequested.pop_front();
 	}
 
-	if ( m_nLength != SIZE_UNKNOWN && m_nLength != 0 )
+	if ( m_nLength != SIZE_UNKNOWN && m_nLength != 0 && m_pDownload->m_pTorrent.m_nBlockSize != 0 )
 	{
 		if ( ! OpenFile() ) return FALSE;
 

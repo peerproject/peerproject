@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Traditional) Skin File -->
 
-<!-- Translation based on default-en.xml r84 --> <!-- (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r85 --> <!-- (Shareaza 2.2.2.12) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1273,8 +1273,6 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="同一個系列的 Episodes"/>
 		</menu>
 		<menu text="網際網路服務">
-			<item id="ID_LIBRARY_REBUILD_ANSI" text="將解釋資料本地化"/>
-			<separator/>
 			<item id="ID_LIBRARY_BITZI_WEB" text="檢視 Bitzi 標籤"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="下載解釋資料"/>
 			<separator/>
@@ -1314,6 +1312,7 @@
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="取得解釋資料"/>
 		</menu>
 		<menu text="_Metadata">
+			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
 			<item id="ID_LIBRARY_REBUILD_ANSI" text="將解釋資料本地化"/>
 			<item id="ID_LIBRARY_COLUMNS" text="選擇欄位..."/>
@@ -1554,7 +1553,7 @@
 		<item id="ID_CHAT_DISCONNECT" text="中斷連線"/>
 		<separator/>
 		<item id="ID_CHAT_BROWSE" text="瀏覽使用者"/>
-		<!-- <item id="ID_CHAT_SEND_FILE" text="傳送檔案..."/> -->
+		<!--item id="ID_CHAT_SEND_FILE" text="傳送檔案..."-->
 		<item id="ID_CHAT_PRIORITY" text="准予優先權"/>
 		<separator/>
 		<menu text="格式">
@@ -1664,8 +1663,8 @@
 		<text align="middle">&#160;︰改變 PeerProject 的外觀</text>
 		<newline gap="8"/>
 		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link><gap size="6"/>
-		<text align="middle">- Update blocklist</text>
+		<link target="command:ID_VIEW_SECURITY" align="middle">安全過濾器</link><gap size="6"/>
+		<text align="middle">- 更新塊列表</text>
 		<newline gap="8"/>
 		<icon res="197" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 		<link target="command:ID_TOOLS_WIZARD" align="middle">設定精靈</link>
@@ -2150,7 +2149,7 @@
 	<tip id="ID_CHAT_EMOTICONS" message="插入表情符號"/>
 	<tip id="ID_CHAT_ITALIC" message="套用斜體格式 (Ctrl+I)"/>
 	<tip id="ID_CHAT_PRIORITY" message="給與這個使用者上傳的優先權."/>
-	<!-- <tip id="ID_CHAT_SEND_FILE" message="傳送檔案給這個使用者..."/> -->
+	<!--tip id="ID_CHAT_SEND_FILE" message="傳送檔案給這個使用者..."-->
 	<tip id="ID_CHAT_TIMESTAMP" message="在每一個收到的訊息旁顯示時間."/>
 	<tip id="ID_CHAT_UNDERLINE" message="套用底線格式 (Ctrl+U)"/>
 	<tip id="ID_CHILD_CLOSE" message="關閉活躍中的視窗."/>
@@ -2264,6 +2263,7 @@
 	<tip id="ID_LIBRARY_PARENT" message="上移至母資料夾."/>
 	<tip id="ID_LIBRARY_PROPERTIES" message="顯示並編輯選擇的檔案的屬性..."/>
 	<tip id="ID_LIBRARY_REBUILD" message="為選擇的資料夾或是檔案重建解釋資料."/>
+	<tip id="ID_LIBRARY_REBUILD_FILE" message="為選擇的資料夾或是檔案重建解釋資料."/>
 	<tip id="ID_LIBRARY_REBUILD_ANSI" message="使用其他語言重建解釋資料."/>
 	<tip id="ID_LIBRARY_REFRESH" message="重新整理我的收藏."/>
 	<tip id="ID_LIBRARY_REMOVE" message="移除選擇的分享的資料夾."/>

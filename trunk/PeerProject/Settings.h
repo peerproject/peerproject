@@ -892,6 +892,8 @@ public:
 	BOOL	CheckStartup();
 	void	SetStartup(BOOL bStartup);
 
+	void    ClearSearches();	// Delete search history
+
 protected:
 	void	SmartUpgrade();
 

@@ -35,11 +35,12 @@ CStatistics Statistics;
 // CStatistics construction
 
 CStatistics::CStatistics()
-	: m_tSeconds ( 0 )
 {
-	ZeroMemory( &Today, sizeof(Today) );
 	ZeroMemory( &Ever, sizeof(Ever) );
+	ZeroMemory( &Today, sizeof(Today) );
 	ZeroMemory( &Current, sizeof(Current) );
+
+	m_tSeconds = GetMicroCount() / 1000;
 }
 
 CStatistics::~CStatistics()
@@ -51,15 +52,16 @@ CStatistics::~CStatistics()
 
 void CStatistics::Update()
 {
-	const DWORD tNow = GetTickCount();
+	const QWORD tNow = GetMicroCount() / 1000;	// ms
 
 	if ( tNow >= m_tSeconds + 1000 )
 	{
 		if ( Network.IsWellConnected() )
 		{
-			Current.Timer.Connected ++;
-			if ( Neighbours.IsG2Hub() ) Current.Timer.Hub ++;
-			if ( Neighbours.IsG1Ultrapeer() ) Current.Timer.Ultrapeer ++;
+			const QWORD nElapsed = ( tNow - m_tSeconds ) / 1000;	// s
+			Current.Timer.Connected += nElapsed;
+			if ( Neighbours.IsG2Hub() ) Current.Timer.Hub += nElapsed;
+			if ( Neighbours.IsG1Ultrapeer() ) Current.Timer.Ultrapeer += nElapsed;
 		}
 
 		m_tSeconds = tNow;

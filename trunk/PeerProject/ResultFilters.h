@@ -53,11 +53,15 @@ public:
 	CResultFilters();
 	~CResultFilters();
 
-	CFilterOptions **	m_pFilters;	// Array of filter options
-	DWORD				m_nFilters;	// Count of filter options
-	DWORD				m_nDefault;	// Index of the default filter options
+private:
+	mutable CCriticalSection m_pSection;
 
-	int  Search(const CString& strName);
+public:
+	CFilterOptions **	m_pFilters;		// Array of filter options
+	DWORD				m_nFilters;		// Count of filter options
+	DWORD				m_nDefault;		// Index of the default filter options
+
+	int  Search(const CString& strName) const;
 	void Serialize(CArchive& ar);
 	void Add(CFilterOptions *pOptions);
 	void Remove(DWORD index);

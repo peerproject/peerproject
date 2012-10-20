@@ -1,7 +1,7 @@
 //
 // DatagramPart.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -27,7 +27,7 @@ class CDatagramOut
 // Construction
 public:
 	CDatagramOut();
-	virtual ~CDatagramOut();
+	~CDatagramOut();
 
 // Attributes
 public:
@@ -40,18 +40,20 @@ public:
 	WORD			m_nSequence;
 	CBuffer*		m_pBuffer;
 	LPVOID			m_pToken;
+	DWORD			m_tSent;
+	BOOL			m_bAck;
+
+protected:
 	BOOL			m_bCompressed;
 	DWORD			m_nPacket;
 	BYTE			m_nCount;
 	BYTE			m_nAcked;
-	DWORD*			m_pLocked;
 	BYTE			m_nLocked;
-	DWORD			m_tSent;
-	BOOL			m_bAck;
+	DWORD*			m_pLocked;
 
 // Operations
 public:
-	void	Create(const SOCKADDR_IN* pHost, CG2Packet* pPacket, WORD nSequence, CBuffer* pBuffer, BOOL bAck);
+	void	Create(const SOCKADDR_IN* pHost, const CG2Packet* pPacket, WORD nSequence, CBuffer* pBuffer, BOOL bAck);
 	BOOL	GetPacket(DWORD tNow, BYTE** ppPacket, DWORD* pnPacket, BOOL bResend);
 	BOOL	Acknowledge(BYTE nPart);
 };

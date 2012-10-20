@@ -134,11 +134,12 @@ void CTorrentSeedDlg::OnDownload()
 		pDownload->PrepareFile();
 
 		// Automatically merge download with local files on start-up
-		if ( Settings.BitTorrent.AutoMerge && pDownload->m_pTorrent.GetCount() > 1 )
+		if ( Settings.BitTorrent.AutoMerge )	// && pDownload->m_pTorrent.GetCount() > 1
 		{
+			CList< CString > oFiles;
+
 			oLibraryLock.Lock();
 
-			CList< CString > oFiles;
 			for ( POSITION pos = pDownload->m_pTorrent.m_pFiles.GetHeadPosition() ; pos ; )
 			{
 				const CBTInfo::CBTFile* pBTFile = pDownload->m_pTorrent.m_pFiles.GetNext( pos );
@@ -311,7 +312,7 @@ BOOL CTorrentSeedDlg::LoadTorrent(CString strPath)
 		// ToDo: Fix existing fragment detection instead.
 
 		// Try Seeding First.
-		pDownload->SeedTorrent( m_sMessage );
+		pDownload->SeedTorrent();
 
 		if ( pDownload->GetVolumeRemaining() == 0 )
 		{
@@ -380,9 +381,10 @@ BOOL CTorrentSeedDlg::CreateDownload()
 		}
 		else if ( CDownload* pDownload = Downloads.Add( CPeerProjectURL( new CBTInfo( m_pInfo ) ) ) )
 		{
-			if ( pDownload->SeedTorrent( m_sMessage ) )
+			if ( pDownload->SeedTorrent() )
 				return TRUE;
 
+			m_sMessage = pDownload->GetFileErrorString() + _T(" ") + GetErrorString( pDownload->GetFileError() );
 			pDownload->Remove();
 		}
 	}
