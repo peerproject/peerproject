@@ -121,12 +121,12 @@ public:
 	BOOL				Save();
 	BOOL				Update();
 	void				Stop();
+	void				Clear();
 	BOOL				Execute(BOOL bDiscovery, PROTOCOLID nProtocol, USHORT nForceDiscovery);
 	BOOL				Execute(CDiscoveryService* pService, Mode nMode);
 	void				OnResolve(PROTOCOLID nProtocol, LPCTSTR szAddress, const IN_ADDR* pAddress = NULL, WORD nPort = 0);
 
 protected:
-	void				Clear();
 	void				Remove(CDiscoveryService* pService, BOOL bCheck = TRUE);
 	DWORD				GetCount(int nType = 0, PROTOCOLID nProtocol = PROTOCOL_NULL) const;
 	BOOL				CheckWebCacheValid(LPCTSTR pszAddress);

@@ -34,8 +34,9 @@ public:
 	TRISTATE		m_bVerify;				// Verify status (TRI_TRUE verified, TRI_FALSE failed, TRI_UNKNOWN not yet)
 	DWORD			m_tReceived;
 private:
-	DWORD			m_nFileError;			// Last file/disk error
 	auto_ptr< CFragmentedFile >	m_pFile;	// File(s)
+	DWORD			m_nFileError;			// Last file/disk error
+	CString			m_sFileError;			// More info about error
 
 // Operations
 public:
@@ -47,7 +48,7 @@ public:
 	BOOL			IsValid() const;
 	BOOL			IsFileOpen() const;
 	BOOL			IsComplete() const;
-	BOOL			PrepareFile();
+	BOOL			IsRemaining() const;
 	BOOL			IsPositionEmpty(QWORD nOffset);
 //	BOOL			GetFragment(CDownloadTransfer* pTransfer);
 //	BOOL			AreRangesUseful(const Fragments::List& oAvailable);
@@ -56,9 +57,10 @@ public:
 	BOOL			ClipUploadRange(QWORD nOffset, QWORD& nLength) const;
 	BOOL			GetRandomRange(QWORD& nOffset, QWORD& nLength) const;
 	bool			GetAvailableRanges( CString& strRanges ) const;
-	QWORD			EraseRange(QWORD nOffset, QWORD nLength);
 	QWORD			InvalidateFileRange(QWORD nOffset, QWORD nLength);
+	QWORD			EraseRange(QWORD nOffset, QWORD nLength);
 	BOOL			SubmitData(QWORD nOffset, LPBYTE pData, QWORD nLength);
+	BOOL			SetSize(QWORD nSize);
 	BOOL			MakeComplete();
 	Fragments::List	GetFullFragmentList() const;	// All fragments which must be downloaded
 	Fragments::List	GetEmptyFragmentList() const;	// All empty fragments
@@ -73,16 +75,18 @@ public:
 	QWORD			GetCompleted(DWORD nIndex) const;
 	int				SelectFile(CSingleLock* pLock) const;
 	DWORD			GetFileError() const;
-	void			SetFileError(DWORD nFileError);
+	const CString&	GetFileErrorString() const;
+	void			SetFileError(DWORD nFileError, LPCTSTR szFileError);
 	void			ClearFileError();
 	virtual bool	Rename(const CString& strName);		// Set download new name safely
 	DWORD			MoveFile(LPCTSTR pszDestination, LPPROGRESS_ROUTINE lpProgressRoutine = NULL, LPVOID lpData = NULL);
 protected:
-	BOOL			OpenFile();
-	void			CloseFile();
-	void			AttachFile(auto_ptr< CFragmentedFile >& pFile);
+	BOOL			Open();			// Open files of this download
+	BOOL			Open(const CBTInfo& pBTInfo);
+	void			CloseFile();	// Close files of this download
 	void			DeleteFile();
 	BOOL			FlushFile();
+	void			AttachFile(auto_ptr< CFragmentedFile >& pFile);
 	BOOL			ReadFile(QWORD nOffset, LPVOID pData, QWORD nLength, QWORD* pnRead = NULL);
 	BOOL			WriteFile(QWORD nOffset, LPCVOID pData, QWORD nLength, QWORD* pnWritten = NULL);
 	void			SerializeFile(CArchive& ar, int nVersion);

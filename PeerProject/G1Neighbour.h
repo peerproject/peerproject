@@ -68,7 +68,7 @@ public:
 
 	// Ping and Pong packets
 	BOOL SendPing(const Hashes::Guid& oGUID = Hashes::Guid());
-	void OnNewPong(CPongItem* pPong);
+	void OnNewPong(const CPongItem* pPong);
 
 protected:
 	// Send and recieve packets

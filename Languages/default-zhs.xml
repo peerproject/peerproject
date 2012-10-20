@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Simplified) Skin File -->
 
-<!-- Translation based on default-en.xml r84 --> <!-- (Shareaza r6092) -->
+<!-- Translation based on default-en.xml r85 --> <!-- (Shareaza r6092) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -441,7 +441,7 @@
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="浏览用户"/>
 		<button id="ID_CHAT_PRIORITY" text="准予优先权"/>
-		<!--<button id="ID_CHAT_SEND_FILE" text="发送文件"/> -->
+		<!--button id="ID_CHAT_SEND_FILE" text="发送文件"-->
 		<separator/>
 		<button id="ID_CHAT_CONNECT" text="连接" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="断开"/>
@@ -1269,8 +1269,6 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="同一系列的情节"/>
 		</menu>
 		<menu text="网页服务(_W)">
-			<item id="ID_LIBRARY_REBUILD_ANSI" text="本地化元数据(_L)"/>
-			<separator/>
 			<item id="ID_LIBRARY_BITZI_WEB" text="查看 Bitzi 标签(_B)"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="下载元数据(_D)"/>
 			<separator/>
@@ -1310,6 +1308,7 @@
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="获取元数据(_A)"/>
 		</menu>
 		<menu text="_Metadata">
+			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="刷新元数据(_R)"/>
 			<item id="ID_LIBRARY_REBUILD_ANSI" text="本地化元数据"/>
 			<item id="ID_LIBRARY_COLUMNS" text="选择列(_C)..."/>
@@ -1550,7 +1549,7 @@
 		<item id="ID_CHAT_DISCONNECT" text="断开(_D)"/>
 		<separator/>
 		<item id="ID_CHAT_BROWSE" text="浏览用户(_B)"/>
-		<!-- <item id="ID_CHAT_SEND_FILE" text="发送文件(_S)..."/> -->
+		<!--item id="ID_CHAT_SEND_FILE" text="发送文件(_S)..."-->
 		<item id="ID_CHAT_PRIORITY" text="准予优先权(_P)"/>
 		<separator/>
 		<menu text="格式(_F)">
@@ -2210,7 +2209,7 @@
 	<tip id="ID_CHAT_EMOTICONS" message="插入一个表情符号。"/>
 	<tip id="ID_CHAT_ITALIC" message="应用斜体格式 (Ctrl+I)"/>
 	<tip id="ID_CHAT_PRIORITY" message="确定该用户的上传优先级。"/>
-	<!-- <tip id="ID_CHAT_SEND_FILE" message="发送文件给用户..."/> -->
+	<!--tip id="ID_CHAT_SEND_FILE" message="发送文件给用户..."-->
 	<tip id="ID_CHAT_TIMESTAMP" message="显示收到消息的时间。"/>
 	<tip id="ID_CHAT_UNDERLINE" message="应用下划线格式 (Ctrl+U)"/>
 	<tip id="ID_CHILD_CLOSE" message="关闭活动的窗口。"/>
@@ -2323,6 +2322,7 @@
 	<tip id="ID_LIBRARY_PARENT" message="上移至父级文件夹。"/>
 	<tip id="ID_LIBRARY_PROPERTIES" message="查看和编辑选定文件的属性..."/>
 	<tip id="ID_LIBRARY_REBUILD" message="重建元数据和 Hash 选定文件夹或文件。"/>
+	<tip id="ID_LIBRARY_REBUILD_FILE" message="重建元数据和 Hash 选定文件夹或文件。"/>
 	<tip id="ID_LIBRARY_REBUILD_ANSI" message="使用您的本地语言重建元数据。"/>
 	<tip id="ID_LIBRARY_REFRESH" message="刷新收藏视图。"/>
 	<tip id="ID_LIBRARY_REMOVE" message="移除选定的文件夹。"/>

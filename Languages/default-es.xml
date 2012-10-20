@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Spanish (International) Skin File -->
 
-<!-- Translation based on default-en.xml r84 -->
+<!-- Translation based on default-en.xml r85 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -417,7 +417,7 @@
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="Explorar Usuario"/>
 		<button id="ID_CHAT_PRIORITY" text="Dar Prioridad"/>
-		<!-- <button id="ID_CHAT_SEND_FILE" text="Enviar Archivo"/> -->
+		<!--button id="ID_CHAT_SEND_FILE" text="Enviar Archivo"-->
 		<separator/>
 		<button id="ID_CHAT_CONNECT" text="Conectar" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="Desconectar"/>
@@ -1322,6 +1322,7 @@
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Adquirir Metadatos"/>
 		</menu>
 		<menu text="_Metadatos">
+			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refrescar Metadatos"/>
 			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Ubicar Metadatos"/>
 			<item id="ID_LIBRARY_COLUMNS" text="Seleccionar _Columnas..."/>
@@ -1565,7 +1566,7 @@
 		<separator/>
 		<item id="ID_CHAT_BROWSE" text="_Explorar"/>
 		<item id="ID_CHAT_PRIORITY" text="_Prioridad"/>
-		<!-- <item id="ID_CHAT_SEND_FILE" text="E_nviar Archivo..."/> -->
+		<!--item id="ID_CHAT_SEND_FILE" text="E_nviar Archivo..."-->
 		<separator/>
 		<menu text="_Formato">
 			<item id="ID_CHAT_BOLD" text="_Negrita"/>
@@ -1715,7 +1716,7 @@
 		<text align="middle">- Establecer tareas automatizadas que se produzca en momentos específicos</text>
 		<newline gap="8"/>
 		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="command:ID_VIEW_SECURITY" align="middle">Filtros de seguridad</link><gap size="6"/>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Filtros de Seguridad</link><gap size="6"/>
 		<text align="middle">- Actualizar lista de bloques para evitar malos resultados de la búsqueda</text>
 		<newline gap="8"/>
 		<icon res="197" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
@@ -1728,7 +1729,7 @@
 		<link target="command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
 		<icon res="201" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
-		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Foros locales</link><gap size="6"/>
+		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Foros Locales</link><gap size="6"/>
 		<text align="middle">- Ve a tu idioma Español foro de discusión</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
@@ -2281,7 +2282,7 @@
 	<tip id="ID_CHAT_EMOTICONS" message="Insertar carita."/>
 	<tip id="ID_CHAT_ITALIC" message="Aplicar cursiva (Ctrl+I)"/>
 	<tip id="ID_CHAT_PRIORITY" message="Dar prioridad al archivo que este usuario esta descargando actualmente."/>
-	<!-- <tip id="ID_CHAT_SEND_FILE" message="Enviar archivo al usuario..."/> -->
+	<!--tip id="ID_CHAT_SEND_FILE" message="Enviar archivo al usuario..."-->
 	<tip id="ID_CHAT_TIMESTAMP" message="Mostrar el tiempo cuando el mensaje es recibido."/>
 	<tip id="ID_CHAT_UNDERLINE" message="Aplicar subrayado (Ctrl+U)"/>
 	<tip id="ID_CHILD_CLOSE" message="Cerrar ventana."/>
@@ -2397,6 +2398,7 @@
 	<tip id="ID_LIBRARY_PARENT" message="Mover a la carpeta anterior."/>
 	<tip id="ID_LIBRARY_PROPERTIES" message="Ver y editar las propiedades del archivo..."/>
 	<tip id="ID_LIBRARY_REBUILD" message="Reconstruir mi Colección, escaneandolo, y adquiriendo la metadata de nuevo."/>
+	<tip id="ID_LIBRARY_REBUILD_FILE" message="Reconstruir mi Colección, escaneandolo, y adquiriendo la metadata de nuevo."/>
 	<tip id="ID_LIBRARY_REBUILD_ANSI" message="Reconstrir metadata utilizando otro lenguaje."/>
 	<tip id="ID_LIBRARY_REFRESH" message="Actualizar la vista de mi Colección."/>
 	<tip id="ID_LIBRARY_REMOVE" message="Eliminar las carpetas compartidas seleccionadas."/>

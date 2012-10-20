@@ -69,8 +69,7 @@ public:
 	BOOL		GetNextVerifyRange(QWORD& nOffset, QWORD& nLength, BOOL& bSuccess, int nHash = HASH_NULL) const;
 	DWORD		GetVerifyLength(PROTOCOLID nProtocol = PROTOCOL_ANY, int nHash = HASH_NULL) const;
 
-	// Get list of possible download fragments / empty fragments we really want
-	Fragments::List GetPossibleFragments(const Fragments::List& oAvailable, Fragments::Fragment& oLargest);
+	// Get list of empty fragments we really want
 	Fragments::List GetWantedFragmentList() const;
 
 	BOOL		GetFragment(CDownloadTransfer* pTransfer);	// Select a fragment for a transfer
@@ -83,6 +82,10 @@ public:
 
 protected:
 	bool		IsFullyVerified() const;
+
+	virtual void	Serialize(CArchive& ar, int nVersion);
+
+private:
 	DWORD		GetValidationCookie() const;
 	BOOL		FindNewValidationBlock(int nHash);
 	void		ContinueValidation();
@@ -93,7 +96,8 @@ protected:
 	// but rounded to nearest smallest hash block (torrent, tiger or ed2k)
 	Fragments::List GetHashableFragmentList() const;
 
-	virtual void	Serialize(CArchive& ar, int nVersion);
+	// Get list of possible download fragments
+	Fragments::List GetPossibleFragments(const Fragments::List& oAvailable, Fragments::Fragment& oLargest);
 
 	friend class CEDClient; 	// AddSourceED2K && m_nHashsetBlock && m_pHashsetBlock
 	friend class CDownloadTipCtrl;

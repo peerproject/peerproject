@@ -74,6 +74,7 @@ CUploadTransferHTTP::CUploadTransferHTTP()
 	, m_bQueueMe		( FALSE )
 	, m_bNotPeerProject	( FALSE )
 	, m_bTigerTree		( FALSE )
+	, m_bHashset		( FALSE )
 	, m_bMetadata		( FALSE )
 	, m_nAccept 		( 0 )
 	, m_nGnutella		( 0 )
@@ -171,6 +172,7 @@ BOOL CUploadTransferHTTP::ReadRequest()
 
 	m_bMetadata		= FALSE;
 	m_bTigerTree	= FALSE;
+	m_bHashset		= FALSE;
 
 	m_sLocations.Empty();
 	m_sRanges.Empty();
@@ -753,8 +755,9 @@ BOOL CUploadTransferHTTP::RequestSharedFile(CLibraryFile* pFile, CSingleLock& oL
 		return TRUE;
 	}
 
-	m_bTigerTree = bool( m_oTiger );
-	m_bMetadata  = ( pFile->m_pMetadata != NULL && ( pFile->m_bMetadataAuto == FALSE || pFile->m_nVirtualSize > 0 ) );
+	m_bTigerTree	= bool( m_oTiger );
+	m_bHashset		= bool( m_oED2K );
+	m_bMetadata		= ( pFile->m_pMetadata != NULL && ( pFile->m_bMetadataAuto == FALSE || pFile->m_nVirtualSize > 0 ) );
 
 	if ( ! HasHash() )
 		m_sLocations.Empty();
@@ -805,8 +808,9 @@ BOOL CUploadTransferHTTP::RequestPartialFile(CDownload* pDownload)
 
 	ASSERT( m_nFileBase == 0 );
 
-	m_bTigerTree = ( m_oTiger && pDownload->GetTigerTree() != NULL );
-	m_bMetadata  = pDownload->HasMetadata();
+	m_bTigerTree	= ( m_oTiger && pDownload->GetTigerTree() != NULL );
+	m_bHashset		= ( m_oED2K && pDownload->GetHashset() != NULL );
+	m_bMetadata		= pDownload->HasMetadata();
 
 	if ( ! m_sLocations.IsEmpty() )
 	{
@@ -1046,6 +1050,13 @@ void CUploadTransferHTTP::SendFileHeaders()
 {
 	CString strHeader;
 
+	if ( ! m_sName.IsEmpty() )
+	{
+		Write( _P("Content-Disposition: attachment; filename=\"") );
+		Write( URLEncode( PathFindFileName( m_sName ) ) );
+		Write( _P("\"\r\n") );
+	}
+
 	if ( m_oSHA1 || m_oTiger )
 	{
 		Write( _P("X-Content-URN: ") );
@@ -1076,11 +1087,10 @@ void CUploadTransferHTTP::SendFileHeaders()
 
 	if ( m_bTigerTree && Settings.Uploads.ShareTiger )
 	{
-		Write( _P("X-Thex-URI: /gnutella/thex/v1?") );
-		Write( m_oTiger.toUrn() );
-		Write( _P("&depth=9&ed2k=0;") );
-		Write( m_oTiger.toString() );
-		Write( _P("\r\n") );
+		CString strTigerURL;
+		strTigerURL.Format( _T("X-Thex-URI: /gnutella/thex/v1?%s&depth=%u&ed2k=%u;%s\r\n"),
+			m_oTiger.toUrn(), Settings.Library.TigerHeight, ( m_bHashset ? 1 : 0 ), m_oTiger.toString() );
+		Write( strTigerURL );
 	}
 
 	if ( m_bMetadata )
@@ -1151,6 +1161,7 @@ BOOL CUploadTransferHTTP::OpenFileSendHeaders()
 		Write( _P("HTTP/1.1 200 OK\r\n") );
 
 	SendDefaultHeaders();
+	SendFileHeaders();
 
 	Write( _T("Content-Type: ") + ShellIcons.GetMIME( PathFindExtension( m_sName ) ) + _T("\r\n") );
 	// ToDo: Write( _P("Content-Type: application/x-binary\r\n") ) if unknown?
@@ -1169,9 +1180,6 @@ BOOL CUploadTransferHTTP::OpenFileSendHeaders()
 	{
 		Write( _P("Content-Encoding: backwards\r\n") );
 	}
-
-	if ( HasHash() )
-		SendFileHeaders();
 
 	Write( _P("\r\n") );
 

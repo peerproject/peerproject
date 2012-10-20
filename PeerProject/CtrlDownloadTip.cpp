@@ -63,6 +63,8 @@ CDownloadTipCtrl::CDownloadTipCtrl()
 	, m_pSource 	( NULL )
 	, m_pGraph		( NULL )
 	, m_nIcon		( 0 )
+	, m_nStatWidth	( 0 )
+	, m_bDrawGraph	( FALSE )
 {
 }
 
@@ -168,7 +170,19 @@ void CDownloadTipCtrl::OnCalcSize(CDC* pDC, CDownload* pDownload)
 	m_sz.cy += 34;	// Icon
 	m_sz.cy += TIP_RULE;
 
-	m_bDrawError = FALSE;
+	// File error
+	if ( pDownload->GetFileError() != ERROR_SUCCESS )
+	{
+		if ( ! pDownload->GetFileErrorString().IsEmpty() )
+		{
+			AddSize( pDC, pDownload->GetFileErrorString() );
+			m_sz.cy += TIP_TEXTHEIGHT;
+		}
+		AddSize( pDC, GetErrorString( pDownload->GetFileError() ) );
+		m_sz.cy += TIP_TEXTHEIGHT;
+		m_sz.cy += TIP_RULE;
+	}
+
 	if ( pDownload->IsTorrent() )
 	{
 		// Torrent Tracker error
@@ -178,7 +192,6 @@ void CDownloadTipCtrl::OnCalcSize(CDC* pDC, CDownload* pDownload)
 			AddSize( pDC, pDownload->m_sTorrentTrackerError );
 			m_sz.cy += TIP_TEXTHEIGHT;
 			m_sz.cy += TIP_RULE;
-			m_bDrawError = TRUE;
 		}
 
 		m_sz.cy += TIP_TEXTHEIGHT;		// Torrent ratio
@@ -431,9 +444,24 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownload* pDownload)
 
 	const int nTextAlign = 3;	// Offset text labels a few pixels
 
-	if ( m_bDrawError )
+	// File error
+	if ( pDownload->GetFileError() != ERROR_SUCCESS )
 	{
-		// Tracker error
+		COLORREF crOld = pDC->SetTextColor( Colors.m_crTextAlert );
+		if ( ! pDownload->GetFileErrorString().IsEmpty() )
+		{
+			DrawText( pDC, &pt, pDownload->GetFileErrorString(), 3 );
+			pt.y += TIP_TEXTHEIGHT;
+		}
+		DrawText( pDC, &pt, GetErrorString( pDownload->GetFileError() ), 3 );
+		pDC->SetTextColor( crOld );
+		pt.y += TIP_TEXTHEIGHT;
+		DrawRule( pDC, &pt );
+	}
+
+	// Tracker error
+	if ( pDownload->m_bTorrentTrackerError && pDownload->m_sTorrentTrackerError.GetLength() > 1 )
+	{
 		DrawText( pDC, &pt, pDownload->m_sTorrentTrackerError, nTextAlign );
 		pt.y += TIP_TEXTHEIGHT;
 		DrawRule( pDC, &pt );

@@ -87,7 +87,6 @@
       <AdditionalDependencies>version.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <DelayLoadDLLs>version.dll;comdlg32.dll;winspool.drv;advapi32.dll;shell32.dll;shlwapi.dll;ole32.dll;oleaut32.dll;oleacc.dll</DelayLoadDLLs>
       <!--<DelayLoadDLLs>version.dll;msimg32.dll;comdlg32.dll;comctl32.dll;winspool.drv;advapi32.dll;shell32.dll;shlwapi.dll;ole32.dll;oleaut32.dll;oleacc.dll;oledlg.dll;ws2_32.dll;gdiplus.dll;imm32.dll;winmm.dll</DelayLoadDLLs>-->
-      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <LargeAddressAware>true</LargeAddressAware>
@@ -127,7 +126,6 @@
       <AdditionalDependencies>version.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <DelayLoadDLLs>version.dll;comdlg32.dll;winspool.drv;advapi32.dll;shell32.dll;shlwapi.dll;ole32.dll;oleaut32.dll;oleacc.dll</DelayLoadDLLs>
       <!--<DelayLoadDLLs>version.dll;msimg32.dll;comdlg32.dll;comctl32.dll;winspool.drv;advapi32.dll;shell32.dll;shlwapi.dll;ole32.dll;oleaut32.dll;oleacc.dll;oledlg.dll;ws2_32.dll;gdiplus.dll;imm32.dll;winmm.dll</DelayLoadDLLs>-->
-      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>

@@ -139,8 +139,8 @@ BOOL CLibrarySettingsPage::OnInitDialog()
 
 	m_wndCollectionFolder.SubclassDlgItem( IDC_COLLECTIONS_FOLDER, this );
 
-	// Why is this button disabling workaround needed here only?
-	GetDlgItem( IDC_RECENT_CLEAR )->EnableWindow( LibraryHistory.GetCount() > 0 );
+	// m_wndRecentClear	Why is this button disabling workaround needed here only?
+	GetDlgItem( IDC_RECENT_CLEAR )->EnableWindow( LibraryHistory.GetCount() > 0 || ! theApp.GetProfileString( _T("Search"), _T("Search.01") ).IsEmpty() );
 	GetDlgItem( IDC_RECENT_CLEAR_GHOSTS )->EnableWindow( LibraryFolders.GetGhostCount() > 0 );
 
 	return TRUE;
@@ -194,10 +194,10 @@ void CLibrarySettingsPage::OnPrivateAdd()
 	CString strType;
 	m_wndPrivateList.GetWindowText( strType );
 
-	ToLower( strType );
-
 	strType.Trim();
 	if ( strType.IsEmpty() ) return;
+
+	ToLower( strType );
 
 	if ( m_wndPrivateList.FindStringExact( -1, strType ) >= 0 ) return;
 
@@ -215,6 +215,7 @@ void CLibrarySettingsPage::OnPrivateRemove()
 void CLibrarySettingsPage::OnRecentClear()
 {
 	CQuickLock oLock( Library.m_pSection );
+	Settings.ClearSearches();
 	LibraryHistory.Clear();
 	Library.Update();
 

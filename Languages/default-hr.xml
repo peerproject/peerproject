@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Croatian Skin File -->
 
-<!-- Translation based on default-en.xml r84 --> <!-- (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r85 --> <!-- (Shareaza 2.2.0.2) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -410,7 +410,7 @@
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="Pogledaj Što Ima"/>
 		<button id="ID_CHAT_PRIORITY" text="Daj Prioritet"/>
-		<!-- <button id="ID_CHAT_SEND_FILE" text="Pošalji"/> -->
+		<!--button id="ID_CHAT_SEND_FILE" text="Pošalji"-->
 		<separator/>
 		<button id="ID_CHAT_CONNECT" text="Spoji" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="Isključi"/>
@@ -1225,8 +1225,6 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Epizode Iste Serije"/>
 		</menu>
 		<menu text="_Web Usluge">
-			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokaliziraj Metadatu"/>
-			<separator/>
 			<item id="ID_LIBRARY_BITZI_WEB" text="Pogledaj _Bitzi Ticket"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Skini Meta_datu"/>
 			<separator/>
@@ -1266,6 +1264,7 @@
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="N_abavi Metadate"/>
 		</menu>
 		<menu text="_Metadate">
+			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadate"/>
 			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokaliziraj Metadate"/>
 			<item id="ID_LIBRARY_COLUMNS" text="Odaberi Stupa_c..."/>
@@ -1492,7 +1491,7 @@
 		<item id="ID_CHAT_DISCONNECT" text="_Isključi"/>
 		<separator/>
 		<item id="ID_CHAT_BROWSE" text="_Pogledaj što Ima"/>
-		<!-- <item id="ID_CHAT_SEND_FILE" text="Pošalji Datoteku..."/> -->
+		<!--item id="ID_CHAT_SEND_FILE" text="Pošalji Datoteku..."-->
 		<item id="ID_CHAT_PRIORITY" text="Daj _Prednost"/>
 		<separator/>
 		<menu text="_Format">
@@ -1573,8 +1572,8 @@
 		<text align="middle">- Promjeni PeerProject Izgled i doživljaj</text>
 		<newline gap="8"/>
 		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link><gap size="6"/>
-		<text align="middle">- Update blocklist to avoid bad search results</text>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Sigurnosni Pretrage</link><gap size="6"/>
+		<text align="middle">- Ažurirajte blocklist kako bi se izbjeglo loše rezultate pretraživanja</text>
 		<newline gap="8"/>
 		<icon res="197" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 		<link target="command:ID_TOOLS_WIZARD" align="middle">Pomoćnik s Postavkama</link><gap size="6"/>
@@ -2137,7 +2136,7 @@
 	<tip id="ID_CHAT_EMOTICONS" message="Ubaci izljev osjećaja."/>
 	<tip id="ID_CHAT_ITALIC" message="Nakosi slova (Ctrl+I)"/>
 	<tip id="ID_CHAT_PRIORITY" message="Daj mu prioritet skidanja."/>
-	<!-- <tip id="ID_CHAT_SEND_FILE" message="Pošalji mu datoteku..."/> -->
+	<!--tip id="ID_CHAT_SEND_FILE" message="Pošalji mu datoteku..."-->
 	<tip id="ID_CHAT_TIMESTAMP" message="Pokazuje vrijeme primanja poruke."/>
 	<tip id="ID_CHAT_UNDERLINE" message="Podcrta (Ctrl+U)"/>
 	<tip id="ID_CHILD_CLOSE" message="Zatvara trenutni prozor."/>
@@ -2211,6 +2210,7 @@
 	<tip id="ID_LIBRARY_PARENT" message="Move up to the parent folder."/>
 	<tip id="ID_LIBRARY_PROPERTIES" message="View and edit the properties of the selected files..."/>
 	<tip id="ID_LIBRARY_REBUILD" message="Obnovi metadatu i hashere za ozačene mape i datoteke."/>
+	<tip id="ID_LIBRARY_REBUILD_FILE" message="Obnovi metadatu i hashere za ozačene mape i datoteke."/>
 	<tip id="ID_LIBRARY_REBUILD_ANSI" message="Rebuild metadata using other language."/>
 	<tip id="ID_LIBRARY_REFRESH" message="Osvježi Kolekciju."/>
 	<tip id="ID_LIBRARY_REMOVE" message="Makni odabrane djeljene mape."/>

@@ -1615,45 +1615,41 @@ BOOL CMediaFrame::Prepare()
 // ToDo: Re-Implement Audio Visualizations!
 BOOL CMediaFrame::PrepareVis()
 {
-	return FALSE;	// Visualizations currently unsupported
+	// Note visualizations currently unavailable
+	if ( Settings.MediaPlayer.VisPath.IsEmpty() || Settings.MediaPlayer.VisCLSID.IsEmpty() )
+		return FALSE;
 
-//	if ( m_pPlayer == NULL ) return FALSE;
-//
-//	IAudioVisPlugin* pPlugin = NULL;
-//	CLSID pCLSID;
-//
-//	if ( Hashes::fromGuid( Settings.MediaPlayer.VisCLSID, &pCLSID ) && Plugins.LookupEnable( pCLSID ) )
-//	{
-//		HRESULT hr = CoCreateInstance( pCLSID, NULL, CLSCTX_ALL, IID_IAudioVisPlugin, (void**)&pPlugin );
-//
-//		if ( SUCCEEDED( hr ) && pPlugin != NULL )
-//		{
-//			if ( ! Settings.MediaPlayer.VisPath.IsEmpty() )
-//			{
-//				IWrappedPluginControl* pWrap = NULL;
-//
-//				hr = pPlugin->QueryInterface( IID_IWrappedPluginControl, (void**)&pWrap );
-//
-//				if ( SUCCEEDED( hr ) && pWrap != NULL )
-//				{
-//					hr = pWrap->Load( CComBSTR( Settings.MediaPlayer.VisPath ), 0 );
-//					pWrap->Release();
-//				}
-//				if ( FAILED( hr ) )
-//				{
-//					pPlugin->Release();
-//					pPlugin = NULL;
-//				}
-//			}
-//		}
-//	}
-//
-//	m_pPlayer->SetPluginSize( Settings.MediaPlayer.VisSize );
-//	m_pPlayer->SetPlugin( pPlugin );
-//
-//	if ( pPlugin != NULL ) pPlugin->Release();
-//
-//	return TRUE;
+	CLSID pCLSID;
+	if ( Hashes::fromGuid( Settings.MediaPlayer.VisCLSID, &pCLSID ) &&
+		 Plugins.LookupEnable( pCLSID ) )
+	{
+		CComPtr< IAudioVisPlugin > pPlugin;
+		HRESULT hr = pPlugin.CoCreateInstance( pCLSID );
+		if ( SUCCEEDED( hr ) && pPlugin )
+		{
+			//if ( ! Settings.MediaPlayer.VisPath.IsEmpty() )
+			{
+				CComQIPtr< IWrappedPluginControl > pWrap( pPlugin );
+				if ( pWrap )
+				{
+					hr = pWrap->Load( CComBSTR( Settings.MediaPlayer.VisPath ), 0 );
+					if ( FAILED( hr ) )
+						return FALSE;
+				}
+			}
+
+			if ( ! m_pPlayer )
+				return FALSE;
+
+			hr = m_pPlayer->SetPluginSize( Settings.MediaPlayer.VisSize );
+			if ( FAILED( hr ) )
+				return FALSE;
+
+			m_pPlayer->SetPlugin( pPlugin );
+		}
+	}
+
+	return TRUE;
 }
 
 BOOL CMediaFrame::OpenFile(LPCTSTR pszFile)

@@ -33,6 +33,8 @@ static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif	// Debug
 
+IMPLEMENT_DYNCREATE(CTextCtrl, CWnd)
+
 BEGIN_MESSAGE_MAP(CTextCtrl, CWnd)
 	//{{AFX_MSG_MAP(CTextCtrl)
 	ON_WM_VSCROLL()
@@ -96,27 +98,23 @@ BOOL CTextCtrl::Create(DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT n
 	return CWnd::Create( NULL, NULL, dwStyle, rect, pParentWnd, nID, NULL );
 }
 
-void CTextCtrl::Add(WORD nType, const CString& strText)
+void CTextCtrl::Add(const CLogMessage* pMsg)
 {
 	CString strTime;
 	if ( Settings.General.ShowTimestamp )
-	{
-		CTime pNow = CTime::GetCurrentTime();
-		strTime.Format( _T("[%02d:%02d:%02d]  "),
-			pNow.GetHour(), pNow.GetMinute(), pNow.GetSecond() );
-	}
+		strTime.Format( _T("[%02d:%02d:%02d]  "), pMsg->m_Time.GetHour(), pMsg->m_Time.GetMinute(), pMsg->m_Time.GetSecond() );
 
 	CQuickLock pLock( m_pSection );
 
 	for ( int pos = 0 ; ; )
 	{
-		CString strLine = strText.Tokenize( _T("\r\n"), pos );
+		CString strLine = pMsg->m_strLog.Tokenize( _T("\r\n"), pos );
 		if ( strLine.IsEmpty() )
 			break;
 		if ( Settings.General.ShowTimestamp )
-			AddLine( nType, strTime + strLine );
+			AddLine( pMsg->m_nType, strTime + strLine );
 		else
-			AddLine( nType, strLine );
+			AddLine( pMsg->m_nType, strLine );
 	}
 }
 
@@ -193,11 +191,6 @@ void CTextCtrl::UpdateScroll(BOOL bFull)
 	}
 
 	SetScrollInfo( SB_VERT, &si );
-}
-
-CFont* CTextCtrl::GetFont()
-{
-	return &m_pFont;
 }
 
 /////////////////////////////////////////////////////////////////////////////

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Korean Language Skin File -->
 
-<!-- Translation based on default-en.xml r84 --> <!--Machine Translated!-->
+<!-- Translation based on default-en.xml r85 --> <!--Machine Translated!-->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -445,7 +445,7 @@
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="찾아보기 사용자"/>
 		<button id="ID_CHAT_PRIORITY" text="Grant Priority"/>
-		<!-- <button id="ID_CHAT_SEND_FILE" text="Send File"/> -->
+		<!--button id="ID_CHAT_SEND_FILE" text="Send File"-->
 		<separator/>
 		<button id="ID_CHAT_CONNECT" text="연결" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="끊습니다"/>
@@ -816,7 +816,7 @@
 			<item id="ID_VIEW_PACKETS" text="패킷 덤프 " shortcut="Ctrl+F1"/>
 			<item id="ID_VIEW_SEARCH_MONITOR" text="검색 모니터" shortcut="Ctrl+F2"/>
 			<item id="ID_VIEW_RESULTS_MONITOR" text="히트 모니" shortcut="Ctrl+F3"/>
-			<item id="ID_VIEW_SEARCH" text="새로운 검색" shortcut="Ctrl+S"/>
+			<item id="ID_TAB_SEARCH" text="새로운 검색" shortcut="Ctrl+S"/>
 			<separator/>
 			<item id="ID_VIEW_BASIC" text="기본 모드"/>
 			<item id="ID_VIEW_TABBED" text="탭 모드"/>
@@ -1364,6 +1364,7 @@
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="다운로드 메타"/>
 		</menu>
 		<menu text="_Metadata"> <!--메타 데이터-->
+			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="새로고침 메"/>
 			<item id="ID_LIBRARY_REBUILD_ANSI" text="지방적 특색을 메"/>
 			<item id="ID_LIBRARY_COLUMNS" text="열 선택을..."/>

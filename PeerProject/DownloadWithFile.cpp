@@ -145,64 +145,55 @@ DWORD CDownloadWithFile::GetFileError() const
 	return m_nFileError;
 }
 
+// Get more information about last file/disk operation error
+const CString& CDownloadWithFile::GetFileErrorString() const
+{
+	return m_sFileError;
+}
+
 // Set file/disk error status
-void CDownloadWithFile::SetFileError(DWORD nFileError)
+void CDownloadWithFile::SetFileError(DWORD nFileError, LPCTSTR szFileError)
 {
 	m_nFileError = nFileError;
+	m_sFileError = szFileError;
 }
 
 // Clear file/disk error status
 void CDownloadWithFile::ClearFileError()
 {
 	m_nFileError = ERROR_SUCCESS;
+	m_sFileError.Empty();
 }
 
 //////////////////////////////////////////////////////////////////////
 // CDownloadWithFile open the file
 
-BOOL CDownloadWithFile::OpenFile()
+BOOL CDownloadWithFile::Open()
 {
-	if ( m_sName.IsEmpty() )
-		return TRUE;	// Start download without known name (Magnet)
-
-	if ( IsFileOpen() )
-		return TRUE;
-
-	SetModified();
-
-	CDownload* pThis = static_cast< CDownload* >( this );	// ToDo: Fix bad inheritance
 	if ( m_pFile.get() )
 	{
 		ClearFileError();
 
-		if ( pThis->IsTorrent() )
-		{
-			CString str;
-			if ( m_pFile->Open( pThis->m_pTorrent, ! IsCompleted(), str ) )
-				return TRUE;
-		}
-		else
-		{
-			// ToDo: Refactor m_sTorrentTrackerError
-			pThis->m_sTorrentTrackerError.Empty();
+		if ( m_pFile->Open( this, ! IsCompleted() ) )
+			return TRUE;
 
-			if ( m_pFile->Open( this, ! IsCompleted() ) )
-				return TRUE;
-		}
-
-		m_nFileError = m_pFile->GetFileError();
+		SetFileError( m_pFile->GetFileError(), m_pFile->GetFileErrorString() );
 	}
-	else if ( m_nSize != SIZE_UNKNOWN &&
-		! Downloads.IsSpaceAvailable( m_nSize, Downloads.dlPathIncomplete ) )
+
+	return FALSE;
+}
+
+BOOL CDownloadWithFile::Open(const CBTInfo& pBTInfo)
+{
+	if ( m_pFile.get() )
 	{
-		theApp.Message( MSG_ERROR, IDS_DOWNLOAD_DISK_SPACE, m_sName, Settings.SmartVolume( m_nSize ) );
+		ClearFileError();
 
-		m_nFileError = ERROR_DISK_FULL;
+		if ( m_pFile->Open( pBTInfo, ! IsCompleted() ) )
+			return TRUE;
+
+		SetFileError( m_pFile->GetFileError(), m_pFile->GetFileErrorString() );
 	}
-
-	// ToDo: Refactor m_sTorrentTrackerError
-	if ( m_nFileError != ERROR_SUCCESS )
-		pThis->m_sTorrentTrackerError = GetErrorString( m_nFileError );
 
 	return FALSE;
 }
@@ -224,14 +215,6 @@ void CDownloadWithFile::CloseFile()
 //	if ( m_pFile.get() )
 //		m_pFile->Clear();
 //}
-
-//////////////////////////////////////////////////////////////////////
-// CDownloadWithFile prepare file
-
-BOOL CDownloadWithFile::PrepareFile()
-{
-	return OpenFile() && m_pFile->GetRemaining() > 0;
-}
 
 //////////////////////////////////////////////////////////////////////
 // CDownloadWithFile attach the file
@@ -306,8 +289,16 @@ DWORD CDownloadWithFile::MoveFile(LPCTSTR pszDestination, LPPROGRESS_ROUTINE lpP
 {
 	ASSERT( IsMoving() );
 
+	DWORD ret = ERROR_SUCCESS;
+
 	if ( ! m_pFile.get() )
+	{
+		ClearSources();
+		CString strMessage;
+		strMessage.Format( LoadString( IDS_DOWNLOAD_CANT_MOVE ), GetDisplayName(), pszDestination );
+		theApp.Message( MSG_ERROR | MSG_TRAY, _T("%s %s"), strMessage, GetErrorString( ERROR_FILE_NOT_FOUND ) );
 		return ERROR_FILE_NOT_FOUND;
+	}
 
 	CSingleLock oLibraryLock( &Library.m_pSection, FALSE );
 
@@ -411,32 +402,11 @@ DWORD CDownloadWithFile::MoveFile(LPCTSTR pszDestination, LPPROGRESS_ROUTINE lpP
 
 		LibraryBuilder.RequestPriority( sPath );
 
+		// Update with download hashes, single-file download only
 		if ( nCount == 1 )
-		{
-			// Update with download hashes, single-file download only
-			Hashes::Sha1ManagedHash oSHA1( m_oSHA1 );
-			if ( m_bSHA1Trusted )		oSHA1.signalTrusted();
-			Hashes::TigerManagedHash oTiger( m_oTiger );
-			if ( m_bTigerTrusted )		oTiger.signalTrusted();
-			Hashes::Ed2kManagedHash oED2K( m_oED2K );
-			if ( m_bED2KTrusted )		oED2K.signalTrusted();
-			Hashes::BtManagedHash oBTH( m_oBTH );
-			if ( m_bBTHTrusted )		oBTH.signalTrusted();
-			Hashes::Md5ManagedHash oMD5( m_oMD5 );
-			if ( m_bMD5Trusted )		oMD5.signalTrusted();
-			LibraryHistory.Add( sPath, oSHA1, oTiger, oED2K, oBTH, oMD5,
-				GetSourceURLs( NULL, 0, PROTOCOL_NULL, NULL ) );
-		}
-		else // Multifile torrent
-		{
+			LibraryHistory.Add( sPath, static_cast< CDownload* >( this ) );
+		//else // Multifile torrent
 			// ToDo: Get hashes for all files of download?
-			Hashes::Sha1ManagedHash		oSHA1;
-			Hashes::TigerManagedHash	oTiger;
-			Hashes::Ed2kManagedHash		oED2K;
-			Hashes::Md5ManagedHash		oMD5;
-			Hashes::BtManagedHash		oBTH;
-			LibraryHistory.Add( sPath, oSHA1, oTiger, oED2K, oBTH, oMD5 );
-		}
 
 		// Early metadata update
 		if ( oLibraryLock.Lock( 100 ) )
@@ -449,7 +419,7 @@ DWORD CDownloadWithFile::MoveFile(LPCTSTR pszDestination, LPPROGRESS_ROUTINE lpP
 
 	theApp.Message( MSG_NOTICE, IDS_DOWNLOAD_MOVED, (LPCTSTR)GetDisplayName(), (LPCTSTR)pszDestination );
 
-	return ERROR_SUCCESS;
+	return ret;
 }
 
 BOOL CDownloadWithFile::FlushFile()
@@ -460,6 +430,11 @@ BOOL CDownloadWithFile::FlushFile()
 BOOL CDownloadWithFile::IsComplete() const
 {
 	return m_pFile.get() && m_pFile->IsComplete();
+}
+
+BOOL CDownloadWithFile::IsRemaining() const
+{
+	return IsFileOpen() && m_pFile->GetRemaining() > 0;
 }
 
 BOOL CDownloadWithFile::ReadFile(QWORD nOffset, LPVOID pData, QWORD nLength, QWORD* pnRead)
@@ -554,7 +529,7 @@ CString CDownloadWithFile::GetDisplayName() const
 //Fragments::List CDownloadWithFile::GetPossibleFragments(
 //	const Fragments::List& oAvailable, Fragments::Fragment& oLargest)
 //{
-//	if ( ! PrepareFile() ) return Fragments::List( oAvailable.limit() );
+//	if ( ! m_pFile.get() ) return Fragments::List( oAvailable.limit() );
 //	Fragments::List oPossible( oAvailable );
 //
 //	if ( oAvailable.empty() )
@@ -596,11 +571,10 @@ CString CDownloadWithFile::GetDisplayName() const
 //{
 //	ASSUME_LOCK( Transfers.m_pSection );
 //
-//	if ( ! PrepareFile() ) return NULL;
+//	if ( ! m_pFile.get() ) return NULL;
 //
 //	Fragments::Fragment oLargest( SIZE_UNKNOWN, SIZE_UNKNOWN );
-//	Fragments::List oPossible = GetPossibleFragments(
-//		pTransfer->GetSource()->m_oAvailable, oLargest );
+//	Fragments::List oPossible = GetPossibleFragments( pTransfer->GetSource()->m_oAvailable, oLargest );
 //
 //	if ( oLargest.begin() == SIZE_UNKNOWN )
 //	{
@@ -805,6 +779,17 @@ BOOL CDownloadWithFile::GetRandomRange(QWORD& nOffset, QWORD& nLength) const
 }
 
 //////////////////////////////////////////////////////////////////////
+// CDownloadWithFile erase a range
+
+QWORD CDownloadWithFile::EraseRange(QWORD nOffset, QWORD nLength)
+{
+	if ( ! m_pFile.get() ) return 0;
+	QWORD nCount = m_pFile->InvalidateRange( nOffset, nLength );
+	if ( nCount > 0 ) SetModified();
+	return nCount;
+}
+
+//////////////////////////////////////////////////////////////////////
 // CDownloadWithFile submit data
 
 BOOL CDownloadWithFile::SubmitData(QWORD nOffset, LPBYTE pData, QWORD nLength)
@@ -825,14 +810,12 @@ BOOL CDownloadWithFile::SubmitData(QWORD nOffset, LPBYTE pData, QWORD nLength)
 }
 
 //////////////////////////////////////////////////////////////////////
-// CDownloadWithFile erase a range
+// CDownloadWithFile set size
 
-QWORD CDownloadWithFile::EraseRange(QWORD nOffset, QWORD nLength)
+BOOL CDownloadWithFile::SetSize(QWORD nSize)
 {
-	if ( ! m_pFile.get() ) return 0;
-	QWORD nCount = m_pFile->InvalidateRange( nOffset, nLength );
-	if ( nCount > 0 ) SetModified();
-	return nCount;
+	m_nSize = nSize;
+	return m_pFile.get() && m_pFile->SetSize( nSize );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -840,7 +823,7 @@ QWORD CDownloadWithFile::EraseRange(QWORD nOffset, QWORD nLength)
 
 BOOL CDownloadWithFile::MakeComplete()
 {
-	return PrepareFile() && m_pFile->MakeComplete();
+	return m_pFile.get() && m_pFile->MakeComplete();
 }
 
 //////////////////////////////////////////////////////////////////////

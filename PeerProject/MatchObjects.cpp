@@ -2366,7 +2366,7 @@ IN_ADDR CMatchFile::GetBestAddress() const
 
 LPCTSTR CMatchFile::GetBestVendorName() const
 {
-	return ( ( m_pBest && m_pBest->m_pVendor) ? m_pBest->m_pVendor->m_sName : _T("") );
+	return ( ( m_pBest && m_pBest->m_pVendor ) ? m_pBest->m_pVendor->m_sName : _T("") );
 }
 
 LPCTSTR CMatchFile::GetBestCountry() const
@@ -2505,12 +2505,12 @@ void CMatchFile::GetStatusTip( CString& sStatus, COLORREF& crStatus)
 			}
 		}
 	}
-	else if ( m_bDownload || m_pBest->m_bDownload )
+	else if ( m_bDownload || ( m_pBest && m_pBest->m_bDownload ) )
 	{
 		LoadString( sStatus, IDS_TIP_EXISTS_DOWNLOAD );
 		crStatus = Colors.m_crSearchQueued;
 	}
-	else if ( m_pBest->m_bBogus || ! m_bOneValid )
+	else if ( ! m_bOneValid || ( m_pBest && m_pBest->m_bBogus ) )
 	{
 		LoadString( sStatus, IDS_TIP_BOGUS );
 		crStatus = Colors.m_crTextAlert;

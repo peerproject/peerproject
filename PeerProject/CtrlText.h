@@ -20,8 +20,11 @@
 
 class CTextLine;
 
+
 class CTextCtrl : public CWnd
 {
+	DECLARE_DYNCREATE(CTextCtrl)
+
 // Construction
 public:
 	CTextCtrl();
@@ -43,11 +46,10 @@ protected:
 
 // Operations
 public:
-	void	Add(WORD nType, const CString& strText);
+	void	Add(const CLogMessage* pMsg);
 	void	AddLine(WORD nType, const CString& strLine);
 	void	Clear(BOOL bInvalidate = TRUE);
 	void	CopyText() const;
-	CFont*	GetFont();
 
 protected:
 	void	UpdateScroll(BOOL bFull = FALSE);
@@ -75,12 +77,13 @@ protected:
 	DECLARE_MESSAGE_MAP()
 };
 
+
 class CTextLine
 {
 // Construction
 public:
 	CTextLine(WORD nType, const CString& strText);
-	virtual ~CTextLine();
+	~CTextLine();
 
 // Attributes
 public:

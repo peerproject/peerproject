@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Lithuanian Skin File -->
 
-<!-- Translation based on default-en.xml r84 -->
+<!-- Translation based on default-en.xml r85 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -439,7 +439,7 @@
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="Rodyti naudotojo duomenis"/>
 		<button id="ID_CHAT_PRIORITY" text="Suteikti prioritetą"/>
-		<!-- <button id="ID_CHAT_SEND_FILE" text="Siųsti failą"/> -->
+		<!--button id="ID_CHAT_SEND_FILE" text="Siųsti failą"-->
 		<separator/>
 		<button id="ID_CHAT_CONNECT" text="Susijungti" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="Atsijungti"/>
@@ -1311,7 +1311,6 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Epizodų iš to pačio serialo"/>
 		</menu>
 		<menu text="P_aslaugos internete">
-			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokalizuoti meta duomenis"/>
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="At_naujinti meta duomenis"/>
 			<separator/>
 			<item id="ID_LIBRARY_BITZI_WEB" text="Peržiūrėti _Bitzi etiketę"/>
@@ -1353,6 +1352,7 @@
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Parsisiųsti meta duomenis"/>
 		</menu>
 		<menu text="_Meta duomenis">
+			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="At_naujinti meta duomenis"/>
 			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokalizuoti meta duomenis"/>
 			<item id="ID_LIBRARY_COLUMNS" text="Pasirinkti _stulpelius..."/>
@@ -1580,7 +1580,7 @@
 		<item id="ID_CHAT_DISCONNECT" text="_Atsijungti"/>
 		<separator/>
 		<item id="ID_CHAT_BROWSE" text="Rodyti naudotojo _duomenis"/>
-		<!-- <item id="ID_CHAT_SEND_FILE" text="_Siųsti failą..."/> -->
+		<!--item id="ID_CHAT_SEND_FILE" text="_Siųsti failą..."-->
 		<item id="ID_CHAT_PRIORITY" text="Suteikti _prioritetą"/>
 		<separator/>
 		<menu text="_Formatas">
@@ -1729,8 +1729,8 @@
 		<text align="middle">- Pakeiskite „PeerProject“ išvaizdą</text>
 		<newline gap="8"/>
 		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link><gap size="6"/>
-		<text align="middle">- Update blocklist to avoid bad search results</text>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Saugumo Filtrai</link><gap size="6"/>
+		<text align="middle">- Atnaujinti Blocklist išvengti blogų paieškos rezultatus</text>
 		<newline gap="8"/>
 		<icon res="197" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 		<link target="command:ID_TOOLS_WIZARD" align="middle">Nuostatų vedlys</link><gap size="6"/>
@@ -2298,7 +2298,7 @@
 	<tip id="ID_CHAT_EMOTICONS" message="Įterpti emociją."/>
 	<tip id="ID_CHAT_ITALIC" message="Išskirti kursyvu (Ctrl+I)"/>
 	<tip id="ID_CHAT_PRIORITY" message="Suteikti naudotojui parsisiuntimo prioritetą."/>
-	<!-- <tip id="ID_CHAT_SEND_FILE" message="Siųsti failą naudotojui..."/> -->
+	<!--tip id="ID_CHAT_SEND_FILE" message="Siųsti failą naudotojui..."-->
 	<tip id="ID_CHAT_TIMESTAMP" message="Rodyti laiką, kada buvo gautas kiekvienas pranešimas."/>
 	<tip id="ID_CHAT_UNDERLINE" message="Rašyti su pabraukimu (Ctrl+U)"/>
 	<tip id="ID_CHILD_CLOSE" message="Užverti aktyvų langą."/>
@@ -2414,6 +2414,7 @@
 	<tip id="ID_LIBRARY_PARENT" message="Eiti į aukštesnį aplanką."/>
 	<tip id="ID_LIBRARY_PROPERTIES" message="Peržiūrėti ir taisyti pasirinktų failų ypatybes..."/>
 	<tip id="ID_LIBRARY_REBUILD" message="Perdaryti iš naujo pasirinktų katalogų ar failų meta duomenis ir maišas."/>
+	<tip id="ID_LIBRARY_REBUILD_FILE" message="Perdaryti iš naujo pasirinktų katalogų ar failų meta duomenis ir maišas."/>
 	<tip id="ID_LIBRARY_REBUILD_ANSI" message="Perdaryti meta duomenis kita kalba."/>
 	<tip id="ID_LIBRARY_REFRESH" message="Atnaujinti kolekcijos rodinį."/>
 	<tip id="ID_LIBRARY_REMOVE" message="Pašalinti pasirinktus bendrintus aplankus."/>

@@ -35,10 +35,12 @@ public:
 	CLogMessage(WORD nType, const CString& strLog)
 		: m_strLog	( strLog )
 		, m_nType	( nType )
+		, m_Time	( CTime::GetCurrentTime() )
 	{
 	}
 	CString m_strLog;
 	WORD	m_nType;
+	CTime	m_Time;
 };
 
 typedef CList< CLogMessage* > CLogMessageList;
@@ -196,7 +198,7 @@ public:
 	CString			GetAppDataFolder() const;
 	CString			GetLocalAppDataFolder() const;
 
-	CDatabase*		GetDatabase(bool bGeneral = false) const;		// Get SQLite (thumbs) database handler, must be freed by "delete" operator.
+	CDatabase*		GetDatabase(int nType) const;					// Get SQLite (thumbs) database handler, must be freed by "delete" operator.
 
 	void			OnRename(LPCTSTR strSource, LPCTSTR pszTarget = (LPCTSTR)1);	// pszTarget: 0 = delete file, 1 = release file.
 
@@ -236,7 +238,8 @@ public:
 	CProgressDialog(LPCTSTR szTitle, DWORD dwFlags = PROGDLG_NOCANCEL | PROGDLG_AUTOTIME);
 	virtual ~CProgressDialog();
 
-	void Progress(LPCTSTR szText, QWORD nCompleted, QWORD nTotal);
+public:
+	void Progress(LPCTSTR szText, QWORD nCompleted = 0, QWORD nTotal = 0);
 };
 
 
@@ -363,6 +366,14 @@ __int32 GetRandomNum<__int32>(const __int32& min, const __int32& max);
 
 template <>
 __int64 GetRandomNum<__int64>(const __int64& min, const __int64& max);
+
+enum 
+{
+	DB_DEFAULT,
+	DB_THUMBS,
+	DB_SECURITY,
+	DB_LAST
+};
 
 const LPCTSTR RT_BMP  = _T("BMP");
 const LPCTSTR RT_PNG  = _T("PNG");

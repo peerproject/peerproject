@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Dutch Skin File -->
 
-<!-- Translation based on default-en.xml r84 -->
+<!-- Translation based on default-en.xml r85 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -442,7 +442,7 @@
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="Gebruiker bekijken"/>
 		<button id="ID_CHAT_PRIORITY" text="Voorrang geven"/>
-		<!-- <button id="ID_CHAT_SEND_FILE" text="Bestand verzenden"/> -->
+		<!--button id="ID_CHAT_SEND_FILE" text="Bestand verzenden"-->
 		<separator/>
 		<button id="ID_CHAT_CONNECT" text="Verbinden" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="Verbinding verbreken"/>
@@ -1347,6 +1347,7 @@
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Metadata downloaden"/>
 		</menu>
 		<menu text="_Metadata">
+			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh metadata"/>
 			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokaliseer metadata"/>
 			<item id="ID_LIBRARY_COLUMNS" text="_Kolommen uitkiezen..."/>
@@ -1578,8 +1579,8 @@
 		<item id="ID_CHAT_DISCONNECT" text="Ver_breek verbinding"/>
 		<separator/>
 		<item id="ID_CHAT_BROWSE" text="_Gebruiker bekijken"/>
-		<item id="ID_CHAT_SEND_FILE" text="_Bestand sturen..."/>
 		<item id="ID_CHAT_PRIORITY" text="Voor_rang verlenen"/>
+		<!--item id="ID_CHAT_SEND_FILE" text="_Bestand sturen..."-->
 		<separator/>
 		<menu text="_Schriftstijl">
 			<item id="ID_CHAT_BOLD" text="V_et"/>
@@ -2299,7 +2300,7 @@
 	<tip id="ID_CHAT_EMOTICONS" message="Voeg een emoticon toe."/>
 	<tip id="ID_CHAT_ITALIC" message="Maak de tekst Schuin (Ctrl+I)"/>
 	<tip id="ID_CHAT_PRIORITY" message="Geef deze gebruiker voorrang met het uploaden."/>
-	<tip id="ID_CHAT_SEND_FILE" message="Een bestand sturen naar de gebruiker..."/>
+	<!--tip id="ID_CHAT_SEND_FILE" message="Een bestand sturen naar de gebruiker..."-->
 	<tip id="ID_CHAT_TIMESTAMP" message="Laat de tijd zien wanneer elke boodschap wordt ontvangen."/>
 	<tip id="ID_CHAT_UNDERLINE" message="Maak de tekst onderstreept (Ctrl+U)"/>
 	<tip id="ID_CHILD_CLOSE" message="Het actieve venster afsluiten."/>
@@ -2414,6 +2415,7 @@
 	<tip id="ID_LIBRARY_PARENT" message="Ga naar de bovenliggende map."/>
 	<tip id="ID_LIBRARY_PROPERTIES" message="Toon en wijzig de eigenschappen van de geselecteerde bestanden..."/>
 	<tip id="ID_LIBRARY_REBUILD" message="Bereken de metadata en hashes opnieuw voor de geselecteerde mappen of bestanden."/>
+	<tip id="ID_LIBRARY_REBUILD_FILE" message="Bereken de metadata en hashes opnieuw voor de geselecteerde mappen of bestanden."/>
 	<tip id="ID_LIBRARY_REBUILD_ANSI" message="Bereken de metadata opnieuw door gebruik te maken van een andere taal."/>
 	<tip id="ID_LIBRARY_REFRESH" message="Het bibliotheekvenster vernieuwen."/>
 	<tip id="ID_LIBRARY_REMOVE" message="Verwijder de geselecteerde gedeelde mappen."/>

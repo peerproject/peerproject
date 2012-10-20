@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Greek Skin File -->
 
-<!-- Translation based on default-en.xml r84 -->
+<!-- Translation based on default-en.xml r85 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -421,7 +421,7 @@
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="Περιήγηση Χρήστη"/>
 		<button id="ID_CHAT_PRIORITY" text="Χορήγηση Προτεραιότητας"/>
-		<!-- <button id="ID_CHAT_SEND_FILE" text="Αποστολή Αρχείου"/> -->
+		<!--button id="ID_CHAT_SEND_FILE" text="Αποστολή Αρχείου"-->
 		<separator/>
 		<button id="ID_CHAT_CONNECT" text="Σύνδεση" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="Αποσύνδεση"/>
@@ -1310,7 +1310,6 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="_Επεισόδια από την ίδια Σειρά"/>
 		</menu>
 		<menu text="_Υπηρεσίες Ιστού">
-			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localise Metadata"/>
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Ανανέωση Metadata"/>
 			<separator/>
 			<item id="ID_LIBRARY_BITZI_WEB" text="Προβολή _Bitzi Ticket"/>
@@ -1352,6 +1351,7 @@
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Λήψη _Metadata"/>
 		</menu>
 		<menu text="_Metadata">
+			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Ανανέωση Metadata"/>
 			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localise Metadata"/>
 			<item id="ID_LIBRARY_COLUMNS" text="Επιλογή _Στηλών..."/>
@@ -1579,7 +1579,7 @@
 		<item id="ID_CHAT_DISCONNECT" text="_Αποσύνδεση"/>
 		<separator/>
 		<item id="ID_CHAT_BROWSE" text="Περι_ήγηση Χρήστη"/>
-		<!-- <item id="ID_CHAT_SEND_FILE" text="Απο_στολή Αρχείου..."/> -->
+		<!--item id="ID_CHAT_SEND_FILE" text="Απο_στολή Αρχείου..."-->
 		<item id="ID_CHAT_PRIORITY" text="Χορήγηση _Προτεραιότητας"/>
 		<separator/>
 		<menu text="_Format">
@@ -1728,8 +1728,8 @@
 		<text align="middle">- Αλλαγή της όψης και της αισθητικής του PeerProject</text>
 		<newline gap="8"/>
 		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link><gap size="6"/>
-		<text align="middle">- Update blocklist to avoid bad search results</text>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Φίλτρα Ασφαλείας</link><gap size="6"/>
+		<text align="middle">- Ενημέρωση blocklist να αποφευχθεί η κακή αποτελέσματα αναζήτησης</text>
 		<newline gap="8"/>
 		<icon res="197" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 		<link target="command:ID_TOOLS_WIZARD" align="middle">Οδηγός Σύντομης Εκκίνησης</link><gap size="6"/>
@@ -2309,7 +2309,7 @@
 	<tip id="ID_CHAT_EMOTICONS" message="Εισαγωγή εικονιδίου."/>
 	<tip id="ID_CHAT_ITALIC" message="Εφαρμογή πλάγιας μορφοποήσης (Ctrl+I)"/>
 	<tip id="ID_CHAT_PRIORITY" message="Χορήγηση προτεραιότητας αποστολής σε αυτόν τον χρήστη."/>
-	<!-- <tip id="ID_CHAT_SEND_FILE" message="Αποστολή ενός αρχείου στον χρήστη..."/> -->
+	<!--tip id="ID_CHAT_SEND_FILE" message="Αποστολή ενός αρχείου στον χρήστη..."-->
 	<tip id="ID_CHAT_TIMESTAMP" message="Προβολή ώρας λήψης κάθε μηνύματος."/>
 	<tip id="ID_CHAT_UNDERLINE" message="Εφαρμογή υπογραμμισμένης μορφοποίησης (Ctrl+U)"/>
 	<tip id="ID_CHILD_CLOSE" message="Κλείσιμο ενεργού παραθύρου."/>
@@ -2423,6 +2423,7 @@
 	<tip id="ID_LIBRARY_PARENT" message="Άνωδος στον γονικό φάκελο."/>
 	<tip id="ID_LIBRARY_PROPERTIES" message="Προβολή και επεξεργασία ιδιοτήτων επιλεγμένων αρχείων..."/>
 	<tip id="ID_LIBRARY_REBUILD" message="Αναδόμηση των metadata και των hashes των επιλεγμένων φακέλων και αρχείων."/>
+	<tip id="ID_LIBRARY_REBUILD_FILE" message="Αναδόμηση των metadata και των hashes των επιλεγμένων φακέλων και αρχείων."/>
 	<tip id="ID_LIBRARY_REBUILD_ANSI" message="Αναδόμηση metadata με χρήση άλλης γλώσσας."/>
 	<tip id="ID_LIBRARY_REFRESH" message="Ανανέωση προβολής Βιβλιοθήκης."/>
 	<tip id="ID_LIBRARY_REMOVE" message="Αφαίρεση επιλεγμένων κοινοποιημένων φακέλων."/>

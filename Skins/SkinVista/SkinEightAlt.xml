@@ -17,12 +17,7 @@
 />
 
 <fonts>
- <font name="System.Plain"  face="Segoe UI" size="11" weight="Normal"/>
- <font name="System.Bold"   face="Segoe UI" size="11" weight="Bold"/>
- <font name="Panel.Caption" face="Segoe UI" size="12" weight="Normal"/>
- <font name="Navbar.Caption" face="Segoe UI" size="12" weight="Normal"/>
- <!--font name="RichDoc.Default" face="Segoe UI" size="13" weight="Normal"-->
- <!--font name="RichDoc.Heading" face="Segoe UI" size="18" weight="400"-->
+ <font name="Navbar.Caption" size="12" weight="Normal"/>
 </fonts>
 
 <options>
@@ -33,13 +28,6 @@
  <option name="ButtonEdge" value="3"/>
  <option name="Taskbar" value="24" width="203"/>
  <option name="Menubar" value="30"/>
- <!--option name="Toolbar" value="28"-->
- <!--option name="Titlebar" value="64"-->
- <!--option name="MonitorBar" value="120"-->
- <!--option name="Groupsbar" value="24" width="140"-->
- <!--option name="Sidebar" value="200"-->
- <!--option name="SidebarPadding" value="12"-->
- <!--option name="Splitter" value="6"-->
  <option name="RoundedSelect" value="true"/>
 </options>
 
@@ -164,15 +152,10 @@
  <color name="ResizeBar.Highlight"			value="FDFCFB"/>
  <color name="System.Environment.3DShadow" 		value="D8D7D6"/>
  <color name="System.Environment.3DHighlight"		value="FFFFFF"/>
- <!--color name="System.Environment.Borders" 		value=" "-->  <!--legacy option MenuBorders-->
 </colors>
 
 <images>  <!--watermarks-->
  <image target="CCoolMenu"				path="Seven\MenuBkg.png"/>
- <!--image target="CCoolMenu.Hover"			path="Seven\MenuHover.png"-->
- <!--image target="CCoolMenu.Hover.Edge"		path="Seven\MenuHoverEdge.png"-->
- <!--image target="CCoolMenu.Disabled"			path="Seven\MenuHoverDisabled.png"-->
- <!--image target="CCoolMenu.Disabled.Edge"		path="Seven\MenuHoverDisabledEdge.png"-->
  <image target="CCoolMenuBar"				path="EightAlt\RibbonMenubar.png"/>
  <image target="CWndTabBar"				path="EightAlt\RibbonTaskbar.png"/>
  <image target="CMonitorBar"				path="EightAlt\RibbonMonitorBkg.png"/>
@@ -183,27 +166,6 @@
  <!--image target="CMediaList.Toolbar"			path="ToolbarLt.png"-->
  <image target="CDownloadTabBar"			path="DownloadgroupsToolbar.png"/>
  <image target="CDownloadsWnd.Toolbar"			path="ToolbarLt.png"/>
- <!--image target="CUploadsWnd.Toolbar" 		path="Toolbar.png"-->
- <!--image target="CPrivateChatWnd.Toolbar"		path="ToolbarLt.png"-->
- <!--image target="CBrowseHostWnd.Toolbar"		path="Toolbar.png"-->
- <!--image target="CBrowseTree.Top.Toolbar" 		path="Toolbar.png"-->
- <!--image target="CLibraryTree.Top.Toolbar"		path="Toolbar.png"-->
- <!--image target="CLibraryTree.Virtual.Toolbar"	path="Toolbar.png"-->
- <!--image target="CLibraryHeaderBar.Physical.Toolbar"	path="Toolbar.png"-->
- <!--image target="CLibraryHeaderBar.Virtual.Toolbar"	path="Toolbar.png"-->
- <!--image target="CLibraryHomeView.Physical.Toolbar"	path="Toolbar.png"-->
- <!--image target="CLibraryHomeView.Virtual.Toolbar"	path="Toolbar.png"-->
- <!--image target="CLibraryFileView.Physical.Toolbar"	path="Toolbar.png"-->
- <!--image target="CLibraryFileView.Virtual.Toolbar"	path="Toolbar.png"-->
- <!--image target="CLibraryTileView.Physical.Toolbar"	path="Toolbar.png"-->
- <!--image target="CLibraryTileView.Virtual.Toolbar"	path="Toolbar.png"-->
- <!--image target="CLibraryCollectionView.Virtual.Toolbar" path="Toolbar.png"-->
- <!--image target="CIRCFrame.Toolbar"			path="Toolbar.png"-->
- <!--image target="CDiscoveryWnd.Toolbar"		path="Toolbar.png"-->
- <!--image target="CHostCacheWnd.Toolbar"		path="Toolbar.png"-->
- <!--image target="CHitMonitorWnd.Toolbar"		path="Toolbar.png"-->
- <!--image target="CSchedulerWnd.Toolbar"		path="Toolbar.png"-->
- <!--image target="CSecurityWnd.Toolbar"		path="Toolbar.png"-->
  <image target="ImageViewerWnd.Toolbar" 		path="Toolbar.png"/>
  <image target="CNeighboursWnd.Toolbar" 		path="ToolbarLt.png"/>
  <image target="CSearchWnd.Panel.Toolbar"		path="Toolbar.png"/>
@@ -220,21 +182,7 @@
  <image target="CBrowseHeaderCtrl.Toolbar"		path="BrowseBanner.png"/>
  <!--image target="CPanelWnd.Caption"			path="Footer.png"-->
  <image target="CTaskBox.Caption"			path="EightAlt\SidebarCaption.png"/>
- <!--image target="CIRCUsersBox.Caption"		path="EightAlt\SidebarCaption.png"-->
- <!--image target="CIRCChannelsBox.Caption"		path="EightAlt\SidebarCaption.png"-->
- <!--image target="CHomeConnectionBox.Caption"		path="EightAlt\SidebarCaption.png"-->
- <!--image target="CHomeLibraryBox.Caption"		path="EightAlt\SidebarCaption.png"-->
- <!--image target="CHomeDownloadsBox.Caption"		path="EightAlt\SidebarCaption.png"-->
- <!--image target="CHomeUploadsBox.Caption"		path="EightAlt\SidebarCaption.png"-->
- <!--image target="CSearchInputBox.Caption"		path="EightAlt\SidebarCaption.png"-->
- <!--image target="CSearchAdvancedBox.Caption"		path="EightAlt\SidebarCaption.png"-->
- <!--image target="CSearchSchemaBox.Caption"		path="EightAlt\SidebarCaption.png"-->
- <!--image target="CSearchResultsBox.Caption"		path="EightAlt\SidebarCaption.png"-->
- <!--image target="CSearchResultsBox"			path="Seven\SideBlock.png"/>
- <!--image target="CSearchInputBox"			path="Seven\SideBlock.png"-->
- <!--image target="CSearchAdvancedBox"			path="Seven\SideBlock.png"-->
- <!--image target="CSearchSchemaBox"			path="Seven\SideBlock.png"-->
- <!--image target="CIRCChannelsBox"			path="Seven\SideBlock.png"-->
+
 
  <!--image target="CNeighboursWnd"			path="Seven\SideBlock.png"-->
  <!--image target="CSecurityWnd"			path="Seven\SideBlock.png"-->
@@ -244,52 +192,12 @@
  <image target="CMediaList"				path="Playlist.png"/>
  <image target="CMediaList.Header"			path="PlaylistHeader.png"/>
  <!--image target="CMediaFrame.StatusBar"		path="PlaylistHeader.png"-->
- <!--image target="CHomeViewCtrl.Header"		path="###.png"--> <!--hometab logo-->
- <!--image target="CHomeViewCtrl.HeaderRepeat"		path="###.png"--> <!--hometab repeat-->
- <!--image target="LargeLogo"				path="###.png"--> <!--mediaplayer-->
 
- <!--image target="CWndTabBar.Active"			path="EightAlt\RibbonTaskbarTabActive.png"-->
- <!--image target="CWndTabBar.Hover"			path="EightAlt\RibbonTaskbarTabActive.png"-->
- <!--image target="CWndTabBar.Active.Hover"		path="EightAlt\RibbonTaskbarTabAlt.png"-->
- <!--image target="CWndTabBar.Tab"			path="EightAlt\RibbonTaskbarTab.png"-->
- <!--image target="CWndTabBar.Edge"			path="EightAlt\RibbonTaskbarTabEdge.png"-->
- <!--image target="CWndTabBar.Active.Edge"		path="EightAlt\RibbonTaskbarTabActiveEdge.png"-->
- <!--image target="CWndTabBar.Hover.Edge"		path="EightAlt\RibbonTaskbarTabActiveEdge.png"-->
- <!--image target="CWndTabBar.Active.Hover.Edge" 	path="EightAlt\RibbonTaskbarTabActiveEdge.png"-->
- <!--image target="CDownloadTabBar.Active"		path="DownloadgroupsHover.png"-->
- <!--image target="CDownloadTabBar.Hover" 		path="DownloadgroupsHover.png"-->
- <!--image target="CDownloadTabBar.Active.Hover" 	path="DownloadgroupsActive.png"-->
- <!--image target="CDownloadTabBar.Active.Edge" 	path="DownloadgroupsEdge.png"-->
- <!--image target="CDownloadTabBar.Hover.Edge"		path="DownloadgroupsEdge.png"-->
- <!--image target="CDownloadTabBar.Active.Hover.Edge"	path="DownloadgroupsEdge.png"-->
- <!--image target="CCoolMenuItem.Hover" 		path="Seven\MenuButtonTextHover.png"-->
- <!--image target="CCoolMenuItem.Down"			path="Seven\MenuButtonTextDown.png"-->
  <image target="CCoolMenuBar.Hover"			path="Seven\MenuButtonState.png"/>
  <image target="CCoolMenuBar.Down"			path="Seven\MenuButtonState.png"/>
  <image target="CCoolMenuBar.Checked"			path="Seven\MenuButtonState.png"/>
  <image target="CCoolbar.Control"			path="MediaSlider.png"/>
  <image target="CCoolbar.Separator"			path="ToolbarSeparator.png"/>
-
- <!--image target="CCoolbar.Disabled"			path="ToolbarButtonHover.png"-->
- <!--image target="CCoolbar.Up" 			path="ToolbarButtonHover.png"-->
- <!--image target="CCoolbar.Down" 			path="ToolbarButtonDown.png"-->
- <!--image target="CCoolbar.Hover"			path="ToolbarButtonHover.png"-->
- <!--image target="CCoolbar.Checked"			path="ToolbarButtonDown.png"-->
- <!--image target="RichButton"				path="Buttons\RichButton.png"-->
- <!--image target="RichButtonEdge"			path="Buttons\RichButtonPart.png"-->
- <!--image target="RichButton.Active"			path="Buttons\RichButtonFocus.png"-->
- <!--image target="RichButtonEdge.Active"		path="Buttons\RichButtonFocusPart.png"-->
- <!--image target="RichButton.Hover"			path="Buttons\RichButtonHover.png"-->
- <!--image target="RichButtonEdge.Hover"		path="Buttons\RichButtonHoverPart.png"-->
- <!--image target="RichButton.Press"			path="Buttons\RichButtonPress.png"-->
- <!--image target="RichButtonEdge.Press"		path="Buttons\RichButtonPressPart.png"-->
- <!--image target="RichButton.Disabled" 		path="Buttons\RichButtonDisabled.png"-->
- <!--image target="RichButtonEdge.Disabled"		path="Buttons\RichButtonDisabledPart.png"-->
- <!--image target="IconButton"				path="Buttons\IconButton.png"-->
- <!--image target="IconButton.Active"			path="Buttons\IconButtonFocus.png"-->
- <!--image target="IconButton.Hover"			path="Buttons\IconButtonHover.png"-->
- <!--image target="IconButton.Press"			path="Buttons\IconButtonPress.png"-->
- <!--image target="IconButton.Disabled" 		path="Buttons\IconButtonDisabled.png"-->
 
  <image target="ButtonMap.Iconbox"			path="ButtonmapIconbox.png"/>
  <image target="ButtonMap.Richdoc"			path="ButtonmapRichdoc.png"/>
@@ -301,8 +209,6 @@
  <image target="ButtonMap.MenuSelect"			path="ButtonmapMenuSelect.png"/>
  <!--image target="ButtonMap.Select"			path="ButtonmapSelect.png"--> <!--highlight/inactive-->
 
- <!--image target="CTranfers.Selected"			path="Highlight.png"-->
- <!--image target="CTranfers.Selected.Inactive"		path="HighlightGrey.png"-->
  <image target="System.Highlight"			path="Highlight.png"/>
  <image target="System.Highlight.Inactive"		path="HighlightGrey.png"/>
  <image target="System.Progress"			path="Progress.png"/>

@@ -1,7 +1,7 @@
 //
 // SQLite.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -16,8 +16,8 @@
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
-// Example:
-//	auto_ptr< CDatabase* > db( theApp.GetDatabase( true ) );	// /Data/PeerProject.db3
+// Example:		/Data/PeerProject.db3
+//	auto_ptr< CDatabase* > db( theApp.GetDatabase( DB_DEFAULT ) );
 //	if ( db->Prepare( _T("SELECT Number FROM Table;") ) )
 //	{
 //		while( db->Step() || db->IsBusy() )
@@ -43,6 +43,7 @@ public:
 	CDatabase(LPCWSTR szDatabase);
 	~CDatabase();
 
+public:
 	operator bool() const throw();					// Return true if database successfully opened
 
 	bool			Exec(LPCTSTR szQuery);			// Execute multiple queries without parameters

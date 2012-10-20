@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default German Skin File -->
 
-<!-- Translation based on default-en.xml r84 -->
+<!-- Translation based on default-en.xml r85 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -448,7 +448,7 @@
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="Benutzer durchsuchen"/>
 		<button id="ID_CHAT_PRIORITY" text="Priorität erhöhen"/>
-		<!-- <button id="ID_CHAT_SEND_FILE" text="Send File"/> -->
+		<!--button id="ID_CHAT_SEND_FILE" text="Send File"-->
 		<separator/>
 		<button id="ID_CHAT_CONNECT" text="Verbinden" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="Verbindung trennen"/>
@@ -1343,7 +1343,6 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Folg_en der gleichen Serie"/>
 		</menu>
 		<menu text="_Web Dienste">
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Metadaten lokalisieren"/>
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
 			<separator/>
 			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi-Ticket anzeigen"/>
@@ -1385,6 +1384,7 @@
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Met_adaten suchen"/>
 		</menu>
 		<menu text="_Metadaten">
+			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
 			<item id="ID_LIBRARY_REBUILD_ANSI" text="Metadaten _lokalisieren"/>
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="Metadaten _aktualisieren"/>
 			<item id="ID_LIBRARY_COLUMNS" text="S_palteneinstellungen..."/>
@@ -1617,7 +1617,7 @@
 		<separator/>
 		<item id="ID_CHAT_BROWSE" text="_Benutzer durchsuchen"/>
 		<item id="ID_CHAT_PRIORITY" text="Priorität erhöhen"/>
-		<!-- <item id="ID_CHAT_SEND_FILE" text="_Datei senden..."/> -->
+		<!--item id="ID_CHAT_SEND_FILE" text="_Datei senden..."-->
 		<separator/>
 		<menu text="_Format">
 			<item id="ID_CHAT_BOLD" text="_Fett"/>
@@ -2354,7 +2354,7 @@
 	<tip id="ID_CHAT_EMOTICONS" message="Smiley einfügen."/>
 	<tip id="ID_CHAT_ITALIC" message="Kursiv (Ctrl+I)"/>
 	<tip id="ID_CHAT_PRIORITY" message="Diesem Benutzer Uploadpriorität gewähren."/>
-	<!-- <tip id="ID_CHAT_SEND_FILE" message="Eine Datei senden..."/> -->
+	<!--tip id="ID_CHAT_SEND_FILE" message="Eine Datei senden..."-->
 	<tip id="ID_CHAT_TIMESTAMP" message="Zeit anzeigen, zu der eine Nachricht empfangen wurde."/>
 	<tip id="ID_CHAT_UNDERLINE" message="Unterstrichen (Ctrl+U)"/>
 	<tip id="ID_CHILD_CLOSE" message="Das aktive Fenster schließen."/>
@@ -2470,6 +2470,7 @@
 	<tip id="ID_LIBRARY_PARENT" message="Zum übergeordneten Ordner wechseln."/>
 	<tip id="ID_LIBRARY_PROPERTIES" message="Eigenschaften der markierten Dateien anzeigen und bearbeiten..." tip="Eigenschaften der markierten Dateien anzeigen und bearbeiten"/>
 	<tip id="ID_LIBRARY_REBUILD" message="Metadaten neu einlesen und Hashwerte neu berechnen."/>
+	<tip id="ID_LIBRARY_REBUILD_FILE" message="Metadaten neu einlesen und Hashwerte neu berechnen."/>
 	<tip id="ID_LIBRARY_REBUILD_ANSI" message="MP3-Metadaten mit lokalem Zeichensatz einlesen."/>
 	<tip id="ID_LIBRARY_REFRESH" message="Die Bibliothek aktualisieren." tip="Aktualisieren"/>
 	<tip id="ID_LIBRARY_REMOVE" message="Markierten Ordner entfernen." tip="Entfernen"/>

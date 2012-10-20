@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Polish Skin File -->
 
-<!-- Translation based on default-en.xml r84 --> <!-- (Shareaza 2.1.2.7) -->
+<!-- Translation based on default-en.xml r85 --> <!-- (Shareaza 2.1.2.7) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -410,7 +410,7 @@
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="Przeglądaj użytkownika"/>
 		<button id="ID_CHAT_PRIORITY" text="Nadaj priorytet"/>
-		<!--<button id="ID_CHAT_SEND_FILE" text="Wyślij plik"/> -->
+		<!--button id="ID_CHAT_SEND_FILE" text="Wyślij plik"-->
 		<separator/>
 		<button id="ID_CHAT_CONNECT" text="Połącz" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="Rozłącz"/>
@@ -1173,6 +1173,7 @@
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Pobierz Metadane"/>
 		</menu>
 		<menu text="_Metadane">
+			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadane"/>
 			<item id="ID_LIBRARY_REBUILD_ANSI" text="Lokalizuj Metadane"/>
 			<item id="ID_LIBRARY_COLUMNS" text="Wybierz kolumny..."/>
@@ -1397,7 +1398,7 @@
 		<item id="ID_CHAT_DISCONNECT" text="Rozłącz"/>
 		<separator/>
 		<item id="ID_CHAT_BROWSE" text="Przegladaj użytkownika"/>
-		<!-- <item id="ID_CHAT_SEND_FILE" text="Wyślij plik..."/> -->
+		<!--item id="ID_CHAT_SEND_FILE" text="Wyślij plik..."-->
 		<item id="ID_CHAT_PRIORITY" text="Nadaj priorytet"/>
 		<separator/>
 		<menu text="Format">
@@ -1481,8 +1482,8 @@
 		<text align="middle">- Zmień wygląd PeerProject</text>
 		<newline gap="8"/>
 		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link><gap size="6"/>
-		<text align="middle">- Update blocklist to avoid bad search results</text>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Filtry Zabezpieczające</link><gap size="6"/>
+		<text align="middle">- Aktualizuj blocklist uniknąć złych wyników wyszukiwania</text>
 		<newline gap="8"/>
 		<icon res="197" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 		<link target="command:ID_TOOLS_WIZARD" align="middle">Kreator ustawień</link><gap size="6"/>
@@ -2038,7 +2039,7 @@
 	<tip id="ID_CHAT_EMOTICONS" message="Umieść emoticonę."/>
 	<tip id="ID_CHAT_ITALIC" message="Zastosuj pochylone formatowanie (Ctrl+I)"/>
 	<tip id="ID_CHAT_PRIORITY" message="Zwiększ priorytet wysyłania dla tego użytkownika."/>
-	<!-- <tip id="ID_CHAT_SEND_FILE" message="Wyślij plik do użytkownika..."/> -->
+	<!--tip id="ID_CHAT_SEND_FILE" message="Wyślij plik do użytkownika..."-->
 	<tip id="ID_CHAT_TIMESTAMP" message="Pokaż czas kiedy dana wiadomość została odebrana."/>
 	<tip id="ID_CHAT_UNDERLINE" message="Zastosuj podkreślone formatowanie (Ctrl+U)"/>
 	<tip id="ID_CHILD_CLOSE" message="Zamknij aktywne okno."/>
@@ -2152,6 +2153,7 @@
 	<tip id="ID_LIBRARY_PARENT" message="Przejdź do folderu nadrzędnego."/>
 	<tip id="ID_LIBRARY_PROPERTIES" message="Pokaż i edytuj właściwości zaznaczonych plików..."/>
 	<tip id="ID_LIBRARY_REBUILD" message="Przebuduj metadane i hashe zaznaczonych folderów lub plików."/>
+	<tip id="ID_LIBRARY_REBUILD_FILE" message="Przebuduj metadane i hashe zaznaczonych folderów lub plików."/>
 	<tip id="ID_LIBRARY_REBUILD_ANSI" message="Przebuduj metadane używając innego języka."/>
 	<tip id="ID_LIBRARY_REFRESH" message="Odśwież widok zasobów."/>
 	<tip id="ID_LIBRARY_REMOVE" message="Usuń zaznaczone foldery udostępnione."/>

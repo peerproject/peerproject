@@ -161,8 +161,7 @@ void CLibraryBuilder::Remove(LPCTSTR szPath)
 	if ( GetRemaining() )
 	{
 		CQuickLock oLibraryLock( Library.m_pSection );
-		CLibraryFile* pFile = LibraryMaps.LookupFileByPath( szPath );
-		if ( pFile )
+		if ( CLibraryFile* pFile = LibraryMaps.LookupFileByPath( szPath ) )
 			nIndex = pFile->m_nIndex;
 	}
 	if ( nIndex )
@@ -593,10 +592,31 @@ bool CLibraryBuilder::HashFile(LPCTSTR szPath, HANDLE hFile)
 	pFileHash->CopyTo( pFile );
 
 	LibraryMaps.CullDeletedFiles( pFile );
-	LibraryHistory.Add( szPath, pFile->m_oSHA1, pFile->m_oTiger, pFile->m_oED2K, pFile->m_oBTH, pFile->m_oMD5 );
+
+	BOOL bHistory = FALSE;
+
+	// Get associated download, if any
+	CSingleLock oTransfersLock( &Transfers.m_pSection );
+	if ( oTransfersLock.Lock( 2000 ) )
+	{
+		if ( const CDownload* pDownload = Downloads.FindByPath( szPath ) )
+		{
+			pFile->UpdateMetadata( pDownload );
+			LibraryHistory.Add( szPath, pDownload );
+			bHistory = TRUE;
+
+			if ( Security.IsDenied( (CPeerProjectFile*)pDownload ) )
+			{
+				pFile->m_bVerify = TRI_FALSE;
+				pFile->SetShared( false );
+			}
+		}
+
+		oTransfersLock.Unlock();
+	}
 
 	// Child pornography check
-	if ( Settings.Search.AdultFilter &&
+	if ( Settings.Search.AdultFilter && pFile->IsShared() &&
 		( AdultFilter.IsChildPornography( pFile->GetSearchName() ) ||
 		  AdultFilter.IsChildPornography( pFile->GetMetadataWords() ) ) )
 	{
@@ -604,19 +624,12 @@ bool CLibraryBuilder::HashFile(LPCTSTR szPath, HANDLE hFile)
 		pFile->SetShared( false );
 	}
 
-	// Get associated download (if any)
-	CSingleLock oTransfersLock( &Transfers.m_pSection );
-	if ( oTransfersLock.Lock( 2000 ) )
-	{
-		CDownload* pDownload = Downloads.FindByPath( szPath );
-		if ( pDownload )
-			pFile->UpdateMetadata( pDownload );
-		oTransfersLock.Unlock();
-	}
-
 	Library.AddFile( pFile );
 
 	oLibraryLock.Unlock();
+
+	if ( ! bHistory )
+		LibraryHistory.Add( szPath );
 
 	Library.Update();
 

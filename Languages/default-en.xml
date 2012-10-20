@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default English Skin File -->
 
-<!-- Translation based on default-en.xml r84 -->
+<!-- Translation based on default-en.xml r85 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -471,7 +471,7 @@
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="Browse User"/>
 		<button id="ID_CHAT_PRIORITY" text="Grant Priority"/>
-		<!-- <button id="ID_CHAT_SEND_FILE" text="Send File"/> -->
+		<!--button id="ID_CHAT_SEND_FILE" text="Send File"-->
 			<rightAlign/>
 		<button id="ID_CHAT_CONNECT" text="Connect" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="Disconnect"/>
@@ -1363,7 +1363,7 @@
 		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="_Play Album"/>
 		<item id="ID_LIBRARY_FOLDER_DELETE" text="_Delete"/>
 		<separator/>
-		<item id="ID_LIBRARY_REBUILD" text="_Rebuild"/>
+		<item id="ID_LIBRARY_REBUILD" text="Re_build"/>
 		<item id="ID_LIBRARY_EXPORT_COLLECTION" text="_Export Collection..."/>
 		<separator/>
 		<item id="ID_LIBRARY_FOLDER_NEW" text="_New Group Folder..."/>
@@ -1439,6 +1439,7 @@
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Download Metadata"/>
 		</menu>
 		<menu text="_Metadata">
+			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
 			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localize Metadata"/>
 			<item id="ID_LIBRARY_COLUMNS" text="C_hoose Detail Columns..."/>
@@ -1686,7 +1687,7 @@
 		<separator/>
 		<item id="ID_CHAT_BROWSE" text="_Browse User"/>
 		<item id="ID_CHAT_PRIORITY" text="Grant _Priority"/>
-		<!-- <item id="ID_CHAT_SEND_FILE" text="_Send File..."/> -->
+		<!--item id="ID_CHAT_SEND_FILE" text="_Send File..."-->
 		<separator/>
 		<menu text="_Format">
 			<item id="ID_CHAT_BOLD" text="Set _Bold"/>
@@ -2378,7 +2379,7 @@
 	<document name="SearchHelp.BadSearch3">
 		<text format="b">Please re-phrase the search</text>
 		<newline gap="8"/>
-		<text>This search seems to contain only common file extensions, or no searchable words.</text>
+		<text>This search seems to contain only common filetypes, or no searchable words.</text>
 		<newline gap="8"/>
 		<text>If you are having trouble creating searches, keep in mind that it's quite similar
 		to a web search. Specific terms or phrases are best- Unique names, titles and keywords.</text>
@@ -2437,7 +2438,7 @@
 	<tip id="ID_CHAT_EMOTICONS" message="Insert an emoticon."/>
 	<tip id="ID_CHAT_ITALIC" message="Apply italic formatting (Ctrl+I)"/>
 	<tip id="ID_CHAT_PRIORITY" message="Grant upload priority to this user."/>
-	<!-- <tip id="ID_CHAT_SEND_FILE" message="Send a file to the user..."/> -->
+	<!--tip id="ID_CHAT_SEND_FILE" message="Send a file to the user..."-->
 	<tip id="ID_CHAT_TIMESTAMP" message="Show the time when each message was received."/>
 	<tip id="ID_CHAT_UNDERLINE" message="Apply underline formatting (Ctrl+U)"/>
 	<tip id="ID_CHILD_CLOSE" message="Close the active window."/>
@@ -2561,8 +2562,9 @@
 	<tip id="ID_LIBRARY_PANEL" message="Show or hide the library detail panel."/>
 	<tip id="ID_LIBRARY_PARENT" message="Move up to the parent folder."/>
 	<tip id="ID_LIBRARY_PROPERTIES" message="View and edit the properties of the selected files..."/>
-	<tip id="ID_LIBRARY_REBUILD" message="Rebuild metadata and hashes for the selected folders or files."/>
-	<tip id="ID_LIBRARY_REBUILD_ANSI" message="Rebuild metadata using other language."/>
+	<tip id="ID_LIBRARY_REBUILD" message="Rebuild metadata and hashes for selected folders or files."/>
+	<tip id="ID_LIBRARY_REBUILD_FILE" message="Rebuild metadata and hashes for selected files."/>
+	<tip id="ID_LIBRARY_REBUILD_ANSI" message="Rebuild metadata using another language."/>
 	<tip id="ID_LIBRARY_REFRESH" message="Refresh the library view."/>
 	<tip id="ID_LIBRARY_REMOVE" message="Remove selected folders from the Library."/>
 	<tip id="ID_LIBRARY_RENAME" message="Rename the selected file in-place."/>
@@ -2571,8 +2573,8 @@
 	<tip id="ID_LIBRARY_SEARCH_QUICK" message="Search your file library..."/>
 	<tip id="ID_LIBRARY_SEED_TORRENT" message="Seed the selected Torrent on BitTorrent."/>
 	<tip id="ID_LIBRARY_SELECT_ALL" message="Select and view all folders in your library."/>
-	<tip id="ID_LIBRARY_SHARED_FILE" message="Share or unshare the selected files."/>
-	<tip id="ID_LIBRARY_SHARED_FOLDER" message="Share or unshare the selected folder(s)."/>
+	<tip id="ID_LIBRARY_SHARED_FILE" message="Share or unshare selected files."/>
+	<tip id="ID_LIBRARY_SHARED_FOLDER" message="Share or unshare selected folders."/>
 	<tip id="ID_LIBRARY_TREE_PHYSICAL" message="View the physical folders in your library."/>
 	<tip id="ID_LIBRARY_TREE_VIRTUAL" message="Organize your library."/>
 	<tip id="ID_LIBRARY_UNLINK" message="Remove the select files from the current album folder."/>

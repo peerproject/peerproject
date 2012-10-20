@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Russian Skin File -->
 
-<!-- Translation based on default-en.xml r84 -->
+<!-- Translation based on default-en.xml r85 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -443,7 +443,7 @@
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="Просмотр хоста"/>
 		<button id="ID_CHAT_PRIORITY" text="Предоставить приоритет"/>
-		<!--<button id="ID_CHAT_SEND_FILE" text="Послать файл"/> -->
+		<!--button id="ID_CHAT_SEND_FILE" text="Послать файл"-->
 		<separator/>
 		<button id="ID_CHAT_CONNECT" text="Подключиться" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="Отключиться"/>
@@ -1364,6 +1364,7 @@
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Загрузить метаданные"/>
 		</menu>
 		<menu text="_Mетаданные">
+			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Обновить метаданные"/>
 			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Локализировать метаданные"/>
 			<item id="ID_LIBRARY_COLUMNS" text="Выбрать ко_лонки..."/>
@@ -1609,7 +1610,7 @@
 		<item id="ID_CHAT_DISCONNECT" text="_Отключиться"/>
 		<separator/>
 		<item id="ID_CHAT_BROWSE" text="Просмотр _хоста"/>
-		<!-- <item id="ID_CHAT_SEND_FILE" text="П_ослать файл..."/> -->
+		<!--item id="ID_CHAT_SEND_FILE" text="П_ослать файл..."-->
 		<item id="ID_CHAT_PRIORITY" text="_Предоставить приоритет"/>
 		<separator/>
 		<menu text="_Формат">
@@ -1757,8 +1758,8 @@
 		<text align="middle">- Измeнение обликa PeerProject</text>
 		<newline gap="8"/>
 		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link><gap size="6"/>
-		<text align="middle">- Update blocklist to avoid bad search results</text>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Безопасность фильтры</link><gap size="6"/>
+		<text align="middle">- Обновление черный список, чтобы избежать плохих результатов поиска</text>
 		<newline gap="8"/>
 		<icon res="197" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 		<link target="command:ID_TOOLS_WIZARD" align="middle">Мaстер Устанoвок</link><gap size="6"/>
@@ -2321,7 +2322,7 @@
 	<tip id="ID_CHAT_EMOTICONS" message="Вставить смайлик."/>
 	<tip id="ID_CHAT_ITALIC" message="Применить формат курсива (Ctrl+I)"/>
 	<tip id="ID_CHAT_PRIORITY" message="Предоставить пользователю приоритет на загрузку."/>
-	<!-- <tip id="ID_CHAT_SEND_FILE" message="Послать файл пользователю..."/> -->
+	<!--tip id="ID_CHAT_SEND_FILE" message="Послать файл пользователю..."-->
 	<tip id="ID_CHAT_TIMESTAMP" message="Показывать время, когда получено каждое сообщение."/>
 	<tip id="ID_CHAT_UNDERLINE" message="Применить формат подчеркивания (Ctrl+U)"/>
 	<tip id="ID_CHILD_CLOSE" message="Закрыть активное окно."/>
@@ -2437,6 +2438,7 @@
 	<tip id="ID_LIBRARY_PARENT" message="Переместиться вверх в родиельскую папку."/>
 	<tip id="ID_LIBRARY_PROPERTIES" message="Просмотр и правка свойств помеченных файлов..."/>
 	<tip id="ID_LIBRARY_REBUILD" message="Переделать мета данные и хешы поменченных папок или файлов."/>
+	<tip id="ID_LIBRARY_REBUILD_FILE" message="Переделать мета данные и хешы поменченных файлов."/>
 	<tip id="ID_LIBRARY_REBUILD_ANSI" message="Перекодировать мета данные на другой язык."/>
 	<tip id="ID_LIBRARY_REFRESH" message="Обновить вид хранилища."/>
 	<tip id="ID_LIBRARY_REMOVE" message="Удалить файл."/>

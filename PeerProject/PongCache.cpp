@@ -121,7 +121,7 @@ CPongItem* CPongCache::Add(CNeighbour* pNeighbour, IN_ADDR* pAddress, WORD nPort
 //////////////////////////////////////////////////////////////////////
 // CPongCache lookup
 
-CPongItem* CPongCache::Lookup(CNeighbour* pNotFrom, BYTE nHops, CList< CPongItem* >* pIgnore)
+CPongItem* CPongCache::Lookup(CNeighbour* pNotFrom, BYTE nHops, CList< CPongItem* >* pIgnore) const
 {
 	ASSUME_LOCK( Network.m_pSection );
 
@@ -140,7 +140,7 @@ CPongItem* CPongCache::Lookup(CNeighbour* pNotFrom, BYTE nHops, CList< CPongItem
 	return NULL;
 }
 
-CPongItem* CPongCache::Lookup(CNeighbour* pFrom)
+CPongItem* CPongCache::Lookup(CNeighbour* pFrom) const
 {
 	ASSUME_LOCK( Network.m_pSection );
 
@@ -186,14 +186,14 @@ CPongItem::CPongItem(CNeighbour* pNeighbour, IN_ADDR* pAddress, WORD nPort, BYTE
 {
 }
 
-CPongItem::~CPongItem()
-{
-}
+//CPongItem::~CPongItem()
+//{
+//}
 
 //////////////////////////////////////////////////////////////////////
 // CPongItem packet conversion
 
-CG1Packet* CPongItem::ToPacket(int nTTL, const Hashes::Guid& oGUID)
+CG1Packet* CPongItem::ToPacket(int nTTL, const Hashes::Guid& oGUID) const
 {
 	CG1Packet* pPong = CG1Packet::New( G1_PACKET_PONG, nTTL, oGUID );
 

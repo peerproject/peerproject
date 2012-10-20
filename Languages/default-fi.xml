@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Finnish Skin File -->
 
-<!-- Translation based on default-en.xml r84 --> <!-- (Shareaza 2.1.3.7) -->
+<!-- Translation based on default-en.xml r85 --> <!-- (Shareaza 2.1.3.7) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -403,7 +403,7 @@
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="Selaa Käyttäjää"/>
 		<button id="ID_CHAT_PRIORITY" text="Anna Prioriteetti"/>
-		<!--<button id="ID_CHAT_SEND_FILE" text="Lähetä Tiedosto"/> -->
+		<!--button id="ID_CHAT_SEND_FILE" text="Lähetä Tiedosto"-->
 		<separator/>
 		<button id="ID_CHAT_CONNECT" text="Yhdistä" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="Katkaise Yhteys"/>
@@ -1226,7 +1226,6 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Jaksoja samasta Sarjasta"/>
 		</menu>
 		<menu text="_Web Palvelut">
-			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Paikallista Metadata"/>
 			<item id="ID_LIBRARY_BITZI_WEB" text="Näytä _Bitzi Ticket"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Lataa Metadata"/>
 			<separator/>
@@ -1266,6 +1265,7 @@
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Hanki Metadata"/>
 		</menu>
 		<menu text="_Metadata">
+			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
 			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Paikallista Metadata"/>
 			<item id="ID_LIBRARY_COLUMNS" text="Valitse _Kolumnit..."/>
@@ -1490,7 +1490,7 @@
 		<item id="ID_CHAT_DISCONNECT" text="_Katkaise Yhteys"/>
 		<separator/>
 		<item id="ID_CHAT_BROWSE" text="_Selaa Käyttäjää"/>
-		<!-- <item id="ID_CHAT_SEND_FILE" text="_Lähetä tiedosto..."/> -->
+		<!--item id="ID_CHAT_SEND_FILE" text="_Lähetä tiedosto..."-->
 		<item id="ID_CHAT_PRIORITY" text="Anna _Prioriteetti"/>
 		<separator/>
 		<menu text="_Formatoi">
@@ -1568,8 +1568,8 @@
 		<text align="middle">- Muuta PeerProjectn ulkonäköä</text>
 		<newline gap="8"/>
 		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link><gap size="6"/>
-		<text align="middle">- Update blocklist to avoid bad search results</text>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Turvallisuus Suodattimet</link><gap size="6"/>
+		<text align="middle">- Päivitä blocklist välttää huonoja hakutuloksia</text>
 		<newline gap="8"/>
 		<icon res="197" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 		<link target="command:ID_TOOLS_WIZARD" align="middle">Asetus Velho</link><gap size="6"/>

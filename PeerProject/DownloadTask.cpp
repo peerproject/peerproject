@@ -287,47 +287,47 @@ DWORD CALLBACK CDownloadTask::CopyProgressRoutine(LARGE_INTEGER TotalFileSize,
 }
 
 /////////////////////////////////////////////////////////////////////////////
-// CDownloadTask copy file
+// CDownloadTask copy file (Obsolete)
 
-BOOL CDownloadTask::CopyFile(HANDLE hSource, LPCTSTR pszTarget, QWORD nLength)
-{
-	HANDLE hTarget = CreateFile( SafePath( pszTarget ), GENERIC_WRITE,
-		0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL|FILE_FLAG_SEQUENTIAL_SCAN, NULL );
-	m_nFileError = GetLastError();
-	VERIFY_FILE_ACCESS( hTarget, pszTarget )
-	if ( hTarget == INVALID_HANDLE_VALUE ) return FALSE;
-
-	BYTE* pBuffer = new BYTE[ BUFFER_SIZE ];
-
-	while ( nLength )
-	{
-		DWORD nBuffer	= (DWORD)min( nLength, BUFFER_SIZE );
-		DWORD nSuccess	= 0;
-		DWORD tStart	= GetTickCount();
-
-		if ( ! ReadFile( hSource, pBuffer, nBuffer, &nBuffer, NULL ) || ! nBuffer ||
-			! WriteFile( hTarget, pBuffer, nBuffer, &nSuccess, NULL ) || nSuccess != nBuffer )
-		{
-			m_nFileError = GetLastError();
-			break;
-		}
-
-		nLength -= nBuffer;
-
-		if ( m_pEvent != NULL ) break;
-		tStart = ( GetTickCount() - tStart ) / 2;
-		Sleep( min( tStart, 50ul ) );
-		if ( m_pEvent != NULL ) break;
-	}
-
-	delete [] pBuffer;
-
-	CloseHandle( hTarget );
-	if ( nLength > 0 )
-		DeleteFileEx( pszTarget, TRUE, FALSE, TRUE );
-
-	return ( nLength == 0 );
-}
+//BOOL CDownloadTask::CopyFile(HANDLE hSource, LPCTSTR pszTarget, QWORD nLength)
+//{
+//	HANDLE hTarget = CreateFile( SafePath( pszTarget ), GENERIC_WRITE,
+//		0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL|FILE_FLAG_SEQUENTIAL_SCAN, NULL );
+//	m_nFileError = GetLastError();
+//	VERIFY_FILE_ACCESS( hTarget, pszTarget )
+//	if ( hTarget == INVALID_HANDLE_VALUE ) return FALSE;
+//
+//	BYTE* pBuffer = new BYTE[ BUFFER_SIZE ];
+//
+//	while ( nLength )
+//	{
+//		DWORD nBuffer	= (DWORD)min( nLength, BUFFER_SIZE );
+//		DWORD nSuccess	= 0;
+//		DWORD tStart	= GetTickCount();
+//
+//		if ( ! ReadFile( hSource, pBuffer, nBuffer, &nBuffer, NULL ) || ! nBuffer ||
+//			! WriteFile( hTarget, pBuffer, nBuffer, &nSuccess, NULL ) || nSuccess != nBuffer )
+//		{
+//			m_nFileError = GetLastError();
+//			break;
+//		}
+//
+//		nLength -= nBuffer;
+//
+//		if ( m_pEvent != NULL ) break;
+//		tStart = ( GetTickCount() - tStart ) / 2;
+//		Sleep( min( tStart, 50ul ) );
+//		if ( m_pEvent != NULL ) break;
+//	}
+//
+//	delete [] pBuffer;
+//
+//	CloseHandle( hTarget );
+//	if ( nLength > 0 )
+//		DeleteFileEx( pszTarget, TRUE, FALSE, TRUE );
+//
+//	return ( nLength == 0 );
+//}
 
 /////////////////////////////////////////////////////////////////////////////
 // CDownloadTask merge local file

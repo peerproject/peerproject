@@ -18,14 +18,13 @@
 
 #pragma once
 
+
 class CStatistics
 {
-// Construction
 public:
 	CStatistics();
 	~CStatistics();
 
-// Attributes
 public:
 	struct
 	{
@@ -85,12 +84,11 @@ public:
 	}
 	Ever, Today, Last, Current;
 
-	DWORD	m_tSeconds;
-
-// Operations
-public:
 	void	Update();
+
 protected:
+	QWORD	m_tSeconds;		// ms
+
 	static void Add(LPVOID pTarget, LPCVOID pSource, int nCount);
 };
 

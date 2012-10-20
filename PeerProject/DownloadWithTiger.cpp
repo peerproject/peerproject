@@ -398,7 +398,7 @@ void CDownloadWithTiger::RunValidation()
 	if ( m_pTigerBlock == NULL && m_pHashsetBlock == NULL && m_pTorrentBlock == NULL )
 		return;
 
-	if ( ! OpenFile() )
+	if ( ! Open() )		// IsFileOpen()
 		return;
 
 	if ( m_nVerifyHash > HASH_NULL && m_nVerifyBlock < 0xFFFFFFFF )
@@ -564,7 +564,7 @@ void CDownloadWithTiger::ContinueValidation()
 	ASSERT( m_nVerifyHash > HASH_NULL );
 	ASSERT( m_nVerifyBlock < 0xFFFFFFFF );
 
-	if ( ! OpenFile() )
+	if ( ! Open() )
 		return;
 
 	auto_array< BYTE > pChunk( new BYTE[ 256 * 1024ull ] );
@@ -783,9 +783,6 @@ BOOL CDownloadWithTiger::IsRangeUsefulEnough(CDownloadTransfer* pTransfer, QWORD
 
 Fragments::List CDownloadWithTiger::GetPossibleFragments(const Fragments::List& oAvailable, Fragments::Fragment& oLargest)
 {
-	if ( ! PrepareFile() )
-		return Fragments::List( oAvailable.limit() );
-
 	Fragments::List oPossible( oAvailable );
 
 	if ( oAvailable.empty() )
@@ -816,7 +813,7 @@ BOOL CDownloadWithTiger::GetFragment(CDownloadTransfer* pTransfer)
 {
 	ASSUME_LOCK( Transfers.m_pSection );
 
-	if ( ! PrepareFile() )
+	if ( ! static_cast< CDownload* >( this )->PrepareFile() )
 		return NULL;
 
 	Fragments::Fragment oLargest( SIZE_UNKNOWN, SIZE_UNKNOWN );

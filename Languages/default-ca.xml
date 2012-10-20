@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Catalan Skin File -->
 
-<!-- Translation based on default-en.xml r84 -->
+<!-- Translation based on default-en.xml r85 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -414,7 +414,7 @@
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="Explora l'usuari"/>
 		<button id="ID_CHAT_PRIORITY" text="Dóna prioritat"/>
-		<!-- <button id="ID_CHAT_SEND_FILE" text="Envia arxiu"/> -->
+		<!--button id="ID_CHAT_SEND_FILE" text="Envia arxiu"-->
 		<separator/>
 		<button id="ID_CHAT_CONNECT" text="Connecta" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="Desconnecta"/>
@@ -1320,7 +1320,8 @@
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Carrega la metainformació"/>
 		</menu>
 		<menu text="_Metainformació">
-			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
+			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
+			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh metainformació"/>
 			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localitza la metainformació"/>
 			<item id="ID_LIBRARY_COLUMNS" text="Tria _columnes..."/>
 		</menu>
@@ -1550,7 +1551,7 @@
 		<item id="ID_CHAT_DISCONNECT" text="_Desconnecta"/>
 		<separator/>
 		<item id="ID_CHAT_BROWSE" text="_Explora"/>
-		<!-- <item id="ID_CHAT_SEND_FILE" text="E_nvia arxiu..."/> -->
+		<!--item id="ID_CHAT_SEND_FILE" text="E_nvia arxiu..."-->
 		<item id="ID_CHAT_PRIORITY" text="_Prioritat"/>
 		<separator/>
 		<menu text="_Format">
@@ -1672,8 +1673,8 @@
 		<text align="middle">- Set automated tasks to occur at specific times</text>
 		<newline gap="8"/>
 		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link><gap size="6"/>
-		<text align="middle">- Update blocklist to avoid bad search results</text>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Filtres de Seguretat</link><gap size="6"/>
+		<text align="middle">- Actualitzar llista de blocs per evitar els mals resultats de cerca</text>
 		<newline gap="8"/>
 		<icon res="197" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 		<link target="command:ID_TOOLS_WIZARD" align="middle">Assistent de configuració</link><gap size="6"/>
@@ -2227,7 +2228,7 @@
 	<tip id="ID_CHAT_EMOTICONS" message="Inserta una emoticona."/>
 	<tip id="ID_CHAT_ITALIC" message="Aplica format cursiva (Ctrl+I)"/>
 	<tip id="ID_CHAT_PRIORITY" message="Dóna prioritat a l'arxiu que aquest usuari està descarregant actualment."/>
-	<!-- <tip id="ID_CHAT_SEND_FILE" message="Enviar arxiu a l'usuari..."/> -->
+	<!--tip id="ID_CHAT_SEND_FILE" message="Enviar arxiu a l'usuari..."-->
 	<tip id="ID_CHAT_TIMESTAMP" message="Mostra l'hora de recepció dels missatges."/>
 	<tip id="ID_CHAT_UNDERLINE" message="Aplica el format subratllat (Ctrl+U)"/>
 	<tip id="ID_CHILD_CLOSE" message="Tanca la finestra activa."/>
@@ -2340,6 +2341,7 @@
 	<tip id="ID_LIBRARY_PARENT" message="Mou a la carpeta pare."/>
 	<tip id="ID_LIBRARY_PROPERTIES" message="Mostra o edita les propietats dels arxius seleccionats."/>
 	<tip id="ID_LIBRARY_REBUILD" message="Reconstrueix la col·lecció, escanejant-la i adquirint la metainformació de nou."/>
+	<tip id="ID_LIBRARY_REBUILD_FILE" message="Reconstrueix la col·lecció, escanejant-la i adquirint la metainformació de nou."/>
 	<tip id="ID_LIBRARY_REBUILD_ANSI" message="Reconstrueix la metainformació utilitzant altre idioma."/>
 	<tip id="ID_LIBRARY_REFRESH" message="Actualitza la vista de la col·lecció."/>
 	<tip id="ID_LIBRARY_REMOVE" message="Esborra aquesta carpeta de la col·lecció."/>
@@ -2915,7 +2917,7 @@
 	<string id="20454" value="Pot estar corrupte, o no tens els Còdecs necesaris per a la seva reproducció."/>
 	<string id="20455" value="part d'aquest arxiu no ha pogut ser reproduït. Pots necessitar Codecs adicionals."/>
 	<string id="20456" value="LLISTA:"/>
-	<string id="20457" value="PeerProject no ha pogut iniciar els serveis de reproducció. per favor reinstala PeerProject, i confirma que tens tots els codecs, filtres i controladors necesaris.."/>
+	<string id="20457" value="PeerProject no ha pogut iniciar els serveis de reproducció. Per favor reinstala PeerProject, i confirma que tens tots els codecs, filtres i controladors necesaris.."/>
 	<string id="20458" value="PeerProject Media Player"/>
 	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
 	<string id="20462" value="(No Visualització)"/>
@@ -3059,7 +3061,7 @@
 	<string id="20655" value="La mida max:"/>
 	<string id="20656" value="Cerca més"/>
 	<string id="20657" value="Mostra el panell de cerca"/>
-	<string id="20658" value="Comença a cercar"/>
+	<string id="20658" value="Cercar"/>
 	<string id="20659" value="Atura"/>
 	<string id="20660" value="No s'ha trobat cap arxiu"/>
 	<string id="20661" value="%lu hubs, %lu llavors"/>

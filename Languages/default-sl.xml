@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Slovenian Skin File -->
 
-<!-- Translation based on default-en.xml r84 --> <!-- (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r85 --> <!-- (Shareaza 2.2.2.12) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -411,7 +411,7 @@
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="Brskanje po uporabniku"/>
 		<button id="ID_CHAT_PRIORITY" text="Dodeli prednost"/>
-		<!--<button id="ID_CHAT_SEND_FILE" text="Pošlji datoteko"/> -->
+		<!--button id="ID_CHAT_SEND_FILE" text="Pošlji datoteko"-->
 		<separator/>
 		<button id="ID_CHAT_CONNECT" text="Poveži se" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="Prekinitev povezave"/>
@@ -1226,8 +1226,6 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Epizodah iste serije"/>
 		</menu>
 		<menu text="_Spletne storitve">
-			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokaliziraj metapodatke"/>
-			<separator/>
 			<item id="ID_LIBRARY_BITZI_WEB" text="Poglej _Bitzi karto"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Prenesi metapodatke"/>
 			<separator/>
@@ -1267,6 +1265,7 @@
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Dôbi metapodatke"/>
 		</menu>
 		<menu text="_Metapodatke">
+			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh metapodatke"/>
 			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokaliziraj metapodatke"/>
 			<item id="ID_LIBRARY_COLUMNS" text="Izberi _stolpce..."/>
@@ -1492,7 +1491,7 @@
 		<item id="ID_CHAT_DISCONNECT" text="Pre_kini povezavo"/>
 		<separator/>
 		<item id="ID_CHAT_BROWSE" text="_Brskanje po uporabniku"/>
-		<!-- <item id="ID_CHAT_SEND_FILE" text="Pošlji _datoteko..."/> -->
+		<!--item id="ID_CHAT_SEND_FILE" text="Pošlji _datoteko..."-->
 		<item id="ID_CHAT_PRIORITY" text="_Potrdi prednost"/>
 		<separator/>
 		<menu text="_Oblika">
@@ -1576,8 +1575,8 @@
 		<text align="middle">- Spremeni izgled PeerProject</text>
 		<newline gap="8"/>
 		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link><gap size="6"/>
-		<text align="middle">- Update blocklist to avoid bad search results</text>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Varnost Filtri</link><gap size="6"/>
+		<text align="middle">- Posodobitev blocklist da bi se izognili slabi rezultati iskanja</text>
 		<newline gap="8"/>
 		<icon res="197" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 		<link target="command:ID_TOOLS_WIZARD" align="middle">Čarovnik za nastavitve</link><gap size="6"/>
@@ -2142,7 +2141,7 @@
 	<tip id="ID_CHAT_EMOTICONS" message="Vstavite smeška."/>
 	<tip id="ID_CHAT_ITALIC" message="Uporabite poševno pisavo (Ctrl+I)"/>
 	<tip id="ID_CHAT_PRIORITY" message="Dodelite temu uporabniku pravice za nalaganje (upload)."/>
-	<!-- <tip id="ID_CHAT_SEND_FILE" message="Pošljite uporabniku datoteko..."/> -->
+	<!--tip id="ID_CHAT_SEND_FILE" message="Pošljite uporabniku datoteko..."-->
 	<tip id="ID_CHAT_TIMESTAMP" message="Pokažite čas, ko je prejeto posamezno sporočilo."/>
 	<tip id="ID_CHAT_UNDERLINE" message="Uporabite podčrtano pisavo (Ctrl+U)"/>
 	<tip id="ID_CHILD_CLOSE" message="Zaprite aktivo okno."/>
@@ -2256,6 +2255,7 @@
 	<tip id="ID_LIBRARY_PARENT" message="Premakni v nadrejeno mapo (gor)."/>
 	<tip id="ID_LIBRARY_PROPERTIES" message="Poglej in uredi lastnosti izbranih datotek..."/>
 	<tip id="ID_LIBRARY_REBUILD" message="Ponovno sestavi metapodatke in izvlečke za izbrane mape in datoteke."/>
+	<tip id="ID_LIBRARY_REBUILD_FILE" message="Ponovno sestavi metapodatke in izvlečke za izbrane mape in datoteke."/>
 	<tip id="ID_LIBRARY_REBUILD_ANSI" message="Ponovno sestavi metapodatke z uporabo drugega jezika."/>
 	<tip id="ID_LIBRARY_REFRESH" message="Osveži knjižnični pogled."/>
 	<tip id="ID_LIBRARY_REMOVE" message="Odstrani izbrane deljene mape."/>

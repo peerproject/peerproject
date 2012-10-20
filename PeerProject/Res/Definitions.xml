@@ -323,11 +323,12 @@
 	<resource code="40226" id="ID_LIBRARY_DELETE"/>
 	<resource code="40227" id="ID_LIBRARY_COPY"/>
 	<resource code="40228" id="ID_LIBRARY_MOVE"/>
-	<resource code="40230" id="ID_LIBRARY_ADD"/>
-	<resource code="40231" id="ID_LIBRARY_REMOVE"/>
-	<resource code="40232" id="ID_LIBRARY_RENAME"/>
-	<resource code="40233" id="ID_LIBRARY_REBUILD"/>
-	<resource code="40234" id="ID_LIBRARY_REBUILD_ANSI"/>
+	<resource code="40229" id="ID_LIBRARY_ADD"/>
+	<resource code="40230" id="ID_LIBRARY_REMOVE"/>
+	<resource code="40231" id="ID_LIBRARY_RENAME"/>
+	<resource code="40232" id="ID_LIBRARY_REBUILD"/>
+	<resource code="40233" id="ID_LIBRARY_REBUILD_ANSI"/>
+	<resource code="40234" id="ID_LIBRARY_REBUILD_FILE"/>
 	<resource code="40235" id="ID_LIBRARY_REFRESH"/>
 	<resource code="40236" id="ID_LIBRARY_REFRESH_METADATA"/>
 	<resource code="40237" id="ID_LIBRARY_SCAN"/>

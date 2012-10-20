@@ -216,7 +216,6 @@
       <Culture>0x0c09</Culture>
     </ResourceCompile>
     <Link>
-      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ModuleDefinitionFile>TextViewer.def</ModuleDefinitionFile>
       <ProgramDatabaseFile>.\ReleaseUMinSize/TextViewer.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
@@ -269,7 +268,6 @@
       <Culture>0x0c09</Culture>
     </ResourceCompile>
     <Link>
-      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ModuleDefinitionFile>TextViewer.def</ModuleDefinitionFile>
       <ProgramDatabaseFile>.\ReleaseUMinSize/TextViewer.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>

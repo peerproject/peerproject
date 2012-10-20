@@ -62,7 +62,6 @@ CDiscoveryServices::CDiscoveryServices()
 
 CDiscoveryServices::~CDiscoveryServices()
 {
-	Clear();
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -70,16 +69,22 @@ CDiscoveryServices::~CDiscoveryServices()
 
 POSITION CDiscoveryServices::GetIterator() const
 {
+	ASSUME_LOCK( Network.m_pSection );
+
 	return m_pList.GetHeadPosition();
 }
 
 CDiscoveryService* CDiscoveryServices::GetNext(POSITION& pos) const
 {
+	ASSUME_LOCK( Network.m_pSection );
+
 	return m_pList.GetNext( pos );
 }
 
 BOOL CDiscoveryServices::Check(CDiscoveryService* pService, CDiscoveryService::Type nType) const
 {
+	ASSUME_LOCK( Network.m_pSection );
+
 	if ( pService == NULL ) return FALSE;
 	if ( m_pList.Find( pService ) == NULL ) return FALSE;
 	return ( nType == CDiscoveryService::dsNull ) || ( pService->m_nType == nType );
@@ -87,6 +92,8 @@ BOOL CDiscoveryServices::Check(CDiscoveryService* pService, CDiscoveryService::T
 
 DWORD CDiscoveryServices::GetCount(int nType, PROTOCOLID nProtocol) const
 {
+	ASSUME_LOCK( Network.m_pSection );
+
 	DWORD nCount = 0;
 	CDiscoveryService* ptr;
 
@@ -240,6 +247,8 @@ BOOL CDiscoveryServices::Add(CDiscoveryService* pService)
 		pService->m_bGnutella1 = TRUE;
 	}
 
+	CQuickLock pLock( Network.m_pSection );
+
 	// Stop if we already have enough caches
 	if ( ( pService->m_bGnutella2 && ( GetCount( pService->m_nType, PROTOCOL_G2 ) >= Settings.Discovery.CacheCount ) ) ||
 		 ( pService->m_bGnutella1 && ( GetCount( pService->m_nType, PROTOCOL_G1 ) >= Settings.Discovery.CacheCount ) ) )
@@ -269,6 +278,8 @@ BOOL CDiscoveryServices::Add(CDiscoveryService* pService)
 
 void CDiscoveryServices::Remove(CDiscoveryService* pService, BOOL bCheck)
 {
+	ASSUME_LOCK( Network.m_pSection );
+
 	if ( POSITION pos = m_pList.Find( pService ) )
 		m_pList.RemoveAt( pos );
 	delete pService;
@@ -277,11 +288,15 @@ void CDiscoveryServices::Remove(CDiscoveryService* pService, BOOL bCheck)
 		CheckMinimumServices();
 }
 
-
 BOOL CDiscoveryServices::CheckWebCacheValid(LPCTSTR pszAddress)
 {
 	// Check it's long enough
-	if ( _tcsclen( pszAddress ) < 12 ) return FALSE;
+	if ( _tcsclen( pszAddress ) < 12 )
+		return FALSE;
+
+	CSingleLock pLock( &Network.m_pSection, FALSE );
+	if ( ! pLock.Lock( 250 ) )
+		return FALSE;
 
 	// Check it's not blocked
 	for ( POSITION pos = m_pList.GetHeadPosition() ; pos ; )
@@ -344,6 +359,8 @@ DWORD CDiscoveryServices::LastExecute() const
 
 CDiscoveryService* CDiscoveryServices::GetByAddress(LPCTSTR pszAddress) const
 {
+	ASSUME_LOCK( Network.m_pSection );
+
 	for ( POSITION pos = m_pList.GetHeadPosition() ; pos ; )
 	{
 		CDiscoveryService* pService = m_pList.GetNext( pos );
@@ -367,6 +384,8 @@ CDiscoveryService* CDiscoveryServices::GetByAddress(LPCTSTR pszAddress) const
 
 CDiscoveryService* CDiscoveryServices::GetByAddress(const IN_ADDR* pAddress, WORD nPort, CDiscoveryService::SubType nSubType )
 {
+	ASSUME_LOCK( Network.m_pSection );
+
 	for ( POSITION pos = m_pList.GetHeadPosition() ; pos ; )
 	{
 		CDiscoveryService* pService = m_pList.GetNext( pos );
@@ -382,6 +401,8 @@ CDiscoveryService* CDiscoveryServices::GetByAddress(const IN_ADDR* pAddress, WOR
 
 void CDiscoveryServices::Clear()
 {
+	CQuickLock pLock( Network.m_pSection );
+
 	Stop();
 
 	for ( POSITION pos = m_pList.GetHeadPosition() ; pos ; )
@@ -522,6 +543,8 @@ BOOL CDiscoveryServices::Save()
 
 void CDiscoveryServices::Serialize(CArchive& ar)
 {
+	ASSUME_LOCK( Network.m_pSection );
+
 	int nVersion = DISCOVERY_SER_VERSION;
 
 	if ( ar.IsStoring() )
@@ -662,27 +685,27 @@ void CDiscoveryServices::AddDefaults()
 		}
 	}
 
-	// If file can't be used or didn't have enough services, drop back to the the in-built list
-	if ( ! EnoughServices() )
-	{
-		theApp.Message( MSG_ERROR, _T("Default discovery service load failed") );
-
-		//CString strServices = _T("\n");
-		//for ( strServices += '\n' ; ! strServices.IsEmpty() ; )
-		//{
-		//	CString strService = strServices.SpanExcluding( _T("\r\n") );
-		//	strServices = strServices.Mid( strService.GetLength() + 1 );
-		//	if ( strService.GetLength() > 12 )
-		//	{
-		//		if ( _tcsistr( strService, _T("//server") ) != NULL )
-		//			Add( strService, CDiscoveryService::dsServerList, PROTOCOL_ED2K );
-		//		else if ( _tcsistr( strService, _T("hublist") ) != NULL )
-		//			Add( strService, CDiscoveryService::dsServerList, PROTOCOL_DC );
-		//		else
-		//			Add( strService, CDiscoveryService::dsWebCache );
-		//	}
-		//}
-	}
+	// Obsolete: If file can't be used or didn't have enough services, drop back to the the in-built list
+	//if ( ! EnoughServices() )
+	//{
+	//	theApp.Message( MSG_ERROR, _T("Default discovery service load failed") );
+	//
+	//	//CString strServices = _T("\n");
+	//	//for ( strServices += '\n' ; ! strServices.IsEmpty() ; )
+	//	//{
+	//	//	CString strService = strServices.SpanExcluding( _T("\r\n") );
+	//	//	strServices = strServices.Mid( strService.GetLength() + 1 );
+	//	//	if ( strService.GetLength() > 12 )
+	//	//	{
+	//	//		if ( _tcsistr( strService, _T("//server") ) != NULL )
+	//	//			Add( strService, CDiscoveryService::dsServerList, PROTOCOL_ED2K );
+	//	//		else if ( _tcsistr( strService, _T("hublist") ) != NULL )
+	//	//			Add( strService, CDiscoveryService::dsServerList, PROTOCOL_DC );
+	//	//		else
+	//	//			Add( strService, CDiscoveryService::dsWebCache );
+	//	//	}
+	//	//}
+	//}
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -690,6 +713,8 @@ void CDiscoveryServices::AddDefaults()
 
 void CDiscoveryServices::MergeURLs()
 {
+	ASSUME_LOCK( Network.m_pSection );
+
 	CArray< CDiscoveryService* > G1URLs, G2URLs, MultiURLs, OtherURLs;
 //	theApp.Message( MSG_DEBUG, _T("CDiscoveryServices::MergeURLs(): Checking the discovery service WebCache URLs") );
 
@@ -867,7 +892,7 @@ BOOL CDiscoveryServices::Update()
 
 	//*** ToDo: Ultrapeer mode hasn't been updated or tested in a very long time
 
-	//ASSERT ( nProtocol == PROTOCOL_G1 || nProtocol == PROTOCOL_G2 );
+	//ASSERT( nProtocol == PROTOCOL_G1 || nProtocol == PROTOCOL_G2 );
 
 	// Must have at least 4 peers
 	if ( Neighbours.GetCount( nProtocol, -1, ntNode ) < 4 && ! Settings.Experimental.LAN_Mode )
@@ -963,7 +988,7 @@ BOOL CDiscoveryServices::Execute(BOOL bDiscovery, PROTOCOLID nProtocol, USHORT n
 				tHubsQueried = tNow; 	// Execute this maximum one time each hour only when the number of DC hubs is too low or outdated (Very important).
 		}
 
-		pLock.Unlock();
+		//pLock.Unlock();
 
 		// Broadcast discovery
 		static bool bBroadcast = true;		// test, broadcast, cache, broadcast, cache, ...
@@ -1044,8 +1069,8 @@ int CDiscoveryServices::ExecuteBootstraps(int nCount, BOOL bUDP, PROTOCOLID nPro
 
 	for ( nSuccess = 0 ; nCount > 0 && pRandom.GetSize() > 0 ; )
 	{
-		INT_PTR nRandom( GetRandomNum< INT_PTR >( 0, pRandom.GetSize() - 1 ) );
-		CDiscoveryService* pService( pRandom.GetAt( nRandom ) );
+		INT_PTR nRandom = GetRandomNum< INT_PTR >( 0, pRandom.GetSize() - 1 );
+		CDiscoveryService* pService = pRandom.GetAt( nRandom );
 		pRandom.RemoveAt( nRandom );
 
 		if ( pService->ResolveGnutella() )
@@ -1088,6 +1113,8 @@ BOOL CDiscoveryServices::RequestRandomService(PROTOCOLID nProtocol)
 
 CDiscoveryService* CDiscoveryServices::GetRandomService(PROTOCOLID nProtocol)
 {
+	ASSUME_LOCK( Network.m_pSection );
+
 	CArray< CDiscoveryService* > pServices;
 	const DWORD tNow = static_cast< DWORD >( time( NULL ) );
 
@@ -1141,6 +1168,8 @@ CDiscoveryService* CDiscoveryServices::GetRandomService(PROTOCOLID nProtocol)
 
 CDiscoveryService* CDiscoveryServices::GetRandomWebCache(PROTOCOLID nProtocol, BOOL bWorkingOnly, CDiscoveryService* pExclude, BOOL bForUpdate)
 {
+	ASSUME_LOCK( Network.m_pSection );
+
 	// Select a random webcache for G2 (and rarely G1)
 	CArray< CDiscoveryService* > pWebCaches;
 	const DWORD tNow = static_cast< DWORD >( time( NULL ) );
@@ -1283,6 +1312,8 @@ BOOL CDiscoveryServices::RequestWebCache(CDiscoveryService* pService, Mode nMode
 
 	if ( m_pWebCache == NULL )
 		return FALSE;
+
+	m_pRequest.Clear();
 
 	return BeginThread( "Discovery" );
 }
@@ -1991,11 +2022,13 @@ BOOL CDiscoveryServices::Execute(CDiscoveryService* pService, Mode nMode)
 void CDiscoveryServices::OnResolve(PROTOCOLID nProtocol, LPCTSTR szAddress, const IN_ADDR* pAddress, WORD nPort)
 {
 	// Code to invoke UDPHC/UDPKHL Sender, from CNetwork::OnWinsock(). (uhc:/ukhl:)
-	if ( nProtocol != PROTOCOL_G2 || nProtocol != PROTOCOL_G1 )
+	if ( nProtocol != PROTOCOL_G2 && nProtocol != PROTOCOL_G1 )
 		return;
 
 	CString strAddress( nProtocol == PROTOCOL_G1 ? _T("uhc:") : _T("ukhl:") );
 	strAddress += szAddress;
+
+	CSingleLock pLock( &Network.m_pSection, TRUE );
 
 	CDiscoveryService* pService = GetByAddress( strAddress );
 	if ( pService == NULL )

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hebrew Skin File -->
 
-<!-- Translation based on default-en.xml r84 -->
+<!-- Translation based on default-en.xml r85 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -465,7 +465,7 @@ gap i newline
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="עיין במשתמש"/>
 		<button id="ID_CHAT_PRIORITY" text="הענק עדיפות"/>
-		<!-- <button id="ID_CHAT_SEND_FILE" text="Send File"/> -->
+		<!--button id="ID_CHAT_SEND_FILE" text="Send File"-->
 			<rightAlign/>
 		<button id="ID_CHAT_CONNECT" text="התחבר" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="התנתק"/>
@@ -1334,7 +1334,6 @@ gap i newline
 			<item id="ID_SEARCH_FOR_SERIES" text="‪פרקים באותה סדרה"/>
 		</menu>
 		<menu text="‪שירותי רשת">
-			<item id="ID_LIBRARY_REBUILD_ANSI" text="‪מקומי Metadata שינוי"/>
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
 			<separator/>
 			<item id="ID_LIBRARY_BITZI_WEB" text="‪Bitzi הראה כרטיס"/>
@@ -1376,6 +1375,7 @@ gap i newline
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="‪Metadata קבל"/>
 		</menu>
 		<menu text="_Metadata">
+			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
 			<item id="ID_LIBRARY_REBUILD_ANSI" text="‪מקומי Metadata שינוי"/>
 			<item id="ID_LIBRARY_COLUMNS" text="‪...בחר עמודות"/>
@@ -1603,7 +1603,7 @@ gap i newline
 		<item id="ID_CHAT_DISCONNECT" text="‪ה_תנתק"/>
 		<separator/>
 		<item id="ID_CHAT_BROWSE" text="‪_עיין בקבצי המשתמש"/>
-		<!-- <item id="ID_CHAT_SEND_FILE" text="‪...שלח קובץ"/> -->
+		<!--item id="ID_CHAT_SEND_FILE" text="‪...שלח קובץ"-->
 		<item id="ID_CHAT_PRIORITY" text="‪...הענק עדיפות למשתמש"/>
 		<separator/>
 		<menu text="‪_Format">
@@ -1753,7 +1753,7 @@ gap i newline
 		<text align="middle">- שנה לשרזה את המראה וההרגשה</text>
 		<newline gap="8"/>
 		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link><gap size="6"/>
+		<link target="command:ID_VIEW_SECURITY" align="middle">מסנן אבטחה</link><gap size="6"/>
 		<text align="middle">- Update blocklist</text>
 		<newline gap="8"/>
 		<icon res="197" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
@@ -2169,7 +2169,7 @@ gap i newline
 	<tip id="ID_CHAT_EMOTICONS" message="הכנס סמיילי"/>
 	<tip id="ID_CHAT_ITALIC" message="החל עיצוב טקסט נוטה (Ctrl+I)"/>
 	<tip id="ID_CHAT_PRIORITY" message="הענק עדיפות העלאה למשתמש"/>
-	<!-- <tip id="ID_CHAT_SEND_FILE" message="שלח קובץ אל המשתמש"/> -->
+	<!--tip id="ID_CHAT_SEND_FILE" message="שלח קובץ אל המשתמש"-->
 	<tip id="ID_CHAT_TIMESTAMP" message="הראה את השעה שבה כל הודעה התקבלה"/>
 	<tip id="ID_CHAT_UNDERLINE" message="החל עיצוב קו תחתון (Ctrl+U)"/>
 	<tip id="ID_CHILD_CLOSE" message="סגור את החלון הפעיל"/>
@@ -2284,6 +2284,7 @@ gap i newline
 	<tip id="ID_LIBRARY_PARENT" message="העבר לספריה המכילה"/>
 	<tip id="ID_LIBRARY_PROPERTIES" message="הצג וערוך מאפיינים של הקבצים הנבחרים"/>
 	<tip id="ID_LIBRARY_REBUILD" message="בנה מחדש metadeta ו-hash לתקיות או הקבצים הנבחרים."/>
+	<tip id="ID_LIBRARY_REBUILD_FILE" message="בנה מחדש metadeta ו-hash לתקיות או הקבצים הנבחרים."/>
 	<tip id="ID_LIBRARY_REBUILD_ANSI" message="בנה מחדש metadeta בשמוש בשפה אחרת."/>
 	<tip id="ID_LIBRARY_REFRESH" message="רענן את תצוגת הספריה"/>
 	<tip id="ID_LIBRARY_REMOVE" message="הסר את התיקיות המשותפות הנבחרות"/>

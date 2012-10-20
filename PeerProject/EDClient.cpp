@@ -1549,7 +1549,7 @@ BOOL CEDClient::OnFileStatusRequest(CEDPacket* pPacket)
 		WritePartStatus( pReply, pDownload );
 		m_nUpSize = pDownload->m_nSize;
 
-		if ( ! pDownload->IsMoving() )
+		if ( ! pDownload->IsCompleted() && ! pDownload->IsMoving() )
 			pDownload->AddSourceED2K( m_nClientID, htons( m_pHost.sin_port ),
 			m_pServer.sin_addr.S_un.S_addr, htons( m_pServer.sin_port ), m_oGUID );
 
@@ -2319,7 +2319,7 @@ BOOL CEDClient::OnSourceAnswer(CEDPacket* pPacket)
 	if ( CDownload* pDownload = Downloads.FindByED2K( oHash ))
 	{
 		// Don't bother adding sources if download has finished
-		if ( pDownload->IsMoving() ) return TRUE;
+		if ( pDownload->IsCompleted() || pDownload->IsMoving() ) return TRUE;
 
 		while ( nCount-- > 0 )
 		{

@@ -47,8 +47,7 @@ BOOL CPlugins::Register(const CString& sPath)
 {
 	Clear();
 
-	BOOL bError = FALSE;
-	CList< HINSTANCE > oModules;	// Cache
+	DWORD nSucceeded = 0, nFailed = 0;
 
 	LPCTSTR szParam =
 #if defined(_MSC_VER) && (_MSC_VER >= 1500)	// No VS2005
@@ -91,44 +90,66 @@ BOOL CPlugins::Register(const CString& sPath)
 				}
 
 				if ( hr == S_OK )
+				{
+					nSucceeded++;
 					theApp.Message( MSG_NOTICE, _T("Registered plugin: %s"), strName );
+				}
 				else if ( FAILED( hr ) )
 				{
+					nFailed++;
 					theApp.Message( MSG_ERROR, _T("Failed to register plugin: %s : 0x%08x"), strName, hr );
-					bError = TRUE;
 				}
 
-				oModules.AddTail( hDll );
+				FreeLibrary( hDll );
 			}
-			else
-				bError = TRUE;
 		}
 		else if ( strExt.CompareNoCase( _T(".exe") ) == 0 )
 		{
-			DWORD dwSize = GetFileVersionInfoSize( strPath, &dwSize );
-			auto_array< BYTE > pBuffer( new BYTE[ dwSize ] );
-			if ( GetFileVersionInfo( sPath, NULL, dwSize, pBuffer.get() ) )
+			DWORD dwSize = GetFileVersionInfoSize( sPath, &dwSize );
+			CAutoVectorPtr< BYTE > pBuffer( new BYTE[ dwSize ] );
+			if ( pBuffer && GetFileVersionInfo( sPath, NULL, dwSize, pBuffer ) )
 			{
 				LPCWSTR pValue = NULL;
-				if ( VerQueryValue( pBuffer.get(),
-					_T("\\StringFileInfo\\000004b0\\SpecialBuild"),
-					(void**)&pValue, (UINT*)&dwSize ) &&
-					pValue && dwSize &&
-					_wcsicmp( pValue, _T("plugin") ) == 0 )
+				if ( VerQueryValue( pBuffer, _T("\\StringFileInfo\\000004b0\\SpecialBuild"), (void**)&pValue, (UINT*)&dwSize ) &&
+					 pValue && dwSize && _wcsicmp( pValue, _T("plugin") ) == 0 )
 				{
-					if ( (DWORD_PTR)ShellExecute( NULL, NULL, strPath, szParam, NULL, SW_HIDE ) > 32 )	// "/RegServerPerUser"
-						theApp.Message( MSG_NOTICE, _T("Registered plugin: %s"), strName );
+					SHELLEXECUTEINFO sei =
+					{
+						sizeof( SHELLEXECUTEINFO ),
+						SEE_MASK_NOCLOSEPROCESS,
+						NULL,
+						NULL,
+						strPath,
+						szParam,
+						sPath,
+						SW_HIDE
+					};
+					DWORD dwError = ERROR_INVALID_FUNCTION;
+					if ( ShellExecuteEx( &sei ) )
+					{
+						WaitForSingleObject( sei.hProcess, INFINITE );
+						GetExitCodeProcess( sei.hProcess, &dwError );
+						CloseHandle( sei.hProcess );
+					}
 					else
-						theApp.Message( MSG_ERROR, _T("Failed to register plugin: %s : 0x%08x"), strName, GetLastError() );
+						dwError = GetLastError();
+
+					if ( dwError == ERROR_SUCCESS )
+					{
+						nSucceeded++;
+						theApp.Message( MSG_NOTICE, _T("Registered plugin: %s"), strName );
+					}
+					else
+					{
+						nFailed++;
+						theApp.Message( MSG_ERROR, _T("Failed to register plugin: %s : 0x%08x"), strName, dwError );
+					}
 				}
 			}
 		}
 	}
 
-	for ( POSITION pos = oModules.GetHeadPosition() ; pos ; )
-		FreeLibrary( oModules.GetNext( pos ) );
-
-	return ! bError;
+	return ( nSucceeded != 0 && nFailed == 0 );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -313,7 +334,7 @@ IUnknown* CPlugins::GetPlugin(LPCTSTR pszGroup, LPCTSTR pszType)
 				if ( SUCCEEDED( hr = pGITPlugin->m_pGIT.CopyTo( &pPlugin ) ) )
 					return pPlugin.Detach();
 
-				TRACE( _T("Invalid plugin \"%s\"-\"%s\" %s\n"), pszGroup, pszType, (LPCTSTR)Hashes::toGuid( pCLSID ) );
+				TRACE( "Invalid plugin \"%s\"-\"%s\" %s\n", (LPCSTR)CT2A( pszGroup ), (LPCSTR)CT2A( pszType ), (LPCSTR)CT2A( Hashes::toGuid( pCLSID ) ) );
 			}
 
 			if ( i == 1 )
@@ -374,7 +395,7 @@ void CPlugins::OnRun()
 		{
 			delete pGITPlugin;
 
-			TRACE( _T("Dropped plugin %s\n"), (LPCTSTR)Hashes::toGuid( m_inCLSID ) );
+			TRACE( "Dropped plugin %s\n", (LPCSTR)CT2A( Hashes::toGuid( m_inCLSID ) ) );
 		}
 
 		m_pCache.SetAt( m_inCLSID, NULL );
@@ -390,7 +411,7 @@ void CPlugins::OnRun()
 			{
 				m_pCache.SetAt( m_inCLSID, pGITPlugin );
 
-				TRACE( _T("Created plugin %s\n"), (LPCTSTR)Hashes::toGuid( m_inCLSID ) );
+				TRACE( "Created plugin %s\n", (LPCSTR)CT2A( Hashes::toGuid( m_inCLSID ) ) );
 			}
 			else
 				delete pGITPlugin;

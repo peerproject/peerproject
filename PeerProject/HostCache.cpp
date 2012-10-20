@@ -377,6 +377,8 @@ CHostCacheHostPtr CHostCacheList::Add(LPCTSTR pszHost, WORD nPort, DWORD tSeen, 
 		strHost = strHost.Left( nPos );
 		strHost.TrimRight();
 		tSeen = TimeFromString( strTime );
+		if ( ! tSeen )
+			return NULL;
 	}
 
 	return Add( NULL, nPort, tSeen, pszVendor, nUptime, nCurrentLeaves, nLeafLimit, strHost );

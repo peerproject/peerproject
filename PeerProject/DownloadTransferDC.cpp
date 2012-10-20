@@ -287,7 +287,7 @@ BOOL CDownloadTransferDC::ReadContent()
 
 		if ( m_pDownload->m_nSize == SIZE_UNKNOWN )
 		{
-			m_pDownload->m_nSize = m_nLength;
+			m_pDownload->SetSize( m_nLength );
 			m_pDownload->MakeComplete();
 		}
 

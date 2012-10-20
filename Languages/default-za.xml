@@ -4,7 +4,7 @@
 <!-- PeerProject Default Afrikaans Skin File -->
 <!-- Weergawe: 27 Oktober 2005 vir Shareaza 2.2.0.2 -->
 
-<!-- Translation based on default-en.xml r84 -->
+<!-- Translation based on default-en.xml r85 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -416,7 +416,7 @@
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="Blaai deur Gebruikersinligting"/>
 		<button id="ID_CHAT_PRIORITY" text="Gee Prioriteit"/>
-		<!-- <button id="ID_CHAT_SEND_FILE" text="Stuur Lêer"/> -->
+		<!--button id="ID_CHAT_SEND_FILE" text="Stuur Lêer"-->
 		<separator/>
 		<button id="ID_CHAT_CONNECT" text="Konnekteer" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="Diskonnekteer"/>
@@ -1273,7 +1273,6 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Episodes van dieselfde Reeks"/>
 		</menu>
 		<menu text="_Web Dienste">
-			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokaliseer Metadata"/>
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
 			<separator/>
 			<item id="ID_LIBRARY_BITZI_WEB" text="Vertoon _Bitzi Ticket"/>
@@ -1315,6 +1314,7 @@
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Laai Metadata Af"/>
 		</menu>
 		<menu text="_Metadata">
+			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
 			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokaliseer Metadata"/>
 			<item id="ID_LIBRARY_COLUMNS" text="Selekteer _Kolomme..."/>
@@ -1542,7 +1542,7 @@
 		<item id="ID_CHAT_DISCONNECT" text="_Diskonnekteer"/>
 		<separator/>
 		<item id="ID_CHAT_BROWSE" text="_Blaai deur Gebruikersinligting"/>
-		<!-- <item id="ID_CHAT_SEND_FILE" text="_Stuur Lêer..."/> -->
+		<!--item id="ID_CHAT_SEND_FILE" text="_Stuur Lêer..."-->
 		<item id="ID_CHAT_PRIORITY" text="Gee _Prioriteit"/>
 		<separator/>
 		<menu text="_Formaat">
@@ -1682,8 +1682,8 @@
 		<text align="middle">- Verander hoe PeerProject lyk en voel</text>
 		<newline gap="8"/>
 		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link><gap size="6"/>
-		<text align="middle">- Update blocklist to avoid bad search results</text>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Sekuriteit Filters</link><gap size="6"/>
+		<text align="middle">- Werk blokkering slegte resultate te vermy</text>
 		<newline gap="8"/>
 		<icon res="197" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 		<link target="command:ID_TOOLS_WIZARD" align="middle">Verstellingsassistent</link><gap size="6"/>
@@ -2254,7 +2254,7 @@
 	<tip id="ID_CHAT_EMOTICONS" message="Plaas 'n emotikon."/>
 	<tip id="ID_CHAT_ITALIC" message="Druk teks kursief (Ctrl+I)"/>
 	<tip id="ID_CHAT_PRIORITY" message="Gee oplaai-prioriteit aan hierdie gebruiker."/>
-	<!-- <tip id="ID_CHAT_SEND_FILE" message="Stuur 'n lêer na die gebruiker..."/> -->
+	<!--tip id="ID_CHAT_SEND_FILE" message="Stuur 'n lêer na die gebruiker..."-->
 	<tip id="ID_CHAT_TIMESTAMP" message="Vertoon die tyd wanneer elke boodskap ontvang is."/>
 	<tip id="ID_CHAT_UNDERLINE" message="Onderstreep teks (Ctrl+U)"/>
 	<tip id="ID_CHILD_CLOSE" message="Sluit die geselekteerde venster."/>
@@ -2369,6 +2369,7 @@
 	<tip id="ID_LIBRARY_PARENT" message="Beweeg op na die moedergids."/>
 	<tip id="ID_LIBRARY_PROPERTIES" message="Vertoon en verander die eienskappe van die geselekteerde lêers..."/>
 	<tip id="ID_LIBRARY_REBUILD" message="Herbou metadata en hashdata vir die geselekteerde gidse of lêers."/>
+	<tip id="ID_LIBRARY_REBUILD_FILE" message="Herbou metadata en hashdata vir die geselekteerde gidse of lêers."/>
 	<tip id="ID_LIBRARY_REBUILD_ANSI" message="Herbou metadata met 'n ander taal."/>
 	<tip id="ID_LIBRARY_REFRESH" message="Verfris die biblioteek aansig."/>
 	<tip id="ID_LIBRARY_REMOVE" message="Verwyder die geselekteerde gedeelde gidse."/>
@@ -4586,7 +4587,7 @@
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to=""/>
 		<column from="Status" to=""/>
-		<column from="Type" to=""/>
+		<column from="Type" to="Tipe"/>
 	</list>
 	<list name="CReviewList">
 		<column from="User" to="Gebruiker"/>

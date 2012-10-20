@@ -17,12 +17,12 @@
 />
 
 <fonts>
-  <font name="System.Plain"  face="Segoe UI" size="11" weight="Normal"/>
-  <font name="System.Bold"   face="Segoe UI" size="11" weight="Bold"/>
-  <font name="Panel.Caption" face="Segoe UI" size="12" weight="Normal"/>
-  <font name="Navbar.Caption" face="Segoe UI" size="12" weight="Normal"/>
-  <!--font name="RichDoc.Default" face="Segoe UI" size="13" weight="Normal"-->
-  <!--font name="RichDoc.Heading" face="Segoe UI" size="18" weight="400"-->
+ <font name="Navbar.Caption" size="12" weight="Normal"/> <!--No face="Segoe UI"-->
+ <!--font name="System.Plain"  face="Segoe UI" size="11" weight="Normal"-->
+ <!--font name="System.Bold"   face="Segoe UI" size="11" weight="Bold"-->
+ <!--font name="Panel.Caption" face="Segoe UI" size="12" weight="Normal"-->
+ <!--font name="RichDoc.Default" face="Segoe UI" size="13" weight="Normal"-->
+ <!--font name="RichDoc.Heading" face="Segoe UI" size="18" weight="400"-->
 </fonts>
 
 <options>

@@ -218,8 +218,7 @@ BOOL CDownloadWithSources::CheckSource(CDownloadSource* pCheck) const
 
 void CDownloadWithSources::ClearSources()
 {
-	ASSUME_LOCK( Transfers.m_pSection );
-	CQuickLock( Transfers.m_pSection );
+	CQuickLock pLock( Transfers.m_pSection );
 
 	for ( POSITION posSource = GetIterator() ; posSource ; )
 	{
@@ -353,8 +352,7 @@ BOOL CDownloadWithSources::AddSourceHit(const CQueryHit* pHit, BOOL bForce)
 	if ( ! AddSource( pHit, bForce ) )
 		return FALSE;
 
-	if ( Settings.Downloads.Metadata && m_pXML == NULL &&
-		 pHit->m_pXML && pHit->m_pSchema )
+	if ( Settings.Downloads.Metadata && m_pXML == NULL && pHit->m_pXML && pHit->m_pSchema )
 	{
 		m_pXML = pHit->m_pSchema->Instantiate( TRUE );
 		m_pXML->AddElement( pHit->m_pXML->Clone() );
@@ -410,7 +408,7 @@ BOOL CDownloadWithSources::AddSourceHit(const CPeerProjectURL& oURL, BOOL bForce
 		((CDownload*)this)->SetTorrent( oURL.m_pTorrent );
 
 	if ( ! oURL.m_sURL.IsEmpty() &&
-		 ! AddSourceURLs( oURL.m_sURL ) )
+		 ! AddSourceURL( oURL.m_sURL ) )
 		return FALSE;
 
 	return TRUE;
@@ -571,12 +569,6 @@ BOOL CDownloadWithSources::AddSourceURL(LPCTSTR pszURL, BOOL bURN, FILETIME* pLa
 
 int CDownloadWithSources::AddSourceURLs(LPCTSTR pszURLs, BOOL bURN, BOOL bFailed)
 {
-	if ( IsCompleted() || IsMoving() )
-	{
-		ClearSources();
-		return 0;
-	}
-
 	int nCount = 0;
 
 	CMapStringToFILETIME oUrls;
@@ -724,7 +716,7 @@ BOOL CDownloadWithSources::AddSourceInternal(CDownloadSource* pSource)
 //////////////////////////////////////////////////////////////////////
 // CDownloadWithSources query for URLs
 
-CString CDownloadWithSources::GetSourceURLs(CList< CString >* pState, int nMaximum, PROTOCOLID nProtocol, CDownloadSource* pExcept)
+CString CDownloadWithSources::GetSourceURLs(CList< CString >* pState, int nMaximum, PROTOCOLID nProtocol, CDownloadSource* pExcept) const
 {
 	CQuickLock pLock( Transfers.m_pSection );
 
@@ -735,8 +727,8 @@ CString CDownloadWithSources::GetSourceURLs(CList< CString >* pState, int nMaxim
 		CDownloadSource* pSource = GetNext( posSource );
 
 		if ( pSource != pExcept && pSource->m_bPushOnly == FALSE &&
-			 pSource->m_nFailures == 0 && pSource->m_bReadContent &&
-			 ( pSource->m_bSHA1 || pSource->m_bED2K || pSource->m_bBTH || pSource->m_bMD5 ) &&
+			 ( ( pSource->m_nFailures == 0 && pSource->m_bReadContent ) || nProtocol == PROTOCOL_NULL ) &&
+			 ( pSource->m_bSHA1 || pSource->m_bTiger || pSource->m_bED2K || pSource->m_bBTH || pSource->m_bMD5 ) &&
 			 ( pState == NULL || pState->Find( pSource->m_sURL ) == NULL ) )
 		{
 			// Only return appropriate sources
@@ -1164,9 +1156,11 @@ void CDownloadWithSources::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER
 
 	if ( ar.IsStoring() )
 	{
-		ar.WriteCount( GetCount() );
+		DWORD_PTR nSources = GetCount();
+		if ( nSources > 800 ) nSources = 800;	// ToDo: Setting?
+		ar.WriteCount( nSources );
 
-		for ( POSITION posSource = GetIterator() ; posSource ; )
+		for ( POSITION posSource = GetIterator() ; posSource && nSources ; nSources-- )
 		{
 			CDownloadSource* pSource = GetNext( posSource );
 
@@ -1178,27 +1172,33 @@ void CDownloadWithSources::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER
 	}
 	else // Loading
 	{
-		for ( DWORD_PTR nSources = ar.ReadCount() ; nSources ; nSources-- )
+		DWORD_PTR nSources = ar.ReadCount();
+		if ( nSources > 800 ) nSources = 800;	// ToDo: Setting?
+		const BOOL bSources = (BOOL)nSources;
+
+		for ( ; nSources ; nSources-- )
 		{
 			// Create new source
-			CDownloadSource* pSource = new CDownloadSource( (CDownload*)this );
+			//CDownloadSource* pSource = new CDownloadSource( (CDownload*)this );
+			CAutoPtr< CDownloadSource > pSource( new CDownloadSource( static_cast< CDownload* >( this ) ) );
+			if ( ! pSource )
+				AfxThrowMemoryException();
 
 			// Load details from disk
 			pSource->Serialize( ar, nVersion );
 
 			// Extract ed2k client ID from url (m_pAddress) because it wasn't saved
-			if ( ! pSource->m_nPort && ! _tcsnicmp( pSource->m_sURL, _T("ed2kftp://"), 10 ) )
+			if ( ! pSource->m_nPort && _tcsnicmp( pSource->m_sURL, _T("ed2kftp://"), 10 ) == 0 )
 			{
 				CString strURL = pSource->m_sURL.Mid(10);
 				if ( ! strURL.IsEmpty() )
 					_stscanf( strURL, _T("%lu"), &pSource->m_pAddress.S_un.S_addr );
 			}
 
-			// Add to the list
-			InternalAdd( pSource );
+			InternalAdd( pSource.Detach() );
 		}
 
-		if ( ar.ReadCount() )
+		if ( bSources )
 		{
 			m_pXML = new CXMLElement();
 			m_pXML->Serialize( ar );

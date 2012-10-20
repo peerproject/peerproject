@@ -75,11 +75,14 @@ public:
 	CString		GetDownloadSources() const;
 	CString		GetDownloadStatus() const;
 	int			GetClientStatus() const;
-	void		ForceComplete();
 	BOOL		Launch(int nIndex, CSingleLock* pLock, BOOL bForceOriginal);
 	BOOL		Enqueue(int nIndex, CSingleLock* pLock);
 	BOOL		Load(LPCTSTR pszPath);
 	BOOL		Save(BOOL bFlush = FALSE);
+	BOOL		OpenDownload();
+	BOOL		SeedTorrent();
+	BOOL		PrepareFile();
+	void		ForceComplete();
 	void		OnTaskComplete(const CDownloadTask* pTask);
 	void		OnRun();
 private:

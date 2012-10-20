@@ -37,10 +37,10 @@ static char THIS_FILE[] = __FILE__;
 
 void CThumbCache::InitDatabase()
 {
-	auto_ptr< CDatabase > db( theApp.GetDatabase() );
+	auto_ptr< CDatabase > db( theApp.GetDatabase( DB_THUMBS ) );
 	if ( ! *db )
 	{
-		TRACE( _T("CThumbCache::InitDatabase : Database error: %s\n"), db->GetLastErrorMessage() );
+		TRACE( "CThumbCache::InitDatabase : Database error: %s\n", (LPCSTR)CT2A( db->GetLastErrorMessage() ) );
 		return;
 	}
 
@@ -81,15 +81,15 @@ BOOL CThumbCache::Load(LPCTSTR pszPath, CImageFile* pImage)
 	if ( ! GetFileAttributesEx( pszPath, GetFileExInfoStandard, &fd ) )
 	{
 		// Deleted (or Ghost) file
-		TRACE( _T("CThumbCache::Load : Can't load info for %s\n"), pszPath );
+		TRACE( "CThumbCache::Load : Can't load info for %s\n", (LPCSTR)CT2A( pszPath ) );
 		return FALSE;
 	}
 
 	// Load file info from database
-	auto_ptr< CDatabase > db( theApp.GetDatabase() );
+	auto_ptr< CDatabase > db( theApp.GetDatabase( DB_THUMBS ) );
 	if ( ! *db )
 	{
-		TRACE( _T("CThumbCache::InitDatabase : Database error: %s\n"), db->GetLastErrorMessage() );
+		TRACE( "CThumbCache::InitDatabase : Database error: %s\n", (LPCSTR)CT2A( db->GetLastErrorMessage() ) );
 		return FALSE;
 	}
 
@@ -101,13 +101,13 @@ BOOL CThumbCache::Load(LPCTSTR pszPath, CImageFile* pImage)
 		 ! db->Step() ||
 		 ! ( db->GetCount() == 0 || db->GetCount() == 3 ) )
 	{
-		TRACE( _T("CThumbCache::Load : Database error: %s\n"), db->GetLastErrorMessage() );
+		TRACE( "CThumbCache::Load : Database error: %s\n", (LPCSTR)CT2A( db->GetLastErrorMessage() ) );
 		return FALSE;
 	}
 
 	if ( db->GetCount() == 0 )
 	{
-		TRACE( _T("CThumbCache::Load : No thumbnail for %s\n"), pszPath );
+		TRACE( "CThumbCache::Load : No thumbnail for %s\n", (LPCSTR)CT2A( pszPath ) );
 		return FALSE;
 	}
 
@@ -117,7 +117,7 @@ BOOL CThumbCache::Load(LPCTSTR pszPath, CImageFile* pImage)
 	LPCVOID data = db->GetBlob( _T("Image"), &data_len );
 	if ( ! data )
 	{
-		TRACE( _T("CThumbCache::Load : Database error: %s\n"), db->GetLastErrorMessage() );
+		TRACE( "CThumbCache::Load : Database error: %s\n", (LPCSTR)CT2A( db->GetLastErrorMessage() ) );
 		return FALSE;
 	}
 
@@ -138,10 +138,10 @@ BOOL CThumbCache::Load(LPCTSTR pszPath, CImageFile* pImage)
 
 void CThumbCache::Delete(LPCTSTR pszPath)
 {
-	auto_ptr< CDatabase > db( theApp.GetDatabase() );
+	auto_ptr< CDatabase > db( theApp.GetDatabase( DB_THUMBS ) );
 	if ( ! *db )
 	{
-		TRACE( _T("CThumbCache::InitDatabase : Database error: %s\n"), db->GetLastErrorMessage() );
+		TRACE( "CThumbCache::InitDatabase : Database error: %s\n", (LPCSTR)CT2A( db->GetLastErrorMessage() ) );
 		return;
 	}
 
@@ -151,7 +151,7 @@ void CThumbCache::Delete(LPCTSTR pszPath)
 	if ( ! db->Prepare( _T("DELETE FROM Files WHERE Filename == ?;") ) ||
 		 ! db->Bind( 1, strPath ) )
 	{
-		TRACE( _T("CThumbCache::Load : Database error: %s\n"), db->GetLastErrorMessage() );
+		TRACE( "CThumbCache::Load : Database error: %s\n", (LPCSTR)CT2A( db->GetLastErrorMessage() ) );
 		return;
 	}
 
@@ -171,14 +171,14 @@ BOOL CThumbCache::Store(LPCTSTR pszPath, CImageFile* pImage)
 	WIN32_FIND_DATA fd = { 0 };
 	if ( ! GetFileAttributesEx( pszPath, GetFileExInfoStandard, &fd ) )
 	{
-		TRACE( _T("CThumbCache::Store : Can't load info for %s\n"), pszPath );
+		TRACE( "CThumbCache::Store : Can't load info for %s\n", (LPCSTR)CT2A( pszPath ) );
 		return FALSE;
 	}
 
-	auto_ptr< CDatabase > db( theApp.GetDatabase() );
+	auto_ptr< CDatabase > db( theApp.GetDatabase( DB_THUMBS ) );
 	if ( ! *db )
 	{
-		TRACE( _T("CThumbCache::InitDatabase : Database error: %s\n"), db->GetLastErrorMessage() );
+		TRACE( "CThumbCache::InitDatabase : Database error: %s\n", (LPCSTR)CT2A( db->GetLastErrorMessage() ) );
 		return FALSE;
 	}
 
@@ -190,7 +190,7 @@ BOOL CThumbCache::Store(LPCTSTR pszPath, CImageFile* pImage)
 	DWORD data_len = 0;
 	if ( ! pImage->SaveToMemory( _T(".jpg"), Settings.Library.ThumbQuality, &buf, &data_len ) )		// ~75% JPEG
 	{
-		TRACE( _T("CThumbCache::Store : Can't save thumbnail to JPEG for %s\n"), pszPath );
+		TRACE( "CThumbCache::Store : Can't save thumbnail to JPEG for %s\n", (LPCSTR)CT2A( pszPath ) );
 		return FALSE;
 	}
 	auto_array< BYTE > data( buf );
@@ -199,7 +199,7 @@ BOOL CThumbCache::Store(LPCTSTR pszPath, CImageFile* pImage)
 	if ( ! db->Prepare( _T("DELETE FROM Files WHERE Filename == ?;") ) ||
 		 ! db->Bind( 1, strPath ) )
 	{
-		TRACE( _T("CThumbCache::Store : Database error: %s\n"), db->GetLastErrorMessage() );
+		TRACE( "CThumbCache::Store : Database error: %s\n", (LPCSTR)CT2A( db->GetLastErrorMessage() ) );
 		return FALSE;
 	}
 	db->Step();
@@ -212,11 +212,11 @@ BOOL CThumbCache::Store(LPCTSTR pszPath, CImageFile* pImage)
 		 ! db->Bind( 4, data.get(), data_len ) ||
 		 ! db->Step() )
 	{
-		TRACE( _T("CThumbCache::Store : Database error: %s\n"), db->GetLastErrorMessage() );
+		TRACE( "CThumbCache::Store : Database error: %s\n", (LPCSTR)CT2A( db->GetLastErrorMessage() ) );
 		return FALSE;
 	}
 
-	TRACE( _T("CThumbCache::Store : Thumbnail saved for %s\n"), pszPath );
+	TRACE( "CThumbCache::Store : Thumbnail saved for %s\n", (LPCSTR)CT2A( pszPath ) );
 
 	CSingleLock oLock( &Library.m_pSection, FALSE );
 	if ( ! oLock.Lock( 300 ) ) return TRUE;

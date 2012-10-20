@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hungarian Skin File -->
 
-<!-- Translation based on default-en.xml r84 -->
+<!-- Translation based on default-en.xml r85 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -416,7 +416,7 @@
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="Fájllista és adatlap"/>
 		<button id="ID_CHAT_PRIORITY" text="Elsőbbséget ad"/>
-		<!-- <button id="ID_CHAT_SEND_FILE" text="Fájl küldése"/> -->
+		<!--button id="ID_CHAT_SEND_FILE" text="Fájl küldése"-->
 		<separator/>
 		<button id="ID_CHAT_CONNECT" text="Kapcsolódás" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="Lekapcsolódás"/>
@@ -1283,7 +1283,6 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Ugyanabból a _sorozatból"/>
 		</menu>
 		<menu text="_Webszolgáltatások">
-			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Metaadat javítása"/>
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="Metaadat f_rissítése"/>
 			<separator/>
 			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi Ticket"/>
@@ -1325,6 +1324,7 @@
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Metaadat letöltése"/>
 		</menu>
 		<menu text="_Metadata">
+			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="Metaadat f_rissítése"/>
 			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Metaadat javítása"/>
 			<item id="ID_LIBRARY_COLUMNS" text="_Oszlopok kiválasztása"/>
@@ -1552,8 +1552,8 @@
 		<item id="ID_CHAT_DISCONNECT" text="_Lekapcsolódás"/>
 		<separator/>
 		<item id="ID_CHAT_BROWSE" text="Fá_jllista és adatlap"/>
-		<!--<item id="ID_CHAT_SEND_FILE" text="Fájl _küldése..."/>-->
 		<item id="ID_CHAT_PRIORITY" text="_Elsőbbséget ad"/>
+		<!--item id="ID_CHAT_SEND_FILE" text="Fájl _küldése..."-->
 		<separator/>
 		<menu text="_Format">
 			<item id="ID_CHAT_BOLD" text="_Félkövér"/>
@@ -1692,8 +1692,8 @@
 		<text align="middle">- Változtassa meg a PeerProject kinézetét.</text>
 		<newline gap="8"/>
 		<icon res="138" width="16" height="16" target="command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="command:ID_VIEW_SECURITY" align="middle">Security Filters</link><gap size="6"/>
-		<text align="middle">- Update blocklist to avoid bad search results</text>
+		<link target="command:ID_VIEW_SECURITY" align="middle">Biztonsági Szűrők</link><gap size="6"/>
+		<text align="middle">- Frissítse blocklist elkerülni a rossz eredményt</text>
 		<newline gap="8"/>
 		<icon res="197" width="16" height="16" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 		<link target="command:ID_TOOLS_WIZARD" align="middle">Gyors beállítás</link><gap size="6"/>
@@ -2231,7 +2231,7 @@
 	<tip id="ID_CHAT_EMOTICONS" message="Hangulatjel beszúrása."/>
 	<tip id="ID_CHAT_ITALIC" message="Dőlt betűk (Ctrl+I)"/>
 	<tip id="ID_CHAT_PRIORITY" message="Feltöltési elsőbbséget ad a felhasználnak."/>
-	<!-- <tip id="ID_CHAT_SEND_FILE" message="Fájl elküldése..."/>-->
+	<!--tip id="ID_CHAT_SEND_FILE" message="Fájl elküldése..."-->
 	<tip id="ID_CHAT_TIMESTAMP" message="Időbélyeg hozzáadása az üzenethez."/>
 	<tip id="ID_CHAT_UNDERLINE" message="Aláhúzott betűk (Ctrl+U)"/>
 	<tip id="ID_CHILD_CLOSE" message="A kiválasztott ablak bezárása."/>
@@ -2346,6 +2346,7 @@
 	<tip id="ID_LIBRARY_PARENT" message="Egy szinttel feljebb."/>
 	<tip id="ID_LIBRARY_PROPERTIES" message="Megjeleníti a fájl tulajdonságait..."/>
 	<tip id="ID_LIBRARY_REBUILD" message="Új metaadat és hash értékek megadása."/>
+	<tip id="ID_LIBRARY_REBUILD_FILE" message="Új metaadat és hash értékek megadása."/>
 	<tip id="ID_LIBRARY_REBUILD_ANSI" message="Metaadat kijavítása egy másik kódtáblára."/>
 	<tip id="ID_LIBRARY_REFRESH" message="A könyvtár frissítése."/>
 	<tip id="ID_LIBRARY_REMOVE" message="Eltávolítja a kiválasztott mappákat."/>
