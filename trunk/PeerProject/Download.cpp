@@ -624,7 +624,7 @@ void CDownload::OnMoved()
 			StopTrying();
 		}
 	}
-	else
+	else	// Not torrent
 	{
 		StopTrying();
 	}
@@ -657,8 +657,10 @@ BOOL CDownload::OpenDownload()
 
 	if ( IsTorrent() )
 	{
-		if ( Open( m_pTorrent ) )
+		if ( OpenFile() )
 			return TRUE;
+//		if ( Open( m_pTorrent ) )
+//			return TRUE;
 	}
 	else
 	{
@@ -821,7 +823,6 @@ BOOL CDownload::Load(LPCTSTR pszName)
 			Save();
 	}
 
-	m_bGotPreview = GetFileAttributes( m_sPath + _T(".png") ) != INVALID_FILE_ATTRIBUTES;
 	m_nSaveCookie = m_nCookie;
 
 	return bSuccess;

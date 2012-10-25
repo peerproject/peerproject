@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Japanese Skin File -->
 
-<!-- Translation based on default-en.xml r85 --> <!-- (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r86 --> <!-- (Shareaza 2.2.0.2) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -40,21 +40,21 @@
 		<button id="ID_NETWORK_CONNECT" text="接続"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="ホーム"/>
-		<button id="ID_TAB_SEARCH" text="検索"/>
 		<button id="ID_TAB_TRANSFERS" text="転送"/>
 		<button id="ID_TAB_LIBRARY" text="ライブラリ"/>
 		<button id="ID_TAB_MEDIA" text="メディア"/>
+		<button id="ID_TAB_SEARCH" text="検索"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
 		<button id="ID_TAB_CONNECT" text="接続"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="ホーム"/>
-		<button id="ID_TAB_SEARCH" text="検索"/>
 		<button id="ID_TAB_TRANSFERS" text="転送"/>
 		<button id="ID_TAB_NETWORK" text="ネットワーク"/>
 		<button id="ID_TAB_LIBRARY" text="ライブラリ"/>
 		<button id="ID_TAB_MEDIA" text="メディア"/>
 		<button id="ID_TAB_IRC" text="IRC"/>
+		<button id="ID_TAB_SEARCH" text="検索"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Windowed">
 		<button id="ID_NETWORK_CONNECT" text="接続"/>
@@ -472,7 +472,7 @@
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="設定..."/>
 			<menu text="ネットワーク(_N)">
 				<item id="ID_NETWORK_CONNECT" text="接続(_C)" shortcut="Ctrl+G"/>

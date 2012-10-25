@@ -133,7 +133,7 @@ void CSettings::Load()
 	Add( _T("Interface"), _T("SaveOpenWindows"), &Interface.SaveOpenWindows, General.GUIMode != GUI_BASIC );
 	Add( _T("Interface"), _T("RefreshRateGraph"), &Interface.RefreshRateGraph, 72, 1, 10, 60000, _T(" ms") );	// 30sec display areas
 	Add( _T("Interface"), _T("RefreshRateText"), &Interface.RefreshRateText, 650, 1, 10, 10000, _T(" ms") );	// 3x per 2 sec.
-	Add( _T("Interface"), _T("RefreshRateUI"), &Interface.RefreshRateUI, theApp.m_nWinVer < WIN_XP_64 ? 330 : 200, 1, 10, 2000, _T(" ms") );	// 3/5x per sec. (Button status)
+	Add( _T("Interface"), _T("RefreshRateUI"), &Interface.RefreshRateUI, theApp.m_nWinVer < WIN_XP_64 ? 300 : 100, 1, 10, 2000, _T(" ms") );	// 3/10x per sec. (Button status)
 	Add( _T("Interface"), _T("TipDelay"), &Interface.TipDelay, 500, 1, 100, 5000, _T(" ms") );
 	Add( _T("Interface"), _T("TipAlpha"), &Interface.TipAlpha, 240, 1, 50, 255 );
 	Add( _T("Interface"), _T("TipDownloads"), &Interface.TipDownloads, true );
@@ -559,7 +559,7 @@ void CSettings::Load()
 	Add( _T("Downloads"), _T("SimpleBar"), &Downloads.SimpleBar, false );
 	Add( _T("Downloads"), _T("SortColumns"), &Downloads.SortColumns, true );
 	Add( _T("Downloads"), _T("SortSources"), &Downloads.SortSources, true );
-	Add( _T("Downloads"), _T("SourcesWanted"), &Downloads.SourcesWanted, 500, 1, 0, 2000 );
+	Add( _T("Downloads"), _T("SourcesWanted"), &Downloads.SourcesWanted, 800, 1, 10, 5000 );
 	Add( _T("Downloads"), _T("SparseThreshold"), &Downloads.SparseThreshold, 8*KiloByte, KiloByte, 0, 256, _T(" MB") );
 	Add( _T("Downloads"), _T("StaggardStart"), &Downloads.StaggardStart, false );
 	Add( _T("Downloads"), _T("StartDroppingFailedSourcesNumber"), &Downloads.StartDroppingFailedSourcesNumber, 20, 1, 0, 50 );

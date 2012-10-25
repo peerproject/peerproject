@@ -3,7 +3,7 @@
 
 <!-- PeerProject Korean Language Skin File -->
 
-<!-- Translation based on default-en.xml r85 --> <!--Machine Translated!-->
+<!-- Translation based on default-en.xml r86 --> <!--Machine Translated!-->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -33,22 +33,22 @@
 		<button id="ID_NETWORK_CONNECT" text="연결"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="집"/>
-		<button id="ID_TAB_SEARCH" text="검색"/>
 		<button id="ID_TAB_TRANSFERS" text="다운로드"/>
 		<button id="ID_TAB_LIBRARY" text="도서관"/>
 		<button id="ID_TAB_MEDIA" text="미디어 플레이어"/>
 		<button id="ID_TAB_IRC" text="IRC 채팅"/>
+		<button id="ID_TAB_SEARCH" text="검색"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
 		<button id="ID_TAB_CONNECT" text="연결"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="홈"/>
-		<button id="ID_TAB_SEARCH" text="검색"/>
 		<button id="ID_TAB_TRANSFERS" text="전학"/>
 		<button id="ID_TAB_NETWORK" text="네트워크"/>
 		<button id="ID_TAB_LIBRARY" text="도서관"/>
-		<button id="ID_TAB_MEDIA" text="미디어 플레이어"/>
+		<button id="ID_TAB_MEDIA" text="미디어"/>
 		<button id="ID_TAB_IRC" text="IRC 채팅"/>
+		<button id="ID_TAB_SEARCH" text="검색"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Windowed">
 		<button id="ID_NETWORK_CONNECT" text="연결"/>
@@ -324,7 +324,7 @@
 		<separator/>
 		<label text="탐색:" tip="Seek to a position in the media file"/>
 		<control id="IDC_MEDIA_POSITION" width="190" height="22"/>
-		<label text="스피드 :" tip="Adjust the speed of the media file"/>
+		<label text="스피드 :" tip="Adjust the speed of media play"/>
 		<control id="IDC_MEDIA_SPEED" width="40" height="22"/>
 		<label text="거래량:" tip="Adjust the audio volume"/>
 		<control id="IDC_MEDIA_VOLUME" width="50" height="22"/>
@@ -366,8 +366,6 @@
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
-		<button id="ID_NETWORK_DC" text="DC++"/>
-		<button id="ID_NETWORK_BT" text="BitTorrent"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="설정"/>
 	</toolbar>
@@ -380,6 +378,8 @@
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
+		<button id="ID_NETWORK_DC" text="DC++"/>
+		<button id="ID_NETWORK_BT" text="BitTorrent"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="설정"/>
 	</toolbar>
@@ -1948,71 +1948,8 @@
 	<string id="20066" value="아주좋음"/>
 	<string id="20080" value="This is a pre-release version of PeerProject, and the beta testing period has ended. Please download the full, official release from http://PeerProject.org/."/>
 	<string id="20081" value="닫기"/>
-<!--
-	<string id="20082" value="Finished, click Close"/>
-	<string id="20083" value="Requesting..."/>
-	<string id="20084" value="Success."/>
-	<string id="20100" value="Closing browse user connection to %s."/>
-	<string id="20101" value="Browse host %s responded with an unrecognised response, and may not support user/host browsing."/>
-	<string id="20102" value="Unable to connect to host to browse user."/>
-	<string id="20103" value="Unable to initiate a connection to %s to browse user."/>
-	<string id="20104" value="Unable to send a push request to %s to browse user."/>
-	<string id="20105" value="Establishing a connection to host..."/>
-	<string id="20106" value="Initiating a connection to %s to browse user..."/>
-	<string id="20107" value="Downloading browse response (%2.f%%)..."/>
-	<string id="20108" value="Receiving content from browse host %s (%s)"/>
-	<string id="20109" value="Browse user connection to %s was dropped."/>
-	<string id="20110" value="Finished browsing user %s, %i files found."/>
-	<string id="20111" value="Found %i shared files in %s's library."/>
-	<string id="20112" value="Browse host %s responded with code %s (%s)."/>
-	<string id="20113" value="Browse host %s responded with an invalid HTTP response."/>
-	<string id="20114" value="Unable to download file listing. This host may not support browsing."/>
-	<string id="20115" value="Error decoding Gnutella packets from browse host %s."/>
-	<string id="20116" value="Sent a push request, waiting for connection..."/>
-	<string id="20117" value="Sent a push request to %s to browse user."/>
-	<string id="20118" value="Connected, requesting browse..."/>
-	<string id="20119" value="Sent browse user request to %s..."/>
-	<string id="20120" value="Closing browse user connection %s due to lack of traffic."/>
-	<string id="20121" value="Browsing %s"/>
-	<string id="20122" value="BitTorrent coupling with %s established for &quot;%s&quot;."/>
-	<string id="20123" value="Incoming connection from %s is a BitTorrent coupling, negotiating..."/>
-	<string id="20124" value="Initiating BitTorrent client coupling with %s..."/>
-	<string id="20125" value="Timed out connecting to BitTorrent client %s."/>
-	<string id="20126" value="BitTorrent coupling with %s was dropped."/>
-	<string id="20127" value="BitTorrent connection to %s was dropped."/>
-	<string id="20128" value="BitTorrent handshake with %s was dropped."/>
-	<string id="20129" value="BitTorrent coupling with %s not accepted, a connection to this client already exists."/>
-	<string id="20130" value="Received %i new BitTorrent sources from %s."/>
-	<string id="20131" value="BitTorrent coupling with %s is extended protocol, identified &quot;%s&quot;."/>
-	<string id="20132" value="Timed out handshaking with BitTorrent client %s."/>
-	<string id="20133" value="Established BitTorrent coupling with %s, handshaking..."/>
-	<string id="20134" value="BitTorrent coupling with %s not accepted, maximum connections reached."/>
-	<string id="20136" value="BitTorrent coupling with %s requested an unknown file."/>
-	<string id="20137" value="BitTorrent coupling with %s responded with the wrong file."/>
-	<string id="20138" value="BitTorrent coupling with %s failed because the remote client has a different Peer ID."/>
-	<string id="20139" value="Closing BitTorrent coupling with %s due to lack of traffic."/>
-	<string id="20140" value="Encoding error"/>
-	<string id="20141" value="Private torrent"/>
-	<string id="20142" value="The torrent &quot;%s&quot; is already on your download list, and cannot be seeded."/>
-	<string id="20143" value="An error occurred while copying from &quot;%s&quot; to a BitTorrent share file."/>
-	<string id="20144" value="Unable to create BitTorrent share file &quot;%s&quot;."/>
-	<string id="20145" value="An unknown error occurred while trying to seed &quot;%s&quot;."/>
-	<string id="20146" value="Error loading the torrent file &quot;%s&quot;. This may not be a valid torrent."/>
-	<string id="20147" value="This torrent includes the file &quot;%s&quot;, but PeerProject cannot find this file in your library. If possible, move the file to the same folder as the torrent and try again."/>
-	<string id="20148" value="This torrent includes the file &quot;%s&quot; which should be %s, however your version of the file is %s."/>
-	<string id="20149" value="An error was detected in the file &quot;%s&quot;."/>
-	<string id="20150" value="Unable to communicate with tracker"/>
-	<string id="20151" value="Tracker failed- Trying next tracker (%i of %i)"/>
-	<string id="20152" value="You have changed the tracker URL for this torrent. Are you sure you want to save this change?\n\nAn invalid tracker URL may prevent further downloading."/>
-	<string id="20153" value="Error from BitTorrent tracker for &quot;%s&quot; : &quot;%s&quot;."/>
-	<string id="20154" value="Error parsing BitTorrent tracker response."/>
-	<string id="20155" value="Received BitTorrent tracker response for &quot;%s&quot;, %i new sources."/>
-	<string id="20158" value="Unable to parse prefetched BitTorrent file &quot;%s&quot;."/>
-	<string id="20159" value="Received BitTorrent descriptor file: &quot;%s&quot;"/>
-	<string id="20160" value="Accepted incoming chat request from %s, handshaking..."/>
-	<string id="20161" value="Unable to create a connection to %s."/>
-	<string id="20162" value="Unable to request a push connection from %s, no route available."/>
--->
+	<!-- Missing Browse Strings -->
+	<!-- Missing BitTorrent Strings -->
 	<string id="20163" value="연결이 닫혔습니다."/>
 	<string id="20164" value="Connection to %s closed."/>
 	<string id="20165" value="Connection established, handshaking..."/>
@@ -2045,185 +1982,14 @@
 	<string id="20196" value="This template does not have any customizations."/>
 	<string id="20197" value="This template is invalid."/>
 	<string id="20199" value="(전송 후 종료)"/>
-<!--
-	<string id="20200" value="Added &quot;%s&quot; to download queue with %i sources."/>
-	<string id="20201" value="The file &quot;%s&quot; is already being downloaded, adding sources."/>
-	<string id="20202" value="Received a faulty push connection from %s, closing connection."/>
-	<string id="20203" value="Boosting download &quot;%s&quot; by removing bandwidth caps."/>
-	<string id="20204" value="Download host %s is busy, retrying in %i seconds."/>
-	<string id="20205" value="Insufficient disk space to download &quot;%s&quot; (%s)."/>
-	<string id="20206" value="Couldn't move download &quot;%s&quot; to &quot;%s&quot;. Check that the incomplete file is not in use, and that your downloads folder exists and is writable."/>
-	<string id="20207" value="Are you sure you want to cancel/abort every download in this group?"/>
-	<string id="20208" value="Closing download connection to %s, no longer required."/>
-	<string id="20209" value="Download host %s sent unsolicited data, closing connection."/>
-	<string id="20210" value="Completed download of &quot;%s&quot;."/>
-	<string id="20211" value="Are you sure you want to clear &quot;%s&quot;.\n\nOnce a download has been cleared from the Downloads window, it cannot be resumed later."/>
-	<string id="20212" value="Are you sure you want to clear all paused downloads? Once a download has been cleared from the Downloads window, it cannot be resumed."/>
-	<string id="20213" value="Are you sure you want to delete the download &quot;%s&quot;."/>
-	<string id="20214" value="Download connection to %s established."/>
-	<string id="20215" value="Initiating a connection to %s port %i to download &quot;%s&quot;..."/>
-	<string id="20216" value="Unable to connect to download host %s."/>
-	<string id="20217" value="Receiving download content from host %s (%s)."/>
-	<string id="20218" value="Aborting download of &quot;%s&quot; from %s (%s), network disabled."/>
-	<string id="20219" value="Download connection to %s was lost."/>
-	<string id="20221" value="Please enter a valid range to erase. The &quot;from&quot; field is the first byte to erase, the &quot;last&quot; field is the last byte to erase."/>
-	<string id="20222" value="You have typed a %s hash value, however it is invalid. Please check it and try again."/>
-	<string id="20223" value="You have provided a %s hash value that is different to the one currently associated with this download. Are you sure you want to change the %s hash now?"/>
-	<string id="20224" value="You have made changes to the name field. Are you sure you want to rename this download?"/>
-	<string id="20225" value="You have made changes to the file size. Are you sure you want to change the file size for this download?"/>
-	<string id="20226" value="You cannot assume this download is complete and reverify it because you do not yet have any partial verification data, such as tiger-tree volume, eDonkey hashset or BitTorrent hashset. Without verification information the download cannot be reverified."/>
-	<string id="20227" value="Are you sure you want to assume this download is complete and reverify it? The whole file will be considered, and PeerProject will accept parts which pass verification and redownload parts which fail verification."/>
-	<string id="20228" value="Are you sure you want to forget the current verification status? All downloaded data will be treated as untrusted, and cached hashtrees and hashsets will be flushed."/>
-	<string id="20229" value="Are you sure you want to forget all sources for the selected download?"/>
-	<string id="20231" value="Unable to erase the selected range from the download because no part of the range is present."/>
-	<string id="20232" value="Erased %I64i bytes from the download."/>
-	<string id="20242" value="Download host %s does not have the file &quot;%s&quot;."/>
-	<string id="20243" value="Creating file &quot;%s&quot; for download."/>
-	<string id="20244" value="Unable to create local file &quot;%s&quot; for download, aborting."/>
-	<string id="20245" value="Unable to open local file &quot;%s&quot; for download, aborting."/>
-	<string id="20246" value="No more download fragments, closing connection to %s."/>
-	<string id="20247" value="Fragment shortened, closing connection to %s."/>
--->	<string id="20248" value="Requesting download fragment (%I64u-%I64u) of &quot;%s&quot; from %s."/>
+	<!-- Missing File Strings -->
 	<string id="20250" value="끌어 다 놓으십시오 %s 그룹에 파일을"/>
 	<string id="20251" value="기본 그룹을 다운로드하십시오. (모두보기 파일)"/>
 	<string id="20252" value="새 그룹"/>
-	<string id="20253" value="Download host's eDonkey hashset is corrupt or internally inconsistent, dropping source."/>
-	<string id="20254" value="Received an invalid eDonkey hashset from %s, dropping source."/>
-	<string id="20255" value="Received eDonkey hashset for &quot;%s&quot;, minimum verifiable chunk %s."/>
-	<string id="20256" value="Requesting eDonkey hashset for &quot;%s&quot; from %s..."/>
-	<string id="20257" value="Unable to initialize inflate for download &quot;%s&quot;."/>
-	<string id="20258" value="Receiving tiger-tree data from %s (%s)..."/>
-	<string id="20259" value="Requesting metadata for &quot;%s&quot; from %s..."/>
+	<!-- Missing Hash Strings -->
 	<string id="20260" value="다운로드 등록"/>
-<!--
-	<string id="20261" value="Download host %s responded with %s (%s)."/>
-	<string id="20262" value="Download host %s responded with an invalid HTTP response."/>
-	<string id="20263" value="Host %s is pushing download &quot;%s&quot;, accepting."/>
-	<string id="20264" value="Sending push request for download &quot;%s&quot;..."/>
-	<string id="20265" value="Download host %s is busy, waiting in queue at position #%i of %i (&quot;%s&quot;.."/>
-	<string id="20266" value="Staying in queue for &quot;%s&quot;."/>
-	<string id="20267" value="Dropping download source %s for &quot;%s&quot; because queue position %i is too high."/>
-	<string id="20268" value="Timed out waiting for queue update from eDonkey download host %s for file &quot;%s&quot;."/>
-	<string id="20269" value="Download request to %s timed out, closing connection."/>
-	<string id="20270" value="Cleared download &quot;%s&quot;."/>
-	<string id="20271" value="Moved &quot;%s&quot; to &quot;%s&quot;, download complete."/>
-	<string id="20272" value="Pausing download of &quot;%s&quot;."/>
-	<string id="20273" value="Resuming download of &quot;%s&quot;."/>
-	<string id="20275" value="Querying for more sources for download &quot;%s&quot; on %i connection(s)..."/>
-	<string id="20276" value="Can't fetch more sources for download &quot;%s&quot; because there is no network connection."/>
-	<string id="20280" value="Download host's tiger-tree data is corrupt or internally inconsistent, ignoring it."/>
-	<string id="20281" value="Download host's tiger-tree does not match expected root value."/>
-	<string id="20282" value="Download host %s could not satisfy the tiger-tree request."/>
-	<string id="20283" value="Received tiger-tree volume for &quot;%s&quot;, %i levels, minimum verifiable chunk %s."/>
-	<string id="20284" value="Receiving tiger-tree volume from %s (%s)..."/>
-	<string id="20285" value="Requesting tiger-tree volume for &quot;%s&quot; from %s..."/>
-	<string id="20286" value="Closing download connection %s due to lack of traffic."/>
-	<string id="20290" value="Download host %s responded with a different, but useful range (%I64i-%I64i) of &quot;%s&quot;."/>
-	<string id="20291" value="Received an unnecessary push connection from %s."/>
-	<string id="20292" value="Dropping source %s (%s) for sending corrupted parts of &quot;%s&quot; (%I64i-%I64i)."/>
-	<string id="20293" value="WARNING: Download &quot;%s&quot; failed verification, it may not be the file you intended to download."/>
-	<string id="20294" value="Successfully verified download &quot;%s&quot;."/>
-	<string id="20295" value="Download host %s's version of &quot;%s&quot; has a different URN, aborting."/>
-	<string id="20296" value="Download host %s responded with a useless byte range of &quot;%s&quot;, pending."/>
-	<string id="20297" value="Download host %s's version of &quot;%s&quot; has a different length, aborting."/>
-	<string id="20300" value="Accepted an incoming connection from %s port %i."/>
-	<string id="20301" value="Already connected to %s, will not establish a second connection."/>
-	<string id="20302" value="Refusing duplicate connection from %s."/>
-	<string id="20303" value="Initiating a neighbor connection to %s port %i..."/>
-	<string id="20304" value="Neighbor %s closed connection (%i : %s)."/>
-	<string id="20305" value="Closed connection with neighbor %s."/>
-	<string id="20306" value="Established a connection with neighbor %s, handshaking..."/>
-	<string id="20307" value="Unable to initiate a neighbor connection with %s."/>
-	<string id="20308" value="Neighbor %s dropped the connection unexpectedly."/>
-	<string id="20309" value="Closed connection with neighbor %s because it is not a hub."/>
-	<string id="20310" value="Unable to initiate a neighbor connection with %s (refused)."/>
-	<string id="20311" value="Timed out connecting to %s."/>
-	<string id="20312" value="Closing connection to neighbor %s due to lack of traffic."/>
-	<string id="20313" value="Querying host discovery services..."/>
-	<string id="20314" value="Discovery service &quot;%s&quot; failed, fail count %i."/>
-	<string id="20315" value="Discovery service &quot;%s&quot; has failed %i times, removing."/>
-	<string id="20316" value="Querying discovery service &quot;%s&quot;..."/>
-	<string id="20317" value="Submitting GWebCache &quot;%s&quot; to a random GWebCache..."/>
-	<string id="20318" value="Sending GWebCache update to service &quot;%s&quot;..."/>
-	<string id="20319" value="GWebCache transaction successful (&quot;%s&quot;.."/>
-	<string id="20320" value="Incoming connection from %s is an eDonkey client link."/>
-	<string id="20321" value="Received a malformatted eDonkey packet from %s (id=%x)."/>
-	<string id="20322" value="eDonkey client connection to %s was idle, closed."/>
-	<string id="20323" value="Initiating eDonkey client connection to %s..."/>
-	<string id="20324" value="Timed out connecting to eDonkey client %s."/>
-	<string id="20325" value="Refusing eDonkey client link from %s because eDonkey is disabled."/>
-	<string id="20326" value="eDonkey client connection to %s was closed."/>
-	<string id="20327" value="Error exchanging handshake with eDonkey client %s."/>
-	<string id="20328" value="Timed out handshaking with eDonkey client %s."/>
-	<string id="20329" value="Sending eDonkey hashset for &quot;%s&quot; to %s..."/>
-	<string id="20330" value="eDonkey client %s has the wrong GUID, aborting handshake."/>
-	<string id="20331" value="This file is already in the PeerProject download list."/>
-	<string id="20332" value="Unable to open part file &quot;%s&quot;."/>
-	<string id="20333" value="Finished copying file."/>
-	<string id="20334" value="Copying &quot;%s&quot; to &quot;%s&quot;..."/>
-	<string id="20335" value="Insufficient disk space to copy download file."/>
-	<string id="20336" value="Created PeerProject partial download, %s remaining."/>
-	<string id="20337" value="Unable to import file."/>
-	<string id="20338" value="Download data file is newer than .part file, aborting."/>
-	<string id="20339" value="Found partial file &quot;%s&quot;, importing..."/>
-	<string id="20340" value="Process complete, %i partial downloads imported successfully."/>
-	<string id="20341" value="Scanning folder: &quot;%s&quot;..."/>
-	<string id="20342" value="Starting eDonkey partial download import process..."/>
-	<string id="20344" value="Found download &quot;%s&quot;, size %s."/>
-	<string id="20345" value="Connected to eDonkey server %s, handshaking..."/>
-	<string id="20346" value="Initiating connection to eDonkey server at %s..."/>
-	<string id="20347" value="eDonkey server %s changed our client ID from %lu to %lu."/>
-	<string id="20348" value="eDonkey server %s identified itself as &quot;%s&quot;."/>
-	<string id="20349" value="ED2K[%s] %s"/>
-	<string id="20350" value="eDonkey server %s online, client ID is %lu."/>
-	<string id="20351" value="eDonkey server %s refused connection."/>
-	<string id="20352" value="eDonkey server %s rejected the connection."/>
-	<string id="20354" value="File Properties"/>
-	<string id="20355" value="Are you sure you wish to delete this filter ?"/>
-	<string id="20356" value="There already is a filter called &quot;%s&quot;, do you want to replace it?"/>
-	<string id="20358" value="Please give your filter a name."/>
-	<string id="20360" value="Connection Errors (%)"/>
-	<string id="20361" value="Download Bandwidth"/>
-	<string id="20362" value="Download File Count"/>
-	<string id="20363" value="Download Transfer Count"/>
-	<string id="20364" value="Gnutella Receive Bandwidth"/>
-	<string id="20365" value="Gnutella Transmit Bandwidth"/>
-	<string id="20366" value="Gnutella Connections (Total)"/>
-	<string id="20367" value="Gnutella Connections (Active)"/>
-	<string id="20368" value="Gnutella Packets Dropped"/>
-	<string id="20369" value="Gnutella Packets Lost"/>
-	<string id="20370" value="Gnutella Packets Received"/>
-	<string id="20371" value="Gnutella Packets Transmitted"/>
-	<string id="20372" value="Gnutella Ratio of Received/Sent Pings"/>
-	<string id="20373" value="Gnutella Ratio of Received/Sent Pongs"/>
-	<string id="20374" value="Gnutella Queries Incoming"/>
-	<string id="20375" value="Gnutella Queries Processed"/>
-	<string id="20376" value="Gnutella Packets Routed"/>
-	<string id="20377" value="Total Generic Receive Bandwidth"/>
-	<string id="20378" value="Total Generic Transmit Bandwidth"/>
-	<string id="20379" value="Total TCP Receive Bandwidth"/>
-	<string id="20380" value="Total TCP Transmit Bandwidth"/>
-	<string id="20381" value="Total UDP Receive Bandwidth"/>
-	<string id="20382" value="Total UDP Transmit Bandwidth"/>
-	<string id="20383" value="Upload Bandwidth"/>
-	<string id="20384" value="Upload Transfer Count"/>
-	<string id="20385" value="Connecting neighbor %s falling back to shielded leaf mode."/>
-	<string id="20386" value="Closing surplus connection from %s with host hint (%s port %i)."/>
-	<string id="20387" value="Hub neighbor %s won't accept us as a hub, closing connection."/>
-	<string id="20388" value="Handshake with %s failed due to invalid data on the wire."/>
-	<string id="20389" value="Acting as a hub for leaf neighbor %s."/>
-	<string id="20390" value="Hub connection established, closing peer connections."/>
-	<string id="20391" value="Refusing connection from %s because this is a shielded leaf node."/>
-	<string id="20392" value="Neighbor %s is not a hub, closing connection."/>
-	<string id="20393" value="Closing connection to non-Gnutella2 neighbor %s."/>
-	<string id="20394" value="Neighbor %s wants to be a hub, closing connection."/>
-	<string id="20395" value="Gnutella connection with neighbor %s established successfully (G%i.%i : %s)."/>
-	<string id="20396" value="Gnutella2 connection with neighbor %s established successfully (%s)."/>
-	<string id="20397" value="Connection to %s rejected (%s)."/>
-	<string id="20398" value="Closing surplus connection from %s."/>
-	<string id="20399" value="Timed out handshaking with %s."/>
-	<string id="20400" value="PeerProject is creating hashes for %Iu files:"/>
--->
+	<!-- Missing Connection Strings -->
+	<!-- <string id="20400" value="PeerProject is creating hashes for %Iu files:"/> -->
 	<string id="20401" value="나의 선택을 다음 번에 기억"/>
 	<string id="20402" value="추가"/>
 	<string id="20403" value="채"/>

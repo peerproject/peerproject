@@ -25,7 +25,7 @@
 class CPeerProjectFile;
 class CBTInfo;
 class CDownload;
-
+class CDownloadTask;
 
 class CFragmentedFile : public CObject
 {
@@ -177,7 +177,7 @@ public:
 	// Delete file(s)
 	void	Delete();
 	// Move file to destination. Returns 0 on success or file error number.
-	DWORD	Move(DWORD nIndex, LPCTSTR pszDestination, LPPROGRESS_ROUTINE lpProgressRoutine = NULL, LPVOID lpData = NULL);
+	DWORD	Move(DWORD nIndex, LPCTSTR pszDestination, LPPROGRESS_ROUTINE lpProgressRoutine = NULL, CDownloadTask* pTask = NULL);
 	BOOL	Write(QWORD nOffset, LPCVOID pData, QWORD nLength, QWORD* pnWritten = NULL);
 	BOOL	Read(QWORD nOffset, LPVOID pData, QWORD nLength, QWORD* pnRead = NULL);
 	QWORD	InvalidateRange(QWORD nOffset, QWORD nLength);

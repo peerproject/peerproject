@@ -1,7 +1,7 @@
 //
 // DownloadSource.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -80,14 +80,14 @@ public:
 	DWORD				m_nSortOrder;			// How should this source be sorted in the list?
 	DWORD				m_tAttempt;
 	BOOL				m_bKeep;				// Source keeped by NeverDrop == TRUE flag
-	int					m_nFailures;			// failure count.
-	int					m_nBusyCount;			// busy count. (used for incrementing RetryDelay)
+	int					m_nFailures;			// Failure count.
+	int					m_nBusyCount;			// Busy count. (used for incrementing RetryDelay)
 	int					m_nRedirectionCount;
 	Fragments::List		m_oAvailable;
 	Fragments::List		m_oPastFragments;
 
+	CString				m_sPreview;				// If empty it has the default /gnutella/preview/v1?urn:xyz format
 	BOOL				m_bPreview;				// Does the user allow previews?
-	CString				m_sPreview;				// if empty it has the default /gnutella/preview/v1?urn:xyz format
 	BOOL				m_bPreviewRequestSent;
 	BOOL				m_bMetaIgnore;			// Ignore metadata from this source (for example already got)
 
@@ -97,7 +97,7 @@ public:
 	void		Serialize(CArchive& ar, int nVersion);	// DOWNLOAD_SER_VERSION
 	BOOL		CanInitiate(BOOL bNetwork, BOOL bEstablished);
 	// Remove source from download, add it to failed sources if bBan == TRUE, and destroy source itself
-	void		Remove(BOOL bCloseTransfer = TRUE, BOOL bBan = FALSE);
+	void		Remove(BOOL bCloseTransfer = TRUE, BOOL bBan = FALSE, DWORD nRetryAfter = 0);
 	void		OnFailure(BOOL bNondestructive, DWORD nRetryAfter = 0);
 	DWORD		CalcFailureDelay(DWORD nRetryAfter = 0) const;
 	void		OnResume();
@@ -124,7 +124,7 @@ public:
 	// Draw complete source or draw transfer bar only
 	void		Draw(CDC* pDC, CRect* prcBar, COLORREF crNatural);
 	void		Draw(CDC* pDC, CRect* prcBar);
-	void		Close();	// Close source transfer
+	void		Close(DWORD nRetryAfter = 0);	// Close source transfer
 
 	CDownloadTransfer*	CreateTransfer(LPVOID pParam = NULL);
 

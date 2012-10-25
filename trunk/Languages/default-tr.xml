@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Turkish Skin File -->
 
-<!-- Translation based on default-en.xml r85 -->
+<!-- Translation based on default-en.xml r86 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -33,21 +33,21 @@
 		<button id="ID_NETWORK_CONNECT" text="Bağlan"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Ana Sayfa"/>
-		<button id="ID_TAB_SEARCH" text="Arama"/>
 		<button id="ID_TAB_TRANSFERS" text="İndirmeler"/>
 		<button id="ID_TAB_LIBRARY" text="Kütüphane"/>
 		<button id="ID_TAB_MEDIA" text="Ortam"/>
+		<button id="ID_TAB_SEARCH" text="Arama"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
 		<button id="ID_TAB_CONNECT" text="Bağlan"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Ana Sayfa"/>
-		<button id="ID_TAB_SEARCH" text="Arama"/>
 		<button id="ID_TAB_TRANSFERS" text="Transferler"/>
 		<button id="ID_TAB_NETWORK" text="Ağ"/>
 		<button id="ID_TAB_LIBRARY" text="Kütüphane"/>
 		<button id="ID_TAB_MEDIA" text="Ortam"/>
 		<button id="ID_TAB_IRC" text="IRC"/>
+		<button id="ID_TAB_SEARCH" text="Arama"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Windowed">
 		<button id="ID_NETWORK_CONNECT" text="Bağlan"/>

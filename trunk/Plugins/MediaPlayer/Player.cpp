@@ -1,7 +1,7 @@
 //
 // Player.cpp : Implementation of CPlayer
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions Copyright Shareaza Development Team, 2009.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -60,28 +60,28 @@ STDMETHODIMP CPlayer::Create(/*[in]*/ HWND hWnd)
 	if ( SUCCEEDED( hr ) )
 	{
 		m_pControl = m_pGraph;
-		if (!m_pControl)
+		if ( ! m_pControl )
 			hr = E_NOINTERFACE;
 	}
 
 	if ( SUCCEEDED( hr ) )
 	{
 		m_pEvent = m_pGraph;
-		if (!m_pEvent)
+		if ( ! m_pEvent )
 			hr = E_NOINTERFACE;
 	}
 
 	if ( SUCCEEDED( hr ) )
 	{
 		m_pVideo = m_pGraph;
-		if (!m_pVideo)
+		if ( ! m_pVideo )
 			hr = E_NOINTERFACE;
 	}
 
 	if ( SUCCEEDED( hr ) )
 	{
 		m_pWindow = m_pGraph;
-		if (!m_pWindow)
+		if ( ! m_pWindow )
 			hr = E_NOINTERFACE;
 	}
 
@@ -142,6 +142,10 @@ STDMETHODIMP CPlayer::SetLogoBitmap(/*[in]*/ HBITMAP hLogo)
 	return E_NOTIMPL;
 }
 
+// ToDo: Better scale conversion?
+// -10,000 to 0 decibal scale, silent below ~6000
+#define AUDIO_FLOOR 6200.
+
 STDMETHODIMP CPlayer::GetVolume(/*[out]*/ DOUBLE *pnVolume)
 {
 	if ( ! pnVolume )
@@ -163,11 +167,11 @@ STDMETHODIMP CPlayer::GetVolume(/*[out]*/ DOUBLE *pnVolume)
 	if ( FAILED( hr ) )
 		return hr;
 
-	// Convert -10,000 to 0 ->  0.0 to 1.0
-	if ( lVolume < -6000. )
-		*pnVolume = 0;
-	else
-		*pnVolume = ( lVolume + 6000. ) / 6000.;
+	// Convert -10,000-0 to 0.0-1.0
+	*pnVolume =
+		( lVolume > -10. ) ? 1 :
+		( lVolume <= -AUDIO_FLOOR ) ? 0 :
+		( lVolume + AUDIO_FLOOR ) / AUDIO_FLOOR;
 
 	return S_OK;
 }
@@ -177,14 +181,19 @@ STDMETHODIMP CPlayer::SetVolume(/*[in]*/ DOUBLE nVolume)
 	if ( ! m_pGraph )
 		return E_INVALIDARG;
 
-	// ToDo: Use IAudioClient under Windows Vista
+	// ToDo: Use IAudioClient under Windows Vista+
 
 	CComQIPtr< IBasicAudio > pAudio( m_pGraph );
 	if ( ! pAudio )
 		return E_NOINTERFACE;
 
-	// Convert 0.0 to 1.0 ->  -10,000 to 0 Format
-	return pAudio->put_Volume( (long)( ( nVolume * 6000. ) - 6000. ) );
+	// Convert 0.0-1.0 to -10,000-0
+	long lVolume = (long)(
+		( nVolume > 0.99 ) ? 0 :
+		( nVolume < 0.01 ) ? -AUDIO_FLOOR :
+		( nVolume * AUDIO_FLOOR - AUDIO_FLOOR ) );
+
+	return pAudio->put_Volume( lVolume );
 }
 
 STDMETHODIMP CPlayer::GetZoom(/*[out]*/ MediaZoom *pnZoom)
@@ -313,8 +322,7 @@ STDMETHODIMP CPlayer::Open(/*[in]*/ BSTR sFilename)
 		else
 		{
 			m_bAudioOnly = FALSE;
-			hr = m_pWindow->put_WindowStyle( WS_CHILD | WS_VISIBLE |
-				WS_CLIPSIBLINGS | WS_CLIPCHILDREN );
+			hr = m_pWindow->put_WindowStyle( WS_CHILD | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_VISIBLE );
 			m_pWindow->put_Owner( (OAHWND)m_hwndOwner );
 		}
 	}
@@ -389,7 +397,7 @@ STDMETHODIMP CPlayer::GetState(/*[out]*/ MediaState *pnState)
 		return S_OK;
 
 	OAFilterState st = State_Stopped;
-	if ( SUCCEEDED( m_pControl->GetState( 250, &st ) ) )
+	if ( SUCCEEDED( m_pControl->GetState( 500, &st ) ) )
 	{
 		switch ( st )
 		{
@@ -455,8 +463,7 @@ STDMETHODIMP CPlayer::SetPosition(/*[in]*/ LONGLONG nPosition)
 		NULL, AM_SEEKING_NoPositioning );
 }
 
-STDMETHODIMP CPlayer::GetSpeed(
-	/* [out] */ DOUBLE *pnSpeed)
+STDMETHODIMP CPlayer::GetSpeed(/*[out]*/ DOUBLE *pnSpeed)
 {
 	if ( ! pnSpeed )
 		return E_POINTER;

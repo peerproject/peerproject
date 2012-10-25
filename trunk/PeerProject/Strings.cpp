@@ -313,17 +313,20 @@ CString URLEncode(LPCTSTR pszInputT)
 	if ( nUTF8 < 2 ) return strOutput;
 
 	// Make a new array of CHARs which is nUTF8 bytes long
-	LPSTR pszUTF8 = new CHAR[ static_cast< UINT>( nUTF8 ) ];
+	//LPSTR pszUTF8 = new CHAR[ static_cast< UINT>( nUTF8 ) ];	// Obsolete
+	CAutoVectorPtr< CHAR >pszUTF8( new CHAR[ static_cast< UINT>( nUTF8 ) ] );
+	if ( ! pszUTF8 )
+		return strOutput;	// Out of memory
 
 	// Call WideCharToMultiByte again, this time it has the output buffer and will actually do the conversion
 	WideCharToMultiByte( CP_UTF8, 0, pszInputT, -1, pszUTF8, nUTF8, NULL, NULL );
 
 	// Set the null terminator in pszUTF8 to right where you think it should be, and point a new character pointer at it
 	pszUTF8[ nUTF8 - 1 ] = 0;
-	LPCSTR pszInput = pszUTF8;
+	const CHAR* __restrict pszInput = pszUTF8;
 
 	// Get the character buffer inside the output string, specifying how much larger to make it
-	LPTSTR pszOutput = strOutput.GetBuffer( static_cast< int >( ( nUTF8 - 1 ) * 3 + 1 ) );	// Times 3 in case every character gets encoded
+	TCHAR* __restrict pszOutput = strOutput.GetBuffer( static_cast< int >( ( nUTF8 - 1 ) * 3 + 1 ) );	// Times 3 in case every character gets encoded
 
 	// Loop for each character of input text
 	for ( ; *pszInput ; pszInput++ )
@@ -346,9 +349,6 @@ CString URLEncode(LPCTSTR pszInputT)
 	// Null terminate the output text, and then close our direct manipulation of the string
 	*pszOutput = 0;
 	strOutput.ReleaseBuffer();			// Closes the string so Windows can start managing its memory for us again
-
-	// Free the memory we allocated with the new keyword above
-	delete [] pszUTF8;
 
 	// Return the URL-encoded, %20-filled text
 	return strOutput;
@@ -381,14 +381,14 @@ CString URLDecode(__in_bcount(nInput) LPCSTR psInput, __in int nInput)
 }
 
 // Decodes a properly formatted URI, then UTF-8 decodes it
-CString URLDecodeANSI(LPCTSTR pszInput)
+CString URLDecodeANSI(const TCHAR* __restrict pszInput)
 {
 	TCHAR szHex[3] = { 0, 0, 0 };		// A 3 character long array filled with 3 null terminators
 	CStringA strOutput;					// The output string, which starts out blank
 	int nHex;							// The hex code of the character we found
 
 	int nLength = (int)_tcslen( pszInput );
-	LPSTR pszOutput = strOutput.GetBuffer( nLength + 1 );
+	CHAR* __restrict pszOutput = strOutput.GetBuffer( nLength + 1 );
 
 	// Loop for each character of input text
 	for ( ; *pszInput ; pszInput++ )
@@ -479,14 +479,14 @@ CString URLDecodeANSI(LPCTSTR pszInput)
 }
 
 // Decodes encoded characters in a unicode string
-CString URLDecodeUnicode(LPCTSTR pszInput)
+CString URLDecodeUnicode(const TCHAR* __restrict pszInput)
 {
 	TCHAR szHex[3] = { 0, 0, 0 };		// A 3 character long array filled with 3 null terminators
 	CString strOutput;					// The output string, which starts out blank
 	int nHex;							// The hex code of the character we found
 
 	int nLength = (int)_tcslen( pszInput );
-	LPTSTR pszOutput = strOutput.GetBuffer( nLength + 1 );
+	TCHAR* __restrict pszOutput = strOutput.GetBuffer( nLength + 1 );
 
 	// Loop for each character of input text
 	for ( ; *pszInput ; ++pszInput )
@@ -715,7 +715,11 @@ CString LoadFile(LPCTSTR pszPath)
 	if ( nByte > 4096 * 1024 )
 		return strXML;	// File too big (>4MB)
 
-	BYTE* pBuf = new BYTE[ nByte ];
+	//BYTE* pBuf = new BYTE[ nByte ];	// Obsolete
+	CAutoVectorPtr< BYTE >pBuf( new BYTE[ nByte ] );
+	if ( ! pBuf )
+		return strXML;	// Out of memory
+
 	try
 	{
 		pFile.Read( pBuf, nByte );
@@ -725,7 +729,7 @@ CString LoadFile(LPCTSTR pszPath)
 		// File read error
 		pFile.Abort();
 		pException->Delete();
-		delete [] pBuf;
+		//delete [] pBuf;	// Obsolete
 		return strXML;
 	}
 	pFile.Close();
@@ -764,7 +768,7 @@ CString LoadFile(LPCTSTR pszPath)
 
 		strXML = UTF8Decode( (LPCSTR)pByte, nByte );
 	}
-	delete [] pBuf;
+	//delete [] pBuf;	// Obsolete
 
 	return strXML;
 }
@@ -1076,7 +1080,7 @@ CString Escape(const CString& strValue)
 	return bChanged ? strXML : strValue;
 }
 
-CString Unescape(LPCTSTR pszXML, int nLength)
+CString Unescape(const TCHAR* __restrict pszXML, int nLength)
 {
 	CString strValue;
 
@@ -1086,40 +1090,38 @@ CString Unescape(LPCTSTR pszXML, int nLength)
 	if ( nLength < 0 )
 		nLength = (int)_tcslen( pszXML );
 
-	LPTSTR pszValue = strValue.GetBuffer( nLength + 4 );
-	LPTSTR pszOut = pszValue;
-	LPTSTR pszNull = (LPTSTR)pszXML + nLength;
-	TCHAR cNull = *pszNull;
-	*pszNull = 0;
+	TCHAR* __restrict pszValue = strValue.GetBuffer( nLength + 4 );
+	TCHAR* __restrict pszOut = pszValue;
+	const TCHAR* __restrict pszNull = pszXML + nLength;
 
-	while ( *pszXML && pszXML < pszNull )
+	while ( pszXML < pszNull && *pszXML )
 	{
 		if ( IsSpace( *pszXML ) && *pszXML != 0xa0 )	// Keep non-breaking space
 		{
 			if ( pszValue != pszOut ) *pszOut++ = ' ';
 			pszXML++;
 			while ( *pszXML && IsSpace( *pszXML ) && *pszXML != 0xa0 ) pszXML++;
-			if ( ! *pszXML || pszXML >= pszNull ) break;
+			if ( pszXML >= pszNull || ! *pszXML ) break;
 		}
 
 		if ( *pszXML == '&' )
 		{
 			pszXML++;
-			if ( ! *pszXML || pszXML >= pszNull ) break;
+			if ( pszXML >= pszNull || ! *pszXML ) break;
 
 			// http://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references
 
 			if ( *pszXML == '#' )
 			{
 				pszXML++;
-				if ( ! *pszXML || pszXML >= pszNull || ! _istdigit( *pszXML ) ) break;
+				if ( pszXML >= pszNull || ! *pszXML || ! _istdigit( *pszXML ) ) break;
 
 				int nChar;
 				if ( _stscanf( pszXML, _T("%lu;"), &nChar ) == 1 )
 				{
 					*pszOut++ = (TCHAR)nChar;
 					while ( *pszXML && *pszXML != ';' ) pszXML++;
-					if ( ! *pszXML || pszXML >= pszNull ) break;
+					if ( pszXML >= pszNull || ! *pszXML ) break;
 					pszXML++;
 				}
 			}
@@ -1165,8 +1167,6 @@ CString Unescape(LPCTSTR pszXML, int nLength)
 	}
 
 	ASSERT( pszNull == pszXML );
-	*pszNull = cNull;
-
 	ASSERT( pszOut - pszValue <= nLength );
 	strValue.ReleaseBuffer( (int)( pszOut - pszValue ) );
 

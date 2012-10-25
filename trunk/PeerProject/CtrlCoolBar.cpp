@@ -72,7 +72,7 @@ CCoolBarCtrl::CCoolBarCtrl()
 	, m_bBold		( FALSE )
 	, m_bDragForward( FALSE )
 	, m_pSyncObject	( NULL )
-//	, m_tLastUpdate ( 0 )		// Using static
+	, m_tLastUpdate ( 0 )		// No static
 	, m_tHoverTime	( 0 )
 	, m_bBuffered	( FALSE )
 	, m_bMenuGray	( FALSE )
@@ -699,10 +699,10 @@ HBRUSH CCoolBarCtrl::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 
 void CCoolBarCtrl::OnUpdateCmdUI(CFrameWnd* pTarget, BOOL bDisableIfNoHndler)
 {
-	static DWORD tNextUpdate = 0;
+//	static DWORD tLastUpdate = 0;	// No static
 	const DWORD tNow = GetTickCount();
-	if ( tNow < tNextUpdate ) return;	// Only refresh occasionally (Thrice per second?)
-	tNextUpdate = tNow + Settings.Interface.RefreshRateUI;			// Was m_tLastUpdate
+	if ( tNow < m_tLastUpdate + Settings.Interface.RefreshRateUI ) return;		// Only refresh occasionally (~3/5x second?)
+	m_tLastUpdate = tNow;
 
 	UINT nIndex		= 0;
 	BOOL bChanged	= FALSE;

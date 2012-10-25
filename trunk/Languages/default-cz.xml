@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Czech Skin File -->
 
-<!-- Translation based on default-en.xml r85 --> <!-- (Shareaza 2.2.5.7) -->
+<!-- Translation based on default-en.xml r86 --> <!-- (Shareaza 2.2.5.7) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -33,21 +33,21 @@
 		<button id="ID_NETWORK_CONNECT" text="Připojit"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Hlavní"/>
-		<button id="ID_TAB_SEARCH" text="Hledat"/>
 		<button id="ID_TAB_TRANSFERS" text="Stahování"/>
 		<button id="ID_TAB_LIBRARY" text="Knihovna"/>
 		<button id="ID_TAB_MEDIA" text="Přehrávač"/>
+		<button id="ID_TAB_SEARCH" text="Hledat"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
 		<button id="ID_TAB_CONNECT" text="Připojit"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Hlavní"/>
-		<button id="ID_TAB_SEARCH" text="Hledat"/>
 		<button id="ID_TAB_TRANSFERS" text="Přenos"/>
 		<button id="ID_TAB_NETWORK" text="Síť"/>
 		<button id="ID_TAB_LIBRARY" text="Knihovna"/>
 		<button id="ID_TAB_MEDIA" text="Přehrávač"/>
 		<button id="ID_TAB_IRC" text="IRC"/>
+		<button id="ID_TAB_SEARCH" text="Hledat"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Windowed">
 		<button id="ID_NETWORK_CONNECT" text="Připojit"/>

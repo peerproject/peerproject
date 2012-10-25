@@ -91,7 +91,7 @@ public:
 	BOOL			AddSourceBT(const Hashes::BtGuid& oGUID, const IN_ADDR* pAddress, WORD nPort);
 	BOOL			AddSourceURL(LPCTSTR pszURL, BOOL bURN = FALSE, FILETIME* pLastSeen = NULL, int nRedirectionCount = 0, BOOL bFailed = FALSE);
 	int				AddSourceURLs(LPCTSTR pszURLs, BOOL bURN = FALSE, BOOL bFailed = FALSE);
-	void			RemoveSource(const CDownloadSource* pSource, BOOL bBan);
+	void			RemoveSource(CDownloadSource* pSource, BOOL bBan);
 					// Remove source from list, add it to failed sources if bBan == TRUE, and destroy source itself
 
 	virtual BOOL	OnQueryHits(const CQueryHit* pHits);
@@ -112,7 +112,7 @@ protected:
 	void			RemoveOverlappingSources(QWORD nOffset, QWORD nLength);
 	void			SortSource(CDownloadSource* pSource, BOOL bTop);
 	void			SortSource(CDownloadSource* pSource);
-	void			InternalAdd(const CDownloadSource* pSource);		// Add new source to list, update counters
-	void			InternalRemove(const CDownloadSource* pSource);		// Remove existing source from list, update counters
+	void			InternalAdd(CDownloadSource* pSource);			// Add new source to list, update counters
+	void			InternalRemove(CDownloadSource* pSource);		// Remove existing source from list, update counters
 	void			VoteSource(LPCTSTR pszUrl, bool bPositively);
 };

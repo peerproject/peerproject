@@ -518,14 +518,15 @@
 <toolbars>
 
 <toolbar name="CMediaFrame">
- <control id="117" width="308" height="18"/>
+ <control id="114" width="308" height="18"/>
  <button id="ID_MEDIA_STOP"/>
  <button id="ID_MEDIA_PREVIOUS"/>
  <button id="ID_MEDIA_PLAY"/>
  <button id="ID_MEDIA_PAUSE" visible="false"/>
  <button id="ID_MEDIA_NEXT"/>
+ <button id="ID_MEDIA_MUTE"/>
    <rightAlign/>
- <control id="119" width="70" height="18"/>
+ <control id="116" width="70" height="18"/>
  <separator/>
  <button id="ID_MEDIA_ZOOM"/>
  <button id="ID_MEDIA_VIS"/>
@@ -558,6 +559,7 @@
  <image id="ID_MEDIA_STOP"/>
  <image id="ID_MEDIA_PREVIOUS"/>
  <image id="ID_MEDIA_NEXT"/>
+ <image id="ID_MEDIA_MUTE"/>
  <image id="ID_CHILD_CLOSE" id1="ID_NETWORK_EXIT"/>
  <image id="ID_SEARCH_SEARCH" id1="ID_TAB_SEARCH" id2="ID_NETWORK_SEARCH" id3="ID_LIBRARY_SEARCH_QUICK" id4="IDR_SEARCHFRAME"
 	id5="ID_VIEW_SEARCH_MONITOR" id6="ID_HITMONITOR_SEARCH" id7="ID_VIEW_RESULTS_MONITOR" id8="ID_DOWNLOADS_SOURCES"/>

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Traditional) Skin File -->
 
-<!-- Translation based on default-en.xml r85 --> <!-- (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r86 --> <!-- (Shareaza 2.2.2.12) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -33,21 +33,21 @@
 		<button id="ID_NETWORK_CONNECT" text="連線"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="主頁"/>
-		<button id="ID_TAB_SEARCH" text="搜尋"/>
 		<button id="ID_TAB_TRANSFERS" text="下載"/>
 		<button id="ID_TAB_LIBRARY" text="收藏"/>
 		<button id="ID_TAB_MEDIA" text="多媒體"/>
+		<button id="ID_TAB_SEARCH" text="搜尋"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
 		<button id="ID_TAB_CONNECT" text="連線"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="主頁"/>
-		<button id="ID_TAB_SEARCH" text="搜尋"/>
 		<button id="ID_TAB_TRANSFERS" text="傳輸"/>
 		<button id="ID_TAB_NETWORK" text="網路"/>
 		<button id="ID_TAB_LIBRARY" text="收藏"/>
 		<button id="ID_TAB_MEDIA" text="多媒體"/>
 		<button id="ID_TAB_IRC" text="IRC"/>
+		<button id="ID_TAB_SEARCH" text="搜尋"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Windowed">
 		<button id="ID_NETWORK_CONNECT" text="連線"/>

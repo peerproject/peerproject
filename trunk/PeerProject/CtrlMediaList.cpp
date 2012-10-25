@@ -20,6 +20,7 @@
 #include "Settings.h"
 #include "PeerProject.h"
 #include "CtrlMediaList.h"
+#include "WndMedia.h"
 #include "Library.h"
 #include "AlbumFolder.h"
 #include "SharedFile.h"
@@ -89,8 +90,10 @@ END_MESSAGE_MAP()
 // CMediaListCtrl construction
 
 CMediaListCtrl::CMediaListCtrl()
-	: m_pDragImage		 ( NULL )
-	, m_bCreateDragImage ( FALSE )
+	: m_pDragImage		( NULL )
+	, m_bCreateDragImage( FALSE )
+//	, m_nSelectedCount	( 0 )	// Using static
+//	, m_tLastUpdate		( 0 )	// Using static
 {
 }
 
@@ -303,6 +306,7 @@ int CMediaListCtrl::GetCount()
 void CMediaListCtrl::Clear()
 {
 	DeleteAllItems();
+
 	SetCurrent( -1 );
 }
 
@@ -385,7 +389,9 @@ void CMediaListCtrl::Reset(BOOL bNext)
 
 CString CMediaListCtrl::GetPath(int nItem)
 {
-	if ( nItem < 0 || nItem >= GetItemCount() ) return CString();
+	if ( nItem < 0 || nItem >= GetItemCount() )
+		return CString();
+
 	return GetItemText( nItem, 1 );
 }
 
@@ -422,26 +428,29 @@ void CMediaListCtrl::OnSize(UINT nType, int cx, int cy)
 
 void CMediaListCtrl::OnCustomDraw(NMHDR* pNotify, LRESULT* pResult)
 {
-	if ( ((NMLVCUSTOMDRAW*) pNotify)->nmcd.dwDrawStage == CDDS_PREPAINT )
+	NMLVCUSTOMDRAW* pDraw = (NMLVCUSTOMDRAW*)pNotify;
+//	int nItem = (int)pDraw->nmcd.dwItemSpec;
+
+	if ( pDraw->nmcd.dwDrawStage == CDDS_PREPAINT )
 	{
 		*pResult = CDRF_NOTIFYITEMDRAW;
 	}
-	else if ( ((NMLVCUSTOMDRAW*) pNotify)->nmcd.dwDrawStage == CDDS_ITEMPREPAINT )
+	else if ( pDraw->nmcd.dwDrawStage == CDDS_ITEMPREPAINT )
 	{
-		if ( GetItemState( static_cast< int >( ((NMLVCUSTOMDRAW*) pNotify)->nmcd.dwItemSpec ), LVIS_SELECTED ) == 0 &&
-			 GetItemState( static_cast< int >( ((NMLVCUSTOMDRAW*) pNotify)->nmcd.dwItemSpec ), STATE_CURRENT ) != 0 )
+		if ( GetItemState( static_cast< int >( pDraw->nmcd.dwItemSpec ), LVIS_SELECTED ) == 0 &&
+			 GetItemState( static_cast< int >( pDraw->nmcd.dwItemSpec ), STATE_CURRENT ) != 0 )
 		{
-			((NMLVCUSTOMDRAW*) pNotify)->clrText	= Colors.m_crMediaPanelActiveText;
-			((NMLVCUSTOMDRAW*) pNotify)->clrTextBk	= Colors.m_crMediaPanelActiveBack;
+			pDraw->clrText		= Colors.m_crMediaPanelActiveText;
+			pDraw->clrTextBk	= Colors.m_crMediaPanelActiveBack;
 		}
 		else
 		{
-			((NMLVCUSTOMDRAW*) pNotify)->clrText	= Colors.m_crMediaPanelText;
-			((NMLVCUSTOMDRAW*) pNotify)->clrTextBk	= Colors.m_crMediaPanelBack;
+			pDraw->clrText		= Colors.m_crMediaPanelText;
+			pDraw->clrTextBk	= Colors.m_crMediaPanelBack;
 		}
 
 		if ( m_bCreateDragImage )
-			((NMLVCUSTOMDRAW*) pNotify)->clrTextBk = DRAG_COLOR_KEY;
+			pDraw->clrTextBk = DRAG_COLOR_KEY;
 
 		*pResult = CDRF_DODEFAULT;
 	}
@@ -605,13 +614,15 @@ void CMediaListCtrl::OnLButtonUp(UINT nFlags, CPoint point)
 
 BOOL CMediaListCtrl::AreSelectedFilesInLibrary()
 {
-	CQuickLock oLock( Library.m_pSection );
 	if ( GetSelectedCount() )
 	{
 		// If at least one selected file is in the library then enable
 		for ( int nItem = -1 ; ( nItem = GetNextItem( nItem, LVIS_SELECTED ) ) >= 0 ; )
 		{
-			if ( CLibraryFile* pFile = LibraryMaps.LookupFileByPath( GetPath( nItem ) ) )
+			CString strPath = GetPath( nItem );
+
+			CQuickLock oLock( Library.m_pSection );
+			if ( CLibraryFile* pFile = LibraryMaps.LookupFileByPath( strPath ) )
 				return TRUE;
 		}
 	}
@@ -622,10 +633,12 @@ void CMediaListCtrl::ShowFilePropertiesDlg( int nPage )
 {
 	CFilePropertiesSheet dlg;
 
-	CQuickLock oLock( Library.m_pSection );
 	for ( int nItem = -1 ; ( nItem = GetNextItem( nItem, LVIS_SELECTED ) ) >= 0 ; )
 	{
-		if ( CLibraryFile* pFile = LibraryMaps.LookupFileByPath( GetPath( nItem ) ) )
+		CString strPath = GetPath( nItem );
+
+		CQuickLock oLock( Library.m_pSection );
+		if ( CLibraryFile* pFile = LibraryMaps.LookupFileByPath( strPath ) )
 			dlg.Add( pFile );
 	}
 
@@ -712,7 +725,7 @@ void CMediaListCtrl::OnMediaAddFolder()
 {
 	if ( ! AfxGetMainWnd()->IsWindowEnabled() ) return;
 
-	CString strPath( BrowseForFolder( _T("Select folder to add to playlist:") ) );
+	CString strPath( BrowseForFolder( LoadString( ID_MEDIA_ADD_FOLDER ) ) );	// "Select folder to add to playlist:"
 	if ( strPath.IsEmpty() )
 		return;
 
@@ -816,18 +829,21 @@ void CMediaListCtrl::OnUpdateMediaCollection(CCmdUI* pCmdUI)
 {
 	pCmdUI->Enable( GetItemCount() > 0 && GetItemCount() <= 200 );
 }
+
 void CMediaListCtrl::OnMediaCollection()
 {
 	// The album title name is a collection folder name
 	// Leave it empty to have the collection mounted under collections folder
 
-	CAlbumFolder* pCollection = new CAlbumFolder( NULL, NULL, _T(""), TRUE );
-
+	//CAlbumFolder* pCollection = new CAlbumFolder( NULL, NULL, _T(""), TRUE );		// Obsolete
+	CAutoPtr< CAlbumFolder > pCollection( new CAlbumFolder( NULL, NULL, _T(""), TRUE ) );
+	if ( pCollection )
 	{
-		CQuickLock oLock( Library.m_pSection );
 		for ( int nItem = GetItemCount() - 1 ; nItem >= 0 ; nItem-- )
 		{
 			CString strPath = GetPath( nItem );
+
+			CQuickLock oLock( Library.m_pSection );
 			if ( CLibraryFile* pFile = LibraryMaps.LookupFileByPath( strPath, FALSE, TRUE ) )
 				pCollection->AddFile( pFile );
 		}
@@ -835,7 +851,7 @@ void CMediaListCtrl::OnMediaCollection()
 
 	CCollectionExportDlg dlg( pCollection );
 	dlg.DoModal();
-	delete pCollection;
+//	delete pCollection;		// Obsolete
 }
 
 void CMediaListCtrl::OnSkinChange()

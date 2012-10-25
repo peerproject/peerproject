@@ -1483,12 +1483,15 @@ BOOL CBTClient::OnUtPex(CBTPacket* pPacket)
 		{
 			const BYTE* pPointer = (const BYTE*)pPeersAdd->m_pValue;
 
-			for ( int nPeer = (int)pPeersAdd->m_nValue / 6 ; nPeer > 0 ; nPeer --, pPointer += 6 )
+			for ( int nPeer = (int)pPeersAdd->m_nValue / 6, nMax = Settings.Downloads.SourcesWanted ;
+				  nPeer > 0 ; nPeer--, pPointer += 6, nMax-- )
 			{
 				const IN_ADDR* pAddress = (const IN_ADDR*)pPointer;
 				WORD nPort = *(const WORD*)( pPointer + 4 );
 
 				m_pDownload->AddSourceBT( Hashes::BtGuid(), pAddress, ntohs( nPort ) );
+				if ( nMax < 0 && m_pDownload->GetEffectiveSourceCount() > Settings.Downloads.SourcesWanted )
+					break;
 			}
 		}
 	}
@@ -1554,7 +1557,9 @@ BOOL CBTClient::OnLtTex(CBTPacket* pPacket)
 		for ( int i = 0 ; i < nCount ; ++i )
 		{
 			if ( CBENode* pTracker = pTrackerList->GetNode( i ) )
+			{
 				m_pDownload->m_pTorrent.AddTracker( CBTInfo::CBTTracker( pTracker->GetString() ) );
+			}
 		}
 	}
 
@@ -1581,22 +1586,6 @@ void CBTClient::NotInterested()
 	Send( CBTPacket::New( BT_PACKET_NOT_INTERESTED ) );
 }
 
-void CBTClient::Have(DWORD nBlock)
-{
-	CBTPacket* pPacket = CBTPacket::New( BT_PACKET_HAVE );
-	pPacket->WriteLongBE( nBlock );
-	Send( pPacket );
-}
-
-void CBTClient::Piece(DWORD nIndex, DWORD nOffset, DWORD nLength, LPCVOID pBuffer)
-{
-	CBTPacket* pPacket = CBTPacket::New( BT_PACKET_PIECE );
-	pPacket->WriteLongBE( nIndex );
-	pPacket->WriteLongBE( nOffset );
-	pPacket->Write( pBuffer, nLength );
-	Send( pPacket );
-}
-
 void CBTClient::Request(DWORD nBlock, DWORD nOffset, DWORD nLength)
 {
 	CBTPacket* pPacket = CBTPacket::New( BT_PACKET_REQUEST );
@@ -1612,5 +1601,21 @@ void CBTClient::Cancel(DWORD nBlock, DWORD nOffset, DWORD nLength)
 	pPacket->WriteLongBE( nBlock );
 	pPacket->WriteLongBE( nOffset );
 	pPacket->WriteLongBE( nLength );
+	Send( pPacket );
+}
+
+void CBTClient::Have(DWORD nBlock)
+{
+	CBTPacket* pPacket = CBTPacket::New( BT_PACKET_HAVE );
+	pPacket->WriteLongBE( nBlock );
+	Send( pPacket );
+}
+
+void CBTClient::Piece(DWORD nIndex, DWORD nOffset, DWORD nLength, LPCVOID pBuffer)
+{
+	CBTPacket* pPacket = CBTPacket::New( BT_PACKET_PIECE );
+	pPacket->WriteLongBE( nIndex );
+	pPacket->WriteLongBE( nOffset );
+	pPacket->Write( pBuffer, nLength );
 	Send( pPacket );
 }

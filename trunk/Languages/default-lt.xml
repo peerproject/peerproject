@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Lithuanian Skin File -->
 
-<!-- Translation based on default-en.xml r85 -->
+<!-- Translation based on default-en.xml r86 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -33,21 +33,21 @@
 		<button id="ID_NETWORK_CONNECT" text="Jungtis"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Pradžia"/>
-		<button id="ID_TAB_SEARCH" text="Paieška"/>
-		<button id="ID_TAB_TRANSFERS" text="Atsisiuntimai"/>
+		<button id="ID_TAB_TRANSFERS" text="Siuntimai"/>
 		<button id="ID_TAB_LIBRARY" text="Kolekcija"/>
 		<button id="ID_TAB_MEDIA" text="Grotuvas"/>
+		<button id="ID_TAB_SEARCH" text="Paieška"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
 		<button id="ID_TAB_CONNECT" text="Jungtis"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Pradžia"/>
-		<button id="ID_TAB_SEARCH" text="Paieška"/>
 		<button id="ID_TAB_TRANSFERS" text="Siuntimai"/>
 		<button id="ID_TAB_NETWORK" text="Tinklas"/>
 		<button id="ID_TAB_LIBRARY" text="Kolekcija"/>
 		<button id="ID_TAB_MEDIA" text="Grotuvas"/>
 		<button id="ID_TAB_IRC" text="Pokalbiai"/>
+		<button id="ID_TAB_SEARCH" text="Paieška"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Windowed">
 		<button id="ID_NETWORK_CONNECT" text="Jungtis"/>

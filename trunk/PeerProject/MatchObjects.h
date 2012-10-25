@@ -98,7 +98,7 @@ protected:
 	CMatchFile**	m_pMapBTH;
 	CMatchFile**	m_pMapMD5;
 	LPTSTR			m_pszFilter;
-	LPTSTR			m_pszRegexPattern;
+	CString			m_sRegexPattern;
 	CBaseMatchWnd*	m_pParent;
 	CSchemaMember**	m_pColumns;
 	int				m_nColumns;

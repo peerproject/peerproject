@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Russian Skin File -->
 
-<!-- Translation based on default-en.xml r85 -->
+<!-- Translation based on default-en.xml r86 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -33,21 +33,21 @@
 		<button id="ID_NETWORK_CONNECT" text="Подключиться"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Домой"/>
-		<button id="ID_TAB_SEARCH" text="Поиск"/>
 		<button id="ID_TAB_TRANSFERS" text="Загрузки"/>
 		<button id="ID_TAB_LIBRARY" text="Хранилище"/>
 		<button id="ID_TAB_MEDIA" text="Проигрыватель"/>
+		<button id="ID_TAB_SEARCH" text="Поиск"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
 		<button id="ID_TAB_CONNECT" text="Подключиться"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Домой"/>
-		<button id="ID_TAB_SEARCH" text="Поиск"/>
 		<button id="ID_TAB_TRANSFERS" text="Пересылки"/>
 		<button id="ID_TAB_NETWORK" text="Сети"/>
 		<button id="ID_TAB_LIBRARY" text="Хранилище"/>
 		<button id="ID_TAB_MEDIA" text="Проигрыватель"/>
 		<button id="ID_TAB_IRC" text="Чат"/>
+		<button id="ID_TAB_SEARCH" text="Поиск"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Windowed">
 		<button id="ID_NETWORK_CONNECT" text="Подключиться"/>

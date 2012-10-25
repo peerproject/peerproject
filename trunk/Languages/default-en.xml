@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default English Skin File -->
 
-<!-- Translation based on default-en.xml r85 -->
+<!-- Translation based on default-en.xml r86 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -34,25 +34,25 @@
 		<button id="ID_NETWORK_CONNECT" text="Connect"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Home"/>
-		<button id="ID_TAB_SEARCH" text="Search"/>
 		<button id="ID_TAB_TRANSFERS" text="Downloads"/>
 		<button id="ID_TAB_LIBRARY" text="Library"/>
 		<button id="ID_TAB_MEDIA" text="Media"/>
 		<button id="ID_TAB_IRC" text="Chat"/>
+		<button id="ID_TAB_SEARCH" text="Search"/>
 		<separator/>
-		<button id="ID_VIEW_TABBED" text="Leave Basic Mode"/>
+		<button id="ID_VIEW_TABBED" tip="Leave Basic Mode"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
 		<button id="ID_TAB_CONNECT" text="Connect"/>
-		<button id="ID_WINDOW_NAVBAR" text="Show NavBar"/>
+		<button id="ID_WINDOW_NAVBAR" tip="Show NavBar"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Home"/>
-		<button id="ID_TAB_SEARCH" text="Search"/>
 		<button id="ID_TAB_TRANSFERS" text="Transfers"/>
 		<button id="ID_TAB_NETWORK" text="Network"/>
 		<button id="ID_TAB_LIBRARY" text="Library"/>
 		<button id="ID_TAB_MEDIA" text="Media"/>
 		<button id="ID_TAB_IRC" text="Chat"/>
+		<button id="ID_TAB_SEARCH" text="Search"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Windowed">
 		<button id="ID_NETWORK_CONNECT" text="Connect"/>
@@ -329,7 +329,7 @@
 		<separator/>
 		<label text="Seek:" tip="Seek to a position in the media file"/>
 		<control id="IDC_MEDIA_POSITION" width="190" height="22"/>
-		<label text="Speed:" tip="Adjust the speed of the media file"/>
+		<label text="Speed:" tip="Adjust the speed of media play"/>
 		<control id="IDC_MEDIA_SPEED" width="40" height="22"/>
 		<label text="Volume:" tip="Adjust the audio volume"/>
 		<control id="IDC_MEDIA_VOLUME" width="50" height="22"/>
@@ -2589,7 +2589,7 @@
 	<tip id="ID_LIBRARY_VIEW_THUMBNAIL" message="Show thumbnails for files" tip="Thumbnail View"/>
 	<tip id="ID_LIBRARY_VIEW_TILE" message="Show a list of album folders." tip="Tile View"/>
 	<tip id="ID_MEDIA_ADD" message="Add a media file to the playlist..."/>
-	<tip id="ID_MEDIA_ADD_FOLDER" message="Add a folder of media files to the playlist..."/>
+	<tip id="ID_MEDIA_ADD_FOLDER" message="Add a media folder to the playlist..."/>
 	<tip id="ID_MEDIA_ASPECT_16_9" message="Lock video to 16:9 aspect ratio, suitable for film."/>
 	<tip id="ID_MEDIA_ASPECT_4_3" message="Lock video to 4:3 aspect ratio, suitable for TV."/>
 	<tip id="ID_MEDIA_ASPECT_DEFAULT" message="Use the video's default aspect ratio."/>

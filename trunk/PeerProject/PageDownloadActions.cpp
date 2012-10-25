@@ -310,7 +310,10 @@ void CDownloadActionsPage::OnMergeAndVerify()
 		OFN_HIDEREADONLY | OFN_FILEMUSTEXIST | OFN_PATHMUSTEXIST | OFN_NOCHANGEDIR |
 		OFN_ALLOWMULTISELECT, NULL, this );
 
-	CAutoPtr< TCHAR > szFiles( new TCHAR[ 2048 ] );
+	CAutoVectorPtr< TCHAR >szFiles( new TCHAR[ 2048 ] );
+	if ( ! szFiles )
+		return;	// Out of memory
+
 	*szFiles = 0;
 	dlgSelectFile.GetOFN().lpstrFile = szFiles;
 	dlgSelectFile.GetOFN().nMaxFile = 2048;

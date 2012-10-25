@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hebrew Skin File -->
 
-<!-- Translation based on default-en.xml r85 -->
+<!-- Translation based on default-en.xml r86 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -39,21 +39,21 @@ gap i newline
 		<button id="ID_NETWORK_CONNECT" text="‪‪התחבר"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="ראשי"/>
-		<button id="ID_TAB_SEARCH" text="‪חיפוש"/>
 		<button id="ID_TAB_TRANSFERS" text="‪הורדות"/>
 		<button id="ID_TAB_LIBRARY" text="‪‪ספרייה"/>
 		<button id="ID_TAB_MEDIA" text="‪‪נגן מדיה"/>
+		<button id="ID_TAB_SEARCH" text="‪חיפוש"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
 		<button id="ID_TAB_CONNECT" text="‪התחבר"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="‪ראשי"/>
-		<button id="ID_TAB_SEARCH" text="‪חיפוש"/>
 		<button id="ID_TAB_TRANSFERS" text="‪העברות"/>
 		<button id="ID_TAB_NETWORK" text="‪רשת"/>
 		<button id="ID_TAB_LIBRARY" text="‪ספרייה"/>
 		<button id="ID_TAB_MEDIA" text="‪נגן מדיה"/>
-		<button id="ID_TAB_IRC" text="חדר שיחה"/>
+		<button id="ID_TAB_IRC" text="לשוחח"/>
+		<button id="ID_TAB_SEARCH" text="‪חיפוש"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Windowed">
 		<button id="ID_NETWORK_CONNECT" text="‪התחבר"/>

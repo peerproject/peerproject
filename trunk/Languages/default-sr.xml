@@ -3,7 +3,7 @@
 
 <!-- PeerProject/ПеерПројецт Default Serbian Skin File -->
 
-<!-- Translation based on default-en.xml r85 -->
+<!-- Translation based on default-en.xml r86 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -33,21 +33,21 @@
 		<button id="ID_NETWORK_CONNECT" text="Повежи се"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Почетна"/>
-		<button id="ID_TAB_SEARCH" text="Претрага"/>
 		<button id="ID_TAB_TRANSFERS" text="Преузимања"/>
 		<button id="ID_TAB_LIBRARY" text="Библиотека"/>
 		<button id="ID_TAB_MEDIA" text="Медија"/>
+		<button id="ID_TAB_SEARCH" text="Претрага"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
 		<button id="ID_TAB_CONNECT" text="Повежи се"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Почетна"/>
-		<button id="ID_TAB_SEARCH" text="Претрага"/>
 		<button id="ID_TAB_TRANSFERS" text="Преузимања"/>
 		<button id="ID_TAB_NETWORK" text="Мрежа"/>
 		<button id="ID_TAB_LIBRARY" text="Библиотека"/>
 		<button id="ID_TAB_MEDIA" text="Медија"/>
 		<button id="ID_TAB_IRC" text="IRC"/>
+		<button id="ID_TAB_SEARCH" text="Претрага"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Windowed">
 		<button id="ID_NETWORK_CONNECT" text="Повежи се"/>

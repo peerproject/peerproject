@@ -767,8 +767,10 @@ CLiveListCtrl::~CLiveListCtrl()
 }
 
 BEGIN_MESSAGE_MAP(CLiveListCtrl, CListCtrl)
-	ON_NOTIFY_REFLECT(LVN_GETDISPINFOW, OnLvnGetDispInfo)
+	ON_NOTIFY_REFLECT(LVN_GETDISPINFOW, OnLvnGetDispInfoW)
+	ON_NOTIFY_REFLECT(LVN_GETDISPINFOA, OnLvnGetDispInfoA)
 	ON_NOTIFY_REFLECT(LVN_ODFINDITEMW, OnLvnOdFindItem)
+	ON_NOTIFY_REFLECT(LVN_ODFINDITEMA, OnLvnOdFindItem)
 	ON_NOTIFY_REFLECT(LVN_ODCACHEHINT, OnLvnOdCacheHint)
 END_MESSAGE_MAP()
 
@@ -820,9 +822,6 @@ void CLiveListCtrl::Apply()
 		}
 	}
 
-	// Tune virtual list
-	SetItemCountEx( (int)m_pItems.size() );
-
 	// Recreate index
 	m_pIndex.clear();
 	m_pIndex.reserve( m_pItems.size() );
@@ -833,6 +832,9 @@ void CLiveListCtrl::Apply()
 
 		m_pIndex.push_back( pItem );
 	}
+
+	// Tune virtual list
+	SetItemCountEx( (int)m_pItems.size() );
 
 	Sort();
 }
@@ -927,21 +929,43 @@ UINT CLiveListCtrl::GetItemOverlayMask(int nItem) const
 		m_pIndex[ nItem ]->m_nMaskOverlay : 0;
 }
 
-void CLiveListCtrl::OnLvnGetDispInfo(NMHDR *pNMHDR, LRESULT *pResult)	// OnLvnGetDispInfoW/OnLvnGetDispInfoA
+void CLiveListCtrl::OnLvnGetDispInfoW(NMHDR *pNMHDR, LRESULT *pResult)
 {
-	LVITEM& pDispInfo = reinterpret_cast<NMLVDISPINFO*>(pNMHDR)->item;
+	*pResult = 0;
+	OnLvnGetDispInfo( pNMHDR, TRUE );
+}
 
-	ASSERT( pDispInfo.iItem >= 0 && pDispInfo.iItem < (int)m_pIndex.size() );
+void CLiveListCtrl::OnLvnGetDispInfoA(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	*pResult = 0;
+	OnLvnGetDispInfo( pNMHDR, FALSE );
+}
 
-	CLiveItemPtr pItem = m_pIndex[ pDispInfo.iItem ];
+void CLiveListCtrl::OnLvnGetDispInfo(NMHDR *pNMHDR, BOOL bWide)
+{
+	LVITEM& pDispInfo = reinterpret_cast< NMLVDISPINFO* >( pNMHDR )->item;
 
-	if ( ( pDispInfo.mask & LVIF_TEXT ) &&
-		pDispInfo.iSubItem >= 0 &&
-		pDispInfo.iSubItem < pItem->m_pColumn.GetSize() )
+	if ( pDispInfo.iItem < 0 || pDispInfo.iItem >= (int)m_pIndex.size() )
+		return;
+
+	const CLiveItemPtr pItem = m_pIndex[ pDispInfo.iItem ];
+
+	if ( pDispInfo.mask & LVIF_TEXT )
 	{
-		wcsncpy_s( (LPWSTR)pDispInfo.pszText, pDispInfo.cchTextMax,
-			CT2CW( pItem->m_pColumn[ pDispInfo.iSubItem ] ),
-			pDispInfo.cchTextMax - 1 );
+		if ( pDispInfo.iSubItem >= 0 && pDispInfo.iSubItem < pItem->m_pColumn.GetSize() )
+		{
+			CString strText = pItem->m_pColumn.GetAt( pDispInfo.iSubItem );
+			if ( bWide )	// W
+				wcsncpy_s( (LPWSTR)pDispInfo.pszText, pDispInfo.cchTextMax, strText, pDispInfo.cchTextMax - 1 );
+			else			// A
+				WideCharToMultiByte( CP_ACP, 0, strText, -1, (LPSTR)pDispInfo.pszText, pDispInfo.cchTextMax, NULL, NULL );
+		}
+	}
+
+	if ( pDispInfo.mask & LVIF_IMAGE )
+	{
+		if ( pDispInfo.iSubItem >= 0 && pDispInfo.iSubItem < pItem->m_pColumn.GetSize() )
+			pDispInfo.iImage = pItem->m_nImage[ pDispInfo.iSubItem ];
 	}
 
 	if ( pDispInfo.mask & LVIF_STATE )
@@ -950,18 +974,10 @@ void CLiveListCtrl::OnLvnGetDispInfo(NMHDR *pNMHDR, LRESULT *pResult)	// OnLvnGe
 			INDEXTOSTATEIMAGEMASK( pItem->m_nMaskState );
 	}
 
-	if ( pDispInfo.iSubItem >= 0 &&
-		pDispInfo.iSubItem < pItem->m_pColumn.GetSize() &&
-		pItem->m_nImage[ pDispInfo.iSubItem ] >= 0 )
-	{
-		pDispInfo.mask |= LVIF_IMAGE;
-		pDispInfo.iImage = pItem->m_nImage[ pDispInfo.iSubItem ];
-	}
-
 	if ( pDispInfo.mask & LVFI_PARAM )
+	{
 		pDispInfo.lParam = pItem->m_nParam;
-
-	*pResult = 0;
+	}
 }
 
 void CLiveListCtrl::OnLvnOdFindItem(NMHDR * /*pNMHDR*/, LRESULT *pResult)	// OnLvnOdFindItemW/OnLvnOdFindItemA

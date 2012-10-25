@@ -1,7 +1,7 @@
 //
 // WndMedia.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -22,6 +22,7 @@
 #include "CtrlMediaFrame.h"
 #include "PeerProjectDataSource.h"
 
+
 class CMediaWnd : public CPanelWnd
 {
 	DECLARE_SERIAL(CMediaWnd)
@@ -37,16 +38,17 @@ protected:
 
 // Operations
 public:
-	virtual void OnSkinChange();
+	static CMediaWnd* GetMediaWindow(BOOL bToggle = FALSE, BOOL bFocus = TRUE);		// Open Media Player window
+
 	virtual BOOL PlayFile(LPCTSTR pszFile);
 	virtual BOOL EnqueueFile(LPCTSTR pszFile);
-	virtual BOOL IsPlaying();
 	virtual void OnFileDelete(LPCTSTR pszFile);
+	virtual BOOL IsPlaying();
 
 // Overrides
 public:
 	//{{AFX_VIRTUAL(CMediaWnd)
-	public:
+	virtual void OnSkinChange();
 	virtual BOOL OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO* pHandlerInfo);
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	//}}AFX_VIRTUAL
@@ -54,13 +56,12 @@ public:
 // Implementation
 protected:
 	//{{AFX_MSG(CMediaWnd)
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnPaint();
 	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
 	afx_msg BOOL OnNcActivate(BOOL bActive);
-	//}}AFX_MSG
 
 	afx_msg LRESULT OnIdleUpdateCmdUI(WPARAM wParam, LPARAM lParam);
 	afx_msg LRESULT OnMediaKey(WPARAM wParam, LPARAM lParam);
@@ -68,6 +69,7 @@ protected:
 	afx_msg LRESULT OnDisplayChange(WPARAM wParam, LPARAM lParam);
 	afx_msg LRESULT OnEnqueueFile(WPARAM wParam, LPARAM lParam);
 	afx_msg LRESULT OnPlayFile(WPARAM wParam, LPARAM lParam);
+	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 	DECLARE_DROP()

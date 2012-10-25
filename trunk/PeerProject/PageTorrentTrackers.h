@@ -52,9 +52,10 @@ protected:
 	CButton			m_wndDel;
 	CListCtrl		m_wndTrackers;
 
-	CBTTrackerRequest*	m_pRequest;
-	DWORD			m_nComplete;
-	DWORD			m_nIncomplete;
+	DWORD			m_nRequest;						// Tracker request transaction ID
+	DWORD			m_nComplete;					// Seeder scrape request
+	DWORD			m_nIncomplete;					// Leecher scrape request
+//	DWORD			m_nDownloaded;					// Domnload count scrape request (Unused)
 
 // Obsolete Scrape Thread
 //	void			OnRun();

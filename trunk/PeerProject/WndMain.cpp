@@ -757,9 +757,9 @@ BOOL CMainWnd::OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO* p
 			return TRUE;
 	}
 
-	if ( CMediaFrame::g_pMediaFrame != NULL )
+	if ( CMediaFrame* pMediaFrame = CMediaFrame::GetMediaFrame() )
 	{
-		if ( CMediaFrame::g_pMediaFrame->OnCmdMsg( nID, nCode, pExtra, pHandlerInfo ) )
+		if ( pMediaFrame->OnCmdMsg( nID, nCode, pExtra, pHandlerInfo ) )
 			return TRUE;
 	}
 
@@ -1332,8 +1332,10 @@ LRESULT CMainWnd::OnHandleCollection(WPARAM wParam, LPARAM /*lParam*/)
 
 	OpenFromTray();
 
-	if ( CLibraryWnd* pLibrary = (CLibraryWnd*)m_pWindows.Open( RUNTIME_CLASS(CLibraryWnd) ) )
+	if ( CLibraryWnd* pLibrary = CLibraryWnd::GetLibraryWindow() )		// (CLibraryWnd*)m_pWindows.Open( RUNTIME_CLASS(CLibraryWnd) )
+	{
 		pLibrary->OnCollection( strPath );
+	}
 
 	return 0;
 }
@@ -1447,7 +1449,7 @@ LRESULT CMainWnd::OnLibrarySearch(WPARAM wParam, LPARAM /*lParam*/)
 	LRESULT result = 0;
 	LPCTSTR pszSearch = (LPCTSTR)wParam;
 
-	if ( CLibraryWnd* pWnd = (CLibraryWnd*)m_pWindows.Find( RUNTIME_CLASS(CLibraryWnd) ) )
+	if ( CLibraryWnd* pWnd = CLibraryWnd::GetLibraryWindow() )		// (CLibraryWnd*)m_pWindows.Find( RUNTIME_CLASS(CLibraryWnd) )
 	{
 		pWnd->m_wndFrame.SetSearchText( pszSearch );
 		result = pWnd->m_wndFrame.SendMessage( WM_COMMAND, ID_LIBRARY_SEARCH_QUICK );
@@ -2130,7 +2132,8 @@ void CMainWnd::OnUpdateViewLibrary(CCmdUI* pCmdUI)
 
 void CMainWnd::OnViewLibrary()
 {
-	m_pWindows.Open( RUNTIME_CLASS(CLibraryWnd), TRUE );
+	CLibraryWnd::GetLibraryWindow( TRUE );
+
 	OpenFromTray();
 }
 
@@ -2312,12 +2315,9 @@ void CMainWnd::OnUpdateTabHome(CCmdUI* pCmdUI)
 
 void CMainWnd::OnTabHome()
 {
-	if ( Settings.General.GUIMode != GUI_WINDOWED )
-		m_pWindows.Open( RUNTIME_CLASS(CHomeWnd) );
-	else
-		m_pWindows.Open( RUNTIME_CLASS(CHomeWnd), TRUE );
+	m_pWindows.Open( RUNTIME_CLASS(CHomeWnd), Settings.General.GUIMode == GUI_WINDOWED );
 
-	OpenFromTray();	// ?
+	OpenFromTray();
 }
 
 void CMainWnd::OnUpdateTabLibrary(CCmdUI* pCmdUI)
@@ -2328,10 +2328,16 @@ void CMainWnd::OnUpdateTabLibrary(CCmdUI* pCmdUI)
 
 void CMainWnd::OnTabLibrary()
 {
-	if ( m_pWindows.GetActive() == m_pWindows.Open( RUNTIME_CLASS(CLibraryWnd) ) )
-		( (CLibraryWnd*)m_pWindows.GetActive() )->m_wndFrame.Switch();
+	//if ( m_pWindows.GetActive() == m_pWindows.Open( RUNTIME_CLASS(CLibraryWnd) ) )
+	//	( (CLibraryWnd*)m_pWindows.GetActive() )->m_wndFrame.Switch();
 
-	OpenFromTray();	// ?
+	if ( CLibraryWnd* pLibraryWnd = CLibraryWnd::GetLibraryWindow() )
+	{
+		if ( pLibraryWnd == m_pWindows.GetActive() )
+			pLibraryWnd->m_wndFrame.Switch();
+	}
+
+	OpenFromTray();
 }
 
 void CMainWnd::OnUpdateTabMedia(CCmdUI* pCmdUI)
@@ -2350,8 +2356,11 @@ void CMainWnd::OnUpdateTabMedia(CCmdUI* pCmdUI)
 
 void CMainWnd::OnTabMedia()
 {
-	m_pWindows.Open( RUNTIME_CLASS(CMediaWnd) );
+	//m_pWindows.Open( RUNTIME_CLASS(CMediaWnd) );	// Obsolete
+	CMediaWnd::GetMediaWindow();
+
 	theApp.m_bMenuWasVisible = FALSE;
+
 	OpenFromTray();
 }
 
@@ -2605,7 +2614,7 @@ void CMainWnd::OnLibraryFolders()
 
 void CMainWnd::OnLibrarySearchBox()
 {
-	if ( CLibraryWnd* pWnd = (CLibraryWnd*)m_pWindows.Find( RUNTIME_CLASS(CLibraryWnd) ) )
+	if ( CLibraryWnd* pWnd = CLibraryWnd::GetLibraryWindow() )
 	{
 		pWnd->m_wndFrame.PostMessage( WM_COMMAND, ID_LIBRARY_SEARCH_QUICK );
 		return;
@@ -2613,7 +2622,9 @@ void CMainWnd::OnLibrarySearchBox()
 
 	OnTabLibrary();
 	if ( CLibraryWnd* pWnd = (CLibraryWnd*)m_pWindows.Find( RUNTIME_CLASS(CLibraryWnd) ) )
+	{
 		pWnd->m_wndFrame.SendMessage( WM_COMMAND, ID_LIBRARY_SEARCH_QUICK );
+	}
 }
 
 void CMainWnd::OnToolsWizard()
@@ -2755,7 +2766,7 @@ void CMainWnd::OnRemoteClose()
 
 void CMainWnd::OnUpdateMediaCommand(CCmdUI *pCmdUI)
 {
-	if ( CMediaFrame::g_pMediaFrame != NULL )
+	if ( CMediaFrame::GetMediaFrame() != NULL )
 		pCmdUI->ContinueRouting();
 	else
 		pCmdUI->Enable( TRUE );
@@ -2763,9 +2774,13 @@ void CMainWnd::OnUpdateMediaCommand(CCmdUI *pCmdUI)
 
 void CMainWnd::OnMediaCommand()
 {
-	if ( CMediaFrame::g_pMediaFrame == NULL ) OnTabMedia();
-	if ( CMediaFrame::g_pMediaFrame == NULL ) return;
-	CMediaFrame::g_pMediaFrame->SendMessage( WM_COMMAND, GetCurrentMessage()->wParam );
+	if ( ! CMediaFrame::GetMediaFrame() )
+		OnTabMedia();
+
+	if ( CMediaFrame* pMediaFrame = CMediaFrame::GetMediaFrame() )
+	{
+		CMediaFrame::g_pMediaFrame->SendMessage( WM_COMMAND, GetCurrentMessage()->wParam );
+	}
 }
 
 /////////////////////////////////////////////////////////////////////////////

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Spanish (International) Skin File -->
 
-<!-- Translation based on default-en.xml r85 -->
+<!-- Translation based on default-en.xml r86 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -33,21 +33,21 @@
 		<button id="ID_NETWORK_CONNECT" text="Conectar"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Inicio"/>
-		<button id="ID_TAB_SEARCH" text="Buscar"/>
 		<button id="ID_TAB_TRANSFERS" text="Descargas"/>
 		<button id="ID_TAB_LIBRARY" text="Colección"/>
 		<button id="ID_TAB_MEDIA" text="Reproductor"/>
+		<button id="ID_TAB_SEARCH" text="Buscar"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
 		<button id="ID_TAB_CONNECT" text="Conectar"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Inicio"/>
-		<button id="ID_TAB_SEARCH" text="Buscar"/>
 		<button id="ID_TAB_TRANSFERS" text="Transferencias"/>
 		<button id="ID_TAB_NETWORK" text="Redes"/>
 		<button id="ID_TAB_LIBRARY" text="Colección"/>
 		<button id="ID_TAB_MEDIA" text="Reproductor"/>
 		<button id="ID_TAB_IRC" text="IRC"/>
+		<button id="ID_TAB_SEARCH" text="Buscar"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Windowed">
 		<button id="ID_NETWORK_CONNECT" text="Conectar"/>

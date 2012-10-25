@@ -21,7 +21,6 @@
 #include "PeerProject.h"
 #include "CtrlBrowseTree.h"
 
-#include "PeerProjectThread.h"
 #include "G2Packet.h"
 #include "CoolInterface.h"
 #include "Colors.h"

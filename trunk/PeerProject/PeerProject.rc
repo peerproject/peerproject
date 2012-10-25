@@ -3216,7 +3216,7 @@ END
 STRINGTABLE
 BEGIN
 	IDC_MEDIA_POSITION			"Seek to a position in the media file.\nSeek"
-	IDC_MEDIA_SPEED 			"Adjust the speed of the media file.\nSpeed"
+	IDC_MEDIA_SPEED 			"Adjust the speed of media play.\nSpeed"
 	IDC_MEDIA_VOLUME			"Adjust the audio volume.\nVolume"
 END
 
@@ -3460,7 +3460,7 @@ END
 STRINGTABLE
 BEGIN
 	ID_MEDIA_ADD				"Add a media file to the playlist..."
-	ID_MEDIA_ADD_FOLDER			"Add a folder of media files to the playlist..."
+	ID_MEDIA_ADD_FOLDER			"Add a media folder to the playlist..."
 	ID_MEDIA_REMOVE				"Remove the selected media file from the playlist."
 	ID_MEDIA_SAVE				"Save the current playlist to a file..."
 	ID_MEDIA_SELECT				"Select and play this file."

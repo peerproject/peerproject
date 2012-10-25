@@ -1,7 +1,7 @@
 //
 // Utility.hpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions Copyright Shareaza Development Team, 2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -63,8 +63,7 @@ typedef unsigned __int64 uint64;
 typedef unsigned char uchar;
 typedef signed char schar;
 typedef wchar_t wchar;
-typedef uint16 uwchar;
-// Above unsigned integer type of the same size as a wchar_t
+typedef uint16 uwchar;		// Integer type same size as a wchar_t
 
 //! \brief enumeration to specify the byte ordering of a sequence.
 enum Endianess
@@ -334,46 +333,41 @@ template<> inline uint64 rotateLeft(uint64 value, uint8 shift)
 	return uint64( value << shift | value >> ( 64 - shift ) );
 }
 
-//! \brief Determines the highest bit set in the argument.
-//!
-//! Bits are counted from the lowest bit starting with the index zero.
-//! If the argument is 0 the result is unspecified.
-inline uint32 highestBitSet(uint32 value)
-{
-	uint32 index;
-	return _BitScanReverse( &index, value ) ? index : 0;
-}
-
-inline uint32 highestBitSet(uint64 value)
-{
-#ifdef _WIN64
-	uint32 index;
-	return _BitScanReverse64( &index, value ) ? index : 0;
-#else
-	return uint32( value ) != 0
-		? highestBitSet( uint32( value ) )
-		: highestBitSet( uint32( value >> 32 ) ) + 32;
-#endif
-}
-
-//! \brief Determines the lowest bit set in the argument.
-//!
-//! Bits are counted from the lowest bit starting with the index zero.
-//! If the argument is 0 the result is unspecified.
-inline uint32 lowestBitSet(uint32 value)
-{
-	uint32 index;
-	return _BitScanForward( &index, value ) ? index : 0;
-}
-
-inline uint32 lowestBitSet(uint64 value)
-{
-#ifdef _WIN64
-	uint32 index;
-	return _BitScanForward64( &index, value ) ? index : 0;
-#else
-	return uint32( value ) != 0
-		? highestBitSet( uint32( value ) )
-		: highestBitSet( uint32( value >> 32 ) ) + 32;
-#endif
-}
+// Obsolete: Determine the highest/lowest bit set in the argument.
+// Bits are counted from the lowest bit starting with the index zero.
+//
+//inline uint32 highestBitSet(uint32 value)
+//{
+//	uint32 index;
+//	return _BitScanReverse( &index, value ) ? index : 0;
+//}
+//
+//inline uint32 highestBitSet(uint64 value)
+//{
+//#ifdef _WIN64
+//	uint32 index;
+//	return _BitScanReverse64( &index, value ) ? index : 0;
+//#else
+//	return uint32( value ) != 0
+//		? highestBitSet( uint32( value ) )
+//		: highestBitSet( uint32( value >> 32 ) ) + 32;
+//#endif
+//}
+//
+//inline uint32 lowestBitSet(uint32 value)
+//{
+//	uint32 index;
+//	return _BitScanForward( &index, value ) ? index : 0;
+//}
+//
+//inline uint32 lowestBitSet(uint64 value)
+//{
+//#ifdef _WIN64
+//	uint32 index;
+//	return _BitScanForward64( &index, value ) ? index : 0;
+//#else
+//	return uint32( value ) != 0
+//		? highestBitSet( uint32( value ) )
+//		: highestBitSet( uint32( value >> 32 ) ) + 32;
+//#endif
+//}

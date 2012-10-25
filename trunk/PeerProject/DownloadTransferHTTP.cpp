@@ -30,8 +30,8 @@
 #include "Buffer.h"
 #include "GProfile.h"
 #include "XML.h"
-#include "Transfers.h"
 #include "VendorCache.h"
+#include "Transfers.h"
 #include "Security.h" // Vendors
 
 #ifdef _DEBUG
@@ -585,23 +585,23 @@ BOOL CDownloadTransferHTTP::ReadResponseLine()
 
 	theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, _T("%s >> DOWNLOAD RESPONSE: %s"), (LPCTSTR)m_sAddress, (LPCTSTR)strLine );
 
-	if ( strLine.GetLength() >= 12 && strLine.Left( 9 ) == _T("HTTP/1.1 ") )
+	if ( strLine.GetLength() >= 12 && ::StartsWith( strLine, _PT("HTTP/1.1 ") ) )
 	{
 		strCode		= strLine.Mid( 9, 3 );
 		strMessage	= strLine.Mid( 12 );
 		m_bKeepAlive = TRUE;
 	}
-	else if ( strLine.GetLength() >= 12 && strLine.Left( 9 ) == _T("HTTP/1.0 ") )
+	else if ( strLine.GetLength() >= 12 && ::StartsWith( strLine, _PT("HTTP/1.0 ") ) )
 	{
 		strCode		= strLine.Mid( 9, 3 );
 		strMessage	= strLine.Mid( 12 );
 		m_bKeepAlive = FALSE;
 	}
-	else if ( strLine.GetLength() >= 8 && strLine.Left( 4 ) == _T("HTTP") )
+	else if ( strLine.GetLength() >= 8 && ::StartsWith( strLine, _PT("HTTP") ) )
 	{
 		strCode		= strLine.Mid( 5, 3 );
 		strMessage	= strLine.Mid( 8 );
-		theApp.Message( MSG_DEBUG, _T("HTTP with unknown version: %s"), strLine );
+		theApp.Message( MSG_DEBUG, _T("HTTP with unknown version: %s"), (LPCTSTR)strLine );
 		m_bKeepAlive = FALSE;
 	}
 	else
@@ -745,7 +745,7 @@ BOOL CDownloadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 	case 'l':		// "Content-Length"
 		{
 			QWORD nTotal;
-			if ( _stscanf( strValue, _T("%I64i"), &nTotal ) == 1 && nTotal > 0 )
+			if ( _stscanf( strValue, _T("%I64u"), &nTotal ) == 1 && nTotal > 0 )
 				m_nContentLength = nTotal;
 		}
 		break;
@@ -1412,11 +1412,15 @@ BOOL CDownloadTransferHTTP::ReadContent()
 
 		if ( m_bRecvBackwards )
 		{
-			BYTE* pBuffer = new BYTE[ nLength ];
+			//BYTE* pBuffer = new BYTE[ nLength ];	// Obsolete
+			CAutoVectorPtr< BYTE >pBuffer( new BYTE[ nLength ] );
+			if ( ! pBuffer )
+			{
+				Close( TRI_TRUE );
+				return FALSE;	// Out of memory
+			}
 			CBuffer::ReverseBuffer( pInput->m_pBuffer, pBuffer, nLength );
-			bSubmit = m_pDownload->SubmitData(
-				m_nOffset + m_nLength - m_nPosition - nLength, pBuffer, nLength );
-			delete [] pBuffer;
+			bSubmit = m_pDownload->SubmitData( m_nOffset + m_nLength - m_nPosition - nLength, pBuffer, nLength );
 		}
 		else
 		{

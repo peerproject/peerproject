@@ -168,6 +168,53 @@ void CDownloadWithFile::ClearFileError()
 //////////////////////////////////////////////////////////////////////
 // CDownloadWithFile open the file
 
+// Legacy workaround for magnet torrent crash (r9213)
+BOOL CDownloadWithFile::OpenFile()
+{
+	if ( m_sName.IsEmpty() )
+		return TRUE;	// Start download without known name (Magnet)
+
+	if ( IsFileOpen() )
+		return TRUE;
+
+	SetModified();
+
+	CDownload* pThis = static_cast< CDownload* >( this );	// ToDo: Fix bad inheritance
+	if ( m_pFile.get() )
+	{
+		ClearFileError();
+
+		if ( pThis->IsTorrent() )
+		{
+			if ( m_pFile->Open( pThis->m_pTorrent, ! IsCompleted() ) )
+				return TRUE;
+		}
+		else
+		{
+			// ToDo: Refactor m_sTorrentTrackerError
+			pThis->m_sTorrentTrackerError.Empty();
+
+			if ( m_pFile->Open( this, ! IsCompleted() ) )
+				return TRUE;
+		}
+
+		SetFileError( m_pFile->GetFileError(), m_pFile->GetFileErrorString() );
+	}
+	else if ( m_nSize != SIZE_UNKNOWN &&
+		! Downloads.IsSpaceAvailable( m_nSize, Downloads.dlPathIncomplete ) )
+	{
+		theApp.Message( MSG_ERROR, IDS_DOWNLOAD_DISK_SPACE, m_sName, Settings.SmartVolume( m_nSize ) );
+
+		m_nFileError = ERROR_DISK_FULL;
+	}
+
+	// ToDo: Refactor m_sTorrentTrackerError
+	if ( m_nFileError != ERROR_SUCCESS )
+		pThis->m_sTorrentTrackerError = GetErrorString( m_nFileError );
+
+	return FALSE;
+}
+
 BOOL CDownloadWithFile::Open()
 {
 	if ( m_pFile.get() )
@@ -285,7 +332,7 @@ bool CDownloadWithFile::Rename(const CString& strName)
 }
 
 // Move file(s) to destination. Returns 0 on success or file error number.
-DWORD CDownloadWithFile::MoveFile(LPCTSTR pszDestination, LPPROGRESS_ROUTINE lpProgressRoutine, LPVOID lpData)
+DWORD CDownloadWithFile::MoveFile(LPCTSTR pszDestination, LPPROGRESS_ROUTINE lpProgressRoutine, CDownloadTask* pTask)
 {
 	ASSERT( IsMoving() );
 
@@ -383,7 +430,7 @@ DWORD CDownloadWithFile::MoveFile(LPCTSTR pszDestination, LPPROGRESS_ROUTINE lpP
 		}
 
 		// Create new file
-		DWORD dwError = m_pFile->Move( nIndex, pszDestination, lpProgressRoutine, lpData );
+		DWORD dwError = m_pFile->Move( nIndex, pszDestination, lpProgressRoutine, pTask );
 
 		if ( dwError != ERROR_SUCCESS )
 		{

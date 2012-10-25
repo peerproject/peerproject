@@ -36,22 +36,26 @@ protected:
 	CImageList*	m_pDragImage;
 	int			m_nDragDrop;
 	BOOL		m_bCreateDragImage;
+//	UINT		m_nSelectedCount;	// Using static
+//	DWORD		m_tLastUpdate;		// Using static
 
 // Operations
 public:
+	virtual BOOL Create(CWnd* pParentWnd, UINT nID);
+
 	BOOL	Open(LPCTSTR pszFile);
 	BOOL	Enqueue(LPCTSTR pszFile, BOOL bStart = TRUE);
 	int		RecursiveEnqueue(LPCTSTR pszPath);
 	void	Remove(LPCTSTR pszFile);
 	BOOL	LoadTextList(LPCTSTR pszFile);
 	BOOL	SaveTextList(LPCTSTR pszFile);
-	void	Clear();
 	int		GetCount();
 	UINT	GetSelectedCount();
 	int		GetCurrent();
 	void	SetCurrent(int nCurrent);
-	int		GetNext(BOOL bSet = TRUE);
+	void	Clear();
 	void	Reset(BOOL bNext = TRUE);
+	int		GetNext(BOOL bSet = TRUE);
 	CString	GetPath(int nItem);
 	void	OnSkinChange();
 
@@ -61,16 +65,10 @@ protected:
 	BOOL	AreSelectedFilesInLibrary();
 	void	ShowFilePropertiesDlg(int nPage = 0 );
 
-// Overrides
-public:
-	//{{AFX_VIRTUAL(CMediaListCtrl)
-	virtual BOOL Create(CWnd* pParentWnd, UINT nID);
-	//}}AFX_VIRTUAL
-
 // Implementation
 protected:
 	//{{AFX_MSG(CMediaListCtrl)
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);

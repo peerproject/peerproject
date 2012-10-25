@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Italian Skin File -->
 
-<!-- Translation based on default-en.xml r85 -->
+<!-- Translation based on default-en.xml r86 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -33,21 +33,21 @@
 		<button id="ID_NETWORK_CONNECT" text="Connetti"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Iniziale"/>
-		<button id="ID_TAB_SEARCH" text="Cerca"/>
 		<button id="ID_TAB_TRANSFERS" text="Download"/>
 		<button id="ID_TAB_LIBRARY" text="Libreria"/>
 		<button id="ID_TAB_MEDIA" text="Media"/>
+		<button id="ID_TAB_SEARCH" text="Cerca"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
 		<button id="ID_TAB_CONNECT" text="Connetti"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Iniziale"/>
-		<button id="ID_TAB_SEARCH" text="Cerca"/>
 		<button id="ID_TAB_TRANSFERS" text="Trasferimenti"/>
 		<button id="ID_TAB_NETWORK" text="Rete"/>
 		<button id="ID_TAB_LIBRARY" text="Libreria"/>
 		<button id="ID_TAB_MEDIA" text="Media"/>
 		<button id="ID_TAB_IRC" text="IRC"/>
+		<button id="ID_TAB_SEARCH" text="Cerca"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Windowed">
 		<button id="ID_NETWORK_CONNECT" text="Connetti"/>

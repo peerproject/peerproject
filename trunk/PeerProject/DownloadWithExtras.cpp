@@ -40,12 +40,9 @@ static char THIS_FILE[] = __FILE__;
 CDownloadWithExtras::CDownloadWithExtras()
 	: m_pMonitorWnd		( NULL )
 	, m_pPreviewWnd		( NULL )
-
 	, m_pReviewFirst	( NULL )
 	, m_pReviewLast		( NULL )
 	, m_nReviewCount	( 0 )
-
-	, m_bGotPreview		( FALSE )
 	, m_bWaitingPreview	( FALSE )
 	, m_bRemotePreviewCapable ( FALSE )
 {
@@ -71,6 +68,11 @@ BOOL CDownloadWithExtras::PreviewFile(DWORD nIndex, CSingleLock* /*pLock*/)
 	m_pPreviewWnd = new CFilePreviewDlg( this, nIndex );
 
 	return TRUE;
+}
+
+BOOL CDownloadWithExtras::GotPreview() const
+{
+	return ( GetFileAttributes( SafePath( m_sPath + _T(".png") ) ) != INVALID_FILE_ATTRIBUTES );
 }
 
 BOOL CDownloadWithExtras::IsPreviewVisible() const
@@ -403,7 +405,6 @@ void CDownloadWithExtras::OnPreviewRequestComplete(const CDownloadTask* pTask)
 			// Make it hidden, so the files won't be shared
 			SetFileAttributes( (LPCTSTR)strPath, FILE_ATTRIBUTE_HIDDEN|FILE_ATTRIBUTE_SYSTEM );
 
-			m_bGotPreview = TRUE;
 			m_bWaitingPreview = TRUE;
 
 			return;
