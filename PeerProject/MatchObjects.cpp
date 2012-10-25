@@ -62,7 +62,6 @@ CMatchList::CMatchList(CBaseMatchWnd* pParent)
 	, m_bSortDir		( 1 )
 	, m_nSortColumn		( -1 )
 	, m_pszFilter		( NULL )
-	, m_pszRegexPattern	( NULL )
 	, m_pColumns		( NULL )
 	, m_nColumns		( 0 )
 	, m_pFiles			( NULL )
@@ -117,6 +116,8 @@ CMatchList::CMatchList(CBaseMatchWnd* pParent)
 		m_nFilterSources	= 1;
 	}
 
+	m_sRegexPattern.Empty();
+
 	m_pSizeMap	= new CMatchFile*[ MAP_SIZE ];
 	m_pMapSHA1	= new CMatchFile*[ MAP_SIZE ];
 	m_pMapTiger	= new CMatchFile*[ MAP_SIZE ];
@@ -142,7 +143,6 @@ CMatchList::~CMatchList()
 
 	delete [] m_pColumns;
 	delete [] m_pszFilter;
-	delete [] m_pszRegexPattern;
 
 	delete [] m_pMapED2K;
 	delete [] m_pMapTiger;
@@ -222,6 +222,8 @@ void CMatchList::AddHits(const CQueryHit* pHits, const CQuerySearch* pFilter)
 		}
 
 		CQueryHit* pHit = new CQueryHit( *pNext );
+		if ( ! pHit )
+			break;	// Out of memory
 
 		pHit->m_bNew = m_bNew;
 
@@ -313,28 +315,40 @@ void CMatchList::AddHits(const CQueryHit* pHits, const CQuerySearch* pFilter)
 		else	// New file hit
 		{
 			pFile = new CMatchFile( this, pHit );
-			pFile->m_bNew = m_bNew;
-
-			pMap = m_pSizeMap + (DWORD)( pFile->m_nSize & 0xFF );
-			pFile->m_pNextSize = *pMap;
-			*pMap = pFile;
+			if ( ! pFile )	// Out of memory
+			{
+				delete pHit;
+				break;
+			}
 
 			if ( Security.IsDenied( pFile ) )	// Non-regex/address filters
 				continue;
 
+			pFile->m_bNew = m_bNew;
+
 			if ( m_nFiles + 1 > m_nBuffer )
 			{
-				m_nBuffer += BUFFER_GROW;
-				CMatchFile** pFiles = new CMatchFile*[ m_nBuffer ];
-
-				if ( m_pFiles )
+				if ( CMatchFile** pFiles = new CMatchFile*[ m_nBuffer + BUFFER_GROW ] )
 				{
-					CopyMemory( pFiles, m_pFiles, m_nFiles * sizeof( CMatchFile* ) );
-					delete [] m_pFiles;
-				}
 
-				m_pFiles = pFiles;
+					if ( m_pFiles )
+					{
+						CopyMemory( pFiles, m_pFiles, m_nFiles * sizeof( CMatchFile* ) );
+						delete [] m_pFiles;
+					}
+					m_nBuffer += BUFFER_GROW;
+					m_pFiles = pFiles;
+				}
+				else	// Out of memory
+				{
+					delete pFile;
+					break;
+				}
 			}
+
+			pMap = m_pSizeMap + (DWORD)( pFile->m_nSize & 0xFF );
+			pFile->m_pNextSize = *pMap;
+			*pMap = pFile;
 
 			if ( m_nSortColumn >= 0 )
 			{
@@ -663,11 +677,7 @@ bool CMatchList::CreateRegExpFilter(CString strPattern, CString& strFilter)
 {
 	if ( strPattern.IsEmpty() )
 	{
-		if ( m_pszRegexPattern )
-		{
-			delete m_pszRegexPattern;
-			m_pszRegexPattern = NULL;
-		}
+		m_sRegexPattern.Empty();
 		return false;
 	}
 
@@ -753,13 +763,7 @@ bool CMatchList::CreateRegExpFilter(CString strPattern, CString& strFilter)
 	}
 
 	strFilter = strNewPattern;
-
-	if ( m_pszRegexPattern )
-		delete m_pszRegexPattern;
-
-	m_pszRegexPattern = new TCHAR[ strNewPattern.GetLength() + 1 ];
-	CopyMemory( m_pszRegexPattern, (LPCTSTR)strNewPattern,
-		sizeof(TCHAR) * ( strNewPattern.GetLength() + 1 ) );
+	m_sRegexPattern = strNewPattern;
 
 	return bReplaced;
 }
@@ -886,9 +890,9 @@ BOOL CMatchList::FilterHit(CQueryHit* pHit)
 			return FALSE;
 	}
 
-	if ( m_bRegExp && m_pszRegexPattern )
+	if ( m_bRegExp && ! m_sRegexPattern.IsEmpty() )
 	{
-		if ( RegExp::Match( m_pszRegexPattern, pHit->m_sName ) )
+		if ( RegExp::Match( m_sRegexPattern, pHit->m_sName ) )
 			return FALSE;
 	}
 

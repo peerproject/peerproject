@@ -78,17 +78,13 @@ CExistingFileDlg::Action CExistingFileDlg::CheckExisting(const CPeerProjectFile*
 
 	if ( dlg.m_nAction == 0 )
 	{
-		if ( CMainWnd* pMainWnd = theApp.SafeMainWnd() )
+		if ( CLibraryWnd* pLibrary = CLibraryWnd::GetLibraryWindow() )
 		{
-			if ( CLibraryWnd* pLibrary = (CLibraryWnd*)(
-				pMainWnd->m_pWindows.Open( RUNTIME_CLASS(CLibraryWnd) ) ) )
-			{
-				pLock.Lock();
-				if ( CLibraryFile* pLibFile1 = Library.LookupFile( nIndex ) )
-					pLibrary->Display( pLibFile1 );
+			pLock.Lock();
+			if ( CLibraryFile* pLibFile1 = Library.LookupFile( nIndex ) )
+				pLibrary->Display( pLibFile1 );
 
-				pLock.Unlock();
-			}
+			pLock.Unlock();
 		}
 	}
 
@@ -139,7 +135,7 @@ void CExistingFileDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_FILE_NAME, m_wndName);
 	DDX_Text(pDX, IDC_FILE_NAME, m_sName);
 	DDX_Text(pDX, IDC_FILE_URN, m_sURN);
-	DDX_Radio(pDX, IDC_ACTION_0, m_nAction);
+	DDX_Text(pDX, IDC_FILE_COMMENTS, m_sComments);
 	DDX_Control(pDX, IDC_FILE_COMMENTS, m_wndComments);
 	DDX_Control(pDX, IDC_MESSAGE_AVAILABLE, m_wndMessageAvailable);
 	DDX_Control(pDX, IDC_MESSAGE_DELETED, m_wndMessageDeleted);
@@ -147,7 +143,7 @@ void CExistingFileDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_ACTION_0, m_wndLocate);
 	DDX_Control(pDX, IDC_ACTION_1, m_wndDownload);
 	DDX_Control(pDX, IDC_ACTION_2, m_wndDontDownload);
-	DDX_Text(pDX, IDC_FILE_COMMENTS, m_sComments);
+	DDX_Radio(pDX, IDC_ACTION_0, m_nAction);
 }
 
 /////////////////////////////////////////////////////////////////////////////

@@ -18,9 +18,6 @@
 
 #pragma once
 
-class CMediaWnd;
-class CLibraryWnd;
-
 
 class CFileExecutor
 {
@@ -36,12 +33,6 @@ public:
 //	static BOOL		DisplayURL(LPCTSTR pszURL);
 
 protected:
-	// Open Media Player window
-	static CMediaWnd*	GetMediaWindow(BOOL bFocus);
-
-	// Open Library window
-	static CLibraryWnd*	GetLibraryWindow();
-
 	// Is file a video, audio or image file?
 	static void DetectFileType(LPCTSTR pszFile, LPCTSTR szType, bool& bVideo, bool& bAudio, bool& bImage);
 

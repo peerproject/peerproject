@@ -3,7 +3,7 @@
 
 <!-- PeerProject Arabic Language Skin File -->
 
-<!-- Translation based on default-en.xml r85 -->
+<!-- Translation based on default-en.xml r86 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -34,25 +34,23 @@
 		<button id="ID_NETWORK_CONNECT" text="إتصال" />
 		<separator />
 		<button id="ID_TAB_HOME" text="الرئيسية" />
-		<button id="ID_TAB_SEARCH" text="بجث" />
 		<button id="ID_TAB_TRANSFERS" text="التحميلات" />
 		<button id="ID_TAB_LIBRARY" text="المكتبة" />
 		<button id="ID_TAB_MEDIA" text="الوسائط" />
 		<button id="ID_TAB_IRC" text="Chat"/>
-		<separator/>
-		<button id="ID_VIEW_TABBED" text="Leave Basic Mode"/>
+		<button id="ID_TAB_SEARCH" text="بجث" />
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
 		<button id="ID_TAB_CONNECT" text="إتصال" />
-		<button id="ID_WINDOW_NAVBAR" text="Show NavBar"/>
+		<button id="ID_WINDOW_NAVBAR" text="NavBar"/>
 		<separator />
 		<button id="ID_TAB_HOME" text="الرئيسية" />
-		<button id="ID_TAB_SEARCH" text="بحث" />
 		<button id="ID_TAB_TRANSFERS" text="نقل البيانات" />
 		<button id="ID_TAB_NETWORK" text="شبكة" />
 		<button id="ID_TAB_LIBRARY" text="المكتبة" />
 		<button id="ID_TAB_MEDIA" text="الوسائط" />
 		<button id="ID_TAB_IRC" text="محادثة" />
+		<button id="ID_TAB_SEARCH" text="بحث" />
 	</toolbar>
 	<toolbar name="CMainWnd.Windowed">
 		<button id="ID_NETWORK_CONNECT" text="إتصال" />

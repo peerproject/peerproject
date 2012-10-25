@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Finnish Skin File -->
 
-<!-- Translation based on default-en.xml r85 --> <!-- (Shareaza 2.1.3.7) -->
+<!-- Translation based on default-en.xml r86 --> <!-- (Shareaza 2.1.3.7) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -33,21 +33,21 @@
 		<button id="ID_NETWORK_CONNECT" text="Yhdistä"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Koti"/>
-		<button id="ID_TAB_SEARCH" text="Hae"/>
 		<button id="ID_TAB_TRANSFERS" text="Lataukset"/>
 		<button id="ID_TAB_LIBRARY" text="Kirjasto"/>
 		<button id="ID_TAB_MEDIA" text="Media"/>
+		<button id="ID_TAB_SEARCH" text="Hae"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
 		<button id="ID_TAB_CONNECT" text="Yhdistä"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Koti"/>
-		<button id="ID_TAB_SEARCH" text="Hae"/>
 		<button id="ID_TAB_TRANSFERS" text="Siirrot"/>
 		<button id="ID_TAB_NETWORK" text="Verkko"/>
 		<button id="ID_TAB_LIBRARY" text="Kirjasto"/>
 		<button id="ID_TAB_MEDIA" text="Media"/>
 		<button id="ID_TAB_IRC" text="IRC"/>
+		<button id="ID_TAB_SEARCH" text="Hae"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Windowed">
 		<button id="ID_NETWORK_CONNECT" text="Yhdistä"/>

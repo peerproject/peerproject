@@ -588,7 +588,7 @@ bool CDownloadSource::IsPreviewCapable() const
 //////////////////////////////////////////////////////////////////////
 // CDownloadSource remove
 
-void CDownloadSource::Remove(BOOL bCloseTransfer, BOOL bBan)
+void CDownloadSource::Remove(BOOL bCloseTransfer, BOOL bBan, DWORD nRetryAfter)
 {
 	ASSUME_LOCK( Transfers.m_pSection );
 
@@ -596,7 +596,7 @@ void CDownloadSource::Remove(BOOL bCloseTransfer, BOOL bBan)
 	{
 		if ( bCloseTransfer )
 		{
-			Close();
+			Close( nRetryAfter );
 			ASSERT( m_pTransfer == NULL );
 		}
 		else
@@ -997,13 +997,13 @@ int CDownloadSource::GetColor()
 	return m_nColor;
 }
 
-void CDownloadSource::Close()
+void CDownloadSource::Close(DWORD nRetryAfter)
 {
 	ASSUME_LOCK( Transfers.m_pSection );
 
 	if ( m_pTransfer )
 	{
-		m_pTransfer->Close( TRI_TRUE );
+		m_pTransfer->Close( TRI_TRUE, nRetryAfter );
 		ASSERT( m_pTransfer == NULL );
 	}
 }

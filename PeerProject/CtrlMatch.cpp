@@ -1107,12 +1107,10 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 					else
 					{
 						// Get new date
-						int nChars = GetTimeFormat( LOCALE_USER_DEFAULT, 0,
-							&st, NULL, szBuffer, _countof( szBuffer ) );
+						int nChars = GetTimeFormat( LOCALE_USER_DEFAULT, 0, &st, NULL, szBuffer, _countof( szBuffer ) );
 						szBuffer[ nChars - 1 ] = _T(' ');
 						szBuffer[ nChars ] = _T(' ');
-						nChars += GetDateFormat( LOCALE_USER_DEFAULT, DATE_SHORTDATE,
-							&st, NULL, szBuffer + nChars + 1, _countof( szBuffer ) );
+						nChars += GetDateFormat( LOCALE_USER_DEFAULT, DATE_SHORTDATE, &st, NULL, szBuffer + nChars + 1, _countof( szBuffer ) - nChars );
 						szBuffer[ nChars - 5 ] = 0;			// Strip Year
 						pszText = szBuffer;
 

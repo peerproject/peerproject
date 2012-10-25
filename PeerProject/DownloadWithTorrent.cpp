@@ -84,29 +84,6 @@ CDownloadWithTorrent::~CDownloadWithTorrent()
 	if ( m_bTorrentRequested )
 		SendStopped();
 
-	{
-		CSingleLock oLock( &m_pRequestsSection, TRUE );
-
-		// Wait infinite
-		while ( ! m_pRequests.IsEmpty() )
-		{
-			// Wait 5 seconds
-			for ( DWORD i = 0 ; ! m_pRequests.IsEmpty() && i < 50 ; ++i )
-			{
-				oLock.Unlock();
-				Sleep( 100 );
-				oLock.Lock();
-			}
-
-			// Cancel all pending requests
-			for ( POSITION pos = m_pRequests.GetHeadPosition() ; pos ; )
-			{
-				CBTTrackerRequest* pRequest = m_pRequests.GetNext( pos );
-				pRequest->Cancel();
-			}
-		}
-	}
-
 	m_pPeerID.clear();
 
 	CloseTorrentUploads();
@@ -135,33 +112,34 @@ bool CDownloadWithTorrent::IsMultiFileTorrent() const
 	return m_pTorrent.IsAvailable() && m_pTorrent.GetCount() > 1;
 }
 
-void CDownloadWithTorrent::AddRequest(CBTTrackerRequest* pRequest)
-{
-	CQuickLock oLock( m_pRequestsSection );
-
-	if ( m_pRequests.Find( pRequest ) == NULL )
-		m_pRequests.AddTail( pRequest );
-}
-
-void CDownloadWithTorrent::RemoveRequest(CBTTrackerRequest* pRequest)
-{
-	CQuickLock oLock( m_pRequestsSection );
-
-	if ( POSITION pos = m_pRequests.Find( pRequest ) )
-	{
-		m_pRequests.RemoveAt( pos );
-	}
-}
-
-void CDownloadWithTorrent::CancelRequest(CBTTrackerRequest* pRequest)
-{
-	CQuickLock oLock( m_pRequestsSection );
-
-	if ( POSITION pos = m_pRequests.Find( pRequest ) )
-	{
-		pRequest->Cancel();
-	}
-}
+// Obsolete:
+//void CDownloadWithTorrent::AddRequest(CBTTrackerRequest* pRequest)
+//{
+//	CQuickLock oLock( m_pRequestsSection );
+//
+//	if ( m_pRequests.Find( pRequest ) == NULL )
+//		m_pRequests.AddTail( pRequest );
+//}
+//
+//void CDownloadWithTorrent::RemoveRequest(CBTTrackerRequest* pRequest)
+//{
+//	CQuickLock oLock( m_pRequestsSection );
+//
+//	if ( POSITION pos = m_pRequests.Find( pRequest ) )
+//	{
+//		m_pRequests.RemoveAt( pos );
+//	}
+//}
+//
+//void CDownloadWithTorrent::CancelRequest(CBTTrackerRequest* pRequest)
+//{
+//	CQuickLock oLock( m_pRequestsSection );
+//
+//	if ( POSITION pos = m_pRequests.Find( pRequest ) )
+//	{
+//		pRequest->Cancel();
+//	}
+//}
 
 TCHAR CDownloadWithTorrent::GenerateCharacter() const
 {
@@ -418,7 +396,7 @@ bool CDownloadWithTorrent::RunTorrent(DWORD tNow)
 		ChokeTorrent( tNow );
 
 	// Check if the torrent file exists and has been opened
-	if ( ! Open() )
+	if ( ! OpenFile() )
 		return false;
 
 	// Return if this download is waiting for a download task to finish
@@ -586,7 +564,7 @@ void CDownloadWithTorrent::SendStarted(DWORD nNumWant)
 		return;
 
 	// Create and run tracker request
-	new CBTTrackerRequest( static_cast< CDownload* >( this ), BTE_TRACKER_STARTED, nNumWant, this );	// "started"
+	TrackerRequests.Request( static_cast< CDownload* >( this ), BTE_TRACKER_STARTED, nNumWant, this );	// "started"
 }
 
 void CDownloadWithTorrent::SendUpdate(DWORD nNumWant)
@@ -605,7 +583,7 @@ void CDownloadWithTorrent::SendUpdate(DWORD nNumWant)
 		return;
 
 	// Create and run tracker request
-	new CBTTrackerRequest( static_cast< CDownload* >( this ), BTE_TRACKER_UPDATE, nNumWant, this );	// "NULL"
+	TrackerRequests.Request( static_cast< CDownload* >( this ), BTE_TRACKER_UPDATE, nNumWant, this );	// "NULL"
 }
 
 void CDownloadWithTorrent::SendCompleted()
@@ -618,7 +596,7 @@ void CDownloadWithTorrent::SendCompleted()
 		return;
 
 	// Create and run tracker request
-	new CBTTrackerRequest( static_cast< CDownload* >( this ), BTE_TRACKER_COMPLETED, 0, this );		// "completed"
+	TrackerRequests.Request( static_cast< CDownload* >( this ), BTE_TRACKER_COMPLETED, 0, this );		// "completed"
 }
 
 void CDownloadWithTorrent::SendStopped()
@@ -636,22 +614,45 @@ void CDownloadWithTorrent::SendStopped()
 	m_bTorrentStarted = m_bTorrentRequested = FALSE;
 
 	// Create and run tracker request
-	new CBTTrackerRequest( static_cast< CDownload* >( this ), BTE_TRACKER_STOPPED, 0, this );		// "stopped"
+	TrackerRequests.Request( static_cast< CDownload* >( this ), BTE_TRACKER_STOPPED );					// "stopped"
 }
 
 //////////////////////////////////////////////////////////////////////
 // CDownloadWithTorrent tracker event handler
 
-void CDownloadWithTorrent::OnTrackerEvent(bool bSuccess, LPCTSTR pszReason, LPCTSTR pszTip, CBTTrackerRequest* /*pEvent*/)
+void CDownloadWithTorrent::OnTrackerEvent(bool bSuccess, LPCTSTR pszReason, LPCTSTR pszTip, CBTTrackerRequest* pEvent)
 {
+	ASSUME_LOCK( Transfers.m_pSection );
+
 	const DWORD tNow = GetTickCount();
 
 	if ( bSuccess )
 	{
 		// Success: Reset error conditions
+		if ( pEvent->GetEvent() == BTE_TRACKER_STARTED ||
+			 pEvent->GetEvent() == BTE_TRACKER_UPDATE ||
+			 pEvent->GetEvent() == BTE_TRACKER_COMPLETED )
+		{
+			// Abort if the download has been paused after the request was sent but before a reply was received
+			if ( ! m_bTorrentRequested )
+				return;
+
+			m_bTorrentStarted = TRUE;
+			m_tTorrentTracker = tNow + pEvent->GetInterval() * 1000;
+		}
 		m_bTorrentTrackerError = FALSE;
 		m_sTorrentTrackerError.Empty();
 		m_pTorrent.SetTrackerSucceeded( tNow );
+
+		// Get new sources
+		int nMax = Settings.Downloads.SourcesWanted;
+		for ( POSITION pos = pEvent->GetSources() ; pos ; nMax-- )
+		{
+			const CBTTrackerSource& pSource = pEvent->GetNextSource( pos );
+			AddSourceBT( pSource.m_pPeerID, &pSource.m_pAddress.sin_addr, ntohs( pSource.m_pAddress.sin_port ) );
+			if ( nMax < 0 && GetEffectiveSourceCount() >= Settings.Downloads.SourcesWanted )
+				break;
+		}
 
 		// Lock on this tracker if we were searching for one
 		if ( m_pTorrent.GetTrackerMode() == CBTInfo::tMultiFinding )

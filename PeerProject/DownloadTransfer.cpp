@@ -345,8 +345,7 @@ void CDownloadTransfer::ChunkifyRequest(QWORD* pnOffset, QWORD* pnLength, DWORD 
 // Selects an available block, either unaligned blocks or
 // if none is available a random aligned block
 
-blockPair CDownloadTransfer::SelectBlock(const Fragments::List& oPossible,
-	const BYTE* pAvailable, bool bEndGame) const
+blockPair CDownloadTransfer::SelectBlock(const Fragments::List& oPossible, const BYTE* pAvailable, bool bEndGame) const
 {
 	ASSUME_LOCK( Transfers.m_pSection );
 
@@ -371,7 +370,7 @@ blockPair CDownloadTransfer::SelectBlock(const Fragments::List& oPossible,
 	if ( pItr->begin() < Settings.Downloads.ChunkStrap )
 	{
 		return std::make_pair( pItr->begin(),
-			min( pItr->end() - pItr->begin(), Settings.Downloads.ChunkStrap ) );
+			min( pItr->end() - pItr->begin(), (QWORD)Settings.Downloads.ChunkStrap ) );
 	}
 
 	DWORD nBlockSize = m_pDownload->GetVerifyLength( m_nProtocol );
@@ -387,7 +386,7 @@ blockPair CDownloadTransfer::SelectBlock(const Fragments::List& oPossible,
 	{
 		QWORD nPart[2] = { pItr->begin(), 0ull };
 		QWORD nBlockBegin = nPart[0] / nBlockSize;
-		QWORD nBlockEnd = ( pItr->end() - 1 ) / nBlockSize;
+		const QWORD nBlockEnd = ( pItr->end() - 1ull ) / nBlockSize;
 
 		// The start of a block is complete, but part is missing
 		if ( nPart[0] % nBlockSize
@@ -435,8 +434,7 @@ blockPair CDownloadTransfer::SelectBlock(const Fragments::List& oPossible,
 	return std::make_pair( nBestRange[0], nBestRange[1] );
 }
 
-void CDownloadTransfer::CheckPart(QWORD* nPart, DWORD nPartBlock,
-	QWORD* nRange, QWORD& nRangeBlock, QWORD* nBestRange) const
+void CDownloadTransfer::CheckPart(QWORD* nPart, QWORD nPartBlock, QWORD* nRange, QWORD& nRangeBlock, QWORD* nBestRange) const
 {
 	if ( nPartBlock == nRangeBlock )
 	{
@@ -469,8 +467,7 @@ void CDownloadTransfer::CheckRange(QWORD* nRange, QWORD* nBestRange) const
 //////////////////////////////////////////////////////////////////////
 // CDownloadTransfer fragment selector
 
-bool CDownloadTransfer::SelectFragment(const Fragments::List& oPossible,
-	QWORD& nOffset, QWORD& nLength, bool bEndGame) const
+bool CDownloadTransfer::SelectFragment(const Fragments::List& oPossible, QWORD& nOffset, QWORD& nLength, bool bEndGame) const
 {
 	ASSUME_LOCK( Transfers.m_pSection );
 

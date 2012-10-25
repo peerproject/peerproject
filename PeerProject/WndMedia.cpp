@@ -1,7 +1,7 @@
 //
 // WndMedia.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -20,6 +20,7 @@
 #include "Settings.h"
 #include "PeerProject.h"
 #include "WndMedia.h"
+#include "WndMain.h"
 #include "ImageServices.h"
 #include "CoolInterface.h"
 #include "Colors.h"
@@ -43,13 +44,13 @@ BEGIN_MESSAGE_MAP(CMediaWnd, CPanelWnd)
 	ON_WM_SETCURSOR()
 	ON_WM_SYSCOMMAND()
 	ON_WM_NCACTIVATE()
-	//}}AFX_MSG_MAP
 	ON_MESSAGE(WM_IDLEUPDATECMDUI, OnIdleUpdateCmdUI)
 	ON_MESSAGE(WM_APPCOMMAND, OnMediaKey)
 	ON_MESSAGE(WM_DEVMODECHANGE, OnDevModeChange)
 	ON_MESSAGE(WM_DISPLAYCHANGE, OnDisplayChange)
 	ON_MESSAGE(WM_ENQUEUEFILE, OnEnqueueFile)
 	ON_MESSAGE(WM_PLAYFILE, OnPlayFile)
+	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -68,6 +69,15 @@ CMediaWnd::~CMediaWnd()
 
 /////////////////////////////////////////////////////////////////////////////
 // CMediaWnd operations
+
+CMediaWnd* CMediaWnd::GetMediaWindow(BOOL bToggle, BOOL bFocus)
+{
+	if ( CMainWnd* pMainWnd = theApp.SafeMainWnd() )
+	{
+		return static_cast< CMediaWnd* >( pMainWnd->m_pWindows.Open( RUNTIME_CLASS(CMediaWnd), bToggle, bFocus ) );
+	}
+	return NULL;
+}
 
 BOOL CMediaWnd::PlayFile(LPCTSTR pszFile)
 {
@@ -262,7 +272,10 @@ LRESULT CMediaWnd::OnEnqueueFile(WPARAM /*wParam*/, LPARAM lParam)
 
 LRESULT CMediaWnd::OnPlayFile(WPARAM /*wParam*/, LPARAM lParam)
 {
-	m_wndFrame.PlayFile( *(CString*)lParam );
-	delete (CString*)lParam;
+//	m_wndFrame.PlayFile( *(CString*)lParam );
+//	delete (CString*)lParam;	// Obsolete
+
+	CAutoPtr< CString > psFile( (CString*)lParam );
+	m_wndFrame.PlayFile( *psFile );
 	return 0;
 }

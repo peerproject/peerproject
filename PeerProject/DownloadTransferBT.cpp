@@ -674,6 +674,9 @@ BOOL CDownloadTransferBT::OnSourceResponse(CBTPacket* pPacket)
 				nCount += m_pDownload->AddSourceBT( tmp, &saPeer.sin_addr, htons( saPeer.sin_port ) );
 			}
 		}
+
+		if ( nCount > Settings.Downloads.SourcesWanted && m_pDownload->GetEffectiveSourceCount() > Settings.Downloads.SourcesWanted )
+			break;
 	}
 
 	theApp.Message( MSG_INFO, IDS_BT_CLIENT_EXCHANGE, nCount, (LPCTSTR)m_sAddress );

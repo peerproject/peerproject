@@ -44,7 +44,7 @@ protected:
 	BOOL			m_bBuffered;
 	BOOL			m_bMenuGray;
 	CSyncObject*	m_pSyncObject;
-//	DWORD			m_tLastUpdate;	// Using static
+	DWORD			m_tLastUpdate;	// No static
 	DWORD			m_tHoverTime;	// Was m_dwHoverTime
 	CCoolBarItem*	m_pDown;
 	CCoolBarItem*	m_pHot;

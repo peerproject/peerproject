@@ -77,7 +77,15 @@ int CAppThread::Run()
 		ret = CWinThread::Run();
 
 	if ( bCOM )
-		OleUninitialize();
+	{
+		__try
+		{
+			OleUninitialize();
+		}
+		__except( EXCEPTION_EXECUTE_HANDLER )
+		{
+		}
+	}
 
 	return ret;
 }

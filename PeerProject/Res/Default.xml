@@ -8,25 +8,25 @@
 		<button id="ID_NETWORK_CONNECT" text="Connect"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Home"/>
-		<button id="ID_TAB_SEARCH" text="Search"/>
 		<button id="ID_TAB_TRANSFERS" text="Downloads"/>
 		<button id="ID_TAB_LIBRARY" text="Library"/>
 		<button id="ID_TAB_MEDIA" text="Media"/>
 		<button id="ID_TAB_IRC" text="Chat"/>
+		<button id="ID_TAB_SEARCH" text="Search"/>
 		<separator/>
-		<button id="ID_VIEW_TABBED" text="Leave Basic Mode"/>
+		<button id="ID_VIEW_TABBED" tip="Leave Basic Mode"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
 		<button id="ID_TAB_CONNECT" text="Connect"/>
-		<button id="ID_WINDOW_NAVBAR" text="Show NavBar"/>
+		<button id="ID_WINDOW_NAVBAR" tip="Show NavBar"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Home"/>
-		<button id="ID_TAB_SEARCH" text="Search"/>
 		<button id="ID_TAB_TRANSFERS" text="Transfers"/>
 		<button id="ID_TAB_NETWORK" text="Network"/>
 		<button id="ID_TAB_LIBRARY" text="Library"/>
 		<button id="ID_TAB_MEDIA" text="Media"/>
 		<button id="ID_TAB_IRC" text="Chat"/>
+		<button id="ID_TAB_SEARCH" text="Search"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Windowed">
 		<button id="ID_NETWORK_CONNECT" text="Connect"/>
@@ -2606,7 +2606,7 @@
 		<image id="ID_SEARCH_STOP" id1="ID_BROWSE_STOP" id2="ID_NETWORK_DISCONNECT" id3="ID_UPLOADS_DISCONNECT"
 			id4="ID_IRC_DISCONNECT" id5="ID_CHAT_DISCONNECT" id6="ID_HOSTCACHE_DISCONNECT" id7="ID_SCHEDULER_REMOVE_ALL"/>
 		<image id="ID_SECURITY_BAN" id1="ID_TRANSFERS_FORGET" id2="ID_DOWNLOAD_GROUP_REMOVE" id3="ID_DISCOVERY_BLOCKED"/>
-		<image id="ID_LIBRARY_UNLINK" /> <!--IDI_RATING_FAKE-->
+		<image id="ID_LIBRARY_UNLINK" id1="ID_MEDIA_MUTE" /> <!--IDI_RATING_FAKE-->
 		<image /> <!--IDI_RATING_AVERAGE-->
 		<image /> <!--IDI_RATING_GOOD-->
 		<image id="IDI_COLLECTION_MASK"/>

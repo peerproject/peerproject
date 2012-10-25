@@ -2214,7 +2214,6 @@ BOOL CEDClient::OnPreviewAnswer(CEDPacket* pPacket)
 
 						// Make it hidden, so the files won't be shared
 						SetFileAttributes( (LPCTSTR)strPath, FILE_ATTRIBUTE_HIDDEN|FILE_ATTRIBUTE_SYSTEM );
-						pDownload->m_bGotPreview = TRUE;
 						break;
 					}
 				}

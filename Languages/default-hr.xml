@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Croatian Skin File -->
 
-<!-- Translation based on default-en.xml r85 --> <!-- (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r86 --> <!-- (Shareaza 2.2.0.2) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -33,21 +33,21 @@
 		<button id="ID_NETWORK_CONNECT" text="Spoji"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Početak"/>
-		<button id="ID_TAB_SEARCH" text="Traži"/>
 		<button id="ID_TAB_TRANSFERS" text="Razmjena"/>
 		<button id="ID_TAB_LIBRARY" text="Sadržaj"/>
 		<button id="ID_TAB_MEDIA" text="Media"/>
+		<button id="ID_TAB_SEARCH" text="Traži"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
 		<button id="ID_TAB_CONNECT" text="Spoji"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Početak"/>
-		<button id="ID_TAB_SEARCH" text="Traži"/>
 		<button id="ID_TAB_TRANSFERS" text="Razmjena"/>
 		<button id="ID_TAB_NETWORK" text="Mreža"/>
 		<button id="ID_TAB_LIBRARY" text="Sadržaj"/>
 		<button id="ID_TAB_MEDIA" text="Media"/>
 		<button id="ID_TAB_IRC" text="IRC"/>
+		<button id="ID_TAB_SEARCH" text="Traži"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Windowed">
 		<button id="ID_NETWORK_CONNECT" text="Spoji"/>

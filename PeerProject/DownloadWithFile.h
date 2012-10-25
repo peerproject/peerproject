@@ -79,10 +79,11 @@ public:
 	void			SetFileError(DWORD nFileError, LPCTSTR szFileError);
 	void			ClearFileError();
 	virtual bool	Rename(const CString& strName);		// Set download new name safely
-	DWORD			MoveFile(LPCTSTR pszDestination, LPPROGRESS_ROUTINE lpProgressRoutine = NULL, LPVOID lpData = NULL);
+	DWORD			MoveFile(LPCTSTR pszDestination, LPPROGRESS_ROUTINE lpProgressRoutine = NULL, CDownloadTask* pTask = NULL);
 protected:
+	BOOL			OpenFile();		// Legacy (Crash workaround)
 	BOOL			Open();			// Open files of this download
-	BOOL			Open(const CBTInfo& pBTInfo);
+	BOOL			Open(const CBTInfo& pBTInfo);	// Magnet Crash?
 	void			CloseFile();	// Close files of this download
 	void			DeleteFile();
 	BOOL			FlushFile();

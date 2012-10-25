@@ -26,6 +26,7 @@
 #include "SharedFile.h"
 #include "DlgSelect.h"
 #include "Download.h"
+#include "DownloadTask.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -614,7 +615,7 @@ void CFragmentedFile::Delete()
 	}
 }
 
-DWORD CFragmentedFile::Move(DWORD nIndex, LPCTSTR pszDestination, LPPROGRESS_ROUTINE lpProgressRoutine, LPVOID lpData)
+DWORD CFragmentedFile::Move(DWORD nIndex, LPCTSTR pszDestination, LPPROGRESS_ROUTINE lpProgressRoutine, CDownloadTask* pTask)
 {
 	CString strPath, strName;
 	bool bSkip;
@@ -663,7 +664,7 @@ DWORD CFragmentedFile::Move(DWORD nIndex, LPCTSTR pszDestination, LPPROGRESS_ROU
 		if ( bSkip )
 			bSuccess = DeleteFileEx( strPath, FALSE, TRUE, TRUE );	// Breaks possible seeds?
 		else
-			bSuccess = MoveFileWithProgress( strPath, strTarget, lpProgressRoutine, lpData,
+			bSuccess = MoveFileWithProgress( strPath, strTarget, lpProgressRoutine, pTask,
 				MOVEFILE_REPLACE_EXISTING | MOVEFILE_COPY_ALLOWED | MOVEFILE_WRITE_THROUGH );
 
 		dwError = ::GetLastError();

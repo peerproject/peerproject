@@ -367,7 +367,7 @@ __int32 GetRandomNum<__int32>(const __int32& min, const __int32& max);
 template <>
 __int64 GetRandomNum<__int64>(const __int64& min, const __int64& max);
 
-enum 
+enum
 {
 	DB_DEFAULT,
 	DB_THUMBS,

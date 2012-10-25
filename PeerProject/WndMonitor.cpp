@@ -1,7 +1,7 @@
 //
 // WndMonitor.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -540,8 +540,14 @@ void CRemoteWnd::PaintMedia(CDC* pDC)
 {
 	if ( m_bsMediaSeekTrack )
 	{
-		float nPosition = m_nMediaSeek >= 0 ? m_nMediaSeek : ( CMediaFrame::g_pMediaFrame != NULL ? CMediaFrame::g_pMediaFrame->GetPosition() : 0 );
 		CRect rcTrack( &m_rcsMediaSeekTrack ), rcPart;
+		float nPosition = m_nMediaSeek;
+		if ( nPosition < 0 )
+		{
+			nPosition = 0;
+			if ( CMediaFrame::g_pMediaFrame != NULL )
+				nPosition = CMediaFrame::g_pMediaFrame->GetPosition();
+		}
 
 		if ( m_bsMediaSeekTab )
 		{
@@ -609,13 +615,11 @@ void CRemoteWnd::PaintMedia(CDC* pDC)
 		}
 	}
 
-	if ( m_bsStatusText && CMediaFrame::g_pMediaFrame != NULL && ! m_bStatus )
-	{
-		m_bStatus |= CMediaFrame::g_pMediaFrame->PaintStatusMicro( *pDC, m_rcsStatusText );
-	}
-
 	if ( CMediaFrame::g_pMediaFrame != NULL )
 	{
+		if ( m_bsStatusText && ! m_bStatus )
+			m_bStatus |= CMediaFrame::g_pMediaFrame->PaintStatusMicro( *pDC, m_rcsStatusText );
+
 		MediaState nState = CMediaFrame::g_pMediaFrame->GetState();
 		int nImage = 0;
 

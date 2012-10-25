@@ -21,6 +21,7 @@
 #include "PeerProject.h"
 #include "CoolInterface.h"
 #include "BTInfo.h"
+#include "BTTrackerRequest.h"
 #include "BTClients.h"
 #include "DCClients.h"
 #include "EDClients.h"
@@ -647,6 +648,7 @@ int CPeerProjectApp::ExitInstance()
 		Network.Clear();	// UPnP Delay
 
 		SplashStep( L"Finalizing" );
+		TrackerRequests.Clear();
 		Downloads.Clear( true );
 		Library.Clear();
 		HostCache.Clear();
@@ -2681,7 +2683,7 @@ void CPeerProjectApp::OnRename(LPCTSTR pszSource, LPCTSTR pszTarget)
 CDatabase* CPeerProjectApp::GetDatabase(int nType) const
 {
 	ASSERT( nType < DB_LAST );
-	return new CDatabase( Settings.General.DataPath + 
+	return new CDatabase( Settings.General.DataPath +
 		( nType == DB_THUMBS ? _T("Thumbnails.db3") :
 		//nType == DB_SECURITY ? _T("Security.db3") :
 		/*nType == DB_DEFAULT ?*/ _T("PeerProject.db3") ) );

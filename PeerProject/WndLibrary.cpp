@@ -26,6 +26,7 @@
 #include "CollectionFile.h"
 #include "SharedFile.h"
 #include "SharedFolder.h"
+#include "WndMain.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -60,6 +61,15 @@ CLibraryWnd::~CLibraryWnd()
 
 /////////////////////////////////////////////////////////////////////////////
 // CLibraryWnd operations
+
+CLibraryWnd* CLibraryWnd::GetLibraryWindow(BOOL bToggle, BOOL bFocus)
+{
+	if ( CMainWnd* pMainWnd = theApp.SafeMainWnd() )
+	{
+		return static_cast< CLibraryWnd* >( pMainWnd->m_pWindows.Open( RUNTIME_CLASS(CLibraryWnd), bToggle, bFocus ) );
+	}
+	return NULL;
+}
 
 BOOL CLibraryWnd::Display(CLibraryFile* pFile)
 {

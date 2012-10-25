@@ -584,10 +584,9 @@ void CUploadsWnd::OnUploadsLaunch()
 			CSingleLock pLibraryLock( &Library.m_pSection, TRUE );
 			if ( CLibraryFile* pLibFile = LibraryMaps.LookupFileByHash( &oFile ) )
 			{
-				if ( CMainWnd* pMainWnd = theApp.SafeMainWnd() )
+				if ( CLibraryWnd* pLibrary = CLibraryWnd::GetLibraryWindow() )		// (CLibraryWnd*)( pMainWnd->m_pWindows.Open( RUNTIME_CLASS(CLibraryWnd) ) ) )
 				{
-					if ( CLibraryWnd* pLibrary = (CLibraryWnd*)( pMainWnd->m_pWindows.Open( RUNTIME_CLASS(CLibraryWnd) ) ) )
-						pLibrary->Display( pLibFile );
+					pLibrary->Display( pLibFile );
 				}
 			}
 		}

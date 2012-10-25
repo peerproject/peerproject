@@ -93,7 +93,7 @@ BOOL CFileCommentsPage::OnInitDialog()
 
 		CQuickLock oLock( Library.m_pSection );
 
-		for ( POSITION pos = pFiles->GetIterator() ; pos ; )
+		for ( POSITION pos = pFiles->GetHeadPosition() ; pos ; )
 		{
 			if ( CLibraryFile* pFile = pFiles->GetNextFile( pos ) )
 				m_nRating = pFile->m_nRating;
@@ -211,7 +211,7 @@ void CFileCommentsPage::OnOK()
 	{
 		CQuickLock oLock( Library.m_pSection );
 
-		for ( POSITION pos = pFiles->GetIterator() ; pos ; )
+		for ( POSITION pos = pFiles->GetHeadPosition() ; pos ; )
 		{
 			if ( CLibraryFile* pFile = pFiles->GetNextFile( pos ) )
 				pFile->m_nRating = m_nRating;

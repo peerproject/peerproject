@@ -599,6 +599,15 @@ int CDownloadWithSources::AddSourceURLs(LPCTSTR pszURLs, BOOL bURN, BOOL bFailed
 
 BOOL CDownloadWithSources::AddSourceInternal(CDownloadSource* pSource)
 {
+	if ( ! pSource )
+		return FALSE;	// Out of memory
+
+	if ( GetEffectiveSourceCount() > Settings.Downloads.SourcesWanted )
+	{
+		delete pSource;
+		return FALSE;	// Too many sources
+	}
+
 	// Check/Reject if source is invalid
 	if ( ! pSource->m_bPushOnly )
 	{
@@ -693,14 +702,13 @@ BOOL CDownloadWithSources::AddSourceInternal(CDownloadSource* pSource)
 			CString strURL = GetURL( pSource->m_pAddress, pSource->m_nPort );
 			if ( ! strURL.IsEmpty() )
 			{
-				if ( CDownloadSource* pG2Source = new CDownloadSource(
-					(CDownload*)this, strURL ) )
+				if ( CDownloadSource* pG2Source = new CDownloadSource( (CDownload*)this, strURL ) )
 				{
 					pG2Source->m_sServer = pSource->m_sServer;		// Copy user-agent
 					pG2Source->m_tAttempt = pSource->m_tAttempt;	// Set the same connection delay
 					pG2Source->m_nProtocol = PROTOCOL_HTTP;
 
-					InternalAdd( pG2Source );
+					AddSourceInternal( pG2Source );
 				}
 			}
 		}
@@ -842,9 +850,18 @@ void CDownloadWithSources::RemoveOverlappingSources(QWORD nOffset, QWORD nLength
 
 		if ( pSource->TouchedRange( nOffset, nLength ) )
 		{
-			theApp.Message( MSG_ERROR, IDS_DOWNLOAD_VERIFY_DROP,
-				(LPCTSTR)CString( inet_ntoa( pSource->m_pAddress ) ), (LPCTSTR)pSource->m_sServer, (LPCTSTR)m_sName, nOffset, nOffset + nLength - 1 );
-			pSource->Remove( TRUE, FALSE );
+			if ( GetTaskType() == dtaskMergeFile )
+			{
+				// Merging process can produce corrupted blocks, retry connection after 30 seconds
+				pSource->m_nFailures = 0;
+				pSource->Close( 30 );
+			}
+			else
+			{
+				theApp.Message( MSG_ERROR, IDS_DOWNLOAD_VERIFY_DROP,
+					(LPCTSTR)CString( inet_ntoa( pSource->m_pAddress ) ), (LPCTSTR)pSource->m_sServer, (LPCTSTR)m_sName, nOffset, nOffset + nLength - 1 );
+				pSource->Remove( TRUE, FALSE );
+			}
 		}
 	}
 }
@@ -907,9 +924,11 @@ void CDownloadWithSources::AddFailedSource(LPCTSTR pszUrl, bool bLocal, bool bOf
 
 	if ( LookupFailedSource( pszUrl ) == NULL )
 	{
-		CFailedSource* pBadSource = new CFailedSource( pszUrl, bLocal, bOffline );
-		m_pFailedSources.AddTail( pBadSource );
-		theApp.Message( MSG_DEBUG, L"Bad sources count for \"%s\": %i", m_sName, m_pFailedSources.GetCount() );
+		if ( CFailedSource* pBadSource = new CFailedSource( pszUrl, bLocal, bOffline ) )
+		{
+			m_pFailedSources.AddTail( pBadSource );
+			theApp.Message( MSG_DEBUG, L"Bad sources count for \"%s\": %i", m_sName, m_pFailedSources.GetCount() );
+		}
 	}
 }
 
@@ -967,12 +986,12 @@ void CDownloadWithSources::ClearFailedSources()
 //////////////////////////////////////////////////////////////////////
 // CDownloadWithSources Internal Add/Remove Source
 
-void CDownloadWithSources::InternalAdd(const CDownloadSource* pSource)
+void CDownloadWithSources::InternalAdd(CDownloadSource* pSource)
 {
 	ASSUME_LOCK( Transfers.m_pSection );
 
-	ASSERT( m_pSources.Find( const_cast< CDownloadSource* >( pSource ) ) == NULL );
-	m_pSources.AddTail( const_cast< CDownloadSource* >( pSource ) );
+	ASSERT( m_pSources.Find( pSource ) == NULL );
+	m_pSources.AddTail( pSource );
 
 	switch ( pSource->m_nProtocol )
 	{
@@ -1002,11 +1021,11 @@ void CDownloadWithSources::InternalAdd(const CDownloadSource* pSource)
 	}
 }
 
-void CDownloadWithSources::InternalRemove(const CDownloadSource* pSource)
+void CDownloadWithSources::InternalRemove(CDownloadSource* pSource)
 {
 	ASSUME_LOCK( Transfers.m_pSection );
 
-	POSITION posSource = m_pSources.Find( const_cast< CDownloadSource* >( pSource ) );
+	POSITION posSource = m_pSources.Find( pSource );
 	ASSERT( posSource != NULL );
 	m_pSources.RemoveAt( posSource );
 
@@ -1042,7 +1061,7 @@ void CDownloadWithSources::InternalRemove(const CDownloadSource* pSource)
 //////////////////////////////////////////////////////////////////////
 // CDownloadWithSources remove a source
 
-void CDownloadWithSources::RemoveSource(const CDownloadSource* pSource, BOOL bBan)
+void CDownloadWithSources::RemoveSource(CDownloadSource* pSource, BOOL bBan)
 {
 	ASSUME_LOCK( Transfers.m_pSection );
 
@@ -1157,7 +1176,8 @@ void CDownloadWithSources::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER
 	if ( ar.IsStoring() )
 	{
 		DWORD_PTR nSources = GetCount();
-		if ( nSources > 800 ) nSources = 800;	// ToDo: Setting?
+		if ( nSources > Settings.Downloads.SourcesWanted )
+			nSources = Settings.Downloads.SourcesWanted;
 		ar.WriteCount( nSources );
 
 		for ( POSITION posSource = GetIterator() ; posSource && nSources ; nSources-- )
@@ -1172,11 +1192,7 @@ void CDownloadWithSources::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER
 	}
 	else // Loading
 	{
-		DWORD_PTR nSources = ar.ReadCount();
-		if ( nSources > 800 ) nSources = 800;	// ToDo: Setting?
-		const BOOL bSources = (BOOL)nSources;
-
-		for ( ; nSources ; nSources-- )
+		for ( DWORD_PTR nSources = ar.ReadCount() ; nSources ; nSources-- )
 		{
 			// Create new source
 			//CDownloadSource* pSource = new CDownloadSource( (CDownload*)this );
@@ -1198,9 +1214,12 @@ void CDownloadWithSources::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER
 			InternalAdd( pSource.Detach() );
 		}
 
-		if ( bSources )
+		if ( ar.ReadCount() )
 		{
 			m_pXML = new CXMLElement();
+			if ( ! m_pXML )
+				AfxThrowMemoryException();
+
 			m_pXML->Serialize( ar );
 		}
 	}

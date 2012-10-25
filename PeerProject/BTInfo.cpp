@@ -1661,7 +1661,7 @@ BOOL CBTInfo::ScrapeTracker()
 	if ( pResponse == NULL || pResponse->m_pBuffer == NULL )
 		return FALSE;
 
-	if ( CBENode* pNode = CBENode::Decode( pResponse ) )
+	if ( const CBENode* pNode = CBENode::Decode( pResponse ) )
 	{
 		theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, _T("[BT] Recieved BitTorrent tracker response: %s"), pNode->Encode() );
 
@@ -1673,19 +1673,19 @@ BOOL CBTInfo::ScrapeTracker()
 		CBENode* pFile = pFiles->GetNode( nKey, Hashes::BtHash::byteCount );
 		if ( ! pFile->IsType( CBENode::beDict ) ) return FALSE;
 
-		if ( CBENode* pSeeds = pFile->GetNode( "complete" ) )
+		if ( const CBENode* pSeeds = pFile->GetNode( "complete" ) )
 		{
 			if ( pSeeds->IsType( CBENode::beInt ) )
-				m_nTrackerSeeds = (int)( pSeeds->GetInt() & ~0xFFFF0000 );	// QWORD Caution: Don't get negative values from buggy trackers
+				m_nTrackerSeeds = (int)( pSeeds->GetInt() & ~0xFFFF0000 );		// QWORD Caution: Don't get negative values from buggy trackers
 		}
 
-		if ( CBENode* pPeers = pFile->GetNode( "incomplete" ) )
+		if ( const CBENode* pPeers = pFile->GetNode( "incomplete" ) )
 		{
 			if ( pPeers->IsType( CBENode::beInt ) )
 				m_nTrackerPeers = (int)( pPeers->GetInt() & ~0xFFFF0000 );
 		}
 
-		//if ( CBENode* pHistory = pFile->GetNode( "downloaded" ) )			// ToDo: Use stat of all completed downloads ?
+		//if ( const CBENode* pHistory = pFile->GetNode( "downloaded" ) )		// ToDo: Use stat of all completed downloads ?
 		//{
 		//	if ( pHistory->IsType( CBENode::beInt ) )
 		//		m_nTrackerHistory = (int)( pHistory->GetInt() & ~0xFFFF0000 );
@@ -1694,9 +1694,9 @@ BOOL CBTInfo::ScrapeTracker()
 		// Unofficial min_request_interval
 		if ( m_nTrackerWait < 200 * 1000 )
 		{
-			if ( CBENode* pFlags = pNode->GetNode( "flags" ) )
+			if ( const CBENode* pFlags = pNode->GetNode( "flags" ) )
 			{
-				if ( CBENode* pWait = pFlags->GetNode( "min_request_interval" ) )
+				if ( const CBENode* pWait = pFlags->GetNode( "min_request_interval" ) )
 				{
 					if ( pWait->IsType( CBENode::beInt ) )
 						m_nTrackerWait = pWait->GetInt() * 1000;

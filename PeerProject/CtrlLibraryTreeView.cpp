@@ -1956,7 +1956,7 @@ void CLibraryTreeView::OnLibraryRebuild()
 		pItem->GetFileList( pList, TRUE );
 	}
 
-	for ( POSITION pos = pList->GetIterator() ; pos ; )
+	for ( POSITION pos = pList->GetHeadPosition() ; pos ; )
 	{
 		if ( CLibraryFile* pFile = pList->GetNextFile( pos ) )
 			pFile->Rebuild();

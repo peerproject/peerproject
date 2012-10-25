@@ -4,7 +4,7 @@
 <!-- PeerProject Default Afrikaans Skin File -->
 <!-- Weergawe: 27 Oktober 2005 vir Shareaza 2.2.0.2 -->
 
-<!-- Translation based on default-en.xml r85 -->
+<!-- Translation based on default-en.xml r86 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -34,21 +34,21 @@
 		<button id="ID_NETWORK_CONNECT" text="Konnekteer"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Tuisblad"/>
-		<button id="ID_TAB_SEARCH" text="Soek"/>
 		<button id="ID_TAB_TRANSFERS" text="Aflaaie"/>
 		<button id="ID_TAB_LIBRARY" text="Biblioteek"/>
 		<button id="ID_TAB_MEDIA" text="Media"/>
+		<button id="ID_TAB_SEARCH" text="Soek"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
 		<button id="ID_TAB_CONNECT" text="Konnekteer"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Tuisblad"/>
-		<button id="ID_TAB_SEARCH" text="Soek"/>
 		<button id="ID_TAB_TRANSFERS" text="Oordragte"/>
 		<button id="ID_TAB_NETWORK" text="Netwerk"/>
 		<button id="ID_TAB_LIBRARY" text="Biblioteek"/>
 		<button id="ID_TAB_MEDIA" text="Media"/>
 		<button id="ID_TAB_IRC" text="Chat"/>
+		<button id="ID_TAB_SEARCH" text="Soek"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Windowed">
 		<button id="ID_NETWORK_CONNECT" text="Konnekteer"/>

@@ -450,7 +450,7 @@ BOOL CDownloadTransferFTP::OnHeaderLine( CString& strHeader, CString& strValue )
 		if ( strHeader == _T("213") )		// SIZE reply
 		{
 			QWORD nTotal;
-			if ( _stscanf( strValue, _T("%I64u"), &nTotal ) != 1 || nTotal == 0 )
+			if ( _stscanf( strValue, _T("%I64u"), &nTotal ) != 1 || nTotal < 1 )
 			{
 				// Wrong SIZE reply format
 				ASSERT( FALSE );

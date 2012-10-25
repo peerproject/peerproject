@@ -41,6 +41,8 @@ public:
 
 // Operations
 public:
+	static CLibraryWnd*	GetLibraryWindow(BOOL bToggle = FALSE, BOOL bFocus = TRUE);		// Open Library window
+
 	BOOL	Display(CLibraryFile* pFile);
 	BOOL	Display(CAlbumFolder* pFolder);
 	BOOL	OnCollection(LPCTSTR pszPath);

@@ -398,7 +398,7 @@ void CDownloadWithTiger::RunValidation()
 	if ( m_pTigerBlock == NULL && m_pHashsetBlock == NULL && m_pTorrentBlock == NULL )
 		return;
 
-	if ( ! Open() )		// IsFileOpen()
+	if ( ! OpenFile() )
 		return;
 
 	if ( m_nVerifyHash > HASH_NULL && m_nVerifyBlock < 0xFFFFFFFF )
@@ -564,7 +564,7 @@ void CDownloadWithTiger::ContinueValidation()
 	ASSERT( m_nVerifyHash > HASH_NULL );
 	ASSERT( m_nVerifyBlock < 0xFFFFFFFF );
 
-	if ( ! Open() )
+	if ( ! OpenFile() )
 		return;
 
 	auto_array< BYTE > pChunk( new BYTE[ 256 * 1024ull ] );

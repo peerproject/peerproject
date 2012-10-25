@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default German Skin File -->
 
-<!-- Translation based on default-en.xml r85 -->
+<!-- Translation based on default-en.xml r86 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -33,21 +33,21 @@
 		<button id="ID_NETWORK_CONNECT" text="Verbinden"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Home"/>
-		<button id="ID_TAB_SEARCH" text="Suchen"/>
 		<button id="ID_TAB_TRANSFERS" text="Downloads"/>
 		<button id="ID_TAB_LIBRARY" text="Bibliothek"/>
 		<button id="ID_TAB_MEDIA" text="Medien"/>
+		<button id="ID_TAB_SEARCH" text="Suchen"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
 		<button id="ID_TAB_CONNECT" text="Verbinden"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Home"/>
-		<button id="ID_TAB_SEARCH" text="Suchen"/>
 		<button id="ID_TAB_TRANSFERS" text="Transfer"/>
 		<button id="ID_TAB_NETWORK" text="Netzwerk"/>
 		<button id="ID_TAB_LIBRARY" text="Bibliothek"/>
 		<button id="ID_TAB_MEDIA" text="Medien"/>
 		<button id="ID_TAB_IRC" text="Chat"/>
+		<button id="ID_TAB_SEARCH" text="Suchen"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Windowed">
 		<button id="ID_NETWORK_CONNECT" text="Verbinden"/>

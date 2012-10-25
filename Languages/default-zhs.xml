@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Simplified) Skin File -->
 
-<!-- Translation based on default-en.xml r85 --> <!-- (Shareaza r6092) -->
+<!-- Translation based on default-en.xml r86 --> <!-- (Shareaza r6092) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -33,21 +33,21 @@
 		<button id="ID_NETWORK_CONNECT" text="连接"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="首页"/>
-		<button id="ID_TAB_SEARCH" text="搜索"/>
 		<button id="ID_TAB_TRANSFERS" text="传送"/>
 		<button id="ID_TAB_LIBRARY" text="收藏"/>
 		<button id="ID_TAB_MEDIA" text="媒体"/>
+		<button id="ID_TAB_SEARCH" text="搜索"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
 		<button id="ID_TAB_CONNECT" text="连接"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="首页"/>
-		<button id="ID_TAB_SEARCH" text="搜索"/>
 		<button id="ID_TAB_TRANSFERS" text="传送"/>
 		<button id="ID_TAB_NETWORK" text="网络"/>
 		<button id="ID_TAB_LIBRARY" text="收藏"/>
 		<button id="ID_TAB_MEDIA" text="媒体"/>
 		<button id="ID_TAB_IRC" text="IRC"/>
+		<button id="ID_TAB_SEARCH" text="搜索"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Windowed">
 		<button id="ID_NETWORK_CONNECT" text="连接"/>

@@ -218,7 +218,8 @@ void CPlugins::Clear()
 
 //void CPlugins::UnloadPlugin(REFCLSID pCLSID)
 //{
-//	CQuickLock oLock( m_pSection );
+//	CSingleLock oLock( &m_pSection, FALSE );
+//	if ( ! oLock.Lock( 500 ) ) return;
 //
 //	// Delete from cache
 //	CPluginPtr* pGITPlugin = NULL;
@@ -313,16 +314,17 @@ BOOL CPlugins::LookupEnable(REFCLSID pCLSID, LPCTSTR pszExt) const
 
 IUnknown* CPlugins::GetPlugin(LPCTSTR pszGroup, LPCTSTR pszType)
 {
-	HRESULT hr;
-
 	CLSID pCLSID;
 	if ( ! LookupCLSID( pszGroup, pszType, pCLSID ) )
 		return NULL;	// Disabled
 
+	HRESULT hr;
+
 	for ( int i = 0 ; ; ++i )
 	{
 		{
-			CQuickLock oLock( m_pSection );
+			CSingleLock oLock( &m_pSection, FALSE );
+			if ( ! oLock.Lock( 500 ) ) return NULL;
 
 			CComPtr< IUnknown > pPlugin;
 			CPluginPtr* pGITPlugin = NULL;

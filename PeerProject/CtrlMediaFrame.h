@@ -22,40 +22,40 @@
 #include "CtrlMediaList.h"
 
 
-class CLazySliderCtrl : public CSliderCtrl
-{
-public:
-	CLazySliderCtrl() : m_nPos( -1 ), m_nMin( -1 ), m_nMax( -1 ) {}
-
-	int GetPos() const
-	{
-		if ( m_nPos == -1 )
-			m_nPos = CSliderCtrl::GetPos();
-		return m_nPos;
-	}
-
-	void SetPos(_In_ int nPos)
-	{
-		if ( m_nPos != nPos )
-		{
-			m_nPos = nPos;
-			CSliderCtrl::SetPos( nPos );
-		}
-	}
-
-	void SetRange(_In_ int nMin, _In_ int nMax, _In_ BOOL bRedraw = FALSE)
-	{
-		if ( m_nMin != nMin || m_nMax != nMax )
-		{
-			m_nMin = nMin;
-			m_nMax = nMax;
-			CSliderCtrl::SetRange( nMin, nMax, bRedraw );
-		}
-	}
-
-private:
-	mutable int m_nPos, m_nMin, m_nMax;
-};
+//class CLazySliderCtrl : public CSliderCtrl
+//{
+//public:
+//	CLazySliderCtrl() : m_nPos( -1 ), m_nMin( -1 ), m_nMax( -1 ) {}
+//
+//	int GetPos() const
+//	{
+//		if ( m_nPos == -1 )
+//			m_nPos = CSliderCtrl::GetPos();
+//		return m_nPos;
+//	}
+//
+//	void SetPos(_In_ int nPos)
+//	{
+//		if ( m_nPos != nPos )
+//		{
+//			m_nPos = nPos;
+//			CSliderCtrl::SetPos( nPos );
+//		}
+//	}
+//
+//	void SetRange(_In_ int nMin, _In_ int nMax, _In_ BOOL bRedraw = FALSE)
+//	{
+//		if ( m_nMin != nMin || m_nMax != nMax )
+//		{
+//			m_nMin = nMin;
+//			m_nMax = nMax;
+//			CSliderCtrl::SetRange( nMin, nMax, bRedraw );
+//		}
+//	}
+//
+//private:
+//	mutable int m_nPos, m_nMin, m_nMax;
+//};
 
 
 class CMediaFrame : public CWnd
@@ -73,8 +73,8 @@ public:
 	void	OnUpdateCmdUI();
 	BOOL	PlayFile(LPCTSTR pszFile);
 	BOOL	EnqueueFile(LPCTSTR pszFile);
-	BOOL	IsPlaying();
 	void	OnFileDelete(LPCTSTR pszFile);
+	BOOL	IsPlaying();
 	float	GetPosition();
 	float	GetVolume();
 	BOOL	SeekTo(float nPosition);
@@ -82,7 +82,12 @@ public:
 	BOOL	PaintStatusMicro(CDC& dc, CRect& rcBar);
 	void	UpdateScreenSaverStatus(BOOL bWindowActive);
 
-	CString	GetNowPlaying();
+	CString	GetNowPlaying() const
+	{
+		return m_sNowPlaying;
+	}
+
+	static CMediaFrame* GetMediaFrame();
 
 	inline IMediaPlayer* GetPlayer() { return m_pPlayer; }
 	inline MediaState GetState() { return m_pPlayer != NULL ? m_nState : smsNull; }
@@ -96,9 +101,9 @@ protected:
 	BOOL	Prepare();
 	BOOL	PrepareVis();
 	BOOL	OpenFile(LPCTSTR pszFile);
-	void	Cleanup();
 	void	ZoomTo(MediaZoom nZoom);
 	void	AspectTo(double nAspect);
+	void	Cleanup();
 	void	UpdateState();
 	void	DisableScreenSaver();
 	void	EnableScreenSaver();
@@ -129,9 +134,9 @@ protected:
 	CMediaListCtrl	m_wndList;
 	CCoolBarCtrl	m_wndListBar;
 	CCoolBarCtrl	m_wndToolBar;
-	CLazySliderCtrl	m_wndPosition;	// CSliderCtrl above
-	CLazySliderCtrl	m_wndSpeed; 	// CSliderCtrl above
-	CLazySliderCtrl	m_wndVolume;	// CSliderCtrl above
+	CSliderCtrl 	m_wndPosition;	// CLazySliderCtrl above
+	CSliderCtrl 	m_wndSpeed; 	// CLazySliderCtrl above
+	CSliderCtrl 	m_wndVolume;	// CLazySliderCtrl above
 
 	BOOL			m_bFullScreen;
 	DWORD			m_tBarTime;
@@ -169,13 +174,14 @@ public:
 
 // Implementation
 protected:
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
 	afx_msg void OnPaint();
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
 	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
+	afx_msg void OnMButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
 	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar = NULL);

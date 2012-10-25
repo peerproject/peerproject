@@ -175,7 +175,9 @@ public:
 	UINT GetItemOverlayMask(int nItem) const;
 
 protected:
-	afx_msg void OnLvnGetDispInfo(NMHDR *pNMHDR, LRESULT *pResult);		// OnLvnGetDispInfoW/OnLvnGetDispInfoA
+	void OnLvnGetDispInfo(NMHDR *pNMHDR, BOOL bWide = TRUE);
+	afx_msg void OnLvnGetDispInfoW(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnLvnGetDispInfoA(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnLvnOdFindItem(NMHDR *pNMHDR, LRESULT *pResult);		// OnLvnOdFindItemW/OnLvnOdFindItemA
 	afx_msg void OnLvnOdCacheHint(NMHDR *pNMHDR, LRESULT *pResult);
 

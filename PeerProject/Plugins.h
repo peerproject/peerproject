@@ -31,7 +31,7 @@ public:
 	CPlugins();
 
 public:
-	CCriticalSection	m_pSection;
+	CMutex		m_pSection;
 
 	BOOL		Register(const CString& sPath); 					// Register all plugins in given PeerProject installation/plugin folder
 
