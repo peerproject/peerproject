@@ -32,6 +32,7 @@
 #include "SharedFolder.h"
 #include "DlgProgressBar.h"
 #include "DownloadWithTorrent.h"	// For scrape m_pPeerId
+#include "HttpRequest.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE

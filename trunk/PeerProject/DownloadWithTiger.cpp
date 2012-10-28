@@ -398,14 +398,11 @@ void CDownloadWithTiger::RunValidation()
 	if ( m_pTigerBlock == NULL && m_pHashsetBlock == NULL && m_pTorrentBlock == NULL )
 		return;
 
-	if ( ! OpenFile() )
+	if ( ! OpenFile() )		// Legacy workaround for Open() magnet torrent crash
 		return;
 
-	if ( m_nVerifyHash > HASH_NULL && m_nVerifyBlock < 0xFFFFFFFF )
-	{
-		ContinueValidation();
-	}
-	else if ( FindNewValidationBlock( HASH_TORRENT ) ||
+	if ( ( m_nVerifyHash > HASH_NULL && m_nVerifyBlock < 0xFFFFFFFF ) ||
+		FindNewValidationBlock( HASH_TORRENT ) ||
 		FindNewValidationBlock( HASH_TIGERTREE ) ||
 		FindNewValidationBlock( HASH_ED2K ) )
 	{
@@ -564,7 +561,7 @@ void CDownloadWithTiger::ContinueValidation()
 	ASSERT( m_nVerifyHash > HASH_NULL );
 	ASSERT( m_nVerifyBlock < 0xFFFFFFFF );
 
-	if ( ! OpenFile() )
+	if ( ! OpenFile() )		// Legacy workaround for Open() magnet torrent crash
 		return;
 
 	auto_array< BYTE > pChunk( new BYTE[ 256 * 1024ull ] );

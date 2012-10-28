@@ -67,9 +67,8 @@ protected:
 	BOOL			m_bSelNotCompleteAndNoPreview;
 	BOOL			m_bSelCompletedAndNoPreview;
 	BOOL			m_bSelStartedAndNotMoving;
-	BOOL			m_bSelCompleted;
 	BOOL			m_bSelNotMoving;
-	BOOL			m_bSelSHA1orTTHorED2KorName;
+	BOOL			m_bSelCompleted;
 	BOOL			m_bSelShareState;
 	BOOL			m_bSelSeeding;
 	BOOL			m_bSelTorrent;
@@ -82,8 +81,11 @@ protected:
 	BOOL			m_bSelMoreSourcesOK;
 	BOOL			m_bSelSourceAcceptConnections;
 	BOOL			m_bSelSourceExtended;
-	BOOL			m_bSelHasReviews;
 	BOOL			m_bSelRemotePreviewCapable;
+	BOOL			m_bSelHasReviews;
+	BOOL			m_bSelHasSize;
+	BOOL			m_bSelHasHash;	// m_bSelSHA1orTTHorED2KorName
+	BOOL			m_bSelHasName;
 	BOOL			m_bConnectOkay;
 
 // Overrides

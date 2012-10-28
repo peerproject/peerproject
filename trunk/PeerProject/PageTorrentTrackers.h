@@ -50,6 +50,7 @@ protected:
 	CButton			m_wndRefresh;
 	CButton			m_wndAdd;
 	CButton			m_wndDel;
+//	CButton			m_wndRename;
 	CListCtrl		m_wndTrackers;
 
 	DWORD			m_nRequest;						// Tracker request transaction ID
@@ -83,6 +84,7 @@ protected:
 	afx_msg void	OnCbnSelchangeTorrentTrackermode();
 	afx_msg void	OnBnClickedTorrentTrackersAdd();
 	afx_msg void	OnBnClickedTorrentTrackersDel();
+//	afx_msg void	OnBnClickedTorrentTrackersRename();
 
 	DECLARE_MESSAGE_MAP()
 };

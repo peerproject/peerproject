@@ -398,7 +398,6 @@ void CDownloadWithExtras::OnPreviewRequestComplete(const CDownloadTask* pTask)
 	if ( CBuffer* pBuffer = pTask->IsPreviewAnswerValid() )
 	{
 		CImageFile pImage;
-
 		if ( pImage.LoadFromMemory( L".jpg", pBuffer->m_pBuffer, pBuffer->m_nLength, FALSE, TRUE ) &&
 			 pImage.SaveToFile( (LPCTSTR)strPath, 100 ) )
 		{

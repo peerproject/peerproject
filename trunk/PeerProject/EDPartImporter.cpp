@@ -375,14 +375,6 @@ BOOL CEDPartImporter::ImportFile(LPCTSTR pszPath, LPCTSTR pszFile)
 }
 
 /////////////////////////////////////////////////////////////////////////////
-// CEDPartImporter copy file
-
-BOOL CEDPartImporter::CopyFile(LPCTSTR pszSource, LPCTSTR pszTarget)
-{
-	return ::CopyFile( pszSource, pszTarget, TRUE );
-}
-
-/////////////////////////////////////////////////////////////////////////////
 // CEDPartImporter message
 
 void CEDPartImporter::Message(UINT nMessageID, ...)

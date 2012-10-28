@@ -44,6 +44,8 @@ protected:
 	virtual ~CDownloadTask();
 
 public:
+	float				m_fProgress;		// Progress of current operation (0-100%)
+
 	static void			Copy(CDownload* pDownload);
 	static void			PreviewRequest(CDownload* pDownload, LPCTSTR szURL);
 	static void			MergeFile(CDownload* pDownload, CList< CString >* pFiles, BOOL bValidation = TRUE, const Fragments::List* pGaps = NULL);
@@ -73,7 +75,6 @@ protected:
 	Fragments::List		m_oMergeGaps;		// Missed ranges in source file
 	BOOL				m_bMergeValidation;	// Run validation after merging
 	POSITION			m_posTorrentFile;	// Torrent file list current position
-	float				m_fProgress;		// Progress of current operation (0-100%)
 	CEvent*				m_pEvent;
 
 	static DWORD CALLBACK CopyProgressRoutine(LARGE_INTEGER TotalFileSize,

@@ -621,13 +621,14 @@ void CDownloadsWnd::Prepare()
 	m_bSelAny = m_bSelDownload = m_bSelSource = m_bSelTrying = m_bSelPaused = FALSE;
 	m_bSelNotPausedOrMoving = m_bSelNoPreview = m_bSelNotCompleteAndNoPreview = FALSE;
 	m_bSelCompletedAndNoPreview = m_bSelStartedAndNotMoving = m_bSelCompleted = FALSE;
-	m_bSelNotMoving = m_bSelBoostable = m_bSelSHA1orTTHorED2KorName = FALSE;
+	m_bSelNotMoving = m_bSelBoostable = FALSE;
 	m_bSelIdleSource = m_bSelActiveSource = m_bSelMoreSourcesOK = FALSE;
 	m_bSelTorrent = m_bSelSeeding = FALSE;
 	m_bSelBrowse = m_bSelChat = m_bSelShareState = FALSE;
 	m_bSelSourceAcceptConnections = m_bSelSourceExtended = m_bSelHasReviews = FALSE;
 	m_bSelRemotePreviewCapable = FALSE;
 	m_bSelShareConsistent = TRUE;
+	m_bSelHasSize = m_bSelHasHash = m_bSelHasName = FALSE;
 
 	m_bConnectOkay = FALSE;
 
@@ -661,8 +662,6 @@ void CDownloadsWnd::Prepare()
 				if ( pDownload->IsSeeding() )
 					m_bSelSeeding = TRUE;
 			}
-			if ( pDownload->m_oSHA1 || pDownload->m_oTiger || pDownload->m_oED2K || pDownload->m_oBTH || pDownload->m_oMD5 || ! pDownload->m_sName.IsEmpty() )
-				m_bSelSHA1orTTHorED2KorName = TRUE;
 			if ( pDownload->IsPaused() )
 				m_bSelPaused = TRUE;
 			else if ( ! pDownload->IsMoving() )
@@ -692,8 +691,15 @@ void CDownloadsWnd::Prepare()
 				m_bSelShareState = FALSE;
 				m_bSelShareConsistent = FALSE;
 			}
-			if ( pDownload->GetReviewCount() > 0 )
+
+			if ( pDownload->GetReviewCount() )
 				m_bSelHasReviews = TRUE;
+			if ( pDownload->HasHash() )
+				m_bSelHasHash = TRUE;
+			if ( pDownload->m_nSize && pDownload->m_nSize < SIZE_UNKNOWN )
+				m_bSelHasSize = TRUE;
+			if ( ! pDownload->m_sName.IsEmpty() )
+				m_bSelHasName = TRUE;
 		}
 
 		pDownload->m_bRemotePreviewCapable = FALSE;
@@ -1317,7 +1323,7 @@ void CDownloadsWnd::OnDownloadsAddSource()
 void CDownloadsWnd::OnUpdateDownloadsMergeLocal(CCmdUI* pCmdUI)
 {
 	Prepare();
-	pCmdUI->Enable( m_nSelectedDownloads == 1 && m_bSelNotMoving && ! m_bSelCompleted );
+	pCmdUI->Enable( m_nSelectedDownloads == 1 && m_bSelNotMoving && ! m_bSelCompleted && m_bSelHasSize && m_bSelHasHash );
 }
 
 void CDownloadsWnd::OnDownloadsMergeLocal()
@@ -1451,7 +1457,7 @@ void CDownloadsWnd::OnDownloadsBoost()
 void CDownloadsWnd::OnUpdateDownloadsURI(CCmdUI* pCmdUI)
 {
 	Prepare();
-	pCmdUI->Enable( m_bSelSHA1orTTHorED2KorName || m_bSelSource && m_nSelectedDownloads < 50 );
+	pCmdUI->Enable( m_bSelHasHash || m_bSelHasName || m_bSelSource && m_nSelectedDownloads < 50 );
 }
 
 void CDownloadsWnd::OnDownloadsURI()

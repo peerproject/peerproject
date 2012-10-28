@@ -432,7 +432,8 @@ void CDownload::OnRun()
 		else if ( IsTrying() || IsSeeding() )
 		{
 			// This download is trying to download
-			OpenDownload();
+			if ( HasHash() )		// Workaround for direct downloads stuck "verifying"
+				OpenDownload();
 
 			// Dead Download Check: if download appears dead, give up and allow another to start.
 			// Incomplete, and trying for at least 3 hours:
@@ -600,36 +601,28 @@ void CDownload::OnTaskComplete(const CDownloadTask* pTask)
 void CDownload::OnMoved()
 {
 	// Just completed torrent
-	if ( IsTorrent() )
+	if ( IsTorrent() && IsFullyVerified() )
 	{
-		if ( IsFullyVerified() )
-		{
-			// Set FALSE to prevent sending 'stop' announce to tracker
-			m_bTorrentRequested = FALSE;
-			StopTrying();
-
-			// Send 'completed' announce to tracker
-			SendCompleted();
-
-			// This torrent is now seeding
-			m_bSeeding = TRUE;
-			m_bVerify = TRI_TRUE;
-			m_bTorrentStarted = TRUE;
-			m_bTorrentRequested = TRUE;
-		}
-		else	// Something wrong, since we moved the torrent ?
-		{
-			// Explicitly set flag to send stop announce to tracker
-			m_bTorrentRequested = TRUE;
-			StopTrying();
-		}
-	}
-	else	// Not torrent
-	{
+		// Set FALSE to prevent sending 'stop' announce to tracker
+		m_bTorrentRequested = FALSE;
 		StopTrying();
-	}
 
-//	ClearSources();
+		// Send 'completed' announce to tracker
+		SendCompleted();
+
+		// This torrent is now seeding
+		m_bSeeding = TRUE;
+		m_bVerify = TRI_TRUE;
+		m_bTorrentStarted = TRUE;
+		m_bTorrentRequested = TRUE;
+	}
+	else
+	{
+		if ( IsTorrent() )
+			m_bTorrentRequested = TRUE;		// Explicitly set flag to send stop announce to tracker
+		StopTrying();
+		ClearSources();
+	}
 
 	ASSERT( ! m_sPath.IsEmpty() );
 	DeleteFileEx( m_sPath + _T(".png"), FALSE, FALSE, TRUE );
@@ -657,10 +650,8 @@ BOOL CDownload::OpenDownload()
 
 	if ( IsTorrent() )
 	{
-		if ( OpenFile() )
+		if ( Open( m_pTorrent ) )
 			return TRUE;
-//		if ( Open( m_pTorrent ) )
-//			return TRUE;
 	}
 	else
 	{
