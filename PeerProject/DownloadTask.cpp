@@ -266,10 +266,11 @@ int CDownloadTask::Run()
 
 void CDownloadTask::RunCopy()
 {
-	m_fProgress = 0;
+	m_fProgress  = 0;
 	m_nFileError = m_pDownload->MoveFile( m_sDestination, CopyProgressRoutine, this );
+	m_fProgress  = 100.0f;
+
 	m_bSuccess = ( m_nFileError == ERROR_SUCCESS );
-	m_fProgress = 100.0f;
 }
 
 DWORD CALLBACK CDownloadTask::CopyProgressRoutine(LARGE_INTEGER TotalFileSize,
@@ -282,6 +283,8 @@ DWORD CALLBACK CDownloadTask::CopyProgressRoutine(LARGE_INTEGER TotalFileSize,
 
 	if ( TotalFileSize.QuadPart )
 		pThis->m_fProgress = (float)( TotalBytesTransferred.QuadPart * 100 ) / (float)TotalFileSize.QuadPart;
+	//else
+	//	pThis->m_fProgress = 100.0f;
 
 	return ( pThis->m_pEvent == NULL ) ? PROGRESS_CONTINUE : PROGRESS_CANCEL;
 }
@@ -306,7 +309,7 @@ DWORD CALLBACK CDownloadTask::CopyProgressRoutine(LARGE_INTEGER TotalFileSize,
 //		DWORD tStart	= GetTickCount();
 //
 //		if ( ! ReadFile( hSource, pBuffer, nBuffer, &nBuffer, NULL ) || ! nBuffer ||
-//			! WriteFile( hTarget, pBuffer, nBuffer, &nSuccess, NULL ) || nSuccess != nBuffer )
+//			 ! WriteFile( hTarget, pBuffer, nBuffer, &nSuccess, NULL ) || nSuccess != nBuffer )
 //		{
 //			m_nFileError = GetLastError();
 //			break;
@@ -595,7 +598,7 @@ void CDownloadTask::RunPreviewRequest()
 //}
 
 /////////////////////////////////////////////////////////////////////////////
-// CDownloadTask path creator
+// CDownloadTask path creator (Obsolete)
 
 //void CDownloadTask::CreatePathForFile(const CString& strBase, const CString& strPath)
 //{

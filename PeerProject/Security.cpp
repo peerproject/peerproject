@@ -2525,13 +2525,7 @@ CListLoader::CListLoader()
 
 CListLoader::~CListLoader()
 {
-	StopThread();
-}
-
-void CListLoader::StopThread()
-{
-	Exit();
-	Wakeup();
+	CloseThread();
 }
 
 //void CListLoader::Cancel(CSecureRule* pRule)
@@ -2721,13 +2715,18 @@ void CListLoader::OnRun()
 		m_pQueue.RemoveHead();	// Done
 	}
 
-	StopThread();
+	Exit();
+	Wakeup();
+
+	Sleep( 5000 );
 
 	// Recheck
-	Sleep( 5000 );
+	if ( ! m_pQueue.GetCount() )	//  && IsThreadEnabled()
 	{
 		CQuickLock oLock( Security.m_pSection );
+
 		Security.m_Cache.clear();
+
+		PostMainWndMessage( WM_SANITY_CHECK );
 	}
-	PostMainWndMessage( WM_SANITY_CHECK );
 }

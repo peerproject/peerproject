@@ -249,7 +249,7 @@ class CListLoader : public CThreadImpl
 // Construction
 public:
 	CListLoader();
-	~CListLoader();
+	virtual ~CListLoader();
 
 // Attributes
 protected:
@@ -259,8 +259,6 @@ protected:
 // Operations
 public:
 	void		OnRun();
-	void		StopThread();
-//	void		Cancel(CSecureRule* pRule);
 	void		AddList(CSecureRule* pRule);
 };
 

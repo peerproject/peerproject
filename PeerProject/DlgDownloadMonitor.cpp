@@ -186,9 +186,11 @@ BOOL CDownloadMonitorDlg::OnInitDialog()
 	if ( Downloads.Check( m_pDownload ) )
 	{
 		m_sName = m_pDownload->m_sName;
-		m_wndIcon.SetIcon( ShellIcons.ExtractIcon(
-			ShellIcons.Get( m_pDownload->IsMultiFileTorrent() ? _T(".torrent") : m_sName, 32 ), 32 ) );		// Was m_sName.Find( '.' ) < 1
 		m_wndFile.SetWindowText( m_sName );
+		if ( m_pDownload->IsTorrent() && ( m_pDownload->IsMultiFileTorrent() || m_sName.Find( _T('.') ) < 1 ) )
+			m_wndIcon.SetIcon( CoolInterface.ExtractIcon( IDI_MULTIFILE, FALSE, LVSIL_NORMAL ) );
+		else
+			m_wndIcon.SetIcon( ShellIcons.ExtractIcon( ShellIcons.Get( m_sName, 32 ), 32 ) );
 	}
 
 	pLock.Unlock();

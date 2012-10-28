@@ -832,7 +832,7 @@ BEGIN
 	LTEXT			"After closing this Wizard, the first thing to do is run a 'fake' random search to catch spammers and Ban them all.  Explore toolbar tabs while waiting.",IDC_STATIC,10,49,265,28
 	CONTROL			"Start PeerProject every time Windows starts",IDC_WIZARD_STARTUP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,20,88,225,10
 	CONTROL			"Connect to the networks every time I start PeerProject",IDC_WIZARD_AUTO,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,20,102,225,10
-	LTEXT			"And thanks.  Enjoy using PeerProject for all your peer-to-peer networking.",IDC_STATIC,10,132,265,16
+	LTEXT			"And thanks. \nEnjoy using PeerProject for all your peer-to-peer networking needs.",IDC_STATIC,10,128,265,20
 END
 
 IDD_FOLDER_SCAN DIALOGEX 0, 0, 238, 50
@@ -1838,6 +1838,7 @@ BEGIN
 	PUSHBUTTON		"R&efresh",IDC_TORRENT_REFRESH,228,52,56,14
 	PUSHBUTTON      " &Add",IDC_SOURCE_ADD,62,77,60,14
 	PUSHBUTTON      " &Remove",IDC_SOURCE_REMOVE,177,77,60,14
+//	PUSHBUTTON      " &Edit",IDC_NAME,244,77,50,14	// ToDo:?
 END
 
 IDD_TORRENT_GENERAL DIALOGEX 0, 0, 300, 220
@@ -3988,7 +3989,7 @@ BEGIN
 	IDS_DOWNLOAD_UNKNOWN_PUSH	"Received an unnecessary push connection from %s."
 	IDS_DOWNLOAD_USEFUL_RANGE	"Download host %s responded with a different, but useful range (%I64i-%I64i) of ""%s""."
 	IDS_DOWNLOAD_VERIFY_DROP	"Dropping source %s (%s) for sending corrupted parts of ""%s"" (%I64i-%I64i)."
-	IDS_DOWNLOAD_VERIFY_FAIL	"WARNING: Download ""%s"" failed verification, it may not be the file you intended to download!"
+	IDS_DOWNLOAD_VERIFY_FAIL	"WARNING: Download ""%s"" failed verification, it may not be the file you intended to download."
 	IDS_DOWNLOAD_VERIFY_SUCCESS "Successfully verified download ""%s""."
 	IDS_DOWNLOAD_WRONG_HASH		"Download host %s's version of ""%s"" has a different URN, aborting."
 	IDS_DOWNLOAD_WRONG_RANGE	"Download host %s responded with a useless byte range of ""%s"", pending."

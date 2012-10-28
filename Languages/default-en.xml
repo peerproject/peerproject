@@ -4099,7 +4099,7 @@
 		<control caption="After closing this Wizard, the first thing to do is run a 'fake' random search to catch spammers and Ban them all. Explore toolbar tabs while waiting."/>
 		<control caption="Start PeerProject every time Windows starts"/>
 		<control caption="Connect to the network every time I start PeerProject"/>
-		<control caption="Enjoy using PeerProject P2P."/>
+		<control caption="And thanks. \nEnjoy using PeerProject for all your peer-to-peer networking needs."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="Import eDonkey Downloads">
 		<control caption="PeerProject has detected that you have another eDonkey program installed on your computer. Would you like to import any unfinished downloads into PeerProject?"/>

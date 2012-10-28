@@ -207,9 +207,10 @@ CString CPeerProjectFile::GetFilename() const
 		strFilename = _T("btih_") + m_oBTH.toString();
 	else if ( m_oMD5 )
 		strFilename = _T("md5_")  + m_oMD5.toString();
+	else if ( m_sName.GetLength() > 1 )			// Note intentional obfuscation. Need to avoid conflicts but random numbers can leave orphan partials, different .pd and .partial
+		strFilename.Format( _T("file_%u%s"), m_sName, CTime::GetCurrentTime().Format( _T("%M%S") ).Mid( 1, 2 ) );
 	else
-		strFilename.Format( _T("file_%2i%2i%2i"),
-			GetRandomNum( 0, 99 ), GetRandomNum( 0, 99 ), GetRandomNum( 0, 99 ) );
+		strFilename.Format( _T("file_%.2i%.2i%.2i"), GetRandomNum( 0, 99 ), GetRandomNum( 0, 99 ), GetRandomNum( 0, 99 ) );
 	return strFilename;
 }
 

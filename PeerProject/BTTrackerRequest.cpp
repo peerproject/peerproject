@@ -43,6 +43,15 @@ static LPCTSTR szEvents[] =
 	_T("stopped")							// BTE_TRACKER_STOPPED
 };
 
+static LPCTSTR szEventInfo[] =
+{
+	_T("update tracker announce"),			// BTE_TRACKER_UPDATE
+	_T("completed tracker announce"),		// BTE_TRACKER_COMPLETED
+	_T("initial tracker announce"),			// BTE_TRACKER_STARTED
+	_T("final tracker announce"),			// BTE_TRACKER_STOPPED
+	_T("tracker scrape")					// BTE_TRACKER_SCRAPE
+};
+
 static const DWORD nMinResponseSize[] =
 {
 	sizeof( bt_udp_connecting_response_t ),	// BTA_TRACKER_CONNECT
@@ -722,7 +731,7 @@ void CBTTrackerRequest::ProcessUDP()
 	// Send connect UDP-packet to tracker
 	bool bSuccess = false;
 
-	// Wait for response
+	// Wait for UDP response
 	if ( Datagrams.Send( &m_pHost, CBTTrackerPacket::New( BTA_TRACKER_CONNECT, m_nTransactionID, bt_connection_magic ) ) )
 		bSuccess = ( WaitForSingleObject( m_pCancel, Settings.Connection.TimeoutConnect ) == WAIT_OBJECT_0 );
 
@@ -878,7 +887,7 @@ DWORD CBTTrackerRequests::Request(CDownload* pDownload, BTTrackerEvent nEvent, D
 		// Out of memory
 		return 0;
 
-	for (;;)
+	for ( ;; )
 	{
 		DWORD nTransactionID = GetRandomNum( 1ui32, _UI32_MAX );
 		if ( m_pTrackerRequests.PLookup( nTransactionID ) == NULL )
