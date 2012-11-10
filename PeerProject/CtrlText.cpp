@@ -346,48 +346,32 @@ int CTextCtrl::HitTest(const CPoint& pt) const
 
 void CTextCtrl::CopyText() const
 {
-	CQuickLock pLock( m_pSection );
-
 	CString str;
-	bool bGotIt = false;
-	for ( int i = 0 ; i < m_pLines.GetCount() ; i++ )
-	{
-		CTextLine* pLineTemp = m_pLines.GetAt( i );
-		if ( pLineTemp->m_bSelected )
-		{
-			str += pLineTemp->m_sText + _T("\r\n");
-			bGotIt = true;
-		}
-	}
+	BOOL bGotIt = FALSE;
 
-	if ( ! bGotIt )
 	{
-		if ( m_nLastClicked != -1 )
-		{
-			CTextLine* pLineTemp = m_pLines.GetAt( m_nLastClicked );
-			str = pLineTemp->m_sText;
-			bGotIt = true;
-		}
-	}
+		CQuickLock pLock( m_pSection );
 
-	if ( bGotIt && AfxGetMainWnd()->OpenClipboard() )
-	{
-		EmptyClipboard();
-
-		CT2W pszWide( (LPCTSTR)str );
-		DWORD nSize = ( lstrlenW(pszWide) + 1 ) * sizeof(WCHAR);
-		if ( HANDLE hMem = GlobalAlloc( GMEM_MOVEABLE|GMEM_DDESHARE, nSize ) )
+		for ( int i = 0 ; i < m_pLines.GetCount() ; i++ )
 		{
-			if ( LPVOID pMem = GlobalLock( hMem ) )
+			CTextLine* pLineTemp = m_pLines.GetAt( i );
+			if ( pLineTemp->m_bSelected )
 			{
-				CopyMemory( pMem, pszWide, nSize );
-				GlobalUnlock( hMem );
-				SetClipboardData( CF_UNICODETEXT, hMem );
+				str += pLineTemp->m_sText + _T("\r\n");
+				bGotIt = TRUE;
 			}
 		}
 
-		CloseClipboard();
+		if ( ! bGotIt && m_nLastClicked != -1 )
+		{
+			CTextLine* pLineTemp = m_pLines.GetAt( m_nLastClicked );
+			str = pLineTemp->m_sText;
+			bGotIt = TRUE;
+		}
 	}
+
+	if ( bGotIt )
+		theApp.SetClipboard( str );
 }
 
 void CTextCtrl::OnSize(UINT nType, int cx, int cy)

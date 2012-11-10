@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Lithuanian Skin File -->
 
-<!-- Translation based on default-en.xml r86 -->
+<!-- Translation based on default-en.xml r88 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3808,10 +3808,11 @@
 		<control/>
 		<control caption="pradėti naudotis „PeerProject“ programa."/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Sveiki! Čia „PeerProject“ (2/8)">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStStCoStCoStCoStEdBuStms" caption="Sveiki! Čia „PeerProject“ (2/8)">
 		<control caption="Optimaliam darbui „PeerProjecti“ reikia žinoti šiek tiek apie Jūsų interneto ryšį."/>
 		<control caption="Pasirinkite prisijungimo prie interneto tipą:"/>
-		<control caption="Telefono ryšys|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN (Vietinis tinklas)|OC3|Kabelinis modemas"/>
+		<control caption="| Telefono ryšys| ISDN 128K| DSL 768K| DSL 1.5| Kabelinis 3| DSL 4| DSL2 8| FIOS 10| DSL2 12| FIOS 15| FIOS 20| FIOS 25| FIOS 30| FIOS 50| T1| T3| LAN (Vietinis tinklas)| OC3"/>
+		<control caption="Bandymas Speedtest.net"/>
 		<control caption="Arba pasirinkite atsisiuntimo greitį:"/>
 		<control/>
 		<control caption="ir išsiuntimo greitį:"/>
@@ -3890,12 +3891,12 @@
 		<control/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="Sveiki! Čia „PeerProject“ (8/8)">
-		<control caption="Štai ir viskas! „PeerProject“ yra sukonfigūruota darbui Jūsų kompiuteryje."/>
+		<control caption="Štai ir viskas. „PeerProject“ yra sukonfigūruota darbui Jūsų kompiuteryje."/>
 		<control caption="Jei Jums kada nors prisireiks pakeisti nuostatas, Jūs galėsite iš naujo paleisti šį Nuostatų vedlį, pasirinkdami jį iš meniu „Įrankiai“."/>
 		<control caption="Po to, kai paspausite mygtuką „Baigti“, Jūs galėsite prisijungti prie tinklų, kuriuos Jūs nurodėte, ieškoti ir parsisiųsti failus."/>
 		<control caption="Paleisti „PeerProject“ kiekvieną kartą, kai Windows startuos"/>
 		<control caption="Jungtis prie tinklo kiekvieną kartą, kai „PeerProject“ startuos"/>
-		<control caption="Malonaus darbo su „PeerProject“!"/>
+		<control caption="Malonaus darbo su „PeerProject“."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="eDonkey dalinių failų importas">
 		<control caption="„PeerProject“ aptiko, kad Jūs turite įsidiegę dar vieną, eDonkey, programą. Ar norėtumėte importuoti nebaigtus siųstis failus į „PeerProject“?"/>

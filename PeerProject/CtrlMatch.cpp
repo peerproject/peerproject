@@ -851,12 +851,12 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 				// Draw Open/Close Tick
 				if ( pFile->m_bExpanded )
 				{
-					CoolInterface.Draw( &dc, PtInRect(&rcTick,ptHover) ? IDI_CLOSETICK_HOVER : IDI_CLOSETICK,
+					CoolInterface.Draw( &dc, PtInRect( &rcTick, ptHover ) ? IDI_CLOSETICK_HOVER : IDI_CLOSETICK,
 						16, rcCol.left, rcCol.top, crLeftMargin );
 				}
 				else
 				{
-					CoolInterface.Draw( &dc, PtInRect(&rcTick,ptHover) ? IDI_OPENTICK_HOVER : IDI_OPENTICK,
+					CoolInterface.Draw( &dc, PtInRect( &rcTick, ptHover ) ? IDI_OPENTICK_HOVER : IDI_OPENTICK,
 						16, rcCol.left, rcCol.top, crLeftMargin );
 				}
 

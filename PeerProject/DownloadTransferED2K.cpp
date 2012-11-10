@@ -790,7 +790,7 @@ bool CDownloadTransferED2K::SendFragmentRequests()
 		}
 	}
 
-	typedef std::map<QWORD ,Fragments::Fragment> _TRequest;
+	typedef std::map< QWORD, Fragments::Fragment > _TRequest;
 	typedef _TRequest::iterator _TRequestIndex;
 	_TRequest oRequesting;
 	while ( m_oRequested.size() < (int)Settings.eDonkey.RequestPipe )

@@ -18,6 +18,7 @@
 
 // A CG1Neighbour object represents a remote computer running Gnutella software with which we are exchanging Gnutella packets
 // http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CG1Neighbour
+// http://peerproject.org/shareazawiki/Developers.Code.CG1Neighbour.html
 
 #pragma once
 
@@ -71,14 +72,14 @@ public:
 	void OnNewPong(const CPongItem* pPong);
 
 protected:
-	// Send and recieve packets
+	// Send and receive packets
 	virtual BOOL OnRead();		// Read in data from the socket, decompress it, and call ProcessPackets
 	virtual BOOL OnWrite();		// Sends all the packets from the outbound packet buffer to the remote computer
 	virtual BOOL OnRun();		// Makes sure the remote computer hasn't been silent too long, and sends a ping every so often
 
 protected:
 	// Read and respond to packets from the remote computer
-	BOOL ProcessPackets();				// Cuts up the recieved data into packets, and calls OnPacket for each one
+	BOOL ProcessPackets();				// Cuts up the received data into packets, and calls OnPacket for each one
 	BOOL OnPacket(CG1Packet* pPacket);	// Sorts the packet and calls one of the methods below
 
 	// Ping and pong packets

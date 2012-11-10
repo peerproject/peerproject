@@ -340,7 +340,7 @@ en.WelcomeLabel1=%nWelcome to the%n[name] Setup Wizard
 en.WelcomeLabel2=This will install [name/ver]%nP2P filesharing on your computer.%n%nIt is recommended to close applications before continuing.
 en.FinishedHeadingLabel=%nCompleting the [name]%nInstaller Wizard
 en.FinishedLabel=Setup has finished installing [name] on your computer.%nIt can be launched from the installed shortcut icons.
-en.LicenseLabel3=Please read the following copyright license agreement.%nYou should understand the basic terms of this License before continuing installation.
+en.LicenseLabel3=Please read the following license summary.%nYou should understand the basic terms of this License before continuing installation.
 
 
 [CustomMessages]

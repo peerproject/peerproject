@@ -697,7 +697,7 @@ void CTorrentTrackersPage::OnCustomDrawList(NMHDR* pNMHDR, LRESULT* pResult)
 //					{
 //						if ( CBENode* pNode = CBENode::Decode( pResponse ) )
 //						{
-//							theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, _T("[BT] Recieved BitTorrent tracker response: %s"), pNode->Encode() );
+//							theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, _T("[BT] Received BitTorrent tracker response: %s"), pNode->Encode() );
 //
 //							if ( oLock.Lock( 250 ) )
 //							{

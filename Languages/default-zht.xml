@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Traditional) Skin File -->
 
-<!-- Translation based on default-en.xml r86 --> <!-- (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r88 --> <!-- (Shareaza 2.2.2.12) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3575,10 +3575,11 @@
 		<control/>
 		<control caption="開始使用PeerProject."/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="歡迎使用者 PeerProject (2/8)">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStStCoStCoStCoStEdBuStms" caption="歡迎使用者 PeerProject (2/8)">
 		<control caption="為了達到最佳效能, PeerProject 需要知道您的上網方式/地點."/>
 		<control caption="如果知道您網際網路的頻寬, 請選擇最接近的速度:"/>
-		<control caption="|撥接網路|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|區域網路|OC3|Cable Modem"/>
+		<control caption="| 撥接網路| ISDN 128K| DSL 768K| DSL 1.5| Cable 3| DSL 4| DSL2 8| FIOS 10| DSL2 12| FIOS 15| FIOS 20| FIOS 25| FIOS 30| FIOS 50| T1| T3| 區域網路| OC3"/>
+		<control caption="測試 Speedtest.net"/>
 		<control caption="或选择:"/>
 		<control/>
 		<control caption="状态:"/>
@@ -3657,7 +3658,7 @@
 		<control/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="歡迎使用 PeerProject (8/8)">
-		<control caption="這樣就可以了! PeerProject 已經設定好在您的電腦上運作了"/>
+		<control caption="這樣就可以了. PeerProject 已經設定好在您的電腦上運作了"/>
 		<control caption="如果您需要更改設定, 您可以從Tools Menu 重新執行 快速啟動精靈"/>
 		<control caption="按下完成, 關閉精靈後, 您可以連線至你選擇的網路並且開始搜尋, 下載檔案."/>
 		<control caption="視窗系統啟動時, 啟動 PeerProject"/>

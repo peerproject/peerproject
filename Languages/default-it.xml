@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Italian Skin File -->
 
-<!-- Translation based on default-en.xml r86 -->
+<!-- Translation based on default-en.xml r88 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3810,10 +3810,11 @@
 		<control/>
 		<control caption="Iniziare ad usare PeerProject"/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Benvenuto su PeerProject (2/8)">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStStCoStCoStCoStEdBuStms" caption="Benvenuto su PeerProject (2/8)">
 		<control caption="Per prestazioni ottimali, PeerProject ha bisogno di avere informazioni sulla tua connessione a internet."/>
 		<control caption="Scegli il tipo della tua connessione a internet:"/>
-		<control caption="Modem analogico|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Modem via cavo"/>
+		<control caption="| Modem analogico| ISDN 128K| DSL 768K| DSL 1.5| Cavo 3| DSL 4| DSL2 8| FIOS 10| DSL2 12| FIOS 15| FIOS 20| FIOS 25| FIOS 30| FIOS 50| T1| T3| LAN| OC3"/>
+		<control caption="Prova a Speedtest.net"/>
 		<control caption="O scegli la velocità di scaricamento:"/>
 		<control/>
 		<control caption="e la velocità di invio (upload):"/>
@@ -3892,13 +3893,13 @@
 		<control/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="Benvenuto su PeerProject (8/8)">
-		<control caption="Complimenti! PeerProject è stato configurato con successo."/>
+		<control caption="Complimenti. PeerProject è stato configurato con successo."/>
 		<control caption="Se vuoi cambiare le impostazioni, puoi riavviare questa configurazione guidata dal menu Strumenti."/>
 		<control caption="Dopo la chiusura di questa configurazione guidata cliccando su Fine, puoi connetterti alle reti selezionate e iniziare a cercare e a scaricare."/>
 		<control caption="Connetti alla rete quando chiudo la configurazione guidata"/>
 		<control caption="Connetti alla rete tutte le volte che avvio PeerProject"/>
 		<control caption="Esegui PeerProject all'avvio di Windows"/>
-		<control caption="Buon divertimento con PeerProject!"/>
+		<control caption="Buon divertimento con PeerProject."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="Importa download di eDonkey">
 		<control caption="PeerProject ha rilevato che hai un altro client eDonkey installato sul tuo computer. Desideri importare i download incompleti su PeerProject?"/>

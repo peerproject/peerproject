@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Greek Skin File -->
 
-<!-- Translation based on default-en.xml r86 -->
+<!-- Translation based on default-en.xml r88 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3810,10 +3810,11 @@
 		<control/>
 		<control caption="Εκκίνηση της χρήσης του PeerProject."/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Δήλωση Σύνδεσης (2/8)">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStStCoStCoStCoStEdBuStms" caption="Δήλωση Σύνδεσης (2/8)">
 		<control caption="Για βέλτιστη απόδοση, το PeerProject χρειάζεται να ξέρει λίγα πράγματα για τη σύνδεσή σας στο Διαδίκτυο."/>
 		<control caption="Διαλέξτε τον τύπο της σύνδεσής σας στο Διαδίκτυο:"/>
-		<control caption="|Dial-up Modem|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Cable Modem"/>
+		<control caption="| Dial-up Modem| ISDN 128K| DSL 768K| DSL 1.5| Cable 3| DSL 4| DSL2 8| FIOS 10| DSL2 12| FIOS 15| FIOS 20| FIOS 25| FIOS 30| FIOS 50| T1| T3| LAN| OC3"/>
+		<control caption="Δοκιμή στο Speedtest.net"/>
 		<control caption="Ή δηλώστε την ταχύτητα λήψης:"/>
 		<control/>
 		<control caption="και την ταχύτητα αποστολής:"/>
@@ -3892,12 +3893,12 @@
 		<control/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="Ολοκλήρωση Οδηγού Σύντομης Εκκίνησης (8/8)">
-		<control caption="Αυτό ήταν! Το PeerProject έχει ρυθμιστεί να δουλεύει με τον υπολογιστή σας."/>
+		<control caption="Αυτό ήταν. Το PeerProject έχει ρυθμιστεί να δουλεύει με τον υπολογιστή σας."/>
 		<control caption="Αν ποτέ χρειαστεί να αλλάξετε τις ρυθμίσεις σας, μπορείτε να ξανατρέξετε αυτόν τον οδηγό επιλέγοντάς τον από το μενού Εργαλεία."/>
 		<control caption="Μετά το κλείσιμο του οδηγού με κλικ στο Τέλος, μπορείτε να συνδεθείτε στα δίκτυα που επιλέξατε και να αρχίσετε αναζητήσεις και λήψεις."/>
 		<control caption="Εκκίνηση του PeerProject σε κάθε έναρξη των Windows"/>
 		<control caption="Σύνδεση στο δίκτυο σε κάθε εκκίνηση του PeerProject."/>
-		<control caption="Απολαύστε το PeerProject!"/>
+		<control caption="Απολαύστε το PeerProject."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="Εισαγωγή Ημιτελών Αρχείων του eDonkey">
 		<control caption="Το PeerProject εντόπισε ότι έχετε ένα πρόγραμμα eDonkey εγκατεστημένο στον υπολογιστή σας. Θέλετε να εισάγετε τυχόν ημιτελή αρχεία στο PeerProject;"/>

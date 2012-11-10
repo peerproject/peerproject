@@ -176,6 +176,8 @@ public:
 	void			PrintMessage(WORD nType, const CString& strLog);
 	void			LogMessage(const CString& strLog);
 
+	void			SetClipboard(const CString& strText, BOOL bShowTray = FALSE);	// Copy text to Windows clipboard
+
 	void			ShowStartupText();
 	void			SplashStep(LPCTSTR pszMessage = NULL, int nMax = 0, bool bClosing = false);
 	void			SplashAbort();

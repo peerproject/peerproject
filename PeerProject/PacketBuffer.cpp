@@ -18,6 +18,7 @@
 
 // CG1PacketBuffer holds arrays of packets to send, organized by their type
 // http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CG1PacketBuffer
+// http://peerproject.org/shareazawiki/Developers.Code.CG1PacketBuffer.html
 
 #include "StdAfx.h"
 #include "Settings.h"
@@ -117,9 +118,8 @@ CG1Packet* CG1PacketBuffer::GetPacketToSend(DWORD dwExpire)
 
 	// Loop
 	for ( int nCycle = G1_PACKTYPE_MAX * 2 ;	// Start nCycle as 18		The local variable nCycle isn't used in the loop, just here
-		 nCycle ;								// Stop if nCycle is 0		This would mean we've looped 18 times
-		 // After each loop, do all of the following:
-		 nCycle--,								// nCycle will be like 18, 17, 16, ... 2, 1, and then 0 will break the loop
+		 nCycle ;								// Stop if nCycle is 0 (looped 18 times)
+		 nCycle--,								// Decrement loop counter
 		 m_nCycle++,							// Move to the next packet type array, like from 1 ping to 2 pong and so on
 		 m_nIterate = 0 )						// Reset the count of packets of this type we've sent to 0
 	{
@@ -174,7 +174,7 @@ void CG1PacketBuffer::Clear()
 CG1PacketBufferType::CG1PacketBufferType()
 {
 	// Set the number of Gnutella packets this CG1PacketBufferType object will point to from the program settings
-	m_nCapacity	= Settings.Gnutella1.PacketBufferSize;	// By default, it's 64
+	m_nCapacity = Settings.Gnutella1.PacketBufferSize;	// By default, it's 64
 
 	// Make the arrays of packet pointers and times
 	m_pBuffer = new CG1Packet*[ m_nCapacity ];	// Allocate an array of 64 pointers to Gnutella packets, and point m_pBuffer at this array
@@ -224,7 +224,8 @@ BOOL CG1PacketBufferType::Add(CG1Packet* pPacket)
 	}
 
 	// Count head down each time this line runs like 63, 62, 61 ... 3, 2, 1, 0, 63, 62, 61 ... to sweep backwards down the array
-	if ( ! m_nHead-- ) m_nHead += m_nCapacity;	// If head is 0, add capacity to it, and also decrement it either way
+	if ( ! m_nHead-- )
+		m_nHead += m_nCapacity;			// If head is 0, add capacity to it, and also decrement it either way
 
 	// Record there will be one more packet stored here
 	m_nCount++;						// If we are overwriting packets now, this will set the count back up to 64

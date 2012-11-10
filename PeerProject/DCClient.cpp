@@ -672,7 +672,7 @@ BOOL CDCClient::OnADCGet(const std::string& strParams)
 	// Unexpected request
 	DetachUpload();
 
-	TRACE( "[DC++] Got $ADCGET but can't uplod!\n" );
+	TRACE( "[DC++] Got $ADCGET but can't upload.\n" );
 
 	return FALSE;
 }
@@ -719,7 +719,7 @@ BOOL CDCClient::OnADCSnd(const std::string& strParams)
 	// Unexpected request
 	DetachDownload();
 
-	TRACE( "[DC++] Got $ADCSND but can't download!\n" );
+	TRACE( "[DC++] Got $ADCSND but can't download.\n" );
 
 	return FALSE;
 }
@@ -761,7 +761,7 @@ BOOL CDCClient::OnGet(const std::string& strParams)
 	// Unexpected request
 	DetachUpload();
 
-	TRACE( "[DC++] Got $Get but can't uplod!\n" );
+	TRACE( "[DC++] Got $Get but can't upload.\n" );
 
 	return FALSE;
 }
@@ -790,7 +790,7 @@ BOOL CDCClient::OnMaxedOut(const std::string& strParams)
 		return m_pDownloadTransfer->OnQueue( atoi( strParams.c_str() ) );
 	}
 
-	TRACE( "[DC++] Got $MaxedOut but have no downloads!\n" );
+	TRACE( "[DC++] Got $MaxedOut but have no downloads.\n" );
 
 	return TRUE;
 }

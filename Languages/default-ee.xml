@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Estonian Skin File -->
 
-<!-- Translation based on default-en.xml r86 --> <!-- (Shareaza 2.2.2.9) -->
+<!-- Translation based on default-en.xml r88 --> <!-- (Shareaza 2.2.2.9) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3561,10 +3561,11 @@
 		<control/>
 		<control caption="Alustada PeerProject kasutamist."/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Teretulemast PeerProject (2/8)">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStStCoStCoStCoStEdBuStms" caption="Teretulemast PeerProject (2/8)">
 		<control caption="Optimaalseks kasutuseks vajab PeerProject veidi infot sinu Internetiühenduse kohta."/>
 		<control caption="You may select the Internet connection type:"/>
-		<control caption="Dial-up Modem|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Cable Modem"/>
+		<control caption="| Dial-up Modem| ISDN 128K| DSL 768K| DSL 1.5| Cable 3| DSL 4| DSL2 8| FIOS 10| DSL2 12| FIOS 15| FIOS 20| FIOS 25| FIOS 30| T1| T3| LAN| OC3"/>
+		<control caption="Katse Speedtest.net"/>
 		<control caption="Or choose the download speed:"/>
 		<control/>
 		<control caption="...and upload speed:"/>
@@ -3643,12 +3644,12 @@
 		<control/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="Teretulemast PeerProject (8/8)">
-		<control caption="Ongi kõik!  PeerProject on valmis sinu arvutis töötama."/>
+		<control caption="Ongi kõik. PeerProject on valmis sinu arvutis töötama."/>
 		<control caption="Kui sa tahad seadeid muuta, võid uuesti käivitada Kiirabilise Töörista ribalt."/>
 		<control caption="Pärast selle abilise sulgemist, klikkides Valmis nuppu, saad sa ühendada valitud võrkudesse ja alustada otsinguid ning allalaadimist."/>
 		<control caption="Käivita PeerProject koos Windowsiga"/>
 		<control caption="Ühenda võrku igakord kui käivitan PeerProject"/>
-		<control caption="Alusta PeerProject nautimist!"/>
+		<control caption="Alusta PeerProject nautimist."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="Impordi eDonkey2000 Allalaadimised">
 		<control caption="PeerProject on avastanud sinu arvutis teise eDonkey2000 programmi. Kas tahad selle programmi poolikud allalaadimised PeerProjectsse tuua?"/>

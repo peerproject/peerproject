@@ -936,19 +936,8 @@ void CRichViewCtrl::CopySelection() const
 	}
 	// End IRC block
 
-	if ( ! str.IsEmpty() && AfxGetMainWnd()->OpenClipboard() )
-	{
-		EmptyClipboard();
-
-		CT2W pszWide( (LPCTSTR)str );
-		HANDLE hMem = GlobalAlloc( GMEM_MOVEABLE|GMEM_DDESHARE, ( wcslen(pszWide) + 1 ) * sizeof(WCHAR) );
-		LPVOID pMem = GlobalLock( hMem );
-		CopyMemory( pMem, pszWide, ( wcslen(pszWide) + 1 ) * sizeof(WCHAR) );
-		GlobalUnlock( hMem );
-		SetClipboardData( CF_UNICODETEXT, hMem );
-
-		CloseClipboard();
-	}
+	if ( ! str.IsEmpty() )
+		theApp.SetClipboard( str );
 }
 
 void CRichViewCtrl::OnLButtonDblClk(UINT nFlags, CPoint point)

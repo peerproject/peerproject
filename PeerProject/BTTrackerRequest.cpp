@@ -591,13 +591,13 @@ void CBTTrackerRequest::ProcessHTTP()
 		OnTrackerEvent( false, LoadString( IDS_BT_TRACK_PARSE_ERROR ) );
 
 		CString strData( (const char*)pBuffer->m_pBuffer, pBuffer->m_nLength );
-		theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, _T("[BT] Recieved BitTorrent tracker response: %s"), strData.Trim() );
+		theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, _T("[BT] Received BitTorrent tracker response: %s"), strData.Trim() );
 	}
 }
 
 void CBTTrackerRequest::Process(const CBENode* pRoot)
 {
-	theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, _T("[BT] Recieved BitTorrent tracker response: %s"), pRoot->Encode() );
+	theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, _T("[BT] Received BitTorrent tracker response: %s"), pRoot->Encode() );
 
 	// Check for failure
 	if ( const CBENode* pError = pRoot->GetNode( BT_DICT_FAILURE ) )	// "failure reason"

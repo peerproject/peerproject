@@ -1084,13 +1084,13 @@ void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDown
 				if ( pDownload->m_bExpanded )
 				{
 					CoolInterface.Draw( &dc,
-						( PtInRect(&rcTick,ptHover) ? IDI_CLOSETICK_HOVER : IDI_CLOSETICK ),
+						( PtInRect( &rcTick, ptHover ) ? IDI_CLOSETICK_HOVER : IDI_CLOSETICK ),
 						16, rcCell.left, rcCell.top, crLeftMargin );
 				}
 				else
 				{
 					CoolInterface.Draw( &dc,
-						( PtInRect(&rcTick,ptHover) ? IDI_OPENTICK_HOVER : IDI_OPENTICK ),
+						( PtInRect( &rcTick, ptHover ) ? IDI_OPENTICK_HOVER : IDI_OPENTICK ),
 						16, rcCell.left, rcCell.top, crLeftMargin );
 				}
 			}

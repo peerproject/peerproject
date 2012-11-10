@@ -3,7 +3,7 @@
 
 <!-- PeerProject/ПеерПројецт Default Serbian Skin File -->
 
-<!-- Translation based on default-en.xml r86 -->
+<!-- Translation based on default-en.xml r88 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3465,10 +3465,11 @@
 		<control/>
 		<control caption="Započeti koristiti PeerProject."/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Dobrodošli u PeerProject (2/8)">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStStCoStCoStCoStEdBuStms" caption="Dobrodošli u PeerProject (2/8)">
 		<control caption="Da bi ispravno radila, PeerProject treba znati nešto i o Vašoj vezi prema internetu."/>
 		<control caption="Ako znate brzinu vaše veze na Internet molim da odaberete najbolju opciju:"/>
-		<control caption="|Običan Modem|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Kablovski Modem"/>
+		<control caption="| Običan Modem| ISDN 128K| DSL 768K| DSL 1.5| Kablovski 3| DSL 4| DSL2 8| FIOS 10| DSL2 12| FIOS 15| FIOS 20| FIOS 25| FIOS 30| FIOS 50| T1| T3| LAN| OC3"/>
+		<control caption="Тест на Speedtest.net"/>
 		<control caption="Или изаберите довнлоад брзину:"/>
 		<control/>
 		<control caption="...и брзина слања:"/>
@@ -3546,12 +3547,12 @@
 		<control/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="Dobrodošli u PeerProject (8/8)">
-		<control caption="To je to! PeerProject je prilagođena za rad na Vašem računaru."/>
+		<control caption="To je to. PeerProject je prilagođena za rad na Vašem računaru."/>
 		<control caption="Ukoliko kasnije želite da promenite podešavanja, možete odabrati Brzo i Lagano pomoćnika iz menija Alati."/>
 		<control caption="Nakon zatvaranja ovog pomoćnika klikom na Gotovo, možete se spojiti na odabrane mreže i započeti sa traženjem i skidanjem sadržaja."/>
 		<control caption="Upali PeerProject sa Windowsom"/>
 		<control caption="Spoji se na mrežu svaki puta kada pokrenem PeerProject"/>
-		<control caption="Uživajte koristeći PeerProject!"/>
+		<control caption="Uživajte koristeći PeerProject."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="Ubaci eDonkey2000 Skidanje">
 		<control caption="PeerProject je našla da već imate neki eDonkey2000 program instaliran. Želite li ubaciti nedovršena skidanja u PeerProject?"/>

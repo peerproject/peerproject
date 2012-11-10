@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Polish Skin File -->
 
-<!-- Translation based on default-en.xml r86 --> <!-- (Shareaza 2.1.2.7) -->
+<!-- Translation based on default-en.xml r88 --> <!-- (Shareaza 2.1.2.7) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3328,10 +3328,11 @@
 		<control/>
 		<control caption="... i rozpocząć używanie PeerProjecty."/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Witaj w PeerProjecte (2/8)">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStStCoStCoStCoStEdBuStms" caption="Witaj w PeerProjecte (2/8)">
 		<control caption="Do optymalnego działania, PeerProject potrzebuje trochę wiadomości o Twoim połączeniu z Internetem."/>
 		<control caption="Wybierz rodzaj Twojego łącza Internetowego:"/>
-		<control caption="|Modem wdzwaniany|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Modem kablowy"/>
+		<control caption="| Modem wdzwaniany| ISDN 128K| DSL 768K| DSL 1.5| Kablowy 3| DSL 4| DSL2 8| FIOS 10| DSL2 12| FIOS 15| FIOS 20| FIOS 25| FIOS 30| FIOS 50| T1| T3| LAN| OC3"/>
+		<control caption="Test na Speedtest.net"/>
 		<control caption="LUB, wybierz prędkość pobierania:"/>
 		<control/>
 		<control caption="i prędkość wysyłania:"/>
@@ -3410,12 +3411,12 @@
 		<control/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="Witaj w PeerProjecte (8/8)">
-		<control caption="To wszystko! PeerProject została skonfigurowana do pracy na twoim komputerze."/>
+		<control caption="To wszystko. PeerProject została skonfigurowana do pracy na twoim komputerze."/>
 		<control caption="Jeśli kiedykolwiek będziesz chciał zmienić Twoje ustawienia, możesz ponownie uruchomić niniejszego kreatora wybierając go z menu Narzędzia."/>
 		<control caption="Po zamknięciu tego kreatora poprzez kliknięcie na Zakończ, możesz się połączyć do sieci, które wybrałeś i zacząć szukać i pobierać pliki."/>
 		<control caption="Uruchom PeerProject razem z uruchomieniem Windows"/>
 		<control caption="Połącz do sieci za każdym razem, gdy uruchomię PeerProject"/>
-		<control caption="Miłej zabawy z PeerProject!"/>
+		<control caption="Miłej zabawy z PeerProject."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="Importuj pobierania z eDonkey">
 		<control caption="PeerProject wykryła, że masz zainstalowany na swoim komputerze inny program korzystający z sieci eDonkey. Czy chciałbyś zaimportować niedokończone pobierania do PeerProjecty?"/>

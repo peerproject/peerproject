@@ -49,7 +49,7 @@ public:
 	void	CloseToTray();							// Hide application to tray
 	void	OpenFromTray(int nShowCmd = SW_SHOW);	// Open main window from tray
 	void	OpenTrayMenu(); 						// Open context menu from tray
-	void	ShowTrayPopup(LPCTSTR szText, LPCTSTR szTitle = CLIENT_NAME, DWORD dwIcon = NIIF_INFO, UINT uTimeout = 12 /*seconds*/);
+	void	ShowTrayPopup(const CString& sText, const CString& sTitle = CLIENT_NAME, DWORD dwIcon = NIIF_INFO, UINT uTimeout = 12 /*seconds*/);
 	void	SetGUIMode(int nMode, BOOL bSaveState = TRUE);	// Set mode GUI_WINDOWED, GUI_TABBED or GUI_BASIC
 
 	inline BOOL	IsForegroundWindow() const			// Test if window foreground or not
@@ -92,6 +92,12 @@ protected:
 	void	RemoveSkin();					// Remove skins from window (primarily for shutdown)
 	void	AddTray();
 	void	DeleteTray();
+
+	// Snarl notifications (getsnarl.info)
+	int		SnarlCommand(LPCSTR szCommand);
+	bool	SnarlRegister();
+	void	SnarlUnregister();
+	bool	SnarlNotify(const CString& sText, const CString& sTitle, DWORD dwIcon, UINT uTimeout);
 
 	virtual BOOL OnCommand(WPARAM wParam, LPARAM lParam);
 	virtual BOOL Create(LPCTSTR lpszClassName, LPCTSTR lpszWindowName, DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, LPCTSTR lpszMenuName, DWORD dwExStyle, CCreateContext* pContext);
@@ -282,7 +288,7 @@ protected:
 	afx_msg LRESULT OnSanityCheck(WPARAM wParam, LPARAM lParam);
 	afx_msg LRESULT OnNowUploading(WPARAM wParam, LPARAM lParam);
 	afx_msg UINT OnPowerBroadcast(UINT nPowerEvent, UINT nEventData);
-	afx_msg BOOL OnCopyData(CWnd* pWnd,COPYDATASTRUCT* pCopyDataStruct);	// Windows scheduler not implemented
+	afx_msg BOOL OnCopyData(CWnd* pWnd, COPYDATASTRUCT* pCopyDataStruct);	// Windows scheduler not implemented
 
 	DECLARE_MESSAGE_MAP()
 	DECLARE_DROP()

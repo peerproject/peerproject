@@ -3,7 +3,7 @@
 
 <!-- PeerProject Korean Language Skin File -->
 
-<!-- Translation based on default-en.xml r86 --> <!--Machine Translated!-->
+<!-- Translation based on default-en.xml r88 --> <!--Machine Translated!-->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2719,10 +2719,11 @@
 		<control/>
 		<control caption="Get started using PeerProject."/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="피어 프로젝트에 오신 것을 환영합니다 (2/8)">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStStCoStCoStCoStEdBuStms" caption="피어 프로젝트에 오신 것을 환영합니다 (2/8)">
 		<control caption="For best performance, PeerProject needs to know your internet connection."/>
 		<control caption="You may select the Internet connection type:"/>
-		<control caption="|Dial-up Modem|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Cable Modem"/>
+		<control caption="| Dial-up Modem| ISDN 128K| DSL 768K| DSL 1.5| Cable 3| DSL 4| DSL2 8| FIOS 10| DSL2 12| FIOS 15| FIOS 20| FIOS 25| FIOS 30| FIOS 50| T1| T3| LAN| OC3"/>
+		<control caption="Speedtest.net 에서 테스트"/>
 		<control caption="Or choose the download speed:"/>
 		<control/>
 		<control caption="...and upload speed:"/>
@@ -2806,7 +2807,7 @@
 		<control caption="After closing this wizard, try running a fake search to Ban the spammers. Explore toolbar tabs while waiting."/>
 		<control caption="Start PeerProject every time Windows starts"/>
 		<control caption="Connect to the network every time I start PeerProject"/>
-		<control caption="Enjoy using PeerProject p2p."/>
+		<control caption="And thanks. \nEnjoy using PeerProject for all your peer-to-peer networking needs."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="Import eDonkey Downloads">
 		<control caption="PeerProject has detected that you have another eDonkey program installed on your computer. Would you like to import any unfinished downloads into PeerProject?"/>

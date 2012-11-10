@@ -3,7 +3,7 @@
 
 <!-- PeerProject Arabic Language Skin File -->
 
-<!-- Translation based on default-en.xml r86 -->
+<!-- Translation based on default-en.xml r88 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3264,8 +3264,8 @@
 	</dialog>
 	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="(1/8) _ PeerProject مرحبا بك في">
 		<control caption="PeerProject مرحبا بك في" />
-		<control caption="او اي برنامج مشاركة هذا المعالج سوف يساعدك على اعداد البرنامج و الإتصال به  PeerProject  اذا كنت تستخدم برنامج ." />
-		<control caption="لعمل إعدادات الإتصال PeerProject اضغط على خروج  واضغط على ادوات ثم إعدادات  PeerProject اذا كنت مستخدم محترف اضغط  لبرنامج." />
+		<control caption="او اي برنامج مشاركة هذا المعالج سوف يساعدك على اعداد البرنامج و الإتصال به PeerProject  اذا كنت تستخدم برنامج." />
+		<control caption="لعمل إعدادات الإتصال PeerProject اضغط على خروج  واضغط على ادوات ثم إعدادات PeerProject اذا كنت مستخدم محترف اضغط  لبرنامج." />
 		<control caption=":هذا المعالج سيساعدك في" />
 		<control />
 		<control caption="بالانترنت PeerProject طريقة إتصال " />
@@ -3276,10 +3276,11 @@
 		<control />
 		<control caption="PeerProject إبدأ الإستعمال" />
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="(2/8) _ PeerProject مرحبا بكم في">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStStCoStCoStCoStEdBuStms" caption="(2/8) _ PeerProject مرحبا بكم في">
 		<control caption="للإتصال بالإنترنت PeerProject لأداء مثالي ، يجب إعداد" />
 		<control caption=":إختر نوع إتصال الإنترنت" />
-		<control caption="مودم طلب هاتفي|ISDN 128ك|DSL 768ك|DSL 1.5|DSL 4م|DSL2 8م|FIOS 10م|DSL2 12م|FIOS 15م|FIOS 20م|FIOS 25م|FIOS 30|T1|T3|LAN|OC3|مودم كيبل|" />
+		<control caption=" |مودم طلب هاتفي| ISDN 128ك| DSL 768ك| DSL 1.5|مودم كيبل 3| DSL 4م| DSL2 8م| FIOS 10م| DSL2 12م| FIOS 15م| FIOS 20م| FIOS 25م| FIOS 30م| FIOS 50م| T1| T3| LAN| OC3" />
+		<control caption="Speedtest.net اختبار في"/>
 		<control caption=":أو إختر سرعة التحميل" />
 		<control />
 		<control caption=":و سرعة الإرسال" />

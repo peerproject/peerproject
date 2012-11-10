@@ -18,6 +18,7 @@
 
 // CConnection holds a socket used to communicate with a remote computer, and is the root of a big inheritance tree
 // http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CConnection
+// http://peerproject.org/shareazawiki/Developers.Code.CConnection.html
 
 #pragma once
 
@@ -267,9 +268,9 @@ public:
 // Statics
 public:
 	// Hard-coded settings for the bandwidth transfer meter
-	static const DWORD	METER_SECOND	= 1000ul;				// 1000 milliseconds is 1 second
+	static const DWORD	METER_SECOND	= 1000ul;						// 1000 milliseconds is 1 second
 	static const DWORD	METER_MINIMUM	= METER_SECOND / 10ul;			// Granuality of bandwidth meter, 1/10th of a second
-	static const DWORD	METER_LENGTH	= 60ul;					// Number of slots in the bandwidth meter
+	static const DWORD	METER_LENGTH	= 60ul;							// Number of slots in the bandwidth meter
 	static const DWORD	METER_PERIOD	= METER_MINIMUM * METER_LENGTH;	// The time that the bandwidth meter keeps information for
 
 	// Keep track of how fast we are reading or writing bytes to a socket
@@ -292,10 +293,8 @@ public:
 
 		void	Add(const DWORD nBytes, const DWORD tNow);					// Add to History and Time arrays
 		DWORD	CalculateLimit (DWORD tNow, bool bOut = false, bool bMaxMode = true) const;	// Work out the limit
-		DWORD	CalculateUsage (DWORD tTime ) const;						// Work out the meter usage from a given time
-																			// ( optimal for time periods more than METER_LENGTH / 2 )
-		DWORD	CalculateUsage (DWORD tTime, bool bShortPeriod ) const;		// Work out the meter usage from a given time
-																			// ( optimal for time periods less than METER_LENGTH / 2 )
+		DWORD	CalculateUsage (DWORD tTime ) const;						// Work out the meter usage from a given time over 30sec   (optimal for time periods more than METER_LENGTH / 2)
+		DWORD	CalculateUsage (DWORD tTime, bool bShortPeriod ) const;		// Work out the meter usage from a given time under 30sec  (optimal for time periods less than METER_LENGTH / 2)
 	} TCPBandwidthMeter;
 
 	// Structures to control bandwidth in each direction

@@ -18,6 +18,7 @@
 
 // CG1PacketBuffer holds arrays of packets to send, organized by their type
 // http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CG1PacketBuffer
+// http://peerproject.org/shareazawiki/Developers.Code.CG1PacketBuffer.html
 
 #pragma once
 

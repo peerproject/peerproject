@@ -415,7 +415,7 @@ BOOL CDCNeighbour::OnPacket(CDCPacket* pPacket)
 //		return TRUE;
 //	case 'n':		// $NickList user1$$user2|
 //		// Handle hub lists?  (ToDo: Could get user count, not sent currently)
-//		DEBUG_ONLY( theApp.Message( MSG_DEBUG, _T("DC++ $NickList recieved, %i char long from %s"), strParams.length(), m_sServerName ) );
+//		DEBUG_ONLY( theApp.Message( MSG_DEBUG, _T("DC++ $NickList received, %i char long from %s"), strParams.length(), m_sServerName ) );
 //		return TRUE;
 //	case 'l':		// $Lock [EXTENDEDPROTOCOL]Challenge Pk=Vendor
 //		m_bExtended = ( strParams.substr( 0, 16 ) == "EXTENDEDPROTOCOL" );

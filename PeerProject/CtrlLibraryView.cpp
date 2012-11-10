@@ -384,7 +384,7 @@ HBITMAP CLibraryView::CreateDragImage(const CPoint& /*ptMouse*/, CPoint& /*ptMid
 /////////////////////////////////////////////////////////////////////////////
 // CLibraryView drag drop
 
-IMPLEMENT_DROP(CLibraryView,CWnd)
+IMPLEMENT_DROP(CLibraryView, CWnd)
 
 BOOL CLibraryView::OnDrop(IDataObject* pDataObj, DWORD grfKeyState, POINT ptScreen, DWORD* pdwEffect, BOOL bDrop)
 {

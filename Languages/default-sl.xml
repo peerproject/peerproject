@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Slovenian Skin File -->
 
-<!-- Translation based on default-en.xml r86 --> <!-- (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r88 --> <!-- (Shareaza 2.2.2.12) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3559,10 +3559,11 @@
 		<control/>
 		<control caption="Kako začeti uporabljati program PeerProject."/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Dobrodošli v PeerProject (2/8)">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStStCoStCoStCoStEdBuStms" caption="Dobrodošli v PeerProject (2/8)">
 		<control caption="For optimum performance, PeerProject needs to know a little bit about your connection to the Internet."/>
 		<control caption="Če poznate hitrost vaše povezave v medmrežje, jo izberite iz spodnjega seznama:"/>
-		<control caption="|Modemska povezava|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Kabelski modem"/>
+		<control caption="| Modemska povezava| ISDN 128K| DSL 768K| DSL 1.5| Kabelski 3| DSL 4| DSL2 8| FIOS 10| DSL2 12| FIOS 15| FIOS 20| FIOS 25| FIOS 30| FIOS 50| T1| T3| LAN| OC3"/>
+		<control caption="Preskus pri Speedtest.net"/>
 		<control caption="ALI izberite (download):"/>
 		<control/>
 		<control caption="ALI izberite (upload):"/>
@@ -3641,12 +3642,12 @@
 		<control/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="Dobrodošli v PeerProject (8/8)">
-		<control caption="To je to! PeerProject je sedaj nastavljena za delo na vašem računalniku."/>
+		<control caption="To je to. PeerProject je sedaj nastavljena za delo na vašem računalniku."/>
 		<control caption="Če želite kadarkoli kasneje spremeniti nastavitve, lahko ponovno zaženete tega čarovnika preko menija Orodja."/>
 		<control caption="Potem, ko boste zaprli čarovnika, se lahko povežete v omrežja, ki ste jih izbrali in nato tudi iščete datoteke po njih in jih tudi prenesete k sebi."/>
 		<control caption="Zaženi PeerProject po zagonu operacijskega sistema"/>
 		<control caption="Povežite se v omrežje vsakič kot se zažene program PeerProject"/>
-		<control caption="Obilo užitkov ob uporabi PeerProject!"/>
+		<control caption="Obilo užitkov ob uporabi PeerProject."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="Uvozi eDonkey2000 prenose">
 		<control caption="PeerProject je zaznala, da imate na svojem računalniku nameščen dodaten eDonkey2000 program. Želite uvoziti nedokončane prenose v PeerProject?"/>

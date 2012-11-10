@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Swedish Skin File -->
 
-<!-- Translation based on default-en.xml r86 -->
+<!-- Translation based on default-en.xml r88 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3736,10 +3736,11 @@
 		<control/>
 		<control caption="Börja använda PeerProject"/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Välkommen till PeerProject (2/8)">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStStCoStCoStCoStEdBuStms" caption="Välkommen till PeerProject (2/8)">
 		<control caption="För att uppnå bästa prestanda måste PeerProject veta lite om din Internetanslutning."/>
 		<control caption="Välj typ av Internetanslutning:"/>
-		<control caption="Uppringt modem|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Kabelmodem"/>
+		<control caption="| Uppringt modem| ISDN 128K| DSL 768K| DSL 1.5| Kabel 3| DSL 4| DSL2 8| FIOS 10| DSL2 12| FIOS 15| FIOS 20| FIOS 25| FIOS 30| FIOS 50| T1| T3| LAN| OC3"/>
+		<control caption="Testa på Speedtest.net"/>
 		<control caption="Eller välj nedladdningdshastighet:"/>
 		<control/>
 		<control caption="och uppladdningshastighet:"/>
@@ -3818,12 +3819,12 @@
 		<control/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="Välkommen till PeerProject (8/8)">
-		<control caption="Det var det! PeerProject har blivit anpassat för att fungera med din dator."/>
+		<control caption="Det var det. PeerProject har blivit anpassat för att fungera med din dator."/>
 		<control caption="Om du någon gång vill ändra setta inställningar, kan du köra denna snabbstartsguide igen från verktygsmenyn."/>
 		<control caption="Efter att du stängt guiden genom att välja Slutföra, kan du ansluta till nätverken du valt, starta sökningar och ladda ned innehåll."/>
 		<control caption="Starta PeerProject när Windows startas"/>
 		<control caption="Anslut till dessa nätverk varje gång jag startar PeerProject"/>
-		<control caption="Ha kul med PeerProject!"/>
+		<control caption="Ha kul med PeerProject."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="Importera Donkey2000-nedladdningar">
 		<control caption="PeerProject har upptäckt att du har ett annat eDonkey-program installerat på din dator. Vill du importera oavslutade nedladdningar till PeerProject?"/>

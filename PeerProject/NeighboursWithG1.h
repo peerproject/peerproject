@@ -18,6 +18,7 @@
 
 // Adds the ping route and pong caches to the CNeighbours object, and methods to route Gnutella ping and pong packets
 // http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CNeighboursWithG1
+// http://peerproject.org/shareazawiki/Developers.Code.CNeighboursWithG1.html
 
 #pragma once
 

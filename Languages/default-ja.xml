@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Japanese Skin File -->
 
-<!-- Translation based on default-en.xml r86 --> <!-- (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r88 --> <!-- (Shareaza 2.2.0.2) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3609,10 +3609,11 @@
 		<control/>
 		<control caption="PeerProjectの開始"/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="PeerProjectへようこそ (2/8)">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStStCoStCoStCoStEdBuStms" caption="PeerProjectへようこそ (2/8)">
 		<control caption="最適な性能を得る為、あなたのインターネット接続についての情報をいくつかPeerProjectに提供する必要があります。"/>
 		<control caption="以下の中からあなたが使用しているインターネットの接続を選択して下さい:"/>
-		<control caption="ダイヤルアップモデム|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|ケーブルモデム"/>
+		<control caption="| ダイヤルアップモデム| ISDN 128K| DSL 768K| DSL 1.5| ケーブルモデム 3| DSL 4| DSL2 8| FIOS 10| DSL2 12| FIOS 15| FIOS 20| FIOS 25| FIOS 30| FIOS 50| T1| T3| LAN| OC3"/>
+		<control caption="Test at Speedtest.net"/>
 		<control caption="下り速度："/>
 		<control/>
 		<control caption="上り速度:"/>
@@ -3691,12 +3692,12 @@
 		<control/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="PeerProjectへようこそ (8/8)">
-		<control caption="完了しました！ あなたのコンピュータ内でPeerProjectが正常に動作するように構成されました。"/>
+		<control caption="完了しました. あなたのコンピュータ内でPeerProjectが正常に動作するように構成されました。"/>
 		<control caption="後で設定を変更する必要がある場合には、ツールメニューからクイックスタートウィザードを選択することでこのウィザードをやり直すことができます"/>
 		<control caption="完了をクリックしてこのウィザードを終了させた後は、選択したネットワークに接続してファイルを検索し、そのダウンロードを開始することができます"/>
 		<control caption="Windows起動時に常時PeerProjectを開始する"/>
 		<control caption="PeerProject起動時に常時ネットワークへ接続する"/>
-		<control caption="それでは素敵なPeerProjectライフを楽しんで下さい!"/>
+		<control caption="それでは素敵なPeerProjectライフを楽しんで下さい."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="eDonkey2000ダウンロードのインポート">
 		<control caption="PeerProjectはあなたのコンピュータ内に別のeDonkey2000互換プログラムがインストールされていることを検出しました。 未完了のファイルをPeerProjectにインポートしますか?"/>

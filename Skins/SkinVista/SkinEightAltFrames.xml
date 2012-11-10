@@ -100,7 +100,7 @@
 <region>
  <shape type="rectangle"	rect="0,0,-1,-1"/>
 </region>
-<caption align="left" rect="26,1,260,24" fontFace="Segoe UI" fontSize="12" fontWeight="Normal" color="000000" outlinecolor="D0D0D0" inactivecolor="606060"/>
+<caption align="left" rect="26,1,-36,24" fontFace="Segoe UI" fontSize="12" fontWeight="Normal" color="000000" outlinecolor="D0D0D0" inactivecolor="606060"/>
 </windowskin>
 
 <!-- Download Monitor Window -->
@@ -135,7 +135,7 @@
 <region>
  <shape type="rectangle"	rect="0,0,-1,-1"/>
 </region>
-<caption align="left" rect="26,1,314,24" fontFace="Segoe UI" fontSize="12" fontWeight="Normal" color="000000" outlinecolor="D0D0D0" inactivecolor="707070"/>
+<caption align="left" rect="26,1,-66,24" fontFace="Segoe UI" fontSize="12" fontWeight="Normal" color="000000" outlinecolor="D0D0D0" inactivecolor="707070"/>
 </windowskin>
 
 <!-- Floating windows -->

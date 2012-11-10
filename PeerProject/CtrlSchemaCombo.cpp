@@ -57,8 +57,8 @@ CSchemaCombo::CSchemaCombo()
 
 BOOL CSchemaCombo::Create(DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID)
 {
-	return CComboBox::Create( dwStyle|WS_CHILD|WS_TABSTOP|WS_VSCROLL|CBS_DROPDOWNLIST|
-		CBS_OWNERDRAWVARIABLE|CBS_HASSTRINGS|CBS_SORT, rect, pParentWnd, nID );
+	return CComboBox::Create( dwStyle|WS_CHILD|WS_TABSTOP|WS_VSCROLL|
+		CBS_DROPDOWNLIST|CBS_OWNERDRAWVARIABLE|CBS_HASSTRINGS|CBS_SORT, rect, pParentWnd, nID );
 }
 
 void CSchemaCombo::SetEmptyString(UINT nID)
@@ -314,7 +314,7 @@ void CSchemaCombo::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	}
 	else	// Expand View Item
 	{
-		dc.Draw3dRect( &rcItem, Colors.m_crDropdownBox , Colors.m_crDropdownBox );
+		dc.Draw3dRect( &rcItem, Colors.m_crDropdownBox, Colors.m_crDropdownBox );
 		rcItem.DeflateRect( 1, 1 );
 
 		if ( lpDrawItemStruct->itemState & ODS_SELECTED )
@@ -360,7 +360,7 @@ BOOL CSchemaCombo::PreTranslateMessage(MSG* pMsg)
 
 				return TRUE;
 			}
-			else if ( pMsg->wParam == VK_SPACE )
+			if ( pMsg->wParam == VK_SPACE )
 			{
 				ShowDropDown();
 				return TRUE;

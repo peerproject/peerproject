@@ -1223,12 +1223,12 @@ void CLibraryTreeItem::Paint(CDC& dc, CRect& rc, BOOL bTarget, COLORREF crBack) 
 	{
 		if ( m_bExpanded )
 		{
-			CoolInterface.Draw( &dc, PtInRect(&rcTick,ptHover) ?
+			CoolInterface.Draw( &dc, PtInRect( &rcTick, ptHover ) ?
 				IDI_CLOSETICK_HOVER : IDI_CLOSETICK, 16, rc.left, rc.top, crBack );
 		}
 		else
 		{
-			CoolInterface.Draw( &dc, PtInRect(&rcTick,ptHover) ?
+			CoolInterface.Draw( &dc, PtInRect( &rcTick, ptHover ) ?
 				IDI_OPENTICK_HOVER : IDI_OPENTICK, 16, rc.left, rc.top, crBack );
 		}
 	}
@@ -2044,7 +2044,7 @@ void CLibraryTreeView::OnLibraryExportCollection()
 /////////////////////////////////////////////////////////////////////////////
 // CLibraryTreeView drag drop
 
-IMPLEMENT_DROP(CLibraryTreeView,CWnd)
+IMPLEMENT_DROP(CLibraryTreeView, CWnd)
 
 BOOL CLibraryTreeView::OnDrop(IDataObject* pDataObj, DWORD grfKeyState, POINT ptScreen, DWORD* pdwEffect, BOOL bDrop)
 {

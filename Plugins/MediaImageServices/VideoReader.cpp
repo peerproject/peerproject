@@ -22,14 +22,11 @@
 #include "StdAfx.h"
 #include "VideoReader.h"
 
-void CopyBitmap(char* pDestination, const char* pSource,
-	const int width, const int height, const int line_size)
+void CopyBitmap(char* pDestination, const char* pSource, const int width, const int height, const int line_size)
 {
-	// Down-up bitmap copying and BGR -> RGB converting
-	// (it is not a simple reverse copy!)
+	// Down-up bitmap copying and BGR -> RGB converting (not a simple reverse copy!)
 	char* dst = pDestination;
-	const char* src = pSource + sizeof( BITMAPINFOHEADER ) +
-		line_size * ( height - 1 );
+	const char* src = pSource + sizeof( BITMAPINFOHEADER ) + line_size * ( height - 1 );
 	for ( LONG j = 0; j < height; ++j, dst += line_size, src -= line_size )
 	{
 		for ( LONG i = 0; i < width * 3; i += 3 )
@@ -41,59 +38,73 @@ void CopyBitmap(char* pDestination, const char* pSource,
 	}
 }
 
-HRESULT LoadFrame(IMediaDet* pDet, double total_time,
-	const IMAGESERVICEDATA* pParams, SAFEARRAY** ppImage)
+HRESULT LoadFrame(IMediaDet* pDet, double total_time, const IMAGESERVICEDATA* pParams, SAFEARRAY** ppImage)
 {
 	ULONG line_size = ((pParams->nWidth * pParams->nComponents) + 3) & (-4);
 	ULONG total_size = line_size * pParams->nHeight;
 	HRESULT hr = E_OUTOFMEMORY;
-	*ppImage = SafeArrayCreateVector (VT_UI1, 0, total_size);
-	if (*ppImage)
+	*ppImage = SafeArrayCreateVector( VT_UI1, 0, total_size );
+	if ( *ppImage )
 	{
 		char* pDestination = NULL;
-		hr = SafeArrayAccessData (*ppImage, (void**) &pDestination);
+		hr = SafeArrayAccessData( *ppImage, (void**) &pDestination );
 		if ( SUCCEEDED( hr ) )
 		{
 			hr = E_OUTOFMEMORY;
-			char* buf =
-				new char [ total_size +sizeof( BITMAPINFOHEADER ) ];
-			if (buf)
+			if ( char* buf = new char [ total_size + sizeof( BITMAPINFOHEADER ) ] )
 			{
 				// Getting 25% frame
-				__try {
-					hr = pDet->GetBitmapBits ( total_time / 4.0,
-						NULL, buf, pParams->nWidth, pParams->nHeight);
+				__try
+				{
+					hr = pDet->GetBitmapBits( total_time / 4.0, NULL, buf,
+						 pParams->nWidth, pParams->nHeight);
 					if ( SUCCEEDED( hr ) )
 					{
 						CopyBitmap( pDestination, buf,
-							pParams->nWidth, pParams->nHeight,
-							line_size );
+							pParams->nWidth, pParams->nHeight, line_size );
 					}
-				} __except ( EXCEPTION_EXECUTE_HANDLER )
+					else
+						ATLTRACE( "MediaImageServices::LoadFrame : Failed to get 25%% frame.\n" );
+				}
+				__except ( EXCEPTION_EXECUTE_HANDLER )
 				{
+					ATLTRACE( "MediaImageServices::LoadFrame : GetBitmapBits() exception.\n" );
+					hr = E_FAIL;
 				}
 				if ( FAILED( hr ) )
 				{
 					// Getting first frame
-					__try {
-						hr = pDet->GetBitmapBits ( 0.0,
-							NULL, buf, pParams->nWidth,
-							pParams->nHeight );
+					__try
+					{
+						hr = pDet->GetBitmapBits( 0.0, NULL, buf,
+							 pParams->nWidth, pParams->nHeight );
 						if ( SUCCEEDED( hr ) )
 						{
 							CopyBitmap( pDestination, buf,
-								pParams->nWidth, pParams->nHeight,
-								line_size );
+								pParams->nWidth, pParams->nHeight, line_size );
 						}
-					} __except ( EXCEPTION_EXECUTE_HANDLER )
+						else
+							ATLTRACE( "MediaImageServices::LoadFrame : Failed to get first frame.\n" );
+					}
+					__except ( EXCEPTION_EXECUTE_HANDLER )
 					{
+						ATLTRACE( "MediaImageServices::LoadFrame : GetBitmapBits() exception.\n" );
+						hr = E_FAIL;
 					}
 				}
 				delete [] buf;
 			}
+			else
+				ATLTRACE( "MediaImageServices::LoadFrame : Out of memory\n" );
+
 			SafeArrayUnaccessData (*ppImage);
 		}
+		else
+			ATLTRACE( "MediaImageServices::LoadFrame : SafeArrayAccessData() out of memory.\n" );
 	}
+	else
+		ATLTRACE( "MediaImageServices::LoadFrame : SafeArrayCreateVector() out of memory.\n" );
+
 	return hr;
 }
 
@@ -102,11 +113,11 @@ HRESULT LoadFrame(IMediaDet* pDet, double total_time,
 # pragma warning( disable : 4127 )	// conditional expression is constant
 
 STDMETHODIMP CVideoReader::LoadFromFile (
-	/* [in] */ BSTR sFile,
-	/* [in,out] */ IMAGESERVICEDATA* pParams,
-	/* [out] */ SAFEARRAY** ppImage )
+	/*[in]*/ BSTR sFile,
+	/*[in,out]*/ IMAGESERVICEDATA* pParams,
+	/*[out]*/ SAFEARRAY** ppImage )
 {
-	ATLTRACE( "MediaImageServices::LoadFromFile (\"%s\", 0x%08x, 0x%08x)\n", (LPCSTR)CW2A( (LPCWSTR)sFile ), pParams, ppImage);
+	ATLTRACE( "MediaImageServices::LoadFromFile : Loading \"%s\"...\n", (LPCSTR)CW2A( (LPCWSTR)sFile ) );
 
 	if ( ! pParams || ! ppImage )
 		return E_POINTER;
@@ -119,10 +130,11 @@ STDMETHODIMP CVideoReader::LoadFromFile (
 	{
 		__try
 		{
-			hr = pDet->put_Filename(sFile);
+			hr = pDet->put_Filename( sFile );
 		}
 		__except( GetExceptionCode() != EXCEPTION_CONTINUE_EXECUTION )
 		{
+			ATLTRACE( "MediaImageServices::LoadFromFile : put_Filename() exception.\n" );
 			return E_FAIL;
 		}
 
@@ -152,7 +164,7 @@ STDMETHODIMP CVideoReader::LoadFromFile (
 								bFound = true;
 								break;
 							}
-							if ( !bFound )
+							if ( ! bFound )
 							{
 								if ( mt.cbFormat != 0 )
 									CoTaskMemFree( mt.pbFormat );
@@ -193,6 +205,7 @@ STDMETHODIMP CVideoReader::LoadFromFile (
 					}
 					else
 						ATLTRACE( "Video format: Unknown %s\n", (LPCSTR)CW2A( clsid ) );
+
 					CoTaskMemFree( clsid );
 
 					ATLTRACE( "Video size: %dx%dx%d\n",
@@ -202,7 +215,7 @@ STDMETHODIMP CVideoReader::LoadFromFile (
 					pParams->nHeight = pVih->bmiHeader.biHeight;
 					if ( pParams->nHeight < 0 )
 						pParams->nHeight = -pParams->nHeight;
-					pParams->nComponents = 3; // 24-bit RGB only
+					pParams->nComponents = 3;	// 24-bit RGB only
 
 					double total_time = 0.0;
 					hr = pDet->get_StreamLength( &total_time );
@@ -214,26 +227,33 @@ STDMETHODIMP CVideoReader::LoadFromFile (
 							(int) (total_time / 3600) % 60,
 							(int) (total_time / 60) % 60,
 							(int) total_time % 60, fps);
-						if (pParams->nFlags & IMAGESERVICE_SCANONLY)
+						if ( pParams->nFlags & IMAGESERVICE_SCANONLY )
 						{
 							// OK
 						}
-						// Avoid trying to get an image while debugging as
-						// some codecs call ExitProcess() if they detect a
-						// debugger is active.
+						// Avoid trying to get an image while debugging as some codecs
+						// call ExitProcess() if they detect a debugger is active.
 						else if ( IsDebuggerPresent() )
 						{
 							hr = E_ACCESSDENIED;
-							ATLTRACE( "Debugger detected!\n" );
+							ATLTRACE( "Debugger detected.\n" );
 						}
 						else
 						{
 							hr = LoadFrame( pDet, total_time, pParams, ppImage );
 						}
 					}
+					else
+						ATLTRACE( "MediaImageServices::LoadFromFile : Cannot get stream length: 0x%08x\n", hr);
 				}
+				else
+				{
+					hr = E_INVALIDARG;
+					ATLTRACE( "MediaImageServices::LoadFromFile : Video stream not found.\n" );
+				}
+
 				if ( mt.cbFormat )
-					CoTaskMemFree ( mt.pbFormat );
+					CoTaskMemFree( mt.pbFormat );
 				if ( mt.pUnk )
 					mt.pUnk->Release();
 			}
@@ -246,9 +266,9 @@ STDMETHODIMP CVideoReader::LoadFromFile (
 	else
 		ATLTRACE( "Cannot instante MediaDet object: 0x%08x\n", hr);
 
-	if (FAILED (hr) && *ppImage)
+	if ( FAILED(hr) && *ppImage )
 	{
-		SafeArrayDestroy (*ppImage);
+		SafeArrayDestroy(*ppImage);
 		*ppImage = NULL;
 	}
 
@@ -256,29 +276,29 @@ STDMETHODIMP CVideoReader::LoadFromFile (
 }
 
 STDMETHODIMP CVideoReader::LoadFromMemory (
-	/* [in] */ BSTR /*sType*/,
-	/* [in] */ SAFEARRAY* /*pMemory*/,
-	/* [in,out] */ IMAGESERVICEDATA* /*pParams*/,
-	/* [out] */ SAFEARRAY** /*ppImage*/ )
+	/*[in]*/ BSTR /*sType*/,
+	/*[in]*/ SAFEARRAY* /*pMemory*/,
+	/*[in,out]*/ IMAGESERVICEDATA* /*pParams*/,
+	/*[out]*/ SAFEARRAY** /*ppImage*/ )
 {
-	ATLTRACENOTIMPL( "ediaImageServices::LoadFromMemory" );
+	ATLTRACENOTIMPL( "MediaImageServices::LoadFromMemory" );
 }
 
 STDMETHODIMP CVideoReader::SaveToFile (
-	/* [in] */ BSTR /*sFile*/,
-	/* [in,out] */ IMAGESERVICEDATA* /*pParams*/,
-	/* [in] */ SAFEARRAY* /*pImage*/)
+	/*[in]*/ BSTR /*sFile*/,
+	/*[in,out]*/ IMAGESERVICEDATA* /*pParams*/,
+	/*[in]*/ SAFEARRAY* /*pImage*/)
 {
-	ATLTRACENOTIMPL( "ediaImageServices::SaveToFile" );
+	ATLTRACENOTIMPL( "MediaImageServices::SaveToFile" );
 }
 
 STDMETHODIMP CVideoReader::SaveToMemory (
-	/* [in] */ BSTR /*sType*/,
-	/* [out] */ SAFEARRAY** /*ppMemory*/,
-	/* [in,out] */ IMAGESERVICEDATA* /*pParams*/,
-	/* [in] */ SAFEARRAY* /*pImage*/)
+	/*[in]*/ BSTR /*sType*/,
+	/*[out]*/ SAFEARRAY** /*ppMemory*/,
+	/*[in,out]*/ IMAGESERVICEDATA* /*pParams*/,
+	/*[in]*/ SAFEARRAY* /*pImage*/)
 {
-	ATLTRACENOTIMPL( "ediaImageServices::SaveToMemory" );
+	ATLTRACENOTIMPL( "MediaImageServices::SaveToMemory" );
 }
 
 # pragma warning( pop )

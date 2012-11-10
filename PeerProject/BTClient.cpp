@@ -824,7 +824,7 @@ CString CBTClient::GetUserAgentOtherStyle(LPBYTE pVendor, CString* strNick)
 	if ( m_oGUID[0] == 'M' && m_oGUID[2] == '-' && m_oGUID[4] == '-' && m_oGUID[6] == '-' )
 	{
 		// BitTorrent (Mainline standard client, newer version)
-		strUserAgent.Format( _T("BitTorrent %i.%i.%i"), m_oGUID[1] - '0' , m_oGUID[3] - '0' , m_oGUID[5]- '0' );
+		strUserAgent.Format( _T("BitTorrent %i.%i.%i"), m_oGUID[1] - '0', m_oGUID[3] - '0', m_oGUID[5]- '0' );
 	}
 	else if ( m_oGUID[0] == 'P' && m_oGUID[1] == 'l' && m_oGUID[2] == 'u' && m_oGUID[3] == 's' )
 	{
@@ -868,7 +868,7 @@ CString CBTClient::GetUserAgentOtherStyle(LPBYTE pVendor, CString* strNick)
 	else if ( m_oGUID[0] == '-' && m_oGUID[1] == 'M' && m_oGUID[2] == 'L' )
 	{
 		// MLdonkey
-		strUserAgent.Format( _T("MLdonkey %i.%i.%i"), m_oGUID[3] - '0' , m_oGUID[5] - '0' , m_oGUID[7] - '0' );
+		strUserAgent.Format( _T("MLdonkey %i.%i.%i"), m_oGUID[3] - '0', m_oGUID[5] - '0', m_oGUID[7] - '0' );
 	}
 	else if ( m_oGUID[0] == '-' && m_oGUID[1] == 'F' && m_oGUID[2] == 'G' )
 	{

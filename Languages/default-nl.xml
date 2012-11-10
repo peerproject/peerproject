@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Dutch Skin File -->
 
-<!-- Translation based on default-en.xml r86 -->
+<!-- Translation based on default-en.xml r88 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3821,10 +3821,11 @@
 		<control/>
 		<control caption="Het gebruik van PeerProject te activeren."/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Welcome bij PeerProject (2/8)">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStStCoStCoStCoStEdBuStms" caption="Welcome bij PeerProject (2/8)">
 		<control caption="Voor optimale snelheid, moet PeerProject meer weten over de snelheid en de connectie van je internet"/>
 		<control caption="Kies je Internet snelheid:"/>
-		<control caption="Dial-up modem|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Kabel modem"/>
+		<control caption="| Dial-up modem| ISDN 128K| DSL 768K| DSL 1.5| Kabel 3| DSL 4| DSL2 8| FIOS 10| DSL2 12| FIOS 15| FIOS 20| FIOS 25| FIOS 30| FIOS 50| T1| T3| LAN| OC3"/>
+		<control caption="Test bij Speedtest.net"/>
 		<control caption="Of kies je download snelheid:"/>
 		<control/>
 		<control caption="en je upload snelheid:"/>
@@ -3903,12 +3904,12 @@
 		<control/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="Welkom bij PeerProject (8/8)">
-		<control caption="Dat was alles! PeerProject is nu geconfigureerd om met je computer te werken."/>
+		<control caption="Dat was alles. PeerProject is nu geconfigureerd om met je computer te werken."/>
 		<control caption="Als je ooit je instellingen dient te veranderen, kun je deze SnelStart wizard nogmaals starten door de optie te selecteren vanuit het Hulpmiddelen menu."/>
 		<control caption="Nadat je op &quot;Einde&quot; hebt gedrukt, kun je je verbinden met de door jou geselecteerde netwerken en starten met zoeken en downloaden van bestanden."/>
 		<control caption="Start PeerProject bij het opstarten van Windows"/>
 		<control caption="Verbinden met het netwerk bij het opstarten van PeerProject"/>
-		<control caption="Veel plezier met PeerProject!"/>
+		<control caption="Veel plezier met PeerProject."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="eDonkey downloads importeren">
 		<control caption="PeerProject heeft ontdekt dat je een ander eDonkey programma op deze computer hebt geïnstalleerd. Wil je de niet afgeronde downloads importeren naar PeerProject?"/>

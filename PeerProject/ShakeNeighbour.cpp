@@ -18,7 +18,8 @@
 
 // CShakeNeighbour reads and sends handshake headers to negotiate the Gnutella or Gnutella2 handshake
 // http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CShakeNeighbour
-
+// http://peerproject.org/shareazawiki/Developers.Code.CShakeNeighbour.html
+// http://peerproject.org/shareazawiki/Developers.Code.CShakeNeighbour.Running.html
 
 #include "StdAfx.h"
 #include "Settings.h"
@@ -1496,17 +1497,9 @@ void CShakeNeighbour::OnHandshakeComplete()
 	if ( m_bDeflateAccept )
 		m_pZOutput = new CBuffer(); 		// Remote computer said "Accept-Encoding: deflate",  make a buffer for data to compress before sending
 
-	// If PeerProject Settings specify a size for the send buffer
-	if ( Settings.Connection.SendBuffer )	// By default this is 2048 (2 KB of space)
-	{
-		// Tell the socket to use a 2 KB buffer for sends
-		setsockopt(							// Set a socket option
-			m_hSocket,						// The socket this CShakeNeighbour object inherited from CConnection
-			SOL_SOCKET,						// Define this option at the socket level
-			SO_SNDBUF,						// Specify the total per-socket buffer space reserved for sends
-			(LPSTR)&Settings.Connection.SendBuffer,	// Use the value from PeerProject Settings, 2 KB by default
-			4 );							// SendBuffer is a DWORD, occupying 4 bytes of memory
-	}
+	// Set socket option to use a ~2 KB buffer for sends
+	if ( Settings.Connection.SendBuffer )	// 2048 default
+		setsockopt( m_hSocket, SOL_SOCKET, SO_SNDBUF, (char*)&Settings.Connection.SendBuffer, 4 );		// SendBuffer is a DWORD, occupying 4 bytes of memory (Was (LPSTR))
 
 	// Make a pointer for a new object that will be a copy of this one, but in a different place on the CConnection inheritance tree
 	CNeighbour* pNeighbour = NULL;

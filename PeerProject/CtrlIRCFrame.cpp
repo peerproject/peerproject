@@ -1636,7 +1636,7 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 			if ( CMainWnd* pWnd = theApp.CPeerProjectApp::SafeMainWnd() )
 			{
 				if ( ! pWnd->IsForegroundWindow() )
-					pWnd->ShowTrayPopup( strText, m_pWords.GetAt( 0 ), NIIF_NONE, 10 );		// Seconds  ToDo: Make Setting?
+					pWnd->ShowTrayPopup( strText, m_pWords.GetAt( 0 ), NIIF_USER );
 			}
 
 			oNewMessage.Add( strSender + GetStringAfterParsedItem( 7 ), m_pWords.GetAt( 0 ), ID_COLOR_TEXT );

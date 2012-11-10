@@ -43,7 +43,6 @@
 #include "WndBrowseHost.h"
 #include "WindowManager.h"
 #include "WndSystem.h"
-#include "DlgURLCopy.h"
 #include "DlgSettingsManager.h"
 
 
@@ -239,18 +238,18 @@ void CNeighboursWnd::Update()
 		switch ( pNeighbour->m_nState )
 		{
 		case nrsConnecting:
-			LoadString( str,IDS_NEIGHBOUR_CONNECTING );
+			LoadString( str, IDS_NEIGHBOUR_CONNECTING );
 			break;
 		case nrsHandshake1:
 		case nrsHandshake2:
 		case nrsHandshake3:
-			LoadString( str,IDS_NEIGHBOUR_HANDSHAKING );
+			LoadString( str, IDS_NEIGHBOUR_HANDSHAKING );
 			break;
 		case nrsRejected:
-			LoadString( str,IDS_NEIGHBOUR_REJECTED );
+			LoadString( str, IDS_NEIGHBOUR_REJECTED );
 			break;
 		case nrsClosing:
-			LoadString( str,IDS_NEIGHBOUR_CLOSING );
+			LoadString( str, IDS_NEIGHBOUR_CLOSING );
 			break;
 		case nrsConnected:
 			if ( nTime > 86400 )
@@ -260,7 +259,7 @@ void CNeighboursWnd::Update()
 			break;
 		case nrsNull:
 		default:
-			LoadString( str,IDS_NEIGHBOUR_UNKNOWN );
+			LoadString( str, IDS_NEIGHBOUR_UNKNOWN );
 			break;
 		}
 
@@ -462,7 +461,7 @@ void CNeighboursWnd::OnNeighboursCopy()
 			(LPCTSTR)pNeighbour->m_sAddress, htons( pNeighbour->m_pHost.sin_port ) );
 	}
 
-	CURLCopyDlg::SetClipboardText( strURL );
+	theApp.SetClipboard( strURL );
 }
 
 void CNeighboursWnd::OnUpdateNeighboursChat(CCmdUI* pCmdUI)

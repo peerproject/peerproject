@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Albanian Skin File -->
 
-<!-- Translation based on default-en.xml r86 -->
+<!-- Translation based on default-en.xml r88 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3521,10 +3521,11 @@
 		<control/>
 		<control caption="Përdorni PeerProject-n."/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Mirë se erdhët në PeerProject (2/8)">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStStCoStCoStCoStEdBuStms" caption="Mirë se erdhët në PeerProject (2/8)">
 		<control caption="Për efektshmëri optimale, PeerProject duhet të dijë si lidheni në Internet."/>
 		<control caption="Zgjidheni llojin e lidhjes me Internet:"/>
-		<control caption="Modem Dial up|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Modem me Kabllo"/>
+		<control caption="| Modem Dial up| ISDN 128K| DSL 768K| DSL 1.5| Kabllo 3| DSL 4| DSL2 8| FIOS 10| DSL2 12| FIOS 15| FIOS 20| FIOS 25| FIOS 30| FIOS 50| T1| T3| LAN| OC3"/>
+		<control caption="Testi në Speedtest.net"/>
 		<control caption="Ose zgjidheni shpejtësinë e shkarkimit:"/>
 		<control/>
 		<control caption="shpejtësinë e ngarkimit:"/>
@@ -3603,12 +3604,12 @@
 		<control/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="Mirë se erdhe te PeerProject (8/8)">
-		<control caption="Kaq ishte! Ju konfiguruat PeerProject-n që të punojë në këtë kompjuter."/>
+		<control caption="Kaq ishte. Ju konfiguruat PeerProject-n që të punojë në këtë kompjuter."/>
 		<control caption="Nëse doni t'i ndryshoni përsëri kuadrot, uizardi i shpejtë mund të rihapet duke zgjedhur menynë Mjete."/>
 		<control caption="Kur të mbyllni këtë uizard duke klikuar Përfundo, mund të lidheni në rrjetet që zgjodhët dhe të nisni të kërkoni e shkarkoni përmbajtjet e dëshiruara."/>
 		<control caption="Nise PeerProject-n sa herë që Windows nis"/>
 		<control caption="Lidhu në rrjet sa herë që PeerProject nis"/>
-		<control caption="Kënaquni me PeerProject-n!"/>
+		<control caption="Kënaquni me PeerProject-n."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="Importoni Shkarkesa nga eDonkey">
 		<control caption="PeerProject diktoi se në këtë kompjuter është instaluar një program eDonkey. A doni që çdo shkarkim i papërfunduar të importohet në PeerProject?"/>

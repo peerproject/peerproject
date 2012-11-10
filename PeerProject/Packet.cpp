@@ -18,6 +18,7 @@
 
 // CPacket represents a packet on a peer-to-peer network, and CPacketPool keeps lists of them
 // http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CPacket
+// http://peerproject.org/shareazawiki/Developers.Code.CPacket.html
 
 #include "StdAfx.h"
 #include "Settings.h"

@@ -18,6 +18,7 @@
 
 // Complete the CNeighbours inheritance column, calling Close on each neighbour when the program exits
 // http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CNeighbours
+// http://peerproject.org/shareazawiki/Developers.Code.CNeighbours.html
 
 #include "StdAfx.h"
 #include "Settings.h"

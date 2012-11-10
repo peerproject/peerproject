@@ -108,7 +108,7 @@ protected:
 		STDMETHOD(GetData)(FORMATETC *pformatetcIn, STGMEDIUM *pmedium);
 		STDMETHOD(GetDataHere)(FORMATETC* pformatetc, STGMEDIUM* pmedium);
 		STDMETHOD(QueryGetData)(FORMATETC* pformatetc);
-		STDMETHOD(GetCanonicalFormatEtc)(FORMATETC* pformatectIn,FORMATETC* pformatetcOut);
+		STDMETHOD(GetCanonicalFormatEtc)(FORMATETC* pformatectIn, FORMATETC* pformatetcOut);
 		STDMETHOD(SetData)(FORMATETC* pformatetc, STGMEDIUM* pmedium, BOOL fRelease);
 		STDMETHOD(EnumFormatEtc)(DWORD dwDirection, IEnumFORMATETC** ppenumFormatEtc);
 		STDMETHOD(DAdvise)(FORMATETC *pformatetc, DWORD advf, IAdviseSink *pAdvSink, DWORD *pdwConnection);
@@ -162,13 +162,9 @@ protected:
 };
 
 #ifdef _DEBUG
-
 	void DumpIDataObject(IDataObject* pIDataObject);
-
 #else	// No Debug
-
 	#define DumpIDataObject __noop
-
 #endif	// Debug
 
 /////////////////////////////////////////////////////////////////////////////

@@ -53,7 +53,7 @@ BEGIN_MESSAGE_MAP(CBrowseTreeCtrl, CWnd)
 	ON_WM_KEYDOWN()
 	ON_WM_MOUSEMOVE()
 	ON_WM_MOUSEWHEEL()
-	ON_MESSAGE(WM_UPDATE,OnUpdate)
+	ON_MESSAGE(WM_UPDATE, OnUpdate)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1110,12 +1110,12 @@ void CBrowseTreeItem::Paint(CDC& dc, CRect& rc, BOOL bTarget, COLORREF crBack) c
 
 	if ( m_bExpanded )
 	{
-		CoolInterface.Draw( &dc, PtInRect(&rcTick,ptHover) ? IDI_CLOSETICK_HOVER : IDI_CLOSETICK,
+		CoolInterface.Draw( &dc, PtInRect( &rcTick, ptHover ) ? IDI_CLOSETICK_HOVER : IDI_CLOSETICK,
 			16, rc.left, rc.top, crBack );
 	}
 	else if ( m_nCount )
 	{
-		CoolInterface.Draw( &dc, PtInRect(&rcTick,ptHover) ? IDI_OPENTICK_HOVER : IDI_OPENTICK,
+		CoolInterface.Draw( &dc, PtInRect( &rcTick, ptHover ) ? IDI_OPENTICK_HOVER : IDI_OPENTICK,
 			16, rc.left, rc.top, crBack );
 	}
 

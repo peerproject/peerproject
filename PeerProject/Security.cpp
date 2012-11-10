@@ -1892,7 +1892,7 @@ BOOL CSecureRule::FromGnucleusString(CString& str)
 
 void CSecureRule::MaskFix()
 {
-	DWORD nNetwork = 0 , nOldMask = 0 , nNewMask = 0;
+	DWORD nNetwork = 0, nOldMask = 0, nNewMask = 0;
 
 	for ( int nByte = 0 ; nByte < 4 ; nByte++ )		// Convert the byte arrays to dwords
 	{

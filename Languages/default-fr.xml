@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default French Skin File -->
 
-<!-- Translation based on default-en.xml r86 -->
+<!-- Translation based on default-en.xml r88 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3889,15 +3889,16 @@
 		<control/>
 		<control caption="Commencer à utiliser PeerProject."/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="PeerProject vous souhaite la bienvenue &#160;(2/8)">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStStCoStCoStCoStEdBuStms" caption="PeerProject vous souhaite la bienvenue &#160;(2/8)">
 		<control caption="Pour des performances optimales, PeerProject doit en connaître un peu plus sur votre connexion à Internet."/>
 		<control caption="Veuillez sélectionner le type de connexion :"/>
-		<control caption="|Modem Dial-up|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Modem Câble"/>
+		<control caption="| Modem Dial-up| ISDN 128K| DSL 768K| DSL 1.5|Câble 3| DSL 4| DSL2 8| FIOS 10| DSL2 12| FIOS 15| FIOS 20| FIOS 25| FIOS 30| FIOS 50| T1| T3| LAN| OC3"/>
+		<control caption="Essai à Speedtest.net"/>
 		<control caption="Ou, choisissez la vitesse téléchargement :"/>
 		<control/>
 		<control caption="et la vitesse d'envoi :"/>
 		<control/>
-		<control caption="Voulez-vous configurer votre routeur en utilisant UPnP ?"/>
+		<control caption="Configurer votre routeur en utilisant UPnP ?"/>
 		<control/>
 		<control caption="Port :&#160; (Numéro 4-5 chiffres)"/>
 		<control/>
@@ -3971,12 +3972,12 @@
 		<control/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="PeerProject vous souhaite la bienvenue &#160;(8/8)">
-		<control caption="C'est fait ! PeerProject a été configuré pour fonctionner sur votre ordinateur !"/>
+		<control caption="C'est fait. PeerProject a été configuré pour fonctionner sur votre ordinateur."/>
 		<control caption="Si vous voulez par la suite modifier vos paramètres, vous pouvez relancer cet assistant de configuration en le sélectionnant dans le menu outils."/>
 		<control caption="Après avoir fermé cet assistant en cliquant sur terminer, vous pouvez vous connecter aux réseaux que vous avez sélectionnés et commencer une recherche."/>
 		<control caption="Lancer PeerProject au démarrage de &#171;&#160;Windows&#160;&#187;"/>
 		<control caption="Se connecter au réseau à chaque lancement de PeerProject"/>
-		<control caption="Vous pouvez maintenant apprécier PeerProject !"/>
+		<control caption="Vous pouvez maintenant apprécier PeerProject."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="Importer des téléchargements eDonkey">
 		<control caption="PeerProject a détecté que vous aviez un autre client eDonkey installé sur votre ordinateur. Souhaitez-vous importer ses téléchargements en cours dans PeerProject ?"/>

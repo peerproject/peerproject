@@ -13,7 +13,7 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// English (U.S.) resources
+// English (United States) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
 LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
@@ -56,7 +56,7 @@ BEGIN
 	"\0"
 END
 
-#endif   // APSTUDIO_INVOKED
+#endif	// APSTUDIO_INVOKED
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -728,11 +728,12 @@ BEGIN
 	LTEXT			"For best performance, PeerProject needs to know your internet connection.",IDC_STATIC,10,10,270,18
 	LTEXT			"If unsure, select your general Internet connection type:",IDC_STATIC,10,30,260,12
 	COMBOBOX 		IDC_CONNECTION_TYPE,26,44,104,180,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+	LTEXT			"Test at Speedtest.net",IDC_WEB,168,46,100,10
 	LTEXT			"Or choose the download speed:",IDC_STATIC,10,64,156,12
 	COMBOBOX		IDC_WIZARD_DOWNLOAD_SPEED,26,77,104,180,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
 	LTEXT			"...and upload speed:",IDC_STATIC,168,64,100,12
 	COMBOBOX		IDC_WIZARD_UPLOAD_SPEED,168,77,104,180,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
-	LTEXT			"Do auto port-forwarding with Plug'n'Play?",IDC_STATIC,10,98,230,12
+	LTEXT			"Do auto port-forwarding with Plug'n'Play?",IDC_STATIC,10,98,156,12
 	COMBOBOX		IDC_WIZARD_UPNP,26,112,54,14,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
 	LTEXT			"Port:    (Any 4-5 digit number)",IDC_STATIC,168,98,120,12
 	EDITTEXT		IDC_WIZARD_PORT,168,112,54,12,ES_NUMBER
@@ -2814,10 +2815,12 @@ BEGIN
 0x4920, 0x4453, 0x204e, 0x3120, 0x3832, 0x004b,
 	IDC_CONNECTION_TYPE, 0x403, 12, 0
 0x4420, 0x4c53, 0x2020, 0x3720, 0x3836, 0x004b,
-	IDC_CONNECTION_TYPE, 0x403, 12, 0
-0x4420, 0x4c53, 0x2020, 0x3120, 0x352e, 0x004d,
-	IDC_CONNECTION_TYPE, 0x403, 10, 0
-0x4420, 0x4c53, 0x2020, 0x3420, 0x004d,
+	IDC_CONNECTION_TYPE, 0x403, 11, 0
+0x4420, 0x4c53, 0x2020, 0x3120, 0x352e, "\000"
+	IDC_CONNECTION_TYPE, 0x403, 9, 0
+0x4320, 0x6261, 0x656c, 0x3320, "\000"
+	IDC_CONNECTION_TYPE, 0x403, 9, 0
+0x4420, 0x4c53, 0x2020, 0x3420, "\000"
 	IDC_CONNECTION_TYPE, 0x403, 9, 0
 0x4420, 0x4c53, 0x2032, 0x3820, "\000"
 	IDC_CONNECTION_TYPE, 0x403, 10, 0
@@ -2832,6 +2835,8 @@ BEGIN
 0x4620, 0x4f49, 0x2053, 0x3220, 0x0035,
 	IDC_CONNECTION_TYPE, 0x403, 10, 0
 0x4620, 0x4f49, 0x2053, 0x3320, 0x0030,
+	IDC_CONNECTION_TYPE, 0x403, 10, 0
+0x4620, 0x4f49, 0x2053, 0x3520, 0x0030,
 	IDC_CONNECTION_TYPE, 0x403, 4, 0
 0x5420, 0x0031,
 	IDC_CONNECTION_TYPE, 0x403, 4, 0
@@ -2840,8 +2845,6 @@ BEGIN
 0x4c20, 0x4e41, "\000"
 	IDC_CONNECTION_TYPE, 0x403, 5, 0
 0x4f20, 0x3343, "\000"
-	IDC_CONNECTION_TYPE, 0x403, 20, 0
-0x4320, 0x6261, 0x656c, 0x4d20, 0x646f, 0x6d65, 0x2820, 0x6c53, 0x776f, 0x0029,
 	0
 END
 
@@ -2852,7 +2855,7 @@ BEGIN
 	IDC_RULE_TYPE, 0x403, 15, 0
 0x6f43, 0x746e, 0x6e65, 0x2074, 0x6946, 0x746c, 0x7265, "\000"
     IDC_RULE_TYPE, 0x403, 10, 0
-0x6c42, 0x636f, 0x6c6b, 0x7369, 0x0074
+0x6c42, 0x636f, 0x6c6b, 0x7369, 0x0074,
 	IDC_RULE_ACTION, 0x403, 5, 0
 0x6f4e, 0x656e, "\000"
 	IDC_RULE_ACTION, 0x403, 7, 0
@@ -3741,7 +3744,7 @@ BEGIN
 	IDS_BITZI_CLOSE				"&Close"
 	IDS_BITZI_FINISHED			"Finished, click Close"
 	IDS_BITZI_REQUESTING		"Requesting..."
-	IDS_BITZI_SUCCESS			"Success!"
+	IDS_BITZI_SUCCESS			"Success."
 	IDS_BETA_EXPIRED			"This is a pre-release version of PeerProject, and the beta testing period has ended.  Please download the full, official release from http://peerproject.org/."
 END
 
@@ -4687,7 +4690,7 @@ BEGIN
 END
 
 
-#endif	// English (U.S.) resources
+#endif	// English (United States) resources
 /////////////////////////////////////////////////////////////////////////////
 
 

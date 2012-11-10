@@ -17,7 +17,8 @@
 //
 
 // CPacket represents a packet on a peer-to-peer network, and CPacketPool keeps lists of them
-// http://www.sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CPacket
+// http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CPacket
+// http://peerproject.org/shareazawiki/Developers.Code.CPacket.html
 
 #pragma once
 
@@ -33,7 +34,6 @@ class CPacket
 {
 
 protected:
-	// Create a new CPacket object, and delete this one
 	CPacket(PROTOCOLID nProtocol);	// Make a new CPacket object for the given protocol id, like Gnutella
 	virtual ~CPacket();				// The destructor is virtual, meaning classes that inherit from CPacket may replace it with their own destructor
 
@@ -388,7 +388,7 @@ public:
 		}
 
 		// Write the 4 bytes as a DWORD at the end of the packet, and record that it is there
-		*(DWORD*)( m_pBuffer + m_nLength ) = m_bBigEndian ? swapEndianess( nValue ) : nValue; // Reverse their order if necessary
+		*(DWORD*)( m_pBuffer + m_nLength ) = m_bBigEndian ? swapEndianess( nValue ) : nValue;	// Reverse their order if necessary
 		m_nLength += sizeof(nValue);
 	}
 
@@ -403,11 +403,9 @@ public:
 		}
 
 		// Write the 8 bytes as a QWORD at the end of the packet, and record that it is there
-		*(QWORD*)( m_pBuffer + m_nLength ) = m_bBigEndian ? swapEndianess( nValue ) : nValue; // Reverse their order if necessary
+		*(QWORD*)( m_pBuffer + m_nLength ) = m_bBigEndian ? swapEndianess( nValue ) : nValue;	// Reverse their order if necessary
 		m_nLength += sizeof(nValue);
 	}
-
-public:
 
 	// Have this packet object remember that one more thing is referencing it
 	inline void AddRef()
