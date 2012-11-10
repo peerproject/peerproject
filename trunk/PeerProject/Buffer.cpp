@@ -18,7 +18,7 @@
 
 // CBuffer holds some memory, and takes care of allocating and freeing it itself
 // http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CBuffer
-
+// http://peerproject.org/shareazawiki/Developers.Code.CBuffer.html
 
 #include "StdAfx.h"
 #include "Buffer.h"
@@ -386,7 +386,7 @@ DWORD CBuffer::Receive(SOCKET hSocket, DWORD nSpeedLimit)
 		if ( nLength )
 			nLength = min( nLength, (size_t)nSpeedLimit );			// Limit nLength to the speed limit
 		else
-			nLength = min( (size_t)nSpeedLimit, MAX_RECV_SIZE );	// Limit nLength to the maximum recieve size
+			nLength = min( (size_t)nSpeedLimit, MAX_RECV_SIZE );	// Limit nLength to the maximum receive size
 
 		// Exit loop if the buffer isn't big enough to hold the data
 		if ( ! EnsureBuffer( nLength ) )
@@ -718,7 +718,7 @@ bool CBuffer::InflateStreamTo( CBuffer& oBuffer, z_streamp& pStream, BOOL* pbEnd
 	do
 	{
 		// Limit nLength to the free buffer space or the maximum chunk size
-		UINT nLength = static_cast< UINT >( max( GetBufferFree(), ZLIB_CHUNK_SIZE ) );
+		UINT nLength = static_cast< UINT >( max( GetBufferFree(), 1024ul ) );	// ZLIB_CHUNK_SIZE Chunk size for ZLib compression/decompression
 
 		// Make sure the receiving buffer is large enough to hold at least 1KB
 		if ( ! oBuffer.EnsureBuffer( nLength ) )

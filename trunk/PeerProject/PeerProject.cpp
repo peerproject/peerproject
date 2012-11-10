@@ -1557,6 +1557,39 @@ CMainWnd* CPeerProjectApp::SafeMainWnd() const
 /////////////////////////////////////////////////////////////////////////////
 // CPeerProjectApp message
 
+void CPeerProjectApp::SetClipboard(const CString& strText, BOOL bShowTray /*=FALSE*/)
+{
+	if ( ! AfxGetMainWnd()->OpenClipboard() ) return;
+
+	EmptyClipboard();
+
+	if ( ! strText.IsEmpty() )
+	{
+		CT2CW pszWide( (LPCTSTR)strText );
+		const DWORD nSize = ( lstrlenW(pszWide) + 1 ) * sizeof(WCHAR);
+		if ( HANDLE hMem = GlobalAlloc( GMEM_MOVEABLE|GMEM_DDESHARE, nSize ) )
+		{
+			if ( LPVOID pMem = GlobalLock( hMem ) )
+			{
+				CopyMemory( pMem, pszWide, nSize );
+				GlobalUnlock( hMem );
+				SetClipboardData( CF_UNICODETEXT, hMem );
+
+				if ( bShowTray )
+				{
+					CString str = strText.GetLength() > 180 ? strText.Left( 180 ) : strText;
+					int nBreak = str.GetLength() > 80 ? str.Find( _T(":") ) : 0;
+					if ( nBreak > 1 && nBreak < 20 )
+						str = _T("(") + strText.Left( nBreak + 1 ) + _T(")");
+					theApp.Message( MSG_TRAY, LoadString( IDS_COPIED_TO_CLIPBOARD ) + _T("\n") + str );
+				}
+			}
+		}
+	}
+
+	CloseClipboard();
+}
+
 bool CPeerProjectApp::IsLogDisabled(WORD nType) const
 {
 	return ( static_cast< DWORD >( nType & MSG_SEVERITY_MASK ) > Settings.General.LogLevel ) ||		// Severity filter
@@ -1865,38 +1898,37 @@ BOOL CPeerProjectApp::InternalURI(LPCTSTR pszURI)
 //	const int nBreak = strURI.FindOneOf( _T(":") ) + 1;
 	strURI = strURI.Left( 20 ).MakeLower();					// Most chars needed to determine protocol or command
 
-	if ( _tcsnicmp( strURI, _T("command:"), 8 ) != 0 )		// Assume external URL if not internal command
+	if ( ! StartsWith( strURI, _PT("command:") ) )			// Assume external URL if not internal command
 	{
-		if ( ! _tcsnicmp( strURI, _T("magnet:"), 7 ) ||
-			! _tcsnicmp( strURI, _T("http://"), 7 ) ||
-			! _tcsnicmp( strURI, _T("https://"), 8 ) ||
-			! _tcsnicmp( strURI, _T("ftp://"), 6 ) ||
-			! _tcsnicmp( strURI, _T("gnutella:"), 9 ) ||
-			! _tcsnicmp( strURI, _T("gnutella1:"), 10 ) ||
-			! _tcsnicmp( strURI, _T("gnutella2:"), 10 ) ||
-			! _tcsnicmp( strURI, _T("peerproject:"), 12 ) ||
-			! _tcsnicmp( strURI, _T("shareaza:"), 9 ) ||
-			! _tcsnicmp( strURI, _T("ed2k:"), 5 ) ||
-			! _tcsnicmp( strURI, _T("g2:"), 3 ) ||
-			! _tcsnicmp( strURI, _T("gwc:"), 4 ) ||
-			! _tcsnicmp( strURI, _T("uhc:"), 4 ) ||
-			! _tcsnicmp( strURI, _T("ukhl:"), 5 ) ||
-			! _tcsnicmp( strURI, _T("gnet:"), 5 ) ||
-			! _tcsnicmp( strURI, _T("peer:"), 5 ) ||
-			! _tcsnicmp( strURI, _T("p2p:"), 4 ) ||
-			! _tcsnicmp( strURI, _T("mp2p:"), 5 ) ||
-			! _tcsnicmp( strURI, _T("foxy:"), 5 ) ||
-			! _tcsnicmp( strURI, _T("btc:"), 4 ) ||
-			! _tcsnicmp( strURI, _T("irc:"), 4 ) ||
-			! _tcsnicmp( strURI, _T("aim:"), 4 ) ||
-			! _tcsnicmp( strURI, _T("adc:"), 4 ) ||
-			! _tcsnicmp( strURI, _T("dchub:"), 6 ) ||
-			! _tcsnicmp( strURI, _T("dcfile:"), 7 ) ||
-			! _tcsnicmp( strURI, _T("mailto:"), 7 ) ||
-			! _tcsnicmp( strURI, _T("sig2dat:"), 8 ) )
+		if ( StartsWith( strURI, _PT("magnet:") ) ||
+			StartsWith( strURI, _PT("http://") ) ||
+			StartsWith( strURI, _PT("https://") ) ||
+			StartsWith( strURI, _PT("ftp://") ) ||
+			StartsWith( strURI, _PT("gnutella:") ) ||
+			StartsWith( strURI, _PT("gnutella1:") ) ||
+			StartsWith( strURI, _PT("gnutella2:") ) ||
+			StartsWith( strURI, _PT("peerproject:") ) ||
+			StartsWith( strURI, _PT("shareaza:") ) ||
+			StartsWith( strURI, _PT("ed2k:") ) ||
+			StartsWith( strURI, _PT("g2:") ) ||
+			StartsWith( strURI, _PT("gwc:") ) ||
+			StartsWith( strURI, _PT("uhc:") ) ||
+			StartsWith( strURI, _PT("ukhl:") ) ||
+			StartsWith( strURI, _PT("gnet:") ) ||
+			StartsWith( strURI, _PT("peer:") ) ||
+			StartsWith( strURI, _PT("p2p:") ) ||
+			StartsWith( strURI, _PT("mp2p:") ) ||
+			StartsWith( strURI, _PT("foxy:") ) ||
+			StartsWith( strURI, _PT("btc:") ) ||
+			StartsWith( strURI, _PT("irc:") ) ||
+			StartsWith( strURI, _PT("aim:") ) ||
+			StartsWith( strURI, _PT("adc:") ) ||
+			StartsWith( strURI, _PT("dchub:") ) ||
+			StartsWith( strURI, _PT("dcfile:") ) ||
+			StartsWith( strURI, _PT("mailto:") ) ||
+			StartsWith( strURI, _PT("sig2dat:") ) )
 		{
-			ShellExecute( pMainWnd->GetSafeHwnd(), _T("open"),
-				pszURI, NULL, NULL, SW_SHOWNORMAL );
+			ShellExecute( pMainWnd->GetSafeHwnd(), _T("open"), pszURI, NULL, NULL, SW_SHOWNORMAL );
 
 			return TRUE;
 		}
@@ -1907,7 +1939,7 @@ BOOL CPeerProjectApp::InternalURI(LPCTSTR pszURI)
 
 	// Specific "command:" prefixed internal utilities:
 
-	if ( ! _tcsnicmp( strURI, _T("command:id_"), 11 ) )				// Common "command:ID_"
+	if ( _tcsnicmp( strURI, _PT("command:id_") ) == 0 )				// Common "command:ID_"
 	{
 		if ( UINT nCmdID = CoolInterface.NameToID( pszURI + 8 ) )
 		{
@@ -1915,43 +1947,25 @@ BOOL CPeerProjectApp::InternalURI(LPCTSTR pszURI)
 			return TRUE;
 		}
 	}
-	else if ( ! _tcsnicmp( strURI, _T("command:shell:"), 14 ) ) 	// Assume "command:shell:downloads"
+	else if ( _tcsnicmp( strURI, _PT("command:shell:") ) == 0 ) 	// Assume "command:shell:downloads"
 	{
 		ShellExecute( pMainWnd->GetSafeHwnd(), _T("open"),
 			Settings.Downloads.CompletePath, NULL, NULL, SW_SHOWNORMAL );
 		if ( strURI.Find( _T(":downloads"), 12 ) > 1 )
 			return TRUE;
 	}
-	else if ( ! _tcsnicmp( strURI, _T("command:update"), 14 ) ) 	// Version notice "command:update"
+	else if ( _tcsnicmp( strURI, _PT("command:update") ) == 0 ) 	// Version notice "command:update"
 	{
 		pMainWnd->PostMessage( WM_VERSIONCHECK, VC_CONFIRM );
 		return TRUE;
 	}
-	else if ( ! _tcsnicmp( strURI, _T("command:copy:"), 13 ) )		// Clipboard "command:copy:<text>"
+	else if ( _tcsnicmp( strURI, _PT("command:copy:") ) == 0 )		// Clipboard "command:copy:<text>"
 	{
-		if ( ! AfxGetMainWnd()->OpenClipboard() ) return FALSE;
-
-		EmptyClipboard();
-
 		strURI = CString( pszURI ).Mid( 13 );
-
-		CT2CW pszWide( (LPCTSTR)strURI );
-		if ( HANDLE hMem = GlobalAlloc( GMEM_MOVEABLE|GMEM_DDESHARE, ( wcslen(pszWide) + 1 ) * sizeof(WCHAR) ) )
-		{
-			if ( LPVOID pMem = GlobalLock( hMem ) )
-			{
-				CopyMemory( pMem, pszWide, ( wcslen(pszWide) + 1 ) * sizeof(WCHAR) );
-				GlobalUnlock( hMem );
-				SetClipboardData( CF_UNICODETEXT, hMem );
-
-				theApp.Message( MSG_TRAY, LoadString( IDS_COPIED_TO_CLIPBOARD ) + _T("\n") + strURI );
-			}
-		}
-
-		CloseClipboard();
+		SetClipboard( strURI, TRUE );
 		return TRUE;
 	}
-	//else if ( ! _tcsnicmp( strURI, _T("command:launch:"), 15 ) )	// Unused but useful? "command:launch:"
+	//else if ( _tcsnicmp( strURI, _PT("command:launch:") ) == 0 )	// Unused but useful? "command:launch:"
 	//{
 	//	DWORD nIndex = 0;
 	//	_stscanf( (LPCTSTR)strURI + 12, _T("%lu"), &nIndex );
@@ -1968,7 +1982,7 @@ BOOL CPeerProjectApp::InternalURI(LPCTSTR pszURI)
 	//		}
 	//	}
 	//}
-	//else if ( ! _tcsnicmp( strURI, _T("command:windowptr:"), 18 ) ) // Unused but useful? "command:windowptr:"
+	//else if ( _tcsnicmp( strURI, _PT("command:windowptr:") ) == 0 ) // Unused but useful? "command:windowptr:"
 	//{
 	//	CChildWnd* pChild = NULL;
 	//	_stscanf( (LPCTSTR)strURI + 15, _T("%lu"), &pChild );
@@ -1979,9 +1993,10 @@ BOOL CPeerProjectApp::InternalURI(LPCTSTR pszURI)
 	//	}
 	//}
 
-	//else if ( ! _tcsnicmp( strURI, _T("page:"), 5 )				// "page:CSettingsPage" defined locally in PageSettingsRich
+	//else if ( _tcsnicmp( strURI, _PT("page:") ) == 0 )			// "page:CSettingsPage" defined locally in PageSettingsRich
 
 	theApp.Message( MSG_ERROR, _T("Unknown internal command:  ") + CString( pszURI ) );
+	//ASSERT( FALSE );
 	return FALSE;
 }
 
@@ -2293,7 +2308,7 @@ int AddIcon(HICON hIcon, CImageList& gdiImageList)
 HICON CreateMirroredIcon(HICON hIconOrig, BOOL bDestroyOriginal)
 {
 	HDC hdcScreen, hdcBitmap, hdcMask = NULL;
-	HBITMAP hbm, hbmMask, hbmOld,hbmOldMask;
+	HBITMAP hbm, hbmMask, hbmOld, hbmOldMask;
 	BITMAP bm;
 	ICONINFO ii;
 	HICON hIcon = NULL;
@@ -2332,7 +2347,7 @@ HICON CreateMirroredIcon(HICON hIconOrig, BOOL bDestroyOriginal)
 					if ( hbmMask != NULL )
 					{
 						hbmOld = (HBITMAP)SelectObject( hdcBitmap, hbm );
-						hbmOldMask = (HBITMAP)SelectObject( hdcMask,hbmMask );
+						hbmOldMask = (HBITMAP)SelectObject( hdcMask, hbmMask );
 						DrawIconEx( hdcBitmap, 0, 0, hIconOrig, bm.bmWidth, bm.bmHeight, 0, NULL, DI_IMAGE );
 						DrawIconEx( hdcMask, 0, 0, hIconOrig, bm.bmWidth, bm.bmHeight, 0, NULL, DI_MASK );
 						SelectObject( hdcBitmap, hbmOld );

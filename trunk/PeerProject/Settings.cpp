@@ -143,6 +143,7 @@ void CSettings::Load()
 	Add( _T("Interface"), _T("TipMedia"), &Interface.TipMedia, true );
 	Add( _T("Interface"), _T("TipSearch"), &Interface.TipSearch, true );
 	Add( _T("Interface"), _T("TipShadow"), &Interface.TipShadow, theApp.m_bIsWin2000 ? false : true );
+	Add( _T("Interface"), _T("Snarl"), &Interface.Snarl, true );	// Use notifications (getsnarl.info)
 
 	Add( _T("Skin"), _T("DropMenu"), &Skin.DropMenu, false );
 	Add( _T("Skin"), _T("MenuBorders"), &Skin.MenuBorders, true );
@@ -452,7 +453,7 @@ void CSettings::Load()
 	Add( _T("eDonkey"), _T("ExtendedRequest"), &eDonkey.ExtendedRequest, 2, 1, 0, 2 );
 	Add( _T("eDonkey"), _T("FastConnect"), &eDonkey.FastConnect, false );
 	Add( _T("eDonkey"), _T("ForceHighID"), &eDonkey.ForceHighID, true );
-	Add( _T("eDonkey"), _T("FrameSize"), &eDonkey.FrameSize, 512*KiloByte, KiloByte, 1, 10*KiloByte, _T(" KB") );
+	Add( _T("eDonkey"), _T("FrameSize"), &eDonkey.FrameSize, 30*KiloByte, KiloByte, 1, KiloByte, _T(" KB") );	// eMule max 10, 90 may work, ~512 others (lugdunum server max 250000 = 244?)
 	Add( _T("eDonkey"), _T("GetSourcesThrottle"), &eDonkey.GetSourcesThrottle, 8*60*60*1000, 60*60*1000, 1, 24, _T(" h") );
 	Add( _T("eDonkey"), _T("LargeFileSupport"), &eDonkey.LargeFileSupport, true );
 	Add( _T("eDonkey"), _T("LearnNewServers"), &eDonkey.LearnNewServers, false );
@@ -471,7 +472,7 @@ void CSettings::Load()
 	Add( _T("eDonkey"), _T("QueryThrottle"), &eDonkey.QueryThrottle, 120, 1, 60, 10*60, _T(" s") );
 	Add( _T("eDonkey"), _T("ReAskTime"), &eDonkey.ReAskTime, 29*60, 60, 20, 360, _T(" m") );
 	Add( _T("eDonkey"), _T("RequestPipe"), &eDonkey.RequestPipe, 3, 1, 1, 10 );
-	Add( _T("eDonkey"), _T("RequestSize"), &eDonkey.RequestSize, 90*KiloByte, KiloByte, 10, 1000, _T(" KB") );
+	Add( _T("eDonkey"), _T("RequestSize"), &eDonkey.RequestSize, 90*KiloByte, KiloByte, 10, KiloByte, _T(" KB") );
 	Add( _T("eDonkey"), _T("SendPortServer"), &eDonkey.SendPortServer, false );
 	Add( _T("eDonkey"), _T("ServerListURL"), &eDonkey.ServerListURL, _T("http://peerates.net/servers.php") );
 	Add( _T("eDonkey"), _T("ServerWalk"), &eDonkey.ServerWalk, true );

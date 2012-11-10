@@ -296,7 +296,7 @@ protected:
 	void			ParseString(const CString& strMessage, CIRCNewMessage& oNewMessage);
 	CString			TrimString(CString strMessage) const;
 	CString			GetStringAfterParsedItem(int nItem) const;
-	CString			GetTargetName(CString strRecieverName, int nRecieverType, CString strSenderName, int nSenderType) const;
+//	CString			GetTargetName(CString strReceiverName, int nRecieverType, CString strSenderName, int nSenderType) const;
 	CString			GetTabText(int nTabIndex = -1) const;
 	int				GetTabIndex(const CString& strTabName) const;
 	void			HighlightTab(int nTab, BOOL bHighlight = TRUE);

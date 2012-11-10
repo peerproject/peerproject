@@ -128,7 +128,7 @@ void CSystemWnd::OnTimer(UINT_PTR /*nIDEvent*/)
 					break;
 				}
 
-				pWnd->ShowTrayPopup( pMsg->m_strLog, NULL, nType );
+				pWnd->ShowTrayPopup( pMsg->m_strLog, CLIENT_NAME, nType );
 
 				i = 50;
 			}

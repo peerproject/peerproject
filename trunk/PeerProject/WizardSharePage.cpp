@@ -100,7 +100,7 @@ BOOL CWizardSharePage::OnInitDialog()
 			m_wndList.InsertItem( LVIF_TEXT|LVIF_IMAGE, m_wndList.GetItemCount(),
 				pFolder->m_sPath, 0, 0, SHI_FOLDER_OPEN, 0 );
 
-			m_wndList.SetItemState( m_wndList.GetItemCount() - 1 ,
+			m_wndList.SetItemState( m_wndList.GetItemCount() - 1,
 				UINT( ( pFolder->IsShared() != TRUE ? 1 : 2 ) << 12 ), LVIS_STATEIMAGEMASK );
 		}
 

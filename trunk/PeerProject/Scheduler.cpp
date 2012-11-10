@@ -153,7 +153,7 @@ void CScheduler::Serialize(CArchive& ar)
 		for ( int nNumTasks = ar.ReadCount() ; nNumTasks > 0 ; nNumTasks-- )	// Read the number of tasks to load
 		{
 			CScheduleTask *pSchTask = new CScheduleTask();	// Create a new instance of each task
-			pSchTask->Serialize( ar,nVersion );				// Read each task's data
+			pSchTask->Serialize( ar, nVersion );			// Read each task's data
 			m_pScheduleTasks.AddTail( pSchTask );			// Add the task to the task list
 		}
 	}
@@ -634,7 +634,7 @@ void CScheduler::ExecuteScheduledTask(CScheduleTask *pSchTask)
 			if ( ! PostMainWndMessage( WM_CLOSE ) )
 				theApp.Message( MSG_ERROR, _T("Scheduler failed to send CLOSE message") );
 			else
-				theApp.Message( MSG_DEBUG, _T("System shutdown failed!") );
+				theApp.Message( MSG_DEBUG, _T("System shutdown failed.") );
 		}
 		break;
 
@@ -708,7 +708,7 @@ void CScheduler::HangUpConnection()
 	for ( DWORD i = 0, loop = 0 ; i < dwConnections ; i++ )			// Loop through all current connections
 	{
 		RasHangUp( lpRasConn[i].hrasconn );							// Hang up the connection
-		while( RasGetConnectStatus( lpRasConn[i].hrasconn,RasConStatus ) || loop > 10 )
+		while( RasGetConnectStatus( lpRasConn[i].hrasconn, RasConStatus ) || loop > 10 )
 		{
 			// Loop until the connection handle is invalid, or 3 seconds have passed total
 			Sleep(300);

@@ -545,8 +545,8 @@ void CRemoteWnd::PaintMedia(CDC* pDC)
 		if ( nPosition < 0 )
 		{
 			nPosition = 0;
-			if ( CMediaFrame::g_pMediaFrame != NULL )
-				nPosition = CMediaFrame::g_pMediaFrame->GetPosition();
+			if ( CMediaFrame* pMediaFrame = CMediaFrame::GetMediaFrame() )
+				nPosition = pMediaFrame->GetPosition();
 		}
 
 		if ( m_bsMediaSeekTab )
@@ -615,12 +615,12 @@ void CRemoteWnd::PaintMedia(CDC* pDC)
 		}
 	}
 
-	if ( CMediaFrame::g_pMediaFrame != NULL )
+	if ( CMediaFrame* pMediaFrame = CMediaFrame::GetMediaFrame() )
 	{
 		if ( m_bsStatusText && ! m_bStatus )
-			m_bStatus |= CMediaFrame::g_pMediaFrame->PaintStatusMicro( *pDC, m_rcsStatusText );
+			m_bStatus |= pMediaFrame->PaintStatusMicro( *pDC, m_rcsStatusText );
 
-		MediaState nState = CMediaFrame::g_pMediaFrame->GetState();
+		MediaState nState = pMediaFrame->GetState();
 		int nImage = 0;
 
 		if ( nState >= smsPlaying )
@@ -725,7 +725,7 @@ BOOL CRemoteWnd::OnSetCursor(CWnd* /*pWnd*/, UINT /*nHitTest*/, UINT /*message*/
 	GetCursorPos( &point );
 	ScreenToClient( &point );
 
-	BOOL bAvailable = CMediaFrame::g_pMediaFrame != NULL;
+	BOOL bAvailable = CMediaFrame::GetMediaFrame() != NULL;
 
 	if ( m_bsScalerTrack && m_rcScalerTab.PtInRect( point ) )
 	{
@@ -959,7 +959,8 @@ void CRemoteWnd::TrackSeek()
 	CRect rcTrack( &m_rcsMediaSeekTrack );
 	CPoint point;
 
-	if ( CMediaFrame::g_pMediaFrame == NULL ) return;
+	CMediaFrame* pMediaFrame = CMediaFrame::GetMediaFrame();
+	if ( pMediaFrame == NULL ) return;
 
 	ClientToScreen( &rcTrack );
 	ClipCursor( &rcTrack );
@@ -995,7 +996,7 @@ void CRemoteWnd::TrackSeek()
 	ReleaseCapture();
 	ClipCursor( NULL );
 
-	CMediaFrame::g_pMediaFrame->SeekTo( m_nMediaSeek );
+	pMediaFrame->SeekTo( m_nMediaSeek );
 	m_nMediaSeek = -1;
 	Invalidate();
 }
@@ -1006,7 +1007,8 @@ void CRemoteWnd::TrackVol()
 	CRect rcTrack( &m_rcsMediaVolTrack );
 	CPoint point;
 
-	if ( CMediaFrame::g_pMediaFrame == NULL ) return;
+	CMediaFrame* pMediaFrame = CMediaFrame::GetMediaFrame();
+	if ( pMediaFrame == NULL ) return;
 
 	ClientToScreen( &rcTrack );
 	ClipCursor( &rcTrack );
@@ -1035,7 +1037,7 @@ void CRemoteWnd::TrackVol()
 		if ( nPosition != m_nMediaVol )
 		{
 			m_nMediaVol = nPosition;
-			CMediaFrame::g_pMediaFrame->SetVolume( m_nMediaVol );
+			pMediaFrame->SetVolume( m_nMediaVol );
 			Invalidate();
 		}
 	}

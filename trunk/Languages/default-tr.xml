@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Turkish Skin File -->
 
-<!-- Translation based on default-en.xml r86 -->
+<!-- Translation based on default-en.xml r88 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3754,10 +3754,11 @@
 		<control/>
 		<control caption="PeerProject'yı kullanmaya başlayın."/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="PeerProject'ya Hoşgeldiniz (2/8)">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStStCoStCoStCoStEdBuStms" caption="PeerProject'ya Hoşgeldiniz (2/8)">
 		<control caption="En iyi sonuç için PeerProject'nın bağlantınız hakkında bazı temel bilgilere ihtiyacı bulunmaktadır."/>
 		<control caption="İnternet bağlantınızı PeerProject'ya belirtin:"/>
-		<control caption="Çevirmeli Modem|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Kablo Modemi"/>
+		<control caption="| Çevirmeli Modem| ISDN 128K| DSL 768K| DSL 1.5|Kablo 3| DSL 4| DSL2 8| FIOS 10| DSL2 12| FIOS 15| FIOS 20| FIOS 25| FIOS 30| FIOS 50| T1| T3| LAN| OC3"/>
+		<control caption="Speedtest.net de testi edin"/>
 		<control caption="Ya da indirme hızınızı:"/>
 		<control/>
 		<control caption="ve gönderme hızınızı belirtin:"/>
@@ -3836,7 +3837,7 @@
 		<control/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="PeerProject'ya Hoşgeldiniz (8/8)">
-		<control caption="İşte bu!  PeerProject bilgisayarınızla çalışarak yapılandırıldı."/>
+		<control caption="İşte bu. PeerProject bilgisayarınızla çalışarak yapılandırıldı."/>
 		<control caption="Eğer ayarlamalarınızı değiştirmeye ihtiyacınız olursa, Araçlar menüsünden Hızlı Başlat Sihirbazını çalıştırarak bunu yapabilirsiniz."/>
 		<control caption="Bitir tıklanarak sihirbaz kapatıldıktan sonra, seçtiğiniz ağa bağlanabilir ve içerik arama - indirme yapabilirsiniz."/>
 		<control caption="Windows her açıldığında PeerProject'yı başlat"/>

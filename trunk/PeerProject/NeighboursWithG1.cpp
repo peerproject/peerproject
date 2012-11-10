@@ -18,6 +18,7 @@
 
 // Adds the ping route and pong caches to the CNeighbours object, and methods to route Gnutella ping and pong packets
 // http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CNeighboursWithG1
+// http://peerproject.org/shareazawiki/Developers.Code.CNeighboursWithG1.html
 
 #include "StdAfx.h"
 #include "Settings.h"
@@ -63,8 +64,8 @@ CG1Neighbour* CNeighboursWithG1::GetPingRoute(const Hashes::Guid& oGUID)
 	CNeighbour* pNeighbour;
 	if ( m_pPingRoute.Lookup( oGUID, &pNeighbour, NULL ) )
 		return static_cast< CG1Neighbour* >( pNeighbour );
-	else
-		return NULL;
+
+	return NULL;
 }
 
 CPongItem* CNeighboursWithG1::AddPong(CNeighbour* pNeighbour, IN_ADDR* pAddress, WORD nPort, BYTE nHops, DWORD nFiles, DWORD nVolume)

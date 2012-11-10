@@ -18,6 +18,7 @@
 
 // Adds methods that send packets and Gnutella queries to all the computers we're connected to
 // http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CNeighboursWithRouting
+// http://peerproject.org/shareazawiki/Developers.Code.CNeighboursWithRouting.html
 
 #pragma once
 

@@ -18,6 +18,7 @@
 
 // CConnection holds a socket used to communicate with a remote computer, and is the root of a big inheritance tree
 // http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CConnection
+// http://peerproject.org/shareazawiki/Developers.Code.CConnection.html
 
 #include "StdAfx.h"
 #include "Settings.h"
@@ -189,17 +190,16 @@ BOOL CConnection::ConnectTo(const IN_ADDR* pAddress, WORD nPort)
 	UpdateCountry();
 
 	// Create a socket and store it in m_hSocket
-	m_hSocket = socket(
-		PF_INET,		// Normal IPv4, not IPv6
-		SOCK_STREAM,	// The two-way sequenced reliable byte streams of TCP, not the datagrams of UDP
-		IPPROTO_TCP );	// Again, we want TCP
+	// Normal IPv4 not IPv6, and the two-way sequenced reliable byte streams of TCP, not the datagrams of UDP
+	m_hSocket = socket( PF_INET, SOCK_STREAM, IPPROTO_TCP );
 
 	// Choose asynchronous, non-blocking reading and writing on our new socket
 	DWORD dwValue = 1;
-	ioctlsocket(		// Call Windows Sockets ioctlsocket to control the input/output mode of our new socket
-		m_hSocket,		// Give it our new socket
-		FIONBIO,		// Select the option for blocking i/o, should the program wait on read and write calls, or keep going?
-		&dwValue ); 	// Nonzero, it should keep going
+	ioctlsocket( m_hSocket, FIONBIO, &dwValue );
+		// Call Windows Sockets ioctlsocket to control the input/output mode of our new socket
+		// Give it our new socket
+		// Select the option for blocking i/o, should the program wait on read and write calls, or keep going?
+		// Nonzero, it should keep going
 
 	// If the OutHost string in connection settings has an IP address written in it
 	if ( Settings.Connection.OutHost.GetLength() )
@@ -490,7 +490,7 @@ BOOL CConnection::OnRead()
 		&& *m_mInput.pLimit							// And that limit isn't 0
 		&& Settings.Live.BandwidthScaleIn <= 100 )	// And the bandwidth scale isn't at MAX
 	{
-		// Work out what the bandwitdh limit is
+		// Work out what the bandwidth limit is
 		nLimit = m_mInput.CalculateLimit( tNow );
 	}
 
@@ -544,7 +544,7 @@ BOOL CConnection::OnWrite()
 		// Bytes were sent, add # bytes to bandwidth meter
 		m_mOutput.Add( nTotal, tNow );
 
-		// Add the total to statistics
+		// Add total to statistics
 		Statistics.Current.Bandwidth.Outgoing += nTotal;
 	}
 

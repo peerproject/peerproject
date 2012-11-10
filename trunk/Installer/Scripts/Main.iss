@@ -811,6 +811,7 @@ End;
 
 // Update Tasks Page
 // We don't allow to modify the setting of MultiUser if already selected.
+// See http://www.jrsoftware.org/ishelp/index.php?topic=scriptevents & Pages.iss
 Procedure CurPageChanged(const CurrentPage: integer);
 var
   i : integer;

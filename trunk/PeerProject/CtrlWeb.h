@@ -67,8 +67,8 @@ protected:
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
-	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnPaint();
+	afx_msg void OnSize(UINT nType, int cx, int cy);
 
 	DECLARE_MESSAGE_MAP()
 
@@ -97,7 +97,7 @@ public:
 			STDMETHOD(GetDropTarget)(LPDROPTARGET, LPDROPTARGET*);
 			STDMETHOD(GetExternal)(LPDISPATCH*);
 			STDMETHOD(TranslateUrl)(DWORD, OLECHAR*, OLECHAR **);
-			STDMETHOD(FilterDataObject)(LPDATAOBJECT , LPDATAOBJECT*);
+			STDMETHOD(FilterDataObject)(LPDATAOBJECT, LPDATAOBJECT*);
 		END_INTERFACE_PART(DocHostUIHandler)
 		BEGIN_INTERFACE_PART(DocHostShowUI, IDocHostShowUI)
 			STDMETHOD(ShowHelp)(HWND hwnd, LPOLESTR pszHelpFile, UINT uCommand, DWORD dwData, POINT ptMouse, IDispatch *pDispatchObjectHit);

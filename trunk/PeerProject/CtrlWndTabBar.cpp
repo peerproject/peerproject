@@ -824,7 +824,7 @@ void CWndTabBar::TabItem::Paint(CWndTabBar* pBar, CDC* pDC, CRect* pRect, BOOL b
 	if ( ! Settings.Skin.MenuBorders )
 	{
 		if ( ! bTransparent )
-			pDC->FillSolidRect( rc , Colors.m_crMidtone );
+			pDC->FillSolidRect( rc, Colors.m_crMidtone );
 		rc.DeflateRect( 0, 2 );
 	}
 

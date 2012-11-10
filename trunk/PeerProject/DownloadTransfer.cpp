@@ -233,8 +233,7 @@ void CDownloadTransfer::SetState(int nState)
 		if ( Settings.Downloads.SortSources )
 		{
 			// Proper sort:
-
-			static BYTE StateSortOrder[13]={ 13 ,12 ,10 ,4 ,0 ,4 ,1 ,2 ,3 ,12 ,8 ,6 ,9};
+			static BYTE StateSortOrder[13] = { 13, 12, 10, 4, 0, 4, 1, 2, 3, 12, 8, 6, 9 };
 				// dtsNull, dtsConnecting, dtsRequesting, dtsHeaders, dtsDownloading, dtsFlushing,
 				// dtsTiger, dtsHashset, dtsMetadata, dtsBusy, dtsEnqueue, dtsQueued, dtsTorrent
 

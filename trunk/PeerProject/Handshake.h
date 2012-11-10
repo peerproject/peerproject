@@ -18,6 +18,7 @@
 
 // CHandshake figures out what the remote computer wants from the first 7 bytes it sends us
 // http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CHandshake
+// http://peerproject.org/shareazawiki/Developers.Code.CHandshake.html
 
 #pragma once
 

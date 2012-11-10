@@ -256,21 +256,19 @@ BOOL CBitziDownloader::ExecuteRequest()
 	}
 
 	m_hRequest = HttpOpenRequest( m_hSession, _T("GET"), strPath, NULL, NULL, NULL,
-		INTERNET_FLAG_KEEP_CONNECTION | INTERNET_FLAG_NO_COOKIES |
-		INTERNET_FLAG_PRAGMA_NOCACHE | INTERNET_FLAG_RELOAD, 0 );
+		INTERNET_FLAG_KEEP_CONNECTION | INTERNET_FLAG_NO_COOKIES | INTERNET_FLAG_PRAGMA_NOCACHE | INTERNET_FLAG_RELOAD, 0 );
 
 	if ( m_hRequest == NULL )
 	{
 		if ( m_hSession ) InternetCloseHandle( m_hSession );
 
 		m_hSession = InternetConnect( m_hInternet, strHost, INTERNET_PORT( nPort ),
-			NULL, NULL, INTERNET_SERVICE_HTTP , 0, 0 );
+			NULL, NULL, INTERNET_SERVICE_HTTP, 0, 0 );
 
 		if ( m_hSession == NULL ) return FALSE;
 
 		m_hRequest = HttpOpenRequest( m_hSession, _T("GET"), strPath, NULL, NULL, NULL,
-			INTERNET_FLAG_KEEP_CONNECTION | INTERNET_FLAG_NO_COOKIES |
-			INTERNET_FLAG_PRAGMA_NOCACHE | INTERNET_FLAG_RELOAD, 0 );
+			INTERNET_FLAG_KEEP_CONNECTION | INTERNET_FLAG_NO_COOKIES | INTERNET_FLAG_PRAGMA_NOCACHE | INTERNET_FLAG_RELOAD, 0 );
 
 		if ( m_hRequest == NULL ) return FALSE;
 	}

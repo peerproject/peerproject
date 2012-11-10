@@ -40,4 +40,5 @@ Begin
   SafetyURL.Font.Style := SafetyURL.Font.Style + [fsUnderline];
   SafetyURL.Font.Color := clBlue;
 
+  WizardForm.LicenseAcceptedRadio.Checked := true;
 End;

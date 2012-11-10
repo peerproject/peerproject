@@ -18,7 +18,7 @@
 
 // Keeps a list of CNeighbour objects, with methods to go through them, add and remove them, and count them
 // http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CNeighboursBase
-
+// http://peerproject.org/shareazawiki/Developers.Code.CNeighboursBase.html
 
 #pragma once
 

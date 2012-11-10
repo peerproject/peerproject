@@ -131,8 +131,6 @@ BEGIN_MESSAGE_MAP(CMediaFrame, CWnd)
 	ON_MESSAGE(WM_APPCOMMAND, OnMediaKey)
 END_MESSAGE_MAP()
 
-CMediaFrame* CMediaFrame::g_pMediaFrame = NULL;
-
 
 /////////////////////////////////////////////////////////////////////////////
 // CMediaFrame construction
@@ -164,16 +162,12 @@ CMediaFrame::CMediaFrame()
 	, m_CurrentGP		()
 	, m_CurrentPP		()
 {
-	if ( g_pMediaFrame == NULL ) g_pMediaFrame = this;
-
 	UpdateNowPlaying(TRUE);
 }
 
 CMediaFrame::~CMediaFrame()
 {
 	UpdateNowPlaying(TRUE);
-
-	if ( g_pMediaFrame == this ) g_pMediaFrame = NULL;
 }
 
 CMediaFrame* CMediaFrame::GetMediaFrame()
@@ -708,7 +702,8 @@ void CMediaFrame::PaintStatus(CDC& dc, CRect& rcBar)
 		dc.SetTextColor( crText );
 	}
 
-	if ( CMetaItem* pItem = m_pMetadata.GetFirst() )
+	CMetaItem* pItem = m_pMetadata.GetFirst();
+	if ( pItem && IsDisplayMeta( pItem ) )
 	{
 		dc.SelectObject( &m_pFontKey );
 		str 			= Settings.General.LanguageRTL ? ':' + pItem->m_sKey : pItem->m_sKey + ':';
@@ -813,7 +808,8 @@ BOOL CMediaFrame::PaintStatusMicro(CDC& dc, CRect& rcBar)
 		pMemDC->DrawText( str, &rcPart, DT_SINGLELINE|DT_VCENTER|DT_NOPREFIX|DT_RIGHT );
 	}
 
-	if ( CMetaItem* pItem = m_pMetadata.GetFirst() )
+	CMetaItem* pItem = m_pMetadata.GetFirst();
+	if ( pItem && IsDisplayMeta( pItem ) )
 	{
 		str = Settings.General.LanguageRTL ? ':' + pItem->m_sKey : pItem->m_sKey + ':';
 
@@ -825,13 +821,10 @@ BOOL CMediaFrame::PaintStatusMicro(CDC& dc, CRect& rcBar)
 		pMemDC->DrawText( str, &rcPart, DT_SINGLELINE|DT_VCENTER|DT_LEFT|DT_NOPREFIX|dwOptions );
 		pMemDC->DrawText( pItem->m_sValue, &rcStatus, DT_SINGLELINE|DT_VCENTER|DT_LEFT|DT_NOPREFIX|DT_END_ELLIPSIS|dwOptions );
 	}
-	else
+	else if ( m_nState >= smsOpen )
 	{
-		if ( m_nState >= smsOpen )
-		{
-			int nSlash = m_sFile.ReverseFind( '\\' );
-			str = nSlash >= 0 ? m_sFile.Mid( nSlash + 1 ) : m_sFile;
-		}
+		int nSlash = m_sFile.ReverseFind( '\\' );
+		str = nSlash >= 0 ? m_sFile.Mid( nSlash + 1 ) : m_sFile;
 
 		pMemDC->DrawText( str, &rcStatus, DT_SINGLELINE|DT_VCENTER|DT_LEFT|DT_NOPREFIX|DT_END_ELLIPSIS|dwOptions );
 	}
@@ -844,6 +837,18 @@ BOOL CMediaFrame::PaintStatusMicro(CDC& dc, CRect& rcBar)
 			pMemDC, rcBar.left, rcBar.top, SRCCOPY );
 
 	return TRUE;
+}
+
+BOOL CMediaFrame::IsDisplayMeta(CMetaItem* pItem)
+{
+	return _tcsicmp( pItem->m_sKey, _T("duration") ) != 0 &&
+		( pItem->m_sValue.GetLength() > 5 ||
+		_tcsicmp( pItem->m_sKey, _T("year") ) == 0 ||
+		_tcsicmp( pItem->m_sKey, _T("title") ) == 0 ||
+		_tcsicmp( pItem->m_sKey, _T("artist") ) == 0 ||
+		_tcsicmp( pItem->m_sKey, _T("album") ) == 0 ||
+		_tcsicmp( pItem->m_sKey, _T("track") ) == 0 ||
+		_tcsicmp( pItem->m_sKey, _T("series") ) == 0 );
 }
 
 /////////////////////////////////////////////////////////////////////////////

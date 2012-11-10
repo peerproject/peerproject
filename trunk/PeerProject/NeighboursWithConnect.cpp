@@ -18,6 +18,7 @@
 
 // Determine our hub or leaf role, count connections for each, and make new ones or close them to have the right number
 // http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CNeighboursWithConnect
+// http://peerproject.org/shareazawiki/Developers.Code.CNeighboursWithConnect.html
 
 #include "StdAfx.h"
 #include "Settings.h"
@@ -232,6 +233,7 @@ BOOL CNeighboursWithConnect::OnAccept(CConnection* pConnection)
 			pNeighbour->AttachTo( pConnection );
 			return FALSE;
 		}
+		pLock.Unlock();
 	}
 	else
 		theApp.Message( MSG_ERROR, _T("Rejecting %s connection from %s, network core overloaded."), _T("neighbour"), (LPCTSTR)pConnection->m_sAddress );

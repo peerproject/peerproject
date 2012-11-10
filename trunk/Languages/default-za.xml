@@ -4,7 +4,7 @@
 <!-- PeerProject Default Afrikaans Skin File -->
 <!-- Weergawe: 27 Oktober 2005 vir Shareaza 2.2.0.2 -->
 
-<!-- Translation based on default-en.xml r86 -->
+<!-- Translation based on default-en.xml r88 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3698,10 +3698,11 @@
 		<control/>
 		<control caption="PeerProject te begin gebruik."/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Welkom by PeerProject (2/8)">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStStCoStCoStCoStEdBuStms" caption="Welkom by PeerProject (2/8)">
 		<control caption="Vir optimale werksverrigting, benodig PeerProject inligting oor jou internet konneksie."/>
 		<control caption="You may select the Internet connection type:"/>
-		<control caption="|Dial-up Modem|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Cable Modem"/>
+		<control caption="| Dial-up Modem| ISDN 128K| DSL 768K| DSL 1.5| Cable 3| DSL 4| DSL2 8| FIOS 10| DSL2 12| FIOS 15| FIOS 20| FIOS 25| FIOS 30| FIOS 50| T1| T3| LAN| OC3"/>
+		<control caption="Toets by Speedtest.net"/>
 		<control caption="Of kies die download spoed:"/>
 		<control/>
 		<control caption="...en oplaai spoed:"/>
@@ -3780,7 +3781,7 @@
 		<control/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="Welkom by PeerProject (8/8)">
-		<control caption="Dis dit!  PeerProject is ingestel om met jou rekenaar te werk."/>
+		<control caption="Dis dit. PeerProject is ingestel om met jou rekenaar te werk."/>
 		<control caption="As jy ooit nodig het om jou verstellings te verander, kan jy hierdie SnelBegin Assistent weer hardloop deur dit te selekteer vanaf die Opsies kieslys."/>
 		<control caption="Nadat jy hierdie assistent toegemaak het deur Finish te kliek, kan jy aan die netwerke konnekteer wat jy selekteer het en begin soek en inhoud aflaai."/>
 		<control caption="Begin PeerProject elke keer as Windows begin"/>

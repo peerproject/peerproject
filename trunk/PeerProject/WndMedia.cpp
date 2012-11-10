@@ -218,7 +218,7 @@ BOOL CMediaWnd::OnNcActivate(BOOL bActive)
 /////////////////////////////////////////////////////////////////////////////
 // CMediaWnd IDropTarget implementation
 
-IMPLEMENT_DROP(CMediaWnd,CPanelWnd)
+IMPLEMENT_DROP(CMediaWnd, CPanelWnd)
 
 BOOL CMediaWnd::OnDrop(IDataObject* pDataObj, DWORD /*grfKeyState*/, POINT ptScreen, DWORD* pdwEffect, BOOL bDrop)
 {

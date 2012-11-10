@@ -819,7 +819,7 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 				if ( ( _stscanf( strEncoding, _T("%u"), &nEncoding ) == 1 ) && ( nEncoding > 0 ) )
 					m_nEncoding = nEncoding;
 			}
-			else if ( _tcsnicmp( strEncoding.GetString() , _T("CP"), 2 ) == 0 )
+			else if ( _tcsnicmp( strEncoding.GetString(), _T("CP"), 2 ) == 0 )
 			{
 				UINT nEncoding = 0;
 				strEncoding = strEncoding.Mid( 2 );
@@ -1186,7 +1186,7 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 			if ( ! pPath ) return FALSE;
 			if ( ! pPath->IsType( CBENode::beList ) ) return FALSE;
 			if ( pPath->GetCount() > 32 ) return FALSE;
-			if ( _tcsicmp( strPath.GetString() , _T("#ERROR#") ) == 0 ) return FALSE;
+			if ( _tcsicmp( strPath.GetString(), _T("#ERROR#") ) == 0 ) return FALSE;
 
 			pBTFile->m_sName = PathFindFileName( strPath );
 
@@ -1664,7 +1664,7 @@ BOOL CBTInfo::ScrapeTracker()
 
 	if ( const CBENode* pNode = CBENode::Decode( pResponse ) )
 	{
-		theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, _T("[BT] Recieved BitTorrent tracker response: %s"), pNode->Encode() );
+		theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, _T("[BT] Received BitTorrent tracker response: %s"), pNode->Encode() );
 
 		//if ( ! oLock.Lock( 500 ) ) return FALSE;
 		//LPBYTE nKey = &m_oBTH[ 0 ];		// Above

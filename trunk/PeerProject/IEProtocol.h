@@ -110,7 +110,7 @@ protected:
 		STDMETHOD(UnlockRequest)();
 	END_INTERFACE_PART(InternetProtocol)
 
-	BEGIN_INTERFACE_PART(InternetProtocolInfo , IInternetProtocolInfo )
+	BEGIN_INTERFACE_PART(InternetProtocolInfo, IInternetProtocolInfo )
 		STDMETHOD(CombineUrl)(LPCWSTR pwzBaseUrl, LPCWSTR pwzRelativeUrl, DWORD dwCombineFlags, LPWSTR pwzResult, DWORD cchResult, DWORD *pcchResult, DWORD dwReserved);
 		STDMETHOD(CompareUrl)(LPCWSTR pwzUrl1, LPCWSTR pwzUrl2, DWORD dwCompareFlags);
 		STDMETHOD(ParseUrl)(LPCWSTR pwzUrl, PARSEACTION ParseAction, DWORD dwParseFlags, LPWSTR pwzResult, DWORD cchResult, DWORD *pcchResult, DWORD dwReserved);

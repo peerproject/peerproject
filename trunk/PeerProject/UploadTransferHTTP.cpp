@@ -919,8 +919,7 @@ BOOL CUploadTransferHTTP::QueueRequest()
 		else if ( UploadQueues.Enqueue( this ) )
 		{
 			ASSERT( m_pQueue != NULL );
-			ASSERT( m_pQueue->CanAccept( m_nProtocol, m_sName, m_nSize,
-				( m_bFilePartial ? CUploadQueue::ulqPartial : CUploadQueue::ulqLibrary ), m_sFileTags ) );
+			ASSERT( m_pQueue->CanAccept( m_nProtocol, m_sName, m_nSize, ( m_bFilePartial ? CUploadQueue::ulqPartial : CUploadQueue::ulqLibrary ), m_sFileTags ) );
 
 			nPosition = UploadQueues.GetPosition( this, TRUE );
 			if ( nPosition == 0 )
@@ -1197,7 +1196,7 @@ BOOL CUploadTransferHTTP::OpenFileSendHeaders()
 		{
 			theApp.Message( MSG_NOTICE, IDS_UPLOAD_FILE, (LPCTSTR)m_sName, (LPCTSTR)m_sAddress );
 
-			ASSERT( ! m_pBaseFile->m_sPath.IsEmpty() );		// Fails occasionally! (Multifile torrents?)  ToDo: Rare crashfix?
+			ASSERT( ! m_pBaseFile->m_sPath.IsEmpty() );		// Fails occasionally. (Multifile torrents?)  ToDo: Fixed?
 			PostMainWndMessage( WM_NOWUPLOADING, 0, (LPARAM)new CString( m_pBaseFile->m_sPath ) );
 		}
 

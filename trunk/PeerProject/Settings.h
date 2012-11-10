@@ -107,6 +107,7 @@ public:
 		bool		TipUploads;
 		bool		TipNeighbours;
 		bool		TipMedia;
+		bool		Snarl;					// Use Snarl notifications (getsnarl.info)
 	} Interface;
 
 	struct sSkin

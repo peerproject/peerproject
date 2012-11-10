@@ -1,7 +1,7 @@
 //
 // DlgURLCopy.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -32,9 +32,8 @@ public:
 
 	enum { IDD = IDD_URL_COPY };
 
+public:
 	void		Add(const CPeerProjectFile* pFile);
-
-	static BOOL	SetClipboardText(CString& strText);
 
 protected:
 	const CPeerProjectFile*		m_pFile;

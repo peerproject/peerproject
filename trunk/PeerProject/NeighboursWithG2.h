@@ -18,6 +18,7 @@
 
 // Adds 2 methods helpful for Gnutella2 that look at the list of neighbours
 // http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CNeighboursWithG2
+// http://peerproject.org/shareazawiki/Developers.Code.CNeighboursWithG2.html
 
 #pragma once
 

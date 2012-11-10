@@ -18,6 +18,7 @@
 
 // CG1Packet represents a Gnutella packet, and CG1PacketPool keeps lists of them
 // http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CG1Packet
+// http://peerproject.org/shareazawiki/Developers.Code.CG1Packet.html
 
 #include "StdAfx.h"
 #include "Settings.h"
@@ -332,16 +333,15 @@ void CG1Packet::GGEPWriteRandomCache(CGGEPBlock& pGGEP, LPCTSTR pszID)
 	{
 		CQuickLock oLock( HostCache.G1DNA.m_pSection );
 
-		for ( CHostCacheIterator i = HostCache.G1DNA.Begin() ;
-			i != HostCache.G1DNA.End() ; ++i )
+		for ( CHostCacheIterator i = HostCache.G1DNA.Begin() ; i != HostCache.G1DNA.End() ; ++i )
 		{
 			CHostCacheHostPtr pHost = (*i);
 
 			// We won't provide PeerProject hosts for G1 cache,
 			// since users may disable G1 and it will pollute the host caches (??)
-			if (  pHost->m_nFailures == 0 &&
-				  pHost->m_bCheckedLocally &&
-				( pHost->m_pVendor && pHost->m_pVendor->m_sCode == L"GDNA" ) )
+			if ( pHost->m_nFailures == 0 &&
+				 pHost->m_bCheckedLocally &&
+				 ( pHost->m_pVendor && pHost->m_pVendor->m_sCode == L"GDNA" ) )
 			{
 				SOCKADDR_IN tmp = { AF_INET, pHost->m_nPort, pHost->m_pAddress };
 				pHosts.Add( tmp );

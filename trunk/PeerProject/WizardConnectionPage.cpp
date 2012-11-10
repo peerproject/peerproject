@@ -21,6 +21,8 @@
 #include "PeerProject.h"
 #include "WizardConnectionPage.h"
 //#include "WizardSheet.h"
+#include "CoolInterface.h"
+#include "Colors.h"
 #include "Skin.h"
 #include "Network.h"
 #include "Registry.h"
@@ -46,6 +48,10 @@ BEGIN_MESSAGE_MAP(CWizardConnectionPage, CWizardPage)
 	ON_CBN_EDITCHANGE(IDC_WIZARD_UPLOAD_SPEED, &CWizardConnectionPage::OnChangeConnectionSpeed)
 	ON_CBN_SELCHANGE(IDC_WIZARD_UPLOAD_SPEED, &CWizardConnectionPage::OnChangeConnectionSpeed)
 	ON_BN_CLICKED(IDC_WIZARD_RANDOM, &CWizardConnectionPage::OnBnClickedRandom)
+	ON_WM_CTLCOLOR()
+	ON_WM_SETCURSOR()
+	ON_WM_LBUTTONDOWN()
+	ON_WM_RBUTTONDOWN()
 	ON_WM_XBUTTONDOWN()
 	ON_WM_TIMER()
 	//}}AFX_MSG_MAP
@@ -73,6 +79,7 @@ void CWizardConnectionPage::DoDataExchange(CDataExchange* pDX)
 {
 	CWizardPage::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CWizardConnectionPage)
+	DDX_Control(pDX, IDC_WEB, m_wndTest);
 	DDX_Control(pDX, IDC_CONNECTION_PROGRESS, m_wndProgress);
 	DDX_Control(pDX, IDC_CONNECTION_STATUS, m_wndStatus);
 	DDX_Control(pDX, IDC_CONNECTION_TYPE, m_wndType);
@@ -98,32 +105,33 @@ BOOL CWizardConnectionPage::OnInitDialog()
 	CString strTemp;
 
 	// Set dropdown download values:  (Text via resource editor)
-	m_wndType.SetItemData( 0, 56 );		// Dial-up Modem;
+	m_wndType.SetItemData( 0, 56 );		// Dial-up Modem
 	m_wndType.SetItemData( 1, 128 );	// ISDN 128K
 	m_wndType.SetItemData( 2, 768 );	// DSL  768K
-	m_wndType.SetItemData( 3, 1536 );	// DSL  1.5M
-	m_wndType.SetItemData( 4, 4096 );	// DSL  4
-	m_wndType.SetItemData( 5, 8192 );	// DSL2 8
-	m_wndType.SetItemData( 6, 10240 );	// FIOS 10
-	m_wndType.SetItemData( 7, 12288 );	// DSL2 12
-	m_wndType.SetItemData( 8, 16384 );	// FIOS 15
-	m_wndType.SetItemData( 9, 20480 );	// FIOS 20
-	m_wndType.SetItemData(10, 25400 );	// FIOS 25
-	m_wndType.SetItemData(11, 30720 );	// FIOS 30
-//	m_wndType.SetItemData(12, 50000 );	// FIOS 50
-	m_wndType.SetItemData(12, 1544 );	// T1
-	m_wndType.SetItemData(13, 44800 );	// T3
-	m_wndType.SetItemData(14, 102400 );	// LAN
-	m_wndType.SetItemData(15, 155000 );	// OC3
-	m_wndType.SetItemData(16, 3100 );	// Cable Modem (Slow)
+	m_wndType.SetItemData( 3, 1536 );	// DSL  1.5
+	m_wndType.SetItemData( 4, 3100 );	// Cable 3
+	m_wndType.SetItemData( 5, 4096 );	// DSL  4
+	m_wndType.SetItemData( 6, 8192 );	// DSL2 8
+	m_wndType.SetItemData( 7, 10240 );	// FIOS 10
+	m_wndType.SetItemData( 8, 12288 );	// DSL2 12
+	m_wndType.SetItemData( 9, 16384 );	// FIOS 15
+	m_wndType.SetItemData(10, 20480 );	// FIOS 20
+	m_wndType.SetItemData(11, 25400 );	// FIOS 25
+	m_wndType.SetItemData(12, 30720 );	// FIOS 30
+	m_wndType.SetItemData(13, 50800 );	// FIOS 50
+	m_wndType.SetItemData(14, 1544 );	// T1
+	m_wndType.SetItemData(15, 44800 );	// T3
+	m_wndType.SetItemData(16, 102400 );	// LAN
+	m_wndType.SetItemData(17, 155000 );	// OC3
 	m_wndType.SetCurSel( -1 );
 
 	// Set corresponding uploads:  (Must match above)
-	m_mapSpeed[ 56 ]		= 36;		// Dial-up Modem;
+	m_mapSpeed[ 56 ]		= 36;		// Dial-up Modem
 	m_mapSpeed[ 128 ]		= 128;		// ISDN 128K
 	m_mapSpeed[ 768 ]		= 128;		// DSL  768K
-	m_mapSpeed[ 1536 ]		= 256;		// DSL  1.5M
+	m_mapSpeed[ 1536 ]		= 256;		// DSL  1.5
 	m_mapSpeed[ 4096 ]		= 768;		// DSL  4
+	m_mapSpeed[ 3100 ]		= 2040;		// Cable 3
 	m_mapSpeed[ 8192 ]		= 1024;		// DSL2 8
 	m_mapSpeed[ 10240 ]		= 2048;		// FIOS 10
 	m_mapSpeed[ 12288 ]		= 2048;		// DSL2 12
@@ -131,14 +139,13 @@ BOOL CWizardConnectionPage::OnInitDialog()
 	m_mapSpeed[ 20480 ]		= 5120;		// FIOS 20
 	m_mapSpeed[ 25400 ]		= 10240;	// FIOS 25
 	m_mapSpeed[ 30720 ]		= 10240;	// FIOS 30
-//	m_mapSpeed[ 50000 ]		= 20480;	// FIOS 50
+	m_mapSpeed[ 50800 ]		= 20480;	// FIOS 50
 	m_mapSpeed[ 1544 ]		= 1544; 	// T1
 	m_mapSpeed[ 44800 ]		= 44800;	// T3
 	m_mapSpeed[ 102400 ]	= 102400;	// LAN
 	m_mapSpeed[ 155000 ]	= 155000;	// OC3
-	m_mapSpeed[ 3100 ]		= 2040;		// Cable Modem (Slow)
 
-	// Translation: |Dial-up Modem|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Cable Modem (3M)
+	// Translation: |Dial-up Modem|ISDN 128K|DSL 768K|DSL 1.5|Cable 3|DSL 4|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|FIOS 50|T1|T3|LAN|OC3
 
 	const double nSpeeds[] = { 28.8, 33.6, 56, 64, 128, 256, 384, 512, 640, 768, 1024, 1536, 1550, 1760, 2048, 3072, 4096, 5120, 7200, 8192, 10240, 12288, 16384, 20480, 24576, 30720, 45050, 50800, 102400, 0 };
 	for ( int nSpeed = 0 ; nSpeeds[ nSpeed ] ; nSpeed++ )
@@ -491,4 +498,72 @@ CString CWizardConnectionPage::SpeedFormat(const double nSpeed) const
 		strSpeed.Format( _T("%.0f kbps    (%.2f MB/s)"), nSpeed, nSpeed / 8 / 1024 );
 
 	return strSpeed;
+}
+
+HBRUSH CWizardConnectionPage::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+{
+	HBRUSH hbr = (HBRUSH)CWizardPage::OnCtlColor( pDC, pWnd, nCtlColor );
+
+	if ( pWnd == &m_wndTest )
+	{
+		pDC->SetTextColor( Colors.m_crTextLink );
+
+		//CPoint point;
+		//GetCursorPos( &point );
+		//
+		//CRect rc;
+		//m_wndTest.GetWindowRect( &rc );
+		//
+		//if ( rc.PtInRect( point ) )
+			pDC->SelectObject( &CoolInterface.m_fntUnder );
+	}
+
+	return hbr;
+}
+
+BOOL CWizardConnectionPage::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
+{
+	CPoint point;
+	GetCursorPos( &point );
+
+	CRect rc;
+	m_wndTest.GetWindowRect( &rc );
+
+	if ( rc.PtInRect( point ) )
+	{
+		SetCursor( theApp.LoadCursor( IDC_HAND ) );
+		return TRUE;
+	}
+
+	return CWizardPage::OnSetCursor( pWnd, nHitTest, message );
+}
+
+void CWizardConnectionPage::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	CWizardPage::OnLButtonUp( nFlags, point );
+
+	CRect rc;
+	m_wndTest.GetWindowRect( &rc );
+	ScreenToClient( &rc );
+	if ( ! rc.PtInRect( point ) )
+		return;
+
+	const CString strTestSite = _T("http://www.speedtest.net/switch_language.php?lang=") + Settings.General.Language.Left(2);
+
+	ShellExecute( GetSafeHwnd(), _T("open"), strTestSite, NULL, NULL, SW_SHOWNORMAL );
+}
+
+void CWizardConnectionPage::OnRButtonDown(UINT nFlags, CPoint point)
+{
+	CWizardPage::OnRButtonDown( nFlags, point );
+
+	CRect rc;
+	m_wndTest.GetWindowRect( &rc );
+	ScreenToClient( &rc );
+	if ( ! rc.PtInRect( point ) )
+		return;
+
+	const CString strTestSite = _T("http://www.speedtest.net/switch_language.php?lang=") + Settings.General.Language.Left(2);
+
+	theApp.SetClipboard( strTestSite, TRUE );
 }

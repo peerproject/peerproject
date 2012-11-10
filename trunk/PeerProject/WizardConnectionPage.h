@@ -44,6 +44,7 @@ protected:
 	CEdit		m_wndPort;
 	CButton		m_wndRandom;
 	CStatic		m_wndStatus;
+	CStatic		m_wndTest;
 	CProgressCtrl m_wndProgress;
 
 	bool		m_bQueryDiscoveries;
@@ -72,6 +73,11 @@ protected:
 	afx_msg void OnBnClickedRandom();
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnXButtonDown(UINT nFlags, UINT nButton, CPoint point);
+
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+	afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
 
 	DECLARE_MESSAGE_MAP()
 };

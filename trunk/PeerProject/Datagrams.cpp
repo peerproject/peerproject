@@ -94,16 +94,11 @@ BOOL CDatagrams::Listen()
 	if ( Network.Resolve( Settings.Connection.InHost, Settings.Connection.InPort, &saHost ) )
 	{
 		// Inbound resolved
-		if ( ! Settings.Connection.InBind )
-		{
-			saHost.sin_addr.S_un.S_addr = 0;
-		}
+		// Set the exclusive address option
+		if ( Settings.Connection.InBind )
+			VERIFY( setsockopt( m_hSocket, SOL_SOCKET, SO_EXCLUSIVEADDRUSE, "\x01", 1 ) == 0 );
 		else
-		{
-			// Set the exclusive address option
-			BOOL bVal = TRUE;
-			setsockopt( m_hSocket, SOL_SOCKET, SO_EXCLUSIVEADDRUSE, (char*)&bVal, sizeof(bVal) );
-		}
+			saHost.sin_addr.S_un.S_addr = 0;
 	}
 	else if ( Network.Resolve( Settings.Connection.OutHost, Settings.Connection.InPort, &saHost ) )
 	{
@@ -112,16 +107,12 @@ BOOL CDatagrams::Listen()
 	else
 	{
 		saHost = Network.m_pHost;
-		if ( ! Settings.Connection.InBind )
-		{
-			saHost.sin_addr.S_un.S_addr = 0;
-		}
+
+		// Set the exclusive address option
+		if ( Settings.Connection.InBind )
+			VERIFY( setsockopt( m_hSocket, SOL_SOCKET, SO_EXCLUSIVEADDRUSE, "\x01", 1 ) == 0 );
 		else
-		{
-			// Set the exclusive address option
-			BOOL bVal = TRUE;
-			setsockopt( m_hSocket, SOL_SOCKET, SO_EXCLUSIVEADDRUSE, (char*)&bVal, sizeof(bVal) );
-		}
+			saHost.sin_addr.S_un.S_addr = 0;
 	}
 
 	if ( bind( m_hSocket, (SOCKADDR*)&saHost, sizeof(saHost) ) == 0 )
@@ -133,7 +124,7 @@ BOOL CDatagrams::Listen()
 
 	ip_mreq mr = {};
 	mr.imr_multiaddr.s_addr = inet_addr( DEFAULT_G1_MCAST_ADDRESS );
-	VERIFY( setsockopt( m_hSocket, IPPROTO_IP, IP_ADD_MEMBERSHIP, (char FAR *)&mr, sizeof( mr ) ) == 0 );
+	VERIFY( setsockopt( m_hSocket, IPPROTO_IP, IP_ADD_MEMBERSHIP, (char*)&mr, sizeof( mr ) ) == 0 );
 
 	WSAEventSelect( m_hSocket, Network.GetWakeupEvent(), FD_READ );
 
@@ -618,7 +609,7 @@ BOOL CDatagrams::TryRead()
 			strText += ( ( m_pReadBuffer[ i ] < ' ' ) ? '.' : (char)m_pReadBuffer[ i ] );
 		}
 		theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING,
-			_T("UDP: Recieved unknown packet (%i bytes) from %s:  %s"),
+			_T("UDP: Received unknown packet (%i bytes) from %s:  %s"),
 			nLength, (LPCTSTR)CString( inet_ntoa( pFrom.sin_addr ) ), strText );
 		return TRUE;
 	}
@@ -764,8 +755,7 @@ BOOL CDatagrams::OnDatagram(const SOCKADDR_IN* pHost, const BYTE* pBuffer, DWORD
 
 //	// Report unknown packets
 //	CString strText;
-//	strText.Format( _T("UDP: Recieved unknown packet (%i bytes) from %s"),
-//		nLength, (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ) );
+//	strText.Format( _T("UDP: Received unknown packet (%i bytes) from %s"), nLength, (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ) );
 //	for ( DWORD i = 0 ; i < nLength && i < 80 ; i++ )
 //	{
 //		if ( ! i ) strText += _T(": ");

@@ -242,30 +242,6 @@ BOOL CURLCopyDlg::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 	return CSkinDialog::OnSetCursor( pWnd, nHitTest, message );
 }
 
-BOOL CURLCopyDlg::SetClipboardText(CString& strText)
-{
-	if ( ! AfxGetMainWnd()->OpenClipboard() ) return FALSE;
-
-	EmptyClipboard();
-
-	CT2CW pszWide( (LPCTSTR)strText );
-	if ( HANDLE hMem = GlobalAlloc( GMEM_MOVEABLE|GMEM_DDESHARE, ( wcslen(pszWide) + 1 ) * sizeof(WCHAR) ) )
-	{
-		if ( LPVOID pMem = GlobalLock( hMem ) )
-		{
-			CopyMemory( pMem, pszWide, ( wcslen(pszWide) + 1 ) * sizeof(WCHAR) );
-			GlobalUnlock( hMem );
-			SetClipboardData( CF_UNICODETEXT, hMem );
-
-			theApp.Message( MSG_TRAY, LoadString( IDS_COPIED_TO_CLIPBOARD ) + _T("\n(") + strText.Left( strText.Find( _T(":") ) + 1 ) + _T(")") );		// + strText.Left( 180 ) Crash?
-		}
-	}
-
-	CloseClipboard();
-
-	return TRUE;
-}
-
 void CURLCopyDlg::OnStnClickedUrlHost()
 {
 	UpdateData();
@@ -273,7 +249,7 @@ void CURLCopyDlg::OnStnClickedUrlHost()
 	if ( m_sHost.IsEmpty() )
 		return;
 
-	SetClipboardText( m_sHost );
+	theApp.SetClipboard( m_sHost, TRUE );
 
 	CSkinDialog::OnOK();
 }
@@ -285,7 +261,7 @@ void CURLCopyDlg::OnStnClickedUrlMagnet()
 	if ( m_sMagnet.IsEmpty() )
 		return;
 
-	SetClipboardText( m_sMagnet );
+	theApp.SetClipboard( m_sMagnet, TRUE );
 
 	CSkinDialog::OnOK();
 }
@@ -297,7 +273,7 @@ void CURLCopyDlg::OnStnClickedUrlEd2k()
 	if ( m_sED2K.IsEmpty() )
 		return;
 
-	SetClipboardText( m_sED2K );
+	theApp.SetClipboard( m_sED2K, TRUE );
 
 	CSkinDialog::OnOK();
 }

@@ -26,7 +26,6 @@
 #include "Neighbour.h"
 #include "Network.h"
 #include "DlgUpdateServers.h"
-#include "DlgURLCopy.h"
 #include "LiveList.h"
 #include "CoolInterface.h"
 #include "Colors.h"
@@ -510,7 +509,7 @@ void CHostCacheWnd::OnNeighboursCopy()
 	else if ( pHost->m_nProtocol == PROTOCOL_BT )
 		strURL.Format( _T("peerproject:btnode:%s:%u"), (LPCTSTR)pHost->Address(), pHost->m_nUDPPort );
 
-	CURLCopyDlg::SetClipboardText( strURL );
+	theApp.SetClipboard( strURL );
 }
 
 void CHostCacheWnd::OnUpdateHostCacheRemove(CCmdUI* pCmdUI)

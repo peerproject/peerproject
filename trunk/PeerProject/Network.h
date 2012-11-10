@@ -212,7 +212,7 @@ public:
 	void		OnQueryHits(CQueryHit* pHits);			// Add query hit to queue
 	BOOL		OnPush(const Hashes::Guid& oGUID, CConnection* pConnection);	// Handle push for downloads, chat, and browse
 
-	// Safe ways to: accept/close socket, send/recieve data
+	// Safe ways to: accept/close socket, send/receive data
 	static SOCKET AcceptSocket(SOCKET hSocket, SOCKADDR_IN* addr, LPCONDITIONPROC lpfnCondition, DWORD_PTR dwCallbackData = 0);
 	static void	CloseSocket(SOCKET& hSocket, const bool bForce);
 	static int	Send(SOCKET s, const char* buf, int len);  // TCP

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default English Skin File -->
 
-<!-- Translation based on default-en.xml r86 -->
+<!-- Translation based on default-en.xml r88 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -4012,10 +4012,11 @@
 		<control/>
 		<control caption="Get started using PeerProject."/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Welcome to PeerProject &#160;(2/8)">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStStCoStCoStCoStEdBuStms" caption="Welcome to PeerProject &#160;(2/8)">
 		<control caption="For best performance, PeerProject needs to know your internet connection."/>
 		<control caption="You may select the Internet connection type:"/>
-		<control caption="|Dial-up Modem|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Cable Modem"/>
+		<control caption="| Dial-up Modem| ISDN 128K| DSL 768K| DSL 1.5| Cable 3| DSL 4| DSL2 8| FIOS 10| DSL2 12| FIOS 15| FIOS 20| FIOS 25| FIOS 30| FIOS 50| T1| T3| LAN| OC3"/>
+		<control caption="Test at Speedtest.net"/>
 		<control caption="Or choose the download speed:"/>
 		<control/>
 		<control caption="...and upload speed:"/>
@@ -4094,7 +4095,7 @@
 		<control/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="Welcome to PeerProject &#160;(8/8)">
-		<control caption="That&apos;s it.  PeerProject has been configured to work with your computer."/>
+		<control caption="That&apos;s it. PeerProject has been configured to work with your computer."/>
 		<control caption="If you ever need to change these settings, re-run the QuickStart wizard by selecting it from the Tools menu."/>
 		<control caption="After closing this Wizard, the first thing to do is run a 'fake' random search to catch spammers and Ban them all. Explore toolbar tabs while waiting."/>
 		<control caption="Start PeerProject every time Windows starts"/>

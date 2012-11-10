@@ -1542,7 +1542,7 @@ void CQueryHit::ReadEDPacket(CEDPacket* pPacket, const SOCKADDR_IN* pServer, BOO
 			break;
 		case ED2K_FT_MAXSOURCES:
 		case ED2K_FT_LASTSEENCOMPLETE:
-			//theApp.Message( MSG_NOTICE,_T("Last seen complete"));
+			//theApp.Message( MSG_NOTICE, _T("Last seen complete"));
 			break;
 		case ED2K_FT_LENGTH:
 			// New style Length (DWORD)

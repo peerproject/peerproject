@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hungarian Skin File -->
 
-<!-- Translation based on default-en.xml r86 -->
+<!-- Translation based on default-en.xml r88 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3734,10 +3734,11 @@
 		<control/>
 		<control caption="A PeerProject használata"/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Köszöntöm a PeerProject (2/8)">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStStCoStCoStCoStEdBuStms" caption="Köszöntöm a PeerProject (2/8)">
 		<control caption="A PeerProject többet kell tudnia az ön internetkapcsolatáról."/>
 		<control caption="Milyen kapcsolattal rendelketik?"/>
-		<control caption="Betárcsázós modem|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Kábelmodem"/>
+		<control caption="| Betárcsázós modem| ISDN 128K| DSL 768K| DSL 1.5| Kábel 3| DSL 4| DSL2 8| FIOS 10| DSL2 12| FIOS 15| FIOS 20| FIOS 25| FIOS 30| FIOS 50| T1| T3| LAN| OC3"/>
+		<control caption="Vizsgálat Speedtest.net"/>
 		<control caption="Vagy adja meg a letöltési:"/>
 		<control/>
 		<control caption="és a feltöltési sebességet:"/>
@@ -3816,7 +3817,7 @@
 		<control/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="Köszöntöm a PeerProject (8/8)">
-		<control caption="Ennyi volt! A PeerProject kész a használatra."/>
+		<control caption="Ennyi volt. A PeerProject kész a használatra."/>
 		<control caption="Ha valamit meg kell változtatnia, csak futtassa le újra a varázslót."/>
 		<control caption="A beállítások után azonnal keresgélhet és letölthet."/>
 		<control caption="A Windows indításával együtt indítja a PeerProject"/>

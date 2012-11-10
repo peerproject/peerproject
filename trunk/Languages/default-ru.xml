@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Russian Skin File -->
 
-<!-- Translation based on default-en.xml r86 -->
+<!-- Translation based on default-en.xml r88 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3845,10 +3845,11 @@
 		<control/>
 		<control caption="Начать пользоваться PeerProject'ой."/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Добро пожаловать в PeerProject (2/8)">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStStCoStCoStCoStEdBuStms" caption="Добро пожаловать в PeerProject (2/8)">
 		<control caption="Для оптимальной работы PeerProject должна знать о вашем соединении с Интернетом."/>
 		<control caption="Выберите тип подключения к интернету:"/>
-		<control caption="Коммутир. соединение|ИСДН 128К)|ДСЛ 768К|ДСЛ 1,5М|ДСЛ 4M|ДСЛ2 8M|ДСЛ2 10|ДСЛ2 12|ДСЛ2 15|ДСЛ2 20|ДСЛ2 25|ДСЛ2 30|Т1|Т3|Локальная сеть|OC3|Кабельный модем"/>
+		<control caption=" Коммутир. соединение| ИСДН 128К| ДСЛ 768К| ДСЛ 1,5М| Кабельный 3| ДСЛ 4| ДСЛ2 8| ДСЛ2 10| ДСЛ2 12| ДСЛ2 15| ДСЛ2 20| ДСЛ2 25| ДСЛ2 30| ДСЛ2 50| Т1| Т3| Локальная сеть| OC3"/>
+		<control caption="Тест на Speedtest.net"/>
 		<control caption="Или выберите скорость загрузки:"/>
 		<control/>
 		<control caption="и скорость раздачи:"/>
@@ -3927,12 +3928,12 @@
 		<control/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="Добро пожаловать в PeerProject (8/8)">
-		<control caption="Вот и всё!  Вы настроили PeerProject для работы на Вашем компьютере."/>
+		<control caption="Вот и всё. Вы настроили PeerProject для работы на Вашем компьютере."/>
 		<control caption="Если Вам понадобится изменить установки, можно перезапустить мастер, выбрав соответствующий пункт из меню Инструменты."/>
 		<control caption="После закрытия мастера, можно своединиться с выбранными сетями и начать поиск и загрузку файлов."/>
 		<control caption="Запускать PeerProject при каждом запуске Windows"/>
 		<control caption="Соединяться с сетью при каждом запуске PeerProject"/>
-		<control caption="Наслаждайтесь использованием PeerProject!"/>
+		<control caption="Наслаждайтесь использованием PeerProject."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="Импорт eDonkey Загрузок">
 		<control caption="PeerProject обнаружила, что у Вас установлена другая, eDonkey, программа. Хотели бы Вы импортировать любые незаконченные загрузки в PeerProject?"/>

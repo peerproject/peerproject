@@ -414,6 +414,7 @@ void CLibraryBuilder::OnRun()
 
 				ExtractPluginMetadata( nIndex, sPath );
 
+				CThumbCache::Delete( sPath );
 				CThumbCache::Cache( sPath );
 
 				// Done
@@ -750,7 +751,7 @@ bool CLibraryBuilder::DetectVirtualID3v2(HANDLE hFile, QWORD& nOffset, QWORD& nL
 	if ( nRead != sizeof(pHeader) )
 		return false;
 
-	if ( strncmp( pHeader.szTag, ID3V2_TAG, 3 ) )
+	if ( strncmp( pHeader.szTag, ID3V2_TAG, 3 ) != 0 )
 		return false;
 	if ( pHeader.nMajorVersion < 2 || pHeader.nMajorVersion > 4 )
 		return false;
@@ -1129,6 +1130,9 @@ bool CLibraryBuilder::RefreshMetadata(const CString& sPath)
 	}
 
 	bResult |= ExtractPluginMetadata( nIndex, sPath );
+
+	CThumbCache::Delete( sPath );
+	CThumbCache::Cache( sPath );
 
 	return bResult;
 }

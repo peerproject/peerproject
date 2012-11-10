@@ -18,6 +18,7 @@
 
 // CBuffer holds some memory, and takes care of allocating and freeing it itself
 // http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CBuffer
+// http://peerproject.org/shareazawiki/Developers.Code.CBuffer.html
 
 #pragma once
 
@@ -43,16 +44,18 @@ private:
 
 // Accessors
 public:
-	inline DWORD GetBufferSize() const { return m_nBuffer; }	// Return the total size of the buffer
-	inline BYTE* GetData() const { return m_pBuffer; }			// Return a pointer to the start of the data in the buffer
-	inline DWORD GetCount() const { return m_nLength; }			// Return the filled size of the buffer
+	inline DWORD GetBufferSize() const { return m_nBuffer; }			// Return the total size of the buffer
+	inline BYTE* GetData() const { return m_pBuffer; }					// Return a pointer to the start of the data in the buffer
+	inline DWORD GetCount() const { return m_nLength; }					// Return the filled size of the buffer
+	inline BYTE* GetDataEnd() const { return m_pBuffer + m_nLength; }	// Return a pointer to the end of the data in the buffer
+	inline DWORD GetBufferFree() const { return m_nBuffer - m_nLength; } // Return the unused #bytes in the buffer
 
 // Operations
 public:
 	void	Add(const void* pData, const size_t nLength); //throw();				// Add data to the end of the buffer
 	void	Insert(const DWORD nOffset, const void* pData, const size_t nLength);	// Insert the data into the buffer
 	void	Remove(const size_t nLength); //throw();								// Removes data from the start of the buffer
-	bool	EnsureBuffer(const size_t nLength); //throw();							// Tell the buffer to prepare to recieve this number of additional bytes
+	bool	EnsureBuffer(const size_t nLength); //throw();							// Tell the buffer to prepare to receive this number of additional bytes
 	DWORD	AddBuffer(CBuffer* pBuffer, const size_t nLength);						// Copy all or part of the data in another CBuffer object into this one
 	void	AddReversed(const void* pData, const size_t nLength);					// Add data to this buffer, but with the bytes in reverse order
 	void	Attach(CBuffer* pBuffer);												// Get ownership of another CBuffer object data
@@ -118,13 +121,9 @@ public:
 	// Add ASCII text to the start of this buffer, shifting everything else forward
 	void	Prefix(LPCSTR pszText, const size_t nLength) { Insert( 0, (void*)pszText, nLength ); }
 
-private:
-	BYTE*	GetDataEnd() const { return m_pBuffer + m_nLength; }	// Return a pointer to the end of the data in the buffer
-	size_t	GetBufferFree() const { return m_nBuffer - m_nLength; }	// Return the unused #bytes in the buffer
-
 // Statics
 public:
-	static const size_t	MAX_RECV_SIZE	= 1024ul * 16ul;	// Recieve up to 16KB blocks from the socket
+	static const size_t	MAX_RECV_SIZE	= 1024ul * 16ul;	// Receive up to 16KB blocks from the socket
 	static const size_t	ZLIB_CHUNK_SIZE	= 1024u;			// Chunk size for ZLib compression/decompression
 
 	// Static means you can call CBuffer::ReverseBuffer without having a CBuffer object at all

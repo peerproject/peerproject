@@ -110,7 +110,8 @@ protected:
 	HRESULT PluginPlay(BSTR bsFileName);
 
 private:
-	void UpdateNowPlaying(BOOL bEmpty = FALSE);
+	void	UpdateNowPlaying(BOOL bEmpty = FALSE);
+	BOOL	IsDisplayMeta(CMetaItem* pItem);
 
 // Attributes
 protected:
@@ -159,9 +160,6 @@ protected:
 	UINT			m_nPowerSchemeId, m_nScreenSaverTime;
 	GLOBAL_POWER_POLICY m_CurrentGP;	// Current Global Power Policy
 	POWER_POLICY	m_CurrentPP;		// Current Power Policy
-
-public:
-	static CMediaFrame* g_pMediaFrame;
 
 private:
 	CString			m_sNowPlaying;

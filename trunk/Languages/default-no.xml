@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Norwegian Skin File -->
 
-<!-- Translation based on default-en.xml r86 --> <!-- (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r88 --> <!-- (Shareaza 2.2.0.2) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3454,10 +3454,11 @@
 		<control/>
 		<control caption="Hvordan du vil starte PeerProject"/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Velkommen til PeerProject (2/8)">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStStCoStCoStCoStEdBuStms" caption="Velkommen til PeerProject (2/8)">
 		<control caption="For optimal utnyttelse, trenger PeerProject å vite litt om tilkoblingen din."/>
 		<control caption="Hvis du kjenner hastigheten på tilkoblingen din, velg den som passer best nedenfor."/>
-		<control caption="|Oppringt modem|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Kabelmodem"/>
+		<control caption="| Oppringt modem| ISDN 128K| DSL 768K| DSL 1.5| Kabel 3| DSL 4| DSL2 8| FIOS 10| DSL2 12| FIOS 15| FIOS 20| FIOS 25| FIOS 30| FIOS 50| T1| T3| LAN| OC3"/>
+		<control caption="Test på Speedtest.net"/>
 		<control caption="Eller velg nedlastingen hastighet:"/>
 		<control/>
 		<control caption="...og opplastingshastighet:"/>
@@ -3536,12 +3537,12 @@
 		<control/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="Velkommen til PeerProject (8/8)">
-		<control caption="Ferdig!  PeerProject er nå satt opp til å virke på din pc."/>
+		<control caption="Ferdig. PeerProject er nå satt opp til å virke på din pc."/>
 		<control caption="Hvis du trenger å endre på innstillingene, kan du kjøre veiviseren på nytt fra Verktøy menyen."/>
 		<control caption="Etter at du har lukket veiviseren ved å trykke på Fullfør, kan du koble til nettverkene du valgte og starte søk etter det du vil laste ned"/>
 		<control caption="Start PeerProject når Windows starter"/>
 		<control caption="Koble til nettverket hver gang jeg starter PeerProject"/>
-		<control caption="Kos deg med PeerProject!"/>
+		<control caption="Kos deg med PeerProject."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="Importer eDonkey2000 nedlastinger">
 		<control caption="PeerProject har oppdaget at du har et annet eDonkey2000 program installert på pc-en. Vil du importere uferdige nedlastinger til PeerProject?"/>

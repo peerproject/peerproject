@@ -20,7 +20,6 @@
 #include "Settings.h"
 #include "PeerProject.h"
 #include "DlgURLExport.h"
-#include "DlgURLCopy.h"
 #include "Library.h"
 #include "SharedFile.h"
 #include "SharedFolder.h"
@@ -209,7 +208,7 @@ void CURLExportDlg::OnCopy()
 		strOutput += strLine;
 	}
 
-	CURLCopyDlg::SetClipboardText( strOutput );
+	theApp.SetClipboard( strOutput );
 
 	EndDialog( IDOK );
 }

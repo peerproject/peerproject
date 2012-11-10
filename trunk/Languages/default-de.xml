@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default German Skin File -->
 
-<!-- Translation based on default-en.xml r86 -->
+<!-- Translation based on default-en.xml r88 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3881,10 +3881,11 @@
 		<control/>
 		<control caption="PeerProjekt zu benutzen"/>
 	</dialog>
-		<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Willkommen bei PeerProjekt &#160;(2/8)">
+		<dialog name="CWizardConnectionPage" cookie="StStCoStStCoStCoStCoStEdBuStms" caption="Willkommen bei PeerProjekt &#160;(2/8)">
 		<control caption="PeerProjekt benötigt nun einige Informationen über ihre Internetverbinung um bestmöglich zu funktionieren."/>
 		<control caption="Wählen Sie den Typ ihrer Internetverbindung:"/>
-		<control caption="Modem (56k)|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Cable Modem"/>
+		<control caption="| Modem 56k| ISDN 128K| DSL 768K| DSL 1.5| Cable 3| DSL 4| DSL2 8| FIOS 10| DSL2 12| FIOS 15| FIOS 20| FIOS 25| FIOS 30| FIOS 50| T1| T3| LAN| OC3"/>
+		<control caption="Test auf Speedtest.net"/>
 		<control caption="Oder wählen Sie ihre max. Downloadgeschwindigkeit:"/>
 		<control/>
 		<control caption="und die max. Uploadgeschwindigkeit:"/>
@@ -3963,12 +3964,12 @@
 		<control/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="Willkommen bei PeerProjekt &#160;(8/8)">
-		<control caption="Das war's!  PeerProjekt wurde konfiguriert, um mit Ihrem Computer zu funktionieren."/>
+		<control caption="Das war's. PeerProjekt wurde konfiguriert, um mit Ihrem Computer zu funktionieren."/>
 		<control caption="Wenn Sie ihre Einstellungen ändern möchten, können Sie diesen Assistenten aus dem &quot;Extras&quot;-Menü aufrufen."/>
 		<control caption="Klicken Sie auf &lt;Fertigstellen&gt;, um sich mit den gewünschten Netzwerken zu verbinden, um nach Dateien zu suchen und diese herunterladen."/>
 		<control caption="PeerProjekt starten, wenn Windows gestartet wird"/>
 		<control caption="Beim Start von PeerProjekt immer mit den gewählten Netzwerken verbinden"/>
-		<control caption="Genießen Sie PeerProjekt!"/>
+		<control caption="Genießen Sie PeerProjekt."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="eDonkey-Downloads importieren">
 		<control caption="Sie haben noch andere eDonkey-Clients auf ihrem Computer installiert. Möchten Sie unvollständige Downloads in PeerProjekt importieren?"/>

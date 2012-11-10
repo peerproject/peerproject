@@ -25,7 +25,7 @@ class CFilePreviewDlg;
 class CDownloadTask;
 
 // CDownloadReview stores a review of a download. It can be either a G2 review,
-// copied from the search, or an ed2k review recieved during download.
+// copied from the search, or an ed2k review received during download.
 class CDownloadReview
 {
 // Construction

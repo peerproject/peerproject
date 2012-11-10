@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Czech Skin File -->
 
-<!-- Translation based on default-en.xml r86 --> <!-- (Shareaza 2.2.5.7) -->
+<!-- Translation based on default-en.xml r88 --> <!-- (Shareaza 2.2.5.7) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3657,10 +3657,11 @@
 		<control/>
 		<control caption="již můžete používat PeerProject."/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Vítejte v PeerProject (2/8)">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStStCoStCoStCoStEdBuStms" caption="Vítejte v PeerProject (2/8)">
 		<control caption="Pro optimální výkon, potřebuje PeerProject vědět pár údajů o vašem připojení k Internetu."/>
 		<control caption="Vyberte typ připojení k internetu:"/>
-		<control caption="Telefoní modem|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Kabel Modem"/>
+		<control caption="| Telefoní modem| ISDN 128K| DSL 768K| DSL 1.5| Kabel 3| DSL 4| DSL2 8| FIOS 10| DSL2 12| FIOS 15| FIOS 20| FIOS 25| FIOS 30| T1| T3| LAN| OC3"/>
+		<control caption="Zkouška při Speedtest.net"/>
 		<control caption="Nebo vyberte rychlost stahování:"/>
 		<control/>
 		<control caption="a rychlost odesílání:"/>
@@ -3739,12 +3740,12 @@
 		<control/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="Vítejte v PeerProject (8/8)">
-		<control caption="To je vše! PeerProject byla nastavena pro práci s vaším počítačem."/>
+		<control caption="To je vše. PeerProject byla nastavena pro práci s vaším počítačem."/>
 		<control caption="Jestliže budete někdy potřebovat změnit vaše nastavení, můžete to zopakovat v Průvodci rychlým startem, výběrem z nabídky Nástroje."/>
 		<control caption="Pro zavření tohoto Průvodce klikněte na Dokončit, můžete se připojit ke zvolené síti a začít vyhledávat a stahovat soubory."/>
 		<control caption="Při startu Windows vždy spustit PeerProject"/>
 		<control caption="Při spuštění PeerProject se připojit k síti"/>
-		<control caption="Užijte si PeerProject!"/>
+		<control caption="Užijte si PeerProject."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="Import stahování eDonkey">
 		<control caption="PeerProject objevila že máte instalován jiný program eDonkey ve vašem počítači. Chcete importovat nedokončená stahování do PeerProject?"/>

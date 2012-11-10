@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hebrew Skin File -->
 
-<!-- Translation based on default-en.xml r86 -->
+<!-- Translation based on default-en.xml r88 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3332,10 +3332,11 @@ gap i newline
 		<control/>
 		<control caption="התחלת השימוש בשרזה"/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="(2/8) ברוכים הבאים לשרזה">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStStCoStCoStCoStEdBuStms" caption="(2/8) ברוכים הבאים לשרזה">
 		<control caption="לביצועים מירביים, שרזה צריכה לדעת קצת יותר על החיבור שלך לאינטרנט"/>
 		<control caption="&#160;אנא בחר|אני משתמש באינטרנט בביתי|אני משתמש באינטרנט בקו קבוע במכללה|אני משתמש באינטרנט בקו קבוע במשרד|אני משתמש באינטרנט במלון או בשדה תעופה"/>
-		<control caption="|Dial-up Modem|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Cable Modem"/>
+		<control caption="| Dial-up Modem| ISDN 128K| DSL 768K| DSL 1.5| Cable 3| DSL 4| DSL2 8| FIOS 10| DSL2 12| FIOS 15| FIOS 20| FIOS 25| FIOS 30| FIOS 50| T1| T3| LAN| OC3"/>
+		<control caption="מבחן ב Speedtest.net"/>
 		<control caption="או בחר:"/>
 		<control/>
 		<control caption="ומהירות ההעלאה:"/>
@@ -3419,7 +3420,7 @@ gap i newline
 		<control caption="לאחר יציאה מהאשף על ידי לחיצה על סיים, תוכל להתחבר לרשתות שבחרת ולהתחיל לחפש ולהוריד תכנים"/>
 		<control caption="הפעל את שרזה עם אתחול חלונות"/>
 		<control caption="התחבר לרשת עם הפעלת שרזה"/>
-		<control caption="!אנו מקווים שתהנה להשתמש בשרזה"/>
+		<control caption="אנו מקווים שתהנה להשתמש בשרזה"/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="ייבא הורדות של אידונקי">
 		<control caption="&#8234;‏שרזה‎? ‏אל‎ ‏הסתיימו‎ ‏שלא‎ ‏הורדות‎ ‏לייבא‎ ‏מעוניין‎ ‏אתה‎ ‏האם‎ ‏מחשבך‎. ‏על‎ ‏מותקנת‎ ‏אחרת‎ ‏אדיונקי‎2000 ‏תוכנת‎ ‏לך‎ ‏שיש‎ ‏זיהה‎ ‏שרזה"/>

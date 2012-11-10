@@ -862,12 +862,12 @@ void CUploadsCtrl::PaintQueue(CDC& dc, const CRect& rcRow, CUploadQueue* pQueue,
 
 			if ( pQueue->m_bExpanded )
 			{
-				CoolInterface.Draw( &dc, PtInRect(&rcTick,ptHover) ? IDI_CLOSETICK_HOVER : IDI_CLOSETICK,
+				CoolInterface.Draw( &dc, PtInRect( &rcTick, ptHover ) ? IDI_CLOSETICK_HOVER : IDI_CLOSETICK,
 					16, rcCell.left, rcCell.top, crLeftMargin );
 			}
 			else
 			{
-				CoolInterface.Draw( &dc, PtInRect(&rcTick,ptHover) ? IDI_OPENTICK_HOVER : IDI_OPENTICK,
+				CoolInterface.Draw( &dc, PtInRect( &rcTick, ptHover ) ? IDI_OPENTICK_HOVER : IDI_OPENTICK,
 					16, rcCell.left, rcCell.top, crLeftMargin );
 			}
 

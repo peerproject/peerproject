@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Catalan Skin File -->
 
-<!-- Translation based on default-en.xml r86 -->
+<!-- Translation based on default-en.xml r88 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3677,10 +3677,11 @@
 		<control/>
 		<control caption="Començar a utilitzar PeerProject..."/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Benvingut a PeerProject (2/8)">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStStCoStCoStCoStEdBuStms" caption="Benvingut a PeerProject (2/8)">
 		<control caption="Per a un rendiment óptim, PeerProject necessita saber un mica més sobre la teva connexió a Internet."/>
 		<control caption="Tria el tipus de la teva connexió a Internet:"/>
-		<control caption="Mòdem|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Cable Mòdem"/>
+		<control caption="| Mòdem| ISDN 128K| DSL 768K| DSL 1.5| Cable 3| DSL 4| DSL2 8| FIOS 10| DSL2 12| FIOS 15| FIOS 20| FIOS 25| FIOS 30| FIOS 50| T1| T3| LAN| OC3"/>
+		<control caption="Prova a Speedtest.net"/>
 		<control caption="O tria una velocitat de descàrrega:"/>
 		<control/>
 		<control caption="i de pujada:"/>
@@ -3759,12 +3760,12 @@
 		<control/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="Benvingut a PeerProject (8/8)">
-		<control caption="¡Ja està tot! PeerProject ha estat configurat per a funcionar al teu sistema."/>
+		<control caption="Ja està tot. PeerProject ha estat configurat per a funcionar al teu sistema."/>
 		<control caption="Si vols canviar alguna configuració, aquest assistent es pot trobar al menú d'eines."/>
 		<control caption="Després de fer clic en &quot;Finalitza&quot;, pots usar la Xarxa i cercar contingut."/>
 		<control caption="Inicia PeerProject junt amb Windows"/>
 		<control caption="Connecta a la xarxa cada vegada que s'inici PeerProject"/>
-		<control caption="PeerProject usa la tecnologia més avançada d'intercanvi d'arxius. ¡Gaudeix!."/>
+		<control caption="PeerProject usa la tecnologia més avançada d'intercanvi d'arxius. Gaudeix."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="Importa transferències d'eDonkey o eMule">
 		<control caption="PeerProject ha detectat eDonkey o eMule instal·lat. Vols importar les transferències a PeerProject?"/>

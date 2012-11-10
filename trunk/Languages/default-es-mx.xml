@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Spanish (Mexican) Skin File -->
 
-<!-- Translation based on default-en.xml r86 -->
+<!-- Translation based on default-en.xml r88 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3791,10 +3791,11 @@
 		<control/>
 		<control caption="Empezar usando PeerProject."/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Bienvenido a PeerProject &#160;(2/8)">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStStCoStCoStCoStEdBuStms" caption="Bienvenido a PeerProject &#160;(2/8)">
 		<control caption="Para un rendimiento optimo, PeerProject necesita saber un poco más sobre tu conexión a Internet."/>
 		<control caption="Elije el tipo de tu conexión a Internet"/>
-		<control caption="|Dial-up Modem|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Cable Modem"/>
+		<control caption="| Dial-up Modem| ISDN 128K| DSL 768K| DSL 1.5| Cable 3| DSL 4| DSL2 8| FIOS 10| DSL2 12| FIOS 15| FIOS 20| FIOS 25| FIOS 30| FIOS 50| T1| T3| LAN| OC3"/>
+		<control caption="Prueba en Speedtest.net"/>
 		<control caption="O escoge la velocidad de descarga:"/>
 		<control/>
 		<control caption="y la velocidad de subida:"/>
@@ -3873,12 +3874,12 @@
 		<control/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="Bienvenido a PeerProject &#160;(8/8)">
-		<control caption="¡Eso era todo! PeerProject ha sido configurado para funcionar en tu sistema."/>
+		<control caption="Eso era todo. PeerProject ha sido configurado para funcionar en tu sistema."/>
 		<control caption="Si en algún momento necesitas cambiar alguna configuración, este Asistente se puede correr desde el menú de Herramientas."/>
 		<control caption="Después de hacer click en Finalizar, puedes usar la red y buscar contenido."/>
 		<control caption="Iniciar PeerProject junto con Windows"/>
 		<control caption="Conectar a la red cada vez que se inicie PeerProject"/>
-		<control caption="PeerProject usa la tecnología más avanzada de intercambio de archivos. ¡Disfrútelo!."/>
+		<control caption="PeerProject usa la tecnología más avanzada de intercambio de archivos. Disfrútelo."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="Importar Transferencias de eDonkey2000 o eMule">
 		<control caption="PeerProject ha detectado eMule o otro eDonkey instalado. ¿Quieres importar las transferencias a PeerProject?"/>
