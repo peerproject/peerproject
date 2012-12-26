@@ -142,6 +142,7 @@ public:
 	DWORD		GetInfoPiece(DWORD nPiece, BYTE **pInfoPiece) const;
 	DWORD		GetInfoSize() const;
 	BOOL		CheckInfoData();
+	BOOL		IsDeadTracker(const CString& sTracker);		// Known defunct URLs
 	BOOL		LoadTorrentFile(LPCTSTR pszFile);
 	BOOL		LoadTorrentBuffer(const CBuffer* pBuffer);
 	BOOL		LoadTorrentTree(const CBENode* pRoot);

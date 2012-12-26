@@ -3607,6 +3607,8 @@ IShellLink* CreateShellLink(LPCWSTR szTargetExecutablePath, LPCWSTR szCommandLin
 				PropVariantClear( &var );
 			}
 		}
+#else
+	UNUSED_ALWAYS( szTitle );
 #endif
 	}
 	return pLink.Detach();

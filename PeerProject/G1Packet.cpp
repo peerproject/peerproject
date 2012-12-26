@@ -684,8 +684,8 @@ BOOL CG1Packet::OnPong(const SOCKADDR_IN* pHost)
 	DWORD nVolume	= ReadLongLE(); 	// 4 bytes, the total size of all those files
 
 	// ToDo: Use share info?
-	UNUSED_ALWAYS(nFiles);
-	UNUSED_ALWAYS(nVolume);
+	UNUSED_ALWAYS( nFiles );
+	UNUSED_ALWAYS( nVolume );
 
 	if ( Security.IsDenied( (IN_ADDR*)&nAddress ) )
 	{

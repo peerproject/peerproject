@@ -808,7 +808,7 @@ BOOL CDCClient::OnError(const std::string& strParams)
 #ifdef _DEBUG
 	TRACE( "[DC++] Got $Error: \"%s\"\n", strParams.c_str() );
 #else
-	UNUSED_ALWAYS(strParams);	// Unused in Release Builds
+	UNUSED_ALWAYS( strParams );	// Unused in Release Builds
 #endif
 
 	return TRUE;

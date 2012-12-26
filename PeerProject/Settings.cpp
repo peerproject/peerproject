@@ -269,7 +269,7 @@ void CSettings::Load()
 	Add( _T("MediaPlayer"), _T("ListVisible"), &MediaPlayer.ListVisible, true );
 	Add( _T("MediaPlayer"), _T("Random"), &MediaPlayer.Random, false );
 	Add( _T("MediaPlayer"), _T("Repeat"), &MediaPlayer.Repeat, false );
-	Add( _T("MediaPlayer"), _T("ServicePath"), &MediaPlayer.ServicePath, _T(""));
+	Add( _T("MediaPlayer"), _T("ServicePath"), &MediaPlayer.ServicePath, _T("") );
 	Add( _T("MediaPlayer"), _T("ShortPaths"), &MediaPlayer.ShortPaths, false );
 	Add( _T("MediaPlayer"), _T("StatusVisible"), &MediaPlayer.StatusVisible, true );
 	Add( _T("MediaPlayer"), _T("VisPath"), &MediaPlayer.VisPath );
@@ -502,6 +502,7 @@ void CSettings::Load()
 	Add( _T("BitTorrent"), _T("EnableAlways"), &BitTorrent.EnableAlways, true );
 	Add( _T("BitTorrent"), _T("Enabled"), &BitTorrent.Enabled, true );
 	Add( _T("BitTorrent"), _T("Endgame"), &BitTorrent.Endgame, true );
+	Add( _T("BitTorrent"), _T("PeerID"), &BitTorrent.PeerID, _T("") );	// Alternate to PE1000 for trackers
 	Add( _T("BitTorrent"), _T("PreferenceBTSources"), &BitTorrent.PreferenceBTSources, true );
 	Add( _T("BitTorrent"), _T("LinkPing"), &BitTorrent.LinkPing, 120*1000, 1000, 10, 60*10, _T(" s") );
 	Add( _T("BitTorrent"), _T("LinkTimeout"), &BitTorrent.LinkTimeout, 180*1000, 1000, 10, 60*10, _T(" s") );
@@ -576,6 +577,7 @@ void CSettings::Load()
 	Add( _T("Uploads"), _T("AllowBackwards"), &Uploads.AllowBackwards, true );
 	Add( _T("Uploads"), _T("AutoClear"), &Uploads.AutoClear, false );
 	Add( _T("Uploads"), _T("BlockAgents"), &Uploads.BlockAgents, _T("|Mozilla|Foxy|") );
+	Add( _T("Uploads"), _T("ChunkSize"), &Uploads.ChunkSize, 1000*1024, 1024, 1, 2048, _T(" KB") );
 	Add( _T("Uploads"), _T("ClampdownFactor"), &Uploads.ClampdownFactor, 20, 1, 0, 100, _T("%") );
 	Add( _T("Uploads"), _T("ClampdownFloor"), &Uploads.ClampdownFloor, 8*128, 128, 0, 4096, _T(" Kb/s") );
 	Add( _T("Uploads"), _T("ClearDelay"), &Uploads.ClearDelay, 60*1000, 1000, 1, 1800, _T(" s") );
@@ -1168,6 +1170,11 @@ void CSettings::OnChangeConnectionSpeed()
 {
 	bool bLimited = theApp.m_bLimitedConnections && ! ( General.IgnoreXPsp2 || theApp.m_bIsVistaOrNewer );
 
+	if ( Connection.OutSpeed < 1000 && Uploads.ChunkSize > 512*1024 )
+		Uploads.ChunkSize				= 256*1024;
+	else if ( Uploads.ChunkSize <= 256*1024 )
+		Uploads.ChunkSize				= 512*1024;
+
 	if ( Connection.InSpeed <= 100 ) 			// Dial-up Modem users
 	{
 		Downloads.MaxFiles				= 8;
@@ -1177,6 +1184,7 @@ void CSettings::OnChangeConnectionSpeed()
 		Downloads.MaxFileSearches		= 0;
 		Downloads.SourcesWanted			= 200;	// Don't bother requesting so many sources
 		Search.GeneralThrottle			= 300;	// Slow searches a little so we don't get flooded
+		Uploads.ChunkSize				= 128*1024;
 
 		Gnutella2.NumLeafs				= 50;
 		BitTorrent.DownloadTorrents		= 2;	// Best not to try too many torrents

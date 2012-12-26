@@ -811,7 +811,7 @@ CString CBTClient::GetUserAgentOtherStyle(LPBYTE pVendor, CString* strNick)
 			strUserAgent = L"UPnP NAT BT";
 			break;
 		default:	// Unknown client using this naming.
-			strUserAgent.Format(_T("%c"), m_oGUID[0]);
+			strUserAgent.Format( _T("%c"), m_oGUID[0] );
 		}
 
 		strVer.Format( _T(" %i.%i.%i"),

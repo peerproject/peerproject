@@ -1,7 +1,7 @@
 //
 // SQLite.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -18,7 +18,7 @@
 
 #include "StdAfx.h"
 #include "SQLite.h"
-#include <SQLite/sqlite3.h>	//Services
+#include <SQLite/sqlite3.h>	// Services
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -117,8 +117,7 @@ bool CDatabase::PrepareHelper()
 	{
 		LPCWSTR pszTail = NULL;
 		CT2CW szQueryW( m_sQuery );
-		switch ( sqlite3_prepare16_v2( m_db, (LPCVOID)(LPCWSTR)szQueryW,
-			-1, &m_st, (LPCVOID*)&pszTail ) )
+		switch ( sqlite3_prepare16_v2( m_db, (LPCVOID)(LPCWSTR)szQueryW, -1, &m_st, (LPCVOID*)&pszTail ) )
 		{
 		case SQLITE_OK:
 			if ( pszTail && *pszTail )
@@ -189,7 +188,7 @@ bool CDatabase::Step()
 
 	// Save column names
 	int count = sqlite3_data_count( m_st );
-	for ( int i = 0; i < count; i++ )
+	for ( int i = 0 ; i < count ; i++ )
 	{
 		m_raw.SetAt( (LPCTSTR)CW2CT( (LPCWSTR)sqlite3_column_name16( m_st, i ) ), i );
 	}

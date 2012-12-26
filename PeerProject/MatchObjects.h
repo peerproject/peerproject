@@ -69,6 +69,7 @@ public:
 	BOOL			m_bFilterSuspicious;
 	BOOL			m_bFilterAdult;
 	BOOL			m_bRegExp;
+	CString			m_sRegexPattern;
 	QWORD			m_nFilterMinSize;
 	QWORD			m_nFilterMaxSize;
 	DWORD			m_nFilterSources;
@@ -98,7 +99,6 @@ protected:
 	CMatchFile**	m_pMapBTH;
 	CMatchFile**	m_pMapMD5;
 	LPTSTR			m_pszFilter;
-	CString			m_sRegexPattern;
 	CBaseMatchWnd*	m_pParent;
 	CSchemaMember**	m_pColumns;
 	int				m_nColumns;
@@ -124,7 +124,7 @@ public:
 	BOOL		ClearSelection();
 	void		Clear();
 	void		Filter();
-	bool		CreateRegExpFilter(CString strPattern, CString& strFilter);
+	CString		CreateRegExpFilter(const CString& strPattern);
 	void		SelectSchema(CSchemaPtr pSchema, CList< CSchemaMember* >* pColumns);
 	void		SetSortColumn(int nColumn = -1, BOOL bDirection = FALSE);
 	void		UpdateRange(DWORD nMin = 0, DWORD nMax = 0xFFFFFFFF);

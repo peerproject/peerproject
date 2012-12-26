@@ -98,6 +98,7 @@ public:
 	virtual bool IsPaused(bool bRealState = false) const;
 	virtual bool IsCompleted() const;
 	virtual bool IsTrying() const;		// Is the download currently trying to download?
+	virtual BOOL OnVerify(const CLibraryFile* pFile, TRISTATE bVerified);	// File was hashed and verified in the Library
 	virtual void Serialize(CArchive& ar, int nVersion); 	// DOWNLOAD_SER_VERSION
 
 	friend class CDownloadTransfer;		// GetVerifyLength

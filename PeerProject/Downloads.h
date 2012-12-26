@@ -22,10 +22,11 @@ class CDownload;
 class CDownloadSource;
 class CConnection;
 class CQueryHit;
+class CLibraryFile;
 class CMatchFile;
-class CBuffer;
 class CPeerProjectURL;
 class CEDClient;
+class CBuffer;
 
 
 class CDownloads
@@ -100,7 +101,7 @@ public:
 	void		OnRun();
 	BOOL		OnPush(const Hashes::Guid& oGUID, CConnection* pConnection);
 	bool		OnQueryHits(const CQueryHit* pHits);
-	void		OnVerify(LPCTSTR pszPath, BOOL bVerified);
+	void		OnVerify(const CLibraryFile* pFile, TRISTATE bVerified);	// File was hashed and verified in the Library
 	void		OnRename(LPCTSTR pszSource, LPCTSTR pszTarget);		// pszTarget: 0 = delete file, 1 = release file.
 	void		SetPerHostLimit(IN_ADDR* pAddress, DWORD nLimit);
 	BOOL		IsSpaceAvailable(QWORD nVolume, int nPath = dlPathNull);
