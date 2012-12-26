@@ -310,7 +310,7 @@ BOOL CSkinsSettingsPage::AddSkin(LPCTSTR pszPath, LPCTSTR pszName)
 	ExtractIconEx( strIcon, 0, NULL, &hIcon, 1 );
 	if ( hIcon )
 	{
-		pItem.SetImage( m_gdiImageList.Add( hIcon ));
+		pItem.SetImage( m_gdiImageList.Add( hIcon ) );
 		DestroyIcon( hIcon );
 	}
 	else

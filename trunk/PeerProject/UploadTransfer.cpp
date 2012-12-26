@@ -426,10 +426,11 @@ BOOL CUploadTransfer::RequestComplete(const CLibraryFile* pFile)
 {
 	ASSERT( pFile != NULL );
 
+	// Check all hashes except m_oBTH
 	if ( validAndUnequal( m_oSHA1, pFile->m_oSHA1 ) ) return FALSE;
 	if ( validAndUnequal( m_oTiger, pFile->m_oTiger ) ) return FALSE;
 	if ( validAndUnequal( m_oED2K, pFile->m_oED2K ) ) return FALSE;
-	if ( validAndUnequal( m_oBTH, pFile->m_oBTH ) ) return FALSE;
+//	if ( validAndUnequal( m_oBTH, pFile->m_oBTH ) ) return FALSE;
 	if ( validAndUnequal( m_oMD5, pFile->m_oMD5 ) ) return FALSE;
 
 	m_sName	= pFile->m_sName;
@@ -448,53 +449,57 @@ BOOL CUploadTransfer::RequestComplete(const CLibraryFile* pFile)
 	return TRUE;
 }
 
-BOOL CUploadTransfer::RequestPartial(CDownload* pFile)
+BOOL CUploadTransfer::RequestPartial(CDownload* pDownload)
 {
-	ASSERT( pFile != NULL );
+	ASSERT( pDownload != NULL );
 
-	if ( validAndUnequal( m_oSHA1, pFile->m_oSHA1 ) ) return FALSE;
-	if ( validAndUnequal( m_oTiger, pFile->m_oTiger ) ) return FALSE;
-	if ( validAndUnequal( m_oED2K, pFile->m_oED2K ) ) return FALSE;
-	if ( validAndUnequal( m_oBTH, pFile->m_oBTH ) ) return FALSE;
-	if ( validAndUnequal( m_oMD5, pFile->m_oMD5 ) ) return FALSE;
+	// Check all hashes except m_oBTH
+	if ( validAndUnequal( m_oSHA1, pDownload->m_oSHA1 ) ) return FALSE;
+	if ( validAndUnequal( m_oTiger, pDownload->m_oTiger ) ) return FALSE;
+	if ( validAndUnequal( m_oED2K, pDownload->m_oED2K ) ) return FALSE;
+	if ( validAndUnequal( m_oMD5, pDownload->m_oMD5 ) ) return FALSE;
+//	if ( validAndUnequal( m_oBTH, pDownload->m_oBTH ) ) return FALSE;
 
-	m_sName	= pFile->m_sName;
-	if ( ! pFile->IsMultiFileTorrent() )
-		m_sPath	= pFile->GetPath( 0 );
+	m_sName	= pDownload->m_sName;
+	//m_sPath.Empty();
+	//if ( ! pDownload->IsMultiFileTorrent() )
+		m_sPath	= pDownload->GetPath( 0 );
 	m_nFileBase	= 0;
-	m_nSize	= pFile->m_nSize;
-	m_bFilePartial = TRUE;
+	m_nSize	= pDownload->m_nSize;
 	m_sFileTags.Empty();
+	m_bFilePartial = TRUE;
 
 	// Try to get existing file object from download
-	auto_ptr< CFragmentedFile > pDownloadFile( pFile->GetFile() );
-	if ( pDownloadFile.get() )
-		AttachFile( pDownloadFile );
+	auto_ptr< CFragmentedFile > pDownloadFile( pDownload->GetFile() );
+	if ( ! pDownloadFile.get() )
+		return FALSE;
 
-	if ( m_oSHA1 && ! pFile->m_oSHA1 )
-		pFile->m_oSHA1 = m_oSHA1;
-	else
-		m_oSHA1 = pFile->m_oSHA1;
+	AttachFile( pDownloadFile );
 
-	if ( m_oTiger && ! pFile->m_oTiger )
-		pFile->m_oTiger = m_oTiger;
+	if ( m_oSHA1 && ! pDownload->m_oSHA1 )
+		pDownload->m_oSHA1 = m_oSHA1;
 	else
-		m_oTiger = pFile->m_oTiger;
+		m_oSHA1 = pDownload->m_oSHA1;
 
-	if ( m_oED2K && ! pFile->m_oED2K )
-		pFile->m_oED2K = m_oED2K;
+	if ( m_oTiger && ! pDownload->m_oTiger )
+		pDownload->m_oTiger = m_oTiger;
 	else
-		m_oED2K = pFile->m_oED2K;
+		m_oTiger = pDownload->m_oTiger;
 
-	if ( m_oBTH && ! pFile->m_oBTH )
-		pFile->m_oBTH = m_oBTH;
+	if ( m_oED2K && ! pDownload->m_oED2K )
+		pDownload->m_oED2K = m_oED2K;
 	else
-		m_oBTH = pFile->m_oBTH;
+		m_oED2K = pDownload->m_oED2K;
 
-	if ( m_oMD5 && ! pFile->m_oMD5 )
-		pFile->m_oMD5 = m_oMD5;
+	if ( m_oBTH && ! pDownload->m_oBTH )
+		pDownload->m_oBTH = m_oBTH;
 	else
-		m_oMD5 = pFile->m_oMD5;
+		m_oBTH = pDownload->m_oBTH;
+
+	if ( m_oMD5 && ! pDownload->m_oMD5 )
+		pDownload->m_oMD5 = m_oMD5;
+	else
+		m_oMD5 = pDownload->m_oMD5;
 
 	return TRUE;
 }
@@ -522,6 +527,9 @@ BOOL CUploadTransfer::IsFileOpen() const
 
 BOOL CUploadTransfer::OpenFile()
 {
+	if ( IsFileOpen() )
+		return TRUE;
+
 	auto_ptr< CFragmentedFile > pFile( new CFragmentedFile );
 	if ( pFile.get() && pFile->Open( this, FALSE ) )
 	{

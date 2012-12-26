@@ -197,7 +197,7 @@ BOOL CUploadTransferDC::OnWrite()
 		else
 		{
 			// Reading next data chunk of file
-			QWORD nToRead = min( m_nLength - m_nPosition, 256 * 1024ull );
+			QWORD nToRead = min( m_nLength - m_nPosition, (QWORD)Settings.Uploads.ChunkSize );	// ~1000 KB
 			QWORD nRead = 0;
 			auto_array< BYTE > pBuffer( new BYTE[ nToRead ] );
 			if ( ! ReadFile( m_nFileBase + m_nOffset + m_nPosition, pBuffer.get(), nToRead, &nRead ) || nToRead != nRead )
@@ -464,9 +464,9 @@ BOOL CUploadTransferDC::RequestFile(CLibraryFile* pFile, QWORD nOffset, QWORD nL
 
 BOOL CUploadTransferDC::SendFile()
 {
-	if ( ! IsFileOpen() && ! OpenFile() )
+	if ( ! OpenFile() )
 	{
-		theApp.Message( MSG_ERROR, IDS_UPLOAD_CANTOPEN, (LPCTSTR)m_sName, (LPCTSTR)m_sAddress);
+		theApp.Message( MSG_ERROR, IDS_UPLOAD_CANTOPEN, (LPCTSTR)m_sName, (LPCTSTR)m_sAddress );
 
 		m_pClient->SendCommand( FILE_NOT_AVAILABLE );
 
@@ -491,7 +491,7 @@ BOOL CUploadTransferDC::SendFile()
 	{
 		theApp.Message( MSG_NOTICE, IDS_UPLOAD_FILE, (LPCTSTR)m_sName, (LPCTSTR)m_sAddress );
 
-		ASSERT( m_pBaseFile->m_sPath.GetLength() );
+		//ASSERT( m_pBaseFile->m_sPath.GetLength() );
 		PostMainWndMessage( WM_NOWUPLOADING, 0, (LPARAM)new CString( m_pBaseFile->m_sPath ) );
 	}
 

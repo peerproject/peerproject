@@ -1377,6 +1377,9 @@ BOOL CSecureRule::Match(const CQuerySearch* pQuery, const CString& strContent) c
 	if ( m_nType != srContentRegExp || ! m_pContent )
 		return FALSE;
 
+	CString strFilter = pQuery->BuildRegExp( m_pContent );
+
+	// Moved to QuerySearch:
 	// Build a regular expression filter from the search query words
 	// Returns an empty string if not applied or if the filter was invalid
 
@@ -1389,70 +1392,70 @@ BOOL CSecureRule::Match(const CQuerySearch* pQuery, const CString& strContent) c
 	// Filter:			.*(<2><1>)|(<%>).*
 	// "Word1 Word2":	.*(word2\s*word1\s*)|(word1\s*word2\s*).*
 
-	CString strFilter;
-	int nTotal = 0;
-	for ( LPCTSTR pszPattern = m_pContent ; *pszPattern ; pszPattern++ )
-	{
-		if ( *pszPattern == '<' )
-		{
-			pszPattern++;
-			bool bEnds = false;
-			bool bNumber = false;
-			bool bAll = ( *pszPattern == '%' || *pszPattern == '$' || *pszPattern == '_' || *pszPattern == '>' );
-			if ( ! bAll ) bNumber = ( *pszPattern == '1' || *pszPattern == '2' || *pszPattern == '3' || *pszPattern == '4' ||
-				*pszPattern == '5' || *pszPattern == '6' || *pszPattern == '7' || *pszPattern == '8' || *pszPattern == '9' );
-			for ( ; *pszPattern ; pszPattern++ )
-			{
-				if ( *pszPattern == '>' )
-				{
-					bEnds = true;
-					break;
-				}
-			}
-			if ( bEnds )	// Closed '>'
-			{
-				if ( bAll )	// <%>,<$>,<_>,<>
-				{
-					// Add all keywords at the "< >" position
-					for ( CQuerySearch::const_iterator i = pQuery->begin() ; i != pQuery->end() ; ++i )
-					{
-						strFilter.AppendFormat( L"%s\\s*",
-							CString( i->first, (int)( i->second ) ) );
-					}
-				}
-				else if ( bNumber )	// <1>,<2>,<3>,<4>,<5>,<6>,<7>,<8>,<9>
-				{
-					pszPattern--;	// Go back
-					int nNumber = 0, nWord = 1;
-
-					// Numbers from 1 to 9, no more
-					if ( _stscanf( &pszPattern[0], L"%i", &nNumber ) != 1 )
-						nNumber = ++nTotal;
-
-					// Add specified keyword at the "< >" position
-					for ( CQuerySearch::const_iterator i = pQuery->begin() ; i != pQuery->end() ; ++i, ++nWord )
-					{
-						if ( nWord == nNumber )
-						{
-							strFilter.AppendFormat( L"%s\\s*",
-								CString( i->first, (int)( i->second ) ) );
-							break;
-						}
-					}
-					pszPattern++;	// Return to the last position
-				}
-			}
-			else // No closing '>'
-			{
-				strFilter.Empty();
-				break;
-			}
-		}
-		else // No replacing
-		{
-			strFilter += *pszPattern;
-		}
-	}
+	//CString strFilter;
+	//int nTotal = 0;
+	//for ( LPCTSTR pszPattern = m_pContent ; *pszPattern ; pszPattern++ )
+	//{
+	//	if ( *pszPattern == '<' )
+	//	{
+	//		pszPattern++;
+	//		bool bEnds = false;
+	//		bool bNumber = false;
+	//		bool bAll = ( *pszPattern == '%' || *pszPattern == '$' || *pszPattern == '_' || *pszPattern == '>' );
+	//		if ( ! bAll ) bNumber = ( *pszPattern == '1' || *pszPattern == '2' || *pszPattern == '3' || *pszPattern == '4' ||
+	//			*pszPattern == '5' || *pszPattern == '6' || *pszPattern == '7' || *pszPattern == '8' || *pszPattern == '9' );
+	//		for ( ; *pszPattern ; pszPattern++ )
+	//		{
+	//			if ( *pszPattern == '>' )
+	//			{
+	//				bEnds = true;
+	//				break;
+	//			}
+	//		}
+	//		if ( bEnds )	// Closed '>'
+	//		{
+	//			if ( bAll )	// <%>,<$>,<_>,<>
+	//			{
+	//				// Add all keywords at the "< >" position
+	//				for ( CQuerySearch::const_iterator i = pQuery->begin() ; i != pQuery->end() ; ++i )
+	//				{
+	//					strFilter.AppendFormat( L"%s\\s*",
+	//						CString( i->first, (int)( i->second ) ) );
+	//				}
+	//			}
+	//			else if ( bNumber )	// <1>,<2>,<3>,<4>,<5>,<6>,<7>,<8>,<9>
+	//			{
+	//				pszPattern--;	// Go back
+	//				int nNumber = 0, nWord = 1;
+	//
+	//				// Numbers from 1 to 9, no more
+	//				if ( _stscanf( &pszPattern[0], L"%i", &nNumber ) != 1 )
+	//					nNumber = ++nTotal;
+	//
+	//				// Add specified keyword at the "< >" position
+	//				for ( CQuerySearch::const_iterator i = pQuery->begin() ; i != pQuery->end() ; ++i, ++nWord )
+	//				{
+	//					if ( nWord == nNumber )
+	//					{
+	//						strFilter.AppendFormat( L"%s\\s*",
+	//							CString( i->first, (int)( i->second ) ) );
+	//						break;
+	//					}
+	//				}
+	//				pszPattern++;	// Return to the last position
+	//			}
+	//		}
+	//		else // No closing '>'
+	//		{
+	//			strFilter.Empty();
+	//			break;
+	//		}
+	//	}
+	//	else // No replacing
+	//	{
+	//		strFilter += *pszPattern;
+	//	}
+	//}
 
 	if ( strFilter.IsEmpty() )
 	{

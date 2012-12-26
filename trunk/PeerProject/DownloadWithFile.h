@@ -91,15 +91,12 @@ protected:
 	BOOL			ReadFile(QWORD nOffset, LPVOID pData, QWORD nLength, QWORD* pnRead = NULL);
 	BOOL			WriteFile(QWORD nOffset, LPCVOID pData, QWORD nLength, QWORD* pnWritten = NULL);
 	void			SerializeFile(CArchive& ar, int nVersion);
-	BOOL			OnVerify(LPCTSTR pszPath, BOOL bVerified);
+	virtual BOOL	OnVerify(const CLibraryFile* pFile, TRISTATE bVerified);	// File was hashed and verified in the Library
 
-//private:
-//	Fragments::List	GetPossibleFragments(const Fragments::List& oAvailable, Fragments::Fragment& oLargest);
+	virtual void	Serialize(CArchive& ar, int nVersion);
+
 	// Unsupported:
 	//BOOL			AppendMetadata();
 	//BOOL			AppendMetadataID3v1(HANDLE hFile, CXMLElement* pXML);
-
-// Overrides
-protected:
-	virtual void	Serialize(CArchive& ar, int nVersion);
+	//Fragments::List GetPossibleFragments(const Fragments::List& oAvailable, Fragments::Fragment& oLargest);
 };

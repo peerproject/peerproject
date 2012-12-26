@@ -89,7 +89,7 @@ protected:
 	void			ClearRequest();
 	BOOL			HashesFromURN(LPCTSTR pszURN);
 	BOOL			RequestComplete(const CLibraryFile* pFile);
-	BOOL			RequestPartial(CDownload* pFile);
+	BOOL			RequestPartial(CDownload* pDownload);
 	void			StartSending(int nState);
 	void			AllocateBaseFile();
 

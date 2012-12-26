@@ -509,6 +509,7 @@ public:
 		bool		Enabled;				// Was BitTorrent.EnableToday
 		bool		EnableAlways;			// Do  BitTorrent.EnableStartup ?
 	//	bool		ShowInterface;			// Never need hiding some UI features?
+		CString		PeerID;					// Use this peer ID for trackers in form of "CCvvvv" where "CC" = agent code ("PE" "SZ" "UT" etc.), v.v.v.v = version
 		CString		TorrentCreatorPath;		// Location of the program used to create .torrent files
 		CString		DefaultTracker;
 		DWORD		DefaultTrackerPeriod;	// Delay between tracker contact attempts if one is not specified by tracker
@@ -604,6 +605,7 @@ public:
 		DWORD		FreeBandwidthFactor;
 		DWORD		ClampdownFactor;
 		DWORD		ClampdownFloor;
+		DWORD		ChunkSize;
 		bool		FairUseMode;			// Limit unknown audio/video to 10% share per remote client
 		bool		ThrottleMode;
 		DWORD		QueuePollMin;

@@ -206,19 +206,23 @@
 //
 
 #include <algorithm>
-#include <functional>
-#include <iterator>
-#include <limits>
 #include <list>
 #include <map>
-#include <new>
-#include <queue>
-#include <deque>
 #include <set>
-#include <stack>
 #include <string>
 #include <utility>
 #include <vector>
+
+#if defined(_MSC_VER) && (_MSC_VER < 1600)	// Needed below VS2010 for MinMax.hpp?
+#include <limits>	
+#endif
+
+//#include <functional>
+//#include <iterator>
+//#include <new>
+//#include <queue>
+//#include <deque>
+//#include <stack>
 //#include <memory>
 
 
@@ -273,7 +277,6 @@
 //#include <Boost/type_traits.hpp>			// In MinMax.hpp
 //#include <Boost/checked_delete.hpp>		// In Augment/auto_ptr.hpp
 //#include <Boost/utility.hpp>				// ?
-//#include <Boost/bind/placeholders.hpp>
 
 // BOOST_STATIC_ASSERT(false) for compile-time checks (Obsolete)
 //#include <Boost/static_assert.hpp>

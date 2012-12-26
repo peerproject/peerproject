@@ -278,6 +278,13 @@ CBTTrackerRequest::CBTTrackerRequest(CDownload* pDownload, BTTrackerEvent nEvent
 	ZeroMemory( &m_pHost, sizeof( m_pHost ) );
 	m_pHost.sin_family = AF_INET;
 
+	if ( Settings.BitTorrent.PeerID.GetLength() >= 6 )
+	{
+		// Emulate uTorrent 1.6.1.0
+		for ( int i = 0 ; i < 6 ; ++i )
+			m_pPeerID[ i + 1 ] = (BYTE)Settings.BitTorrent.PeerID.GetAt( i );
+	}
+
 	// Generate unique transaction ID
 	//m_nTransactionID = TrackerRequests.Add( this );
 

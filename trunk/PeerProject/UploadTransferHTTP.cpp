@@ -1135,11 +1135,11 @@ void CUploadTransferHTTP::SendFileHeaders()
 
 BOOL CUploadTransferHTTP::OpenFileSendHeaders()
 {
-	if ( ! IsFileOpen() && ! OpenFile() )
+	if ( ! OpenFile() )
 	{
-		// If there's an error reading the file from disk
-		SendResponse( IDR_HTML_FILENOTFOUND );
+		// Error reading the file from disk
 		theApp.Message( MSG_ERROR, IDS_UPLOAD_CANTOPEN, (LPCTSTR)m_sName, (LPCTSTR)m_sAddress );
+		SendResponse( IDR_HTML_FILENOTFOUND );
 		return TRUE;
 	}
 
@@ -1149,7 +1149,7 @@ BOOL CUploadTransferHTTP::OpenFileSendHeaders()
 	{
 		DWORD nLimit = m_pQueue->m_nRotateChunk;
 		if ( nLimit == 0 ) nLimit = Settings.Uploads.RotateChunkLimit;
-		if ( nLimit > 0 ) m_nLength = min( m_nLength, nLimit );
+		if ( nLimit > 0 ) m_nLength = min( m_nLength, (QWORD)nLimit );
 	}
 
 	pLock.Unlock();
@@ -1226,7 +1226,7 @@ BOOL CUploadTransferHTTP::OnWrite()
 			return TRUE;
 		}
 
-		QWORD nPacket = min( m_nLength - m_nPosition, 256 * 1024ull );
+		QWORD nPacket = min( m_nLength - m_nPosition, (QWORD)Settings.Uploads.ChunkSize );	// ~1000 KB
 		auto_array< BYTE > pBuffer( new BYTE[ nPacket ] );
 
 		if ( m_bBackwards )

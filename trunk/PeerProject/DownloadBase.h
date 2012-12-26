@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include "PeerProjectFile.h"
+#include "SharedFile.h"
 #include "DownloadTask.h"
 
 
@@ -57,6 +57,7 @@ public:
 	virtual bool	IsTrying() const = 0;
 	virtual bool	IsCompleted() const = 0;
 	virtual bool	IsPaused(bool bRealState = false) const = 0;
+	virtual BOOL	OnVerify(const CLibraryFile* pFile, TRISTATE bVerified) = 0;	// File was hashed and verified in the Library
 	virtual void	OnTaskComplete(const CDownloadTask* pTask) = 0;	// Task callback
 
 protected:

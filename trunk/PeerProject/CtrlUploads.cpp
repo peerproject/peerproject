@@ -1118,7 +1118,7 @@ void CUploadsCtrl::PaintFile(CDC& dc, const CRect& rcRow, CUploadQueue* /*pQueue
 			break;
 
 		case UPLOAD_COLUMN_RATING:
-			strText.Format(_T("%u"), pTransfer->m_nUserRating );
+			strText.Format( _T("%u"), pTransfer->m_nUserRating );
 			break;
 
 		case UPLOAD_COLUMN_USER:

@@ -634,7 +634,7 @@ CString CDownloadWithFile::GetDisplayName() const
 //		Fragments::List::const_iterator pRandom = oPossible.begin()->begin() == 0
 //			? oPossible.begin() : oPossible.random_range();
 //		// Streaming Download and Rarest Piece Selection?
-//		//	: (Settings.Downloads.NoRandomFragments ? oPossible.begin() : oPossible.random_range());
+//		//	: ( Settings.Downloads.NoRandomFragments ? oPossible.begin() : oPossible.random_range() );
 //
 //		pTransfer->m_nOffset = pRandom->begin();
 //		pTransfer->m_nLength = pRandom->size();
@@ -1014,12 +1014,13 @@ void CDownloadWithFile::SerializeFile(CArchive& ar, int nVersion)
 //////////////////////////////////////////////////////////////////////
 // CDownloadWithFile verification handler
 
-BOOL CDownloadWithFile::OnVerify(LPCTSTR pszPath, BOOL bVerified)
+BOOL CDownloadWithFile::OnVerify(const CLibraryFile* pFile, TRISTATE bVerified)
 {
-	if ( ! m_pFile.get() || ! m_pFile->FindByPath( pszPath ) )
+	if ( ! pFile || ! m_pFile.get() || ! m_pFile->FindByPath( pFile->GetPath() ) )
 		return FALSE;
 
-	m_bVerify = bVerified ? TRI_TRUE : TRI_FALSE;
+	if ( bVerified != TRI_UNKNOWN )
+		m_bVerify = bVerified;
 
 	SetModified();
 

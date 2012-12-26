@@ -68,27 +68,27 @@ inline bool ParsePASVArgs(const CString& args, SOCKADDR_IN& host)
 	host.sin_addr.S_un.S_un_b.s_b1 = (unsigned char)( _tstoi( strValue.Mid(0, d) ) & 0xff );
 	strValue = strValue.Mid( d + 1 );
 	// h2
-	d = strValue.Find (_T(','));
+	d = strValue.Find( _T(',') );
 	if ( d == -1 ) return false;
 	host.sin_addr.S_un.S_un_b.s_b2 = (unsigned char)( _tstoi( strValue.Mid(0, d) ) & 0xff );
 	strValue = strValue.Mid( d + 1 );
 	// h3
-	d = strValue.Find (_T(','));
+	d = strValue.Find( _T(',') );
 	if ( d == -1 ) return false;
 	host.sin_addr.S_un.S_un_b.s_b3 = (unsigned char)( _tstoi(strValue.Mid(0, d) ) & 0xff );
 	strValue = strValue.Mid( d + 1 );
 	// h4
-	d = strValue.Find (_T(','));
+	d = strValue.Find( _T(',') );
 	if ( d == -1 ) return false;
 	host.sin_addr.S_un.S_un_b.s_b4 = (unsigned char)( _tstoi( strValue.Mid(0, d) ) & 0xff );
 	strValue = strValue.Mid( d + 1 );
 	// p1
-	d = strValue.Find (_T(','));
+	d = strValue.Find( _T(',') );
 	if ( d == -1 ) return false;
-	host.sin_port = (unsigned char) ( _tstoi( strValue.Mid(0, d) ) & 0xff );
+	host.sin_port = (unsigned char)( _tstoi( strValue.Mid(0, d) ) & 0xff );
 	strValue = strValue.Mid( d + 1 );
 	// p2
-	host.sin_port += (unsigned char) ( _tstoi( strValue ) & 0xff ) * 256;
+	host.sin_port += (unsigned char)( _tstoi( strValue ) & 0xff ) * 256;
 	return true;
 }
 

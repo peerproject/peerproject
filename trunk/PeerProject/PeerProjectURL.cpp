@@ -1467,7 +1467,7 @@ void CPeerProjectURL::Register(BOOL bRegister, BOOL bOnStartup)
 		// ToDo: .metalink files
 	}
 
-	if (  bRegister )
+	if ( bRegister )
 	{
 		RegisterShellType( NULL, _T("PeerProject.Collection"), _T("PeerProject Collection File"),
 			_T(".co"), _T("PeerProject"), _T("PEERFORMAT"), IDI_COLLECTION );

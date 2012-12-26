@@ -368,7 +368,7 @@ void CLibraryFrame::OnPaint()
 	dc.FillSolidRect( rc.left, rc.top, 1, rc.Height(), Colors.m_crResizebarEdge );
 	dc.FillSolidRect( rc.left + 1, rc.top, 1, rc.Height(), Colors.m_crResizebarHighlight );
 	dc.FillSolidRect( rc.right - 1, rc.top, 1, rc.Height(), Colors.m_crResizebarShadow );
-	dc.FillSolidRect( rc.left + 2, rc.top, rc.Width() - 3, rc.Height(),	Colors.m_crResizebarFace );
+	dc.FillSolidRect( rc.left + 2, rc.top, rc.Width() - 3, rc.Height(), Colors.m_crResizebarFace );
 
 	if ( m_nHeaderSize > 0 )
 	{
@@ -395,7 +395,7 @@ void CLibraryFrame::OnPaint()
 		dc.FillSolidRect( rc.left, rc.top, rc.Width(), 1, Colors.m_crResizebarEdge );
 		dc.FillSolidRect( rc.left, rc.top + 1, rc.Width(), 1, Colors.m_crResizebarHighlight );
 		dc.FillSolidRect( rc.left, rc.bottom - 1, rc.Width(), 1, Colors.m_crResizebarShadow );
-		dc.FillSolidRect( rc.left, rc.top + 2, rc.Width(), rc.Height() - 3,	Colors.m_crResizebarFace );
+		dc.FillSolidRect( rc.left, rc.top + 2, rc.Width(), rc.Height() - 3, Colors.m_crResizebarFace );
 	}
 }
 
@@ -605,7 +605,7 @@ void CLibraryFrame::SetView(CLibraryView* pView, BOOL bUpdate, BOOL bUser)
 {
 	CSingleLock pLock( &Library.m_pSection, TRUE );
 
-	CLibraryTreeItem* pFolderSelection	= m_wndTree.GetFirstSelected();
+	CLibraryTreeItem* pFolderSelection = m_wndTree.GetFirstSelected();
 
 	if ( pView && pFolderSelection && pFolderSelection->m_pPhysical )
 	{

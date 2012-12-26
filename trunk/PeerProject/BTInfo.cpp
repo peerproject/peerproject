@@ -255,7 +255,7 @@ CBTInfo& CBTInfo::operator=(const CBTInfo& oSource)
 //////////////////////////////////////////////////////////////////////
 // CBTInfo serialize
 
-#define BTINFO_SER_VERSION	1000	//11
+#define BTINFO_SER_VERSION	1000	// 11
 // nVersion History:
 //  7 - redesigned tracker list (ryo-oh-ki)
 //  8 - removed m_nFilePriority (ryo-oh-ki)
@@ -886,13 +886,18 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 					{
 						CString strTracker = pTracker->GetString();		// Get the tracker
 
+						// Unescape if needed
+						if ( strTracker.Find( _T("%3A"), 2 ) > 2 )
+						{
+							strTracker.Replace( _T("%3A"), _T(":") );
+							strTracker.Replace( _T("%2F"), _T("/") );
+						}
+
 						// Check tracker is valid
 						if ( ! StartsWith( strTracker, _T("http://"), 7 ) &&
 							 ! StartsWith( strTracker, _T("udp://"), 6 ) )					// ToDo: Handle rare HTTPS etc?
-							pBadTrackers.AddTail( BAD_TRACKER_TOKEN + strTracker );			// Store Unknown tracker for display (*https://)
-						else if ( strTracker.Find( _T("denis.stalker.h3q.com"), 5 ) > 5 ||
-								  strTracker.Find( _T("piratebay.org"), 6 ) > 6 ||
-								  strTracker.Find( _T(".1337x."), 8 ) > 8 )
+							pBadTrackers.AddTail( BAD_TRACKER_TOKEN + strTracker );			// Store unknown tracker for display (*https://)
+						else if ( IsDeadTracker( strTracker ) )
 							pBadTrackers.AddTail( BAD_TRACKER_TOKEN + strTracker );			// Store common dead trackers for display
 						else
 							pTrackers.AddTail( strTracker );								// Store TCP tracker
@@ -961,12 +966,19 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 			// Get the tracker
 			CString strTracker = pAnnounce->GetString();
 
+			// Unescape if needed
+			if ( strTracker.Find( _T("%3A"), 2 ) > 2 )
+			{
+				strTracker.Replace( _T("%3A"), _T(":") );
+				strTracker.Replace( _T("%2F"), _T("/") );
+			}
+
 			// Store it if it's valid. (Some torrents have invalid trackers)
 			if ( StartsWith( strTracker, _T("http://"), 7 ) ||
 				 StartsWith( strTracker, _T("udp://"), 6 ) )
 			{
-				// Catch common defunct TCP trackers
-				if ( strTracker.Find( _T("piratebay.org"), 7 ) > 7 )
+				// Catch common defunct trackers
+				if ( IsDeadTracker( strTracker ) )
 					strTracker = _T("http://tracker.publicbt.com/announce");	// Settings.BitTorrent.DefaultTracker ?
 
 				// Set the torrent to be a single-tracker torrent
@@ -1325,6 +1337,17 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 	}
 
 	return TRUE;
+}
+
+BOOL CBTInfo::IsDeadTracker(const CString& sTracker)
+{
+	// Known common defunct URLs, keep updated
+	// ToDo: Check DNS headers too - http://bittorrent.org/beps/bep_0034.html
+	return
+		sTracker.Find( _T("piratebay.org"), 6 ) > 6 ||
+		sTracker.Find( _T("denis.stalker.h3q.com"), 5 ) > 5 ||
+		( StartsWith( sTracker, _PT("http://") ) &&
+			sTracker.Find( _T(".1337x."), 8 ) > 8 );
 }
 
 //////////////////////////////////////////////////////////////////////

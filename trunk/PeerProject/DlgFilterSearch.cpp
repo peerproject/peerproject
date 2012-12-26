@@ -303,15 +303,11 @@ void CFilterSearchDlg::OnBnClickedSetDefaultFilter()
 	UpdateData( TRUE );
 
 	DWORD sel = m_Filters.GetCurSel();
-	if ( m_bDefault )
-	{
-		if ( sel != CB_ERR )
-			m_pResultFilters->m_nDefault = sel;
-	}
-	else
-	{
+	if ( ! m_bDefault )
 		m_pResultFilters->m_nDefault = NONE;
-	}
+	else if ( sel != CB_ERR )
+		m_pResultFilters->m_nDefault = sel;
+
 	UpdateList();
 	m_Filters.SetCurSel( sel );
 	m_pResultFilters->Save();
@@ -340,14 +336,14 @@ void CFilterSearchDlg::OnEnKillFocusMinMaxSize()
 	{
 		if ( m_pMatches->m_nFilterMinSize > m_pMatches->m_nFilterMaxSize )
 			m_pMatches->m_nFilterMinSize = m_pMatches->m_nFilterMaxSize;
-		m_sMaxSize	= Settings.SmartVolume( m_pMatches->m_nFilterMaxSize );
+		m_sMaxSize = Settings.SmartVolume( m_pMatches->m_nFilterMaxSize );
 	}
 	else
 		m_sMaxSize.Empty();
 
 	// Re-generate MinSize string
 	if ( m_pMatches->m_nFilterMinSize )
-		m_sMinSize	= Settings.SmartVolume( m_pMatches->m_nFilterMinSize );
+		m_sMinSize = Settings.SmartVolume( m_pMatches->m_nFilterMinSize );
 	else
 		m_sMinSize.Empty();
 
@@ -360,27 +356,17 @@ void CFilterSearchDlg::OnEnKillFocusMinMaxSize()
 void CFilterSearchDlg::OnClickedRegexp()
 {
 	m_bRegExp = ! m_bRegExp;
-	if ( m_bRegExp )
-	{
-		if ( m_sFilter.IsEmpty() || m_pMatches && ! m_pMatches->m_bRegExp )
-			m_sFilter = L"^([^\\w]+(\\w+\\s*)+[^\\w]+)<_>([^\\w]+(\\w+\\s*|by)+[^\\w]+).*$";
-		else
-			m_sFilter.Empty();
-	}
+	if ( m_pMatches )
+		m_sFilter = m_bRegExp ? m_pMatches->m_sRegexPattern : m_pMatches->m_sFilter;
 	else
-	{
-		if ( m_pMatches && ! m_pMatches->m_bRegExp )
-			m_sFilter = m_pMatches->m_sFilter;
-		else
-			m_sFilter.Empty();
-	}
+		m_sFilter.Empty();
+
 
 	UpdateData( FALSE );
 
 	if ( m_sFilter.IsEmpty() && m_pMatches )
 	{
-		CString strTemp;
-		m_pMatches->CreateRegExpFilter( L"", strTemp );
+		m_pMatches->m_sRegexPattern.Empty();
 		return;
 	}
 
@@ -388,7 +374,7 @@ void CFilterSearchDlg::OnClickedRegexp()
 	{
 		if ( m_pMatches )
 		{
-			m_pMatches->CreateRegExpFilter( CString( m_sFilter ), m_sFilter );
+			m_sFilter = m_pMatches->CreateRegExpFilter( m_sFilter );
 			UpdateData( FALSE );
 		}
 

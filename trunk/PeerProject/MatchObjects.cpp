@@ -673,100 +673,107 @@ BOOL CMatchList::ClearSelection()
 	return bChanged;
 }
 
-bool CMatchList::CreateRegExpFilter(CString strPattern, CString& strFilter)
+CString CMatchList::CreateRegExpFilter(const CString& strPattern)
 {
+	m_sRegexPattern = strPattern;
+
 	if ( strPattern.IsEmpty() )
+		return m_sRegexPattern;
+
+	CBaseMatchWnd* pParent = GetParent();
+	if ( pParent && pParent->IsKindOf( RUNTIME_CLASS( CSearchWnd ) ) )
 	{
-		m_sRegexPattern.Empty();
-		return false;
+		CQuerySearchPtr pQuery = static_cast< CSearchWnd* >( pParent )->GetLastSearch();
+		if ( pQuery )
+			m_sRegexPattern = pQuery->BuildRegExp( strPattern );
 	}
 
-	CString strNewPattern;
-	bool bReplaced = false;
-
-	CSearchWnd* pParent = static_cast< CSearchWnd* >( GetParent() );
-	if ( ! pParent )
-		return false;
-
-	CQuerySearchPtr pQuery = pParent->GetLastSearch();
-	if ( ! pQuery )
-		return false;
-
-	LPCTSTR pszPattern = strPattern.GetBuffer();
-	int nTotal = 0;
-
-	while ( *pszPattern )
-	{
-		if ( *pszPattern == '<' )
-		{
-			pszPattern++;
-			bool bEnds = false;
-			bool bAll = ( *pszPattern == '%' || *pszPattern == '$' || *pszPattern == '_' || *pszPattern == '>' );
-
-			for ( ; *pszPattern ; pszPattern++ )
-			{
-				if ( *pszPattern == '>' )
-				{
-					bEnds = true;
-					break;
-				}
-			}
-
-			if ( bEnds )	// Closed '>'
-			{
-				CQuerySearch::const_iterator itWord = pQuery->begin();
-				CQuerySearch::const_iterator itWordEnd = pQuery->end();
-
-				if ( bAll )	// <%>,<$>,<_>,<>
-				{
-					// Add all keywords at the "< >" position
-					for ( ; itWord != itWordEnd ; itWord++ )
-					{
-						strNewPattern.AppendFormat( L"%s\\s*",
-							(LPCTSTR)CString( itWord->first, int(itWord->second) ) );
-					}
-					bReplaced = true;
-				}
-				else		// <1>,<2>,<3>,<4>,<5>,<6>,<7>,<8>,<9>
-				{
-					pszPattern--;	// Go back
-					int nNumber = 0;
-
-					// Numbers from 1 to 9, no more
-					if ( _stscanf( &pszPattern[0], L"%i", &nNumber ) != 1 )
-						nNumber = ++nTotal;
-
-					// Add specified keyword at the "< >" position
-					for ( int nWord = 1 ; itWord != itWordEnd ; itWord++, nWord++ )
-					{
-						if ( nWord == nNumber )
-						{
-							strNewPattern.AppendFormat( L"%s\\s*",
-								(LPCTSTR)CString( itWord->first, int(itWord->second) ) );
-							bReplaced = true;
-							break;
-						}
-					}
-					pszPattern++;	// Return to the last position
-				}
-			}
-			else	// No closing '>'
-			{
-				return false;
-			}
-		}
-		else	// No replacing
-		{
-			strNewPattern += *pszPattern;
-		}
-		pszPattern++;
-	}
-
-	strFilter = strNewPattern;
-	m_sRegexPattern = strNewPattern;
-
-	return bReplaced;
+	return m_sRegexPattern;
 }
+
+// Moved to QuerySearch:
+//
+//	CString strNewPattern;
+//	bool bReplaced = false;
+//
+//	CSearchWnd* pParent = static_cast< CSearchWnd* >( GetParent() );
+//	if ( ! pParent )
+//		return false;
+//
+//	CQuerySearchPtr pQuery = pParent->GetLastSearch();
+//	if ( ! pQuery )
+//		return false;
+//
+//	LPCTSTR pszPattern = strPattern.GetBuffer();
+//	int nTotal = 0;
+//
+//	while ( *pszPattern )
+//	{
+//		if ( *pszPattern == '<' )
+//
+//		{
+//			pszPattern++;
+//			bool bEnds = false;
+//			bool bAll = ( *pszPattern == '%' || *pszPattern == '$' || *pszPattern == '_' || *pszPattern == '>' );
+//
+//			for ( ; *pszPattern ; pszPattern++ )
+//			{
+//				if ( *pszPattern == '>' )
+//				{
+//					bEnds = true;
+//					break;
+//				}
+//			}
+//
+//			if ( bEnds )	// Closed '>'
+//			{
+//				CQuerySearch::const_iterator itWord = pQuery->begin();
+//				CQuerySearch::const_iterator itWordEnd = pQuery->end();
+//
+//				if ( bAll )	// <%>,<$>,<_>,<>
+//				{
+//					// Add all keywords at the "< >" position
+//					for ( ; itWord != itWordEnd ; itWord++ )
+//					{
+//						strNewPattern.AppendFormat( L"%s\\s*",
+//							(LPCTSTR)CString( itWord->first, int(itWord->second) ) );
+//					}
+//					bReplaced = true;
+//				}
+//				else		// <1>,<2>,<3>,<4>,<5>,<6>,<7>,<8>,<9>
+//				{
+//					pszPattern--;	// Go back
+//					int nNumber = 0;
+//
+//					// Numbers from 1 to 9, no more
+//					if ( _stscanf( &pszPattern[0], L"%i", &nNumber ) != 1 )
+//						nNumber = ++nTotal;
+//
+//					// Add specified keyword at the "< >" position
+//					for ( int nWord = 1 ; itWord != itWordEnd ; itWord++, nWord++ )
+//					{
+//						if ( nWord == nNumber )
+//						{
+//							strNewPattern.AppendFormat( L"%s\\s*",
+//								(LPCTSTR)CString( itWord->first, int(itWord->second) ) );
+//							bReplaced = true;
+//							break;
+//						}
+//					}
+//					pszPattern++;	// Return to the last position
+//				}
+//			}
+//			else	// No closing '>'
+//			{
+//				return false;
+//			}
+//		}
+//		else	// No replacing
+//		{
+//			strNewPattern += *pszPattern;
+//		}
+//		pszPattern++;
+//	}
 
 //////////////////////////////////////////////////////////////////////
 // CMatchList filter
@@ -799,7 +806,7 @@ void CMatchList::Filter()
 	{
 		if ( m_bRegExp )
 		{
-			CreateRegExpFilter( CString( m_sFilter ), m_sFilter );
+			m_sFilter = CreateRegExpFilter( m_sFilter );
 		}
 		else
 		{
@@ -892,7 +899,7 @@ BOOL CMatchList::FilterHit(CQueryHit* pHit)
 
 	if ( m_bRegExp && ! m_sRegexPattern.IsEmpty() )
 	{
-		if ( RegExp::Match( m_sRegexPattern, pHit->m_sName ) )
+		if ( ! RegExp::Match( m_sRegexPattern, pHit->m_sName ) )
 			return FALSE;
 	}
 

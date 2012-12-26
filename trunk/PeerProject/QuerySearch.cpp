@@ -1969,3 +1969,87 @@ void CQuerySearch::SearchHelp()
 		nLastSearchHelp = 0;
 	}
 }
+
+CString CQuerySearch::BuildRegExp(const CString& strPattern) const
+{
+	CString strFilter;
+	bool bChanged = false;
+	int nTotal = 0;
+
+	// <%>, <$>, <_> - Insert all query keywords.
+	// <1>...<9> - Insert query keyword number 1-9.
+	// <> - Insert next query keyword.
+
+	for ( LPCTSTR pszPattern = strPattern ; *pszPattern ; ++pszPattern )
+	{
+		LPCTSTR pszLt = _tcschr( pszPattern, _T('<') );
+		if ( pszLt )
+		{
+			bChanged = true;
+
+			int nLength = pszLt - pszPattern;
+			if ( nLength )
+				strFilter.Append( pszPattern, nLength );
+
+			pszPattern = pszLt + 1;
+			bool bEnds = false;
+			bool bAll = ( *pszPattern == '%' || *pszPattern == '$' || *pszPattern == '_' );
+			bool bNumber = bAll ? false : ( *pszPattern >= '1' && *pszPattern <= '9' );
+
+			// ToDo: Check only after single char?
+			for ( ; *pszPattern ; pszPattern++ )
+			{
+				if ( *pszPattern == '>' )
+				{
+					bEnds = true;
+					break;
+				}
+			}
+
+			if ( bEnds )	// Closed bracket
+			{
+				if ( bAll )		// <%>,<$>,<_>,<>
+				{
+					// Add all keywords at the "<%>,<$>,<_>" position
+					for ( CQuerySearch::const_iterator i = begin() ; i != end() ; ++i )
+					{
+						strFilter.AppendFormat( L"%s\\s*",
+							CString( i->first, (int)( i->second ) ) );
+					}
+				}
+				else if ( bNumber )		// <1>,<2>,<3>,<4>,<5>,<6>,<7>,<8>,<9>
+				{
+					pszPattern--;	// Go back
+					int nNumber = 0, nWord = 1;
+
+					// Numbers from 1 to 9, no more
+					if ( _stscanf( &pszPattern[0], L"%i", &nNumber ) != 1 )
+						nNumber = ++nTotal;
+
+					// Add specified keyword at the "< >" position
+					for ( CQuerySearch::const_iterator i = begin() ; i != end() ; ++i, ++nWord )
+					{
+						if ( nWord == nNumber )
+						{
+							strFilter.AppendFormat( L"%s\\s*", CString( i->first, (int)( i->second ) ) );
+							break;
+						}
+					}
+					pszPattern++;	// Return to the last position
+				}
+			}
+			else // No closing '>'
+			{
+				strFilter.Empty();
+				break;
+			}
+		}
+		else // No replacing
+		{
+			strFilter += pszPattern;
+			break;
+		}
+	}
+
+	return bChanged ? strFilter : strPattern;
+}
