@@ -1,7 +1,7 @@
 //
 // ComToolbar.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -76,11 +76,11 @@ protected:
 	DECLARE_INTERFACE_MAP()
 
 // Implementation
-protected:
+//protected:
 	//{{AFX_MSG(CComToolbar)
 	//}}AFX_MSG
 	//{{AFX_VIRTUAL(CComToolbar)
 	//}}AFX_VIRTUAL
 
-	DECLARE_MESSAGE_MAP()
+	//DECLARE_MESSAGE_MAP()
 };

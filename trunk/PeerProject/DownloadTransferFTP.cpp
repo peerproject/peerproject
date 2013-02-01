@@ -59,7 +59,7 @@ inline bool ParsePASVArgs(const CString& args, SOCKADDR_IN& host)
 	if ( begin == -1 || end == -1 || end - begin < 12 )
 		return false;
 	strValue = strValue.Mid( begin + 1, end - begin - 1 );
-	ZeroMemory( &host, sizeof (host) );
+	ZeroMemory( &host, sizeof( host ) );
 	host.sin_family = AF_INET;
 	int d;
 	// h1

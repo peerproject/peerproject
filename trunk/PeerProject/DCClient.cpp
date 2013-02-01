@@ -168,7 +168,7 @@ BOOL CDCClient::CanUpload() const
 
 BOOL CDCClient::Connect()
 {
-	m_tRequest	= GetTickCount();
+	m_tRequest = GetTickCount();
 
 	DCClients.Add( this );
 
@@ -509,21 +509,16 @@ BOOL CDCClient::OnLock(const std::string& strParams)
 	m_bLogin = TRUE;
 	m_strKey = DCClients.MakeKey( strLock );
 
-	if ( ! m_bInitiated )
-	{
-		if ( m_pDownloadTransfer )
-		{
-			if ( StartDownload() )
-				return TRUE;
-		}
+	if ( m_bInitiated )
+		return TRUE;
 
-		if ( Network.OnPush( m_oGUID, this ) )
-			return TRUE;
+	if ( m_pDownloadTransfer && StartDownload() )
+		return TRUE;
 
-		return Handshake();
-	}
+	if ( Network.OnPush( m_oGUID, this ) )
+		return TRUE;
 
-	return TRUE;
+	return Handshake();
 }
 
 BOOL CDCClient::OnSupports(const std::string& strParams)
@@ -854,6 +849,7 @@ void CDCClient::AttachDownload(CDownloadTransferDC* pTransfer)
 				m_sNick = static_cast< CDCNeighbour* >( pNeighbour )->m_sNick;
 			}
 		}
+		oLock.Unlock();
 	}
 
 	m_sNick = DCClients.CreateNick( m_sNick );

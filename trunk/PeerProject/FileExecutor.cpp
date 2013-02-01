@@ -44,7 +44,7 @@ static char THIS_FILE[] = __FILE__;
 static const struct
 {
 	LPCTSTR szPlayer;
-	LPCTSTR	szEnqueue;
+	LPCTSTR szEnqueue;
 }
 KnownPlayers[] =
 {
@@ -154,11 +154,11 @@ CString CFileExecutor::GetCustomPlayer()
 		i != Settings.MediaPlayer.ServicePath.end() ; ++i )
 	{
 		CString strPlayer = *i;
-		if ( strPlayer.ReverseFind( _T('*') ) == -1 )
+		if ( strPlayer.Right( 1 ) != _T('*') )	// SELECTED_PLAYER_TOKEN
 			continue;
 
 		// Has Asterisk at end to indicate selected player
-		strPlayer.Remove( _T('*') );
+		strPlayer.TrimRight( _T('*') );			// SELECTED_PLAYER_TOKEN
 		return strPlayer;
 	}
 

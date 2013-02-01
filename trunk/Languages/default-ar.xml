@@ -3,7 +3,7 @@
 
 <!-- PeerProject Arabic Language Skin File -->
 
-<!-- Translation based on default-en.xml r88 -->
+<!-- Translation based on default-en.xml r90 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -566,8 +566,8 @@
 					<item id="ID_HELP_FORUMS" text="_منتديات PeerProject" />
 					<separator />
 					<item id="ID_HELP_UPDATE" text="آخر الأخبار"/>
-					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-					<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
+				 	<!-- <item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
+					<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
 				</menu>
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject.org" />
 				<separator/>
@@ -667,8 +667,8 @@
 				<separator />
 				<item id="ID_HELP_FORUMS" text="_منتديات PeerProject" />
 				<item id="ID_HELP_UPDATE" text="آخر الأخبار"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
+			 	<!-- <item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
+				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_معلومات عن PeerProject..."/>
@@ -834,8 +834,8 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _منتديات"/>
 				<item id="ID_HELP_UPDATE" text="آخر الأخبار"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
+				<!-- <item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
+				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
 			</menu>
 			<separator />
 			<item id="ID_HELP_ABOUT" text="_معلومات عن PeerProject..." />
@@ -3280,7 +3280,8 @@
 		<control caption="للإتصال بالإنترنت PeerProject لأداء مثالي ، يجب إعداد" />
 		<control caption=":إختر نوع إتصال الإنترنت" />
 		<control caption=" |مودم طلب هاتفي| ISDN 128ك| DSL 768ك| DSL 1.5|مودم كيبل 3| DSL 4م| DSL2 8م| FIOS 10م| DSL2 12م| FIOS 15م| FIOS 20م| FIOS 25م| FIOS 30م| FIOS 50م| T1| T3| LAN| OC3" />
-		<control caption="Speedtest.net اختبار في"/>
+		<control caption="Speedtest.net اختبار في"/>
+
 		<control caption=":أو إختر سرعة التحميل" />
 		<control />
 		<control caption=":و سرعة الإرسال" />
@@ -3804,16 +3805,16 @@
 		<control caption="PeerProject does NOT contain ANY &quot;spyware&quot;, &quot;adware&quot; or other bundled software. It does NOT display any advertisements or &quot;popups&quot;, ever.{n}{n}If you ever see advertising or &quot;popups&quot; while using PeerProject, be assured that they are NOT coming from this program." />
 		<control caption="Unfortunately a lot of other software does come with undesirable adware or spyware, so if you see something suspicious you may wish to check your PC with an advertising or spyware removal program." />
 		<control caption="You should not have had to pay any money to obtain PeerProject. PeerProject can be freely downloaded by anyone from http://PeerProject.org. If you paid someone money for PeerProject, you should demand a full refund immediately." />
-		<control caption="PeerProject respects its users!" />
+		<control caption="PeerProject respects its users." />
 		<control caption="http://PeerProject.org" />
 		<control caption="إغلاق" />
 	</dialog>
 	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Spread the Word">
 		<control caption="Help Us Spread the Word" />
 		<control caption="We hope you have enjoyed using PeerProject so far. We believe it is the best file sharing application around." />
-		<control caption="Unfortunately, a lot of file sharers don't know what they're missing!" />
+		<control caption="Unfortunately, a lot of file sharers don't know what they're missing." />
 		<control caption="If you know someone who would like PeerProject, whether they're a new user or someone still putting up with an inferior product, why not let them know there is a better alternative?" />
-		<control caption="Chances are they'll be grateful you rescued them!" />
+		<control caption="Chances are they'll be grateful you told them." />
 		<control caption="http://PeerProject.org" />
 		<control caption="حسنا" />
 	</dialog>
@@ -3839,7 +3840,7 @@
 		<control caption="إلغاء الأمر" />
 	</dialog>
 	<dialog name="CUpdateServersDlg" cookie="StEdmsBuBu" caption=" Server.met تحميل ملف">
-		<control caption="You can download a file from the web to refresh your local list of servers.\nSuch as eDonkey server.met, DC++ hublist.xml.bz2, etc." />
+		<control caption="You can download a file from the web to refresh your local list of servers.{n}Such as eDonkey server.met, DC++ hublist.xml.bz2, etc." />
 		<control />
 		<control />
 		<control caption="حسنا" />

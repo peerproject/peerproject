@@ -36,9 +36,9 @@ CStatistics Statistics;
 
 CStatistics::CStatistics()
 {
-	ZeroMemory( &Ever, sizeof(Ever) );
-	ZeroMemory( &Today, sizeof(Today) );
-	ZeroMemory( &Current, sizeof(Current) );
+	ZeroMemory( &Ever, sizeof( Ever ) );
+	ZeroMemory( &Today, sizeof( Today ) );
+	ZeroMemory( &Current, sizeof( Current ) );
 
 	m_tSeconds = GetMicroCount() / 1000;
 }
@@ -67,10 +67,10 @@ void CStatistics::Update()
 		m_tSeconds = tNow;
 	}
 
-	CopyMemory( &Last, &Current, sizeof(Current) );
-	Add( &Today, &Current, sizeof(Current) );
-	Add( &Ever, &Current, sizeof(Current) );
-	ZeroMemory( &Current, sizeof(Current) );
+	CopyMemory( &Last, &Current, sizeof( Current ) );
+	Add( &Today, &Current, sizeof( Current ) );
+	Add( &Ever, &Current, sizeof( Current ) );
+	ZeroMemory( &Current, sizeof( Current ) );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -81,7 +81,7 @@ void CStatistics::Add(LPVOID pTarget, LPCVOID pSource, int nCount)
 	QWORD* pqwTarget = (QWORD*)pTarget;
 	QWORD* pqwSource = (QWORD*)pSource;
 
-	for ( nCount /= sizeof(QWORD) ; nCount ; nCount-- )
+	for ( nCount /= sizeof( QWORD ) ; nCount ; nCount-- )
 	{
 		*pqwTarget += *pqwSource;
 

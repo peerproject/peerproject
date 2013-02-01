@@ -140,15 +140,17 @@ CBENode* CBENode::Add(LPCBYTE pKey, size_t nKey)
 	}
 	else
 	{
+		const size_t nValueDoubled = nValue * 2;
+
 		// Overflow check
-		ASSERT( nValue * 2 + 2 <= SIZE_T_MAX );
-		auto_array< CBENode* > pList( new CBENode*[ nValue * 2 + 2 ] );
+		ASSERT( nValueDoubled + 2 <= SIZE_T_MAX );
+		auto_array< CBENode* > pList( new CBENode*[ nValueDoubled + 2 ] );
 
 		if ( m_pValue )
 		{
 			// Overflow check
-			ASSERT( 2 * nValue * sizeof( CBENode* ) <= SIZE_T_MAX );
-			memcpy( pList.get(), m_pValue, 2 * nValue * sizeof( CBENode* ) );
+			ASSERT( nValueDoubled * sizeof( CBENode* ) <= SIZE_T_MAX );
+			memcpy( pList.get(), m_pValue, nValueDoubled * sizeof( CBENode* ) );
 
 			delete [] (CBENode**)m_pValue;
 		}
@@ -157,8 +159,8 @@ CBENode* CBENode::Add(LPCBYTE pKey, size_t nKey)
 		memcpy( pxKey.get(), pKey, nKey );
 		pxKey[ nKey ] = 0;
 
-		pList[ nValue * 2 ]		= pNew.release();
-		pList[ nValue * 2 + 1 ]	= (CBENode*)pxKey.release();
+		pList[ nValueDoubled ] = pNew.release();
+		pList[ nValueDoubled + 1 ] = (CBENode*)pxKey.release();
 
 		m_pValue = pList.release();
 		++m_nValue;
@@ -407,8 +409,8 @@ CBENode* CBENode::Decode(LPCBYTE pBuffer, DWORD nLength, DWORD *pnReaden)
 		if ( ! pNode.get() )
 			return NULL;	// Out of memory
 
-		LPCBYTE pInput	= pBuffer;
-		DWORD nInput	= nLength;
+		LPCBYTE pInput = pBuffer;
+		DWORD nInput = nLength;
 
 		// IIS based trackers may insert unneeded EOL at the beginning
 		// of the torrent files or scrape responses, due to IIS bug.  Skip it.
@@ -559,7 +561,7 @@ CString CBENode::GetString() const
 bool CBENode::GetString(Hashes::BtGuid& oGUID) const
 {
 	if ( m_nType != beString || m_nValue != oGUID.byteCount )
-		 return false;
+		return false;
 
 	CopyMemory( &oGUID[0], m_pValue, oGUID.byteCount );
 	oGUID.validate();

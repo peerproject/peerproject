@@ -3,7 +3,7 @@
 
 <!-- PeerProject Korean Language Skin File -->
 
-<!-- Translation based on default-en.xml r88 --> <!--Machine Translated!-->
+<!-- Translation based on default-en.xml r90 --> <!--Machine Translated!-->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -25,6 +25,12 @@
 	prompt="여기를 클릭하여 자연 언어는 한국을 선택합니다."
 />
 
+<!--<fonts>-->
+	<!--<font name="System.Plain"	face="Gulim" size="11" weight="Normal"/>-->
+	<!--<font name="System.Bold"	face="Gulim" size="11" weight="Bold"/>-->
+	<!--<font name="Panel.Caption"	face="Gulim" size="12" weight="Normal"/>-->
+	<!--<font name="Navbar.Caption"	face="Gulim" size="12" weight="Normal"/>-->
+<!--</fonts>-->
 
 <!-- Toolbar Definitions -->
 <toolbars>
@@ -586,9 +592,9 @@
 					<separator/>
 					<item id="ID_HELP_FORUMS" text="PeerProject 포럼"/>
 					<item id="ID_HELP_VERSION_CHECK" text="새 버전에 대한 확인"/>
-					<item id="ID_HELP_DONATE" text="기부 PeerProject로"/>
+					<!-- <item id="ID_HELP_DONATE" text="기부 PeerProject로"/>
 					<item id="ID_HELP_WEB_6" text="PeerProject스킨 사이트"/>
-					<item id="ID_HELP_FAKESHAREAZA" text="가짜 FakeSharea_za.com"/> <!--
+					<item id="ID_HELP_FAKESHAREAZA" text="가짜 FakeSharea_za.com"/>
 					<item id="ID_HELP_UPDATE" text="최신 뉴스"/>
 					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 					<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
@@ -1598,7 +1604,7 @@
 <!-- Documents -->
 <documents>
 	<!-- Home View -->
-	<!-- CHomeViewCtrl Front Page Font is Broken -->
+	<!-- CHomeViewCtrl Front Page Font is Broken, set Gulim? -->
 	<!-- Homepanel Taskboxes -->
 	<document name="CHomeConnectionBox" title="연결" leftMargin="6" topMargin="6">
 		<styles>
@@ -1608,39 +1614,39 @@
 		</styles>
 		<group id="1">
 			<para align="center">
-				<text format="b">Not connected</text>
+				<text format="b">연결되지 않음</text>
 				<newline gap="4"/>
 				<link target="command:ID_NETWORK_CONNECT">여기를 클릭하여 연결합니다.</link>
 			</para>
 		</group>
 		<icon group="20" command="ID_NETWORK_G2"/>
 		<text group="20" align="middle" format="b">&#160;Gnutella2: </text>
-		<text group="21" align="middle">Disconnected</text>
-		<text group="22" align="middle">Connecting...</text>
-		<text group="23" align="middle">Connected</text>
+		<text group="21" align="middle">연결 끊김</text>
+		<text group="22" align="middle">연결 중...</text>
+		<text group="23" align="middle">연결</text>
 		<text group="24" align="middle" id="G2Hubs">%i hubs</text>
 		<text group="25" align="middle" id="G2Leaves">%i leaves</text>
 		<newline group="20" gap="2"/>
 		<icon group="10" command="ID_NETWORK_G1"/>
 		<text group="10" align="middle" format="b">&#160;Gnutella: </text>
-		<text group="11" align="middle">Disconnected</text>
-		<text group="12" align="middle">Connecting...</text>
-		<text group="13" align="middle">Connected</text>
+		<text group="11" align="middle">연결 끊김</text>
+		<text group="12" align="middle">연결 중...</text>
+		<text group="13" align="middle">연결</text>
 		<text group="14" align="middle" id="G1Hubs">%i peers</text>
 		<text group="15" align="middle" id="G1Leaves">%i leaves</text>
 		<newline group="10" gap="2"/>
 		<icon group="30" command="ID_NETWORK_ED2K"/>
 		<text group="30" align="middle" format="b">&#160;eDonkey: </text>
-		<text group="31" align="middle">Disconnected</text>
-		<text group="32" align="middle">Connecting...</text>
-		<text group="33" align="middle">Connected</text>
+		<text group="31" align="middle">연결 끊김</text>
+		<text group="32" align="middle">연결 중...</text>
+		<text group="33" align="middle">연결</text>
 		<text group="34" align="middle" id="EDServers">%i Server</text>
 		<newline group="30" gap="2"/>
 		<icon group="60" command="ID_NETWORK_DC"/>
 		<text group="60" align="middle" format="b">&#160;DC++: &#160; </text>
-		<text group="61" align="middle">Disconnected</text>
-		<text group="62" align="middle">Connecting...</text>
-		<text group="63" align="middle">Connected</text>
+		<text group="61" align="middle">연결 끊김</text>
+		<text group="62" align="middle">연결 중...</text>
+		<text group="63" align="middle">연결</text>
 		<text group="64" align="middle" id="DCHubs">%i Hubs</text>
 		<newline group="60" gap="2"/>
 		<group id="2">
@@ -1649,9 +1655,9 @@
 				<link target="command:ID_TAB_NETWORK">네트워크 Session</link>
 				<newline gap="4"/>
 				<text id="ConnectedHours" format="b">%i </text>
-				<text>hours and </text>
+				<text>시간 </text>
 				<text id="ConnectedMinutes" format="b">%i </text>
-				<text>minutes</text>
+				<text>분</text>
 			</para>
 		</group>
 	</document>
@@ -1663,26 +1669,26 @@
 		</styles>
 		<para align="center">
 			<group id="2">
-				<text>No new files downloaded recently.</text>
+				<text>어떤 새로운 파일이 최근 다운로드하지</text>
 				<newline gap="8"/>
 			</group>
-			<link target="command:ID_VIEW_LIBRARY">Local Library</link>
+			<link target="command:ID_VIEW_LIBRARY">지역 도서관</link>
 			<newline gap="4"/>
 			<text id="LibraryFiles" format="b">%lu </text>
-			<text>files (</text>
+			<text>파일 (</text>
 			<text id="LibraryVolume" format="b">%s</text>
 			<text>)</text>
 			<group id="1">
 				<newline gap="8"/>
 				<text>Processing </text>
 				<text id="LibraryHashRemaining" format="b">%lu </text>
-				<text>files:</text>
+				<text>파일:</text>
 				<newline gap="2"/>
 				<group id="3">
-					<link id="LibraryHashFaster" target="command:ID_LIBRARY_HASH_PRIORITY">Click here to hash faster.</link>
+					<link id="LibraryHashFaster" target="command:ID_LIBRARY_HASH_PRIORITY">빠른 해시 여기를 클릭하십시오.</link>
 				</group>
 				<group id="4">
-					<link id="LibraryHashFaster" target="command:ID_LIBRARY_HASH_PRIORITY">Click here to hash slower.</link>
+					<link id="LibraryHashFaster" target="command:ID_LIBRARY_HASH_PRIORITY">해시 느린하려면 여기를 클릭하십시오.</link>
 				</group>
 			</group>
 		</para>
@@ -1695,16 +1701,16 @@
 		</styles>
 		<para align="center">
 			<group id="1">
-				<text format="b">No active downloads</text>
+				<text format="b">활성 다운로드하지</text>
 				<newline gap="4"/>
 			</group>
-			<link id="DownloadsNone" format="u" target="command:ID_VIEW_DOWNLOADS">Go to Downloads View</link>
-			<link id="DownloadsOne" format="bu" target="command:ID_VIEW_DOWNLOADS">1 active download</link>
-			<link id="DownloadsMany" format="bu" target="command:ID_VIEW_DOWNLOADS">%i active downloads</link>
+			<link id="DownloadsNone" format="u" target="command:ID_VIEW_DOWNLOADS">다운로드보기로 이동</link>
+			<link id="DownloadsOne" format="bu" target="command:ID_VIEW_DOWNLOADS">1 활성화 다운로드</link>
+			<link id="DownloadsMany" format="bu" target="command:ID_VIEW_DOWNLOADS">%i 활성화 다운로드</link>
 			<newline gap="4"/>
-			<text id="DownloadedNone">No files (</text>
-			<text id="DownloadedOne">1 file (</text>
-			<text id="DownloadedMany">%i files (</text>
+			<text id="DownloadedNone">파일 없음 (</text>
+			<text id="DownloadedOne">1 파일 (</text>
+			<text id="DownloadedMany">%i 파일 (</text>
 			<text id="DownloadedVolume" format="b">%s</text>
 			<text>)</text>
 		</para>
@@ -1716,18 +1722,18 @@
 			</style>
 		</styles>
 		<para align="center">
-			<text id="UploadsNone" format="b">No active uploads</text>
-			<link id="UploadsOne" format="bu" target="command:ID_VIEW_UPLOADS">1 active upload</link>
-			<link id="UploadsMany" format="bu" target="command:ID_VIEW_UPLOADS">%i active uploads</link>
+			<text id="UploadsNone" format="b">활성 업로드하지</text>
+			<link id="UploadsOne" format="bu" target="command:ID_VIEW_UPLOADS">1 활성화 업로드</link>
+			<link id="UploadsMany" format="bu" target="command:ID_VIEW_UPLOADS">%i 활성화 업로드</link>
 			<newline gap="4"/>
 			<group id="1">
-				<text id="TorrentsOne">1 seeding torrent</text>
-				<text id="TorrentsMany">%i seeding torrents</text>
+				<text id="TorrentsOne">1 심는 급류</text>
+				<text id="TorrentsMany">%i 심는 토렌트</text>
 				<newline gap="4"/>
 			</group>
-			<text id="UploadedNone">No files uploaded</text>
-			<text id="UploadedOne">1 file (%s)</text>
-			<text id="UploadedMany">%i files (%s)</text>
+			<text id="UploadedNone">업로드 된 파일 없음</text>
+			<text id="UploadedOne">1 파일 (%s)</text>
+			<text id="UploadedMany">%i 파일 (%s)</text>
 		</para>
 	</document>
 	<!-- Settings Pages -->
@@ -1856,13 +1862,13 @@
 		<text format="b">Shared Files</text>
 		<newline gap="4" indent="8"/>
 		<icon res="137" target="command:ID_BROWSE_FILES"/><gap size="5"/>
-		<link target="command:ID_BROWSE_FILES" align="middle">View Shared Files</link>
+		<link target="command:ID_BROWSE_FILES" align="middle">공유 파일보기</link>
 		<group id="2">
 			<newline gap="16" indent="0"/>
 			<text format="b">Community</text>
 			<newline gap="4" indent="8"/>
 			<icon res="127" target="command:ID_SEARCH_CHAT"/><gap size="5"/>
-			<link target="command:ID_SEARCH_CHAT" align="middle">Chat With User</link>
+			<link target="command:ID_SEARCH_CHAT" align="middle">사용자와 채팅</link>
 		</group>
 		<group id="3">
 			<newline gap="16" indent="0"/>
@@ -2807,7 +2813,7 @@
 		<control caption="After closing this wizard, try running a fake search to Ban the spammers. Explore toolbar tabs while waiting."/>
 		<control caption="Start PeerProject every time Windows starts"/>
 		<control caption="Connect to the network every time I start PeerProject"/>
-		<control caption="And thanks. \nEnjoy using PeerProject for all your peer-to-peer networking needs."/>
+		<control caption="And thanks. {n}Enjoy using PeerProject for all your peer-to-peer networking needs."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="Import eDonkey Downloads">
 		<control caption="PeerProject has detected that you have another eDonkey program installed on your computer. Would you like to import any unfinished downloads into PeerProject?"/>
@@ -3209,7 +3215,7 @@
 		<control caption="취소"/>
 	</dialog>
 	<dialog name="CUpdateServersDlg" cookie="StEdmsBuBu" caption="Download Server List File">
-		<control caption="You can download a file from the web to refresh your local list of servers.\nSuch as eDonkey server.met, DC++ hublist.xml.bz2, etc."/>
+		<control caption="You can download a file from the web to refresh your local list of servers.{n}Such as eDonkey server.met, DC++ hublist.xml.bz2, etc."/>
 		<control/>
 		<control/>
 		<control caption="OK"/>

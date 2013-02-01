@@ -74,7 +74,7 @@ END_INTERFACE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // Global Instance
 
-LPCWSTR	CIEProtocol::pszProtocols[]	= { L"p2p-col", L"p2p-file", L"p2p-app", NULL };
+LPCWSTR CIEProtocol::pszProtocols[] = { L"p2p-col", L"p2p-file", L"p2p-app", NULL };
 
 CIEProtocol IEProtocol;
 
@@ -98,16 +98,18 @@ BOOL CIEProtocol::Create()
 {
 	CSingleLock pLock( &m_pSection, TRUE );
 
-	if ( m_pSession ) return TRUE;
+	if ( m_pSession )
+		return TRUE;
 
 	CComPtr<IInternetSession> pSession;
 
-	if ( FAILED( CoInternetGetSession( 0, &pSession, 0 ) ) ) return FALSE;
+	if ( FAILED( CoInternetGetSession( 0, &pSession, 0 ) ) )
+		return FALSE;
 
 	for ( int nProtocol = 0 ; pszProtocols[ nProtocol ] != NULL ; nProtocol++ )
 	{
-		if ( FAILED( pSession->RegisterNameSpace( &m_xClassFactory, CLSID_PeerProjectIEProtocol,
-			 pszProtocols[ nProtocol ], 0, NULL, 0 ) ) ) return FALSE;
+		if ( FAILED( pSession->RegisterNameSpace( &m_xClassFactory, CLSID_PeerProjectIEProtocol, pszProtocols[ nProtocol ], 0, NULL, 0 ) ) )
+			return FALSE;
 	}
 
 	m_pSession = pSession;
@@ -563,13 +565,13 @@ HRESULT CIEProtocol::OnRequestApplication(LPCTSTR pszURL, CBuffer& oBuffer, CStr
 			_T(".time1 { width: 8%%; background-color: %s; text-align: right; }\n")
 			_T(".icon { width: 16px; height: 16px; border-style: none; }\n")
 			_T("</style>\n</head>\n<body onmousemove=\"window.external.hover(''); event.cancel\">\n<h1> %s </h1>\n<table>\n"),
-			/* body */	 Settings.Fonts.DefaultFont, Settings.Fonts.DefaultSize, ToCSSColor( Colors.m_crWindow ), ToCSSColor( Colors.m_crDisabled ),
-			/* h1 */	 ToCSSColor( Colors.m_crBannerText ), ToCSSColor( Colors.m_crBannerBack ),
-			/* .name0 */ ToCSSColor( Colors.m_crSchemaRow[ 0 ] ), ToCSSColor( Colors.m_crTextLink ),
-			/* .time0 */ ToCSSColor( Colors.m_crSchemaRow[ 0 ] ),
-			/* .name1 */ ToCSSColor( Colors.m_crSchemaRow[ 1 ] ), ToCSSColor( Colors.m_crTextLink ),
-			/* .time1 */ ToCSSColor( Colors.m_crSchemaRow[ 1 ] ),
-			/* h1 */	 Escape( LoadString( IDS_LIBPANEL_RECENT_ADDITIONS ) ) );
+			/*body*/	Settings.Fonts.DefaultFont, Settings.Fonts.DefaultSize, ToCSSColor( Colors.m_crWindow ), ToCSSColor( Colors.m_crDisabled ),
+			/*h1*/		ToCSSColor( Colors.m_crBannerText ), ToCSSColor( Colors.m_crBannerBack ),
+			/*.name0*/	ToCSSColor( Colors.m_crSchemaRow[ 0 ] ), ToCSSColor( Colors.m_crTextLink ),
+			/*.time0*/	ToCSSColor( Colors.m_crSchemaRow[ 0 ] ),
+			/*.name1*/	ToCSSColor( Colors.m_crSchemaRow[ 1 ] ), ToCSSColor( Colors.m_crTextLink ),
+			/*.time1*/	ToCSSColor( Colors.m_crSchemaRow[ 1 ] ),
+			/*h1*/		Escape( LoadString( IDS_LIBPANEL_RECENT_ADDITIONS ) ) );
 
 		CSingleLock oLock( &Library.m_pSection, FALSE );
 		if ( ! oLock.Lock( 500 ) )

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Polish Skin File -->
 
-<!-- Translation based on default-en.xml r88 --> <!-- (Shareaza 2.1.2.7) -->
+<!-- Translation based on default-en.xml r90 --> <!-- (Shareaza 2.1.2.7) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2417,7 +2417,7 @@
 	<string id="20081" value="&amp;Zamknij"/>
 	<string id="20082" value="Zakończono, kliknij Zamknij"/>
 	<string id="20083" value="Żądanie..."/>
-	<string id="20084" value="Sukces!"/>
+	<string id="20084" value="Sukces."/>
 	<string id="20100" value="Closing browse user connection to %s."/>
 	<string id="20101" value="Browse host %s responded with an unrecognised response, and may not support user/host browsing."/>
 	<string id="20102" value="Nie można się połączyć do zdalnego hosta, aby przeglądać użytkownika."/>
@@ -2559,7 +2559,7 @@
 	<string id="20403" value="Kanały"/>
 	<string id="20404" value="Czat:"/>
 	<string id="20405" value="Proszę szanować innych podczas korzystania z tej usługi"/>
-	<string id="20406" value="Witamy w Czacie PeerProject!"/>
+	<string id="20406" value="Witamy w Czacie PeerProject."/>
 	<string id="20407" value="Usuń"/>
 	<string id="20408" value="Użytkownicy"/>
 	<string id="20410" value="Przeglądanie Twojej biblioteki PeerProject"/>
@@ -3315,7 +3315,7 @@
 		<control caption="Nagradzaj wysyłających"/>
 	</dialog>
 	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="Witaj w PeerProjecte (1/8)">
-		<control caption="Witaj w PeerProjecte!"/>
+		<control caption="Witaj w PeerProjecte."/>
 		<control caption="Jeśli wcześniej nie używałeś PeerProjecty lub innych klientów P2P, ten Kreator SzybkiegoStartu pomoże ci skonfigurować Twoją kopię w kilku prostych krokach."/>
 		<control caption="Jeśli jesteś bardziej zaawansowanym użytkownikiem, możesz uzyskać dostęp do wszystkich opcji PeerProjecty używając menu Narzędzia. Kliknij Wyjście, aby zamknąć w każdej chwili niniejszego kreatora."/>
 		<control caption="Ten kreator pomoże ci:"/>
@@ -3857,16 +3857,16 @@
 		<control caption="PeerProject NIE zawiera ŻADNEGO &quot;spyware'u&quot;, &quot;adware'u&quot; ani innego wmuszanego software'u. PeerProject NIE wyświetla ŻADNYCH reklam ani &quot;wyskakujących okieniek popup'ów&quot;, nigdy.{n}{n}Jeśli kiedykolwiek widziałeś reklamę lub &quot;wyskakujace okienka - popupy&quot; podczas używania PeerProjecty, bądź pewien, że one NIE pochodzą z tego programu tj. PeerProjecty."/>
 		<control caption="Niestety wiele innych programów przychodzi z nieporządanym adwarem or spywarem, zatem jeśli widzisz coś podejrzanego you may wish to sprawdzić swój komputer oprogramowaniem likwidującym reklamy i szpiegów."/>
 		<control caption="Nie wolno zmuszać Cię do płacenia jakichkolwiek pieniędzy za otrzymanie PeerProjecty. Kazdy zawsze może darmowowo pobrać PeerProject ze strony http://PeerProject.org/. Jeśli zapłaciłeś komuś pieniądze za PeerProject, powinieneś żądać natychmiastowego zwrotu tych nienależnych temu komuś pieniędzy, aż do skutku."/>
-		<control caption="PeerProject szanuje swoich użytkowników!"/>
+		<control caption="PeerProject szanuje swoich użytkowników."/>
 		<control caption="http://PeerProject.org/"/>
 		<control caption="Zamknij"/>
 	</dialog>
 	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Spread the Word">
 		<control caption="Pomóż nam Spread the Word"/>
 		<control caption="Mamy nadzieję, żę jak dotąd jesteś zadowolony z używania PeerProjecty. Wierzymy, że jest to najlepsza aplikacja do wymiany plików na rynku."/>
-		<control caption="Niestety, wielu wymieniających pliki nie wie co traci!"/>
+		<control caption="Niestety, wielu wymieniających pliki nie wie co traci."/>
 		<control caption="Jeśli znasz kogoś kto chciałby PeerProject, whether they're a new user or someone still putting up with an inferior product, dlaczego by nie powiadomić ich, że jest lepsza alternatywa?"/>
-		<control caption="Są szanse, że będą Ci wdzięczni za poratowanie!"/>
+		<control caption="Są szanse, że będą Ci wdzięczni za poratowanie."/>
 		<control caption="http://PeerProject.org/"/>
 		<control caption="OK"/>
 	</dialog>

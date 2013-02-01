@@ -119,8 +119,7 @@ STDMETHODIMP CComObject::ComGetTypeInfoCount(LPUNKNOWN /*pUnk*/, UINT FAR* pctin
 	return NOERROR;
 }
 
-STDMETHODIMP CComObject::ComGetTypeInfo(LPUNKNOWN pUnk, UINT itinfo, LCID lcid,
-									 ITypeInfo FAR* FAR* pptinfo)
+STDMETHODIMP CComObject::ComGetTypeInfo(LPUNKNOWN pUnk, UINT itinfo, LCID lcid, ITypeInfo FAR* FAR* pptinfo)
 {
 	if ( ! pptinfo ) return E_INVALIDARG;
 	if ( itinfo != 0 ) return DISP_E_BADINDEX;
@@ -131,19 +130,14 @@ STDMETHODIMP CComObject::ComGetTypeInfo(LPUNKNOWN pUnk, UINT itinfo, LCID lcid,
 	return GetTypeInfoOfGuid( lcid, *pIID, pptinfo );
 }
 
-STDMETHODIMP CComObject::ComGetIDsOfNames(	LPUNKNOWN pUnk, REFIID riid,
-											OLECHAR FAR* FAR* rgszNames,
-											UINT cNames, LCID lcid,
-											DISPID FAR* rgdispid)
+STDMETHODIMP CComObject::ComGetIDsOfNames( LPUNKNOWN pUnk, REFIID riid, OLECHAR FAR* FAR* rgszNames, UINT cNames, LCID lcid, DISPID FAR* rgdispid)
 {
 	if ( riid != IID_NULL ) return DISP_E_UNKNOWNINTERFACE;
 	if ( ! rgszNames || cNames < 1 ) return E_INVALIDARG;
 	if ( ! rgdispid ) return E_INVALIDARG;
 
 	LPTYPEINFO pTypeInfo;
-	SCODE sc;
-
-	sc = ComGetTypeInfo( pUnk, 0, lcid, &pTypeInfo );
+	SCODE sc = ComGetTypeInfo( pUnk, 0, lcid, &pTypeInfo );
 
 	if ( SUCCEEDED( sc ) )
 	{
@@ -155,10 +149,7 @@ STDMETHODIMP CComObject::ComGetIDsOfNames(	LPUNKNOWN pUnk, REFIID riid,
 	return sc;
 }
 
-STDMETHODIMP CComObject::ComInvoke(	LPUNKNOWN pUnk, DISPID dispidMember, REFIID riid,
-									LCID lcid, WORD wFlags, DISPPARAMS FAR* pdispparams,
-									VARIANT FAR* pvarResult, EXCEPINFO FAR* pexcepinfo,
-									UINT FAR* puArgErr)
+STDMETHODIMP CComObject::ComInvoke( LPUNKNOWN pUnk, DISPID dispidMember, REFIID riid, LCID lcid, WORD wFlags, DISPPARAMS FAR* pdispparams, VARIANT FAR* pvarResult, EXCEPINFO FAR* pexcepinfo, UINT FAR* puArgErr)
 {
 	if ( pdispparams == NULL ) return E_INVALIDARG;
 	if ( riid != IID_NULL ) return DISP_E_UNKNOWNINTERFACE;
@@ -166,14 +157,10 @@ STDMETHODIMP CComObject::ComInvoke(	LPUNKNOWN pUnk, DISPID dispidMember, REFIID 
 	if ( ! IsInvokeAllowed( dispidMember ) ) return E_UNEXPECTED;
 
 	LPTYPEINFO pTypeInfo;
-	HRESULT hr;
-	SCODE sc;
-
-	sc = ComGetTypeInfo( pUnk, 0, lcid, &pTypeInfo );
+	SCODE sc = ComGetTypeInfo( pUnk, 0, lcid, &pTypeInfo );
 	if ( FAILED( sc ) ) return sc;
 
-	hr = DispInvoke( pUnk, pTypeInfo, dispidMember, wFlags, pdispparams,
-					 pvarResult, pexcepinfo, puArgErr );
+	HRESULT hr = DispInvoke( pUnk, pTypeInfo, dispidMember, wFlags, pdispparams, pvarResult, pexcepinfo, puArgErr );
 
 	pTypeInfo->Release();
 

@@ -1,7 +1,7 @@
 //
 // ComMenu.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -27,10 +27,10 @@ static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif	// Debug
 
-BEGIN_MESSAGE_MAP(CComMenu, CCmdTarget)
+//BEGIN_MESSAGE_MAP(CComMenu, CCmdTarget)
 	//{{AFX_MSG_MAP(CComMenu)
 	//}}AFX_MSG_MAP
-END_MESSAGE_MAP()
+//END_MESSAGE_MAP()
 
 BEGIN_INTERFACE_MAP(CComMenu, CComObject)
 	INTERFACE_PART(CComMenu, IID_ISMenu, SMenu)
@@ -137,14 +137,11 @@ STDMETHODIMP CComMenu::XSMenu::get_ItemType(SMenuType FAR* pnType)
 	METHOD_PROLOGUE( CComMenu, SMenu )
 
 	if ( pThis->m_hMenu )
-	{
 		*pnType = mnuMenu;
-	}
+	else if ( GetMenuItemID( pThis->m_hParent, pThis->m_nPosition ) == ID_SEPARATOR )
+		*pnType = mnuSeparator;
 	else
-	{
-		*pnType = ( GetMenuItemID( pThis->m_hParent, pThis->m_nPosition ) == ID_SEPARATOR )
-			? mnuSeparator : mnuCommand;
-	}
+		*pnType = mnuCommand;
 
 	return S_OK;
 }
@@ -163,7 +160,7 @@ STDMETHODIMP CComMenu::XSMenu::put_CommandID(LONG nCommandID)
 	if ( pThis->m_hMenu != NULL ) return E_FAIL;
 
 	MENUITEMINFO pItem = {};
-	pItem.cbSize	= sizeof(pItem);
+	pItem.cbSize	= sizeof( pItem );
 	pItem.fMask		= MIIM_ID;
 	pItem.wID		= (WORD)nCommandID;
 
@@ -194,7 +191,7 @@ STDMETHODIMP CComMenu::XSMenu::put_Text(BSTR sText)
 	CString strText( sText );
 
 	MENUITEMINFO pItem = {};
-	pItem.cbSize		= sizeof(pItem);
+	pItem.cbSize		= sizeof( pItem );
 	pItem.fMask			= MIIM_TYPE;
 	pItem.fType			= MFT_STRING;
 	pItem.dwTypeData	= (LPTSTR)(LPCTSTR)strText;
@@ -277,12 +274,15 @@ STDMETHODIMP CComMenu::XEnumVARIANT::Next(ULONG celt, VARIANT FAR* rgvar, ULONG 
 {
 	METHOD_PROLOGUE( CComMenu, EnumVARIANT )
 
-	if ( pceltFetched ) *pceltFetched = 0;
-	else if ( celt > 1 ) return E_INVALIDARG;
+	if ( pceltFetched )
+		*pceltFetched = 0;
+	else if ( celt > 1 )
+		return E_INVALIDARG;
 
 	VariantInit( &rgvar[0] );
 
-	if ( m_nIndex >= (UINT)GetMenuItemCount( pThis->m_hMenu ) ) return S_FALSE;
+	if ( m_nIndex >= (UINT)GetMenuItemCount( pThis->m_hMenu ) )
+		return S_FALSE;
 
 	rgvar[0].vt			= VT_DISPATCH;
 	rgvar[0].pdispVal	= (IDispatch*)CComMenu::Wrap( pThis->m_hMenu, m_nIndex );
@@ -297,9 +297,9 @@ STDMETHODIMP CComMenu::XEnumVARIANT::Skip(ULONG celt)
 {
 	METHOD_PROLOGUE( CComMenu, EnumVARIANT )
 
-	int nCount = GetMenuItemCount( pThis->m_hMenu );
+	const UINT nCount = (UINT)GetMenuItemCount( pThis->m_hMenu );
 
-	while ( celt-- && m_nIndex++ < (UINT)nCount );
+	while ( celt-- && m_nIndex++ < nCount );
 
 	return ( celt == 0 ? S_OK : S_FALSE );
 }

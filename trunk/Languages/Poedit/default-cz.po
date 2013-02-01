@@ -309,7 +309,7 @@ msgid "Speed:"
 msgstr "Rychlost:"
 
 #: cmediaframe;label-tip;2
-msgid "Adjust the speed of the media file"
+msgid "Adjust the speed of media play"
 msgstr "Nastavit rychlost přehrávání"
 
 #: button;id_media_clear button;id_search_clear string;20646
@@ -8069,8 +8069,8 @@ msgid "You may select the Internet connection type:"
 msgstr "Vyberte typ připojení k internetu:"
 
 #: cwizardconnectionpage;control;3
-msgid "|Dial-up Modem|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Cable Modem"
-msgstr "Telefoní modem|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|T1|T3|LAN|OC3|Kabel Modem"
+msgid "| Dial-up Modem| ISDN 128K| DSL 768K| DSL 1.5| Cable 3| DSL 4| DSL2 8| FIOS 10| DSL2 12| FIOS 15| FIOS 20| FIOS 25| FIOS 30| FIOS 50| T1| T3| LAN| OC3"
+msgstr "Telefoní modem|ISDN 128K|DSL 768K|DSL 1.5M|DSL 4M|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|FIOS 50|T1|T3|LAN|OC3|Kabel Modem"
 
 #: cwizardconnectionpage;control;4
 msgid "Or choose the download speed:"
@@ -8281,8 +8281,8 @@ msgid "Connect to the network every time I start PeerProject"
 msgstr "Při spuštění PeerProject se připojit k síti"
 
 #: cwizardfinishedpage;control;6
-msgid "Enjoy using PeerProject P2P."
-msgstr "Užijte si PeerProject!"
+msgid "And thanks. \nEnjoy using PeerProject for all your peer-to-peer networking needs."
+msgstr "Užijte si PeerProject."
 
 #: dialog;cdonkeyimportdlg
 msgid "Import eDonkey Downloads"

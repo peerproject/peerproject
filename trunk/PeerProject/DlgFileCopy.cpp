@@ -254,7 +254,7 @@ void CFileCopyDlg::OnRun()
 				bMetadataAuto = pFile->m_bMetadataAuto;
 				nRating 	= pFile->m_nRating;
 				strComments	= pFile->m_sComments;
-				strShareTags	= pFile->m_sShareTags;
+				strShareTags = pFile->m_sShareTags;
 			}
 		}
 
@@ -358,10 +358,9 @@ bool CFileCopyDlg::ProcessFile(const CString& strName, const CString& strPath)
 	}
 
 	// Copy/Move the file
-	if ( m_bMove )
-		return ProcessMove( strSource, strTarget );
-	else
-		return ProcessCopy( strSource, strTarget );
+	return m_bMove ?
+		ProcessMove( strSource, strTarget ) :
+		ProcessCopy( strSource, strTarget );
 }
 
 bool CFileCopyDlg::CheckTarget(const CString& strTarget)
@@ -434,13 +433,13 @@ bool CFileCopyDlg::ProcessCopy(const CString& strSource, const CString& strTarge
 	m_wndFileProg.SetPos( 0 );
 	m_nFileProg = 0;
 
-	bool bResult = CopyFileEx( strSource, strTarget, CopyCallback, this,
-		&m_bCancel, COPY_FILE_FAIL_IF_EXISTS ) != 0;
+	if ( CopyFileEx( strSource, strTarget, CopyCallback, this, &m_bCancel, COPY_FILE_FAIL_IF_EXISTS ) != 0 )
+		return true;
 
-	if ( ! bResult && ! IsThreadAlive() )
+	if ( ! IsThreadAlive() )
 		DeleteFileEx( strTarget, TRUE, FALSE, FALSE );
 
-	return bResult;
+	return false;
 }
 
 DWORD WINAPI CFileCopyDlg::CopyCallback(LARGE_INTEGER TotalFileSize, LARGE_INTEGER TotalBytesTransferred, LARGE_INTEGER /*StreamSize*/, LARGE_INTEGER /*StreamBytesTransferred*/, DWORD /*dwStreamNumber*/, DWORD /*dwCallbackReason*/, HANDLE /*hSourceFile*/, HANDLE /*hDestinationFile*/, LPVOID lpData)

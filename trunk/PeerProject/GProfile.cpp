@@ -193,7 +193,7 @@ BOOL CGProfile::FromXML(const CXMLElement* pXML)
 {
 	// Checking XML validity
 	if ( pXML == NULL )
-		 return FALSE;
+		return FALSE;
 
 	if ( ! pXML->GetAttributeValue( _T("xmlns") ).CompareNoCase( xmlns ) )				// http://schemas.peerproject.org/Profile.xsd defined above
 	{

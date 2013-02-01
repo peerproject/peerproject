@@ -280,7 +280,7 @@ void CFileMetadataPage::OnOK()
 		{
 			if ( CLibraryFile* pFile = pFiles->GetNextFile( pos1 ) )
 			{
-				CXMLElement* pContainer	= pSchema->Instantiate( TRUE );
+				CXMLElement* pContainer = pSchema->Instantiate( TRUE );
 				if ( pContainer )
 				{
 					CXMLElement* pXML = NULL;

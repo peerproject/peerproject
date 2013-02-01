@@ -314,7 +314,7 @@ void CDownloadGroupDlg::OnOK()
 		}
 		else if ( m_sFolder.GetLength() && m_sFolder.CompareNoCase( Settings.Downloads.CompletePath ) != 0 )	 // New Default Path
 		{
-			m_pGroup->m_sFolder	= m_sFolder;
+			m_pGroup->m_sFolder = m_sFolder;
 			Settings.Downloads.CompletePath = m_sFolder;
 		}
 
@@ -381,9 +381,7 @@ void CDownloadGroupDlg::OnOK()
 				{
 					if ( CLibraryFolder* pFolder = LibraryFolders.AddFolder( m_sFolder ) )
 					{
-						LoadString( strMessage, IDS_LIBRARY_DOWNLOADS_SHARE );
-
-						BOOL bShare = MsgBox( strMessage, MB_ICONQUESTION|MB_YESNO ) == IDYES;
+						BOOL bShare = MsgBox( IDS_LIBRARY_DOWNLOADS_SHARE, MB_ICONQUESTION|MB_YESNO ) == IDYES;
 
 						CQuickLock oLock( Library.m_pSection );
 						if ( LibraryFolders.CheckFolder( pFolder, TRUE ) )

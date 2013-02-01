@@ -179,7 +179,7 @@ BOOL CConnection::ConnectTo(const IN_ADDR* pAddress, WORD nPort)
 	if ( pAddress != &m_pHost.sin_addr )
 	{
 		// Zero the memory of the entire SOCKADDR_IN structure m_pHost, and then copy in the sin_addr part
-		ZeroMemory( &m_pHost, sizeof(m_pHost) );
+		ZeroMemory( &m_pHost, sizeof( m_pHost ) );
 		m_pHost.sin_addr = *pAddress;
 	}
 
@@ -213,9 +213,9 @@ BOOL CConnection::ConnectTo(const IN_ADDR* pAddress, WORD nPort)
 		{
 			// Call bind in Windows Sockets to associate the local address with the socket
 			bind(
-				m_hSocket,				// Our socket
-				(SOCKADDR*)&pOutgoing,	// The IP address this computer appears to have on the Internet (do)
-				sizeof(SOCKADDR_IN) );	// Tell bind how many bytes it can read at the pointer
+				m_hSocket,					// Our socket
+				(SOCKADDR*)&pOutgoing,		// The IP address this computer appears to have on the Internet (do)
+				sizeof( SOCKADDR_IN ) );	// Tell bind how many bytes it can read at the pointer
 		}
 	}
 
@@ -225,7 +225,7 @@ BOOL CConnection::ConnectTo(const IN_ADDR* pAddress, WORD nPort)
 	if ( WSAConnect(
 		m_hSocket,					// Our socket
 		(SOCKADDR*)&m_pHost,		// The remote IP address and port number
-		sizeof(SOCKADDR_IN),		// How many bytes the function can read
+		sizeof( SOCKADDR_IN ),		// How many bytes the function can read
 		NULL, NULL, NULL, NULL ) )	// No advanced features
 	{
 		// If no error occurs, WSAConnect returns 0, so if we're here an error happened
@@ -298,7 +298,7 @@ void CConnection::Close(UINT nError)
 {
 	// Make sure this object exists, and is located entirely within the program's memory space
 	ASSERT( this != NULL );
-	ASSERT( AfxIsValidAddress( this, sizeof(*this) ) );
+	ASSERT( AfxIsValidAddress( this, sizeof( *this ) ) );
 
 	if ( nError )
 	{
@@ -495,8 +495,7 @@ BOOL CConnection::OnRead()
 	}
 
 	// Read from the socket and record the # bytes read
-	DWORD nTotal = m_pInput->Receive( m_hSocket, nLimit );
-	if ( nTotal )
+	if ( DWORD nTotal = m_pInput->Receive( m_hSocket, nLimit ) )
 	{
 		// Bytes were read, add # bytes to bandwidth meter
 		m_mInput.Add( nTotal, tNow );
@@ -538,8 +537,7 @@ BOOL CConnection::OnWrite()
 	}
 
 	// Read from the socket and record the # bytes sent
-	DWORD nTotal = m_pOutput->Send( m_hSocket, nLimit );
-	if ( nTotal )
+	if ( DWORD nTotal = m_pOutput->Send( m_hSocket, nLimit ) )
 	{
 		// Bytes were sent, add # bytes to bandwidth meter
 		m_mOutput.Add( nTotal, tNow );
@@ -889,7 +887,7 @@ void CConnection::TCPBandwidthMeter::Add(const DWORD nBytes, const DWORD tNow)
 		// Store the time and total in a new array slot
 		nPosition = ( nPosition + 1 ) % METER_LENGTH;	// Move to the next position in the array
 		pHistory[ nPosition ] = nBytes; 				// Store the #bytes next to it
-		pTimes	[ nPosition ] = tNow;					// Record the new time
+		pTimes[ nPosition ]   = tNow;					// Record the new time
 		tLastSlot = tNow;								// We just wrote some history information
 	}
 	nTotal += nBytes;	// Add the #bytes to the total

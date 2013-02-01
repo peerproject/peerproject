@@ -31,7 +31,7 @@
 #include <tchar.h>
 //#include <string>	// In StdAfx.h
 
-#ifdef _HAS_TR1		// #if _MSC_FULL_VER > 150030000	// VS2008 SP1 for tr1
+#if defined(_MSC_VER) && (_MSC_FULL_VER > 150030000)	// _HAS_TR1		// VS2008 SP1 for tr1, VS2012 for std
 #include <regex>
 #else	// Boost fallback
 #include <Boost/tr1/regex.hpp>

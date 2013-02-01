@@ -290,12 +290,12 @@ void CDownloadTransfer::SetState(int nState)
 //////////////////////////////////////////////////////////////////////
 // CDownloadTransfer fragment size management
 
-void CDownloadTransfer::ChunkifyRequest(QWORD* pnOffset, QWORD* pnLength, DWORD nChunk, BOOL bVerifyLock)
+void CDownloadTransfer::ChunkifyRequest(QWORD* pnOffset, QWORD* pnLength, DWORD nChunk, BOOL bVerifyLock) const
 {
 	ASSUME_LOCK( Transfers.m_pSection );
 
 	ASSERT( pnOffset != NULL && pnLength != NULL );
-	ASSERT( m_pDownload->IsRangeUseful(*pnOffset, *pnLength) );
+	//ASSERT( m_pDownload->IsRangeUseful( *pnOffset, *pnLength ) );
 
 	if ( m_pSource->m_bCloseConn ) return;
 

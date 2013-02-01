@@ -243,7 +243,7 @@ void CSearchWnd::OnSkinChange()
 
 void CSearchWnd::OnContextMenu(CWnd* pWnd, CPoint point)
 {
-	if ( point.x == -1 && point.y == -1 ) 	// Keyboard fix
+	if ( point.x == -1 && point.y == -1 )	// Keyboard fix
 		ClientToScreen( &point );
 
 	if ( m_bContextMenu )
@@ -437,8 +437,7 @@ BOOL CSearchWnd::DoSizeDetails()
 
 void CSearchWnd::OnUpdateSearchSearch(CCmdUI* pCmdUI)
 {
-	// pCmdUI->Enable( Network.IsWellConnected() );
-	//pCmdUI->Enable( TRUE );
+	//pCmdUI->Enable( Network.IsWellConnected() );
 
 	if ( m_bPaused || m_bWaitMore )
 		pCmdUI->Enable( TRUE );
@@ -961,12 +960,13 @@ void CSearchWnd::OnUpdateFilters(CCmdUI* pCmdUI)
 
 void CSearchWnd::OnFilters(UINT nID)
 {
-	{
-		const int nFilter = nID - 3000;
+	if ( nID < 3000 ) return;
+	const int nFilter = nID - 3000;
 
+	{
 		CQuickLock pLock( m_pMatches->m_pSection );
 
-		if ( nFilter < 0 || (DWORD)nFilter > m_pMatches->m_pResultFilters->m_nFilters - 1 ) return;
+		if ( (DWORD)nFilter > m_pMatches->m_pResultFilters->m_nFilters - 1 ) return;
 
 		m_pMatches->m_bFilterBusy		= m_pMatches->m_pResultFilters->m_pFilters[ nFilter ]->m_bFilterBusy;
 		m_pMatches->m_bFilterPush		= m_pMatches->m_pResultFilters->m_pFilters[ nFilter ]->m_bFilterPush;

@@ -182,7 +182,7 @@ void CLibrary::CheckDuplicates(const CLibraryFile* pFile, bool bForce) const
 			int nLen = strHash.GetLength() + 1;
 			LPTSTR pszHash = new TCHAR[ nLen ];
 
-			CopyMemory( pszHash, strHash.GetBuffer(), sizeof(TCHAR) * nLen );
+			CopyMemory( pszHash, strHash.GetBuffer(), sizeof( TCHAR ) * nLen );
 			pMainWnd->PostMessage( WM_LIBRARYSEARCH, (WPARAM)pszHash );
 		}
 		break;
@@ -352,7 +352,7 @@ BOOL CLibrary::SafeReadTime(CFile& pFile, FILETIME* pFileTime) throw()
 {
 	__try
 	{
-		return pFile.Read( pFileTime, sizeof(FILETIME) ) == sizeof(FILETIME);
+		return pFile.Read( pFileTime, sizeof( FILETIME ) ) == sizeof( FILETIME );
 	}
 	__except( EXCEPTION_EXECUTE_HANDLER )
 	{
@@ -585,12 +585,12 @@ BOOL CLibrary::IsBadFile(LPCTSTR pszFilenameOnly, LPCTSTR pszPathOnly, DWORD dwF
 		if ( pszFilenameOnly )
 		{
 			if ( _tcsicmp( pszFilenameOnly, _T("Thumbs.db") ) == 0 ||				// Ignore windows thumbnail database
-				_tcsicmp( pszFilenameOnly, _T("dxva_sig.txt") ) == 0 ||				// Ignore video tag-file
-				_tcsnicmp( pszFilenameOnly, _T("~uTorrentPartFile_"), 18 ) == 0 ||	// uTorrent part files
-				_tcsnicmp( pszFilenameOnly, _T("___ARESTRA___"), 13 ) == 0 ||		// Ares Galaxy partials
-				_tcsnicmp( pszFilenameOnly, _T("signons"), 7 ) == 0 )				// FireFox Password files "signons3.txt"
+				 _tcsicmp( pszFilenameOnly, _T("dxva_sig.txt") ) == 0 ||			// Ignore video tag-file
+				 _tcsnicmp( pszFilenameOnly, _T("~uTorrentPartFile_"), 18 ) == 0 ||	// uTorrent part files
+				 _tcsnicmp( pszFilenameOnly, _T("___ARESTRA___"), 13 ) == 0 ||		// Ares Galaxy partials
+				 _tcsnicmp( pszFilenameOnly, _T("signons"), 7 ) == 0 )				// FireFox Password files "signons3.txt"
 			{
-				 return TRUE;
+				return TRUE;
 			}
 
 			if ( LPCTSTR pszExt = _tcsrchr( pszFilenameOnly, _T('.') ) )

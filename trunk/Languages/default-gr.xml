@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Greek Skin File -->
 
-<!-- Translation based on default-en.xml r88 -->
+<!-- Translation based on default-en.xml r90 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -581,8 +581,9 @@
 				<separator/>
 				<menu text="_Ιστοσελίδες">
 					<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
-					<item id="ID_HELP_WEB_6" text="Φ_λοιοί PeerProject"/>
-					<item id="ID_HELP_FAKESHAREAZA" text="FakeShareaza_.com"/> <!--
+					<item id="ID_HELP_FORUMS_LOCAL" text="PeerProject _Forums Ελληνικά"/>
+					<!-- <item id="ID_HELP_WEB_6" text="Φ_λοιοί PeerProject"/>
+					<item id="ID_HELP_FAKESHAREAZA" text="FakeShareaza_.com"/>
 					<item id="ID_HELP_UPDATE" text="Τελευταία νέα"/>
 					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 					<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
@@ -685,8 +686,9 @@
 				<item id="ID_HELP_HOMEPAGE" text="_Ιστοσελίδα_PeerProject"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
-				<item id="ID_HELP_WEB_6" text="Φ_λοιοί PeerProject"/>
-				<item id="ID_HELP_FAKESHAREAZA" text="FakeShareaza_.com"/> <!--
+				<item id="ID_HELP_FORUMS_LOCAL" text="PeerProject _Forums Ελληνικά"/>
+				<!-- <item id="ID_HELP_WEB_6" text="Φ_λοιοί PeerProject"/>
+				<item id="ID_HELP_FAKESHAREAZA" text="FakeShareaza_.com"/>
 				<item id="ID_HELP_UPDATE" text="Τελευταία νέα"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
@@ -757,8 +759,9 @@
 				<item id="ID_HELP_HOMEPAGE" text="Ιστοσελίδα PeerProject"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
-				<item id="ID_HELP_WEB_6" text="Φ_λοιοί PeerProject"/>
-				<item id="ID_HELP_FAKESHAREAZA" text="FakeShareaza_.com"/> <!--
+				<item id="ID_HELP_FORUMS_LOCAL" text="PeerProject _Forums Ελληνικά"/>
+				<!-- <item id="ID_HELP_WEB_6" text="Φ_λοιοί PeerProject"/>
+				<item id="ID_HELP_FAKESHAREAZA" text="FakeShareaza_.com"/>
 				<item id="ID_HELP_UPDATE" text="Τελευταία νέα"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
@@ -851,8 +854,9 @@
 				<item id="ID_HELP_HOMEPAGE" text="_Ιστοσελίδα_PeerProject"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
-				<item id="ID_HELP_WEB_6" text="Φ_λοιοί PeerProject"/>
-				<item id="ID_HELP_FAKESHAREAZA" text="FakeShareaza_.com"/> <!--
+				<item id="ID_HELP_FORUMS" text="PeerProject _Forums Ελληνικά"/>
+				<!-- <item id="ID_HELP_WEB_6" text="Φ_λοιοί PeerProject"/>
+				<item id="ID_HELP_FAKESHAREAZA" text="FakeShareaza_.com"/>
 				<item id="ID_HELP_UPDATE" text="Τελευταία νέα"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
@@ -2690,7 +2694,7 @@
 	<string id="20081" value="Κλείσιμο"/>
 	<string id="20082" value="Ολοκληρώθηκε, κλικ στο Κλείσιμο"/>
 	<string id="20083" value="Αίτηση..."/>
-	<string id="20084" value="Επιτυχία!"/>
+	<string id="20084" value="Επιτυχία."/>
 	<string id="20100" value="Κλείσιμο σύνδεσης περιήγησης χρήστη με %s."/>
 	<string id="20101" value="Μη αναγνωρίσιμη απάντηση του host %s, ίσως δεν υποστηρίζει περιήγηση χρήστη."/>
 	<string id="20102" value="Αδυναμία σύνδεσης στον host για περιήγηση."/>
@@ -2742,7 +2746,7 @@
 	<string id="20149" value="Εντοπισμός σφάλματος στο αρχείο &quot;%s&quot;."/>
 	<string id="20150" value="Αδυναμία επικοινωνίας με τον tracker"/>
 	<string id="20151" value="Αποτυχία tracker, προσπάθεια με τον επόμενο (%i από %i)"/>
-	<string id="20152" value="Αλλάξατε τη URL του tracker για αυτό το torrent. Θέλετε σίγουρα να σώσετε αυτήν την αλλαγή;nnΜη έγκυρος tracker ισοδυναμεί με διακοπή περαιτέρω λήψης!"/>
+	<string id="20152" value="Αλλάξατε τη URL του tracker για αυτό το torrent. Θέλετε σίγουρα να σώσετε αυτήν την αλλαγή;nnΜη έγκυρος tracker ισοδυναμεί με διακοπή περαιτέρω λήψης."/>
 	<string id="20153" value="Σφάλμα από BitTorrent tracker για &quot;%s&quot; : &quot;%s&quot;."/>
 	<string id="20154" value="Σφάλμα κατά την ανάλυση απάντησης του BitTorrent tracker."/>
 	<string id="20155" value="Παραλαβή απάντησης BitTorrent tracker για &quot;%s&quot;, %i νέες πηγές."/>
@@ -2767,10 +2771,10 @@
 	<string id="20176" value="Αδυναμία αποστολής μηνύματος, λόγω διακοπής σύνδεσης. Προσπάθεια επανασύνδεσης..."/>
 	<string id="20177" value="Αδυναμία αποστολής μηνύματος, λόγω έλλειψης σύνδεσης."/>
 	<string id="20178" value="%s είναι πλέον γνωστός ως %s."/>
-	<string id="20179" value="Τώρα συνομιλείτε με τον/την %s (%s)!"/>
+	<string id="20179" value="Τώρα συνομιλείτε με τον/την %s (%s)."/>
 	<string id="20180" value="Χορήγηση προτεραιότητας αποστολής στον host %s."/>
 	<string id="20181" value="%s έχει απομακρυνθεί: %s"/>
-	<string id="20182" value="Αποδοχή Συνομιλία με Χρήστης, τώρα συνομιλείτε με τον/την %s!"/>
+	<string id="20182" value="Αποδοχή Συνομιλία με Χρήστης, τώρα συνομιλείτε με τον/την %s."/>
 	<string id="20183" value="%s δεν δέχεται συνομιλίες."/>
 	<string id="20184" value="Αίτηση Συνομιλία με Χρήστης με τον χρήστη..."/>
 	<string id="20185" value="Πιστοποιημένος χρήστης"/>
@@ -2794,8 +2798,8 @@
 	<string id="20208" value="Κλείσιμο σύνδεσης λήψης από %s, καθώς δεν απαιτείται πλέον."/>
 	<string id="20209" value="Κλείσιμο σύνδεσης με host %s, λόγω αποστολής αυθαίρετων δεδομένων."/>
 	<string id="20210" value="Ολοκλήρωση λήψης &quot;%s&quot;."/>
-	<string id="20211" value="Θέλετε σίγουρα να διαγράψετε το &quot;%s&quot;.nnΑν μια λήψη διαγραφεί από το παράθυρο Λήψεων, δεν μπορεί να συνεχιστεί αργότερα!"/>
-	<string id="20212" value="Είστε σίγουροι ότι θέλερε να διαγράψετε όλες τις σταματημένες λήψεις;nnΑν μια λήψη διαγραφεί από το παράθυρο Λήψεων, δεν μπορεί να συνεχιστεί αργότερα!"/>
+	<string id="20211" value="Θέλετε σίγουρα να διαγράψετε το &quot;%s&quot;.nnΑν μια λήψη διαγραφεί από το παράθυρο Λήψεων, δεν μπορεί να συνεχιστεί αργότερα."/>
+	<string id="20212" value="Είστε σίγουροι ότι θέλερε να διαγράψετε όλες τις σταματημένες λήψεις;nnΑν μια λήψη διαγραφεί από το παράθυρο Λήψεων, δεν μπορεί να συνεχιστεί αργότερα."/>
 	<string id="20213" value="Είστε σίγουροι ότι θέλερε να διαγράψετε τη λήψη του &quot;%s&quot;."/>
 	<string id="20214" value="Σύναψη σύνδεσης λήψης από %s."/>
 	<string id="20215" value="Εγκαινίαση σύνδεσης προς %s θύρα %i για λήψη &quot;%s&quot;..."/>
@@ -2810,7 +2814,7 @@
 	<string id="20225" value="Αλλάξατε το μέγεθος του αρχείου. Είστε σίγουροι;"/>
 	<string id="20226" value="Αδυναμία θεώρησης της λήψης ως ολοκληρωμένης και επαναεπαλήθευσής της, λόγω έλλειψης δεδομένων μερικής επαλήθευσης, όπως tiger-tree volume, ED2K hashset ή BitTorrent hashset. Χωρίς πληροφορία επαλήθευσης, η λήψη δεν μπορεί να επαναεπαληθευθεί."/>
 	<string id="20227" value="Θέλετε σίγουρα να θεωρηθεί αυτή η λήψη ως ολοκληρωμένη και να επαναεπαληθευθεί; Το σύνολο του αρχείου θα σαρωθεί, όσα τμήματα επαληθευθούν θα κρατηθούν και τα υπόλοιπα θα ξαναληφθούν."/>
-	<string id="20228" value="Θέλετε σίγουρα αποΑπολησμόνηση της τρέχουσας κατάστασης επαλήθευσης; Όλα τα ληφθέντα δεδομένα θα αντιμετωπιστούν ως αφερέγγυα και τα cached hashtrees και hashsets θα διαγραφούν!"/>
+	<string id="20228" value="Θέλετε σίγουρα αποΑπολησμόνηση της τρέχουσας κατάστασης επαλήθευσης; Όλα τα ληφθέντα δεδομένα θα αντιμετωπιστούν ως αφερέγγυα και τα cached hashtrees και hashsets θα διαγραφούν."/>
 	<string id="20229" value="Θέλετε σίγουρα αποΑπολησμόνηση όλων των πηγών των επιλεγμένων λήψεων;"/>
 	<string id="20231" value="Αδυναμία διαγραφής της καθορισμένης σειράς από τη λήψη, επειδή δεν περιέχει κανένα τεμάχιο."/>
 	<string id="20232" value="Διαγράφηκαν %I64i bytes από τη λήψη."/>
@@ -2858,7 +2862,7 @@
 	<string id="20290" value="Απάντηση από τον host %s με διαφορετική αλλά χρήσιμη σειρά (%I64i-%I64i) του &quot;%s&quot;."/>
 	<string id="20291" value="Παραλαβή άχρηστης σύνδεσης προώθησης από %s."/>
 	<string id="20292" value="Απόρριψη πηγής %s (%s), λόγω αποστολής φθαρμένων τμημάτων του &quot;%s&quot; (%I64i-%I64i)."/>
-	<string id="20293" value="ΠΡΟΕΙΔΟΠΟΙΗΣΗ: Η λήψη του &quot;%s&quot; απέτυχε να επαληθευτεί. Ίσως δεν είναι το αρχείο που σκοπεύατε να λάβετε!"/>
+	<string id="20293" value="ΠΡΟΕΙΔΟΠΟΙΗΣΗ: Η λήψη του &quot;%s&quot; απέτυχε να επαληθευτεί. Ίσως δεν είναι το αρχείο που σκοπεύατε να λάβετε."/>
 	<string id="20294" value="Επιτυχής επαλήθευση λήψης του &quot;%s&quot;."/>
 	<string id="20295" value="Ματαίωση λήψης από τον host %s, επειδή το δικό του &quot;%s&quot; έχει διαφορετικό URN."/>
 	<string id="20296" value="Εκκρεμότητα με τον host %s, επειδή απάντησε με άχρηστη σειρά bytes του &quot;%s&quot;."/>
@@ -3176,7 +3180,7 @@
 	<string id="20682" value="Η απομακρυσμένη πρόσβαση είναι απενεργοποιημένη."/>
 	<string id="20684" value="http://%s:%i/remote - Πρέπει να διαλέξετε ένα όνομα και έναν κωδικό."/>
 	<string id="20685" value="Αδυναμία υποδοχής συνδέσεων, μη διαθέσιμο URL."/>
-	<string id="20692" value="Θέλετε σίγουρα να διαγράψετε τον φλοιό &quot;%s&quot;. Αυτό δεν μπορεί να αναιρεθεί!"/>
+	<string id="20692" value="Θέλετε σίγουρα να διαγράψετε τον φλοιό &quot;%s&quot;. Αυτό δεν μπορεί να αναιρεθεί."/>
 	<string id="20699" value="&amp;Schemas"/>
 	<string id="20700" value="%s μέσα : %s έξω (D:%I64i/U:%I64i)"/>
 	<string id="20701" value="Ενωμένο σε %lu γείτονες. %s στην τοπική Βιβλιοθήκη."/>
@@ -3227,7 +3231,7 @@
 	<string id="20750" value="!Καλώς ήρθατε στο {version}\n\nΤο PeerProject είναι ένα εντελώς ελεύθερο λογισμικό.\nΠαρακαλώ χρησιμοποιήστε το υπεύθυνα, έχοντας υπόψη τους νόμους πνευματικής ιδιοκτησίας."/>
 	<string id="20751" value="Δεν υπάρχουν ενεργές αναζητήσεις. Κλικ εδώ για να αναζητήσετε αρχεία."/>
 	<string id="20752" value="Δεν είστε ενωμένοι. Κλικ στο κουμπί Σύνδεση για να αρχίσετε."/>
-	<string id="20755" value="Θέλετε σίγουρα να διαγράψετε το πρότυπο &quot;%s&quot;.nΑυτό δεν μπορεί να αναιρεθεί!"/>
+	<string id="20755" value="Θέλετε σίγουρα να διαγράψετε το πρότυπο &quot;%s&quot;.nΑυτό δεν μπορεί να αναιρεθεί."/>
 	<string id="20760" value="προτεραιότητα"/>
 	<string id="20762" value="Αυτό το αρχείο φαίνετε να είναι βρόμα."/>
 	<string id="20763" value="Μαύρη λίστα:"/>
@@ -3439,7 +3443,7 @@
 		<control caption="_Αφαίρεση"/>
 		<control caption="Πρόσθετο (plugin) _Ηχητικής Απεικόνισης:"/>
 		<control caption="_Επιλογή..."/>
-		<control caption="Προειδοποίηση: Η επιλογή εξωτερικού Χειρισμού Πολυμέσων αυτομάτως θα απενεργοποιήσει όλα τα Πρόσθετα (plugins) Πολυμέσων και Απεικόνισης!"/>
+		<control caption="Προειδοποίηση: Η επιλογή εξωτερικού Χειρισμού Πολυμέσων αυτομάτως θα απενεργοποιήσει όλα τα Πρόσθετα (plugins) Πολυμέσων και Απεικόνισης."/>
 	</dialog>
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Κοινότητα">
 		<control caption="_Προφίλ:"/>
@@ -3509,7 +3513,7 @@
 		<control/>
 		<control caption="_Προσθήκη"/>
 		<control caption="_Αφαίρεση"/>
-		<control caption="Το πρόσθετο (plugin) διαχείρισης λήψεων θα επιχειρεί να λάβει τύπους αρχείων αυτής της λίστας. Ο χειρισμός των υπόλοιπων τύπων παραμένει στο πρόγραμμα περιήγησής σας. Για να διαχειρίζεται τις λήψεις, το PeerProject πρέπει να είναι ανοιγμένο!"/>
+		<control caption="Το πρόσθετο (plugin) διαχείρισης λήψεων θα επιχειρεί να λάβει τύπους αρχείων αυτής της λίστας. Ο χειρισμός των υπόλοιπων τύπων παραμένει στο πρόγραμμα περιήγησής σας. Για να διαχειρίζεται τις λήψεις, το PeerProject πρέπει να είναι ανοιγμένο."/>
 	</dialog>
 	<dialog name="CConnectionSettingsPage" cookie="BuStCoStCoStEdBuBuBuStCoStCoBuStCoBuBuBuStEdmsStEdms" caption="Σύνδεση">
 		<control caption="Ει_σερχόμενη Διεύθυνση:"/>
@@ -3874,7 +3878,7 @@
 		<control caption="Απλοποιημένη Μορφή"/>
 		<control caption="Ενισχυμένη Μορφή"/>
 		<control caption="Απλά, εύχρηστα μενού και κουμπιά.{n}Οικείο σε χρήστες άλλων προγραμμάτων ανταλλαγής αρχείων."/>
-		<control caption="Η ενισχυμένη μορφή προσφέρει στους εξειδικευμένους χρήστες πολλές επιπλεόν εντολές, παράθυρα κτλ. Ίσως σαστίσει τους νέους χρήστες!"/>
+		<control caption="Η ενισχυμένη μορφή προσφέρει στους εξειδικευμένους χρήστες πολλές επιπλεόν εντολές, παράθυρα κτλ. Ίσως σαστίσει τους νέους χρήστες."/>
 		<control caption="Εμφάνιση απλοποιημένης μπάρας προόδου λήψης."/>
 		<control caption=""/>
 	</dialog>
@@ -4339,16 +4343,16 @@
 		<control caption="Το PeerProject ΔΕΝ περιέχει ΚΑΘΟΛΟΥ &quot;spyware&quot;, &quot;adware&quot; και γενικά κακόβουλο λογισμικό. ΔΕΝ δείχνει ποτέ διαφημίσεις ή &quot;popups&quot;.{n}{n}Αν ποτέ δείτε διαφημίσεις ή &quot;popups&quot; καθώς χρησιμοποιείτε το PeerProject, να είστε βέβαιοι ότι ΔΕΝ προέρχονται από αυτό."/>
 		<control caption="Δυστυχώς, πολλά άλλα προγράμματα συνοδεύονται από ανεπιθύμητα adware ή spyware, έτσι, αν δείτε κάτι ύποπτο, ελέγξτε τον υπολογιστή σας με ένα πρόγραμμα αφαίρεσης κακόβουλου λογισμικού."/>
 		<control caption="Δεν πρέπει να έχετε πληρώσει χρήματα για να αποκτήσετε το PeerProject, αφού μπορεί να ληφθεί ελεύθερα από οποιονδήποτε από τον ιστοχώρο http://PeerProject.sourceforge.net/. Αν πληρώσατε χρήματα για το PeerProject, θα πρέπει να ζητήσετε άμεση και πλήρη επιστροφή χρημάτων."/>
-		<control caption="Το PeerProject σέβεται τους χρήστες του!"/>
+		<control caption="Το PeerProject σέβεται τους χρήστες του."/>
 		<control caption="http://peerproject.org/"/>
 		<control caption="Κλείσιμο"/>
 	</dialog>
 	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Διαδόστε το">
 		<control caption="Βοηθήστε μας στη Διάδοσή του"/>
 		<control caption="Ελπίζουμε να απολαμβάνετε τη χρήση του PeerProject. Πιστεύουμε ότι αποτελεί το καλύτερο πρόγραμμα ανταλλαγής αρχείων."/>
-		<control caption="Δυστυχώς, πολλοί χρήστες δεν ξέρουν τι χάνουν!"/>
+		<control caption="Δυστυχώς, πολλοί χρήστες δεν ξέρουν τι χάνουν."/>
 		<control caption="Αν ξέρετε κάποιον που θα του άρεσε το PeerProject, είτε είναι νέος χρήστης, είτε κάποιος που ακόμα παιδεύεται με ένα κατώτερο προϊόν, γιατί να μην τον ενημερώσετε ότι υπάρχει μια καλύτερη εναλλακτική;"/>
-		<control caption="Πιθανόν να σας ευγνωμονεί που τον σώσατε!"/>
+		<control caption="Πιθανόν να σας ευγνωμονεί που τον σώσατε."/>
 		<control caption="http://peerproject.org/"/>
 		<control caption="OK"/>
 	</dialog>

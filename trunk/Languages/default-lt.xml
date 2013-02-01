@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Lithuanian Skin File -->
 
-<!-- Translation based on default-en.xml r88 -->
+<!-- Translation based on default-en.xml r90 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -580,6 +580,7 @@
 			<item id="ID_HELP_GUIDE" text="„PeerProject“ naudotojo vadovas"/>
 			<item id="ID_HELP_FORUMS" text="„PeerProject“ forumai"/>
 			<item id="ID_HELP_FORUMS_LOCAL" text="Lietuvių forumai"/>
+<!--
 			<menu text="SkinVista žinynas">
 				<menu text="Jei meniu juosta rodoma neteisingai --"/>
 				<menu text="Pasirinkite meniu: Langas: Rodyti naršymo juostą"/>
@@ -592,8 +593,8 @@
 				<item id="ID_HELP_WEB_3" text="Slyck.com"/>
 				<item id="ID_HELP_WEB_1" text="ZeroPaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
-				<item id="ID_HELP_WEB_6" text="DeviantArt.com Skins"/>
 			</menu>
+-->
 			<item id="ID_HELP_HOMEPAGE" text="PeerProject.org"/>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="Apie „PeerProject“..."/>
@@ -2682,7 +2683,7 @@
 	<string id="20081" value="&amp;Užverti"/>
 	<string id="20082" value="Baigta, paspauskite „Užverti“"/>
 	<string id="20083" value="Užklausiama..."/>
-	<string id="20084" value="Sėkmė!"/>
+	<string id="20084" value="Sėkmė."/>
 	<string id="20100" value="Nutraukiamas ryšys su peržiūrimuoju adresatu %s."/>
 	<string id="20101" value="Nusiuntus peržiūros užklausą, adresatas %s atsiuntė neatpažįstamą atsakymą ir galbūt nepalaiko naudotojo/adresato duomenų peržiūros."/>
 	<string id="20102" value="Neįmanoma susisiekti su adresatu naudotojo duomenims peržiūrėti."/>
@@ -2852,7 +2853,7 @@
 	<string id="20290" value="Adresatas %s atsiuntė kitą, bet naudingą atkarpą (%I64i-%I64i), priklausiančią failui „%s“."/>
 	<string id="20291" value="Gauta nereikalinga įstūmiančiojo susijungimo užklausa iš %s."/>
 	<string id="20292" value="Šaltinis %s (%s) atmetamas, nes siunčia sugadintas failo „%s“ dalis (%I64i-%I64i)."/>
-	<string id="20293" value="ĮSPĖJIMAS: Parsisiunčiamo failo „%s“ patikra nesėkminga - gali būti, kad tai nėra tas failas, kurį Jūs norėjote parsisiųsti!"/>
+	<string id="20293" value="ĮSPĖJIMAS: Parsisiunčiamo failo „%s“ patikra nesėkminga - gali būti, kad tai nėra tas failas, kurį Jūs norėjote parsisiųsti."/>
 	<string id="20294" value="Parsisiunčiamo failo „%s“ patikra sėkminga."/>
 	<string id="20295" value="Parsisiunčiant atrasta, jog adresato %s „%s“ versija turi kitokį URN, procedūra nutraukiama."/>
 	<string id="20296" value="Parsisiunčiant adresatas %s atsiuntė beprasmį „%s“ baitų rinkinį, laukiama sprendimo."/>
@@ -3437,7 +3438,7 @@
 		<control caption="Š_alinti"/>
 		<control caption="Muzikos _vaizdo papildinys:"/>
 		<control caption="Pasirinkti _papildinį..."/>
-		<control caption="Įspėjimas: Pasirinkus išorinę grotuvo programą, bus atjungti medija ir muzikos vaizdo papildiniai!"/>
+		<control caption="Įspėjimas: Pasirinkus išorinę grotuvo programą, bus atjungti medija ir muzikos vaizdo papildiniai."/>
 	</dialog>
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Bendrija">
 		<control caption="Mano _profilis:"/>
@@ -3795,7 +3796,7 @@
 		<control caption="Atlyginti siuntėjus"/>
 	</dialog>
 	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="Sveiki! Čia „PeerProject“ (1/8)">
-		<control caption="Sveiki! Čia „PeerProject“!"/>
+		<control caption="Sveiki! Čia „PeerProject“."/>
 		<control caption="Jei Jūs iki šiol nesate nuodojęsi „PeerProject“ ar kita P2P programa, šis Nuostatų vedlys Jums padės sukonfigūruoti programą per kelis paprastus žingsnius."/>
 		<control caption="Jei esate labiau patyręs naudotojas, Jūs galite pasiekti visas „PeerProject“ parinktis per meniu „Įrankiai“. Paspauskite „Išeiti“, jei norėsite bet kada uždaryti šį vedlį."/>
 		<control caption="Šis vedlys Jums padės:"/>
@@ -3872,7 +3873,7 @@
 		<control caption="Įprastinė veiksena"/>
 		<control caption="Eksperto veiksena"/>
 		<control caption="Paprasta, lengva naudotis meniu ir mygtukais.{n}Naudotojams pažįstama iš daugelio kitų failų dalinimosi programų."/>
-		<control caption="Eksperto veiksena siūlo patyrusiems naudotojams daug papildomų komandų, langų ir t.t. Naujokus gali šiek tiek klaidinti!"/>
+		<control caption="Eksperto veiksena siūlo patyrusiems naudotojams daug papildomų komandų, langų ir t.t. Naujokus gali šiek tiek klaidinti."/>
 		<control caption="Rodyti supaprastintas eigos juostas."/>
 		<control caption=""/>
 	</dialog>
@@ -4337,16 +4338,16 @@
 		<control caption="„PeerProject“ NETURI JOKIŲ šnipinėjimo programų, reklaminių priedų ar kitokios kartu supakuotos programinės įrangos. Ji NIEKADA nerodo jokių reklamų ir joje nėra „iššokinėjančių“ langų.{n}Jei Jūs kada nors pamatysite reklamą ar „iššokinėjančius“ langus besinaudodami „PeerProject“, būkite tikri - jie ne iš šios programos."/>
 		<control caption="Deja, daug kitų programinių produktų įdiegia kartu nepageidaujamus šnipinėjimo ar reklaminius priedus, todėl, jei pamatysite ką nors įtartino, patikrinkite savo kompiuterį kokia nors šių priedų pašalinimo programa."/>
 		<control caption="Jums nereikėjo sumokėti jokių pinigų, įsigyjant „PeerProject“. „PeerProject“ gali parsisiųsti kiekvienas iš http://peerproject.org/. Jei Jūs kam nors sumokėjote pinigus už „PeerProject“, Jus turėtumėte tuoj pat pareikalauti grąžinti juos."/>
-		<control caption="„PeerProject“ gerbia savo naudotojus!"/>
+		<control caption="„PeerProject“ gerbia savo naudotojus."/>
 		<control caption="http://PeerProject.org"/>
 		<control caption="Užverti"/>
 	</dialog>
 	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Pliskime Pasaulyje">
 		<control caption="Padėkite plisti Pasaulyje"/>
 		<control caption="Mes viliamės, jog Jums ligi šiol buvo malonu naudotis „PeerProject“. Mes tikime, jog tai pati geriausia Jūsų sutikta failų apsikeitimo programa."/>
-		<control caption="Deja, dauguma naudotojų, besidalijančių failais, nežino, ką jie praranda!"/>
+		<control caption="Deja, dauguma naudotojų, besidalijančių failais, nežino, ką jie praranda."/>
 		<control caption="Jei Jūs pažįstate ką nors, kam patiktų „PeerProject“, nesvarbu, ar jie - naujokai, ar taikstosi menkesniais produktais, tai kodėl jiems neduoti susipažinti su geresne alternatyva?"/>
-		<control caption="Tikimybė yra didelė, kad jie dėkos Jums už tai, kad juos išgelbėjote!"/>
+		<control caption="Tikimybė yra didelė, kad jie dėkos Jums už tai, kad juos išgelbėjote."/>
 		<control caption="http://PeerProject.org"/>
 		<control caption="Gerai"/>
 	</dialog>

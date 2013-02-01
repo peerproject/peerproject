@@ -388,11 +388,8 @@ BOOL CLibraryAlbumView::DeselectAll(CLibraryAlbumTrack* pTrack)
 
 	for ( int nItem = m_nCount ; nItem ; nItem--, pList-- )
 	{
-		if ( *pList != pTrack )
-		{
-			if ( (*pList)->m_bSelected )
-				bChanged = Select( *pList, TRI_FALSE );
-		}
+		if ( *pList != pTrack && (*pList)->m_bSelected )
+			bChanged = Select( *pList, TRI_FALSE );
 	}
 
 	return bChanged;
@@ -406,8 +403,8 @@ BOOL CLibraryAlbumView::SelectTo(CLibraryAlbumTrack* pTrack)
 	{
 		m_pFocus = pTrack;
 
-		int nFirst	= GetTrackIndex( m_pFirst );
-		int nFocus	= GetTrackIndex( m_pFocus );
+		int nFirst = GetTrackIndex( m_pFirst );
+		int nFocus = GetTrackIndex( m_pFocus );
 
 		if ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 )
 		{
@@ -508,7 +505,7 @@ void CLibraryAlbumView::UpdateScroll()
 	GetClientRect( &rc );
 
 	SCROLLINFO pInfo = {};
-	pInfo.cbSize	= sizeof(pInfo);
+	pInfo.cbSize	= sizeof( pInfo );
 	pInfo.fMask		= SIF_ALL & ~SIF_TRACKPOS;
 	pInfo.nMin		= 0;
 	pInfo.nMax		= m_nCount * m_szTrack.cy;
@@ -547,7 +544,7 @@ void CLibraryAlbumView::OnVScroll(UINT nSBCode, UINT /*nPos*/, CScrollBar* /*pSc
 	case SB_THUMBPOSITION:
 	case SB_THUMBTRACK:
 		{
-			SCROLLINFO pScroll = { sizeof(SCROLLINFO), SIF_TRACKPOS };
+			SCROLLINFO pScroll = { sizeof( SCROLLINFO ), SIF_TRACKPOS };
 			GetScrollInfo( SB_VERT, &pScroll );
 			ScrollTo( pScroll.nTrackPos );
 		}
@@ -860,7 +857,7 @@ void CLibraryAlbumView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	default:
 		if ( ! bShift && ! bControl && _istalnum( TCHAR( nChar ) ) )
 		{
-			CLibraryAlbumTrack* pStart	= m_pFocus;
+			CLibraryAlbumTrack* pStart = m_pFocus;
 
 			for ( int nLoop = 0 ; nLoop < 2 ; nLoop++ )
 			{

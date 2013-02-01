@@ -29,7 +29,7 @@ public:
 		: m_bCompleted	( false )
 		, m_bThread 	( false )
 		, m_hThread 	( NULL )
-//		, m_pCancel		( FALSE, TRUE )
+	//	, m_pCancel		( FALSE, TRUE )
 	{
 	}
 	virtual ~CThreadImpl()
@@ -65,7 +65,7 @@ public:
 		if ( ! IsThreadAlive() )
 		{
 			m_bCompleted = false;		// Reset complete status
-//			m_pCancel.ResetEvent();		// Enable thread run
+	//		m_pCancel.ResetEvent();		// Enable thread run
 			m_bThread = true;			// Enable thread run
 			m_hThread = ::BeginThread( szName, ThreadStart, this, nPriority );
 		}
@@ -96,7 +96,7 @@ public:
 		{
 			SafeMessageLoop();
 		}
-		while( MsgWaitForMultipleObjects( 1, &m_pWakeup.m_hObject, FALSE, dwTimeout, QS_ALLINPUT | QS_ALLPOSTMESSAGE ) == WAIT_OBJECT_0 + 1 );
+		while ( MsgWaitForMultipleObjects( 1, &m_pWakeup.m_hObject, FALSE, dwTimeout, QS_ALLINPUT | QS_ALLPOSTMESSAGE ) == WAIT_OBJECT_0 + 1 );
 	}
 
 	inline HANDLE GetWakeupEvent() const throw()
@@ -112,7 +112,7 @@ public:
 	inline bool IsThreadEnabled() const throw()		// DWORD dwTimeout = 0
 	{
 		return m_bThread;
-//		return ( WaitForSingleObject( m_pCancel, dwTimeout ) == WAIT_TIMEOUT );
+	//	return ( WaitForSingleObject( m_pCancel, dwTimeout ) == WAIT_TIMEOUT );
 	}
 
 	inline bool IsThreadAlive() const throw()
@@ -123,7 +123,7 @@ public:
 	inline void Exit() throw()
 	{
 		m_bThread = false;
-//		m_pCancel.SetEvent();
+	//	m_pCancel.SetEvent();
 	}
 
 	inline bool SetThreadPriority(int nPriority) throw()

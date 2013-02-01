@@ -66,8 +66,8 @@ CDatagrams::CDatagrams()
 	, m_nOutFrags	( 0 )
 	, m_nOutPackets	( 0 )
 {
-	ZeroMemory( &m_mInput, sizeof(m_mInput) );
-	ZeroMemory( &m_mOutput, sizeof(m_mOutput) );
+	ZeroMemory( &m_mInput, sizeof( m_mInput ) );
+	ZeroMemory( &m_mOutput, sizeof( m_mOutput ) );
 }
 
 CDatagrams::~CDatagrams()
@@ -115,7 +115,7 @@ BOOL CDatagrams::Listen()
 			saHost.sin_addr.S_un.S_addr = 0;
 	}
 
-	if ( bind( m_hSocket, (SOCKADDR*)&saHost, sizeof(saHost) ) == 0 )
+	if ( bind( m_hSocket, (SOCKADDR*)&saHost, sizeof( saHost ) ) == 0 )
 		theApp.Message( MSG_INFO, IDS_NETWORK_LISTENING_UDP, (LPCTSTR)CString( inet_ntoa( saHost.sin_addr ) ), htons( saHost.sin_port ) );
 
 	// Multi-cast ports:
@@ -162,16 +162,16 @@ BOOL CDatagrams::Listen()
 		pDGO->m_pNextHash = ( nPos == 1 ) ? NULL : ( pDGO + 1 );
 	}
 
-	ZeroMemory( m_pInputHash,  sizeof(CDatagramIn*) * HASH_SIZE );
-	ZeroMemory( m_pOutputHash, sizeof(CDatagramIn*) * HASH_SIZE );
+	ZeroMemory( m_pInputHash,  sizeof( CDatagramIn* ) * HASH_SIZE );
+	ZeroMemory( m_pOutputHash, sizeof( CDatagramIn* ) * HASH_SIZE );
 
-	m_pInputFirst	= m_pInputLast	= NULL;
-	m_pOutputFirst	= m_pOutputLast	= NULL;
+	m_pInputFirst  = m_pInputLast  = NULL;
+	m_pOutputFirst = m_pOutputLast = NULL;
 
 	m_tLastWrite = 0;
 
-	m_nInFrags	= m_nInPackets = 0;
-	m_nOutFrags	= m_nOutPackets = 0;
+	m_nInFrags  = m_nInPackets  = 0;
+	m_nOutFrags = m_nOutPackets = 0;
 
 	DHT.Connect();
 
@@ -192,19 +192,19 @@ void CDatagrams::Disconnect()
 	delete [] m_pOutputBuffer;
 	m_pOutputBuffer	= NULL;
 	m_nOutputBuffer	= 0;
-	m_pOutputFirst	= m_pOutputLast	= m_pOutputFree	= NULL;
+	m_pOutputFirst	= m_pOutputLast = m_pOutputFree = NULL;
 
 	delete [] m_pInputBuffer;
 	m_pInputBuffer	= NULL;
 	m_nInputBuffer	= 0;
-	m_pInputFirst	= m_pInputLast	= m_pInputFree	= NULL;
+	m_pInputFirst	= m_pInputLast = m_pInputFree = NULL;
 
 	delete [] m_pBufferBuffer;
-	m_pBufferBuffer = NULL;
-	m_nBufferBuffer = 0;
+	m_pBufferBuffer	= NULL;
+	m_nBufferBuffer	= 0;
 
-	m_nInBandwidth	= m_nInFrags	= m_nInPackets	= 0;
-	m_nOutBandwidth	= m_nOutFrags	= m_nOutPackets	= 0;
+	m_nInBandwidth	= m_nInFrags  = m_nInPackets  = 0;
+	m_nOutBandwidth	= m_nOutFrags = m_nOutPackets = 0;
 	m_bStable = FALSE;
 }
 
@@ -404,8 +404,8 @@ void CDatagrams::Measure()
 		pOutHistory++, pOutTime++;
 	}
 
-	m_nInBandwidth	= m_mInput.nMeasure  = nInput  * 1000 / METER_PERIOD;
-	m_nOutBandwidth	= m_mOutput.nMeasure = nOutput * 1000 / METER_PERIOD;
+	m_nInBandwidth  = m_mInput.nMeasure  = nInput  * 1000 / METER_PERIOD;
+	m_nOutBandwidth = m_mOutput.nMeasure = nOutput * 1000 / METER_PERIOD;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -625,10 +625,10 @@ BOOL CDatagrams::OnDatagram(const SOCKADDR_IN* pHost, const BYTE* pBuffer, DWORD
 	BOOL bHandled = FALSE;
 
 	// Detect Gnutella 1 packets
-	if ( nLength >= sizeof(GNUTELLAPACKET) )
+	if ( nLength >= sizeof( GNUTELLAPACKET ) )
 	{
 		const GNUTELLAPACKET* pG1UDP = (const GNUTELLAPACKET*)pBuffer;
-		if ( ( sizeof(GNUTELLAPACKET) + pG1UDP->m_nLength ) == nLength )
+		if ( ( sizeof( GNUTELLAPACKET ) + pG1UDP->m_nLength ) == nLength )
 		{
 			if ( CG1Packet* pPacket = CG1Packet::New( pG1UDP ) )
 			{
@@ -652,16 +652,16 @@ BOOL CDatagrams::OnDatagram(const SOCKADDR_IN* pHost, const BYTE* pBuffer, DWORD
 	}
 
 	// Detect Gnutella 2 packets
-	if ( nLength >= sizeof(SGP_HEADER) )
+	if ( nLength >= sizeof( SGP_HEADER ) )
 	{
 		const SGP_HEADER* pSGP = (const SGP_HEADER*)pBuffer;
 		if ( ( *(DWORD*)pSGP->szTag & 0x00ffffff ) == ( *(DWORD*)SGP_TAG_2 & 0x00ffffff ) &&
 			pSGP->nPart && ( ! pSGP->nCount || pSGP->nPart <= pSGP->nCount ) )
 		{
 			if ( pSGP->nCount )
-				bHandled = OnReceiveSGP( pHost, pSGP, nLength - sizeof(SGP_HEADER) );
+				bHandled = OnReceiveSGP( pHost, pSGP, nLength - sizeof( SGP_HEADER ) );
 			else
-				bHandled = OnAcknowledgeSGP( pHost, pSGP, nLength - sizeof(SGP_HEADER) );
+				bHandled = OnAcknowledgeSGP( pHost, pSGP, nLength - sizeof( SGP_HEADER ) );
 
 			if ( bHandled )
 				return TRUE;
@@ -669,7 +669,7 @@ BOOL CDatagrams::OnDatagram(const SOCKADDR_IN* pHost, const BYTE* pBuffer, DWORD
 	}
 
 	// Detect ED2K and KAD packets
-	if ( nLength > sizeof(ED2K_UDP_HEADER) )
+	if ( nLength > sizeof( ED2K_UDP_HEADER ) )
 	{
 		const ED2K_UDP_HEADER* pMULE = (const ED2K_UDP_HEADER*)pBuffer;
 		switch ( pMULE->nProtocol )
@@ -789,7 +789,7 @@ BOOL CDatagrams::OnReceiveSGP(const SOCKADDR_IN* pHost, const SGP_HEADER* pHeade
 		pAck.nPart		= pHeader->nPart;
 		pAck.nCount		= 0;
 
-		CNetwork::SendTo( m_hSocket, (LPCSTR)&pAck, sizeof(pAck), pHost );
+		CNetwork::SendTo( m_hSocket, (LPCSTR)&pAck, sizeof( pAck ), pHost );
 	}
 
 	BYTE nHash	= BYTE( ( pHost->sin_addr.S_un.S_un_b.s_b1

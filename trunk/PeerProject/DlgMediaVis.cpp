@@ -88,8 +88,7 @@ BOOL CMediaVisDlg::OnInitDialog()
 	m_wndList.InsertColumn( 1, _T("CLSID"), LVCFMT_LEFT, 0, 0 );
 	m_wndList.InsertColumn( 2, _T("Subpath"), LVCFMT_LEFT, 0, 1 );
 
-	m_wndList.SendMessage( LVM_SETEXTENDEDLISTVIEWSTYLE,
-		LVS_EX_FULLROWSELECT, LVS_EX_FULLROWSELECT );
+	m_wndList.SetExtendedStyle( LVS_EX_FULLROWSELECT );
 
 	m_nIcon = CoolInterface.ImageForID( ID_MEDIA_VIS );
 	m_hIcon = CoolInterface.ExtractIcon( ID_MEDIA_VIS, FALSE );
@@ -119,13 +118,13 @@ void CMediaVisDlg::Enumerate()
 
 	for ( DWORD nKey = 0 ; ; nKey++ )
 	{
-		DWORD dwType, dwName = 256, dwCLSID = 64 * sizeof(TCHAR);
+		DWORD dwType, dwName = 256, dwCLSID = 64 * sizeof( TCHAR );
 		TCHAR szName[256], szCLSID[64];
 
 		if ( RegEnumValue( hKey, nKey, szName, &dwName, NULL, &dwType, (LPBYTE)szCLSID, &dwCLSID )
 			 != ERROR_SUCCESS ) break;
 
-		if ( dwType != REG_SZ || dwCLSID / sizeof(TCHAR) != 39 || szCLSID[0] != '{' || szName[0] == '{' ) continue;
+		if ( dwType != REG_SZ || dwCLSID / sizeof( TCHAR ) != 39 || szCLSID[0] != '{' || szName[0] == '{' ) continue;
 		szCLSID[ 38 ] = 0;
 
 		CLSID pCLSID;

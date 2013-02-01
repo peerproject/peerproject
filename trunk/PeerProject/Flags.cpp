@@ -117,7 +117,7 @@ void CFlags::AddFlag(CImageFile* pImage, CRect* pRect, COLORREF crBack)
 	bmMoved.CreateCompatibleBitmap( pDC, IMAGELIST_FLAG_WIDTH, IMAGELIST_FLAG_HEIGHT );	// Destination bitmap
 
 	BITMAPINFOHEADER pInfo = {};
-	pInfo.biSize		= sizeof(BITMAPINFOHEADER);
+	pInfo.biSize		= sizeof( BITMAPINFOHEADER );
 	pInfo.biWidth		= SOURCE_FLAG_WIDTH;
 	pInfo.biHeight		= SOURCE_FLAG_HEIGHT;
 	pInfo.biPlanes		= 1;
@@ -171,7 +171,7 @@ int CFlags::GetFlagIndex(const CString& sCountry) const
 {
 	if ( sCountry.GetLength() == 2 )
 	{
-		char nFirstLetter = (char)( sCountry[0] - 'A' );
+		char nFirstLetter  = (char)( sCountry[0] - 'A' );
 		char nSecondLetter = (char)( sCountry[1] - 'A' );
 		// Currently only the letters A-Z are in the flag matrix
 		// but GeoIP can also return some combinations that aren't all letters (A1, A2, etc.)

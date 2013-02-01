@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Italian Skin File -->
 
-<!-- Translation based on default-en.xml r88 -->
+<!-- Translation based on default-en.xml r90 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -580,16 +580,17 @@
 				<item id="ID_HELP_GUIDE" text="Guida di PeerProject"/>
 				<item id="ID_HELP_FORUMS" text="Forums di PeerProject"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_Forum di Italiano"/>
+			<!--
 				<menu text="Aiuto di SkinVista">
 					<menu text="Reload GUI: Cntrl+Shift+Z"></menu>
 				</menu>
 				<separator/>
 				<menu text="_Websites">
-				<item id="ID_HELP_WEB_3" text="Slyck.com"/>
-				<item id="ID_HELP_WEB_1" text="ZeroPaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
-				<item id="ID_HELP_WEB_6" text="DeviantArt.com Skins"/>
+					<item id="ID_HELP_WEB_3" text="Slyck.com"/>
+					<item id="ID_HELP_WEB_1" text="ZeroPaid.com"/>
+					<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
 				</menu>
+			-->
 				<item id="ID_HELP_HOMEPAGE" text="PeerProject.org"/>
 				<separator/>
 				<item id="ID_HELP_ABOUT" text="Informazioni su PeerProject..."/>
@@ -621,6 +622,7 @@
 			<item id="ID_TAB_SEARCH" text="Cerca"/>
 			<item id="ID_TAB_TRANSFERS" text="Trasferimenti"/>
 			<item id="ID_TAB_NETWORK" text="Rete"/>
+			<item id="ID_TAB_IRC" text="_IRC"/>
 			<separator/>
 			<item id="ID_VIEW_SECURITY" text="Sicurezza"/>
 			<item id="ID_VIEW_HOSTS" text="Cache host"/>
@@ -2677,7 +2679,7 @@
 	<string id="20081" value="&amp;Chiudi"/>
 	<string id="20082" value="Finito, clicca Chiudi"/>
 	<string id="20083" value="Richiesta in corso..."/>
-	<string id="20084" value="Successo!"/>
+	<string id="20084" value="Successo."/>
 	<string id="20100" value="Chiusura della connessione per l'esame dell'host %s."/>
 	<string id="20101" value="L'esame dell'host %s ha replicato con una risposta non riconoscibile, potrebbe non supportare l'esplorazione dell'utente/host."/>
 	<string id="20102" value="Impossibile connettersi all'host per esaminare i file."/>
@@ -2848,7 +2850,7 @@
 	<string id="20290" value="L'host di download %s ha risposto con un differente, ma utile range (%I64i-%I64i) di &quot;%s&quot;."/>
 	<string id="20291" value="GIV sconosciuto da %s ricevuto."/>
 	<string id="20292" value="Risorsa %s (%s) per l'invio di parti corrotte di &quot;%s&quot; (%I64i-%I64i) bloccata."/>
-	<string id="20293" value="ATTENZIONE: Verifica fallita per il download di &quot;%s&quot;, potrebbe non essere il file che volevi scaricare!"/>
+	<string id="20293" value="ATTENZIONE: Verifica fallita per il download di &quot;%s&quot;, potrebbe non essere il file che volevi scaricare."/>
 	<string id="20294" value="Download di &quot;%s&quot; verificato con successo."/>
 	<string id="20295" value="L'host di download %s's versione di &quot;%s&quot; ha un differente SHA1, azione annullata."/>
 	<string id="20296" value="L'host di download %s ha risposto con un inutilizzabile byte range di &quot;%s&quot;, in attesa."/>
@@ -2955,7 +2957,7 @@
 	<string id="20403" value="Canali"/>
 	<string id="20404" value="Invia:"/>
 	<string id="20405" value="Per favore rispetta gli altri quando usi questo servizio"/>
-	<string id="20406" value="Benvenuto sulla Chat IRC di PeerProject!"/>
+	<string id="20406" value="Benvenuto sulla Chat IRC di PeerProject."/>
 	<string id="20407" value="Rimuovi"/>
 	<string id="20408" value="Utenti"/>
 	<string id="20410" value="Libreria di PeerProject"/>
@@ -3797,7 +3799,7 @@
 		<control caption="Ricompensa gli uploader"/>
 	</dialog>
 	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="Benvenuto su PeerProject (1/8)">
-		<control caption="Benvenuto su PeerProject!"/>
+		<control caption="Benvenuto su PeerProject."/>
 		<control caption="Se non hai usato PeerProject o un altro client P2P prima d'ora, questa configurazione guidata ti aiuterà a configurare la tua copia in pochi semplici passi."/>
 		<control caption="Se sei un utente molto esperto, puoi accedere a tutte le opzioni di PeerProject tramite il menu Strumenti. Clicca su Esci per chiudere la configurazione guidata in qualsiasi momento."/>
 		<control caption="Questa configurazione guidata ti aiuterà a:"/>
@@ -3874,7 +3876,7 @@
 		<control caption="Modalità normale"/>
 		<control caption="Modalità avanzata"/>
 		<control caption="Semplice con menu e pulsanti facili da usare.{n}Familiare agli utenti di altri programmi di condivisione file."/>
-		<control caption="La modalità avanzata offre agli utenti esperti comandi extra, finestre, ecc.{n}Può confondere i nuovi utenti!"/>
+		<control caption="La modalità avanzata offre agli utenti esperti comandi extra, finestre, ecc.{n}Può confondere i nuovi utenti."/>
 		<control caption="Visualizza le barre dei progressi semplificate."/>
 		<control caption="Prova a mescolare diverse skins."/>
 	</dialog>
@@ -4340,14 +4342,14 @@
 		<control caption="PeerProject NON contiene nessun &quot;spyware&quot;, &quot;adware&quot; o altro software aggiuntivo. NON mostra mai messaggi pubblicitari o &quot;popup&quot;.{n}{n}Se dovessi vedere messaggi pubblicitari o &quot;popup&quot; mentre usi PeerProject, sicuramente NON provengono da questo programma."/>
 		<control caption="Sfortunatamente molti software contengono adware o spyware, di modo che l'utente diventa sospettoso e desidera verificare se il suo PC contiene software aggiuntivi con un programma di rimozione."/>
 		<control caption="Non dovete pagare nulla per scaricare PeerProject. PeerProject può essere scaricato da http://peerproject.org/. Se pagate a qualcuno per PeerProject, potete richiedere un pieno rimborso di quanto pagato."/>
-		<control caption="PeerProject rispetta i suoi utenti!"/>
+		<control caption="PeerProject rispetta i suoi utenti."/>
 		<control caption="http://PeerProject.org"/>
 		<control caption="Chiudi"/>
 	</dialog>
 	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Diffondilo nel mondo">
 		<control caption="Aiutaci a diffonderlo nel mondo"/>
 		<control caption="Spero che abbiate gradito PeerProject. Crediamo che sia la migliore applicazione esistente per la condivisione dei file."/>
-		<control caption="Sfortunatamente molti utenti non lo conoscono!"/>
+		<control caption="Sfortunatamente molti utenti non lo conoscono."/>
 		<control caption="Se conosci qualcuno a cui piace o un utente che utilizza un programma di qualità inferiore, perchè non dargli un'alternativa?"/>
 		<control caption="Ti ringrazierà del consiglio"/>
 		<control caption="http://PeerProject.org"/>

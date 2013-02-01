@@ -337,14 +337,14 @@ public:
 	inline void WriteShortLE(WORD nValue)
 	{
 		// Make sure there is room for the 2 bytes
-		if ( m_nLength + sizeof(nValue) > m_nBuffer )
+		if ( m_nLength + sizeof( nValue ) > m_nBuffer )
 		{
 			if ( ! Ensure( sizeof( nValue ) ) ) return;
 		}
 
 		// Write the two bytes as a word at the end of the packet, and record that it is there
 		*(WORD*)( m_pBuffer + m_nLength ) = nValue;
-		m_nLength += sizeof(nValue);
+		m_nLength += sizeof( nValue );
 	}
 
 	// Takes 2 bytes in a word
@@ -352,14 +352,14 @@ public:
 	inline void WriteShortBE(WORD nValue)
 	{
 		// Make sure there is room for the 2 bytes
-		if ( m_nLength + sizeof(nValue) > m_nBuffer )
+		if ( m_nLength + sizeof( nValue ) > m_nBuffer )
 		{
 			if ( ! Ensure( sizeof( nValue ) ) ) return;
 		}
 
 		// Write the 2 bytes as a word at the end of the packet, and record that it is there
 		*(WORD*)( m_pBuffer + m_nLength ) = m_bBigEndian ? swapEndianess( nValue ) : nValue; // Reverse their order if necessary
-		m_nLength += sizeof(nValue);
+		m_nLength += sizeof( nValue );
 	}
 
 	// Takes 4 bytes in a DWORD
@@ -367,14 +367,14 @@ public:
 	inline void WriteLongLE(DWORD nValue)
 	{
 		// Make sure there is room for the 4 bytes
-		if ( m_nLength + sizeof(nValue) > m_nBuffer )
+		if ( m_nLength + sizeof( nValue ) > m_nBuffer )
 		{
 			if ( ! Ensure( sizeof( nValue ) ) ) return;
 		}
 
 		// Write the 4 bytes as a DWORD at the end of the packet, and record that it is there
 		*(DWORD*)( m_pBuffer + m_nLength ) = nValue;
-		m_nLength += sizeof(nValue);
+		m_nLength += sizeof( nValue );
 	}
 
 	// Takes 4 bytes in a DWORD
@@ -382,14 +382,14 @@ public:
 	inline void WriteLongBE(DWORD nValue)
 	{
 		// Make sure there is room for the 4 bytes
-		if ( m_nLength + sizeof(nValue) > m_nBuffer )
+		if ( m_nLength + sizeof( nValue ) > m_nBuffer )
 		{
 			if ( ! Ensure( sizeof( nValue ) ) ) return;
 		}
 
 		// Write the 4 bytes as a DWORD at the end of the packet, and record that it is there
 		*(DWORD*)( m_pBuffer + m_nLength ) = m_bBigEndian ? swapEndianess( nValue ) : nValue;	// Reverse their order if necessary
-		m_nLength += sizeof(nValue);
+		m_nLength += sizeof( nValue );
 	}
 
 	// Takes 8 bytes in a QWORD
@@ -397,14 +397,14 @@ public:
 	inline void WriteInt64(QWORD nValue)
 	{
 		// Make sure there is room for the 8 bytes
-		if ( m_nLength + sizeof(nValue) > m_nBuffer )
+		if ( m_nLength + sizeof( nValue ) > m_nBuffer )
 		{
 			if ( ! Ensure( sizeof( nValue ) ) ) return;
 		}
 
 		// Write the 8 bytes as a QWORD at the end of the packet, and record that it is there
 		*(QWORD*)( m_pBuffer + m_nLength ) = m_bBigEndian ? swapEndianess( nValue ) : nValue;	// Reverse their order if necessary
-		m_nLength += sizeof(nValue);
+		m_nLength += sizeof( nValue );
 	}
 
 	// Have this packet object remember that one more thing is referencing it

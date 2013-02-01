@@ -194,7 +194,7 @@ void CSearchDetailPanel::Update()
 	if ( ! m_bValid ) nHeight = 0;
 
 	SCROLLINFO pInfo = {};
-	pInfo.cbSize	= sizeof(pInfo);
+	pInfo.cbSize	= sizeof( pInfo );
 	pInfo.fMask		= SIF_ALL & ~SIF_TRACKPOS;
 	pInfo.nMin		= 0;
 	pInfo.nMax		= nHeight;
@@ -235,7 +235,7 @@ void CSearchDetailPanel::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrol
 	CPanelCtrl::OnVScroll( nSBCode, nPos, NULL );
 
 	SCROLLINFO pScroll = {};
-	pScroll.cbSize	= sizeof(pScroll);
+	pScroll.cbSize	= sizeof( pScroll );
 	pScroll.fMask	= SIF_ALL;
 	GetScrollInfo( SB_VERT, &pScroll );
 
@@ -394,7 +394,7 @@ void CSearchDetailPanel::DrawText(CDC* pDC, int nX, int nY, LPCTSTR pszText, REC
 	pDC->ExcludeClipRect( &rc );
 
 	if ( pRect != NULL )
-		CopyMemory( pRect, &rc, sizeof(RECT) );
+		CopyMemory( pRect, &rc, sizeof( RECT ) );
 }
 
 BOOL CSearchDetailPanel::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)

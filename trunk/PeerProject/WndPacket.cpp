@@ -68,12 +68,12 @@ IMPLEMENT_SERIAL(CPacketWnd, CPanelWnd, 0)
 BEGIN_MESSAGE_MAP(CPacketWnd, CPanelWnd)
 	//{{AFX_MSG_MAP(CPacketWnd)
 	ON_WM_CREATE()
-	ON_WM_SIZE()
-	ON_WM_CONTEXTMENU()
-	ON_WM_MEASUREITEM()
-	ON_WM_DRAWITEM()
 	ON_WM_DESTROY()
+	ON_WM_SIZE()
 	ON_WM_TIMER()
+	ON_WM_DRAWITEM()
+	ON_WM_MEASUREITEM()
+	ON_WM_CONTEXTMENU()
 	ON_NOTIFY(NM_CUSTOMDRAW, IDC_PACKETS, OnCustomDrawList)
 	ON_UPDATE_COMMAND_UI(ID_SYSTEM_CLEAR, OnUpdateSystemClear)
 	ON_UPDATE_COMMAND_UI_RANGE(1, ID_BASE_LAST, OnUpdateBlocker)
@@ -475,7 +475,7 @@ void CPacketWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 	pMenu.AppendMenu( MF_STRING|( m_bTypeBT ? MF_CHECKED : 0 ), ID_BASE_BT, _T("&BT ") + strType );
 	pMenu.AppendMenu( MF_STRING|( m_bTypeOther ? MF_CHECKED : 0 ), ID_BASE_LAST, _T("&Other ") + strType );
 	pMenu.AppendMenu( MF_SEPARATOR, ID_SEPARATOR );
-	pMenu.AppendMenu( MF_STRING | ( m_bPaused ? MF_CHECKED : 0 ), 1, _T("&Pause Display") );
+	pMenu.AppendMenu( MF_STRING|( m_bPaused ? MF_CHECKED : 0 ), 1, _T("&Pause Display") );
 	pMenu.AppendMenu( MF_STRING, ID_SYSTEM_CLEAR, _T("&Clear Buffer") );
 
 	m_pCoolMenu = new CCoolMenu();
@@ -484,7 +484,7 @@ void CPacketWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 
 	pLock.Unlock();
 
-	if ( point.x == -1 && point.y == -1 ) 	// Keyboard fix
+	if ( point.x == -1 && point.y == -1 )	// Keyboard fix
 		ClientToScreen( &point );
 
 	UINT nCmd = pMenu.TrackPopupMenu( TPM_LEFTALIGN|TPM_LEFTBUTTON|TPM_RIGHTBUTTON|TPM_RETURNCMD,

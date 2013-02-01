@@ -356,15 +356,15 @@ BOOL CUploadTransferDC::CheckRanking()
 		Close( IDS_UPLOAD_DROPPED );
 		return FALSE;
 	}
-	else if ( nPosition == 0 )
+	if ( nPosition == 0 )
 	{
 		// Ready to send
 		m_tRankingCheck += 60*1000;
 
 		if ( m_pClient->IsOnline() )
 			return SendFile();
-		else
-			return m_pClient->Connect();
+
+		return m_pClient->Connect();
 	}
 
 	// Continue waiting in queue
@@ -411,7 +411,7 @@ BOOL CUploadTransferDC::RequestFile(CLibraryFile* pFile, QWORD nOffset, QWORD nL
 	if ( m_bStopTransfer )
 	{
 		m_tRotateTime = 0;
-		m_bStopTransfer	= FALSE;
+		m_bStopTransfer = FALSE;
 
 		CUploadQueue* pQueue = m_pQueue;
 		if ( pQueue )
@@ -429,8 +429,8 @@ BOOL CUploadTransferDC::RequestFile(CLibraryFile* pFile, QWORD nOffset, QWORD nL
 		// Ready to send
 		if ( m_bGet )
 			return TRUE;	// Wait for $Send
-		else
-			return SendFile();
+
+		return SendFile();
 	}
 	else if ( nPosition > 0 )
 	{
@@ -630,17 +630,13 @@ BOOL CUploadTransferDC::RequestFileList(BOOL bFile, BOOL bZip, const std::string
 //		Escape( strRoot ), Escape( theApp.m_sSmartAgent ) );
 //	pXML.Print( strFileListing, CP_UTF8 );
 //
-//	if ( strRoot == _T("/") )
+//	if ( strRoot == _T("/") )	// All folders
 //	{
-//		// All folders
 //		for ( POSITION pos = LibraryFolders.GetFolderIterator() ; pos ; )
-//		{
 //			FolderToFileList( LibraryFolders.GetNextFolder( pos ), pXML );
-//		}
 //	}
 //	else if ( const CLibraryFolder* pFolder = LibraryFolders.GetFolderByName( strRoot ) )
 //	{
-//		// Specified folder
 //		FolderToFileList( pFolder, pXML );
 //	}
 //
@@ -658,14 +654,10 @@ BOOL CUploadTransferDC::RequestFileList(BOOL bFile, BOOL bZip, const std::string
 //	pXML.Print( strFolder, CP_UTF8 );
 //
 //	for ( POSITION pos = pFolder->GetFolderIterator() ; pos ; )
-//	{
 //		FolderToFileList( pFolder->GetNextFolder( pos ), pXML );
-//	}
 //
 //	for ( POSITION pos = pFolder->GetFileIterator() ; pos ; )
-//	{
 //		FileToFileList( pFolder->GetNextFile( pos ), pXML );
-//	}
 //
 //	pXML.Add( _P("</Directory>\r\n") );
 //}

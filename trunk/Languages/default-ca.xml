@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Catalan Skin File -->
 
-<!-- Translation based on default-en.xml r88 -->
+<!-- Translation based on default-en.xml r90 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -16,14 +16,14 @@
 <manifest
 	name="Català"
 	author="Daniel Olivares Giménez (iniciat per CATMidia.cat)"
-	updatedBy="Equip de traduccions de FeshoCAT (TraduCAT, http://tradu.feshocat.cat)"
+	updatedBy="Equip de traduccions de FeshoCAT (tradu.feshocat.cat)"
 	description="PeerProject Default Catalan Skin File"
 	link="http://tradu.feshocat.cat"
 	email="tradu(at)feshocat.cat"
 	version="1.0.0.0"
 	type="Language"
 	language="ca"
-	prompt="Selecciona ací per fer servir PeerProject en català!"
+	prompt="Selecciona ací per fer servir PeerProject en català."
 />
 
 <!-- Toolbar Definitions -->
@@ -555,8 +555,8 @@
 				<separator/>
 				<menu text="_Llocs Web">
 					<item id="ID_HELP_FORUMS" text="Fòrums de _PeerProject"/>
-					<item id="ID_HELP_FAKESHAREAZA" text="FakeShareaza.com Info"/>
-					<!-- <item id="ID_HELP_UPDATE" text="Darreres Notícies"/>
+					<!-- <item id="ID_HELP_FAKESHAREAZA" text="FakeShareaza.com Info"/>
+					<item id="ID_HELP_UPDATE" text="Darreres Notícies"/>
 					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 					<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
 				</menu>
@@ -3349,7 +3349,7 @@
 		<control caption="_Treu"/>
 		<control caption="Visualitzacions d'àudio:"/>
 		<control caption="_Selecciona component..."/>
-		<control caption="Advertència: Triar un manejador de multimèdia extern deshabilitarà tots els efectes de so i les visualitzacions d'aquest programa!"/>
+		<control caption="Advertència: Triar un manejador de multimèdia extern deshabilitarà tots els efectes de so i les visualitzacions d'aquest programa."/>
 	</dialog>
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Comunitat">
 		<control caption="El meu _perfil:"/>
@@ -4205,17 +4205,17 @@
 		<control caption="PeerProject és 100% gratuït."/>
 		<control caption="No conté cap programari espia (&quot;spyware&quot;, &quot;adware&quot;) ni qualsevol altre tipus de programes. PeerProject no té ni propaganda, ni &quot;finestres emergents&quot;, mai.{n}{n}Si apareix alguna cosa, estigues segur que no és causa de PeerProject."/>
 		<control caption="Per desgràcia, hi ha programes que instal·len programes espia o virus. Si us plau, comprova-ho amb programes especialitzats i neteja el teu ordinador."/>
-		<control caption="No has de pagar per a obtindre PeerProject. PeerProject es pot distribueix lliurement, i descarregar de http://peerproject.org/. Si has pagat per ell, ¡demana que et tornin els diners!"/>
-		<control caption="PeerProject respecta els seus usuaris!"/>
+		<control caption="No has de pagar per a obtindre PeerProject. PeerProject es pot distribueix lliurement, i descarregar de http://peerproject.org/. Si has pagat per ell, demana que et tornin els diners."/>
+		<control caption="PeerProject respecta els seus usuaris."/>
 		<control caption="http://PeerProject.org"/>
 		<control caption="Tanca"/>
 	</dialog>
 	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Ajuda'ns a fer difusió">
 		<control caption="Ajuda'ns a difondre'l"/>
 		<control caption="Esperem que fins ara hagis gaudit de PeerProject. Aquest és el millor programa de compartició d'arxius disponible."/>
-		<control caption="Desafortunadament, hi ha molts usuaris que no el coneixen encara!"/>
+		<control caption="Desafortunadament, hi ha molts usuaris que no el coneixen encara."/>
 		<control caption="Si coneixes a algú que li pugui agradar PeerProject, fes-ho saber: en lloc d'utilitzar altres programes inferiors en qualitat que utilitze PeerProject..."/>
-		<control caption="Chances are they'll be grateful you rescued them!"/>
+		<control caption="Chances are they'll be grateful you told them."/>
 		<control caption="http://PeerProject.org"/>
 		<control caption="Tanca"/>
 	</dialog>

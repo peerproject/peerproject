@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Czech Skin File -->
 
-<!-- Translation based on default-en.xml r88 --> <!-- (Shareaza 2.2.5.7) -->
+<!-- Translation based on default-en.xml r90 --> <!-- (Shareaza 2.2.5.7) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2582,7 +2582,7 @@
 	<string id="20081" value="&amp;Zavřít"/>
 	<string id="20082" value="Po dokončení klikněte na Zavřít"/>
 	<string id="20083" value="Žádám..."/>
-	<string id="20084" value="Úspěšně!"/>
+	<string id="20084" value="Úspěšně"/>
 	<string id="20100" value="Ukončuji připojení prohlížení uživatele %s."/>
 	<string id="20101" value="Prohlížeč hosta %s odpověděl zamítavou odezvou, neumožňuje podporu prohledávání uživatele/hosta."/>
 	<string id="20102" value="Nelze se připojit k uživateli a prohlížet profil nebo soubory."/>
@@ -2749,7 +2749,7 @@
 	<string id="20290" value="Stahování od hosta %s odpovědělo odlišně, ale v platném rozsahu (%I64i-%I64i) na &quot;%s&quot;."/>
 	<string id="20291" value="Přijato nadbytečné vynucené spojení od %s."/>
 	<string id="20292" value="Zrušen zdroj %s (%s) kvůli poslání poškozených částí &quot;%s&quot; (%I64i-%I64i)."/>
-	<string id="20293" value="VAROVÁNÍ: Stažený &quot;%s&quot; Ověření souboru selhalo, to nemůže být soubor který jste chtěli stáhnout!"/>
+	<string id="20293" value="VAROVÁNÍ: Stažený &quot;%s&quot; Ověření souboru selhalo, to nemůže být soubor který jste chtěli stáhnout."/>
 	<string id="20294" value="Úspěšně ověřené stahování &quot;%s&quot;."/>
 	<string id="20295" value="Stažení verze od hosta %s z &quot;%s&quot; má rozdílnou URN, přerušuji."/>
 	<string id="20296" value="Stahování od hosta %s odpovědělo nepoužitelným rozsahem bajtů z &quot;%s&quot;, nevyřízeno."/>
@@ -3644,7 +3644,7 @@
 		<control caption="Oplatit odesílání"/>
 	</dialog>
 	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="Vítejte v PeerProject (1/8)">
-		<control caption="Vítejte v PeerProject!"/>
+		<control caption="Vítejte v PeerProject."/>
 		<control caption="Jestliže jste ještě nepoužívali PeerProject nebo podobný klient P2P, tento rychlý Průvodce vám pomůže nakonfigurovat PeerProject v několika jednoduchých krocích."/>
 		<control caption="Pokud jste již pokročilejší uživatel, můžete si zpřístupnit volby nastavení PeerProject přes nabídku Nástroje. Můžete také kliknout na Konec a zavřít Průvodce."/>
 		<control caption="Tento Průvodce vám bude pomáhat:"/>
@@ -4186,16 +4186,16 @@
 		<control caption="PeerProject neobsahuje žádné &quot;spyware&quot;, &quot;adware&quot; nebo další podobný software. Nezobrazuje jakékoli reklamy nebo &quot;popups&quot;, (vyskakovací okna).{n}{n}Jestliže někdy uvidíte reklamu nebo &quot;popups&quot; při používání PeerProject, určitě nepocházejí z našeho programu."/>
 		<control caption="Bohužel hodně jiných programů obtěžuje s nežádoucí reklamou nebo spayware, takže pokud uvidíte něco podezřelého, zkontrolujte váš PC programem Ad-aware nebo podobným programem na odstranění těchto špiónů."/>
 		<control caption="Pro získání PeerProject nemusíte platit žádné peníze. PeerProject může být volně stažena z http://peerproject.org/. Jestliže jste někomu zaplatili za PeerProject, měli by jste požadovat okamžitě vrácení peněz."/>
-		<control caption="PeerProject respektuje své uživatele!"/>
+		<control caption="PeerProject respektuje své uživatele."/>
 		<control caption="http://PeerProject.org"/>
 		<control caption="Zavřít"/>
 	</dialog>
 	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Spread the Word">
 		<control caption="Pomozte nám šířit PeerProject"/>
 		<control caption="Těší nás že jste si oblíbili PeerProject. Doufáme, že je to nejlepší aplikace pro sdílení souborů."/>
-		<control caption="Bohužel, mnoho uživatelů neví o co přichází!"/>
+		<control caption="Bohužel, mnoho uživatelů neví o co přichází."/>
 		<control caption="Víte o někom, kdo by mohl mít zájem používat PeerProject? Nezáleží jestli je to nový uživatel nebo někdo, kdo již používá nějaký jiný program pro sdílení. Nechte jej nechat vyzkoušet PeerProject, ať pozná co je lepší?"/>
-		<control caption="Budou vám vděční, že jste jim ukázali něco nového!"/>
+		<control caption="Budou vám vděční, že jste jim ukázali něco nového."/>
 		<control caption="http://PeerProject.org"/>
 		<control caption="OK"/>
 	</dialog>

@@ -196,7 +196,7 @@ bool CDownloadWithTiger::IsFullyVerified() const
 	if ( ( m_nTorrentBlock && m_nTorrentSuccess >= m_nTorrentBlock ) ||
 		 ( m_nTigerBlock   && m_nTigerSuccess   >= m_nTigerBlock   ) ||
 		 ( m_nHashsetBlock && m_nHashsetSuccess >= m_nHashsetBlock ) )
-		 return true;
+		return true;
 
 	if ( ! IsComplete() )
 		return false;	// Completed only
@@ -307,7 +307,7 @@ BOOL CDownloadWithTiger::SetTigerTree(BYTE* pTiger, DWORD nTiger, BOOL bLevel1)
 	m_nTigerBlock	= m_pTigerTree.GetBlockCount();
 	m_pTigerBlock	= new BYTE[ m_nTigerBlock ];
 
-	ZeroMemory( m_pTigerBlock, sizeof(BYTE) * m_nTigerBlock );
+	ZeroMemory( m_pTigerBlock, sizeof( BYTE ) * m_nTigerBlock );
 
 	SetModified();
 
@@ -370,7 +370,7 @@ BOOL CDownloadWithTiger::SetHashset(BYTE* pSource, DWORD nSource)
 	m_nHashsetBlock	= m_pHashset.GetBlockCount();
 	m_pHashsetBlock	= new BYTE[ m_nHashsetBlock ];
 
-	ZeroMemory( m_pHashsetBlock, sizeof(BYTE) * m_nHashsetBlock );
+	ZeroMemory( m_pHashsetBlock, sizeof( BYTE ) * m_nHashsetBlock );
 
 	SetModified();
 
@@ -994,7 +994,7 @@ void CDownloadWithTiger::Serialize(CArchive& ar, int nVersion)
 			ar << m_nTigerBlock;
 			ar << m_nTigerSize;
 			ar << m_nTigerSuccess;
-			ar.Write( m_pTigerBlock, sizeof(BYTE) * m_nTigerBlock );
+			ar.Write( m_pTigerBlock, sizeof( BYTE ) * m_nTigerBlock );
 		}
 		else // Loading
 		{
@@ -1005,7 +1005,7 @@ void CDownloadWithTiger::Serialize(CArchive& ar, int nVersion)
 			ar >> m_nTigerSuccess;
 
 			m_pTigerBlock = new BYTE[ m_nTigerBlock ];
-			ReadArchive( ar, m_pTigerBlock, sizeof(BYTE) * m_nTigerBlock );
+			ReadArchive( ar, m_pTigerBlock, sizeof( BYTE ) * m_nTigerBlock );
 		}
 	}
 
@@ -1019,7 +1019,7 @@ void CDownloadWithTiger::Serialize(CArchive& ar, int nVersion)
 			{
 				ar << m_nHashsetBlock;
 				ar << m_nHashsetSuccess;
-				ar.Write( m_pHashsetBlock, sizeof(BYTE) * m_nHashsetBlock );
+				ar.Write( m_pHashsetBlock, sizeof( BYTE ) * m_nHashsetBlock );
 			}
 			else // Loading
 			{
@@ -1027,7 +1027,7 @@ void CDownloadWithTiger::Serialize(CArchive& ar, int nVersion)
 				ar >> m_nHashsetSuccess;
 
 				m_pHashsetBlock = new BYTE[ m_nHashsetBlock ];
-				ReadArchive( ar, m_pHashsetBlock, sizeof(BYTE) * m_nHashsetBlock );
+				ReadArchive( ar, m_pHashsetBlock, sizeof( BYTE ) * m_nHashsetBlock );
 			}
 		}
 	//}

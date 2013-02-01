@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default English Skin File -->
 
-<!-- Translation based on default-en.xml r88 -->
+<!-- Translation based on default-en.xml r90 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -630,7 +630,6 @@
 					<item id="ID_HELP_WEB_3" text="Slyck.com"/>
 					<item id="ID_HELP_WEB_1" text="ZeroPaid.com"/>
 					<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
-					<item id="ID_HELP_WEB_6" text="Hypewise.DeviantArt.com"/>
 				</menu>
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject.org"/>
 				<separator/>
@@ -4100,7 +4099,7 @@
 		<control caption="After closing this Wizard, the first thing to do is run a 'fake' random search to catch spammers and Ban them all. Explore toolbar tabs while waiting."/>
 		<control caption="Start PeerProject every time Windows starts"/>
 		<control caption="Connect to the network every time I start PeerProject"/>
-		<control caption="And thanks. \nEnjoy using PeerProject for all your peer-to-peer networking needs."/>
+		<control caption="And thanks. {n}Enjoy using PeerProject for all your peer-to-peer networking needs."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="Import eDonkey Downloads">
 		<control caption="PeerProject has detected that you have another eDonkey program installed on your computer. Would you like to import any unfinished downloads into PeerProject?"/>
@@ -4576,7 +4575,7 @@
 		<control caption="Cancel"/>
 	</dialog>
 	<dialog name="CUpdateServersDlg" cookie="StEdmsBuBu" caption="Download Server List File">
-		<control caption="You can download a file from the web to refresh your local list of servers.\nSuch as eDonkey server.met, DC++ hublist.xml.bz2, etc."/>
+		<control caption="You can download a file from the web to refresh your local list of servers.{n}Such as eDonkey server.met, DC++ hublist.xml.bz2, etc."/>
 		<control/>
 		<control/>
 		<control caption="OK"/>

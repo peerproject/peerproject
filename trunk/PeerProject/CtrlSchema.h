@@ -1,7 +1,7 @@
 //
 // CtrlSchema.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -18,8 +18,8 @@
 
 #pragma once
 
-#define NO_VALUE		(_T("(~ns~)"))
-#define MULTI_VALUE		(_T("(~mt~)"))
+#define NO_VALUE		_T("(~ns~)")
+#define MULTI_VALUE		_T("(~mt~)")
 
 #include "Schema.h"
 
@@ -43,7 +43,7 @@ protected:
 	CArray< CWnd* >	m_pControls;
 	CArray< CString >	m_pCaptions;
 	int				m_nScroll;
-	CString			strMultipleString;
+	CString			m_sMultipleString;
 
 // Operations
 public:
@@ -57,14 +57,15 @@ public:
 
 protected:
 	void		Layout();
+
 	virtual BOOL OnCommand(WPARAM wParam, LPARAM lParam);
 
 	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 	afx_msg void OnDestroy();
 	afx_msg void OnPaint();
-	afx_msg void OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar = NULL);
-	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnNcPaint();
+	afx_msg void OnSize(UINT nType, int cx, int cy);
+	afx_msg void OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar = NULL);
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
 	afx_msg void OnControlSetFocus();

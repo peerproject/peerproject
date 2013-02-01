@@ -1,7 +1,7 @@
 //
 // Hashes/HashDescriptors.hpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions Copyright Shareaza Development Team, 2005.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -24,7 +24,7 @@
 
 #pragma once
 
-#ifdef _HAS_TR1		// #if _MSC_FULL_VER > 150030000	// VS2008 SP1 for std::tr1
+#if defined(_MSC_VER) && (_MSC_FULL_VER > 150030000)	// _HAS_TR1		// VS2008 SP1 for std::tr1, VS2012 for std::
 #include <array>
 #else	// Boost fallback
 #include <Boost/tr1/array.hpp>

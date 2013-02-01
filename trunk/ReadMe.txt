@@ -5,7 +5,10 @@ ___________________________
 0. This sourcecode package is self-contained, no setup required.  Only Microsoft Visual Studio is supported.
 
 
-1. Install Visual Studio 2010
+1. Install Visual Studio 2012
+	- http://www.microsoft.com/visualstudio/11/en-us/downloads  (90day Trial)
+
+   OR Install Visual Studio 2010
 	- http://www.microsoft.com/downloads/details.aspx?FamilyID=26bae65f-b0df-4081-ae6e-1d828993d4d0  (30/90day Trial)
 	- http://www.microsoft.com/downloads/details.aspx?FamilyID=75568aa6-8107-475d-948a-ef22627e57a5  (Service Pack)
 
@@ -13,10 +16,6 @@ ___________________________
 	- http://www.microsoft.com/downloads/details.aspx?FamilyID=83c3a1ec-ed72-4a79-8961-25635db0192b  (90day Trial)
 	- http://www.microsoft.com/downloads/details.aspx?FamilyID=fbee1648-7106-44a7-9649-6d9f6d58056e  (Service Pack)
 	- http://www.microsoft.com/downloads/details.aspx?familyid=C17BA869-9671-4330-A63E-1FD44E0E2505  (Win7 SDK)
-
-   OR Install Visual Studio 2012
-	- http://www.microsoft.com/visualstudio/11/en-us/downloads  (90day Trial)
-	- Note: No Windows XP support
 
 2. Locate this complete PeerProject sourcecode set.
 	- http://peerproject.svn.sourceforge.net/viewvc/peerproject/trunk.tar.gz
@@ -27,13 +26,16 @@ ___________________________
 
 
 
-Note. Alternative for Browse/Edit only:
+Note: Express alternative for Browse/Edit only:
 	- Free Visual C++ Express can be configured, but some projects STILL FAIL to build.
-	- Note legacy Visual Studio 2005 files also still available but outdated.
+	- Also note legacy Visual Studio 2005 files still available but outdated.
 
 X. Install Visual C++ Express + Windows SDK + WDK
-	- http://www.microsoft.com/express/downloads  (Visual C++ 2010 Express, and/or 2008)
-	- See VCEXpress/ReadMe.txt for configuration details.
+	- http://www.microsoft.com/express/downloads  (Visual C++ Express 2012/2010/2008)
+	- http://www.microsoft.com/visualstudio/eng/downloads#d-express-windows-desktop  (Visual Studio Express 2012 for Desktop)
+	- OR http://www.microsoft.com/visualstudio/eng/downloads#d-2010-express  (Visual C++ 2010 Express)
+	- http://www.microsoft.com/en-us/download/details.aspx?id=8279  (Win7 SDK)
+	- See \VCExpress\ReadMe.txt for configuration details.
 
 
 

@@ -485,8 +485,8 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 				{
 					if ( pShared->m_pMetadata != NULL )
 					{
-						m_sName	= pShared->m_sName;
-						if ( CXMLElement* pMetadata	= pShared->m_pSchema->Instantiate( TRUE ) )
+						m_sName = pShared->m_sName;
+						if ( CXMLElement* pMetadata = pShared->m_pSchema->Instantiate( TRUE ) )
 						{
 							pMetadata->AddElement( pShared->m_pMetadata->Clone() );
 							return RequestMetadata( pMetadata );
@@ -506,8 +506,8 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 		{
 			if ( pDownload->HasMetadata() )
 			{
-				m_sName	= pDownload->m_sName;
-				if ( CXMLElement* pMetadata	= pDownload->m_pXML->Clone() )
+				m_sName = pDownload->m_sName;
+				if ( CXMLElement* pMetadata = pDownload->m_pXML->Clone() )
 					return RequestMetadata( pMetadata );
 			}
 		}
@@ -660,7 +660,7 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 	else if ( ::StartsWith( m_sRequest, _PT("/get/") ) )
 	{
 		DWORD nIndex = 0;
-		CString strFile	= m_sRequest.Mid( 5 );
+		CString strFile = m_sRequest.Mid( 5 );
 		int nChar = strFile.Find( '/' );
 		bool bByIndex = ( _stscanf( strFile, _T("%lu/"), &nIndex ) == 1 &&
 			nChar > 0 && nChar < strFile.GetLength() - 1 );
@@ -889,7 +889,7 @@ BOOL CUploadTransferHTTP::QueueRequest()
 	if ( m_bStopTransfer )
 	{
 		m_tRotateTime = 0;
-		m_bStopTransfer	= FALSE;
+		m_bStopTransfer = FALSE;
 
 		CUploadQueue* pQueue = m_pQueue;
 		if ( pQueue ) pQueue->Dequeue( this );

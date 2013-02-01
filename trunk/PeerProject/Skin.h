@@ -116,10 +116,12 @@ protected:
 // Dialogs
 public:
 	BOOL		Apply(LPCTSTR pszName, CDialog* pDialog, UINT nIconID = 0, CToolTipCtrl* pWndTooltips = NULL);
-	CString	GetDialogCaption(LPCTSTR pszName);
+	BOOL		Dialogscan(CDialog* pDialog, CString sName = _T(""));
+	CString		GetDialogCookie(CDialog* pDialog, CToolTipCtrl* pWndTooltips = NULL);
+	CString		GetDialogCaption(LPCTSTR pszName);
 protected:
 	BOOL		LoadDialogs(CXMLElement* pBase);
-	CMap< CString, const CString&, CXMLElement*, CXMLElement* >	m_pDialogs;
+	CMap< CString, const CString&, CXMLElement*, CXMLElement* > m_pDialogs;
 
 // Window Skins
 public:

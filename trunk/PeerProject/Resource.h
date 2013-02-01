@@ -929,10 +929,10 @@
 #define IDS_BT_SEED_VERIFY_FAIL             20149
 #define IDS_BT_TRACKER_DOWN                 20150
 #define IDS_BT_TRACKER_MULTI                20151
-#define IDS_BT_TRACK_CHANGE                 20152
-#define IDS_BT_TRACK_ERROR                  20153
-#define IDS_BT_TRACK_PARSE_ERROR            20154
-#define IDS_BT_TRACK_SUCCESS                20155
+#define IDS_BT_TRACKER_CHANGE               20152
+#define IDS_BT_TRACKER_ERROR                20153
+#define IDS_BT_TRACKER_PARSE_ERROR          20154
+#define IDS_BT_TRACKER_SUCCESS              20155
 #define IDS_BT_UPDATE_CONVERTING            20156
 #define IDS_BT_UPDATE_TITLE                 20157
 #define IDS_BT_PREFETCH_ERROR               20158

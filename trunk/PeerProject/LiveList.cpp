@@ -355,8 +355,8 @@ BOOL CLiveItem::Update(CListCtrl* pCtrl, int nItem, int nColumns)
 //	if ( nItem < 0 ) return FALSE;
 //
 //	LV_ITEM pItem = {};
-//	pItem.mask	= LVIF_IMAGE;
-//	pItem.iItem	= nItem;
+//	pItem.mask  = LVIF_IMAGE;
+//	pItem.iItem = nItem;
 //	pItem.iSubItem = nColumn;
 //
 //	if ( ! pCtrl->GetItem( &pItem ) ) return FALSE;
@@ -384,7 +384,7 @@ void CLiveList::Sort(CListCtrl* pCtrl, int nColumn, BOOL bGraphic)
 {
 	ASSERT_VALID( pCtrl );
 
-	int nOldColumn	= (int)GetWindowLongPtr( pCtrl->GetSafeHwnd(), GWLP_USERDATA );
+	int nOldColumn = (int)GetWindowLongPtr( pCtrl->GetSafeHwnd(), GWLP_USERDATA );
 
 	if ( nColumn == -1 )
 	{
@@ -463,10 +463,10 @@ int CALLBACK CLiveList::SortCallback(LPARAM lParam1, LPARAM lParam2, LPARAM lPar
 	int nColumn = (int)GetWindowLongPtr( pList->GetSafeHwnd(), GWLP_USERDATA );
 
 	LV_FINDINFO pFind;
-	pFind.flags		= LVFI_PARAM;
-	pFind.lParam	= lParam1;
+	pFind.flags  = LVFI_PARAM;
+	pFind.lParam = lParam1;
 	int nA = pList->FindItem( &pFind );
-	pFind.lParam	= lParam2;
+	pFind.lParam = lParam2;
 	int nB = pList->FindItem( &pFind );
 
 	CString sA( pList->GetItemText( nA, abs( nColumn ) - 1 ) );

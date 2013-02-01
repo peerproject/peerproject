@@ -172,7 +172,7 @@ void CDownloadWithTorrent::Serialize(CArchive& ar, int nVersion)
 	if ( ar.IsStoring() )
 	{
 		ar << m_nTorrentSuccess;
-		ar.Write( m_pTorrentBlock, sizeof(BYTE) * m_nTorrentBlock );
+		ar.Write( m_pTorrentBlock, sizeof( BYTE ) * m_nTorrentBlock );
 		ar << BOOL( m_bSeeding && Settings.BitTorrent.AutoSeed );
 	}
 	else // Loading
@@ -182,7 +182,7 @@ void CDownloadWithTorrent::Serialize(CArchive& ar, int nVersion)
 
 		ar >> m_nTorrentSuccess;
 		m_pTorrentBlock = new BYTE[ m_nTorrentBlock ];
-		ReadArchive( ar, m_pTorrentBlock, sizeof(BYTE) * m_nTorrentBlock );
+		ReadArchive( ar, m_pTorrentBlock, sizeof( BYTE ) * m_nTorrentBlock );
 		ar >> m_bSeeding;
 
 		//if ( nVersion < 41 )

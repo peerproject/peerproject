@@ -1482,7 +1482,7 @@ public:
 		// set link colors
 		if(m_bPaintLabel)
 		{
-			ATL::CRegKey rk;
+			CRegKeyEx rk;
 			LONG lRet = rk.Open(HKEY_CURRENT_USER, _T("Software\\Microsoft\\Internet Explorer\\Settings"));
 			if(lRet == ERROR_SUCCESS)
 			{

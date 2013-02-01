@@ -3,7 +3,7 @@
 
 <!-- PeerProject UK English Skin File -->
 
-<!-- Translation based on default-en.xml r85 -->
+<!-- Translation based on default-en.xml r90 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -117,8 +117,8 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject Site"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
-				<item id="ID_HELP_WEB_6" text="PeerProject S_kin Site"/>
-				<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/> <!--
+				<!-- <item id="ID_HELP_WEB_6" text="PeerProject S_kin Site"/>
+		 		<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/>
 				<item id="ID_HELP_UPDATE" text="Latest news"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
@@ -226,8 +226,8 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject Site"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
-				<item id="ID_HELP_WEB_6" text="PeerProject S_kin Site"/>
-				<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/> <!--
+				<!-- <item id="ID_HELP_WEB_6" text="PeerProject S_kin Site"/>
+				<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/>
 				<item id="ID_HELP_UPDATE" text="Latest news"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
@@ -330,8 +330,8 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
-				<item id="ID_HELP_WEB_6" text="PeerProject S_kin Site"/>
-				<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/> <!--
+			 	<!-- <item id="ID_HELP_WEB_6" text="PeerProject S_kin Site"/>
+				<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/>
 				<item id="ID_HELP_UPDATE" text="Latest news"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
@@ -480,7 +480,7 @@
 			<newline gap="8" indent="42"/>
 			<text>You are not currently connected to any peer-to-peer networks.</text>
 			<newline gap="2" indent="42"/>
-			<link target="command:ID_NETWORK_CONNECT" format="bu">Click here to start!</link>
+			<link target="command:ID_NETWORK_CONNECT" format="bu">Click here to start</link>
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="2">

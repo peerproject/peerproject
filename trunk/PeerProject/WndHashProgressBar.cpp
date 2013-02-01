@@ -82,11 +82,11 @@ void CHashProgressBar::Run()
 	{
 		try
 		{
-			CreateEx( WS_EX_TOPMOST | WS_EX_TOOLWINDOW,	AfxRegisterWndClass( CS_SAVEBITS |
+			CreateEx( WS_EX_TOPMOST | WS_EX_TOOLWINDOW, AfxRegisterWndClass( CS_SAVEBITS |
 				( ! Settings.Interface.TipShadow || theApp.m_bIsWin2000 ? 0 : CS_DROPSHADOW ) ),
 				_T("PeerProject Hashing..."), WS_POPUP, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, NULL, 0 );
 		}
-		catch (CResourceException* pEx)
+		catch ( CResourceException* pEx )
 		{
 			pEx->Delete();
 		}
@@ -120,10 +120,9 @@ void CHashProgressBar::Show(int nWidth, BOOL /*bShow*/)
 {
 	CRect rc;
 	SystemParametersInfo( SPI_GETWORKAREA, 0, &rc, 0 );
-	rc.left	= rc.right - nWidth - 4;
-	rc.top	= rc.bottom - WINDOW_HEIGHT - 4;
-	SetWindowPos( &wndTopMost, rc.left, rc.top, nWidth, WINDOW_HEIGHT,
-		SWP_SHOWWINDOW | SWP_NOACTIVATE );
+	rc.left = rc.right - nWidth - 4;
+	rc.top  = rc.bottom - WINDOW_HEIGHT - 4;
+	SetWindowPos( &wndTopMost, rc.left, rc.top, nWidth, WINDOW_HEIGHT, SWP_SHOWWINDOW | SWP_NOACTIVATE );
 
 //	SetTimer( 2, 5, NULL );		// ToDo: Rapid fade-in
 }
@@ -157,7 +156,7 @@ void CHashProgressBar::OnSkinChange()
 {
 	HBITMAP hBitmap = Skin.GetWatermark( _T("CHashProgressBar") );
 	if ( m_bmImage.m_hObject ) m_bmImage.DeleteObject();
-	if ( hBitmap != NULL )	m_bmImage.Attach( hBitmap );
+	if ( hBitmap != NULL ) m_bmImage.Attach( hBitmap );
 }
 
 void CHashProgressBar::OnPaint()

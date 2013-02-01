@@ -663,10 +663,10 @@ void CEDClients::RunGlobalStatsRequests(DWORD tNow)
 		}
 	}
 
-	if ( tNow > m_tLastServerStats + Settings.eDonkey.StatsGlobalThrottle )	// Limit requests to every 30 minutes
+	if ( tNow > m_tLastServerStats + Settings.eDonkey.StatsGlobalThrottle )		// Limit requests to every 30 minutes
 	{
 		// Get the current time (in seconds)
-		DWORD tSecs	= static_cast< DWORD >( time( NULL ) );
+		const DWORD tSecs = static_cast< DWORD >( time( NULL ) );
 
 		CQuickLock oLock( HostCache.eDonkey.m_pSection );
 
@@ -683,7 +683,7 @@ void CEDClients::RunGlobalStatsRequests(DWORD tNow)
 			if ( ( pHost->CanQuery( tSecs ) ) &&													// If it hasn't been searched recently
 				 ( ( tSecs > pHost->m_tStats + Settings.eDonkey.StatsServerThrottle ) ||			// AND we have not checked this host in a week
 				   ( ( pHost->m_nFailures > 0 ) && ( tSecs > pHost->m_tStats + 8*60*60 ) ) ) && 	// OR last check failed, have not checked in 8 hours
-				 ( ( pHost->m_nUDPFlags == 0 ) || ( m_bAllServersDone ) ) )							// AND it has no flags set OR we have checked all servers
+				 ( pHost->m_nUDPFlags == 0 || m_bAllServersDone ) )									// AND it has no flags set OR we have checked all servers
 			{
 				CSingleLock pLock( &Network.m_pSection );
 				if ( ! pLock.Lock( 200 ) ) continue;

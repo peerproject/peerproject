@@ -182,7 +182,7 @@ private:
 inline void CG1Packet::CG1PacketPool::NewPoolImpl(int nSize, CPacket*& pPool, int& nPitch)
 {
 	// Set nPitch to the size in bytes of each CG1Packet object
-	nPitch = sizeof(CG1Packet);
+	nPitch = sizeof( CG1Packet );
 
 	// Allocate a new array of nSize CG1Packet objects, and point pPool at it
 	pPool = new CG1Packet[ nSize ];

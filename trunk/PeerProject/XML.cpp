@@ -494,7 +494,7 @@ BOOL CXMLElement::ParseString(LPCTSTR& strXML)
 			pszElement = _tcsstr( strXML, _T("]]>") );
 			if ( ! pszElement || *pszElement != ']' )
 				return FALSE;
-			if ( m_sValue.GetLength() && m_sValue.Right( 1 ) != ' ' )
+			if ( ! m_sValue.IsEmpty() && m_sValue.Right( 1 ) != ' ' )
 				m_sValue += ' ';
 			m_sValue += Unescape( strXML, (int)( pszElement - strXML ) );
 			pszElement += 3;
@@ -503,7 +503,7 @@ BOOL CXMLElement::ParseString(LPCTSTR& strXML)
 
 		if ( pszElement > strXML )
 		{
-			if ( m_sValue.GetLength() && m_sValue.Right( 1 ) != ' ' )
+			if ( ! m_sValue.IsEmpty() && m_sValue.Right( 1 ) != ' ' )
 				m_sValue += ' ';
 			m_sValue += Unescape( strXML, (int)( pszElement - strXML ) );
 			strXML = pszElement;
@@ -566,7 +566,7 @@ CXMLElement* CXMLElement::FromBytes(BYTE* pByte, DWORD nByte, BOOL bHeader)
 			pByte += 2;
 		}
 
-		CopyMemory( strXML.GetBuffer( nByte ), pByte, nByte * sizeof(TCHAR) );
+		CopyMemory( strXML.GetBuffer( nByte ), pByte, nByte * sizeof( TCHAR ) );
 		strXML.ReleaseBuffer( nByte );
 	}
 	else
@@ -585,8 +585,7 @@ CXMLElement* CXMLElement::FromBytes(BYTE* pByte, DWORD nByte, BOOL bHeader)
 
 CXMLElement* CXMLElement::FromFile(LPCTSTR pszPath, BOOL bHeader)
 {
-	HANDLE hFile = CreateFile(	pszPath, GENERIC_READ, FILE_SHARE_READ, NULL,
-								OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL );
+	HANDLE hFile = CreateFile( pszPath, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL );
 
 	if ( hFile == INVALID_HANDLE_VALUE ) return NULL;
 

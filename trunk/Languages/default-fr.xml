@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default French Skin File -->
 
-<!-- Translation based on default-en.xml r88 -->
+<!-- Translation based on default-en.xml r90 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -600,6 +600,7 @@
 				<item id="ID_HELP_GUIDE" text="Guide d'utilisateurs PeerProject"/>
 				<item id="ID_HELP_FORUMS" text="Forums de PeerProject"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_Forum de Français"/>
+			<!--
 				<menu text="Aide SkinVista">
 				<menu text="Si la barre des menus s'affiche mal --"></menu>
 				<menu text="Vérifiez Menu : Fenêtre : Montrer la barre de navigation"></menu>
@@ -611,9 +612,9 @@
 				<menu text="_Sites Web">
 					<item id="ID_HELP_WEB_3" text="Slyck.com"/>
 					<item id="ID_HELP_WEB_1" text="ZeroPaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
-					<item id="ID_HELP_WEB_6" text="Hypewise.DeviantArt.com"/>
+					<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
 				</menu>
+			-->
 				<item id="ID_HELP_HOMEPAGE" text="PeerProject.org"/>
 				<separator/>
 				<item id="ID_HELP_ABOUT" text="À propos de PeerProject..."/>
@@ -2758,7 +2759,7 @@
 	<string id="20081" value="&amp;Fermer"/>
 	<string id="20082" value="Terminé, cliquez sur Fermer"/>
 	<string id="20083" value="Demande..."/>
-	<string id="20084" value="Succès !"/>
+	<string id="20084" value="Succès."/>
 	<string id="20100" value="Fermeture de la connexion de navigation %s."/>
 	<string id="20101" value="L'hôte de navigation %s a transmis une réponse inconnue, il semble qu'il ne supporte pas la navigation."/>
 	<string id="20102" value="Impossible de se connecter à l'hôte afin de parcourir l'utilisateur."/>
@@ -3034,7 +3035,7 @@
 	<string id="20403" value="Canaux"/>
 	<string id="20404" value="C'est parti :"/>
 	<string id="20405" value="Veuillez respecter les autres lors de l'utilisation de ce service"/>
-	<string id="20406" value="Bienvenue au salon IRC de PeerProject !"/>
+	<string id="20406" value="Bienvenue au salon IRC de PeerProject."/>
 	<string id="20407" value="Enlever"/>
 	<string id="20408" value="Utilisateurs"/>
 	<string id="20410" value="Explorer votre bibliothèque PeerProject"/>
@@ -3420,7 +3421,7 @@
 	<string id="20883" value="Le service UPnP n'est pas actif sur votre ordinateur.\nVeuillez régler le service pour qu'il démarre automatiquement (Windows Service Startup type)."/>
 	<string id="20885" value="Changer de vue fermera toutes les fenêtres ouvertes actuellement. Voulez-vous changer la vue maintenant ?"/>
 	<string id="20886" value="Changer la direction de l'interface exige un redémarrage.\n\nQuitter maintenant ?"/>
-	<string id="20890" value="PeerProject vous souhaite la bienvenue !"/>
+	<string id="20890" value="PeerProject vous souhaite la bienvenue."/>
 	<string id="20891" value="&amp;Quitter"/>
 	<string id="20892" value="Veuillez patienter : mise à jour de la liste d'hôtes eDonkey ..."/>
 	<string id="20893" value="Veuillez patienter : mise à jour des services de découverte ..."/>
@@ -3518,7 +3519,7 @@
 		<control caption="Enleve_r"/>
 		<control caption="Plugin de _Visualisation Audio :"/>
 		<control caption="_Sélectionner un Plugin..."/>
-		<control caption="Attention : L'utilisation d'un logiciel externe pour jouer les fichiers MultiMédia désactivera les extensions multimédia de PeerProject !"/>
+		<control caption="Attention : L'utilisation d'un logiciel externe pour jouer les fichiers MultiMédia désactivera les extensions multimédia de PeerProject."/>
 	</dialog>
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Communauté">
 		<control caption="Mon _Profil :"/>
@@ -3876,7 +3877,7 @@
 		<control caption="Récompenser les envoyeurs"/>
 	</dialog>
 	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="PeerProject vous souhaite la bienvenue &#160;(1/8)">
-		<control caption="PeerProject vous souhaite la bienvenue!"/>
+		<control caption="PeerProject vous souhaite la bienvenue."/>
 		<control caption="Si vous n'avez jamais utilisé PeerProject ou un autre client P2P, cet assistant vous aidera à le configurer en quelques étapes."/>
 		<control caption="Si vous êtes un utilisateur avancé, vous pouvez accéder à toutes les options de PeerProject via le menu &#171;&#160;Outils&#160;&#187;. Cliquez sur &#171;&#160;Quitter&#160;&#187; pour quitter l'assistant à n'importe quel moment."/>
 		<control caption="Cet assistant vous aidera à :"/>
@@ -4392,7 +4393,7 @@
 		<control/>
 		<control/>
 		<control caption="Veuillez sélectionner ce que PeerProject doit faire :"/>
-		<control caption="Télécharger!"/>
+		<control caption="Télécharger."/>
 		<control caption="_Chercher le fichier"/>
 		<control caption="Annuler"/>
 		<control caption="Se _rappeler de cette sélection"/>
@@ -4414,21 +4415,21 @@
 		<control caption="(copie des segments téléchargés vers un fichier de prévisualisation)"/>
 		<control caption="Annuler"/>
 	</dialog>
-	<dialog name="CWarningsDlg" cookie="StStStStStStBu" caption="PeerProject respecte ses utilisateurs !">
+	<dialog name="CWarningsDlg" cookie="StStStStStStBu" caption="PeerProject respecte ses utilisateurs.">
 		<control caption="Saviez-vous que PeerProject était un produit totalement libre et gratuit ?"/>
 		<control caption="PeerProject ne contient AUCUN &#171;&#160;spyware&#160;&#187;, &#171;&#160;adware&#160;&#187; ou autre logiciel de ce type. Il n'affiche JAMAIS de publicités ou &#171;&#160;popup&#160;&#187;.{n}{n}Si vous rencontrez des publicités ou des fenêtres intempestives en utilisant PeerProject, vous pouvez être sûr qu'ils ne proviennent pas de ce logiciel."/>
 		<control caption="Malheureusement, beaucoup d'autres logiciels contiennent des &#171;&#160;adware&#160;&#187; ou &#171;&#160;spyware&#160;&#187;, donc si vous suspectez quelque chose, vous devriez désinfecter votre PC avec un logiciel spécialisé."/>
 		<control caption="Il n'est pas nécessaire de payer quoique ce soit pour PeerProject. PeerProject peut être téléchargé librement sur http://PeerProject.org. Si vous payez quelqu'un pour PeerProject, demandez immédiatement un remboursement."/>
-		<control caption="PeerProject respecte ses utilisateurs !"/>
+		<control caption="PeerProject respecte ses utilisateurs."/>
 		<control caption="http://PeerProject.org"/>
 		<control caption="Fermer"/>
 	</dialog>
-	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Faire passer le message !">
-		<control caption="Aidez nous à faire passer le message !"/>
+	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Faire passer le message.">
+		<control caption="Aidez nous à faire passer le message."/>
 		<control caption="Nous espérons que vous appréciez PeerProject. Nous pensons que c'est le meilleur logiciel P2P."/>
-		<control caption="Malheureusement, beaucoup ne savent pas ce qu'ils ratent !"/>
+		<control caption="Malheureusement, beaucoup ne savent pas ce qu'ils ratent."/>
 		<control caption="Si vous connaissez quelqu'un qui apprécierait PeerProject, qu'il soit déjà ou pas utilisateur de logiciel P2P, pourquoi ne pas lui faire savoir qu'il existe une meilleure alternative ?"/>
-		<control caption="Il y a des chances qu'il vous soit reconnaissant de l'avoir aidé !"/>
+		<control caption="Il y a des chances qu'il vous soit reconnaissant de l'avoir aidé."/>
 		<control caption="http://PeerProject.org"/>
 		<control caption="Valider"/>
 	</dialog>

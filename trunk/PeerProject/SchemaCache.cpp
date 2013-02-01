@@ -91,11 +91,11 @@ int CSchemaCache::Load()
 
 			for ( POSITION pos = pSchema->GetFilterIterator() ; pos ; )
 			{
-				CString sType;
+				CString strType;
 				BOOL bResult;
-				pSchema->GetNextFilter( pos, sType, bResult );
+				pSchema->GetNextFilter( pos, strType, bResult );
 				if ( bResult )
-					m_pTypeFilters.SetAt( sType, pSchema );
+					m_pTypeFilters.SetAt( strType, pSchema );
 			}
 
 			nCount++;

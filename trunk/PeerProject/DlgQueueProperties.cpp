@@ -136,7 +136,7 @@ BOOL CQueuePropertiesDlg::OnInitDialog()
 	CoolInterface.LoadIconsTo( m_gdiProtocols, protocolIDs );
 	m_wndProtocols.SetImageList( &m_gdiProtocols, LVSIL_SMALL );
 
-	m_wndProtocols.SendMessage( LVM_SETEXTENDEDLISTVIEWSTYLE, LVS_EX_CHECKBOXES, LVS_EX_CHECKBOXES );
+	m_wndProtocols.SetExtendedStyle( LVS_EX_CHECKBOXES );
 	m_wndProtocols.InsertItem( LVIF_TEXT|LVIF_IMAGE|LVIF_PARAM, 0, _T("HTTP"), 0, 0, PROTOCOL_HTTP, PROTOCOL_HTTP );
 	m_wndProtocols.InsertItem( LVIF_TEXT|LVIF_IMAGE|LVIF_PARAM, 1, _T("ED2K"), 0, 0, PROTOCOL_ED2K, PROTOCOL_ED2K );
 	m_wndProtocols.InsertItem( LVIF_TEXT|LVIF_IMAGE|LVIF_PARAM, 2, _T("DC++"), 0, 0, PROTOCOL_DC, PROTOCOL_DC );
@@ -277,8 +277,8 @@ void CQueuePropertiesDlg::OnMatchCheck()
 void CQueuePropertiesDlg::OnProtocolsCheck()
 {
 	if ( Settings.General.GUIMode == GUI_BASIC &&
-		!( Settings.eDonkey.EnableAlways | Settings.eDonkey.Enabled ) )
-			return;
+		 !( Settings.eDonkey.EnableAlways | Settings.eDonkey.Enabled ) )
+		return;
 
 	UpdateData();
 	m_wndProtocols.EnableWindow( m_bProtocols );

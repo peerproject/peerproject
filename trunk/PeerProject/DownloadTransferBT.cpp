@@ -162,10 +162,10 @@ CString CDownloadTransferBT::GetStateText(BOOL bLong)
 BOOL CDownloadTransferBT::OnRun()
 {
 	const DWORD tNow = GetTickCount();
-	BOOL bShowInterest	= tNow > m_tRunThrottle + 2000;
+	BOOL bShowInterest = tNow > m_tRunThrottle + 2000;
 
-	QWORD nBlockSize	= m_pDownload->m_pTorrent.m_nBlockSize;
-	DWORD nBlockCount	= m_pDownload->m_pTorrent.m_nBlockCount;
+	const QWORD nBlockSize  = m_pDownload->m_pTorrent.m_nBlockSize;
+	const DWORD nBlockCount = m_pDownload->m_pTorrent.m_nBlockCount;
 
 	if ( ! m_bAvailable && nBlockSize && nBlockCount && m_nAvailable )
 	{
@@ -323,7 +323,7 @@ BOOL CDownloadTransferBT::OnHave(CBTPacket* pPacket)
 {
 	ASSUME_LOCK( Transfers.m_pSection );
 
-	if ( pPacket->GetRemaining() != sizeof(int) ) return TRUE;
+	if ( pPacket->GetRemaining() != sizeof( int ) ) return TRUE;
 	QWORD nBlockSize	= m_pDownload->m_pTorrent.m_nBlockSize;
 	DWORD nBlockCount	= m_pDownload->m_pTorrent.m_nBlockCount;
 	DWORD nBlock		= pPacket->ReadLongBE();

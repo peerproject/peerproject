@@ -149,11 +149,12 @@ int CLibraryDetailView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CLibraryFileView::OnCreate( lpCreateStruct ) == -1 ) return -1;
 
-	SendMessage( LVM_SETEXTENDEDLISTVIEWSTYLE,
-		LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP,
-		LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP );
-
 	GET_LIST();
+
+	pList->SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP );
+	//SendMessage( LVM_SETEXTENDEDLISTVIEWSTYLE,
+	//	LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP,
+	//	LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP );
 
 	pList->InsertColumn( COL_FILE, _T("File"), LVCFMT_LEFT, 220, -1 );
 	pList->SetCallbackMask( LVIS_SELECTED );
@@ -182,8 +183,8 @@ int CLibraryDetailView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	pList->SetCallbackMask( LVIS_SELECTED | LVIS_FOCUSED );
 
-	m_pList	= NULL;
-	m_nList	= m_nBuffer = 0;
+	m_pList = NULL;
+	m_nList = m_nBuffer = 0;
 
 	CString strSchemaURI = Settings.Library.FilterURI.GetLength() ?
 		Settings.Library.FilterURI : Settings.Library.SchemaURI;
@@ -199,7 +200,7 @@ int CLibraryDetailView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		SetViewSchema( NULL, NULL, FALSE, FALSE );
 	}
 
-	m_bCreateDragImage	= FALSE;
+	m_bCreateDragImage = FALSE;
 
 	return 0;
 }
@@ -327,7 +328,7 @@ void CLibraryDetailView::Update()
 		{
 			SelRemove( pItem->nIndex );
 			CArray< CString >* pSaved = pItem->pText;
-			CopyMemory( pItem, pItem + 1, sizeof(LDVITEM) * ( m_nList - nCount ) );
+			CopyMemory( pItem, pItem + 1, sizeof( LDVITEM ) * ( m_nList - nCount ) );
 			pItem[ m_nList - nCount ].pText = pSaved;
 			m_nList--;
 		}
@@ -347,9 +348,9 @@ void CLibraryDetailView::Update()
 			{
 				m_nBuffer += 64;
 				LDVITEM* pList = new LDVITEM[ m_nBuffer ];
-				if ( m_nList ) CopyMemory( pList, m_pList, m_nList * sizeof(LDVITEM) );
+				if ( m_nList ) CopyMemory( pList, m_pList, m_nList * sizeof( LDVITEM ) );
 				if ( m_pList ) delete [] m_pList;
-				ZeroMemory( pList + m_nList, ( m_nBuffer - m_nList ) * sizeof(LDVITEM) );
+				ZeroMemory( pList + m_nList, ( m_nBuffer - m_nList ) * sizeof( LDVITEM ) );
 				m_pList = pList;
 			}
 
@@ -601,7 +602,7 @@ void CLibraryDetailView::SortItems(int nColumn)
 		m_nSortColumn	= abs( nColumn ) - 1;
 		m_bSortFlip		= nColumn < 0;
 		m_pThis			= this;
-		qsort( m_pList, m_nList, sizeof(m_pList[0]), ListCompare );
+		qsort( m_pList, m_nList, sizeof( m_pList[0] ), ListCompare );
 	}
 
 	pList->SetItemCount( m_nList );
@@ -986,7 +987,7 @@ void CLibraryDetailView::OnContextMenu(CWnd* pWnd, CPoint point)
 		return;
 	}
 
-	if ( point.x == -1 && point.y == -1 ) 	// Keyboard fix
+	if ( point.x == -1 && point.y == -1 )	// Keyboard fix
 		ClientToScreen( &point );
 
 	CMenu* pMenu = CSchemaColumnsDlg::BuildColumnMenu( m_pSchema, &m_pColumns );

@@ -111,7 +111,7 @@ BOOL CLanguageDlg::OnInitDialog()
 		ITEM_HEIGHT * ITEM_ROWS + Skin.m_nBanner );
 
 	SCROLLINFO pScroll = {};
-	pScroll.cbSize	= sizeof(pScroll);
+	pScroll.cbSize	= sizeof( pScroll );
 	pScroll.fMask	= SIF_RANGE|SIF_PAGE|SIF_DISABLENOSCROLL;
 	pScroll.nMin	= 0;
 	pScroll.nMax	= ( m_pPaths.GetSize() / 3 ) + ( ( m_pPaths.GetSize() % 3 ) ? 1 : 0 );
@@ -205,8 +205,8 @@ void CLanguageDlg::PaintItem(int nItem, CDC* pDC, CRect* pRect)
 
 	pRect->bottom = pRect->top + ITEM_HEIGHT;
 
-	BOOL bHover	= m_nHover == ( nItem + 1 );
-	BOOL bDown	= m_nDown  == ( nItem + 1 );
+	BOOL bHover = m_nHover == ( nItem + 1 );
+	BOOL bDown  = m_nDown  == ( nItem + 1 );
 
 	CRect rc( pRect );
 
@@ -272,7 +272,7 @@ void CLanguageDlg::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar*/
 {
 	SCROLLINFO pInfo = {};
 
-	pInfo.cbSize = sizeof(pInfo);
+	pInfo.cbSize = sizeof( pInfo );
 	pInfo.fMask  = SIF_ALL & ~SIF_TRACKPOS;
 
 	GetScrollInfo( SB_VERT, &pInfo );
@@ -427,7 +427,7 @@ void CLanguageDlg::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 			m_nHover--;
 			m_bKeyMode = TRUE;
 			SCROLLINFO pInfo = {};
-			pInfo.cbSize = sizeof(pInfo);
+			pInfo.cbSize = sizeof( pInfo );
 			pInfo.fMask  = SIF_ALL & ~SIF_TRACKPOS;
 
 			GetScrollInfo( SB_VERT, &pInfo );
@@ -454,7 +454,7 @@ void CLanguageDlg::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 			m_nHover++;
 			m_bKeyMode = TRUE;
 			SCROLLINFO pInfo = {};
-			pInfo.cbSize = sizeof(pInfo);
+			pInfo.cbSize = sizeof( pInfo );
 			pInfo.fMask  = SIF_ALL & ~SIF_TRACKPOS;
 			GetScrollInfo( SB_VERT, &pInfo );
 
@@ -614,7 +614,7 @@ BOOL CLanguageDlg::AddSkin(LPCTSTR pszPath, LPCTSTR pszName)
 		return FALSE;
 	}
 
-	CString	strName		= pManifest->GetAttributeValue( _T("name"), pszName );
+	CString strName		= pManifest->GetAttributeValue( _T("name"), pszName );
 	CString strIcon		= pManifest->GetAttributeValue( _T("icon") );
 	CString strLangCode = pManifest->GetAttributeValue( _T("language") );
 	CString strGUIDir	= pManifest->GetAttributeValue( _T("dir"), _T("ltr") );

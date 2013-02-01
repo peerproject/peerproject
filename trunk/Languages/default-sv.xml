@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Swedish Skin File -->
 
-<!-- Translation based on default-en.xml r88 -->
+<!-- Translation based on default-en.xml r90 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -546,7 +546,7 @@
 				<menu text="_Webbsidor">
 					<item id="ID_HELP_FORUMS" text="PeerProject _Forum"/>
 					<separator/>
-					<item id="ID_HELP_DONATE" text="_Donera till PeerProject projektet!"/>
+					<item id="ID_HELP_DONATE" text="_Donera till PeerProject projektet."/>
 					<item id="ID_HELP_VERSION_CHECK" text="Leta efter ny version"/>
 					<!-- <item id="ID_HELP_UPDATE" text="Senaste nyheter"/>
 					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
@@ -656,7 +656,7 @@
 			<item id="ID_HELP_VERSION_CHECK" text="Leta efter ny version"/>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_Om PeerProject"/>
-			<item id="ID_HELP_DONATE" text="_Donera till PeerProject projektet!"/>
+			<item id="ID_HELP_DONATE" text="_Donera till PeerProject projektet."/>
 		</menu>
 	</menu>
 	<menu name="CMainWnd.Basic" type="bar">
@@ -726,7 +726,7 @@
 			<item id="ID_HELP_VERSION_CHECK" text="_Leta efter nya versioner"/>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_Om PeerProject"/>
-			<item id="ID_HELP_DONATE" text="_Donera till PeerProject projektet!"/>
+			<item id="ID_HELP_DONATE" text="_Donera till PeerProject projektet."/>
 		</menu>
 	</menu>
 	<menu name="CMainWnd.Windowed" type="bar">
@@ -818,7 +818,7 @@
 			<item id="ID_HELP_VERSION_CHECK" text="Leta efter ny _version"/>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_Om PeerProject"/>
-			<item id="ID_HELP_DONATE" text="_Donera till PeerProject projektet!"/>
+			<item id="ID_HELP_DONATE" text="_Donera till PeerProject projektet."/>
 		</menu>
 	</menu>
 	<!-- VIEW POPUP -->
@@ -2617,7 +2617,7 @@
 	<string id="20081" value="&amp;Stäng"/>
 	<string id="20082" value="Avslutad, klicka Stäng"/>
 	<string id="20083" value="Efterfrågar…"/>
-	<string id="20084" value="Framgång!"/>
+	<string id="20084" value="Framgång."/>
 	<string id="20100" value="Stänger listningsanslutning till %s."/>
 	<string id="20101" value="Listningsvärd %s svarade med ett okänt svar och kanske inte stödjer fillistning."/>
 	<string id="20102" value="Kan inte ansluta till värden för att visa användarens filer."/>
@@ -2785,7 +2785,7 @@
 	<string id="20290" value="Nedladdningsvärd %s svarade med ett annat, men användbart omfång (%I64i-%I64i) av &quot;%s&quot;."/>
 	<string id="20291" value="Mottog en ofullständig anslutningsbegäran från %s."/>
 	<string id="20292" value="Släpper källa %s (%s) för sändning av felaktiga delar av &quot;%s&quot; (%I64i-%I64i)."/>
-	<string id="20293" value="VARNING: Verifiering av nedladdning &quot;%s&quot; misslyckades, det kanske inte är den fil du ville ha!"/>
+	<string id="20293" value="VARNING: Verifiering av nedladdning &quot;%s&quot; misslyckades, det kanske inte är den fil du ville ha."/>
 	<string id="20294" value="Framgångsrik verifiering av nedladdning &quot;%s&quot;."/>
 	<string id="20295" value="Nedladdningsvärd %ss version av &quot;%s&quot; har en annan URN, avbryter."/>
 	<string id="20296" value="Nedladdningsvärd %s svarade med ett oanvändbart byteområde &quot;%s&quot; avvaktar"/>
@@ -3723,7 +3723,7 @@
 		<control caption="Reward uploaders"/>
 	</dialog>
 	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="Välkommen till PeerProject (1/8)">
-		<control caption="Välkommen till PeerProject!"/>
+		<control caption="Välkommen till PeerProject."/>
 		<control caption="Om du inte har använt PeerProject eller andra fildelningsnätverk förut kan denna snabbstartsguide hjälpa dig att anpassa din kopia genom några enkla steg."/>
 		<control caption="Om du är en mer avancerad användare kan du komma åt alla PeerProjects alternativ via verktygsmenyn. Välj Avsluta för att när som helst stänga guiden."/>
 		<control caption="Denna guide kommer att assistera dig att:"/>
@@ -4265,16 +4265,16 @@
 		<control caption="PeerProject innehåller INTE NÅGOT &quot;spionprogram&quot;, &quot;reklamprogram&quot; eller andra medskickade program. Det visar INGEN reklam eller &quot;popupfönster&quot; någonsin.{n}{n}Om du någonsin ser reklam eller &quot;popupfönster&quot; när du använder PeerProject kan du vara säker på att det INTE kommer från detta program."/>
 		<control caption="Tyvärr innehåller många andra program oönskvärda reklamprogram eller spionprogram. Så om du ser något misstänkt kan du kontrollera din PC med ett program som tar bort dessa program."/>
 		<control caption="Du ska inte ha betalat något för att komma över PeerProject. PeerProject kan laddas ned fritt av alla från www.shareaza.com. Om du har betalat pengar för detta program ska du kräva tillbaka dem med en gång."/>
-		<control caption="PeerProject respekterar sina användare!"/>
+		<control caption="PeerProject respekterar sina användare."/>
 		<control caption="http://PeerProject.org"/>
 		<control caption="Stäng"/>
 	</dialog>
 	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Sprid orden">
 		<control caption="Hjälp oss sprida orden"/>
 		<control caption="Vi hoppas att du har haft glädje av att använda PeerProject hittils. Vi tycker att det är det bästa fildelningsprogrammet som finns."/>
-		<control caption="Tyvärr vet många personer inte vad de missar!"/>
+		<control caption="Tyvärr vet många personer inte vad de missar."/>
 		<control caption="Om du känner till någon som skulle gilla PeerProject, oavsett om de är nya användare eller använder ett sämre program, varför inte låta dem veta att det finns ett bättre alternativ?"/>
-		<control caption="Chansen är stor att de kommer att bli tacksamma för att du räddat dem!"/>
+		<control caption="Chansen är stor att de kommer att bli tacksamma för att du räddat dem."/>
 		<control caption="http://PeerProject.org"/>
 		<control caption="OK"/>
 	</dialog>

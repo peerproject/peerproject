@@ -1,7 +1,7 @@
 //
 // PageSettingsProtocols.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -41,9 +41,8 @@ public:
 	HTREEITEM	AddItem(HTREEITEM hParent, LPCTSTR pszText, LPCTSTR pszValue = NULL);
 
 // Overrides
-public:
+protected:
 	//{{AFX_VIRTUAL(CProtocolsSettingsPage)
-	protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
 	//}}AFX_VIRTUAL
 
@@ -53,5 +52,5 @@ protected:
 	virtual BOOL OnInitDialog();
 	//}}AFX_MSG
 
-	DECLARE_MESSAGE_MAP()
+	//DECLARE_MESSAGE_MAP()
 };

@@ -30,24 +30,26 @@
     <UseOfMfc>Static</UseOfMfc>
     <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <!--<PlatformToolset>v90</PlatformToolset>-->
+    <PlatformToolset>v100</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseOfMfc>Static</UseOfMfc>
     <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v100</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseOfMfc>Static</UseOfMfc>
     <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <!--<PlatformToolset>v90</PlatformToolset>-->
+    <PlatformToolset>v100</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseOfMfc>Static</UseOfMfc>
     <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v100</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -113,7 +115,7 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>secur32.lib;rasapi32.lib;winmm.lib;version.lib;ws2_32.lib;wininet.lib;Iphlpapi.lib;msi.lib;powrprof.lib;mstask.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <DelayLoadDLLs>rasapi32.dll;winmm.dll;version.dll;ws2_32.dll;wininet.dll;iphlpapi.dll;msi.dll;powrprof.dll;winspool.drv;comdlg32.dll;comctl32.dll;oledlg.dll;ole32.dll;oleaut32.dll;oleacc.dll;urlmon.dll;msimg32.dll;gdiplus.dll;imm32.dll;advapi32.dll;shell32.dll;shlwapi.dll</DelayLoadDLLs> <!--secur32.dll-->
+      <DelayLoadDLLs>rasapi32.dll;winmm.dll;version.dll;ws2_32.dll;wininet.dll;iphlpapi.dll;msi.dll;powrprof.dll;winspool.drv;comctl32.dll;oledlg.dll;ole32.dll;oleaut32.dll;oleacc.dll;urlmon.dll;msimg32.dll;gdiplus.dll;imm32.dll;advapi32.dll;shell32.dll;shlwapi.dll</DelayLoadDLLs> <!--comdlg32.dll;secur32.dll-->
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <LargeAddressAware>true</LargeAddressAware>
@@ -160,7 +162,7 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>secur32.lib;rasapi32.lib;winmm.lib;version.lib;ws2_32.lib;wininet.lib;Iphlpapi.lib;msi.lib;powrprof.lib;mstask.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <DelayLoadDLLs>rasapi32.dll;winmm.dll;version.dll;ws2_32.dll;wininet.dll;iphlpapi.dll;msi.dll;powrprof.dll;winspool.drv;comdlg32.dll;comctl32.dll;oledlg.dll;ole32.dll;oleaut32.dll;oleacc.dll;urlmon.dll;msimg32.dll;gdiplus.dll;imm32.dll;advapi32.dll;shell32.dll;shlwapi.dll</DelayLoadDLLs> <!--secur32.dll-->
+      <DelayLoadDLLs>rasapi32.dll;winmm.dll;version.dll;ws2_32.dll;wininet.dll;iphlpapi.dll;msi.dll;powrprof.dll;winspool.drv;comctl32.dll;oledlg.dll;ole32.dll;oleaut32.dll;oleacc.dll;urlmon.dll;msimg32.dll;gdiplus.dll;imm32.dll;advapi32.dll;shell32.dll;shlwapi.dll</DelayLoadDLLs> <!--comdlg32.dll;secur32.dll-->
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <LargeAddressAware>true</LargeAddressAware>
@@ -215,7 +217,7 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>secur32.lib;rasapi32.lib;winmm.lib;version.lib;ws2_32.lib;wininet.lib;Iphlpapi.lib;msi.lib;powrprof.lib;mstask.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <DelayLoadDLLs>rasapi32.dll;winmm.dll;version.dll;ws2_32.dll;wininet.dll;iphlpapi.dll;msi.dll;powrprof.dll;winspool.drv;comdlg32.dll;comctl32.dll;oledlg.dll;ole32.dll;oleaut32.dll;oleacc.dll;urlmon.dll;msimg32.dll;gdiplus.dll;imm32.dll;advapi32.dll;shell32.dll;shlwapi.dll</DelayLoadDLLs> <!--secur32.dll-->
+      <DelayLoadDLLs>rasapi32.dll;winmm.dll;version.dll;ws2_32.dll;wininet.dll;iphlpapi.dll;msi.dll;powrprof.dll;winspool.drv;comctl32.dll;oledlg.dll;ole32.dll;oleaut32.dll;oleacc.dll;urlmon.dll;msimg32.dll;gdiplus.dll;imm32.dll;advapi32.dll;shell32.dll;shlwapi.dll</DelayLoadDLLs> <!--comdlg32.dll;secur32.dll-->
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -272,7 +274,7 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>secur32.lib;rasapi32.lib;winmm.lib;version.lib;ws2_32.lib;wininet.lib;Iphlpapi.lib;msi.lib;powrprof.lib;mstask.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <DelayLoadDLLs>rasapi32.dll;winmm.dll;version.dll;ws2_32.dll;wininet.dll;iphlpapi.dll;msi.dll;powrprof.dll;winspool.drv;comdlg32.dll;comctl32.dll;oledlg.dll;ole32.dll;oleaut32.dll;oleacc.dll;urlmon.dll;msimg32.dll;gdiplus.dll;imm32.dll;advapi32.dll;shell32.dll;shlwapi.dll</DelayLoadDLLs> <!--secur32.dll-->
+      <DelayLoadDLLs>rasapi32.dll;winmm.dll;version.dll;ws2_32.dll;wininet.dll;iphlpapi.dll;msi.dll;powrprof.dll;winspool.drv;comctl32.dll;oledlg.dll;ole32.dll;oleaut32.dll;oleacc.dll;urlmon.dll;msimg32.dll;gdiplus.dll;imm32.dll;advapi32.dll;shell32.dll;shlwapi.dll</DelayLoadDLLs> <!--comdlg32.dll;secur32.dll-->
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -1242,7 +1244,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(RootDir)%(Directory)%(Identity).gz;%(Outputs)</Outputs>
     </CustomBuild>
     <None Include="Res\SchemaMappings.xml.gz" />
--->
+    -->
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AlbumFolder.h" />

@@ -134,7 +134,7 @@ CG2Packet* CG2Packet::New(G2_PACKET nType, CG1Packet* pWrap, int nMinTTL)
 	pHeader.m_nHops		= pWrap->m_nHops;
 	pHeader.m_nLength	= (LONG)pWrap->m_nLength;
 
-	pPacket->Write( &pHeader, sizeof(pHeader) );
+	pPacket->Write( &pHeader, sizeof( pHeader ) );
 	pPacket->Write( pWrap->m_pBuffer, pWrap->m_nLength );
 
 	return pPacket;
@@ -338,10 +338,10 @@ BOOL CG2Packet::SeekToWrapped()
 	m_nPosition = 0;
 
 	if ( ! SkipCompound() ) return FALSE;
-	if ( GetRemaining() < sizeof(GNUTELLAPACKET) ) return FALSE;
+	if ( GetRemaining() < sizeof( GNUTELLAPACKET ) ) return FALSE;
 
 	GNUTELLAPACKET* pHead = (GNUTELLAPACKET*)( m_pBuffer + m_nPosition );
-	return (DWORD)GetRemaining() >= sizeof(GNUTELLAPACKET) + pHead->m_nLength;
+	return (DWORD)GetRemaining() >= sizeof( GNUTELLAPACKET ) + pHead->m_nLength;
 }
 
 //////////////////////////////////////////////////////////////////////

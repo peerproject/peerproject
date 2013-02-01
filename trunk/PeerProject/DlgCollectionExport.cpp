@@ -240,7 +240,7 @@ BOOL CCollectionExportDlg::AddTemplate(LPCTSTR pszPath, LPCTSTR pszName)
 	}
 
 	CString strIcon		= pManifest->GetAttributeValue( _T("icon") );
-	CString	strName		= pManifest->GetAttributeValue( _T("name"), pszName );
+	CString strName		= pManifest->GetAttributeValue( _T("name"), pszName );
 	CString strAuthor	= pManifest->GetAttributeValue( _T("author"), _T("-") );
 	CString strVersion	= pManifest->GetAttributeValue( _T("version"), _T("-") );
 	CString strURL		= pManifest->GetAttributeValue( _T("link") );
@@ -419,7 +419,7 @@ void CCollectionExportDlg::OnOK()
 					// The phrase "Individual file replacement" --
 					// when each file has a unique id substitution.
 					POSITION pos = m_wndWizard.m_pItems.GetStartPosition();
-					while( pos != NULL )
+					while ( pos != NULL )
 					{
 						CString strControlID, strMap, str, strReplaceID;
 						UINT nControlID, nFileID;

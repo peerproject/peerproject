@@ -915,13 +915,13 @@ BOOL CDownloadWithFile::MakeComplete()
 //	if ( !::ReadFile( hFile, &pID3, 3, &nBytes, NULL ) ) return FALSE;
 //	if ( memcmp( pID3.szTag, ID3V2_TAG, 3 ) == 0 ) return FALSE;
 //
-//	ZeroMemory( &pID3, sizeof(pID3) );
-//	SetFilePointer( hFile, -(int)sizeof(pID3), NULL, FILE_END );
+//	ZeroMemory( &pID3, sizeof( pID3 ) );
+//	SetFilePointer( hFile, -(int)sizeof( pID3 ), NULL, FILE_END );
 //
-//	if ( !::ReadFile( hFile, &pID3, sizeof(pID3), &nBytes, NULL ) ) return FALSE;
+//	if ( !::ReadFile( hFile, &pID3, sizeof( pID3 ), &nBytes, NULL ) ) return FALSE;
 //	if ( memcmp( pID3.szTag, ID3V1_TAG, 3 ) == 0 ) return FALSE;
 //
-//	ZeroMemory( &pID3, sizeof(pID3) );
+//	ZeroMemory( &pID3, sizeof( pID3 ) );
 //	std::memcpy( pID3.szTag, ID3V1_TAG, 3 );
 //
 //	str = pXML->GetAttributeValue( _T("title") );
@@ -945,7 +945,7 @@ BOOL CDownloadWithFile::MakeComplete()
 //	}
 //
 //	SetFilePointer( hFile, 0, NULL, FILE_END );
-//	::WriteFile( hFile, &pID3, sizeof(pID3), &nBytes, NULL );
+//	::WriteFile( hFile, &pID3, sizeof( pID3 ), &nBytes, NULL );
 //
 //	return TRUE;
 //}

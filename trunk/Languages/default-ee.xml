@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Estonian Skin File -->
 
-<!-- Translation based on default-en.xml r88 --> <!-- (Shareaza 2.2.2.9) -->
+<!-- Translation based on default-en.xml r90 --> <!-- (Shareaza 2.2.2.9) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -541,14 +541,15 @@
 					<item id="ID_HELP_SECURITY" text="_Turvalisuse abi"/>
 					<item id="ID_HELP_CODEC" text="_Koodekite Abi"/>
 				</menu>
-				<separator/>
-				<menu text="_Weebilehed">
+				<!-- <menu text="_Weebilehed">
 					<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
 					<separator/>
-					<!-- <item id="ID_HELP_UPDATE" text="Latest news"/>
+					<item id="ID_HELP_UPDATE" text="Latest news"/>
 					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-					<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
-				</menu>
+					<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
+				</menu>	-->
+				<item id="ID_HELP_FORUMS_LOCAL" text="PeerProject _Forums Eesti"/>
+				<separator/>
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<separator/>
 				<item id="ID_HELP_ABOUT" text="_PeerProjectst..."/>
@@ -2507,7 +2508,7 @@
 	<string id="20081" value="&amp;Sule"/>
 	<string id="20082" value="Lõpetatud, kliki Sule"/>
 	<string id="20083" value="Saadan päringu..."/>
-	<string id="20084" value="Õnnestus!"/>
+	<string id="20084" value="Õnnestus"/>
 	<string id="20100" value="Sulen %s failide vaatamiseks ühenduse."/>
 	<string id="20101" value="Sirvitud kasutaja %s andis tundmatu vastuse ja ei pruugi sirvimist toetada."/>
 	<string id="20102" value="Ei suuda luua serveriga ühendust, et kasutajat kuvada."/>
@@ -2675,7 +2676,7 @@
 	<string id="20290" value="Server %s vastas erineva aga kasulikus ulatuses (%I64i-%I64i) &quot;%s&quot;."/>
 	<string id="20291" value="Vastu võetud mittevajalik ühendus %s."/>
 	<string id="20292" value="Katkestan ühenduse %s (%s) saadetud vigaste osade pärast failile &quot;%s&quot; (%I64i-%I64i)."/>
-	<string id="20293" value="HOIATUS: Fail &quot;%s&quot; ei läbinud kinnitust, see ei pruugi olla fail, mida sa üritad allalaadida!"/>
+	<string id="20293" value="HOIATUS: Fail &quot;%s&quot; ei läbinud kinnitust, see ei pruugi olla fail, mida sa üritad allalaadida."/>
 	<string id="20294" value="Edukalt kontrollitud fail &quot;%s&quot;."/>
 	<string id="20295" value="Allalaadimis serveril %s's versioonil &quot;%s&quot; on erinev URN, katkestan."/>
 	<string id="20296" value="Allalaadimis server %s vastas kasutu baidi ulatuses &quot;%s&quot;, ootan."/>
@@ -3548,7 +3549,7 @@
 		<control caption="Autasusta üleslaadijaid"/>
 	</dialog>
 	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="Teretulemast PeerProject (1/8)">
-		<control caption="Teretulemast PeerProjectsse!"/>
+		<control caption="Teretulemast PeerProjectsse."/>
 		<control caption="Kui sa ei ole varem PeerProjectt või mõnda muud P2P klienti kasutanud, siis see Kiire abiline aitab sul paari lihtsa sammuga oma klienti kohandada."/>
 		<control caption="Kui sa oled juba kogenenum kasutaja, siis saad täies ulatuses ligipääsu PeerProject seadetele läbi Tööriistade menüü. Kliki Välja, et sulgeda see abiline suvalisel hetkel."/>
 		<control caption="See abiline aitab sul:"/>
@@ -3625,7 +3626,7 @@
 		<control caption="Tavaline Vaade"/>
 		<control caption="Arenenud Vaade"/>
 		<control caption="Lihtne, kergelt kasutatavate nuppude ja vaatega.{n}Sarnane teiste failijagamis programmidega."/>
-		<control caption="Arenenud Vaade pakub kogenud kasutajatele palju lisa aknaid, käsklusi, jne.{n}See võib uutele kasutajatele veidi segadusseajav olla!"/>
+		<control caption="Arenenud Vaade pakub kogenud kasutajatele palju lisa aknaid, käsklusi, jne.{n}See võib uutele kasutajatele veidi segadusseajav olla."/>
 		<control caption="Kuva lihtsustatud allalaadimisriba."/>
 		<control caption=""/>
 	</dialog>
@@ -4089,16 +4090,16 @@
 		<control caption="PeerProject ei sisalda &quot;spyware&quot;, &quot;adware&quot; ega mõnda muud lisaprogramme. Ta kuva mingeid reklaame ega &quot;hüpikaknaid&quot;, mitte kunagi.{n}{n}Kui peaksid reklaami nägema &quot;hüpikaknaid&quot; kasutades PeerProjectt, võid kindel olla, et need ei tule sellest programmist."/>
 		<control caption="Kahjuks paljud teised programmid tulevad koos adware'i või spyware'iga, nii et kui näed midagi kahtlast siis peaksid oma arvutit kontrollima spyware eemaldus programmiga (nt.ad-aware)."/>
 		<control caption="Sa ei pea maksma raha PeerProject omandamise eest. PeerProject on vabalt saadaval kodulehel http://peerproject.org/. Kui sa oled oma programmi eest maksnud siis peaksid koheselt raha tagasi nõudma."/>
-		<control caption="PeerProject austab oma kasutajaid!"/>
+		<control caption="PeerProject austab oma kasutajaid."/>
 		<control caption="http://peerproject.org/"/>
 		<control caption="Sule"/>
 	</dialog>
 	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Levita">
 		<control caption="Aita meil PeerProjectt levitada"/>
 		<control caption="Loodetavasti on PeerProject sulle meeldinud. Meie usume, et see on parim failijagamis programm, mis saadaval."/>
-		<control caption="Kahjuks paljud jagajad ei tea millest nad ilma jäävad!"/>
+		<control caption="Kahjuks paljud jagajad ei tea millest nad ilma jäävad."/>
 		<control caption="Kui sa tead kedagi kellele PeerProject võiks meeldida, siis anna talle sellest teada."/>
-		<control caption="Tõenäoliselt on nad sulle tänulikud!"/>
+		<control caption="Tõenäoliselt on nad sulle tänulikud."/>
 		<control caption="http://peerproject.org/"/>
 		<control caption="OK"/>
 	</dialog>

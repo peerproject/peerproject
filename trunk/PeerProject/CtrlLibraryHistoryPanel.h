@@ -40,7 +40,7 @@ protected:
 		inline Item() throw() :
 			m_pRecent( NULL ),
 			m_nIndex( 0 ),
-			m_nIcon16( 0 ) { ZeroMemory( &m_pTime, sizeof ( m_pTime ) ); }
+			m_nIcon16( 0 ) { ZeroMemory( &m_pTime, sizeof( m_pTime ) ); }
 
 		CLibraryRecent*	m_pRecent;
 		DWORD			m_nIndex;

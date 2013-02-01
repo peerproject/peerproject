@@ -51,7 +51,7 @@ CDatagramIn::~CDatagramIn()
 
 void CDatagramIn::Create(const SOCKADDR_IN* pHost, BYTE nFlags, WORD nSequence, BYTE nCount)
 {
-	CopyMemory( &m_pHost, pHost, sizeof(SOCKADDR_IN) );
+	CopyMemory( &m_pHost, pHost, sizeof( SOCKADDR_IN ) );
 
 	m_bCompressed	= ( nFlags & SGP_DEFLATE ) ? TRUE : FALSE;
 	m_nSequence		= nSequence;
@@ -70,8 +70,8 @@ void CDatagramIn::Create(const SOCKADDR_IN* pHost, BYTE nFlags, WORD nSequence, 
 		m_pLocked	= new BOOL[ m_nBuffer ];
 	}
 
-	ZeroMemory( m_pBuffer, sizeof(CBuffer*) * m_nBuffer );
-	ZeroMemory( m_pLocked, sizeof(BOOL) * m_nBuffer );
+	ZeroMemory( m_pBuffer, sizeof( CBuffer* ) * m_nBuffer );
+	ZeroMemory( m_pLocked, sizeof( BOOL ) * m_nBuffer );
 }
 
 //////////////////////////////////////////////////////////////////////

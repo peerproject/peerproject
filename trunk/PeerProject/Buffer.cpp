@@ -697,7 +697,7 @@ bool CBuffer::InflateStreamTo( CBuffer& oBuffer, z_streamp& pStream, BOOL* pbEnd
 		pStream = new z_stream;
 
 		// Initialize it to zero
-		ZeroMemory( pStream, sizeof(z_stream) );
+		ZeroMemory( pStream, sizeof( z_stream ) );
 
 		// Initialize ZLib
 		if ( inflateInit( pStream ) != Z_OK )
@@ -753,7 +753,7 @@ bool CBuffer::InflateStreamTo( CBuffer& oBuffer, z_streamp& pStream, BOOL* pbEnd
 
 			// Adjust the state information
 			pStream->total_out = 0ul;
-			pStream->total_in = 0ul;
+			pStream->total_in  = 0ul;
 		}
 	} while ( pStream->avail_out == 0u );		// Check if everything available was decompressed
 

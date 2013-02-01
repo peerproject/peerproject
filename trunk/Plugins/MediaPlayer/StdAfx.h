@@ -7,6 +7,9 @@
 
 #pragma once
 
+#pragma warning( disable : 4127 )	// conditional expression is constant
+
+
 #ifndef STRICT
 #define STRICT
 #endif

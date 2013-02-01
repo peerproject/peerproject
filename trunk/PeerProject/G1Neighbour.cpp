@@ -269,11 +269,11 @@ BOOL CG1Neighbour::ProcessPackets()
 	{
 		// Look at the input buffer as a Gnutella packet
 		GNUTELLAPACKET* pPacket = (GNUTELLAPACKET*)pInput->m_pBuffer;	// Hopefully a packet starts right there
-		if ( pInput->m_nLength < sizeof(*pPacket) ) break;				// If there aren't enough bytes in the buffer for a packet, leave the loop
+		if ( pInput->m_nLength < sizeof( *pPacket ) ) break;				// If there aren't enough bytes in the buffer for a packet, leave the loop
 
 		// Calculate how big this packet is
 		DWORD nLength =
-			sizeof(*pPacket) +									// The size of a Gnutella packet header, which is the same for all Gnutella packets,
+			sizeof( *pPacket ) +									// The size of a Gnutella packet header, which is the same for all Gnutella packets,
 			pPacket->m_nLength; 								// plus the length written in the packet
 
 		// If the length written in the packet is negative or too big

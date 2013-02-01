@@ -339,9 +339,9 @@ void CDownloadSource::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER_VERS
 		SerializeOut( ar, m_oGUID );
 
 		ar << m_nPort;
-		if ( m_nPort ) ar.Write( &m_pAddress, sizeof(m_pAddress) );
+		if ( m_nPort ) ar.Write( &m_pAddress, sizeof( m_pAddress ) );
 		ar << m_nServerPort;
-		if ( m_nServerPort ) ar.Write( &m_pServerAddress, sizeof(m_pServerAddress) );
+		if ( m_nServerPort ) ar.Write( &m_pServerAddress, sizeof( m_pServerAddress ) );
 
 		ar << m_sName;
 		ar << m_nIndex;
@@ -360,7 +360,7 @@ void CDownloadSource::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER_VERS
 		ar << m_bPushOnly;
 		ar << m_bCloseConn;
 		ar << m_bReadContent;
-		ar.Write( &m_tLastSeen, sizeof(FILETIME) );
+		ar.Write( &m_tLastSeen, sizeof( FILETIME ) );
 
 		SerializeOut2( ar, m_oPastFragments );
 
@@ -375,9 +375,9 @@ void CDownloadSource::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER_VERS
 		SerializeIn( ar, m_oGUID, nVersion);
 
 		ar >> m_nPort;
-		if ( m_nPort ) ReadArchive( ar, &m_pAddress, sizeof(m_pAddress) );
+		if ( m_nPort ) ReadArchive( ar, &m_pAddress, sizeof( m_pAddress ) );
 		ar >> m_nServerPort;
-		if ( m_nServerPort ) ReadArchive( ar, &m_pServerAddress, sizeof(m_pServerAddress) );
+		if ( m_nServerPort ) ReadArchive( ar, &m_pServerAddress, sizeof( m_pServerAddress ) );
 
 		ar >> m_sName;
 		ar >> m_nIndex;
@@ -408,7 +408,7 @@ void CDownloadSource::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER_VERS
 		ar >> m_bPushOnly;
 		ar >> m_bCloseConn;
 		ar >> m_bReadContent;
-		ReadArchive( ar, &m_tLastSeen, sizeof(FILETIME) );
+		ReadArchive( ar, &m_tLastSeen, sizeof( FILETIME ) );
 
 		SerializeIn2( ar, m_oPastFragments, nVersion );
 
@@ -423,7 +423,7 @@ void CDownloadSource::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER_VERS
 	//else	// nVersion < 21	Obsolete legacy Shareaza, for reference?
 	//{
 	//	DWORD nIndex;
-	//	ReadArchive( ar, &m_pAddress, sizeof(m_pAddress) );
+	//	ReadArchive( ar, &m_pAddress, sizeof( m_pAddress ) );
 	//	ar >> m_nPort;
 	//	ar >> m_nSpeed;
 	//	ar >> nIndex;
@@ -447,7 +447,7 @@ void CDownloadSource::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER_VERS
 	//	ar >> m_bPushOnly;
 	//	ar >> m_bReadContent;
 	//	ar >> m_bCloseConn;
-	//	if ( nVersion >= 12 ) ReadArchive( ar, &m_tLastSeen, sizeof(FILETIME) );
+	//	if ( nVersion >= 12 ) ReadArchive( ar, &m_tLastSeen, sizeof( FILETIME ) );
 	//
 	//	ReadArchive( ar, &m_oGUID[ 0 ], Hashes::Guid::byteCount );
 	//	ReadArchive( ar, &m_oGUID[ 0 ], Hashes::Guid::byteCount );
@@ -975,14 +975,11 @@ BOOL CDownloadSource::HasUsefulRanges() const
 
 BOOL CDownloadSource::TouchedRange(QWORD nOffset, QWORD nLength) const
 {
-	if ( m_pTransfer != NULL && m_pTransfer->m_nState == dtsDownloading )
-	{
-		if ( m_pTransfer->m_nOffset + m_pTransfer->m_nLength > nOffset &&
-			 m_pTransfer->m_nOffset < nOffset + nLength )
-		{
-			return TRUE;
-		}
-	}
+	if ( m_pTransfer != NULL &&
+		 m_pTransfer->m_nState == dtsDownloading &&
+		 m_pTransfer->m_nOffset + m_pTransfer->m_nLength > nOffset &&
+		 m_pTransfer->m_nOffset < nOffset + nLength )
+		return TRUE;
 
 	return m_oPastFragments.overlaps( Fragments::Fragment( nOffset, nOffset + nLength ) );
 }

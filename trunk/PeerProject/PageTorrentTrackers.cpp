@@ -158,7 +158,7 @@ BOOL CTorrentTrackersPage::ApplyTracker()
 		CSingleLock oLock( &Transfers.m_pSection );
 
 		// Display warning
-		if ( MsgBox( IDS_BT_TRACK_CHANGE, MB_ICONQUESTION | MB_YESNO ) != IDYES || ! oLock.Lock( 250 ) )
+		if ( MsgBox( IDS_BT_TRACKER_CHANGE, MB_ICONQUESTION | MB_YESNO ) != IDYES || ! oLock.Lock( 250 ) )
 		{
 			// Restore original settings
 			m_wndTracker.SetWindowText( m_sOriginalTracker );
@@ -447,7 +447,7 @@ void CTorrentTrackersPage::OnTrackerEvent(bool bSuccess, LPCTSTR /*pszReason*/, 
 
 	if ( bSuccess )
 	{
-		m_nComplete = pEvent->GetComplete();		// ->m_nSeeders
+		m_nComplete   = pEvent->GetComplete();		// ->m_nSeeders
 		m_nIncomplete = pEvent->GetIncomplete();	// ->m_nLeechers
 	}
 
@@ -641,7 +641,7 @@ void CTorrentTrackersPage::OnCustomDrawList(NMHDR* pNMHDR, LRESULT* pResult)
 //		GetDlgItem( IDC_TORRENT_TRACKER )->SetFocus();
 //
 //		// Display warning
-//		if ( MsgBox( IDS_BT_TRACK_CHANGE, MB_ICONQUESTION | MB_YESNO ) != IDYES )
+//		if ( MsgBox( IDS_BT_TRACKER_CHANGE, MB_ICONQUESTION | MB_YESNO ) != IDYES )
 //			return FALSE;
 //
 //		if ( ! oLock.Lock( 250 ) )

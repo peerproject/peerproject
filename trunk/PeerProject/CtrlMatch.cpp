@@ -428,7 +428,7 @@ void CMatchCtrl::UpdateScroll(DWORD nScroll)
 {
 	SCROLLINFO pInfo = {};
 
-	pInfo.cbSize	= sizeof(pInfo);
+	pInfo.cbSize	= sizeof( pInfo );
 	pInfo.fMask		= SIF_ALL & ~SIF_TRACKPOS;
 	pInfo.nMin		= 0;
 	pInfo.nMax		= m_pMatches->m_nItems - 1;
@@ -499,8 +499,8 @@ void CMatchCtrl::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar*/)
 void CMatchCtrl::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar*/)
 {
 	SCROLLINFO pInfo = {};
-	pInfo.cbSize	= sizeof(pInfo);
-	pInfo.fMask		= SIF_ALL & ~SIF_TRACKPOS;
+	pInfo.cbSize = sizeof( pInfo );
+	pInfo.fMask  = SIF_ALL & ~SIF_TRACKPOS;
 
 	GetScrollInfo( SB_HORZ, &pInfo );
 	int nDelta = pInfo.nPos;
@@ -830,7 +830,7 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 		GetCursorPos(&ptHover);
 		ScreenToClient(&ptHover);
 
-		LPCTSTR pszText	= _T("");
+		LPCTSTR pszText = _T("");
 		int nPosition, nText = -1;
 
 		dc.SetTextColor( crText );
@@ -862,7 +862,7 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 
 				// Draw file icon
 				ShellIcons.Draw( &dc, pFile->m_nShellIndex,
-					16, rcCol.left + 16, rcCol.top,	crLeftMargin, bSelected );
+					16, rcCol.left + 16, rcCol.top, crLeftMargin, bSelected );
 
 				if ( bLeftMargin || ! bSelectmark )
 					dc.FillSolidRect( rcCol.left, rcCol.top + 16, 32, Settings.Skin.RowSize - 16, crLeftMargin );
@@ -1170,7 +1170,7 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 		{
 			CString strTrail;
 			LPTSTR pszTrail = strTrail.GetBuffer( nText + 1 );
-			CopyMemory( pszTrail, pszText, nText * sizeof(TCHAR) );
+			CopyMemory( pszTrail, pszText, nText * sizeof( TCHAR ) );
 			pszTrail[ nText ] = _T('\x2026');
 			strTrail.ReleaseBuffer( nText + 1 );
 			dc.ExtTextOut( nPosition, rcCol.top + 2,
@@ -1262,7 +1262,7 @@ void CMatchCtrl::DrawStatus(CDC& dc, CRect& rcCol, CMatchFile* pFile, CQueryHit*
 	if ( nPos + 16 < rcCol.right && pHit )
 	{
 		if ( pHit->m_bChat )
-			CoolInterface.Draw( &dc, IDR_CHATFRAME, 16,	nPos, rcCol.top, crBackMark, bSelected );
+			CoolInterface.Draw( &dc, IDR_CHATFRAME, 16, nPos, rcCol.top, crBackMark, bSelected );
 		else
 			dc.FillSolidRect( nPos, rcCol.top, 16, 16, crBack );
 
@@ -1745,8 +1745,8 @@ void CMatchCtrl::OnLButtonDblClk(UINT nFlags, CPoint point)
 	else
 		GetOwner()->PostMessage( WM_COMMAND, ID_SEARCH_DOWNLOAD );
 
-	//	CMatchFile* pFile	= NULL;
-	//	CQueryHit* pHit		= NULL;
+	//	CMatchFile* pFile = NULL;
+	//	CQueryHit* pHit = NULL;
 	//	CRect rcItem;
 	//	if ( HitTest( point, &pFile, &pHit, NULL, &rcItem ) )
 	//		// ToDo: Check if its on an action icon and take the appropriate action

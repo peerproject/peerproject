@@ -344,7 +344,7 @@ void CHostCacheWnd::OnSortList(NMHDR* pNotifyStruct, LRESULT *pResult)
 
 void CHostCacheWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 {
-	if ( point.x == -1 && point.y == -1 ) 	// Keyboard fix
+	if ( point.x == -1 && point.y == -1 )	// Keyboard fix
 		ClientToScreen( &point );
 
 	// Do not update the list while user navigates through context menu

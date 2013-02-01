@@ -37,13 +37,13 @@ IMPLEMENT_DYNCREATE(CTextCtrl, CWnd)
 
 BEGIN_MESSAGE_MAP(CTextCtrl, CWnd)
 	//{{AFX_MSG_MAP(CTextCtrl)
-	ON_WM_VSCROLL()
 	ON_WM_ERASEBKGND()
 	ON_WM_PAINT()
 	ON_WM_SIZE()
+	ON_WM_VSCROLL()
+	ON_WM_KEYDOWN()
 	ON_WM_LBUTTONDOWN()
 	ON_WM_RBUTTONDOWN()
-	ON_WM_KEYDOWN()
 	ON_WM_MOUSEWHEEL()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
@@ -170,8 +170,9 @@ void CTextCtrl::Clear(BOOL bInvalidate)
 void CTextCtrl::UpdateScroll(BOOL bFull)
 {
 	SCROLLINFO si = {};
-
-	si.cbSize = sizeof(si);
+	si.cbSize = sizeof( si );
+	si.fMask	= SIF_POS;
+	si.nPos		= m_nPosition;
 
 	if ( bFull )
 	{
@@ -179,15 +180,9 @@ void CTextCtrl::UpdateScroll(BOOL bFull)
 		GetClientRect( &rc );
 
 		si.fMask	= SIF_POS|SIF_PAGE|SIF_RANGE|SIF_DISABLENOSCROLL;
-		si.nPos		= m_nPosition;
 		si.nPage	= rc.Height() / m_nHeight;
 		si.nMax		= m_nTotal + si.nPage - 1;
 		si.nMin		= 0;
-	}
-	else
-	{
-		si.fMask	= SIF_POS;
-		si.nPos		= m_nPosition;
 	}
 
 	SetScrollInfo( SB_VERT, &si );
@@ -199,9 +194,9 @@ void CTextCtrl::UpdateScroll(BOOL bFull)
 void CTextCtrl::OnVScroll(UINT nSBCode, UINT /*nPos*/, CScrollBar* /*pScrollBar*/)
 {
 	CQuickLock pLock( m_pSection );
-	SCROLLINFO si = {};
 
-	si.cbSize	= sizeof(si);
+	SCROLLINFO si = {};
+	si.cbSize	= sizeof( si );
 	si.fMask	= SIF_ALL;
 
 	GetScrollInfo( SB_VERT, &si );
@@ -571,7 +566,7 @@ int CTextLine::Process(CDC* pDC, int nWidth)
 void CTextLine::AddLine(int nLength)
 {
 	int* pLine = new int[ m_nLine + 1 ];
-	if ( m_pLine ) CopyMemory( pLine, m_pLine, m_nLine * sizeof(int) );
+	if ( m_pLine ) CopyMemory( pLine, m_pLine, m_nLine * sizeof( int ) );
 	delete [] m_pLine;
 	m_pLine = pLine;
 	m_pLine[ m_nLine++ ] = nLength;
@@ -583,7 +578,7 @@ void CTextLine::AddLine(int nLength)
 void CTextLine::Paint(CDC* pDC, CRect* pRect, BOOL bSkinned)
 {
 	const int nHeight = pRect->bottom - pRect->top;		// m_nHeight
-	LPCTSTR pszLine	= m_sText;
+	LPCTSTR pszLine = m_sText;
 
 	// Single-line increment:
 

@@ -40,10 +40,10 @@ BEGIN_MESSAGE_MAP(CMediaWnd, CPanelWnd)
 	ON_WM_DESTROY()
 	ON_WM_SIZE()
 	ON_WM_PAINT()
+	ON_WM_NCACTIVATE()
 	ON_WM_NCLBUTTONUP()
 	ON_WM_SETCURSOR()
 	ON_WM_SYSCOMMAND()
-	ON_WM_NCACTIVATE()
 	ON_MESSAGE(WM_IDLEUPDATECMDUI, OnIdleUpdateCmdUI)
 	ON_MESSAGE(WM_APPCOMMAND, OnMediaKey)
 	ON_MESSAGE(WM_DEVMODECHANGE, OnDevModeChange)
@@ -226,7 +226,7 @@ BOOL CMediaWnd::OnDrop(IDataObject* pDataObj, DWORD /*grfKeyState*/, POINT ptScr
 		return TRUE;
 
 	FORMATETC fmtc = { CF_HDROP, NULL, DVASPECT_CONTENT, -1, TYMED_HGLOBAL };
-	if ( SUCCEEDED ( pDataObj->QueryGetData( &fmtc ) ) )
+	if ( SUCCEEDED( pDataObj->QueryGetData( &fmtc ) ) )
 	{
 		*pdwEffect = DROPEFFECT_COPY;
 

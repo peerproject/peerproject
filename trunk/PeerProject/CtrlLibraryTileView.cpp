@@ -54,8 +54,8 @@ BEGIN_MESSAGE_MAP(CLibraryTileView, CLibraryView)
 	ON_WM_LBUTTONUP()
 	ON_WM_LBUTTONDOWN()
 	ON_WM_RBUTTONDOWN()
-	ON_WM_KEYDOWN()
 	ON_WM_LBUTTONDBLCLK()
+	ON_WM_KEYDOWN()
 	ON_WM_CONTEXTMENU()
 	ON_WM_GETDLGCODE()
 	ON_WM_CHAR()
@@ -337,8 +337,8 @@ bool CLibraryTileView::SelectTo(iterator pTile)
 	{
 		m_pFocus = pTile;
 
-		iterator pFirst	= m_pFirst;
-		iterator pFocus	= m_pFocus;
+		iterator pFirst = m_pFirst;
+		iterator pFocus = m_pFocus;
 
 		if ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 )
 		{
@@ -407,18 +407,15 @@ void CLibraryTileView::SelectTo(int nDelta)
 	{
 		pFocus = begin();
 	}
+	else if ( nDelta < 0 )
+	{
+		for ( ; nDelta != 0 && pFocus != begin() ; --pFocus, ++nDelta );
+	}
 	else
 	{
-		if ( nDelta < 0 )
-		{
-			for ( ; nDelta != 0 && pFocus != begin() ; --pFocus, ++nDelta );
-		}
-		else
-		{
-			for ( ; nDelta != 0 && pFocus != end() ; ++pFocus, --nDelta );
-			if ( pFocus == end() )
-				--pFocus;
-		}
+		for ( ; nDelta != 0 && pFocus != end() ; ++pFocus, --nDelta );
+		if ( pFocus == end() )
+			--pFocus;
 	}
 
 	if ( SelectTo( pFocus ) )
@@ -465,7 +462,7 @@ void CLibraryTileView::UpdateScroll()
 	GetClientRect( &rc );
 
 	SCROLLINFO pInfo = {};
-	pInfo.cbSize	= sizeof(pInfo);
+	pInfo.cbSize	= sizeof( pInfo );
 	pInfo.fMask		= SIF_ALL & ~SIF_TRACKPOS;
 	pInfo.nMin		= 0;
 	pInfo.nMax		= (int)( ( size() + m_nColumns - 1 ) / m_nColumns ) * m_szBlock.cy;
@@ -1107,7 +1104,7 @@ void CLibraryTileItem::DrawText(CDC* pDC, const CRect* prcClip, int nX, int nY, 
 
 void CLibraryTileView::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 {
-	if ( point.x == -1 && point.y == -1 ) 	// Keyboard fix
+	if ( point.x == -1 && point.y == -1 )	// Keyboard fix
 		ClientToScreen( &point );
 
 	Skin.TrackPopupMenu( m_pszToolBar, point, ID_LIBRARY_ALBUM_OPEN );

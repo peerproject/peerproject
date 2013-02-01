@@ -142,7 +142,7 @@ void CPrivateChatFrame::OnPaint()
 
 void CPrivateChatFrame::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 {
-	if ( point.x == -1 && point.y == -1 ) 	// Keyboard fix
+	if ( point.x == -1 && point.y == -1 )	// Keyboard fix
 		ClientToScreen( &point );
 
 	Skin.TrackPopupMenu( _T("CPrivateChatFrame"), point );
@@ -229,7 +229,7 @@ void CPrivateChatFrame::OnLocalMessage(bool bAction, LPCTSTR pszText)
 
 	if ( bConnected != TRI_TRUE )
 	{
-		if ( ( m_pSession->m_nProtocol == PROTOCOL_ED2K ) || ( bConnected != TRI_FALSE ) )
+		if ( m_pSession->m_nProtocol == PROTOCOL_ED2K || bConnected != TRI_FALSE )
 		{
 			m_pSession->StatusMessage( 1, IDS_CHAT_NOT_CONNECTED_2 );
 		}

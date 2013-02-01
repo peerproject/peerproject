@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Spanish (Mexican) Skin File -->
 
-<!-- Translation based on default-en.xml r88 -->
+<!-- Translation based on default-en.xml r90 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -559,6 +559,7 @@
 				<item id="ID_HELP_GUIDE" text="Guia para Usuarios de PeerProject"/>
 				<item id="ID_HELP_FORUMS" text="Foros de PeerProject"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="Foro en Español"/>
+			<!--
 				<menu text="Ayuda de SkinVista">
 				<menu text="Si la barra de menús se muestra de forma erronea"> </menu>
 				<menu text="Comprobar el menú: Ventana: Mostrar barra de navegación-"> </menu>
@@ -567,12 +568,12 @@
 				<menu text="Vuelve a cargar la interfaz gráfica para eliminar los errores: Ctrl+Mays+Z"> </menu>
 				</menu>
 				<separator/>
-				<menu text="_Enlaces"> <!--Changed 'sites' for 'links'-->
-				<item id="ID_HELP_WEB_3" text="Slyck.com"/>
-				<item id="ID_HELP_WEB_1" text="ZeroPaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
-				<item id="ID_HELP_WEB_6" text="DeviantArt.com Skins"/>
+				<menu text="_Enlaces">
+					<item id="ID_HELP_WEB_3" text="Slyck.com"/>
+					<item id="ID_HELP_WEB_1" text="ZeroPaid.com"/>
+					<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
 				</menu>
+			-->
 				<item id="ID_HELP_HOMEPAGE" text="PeerProject.org"/>
 				<separator/>
 				<item id="ID_HELP_ABOUT" text="Acerca de PeerProject..."/>
@@ -2336,7 +2337,7 @@
 	<tip id="ID_DOWNLOADS_VIEW_REVIEWS" message="Ver reviews para la descarga seleccionada"/>
 	<tip id="ID_HELP_ABOUT" message="Información acerca de PeerProject..."/>
 	<tip id="ID_HELP_CODEC" message="Todo sobre codecs y problemas de video."/>
-	<tip id="ID_HELP_FAQ" message="Visitar los Forums de PeerProject, donde puedes solicitar ayuda. Si deseas pregunta en Español!"/>
+	<tip id="ID_HELP_FAQ" message="Visitar los Forums de PeerProject, donde puedes solicitar ayuda. Si deseas pregunta en Español."/>
 	<tip id="ID_HELP_ROUTER" message="Consigue ayuda para configurar tu Router Y/O Firewall."/>
 	<tip id="ID_HELP_FORUMS" message="Visitar las foros de PeerProject, para soporte técnico y discusiones."/>
 	<tip id="ID_HELP_FORUMS_LOCAL" message="Visitar la foro en Español, para soporte técnico y discusiones."/>
@@ -2658,7 +2659,7 @@
 	<string id="20081" value="&amp;Cerrar"/>
 	<string id="20082" value="Terminado, haz click a cerrar"/>
 	<string id="20083" value="Pidiendo..."/>
-	<string id="20084" value="Suceso!"/>
+	<string id="20084" value="Suceso."/>
 	<string id="20100" value="Cerrando exploración del usuario %s."/>
 	<string id="20101" value="La exploración del usuario %s respondió incorrectamente, puede no soportarlo."/>
 	<string id="20102" value="Fué imposible establecer la conexión."/>
@@ -2830,7 +2831,7 @@
 	<string id="20290" value="El vecino %s respondió con un rango distinto, pero aceptable (%lu-%lu) de %s."/>
 	<string id="20291" value="El vecino %s pidió un push innecesario."/>
 	<string id="20292" value="Olvidando fuente %s (%s) por enviar partes corruptas de &quot;%s&quot; (%I64i-%I64i)."/>
-	<string id="20293" value="ADVERTENCIA: El archivo %s que fue descargado, falló en el proceso de verificación. Es muy posible que este no sea el archivo correcto, se recomienda que lo borre, y lo descargue de nuevo!"/>
+	<string id="20293" value="ADVERTENCIA: El archivo %s que fue descargado, falló en el proceso de verificación. Es muy posible que este no sea el archivo correcto, se recomienda que lo borre, y lo descargue de nuevo."/>
 	<string id="20294" value="El archivo %s fué verificado exitosamente."/>
 	<string id="20295" value="La versión de %s del archivo %s tiene un URN diferente."/>
 	<string id="20296" value="El vecino %s respondió con un rango innecesario %s."/>
@@ -3420,7 +3421,7 @@
 		<control caption="_Eliminar"/>
 		<control caption="Plugin de _Visualización de Audio:"/>
 		<control caption="_Seleccionar Plugin..."/>
-		<control caption="Nota: Seleccionar un programa de medios externo va a automaticamente deshabilitar todos los Plugins de Visualizacin y de Medios!"/>
+		<control caption="Nota: Seleccionar un programa de medios externo va a automaticamente deshabilitar todos los Plugins de Visualizacin y de Medios."/>
 	</dialog>
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Comunidad">
 		<control caption="Mi _Perfil:"/>
@@ -4327,7 +4328,7 @@
 	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Riega la voz">
 		<control caption="Ayudanos a regar la voz"/>
 		<control caption="Esperamos que hasta ahora haya disfruado PeerProject, este es el mejor programa de compartir archivos disponible."/>
-		<control caption="Desafortunadamente, hay muchos usuarios que no lo conocen todavía!"/>
+		<control caption="Desafortunadamente, hay muchos usuarios que no lo conocen todavía."/>
 		<control caption="Si conoces a alguien que le pueda gustar PeerProject, hazlos saber sobre esta mejor alternativa..."/>
 		<control caption="Es la última vez que este mensaje va aparecer"/>
 		<control caption="http://PeerProject.org"/>

@@ -131,7 +131,7 @@ UINT AsyncFileOperationThread(LPVOID param)
 
 	AsyncFileOperationParams* pAFOP = (AsyncFileOperationParams*)param;
 
-	bool bCopy = (pAFOP->dwEffect == DROPEFFECT_COPY);
+	bool bCopy = ( pAFOP->dwEffect == DROPEFFECT_COPY );
 
 	// Shell file operations
 	SHFILEOPSTRUCT sFileOp = {
@@ -171,7 +171,7 @@ UINT AsyncFileOperationThread(LPVOID param)
 //
 
 #undef  INTERFACE
-#define INTERFACE   IEnumVOID
+#define INTERFACE  IEnumVOID
 
 DECLARE_INTERFACE_(IEnumVOID, IUnknown)
 {
@@ -251,8 +251,7 @@ CPeerProjectDataSource::CPeerProjectDataSource()
 	: m_rgde	( NULL )
 	, m_cde 	( 0 )
 {
-	CoCreateInstance( CLSID_DragDropHelper, NULL, CLSCTX_ALL,
-		IID_IDragSourceHelper, (LPVOID*) &m_pdsh );
+	CoCreateInstance( CLSID_DragDropHelper, NULL, CLSCTX_ALL, IID_IDragSourceHelper, (LPVOID*) &m_pdsh );
 }
 
 CPeerProjectDataSource::~CPeerProjectDataSource()
@@ -289,7 +288,7 @@ UINT CPeerProjectDataSource::DragDropThread(LPVOID param)
 	DWORD dwCurrentThreadID = GetCurrentThreadId();
 
 	// Get thread ID's
-	HWND hwndAttach	= AfxGetMainWnd()->GetSafeHwnd();
+	HWND hwndAttach = AfxGetMainWnd()->GetSafeHwnd();
 	DWORD dwAttachThreadID = GetWindowThreadProcessId( hwndAttach, NULL );
 
 	// Attach input queues if necessary
@@ -309,8 +308,7 @@ UINT CPeerProjectDataSource::DragDropThread(LPVOID param)
 			IDropSource* pIDropSource = &(foo.m_xDropSource);
 
 			DWORD dwEffect = DROPEFFECT_NONE;
-			hr = ::DoDragDrop( pIDataObject, pIDropSource,
-				DROPEFFECT_MOVE | DROPEFFECT_COPY, &dwEffect );
+			hr = ::DoDragDrop( pIDataObject, pIDropSource, DROPEFFECT_MOVE | DROPEFFECT_COPY, &dwEffect );
 			ASSERT( SUCCEEDED( hr ) );
 
 			// ToDo: Detect unoptimized move and delete dragged items
@@ -329,14 +327,14 @@ UINT CPeerProjectDataSource::DragDropThread(LPVOID param)
 
 HRESULT CPeerProjectDataSource::DoDragDrop(const CLibraryList* pList, HBITMAP pImage, const Hashes::Guid& oGUID, const CPoint& ptOffset)
 {
-	return DoDragDropHelper < CLibraryList > (pList, pImage, oGUID, ptOffset);
+	return DoDragDropHelper < CLibraryList > ( pList, pImage, oGUID, ptOffset );
 }
 
 // Perform CLibraryTreeItem drag operation
 
 HRESULT CPeerProjectDataSource::DoDragDrop(const CLibraryTreeItem* pList, HBITMAP pImage, const Hashes::Guid& oGUID, const CPoint& ptOffset)
 {
-	return DoDragDropHelper < CLibraryTreeItem > (pList, pImage, oGUID, ptOffset);
+	return DoDragDropHelper < CLibraryTreeItem > ( pList, pImage, oGUID, ptOffset );
 }
 
 // Perform universal drag operation
@@ -494,17 +492,17 @@ BOOL CPeerProjectDataSource::DropToFolder(IDataObject* pIDataObject, DWORD grfKe
 		return FALSE;
 
 	FORMATETC fmtc = { CF_HDROP, NULL, DVASPECT_CONTENT, -1, TYMED_HGLOBAL };
-	if ( FAILED ( pIDataObject->QueryGetData( &fmtc ) ) )
+	if ( FAILED( pIDataObject->QueryGetData( &fmtc ) ) )
 		return FALSE;
 
 	// Drop files to folder
 	CStgMedium medium;
-	if ( FAILED ( pIDataObject->GetData( &fmtc, &medium ) ) )
+	if ( FAILED( pIDataObject->GetData( &fmtc, &medium ) ) )
 		return FALSE;
 
 	SIZE_T size = GlobalSize( medium.hGlobal );
 	if ( medium.tymed != TYMED_HGLOBAL || medium.hGlobal == NULL ||
-		size < sizeof( DROPFILES ) || size > 10000000 )
+		 size < sizeof( DROPFILES ) || size > 10000000 )
 		return FALSE;
 
 	auto_ptr<AsyncFileOperationParams> pAFOP( new AsyncFileOperationParams );
@@ -530,7 +528,7 @@ BOOL CPeerProjectDataSource::DropToFolder(IDataObject* pIDataObject, DWORD grfKe
 			{
 				pAFOP->sFrom.SetSize( pAFOP->sFrom.GetSize() + sFile.GetLength() + 1 );
 				CopyMemory( pAFOP->sFrom.GetData() + offset,
-					(LPCWSTR)sFile, sizeof(WCHAR) * ( sFile.GetLength() + 1 ) );
+					(LPCWSTR)sFile, sizeof( WCHAR ) * ( sFile.GetLength() + 1 ) );
 			}
 
 			if ( ! bDrop )
@@ -550,14 +548,14 @@ BOOL CPeerProjectDataSource::DropToFolder(IDataObject* pIDataObject, DWORD grfKe
 				{
 					pAFOP->sFrom.SetSize( pAFOP->sFrom.GetSize() + sFile.GetLength() + 1 );
 					CopyMemory( pAFOP->sFrom.GetData() + offset,
-						(LPCTSTR)sFile, sizeof(WCHAR) * ( sFile.GetLength() + 1 ) );
+						(LPCTSTR)sFile, sizeof( WCHAR ) * ( sFile.GetLength() + 1 ) );
 				}
 			}
 			else
 			{
 				pAFOP->sFrom.SetSize( pAFOP->sFrom.GetSize() + len + 1 );
 				CopyMemory( pAFOP->sFrom.GetData() + offset,
-					pFrom, sizeof(WCHAR) * ( len + 1 ) );
+					pFrom, sizeof( WCHAR ) * ( len + 1 ) );
 			}
 
 			if ( ! bDrop )
@@ -596,7 +594,7 @@ BOOL CPeerProjectDataSource::DropToFolder(IDataObject* pIDataObject, DWORD grfKe
 
 	len = lstrlen( pszDest ) + 1;
 	pAFOP->sTo.SetSize( len + 1 );		// Double NULL terminated
-	CopyMemory( pAFOP->sTo.GetData(), pszDest, sizeof(WCHAR) * len );
+	CopyMemory( pAFOP->sTo.GetData(), pszDest, sizeof( WCHAR ) * len );
 
 	pAFOP->hWnd = AfxGetMainWnd()->GetSafeHwnd();
 
@@ -651,13 +649,13 @@ BOOL CPeerProjectDataSource::DropToAlbum(IDataObject* pIDataObject, DWORD grfKey
 
 	// Drop files to album
 	FORMATETC fmtc1 = { (CLIPFORMAT) RegisterClipboardFormat( CF_PEERPROJECT_FILES ), NULL, DVASPECT_CONTENT, -1, TYMED_HGLOBAL };
-	if ( SUCCEEDED ( pIDataObject->QueryGetData( &fmtc1 ) ) )
+	if ( SUCCEEDED( pIDataObject->QueryGetData( &fmtc1 ) ) )
 	{
 		*pdwEffect = (grfKeyState & MK_CONTROL) ? DROPEFFECT_COPY :
 			( (grfKeyState & MK_SHIFT ) ? DROPEFFECT_MOVE : DROPEFFECT_COPY );
 
 		CStgMedium medium;
-		if ( SUCCEEDED ( pIDataObject->GetData( &fmtc1, &medium ) ) )
+		if ( SUCCEEDED( pIDataObject->GetData( &fmtc1, &medium ) ) )
 		{
 			SIZE_T size = GlobalSize( medium.hGlobal ) / 20;
 			if ( medium.tymed == TYMED_HGLOBAL && medium.hGlobal != NULL &&
@@ -705,21 +703,21 @@ BOOL CPeerProjectDataSource::DropToAlbum(IDataObject* pIDataObject, DWORD grfKey
 
 	// Drop album to album
 	FORMATETC fmtc2 = { (CLIPFORMAT) RegisterClipboardFormat( CF_PEERPROJECT_ALBUMS ), NULL, DVASPECT_CONTENT, -1, TYMED_ISTREAM };
-	if ( SUCCEEDED ( pIDataObject->QueryGetData( &fmtc2 ) ) )
+	if ( SUCCEEDED( pIDataObject->QueryGetData( &fmtc2 ) ) )
 	{
 		*pdwEffect = (grfKeyState & MK_CONTROL) ? DROPEFFECT_COPY :
 			( ( grfKeyState & MK_SHIFT ) ? DROPEFFECT_MOVE : DROPEFFECT_COPY );
 
 		CStgMedium medium;
-		if ( SUCCEEDED ( pIDataObject->GetData( &fmtc2, &medium ) ) )
+		if ( SUCCEEDED( pIDataObject->GetData( &fmtc2, &medium ) ) )
 		{
 			LARGE_INTEGER zero = { 0 };
 			medium.pstm->Seek( zero, STREAM_SEEK_SET, NULL );
 
 			CStreamArchive ar ( medium.pstm, CArchive::load );
 			DWORD size_Archive = 0;
-			ar >> (DWORD) size_Archive;
-			while( size_Archive-- )
+			ar >> (DWORD)size_Archive;
+			while ( size_Archive-- )
 			{
 				if ( CAlbumFolder* pFolder = new CAlbumFolder( pAlbumFolder ) )
 				{
@@ -850,7 +848,7 @@ HRESULT CPeerProjectDataSource::AddFiles(IDataObject* pIDataObject, const T* pSe
 	GetTotalLength( pSelFirst, size_HDROP, size_Archive, size_Files, TRUE );
 
 	// Initialize CF_HDROP
-	CHGlobal < DROPFILES > oHDROP( size_HDROP + sizeof (DROPFILES) + sizeof( TCHAR ) );
+	CHGlobal < DROPFILES > oHDROP( size_HDROP + sizeof( DROPFILES ) + sizeof( TCHAR ) );
 	if ( ! oHDROP.IsValid() )
 		return E_OUTOFMEMORY;
 
@@ -866,7 +864,7 @@ HRESULT CPeerProjectDataSource::AddFiles(IDataObject* pIDataObject, const T* pSe
 		return E_OUTOFMEMORY;
 
 	if ( size_Archive )
-		buf_Archive << (DWORD) size_Archive;
+		buf_Archive << (DWORD)size_Archive;
 
 	// Initialize CF_PEERPROJECT_FILES
 	CHGlobal < BYTE > oFiles( size_Files * 20 );	// [DWORD 1][GUID 1]...[DWORD N][GUID N]
@@ -892,7 +890,7 @@ HRESULT CPeerProjectDataSource::AddFiles(IDataObject* pIDataObject, const T* pSe
 		CopyMemory( (LPTSTR)oText, (LPCSTR)CT2CA( buf_Text ), size_Text );
 		medium_Text.hGlobal = oText;
 		HRESULT hr = pIDataObject->SetData( &formatetc_Text, &medium_Text, FALSE );
-		if ( FAILED ( hr ) )
+		if ( FAILED( hr ) )
 			return hr;
 	}
 
@@ -903,7 +901,7 @@ HRESULT CPeerProjectDataSource::AddFiles(IDataObject* pIDataObject, const T* pSe
 		FORMATETC formatetc_HDROP = { CF_HDROP, NULL, DVASPECT_CONTENT, -1, TYMED_HGLOBAL };
 		medium_HDROP.hGlobal = oHDROP;
 		HRESULT hr = pIDataObject->SetData( &formatetc_HDROP, &medium_HDROP, FALSE );
-		if ( FAILED ( hr ) )
+		if ( FAILED( hr ) )
 			return hr;
 
 		STGMEDIUM medium_PDS = { TYMED_HGLOBAL, NULL, NULL };
@@ -925,7 +923,7 @@ HRESULT CPeerProjectDataSource::AddFiles(IDataObject* pIDataObject, const T* pSe
 		buf_Archive.Close();
 		medium_Archive.pstm = buf_Archive;
 		HRESULT hr = pIDataObject->SetData( &formatetc_Archive, &medium_Archive, FALSE );
-		if ( FAILED ( hr ) )
+		if ( FAILED( hr ) )
 			return hr;
 	}
 
@@ -936,7 +934,7 @@ HRESULT CPeerProjectDataSource::AddFiles(IDataObject* pIDataObject, const T* pSe
 		FORMATETC formatetc_Files = { (CLIPFORMAT) RegisterClipboardFormat( CF_PEERPROJECT_FILES ), NULL, DVASPECT_CONTENT, -1, TYMED_HGLOBAL };
 		medium_Files.hGlobal = oFiles;
 		HRESULT hr = pIDataObject->SetData( &formatetc_Files, &medium_Files, FALSE );
-		if ( FAILED ( hr ) )
+		if ( FAILED( hr ) )
 			return hr;
 	}
 
@@ -982,8 +980,7 @@ HRESULT CPeerProjectDataSource::FindFORMATETC(FORMATETC *pfe, LPDATAENTRY *ppde,
 	if ( ! fAdd )
 		return DV_E_FORMATETC;
 
-	LPDATAENTRY pdeT = (LPDATAENTRY) CoTaskMemRealloc(
-		m_rgde, sizeof( DATAENTRY ) * ( m_cde + 1 ) );
+	LPDATAENTRY pdeT = (LPDATAENTRY) CoTaskMemRealloc( m_rgde, sizeof( DATAENTRY ) * ( m_cde + 1 ) );
 	if ( ! pdeT )
 		return E_OUTOFMEMORY;
 
@@ -1067,11 +1064,11 @@ STDMETHODIMP CPeerProjectDataSource::XDataObject::GetData(FORMATETC *pformatetc,
 
 	LPDATAENTRY pde = NULL;
 	HRESULT hr = pThis->FindFORMATETC( pformatetc, &pde, FALSE );
-	if ( SUCCEEDED ( hr ) )
+	if ( SUCCEEDED( hr ) )
 		hr = pThis->AddRefStgMedium( &pde->stgm, pmedium, FALSE );
 
 #ifdef _DEBUG
-	if ( FAILED ( hr ) )
+	if ( FAILED( hr ) )
 		TRACE("0x%08x : GetData( {%ls, %d, %d, 0x%08x, %d}, 0x%08x ) : 0x%08x\n",
 			this, GetFORMATLIST( pformatetc->cfFormat ), pformatetc->dwAspect,
 			pformatetc->lindex, pformatetc->ptd, pformatetc->tymed, pmedium, hr);
@@ -1100,7 +1097,7 @@ STDMETHODIMP CPeerProjectDataSource::XDataObject::QueryGetData (FORMATETC* pform
 	if ( SUCCEEDED( hr ) ) hr = S_OK;
 
 #ifdef _DEBUG
-	if ( FAILED ( hr ) )
+	if ( FAILED( hr ) )
 		TRACE("0x%08x : QueryGetData( {%ls, %d, %d, 0x%08x, %d} ) : 0x%08x\n",
 			this, GetFORMATLIST( pformatetc->cfFormat ), pformatetc->dwAspect,
 			pformatetc->lindex, pformatetc->ptd, pformatetc->tymed, hr);
@@ -1136,7 +1133,7 @@ STDMETHODIMP CPeerProjectDataSource::XDataObject::SetData(FORMATETC* pformatetc,
 	LPDATAENTRY pde = NULL;
 	HRESULT hr = pThis->FindFORMATETC( pformatetc, &pde, TRUE );
 	if ( hr == S_FALSE )
-		ReleaseStgMedium( &pde->stgm );	// Release old data
+		ReleaseStgMedium( &pde->stgm );		// Release old data
 	if ( SUCCEEDED( hr ) )
 	{
 		if ( fRelease )
@@ -1295,32 +1292,30 @@ void CPeerProjectDataSource::GetTotalLength(const CLibraryList* pList, size_t& s
 	ASSERT_VALID( pList );
 
 	POSITION pos = pList->GetHeadPosition();
-	while( pos )
+	while ( pos )
 	{
 		CLibraryListItem Item = pList->GetNext( pos );
 		switch ( Item.Type )
 		{
 		case CLibraryListItem::LibraryFile:
+			if ( CLibraryFile* pFile = Item )
 			{
-				CLibraryFile* pFile = Item;
-				ASSERT( pFile != NULL );
-				if ( pFile )
-				{
-					if ( int len = pFile->GetPath().GetLength() )
-						size_HDROP += ( len + 1 ) * sizeof( TCHAR );
+				if ( int len = pFile->GetPath().GetLength() )
+					size_HDROP += ( len + 1 ) * sizeof( TCHAR );
 
-					if ( bRoot )
-						size_Files++;
-				}
+				if ( bRoot )
+					size_Files++;
 			}
+			else
+				ASSERT( FALSE );
 			break;
 
 		case CLibraryListItem::AlbumFolder:
+			if ( ! bRoot )
+				break;
+			if ( CAlbumFolder* pAlbum = Item )
 			{
-				CAlbumFolder* pAlbum = Item;
-				ASSERT( pAlbum != NULL );
-				if ( pAlbum && bRoot &&
-					! CheckURI( pAlbum->m_sSchemaURI, CSchema::uriGhostFolder ) )
+				if ( ! CheckURI( pAlbum->m_sSchemaURI, CSchema::uriGhostFolder ) )
 				{
 					CLibraryListPtr pList( new CLibraryList() );
 					pAlbum->GetFileList( pList, TRUE );
@@ -1329,19 +1324,18 @@ void CPeerProjectDataSource::GetTotalLength(const CLibraryList* pList, size_t& s
 					size_Archive++;
 				}
 			}
+			else
+				ASSERT( FALSE );
 			break;
 
 		case CLibraryListItem::LibraryFolder:
+			if ( CLibraryFolder* pFolder = Item )
 			{
-				CLibraryFolder* pFolder = Item;
-				ASSERT( pFolder != NULL );
-				if ( pFolder )
-				{
-					int len = pFolder->m_sPath.GetLength();
-					if ( len )
-						size_HDROP += ( len + 1 ) * sizeof( TCHAR );
-				}
+				if ( int len = pFolder->m_sPath.GetLength() )
+					size_HDROP += ( len + 1 ) * sizeof( TCHAR );
 			}
+			else
+				ASSERT( FALSE );
 			break;
 
 		//case CLibraryListItem::Empty:
@@ -1386,79 +1380,75 @@ void CPeerProjectDataSource::FillBuffer(const CLibraryList* pList, LPTSTR& buf_H
 	ASSERT_VALID( pList );
 
 	POSITION pos = pList->GetHeadPosition();
-	while( pos )
+	while ( pos )
 	{
 		CLibraryListItem Item = pList->GetNext( pos );
 		switch ( Item.Type )
 		{
 		case CLibraryListItem::LibraryFile:
+			if ( CLibraryFile* pFile = Item )
 			{
-				CLibraryFile* pFile = Item;
-				ASSERT( pFile != NULL );
-				if ( pFile )
+				if ( pFile->m_oSHA1 && pFile->m_oTiger && pFile->m_oED2K &&
+					 pFile->m_nSize && pFile->m_nSize != SIZE_UNKNOWN && ! pFile->m_sName.IsEmpty() )
 				{
-					if ( pFile->m_oSHA1 && pFile->m_oTiger && pFile->m_oED2K &&
-						pFile->m_nSize != 0 && pFile->m_nSize != SIZE_UNKNOWN &&
-						pFile->m_sName )
-					{
-						CString strTemp;
-						strTemp.Format(
-							_T("magnet:?xt=urn:bitprint:%s.%s&xt=%s&xl=%I64u&dn=%s"),
-							pFile->m_oSHA1.toString(),
-							pFile->m_oTiger.toString(),
-							pFile->m_oED2K.toUrn(),
-							pFile->m_nSize,
-							URLEncode( pFile->m_sName ) );
-						if ( ! buf_Text.IsEmpty() )
-							buf_Text += _T("\r\n\r\n");
-						buf_Text += strTemp;
-					}
+					CString strTemp;
+					strTemp.Format(
+						_T("magnet:?xt=urn:bitprint:%s.%s&xt=%s&xl=%I64u&dn=%s"),
+						pFile->m_oSHA1.toString(),
+						pFile->m_oTiger.toString(),
+						pFile->m_oED2K.toUrn(),
+						pFile->m_nSize,
+						URLEncode( pFile->m_sName ) );
+					if ( ! buf_Text.IsEmpty() )
+						buf_Text += _T("\r\n\r\n");
+					buf_Text += strTemp;
+				}
 
-					if ( int len = pFile->GetPath().GetLength() )
-					{
-						_tcscpy_s( buf_HDROP, len + 1, pFile->GetPath() );
-						buf_HDROP += len + 1;
-					}
+				if ( int len = pFile->GetPath().GetLength() )
+				{
+					_tcscpy_s( buf_HDROP, len + 1, pFile->GetPath() );
+					buf_HDROP += len + 1;
+				}
 
-					if ( bRoot )
-					{
-						*(DWORD*)buf_Files = Item;
-						CopyMemory( buf_Files + sizeof( DWORD ), &*oGUID.begin(), 16 );
-						buf_Files += 20;
-					}
+				if ( bRoot )
+				{
+					*(DWORD*)buf_Files = Item;
+					CopyMemory( buf_Files + sizeof( DWORD ), &*oGUID.begin(), 16 );
+					buf_Files += 20;
 				}
 			}
+			else
+				ASSERT( FALSE );
 			break;
 
 		case CLibraryListItem::AlbumFolder:
+			if ( ! bRoot )
+				break;
+			if ( CAlbumFolder* pAlbum = Item )
 			{
-				CAlbumFolder* pAlbum = Item;
-				ASSERT( pAlbum != NULL );
-				if ( pAlbum && bRoot &&
-					! CheckURI( pAlbum->m_sSchemaURI, CSchema::uriGhostFolder ) )
+				if ( ! CheckURI( pAlbum->m_sSchemaURI, CSchema::uriGhostFolder ) )
 				{
 					CLibraryListPtr pList( new CLibraryList() );
 					pAlbum->GetFileList( pList, TRUE );
 					FillBuffer( pList, buf_HDROP, buf_Archive, buf_Files, buf_Text, FALSE, pAlbum->m_oGUID );
-
 					pAlbum->Serialize( buf_Archive, LIBRARY_SER_VERSION );
 				}
 			}
+			else
+				ASSERT( FALSE );
 			break;
 
 		case CLibraryListItem::LibraryFolder:
+			if ( CLibraryFolder* pFolder = Item )
 			{
-				CLibraryFolder* pFolder = Item;
-				ASSERT( pFolder != NULL );
-				if ( pFolder )
+				if ( int len = pFolder->m_sPath.GetLength() )
 				{
-					if ( int len = pFolder->m_sPath.GetLength() )
-					{
-						_tcscpy_s( buf_HDROP, len + 1, pFolder->m_sPath );
-						buf_HDROP += len + 1;
-					}
+					_tcscpy_s( buf_HDROP, len + 1, pFolder->m_sPath );
+					buf_HDROP += len + 1;
 				}
 			}
+			else
+				ASSERT( FALSE );
 			break;
 
 		//case CLibraryListItem::Empty:

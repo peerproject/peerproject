@@ -394,7 +394,7 @@ BOOL CNeighbour::OnWrite()
 	if ( bNew )
 	{
 		// Zero the z_stream structure and set it up for compression
-		ZeroMemory( pStream, sizeof(z_stream) );
+		ZeroMemory( pStream, sizeof( z_stream ) );
 		if ( deflateInit( pStream, Settings.Connection.ZLibCompressionLevel ) != Z_OK )
 		{
 			// There was an error setting up zlib, clean up and leave now

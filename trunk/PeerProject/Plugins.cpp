@@ -287,7 +287,7 @@ BOOL CPlugins::LookupEnable(REFCLSID pCLSID, LPCTSTR pszExt) const
 	if ( strExtensions.Left( 1 ) == _T("-") && strExtensions.GetLength() > 1 )
 		strExtensions = strExtensions.Mid( 1 );
 
-	if ( pszExt ) // Checking only a certain extension
+	if ( pszExt )	// Checking only a certain extension
 	{
 		CString strToFind;
 		strToFind.Format( _T("|%s|"), pszExt );
@@ -382,7 +382,7 @@ void CPlugins::OnRun()
 {
 	HRESULT hr;
 
-	while( IsThreadEnabled() )
+	while ( IsThreadEnabled() )
 	{
 		Doze();
 
@@ -764,9 +764,9 @@ HICON CPlugin::LookupIcon() const
 	if ( RegOpenKeyEx( HKEY_CLASSES_ROOT, strName, 0, KEY_QUERY_VALUE, &hKey ) )
 		return NULL;
 
-	DWORD dwType = REG_SZ, dwSize = 256 * sizeof(TCHAR);
+	DWORD dwType = REG_SZ, dwSize = 256 * sizeof( TCHAR );
 	LONG lResult = RegQueryValueEx( hKey, _T(""), NULL, &dwType, (LPBYTE)strName.GetBuffer( 256 ), &dwSize );
-	strName.ReleaseBuffer( dwSize / sizeof(TCHAR) );
+	strName.ReleaseBuffer( dwSize / sizeof( TCHAR ) );
 	RegCloseKey( hKey );
 
 	if ( lResult != ERROR_SUCCESS ) return NULL;

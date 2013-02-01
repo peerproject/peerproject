@@ -123,10 +123,10 @@ BOOL CCoolMenu::AddMenu(CMenu* pMenu, BOOL bChild)
 		CString strText;
 
 		MENUITEMINFO mii = {};
-		mii.cbSize		= sizeof(mii);
+		mii.cbSize		= sizeof( mii );
 		mii.fMask		= MIIM_DATA|MIIM_ID|MIIM_FTYPE|MIIM_STRING|MIIM_SUBMENU;
 		mii.dwTypeData	= szBuffer;
-		mii.cch			= sizeof(szBuffer) / sizeof(TCHAR) - 1;
+		mii.cch			= sizeof( szBuffer ) / sizeof( TCHAR ) - 1;
 
 		GetMenuItemInfo( pMenu->GetSafeHmenu(), i, TRUE, &mii );
 
@@ -136,7 +136,7 @@ BOOL CCoolMenu::AddMenu(CMenu* pMenu, BOOL bChild)
 		// Non-XML parsed menu items
 		const int nItemID = pMenu->GetMenuItemID( i );
 		if ( nItemID == ID_SEARCH_FILTER ||
-			nItemID == -1 && ! m_sFilterString.IsEmpty() && m_sFilterString == szBuffer )
+			 nItemID == -1 && ! m_sFilterString.IsEmpty() && m_sFilterString == szBuffer )
 		{
 			CResultFilters* pResultFilters = new CResultFilters;
 			pResultFilters->Load();
@@ -285,8 +285,7 @@ void CCoolMenu::OnMeasureItem(LPMEASUREITEMSTRUCT lpMeasureItemStruct)
 	{
 		__try
 		{
-			m_pContextMenu2->HandleMenuMsg( WM_MEASUREITEM, 0,
-				(LPARAM)lpMeasureItemStruct );
+			m_pContextMenu2->HandleMenuMsg( WM_MEASUREITEM, 0, (LPARAM)lpMeasureItemStruct );
 		}
 		__except( EXCEPTION_EXECUTE_HANDLER )
 		{
@@ -337,8 +336,7 @@ void CCoolMenu::OnDrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	{
 		__try
 		{
-			m_pContextMenu2->HandleMenuMsg( WM_DRAWITEM, 0,
-				(LPARAM)lpDrawItemStruct );
+			m_pContextMenu2->HandleMenuMsg( WM_DRAWITEM, 0, (LPARAM)lpDrawItemStruct );
 		}
 		__except( EXCEPTION_EXECUTE_HANDLER )
 		{

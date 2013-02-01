@@ -384,7 +384,7 @@ BOOL CDownloadTransferED2K::OnHashsetAnswer(CEDPacket* pPacket)
 
 	if ( nBlocks != nBlocksFromSize )
 		theApp.Message( MSG_ERROR, IDS_DOWNLOAD_HASHSET_ERROR, (LPCTSTR)m_sAddress );
-	else if ( m_pDownload->SetHashset(	pPacket->m_pBuffer + pPacket->m_nPosition, pPacket->GetRemaining() ) )
+	else if ( m_pDownload->SetHashset( pPacket->m_pBuffer + pPacket->m_nPosition, pPacket->GetRemaining() ) )
 		return SendSecondaryRequest();
 
 	Close( TRI_FALSE );
@@ -403,7 +403,7 @@ BOOL CDownloadTransferED2K::OnQueueRank(CEDPacket* pPacket)
 		return FALSE;
 	}
 
-	m_nQueuePos	= pPacket->ReadLongLE();
+	m_nQueuePos = pPacket->ReadLongLE();
 
 	if ( m_nQueuePos > 0 )
 	{
@@ -429,8 +429,8 @@ BOOL CDownloadTransferED2K::OnRankingInfo(CEDPacket* pPacket)
 		return FALSE;
 	}
 
-	m_nQueuePos	= pPacket->ReadShortLE();
-	m_nQueueLen	= pPacket->ReadShortLE();
+	m_nQueuePos = pPacket->ReadShortLE();
+	m_nQueueLen = pPacket->ReadShortLE();
 
 	SetQueueRank( m_nQueuePos );
 
@@ -459,10 +459,8 @@ BOOL CDownloadTransferED2K::OnFileComment(CEDPacket* pPacket)
 	}
 
 	if ( m_pDownload && m_pClient )
-	{
 		return m_pDownload->AddReview( &m_pClient->m_pHost.sin_addr,
 			3, nFileRating, m_pClient->m_sNick, strFileComment );
-	}
 
 	return FALSE;
 }
@@ -576,7 +574,7 @@ BOOL CDownloadTransferED2K::OnCompressedPart(CEDPacket* pPacket)
 
 		m_pInflatePtr = new z_stream;
 		pStream = (z_streamp)m_pInflatePtr;
-		ZeroMemory( pStream, sizeof(z_stream) );
+		ZeroMemory( pStream, sizeof( z_stream ) );
 
 		if ( inflateInit( pStream ) != Z_OK )
 		{
@@ -596,13 +594,13 @@ BOOL CDownloadTransferED2K::OnCompressedPart(CEDPacket* pPacket)
 
 	if ( m_pInflateBuffer->m_nLength > 0 && m_nInflateRead < m_nInflateLength )
 	{
-		pStream->next_in	= m_pInflateBuffer->m_pBuffer;
-		pStream->avail_in	= m_pInflateBuffer->m_nLength;
+		pStream->next_in  = m_pInflateBuffer->m_pBuffer;
+		pStream->avail_in = m_pInflateBuffer->m_nLength;
 
 		do
 		{
-			pStream->next_out	= pBuffer.get();
-			pStream->avail_out	= BUFFER_SIZE;
+			pStream->next_out  = pBuffer.get();
+			pStream->avail_out = BUFFER_SIZE;
 
 			inflate( pStream, Z_SYNC_FLUSH );
 
@@ -1095,10 +1093,10 @@ BOOL CDownloadTransferED2K::OnCompressedPart64(CEDPacket* pPacket)
 		return TRUE;
 	}
 
-	QWORD	nBaseOffset = pPacket->ReadLongLE();
-			nBaseOffset = ( (QWORD)pPacket->ReadLongLE() << 32 ) | nBaseOffset;
+	QWORD nBaseOffset = pPacket->ReadLongLE();
+		  nBaseOffset = ( (QWORD)pPacket->ReadLongLE() << 32 ) | nBaseOffset;
 
-	QWORD	nBaseLength = pPacket->ReadLongLE();	// Length of compressed data is 32bit
+	QWORD nBaseLength = pPacket->ReadLongLE();	// Length of compressed data is 32bit
 
 	z_streamp pStream = (z_streamp)m_pInflatePtr;
 
@@ -1118,7 +1116,7 @@ BOOL CDownloadTransferED2K::OnCompressedPart64(CEDPacket* pPacket)
 
 		m_pInflatePtr = new z_stream;
 		pStream = (z_streamp)m_pInflatePtr;
-		ZeroMemory( pStream, sizeof(z_stream) );
+		ZeroMemory( pStream, sizeof( z_stream ) );
 
 		if ( inflateInit( pStream ) != Z_OK )
 		{
@@ -1138,13 +1136,13 @@ BOOL CDownloadTransferED2K::OnCompressedPart64(CEDPacket* pPacket)
 
 	if ( m_pInflateBuffer->m_nLength > 0 && m_nInflateRead < m_nInflateLength )
 	{
-		pStream->next_in	= m_pInflateBuffer->m_pBuffer;
-		pStream->avail_in	= m_pInflateBuffer->m_nLength;
+		pStream->next_in  = m_pInflateBuffer->m_pBuffer;
+		pStream->avail_in = m_pInflateBuffer->m_nLength;
 
 		do
 		{
-			pStream->next_out	= pBuffer.get();
-			pStream->avail_out	= BUFFER_SIZE;
+			pStream->next_out  = pBuffer.get();
+			pStream->avail_out = BUFFER_SIZE;
 
 			inflate( pStream, Z_SYNC_FLUSH );
 

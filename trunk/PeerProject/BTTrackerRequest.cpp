@@ -562,7 +562,7 @@ void CBTTrackerRequest::ProcessHTTP()
 
 	if ( ! m_pRequest->InflateResponse() )
 	{
-		OnTrackerEvent( false, LoadString( IDS_BT_TRACK_PARSE_ERROR ) );
+		OnTrackerEvent( false, LoadString( IDS_BT_TRACKER_PARSE_ERROR ) );
 		return;
 	}
 
@@ -576,7 +576,7 @@ void CBTTrackerRequest::ProcessHTTP()
 
 	if ( pBuffer->m_pBuffer == NULL )
 	{
-		OnTrackerEvent( false, LoadString( IDS_BT_TRACK_PARSE_ERROR ) );
+		OnTrackerEvent( false, LoadString( IDS_BT_TRACKER_PARSE_ERROR ) );
 		return;
 	}
 
@@ -590,12 +590,12 @@ void CBTTrackerRequest::ProcessHTTP()
 	else if ( pRoot && pRoot->IsType( CBENode::beString ) )
 	{
 		CString strError;
-		strError.Format( LoadString( IDS_BT_TRACK_ERROR ), m_sName, pRoot->GetString() );
+		strError.Format( LoadString( IDS_BT_TRACKER_ERROR ), m_sName, pRoot->GetString() );
 		OnTrackerEvent( false, strError, pRoot->GetString() );
 	}
 	else
 	{
-		OnTrackerEvent( false, LoadString( IDS_BT_TRACK_PARSE_ERROR ) );
+		OnTrackerEvent( false, LoadString( IDS_BT_TRACKER_PARSE_ERROR ) );
 
 		CString strData( (const char*)pBuffer->m_pBuffer, pBuffer->m_nLength );
 		theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, _T("[BT] Received BitTorrent tracker response: %s"), strData.Trim() );
@@ -610,7 +610,7 @@ void CBTTrackerRequest::Process(const CBENode* pRoot)
 	if ( const CBENode* pError = pRoot->GetNode( BT_DICT_FAILURE ) )	// "failure reason"
 	{
 		CString strError;
-		strError.Format( LoadString( IDS_BT_TRACK_ERROR ), m_sName, pError->GetString() );
+		strError.Format( LoadString( IDS_BT_TRACKER_ERROR ), m_sName, pError->GetString() );
 		OnTrackerEvent( false, strError, pError->GetString() );
 		return;
 	}
@@ -619,14 +619,14 @@ void CBTTrackerRequest::Process(const CBENode* pRoot)
 	{
 		if ( ! pRoot->IsType( CBENode::beDict ) )
 		{
-			OnTrackerEvent( false, LoadString( IDS_BT_TRACK_PARSE_ERROR ) );
+			OnTrackerEvent( false, LoadString( IDS_BT_TRACKER_PARSE_ERROR ) );
 			return;
 		}
 
 		const CBENode* pFiles = pRoot->GetNode( BT_DICT_FILES );
 		if ( ! pFiles || ! pFiles->IsType( CBENode::beDict ) )
 		{
-			OnTrackerEvent( false, LoadString( IDS_BT_TRACK_PARSE_ERROR ) );
+			OnTrackerEvent( false, LoadString( IDS_BT_TRACKER_PARSE_ERROR ) );
 			return;
 		}
 
@@ -635,7 +635,7 @@ void CBTTrackerRequest::Process(const CBENode* pRoot)
 		const CBENode* pFile = pFiles->GetNode( nKey, Hashes::BtHash::byteCount );
 		if ( ! pFile || ! pFile->IsType( CBENode::beDict ) )
 		{
-			OnTrackerEvent( false, LoadString( IDS_BT_TRACK_PARSE_ERROR ) );
+			OnTrackerEvent( false, LoadString( IDS_BT_TRACKER_PARSE_ERROR ) );
 			return;
 		}
 
@@ -722,7 +722,7 @@ void CBTTrackerRequest::Process(const CBENode* pRoot)
 	}
 
 	CString strError;
-	strError.Format( LoadString( IDS_BT_TRACK_SUCCESS ), m_sName, m_pSources.GetCount() );
+	strError.Format( LoadString( IDS_BT_TRACKER_SUCCESS ), m_sName, m_pSources.GetCount() );
 	OnTrackerEvent( true, strError );
 }
 
@@ -823,7 +823,7 @@ BOOL CBTTrackerRequest::OnAnnounce(CBTTrackerPacket* pPacket)
 	}
 
 	CString strError;
-	strError.Format( LoadString( IDS_BT_TRACK_SUCCESS ), m_sName, m_pSources.GetCount() );
+	strError.Format( LoadString( IDS_BT_TRACKER_SUCCESS ), m_sName, m_pSources.GetCount() );
 	OnTrackerEvent( true, strError );
 	Cancel();
 
@@ -841,7 +841,7 @@ BOOL CBTTrackerRequest::OnScrape(CBTTrackerPacket* pPacket)
 	}
 
 	CString strError;
-	strError.Format( LoadString( IDS_BT_TRACK_SUCCESS ), m_sName, 0 );
+	strError.Format( LoadString( IDS_BT_TRACKER_SUCCESS ), m_sName, 0 );
 	OnTrackerEvent( true, strError );
 	Cancel();
 
@@ -853,7 +853,7 @@ BOOL CBTTrackerRequest::OnError(CBTTrackerPacket* pPacket)
 	CString strErrorMsg = pPacket->ReadStringUTF8();
 
 	CString strError;
-	strError.Format( LoadString( IDS_BT_TRACK_ERROR ), m_sName, strErrorMsg );
+	strError.Format( LoadString( IDS_BT_TRACKER_ERROR ), m_sName, strErrorMsg );
 	OnTrackerEvent( false, strError, strErrorMsg );
 	Cancel();
 
@@ -891,8 +891,7 @@ DWORD CBTTrackerRequests::Request(CDownload* pDownload, BTTrackerEvent nEvent, D
 
 	CBTTrackerRequest* pRequest = new CBTTrackerRequest( pDownload, nEvent, nNumWant, pOnTrackerEvent );
 	if ( ! pRequest )
-		// Out of memory
-		return 0;
+		return 0;	// Out of memory
 
 	for ( ;; )
 	{

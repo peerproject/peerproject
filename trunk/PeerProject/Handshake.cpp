@@ -84,8 +84,8 @@ CHandshake::CHandshake(CHandshake* pCopy)
 	AttachTo( pCopy );
 
 	// Then, copy across the CHandshake member variables, since AttachTo just does the CConnection ones
-	m_bPushing		= pCopy->m_bPushing;	// Copy in whether or not we connected to the remote computer as part of a push
-	m_nIndex		= pCopy->m_nIndex;		// Copy across the handshake index (do)
+	m_bPushing	= pCopy->m_bPushing;	// Copy in whether or not we connected to the remote computer as part of a push
+	m_nIndex	= pCopy->m_nIndex;		// Copy across the handshake index (do)
 
 	// Set pointers so the input and output bandwidth limits are read from the DWORD in settings
 	m_mInput.pLimit = m_mOutput.pLimit = &Settings.Bandwidth.Request;
@@ -237,10 +237,10 @@ BOOL CHandshake::OnRead()
 
 	// Read the first header line
 	CString strLine;
-	if ( ! Read( strLine, TRUE ) )	// Read characters until \n, returning false if there is no \n
+	if ( ! Read( strLine, TRUE ) )		// Read characters until \n, returning false if there is no \n
 	{
 		// The remote computer hasn't sent a \n yet, if there are more than 2048 bytes in the first line, abort
-		return ( GetInputLength() < 2048 ) ? TRUE : FALSE;	// Return false to signal we are done sorting the handshake
+		return ( GetInputLength() < 2048 ) ? TRUE : FALSE;		// Return false to signal we are done sorting the handshake
 	}
 
 	// The first line the remote computer sent was blank
@@ -269,7 +269,7 @@ BOOL CHandshake::OnRead()
 	if ( StartsWith( _P("GIV ") ) ) 		// Gnutella giv
 		return OnAcceptGive();
 
-	if ( StartsWith( _P("CHAT") ) )	// Chat
+	if ( StartsWith( _P("CHAT") ) )			// Chat
 		return ChatCore.OnAccept( this );
 
 	// The first header starts with something else, report that we couldn't figure out the handshake
@@ -349,8 +349,8 @@ BOOL CHandshake::OnAcceptGive()
 	if ( nPos > 0 )
 	{
 		// Clip out the part of the line after the slash, URL decode it to turn %20 into spaces, and save that in strFile
-		strFile	= URLDecode( strLine.Mid( nPos + 1 ) );	// Mid takes part after the slash
-		strLine	= strLine.Left( nPos );					// Left removes that part and the slash from strLine
+		strFile = URLDecode( strLine.Mid( nPos + 1 ) );	// Mid takes part after the slash
+		strLine = strLine.Left( nPos );					// Left removes that part and the slash from strLine
 	}
 
 	// If there is a colon in the line, more than 4 character widths in, like "GIV 123:client32characterslong----------"

@@ -379,43 +379,43 @@ void CLibraryBuilder::OnRun()
 			continue;
 		}
 
-		CString sPath;
-		const DWORD nIndex = GetNextFileToHash( sPath );
+		CString strPath;
+		const DWORD nIndex = GetNextFileToHash( strPath );
 		if ( ! nIndex )
 			continue;
 
 		{
 			CQuickLock pLock( m_pSection );
-			m_sPath = sPath;
+			m_sPath = strPath;
 		}
 
-		HANDLE hFile = CreateFile( SafePath( sPath ), GENERIC_READ,
+		HANDLE hFile = CreateFile( SafePath( strPath ), GENERIC_READ,
 			FILE_SHARE_READ | FILE_SHARE_DELETE, NULL,
 			OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, NULL );
-		VERIFY_FILE_ACCESS( hFile, sPath )
+		VERIFY_FILE_ACCESS( hFile, strPath )
 		if ( hFile != INVALID_HANDLE_VALUE )
 		{
-			theApp.Message( MSG_DEBUG, _T("Hashing: %s"), (LPCTSTR)sPath );
+			theApp.Message( MSG_DEBUG, _T("Hashing: %s"), (LPCTSTR)strPath );
 
 			// ToDo: We need MD5 hash of the audio file without tags
-			if ( HashFile( sPath, hFile ) )
+			if ( HashFile( strPath, hFile ) )
 			{
 				nAttempts = 0;
 				SetFilePointer( hFile, 0, NULL, FILE_BEGIN );
 
 				try
 				{
-					ExtractMetadata( nIndex, sPath, hFile );
+					ExtractMetadata( nIndex, strPath, hFile );
 				}
 				catch ( CException* pException )
 				{
 					pException->Delete();
 				}
 
-				ExtractPluginMetadata( nIndex, sPath );
+				ExtractPluginMetadata( nIndex, strPath );
 
-				CThumbCache::Delete( sPath );
-				CThumbCache::Cache( sPath );
+				CThumbCache::Delete( strPath );
+				CThumbCache::Cache( strPath );
 
 				// Done
 				Remove( nIndex );
@@ -725,9 +725,9 @@ bool CLibraryBuilder::DetectVirtualID3v1(HANDLE hFile, QWORD& nOffset, QWORD& nL
 	LONG nPosHigh	= (LONG)( ( nOffset + nLength - 128 ) >> 32 );
 	SetFilePointer( hFile, nPosLow, &nPosHigh, FILE_BEGIN );
 
-	if ( ! ReadFile( hFile, &pInfo, sizeof(pInfo), &nRead, NULL ) )
+	if ( ! ReadFile( hFile, &pInfo, sizeof( pInfo ), &nRead, NULL ) )
 		return false;
-	if ( nRead != sizeof(pInfo) )
+	if ( nRead != sizeof( pInfo ) )
 		return false;
 	if ( memcmp( pInfo.szTag, ID3V1_TAG, 3 ) )
 		return false;
@@ -746,9 +746,9 @@ bool CLibraryBuilder::DetectVirtualID3v2(HANDLE hFile, QWORD& nOffset, QWORD& nL
 	LONG nPosHigh	= (LONG)( ( nOffset ) >> 32 );
 	SetFilePointer( hFile, nPosLow, &nPosHigh, FILE_BEGIN );
 
-	if ( ! ReadFile( hFile, &pHeader, sizeof(pHeader), &nRead, NULL ) )
+	if ( ! ReadFile( hFile, &pHeader, sizeof( pHeader ), &nRead, NULL ) )
 		return false;
-	if ( nRead != sizeof(pHeader) )
+	if ( nRead != sizeof( pHeader ) )
 		return false;
 
 	if ( strncmp( pHeader.szTag, ID3V2_TAG, 3 ) != 0 )
@@ -765,7 +765,7 @@ bool CLibraryBuilder::DetectVirtualID3v2(HANDLE hFile, QWORD& nOffset, QWORD& nL
 
 	if ( pHeader.nFlags & ID3V2_FOOTERPRESENT )
 		nTagSize += 10;
-	nTagSize += sizeof(pHeader);
+	nTagSize += sizeof( pHeader );
 
 	if ( nLength <= nTagSize )
 		return false;
@@ -795,9 +795,9 @@ bool CLibraryBuilder::DetectVirtualAPEHeader(HANDLE hFile, QWORD& nOffset, QWORD
 	LONG nPosHigh = (LONG)( ( nOffset ) >> 32 );
 	SetFilePointer( hFile, nPosLow, &nPosHigh, FILE_BEGIN );
 
-	if ( ! ReadFile( hFile, &pHeader, sizeof(pHeader), &nRead, NULL ) )
+	if ( ! ReadFile( hFile, &pHeader, sizeof( pHeader ), &nRead, NULL ) )
 		return false;
-	if ( nRead != sizeof(pHeader) )
+	if ( nRead != sizeof( pHeader ) )
 		return false;
 
 	const char szMAC[ 4 ] = "MAC";
@@ -809,14 +809,14 @@ bool CLibraryBuilder::DetectVirtualAPEHeader(HANDLE hFile, QWORD& nOffset, QWORD
 	{
 		APE_HEADER_NEW pNewHeader = {};
 		SetFilePointer( hFile, nPosLow, &nPosHigh, FILE_BEGIN );
-		if ( ! ReadFile( hFile, &pNewHeader, sizeof(pNewHeader), &nRead, NULL ) )
+		if ( ! ReadFile( hFile, &pNewHeader, sizeof( pNewHeader ), &nRead, NULL ) )
 			return false;
-		if ( nRead != sizeof(pNewHeader) )
+		if ( nRead != sizeof( pNewHeader ) )
 			return false;
-		nTagSize = pNewHeader.nHeaderBytes + sizeof(pNewHeader);
+		nTagSize = pNewHeader.nHeaderBytes + sizeof( pNewHeader );
 	}
 	else
-		nTagSize = pHeader.nHeaderBytes + sizeof(pHeader);
+		nTagSize = pHeader.nHeaderBytes + sizeof( pHeader );
 
 	if ( nLength <= nTagSize )
 		return false;
@@ -830,26 +830,26 @@ bool CLibraryBuilder::DetectVirtualAPEHeader(HANDLE hFile, QWORD& nOffset, QWORD
 bool CLibraryBuilder::DetectVirtualAPEFooter(HANDLE hFile, QWORD& nOffset, QWORD& nLength)
 {
 	APE_TAG_FOOTER pFooter = { 0 };
-	if ( nLength < sizeof(pFooter) )
+	if ( nLength < sizeof( pFooter ) )
 		return false;
 
 	DWORD nRead;
-	LONG nPosLow  = (LONG)( ( nOffset + nLength - sizeof(pFooter) ) & 0xFFFFFFFF );
-	LONG nPosHigh = (LONG)( ( nOffset + nLength - sizeof(pFooter) ) >> 32 );
+	LONG nPosLow  = (LONG)( ( nOffset + nLength - sizeof( pFooter ) ) & 0xFFFFFFFF );
+	LONG nPosHigh = (LONG)( ( nOffset + nLength - sizeof( pFooter ) ) >> 32 );
 
 	SetFilePointer( hFile, nPosLow, &nPosHigh, FILE_BEGIN );
-	if ( ! ReadFile( hFile, &pFooter, sizeof(pFooter), &nRead, NULL ) )
+	if ( ! ReadFile( hFile, &pFooter, sizeof( pFooter ), &nRead, NULL ) )
 		return false;
-	if ( nRead != sizeof(pFooter) )
+	if ( nRead != sizeof( pFooter ) )
 		return false;
 
 	const char szAPE[ 9 ] = "APETAGEX";
 	if ( memcmp( pFooter.cID, szAPE, 8 ) )
 		return false;
-	if ( pFooter.nSize + sizeof(pFooter) > nLength )
+	if ( pFooter.nSize + sizeof( pFooter ) > nLength )
 		return false;
 
-	nLength -= sizeof(pFooter) + pFooter.nSize;
+	nLength -= sizeof( pFooter ) + pFooter.nSize;
 
 	return true;
 }
@@ -872,13 +872,13 @@ bool CLibraryBuilder::DetectVirtualLyrics(HANDLE hFile, QWORD& nOffset, QWORD& n
 	LYRICS3_2 pFooter = { 0 };
 	DWORD nRead;
 
-	LONG nPosLow  = (LONG)( ( nOffset + nLength - sizeof(pFooter) ) & 0xFFFFFFFF );
-	LONG nPosHigh = (LONG)( ( nOffset + nLength - sizeof(pFooter) ) >> 32 );
+	LONG nPosLow  = (LONG)( ( nOffset + nLength - sizeof( pFooter ) ) & 0xFFFFFFFF );
+	LONG nPosHigh = (LONG)( ( nOffset + nLength - sizeof( pFooter ) ) >> 32 );
 	SetFilePointer( hFile, nPosLow, &nPosHigh, FILE_BEGIN );
 
-	if ( ! ReadFile( hFile, &pFooter, sizeof(pFooter), &nRead, NULL ) )
+	if ( ! ReadFile( hFile, &pFooter, sizeof( pFooter ), &nRead, NULL ) )
 		return false;
-	if ( nRead != sizeof(pFooter) )
+	if ( nRead != sizeof( pFooter ) )
 		return false;
 
 	const char cLyrics[ 7 ] = "LYRICS";
@@ -893,9 +893,9 @@ bool CLibraryBuilder::DetectVirtualLyrics(HANDLE hFile, QWORD& nOffset, QWORD& n
 	if ( memcmp( pFooter.Tag.szVersion, cVersion, 3 ) == 0 &&
 		 _stscanf( strLength.TrimLeft('0'), L"%I64u", &nSize ) == 1 )
 	{
-		if ( nSize + sizeof(pFooter) > nLength )
+		if ( nSize + sizeof( pFooter ) > nLength )
 			return false;
-		nLength -= nSize + sizeof(pFooter);
+		nLength -= nSize + sizeof( pFooter );
 		return true;
 	}
 	else if ( memcmp( pFooter.Tag.szVersion, cEnd, 3 ) )
@@ -916,9 +916,9 @@ bool CLibraryBuilder::DetectVirtualLAME(HANDLE hFile, QWORD& nOffset, QWORD& nLe
 	LONG nPosHigh	= (LONG)( ( nOffset ) >> 32 );
 	SetFilePointer( hFile, nPosLow, &nPosHigh, FILE_BEGIN );
 
-	if ( ! ReadFile( hFile, nFrameHeader, sizeof(nFrameHeader), &nRead, NULL ) )
+	if ( ! ReadFile( hFile, nFrameHeader, sizeof( nFrameHeader ), &nRead, NULL ) )
 		return false;
-	if ( nRead != sizeof(nFrameHeader) )
+	if ( nRead != sizeof( nFrameHeader ) )
 		return false;
 
 	const int bitrate_table[ 3 ][ 16 ] = {
@@ -963,13 +963,13 @@ bool CLibraryBuilder::DetectVirtualLAME(HANDLE hFile, QWORD& nOffset, QWORD& nLe
 	const LAME_FRAME pEmtyRef = { 0 };
 	bool bChanged = false;
 
-	if ( ! ReadFile( hFile, &pFrame, sizeof(pFrame), &nRead, NULL ) || nRead != sizeof(pFrame) )
+	if ( ! ReadFile( hFile, &pFrame, sizeof( pFrame ), &nRead, NULL ) || nRead != sizeof( pFrame ) )
 		return false;
-	if ( memcmp( &pFrame, &pEmtyRef, sizeof(pFrame) ) == 0 )	// All zeros, strip them off
+	if ( memcmp( &pFrame, &pEmtyRef, sizeof( pFrame ) ) == 0 )	// All zeros, strip them off
 	{
 		bChanged = true;
-		nLength -= nVbrHeaderOffset + sizeof(pFrame);
-		nOffset = nNewOffset.QuadPart + sizeof(pFrame);
+		nLength -= nVbrHeaderOffset + sizeof( pFrame );
+		nOffset = nNewOffset.QuadPart + sizeof( pFrame );
 		nNewOffset.LowPart = (LONG)( ( nOffset ) & 0xFFFFFFFF );
 		nNewOffset.HighPart = (LONG)( ( nOffset ) >> 32 );
 		SetFilePointer( hFile, nNewOffset.LowPart, &(nNewOffset.HighPart), FILE_BEGIN );
@@ -1011,7 +1011,7 @@ bool CLibraryBuilder::DetectVirtualLAME(HANDLE hFile, QWORD& nOffset, QWORD& nLe
 			break;
 
 		WORD nTestBytes = 0;
-		if ( ! ReadFile( hFile, &nTestBytes, sizeof(nTestBytes), &nRead, NULL ) || nRead != sizeof(WORD) )
+		if ( ! ReadFile( hFile, &nTestBytes, sizeof( nTestBytes ), &nRead, NULL ) || nRead != sizeof( WORD ) )
 			break;
 		if ( memcmp( &nTestBytes, nFrameHeader, 2 ) )	// Doesn't match the start of the first frame
 		{
@@ -1021,7 +1021,7 @@ bool CLibraryBuilder::DetectVirtualLAME(HANDLE hFile, QWORD& nOffset, QWORD& nLe
 
 		nFrameHeader[ 0 ] = LOBYTE( nTestBytes );
 		nFrameHeader[ 1 ] = HIBYTE( nTestBytes );
-		if ( ! ReadFile( hFile, &nTestBytes, sizeof(nTestBytes), &nRead, NULL ) || nRead != sizeof(WORD) )
+		if ( ! ReadFile( hFile, &nTestBytes, sizeof( nTestBytes ), &nRead, NULL ) || nRead != sizeof( WORD ) )
 			break;
 		nFrameHeader[ 2 ] = LOBYTE( nTestBytes );
 		nFrameHeader[ 3 ] = HIBYTE( nTestBytes );

@@ -129,8 +129,8 @@ BOOL CConnectionSettingsPage::OnInitDialog()
 	CString strIP;
 
 	// Take an IP address table
-	char mib[ sizeof(MIB_IPADDRTABLE) + 32 * sizeof(MIB_IPADDRROW) ];
-	ULONG nSize = sizeof(mib);
+	char mib[ sizeof( MIB_IPADDRTABLE ) + 32 * sizeof( MIB_IPADDRROW ) ];
+	ULONG nSize = sizeof( mib );
 	PMIB_IPADDRTABLE ipAddr = (PMIB_IPADDRTABLE)mib;
 
 	if ( GetIpAddrTable( ipAddr, &nSize, TRUE ) == NO_ERROR )

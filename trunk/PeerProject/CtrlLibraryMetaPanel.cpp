@@ -202,7 +202,7 @@ void CLibraryMetaPanel::Update()
 	int nHeight = 54 + m_pMetadata->Layout( &dc, rc.Width() - 24 - nThumbSize );
 
 	SCROLLINFO pInfo = {};
-	pInfo.cbSize	= sizeof(pInfo);
+	pInfo.cbSize	= sizeof( pInfo );
 	pInfo.fMask		= SIF_ALL & ~SIF_TRACKPOS;
 	pInfo.nMin		= 0;
 	pInfo.nMax		= nHeight;
@@ -252,11 +252,11 @@ void CLibraryMetaPanel::OnDestroy()
 
 void CLibraryMetaPanel::OnPaint()
 {
-	CSingleLock pLock( &m_pSection, TRUE );
-
 	CString str;
 	CRect rcClient;
 	GetClientRect( &rcClient );
+
+	CSingleLock pLock( &m_pSection, TRUE );
 
 	CPaintDC dc( this );
 	CFont* pOldFont = dc.GetCurrentFont();
@@ -397,7 +397,7 @@ void CLibraryMetaPanel::DrawText(CDC* pDC, int nX, int nY, LPCTSTR pszText, RECT
 	pDC->ExcludeClipRect( &rc );
 
 	if ( pRect != NULL )
-		CopyMemory( pRect, &rc, sizeof(RECT) );
+		CopyMemory( pRect, &rc, sizeof( RECT ) );
 }
 
 BOOL CLibraryMetaPanel::SetServicePanel(CMetaList* pPanel)
@@ -428,7 +428,6 @@ CMetaList* CLibraryMetaPanel::GetServicePanel()
 BOOL CLibraryMetaPanel::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 {
 	CPoint point;
-
 	GetCursorPos( &point );
 	ScreenToClient( &point );
 	point.y += GetScrollPos( SB_VERT );

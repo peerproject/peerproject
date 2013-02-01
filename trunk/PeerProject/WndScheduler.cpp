@@ -361,7 +361,7 @@ void CSchedulerWnd::OnSortList(NMHDR* pNotifyStruct, LRESULT *pResult)
 
 void CSchedulerWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 {
-	if ( point.x == -1 && point.y == -1 ) 	// Keyboard fix
+	if ( point.x == -1 && point.y == -1 )	// Keyboard fix
 		ClientToScreen( &point );
 
 	Skin.TrackPopupMenu( _T("CSchedulerWnd"), point, ID_SCHEDULER_EDIT );
@@ -426,6 +426,7 @@ void CSchedulerWnd::OnSchedulerAdd()
 void CSchedulerWnd::OnUpdateSchedulerDeactivate(CCmdUI* pCmdUI)
 {
 	CQuickLock oLock( Scheduler.m_pSection );
+
 	CScheduleTask* pSchTask = GetItem( m_wndList.GetNextItem( -1, LVIS_SELECTED ) );
 
 	if ( ! pSchTask )

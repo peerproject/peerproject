@@ -99,7 +99,7 @@ void CRemoteSettingsPage::OnNewPassword()
 	else
 	{
 		CSHA pSHA1;
-		pSHA1.Add( (LPCTSTR)m_sPassword, m_sPassword.GetLength() * sizeof(TCHAR) );
+		pSHA1.Add( (LPCTSTR)m_sPassword, m_sPassword.GetLength() * sizeof( TCHAR ) );
 		pSHA1.Finish();
 		Hashes::Sha1Hash tmp;
 		pSHA1.GetHash( &tmp[ 0 ] );

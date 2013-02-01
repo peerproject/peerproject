@@ -95,8 +95,7 @@ BOOL CImageServices::LoadFromFile(CImageFile* pFile, LPCTSTR szFilename, BOOL bS
 	CString strType( PathFindExtension( szFilename ) ); // ".ext"
 	strType.MakeLower();
 
-	CComQIPtr< IImageServicePlugin > pService(
-		Plugins.GetPlugin( _T("ImageService"), strType ) );
+	CComQIPtr< IImageServicePlugin > pService( Plugins.GetPlugin( _T("ImageService"), strType ) );
 	if ( pService )
 	{
 		if ( LoadFromFileHelper( pService, pFile, szFilename, bScanOnly, bPartialOk ) )
@@ -129,7 +128,7 @@ BOOL CImageServices::LoadFromFileHelper(IImageServicePlugin* pService, CImageFil
 	SAFEARRAY* pArray = NULL;
 	IMAGESERVICEDATA pParams = {};
 	pParams.cbSize = sizeof( pParams );
-	if ( bScanOnly ) pParams.nFlags |= IMAGESERVICE_SCANONLY;
+	if ( bScanOnly )  pParams.nFlags |= IMAGESERVICE_SCANONLY;
 	if ( bPartialOk ) pParams.nFlags |= IMAGESERVICE_PARTIAL_IN;
 
 	HRESULT hr = pService->LoadFromFile( CComBSTR( szFilename ), &pParams, &pArray );
@@ -217,8 +216,7 @@ BOOL CImageServices::SaveToMemory(CImageFile* pFile, LPCTSTR pszType, int nQuali
 	*ppBuffer = NULL;
 	*pnLength = 0;
 
-	CComQIPtr< IImageServicePlugin > pService(
-		Plugins.GetPlugin( _T("ImageService"), pszType ) );
+	CComQIPtr< IImageServicePlugin > pService( Plugins.GetPlugin( _T("ImageService"), pszType ) );
 	if ( ! pService )
 		return FALSE;
 
@@ -227,7 +225,7 @@ BOOL CImageServices::SaveToMemory(CImageFile* pFile, LPCTSTR pszType, int nQuali
 		return FALSE;
 
 	IMAGESERVICEDATA pParams = {};
-	pParams.cbSize		= sizeof(pParams);
+	pParams.cbSize		= sizeof( pParams );
 	pParams.nWidth		= pFile->m_nWidth;
 	pParams.nHeight		= pFile->m_nHeight;
 	pParams.nComponents	= pFile->m_nComponents;
@@ -277,7 +275,7 @@ BOOL CImageServices::SaveToFile(CImageFile* pFile, LPCTSTR szFilename, int nQual
 		return FALSE;
 
 	IMAGESERVICEDATA pParams = {};
-	pParams.cbSize		= sizeof(pParams);
+	pParams.cbSize		= sizeof( pParams );
 	pParams.nWidth		= pFile->m_nWidth;
 	pParams.nHeight		= pFile->m_nHeight;
 	pParams.nComponents	= pFile->m_nComponents;
@@ -358,8 +356,7 @@ BOOL CImageServices::LookupUniversalPlugins(service_list& oList)
 			if ( ! Hashes::fromGuid( szCLSID, &pCLSID ) )
 				continue;
 
-			CComQIPtr< IImageServicePlugin > pService(
-				Plugins.GetPlugin( _T("ImageService"), szType ) );
+			CComQIPtr< IImageServicePlugin > pService( Plugins.GetPlugin( _T("ImageService"), szType ) );
 			if ( pService )
 				oList.push_back( service_list::value_type( pCLSID, pService ) );
 		}
@@ -385,8 +382,7 @@ STDMETHODIMP CImageServices::XImageService::LoadFromFile( __in BSTR sFile, __ino
 	CString strType( PathFindExtension( sFile ) );	// ".ext"
 	strType.MakeLower();
 
-	CComQIPtr< IImageServicePlugin > pService(
-		Plugins.GetPlugin( _T("ImageService"), strType ) );
+	CComQIPtr< IImageServicePlugin > pService( Plugins.GetPlugin( _T("ImageService"), strType ) );
 	if ( pService )
 	{
 		if ( SUCCEEDED( pService->LoadFromFile( sFile, pParams, ppImage ) ) )
@@ -410,8 +406,7 @@ STDMETHODIMP CImageServices::XImageService::LoadFromMemory( __in BSTR sType, __i
 {
 	METHOD_PROLOGUE(CImageServices, ImageService)
 
-	CComQIPtr< IImageServicePlugin > pService(
-		Plugins.GetPlugin( _T("ImageService"), sType ) );
+	CComQIPtr< IImageServicePlugin > pService( Plugins.GetPlugin( _T("ImageService"), sType ) );
 	if ( pService )
 		return pService->LoadFromMemory( sType, pMemory, pParams, ppImage );
 
@@ -426,8 +421,7 @@ STDMETHODIMP CImageServices::XImageService::SaveToFile( __in BSTR sFile, __inout
 	CString strType( PathFindExtension( sFile ) ); // ".ext"
 	strType.MakeLower();
 
-	CComQIPtr< IImageServicePlugin > pService(
-		Plugins.GetPlugin( _T("ImageService"), strType ) );
+	CComQIPtr< IImageServicePlugin > pService( Plugins.GetPlugin( _T("ImageService"), strType ) );
 	if ( pService )
 		return pService->SaveToFile( sFile, pParams, pImage );
 
@@ -438,8 +432,7 @@ STDMETHODIMP CImageServices::XImageService::SaveToMemory( __in BSTR sType, __out
 {
 	METHOD_PROLOGUE(CImageServices, ImageService)
 
-	CComQIPtr< IImageServicePlugin > pService(
-		Plugins.GetPlugin( _T("ImageService"), sType ) );
+	CComQIPtr< IImageServicePlugin > pService( Plugins.GetPlugin( _T("ImageService"), sType ) );
 	if ( pService )
 		return pService->SaveToMemory( sType, ppMemory, pParams, pImage );
 

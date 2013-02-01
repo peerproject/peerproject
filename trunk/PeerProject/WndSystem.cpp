@@ -38,9 +38,9 @@ IMPLEMENT_SERIAL(CSystemWnd, CPanelWnd, 0)
 
 BEGIN_MESSAGE_MAP(CSystemWnd, CPanelWnd)
 	ON_WM_CREATE()
+	ON_WM_DESTROY()
 	ON_WM_TIMER()
 	ON_WM_SIZE()
-	ON_WM_DESTROY()
 	ON_WM_CONTEXTMENU()
 	ON_COMMAND(ID_SYSTEM_CLEAR, OnSystemClear)
 	ON_COMMAND(ID_SYSTEM_COPY, OnSystemCopy)
@@ -144,7 +144,7 @@ void CSystemWnd::OnSize(UINT nType, int cx, int cy)
 
 void CSystemWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 {
-	if ( point.x == -1 && point.y == -1 ) 	// Keyboard fix
+	if ( point.x == -1 && point.y == -1 )	// Keyboard fix
 		ClientToScreen( &point );
 
 	Skin.TrackPopupMenu( _T("CSystemWnd"), point );

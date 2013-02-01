@@ -379,7 +379,7 @@ void CMediaFrame::OnSkinChange()
 	if ( m_bmLogo.m_hObject ) m_bmLogo.DeleteObject();
 	m_bmLogo.m_hObject = Skin.GetWatermark( _T("LargeLogo") );
 	if ( m_pPlayer && m_bmLogo.m_hObject )
-			m_pPlayer->SetLogoBitmap( m_bmLogo );
+		m_pPlayer->SetLogoBitmap( m_bmLogo );
 
 	m_wndList.OnSkinChange();
 }
@@ -856,7 +856,7 @@ BOOL CMediaFrame::IsDisplayMeta(CMetaItem* pItem)
 
 void CMediaFrame::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 {
-	if ( point.x == -1 && point.y == -1 ) 	// Keyboard fix
+	if ( point.x == -1 && point.y == -1 )	// Keyboard fix
 		ClientToScreen( &point );
 
 	Skin.TrackPopupMenu( _T("CMediaFrame"), point,
@@ -1089,7 +1089,7 @@ LRESULT CMediaFrame::OnMediaKey(WPARAM wParam, LPARAM lParam)
 
 			// Get the speaker line of the mixer device
 			MIXERLINE ml = {0};
-			ml.cbStruct = sizeof(MIXERLINE);
+			ml.cbStruct = sizeof( MIXERLINE );
 			ml.dwComponentType = MIXERLINE_COMPONENTTYPE_DST_SPEAKERS;
 			result = mixerGetLineInfo( reinterpret_cast<HMIXEROBJ>(hMixer), &ml, MIXER_GETLINEINFOF_COMPONENTTYPE );
 			if ( result != MMSYSERR_NOERROR ) return 0;
@@ -1097,12 +1097,12 @@ LRESULT CMediaFrame::OnMediaKey(WPARAM wParam, LPARAM lParam)
 			// Get the mute control of the speaker line
 			MIXERLINECONTROLS mlc = {0};
 			MIXERCONTROL mc = {0};
-			mlc.cbStruct = sizeof(MIXERLINECONTROLS);
+			mlc.cbStruct = sizeof( MIXERLINECONTROLS );
 			mlc.dwLineID = ml.dwLineID;
 			mlc.dwControlType = MIXERCONTROL_CONTROLTYPE_MUTE;
 			mlc.cControls = 1;
 			mlc.pamxctrl = &mc;
-			mlc.cbmxctrl = sizeof(MIXERCONTROL);
+			mlc.cbmxctrl = sizeof( MIXERCONTROL );
 			result = mixerGetLineControls( reinterpret_cast<HMIXEROBJ>(hMixer), &mlc, MIXER_GETLINECONTROLSF_ONEBYTYPE );
 			if ( result != MMSYSERR_NOERROR ) return 0;
 
@@ -1113,11 +1113,11 @@ LRESULT CMediaFrame::OnMediaKey(WPARAM wParam, LPARAM lParam)
 			// Get the current mute values for all channels
 			MIXERCONTROLDETAILS mcd = {0};
 			MIXERCONTROLDETAILS_BOOLEAN* pmcd_b = new MIXERCONTROLDETAILS_BOOLEAN[ ml.cChannels ];
-			mcd.cbStruct = sizeof(mcd);
+			mcd.cbStruct = sizeof( mcd );
 			mcd.cChannels = ml.cChannels;
 			mcd.cMultipleItems = mc.cMultipleItems;
 			mcd.dwControlID = mc.dwControlID;
-			mcd.cbDetails = sizeof(MIXERCONTROLDETAILS_BOOLEAN) * ml.cChannels;
+			mcd.cbDetails = sizeof( MIXERCONTROLDETAILS_BOOLEAN ) * ml.cChannels;
 			mcd.paDetails = pmcd_b;
 			result = mixerGetControlDetails( reinterpret_cast<HMIXEROBJ>(hMixer), &mcd,
 				MIXER_GETCONTROLDETAILSF_VALUE );

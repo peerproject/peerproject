@@ -708,7 +708,7 @@ void CScheduler::HangUpConnection()
 	for ( DWORD i = 0, loop = 0 ; i < dwConnections ; i++ )			// Loop through all current connections
 	{
 		RasHangUp( lpRasConn[i].hrasconn );							// Hang up the connection
-		while( RasGetConnectStatus( lpRasConn[i].hrasconn, RasConStatus ) || loop > 10 )
+		while ( RasGetConnectStatus( lpRasConn[i].hrasconn, RasConStatus ) || loop > 10 )
 		{
 			// Loop until the connection handle is invalid, or 3 seconds have passed total
 			Sleep(300);
