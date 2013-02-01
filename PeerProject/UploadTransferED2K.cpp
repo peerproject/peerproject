@@ -351,7 +351,7 @@ BOOL CUploadTransferED2K::OnRequestParts(CEDPacket* pPacket)
 	}
 
 	DWORD nOffset[2][3];
-	pPacket->Read( nOffset, sizeof(DWORD) * 2 * 3 );
+	pPacket->Read( nOffset, sizeof( DWORD ) * 2 * 3 );
 
 	for ( int nRequest = 0 ; nRequest < 3 ; nRequest++ )
 	{
@@ -447,7 +447,7 @@ BOOL CUploadTransferED2K::ServeRequests()
 		if ( m_bStopTransfer )
 		{
 			m_tRotateTime = 0;
-			m_bStopTransfer	= FALSE;
+			m_bStopTransfer = FALSE;
 
 			if ( CUploadQueue* pQueue = m_pQueue )
 			{
@@ -587,8 +587,8 @@ BOOL CUploadTransferED2K::DispatchNextChunk()
 	while ( nPacket )
 	{
 		QWORD nChunk = min( nPacket, (QWORD)Settings.eDonkey.FrameSize );		// 10 KB limit for eMule (~512 others)
-		const QWORD nOffset =	m_nOffset + m_nPosition;
-		const bool bI64Offset =	( nOffset & 0xffffffff00000000 ) ||
+		const QWORD nOffset   = m_nOffset + m_nPosition;
+		const bool bI64Offset = ( nOffset & 0xffffffff00000000 ) ||
 								( ( nOffset + nChunk ) & 0xffffffff00000000 );
 
 #if 0
@@ -615,7 +615,7 @@ BOOL CUploadTransferED2K::DispatchNextChunk()
 //				return FALSE;
 //			}
 //
-//			pPacket->m_nLength = sizeof(MD4) + 16 + nChunk;
+//			pPacket->m_nLength = sizeof( MD4 ) + 16 + nChunk;
 //
 //			Send( pPacket );
 //		}
@@ -635,17 +635,16 @@ BOOL CUploadTransferED2K::DispatchNextChunk()
 //				return FALSE;
 //			}
 //
-//			pPacket->m_nLength = sizeof(MD4) + 8 + nChunk;
+//			pPacket->m_nLength = sizeof( MD4 ) + 8 + nChunk;
 //
 //			Send( pPacket );
 //		}
-//
 #else
 		// Raw write
 		CBuffer pBuffer;
 		if ( bI64Offset )
 		{
-			if ( ! pBuffer.EnsureBuffer( sizeof(ED2K_PART_HEADER_I64) + nChunk ) )
+			if ( ! pBuffer.EnsureBuffer( sizeof( ED2K_PART_HEADER_I64 ) + nChunk ) )
 				return FALSE;	// Out of memory
 
 			ED2K_PART_HEADER_I64* pHeader = (ED2K_PART_HEADER_I64*)( pBuffer.m_pBuffer + pBuffer.m_nLength );
@@ -663,11 +662,11 @@ BOOL CUploadTransferED2K::DispatchNextChunk()
 			pHeader->nOffset1	= nOffset;
 			pHeader->nOffset2	= nOffset + nChunk;
 
-			pBuffer.m_nLength += (DWORD)( sizeof(ED2K_PART_HEADER_I64) + nChunk );
+			pBuffer.m_nLength += (DWORD)( sizeof( ED2K_PART_HEADER_I64 ) + nChunk );
 		}
 		else
 		{
-			if ( ! pBuffer.EnsureBuffer( sizeof(ED2K_PART_HEADER) + nChunk ) )
+			if ( ! pBuffer.EnsureBuffer( sizeof( ED2K_PART_HEADER ) + nChunk ) )
 				return FALSE;	// Out of memory
 
 			ED2K_PART_HEADER* pHeader = (ED2K_PART_HEADER*)( pBuffer.m_pBuffer + pBuffer.m_nLength );
@@ -685,7 +684,7 @@ BOOL CUploadTransferED2K::DispatchNextChunk()
 			pHeader->nOffset1	= (DWORD)nOffset;
 			pHeader->nOffset2	= (DWORD)( nOffset + nChunk );
 
-			pBuffer.m_nLength += (DWORD)( sizeof(ED2K_PART_HEADER) + nChunk );
+			pBuffer.m_nLength += (DWORD)( sizeof( ED2K_PART_HEADER ) + nChunk );
 		}
 
 		m_pClient->Write( &pBuffer );
@@ -713,8 +712,7 @@ BOOL CUploadTransferED2K::CheckFinishedRequest()
 	ASSERT( m_nState == upsUploading );
 
 	if ( m_nPosition < m_nLength &&
-		( Settings.eDonkey.Enabled ||
-		! Settings.Connection.RequireForTransfers ) )
+		 ( Settings.eDonkey.Enabled || ! Settings.Connection.RequireForTransfers ) )
 		return FALSE;
 
 	theApp.Message( MSG_INFO, IDS_UPLOAD_FINISHED, (LPCTSTR)m_sName, (LPCTSTR)m_sAddress );
@@ -866,7 +864,7 @@ BOOL CUploadTransferED2K::OnRequestParts64(CEDPacket* pPacket)
 	}
 
 	QWORD nOffset[2][3];
-	pPacket->Read( nOffset, sizeof(QWORD) * 2 * 3 );
+	pPacket->Read( nOffset, sizeof( QWORD ) * 2 * 3 );
 
 	for ( int nRequest = 0 ; nRequest < 3 ; nRequest++ )
 	{

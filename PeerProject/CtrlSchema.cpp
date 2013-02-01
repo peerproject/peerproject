@@ -33,14 +33,14 @@ static char THIS_FILE[] = __FILE__;
 #endif	// Debug
 
 BEGIN_MESSAGE_MAP(CSchemaCtrl, CWnd)
-	ON_WM_ERASEBKGND()
 	ON_WM_DESTROY()
-	ON_WM_PAINT()
-	ON_WM_VSCROLL()
 	ON_WM_SIZE()
+	ON_WM_PAINT()
 	ON_WM_NCPAINT()
+	ON_WM_ERASEBKGND()
 	ON_WM_LBUTTONDOWN()
 	ON_WM_MOUSEWHEEL()
+	ON_WM_VSCROLL()
 	ON_EN_SETFOCUS(IDC_METADATA_CONTROL, OnControlSetFocus)
 	ON_EN_CHANGE(IDC_METADATA_CONTROL, OnControlEdit)
 	ON_CBN_SETFOCUS(IDC_METADATA_CONTROL, OnControlSetFocus)
@@ -60,7 +60,7 @@ CSchemaCtrl::CSchemaCtrl()
 {
 	CString strText;
 	LoadString( strText, IDS_MULTIPLE_VALUES );
-	strMultipleString = _T("(") + strText + _T(")");
+	m_sMultipleString = _T("(") + strText + _T(")");
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -127,8 +127,8 @@ void CSchemaCtrl::SetSchema(CSchemaPtr pSchema, BOOL bPromptOnly)
 		{
 			CComboBox* pCombo = new CComboBox();
 
-			pCombo->Create( WS_CHILD|WS_VISIBLE|WS_BORDER|WS_TABSTOP|CBS_DROPDOWN|
-				CBS_AUTOHSCROLL|WS_VSCROLL,	rc, this, IDC_METADATA_CONTROL );
+			pCombo->Create( WS_CHILD|WS_VISIBLE|WS_BORDER|WS_TABSTOP|CBS_DROPDOWN|CBS_AUTOHSCROLL|WS_VSCROLL,
+				rc, this, IDC_METADATA_CONTROL );
 
 			for ( POSITION posMember = pMember->GetItemIterator() ; posMember ; )
 			{
@@ -198,7 +198,7 @@ BOOL CSchemaCtrl::UpdateData(CXMLElement* pBase, BOOL bSaveAndValidate)
 			CString strOldValue = pMember->GetValueFrom( pBase, NO_VALUE, FALSE, TRUE );
 
 			// If value was changed, save it (but don't set empty value if there is no original value)
-			if ( strNewValue != strMultipleString && strNewValue != strOldValue &&
+			if ( strNewValue != m_sMultipleString && strNewValue != strOldValue &&
 				! ( strNewValue.IsEmpty() && strOldValue == NO_VALUE ) )
 			{
 				pMember->SetValueTo( pBase, strNewValue );
@@ -209,7 +209,7 @@ BOOL CSchemaCtrl::UpdateData(CXMLElement* pBase, BOOL bSaveAndValidate)
 			CString strValue = pMember->GetValueFrom( pBase, NO_VALUE, FALSE, TRUE );
 
 			if ( strValue == MULTI_VALUE )
-				pControl->SetWindowText( strMultipleString );
+				pControl->SetWindowText( m_sMultipleString );
 			else if ( ! strValue.IsEmpty() && ( strValue != NO_VALUE ) )
 				pControl->SetWindowText( strValue );
 		}
@@ -228,7 +228,7 @@ void CSchemaCtrl::Layout()
 	GetClientRect( &rcClient );
 
 	SCROLLINFO pScroll = {};
-	pScroll.cbSize	= sizeof(pScroll);
+	pScroll.cbSize	= sizeof( pScroll );
 	pScroll.fMask	= SIF_PAGE|SIF_POS|SIF_RANGE;
 	pScroll.nPage	= rcClient.Height();
 	pScroll.nPos	= m_nScroll;
@@ -239,7 +239,7 @@ void CSchemaCtrl::Layout()
 
 	for ( INT_PTR nControl = 0 ; nControl < m_pControls.GetSize() ; nControl++ )
 	{
-		CWnd* pControl	= m_pControls.GetAt( nControl );
+		CWnd* pControl = m_pControls.GetAt( nControl );
 
 		if ( m_nCaptionWidth )
 		{
@@ -327,7 +327,7 @@ void CSchemaCtrl::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar*/)
 {
 	SCROLLINFO pScroll = {};
 
-	pScroll.cbSize = sizeof(pScroll);
+	pScroll.cbSize = sizeof( pScroll );
 	pScroll.fMask  = SIF_ALL;
 
 	GetScrollInfo( SB_VERT, &pScroll );
@@ -477,7 +477,7 @@ BOOL CSchemaCtrl::OnCommand(WPARAM wParam, LPARAM lParam)
 
 		pEdit->GetWindowText( strTextIn );
 
-		if ( strTextIn != strMultipleString )
+		if ( strTextIn != m_sMultipleString )
 		{
 			LPTSTR pszOut = strTextOut.GetBuffer( strTextIn.GetLength() );
 

@@ -548,34 +548,26 @@ void CIRCFrame::OnPaint()
 		rcComponent.DeflateRect( 44, 0 );
 		rcComponent.DeflateRect( 10, 12 );
 
-		CString pszTitle;
-		LoadString( pszTitle, IDS_IRC_HEADERTITLE );
-		CString pszSubtitle;
-		LoadString( pszSubtitle, IDS_IRC_HEADERSUBTITLE );
 		dc.SelectObject( &CoolInterface.m_fntCaption );
-		DrawText( &dc, rcComponent.left, rcComponent.top, pszTitle );
+		DrawText( &dc, rcComponent.left, rcComponent.top, LoadString( IDS_IRC_HEADERTITLE ) );
 		rcComponent.DeflateRect( 0, 14 );
 		dc.SelectObject( &CoolInterface.m_fntNormal );
-		DrawText( &dc, rcComponent.left, rcComponent.top, pszSubtitle );
+		DrawText( &dc, rcComponent.left, rcComponent.top, LoadString( IDS_IRC_HEADERSUBTITLE ) );
 	}
 
 	// "Chat:" Divider Area
 	rcComponent.right = rcClient.right;
 	rcComponent.left = rcClient.left + Settings.Skin.SidebarWidth;
-	rcComponent.top = rcClient.bottom - Settings.Skin.ToolbarHeight -
-		EDITBOX_HEIGHT - SMALLHEADER_HEIGHT;
+	rcComponent.top = rcClient.bottom - Settings.Skin.ToolbarHeight - EDITBOX_HEIGHT - SMALLHEADER_HEIGHT;
 	rcComponent.bottom = rcComponent.top + SMALLHEADER_HEIGHT;
 	PaintHeader( rcComponent, dc );
 	rcComponent.DeflateRect( 8, 2 );
 	dc.SelectObject( &CoolInterface.m_fntCaption );
-	CString str;
-	LoadString( str, IDS_IRC_HEADERINPUT );
-	DrawText( &dc, rcComponent.left, rcComponent.top, str );
+	DrawText( &dc, rcComponent.left, rcComponent.top, LoadString( IDS_IRC_HEADERINPUT ) );
 
 	rcComponent.right = rcClient.right;
 	rcComponent.left = rcClient.left + Settings.Skin.SidebarWidth;
-	rcComponent.top = rcClient.bottom - Settings.Skin.ToolbarHeight -
-		EDITBOX_HEIGHT - SMALLHEADER_HEIGHT - SEPERATOR_HEIGHT;
+	rcComponent.top = rcClient.bottom - Settings.Skin.ToolbarHeight - EDITBOX_HEIGHT - SMALLHEADER_HEIGHT - SEPERATOR_HEIGHT;
 	rcComponent.bottom = rcComponent.top + SEPERATOR_HEIGHT;
 	dc.FillSolidRect( rcComponent.left, rcComponent.top, 1,
 		rcComponent.Height(), Colors.m_crSysBtnFace );
@@ -690,7 +682,7 @@ void CIRCFrame::OnIrcConnect()
 	int RetVal = WSAConnect(
 		m_nSocket, 					// Our socket
 		(SOCKADDR*)&dest_addr,		// The remote IP address and port number
-		sizeof(SOCKADDR_IN),		// How many bytes the function can read
+		sizeof( SOCKADDR_IN ),		// How many bytes the function can read
 		NULL, NULL, NULL, NULL );	// No advanced features
 
 	if ( RetVal == SOCKET_ERROR )
@@ -703,7 +695,7 @@ void CIRCFrame::OnIrcConnect()
 
 	StatusMessage( LoadString( IDS_CHAT_CONNECTED ), ID_COLOR_TEXT );
 
-	m_sNickname	= Settings.IRC.Nick;
+	m_sNickname = Settings.IRC.Nick;
 	if ( m_sNickname.IsEmpty() )
 	{
 		m_sNickname = MyProfile.GetNick();
@@ -2705,7 +2697,7 @@ CString CIRCFrame::GetTextFromRichPoint() const
 //	// ToDo: Fix wrapped multiline detection
 //	RICHPOSITION rp = m_wndView.PointToPosition( point );
 //
-//	if ( rp.nFragment < 0 )	return "";
+//	if ( rp.nFragment < 0 ) return "";
 //	CRichFragment* pFragment = (CRichFragment*)m_wndView.m_pFragments.GetAt( rp.nFragment );
 //	if ( rp.nOffset == 0 ) return "";
 //	CString strText = pFragment->m_pElement->m_sText;
@@ -2852,8 +2844,7 @@ int CIRCFrame::FindInList(CString strName, int nList, int nTab)
 //		strTitle.ReleaseBuffer( 63 );
 //	}
 //	// dwBalloonIcon must be valid.
-//	if ( NIIF_NONE		!= dwIcon && NIIF_INFO	!= dwIcon &&
-//		NIIF_WARNING	!= dwIcon && NIIF_ERROR	!= dwIcon ) return FALSE;
+//	if ( NIIF_NONE != dwIcon && NIIF_INFO != dwIcon && NIIF_WARNING != dwIcon && NIIF_ERROR != dwIcon ) return FALSE;
 //	// Timeout must be between 10 and 30 seconds.
 //	if ( uTimeout < 10 || uTimeout > 30 ) return FALSE;
 //
@@ -3243,7 +3234,8 @@ void CIRCChannelList::RemoveChannel(const CString& strDisplayName)
 	int nIndex = GetIndexOfDisplay( strDisplayName );
 	if ( nIndex == -1 ) return;
 	m_nCount--;
-	if ( m_bUserDefined.GetAt( nIndex ) ) m_nCountUserDefined--;
+	if ( m_bUserDefined.GetAt( nIndex ) )
+		m_nCountUserDefined--;
 	m_bUserDefined.RemoveAt( nIndex );
 	m_sChannelDisplayName.RemoveAt( nIndex );
 	m_sChannelName.RemoveAt( nIndex );
@@ -3251,35 +3243,22 @@ void CIRCChannelList::RemoveChannel(const CString& strDisplayName)
 
 int CIRCChannelList::GetIndexOfDisplay(const CString& strDisplayName) const
 {
-	int nChannel, nCount = GetCount();
-	BOOL bFoundChannel = FALSE;
-	for ( nChannel = 0 ; nChannel < nCount ; nChannel++ )
+	for ( int nChannel = 0 ; nChannel < GetCount() ; nChannel++ )
 	{
 		if ( strDisplayName.CompareNoCase( GetDisplayOfIndex( nChannel ) ) == 0 )
-		{
-			bFoundChannel = TRUE;
-			break;
-		}
+			return nChannel;
 	}
-	if ( ! bFoundChannel ) return -1;
-	return nChannel;
+	return -1;
 }
 
 int CIRCChannelList::GetIndexOfName(const CString& strName) const
 {
-	int nChannel;
-	int ChannelCount = GetCount();
-	BOOL bFoundChannel = FALSE;
-	for ( nChannel = 0 ; nChannel < ChannelCount ; nChannel++ )
+	for ( int nChannel = 0 ; nChannel < GetCount() ; nChannel++ )
 	{
 		if ( strName.CompareNoCase( GetNameOfIndex( nChannel ) ) == 0 )
-		{
-			bFoundChannel = TRUE;
-			break;
-		}
+			return nChannel;
 	}
-	if ( ! bFoundChannel ) return -1;
-	return nChannel;
+	return -1;
 }
 
 CString CIRCChannelList::GetDisplayOfIndex(int nIndex) const

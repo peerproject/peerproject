@@ -419,7 +419,7 @@ void CRichViewCtrl::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar*
 {
 	SCROLLINFO pInfo = {};
 
-	pInfo.cbSize	= sizeof(pInfo);
+	pInfo.cbSize	= sizeof( pInfo );
 	pInfo.fMask		= SIF_POS|SIF_RANGE|SIF_PAGE;
 
 	GetScrollInfo( SB_VERT, &pInfo );
@@ -657,7 +657,7 @@ void CRichViewCtrl::Layout(CDC* pDC, CRect* pRect)
 
 	SCROLLINFO pInfo = {};
 
-	pInfo.cbSize	= sizeof(pInfo);
+	pInfo.cbSize	= sizeof( pInfo );
 	pInfo.fMask		= SIF_POS | SIF_RANGE | SIF_PAGE;
 
 	GetScrollInfo( SB_VERT, &pInfo, pInfo.fMask );

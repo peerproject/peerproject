@@ -158,7 +158,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hButton );
 			m_bmMenuSelectedEdge.Attach( hEdge );
-			m_bmMenuSelectedEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmMenuSelectedEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmMenuSelectedEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -171,7 +171,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hButton );
 			m_bmMenuSelectedEdge.Attach( hEdge );
-			m_bmMenuSelectedEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmMenuSelectedEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmMenuSelectedEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -185,7 +185,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hButton );
 			m_bmMenuDisabledEdge.Attach( hEdge );
-			m_bmMenuDisabledEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmMenuDisabledEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmMenuDisabledEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -198,7 +198,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hButton );
 			m_bmMenuDisabledEdge.Attach( hEdge );
-			m_bmMenuDisabledEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmMenuDisabledEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmMenuDisabledEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -210,7 +210,7 @@ void CImages::Load()
 		{
 			BITMAP bmInfo;
 			m_bmProgressEdge.Attach( hEdge );
-			m_bmProgressEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmProgressEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmProgressEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -221,7 +221,7 @@ void CImages::Load()
 		{
 			BITMAP bmInfo;
 			m_bmProgressEdge.Attach( hEdge );
-			m_bmProgressEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmProgressEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmProgressEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -314,7 +314,7 @@ void CImages::Load()
 	{
 		BITMAP bmInfo;
 		m_bmBanner.Attach( hBanner );
-		m_bmBanner.GetObject( sizeof(BITMAP), &bmInfo );
+		m_bmBanner.GetObject( sizeof( BITMAP ), &bmInfo );
 		m_bmBanner.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		m_nBanner = bmInfo.bmHeight;
 		Skin.m_nBanner = m_nBanner;
@@ -322,7 +322,7 @@ void CImages::Load()
 		if ( HBITMAP hEdge = Skin.GetWatermark( _T("System.Header.Edge") ) )
 		{
 			m_bmBannerEdge.Attach( hEdge );
-			m_bmBannerEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmBannerEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmBannerEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -330,7 +330,7 @@ void CImages::Load()
 	{
 		BITMAP bmInfo;
 		m_bmBanner.Attach( hBanner );
-		m_bmBanner.GetObject( sizeof(BITMAP), &bmInfo );
+		m_bmBanner.GetObject( sizeof( BITMAP ), &bmInfo );
 		m_bmBanner.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		m_nBanner = bmInfo.bmHeight;
 		Skin.m_nBanner = m_nBanner;
@@ -338,7 +338,7 @@ void CImages::Load()
 		if ( HBITMAP hEdge = Skin.GetWatermark( _T("Banner.Edge") ) )
 		{
 			m_bmBannerEdge.Attach( hEdge );
-			m_bmBannerEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmBannerEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmBannerEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -361,35 +361,35 @@ void CImages::Load()
 	{
 		BITMAP bmInfo;
 		m_bmIconButton.Attach( hButton );
-		m_bmIconButton.GetObject( sizeof(BITMAP), &bmInfo );
+		m_bmIconButton.GetObject( sizeof( BITMAP ), &bmInfo );
 		m_bmIconButton.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 	}
 	if ( HBITMAP hButton = Skin.GetWatermark( _T("IconButton.Hover") ) )
 	{
 		BITMAP bmInfo;
 		m_bmIconButtonHover.Attach( hButton );
-		m_bmIconButtonHover.GetObject( sizeof(BITMAP), &bmInfo );
+		m_bmIconButtonHover.GetObject( sizeof( BITMAP ), &bmInfo );
 		m_bmIconButtonHover.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 	}
 	if ( HBITMAP hButton = Skin.GetWatermark( _T("IconButton.Press") ) )
 	{
 		BITMAP bmInfo;
 		m_bmIconButtonPress.Attach( hButton );
-		m_bmIconButtonPress.GetObject( sizeof(BITMAP), &bmInfo );
+		m_bmIconButtonPress.GetObject( sizeof( BITMAP ), &bmInfo );
 		m_bmIconButtonPress.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 	}
 	if ( HBITMAP hButton = Skin.GetWatermark( _T("IconButton.Active") ) )
 	{
 		BITMAP bmInfo;
 		m_bmIconButtonActive.Attach( hButton );
-		m_bmIconButtonActive.GetObject( sizeof(BITMAP), &bmInfo );
+		m_bmIconButtonActive.GetObject( sizeof( BITMAP ), &bmInfo );
 		m_bmIconButtonActive.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 	}
 	if ( HBITMAP hButton = Skin.GetWatermark( _T("IconButton.Disabled") ) )
 	{
 		BITMAP bmInfo;
 		m_bmIconButtonDisabled.Attach( hButton );
-		m_bmIconButtonDisabled.GetObject( sizeof(BITMAP), &bmInfo );
+		m_bmIconButtonDisabled.GetObject( sizeof( BITMAP ), &bmInfo );
 		m_bmIconButtonDisabled.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 	}
 
@@ -404,7 +404,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmRichButtonEdge.Attach( hEdge );
-			m_bmRichButtonEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmRichButtonEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmRichButtonEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -417,7 +417,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmRichButtonHoverEdge.Attach( hEdge );
-			m_bmRichButtonHoverEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmRichButtonHoverEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmRichButtonHoverEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -430,7 +430,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmRichButtonPressEdge.Attach( hEdge );
-			m_bmRichButtonPressEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmRichButtonPressEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmRichButtonPressEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -443,7 +443,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmRichButtonActiveEdge.Attach( hEdge );
-			m_bmRichButtonActiveEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmRichButtonActiveEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmRichButtonActiveEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -456,7 +456,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmRichButtonDisabledEdge.Attach( hEdge );
-			m_bmRichButtonDisabledEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmRichButtonDisabledEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmRichButtonDisabledEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -473,7 +473,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmToolbarButtonEdge.Attach( hEdge );
-			m_bmToolbarButtonEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmToolbarButtonEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmToolbarButtonEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -486,7 +486,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmToolbarButtonEdge.Attach( hEdge );
-			m_bmToolbarButtonEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmToolbarButtonEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmToolbarButtonEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -500,7 +500,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmToolbarButtonHoverEdge.Attach( hEdge );
-			m_bmToolbarButtonHoverEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmToolbarButtonHoverEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmToolbarButtonHoverEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -513,7 +513,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmToolbarButtonHoverEdge.Attach( hEdge );
-			m_bmToolbarButtonHoverEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmToolbarButtonHoverEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmToolbarButtonHoverEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -527,7 +527,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmToolbarButtonPressEdge.Attach( hEdge );
-			m_bmToolbarButtonPressEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmToolbarButtonPressEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmToolbarButtonPressEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -540,7 +540,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmToolbarButtonPressEdge.Attach( hEdge );
-			m_bmToolbarButtonPressEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmToolbarButtonPressEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmToolbarButtonPressEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -554,7 +554,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmToolbarButtonActiveEdge.Attach( hEdge );
-			m_bmToolbarButtonActiveEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmToolbarButtonActiveEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmToolbarButtonActiveEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -567,7 +567,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmToolbarButtonActiveEdge.Attach( hEdge );
-			m_bmToolbarButtonActiveEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmToolbarButtonActiveEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmToolbarButtonActiveEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -581,7 +581,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmToolbarButtonDisabledEdge.Attach( hEdge );
-			m_bmToolbarButtonDisabledEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmToolbarButtonDisabledEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmToolbarButtonDisabledEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -594,7 +594,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmToolbarButtonDisabledEdge.Attach( hEdge );
-			m_bmToolbarButtonDisabledEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmToolbarButtonDisabledEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmToolbarButtonDisabledEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -622,7 +622,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmMenubarItemEdge.Attach( hEdge );
-			m_bmMenubarItemEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmMenubarItemEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmMenubarItemEdge.SetBitmapDimension( bmInfo.bmWidth, 0 );
 		}
 	}
@@ -635,7 +635,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmMenubarItemEdge.Attach( hEdge );
-			m_bmMenubarItemEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmMenubarItemEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmMenubarItemEdge.SetBitmapDimension( bmInfo.bmWidth, 0 );
 		}
 	}
@@ -649,7 +649,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmMenubarItemHoverEdge.Attach( hEdge );
-			m_bmMenubarItemHoverEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmMenubarItemHoverEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmMenubarItemHoverEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -662,7 +662,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmMenubarItemHoverEdge.Attach( hEdge );
-			m_bmMenubarItemHoverEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmMenubarItemHoverEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmMenubarItemHoverEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -676,7 +676,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmMenubarItemPressEdge.Attach( hEdge );
-			m_bmMenubarItemPressEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmMenubarItemPressEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmMenubarItemPressEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -689,7 +689,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmMenubarItemPressEdge.Attach( hEdge );
-			m_bmMenubarItemPressEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmMenubarItemPressEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmMenubarItemPressEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -703,7 +703,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmMenubarButtonEdge.Attach( hEdge );
-			m_bmMenubarButtonEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmMenubarButtonEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmMenubarButtonEdge.SetBitmapDimension( bmInfo.bmWidth, 0 );
 		}
 	}
@@ -716,7 +716,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmMenubarButtonEdge.Attach( hEdge );
-			m_bmMenubarButtonEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmMenubarButtonEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmMenubarButtonEdge.SetBitmapDimension( bmInfo.bmWidth, 0 );
 		}
 	}
@@ -730,7 +730,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmMenubarButtonHoverEdge.Attach( hEdge );
-			m_bmMenubarButtonHoverEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmMenubarButtonHoverEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmMenubarButtonHoverEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -743,7 +743,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmMenubarButtonHoverEdge.Attach( hEdge );
-			m_bmMenubarButtonHoverEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmMenubarButtonHoverEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmMenubarButtonHoverEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -757,7 +757,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmMenubarButtonPressEdge.Attach( hEdge );
-			m_bmMenubarButtonPressEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmMenubarButtonPressEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmMenubarButtonPressEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -770,7 +770,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmMenubarButtonPressEdge.Attach( hEdge );
-			m_bmMenubarButtonPressEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmMenubarButtonPressEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmMenubarButtonPressEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -784,7 +784,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmMenubarButtonActiveEdge.Attach( hEdge );
-			m_bmMenubarButtonActiveEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmMenubarButtonActiveEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmMenubarButtonActiveEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -797,7 +797,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmMenubarButtonActiveEdge.Attach( hEdge );
-			m_bmMenubarButtonActiveEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmMenubarButtonActiveEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmMenubarButtonActiveEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -814,7 +814,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmTaskbarButtonEdge.Attach( hEdge );
-			m_bmTaskbarButtonEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmTaskbarButtonEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmTaskbarButtonEdge.SetBitmapDimension( bmInfo.bmWidth, 0 );
 		}
 	}
@@ -827,7 +827,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmTaskbarButtonEdge.Attach( hEdge );
-			m_bmTaskbarButtonEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmTaskbarButtonEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmTaskbarButtonEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -841,7 +841,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmTaskbarButtonActiveEdge.Attach( hEdge );
-			m_bmTaskbarButtonActiveEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmTaskbarButtonActiveEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmTaskbarButtonActiveEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -854,7 +854,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmTaskbarButtonActiveEdge.Attach( hEdge );
-			m_bmTaskbarButtonActiveEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmTaskbarButtonActiveEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmTaskbarButtonActiveEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -868,7 +868,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmTaskbarButtonHoverEdge.Attach( hEdge );
-			m_bmTaskbarButtonHoverEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmTaskbarButtonHoverEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmTaskbarButtonHoverEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -881,7 +881,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmTaskbarButtonHoverEdge.Attach( hEdge );
-			m_bmTaskbarButtonHoverEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmTaskbarButtonHoverEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmTaskbarButtonHoverEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -895,7 +895,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmTaskbarButtonPressEdge.Attach( hEdge );
-			m_bmTaskbarButtonPressEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmTaskbarButtonPressEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmTaskbarButtonPressEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -908,7 +908,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmTaskbarButtonPressEdge.Attach( hEdge );
-			m_bmTaskbarButtonPressEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmTaskbarButtonPressEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmTaskbarButtonPressEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -924,7 +924,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmDownloadGroupEdge.Attach( hEdge );
-			m_bmDownloadGroupEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmDownloadGroupEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmDownloadGroupEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -937,7 +937,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmDownloadGroupEdge.Attach( hEdge );
-			m_bmDownloadGroupEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmDownloadGroupEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmDownloadGroupEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -951,7 +951,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmDownloadGroupActiveEdge.Attach( hEdge );
-			m_bmDownloadGroupActiveEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmDownloadGroupActiveEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmDownloadGroupActiveEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -964,7 +964,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmDownloadGroupActiveEdge.Attach( hEdge );
-			m_bmDownloadGroupActiveEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmDownloadGroupActiveEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmDownloadGroupActiveEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -978,7 +978,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmDownloadGroupHoverEdge.Attach( hEdge );
-			m_bmDownloadGroupHoverEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmDownloadGroupHoverEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmDownloadGroupHoverEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -991,7 +991,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmDownloadGroupHoverEdge.Attach( hEdge );
-			m_bmDownloadGroupHoverEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmDownloadGroupHoverEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmDownloadGroupHoverEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -1005,7 +1005,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmDownloadGroupPressEdge.Attach( hEdge );
-			m_bmDownloadGroupPressEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmDownloadGroupPressEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmDownloadGroupPressEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -1018,7 +1018,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmDownloadGroupPressEdge.Attach( hEdge );
-			m_bmDownloadGroupPressEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmDownloadGroupPressEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmDownloadGroupPressEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -1032,7 +1032,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmDownloadGroupDisabledEdge.Attach( hEdge );
-			m_bmDownloadGroupDisabledEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmDownloadGroupDisabledEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmDownloadGroupDisabledEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -1045,7 +1045,7 @@ void CImages::Load()
 			BITMAP bmInfo;
 			PreBlend( hEdge );
 			m_bmDownloadGroupDisabledEdge.Attach( hEdge );
-			m_bmDownloadGroupDisabledEdge.GetObject( sizeof(BITMAP), &bmInfo );
+			m_bmDownloadGroupDisabledEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmDownloadGroupDisabledEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
@@ -1058,7 +1058,7 @@ void CImages::Load()
 		BITMAP bmInfo;
 		PreBlend( hButtonMap );
 		m_bmButtonMapIconbox.Attach( hButtonMap );
-		m_bmButtonMapIconbox.GetObject( sizeof(BITMAP), &bmInfo );
+		m_bmButtonMapIconbox.GetObject( sizeof( BITMAP ), &bmInfo );
 		m_bmButtonMapIconbox.SetBitmapDimension( 0, bmInfo.bmHeight / STATE_COUNT );
 	}
 
@@ -1067,7 +1067,7 @@ void CImages::Load()
 		BITMAP bmInfo;
 		PreBlend( hButtonMap );
 		m_bmButtonMapRichdoc.Attach( hButtonMap );
-		m_bmButtonMapRichdoc.GetObject( sizeof(BITMAP), &bmInfo );
+		m_bmButtonMapRichdoc.GetObject( sizeof( BITMAP ), &bmInfo );
 		m_bmButtonMapRichdoc.SetBitmapDimension(
 			bmInfo.bmWidth > Settings.Skin.ButtonEdge ? Settings.Skin.ButtonEdge : 0, bmInfo.bmHeight / STATE_COUNT );
 	}
@@ -1077,7 +1077,7 @@ void CImages::Load()
 		BITMAP bmInfo;
 		PreBlend( hButtonMap );
 		m_bmButtonMapToolbar.Attach( hButtonMap );
-		m_bmButtonMapToolbar.GetObject( sizeof(BITMAP), &bmInfo );
+		m_bmButtonMapToolbar.GetObject( sizeof( BITMAP ), &bmInfo );
 		m_bmButtonMapToolbar.SetBitmapDimension(
 			bmInfo.bmWidth > Settings.Skin.ButtonEdge ? Settings.Skin.ButtonEdge : 0, bmInfo.bmHeight / STATE_COUNT );
 	}
@@ -1087,7 +1087,7 @@ void CImages::Load()
 		BITMAP bmInfo;
 		PreBlend( hButtonMap );
 		m_bmButtonMapMenubar.Attach( hButtonMap );
-		m_bmButtonMapMenubar.GetObject( sizeof(BITMAP), &bmInfo );
+		m_bmButtonMapMenubar.GetObject( sizeof( BITMAP ), &bmInfo );
 		m_bmButtonMapMenubar.SetBitmapDimension(
 			bmInfo.bmWidth > Settings.Skin.ButtonEdge ? Settings.Skin.ButtonEdge : 0, bmInfo.bmHeight / STATE_COUNT );
 	}
@@ -1097,7 +1097,7 @@ void CImages::Load()
 		BITMAP bmInfo;
 		PreBlend( hButtonMap );
 		m_bmButtonMapMenutext.Attach( hButtonMap );
-		m_bmButtonMapMenutext.GetObject( sizeof(BITMAP), &bmInfo );
+		m_bmButtonMapMenutext.GetObject( sizeof( BITMAP ), &bmInfo );
 		m_bmButtonMapMenutext.SetBitmapDimension(
 			bmInfo.bmWidth > Settings.Skin.ButtonEdge ? Settings.Skin.ButtonEdge : 0, bmInfo.bmHeight / 3 );
 	}
@@ -1107,7 +1107,7 @@ void CImages::Load()
 		BITMAP bmInfo;
 		PreBlend( hButtonMap );
 		m_bmButtonMapMenuselect.Attach( hButtonMap );
-		m_bmButtonMapMenuselect.GetObject( sizeof(BITMAP), &bmInfo );
+		m_bmButtonMapMenuselect.GetObject( sizeof( BITMAP ), &bmInfo );
 		m_bmButtonMapMenuselect.SetBitmapDimension(
 			bmInfo.bmWidth > Settings.Skin.ButtonEdge ? Settings.Skin.ButtonEdge : 0, bmInfo.bmHeight / 3 );
 	}
@@ -1117,7 +1117,7 @@ void CImages::Load()
 		BITMAP bmInfo;
 		PreBlend( hButtonMap );
 		m_bmButtonMapSelect.Attach( hButtonMap );
-		m_bmButtonMapSelect.GetObject( sizeof(BITMAP), &bmInfo );
+		m_bmButtonMapSelect.GetObject( sizeof( BITMAP ), &bmInfo );
 		m_bmButtonMapSelect.SetBitmapDimension(
 			bmInfo.bmWidth > Settings.Skin.ButtonEdge ? Settings.Skin.ButtonEdge : 0, bmInfo.bmHeight / 3 );	// 2?
 	}
@@ -1126,7 +1126,7 @@ void CImages::Load()
 		BITMAP bmInfo;
 		PreBlend( hButtonMap );
 		m_bmButtonMapSelect.Attach( hButtonMap );
-		m_bmButtonMapSelect.GetObject( sizeof(BITMAP), &bmInfo );
+		m_bmButtonMapSelect.GetObject( sizeof( BITMAP ), &bmInfo );
 		m_bmButtonMapSelect.SetBitmapDimension(
 			bmInfo.bmWidth > Settings.Skin.ButtonEdge ? Settings.Skin.ButtonEdge : 0, bmInfo.bmHeight / 3 );	// 2?
 	}
@@ -1136,7 +1136,7 @@ void CImages::Load()
 		BITMAP bmInfo;
 		PreBlend( hButtonMap );
 		m_bmButtonMapProgressbar.Attach( hButtonMap );
-		m_bmButtonMapProgressbar.GetObject( sizeof(BITMAP), &bmInfo );
+		m_bmButtonMapProgressbar.GetObject( sizeof( BITMAP ), &bmInfo );
 		m_bmButtonMapProgressbar.SetBitmapDimension(
 			bmInfo.bmWidth > Settings.Skin.ButtonEdge ? Settings.Skin.ButtonEdge : 0, bmInfo.bmHeight / 3 );
 	}
@@ -1146,7 +1146,7 @@ void CImages::Load()
 		BITMAP bmInfo;
 		PreBlend( hButtonMap );
 		m_bmButtonMapDownloadgroup.Attach( hButtonMap );
-		m_bmButtonMapDownloadgroup.GetObject( sizeof(BITMAP), &bmInfo );
+		m_bmButtonMapDownloadgroup.GetObject( sizeof( BITMAP ), &bmInfo );
 		m_bmButtonMapDownloadgroup.SetBitmapDimension(
 			bmInfo.bmWidth > Settings.Skin.ButtonEdge ? Settings.Skin.ButtonEdge : 0, bmInfo.bmHeight / STATE_COUNT );
 	}
@@ -1156,7 +1156,7 @@ void CImages::Load()
 		BITMAP bmInfo;
 		PreBlend( hButtonMap );
 		m_bmButtonMapTaskbar.Attach( hButtonMap );
-		m_bmButtonMapTaskbar.GetObject( sizeof(BITMAP), &bmInfo );
+		m_bmButtonMapTaskbar.GetObject( sizeof( BITMAP ), &bmInfo );
 		m_bmButtonMapTaskbar.SetBitmapDimension(
 			bmInfo.bmWidth > Settings.Skin.ButtonEdge ? Settings.Skin.ButtonEdge : 0, bmInfo.bmHeight / STATE_COUNT );
 	}

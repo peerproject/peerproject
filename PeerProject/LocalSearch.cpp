@@ -687,7 +687,7 @@ void CLocalSearch::AddHitG2(CG2Packet* pPacket, CSchemaMap& /*pSchemas*/, CLibra
 			}
 		}
 	}
-	while( bCalculate );
+	while ( bCalculate );
 }
 
 void CLocalSearch::AddHitDC(CDCPacket* pPacket, CSchemaMap& /*pSchemas*/, CLibraryFile* pFile, int /*nIndex*/)
@@ -932,7 +932,7 @@ void CLocalSearch::AddHitG2(CG2Packet* pPacket, CSchemaMap& /*pSchemas*/, CDownl
 			}
 		}
 	}
-	while( bCalculate );
+	while ( bCalculate );
 }
 
 void CLocalSearch::AddHitDC(CDCPacket* /*pPacket*/, CSchemaMap& /*pSchemas*/, CDownload * /*pDownload*/, int /*nIndex*/)

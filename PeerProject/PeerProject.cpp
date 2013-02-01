@@ -745,7 +745,7 @@ BOOL CPeerProjectApp::KeepAlive()
 	tKeepAlive = tNow;
 
 	MSG msg = { 0 };
-	while( PeekMessage( &msg, NULL, 0, 0, PM_REMOVE ) )
+	while ( PeekMessage( &msg, NULL, 0, 0, PM_REMOVE ) )
 	{
 		TranslateMessage( &msg );
 		DispatchMessage( &msg );
@@ -985,7 +985,7 @@ BOOL CPeerProjectApp::Open(LPCTSTR lpszFileName, BOOL bTest /*FALSE*/)		// Note:
 
 	SwitchMap( Ext )
 	{
-		Ext[ L".torrent" ] 	= 't';
+		Ext[ L".torrent" ]	= 't';
 		Ext[ L".co" ]		= 'c';
 		Ext[ L".collection" ] = 'c';
 		Ext[ L".emulecollection" ] = 'c';
@@ -1566,7 +1566,7 @@ void CPeerProjectApp::SetClipboard(const CString& strText, BOOL bShowTray /*=FAL
 	if ( ! strText.IsEmpty() )
 	{
 		CT2CW pszWide( (LPCTSTR)strText );
-		const DWORD nSize = ( lstrlenW(pszWide) + 1 ) * sizeof(WCHAR);
+		const DWORD nSize = ( lstrlenW(pszWide) + 1 ) * sizeof( WCHAR );
 		if ( HANDLE hMem = GlobalAlloc( GMEM_MOVEABLE|GMEM_DDESHARE, nSize ) )
 		{
 			if ( LPVOID pMem = GlobalLock( hMem ) )
@@ -1758,11 +1758,11 @@ void CPeerProjectApp::LogMessage(const CString& strLog)
 		CTime pNow = CTime::GetCurrentTime();
 		CString strLine;
 		strLine.Format( _T("[%.2i:%.2i:%.2i] "), pNow.GetHour(), pNow.GetMinute(), pNow.GetSecond() );
-		pFile.Write( (LPCTSTR)strLine, sizeof(TCHAR) * strLine.GetLength() );
+		pFile.Write( (LPCTSTR)strLine, sizeof( TCHAR ) * strLine.GetLength() );
 	}
 
-	pFile.Write( (LPCTSTR)strLog, static_cast< UINT >( sizeof(TCHAR) * strLog.GetLength() ) );
-	pFile.Write( _T("\r\n"), sizeof(TCHAR) * 2 );
+	pFile.Write( (LPCTSTR)strLog, static_cast< UINT >( sizeof( TCHAR ) * strLog.GetLength() ) );
+	pFile.Write( _T("\r\n"), sizeof( TCHAR ) * 2 );
 
 	pFile.Close();
 }
@@ -2175,7 +2175,7 @@ BOOL TimeFromString(LPCTSTR pszTime, FILETIME* pTime)
 	return SystemTimeToFileTime( &pOut, pTime );
 }
 
-CString	TimeToString(FILETIME* pTime)
+CString TimeToString(FILETIME* pTime)
 {
 	SYSTEMTIME pOut;
 	CString str;
@@ -2272,7 +2272,7 @@ BOOL LoadIcon(LPCTSTR szFilename, HICON* phSmallIcon, HICON* phLargeIcon, HICON*
 //	DWORD dwType = REG_SZ, dwSize = MAX_PATH * sizeof( TCHAR );
 //	LONG lResult = RegQueryValueEx( hKey, _T(""), NULL, &dwType,
 //		(LPBYTE)strPath.GetBuffer( MAX_PATH ), &dwSize );
-//	strPath.ReleaseBuffer( dwSize / sizeof(TCHAR) );
+//	strPath.ReleaseBuffer( dwSize / sizeof( TCHAR ) );
 //	RegCloseKey( hKey );
 //
 //	if ( lResult != ERROR_SUCCESS )
@@ -2334,7 +2334,7 @@ HICON CreateMirroredIcon(HICON hIconOrig, BOOL bDestroyOriginal)
 	{
 		if ( hdcBitmap && hdcMask && hIconOrig )
 		{
-			if ( GetIconInfo( hIconOrig, &ii ) && GetObject( ii.hbmColor, sizeof(BITMAP), &bm ) )
+			if ( GetIconInfo( hIconOrig, &ii ) && GetObject( ii.hbmColor, sizeof( BITMAP ), &bm ) )
 			{
 				// Do the cleanup for the bitmaps.
 				DeleteObject( ii.hbmMask );
@@ -2379,7 +2379,7 @@ HBITMAP CreateMirroredBitmap(HBITMAP hbmOrig)
 	BITMAP bm;
 	HBITMAP hbm = NULL, hOld_bm1, hOld_bm2;
 	if ( ! hbmOrig ) return NULL;
-	if ( ! GetObject( hbmOrig, sizeof(BITMAP), &bm ) ) return NULL;
+	if ( ! GetObject( hbmOrig, sizeof( BITMAP ), &bm ) ) return NULL;
 
 	if ( HDC hdc = GetDC( NULL ) )
 	{
@@ -2791,7 +2791,7 @@ BOOL DeleteFiles(CStringList& pList)
 
 			if ( CLibraryFile* pFile = LibraryMaps.LookupFileByPath( strFirstPath ) )
 			{
-				dlg.m_sName	= pFile->m_sName;
+				dlg.m_sName = pFile->m_sName;
 				dlg.m_sComments = pFile->m_sComments;
 				dlg.m_nRateValue = pFile->m_nRating;
 			}
@@ -2993,7 +2993,7 @@ CString LoadRichHTML(UINT nResourceID, CString& strResponse, CPeerProjectFile* p
 		bWindowsEOL = false;
 	}
 	strResponse	= strBody.Left( nBreak + ( bWindowsEOL ? 2 : 1 ) );
-	strBody = strBody.Mid( nBreak + ( bWindowsEOL ? 2 : 1 ) );
+	strBody		= strBody.Mid( nBreak + ( bWindowsEOL ? 2 : 1 ) );
 
 	for ( ;; )
 	{
@@ -3045,8 +3045,8 @@ const struct
 {
 	LPCTSTR szPath;
 	UINT	nID;
-	LPCTSTR	szType;
-	LPCTSTR	szContentType;
+	LPCTSTR szType;
+	LPCTSTR szContentType;
 } WebResources [] =
 {
 	{ _T("/remote/header.png"),			IDR_HOME_HEADER,		RT_PNG,			_T("image/png") },

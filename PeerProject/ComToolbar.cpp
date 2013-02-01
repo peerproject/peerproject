@@ -1,7 +1,7 @@
 //
 // ComToolbar.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -30,10 +30,10 @@ static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif	// Debug
 
-BEGIN_MESSAGE_MAP(CComToolbar, CComObject)
+//BEGIN_MESSAGE_MAP(CComToolbar, CComObject)
 	//{{AFX_MSG_MAP(CComToolbar)
 	//}}AFX_MSG_MAP
-END_MESSAGE_MAP()
+//END_MESSAGE_MAP()
 
 BEGIN_INTERFACE_MAP(CComToolbar, CComObject)
 	INTERFACE_PART(CComToolbar, IID_ISToolbar, SToolbar)
@@ -47,13 +47,10 @@ END_INTERFACE_MAP()
 
 CComToolbar::CComToolbar(CCoolBarCtrl* pBar, CCoolBarItem* pItem)
 {
-	m_pBar	= pBar;
-	m_pItem	= pItem;
+	m_pBar  = pBar;
+	m_pItem = pItem;
 
-	if ( pItem )
-		EnableDispatch( IID_ISToolbarItem );
-	else
-		EnableDispatch( IID_ISToolbar );
+	EnableDispatch( pItem ? IID_ISToolbarItem : IID_ISToolbar );
 }
 
 CComToolbar::~CComToolbar()
@@ -251,16 +248,18 @@ STDMETHODIMP CComToolbar::XEnumVARIANT::Next(ULONG celt, VARIANT FAR* rgvar, ULO
 {
 	METHOD_PROLOGUE( CComToolbar, EnumVARIANT )
 
-	if ( pceltFetched ) *pceltFetched = 0;
-	else if ( celt > 1 ) return E_INVALIDARG;
+	if ( pceltFetched )
+		*pceltFetched = 0;
+	else if ( celt > 1 )
+		return E_INVALIDARG;
 
 	VariantInit( &rgvar[0] );
 
-	if ( m_nIndex >= (UINT)pThis->m_pBar->GetCount() ) return S_FALSE;
+	if ( m_nIndex >= (UINT)pThis->m_pBar->GetCount() )
+		return S_FALSE;
 
-	rgvar[0].vt			= VT_DISPATCH;
-	rgvar[0].pdispVal	= (IDispatch*)CComToolbar::Wrap(
-		pThis->m_pBar, pThis->m_pBar->GetIndex( m_nIndex ) );
+	rgvar[0].vt = VT_DISPATCH;
+	rgvar[0].pdispVal = (IDispatch*)CComToolbar::Wrap( pThis->m_pBar, pThis->m_pBar->GetIndex( m_nIndex ) );
 
 	m_nIndex++;
 	if ( pceltFetched ) (*pceltFetched)++;

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Norwegian Skin File -->
 
-<!-- Translation based on default-en.xml r88 --> <!-- (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r90 --> <!-- (Shareaza 2.2.0.2) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -595,15 +595,14 @@
 				<item id="ID_HELP_SECURITY" text="Hjelp med _sikkerhet"/>
 				<item id="ID_HELP_CODEC" text="Hjelp med _codec'er"/>
 			</menu>
-				<separator/>
+			<separator/>
 			<menu text="Nettsider">
-				<item id="ID_HELP_HOMEPAGE" text="PeerProject site"/>
-				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject forum"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Siste nytt"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
 			</menu>
+			<item id="ID_HELP_HOMEPAGE" text="PeerProject site"/>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="Om PeerProject..."/>
 		</menu>
@@ -680,7 +679,7 @@
 				<item id="ID_HELP_SECURITY" text="Hjelp med _sikkerhet"/>
 				<item id="ID_HELP_CODEC" text="Hjelp med _codec'er"/>
 			</menu>
-				<separator/>
+			<separator/>
 			<menu text="Nettsider">
 				<item id="ID_HELP_HOMEPAGE" text="PeerProject site"/>
 				<separator/>
@@ -2411,7 +2410,7 @@
 	<string id="20081" value="&amp;Lukk"/>
 	<string id="20082" value="Ferdig, Klikk Lukk"/>
 	<string id="20083" value="spør..."/>
-	<string id="20084" value="Suksess!"/>
+	<string id="20084" value="Suksess."/>
 	<string id="20100" value="Lukker kobling til bruker %s."/>
 	<string id="20101" value="Utforsk vert %s svarte med ukjent respons, det kan være at utforskning ikke støttes."/>
 	<string id="20102" value="Klarte ikke å koble til vert for å utforske bruker."/>
@@ -2567,7 +2566,7 @@
 	<string id="20290" value="Nedlastingsverten %s svarte med en annen, men med brukende utvalg (%I64i-%I64i) of &quot;%s&quot;."/>
 	<string id="20291" value="Mottok en unødvendig push kobling fra %s."/>
 	<string id="20292" value="Dropper kilde %s (%s) etter å ha mottat ugyldige deler av &quot;%s&quot; (%I64i-%I64i)."/>
-	<string id="20293" value="ADVARSEL: Nedlasting &quot;%s&quot; ikke verifisert, det kan være at dette ikke er den filen du ville ha!"/>
+	<string id="20293" value="ADVARSEL: Nedlasting &quot;%s&quot; ikke verifisert, det kan være at dette ikke er den filen du ville ha."/>
 	<string id="20294" value="Har verifisert nedlasting &quot;%s&quot;."/>
 	<string id="20295" value="Nedlastingsvert %s's versjon av &quot;%s&quot; har forskjellig URN, avbryter."/>
 	<string id="20296" value="Nedlastingsvert %s svarte med en ubrukelig byte range av &quot;%s&quot;, venter."/>
@@ -3441,7 +3440,7 @@
 		<control caption="Belønn opplastere"/>
 	</dialog>
 	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="Velkommen til PeerProject (1/8)">
-		<control caption="Velkommen til PeerProject!"/>
+		<control caption="Velkommen til PeerProject."/>
 		<control caption="Hvis du ikke har brukt PeerProject eller et annen P2P-program før, vil innstillingsveiviseren guide deg gjennom innstillingene ved hjelp av et par enkle steg."/>
 		<control caption="Hvis du er en mer avansert bruker, kan du endre innstillingene via PeerProjects verktøy-meny. Klikk avslutt for å lukke hjelperen når du ønsker det."/>
 		<control caption="Veviseren trenger å vite mer om:"/>
@@ -3984,16 +3983,16 @@
 		<control caption="PeerProject inneholder IKKE &quot;spyware&quot;, &quot;adware&quot; eller annet software. Det viser ingen reklamer eller &quot;popups&quot;,.{n}{n}Hvis du ser reklame eller &quot;popups&quot; når du bruker PeerProject, ær sikker det kommer IKKE fra PeerProject."/>
 		<control caption="Uheldigvis kommer mye programvare med uønsket adware eller spyware, så hvis du ser noe suspekt kan det være lurt å sjekke pc-en med et reklame eller spyware fjerningsprogram."/>
 		<control caption="Du skal ikke betale penger for PeerProject. PeerProject kan lastes ned helt gratis på http://peerproject.org/. Hvis du har betalt noen for PeerProject, skal du kreve pengene tilbake øyeblikkelig."/>
-		<control caption="PeerProject respekterer sine brukere!"/>
+		<control caption="PeerProject respekterer sine brukere."/>
 		<control caption="http://PeerProject.org"/>
 		<control caption="Lukk"/>
 	</dialog>
 	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Spre ryktet">
 		<control caption="Hjelp oss å spre ryktet"/>
 		<control caption="Vi håper du syns PeerProject er et bra program. Vi mener at det er det beste fildelingsprogrammet som finnes."/>
-		<control caption="Uheldigvis vet ikke alle fildelere hva de går glipp av!"/>
-		<control caption="Hvis du kjenner noen som vil like PeerProject, selv om de er nye brukere, eller fortsatt bruker et annet middelmådig program, la dem få vite at det finns noe mye bedre!"/>
-		<control caption="De blir sikkert veldig takknemlige for at du reddet dem!"/>
+		<control caption="Uheldigvis vet ikke alle fildelere hva de går glipp av."/>
+		<control caption="Hvis du kjenner noen som vil like PeerProject, selv om de er nye brukere, eller fortsatt bruker et annet middelmådig program, la dem få vite at det finns noe mye bedre."/>
+		<control caption="De blir sikkert veldig takknemlige for at du reddet dem."/>
 		<control caption="http://PeerProject.org"/>
 		<control caption="OK"/>
 	</dialog>

@@ -169,8 +169,8 @@ void CLibraryTreeView::PostUpdate()
 BOOL CLibraryTreeView::Create(CWnd* pParentWnd)
 {
 	CRect rect;
-	return CWnd::CreateEx( 0, NULL, _T("CLibraryTreeView"), WS_CHILD|WS_VISIBLE|
-		WS_TABSTOP|WS_VSCROLL, rect, pParentWnd, IDC_LIBRARY_TREE, NULL );
+	return CWnd::CreateEx( 0, NULL, _T("CLibraryTreeView"), WS_CHILD|WS_VISIBLE|WS_TABSTOP|WS_VSCROLL,
+		rect, pParentWnd, IDC_LIBRARY_TREE, NULL );
 }
 
 void CLibraryTreeView::Clear()
@@ -746,7 +746,7 @@ void CLibraryTreeView::OnKeyDown(UINT nChar, UINT /*nRepCnt*/, UINT /*nFlags*/)
 void CLibraryTreeView::UpdateScroll()
 {
 	SCROLLINFO pInfo = {};
-	pInfo.cbSize	= sizeof(pInfo);
+	pInfo.cbSize	= sizeof( pInfo );
 	pInfo.fMask		= SIF_ALL & ~SIF_TRACKPOS;
 	pInfo.nMin		= 0;
 	pInfo.nMax		= (int)m_nTotal * Settings.Skin.RowSize;
@@ -933,7 +933,7 @@ CLibraryTreeItem* CLibraryTreeView::HitTest(CRect& rcClient, CPoint& pt, CLibrar
 		{
 			if ( pRect )
 			{
-				CopyMemory( pRect, &rc, sizeof(RECT) );
+				CopyMemory( pRect, &rc, sizeof( RECT ) );
 				pRect->left = pt.x;
 			}
 			return pItem;
@@ -1603,7 +1603,7 @@ BOOL CLibraryTreeView::PreTranslateMessage(MSG* pMsg)
 
 void CLibraryTreeView::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 {
-	if ( point.x == -1 && point.y == -1 ) 	// Keyboard fix
+	if ( point.x == -1 && point.y == -1 )	// Keyboard fix
 		ClientToScreen( &point );
 
 	if ( m_bVirtual )
@@ -2016,20 +2016,26 @@ void CLibraryTreeView::OnLibraryFolderFileProperties()
 
 void CLibraryTreeView::OnUpdateLibraryExportCollection(CCmdUI *pCmdUI)
 {
+	if ( m_nSelected != 1 )
+	{
+		pCmdUI->Enable( FALSE );
+		return;
+	}
+
 	CSingleLock oLock( &Library.m_pSection );
-	if ( ! oLock.Lock( 500 ) ) return;
+	if ( ! oLock.Lock( 200 ) ) return;
 
 	BOOL bAllowExport = TRUE;
 
 	// Allow max 1000 files to be parsed and do not export from Ghost or Collection folder
 	if ( ! m_pSelFirst || ! m_pSelFirst->m_pVirtual ||
-		m_pSelFirst->m_pVirtual->GetFileCount() == 0 ||
-		m_pSelFirst->m_pVirtual->GetFileCount() > 1000 ||
-		CheckURI( m_pSelFirst->m_pVirtual->m_sSchemaURI, CSchema::uriGhostFolder ) ||
-		m_pSelFirst->m_pVirtual->m_oCollSHA1 )
+		 m_pSelFirst->m_pVirtual->GetFileCount() == 0 ||
+		 m_pSelFirst->m_pVirtual->GetFileCount() > 1000 ||
+		 CheckURI( m_pSelFirst->m_pVirtual->m_sSchemaURI, CSchema::uriGhostFolder ) ||
+		 m_pSelFirst->m_pVirtual->m_oCollSHA1 )
 		bAllowExport = FALSE;
 
-	pCmdUI->Enable( m_nSelected == 1 && bAllowExport );
+	pCmdUI->Enable( bAllowExport );
 }
 
 void CLibraryTreeView::OnLibraryExportCollection()

@@ -108,7 +108,7 @@ BOOL CSplashDlg::OnInitDialog()
 	if ( m_bmSplash.m_hObject )
 	{
 		BITMAP bmInfo;
-		m_bmSplash.GetObject( sizeof(BITMAP), &bmInfo );
+		m_bmSplash.GetObject( sizeof( BITMAP ), &bmInfo );
 		if ( bmInfo.bmHeight > 20 && bmInfo.bmWidth > 280 )
 		{
 			m_nWidth  = bmInfo.bmWidth;

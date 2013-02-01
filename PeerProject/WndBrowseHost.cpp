@@ -41,10 +41,9 @@ IMPLEMENT_DYNCREATE(CBrowseHostWnd, CBaseMatchWnd)
 BEGIN_MESSAGE_MAP(CBrowseHostWnd, CBaseMatchWnd)
 	ON_WM_CREATE()
 	ON_WM_DESTROY()
+	ON_WM_SIZE()
 	ON_WM_CONTEXTMENU()
 	ON_WM_NCLBUTTONUP()
-	ON_WM_SIZE()
-	ON_LBN_SELCHANGE(IDC_MATCHES, OnSelChangeMatches)
 	ON_UPDATE_COMMAND_UI(ID_BROWSE_STOP, OnUpdateBrowseHostStop)
 	ON_COMMAND(ID_BROWSE_STOP, OnBrowseHostStop)
 	ON_COMMAND(ID_BROWSE_REFRESH, OnBrowseHostRefresh)
@@ -54,6 +53,7 @@ BEGIN_MESSAGE_MAP(CBrowseHostWnd, CBaseMatchWnd)
 	ON_COMMAND(ID_BROWSE_FILES, OnBrowseFiles)
 	ON_UPDATE_COMMAND_UI(ID_SEARCH_CHAT, OnUpdateSearchChat)
 	ON_COMMAND(ID_SEARCH_CHAT, OnSearchChat)
+	ON_LBN_SELCHANGE(IDC_MATCHES, OnSelChangeMatches)
 END_MESSAGE_MAP()
 
 
@@ -168,7 +168,7 @@ void CBrowseHostWnd::OnSize(UINT nType, int cx, int cy)
 
 void CBrowseHostWnd::OnContextMenu(CWnd* pWnd, CPoint point)
 {
-	if ( point.x == -1 && point.y == -1 ) 	// Keyboard fix
+	if ( point.x == -1 && point.y == -1 )	// Keyboard fix
 		ClientToScreen( &point );
 
 	if ( m_bContextMenu )

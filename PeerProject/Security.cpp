@@ -1243,7 +1243,7 @@ CSecureRule& CSecureRule::operator=(const CSecureRule& pRule)
 	delete [] m_pContent;
 	m_pContent	= pRule.m_nContentLength ? new TCHAR[ pRule.m_nContentLength ] : NULL;
 	m_nContentLength = pRule.m_nContentLength;
-	CopyMemory( m_pContent, pRule.m_pContent, m_nContentLength * sizeof(TCHAR) );
+	CopyMemory( m_pContent, pRule.m_pContent, m_nContentLength * sizeof( TCHAR ) );
 
 	return *this;
 }
@@ -1523,7 +1523,7 @@ void CSecureRule::SetContentWords(const CString& strContent)
 	for ( POSITION pos = pWords.GetHeadPosition() ; pos ; )
 	{
 		CString strWord = pWords.GetNext( pos );
-		CopyMemory( pszContent, (LPCTSTR)strWord, ( strWord.GetLength() + 1 ) * sizeof(TCHAR) );
+		CopyMemory( pszContent, (LPCTSTR)strWord, ( strWord.GetLength() + 1 ) * sizeof( TCHAR ) );
 		pszContent += strWord.GetLength() + 1;
 	}
 
@@ -1565,7 +1565,7 @@ void CSecureRule::Serialize(CArchive& ar, int /*nVersion*/)
 		ar << m_nAction;
 		ar << m_sComment;
 
-		ar.Write( &m_pGUID, sizeof(GUID) );
+		ar.Write( &m_pGUID, sizeof( GUID ) );
 
 		ar << m_nExpire;
 		ar << m_nEver;
@@ -1592,7 +1592,7 @@ void CSecureRule::Serialize(CArchive& ar, int /*nVersion*/)
 		//if ( nVersion < 4 )
 		//	CoCreateGuid( &m_pGUID );
 		//else
-			ReadArchive( ar, &m_pGUID, sizeof(GUID) );
+			ReadArchive( ar, &m_pGUID, sizeof( GUID ) );
 
 		ar >> m_nExpire;
 		ar >> m_nEver;
@@ -2155,7 +2155,7 @@ void CAdultFilter::Load()
 			CString strWord( pWords.GetNext( pos ) );
 			ToLower( strWord );
 
-			CopyMemory( pszFilter, (LPCTSTR)strWord, sizeof(TCHAR) * ( strWord.GetLength() + 1 ) );
+			CopyMemory( pszFilter, (LPCTSTR)strWord, sizeof( TCHAR ) * ( strWord.GetLength() + 1 ) );
 			pszFilter += strWord.GetLength() + 1;
 		}
 
@@ -2198,7 +2198,7 @@ void CAdultFilter::Load()
 			CString strWord( pWords.GetNext( pos ) );
 			ToLower( strWord );
 
-			CopyMemory( pszFilter, (LPCTSTR)strWord, sizeof(TCHAR) * ( strWord.GetLength() + 1 ) );
+			CopyMemory( pszFilter, (LPCTSTR)strWord, sizeof( TCHAR ) * ( strWord.GetLength() + 1 ) );
 			pszFilter += strWord.GetLength() + 1;
 		}
 
@@ -2241,7 +2241,7 @@ void CAdultFilter::Load()
 			CString strWord( pWords.GetNext( pos ) );
 			ToLower( strWord );
 
-			CopyMemory( pszFilter, (LPCTSTR)strWord, sizeof(TCHAR) * ( strWord.GetLength() + 1 ) );
+			CopyMemory( pszFilter, (LPCTSTR)strWord, sizeof( TCHAR ) * ( strWord.GetLength() + 1 ) );
 			pszFilter += strWord.GetLength() + 1;
 		}
 
@@ -2436,7 +2436,7 @@ void CMessageFilter::Load()
 			CString strWord( pWords.GetNext( pos ) );
 			ToLower( strWord );
 
-			CopyMemory( pszFilter, (LPCTSTR)strWord, sizeof(TCHAR) * ( strWord.GetLength() + 1 ) );
+			CopyMemory( pszFilter, (LPCTSTR)strWord, sizeof( TCHAR ) * ( strWord.GetLength() + 1 ) );
 			pszFilter += strWord.GetLength() + 1;
 		}
 
@@ -2479,7 +2479,7 @@ void CMessageFilter::Load()
 			CString strWord( pWords.GetNext( pos ) );
 			ToLower( strWord );
 
-			CopyMemory( pszFilter, (LPCTSTR)strWord, sizeof(TCHAR) * ( strWord.GetLength() + 1 ) );
+			CopyMemory( pszFilter, (LPCTSTR)strWord, sizeof( TCHAR ) * ( strWord.GetLength() + 1 ) );
 			pszFilter += strWord.GetLength() + 1;
 		}
 

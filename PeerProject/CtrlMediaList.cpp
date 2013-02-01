@@ -375,7 +375,8 @@ int CMediaListCtrl::GetNext(BOOL bSet)
 			nItem = -1;
 	}
 
-	if ( bSet ) SetCurrent( nItem );
+	if ( bSet )
+		SetCurrent( nItem );
 
 	return nItem;
 }
@@ -468,7 +469,7 @@ void CMediaListCtrl::OnDoubleClick(NMHDR* /*pNMHDR*/, LRESULT* pResult)
 
 void CMediaListCtrl::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 {
-	if ( point.x == -1 && point.y == -1 ) 	// Keyboard fix
+	if ( point.x == -1 && point.y == -1 )	// Keyboard fix
 		ClientToScreen( &point );
 
 	Skin.TrackPopupMenu( _T("CMediaList"), point, ID_MEDIA_SELECT );

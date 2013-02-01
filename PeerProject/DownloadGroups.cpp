@@ -197,7 +197,7 @@ void CDownloadGroups::CreateDefault()
 {
 	CQuickLock pLock( m_pSection );
 
-	CDownloadGroup* pGroup	= GetSuperGroup();
+	CDownloadGroup* pGroup = GetSuperGroup();
 
 	const BOOL bLang = ! Settings.General.LanguageDefault;		// Folder naming fixes
 

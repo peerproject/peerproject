@@ -142,7 +142,7 @@ BOOL CHostCache::Save()
 
 	try
 	{
-		CArchive ar( &pFile, CArchive::store, 262144 );	// 256 KB buffer
+		CArchive ar( &pFile, CArchive::store, 262144 );		// 256 KB buffer
 		try
 		{
 			CQuickLock oLock( m_pSection );
@@ -906,7 +906,7 @@ int CHostCache::ImportHubList(CFile* pFile)
 			else if ( _tcsnicmp( strAddress, _T("adcs://"), 7 ) == 0 )
 				continue;	// Skip ADCS-hubs
 
-			const int nUsers	= _tstoi( pHub->GetAttributeValue( _T("Users") ) );
+			const int nUsers		= _tstoi( pHub->GetAttributeValue( _T("Users") ) );
 			const int nMaxusers	= _tstoi( pHub->GetAttributeValue( _T("Maxusers") ) );
 
 			CQuickLock oLock( DC.m_pSection );
@@ -927,7 +927,7 @@ int CHostCache::ImportHubList(CFile* pFile)
 int CHostCache::ImportMET(CFile* pFile)
 {
 	BYTE nVersion = 0;
-	pFile->Read( &nVersion, sizeof(nVersion) );
+	pFile->Read( &nVersion, sizeof( nVersion ) );
 	if ( nVersion != 0xE0 &&
 		 nVersion != ED2K_MET &&
 		 nVersion != ED2K_MET_I64TAGS ) return 0;
@@ -935,7 +935,7 @@ int CHostCache::ImportMET(CFile* pFile)
 	int nServers = 0;
 	DWORD nCount = 0;
 
-	pFile->Read( &nCount, sizeof(nCount) );
+	pFile->Read( &nCount, sizeof( nCount ) );
 
 	while ( nCount-- > 0 )
 	{
@@ -943,9 +943,9 @@ int CHostCache::ImportMET(CFile* pFile)
 		WORD nPort;
 		DWORD nTags;
 
-		if ( pFile->Read( &pAddress, sizeof(pAddress) ) != sizeof(pAddress) ) break;
-		if ( pFile->Read( &nPort, sizeof(nPort) ) != sizeof(nPort) ) break;
-		if ( pFile->Read( &nTags, sizeof(nTags) ) != sizeof(nTags) ) break;
+		if ( pFile->Read( &pAddress, sizeof( pAddress ) ) != sizeof( pAddress ) ) break;
+		if ( pFile->Read( &nPort, sizeof( nPort ) ) != sizeof( nPort ) ) break;
+		if ( pFile->Read( &nTags, sizeof( nTags ) ) != sizeof( nTags ) ) break;
 
 		CQuickLock oLock( eDonkey.m_pSection );
 		CHostCacheHostPtr pServer = eDonkey.Add( &pAddress, nPort );
@@ -1280,7 +1280,7 @@ void CHostCacheHost::Serialize(CArchive& ar, int /*nVersion*/)	// HOSTCACHE_SER_
 {
 	if ( ar.IsStoring() )
 	{
-		ar.Write( &m_pAddress, sizeof(m_pAddress) );
+		ar.Write( &m_pAddress, sizeof( m_pAddress ) );
 		ar << m_nPort;
 
 		ar << m_tAdded;
@@ -1344,7 +1344,7 @@ void CHostCacheHost::Serialize(CArchive& ar, int /*nVersion*/)	// HOSTCACHE_SER_
 	{
 		const DWORD tNow = static_cast< DWORD >( time( NULL ) );
 
-		ReadArchive( ar, &m_pAddress, sizeof(m_pAddress) );
+		ReadArchive( ar, &m_pAddress, sizeof( m_pAddress ) );
 		ar >> m_nPort;
 
 		ar >> m_tAdded;

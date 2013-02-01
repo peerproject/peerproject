@@ -56,16 +56,7 @@ CFilePropertiesDlg::CFilePropertiesDlg(CWnd* pParent, DWORD nIndex)
 	, m_nIndex		( nIndex )
 	, m_bHexHash	( FALSE )
 	, m_nWidth		( 0 )
-	, m_sName		( _T("") )
-	, m_sSize		( _T("") )
-	, m_sType		( _T("") )
-	, m_sPath		( _T("") )
-	, m_sIndex		( _T("") )
-	, m_sSHA1		( _T("") )
-	, m_sTiger		( _T("") )
 {
-	//{{AFX_DATA_INIT(CFilePropertiesDlg)
-	//}}AFX_DATA_INIT
 }
 
 void CFilePropertiesDlg::DoDataExchange(CDataExchange* pDX)

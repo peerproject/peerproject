@@ -3,7 +3,7 @@
 
 <!-- PeerProject/ПеерПројецт Default Serbian Skin File -->
 
-<!-- Translation based on default-en.xml r88 -->
+<!-- Translation based on default-en.xml r90 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2525,7 +2525,7 @@
 	<string id="20081" value="&amp;Zatvori"/>
 	<string id="20082" value="Gotovo, klikni na zatvori"/>
 	<string id="20083" value="Čekam Odobrenje..."/>
-	<string id="20084" value="Uspeh!"/>
+	<string id="20084" value="Uspeh."/>
 	<string id="20100" value="Zatvaram pregled korisnika %s."/>
 	<string id="20101" value="Browse host %s responded with an unrecognised response, and may not support user/host browsing."/>
 	<string id="20102" value="Ne mogu se spojiti na korisnika da vidite šta ima."/>
@@ -2648,7 +2648,7 @@
 	<string id="20290" value="Download host %s responded with a different, but useful range (%I64i-%I64i) of &quot;%s&quot;."/>
 	<string id="20291" value="Received an unnecessary push connection from %s."/>
 	<string id="20292" value="Dropping source %s (%s) for sending corrupted parts of &quot;%s&quot; (%I64i-%I64i)."/>
-	<string id="20293" value="UPOZORENJE: Datoteka &quot;%s&quot; nije prošla na proveri, može biti da to nije datoteka koju želite skinuti!"/>
+	<string id="20293" value="UPOZORENJE: Datoteka &quot;%s&quot; nije prošla na proveri, može biti da to nije datoteka koju želite skinuti."/>
 	<string id="20294" value="Uspješno provereno skidanje &quot;%s&quot;."/>
 	<string id="20295" value="Download host %s's version of &quot;%s&quot; has a different URN, aborting."/>
 	<string id="20296" value="Download host %s responded with a useless byte range of &quot;%s&quot;, pending."/>
@@ -3992,16 +3992,16 @@
 		<control caption="PeerProject NE SADRŽI &quot;spyware&quot;, &quot;adware&quot; ili ostali loši software. NE prikazuje nikakve reklame ili &quot;popupove&quot;, nikada.{n}{n}Ako ikada vidite reklamu ili &quot;popup&quot; dok koristite PeerProject, možete biti uvereni da ju NE PRIKAZUJE ovaj program."/>
 		<control caption="Na žalost dosta ostalog softwarea stvarno dolazi sa neželjenim adware ili spyware delovima, ako vidite nešto sumljivo obavezno proverite vaš PC sa advertising ili spyware removal programom."/>
 		<control caption="Niko Vam nebi smeo naplatiti za PeerProject. PeerProject možete besplatno skinuti sa http://peerproject.org/. Ako ste nekome platili PeerProject, trebali bi ste odmah tražiti potpuni povrat novca."/>
-		<control caption="PeerProject Poštuje Svoje Korisnike!"/>
+		<control caption="PeerProject Poštuje Svoje Korisnike."/>
 		<control caption="http://PeerProject.org"/>
 		<control caption="Zatvori"/>
 	</dialog>
 	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Razglasi">
 		<control caption="Pomognite Nam Da Raširimo Reč"/>
 		<control caption="Nadamo se da uživate koristeći PeerProject. Verujemo da je najbolji program za razmenu datoteka koji postoji."/>
-		<control caption="Nažalost, puno ljudi nezna šta propušta koristeći zastarele programe!"/>
+		<control caption="Nažalost, puno ljudi nezna šta propušta koristeći zastarele programe."/>
 		<control caption="Ako znate nekoga za koga mislite da bi mu PeerProject dobro došla, bilo da je novi u deljenju, ili već koristi neki od lošijih proizvoda, zašto ga nebi upoznali sa PeerProject i pokazali da ima boljih alternativa?"/>
-		<control caption="Verovatno če vam biti zahvalni što ste im pokazali pravi put!"/>
+		<control caption="Verovatno če vam biti zahvalni što ste im pokazali pravi put."/>
 		<control caption="http://PeerProject.org"/>
 		<control caption="OK"/>
 	</dialog>

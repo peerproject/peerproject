@@ -75,11 +75,11 @@ IMPLEMENT_SERIAL(CNeighboursWnd, CPanelWnd, 0)
 BEGIN_MESSAGE_MAP(CNeighboursWnd, CPanelWnd)
 	//{{AFX_MSG_MAP(CNeighboursWnd)
 	ON_WM_CREATE()
+	ON_WM_DESTROY()
 	ON_WM_SIZE()
 	ON_WM_TIMER()
-	ON_WM_CONTEXTMENU()
-	ON_WM_DESTROY()
 	ON_WM_ACTIVATE()
+	ON_WM_CONTEXTMENU()
 	ON_WM_QUERYNEWPALETTE()
 	ON_NOTIFY(LVN_COLUMNCLICK, IDC_NEIGHBOURS, OnSortList)
 	ON_NOTIFY(NM_CUSTOMDRAW, IDC_NEIGHBOURS, OnCustomDrawList)
@@ -409,7 +409,7 @@ void CNeighboursWnd::OnSortList(NMHDR* pNotifyStruct, LRESULT *pResult)
 
 void CNeighboursWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 {
-	if ( point.x == -1 && point.y == -1 ) 	// Keyboard fix
+	if ( point.x == -1 && point.y == -1 )	// Keyboard fix
 		ClientToScreen( &point );
 
 	Skin.TrackPopupMenu( _T("CNeighboursWnd"), point );
@@ -470,7 +470,7 @@ void CNeighboursWnd::OnUpdateNeighboursChat(CCmdUI* pCmdUI)
 	if ( Settings.Community.ChatEnable && GetSelectedCount() == 1 )
 	{
 		CSingleLock pNetworkLock( &Network.m_pSection );
-		if ( pNetworkLock.Lock( 500 ) )
+		if ( pNetworkLock.Lock( 200 ) )
 		{
 			if ( CNeighbour* pNeighbour = GetItem( m_wndList.GetNextItem( -1, LVNI_SELECTED ) ) )
 			{
@@ -532,7 +532,7 @@ void CNeighboursWnd::OnUpdateBrowseLaunch(CCmdUI* pCmdUI)
 	if ( GetSelectedCount() == 1 )
 	{
 		CSingleLock pNetworkLock( &Network.m_pSection );
-		if ( pNetworkLock.Lock( 500 ) )
+		if ( pNetworkLock.Lock( 200 ) )
 		{
 			if ( CNeighbour* pNeighbour = GetItem( m_wndList.GetNextItem( -1, LVNI_SELECTED ) ) )
 			{

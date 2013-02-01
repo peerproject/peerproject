@@ -829,7 +829,7 @@ void CMainWnd::OnContextMenu(CWnd* pWnd, CPoint point)
 {
 	if ( pWnd != this || OnNcHitTest( point ) != HTCAPTION )
 	{
-		if ( point.x == -1 && point.y == -1 ) 	// Keyboard fix
+		if ( point.x == -1 && point.y == -1 )	// Keyboard fix
 			ClientToScreen( &point );
 
 		CMenu* pMenu = Skin.GetMenu( _T("CMainWnd.View") );
@@ -1064,7 +1064,7 @@ void CMainWnd::OpenTrayMenu()
 	if ( pMenu == NULL ) return;
 
 	MENUITEMINFO pInfo = {};
-	pInfo.cbSize	= sizeof(pInfo);
+	pInfo.cbSize	= sizeof( pInfo );
 	pInfo.fMask		= MIIM_STATE;
 	GetMenuItemInfo( pMenu->GetSafeHmenu(), ID_TRAY_OPEN, FALSE, &pInfo );
 	pInfo.fState	|= MFS_DEFAULT;
@@ -2525,7 +2525,7 @@ void CMainWnd::OnToolsLanguage()
 
 	CLanguageDlg dlg;
 	if ( dlg.DoModal() != IDOK )
-		 return;
+		return;
 
 	bool bRestart = Settings.General.LanguageRTL != dlg.m_bLanguageRTL &&
 		MsgBox( IDS_WARNING_RTL, MB_ICONQUESTION | MB_YESNO ) == IDYES;
@@ -3151,7 +3151,7 @@ BOOL CMainWnd::OnDrop(IDataObject* pDataObj, DWORD /*grfKeyState*/, POINT /*ptSc
 	FORMATETC fmtcFiles = { CF_HDROP, NULL, DVASPECT_CONTENT, -1, TYMED_HGLOBAL };
 	FORMATETC fmtcURL = { (CLIPFORMAT) RegisterClipboardFormat( CFSTR_SHELLURL ), NULL, DVASPECT_CONTENT, -1, TYMED_HGLOBAL };
 
-	if ( SUCCEEDED ( pDataObj->QueryGetData( &fmtcFiles ) ) )
+	if ( SUCCEEDED( pDataObj->QueryGetData( &fmtcFiles ) ) )
 	{
 		CList < CString > oFiles;
 		if ( CPeerProjectDataSource::ObjectToFiles( pDataObj, oFiles ) == S_OK )
@@ -3170,7 +3170,7 @@ BOOL CMainWnd::OnDrop(IDataObject* pDataObj, DWORD /*grfKeyState*/, POINT /*ptSc
 		}
 	}
 
-	if ( SUCCEEDED ( pDataObj->QueryGetData( &fmtcURL ) ) )
+	if ( SUCCEEDED( pDataObj->QueryGetData( &fmtcURL ) ) )
 	{
 		CString strURL;
 		if ( CPeerProjectDataSource::ObjectToURL( pDataObj, strURL ) == S_OK )

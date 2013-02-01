@@ -451,10 +451,11 @@ void CBrowseTreeCtrl::OnLButtonUp(UINT nFlags, CPoint point)
 
 void CBrowseTreeCtrl::OnKeyDown(UINT nChar, UINT /*nRepCnt*/, UINT /*nFlags*/)
 {
-	CSingleLock lRoot( &m_csRoot, TRUE );
 	CBrowseTreeItem* pTo = NULL;
 	BOOL bChanged = FALSE;
 	CRect rc;
+
+	CSingleLock lRoot( &m_csRoot, TRUE );
 
 	if ( nChar == VK_HOME || ( nChar == VK_UP && m_pFocus == NULL ) )
 	{
@@ -566,7 +567,7 @@ void CBrowseTreeCtrl::UpdateScroll()
 	CSingleLock lRoot( &m_csRoot, TRUE );
 
 	SCROLLINFO pInfo = {};
-	pInfo.cbSize	= sizeof(pInfo);
+	pInfo.cbSize	= sizeof( pInfo );
 	pInfo.fMask		= SIF_PAGE | SIF_POS | SIF_RANGE;
 	pInfo.nMin		= 0;
 	pInfo.nMax		= m_nTotal * Settings.Skin.RowSize;
@@ -641,6 +642,7 @@ BOOL CBrowseTreeCtrl::OnEraseBkgnd(CDC* /*pDC*/)
 void CBrowseTreeCtrl::OnPaint()
 {
 	CSingleLock lRoot( &m_csRoot, TRUE );
+
 	CPaintDC dc( this );
 
 	CRect rcClient;
@@ -668,10 +670,9 @@ void CBrowseTreeCtrl::Paint(CDC& dc, CRect& rcClient, CPoint& pt, CBrowseTreeIte
 	pt.y += Settings.Skin.RowSize;
 
 	if ( rc.top >= rcClient.bottom )
-	{
 		return;
-	}
-	else if ( rc.bottom >= rcClient.top )
+
+	if ( rc.bottom >= rcClient.top )
 	{
 		if ( pItem->m_bBold )
 			dc.SelectObject( &CoolInterface.m_fntBold );
@@ -710,8 +711,8 @@ void CBrowseTreeCtrl::Paint(CDC& dc, CRect& rcClient, CPoint& pt, CBrowseTreeIte
 CBrowseTreeItem* CBrowseTreeCtrl::HitTest(const POINT& point, RECT* pRect) const
 {
 	CSingleLock lRoot( (CCriticalSection*)&m_csRoot, TRUE );
-	CRect rcClient;
 
+	CRect rcClient;
 	GetClientRect( &rcClient );
 
 	CPoint pt( rcClient.left, rcClient.top - m_nScroll );
@@ -741,7 +742,7 @@ CBrowseTreeItem* CBrowseTreeCtrl::HitTest(CRect& rcClient, CPoint& pt, CBrowseTr
 		{
 			if ( pRect )
 			{
-				CopyMemory( pRect, &rc, sizeof(RECT) );
+				CopyMemory( pRect, &rc, sizeof( RECT ) );
 				pRect->left = pt.x;
 			}
 			return pItem;
@@ -773,8 +774,8 @@ CBrowseTreeItem* CBrowseTreeCtrl::HitTest(CRect& rcClient, CPoint& pt, CBrowseTr
 BOOL CBrowseTreeCtrl::GetRect(CBrowseTreeItem* pItem, RECT* pRect)
 {
 	CSingleLock lRoot( &m_csRoot, TRUE );
-	CRect rcClient;
 
+	CRect rcClient;
 	GetClientRect( &rcClient );
 
 	CPoint pt( rcClient.left, rcClient.top - m_nScroll );
@@ -1103,7 +1104,7 @@ void CBrowseTreeItem::Paint(CDC& dc, CRect& rc, BOOL bTarget, COLORREF crBack) c
 	if ( dc.GetWindow() != NULL )
 		dc.GetWindow()->ScreenToClient( &ptHover );
 
-	RECT rcTick = { rc.left+2, rc.top+2, rc.left+14, rc.bottom-2 };
+	RECT rcTick = { rc.left + 2, rc.top + 2, rc.left + 14, rc.bottom - 2 };
 
 	if ( crBack == CLR_NONE ) crBack = Colors.m_crWindow;
 	dc.FillSolidRect( rc.left, rc.top, 33, Settings.Skin.RowSize, crBack );

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Japanese Skin File -->
 
-<!-- Translation based on default-en.xml r88 --> <!-- (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r90 --> <!-- (Shareaza 2.2.0.2) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -27,10 +27,10 @@
 />
 
 <fonts> <!--Vista+ face="メイリオ"-->
-  <font name="System.Plain"  face="Meiryo" size="11" weight="Normal"/>
-  <font name="System.Bold"   face="Meiryo" size="11" weight="Bold"/>
-  <font name="Panel.Caption" face="Meiryo" size="12" weight="Normal"/>
-  <font name="Navbar.Caption" face="Meiryo" size="12" weight="Normal"/>
+	<font name="System.Plain"	face="Meiryo" size="11" weight="Normal"/>
+	<font name="System.Bold"	face="Meiryo" size="11" weight="Bold"/>
+	<font name="Panel.Caption"	face="Meiryo" size="12" weight="Normal"/>
+	<font name="Navbar.Caption"	face="Meiryo" size="12" weight="Normal"/>
 </fonts>
 
 <!-- Toolbar Definitions -->
@@ -2546,7 +2546,7 @@
 	<string id="20081" value="閉じる(&amp;C)"/>
 	<string id="20082" value="完了しました。閉じるをクリックして下さい"/>
 	<string id="20083" value="要求中..."/>
-	<string id="20084" value="成功!"/>
+	<string id="20084" value="成功."/>
 	<string id="20100" value="%s へのユーザ参照接続を閉じています"/>
 	<string id="20101" value="参照ホスト %s は認識できない応答を返しました。ユーザ/ホスト参照をサポートしていない可能性があります"/>
 	<string id="20102" value="ユーザーを参照するホストと接続できません"/>
@@ -2713,7 +2713,7 @@
 	<string id="20290" value="ダウンロードホスト %s が異なる応答を返しました。使用可能範囲 (%I64i-%I64i) : &quot;%s&quot;"/>
 	<string id="20291" value="%s からの不要なプッシュ接続を受信しました"/>
 	<string id="20292" value="ソース %s (%s) は、&quot;%s&quot;.破損した部品(%I64i-%I64i)を送信した為、廃棄されました"/>
-	<string id="20293" value="警告: ダウンロード &quot;%s&quot; の検証に失敗しました。あなたが要求したファイルでない可能性があります!"/>
+	<string id="20293" value="警告: ダウンロード &quot;%s&quot; の検証に失敗しました。あなたが要求したファイルでない可能性があります."/>
 	<string id="20294" value="ダウンロード &quot;%s&quot;.検証に成功しました"/>
 	<string id="20295" value="ダウンロードホスト %s のバージョン &quot;%s&quot; は別のURNを持っている為、中止しています"/>
 	<string id="20296" value="ダウンロードホスト %s は &quot;%s&quot; の不要なバイト範囲で応答した為、保留中です"/>
@@ -2827,7 +2827,7 @@
 	<string id="20427" value="PeerProjectはコレクションファイル &quot;%s&quot; をライブラリに追加しました"/>
 	<string id="20428" value="PeerProjectは以下のコレクションファイルを受信しました:\n\n&quot;%s&quot;\n\nこのファイルは有効なコレクションファイルではありません"/>
 	<string id="20429" value="このコレクションのダウンロード対して、いかなるプロンプトの表示も抑制しますか?"/>
-	<string id="20430" value="ファイル &quot;%s&quot; を開いてよろしいですか?\n\nファイルがコンピュータに有害であることもあります。  ファイルを開く前に安全であるか確認して下さい"/>
+	<string id="20430" value="ファイル &quot;%s&quot; を開いてよろしいですか?\n\nファイルがコンピュータに有害であることもあります。 ファイルを開く前に安全であるか確認して下さい"/>
 	<!--string id="20431" value="選択した %1 ファイルを完全に削除して本当に宜しいですか?\n\n設定次第では削除したファイルが&quot;ごみ箱&quot;に移動される可能性があります"-->
 	<string id="20432" value="選択した %i 個のアルバムフォルダを削除しますか?\n\nこの操作はアルバムフォルダを削除するだけで、実際のファイルは削除されないことに注意して下さい"/>
 	<string id="20433" value="PeerProjectはファイルを削除できませんでした:\n\n%s"/>
@@ -3596,7 +3596,7 @@
 		<control caption="アップローダに報いる"/>
 	</dialog>
 	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="PeerProjectへようこそ (1/8)">
-		<control caption="PeerProjectへようこそ!"/>
+		<control caption="PeerProjectへようこそ."/>
 		<control caption="もしあなたがこれまでにPeerProjectや他のP2Pクライアントを使用した経験がないなら、このクイックスタートウィザードはいくつかのステップを通してPeerProjectの設定を構成するお手伝いをします。"/>
 		<control caption="もしあなたが経験豊富なP2Pユーザーなら、ツールメニューからPeerProjectのオプション全てにアクセスすることができます。 ”終了”ボタンをクリックすればウィザードをいつでも終了できます。"/>
 		<control caption="このウィザードは以下の設定を行います:"/>
@@ -3673,7 +3673,7 @@
 		<control caption="素人モード"/>
 		<control caption="玄人モード"/>
 		<control caption="メニューとボタンによる単純なインターフェースです。{n}他のファイル共有プログラムとよく似た操作感で使用することが出来ます。"/>
-		<control caption="玄人モードは多くの拡張コマンドやウィンドウ等を熟練ユーザーへ提供します。{n}初心者ユーザーには判りづらいかもしれません!"/>
+		<control caption="玄人モードは多くの拡張コマンドやウィンドウ等を熟練ユーザーへ提供します。{n}初心者ユーザーには判りづらいかもしれません."/>
 		<control caption="ダウンロード進行バーの表示を簡素化"/>
 		<control caption=""/>
 	</dialog>
@@ -4138,16 +4138,16 @@
 		<control caption="PeerProjectはどのような種類の &quot;スパイウェア&quot;や&quot;アドウェア&quot; も含んでいませんし、 どんな広告・ &quot;ポップアップ&quot; も表示されません。{n}{n}もしPeerProjectを使用中に広告や&quot;ポップアップ&quot;が表示されたとしても、 それはこのプログラムが原因ではありませんので安心して下さい。"/>
 		<control caption="残念ながら他の多くのソフトウェアは望まれていないアドウェアやスパイウェアを含んでいることがあります。 もし疑わしいものを発見したら、スパイウェア削除プログラムであなたのマシンをチェックした方が良いでしょう"/>
 		<control caption="PeerProjectを取得するには一銭もかかりません。 PeerProjectは誰でもhttp://peerproject.org/からダウンロードすることができます。 もしあなたがPeerProjectの為に誰かにお金を支払っていたら、今すぐ全額払い戻しを請求して下さい。"/>
-		<control caption="PeerProjectはそのユーザを尊敬しています!"/>
+		<control caption="PeerProjectはそのユーザを尊敬しています."/>
 		<control caption="http://PeerProject.org"/>
 		<control caption="閉じる"/>
 	</dialog>
 	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="言葉を世界へ">
 		<control caption="PeerProjectという言葉を広めるお手伝いをして下さい"/>
 		<control caption="我々はあなたがPeerProjectを楽しんで使用してくれることを願っています。 我々はこれが最良のファイル共有アプリケーションであると信じています"/>
-		<control caption="残念ながら、多くのファイル共有者はPeerProjectの存在を知りません!"/>
+		<control caption="残念ながら、多くのファイル共有者はPeerProjectの存在を知りません."/>
 		<control caption="PeerProjectの新しいユーザーになってくれるかどうかに関係なく、 出来の悪いファイル共有ソフトを使用していている人でPeerProjectを気に入ってくれそうな人がいれば、 PeerProjectの存在を教えてあげてくれませんか?"/>
-		<control caption="きっとその人はあなたに感謝することになるでしょう!"/>
+		<control caption="きっとその人はあなたに感謝することになるでしょう."/>
 		<control caption="http://PeerProject.org"/>
 		<control caption="OK"/>
 	</dialog>

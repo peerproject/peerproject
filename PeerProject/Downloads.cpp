@@ -1366,8 +1366,8 @@ void CDownloads::PurgePreviews()
 //
 //	if ( bFile1 || bFile2 )
 //	{
-//		if ( bFile1 ) bFile1 = pFile1.Read( &pFileTime1, sizeof(FILETIME) ) == sizeof(FILETIME);
-//		if ( bFile2 ) bFile2 = pFile2.Read( &pFileTime2, sizeof(FILETIME) ) == sizeof(FILETIME);
+//		if ( bFile1 ) bFile1 = pFile1.Read( &pFileTime1, sizeof( FILETIME ) ) == sizeof( FILETIME );
+//		if ( bFile2 ) bFile2 = pFile2.Read( &pFileTime2, sizeof( FILETIME ) ) == sizeof( FILETIME );
 //	}
 //	else
 //	{

@@ -234,8 +234,8 @@ float CHostBrowser::GetProgress() const
 
 void CHostBrowser::OnQueryHits(CQueryHit* pHits)
 {
-	m_bCanPush	= TRUE;
-	m_oClientID	= pHits->m_oClientID;
+	m_bCanPush  = TRUE;
+	m_oClientID = pHits->m_oClientID;
 
 	for ( CQueryHit* pCount = pHits ; pCount ; pCount = pCount->m_pNext )
 	{
@@ -551,7 +551,7 @@ void CHostBrowser::SendRequest()
 
 		OnWrite();
 
-		m_nProtocol	= PROTOCOL_ANY;
+		m_nProtocol = PROTOCOL_ANY;
 	}
 
 	m_nState	= hbsRequesting;
@@ -759,9 +759,9 @@ BOOL CHostBrowser::StreamPacketsG1()
 	for ( ; bSuccess ; )
 	{
 		GNUTELLAPACKET* pPacket = (GNUTELLAPACKET*)m_pBuffer->m_pBuffer;
-		if ( m_pBuffer->m_nLength < sizeof(*pPacket) ) break;
+		if ( m_pBuffer->m_nLength < sizeof( *pPacket ) ) break;
 
-		DWORD nLength = sizeof(*pPacket) + pPacket->m_nLength;
+		DWORD nLength = sizeof( *pPacket ) + pPacket->m_nLength;
 
 		if ( pPacket->m_nLength < 0 || nLength >= (DWORD)Settings.Gnutella.MaximumPacket * 8 )
 		{

@@ -17,23 +17,27 @@
 #pragma once
 
 #ifndef __cplusplus
-	#error ATL/WTL requires C++ compilation (use a .cpp suffix)
+  #error ATL/WTL requires C++ compilation (use a .cpp suffix)
 #endif
 
 #ifndef __ATLBASE_H__
-	#error atlapp.h requires atlbase.h to be included first
+  #error atlapp.h requires atlbase.h to be included first
 #endif
 
 #ifdef _WIN32_WCE
-	#error Windows CE is not supported by this package
+  #error Windows CE is not supported by this package
 #endif
 
 #if _ATL_VER < 0x0700
-	#error ATL versions under 7.0 are unsupported by this package
+  #error ATL versions under 7.0 are unsupported by this package
 #endif
 
 #ifdef _ATL_NO_COMMODULE
-	#error WTL requires that _ATL_NO_COMMODULE is not defined
+  #error WTL requires that _ATL_NO_COMMODULE is not defined
+#endif
+
+#if (_ATL_VER >= 0x0900) && defined(_ATL_MIN_CRT)
+  #error _ATL_MIN_CRT is not supported with ATL 9.0 and higher
 #endif
 
 #include <limits.h>
@@ -54,11 +58,15 @@
 // Disable this warning for template class arguments
 #pragma warning(disable: 4127)
 
+#if (_ATL_VER >= 0x0900) && !defined(_SECURE_ATL)
+  #define _SECURE_ATL	1
+#endif
+
 
 ///////////////////////////////////////////////////////////////////////////////
 // WTL version number
 
-#define _WTL_VER	0x0800
+#define _WTL_VER	0x0810
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -71,8 +79,11 @@
 // CAppModule
 // CServerAppModule
 //
+// CRegKeyEx
+//
 // Global functions:
 //   AtlGetDefaultGuiFont()
+//   AtlCreateControlFont()
 //   AtlCreateBoldFont()
 //   AtlInitCommonControls()
 
@@ -141,6 +152,12 @@
 #endif
 
 // No macro for ATL3
+
+// ATL11 fix
+#if (_ATL_VER >= 0x0B00)
+  namespace ATL { HRESULT AtlGetCommCtrlVersion(LPDWORD pdwMajor, LPDWORD pdwMinor); };
+#endif
+
 
 namespace WTL
 {
@@ -551,7 +568,7 @@ namespace SecureHelper
 
 	inline int vsprintf_x(LPTSTR lpstrBuff, size_t cchBuff, LPCTSTR lpstrFormat, va_list args)
 	{
-#if !defined(_ATL_MIN_CRT) // && _SECURE_ATL
+#if _SECURE_ATL && !defined(_ATL_MIN_CRT)
 		return _vstprintf_s(lpstrBuff, cchBuff, lpstrFormat, args);
 #else
 		cchBuff;   // Avoid unused argument warning
@@ -1214,6 +1231,12 @@ public:
 		return 0;
 	}
 };
+
+
+///////////////////////////////////////////////////////////////////////////////
+// CRegKeyEx - adds type-specific methods to ATL3 CRegKey
+
+typedef ATL::CRegKey CRegKeyEx;
 
 
 ///////////////////////////////////////////////////////////////////////////////

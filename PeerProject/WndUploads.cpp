@@ -225,7 +225,7 @@ void CUploadsWnd::OnTimer(UINT_PTR nIDEvent)
 
 void CUploadsWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 {
-	if ( point.x == -1 && point.y == -1 ) 	// Keyboard fix
+	if ( point.x == -1 && point.y == -1 )	// Keyboard fix
 	{
 		m_wndUploads.ClientToScreen( &point );
 		Skin.TrackPopupMenu( _T("CUploadsWnd.Default"), point, ID_UPLOADS_HELP );
@@ -390,8 +390,9 @@ void CUploadsWnd::OnUpdateUploadsDisconnect(CCmdUI* pCmdUI)
 
 void CUploadsWnd::OnUploadsDisconnect()
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
 	CList<CUploadFile*> pList;
+
+	CSingleLock pLock( &Transfers.m_pSection, TRUE );
 
 	for ( POSITION pos = UploadFiles.GetIterator() ; pos ; )
 	{

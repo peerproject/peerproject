@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Dutch Skin File -->
 
-<!-- Translation based on default-en.xml r88 -->
+<!-- Translation based on default-en.xml r90 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -698,7 +698,6 @@
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
 				<item id="ID_HELP_VERSION_CHECK" text="Check voor een beschikbare update"/>
-				<separator/>
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_Over PeerProject..."/>
@@ -768,7 +767,6 @@
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
 				<item id="ID_HELP_VERSION_CHECK" text="Check voor een beschikbare update"/>
-				<separator/>
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_Over PeerProject..."/>
@@ -860,7 +858,6 @@
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
 				<item id="ID_HELP_VERSION_CHECK" text="Check voor een beschikbare update"/>
-				<separator/>
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_Over PeerProject..."/>
@@ -2699,7 +2696,7 @@
 	<string id="20081" value="&amp;Sluiten"/>
 	<string id="20082" value="Klaar, klik op sluiten"/>
 	<string id="20083" value="Wordt aangevraagd..."/>
-	<string id="20084" value="Gelukt!"/>
+	<string id="20084" value="Gelukt."/>
 	<string id="20100" value="De verbinding met %s voor het bekijken van de gebruiker is gesloten."/>
 	<string id="20101" value="&quot;Bekijken&quot; gastheer %s heeft geantwoord met een niet herkend antwoord en ondersteunt misschien niet het bekijken van gebruiker/bron."/>
 	<string id="20102" value="Niet mogelijk om te verbinden met gastheer voor het bekijken van de gebruiker."/>
@@ -2867,7 +2864,7 @@
 	<string id="20290" value="Downloadgastheer %s heeft geantwoord met een ander, maar bruikbaar bereik (%I64i-%I64i) van &quot;%s&quot;."/>
 	<string id="20291" value="Een onnodige pushverbinding is ontvangen van %s."/>
 	<string id="20292" value="Bron %s (%s) is geweigerd voor het sturen van corrupte delen van &quot;%s&quot; (%I64i-%I64i)."/>
-	<string id="20293" value="WAARSCHUWING: Het controleren van download &quot;%s&quot; is mislukt, het is mogelijk niet het bestand dat je van plan was om te downloaden!"/>
+	<string id="20293" value="WAARSCHUWING: Het controleren van download &quot;%s&quot; is mislukt, het is mogelijk niet het bestand dat je van plan was om te downloaden."/>
 	<string id="20294" value="De download &quot;%s&quot; is succesvol gecontroleerd."/>
 	<string id="20295" value="Downloadgastheer %s's versie van &quot;%s&quot; heeft een andere URN, geannuleerd."/>
 	<string id="20296" value="Downloadgastheer %s heeft geantwoord met een onbruikbare byte-bereik van &quot;%s&quot;, in afwachting."/>
@@ -3808,7 +3805,7 @@
 		<control caption="Beloon uploaders"/>
 	</dialog>
 	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="Welkom bij PeerProject (1/8)">
-		<control caption="Welkom bij PeerProject!"/>
+		<control caption="Welkom bij PeerProject."/>
 		<control caption="Als je nog nooit PeerProject of een andere P2P cliënt hebt gebruikt, kan deze SnelStart wizard je in een paar eenvoudige stappen helpen met het installeren."/>
 		<control caption="Meer ervaren gebruikers kunnen alle opties van PeerProject ook direct bereiken via het Hulpmiddelen menu. Druk op &quot;Sluiten&quot; om de wizard te verlaten wanneer je maar wilt."/>
 		<control caption="Deze wizard zal je helpen met:"/>
@@ -3885,7 +3882,7 @@
 		<control caption="Normale Modus"/>
 		<control caption="Tabbladstijl"/>
 		<control caption="Simpele en gemakkelijk te gebruiken menu's en knoppen.{n}Komt bekend voor bij gebruikers van andere bestanddelingsprogramma's."/>
-		<control caption="Tabblad stijl biedt gebruikers tal van extra commando's, schermen, enz.{n}Het kan een beetje verwarrend zijn voor nieuwe gebruikers!"/>
+		<control caption="Tabblad stijl biedt gebruikers tal van extra commando's, schermen, enz.{n}Het kan een beetje verwarrend zijn voor nieuwe gebruikers."/>
 		<control caption="Toon simpele downloadvooruitgangsbalken."/>
 		<control caption=""/>
 	</dialog>
@@ -4350,16 +4347,16 @@
 		<control caption="PeerProject bevat GEEN ENKELE &quot;spyware&quot;, &quot;adware&quot; of andere verpakte/verborgen software. Het laat GEEN advertenties of &quot;popups&quot; zien, niets daarvan.{n}{n}Als je ooit een advertentie of &quot;popup&quot; krijgt tijdens het gebruiken van PeerProject, kun je er gegarandeerd vanuit gaan dat ze NIET afkomstig zijn van dit programma."/>
 		<control caption="Helaas komt een heleboel andere software met ongewenste adware of spyware, dus als je iets verdachts ziet doe je er goed aan om je PC na te kijken met een programma dat reclame of spyware verwijdert."/>
 		<control caption="Als het goed is heb je niets hoeven te betalen voor PeerProject. Het kan door iedereen gratis worden gedownload vanaf http://peerproject.org/. Als je toch iemand hebt moeten betalen voor PeerProject, moet je meteen een volledige terugbetaling eisen."/>
-		<control caption="PeerProject respecteert zijn gebruikers!"/>
+		<control caption="PeerProject respecteert zijn gebruikers."/>
 		<control caption="http://PeerProject.org"/>
 		<control caption="Sluiten"/>
 	</dialog>
 	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Verspreid het nieuws">
 		<control caption="Help ons het nieuws te verspreiden"/>
 		<control caption="Wij hopen dat je tot nu toe veel plezier beleeft hebt aan PeerProject. Volgens ons is het het beste programma ter wereld voor het uitwisselen van bestanden."/>
-		<control caption="Helaas weten een heleboel mensen niet wat ze missen!"/>
+		<control caption="Helaas weten een heleboel mensen niet wat ze missen."/>
 		<control caption="Misschien ken jij nog wel een paar mensen die geïnteresseerd zouden kunnen zijn in PeerProject, of ze nu nieuwe gebruikers zijn, of het nog steeds proberen met andere minderwaardige producten. Waarom vertel je ze niet dat er een beter alternatief bestaat?"/>
-		<control caption="De kans is groot dat ze je dankbaar zullen zijn dat je ze hebt gered!"/>
+		<control caption="De kans is groot dat ze je dankbaar zullen zijn dat je ze hebt gered."/>
 		<control caption="http://PeerProject.org"/>
 		<control caption="OK"/>
 	</dialog>
@@ -4403,7 +4400,7 @@
 		<control caption="Beoordeling:"/>
 		<control caption="Waarom verwijder je dit bestand:"/>
 		<control caption="!"/>
-		<control caption="(Geen)|Corrupt/Onbruikbaar|Slecht|Voldoende|Goed|Heel Goed|Fantastisch!"/>
+		<control caption="(Geen)|Corrupt/Onbruikbaar|Slecht|Voldoende|Goed|Heel Goed|Fantastisch"/>
 		<control caption="Enkel verwijderen, geen commentaar|Dit bestand is van heel slechte kwaliteit|Dit bestand is verkeerd benoemd en kan misleidend zijn|Dit bestand is corrupt en/of onbruikbaar|Restricted copyright material|Vervang mijn commentaar met nieuwere"/>
 		<control/>
 		<control/>

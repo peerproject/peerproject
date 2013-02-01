@@ -90,7 +90,7 @@ BOOL CFavouritesProfilePage::OnInitDialog()
 	m_wndList.InsertColumn( 0, _T("Name"), LVCFMT_LEFT, 160, -1 );
 	m_wndList.InsertColumn( 1, _T("URL"), LVCFMT_LEFT, rc.right - 160, 0 );
 
-	m_wndList.SendMessage( LVM_SETEXTENDEDLISTVIEWSTYLE, LVS_EX_FULLROWSELECT, LVS_EX_FULLROWSELECT );
+	m_wndList.SetExtendedStyle( LVS_EX_FULLROWSELECT );
 
 	if ( CXMLElement* pBookmarks = MyProfile.GetXML( _T("bookmarks") ) )
 	{

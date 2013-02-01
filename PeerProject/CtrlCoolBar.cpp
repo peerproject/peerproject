@@ -39,8 +39,8 @@ BEGIN_MESSAGE_MAP(CCoolBarCtrl, CControlBar)
 	ON_WM_CREATE()
 	ON_WM_DESTROY()
 	ON_WM_TIMER()
-	ON_WM_HSCROLL()
 	ON_WM_CTLCOLOR()
+	ON_WM_HSCROLL()
 	ON_WM_MOUSEMOVE()
 	ON_WM_LBUTTONDOWN()
 	ON_WM_LBUTTONUP()
@@ -277,7 +277,7 @@ UINT CCoolBarCtrl::ThrowMenu(UINT nID, CMenu* pMenu, CWnd* pParent, BOOL bComman
 	rcButton.DeflateRect( 1, 2 );
 
 	TPMPARAMS tpm;
-	tpm.cbSize = sizeof(tpm);
+	tpm.cbSize = sizeof( tpm );
 	tpm.rcExclude = rcButton;
 
 	DWORD nFlags = TPM_LEFTBUTTON|TPM_VERTICAL;
@@ -847,8 +847,8 @@ void CCoolBarCtrl::OnLButtonUp(UINT nFlags, CPoint point)
 	{
 		BOOL bOn = ( m_pDown == pItem );
 
-		m_pDown	= NULL;
-		m_pHot	= pItem;
+		m_pDown = NULL;
+		m_pHot  = pItem;
 
 		ReleaseCapture();
 		Invalidate();
@@ -1030,7 +1030,7 @@ void CCoolBarItem::Enable(BOOL bOn)
 {
 	if ( this == NULL ) return;
 	m_bEnableChanged = TRUE;
-	m_bEnabled = bOn;
+	m_bEnabled	= bOn;
 }
 
 void CCoolBarItem::SetCheck(int nCheck)

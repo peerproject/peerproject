@@ -284,7 +284,7 @@ BOOL CSettingsPage::PreTranslateMessage(MSG* pMsg)
 	if ( pMsg->message >= WM_MOUSEFIRST && pMsg->message <= WM_MOUSELAST )
 	{
 		MSG msg;
-		CopyMemory( &msg, pMsg, sizeof(MSG) );
+		CopyMemory( &msg, pMsg, sizeof( MSG ) );
 		HWND hWndParent = ::GetParent( msg.hwnd );
 
 		while ( hWndParent && hWndParent != m_hWnd )

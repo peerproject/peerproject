@@ -138,7 +138,7 @@ public:
 
 public:
 	virtual void		Reset();
-	virtual	void		ToBuffer(CBuffer* pBuffer, bool bTCP = true) const;
+	virtual void		ToBuffer(CBuffer* pBuffer, bool bTCP = true) const;
 	static	CBTPacket*	ReadBuffer(CBuffer* pBuffer);
 	virtual void		SmartDump(const SOCKADDR_IN* pAddress, BOOL bUDP, BOOL bOutgoing, DWORD_PTR nNeighbourUnique = 0) const;
 	virtual CString		GetType() const;
@@ -193,7 +193,7 @@ private:
 
 inline void CBTPacket::CBTPacketPool::NewPoolImpl(int nSize, CPacket*& pPool, int& nPitch)
 {
-	nPitch	= sizeof(CBTPacket);
+	nPitch	= sizeof( CBTPacket );
 	pPool	= new CBTPacket[ nSize ];
 }
 

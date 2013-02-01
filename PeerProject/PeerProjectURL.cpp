@@ -1546,16 +1546,16 @@ BOOL CPeerProjectURL::RegisterShellType(LPCTSTR pszRoot, LPCTSTR pszProtocol, LP
 	if ( ! bApplication )
 	{
 		RegSetValueEx( hKey, NULL, 0, REG_SZ, (LPBYTE)pszName,
-			static_cast< DWORD >( sizeof(TCHAR) * ( _tcslen( pszName ) + 1 ) ) );
+			static_cast< DWORD >( sizeof( TCHAR ) * ( _tcslen( pszName ) + 1 ) ) );
 
 		if ( bProtocol )
-			RegSetValueEx( hKey, _T("URL Protocol"), 0, REG_SZ, (LPBYTE)(LPCTSTR)_T(""), sizeof(TCHAR) );
+			RegSetValueEx( hKey, _T("URL Protocol"), 0, REG_SZ, (LPBYTE)(LPCTSTR)_T(""), sizeof( TCHAR ) );
 
 		if ( RegCreateKey( hKey, _T("DefaultIcon"), &hSub1 ) == ERROR_SUCCESS )
 		{
 			strValue = Skin.GetImagePath( nIDIcon );
 			RegSetValueEx( hSub1, NULL, 0, REG_SZ,
-				(LPBYTE)(LPCTSTR)strValue, sizeof(TCHAR) * ( strValue.GetLength() + 1 ) );
+				(LPBYTE)(LPCTSTR)strValue, sizeof( TCHAR ) * ( strValue.GetLength() + 1 ) );
 			RegCloseKey( hSub1 );
 		}
 	}
@@ -1578,25 +1578,25 @@ BOOL CPeerProjectURL::RegisterShellType(LPCTSTR pszRoot, LPCTSTR pszProtocol, LP
 			if ( RegCreateKey( hSub2, _T("command"), &hSub3 ) == ERROR_SUCCESS )
 			{
 				strValue.Format( _T("\"%s\" \"%%%c\""), theApp.m_strBinaryPath, bProtocol ? 'L' : '1' );
-				RegSetValueEx( hSub3, NULL, 0, REG_SZ, (LPBYTE)(LPCTSTR)strValue, sizeof(TCHAR) * ( strValue.GetLength() + 1 ) );
+				RegSetValueEx( hSub3, NULL, 0, REG_SZ, (LPBYTE)(LPCTSTR)strValue, sizeof( TCHAR ) * ( strValue.GetLength() + 1 ) );
 				RegCloseKey( hSub3 );
 			}
 
 			if ( RegCreateKey( hSub2, _T("ddeexec"), &hSub3 ) == ERROR_SUCCESS )
 			{
-				RegSetValueEx( hSub3, NULL, 0, REG_SZ, (LPBYTE)_T("%1"), sizeof(_T("%1")) );
+				RegSetValueEx( hSub3, NULL, 0, REG_SZ, (LPBYTE)_T("%1"), sizeof( _T("%1" )) );
 
 				if ( RegCreateKey( hSub3, _T("Application"), &hSub4 ) == ERROR_SUCCESS )
 				{
 					RegSetValueEx( hSub4, NULL, 0, REG_SZ, (LPBYTE)pszApplication,
-						static_cast< DWORD >( sizeof(TCHAR) * ( _tcslen( pszApplication ) + 1 ) ) );
+						static_cast< DWORD >( sizeof( TCHAR ) * ( _tcslen( pszApplication ) + 1 ) ) );
 					RegCloseKey( hSub4 );
 				}
 
 				if ( RegCreateKey( hSub3, _T("Topic"), &hSub4 ) == ERROR_SUCCESS )
 				{
 					RegSetValueEx( hSub4, NULL, 0, REG_SZ, (LPBYTE)pszTopic,
-						static_cast< DWORD >( sizeof(TCHAR) * ( _tcslen( pszTopic ) + 1 ) ) );
+						static_cast< DWORD >( sizeof( TCHAR ) * ( _tcslen( pszTopic ) + 1 ) ) );
 					RegCloseKey( hSub4 );
 				}
 
@@ -1621,13 +1621,13 @@ BOOL CPeerProjectURL::RegisterShellType(LPCTSTR pszRoot, LPCTSTR pszProtocol, LP
 	{
 		if ( pszType && *pszType == _T('.') )
 		{
-			DWORD dwData = /* FTA_OpenIsSafe */ 0x00010000;	// FILETYPEATTRIBUTEFLAGS
+			DWORD dwData = /*FTA_OpenIsSafe*/ 0x00010000;	// FILETYPEATTRIBUTEFLAGS
 			RegSetValueEx( hKey, _T("EditFlags"), 0, REG_NUMBER( dwData ) );
 			RegSetValueEx( hKey, _T("AppUserModelID"), 0, REG_STRING( CLIENT_NAME ) );
 		}
 		else if ( bProtocol )
 		{
-			DWORD dwData = /* FTA_Show */ 0x00000002;		// FILETYPEATTRIBUTEFLAGS
+			DWORD dwData = /*FTA_Show*/ 0x00000002;			// FILETYPEATTRIBUTEFLAGS
 			RegSetValueEx( hKey, _T("EditFlags"), 0, REG_NUMBER( dwData ) );
 			RegSetValueEx( hKey, _T("AppUserModelID"), 0, REG_STRING( CLIENT_NAME ) );
 		}
@@ -1651,7 +1651,7 @@ BOOL CPeerProjectURL::RegisterShellType(LPCTSTR pszRoot, LPCTSTR pszProtocol, LP
 		if ( RegCreateKeyEx( hRootKey, (LPCTSTR)strSubKey, 0, NULL, 0, KEY_ALL_ACCESS, NULL, &hKey, &nDisposition ) == ERROR_SUCCESS )
 		{
 			RegSetValueEx( hKey, NULL, 0, REG_SZ, (LPBYTE)pszProtocol,
-				static_cast< DWORD >( sizeof(TCHAR) * ( _tcslen( pszProtocol ) + 1 ) ) );
+				static_cast< DWORD >( sizeof( TCHAR ) * ( _tcslen( pszProtocol ) + 1 ) ) );
 
 		//	if ( RegCreateKey( hKey, _T("OpenWithProgids"), &hSub1 ) == ERROR_SUCCESS )
 		//	{
@@ -1812,22 +1812,22 @@ BOOL CPeerProjectURL::RegisterMagnetHandler(LPCTSTR pszID, LPCTSTR pszName, LPCT
 	strCommand.Format( _T("\"%s\" \"%%URL\""), theApp.m_strBinaryPath );
 
 	RegSetValueEx( hHandler, _T(""), 0, REG_SZ,
-		(LPBYTE)pszName, static_cast< DWORD >( sizeof(TCHAR) * ( _tcslen( pszName ) + 1 ) ) );
+		(LPBYTE)pszName, static_cast< DWORD >( sizeof( TCHAR ) * ( _tcslen( pszName ) + 1 ) ) );
 
 	RegSetValueEx( hHandler, _T("Description"), 0, REG_SZ,
-		(LPBYTE)pszDescription, static_cast< DWORD >( sizeof(TCHAR) * ( _tcslen( pszDescription ) + 1 ) ) );
+		(LPBYTE)pszDescription, static_cast< DWORD >( sizeof( TCHAR ) * ( _tcslen( pszDescription ) + 1 ) ) );
 
 	RegSetValueEx( hHandler, _T("DefaultIcon"), 0, REG_SZ,
-		(LPBYTE)(LPCTSTR)strIcon, sizeof(TCHAR) * ( strIcon.GetLength() + 1 ) );
+		(LPBYTE)(LPCTSTR)strIcon, sizeof( TCHAR ) * ( strIcon.GetLength() + 1 ) );
 
 	RegSetValueEx( hHandler, _T("ShellExecute"), 0, REG_SZ,
-		(LPBYTE)(LPCTSTR)strCommand, sizeof(TCHAR) * ( strCommand.GetLength() + 1 ) );
+		(LPBYTE)(LPCTSTR)strCommand, sizeof( TCHAR ) * ( strCommand.GetLength() + 1 ) );
 
 	RegSetValueEx( hHandler, _T("DdeApplication"), 0, REG_SZ,
-		(LPBYTE)pszApplication, static_cast< DWORD >( sizeof(TCHAR) * ( _tcslen( pszApplication ) + 1 ) ) );
+		(LPBYTE)pszApplication, static_cast< DWORD >( sizeof( TCHAR ) * ( _tcslen( pszApplication ) + 1 ) ) );
 
 	RegSetValueEx( hHandler, _T("DdeTopic"), 0, REG_SZ,
-		(LPBYTE)_T("URL"), sizeof(TCHAR) * 4 );
+		(LPBYTE)_T("URL"), sizeof( TCHAR ) * 4 );
 
 	RegCloseKey( hHandler );
 	RegCloseKey( hHandlers );

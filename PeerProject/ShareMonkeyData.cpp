@@ -175,7 +175,7 @@ bool CShareMonkeyData::NotifyWindow(LPCTSTR pszMessage) const
 	if ( m_pFileView && IsWindow( m_pFileView->m_hWnd ) )
 	{
 		 m_pFileView->SendMessage( WM_METADATA, (WPARAM)this, (LPARAM)pszMessage );
-		 return true;
+		return true;
 	}
 	return false;
 }

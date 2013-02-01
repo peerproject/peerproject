@@ -730,7 +730,7 @@ BOOL CQuerySearch::ReadG1Packet(CG1Packet* pPacket, const SOCKADDR_IN* pEndpoint
 		GNUTELLAPACKET pG1;
 		if ( ! ((CG2Packet*)pPacket)->SeekToWrapped() )
 			return NULL;
-		pPacket->Read( &pG1, sizeof(pG1) );
+		pPacket->Read( &pG1, sizeof( pG1 ) );
 		m_oGUID = pG1.m_oGUID;
 	}
 	else
@@ -754,9 +754,9 @@ BOOL CQuerySearch::ReadG1Packet(CG1Packet* pPacket, const SOCKADDR_IN* pEndpoint
 	m_bOOB		= ( nFlags & G1_QF_TAG ) && ( nFlags & G1_QF_OOB );
 
 	if ( Settings.Gnutella1.QueryHitUTF8 )
-		m_sKeywords = m_sSearch	= pPacket->ReadStringUTF8();
+		m_sKeywords = m_sSearch = pPacket->ReadStringUTF8();
 	else
-		m_sKeywords = m_sSearch	= pPacket->ReadStringASCII();
+		m_sKeywords = m_sSearch = pPacket->ReadStringASCII();
 
 	if ( ! CheckOverflow( m_sSearch ) )
 	{
@@ -1636,7 +1636,7 @@ BOOL CQuerySearch::WordMatch(LPCTSTR pszString, LPCTSTR pszFind, bool* bReject)
 				nCount++;
 			}
 
-			pszWord	= pszPtr + 1;
+			pszWord = pszPtr + 1;
 
 			if ( *pszPtr == '\"' )
 			{

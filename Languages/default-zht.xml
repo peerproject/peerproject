@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Traditional) Skin File -->
 
-<!-- Translation based on default-en.xml r88 --> <!-- (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r90 --> <!-- (Shareaza 2.2.2.12) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -574,9 +574,9 @@
 				<menu text="網站">
 					<item id="ID_HELP_FORUMS" text="PeerProject 討論區"/>
 					<item id="ID_HELP_UPDATE" text="最新消息"/>
-					<separator/>
+					<!-- <separator/>
 					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-					<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
+					<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
 				</menu>
 				<item id="ID_HELP_HOMEPAGE" text="PeerProject site"/>
 				<separator/>
@@ -669,8 +669,8 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject 討論區"/>
 				<item id="ID_HELP_UPDATE" text="最新消息"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
+				<!-- <item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
+				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="關於 PeerProject..."/>
@@ -734,8 +734,8 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject 討論區"/>
 				<item id="ID_HELP_UPDATE" text="最新消息"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
+				<!-- <item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
+				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="關於 PeerProject..."/>
@@ -820,8 +820,8 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject 討論區"/>
 				<item id="ID_HELP_UPDATE" text="最新消息"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
+				<!-- <item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
+				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="關於 PeerProject..."/>
@@ -2190,7 +2190,7 @@
 	<tip id="ID_DOWNLOADS_FILTER_QUEUED" message="顯示排隊中的下載."/>
 	<tip id="ID_DOWNLOADS_FILTER_SOURCES" message="顯示等待來源中的下載."/>
 	<tip id="ID_DOWNLOADS_HELP" message="檢視這個下載的說明資訊..."/>
-	<tip id="ID_DOWNLOADS_LAUNCH" message="Preview the selected files in place."/>
+	<tip id="ID_DOWNLOADS_LAUNCH" message="Preview selected files in place."/>
 	<tip id="ID_DOWNLOADS_LAUNCH_COMPLETE" message="開啟或播放選擇的檔案."/>
 	<tip id="ID_DOWNLOADS_LAUNCH_COPY" message="聰明地預覽選擇的下載."/>
 	<tip id="ID_DOWNLOADS_MONITOR" message="為這個下載開啟一個下載監控視窗..."/>
@@ -2513,7 +2513,7 @@
 	<string id="20081" value="關閉"/>
 	<string id="20082" value="完成, 請點選 關閉"/>
 	<string id="20083" value="要求..."/>
-	<string id="20084" value="成功!"/>
+	<string id="20084" value="成功."/>
 	<string id="20100" value="關閉至 %s 的瀏覽使用者連線."/>
 	<string id="20101" value="瀏覽主機 %s 發出不能辨識的回應, 而且可能不支援用戶/主機瀏覽."/>
 	<string id="20102" value="無法連線至主機, 因此無法瀏覽使用者."/>
@@ -2681,7 +2681,7 @@
 	<string id="20290" value="回應了不同卻有用的 &quot;%s&quot; 分塊 (%I64i-%I64i): 下載主機 %s."/>
 	<string id="20291" value="收到來自於 %s 的不必要的推播連線."/>
 	<string id="20292" value="正在忽略來源 %s (%s), 因為它送出毀損的 &quot;%s&quot; 的部份(%I64i-%I64i)."/>
-	<string id="20293" value="警告: 下載檔 &quot;%s&quot; 驗證失敗 ; 這可能不是你想要下載的檔案!"/>
+	<string id="20293" value="警告: 下載檔 &quot;%s&quot; 驗證失敗 ; 這可能不是你想要下載的檔案."/>
 	<string id="20294" value="已成功驗證下載 &quot;%s&quot;."/>
 	<string id="20295" value="下載主機 %s 的 &quot;%s&quot; 的版本有不同的 URN, 放棄."/>
 	<string id="20296" value="下載主機 %s 回應了無效的 byte 分塊 of &quot;%s&quot;, 等待中."/>
@@ -3369,7 +3369,7 @@
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="網路">
 		<control caption="PeerProject 為萬用檔案分享軟體, 可同時連線到多個 P2P 網路. 本頁可以選擇您要連線的 P2P 網路, 以及每個網路的專用設定."/>
 		<control caption="Gnutella2 網路:"/>
-		<control caption="Gnutella2 網路是 PeerProject 初次推出的網路, 提供比其他 P2P 網路更多的功能與更佳的效能.強烈推薦使用!!"/>
+		<control caption="Gnutella2 網路是 PeerProject 初次推出的網路, 提供比其他 P2P 網路更多的功能與更佳的效能.強烈推薦使用"/>
 		<control caption="顯示 Gnutella2 (G2)"/>
 		<control caption="規劃 Gnutella2"/>
 		<control caption="原始 Gnutella 網路:"/>
@@ -3562,7 +3562,7 @@
 		<control caption="獎勵上傳者"/>
 	</dialog>
 	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="歡迎使用 PeerProject (1/8)">
-		<control caption="歡迎使用PeerProject!"/>
+		<control caption="歡迎使用PeerProject."/>
 		<control caption="如果您從來沒有使用過 PeerProject 或是其他P2P 客戶端軟體, 這個快速啟動精靈將幫助您經由幾個步驟設定."/>
 		<control caption="如果您是進階使用者, 您可以透過工具選單讀取 PeerProject 全部的選項. 點選 離開 可以隨時關閉精靈."/>
 		<control caption="本精靈將可以協助您:"/>
@@ -3639,7 +3639,7 @@
 		<control caption="標準模式"/>
 		<control caption="進階模式"/>
 		<control caption="簡單明瞭的選單與按鈕.{n}其他檔案分享軟體的使用者會感到十分熟悉."/>
-		<control caption="進階模式提供進階使用者更多的指令與視窗顯示...等等.{n}新手可能會感到困惑!"/>
+		<control caption="進階模式提供進階使用者更多的指令與視窗顯示...等等.{n}新手可能會感到困惑."/>
 		<control caption="顯示簡化的下載進度棒."/>
 		<control caption=""/>
 	</dialog>
@@ -4104,16 +4104,16 @@
 		<control caption="PeerProject 沒有包含任何 &quot;間碟軟體&quot;, &quot;廣告軟體&quot; 或是其他 bundled 軟體. It does NOT display any advertisements or &quot;popups&quot;, ever.{n}{n}If you ever see advertising or &quot;popups&quot; while using PeerProject, be assured that they are NOT coming from this program."/>
 		<control caption="不幸地, 很多軟體包含討人厭的廣告軟體或是間諜軟體; 因此, 如果您查覺任何可疑的活動, 您可能想要使用反廣告/反間諜軟體."/>
 		<control caption="您不應該付錢取得 PeerProject. 任何人都可以從 http://peerproject.org/ 免費下載. 如果您付費取得PeerProject, 請立刻要求全額退費."/>
-		<control caption="PeerProject 尊重它的使用者!"/>
+		<control caption="PeerProject 尊重它的使用者."/>
 		<control caption="http://PeerProject.org"/>
 		<control caption="關閉"/>
 	</dialog>
 	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="散佈消息">
 		<control caption="請幫我們散佈消息"/>
 		<control caption="我們希望各位享受使用 PeerProject 的樂趣. 我們深信這是目前為止最好的檔案分享軟體."/>
-		<control caption="天不從人願, 眾多檔案分享者不知道他們遺漏了什麼好東西!"/>
+		<control caption="天不從人願, 眾多檔案分享者不知道他們遺漏了什麼好東西."/>
 		<control caption="如果你知道某個人可能愛上 PeerProject, 不論是新手或是某個仍舊為了不良的軟體苦惱, 為什麼不讓他們知道有更好的替代品呢?"/>
-		<control caption="他們可能感激你幫了他們一個大忙!"/>
+		<control caption="他們可能感激你幫了他們一個大忙."/>
 		<control caption="http://PeerProject.org"/>
 		<control caption="確定"/>
 	</dialog>

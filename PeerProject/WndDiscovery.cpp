@@ -317,7 +317,7 @@ void CDiscoveryWnd::OnSortList(NMHDR* pNotifyStruct, LRESULT *pResult)
 
 void CDiscoveryWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 {
-	if ( point.x == -1 && point.y == -1 ) 	// Keyboard fix
+	if ( point.x == -1 && point.y == -1 )	// Keyboard fix
 		ClientToScreen( &point );
 
 	Skin.TrackPopupMenu( _T("CDiscoveryWnd"), point, ID_DISCOVERY_EDIT );

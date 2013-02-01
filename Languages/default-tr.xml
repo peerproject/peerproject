@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Turkish Skin File -->
 
-<!-- Translation based on default-en.xml r88 -->
+<!-- Translation based on default-en.xml r90 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -555,6 +555,7 @@
 				<item id="ID_HELP_GUIDE" text="PeerProject Kullanıcı Rehberi"/>
 				<item id="ID_HELP_FORUMS" text="PeerProject Forumları"/>
 				<item id="ID_HELP_FAQ" text="PeerProject SSS" shortcut="F1"/>
+			<!--
 				<menu text="Skin Yardımı">
 					<menu text="Menü çubuğunun görünümü yanlış ise --"> </menu>
 					<menu text="Menü: Pencere: Kaydırma Çubuğunu Göster'e bakınız"> </menu>
@@ -567,8 +568,8 @@
 					<item id="ID_HELP_WEB_3" text="Slyck.com"/>
 					<item id="ID_HELP_WEB_1" text="ZeroPaid.com"/>
 					<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
-					<item id="ID_HELP_WEB_6" text="DeviantArt.com Skins"/>
 				</menu>
+			-->
 				<item id="ID_HELP_HOMEPAGE" text="PeerProject.org"/>
 				<separator/>
 				<item id="ID_HELP_ABOUT" text="PeerProject Hakkında..."/>
@@ -740,7 +741,7 @@
 			</menu>
 			<separator/> <!--
 			<item id="ID_HELP_VERSION_CHECK" text="Güncellemeleri _Kontrol Et"/>
-			<item id="ID_HELP_DONATE" text="PeerProject _Projesine Bağış!"/>
+			<item id="ID_HELP_DONATE" text="PeerProject _Projesine Bağış."/>
 			<separator/> -->
 			<item id="ID_HELP_ABOUT" text="_PeerProject Hakkında..."/>
 		</menu>
@@ -2624,7 +2625,7 @@
 	<string id="20081" value="&amp;Kapat"/>
 	<string id="20082" value="Bitti, Kapat'ı tıklayın"/>
 	<string id="20083" value="İsteniyor..."/>
-	<string id="20084" value="Başarılı!"/>
+	<string id="20084" value="Başarılı."/>
 	<string id="20100" value="%s'ye gözatan kullanıcı bağlantısı kapatılıyor."/>
 	<string id="20101" value="%s gözatan hostu anlaşılamayan bir yanıt verdi, kullanıcı ya da host taramalarını desteklemiyor olabilir."/>
 	<string id="20102" value="Kullanıcı hosta bağlantı yapamaz."/>
@@ -2793,7 +2794,7 @@
 	<string id="20290" value="%s download Hostu farklı fakat yararlı bir (%I64i-%I64i) dağılım yanıtı verdi, &quot;%s&quot;.den."/>
 	<string id="20291" value="%s'den gereksiz sıkıştırılmış bir bağlantı alınıyor."/>
 	<string id="20292" value="%s (%s) kaynağı &quot;%s&quot; (%I64i-%I64i)'in bozulan parçalarının gönderimi için kapatılıyor."/>
-	<string id="20293" value="UYARI: indirme &quot;%s&quot; doğrulaması başarılamadı, bu indirmeyi planladığın dosya olmayabilir!"/>
+	<string id="20293" value="UYARI: indirme &quot;%s&quot; doğrulaması başarılamadı, bu indirmeyi planladığın dosya olmayabilir."/>
 	<string id="20294" value="&quot;%s&quot; indirmenin başarıyla doğruluğu kanıtlandı."/>
 	<string id="20295" value="%s indirme hostunun &quot;%s&quot; versiyonu farklı URN'ye sahip, başarısızlıkla sonuçlandı."/>
 	<string id="20296" value="%s indirme hostu &quot;%s&quot; 'den faydasız byte dizisi ile karşılaştı, askıda."/>
@@ -3741,7 +3742,7 @@
 		<control caption="Aktaranları ödüllendir"/>
 	</dialog>
 	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="PeerProject'ya Hoşgeldiniz (1/8)">
-		<control caption="PeerProject'ya Hoşgeldiniz!"/>
+		<control caption="PeerProject'ya Hoşgeldiniz."/>
 		<control caption="Daha önce PeerProject ya da farklı bir P2P istemci kullanmadıysanız, HızlıBaşlat sihirbazı basit adımlarla kopyalarınızı ayarlamanıza yardım edebilir."/>
 		<control caption="İleri bir kullanıcıysanız, Araçlar menüsü aracılığıyla PeerProject seçeneklerinin tümüne erişebilirsiniz. Sihirbazı kapatmak için Çıkışı tıklayınız."/>
 		<control caption="Bu sihirbaz size yardım edecek:"/>
@@ -3818,7 +3819,7 @@
 		<control caption="Basic Mod"/>
 		<control caption="Güçlü Mod"/>
 		<control caption="Menülerin ve butonların kullanımı kolaydır.{n}Diğer dosya paylaşım programlarının kullanıcılarına tanıdıktır."/>
-		<control caption="Güçlü mod uzman kullanıcılara ekstra komut, pencere vb. sunar.{n}Bu yeni kullanıcılar için biraz karmaşık olabilir!"/>
+		<control caption="Güçlü mod uzman kullanıcılara ekstra komut, pencere vb. sunar.{n}Bu yeni kullanıcılar için biraz karmaşık olabilir."/>
 		<control caption="İndirme ilerleme çubuğunu basitçe görüntüle."/>
 		<control caption="."/>
 	</dialog>
@@ -4283,16 +4284,16 @@
 		<control caption="PeerProject &quot;spyware&quot;, &quot;adware&quot; ya da diğer sıkıştırılmış yazılımları içermez. Reklam yada &quot;popupları&quot; asla görüntülemez{n}{n}PeerProject'yı kullanırken reklam ya da &quot;popuplar&quot; görürseniz, emin olun ki bu programdan gelmemiştir."/>
 		<control caption="Maalesef diğer yazılımlar adware ya da casus kötücül yazılımları ile birlikte gelebilir, bu yüzden eğer şüpheli birşey görürseniz, spyware kaldırma ya da bildiri programı ile PC'nizin kontrol edilmesini isteyebilirsiniz."/>
 		<control caption="PeerProject'yı elde etmek için hiç para ödemeye gerek yoktur. PeerProject http://PeerProject.sourceforge.net/ adresinden serbestçe indirilebilir. Eğer PeerProject için herhangi bir ücret ödediyseniz, acilen paranızı geri isteyin."/>
-		<control caption="PeerProject kullanıcılarına saygı duyar!"/>
+		<control caption="PeerProject kullanıcılarına saygı duyar."/>
 		<control caption="http://PeerProject.org/"/>
 		<control caption="Kapat"/>
 	</dialog>
 	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Kelimeyi Yaymak">
 		<control caption="PeerProject'nın yayılmasında bize yardım edin"/>
 		<control caption="Umarız şimdiye kadar PeerProject kullanmaktan zevk almışsınızdır ve inanıyoruz ki bu diğerlerinden daha iyi bir dosya paylaşım programıdır."/>
-		<control caption="Maalesef, bazı dosya paylaşanlar ne kaybettiklerini bilmiyorlar!"/>
+		<control caption="Maalesef, bazı dosya paylaşanlar ne kaybettiklerini bilmiyorlar."/>
 		<control caption="PeerProject'yı beğenmeleri muhtemel tanıdıklarınız varsa, ister yeni kullanıcılar olsunlar, ister harhangi bir alt ürüne katlanıyor olsunlar, onlara daha iyi bir seceneğin olduğunu tanıtmaya ne dersiniz??"/>
-		<control caption="Yardımınız onları mutlu edecektir!"/>
+		<control caption="Yardımınız onları mutlu edecektir."/>
 		<control caption="http://PeerProject.org"/>
 		<control caption="Tamam"/>
 	</dialog>
@@ -4335,6 +4336,7 @@
 		<control caption="Eğer başka bir aramaya geçerseniz PeerProject bu dosyayı hatırlar ve sizi uyarır. Lütfen bu dosyayı neden silmek istediğinizi seçiniz:"/>
 		<control caption="Dosya reytingi:"/>
 		<control caption="Silme nedeni açıklaması:"/>
+		<control caption="!"/>
 		<control caption="(Henüz değerlendirilmedi)|Sahte/Bozuk/Yanıltıcı|Kötü|Orta|İyi|Çok iyi|Mükemmel"/>
 		<control caption="Sadece sil ve açıklamalarımı koru|Bu dosya çok düşük kalitededir.|Bu dosya yanlış isimlendirilmiş ve yanıltabilir.|Bu dosya sahte, bozuk ya da nedense kullanışsız.|Restricted copyright material.|Yeni açıklamamı eskisinin yerine geçir..."/>
 		<control/>

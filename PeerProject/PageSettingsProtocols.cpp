@@ -29,10 +29,10 @@ static char THIS_FILE[] = __FILE__;
 
 IMPLEMENT_DYNCREATE(CProtocolsSettingsPage, CSettingsPage)
 
-BEGIN_MESSAGE_MAP(CProtocolsSettingsPage, CSettingsPage)
+//BEGIN_MESSAGE_MAP(CProtocolsSettingsPage, CSettingsPage)
 	//{{AFX_MSG_MAP(CProtocolsSettingsPage)
 	//}}AFX_MSG_MAP
-END_MESSAGE_MAP()
+//END_MESSAGE_MAP()
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -40,8 +40,6 @@ END_MESSAGE_MAP()
 
 CProtocolsSettingsPage::CProtocolsSettingsPage() : CSettingsPage(CProtocolsSettingsPage::IDD)
 {
-	//{{AFX_DATA_INIT(CProtocolsSettingsPage)
-	//}}AFX_DATA_INIT
 }
 
 CProtocolsSettingsPage::~CProtocolsSettingsPage()
@@ -151,14 +149,14 @@ HTREEITEM CProtocolsSettingsPage::AddItem(HTREEITEM hParent, LPCTSTR pszText, LP
 		CString str;
 		str.Format( _T("%s = %s"), pszText, pszValue );
 		if ( Settings.General.LanguageRTL ) str = _T("\x202A") + str;
-		return m_wndTree.InsertItem( TVIF_TEXT|TVIF_STATE,
-			str, 0, 0, 0, 0, 0, hParent, TVI_LAST );
+		return m_wndTree.InsertItem( TVIF_TEXT|TVIF_STATE, str,
+			0, 0, 0, 0, 0, hParent, TVI_LAST );
 	}
 	else
 	{
-		CString str(pszText);
+		CString str( pszText );
 		if ( Settings.General.LanguageRTL ) str = _T("\x202A") + str;
-		return m_wndTree.InsertItem( TVIF_TEXT|TVIF_STATE, str, 0, 0,
-			TVIS_EXPANDED|TVIS_BOLD, TVIS_EXPANDED|TVIS_BOLD, 0, hParent, TVI_LAST );
+		return m_wndTree.InsertItem( TVIF_TEXT|TVIF_STATE, str,
+			0, 0, TVIS_EXPANDED|TVIS_BOLD, TVIS_EXPANDED|TVIS_BOLD, 0, hParent, TVI_LAST );
 	}
 }

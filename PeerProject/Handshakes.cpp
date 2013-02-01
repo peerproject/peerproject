@@ -112,7 +112,7 @@ BOOL CHandshakes::Listen()
 	{
 		// Set the exclusive address option
 		BOOL bVal = TRUE;
-		setsockopt( m_hSocket, SOL_SOCKET, SO_EXCLUSIVEADDRUSE, (char*)&bVal, sizeof(bVal) );
+		setsockopt( m_hSocket, SOL_SOCKET, SO_EXCLUSIVEADDRUSE, (char*)&bVal, sizeof( bVal ) );
 	}
 
 	BOOL bBound = FALSE;	// We're not bound to this socket yet
@@ -124,7 +124,7 @@ BOOL CHandshakes::Listen()
 		bBound = bind(				// Call bind to associate our local address wiht this socket
 			m_hSocket,				// The socket in this CHandshakes object
 			(SOCKADDR*)&saListen,	// Our Internet IP address, the one we want to listen on, and how big it is
-			sizeof(saListen)
+			sizeof( saListen )
 			) == 0;					// If bind succeeds, it returns 0, and bBound becomes true
 		if ( bBound ) break;		// We're done trying to bind, leave the loop
 
@@ -372,8 +372,8 @@ int CALLBACK CHandshakes::AcceptCheck(IN LPWSABUF lpCallerId,
 	IN DWORD_PTR /*dwCallbackData*/)
 {
 	// If the address of the remote computer is unknown or too short, reject the connection
-	if ( lpCallerId == NULL )                    return CF_REJECT;	// WSAAccept didn't get the remote computer's IP and port
-	if ( lpCallerId->len < sizeof(SOCKADDR_IN) ) return CF_REJECT;	// The IP and port aren't long enough
+	if ( lpCallerId == NULL ) return CF_REJECT;							// WSAAccept didn't get the remote computer's IP and port
+	if ( lpCallerId->len < sizeof( SOCKADDR_IN ) ) return CF_REJECT;	// The IP and port aren't long enough
 
 	// Copy out the IP address and port number of the remote computer
 	const SOCKADDR_IN* pHost = (const SOCKADDR_IN*)lpCallerId->buf;

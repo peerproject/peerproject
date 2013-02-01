@@ -113,7 +113,7 @@ int CEmoticons::Lookup(LPCTSTR pszText, int nLen) const
 //////////////////////////////////////////////////////////////////////
 // CEmoticons get the text for an index
 
-LPCTSTR	CEmoticons::GetText(int nIndex) const
+LPCTSTR CEmoticons::GetText(int nIndex) const
 {
 	if ( m_pTokens == NULL ) return NULL;
 
@@ -251,7 +251,7 @@ int CEmoticons::AddEmoticon(LPCTSTR pszText, CImageFile* pImage, CRect* pRect, C
 		}
 
 		BITMAPINFOHEADER pInfo;
-		pInfo.biSize		= sizeof(BITMAPINFOHEADER);
+		pInfo.biSize		= sizeof( BITMAPINFOHEADER );
 		pInfo.biWidth		= EMOTICON_SIZE;
 		pInfo.biHeight		= EMOTICON_SIZE;
 		pInfo.biPlanes		= 1;

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Brazilian Portuguese Skin File -->
 
-<!-- Translation based on default-en.xml r88 -->
+<!-- Translation based on default-en.xml r90 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -588,6 +588,7 @@
 				<item id="ID_HELP_GUIDE" text="Guia para Usuarios de PeerProject"/>
 				<item id="ID_HELP_FORUMS" text="Fóruns do PeerProject"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_Foro de Português"/>
+			<!--
 				<menu text="Ayuda de SkinVista">
 					<menu text="Vuelve a cargar la interfaz gráfica para eliminar los errores: Ctrl+Mays+Z"> </menu>
 				</menu>
@@ -596,8 +597,8 @@
 					<item id="ID_HELP_WEB_3" text="Slyck.com"/>
 					<item id="ID_HELP_WEB_1" text="ZeroPaid.com"/>
 					<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
-					<item id="ID_HELP_WEB_6" text="DeviantArt.com Skins"/>
 				</menu>
+			-->
 				<item id="ID_HELP_HOMEPAGE" text="PeerProject.org"/>
 				<separator/>
 				<item id="ID_HELP_ABOUT" text="Acerca de PeerProject..."/>
@@ -697,9 +698,9 @@
 				<item id="ID_HELP_FORUMS_LOCAL" text="_Foro de Português"/>
 				<item id="ID_HELP_UPDATE" text="Últimas notícias"/>
 				<item id="ID_HELP_VERSION_CHECK" text="Procurar nova _versão"/>
-				<item id="ID_HELP_DONATE" text="_Doar para o Projeto PeerProject!"/>
+				<!-- <item id="ID_HELP_DONATE" text="_Doar para o Projeto PeerProject."/>
 				<item id="ID_HELP_WEB_6" text="PeerProject S_kins"/>
-				<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/> <!--
+				<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
 			</menu>
@@ -770,7 +771,7 @@
 				<!-- <separator/>
 				<item id="ID_HELP_UPDATE" text="Últimas notícias"/>
 				<item id="ID_HELP_VERSION_CHECK" text="Procurar nova _versão"/>
-				<item id="ID_HELP_DONATE" text="_Doar para o Projeto PeerProject!"/> -->
+				<item id="ID_HELP_DONATE" text="_Doar para o Projeto PeerProject."/> -->
 			</menu>
 			<item id="ID_HELP_HOMEPAGE" text="_Site do PeerProject"/>
 			<separator/>
@@ -1669,7 +1670,7 @@
 		<newline gap="8" indent="42"/>
 		<text>Você não está conectado atualmente a quaisquer redes peer to peer.</text>
 		<newline gap="2" indent="42"/>
-		<link target="command:ID_NETWORK_CONNECT">Clique aqui para começar!</link>
+		<link target="command:ID_NETWORK_CONNECT">Clique aqui para começar.</link>
 		<newline gap="18" indent="0"/>
 	  </group>
 	  <group id="2">
@@ -1968,14 +1969,14 @@
 		<text format="b">Nome</text>
 		<newline gap="2" indent="8"/>
 		<text id="FullName"/>
-	  </group>
-	  <group id="2">
+		</group>
+		<group id="2">
 		<newline gap="8" indent="0"/>
 		<text format="b">Local</text>
 		<newline gap="2" indent="8"/>
 		<text id="FullLocation"/>
-	  </group>
-	  <group id="3">
+		</group>
+		<group id="3">
 		<newline gap="8" indent="0"/>
 		<text format="b">Demográfico</text>
 		<newline gap="2" indent="8"/>
@@ -1983,54 +1984,54 @@
 		<text id="GenderFemale">Feminino</text>
 		<text>, </text>
 		<text id="Age"/>
-	  </group>
-	  <group id="4">
+		</group>
+		<group id="4">
 		<newline gap="8" indent="0"/>
 		<text format="b">Informação para Contato</text>
 		<newline gap="1" indent="8"/>
-	  </group>
-	  <group id="40">
+		</group>
+		<group id="40">
 		<newline gap="1"/>
 		<icon res="203"/><gap size="5"/>
 		<link id="ContactEmail" align="middle"/>
-	  </group>
-	  <group id="44">
+		</group>
+		<group id="44">
 		<newline gap="1"/>
 		<icon res="206"/><gap size="5"/>
 		<link id="ContactMSN"/>
-	  </group>
-	  <group id="41">
+		</group>
+		<group id="41">
 		<newline gap="1"/>
 		<icon res="207"/><gap size="5"/>
 		<link id="ContactYahoo"/>
-	  </group>
-	  <group id="42">
+		</group>
+		<group id="42">
 		<newline gap="1"/>
 		<icon res="205"/><gap size="5"/>
 		<link id="ContactICQ"/>
-	  </group>
-	  <group id="43">
+		</group>
+		<group id="43">
 		<newline gap="1"/>
 		<icon res="204"/><gap size="5"/>
 		<link id="ContactAOL"/>
-	  </group>
-	  <group id="45">
+		</group>
+		<group id="45">
 		<newline gap="1"/>
 		<icon res="204"/><gap size="5"/>
 		<link id="ContactJabber"/>
-	  </group>
-	  <group id="5">
+		</group>
+		<group id="5">
 		<newline gap="8" indent="0"/>
 		<text format="b">Interesses</text>
 		<newline gap="2" indent="8"/>
 		<text id="Interests"/>
-	  </group>
-	  <group id="6">
+		</group>
+		<group id="6">
 		<newline gap="8" indent="0"/>
 		<text format="b">Biografia</text>
 		<newline gap="2" indent="8"/>
 		<text id="BioText"/>
-	  </group>
+		</group>
 	</document>
 	<document name="CBrowseHostProfile.2">
 		<newline gap="40" indent="0"/>
@@ -2381,7 +2382,7 @@
 	<tip id="ID_DOWNLOADS_SOURCES" message="Procurar por mais fontes para o download selecionado."/>
 	<tip id="ID_DOWNLOADS_ADD_SOURCE" message="Adicionar uma fonte URL ao download selecionado..."/>
 	<tip id="ID_DOWNLOADS_VIEW_REVIEWS" message="Ver comentários sobre o download selecionado"/>
-	<tip id="ID_HELP_ABOUT" message="Exibir o diálogo  &quot;sobre&quot; do PeerProject..."/>
+	<tip id="ID_HELP_ABOUT" message="Exibir o diálogo &quot;sobre&quot; do PeerProject..."/>
 	<tip id="ID_HELP_CODEC" message="Tudo sobre codecs e problemas com vídeos."/>
 	<tip id="ID_HELP_FAQ" message="Ver o FAQ do PeerProject."/>
 	<tip id="ID_HELP_ROUTER" message="Consiga ajuda para configurar o seu Roteador ou Firewall."/>
@@ -2712,7 +2713,7 @@
 	<string id="20081" value="&amp;Fechar"/>
 	<string id="20082" value="Terminado, clique em Fechar"/>
 	<string id="20083" value="Pedindo..."/>
-	<string id="20084" value="Sucesso!"/>
+	<string id="20084" value="Sucesso."/>
 	<string id="20100" value="Fechando a conexão de navegação com %s."/>
 	<string id="20101" value="O host de navegação %s respondeu com uma resposta irreconhecível, e pode não suportar a navegação de usuário/host."/>
 	<string id="20102" value="Incapaz de conectar ao host para navegar o usuário."/>
@@ -2881,7 +2882,7 @@
 	<string id="20290" value="O host de download %s respondeu com um diferente, mas útil intervalo de bytes (%I64i-%I64i) de &quot;%s&quot;."/>
 	<string id="20291" value="Recebida uma conexão push desnecessária de %s."/>
 	<string id="20292" value="Derrubando fonte %s (%s) por enviar partes corruptas de &quot;%s&quot; (%I64i-%I64i)."/>
-	<string id="20293" value="ATENÇÃO: O Download &quot;%s&quot; falhou na verificação, ele pode não ser o arquivo que você pretendia baixar!"/>
+	<string id="20293" value="ATENÇÃO: O Download &quot;%s&quot; falhou na verificação, ele pode não ser o arquivo que você pretendia baixar."/>
 	<string id="20294" value="Download verificado com sucesso &quot;%s&quot;."/>
 	<string id="20295" value="A versão de &quot;%s&quot; do host de download %s tem uma URN diferente, abortando."/>
 	<string id="20296" value="Host de download %s respondeu com um intervalo de bytes inútil de &quot;%s&quot;, pendente."/>
@@ -3845,7 +3846,7 @@
 		<control caption="Recompensar uploaders"/>
 	</dialog>
 	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="Bem-Vindo ao PeerProject &#160;(1/8)">
-		<control caption="Bem-Vindo ao PeerProject!"/>
+		<control caption="Bem-Vindo ao PeerProject."/>
 		<control caption="Se você não usou o PeerProject ou qualquer outro cliente P2P antes, este assistente de configuração pode ajudá-lo a configurar a sua cópia em alguns simples passos."/>
 		<control caption="Se você é um usuário mais avançado, você pode acessar o alcance completo das configurações do PeerProject via o menu Ferramentas. Clique em Sair para fechar o assitente a qualquer hora."/>
 		<control caption="Este Assistente vai ajudá-lo a:"/>
@@ -3922,7 +3923,7 @@
 		<control caption="Modo Básico"/>
 		<control caption="Modo Power"/>
 		<control caption="Menus e botões simples, fáceis de usar. Familiar aos usuários de outros programas de compartilhamento de arquivos."/>
-		<control caption="O modo Power oferece aos usuários expert muitos comandos extras, janelas, etc.{n}Pode ser um pouco confuso para novos usuários!"/>
+		<control caption="O modo Power oferece aos usuários expert muitos comandos extras, janelas, etc.{n}Pode ser um pouco confuso para novos usuários."/>
 		<control caption="Exibir barras de progresso do download simplificadas."/>
 		<control caption="Tente misturar várias skins."/>
 	</dialog>
@@ -4335,7 +4336,7 @@
 		<control/>
 		<control/>
 		<control/>
-	  <control caption="Incluir _eu mesmo como uma fonte fixa na URL"/>
+		<control caption="Incluir _eu mesmo como uma fonte fixa na URL"/>
 		<control caption="Cancelar"/>
 	</dialog>
 	<dialog name="CURLExportDlg" cookie="StEdStCoStCoBuBumsBu" caption="Exportar URIs">
@@ -4387,16 +4388,16 @@
 		<control caption="O PeerProject NÃO CONTÉM nenhum &quot;spyware&quot;, &quot;adware&quot; ou outro programa junto com o PeerProject. NÃO exibe NENHUMA propaganda ou &quot;popups&quot;, jamais.{n}{n}Se você ver uma propaganda ou um &quot;popups&quot; enquanto usando o PeerProject, esteja assegurado de que eles NÃO estão vindo deste programa."/>
 		<control caption="Infelizmente muito outros programas vem com adwares indesejáveis ou spywares, então se você ver algo suspeito você pode desejar verificar o seu PC com um programa de remoção de spywares e propagandas."/>
 		<control caption="Você não tem que pagar para obter o PeerProject. O PeerProject pode ser baixado livremente por qualquer um em http://PeerProject.org. Se você pagou algum dinheiro pelo PeerProject, você deve exigir uma restituição completa imediatamente."/>
-		<control caption="O PeerProject respeita seus usuários!"/>
+		<control caption="O PeerProject respeita seus usuários."/>
 		<control caption="http://PeerProject.org"/>
 		<control caption="Fechar"/>
 	</dialog>
 	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Promova o PeerProject">
 		<control caption="Ajude-nos a promover o PeerProject"/>
 		<control caption="Nós esperamos que você tenha gostado de usar o PeerProject até agora. Nós acreditamos que seja o melhor aplicativo para compartilhar."/>
-		<control caption="Infelizmente, muitos que compartilham arquivos não sabem o que eles estão perdendo!"/>
+		<control caption="Infelizmente, muitos que compartilham arquivos não sabem o que eles estão perdendo."/>
 		<control caption="Se você conhece alguém que gostaria do PeerProject, sejam eles um novo usuário ou alguém ainda usando um produto inferior, por que não deixá-los saber que há uma alternativa melhor?"/>
-		<control caption="As chances são de que eles ficarão gratos por você tê-los avisado!"/>
+		<control caption="As chances são de que eles ficarão gratos por você tê-los avisado."/>
 		<control caption="http://PeerProject.org"/>
 		<control caption="OK"/>
 	</dialog>

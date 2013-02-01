@@ -76,7 +76,7 @@ BOOL CHashDatabase::Create()
 
 				if ( memcmp( szID, "HFDB1001", 8 ) == 0 )
 				{
-					m_pFile.Read( m_pIndex, sizeof(HASHDB_INDEX) * m_nIndex );
+					m_pFile.Read( m_pIndex, sizeof( HASHDB_INDEX ) * m_nIndex );
 				}
 				else //if ( memcmp( szID, "HFDB1000", 8 ) == 0 )
 				{
@@ -84,7 +84,7 @@ BOOL CHashDatabase::Create()
 
 					for ( DWORD nIndex = 0 ; nIndex < m_nIndex ; nIndex++ )
 					{
-						m_pFile.Read( &pIndex1, sizeof(pIndex1) );
+						m_pFile.Read( &pIndex1, sizeof( pIndex1 ) );
 						m_pIndex[ nIndex ].nIndex	= pIndex1.nIndex;
 						m_pIndex[ nIndex ].nType	= HASH_TIGERTREE;
 						m_pIndex[ nIndex ].nOffset	= pIndex1.nOffset;
@@ -187,13 +187,14 @@ HASHDB_INDEX* CHashDatabase::PrepareToStore(DWORD nIndex, DWORD nType, DWORD nLe
 	ASSERT( m_bOpen );
 	HASHDB_INDEX* pIndex = Lookup( nIndex, nType );
 
-	if ( pIndex && pIndex->nLength != nLength )
+	if ( pIndex )
 	{
+		if ( pIndex->nLength == nLength )
+			return pIndex;
+
 		pIndex->nIndex = 0;
 		pIndex = NULL;
 	}
-	else if ( pIndex )	// pIndex->nLength == nLength
-		return pIndex;
 
 	HASHDB_INDEX* pBestIndex = NULL;
 	DWORD nBestOverhead = 0xFFFFFFFF;
@@ -224,7 +225,7 @@ HASHDB_INDEX* CHashDatabase::PrepareToStore(DWORD nIndex, DWORD nType, DWORD nLe
 		{
 			m_nBuffer += 64;
 			HASHDB_INDEX* pNew = new HASHDB_INDEX[ m_nBuffer ];
-			if ( m_nIndex ) CopyMemory( pNew, m_pIndex, sizeof(HASHDB_INDEX) * m_nIndex );
+			if ( m_nIndex ) CopyMemory( pNew, m_pIndex, sizeof( HASHDB_INDEX ) * m_nIndex );
 			if ( m_pIndex ) delete [] m_pIndex;
 			m_pIndex = pNew;
 		}
@@ -236,8 +237,8 @@ HASHDB_INDEX* CHashDatabase::PrepareToStore(DWORD nIndex, DWORD nType, DWORD nLe
 		m_nOffset += nLength;
 	}
 
-	pIndex->nIndex	= nIndex;
-	pIndex->nType	= nType;
+	pIndex->nIndex = nIndex;
+	pIndex->nType  = nType;
 
 	return pIndex;
 }
@@ -266,13 +267,13 @@ BOOL CHashDatabase::Commit()
 
 	try
 	{
-		m_pFile.SetLength( m_nOffset + sizeof(HASHDB_INDEX) * m_nIndex );
+		m_pFile.SetLength( m_nOffset + sizeof( HASHDB_INDEX ) * m_nIndex );
 		m_pFile.Seek( 0, 0 );
 		m_pFile.Write( "HFDB1001", 8 );
 		m_pFile.Write( &m_nOffset, 4 );
 		m_pFile.Write( &m_nIndex, 4 );
 		m_pFile.Seek( m_nOffset, 0 );
-		m_pFile.Write( m_pIndex, sizeof(HASHDB_INDEX) * m_nIndex );
+		m_pFile.Write( m_pIndex, sizeof( HASHDB_INDEX ) * m_nIndex );
 		m_pFile.Flush();
 	}
 	catch ( CException* pException )

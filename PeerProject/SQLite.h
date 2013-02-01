@@ -20,7 +20,7 @@
 //	auto_ptr< CDatabase* > db( theApp.GetDatabase( DB_DEFAULT ) );
 //	if ( db->Prepare( _T("SELECT Number FROM Table;") ) )
 //	{
-//		while( db->Step() || db->IsBusy() )
+//		while ( db->Step() || db->IsBusy() )
 //		{
 //			if ( db->IsBusy() )
 //			{

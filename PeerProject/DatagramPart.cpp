@@ -89,12 +89,12 @@ void CDatagramOut::Create(const SOCKADDR_IN* pHost, const CG2Packet* pPacket, WO
 	pHeader.nCount		= m_nCount;
 
 	DWORD nOffset = 0;
-	DWORD nPacket = m_nPacket + sizeof(SGP_HEADER);
+	DWORD nPacket = m_nPacket + sizeof( SGP_HEADER );
 
 	for ( BYTE nPart = 0 ; nPart < m_nCount && m_pBuffer ; nPart++, nOffset += nPacket )
 	{
 		pHeader.nPart = nPart + 1;
-		m_pBuffer->Insert( nOffset, &pHeader, sizeof(pHeader) );
+		m_pBuffer->Insert( nOffset, &pHeader, sizeof( pHeader ) );
 	}
 
 	if ( ! m_pLocked || m_nLocked < m_nCount )
@@ -105,7 +105,7 @@ void CDatagramOut::Create(const SOCKADDR_IN* pHost, const CG2Packet* pPacket, WO
 		m_pLocked = new DWORD[ m_nLocked ];
 	}
 
-	ZeroMemory( m_pLocked, sizeof(DWORD) * m_nCount );
+	ZeroMemory( m_pLocked, sizeof( DWORD ) * m_nCount );
 
 	m_tSent = GetTickCount();
 }
@@ -141,7 +141,7 @@ BOOL CDatagramOut::GetPacket(DWORD tNow, BYTE** ppPacket, DWORD* pnPacket, BOOL 
 
 	m_pLocked[ nPart ] = bResend ? tNow : 0xFFFFFFFF;
 
-	DWORD nPacket = m_nPacket + sizeof(SGP_HEADER);
+	DWORD nPacket = m_nPacket + sizeof( SGP_HEADER );
 
 	*ppPacket = m_pBuffer->m_pBuffer + ( nPart * nPacket );
 	*pnPacket = min( nPacket, m_pBuffer->m_nLength - ( nPart * nPacket ) );

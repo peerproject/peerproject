@@ -60,8 +60,8 @@ END_MESSAGE_MAP()
 
 CTrafficWnd::CTrafficWnd(DWORD nUnique)
 {
-	m_nUnique	= nUnique;
-	m_pGraph	= new CLineGraph();
+	m_nUnique = nUnique;
+	m_pGraph  = new CLineGraph();
 
 	Create( IDR_TRAFFICFRAME );
 }
@@ -151,7 +151,7 @@ void CTrafficWnd::OnTimer(UINT_PTR nIDEvent)
 
 void CTrafficWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 {
-	if ( point.x == -1 && point.y == -1 ) 	// Keyboard fix
+	if ( point.x == -1 && point.y == -1 )	// Keyboard fix
 		ClientToScreen( &point );
 
 	Skin.TrackPopupMenu( _T("CTrafficWnd"), point, ID_TRAFFIC_SETUP );
@@ -232,7 +232,7 @@ void CTrafficWnd::OnTrafficWindow()
 
 BOOL CTrafficWnd::Serialize(BOOL bSave)
 {
-	WINDOWPLACEMENT pPos = { sizeof(WINDOWPLACEMENT) };
+	WINDOWPLACEMENT pPos = { sizeof( WINDOWPLACEMENT ) };
 
 	CString strFile = Settings.General.DataPath + _T("Graph%.4u.dat");
 	strFile.Format( strFile, m_nUnique );
@@ -259,7 +259,7 @@ BOOL CTrafficWnd::Serialize(BOOL bSave)
 				ar << m_sName;
 
 				GetWindowPlacement( &pPos );
-				ar.Write( &pPos, sizeof(pPos) );
+				ar.Write( &pPos, sizeof( pPos ) );
 			}
 			else // Loading
 			{
@@ -274,7 +274,7 @@ BOOL CTrafficWnd::Serialize(BOOL bSave)
 				if ( nVersion >= 1 )
 					ar >> m_sName;
 
-				ReadArchive( ar, &pPos, sizeof(pPos) );
+				ReadArchive( ar, &pPos, sizeof( pPos ) );
 				if ( pPos.showCmd == SW_SHOWNORMAL )
 					SetWindowPlacement( &pPos );
 			}

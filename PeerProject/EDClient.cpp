@@ -154,7 +154,7 @@ BOOL CEDClient::ConnectTo(DWORD nClientID, WORD nClientPort, IN_ADDR* pServerAdd
 	}
 	else
 	{
-		ZeroMemory( &m_pServer, sizeof(m_pServer) );
+		ZeroMemory( &m_pServer, sizeof( m_pServer ) );
 	}
 
 	return TRUE;
@@ -168,13 +168,14 @@ BOOL CEDClient::Equals(CEDClient* pClient)
 	ASSERT( this != NULL );
 	ASSERT( pClient != NULL );
 
-	if ( m_oGUID && pClient->m_oGUID ) return m_oGUID == pClient->m_oGUID;
+	if ( m_oGUID && pClient->m_oGUID )
+		return m_oGUID == pClient->m_oGUID;
 
 	if ( CEDPacket::IsLowID( m_nClientID ) &&
 		 CEDPacket::IsLowID( pClient->m_nClientID ) )
 	{
-		return	( m_pServer.sin_addr.S_un.S_addr == pClient->m_pServer.sin_addr.S_un.S_addr ) &&
-				( m_nClientID == pClient->m_nClientID );
+		return	m_pServer.sin_addr.S_un.S_addr == pClient->m_pServer.sin_addr.S_un.S_addr &&
+				m_nClientID == pClient->m_nClientID;
 	}
 
 	return m_pHost.sin_addr.S_un.S_addr == pClient->m_pHost.sin_addr.S_un.S_addr;
@@ -895,7 +896,7 @@ BOOL CEDClient::OnHello(CEDPacket* pPacket)
 {
 	if ( m_bLogin ) return TRUE;
 
-	if ( pPacket->GetRemaining() < sizeof(GUID) + 6 + 4 + 6 )
+	if ( pPacket->GetRemaining() < sizeof( GUID ) + 6 + 4 + 6 )
 	{
 		theApp.Message( MSG_ERROR, IDS_ED2K_CLIENT_HANDSHAKE_FAIL, (LPCTSTR)m_sAddress );
 		Close();

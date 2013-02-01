@@ -38,10 +38,8 @@ END_MESSAGE_MAP()
 CPluginExtSetupDlg::CPluginExtSetupDlg(CWnd* pParent, LPCTSTR pszExt)
 	: CDialog(CPluginExtSetupDlg::IDD, pParent)
 {
-	//{{AFX_DATA_INIT(CPluginExtSetupDlg)
 	m_sExtensions	= (CString)pszExt;
 	m_pParent		= (CListCtrl*)pParent;
-	//}}AFX_DATA_INIT
 }
 
 CPluginExtSetupDlg::~CPluginExtSetupDlg()
@@ -66,9 +64,7 @@ BOOL CPluginExtSetupDlg::OnInitDialog()
 	rc.right -= GetSystemMetrics( SM_CXVSCROLL ) + 1;
 
 	m_wndList.InsertColumn( 0, _T("Extension"), LVCFMT_LEFT, rc.right, 0 );
-	m_wndList.SendMessage( LVM_SETEXTENDEDLISTVIEWSTYLE,
-		LVS_EX_FULLROWSELECT|LVS_EX_CHECKBOXES|LVS_EX_LABELTIP,
-		LVS_EX_FULLROWSELECT|LVS_EX_CHECKBOXES|LVS_EX_LABELTIP );
+	m_wndList.SetExtendedStyle( LVS_EX_FULLROWSELECT|LVS_EX_CHECKBOXES|LVS_EX_LABELTIP );
 
 	CStringArray oTokens;
 	Split( m_sExtensions, _T('|'), oTokens );
@@ -81,7 +77,7 @@ BOOL CPluginExtSetupDlg::OnInitDialog()
 	for ( INT_PTR nToken = 0 ; nToken < nTotal ; nToken++ )
 	{
 		CString strToken = oTokens.GetAt( nToken );
-		if ( strToken.IsEmpty() ) continue;	// Shouldn't happen
+		if ( strToken.IsEmpty() ) continue;		// Shouldn't happen
 
 		BOOL bChecked = ( strToken.Left( 1 ) != _T("-") );
 		int nItem = m_wndList.InsertItem( LVIF_TEXT, m_wndList.GetItemCount(),

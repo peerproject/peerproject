@@ -111,7 +111,7 @@ CBTInfo::CBTFile::CBTFile(const CBTInfo* pInfo, const CBTFile* pBTFile)
 		CPeerProjectFile::operator=( *pBTFile );
 }
 
-CString	CBTInfo::CBTFile::FindFile() const
+CString CBTInfo::CBTFile::FindFile() const
 {
 	CString strFile;
 
@@ -721,7 +721,7 @@ BOOL CBTInfo::CheckInfoData()
 		if ( oBTH == m_oBTH )
 		{
 			m_nInfoStart = pInfo->m_nPosition;
-			m_nInfoSize	 = pInfo->m_nSize;
+			m_nInfoSize  = pInfo->m_nSize;
 			return TRUE;
 		}
 	}
@@ -946,7 +946,7 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 				AddTracker( CBTTracker( pTrackers.GetNext( pos ), 99 ) );
 
 			//	CBTTracker oTracker;
-			//	oTracker.m_sAddress	= BAD_TRACKER_TOKEN + pTrackers.GetNext( pos );				// Mark for display only: *https://...
+			//	oTracker.m_sAddress = BAD_TRACKER_TOKEN + pTrackers.GetNext( pos );				// Mark for display only: *https://...
 			//	oTracker.m_nFailures = 1;
 			//	oTracker.m_nTier = 99;
 			//	AddTracker( oTracker );
@@ -1332,7 +1332,7 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 		if ( oBTH == m_oBTH )
 		{
 			m_nInfoStart = pInfo->m_nPosition;
-			m_nInfoSize	 = pInfo->m_nSize;
+			m_nInfoSize  = pInfo->m_nSize;
 		}
 	}
 
@@ -1401,7 +1401,7 @@ BOOL CBTInfo::FinishBlockTest(DWORD nBlock)
 	ASSERT( IsAvailable() );
 
 	if ( m_pBlockBTH == NULL || nBlock >= m_nBlockCount )
-		 return FALSE;
+		return FALSE;
 
 	Hashes::BtHash oBTH;
 	m_pTestSHA1.Finish();

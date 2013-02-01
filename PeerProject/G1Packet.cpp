@@ -190,7 +190,7 @@ void CG1Packet::CacheHash()
 //	// Hash the data, writing the hash under pHash, and report success
 //	CSHA pSHA;											// Make a local CSHA object which will compute the hash
 //	pSHA.Add( &m_oGUID[ 0 ], Hashes::Guid::byteCount ); // Start by hashing the GUID of the packet
-//	pSHA.Add( &m_nType, sizeof(m_nType) );				// Then throw in the type byte
+//	pSHA.Add( &m_nType, sizeof( m_nType ) );				// Then throw in the type byte
 //	pSHA.Add( m_pBuffer, nLength );						// After that, hash the bytes of the packet
 //	pSHA.Finish();										// Tell the object that is all
 //	pSHA.GetHash( &oHash[ 0 ] );						// Have the object write the hash under pHash
@@ -238,10 +238,10 @@ void CG1Packet::ToBuffer(CBuffer* pBuffer, bool /*bTCP*/) const
 	pHeader.m_nLength	= (LONG)m_nLength;		// Copy in the payload length number of bytes
 
 	// Abort if the buffer isn't big enough for the packet
-	if ( ! pBuffer->EnsureBuffer( sizeof(pHeader) + m_nLength ) ) return;
+	if ( ! pBuffer->EnsureBuffer( sizeof( pHeader ) + m_nLength ) ) return;
 
 	// Add the Gnutella packet header and packet payload to the buffer
-	pBuffer->Add( &pHeader, sizeof(pHeader) );	// First, copy the bytes of the Gnutella packet header structure we made right here
+	pBuffer->Add( &pHeader, sizeof( pHeader ) );	// First, copy the bytes of the Gnutella packet header structure we made right here
 	pBuffer->Add( m_pBuffer, m_nLength );		// This packet object's buffer is the payload, copy that in after the header
 }
 

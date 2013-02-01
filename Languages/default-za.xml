@@ -4,7 +4,7 @@
 <!-- PeerProject Default Afrikaans Skin File -->
 <!-- Weergawe: 27 Oktober 2005 vir Shareaza 2.2.0.2 -->
 
-<!-- Translation based on default-en.xml r88 -->
+<!-- Translation based on default-en.xml r90 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -723,15 +723,15 @@
 			<menu text="_Webtuistes">
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
-				<item id="ID_HELP_WEB_6" text="PeerProject S_kin Site"/>
+				<!-- <item id="ID_HELP_WEB_6" text="PeerProject S_kin Site"/>
 				<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/>
 				<separator/>
-<!--				<item id="ID_HELP_VERSION_CHECK" text="Check for new _version"/>
+				<item id="ID_HELP_VERSION_CHECK" text="Check for new _version"/>
 				<item id="ID_HELP_DONATE" text="_Donate to PeerProject"/>
 				<separator/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
--->			</menu>
+				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_Oor PeerProject..."/>
 		</menu>
@@ -816,8 +816,8 @@
 			<menu text="_Webtuistes">
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
-				<item id="ID_HELP_WEB_6" text="PeerProject S_kin Site"/>
-				<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/> <!--
+				<!-- <item id="ID_HELP_WEB_6" text="PeerProject S_kin Site"/>
+				<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/>
 				<item id="ID_HELP_UPDATE" text="Jongste nuus"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
@@ -2625,7 +2625,7 @@
 	<string id="20081" value="&amp;Maak Toe"/>
 	<string id="20082" value="Voltooi, kliek Maak Toe"/>
 	<string id="20083" value="Stuur versoek..."/>
-	<string id="20084" value="Sukses!"/>
+	<string id="20084" value="Sukses."/>
 	<string id="20100" value="Lees-gebruiker konneksie aan %s word gesluit."/>
 	<string id="20101" value="Gasheer %s het gereageer met 'n onherkenbare antwoord en mag dalk nie die funksie ondersteun nie."/>
 	<string id="20102" value="Kon nie aan die gasheer konnekteer om deur sy inligting te blaai nie."/>
@@ -2794,7 +2794,7 @@
 	<string id="20290" value="Aflaaigasheer %s het gereageer met 'n ander, maar bruikbare deel (%I64i-%I64i) van &quot;%s&quot;."/>
 	<string id="20291" value="Onnodige druk-konneksie ontvang vanaf %s."/>
 	<string id="20292" value="Bron %s (%s) word verwyder nadat dit korrupte dele van &quot;%s&quot; (%I64i-%I64i) gestuur het."/>
-	<string id="20293" value="WAARSKUWING: Aflaai &quot;%s&quot; is nie suksesvol gekontroleer nie, dit mag dalk nie die lêer wees wat jy bedoel het om af te laai nie!"/>
+	<string id="20293" value="WAARSKUWING: Aflaai &quot;%s&quot; is nie suksesvol gekontroleer nie, dit mag dalk nie die lêer wees wat jy bedoel het om af te laai nie."/>
 	<string id="20294" value="Aflaai &quot;%s&quot; suksesvol gekontroleer."/>
 	<string id="20295" value="Aflaaigasheer %s se weergawe van &quot;%s&quot; het 'n verskillende URN, aflaai word gestaak."/>
 	<string id="20296" value="Aflaaigasheer %s het gereageer met 'n onbruikbare deel van &quot;%s&quot;, aflaai hangende."/>
@@ -3685,7 +3685,7 @@
 		<control caption="Vergoed oplaaiers"/>
 	</dialog>
 	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="Welkom by PeerProject (1/8)">
-		<control caption="Welkom by PeerProject!"/>
+		<control caption="Welkom by PeerProject."/>
 		<control caption="As jy nog nie voorheen PeerProject gebruik het nie, kan hierdie SnelBegin Assistent jou help om jou kopie in te stel in 'n paar eenvoudige stappe."/>
 		<control caption="As jy 'n meer gevorderde gebruiker is, kan jy toegang tot die volle spektrum van PeerProject se verstellings via die Opsies kieslys verkry. Kliek 'Maak Toe' om die assistent op enige stadium te verlaat."/>
 		<control caption="Hierdie assistent sal jou help om:"/>
@@ -3762,7 +3762,7 @@
 		<control caption="Basic Modus"/>
 		<control caption="Kragmodus"/>
 		<control caption="Eenvoudige, gebruikersvriendelike kieslyste en knoppies.{n}Bekend aan gebruikers van ander lêerdelingsprogramme."/>
-		<control caption="Kragmodus bied gevorderde gebruikers verskeie ekstra opdragte, vensters, ens.{n}Dit mag nuwe gebruikers dalk deurmekaar maak!"/>
+		<control caption="Kragmodus bied gevorderde gebruikers verskeie ekstra opdragte, vensters, ens.{n}Dit mag nuwe gebruikers dalk deurmekaar maak."/>
 		<control caption="Vertoon vereenvoudigde aflaai-vorderingsbalke."/>
 		<control caption=""/>
 	</dialog>
@@ -4227,16 +4227,16 @@
 		<control caption="PeerProject bevat GEEN &quot;spioenware&quot;, &quot;advertensieware&quot; of enige ander ongewenste sagteware nie. Dit vertoon ook GEEN advertensies of &quot;opspringboodskappe&quot; ooit nie.{n}{n}As jy ooit advertensies of &quot;opspringboodskappe&quot; sien terwyl jy PeerProject gebruik, wees gerus dat hulle NIE van hierdie program afkomstig is nie."/>
 		<control caption="Ongelukkig kom 'n groot aantal ander sagteware met spioen- of advertensieware uit, so as jy iets verdags sien, word jy aangeraai om jou rekenaar met 'n spioen- of advertensieware verwyderaarsprogram te laat deursoek."/>
 		<control caption="Jy moes nie enige geld betaal het vir PeerProject nie. PeerProject kan gratis afgelaai word deur enige iemand vanaf http://peerproject.org/. As jy iemand geld betaal het vir PeerProject, moet jy 'n volle terugbetaling onmiddellik eis."/>
-		<control caption="PeerProject respekteer sy gebruikers!"/>
+		<control caption="PeerProject respekteer sy gebruikers."/>
 		<control caption="http://PeerProject.org"/>
 		<control caption="Maak toe"/>
 	</dialog>
 	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Versprei die Nuus">
 		<control caption="Help ons om die nuus te versprei"/>
 		<control caption="Ons hoop jy het dit sover geniet om PeerProject te gebruik. Ons glo dat dit die beste lêerdelingsprogram beskikbaar is."/>
-		<control caption="Ongelukkig weet 'n groot aantal lêerdelers nie wat hulle mis nie!"/>
+		<control caption="Ongelukkig weet 'n groot aantal lêerdelers nie wat hulle mis nie."/>
 		<control caption="As jy van iemand weet wat van PeerProject sal hou, of hulle 'n nuwe gebruiker is, of iemand wat steeds probeer uithou met 'n ondergeskikte program, hoekom hulle nie laat weet dat daar 'n beter alternatief is nie?"/>
-		<control caption="Die kanse is goed dat hulle dankbaar sal wees dat jy hulle gered het!"/>
+		<control caption="Die kanse is goed dat hulle dankbaar sal wees dat jy hulle gered het."/>
 		<control caption="http://PeerProject.org"/>
 		<control caption="OK"/>
 	</dialog>

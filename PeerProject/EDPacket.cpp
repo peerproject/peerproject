@@ -230,10 +230,10 @@ void CEDPacket::WriteFile(const CPeerProjectFile* pPeerProjectFile, QWORD nSize,
 	if ( ! strTitle.IsEmpty() ) nTags++;
 	if ( ! strArtist.IsEmpty() ) nTags++;
 	if ( ! strAlbum.IsEmpty() ) nTags++;
-	if ( ! strCodec.IsEmpty() )  nTags++;
-	if ( nBitrate )	 nTags++;
+	if ( ! strCodec.IsEmpty() ) nTags++;
+	if ( nBitrate ) nTags++;
 	if ( nLength ) nTags++;
-	if ( nRating )  nTags++;
+	if ( nRating ) nTags++;
 	WriteLongLE( nTags );
 
 	// Filename
@@ -297,13 +297,13 @@ void CEDPacket::ToBuffer(CBuffer* pBuffer, bool bTCP) const
 	if ( bTCP )
 	{
 		ED2K_TCP_HEADER pHeader = { m_nEdProtocol, m_nLength + 1, m_nType };
-		pBuffer->Add( &pHeader, sizeof(pHeader) );
+		pBuffer->Add( &pHeader, sizeof( pHeader ) );
 		pBuffer->Add( m_pBuffer, m_nLength );
 	}
 	else // UDP
 	{
 		ED2K_UDP_HEADER pHeader = { m_nEdProtocol, m_nType };
-		pBuffer->Add( &pHeader, sizeof(pHeader) );
+		pBuffer->Add( &pHeader, sizeof( pHeader ) );
 		pBuffer->Add( m_pBuffer, m_nLength );
 	}
 }
@@ -315,9 +315,9 @@ CEDPacket* CEDPacket::ReadBuffer(CBuffer* pBuffer)
 	if ( pHeader->nProtocol != ED2K_PROTOCOL_EDONKEY &&
 		 pHeader->nProtocol != ED2K_PROTOCOL_EMULE &&
 		 pHeader->nProtocol != ED2K_PROTOCOL_EMULE_PACKED ) return NULL;
-	if ( pBuffer->m_nLength - sizeof(*pHeader) + 1 < pHeader->nLength ) return NULL;
+	if ( pBuffer->m_nLength - sizeof( *pHeader ) + 1 < pHeader->nLength ) return NULL;
 	CEDPacket* pPacket = CEDPacket::New( pHeader );
-	pBuffer->Remove( sizeof(*pHeader) + pHeader->nLength - 1 );
+	pBuffer->Remove( sizeof( *pHeader ) + pHeader->nLength - 1 );
 	if ( pPacket->Inflate() )
 		return pPacket;
 	pPacket->Release();
@@ -717,7 +717,7 @@ BOOL CEDTag::Read(CFile* pFile)
 
 	Clear();
 
-	if ( pFile->Read( &m_nType, sizeof(m_nType) ) != sizeof(m_nType) )
+	if ( pFile->Read( &m_nType, sizeof( m_nType ) ) != sizeof( m_nType ) )
 		return FALSE;
 
 	if ( m_nType & 0x80 )
@@ -727,13 +727,13 @@ BOOL CEDTag::Read(CFile* pFile)
 	}
 	else
 	{
-		if ( pFile->Read( &nLen, sizeof(nLen) ) != sizeof(nLen) )
+		if ( pFile->Read( &nLen, sizeof( nLen ) ) != sizeof( nLen ) )
 			return FALSE;
 	}
 
 	if ( nLen == 1 )
 	{
-		if ( pFile->Read( &m_nKey, sizeof(m_nKey) ) != sizeof(m_nKey) )
+		if ( pFile->Read( &m_nKey, sizeof( m_nKey ) ) != sizeof( m_nKey ) )
 			return FALSE;
 	}
 	else if ( nLen > 1 )
@@ -756,7 +756,7 @@ BOOL CEDTag::Read(CFile* pFile)
 		break;
 
 	case ED2K_TAG_STRING:
-		if ( pFile->Read( &nLen, sizeof(nLen) ) != sizeof(nLen) )
+		if ( pFile->Read( &nLen, sizeof( nLen ) ) != sizeof( nLen ) )
 			return FALSE;
 		{
 			auto_array< CHAR > psz( new CHAR[ nLen ] );
@@ -771,7 +771,7 @@ BOOL CEDTag::Read(CFile* pFile)
 	case ED2K_TAG_BLOB:
 		{
 			DWORD nBlolbLen;
-			if ( pFile->Read( &nBlolbLen, sizeof(nBlolbLen) ) != sizeof(nBlolbLen) )
+			if ( pFile->Read( &nBlolbLen, sizeof( nBlolbLen ) ) != sizeof( nBlolbLen ) )
 				return FALSE;
 			auto_array< CHAR > psz( new CHAR[ nBlolbLen ] );
 			if ( ! psz.get() )
@@ -787,7 +787,7 @@ BOOL CEDTag::Read(CFile* pFile)
 	case ED2K_TAG_FLOAT:
 		{
 			DWORD nValue;
-			if ( pFile->Read( &nValue, sizeof(nValue) ) != sizeof(nValue) )
+			if ( pFile->Read( &nValue, sizeof( nValue ) ) != sizeof( nValue ) )
 				return FALSE;
 			m_nValue = nValue;
 		}
@@ -796,7 +796,7 @@ BOOL CEDTag::Read(CFile* pFile)
 	case ED2K_TAG_UINT16:
 		{
 			WORD nValue;
-			if ( pFile->Read( &nValue, sizeof(nValue) ) != sizeof(nValue) )
+			if ( pFile->Read( &nValue, sizeof( nValue ) ) != sizeof( nValue ) )
 				return FALSE;
 			m_nValue = nValue;
 			m_nType = ED2K_TAG_INT;
@@ -806,7 +806,7 @@ BOOL CEDTag::Read(CFile* pFile)
 	case ED2K_TAG_UINT8:
 		{
 			BYTE nValue;
-			if ( pFile->Read( &nValue, sizeof(nValue) ) != sizeof(nValue) )
+			if ( pFile->Read( &nValue, sizeof( nValue ) ) != sizeof( nValue ) )
 				return FALSE;
 			m_nValue = nValue;
 			m_nType = ED2K_TAG_INT;
@@ -814,7 +814,7 @@ BOOL CEDTag::Read(CFile* pFile)
 		break;
 
 	case ED2K_TAG_UINT64:
-		if ( pFile->Read( &m_nValue, sizeof(m_nValue) ) != sizeof(m_nValue) )
+		if ( pFile->Read( &m_nValue, sizeof( m_nValue ) ) != sizeof( m_nValue ) )
 			return FALSE;
 		m_nType = ED2K_TAG_INT;
 		break;

@@ -186,7 +186,7 @@ BOOL CZIPFile::LocateCentralDirectory()
 	SetFilePointer( m_hFile, -4096, NULL, FILE_END );
 	if ( ! ReadFile( m_hFile, pBuffer.get(), 4096, &nBuffer, NULL ) )
 		return FALSE;
-	if ( nBuffer < sizeof(ZIP_DIRECTORY_LOC) )
+	if ( nBuffer < sizeof( ZIP_DIRECTORY_LOC ) )
 		return FALSE;
 
 	ZIP_DIRECTORY_LOC* pLoc = NULL;
@@ -271,11 +271,11 @@ BOOL CZIPFile::ParseCentralDirectory(BYTE* pDirectory, DWORD nDirectory)
 	{
 		ZIP_CENTRAL_FILE* pRecord = (ZIP_CENTRAL_FILE*)pDirectory;
 
-		if ( nDirectory < sizeof(*pRecord) ) return FALSE;
+		if ( nDirectory < sizeof( *pRecord ) ) return FALSE;
 		if ( pRecord->nSignature != 0x02014b50 ) return FALSE;
 
-		pDirectory += sizeof(*pRecord);
-		nDirectory -= sizeof(*pRecord);
+		pDirectory += sizeof( *pRecord );
+		nDirectory -= sizeof( *pRecord );
 
 		int nTailLen = (int)pRecord->nNameLen + (int)pRecord->nExtraLen + (int)pRecord->nCommentLen;
 		if ( nDirectory < (DWORD)nTailLen ) return FALSE;
@@ -333,14 +333,14 @@ BOOL CZIPFile::SeekToFile(File* pFile)
 
 	if ( SetFilePointer( m_hFile, (DWORD)pFile->m_nLocalOffset, NULL, FILE_BEGIN )
 		 != pFile->m_nLocalOffset )
-		 return FALSE;
+		return FALSE;
 
 	ZIP_LOCAL_FILE pLocal;
 	DWORD nRead = 0;
 
-	if ( ! ReadFile( m_hFile, &pLocal, sizeof(pLocal), &nRead, NULL ) )
+	if ( ! ReadFile( m_hFile, &pLocal, sizeof( pLocal ), &nRead, NULL ) )
 		return FALSE;
-	if ( nRead != sizeof(pLocal) )
+	if ( nRead != sizeof( pLocal ) )
 		return FALSE;
 
 	if ( pLocal.nSignature != 0x04034b50 )
@@ -358,7 +358,7 @@ BOOL CZIPFile::SeekToFile(File* pFile)
 
 BOOL CZIPFile::File::PrepareToDecompress(LPVOID pStream)
 {
-	ZeroMemory( pStream, sizeof(z_stream) );
+	ZeroMemory( pStream, sizeof( z_stream ) );
 
 	if ( ! m_pZIP->SeekToFile( this ) ) return FALSE;
 
@@ -460,8 +460,8 @@ BOOL CZIPFile::File::Extract(LPCTSTR pszFile)
 		{
 			if ( pStream.avail_in == 0 )
 			{
-				pStream.avail_in	= (DWORD)min( m_nCompressedSize - nCompressed, BUFFER_IN_SIZE );
-				pStream.next_in		= pBufferIn.get();
+				pStream.avail_in = (DWORD)min( m_nCompressedSize - nCompressed, BUFFER_IN_SIZE );
+				pStream.next_in  = pBufferIn.get();
 
 				DWORD nRead = 0;
 				if ( ! ReadFile( m_pZIP->m_hFile, pBufferIn.get(), pStream.avail_in, &nRead, NULL ) )
@@ -471,8 +471,8 @@ BOOL CZIPFile::File::Extract(LPCTSTR pszFile)
 				nCompressed += nRead;
 			}
 
-			pStream.avail_out	= BUFFER_OUT_SIZE;
-			pStream.next_out	= pBufferOut.get();
+			pStream.avail_out = BUFFER_OUT_SIZE;
+			pStream.next_out  = pBufferOut.get();
 
 			/*int nInflate =*/ inflate( &pStream, Z_SYNC_FLUSH );
 

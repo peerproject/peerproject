@@ -111,8 +111,7 @@ public:
 	CString				ReadLongEDString(BOOL bUnicode);
 	void				WriteLongEDString(LPCTSTR psz, BOOL bUnicode);
 	void				WriteFile(const CPeerProjectFile* pFile, QWORD nSize,
-							const CEDClient* pClient, const CEDNeighbour* pServer = NULL,
-							bool bPartial = false);
+							const CEDClient* pClient, const CEDNeighbour* pServer = NULL, bool bPartial = false);
 	BOOL				Deflate();
 	BOOL				Inflate();	// Unzip packet if any
 
@@ -176,7 +175,7 @@ public:
 		{
 			pPacket->m_nEdProtocol	= pHeader->nProtocol;
 			pPacket->m_nType		= pHeader->nType;
-			if ( pPacket->Write( &pHeader[1], nLength - sizeof(*pHeader) ) && pPacket->Inflate() )
+			if ( pPacket->Write( &pHeader[1], nLength - sizeof( *pHeader ) ) && pPacket->Inflate() )
 				return pPacket;
 			pPacket->Release();
 		}
@@ -200,7 +199,7 @@ private:
 
 inline void CEDPacket::CEDPacketPool::NewPoolImpl(int nSize, CPacket*& pPool, int& nPitch)
 {
-	nPitch	= sizeof(CEDPacket);
+	nPitch	= sizeof( CEDPacket );
 	pPool	= new CEDPacket[ nSize ];
 }
 
@@ -368,8 +367,8 @@ public:
 // Attributes
 public:
 	BYTE				m_nType;
-	CString				m_sKey;
 	BYTE				m_nKey;
+	CString				m_sKey;
 	CString				m_sValue;	// ED2K_TAG_STRING
 	QWORD				m_nValue;	// ED2K_TAG_INT
 	Hashes::Ed2kHash	m_oValue;	// ED2K_TAG_HASH

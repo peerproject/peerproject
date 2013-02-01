@@ -293,7 +293,7 @@ STDMETHODIMP CLibraryList::XEnumVARIANT::Next(ULONG celt, VARIANT* rgvar, ULONG*
 	if ( pceltFetched )
 		*pceltFetched = 0;
 
-	while( celt && m_pos )
+	while ( celt && m_pos )
 	{
 		CLibraryListItem Item = pThis->GetNext( m_pos );
 		if ( Item.Type == CLibraryListItem::LibraryFile )

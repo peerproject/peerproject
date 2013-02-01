@@ -351,8 +351,8 @@ BOOL CLibraryThumbView::SelectTo(CLibraryThumbItem* pThumb)
 	{
 		m_pFocus = pThumb;
 
-		int nFirst	= GetThumbIndex( m_pFirst );
-		int nFocus	= GetThumbIndex( m_pFocus );
+		int nFirst = GetThumbIndex( m_pFirst );
+		int nFocus = GetThumbIndex( m_pFocus );
 
 		if ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 )
 		{
@@ -362,33 +362,32 @@ BOOL CLibraryThumbView::SelectTo(CLibraryThumbItem* pThumb)
 		{
 			bChanged = DeselectAll();
 
-			if ( nFirst >= 0 && nFocus >= 0 )
+			if ( nFirst < 0 || nFocus < 0 )
 			{
-				if ( nFirst <= nFocus )
-				{
-					for ( ; nFirst <= nFocus ; nFirst++ )
-						Select( m_pList[ nFirst ], TRI_TRUE );
-				}
-				else
-				{
-					for ( ; nFocus <= nFirst ; nFocus++ )
-						Select( m_pList[ nFocus ], TRI_TRUE );
-				}
-
+				bChanged |= Select( m_pFocus, TRI_TRUE );
+			}
+			else if ( nFirst <= nFocus )
+			{
 				bChanged = TRUE;
+				for ( ; nFirst <= nFocus ; nFirst++ )
+					Select( m_pList[ nFirst ], TRI_TRUE );
 			}
 			else
 			{
-				bChanged |= Select( m_pFocus, TRI_TRUE );
+				bChanged = TRUE;
+				for ( ; nFocus <= nFirst ; nFocus++ )
+					Select( m_pList[ nFocus ], TRI_TRUE );
 			}
 		}
 		else
 		{
-			if ( m_pFocus->m_bSelected == FALSE ) bChanged = DeselectAll( m_pFocus );
+			if ( m_pFocus->m_bSelected == FALSE )
+				bChanged = DeselectAll( m_pFocus );
 			bChanged |= Select( m_pFocus );
 		}
 
-		if ( m_nSelected == 1 && m_pFocus->m_bSelected ) m_pFirst = m_pFocus;
+		if ( m_nSelected == 1 && m_pFocus->m_bSelected )
+			m_pFirst = m_pFocus;
 
 		CRect rcClient, rcItem;
 
@@ -457,7 +456,7 @@ void CLibraryThumbView::UpdateScroll()
 	GetClientRect( &rc );
 
 	SCROLLINFO pInfo = {};
-	pInfo.cbSize	= sizeof(pInfo);
+	pInfo.cbSize	= sizeof( pInfo );
 	pInfo.fMask		= SIF_ALL & ~SIF_TRACKPOS;
 	pInfo.nMin		= 0;
 	pInfo.nMax		= ( ( m_nCount + m_nColumns - 1 ) / m_nColumns ) * CY;
@@ -864,8 +863,8 @@ void CLibraryThumbView::OnRun()
 
 				if ( CLibraryFile* pFile = Library.LookupFile( m_pList[ i ]->m_nIndex ) )
 				{
-					nIndex	= pFile->m_nIndex;
-					strPath	= pFile->GetPath();
+					nIndex  = pFile->m_nIndex;
+					strPath = pFile->GetPath();
 					oLock.Unlock();
 					break;
 				}

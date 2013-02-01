@@ -101,8 +101,8 @@ CLibraryFile::CLibraryFile(CLibraryFolder* pFolder, LPCTSTR pszName)
 	, m_bNewFile		( FALSE )
 	, m_tCreateTime		( 0 )
 {
-	ZeroMemory( &m_pTime, sizeof(m_pTime) );
-	ZeroMemory( &m_pMetadataTime, sizeof(m_pMetadataTime) );
+	ZeroMemory( &m_pTime, sizeof( m_pTime ) );
+	ZeroMemory( &m_pMetadataTime, sizeof( m_pMetadataTime ) );
 	if ( pszName )
 	{
 		m_sName = pszName;
@@ -838,7 +838,7 @@ void CLibraryFile::Serialize(CArchive& ar, int nVersion)
 		ar << m_sName;
 		ar << m_nIndex;
 		ar << m_nSize;
-		ar.Write( &m_pTime, sizeof(m_pTime) );
+		ar.Write( &m_pTime, sizeof( m_pTime ) );
 		ar << m_bShared;
 
 		ar << m_nVirtualSize;
@@ -913,7 +913,7 @@ void CLibraryFile::Serialize(CArchive& ar, int nVersion)
 		//	m_nSize = nSize;
 		//}
 
-		ReadArchive( ar, &m_pTime, sizeof(m_pTime) );
+		ReadArchive( ar, &m_pTime, sizeof( m_pTime ) );
 
 		//if ( nVersion >= 5 )
 			ar >> m_bShared;
@@ -950,7 +950,7 @@ void CLibraryFile::Serialize(CArchive& ar, int nVersion)
 			//{
 			//	ar >> m_bMetadataAuto;
 			//	if ( ! m_bMetadataAuto )
-			//		ReadArchive( ar, &m_pMetadataTime, sizeof(m_pMetadataTime) );
+			//		ReadArchive( ar, &m_pMetadataTime, sizeof( m_pMetadataTime ) );
 			//}
 			m_pMetadata = new CXMLElement();
 			if ( ! m_pMetadata )
@@ -975,12 +975,12 @@ void CLibraryFile::Serialize(CArchive& ar, int nVersion)
 		//if ( nVersion >= 27 )
 		//{
 			ar >> m_bMetadataAuto;
-			ReadArchive( ar, &m_pMetadataTime, sizeof(m_pMetadataTime) );
+			ReadArchive( ar, &m_pMetadataTime, sizeof( m_pMetadataTime ) );
 		//}
 		//else
 		//{
 		//	if ( m_bMetadataAuto && IsRated() )
-		//		ReadArchive( ar, &m_pMetadataTime, sizeof(m_pMetadataTime) );
+		//		ReadArchive( ar, &m_pMetadataTime, sizeof( m_pMetadataTime ) );
 		//}
 
 		m_bMetadataModified = FALSE;
@@ -1054,7 +1054,7 @@ BOOL CLibraryFile::ThreadScan(CSingleLock& pLock, DWORD nScanCookie, QWORD nSize
 
 	Library.RemoveFile( this );
 
-	CopyMemory( &m_pTime, pTime, sizeof(FILETIME) );
+	CopyMemory( &m_pTime, pTime, sizeof( FILETIME ) );
 	m_nSize = nSize;
 
 	m_oSHA1.clear();
@@ -1397,12 +1397,12 @@ void CSharedSource::Serialize(CArchive& ar, int /*nVersion*/)
 	if ( ar.IsStoring() )
 	{
 		ar << m_sURL;
-		ar.Write( &m_pTime, sizeof(FILETIME) );
+		ar.Write( &m_pTime, sizeof( FILETIME ) );
 	}
 	else // Loading
 	{
 		ar >> m_sURL;
-		ReadArchive( ar, &m_pTime, sizeof(FILETIME) );
+		ReadArchive( ar, &m_pTime, sizeof( FILETIME ) );
 
 		//if ( nVersion < 10 )
 		//{

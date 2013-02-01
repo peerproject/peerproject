@@ -78,7 +78,7 @@ END_MESSAGE_MAP()
 #define DOWNLOAD_COLUMN_STATUS		6
 #define DOWNLOAD_COLUMN_CLIENT		7
 #define DOWNLOAD_COLUMN_COUNTRY		8
-#define COLUMNS_TO_SORT				DOWNLOAD_COLUMN_PERCENTAGE - DOWNLOAD_COLUMN_TITLE
+#define COLUMNS_TO_SORT				DOWNLOAD_COLUMN_PERCENTAGE - DOWNLOAD_COLUMN_TITLE + 1
 
 //////////////////////////////////////////////////////////////////////////////
 // CDownloadsCtrl construction
@@ -158,7 +158,7 @@ int CDownloadsCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_pDeselect1		= NULL;
 	m_pDeselect2		= NULL;
 
-	m_pbSortAscending	= new BOOL[COLUMNS_TO_SORT + 1];
+	m_pbSortAscending	= new BOOL[ COLUMNS_TO_SORT ];
 	for ( int i = DOWNLOAD_COLUMN_TITLE ; i <= DOWNLOAD_COLUMN_PERCENTAGE ; i++ )
 		m_pbSortAscending[i] = TRUE;
 
@@ -213,13 +213,13 @@ BOOL CDownloadsCtrl::LoadColumnState()
 {
 	CString strOrdering, strWidths, strItem;
 
-	strOrdering = theApp.GetProfileString( _T("ListStates"), _T("CDownloadCtrl.Ordering"), _T("") );
-	strWidths = theApp.GetProfileString( _T("ListStates"), _T("CDownloadCtrl.Widths"), _T("") );
+	strOrdering	= theApp.GetProfileString( _T("ListStates"), _T("CDownloadCtrl.Ordering"), _T("") );
+	strWidths	= theApp.GetProfileString( _T("ListStates"), _T("CDownloadCtrl.Widths"), _T("") );
 
 	HDITEM pItem = { HDI_WIDTH|HDI_ORDER };
 
 	if ( _tcsncmp( strWidths, _T("0000"), 4 ) == 0 &&
-		_tcsncmp( strOrdering, _T("00"), 2 ) == 0 )
+		 _tcsncmp( strOrdering, _T("00"), 2 ) == 0 )
 	{
 		strWidths = strWidths.Mid( 4 );
 		strOrdering = strOrdering.Mid( 2 );
@@ -231,7 +231,7 @@ BOOL CDownloadsCtrl::LoadColumnState()
 			return FALSE;
 
 		if ( _stscanf( strWidths.Left( 4 ), _T("%x"), &pItem.cxy ) != 1 ||
-				_stscanf( strOrdering.Left( 2 ), _T("%x"), &pItem.iOrder ) != 1 )
+			 _stscanf( strOrdering.Left( 2 ), _T("%x"), &pItem.iOrder ) != 1 )
 			return FALSE;
 
 		strWidths = strWidths.Mid( 4 );
@@ -806,7 +806,7 @@ void CDownloadsCtrl::OnSize(UINT nType, int cx, int cy)
 		nWidth += pColumn.cxy;
 
 	SCROLLINFO pScroll = {};
-	pScroll.cbSize	= sizeof(pScroll);
+	pScroll.cbSize	= sizeof( pScroll );
 	pScroll.fMask	= SIF_RANGE|SIF_PAGE;
 	pScroll.nMin	= 0;
 	pScroll.nMax	= nWidth;
@@ -860,8 +860,8 @@ void CDownloadsCtrl::OnSize(UINT nType, int cx, int cy)
 
 	pLock.Unlock();
 
-	ZeroMemory( &pScroll, sizeof(pScroll) );
-	pScroll.cbSize	= sizeof(pScroll);
+	ZeroMemory( &pScroll, sizeof( pScroll ) );
+	pScroll.cbSize	= sizeof( pScroll );
 	pScroll.fMask	= SIF_RANGE|SIF_PAGE;
 	pScroll.nMin	= 0;
 	pScroll.nMax	= nHeight;
@@ -943,7 +943,7 @@ void CDownloadsCtrl::OnPaint()
 			if ( nScroll >= nSources )
 			{
 				nScroll -= nSources;
-				nIndex += nSources;
+				nIndex  += nSources;
 				continue;
 			}
 		}
@@ -1569,8 +1569,8 @@ void CDownloadsCtrl::OnSkinChange()
 void CDownloadsCtrl::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar*/)
 {
 	SCROLLINFO pInfo = {};
-	pInfo.cbSize	= sizeof(pInfo);
-	pInfo.fMask		= SIF_ALL & ~SIF_TRACKPOS;
+	pInfo.cbSize = sizeof( pInfo );
+	pInfo.fMask  = SIF_ALL & ~SIF_TRACKPOS;
 
 	GetScrollInfo( SB_VERT, &pInfo );
 	int nDelta = pInfo.nPos;
@@ -1611,7 +1611,7 @@ void CDownloadsCtrl::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar
 void CDownloadsCtrl::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar*/)
 {
 	SCROLLINFO pInfo = {};
-	pInfo.cbSize = sizeof(pInfo);
+	pInfo.cbSize = sizeof( pInfo );
 	pInfo.fMask  = SIF_ALL & ~SIF_TRACKPOS;
 
 	GetScrollInfo( SB_HORZ, &pInfo );

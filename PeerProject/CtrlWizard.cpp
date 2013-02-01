@@ -55,14 +55,14 @@ CWizardCtrl::~CWizardCtrl()
 
 BEGIN_MESSAGE_MAP(CWizardCtrl, CWnd)
 	//{{AFX_MSG_MAP(CWizardCtrl)
+	ON_WM_CREATE()
+	ON_WM_DESTROY()
 	ON_WM_PAINT()
 	ON_WM_NCPAINT()
 	ON_WM_ERASEBKGND()
 	ON_WM_VSCROLL()
 	ON_WM_SETFOCUS()
 	ON_WM_SHOWWINDOW()
-	ON_WM_CREATE()
-	ON_WM_DESTROY()
 	ON_BN_CLICKED(IDC_WIZARD_CONTROL, OnBtnPress)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
@@ -222,7 +222,7 @@ void CWizardCtrl::OnVScroll(UINT nSBCode, UINT /*nPos*/, CScrollBar* /*pScrollBa
 {
 	SCROLLINFO pScroll = {};
 
-	pScroll.cbSize	= sizeof(pScroll);
+	pScroll.cbSize	= sizeof( pScroll );
 	pScroll.fMask	= SIF_ALL;
 
 	GetScrollInfo( SB_VERT, &pScroll );
@@ -499,7 +499,7 @@ void CWizardCtrl::Layout()
 	GetClientRect( &rcClient );
 
 	SCROLLINFO pScroll = {};
-	pScroll.cbSize	= sizeof(pScroll);
+	pScroll.cbSize	= sizeof( pScroll );
 	pScroll.fMask	= SIF_PAGE|SIF_POS|SIF_RANGE|SIF_DISABLENOSCROLL;
 	pScroll.nPage	= rcClient.Height();
 	pScroll.nPos	= m_nScroll;

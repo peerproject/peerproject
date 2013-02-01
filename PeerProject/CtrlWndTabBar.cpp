@@ -251,11 +251,8 @@ void CWndTabBar::OnUpdateCmdUI(CFrameWnd* pTarget, BOOL /*bDisableIfNoHndler*/)
 
 	CChildWnd* pActive = pManager->GetActive();
 
-	if ( pActive && pActive->m_bGroupMode )
-	{
-		if ( pActive->m_pGroupParent )
-			pActive = pActive->m_pGroupParent;
-	}
+	if ( pActive && pActive->m_bGroupMode && pActive->m_pGroupParent )
+		pActive = pActive->m_pGroupParent;
 
 	for ( POSITION posChild = pManager->GetIterator() ; posChild ; )
 	{
@@ -464,7 +461,7 @@ void CWndTabBar::DoPaint(CDC* pDC)
 	}
 	else
 	{
-		CSize  sz = pDC->GetTextExtent( m_sMessage );
+		CSize sz  = pDC->GetTextExtent( m_sMessage );
 		CPoint pt = rc.CenterPoint();
 		pt.x -= sz.cx / 2;
 		pt.y -= sz.cy / 2 + 1;
@@ -606,11 +603,11 @@ void CWndTabBar::OnLButtonDown(UINT nFlags, CPoint point)
 		}
 		return;
 	}
-	else if ( m_nMessage == IDS_TABBAR_CONNECTED )
-	{
-		if ( m_pItems.GetCount() == 0 && m_rcMessage.PtInRect( point ) )
-			return;
-	}
+
+	if ( m_nMessage == IDS_TABBAR_CONNECTED &&
+		 m_pItems.GetCount() == 0 &&
+		 m_rcMessage.PtInRect( point ) )
+		return;
 
 	CControlBar::OnLButtonDown( nFlags, point );
 }
@@ -671,7 +668,7 @@ void CWndTabBar::OnRButtonUp(UINT nFlags, CPoint point)
 		UINT nCommand		= 0;
 
 		//MENUITEMINFO pInfo;
-		//pInfo.cbSize	= sizeof(pInfo);
+		//pInfo.cbSize	= sizeof( pInfo );
 		//pInfo.fMask	= MIIM_STATE;
 		//GetMenuItemInfo( pMenu->GetSafeHmenu(), ID_CHILD_RESTORE, FALSE, &pInfo );
 		//pInfo.fState = ( pInfo.fState & (~MFS_DEFAULT) ) | ( bCanRestore ? MFS_DEFAULT : 0 );
@@ -694,16 +691,16 @@ void CWndTabBar::OnRButtonUp(UINT nFlags, CPoint point)
 		CoolMenu.AddMenu( pMenu, TRUE );
 		if ( rcItem.bottom > GetSystemMetrics( SM_CYSCREEN ) / 2 )
 		{
-			nCommand = pMenu->TrackPopupMenu( TPM_RETURNCMD|TPM_RIGHTBUTTON|
-				TPM_LEFTALIGN|TPM_BOTTOMALIGN, Settings.General.LanguageRTL ? rcItem.right : rcItem.left,
+			nCommand = pMenu->TrackPopupMenu( TPM_RETURNCMD|TPM_RIGHTBUTTON|TPM_LEFTALIGN|TPM_BOTTOMALIGN,
+				Settings.General.LanguageRTL ? rcItem.right : rcItem.left,
 				rcItem.top + 1, this );
 		}
 		else
 		{
 			CoolMenu.RegisterEdge( Settings.General.LanguageRTL ? rcItem.right : rcItem.left,
 				rcItem.bottom - 1, rcItem.Width() );
-			nCommand = pMenu->TrackPopupMenu( TPM_RETURNCMD|TPM_RIGHTBUTTON|
-				TPM_LEFTALIGN|TPM_TOPALIGN, Settings.General.LanguageRTL ? rcItem.right : rcItem.left,
+			nCommand = pMenu->TrackPopupMenu( TPM_RETURNCMD|TPM_RIGHTBUTTON|TPM_LEFTALIGN|TPM_TOPALIGN,
+				Settings.General.LanguageRTL ? rcItem.right : rcItem.left,
 				rcItem.bottom - 1, this );
 		}
 

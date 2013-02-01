@@ -491,7 +491,7 @@ void CNetwork::CreateID(Hashes::Guid& oID)
 
 BOOL CNetwork::Resolve(LPCTSTR pszHost, int nPort, SOCKADDR_IN* pHost, BOOL bNames)
 {
-	ZeroMemory( pHost, sizeof(*pHost) );
+	ZeroMemory( pHost, sizeof( *pHost ) );
 	pHost->sin_family	= PF_INET;
 	pHost->sin_port		= htons( u_short( nPort ) );
 
@@ -716,7 +716,7 @@ bool CNetwork::PreRun()
 		HINTERNET hInternet = SafeInternetOpen();
 
 		ici.dwConnectedState = INTERNET_STATE_CONNECTED;
-		InternetSetOption( hInternet, INTERNET_OPTION_CONNECTED_STATE, &ici, sizeof(ici) );
+		InternetSetOption( hInternet, INTERNET_OPTION_CONNECTED_STATE, &ici, sizeof( ici ) );
 		InternetCloseHandle( hInternet );
 	}
 
@@ -1089,7 +1089,7 @@ BOOL CNetwork::RouteHits(CQueryHit* pHits, CPacket* pPacket)
 	{
 		if ( pOrigin->m_nProtocol == pPacket->m_nProtocol )
 		{
-			pOrigin->Send( pPacket, FALSE, FALSE );	// Dont buffer
+			pOrigin->Send( pPacket, FALSE, FALSE );		// Dont buffer
 		}
 		else if ( pOrigin->m_nProtocol == PROTOCOL_G1 && pPacket->m_nProtocol == PROTOCOL_G2 )
 		{
@@ -1100,7 +1100,7 @@ BOOL CNetwork::RouteHits(CQueryHit* pHits, CPacket* pPacket)
 		else if ( pOrigin->m_nProtocol == PROTOCOL_G2 && pPacket->m_nProtocol == PROTOCOL_G1 )
 		{
 			pPacket = CG2Packet::New( G2_PACKET_HIT_WRAP, (CG1Packet*)pPacket );
-			pOrigin->Send( pPacket, TRUE, FALSE );	// Dont buffer
+			pOrigin->Send( pPacket, TRUE, FALSE );		// Dont buffer
 		}
 		else
 		{
@@ -1532,7 +1532,7 @@ void CNetwork::MapPorts()
 				GetInterface( IID_INATNumberOfEntriesCallback ) );
 
 			// Retrieve the mappings collection
-			CComPtr< IStaticPortMappingCollection >	pCollection;
+			CComPtr< IStaticPortMappingCollection > pCollection;
 			for ( int i = 0 ; i < 5 ; ++i )
 			{
 				pCollection.Release();
@@ -1645,7 +1645,7 @@ void CNetwork::DeletePorts()
 		if ( m_pNat )
 		{
 			// Retrieve the mappings collection
-			CComPtr< IStaticPortMappingCollection >	pCollection;
+			CComPtr< IStaticPortMappingCollection > pCollection;
 			HRESULT hr = m_pNat->get_StaticPortMappingCollection( &pCollection );
 			if ( SUCCEEDED( hr ) && pCollection )
 			{

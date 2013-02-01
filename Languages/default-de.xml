@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default German Skin File -->
 
-<!-- Translation based on default-en.xml r88 -->
+<!-- Translation based on default-en.xml r90 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -600,9 +600,9 @@
 				<menu text="_Websites">
 					<item id="ID_HELP_FORUMS" text="PeerProjekt-_Forums"/>
 					<item id="ID_HELP_FORUMS_LOCAL" text="_Deutsch Forum"/>
-					<separator/>
+					<!-- <separator/>
 					<item id="ID_HELP_WEB_1" text="File Sharing Portal"/>
-					<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
+					<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
 				</menu>
 				<separator/> <!--
 				<item id="ID_HELP_VERSION_CHECK" text="Nach _Update suchen"/>
@@ -707,13 +707,13 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProjekt's Homepage"/>
 				<item id="ID_HELP_FORUMS" text="PeerProjekt-_Forums"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_Deutsch Forum"/>
-				<separator/>
+				<!-- <separator/>
 				<item id="ID_HELP_WEB_1" text="File Sharing Portal"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
+				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
 			</menu>
 			<separator/> <!--
 			<item id="ID_HELP_VERSION_CHECK" text="Nach _Update suchen"/>
-			<item id="ID_HELP_DONATE" text="_An das PeerProjekt spenden!"/>
+			<item id="ID_HELP_DONATE" text="_An das PeerProjekt spenden"/>
 			<separator/> -->
 			<item id="ID_HELP_ABOUT" text="_Über PeerProjekt..."/>
 		</menu>
@@ -780,13 +780,13 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProjekt's Homepage"/>
 				<item id="ID_HELP_FORUMS" text="PeerProjekt-_Forums"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_Deutsch Forum"/>
-				<separator/>
+				<!-- <separator/>
 				<item id="ID_HELP_WEB_1" text="File Sharing Portal"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
+				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
 			</menu>
 			<separator/> <!--
 			<item id="ID_HELP_VERSION_CHECK" text="Auf neuere _Version prüfen"/>
-			<item id="ID_HELP_DONATE" text="_Spenden an das PeerProjekt Projekt!"/>
+			<item id="ID_HELP_DONATE" text="_Spenden an das PeerProjekt"/>
 			<separator/> -->
 			<item id="ID_HELP_ABOUT" text="_Über PeerProjekt..."/>
 		</menu>
@@ -876,13 +876,13 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProjekt's Homepage"/>
 				<item id="ID_HELP_FORUMS" text="PeerProjekt-_Forum"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_Deutsch Forum"/>
-				<separator/>
+				<!-- <separator/>
 				<item id="ID_HELP_WEB_1" text="File Sharing Portal"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
+				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
 			</menu>
 			<separator/> <!--
 			<item id="ID_HELP_VERSION_CHECK" text="Nach _Update suchen"/>
-			<item id="ID_HELP_DONATE" text="_An das PeerProjekt spenden!"/>
+			<item id="ID_HELP_DONATE" text="_An das PeerProjekt spenden"/>
 			<separator/> -->
 			<item id="ID_HELP_ABOUT" text="_Über PeerProjekt..."/>
 		</menu>
@@ -2737,7 +2737,7 @@
 	<string id="20081" value="&amp;Schließen"/>
 	<string id="20082" value="Fertig, Schließen klicken"/>
 	<string id="20083" value="Anfordern..."/>
-	<string id="20084" value="Erfolg!"/>
+	<string id="20084" value="Erfolg"/>
 	<string id="20100" value="&quot;Durchsuchen&quot; Verbindung zu %s wird beendet."/>
 	<string id="20101" value="&quot;Durchsuchen&quot; Host %s hat eine unbekannte Nachricht übertragen, &quot;Durchsuchen&quot; wird möglicherweise nicht unterstützt."/>
 	<string id="20102" value="Kann keine Verbindung zum Durchsuchen herstellen."/>
@@ -2905,7 +2905,7 @@
 	<string id="20290" value="Download-Host %s hat mit einem anderem, aber nützlichen Dateibereich (%I64i-%I64i) von &quot;%s&quot; geantwortet."/>
 	<string id="20291" value="Unnötige Push-Verbindung von %s empfangen, Verbindung wird geschlossen."/>
 	<string id="20292" value="Quelle %s (%s) entfernt, weil sie beschädigte Teile der Datei &quot;%s&quot; übertragen hat (%I64i-%I64i)."/>
-	<string id="20293" value="WARNUNG: Die heruntergeladene Datei &quot;%s&quot; hat die Überprüfung nicht bestanden, möglicherweise ist dies nicht die Datei, die Sie herunterladen wollten!"/>
+	<string id="20293" value="WARNUNG: Die heruntergeladene Datei &quot;%s&quot; hat die Überprüfung nicht bestanden, möglicherweise ist dies nicht die Datei, die Sie herunterladen wollten"/>
 	<string id="20294" value="Heruntergeladene Datei &quot;%s&quot; erfolgreich überpüft."/>
 	<string id="20295" value="Download-Host %s hat eine andere Version der Datei &quot;%s&quot; (Hash verschieden), abgebrochen."/>
 	<string id="20296" value="Download-Host %s hat einen unnützes Fragment von &quot;%s&quot; gesendet, ausstehend."/>
@@ -3510,7 +3510,7 @@
 		<control caption="_Entfernen"/>
 		<control caption="_Visualisierungsplugin:"/>
 		<control caption="Plugin _wählen..."/>
-		<control caption="Wenn Sie ihre Medien durch einen externen Player verwalten lassen, deaktiviert dies automatisch alle Medien- und Visualisierungsplugins!"/>
+		<control caption="Wenn Sie ihre Medien durch einen externen Player verwalten lassen, deaktiviert dies automatisch alle Medien- und Visualisierungsplugins"/>
 	</dialog>
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Community">
 		<control caption="Mein _Profil:"/>
@@ -3868,7 +3868,7 @@
 		<control caption="Uploader belohnen"/>
 	</dialog>
 	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="Willkommen bei PeerProjekt &#160;(1/8)">
-		<control caption="Willkommen bei PeerProjekt!"/>
+		<control caption="Willkommen bei PeerProjekt."/>
 		<control caption="Wenn Sie PeerProjekt oder einen anderen P2P-Client noch nie benutzt haben, kann Ihnen dieser Assistent bei der Konfiguration in einigen einfachen Schritten helfen."/>
 		<control caption="Wenn Sie ein fortgeschrittener Benutzer sind, können Sie alle Einstellungen unter Extras -&gt; Einstellungen verändern. Klicken Sie auf Schließen, um den Assistenten zu beenden."/>
 		<control caption="Dieser Assistent wird ihnen dabei helfen:"/>
@@ -4410,16 +4410,16 @@
 		<control caption="PeerProjekt enthält KEINE &quot;spyware&quot;, &quot;adware&quot; oder andere zusätzliche Software. Es zeigt keine Werbung oder &quot;popups&quot; an.{n}{n}Wenn Sie Werbung oder &quot;popups&quot; sehen während Sie PeerProjekt benutzen, können Sie sicher sein, dass diese nicht von PeerProjekt stammen."/>
 		<control caption="Leider installieren viele andere Programme unerwünschte Adware oder Spyware. Falls Sie etwas Verdächtiges beobachten, können Sie ihren PC mit einem Anti-Spyware-Programm überprüfen."/>
 		<control caption="PeerProjekt kostet nichts und kann von jedem kostenlos von http://peerproject.org/ heruntergeladen werden. Wenn Sie jemandem Geld für PeerProjekt bezahlt haben, sollten Sie sofort ihr Geld zurückverlangen."/>
-		<control caption="PeerProjekt respektiert seine Benutzer!"/>
+		<control caption="PeerProjekt respektiert seine Benutzer."/>
 		<control caption="http://PeerProject.org/"/>
 		<control caption="Schließen"/>
 	</dialog>
 	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Empfehlen Sie PeerProjekt">
-		<control caption="Empfehlen Sie PeerProjekt ihren Freunden und Bekannten!"/>
+		<control caption="Empfehlen Sie PeerProjekt ihren Freunden und Bekannten."/>
 		<control caption="Wir hoffen, dass ihnen PeerProjekt gefällt. Wir glauben, dass PeerProjekt das beste Filesharing-Programm auf dem Markt ist."/>
-		<control caption="Leider wissen viele nicht, was sie verpassen!"/>
+		<control caption="Leider wissen viele nicht, was sie verpassen."/>
 		<control caption="Wenn Sie also jemanden kennen, dem PeerProjekt auch gefallen könnte, empfehlen Sie PeerProjekt doch weiter."/>
-		<control caption="Ihre Freunde werden ihnen dankbar sein!"/>
+		<control caption="Ihre Freunde werden ihnen dankbar sein."/>
 		<control caption="http://PeerProject.org"/>
 		<control caption="OK"/>
 	</dialog>

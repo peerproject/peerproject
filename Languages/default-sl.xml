@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Slovenian Skin File -->
 
-<!-- Translation based on default-en.xml r88 --> <!-- (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r90 --> <!-- (Shareaza 2.2.2.12) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2153,7 +2153,7 @@
 	<tip id="ID_DISCOVERY_BROWSE" message="Brskajte po statistiki po izbrani GWebCache storitvi na spletu."/>
 	<tip id="ID_DISCOVERY_EDIT" message="Ogled lastnosti izbrane storitve discovery."/>
 	<tip id="ID_DISCOVERY_GNUTELLA" message="Ogled storitev za začetno nalaganje (bootstrap) v oknu Discovery."/>
-	<tip id="ID_DISCOVERY_QUERY" message="Poizveduj po izbranih storitvah discovery takoj!"/>
+	<tip id="ID_DISCOVERY_QUERY" message="Poizveduj po izbranih storitvah discovery takoj."/>
 	<tip id="ID_DISCOVERY_REMOVE" message="Odstrani izbrane storitve discovery."/>
 	<tip id="ID_DISCOVERY_SERVERLIST" message="Ogled storitev eDonkey2000 Server.met v Discovery oknu."/>
 	<tip id="ID_DISCOVERY_WEBCACHE" message="Ogled storitev GWebCache v Discovery oknu."/>
@@ -2503,7 +2503,7 @@
 	<string id="20081" value="&amp;Zapri"/>
 	<string id="20082" value="Končano, kliknite gumb Zapri"/>
 	<string id="20083" value="Naprošam..."/>
-	<string id="20084" value="Uspeh!"/>
+	<string id="20084" value="Uspeh."/>
 	<string id="20100" value="Zapiram uporabniško povezavo za brskanje do %s."/>
 	<string id="20101" value="Gostitelj %s, po katerem smo želeli brskati, je odgovoril z neprepoznavnim odgovorom in morda sploh ne podpira uporabniško/gostiteljskega brskanja."/>
 	<string id="20102" value="Priklop s ciljem brskanja po uporabniku ni mogoče."/>
@@ -2670,7 +2670,7 @@
 	<string id="20290" value="Gostitelj za prenos %s je odgovoril z drugačnim, a uporabnim razponom (%I64i-%I64i) od &quot;%s&quot;."/>
 	<string id="20291" value="Prejel nepotrebno potisno (push) povezavo od %s."/>
 	<string id="20292" value="Opuščam vir %s (%s) zaradi pošiljanja pokvarjenih delov &quot;%s&quot; (%I64i-%I64i)."/>
-	<string id="20293" value="POZOR: Prenos &quot;%s&quot; ni uspešno prestal preverjanja, prav mogoče je, da to ni datoteka, ki ste jo nameravali prenesti!"/>
+	<string id="20293" value="POZOR: Prenos &quot;%s&quot; ni uspešno prestal preverjanja, prav mogoče je, da to ni datoteka, ki ste jo nameravali prenesti."/>
 	<string id="20294" value="Preverjanje prenosa &quot;%s&quot; je bilo uspešno."/>
 	<string id="20295" value="Prenosno gostiteljeva %s različica &quot;%s&quot; ima drugačen URN, prekinjam."/>
 	<string id="20296" value="Gostitelj za prenos %s je odgovoril z neuporabnim bitnim razponom &quot;%s&quot;, v čakanju."/>
@@ -3353,7 +3353,7 @@
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="Omrežja">
 		<control caption="PeerProject je večnamenski program za deljenje datotek, ki lahko hkrati dostopa do več P2P omrežij na enkrat. Na tej strani lahko izberete na katera P2P omrežja se želite povezati ter uredite nastavitve za vsako posamezno omrežje."/>
 		<control caption="Gnutella2 omrežje:"/>
-		<control caption="Gnutella2 omrežje je glavno PeerProject omrežje. Omogoča več funkcij in boljše delovanje, kot katerokoli drugo P2P omrežje. Močno priporočamo!"/>
+		<control caption="Gnutella2 omrežje je glavno PeerProject omrežje. Omogoča več funkcij in boljše delovanje, kot katerokoli drugo P2P omrežje. Močno priporočamo."/>
 		<control caption="Prikaži Gnutella2 (G2)"/>
 		<control caption="Nastavitve Gnutella2"/>
 		<control caption="Izvorno Gnutella omrežje:"/>
@@ -3623,7 +3623,7 @@
 		<control caption="Navadni način"/>
 		<control caption="Napredni način"/>
 		<control caption="Enostavni meniji in gumbi.{n}Ti so dobro znani uporabnikom drugih programov za deljenje datotek."/>
-		<control caption="Napredni način omogoča uporabniku uporabo dodatnih ukazov, oken, itd.{n}Vmesnik se lahko novincem zdi precej zapleten!"/>
+		<control caption="Napredni način omogoča uporabniku uporabo dodatnih ukazov, oken, itd.{n}Vmesnik se lahko novincem zdi precej zapleten."/>
 		<control caption="Prikaži poenostavljene kazalce napredka."/>
 		<control caption=""/>
 	</dialog>
@@ -4088,16 +4088,16 @@
 		<control caption="PeerProject NE vsebuje &quot;spyware&quot;, &quot;adware&quot; ali drugo neželjeno programje. Nikoli NE prikazuje reklam ali &quot;pop-up&quot; oken.{n}{n}Če boste slučajno naleteli na reklame ali &quot;pop-up&quot; okna med uporabo tega programa ste lahko prepričani, da ne izvirajo od PeerProject."/>
 		<control caption="Na žalost je veliko drugim programskim opremam dodano neželjeno adware ali spyware programje. Če boste opazili kaj sumljivega vam priporočamo, da uporabite programe, ki bodo počistili z vašega računalnika neželjeno programje."/>
 		<control caption="Za to, da namestite program PeerProject, vam ni potrebno plačati niti tolarja/centa. PeerProject lahko svobdno prenesete s spletne strani http://peerproject.org/. Če ste komurkoli plačali za PeerProject, zahtevajte svoj denar takoj nazaj."/>
-		<control caption="PeerProject spoštuje svoje uporabnike!"/>
+		<control caption="PeerProject spoštuje svoje uporabnike."/>
 		<control caption="http://PeerProject.org"/>
 		<control caption="Zapri"/>
 	</dialog>
 	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Dober glas seže v deveto vas">
 		<control caption="Pomagajte nam širiti dobro besedo o PeerProject"/>
 		<control caption="Upamo, da ste bili do sedaj zadovoljni s PeerProject. Smo mnenja, da je to najboljši program za za deljenje datotek daleč naokoli.."/>
-		<control caption="Na žalost se veliko ljudi, ki deli datoteke po medmrežju, ne ve kaj zamuja!"/>
+		<control caption="Na žalost se veliko ljudi, ki deli datoteke po medmrežju, ne ve kaj zamuja."/>
 		<control caption="Če poznate kogarkoli, ki bi ga zanimala PeerProject, bodisi novega uporabnika ali iskušenega uporabnika, ki se matra z nekim precej slabšim izdelkom, mu sporočite, da obstaja veliko boljša rešitev?"/>
-		<control caption="Zelo verjetno vam bodo za vaš nasvet zelo hvaležni!"/>
+		<control caption="Zelo verjetno vam bodo za vaš nasvet zelo hvaležni."/>
 		<control caption="http://PeerProject.org"/>
 		<control caption="V redu"/>
 	</dialog>

@@ -852,7 +852,7 @@ void CMatchList::Filter()
 			for ( POSITION pos = pWords.GetHeadPosition() ; pos ; )
 			{
 				CString strWord = pWords.GetNext( pos );
-				CopyMemory( pszFilter, (LPCTSTR)strWord, sizeof(TCHAR) * ( strWord.GetLength() + 1 ) );
+				CopyMemory( pszFilter, (LPCTSTR)strWord, sizeof( TCHAR ) * ( strWord.GetLength() + 1 ) );
 				pszFilter += strWord.GetLength() + 1;
 			}
 
@@ -1236,7 +1236,7 @@ void CMatchList::Serialize(CArchive& ar, int nVersion)
 
 		m_nFiles = m_nBuffer = static_cast< DWORD >( ar.ReadCount() );
 		m_pFiles = new CMatchFile*[ m_nFiles ];
-		ZeroMemory( m_pFiles, sizeof(CMatchFile*) * m_nFiles );
+		ZeroMemory( m_pFiles, sizeof( CMatchFile* ) * m_nFiles );
 
 		for ( DWORD nFile = 0 ; nFile < m_nFiles ; nFile++ )
 		{

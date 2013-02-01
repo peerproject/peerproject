@@ -41,6 +41,8 @@
 #define VC_EXTRALEAN		// Exclude rarely-used things from Windows headers
 #define BOOST_USE_WINDOWS_H
 
+#define _AFX_NO_MFC_CONTROLS_IN_DIALOGS		// Smaller filesize VS2012+
+
 #include <sdkddkver.h>		// Setup versioning for Windows SDK/DDK
 #include <afxwin.h> 		// MFC core and standard components
 #include <afxext.h> 		// MFC extensions

@@ -130,7 +130,7 @@ void CCrawlSession::OnRun()
 {
 	if ( ! m_bActive ) return;
 
-	DWORD tNow = static_cast< DWORD >( time( NULL ) );
+	const DWORD tNow = static_cast< DWORD >( time( NULL ) );
 
 	for ( POSITION pos = m_pNodes.GetTailPosition() ; pos ; )
 	{
@@ -190,7 +190,7 @@ CCrawlNode* CCrawlSession::Find(const IN_ADDR* pAddress, BOOL bCreate)
 
 CCrawlNode::CCrawlNode()
 {
-	ZeroMemory( &m_pHost, sizeof(m_pHost) );
+	ZeroMemory( &m_pHost, sizeof( m_pHost ) );
 
 	m_nType			= ntUnknown;
 	m_nLeaves		= 0;

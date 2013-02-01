@@ -28,19 +28,23 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v100</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v100</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v100</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v100</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -95,10 +99,10 @@
       <LargeAddressAware>true</LargeAddressAware>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
-  <MASM>
-    <GenerateDebugInformation>false</GenerateDebugInformation>
-    <WarningLevel>2</WarningLevel>
-  </MASM>
+    <MASM>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <WarningLevel>2</WarningLevel>
+    </MASM>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Midl>
@@ -123,10 +127,10 @@
       <LargeAddressAware>true</LargeAddressAware>
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
-  <MASM>
-    <GenerateDebugInformation>false</GenerateDebugInformation>
-    <WarningLevel>2</WarningLevel>
-  </MASM>
+    <MASM>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <WarningLevel>2</WarningLevel>
+    </MASM>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -153,10 +157,10 @@
       <LargeAddressAware>true</LargeAddressAware>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
-  <MASM>
-    <GenerateDebugInformation>false</GenerateDebugInformation>
-    <WarningLevel>2</WarningLevel>
-  </MASM>
+    <MASM>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <WarningLevel>2</WarningLevel>
+    </MASM>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Midl>
@@ -184,10 +188,10 @@
       <LargeAddressAware>true</LargeAddressAware>
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
-  <MASM>
-    <GenerateDebugInformation>false</GenerateDebugInformation>
-    <WarningLevel>2</WarningLevel>
-  </MASM>
+    <MASM>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <WarningLevel>2</WarningLevel>
+    </MASM>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ED2K.cpp" />

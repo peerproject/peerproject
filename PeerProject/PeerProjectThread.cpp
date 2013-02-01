@@ -38,11 +38,9 @@ CAppThread::~CAppThread()
 }
 
 HANDLE CAppThread::CreateThread(LPCSTR pszName, int nPriority /*= THREAD_PRIORITY_NORMAL*/,
-	DWORD dwCreateFlags /*= 0*/, UINT nStackSize /*= 0*/,
-	LPSECURITY_ATTRIBUTES lpSecurityAttrs /*= NULL*/)
+	DWORD dwCreateFlags /*= 0*/, UINT nStackSize /*= 0*/, LPSECURITY_ATTRIBUTES lpSecurityAttrs /*= NULL*/)
 {
-	if ( CWinThread::CreateThread( dwCreateFlags | CREATE_SUSPENDED, nStackSize,
-		lpSecurityAttrs ) )
+	if ( CWinThread::CreateThread( dwCreateFlags | CREATE_SUSPENDED, nStackSize, lpSecurityAttrs ) )
 	{
 		Add( this, pszName );
 
@@ -199,7 +197,7 @@ void CloseThread(HANDLE* phThread, DWORD dwTimeout)
 			{
 				::SetThreadPriority( *phThread, THREAD_PRIORITY_NORMAL );
 
-				while( *phThread )
+				while ( *phThread )
 				{
 					SafeMessageLoop();
 

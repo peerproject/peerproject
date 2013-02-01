@@ -152,8 +152,8 @@ void CRemoteWnd::OnWindowPosChanging(WINDOWPOS FAR* lpwndpos)
 	{
 		lpwndpos->x = rcWork.left;
 	}
-	else if (	( lpwndpos->x + lpwndpos->cx ) >= ( rcWork.right - SNAP_PIXELS ) &&
-				( lpwndpos->x + lpwndpos->cx ) <= ( rcWork.right + SNAP_PIXELS ) )
+	else if ( ( lpwndpos->x + lpwndpos->cx ) >= ( rcWork.right - SNAP_PIXELS ) &&
+			  ( lpwndpos->x + lpwndpos->cx ) <= ( rcWork.right + SNAP_PIXELS ) )
 	{
 		lpwndpos->x = rcWork.right - lpwndpos->cx;
 	}
@@ -162,8 +162,8 @@ void CRemoteWnd::OnWindowPosChanging(WINDOWPOS FAR* lpwndpos)
 	{
 		lpwndpos->y = rcWork.top;
 	}
-	else if (	( lpwndpos->y + lpwndpos->cy ) >= ( rcWork.bottom - SNAP_PIXELS) &&
-				( lpwndpos->y + lpwndpos->cy ) <= ( rcWork.bottom + SNAP_PIXELS ) )
+	else if ( ( lpwndpos->y + lpwndpos->cy ) >= ( rcWork.bottom - SNAP_PIXELS) &&
+			  ( lpwndpos->y + lpwndpos->cy ) <= ( rcWork.bottom + SNAP_PIXELS ) )
 	{
 		lpwndpos->y = rcWork.bottom - lpwndpos->cy;
 	}
@@ -190,7 +190,8 @@ void CRemoteWnd::OnTimer(UINT_PTR /*nIDEvent*/)
 			CPoint point;
 			GetCursorPos( &point );
 			ScreenToClient( &point );
-			if ( HitTestButtons( point ) != m_pCmdHover ) m_pCmdHover = NULL;
+			if ( HitTestButtons( point ) != m_pCmdHover )
+				m_pCmdHover = NULL;
 		}
 
 		m_sStatus.Format( LoadString( IDS_TRAY_TIP ),
@@ -865,7 +866,7 @@ void CRemoteWnd::OnRButtonDown(UINT /*nFlags*/, CPoint point)
 	if ( pMenu == NULL ) return;
 
 	MENUITEMINFO pInfo;
-	pInfo.cbSize	= sizeof(pInfo);
+	pInfo.cbSize	= sizeof( pInfo );
 	pInfo.fMask		= MIIM_STATE;
 	GetMenuItemInfo( pMenu->GetSafeHmenu(), ID_TRAY_OPEN, FALSE, &pInfo );
 	pInfo.fState	|= MFS_DEFAULT;

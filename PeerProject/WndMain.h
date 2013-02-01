@@ -29,7 +29,7 @@
 #include "PeerProjectDataSource.h"
 
 class CChildWnd;
-class CURLActionDlg;
+//class CURLActionDlg;
 
 
 class CMainWnd : public CMDIFrameWnd
@@ -106,7 +106,7 @@ protected:
 	virtual void GetMessageString(UINT nID, CString& rMessage) const;
 
 protected:
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnClose();
 	afx_msg void OnMeasureItem(int nIDCtl, LPMEASUREITEMSTRUCT lpMeasureItemStruct);
 	afx_msg void OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct);

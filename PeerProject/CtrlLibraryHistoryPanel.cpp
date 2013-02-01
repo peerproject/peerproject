@@ -65,9 +65,9 @@ CLibraryHistoryPanel::~CLibraryHistoryPanel()
 void CLibraryHistoryPanel::Update()
 {
 	m_wndTip.Hide();
+	BOOL bChanged = FALSE;
 
 	CSingleLock pLock( &Library.m_pSection, TRUE );
-	BOOL bChanged = FALSE;
 
 	for ( INT_PTR nItem = m_pList.GetSize() - 1 ; nItem >= 0 ; nItem-- )
 	{
@@ -115,14 +115,19 @@ void CLibraryHistoryPanel::Update()
 		}
 	}
 
+	if ( bChanged )
+		m_pHover = NULL;
+
 	CRect rc;
 	GetClientRect( &rc );
 
 	m_nColumns		= ( rc.Width() > 500 ) ? 2 : 1;
 	int nHeight		= static_cast< int >( ( m_pList.GetSize() + m_nColumns - 1 ) / m_nColumns * 24 + 2 );
 
+	pLock.Unlock();
+
 	SCROLLINFO pInfo = {};
-	pInfo.cbSize	= sizeof(pInfo);
+	pInfo.cbSize	= sizeof( pInfo );
 	pInfo.fMask		= SIF_ALL & ~SIF_TRACKPOS;
 	pInfo.nMin		= 0;
 	pInfo.nMax		= nHeight;
@@ -133,10 +138,7 @@ void CLibraryHistoryPanel::Update()
 	SetScrollInfo( SB_VERT, &pInfo, TRUE );
 
 	if ( bChanged )
-	{
-		m_pHover = NULL;
 		Invalidate();
-	}
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -243,8 +245,7 @@ void CLibraryHistoryPanel::OnPaint()
 
 				rcText.right = rcText.left + szText.cx + 4;
 
-				dc.ExtTextOut( rcText.left + 2, nY, ETO_CLIPPED|ETO_OPAQUE,
-					&rcItem, str, NULL );
+				dc.ExtTextOut( rcText.left + 2, nY, ETO_CLIPPED|ETO_OPAQUE, &rcItem, str, NULL );
 
 				pItem->m_rect.CopyRect( &rcText );
 			}

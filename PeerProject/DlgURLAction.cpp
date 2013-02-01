@@ -248,6 +248,9 @@ BOOL CURLActionDlg::OnInitDialog()
 			m_wndSearch.SetFocus();
 			m_wndNewWindow.ShowWindow( SW_HIDE );
 		}
+
+		//if ( m_pURL->m_oBTH )
+		//	PostMessage( WM_COMMAND, IDC_URL_DOWNLOAD );
 	}
 
 	UpdateData( FALSE );

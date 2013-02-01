@@ -471,7 +471,7 @@ BOOL CDownloadWithSources::AddSourceURL(LPCTSTR pszURL, BOOL bURN, FILETIME* pLa
 	{
 		if ( Network.IsFirewalledAddress( &pURL.m_pAddress, TRUE ) ||
 			 Network.IsReserved( &pURL.m_pAddress ) )
-			 return FALSE;
+			return FALSE;
 	}
 
 	CQuickLock pLock( Transfers.m_pSection );

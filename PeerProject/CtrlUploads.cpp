@@ -648,7 +648,7 @@ void CUploadsCtrl::OnSize(UINT nType, int cx, int cy)
 		nWidth += pColumn.cxy;
 
 	SCROLLINFO pScroll = {};
-	pScroll.cbSize	= sizeof(pScroll);
+	pScroll.cbSize	= sizeof( pScroll );
 	pScroll.fMask	= SIF_RANGE|SIF_PAGE;
 	pScroll.nMin	= 0;
 	pScroll.nMax	= nWidth;
@@ -694,8 +694,8 @@ void CUploadsCtrl::OnSize(UINT nType, int cx, int cy)
 
 	pUploadQueuesLock.Unlock();
 
-	ZeroMemory( &pScroll, sizeof(pScroll) );
-	pScroll.cbSize	= sizeof(pScroll);
+	ZeroMemory( &pScroll, sizeof( pScroll ) );
+	pScroll.cbSize	= sizeof( pScroll );
 	pScroll.fMask	= SIF_RANGE|SIF_PAGE;
 	pScroll.nMin	= 0;
 	pScroll.nMax	= nHeight;
@@ -829,8 +829,8 @@ void CUploadsCtrl::PaintQueue(CDC& dc, const CRect& rcRow, CUploadQueue* pQueue,
 	dc.SetTextColor( bSelected ? Colors.m_crHiText : Colors.m_crText );
 
 	int nTextLeft = rcRow.right, nTextRight = rcRow.left;
-	HDITEM pColumn = {};
 
+	HDITEM pColumn = {};
 	pColumn.mask = HDI_FORMAT | HDI_LPARAM;
 
 	dc.SelectObject( &CoolInterface.m_fntBold );
@@ -1232,8 +1232,7 @@ void CUploadsCtrl::OnSkinChange()
 void CUploadsCtrl::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar*/)
 {
 	SCROLLINFO pInfo = {};
-
-	pInfo.cbSize	= sizeof(pInfo);
+	pInfo.cbSize	= sizeof( pInfo );
 	pInfo.fMask		= SIF_ALL & ~SIF_TRACKPOS;
 
 	GetScrollInfo( SB_VERT, &pInfo );
@@ -1275,8 +1274,7 @@ void CUploadsCtrl::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar*/
 void CUploadsCtrl::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar*/)
 {
 	SCROLLINFO pInfo = {};
-
-	pInfo.cbSize	= sizeof(pInfo);
+	pInfo.cbSize	= sizeof( pInfo );
 	pInfo.fMask		= SIF_ALL & ~SIF_TRACKPOS;
 
 	GetScrollInfo( SB_HORZ, &pInfo );

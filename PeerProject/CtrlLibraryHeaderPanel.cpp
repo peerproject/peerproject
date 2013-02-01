@@ -153,7 +153,7 @@ CAlbumFolder* CLibraryHeaderPanel::GetSelectedAlbum() const
 	CLibraryFrame* pFrame = (CLibraryFrame*)GetOwner();
 	ASSERT_KINDOF(CLibraryFrame, pFrame );
 
-	CLibraryTreeItem* pItem	= pFrame->GetFolderSelection();
+	CLibraryTreeItem* pItem = pFrame->GetFolderSelection();
 	if ( pItem == NULL ) return Library.GetAlbumRoot();
 	if ( pItem->m_pSelNext != NULL ) return NULL;
 

@@ -122,11 +122,11 @@ BOOL CMediaSettingsPage::OnInitDialog()
 		i != Settings.MediaPlayer.ServicePath.end() ; ++i )
 	{
 		CString strPlayer = *i;
-		int nAstrix = strPlayer.ReverseFind( _T('*') );
-		strPlayer.Remove( _T('*') );
+		BOOL bSelected = strPlayer.Right( 1 ) == _T('*');	// SELECTED_PLAYER_TOKEN
+		if ( bSelected ) strPlayer.TrimRight( _T('*') );	// SELECTED_PLAYER_TOKEN
 
 		int nIndex = m_wndServices.AddString( PathFindFileName( strPlayer ) );
-		if ( nAstrix != -1 )		// Selected player
+		if ( bSelected )
 			nSelected = nIndex;
 
 		m_wndServices.SetItemDataPtr( nIndex, new CString( strPlayer ) );
@@ -227,7 +227,7 @@ void CMediaSettingsPage::OnOK()
 		if ( ! psPlayer )
 			continue;
 		if ( i == nSelected )
-			*psPlayer += _T("*");
+			*psPlayer += _T('*');	// SELECTED_PLAYER_TOKEN
 		Settings.MediaPlayer.ServicePath.insert( *psPlayer );
 	}
 
@@ -236,8 +236,7 @@ void CMediaSettingsPage::OnOK()
 	CSettingsSheet* pSheet = GetSheet();
 	for ( INT_PTR nPage = 0 ; nPage < pSheet->GetPageCount() ; nPage++ )
 	{
-		CSettingsPage* pPage = pSheet->GetPage( nPage );
-		if ( pPage )
+		if ( CSettingsPage* pPage = pSheet->GetPage( nPage ) )
 		{
 			CString strClass( pPage->GetRuntimeClass()->m_lpszClassName );
 			if ( strClass == _T("CPluginsSettingsPage") )

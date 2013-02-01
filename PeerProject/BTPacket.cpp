@@ -713,7 +713,7 @@ BOOL CBTPacket::OnPacket(const SOCKADDR_IN* pHost)
 //		// Response message
 //		const CBENode* pResponse = m_pNode->GetNode( BT_DICT_RESPONSE );	// "r"
 //		if ( ! pResponse || ! pResponse->IsType( CBENode::beDict ) )
-//			 return FALSE;
+//			return FALSE;
 //
 //		Hashes::BtGuid oNodeGUID;
 //		const CBENode* pNodeID = pResponse->GetNode( BT_DICT_ID );			// "id"

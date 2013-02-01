@@ -158,13 +158,12 @@ CLibraryFileView::~CLibraryFileView()
 
 BOOL CLibraryFileView::CheckAvailable(CLibraryTreeItem* pSel)
 {
-	m_bAvailable = FALSE;
 	if ( pSel == NULL )
-		return m_bAvailable;
-	m_bAvailable = TRUE;
-
-	if ( pSel->m_pSelNext == NULL && pSel->m_pVirtual != NULL )
+		m_bAvailable = FALSE;
+	else if ( pSel->m_pSelNext == NULL && pSel->m_pVirtual != NULL )
 		m_bAvailable = ( pSel->m_pVirtual->GetFileCount() > 0 );
+	else
+		m_bAvailable = TRUE;
 
 	return m_bAvailable;
 }
@@ -229,7 +228,7 @@ void CLibraryFileView::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 		}
 	}
 
-	if ( point.x == -1 && point.y == -1 ) 	// Keyboard fix
+	if ( point.x == -1 && point.y == -1 )	// Keyboard fix
 		ClientToScreen( &point );
 
 	CString strName( m_pszToolBar );
@@ -269,10 +268,7 @@ void CLibraryFileView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 void CLibraryFileView::OnUpdateLibraryLaunch(CCmdUI* pCmdUI)
 {
-	if ( m_bGhostFolder )
-		pCmdUI->Enable( FALSE );
-	else
-		pCmdUI->Enable( GetSelectedCount() > 0 );
+	pCmdUI->Enable( ! m_bGhostFolder && GetSelectedCount() > 0 );
 }
 
 void CLibraryFileView::OnLibraryLaunch()
@@ -297,10 +293,7 @@ void CLibraryFileView::OnLibraryLaunch()
 
 void CLibraryFileView::OnUpdateLibraryEnqueue(CCmdUI* pCmdUI)
 {
-	if ( m_bGhostFolder )
-		pCmdUI->Enable( FALSE );
-	else
-		pCmdUI->Enable( GetSelectedCount() > 0 );
+	pCmdUI->Enable( ! m_bGhostFolder && GetSelectedCount() > 0 );
 }
 
 void CLibraryFileView::OnLibraryEnqueue()
@@ -323,10 +316,7 @@ void CLibraryFileView::OnLibraryEnqueue()
 
 void CLibraryFileView::OnUpdateLibraryLaunchFolder(CCmdUI* pCmdUI)
 {
-	if ( m_bGhostFolder )
-		pCmdUI->Enable( FALSE );
-	else
-		pCmdUI->Enable( GetSelectedCount() > 0 );
+	pCmdUI->Enable( ! m_bGhostFolder && GetSelectedCount() > 0 );
 }
 
 void CLibraryFileView::OnLibraryLaunchFolder()
@@ -345,14 +335,8 @@ void CLibraryFileView::OnLibraryLaunchFolder()
 
 void CLibraryFileView::OnUpdateLibraryURL(CCmdUI* pCmdUI)
 {
-	if ( m_bGhostFolder )
-		pCmdUI->Enable( FALSE );
-	else
-		pCmdUI->Enable( GetSelectedCount() > 0 );
-
-	CString strMessage;
-	GetSelectedCount() > 1 ? LoadString( strMessage, IDS_LIBRARY_URI_EXPORT ) : LoadString( strMessage, IDS_LIBRARY_URI_COPY );
-	pCmdUI->SetText( strMessage );
+	pCmdUI->Enable( ! m_bGhostFolder && GetSelectedCount() > 0 );
+	pCmdUI->SetText( LoadString( ( GetSelectedCount() > 1 ? IDS_LIBRARY_URI_EXPORT : IDS_LIBRARY_URI_COPY ) ) );
 }
 
 void CLibraryFileView::OnLibraryURL()
@@ -390,10 +374,7 @@ void CLibraryFileView::OnLibraryURL()
 
 void CLibraryFileView::OnUpdateLibraryMove(CCmdUI* pCmdUI)
 {
-	if ( m_bGhostFolder )
-		pCmdUI->Enable( FALSE );
-	else
-		pCmdUI->Enable( GetSelectedCount() > 0 );
+	pCmdUI->Enable( ! m_bGhostFolder && GetSelectedCount() > 0 );
 }
 
 void CLibraryFileView::OnLibraryMove()
@@ -414,10 +395,7 @@ void CLibraryFileView::OnLibraryMove()
 
 void CLibraryFileView::OnUpdateLibraryCopy(CCmdUI* pCmdUI)
 {
-	if ( m_bGhostFolder )
-		pCmdUI->Enable( FALSE );
-	else
-		pCmdUI->Enable( GetSelectedCount() > 0 );
+	pCmdUI->Enable( ! m_bGhostFolder && GetSelectedCount() > 0 );
 }
 
 void CLibraryFileView::OnLibraryCopy()
@@ -503,10 +481,7 @@ void CLibraryFileView::OnLibraryDelete()
 
 void CLibraryFileView::OnUpdateLibraryCreateTorrent(CCmdUI* pCmdUI)
 {
-	if ( m_bGhostFolder )
-		pCmdUI->Enable( FALSE );
-	else
-		pCmdUI->Enable( GetSelectedCount() < 2 && Settings.BitTorrent.TorrentCreatorPath.GetLength() > 6 );
+	pCmdUI->Enable( ! m_bGhostFolder && GetSelectedCount() < 2 && Settings.BitTorrent.TorrentCreatorPath.GetLength() > 6 );
 }
 
 void CLibraryFileView::OnLibraryCreateTorrent()
@@ -715,10 +690,17 @@ void CLibraryFileView::OnLibraryProperties()
 
 void CLibraryFileView::OnUpdateLibraryShared(CCmdUI* pCmdUI)
 {
-	CSingleLock pLock( &Library.m_pSection );
+	if ( GetSelectedCount() < 1 )
+	{
+		pCmdUI->Enable( FALSE );
+		pCmdUI->SetCheck( FALSE );
+		return;
+	}
+
 	TRISTATE bShared = TRI_UNKNOWN;
 
-	if ( GetSelectedCount() > 0 && pLock.Lock( 100 ) )
+	CSingleLock pLock( &Library.m_pSection );
+	if ( pLock.Lock( 100 ) )
 	{
 		POSITION posSel = StartSelectedFileLoop();
 		while ( CLibraryFile* pFile = GetNextSelectedFile( posSel ) )
@@ -733,8 +715,10 @@ void CLibraryFileView::OnUpdateLibraryShared(CCmdUI* pCmdUI)
 				return;
 			}
 		}
+		pLock.Unlock();
 	}
-	pCmdUI->Enable( GetSelectedCount() > 0 );
+
+	pCmdUI->Enable( TRUE );
 	pCmdUI->SetCheck( bShared == TRI_TRUE );
 }
 
@@ -782,7 +766,9 @@ void CLibraryFileView::OnLibraryUnlink()
 
 void CLibraryFileView::OnUpdateSearchForThis(CCmdUI* pCmdUI)
 {
-	CSingleLock pLock( &Library.m_pSection, TRUE );
+	CSingleLock pLock( &Library.m_pSection );
+	if ( ! pLock.Lock( 200 ) ) return;
+
 	CRelatedSearch pSearch( GetSelectedFile() );
 	pCmdUI->Enable( pSearch.CanSearchForThis() );
 }
@@ -790,6 +776,7 @@ void CLibraryFileView::OnUpdateSearchForThis(CCmdUI* pCmdUI)
 void CLibraryFileView::OnSearchForThis()
 {
 	CSingleLock pLock( &Library.m_pSection, TRUE );
+
 	CRelatedSearch pSearch( GetSelectedFile() );
 	pLock.Unlock();
 	pSearch.RunSearchForThis();
@@ -797,7 +784,9 @@ void CLibraryFileView::OnSearchForThis()
 
 void CLibraryFileView::OnUpdateSearchForSimilar(CCmdUI* pCmdUI)
 {
-	CSingleLock pLock( &Library.m_pSection, TRUE );
+	CSingleLock pLock( &Library.m_pSection );
+	if ( ! pLock.Lock( 200 ) ) return;
+
 	CRelatedSearch pSearch( GetSelectedFile() );
 	pCmdUI->Enable( pSearch.CanSearchForSimilar() );
 }
@@ -805,6 +794,7 @@ void CLibraryFileView::OnUpdateSearchForSimilar(CCmdUI* pCmdUI)
 void CLibraryFileView::OnSearchForSimilar()
 {
 	CSingleLock pLock( &Library.m_pSection, TRUE );
+
 	CRelatedSearch pSearch( GetSelectedFile() );
 	pLock.Unlock();
 	pSearch.RunSearchForSimilar();
@@ -812,7 +802,9 @@ void CLibraryFileView::OnSearchForSimilar()
 
 void CLibraryFileView::OnUpdateSearchForArtist(CCmdUI* pCmdUI)
 {
-	CSingleLock pLock( &Library.m_pSection, TRUE );
+	CSingleLock pLock( &Library.m_pSection );
+	if ( ! pLock.Lock( 200 ) ) return;
+
 	CRelatedSearch pSearch( GetSelectedFile() );
 	pCmdUI->Enable( pSearch.CanSearchForArtist() );
 }
@@ -820,6 +812,7 @@ void CLibraryFileView::OnUpdateSearchForArtist(CCmdUI* pCmdUI)
 void CLibraryFileView::OnSearchForArtist()
 {
 	CSingleLock pLock( &Library.m_pSection, TRUE );
+
 	CRelatedSearch pSearch( GetSelectedFile() );
 	pLock.Unlock();
 	pSearch.RunSearchForArtist();
@@ -827,7 +820,9 @@ void CLibraryFileView::OnSearchForArtist()
 
 void CLibraryFileView::OnUpdateSearchForAlbum(CCmdUI* pCmdUI)
 {
-	CSingleLock pLock( &Library.m_pSection, TRUE );
+	CSingleLock pLock( &Library.m_pSection );
+	if ( ! pLock.Lock( 200 ) ) return;
+
 	CRelatedSearch pSearch( GetSelectedFile() );
 	pCmdUI->Enable( pSearch.CanSearchForAlbum() );
 }
@@ -835,6 +830,7 @@ void CLibraryFileView::OnUpdateSearchForAlbum(CCmdUI* pCmdUI)
 void CLibraryFileView::OnSearchForAlbum()
 {
 	CSingleLock pLock( &Library.m_pSection, TRUE );
+
 	CRelatedSearch pSearch( GetSelectedFile() );
 	pLock.Unlock();
 	pSearch.RunSearchForAlbum();
@@ -842,7 +838,9 @@ void CLibraryFileView::OnSearchForAlbum()
 
 void CLibraryFileView::OnUpdateSearchForSeries(CCmdUI* pCmdUI)
 {
-	CSingleLock pLock( &Library.m_pSection, TRUE );
+	CSingleLock pLock( &Library.m_pSection );
+	if ( ! pLock.Lock( 200 ) ) return;
+
 	CRelatedSearch pSearch( GetSelectedFile() );
 	pCmdUI->Enable( pSearch.CanSearchForSeries() );
 }
@@ -850,6 +848,7 @@ void CLibraryFileView::OnUpdateSearchForSeries(CCmdUI* pCmdUI)
 void CLibraryFileView::OnSearchForSeries()
 {
 	CSingleLock pLock( &Library.m_pSection, TRUE );
+
 	CRelatedSearch pSearch( GetSelectedFile() );
 	pLock.Unlock();
 	pSearch.RunSearchForSeries();
@@ -907,15 +906,14 @@ void CLibraryFileView::OnLibraryBitziDownload()
 
 	if ( ! Settings.WebServices.BitziOkay )
 	{
-		CString strFormat;
-		Skin.LoadString( strFormat, IDS_LIBRARY_BITZI_MESSAGE );
-		if ( MsgBox( strFormat, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
+		if ( MsgBox( IDS_LIBRARY_BITZI_MESSAGE, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
 		Settings.WebServices.BitziOkay = true;
 		Settings.Save();
 	}
 
-	CSingleLock pLock( &Library.m_pSection, TRUE );
 	CBitziDownloadDlg dlg;
+
+	CSingleLock pLock( &Library.m_pSection, TRUE );
 
 	POSITION posSel = StartSelectedFileLoop();
 	while ( CLibraryFile* pFile = GetNextSelectedFile( posSel ) )
@@ -940,7 +938,8 @@ void CLibraryFileView::OnUpdateMusicBrainzLookup(CCmdUI* pCmdUI)
 		return;
 	}
 
-	CSingleLock pLock( &Library.m_pSection, TRUE );
+	CSingleLock pLock( &Library.m_pSection );
+	if ( ! pLock.Lock( 200 ) ) return;
 
 	CLibraryFile* pFile = GetSelectedFile();
 	if ( ! pFile->IsSchemaURI( CSchema::uriAudio ) || pFile->m_pMetadata == NULL )
@@ -952,6 +951,8 @@ void CLibraryFileView::OnUpdateMusicBrainzLookup(CCmdUI* pCmdUI)
 	CMetaList* pMetaList = new CMetaList();
 	pMetaList->Setup( pFile->m_pSchema, FALSE );
 	pMetaList->Combine( pFile->m_pMetadata );
+
+	pLock.Unlock();
 
 	pCmdUI->Enable( pMetaList->IsMusicBrainz() );
 
@@ -985,6 +986,7 @@ void CLibraryFileView::CheckDynamicBar()
 	}
 
 	CSingleLock pLock( &Library.m_pSection, TRUE );
+
 	CLibraryFile* pFile = GetSelectedFile();
 
 	if ( pFile == NULL )	// Ghost file
@@ -1007,6 +1009,8 @@ void CLibraryFileView::CheckDynamicBar()
 	pMetaList->Setup( pFile->m_pSchema, FALSE );
 	pMetaList->Combine( pFile->m_pMetadata );
 
+	pLock.Unlock();
+
 	if ( ! pMetaList->IsMusicBrainz() && bIsMusicBrainz )
 		pFrame->SetDynamicBar( NULL );
 	else
@@ -1014,13 +1018,12 @@ void CLibraryFileView::CheckDynamicBar()
 
 	m_bRequestingService = FALSE;	// ToDo: Abort operation
 	delete pMetaList;
-
-	pLock.Unlock();
 }
 
 void CLibraryFileView::OnUpdateMusicBrainzMatches(CCmdUI* pCmdUI)
 {
-	CSingleLock pLock( &Library.m_pSection, TRUE );
+	CSingleLock pLock( &Library.m_pSection );
+	if ( ! pLock.Lock( 200 ) ) return;
 
 	if ( CLibraryFile* pFile = GetSelectedFile() )
 	{
@@ -1046,6 +1049,7 @@ void CLibraryFileView::OnMusicBrainzMatches()
 		{
 			if ( CXMLAttribute* pAttribute = pFile->m_pMetadata->GetAttribute( L"mbpuid" ) )
 			{
+				pLock.Unlock();
 				CString mbpuid = pAttribute->GetValue();
 				if ( ! mbpuid.IsEmpty() )
 				{
@@ -1059,7 +1063,8 @@ void CLibraryFileView::OnMusicBrainzMatches()
 
 void CLibraryFileView::OnUpdateMusicBrainzAlbums(CCmdUI* pCmdUI)
 {
-	CSingleLock pLock( &Library.m_pSection, TRUE );
+	CSingleLock pLock( &Library.m_pSection );
+	if ( ! pLock.Lock( 200 ) ) return;
 
 	if ( CLibraryFile* pFile = GetSelectedFile() )
 	{

@@ -380,7 +380,7 @@ BOOL CFilePreviewDlg::RunManual()
 	HRESULT hr = oSourceFile.Create( m_sSourceName, GENERIC_READ,
 		FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE, OPEN_EXISTING );
 	if ( FAILED( hr ) )
-		 return FALSE;
+		return FALSE;
 
 	CAtlFile oTargetFile;
 	hr = oTargetFile.Create( m_sTargetName, GENERIC_WRITE, 0, CREATE_ALWAYS );

@@ -113,7 +113,7 @@ CQueryHit* CQueryHit::FromG1Packet(CG1Packet* pPacket, int* pnHops)
 			GNUTELLAPACKET pG1;
 			if ( ! static_cast< CG2Packet* >( static_cast< CPacket* >( pPacket ) )->
 				SeekToWrapped() ) return NULL;
-			pPacket->Read( &pG1, sizeof(pG1) );
+			pPacket->Read( &pG1, sizeof( pG1 ) );
 
 			oQueryID = pG1.m_oGUID;
 			if ( pnHops ) *pnHops = pG1.m_nHops + 1;
@@ -509,8 +509,8 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 
 			case G2_PACKET_METADATA:
 				{
-					CString strXML	= pPacket->ReadString( nLength );
-					LPCTSTR pszXML	= strXML;
+					CString strXML = pPacket->ReadString( nLength );
+					LPCTSTR pszXML = strXML;
 					while ( pszXML && *pszXML )
 					{
 						CXMLElement* pPart = CXMLElement::FromString( pszXML, TRUE );
@@ -657,8 +657,7 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 	else
 	{
 		// Now add all hub list to the route cache
-		for ( NodeIter iter = pTestNodeList.begin() ;
-			  iter != pTestNodeList.end() ; iter++ )
+		for ( NodeIter iter = pTestNodeList.begin() ; iter != pTestNodeList.end() ; iter++ )
 		{
 			SOCKADDR_IN pHub = { AF_INET };
 			pHub.sin_addr.s_addr = iter->first;
@@ -740,7 +739,8 @@ CQueryHit* CQueryHit::FromEDPacket(CEDPacket* pPacket, const SOCKADDR_IN* pServe
 				pHit->m_bChat = TRUE;
 				pHit->m_oED2K = oHash;
 				pHit->m_pVendor = VendorCache.Lookup( _T("ED2K") );
-				if ( ! pHit->m_pVendor ) pHit->m_pVendor = VendorCache.m_pNull;
+				if ( ! pHit->m_pVendor )
+					pHit->m_pVendor = VendorCache.m_pNull;
 
 				pHit->ReadEDAddress( pPacket, pServer );
 				pHit->Resolve();
@@ -913,8 +913,7 @@ CXMLElement* CQueryHit::ReadXML(CG1Packet* pPacket, int nSize)
 	{
 		// Deflate data
 		DWORD nRealSize = 0;
-		auto_array< BYTE > pText(
-			CZLib::Decompress( pRaw.get() + 9, nSize - 10, &nRealSize ) );
+		auto_array< BYTE > pText( CZLib::Decompress( pRaw.get() + 9, nSize - 10, &nRealSize ) );
 		if ( ! pText.get() )
 			return NULL;	// Invalid data
 		pRaw = pText;
@@ -1060,9 +1059,9 @@ void CQueryHit::ReadG1Packet(CG1Packet* pPacket)
 	m_bSize		= TRUE;
 
 	if ( Settings.Gnutella1.QueryHitUTF8 )	// Support UTF-8 Query
-		m_sName	= pPacket->ReadStringUTF8();
+		m_sName = pPacket->ReadStringUTF8();
 	else
-		m_sName	= pPacket->ReadStringASCII();
+		m_sName = pPacket->ReadStringASCII();
 
 	while ( pPacket->GetRemaining() )
 	{
@@ -1334,7 +1333,7 @@ void CQueryHit::ReadG2Packet(CG2Packet* pPacket, DWORD nLength)
 			}
 			else if ( nPacket > 4 )
 			{
-				m_bSize	= TRUE;
+				m_bSize = TRUE;
 				m_nSize = pPacket->ReadLongBE();
 				m_sName = pPacket->ReadString( nPacket - 4 );
 			}
@@ -1382,12 +1381,12 @@ void CQueryHit::ReadG2Packet(CG2Packet* pPacket, DWORD nLength)
 		case G2_PACKET_SIZE:
 			if ( nPacket == 4 )
 			{
-				m_bSize	= TRUE;
+				m_bSize = TRUE;
 				m_nSize = pPacket->ReadLongBE();
 			}
 			else if ( nPacket == 8 )
 			{
-				m_bSize	= TRUE;
+				m_bSize = TRUE;
 				m_nSize = pPacket->ReadInt64();
 			}
 			else
@@ -1816,14 +1815,12 @@ void CQueryHit::Resolve()
 	if ( Settings.Downloads.RequestURLENC )
 	{
 		m_sURL.Format( _T("http://%s:%u/get/%lu/%s"),
-			(LPCTSTR)CString( inet_ntoa( m_pAddress ) ), m_nPort, m_nIndex,
-			(LPCTSTR)URLEncode( m_sName ) );
+			(LPCTSTR)CString( inet_ntoa( m_pAddress ) ), m_nPort, m_nIndex, (LPCTSTR)URLEncode( m_sName ) );
 	}
 	else
 	{
 		m_sURL.Format( _T("http://%s:%u/get/%lu/%s"),
-			(LPCTSTR)CString( inet_ntoa( m_pAddress ) ), m_nPort, m_nIndex,
-			(LPCTSTR)m_sName );
+			(LPCTSTR)CString( inet_ntoa( m_pAddress ) ), m_nPort, m_nIndex, (LPCTSTR)m_sName );
 	}
 }
 
@@ -1953,7 +1950,7 @@ void CQueryHit::Serialize(CArchive& ar, int nVersion)	// MATCHLIST_SER_VERSION
 
 		ar << m_nProtocol;
 		ar.Write( &m_oClientID[ 0 ], Hashes::Guid::byteCount );
-		ar.Write( &m_pAddress, sizeof(IN_ADDR) );
+		ar.Write( &m_pAddress, sizeof( IN_ADDR ) );
 		ar << m_nPort;
 		ar << m_nSpeed;
 		ar << m_sSpeed;
@@ -2007,7 +2004,7 @@ void CQueryHit::Serialize(CArchive& ar, int nVersion)	// MATCHLIST_SER_VERSION
 			ar >> m_nProtocol;
 		ReadArchive( ar, &m_oClientID[ 0 ], Hashes::Guid::byteCount );
 		m_oClientID.validate();
-		ReadArchive( ar, &m_pAddress, sizeof(IN_ADDR) );
+		ReadArchive( ar, &m_pAddress, sizeof( IN_ADDR ) );
 		m_sCountry = theApp.GetCountryCode( m_pAddress );
 		ar >> m_nPort;
 		ar >> m_nSpeed;

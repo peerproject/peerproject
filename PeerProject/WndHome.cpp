@@ -48,13 +48,13 @@ IMPLEMENT_DYNCREATE(CHomeWnd, CPanelWnd)
 
 BEGIN_MESSAGE_MAP(CHomeWnd, CPanelWnd)
 	ON_WM_CREATE()
+	ON_WM_DESTROY()
 	ON_WM_SIZE()
-	ON_WM_CONTEXTMENU()
 	ON_WM_TIMER()
 	ON_WM_MDIACTIVATE()
+	ON_WM_CONTEXTMENU()
 	ON_NOTIFY(RVN_CLICK, IDC_HOME_VIEW, OnClickView)
 	ON_NOTIFY(RVN_CLICK, 1, OnClickView)
-	ON_WM_DESTROY()
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -110,7 +110,7 @@ void CHomeWnd::OnSize(UINT nType, int cx, int cy)
 
 void CHomeWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 {
-	if ( point.x == -1 && point.y == -1 ) 	// Keyboard fix
+	if ( point.x == -1 && point.y == -1 )	// Keyboard fix
 		ClientToScreen( &point );
 
 	Skin.TrackPopupMenu( _T("CHomeWnd"), point );

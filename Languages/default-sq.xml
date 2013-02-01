@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Albanian Skin File -->
 
-<!-- Translation based on default-en.xml r88 -->
+<!-- Translation based on default-en.xml r90 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2682,7 +2682,7 @@
 	<string id="20081" value="&amp;Mbylle"/>
 	<string id="20082" value="Përfundon, klikoni Mbylle"/>
 	<string id="20083" value="Kërkim..."/>
-	<string id="20084" value="Sukses!"/>
+	<string id="20084" value="Sukses."/>
 	<string id="20100" value="Closing browse user connection to %s."/>
 	<string id="20101" value="Browse host %s responded with an unrecognised response, and may not support user/host browsing."/>
 	<string id="20102" value="E Pamundur të lidhem te hosti për shfletim përdoruesi."/>
@@ -3003,7 +3003,7 @@
 	<string id="20750" value="!Mirë se erdhe te {version}\n\nPeerProject është softuer tërësisht falas.\nJu lutemi përdoreni me përgjegjësi dhe respektoni ligjin për pronën intelektuale."/>
 	<string id="20751" value="Nuk ka asnjë kërkim aktiv. Klikoni që të kërkoni për një skedë."/>
 	<string id="20752" value="Nuk jeni i lidhur. Që të nisni, shtypni butonin Lidhu."/>
-	<string id="20755" value="A jeni i sigurt se doni të fshini tempujkën &quot;%s&quot;.\nKjo nuk mund të kthehet!"/>
+	<string id="20755" value="A jeni i sigurt se doni të fshini tempujkën &quot;%s&quot;.\nKjo nuk mund të kthehet."/>
 	<string id="20760" value="Prioritet"/>
 	<string id="20762" value="Kjo skedë duket si spam."/>
 	<string id="20763" value="Në Listën e Zezë:"/>
@@ -3152,7 +3152,7 @@
 		<control caption="_Fshije"/>
 		<control caption="Prizat e _Vegimit Zanor:"/>
 		<control caption="_Zgjidhi Prizat..."/>
-		<control caption="Kujdes: Nëse zgjidhet një Trajtues i jashtëm i Medias do të çaktivizohen automatikisht gjithë Prizat e Medias dhe të Vegimit!"/>
+		<control caption="Kujdes: Nëse zgjidhet një Trajtues i jashtëm i Medias do të çaktivizohen automatikisht gjithë Prizat e Medias dhe të Vegimit."/>
 	</dialog>
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Komuniteti">
 		<control caption="_Profili Im:"/>
@@ -3508,7 +3508,7 @@
 		<control caption="Shpërbleji ngarkuesit"/>
 	</dialog>
 	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="Mirë se erdhe te PeerProject (1/8)">
-		<control caption="Mirë se erdhe te PeerProject!"/>
+		<control caption="Mirë se erdhe te PeerProject."/>
 		<control caption="Nëse nuk e keni përdorur ndonjëherë PeerProject-n apo një klient tjetër P2P, ky udhërrëfyes i shpejtë do ju ndihmojë ta konfiguroni atë sipas disa hapave të thjeshtë."/>
 		<control caption="Nëse jeni përdorues më i përparuar, mundet të hapni gamën e gjerë të mundësive të PeerProject-s, në menynë Mjete. Klikoni Dil që ky udhërrëfyes të mbyllet në çdo kohë."/>
 		<control caption="Udhërrëfyesi ndihmon të:"/>
@@ -3585,7 +3585,7 @@
 		<control caption="E Thjeshtë"/>
 		<control caption="E Avancuar"/>
 		<control caption="E lehtë për të përdorur menytë dhe butonat.{n}Ngjan me programet e tjera skedëshpërndarëse."/>
-		<control caption="Ofron mjaft komanda, dritare ekstra etj. për përdoruesit ekspertë.{n}Përdoruesit e rinj mund t'i hutojë disi!"/>
+		<control caption="Ofron mjaft komanda, dritare ekstra etj. për përdoruesit ekspertë.{n}Përdoruesit e rinj mund t'i hutojë disi."/>
 		<control caption="Shfaqe progresin në shufër të thjeshtë."/>
 		<control caption=""/>
 	</dialog>
@@ -4050,16 +4050,16 @@
 		<control caption="PeerProject NUK përmban ASNJË &quot;spiunues&quot;, &quot;reklamues&quot; apo ndonjë softuer tjetër të paketuar. Reklamat ose &quot;kërcyeset&quot; NUK shfaqen kurrë.{n}{n}Nëse gjatë përdorimit vëreni ndonjë reklamë ose &quot;kërcyese&quot;, të jeni të sigurt se ato NUK janë të programit."/>
 		<control caption="Për fat të keq, shumë nga softueret e tjera bartin reklamuesa apo spiunuesa të padëshirueshëm, ndaj nëse keni dyshime verifikoni PC-në tuaj me një program që heq reklamuesat e spiunuesat."/>
 		<control caption="Për PeerProject-n nuk duhet të paguani! PeerProject mund të shkarkohet lirisht nga kushdo në http://peerproject.org/. Nëse keni paguar për të, duhet të kërkoni menjëherë një kthim të plotë parash."/>
-		<control caption="PeerProject i respekton përdoruesit!"/>
+		<control caption="PeerProject i respekton përdoruesit."/>
 		<control caption="http://PeerProject.org/"/>
 		<control caption="Mbylle"/>
 	</dialog>
 	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Ngrini Zërin">
 		<control caption="Na ndihmoni të Ngremë Zërin"/>
 		<control caption="Shpresojmë që deri tani të jeni i kënaqur me përdorimin e PeerProject-s. Ne besojmë se ky është aplikimi skedë-shpërndarës më i mirë përqark."/>
-		<control caption="Për fat të keq, shumë shpërdarës skedash nuk e dinë se sa shumë u duhet!"/>
+		<control caption="Për fat të keq, shumë shpërdarës skedash nuk e dinë se sa shumë u duhet."/>
 		<control caption="Nëse njihni ndokënd që do t'i pëlqente PeerProject, qoftë një përdorues i ri apo dikush që vendos të marrë një produkt me çmim të ulët, pse të mos i tregoni se ka një alternativë më të mirë?"/>
-		<control caption="Ka shanse që ata t'ju jenë mirënjohës që i shpëtuat!"/>
+		<control caption="Ka shanse që ata t'ju jenë mirënjohës që i shpëtuat."/>
 		<control caption="PeerProject.org"/>
 		<control caption="OK"/>
 	</dialog>

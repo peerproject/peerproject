@@ -1285,7 +1285,7 @@ BOOL CSettings::LoadWindow(LPCTSTR pszName, CWnd* pWindow)
 	if ( nShowCmd == -1 ) return FALSE;
 
 	WINDOWPLACEMENT pPos = {};
-	pPos.length = sizeof(pPos);
+	pPos.length = sizeof( pPos );
 
 	pPos.rcNormalPosition.left		= CRegistry::GetInt( _T("Windows"), strEntry + _T(".Left"), 0 );
 	pPos.rcNormalPosition.top		= CRegistry::GetInt( _T("Windows"), strEntry + _T(".Top"), 0 );
@@ -1383,7 +1383,7 @@ void CSettings::SaveList(LPCTSTR pszName, CListCtrl* pCtrl)
 	for ( ; pCtrl->GetColumn( nColumns, &pColumn ) ; nColumns++ );
 
 	UINT* pOrdering = new UINT[ nColumns ];
-	ZeroMemory( pOrdering, nColumns * sizeof(UINT) );
+	ZeroMemory( pOrdering, nColumns * sizeof( UINT ) );
 	pCtrl->SendMessage( LVM_GETCOLUMNORDERARRAY, nColumns, (LPARAM)pOrdering );
 
 	CString strOrdering, strWidths, strItem;
@@ -1438,7 +1438,7 @@ void CSettings::SetStartup(BOOL bStartup)
 		CString strCommand;
 		strCommand.Format( _T("\"%s\" -tray"), theApp.m_strBinaryPath );
 		RegSetValueEx( hKey, _T("PeerProject"), 0, REG_SZ, (const BYTE*)(LPCTSTR)strCommand,
-			( strCommand.GetLength() + 1 ) * sizeof(TCHAR) );
+			( strCommand.GetLength() + 1 ) * sizeof( TCHAR ) );
 	}
 	else
 	{

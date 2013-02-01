@@ -71,12 +71,14 @@ CXMLElement* CLibraryFolders::CreateXML(LPCTSTR szRoot, BOOL bSharedOnly, XmlTyp
 	switch ( nType )
 	{
 	case xmlDC:
-		pRoot = new CXMLElement( NULL, _T("filelisting") );
+		// Note case-sensitive http://adc.sourceforge.net/ADC.html#_file_list
+		pRoot = new CXMLElement( NULL, _T("FileListing") );
 		if ( pRoot )
 		{
-			pRoot->AddAttribute( _T("version"), 1 );
-			pRoot->AddAttribute( _T("base"), szRoot );
-			pRoot->AddAttribute( _T("generator"), Settings.SmartAgent() );
+			pRoot->AddAttribute( _T("Version"), 1 );
+			pRoot->AddAttribute( _T("Base"), szRoot );
+			pRoot->AddAttribute( _T("Generator"), Settings.SmartAgent() );
+		//	pRoot->AddAttribute( _T("CID"), _T("") );
 		}
 		break;
 

@@ -62,9 +62,9 @@ CSkinWindow::CSkinWindow()
 	m_bAnchor	= new BOOL[ SKINANCHOR_COUNT ];
 	m_rcAnchor	= new CRect[ SKINANCHOR_COUNT ];
 
-	ZeroMemory( m_bPart, sizeof(BOOL) * SKINPART_COUNT );
-	ZeroMemory( m_nPart, sizeof(int) * SKINPART_COUNT );
-	ZeroMemory( m_bAnchor, sizeof(BOOL) * SKINANCHOR_COUNT );
+	ZeroMemory( m_bPart, sizeof( BOOL ) * SKINPART_COUNT );
+	ZeroMemory( m_nPart, sizeof( int ) * SKINPART_COUNT );
+	ZeroMemory( m_bAnchor, sizeof( BOOL ) * SKINANCHOR_COUNT );
 
 	m_szMinSize.cx = m_szMinSize.cy = 0;
 	const int nBorderWidth( GetSystemMetrics( SM_CXSIZEFRAME ) );
@@ -878,7 +878,7 @@ BOOL CSkinWindow::OnNcLButtonDown(CWnd* pWnd, UINT nHitTest, CPoint point)
 			ResolveAnchor( rcWindow, rcMenu, SKINANCHOR_MENU );
 
 			MENUITEMINFO pInfo = {};
-			pInfo.cbSize = sizeof(pInfo);
+			pInfo.cbSize = sizeof( pInfo );
 			pInfo.fMask  = MIIM_STATE;
 			GetMenuItemInfo( pMenu->GetSafeHmenu(), ID_TOOLS_SETTINGS, FALSE, &pInfo );
 			pInfo.fState |= MFS_DEFAULT;
@@ -1380,7 +1380,7 @@ void CSkinWindow::Paint(CWnd* pWnd, TRISTATE bActive)
 				{
 					dc.BitBlt( rc.right - pRect->Width(), nY, pRect->Width(),
 						min( pRect->Height(), rcRight.bottom - nY ),
-						&m_dcSkin, 	pRect->left, pRect->top, SRCCOPY );
+						&m_dcSkin, pRect->left, pRect->top, SRCCOPY );
 				}
 			}
 		}
@@ -1401,7 +1401,7 @@ void CSkinWindow::Paint(CWnd* pWnd, TRISTATE bActive)
 				{
 					dc.BitBlt( rc.right - pRect->Width(), nY, pRect->Width(),
 						min( pRect->Height(), rcRight.bottom - nY ),
-						&m_dcSkin, 	pRect->left, pRect->top, SRCCOPY );
+						&m_dcSkin, pRect->left, pRect->top, SRCCOPY );
 				}
 			}
 		}
@@ -1700,9 +1700,9 @@ BOOL CSkinWindow::PreBlend(CBitmap* pbmTarget, const CRect& rcTarget, const CRec
 	BITMAPINFO pAlphaInfo = {};
 	BITMAPINFO pCacheInfo = {};
 
-	pImageInfo.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
-	pAlphaInfo.bmiHeader.biSize	= sizeof(BITMAPINFOHEADER);
-	pCacheInfo.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
+	pImageInfo.bmiHeader.biSize = sizeof( BITMAPINFOHEADER );
+	pAlphaInfo.bmiHeader.biSize = sizeof( BITMAPINFOHEADER );
+	pCacheInfo.bmiHeader.biSize = sizeof( BITMAPINFOHEADER );
 
 	HDC hDC = ::GetDC( 0 );
 	SetLayout( hDC, Settings.General.LanguageRTL ? LAYOUT_BITMAPORIENTATIONPRESERVED : 0 );
@@ -1717,7 +1717,7 @@ BOOL CSkinWindow::PreBlend(CBitmap* pbmTarget, const CRect& rcTarget, const CRec
 	BOOL bAlpha = m_bmAlpha.m_hObject &&
 		GetDIBits( hDC, m_bmAlpha, 0, 0, NULL, &pAlphaInfo, DIB_RGB_COLORS );
 	if ( ! bAlpha )
-		CopyMemory( &pAlphaInfo, &pImageInfo, sizeof(pAlphaInfo) );
+		CopyMemory( &pAlphaInfo, &pImageInfo, sizeof( pAlphaInfo ) );
 
 	int nImagePitch = ( ( pImageInfo.bmiHeader.biWidth * 3 ) + 3 ) & ~3;
 	int nAlphaPitch = ( ( pAlphaInfo.bmiHeader.biWidth * 3 ) + 3 ) & ~3;

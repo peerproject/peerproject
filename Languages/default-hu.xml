@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hungarian Skin File -->
 
-<!-- Translation based on default-en.xml r88 -->
+<!-- Translation based on default-en.xml r90 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -554,7 +554,9 @@
 			<menu text="_Súgó">
 				<item id="ID_HELP_GUIDE" text="PeerProject használati utasítás"/>
 				<item id="ID_HELP_FORUMS" text="PeerProject hivatalos fórum"/>
+				<item id="ID_HELP_FORUMS_LOCAL" text="PeerProject fórum Magya"/>
 				<item id="ID_HELP_FAQ" text="PeerProject GYIK" shortcut="F1"/>
+			<!--
 				<menu text="Skin súgó">
 					<menu text="Ha a menüsor helytelenül jelenne meg:"></menu>
 					<menu text="Kattintson a Menü: Ablak: Navigációs gombok megjelenítése parancsra."></menu>
@@ -567,8 +569,8 @@
 					<item id="ID_HELP_WEB_3" text="Slyck.com"/>
 					<item id="ID_HELP_WEB_1" text="ZeroPaid.com"/>
 					<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
-					<item id="ID_HELP_WEB_6" text="Hypewise.DeviantArt.com"/>
 				</menu>
+			-->
 				<item id="ID_HELP_HOMEPAGE" text="PeerProject.org"/>
 				<separator/>
 				<item id="ID_HELP_ABOUT" text="Névjegy..."/>
@@ -2613,7 +2615,7 @@
 	<string id="20081" value="Bezárás"/>
 	<string id="20082" value="Kész, zárd be"/>
 	<string id="20083" value="Kérés..."/>
-	<string id="20084" value="Siker!"/>
+	<string id="20084" value="Siker."/>
 	<string id="20100" value="Fájllista kapcsolat bezárása %s."/>
 	<string id="20101" value="%s egy ismeretlen válasszal válaszolt és nem támogatja a fájllista letöltését."/>
 	<string id="20102" value="Nem lehetett kapcsolatot létesíteni a fájllista letöltéséhez."/>
@@ -2782,7 +2784,7 @@
 	<string id="20290" value="%s egy másik, de használható részt küldött (%I64i-%I64i) a(z) &quot;%s&quot; fájlból."/>
 	<string id="20291" value="Felesleges push kapcsolatot kaptam: %s."/>
 	<string id="20292" value="%s (%s) forrás ejtése hibás adatok közlése miatt. Érintett fájl: &quot;%s&quot; (%I64i-%I64i)."/>
-	<string id="20293" value="FIGYELEM: A(z) &quot;%s&quot; fájlt nem elhetett elenőrizni. Lehet, hogy ez nem az a fájl, amit ön szeretne!"/>
+	<string id="20293" value="FIGYELEM: A(z) &quot;%s&quot; fájlt nem elhetett elenőrizni. Lehet, hogy ez nem az a fájl, amit ön szeretne."/>
 	<string id="20294" value="Sikeresen ellenőriztem: &quot;%s&quot;."/>
 	<string id="20295" value="%s szerint a(z) &quot;%s&quot; fájlnak más URN címe van, megszakítás."/>
 	<string id="20296" value="%s egy használhatatlan részét küldte el a(z) &quot;%s&quot; fájlnak, várakozás."/>
@@ -2925,7 +2927,7 @@
 	<string id="20447" value="El akarja távolítani a fájl &quot;potenciálisan veszélyes&quot; attribútumát?"/>
 	<string id="20448" value="A(z) &quot;%s&quot; még nem volt hashelve. Várja meg a hashelést és próbálja újra."/>
 	<string id="20449" value="Ez az opció a Bitzi.com fájlinformációs szolgáltatásait használja.\n\nA PeerProject a fájl SHA1 hash kódját elküldi a Bitzi adatbázisába. Ha nem bízik meg a Bitziben, akkor olvassa el a Bitzi.com adatvédelmi nyilatkozatát.\n\nTovább akar menni?"/>
-	<string id="20450" value="A kész és a félkész fájlok ne legyenek azonos mappában!"/>
+	<string id="20450" value="A kész és a félkész fájlok ne legyenek azonos mappában."/>
 	<string id="20451" value="Nincs semmilyen lejátszás folyamatban. Kattintson duplán egy médiafájlra a lejátszáshoz."/>
 	<string id="20452" value="Minden médiafájl|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Lejátszólisták|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Audiófájlok|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Videófájlok|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|AudióCD hangsávok|*.cda|MIDI fájlok|*.mid;*.rmi;*.midi|Minden fájl|*.*||"/>
 	<string id="20453" value="Médiafájl betöltése sikertelen: &quot;%s&quot;"/>
@@ -3363,7 +3365,7 @@
 		<control caption="_Eltávolít"/>
 		<control caption="_Képi megjelenítés plugin"/>
 		<control caption="_Plugin kiválasztása..."/>
-		<control caption="Figyelem: külső médialejátszó használatakor az összes belső plugin és képi megjelenítő kikapcsol!"/>
+		<control caption="Figyelem: külső médialejátszó használatakor az összes belső plugin és képi megjelenítő kikapcsol."/>
 	</dialog>
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Közösség">
 		<control caption="Saját adatla_p"/>
@@ -3511,7 +3513,7 @@
 		<control caption="Ú_j..."/>
 		<control caption="_Módosít..."/>
 		<control caption="_Törlés"/>
-		<control caption="A változások azonnal életbe lépnek!"/>
+		<control caption="A változások azonnal életbe lépnek."/>
 	</dialog>
 	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Távoli elérés">
 		<control caption="_Engedélyezés"/>
@@ -3528,7 +3530,7 @@
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="Hálózatok">
 		<control caption="A PeerProject egy fájlmegosztó program, amely egyszerre több p2p hálózathoz is tud csatlakozni. Ezen az oldalon beállíthatja, hogy melyik hálózathoz akar kapcsolódni."/>
 		<control caption="Gnutella2"/>
-		<control caption="A Gnutella2 a PeerProject fő hálózata, p2p rendszerű. Rengeteg szolgáltatás és nagy sebesség jellemzi. Erősen ajánlott!"/>
+		<control caption="A Gnutella2 a PeerProject fő hálózata, p2p rendszerű. Rengeteg szolgáltatás és nagy sebesség jellemzi. Erősen ajánlott."/>
 		<control caption="Mutasd Gnutella2-höz (G2)"/>
 		<control caption="Részletes beállítás"/>
 		<control caption="Gnutella"/>
@@ -3721,7 +3723,7 @@
 		<control caption="Feltöltők jutalmazása"/>
 	</dialog>
 	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="Köszöntöm a PeerProject (1/8)">
-		<control caption="Köszöntöm a PeerProject!"/>
+		<control caption="Köszöntöm a PeerProject."/>
 		<control caption="Ha még nem ismeri a PeerProject és/vagy nem használt más p2p programot, akkor itt egyszerűen elvégezheti a fonos beállításokat."/>
 		<control caption="De, ha inkább részletesen akarja beállítani a programot, menjen az Eszközök menü Beállítások pontjára. A Kilépés gombbal bármikor megszakíthatja a varázslót."/>
 		<control caption="Ezek a feladatok:"/>
@@ -3781,7 +3783,7 @@
 		<control/>
 		<control caption="Hozzáad..."/>
 		<control caption="Eltávolít"/>
-		<control caption="A szerzői jog védelme alatt álló adatok megosztását a legtöbb országban büntetik!"/>
+		<control caption="A szerzői jog védelme alatt álló adatok megosztását a legtöbb országban büntetik."/>
 	</dialog>
 	<dialog name="CFolderScanDlg" cookie="StStStStStStBu" caption="Mappa ellenőrzése...">
 		<control/>
@@ -4260,19 +4262,19 @@
 	</dialog>
 	<dialog name="CWarningsDlg" cookie="StStStStStStBu" caption="A PeerProject tiszteli a felhasználóit">
 		<control caption="Tudta, hogy a PeerProject egy teljesen ingyenes termék?"/>
-		<control caption="A PeerProject SEMMILYEN &quot;kémprogramot&quot;, &quot;reklámot&quot; és hasonló programot NEM tartalmaz. SEMMILYEN &quot;felugró ablak&quot; NEM található benne.{n}{n}Ha mégis megjelenne ilyesmi, akkor az nem a PeerProjectól származik!"/>
+		<control caption="A PeerProject SEMMILYEN &quot;kémprogramot&quot;, &quot;reklámot&quot; és hasonló programot NEM tartalmaz. SEMMILYEN &quot;felugró ablak&quot; NEM található benne.{n}{n}Ha mégis megjelenne ilyesmi, akkor az nem a PeerProjectól származik."/>
 		<control caption="Ellenben más programok tartalmazhatnak reklámot és/vagy kémprogramot. Ha ilyenekkel találkozik, futtasson le egy reklám- és kémprogram írtó programot."/>
 		<control caption="Soha nem kell pénzt kiadnia a PeerProject. Innen letöltető ingyen: http://peerproject.org. Ha valahol fizetett érte, akkor biztosan átvágták és kérje vissza a pénzét."/>
-		<control caption="A PeerProject tiszteli a felhasználóit!"/>
+		<control caption="A PeerProject tiszteli a felhasználóit."/>
 		<control caption="http://PeerProject.org"/>
 		<control caption="Bezárás"/>
 	</dialog>
 	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Terjesztés">
-		<control caption="Terjessze az igét!"/>
+		<control caption="Terjessze az igét."/>
 		<control caption="Reméljük, hogy örömmel használja a PeerProject. Szerintünk a PeerProject jelenleg a legjobb fájlmegosztó program a piacon."/>
-		<control caption="Sajnos sokan nem tudják, hogy miből maradnak ki!"/>
+		<control caption="Sajnos sokan nem tudják, hogy miből maradnak ki."/>
 		<control caption="Ezért, ha ismer valakit, akinek pont egy ilyen programra lenne szüksége, nyugodtan ajánlja neki a PeerProject."/>
-		<control caption="Nem fog köszönet nélkül maradni!"/>
+		<control caption="Nem fog köszönet nélkül maradni."/>
 		<control caption="http://PeerProject.org"/>
 		<control caption="OK"/>
 	</dialog>
@@ -4444,7 +4446,7 @@
 		<control caption="OK"/>
 		<control caption="Mégse"/>
 	</dialog>
-	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Frissítés!">
+	<dialog name="CUpgradeDlg" cookie="StStBuBuBu" caption="Frissítés">
 		<control caption="Elérhetővé vált a PeerProject egy újabb verziója. Szeretne frissíteni?"/>
 		<control caption="Ha most szeretne frissíteni, a PeerProject berakja a letöltendő fájlt a letöltési sorba."/>
 		<control caption="Ne keressen új verzió után"/>

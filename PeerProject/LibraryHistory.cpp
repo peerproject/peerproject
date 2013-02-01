@@ -320,14 +320,14 @@ void CLibraryRecent::Serialize(CArchive& ar, int /*nVersion*/)
 {
 	if ( ar.IsStoring() )
 	{
-		ar.Write( &m_tAdded, sizeof(FILETIME) );
+		ar.Write( &m_tAdded, sizeof( FILETIME ) );
 		ar << m_pFile->m_nIndex;
 	}
 	else
 	{
 		DWORD nIndex;
 
-		ReadArchive( ar, &m_tAdded, sizeof(FILETIME) );
+		ReadArchive( ar, &m_tAdded, sizeof( FILETIME ) );
 		ar >> nIndex;
 
 		if ( ( m_pFile = Library.LookupFile( nIndex ) ) != NULL )

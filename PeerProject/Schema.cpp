@@ -816,8 +816,7 @@ void CSchema::ResolveTokens(CString& str, CXMLElement* pXML) const
 		int nClose = str.Find( '}' );
 		if ( nClose <= nOpen ) break;
 
-		CString strMember = str.Mid( nOpen + 1, nClose - nOpen - 1 );
-		strMember.Trim();
+		CString strMember = str.Mid( nOpen + 1, nClose - nOpen - 1 ).Trim();
 
 		CString strValue;
 		if ( CSchemaMember* pMember = GetMember( strMember ) )
@@ -848,15 +847,15 @@ BOOL CSchemaBitzi::Load(CXMLElement* pXML)
 
 // ToDo: Safely convert any unshared to http://schemas.peerproject.org/ namespace ?
 
-LPCTSTR	CSchema::uriApplication 			= _T("http://www.shareaza.com/schemas/application.xsd");
-LPCTSTR	CSchema::uriAudio					= _T("http://www.limewire.com/schemas/audio.xsd");
+LPCTSTR CSchema::uriApplication 			= _T("http://www.shareaza.com/schemas/application.xsd");
+LPCTSTR CSchema::uriAudio					= _T("http://www.limewire.com/schemas/audio.xsd");
 LPCTSTR CSchema::uriArchive					= _T("http://www.shareaza.com/schemas/archive.xsd");
-LPCTSTR	CSchema::uriBook					= _T("http://www.limewire.com/schemas/book.xsd");
-LPCTSTR	CSchema::uriImage					= _T("http://www.shareaza.com/schemas/image.xsd");
-LPCTSTR	CSchema::uriVideo					= _T("http://www.limewire.com/schemas/video.xsd");
-LPCTSTR	CSchema::uriROM 					= _T("http://www.shareaza.com/schemas/rom.xsd");
-LPCTSTR	CSchema::uriDocument				= _T("http://www.shareaza.com/schemas/wordProcessing.xsd");
-LPCTSTR	CSchema::uriSpreadsheet				= _T("http://www.shareaza.com/schemas/spreadsheet.xsd");
+LPCTSTR CSchema::uriBook					= _T("http://www.limewire.com/schemas/book.xsd");
+LPCTSTR CSchema::uriImage					= _T("http://www.shareaza.com/schemas/image.xsd");
+LPCTSTR CSchema::uriVideo					= _T("http://www.limewire.com/schemas/video.xsd");
+LPCTSTR CSchema::uriROM 					= _T("http://www.shareaza.com/schemas/rom.xsd");
+LPCTSTR CSchema::uriDocument				= _T("http://www.shareaza.com/schemas/wordProcessing.xsd");
+LPCTSTR CSchema::uriSpreadsheet				= _T("http://www.shareaza.com/schemas/spreadsheet.xsd");
 LPCTSTR CSchema::uriPresentation			= _T("http://www.shareaza.com/schemas/presentation.xsd");
 LPCTSTR CSchema::uriCollection				= _T("http://www.shareaza.com/schemas/collection.xsd");
 
@@ -868,40 +867,40 @@ LPCTSTR CSchema::uriFavouritesFolder		= _T("http://www.shareaza.com/schemas/favo
 LPCTSTR CSchema::uriSearchFolder			= _T("http://www.shareaza.com/schemas/searchFolder.xsd");
 LPCTSTR CSchema::uriAllFiles				= _T("http://www.shareaza.com/schemas/allFiles.xsd");
 
-LPCTSTR	CSchema::uriApplicationRoot			= _T("http://www.shareaza.com/schemas/applicationRoot.xsd");
-LPCTSTR	CSchema::uriApplicationAll			= _T("http://www.shareaza.com/schemas/applicationAll.xsd");
+LPCTSTR CSchema::uriApplicationRoot			= _T("http://www.shareaza.com/schemas/applicationRoot.xsd");
+LPCTSTR CSchema::uriApplicationAll			= _T("http://www.shareaza.com/schemas/applicationAll.xsd");
 
-LPCTSTR	CSchema::uriArchiveRoot 			= _T("http://www.shareaza.com/schemas/archiveRoot.xsd");
-LPCTSTR	CSchema::uriArchiveAll				= _T("http://www.shareaza.com/schemas/archiveAll.xsd");
+LPCTSTR CSchema::uriArchiveRoot 			= _T("http://www.shareaza.com/schemas/archiveRoot.xsd");
+LPCTSTR CSchema::uriArchiveAll				= _T("http://www.shareaza.com/schemas/archiveAll.xsd");
 
-LPCTSTR	CSchema::uriBookRoot				= _T("http://www.shareaza.com/schemas/bookRoot.xsd");
-LPCTSTR	CSchema::uriBookAll					= _T("http://www.shareaza.com/schemas/bookAll.xsd");
+LPCTSTR CSchema::uriBookRoot				= _T("http://www.shareaza.com/schemas/bookRoot.xsd");
+LPCTSTR CSchema::uriBookAll					= _T("http://www.shareaza.com/schemas/bookAll.xsd");
 
-LPCTSTR	CSchema::uriImageRoot				= _T("http://www.shareaza.com/schemas/imageRoot.xsd");
-LPCTSTR	CSchema::uriImageAll				= _T("http://www.shareaza.com/schemas/imageAll.xsd");
-LPCTSTR	CSchema::uriImageAlbum				= _T("http://www.shareaza.com/schemas/imageAlbum.xsd");
+LPCTSTR CSchema::uriImageRoot				= _T("http://www.shareaza.com/schemas/imageRoot.xsd");
+LPCTSTR CSchema::uriImageAll				= _T("http://www.shareaza.com/schemas/imageAll.xsd");
+LPCTSTR CSchema::uriImageAlbum				= _T("http://www.shareaza.com/schemas/imageAlbum.xsd");
 
-LPCTSTR	CSchema::uriMusicRoot				= _T("http://www.shareaza.com/schemas/musicRoot.xsd");
-LPCTSTR	CSchema::uriMusicAll				= _T("http://www.shareaza.com/schemas/musicAll.xsd");
-LPCTSTR	CSchema::uriMusicAlbum				= _T("http://www.shareaza.com/schemas/musicAlbum.xsd");
-LPCTSTR	CSchema::uriMusicArtist				= _T("http://www.shareaza.com/schemas/musicArtist.xsd");
-LPCTSTR	CSchema::uriMusicGenre				= _T("http://www.shareaza.com/schemas/musicGenre.xsd");
-LPCTSTR	CSchema::uriMusicAlbumCollection	= _T("http://www.shareaza.com/schemas/musicAlbumCollection.xsd");
-LPCTSTR	CSchema::uriMusicArtistCollection	= _T("http://www.shareaza.com/schemas/musicArtistCollection.xsd");
-LPCTSTR	CSchema::uriMusicGenreCollection	= _T("http://www.shareaza.com/schemas/musicGenreCollection.xsd");
+LPCTSTR CSchema::uriMusicRoot				= _T("http://www.shareaza.com/schemas/musicRoot.xsd");
+LPCTSTR CSchema::uriMusicAll				= _T("http://www.shareaza.com/schemas/musicAll.xsd");
+LPCTSTR CSchema::uriMusicAlbum				= _T("http://www.shareaza.com/schemas/musicAlbum.xsd");
+LPCTSTR CSchema::uriMusicArtist				= _T("http://www.shareaza.com/schemas/musicArtist.xsd");
+LPCTSTR CSchema::uriMusicGenre				= _T("http://www.shareaza.com/schemas/musicGenre.xsd");
+LPCTSTR CSchema::uriMusicAlbumCollection	= _T("http://www.shareaza.com/schemas/musicAlbumCollection.xsd");
+LPCTSTR CSchema::uriMusicArtistCollection	= _T("http://www.shareaza.com/schemas/musicArtistCollection.xsd");
+LPCTSTR CSchema::uriMusicGenreCollection	= _T("http://www.shareaza.com/schemas/musicGenreCollection.xsd");
 
-LPCTSTR	CSchema::uriVideoRoot				= _T("http://www.shareaza.com/schemas/videoRoot.xsd");
-LPCTSTR	CSchema::uriVideoAll				= _T("http://www.shareaza.com/schemas/videoAll.xsd");
-LPCTSTR	CSchema::uriVideoFilm				= _T("http://www.shareaza.com/schemas/videoFilm.xsd");
-LPCTSTR	CSchema::uriVideoSeries				= _T("http://www.shareaza.com/schemas/videoSeries.xsd");
-LPCTSTR	CSchema::uriVideoFilmCollection		= _T("http://www.shareaza.com/schemas/videoFilmCollection.xsd");
-LPCTSTR	CSchema::uriVideoSeriesCollection	= _T("http://www.shareaza.com/schemas/videoSeriesCollection.xsd");
-LPCTSTR	CSchema::uriVideoMusicCollection	= _T("http://www.shareaza.com/schemas/videoMusicCollection.xsd");
+LPCTSTR CSchema::uriVideoRoot				= _T("http://www.shareaza.com/schemas/videoRoot.xsd");
+LPCTSTR CSchema::uriVideoAll				= _T("http://www.shareaza.com/schemas/videoAll.xsd");
+LPCTSTR CSchema::uriVideoFilm				= _T("http://www.shareaza.com/schemas/videoFilm.xsd");
+LPCTSTR CSchema::uriVideoSeries				= _T("http://www.shareaza.com/schemas/videoSeries.xsd");
+LPCTSTR CSchema::uriVideoFilmCollection		= _T("http://www.shareaza.com/schemas/videoFilmCollection.xsd");
+LPCTSTR CSchema::uriVideoSeriesCollection	= _T("http://www.shareaza.com/schemas/videoSeriesCollection.xsd");
+LPCTSTR CSchema::uriVideoMusicCollection	= _T("http://www.shareaza.com/schemas/videoMusicCollection.xsd");
 
-LPCTSTR	CSchema::uriDocumentRoot			= _T("http://www.shareaza.com/schemas/documentRoot.xsd");
-LPCTSTR	CSchema::uriDocumentAll				= _T("http://www.shareaza.com/schemas/documentAll.xsd");
+LPCTSTR CSchema::uriDocumentRoot			= _T("http://www.shareaza.com/schemas/documentRoot.xsd");
+LPCTSTR CSchema::uriDocumentAll				= _T("http://www.shareaza.com/schemas/documentAll.xsd");
 
-LPCTSTR	CSchema::uriGhostFolder				= _T("http://schemas.peerproject.org/GhostFolder.xsd");	// http://www.shareaza.com/schemas/ghostFolder.xsd ?
+LPCTSTR CSchema::uriGhostFolder				= _T("http://schemas.peerproject.org/GhostFolder.xsd");	// http://www.shareaza.com/schemas/ghostFolder.xsd ?
 
 LPCTSTR CSchema::uriBitTorrent				= _T("http://www.shareaza.com/schemas/bittorrent.xsd");
 
