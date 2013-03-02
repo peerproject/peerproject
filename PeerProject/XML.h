@@ -135,6 +135,7 @@ public:
 	BOOL			ParseString(LPCTSTR& strXML);
 	BOOL			Equals(CXMLAttribute* pXML) const;
 	void			Serialize(CArchive& ar);
+	virtual void	SetName(LPCTSTR pszValue);
 };
 
 #include "XML.inl"

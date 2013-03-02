@@ -91,11 +91,13 @@ void CLiveList::Apply(CListCtrl* pCtrl, BOOL bSort)
 {
 	ASSERT_VALID( this );
 
-	CQuickLock oLock( m_pSection );
-
 	BOOL bModified = FALSE;
 
-	for ( int nItem = 0 ; nItem < pCtrl->GetItemCount() ; nItem++ )
+	int nCount = pCtrl->GetItemCount();
+
+	CQuickLock oLock( m_pSection );
+
+	for ( int nItem = 0 ; nItem < nCount ; nItem++ )
 	{
 		DWORD nParam = (DWORD)pCtrl->GetItemData( nItem );
 		CLiveItem* pItem;
@@ -113,10 +115,11 @@ void CLiveList::Apply(CListCtrl* pCtrl, BOOL bSort)
 		{
 			pCtrl->DeleteItem( nItem-- );
 			bModified = TRUE;
+			nCount--;
 		}
 	}
 
-	int nCount = pCtrl->GetItemCount();
+	nCount = pCtrl->GetItemCount();		// ToDo: Is this double-check needed?
 
 	for ( POSITION pos = m_pItems.GetStartPosition() ; pos ; )
 	{
@@ -550,6 +553,7 @@ int CLiveList::SortProc(LPCTSTR sB, LPCTSTR sA, BOOL bNumeric)
 			return 0;
 		}
 	}
+
 	if ( bNumeric || ( IsNumber( sA ) && IsNumber( sB ) ) )
 	{
 		double nA = 0, nB = 0;
@@ -581,10 +585,8 @@ int CLiveList::SortProc(LPCTSTR sB, LPCTSTR sA, BOOL bNumeric)
 
 		return 0;
 	}
-	else
-	{
-		return _tcsicoll( sA, sB );
-	}
+
+	return _tcsicoll( sA, sB );
 }
 
 BOOL CLiveList::IsNumber(LPCTSTR pszString)

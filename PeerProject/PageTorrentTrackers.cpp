@@ -357,7 +357,7 @@ BOOL CTorrentTrackersPage::OnInitDialog()
 	m_wndTrackers.InsertColumn( 2, _T("Type"), LVCFMT_CENTER, 0, 0 );
 	Skin.Translate( _T("CTorrentTrackerList"), m_wndTrackers.GetHeaderCtrl() );
 
-	if ( m_wndTrackers.SetBkImage( Skin.GetWatermark( _T("CListCtrl") ) ) )
+	if ( m_wndTrackers.SetBkImage( Skin.GetWatermark( _T("CListCtrl") ) ) )		// || m_wndTrackers.SetBkImage( Images.m_bmSystemWindow.m_hObject )		"System.Windows"
 		m_wndTrackers.SetExtendedStyle( LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP );	// No LVS_EX_DOUBLEBUFFER
 	else
 		m_wndTrackers.SetBkColor( Colors.m_crWindow );

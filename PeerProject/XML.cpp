@@ -37,7 +37,6 @@ CXMLNode::CXMLNode(CXMLElement* pParent, LPCTSTR pszName)
 	{
 		ASSERT( *pszName );
 		m_sName = pszName;
-		m_sName.MakeLower();
 	}
 }
 
@@ -209,18 +208,19 @@ CXMLElement* CXMLElement::Clone(CXMLElement* pParent) const
 	{
 		CXMLAttribute* pAttribute = GetNextAttribute( pos )->Clone( pClone );
 		if ( ! pAttribute ) return NULL;	// Out of memory
-		CString strName( pAttribute->m_sName );
-		strName.MakeLower();
+
+		CString strNameLower( pAttribute->m_sName );
+		strNameLower.MakeLower();
 
 		// Delete the old attribute if one exists
 		CXMLAttribute* pExisting;
-		if ( pClone->m_pAttributes.Lookup( strName, pExisting ) )
+		if ( pClone->m_pAttributes.Lookup( strNameLower, pExisting ) )
 			delete pExisting;
 
-		pClone->m_pAttributes.SetAt( strName, pAttribute );
+		pClone->m_pAttributes.SetAt( strNameLower, pAttribute );
 
-		if ( ! pClone->m_pAttributesInsertion.Find( pAttribute->m_sName ) )
-			pClone->m_pAttributesInsertion.AddTail( strName );		// Track output order
+		if ( ! pClone->m_pAttributesInsertion.Find( strNameLower ) )
+			pClone->m_pAttributesInsertion.AddTail( strNameLower );		// Track output order workaround
 	}
 
 	for ( POSITION pos = GetElementIterator() ; pos ; )
@@ -273,14 +273,14 @@ void CXMLElement::DeleteAllAttributes()
 {
 	for ( POSITION pos = m_pAttributes.GetStartPosition() ; pos ; )
 	{
-		CXMLAttribute* pAttribute = NULL;
+		CXMLAttribute* pAttribute;
 		CString strName;
 
 		m_pAttributes.GetNextAssoc( pos, strName, pAttribute );
 		delete pAttribute;
 	}
 	m_pAttributes.RemoveAll();
-	m_pAttributesInsertion.RemoveAll();		// Track output order
+	m_pAttributesInsertion.RemoveAll();		// Track output order workaround
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -457,24 +457,24 @@ BOOL CXMLElement::ParseString(LPCTSTR& strXML)
 
 		CXMLAttribute* pAttribute = new CXMLAttribute( this );
 
-		if ( ! pAttribute->ParseString( strXML ) )
+		if ( ! pAttribute || ! pAttribute->ParseString( strXML ) )
 		{
 			delete pAttribute;
 			return FALSE;
 		}
 
-		CString strName( pAttribute->m_sName );
-		strName.MakeLower();
+		CString strNameLower( pAttribute->m_sName );
+		strNameLower.MakeLower();
 
 		// Delete the old attribute if one exists
 		CXMLAttribute* pExisting;
-		if ( m_pAttributes.Lookup( strName, pExisting ) )
+		if ( m_pAttributes.Lookup( strNameLower, pExisting ) )
 			delete pExisting;
 
-		m_pAttributes.SetAt( strName, pAttribute );
+		m_pAttributes.SetAt( strNameLower, pAttribute );
 
-		if ( ! m_pAttributesInsertion.Find( pAttribute->m_sName ) )
-			m_pAttributesInsertion.AddTail( strName );		// Track output order
+		if ( ! m_pAttributesInsertion.Find( strNameLower ) )
+			m_pAttributesInsertion.AddTail( strNameLower );		// Track output order workaround
 	}
 
 	CString strClose = _T("</");
@@ -653,7 +653,7 @@ BOOL CXMLElement::Merge(const CXMLElement* pInput, BOOL bOverwrite)
 {
 	if ( ! this || ! pInput ) return FALSE;
 	if ( this == pInput ) return TRUE;
-	if ( m_sName != pInput->m_sName ) return FALSE;
+	if ( m_sName.CompareNoCase( pInput->m_sName ) != 0 ) return FALSE;
 
 	TRACE( "Merging XML:%sand XML:%s",
 		(LPCSTR)CT2A( ToString( FALSE, TRUE ) ), (LPCSTR)CT2A( pInput->ToString( FALSE, TRUE ) ) );
@@ -695,6 +695,8 @@ BOOL CXMLElement::Merge(const CXMLElement* pInput, BOOL bOverwrite)
 
 	if ( bChanged )
 		TRACE( "resulting XML:%s\n", (LPCSTR)CT2A( ToString( FALSE, TRUE ) ) );
+	else
+		TRACE( "resulting XML unchanged.\n" );
 
 	return bChanged;
 }
@@ -776,18 +778,18 @@ void CXMLElement::Serialize(CArchive& ar)
 				continue;
 			}
 
-			CString strName( pAttribute->m_sName );
-			strName.MakeLower();
+			CString strNameLower( pAttribute->m_sName );
+			strNameLower.MakeLower();
 
 			// Delete the old attribute if one exists
 			CXMLAttribute* pExisting;
-			if ( m_pAttributes.Lookup( strName, pExisting ) )
+			if ( m_pAttributes.Lookup( strNameLower, pExisting ) )
 				delete pExisting;
 
-			m_pAttributes.SetAt( strName, pAttribute );
+			m_pAttributes.SetAt( strNameLower, pAttribute );
 
-			if ( ! m_pAttributesInsertion.Find( pAttribute->m_sName ) )
-				m_pAttributesInsertion.AddTail( strName );		// Track output order
+			if ( ! m_pAttributesInsertion.Find( strNameLower ) )
+				m_pAttributesInsertion.AddTail( strNameLower );		// Track output order workaround
 		}
 
 		for ( int nCount = (int)ar.ReadCount() ; nCount > 0 ; nCount-- )
@@ -825,18 +827,21 @@ CXMLAttribute* CXMLElement::AddAttribute(LPCTSTR pszName, LPCTSTR pszValue)
 	if ( ! pAttribute )
 	{
 		pAttribute = new CXMLAttribute( this, pszName );
-		CString strName( pszName );
-		strName.MakeLower();
+		if ( ! pAttribute )
+			return NULL;
+
+		CString strNameLower( pszName );
+		strNameLower.MakeLower();
 
 		// Delete the old attribute if one exists
 		CXMLAttribute* pExisting;
-		if ( m_pAttributes.Lookup( strName, pExisting ) )
+		if ( m_pAttributes.Lookup( strNameLower, pExisting ) )
 			delete pExisting;
 
-		m_pAttributes.SetAt( strName, pAttribute );
+		m_pAttributes.SetAt( strNameLower, pAttribute );
 
-		if ( ! m_pAttributesInsertion.Find( pAttribute->m_sName ) )
-			m_pAttributesInsertion.AddTail( strName );		// Track output order
+		if ( ! m_pAttributesInsertion.Find( strNameLower ) )
+			m_pAttributesInsertion.AddTail( strNameLower );		// Track output order workaround
 	}
 
 	if ( pszValue )
@@ -855,19 +860,18 @@ CXMLAttribute* CXMLElement::AddAttribute(LPCTSTR pszName, __int64 nValue)
 CXMLAttribute* CXMLElement::AddAttribute(CXMLAttribute* pAttribute)
 {
 	if ( pAttribute->m_pParent ) return NULL;
-	CString strName( pAttribute->m_sName );
-	strName.MakeLower();
+	CString strNameLower( pAttribute->m_sName );
+	strNameLower.MakeLower();
 
 	// Delete the old attribute if one exists
 	CXMLAttribute* pExisting;
-	if ( m_pAttributes.Lookup( strName, pExisting ) )
+	if ( m_pAttributes.Lookup( strNameLower, pExisting ) )
 		delete pExisting;
 
-	if ( ! m_pAttributesInsertion.Find( pAttribute->m_sName ) )
-		m_pAttributesInsertion.AddTail( strName );		// Track output order
+	if ( ! m_pAttributesInsertion.Find( strNameLower ) )
+		m_pAttributesInsertion.AddTail( strNameLower );		// Track output order workaround
 
-
-	m_pAttributes.SetAt( pAttribute->m_sName, pAttribute );
+	m_pAttributes.SetAt( strNameLower, pAttribute );
 	pAttribute->m_pParent = this;
 	return pAttribute;
 }
@@ -937,7 +941,7 @@ BOOL CXMLAttribute::Equals(CXMLAttribute* pXML) const
 	if ( this == NULL || pXML == NULL ) return FALSE;
 	if ( pXML == this ) return TRUE;
 
-	if ( m_sName != pXML->m_sName ) return FALSE;
+	if ( m_sName.CompareNoCase( pXML->m_sName ) != 0 ) return FALSE;
 	if ( m_sValue != pXML->m_sValue ) return FALSE;
 
 	return TRUE;

@@ -165,7 +165,7 @@ inline POSITION CXMLElement::GetAttributeIterator() const
 {
 	ASSERT( m_pAttributes.GetCount() == m_pAttributesInsertion.GetCount() );
 //	return m_pAttributes.GetStartPosition();				// Legacy unordered
-	return m_pAttributesInsertion.GetHeadPosition();		// Track output order
+	return m_pAttributesInsertion.GetHeadPosition();		// Track output order workaround
 }
 
 inline CXMLAttribute* CXMLElement::GetNextAttribute(POSITION& pos) const
@@ -173,7 +173,7 @@ inline CXMLAttribute* CXMLElement::GetNextAttribute(POSITION& pos) const
 	CXMLAttribute* pAttribute = NULL;
 	CString strName;
 //	m_pAttributes.GetNextAssoc( pos, strName, pAttribute );						// Legacy unordered
-	m_pAttributes.Lookup( m_pAttributesInsertion.GetNext( pos ), pAttribute );	// Track output order
+	m_pAttributes.Lookup( m_pAttributesInsertion.GetNext( pos ), pAttribute );	// Track output order workaround
 
 	return pAttribute;
 }
@@ -181,8 +181,11 @@ inline CXMLAttribute* CXMLElement::GetNextAttribute(POSITION& pos) const
 inline CXMLAttribute* CXMLElement::GetAttribute(LPCTSTR pszName) const
 {
 	ASSERT( pszName && *pszName );
-	CXMLAttribute* pAttribute = NULL;
-	return m_pAttributes.Lookup( CString( pszName ).MakeLower(), pAttribute ) ? pAttribute : NULL;
+	CXMLAttribute* pAttribute;
+	CString strNameLower( pszName );
+	strNameLower.MakeLower();
+
+	return m_pAttributes.Lookup( strNameLower, pAttribute ) ? pAttribute : NULL;
 }
 
 inline CString CXMLElement::GetAttributeValue(LPCTSTR pszName, LPCTSTR pszDefault) const
@@ -199,20 +202,43 @@ inline CString CXMLElement::GetAttributeValue(LPCTSTR pszName, LPCTSTR pszDefaul
 
 inline void CXMLElement::RemoveAttribute(CXMLAttribute* pAttribute)
 {
-	m_pAttributes.RemoveKey( pAttribute->m_sName.MakeLower() );
+	CString strNameLower( pAttribute->m_sName );
+	strNameLower.MakeLower();
+
+	m_pAttributes.RemoveKey( strNameLower );
 
 	if ( m_pAttributesInsertion.GetCount() )		// Tracking output order
-		m_pAttributesInsertion.RemoveAt( m_pAttributesInsertion.Find( pAttribute->m_sName.MakeLower() ) );
+		m_pAttributesInsertion.RemoveAt( m_pAttributesInsertion.Find( strNameLower ) );
 }
 
 inline void CXMLElement::DeleteAttribute(LPCTSTR pszName)
 {
 	ASSERT( pszName && *pszName );
-	if ( CXMLAttribute* pAttribute = GetAttribute( pszName ) )
-	{
-		pAttribute->Delete();
+	CXMLAttribute* pAttribute = GetAttribute( pszName );
+	if ( ! pAttribute ) return;
 
-		if ( m_pAttributesInsertion.GetCount() )	// Tracking output order
-			m_pAttributesInsertion.RemoveAt( m_pAttributesInsertion.Find( pAttribute->m_sName.MakeLower() ) );
+	CString strNameLower( pAttribute->m_sName );
+	strNameLower.MakeLower();
+
+	pAttribute->Delete();
+
+	if ( m_pAttributesInsertion.GetCount() )	// Tracking output order workaround
+		m_pAttributesInsertion.RemoveAt( m_pAttributesInsertion.Find( strNameLower ) );
+}
+
+//////////////////////////////////////////////////////////////////////
+// CXMLAttribute name access
+
+inline void CXMLAttribute::SetName(LPCTSTR pszName)
+{
+	ASSERT( pszName && *pszName );
+	if ( CXMLElement* pParent = m_pParent )
+	{
+		pParent->RemoveAttribute( this );
+		m_pParent = NULL;
+		m_sName = pszName;
+		pParent->AddAttribute( this );
 	}
+	else
+		m_sName = pszName;
 }

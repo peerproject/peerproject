@@ -599,7 +599,7 @@ void CImages::Load()
 		}
 	}
 
-	if ( HBITMAP hImage = Skin.GetWatermark( _T("ToolbarSeparator") ) )
+	if ( HBITMAP hImage = Skin.GetWatermark( _T("System.Toolbars.Separator") ) )
 	{
 		PreBlend( hImage );
 		m_bmToolbarSeparator.Attach( hImage );
@@ -608,6 +608,16 @@ void CImages::Load()
 	{
 		PreBlend( hImage );
 		m_bmToolbarSeparator.Attach( hImage );
+	}
+	else if ( HBITMAP hImage = Skin.GetWatermark( _T("ToolbarSeparator") ) )
+	{
+		PreBlend( hImage );
+		m_bmToolbarSeparator.Attach( hImage );
+	}
+
+	if ( HBITMAP hImage = Skin.GetWatermark( _T("System.Toolbars") ) )
+	{
+		m_bmToolbar.Attach( hImage );
 	}
 
 
@@ -1189,6 +1199,48 @@ BOOL CImages::PreBlend(HBITMAP hButton)
 
 	SetBitmapBits( hButton, bufferSize, buffer );
 	delete buffer;
+
+	return TRUE;
+}
+
+BOOL CImages::DrawImage(CDC* pDC, CRect* prc, CBitmap* bmImage, BOOL bRepeat /*=TRUE*/)
+{
+	if ( ! bmImage->m_hObject || pDC == NULL || prc == NULL )
+		return FALSE;
+
+	BITMAP bmWatermark;
+	CBitmap* pOldMark;
+	CDC dcMark;
+
+	dcMark.CreateCompatibleDC( pDC );
+	if ( Settings.General.LanguageRTL )
+		SetLayout( dcMark.m_hDC, LAYOUT_BITMAPORIENTATIONPRESERVED );
+	pOldMark = (CBitmap*)dcMark.SelectObject( bmImage );
+	bmImage->GetBitmap( &bmWatermark );
+
+	if ( bRepeat )
+	{
+		for ( int nY = prc->top ; nY < prc->bottom ; nY += bmWatermark.bmHeight )
+		{
+			for ( int nX = prc->left ; nX < prc->right ; nX += bmWatermark.bmWidth )
+			{
+				pDC->BitBlt( nX, nY,
+					min( bmWatermark.bmWidth, prc->right - nX ),
+					min( bmWatermark.bmHeight, prc->bottom - nY ),
+					&dcMark, 0, 0, SRCCOPY );
+			}
+		}
+	}
+	else
+	{
+		pDC->BitBlt( 0, 0,
+			min( bmWatermark.bmWidth, prc->right ),
+			min( bmWatermark.bmHeight, prc->bottom ),
+			&dcMark, 0, 0, SRCCOPY );
+	}
+
+	dcMark.SelectObject( pOldMark );
+	dcMark.DeleteDC();
 
 	return TRUE;
 }

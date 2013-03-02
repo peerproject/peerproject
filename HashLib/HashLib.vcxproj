@@ -98,6 +98,7 @@
       <BaseAddress>0x29100000</BaseAddress>
       <LargeAddressAware>true</LargeAddressAware>
       <TargetMachine>MachineX86</TargetMachine>
+      <AdditionalOptions>/SAFESEH:NO</AdditionalOptions>
     </Link>
     <MASM>
       <GenerateDebugInformation>false</GenerateDebugInformation>
@@ -156,6 +157,7 @@
       <BaseAddress>0x29100000</BaseAddress>
       <LargeAddressAware>true</LargeAddressAware>
       <TargetMachine>MachineX86</TargetMachine>
+      <AdditionalOptions>/SAFESEH:NO</AdditionalOptions>
     </Link>
     <MASM>
       <GenerateDebugInformation>false</GenerateDebugInformation>

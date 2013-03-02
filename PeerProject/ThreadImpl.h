@@ -89,7 +89,7 @@ public:
 		return ( m_pWakeup.SetEvent() != FALSE );
 	}
 
-	inline void Doze(DWORD dwTimeout = INFINITE) throw()
+	inline void Doze(DWORD dwTimeout) throw()	// = INFINITE
 	{
 		SwitchToThread();
 		do

@@ -31,6 +31,8 @@ public:
 	CBitmap		m_bmPanelMark;
 	CBitmap		m_bmToolTip;
 	CBitmap		m_bmMediaStatusBar;
+//	CBitmap		m_bmSystemWindow;
+//	CBitmap		m_bmDialogList;
 
 	CBitmap		m_bmSelected;
 	CBitmap		m_bmSelectedGrey;
@@ -60,6 +62,7 @@ public:
 	CBitmap		m_bmRichButtonDisabled;
 	CBitmap		m_bmRichButtonDisabledEdge;
 
+	CBitmap		m_bmToolbar;
 	CBitmap		m_bmToolbarButton;
 	CBitmap		m_bmToolbarButtonEdge;
 	CBitmap		m_bmToolbarButtonHover;
@@ -125,6 +128,7 @@ public:
 	BOOL		DrawButtonMap(CDC* pDC, const CRect rc, CBitmap* bmButton, const int nState = 0, BOOL bRTL = FALSE);
 	BOOL		DrawButton(CDC* pDC, const CRect rc, CBitmap* bmButton, CBitmap* bmButtonEdge = NULL, BOOL bRTL = FALSE);
 	BOOL		DrawIconButton(CDC* pDC, CRect rc, CBitmap* bmButton);
+	BOOL		DrawImage(CDC* pDC, CRect* prc, CBitmap* bmImage, BOOL bRepeat = TRUE);
 };
 
 extern CImages Images;

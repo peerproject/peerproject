@@ -104,9 +104,9 @@ CXMLElement* CLibraryFolder::CreateXML(CXMLElement* pRoot, BOOL bSharedOnly, Xml
 	switch ( nType )
 	{
 	case xmlDC:
-		pFolder = pRoot->AddElement( _T("directory") );
+		pFolder = pRoot->AddElement( _T("Directory") );
 		if ( pFolder )
-			pFolder->AddAttribute( _T("name"), m_sName );
+			pFolder->AddAttribute( _T("Name"), m_sName );
 		break;
 
 	default:

@@ -336,7 +336,8 @@ void CLibraryTipCtrl::OnRun()
 {
 	while ( IsThreadEnabled() )
 	{
-		Doze();
+		Doze( 1000 );
+
 		if ( ! IsThreadEnabled() )
 			break;
 
@@ -344,8 +345,8 @@ void CLibraryTipCtrl::OnRun()
 		CString strPath = m_sPath;
 		m_pSection.Unlock();
 
-		if ( strPath.IsEmpty() )	// ToDo: Make preview requests by hash
-			break;
+		if ( strPath.IsEmpty() )	// ToDo: Make preview requests by hash?
+			continue;
 
 		CImageFile pFile;
 		if ( CThumbCache::Cache( strPath, &pFile ) )

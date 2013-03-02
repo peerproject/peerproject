@@ -120,8 +120,10 @@ int CUploadsWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	m_wndUploads.Create( this, IDC_UPLOADS );
 
+#ifndef WIN64
 	if ( ! theApp.m_bIsWin2000 )
-		m_wndUploads.ModifyStyleEx( 0, WS_EX_COMPOSITED );	// Stop flicker XP+, CPU intensive!
+#endif
+		m_wndUploads.ModifyStyleEx( 0, WS_EX_COMPOSITED );	// Stop flicker XP+, CPU intensive
 
 	if ( ! m_wndToolBar.Create( this, WS_CHILD|WS_VISIBLE|CBRS_NOALIGN, AFX_IDW_TOOLBAR ) ) return -1;
 	m_wndToolBar.SetBarStyle( m_wndToolBar.GetBarStyle() | CBRS_TOOLTIPS | CBRS_BORDER_TOP );
@@ -135,8 +137,8 @@ int CUploadsWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	SetTimer( 4, 5000, NULL );
 	PostMessage( WM_TIMER, 4 );
 
-	m_tSel			= 0;
-	m_tLastUpdate	= 0;
+	m_tSel = 0;
+	m_tLastUpdate = 0;
 
 	return 0;
 }
