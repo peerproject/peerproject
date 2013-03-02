@@ -96,7 +96,7 @@ Name: "desktopiconwizard"; Description: "{cm:CreateDesktopIconWizard}"; Language
 Name: "language"; Description: "{cm:tasks_languages}";
 Name: "multiuser"; Description: "{cm:tasks_multisetup}"; Flags: unchecked;
 Name: "webhook"; Description: "{cm:tasks_webhook}";
-Name: "firewall"; Description: "{cm:tasks_firewall}"; MinVersion: 0,5.01sp2;
+;Name: "firewall"; Description: "{cm:tasks_firewall}"; MinVersion: 0,5.01sp2;
 ;Name: "upnp"; Description: "{cm:tasks_upnp}"; MinVersion: 0,5.01; Check: CanUserModifyServices;
 Name: "resetdiscoveryhostcache"; Description: "{cm:tasks_resetdiscoveryhostcache}"; Check: WasInstalled; Flags: unchecked;
 ;#if alpha == "No"
@@ -295,7 +295,7 @@ Source: "Data\DefaultSecurity.dat"; DestDir: "{app}\Data"; DestName: "Security.d
 Name: "{group}\{#internal_name}"; Filename: "{app}\PeerProject.exe"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"; AppUserModelID: "PeerProject"
 Name: "{group}\TorrentWizard"; Filename: "{app}\TorrentWizard.exe"; WorkingDir: "{app}"; Comment: "PeerProject Torrent File Creator"
 Name: "{group}\GUI Modes\{#internal_name} ({cm:icons_basicmode})"; Filename: "{app}\PeerProject.exe"; Parameters: "-basic"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"; AppUserModelID: "PeerProject"
-Name: "{group}\GUI Modes\{#internal_name} ({cm:icons_tabbedmode})"; Filename: "{app}\PeerProject.exe"; Parameters: "-tabbed"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"; AppUserModelID: "TorrentWizard"
+Name: "{group}\GUI Modes\{#internal_name} ({cm:icons_tabbedmode})"; Filename: "{app}\PeerProject.exe"; Parameters: "-tabbed"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"; AppUserModelID: "PeerProject"
 Name: "{group}\GUI Modes\{#internal_name} ({cm:icons_windowedmode})"; Filename: "{app}\PeerProject.exe"; Parameters: "-windowed"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"; AppUserModelID: "PeerProject"
 Name: "{group}\GUI Modes\{#internal_name} ({cm:icons_launchtray})"; Filename: "{app}\PeerProject.exe"; Parameters: "-tray"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"; AppUserModelID: "PeerProject"
 ;Name: "{group}\GUI Modes\{#internal_name} ({cm:icons_noskin})"; Filename: "{app}\PeerProject.exe"; Parameters: "-noskin"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"; AppUserModelID: "PeerProject"
@@ -949,7 +949,8 @@ var
   Path: string;
 Begin
   if CurStep=ssPostInstall then begin
-    if IsTaskSelected('firewall') then begin
+//  if IsTaskSelected('firewall') then begin
+//  if (not Installed) then begin
       if WizardSilent = True then begin
         try
           FirewallObject := CreateOleObject('HNetCfg.FwAuthorizedApplication');
@@ -981,7 +982,7 @@ Begin
           MsgBox(FirewallFailed, mbInformation, MB_OK);
         End;
       End;
-    End;
+//  End;
 //  if IsTaskSelected('upnp') then begin
 //    if (HasUserPrivileges) then begin
 //      Success := false;

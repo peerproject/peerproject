@@ -166,6 +166,10 @@ public:
 	COLORREF	m_crTransferCompletedSelected;
 	COLORREF	m_crTransferVerifyPassSelected;
 	COLORREF	m_crTransferVerifyFailSelected;
+	COLORREF	m_crLibraryShared;
+	COLORREF	m_crLibraryUnshared;
+	COLORREF	m_crLibraryUnscanned;
+	COLORREF	m_crLibraryUnsafe;
 	COLORREF	m_crNetworkNull;
 	COLORREF	m_crNetworkG1;
 	COLORREF	m_crNetworkG2;

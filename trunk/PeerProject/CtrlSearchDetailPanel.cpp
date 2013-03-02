@@ -612,7 +612,8 @@ void CSearchDetailPanel::OnRun()
 			}
 
 			pLock.Unlock();
-			Doze();
+
+			Doze( 1000 );
 
 			continue;
 		}

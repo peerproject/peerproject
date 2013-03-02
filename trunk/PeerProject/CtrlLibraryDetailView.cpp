@@ -143,6 +143,13 @@ void CLibraryDetailView::OnSkinChange()
 		ASSERT_VALID( pList->GetHeaderCtrl() );
 		pList->GetHeaderCtrl()->SetFont( &CoolInterface.m_fntNormal );
 	}
+
+	if ( pList->SetBkImage( Skin.GetWatermark( _T("CLibraryWnd") ) ) || pList->SetBkImage( Skin.GetWatermark( _T("System.Windows") ) ) )	// Images.m_bmSystemWindow.m_hObject
+		pList->SetBkColor( CLR_NONE );
+		//pList->SetExtendedStyle( LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP );		// No LVS_EX_DOUBLEBUFFER ?
+	else
+		pList->SetBkColor( Colors.m_crWindow );
+		//pList->SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP );
 }
 
 int CLibraryDetailView::OnCreate(LPCREATESTRUCT lpCreateStruct)
@@ -503,7 +510,7 @@ void CLibraryDetailView::OnCacheHint(NMHDR* pNotify, LRESULT* /*pResult*/)
 	CSingleLock oLock( &Library.m_pSection );
 	if ( ! oLock.Lock( 100 ) ) return;
 
-	for ( int nItem = ((NMLVCACHEHINT*) pNotify)->iFrom ; nItem <= ((NMLVCACHEHINT*) pNotify)->iTo ; nItem++ )
+	for ( int nItem = ((NMLVCACHEHINT*)pNotify)->iFrom ; nItem <= ((NMLVCACHEHINT*)pNotify)->iTo ; nItem++ )
 	{
 		CacheItem( nItem );
 	}
@@ -513,7 +520,7 @@ void CLibraryDetailView::OnGetDispInfoW(NMHDR* pNMHDR, LRESULT* pResult)
 {
 	*pResult = 0;
 
-	LVITEM& pNotify = ((NMLVDISPINFO*) pNMHDR)->item;
+	LVITEM& pNotify = ((NMLVDISPINFO*)pNMHDR)->item;
 	LDVITEM* pItem = &m_pList[ pNotify.iItem ];
 
 	if ( pNotify.mask & LVIF_STATE )
@@ -551,7 +558,7 @@ void CLibraryDetailView::OnGetDispInfoA(NMHDR* pNMHDR, LRESULT* pResult)
 {
 	*pResult = 0;
 
-	LVITEM& pNotify = ((NMLVDISPINFO*) pNMHDR)->item;
+	LVITEM& pNotify = ((NMLVDISPINFO*)pNMHDR)->item;
 	LDVITEM* pItem = &m_pList[ pNotify.iItem ];
 
 	if ( pNotify.mask & LVIF_STATE )
@@ -748,21 +755,21 @@ void CLibraryDetailView::OnItemChanged(NMHDR* pNotify, LRESULT* pResult)
 {
 	*pResult = 0;
 
-	if ( ((NM_LISTVIEW*) pNotify)->iItem >= 0 )
+	if ( ((NM_LISTVIEW*)pNotify)->iItem >= 0 )
 	{
-		if ( ( ((NM_LISTVIEW*) pNotify)->uOldState & LVIS_SELECTED ) !=
-			 ( ((NM_LISTVIEW*) pNotify)->uNewState & LVIS_SELECTED ) )
+		if ( ( ((NM_LISTVIEW*)pNotify)->uOldState & LVIS_SELECTED ) !=
+			 ( ((NM_LISTVIEW*)pNotify)->uNewState & LVIS_SELECTED ) )
 		{
-			if ( ((NM_LISTVIEW*) pNotify)->uNewState & LVIS_SELECTED )
+			if ( ((NM_LISTVIEW*)pNotify)->uNewState & LVIS_SELECTED )
 			{
-				SelAdd( m_pList[ ((NM_LISTVIEW*) pNotify)->iItem ].nIndex );
-				m_pList[ ((NM_LISTVIEW*) pNotify)->iItem ].nState |= LDVI_SELECTED;
+				SelAdd( m_pList[ ((NM_LISTVIEW*)pNotify)->iItem ].nIndex );
+				m_pList[ ((NM_LISTVIEW*)pNotify)->iItem ].nState |= LDVI_SELECTED;
 				CLibraryFileView::CheckDynamicBar();
 			}
 			else
 			{
-				SelRemove( m_pList[ ((NM_LISTVIEW*) pNotify)->iItem ].nIndex );
-				m_pList[ ((NM_LISTVIEW*) pNotify)->iItem ].nState &= ~LDVI_SELECTED;
+				SelRemove( m_pList[ ((NM_LISTVIEW*)pNotify)->iItem ].nIndex );
+				m_pList[ ((NM_LISTVIEW*)pNotify)->iItem ].nState &= ~LDVI_SELECTED;
 			}
 		}
 	}
@@ -780,10 +787,10 @@ void CLibraryDetailView::OnItemRangeChanged(NMHDR* pNotify, LRESULT* pResult)
 {
 	*pResult = 0;
 
-	for ( int nItem = ((NMLVODSTATECHANGE*) pNotify)->iFrom ;
-		nItem <= ((NMLVODSTATECHANGE*) pNotify)->iTo ; nItem++ )
+	for ( int nItem = ((NMLVODSTATECHANGE*)pNotify)->iFrom ;
+		nItem <= ((NMLVODSTATECHANGE*)pNotify)->iTo ; nItem++ )
 	{
-		if ( ((NMLVODSTATECHANGE*) pNotify)->uNewState & LVIS_SELECTED )
+		if ( ((NMLVODSTATECHANGE*)pNotify)->uNewState & LVIS_SELECTED )
 		{
 			SelAdd( m_pList[ nItem ].nIndex );
 			m_pList[ nItem ].nState |= LDVI_SELECTED;
@@ -802,7 +809,7 @@ void CLibraryDetailView::OnItemRangeChanged(NMHDR* pNotify, LRESULT* pResult)
 void CLibraryDetailView::OnColumnClick(NMHDR* pNotify, LRESULT* pResult)
 {
 	*pResult = 0;
-	SortItems( ((NM_LISTVIEW*) pNotify)->iSubItem );
+	SortItems( ((NM_LISTVIEW*)pNotify)->iSubItem );
 }
 
 void CLibraryDetailView::OnBeginLabelEdit(NMHDR* /*pNotify*/, LRESULT* pResult)
@@ -815,13 +822,13 @@ void CLibraryDetailView::OnEndLabelEditW(NMHDR* pNotify, LRESULT* pResult)
 {
 	*pResult = 0;
 
-	if ( ((LV_DISPINFO*) pNotify)->item.pszText && *(((LV_DISPINFO*) pNotify)->item.pszText) )
+	if ( ((LV_DISPINFO*)pNotify)->item.pszText && *(((LV_DISPINFO*)pNotify)->item.pszText) )
 	{
 		CSingleLock oLock( &Library.m_pSection, TRUE );
-		if ( CLibraryFile* pFile = Library.LookupFile( m_pList[ ((LV_DISPINFO*) pNotify)->item.iItem ].nIndex ) )
+		if ( CLibraryFile* pFile = Library.LookupFile( m_pList[ ((LV_DISPINFO*)pNotify)->item.iItem ].nIndex ) )
 		{
-			m_pList[ ((LV_DISPINFO*) pNotify)->item.iItem ].nState &= ~LDVI_SELECTED;
-			CString strName = (LPCWSTR)((LV_DISPINFO*) pNotify)->item.pszText;
+			m_pList[ ((LV_DISPINFO*)pNotify)->item.iItem ].nState &= ~LDVI_SELECTED;
+			CString strName = (LPCWSTR)((LV_DISPINFO*)pNotify)->item.pszText;
 			LPCTSTR pszType = _tcsrchr( pFile->m_sName, '.' );
 			if ( pszType ) strName += pszType;
 			*pResult = pFile->Rename( strName );
@@ -846,13 +853,13 @@ void CLibraryDetailView::OnEndLabelEditA(NMHDR* pNotify, LRESULT* pResult)
 {
 	*pResult = 0;
 
-	if ( ((LV_DISPINFO*) pNotify)->item.pszText && *(((LV_DISPINFO*) pNotify)->item.pszText) )
+	if ( ((LV_DISPINFO*)pNotify)->item.pszText && *(((LV_DISPINFO*)pNotify)->item.pszText) )
 	{
 		CSingleLock oLock( &Library.m_pSection, TRUE );
-		if ( CLibraryFile* pFile = Library.LookupFile( m_pList[ ((LV_DISPINFO*) pNotify)->item.iItem ].nIndex ) )
+		if ( CLibraryFile* pFile = Library.LookupFile( m_pList[ ((LV_DISPINFO*)pNotify)->item.iItem ].nIndex ) )
 		{
-			m_pList[ ((LV_DISPINFO*) pNotify)->item.iItem ].nState &= ~LDVI_SELECTED;
-			CString strName( (LPCSTR)((LV_DISPINFO*) pNotify)->item.pszText );
+			m_pList[ ((LV_DISPINFO*)pNotify)->item.iItem ].nState &= ~LDVI_SELECTED;
+			CString strName( (LPCSTR)((LV_DISPINFO*)pNotify)->item.pszText );
 			LPCTSTR pszType = _tcsrchr( pFile->m_sName, _T('.') );
 			if ( pszType ) strName += pszType;
 			*pResult = pFile->Rename( strName );
@@ -875,18 +882,18 @@ void CLibraryDetailView::OnEndLabelEditA(NMHDR* pNotify, LRESULT* pResult)
 
 void CLibraryDetailView::OnFindItemW(NMHDR* pNotify, LRESULT* pResult)
 {
-	CW2T pszFind( (LPCWSTR)((NMLVFINDITEM*) pNotify)->lvfi.psz );
+	CW2T pszFind( (LPCWSTR)((NMLVFINDITEM*)pNotify)->lvfi.psz );
 
 	GET_LIST();
 	CQuickLock oLock( Library.m_pSection );
 
 	for ( int nLoop = 0 ; nLoop < 2 ; nLoop++ )
 	{
-		for ( int nItem = ((NMLVFINDITEM*) pNotify)->iStart ; nItem < pList->GetItemCount() ; nItem++ )
+		for ( int nItem = ((NMLVFINDITEM*)pNotify)->iStart ; nItem < pList->GetItemCount() ; nItem++ )
 		{
 			if ( CLibraryFile* pFile = Library.LookupFile( m_pList[ nItem ].nIndex ) )
 			{
-				if ( ((NMLVFINDITEM*) pNotify)->lvfi.flags & LVFI_STRING )
+				if ( ((NMLVFINDITEM*)pNotify)->lvfi.flags & LVFI_STRING )
 				{
 					if ( _tcsnicmp( (LPCTSTR)pszFind, pFile->m_sName, _tcslen( (LPCTSTR)pszFind ) ) == 0 )
 					{
@@ -896,7 +903,7 @@ void CLibraryDetailView::OnFindItemW(NMHDR* pNotify, LRESULT* pResult)
 				}
 			}
 		}
-		((NMLVFINDITEM*) pNotify)->iStart = 0;
+		((NMLVFINDITEM*)pNotify)->iStart = 0;
 	}
 
 	*pResult = -1;
@@ -904,18 +911,18 @@ void CLibraryDetailView::OnFindItemW(NMHDR* pNotify, LRESULT* pResult)
 
 void CLibraryDetailView::OnFindItemA(NMHDR* pNotify, LRESULT* pResult)
 {
-	CString strFind( (LPCSTR)((NMLVFINDITEM*) pNotify)->lvfi.psz );
+	CString strFind( (LPCSTR)((NMLVFINDITEM*)pNotify)->lvfi.psz );
 
 	GET_LIST();
 	CQuickLock oLock( Library.m_pSection );
 
 	for ( int nLoop = 0 ; nLoop < 2 ; nLoop++ )
 	{
-		for ( int nItem = ((NMLVFINDITEM*) pNotify)->iStart ; nItem < pList->GetItemCount() ; nItem++ )
+		for ( int nItem = ((NMLVFINDITEM*)pNotify)->iStart ; nItem < pList->GetItemCount() ; nItem++ )
 		{
 			if ( CLibraryFile* pFile = Library.LookupFile( m_pList[ nItem ].nIndex ) )
 			{
-				if ( ((NMLVFINDITEM*) pNotify)->lvfi.flags & LVFI_STRING )
+				if ( ((NMLVFINDITEM*)pNotify)->lvfi.flags & LVFI_STRING )
 				{
 					if ( _tcsnicmp( strFind, pFile->m_sName, strFind.GetLength() ) == 0 )
 					{
@@ -925,7 +932,7 @@ void CLibraryDetailView::OnFindItemA(NMHDR* pNotify, LRESULT* pResult)
 				}
 			}
 		}
-		((NMLVFINDITEM*) pNotify)->iStart = 0;
+		((NMLVFINDITEM*)pNotify)->iStart = 0;
 	}
 
 	*pResult = -1;
@@ -933,29 +940,32 @@ void CLibraryDetailView::OnFindItemA(NMHDR* pNotify, LRESULT* pResult)
 
 void CLibraryDetailView::OnCustomDraw(NMHDR* pNotify, LRESULT* pResult)
 {
-	if ( ((NMLVCUSTOMDRAW*) pNotify)->nmcd.dwDrawStage == CDDS_PREPAINT )
+	if ( ((NMLVCUSTOMDRAW*)pNotify)->nmcd.dwDrawStage == CDDS_PREPAINT )
 	{
 		*pResult = CDRF_NOTIFYITEMDRAW;
 	}
-	else if ( ((NMLVCUSTOMDRAW*) pNotify)->nmcd.dwDrawStage == CDDS_ITEMPREPAINT &&
-			  ((NMLVCUSTOMDRAW*) pNotify)->nmcd.dwItemSpec < m_nList )
+	else if ( ((NMLVCUSTOMDRAW*)pNotify)->nmcd.dwDrawStage == CDDS_ITEMPREPAINT &&
+			  ((NMLVCUSTOMDRAW*)pNotify)->nmcd.dwItemSpec < m_nList )
 	{
-		LDVITEM* pItem = m_pList + ((NMLVCUSTOMDRAW*) pNotify)->nmcd.dwItemSpec;
+		LDVITEM* pItem = m_pList + ((NMLVCUSTOMDRAW*)pNotify)->nmcd.dwItemSpec;
 
-		if ( pItem->nState & LDVI_SELECTED )
-		{
-			((NMLVCUSTOMDRAW*) pNotify)->clrText = Colors.m_crHiText;
-			((NMLVCUSTOMDRAW*) pNotify)->clrTextBk = Colors.m_crHighlight;
-		}
-		else if ( pItem->nState & LDVI_UNSAFE )
-			((NMLVCUSTOMDRAW*) pNotify)->clrText = Colors.m_crTextAlert;
+		if ( pItem->nState & LDVI_UNSAFE )
+			((NMLVCUSTOMDRAW*)pNotify)->clrText = Colors.m_crLibraryUnsafe;
+		else if ( pItem->nState & LDVI_SELECTED )
+			((NMLVCUSTOMDRAW*)pNotify)->clrText = Colors.m_crHiText;
 		else if ( pItem->nState & LDVI_UNSCANNED )
-			((NMLVCUSTOMDRAW*) pNotify)->clrText = Colors.m_crDisabled;
+			((NMLVCUSTOMDRAW*)pNotify)->clrText = Colors.m_crLibraryUnscanned;
 		else if ( pItem->nState & LDVI_PRIVATE )
-			((NMLVCUSTOMDRAW*) pNotify)->clrText = Colors.m_crNetworkNull;
+			((NMLVCUSTOMDRAW*)pNotify)->clrText = Colors.m_crLibraryUnshared;
+		else
+			((NMLVCUSTOMDRAW*)pNotify)->clrText = Colors.m_crLibraryShared;
 
 		if ( m_bCreateDragImage )
-			((NMLVCUSTOMDRAW*) pNotify)->clrTextBk = DRAG_COLOR_KEY;
+			((NMLVCUSTOMDRAW*)pNotify)->clrTextBk = DRAG_COLOR_KEY;
+		else if ( pItem->nState & LDVI_SELECTED )
+			((NMLVCUSTOMDRAW*)pNotify)->clrTextBk = Colors.m_crHighlight;
+		else
+			((NMLVCUSTOMDRAW*)pNotify)->clrTextBk = Colors.m_crWindow;
 
 		*pResult = CDRF_DODEFAULT;
 	}
@@ -1045,7 +1055,7 @@ void CLibraryDetailView::OnDrawItem(int /*nIDCtl*/, LPDRAWITEMSTRUCT lpDrawItemS
 
 void CLibraryDetailView::OnBeginDrag(NMHDR* pNotify, LRESULT* /*pResult*/)
 {
-	CPoint ptAction( ((NM_LISTVIEW*) pNotify)->ptAction );
+	CPoint ptAction( ((NM_LISTVIEW*)pNotify)->ptAction );
 
 	StartDragging( ptAction );
 }

@@ -1820,7 +1820,7 @@ void CDownloadsCtrl::BubbleSortDownloads(int nColumn)	// BinaryInsertionSortDown
 void CDownloadsCtrl::OnSortPanelItems(NMHDR* pNotifyStruct, LRESULT* /*pResult*/)
 {
 	//CSingleLock pLock( &Transfers.m_pSection, TRUE );		// In BubbleSort
-	NMLISTVIEW *pLV = (NMLISTVIEW *) pNotifyStruct;
+	NMLISTVIEW *pLV = (NMLISTVIEW*)pNotifyStruct;
 	BubbleSortDownloads( pLV->iItem );
 	Invalidate();
 }

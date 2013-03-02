@@ -1149,7 +1149,7 @@ void CMainWnd::OnSysCommand(UINT nID, LPARAM lParam)
 
 	case SC_MINIMIZE:
 		{
-			const BOOL bShift = ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 );
+			const BOOL bShift = ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) != 0;
 			if ( ( Settings.General.TrayMinimise && ! bShift ) || ( ! Settings.General.TrayMinimise && bShift ) )
 			{
 				CloseToTray();
@@ -1160,12 +1160,18 @@ void CMainWnd::OnSysCommand(UINT nID, LPARAM lParam)
 
 	case SC_CLOSE:
 		{
-			const BOOL bShift = ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 );
-			if ( Settings.General.CloseMode == 0 )
+			const BOOL bShift = ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) != 0;
+			if ( Settings.General.CloseMode == 0 && ! bShift )
 			{
 				CCloseModeDlg dlg;
 				if ( dlg.DoModal() != IDOK )
+				{
+					if ( Settings.General.CloseMode == 1 )
+						CloseToTray();
+					else if ( Settings.General.CloseMode == 3 )
+						OnNetworkAutoClose();
 					return;
+				}
 			}
 			else if ( Settings.General.CloseMode == 1 && ! bShift )
 			{
@@ -1264,8 +1270,7 @@ LRESULT CMainWnd::OnSkinChanged(WPARAM /*wParam*/, LPARAM /*lParam*/)
 			PostMessage( WM_COMMAND, ID_WINDOW_MONITOR );
 	}
 
-	SetWindowPos( NULL, 0, 0, 0, 0, SWP_NOMOVE|SWP_NOSIZE|
-		SWP_NOACTIVATE|SWP_NOZORDER|SWP_FRAMECHANGED|SWP_DRAWFRAME );
+	SetWindowPos( NULL, 0, 0, 0, 0, SWP_NOMOVE|SWP_NOSIZE|SWP_NOACTIVATE|SWP_NOZORDER|SWP_FRAMECHANGED|SWP_DRAWFRAME );
 
 	UpdateMessages();
 

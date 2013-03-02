@@ -83,6 +83,20 @@ static char THIS_FILE[] = __FILE__;
 
 
 /////////////////////////////////////////////////////////////////////////////
+// Rare crash workarounds
+
+void AFXAPI AfxOleTermOrFreeLibSafe(BOOL bTerm, BOOL bJustRevoke)
+{
+	__try
+	{
+		AfxOleTermOrFreeLib( bTerm, bJustRevoke );
+	}
+	__except( EXCEPTION_EXECUTE_HANDLER )
+	{
+	}
+}
+
+/////////////////////////////////////////////////////////////////////////////
 // CAppCommandLineInfo	(Was CPeerProjectCommandLineInfo)
 
 CAppCommandLineInfo::CAppCommandLineInfo()
@@ -271,6 +285,7 @@ BOOL CPeerProjectApp::InitInstance()
 		return FALSE;
 
 	AfxOleInit();				// Initializes OLE support for the application.
+	AfxGetThread()->m_lpfnOleTermOrFreeLib = AfxOleTermOrFreeLibSafe;	// Rare crash workaround
 	CoInitializeSecurity( NULL, -1, NULL, NULL, RPC_C_AUTHN_LEVEL_PKT, RPC_C_IMP_LEVEL_IMPERSONATE, NULL, EOAC_NONE, NULL );
 
 	GetVersionNumber();

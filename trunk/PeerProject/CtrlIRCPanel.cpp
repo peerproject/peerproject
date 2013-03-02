@@ -90,7 +90,9 @@ int CIRCPanel::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_boxChans.Create( this, 200, _T("Channels"), IDR_CHANSFRAME );
 	m_boxUsers.Create( this, 200, _T("Users"), IDR_USERSFRAME );
 
+#ifndef WIN64
 	if ( ! theApp.m_bIsWin2000 )
+#endif
 		m_boxUsers.ModifyStyleEx( 0, WS_EX_COMPOSITED );	// Stop control flickering XP+
 
 	m_pFont.Attach( theApp.m_gdiFontBold );

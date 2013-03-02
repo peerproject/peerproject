@@ -209,7 +209,7 @@ void CSecurityWnd::OnSkinChange()
 //	CoolInterface.LoadIconsTo( m_gdiImageList, nImageIDs );
 //	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
 
-	if ( m_wndList.SetBkImage( Skin.GetWatermark( _T("CSecurityWnd") ) ) )
+	if ( m_wndList.SetBkImage( Skin.GetWatermark( _T("CSecurityWnd") ) ) || m_wndList.SetBkImage( Skin.GetWatermark( _T("System.Windows") ) ) )		// Images.m_bmSystemWindow.m_hObject
 		m_wndList.SetExtendedStyle( LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP|LVS_EX_SUBITEMIMAGES );	// No LVS_EX_DOUBLEBUFFER
 	else
 		m_wndList.SetBkColor( Colors.m_crWindow );

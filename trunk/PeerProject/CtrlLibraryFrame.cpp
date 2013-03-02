@@ -33,6 +33,7 @@
 #include "DlgNewSearch.h"
 #include "CoolInterface.h"
 #include "Colors.h"
+#include "Images.h"
 #include "Skin.h"
 #include "SchemaCache.h"
 
@@ -309,7 +310,7 @@ void CLibraryFrame::OnSize(UINT nType, int cx, int cy)
 
 	DeferWindowPos( hDWP, m_wndViewTop.GetSafeHwnd(), NULL,
 		rc.left + m_nTreeSize + Settings.Skin.Splitter, rc.top,
-		rc.Width() - m_nTreeSize - Settings.Skin.Splitter, Settings.Skin.ToolbarHeight - 1, SWP_NOZORDER );
+		rc.Width() - m_nTreeSize - Settings.Skin.Splitter, Settings.Skin.ToolbarHeight, SWP_NOZORDER );
 
 	DeferWindowPos( hDWP, m_wndViewBottom.GetSafeHwnd(), NULL,
 		rc.left + m_nTreeSize + Settings.Skin.Splitter, rc.bottom - Settings.Skin.ToolbarHeight,
@@ -324,7 +325,7 @@ void CLibraryFrame::OnSize(UINT nType, int cx, int cy)
 
 	if ( HasView() )
 	{
-		int nTop = rc.top + Settings.Skin.ToolbarHeight - 1;
+		int nTop = rc.top + Settings.Skin.ToolbarHeight;
 
 		if ( m_nHeaderSize > 0 )
 		{
@@ -332,7 +333,7 @@ void CLibraryFrame::OnSize(UINT nType, int cx, int cy)
 				rc.left + m_nTreeSize + Settings.Skin.Splitter, nTop,
 				rc.Width() - m_nTreeSize - Settings.Skin.Splitter, m_nHeaderSize,
 				SWP_NOZORDER|SWP_SHOWWINDOW );
-			nTop += m_nHeaderSize + 1;
+			nTop += m_nHeaderSize;
 		}
 
 		int nHeight = rc.bottom - Settings.Skin.ToolbarHeight - nTop;
@@ -372,7 +373,7 @@ void CLibraryFrame::OnPaint()
 
 	if ( m_nHeaderSize > 0 )
 	{
-		dc.FillSolidRect( rc.right, rcClient.top + Settings.Skin.ToolbarHeight - 1 + m_nHeaderSize,
+		dc.FillSolidRect( rc.right, rcClient.top + Settings.Skin.ToolbarHeight + m_nHeaderSize,
 			rcClient.right - rc.right, 1, Colors.m_crSys3DHighlight );
 	}
 
@@ -380,9 +381,13 @@ void CLibraryFrame::OnPaint()
 	{
 		rc.SetRect( rcClient.left, rcClient.bottom - Settings.Skin.ToolbarHeight,
 			rcClient.left + m_nTreeSize, rcClient.bottom - m_nTreeTypesHeight );
-		dc.FillSolidRect( rc.left, rc.top, rc.Width(), 1, Colors.m_crSys3DShadow );
-		dc.FillSolidRect( rc.left, rc.top + 1, rc.Width(), 1, Colors.m_crSys3DHighlight );
-		dc.FillSolidRect( rc.left, rc.top + 2, rc.Width(), rc.Height() - 2, Colors.m_crSysBtnFace );
+		if ( Settings.Skin.ToolbarHeight <= m_nTreeTypesHeight || ! Images.DrawImage( &dc, &rc, &Images.m_bmToolbar ) )		// _T("System.Toolbars")
+		{
+			// ToDo: Draw Splitter?
+			dc.FillSolidRect( rc.left, rc.top, rc.Width(), 1, Colors.m_crSys3DShadow );
+			dc.FillSolidRect( rc.left, rc.top + 1, rc.Width(), 1, Colors.m_crSys3DHighlight );
+			dc.FillSolidRect( rc.left, rc.top + 2, rc.Width(), rc.Height() - 2, Colors.m_crSysBtnFace );
+		}
 	}
 
 	if ( HasPanel() )
@@ -407,7 +412,7 @@ void CLibraryFrame::OnContextMenu(CWnd* /*pWnd*/, CPoint /*point*/)
 
 void CLibraryFrame::OnMeasureItem(int /*nIDCtl*/, LPMEASUREITEMSTRUCT lpMeasureItemStruct)
 {
-	lpMeasureItemStruct->itemHeight = 18;
+	lpMeasureItemStruct->itemHeight = 18;	// ToDo: Use setting?
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1052,8 +1057,7 @@ void CLibraryFrame::OnToolbarEscape()
 
 BOOL CLibraryFrame::SetDynamicBar(LPCTSTR pszName)
 {
-	BOOL bResult = Skin.CreateToolBar( pszName, &m_wndBottomDynamic );
-	if ( bResult )
+	if ( Skin.CreateToolBar( pszName, &m_wndBottomDynamic ) )
 	{
 		CRect rc;
 		GetClientRect( &rc );
@@ -1068,6 +1072,8 @@ BOOL CLibraryFrame::SetDynamicBar(LPCTSTR pszName)
 			m_wndBottomDynamic.Invalidate( TRUE );
 		}
 		m_bDynamicBarHidden = FALSE;
+
+		return TRUE;
 	}
 	else
 	{
@@ -1077,8 +1083,9 @@ BOOL CLibraryFrame::SetDynamicBar(LPCTSTR pszName)
 		m_bDynamicBarHidden = TRUE;
 		if ( pszName != NULL && m_sDynamicBarName != pszName )
 			m_sDynamicBarName.Empty();
+
+		return FALSE;
 	}
-	return bResult;
 }
 
 void CLibraryFrame::HideDynamicBar()

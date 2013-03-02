@@ -108,7 +108,7 @@ BOOL CTorrentFilesPage::OnInitDialog()
 
 	Skin.Translate( _T("CTorrentFileList"), m_wndFiles.GetHeaderCtrl() );
 
-	if ( m_wndFiles.SetBkImage( Skin.GetWatermark( _T("CListCtrl") ) ) )
+	if ( m_wndFiles.SetBkImage( Skin.GetWatermark( _T("CListCtrl") ) ) )		// || m_wndFiles.SetBkImage( Images.m_bmSystemWindow.m_hObject )	"System.Windows"
 		m_wndFiles.SetExtendedStyle( LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP|LVS_EX_CHECKBOXES );	// No LVS_EX_DOUBLEBUFFER
 	else
 		m_wndFiles.SetBkColor( Colors.m_crWindow );

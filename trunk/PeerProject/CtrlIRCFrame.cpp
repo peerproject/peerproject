@@ -175,7 +175,10 @@ int CIRCFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	m_wndTab.Create( WS_CHILD | WS_VISIBLE | TCS_FLATBUTTONS | TCS_HOTTRACK | TCS_OWNERDRAWFIXED,
 		rectDefault, this, IDC_CHAT_TABS );
+
+#ifndef WIN64
 	if ( ! theApp.m_bIsWin2000 )
+#endif
 		m_wndTab.ModifyStyleEx( 0, WS_EX_COMPOSITED );	// Stop control flickering XP+
 
 	FillChanList();
@@ -1892,14 +1895,15 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 				strTemp = m_pWords.GetAt( nWord );
 				nModeColumn = 0;
 				nMode = 48;
-				if ( strTemp.Left( 1 ) == _T("+") )
+				if ( strTemp[ 0 ] == _T('+') )
 					nModeColumn = 1;
-				else if ( strTemp.Left( 1 ) == _T("@") )
+				else if ( strTemp[ 0 ] == _T('@') )
 					nModeColumn = 2;
-				else if ( strTemp.Left( 1 ) == _T("%") )
+				else if ( strTemp[ 0 ] == _T('%') )
 					nModeColumn = 4;
 				nMode += nModeColumn;
-				if ( nMode != 48 ) strTemp = strTemp.Mid( 1 );
+				if ( nMode != 48 )
+					strTemp = strTemp.Mid( 1 );
 				AddUser( m_pWords.GetAt( nWord ) );
 				strTemp = char(nMode) + strTemp;
 				// Add new user to userlist
@@ -2271,10 +2275,8 @@ int CIRCFrame::ParseMessageID()
 			}
 			else if ( strCommand == _T("NOTICE") && strOrigin != Settings.IRC.ServerName )
 			{
-				if ( m_pWords.GetAt( 6 ) == m_sNickname )
-					nMessageType = ID_MESSAGE_CLIENT_NOTICE;
-				else
-					nMessageType = ID_MESSAGE_CHANNEL_NOTICE;
+				nMessageType = m_pWords.GetAt( 6 ) == m_sNickname ?
+					ID_MESSAGE_CLIENT_NOTICE : ID_MESSAGE_CHANNEL_NOTICE;
 			}
 			else if ( strCommand == _T("PRIVMSG") )
 			{
@@ -2284,7 +2286,11 @@ int CIRCFrame::ParseMessageID()
 				// 0x01 indicates a CTCP message, including '/me'
 				if ( pszFirst == char('\x01') )
 				{
-					if ( m_pWords.GetAt( 6 ).CompareNoCase( m_sNickname ) == 0 )
+					if ( str == _T("action") || str == _T("actio") )
+					{
+						nMessageType = ID_MESSAGE_CHANNEL_ME;
+					}
+					else if ( m_pWords.GetAt( 6 ).CompareNoCase( m_sNickname ) == 0 )
 					{
 						if ( str == _T("version") )
 							nMessageType = ID_MESSAGE_USER_CTCPVERSION;
@@ -2292,12 +2298,6 @@ int CIRCFrame::ParseMessageID()
 							nMessageType = ID_MESSAGE_USER_CTCPTIME;
 						else if ( str == _T("userinfo") )
 							nMessageType = ID_MESSAGE_USER_CTCPBROWSE;
-						else if ( str == _T("action") || str == "actio" )
-							nMessageType = ID_MESSAGE_USER_ME;
-					}
-					else if ( str == _T("action") || str == "actio" )
-					{
-						nMessageType = ID_MESSAGE_CHANNEL_ME;
 					}
 				}
 				else
@@ -2386,7 +2386,7 @@ int CIRCFrame::FindParsedItem(LPCTSTR szMessage, int nFirst)
 
 CString CIRCFrame::GetStringAfterParsedItem(int nItem) const
 {
-	CString strMessage = _T("");
+	CString strMessage;
 	for ( int nWord = nItem + 1 ; nWord < m_pWords.GetCount() ; nWord++ )
 		strMessage = strMessage + _T(" ") + m_pWords.GetAt( nWord );
 	strMessage.Trim();

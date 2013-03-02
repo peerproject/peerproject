@@ -22,6 +22,7 @@
 #include "WizardProfilePage.h"
 #include "GProfile.h"
 #include "WorldGPS.h"
+#include "Network.h"
 #include "Skin.h"
 #include "XML.h"
 
@@ -142,7 +143,7 @@ BOOL CWizardProfilePage::OnSetActive()
 
 		for ( int nAgeItem = 0 ; nAgeItem < m_wndAge.GetCount() ; nAgeItem ++ )
 		{
-			if ( m_wndAge.GetItemData( nAgeItem ) == DWORD( nAge ) )
+			if ( m_wndAge.GetItemData( nAgeItem ) == (DWORD)nAge )
 			{
 				m_nAge = nAgeItem;
 				break;
@@ -159,6 +160,9 @@ BOOL CWizardProfilePage::OnSetActive()
 							+ pPolitical->GetAttributeValue( _T("state") );
 		}
 	}
+
+	if ( m_sLocCountry.IsEmpty() && Network.m_pHost.sin_addr.S_un.S_addr )
+		m_sLocCountry = theApp.GetCountryName( Network.m_pHost.sin_addr );
 
 	UpdateData( FALSE );
 

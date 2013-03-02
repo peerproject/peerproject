@@ -1051,7 +1051,7 @@ BOOL CSkin::CreateToolBar(LPCTSTR pszName, CCoolBarCtrl* pBar)
 				pBar->SetWatermark( hBitmap );
 			else if ( HBITMAP hBitmap = GetWatermark( strClassName + _T(".Toolbar") ) )
 				pBar->SetWatermark( hBitmap );
-			else if ( HBITMAP hBitmap = GetWatermark( _T("System.Toolbars") ) )
+			else if ( HBITMAP hBitmap = GetWatermark( _T("System.Toolbars") ) )		// ToDo: Images.m_bmToolbar
 				pBar->SetWatermark( hBitmap );
 
 			pBar->Copy( pBase );
@@ -2017,6 +2017,7 @@ BOOL CSkin::LoadColorScheme(CXMLElement* pBase)
 	pColors.SetAt( _T("system.textlink"), &Colors.m_crTextLink );
 	pColors.SetAt( _T("system.textlink.selected"), &Colors.m_crTextLinkHot );
 
+	// Deprecated System.Base. first
 	pColors.SetAt( _T("system.base.chat.in"), &Colors.m_crChatIn );
 	pColors.SetAt( _T("system.base.chat.out"), &Colors.m_crChatOut );
 	pColors.SetAt( _T("system.base.chat.null"), &Colors.m_crChatNull );
@@ -2052,6 +2053,48 @@ BOOL CSkin::LoadColorScheme(CXMLElement* pBase)
 	pColors.SetAt( _T("system.base.network.out"), &Colors.m_crNetworkUp );
 	pColors.SetAt( _T("system.base.security.allow"), &Colors.m_crSecurityAllow );
 	pColors.SetAt( _T("system.base.security.deny"), &Colors.m_crSecurityDeny );
+
+	// Preferred System. second
+	pColors.SetAt( _T("system.chat.in"), &Colors.m_crChatIn );
+	pColors.SetAt( _T("system.chat.out"), &Colors.m_crChatOut );
+	pColors.SetAt( _T("system.chat.null"), &Colors.m_crChatNull );
+	pColors.SetAt( _T("system.search.null"), &Colors.m_crSearchNull );
+	pColors.SetAt( _T("system.search.exists"), &Colors.m_crSearchExists );
+	pColors.SetAt( _T("system.search.exists.hit"), &Colors.m_crSearchExistsHit );
+	pColors.SetAt( _T("system.search.exists.selected"), &Colors.m_crSearchExistsSelected );
+	pColors.SetAt( _T("system.search.queued"), &Colors.m_crSearchQueued );
+	pColors.SetAt( _T("system.search.queued.hit"), &Colors.m_crSearchQueuedHit );
+	pColors.SetAt( _T("system.search.queued.selected"), &Colors.m_crSearchQueuedSelected );
+	pColors.SetAt( _T("system.search.ghostrated"), &Colors.m_crSearchGhostrated );
+	pColors.SetAt( _T("system.search.highrated"), &Colors.m_crSearchHighrated );
+	pColors.SetAt( _T("system.search.collection"), &Colors.m_crSearchCollection );
+	pColors.SetAt( _T("system.search.torrent"), &Colors.m_crSearchTorrent );
+	pColors.SetAt( _T("system.transfer.source"), &Colors.m_crTransferSource );
+	pColors.SetAt( _T("system.transfer.ranges"), &Colors.m_crTransferRanges );
+	pColors.SetAt( _T("system.transfer.completed"), &Colors.m_crTransferCompleted );
+	pColors.SetAt( _T("system.transfer.seeding"), &Colors.m_crTransferVerifyPass );
+	pColors.SetAt( _T("system.transfer.failed"), &Colors.m_crTransferVerifyFail );
+	pColors.SetAt( _T("system.transfer.completed.selected"), &Colors.m_crTransferCompletedSelected );
+	pColors.SetAt( _T("system.transfer.seeding.selected"), &Colors.m_crTransferVerifyPassSelected );
+	pColors.SetAt( _T("system.transfer.failed.selected"), &Colors.m_crTransferVerifyFailSelected );
+	pColors.SetAt( _T("system.library"), &Colors.m_crLibraryShared );
+	pColors.SetAt( _T("system.library.shared"), &Colors.m_crLibraryShared );
+	pColors.SetAt( _T("system.library.unshared"), &Colors.m_crLibraryUnshared );
+	pColors.SetAt( _T("system.library.unscanned"), &Colors.m_crLibraryUnscanned );
+	pColors.SetAt( _T("system.library.unsafe"), &Colors.m_crLibraryUnsafe );
+	pColors.SetAt( _T("system.network.null"), &Colors.m_crNetworkNull );
+	pColors.SetAt( _T("system.network.gnutella"), &Colors.m_crNetworkG1 );
+	pColors.SetAt( _T("system.network.gnutella2"), &Colors.m_crNetworkG2 );
+	pColors.SetAt( _T("system.network.g1"), &Colors.m_crNetworkG1 );
+	pColors.SetAt( _T("system.network.g2"), &Colors.m_crNetworkG2 );
+	pColors.SetAt( _T("system.network.ed2k"), &Colors.m_crNetworkED2K );
+	pColors.SetAt( _T("system.network.dc"), &Colors.m_crNetworkDC );
+	pColors.SetAt( _T("system.network.up"), &Colors.m_crNetworkUp );
+	pColors.SetAt( _T("system.network.down"), &Colors.m_crNetworkDown );
+	pColors.SetAt( _T("system.network.in"), &Colors.m_crNetworkDown );
+	pColors.SetAt( _T("system.network.out"), &Colors.m_crNetworkUp );
+	pColors.SetAt( _T("system.security.allow"), &Colors.m_crSecurityAllow );
+	pColors.SetAt( _T("system.security.deny"), &Colors.m_crSecurityDeny );
 
 	pColors.SetAt( _T("dropdownbox.back"), &Colors.m_crDropdownBox );
 	pColors.SetAt( _T("dropdownbox.text"), &Colors.m_crDropdownText );

@@ -161,7 +161,9 @@ int CBaseMatchWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndList.Create( m_pMatches, this );
 //	m_wndList.ModifyStyle( 0, WS_TABSTOP );
 
+#ifndef WIN64
 	if ( ! theApp.m_bIsWin2000 )
+#endif
 		m_wndList.ModifyStyleEx( 0, WS_EX_COMPOSITED );		// Stop rare flicker XP+, CPU intensive
 
 	if ( ! m_wndToolBar.Create( this, WS_CHILD|WS_CLIPSIBLINGS|WS_TABSTOP|WS_VISIBLE|CBRS_NOALIGN ) ) return -1;

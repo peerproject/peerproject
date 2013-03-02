@@ -173,6 +173,10 @@ void CColors::CalculateColors(BOOL bCustom)
 	m_crTransferCompletedSelected	= RGB( 0, 255, 0 );
 	m_crTransferVerifyPassSelected	= RGB( 0, 255, 0 );
 	m_crTransferVerifyFailSelected	= RGB( 255, 0, 0 );
+	m_crLibraryShared 			= RGB( 0, 0, 0 );
+	m_crLibraryUnshared 		= RGB( 192, 192, 192 );
+	m_crLibraryUnscanned 		= RGB( 128, 128, 128 );
+	m_crLibraryUnsafe 			= RGB( 255, 0, 0 );
 	m_crNetworkNull 			= RGB( 192, 192, 192 );
 	m_crNetworkG1				= RGB( 80, 80, 80 );
 	m_crNetworkG2				= RGB( 100, 100, 255 );

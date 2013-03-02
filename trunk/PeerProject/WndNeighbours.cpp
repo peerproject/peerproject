@@ -109,7 +109,7 @@ END_MESSAGE_MAP()
 
 CNeighboursWnd::CNeighboursWnd()
 	: CPanelWnd( TRUE, TRUE )
-	, m_tLastUpdate( 0 )
+//	, m_tLastUpdate( 0 )	// Using static
 {
 	Create( IDR_NEIGHBOURSFRAME );
 }
@@ -144,6 +144,13 @@ int CNeighboursWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	m_wndTip.Create( &m_wndList, &Settings.Interface.TipNeighbours );
 	m_wndList.SetTip( &m_wndTip );
+
+#if defined(_MSC_VER) && (_MSC_VER >= 1700)
+  #ifndef WIN64
+	if ( ! theApp.m_bIsWin2000 )
+  #endif
+		m_wndList.ModifyStyleEx( 0, WS_EX_COMPOSITED );		// Stop flicker XP+, CPU intensive (Only needed here when targeting VS2012)
+#endif
 
 	m_wndList.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP|LVS_EX_SUBITEMIMAGES );
 
@@ -217,12 +224,24 @@ void CNeighboursWnd::OnDestroy()
 
 void CNeighboursWnd::Update()
 {
+	static DWORD tLastUpdate = 0;
+	const DWORD tNow = GetTickCount();
+
+	if ( tNow < tLastUpdate + 30 || ( ! IsPartiallyVisible() && tNow < tLastUpdate + 30000 ) )
+		return;
+
+#if defined(_MSC_VER) && (_MSC_VER >= 1700)
+	// VS2012 targeting deselection bug workaround delay.  ToDo: Fix properly
+	if ( tNow < tLastUpdate + 4000 && m_wndList.GetSelectedCount() )
+		return;
+#endif
+
 	CSingleLock pLock( &Network.m_pSection );
 	if ( ! pLock.Lock( 50 ) ) return;
 
 	CLiveList pLiveList( COL_LAST );
 
-	m_tLastUpdate = GetTickCount();
+	tLastUpdate = tNow;		// Was m_tLastUpdate
 
 	for ( POSITION pos = Neighbours.GetIterator() ; pos ; )
 	{
@@ -233,7 +252,7 @@ void CNeighboursWnd::Update()
 		pItem->Set( COL_ADDRESS, _T(" ") + pNeighbour->m_sAddress );
 		pItem->Format( COL_PORT, _T("%hu"), htons( pNeighbour->m_pHost.sin_port ) );
 
-		const DWORD nTime = ( m_tLastUpdate - pNeighbour->m_tConnected ) / 1000;
+		const DWORD nTime = ( tLastUpdate - pNeighbour->m_tConnected ) / 1000;
 
 		switch ( pNeighbour->m_nState )
 		{
@@ -355,6 +374,8 @@ void CNeighboursWnd::Update()
 	}
 
 	pLiveList.Apply( &m_wndList, TRUE );
+
+	tLastUpdate = GetTickCount();
 }
 
 CNeighbour* CNeighboursWnd::GetItem(int nItem)
@@ -394,10 +415,7 @@ void CNeighboursWnd::OnSize(UINT nType, int cx, int cy)
 void CNeighboursWnd::OnTimer(UINT_PTR nIDEvent)
 {
 	if ( nIDEvent == 1 )
-	{
-		if ( IsPartiallyVisible() || ( GetTickCount() - m_tLastUpdate > 30000 ) )
-			 Update();
-	}
+		Update();
 }
 
 void CNeighboursWnd::OnSortList(NMHDR* pNotifyStruct, LRESULT *pResult)
@@ -470,7 +488,7 @@ void CNeighboursWnd::OnUpdateNeighboursChat(CCmdUI* pCmdUI)
 	if ( Settings.Community.ChatEnable && GetSelectedCount() == 1 )
 	{
 		CSingleLock pNetworkLock( &Network.m_pSection );
-		if ( pNetworkLock.Lock( 200 ) )
+		if ( pNetworkLock.Lock( 250 ) )
 		{
 			if ( CNeighbour* pNeighbour = GetItem( m_wndList.GetNextItem( -1, LVNI_SELECTED ) ) )
 			{
@@ -480,6 +498,7 @@ void CNeighboursWnd::OnUpdateNeighboursChat(CCmdUI* pCmdUI)
 					pNeighbour->m_nProtocol == PROTOCOL_DC );
 			}
 		}
+		pNetworkLock.Unlock();
 	}
 	pCmdUI->Enable( bEnable );
 }
@@ -532,7 +551,7 @@ void CNeighboursWnd::OnUpdateBrowseLaunch(CCmdUI* pCmdUI)
 	if ( GetSelectedCount() == 1 )
 	{
 		CSingleLock pNetworkLock( &Network.m_pSection );
-		if ( pNetworkLock.Lock( 200 ) )
+		if ( pNetworkLock.Lock( 250 ) )
 		{
 			if ( CNeighbour* pNeighbour = GetItem( m_wndList.GetNextItem( -1, LVNI_SELECTED ) ) )
 			{
@@ -541,6 +560,7 @@ void CNeighboursWnd::OnUpdateBrowseLaunch(CCmdUI* pCmdUI)
 					pNeighbour->m_nProtocol == PROTOCOL_G1 );
 			}
 		}
+		pNetworkLock.Unlock();
 	}
 	pCmdUI->Enable( bEnable );
 }
@@ -642,7 +662,7 @@ void CNeighboursWnd::OnSkinChange()
 
 	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
 
-	if ( m_wndList.SetBkImage( Skin.GetWatermark( _T("CNeighboursWnd") ) ) )
+	if ( m_wndList.SetBkImage( Skin.GetWatermark( _T("CNeighboursWnd") ) ) || m_wndList.SetBkImage( Skin.GetWatermark( _T("System.Windows") ) ) )	// Images.m_bmSystemWindow.m_hObject
 		m_wndList.SetExtendedStyle( LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP|LVS_EX_SUBITEMIMAGES );	// No LVS_EX_DOUBLEBUFFER
 	else
 		m_wndList.SetBkColor( Colors.m_crWindow );
@@ -730,10 +750,22 @@ void CNeighboursWnd::DrawEmptyMessage(CDC* pDC)
 
 BOOL CNeighboursWnd::PreTranslateMessage(MSG* pMsg)
 {
-	if ( pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_TAB )
+	if ( pMsg->message == WM_KEYDOWN )
 	{
-		GetManager()->Open( RUNTIME_CLASS(CSystemWnd) );
-		return TRUE;
+		switch ( pMsg->wParam )
+		{
+		case VK_TAB:
+			GetManager()->Open( RUNTIME_CLASS(CSystemWnd) );
+			return TRUE;
+		case VK_DELETE:
+			if ( GetSelectedCount() )
+				OnNeighboursDisconnect();
+			return TRUE;
+		case 'C':
+			if ( ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 ) != 0 && GetSelectedCount() == 1 )
+				OnNeighboursCopy();
+			return TRUE;
+		}
 	}
 
 	return CPanelWnd::PreTranslateMessage(pMsg);

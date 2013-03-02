@@ -39,7 +39,7 @@ protected:
 	CNeighbourTipCtrl	m_wndTip;
 	CLiveListSizer		m_pSizer;
 	CImageList			m_gdiImageList;
-	DWORD				m_tLastUpdate;
+//	DWORD				m_tLastUpdate;	// Using static
 
 // Operations
 public:
