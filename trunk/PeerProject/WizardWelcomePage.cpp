@@ -31,9 +31,7 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNCREATE(CWizardWelcomePage, CWizardPage)
 
 BEGIN_MESSAGE_MAP(CWizardWelcomePage, CWizardPage)
-	//{{AFX_MSG_MAP(CWizardWelcomePage)
 	ON_WM_XBUTTONDOWN()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -42,8 +40,6 @@ END_MESSAGE_MAP()
 
 CWizardWelcomePage::CWizardWelcomePage() : CWizardPage(CWizardWelcomePage::IDD)
 {
-	//{{AFX_DATA_INIT(CWizardWelcomePage)
-	//}}AFX_DATA_INIT
 }
 
 CWizardWelcomePage::~CWizardWelcomePage()
@@ -53,8 +49,6 @@ CWizardWelcomePage::~CWizardWelcomePage()
 void CWizardWelcomePage::DoDataExchange(CDataExchange* pDX)
 {
 	CWizardPage::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CWizardWelcomePage)
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

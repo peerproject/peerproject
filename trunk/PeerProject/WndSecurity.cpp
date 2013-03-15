@@ -43,7 +43,6 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_SERIAL(CSecurityWnd, CPanelWnd, 0)
 
 BEGIN_MESSAGE_MAP(CSecurityWnd, CPanelWnd)
-	//{{AFX_MSG_MAP(CSecurityWnd)
 	ON_WM_CREATE()
 	ON_WM_DESTROY()
 	ON_WM_SIZE()
@@ -70,7 +69,6 @@ BEGIN_MESSAGE_MAP(CSecurityWnd, CPanelWnd)
 	ON_UPDATE_COMMAND_UI(ID_SECURITY_EXPORT, OnUpdateSecurityExport)
 	ON_COMMAND(ID_SECURITY_EXPORT, OnSecurityExport)
 	ON_COMMAND(ID_SECURITY_IMPORT, OnSecurityImport)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 

@@ -37,9 +37,7 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNCREATE(CWizardNetworksPage, CWizardPage)
 
 BEGIN_MESSAGE_MAP(CWizardNetworksPage, CWizardPage)
-	//{{AFX_MSG_MAP(CWizardNetworksPage)
 	ON_WM_XBUTTONDOWN()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -62,12 +60,10 @@ CWizardNetworksPage::~CWizardNetworksPage()
 void CWizardNetworksPage::DoDataExchange(CDataExchange* pDX)
 {
 	CWizardPage::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CWizardNetworksPage)
 	DDX_Check(pDX, IDC_G2_ENABLE, m_bG2Enable);
 	DDX_Check(pDX, IDC_G1_ENABLE, m_bG1Enable);
 	DDX_Check(pDX, IDC_ED2K_ENABLE, m_bEDEnable);
 	DDX_Check(pDX, IDC_URI_TORRENT, m_bHandleTorrents);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

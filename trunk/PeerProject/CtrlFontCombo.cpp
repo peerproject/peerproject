@@ -46,12 +46,10 @@ CFontCombo::CFontCombo()
 IMPLEMENT_DYNAMIC(CFontCombo, CComboBox)
 
 BEGIN_MESSAGE_MAP(CFontCombo, CComboBox)
-	//{{AFX_MSG_MAP(CFontCombo)
 	ON_WM_CREATE()
 	ON_WM_DESTROY()
 	ON_MESSAGE(OCM_DRAWITEM, &CFontCombo::OnOcmDrawItem)
 	ON_CONTROL_REFLECT(CBN_DROPDOWN, &CFontCombo::OnDropdown)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////

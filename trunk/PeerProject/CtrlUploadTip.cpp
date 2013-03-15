@@ -49,9 +49,7 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNAMIC(CUploadTipCtrl, CCoolTipCtrl)
 
 BEGIN_MESSAGE_MAP(CUploadTipCtrl, CCoolTipCtrl)
-	//{{AFX_MSG_MAP(CUploadTipCtrl)
 	ON_WM_TIMER()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 

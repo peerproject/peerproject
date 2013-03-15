@@ -35,42 +35,42 @@ public:
 //	virtual ~CMatchTipCtrl();
 
 public:
-	void			Show(CMatchFile* pFile, CQueryHit* pHit);
+	void		Show(CMatchFile* pFile, CQueryHit* pHit);
 
 // Attributes
 protected:
-	CMatchFile*		m_pFile;
-	CQueryHit*		m_pHit;
+	CMatchFile*	m_pFile;
+	CQueryHit*	m_pHit;
 
-	CString			m_sName;
-	CString			m_sUser;
-	CString			m_sCountryCode;
-	CString			m_sCountry;
-	CString			m_sSHA1;
-	CString			m_sTiger;
-	CString			m_sED2K;
-	CString			m_sBTH;
-	CString			m_sMD5;
-	CString			m_sType;
-	CString			m_sSize;
-	CString			m_sBusy;		// Busy status message
-	CString			m_sPush;		// Firewalled status message
-	CString			m_sUnstable;	// Unstable status message
-	int				m_nIcon;
-	CString			m_sStatus;
-	COLORREF		m_crStatus;
-	CString			m_sPartial;
-	CString			m_sQueue;
-	CSchemaPtr		m_pSchema;
-	CMetaList		m_pMetadata;
-	int				m_nKeyWidth;
-	int				m_nRating;
+	CString		m_sName;
+	CString		m_sUser;
+	CString		m_sCountryCode;
+	CString		m_sCountry;
+	CString		m_sSHA1;
+	CString		m_sTiger;
+	CString		m_sED2K;
+	CString		m_sBTH;
+	CString		m_sMD5;
+	CString		m_sType;
+	CString		m_sSize;
+	CString		m_sBusy;		// Busy status message
+	CString		m_sPush;		// Firewalled status message
+	CString		m_sUnstable;	// Unstable status message
+	int 		m_nIcon;
+	CString		m_sStatus;
+	COLORREF	m_crStatus;
+	CString		m_sPartial;
+	CString		m_sQueue;
+	CSchemaPtr	m_pSchema;
+	CMetaList	m_pMetadata;
+	int 		m_nKeyWidth;
+	int 		m_nRating;
 
 // Operations
 protected:
-	void			LoadFromFile();
-	void			LoadFromHit();
-	BOOL			LoadTypeInfo();
+	void		LoadFromFile();
+	void		LoadFromHit();
+	BOOL		LoadTypeInfo();
 
 protected:
 	virtual void OnShow();
@@ -79,5 +79,5 @@ protected:
 	virtual void OnCalcSize(CDC* pDC);
 	virtual BOOL OnPrepare();
 
-	DECLARE_MESSAGE_MAP()
+	//DECLARE_MESSAGE_MAP()
 };

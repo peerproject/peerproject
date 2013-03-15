@@ -32,9 +32,7 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNAMIC(CHelpDlg, CSkinDialog)
 
 BEGIN_MESSAGE_MAP(CHelpDlg, CSkinDialog)
-	//{{AFX_MSG_MAP(CHelpDlg)
 	ON_NOTIFY(RVN_CLICK, IDC_HELP_VIEW, OnClickView)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 

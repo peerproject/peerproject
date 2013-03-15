@@ -22,7 +22,7 @@
 
 <options>
  <!--option name="Navbar" offset="18,0"-->
- <option name="DropMenu" value="true"/>
+ <option name="DropMenu" value="true" width="20"/>
  <option name="MenuBorders" value="false"/>
  <option name="MenuGripper" value="false"/>
  <option name="ButtonEdge" value="3"/>
@@ -183,7 +183,6 @@
  <!--image target="CPanelWnd.Caption"			path="Footer.png"-->
  <image target="CTaskBox.Caption"			path="EightAlt\SidebarCaption.png"/>
 
-
  <!--image target="CNeighboursWnd"			path="Seven\SideBlock.png"-->
  <!--image target="CSecurityWnd"			path="Seven\SideBlock.png"-->
  <!--image target="CListCtrl"				path="Seven\SideBlock.png"--> <!--dialog list boxes-->
@@ -193,9 +192,9 @@
  <image target="CMediaList.Header"			path="PlaylistHeader.png"/>
  <!--image target="CMediaFrame.StatusBar"		path="PlaylistHeader.png"-->
 
- <image target="CCoolMenuBar.Hover"			path="Seven\MenuButtonState.png"/>
- <image target="CCoolMenuBar.Down"			path="Seven\MenuButtonState.png"/>
- <image target="CCoolMenuBar.Checked"			path="Seven\MenuButtonState.png"/>
+ <!--image target="CCoolMenuBar.Hover"			path="Seven\MenuButtonState.png"-->
+ <!--image target="CCoolMenuBar.Down"			path="Seven\MenuButtonState.png"-->
+ <!--image target="CCoolMenuBar.Checked"			path="Seven\MenuButtonState.png"-->
  <image target="CCoolbar.Control"			path="MediaSlider.png"/>
  <image target="CCoolbar.Separator"			path="ToolbarSeparator.png"/>
 
@@ -297,7 +296,7 @@
 <caption align="left" rect="20,1,500,20" fontFace="Segoe UI" fontSize="13" fontWeight="Normal" color="0666CC" outlinecolor="FFFFFF" inactivecolor="B6CCDD"/>
 </windowskin>
 
-<!-- NETOWRK SYSTEM HEADER -->
+<!-- NETWORK SYSTEM HEADER -->
 
 <windowskin>
 <image path="Seven\Header.png"/>

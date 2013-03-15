@@ -32,10 +32,8 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNCREATE(CWizardInterfacePage, CWizardPage)
 
 BEGIN_MESSAGE_MAP(CWizardInterfacePage, CWizardPage)
-	//{{AFX_MSG_MAP(CWizardInterfacePage)
 	ON_WM_LBUTTONDOWN()
 	ON_WM_XBUTTONDOWN()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -44,10 +42,8 @@ END_MESSAGE_MAP()
 
 CWizardInterfacePage::CWizardInterfacePage() : CWizardPage(CWizardInterfacePage::IDD)
 {
-	//{{AFX_DATA_INIT(CWizardInterfacePage)
 	m_bExpert = Settings.General.GUIMode != GUI_BASIC;
 	m_bSimpleDownloadBars = Settings.Downloads.SimpleBar;
-	//}}AFX_DATA_INIT
 }
 
 CWizardInterfacePage::~CWizardInterfacePage()
@@ -57,14 +53,12 @@ CWizardInterfacePage::~CWizardInterfacePage()
 void CWizardInterfacePage::DoDataExchange(CDataExchange* pDX)
 {
 	CWizardPage::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CWizardInterfacePage)
 	DDX_Control(pDX, IDC_DESCRIPTION_EXPERT, m_wndDescriptionExpert);
 	DDX_Control(pDX, IDC_DESCRIPTION_BASIC, m_wndDescriptionBasic);
 	DDX_Control(pDX, IDC_INTERFACE_EXPERT, m_wndInterfaceExpert);
 	DDX_Control(pDX, IDC_INTERFACE_BASIC, m_wndInterfaceBasic);
 	DDX_Radio(pDX, IDC_INTERFACE_BASIC, m_bExpert);
 	DDX_Check(pDX, IDC_DOWNLOADS_SIMPLEBAR, m_bSimpleDownloadBars);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

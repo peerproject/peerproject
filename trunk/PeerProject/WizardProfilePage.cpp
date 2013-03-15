@@ -35,10 +35,8 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNCREATE(CWizardProfilePage, CWizardPage)
 
 BEGIN_MESSAGE_MAP(CWizardProfilePage, CWizardPage)
-	//{{AFX_MSG_MAP(CWizardProfilePage)
 	ON_WM_XBUTTONDOWN()
 	ON_CBN_SELCHANGE(IDC_LOC_COUNTRY, OnSelChangeCountry)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -61,7 +59,6 @@ CWizardProfilePage::~CWizardProfilePage()
 void CWizardProfilePage::DoDataExchange(CDataExchange* pDX)
 {
 	CWizardPage::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CWizardProfilePage)
 	DDX_Text(pDX, IDC_PROFILE_NICK, m_sNick);
 	DDX_Control(pDX, IDC_LOC_CITY, m_wndCity);
 	DDX_Control(pDX, IDC_LOC_COUNTRY, m_wndCountry);
@@ -71,7 +68,6 @@ void CWizardProfilePage::DoDataExchange(CDataExchange* pDX)
 	DDX_CBIndex(pDX, IDC_PROFILE_AGE, m_nAge);
 	DDX_CBIndex(pDX, IDC_PROFILE_GENDER, m_nGender);
 	DDX_Control(pDX, IDC_PROFILE_BIO, m_wndComments);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

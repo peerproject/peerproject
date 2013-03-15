@@ -39,14 +39,11 @@ static char THIS_FILE[] = __FILE__;
 
 IMPLEMENT_DYNAMIC(CSearchPanel, CTaskPanel)
 BEGIN_MESSAGE_MAP(CSearchPanel, CTaskPanel)
-	//{{AFX_MSG_MAP(CSearchPanel)
 	ON_WM_CREATE()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 IMPLEMENT_DYNAMIC(CSearchInputBox, CTaskBox)
 BEGIN_MESSAGE_MAP(CSearchInputBox, CTaskBox)
-	//{{AFX_MSG_MAP(CSearchInputBox)
 	ON_WM_CREATE()
 	ON_WM_SIZE()
 	ON_WM_PAINT()
@@ -61,12 +58,10 @@ BEGIN_MESSAGE_MAP(CSearchInputBox, CTaskBox)
 	ON_COMMAND(IDC_SEARCH_PREFIX_ED2K, OnSearchPrefixED2K)
 	ON_COMMAND(IDC_SEARCH_PREFIX_BTH, OnSearchPrefixBTH)
 	ON_COMMAND(IDC_SEARCH_PREFIX_MD5, OnSearchPrefixMD5)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 IMPLEMENT_DYNAMIC(CSearchAdvancedBox, CTaskBox)
 BEGIN_MESSAGE_MAP(CSearchAdvancedBox, CTaskBox)
-	//{{AFX_MSG_MAP(CSearchAdvancedBox)
 	ON_WM_CREATE()
 	ON_WM_SIZE()
 	ON_WM_PAINT()
@@ -75,22 +70,17 @@ BEGIN_MESSAGE_MAP(CSearchAdvancedBox, CTaskBox)
 	ON_BN_CLICKED(IDC_SEARCH_EDONKEY, OnED2KClicked)
 	ON_BN_CLICKED(IDC_SEARCH_DC, OnDCClicked)
 	ON_MESSAGE(WM_CTLCOLORSTATIC, OnCtlColorStatic)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 IMPLEMENT_DYNAMIC(CSearchSchemaBox, CTaskBox)
 BEGIN_MESSAGE_MAP(CSearchSchemaBox, CTaskBox)
-	//{{AFX_MSG_MAP(CSearchSchemaBox)
 	ON_WM_CREATE()
 	ON_WM_SIZE()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 IMPLEMENT_DYNAMIC(CSearchResultsBox, CTaskBox)
 BEGIN_MESSAGE_MAP(CSearchResultsBox, CTaskBox)
-	//{{AFX_MSG_MAP(CSearchResultsBox)
 	ON_WM_PAINT()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 #define BOX_MARGIN	6
@@ -330,6 +320,7 @@ CSearchPtr CSearchPanel::GetSearch()
 		pSearch->m_oBTH.fromString( strSearch ) ||
 		pSearch->m_oBTH.fromUrn< Hashes::base16Encoding >( strSearch ) ||
 		pSearch->m_oBTH.fromString< Hashes::base16Encoding >( strSearch );
+
 	if ( pSearch->m_oSHA1 ||
 		pSearch->m_oTiger ||
 		pSearch->m_oED2K ||
@@ -536,7 +527,7 @@ void CSearchInputBox::OnSkinChange()
 	m_wndStop.SetWindowText( strCaption );
 	m_wndStop.SetCoolIcon( ID_SEARCH_STOP, FALSE );
 
-	m_wndPrefix.SetIcon( IDI_HASH );
+	m_wndPrefix.SetCoolIcon( IDI_HASH );
 }
 
 void CSearchInputBox::OnSize(UINT nType, int cx, int cy)
@@ -587,13 +578,13 @@ void CSearchInputBox::OnPaint()
 	else
 	{
 		pDC->SetBkMode( OPAQUE );
-		pDC->SetBkColor( Colors.m_crTaskBoxClient );
 		nFlags |= ETO_OPAQUE;
 	}
 
 	CFont* pOldFont = (CFont*)pDC->SelectObject( &CoolInterface.m_fntNormal );
 
-	pDC->SetTextColor( 0 );
+	pDC->SetTextColor( Colors.m_crTaskBoxText );	// Was 0
+	pDC->SetBkColor( Colors.m_crTaskBoxClient );
 
 	LoadString( str, IDS_SEARCH_PANEL_INPUT_1 );	// "Type Search Here"
 	rct.SetRect( BOX_MARGIN + 1, BOX_MARGIN, rc.right - BOX_MARGIN - 8, BOX_MARGIN + 16 );
@@ -651,21 +642,28 @@ void CSearchInputBox::OnSearchStop()
 
 void CSearchInputBox::OnSearchPrefix()
 {
-	if ( m_wndSearch.IsWindowEnabled() )
-	{
-		CMenu mnuPopup;
-		mnuPopup.CreatePopupMenu();
-		mnuPopup.AppendMenu( MF_STRING, IDC_SEARCH_PREFIX_SHA1, _T("SHA1") );
-		mnuPopup.AppendMenu( MF_STRING, IDC_SEARCH_PREFIX_TIGER, _T("Tiger") );
-		mnuPopup.AppendMenu( MF_STRING, IDC_SEARCH_PREFIX_SHA1_TIGER, _T("SHA1 + Tiger") );
-		mnuPopup.AppendMenu( MF_STRING, IDC_SEARCH_PREFIX_ED2K, _T("ED2K") );
-		mnuPopup.AppendMenu( MF_STRING, IDC_SEARCH_PREFIX_MD5, _T("MD5") );
-		mnuPopup.AppendMenu( MF_STRING, IDC_SEARCH_PREFIX_BTH, _T("BitTorrent") );
+	if ( ! m_wndSearch.IsWindowEnabled() )
+		return;
 
-		CPoint pt;
-		::GetCursorPos( &pt );
-		mnuPopup.TrackPopupMenu( TPM_LEFTALIGN | TPM_LEFTBUTTON, pt.x, pt.y, this, NULL );
-	}
+	CMenu mnuPopup;
+	mnuPopup.CreatePopupMenu();
+	mnuPopup.AppendMenu( MF_STRING, IDC_SEARCH_PREFIX_SHA1, _T("SHA1") );
+	mnuPopup.AppendMenu( MF_STRING, IDC_SEARCH_PREFIX_TIGER, _T("Tiger") );
+	mnuPopup.AppendMenu( MF_STRING, IDC_SEARCH_PREFIX_SHA1_TIGER, _T("SHA1 + Tiger") );
+	mnuPopup.AppendMenu( MF_STRING, IDC_SEARCH_PREFIX_ED2K, _T("ED2K") );
+	mnuPopup.AppendMenu( MF_STRING, IDC_SEARCH_PREFIX_MD5, _T("MD5") );
+	mnuPopup.AppendMenu( MF_STRING, IDC_SEARCH_PREFIX_BTH, _T("BitTorrent") );
+
+	// ToDo: Fix skinned menu
+	//CCoolMenu* pCoolMenu = new CCoolMenu();
+	//pCoolMenu->AddMenu( &mnuPopup );
+	//pCoolMenu->SetWatermark( Skin.GetWatermark( _T("CCoolMenu") ) );
+
+	CPoint pt;
+	::GetCursorPos( &pt );
+	mnuPopup.TrackPopupMenu( TPM_LEFTALIGN|TPM_LEFTBUTTON|TPM_RIGHTBUTTON, pt.x, pt.y, this );
+
+	//delete pCoolMenu;
 }
 
 void CSearchInputBox::OnSearchPrefixSHA1()
@@ -862,6 +860,9 @@ void CSearchAdvancedBox::OnSkinChange()
 	CRect rc;
 	GetClientRect( &rc );
 	OnSize( NULL, rc.Width(), rc.Height() );
+
+	if ( m_brBack.m_hObject ) m_brBack.DeleteObject();
+		m_brBack.CreateSolidBrush( m_crBack = Colors.m_crTaskBoxClient );
 }
 
 void CSearchAdvancedBox::OnSize(UINT nType, int cx, int cy)
@@ -930,7 +931,7 @@ void CSearchAdvancedBox::OnPaint()
 
 	CFont* pOldFont = (CFont*)pDC->SelectObject( &CoolInterface.m_fntNormal );
 
-	pDC->SetTextColor( 0 );
+	pDC->SetTextColor( Colors.m_crTaskBoxText );	// Was 0
 
 	LoadString( strControlTitle, IDS_SEARCH_PANEL_INPUT_4 );		// "Min Filesize:"
 	rct.SetRect( BOX_MARGIN + 1, BOX_MARGIN, rc.right / 2, BOX_MARGIN + 16 );
@@ -1003,21 +1004,14 @@ void CSearchAdvancedBox::OnPaint()
 		m_wndCheckBoxDC.ModifyStyle( WS_VISIBLE, 0 );
 }
 
-LRESULT CSearchAdvancedBox::OnCtlColorStatic(WPARAM wParam, LPARAM /*lParam*/)
+LRESULT CSearchAdvancedBox::OnCtlColorStatic(WPARAM /*wParam*/, LPARAM /*lParam*/)
 {
-	HBRUSH hbr = NULL;
-	HDC hDCStatic = (HDC)wParam;
+	//HBRUSH hbr = NULL;
+	//HDC hDCStatic = (HDC)wParam;
 
-	SetBkMode( hDCStatic, TRANSPARENT );
+	//hbr = m_brBack;
 
-	if ( m_crBack != Colors.m_crTaskBoxClient )
-	{
-		if ( m_brBack.m_hObject ) m_brBack.DeleteObject();
-		m_brBack.CreateSolidBrush( m_crBack = Colors.m_crTaskBoxClient );
-	}
-	hbr = m_brBack;
-
-	return (LRESULT)hbr;
+	return (LRESULT)(HBRUSH)m_brBack;
 }
 
 // CSearchAdvancedBox Check Boxes
@@ -1142,7 +1136,7 @@ void CSearchResultsBox::OnPaint()
 
 	CFont* pOldFont = (CFont*)pDC->SelectObject( &theApp.m_gdiFontBold );
 
-	pDC->SetTextColor( 0 );
+	pDC->SetTextColor( Colors.m_crTaskBoxText );	// Was 0
 
 	LoadString( strText, IDS_SEARCH_PANEL_RESULTS_STATUS );
 	DrawText( pDC, BOX_MARGIN, BOX_MARGIN, nFlags, strText );

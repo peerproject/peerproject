@@ -43,9 +43,7 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNAMIC(CNeighbourTipCtrl, CCoolTipCtrl)
 
 BEGIN_MESSAGE_MAP(CNeighbourTipCtrl, CCoolTipCtrl)
-	//{{AFX_MSG_MAP(CNeighbourTipCtrl)
 	ON_WM_TIMER()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 

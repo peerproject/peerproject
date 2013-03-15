@@ -222,7 +222,7 @@ void CIconButtonCtrl::OnPaint()
 
 	if ( rc.Width() < 20 || rc.Height() < 20 )		// Don't skin special case small buttons
 	{
-		dc.FillSolidRect( ptIcon.x - 1, ptIcon.y - 1, rc.right + 1, rc.bottom + 1, dc.GetBkColor() );
+		dc.FillSolidRect( ptIcon.x - 1, ptIcon.y - 1, rc.right + 1, rc.bottom + 1, Colors.m_crTaskBoxClient );
 
 		if ( m_bDown != m_bCapture ) ptIcon.Offset( -1, -1 );
 

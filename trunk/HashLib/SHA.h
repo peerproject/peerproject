@@ -27,9 +27,10 @@ public:
 	CSHA();
 	~CSHA() {}
 
+public:
 	void Reset();
-	void Add(const void* pData, size_t nLength);
 	void Finish();
+	void Add(const void* pData, size_t nLength);
 
 	struct HASHLIB_API Digest // 160 bit
 	{
@@ -52,7 +53,11 @@ public:
 	};
 #endif
 
+#if !defined(WIN64) && defined(_MSC_VER) && (_MSC_VER >= 1700)		// VS2012 Targeting workaround
+public:
+#else
 private:
+#endif
 	struct SHA1State
 	{
 		static const size_t	blockSize = 64;

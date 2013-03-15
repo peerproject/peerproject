@@ -27,10 +27,8 @@ static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif	// Debug
 
-BEGIN_MESSAGE_MAP(CCloseModeDlg, CSkinDialog)
-	//{{AFX_MSG_MAP(CCloseModeDlg)
-	//}}AFX_MSG_MAP
-END_MESSAGE_MAP()
+//BEGIN_MESSAGE_MAP(CCloseModeDlg, CSkinDialog)
+//END_MESSAGE_MAP()
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -39,16 +37,12 @@ END_MESSAGE_MAP()
 CCloseModeDlg::CCloseModeDlg(CWnd* pParent) : CSkinDialog( CCloseModeDlg::IDD, pParent )
 	, m_nMode ( -1 )
 {
-	//{{AFX_DATA_INIT(CCloseModeDlg)
-	//}}AFX_DATA_INIT
 }
 
 void CCloseModeDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CSkinDialog::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CCloseModeDlg)
 	DDX_Radio(pDX, IDC_CLOSE_0, m_nMode);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

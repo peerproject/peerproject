@@ -35,10 +35,9 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNAMIC(CSkinDialog, CDialog)
 
 BEGIN_MESSAGE_MAP(CSkinDialog, CDialog)
-	//{{AFX_MSG_MAP(CSkinDialog)
 	ON_WM_CREATE()
-	ON_WM_WINDOWPOSCHANGING()
 	ON_WM_SIZE()
+	ON_WM_WINDOWPOSCHANGING()
 	ON_WM_ERASEBKGND()
 	ON_WM_CTLCOLOR()
 	ON_WM_NCPAINT()
@@ -52,7 +51,6 @@ BEGIN_MESSAGE_MAP(CSkinDialog, CDialog)
 	ON_WM_HELPINFO()
 //	ON_WM_UPDATEUISTATE()	// Alt-keypress
 	ON_MESSAGE(WM_SETTEXT, &CSkinDialog::OnSetText)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -435,6 +433,8 @@ int CSkinDialog::OnCreate(LPCREATESTRUCT lpCreateStruct)
 BOOL CSkinDialog::OnInitDialog()
 {
 	CDialog::OnInitDialog();
+
+	CoolInterface.FixTheme( this, FALSE );		// Checkbox/Groupbox text colors (Remove theme if needed)
 
 	return TRUE;
 }

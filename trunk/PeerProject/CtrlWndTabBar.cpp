@@ -236,6 +236,7 @@ void CWndTabBar::OnSkinChange()
 	SetWatermark( Skin.GetWatermark( _T("CWndTabBar") ) );
 	SetMaximumWidth( Settings.General.GUIMode == GUI_WINDOWED ? 140 : 200 );
 	m_nCloseImage = CoolInterface.ImageForID( ID_CHILD_CLOSE );
+	// ToDo: m_pImages.SetBkColor if not skinned
 }
 
 void CWndTabBar::OnUpdateCmdUI(CFrameWnd* pTarget, BOOL /*bDisableIfNoHndler*/)
@@ -878,22 +879,36 @@ void CWndTabBar::TabItem::Paint(CWndTabBar* pBar, CDC* pDC, CRect* pRect, BOOL b
 		}
 		else if ( bHot )
 		{
-			ptImage.Offset( -1, -1 );
-
-			if ( crBack != CLR_NONE )
+			if ( crBack != CLR_NONE || theApp.m_bIsWin2000 )
 			{
+				ptImage.Offset( 1, 1 );
+
+				pDC->SetTextColor( Colors.m_crShadow );
+				ImageList_DrawEx( pBar->m_pImages.GetSafeHandle(), m_nImage, pDC->GetSafeHdc(),
+					ptImage.x, ptImage.y, 0, 0, crBack, CLR_NONE, ILD_MASK );
+
+				ptImage.Offset( -2, -2 );
+
 				pDC->FillSolidRect( ptImage.x, ptImage.y, 18, 2, crBack );
 				pDC->FillSolidRect( ptImage.x, ptImage.y + 2, 2, 16, crBack );
 			}
+			else	// Skinned
+			{
+				ptImage.Offset( 1, 1 );
+			//	ImageList_DrawEx( pBar->m_pImages.GetSafeHandle(), m_nImage, pDC->GetSafeHdc(),
+			//		ptImage.x, ptImage.y, 0, 0, CLR_NONE, Colors.m_crShadow, ILD_BLEND50|ILD_BLEND25 );
 
-			ptImage.Offset( 2, 2 );
-			pDC->SetTextColor( Colors.m_crShadow );
-			ImageList_DrawEx( pBar->m_pImages.GetSafeHandle(), m_nImage, pDC->GetSafeHdc(),
-				ptImage.x, ptImage.y, 0, 0, crBack, CLR_NONE, ILD_MASK );
+				pBar->m_pImages.DrawIndirect( pDC, m_nImage, (POINT)ptImage, (SIZE)(CSize)( 16, 16 ), (POINT)(CPoint)0,
+					ILD_BLEND50|ILD_BLEND25|ILD_ROP, MERGECOPY, CLR_NONE, Colors.m_crShadow, ILS_SATURATE|ILS_ALPHA, 160, Colors.m_crShadow );
 
-			ptImage.Offset( -2, -2 );
-			ImageList_DrawEx( pBar->m_pImages.GetSafeHandle(), m_nImage, pDC->GetSafeHdc(),
-				ptImage.x, ptImage.y, 0, 0, CLR_NONE, CLR_NONE, ILD_NORMAL );
+				ptImage.Offset( -2, -2 );
+
+			//	pBar->m_pImages.DrawIndirect( pDC, m_nImage, (POINT)ptImage, (SIZE)(CSize)( 16, 16 ), (POINT)(CPoint)0,
+			//		ILD_ROP, MERGECOPY, CLR_NONE, CLR_NONE, ILS_SHADOW, 0, Colors.m_crShadow );
+			}
+
+			ImageList_Draw( pBar->m_pImages.GetSafeHandle(), m_nImage, pDC->GetSafeHdc(),
+				ptImage.x, ptImage.y, ILD_NORMAL );
 
 			pDC->ExcludeClipRect( ptImage.x, ptImage.y, ptImage.x + 18, ptImage.y + 18 );
 

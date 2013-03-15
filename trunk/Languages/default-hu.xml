@@ -488,7 +488,7 @@
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="&#160; Menü &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="_Beállítások..."/>
 			<menu text="_Hálózat">
 				<item id="ID_NETWORK_CONNECT" text="Kapcsolódás" shortcut="Ctrl+G"/>

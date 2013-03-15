@@ -32,9 +32,7 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNCREATE(CCertificateProfilePage, CSettingsPage)
 
 BEGIN_MESSAGE_MAP(CCertificateProfilePage, CSettingsPage)
-	//{{AFX_MSG_MAP(CCertificateProfilePage)
 	ON_BN_CLICKED(IDC_GUID_CREATE, OnGuidCreate)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -47,8 +45,6 @@ CCertificateProfilePage::CCertificateProfilePage()
 	, m_sGUIDBT	( _T("") )
 //	, m_sTime	( _T("") )
 {
-	//{{AFX_DATA_INIT(CCertificateProfilePage)
-	//}}AFX_DATA_INIT
 }
 
 CCertificateProfilePage::~CCertificateProfilePage()
@@ -58,11 +54,9 @@ CCertificateProfilePage::~CCertificateProfilePage()
 void CCertificateProfilePage::DoDataExchange(CDataExchange* pDX)
 {
 	CSettingsPage::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CCertificateProfilePage)
 	DDX_Text(pDX, IDC_GUID, m_sGUID);
 	DDX_Text(pDX, IDC_GUID_BT, m_sGUIDBT);
 //	DDX_Text(pDX, IDC_GUID_TIME, m_sTime);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

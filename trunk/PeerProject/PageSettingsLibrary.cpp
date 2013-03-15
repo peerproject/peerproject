@@ -34,7 +34,6 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNCREATE(CLibrarySettingsPage, CSettingsPage)
 
 BEGIN_MESSAGE_MAP(CLibrarySettingsPage, CSettingsPage)
-	//{{AFX_MSG_MAP(CLibrarySettingsPage)
 	ON_CBN_SELCHANGE(IDC_SAFE_TYPES, OnSelChangeSafeTypes)
 	ON_CBN_EDITCHANGE(IDC_SAFE_TYPES, OnEditChangeSafeTypes)
 	ON_BN_CLICKED(IDC_SAFE_ADD, OnSafeAdd)
@@ -46,7 +45,6 @@ BEGIN_MESSAGE_MAP(CLibrarySettingsPage, CSettingsPage)
 	ON_BN_CLICKED(IDC_RECENT_CLEAR, OnRecentClear)
 	ON_BN_CLICKED(IDC_RECENT_CLEAR_GHOSTS, OnRecentClearGhosts)
 	ON_BN_CLICKED(IDC_COLLECTIONS_BROWSE, OnCollectionsBrowse)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -72,7 +70,6 @@ CLibrarySettingsPage::~CLibrarySettingsPage()
 void CLibrarySettingsPage::DoDataExchange(CDataExchange* pDX)
 {
 	CSettingsPage::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CLibrarySettingsPage)
 	DDX_Control(pDX, IDC_RECENT_TOTAL_SPIN, m_wndRecentTotal);
 	DDX_Control(pDX, IDC_RECENT_DAYS_SPIN, m_wndRecentDays);
 	DDX_Control(pDX, IDC_SAFE_REMOVE, m_wndSafeRemove);
@@ -91,7 +88,6 @@ void CLibrarySettingsPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_COLLECTIONS_FOLDER, m_sCollectionPath);
 	DDX_Text(pDX, IDC_RECENT_DAYS, m_nRecentDays);
 	DDX_Text(pDX, IDC_RECENT_TOTAL, m_nRecentTotal);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

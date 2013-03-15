@@ -53,7 +53,6 @@ CTorrentGeneralPage::~CTorrentGeneralPage()
 void CTorrentGeneralPage::DoDataExchange(CDataExchange* pDX)
 {
 	CPropertyPageAdv::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CTorrentGeneralPage)
 	DDX_Text(pDX, IDC_TORRENT_NAME, m_sName);
 	DDX_Text(pDX, IDC_TORRENT_COMMENTS, m_sComment);
 	DDX_Text(pDX, IDC_TORRENT_CREATEDBY, m_sCreatedBy );
@@ -61,7 +60,6 @@ void CTorrentGeneralPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_TORRENT_OTHER, m_sTorrentOther );
 	DDX_Text(pDX, IDC_TORRENT_UPLOADTOTAL, m_sUploadTotal );
 	DDX_Control(pDX, IDC_TORRENT_STARTDOWNLOADS, m_wndStartDownloads);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -91,16 +89,12 @@ BOOL CTorrentGeneralPage::OnInitDialog()
 	// Assembler 'other' string
 	if ( oInfo.m_bPrivate )
 	{
-		CString str;
-		LoadString( str, IDS_BT_PRIVATE );
-		m_sTorrentOther += str;
+		m_sTorrentOther += LoadString( IDS_BT_PRIVATE );
 		m_sTorrentOther += _T(", ");
 	}
 	if ( oInfo.HasEncodingError() )
 	{
-		CString str;
-		LoadString( str, IDS_BT_ENCODING );
-		m_sTorrentOther += str;
+		m_sTorrentOther += LoadString( IDS_BT_ENCODING );
 		m_sTorrentOther += _T(", ");
 	}
 

@@ -1,7 +1,7 @@
 //
 // PageProfileIdentity.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -44,6 +44,9 @@ public:
 	BOOL	m_bBrowseUser;
 	//}}AFX_DATA
 
+protected:
+	void GetGenderTranslations(CString& pMale, CString& pFemale);
+
 // Overrides
 protected:
 	//{{AFX_VIRTUAL(CIdentityProfilePage)
@@ -57,7 +60,5 @@ protected:
 	virtual BOOL OnInitDialog();
 	//}}AFX_MSG
 
-	void GetGenderTranslations(CString& pMale, CString& pFemale);
-
-	DECLARE_MESSAGE_MAP()
+	//DECLARE_MESSAGE_MAP()
 };

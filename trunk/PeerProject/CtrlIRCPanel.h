@@ -36,6 +36,7 @@
 #define	WM_REMOVECHANNEL				20933
 #define	WM_ADDCHANNEL					20934
 
+
 class CIRCChannelsBox : public CTaskBox
 {
 	DECLARE_DYNAMIC(CIRCChannelsBox)
@@ -67,6 +68,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 };
 
+
 class CIRCUsersBox : public CTaskBox
 {
 	DECLARE_DYNAMIC(CIRCUsersBox)
@@ -89,6 +91,7 @@ protected:
 
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnSize(UINT nType, int cx, int cy);
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	afx_msg void OnPaint();
 	afx_msg void OnUsersDoubleClick();
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
@@ -96,6 +99,7 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 };
+
 
 class CIRCPanel : public CTaskPanel
 {

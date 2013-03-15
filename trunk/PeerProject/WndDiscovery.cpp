@@ -23,6 +23,7 @@
 #include "DiscoveryServices.h"
 #include "DlgDiscoveryService.h"
 #include "CoolInterface.h"
+#include "Colors.h"
 #include "Network.h"
 #include "LiveList.h"
 #include "Skin.h"
@@ -63,7 +64,6 @@ const static UINT nImageID[] =
 IMPLEMENT_SERIAL(CDiscoveryWnd, CPanelWnd, 0)
 
 BEGIN_MESSAGE_MAP(CDiscoveryWnd, CPanelWnd)
-	//{{AFX_MSG_MAP(CDiscoveryWnd)
 	ON_WM_CREATE()
 	ON_WM_DESTROY()
 	ON_WM_SIZE()
@@ -91,7 +91,6 @@ BEGIN_MESSAGE_MAP(CDiscoveryWnd, CPanelWnd)
 	ON_UPDATE_COMMAND_UI(ID_DISCOVERY_BROWSE, OnUpdateDiscoveryBrowse)
 	ON_COMMAND(ID_DISCOVERY_BROWSE, OnDiscoveryBrowse)
 //	ON_NOTIFY(NM_CUSTOMDRAW, IDC_SERVICES, OnCustomDrawList)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -279,8 +278,11 @@ void CDiscoveryWnd::OnSkinChange()
 	// Columns
 	Settings.LoadList( _T("CDiscoveryWnd"), &m_wndList, 3 );
 
-	// Fonts
+	// Fonts & Colors
 	m_wndList.SetFont( &theApp.m_gdiFont );
+	m_wndList.SetTextColor( Colors.m_crText );
+	m_wndList.SetTextBkColor( Colors.m_crWindow );
+	m_wndList.SetBkColor( Colors.m_crWindow );
 
 	// Icons
 	CoolInterface.LoadIconsTo( m_gdiImageList, nImageID );

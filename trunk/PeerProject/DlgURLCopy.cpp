@@ -37,14 +37,12 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNAMIC(CURLCopyDlg, CSkinDialog)
 
 BEGIN_MESSAGE_MAP(CURLCopyDlg, CSkinDialog)
-	//{{AFX_MSG_MAP(CURLCopyDlg)
 	ON_WM_CTLCOLOR()
 	ON_WM_SETCURSOR()
 	ON_BN_CLICKED(IDC_INCLUDE_SELF, &CURLCopyDlg::OnIncludeSelf)
 	ON_STN_CLICKED(IDC_URL_HOST, &CURLCopyDlg::OnStnClickedUrlHost)
 	ON_STN_CLICKED(IDC_URL_MAGNET, &CURLCopyDlg::OnStnClickedUrlMagnet)
 	ON_STN_CLICKED(IDC_URL_ED2K, &CURLCopyDlg::OnStnClickedUrlEd2k)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -58,13 +56,11 @@ CURLCopyDlg::CURLCopyDlg(CWnd* pParent) : CSkinDialog(CURLCopyDlg::IDD, pParent)
 void CURLCopyDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CSkinDialog::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CURLCopyDlg)
 	DDX_Control(pDX, IDC_INCLUDE_SELF, m_wndIncludeSelf);
 	DDX_Control(pDX, IDC_MESSAGE, m_wndMessage);
 	DDX_Text(pDX, IDC_URL_HOST, m_sHost);
 	DDX_Text(pDX, IDC_URL_MAGNET, m_sMagnet);
 	DDX_Text(pDX, IDC_URL_ED2K, m_sED2K);
-	//}}AFX_DATA_MAP
 }
 
 void CURLCopyDlg::Add(const CPeerProjectFile* pFile)

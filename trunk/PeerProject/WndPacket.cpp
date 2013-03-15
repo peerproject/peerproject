@@ -66,7 +66,6 @@ enum {
 IMPLEMENT_SERIAL(CPacketWnd, CPanelWnd, 0)
 
 BEGIN_MESSAGE_MAP(CPacketWnd, CPanelWnd)
-	//{{AFX_MSG_MAP(CPacketWnd)
 	ON_WM_CREATE()
 	ON_WM_DESTROY()
 	ON_WM_SIZE()
@@ -77,7 +76,6 @@ BEGIN_MESSAGE_MAP(CPacketWnd, CPanelWnd)
 	ON_NOTIFY(NM_CUSTOMDRAW, IDC_PACKETS, OnCustomDrawList)
 	ON_UPDATE_COMMAND_UI(ID_SYSTEM_CLEAR, OnUpdateSystemClear)
 	ON_UPDATE_COMMAND_UI_RANGE(1, ID_BASE_LAST, OnUpdateBlocker)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 G2_PACKET CPacketWnd::m_nG2[nTypeG2Size] = {
@@ -205,6 +203,10 @@ void CPacketWnd::OnSkinChange()
 		DEFAULT_PITCH|FF_DONTCARE, Settings.Fonts.PacketDumpFont );
 	m_wndList.SetFont( &m_pFont );
 	m_wndList.GetHeaderCtrl()->SetFont( &theApp.m_gdiFont );
+
+	// Colors
+	//m_wndList.SetTextColor( Colors.m_crText );
+	m_wndList.SetBkColor( Colors.m_crWindow );
 
 	// Icons
 	CoolInterface.LoadIconsTo( m_gdiImageList, protocolIDs );
@@ -403,6 +405,7 @@ void CPacketWnd::OnCustomDrawList(NMHDR* pNMHDR, LRESULT* pResult)
 				pDraw->clrText = Colors.m_crNetworkUp;
 			else
 				pDraw->clrText = Colors.m_crNetworkDown;
+			pDraw->clrTextBk = Colors.m_crWindow;
 		}
 		*pResult = CDRF_DODEFAULT;
 	}
@@ -410,9 +413,9 @@ void CPacketWnd::OnCustomDrawList(NMHDR* pNMHDR, LRESULT* pResult)
 
 void CPacketWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 {
-	CSingleLock pLock( &Network.m_pSection, TRUE );
-
 	CMenu pMenu, pHosts[2], pTypesG1, pTypesG2, pTypesED, pTypesDC, pTypesBT;
+
+	CSingleLock pLock( &Network.m_pSection, TRUE );
 
 	for ( int nGroup = 0 ; nGroup < 2 ; nGroup++ )
 	{
@@ -480,9 +483,10 @@ void CPacketWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 
 	m_pCoolMenu = new CCoolMenu();
 	m_pCoolMenu->AddMenu( &pMenu, TRUE );
-	m_pCoolMenu->SetWatermark( Skin.GetWatermark( _T("CCoolMenu") ) );
 
 	pLock.Unlock();
+
+	m_pCoolMenu->SetWatermark( Skin.GetWatermark( _T("CCoolMenu") ) );
 
 	if ( point.x == -1 && point.y == -1 )	// Keyboard fix
 		ClientToScreen( &point );

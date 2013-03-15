@@ -34,7 +34,6 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_SERIAL(CTrafficWnd, CChildWnd, 0)
 
 BEGIN_MESSAGE_MAP(CTrafficWnd, CChildWnd)
-	//{{AFX_MSG_MAP(CTrafficWnd)
 	ON_WM_CREATE()
 	ON_WM_DESTROY()
 	ON_WM_PAINT()
@@ -51,7 +50,6 @@ BEGIN_MESSAGE_MAP(CTrafficWnd, CChildWnd)
 	ON_COMMAND(ID_TRAFFIC_SETUP, OnTrafficSetup)
 	ON_COMMAND(ID_TRAFFIC_CLEAR, OnTrafficClear)
 	ON_COMMAND(ID_TRAFFIC_WINDOW, OnTrafficWindow)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 

@@ -35,11 +35,9 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNCREATE(CAvatarProfilePage, CSettingsPage)
 
 BEGIN_MESSAGE_MAP(CAvatarProfilePage, CSettingsPage)
-	//{{AFX_MSG_MAP(CAvatarProfilePage)
 	ON_WM_PAINT()
 	ON_BN_CLICKED(IDC_AVATAR_BROWSE, OnAvatarBrowse)
 	ON_BN_CLICKED(IDC_AVATAR_REMOVE, OnAvatarRemove)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -48,8 +46,6 @@ END_MESSAGE_MAP()
 
 CAvatarProfilePage::CAvatarProfilePage() : CSettingsPage( CAvatarProfilePage::IDD )
 {
-	//{{AFX_DATA_INIT(CAvatarProfilePage)
-	//}}AFX_DATA_INIT
 }
 
 CAvatarProfilePage::~CAvatarProfilePage()
@@ -59,10 +55,8 @@ CAvatarProfilePage::~CAvatarProfilePage()
 void CAvatarProfilePage::DoDataExchange(CDataExchange* pDX)
 {
 	CSettingsPage::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CAvatarProfilePage)
 	DDX_Control(pDX, IDC_AVATAR_REMOVE, m_wndRemove);
 	DDX_Control(pDX, IDC_PREVIEW, m_wndPreview);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

@@ -47,7 +47,6 @@ enum {
 IMPLEMENT_DYNCREATE(CSkinsSettingsPage, CSettingsPage)
 
 BEGIN_MESSAGE_MAP(CSkinsSettingsPage, CSettingsPage)
-	//{{AFX_MSG_MAP(CSkinsSettingsPage)
 	ON_WM_CTLCOLOR()
 	ON_WM_SETCURSOR()
 	ON_WM_LBUTTONUP()
@@ -56,7 +55,6 @@ BEGIN_MESSAGE_MAP(CSkinsSettingsPage, CSettingsPage)
 	ON_BN_CLICKED(IDC_SKINS_BROWSE, OnSkinsBrowse)
 	ON_BN_CLICKED(IDC_SKINS_WEB, OnSkinsWeb)
 	ON_BN_CLICKED(IDC_SKINS_DELETE, OnSkinsDelete)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -65,8 +63,6 @@ END_MESSAGE_MAP()
 
 CSkinsSettingsPage::CSkinsSettingsPage() : CSettingsPage( CSkinsSettingsPage::IDD )
 {
-	//{{AFX_DATA_INIT(CSkinsSettingsPage)
-	//}}AFX_DATA_INIT
 }
 
 CSkinsSettingsPage::~CSkinsSettingsPage()
@@ -76,13 +72,11 @@ CSkinsSettingsPage::~CSkinsSettingsPage()
 void CSkinsSettingsPage::DoDataExchange(CDataExchange* pDX)
 {
 	CSettingsPage::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CSkinsSettingsPage)
 	DDX_Control(pDX, IDC_SKINS_DELETE, m_wndDelete);
 	DDX_Control(pDX, IDC_SKIN_DESC, m_wndDesc);
 	DDX_Control(pDX, IDC_SKIN_NAME, m_wndName);
 	DDX_Control(pDX, IDC_SKIN_AUTHOR, m_wndAuthor);
 	DDX_Control(pDX, IDC_SKINS, m_wndList);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

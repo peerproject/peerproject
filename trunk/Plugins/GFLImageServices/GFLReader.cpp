@@ -68,7 +68,7 @@ STDMETHODIMP CGFLReader::LoadFromFile (
 	/* [in,out] */ IMAGESERVICEDATA* pParams,
 	/* [out] */ SAFEARRAY** ppImage )
 {
-	ATLTRACE( "LoadFromFile (\"%s\", 0x%08x, 0x%08x)\n", CW2A( sFile ), pParams, ppImage );
+	ATLTRACE( "LoadFromFile (\"%s\", 0x%08x, 0x%08x)\n", CW2A( (LPCWSTR)sFile ), pParams, ppImage );
 
 	if ( ! pParams || ! ppImage )
 	{
@@ -111,7 +111,7 @@ STDMETHODIMP CGFLReader::LoadFromFile (
 			prm.Flags = GFL_LOAD_IGNORE_READ_ERROR | GFL_LOAD_ONLY_FIRST_FRAME | GFL_LOAD_FORCE_COLOR_MODEL;
 			prm.ColorModel = ( inf.ComponentsPerPixel == 4 ) ? GFL_RGBA : GFL_RGB;
 			prm.FormatIndex = inf.FormatIndex;
-			hr = SAFEgflLoadBitmap ( CW2A( *pszPath ? pszPath : (LPCWSTR)sFile ), &hGflBitmap, &prm, &inf);
+			hr = SAFEgflLoadBitmap ( *pszPath ? pszPath : (LPCWSTR)sFile, &hGflBitmap, &prm, &inf);
 
 			if ( SUCCEEDED( hr ) )
 				hr = BitmapToSafeArray (ppImage, pParams, hGflBitmap);
@@ -246,11 +246,11 @@ STDMETHODIMP CGFLReader::SaveToFile (
 			{
 				ATLASSERT( nSource == ( ( ( pParams->nWidth * pParams->nComponents) + 3 ) & ( -4 ) ) * pParams->nHeight );
 				CopyMemory( hGflBitmap->Data, pSource, nSource );
-				GFL_SAVE_PARAMS params;
+				GFL_SAVE_PARAMS params = {};
 				gflGetDefaultSaveParams( &params );
 				params.FormatIndex = GetFormatIndexByExt( ext );
 				params.Quality = (GFL_INT16) pParams->nQuality;
-				hr = SAFEgflSaveBitmap( CW2A( sFile ), hGflBitmap, &params );
+				hr = SAFEgflSaveBitmap( sFile, hGflBitmap, &params );
 				gflFreeBitmap( hGflBitmap );
 			}
 			SafeArrayUnaccessData( pImage );

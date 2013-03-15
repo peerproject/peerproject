@@ -34,9 +34,7 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNCREATE(CFileGeneralPage, CFilePropertiesPage)
 
 BEGIN_MESSAGE_MAP(CFileGeneralPage, CFilePropertiesPage)
-	//{{AFX_MSG_MAP(CFileGeneralPage)
 	ON_WM_PAINT()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -64,7 +62,6 @@ CFileGeneralPage::~CFileGeneralPage()
 void CFileGeneralPage::DoDataExchange(CDataExchange* pDX)
 {
 	CFilePropertiesPage::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CFileGeneralPage)
 	DDX_Text(pDX, IDC_FILE_TYPE, m_sType);
 	DDX_Text(pDX, IDC_FILE_PATH, m_sPath);
 	DDX_Text(pDX, IDC_FILE_SIZE, m_sSize);
@@ -74,7 +71,6 @@ void CFileGeneralPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_FILE_TIGER, m_sTiger);
 	DDX_Text(pDX, IDC_FILE_ED2K, m_sED2K);
 	DDX_Text(pDX, IDC_FILE_MD5, m_sMD5);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

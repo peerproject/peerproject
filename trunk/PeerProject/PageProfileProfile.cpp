@@ -34,7 +34,6 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNCREATE(CProfileProfilePage, CSettingsPage)
 
 BEGIN_MESSAGE_MAP(CProfileProfilePage, CSettingsPage)
-	//{{AFX_MSG_MAP(CProfileProfilePage)
 	ON_CBN_SELCHANGE(IDC_LOC_COUNTRY, OnSelChangeCountry)
 	ON_CBN_SELCHANGE(IDC_LOC_CITY, OnSelChangeCity)
 	ON_LBN_SELCHANGE(IDC_INTEREST_LIST, OnSelChangeInterestList)
@@ -42,7 +41,6 @@ BEGIN_MESSAGE_MAP(CProfileProfilePage, CSettingsPage)
 	ON_CBN_EDITCHANGE(IDC_INTEREST_ALL, OnEditChangeInterestAll)
 	ON_BN_CLICKED(IDC_INTEREST_ADD, OnInterestAdd)
 	ON_BN_CLICKED(IDC_INTEREST_REMOVE, OnInterestRemove)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -52,13 +50,11 @@ END_MESSAGE_MAP()
 CProfileProfilePage::CProfileProfilePage()
 	: CSettingsPage( CProfileProfilePage::IDD )
 	, m_pWorld			( NULL )
-	, m_sLocCity		( _T("") )
-	, m_sLocCountry 	( _T("") )
-	, m_sLocLatitude	( _T("") )
-	, m_sLocLongitude	( _T("") )
+//	, m_sLocCity		( _T("") )
+//	, m_sLocCountry 	( _T("") )
+//	, m_sLocLatitude	( _T("") )
+//	, m_sLocLongitude	( _T("") )
 {
-	//{{AFX_DATA_INIT(CProfileProfilePage)
-	//}}AFX_DATA_INIT
 }
 
 CProfileProfilePage::~CProfileProfilePage()
@@ -69,7 +65,6 @@ CProfileProfilePage::~CProfileProfilePage()
 void CProfileProfilePage::DoDataExchange(CDataExchange* pDX)
 {
 	CSettingsPage::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CProfileProfilePage)
 	DDX_Control(pDX, IDC_INTEREST_LIST, m_wndInterestList);
 	DDX_Control(pDX, IDC_INTEREST_ALL, m_wndInterestAll);
 	DDX_Control(pDX, IDC_INTEREST_ADD, m_wndInterestAdd);
@@ -80,7 +75,6 @@ void CProfileProfilePage::DoDataExchange(CDataExchange* pDX)
 	DDX_CBString(pDX, IDC_LOC_COUNTRY, m_sLocCountry);
 	DDX_Text(pDX, IDC_LOC_LAT, m_sLocLatitude);
 	DDX_Text(pDX, IDC_LOC_LONG, m_sLocLongitude);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -159,10 +153,10 @@ BOOL CProfileProfilePage::OnInitDialog()
 
 int CProfileProfilePage::LoadDefaultInterests()
 {
-	CFile pFile;
 	int nCount = 0;
 	const CString strFile = Settings.General.Path + _T("\\Data\\Interests.dat");	// Settings.General.DataPath ?
 
+	CFile pFile;
 	if ( ! pFile.Open( strFile, CFile::modeRead ) )
 		return nCount;
 

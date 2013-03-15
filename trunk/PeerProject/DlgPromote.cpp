@@ -28,11 +28,9 @@ static char THIS_FILE[] = __FILE__;
 #endif	// Debug
 
 BEGIN_MESSAGE_MAP(CPromoteDlg, CSkinDialog)
-	//{{AFX_MSG_MAP(CPromoteDlg)
 	ON_WM_CTLCOLOR()
 	ON_WM_SETCURSOR()
 	ON_WM_LBUTTONUP()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -41,17 +39,13 @@ END_MESSAGE_MAP()
 
 CPromoteDlg::CPromoteDlg(CWnd* pParent) : CSkinDialog(CPromoteDlg::IDD, pParent)
 {
-	//{{AFX_DATA_INIT(CPromoteDlg)
-	//}}AFX_DATA_INIT
 }
 
 void CPromoteDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CSkinDialog::DoDataExchange( pDX );
-	//{{AFX_DATA_MAP(CPromoteDlg)
 	DDX_Control(pDX, IDC_WEB, m_wndWeb);
 	DDX_Control(pDX, IDC_TITLE, m_wndTitle);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

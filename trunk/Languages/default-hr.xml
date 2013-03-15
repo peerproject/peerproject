@@ -457,7 +457,7 @@
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="&#160; Meni &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="_Postavke..."/>
 			<menu text="_Mreža">
 				<item id="ID_NETWORK_CONNECT" text="_Spoji" shortcut="Ctrl+S"/>

@@ -33,9 +33,7 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNCREATE(CContactProfilePage, CSettingsPage)
 
 BEGIN_MESSAGE_MAP(CContactProfilePage, CSettingsPage)
-	//{{AFX_MSG_MAP(CContactProfilePage)
 	ON_WM_PAINT()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -44,8 +42,6 @@ END_MESSAGE_MAP()
 
 CContactProfilePage::CContactProfilePage() : CSettingsPage( CContactProfilePage::IDD )
 {
-	//{{AFX_DATA_INIT(CContactProfilePage)
-	//}}AFX_DATA_INIT
 }
 
 CContactProfilePage::~CContactProfilePage()
@@ -55,7 +51,6 @@ CContactProfilePage::~CContactProfilePage()
 void CContactProfilePage::DoDataExchange(CDataExchange* pDX)
 {
 	CSettingsPage::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CContactProfilePage)
 	DDX_Text(pDX, IDC_PROFILE_EMAIL, m_sEmail);
 	DDX_Text(pDX, IDC_PROFILE_MSN, m_sMSN);
 	DDX_Text(pDX, IDC_PROFILE_YAHOO, m_sYahoo);
@@ -65,7 +60,6 @@ void CContactProfilePage::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_PROFILE_TWITTER, m_sTwitter);
 	DDX_Text(pDX, IDC_PROFILE_FACEBOOK, m_sFacebook);
 	DDX_Text(pDX, IDC_PROFILE_PEERPROJECTORG, m_sPeerProjectOrg);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

@@ -332,14 +332,19 @@ void CSchedulerWnd::OnCustomDrawList(NMHDR* pNMHDR, LRESULT* pResult)
 		pItem.iSubItem	= 0;
 		m_wndList.GetItem( &pItem );
 
+		if ( m_wndList.GetBkColor() == Colors.m_crWindow )
+			pDraw->clrTextBk = Colors.m_crWindow;
+
 		switch ( pItem.iImage )
 		{
 		case 2:
-			pDraw->clrText = RGB( 0, 127, 0 );
+			pDraw->clrText = RGB( 0, 127, 0 );	// ToDo: Color?
 			break;
 		case 3:
-			pDraw->clrText = RGB( 255, 0, 0 );
+			pDraw->clrText = RGB( 255, 0, 0 );	// ToDo: Color?
 			break;
+		default:
+			pDraw->clrText = Colors.m_crText;
 		}
 
 		*pResult = CDRF_DODEFAULT;

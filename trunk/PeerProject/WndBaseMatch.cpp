@@ -62,7 +62,6 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNCREATE(CBaseMatchWnd, CPanelWnd)
 
 BEGIN_MESSAGE_MAP(CBaseMatchWnd, CPanelWnd)
-	//{{AFX_MSG_MAP(CBaseMatchWnd)
 	ON_WM_CREATE()
 	ON_WM_DESTROY()
 	ON_WM_SIZE()
@@ -112,7 +111,6 @@ BEGIN_MESSAGE_MAP(CBaseMatchWnd, CPanelWnd)
 	ON_UPDATE_COMMAND_UI_RANGE(ID_SCHEMA_MENU_MIN, ID_SCHEMA_MENU_MAX, OnUpdateBlocker)
 	ON_UPDATE_COMMAND_UI_RANGE(3000, 3100, OnUpdateFilters)
 	ON_COMMAND_RANGE(3000, 3100, OnFilters)
-	//}}AFX_MSG_MAP
 
 END_MESSAGE_MAP()
 
@@ -274,9 +272,10 @@ void CBaseMatchWnd::OnDrawItem(int /*nIDCtl*/, LPDRAWITEMSTRUCT lpDrawItemStruct
 
 void CBaseMatchWnd::OnDownload(BOOL bAddToHead)
 {
-	CSingleLock pSingleLock( &m_pMatches->m_pSection, TRUE );
 	CList< CMatchFile* > pFiles;
 	CList< CQueryHit* > pHits;
+
+	CSingleLock pSingleLock( &m_pMatches->m_pSection, TRUE );
 
 	for ( POSITION pos = m_pMatches->m_pSelectedFiles.GetHeadPosition() ; pos ; )
 	{
@@ -923,7 +922,6 @@ void CBaseMatchWnd::OnTimer(UINT_PTR nIDEvent)
 	else if ( ( nIDEvent == 2 && m_bUpdate ) || nIDEvent == 7 )
 	{
 		CSingleLock pLock( &m_pMatches->m_pSection );
-
 		if ( pLock.Lock( 50 ) )
 		{
 			m_bUpdate = FALSE;
@@ -992,9 +990,9 @@ HRESULT CBaseMatchWnd::GetGenericView(IGenericView** ppView)
 void CBaseMatchWnd::Serialize(CArchive& ar)
 {
 	m_tModify = 0;
+	CString strSchema;
 
 	CSingleLock pLock( &m_pMatches->m_pSection, TRUE );
-	CString strSchema;
 
 	if ( ar.IsStoring() )
 	{

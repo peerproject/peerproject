@@ -49,12 +49,10 @@ CBitTorrentSettingsPage::CBitTorrentSettingsPage()
 	, m_nClearPercentage ( 0 )
 	, m_nDownloads		( 0 )
 	, m_nLinks			( 0 )
-	, m_sTracker		( _T("") )
-	, m_sTorrentPath	( _T("") )
-	, m_sMakerPath		( _T("") )
+//	, m_sTracker		( _T("") )
+//	, m_sTorrentPath	( _T("") )
+//	, m_sMakerPath		( _T("") )
 {
-	//{{AFX_DATA_INIT(CBitTorrentSettingsPage)
-	//}}AFX_DATA_INIT
 }
 
 CBitTorrentSettingsPage::~CBitTorrentSettingsPage()
@@ -64,7 +62,6 @@ CBitTorrentSettingsPage::~CBitTorrentSettingsPage()
 void CBitTorrentSettingsPage::DoDataExchange(CDataExchange* pDX)
 {
 	CSettingsPage::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CBitTorrentSettingsPage)
 	DDX_Check(pDX, IDC_ENABLE_DHT, m_bEnableDHT);
 	DDX_Check(pDX, IDC_TORRENT_PREFERENCE, m_bPrefBTSources);
 	DDX_Check(pDX, IDC_TORRENT_ENDGAME, m_bEndGame);
@@ -81,7 +78,6 @@ void CBitTorrentSettingsPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_TORRENTS_FOLDER, m_sTorrentPath);
 	DDX_Control(pDX, IDC_TORRENTS_TORRENTMAKERBROWSE, m_wndMakerPath);
 	DDX_Text(pDX, IDC_TORRENTS_TORRENTMAKER, m_sMakerPath);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

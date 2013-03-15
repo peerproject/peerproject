@@ -27,7 +27,7 @@
 
 <options>
   <option name="Navbar" offset="18,0"/>
-  <option name="DropMenu" value="true"/>
+  <option name="DropMenu" value="true" width="20"/>
   <option name="MenuBorders" value="false"/>
   <option name="MenuGripper" value="false"/>
   <option name="ButtonEdge" value="3"/>
@@ -387,7 +387,7 @@
 <caption align="left" rect="20,1,500,20" fontFace="Segoe UI" fontSize="13" fontWeight="Normal" color="0666CC" outlinecolor="FFFFFF" inactivecolor="B6CCDD"/>
 </windowSkin>
 
-<!-- NETOWRK SYSTEM HEADER -->
+<!-- NETWORK SYSTEM HEADER -->
 
 <windowSkin>
 <image path="Seven\Header.png"/>

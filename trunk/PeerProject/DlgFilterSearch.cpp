@@ -361,7 +361,6 @@ void CFilterSearchDlg::OnClickedRegexp()
 	else
 		m_sFilter.Empty();
 
-
 	UpdateData( FALSE );
 
 	if ( m_sFilter.IsEmpty() && m_pMatches )

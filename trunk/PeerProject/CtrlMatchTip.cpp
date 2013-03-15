@@ -42,8 +42,8 @@ static char THIS_FILE[] = __FILE__;
 
 IMPLEMENT_DYNAMIC(CMatchTipCtrl, CCoolTipCtrl)
 
-BEGIN_MESSAGE_MAP(CMatchTipCtrl, CCoolTipCtrl)
-END_MESSAGE_MAP()
+//BEGIN_MESSAGE_MAP(CMatchTipCtrl, CCoolTipCtrl)
+//END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
 // CMatchTipCtrl construction

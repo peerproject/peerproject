@@ -24,7 +24,6 @@
 class CDownload;
 
 
-
 class CDownloadReviewDlg : public CSkinDialog
 {
 	DECLARE_DYNAMIC(CDownloadReviewDlg)
@@ -50,5 +49,5 @@ protected:
 	virtual BOOL OnInitDialog();
 	virtual void OnOK();
 
-	DECLARE_MESSAGE_MAP()
+	//DECLARE_MESSAGE_MAP()
 };

@@ -33,7 +33,6 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNCREATE(CPluginsSettingsPage, CSettingsPage)
 
 BEGIN_MESSAGE_MAP(CPluginsSettingsPage, CSettingsPage)
-	//{{AFX_MSG_MAP(CPluginsSettingsPage)
 	ON_WM_TIMER()
 	ON_NOTIFY(LVN_ITEMCHANGING, IDC_PLUGINS, OnItemChangingPlugins)
 	ON_NOTIFY(LVN_ITEMCHANGED, IDC_PLUGINS, OnItemChangedPlugins)
@@ -41,7 +40,6 @@ BEGIN_MESSAGE_MAP(CPluginsSettingsPage, CSettingsPage)
 	ON_NOTIFY(NM_CUSTOMDRAW, IDC_PLUGINS, OnCustomDrawPlugins)
 	ON_BN_CLICKED(IDC_PLUGINS_SETUP, OnPluginsSetup)
 	ON_BN_CLICKED(IDC_PLUGINS_WEB, OnPluginsWeb)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -59,12 +57,10 @@ CPluginsSettingsPage::~CPluginsSettingsPage()
 void CPluginsSettingsPage::DoDataExchange(CDataExchange* pDX)
 {
 	CSettingsPage::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CPluginsSettingsPage)
 	DDX_Control(pDX, IDC_PLUGINS_SETUP, m_wndSetup);
 	DDX_Control(pDX, IDC_SKIN_DESC, m_wndDesc);
 	DDX_Control(pDX, IDC_SKIN_NAME, m_wndName);
 	DDX_Control(pDX, IDC_PLUGINS, m_wndList);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

@@ -33,29 +33,25 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNAMIC(CTaskPanel, CWnd)
 
 BEGIN_MESSAGE_MAP(CTaskPanel, CWnd)
-	//{{AFX_MSG_MAP(CTaskPanel)
+	ON_WM_CREATE()
 	ON_WM_SIZE()
 	ON_WM_PAINT()
 	ON_WM_ERASEBKGND()
-	ON_WM_CREATE()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 IMPLEMENT_DYNAMIC(CTaskBox, CButton)
 
 BEGIN_MESSAGE_MAP(CTaskBox, CButton)
-	//{{AFX_MSG_MAP(CTaskBox)
 	ON_WM_PAINT()
 	ON_WM_NCPAINT()
 	ON_WM_NCCALCSIZE()
 	ON_WM_NCHITTEST()
 	ON_WM_NCACTIVATE()
-	ON_WM_SYSCOMMAND()
-	ON_WM_SETCURSOR()
 	ON_WM_NCLBUTTONUP()
 	ON_WM_NCLBUTTONDOWN()
+	ON_WM_SYSCOMMAND()
+	ON_WM_SETCURSOR()
 	ON_WM_TIMER()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 #define CAPTION_HEIGHT	25
@@ -115,9 +111,7 @@ INT_PTR CTaskPanel::GetBoxCount() const
 
 void CTaskPanel::RemoveBox(CTaskBox* pBox)
 {
-	POSITION pos = m_pBoxes.Find( pBox );
-
-	if ( pos )
+	if ( POSITION pos = m_pBoxes.Find( pBox ) )
 	{
 		m_pBoxes.RemoveAt( pos );
 		if ( m_pStretch == pBox ) m_pStretch = NULL;
@@ -498,7 +492,8 @@ void CTaskBox::OnNcLButtonDown(UINT /*nHitTest*/, CPoint /*point*/)
 
 void CTaskBox::OnNcLButtonUp(UINT nHitTest, CPoint /*point*/)
 {
-	if ( nHitTest == HTCAPTION ) Expand( ! m_bOpen );
+	if ( nHitTest == HTCAPTION )
+		Expand( ! m_bOpen );
 }
 
 void CTaskBox::OnTimer(UINT_PTR /*nIDEvent*/)
@@ -612,7 +607,16 @@ void CTaskBox::OnPaint()
 	GetClientRect( &rc );
 
 	if ( ! CoolInterface.DrawWatermark( &dc, &rc, &m_bmWatermark ) )
+	{
 		dc.FillSolidRect( &rc, Colors.m_crTaskBoxClient );
+		dc.SetBkColor( Colors.m_crTaskBoxClient );
+	}
+	else
+	{
+		dc.SetBkColor( CLR_NONE );
+	}
+
+	dc.SetTextColor( Colors.m_crTaskBoxText );
 }
 
 void CTaskBox::OnSysCommand(UINT /*nID*/, LPARAM /*lParam*/)

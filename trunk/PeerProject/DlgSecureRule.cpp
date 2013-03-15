@@ -41,8 +41,8 @@ END_MESSAGE_MAP()
 
 CSecureRuleDlg::CSecureRuleDlg(CWnd* pParent, CSecureRule* pRule)
 	: CSkinDialog(CSecureRuleDlg::IDD, pParent)
-	, m_sComment	( _T("") )
-	, m_sContent	( _T("") )
+//	, m_sComment	( _T("") )
+//	, m_sContent	( _T("") )
 	, m_nExpireD	( 0 )
 	, m_nExpireH	( 0 )
 	, m_nExpireM	( 0 )
@@ -64,7 +64,6 @@ CSecureRuleDlg::~CSecureRuleDlg()
 void CSecureRuleDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CSkinDialog::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CSecureRuleDlg)
 	DDX_Control(pDX, IDC_GROUP_NETWORK, m_wndGroupNetwork);
 	DDX_Control(pDX, IDC_GROUP_CONTENT, m_wndGroupContent);
 	DDX_Control(pDX, IDC_GROUP_EXTERNAL, m_wndGroupExternal);
@@ -91,7 +90,6 @@ void CSecureRuleDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_CBIndex(pDX, IDC_RULE_ACTION, m_nAction);
 	DDX_CBIndex(pDX, IDC_RULE_EXPIRE, m_nExpire);
 	DDX_Radio(pDX, IDC_RULE_MATCH_ANY, m_nMatch);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

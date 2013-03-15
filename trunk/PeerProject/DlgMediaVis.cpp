@@ -33,11 +33,9 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNAMIC(CMediaVisDlg, CSkinDialog)
 
 BEGIN_MESSAGE_MAP(CMediaVisDlg, CSkinDialog)
-	//{{AFX_MSG_MAP(CMediaVisDlg)
 	ON_NOTIFY(NM_DBLCLK, IDC_PLUGINS, OnDblClkPlugins)
 	ON_NOTIFY(LVN_ITEMCHANGED, IDC_PLUGINS, OnItemChangedPlugins)
 	ON_BN_CLICKED(IDC_VIS_SETUP, OnSetup)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -49,8 +47,6 @@ CMediaVisDlg::CMediaVisDlg(CMediaFrame* pFrame) : CSkinDialog( CMediaVisDlg::IDD
 	, m_hIcon	( NULL )
 	, m_nSize	( -1 )
 {
-	//{{AFX_DATA_INIT(CMediaVisDlg)
-	//}}AFX_DATA_INIT
 }
 
 CMediaVisDlg::~CMediaVisDlg()
@@ -61,11 +57,9 @@ CMediaVisDlg::~CMediaVisDlg()
 void CMediaVisDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CSkinDialog::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CMediaVisDlg)
 	DDX_Control(pDX, IDC_PLUGINS, m_wndList);
 	DDX_Control(pDX, IDC_VIS_SETUP, m_wndSetup);
 	DDX_CBIndex(pDX, IDC_VIS_SIZE, m_nSize);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

@@ -41,8 +41,8 @@ static char THIS_FILE[] = __FILE__;
 
 IMPLEMENT_DYNAMIC(CDownloadTask, CAppThread)
 
-BEGIN_MESSAGE_MAP(CDownloadTask, CAppThread)
-END_MESSAGE_MAP()
+//BEGIN_MESSAGE_MAP(CDownloadTask, CAppThread)
+//END_MESSAGE_MAP()
 
 const DWORD BUFFER_SIZE = 2 * 1024 * 1024u;
 

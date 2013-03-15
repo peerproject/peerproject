@@ -37,13 +37,11 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_SERIAL(CLibraryWnd, CPanelWnd, 0)
 
 BEGIN_MESSAGE_MAP(CLibraryWnd, CPanelWnd)
-	//{{AFX_MSG_MAP(CLibraryWnd)
 	ON_WM_CREATE()
 	ON_WM_DESTROY()
 	ON_WM_SIZE()
 	ON_WM_TIMER()
 	ON_WM_MDIACTIVATE()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 

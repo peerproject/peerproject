@@ -32,7 +32,6 @@ static char THIS_FILE[] = __FILE__;
 #endif	// Debug
 
 BEGIN_MESSAGE_MAP(CLanguageDlg, CSkinDialog)
-	//{{AFX_MSG_MAP(CLanguageDlg)
 	ON_WM_PAINT()
 	ON_WM_ERASEBKGND()
 	ON_WM_TIMER()
@@ -45,7 +44,6 @@ BEGIN_MESSAGE_MAP(CLanguageDlg, CSkinDialog)
 	ON_WM_SETCURSOR()
 	ON_WM_DESTROY()
 	ON_WM_CLOSE()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 #define ITEM_HEIGHT		38

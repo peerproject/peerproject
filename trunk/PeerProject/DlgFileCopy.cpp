@@ -35,9 +35,7 @@ static char THIS_FILE[] = __FILE__;
 #endif	// Debug
 
 BEGIN_MESSAGE_MAP(CFileCopyDlg, CSkinDialog)
-	//{{AFX_MSG_MAP(CFileCopyDlg)
 	ON_WM_TIMER()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -56,7 +54,6 @@ CFileCopyDlg::CFileCopyDlg(CWnd* pParent, BOOL bMove)
 void CFileCopyDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CSkinDialog::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CFileCopyDlg)
 	DDX_Control(pDX, IDC_MESSAGE_MOVE, m_wndMove);
 	DDX_Control(pDX, IDC_MESSAGE_COPY, m_wndCopy);
 	DDX_Control(pDX, IDC_FILE_NAME, m_wndFileName);
@@ -65,7 +62,6 @@ void CFileCopyDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_PLACEHOLDER, m_wndPlaceholder);
 	DDX_Control(pDX, IDCANCEL, m_wndCancel);
 	DDX_Control(pDX, IDOK, m_wndOK);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -137,7 +133,6 @@ void CFileCopyDlg::OnTimer(UINT_PTR /*nIDEvent*/)
 	if ( m_nCookie != Library.GetCookie() )
 	{
 		CSingleLock pLock( &Library.m_pSection );
-
 		if ( pLock.Lock( 500 ) )
 		{
 			m_nCookie = Library.GetCookie();

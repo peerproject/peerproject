@@ -40,7 +40,6 @@ public:
 
 // Overrides
 protected:
-	// ClassWizard generate virtual function overrides
 	//{{AFX_VIRTUAL(CBioProfilePage)
 	virtual void DoDataExchange(CDataExchange* pDX);
 	virtual void OnOK();
@@ -52,5 +51,5 @@ protected:
 	virtual BOOL OnInitDialog();
 	//}}AFX_MSG
 
-	DECLARE_MESSAGE_MAP()
+	//DECLARE_MESSAGE_MAP()
 };

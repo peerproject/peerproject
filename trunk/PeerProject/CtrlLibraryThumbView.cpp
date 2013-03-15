@@ -43,7 +43,6 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNCREATE(CLibraryThumbView, CLibraryFileView)
 
 BEGIN_MESSAGE_MAP(CLibraryThumbView, CLibraryFileView)
-	//{{AFX_MSG_MAP(CLibraryThumbView)
 	ON_WM_CREATE()
 	ON_WM_DESTROY()
 	ON_WM_SIZE()
@@ -59,7 +58,6 @@ BEGIN_MESSAGE_MAP(CLibraryThumbView, CLibraryFileView)
 	ON_WM_KEYDOWN()
 	ON_WM_SETFOCUS()
 	ON_WM_GETDLGCODE()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 #define CX	( (int)Settings.Library.ThumbSize + 32 )

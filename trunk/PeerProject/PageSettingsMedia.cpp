@@ -39,7 +39,6 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNCREATE(CMediaSettingsPage, CSettingsPage)
 
 BEGIN_MESSAGE_MAP(CMediaSettingsPage, CSettingsPage)
-	//{{AFX_MSG_MAP(CMediaSettingsPage)
 	ON_BN_CLICKED(IDC_MEDIA_PLAY, OnMediaPlay)
 	ON_BN_CLICKED(IDC_MEDIA_ENQUEUE, OnMediaEnqueue)
 	ON_BN_CLICKED(IDC_MEDIA_ADD, OnMediaAdd)
@@ -49,7 +48,6 @@ BEGIN_MESSAGE_MAP(CMediaSettingsPage, CSettingsPage)
 	ON_CBN_SELCHANGE(IDC_MEDIA_TYPES, OnSelChangeMediaTypes)
 	ON_CBN_SELCHANGE(IDC_MEDIA_SERVICE, OnSelChangeMediaService)
 	ON_WM_DESTROY()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -62,8 +60,6 @@ CMediaSettingsPage::CMediaSettingsPage()
 	, m_bEnablePlay 	( FALSE )
 	, m_bEnableEnqueue	( FALSE )
 {
-	//{{AFX_DATA_INIT(CMediaSettingsPage)
-	//}}AFX_DATA_INIT
 }
 
 CMediaSettingsPage::~CMediaSettingsPage()
@@ -73,7 +69,6 @@ CMediaSettingsPage::~CMediaSettingsPage()
 void CMediaSettingsPage::DoDataExchange(CDataExchange* pDX)
 {
 	CSettingsPage::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CMediaSettingsPage)
 	DDX_Control(pDX, IDC_MEDIA_SERVICE, m_wndServices);
 	DDX_Control(pDX, IDC_MEDIA_REMOVE, m_wndRemove);
 	DDX_Control(pDX, IDC_MEDIA_ADD, m_wndAdd);
@@ -81,7 +76,6 @@ void CMediaSettingsPage::DoDataExchange(CDataExchange* pDX)
 	DDX_CBString(pDX, IDC_MEDIA_TYPES, m_sType);
 	DDX_Check(pDX, IDC_MEDIA_PLAY, m_bEnablePlay);
 	DDX_Check(pDX, IDC_MEDIA_ENQUEUE, m_bEnableEnqueue);
-	//}}AFX_DATA_MAP
 }
 
 void CMediaSettingsPage::Update()

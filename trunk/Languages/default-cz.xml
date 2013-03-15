@@ -465,7 +465,7 @@
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="&#160; Nabídka &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="_Nastavení..."/>
 			<menu text="_Web">
 				<item id="ID_NETWORK_CONNECT" text="_Připojit" shortcut="Ctrl+G"/>

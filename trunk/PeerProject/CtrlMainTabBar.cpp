@@ -553,6 +553,9 @@ BOOL CMainTabBarCtrl::TabItem::HitTest(const CPoint& point) const
 
 void CMainTabBarCtrl::TabItem::Paint(CDC* pDstDC, CDC* pSrcDC, const CPoint& ptOffset, BOOL bHover, BOOL bDown)
 {
+	if ( ! m_rc.Width() || ! m_rc.Height() )
+		return;		// No button
+
 	CRect* pPart = NULL;
 
 	if ( bDown )
@@ -565,9 +568,6 @@ void CMainTabBarCtrl::TabItem::Paint(CDC* pDstDC, CDC* pSrcDC, const CPoint& ptO
 		pPart = &m_rcSrc[2];
 	else
 		pPart = &m_rcSrc[3];
-
-	if ( m_rc.Width() == 0 || m_rc.Height() == 0 )
-		return;		// No button
 
 	CRect rcTarget( m_rc );
 	rcTarget += ptOffset;
@@ -618,11 +618,11 @@ void CMainTabBarCtrl::TabItem::Paint(CDC* pDstDC, CDC* pSrcDC, const CPoint& ptO
 	}
 
 	if ( Settings.General.LanguageRTL )
-		rcTarget.left += Skin.m_rcNavBarOffset.right;
+		rcTarget.left -= Skin.m_ptNavBarOffset.x;
 	else
-		rcTarget.left += Skin.m_rcNavBarOffset.left;
+		rcTarget.left += Skin.m_ptNavBarOffset.x;
 
-	rcTarget.top += Skin.m_rcNavBarOffset.top;
+	rcTarget.top += Skin.m_ptNavBarOffset.y;
 
 	CFont* pOldFont = pDstDC->SelectObject( &CoolInterface.m_fntNavBar );
 	pDstDC->SetBkMode( TRANSPARENT );

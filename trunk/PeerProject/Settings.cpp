@@ -146,6 +146,7 @@ void CSettings::Load()
 	Add( _T("Interface"), _T("Snarl"), &Interface.Snarl, true );	// Use notifications (getsnarl.info)
 
 	Add( _T("Skin"), _T("DropMenu"), &Skin.DropMenu, false );
+	Add( _T("Skin"), _T("DropMenuLabel"), &Skin.DropMenuLabel, 0, 1, 0, 100, _T(" char") );
 	Add( _T("Skin"), _T("MenuBorders"), &Skin.MenuBorders, true );
 	Add( _T("Skin"), _T("MenuGripper"), &Skin.MenuGripper, true );
 	Add( _T("Skin"), _T("RoundedSelect"), &Skin.RoundedSelect, false );

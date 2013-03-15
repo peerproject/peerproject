@@ -46,7 +46,6 @@ static char THIS_FILE[] = __FILE__;
 
 
 BEGIN_MESSAGE_MAP(CDownloadMonitorDlg, CSkinDialog)
-	//{{AFX_MSG_MAP(CDownloadMonitorDlg)
 	ON_WM_PAINT()
 	ON_WM_DESTROY()
 	ON_WM_TIMER()
@@ -60,7 +59,6 @@ BEGIN_MESSAGE_MAP(CDownloadMonitorDlg, CSkinDialog)
 	ON_BN_CLICKED(IDC_MONITOR_SHOW, OnDownloadShow)
 	ON_BN_CLICKED(IDC_MONITOR_ACTION, OnDownloadAction)
 	ON_BN_CLICKED(IDC_MONITOR_CLOSE, OnDownloadClose)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 CList< CDownloadMonitorDlg* > CDownloadMonitorDlg::m_pWindows;
@@ -95,7 +93,6 @@ CDownloadMonitorDlg::~CDownloadMonitorDlg()
 void CDownloadMonitorDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CSkinDialog::DoDataExchange( pDX );
-	//{{AFX_DATA_MAP(CDownloadMonitorDlg)
 	//DDX_Control(pDX, IDC_MONITOR_STATUS, m_wndStatus);	// Removed
 	DDX_Control(pDX, IDC_PROGRESS, m_wndProgress);
 	DDX_Control(pDX, IDC_MONITOR_SOURCES, m_wndSources);
@@ -109,7 +106,6 @@ void CDownloadMonitorDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_MONITOR_ACTION, m_wndAction);
 	DDX_Control(pDX, IDC_MONITOR_SHOW, m_wndShow);
 	DDX_Control(pDX, IDC_MONITOR_CLOSE, m_wndClose);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

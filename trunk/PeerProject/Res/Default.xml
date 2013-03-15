@@ -530,7 +530,7 @@
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="&#160;_Menu&#160;">
 			<item id="ID_TOOLS_SETTINGS" text="_Settings..."/>
 			<menu text="_Network">
 				<item id="ID_NETWORK_CONNECT" text="_Connect" shortcut="Ctrl+G"/>

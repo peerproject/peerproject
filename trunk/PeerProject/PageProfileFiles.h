@@ -51,5 +51,5 @@ protected:
 	virtual BOOL OnInitDialog();
 	//}}AFX_MSG
 
-	DECLARE_MESSAGE_MAP()
+	//DECLARE_MESSAGE_MAP()
 };

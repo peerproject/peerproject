@@ -52,14 +52,12 @@ enum {
 IMPLEMENT_DYNAMIC(CCollectionExportDlg, CSkinDialog)
 
 BEGIN_MESSAGE_MAP(CCollectionExportDlg, CSkinDialog)
-	//{{AFX_MSG_MAP(CCollectionExportDlg)
 	ON_WM_CTLCOLOR()
 	ON_WM_SETCURSOR()
 	ON_WM_LBUTTONUP()
 	ON_BN_CLICKED(IDOK, &CCollectionExportDlg::OnOK)
 	ON_BN_CLICKED(IDC_TEMPLATES_DELETE, &CCollectionExportDlg::OnTemplatesDeleteOrBack)
 	ON_NOTIFY(LVN_ITEMCHANGED, IDC_TEMPLATES, &CCollectionExportDlg::OnItemChangedTemplates)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -75,7 +73,6 @@ CCollectionExportDlg::~CCollectionExportDlg()
 void CCollectionExportDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CSkinDialog::DoDataExchange( pDX );
-	//{{AFX_DATA_MAP(CCollectionExportDlg)
 	DDX_Control(pDX, IDOK, m_wndOK);
 	DDX_Control(pDX, IDC_STATIC_AUTHOR, m_wndLblAuthor);
 	DDX_Control(pDX, IDC_STATIC_NAME, m_wndLblName);
@@ -87,7 +84,6 @@ void CCollectionExportDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_TEMPLATE_NAME, m_wndName);
 	DDX_Control(pDX, IDC_TEMPLATE_AUTHOR, m_wndAuthor);
 	DDX_Control(pDX, IDC_TEMPLATES, m_wndList);
-	//}}AFX_DATA_MAP
 }
 
 BOOL CCollectionExportDlg::OnInitDialog()

@@ -19,7 +19,7 @@
 #pragma once
 
 #include "DlgSkinDialog.h"
-#include <afxdtctl.h>		// MFC date & time controls
+//#include <afxdtctl.h>		// MFC date & time controls
 
 class CScheduleTask;
 

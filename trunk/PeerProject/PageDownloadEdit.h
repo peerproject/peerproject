@@ -20,7 +20,7 @@
 
 #include "PagePropertyAdv.h"
 #include "WndSettingsPage.h"	// For CEditPath
-#include <afxdtctl.h>			// MFC date & time controls
+//#include <afxdtctl.h>			// MFC date & time controls
 
 class CDownload;
 
@@ -53,9 +53,10 @@ protected:
 	CDateTimeCtrl	m_wndDate;
 	CEditPath		m_wndPath;	// For Double-click aware Edit box
 
+protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
 	virtual BOOL OnInitDialog();
 	virtual BOOL OnApply();
 
-	DECLARE_MESSAGE_MAP()
+	//DECLARE_MESSAGE_MAP()
 };

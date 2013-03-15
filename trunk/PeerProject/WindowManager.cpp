@@ -42,11 +42,9 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNCREATE(CWindowManager, CWnd)
 
 BEGIN_MESSAGE_MAP(CWindowManager, CWnd)
-	//{{AFX_MSG_MAP(CWindowManager)
 	ON_WM_SIZE()
 	ON_WM_PAINT()
 	ON_WM_ERASEBKGND()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -78,12 +76,15 @@ void CWindowManager::SetOwner(CMDIFrameWnd* pParent)
 void CWindowManager::Add(CChildWnd* pChild)
 {
 	CSingleLock pLock( &theApp.m_pSection, TRUE );
-	if ( m_pWindows.Find( pChild ) == NULL ) m_pWindows.AddTail( pChild );
+
+	if ( m_pWindows.Find( pChild ) == NULL )
+		m_pWindows.AddTail( pChild );
 }
 
 void CWindowManager::Remove(CChildWnd* pChild)
 {
 	CSingleLock pLock( &theApp.m_pSection, TRUE );
+
 	POSITION pos = m_pWindows.Find( pChild );
 	if ( pos ) m_pWindows.RemoveAt( pos );
 }
@@ -127,6 +128,7 @@ BOOL CWindowManager::Check(CChildWnd* pChild) const
 CChildWnd* CWindowManager::Find(CRuntimeClass* pClass, CChildWnd* pAfter, CChildWnd* pExcept)
 {
 	CSingleLock pLock( &theApp.m_pSection, TRUE );
+
 	BOOL bFound = ( pAfter == NULL );
 
 	for ( POSITION pos = GetIterator() ; pos ; )
@@ -182,7 +184,6 @@ CChildWnd* CWindowManager::Open(CRuntimeClass* pClass, BOOL bToggle, BOOL bFocus
 CChildWnd* CWindowManager::FindFromPoint(const CPoint& point) const
 {
 	CPoint pt( point );
-
 	ScreenToClient( &pt );
 	CChildWnd* pWnd = (CChildWnd*)ChildWindowFromPoint( pt );
 
@@ -194,8 +195,9 @@ CChildWnd* CWindowManager::FindFromPoint(const CPoint& point) const
 
 void CWindowManager::Close()
 {
-	CSingleLock pLock( &theApp.m_pSection, TRUE );
 	CList< CChildWnd* > pClose;
+
+	CSingleLock pLock( &theApp.m_pSection, TRUE );
 
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{

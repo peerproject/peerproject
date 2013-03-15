@@ -31,13 +31,11 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNCREATE(CWebSettingsPage, CSettingsPage)
 
 BEGIN_MESSAGE_MAP(CWebSettingsPage, CSettingsPage)
-	//{{AFX_MSG_MAP(CWebSettingsPage)
 	ON_CBN_EDITCHANGE(IDC_EXT_LIST, OnEditChangeExtList)
 	ON_CBN_SELCHANGE(IDC_EXT_LIST, OnSelChangeExtList)
 	ON_BN_CLICKED(IDC_EXT_ADD, OnExtAdd)
 	ON_BN_CLICKED(IDC_EXT_REMOVE, OnExtRemove)
 	ON_BN_CLICKED(IDC_WEB_HOOK, OnWebHook)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -54,8 +52,6 @@ CWebSettingsPage::CWebSettingsPage()
 	, m_bUriPiolet	( FALSE )
 	, m_bUriTorrent	( FALSE )
 {
-	//{{AFX_DATA_INIT(CWebSettingsPage)
-	//}}AFX_DATA_INIT
 }
 
 CWebSettingsPage::~CWebSettingsPage()
@@ -65,7 +61,6 @@ CWebSettingsPage::~CWebSettingsPage()
 void CWebSettingsPage::DoDataExchange(CDataExchange* pDX)
 {
 	CSettingsPage::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CWebSettingsPage)
 	DDX_Control(pDX, IDC_EXT_REMOVE, m_wndExtRemove);
 	DDX_Control(pDX, IDC_EXT_ADD, m_wndExtAdd);
 	DDX_Control(pDX, IDC_EXT_LIST, m_wndExtensions);
@@ -76,7 +71,6 @@ void CWebSettingsPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Check(pDX, IDC_URI_DC, m_bUriDC);
 	DDX_Check(pDX, IDC_URI_PIOLET, m_bUriPiolet);
 	DDX_Check(pDX, IDC_URI_TORRENT, m_bUriTorrent);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

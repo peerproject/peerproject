@@ -35,10 +35,8 @@ static char THIS_FILE[] = __FILE__;
 
 IMPLEMENT_DYNCREATE(CFilesProfilePage, CSettingsPage)
 
-BEGIN_MESSAGE_MAP(CFilesProfilePage, CSettingsPage)
-	//{{AFX_MSG_MAP(CFilesProfilePage)
-	//}}AFX_MSG_MAP
-END_MESSAGE_MAP()
+//BEGIN_MESSAGE_MAP(CFilesProfilePage, CSettingsPage)
+//END_MESSAGE_MAP()
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -46,8 +44,6 @@ END_MESSAGE_MAP()
 
 CFilesProfilePage::CFilesProfilePage() : CSettingsPage( CFilesProfilePage::IDD )
 {
-	//{{AFX_DATA_INIT(CFilesProfilePage)
-	//}}AFX_DATA_INIT
 }
 
 CFilesProfilePage::~CFilesProfilePage()
@@ -57,9 +53,7 @@ CFilesProfilePage::~CFilesProfilePage()
 void CFilesProfilePage::DoDataExchange(CDataExchange* pDX)
 {
 	CSettingsPage::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CFilesProfilePage)
 	DDX_Control(pDX, IDC_FILE_LIST, m_wndList);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

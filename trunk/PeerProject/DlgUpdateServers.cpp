@@ -33,10 +33,8 @@ static char THIS_FILE[] = __FILE__;
 #endif	// Debug
 
 BEGIN_MESSAGE_MAP(CUpdateServersDlg, CSkinDialog)
-	//{{AFX_MSG_MAP(CUpdateServersDlg)
-	ON_EN_CHANGE(IDC_URL, OnChangeURL)
 	ON_WM_TIMER()
-	//}}AFX_MSG_MAP
+	ON_EN_CHANGE(IDC_URL, OnChangeURL)
 END_MESSAGE_MAP()
 
 
@@ -51,12 +49,10 @@ CUpdateServersDlg::CUpdateServersDlg(CWnd* pParent)
 void CUpdateServersDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CSkinDialog::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CUpdateServersDlg)
 	DDX_Control(pDX, IDC_URL, m_wndURL);
 	DDX_Control(pDX, IDOK, m_wndOK);
 	DDX_Control(pDX, IDC_PROGRESS, m_wndProgress);
 	DDX_Text(pDX, IDC_URL, m_sURL);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

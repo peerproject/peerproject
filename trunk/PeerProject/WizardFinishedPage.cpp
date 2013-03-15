@@ -32,9 +32,7 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNCREATE(CWizardFinishedPage, CWizardPage)
 
 BEGIN_MESSAGE_MAP(CWizardFinishedPage, CWizardPage)
-	//{{AFX_MSG_MAP(CWizardFinishedPage)
 	ON_WM_XBUTTONDOWN()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -45,8 +43,6 @@ CWizardFinishedPage::CWizardFinishedPage() : CWizardPage(CWizardFinishedPage::ID
 	, m_bAutoConnect( FALSE )
 	, m_bStartup	( FALSE )
 {
-	//{{AFX_DATA_INIT(CWizardFinishedPage)
-	//}}AFX_DATA_INIT
 }
 
 CWizardFinishedPage::~CWizardFinishedPage()
@@ -56,10 +52,8 @@ CWizardFinishedPage::~CWizardFinishedPage()
 void CWizardFinishedPage::DoDataExchange(CDataExchange* pDX)
 {
 	CWizardPage::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CWizardFinishedPage)
 	DDX_Check(pDX, IDC_WIZARD_AUTO, m_bAutoConnect);
 	DDX_Check(pDX, IDC_WIZARD_STARTUP, m_bStartup);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

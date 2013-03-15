@@ -35,8 +35,8 @@ static char THIS_FILE[] = __FILE__;
 
 IMPLEMENT_DYNAMIC(CFilePropertiesSheet, CPropertySheetAdv)
 
-BEGIN_MESSAGE_MAP(CFilePropertiesSheet, CPropertySheetAdv)
-END_MESSAGE_MAP()
+//BEGIN_MESSAGE_MAP(CFilePropertiesSheet, CPropertySheetAdv)
+//END_MESSAGE_MAP()
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -132,11 +132,11 @@ BOOL CFilePropertiesSheet::OnInitDialog()
 	{
 		CRect rc;
 
-		GetDlgItem( 0x3021 )->GetWindowRect( &rc );	// Apply Position for OK
+		GetDlgItem( 0x3021 )->GetWindowRect( &rc );		// Apply Position for OK
 		ScreenToClient( &rc );
 		GetDlgItem( IDOK )->SetWindowPos( NULL, rc.left + 1, rc.top, 0, 0, SWP_NOSIZE|SWP_NOZORDER|SWP_NOACTIVATE );
 
-		GetDlgItem( 0x0009 )->GetWindowRect( &rc );	// Help Position for Cancel
+		GetDlgItem( 0x0009 )->GetWindowRect( &rc );		// Help Position for Cancel
 		ScreenToClient( &rc );
 		GetDlgItem( IDCANCEL )->SetWindowPos( NULL, rc.left, rc.top, 0, 0, SWP_NOSIZE|SWP_NOZORDER|SWP_NOACTIVATE );
 	}

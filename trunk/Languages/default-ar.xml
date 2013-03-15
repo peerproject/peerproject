@@ -485,7 +485,7 @@
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="القائمة">
 			<item id="ID_TOOLS_SETTINGS" text="إ_عدادات ..."/>
 			<menu text="_شبكة">
 				<item id="ID_NETWORK_CONNECT" text="_إتصال" shortcut="Ctrl+G" />

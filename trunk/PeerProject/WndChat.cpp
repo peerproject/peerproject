@@ -47,7 +47,6 @@ const static UINT nImageID[] =
 {
 	IDI_USER_ME,
 	IDI_USER,
-	// ToDo: Ops/Bots?
 	NULL
 };
 
@@ -55,7 +54,6 @@ const static UINT nImageID[] =
 IMPLEMENT_DYNAMIC(CChatWnd, CChildWnd)	//CPanelWnd
 
 BEGIN_MESSAGE_MAP(CChatWnd, CChildWnd)	//CPanelWnd
-	//{{AFX_MSG_MAP(CChatWnd)
 	ON_WM_CREATE()
 	ON_WM_DESTROY()
 	ON_WM_PAINT()
@@ -83,7 +81,6 @@ BEGIN_MESSAGE_MAP(CChatWnd, CChildWnd)	//CPanelWnd
 	ON_MESSAGE(WM_CHAT_DELETE_USER, &CChatWnd::OnChatDeleteUser)
 	ON_NOTIFY(RVN_CLICK, IDC_CHAT_TEXT, &CChatWnd::OnClickView)
 	ON_COMMAND_RANGE(1, 200, &CChatWnd::OnEmoticons)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 

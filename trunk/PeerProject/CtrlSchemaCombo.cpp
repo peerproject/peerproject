@@ -36,10 +36,8 @@ static char THIS_FILE[] = __FILE__;
 #endif	// Debug
 
 BEGIN_MESSAGE_MAP(CSchemaCombo, CComboBox)
-	//{{AFX_MSG_MAP(CSchemaCombo)
 	ON_MESSAGE(WM_CTLCOLORLISTBOX, OnCtlColorListBox)
 	ON_CONTROL_REFLECT(CBN_DROPDOWN, OnDropDown)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 

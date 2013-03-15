@@ -490,7 +490,7 @@
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="&#160; Menú &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="Configuración..."/>
 			<menu text="_Red">
 				<item id="ID_NETWORK_CONNECT" text="Conectar" shortcut="Ctrl+G"/>

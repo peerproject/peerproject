@@ -143,12 +143,10 @@ CFilePreviewDlg::~CFilePreviewDlg()
 void CFilePreviewDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CSkinDialog::DoDataExchange( pDX );
-	//{{AFX_DATA_MAP(CFilePreviewDlg)
 	DDX_Control(pDX, IDCANCEL, m_wndCancel);
 	DDX_Control(pDX, IDC_PROGRESS, m_wndProgress);
 	DDX_Control(pDX, IDC_PREVIEW_STATUS, m_wndStatus);
 	DDX_Control(pDX, IDC_FILE_NAME, m_wndName);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

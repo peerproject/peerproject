@@ -28,11 +28,9 @@ static char THIS_FILE[] = __FILE__;
 #endif	// Debug
 
 BEGIN_MESSAGE_MAP(CWarningsDlg, CSkinDialog)
-	//{{AFX_MSG_MAP(CWarningsDlg)
 	ON_WM_CTLCOLOR()
 	ON_WM_SETCURSOR()
 	ON_WM_LBUTTONUP()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -41,18 +39,14 @@ END_MESSAGE_MAP()
 
 CWarningsDlg::CWarningsDlg(CWnd* pParent) : CSkinDialog(CWarningsDlg::IDD, pParent)
 {
-	//{{AFX_DATA_INIT(CWarningsDlg)
-	//}}AFX_DATA_INIT
 }
 
 void CWarningsDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CSkinDialog::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CWarningsDlg)
 	DDX_Control(pDX, IDC_RESPECT, m_wndRespect);
 	DDX_Control(pDX, IDC_WEB, m_wndWeb);
 	DDX_Control(pDX, IDC_TITLE, m_wndTitle);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

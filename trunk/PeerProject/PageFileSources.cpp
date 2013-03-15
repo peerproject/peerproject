@@ -33,13 +33,11 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNCREATE(CFileSourcesPage, CFilePropertiesPage)
 
 BEGIN_MESSAGE_MAP(CFileSourcesPage, CFilePropertiesPage)
-	//{{AFX_MSG_MAP(CFileSourcesPage)
 	ON_NOTIFY(LVN_ITEMCHANGED, IDC_FILE_SOURCES, OnItemChangedFileSources)
 	ON_NOTIFY(NM_DBLCLK, IDC_FILE_SOURCES, OnDblClk)
 	ON_BN_CLICKED(IDC_SOURCE_REMOVE, OnSourceRemove)
 	ON_BN_CLICKED(IDC_SOURCE_NEW, OnSourceNew)
 	ON_EN_CHANGE(IDC_FILE_SOURCE, OnChangeFileSource)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -59,12 +57,10 @@ CFileSourcesPage::~CFileSourcesPage()
 void CFileSourcesPage::DoDataExchange(CDataExchange* pDX)
 {
 	CFilePropertiesPage::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CFileSourcesPage)
 	DDX_Control(pDX, IDC_SOURCE_REMOVE, m_wndRemove);
 	DDX_Control(pDX, IDC_SOURCE_NEW, m_wndNew);
 	DDX_Control(pDX, IDC_FILE_SOURCES, m_wndList);
 	DDX_Text(pDX, IDC_FILE_SOURCE, m_sSource);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

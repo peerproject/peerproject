@@ -1,7 +1,7 @@
 //
 // Builder.cpp : Implementation of CBuilder
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Nikolay Raspopov, 2005.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -22,17 +22,19 @@
 #include "stdafx.h"
 #include "Builder.h"
 
-HRESULT CBuilder::FinalConstruct () throw()
+HRESULT CBuilder::FinalConstruct() throw()
 {
 	return CoCreateFreeThreadedMarshaler (GetControllingUnknown(), &m_pUnkMarshaler.p);
 }
 
-void CBuilder::FinalRelease () throw()
+void CBuilder::FinalRelease() throw()
 {
-	m_pUnkMarshaler.Release ();
+	m_pUnkMarshaler.Release();
 }
 
-STDMETHODIMP CBuilder::Process(/*[in]*/ BSTR sFile, /*[in]*/ ISXMLElement* pXML)
+STDMETHODIMP CBuilder::Process(
+	/* [in] */ BSTR sFile,
+	/* [in] */ ISXMLElement* pXML)
 {
 	if ( ! pXML )
 		return E_POINTER;
@@ -42,24 +44,24 @@ STDMETHODIMP CBuilder::Process(/*[in]*/ BSTR sFile, /*[in]*/ ISXMLElement* pXML)
 	if (FAILED (hr))
 		return hr;
 	CComPtr <ISXMLElement> pXMLRootElement;
-	hr = pISXMLRootElements->Create (CComBSTR ("images"), &pXMLRootElement);
+	hr = pISXMLRootElements->Create(CComBSTR("images"), &pXMLRootElement);
 	if (FAILED (hr))
 		return hr;
 	CComPtr <ISXMLAttributes> pISXMLRootAttributes;
 	hr = pXMLRootElement->get_Attributes(&pISXMLRootAttributes);
 	if (FAILED (hr))
 		return hr;
-	pISXMLRootAttributes->Add (CComBSTR ("xmlns:xsi"),
-		CComBSTR ("http://www.w3.org/2001/XMLSchema-instance"));
-	pISXMLRootAttributes->Add (CComBSTR ("xsi:noNamespaceSchemaLocation"),
-		CComBSTR ("http://www.shareaza.com/schemas/image.xsd"));
+	pISXMLRootAttributes->Add (CComBSTR("xmlns:xsi"),
+		CComBSTR("http://www.w3.org/2001/XMLSchema-instance"));
+	pISXMLRootAttributes->Add (CComBSTR("xsi:noNamespaceSchemaLocation"),
+		CComBSTR("http://www.shareaza.com/schemas/image.xsd"));
 
 	CComPtr <ISXMLElements> pISXMLElements;
 	hr = pXMLRootElement->get_Elements(&pISXMLElements);
 	if (FAILED (hr))
 		return hr;
 	CComPtr <ISXMLElement> pXMLElement;
-	hr = pISXMLElements->Create (CComBSTR ("image"), &pXMLElement);
+	hr = pISXMLElements->Create(CComBSTR("image"), &pXMLElement);
 	if (FAILED (hr))
 		return hr;
 	CComPtr <ISXMLAttributes> pISXMLAttributes;
@@ -70,12 +72,12 @@ STDMETHODIMP CBuilder::Process(/*[in]*/ BSTR sFile, /*[in]*/ ISXMLElement* pXML)
 	GFL_FILE_INFORMATION inf = { 0 };
 	WCHAR pszPath[MAX_PATH] = { 0 };
 
-	GFL_ERROR err = gflGetFileInformation (CW2A (sFile), -1, &inf);
+	GFL_ERROR err = gflGetFileInformationW( sFile, -1, &inf );
 
 	if ( err != GFL_NO_ERROR )
 	{
 		if ( GetShortPathNameW( sFile, pszPath, MAX_PATH ) )
-			err = gflGetFileInformation (CW2A(pszPath), -1, &inf);
+			err = gflGetFileInformationW( pszPath, -1, &inf );
 		else
 			err = GFL_ERROR_FILE_OPEN;
 	}
@@ -85,12 +87,12 @@ STDMETHODIMP CBuilder::Process(/*[in]*/ BSTR sFile, /*[in]*/ ISXMLElement* pXML)
 		CString tmp;
 
 		tmp.Format (_T("%lu"), inf.Height);
-		pISXMLAttributes->Add (CComBSTR ("height"), CComBSTR (tmp));
+		pISXMLAttributes->Add(CComBSTR("height"), CComBSTR(tmp));
 
 		tmp.Format (_T("%lu"), inf.Width);
-		pISXMLAttributes->Add (CComBSTR ("width"), CComBSTR (tmp));
+		pISXMLAttributes->Add(CComBSTR("width"), CComBSTR(tmp));
 
-		pISXMLAttributes->Add (CComBSTR ("description"), CComBSTR (inf.Description));
+		pISXMLAttributes->Add(CComBSTR("description"), CComBSTR(inf.Description));
 
 		CString colors;
 		const int bits = inf.ComponentsPerPixel * inf.BitsPerComponent;
@@ -107,7 +109,7 @@ STDMETHODIMP CBuilder::Process(/*[in]*/ BSTR sFile, /*[in]*/ ISXMLElement* pXML)
 			else
 				colors = _T("16.7M");
 		}
-		pISXMLAttributes->Add (CComBSTR ("colors"), CComBSTR (colors));
+		pISXMLAttributes->Add(CComBSTR("colors"), CComBSTR(colors));
 	}
 	else
 		hr = E_FAIL;

@@ -38,10 +38,8 @@ static char THIS_FILE[] = __FILE__;
 #endif	// Debug
 
 BEGIN_MESSAGE_MAP(CBrowseHeaderCtrl, CCoolBarCtrl)
-	//{{AFX_MSG_MAP(CBrowseHeaderCtrl)
 	ON_WM_CREATE()
 	ON_WM_SIZE()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -173,13 +171,10 @@ void CBrowseHeaderCtrl::PrepareRect(CRect* pRect) const
 void CBrowseHeaderCtrl::DoPaint(CDC* pDC, CRect& rcClient, BOOL bTransparent)
 {
 	if ( ! CoolInterface.DrawWatermark( pDC, &rcClient, &m_bmImage ) )
-	{
 		pDC->FillSolidRect( rcClient.left, rcClient.top,
 			rcClient.Width(), rcClient.Height(), Colors.m_crBannerBack );
-	}
 
 	CRect rcBar;
-
 	rcBar.top		= ( rcClient.top + rcClient.bottom ) / 2;
 	rcBar.top		= rcBar.top - ( Settings.Skin.ToolbarHeight / 2 ) + 1;
 	rcBar.bottom	= rcBar.top + Settings.Skin.ToolbarHeight - 2;
@@ -198,7 +193,8 @@ void CBrowseHeaderCtrl::DoPaint(CDC* pDC, CRect& rcClient, BOOL bTransparent)
 	}
 	else if ( m_nIcon32 >= 0 )
 	{
-		ptIcon.x += 8; ptIcon.y += 8;
+		ptIcon.x += 8;
+		ptIcon.y += 8;
 		ShellIcons.Draw( pDC, m_nIcon32, 32, ptIcon.x, ptIcon.y );
 	}
 

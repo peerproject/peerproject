@@ -1220,9 +1220,20 @@ LRESULT CMainWnd::OnSkinChanged(WPARAM /*wParam*/, LPARAM /*lParam*/)
 	if ( Settings.Skin.DropMenu )
 	{
 		if ( CMenu* pMenu = Skin.GetMenu( _T("CMainWnd.DropMenu") ) )
+		{
+			if ( Settings.Skin.DropMenuLabel > 1 )
+			{
+				CString strWidth = _T(" ");
+				for ( int nCount = 1 ; nCount <= Settings.Skin.DropMenuLabel ; nCount++ )
+					strWidth.Append( _T("\ ") );
+				pMenu->ModifyMenu( 0, MF_BYPOSITION|MF_STRING, 0, strWidth );
+			}
 			m_wndMenuBar.SetMenu( pMenu->GetSafeHmenu() );
+		}
 		else if ( CMenu* pMenu = Skin.GetMenu( _T("CMainWnd") ) )
+		{
 			m_wndMenuBar.SetMenu( pMenu->GetSafeHmenu() );
+		}
 	}
 	else if ( CMenu* pMenu = Skin.GetMenu( _T("CMainWnd") ) )
 	{

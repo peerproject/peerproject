@@ -37,14 +37,12 @@ static char THIS_FILE[] = __FILE__;
 #endif	// Debug
 
 BEGIN_MESSAGE_MAP(CBrowseProfileCtrl, CWnd)
-	//{{AFX_MSG_MAP(CBrowseProfileCtrl)
 	ON_WM_CREATE()
 	ON_WM_DESTROY()
 	ON_WM_SIZE()
 	ON_WM_PAINT()
 	ON_WM_TIMER()
 	ON_NOTIFY(RVN_CLICK, IDC_BROWSE_PROFILE, OnClickView)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -392,10 +390,7 @@ void CBrowseProfileCtrl::UpdateDocument2(CHostBrowser* pBrowser)
 		}
 	}
 
-	if ( nBookmarks )
-		m_pDocument2->ShowGroup( 3, TRUE );
-	else
-		m_pDocument2->ShowGroup( 3, FALSE );
+	m_pDocument2->ShowGroup( 3, nBookmarks ? TRUE : FALSE );
 
 	m_wndDoc2.InvalidateIfModified();
 }
@@ -491,6 +486,7 @@ void CBrowseProfileCtrl::OnSize(UINT nType, int cx, int cy)
 void CBrowseProfileCtrl::OnPaint()
 {
 	CSingleLock pLock( &m_pSection, TRUE );
+
 	CPaintDC dc( this );
 	CRect rcPanel;
 

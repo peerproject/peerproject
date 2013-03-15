@@ -521,7 +521,7 @@
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="&#160; Menü &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="_Einstellungen..."/>
 			<menu text="_Netzwerk">
 				<item id="ID_NETWORK_CONNECT" text="_Verbinden" shortcut="Strg+G"/>

@@ -32,10 +32,8 @@ static char THIS_FILE[] = __FILE__;
 
 IMPLEMENT_DYNCREATE(CIdentityProfilePage, CSettingsPage)
 
-BEGIN_MESSAGE_MAP(CIdentityProfilePage, CSettingsPage)
-	//{{AFX_MSG_MAP(CIdentityProfilePage)
-	//}}AFX_MSG_MAP
-END_MESSAGE_MAP()
+//BEGIN_MESSAGE_MAP(CIdentityProfilePage, CSettingsPage)
+//END_MESSAGE_MAP()
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -50,8 +48,6 @@ CIdentityProfilePage::CIdentityProfilePage()
 //	, m_sGender	( _T("") )
 	, m_bBrowseUser	( FALSE )
 {
-	//{{AFX_DATA_INIT(CIdentityProfilePage)
-	//}}AFX_DATA_INIT
 }
 
 CIdentityProfilePage::~CIdentityProfilePage()
@@ -61,7 +57,6 @@ CIdentityProfilePage::~CIdentityProfilePage()
 void CIdentityProfilePage::DoDataExchange(CDataExchange* pDX)
 {
 	CSettingsPage::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CIdentityProfilePage)
 	DDX_Control(pDX, IDC_PROFILE_AGE, m_wndAge);
 	DDX_CBString(pDX, IDC_PROFILE_AGE, m_sAge);
 	DDX_CBString(pDX, IDC_PROFILE_GENDER, m_sGender);
@@ -69,7 +64,6 @@ void CIdentityProfilePage::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_PROFILE_FIRST, m_sFirst);
 	DDX_Text(pDX, IDC_PROFILE_LAST, m_sLast);
 	DDX_Check(pDX, IDC_BROWSE_USER, m_bBrowseUser);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

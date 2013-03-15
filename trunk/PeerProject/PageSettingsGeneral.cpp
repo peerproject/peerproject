@@ -36,10 +36,8 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNCREATE(CGeneralSettingsPage, CSettingsPage)
 
 BEGIN_MESSAGE_MAP(CGeneralSettingsPage, CSettingsPage)
-	//{{AFX_MSG_MAP(CGeneralSettingsPage)
 	ON_CBN_DROPDOWN(IDC_CLOSE_MODE, OnDropdownCloseMode)
 	ON_CBN_DROPDOWN(IDC_TRAY_MINIMISE, OnDropdownTrayMinimise)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -64,8 +62,6 @@ CGeneralSettingsPage::CGeneralSettingsPage()
 	, m_nCloseMode		( -1 )
 	, m_nTipDelay 		( 0 )
 {
-	//{{AFX_DATA_INIT(CGeneralSettingsPage)
-	//}}AFX_DATA_INIT
 }
 
 CGeneralSettingsPage::~CGeneralSettingsPage()
@@ -75,7 +71,6 @@ CGeneralSettingsPage::~CGeneralSettingsPage()
 void CGeneralSettingsPage::DoDataExchange(CDataExchange* pDX)
 {
 	CSettingsPage::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CGeneralSettingsPage)
 	DDX_Check(pDX, IDC_AUTO_CONNECT, m_bAutoConnect);
 	DDX_Check(pDX, IDC_AUTO_START, m_bStartup);
 	DDX_Check(pDX, IDC_PROMPT_URLS, m_bPromptURLs);
@@ -96,7 +91,6 @@ void CGeneralSettingsPage::DoDataExchange(CDataExchange* pDX)
 	DDX_CBIndex(pDX, IDC_CLOSE_MODE, m_nCloseMode);
 	DDX_CBIndex(pDX, IDC_TRAY_MINIMISE, m_bTrayMinimise);
 	DDX_CBIndex(pDX, IDC_RATES_IN_BYTES, m_nRatesInBytes);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

@@ -56,6 +56,7 @@ BEGIN_MESSAGE_MAP(CIRCUsersBox, CTaskBox)
 	ON_WM_CREATE()
 	ON_WM_SIZE()
 	ON_WM_PAINT()
+	ON_WM_CTLCOLOR()
 	ON_WM_CONTEXTMENU()
 	ON_WM_COMPAREITEM()
 	ON_LBN_DBLCLK(IDC_IRC_USERS, OnUsersDoubleClick)
@@ -198,6 +199,8 @@ void CIRCChannelsBox::OnSkinChange()
 		m_wndChanList.SetExtendedStyle( LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP ); 	// No LVS_EX_DOUBLEBUFFER
 	else
 		m_wndChanList.SetBkColor( Colors.m_crTaskBoxClient );
+
+	m_wndChanList.SetTextColor( Colors.m_crTaskBoxText );
 }
 
 void CIRCChannelsBox::OnSize(UINT nType, int cx, int cy)
@@ -297,7 +300,15 @@ int CIRCUsersBox::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 void CIRCUsersBox::OnSkinChange()
 {
-	// ToDo: Skin m_wndUserList ListBox:  Colors.m_crTaskBoxClient + Skin.GetWatermark( &bmTaskBox, _T("CIRCUsersBox") )
+	// ToDo: Skin m_wndUserList ListBox HBRUSH:  Colors.m_crTaskBoxClient + Skin.GetWatermark( &bmTaskBox, _T("CIRCUsersBox") )
+}
+
+HBRUSH CIRCUsersBox::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+{
+	// pWnd == &m_wndUserList
+	pDC->SetTextColor( Colors.m_crTaskBoxText );	// Was Colors.m_crRichdocText
+	pDC->SetBkColor( Colors.m_crTaskBoxClient );
+	return CreateSolidBrush( Colors.m_crTaskBoxClient );
 }
 
 void CIRCUsersBox::OnPaint()

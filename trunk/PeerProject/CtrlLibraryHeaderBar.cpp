@@ -38,13 +38,11 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNAMIC(CLibraryHeaderBar, CCoolBarCtrl)
 
 BEGIN_MESSAGE_MAP(CLibraryHeaderBar, CCoolBarCtrl)
-	//{{AFX_MSG_MAP(CLibraryHeaderBar)
-	ON_COMMAND(ID_LIBRARY_VIEW, OnLibraryView)
-	ON_WM_MEASUREITEM()
 	ON_WM_DRAWITEM()
+	ON_WM_MEASUREITEM()
 	ON_WM_MENUSELECT()
 	ON_WM_ENTERIDLE()
-	//}}AFX_MSG_MAP
+	ON_COMMAND(ID_LIBRARY_VIEW, OnLibraryView)
 END_MESSAGE_MAP()
 
 
@@ -187,7 +185,7 @@ void CLibraryHeaderBar::OnLibraryView()
 
 	pMenu.CreatePopupMenu();
 
-	CLibraryFrame* pFrame	= (CLibraryFrame*)GetParent();
+	CLibraryFrame* pFrame = (CLibraryFrame*)GetParent();
 	CList< CLibraryView* >* pViews = pFrame->GetViews();
 
 	for ( POSITION pos = pViews->GetHeadPosition() ; pos ; )

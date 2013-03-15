@@ -516,7 +516,7 @@
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="&#160; Меню &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="_Установки..."/>
 			<menu text="_Сети">
 				<item id="ID_NETWORK_CONNECT" text="_Подключиться" shortcut="Ctrl+G"/>
@@ -1370,7 +1370,7 @@
 			<item id="ID_LIBRARY_COLUMNS" text="Выбрать ко_лонки..."/>
 		</menu>
 		<separator/>
-		<item id="ID_SHELL_MENU" text="Windows Men_u"/>
+		<item id="ID_SHELL_MENU" text="Windows Меню"/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Свойства"/>
 	</menu>
 	<!-- MEDIA WINDOW -->

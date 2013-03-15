@@ -95,6 +95,13 @@ void CLiveList::Apply(CListCtrl* pCtrl, BOOL bSort)
 
 	int nCount = pCtrl->GetItemCount();
 
+// Start flicker workaround for VS2012
+//#if defined(_MSC_VER) && (_MSC_VER >= 1700)		// #ifdef _USING_V110_SDK71_
+#if defined(_MSC_PLATFORM_TOOLSET) && (_MSC_PLATFORM_TOOLSET >= 110)		// Custom define
+	pCtrl->SendMessage( WM_SETREDRAW, FALSE );
+	const int nSelected = pCtrl->GetNextItem( -1, LVNI_SELECTED );
+#endif
+
 	CQuickLock oLock( m_pSection );
 
 	for ( int nItem = 0 ; nItem < nCount ; nItem++ )
@@ -138,6 +145,17 @@ void CLiveList::Apply(CListCtrl* pCtrl, BOOL bSort)
 
 	if ( bModified && bSort )
 		Sort( pCtrl, -1 );
+
+// End flicker workaround for VS2012
+//#if defined(_MSC_VER) && (_MSC_VER >= 1700)		// #ifdef _USING_V110_SDK71_
+#if defined(_MSC_PLATFORM_TOOLSET) && (_MSC_PLATFORM_TOOLSET >= 110)		// Custom define
+	pCtrl->SendMessage( WM_SETREDRAW, TRUE );
+	if ( nSelected >= 0 )
+	{
+		pCtrl->SetItemState( nSelected, LVIS_SELECTED|LVIS_FOCUSED, LVIS_SELECTED|LVIS_FOCUSED );
+		pCtrl->SetSelectionMark( nSelected );
+	}
+#endif
 }
 
 

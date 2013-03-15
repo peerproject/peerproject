@@ -42,17 +42,13 @@ END_MESSAGE_MAP()
 
 CAboutDlg::CAboutDlg(CWnd* pParent) : CSkinDialog(CAboutDlg::IDD, pParent)
 {
-	//{{AFX_DATA_INIT(CAboutDlg)
-	//}}AFX_DATA_INIT
 }
 
 void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CSkinDialog::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CAboutDlg)
 	DDX_Control(pDX, IDC_WEB, m_wndWeb);
 	DDX_Control(pDX, IDC_TITLE, m_wndTitle);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

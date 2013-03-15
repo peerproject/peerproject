@@ -685,7 +685,7 @@ void CDiscoveryServices::AddDefaults()
 		}
 	}
 
-	// Obsolete: If file can't be used or didn't have enough services, drop back to the the in-built list
+	// Obsolete: If file can't be used or didn't have enough services, drop back to the built-in list
 	//if ( ! EnoughServices() )
 	//{
 	//	theApp.Message( MSG_ERROR, _T("Default discovery service load failed") );

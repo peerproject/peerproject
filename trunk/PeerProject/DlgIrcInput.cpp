@@ -56,10 +56,8 @@ void CIrcInputDlg::OnOK()
 void CIrcInputDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CSkinDialog::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CConnectToDlg)
 	DDX_Control(pDX, IDC_IRC_PROMPT, m_wndPrompt);
 	DDX_Control(pDX, IDC_IRC_INPUT, m_wndAnswer);
-	//}}AFX_DATA_MAP
 }
 
 BOOL CIrcInputDlg::OnInitDialog()

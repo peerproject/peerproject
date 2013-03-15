@@ -119,7 +119,8 @@ void CSkin::CreateDefault()
 	Settings.SetDefault( &Settings.Skin.MenuGripper );		// true
 	Settings.SetDefault( &Settings.Skin.RoundedSelect );	// false
 	Settings.SetDefault( &Settings.Skin.DropMenu ); 		// false
-	m_rcNavBarOffset = CRect( 0, 0, 0, 0 );
+	Settings.SetDefault( &Settings.Skin.DropMenuLabel ); 	// true
+	m_ptNavBarOffset = CPoint( 0, 0 );
 
 	// Command Icons
 	//if ( HICON hIcon = theApp.LoadIcon( IDI_CHECKMARK ) )
@@ -675,6 +676,14 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 				Settings.Skin.DropMenu = true;
 			else if ( strValue == _T("0") )
 				Settings.Skin.DropMenu = false;
+			else if ( ! strValue.IsEmpty() && strValue.GetLength() < 3 )
+				Settings.Skin.DropMenuLabel = _wtoi(strValue);
+			if ( ! strWidth.IsEmpty() )
+				Settings.Skin.DropMenuLabel = _wtoi(strWidth);
+			if ( Settings.Skin.DropMenuLabel > 100 )
+				Settings.Skin.DropMenuLabel = 0;
+			else if ( Settings.Skin.DropMenuLabel > 1 )
+				Settings.Skin.DropMenu = true;
 			break;
 		case 'b':	// "MenuBorders" or "MenubarBevel"
 			if ( strValue == _T("true") )
@@ -999,7 +1008,7 @@ BOOL CSkin::LoadNavBar(CXMLElement* pBase)
 	CString strValue = pBase->GetAttributeValue( _T("offset") );
 	if ( ! strValue.IsEmpty() )
 	{
-		if ( _stscanf( strValue, _T("%i,%i"), &m_rcNavBarOffset.left, &m_rcNavBarOffset.top ) != 2 )
+		if ( _stscanf( strValue, _T("%i,%i"), &m_ptNavBarOffset.x, &m_ptNavBarOffset.y ) != 2 )
 			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Bad [offset] attribute in [navbar] element"), pBase->ToString() );
 	}
 
@@ -1939,6 +1948,7 @@ BOOL CSkin::LoadColorScheme(CXMLElement* pBase)
 	pColors.SetAt( _T("taskbox.primary.text"), &Colors.m_crTaskBoxPrimaryText );
 	pColors.SetAt( _T("taskbox.client"), &Colors.m_crTaskBoxClient );	// Deprecated
 	pColors.SetAt( _T("taskbox.back"), &Colors.m_crTaskBoxClient );
+	pColors.SetAt( _T("taskbox.text"), &Colors.m_crTaskBoxText );
 
 	pColors.SetAt( _T("dialog.back"), &Colors.m_crDialog );
 	pColors.SetAt( _T("dialog.text"), &Colors.m_crDialogText );
@@ -2082,9 +2092,15 @@ BOOL CSkin::LoadColorScheme(CXMLElement* pBase)
 	pColors.SetAt( _T("system.library.unshared"), &Colors.m_crLibraryUnshared );
 	pColors.SetAt( _T("system.library.unscanned"), &Colors.m_crLibraryUnscanned );
 	pColors.SetAt( _T("system.library.unsafe"), &Colors.m_crLibraryUnsafe );
+	pColors.SetAt( _T("system.log.debug"), &Colors.m_crLogDebug );
+	pColors.SetAt( _T("system.log.info"), &Colors.m_crLogInfo );
+	pColors.SetAt( _T("system.log.notice"), &Colors.m_crLogNotice );
+	pColors.SetAt( _T("system.log.warning"), &Colors.m_crLogWarning );
+	pColors.SetAt( _T("system.log.error"), &Colors.m_crLogError );
 	pColors.SetAt( _T("system.network.null"), &Colors.m_crNetworkNull );
 	pColors.SetAt( _T("system.network.gnutella"), &Colors.m_crNetworkG1 );
 	pColors.SetAt( _T("system.network.gnutella2"), &Colors.m_crNetworkG2 );
+	pColors.SetAt( _T("system.network.edonkey"), &Colors.m_crNetworkED2K );
 	pColors.SetAt( _T("system.network.g1"), &Colors.m_crNetworkG1 );
 	pColors.SetAt( _T("system.network.g2"), &Colors.m_crNetworkG2 );
 	pColors.SetAt( _T("system.network.ed2k"), &Colors.m_crNetworkED2K );

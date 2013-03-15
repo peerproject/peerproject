@@ -1,7 +1,7 @@
 //
 // CoolInterface.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -62,22 +62,25 @@ public:
 	// No void	LoadProtocolIconsTo(), use LoadIconsTo( pImageList, protocolIDs );
 	//BOOL		AddImagesFromToolbar(UINT nIDToolBar, COLORREF crBack = RGB(0,255,0));
 	BOOL		Add(CSkin* pSkin, CXMLElement* pBase, HBITMAP hbmImage, COLORREF crMask, int nImageListType = LVSIL_SMALL);
+	BOOL		Draw(CDC* pDC, UINT nID, int nSize, int nX, int nY, COLORREF crBack = CLR_NONE, BOOL bSelected = FALSE, BOOL bExclude = TRUE) const;
 	BOOL		Draw(CDC* pDC, int nImage, POINT pt, UINT nStyle = ILD_NORMAL, int nImageListType = LVSIL_SMALL) const;
 	BOOL		DrawEx(CDC* pDC, int nImage, POINT pt, SIZE sz = CSize( 16, 16 ), COLORREF clrBk = CLR_NONE, COLORREF clrFg = CLR_DEFAULT, UINT nStyle = ILD_NORMAL, int nImageListType = LVSIL_SMALL) const;
-	BOOL		Draw(CDC* pDC, UINT nID, int nSize, int nX, int nY, COLORREF crBack = CLR_NONE, BOOL bSelected = FALSE, BOOL bExclude = TRUE) const;
-	CDC*		GetBuffer(CDC& dcScreen, const CSize& szItem);
+//	BOOL		DrawIndirect(CDC* pDC, int nImage, POINT pt, SIZE sz = CSize( 16, 16 ), COLORREF clrBk = CLR_NONE, COLORREF clrFg = CLR_DEFAULT, UINT nStyle = ILD_NORMAL, DWORD nState = ILS_ALPHA, DWORD nAlpha = 200, int nImageListType = LVSIL_SMALL) const;
 	BOOL		DrawWatermark(CDC* pDC, CRect* pRect, CBitmap* pMark, BOOL bOverdraw = TRUE, int nOffX = 0, int nOffY = 0);
 	void		DrawThumbnail(CDC* pDC, const CRect& rcThumb, BOOL bWaiting, BOOL bSelected,
 					CBitmap& bmThumb, int nIcon48 = -1, int nIcon32 = -1, const CString& strLabel = CString());
 	void		CreateFonts(LPCTSTR pszFace = NULL, int nSize = 0);
+	CDC*		GetBuffer(CDC& dcScreen, const CSize& szItem);
 
 	static BOOL	EnableTheme(CWnd* pWnd, BOOL bEnable = TRUE);
+	static void	FixTheme(CWnd* pWnd, BOOL bForce = TRUE);		// Checkbox/Groupbox text colors (Remove theme if needed)
 
 protected:
 	typedef CMap< UINT, UINT, int, int > CUINTintMap;
 	typedef CMap< CString, const CString&, UINT, UINT > CStringUINTMap;
 	typedef CMap< HICON, HICON, HWND, HWND > CHICONHWNDMap;
 
+	//mutable CCriticalSection m_pSection;
 	CStringUINTMap	m_pNameMap;
 	CUINTintMap		m_pImageMap16;		// Small images (LVSIL_SMALL)
 	CImageList		m_pImages16;		// Small images (LVSIL_SMALL)

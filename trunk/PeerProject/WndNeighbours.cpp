@@ -73,7 +73,6 @@ enum {
 IMPLEMENT_SERIAL(CNeighboursWnd, CPanelWnd, 0)
 
 BEGIN_MESSAGE_MAP(CNeighboursWnd, CPanelWnd)
-	//{{AFX_MSG_MAP(CNeighboursWnd)
 	ON_WM_CREATE()
 	ON_WM_DESTROY()
 	ON_WM_SIZE()
@@ -100,7 +99,6 @@ BEGIN_MESSAGE_MAP(CNeighboursWnd, CPanelWnd)
 	ON_UPDATE_COMMAND_UI(ID_NEIGHBOURS_URI, OnUpdateNeighboursCopy)
 	ON_COMMAND(ID_NEIGHBOURS_URI, OnNeighboursCopy)
 	ON_COMMAND(ID_NEIGHBOURS_SETTINGS, OnNeighboursSettings)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -145,12 +143,13 @@ int CNeighboursWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndTip.Create( &m_wndList, &Settings.Interface.TipNeighbours );
 	m_wndList.SetTip( &m_wndTip );
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1700)
-  #ifndef WIN64
-	if ( ! theApp.m_bIsWin2000 )
-  #endif
-		m_wndList.ModifyStyleEx( 0, WS_EX_COMPOSITED );		// Stop flicker XP+, CPU intensive (Only needed here when targeting VS2012)
-#endif
+// Note: Workaround fix in LiveList for VS2012
+//#ifdef _USING_V110_SDK71_	// #if defined(_MSC_VER) && (_MSC_VER >= 1700)
+//  #ifndef WIN64
+//	if ( ! theApp.m_bIsWin2000 )
+//  #endif
+//		m_wndList.ModifyStyleEx( 0, WS_EX_COMPOSITED );		// Stop flicker XP+, CPU intensive (Only needed here when targeting VS2012)
+//#endif
 
 	m_wndList.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP|LVS_EX_SUBITEMIMAGES );
 
@@ -229,12 +228,6 @@ void CNeighboursWnd::Update()
 
 	if ( tNow < tLastUpdate + 30 || ( ! IsPartiallyVisible() && tNow < tLastUpdate + 30000 ) )
 		return;
-
-#if defined(_MSC_VER) && (_MSC_VER >= 1700)
-	// VS2012 targeting deselection bug workaround delay.  ToDo: Fix properly
-	if ( tNow < tLastUpdate + 4000 && m_wndList.GetSelectedCount() )
-		return;
-#endif
 
 	CSingleLock pLock( &Network.m_pSection );
 	if ( ! pLock.Lock( 50 ) ) return;
@@ -663,7 +656,7 @@ void CNeighboursWnd::OnSkinChange()
 	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
 
 	if ( m_wndList.SetBkImage( Skin.GetWatermark( _T("CNeighboursWnd") ) ) || m_wndList.SetBkImage( Skin.GetWatermark( _T("System.Windows") ) ) )	// Images.m_bmSystemWindow.m_hObject
-		m_wndList.SetExtendedStyle( LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP|LVS_EX_SUBITEMIMAGES );	// No LVS_EX_DOUBLEBUFFER
+		m_wndList.SetExtendedStyle( LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP|LVS_EX_SUBITEMIMAGES );	// No LVS_EX_DOUBLEBUFFER	-LVS_EX_TRANSPARENTBKGND ?
 	else
 		m_wndList.SetBkColor( Colors.m_crWindow );
 

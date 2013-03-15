@@ -89,6 +89,7 @@ void CImages::DeleteObjects()
 	if ( m_bmToolbarButtonDisabled.m_hObject ) m_bmToolbarButtonDisabled.DeleteObject();
 	if ( m_bmToolbarButtonDisabledEdge.m_hObject ) m_bmToolbarButtonDisabledEdge.DeleteObject();
 	if ( m_bmToolbarSeparator.m_hObject ) m_bmToolbarSeparator.DeleteObject();
+	if ( m_bmToolbar.m_hObject ) m_bmToolbar.DeleteObject();
 
 	if ( m_bmMenubarItem.m_hObject ) m_bmMenubarItem.DeleteObject();
 	if ( m_bmMenubarItemEdge.m_hObject ) m_bmMenubarItemEdge.DeleteObject();

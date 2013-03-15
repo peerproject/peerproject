@@ -27,7 +27,7 @@
 
 <options>
  <!--option name="Navbar" offset="18,0"-->
- <option name="DropMenu" value="true"/>
+ <option name="DropMenu" value="true" width="20"/>
  <option name="MenuBorders" value="false"/>
  <option name="MenuGripper" value="false"/>
  <option name="ButtonEdge" value="3"/>
@@ -264,9 +264,9 @@
  <!--image target="CDownloadTabBar.Active.Hover.Edge"	path="DownloadgroupsEdge.png"-->
  <!--image target="CCoolMenuItem.Hover" 		path="Seven\MenuButtonTextHover.png"-->
  <!--image target="CCoolMenuItem.Down"			path="Seven\MenuButtonTextDown.png"-->
- <image target="CCoolMenuBar.Hover"			path="Seven\MenuButtonState.png"/>
- <image target="CCoolMenuBar.Down"			path="Seven\MenuButtonState.png"/>
- <image target="CCoolMenuBar.Checked"			path="Seven\MenuButtonState.png"/>
+ <!--image target="CCoolMenuBar.Hover"			path="Seven\MenuButtonState.png"-->
+ <!--image target="CCoolMenuBar.Down"			path="Seven\MenuButtonState.png"-->
+ <!--image target="CCoolMenuBar.Checked"			path="Seven\MenuButtonState.png"-->
  <image target="CCoolbar.Control"			path="MediaSlider.png"/>
  <image target="CCoolbar.Separator"			path="Eight\ToolbarSeparator.png"/>
 
@@ -391,7 +391,7 @@
 <caption align="left" rect="20,1,500,20" fontFace="Segoe UI" fontSize="13" fontWeight="Normal" color="0666CC" outlinecolor="FFFFFF" inactivecolor="B6CCDD"/>
 </windowskin>
 
-<!-- NETOWRK SYSTEM HEADER -->
+<!-- NETWORK SYSTEM HEADER -->
 
 <windowskin>
 <image path="Eight\Header.png"/>

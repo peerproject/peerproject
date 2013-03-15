@@ -1,7 +1,7 @@
 //
 // CtrlTipAlbum.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -60,14 +60,14 @@ protected:
 	virtual void	OnPaint(CDC* pDC);
 
 // Overrides
-public:
+//public:
 	//{{AFX_VIRTUAL(CAlbumTipCtrl)
 	//}}AFX_VIRTUAL
 
 // Implementation
-protected:
+//protected:
 	//{{AFX_MSG(CAlbumTipCtrl)
 	//}}AFX_MSG
 
-	DECLARE_MESSAGE_MAP()
+	//DECLARE_MESSAGE_MAP()
 };

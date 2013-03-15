@@ -1,7 +1,7 @@
 //
 // WndIRC.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2005-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -31,17 +31,15 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_SERIAL(CIRCWnd, CPanelWnd, 1)
 
 BEGIN_MESSAGE_MAP(CIRCWnd, CPanelWnd)
-	//{{AFX_MSG_MAP(CIRCWnd)
 	ON_WM_CREATE()
 	ON_WM_DESTROY()
-	ON_WM_SIZE()
 	ON_WM_PAINT()
+	ON_WM_SIZE()
+	ON_WM_CLOSE()
 	ON_WM_NCLBUTTONUP()
 	ON_WM_SETCURSOR()
 	ON_WM_SYSCOMMAND()
 	ON_MESSAGE(WM_IDLEUPDATECMDUI, OnIdleUpdateCmdUI)
-	ON_WM_CLOSE()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 

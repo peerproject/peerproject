@@ -1,7 +1,7 @@
 //
 // CtrlTipFolder.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -36,10 +36,8 @@ static char THIS_FILE[] = __FILE__;
 
 IMPLEMENT_DYNAMIC(CFolderTipCtrl, CCoolTipCtrl)
 
-BEGIN_MESSAGE_MAP(CFolderTipCtrl, CCoolTipCtrl)
-	//{{AFX_MSG_MAP(CFolderTipCtrl)
-	//}}AFX_MSG_MAP
-END_MESSAGE_MAP()
+//BEGIN_MESSAGE_MAP(CFolderTipCtrl, CCoolTipCtrl)
+//END_MESSAGE_MAP()
 
 
 /////////////////////////////////////////////////////////////////////////////

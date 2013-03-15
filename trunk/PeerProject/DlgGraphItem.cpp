@@ -1,7 +1,7 @@
 //
 // DlgGraphItem.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -30,13 +30,11 @@ static char THIS_FILE[] = __FILE__;
 #endif	// Debug
 
 BEGIN_MESSAGE_MAP(CGraphItemDlg, CSkinDialog)
-	//{{AFX_MSG_MAP(CGraphItemDlg)
-	ON_CBN_SELCHANGE(IDC_GRAPH_SOURCE, OnSelChangeGraphSource)
-	ON_BN_CLICKED(IDC_GRAPH_COLOR, OnGraphColor)
 	ON_WM_PAINT()
-	ON_WM_MEASUREITEM()
 	ON_WM_DRAWITEM()
-	//}}AFX_MSG_MAP
+	ON_WM_MEASUREITEM()
+	ON_BN_CLICKED(IDC_GRAPH_COLOR, OnGraphColor)
+	ON_CBN_SELCHANGE(IDC_GRAPH_SOURCE, OnSelChangeGraphSource)
 END_MESSAGE_MAP()
 
 
@@ -46,22 +44,18 @@ END_MESSAGE_MAP()
 CGraphItemDlg::CGraphItemDlg(CWnd* pParent, CGraphItem* pItem) : CSkinDialog(CGraphItemDlg::IDD, pParent)
 	, m_nMultiplier(1.0f)
 {
-	//{{AFX_DATA_INIT(CGraphItemDlg)
-	//}}AFX_DATA_INIT
 	m_pItem = pItem;
 }
 
 void CGraphItemDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CSkinDialog::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CGraphItemDlg)
 	DDX_Control(pDX, IDOK, m_wndOK);
 	DDX_Control(pDX, IDC_GRAPH_UNITS, m_wndUnits);
 	DDX_Control(pDX, IDC_GRAPH_SOURCE, m_wndSource);
 	DDX_Control(pDX, IDC_GRAPH_REMOVE, m_wndRemove);
 	DDX_Float(pDX, IDC_GRAPH_PARAM, m_nMultiplier);
 	DDX_Control(pDX, IDC_GRAPH_COLOR_BOX, m_wndColorBox);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

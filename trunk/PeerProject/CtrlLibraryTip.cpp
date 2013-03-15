@@ -41,10 +41,8 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNAMIC(CLibraryTipCtrl, CCoolTipCtrl)
 
 BEGIN_MESSAGE_MAP(CLibraryTipCtrl, CCoolTipCtrl)
-	//{{AFX_MSG_MAP(CLibraryTipCtrl)
-	ON_WM_DESTROY()
 	ON_WM_TIMER()
-	//}}AFX_MSG_MAP
+	ON_WM_DESTROY()
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -222,6 +220,7 @@ void CLibraryTipCtrl::OnCalcSize(CDC* pDC)
 void CLibraryTipCtrl::OnPaint(CDC* pDC)
 {
 	CSingleLock pLock( &m_pSection, TRUE );
+
 	CPoint pt( 0, 0 );
 	CSize sz( m_sz.cx, TIP_TEXTHEIGHT );
 
@@ -349,19 +348,23 @@ void CLibraryTipCtrl::OnRun()
 			continue;
 
 		CImageFile pFile;
-		if ( CThumbCache::Cache( strPath, &pFile ) )
+		BOOL bSuccess = CThumbCache::Cache( strPath, &pFile );
+
+		m_pSection.Lock();
+
+		if ( m_bmThumb.m_hObject ) m_bmThumb.DeleteObject();
+
+		if ( m_sPath == strPath )
 		{
-			m_pSection.Lock();
+			m_sPath.Empty();
 
-			if ( m_bmThumb.m_hObject ) m_bmThumb.DeleteObject();
-
-			if ( m_sPath == strPath )
+			if ( bSuccess )
 			{
 				m_bmThumb.Attach( pFile.CreateBitmap() );
 				Invalidate();
 			}
-
-			m_pSection.Unlock();
 		}
+
+		m_pSection.Unlock();
 	}
 }

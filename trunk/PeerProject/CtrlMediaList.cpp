@@ -42,14 +42,13 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNAMIC(CMediaListCtrl, CListCtrl)
 
 BEGIN_MESSAGE_MAP(CMediaListCtrl, CListCtrl)
-	//{{AFX_MSG_MAP(CMediaListCtrl)
 	ON_WM_CREATE()
 	ON_WM_SIZE()
-	ON_WM_CONTEXTMENU()
 	ON_WM_MOUSEMOVE()
 	ON_WM_LBUTTONUP()
 	ON_WM_LBUTTONDOWN()
 	ON_WM_RBUTTONDOWN()
+	ON_WM_CONTEXTMENU()
 	ON_NOTIFY_REFLECT(LVN_KEYDOWN, OnKeyDown)
 	ON_NOTIFY_REFLECT(LVN_BEGINDRAG, OnBeginDrag)
 	ON_NOTIFY_REFLECT(NM_CUSTOMDRAW, OnCustomDraw)
@@ -79,7 +78,6 @@ BEGIN_MESSAGE_MAP(CMediaListCtrl, CListCtrl)
 	ON_COMMAND(ID_MEDIA_ADD_FOLDER, OnMediaAddFolder)
 	ON_UPDATE_COMMAND_UI(ID_MEDIA_EXPORT_COLLECTION, OnUpdateMediaCollection)
 	ON_COMMAND(ID_MEDIA_EXPORT_COLLECTION, OnMediaCollection)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 #define STATE_CURRENT	(1<<12)
@@ -369,10 +367,9 @@ int CMediaListCtrl::GetNext(BOOL bSet)
 			}
 		}
 	}
-	else
+	else if ( ++nItem >= GetItemCount() )
 	{
-		if ( ++nItem >= GetItemCount() )
-			nItem = -1;
+		nItem = -1;
 	}
 
 	if ( bSet )
@@ -734,7 +731,7 @@ void CMediaListCtrl::OnMediaAddFolder()
 
 	RecursiveEnqueue( strPath );
 
-	if ( GetItemCount() > 0 && bWasEmpty ) GetNext();
+	if ( bWasEmpty && GetItemCount() > 0 ) GetNext();
 }
 
 void CMediaListCtrl::OnUpdateMediaRemove(CCmdUI* pCmdUI)
