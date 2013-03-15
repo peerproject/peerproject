@@ -73,7 +73,6 @@ CURLActionDlg::~CURLActionDlg()
 void CURLActionDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CSkinDialog::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CURLActionDlg)
 	DDX_Control(pDX, IDCANCEL, m_wndCancel);
 	DDX_Control(pDX, IDC_NEW_WINDOW, m_wndNewWindow);
 	DDX_Control(pDX, IDC_MESSAGE_1, m_wndMessage1);
@@ -88,7 +87,6 @@ void CURLActionDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_URL_URN_VALUE, m_sHashValue);
 	DDX_Check(pDX, IDC_NEW_WINDOW, m_bNewWindow);
 	DDX_Check(pDX, IDC_ALWAYS_OPEN, m_bAlwaysOpen);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

@@ -39,7 +39,6 @@ static char THIS_FILE[] = __FILE__;
 #endif	// Debug
 
 BEGIN_MESSAGE_MAP(CLibraryHeaderPanel, CWnd)
-	//{{AFX_MSG_MAP(CLibraryHeaderPanel)
 	ON_WM_SIZE()
 	ON_WM_PAINT()
 	ON_WM_SETCURSOR()
@@ -47,7 +46,6 @@ BEGIN_MESSAGE_MAP(CLibraryHeaderPanel, CWnd)
 	ON_WM_XBUTTONDOWN()
 	ON_WM_CREATE()
 	ON_WM_DESTROY()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 

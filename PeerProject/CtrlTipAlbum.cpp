@@ -37,10 +37,8 @@ static char THIS_FILE[] = __FILE__;
 
 IMPLEMENT_DYNAMIC(CAlbumTipCtrl, CCoolTipCtrl)
 
-BEGIN_MESSAGE_MAP(CAlbumTipCtrl, CCoolTipCtrl)
-	//{{AFX_MSG_MAP(CAlbumTipCtrl)
-	//}}AFX_MSG_MAP
-END_MESSAGE_MAP()
+//BEGIN_MESSAGE_MAP(CAlbumTipCtrl, CCoolTipCtrl)
+//END_MESSAGE_MAP()
 
 
 /////////////////////////////////////////////////////////////////////////////

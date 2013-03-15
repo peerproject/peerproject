@@ -33,11 +33,9 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNCREATE(CDonkeySettingsPage, CSettingsPage)
 
 BEGIN_MESSAGE_MAP(CDonkeySettingsPage, CSettingsPage)
-	//{{AFX_MSG_MAP(CDonkeySettingsPage)
 	ON_BN_CLICKED(IDC_DISCOVERY_GO, OnDiscoveryGo)
 	ON_BN_CLICKED(IDC_SERVER_WALK, OnServerWalk)
 	ON_BN_CLICKED(IDC_ENABLE, OnEnable)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -61,7 +59,6 @@ CDonkeySettingsPage::~CDonkeySettingsPage()
 void CDonkeySettingsPage::DoDataExchange(CDataExchange* pDX)
 {
 	CSettingsPage::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CDonkeySettingsPage)
 	DDX_Control(pDX, IDC_LINKS_SPIN, m_wndLinksSpin);
 	DDX_Control(pDX, IDC_RESULTS, m_wndResults);
 	DDX_Control(pDX, IDC_RESULTS_SPIN, m_wndResultsSpin);
@@ -72,7 +69,6 @@ void CDonkeySettingsPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Check(pDX, IDC_ENABLE_ALWAYS, m_bEnableAlways);
 	DDX_Check(pDX, IDC_LEARN_ED2K_SERVERS, m_bLearnServers);
 	DDX_Check(pDX, IDC_SERVER_WALK, m_bServerWalk);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -119,9 +115,7 @@ void CDonkeySettingsPage::OnEnable()
 
 	if ( m_bEnabled && ( Settings.GetOutgoingBandwidth() < 2 ) )
 	{
-		CString strMessage;
-		LoadString( strMessage, IDS_NETWORK_BANDWIDTH_LOW );
-		MsgBox( strMessage, MB_OK );
+		MsgBox( IDS_NETWORK_BANDWIDTH_LOW, MB_OK );
 		m_bEnabled = FALSE;
 		UpdateData( FALSE );
 	}

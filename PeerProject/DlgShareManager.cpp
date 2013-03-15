@@ -34,12 +34,10 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNAMIC(CShareManagerDlg, CSkinDialog)
 
 BEGIN_MESSAGE_MAP(CShareManagerDlg, CSkinDialog)
-	//{{AFX_MSG_MAP(CShareManagerDlg)
 	ON_BN_CLICKED(IDC_SHARE_ADD, OnShareAdd)
 	ON_BN_CLICKED(IDC_SHARE_REMOVE, OnShareRemove)
 	ON_NOTIFY(NM_DBLCLK, IDC_SHARE_FOLDERS, OnDoubleClick)
 	ON_NOTIFY(LVN_ITEMCHANGED, IDC_SHARE_FOLDERS, OnItemChangedShareFolders)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -48,17 +46,13 @@ END_MESSAGE_MAP()
 
 CShareManagerDlg::CShareManagerDlg(CWnd* pParent) : CSkinDialog( CShareManagerDlg::IDD, pParent )
 {
-	//{{AFX_DATA_INIT(CShareManagerDlg)
-	//}}AFX_DATA_INIT
 }
 
 void CShareManagerDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CShareManagerDlg)
 	DDX_Control(pDX, IDC_SHARE_REMOVE, m_wndRemove);
 	DDX_Control(pDX, IDC_SHARE_FOLDERS, m_wndList);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

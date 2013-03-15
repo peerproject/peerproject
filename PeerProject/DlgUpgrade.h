@@ -1,7 +1,7 @@
 //
 // DlgUpgrade.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -25,7 +25,7 @@ class CUpgradeDlg : public CSkinDialog
 {
 // Construction
 public:
-	CUpgradeDlg(CWnd* pParent = NULL);   // standard constructor
+	CUpgradeDlg(CWnd* pParent = NULL);
 
 	enum { IDD = IDD_UPGRADE };
 
@@ -39,9 +39,8 @@ public:
 	void ParseCheckAgain();
 
 // Overrides
-public:
+protected:
 	//{{AFX_VIRTUAL(CUpgradeDlg)
-	protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
 	//}}AFX_VIRTUAL
 
@@ -53,5 +52,5 @@ protected:
 	virtual BOOL OnInitDialog();
 	//}}AFX_MSG
 
-	DECLARE_MESSAGE_MAP()
+	//DECLARE_MESSAGE_MAP()
 };

@@ -487,7 +487,7 @@
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="&#160; Menü &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="A_yarları..."/>
 			<menu text="_Ağ">
 				<item id="ID_NETWORK_CONNECT" text="Bağlan" shortcut="Ctrl+G"/>

@@ -36,8 +36,8 @@ static char THIS_FILE[] = __FILE__;
 
 IMPLEMENT_DYNAMIC(CDownloadEditPage, CPropertyPageAdv)
 
-BEGIN_MESSAGE_MAP(CDownloadEditPage, CPropertyPageAdv)
-END_MESSAGE_MAP()
+//BEGIN_MESSAGE_MAP(CDownloadEditPage, CPropertyPageAdv)
+//END_MESSAGE_MAP()
 
 
 //////////////////////////////////////////////////////////////////////////////

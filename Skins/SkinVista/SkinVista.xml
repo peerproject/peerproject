@@ -23,7 +23,7 @@
 </fonts>
 
 <options>
-  <option name="DropMenu" value="true"/>
+  <option name="DropMenu" value="true" width="20"/>
   <option name="MenuBorders" value="false"/>
 </options>
 
@@ -126,8 +126,6 @@
   <color name="FragmentBar.Request"			value="F0FF20"/>
   <color name="FragmentBar.Border"			value="888888"/>
   <color name="FragmentBar.Border.Selected" 		value="808080"/>
-  <color name="FragmentBar.Border.Simplebar" 		value="888888"/>
-  <color name="FragmentBar.Border.Simplebar.Selected" 	value="808080"/>
   <color name="DropdownBox.Back"			value="FFFFFF"/>
   <color name="DropdownBox.Text"			value="403A38"/>
   <color name="ResizeBar.Edge"				value="E8E7E6"/>
@@ -439,7 +437,7 @@
 <caption align="left" rect="12,-0,500,28" fontFace="Segoe UI" fontSize="12" fontWeight="Normal" color="4080E0" outlinecolor="FFFFFF" inactivecolor="B6CCDD"/>
 </windowSkin>
 
-<!-- NETOWRK SYSTEM HEADER -->
+<!-- NETWORK SYSTEM HEADER -->
 
 <windowSkin>
 <image path="Vista\Header.png"/>

@@ -36,9 +36,7 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNAMIC(CRichSettingsPage, CSettingsPage)
 
 BEGIN_MESSAGE_MAP(CRichSettingsPage, CSettingsPage)
-	//{{AFX_MSG_MAP(CRichSettingsPage)
 	ON_NOTIFY(RVN_CLICK, IDC_RICH_VIEW, OnClickView)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -62,8 +60,6 @@ CRichSettingsPage::~CRichSettingsPage()
 void CRichSettingsPage::DoDataExchange(CDataExchange* pDX)
 {
 	CSettingsPage::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CRichSettingsPage)
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -85,7 +81,7 @@ void CRichSettingsPage::OnSkinChange()
 	CSettingsPage::OnSkinChange();
 
 	if ( ! IsWindow( GetSafeHwnd() ) )
-		return;	// No created yet page
+		return;		// No page created yet
 
 	// (Re)Load document
 	if ( CXMLElement* pXML = Skin.GetDocument( m_sName ) )

@@ -37,10 +37,8 @@ static char THIS_FILE[] = __FILE__;
 
 IMPLEMENT_DYNAMIC(CEDPartImporter, CAppThread)
 
-BEGIN_MESSAGE_MAP(CEDPartImporter, CAppThread)
-	//{{AFX_MSG_MAP(CEDPartImporter)
-	//}}AFX_MSG_MAP
-END_MESSAGE_MAP()
+//BEGIN_MESSAGE_MAP(CEDPartImporter, CAppThread)
+//END_MESSAGE_MAP()
 
 
 /////////////////////////////////////////////////////////////////////////////

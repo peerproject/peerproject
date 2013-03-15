@@ -50,7 +50,6 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNCREATE(CLibraryAlbumView, CLibraryFileView)
 
 BEGIN_MESSAGE_MAP(CLibraryAlbumView, CLibraryFileView)
-	//{{AFX_MSG_MAP(CLibraryAlbumView)
 	ON_WM_CREATE()
 	ON_WM_DESTROY()
 	ON_WM_SIZE()
@@ -64,7 +63,6 @@ BEGIN_MESSAGE_MAP(CLibraryAlbumView, CLibraryFileView)
 	ON_WM_RBUTTONDOWN()
 	ON_WM_KEYDOWN()
 	ON_WM_GETDLGCODE()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 LPCTSTR		CLibraryAlbumView::m_pStaticStyle;

@@ -510,7 +510,7 @@
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="&#160; 메뉴 &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="설정... &#160; "/>
 			<menu text="네트워크">
 				<item id="ID_NETWORK_CONNECT" text="연결" shortcut="Ctrl+G"/>

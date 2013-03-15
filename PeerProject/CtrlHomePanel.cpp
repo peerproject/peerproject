@@ -52,45 +52,35 @@ static char THIS_FILE[] = __FILE__;
 
 IMPLEMENT_DYNAMIC(CHomePanel, CTaskPanel)
 BEGIN_MESSAGE_MAP(CHomePanel, CTaskPanel)
-	//{{AFX_MSG_MAP(CHomePanel)
 	ON_WM_CREATE()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 IMPLEMENT_DYNAMIC(CHomeConnectionBox, CRichTaskBox)
 BEGIN_MESSAGE_MAP(CHomeConnectionBox, CRichTaskBox)
-	//{{AFX_MSG_MAP(CHomeConnectionBox)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 IMPLEMENT_DYNAMIC(CHomeLibraryBox, CRichTaskBox)
 BEGIN_MESSAGE_MAP(CHomeLibraryBox, CRichTaskBox)
-	//{{AFX_MSG_MAP(CHomeLibraryBox)
 	ON_WM_CREATE()
 	ON_WM_SIZE()
 	ON_WM_PAINT()
 	ON_WM_SETCURSOR()
 	ON_WM_LBUTTONUP()
 	ON_WM_TIMER()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 IMPLEMENT_DYNAMIC(CHomeDownloadsBox, CRichTaskBox)
 BEGIN_MESSAGE_MAP(CHomeDownloadsBox, CRichTaskBox)
-	//{{AFX_MSG_MAP(CHomeDownloadsBox)
 	ON_WM_CREATE()
 	ON_WM_SIZE()
 	ON_WM_PAINT()
 	ON_WM_SETCURSOR()
 	ON_WM_LBUTTONUP()
 	ON_WM_TIMER()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 IMPLEMENT_DYNAMIC(CHomeUploadsBox, CRichTaskBox)
 BEGIN_MESSAGE_MAP(CHomeUploadsBox, CRichTaskBox)
-	//{{AFX_MSG_MAP(CHomeUploadsBox)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -536,13 +526,10 @@ void CHomeLibraryBox::Update()
 	if ( nHashing > 0 )
 	{
 		str.Format( _T("%lu "), nHashing );
-		if ( m_pdLibraryHashRemaining )
+		if ( m_pdLibraryHashRemaining && m_pdLibraryHashRemaining->m_sText.Compare( str ) != 0 )
 		{
-			if ( m_pdLibraryHashRemaining->m_sText.Compare( str ) != 0 )
-			{
-				m_pdLibraryHashRemaining->SetText( str );
-				bChanged = TRUE;
-			}
+			m_pdLibraryHashRemaining->SetText( str );
+			bChanged = TRUE;
 		}
 		m_pDocument->ShowGroup( 1, TRUE );
 
@@ -622,7 +609,7 @@ void CHomeLibraryBox::OnPaint()
 	rcText.SetRect( rcIcon.right, rcIcon.top, rcClient.right - 4, rcIcon.bottom );
 
 	dc.SetBkMode( OPAQUE );		// ToDo: Transparent for skinning
-	dc.SetBkColor( Colors.m_crRichdocBack );	// ToDo: m_crTaskBoxClient ?
+	dc.SetBkColor( Colors.m_crTaskBoxClient );	// Was Colors.m_crRichdocBack
 	dc.SetTextColor( Colors.m_crTextLink );
 
 	CFont* pOldFont = (CFont*)dc.SelectObject( &m_pFont );
@@ -631,7 +618,7 @@ void CHomeLibraryBox::OnPaint()
 	{
 		Item* pItem = m_pList.GetAt( nItem );
 
-		ShellIcons.Draw( &dc, pItem->m_nIcon16, 16, rcIcon.left, rcIcon.top, Colors.m_crRichdocBack );	// ToDo: m_crTaskBoxClient ?
+		ShellIcons.Draw( &dc, pItem->m_nIcon16, 16, rcIcon.left, rcIcon.top, Colors.m_crTaskBoxClient );	// Was Colors.m_crRichdocBack
 
 		CString str = pItem->m_sText;
 
@@ -655,7 +642,7 @@ void CHomeLibraryBox::OnPaint()
 	}
 
 	rcClient.top = 0;
-	dc.FillSolidRect( &rcClient, Colors.m_crRichdocBack );	// ToDo: m_crTaskBoxClient ?
+	dc.FillSolidRect( &rcClient, Colors.m_crTaskBoxClient );	// Was Colors.m_crRichdocBack
 	dc.SelectObject( pOldFont );
 }
 
@@ -840,7 +827,7 @@ void CHomeDownloadsBox::OnSkinChange()
 	if ( m_pdDownloadsMany ) m_sDownloadsMany = m_pdDownloadsMany->m_sText;
 	if ( m_pdDownloadedMany ) m_sDownloadedMany = m_pdDownloadedMany->m_sText;
 
-	GetView().SetDocument( m_pDocument );
+	SetDocument( m_pDocument );		// Was GetView().SetDocument( m_pDocument );
 
 	Update();
 
@@ -1044,7 +1031,7 @@ void CHomeDownloadsBox::OnPaint()
 	rcIcon.DeflateRect( 0, 2 );
 
 	dc.SetBkMode( OPAQUE ); 	// ToDo: Transparent for skinning
-	dc.SetBkColor( Colors.m_crRichdocBack );	// ToDo: m_crTaskBoxClient
+	dc.SetBkColor( Colors.m_crTaskBoxClient );	// Was Colors.m_crRichdocBack
 	dc.SetTextColor( Colors.m_crTextLink );
 
 	CFont* pOldFont = (CFont*)dc.SelectObject( &m_pFont );
@@ -1058,7 +1045,7 @@ void CHomeDownloadsBox::OnPaint()
 		if ( pItem->m_nComplete == 0 || pItem->m_nSize == SIZE_UNKNOWN )
 		{
 			CRect rc( rcIcon.left, rcIcon.top, rcIcon.left + 16, rcIcon.top + 16 );
-			ShellIcons.Draw( &dc, pItem->m_nIcon16, 16, rc.left, rc.top, Colors.m_crRichdocBack );	// ToDo: m_crTaskBoxClient
+			ShellIcons.Draw( &dc, pItem->m_nIcon16, 16, rc.left, rc.top, Colors.m_crTaskBoxClient );	// Was Colors.m_crRichdocBack
 			dc.ExcludeClipRect( &rc );
 		}
 		else
@@ -1067,7 +1054,7 @@ void CHomeDownloadsBox::OnPaint()
 			dc.Draw3dRect( &rcIcon, Colors.m_crFragmentBorder, Colors.m_crFragmentBorder );
 			rcIcon.DeflateRect( 1, 1 );
 			CFragmentBar::DrawFragment( &dc, &rcIcon, pItem->m_nSize, 0, pItem->m_nComplete, cr, TRUE );
-			dc.FillSolidRect( &rcIcon, Colors.m_crRichdocBack );	// ToDo: m_crTaskBoxClient
+			dc.FillSolidRect( &rcIcon, Colors.m_crTaskBoxClient );	// Was Colors.m_crRichdocBack
 			rcIcon.InflateRect( 1, 1 );
 			dc.ExcludeClipRect( &rcIcon );
 		}
@@ -1092,9 +1079,8 @@ void CHomeDownloadsBox::OnPaint()
 		rcText.OffsetRect( 0, 18 );
 	}
 
-
 	rcClient.top = 0;
-	dc.FillSolidRect( &rcClient, Colors.m_crRichdocBack );	// ToDo: m_crTaskBoxClient
+	dc.FillSolidRect( &rcClient, Colors.m_crTaskBoxClient );	// Was Colors.m_crRichdocBack
 	dc.SelectObject( pOldFont );
 }
 

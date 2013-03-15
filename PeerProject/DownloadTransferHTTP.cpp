@@ -1112,7 +1112,8 @@ BOOL CDownloadTransferHTTP::OnHeadersComplete()
 		Close( m_pSource->m_bED2K ? TRI_FALSE : TRI_UNKNOWN );
 		return FALSE;
 	}
-	else if ( m_bBusyFault )
+
+	if ( m_bBusyFault )
 	{
 		m_nOffset = SIZE_UNKNOWN;
 
@@ -1567,7 +1568,6 @@ BOOL CDownloadTransferHTTP::ReadTiger(bool bDropped)
 	// ToDo: This might be better returning FALSE because it is not keep alive connection: need to disconnect after business.
 	if ( bDropped || ! m_bKeepAlive )
 		return TRUE;
-
 
 	return StartNextFragment();
 }

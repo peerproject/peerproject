@@ -31,9 +31,7 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNCREATE(CCommunitySettingsPage, CSettingsPage)
 
 BEGIN_MESSAGE_MAP(CCommunitySettingsPage, CSettingsPage)
-	//{{AFX_MSG_MAP(CCommunitySettingsPage)
 	ON_BN_CLICKED(IDC_EDIT_PROFILE, OnEditProfile)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -47,8 +45,6 @@ CCommunitySettingsPage::CCommunitySettingsPage()
 	, m_bChatFilter 	( FALSE )
 	, m_bChatCensor 	( FALSE )
 {
-	//{{AFX_DATA_INIT(CCommunitySettingsPage)
-	//}}AFX_DATA_INIT
 }
 
 CCommunitySettingsPage::~CCommunitySettingsPage()
@@ -58,12 +54,10 @@ CCommunitySettingsPage::~CCommunitySettingsPage()
 void CCommunitySettingsPage::DoDataExchange(CDataExchange* pDX)
 {
 	CSettingsPage::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CCommunitySettingsPage)
 	DDX_Check(pDX, IDC_CHAT_ENABLE, m_bChatEnable);
 	DDX_Check(pDX, IDC_CHAT_ALLNETWORKS, m_bChatAllNetworks);
 	DDX_Check(pDX, IDC_CHAT_FILTER, m_bChatFilter);
 	DDX_Check(pDX, IDC_CHAT_CENSOR, m_bChatCensor);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

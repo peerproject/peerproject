@@ -29,9 +29,7 @@ static char THIS_FILE[] = __FILE__;
 #endif	// Debug
 
 BEGIN_MESSAGE_MAP(CFolderScanDlg, CSkinDialog)
-	//{{AFX_MSG_MAP(CFolderScanDlg)
 	ON_WM_TIMER()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 CFolderScanDlg* CFolderScanDlg::m_pDialog = NULL;
@@ -46,13 +44,11 @@ CFolderScanDlg::CFolderScanDlg(CWnd* pParent)
 	, m_nFiles		( 0 )
 	, m_nVolume		( 0 )
 {
-	//{{AFX_DATA_INIT(CFolderScanDlg)
 	m_tLastUpdate	= 0;
 	m_bActive		= FALSE;
-	//}}AFX_DATA_INIT
 
 	CSingleLock oLock( &Library.m_pSection );
-	if ( oLock.Lock( 500 ) )
+	if ( oLock.Lock( 800 ) )
 	{
 		m_pDialog	= this;
 		m_nCookie	= Library.GetScanCount();
@@ -64,19 +60,17 @@ CFolderScanDlg::~CFolderScanDlg()
 	if ( m_pDialog )
 	{
 		CSingleLock pLock( &Library.m_pSection );
-		pLock.Lock( 500 );
-		m_pDialog = NULL;
+		if ( pLock.Lock( 3000 ) )
+			m_pDialog = NULL;
 	}
 }
 
 void CFolderScanDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CSkinDialog::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CFolderScanDlg)
 	DDX_Control(pDX, IDC_SCAN_VOLUME, m_wndVolume);
 	DDX_Control(pDX, IDC_SCAN_FILES, m_wndFiles);
 	DDX_Control(pDX, IDC_SCAN_FILE, m_wndFile);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

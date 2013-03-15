@@ -29,8 +29,8 @@ static char THIS_FILE[] = __FILE__;
 
 IMPLEMENT_DYNAMIC(CProgressBarDlg, CSkinDialog)
 
-BEGIN_MESSAGE_MAP(CProgressBarDlg, CSkinDialog)
-END_MESSAGE_MAP()
+//BEGIN_MESSAGE_MAP(CProgressBarDlg, CSkinDialog)
+//END_MESSAGE_MAP()
 
 CProgressBarDlg::CProgressBarDlg(CWnd* pParent) :
 	CSkinDialog	( CProgressBarDlg::IDD, pParent )

@@ -633,6 +633,26 @@ BOOL CCoolInterface::EnableTheme(CWnd* pWnd, BOOL bEnable)
 		return SUCCEEDED( theApp.m_pfnSetWindowTheme( pWnd->GetSafeHwnd(), L" ", L" " ) );
 }
 
+void CCoolInterface::FixTheme(CWnd* pWnd, BOOL bForce /*=TRUE*/)
+{
+	const BOOL bThemed =
+		GetRValue( Colors.m_crDialogText ) < 100 &&
+		GetGValue( Colors.m_crDialogText ) < 100 &&
+		GetBValue( Colors.m_crDialogText ) < 100;
+
+	if ( bThemed && ! bForce )
+		return;
+
+	for ( CWnd* pChild = pWnd->GetWindow( GW_CHILD ) ; pChild ; pChild = pChild->GetNextWindow() )
+	{
+		TCHAR szName[8];
+		GetClassName( pChild->GetSafeHwnd(), szName, 8 );			// Alt detection method for exceptions
+		if ( _tcsnicmp( szName, _PT("Button") ) == 0 &&
+			 ( pChild->GetStyle() & BS_CHECKBOX ) || ( ( pChild->GetStyle() & BS_GROUPBOX ) && pChild->GetDlgCtrlID() == IDC_STATIC ) )	
+			EnableTheme( pChild, bThemed );
+	}
+}
+
 int CCoolInterface::GetImageCount(int nImageListType)
 {
 	//CQuickLock oLock( m_pSection );
@@ -781,6 +801,49 @@ BOOL CCoolInterface::DrawEx(CDC* pDC, int nImage, POINT pt, SIZE sz, COLORREF cl
 	return ImageList_DrawEx( hList, nImage, pDC->GetSafeHdc(),
 		pt.x, pt.y, sz.cx, sz.cy, clrBk, clrFg, nStyle );
 }
+
+//BOOL CCoolInterface::DrawIndirect(CDC* pDC, int nImage, POINT pt, SIZE sz, COLORREF clrBk, COLORREF clrFg, UINT nStyle, DWORD nState /*=ILS_ALPHA*/, DWORD nAlpha /*=200*/, int nImageListType /*=LVSIL_SMALL*/) const
+//{
+//	//CQuickLock oLock( m_pSection );
+//
+//#ifndef WIN64
+//	if ( theApp.m_bIsWin2000 )
+//		return DrawEx( pDC, nImage, pt, sz, clrBk, clrFg, nStyle, nImageListType );
+//#endif
+//
+//	//return m_pImages16.DrawIndirect( pDC, nImage, pt, sz, (POINT)(CPoint)0,
+//	//	nStyle, MERGECOPY, clrBk, clrFg, nState, nAlpha, clrFg );
+//
+//	IMAGELISTDRAWPARAMS pImageListDrawParams = { 0 };
+//
+//	pImageListDrawParams.hdcDst = pDC->GetSafeHdc();
+//	pImageListDrawParams.i = nImage;
+//	pImageListDrawParams.x = pt.x;
+//	pImageListDrawParams.y = pt.y;
+//	pImageListDrawParams.cx = sz.cx;
+//	pImageListDrawParams.cy = sz.cy;
+//	pImageListDrawParams.xBitmap = 0;
+//	pImageListDrawParams.yBitmap = 0;
+//	pImageListDrawParams.rgbBk = clrBk;
+//	pImageListDrawParams.rgbFg = clrFg;
+//	pImageListDrawParams.crEffect = clrFg;
+//	pImageListDrawParams.fStyle = nStyle;		// ILD_BLEND50|ILD_BLEND25|ILD_ROP
+//	pImageListDrawParams.fState = nState;		// ILS_ALPHA|ILS_SATURATE|ILS_SHADOW
+//	pImageListDrawParams.Frame = nAlpha;
+//	pImageListDrawParams.dwRop = MERGECOPY;
+//
+//	switch ( nImageListType )
+//	{
+//	case LVSIL_SMALL:
+//		pImageListDrawParams.himl = m_pImages16.GetSafeHandle();
+//	case LVSIL_NORMAL:
+//		pImageListDrawParams.himl = m_pImages32.GetSafeHandle();
+//	case LVSIL_BIG:
+//		pImageListDrawParams.himl = m_pImages48.GetSafeHandle();
+//	}
+//
+//	return ImageList_DrawIndirect( &pImageListDrawParams );
+//}
 
 BOOL CCoolInterface::Draw(CDC* pDC, UINT nID, int nSize, int nX, int nY, COLORREF crBack, BOOL bSelected, BOOL bExclude) const
 {

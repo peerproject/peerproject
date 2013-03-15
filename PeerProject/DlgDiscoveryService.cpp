@@ -30,10 +30,8 @@ static char THIS_FILE[] = __FILE__;
 #endif	// Debug
 
 BEGIN_MESSAGE_MAP(CDiscoveryServiceDlg, CSkinDialog)
-	//{{AFX_MSG_MAP(CDiscoveryServiceDlg)
 	ON_EN_CHANGE(IDC_ADDRESS, OnChangeAddress)
 	ON_CBN_SELCHANGE(IDC_SERVICE_TYPE, OnSelChangeServiceType)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -45,8 +43,6 @@ CDiscoveryServiceDlg::CDiscoveryServiceDlg(CWnd* pParent, CDiscoveryService* pSe
 	, m_nType 		( -1 )
 	, m_bNew		( FALSE )
 {
-	//{{AFX_DATA_INIT(CDiscoveryServiceDlg)
-	//}}AFX_DATA_INIT
 }
 
 CDiscoveryServiceDlg::~CDiscoveryServiceDlg()
@@ -57,11 +53,9 @@ CDiscoveryServiceDlg::~CDiscoveryServiceDlg()
 void CDiscoveryServiceDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CSkinDialog::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CDiscoveryServiceDlg)
 	DDX_Control(pDX, IDOK, m_wndOK);
 	DDX_Text(pDX, IDC_ADDRESS, m_sAddress);
 	DDX_CBIndex(pDX, IDC_SERVICE_TYPE, m_nType);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

@@ -154,7 +154,6 @@ BOOL CDownloadWithExtras::AddReview(IN_ADDR* pIP, int nClientID, int nRating, LP
 	return TRUE;
 }
 
-
 BOOL CDownloadWithExtras::AddReview(CDownloadReview* pReview)
 {
 	// If we have too may reviews, then exit
@@ -184,7 +183,7 @@ BOOL CDownloadWithExtras::AddReview(CDownloadReview* pReview)
 	return TRUE;
 }
 
-// Delete a reviews
+// Delete a review
 void CDownloadWithExtras::DeleteReview(CDownloadReview *pReview)
 {
 	if ( ! pReview ) return;

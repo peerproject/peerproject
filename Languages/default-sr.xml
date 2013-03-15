@@ -464,7 +464,7 @@
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="&#160; Мени &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="_Settings..."/>
 			<menu text="_Mreža">
 				<item id="ID_NETWORK_CONNECT" text="_Повежи се" shortcut="Ctrl+G"/>

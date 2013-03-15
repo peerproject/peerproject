@@ -174,7 +174,7 @@ protected:
 
 // NavBar
 public:
-	CRect		m_rcNavBarOffset;
+	CPoint		m_ptNavBarOffset;
 	enum { NavBarNormal, NavBarUpper, NavBarLower } m_NavBarMode;
 protected:
 	BOOL		LoadNavBar(CXMLElement* pBase);

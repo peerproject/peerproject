@@ -31,6 +31,7 @@ public:
 
 	enum { IDD = IDD_SELECT };
 
+public:
 	class CItem
 	{
 	public:
@@ -68,5 +69,5 @@ protected:
 	virtual void OnCancel();
 	virtual void DoDataExchange(CDataExchange* pDX);
 
-	DECLARE_MESSAGE_MAP()
+	//DECLARE_MESSAGE_MAP()
 };

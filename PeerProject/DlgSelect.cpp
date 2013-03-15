@@ -30,9 +30,13 @@ static char THIS_FILE[] = __FILE__;
 
 IMPLEMENT_DYNAMIC(CSelectDialog, CSkinDialog)
 
+//BEGIN_MESSAGE_MAP(CSelectDialog, CSkinDialog)
+//END_MESSAGE_MAP()
+
+
 CSelectDialog::CSelectDialog(CWnd* pParent /*=NULL*/)
-	: CSkinDialog(CSelectDialog::IDD, pParent),
-	m_nData( 0 )
+	: CSkinDialog(CSelectDialog::IDD, pParent)
+	, m_nData( 0 )
 {
 }
 
@@ -41,9 +45,6 @@ void CSelectDialog::DoDataExchange(CDataExchange* pDX)
 	CSkinDialog::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_FILE_LIST, m_ListCtrl);
 }
-
-BEGIN_MESSAGE_MAP(CSelectDialog, CSkinDialog)
-END_MESSAGE_MAP()
 
 // CSelectDialog message handlers
 

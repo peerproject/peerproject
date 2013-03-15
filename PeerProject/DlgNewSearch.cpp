@@ -62,12 +62,10 @@ CNewSearchDlg::CNewSearchDlg(CWnd* pParent, CQuerySearch* pSearch, BOOL bLocal, 
 void CNewSearchDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CSkinDialog::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CNewSearchDlg)
 	DDX_Control(pDX, IDOK, m_wndOK);
 	DDX_Control(pDX, IDCANCEL, m_wndCancel);
 	DDX_Control(pDX, IDC_SCHEMAS, m_wndSchemas);
 	DDX_Control(pDX, IDC_SEARCH, m_wndSearch);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

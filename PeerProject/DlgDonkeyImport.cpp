@@ -1,7 +1,7 @@
 //
 // DlgDonkeyImport.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -28,11 +28,9 @@ static char THIS_FILE[] = __FILE__;
 #endif	// Debug
 
 BEGIN_MESSAGE_MAP(CDonkeyImportDlg, CSkinDialog)
-	//{{AFX_MSG_MAP(CDonkeyImportDlg)
-	ON_BN_CLICKED(IDC_IMPORT, OnImport)
 	ON_WM_TIMER()
+	ON_BN_CLICKED(IDC_IMPORT, OnImport)
 	ON_BN_CLICKED(IDC_CLOSE, OnClose)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -42,19 +40,15 @@ END_MESSAGE_MAP()
 CDonkeyImportDlg::CDonkeyImportDlg(CWnd* pParent /*=NULL*/)
 	: CSkinDialog(CDonkeyImportDlg::IDD, pParent)
 {
-	//{{AFX_DATA_INIT(CDonkeyImportDlg)
-	//}}AFX_DATA_INIT
 }
 
 void CDonkeyImportDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CSkinDialog::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CDonkeyImportDlg)
 	DDX_Control(pDX, IDC_CLOSE, m_wndClose);
 	DDX_Control(pDX, IDCANCEL, m_wndCancel);
 	DDX_Control(pDX, IDC_IMPORT, m_wndImport);
 	DDX_Control(pDX, IDC_LOG, m_wndLog);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

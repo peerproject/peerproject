@@ -43,7 +43,6 @@ static char THIS_FILE[] = __FILE__;
 
 
 BEGIN_MESSAGE_MAP(CLibraryTileView, CLibraryView)
-	//{{AFX_MSG_MAP(CLibraryTileView)
 	ON_WM_CREATE()
 	ON_WM_DESTROY()
 	ON_WM_SIZE()
@@ -65,7 +64,6 @@ BEGIN_MESSAGE_MAP(CLibraryTileView, CLibraryView)
 	ON_COMMAND(ID_LIBRARY_ALBUM_DELETE, OnLibraryAlbumDelete)
 	ON_UPDATE_COMMAND_UI(ID_LIBRARY_ALBUM_PROPERTIES, OnUpdateLibraryAlbumProperties)
 	ON_COMMAND(ID_LIBRARY_ALBUM_PROPERTIES, OnLibraryAlbumProperties)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -849,7 +847,7 @@ HBITMAP CLibraryTileView::CreateDragImage(const CPoint& ptMouse, CPoint& ptMiddl
 		}
 	}
 
-	bool bClipped = rcAll.Height() > MAX_DRAG_SIZE;
+	const bool bClipped = rcAll.Height() > MAX_DRAG_SIZE;
 
 	if ( bClipped )
 	{
@@ -874,9 +872,9 @@ HBITMAP CLibraryTileView::CreateDragImage(const CPoint& ptMouse, CPoint& ptMiddl
 
 	dcDrag.FillSolidRect( 0, 0, rcAll.Width(), rcAll.Height(), DRAG_COLOR_KEY );
 
-	CRgn pRgn;
-
 	ptMiddle.SetPoint( ptMouse.x - rcAll.left, ptMouse.y - rcAll.top );
+
+	CRgn pRgn;
 	if ( bClipped )
 	{
 		pRgn.CreateEllipticRgn(	ptMiddle.x - MAX_DRAG_SIZE_2, ptMiddle.y - MAX_DRAG_SIZE_2,

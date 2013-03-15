@@ -38,7 +38,7 @@ protected:
 	int					m_nPosition;
 	int					m_nTotal;
 	int					m_nHeight;
-	COLORREF			m_crBackground[4];
+//	COLORREF			m_crBackground[4];
 	COLORREF			m_crText[5];
 	CFont				m_pFont;
 	BOOL				m_bProcess;
@@ -59,6 +59,7 @@ protected:
 public:
 	//{{AFX_VIRTUAL(CTextCtrl)
 	virtual BOOL Create(DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID);
+	void OnSkinChange();
 	//}}AFX_VIRTUAL
 
 // Implementation

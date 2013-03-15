@@ -35,10 +35,8 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNCREATE(CDCSettingsPage, CSettingsPage)
 
 BEGIN_MESSAGE_MAP(CDCSettingsPage, CSettingsPage)
-	//{{AFX_MSG_MAP(CDCSettingsPage)
 	ON_BN_CLICKED(IDC_ENABLE, OnEnable)
 	ON_BN_CLICKED(IDC_DISCOVERY_GO, OnDiscoveryGo)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -59,14 +57,12 @@ CDCSettingsPage::~CDCSettingsPage()
 void CDCSettingsPage::DoDataExchange(CDataExchange* pDX)
 {
 	CSettingsPage::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CDCSettingsPage)
 	DDX_Check(pDX, IDC_ENABLE, m_bEnabled);
 	DDX_Check(pDX, IDC_ENABLE_ALWAYS, m_bEnableAlways);
 	DDX_Text(pDX, IDC_SOURCES, m_nHubs);
 	DDX_Control(pDX, IDC_SOURCES, m_wndHubs);
 	DDX_Control(pDX, IDC_SOURCES_SPIN, m_wndHubsSpin);
 	DDX_Control(pDX, IDC_DISCOVERY_GO, m_wndDiscoveryGo);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

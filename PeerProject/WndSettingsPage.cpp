@@ -36,10 +36,9 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNAMIC(CSettingsPage, CDialog)
 
 BEGIN_MESSAGE_MAP(CSettingsPage, CDialog)
-	//{{AFX_MSG_MAP(CSettingsPage)
 	ON_WM_ERASEBKGND()
 	ON_WM_CTLCOLOR()
-	//}}AFX_MSG_MAP
+//	ON_MESSAGE(WM_CTLCOLORSTATIC, OnCtlColorStatic)
 END_MESSAGE_MAP()
 
 
@@ -169,13 +168,35 @@ void CSettingsPage::OnSkinChange()
 		GetClientRect( &rc );
 		CoolInterface.DrawWatermark( pDC, &rc, &Images.m_bmDialog );
 	}
+
+	// Fix Checkbox/Groupbox color skinning if needed (remove modern Windows theming)
+
+#ifndef WIN64
+	if ( theApp.m_bIsWin2000 )
+		return;		// Win2K
+#endif
+
+	CoolInterface.FixTheme( this );		// Checkbox/Groupbox text colors (Remove theme if needed)
+
+// Moved to CCoolInterface::FixTheme:
+//	const BOOL bThemed =
+//		GetRValue( Colors.m_crDialogText ) < 100 &&
+//		GetGValue( Colors.m_crDialogText ) < 100 &&
+//		GetBValue( Colors.m_crDialogText ) < 100;
+//
+//	for ( CWnd* pWnd = GetWindow( GW_CHILD ) ; pWnd ; pWnd = pWnd->GetNextWindow() )
+//	{
+//		TCHAR szName[8];
+//		GetClassName( pWnd->GetSafeHwnd(), szName, 8 );			// Alt detection method for exceptions
+//		if ( _tcsnicmp( szName, _PT("Button") ) == 0 &&
+//			 ( pWnd->GetStyle() & BS_CHECKBOX ) || ( ( pWnd->GetStyle() & BS_GROUPBOX ) && pWnd->GetDlgCtrlID() == IDC_STATIC ) )	
+//			CCoolInterface::EnableTheme( pWnd, bThemed );
+//	}
 }
 
 void CSettingsPage::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange( pDX );
-	//{{AFX_DATA_MAP(CSettingsPage)
-	//}}AFX_DATA_MAP
 }
 
 void CSettingsPage::SetModified(BOOL bChanged)
@@ -235,49 +256,71 @@ BOOL CSettingsPage::OnEraseBkgnd(CDC* pDC)
 
 HBRUSH CSettingsPage::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 {
-	HBRUSH hbr = CDialog::OnCtlColor( pDC, pWnd, nCtlColor );
+	//HBRUSH hbr = CDialog::OnCtlColor( pDC, pWnd, nCtlColor );
+
+	// For checkboxes/Groups, need to SetWindowTheme( pWnd->GetSafeHwnd(), L"wstr", L"wstr")
+
+	pDC->SetTextColor( Colors.m_crDialogText );
+	pDC->SetBkColor( Colors.m_crDialog );
 
 	// Skinned dialog controls
 	if ( nCtlColor == CTLCOLOR_STATIC && Images.m_bmDialog.m_hObject )
 	{
-		pDC->SetTextColor( Colors.m_crDialogText );
-		pDC->SetBkMode( TRANSPARENT );
+		if ( ! ( pWnd->GetStyle() & BS_GROUPBOX ) ||
+			 ( GetRValue( Colors.m_crDialogText ) < 50 && GetGValue( Colors.m_crDialogText ) < 50 && GetBValue( Colors.m_crDialogText ) < 50 ) )
+			pDC->SetBkMode( TRANSPARENT );
 
-		if ( pWnd->GetDlgCtrlID() != IDC_STATIC )						// Named controls  (Dynamic handling)	// || ( pWnd->GetStyle() & SS_REALSIZEIMAGE ) || ( pWnd->GetStyle() & SS_ICON )
-		{
-			if ( ( pWnd->GetStyle() & ES_READONLY ) )
-				return Images.m_brDialog;								// Skip disabled edit boxes (Not disabled text)
+		if ( pWnd->GetDlgCtrlID() == IDC_STATIC )
+			return (HBRUSH)GetStockObject( NULL_BRUSH );
 
-			//if ( ! pWnd->IsWindowEnabled() )
-			//{
-			//	const int nID = pWnd->GetDlgCtrlID();
-			//	if ( nID != IDC_REMOTE_URL && nID != IDC_INBOUND_BIND && nID != IDC_G1_SETUP && nID != IDC_ED2K_SETUP && nID != IDC_DC_SETUP )	// Keep exception list updated
-			//		return Images.m_brDialog;							// Skip disabled edit boxes (Not disabled text)
-			//}
+		// Named controls  (Dynamic handling)						// || ( pWnd->GetStyle() & SS_REALSIZEIMAGE ) || ( pWnd->GetStyle() & SS_ICON )
 
-			//TCHAR szName[24];
-			//GetClassName( pWnd->GetSafeHwnd(), szName, 24 );			// Alt detection method for exceptions
-			//if ( _tcsistr( szName, _T("Static") ) )					// "Static" "Button" "ListBox" "ComboBox" "Edit" "RICHEDIT" etc
+		if ( ( pWnd->GetStyle() & ES_READONLY ) )
+			return Images.m_brDialog;								// Skip disabled edit boxes (Not disabled text)
 
-			// Offset background image brush to mimic transparency
-			CRect rc;
-			pWnd->GetWindowRect( &rc );
-			ScreenToClient( &rc );
-			pDC->SetBrushOrg( -rc.left, -rc.top );
-			return Images.m_brDialog;
-		}
+		//SetWindowTheme( pWnd->GetSafeHwnd(), L"wstr", L"wstr");	// Allow Checkbox text colors (causes flicker)
 
-		hbr = (HBRUSH)GetStockObject( NULL_BRUSH );
-	}
-	else if ( nCtlColor == CTLCOLOR_STATIC || nCtlColor == CTLCOLOR_DLG )
-	{
-		pDC->SetTextColor( Colors.m_crDialogText );
-		pDC->SetBkColor( Colors.m_crDialog );
-		hbr = Images.m_brDialog;
+		//if ( ! pWnd->IsWindowEnabled() )
+		//{
+		//	const int nID = pWnd->GetDlgCtrlID();
+		//	if ( nID != IDC_REMOTE_URL && nID != IDC_INBOUND_BIND && nID != IDC_G1_SETUP && nID != IDC_ED2K_SETUP && nID != IDC_DC_SETUP )	// Keep exception list updated
+		//		return Images.m_brDialog;							// Skip disabled edit boxes (Not disabled text)
+		//}
+
+		//TCHAR szName[24];
+		//GetClassName( pWnd->GetSafeHwnd(), szName, 24 );			// Alt detection method for exceptions
+		//if ( _tcsistr( szName, _T("Static") ) )					// "Static" "Button" "ListBox" "ComboBox" "Edit" "RICHEDIT" etc
+
+		// Offset background image brush to mimic transparency
+		CRect rc;
+		pWnd->GetWindowRect( &rc );
+		ScreenToClient( &rc );
+		pDC->SetBrushOrg( -rc.left, -rc.top );
 	}
 
-	return hbr;
+	return Images.m_brDialog;
 }
+
+//LRESULT CSettingsPage::OnCtlColorStatic(WPARAM wParam, LPARAM lParam)
+//{
+//	HBRUSH hbr = Images.m_brDialog;
+//	HDC hDCStatic = (HDC)wParam;
+//	HWND hWnd = (HWND)lParam;
+//
+//	SetTextColor( hDCStatic, Colors.m_crDialogText );
+//	SetBkColor( hDCStatic, Colors.m_crDialog );
+//
+//	if ( Images.m_bmDialog.m_hObject )
+//	{
+//		CRect rc;
+//		CWnd::FromHandle( hWnd )->GetWindowRect( &rc );
+//		ScreenToClient( &rc );
+//		CDC::FromHandle( hDCStatic )->SetBrushOrg( -rc.left, -rc.top );
+//		SetBkMode( hDCStatic, TRANSPARENT );
+//	}
+//
+//	return (LRESULT)hbr;
+//}
 
 BOOL CSettingsPage::PreTranslateMessage(MSG* pMsg)
 {

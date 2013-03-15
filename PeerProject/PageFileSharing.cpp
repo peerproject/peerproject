@@ -35,10 +35,8 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNCREATE(CFileSharingPage, CFilePropertiesPage)
 
 BEGIN_MESSAGE_MAP(CFileSharingPage, CFilePropertiesPage)
-	//{{AFX_MSG_MAP(CFileSharingPage)
 	ON_BN_CLICKED(IDC_SHARE_OVERRIDE_0, OnShareOverride0)
 	ON_BN_CLICKED(IDC_SHARE_OVERRIDE_1, OnShareOverride1)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 

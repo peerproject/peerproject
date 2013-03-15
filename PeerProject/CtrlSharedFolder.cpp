@@ -35,7 +35,6 @@ static char THIS_FILE[] = __FILE__;
 #endif	// Debug
 
 BEGIN_MESSAGE_MAP(CLibraryFolderCtrl, CTreeCtrl)
-	//{{AFX_MSG_MAP(CLibraryFolderCtrl)
 	ON_WM_CREATE()
 	ON_WM_NCPAINT()
 	ON_WM_KEYDOWN()
@@ -48,7 +47,6 @@ BEGIN_MESSAGE_MAP(CLibraryFolderCtrl, CTreeCtrl)
 	ON_NOTIFY_REFLECT(TVN_SELCHANGEDW, OnSelChanged)
 	ON_NOTIFY_REFLECT(TVN_SELCHANGEDA, OnSelChanged)
 	ON_NOTIFY_REFLECT(NM_CUSTOMDRAW, OnCustomDraw)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 

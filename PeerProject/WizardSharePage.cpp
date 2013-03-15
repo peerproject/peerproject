@@ -37,13 +37,11 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNCREATE(CWizardSharePage, CWizardPage)
 
 BEGIN_MESSAGE_MAP(CWizardSharePage, CWizardPage)
-	//{{AFX_MSG_MAP(CWizardSharePage)
+	ON_WM_XBUTTONDOWN()
 	ON_NOTIFY(LVN_ITEMCHANGED, IDC_SHARE_FOLDERS, OnItemChangedShareFolders)
 	ON_NOTIFY(NM_DBLCLK, IDC_SHARE_FOLDERS, OnDoubleClick)
 	ON_BN_CLICKED(IDC_SHARE_ADD, OnShareAdd)
 	ON_BN_CLICKED(IDC_SHARE_REMOVE, OnShareRemove)
-	ON_WM_XBUTTONDOWN()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -52,8 +50,6 @@ END_MESSAGE_MAP()
 
 CWizardSharePage::CWizardSharePage() : CWizardPage(CWizardSharePage::IDD)
 {
-	//{{AFX_DATA_INIT(CWizardSharePage)
-	//}}AFX_DATA_INIT
 }
 
 CWizardSharePage::~CWizardSharePage()
@@ -63,10 +59,8 @@ CWizardSharePage::~CWizardSharePage()
 void CWizardSharePage::DoDataExchange(CDataExchange* pDX)
 {
 	CWizardPage::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CWizardSharePage)
 	DDX_Control(pDX, IDC_SHARE_FOLDERS, m_wndList);
 	DDX_Control(pDX, IDC_SHARE_REMOVE, m_wndRemove);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

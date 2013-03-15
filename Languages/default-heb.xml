@@ -537,7 +537,7 @@ gap i newline
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="תפריט">
 			<item id="ID_TOOLS_SETTINGS" text="ה_גדרות שרזה..."/>
 			<menu text="‪_רשת">
 				<item id="ID_NETWORK_CONNECT" text="הת_חבר" shortcut="Ctrl+G"/>

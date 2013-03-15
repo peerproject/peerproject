@@ -451,8 +451,19 @@ void CCoolMenu::OnDrawItemInternal(LPDRAWITEMSTRUCT lpDrawItemStruct)
 		else if ( bSelected )
 		{
 			pt.Offset( 1, 1 );
-			pDC->SetTextColor( Colors.m_crShadow );
-			CoolInterface.Draw( pDC, nIcon, pt, ILD_MASK );
+
+			if ( ! m_bmWatermark.m_hObject || theApp.m_bIsWin2000 )
+			{
+				pDC->SetTextColor( Colors.m_crShadow );
+				CoolInterface.Draw( pDC, nIcon, pt, ILD_MASK );
+			}
+			else	// Skinned
+			{
+			//	CoolInterface.DrawIndirect( pDC, nIcon, (POINT)pt, (SIZE)(CSize)0,
+			//		CLR_NONE, Colors.m_crShadow, ILD_BLEND50|ILD_BLEND25|ILD_ROP, ILS_SATURATE|ILS_ALPHA, 160 );
+				CoolInterface.DrawEx( pDC, nIcon, pt, CSize( 0, 0 ), CLR_NONE, Colors.m_crShadow, ILD_BLEND50|ILD_BLEND25 );
+			}
+
 			pt.Offset( -2, -2 );
 			CoolInterface.Draw( pDC, nIcon, pt, ILD_NORMAL );
 		}

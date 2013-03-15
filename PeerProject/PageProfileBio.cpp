@@ -1,7 +1,7 @@
 //
 // PageProfileBio.cpp : implementation file
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -30,10 +30,8 @@ static char THIS_FILE[] = __FILE__;
 
 IMPLEMENT_DYNCREATE(CBioProfilePage, CSettingsPage)
 
-BEGIN_MESSAGE_MAP(CBioProfilePage, CSettingsPage)
-	//{{AFX_MSG_MAP(CBioProfilePage)
-	//}}AFX_MSG_MAP
-END_MESSAGE_MAP()
+//BEGIN_MESSAGE_MAP(CBioProfilePage, CSettingsPage)
+//END_MESSAGE_MAP()
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -41,8 +39,6 @@ END_MESSAGE_MAP()
 
 CBioProfilePage::CBioProfilePage() : CSettingsPage( CBioProfilePage::IDD )
 {
-	//{{AFX_DATA_INIT(CBioProfilePage)
-	//}}AFX_DATA_INIT
 }
 
 CBioProfilePage::~CBioProfilePage()
@@ -52,9 +48,7 @@ CBioProfilePage::~CBioProfilePage()
 void CBioProfilePage::DoDataExchange(CDataExchange* pDX)
 {
 	CSettingsPage::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CBioProfilePage)
 	DDX_Control(pDX, IDC_PROFILE_BIO, m_wndText);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

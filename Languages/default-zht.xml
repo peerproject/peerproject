@@ -498,7 +498,7 @@
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="&#160; 菜單 &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="設定... &#160; "/>
 			<menu text="網路">
 				<item id="ID_NETWORK_CONNECT" text="連線" shortcut="Ctrl+G"/>

@@ -41,20 +41,18 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNCREATE(CWizardConnectionPage, CWizardPage)
 
 BEGIN_MESSAGE_MAP(CWizardConnectionPage, CWizardPage)
-	//{{AFX_MSG_MAP(CWizardConnectionPage)
+	ON_WM_TIMER()
+	ON_WM_CTLCOLOR()
+	ON_WM_SETCURSOR()
+	ON_WM_LBUTTONDOWN()
+	ON_WM_RBUTTONDOWN()
+	ON_WM_XBUTTONDOWN()
 	ON_CBN_SELCHANGE(IDC_CONNECTION_TYPE, &CWizardConnectionPage::OnSelChangeConnectionType)
 	ON_CBN_EDITCHANGE(IDC_WIZARD_DOWNLOAD_SPEED, &CWizardConnectionPage::OnChangeConnectionSpeed)
 	ON_CBN_SELCHANGE(IDC_WIZARD_DOWNLOAD_SPEED, &CWizardConnectionPage::OnChangeConnectionSpeed)
 	ON_CBN_EDITCHANGE(IDC_WIZARD_UPLOAD_SPEED, &CWizardConnectionPage::OnChangeConnectionSpeed)
 	ON_CBN_SELCHANGE(IDC_WIZARD_UPLOAD_SPEED, &CWizardConnectionPage::OnChangeConnectionSpeed)
 	ON_BN_CLICKED(IDC_WIZARD_RANDOM, &CWizardConnectionPage::OnBnClickedRandom)
-	ON_WM_CTLCOLOR()
-	ON_WM_SETCURSOR()
-	ON_WM_LBUTTONDOWN()
-	ON_WM_RBUTTONDOWN()
-	ON_WM_XBUTTONDOWN()
-	ON_WM_TIMER()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -78,7 +76,6 @@ CWizardConnectionPage::~CWizardConnectionPage()
 void CWizardConnectionPage::DoDataExchange(CDataExchange* pDX)
 {
 	CWizardPage::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CWizardConnectionPage)
 	DDX_Control(pDX, IDC_WEB, m_wndTest);
 	DDX_Control(pDX, IDC_CONNECTION_PROGRESS, m_wndProgress);
 	DDX_Control(pDX, IDC_CONNECTION_STATUS, m_wndStatus);
@@ -90,7 +87,6 @@ void CWizardConnectionPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_WIZARD_RANDOM, m_wndRandom);
 	DDX_Check(pDX, IDC_WIZARD_RANDOM, m_bRandom);
 	DDX_Text(pDX, IDC_WIZARD_PORT, m_nPort);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

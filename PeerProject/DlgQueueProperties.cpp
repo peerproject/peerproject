@@ -32,7 +32,7 @@ static char THIS_FILE[] = __FILE__;
 #endif	// Debug
 
 BEGIN_MESSAGE_MAP(CQueuePropertiesDlg, CSkinDialog)
-	//{{AFX_MSG_MAP(CQueuePropertiesDlg)
+	ON_WM_HSCROLL()
 	ON_BN_CLICKED(IDC_QUEUE_PARTIALONLY, OnPartialClicked)
 	ON_BN_CLICKED(IDC_QUEUE_LIBRARYONLY, OnLibraryClicked)
 	ON_BN_CLICKED(IDC_QUEUE_BOTH, OnBothClicked)
@@ -41,10 +41,8 @@ BEGIN_MESSAGE_MAP(CQueuePropertiesDlg, CSkinDialog)
 	ON_BN_CLICKED(IDC_PROTOCOLS_CHECK, OnProtocolsCheck)
 	ON_BN_CLICKED(IDC_MARKED_CHECK, OnMarkedCheck)
 	ON_BN_CLICKED(IDC_ROTATE_ENABLE, OnRotateEnable)
-	ON_EN_CHANGE(IDC_TRANSFERS_MAX, OnChangeTransfersMax)
 	ON_BN_CLICKED(IDC_MATCH_CHECK, OnMatchCheck)
-	ON_WM_HSCROLL()
-	//}}AFX_MSG_MAP
+	ON_EN_CHANGE(IDC_TRANSFERS_MAX, OnChangeTransfersMax)
 END_MESSAGE_MAP()
 
 
@@ -54,15 +52,15 @@ END_MESSAGE_MAP()
 CQueuePropertiesDlg::CQueuePropertiesDlg(CUploadQueue* pQueue, BOOL bEnable, CWnd* pParent)
 	: CSkinDialog(CQueuePropertiesDlg::IDD, pParent)
 	, m_nCapacity	( 0 )
-	, m_sMaxSize	( _T("") )
+//	, m_sMaxSize	( _T("") )
 	, m_bMaxSize	( FALSE )
-	, m_sMinSize	( _T("") )
+//	, m_sMinSize	( _T("") )
 	, m_bMinSize	( FALSE )
-	, m_sMatch		( _T("") )
+//	, m_sMatch		( _T("") )
 	, m_bMatch		( FALSE )
-	, m_sMarked 	( _T("") )
+//	, m_sMarked 	( _T("") )
 	, m_bMarked 	( FALSE )
-	, m_sName		( _T("") )
+//	, m_sName		( _T("") )
 	, m_bEnable 	( FALSE )
 	, m_bProtocols	( FALSE )
 	, m_bReward 	( FALSE )
@@ -74,16 +72,12 @@ CQueuePropertiesDlg::CQueuePropertiesDlg(CUploadQueue* pQueue, BOOL bEnable, CWn
 	ASSERT( pQueue != NULL );
 	m_pQueue = pQueue;
 	m_bEnableOverride = bEnable;
-
-	//{{AFX_DATA_INIT(CQueuePropertiesDlg)
 	m_nFileStatusFlag = CUploadQueue::ulqBoth;
-	//}}AFX_DATA_INIT
 }
 
 void CQueuePropertiesDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CSkinDialog::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CQueuePropertiesDlg)
 	DDX_Control(pDX, IDC_QUEUE_PARTIALONLY, m_wndPartialOnly);
 	DDX_Control(pDX, IDC_QUEUE_LIBRARYONLY, m_wndLibraryOnly);
 	DDX_Control(pDX, IDC_QUEUE_BOTH, m_wndBoth);
@@ -117,7 +111,6 @@ void CQueuePropertiesDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_MATCH_TEXT, m_sMatch);
 	DDX_Check(pDX, IDC_ENABLE, m_bEnable);
 	DDX_CBString(pDX, IDC_MARKED_LIST, m_sMarked);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -234,17 +227,15 @@ BOOL CQueuePropertiesDlg::OnInitDialog()
 	m_wndCapacity.SetRange32( static_cast< int >( m_nTransfersMax ), 4096 );
 	OnHScroll( 0, 0, NULL );
 
-	if ( Settings.General.GUIMode == GUI_BASIC )
+	if ( Settings.General.GUIMode == GUI_BASIC &&
+		 !( Settings.eDonkey.EnableAlways | Settings.eDonkey.Enabled ) )
 	{
-		if ( !( Settings.eDonkey.EnableAlways | Settings.eDonkey.Enabled ) )
-		{
-			m_bProtocols = FALSE;
-			m_wndProtocols.EnableWindow( FALSE );
-			m_wndProtocols.ShowWindow( FALSE );
+		m_bProtocols = FALSE;
+		m_wndProtocols.EnableWindow( FALSE );
+		m_wndProtocols.ShowWindow( FALSE );
 
-			(GetProtocolCheckbox())->EnableWindow( FALSE );
-			(GetProtocolCheckbox())->ShowWindow( FALSE );
-		}
+		(GetProtocolCheckbox())->EnableWindow( FALSE );
+		(GetProtocolCheckbox())->ShowWindow( FALSE );
 	}
 
 	return TRUE;

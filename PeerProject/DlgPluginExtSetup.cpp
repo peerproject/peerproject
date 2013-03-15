@@ -29,10 +29,8 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNAMIC(CPluginExtSetupDlg, CDialog)
 
 BEGIN_MESSAGE_MAP(CPluginExtSetupDlg, CDialog)
-	//{{AFX_MSG_MAP(CPluginExtSetupDlg)
 	ON_NOTIFY(LVN_ITEMCHANGING, IDC_ASSOCIATIONS, OnChangingAssociations)
 	ON_BN_CLICKED(IDOK, OnOK)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 CPluginExtSetupDlg::CPluginExtSetupDlg(CWnd* pParent, LPCTSTR pszExt)
@@ -49,9 +47,7 @@ CPluginExtSetupDlg::~CPluginExtSetupDlg()
 void CPluginExtSetupDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CPluginExtSetupDlg)
 	DDX_Control(pDX, IDC_ASSOCIATIONS, m_wndList);
-	//}}AFX_DATA_MAP
 }
 
 BOOL CPluginExtSetupDlg::OnInitDialog()

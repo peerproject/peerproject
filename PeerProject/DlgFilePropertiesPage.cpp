@@ -33,10 +33,8 @@ static char THIS_FILE[] = __FILE__;
 
 IMPLEMENT_DYNAMIC(CFilePropertiesPage, CPropertyPageAdv)
 
-BEGIN_MESSAGE_MAP(CFilePropertiesPage, CPropertyPageAdv)
-	//{{AFX_MSG_MAP(CFilePropertiesPage)
-	//}}AFX_MSG_MAP
-END_MESSAGE_MAP()
+//BEGIN_MESSAGE_MAP(CFilePropertiesPage, CPropertyPageAdv)
+//END_MESSAGE_MAP()
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -44,8 +42,6 @@ END_MESSAGE_MAP()
 
 CFilePropertiesPage::CFilePropertiesPage(UINT nIDD) : CPropertyPageAdv( nIDD )
 {
-	//{{AFX_DATA_INIT(CFilePropertiesPage)
-	//}}AFX_DATA_INIT
 }
 
 CFilePropertiesPage::~CFilePropertiesPage()
@@ -55,8 +51,6 @@ CFilePropertiesPage::~CFilePropertiesPage()
 void CFilePropertiesPage::DoDataExchange(CDataExchange* pDX)
 {
 	CPropertyPageAdv::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CFilePropertiesPage)
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -66,6 +60,7 @@ CLibraryFile* CFilePropertiesPage::GetFile()
 {
 	CLibraryListPtr pList( GetList() );
 	if ( pList->GetCount() != 1 ) return NULL;
+
 	CQuickLock oLock( Library.m_pSection );
 	CLibraryFile* pFile = Library.LookupFile( pList->GetHead() );
 	if ( pFile != NULL ) return pFile;

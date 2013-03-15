@@ -32,14 +32,12 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNCREATE(CConnectionSettingsPage, CSettingsPage)
 
 BEGIN_MESSAGE_MAP(CConnectionSettingsPage, CSettingsPage)
-	//{{AFX_MSG_MAP(CConnectionSettingsPage)
 	ON_WM_SHOWWINDOW()
 	ON_CBN_EDITCHANGE(IDC_INBOUND_HOST, OnEditChangeInboundHost)
 	ON_CBN_SELCHANGE(IDC_INBOUND_HOST, OnChangedInboundHost)
 	ON_EN_CHANGE(IDC_INBOUND_PORT, OnChangeInboundPort)
 	ON_BN_CLICKED(IDC_INBOUND_RANDOM, OnInboundRandom)
 	ON_BN_CLICKED(IDC_ENABLE_UPNP, OnClickedEnableUpnp)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -47,7 +45,6 @@ END_MESSAGE_MAP()
 // CConnectionSettingsPage property page
 
 CConnectionSettingsPage::CConnectionSettingsPage() : CSettingsPage(CConnectionSettingsPage::IDD)
-	//{{AFX_DATA_INIT(CConnectionSettingsPage)
 	, m_nInPort				( 0 )
 	, m_bInBind				( FALSE )
 	, m_bIgnoreLocalIP		( FALSE )
@@ -55,7 +52,6 @@ CConnectionSettingsPage::CConnectionSettingsPage() : CSettingsPage(CConnectionSe
 	, m_nTimeoutConnection	( 0ul )
 	, m_nTimeoutHandshake	( 0ul )
 	, m_bInRandom			( FALSE )
-	//}}AFX_DATA_INIT
 {
 }
 
@@ -66,7 +62,6 @@ CConnectionSettingsPage::~CConnectionSettingsPage()
 void CConnectionSettingsPage::DoDataExchange(CDataExchange* pDX)
 {
 	CSettingsPage::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CConnectionSettingsPage)
 	DDX_Control(pDX, IDC_INBOUND_PORT, m_wndInPort);
 	DDX_Control(pDX, IDC_INBOUND_SPEED, m_wndInSpeed);
 	DDX_Control(pDX, IDC_OUTBOUND_SPEED, m_wndOutSpeed);
@@ -87,7 +82,6 @@ void CConnectionSettingsPage::DoDataExchange(CDataExchange* pDX)
 	DDX_CBString(pDX, IDC_INBOUND_SPEED, m_sInSpeed);
 	DDX_Check(pDX, IDC_INBOUND_RANDOM, m_bInRandom);
 	DDX_Check(pDX, IDC_ENABLE_UPNP, m_bEnableUPnP);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

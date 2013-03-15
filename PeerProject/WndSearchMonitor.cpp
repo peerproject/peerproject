@@ -22,8 +22,9 @@
 #include "WndSearchMonitor.h"
 #include "WndSearch.h"
 #include "WndBrowseHost.h"
-#include "CoolInterface.h"
 #include "QuerySearch.h"
+#include "CoolInterface.h"
+#include "Colors.h"
 #include "LiveList.h"
 #include "Security.h"
 #include "Skin.h"
@@ -55,7 +56,6 @@ const static UINT nImageID[] =
 IMPLEMENT_SERIAL(CSearchMonitorWnd, CPanelWnd, 0)
 
 BEGIN_MESSAGE_MAP(CSearchMonitorWnd, CPanelWnd)
-	//{{AFX_MSG_MAP(CSearchMonitorWnd)
 	ON_WM_CREATE()
 	ON_WM_DESTROY()
 	ON_WM_SIZE()
@@ -72,7 +72,6 @@ BEGIN_MESSAGE_MAP(CSearchMonitorWnd, CPanelWnd)
 	ON_COMMAND(ID_BROWSE_LAUNCH, OnBrowseLaunch)
 	ON_NOTIFY(LVN_COLUMNCLICK, IDC_SEARCHES, OnDblClkList)
 	ON_NOTIFY(NM_CUSTOMDRAW, IDC_SEARCHES, OnCustomDrawList)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -149,8 +148,11 @@ void CSearchMonitorWnd::OnSkinChange()
 	// Columns
 	Settings.LoadList( _T("CSearchMonitorWnd"), &m_wndList );
 
-	// Fonts
+	// Fonts & Colors
 	m_wndList.SetFont( &theApp.m_gdiFont );
+	m_wndList.SetTextColor( Colors.m_crText );
+	m_wndList.SetTextBkColor( Colors.m_crWindow );
+	m_wndList.SetBkColor( Colors.m_crWindow );
 
 	// Icons
 	CoolInterface.LoadIconsTo( m_gdiImageList, nImageID );	// IDR_SEARCHMONITORFRAME

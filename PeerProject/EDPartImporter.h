@@ -37,7 +37,7 @@ public:
 protected:
 	CList< CString >	m_pFolders;
 	CEdit*	m_pTextCtrl;
-	int			m_nCount;
+	int 	m_nCount;
 
 	void	ImportFolder(LPCTSTR pszPath);
 	BOOL	ImportFile(LPCTSTR pszPath, LPCTSTR pszFile);
@@ -46,5 +46,5 @@ protected:
 
 	virtual int Run();
 
-	DECLARE_MESSAGE_MAP()
+	//DECLARE_MESSAGE_MAP()
 };

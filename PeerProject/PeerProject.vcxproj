@@ -96,7 +96,7 @@
       <AdditionalOptions>/Wall %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>..\Services;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_DEBUG;WIN32;_WINDOWS;_PEERPROJECT;PEERPROJECT_USE_ASM;ZLIB_WINAPI;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;WIN32;_WINDOWS;_PEERPROJECT;PEERPROJECT_USE_ASM;ZLIB_WINAPI;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_MSC_PLATFORM_TOOLSET=$(PlatformToolsetVersion);%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -115,7 +115,8 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>secur32.lib;rasapi32.lib;winmm.lib;version.lib;ws2_32.lib;wininet.lib;Iphlpapi.lib;msi.lib;powrprof.lib;mstask.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <DelayLoadDLLs>rasapi32.dll;winmm.dll;version.dll;ws2_32.dll;wininet.dll;iphlpapi.dll;msi.dll;powrprof.dll;winspool.drv;comctl32.dll;oledlg.dll;ole32.dll;oleaut32.dll;oleacc.dll;urlmon.dll;msimg32.dll;gdiplus.dll;imm32.dll;advapi32.dll;shell32.dll;shlwapi.dll</DelayLoadDLLs> <!--comdlg32.dll;secur32.dll-->
+      <DelayLoadDLLs>rasapi32.dll;winmm.dll;version.dll;ws2_32.dll;wininet.dll;iphlpapi.dll;msi.dll;powrprof.dll;winspool.drv;comctl32.dll;oledlg.dll;ole32.dll;oleaut32.dll;oleacc.dll;urlmon.dll;msimg32.dll;gdiplus.dll;advapi32.dll;shell32.dll;shlwapi.dll</DelayLoadDLLs>
+      <!--comdlg32.dll;secur32.dll;imm32.dll-->
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <LargeAddressAware>true</LargeAddressAware>
@@ -144,7 +145,7 @@
       <AdditionalOptions>/Wall %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>..\Services;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_DEBUG;WIN64;_WINDOWS;_PEERPROJECT;ZLIB_WINAPI;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;WIN64;_WINDOWS;_PEERPROJECT;ZLIB_WINAPI;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_MSC_PLATFORM_TOOLSET=$(PlatformToolsetVersion);%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
@@ -162,7 +163,8 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>secur32.lib;rasapi32.lib;winmm.lib;version.lib;ws2_32.lib;wininet.lib;Iphlpapi.lib;msi.lib;powrprof.lib;mstask.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <DelayLoadDLLs>rasapi32.dll;winmm.dll;version.dll;ws2_32.dll;wininet.dll;iphlpapi.dll;msi.dll;powrprof.dll;winspool.drv;comctl32.dll;oledlg.dll;ole32.dll;oleaut32.dll;oleacc.dll;urlmon.dll;msimg32.dll;gdiplus.dll;imm32.dll;advapi32.dll;shell32.dll;shlwapi.dll</DelayLoadDLLs> <!--comdlg32.dll;secur32.dll-->
+      <DelayLoadDLLs>rasapi32.dll;winmm.dll;version.dll;ws2_32.dll;wininet.dll;iphlpapi.dll;msi.dll;powrprof.dll;winspool.drv;comctl32.dll;oledlg.dll;ole32.dll;oleaut32.dll;oleacc.dll;urlmon.dll;msimg32.dll;gdiplus.dll;advapi32.dll;shell32.dll;shlwapi.dll</DelayLoadDLLs>
+      <!--comdlg32.dll;secur32.dll;imm32.dll-->
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <LargeAddressAware>true</LargeAddressAware>
@@ -194,7 +196,7 @@
       <Optimization>Full</Optimization>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <AdditionalIncludeDirectories>..\Services;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>NDEBUG;WIN32;_WINDOWS;_PEERPROJECT;PEERPROJECT_USE_ASM;ZLIB_WINAPI;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;WIN32;_WINDOWS;_PEERPROJECT;PEERPROJECT_USE_ASM;ZLIB_WINAPI;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_MSC_PLATFORM_TOOLSET=$(PlatformToolsetVersion);%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <OmitFramePointers>true</OmitFramePointers>
@@ -217,7 +219,8 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>secur32.lib;rasapi32.lib;winmm.lib;version.lib;ws2_32.lib;wininet.lib;Iphlpapi.lib;msi.lib;powrprof.lib;mstask.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <DelayLoadDLLs>rasapi32.dll;winmm.dll;version.dll;ws2_32.dll;wininet.dll;iphlpapi.dll;msi.dll;powrprof.dll;winspool.drv;comctl32.dll;oledlg.dll;ole32.dll;oleaut32.dll;oleacc.dll;urlmon.dll;msimg32.dll;gdiplus.dll;imm32.dll;advapi32.dll;shell32.dll;shlwapi.dll</DelayLoadDLLs> <!--comdlg32.dll;secur32.dll-->
+      <DelayLoadDLLs>rasapi32.dll;winmm.dll;version.dll;ws2_32.dll;wininet.dll;iphlpapi.dll;msi.dll;powrprof.dll;winspool.drv;comctl32.dll;oledlg.dll;ole32.dll;oleaut32.dll;oleacc.dll;urlmon.dll;msimg32.dll;gdiplus.dll;advapi32.dll;shell32.dll;shlwapi.dll</DelayLoadDLLs>
+      <!--comdlg32.dll;secur32.dll;imm32.dll-->
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -252,7 +255,7 @@
       <Optimization>Full</Optimization>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <AdditionalIncludeDirectories>..\Services;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>NDEBUG;WIN64;_WINDOWS;_PEERPROJECT;ZLIB_WINAPI;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;WIN64;_WINDOWS;_PEERPROJECT;ZLIB_WINAPI;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_MSC_PLATFORM_TOOLSET=$(PlatformToolsetVersion);%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <OmitFramePointers>true</OmitFramePointers>
@@ -274,7 +277,8 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>secur32.lib;rasapi32.lib;winmm.lib;version.lib;ws2_32.lib;wininet.lib;Iphlpapi.lib;msi.lib;powrprof.lib;mstask.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <DelayLoadDLLs>rasapi32.dll;winmm.dll;version.dll;ws2_32.dll;wininet.dll;iphlpapi.dll;msi.dll;powrprof.dll;winspool.drv;comctl32.dll;oledlg.dll;ole32.dll;oleaut32.dll;oleacc.dll;urlmon.dll;msimg32.dll;gdiplus.dll;imm32.dll;advapi32.dll;shell32.dll;shlwapi.dll</DelayLoadDLLs> <!--comdlg32.dll;secur32.dll-->
+      <DelayLoadDLLs>rasapi32.dll;winmm.dll;version.dll;ws2_32.dll;wininet.dll;iphlpapi.dll;msi.dll;powrprof.dll;winspool.drv;comctl32.dll;oledlg.dll;ole32.dll;oleaut32.dll;oleacc.dll;urlmon.dll;msimg32.dll;gdiplus.dll;advapi32.dll;shell32.dll;shlwapi.dll</DelayLoadDLLs>
+      <!--comdlg32.dll;secur32.dll;imm32.dll-->
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>

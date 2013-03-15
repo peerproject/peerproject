@@ -850,7 +850,6 @@ int CHostCache::Import(LPCTSTR pszFile, BOOL bFreshOnly)
 //		nImported = ImportCache( &pFile );
 //	}
 
-
 	Save();
 
 	return nImported;

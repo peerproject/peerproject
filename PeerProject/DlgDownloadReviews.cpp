@@ -36,8 +36,8 @@ static char THIS_FILE[] = __FILE__;
 
 IMPLEMENT_DYNAMIC(CDownloadReviewDlg, CSkinDialog)
 
-BEGIN_MESSAGE_MAP(CDownloadReviewDlg, CSkinDialog)
-END_MESSAGE_MAP()
+//BEGIN_MESSAGE_MAP(CDownloadReviewDlg, CSkinDialog)
+//END_MESSAGE_MAP()
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -90,6 +90,7 @@ BOOL CDownloadReviewDlg::OnInitDialog()
 
 	CLiveList pReviews( 4 );
 	int nIndex = 1;
+
 	// Lock while we're loading the list. (In case the download is destroyed)
 	CSingleLock pLock( &Transfers.m_pSection, TRUE );
 

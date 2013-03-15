@@ -110,7 +110,7 @@ BOOL CShakeNeighbour::ConnectTo(const IN_ADDR* pAddress, WORD nPort, BOOL bAutom
 // CShakeNeighbour accept from
 
 // Takes pConnection, the source object to copy from
-// Copies the the values from inside pConnection to this CShakeNeighbour object
+// Copies the values from inside pConnection to this CShakeNeighbour object
 void CShakeNeighbour::AttachTo(CConnection* pConnection)
 {
 	// Call CConnection::AttachTo to copy pConnection into the CConnection core of this CShakeNeighbour object

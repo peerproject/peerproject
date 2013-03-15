@@ -457,6 +457,7 @@ BOOL CRichDocument::LoadXMLStyles(CXMLElement* pParent)
 
 		if ( strName == _T("default") || strName.IsEmpty() )
 		{
+			Skin.LoadColor( pColors, _T("back"), &m_crBackground );
 			Skin.LoadColor( pColors, _T("text"), &m_crText );
 			Skin.LoadColor( pColors, _T("link"), &m_crLink );
 			Skin.LoadColor( pColors, _T("hover"), &m_crHover );

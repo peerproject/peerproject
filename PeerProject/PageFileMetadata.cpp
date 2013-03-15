@@ -35,10 +35,8 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNCREATE(CFileMetadataPage, CFilePropertiesPage)
 
 BEGIN_MESSAGE_MAP(CFileMetadataPage, CFilePropertiesPage)
-	//{{AFX_MSG_MAP(CFileMetadataPage)
 	ON_CBN_SELCHANGE(IDC_SCHEMAS, OnSelChangeSchemas)
 	ON_CBN_CLOSEUP(IDC_SCHEMAS, OnCloseUpSchemas)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -61,9 +59,7 @@ CFileMetadataPage::~CFileMetadataPage()
 void CFileMetadataPage::DoDataExchange(CDataExchange* pDX)
 {
 	CFilePropertiesPage::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CFileMetadataPage)
 	DDX_Control(pDX, IDC_SCHEMAS, m_wndSchemas);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

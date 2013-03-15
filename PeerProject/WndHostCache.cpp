@@ -273,6 +273,10 @@ void CHostCacheWnd::OnSkinChange()
 
 	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
 
+	m_wndList.SetTextColor( Colors.m_crText );
+	m_wndList.SetTextBkColor( Colors.m_crWindow );
+	m_wndList.SetBkColor( Colors.m_crWindow );
+
 	//if ( Settings.General.GUIMode == GUI_BASIC )
 	//	Settings.Gnutella.HostCacheView = m_nMode = PROTOCOL_G2;
 }

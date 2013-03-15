@@ -30,8 +30,6 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNCREATE(CProtocolsSettingsPage, CSettingsPage)
 
 //BEGIN_MESSAGE_MAP(CProtocolsSettingsPage, CSettingsPage)
-	//{{AFX_MSG_MAP(CProtocolsSettingsPage)
-	//}}AFX_MSG_MAP
 //END_MESSAGE_MAP()
 
 
@@ -49,9 +47,7 @@ CProtocolsSettingsPage::~CProtocolsSettingsPage()
 void CProtocolsSettingsPage::DoDataExchange(CDataExchange* pDX)
 {
 	CSettingsPage::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CProtocolsSettingsPage)
 	DDX_Control(pDX, IDC_PROTOCOLS, m_wndTree);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

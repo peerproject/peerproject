@@ -65,5 +65,5 @@ protected:
 	virtual void	OnCancel();
 	virtual void	OnOK();
 
-	DECLARE_MESSAGE_MAP()
+	//DECLARE_MESSAGE_MAP()
 };

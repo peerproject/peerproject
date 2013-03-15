@@ -35,7 +35,6 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNAMIC(CCoolBarCtrl, CControlBar)
 
 BEGIN_MESSAGE_MAP(CCoolBarCtrl, CControlBar)
-	//{{AFX_MSG_MAP(CCoolBarCtrl)
 	ON_WM_CREATE()
 	ON_WM_DESTROY()
 	ON_WM_TIMER()
@@ -46,7 +45,6 @@ BEGIN_MESSAGE_MAP(CCoolBarCtrl, CControlBar)
 	ON_WM_LBUTTONUP()
 	ON_WM_LBUTTONDBLCLK()
 	ON_WM_RBUTTONDOWN()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 //Skin  TOOLBAR_HEIGHT		28	// Settings.Skin.ToolbarHeight
@@ -563,6 +561,12 @@ void CCoolBarCtrl::DoPaint(CDC* pDC)
 			rc.top		-= m_cxLeftBorder;
 			rc.right	+= m_cyBottomBorder;
 			rc.bottom	+= m_cxRightBorder;
+
+			if ( rc.top < 2 )	// Library top bars workaround fix
+			{
+				rc.top += 2;
+				rc.bottom += 2;
+			}
 		}
 		else
 		{
@@ -586,28 +590,17 @@ void CCoolBarCtrl::DoPaint(CDC* pDC)
 void CCoolBarCtrl::DoPaint(CDC* pDC, CRect& rcClient, BOOL bTransparent)
 {
 	CRect rcItem( rcClient.left + MARGIN_WIDTH, rcClient.top + 1, rcClient.right - MARGIN_WIDTH, rcClient.bottom - 1 );
-	CRect rcCopy;
 
 	if ( m_bGripper && Settings.Skin.MenuGripper )
 	{
-		if ( bTransparent )
+		for ( int nY = rcClient.top + 4 ; nY < rcClient.bottom - 4 ; nY += 2 )
 		{
-			for ( int nY = rcClient.top + 4 ; nY < rcClient.bottom - 4 ; nY += 2 )
-			{
-				pDC->Draw3dRect( rcClient.left + 3, nY, GRIPPER_WIDTH, 1,
-					Colors.m_crDisabled, Colors.m_crDisabled );
-			}
+			pDC->Draw3dRect( rcClient.left + 3, nY, GRIPPER_WIDTH, bTransparent ? 1 : 2,
+				Colors.m_crDisabled, bTransparent ? Colors.m_crDisabled : Colors.m_crMidtone );
 		}
-		else
-		{
-			for ( int nY = rcClient.top + 4 ; nY < rcClient.bottom - 4 ; nY += 2 )
-			{
-				pDC->Draw3dRect( rcClient.left + 3, nY, GRIPPER_WIDTH, 2,
-					Colors.m_crDisabled, Colors.m_crMidtone );
-			}
 
+		if ( ! bTransparent )
 			pDC->ExcludeClipRect( rcClient.left + 3, rcClient.top + 4, rcClient.left + GRIPPER_WIDTH + 2, rcClient.bottom - 4 );
-		}
 
 		rcItem.left += GRIPPER_WIDTH;
 	}
@@ -616,6 +609,7 @@ void CCoolBarCtrl::DoPaint(CDC* pDC, CRect& rcClient, BOOL bTransparent)
 
 	CFont* pOldFont = (CFont*)pDC->SelectObject( m_bBold ? &CoolInterface.m_fntBold : &CoolInterface.m_fntNormal );
 	BOOL bRight = FALSE;
+	CRect rcCopy;
 
 	for ( POSITION pos = m_pItems.GetHeadPosition() ; pos ; )
 	{
@@ -1102,10 +1096,10 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 
 	if ( m_nID == ID_SEPARATOR )
 	{
-		rc.InflateRect( 0, 1 );
+		rc.InflateRect( 0, 2 );
 		if ( Images.DrawButtonState( pDC, rc, TOOLBAR_SEPARATOR ) )
 			return;
-		rc.DeflateRect( 0, 1 );
+		rc.DeflateRect( 0, 2 );
 
 		if ( ! bTransparent )
 			pDC->FillSolidRect( rc.left, rc.top, 3, rc.Height(), Colors.m_crMidtone );
@@ -1173,7 +1167,7 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 		rc.DeflateRect( 0, 2 );
 
 		if ( ! bTransparent && ! bSkinned )
-			pDC->Draw3dRect( &rc, Colors.m_crMidtone, Colors.m_crMidtone ); 		// Potential hole with transparent button on non-skinned toolbar?
+			pDC->Draw3dRect( &rc, Colors.m_crMidtone, Colors.m_crMidtone ); 			// Potential hole with transparent button on non-skinned toolbar?
 
 		rc.DeflateRect( 1, 1 );
 	}
@@ -1257,12 +1251,29 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 		}
 		else if ( ( bHot && ! bDown ) || ( bDown && ! bHot ) )
 		{
-			ptImage.Offset( 1, 1 );
-			pDC->SetTextColor( Colors.m_crShadow );
-			CoolInterface.DrawEx( pDC, m_nImage,
-				ptImage, CSize( 0, 0 ), crBackground, CLR_NONE, ILD_MASK );
+			//ptImage.Offset( 1, 1 );
 
-			ptImage.Offset( -2, -2 );
+			if ( crBackground != CLR_NONE || ! bSkinned )
+			{
+				pDC->SetTextColor( Colors.m_crShadow );
+				CoolInterface.DrawEx( pDC, m_nImage,
+					ptImage, CSize( 0, 0 ), crBackground, CLR_NONE, ILD_MASK );
+			}
+			else // Skinned
+			{
+			//	CoolInterface.DrawEx( pDC, m_nImage,
+			//		ptImage, CSize( 0, 0 ), crBackground, Colors.m_crShadow, ILD_NORMAL );
+
+			//	CoolInterface.m_pImages16.DrawIndirect( pDC, m_nImage, (POINT)ptImage, (SIZE)(CSize)( 16, 16 ), (POINT)(CPoint)0,
+			//		ILD_BLEND50|ILD_BLEND25|ILD_ROP, MERGECOPY, CLR_NONE, Colors.m_crShadow, ILS_SATURATE|ILS_ALPHA, 160, Colors.m_crShadow );
+
+			//	CoolInterface.DrawIndirect( pDC, m_nImage, (POINT)ptImage, (SIZE)(CSize)0,
+			//		CLR_NONE, Colors.m_crShadow, ILD_BLEND50|ILD_BLEND25|ILD_ROP, ILS_SATURATE|ILS_ALPHA, 160 );
+
+				CoolInterface.DrawEx( pDC, m_nImage, (POINT)ptImage, (CSize)0, CLR_NONE, Colors.m_crShadow, ILD_BLEND50|ILD_BLEND25 );
+			}
+
+			ptImage.Offset( -1, -1 );
 
 			if ( crBackground != CLR_NONE || ! bSkinned )
 			{
@@ -1273,7 +1284,8 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 			CoolInterface.DrawEx( pDC, m_nImage,
 				ptImage, CSize( 0, 0 ), CLR_NONE, CLR_NONE, ILD_NORMAL );
 
-			pDC->ExcludeClipRect( ptImage.x, ptImage.y, ptImage.x + 18, ptImage.y + 18 );
+			if ( crBackground != CLR_NONE || ! bSkinned )
+				pDC->ExcludeClipRect( ptImage.x, ptImage.y, ptImage.x + 18, ptImage.y + 18 );
 		}
 		else
 		{

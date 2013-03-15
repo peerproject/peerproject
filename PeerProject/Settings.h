@@ -113,6 +113,7 @@ public:
 	struct sSkin
 	{
 		bool		DropMenu;
+		DWORD		DropMenuLabel;
 		bool		MenuBorders;
 		bool		MenuGripper;
 		bool		RoundedSelect;

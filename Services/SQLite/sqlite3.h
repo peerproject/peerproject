@@ -1,5 +1,5 @@
 /*
-** sqlite3.h  (3.7.14) (Sept.2012)
+** sqlite3.h  (3.7.15) (Dec.2012)
 **
 ** This file is part of PeerProject (peerproject.org) © 2008-2012
 ** The original author disclaimed copyright to this source code.
@@ -83,9 +83,9 @@ extern "C" {
 /*
 ** Compile-Time Library Version Numbers
 */
-#define SQLITE_VERSION        "3.7.14"
-#define SQLITE_VERSION_NUMBER 3007014
-#define SQLITE_SOURCE_ID      "2012-09-03 15:42:36 c0d89d4a9752922f9e367362366efde4f1b06f2a"
+#define SQLITE_VERSION        "3.7.15"
+#define SQLITE_VERSION_NUMBER 3007015
+#define SQLITE_SOURCE_ID      "2012-12-12 13:36:53 cd0b37c52658bfdf992b1e3dc467bae1835a94ae"
 
 /*
 ** Run-Time Library Version Numbers
@@ -219,10 +219,12 @@ SQLITE_API int sqlite3_exec(
 #define SQLITE_IOERR_SHMLOCK           (SQLITE_IOERR | (20<<8))
 #define SQLITE_IOERR_SHMMAP            (SQLITE_IOERR | (21<<8))
 #define SQLITE_IOERR_SEEK              (SQLITE_IOERR | (22<<8))
+#define SQLITE_IOERR_DELETE_NOENT      (SQLITE_IOERR | (23<<8))
 #define SQLITE_LOCKED_SHAREDCACHE      (SQLITE_LOCKED | (1<<8))
 #define SQLITE_BUSY_RECOVERY           (SQLITE_BUSY   | (1<<8))
 #define SQLITE_CANTOPEN_NOTEMPDIR      (SQLITE_CANTOPEN | (1<<8))
 #define SQLITE_CANTOPEN_ISDIR          (SQLITE_CANTOPEN | (2<<8))
+#define SQLITE_CANTOPEN_FULLPATH       (SQLITE_CANTOPEN | (3<<8))
 #define SQLITE_CORRUPT_VTAB            (SQLITE_CORRUPT  | (1<<8))
 #define SQLITE_READONLY_RECOVERY       (SQLITE_READONLY | (1<<8))
 #define SQLITE_READONLY_CANTLOCK       (SQLITE_READONLY | (2<<8))
@@ -339,6 +341,8 @@ struct sqlite3_io_methods {
 #define SQLITE_FCNTL_VFSNAME                12
 #define SQLITE_FCNTL_POWERSAFE_OVERWRITE    13
 #define SQLITE_FCNTL_PRAGMA                 14
+#define SQLITE_FCNTL_BUSYHANDLER            15
+#define SQLITE_FCNTL_TEMPFILENAME           16
 
 /*
 ** Mutex Handle
@@ -465,6 +469,8 @@ struct sqlite3_mem_methods {
 #define SQLITE_CONFIG_URI          17  /* int */
 #define SQLITE_CONFIG_PCACHE2      18  /* sqlite3_pcache_methods2* */
 #define SQLITE_CONFIG_GETPCACHE2   19  /* sqlite3_pcache_methods2* */
+#define SQLITE_CONFIG_COVERING_INDEX_SCAN 20  /* int */
+#define SQLITE_CONFIG_SQLLOG       21  /* xSqllog, void* */
 
 /*
 ** Database Connection Configuration Options
@@ -652,6 +658,7 @@ SQLITE_API int sqlite3_errcode(sqlite3 *db);
 SQLITE_API int sqlite3_extended_errcode(sqlite3 *db);
 SQLITE_API const char *sqlite3_errmsg(sqlite3*);
 SQLITE_API const void *sqlite3_errmsg16(sqlite3*);
+SQLITE_API const char *sqlite3_errstr(int);
 
 /*
 ** SQL Statement Object

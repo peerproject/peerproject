@@ -59,7 +59,9 @@ catch(e)
 		}
 	}
 
-	svnfile.Skip( 1000 );
+	revision = null;
+
+	//svnfile.Skip( 1000 );
 	var text = svnfile.ReadAll();
 	svnfile.Close();
 

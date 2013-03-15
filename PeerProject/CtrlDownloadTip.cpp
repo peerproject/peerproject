@@ -49,9 +49,7 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNAMIC(CDownloadTipCtrl, CCoolTipCtrl)
 
 BEGIN_MESSAGE_MAP(CDownloadTipCtrl, CCoolTipCtrl)
-	//{{AFX_MSG_MAP(CDownloadTipCtrl)
 	ON_WM_TIMER()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 

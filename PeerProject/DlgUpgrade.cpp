@@ -1,7 +1,7 @@
 //
 // DlgUpgrade.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -33,30 +33,24 @@ static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif	// Debug
 
-BEGIN_MESSAGE_MAP(CUpgradeDlg, CSkinDialog)
-	//{{AFX_MSG_MAP(CUpgradeDlg)
-	//}}AFX_MSG_MAP
-END_MESSAGE_MAP()
+//BEGIN_MESSAGE_MAP(CUpgradeDlg, CSkinDialog)
+//END_MESSAGE_MAP()
 
 
 /////////////////////////////////////////////////////////////////////////////
 // CUpgradeDlg dialog
 
 CUpgradeDlg::CUpgradeDlg(CWnd* pParent) : CSkinDialog(CUpgradeDlg::IDD, pParent)
-	, m_sMessage	( _T("") )
+//	, m_sMessage	( _T("") )
 	, m_bCheck		( FALSE )
 {
-	//{{AFX_DATA_INIT(CUpgradeDlg)
-	//}}AFX_DATA_INIT
 }
 
 void CUpgradeDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CSkinDialog::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CUpgradeDlg)
 	DDX_Check(pDX, IDC_DONT_CHECK, m_bCheck);
 	DDX_Text(pDX, IDC_MESSAGE, m_sMessage);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -120,5 +114,5 @@ void CUpgradeDlg::ParseCheckAgain()
 	UpdateData();
 
 	if ( m_bCheck )
-		VersionChecker.SetNextCheck( 31 );	// ToDo: Set Update Delay
+		VersionChecker.SetNextCheck( 30 );		// ToDo: Set Update Delay
 }

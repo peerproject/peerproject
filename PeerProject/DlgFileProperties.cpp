@@ -36,7 +36,6 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNAMIC(CFilePropertiesDlg, CSkinDialog)
 
 BEGIN_MESSAGE_MAP(CFilePropertiesDlg, CSkinDialog)
-	//{{AFX_MSG_MAP(CFilePropertiesDlg)
 	ON_WM_SIZE()
 	ON_WM_TIMER()
 	ON_WM_DESTROY()
@@ -44,7 +43,6 @@ BEGIN_MESSAGE_MAP(CFilePropertiesDlg, CSkinDialog)
 	ON_WM_GETMINMAXINFO()
 	ON_CBN_SELCHANGE(IDC_SCHEMAS, OnSelChangeSchemas)
 	ON_CBN_CLOSEUP(IDC_SCHEMAS, OnCloseUpSchemas)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -62,7 +60,6 @@ CFilePropertiesDlg::CFilePropertiesDlg(CWnd* pParent, DWORD nIndex)
 void CFilePropertiesDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CSkinDialog::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CFilePropertiesDlg)
 	DDX_Control(pDX, IDC_FILE_HASH_LABEL, m_wndHash);
 	DDX_Control(pDX, IDC_FILE_ICON, m_wndIcon);
 	DDX_Control(pDX, IDCANCEL, m_wndCancel);
@@ -75,7 +72,6 @@ void CFilePropertiesDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_FILE_INDEX, m_sIndex);
 	DDX_Text(pDX, IDC_FILE_SHA1, m_sSHA1);
 	DDX_Text(pDX, IDC_FILE_TIGER, m_sTiger);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

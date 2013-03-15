@@ -54,11 +54,11 @@ inline void FillExtMap()
 		{
 			CString name (info.Name);
 			CString desc (info.Description);
-			ATLTRACE( "%3d. %7s %32s :", i, name, desc );
+			ATLTRACE( "%3d. %7s %32s :", i, info.Name, info.Description );
 			for (GFL_UINT32 j = 0; j < info.NumberOfExtension; ++j)
 			{
 				CString ext (info.Extension [j]);
-				ext = ext.MakeLower();
+				ext.MakeLower();
 				ATLTRACE( " .%s", ext );
 				if (!_ExtMap.Lookup(ext, tmp))
 					_ExtMap.SetAt(ext, name);
@@ -146,7 +146,7 @@ STDAPI DllRegisterServer(void)
 		_ExtMap.GetNextAssoc(pos, ext, tmp);
 		if ( ext == _T("pdf") || ext == _T("ps") || ext == _T("eps") || ext == _T("vst") ) continue;
 		ext.Insert(0, _T('.'));
-		ATLTRACE( "Add %s\n", ext);
+		ATLTRACE( "Add %s\n", CT2A(ext) );
 		SHSetValue(HKEY_CURRENT_USER, REG_LIBRARYBUILDER_KEY, ext, REG_SZ,
 			_T("{C937FE9E-FC47-49F8-A115-1925D95E1FE5}"),
 			38 * sizeof(TCHAR));
@@ -167,7 +167,7 @@ STDAPI DllUnregisterServer(void)
 		_ExtMap.GetNextAssoc(pos, ext, tmp);
 		if ( ext == _T("pdf") || ext == _T("ps") || ext == _T("eps") || ext == _T("vst") ) continue;
 		ext.Insert(0, _T('.'));
-		ATLTRACE( "Remove %s\n", ext);
+		ATLTRACE( "Remove %s\n", CT2A(ext) );
 		SHDeleteValue(HKEY_CURRENT_USER, REG_LIBRARYBUILDER_KEY, ext);
 	}
 
@@ -179,13 +179,13 @@ STDAPI DllInstall(BOOL bInstall, LPCWSTR pszCmdLine)
 	HRESULT hr = E_FAIL;
 	static const wchar_t szUserSwitch[] = L"user";
 
+#if defined(_MSC_VER) && (_MSC_VER >= 1500)	// No VS2005
 	if ( pszCmdLine != NULL )
 	{
-#if defined(_MSC_VER) && (_MSC_VER >= 1500)	// No VS2005
 		if ( _wcsnicmp(pszCmdLine, szUserSwitch, _countof(szUserSwitch)) == 0 )
 			AtlSetPerUserRegistration(true);
-#endif
 	}
+#endif
 
 	if ( bInstall )
 	{

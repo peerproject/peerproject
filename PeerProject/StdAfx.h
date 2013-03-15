@@ -142,7 +142,7 @@
 #include <afxwin.h>			// MFC core and standard components
 #include <afxext.h>			// MFC extensions
 #include <afxcmn.h>			// MFC support for Windows Common Controls
-//#include <afxdtctl.h>		// MFC date & time controls  (In DlgScheduleTask & PageDownloadEdit)
+#include <afxdtctl.h>		// MFC date & time controls  (For DlgScheduleTask & PageDownloadEdit)
 #include <afxtempl.h>		// MFC templates
 #include <afxmt.h>			// MFC threads
 #include <afxole.h>			// MFC OLE
@@ -289,7 +289,7 @@
 //#include <Boost/static_assert.hpp>
 
 // Handle static_assert(false,"text") prior to VS2010
-#if _MSC_VER < 1600
+#if defined(_MSC_VER) && (_MSC_VER < 1600)
 	#ifdef _STATIC_ASSERT( expr )			// VS2008
 		#define static_assert( expr, text ) _STATIC_ASSERT( expr )
 	#else
@@ -308,7 +308,7 @@
 
 #include "MinMax.hpp"
 
-#if _MSC_VER >= 1500 && _MSC_VER < 1600		// Work-around for VC9 (VS2008) where
+#if defined(_MSC_VER) && (_MSC_VER >= 1500) && (_MSC_VER < 1600)		// Work-around for VC9 (VS2008) where
 	#pragma warning( pop )					// a (pop) is ifdef'd out in stdio.h
 #endif
 

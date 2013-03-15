@@ -32,11 +32,9 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNCREATE(CGnutellaSettingsPage, CSettingsPage)
 
 BEGIN_MESSAGE_MAP(CGnutellaSettingsPage, CSettingsPage)
-	//{{AFX_MSG_MAP(CGnutellaSettingsPage)
 	ON_BN_CLICKED(IDC_G2_ENABLE, OnG2Today)
 	ON_BN_CLICKED(IDC_G1_ENABLE, OnG1Today)
 	ON_BN_CLICKED(IDC_G2_ALWAYS, OnG2Always)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -59,8 +57,6 @@ CGnutellaSettingsPage::CGnutellaSettingsPage()
 	, m_bDeflateLeaf2Hub ( FALSE )
 	, m_bDeflateHub2Leaf ( FALSE )
 {
-	//{{AFX_DATA_INIT(CGnutellaSettingsPage)
-	//}}AFX_DATA_INIT
 }
 
 CGnutellaSettingsPage::~CGnutellaSettingsPage()
@@ -70,7 +66,6 @@ CGnutellaSettingsPage::~CGnutellaSettingsPage()
 void CGnutellaSettingsPage::DoDataExchange(CDataExchange* pDX)
 {
 	CSettingsPage::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CGnutellaSettingsPage)
 	DDX_Control(pDX, IDC_G2_PEERS_SPIN, m_wndG2Peers);
 	DDX_Control(pDX, IDC_G2_LEAFS_SPIN, m_wndG2Leafs);
 	DDX_Control(pDX, IDC_G2_HUBS_SPIN, m_wndG2Hubs);
@@ -92,7 +87,6 @@ void CGnutellaSettingsPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Check(pDX, IDC_DEFLATE_HUB2LEAF, m_bDeflateHub2Leaf);
 	DDX_Control(pDX, IDC_G1_CLIENTMODE, m_wndG1ClientMode);
 	DDX_Control(pDX, IDC_G2_CLIENTMODE, m_wndG2ClientMode);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

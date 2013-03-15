@@ -35,15 +35,13 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNCREATE(CNetworksSettingsPage, CSettingsPage)
 
 BEGIN_MESSAGE_MAP(CNetworksSettingsPage, CSettingsPage)
-	//{{AFX_MSG_MAP(CNetworksSettingsPage)
+	ON_WM_CTLCOLOR()
+	ON_WM_SETCURSOR()
+	ON_WM_LBUTTONUP()
 	ON_BN_CLICKED(IDC_G2_ENABLE, OnG2Enable)
 	ON_BN_CLICKED(IDC_G1_ENABLE, OnG1Enable)
 	ON_BN_CLICKED(IDC_ED2K_ENABLE, OnEd2kEnable)
 	ON_BN_CLICKED(IDC_DC_ENABLE, OnDCEnable)
-	ON_WM_CTLCOLOR()
-	ON_WM_SETCURSOR()
-	ON_WM_LBUTTONUP()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -57,8 +55,6 @@ CNetworksSettingsPage::CNetworksSettingsPage()
 	, m_bEDEnable ( FALSE )
 	, m_bDCEnable ( FALSE )
 {
-	//{{AFX_DATA_INIT(CNetworksSettingsPage)
-	//}}AFX_DATA_INIT
 }
 
 CNetworksSettingsPage::~CNetworksSettingsPage()
@@ -68,7 +64,6 @@ CNetworksSettingsPage::~CNetworksSettingsPage()
 void CNetworksSettingsPage::DoDataExchange(CDataExchange* pDX)
 {
 	CSettingsPage::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CNetworksSettingsPage)
 	DDX_Control(pDX, IDC_G2_SETUP, m_wndG2Setup);
 	DDX_Control(pDX, IDC_G1_SETUP, m_wndG1Setup);
 	DDX_Control(pDX, IDC_ED2K_SETUP, m_wndEDSetup);
@@ -77,7 +72,6 @@ void CNetworksSettingsPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Check(pDX, IDC_G1_ENABLE, m_bG1Enable);
 	DDX_Check(pDX, IDC_ED2K_ENABLE, m_bEDEnable);
 	DDX_Check(pDX, IDC_DC_ENABLE, m_bDCEnable);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

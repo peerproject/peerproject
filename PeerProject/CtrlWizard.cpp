@@ -54,7 +54,6 @@ CWizardCtrl::~CWizardCtrl()
 }
 
 BEGIN_MESSAGE_MAP(CWizardCtrl, CWnd)
-	//{{AFX_MSG_MAP(CWizardCtrl)
 	ON_WM_CREATE()
 	ON_WM_DESTROY()
 	ON_WM_PAINT()
@@ -64,7 +63,6 @@ BEGIN_MESSAGE_MAP(CWizardCtrl, CWnd)
 	ON_WM_SETFOCUS()
 	ON_WM_SHOWWINDOW()
 	ON_BN_CLICKED(IDC_WIZARD_CONTROL, OnBtnPress)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 void CWizardCtrl::Clear()

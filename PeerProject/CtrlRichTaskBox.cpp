@@ -20,6 +20,7 @@
 #include "PeerProject.h"
 #include "RichDocument.h"
 #include "CtrlRichTaskBox.h"
+#include "Colors.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -30,10 +31,8 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNAMIC(CRichTaskBox, CTaskBox)
 
 BEGIN_MESSAGE_MAP(CRichTaskBox, CTaskBox)
-	//{{AFX_MSG_MAP(CRichTaskBox)
 	ON_WM_CREATE()
 	ON_WM_SIZE()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -85,6 +84,12 @@ void CRichTaskBox::OnSize(UINT nType, int cx, int cy)
 void CRichTaskBox::SetDocument(CRichDocument* pDocument)
 {
 	m_wndView.SetDocument( pDocument );
+
+	if ( pDocument->m_crBackground == Colors.m_crRichdocBack )
+		pDocument->m_crBackground = Colors.m_crTaskBoxClient;
+	if ( pDocument->m_crText == Colors.m_crRichdocText )
+		pDocument->m_crText = Colors.m_crTaskBoxText;
+
 	Update();
 }
 

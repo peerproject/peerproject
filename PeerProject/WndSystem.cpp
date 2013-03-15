@@ -94,6 +94,12 @@ void CSystemWnd::OnDestroy()
 	CPanelWnd::OnDestroy();
 }
 
+void CSystemWnd::OnSkinChange()
+{
+	CPanelWnd::OnSkinChange();
+	m_wndText.OnSkinChange();
+}
+
 void CSystemWnd::OnTimer(UINT_PTR /*nIDEvent*/)
 {
 	CQuickLock pLock( theApp.m_csMessage );

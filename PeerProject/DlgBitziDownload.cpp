@@ -31,12 +31,10 @@ static char THIS_FILE[] = __FILE__;
 #endif	// Debug
 
 BEGIN_MESSAGE_MAP(CBitziDownloadDlg, CSkinDialog)
-	//{{AFX_MSG_MAP(CBitziDownloadDlg)
 	ON_WM_TIMER()
+	ON_WM_CTLCOLOR()
 	ON_WM_SETCURSOR()
 	ON_WM_LBUTTONDOWN()
-	ON_WM_CTLCOLOR()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -45,19 +43,15 @@ END_MESSAGE_MAP()
 
 CBitziDownloadDlg::CBitziDownloadDlg(CWnd* pParent) : CSkinDialog(CBitziDownloadDlg::IDD, pParent)
 {
-	//{{AFX_DATA_INIT(CBitziDownloadDlg)
-	//}}AFX_DATA_INIT
 }
 
 void CBitziDownloadDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CSkinDialog::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CBitziDownloadDlg)
 	DDX_Control(pDX, IDC_WEB, m_wndWeb);
 	DDX_Control(pDX, IDC_FILES, m_wndFiles);
 	DDX_Control(pDX, IDCANCEL, m_wndCancel);
 	DDX_Control(pDX, IDC_PROGRESS, m_wndProgress);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////

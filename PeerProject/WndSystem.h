@@ -34,6 +34,8 @@ protected:
 
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
 
+	virtual void OnSkinChange();
+
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
 	afx_msg void OnTimer(UINT_PTR nIDEvent);

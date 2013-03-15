@@ -35,10 +35,8 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNCREATE(CPluginWnd, CPanelWnd)
 
 BEGIN_MESSAGE_MAP(CPluginWnd, CPanelWnd)
-	//{{AFX_MSG_MAP(CPluginWnd)
 	ON_WM_CREATE()
 	ON_WM_SIZE()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 BEGIN_INTERFACE_MAP(CPluginWnd, CPanelWnd)

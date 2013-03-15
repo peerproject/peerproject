@@ -42,9 +42,7 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNAMIC(CProfileManagerDlg, CSettingsSheet)
 
 BEGIN_MESSAGE_MAP(CProfileManagerDlg, CSettingsSheet)
-	//{{AFX_MSG_MAP(CProfileManagerDlg)
 	ON_COMMAND(IDRETRY, OnApply)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
