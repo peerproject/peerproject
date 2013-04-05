@@ -1,7 +1,7 @@
 //
 // WizardSheet.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2012
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -19,6 +19,7 @@
 #pragma once
 
 #include "PagePropertyAdv.h"
+#include "CoolInterface.h"	// For FixInterface Checkboxes
 
 
 class CWizardSheet : public CPropertySheetAdv
@@ -31,15 +32,16 @@ public:
 	CRect			m_rcPage;
 	CBitmap			m_bmHeader;
 
-	static BOOL	RunWizard(CWnd* pParent = NULL);
+	static BOOL 	RunWizard(CWnd* pParent = NULL);
 
 protected:
-	virtual BOOL OnChildNotify(UINT message, WPARAM wParam, LPARAM lParam, LRESULT* pLResult);
-	virtual BOOL OnInitDialog();
+	virtual BOOL	OnChildNotify(UINT message, WPARAM wParam, LPARAM lParam, LRESULT* pLResult);
+	virtual BOOL	OnInitDialog();
 
-	afx_msg void OnPaint();
-	afx_msg void OnSize(UINT nType, int cx, int cy);
-	afx_msg void OnXButtonDown(UINT nFlags, UINT nButton, CPoint point);
+	afx_msg void	OnPaint();
+	afx_msg HBRUSH	OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+	afx_msg void	OnSize(UINT nType, int cx, int cy);
+	afx_msg void	OnXButtonDown(UINT nFlags, UINT nButton, CPoint point);
 
 	DECLARE_MESSAGE_MAP()
 };
@@ -58,7 +60,7 @@ public:
 	BOOL			IsConnectionCapable();
 
 protected:
-	afx_msg void OnSize(UINT nType, int cx, int cy);
+	afx_msg void	OnSize(UINT nType, int cx, int cy);
 
 	DECLARE_MESSAGE_MAP()
 };

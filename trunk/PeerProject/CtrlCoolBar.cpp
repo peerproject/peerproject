@@ -1239,14 +1239,12 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 
 		if ( ! m_bEnabled )
 		{
-			CoolInterface.DrawEx( pDC, m_nImage,
-				ptImage, CSize( 0, 0 ), crBackground, Colors.m_crShadow, ILD_BLEND50 );
+			CoolInterface.DrawEx( pDC, m_nImage, (POINT)ptImage, (CSize)0, crBackground, Colors.m_crShadow, ILD_BLEND50 );
 			pDC->ExcludeClipRect( ptImage.x, ptImage.y, ptImage.x + 16, ptImage.y + 16 );
 		}
 		else if ( m_bChecked )
 		{
-			CoolInterface.DrawEx( pDC, m_nImage,
-				ptImage, CSize( 0, 0 ), crBackground, CLR_NONE, ILD_NORMAL );
+			CoolInterface.DrawEx( pDC, m_nImage, (POINT)ptImage, (CSize)0, crBackground, CLR_NONE, ILD_NORMAL );
 			pDC->ExcludeClipRect( ptImage.x, ptImage.y, ptImage.x + 16, ptImage.y + 16 );
 		}
 		else if ( ( bHot && ! bDown ) || ( bDown && ! bHot ) )
@@ -1255,14 +1253,13 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 
 			if ( crBackground != CLR_NONE || ! bSkinned )
 			{
-				pDC->SetTextColor( Colors.m_crShadow );
-				CoolInterface.DrawEx( pDC, m_nImage,
-					ptImage, CSize( 0, 0 ), crBackground, CLR_NONE, ILD_MASK );
+				pDC->SetTextColor( crBackground );		// Colors.m_crShadow
+				CoolInterface.DrawEx( pDC, m_nImage, (POINT)ptImage, (CSize)0, crBackground, CLR_NONE, ILD_MASK );
 			}
 			else // Skinned
 			{
 			//	CoolInterface.DrawEx( pDC, m_nImage,
-			//		ptImage, CSize( 0, 0 ), crBackground, Colors.m_crShadow, ILD_NORMAL );
+			//		ptImage, (CSize)0, crBackground, Colors.m_crShadow, ILD_NORMAL );
 
 			//	CoolInterface.m_pImages16.DrawIndirect( pDC, m_nImage, (POINT)ptImage, (SIZE)(CSize)( 16, 16 ), (POINT)(CPoint)0,
 			//		ILD_BLEND50|ILD_BLEND25|ILD_ROP, MERGECOPY, CLR_NONE, Colors.m_crShadow, ILS_SATURATE|ILS_ALPHA, 160, Colors.m_crShadow );
@@ -1279,19 +1276,17 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 			{
 				pDC->FillSolidRect( ptImage.x, ptImage.y, 18, 2, crBackground );
 				pDC->FillSolidRect( ptImage.x, ptImage.y + 2, 2, 16, crBackground );
+				CoolInterface.DrawEx( pDC, m_nImage, (POINT)ptImage, (CSize)0, crBackground, CLR_NONE, ILD_NORMAL );
+				pDC->ExcludeClipRect( ptImage.x, ptImage.y, ptImage.x + 16, ptImage.y + 16 );
 			}
-
-			CoolInterface.DrawEx( pDC, m_nImage,
-				ptImage, CSize( 0, 0 ), CLR_NONE, CLR_NONE, ILD_NORMAL );
-
-			if ( crBackground != CLR_NONE || ! bSkinned )
-				pDC->ExcludeClipRect( ptImage.x, ptImage.y, ptImage.x + 18, ptImage.y + 18 );
+			else // Skinned
+			{
+				CoolInterface.DrawEx( pDC, m_nImage, (POINT)ptImage, (CSize)0, CLR_NONE, CLR_NONE, ILD_NORMAL );
+			}
 		}
 		else
 		{
-			CoolInterface.DrawEx( pDC, m_nImage,
-				ptImage, CSize( 0, 0 ), crBackground, Colors.m_crBackNormal,
-				bDown ? ILD_BLEND25 : ILD_NORMAL );
+			CoolInterface.DrawEx( pDC, m_nImage, (POINT)ptImage, (CSize)0, crBackground, Colors.m_crBackNormal, bDown ? ILD_BLEND25 : ILD_NORMAL );
 			pDC->ExcludeClipRect( ptImage.x, ptImage.y, ptImage.x + 16, ptImage.y + 16 );
 		}
 	}

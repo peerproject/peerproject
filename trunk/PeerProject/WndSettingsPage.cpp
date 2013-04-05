@@ -189,7 +189,7 @@ void CSettingsPage::OnSkinChange()
 //		TCHAR szName[8];
 //		GetClassName( pWnd->GetSafeHwnd(), szName, 8 );			// Alt detection method for exceptions
 //		if ( _tcsnicmp( szName, _PT("Button") ) == 0 &&
-//			 ( pWnd->GetStyle() & BS_CHECKBOX ) || ( ( pWnd->GetStyle() & BS_GROUPBOX ) && pWnd->GetDlgCtrlID() == IDC_STATIC ) )	
+//			 ( pWnd->GetStyle() & BS_CHECKBOX ) || ( ( pWnd->GetStyle() & BS_GROUPBOX ) && pWnd->GetDlgCtrlID() == IDC_STATIC ) )
 //			CCoolInterface::EnableTheme( pWnd, bThemed );
 //	}
 }

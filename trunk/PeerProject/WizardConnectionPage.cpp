@@ -210,6 +210,8 @@ BOOL CWizardConnectionPage::OnSetActive()
 	GetWindowText( strCaption );
 	GetParent()->SetWindowText( strCaption );
 
+	CoolInterface.FixTheme( this );		// Checkbox/Groupbox text colors (Remove theme if needed)
+
 	SetWizardButtons( PSWIZB_BACK | PSWIZB_NEXT );
 	m_wndProgress.SetPos( 0 );
 	m_wndStatus.SetWindowText( L"" );

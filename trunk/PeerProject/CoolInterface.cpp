@@ -646,9 +646,19 @@ void CCoolInterface::FixTheme(CWnd* pWnd, BOOL bForce /*=TRUE*/)
 	for ( CWnd* pChild = pWnd->GetWindow( GW_CHILD ) ; pChild ; pChild = pChild->GetNextWindow() )
 	{
 		TCHAR szName[8];
-		GetClassName( pChild->GetSafeHwnd(), szName, 8 );			// Alt detection method for exceptions
-		if ( _tcsnicmp( szName, _PT("Button") ) == 0 &&
-			 ( pChild->GetStyle() & BS_CHECKBOX ) || ( ( pChild->GetStyle() & BS_GROUPBOX ) && pChild->GetDlgCtrlID() == IDC_STATIC ) )	
+		GetClassName( pChild->GetSafeHwnd(), szName, 8 );		// Alt detection method for exceptions
+		if ( _tcsnicmp( szName, _PT("Button") ) != 0 )
+			continue;
+
+		const int nID = pChild->GetDlgCtrlID();
+		if ( nID > IDC_STATIC && nID < 1000 )					// BS_PUSHBUTTON BS_DEFPUSHBUTTON
+			continue;
+
+		const DWORD nStyle = pChild->GetStyle();
+		if ( ( nStyle & BS_CHECKBOX ) ||
+			 ( nStyle & BS_RADIOBUTTON ) ||
+			 ( nStyle & BS_AUTORADIOBUTTON ) ||
+			 ( ( nStyle & BS_GROUPBOX ) && nID == IDC_STATIC ) )
 			EnableTheme( pChild, bThemed );
 	}
 }

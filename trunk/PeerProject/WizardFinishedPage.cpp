@@ -80,6 +80,8 @@ BOOL CWizardFinishedPage::OnSetActive()
 	GetWindowText( strCaption );
 	GetParent()->SetWindowText( strCaption );
 
+	CoolInterface.FixTheme( this );		// Checkbox/Groupbox text colors (Remove theme if needed)
+
 	SetWizardButtons( PSWIZB_BACK | PSWIZB_FINISH );
 	return CWizardPage::OnSetActive();
 }

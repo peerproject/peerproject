@@ -2646,7 +2646,9 @@ void CListLoader::OnRun()
 					Sleep( 1 );		// Limit CPU
 				}
 
-				if ( StartsWith( strLine, _PT("urn:") ) || ( ! strURN.IsEmpty() && strLine.Find( _T('.'), 5 ) < 0 ) )
+				// Hashes:
+
+				if ( ( ! strURN.IsEmpty() && strLine.Find( _T('.'), 5 ) < 0 ) || StartsWith( strLine, _PT("urn:") ) )
 				{
 					nPos = strLine.FindOneOf( _T(" \t") );
 					if ( nPos > 0 )
@@ -2660,9 +2662,21 @@ void CListLoader::OnRun()
 					continue;
 				}
 
+				// IPs:
+
 				nPos = strLine.ReverseFind( _T(':') );
 				if ( nPos > 0 )
 					strLine = strLine.Mid( nPos + 1 );			// Remove leading comment for some formats
+
+				nPos = strLine.FindOneOf( _T(" \t") );
+				if ( nPos > 0 )
+					strLine.Truncate( nPos );					// Trim at whitespace (remove any trailing comments)
+
+				if ( strLine.GetLength() < 7 || strLine.Find( _T('.') ) < 1 )
+				{
+					nCount--;
+					continue;
+				}
 
 				nPos = strLine.Find( _T('-') );					// Possible Range
 				if ( nPos < 0 )									// Single IP
