@@ -930,7 +930,7 @@ void CWndTabBar::TabItem::Paint(CWndTabBar* pBar, CDC* pDC, CRect* pRect, BOOL b
 		rc.right -= 16;
 		ptImage.x = rc.right;
 		CoolInterface.DrawEx( pDC, pBar->m_nCloseImage,
-			ptImage, CSize( 0, 0 ), crBack, Colors.m_crShadow, ( bHot && pBar->m_bCloseButton ) ? ILD_NORMAL : ILD_BLEND50 );
+			ptImage, (CSize)0, crBack, Colors.m_crShadow, ( bHot && pBar->m_bCloseButton ) ? ILD_NORMAL : ILD_BLEND50 );
 		if ( crBack != CLR_NONE )
 		{
 			pDC->ExcludeClipRect( ptImage.x, ptImage.y, ptImage.x + 16, ptImage.y + 16 );

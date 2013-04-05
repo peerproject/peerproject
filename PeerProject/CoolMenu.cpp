@@ -442,7 +442,7 @@ void CCoolMenu::OnDrawItemInternal(LPDRAWITEMSTRUCT lpDrawItemStruct)
 
 		if ( bDisabled )
 		{
-			CoolInterface.DrawEx( pDC, nIcon, pt, CSize( 0, 0 ), CLR_NONE, Colors.m_crDisabled, ILD_BLEND50 );
+			CoolInterface.DrawEx( pDC, nIcon, pt, (CSize)0, CLR_NONE, Colors.m_crDisabled, ILD_BLEND50 );
 		}
 		else if ( bChecked )
 		{
@@ -452,16 +452,18 @@ void CCoolMenu::OnDrawItemInternal(LPDRAWITEMSTRUCT lpDrawItemStruct)
 		{
 			pt.Offset( 1, 1 );
 
-			if ( ! m_bmWatermark.m_hObject || theApp.m_bIsWin2000 )
+#ifndef WIN64
+			if ( /*! m_bmWatermark.m_hObject ||*/ theApp.m_bIsWin2000 )
 			{
 				pDC->SetTextColor( Colors.m_crShadow );
 				CoolInterface.Draw( pDC, nIcon, pt, ILD_MASK );
 			}
 			else	// Skinned
+#endif
 			{
 			//	CoolInterface.DrawIndirect( pDC, nIcon, (POINT)pt, (SIZE)(CSize)0,
 			//		CLR_NONE, Colors.m_crShadow, ILD_BLEND50|ILD_BLEND25|ILD_ROP, ILS_SATURATE|ILS_ALPHA, 160 );
-				CoolInterface.DrawEx( pDC, nIcon, pt, CSize( 0, 0 ), CLR_NONE, Colors.m_crShadow, ILD_BLEND50|ILD_BLEND25 );
+				CoolInterface.DrawEx( pDC, nIcon, pt, (CSize)0, CLR_NONE, Colors.m_crShadow, ILD_BLEND50|ILD_BLEND25 );
 			}
 
 			pt.Offset( -2, -2 );
@@ -469,7 +471,7 @@ void CCoolMenu::OnDrawItemInternal(LPDRAWITEMSTRUCT lpDrawItemStruct)
 		}
 		else
 		{
-			CoolInterface.DrawEx( pDC, nIcon, pt, CSize( 0, 0 ), CLR_NONE, Colors.m_crMargin, ILD_NORMAL );
+			CoolInterface.DrawEx( pDC, nIcon, pt, (CSize)0, CLR_NONE, Colors.m_crMargin, ILD_NORMAL );
 		}
 	}
 

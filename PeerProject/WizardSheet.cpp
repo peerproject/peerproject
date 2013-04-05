@@ -50,6 +50,7 @@ IMPLEMENT_DYNAMIC(CWizardSheet, CPropertySheetAdv)
 BEGIN_MESSAGE_MAP(CWizardSheet, CPropertySheetAdv)
 	ON_WM_PAINT()
 	ON_WM_SIZE()
+	ON_WM_CTLCOLOR()
 	ON_WM_XBUTTONDOWN()
 END_MESSAGE_MAP()
 
@@ -58,8 +59,6 @@ END_MESSAGE_MAP()
 
 BOOL CWizardSheet::RunWizard(CWnd* pParent)
 {
-	BOOL bSuccess = FALSE;
-
 	CWizardSheet pSheet( pParent );
 
 	CWizardWelcomePage		pWelcome;
@@ -80,7 +79,8 @@ BOOL CWizardSheet::RunWizard(CWnd* pParent)
 	pSheet.AddPage( &pProfile );
 	pSheet.AddPage( &pFinished );
 
-	bSuccess = ( pSheet.DoModal() == IDOK );
+	BOOL bSuccess = ( pSheet.DoModal() == IDOK );
+
 	Settings.Save();
 
 	return bSuccess;
@@ -230,6 +230,21 @@ void CWizardSheet::OnPaint()
 		CoolInterface.DrawWatermark( &dc, &rc, &Images.m_bmDialog );
 	else
 		dc.FillSolidRect( rc.left, rc.top, rc.Width(), CONTROLBAR_HEIGHT, Colors.m_crSysBtnFace );	// Colors.m_crDialog?
+}
+
+HBRUSH CWizardSheet::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+{
+	// Skinned dialog controls
+	if ( nCtlColor == CTLCOLOR_STATIC && Images.m_bmDialog.m_hObject )
+	{
+		// Offset background image brush to mimic transparency
+		CRect rc;
+		pWnd->GetWindowRect( &rc );
+		ScreenToClient( &rc );
+		pDC->SetBrushOrg( -rc.left, -rc.top );
+	}
+
+	return Images.m_brDialog;
 }
 
 void CWizardSheet::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint /*point*/)

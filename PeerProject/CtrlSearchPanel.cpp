@@ -822,13 +822,13 @@ int CSearchAdvancedBox::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	// Network checkboxes
 	if ( ! m_wndCheckBoxG2.Create( L"G2", WS_CHILD | WS_VISIBLE | WS_TABSTOP |
-		BS_CHECKBOX, rc, this, IDC_SEARCH_GNUTELLA2 ) ) return -1;
+		BS_CHECKBOX | BS_FLAT, rc, this, IDC_SEARCH_GNUTELLA2 ) ) return -1;
 	if ( ! m_wndCheckBoxG1.Create( L"G1", WS_CHILD | WS_VISIBLE | WS_TABSTOP |
-		BS_CHECKBOX, rc, this, IDC_SEARCH_GNUTELLA1 ) ) return -1;
+		BS_CHECKBOX | BS_FLAT, rc, this, IDC_SEARCH_GNUTELLA1 ) ) return -1;
 	if ( ! m_wndCheckBoxED2K.Create( L"ED2K", WS_CHILD | WS_VISIBLE | WS_TABSTOP |
-		BS_CHECKBOX, rc, this, IDC_SEARCH_EDONKEY ) ) return -1;
+		BS_CHECKBOX | BS_FLAT, rc, this, IDC_SEARCH_EDONKEY ) ) return -1;
 	if ( ! m_wndCheckBoxDC.Create( L"DC++", WS_CHILD | WS_VISIBLE | WS_TABSTOP |
-		BS_CHECKBOX, rc, this, IDC_SEARCH_DC ) ) return -1;
+		BS_CHECKBOX | BS_FLAT, rc, this, IDC_SEARCH_DC ) ) return -1;
 
 	m_wndCheckBoxG2.SetFont( &theApp.m_gdiFontBold );
 	m_wndCheckBoxG1.SetFont( &theApp.m_gdiFontBold );
@@ -862,7 +862,18 @@ void CSearchAdvancedBox::OnSkinChange()
 	OnSize( NULL, rc.Width(), rc.Height() );
 
 	if ( m_brBack.m_hObject ) m_brBack.DeleteObject();
-		m_brBack.CreateSolidBrush( m_crBack = Colors.m_crTaskBoxClient );
+	m_brBack.CreateSolidBrush( m_crBack = Colors.m_crTaskBoxClient );
+
+	//CoolInterface.FixTheme( this );		// Checkbox/Groupbox text colors (Remove theme if needed)
+	const BOOL bThemed =
+		GetRValue( Colors.m_crTaskBoxText ) < 100 &&
+		GetGValue( Colors.m_crTaskBoxText ) < 100 &&
+		GetBValue( Colors.m_crTaskBoxText ) < 100;
+
+	CoolInterface.EnableTheme( &m_wndCheckBoxG2, bThemed );
+	CoolInterface.EnableTheme( &m_wndCheckBoxG1, bThemed );
+	CoolInterface.EnableTheme( &m_wndCheckBoxED2K, bThemed );
+	CoolInterface.EnableTheme( &m_wndCheckBoxDC, bThemed );
 }
 
 void CSearchAdvancedBox::OnSize(UINT nType, int cx, int cy)
@@ -1004,12 +1015,15 @@ void CSearchAdvancedBox::OnPaint()
 		m_wndCheckBoxDC.ModifyStyle( WS_VISIBLE, 0 );
 }
 
-LRESULT CSearchAdvancedBox::OnCtlColorStatic(WPARAM /*wParam*/, LPARAM /*lParam*/)
+LRESULT CSearchAdvancedBox::OnCtlColorStatic(WPARAM wParam, LPARAM /*lParam*/)
 {
 	//HBRUSH hbr = NULL;
-	//HDC hDCStatic = (HDC)wParam;
+	HDC hDCStatic = (HDC)wParam;
 
 	//hbr = m_brBack;
+
+	SetBkColor( hDCStatic, Colors.m_crTaskBoxClient );
+	SetTextColor( hDCStatic, Colors.m_crTaskBoxText );
 
 	return (LRESULT)(HBRUSH)m_brBack;
 }

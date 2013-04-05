@@ -419,7 +419,7 @@ FONT 8, "Tahoma"
 BEGIN
 	GROUPBOX		"Gnutella2 Network:",IDC_STATIC,6,5,132,74,WS_GROUP
 	CONTROL			"Connect to G2 now",IDC_G2_ENABLE,"Button",BS_AUTOCHECKBOX|BS_FLAT|WS_TABSTOP,14,18,120,10
-	CONTROL			"Connect to G2 at startup",IDC_G2_ALWAYS,"Button",BS_AUTO3STATE|WS_TABSTOP,14,34,120,10
+	CONTROL			"Connect to G2 at startup",IDC_G2_ALWAYS,"Button",BS_AUTO3STATE|BS_FLAT|WS_TABSTOP,14,34,120,10
 	RTEXT			"Mode:",IDC_STATIC,16,58,50,8,0
 	COMBOBOX		IDC_G2_CLIENTMODE,71,56,56,54,CBS_DROPDOWNLIST|WS_VSCROLL|WS_TABSTOP
 	GROUPBOX		"G&2 Connections:",IDC_STATIC,6,88,132,74,WS_GROUP
@@ -796,8 +796,8 @@ FONT 8, "Tahoma"
 BEGIN
 	LTEXT			"PeerProject supports a flexible user interface, so you can choose what is most comfortable for you.  You can change these options at any time.",IDC_STATIC,10,10,270,20
 	GROUPBOX		"Please select user interface:",IDC_STATIC,7,30,269,83
-	CONTROL			"Basic Mode",IDC_INTERFACE_BASIC,"Button",BS_AUTORADIOBUTTON|WS_GROUP,14,42,250,10
-	CONTROL			"Power Mode",IDC_INTERFACE_EXPERT,"Button",BS_AUTORADIOBUTTON,14,78,250,10
+	CONTROL			"Basic Mode",IDC_INTERFACE_BASIC,"Button",BS_AUTORADIOBUTTON|BS_FLAT|WS_GROUP,14,42,250,10
+	CONTROL			"Power Mode",IDC_INTERFACE_EXPERT,"Button",BS_AUTORADIOBUTTON|BS_FLAT,14,78,250,10
 	LTEXT			"Simple, easy to use menus with fewer options.\nHelpful for new users of file sharing.",IDC_DESCRIPTION_BASIC,27,54,243,21
 	LTEXT			"Standard view offers users all available commands, windows, etc.\nMight be more confusing for brand new users.",IDC_DESCRIPTION_EXPERT,27,90,243,21
 	CONTROL			"Display simplified download progress bars.  (Less detail for new users)",IDC_DOWNLOADS_SIMPLEBAR,"Button",BS_AUTOCHECKBOX|BS_FLAT|WS_TABSTOP,14,121,256,10

@@ -60,7 +60,7 @@
  <color name="System.Disabled"				value="888480"/>
  <color name="System.Text"				value="DDDCDA"/>
  <color name="System.Text.Selected"			value="FFFDFA"/>
- <color name="System.TextLink"				value="1088DD"/>
+ <color name="System.TextLink"				value="108AE8"/>
  <color name="System.TextLink.Selected" 		value="3399FF"/>
  <color name="System.TextAlert" 			value="EA4A60"/>
  <color name="System.TextStatus"			value="109000"/>
@@ -119,8 +119,8 @@
  <color name="Meta.Rating4"				value="605A55"/>
  <color name="Meta.Rating5"				value="000000"/>
  <color name="Richdoc.Back"				value="12100B"/>
- <color name="Richdoc.Text"				value="4A4440"/>
- <color name="Richdoc.Heading"				value="B03020"/>
+ <color name="Richdoc.Text"				value="5C5852"/>
+ <color name="Richdoc.Heading"				value="BB3828"/>
  <color name="Navbar.Text.Up"				value="EEECEA"/>
  <color name="Navbar.Text.Hover"			value="FFFFFF"/>
  <color name="Navbar.Text.Checked"			value="EFEDEC"/>

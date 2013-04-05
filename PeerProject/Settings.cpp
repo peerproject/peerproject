@@ -719,9 +719,20 @@ void CSettings::Load()
 	CreateDirectory( Downloads.CollectionPath );
 
 	// Set interface
-	Interface.LowResMode = ! ( GetSystemMetrics( SM_CYSCREEN ) > 600 );
+	Interface.LowResMode = GetSystemMetrics( SM_CYSCREEN ) < 640;
 	if ( Live.FirstRun )
 		Search.AdvancedPanel = ! Interface.LowResMode;
+
+	// Re-set languauge (new user)
+	if ( Live.FirstRun && IsDefault( &General.Language ) )
+	{
+		CString strDefaultLanguage = CRegistry::GetString( NULL, _T("DefaultLanguage") );
+		if ( ! strDefaultLanguage.IsEmpty() )
+		{
+			General.Language = strDefaultLanguage;
+			General.LanguageRTL = CRegistry::GetDword( NULL, _T("DefaultLanguageRTL") ) != 0;
+		}
+	}
 
 	// Set current networks
 	Gnutella2.Enabled	= Gnutella2.EnableAlways;

@@ -380,8 +380,6 @@ BOOL CPlugins::ReloadPlugin(LPCTSTR pszGroup, LPCTSTR pszType)
 
 void CPlugins::OnRun()
 {
-	HRESULT hr;
-
 	while ( IsThreadEnabled() )
 	{
 		Doze( 1000 );
@@ -390,7 +388,10 @@ void CPlugins::OnRun()
 			break;
 
 		if ( m_inCLSID == CLSID_NULL )
+		{
+			m_pReady.PulseEvent();
 			continue;
+		}
 
 		CQuickLock oLock( m_pSection );
 
@@ -410,9 +411,11 @@ void CPlugins::OnRun()
 		pGITPlugin = new CPluginPtr;
 		if ( pGITPlugin )
 		{
+			//HRESULT hr;
+
 			// Create plugin & Add plugin interface to GIT
-			if ( SUCCEEDED( hr = pGITPlugin->m_pIUnknown.CoCreateInstance( m_inCLSID ) ) &&
-				 SUCCEEDED( hr = pGITPlugin->m_pGIT.Attach( pGITPlugin->m_pIUnknown ) ) )
+			if ( SUCCEEDED( /*hr =*/ pGITPlugin->m_pIUnknown.CoCreateInstance( m_inCLSID ) ) &&
+				 SUCCEEDED( /*hr =*/ pGITPlugin->m_pGIT.Attach( pGITPlugin->m_pIUnknown ) ) )
 			{
 				m_pCache.SetAt( m_inCLSID, pGITPlugin );
 
