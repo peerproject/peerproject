@@ -49,7 +49,7 @@
 #define SQLITE_OMIT_FOREIGN_KEY			/* Foreign Key Constraint, 10kb */
 #define SQLITE_OMIT_AUTOVACUUM			/* Pragma auto_vacuum, 9kb */
 #define SQLITE_OMIT_AUTOINCREMENT		/* Alt ROWID, 2kb */
-#define SQLITE_OMIT_MERGE_SORT			/* (3.7.8+), 5kb */
+#define SQLITE_OMIT_MERGE_SORT			/* (3.7.8+), 5kb */	/* Removed 3.7.16+ */
 #define SQLITE_OMIT_INTEGRITY_CHECK		/* Pragma integrity_check, 8kb */
 #define SQLITE_OMIT_COMPILEOPTION_DIAGS /* Compile-time diagnostics, 2kb */
 #define SQLITE_OMIT_PROGRESS_CALLBACK	/* sqlite3_progress_handler(), 1kb */
@@ -15301,7 +15301,7 @@ static int sqlite3_os_type = 0;
 ** to all overrideable system calls.
 */
 static struct win_syscall {
-  const char *zName;            /* Name of the sytem call */
+  const char *zName;            /* Name of the system call */
   sqlite3_syscall_ptr pCurrent; /* Current value of the system call */
   sqlite3_syscall_ptr pDefault; /* Default value */
 } aSyscall[] = {
@@ -16840,7 +16840,7 @@ static int winWrite(
   int amt,                        /* Number of bytes to write */
   sqlite3_int64 offset            /* Offset into the file to begin writing at */
 ){
-  int rc = 0;                     /* True if error has occured, else false */
+  int rc = 0;                     /* True if error has occurred, else false */
   winFile *pFile = (winFile*)id;  /* File handle */
   int nRetry = 0;                 /* Number of retries */
 
@@ -17735,9 +17735,9 @@ static int winOpenSharedMemory(winFile *pDbFd){
     }
 
     rc = winOpen(pDbFd->pVfs,
-                 pShmNode->zFilename,             /* Name of the file (UTF-8) */
+                 pShmNode->zFilename,              /* Name of the file (UTF-8) */
                  (sqlite3_file*)&pShmNode->hFile,  /* File handle here */
-                 SQLITE_OPEN_WAL | SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE, /* Mode flags */
+                 SQLITE_OPEN_WAL | SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE,
                  0);
     if( SQLITE_OK!=rc ){
       goto shm_open_err;
@@ -18574,7 +18574,8 @@ static int winDelete(
         attr = sAttrData.dwFileAttributes;
       }else{
         lastErrno = osGetLastError();
-        if( lastErrno==ERROR_FILE_NOT_FOUND || lastErrno==ERROR_PATH_NOT_FOUND ){
+        if( lastErrno==ERROR_FILE_NOT_FOUND
+         || lastErrno==ERROR_PATH_NOT_FOUND ){
           rc = SQLITE_IOERR_DELETE_NOENT; /* Already gone? */
         }else{
           rc = SQLITE_ERROR;
@@ -18586,7 +18587,8 @@ static int winDelete(
 #endif
       if ( attr==INVALID_FILE_ATTRIBUTES ){
         lastErrno = osGetLastError();
-        if( lastErrno==ERROR_FILE_NOT_FOUND || lastErrno==ERROR_PATH_NOT_FOUND ){
+        if( lastErrno==ERROR_FILE_NOT_FOUND
+         || lastErrno==ERROR_PATH_NOT_FOUND ){
           rc = SQLITE_IOERR_DELETE_NOENT; /* Already gone? */
         }else{
           rc = SQLITE_ERROR;
@@ -18613,7 +18615,8 @@ static int winDelete(
       attr = osGetFileAttributesA(zConverted);
       if ( attr==INVALID_FILE_ATTRIBUTES ){
         lastErrno = osGetLastError();
-        if( lastErrno==ERROR_FILE_NOT_FOUND || lastErrno==ERROR_PATH_NOT_FOUND ){
+        if( lastErrno==ERROR_FILE_NOT_FOUND
+         || lastErrno==ERROR_PATH_NOT_FOUND ){
           rc = SQLITE_IOERR_DELETE_NOENT; /* Already gone? */
         }else{
           rc = SQLITE_ERROR;
@@ -87152,11 +87155,10 @@ static void bestBtreeIndex(WhereBestIdx *p){
 ** as the last parameter. This function may calculate the cost of
 ** both real and virtual table scans.
 **
-** This function does not take ORDER BY or DISTINCT into account.  Nor
-** does it remember the virtual table query plan.  All it does is compute
-** the cost while determining if an OR optimization is applicable.  The
-** details will be reconsidered later if the optimization is found to be
-** applicable.
+** This function does not take ORDER BY or DISTINCT into account.
+** Nor does it remember the virtual table query plan.  All it does is compute
+** the cost while determining if an OR optimization is applicable.
+** The details will be reconsidered later if the optimization is found to be applicable.
 */
 static void bestIndex(WhereBestIdx *p){
 #ifndef SQLITE_OMIT_VIRTUALTABLE

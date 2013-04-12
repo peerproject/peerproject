@@ -138,12 +138,13 @@ void CSkin::CreateDefault()
 	CoolInterface.CopyIcon( ID_HELP_FAQ, ID_HELP_GUIDE );
 	CoolInterface.CopyIcon( ID_HELP_FAQ, ID_HELP_UPDATE );
 
-	CoolInterface.CopyIcon( ID_HELP_FAQ, ID_HELP_WEB_1 );
-	CoolInterface.CopyIcon( ID_HELP_FAQ, ID_HELP_WEB_2 );
-	CoolInterface.CopyIcon( ID_HELP_FAQ, ID_HELP_WEB_3 );
-	CoolInterface.CopyIcon( ID_HELP_FAQ, ID_HELP_WEB_4 );
-	CoolInterface.CopyIcon( ID_HELP_FAQ, ID_HELP_WEB_5 );
-	CoolInterface.CopyIcon( ID_HELP_FAQ, ID_HELP_WEB_6 );
+//	CoolInterface.CopyIcon( ID_HELP_FAQ, ID_HELP_WEB_1 );
+//	CoolInterface.CopyIcon( ID_HELP_FAQ, ID_HELP_WEB_2 );
+//	CoolInterface.CopyIcon( ID_HELP_FAQ, ID_HELP_WEB_3 );
+//	CoolInterface.CopyIcon( ID_HELP_FAQ, ID_HELP_WEB_4 );
+//	CoolInterface.CopyIcon( ID_HELP_FAQ, ID_HELP_WEB_5 );
+//	CoolInterface.CopyIcon( ID_HELP_FAQ, ID_HELP_WEB_6 );
+//	CoolInterface.CopyIcon( ID_HELP_FAQ, ID_HELP_WEB_SKINS );
 }
 
 void CSkin::CreateDefaultColors()
@@ -622,6 +623,7 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 		{
 			Text[ L"navbar" ]		= 'n';
 			Text[ L"dropmenu" ]		= 'd';
+			Text[ L"dropdownmenu" ]	= 'd';
 			Text[ L"submenu" ]		= 'd';
 			Text[ L"menubar" ]		= 'm';
 			Text[ L"menubars" ]		= 'm';

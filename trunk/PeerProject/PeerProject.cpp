@@ -1596,7 +1596,7 @@ void CPeerProjectApp::SetClipboard(const CString& strText, BOOL bShowTray /*=FAL
 					int nBreak = str.GetLength() > 80 ? str.Find( _T(":") ) : 0;
 					if ( nBreak > 1 && nBreak < 20 )
 						str = _T("(") + strText.Left( nBreak + 1 ) + _T(")");
-					theApp.Message( MSG_TRAY, LoadString( IDS_COPIED_TO_CLIPBOARD ) + _T("\n") + str );
+					theApp.Message( MSG_TRAY|MSG_NOTICE, LoadString( IDS_COPIED_TO_CLIPBOARD ) + _T("\n") + str );
 				}
 			}
 		}
@@ -2511,14 +2511,18 @@ CString CPeerProjectApp::GetWindowsFolder() const
 
 CString CPeerProjectApp::GetProgramFilesFolder() const
 {
-	HRESULT hr;
-	CString strProgramFiles;
+	static CString strProgramFiles;
+
+	if ( ! strProgramFiles.IsEmpty() )
+		return strProgramFiles;
+
+	// Note: Takes several seconds!
 
 	// Vista+
 	if ( m_pfnSHGetKnownFolderPath )
 	{
 		PWSTR pPath = NULL;
-		hr = m_pfnSHGetKnownFolderPath( FOLDERID_ProgramFiles,
+		HRESULT hr = m_pfnSHGetKnownFolderPath( FOLDERID_ProgramFiles,
 			KF_FLAG_CREATE | KF_FLAG_INIT, NULL, &pPath );
 		if ( pPath )
 		{
@@ -2533,7 +2537,7 @@ CString CPeerProjectApp::GetProgramFilesFolder() const
 	// XP
 	if ( m_pfnSHGetFolderPathW )
 	{
-		hr = m_pfnSHGetFolderPathW( NULL, CSIDL_PROGRAM_FILES, NULL, NULL,
+		HRESULT hr = m_pfnSHGetFolderPathW( NULL, CSIDL_PROGRAM_FILES, NULL, NULL,
 			strProgramFiles.GetBuffer( MAX_PATH ) );
 		strProgramFiles.ReleaseBuffer();
 		if ( SUCCEEDED( hr ) && ! strProgramFiles.IsEmpty() )

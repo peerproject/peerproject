@@ -463,6 +463,7 @@
     <ClCompile Include="SchemaChild.cpp" />
     <ClCompile Include="SchemaMember.cpp" />
     <ClCompile Include="SearchManager.cpp" />
+    <ClCompile Include="SecureRule.cpp" />
     <ClCompile Include="Security.cpp" />
     <ClCompile Include="Settings.cpp" />
     <ClCompile Include="ShakeNeighbour.cpp" />
@@ -1206,7 +1207,6 @@
     <None Include="Res\SearchFolder.ico" />
     <None Include="Res\Security.bmp" />
     <None Include="Res\Security.ico" />
-    <None Include="Res\SecurityImages.bmp" />
     <None Include="Res\Skin.ico" />
     <None Include="Res\SmallStar.bmp" />
     <None Include="Res\Social.png" />
@@ -1398,6 +1398,7 @@
     <ClInclude Include="SchemaChild.h" />
     <ClInclude Include="SchemaMember.h" />
     <ClInclude Include="SearchManager.h" />
+    <ClInclude Include="SecureRule.h" />
     <ClInclude Include="Security.h" />
     <ClInclude Include="Settings.h" />
     <ClInclude Include="ShakeNeighbour.h" />

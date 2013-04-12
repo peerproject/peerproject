@@ -655,7 +655,7 @@ void CScheduler::ExecuteScheduledTask(CScheduleTask *pSchTask)
 	case SYSTEM_NOTICE:					// Reminder Notes
 		LoadString( IDS_SCHEDULER_REMINDER_NOTICE );
 		theApp.Message( MSG_NOTICE, _T("Scheduler| System: Reminder Notice | ") + pSchTask->m_sDescription );
-		theApp.Message( MSG_TRAY, LoadString( IDS_SCHEDULER_REMINDER_NOTICE ) );
+		theApp.Message( MSG_TRAY|MSG_NOTICE, LoadString( IDS_SCHEDULER_REMINDER_NOTICE ) );
 
 		PostMainWndMessage( WM_COMMAND, ID_TRAY_OPEN );
 

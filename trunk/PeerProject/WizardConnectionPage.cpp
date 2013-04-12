@@ -143,7 +143,7 @@ BOOL CWizardConnectionPage::OnInitDialog()
 
 	// Translation: |Dial-up Modem|ISDN 128K|DSL 768K|DSL 1.5|Cable 3|DSL 4|DSL2 8|FIOS 10|DSL2 12|FIOS 15|FIOS 20|FIOS 25|FIOS 30|FIOS 50|T1|T3|LAN|OC3
 
-	const double nSpeeds[] = { 28.8, 33.6, 56, 64, 128, 256, 384, 512, 640, 768, 1024, 1536, 1550, 1760, 2048, 3072, 4096, 5120, 7200, 8192, 10240, 12288, 16384, 20480, 24576, 30720, 45050, 50800, 102400, 0 };
+	const double nSpeeds[] = { 28.8, 33.6, 56, 64, 128, 256, 384, 512, 640, 768, 1024, 1536, 2048, 3072, 4096, 5120, 6144, 7200, 8192, 10240, 12288, 16384, 20480, 24576, 30720, 45050, 50800, 77000, 102400, 0 };
 	for ( int nSpeed = 0 ; nSpeeds[ nSpeed ] ; nSpeed++ )
 	{
 		// Populate "0000 kbps  (0.00 MB/s)"
@@ -299,11 +299,19 @@ LRESULT CWizardConnectionPage::OnWizardNext()
 
 		m_wndDownloadSpeed.GetWindowText( strSpeed );
 		if ( _stscanf( strSpeed, _T("%lf"), &nTemp ) == 1 )
+		{
+			if ( nTemp < 400 && strSpeed.Find( _T("mbps") ) )
+				nTemp *= 1024;
 			nDownloadSpeed = (DWORD)nTemp;
+		}
 
 		m_wndUploadSpeed.GetWindowText( strSpeed );
 		if ( _stscanf( strSpeed, _T("%lf"), &nTemp ) == 1 )
+		{
+			if ( nTemp < 400 && strSpeed.Find( _T("mbps") ) )
+				nTemp *= 1024;
 			nUploadSpeed = (DWORD)nTemp;
+		}
 	}
 
 	if ( nDownloadSpeed < 2 || nUploadSpeed < 2 )
@@ -490,17 +498,21 @@ CString CWizardConnectionPage::SpeedFormat(const double nSpeed) const
 
 	if ( nSpeed < 100 )
 		strSpeed.Format( _T("%.1f kbps    (%.1f KB/s)"), nSpeed, nSpeed / 8 );
-	else if ( nSpeed < 8190 )
+	else if ( nSpeed < 1024 )
 		strSpeed.Format( _T("%.0f kbps    (%.0f KB/s)"), nSpeed, nSpeed / 8 );
+	else if ( nSpeed < 8190 )
+		strSpeed.Format( _T("%.1f mbps    (%.0f KB/s)"), nSpeed / 1024, nSpeed / 8 );
+	else if ( nSpeed < 10240 )
+		strSpeed.Format( _T("%.1f mbps    (%.2f MB/s)"), nSpeed / 1024, nSpeed / (1024*8) );
 	else
-		strSpeed.Format( _T("%.0f kbps    (%.2f MB/s)"), nSpeed, nSpeed / 8 / 1024 );
+		strSpeed.Format( _T("%.0f mbps     (%.2f MB/s)"), nSpeed / 1024, nSpeed / (1024*8) );
 
 	return strSpeed;
 }
 
 HBRUSH CWizardConnectionPage::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 {
-	HBRUSH hbr = (HBRUSH)CWizardPage::OnCtlColor( pDC, pWnd, nCtlColor );
+	HBRUSH hbr = CWizardPage::OnCtlColor( pDC, pWnd, nCtlColor );
 
 	if ( pWnd == &m_wndTest )
 	{

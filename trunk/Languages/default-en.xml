@@ -738,7 +738,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_English Language Forum"/> <!--Localized-->
-				<item id="ID_HELP_WEB_6" text="PeerProject S_kin Site"/>
+				<item id="ID_HELP_WEB_SKINS" text="PeerProject S_kin Site"/>
 				<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/> <!--
 				<item id="ID_HELP_UPDATE" text="Latest news"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
@@ -814,7 +814,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_English Language Forum"/> <!--Localized-->
-				<item id="ID_HELP_WEB_6" text="PeerProject S_kin Site"/>
+				<item id="ID_HELP_WEB_SKINS" text="PeerProject S_kin Site"/>
 				<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/>
 			</menu>
 			<separator/> <!--
@@ -916,7 +916,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_English Language Forum"/> <!--Localized-->
-				<item id="ID_HELP_WEB_6" text="PeerProject S_kin Site"/>
+				<item id="ID_HELP_WEB_SKINS" text="PeerProject S_kin Site"/>
 				<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/> <!--
 				<item id="ID_HELP_UPDATE" text="Latest news"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
@@ -4403,7 +4403,7 @@
 	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuEdBuBuStCoStCoEdStEdStEdStBuBu" caption="Security Rule">
 		<control caption="_Rule:"/>
 		<control caption="Type:"/>
-		<control caption="Network Address (IP)|Content Filter|Blocklist"/>
+		<control caption="Network Address (IP)|Content Filter|Blacklist"/>
 		<control caption="Comment:"/>
 		<control/>
 		<control caption="_Network Address:"/>
@@ -4422,7 +4422,7 @@
 		<control caption="Match Any"/>
 		<control caption="Match All"/>
 		<control caption="Reg. Exp."/>
-		<control caption="_Blocklist File:"/>
+		<control caption="_Blacklist File:"/>
 		<control/>
 		<control caption="Browse"/>
 		<control caption="_Options:"/>

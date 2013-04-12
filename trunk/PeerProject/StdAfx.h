@@ -149,11 +149,9 @@
 #include <afxpriv.h>		// MFC UI
 #include <afxhtml.h>		// MFC HTML	(For CtrlWeb)
 //#ifndef VCEXPRESS
-#include <afxocc.h> 		// MFC OCC	(For CtrlWeb)
-//#else
-//#include <MFC/afxocc.fix.h>	// ToDo: VCExpress+WDK Workaround
-//#endif
+//#include <afxocc.h> 		// MFC OCC	(For CtrlWeb?)
 #include <../src/mfc/afximpl.h>
+//#endif
 
 //
 // WIN32
@@ -924,7 +922,7 @@ INT_PTR MsgBox(UINT nIDPrompt, UINT nType = MB_OK, UINT nIDHelp = 0, DWORD* pnDe
 #define TIMER_STOP			tTest = GetTickCount() - tTest; CString strTest; strTest.Format( L"\r\n %.3f seconds", tTest / 1000.000 ); \
 	CFile pFile; if ( pFile.Open( Settings.General.Path + L"\\Timer.txt", CFile::modeReadWrite ) ) pFile.Seek( 0, CFile::end ); \
 	else if ( pFile.Open( Settings.General.Path + L"\\Timer.txt", CFile::modeWrite|CFile::modeCreate ) ) /*pFile.Write( (WORD)0xFEFF, 2 );*/ pFile.Write( L"Timer:", 6*2 ); \
-	pFile.Write( strTest, strTest.GetLength()*2 ); pFile.Close(); theApp.m_bLive && theApp.m_bInteractive ? theApp.Message( MSG_TRAY, strTest ) : MsgBox( strTest );
+	pFile.Write( strTest, strTest.GetLength()*2 ); pFile.Close(); theApp.m_bLive && theApp.m_bInteractive ? theApp.Message( MSG_TRAY|MSG_NOTICE, strTest ) : MsgBox( strTest );
 
 #define SwitchMap(name) 	static std::map < const CString, char > name; if ( name.empty() )	// Switch on text by proxy [PPD]
 

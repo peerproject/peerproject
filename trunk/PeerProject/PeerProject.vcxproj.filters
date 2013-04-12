@@ -501,6 +501,9 @@
     <ClCompile Include="SearchManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SecureRule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Security.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -1494,9 +1497,6 @@
     <None Include="Res\Security.ico">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Res\SecurityImages.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="Res\Skin.ico">
       <Filter>Resource Files</Filter>
     </None>
@@ -2019,6 +2019,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SearchManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SecureRule.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Security.h">

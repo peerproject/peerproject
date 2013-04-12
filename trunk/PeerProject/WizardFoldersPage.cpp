@@ -219,31 +219,42 @@ LRESULT CWizardFoldersPage::OnWizardNext()
 
 void CWizardFoldersPage::DoDonkeyImport()
 {
-	CString strPrograms( theApp.GetProgramFilesFolder() ), strFolder;
-	CDonkeyImportDlg dlg( this );
+//	CString strProgramfiles( theApp.GetProgramFilesFolder() );	// <%PROGRAMFILES%>		// Takes several seconds
 
 	LPCTSTR pszFolders[] =
 	{
-		_T("<%PROGRAMFILES%>\\eMule\\temp"),
-		_T("<%PROGRAMFILES%>\\aMule\\temp"),
-		_T("<%PROGRAMFILES%>\\Neo Mule\\temp"),
-		//_T("<%PROGRAMFILES%>\\eDonkey2000\\temp"),
+		_T("c:\\Program Files\\eMule\\temp"),
+		_T("c:\\Program Files\\aMule\\temp"),
+		_T("c:\\Program Files\\Neo Mule\\temp"),
+		//_T("c:\\Program Files\\eDonkey2000\\temp"),
+#ifdef WIN64
+		_T("c:\\Program Files (x86)\\eMule\\temp"),
+		_T("c:\\Program Files (x86)\\aMule\\temp"),
+		_T("c:\\Program Files (x86)\\Neo Mule\\temp"),
+#endif
 		NULL
 	};
 
-	int nCount = 0;
+	BOOL bFound = FALSE;
 	for ( int nFolder = 0 ; pszFolders[ nFolder ] ; nFolder++ )
 	{
-		strFolder = pszFolders[ nFolder ];
-		strFolder.Replace( _T("<%PROGRAMFILES%>"), strPrograms );
-
-		if ( GetFileAttributes( strFolder ) != 0xFFFFFFFF )
+		if ( PathIsDirectory( pszFolders[ nFolder ] ) )
 		{
-			dlg.m_pImporter.AddFolder( strFolder );
-			nCount++;
+			bFound = TRUE;
+			break;
 		}
 	}
 
-	if ( nCount > 0 )
-		dlg.DoModal();
+	if ( ! bFound )
+		return;
+
+	CDonkeyImportDlg dlg( this );
+
+	for ( int nFolder = 0 ; pszFolders[ nFolder ] ; nFolder++ )
+	{
+		if ( PathIsDirectory( pszFolders[ nFolder ] ) )
+			dlg.m_pImporter.AddFolder( pszFolders[ nFolder ] );
+	}
+
+	dlg.DoModal();
 }

@@ -20,6 +20,7 @@
 #include "Settings.h"
 #include "PeerProject.h"
 #include "DlgSecureRule.h"
+#include "SecureRule.h"
 #include "Security.h"
 #include "Skin.h"
 
@@ -207,11 +208,9 @@ void CSecureRuleDlg::ShowGroup(CWnd* pWnd, BOOL bShow)
 		pWnd->ShowWindow( bShow ? SW_SHOW : SW_HIDE );
 		pWnd = pWnd->GetNextWindow();
 
-		if ( pWnd->GetStyle() & WS_GROUP )
-		{
-			if ( pWnd->GetDlgCtrlID() != IDC_RULE_MATCH_ANY )
-				break;
-		}
+		if ( ( pWnd->GetStyle() & WS_GROUP ) &&
+			 ( pWnd->GetDlgCtrlID() != IDC_RULE_MATCH_ANY ) )
+			break;
 	}
 }
 
@@ -228,12 +227,21 @@ void CSecureRuleDlg::OnSelChangeRuleType()
 	case 0:		// IP
 		m_wndIP1.SetFocus();
 		m_wndIP1.SetSel( 0, -1 );
+		GetDlgItem( IDC_RULE_ACTION )->EnableWindow();
+		GetDlgItem( IDC_RULE_EXPIRE )->EnableWindow();
 		break;
 	case 1:		// Content
 		m_wndContent.SetFocus();
+		GetDlgItem( IDC_RULE_ACTION )->EnableWindow();
+		GetDlgItem( IDC_RULE_EXPIRE )->EnableWindow();
 		break;
-	case 2:		// Extenal
+	case 2:		// External
 		m_wndPath.SetFocus();
+		GetDlgItem( IDC_RULE_ACTION )->EnableWindow( FALSE );
+		GetDlgItem( IDC_RULE_EXPIRE )->EnableWindow( FALSE );
+		m_nAction = CSecureRule::srDeny;
+		m_nExpire = CSecureRule::srIndefinite;
+		UpdateData( FALSE );
 		break;
 	}
 }
@@ -241,7 +249,7 @@ void CSecureRuleDlg::OnSelChangeRuleType()
 void CSecureRuleDlg::OnSelChangeRuleExpire()
 {
 	UpdateData();
-	m_wndExpireD.EnableWindow( m_nExpire == 2 );
+	m_wndExpireD.EnableWindow( m_nExpire == 2 );	// srTimed
 	m_wndExpireH.EnableWindow( m_nExpire == 2 );
 	m_wndExpireM.EnableWindow( m_nExpire == 2 );
 }

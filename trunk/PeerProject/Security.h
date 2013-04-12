@@ -154,49 +154,6 @@ protected:
 	friend class CListLoader;
 };
 
-class CSecureRule
-{
-public:
-	CSecureRule(BOOL bCreate = TRUE);
-	CSecureRule(const CSecureRule& pRule);
-	CSecureRule& operator=(const CSecureRule& pRule);
-	~CSecureRule();
-
-	typedef enum { srAddress, srContentAny, srContentAll, srContentRegExp, srContentHash, srSizeType, srExternal } RuleType;
-	enum { srNull, srAccept, srDeny };
-	enum { srIndefinite, srSession, srTimed };
-
-	RuleType	m_nType;
-	BYTE		m_nAction;
-	CString		m_sComment;
-	GUID		m_pGUID;
-	DWORD		m_nExpire;
-	DWORD		m_nToday;
-	DWORD		m_nEver;
-	BYTE		m_nIP[4];
-	BYTE		m_nMask[4];
-	TCHAR*		m_pContent;
-	DWORD		m_nContentLength;
-
-	void		Remove();
-	void		Reset();
-	void		MaskFix();
-	BOOL		IsExpired(DWORD nNow, BOOL bSession = FALSE) const;
-	BOOL		Match(const IN_ADDR* pAddress) const;
-	BOOL		Match(LPCTSTR pszContent) const;
-	BOOL		Match(const CPeerProjectFile* pFile) const;
-	BOOL		Match(const CQuerySearch* pQuery, const CString& strContent) const;
-	CString 	GetContentWords() const;
-	void		SetContentWords(const CString& strContent);
-	void		Serialize(CArchive& ar, int nVersion);
-	void		ToList(CLiveList* pLiveList, int nCount, DWORD tNow) const;		// Adds new item to CLiveList object
-
-	CXMLElement* ToXML();
-	BOOL		FromXML(CXMLElement* pXML);
-	BOOL		FromGnucleusString(CString& str);
-	CString		ToGnucleusString() const;
-};
-
 // An adult filter class, used in searches, chat, etc
 class CAdultFilter
 {
@@ -214,11 +171,11 @@ private:
 // Operations
 public:
 	void		Load();
+	BOOL		Censor(CString& sText) const;		// Censor (hide) bad words from a string
 	BOOL		IsHitAdult(LPCTSTR) const;			// Does this search result have adult content?
 	BOOL		IsChildPornography(LPCTSTR) const;	// Word combination indicates underage
 	BOOL		IsSearchFiltered(LPCTSTR) const;	// Check if search is filtered
 	BOOL		IsChatFiltered(LPCTSTR) const;		// Check filter for chat
-	BOOL		Censor(CString& sText) const;		// Censor (hide) bad words from a string
 private:
 	BOOL		IsFiltered(LPCTSTR) const;
 };

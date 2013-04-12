@@ -118,8 +118,11 @@ BOOL CWizardSharePage::OnInitDialog()
 		//AddPhysicalFolder( strFolder );
 		//strFolder = strPrograms + _T("\\Neo Mule\\Incoming");
 		//AddPhysicalFolder( strFolder );
-		CString strFolder = theApp.GetProgramFilesFolder() + _T("\\eMule\\Incoming");
-		AddPhysicalFolder( (LPCTSTR)strFolder );
+		//CString strFolder = theApp.GetProgramFilesFolder() + _T("\\eMule\\Incoming");	// Takes several seconds
+		AddPhysicalFolder( _T("c:\\Program Files\\eMule\\Incoming") );
+#ifdef WIN64
+		AddPhysicalFolder( _T("c:\\Program Files (x86)\\eMule\\Incoming") );
+#endif
 
 		AddRegistryFolder( HKEY_CURRENT_USER, _T("Software\\Shareaza\\Shareaza\\Downloads"), _T("CompletePath") );
 		AddRegistryFolder( HKEY_CURRENT_USER, _T("Software\\Kazaa\\Transfer"), _T("DlDir0") );

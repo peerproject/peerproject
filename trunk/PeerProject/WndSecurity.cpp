@@ -21,8 +21,10 @@
 #include "PeerProject.h"
 #include "WndSecurity.h"
 #include "DlgSecureRule.h"
+#include "SecureRule.h"
 #include "Security.h"
 #include "LiveList.h"
+#include "CoolInterface.h"
 #include "Colors.h"
 #include "XML.h"
 
@@ -32,13 +34,13 @@ static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif	// Debug
 
-//const static UINT nImageIDs[] =
-//{
-//	IDR_SECURITYFRAME,
-//	IDI_SECURITY_GRANTED,
-//	IDI_SECURITY_DENIED,
-//	NULL
-//};
+const static UINT nImageIDs[] =
+{
+	ID_SECURITY_EDIT,		// IDR_SECURITYFRAME,
+	IDI_SECURITY_ACCEPT,
+	IDI_SECURITY_DENY,
+	NULL
+};
 
 IMPLEMENT_SERIAL(CSecurityWnd, CPanelWnd, 0)
 
@@ -106,19 +108,23 @@ int CSecurityWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndList.InsertColumn( COL_SECURITY_COMMENT, _T("Comment"), LVCFMT_LEFT, 200 );
 
 	m_pSizer.Attach( &m_wndList );
+	
+	// Obsolete:
+//	CBitmap bmBase;
+//	bmBase.LoadBitmap( IDB_SECURITY );
+//	if ( Settings.General.LanguageRTL )
+//		bmBase.m_hObject = CreateMirroredBitmap( (HBITMAP) bmBase.m_hObject );
 
-	CBitmap bmBase;
-	bmBase.LoadBitmap( IDB_SECURITY );
-	if ( Settings.General.LanguageRTL )
-		bmBase.m_hObject = CreateMirroredBitmap( (HBITMAP) bmBase.m_hObject );
-
-	m_gdiImageList.Create( 16, 16, ILC_MASK|ILC_COLOR32, 3, 1 ) ||
-	m_gdiImageList.Create( 16, 16, ILC_MASK|ILC_COLOR24, 3, 1 ) ||
-	m_gdiImageList.Create( 16, 16, ILC_MASK|ILC_COLOR16, 3, 1 );
-	m_gdiImageList.Add( &bmBase, RGB( 0, 255, 0 ) );
+//	m_gdiImageList.Create( 16, 16, ILC_MASK|ILC_COLOR32, 3, 1 ) ||
+//	m_gdiImageList.Create( 16, 16, ILC_MASK|ILC_COLOR24, 3, 1 ) ||
+//	m_gdiImageList.Create( 16, 16, ILC_MASK|ILC_COLOR16, 3, 1 );
+//	m_gdiImageList.Add( &bmBase, RGB( 0, 255, 0 ) );
+//	AddIcon( IDR_SECURITYFRAME, m_gdiImageList );
+//	AddIcon( IDI_SECURITY_ACCEPT, m_gdiImageList );
+//	AddIcon( IDI_SECURITY_DENY, m_gdiImageList );
 
 //	CoolInterface.LoadIconsTo( m_gdiImageList, nImageIDs );
-	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
+//	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
 
 	m_wndList.SetFont( &theApp.m_gdiFont );
 
@@ -201,11 +207,12 @@ void CSecurityWnd::OnSkinChange()
 {
 	OnSize( 0, 0, 0 );
 	CPanelWnd::OnSkinChange();
+
 	Settings.LoadList( _T("CSecurityWnd"), &m_wndList, -3 );
 	Skin.CreateToolBar( _T("CSecurityWnd"), &m_wndToolBar );
 
-//	CoolInterface.LoadIconsTo( m_gdiImageList, nImageIDs );
-//	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
+	CoolInterface.LoadIconsTo( m_gdiImageList, nImageIDs );
+	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
 
 	if ( m_wndList.SetBkImage( Skin.GetWatermark( _T("CSecurityWnd") ) ) || m_wndList.SetBkImage( Skin.GetWatermark( _T("System.Windows") ) ) )		// Images.m_bmSystemWindow.m_hObject
 		m_wndList.SetExtendedStyle( LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP|LVS_EX_SUBITEMIMAGES );	// No LVS_EX_DOUBLEBUFFER
