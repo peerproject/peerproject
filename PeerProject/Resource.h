@@ -97,6 +97,8 @@
 #define IDI_OUTGOING                        215
 #define IDI_USER                            216
 #define IDI_USER_ME                         218
+#define IDI_SECURITY_ACCEPT                 219
+#define IDI_SECURITY_DENY                   220
 
 // Cursor Resources:
 
@@ -125,7 +127,7 @@
 #define IDB_BANNER_MARK                     312
 #define IDB_BOX_MARK                        313
 #define IDB_PANEL_MARK                      314
-#define IDB_SECURITY                        315
+//#define IDB_SECURITY                      315
 #define IDB_SMALL_STAR                      316
 #define IDB_COLORDOT                        317
 #define IDB_FONT_SYMBOLS                    318
@@ -1710,7 +1712,9 @@
 #define ID_HELP_WEB_4                       40124
 #define ID_HELP_WEB_5                       40125
 #define ID_HELP_WEB_6                       40126
+#define ID_HELP_WEB_SKINS                   40127
 #define ID_HELP_WARNINGS                    40128
+#define ID_HELP_STARTPAGE                   40129
 #define ID_HOSTCACHE_CONNECT                40130
 #define ID_HOSTCACHE_DISCONNECT             40131
 #define ID_HOSTCACHE_G2_HORIZON             40132

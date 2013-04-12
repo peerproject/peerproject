@@ -1044,6 +1044,10 @@
 				>
 			</File>
 			<File
+				RelativePath="SecureRule.cpp"
+				>
+			</File>
+			<File
 				RelativePath="Security.cpp"
 				>
 			</File>
@@ -3281,6 +3285,10 @@
 				>
 			</File>
 			<File
+				RelativePath="SecureRule.h"
+				>
+			</File>
+			<File
 				RelativePath="Security.h"
 				>
 			</File>
@@ -4867,10 +4875,6 @@
 			</File>
 			<File
 				RelativePath="Res\Security.ico"
-				>
-			</File>
-			<File
-				RelativePath="Res\SecurityImages.bmp"
 				>
 			</File>
 			<File

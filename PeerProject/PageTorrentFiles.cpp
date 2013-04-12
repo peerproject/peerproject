@@ -146,7 +146,7 @@ void CTorrentFilesPage::OnShowWindow(BOOL bShow, UINT /*nStatus*/)
 	if ( nCount < 2 )
 		m_wndFiles.DeleteColumn( COL_INDEX );
 	else if ( nCount > 1500 )
-		theApp.Message( MSG_TRAY, IDS_GENERAL_PLEASEWAIT );		// Obsolete L"Verifying large torrent.\nPlease wait."
+		theApp.Message( MSG_TRAY|MSG_NOTICE, IDS_GENERAL_PLEASEWAIT );		// Obsolete L"Verifying large torrent.\nPlease wait."
 
 	CString strText;
 	DWORD nPadding = 0;

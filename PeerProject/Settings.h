@@ -682,7 +682,7 @@ public:
 	struct sSecurity
 	{
 		DWORD		DefaultBan;				// Custom Ban expiration in seconds
-		DWORD		ListRangeLimit;			// External Blocklist max load for a given IP range (single-line limit)
+		DWORD		ListRangeLimit;			// External Blacklist max load for a given IP range (single-line limit)
 	} Security;
 
 	struct sExperimental

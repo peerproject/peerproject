@@ -182,8 +182,10 @@ protected:
 	afx_msg void OnHelpWeb4();
 	afx_msg void OnHelpWeb5();
 	afx_msg void OnHelpWeb6();
-	afx_msg void OnHelpFaq();
+	afx_msg void OnHelpWebSkins();
+	afx_msg void OnHelpStartpage();
 	afx_msg void OnHelpConnectiontest();
+	afx_msg void OnHelpFaq();
 	afx_msg void OnHelpGuide();
 	afx_msg void OnHelpForums();
 	afx_msg void OnHelpForumsLocal();

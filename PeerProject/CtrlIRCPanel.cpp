@@ -303,7 +303,7 @@ void CIRCUsersBox::OnSkinChange()
 	// ToDo: Skin m_wndUserList ListBox HBRUSH:  Colors.m_crTaskBoxClient + Skin.GetWatermark( &bmTaskBox, _T("CIRCUsersBox") )
 }
 
-HBRUSH CIRCUsersBox::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+HBRUSH CIRCUsersBox::OnCtlColor(CDC* pDC, CWnd* /*pWnd*/, UINT /*nCtlColor*/)
 {
 	// pWnd == &m_wndUserList
 	pDC->SetTextColor( Colors.m_crTaskBoxText );	// Was Colors.m_crRichdocText

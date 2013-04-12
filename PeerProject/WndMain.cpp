@@ -186,6 +186,7 @@ BEGIN_MESSAGE_MAP(CMainWnd, CMDIFrameWnd)
 	ON_COMMAND(ID_HELP_WEB_4, OnHelpWeb4)
 	ON_COMMAND(ID_HELP_WEB_5, OnHelpWeb5)
 	ON_COMMAND(ID_HELP_WEB_6, OnHelpWeb6)
+	ON_COMMAND(ID_HELP_WEB_SKINS, OnHelpWebSkins)
 	ON_COMMAND(ID_HELP_FAQ, OnHelpFaq)
 	ON_COMMAND(ID_HELP_GUIDE, OnHelpGuide)
 	ON_COMMAND(ID_HELP_FORUMS, OnHelpForums)
@@ -1225,7 +1226,7 @@ LRESULT CMainWnd::OnSkinChanged(WPARAM /*wParam*/, LPARAM /*lParam*/)
 			{
 				CString strWidth = _T(" ");
 				for ( int nCount = 1 ; nCount <= Settings.Skin.DropMenuLabel ; nCount++ )
-					strWidth.Append( _T("\ ") );
+					strWidth.Append( _T(" ") );
 				pMenu->ModifyMenu( 0, MF_BYPOSITION|MF_STRING, 0, strWidth );
 			}
 			m_wndMenuBar.SetMenu( pMenu->GetSafeHmenu() );
@@ -2877,12 +2878,24 @@ void CMainWnd::OnHelpWeb6()
 		NULL, NULL, SW_SHOWNORMAL );
 }
 
-void CMainWnd::OnHelpFaq()
+void CMainWnd::OnHelpWebSkins()
+{
+	CString strWebSite( WEB_SITE );
+
+	if ( Settings.General.LanguageDefault )
+		strWebSite = strWebSite + _T("skins");	// Forwards to forums/skins
+	else
+		strWebSite = strWebSite + Settings.General.Language.Left(2) + _T("/forums/skins");
+
+	ShellExecute( GetSafeHwnd(), _T("open"), strWebSite,
+		NULL, NULL, SW_SHOWNORMAL );
+}
+
+void CMainWnd::OnHelpStartpage()
 {
 	const CString strWebSite( WEB_SITE );
 
-	ShellExecute( GetSafeHwnd(), _T("open"),
-		strWebSite + _T("wiki/userfaq"),
+	ShellExecute( GetSafeHwnd(), _T("open"), strWebSite + _T("start"),
 		NULL, NULL, SW_SHOWNORMAL );
 }
 
@@ -2894,6 +2907,15 @@ void CMainWnd::OnHelpConnectiontest()
 		(LPCTSTR)Settings.General.Language, (LPCTSTR)theApp.m_sVersion );
 
 	ShellExecute( GetSafeHwnd(), _T("open"), strTestUrl,
+		NULL, NULL, SW_SHOWNORMAL );
+}
+
+void CMainWnd::OnHelpFaq()
+{
+	const CString strWebSite( WEB_SITE );
+
+	ShellExecute( GetSafeHwnd(), _T("open"),
+		strWebSite + _T("wiki/userfaq"),
 		NULL, NULL, SW_SHOWNORMAL );
 }
 
