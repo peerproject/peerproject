@@ -455,6 +455,7 @@ BOOL CG2Neighbour::OnPing(CG2Packet* pPacket, BOOL bTCP)
 		else
 			Datagrams.Send( &m_pHost, CG2Packet::New( G2_PACKET_PONG ) );
 		Statistics.Current.Gnutella2.PongsSent++;
+
 		return TRUE;
 	}
 	else if ( ! nPort ||
@@ -477,6 +478,7 @@ BOOL CG2Neighbour::OnPing(CG2Packet* pPacket, BOOL bTCP)
 		pPong->WritePacket( G2_PACKET_RELAY, 0 );
 		Datagrams.Send( (IN_ADDR*)&nAddress, nPort, pPong );
 		Statistics.Current.Gnutella2.PongsSent++;
+
 		return TRUE;
 	}
 	else if ( ! bRelay && bTCP )
@@ -596,7 +598,7 @@ CG2Packet* CG2Neighbour::CreateLNIPacket(CG2Neighbour* pOwner)
 			pNeighbour->m_nState == nrsConnected &&
 			pNeighbour->m_nNodeType == ntLeaf )
 		{
-			nMyFiles += pNeighbour->m_nFileCount;
+			nMyFiles  += pNeighbour->m_nFileCount;
 			nMyVolume += pNeighbour->m_nFileVolume;
 			nLeafs++;
 		}
@@ -716,10 +718,7 @@ BOOL CG2Neighbour::OnLNI(CG2Packet* pPacket)
 	}
 
 	if ( m_pVendor != NULL && m_nNodeType != ntLeaf )
-	{
-		HostCache.Gnutella2.Add( &m_pHost.sin_addr, htons( m_pHost.sin_port ),
-			0, m_pVendor->m_sCode );
-	}
+		HostCache.Gnutella2.Add( &m_pHost.sin_addr, htons( m_pHost.sin_port ), 0, m_pVendor->m_sCode );
 
 	return TRUE;
 }
@@ -831,7 +830,7 @@ CG2Packet* CG2Neighbour::CreateKHLPacket(CG2Neighbour* pOwner)
 BOOL CG2Neighbour::OnKHL(CG2Packet* pPacket)
 {
 	m_tLastKHLIn = GetTickCount();
-	m_nCountKHLIn ++;
+	m_nCountKHLIn++;
 
 	return ParseKHLPacket( pPacket, &m_pHost );
 }
@@ -1086,12 +1085,14 @@ BOOL CG2Neighbour::OnHAW(CG2Packet* pPacket)
 		pPacket->m_nPosition = nNext;
 	}
 
-	if ( pPacket->GetRemaining() < 2 + 16 ) return TRUE;
+	if ( pPacket->GetRemaining() < 2 + 16 )
+		return TRUE;
 
 	if ( ! nPort ||
-		Network.IsFirewalledAddress( (IN_ADDR*)&nAddress, TRUE ) ||
-		Network.IsReserved( (IN_ADDR*)&nAddress ) ||
-		Security.IsDenied( (IN_ADDR*)&nAddress ) ) return TRUE;
+		 Network.IsFirewalledAddress( (IN_ADDR*)&nAddress, TRUE ) ||
+		 Network.IsReserved( (IN_ADDR*)&nAddress ) ||
+		 Security.IsDenied( (IN_ADDR*)&nAddress ) )
+		return TRUE;
 
 	BYTE* pPtr	= pPacket->m_pBuffer + pPacket->m_nPosition;
 	BYTE nTTL	= pPacket->ReadByte();

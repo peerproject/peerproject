@@ -67,11 +67,11 @@
  <color name="Panel.Caption.Text"			value="DEDEDE"/>
  <color name="Panel.Caption.Back"			value="FFFFFF"/>
  <color name="TaskPanel.Back"				value="12100B"/>
- <color name="TaskBox.Back"				value="2F2D2B"/>  <!--TaskBox.Client-->
+ <color name="TaskBox.Back"				value="1F1E1D"/>  <!--TaskBox.Client-->
  <color name="TaskBox.Text"				value="F4F2F0"/>
  <color name="TaskBox.Primary.Back"			value="444240"/>
  <color name="TaskBox.Primary.Text"			value="006699"/>
- <color name="TaskBox.Caption.Back"			value="444240"/>  <!--edge-->
+ <color name="TaskBox.Caption.Back"			value="242220"/>  <!--edge-->
  <color name="TaskBox.Caption.Text"			value="0066CC"/>
  <color name="TaskBox.Caption.Hover"			value="3399FF"/>
  <!--color name="ToolTip.Border"			value="FCFBFA"-->
@@ -121,10 +121,10 @@
  <color name="Richdoc.Back"				value="12100B"/>
  <color name="Richdoc.Text"				value="5C5852"/>
  <color name="Richdoc.Heading"				value="BB3828"/>
- <color name="Navbar.Text.Up"				value="EEECEA"/>
+ <color name="Navbar.Text.Up"				value="F4F2F0"/>
  <color name="Navbar.Text.Hover"			value="FFFFFF"/>
- <color name="Navbar.Text.Checked"			value="EFEDEC"/>
- <color name="Navbar.Shadow.Down"			value="EAE8E4"/>
+ <color name="Navbar.Text.Checked"			value="F8F6F4"/>
+ <color name="Navbar.Shadow.Down"			value="E8E6E0"/>
 
  <color name="System.Chat.In"			value="0660CC"/>
  <color name="System.Chat.Out"			value="EA4A60"/>
@@ -136,7 +136,7 @@
  <color name="System.Network.Up"			value="C04020"/>
  <color name="System.Network.Down" 		value="2040C0"/>
  <color name="System.Security.Deny" 		value="FF3A2A"/>
- <color name="System.Security.Allow" 		value="2AE010"/>
+ <color name="System.Security.Allow" 		value="28E010"/>
  <color name="System.Search.Queued" 		value="20508A"/>
  <color name="System.Search.Queued.Selected" 	value="2050A0"/>
  <color name="System.Search.Exists" 		value="60B020"/>

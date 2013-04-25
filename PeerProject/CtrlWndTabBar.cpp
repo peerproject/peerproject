@@ -898,12 +898,12 @@ void CWndTabBar::TabItem::Paint(CWndTabBar* pBar, CDC* pDC, CRect* pRect, BOOL b
 			//	ImageList_DrawEx( pBar->m_pImages.GetSafeHandle(), m_nImage, pDC->GetSafeHdc(),
 			//		ptImage.x, ptImage.y, 0, 0, CLR_NONE, Colors.m_crShadow, ILD_BLEND50|ILD_BLEND25 );
 
-				pBar->m_pImages.DrawIndirect( pDC, m_nImage, (POINT)ptImage, (SIZE)(CSize)( 16, 16 ), (POINT)(CPoint)0,
+				pBar->m_pImages.DrawIndirect( pDC, m_nImage, ptImage, (CSize)( 16, 16 ), (CPoint)0,
 					ILD_BLEND50|ILD_BLEND25|ILD_ROP, MERGECOPY, CLR_NONE, Colors.m_crShadow, ILS_SATURATE|ILS_ALPHA, 160, Colors.m_crShadow );
 
 				ptImage.Offset( -2, -2 );
 
-			//	pBar->m_pImages.DrawIndirect( pDC, m_nImage, (POINT)ptImage, (SIZE)(CSize)( 16, 16 ), (POINT)(CPoint)0,
+			//	pBar->m_pImages.DrawIndirect( pDC, m_nImage, ptImage, (CSize)( 16, 16 ), (CPoint)0,
 			//		ILD_ROP, MERGECOPY, CLR_NONE, CLR_NONE, ILS_SHADOW, 0, Colors.m_crShadow );
 			}
 

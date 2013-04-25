@@ -3954,7 +3954,7 @@
 	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuEdBuBuStCoStCoEdStEdStEdStBuBu" caption="Turva Reeglid">
 		<control caption="_Reegel:"/>
 		<control caption="Tüüp:"/>
-		<control caption="Võrgu (IP) Aadress|Sisu Filter|Blocklisti"/>
+		<control caption="Võrgu (IP) Aadress|Sisu Filter|Blacklisti"/>
 		<control caption="Kommentaar:"/>
 		<control/>
 		<control caption="_Võrgu Aadress:"/>

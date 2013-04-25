@@ -94,8 +94,7 @@ void CSkinDialog::EnableBanner(BOOL bEnable)
 		m_oBanner.DestroyWindow();
 
 		// Move all controls up
-		for ( CWnd* pChild = GetWindow( GW_CHILD ) ; pChild ;
-			pChild = pChild->GetNextWindow() )
+		for ( CWnd* pChild = GetWindow( GW_CHILD ) ; pChild ; pChild = pChild->GetNextWindow() )
 		{
 			CRect rc;
 			pChild->GetWindowRect( &rc );
@@ -423,9 +422,9 @@ int CSkinDialog::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		return -1;
 
 	if ( Settings.General.LanguageRTL )
-		ModifyStyleEx( 0, WS_EX_LAYOUTRTL | WS_EX_RTLREADING );
-	else
-		ModifyStyleEx( WS_EX_LAYOUTRTL | WS_EX_RTLREADING, 0 );
+		ModifyStyleEx( 0, WS_EX_LAYOUTRTL|WS_EX_RTLREADING );
+	//else
+	//	ModifyStyleEx( WS_EX_LAYOUTRTL|WS_EX_RTLREADING, 0 );
 
 	return 0;
 }
@@ -434,7 +433,7 @@ BOOL CSkinDialog::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
-	CoolInterface.FixTheme( this, FALSE );		// Checkbox/Groupbox text colors (Remove theme if needed)
+	CoolInterface.FixThemeControls( this, FALSE );		// Checkbox/Groupbox text colors (Remove theme if needed)
 
 	return TRUE;
 }

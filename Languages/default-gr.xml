@@ -582,8 +582,8 @@
 				<menu text="_Ιστοσελίδες">
 					<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
 					<item id="ID_HELP_FORUMS_LOCAL" text="PeerProject _Forums Ελληνικά"/>
-					<!-- <item id="ID_HELP_WEB_6" text="Φ_λοιοί PeerProject"/>
-					<item id="ID_HELP_FAKESHAREAZA" text="FakeShareaza_.com"/>
+					<!-- <item id="ID_HELP_WEB_SKINS" text="Φ_λοιοί PeerProject"/>
+					<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/>
 					<item id="ID_HELP_UPDATE" text="Τελευταία νέα"/>
 					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 					<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
@@ -687,8 +687,8 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="PeerProject _Forums Ελληνικά"/>
-				<!-- <item id="ID_HELP_WEB_6" text="Φ_λοιοί PeerProject"/>
-				<item id="ID_HELP_FAKESHAREAZA" text="FakeShareaza_.com"/>
+				<!-- <item id="ID_HELP_WEB_SKINS" text="Φ_λοιοί PeerProject"/>
+				<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/>
 				<item id="ID_HELP_UPDATE" text="Τελευταία νέα"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
@@ -760,8 +760,8 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="PeerProject _Forums Ελληνικά"/>
-				<!-- <item id="ID_HELP_WEB_6" text="Φ_λοιοί PeerProject"/>
-				<item id="ID_HELP_FAKESHAREAZA" text="FakeShareaza_.com"/>
+				<!-- <item id="ID_HELP_WEB_SKINS" text="Φ_λοιοί PeerProject"/>
+				<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/>
 				<item id="ID_HELP_UPDATE" text="Τελευταία νέα"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
@@ -855,8 +855,8 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums Ελληνικά"/>
-				<!-- <item id="ID_HELP_WEB_6" text="Φ_λοιοί PeerProject"/>
-				<item id="ID_HELP_FAKESHAREAZA" text="FakeShareaza_.com"/>
+				<!-- <item id="ID_HELP_WEB_SKINS" text="Φ_λοιοί PeerProject"/>
+				<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/>
 				<item id="ID_HELP_UPDATE" text="Τελευταία νέα"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->

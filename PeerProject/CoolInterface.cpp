@@ -633,7 +633,7 @@ BOOL CCoolInterface::EnableTheme(CWnd* pWnd, BOOL bEnable)
 		return SUCCEEDED( theApp.m_pfnSetWindowTheme( pWnd->GetSafeHwnd(), L" ", L" " ) );
 }
 
-void CCoolInterface::FixTheme(CWnd* pWnd, BOOL bForce /*=TRUE*/)
+void CCoolInterface::FixThemeControls(CWnd* pWnd, BOOL bForce /*=TRUE*/)
 {
 	const BOOL bThemed =
 		GetRValue( Colors.m_crDialogText ) < 100 &&
@@ -657,7 +657,7 @@ void CCoolInterface::FixTheme(CWnd* pWnd, BOOL bForce /*=TRUE*/)
 		const DWORD nStyle = pChild->GetStyle();
 		if ( ( nStyle & BS_CHECKBOX ) ||
 			 ( nStyle & BS_RADIOBUTTON ) ||
-			 ( nStyle & BS_AUTORADIOBUTTON ) ||
+			 ( ( nStyle & BS_AUTORADIOBUTTON ) && ! ( nStyle & BS_DEFPUSHBUTTON ) ) ||			// Conflict?
 			 ( ( nStyle & BS_GROUPBOX ) && nID == IDC_STATIC ) )
 			EnableTheme( pChild, bThemed );
 	}

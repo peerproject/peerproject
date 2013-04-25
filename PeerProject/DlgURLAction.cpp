@@ -101,7 +101,6 @@ BOOL CURLActionDlg::OnInitDialog()
 	m_bAlwaysOpen = Settings.General.AlwaysOpenURLs;
 	m_bNewWindow  = Settings.Downloads.ShowMonitorURLs;
 
-	CString strMessage;
 	const BOOL bGoodURL =
 		( m_pURL->m_sName.GetLength() > 10 && m_pURL->m_sName.Find( '.', 5 ) > 5 && m_pURL->m_sName[ m_pURL->m_sName.GetLength() - 1 ] > '.' ) ||
 		( m_pURL->m_sURL.GetLength() > 8 && m_pURL->m_sURL.Find( '.' ) > 1 && m_pURL->m_sURL[ m_pURL->m_sURL.GetLength() - 1 ] > '.' ) ||
@@ -127,16 +126,14 @@ BOOL CURLActionDlg::OnInitDialog()
 		m_wndMessage2.ShowWindow( SW_SHOW );
 		m_wndNewWindow.ShowWindow( SW_HIDE );
 
-		LoadString( strMessage, IDS_URL_CONNECT );
-		m_wndDownload.SetWindowText( strMessage );
+		m_wndDownload.SetWindowText( LoadString( IDS_URL_CONNECT ) );
 		m_wndDownload.SetFocus();
 
 		if ( m_pURL->m_nProtocol != PROTOCOL_ED2K &&
 			 m_pURL->m_nProtocol != PROTOCOL_BT &&
 			 m_pURL->m_nProtocol != PROTOCOL_KAD )
 		{
-			LoadString( strMessage, IDS_URL_BROWSE );
-			m_wndSearch.SetWindowText( strMessage );
+			m_wndSearch.SetWindowText( LoadString( IDS_URL_BROWSE ) );
 		}
 		else
 		{
@@ -154,11 +151,9 @@ BOOL CURLActionDlg::OnInitDialog()
 		m_wndMessage3.ShowWindow( SW_SHOW );
 		m_wndNewWindow.ShowWindow( SW_HIDE );
 
-		LoadString( strMessage, IDS_URL_BROWSE );
-		m_wndDownload.SetWindowText( strMessage );
+		m_wndDownload.SetWindowText( LoadString( IDS_URL_BROWSE ) );
 		m_wndDownload.SetFocus();
-		LoadString( strMessage, IDS_URL_CONNECT );
-		m_wndSearch.SetWindowText( strMessage );
+		m_wndSearch.SetWindowText( LoadString( IDS_URL_CONNECT ) );
 	}
 	else if ( m_pURL->m_nAction == CPeerProjectURL::uriDiscovery )
 	{
@@ -179,15 +174,13 @@ BOOL CURLActionDlg::OnInitDialog()
 		}
 
 		m_wndMessage4.ShowWindow( SW_SHOW );
-		LoadString( strMessage, IDS_URL_ADD );
-		m_wndDownload.SetWindowText( strMessage );
+		m_wndDownload.SetWindowText( LoadString( IDS_URL_ADD ) );
 		m_wndSearch.ShowWindow( SW_HIDE );
 		m_wndNewWindow.ShowWindow( SW_HIDE );
 	}
 	else if ( m_pURL->m_nAction == CPeerProjectURL::uriSource )
 	{
 		LoadString( m_sNameTitle, IDS_URL_URL );
-
 		m_sNameValue = m_pURL->m_sURL;
 
 		m_wndMessage1.ShowWindow( SW_SHOW );
@@ -257,7 +250,7 @@ BOOL CURLActionDlg::OnInitDialog()
 	{
 		if ( m_wndDownload.IsWindowEnabled() )
 			PostMessage( WM_COMMAND, IDC_URL_DOWNLOAD );
-		else
+		else //if ( m_wndSearch.IsWindowEnabled() )
 			PostMessage( WM_COMMAND, IDC_URL_SEARCH );
 	}
 

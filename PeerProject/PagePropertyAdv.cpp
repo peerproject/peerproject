@@ -172,6 +172,14 @@ HBRUSH CPropertyPageAdv::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 		pDC->SetTextColor( Colors.m_crDialogPanelText );
 		pDC->SetBkMode( TRANSPARENT );
 	}
+	else if ( nCtlColor == CTLCOLOR_BTN && Images.m_bmDialogPanel.m_hObject )
+	{
+		CRect rc;
+		pWnd->GetWindowRect( &rc );
+		ScreenToClient( &rc );
+		pDC->SetBrushOrg( -rc.left, -rc.top );
+		hbr = Images.m_brDialogPanel;
+	}
 	else if ( nCtlColor == CTLCOLOR_STATIC || nCtlColor == CTLCOLOR_DLG )
 	{
 		pDC->SetTextColor( Colors.m_crDialogPanelText );

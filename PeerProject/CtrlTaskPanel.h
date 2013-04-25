@@ -25,7 +25,6 @@ class CTaskPanel : public CWnd
 {
 	DECLARE_DYNAMIC(CTaskPanel)
 
-// Construction
 public:
 	CTaskPanel();
 
@@ -90,7 +89,7 @@ public:
 	void		SetCaption(LPCTSTR pszCaption);
 	void		SetIcon(HICON hIcon);
 	void		SetSize(int nHeight);
-	void		SetPrimary(BOOL bPrimary = TRUE);
+	void		SetPrimary(BOOL bPrimary);
 	void		SetWatermark(LPCTSTR szWatermark);
 	void		SetCaptionmark(LPCTSTR szWatermark);
 	void		Expand(BOOL bOpen = TRUE);
@@ -111,24 +110,25 @@ protected:
 	int			GetOuterHeight() const;
 	void		PaintBorders();
 	void		InvalidateNonclient();
-	virtual void OnExpanded(BOOL bOpen);
 
 public:
 	virtual BOOL Create(CTaskPanel* pPanel, int nHeight = 0, LPCTSTR pszCaption = NULL, UINT nIDIcon = 0, UINT nID = 0);
 	virtual void DrawItem(LPDRAWITEMSTRUCT) {}
+protected:
+	virtual void OnExpanded(BOOL bOpen);
 
 protected:
 	//{{AFX_MSG(CTaskBox)
-	afx_msg void OnNcCalcSize(BOOL bCalcValidRects, NCCALCSIZE_PARAMS FAR* lpncsp);
-	afx_msg void OnNcPaint();
-	afx_msg LRESULT OnNcHitTest(CPoint point);
-	afx_msg BOOL OnNcActivate(BOOL bActive);
 	afx_msg void OnPaint();
+	afx_msg void OnNcPaint();
+	afx_msg BOOL OnNcActivate(BOOL bActive);
+	afx_msg LRESULT OnNcHitTest(CPoint point);
+	afx_msg void OnNcCalcSize(BOOL bCalcValidRects, NCCALCSIZE_PARAMS FAR* lpncsp);
+	afx_msg void OnNcLButtonUp(UINT nHitTest, CPoint point);
+	afx_msg void OnNcLButtonDown(UINT nHitTest, CPoint point);
 	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
 	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
-	afx_msg void OnNcLButtonUp(UINT nHitTest, CPoint point);
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
-	afx_msg void OnNcLButtonDown(UINT nHitTest, CPoint point);
 	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()

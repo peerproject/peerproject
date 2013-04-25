@@ -20,9 +20,9 @@
 #include "Settings.h"
 #include "PeerProject.h"
 #include "DlgDownloadMonitor.h"
-#include "Transfers.h"
-#include "Downloads.h"
 #include "Download.h"
+#include "Downloads.h"
+#include "Transfers.h"
 #include "FragmentedFile.h"
 #include "FragmentBar.h"
 #include "GraphLine.h"
@@ -351,9 +351,9 @@ void CDownloadMonitorDlg::OnTimer( UINT_PTR nIDEvent )
 
 		m_bCompleted = TRUE;
 	}
-	else
+	else if ( m_bTray || IsIconic() )
 	{
-		if ( IsIconic() || m_bTray ) return;
+		return;
 	}
 
 	int nSourceCount	= m_pDownload->GetSourceCount();

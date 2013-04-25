@@ -73,7 +73,7 @@ public:
 	CDC*		GetBuffer(CDC& dcScreen, const CSize& szItem);
 
 	static BOOL	EnableTheme(CWnd* pWnd, BOOL bEnable = TRUE);
-	static void	FixTheme(CWnd* pWnd, BOOL bForce = TRUE);		// Checkbox/Groupbox text colors (Remove theme if needed)
+	static void	FixThemeControls(CWnd* pWnd, BOOL bForce = TRUE);		// Checkbox/Groupbox text colors (Remove theme if needed)
 
 protected:
 	typedef CMap< UINT, UINT, int, int > CUINTintMap;
