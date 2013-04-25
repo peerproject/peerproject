@@ -4,7 +4,7 @@
 <manifest
  name="SkinSeven.ShowMenu"
  author="SkinVista"
- description="Mix to add classic XP-style menu bar to SkinSeven or SkinEight"
+ description="Mix to add classic XP-style menu bar to SkinSeven, SkinEight, or others"
  link="http://PeerProject.org"
  email="Contact(at)PeerProject.org"
  license="Persistent Public Domain (PPD)"
@@ -22,7 +22,6 @@
 <images>
  <image target="ButtonMap.MenuText" path="ButtonmapMenuBar.png"/>
  <!--image target="CCoolMenuItem.Hover" path="Seven\MenuButtonState.png"-->
- <!--image target="CCoolMenuItem.Down"  path="Seven\MenuButtonState.png"-->
 </images>
 
 </skin>

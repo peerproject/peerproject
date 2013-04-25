@@ -1023,6 +1023,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\PeerProject\SecureRule.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\PeerProject\Security.cpp"
 				>
 			</File>
@@ -2631,6 +2635,10 @@
 			</File>
 			<File
 				RelativePath="..\PeerProject\SearchManager.h"
+				>
+			</File>
+			<File
+				RelativePath="..\PeerProject\SecureRule.h"
 				>
 			</File>
 			<File

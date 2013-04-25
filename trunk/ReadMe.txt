@@ -7,6 +7,7 @@ ___________________________
 
 1. Install Visual Studio 2012
 	- http://www.microsoft.com/visualstudio/11/en-us/downloads  (90day Trial)
+	- http://www.microsoft.com/en-us/download/details.aspx?id=38188  (Update 2)
 
    OR Install Visual Studio 2010
 	- http://www.microsoft.com/downloads/details.aspx?FamilyID=26bae65f-b0df-4081-ae6e-1d828993d4d0  (30/90day Trial)
@@ -26,16 +27,15 @@ ___________________________
 
 
 
-Note: Express alternative for Browse/Edit only:
-	- Free Visual C++ Express can be configured, but some projects STILL FAIL to build.
-	- Also note legacy Visual Studio 2005 files still available but outdated.
+Note: Visual Studio Express alternative for Browse/Edit only:
+	- No-Cost Visual C++ Express (Desktop) can be configured for MFC, but some projects STILL FAIL to build.
 
 X. Install Visual C++ Express + Windows SDK + WDK
-	- http://www.microsoft.com/express/downloads  (Visual C++ Express 2012/2010/2008)
 	- http://www.microsoft.com/visualstudio/eng/downloads#d-express-windows-desktop  (Visual Studio Express 2012 for Desktop)
 	- OR http://www.microsoft.com/visualstudio/eng/downloads#d-2010-express  (Visual C++ 2010 Express)
 	- http://www.microsoft.com/en-us/download/details.aspx?id=8279  (Win7 SDK)
-	- See \VCExpress\ReadMe.txt for configuration details.
+	- http://www.microsoft.com/downloads/details.aspx?FamilyID=36a2630f-5d56-43b5-b996-7633f2ec14ff  (WDK 7.1)
+	- Configure MFC from WDK mfc42 folder ("Build Environments" only install)
 
 
 

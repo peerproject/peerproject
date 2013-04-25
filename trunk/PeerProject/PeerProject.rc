@@ -801,7 +801,7 @@ BEGIN
 	LTEXT			"Simple, easy to use menus with fewer options.\nHelpful for new users of file sharing.",IDC_DESCRIPTION_BASIC,27,54,243,21
 	LTEXT			"Standard view offers users all available commands, windows, etc.\nMight be more confusing for brand new users.",IDC_DESCRIPTION_EXPERT,27,90,243,21
 	CONTROL			"Display simplified download progress bars.  (Less detail for new users)",IDC_DOWNLOADS_SIMPLEBAR,"Button",BS_AUTOCHECKBOX|BS_FLAT|WS_TABSTOP,14,121,256,10
-	LTEXT			"Try mixing multiple skins to further add/remove capabilities.",IDC_STATIC,14,138,256,10
+	LTEXT			"Try mixing multiple skins.",IDC_STATIC,14,138,256,10
 END
 
 IDD_WIZARD_PROFILE DIALOGEX 0, 0, 276, 172
@@ -920,7 +920,7 @@ BEGIN
 	LTEXT			"URN:",IDC_URL_URN_TITLE,20,38,35,12
 	EDITTEXT		IDC_URL_URN_VALUE,62,38,240,12,ES_AUTOHSCROLL|ES_READONLY|NOT WS_BORDER
 	LTEXT			"Select what action you would like to take:",IDC_STATIC,8,55,260,10
-	DEFPUSHBUTTON	"&Download Now",IDC_URL_DOWNLOAD,8,68,68,15,WS_GROUP
+	DEFPUSHBUTTON	"&Download Now",IDC_URL_DOWNLOAD,8,68,68,15,WS_GROUP|BS_FLAT	// Temp fix
 	PUSHBUTTON		"&Search for File",IDC_URL_SEARCH,80,68,68,15
 	PUSHBUTTON		"Cancel",IDCANCEL,234,68,68,15
 	CONTROL			"&Use this selection by default",IDC_ALWAYS_OPEN,"Button",BS_AUTOCHECKBOX|BS_FLAT|WS_TABSTOP,9,86,140,15

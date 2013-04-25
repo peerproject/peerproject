@@ -424,6 +424,8 @@ BOOL CTorrentTrackersPage::OnInitDialog()
 	if ( Network.IsConnected() )
 		PostMessage( WM_COMMAND, MAKELONG( IDC_TORRENT_REFRESH, BN_CLICKED ), (LPARAM)m_wndRefresh.GetSafeHwnd() );
 
+//	CoolInterface.FixThemeControls( this );
+
 	UpdateInterface();
 
 	return TRUE;

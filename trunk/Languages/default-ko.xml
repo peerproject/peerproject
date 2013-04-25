@@ -593,7 +593,7 @@
 					<item id="ID_HELP_FORUMS" text="PeerProject 포럼"/>
 					<item id="ID_HELP_VERSION_CHECK" text="새 버전에 대한 확인"/>
 					<!-- <item id="ID_HELP_DONATE" text="기부 PeerProject로"/>
-					<item id="ID_HELP_WEB_6" text="PeerProject스킨 사이트"/>
+					<item id="ID_HELP_WEB_SKINS" text="PeerProject 스킨 사이트"/>
 					<item id="ID_HELP_FAKESHAREAZA" text="가짜 FakeSharea_za.com"/>
 					<item id="ID_HELP_UPDATE" text="최신 뉴스"/>
 					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
@@ -700,7 +700,7 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject 사이트 항목"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject 포럼"/>
-				<item id="ID_HELP_WEB_6" text="PeerProject스킨 사이트"/>
+				<item id="ID_HELP_WEB_SKINS" text="PeerProject스킨 사이트"/>
 				<item id="ID_HELP_FAKESHAREAZA" text="가짜 FakeSharea_za.com"/> <!--
 				<item id="ID_HELP_UPDATE" text="최신 뉴스"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
@@ -773,7 +773,7 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject 사이트 항목"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject 포럼"/>
-				<item id="ID_HELP_WEB_6" text="PeerProject 스킨 사이트"/>
+				<item id="ID_HELP_WEB_SKINS" text="PeerProject 스킨 사이트"/>
 				<item id="ID_HELP_FAKESHAREAZA" text="가짜 FakeSharea_za.com"/> <!--
 				<item id="ID_HELP_UPDATE" text="최신 뉴스"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
@@ -872,7 +872,7 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject 사이트 항목"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject 포럼"/>
-				<item id="ID_HELP_WEB_6" text="PeerProject 스킨 사이트"/>
+				<item id="ID_HELP_WEB_SKINS" text="PeerProject 스킨 사이트"/>
 				<item id="ID_HELP_FAKESHAREAZA" text="가짜 FakeSharea_za.com"/> <!--
 				<item id="ID_HELP_UPDATE" text="최신 뉴스"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>

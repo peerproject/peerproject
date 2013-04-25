@@ -156,7 +156,7 @@ CHomeConnectionBox::CHomeConnectionBox()
 	, m_pdConnectedMinutes ( NULL )
 {
 	ZeroMemory( m_pdCount, sizeof( m_pdCount ) );
-	SetPrimary();
+	SetPrimary( TRUE );
 }
 
 CHomeConnectionBox::~CHomeConnectionBox()
@@ -378,7 +378,7 @@ CHomeLibraryBox::CHomeLibraryBox()
 	, m_hHand			( NULL )
 	, m_pHover			( NULL )
 {
-	SetPrimary();
+	SetPrimary( FALSE );
 }
 
 CHomeLibraryBox::~CHomeLibraryBox()
@@ -766,7 +766,7 @@ CHomeDownloadsBox::CHomeDownloadsBox()
 	, m_hHand			( NULL )
 	, m_pHover			( NULL )
 {
-	SetPrimary();
+	SetPrimary( FALSE );
 }
 
 CHomeDownloadsBox::~CHomeDownloadsBox()
@@ -1203,7 +1203,7 @@ CHomeUploadsBox::CHomeUploadsBox()
 	, m_pdTorrentsOne	( NULL )
 	, m_pdTorrentsMany	( NULL )
 {
-	SetPrimary();
+	SetPrimary( FALSE );
 }
 
 CHomeUploadsBox::~CHomeUploadsBox()

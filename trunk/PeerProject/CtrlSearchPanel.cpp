@@ -864,7 +864,7 @@ void CSearchAdvancedBox::OnSkinChange()
 	if ( m_brBack.m_hObject ) m_brBack.DeleteObject();
 	m_brBack.CreateSolidBrush( m_crBack = Colors.m_crTaskBoxClient );
 
-	//CoolInterface.FixTheme( this );		// Checkbox/Groupbox text colors (Remove theme if needed)
+	//CoolInterface.FixThemeControls( this );		// Checkbox/Groupbox text colors (Remove theme if needed)
 	const BOOL bThemed =
 		GetRValue( Colors.m_crTaskBoxText ) < 100 &&
 		GetGValue( Colors.m_crTaskBoxText ) < 100 &&

@@ -4273,7 +4273,7 @@
 	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuEdBuBuStCoStCoEdStEdStEdStBuBu" caption="Regel">
 		<control caption="_Regel:"/>
 		<control caption="Typ:"/>
-		<control caption="IP-Adresse|Inhaltsfilter|Blockliste"/>
+		<control caption="IP-Adresse|Inhaltsfilter|Blackliste"/>
 		<control caption="Kommentar:"/>
 		<control/>
 		<control caption="_Netzwerkadresse:"/>
@@ -4292,7 +4292,7 @@
 		<control caption="logisch UND"/>
 		<control caption="logisch ODER"/>
 		<control caption="Reg. Exp."/>
-		<control caption="_Blockliste Datei:"/>
+		<control caption="_Blackliste Datei:"/>
 		<control/>
 		<control caption="Blättern"/>
 		<control caption="_Optionen:"/>

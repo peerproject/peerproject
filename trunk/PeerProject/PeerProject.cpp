@@ -1736,32 +1736,37 @@ void CPeerProjectApp::PrintMessage(WORD nType, const CString& strLog)
 
 void CPeerProjectApp::LogMessage(const CString& strLog)
 {
-	const CString strPath = SafePath( Settings.General.DataPath + _T("PeerProject.log") );
+	static const CString strPath = SafePath( Settings.General.DataPath + _T("PeerProject.log") );		// CLIENT_NAME
 
 	CQuickLock pLock( m_csMessage );
 
 	CFile pFile;
 	if ( pFile.Open( strPath, CFile::modeReadWrite ) )
 	{
-		pFile.Seek( 0, CFile::end );	// Go to the end of the file to add entires.
-
-		if ( ( Settings.General.MaxDebugLogSize ) &&					// If log rotation is on
-			( pFile.GetLength() > Settings.General.MaxDebugLogSize ) )	// and file is too long...
+		if ( Settings.General.MaxDebugLogSize &&						// If log rotation is on
+			 pFile.GetLength() > Settings.General.MaxDebugLogSize )		// and file is too long...
 		{
 			// Close the file
 			pFile.Close();
 
 			// Rotate the logs
-			MoveFileEx( strPath, strPath + _T(".old"), MOVEFILE_REPLACE_EXISTING | MOVEFILE_WRITE_THROUGH );
+			MoveFileEx( strPath, strPath + _T(".old"), MOVEFILE_REPLACE_EXISTING|MOVEFILE_WRITE_THROUGH );
+
 			// Start a new log
 			if ( ! pFile.Open( strPath, CFile::modeWrite|CFile::modeCreate ) ) return;
 			// Unicode marker
 			WORD nByteOrder = 0xFEFF;
 			pFile.Write( &nByteOrder, 2 );
 		}
+		else
+		{
+			// Go to end of current file to add entries
+			pFile.Seek( 0, CFile::end );
+		}
 	}
 	else
 	{
+		// Start a new log
 		if ( ! pFile.Open( strPath, CFile::modeWrite|CFile::modeCreate ) ) return;
 		// Unicode marker
 		WORD nByteOrder = 0xFEFF;
@@ -1770,10 +1775,10 @@ void CPeerProjectApp::LogMessage(const CString& strLog)
 
 	if ( Settings.General.ShowTimestamp )
 	{
+		CString strTime;
 		CTime pNow = CTime::GetCurrentTime();
-		CString strLine;
-		strLine.Format( _T("[%.2i:%.2i:%.2i] "), pNow.GetHour(), pNow.GetMinute(), pNow.GetSecond() );
-		pFile.Write( (LPCTSTR)strLine, sizeof( TCHAR ) * strLine.GetLength() );
+		strTime.Format( _T("%.2i:%.2i:%.2i  "), pNow.GetHour(), pNow.GetMinute(), pNow.GetSecond() );
+		pFile.Write( (LPCTSTR)strTime, sizeof( TCHAR ) * strTime.GetLength() );
 	}
 
 	pFile.Write( (LPCTSTR)strLog, static_cast< UINT >( sizeof( TCHAR ) * strLog.GetLength() ) );
@@ -1784,12 +1789,11 @@ void CPeerProjectApp::LogMessage(const CString& strLog)
 
 CString GetErrorString(DWORD dwError)
 {
-	LPTSTR MessageBuffer = NULL;
 	CString strMessage;
+	LPTSTR MessageBuffer = NULL;
+
 	if ( FormatMessage(
-		FORMAT_MESSAGE_ALLOCATE_BUFFER |
-		FORMAT_MESSAGE_IGNORE_INSERTS |
-		FORMAT_MESSAGE_FROM_SYSTEM,
+		FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_IGNORE_INSERTS | FORMAT_MESSAGE_FROM_SYSTEM,
 		NULL, dwError, 0, (LPTSTR)&MessageBuffer, 0, NULL ) )
 	{
 		strMessage = MessageBuffer;
@@ -1807,15 +1811,13 @@ CString GetErrorString(DWORD dwError)
 		_T("ntdsbmsg.dll"),
 		NULL
 	};
+
 	for ( int i = 0 ; szModules[ i ] ; i++ )
 	{
-		HMODULE hModule = LoadLibraryEx( szModules[ i ], NULL, LOAD_LIBRARY_AS_DATAFILE );
-		if ( hModule )
+		if ( HMODULE hModule = LoadLibraryEx( szModules[ i ], NULL, LOAD_LIBRARY_AS_DATAFILE ) )
 		{
 			DWORD bResult = FormatMessage(
-				FORMAT_MESSAGE_ALLOCATE_BUFFER |
-				FORMAT_MESSAGE_IGNORE_INSERTS |
-				FORMAT_MESSAGE_FROM_HMODULE,
+				FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_IGNORE_INSERTS | FORMAT_MESSAGE_FROM_HMODULE,
 				hModule, dwError, 0, (LPTSTR)&MessageBuffer, 0, NULL );
 			FreeLibrary( hModule );
 			if ( bResult )
@@ -1827,6 +1829,7 @@ CString GetErrorString(DWORD dwError)
 			}
 		}
 	}
+
 	return CString();
 }
 

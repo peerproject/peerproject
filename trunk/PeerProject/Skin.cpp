@@ -1946,8 +1946,8 @@ BOOL CSkin::LoadColorScheme(CXMLElement* pBase)
 	pColors.SetAt( _T("taskbox.caption.back"), &Colors.m_crTaskBoxCaptionBack );
 	pColors.SetAt( _T("taskbox.caption.text"), &Colors.m_crTaskBoxCaptionText );
 	pColors.SetAt( _T("taskbox.caption.hover"), &Colors.m_crTaskBoxCaptionHover );
-	pColors.SetAt( _T("taskbox.primary.back"), &Colors.m_crTaskBoxPrimaryBack );
-	pColors.SetAt( _T("taskbox.primary.text"), &Colors.m_crTaskBoxPrimaryText );
+	pColors.SetAt( _T("taskbox.primary.back"), &Colors.m_crTaskBoxPrimaryBack );	// Deprecate?
+	pColors.SetAt( _T("taskbox.primary.text"), &Colors.m_crTaskBoxPrimaryText );	// Deprecate?
 	pColors.SetAt( _T("taskbox.client"), &Colors.m_crTaskBoxClient );	// Deprecated
 	pColors.SetAt( _T("taskbox.back"), &Colors.m_crTaskBoxClient );
 	pColors.SetAt( _T("taskbox.text"), &Colors.m_crTaskBoxText );

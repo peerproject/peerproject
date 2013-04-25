@@ -180,7 +180,7 @@ void CSettingsPage::OnSkinChange()
 		return;		// Win2K
 #endif
 
-	CoolInterface.FixTheme( this );		// Checkbox/Groupbox text colors (Remove theme if needed)
+	CoolInterface.FixThemeControls( this );		// Checkbox/Groupbox text colors (Remove theme if needed)
 
 // Moved to CCoolInterface::FixTheme:
 //	const BOOL bThemed =

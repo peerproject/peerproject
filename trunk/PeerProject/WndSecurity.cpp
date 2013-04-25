@@ -108,7 +108,7 @@ int CSecurityWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndList.InsertColumn( COL_SECURITY_COMMENT, _T("Comment"), LVCFMT_LEFT, 200 );
 
 	m_pSizer.Attach( &m_wndList );
-	
+
 	// Obsolete:
 //	CBitmap bmBase;
 //	bmBase.LoadBitmap( IDB_SECURITY );

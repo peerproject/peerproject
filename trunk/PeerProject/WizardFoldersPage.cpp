@@ -111,7 +111,7 @@ BOOL CWizardFoldersPage::OnSetActive()
 	GetWindowText( strCaption );
 	GetParent()->SetWindowText( strCaption );
 
-	CoolInterface.FixTheme( this );		// Checkbox/Groupbox text colors (Remove theme if needed)
+	CoolInterface.FixThemeControls( this );		// Checkbox/Groupbox text colors (Remove theme if needed)
 
 	SetWizardButtons( PSWIZB_BACK | PSWIZB_NEXT );
 	return CWizardPage::OnSetActive();
