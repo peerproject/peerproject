@@ -312,7 +312,7 @@
 		<separator/>
 		<button id="ID_MEDIA_FULLSCREEN"/>
 		<button id="ID_MEDIA_ZOOM"/>
-		<button id="ID_MEDIA_VIS"/>
+		<button id="ID_MEDIA_SETTINGS"/>
 			<rightAlign/>
 		<button id="ID_MEDIA_PREVIOUS"/>
 		<button id="ID_MEDIA_NEXT"/>
@@ -2678,11 +2678,11 @@
 		<image id="ID_LIBRARY_VIEW_ALBUM" id1="ID_MUSICBRAINZ_ALBUMS"/>
 		<!--MediaOptions-->
 		<image id="PluginID_ImageViewer_BestFit" id1="ID_MEDIA_SIZE_ONE"/>
-		<image id="PluginID_ImageViewer_FullSize" id1="ID_MEDIA_SIZE_FILL"/>
+		<image id="PluginID_ImageViewer_FullSize" id1="ID_MEDIA_SIZE_FILL" id2="ID_MEDIA_ZOOM"/>
 		<image id="PluginID_ImageViewer_Refresh" id1="ID_BROWSE_REFRESH" id2="ID_LIBRARY_REFRESH" id3="ID_LIBRARY_REFRESH_METADATA" id4="ID_DISCOVERY_ADVERTISE"/>
 		<image id="ID_MEDIA_REPEAT"/>
 		<image id="ID_MEDIA_RANDOM"/>
-		<image id="ID_MEDIA_ZOOM"/>
+		<image /> <!--ID_MEDIA_ZOOM-->
 		<image id="ID_MEDIA_VIS"/>
 		<!--ChatText-->
 		<image id="ID_LIBRARY_RENAME"/>

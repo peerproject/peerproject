@@ -795,7 +795,7 @@ CAPTION "Welcome to PeerProject  (6/8)"
 FONT 8, "Tahoma"
 BEGIN
 	LTEXT			"PeerProject supports a flexible user interface, so you can choose what is most comfortable for you.  You can change these options at any time.",IDC_STATIC,10,10,270,20
-	GROUPBOX		"Please select user interface:",IDC_STATIC,7,30,269,83
+	GROUPBOX		"Please select user interface:",IDC_STATIC,7,30,270,84
 	CONTROL			"Basic Mode",IDC_INTERFACE_BASIC,"Button",BS_AUTORADIOBUTTON|BS_FLAT|WS_GROUP,14,42,250,10
 	CONTROL			"Power Mode",IDC_INTERFACE_EXPERT,"Button",BS_AUTORADIOBUTTON|BS_FLAT,14,78,250,10
 	LTEXT			"Simple, easy to use menus with fewer options.\nHelpful for new users of file sharing.",IDC_DESCRIPTION_BASIC,27,54,243,21
@@ -920,7 +920,7 @@ BEGIN
 	LTEXT			"URN:",IDC_URL_URN_TITLE,20,38,35,12
 	EDITTEXT		IDC_URL_URN_VALUE,62,38,240,12,ES_AUTOHSCROLL|ES_READONLY|NOT WS_BORDER
 	LTEXT			"Select what action you would like to take:",IDC_STATIC,8,55,260,10
-	DEFPUSHBUTTON	"&Download Now",IDC_URL_DOWNLOAD,8,68,68,15,WS_GROUP|BS_FLAT	// Temp fix
+	DEFPUSHBUTTON	"&Download Now",IDC_URL_DOWNLOAD,8,68,68,15,WS_GROUP
 	PUSHBUTTON		"&Search for File",IDC_URL_SEARCH,80,68,68,15
 	PUSHBUTTON		"Cancel",IDCANCEL,234,68,68,15
 	CONTROL			"&Use this selection by default",IDC_ALWAYS_OPEN,"Button",BS_AUTOCHECKBOX|BS_FLAT|WS_TABSTOP,9,86,140,15

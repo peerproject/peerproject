@@ -657,7 +657,7 @@ void CCoolInterface::FixThemeControls(CWnd* pWnd, BOOL bForce /*=TRUE*/)
 		const DWORD nStyle = pChild->GetStyle();
 		if ( ( nStyle & BS_CHECKBOX ) ||
 			 ( nStyle & BS_RADIOBUTTON ) ||
-			 ( ( nStyle & BS_AUTORADIOBUTTON ) && ! ( nStyle & BS_DEFPUSHBUTTON ) ) ||			// Conflict?
+			 ( ( nStyle & BS_AUTORADIOBUTTON ) && ( nStyle & BS_FLAT ) ) ||			// BS_DEFPUSHBUTTON Conflict?
 			 ( ( nStyle & BS_GROUPBOX ) && nID == IDC_STATIC ) )
 			EnableTheme( pChild, bThemed );
 	}

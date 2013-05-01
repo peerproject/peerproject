@@ -111,7 +111,12 @@ BOOL CTorrentFilesPage::OnInitDialog()
 	if ( m_wndFiles.SetBkImage( Skin.GetWatermark( _T("CListCtrl") ) ) )		// || m_wndFiles.SetBkImage( Images.m_bmSystemWindow.m_hObject )	"System.Windows"
 		m_wndFiles.SetExtendedStyle( LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP|LVS_EX_CHECKBOXES );	// No LVS_EX_DOUBLEBUFFER
 	else
+	{
 		m_wndFiles.SetBkColor( Colors.m_crWindow );
+		m_wndFiles.SetTextBkColor( Colors.m_crWindow );
+	}
+
+	m_wndFiles.SetTextColor( Colors.m_crText );
 
 // Priority Column Combobox:	(Unused custom ComboListCtrl)
 //	BEGIN_COLUMN_MAP()
@@ -455,8 +460,9 @@ void CTorrentFilesPage::OnCustomDrawList(NMHDR* pNMHDR, LRESULT* pResult)
 	}
 	else if ( pDraw->nmcd.dwDrawStage == CDDS_ITEMPREPAINT )
 	{
-		if ( m_wndFiles.GetBkColor() == Colors.m_crWindow )
-			pDraw->clrTextBk = Colors.m_crWindow;
+		//if ( m_wndFiles.GetBkColor() == Colors.m_crWindow )
+		//	pDraw->clrTextBk = Colors.m_crWindow;
+		//pDraw->clrText = Colors.m_crText;
 
 		*pResult = CDRF_DODEFAULT;
 	}

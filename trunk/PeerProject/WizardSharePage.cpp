@@ -82,7 +82,12 @@ BOOL CWizardSharePage::OnInitDialog()
 	if ( m_wndList.SetBkImage( Skin.GetWatermark( _T("CListCtrl") ) ) )		// || m_wndList.SetBkImage( Images.m_bmSystemWindow.m_hObject )		"System.Windows"
 		m_wndList.SetExtendedStyle( LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP|LVS_EX_CHECKBOXES );	// No LVS_EX_DOUBLEBUFFER
 	else
+	{
 		m_wndList.SetBkColor( Colors.m_crWindow );
+		m_wndList.SetTextBkColor( Colors.m_crWindow  );
+	}
+
+	m_wndList.SetTextColor( Colors.m_crText );
 
 	{
 		CQuickLock oLock( Library.m_pSection );

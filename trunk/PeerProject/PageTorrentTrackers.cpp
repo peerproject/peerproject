@@ -360,7 +360,12 @@ BOOL CTorrentTrackersPage::OnInitDialog()
 	if ( m_wndTrackers.SetBkImage( Skin.GetWatermark( _T("CListCtrl") ) ) )		// || m_wndTrackers.SetBkImage( Images.m_bmSystemWindow.m_hObject )		"System.Windows"
 		m_wndTrackers.SetExtendedStyle( LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP );	// No LVS_EX_DOUBLEBUFFER
 	else
+	{
 		m_wndTrackers.SetBkColor( Colors.m_crWindow );
+		m_wndTrackers.SetTextBkColor( Colors.m_crWindow );
+	}
+
+	m_wndTrackers.SetTextColor( Colors.m_crText );
 
 	for ( int nTracker = 0 ; nTracker < nCount ; nTracker++ )
 	{
@@ -608,8 +613,9 @@ void CTorrentTrackersPage::OnCustomDrawList(NMHDR* pNMHDR, LRESULT* pResult)
 	}
 	else if ( pDraw->nmcd.dwDrawStage == CDDS_ITEMPREPAINT )
 	{
-		if ( m_wndTrackers.GetBkColor() == Colors.m_crWindow )
-			pDraw->clrTextBk = Colors.m_crWindow;
+		//if ( m_wndTrackers.GetBkColor() == Colors.m_crWindow )
+		//	pDraw->clrTextBk = Colors.m_crWindow;
+		//pDraw->clrText = Colors.m_crText;
 
 		*pResult = CDRF_DODEFAULT;
 	}
