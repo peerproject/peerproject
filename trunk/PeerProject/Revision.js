@@ -31,7 +31,7 @@ try
 	// Old SVN style first
 	fsvn = fso.GetAbsolutePathName( ".svn\\all-wcprops" );
 	svnfile = fso.OpenTextFile( fsvn, 1, false );
-	revision = svnfile.Read( 68 ).substr( 66 );		// Parsing:  "!svn/ver/XX/..."
+	revision = svnfile.Read( 69 ).substr( 66 );		// Parsing:  "!svn/ver/XXX/..."
 	WScript.Echo( "Current SVN Revision is " + revision );
 	svnfile.Close();
 }
@@ -107,7 +107,7 @@ if ( revision != modified )
 		tsw.WriteLine( "#pragma once" );
 		tsw.WriteLine( "" );
 		tsw.WriteLine( "#define __REVISION__ \t\"" + revision + "\"" );
-	//	tsw.WriteLine( "#define __MODAUTHOR__\t\"YOUR NAME HERE\"" );
+		tsw.WriteLine( "//#define __MODAUTHOR__\t\"YOUR NAME HERE\"" );
 		tsw.Close();
 	}
 	catch(e)
