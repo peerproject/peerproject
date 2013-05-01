@@ -2915,7 +2915,7 @@ void CMainWnd::OnHelpFaq()
 	const CString strWebSite( WEB_SITE );
 
 	ShellExecute( GetSafeHwnd(), _T("open"),
-		strWebSite + _T("wiki/userfaq"),
+		strWebSite + _T("wiki/faq"),
 		NULL, NULL, SW_SHOWNORMAL );
 }
 

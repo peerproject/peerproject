@@ -4,7 +4,7 @@
 <manifest
  name="SkinCarbon"
  author="SkinVista"
- icon="..\SkinVista\PeerProject.ico"
+ icon="PeerProject.ico"
  description="PeerProject's Dark Theme"
  link="http://PeerProject.org"
  email="Contact(at)PeerProject.org"
@@ -46,7 +46,7 @@
 <colors>
  <color name="System.Base.Window"			value="12100B"/>  <!--whitespace-->
  <color name="System.Base.Midtone"			value="444240"/>  <!--toolbars-->
- <color name="System.Base.Text" 			value="D4D2D0"/>
+ <color name="System.Base.Text" 			value="D8D6D5"/>
  <color name="System.Base.HiText" 			value="FFFFFF"/>
  <color name="System.Base.HiBorder"			value="66A8E8"/>
  <!--color name="System.Base.HiBorderIn"		value="E2EEFB"-->
@@ -70,9 +70,9 @@
  <color name="TaskBox.Back"				value="1F1E1D"/>  <!--TaskBox.Client-->
  <color name="TaskBox.Text"				value="F4F2F0"/>
  <color name="TaskBox.Primary.Back"			value="444240"/>
- <color name="TaskBox.Primary.Text"			value="006699"/>
+ <color name="TaskBox.Primary.Text"			value="108AE8"/>
  <color name="TaskBox.Caption.Back"			value="242220"/>  <!--edge-->
- <color name="TaskBox.Caption.Text"			value="0066CC"/>
+ <color name="TaskBox.Caption.Text"			value="108AE8"/>
  <color name="TaskBox.Caption.Hover"			value="3399FF"/>
  <!--color name="ToolTip.Border"			value="FCFBFA"-->
  <color name="ToolTip.Back"				value="FCFBFA"/>
@@ -119,7 +119,7 @@
  <color name="Meta.Rating4"				value="605A55"/>
  <color name="Meta.Rating5"				value="000000"/>
  <color name="Richdoc.Back"				value="12100B"/>
- <color name="Richdoc.Text"				value="5C5852"/>
+ <color name="Richdoc.Text"				value="6A6662"/>
  <color name="Richdoc.Heading"				value="BB3828"/>
  <color name="Navbar.Text.Up"				value="F4F2F0"/>
  <color name="Navbar.Text.Hover"			value="FFFFFF"/>
@@ -339,7 +339,7 @@
  <part name="Top"		rect="140,1,20,25"/>
  <part name="TopRight"		rect="170,1,165,25"/>
 </parts>
-<caption align="left" rect="20,1,500,21" fontFace="Segoe UI" fontSize="13" fontWeight="Normal" color="0266CC" outlinecolor="121110" inactivecolor="A0BACC"/>
+<caption align="left" rect="20,1,500,21" fontFace="Segoe UI" fontSize="13" fontWeight="Normal" color="0088EE" outlinecolor="121110" inactivecolor="207AE0"/>
 </windowskin>
 
 <!-- SEARCH HEADER -->
@@ -358,7 +358,7 @@
 <anchors>
  <anchor name="Close"		rect="-16,7,12,12"/>
 </anchors>
-<caption align="left" rect="20,1,500,21" fontFace="Segoe UI" fontSize="13" fontWeight="Normal" color="0666CC" outlinecolor="121110" inactivecolor="B0CAD0"/>
+<caption align="left" rect="20,1,500,21" fontFace="Segoe UI" fontSize="13" fontWeight="Normal" color="0088EE" outlinecolor="121110" inactivecolor="207AE0"/>
 </windowskin>
 
 <!-- TRANSFER DOWNLOADS HEADER -->
@@ -371,7 +371,7 @@
  <part name="Top"		rect="140,1,20,25"/>
  <part name="TopRight"		rect="170,1,165,25"/>
 </parts>
-<caption align="left" rect="20,1,500,21" fontFace="Segoe UI" fontSize="13" fontWeight="Normal" color="0666CC" outlinecolor="121110" inactivecolor="4080E0"/>
+<caption align="left" rect="20,1,500,21" fontFace="Segoe UI" fontSize="13" fontWeight="Normal" color="0088EE" outlinecolor="121110" inactivecolor="207AE0"/>
 </windowskin>
 
 <!-- TRANSFER UPLOADS HEADER -->
@@ -384,7 +384,7 @@
  <part name="Top"		rect="140,0,20,25"/>
  <part name="TopRight"		rect="170,0,165,25"/>
 </parts>
-<caption align="left" rect="20,2,500,21" fontFace="Segoe UI" fontSize="13" fontWeight="Normal" color="0666CC" outlinecolor="121110" inactivecolor="4080E0"/>
+<caption align="left" rect="20,2,500,21" fontFace="Segoe UI" fontSize="13" fontWeight="Normal" color="0088EE" outlinecolor="121110" inactivecolor="207AE0"/>
 </windowskin>
 
 <!-- NETWORK NEIGHBORS HEADER -->
@@ -397,7 +397,7 @@
  <part name="Top"		rect="140,1,20,25"/>
  <part name="TopRight"		rect="170,1,165,25"/>
 </parts>
-<caption align="left" rect="20,1,500,20" fontFace="Segoe UI" fontSize="13" fontWeight="Normal" color="4488FF" outlinecolor="121110" inactivecolor="0666CC"/>
+<caption align="left" rect="20,1,500,20" fontFace="Segoe UI" fontSize="13" fontWeight="Normal" color="0088EE" outlinecolor="121110" inactivecolor="207AE0"/>
 </windowskin>
 
 <!-- NETWORK SYSTEM HEADER -->
@@ -410,7 +410,7 @@
  <part name="Top"		rect="140,0,20,25"/>
  <part name="TopRight"		rect="170,0,165,25"/>
 </parts>
-<caption align="left" rect="20,2,500,21" fontFace="Segoe UI" fontSize="13" fontWeight="Normal" color="4488FF" outlinecolor="121110" inactivecolor="0666CC"/>
+<caption align="left" rect="20,2,500,21" fontFace="Segoe UI" fontSize="13" fontWeight="Normal" color="0088EE" outlinecolor="121110" inactivecolor="207AE0"/>
 </windowskin>
 
 <!-- LIBRARY HEADER -->
@@ -423,7 +423,7 @@
  <part name="Top"		rect="140,1,20,25"/>
  <part name="TopRight"		rect="170,1,165,25"/>
 </parts>
-<caption align="left" rect="20,1,500,21" fontFace="Segoe UI" fontSize="13" fontWeight="Normal" color="0666CC" outlinecolor="121110" inactivecolor="4080E0"/>
+<caption align="left" rect="20,1,500,21" fontFace="Segoe UI" fontSize="13" fontWeight="Normal" color="0088EE" outlinecolor="121110" inactivecolor="207AE0"/>
 </windowskin>
 
 <!-- MEDIA PLAYER HEADER -->
@@ -442,7 +442,7 @@
 <anchors>
  <anchor name="Close" rect="-16,7,12,12"/>
 </anchors>
-<caption align="left" rect="20,1,500,21" fontFace="Segoe UI" fontSize="13" fontWeight="Normal" color="0666CC" outlinecolor="121110" inactivecolor="4080E0"/>
+<caption align="left" rect="20,1,500,21" fontFace="Segoe UI" fontSize="13" fontWeight="Normal" color="0088EE" outlinecolor="121110" inactivecolor="4080E0"/>
 </windowskin>
 
 <!-- SECURITY/SCHEDULER HEADER -->
@@ -462,7 +462,7 @@
 <anchors>
  <anchor name="Close" rect="-16,7,12,12"/>
 </anchors>
-<caption align="left" rect="20,1,500,21" fontFace="Segoe UI" fontSize="13" fontWeight="Normal" color="0666CC" outlinecolor="121110" inactivecolor="4088EE"/>
+<caption align="left" rect="20,1,500,21" fontFace="Segoe UI" fontSize="13" fontWeight="Normal" color="0088EE" outlinecolor="121110" inactivecolor="4088EE"/>
 </windowskin>
 
 <!-- Other Panel Headers -->
@@ -487,7 +487,7 @@
 <anchors>
  <anchor name="Close" rect="-16,7,12,12"/>
 </anchors>
-<caption align="left" rect="20,1,500,21" fontFace="Segoe UI" fontSize="13" fontWeight="Normal" color="0666CC" outlinecolor="121110" inactivecolor="4080E0"/>
+<caption align="left" rect="20,1,500,21" fontFace="Segoe UI" fontSize="13" fontWeight="Normal" color="0088EE" outlinecolor="121110" inactivecolor="4080E0"/>
 </windowskin>
 
 </windowskins>

@@ -1,12 +1,8 @@
+M http://cachechu.peerproject.org/
+M http://cache.w3-hidden.cc/
 M http://gwebcache.ns1.net/
-M http://cachechu.technutopia.com/
-M http://beacon.technutopia.com/gwc.php
-M http://fascination77.free.fr/cachechu/
-M http://www.jdgcs.org/Beacon2/gwc.php
+# http://fascination77.free.fr/cachechu/
 # http://www.5s7.com/g12cache/skulls.php
-# http://aniraws.com/bootstrap/skulls.php
-# http://witch.frodoslair.net/gwc/Beacon2/gwc.php
-# http://cache.leite.us/
 
 2 http://cache.trillinux.org/g2/bazooka.php
 2 http://dkac.trillinux.org/dkac/dkac.php
@@ -21,25 +17,20 @@ M http://www.jdgcs.org/Beacon2/gwc.php
 2 http://cache2.bazookanetworks.com/g2/bazooka.php
 2 http://cache.wru.pl/skulls.php
 2 http://cache.ce3c.be/
-2 http://cache2.leite.us/
+# http://cache2.leite.us/cachechu
 2 http://cache3.leite.us/
-# http://cache4.leite.us/
 2 http://cache5.leite.us/
 # http://cache.pongwar.com/
 
 1 http://beacon.numberzero.org/gwc.php
-1 http://skulls.technutopia.com/skulls.php
+1 http://gwc.ak-electron.eu:12050/ 
 # http://gwc.dietpac.com:8080/
 # http://gwc.glucolene.com:8080/
-# http://gwc.ak-electron.eu:12050/
 # http://leet.gtkg.org:8080/gwc/
 # http://ein.gtkg.net:8080/gwc/
 # http://zwei.gtkg.net:8080/gwc/
 # http://drei.gtkg.net:8080/gwc/
 # http://sissy.gtkg.org:8080/gwc/
-# http://gnutelladev1.udp-host-cache.com:8080/gwc/
-# http://secondary.udp-host-cache.com:8080/gwc/
-# http://tertiary.udp-host-cache.com:8080/gwc/
 
 U uhc:uhc.gtk-gnutella.nl:15749
 # uhc:yin.cloud.bishopston.net:33558
@@ -60,6 +51,7 @@ H http://dchublist.com/hublist.xml.bz2
 H http://hublist.openhublist.org/hublist.xml.bz2
 
 X http://gwebcache.spearforensics.com/
+X http://gwebcache.spearforensics.com/gwc.php 
 X http://bbs.robertwoolley.co.uk/gwebcache/gcache.php
 X http://fischaleck.net/cache/mcache.php
 X http://portal.homeunix.org/Beacon/gwc.php
@@ -68,7 +60,7 @@ X http://gwc.eod.cc.nyud.net/skulls.php
 # http://gwc.gofoxy.net:2108/gwc/cgi-bin/fc
 
 #
-# Last updated Aug. 2012
+# Last updated May 2013
 #
 # Keep at least four gwebcache links and one link to a .met/hublist file
 # or they'll keep getting added every time they're removed
