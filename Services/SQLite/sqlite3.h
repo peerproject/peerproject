@@ -1,5 +1,5 @@
 /*
-** sqlite3.h  (3.7.15) (Dec.2012)
+** sqlite3.h  (3.7.16) (Mar.2013)
 **
 ** This file is part of PeerProject (peerproject.org) © 2008-2012
 ** The original author disclaimed copyright to this source code.
@@ -139,7 +139,7 @@ typedef sqlite_uint64 sqlite3_uint64;
 /*
 ** Closing A Database Connection
 */
-SQLITE_API int sqlite3_close(sqlite3 *);
+SQLITE_API int sqlite3_close(sqlite3*);
 SQLITE_API int sqlite3_close_v2(sqlite3*);
 
 /*
@@ -228,7 +228,17 @@ SQLITE_API int sqlite3_exec(
 #define SQLITE_CORRUPT_VTAB            (SQLITE_CORRUPT  | (1<<8))
 #define SQLITE_READONLY_RECOVERY       (SQLITE_READONLY | (1<<8))
 #define SQLITE_READONLY_CANTLOCK       (SQLITE_READONLY | (2<<8))
+#define SQLITE_READONLY_ROLLBACK       (SQLITE_READONLY | (3<<8))
 #define SQLITE_ABORT_ROLLBACK          (SQLITE_ABORT | (2<<8))
+#define SQLITE_CONSTRAINT_CHECK        (SQLITE_CONSTRAINT | (1<<8))
+#define SQLITE_CONSTRAINT_COMMITHOOK   (SQLITE_CONSTRAINT | (2<<8))
+#define SQLITE_CONSTRAINT_FOREIGNKEY   (SQLITE_CONSTRAINT | (3<<8))
+#define SQLITE_CONSTRAINT_FUNCTION     (SQLITE_CONSTRAINT | (4<<8))
+#define SQLITE_CONSTRAINT_NOTNULL      (SQLITE_CONSTRAINT | (5<<8))
+#define SQLITE_CONSTRAINT_PRIMARYKEY   (SQLITE_CONSTRAINT | (6<<8))
+#define SQLITE_CONSTRAINT_TRIGGER      (SQLITE_CONSTRAINT | (7<<8))
+#define SQLITE_CONSTRAINT_UNIQUE       (SQLITE_CONSTRAINT | (8<<8))
+#define SQLITE_CONSTRAINT_VTAB         (SQLITE_CONSTRAINT | (9<<8))
 
 /*
 ** Flags For File Open Operations
