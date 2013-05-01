@@ -1,6 +1,7 @@
-M http://cachechu.peerproject.org/
+M http://webcache.peerproject.org/
 M http://cache.w3-hidden.cc/
 M http://gwebcache.ns1.net/
+M http://gweb.dwbo.nl/
 # http://fascination77.free.fr/cachechu/
 # http://www.5s7.com/g12cache/skulls.php
 
@@ -10,20 +11,22 @@ M http://gwebcache.ns1.net/
 2 http://brov.mine.nu/Beacon/gwc.php
 2 http://gwc2.wodi.org/skulls.php
 2 http://gwc.dyndns.info:28960/gwc.php
+2 http://htmlhell.com/
+2 http://cache.ce3c.be/
+# http://cache.pongwar.com/
 # http://dogma.cloud.bishopston.net:33559/
 # http://karma.cloud.bishopston.net:33559/
-2 http://htmlhell.com/
-2 http://midian.jayl.de/g2/bazooka.php
+# http://midian.jayl.de/g2/bazooka.php
 2 http://cache2.bazookanetworks.com/g2/bazooka.php
-2 http://cache.wru.pl/skulls.php
-2 http://cache.ce3c.be/
 # http://cache2.leite.us/cachechu
 2 http://cache3.leite.us/
 2 http://cache5.leite.us/
-# http://cache.pongwar.com/
 
-1 http://beacon.numberzero.org/gwc.php
-1 http://gwc.ak-electron.eu:12050/ 
+1 http://www.omhub.ru/mibew/view/
+1 http://gwc.iblinx.com:2108/gwc/cgi-bin/fc
+# http://gwctest.zapto.org:1337/
+# http://beacon.numberzero.org/gwc.php
+# http://gwc.ak-electron.eu:12050/
 # http://gwc.dietpac.com:8080/
 # http://gwc.glucolene.com:8080/
 # http://leet.gtkg.org:8080/gwc/
@@ -47,15 +50,13 @@ D http://www.gruk.org/server.met
 D http://upd.emule-security.org/server.met
 D http://www.emule-server.de/server.met/max/server.met
 # http://ocbmaurice.dyndns.org/pl/slist.pl/server.met?download/server-best.met
+
 H http://dchublist.com/hublist.xml.bz2
 H http://hublist.openhublist.org/hublist.xml.bz2
 
 X http://gwebcache.spearforensics.com/
-X http://gwebcache.spearforensics.com/gwc.php 
-X http://bbs.robertwoolley.co.uk/gwebcache/gcache.php
+X http://gwebcache.spearforensics.com/gwc.php
 X http://fischaleck.net/cache/mcache.php
-X http://portal.homeunix.org/Beacon/gwc.php
-X http://gwc.eod.cc.nyud.net/skulls.php
 # http://www.myfoxy.net/gwc/cgi-bin/fc
 # http://gwc.gofoxy.net:2108/gwc/cgi-bin/fc
 
