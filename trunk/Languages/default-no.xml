@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Norwegian Skin File -->
 
-<!-- Translation based on default-en.xml r90 --> <!-- (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r100 --> <!-- (Shareaza 2.2.0.2) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -323,7 +323,7 @@
 		<separator/>
 		<button id="ID_MEDIA_FULLSCREEN"/>
 		<button id="ID_MEDIA_ZOOM"/>
-		<button id="ID_MEDIA_VIS"/>
+		<button id="ID_MEDIA_SETTINGS"/>
 		<rightAlign/>
 		<button id="ID_MEDIA_PREVIOUS"/>
 		<button id="ID_MEDIA_NEXT"/>
@@ -1329,6 +1329,7 @@
 			<separator/>
 			<item id="ID_VIEW_DISCOVERY" text="Oppdagelse"/>
 			<item id="ID_VIEW_HOSTS" text="Vert-cache"/>
+			<item id="ID_VIEW_SECURITY" text="Sikkerhet"/>
 		</menu>
 		<menu text="_Monitor">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="Vis all trafikk"/>

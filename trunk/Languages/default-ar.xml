@@ -3,7 +3,7 @@
 
 <!-- PeerProject Arabic Language Skin File -->
 
-<!-- Translation based on default-en.xml r90 -->
+<!-- Translation based on default-en.xml r100 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1485,6 +1485,7 @@
 			<separator />
 			<item id="ID_VIEW_DISCOVERY" text="الإكت_شاف" />
 			<item id="ID_VIEW_HOSTS" text="ا_لمخزون المؤقت للمضيف" />
+			<item id="ID_VIEW_SECURITY" text="ال_أمان" />
 		</menu>
 		<menu text="_شاشة">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="عرض _كافة حركات المرور" />

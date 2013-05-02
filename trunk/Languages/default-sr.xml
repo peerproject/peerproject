@@ -3,7 +3,7 @@
 
 <!-- PeerProject/ПеерПројецт Default Serbian Skin File -->
 
-<!-- Translation based on default-en.xml r90 -->
+<!-- Translation based on default-en.xml r100 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -324,7 +324,7 @@
 		<separator/>
 		<button id="ID_MEDIA_FULLSCREEN"/>
 		<button id="ID_MEDIA_ZOOM"/>
-		<button id="ID_MEDIA_VIS"/>
+		<button id="ID_MEDIA_SETTINGS"/>
 		<rightAlign/>
 		<button id="ID_MEDIA_PREVIOUS"/>
 		<button id="ID_MEDIA_NEXT"/>
@@ -1447,6 +1447,7 @@
 			<separator/>
 			<item id="ID_VIEW_DISCOVERY" text="Прон_алажење"/>
 			<item id="ID_VIEW_HOSTS" text="Кеш _домаћина"/>
+			<item id="ID_VIEW_SECURITY" text="Си_гурност"/>
 		</menu>
 		<menu text="Praćenje">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="Pok_aži Sav Promet"/>

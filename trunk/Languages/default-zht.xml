@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Traditional) Skin File -->
 
-<!-- Translation based on default-en.xml r90 --> <!-- (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r100 --> <!-- (Shareaza 2.2.2.12) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -326,7 +326,7 @@
 		<separator/>
 		<button id="ID_MEDIA_FULLSCREEN"/>
 		<button id="ID_MEDIA_ZOOM"/>
-		<button id="ID_MEDIA_VIS"/>
+		<button id="ID_MEDIA_SETTINGS"/>
 		<rightAlign/>
 		<button id="ID_MEDIA_PREVIOUS"/>
 		<button id="ID_MEDIA_NEXT"/>
@@ -1470,6 +1470,7 @@
 			<separator/>
 			<item id="ID_VIEW_DISCOVERY" text="揭示"/>
 			<item id="ID_VIEW_HOSTS" text="主機快取"/>
+			<item id="ID_VIEW_SECURITY" text="安全性"/>
 		</menu>
 		<menu text="監視器">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="顯示所有的流量"/>

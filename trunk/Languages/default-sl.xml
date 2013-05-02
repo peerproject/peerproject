@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Slovenian Skin File -->
 
-<!-- Translation based on default-en.xml r90 --> <!-- (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r100 --> <!-- (Shareaza 2.2.2.12) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -325,7 +325,7 @@
 		<separator/>
 		<button id="ID_MEDIA_FULLSCREEN"/>
 		<button id="ID_MEDIA_ZOOM"/>
-		<button id="ID_MEDIA_VIS"/>
+		<button id="ID_MEDIA_SETTINGS"/>
 		<rightAlign/>
 		<button id="ID_MEDIA_PREVIOUS"/>
 		<button id="ID_MEDIA_NEXT"/>
@@ -1423,6 +1423,7 @@
 			<separator/>
 			<item id="ID_VIEW_DISCOVERY" text="_Discovery"/>
 			<item id="ID_VIEW_HOSTS" text="_Predpomnilnik gostitelja"/>
+			<item id="ID_VIEW_SECURITY" text="_Varnost"/>
 		</menu>
 		<menu text="_Nadzornik">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="Poglej _ves promet"/>

@@ -722,6 +722,7 @@
 				<item id="ID_HELP_UPDATE" text="Latest news"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<item id="ID_HELP_TEST" text="_Connection Test"/>
 			</menu>
 			<separator/> <!--
 			<item id="ID_HELP_VERSION_CHECK" text="Check for new _version"/>
@@ -901,6 +902,7 @@
 				<item id="ID_HELP_UPDATE" text="Latest news"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<item id="ID_HELP_TEST" text="_Connection Test"/>
 			</menu>
 			<separator/> <!--
 			<item id="ID_HELP_VERSION_CHECK" text="Check for new _version"/>
@@ -1578,7 +1580,7 @@
 			<separator/>
 			<item id="ID_VIEW_DISCOVERY" text="Discovery _Services"/>
 			<item id="ID_VIEW_HOSTS" text="_Host/Server Cache"/>
-			<item id="ID_SECURITY" text="Security _Filters"/>
+			<item id="ID_VIEW_SECURITY" text="Security _Filters"/>
 		</menu>
 		<menu text="_Monitor">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="View _Traffic Packets"/>

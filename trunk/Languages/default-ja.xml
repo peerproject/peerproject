@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Japanese Skin File -->
 
-<!-- Translation based on default-en.xml r90 --> <!-- (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r100 --> <!-- (Shareaza 2.2.0.2) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -333,7 +333,7 @@
 		<separator/>
 		<button id="ID_MEDIA_FULLSCREEN"/>
 		<button id="ID_MEDIA_ZOOM"/>
-		<button id="ID_MEDIA_VIS"/>
+		<button id="ID_MEDIA_SETTINGS"/>
 		<rightAlign/>
 		<button id="ID_MEDIA_PREVIOUS"/>
 		<button id="ID_MEDIA_NEXT"/>
@@ -438,20 +438,20 @@
 <menus>
 	<!-- TAB BAR POPUP MENUS -->
 	<menu name="CTabBar">
-		<item id="ID_MOVETAB_LEFT" text="タブを左へ移動(_L)"/>
-		<item id="ID_MOVETAB_RIGHT" text="タブを右に移動(_R)"/>
+		<item id="ID_MOVETAB_LEFT" text="タブを左へ移動"/>
+		<item id="ID_MOVETAB_RIGHT" text="タブを右に移動"/>
 		<separator/>
-		<item id="ID_CHILD_CLOSE" text="ウィンドウを閉じる(_C)"/>
+		<item id="ID_CHILD_CLOSE" text="ウィンドウを閉じる"/>
 	</menu>
 	<menu name="CTabBar.Child">
-		<item id="ID_MOVETAB_LEFT" text="タブを左へ移動(_L)"/>
-		<item id="ID_MOVETAB_RIGHT" text="タブを右に移動(_R)"/>
+		<item id="ID_MOVETAB_LEFT" text="タブを左へ移動"/>
+		<item id="ID_MOVETAB_RIGHT" text="タブを右に移動"/>
 		<separator/>
-		<item id="ID_CHILD_MAXIMISE" text="全画面(_F)"/>
-		<item id="ID_CHILD_RESTORE" text="元に戻す(_S)"/>
-		<item id="ID_CHILD_MINIMISE" text="最小化(_M)"/>
+		<item id="ID_CHILD_MAXIMISE" text="全画面"/>
+		<item id="ID_CHILD_RESTORE" text="元に戻す"/>
+		<item id="ID_CHILD_MINIMISE" text="最小化"/>
 		<separator/>
-		<item id="ID_CHILD_CLOSE" text="ウィンドウを閉じる(_C)"/>
+		<item id="ID_CHILD_CLOSE" text="ウィンドウを閉じる"/>
 	</menu>
 	<!-- TRAY MENU -->
 	<menu name="CMainWnd.Tray">	<!--"CRemoteWnd"-->
@@ -474,9 +474,9 @@
 	<menu name="CMainWnd.DropMenu" type="bar">
 		<menu text="&#160; メニュー &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="設定..."/>
-			<menu text="ネットワーク(_N)">
-				<item id="ID_NETWORK_CONNECT" text="接続(_C)" shortcut="Ctrl+G"/>
-				<item id="ID_NETWORK_DISCONNECT" text="切断(_D)"/>
+			<menu text="ネットワーク">
+				<item id="ID_NETWORK_CONNECT" text="接続" shortcut="Ctrl+G"/>
+				<item id="ID_NETWORK_DISCONNECT" text="切断"/>
 				<separator/>
 				<item id="ID_NETWORK_G2" text="Gnutella_2へ接続"/>
 				<item id="ID_NETWORK_G1" text="_Gnutellaへ接続"/>
@@ -484,85 +484,85 @@
 				<item id="ID_NETWORK_DC" text="_DC++へ接続"/>
 				<item id="ID_NETWORK_BT" text="_BitTorrentへ接続"/>
 				<separator/>
-				<item id="ID_NETWORK_CONNECT_TO" text="接続先(_T)..." shortcut="Ctrl+T"/>
-				<item id="ID_NETWORK_BROWSE_TO" text="ホストを参照(_B)..."/>
+				<item id="ID_NETWORK_CONNECT_TO" text="接続先..." shortcut="Ctrl+T"/>
+				<item id="ID_NETWORK_BROWSE_TO" text="ホストを参照..."/>
 				<separator/>
-				<item id="ID_NETWORK_AUTO_CLOSE" text="転送後に終了(_A)"/>
-				<item id="ID_NETWORK_EXIT" text="終了(_X)"/>
+				<item id="ID_NETWORK_AUTO_CLOSE" text="転送後に終了"/>
+				<item id="ID_NETWORK_EXIT" text="終了"/>
 			</menu>
-			<menu text="ツール(_T)">
-				<item id="ID_LIBRARY_FOLDERS" text="共有ファイル(_F)..."/>
+			<menu text="ツール">
+				<item id="ID_LIBRARY_FOLDERS" text="共有ファイル..."/>
 				<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Open Downloads Folder"/>
 				<separator/>
-				<item id="ID_TOOLS_DOWNLOAD" text="ダウンロード/Torrent(_D)..."/>
+				<item id="ID_TOOLS_DOWNLOAD" text="ダウンロード/Torrent..."/>
 				<item id="ID_TOOLS_CREATETORRENT" text="_Create New .Torrent..."/>
 				<separator/>
-				<item id="ID_TOOLS_LANGUAGE" text="言語を選択(_L)..."/>
-				<item id="ID_TOOLS_SKIN" text="スキンを選択(_K)..."/>
+				<item id="ID_TOOLS_LANGUAGE" text="言語を選択..."/>
+				<item id="ID_TOOLS_SKIN" text="スキンを選択..."/>
 				<separator/>
-				<item id="ID_TOOLS_PROFILE" text="プロフィールを編集(_P)..."/>
-				<item id="ID_TOOLS_WIZARD" text="クイックスタートウィザード(_W)..."/>
+				<item id="ID_TOOLS_PROFILE" text="プロフィールを編集..."/>
+				<item id="ID_TOOLS_WIZARD" text="クイックスタートウィザード..."/>
 				<separator/>
-				<item id="ID_TOOLS_SETTINGS" text="PeerProject設定(_S)..."/>
+				<item id="ID_TOOLS_SETTINGS" text="PeerProject設定..."/>
 			</menu>
-			<menu text="表示(_V)">
-				<item id="ID_TAB_HOME" text="ホーム(_H)" shortcut="Ctrl+H"/>
-				<item id="ID_VIEW_SYSTEM" text="システム(_Y)" shortcut="F11"/>
-				<item id="ID_VIEW_NEIGHBOURS" text="近隣(_E)" shortcut="Ctrl+F11"/>
-				<item id="ID_VIEW_DOWNLOADS" text="ダウンロード(_D)" shortcut="F3"/>
-				<item id="ID_VIEW_UPLOADS" text="アップロード(_U)" shortcut="F4"/>
-				<item id="ID_VIEW_LIBRARY" text="ライブラリ(_L)" shortcut="F5"/>
-				<item id="ID_VIEW_MEDIA" text="メディア(_M)" shortcut="F6"/>
+			<menu text="表示">
+				<item id="ID_TAB_HOME" text="ホーム" shortcut="Ctrl+H"/>
+				<item id="ID_VIEW_SYSTEM" text="システム" shortcut="F11"/>
+				<item id="ID_VIEW_NEIGHBOURS" text="近隣" shortcut="Ctrl+F11"/>
+				<item id="ID_VIEW_DOWNLOADS" text="ダウンロード" shortcut="F3"/>
+				<item id="ID_VIEW_UPLOADS" text="アップロード" shortcut="F4"/>
+				<item id="ID_VIEW_LIBRARY" text="ライブラリ" shortcut="F5"/>
+				<item id="ID_VIEW_MEDIA" text="メディア" shortcut="F6"/>
 				<separator/>
-				<item id="ID_VIEW_SECURITY" text="セキュリティ(_C)" shortcut="F7"/>
-				<item id="ID_VIEW_HOSTS" text="ホストキャッシュ(_O)" shortcut="F8"/>
-				<item id="ID_VIEW_DISCOVERY" text="ディスカバリ(_V)" shortcut="F9"/>
-				<item id="ID_VIEW_TRAFFIC" text="グラフ(_G)" shortcut="F10"/>
+				<item id="ID_VIEW_SECURITY" text="セキュリティ" shortcut="F7"/>
+				<item id="ID_VIEW_HOSTS" text="ホストキャッシュ" shortcut="F8"/>
+				<item id="ID_VIEW_DISCOVERY" text="ディスカバリ" shortcut="F9"/>
+				<item id="ID_VIEW_TRAFFIC" text="グラフ" shortcut="F10"/>
 				<separator/>
-				<item id="ID_VIEW_PACKETS" text="パケットダンプ(_P)" shortcut="Ctrl+F1"/>
-				<item id="ID_VIEW_SEARCH_MONITOR" text="検索モニタ(_A)" shortcut="Ctrl+F2"/>
-				<item id="ID_VIEW_RESULTS_MONITOR" text="ヒットモニタ(_I)" shortcut="Ctrl+F3"/>
-				<item id="ID_TAB_SEARCH" text="検索(_S)"/>
+				<item id="ID_VIEW_PACKETS" text="パケットダンプ" shortcut="Ctrl+F1"/>
+				<item id="ID_VIEW_SEARCH_MONITOR" text="検索モニタ" shortcut="Ctrl+F2"/>
+				<item id="ID_VIEW_RESULTS_MONITOR" text="ヒットモニタ" shortcut="Ctrl+F3"/>
+				<item id="ID_TAB_SEARCH" text="検索"/>
 			</menu>
-			<menu text="ウィンドウ(_W)">
-				<item id="ID_VIEW_BASIC" text="標準モード(_O)"/>
-				<item id="ID_VIEW_TABBED" text="タブモード(_A)"/>
-				<item id="ID_VIEW_WINDOWED" text="ウィンドウモード(_W)"/>
+			<menu text="ウィンドウ">
+				<item id="ID_VIEW_BASIC" text="標準モード"/>
+				<item id="ID_VIEW_TABBED" text="タブモード"/>
+				<item id="ID_VIEW_WINDOWED" text="ウィンドウモード"/>
 				<separator/>
-				<item id="ID_WINDOW_NAVBAR" text="ナビゲーションバーを表示(_N)"/>
-				<item id="ID_WINDOW_TOOLBAR" text="ツールバーを表示(_T)"/>
-				<item id="ID_WINDOW_TABBAR" text="タブバーを表示(_B)"/>
-				<item id="ID_WINDOW_MONITOR" text="モニタを表示(_M)"/>
-				<item id="ID_WINDOW_REMOTE" text="リモートを表示(_R)"/>
+				<item id="ID_WINDOW_NAVBAR" text="ナビゲーションバーを表示"/>
+				<item id="ID_WINDOW_TOOLBAR" text="ツールバーを表示"/>
+				<item id="ID_WINDOW_TABBAR" text="タブバーを表示"/>
+				<item id="ID_WINDOW_MONITOR" text="モニタを表示"/>
+				<item id="ID_WINDOW_REMOTE" text="リモートを表示"/>
 			</menu>
-			<menu text="ヘルプ(_H)">
-				<item id="ID_HELP_FAQ" text="PeerProject FAQ(_F)"/>
+			<menu text="ヘルプ">
+				<item id="ID_HELP_FAQ" text="PeerProject FAQ"/>
 				<separator/>
-				<menu text="ガイド(_G)">
-					<item id="ID_HELP_GUIDE" text="PeerProjectユーザーズガイド(_U)"/>
-					<item id="ID_HELP_ROUTER" text="ルーター ヘルプ(_R)"/>
-					<item id="ID_HELP_SECURITY" text="セキュリティ ヘルプ(_S)"/>
-					<item id="ID_HELP_CODEC" text="コーデック ヘルプ(_C)"/>
+				<menu text="ガイド">
+					<item id="ID_HELP_GUIDE" text="PeerProjectユーザーズガイド"/>
+					<item id="ID_HELP_ROUTER" text="ルーター ヘルプ"/>
+					<item id="ID_HELP_SECURITY" text="セキュリティ ヘルプ"/>
+					<item id="ID_HELP_CODEC" text="コーデック ヘルプ"/>
 				</menu>
 				<separator/>
-				<menu text="ウェブサイト(_W)">
-					<item id="ID_HELP_FORUMS" text="PeerProjectフォーラム(_F)"/>
+				<menu text="ウェブサイト">
+					<item id="ID_HELP_FORUMS" text="PeerProjectフォーラム"/>
 					<separator/>
 					<!-- <item id="ID_HELP_UPDATE" text="最新ニュース"/>
 					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 					<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
 				</menu>
-				<item id="ID_HELP_HOMEPAGE" text="PeerProject site(_S)"/>
+				<item id="ID_HELP_HOMEPAGE" text="PeerProject site"/>
 				<separator/>
-				<item id="ID_HELP_ABOUT" text="PeerProjectについて(_A)..."/>
+				<item id="ID_HELP_ABOUT" text="PeerProjectについて..."/>
 			</menu>
 			<item id="ID_NETWORK_EXIT" text="終了"/>
 		</menu>
 	</menu>
 	<menu name="CMainWnd.Tabbed" type="bar">
-		<menu text="ネットワーク(_N)">
-			<item id="ID_NETWORK_CONNECT" text="接続(_C)" shortcut="Ctrl+G"/>
-			<item id="ID_NETWORK_DISCONNECT" text="切断(_D)"/>
+		<menu text="ネットワーク">
+			<item id="ID_NETWORK_CONNECT" text="接続" shortcut="Ctrl+G"/>
+			<item id="ID_NETWORK_DISCONNECT" text="切断"/>
 			<separator/>
 			<item id="ID_NETWORK_G2" text="Gnutella_2へ接続"/>
 			<item id="ID_NETWORK_G1" text="_Gnutellaへ接続"/>
@@ -570,84 +570,84 @@
 			<item id="ID_NETWORK_DC" text="_DC++へ接続"/>
 			<item id="ID_NETWORK_BT" text="_BitTorrentへ接続"/>
 			<separator/>
-			<item id="ID_NETWORK_CONNECT_TO" text="接続先(_T)..." shortcut="Ctrl+T"/>
-			<item id="ID_NETWORK_BROWSE_TO" text="ホストを参照(_B)..."/>
+			<item id="ID_NETWORK_CONNECT_TO" text="接続先..." shortcut="Ctrl+T"/>
+			<item id="ID_NETWORK_BROWSE_TO" text="ホストを参照..."/>
 			<separator/>
-			<item id="ID_NETWORK_AUTO_CLOSE" text="転送後に終了(_A)"/>
-			<item id="ID_NETWORK_EXIT" text="終了(_X)"/>
+			<item id="ID_NETWORK_AUTO_CLOSE" text="転送後に終了"/>
+			<item id="ID_NETWORK_EXIT" text="終了"/>
 		</menu>
-		<menu text="表示(_V)">
-			<item id="ID_TAB_HOME" text="ホーム(_H)"/>
-			<item id="ID_TAB_LIBRARY" text="ライブラリ(_L)"/>
-			<item id="ID_TAB_MEDIA" text="メディアプレーヤー(_M)"/>
-			<item id="ID_TAB_SEARCH" text="検索(_S)"/>
-			<item id="ID_TAB_TRANSFERS" text="転送(_T)"/>
-			<item id="ID_TAB_NETWORK" text="ネットワーク(_N)"/>
+		<menu text="表示">
+			<item id="ID_TAB_HOME" text="ホーム"/>
+			<item id="ID_TAB_LIBRARY" text="ライブラリ"/>
+			<item id="ID_TAB_MEDIA" text="メディアプレーヤー"/>
+			<item id="ID_TAB_SEARCH" text="検索"/>
+			<item id="ID_TAB_TRANSFERS" text="転送"/>
+			<item id="ID_TAB_NETWORK" text="ネットワーク"/>
 			<separator/>
-			<item id="ID_VIEW_SECURITY" text="セキュリティ(_C)"/>
-			<item id="ID_VIEW_HOSTS" text="ホストキャッシュ(_O)"/>
+			<item id="ID_VIEW_SECURITY" text="セキュリティ"/>
+			<item id="ID_VIEW_HOSTS" text="ホストキャッシュ"/>
 			<separator/>
-			<menu text="高度(_D)">
-				<item id="ID_VIEW_SYSTEM" text="システム(_Y)" shortcut="F11"/>
-				<item id="ID_VIEW_NEIGHBOURS" text="近隣(_E)" shortcut="Ctrl+F11"/>
-				<item id="ID_VIEW_DOWNLOADS" text="ダウンロード(_D)" shortcut="F3"/>
-				<item id="ID_VIEW_UPLOADS" text="アップロード(_U)" shortcut="F4"/>
-				<item id="ID_VIEW_LIBRARY" text="ライブラリ(_L)" shortcut="F5"/>
-				<item id="ID_VIEW_MEDIA" text="メディア(_M)" shortcut="F6"/>
+			<menu text="高度">
+				<item id="ID_VIEW_SYSTEM" text="システム" shortcut="F11"/>
+				<item id="ID_VIEW_NEIGHBOURS" text="近隣" shortcut="Ctrl+F11"/>
+				<item id="ID_VIEW_DOWNLOADS" text="ダウンロード" shortcut="F3"/>
+				<item id="ID_VIEW_UPLOADS" text="アップロード" shortcut="F4"/>
+				<item id="ID_VIEW_LIBRARY" text="ライブラリ" shortcut="F5"/>
+				<item id="ID_VIEW_MEDIA" text="メディア" shortcut="F6"/>
 				<separator/>
-				<item id="ID_VIEW_SECURITY" text="セキュリティ(_C)" shortcut="F7"/>
-				<item id="ID_VIEW_HOSTS" text="ホストキャッシュ(_O)" shortcut="F8"/>
-				<item id="ID_VIEW_DISCOVERY" text="ディスカバリ(_V)" shortcut="F9"/>
-				<item id="ID_VIEW_TRAFFIC" text="グラフ(_G)" shortcut="F10"/>
+				<item id="ID_VIEW_SECURITY" text="セキュリティ" shortcut="F7"/>
+				<item id="ID_VIEW_HOSTS" text="ホストキャッシュ" shortcut="F8"/>
+				<item id="ID_VIEW_DISCOVERY" text="ディスカバリ" shortcut="F9"/>
+				<item id="ID_VIEW_TRAFFIC" text="グラフ" shortcut="F10"/>
 				<separator/>
-				<item id="ID_VIEW_PACKETS" text="パケットダンプ(_P)" shortcut="Ctrl+F1"/>
-				<item id="ID_VIEW_SEARCH_MONITOR" text="検索モニタ(_A)" shortcut="Ctrl+F2"/>
-				<item id="ID_VIEW_RESULTS_MONITOR" text="ヒットモニタ(_I)" shortcut="Ctrl+F3"/>
+				<item id="ID_VIEW_PACKETS" text="パケットダンプ" shortcut="Ctrl+F1"/>
+				<item id="ID_VIEW_SEARCH_MONITOR" text="検索モニタ" shortcut="Ctrl+F2"/>
+				<item id="ID_VIEW_RESULTS_MONITOR" text="ヒットモニタ" shortcut="Ctrl+F3"/>
 			</menu>
 			<separator/>
-			<item id="ID_VIEW_BASIC" text="標準モード(_O)"/>
-			<item id="ID_VIEW_TABBED" text="タブモード(_A)"/>
-			<item id="ID_VIEW_WINDOWED" text="ウィンドウモード(_W)"/>
+			<item id="ID_VIEW_BASIC" text="標準モード"/>
+			<item id="ID_VIEW_TABBED" text="タブモード"/>
+			<item id="ID_VIEW_WINDOWED" text="ウィンドウモード"/>
 		</menu>
-		<menu text="ツール(_T)">
-			<item id="ID_LIBRARY_FOLDERS" text="共有ファイル(_F)..."/>
-			<item id="ID_TOOLS_DOWNLOAD" text="ダウンロード/Torrent(_D)..."/>
+		<menu text="ツール">
+			<item id="ID_LIBRARY_FOLDERS" text="共有ファイル..."/>
+			<item id="ID_TOOLS_DOWNLOAD" text="ダウンロード/Torrent..."/>
 			<separator/>
-			<item id="ID_TOOLS_SKIN" text="スキンを選択(_K)..."/>
-			<item id="ID_TOOLS_LANGUAGE" text="言語を選択(_L)..."/>
+			<item id="ID_TOOLS_SKIN" text="スキンを選択..."/>
+			<item id="ID_TOOLS_LANGUAGE" text="言語を選択..."/>
 			<separator/>
-			<item id="ID_TOOLS_PROFILE" text="プロフィールを編集(_P)..."/>
-			<item id="ID_TOOLS_WIZARD" text="クイックスタートウィザード(_W)..."/>
+			<item id="ID_TOOLS_PROFILE" text="プロフィールを編集..."/>
+			<item id="ID_TOOLS_WIZARD" text="クイックスタートウィザード..."/>
 			<separator/>
-			<item id="ID_TOOLS_SETTINGS" text="PeerProject設定(_S)..."/>
+			<item id="ID_TOOLS_SETTINGS" text="PeerProject設定..."/>
 		</menu>
-		<menu text="ウィンドウ(_W)">
-			<item id="ID_WINDOW_NAVBAR" text="ナビゲーションバーを表示(_N)"/>
-			<item id="ID_WINDOW_TOOLBAR" text="ツールバーを表示(_T)"/>
-			<item id="ID_WINDOW_TABBAR" text="タブバーを表示(_B)"/>
-			<item id="ID_WINDOW_MONITOR" text="モニタを表示(_M)"/>
-			<item id="ID_WINDOW_REMOTE" text="リモートを表示(_R)"/>
+		<menu text="ウィンドウ">
+			<item id="ID_WINDOW_NAVBAR" text="ナビゲーションバーを表示"/>
+			<item id="ID_WINDOW_TOOLBAR" text="ツールバーを表示"/>
+			<item id="ID_WINDOW_TABBAR" text="タブバーを表示"/>
+			<item id="ID_WINDOW_MONITOR" text="モニタを表示"/>
+			<item id="ID_WINDOW_REMOTE" text="リモートを表示"/>
 		</menu>
-		<menu text="ヘルプ(_H)">
-			<item id="ID_HELP_FAQ" text="PeerProject FAQ(_F)"/>
+		<menu text="ヘルプ">
+			<item id="ID_HELP_FAQ" text="PeerProject FAQ"/>
 			<separator/>
-			<menu text="ガイド(_G)">
-				<item id="ID_HELP_GUIDE" text="PeerProjectユーザーズガイド(_U)"/>
-				<item id="ID_HELP_ROUTER" text="ルーター ヘルプ(_R)"/>
-				<item id="ID_HELP_SECURITY" text="セキュリティ ヘルプ(_S)"/>
-				<item id="ID_HELP_CODEC" text="コーデック ヘルプ(_C)"/>
+			<menu text="ガイド">
+				<item id="ID_HELP_GUIDE" text="PeerProjectユーザーズガイド"/>
+				<item id="ID_HELP_ROUTER" text="ルーター ヘルプ"/>
+				<item id="ID_HELP_SECURITY" text="セキュリティ ヘルプ"/>
+				<item id="ID_HELP_CODEC" text="コーデック ヘルプ"/>
 			</menu>
 			<separator/>
-			<menu text="ウェブサイト(_W)">
-				<item id="ID_HELP_HOMEPAGE" text="PeerProject site(_S)"/>
+			<menu text="ウェブサイト">
+				<item id="ID_HELP_HOMEPAGE" text="PeerProject site"/>
 				<separator/>
-				<item id="ID_HELP_FORUMS" text="PeerProjectフォーラム(_F)"/>
+				<item id="ID_HELP_FORUMS" text="PeerProjectフォーラム"/>
 				<!-- <item id="ID_HELP_UPDATE" text="最新ニュース"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
 			</menu>
 			<separator/>
-			<item id="ID_HELP_ABOUT" text="PeerProjectについて(_A)..."/>
+			<item id="ID_HELP_ABOUT" text="PeerProjectについて..."/>
 		</menu>
 	</menu>
 	<menu name="CMainWnd.Basic" type="bar">
@@ -717,224 +717,224 @@
 		</menu>
 	</menu>
 	<menu name="CMainWnd.Windowed" type="bar">
-		<menu text="ネットワーク(_N)">
-			<item id="ID_NETWORK_SEARCH" text="新規検索(_S)..." shortcut="Ctrl+S"/>
+		<menu text="ネットワーク">
+			<item id="ID_NETWORK_SEARCH" text="新規検索..." shortcut="Ctrl+S"/>
 			<separator/>
-			<item id="ID_NETWORK_CONNECT" text="接続(_C)" shortcut="Ctrl+G"/>
-			<item id="ID_NETWORK_DISCONNECT" text="切断(_D)"/>
+			<item id="ID_NETWORK_CONNECT" text="接続" shortcut="Ctrl+G"/>
+			<item id="ID_NETWORK_DISCONNECT" text="切断"/>
 			<separator/>
-			<item id="ID_NETWORK_CONNECT_TO" text="接続先(_T)..." shortcut="Ctrl+T"/>
-			<item id="ID_NETWORK_BROWSE_TO" text="ホストを参照(_B)..."/>
+			<item id="ID_NETWORK_CONNECT_TO" text="接続先..." shortcut="Ctrl+T"/>
+			<item id="ID_NETWORK_BROWSE_TO" text="ホストを参照..."/>
 			<separator/>
 			<item id="ID_NETWORK_G2" text="Gnutella_2へ接続"/>
 			<item id="ID_NETWORK_G1" text="_Gnutellaへ接続"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey2000へ接続"/>
 			<item id="ID_NETWORK_DC" text="_DCへ接続"/>
 			<separator/>
-			<item id="ID_NETWORK_AUTO_CLOSE" text="転送後に終了(_A)"/>
-			<item id="ID_NETWORK_EXIT" text="終了(_X)"/>
+			<item id="ID_NETWORK_AUTO_CLOSE" text="転送後に終了"/>
+			<item id="ID_NETWORK_EXIT" text="終了"/>
 		</menu>
-		<menu text="表示(_V)">
-			<item id="ID_VIEW_SYSTEM" text="システム(_S)" shortcut="F11"/>
-			<item id="ID_VIEW_NEIGHBOURS" text="近隣(_N)" shortcut="Ctrl+F11"/>
-			<item id="ID_VIEW_DOWNLOADS" text="ダウンロード(_D)" shortcut="F3"/>
-			<item id="ID_VIEW_UPLOADS" text="アップロード(_U)" shortcut="F4"/>
-			<item id="ID_VIEW_LIBRARY" text="ライブラリ(_L)" shortcut="F5"/>
-			<item id="ID_VIEW_MEDIA" text="メディア(_M)" shortcut="F6"/>
+		<menu text="表示">
+			<item id="ID_VIEW_SYSTEM" text="システム" shortcut="F11"/>
+			<item id="ID_VIEW_NEIGHBOURS" text="近隣" shortcut="Ctrl+F11"/>
+			<item id="ID_VIEW_DOWNLOADS" text="ダウンロード" shortcut="F3"/>
+			<item id="ID_VIEW_UPLOADS" text="アップロード" shortcut="F4"/>
+			<item id="ID_VIEW_LIBRARY" text="ライブラリ" shortcut="F5"/>
+			<item id="ID_VIEW_MEDIA" text="メディア" shortcut="F6"/>
 			<separator/>
-			<item id="ID_VIEW_SECURITY" text="セキュリティ(_C)" shortcut="F7"/>
-			<item id="ID_VIEW_HOSTS" text="ホストキャッシュ(_O)" shortcut="F8"/>
-			<item id="ID_VIEW_DISCOVERY" text="ディスカバリ(_V)" shortcut="F9"/>
-			<item id="ID_VIEW_TRAFFIC" text="グラフ(_G)" shortcut="F10"/>
+			<item id="ID_VIEW_SECURITY" text="セキュリティ" shortcut="F7"/>
+			<item id="ID_VIEW_HOSTS" text="ホストキャッシュ" shortcut="F8"/>
+			<item id="ID_VIEW_DISCOVERY" text="ディスカバリ" shortcut="F9"/>
+			<item id="ID_VIEW_TRAFFIC" text="グラフ" shortcut="F10"/>
 			<separator/>
-			<item id="ID_VIEW_PACKETS" text="パケットダンプ(_P)" shortcut="Ctrl+F1"/>
-			<item id="ID_VIEW_SEARCH_MONITOR" text="検索モニタ(_A)" shortcut="Ctrl+F2"/>
-			<item id="ID_VIEW_RESULTS_MONITOR" text="ヒットモニタ(_I)" shortcut="Ctrl+F3"/>
+			<item id="ID_VIEW_PACKETS" text="パケットダンプ" shortcut="Ctrl+F1"/>
+			<item id="ID_VIEW_SEARCH_MONITOR" text="検索モニタ" shortcut="Ctrl+F2"/>
+			<item id="ID_VIEW_RESULTS_MONITOR" text="ヒットモニタ" shortcut="Ctrl+F3"/>
 			<separator/>
 			<item id="ID_VIEW_BASIC" text="標準モード"/>
 			<item id="ID_VIEW_TABBED" text="タブモード"/>
 			<item id="ID_VIEW_WINDOWED" text="ウィンドウモード"/>
 		</menu>
-		<menu text="ツール(_T)">
-			<item id="ID_LIBRARY_FOLDERS" text="共有ファイル(_F)..."/>
-			<item id="ID_TOOLS_DOWNLOAD" text="ダウンロード/Torrent(_D)..."/>
+		<menu text="ツール">
+			<item id="ID_LIBRARY_FOLDERS" text="共有ファイル..."/>
+			<item id="ID_TOOLS_DOWNLOAD" text="ダウンロード/Torrent..."/>
 			<item id="ID_IMPORT_DOWNLOADS" text="_Import eMule partial downloads..."/>
 			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Open my folder of completed Downloads"/>
 			<separator/>
-			<item id="ID_TOOLS_SKIN" text="スキンを選択(_K)..."/>
-			<item id="ID_TOOLS_LANGUAGE" text="言語を選択(_L)..."/>
+			<item id="ID_TOOLS_SKIN" text="スキンを選択..."/>
+			<item id="ID_TOOLS_LANGUAGE" text="言語を選択..."/>
 			<separator/>
-			<item id="ID_TOOLS_PROFILE" text="プロフィールを編集(_P)..."/>
+			<item id="ID_TOOLS_PROFILE" text="プロフィールを編集..."/>
 			<separator/>
-			<item id="ID_TOOLS_WIZARD" text="クイックスタートウィザード(_W)..."/>
-			<item id="ID_TOOLS_SETTINGS" text="PeerProject設定(_S)..."/>
+			<item id="ID_TOOLS_WIZARD" text="クイックスタートウィザード..."/>
+			<item id="ID_TOOLS_SETTINGS" text="PeerProject設定..."/>
 		</menu>
-		<menu text="ウィンドウ(_W)">
-			<item id="ID_WINDOW_CASCADE" text="フルスクリーン(_F)"/>
-			<item id="ID_WINDOW_TILE_HORZ" text="横に並べる(_H)"/>
-			<item id="ID_WINDOW_TILE_VERT" text="縦に並べる(_V)"/>
+		<menu text="ウィンドウ">
+			<item id="ID_WINDOW_CASCADE" text="フルスクリーン"/>
+			<item id="ID_WINDOW_TILE_HORZ" text="横に並べる"/>
+			<item id="ID_WINDOW_TILE_VERT" text="縦に並べる"/>
 			<separator/>
-			<item id="ID_WINDOW_NAVBAR" text="ナビゲーションバーを表示(_N)"/>
-			<item id="ID_WINDOW_TOOLBAR" text="ツールバーを表示(_T)"/>
+			<item id="ID_WINDOW_NAVBAR" text="ナビゲーションバーを表示"/>
+			<item id="ID_WINDOW_TOOLBAR" text="ツールバーを表示"/>
 			<separator/>
-			<item id="ID_WINDOW_TABBAR" text="タブバーを表示(_B)"/>
-			<item id="ID_WINDOW_MONITOR" text="モニタを表示(_M)"/>
-			<item id="ID_WINDOW_REMOTE" text="リモートを表示(_R)"/>
+			<item id="ID_WINDOW_TABBAR" text="タブバーを表示"/>
+			<item id="ID_WINDOW_MONITOR" text="モニタを表示"/>
+			<item id="ID_WINDOW_REMOTE" text="リモートを表示"/>
 		</menu>
-		<menu text="ヘルプ(_H)">
-			<item id="ID_HELP_FAQ" text="PeerProject FAQ(_F)"/>
+		<menu text="ヘルプ">
+			<item id="ID_HELP_FAQ" text="PeerProject FAQ"/>
 			<item id="ID_HELP_TEST" text="_Connection Test"/>
 			<separator/>
-			<menu text="ガイド(_G)">
-				<item id="ID_HELP_GUIDE" text="PeerProjectユーザーズガイド(_U)"/>
-				<item id="ID_HELP_ROUTER" text="ルーター ヘルプ(_R)"/>
-				<item id="ID_HELP_SECURITY" text="セキュリティ ヘルプ(_S)"/>
-				<item id="ID_HELP_CODEC" text="コーデック ヘルプ(_C)"/>
+			<menu text="ガイド">
+				<item id="ID_HELP_GUIDE" text="PeerProjectユーザーズガイド"/>
+				<item id="ID_HELP_ROUTER" text="ルーター ヘルプ"/>
+				<item id="ID_HELP_SECURITY" text="セキュリティ ヘルプ"/>
+				<item id="ID_HELP_CODEC" text="コーデック ヘルプ"/>
 			</menu>
 			<separator/>
-			<menu text="ウェブサイト(_W)">
-				<item id="ID_HELP_HOMEPAGE" text="PeerProject site(_S)"/>
+			<menu text="ウェブサイト">
+				<item id="ID_HELP_HOMEPAGE" text="PeerProject site"/>
 				<separator/>
-				<item id="ID_HELP_FORUMS" text="PeerProjectフォーラム(_F)"/>
+				<item id="ID_HELP_FORUMS" text="PeerProjectフォーラム"/>
 				<!-- <item id="ID_HELP_UPDATE" text="最新ニュース"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
 			</menu>
 			<separator/>
-			<item id="ID_HELP_ABOUT" text="PeerProjectについて(_A)..."/>
+			<item id="ID_HELP_ABOUT" text="PeerProjectについて..."/>
 		</menu>
 	</menu>
 	<!-- VIEW POPUP -->
 	<menu name="CMainWnd.View.Basic">
-		<item id="ID_TAB_HOME" text="ホーム(_H)"/>
-		<item id="ID_TAB_LIBRARY" text="ライブラリ(_L)"/>
-		<item id="ID_TAB_MEDIA" text="メディア(_M)"/>
-		<item id="ID_TAB_SEARCH" text="検索(_S)"/>
-		<item id="ID_TAB_TRANSFERS" text="ダウンロード(_D)"/>
+		<item id="ID_TAB_HOME" text="ホーム"/>
+		<item id="ID_TAB_LIBRARY" text="ライブラリ"/>
+		<item id="ID_TAB_MEDIA" text="メディア"/>
+		<item id="ID_TAB_SEARCH" text="検索"/>
+		<item id="ID_TAB_TRANSFERS" text="ダウンロード"/>
 		<separator/>
-		<menu text="高度(_A)">
-			<item id="ID_VIEW_NEIGHBOURS" text="近隣(_N)"/>
-			<item id="ID_VIEW_UPLOADS" text="アップロード(_U)"/>
-			<item id="ID_VIEW_SECURITY" text="セキュリティ(_S)"/>
-			<item id="ID_VIEW_HOSTS" text="ホストキャッシュ(_H)"/>
+		<menu text="高度">
+			<item id="ID_VIEW_NEIGHBOURS" text="近隣"/>
+			<item id="ID_VIEW_UPLOADS" text="アップロード"/>
+			<item id="ID_VIEW_SECURITY" text="セキュリティ"/>
+			<item id="ID_VIEW_HOSTS" text="ホストキャッシュ"/>
 		</menu>
 	</menu>
 	<menu name="CMainWnd.View.Tabbed">
-		<item id="ID_TAB_HOME" text="ホーム(_H)"/>
-		<item id="ID_TAB_LIBRARY" text="ライブラリ(_L)"/>
-		<item id="ID_TAB_MEDIA" text="メディア(_M)"/>
-		<item id="ID_TAB_SEARCH" text="検索(_S)"/>
-		<item id="ID_TAB_TRANSFERS" text="転送(_T)"/>
-		<item id="ID_TAB_NETWORK" text="ネットワーク(_N)"/>
+		<item id="ID_TAB_HOME" text="ホーム"/>
+		<item id="ID_TAB_LIBRARY" text="ライブラリ"/>
+		<item id="ID_TAB_MEDIA" text="メディア"/>
+		<item id="ID_TAB_SEARCH" text="検索"/>
+		<item id="ID_TAB_TRANSFERS" text="転送"/>
+		<item id="ID_TAB_NETWORK" text="ネットワーク"/>
 		<separator/>
-		<item id="ID_VIEW_SECURITY" text="セキュリティ(_C)"/>
-		<item id="ID_VIEW_HOSTS" text="ホストキャッシュ(_H)"/>
-		<item id="ID_VIEW_DISCOVERY" text="ディスカバリ(_V)"/>
-		<item id="ID_VIEW_TRAFFIC" text="グラフ(_G)"/>
+		<item id="ID_VIEW_SECURITY" text="セキュリティ"/>
+		<item id="ID_VIEW_HOSTS" text="ホストキャッシュ"/>
+		<item id="ID_VIEW_DISCOVERY" text="ディスカバリ"/>
+		<item id="ID_VIEW_TRAFFIC" text="グラフ"/>
 		<separator/>
-		<item id="ID_VIEW_PACKETS" text="パケットダンプ(_P)"/>
-		<item id="ID_VIEW_SEARCH_MONITOR" text="検索モニタ(_A)"/>
-		<item id="ID_VIEW_RESULTS_MONITOR" text="ヒットモニタ(_I)"/>
+		<item id="ID_VIEW_PACKETS" text="パケットダンプ"/>
+		<item id="ID_VIEW_SEARCH_MONITOR" text="検索モニタ"/>
+		<item id="ID_VIEW_RESULTS_MONITOR" text="ヒットモニタ"/>
 	</menu>
 	<menu name="CMainWnd.View.Windowed">
-		<item id="ID_NETWORK_SEARCH" text="新規検索(_S)..."/>
+		<item id="ID_NETWORK_SEARCH" text="新規検索..."/>
 		<separator/>
-		<item id="ID_VIEW_SYSTEM" text="システム(_Y)"/>
-		<item id="ID_VIEW_NEIGHBOURS" text="近隣(_E)"/>
-		<item id="ID_VIEW_DOWNLOADS" text="ダウンロード(_D)"/>
-		<item id="ID_VIEW_UPLOADS" text="アップロード(_U)"/>
-		<item id="ID_VIEW_LIBRARY" text="ライブラリ(_L)"/>
-		<item id="ID_VIEW_MEDIA" text="メディアプレーヤー(_M)"/>
+		<item id="ID_VIEW_SYSTEM" text="システム"/>
+		<item id="ID_VIEW_NEIGHBOURS" text="近隣"/>
+		<item id="ID_VIEW_DOWNLOADS" text="ダウンロード"/>
+		<item id="ID_VIEW_UPLOADS" text="アップロード"/>
+		<item id="ID_VIEW_LIBRARY" text="ライブラリ"/>
+		<item id="ID_VIEW_MEDIA" text="メディアプレーヤー"/>
 		<separator/>
-		<item id="ID_VIEW_SECURITY" text="セキュリティ(_C)"/>
-		<item id="ID_VIEW_HOSTS" text="ホストキャッシュ(_H)"/>
-		<item id="ID_VIEW_DISCOVERY" text="ディスカバリ(_V)"/>
-		<item id="ID_VIEW_TRAFFIC" text="グラフ(_G)"/>
+		<item id="ID_VIEW_SECURITY" text="セキュリティ"/>
+		<item id="ID_VIEW_HOSTS" text="ホストキャッシュ"/>
+		<item id="ID_VIEW_DISCOVERY" text="ディスカバリ"/>
+		<item id="ID_VIEW_TRAFFIC" text="グラフ"/>
 		<separator/>
-		<item id="ID_VIEW_PACKETS" text="パケットダンプ(_P)"/>
-		<item id="ID_VIEW_SEARCH_MONITOR" text="検索モニタ(_A)"/>
-		<item id="ID_VIEW_RESULTS_MONITOR" text="ヒットモニタ(_I)"/>
+		<item id="ID_VIEW_PACKETS" text="パケットダンプ"/>
+		<item id="ID_VIEW_SEARCH_MONITOR" text="検索モニタ"/>
+		<item id="ID_VIEW_RESULTS_MONITOR" text="ヒットモニタ"/>
 	</menu>
 	<!-- HOME MENU -->
 	<menu name="CHomeWnd.Basic">
-		<item id="ID_TAB_HOME" text="ホーム(_H)"/>
-		<item id="ID_TAB_LIBRARY" text="ライブラリ(_L)"/>
-		<item id="ID_TAB_MEDIA" text="メディア(_M)"/>
-		<item id="ID_TAB_SEARCH" text="検索(_S)"/>
-		<item id="ID_TAB_TRANSFERS" text="ダウンロード(_D)"/>
+		<item id="ID_TAB_HOME" text="ホーム"/>
+		<item id="ID_TAB_LIBRARY" text="ライブラリ"/>
+		<item id="ID_TAB_MEDIA" text="メディア"/>
+		<item id="ID_TAB_SEARCH" text="検索"/>
+		<item id="ID_TAB_TRANSFERS" text="ダウンロード"/>
 		<separator/>
-		<menu text="高度(_A)">
-			<item id="ID_VIEW_NEIGHBOURS" text="近隣(_N)"/>
-			<item id="ID_VIEW_UPLOADS" text="アップロード(_U)"/>
-			<item id="ID_VIEW_SECURITY" text="セキュリティ(_S)"/>
-			<item id="ID_VIEW_HOSTS" text="ホストキャッシュ(_H)"/>
+		<menu text="高度">
+			<item id="ID_VIEW_NEIGHBOURS" text="近隣"/>
+			<item id="ID_VIEW_UPLOADS" text="アップロード"/>
+			<item id="ID_VIEW_SECURITY" text="セキュリティ"/>
+			<item id="ID_VIEW_HOSTS" text="ホストキャッシュ"/>
 		</menu>
 	</menu>
 	<menu name="CHomeWnd.Tabbed">
-		<item id="ID_TAB_HOME" text="ホーム(_H)"/>
-		<item id="ID_TAB_LIBRARY" text="ライブラリ(_L)"/>
-		<item id="ID_TAB_MEDIA" text="メディア(_M)"/>
-		<item id="ID_TAB_SEARCH" text="検索(_S)"/>
-		<item id="ID_TAB_TRANSFERS" text="転送(_T)"/>
-		<item id="ID_TAB_NETWORK" text="ネットワーク(_N)"/>
+		<item id="ID_TAB_HOME" text="ホーム"/>
+		<item id="ID_TAB_LIBRARY" text="ライブラリ"/>
+		<item id="ID_TAB_MEDIA" text="メディア"/>
+		<item id="ID_TAB_SEARCH" text="検索"/>
+		<item id="ID_TAB_TRANSFERS" text="転送"/>
+		<item id="ID_TAB_NETWORK" text="ネットワーク"/>
 		<separator/>
-		<item id="ID_VIEW_SECURITY" text="セキュリティ(_C)"/>
-		<item id="ID_VIEW_HOSTS" text="ホストキャッシュ(_H)"/>
-		<item id="ID_VIEW_DISCOVERY" text="ディスカバリ(_V)"/>
-		<item id="ID_VIEW_TRAFFIC" text="グラフ(_G)"/>
+		<item id="ID_VIEW_SECURITY" text="セキュリティ"/>
+		<item id="ID_VIEW_HOSTS" text="ホストキャッシュ"/>
+		<item id="ID_VIEW_DISCOVERY" text="ディスカバリ"/>
+		<item id="ID_VIEW_TRAFFIC" text="グラフ"/>
 		<separator/>
-		<item id="ID_VIEW_PACKETS" text="パケットダンプ(_P)"/>
-		<item id="ID_VIEW_SEARCH_MONITOR" text="検索モニタ(_A)"/>
-		<item id="ID_VIEW_RESULTS_MONITOR" text="ヒットモニタ(_I)"/>
+		<item id="ID_VIEW_PACKETS" text="パケットダンプ"/>
+		<item id="ID_VIEW_SEARCH_MONITOR" text="検索モニタ"/>
+		<item id="ID_VIEW_RESULTS_MONITOR" text="ヒットモニタ"/>
 	</menu>
 	<!-- HOST CACHE WINDOW -->
 	<menu name="CHostCacheWnd">
-		<item id="ID_HOSTCACHE_CONNECT" text="すぐに接続(_C)"/>
-		<item id="ID_HOSTCACHE_DISCONNECT" text="切断(_D)"/>
+		<item id="ID_HOSTCACHE_CONNECT" text="すぐに接続"/>
+		<item id="ID_HOSTCACHE_DISCONNECT" text="切断"/>
 		<item id="ID_NEIGHBOURS_URI" text="Copy _URI"/>
-		<item id="ID_HOSTCACHE_PRIORITY" text="優先サーバ(_P)"/>
+		<item id="ID_HOSTCACHE_PRIORITY" text="優先サーバ"/>
 		<separator/>
-		<item id="ID_HOSTCACHE_REMOVE" text="ホストを削除(_R)"/>
+		<item id="ID_HOSTCACHE_REMOVE" text="ホストを削除"/>
 		<separator/>
-		<menu text="フィルタ(_F)">
-			<item id="ID_HOSTCACHE_G2_HORIZON" text="Gnutella2クラスタ(_U)"/>
-			<item id="ID_HOSTCACHE_G2_CACHE" text="Gnutella2キャッシュ(_2)"/>
-			<item id="ID_HOSTCACHE_G1_CACHE" text="Gnutella1キャッシュ(_1)"/>
-			<item id="ID_HOSTCACHE_ED2K_CACHE" text="eDonkeyサーバ(_E)"/>
+		<menu text="フィルタ">
+			<item id="ID_HOSTCACHE_G2_HORIZON" text="Gnutella2クラスタ"/>
+			<item id="ID_HOSTCACHE_G2_CACHE" text="Gnutella2キャッシュ.../>
+			<item id="ID_HOSTCACHE_G1_CACHE" text="Gnutella1キャッシュ.../>
+			<item id="ID_HOSTCACHE_ED2K_CACHE" text="eDonkeyサーバ"/>
 		</menu>
 		<separator/>
-		<item id="ID_HOSTCACHE_IMPORT" text="METファイルをインポート(_I)..."/>
+		<item id="ID_HOSTCACHE_IMPORT" text="METファイルをインポート..."/>
 		<item id="ID_HOSTCACHE_FILE_DOWNLOAD" text="METをダウンロード..."/>
 	</menu>
 	<!-- SEARCH WINDOW -->
 	<menu name="CSearchWnd.Basic">
-		<item id="ID_SEARCH_DOWNLOAD" text="ダウンロード(_D)"/>
+		<item id="ID_SEARCH_DOWNLOAD" text="ダウンロード"/>
 		<separator/>
-		<item id="ID_BROWSE_LAUNCH" text="参照(_B)"/>
-		<item id="ID_SEARCH_CHAT" text="チャット(_C)"/>
+		<item id="ID_BROWSE_LAUNCH" text="参照"/>
+		<item id="ID_SEARCH_CHAT" text="チャット"/>
 		<separator/>
-		<menu text="検索対象(_S)">
+		<menu text="検索対象">
 			<item id="ID_SEARCH_FOR_SIMILAR" text="似たファイル"/>
 			<separator/>
 			<item id="ID_SEARCH_FOR_ARTIST" text="同じアーティストの曲"/>
 			<item id="ID_SEARCH_FOR_ALBUM" text="同じアルバムの曲"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="同じシリーズのエピソード"/>
 		</menu>
-		<menu text="ウェブサービス(_W)">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Bitzi Ticketを表示(_B)"/>
-			<item id="ID_SEARCH_URI" text="URIをコピー(_U)..."/>
+		<menu text="ウェブサービス">
+			<item id="ID_LIBRARY_BITZI_WEB" text="Bitzi Ticketを表示"/>
+			<item id="ID_SEARCH_URI" text="URIをコピー..."/>
 		</menu>
 	</menu>
 	<menu name="CSearchWnd">
-		<item id="ID_SEARCH_DOWNLOAD" text="ダウンロード(_D)"/>
+		<item id="ID_SEARCH_DOWNLOAD" text="ダウンロード"/>
 		<item id="ID_SEARCH_DOWNLOADNOW" text="今すぐダウンロード"/>
-		<item id="ID_SEARCH_URI" text="URIをコピー(_U)"/>
+		<item id="ID_SEARCH_URI" text="URIをコピー"/>
 		<separator/>
-		<item id="ID_BROWSE_LAUNCH" text="参照(_W)"/>
-		<item id="ID_SEARCH_CHAT" text="チャット(_C)"/>
-		<item id="ID_SECURITY_BAN" text="BANする(_B)"/>
+		<item id="ID_BROWSE_LAUNCH" text="参照"/>
+		<item id="ID_SEARCH_CHAT" text="チャット"/>
+		<item id="ID_SECURITY_BAN" text="BANする"/>
 		<separator/>
-		<menu text="検索対象(_S)">
+		<menu text="検索対象">
 			<item id="ID_SEARCH_FOR_THIS" text="このファイル"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="似たファイル"/>
 			<separator/>
@@ -942,43 +942,43 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="同じアルバムの曲"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="同じシリーズのエピソード"/>
 		</menu>
-		<menu text="ウェブサービス(_W)">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Bitzi Ticketを表示(_B)"/>
+		<menu text="ウェブサービス">
+			<item id="ID_LIBRARY_BITZI_WEB" text="Bitzi Ticketを表示"/>
 		</menu>
 		<separator/>
-		<item id="ID_SEARCH_FILTER" text="フィルタ結果(_F)..."/>
-		<item id="ID_SEARCH_FILTER_REMOVE" text="フィルタを削除(_R)"/>
-		<item id="ID_SEARCH_CLEAR" text="結果をクリア(_L)"/>
+		<item id="ID_SEARCH_FILTER" text="フィルタ結果..."/>
+		<item id="ID_SEARCH_FILTER_REMOVE" text="フィルタを削除"/>
+		<item id="ID_SEARCH_CLEAR" text="結果をクリア"/>
 		<separator/>
-		<item id="ID_SEARCH_COLUMNS" text="カラムを編集(_O)..."/>
+		<item id="ID_SEARCH_COLUMNS" text="カラムを編集..."/>
 	</menu>
 	<!-- BROWSE HOST WINDOW -->
 	<menu name="CBrowseHostWnd.Basic">
-		<item id="ID_SEARCH_DOWNLOAD" text="ダウンロード(_D)"/>
-		<item id="ID_SEARCH_DOWNLOADNOW" text="今すぐダウンロード(_N)"/>
+		<item id="ID_SEARCH_DOWNLOAD" text="ダウンロード"/>
+		<item id="ID_SEARCH_DOWNLOADNOW" text="今すぐダウンロード"/>
 		<separator/>
-		<item id="ID_SEARCH_CHAT" text="チャット(_C)"/>
+		<item id="ID_SEARCH_CHAT" text="チャット"/>
 		<separator/>
-		<menu text="検索対象(_S)">
+		<menu text="検索対象">
 			<item id="ID_SEARCH_FOR_SIMILAR" text="似たファイル"/>
 			<separator/>
 			<item id="ID_SEARCH_FOR_ARTIST" text="同じアーティストの曲"/>
 			<item id="ID_SEARCH_FOR_ALBUM" text="同じアルバムの曲"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="同じシリーズのエピソード"/>
 		</menu>
-		<menu text="ウェブファイル情報(_W)">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Bitzi Ticketを表示(_B)"/>
-			<item id="ID_SEARCH_URI" text="URIをコピー(_U)..."/>
+		<menu text="ウェブファイル情報">
+			<item id="ID_LIBRARY_BITZI_WEB" text="Bitzi Ticketを表示"/>
+			<item id="ID_SEARCH_URI" text="URIをコピー..."/>
 		</menu>
 	</menu>
 	<menu name="CBrowseHostWnd">
-		<item id="ID_SEARCH_DOWNLOAD" text="ダウンロード(_D)"/>
-		<item id="ID_SEARCH_DOWNLOADNOW" text="今すぐダウンロード(_N)"/>
-		<item id="ID_SEARCH_URI" text="URIをコピー(_U)"/>
+		<item id="ID_SEARCH_DOWNLOAD" text="ダウンロード"/>
+		<item id="ID_SEARCH_DOWNLOADNOW" text="今すぐダウンロード"/>
+		<item id="ID_SEARCH_URI" text="URIをコピー"/>
 		<separator/>
-		<item id="ID_SEARCH_CHAT" text="チャット(_C)"/>
+		<item id="ID_SEARCH_CHAT" text="チャット"/>
 		<separator/>
-		<menu text="検索対象(_S)">
+		<menu text="検索対象">
 			<item id="ID_SEARCH_FOR_THIS" text="このファイル"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="似たファイル"/>
 			<separator/>
@@ -986,24 +986,24 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="同じアルバムの曲"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="同じシリーズのエピソード"/>
 		</menu>
-		<menu text="ウェブサービス(_W)">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Bitzi Ticketを表示(_B)"/>
+		<menu text="ウェブサービス">
+			<item id="ID_LIBRARY_BITZI_WEB" text="Bitzi Ticketを表示"/>
 		</menu>
 		<separator/>
-		<item id="ID_SEARCH_FILTER" text="フィルタ結果(_F)..."/>
-		<item id="ID_SEARCH_FILTER_REMOVE" text="フィルタを削除(_E)"/>
+		<item id="ID_SEARCH_FILTER" text="フィルタ結果..."/>
+		<item id="ID_SEARCH_FILTER_REMOVE" text="フィルタを削除"/>
 		<separator/>
-		<item id="ID_SEARCH_COLUMNS" text="カラムを編集(_O)..."/>
+		<item id="ID_SEARCH_COLUMNS" text="カラムを編集..."/>
 	</menu>
 	<!-- HIT MONITOR WINDOW -->
 	<menu name="CHitMonitorWnd">
-		<item id="ID_SEARCH_DOWNLOAD" text="ダウンロード(_D)"/>
-		<item id="ID_SEARCH_URI" text="URIをコピー(_U)"/>
+		<item id="ID_SEARCH_DOWNLOAD" text="ダウンロード"/>
+		<item id="ID_SEARCH_URI" text="URIをコピー"/>
 		<separator/>
-		<item id="ID_BROWSE_LAUNCH" text="参照(_B)"/>
-		<item id="ID_SEARCH_CHAT" text="チャット(_C)"/>
+		<item id="ID_BROWSE_LAUNCH" text="参照"/>
+		<item id="ID_SEARCH_CHAT" text="チャット"/>
 		<separator/>
-		<menu text="検索対象(_S)">
+		<menu text="検索対象">
 			<item id="ID_SEARCH_FOR_THIS" text="このファイル"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="似たファイル"/>
 			<separator/>
@@ -1011,164 +1011,164 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="同じアルバムの曲"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="同じシリーズのエピソード"/>
 		</menu>
-		<menu text="ウェブサービス(_W)">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Bitzi Ticketを表示(_B)"/>
+		<menu text="ウェブサービス">
+			<item id="ID_LIBRARY_BITZI_WEB" text="Bitzi Ticketを表示"/>
 		</menu>
 		<separator/>
-		<item id="ID_SEARCH_FILTER" text="フィルタ結果(_F)..."/>
-		<item id="ID_SEARCH_FILTER_REMOVE" text="フィルタを削除(_R)"/>
+		<item id="ID_SEARCH_FILTER" text="フィルタ結果..."/>
+		<item id="ID_SEARCH_FILTER_REMOVE" text="フィルタを削除"/>
 		<separator/>
-		<item id="ID_HITMONITOR_PAUSE" text="表示を一時停止(_P)"/>
-		<item id="ID_HITMONITOR_CLEAR" text="表示をクリア(_L)"/>
+		<item id="ID_HITMONITOR_PAUSE" text="表示を一時停止"/>
+		<item id="ID_HITMONITOR_CLEAR" text="表示をクリア"/>
 		<separator/>
-		<item id="ID_SEARCH_COLUMNS" text="カラムを編集(_O)..."/>
+		<item id="ID_SEARCH_COLUMNS" text="カラムを編集..."/>
 	</menu>
 	<!-- DOWNLOADS WINDOW -->
 	<menu name="CDownloadsWnd.Download.Basic">
-		<item id="ID_DOWNLOADS_LAUNCH" text="プレビュー(_P)"/>
+		<item id="ID_DOWNLOADS_LAUNCH" text="プレビュー"/>
 		<separator/>
-		<item id="ID_DOWNLOADS_RESUME" text="再開(_R)"/>
-		<item id="ID_DOWNLOADS_PAUSE" text="一時停止(_A)"/>
-		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="キャンセル(_C)"/>
+		<item id="ID_DOWNLOADS_RESUME" text="再開"/>
+		<item id="ID_DOWNLOADS_PAUSE" text="一時停止"/>
+		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="キャンセル"/>
 		<separator/>
-		<item id="ID_DOWNLOADS_SOURCES" text="追加ソースを検索(_F)"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="リモートプレビュー(_E)"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="レビューを表示(_V)"/>
+		<item id="ID_DOWNLOADS_SOURCES" text="追加ソースを検索"/>
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="リモートプレビュー"/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="レビューを表示"/>
 		<separator/>
-		<item id="ID_DOWNLOADS_HELP" text="ヘルプ(_H)..."/>
+		<item id="ID_DOWNLOADS_HELP" text="ヘルプ..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Download">
-		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="プレビュー Copy(_C)"/>
-		<item id="ID_DOWNLOADS_LAUNCH" text="プレビュー(_P)"/>
-		<item id="ID_DOWNLOADS_ENQUEUE" text="再生リストに追加(_Y)"/>
+		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="プレビュー Copy"/>
+		<item id="ID_DOWNLOADS_LAUNCH" text="プレビュー"/>
+		<item id="ID_DOWNLOADS_ENQUEUE" text="再生リストに追加"/>
 		<separator/>
-		<item id="ID_DOWNLOADS_RESUME" text="再開(_R)"/>
-		<item id="ID_DOWNLOADS_PAUSE" text="一時停止(_A)"/>
-		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="キャンセル(_C)"/>
+		<item id="ID_DOWNLOADS_RESUME" text="再開"/>
+		<item id="ID_DOWNLOADS_PAUSE" text="一時停止"/>
+		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="キャンセル"/>
 		<separator/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="レビューを表示(_V)"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="リモートプレビュー(_R)"/>
-		<item id="ID_DOWNLOADS_SOURCES" text="追加ソースを検索(_F)"/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="レビューを表示"/>
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="リモートプレビュー"/>
+		<item id="ID_DOWNLOADS_SOURCES" text="追加ソースを検索"/>
 		<separator/>
-		<menu text="高度(_A)">
-			<item id="ID_DOWNLOADS_SHARE" text="共有ファイル(_S)"/>
+		<menu text="高度">
+			<item id="ID_DOWNLOADS_SHARE" text="共有ファイル"/>
 			<separator/>
-			<item id="ID_DOWNLOADS_URI" text="URIをコピー(_U)"/>
-			<item id="ID_DOWNLOADS_ADD_SOURCE" text="ソースを追加(_A)..."/>
-			<item id="ID_DOWNLOADS_MERGE" text="ローカルのファイルをマージします。(_M)..."/>
+			<item id="ID_DOWNLOADS_URI" text="URIをコピー"/>
+			<item id="ID_DOWNLOADS_ADD_SOURCE" text="ソースを追加..."/>
+			<item id="ID_DOWNLOADS_MERGE" text="ローカルのファイルをマージします。..."/>
 			<separator/>
-			<item id="ID_DOWNLOADS_MONITOR" text="モニタウィンドウ(_W)"/>
+			<item id="ID_DOWNLOADS_MONITOR" text="モニタウィンドウ"/>
 		</menu>
-		<menu text="優先順位(_O)">
-			<item id="ID_DOWNLOADS_BOOST" text="帯域制限を無視(_I)"/>
+		<menu text="優先順位">
+			<item id="ID_DOWNLOADS_BOOST" text="帯域制限を無視"/>
 			<separator/>
-			<item id="ID_DOWNLOADS_MOVE_TOP" text="上に移動!(_T)"/>
-			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="下に移動!(_B)"/>
-			<item id="ID_DOWNLOADS_MOVE_UP" text="上に移動(_U)"/>
-			<item id="ID_DOWNLOADS_MOVE_DOWN" text="下に移動(_D)"/>
+			<item id="ID_DOWNLOADS_MOVE_TOP" text="上に移動!"/>
+			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="下に移動!"/>
+			<item id="ID_DOWNLOADS_MOVE_UP" text="上に移動"/>
+			<item id="ID_DOWNLOADS_MOVE_DOWN" text="下に移動"/>
 		</menu>
-		<item id="ID_DOWNLOADS_HELP" text="ヘルプ(_H)..."/>
+		<item id="ID_DOWNLOADS_HELP" text="ヘルプ..."/>
 		<separator/>
-		<item id="ID_DOWNLOADS_EDIT" text="高度な編集(_E)..."/>
+		<item id="ID_DOWNLOADS_EDIT" text="高度な編集..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Source">
-		<item id="ID_TRANSFERS_CONNECT" text="アクセス(_A)"/>
+		<item id="ID_TRANSFERS_CONNECT" text="アクセス"/>
 		<separator/>
-		<item id="ID_BROWSE_LAUNCH" text="参照(_B)"/>
-		<item id="ID_TRANSFERS_CHAT" text="チャット(_C)"/>
+		<item id="ID_BROWSE_LAUNCH" text="参照"/>
+		<item id="ID_TRANSFERS_CHAT" text="チャット"/>
 		<item id="ID_DOWNLOADS_URI" text="Copy _URI"/>
 		<separator/>
-		<item id="ID_TRANSFERS_DISCONNECT" text="切断(_D)"/>
-		<item id="ID_TRANSFERS_FORGET" text="忘却する(_F)"/>
+		<item id="ID_TRANSFERS_DISCONNECT" text="切断"/>
+		<item id="ID_TRANSFERS_FORGET" text="忘却する"/>
 	</menu>
 	<menu name="CDownloadsWnd.Completed.Basic">
-		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="開く・再生(_O)"/>
-		<item id="ID_DOWNLOADS_ENQUEUE" text="再生リストに追加(_A)"/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="クリア(_C)"/>
+		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="開く・再生"/>
+		<item id="ID_DOWNLOADS_ENQUEUE" text="再生リストに追加"/>
+		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="クリア"/>
 		<separator/>
-		<item id="ID_DOWNLOADS_FILE_DELETE" text="削除(_D)"/>
+		<item id="ID_DOWNLOADS_FILE_DELETE" text="削除"/>
 	</menu>
 	<menu name="CDownloadsWnd.Completed">
-		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="開く・再生(_O)"/>
-		<item id="ID_DOWNLOADS_ENQUEUE" text="再生リストに追加(_A)"/>
-		<item id="ID_DOWNLOADS_FOLDER" text="開くFolder(_F)"/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="クリア(_C)"/>
+		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="開く・再生"/>
+		<item id="ID_DOWNLOADS_ENQUEUE" text="再生リストに追加"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="開くFolder"/>
+		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="クリア"/>
 		<separator/>
-		<item id="ID_DOWNLOADS_FILE_DELETE" text="削除(_D)"/>
-		<item id="ID_DOWNLOADS_RATE" text="ファイルを評価(_R)..."/>
-		<item id="ID_DOWNLOADS_URI" text="URIをコピー(_U)"/>
+		<item id="ID_DOWNLOADS_FILE_DELETE" text="削除"/>
+		<item id="ID_DOWNLOADS_RATE" text="ファイルを評価..."/>
+		<item id="ID_DOWNLOADS_URI" text="URIをコピー"/>
 		<separator/>
-		<item id="ID_DOWNLOADS_EDIT" text="情報(_I)"/>
+		<item id="ID_DOWNLOADS_EDIT" text="情報"/>
 	</menu>
 	<menu name="CDownloadsWnd.Seeding">
-		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="開く(_O)"/>
-		<item id="ID_DOWNLOADS_FOLDER" text="開くFolder(_F)"/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="シード停止(_S)"/>
-		<item id="ID_DOWNLOADS_HELP" text="ヘルプ(_H)..."/>
+		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="開く"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="開くFolder"/>
+		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="シード停止"/>
+		<item id="ID_DOWNLOADS_HELP" text="ヘルプ..."/>
 		<separator/>
-		<item id="ID_DOWNLOADS_EDIT" text="Torrent情報(_I)..."/>
+		<item id="ID_DOWNLOADS_EDIT" text="Torrent情報..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Default">
 		<item id="ID_TOOLS_DOWNLOAD" text="Start New Download"/>
 		<item id="ID_TOOLS_SEEDTORRENT" text="Seed New Torrent"/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="完了済みをクリア(_C)"/>
+		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="完了済みをクリア"/>
 		<separator/>
-		<item id="ID_DOWNLOADS_HELP" text="ヘルプ(_H)..."/>
+		<item id="ID_DOWNLOADS_HELP" text="ヘルプ..."/>
 	</menu>
 	<menu name="CDownloadTabBar">
-		<item id="ID_DOWNLOAD_GROUP_OPEN" text="開くFolder(_F)"/>
+		<item id="ID_DOWNLOAD_GROUP_OPEN" text="開くFolder"/>
 		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_RESUME" text="全て再開(_E)"/>
-		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="全て一時停止(_A)"/>
-		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="全てクリア(_C)"/>
+		<item id="ID_DOWNLOAD_GROUP_RESUME" text="全て再開"/>
+		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="全て一時停止"/>
+		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="全てクリア"/>
 		<separator/> <!--
-		<item id="ID_DOWNLOAD_GROUP_SHOW" text="グループ表示(_S)"/>
+		<item id="ID_DOWNLOAD_GROUP_SHOW" text="グループ表示"/>
 		<separator/> -->
-		<item id="ID_DOWNLOAD_GROUP_MOVELEFT" text="グループを左へ移動(_L)"/>
-		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="グループを右へ移動(_R)"/>
-		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="グループ削除(_G)"/>
-		<item id="ID_DOWNLOAD_GROUP_NEW" text="新規グループ(_N)..."/>
+		<item id="ID_DOWNLOAD_GROUP_MOVELEFT" text="グループを左へ移動"/>
+		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="グループを右へ移動"/>
+		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="グループ削除"/>
+		<item id="ID_DOWNLOAD_GROUP_NEW" text="新規グループ..."/>
 		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="プロパティ(_P)"/>
+		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="プロパティ"/>
 	</menu>
 	<menu name="CDownloadsWnd.Filter">
-		<item id="ID_DOWNLOADS_FILTER_ALL" text="全て表示(_A)"/>
+		<item id="ID_DOWNLOADS_FILTER_ALL" text="全て表示"/>
 		<separator/>
-		<item id="ID_DOWNLOADS_FILTER_ACTIVE" text="アクティブを表示(_C)"/>
-		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="停止を表示(_P)"/>
-		<item id="ID_DOWNLOADS_FILTER_QUEUED" text="保留中を表示(_E)"/>
-		<item id="ID_DOWNLOADS_FILTER_SOURCES" text="ソース無しを表示(_N)"/>
-		<item id="ID_DOWNLOADS_FILTER_SEEDS" text="Seeds(_D)"/>
+		<item id="ID_DOWNLOADS_FILTER_ACTIVE" text="アクティブを表示"/>
+		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="停止を表示"/>
+		<item id="ID_DOWNLOADS_FILTER_QUEUED" text="保留中を表示"/>
+		<item id="ID_DOWNLOADS_FILTER_SOURCES" text="ソース無しを表示"/>
+		<item id="ID_DOWNLOADS_FILTER_SEEDS" text="Seeds"/>
 		<separator/>
-		<item id="ID_DOWNLOADS_SHOW_SOURCES" text="全てのソースを表示(_S)"/>
+		<item id="ID_DOWNLOADS_SHOW_SOURCES" text="全てのソースを表示"/>
 		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_SHOW" text="グループを表示(_G)"/>
+		<item id="ID_DOWNLOAD_GROUP_SHOW" text="グループを表示"/>
 	</menu>
 	<!-- UPLOADS WINDOW -->
 	<menu name="CUploadsWnd.Upload.Basic">
-		<item id="ID_BROWSE_LAUNCH" text="参照(_B)"/>
-		<item id="ID_UPLOADS_CHAT" text="チャット(_C)"/>
+		<item id="ID_BROWSE_LAUNCH" text="参照"/>
+		<item id="ID_UPLOADS_CHAT" text="チャット"/>
 		<separator/>
-		<item id="ID_UPLOADS_HELP" text="ヘルプ(_H)..."/>
+		<item id="ID_UPLOADS_HELP" text="ヘルプ..."/>
 	</menu>
 	<menu name="CUploadsWnd.Upload">
 		<item id="ID_UPLOADS_LAUNCH" text="を表示 _Library"/>
-		<item id="ID_UPLOADS_FOLDER" text="開くFolder(_F)"/>
+		<item id="ID_UPLOADS_FOLDER" text="開くFolder"/>
 		<separator/>
-		<item id="ID_UPLOADS_CLEAR" text="クリア(_C)"/>
-		<item id="ID_UPLOADS_START" text="すぐに開始(_S)"/>
-		<item id="ID_UPLOADS_PRIORITY" text="順位(_P)"/>
+		<item id="ID_UPLOADS_CLEAR" text="クリア"/>
+		<item id="ID_UPLOADS_START" text="すぐに開始"/>
+		<item id="ID_UPLOADS_PRIORITY" text="順位"/>
 		<separator/>
-		<item id="ID_BROWSE_LAUNCH" text="参照(_B)"/>
-		<item id="ID_UPLOADS_CHAT" text="チャット(_C)"/>
-		<item id="ID_SECURITY_BAN" text="BANする(_A)"/>
+		<item id="ID_BROWSE_LAUNCH" text="参照"/>
+		<item id="ID_UPLOADS_CHAT" text="チャット"/>
+		<item id="ID_SECURITY_BAN" text="BANする"/>
 	</menu>
 	<menu name="CUploadsWnd.Default">
-		<item id="ID_LIBRARY_FOLDERS" text="共有ファイル(_S)..."/>
-		<item id="ID_UPLOADS_SETTINGS" text="キュー設定(_Q)..."/>
-		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="完了済みをクリア(_L)"/>
+		<item id="ID_LIBRARY_FOLDERS" text="共有ファイル..."/>
+		<item id="ID_UPLOADS_SETTINGS" text="キュー設定..."/>
+		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="完了済みをクリア"/>
 		<separator/>
-		<item id="ID_UPLOADS_HELP" text="ヘルプ(_H)..."/>
+		<item id="ID_UPLOADS_HELP" text="ヘルプ..."/>
 	</menu>
 	<menu name="CUploadsWnd.Filter">
 		<item id="ID_UPLOADS_FILTER_ALL" text="全て表示"/>
@@ -1178,66 +1178,66 @@
 		<item id="ID_UPLOADS_FILTER_TORRENT" text="BitTorrentを表示"/>
 		<item id="ID_UPLOADS_FILTER_HISTORY" text="履歴を表示"/>
 		<separator/>
-		<item id="ID_UPLOADS_AUTO_CLEAR" text="自動クリア処理(_O)"/>
+		<item id="ID_UPLOADS_AUTO_CLEAR" text="自動クリア処理"/>
 	</menu>
 	<!-- LIBRARY FRAME -->
 	<menu name="CLibraryTree.Physical.Basic">
-		<item id="ID_LIBRARY_SHARED_FOLDER" text="共有(_S)"/>
-		<item id="ID_LIBRARY_REMOVE" text="削除(_R)"/>
+		<item id="ID_LIBRARY_SHARED_FOLDER" text="共有"/>
+		<item id="ID_LIBRARY_REMOVE" text="削除"/>
 		<separator/>
 		<item id="ID_LIBRARY_FOLDERS" text="共有ファイル..."/>
 	</menu>
 	<menu name="CLibraryTree.Physical">
-		<item id="ID_LIBRARY_EXPLORE" text="エクスプローラ(_E)"/>
-		<item id="ID_LIBRARY_REMOVE" text="削除(_R)"/>
+		<item id="ID_LIBRARY_EXPLORE" text="エクスプローラ"/>
+		<item id="ID_LIBRARY_REMOVE" text="削除"/>
 		<separator/>
-		<item id="ID_LIBRARY_SHARED_FOLDER" text="共有(_S)"/>
+		<item id="ID_LIBRARY_SHARED_FOLDER" text="共有"/>
 		<separator/>
-		<item id="ID_LIBRARY_SCAN" text="スキャン(_C)"/>
-		<item id="ID_LIBRARY_REBUILD" text="再構成(_B)"/>
+		<item id="ID_LIBRARY_SCAN" text="スキャン"/>
+		<item id="ID_LIBRARY_REBUILD" text="再構成"/>
 		<item id="ID_LIBRARY_FOLDERS" text="共有ファイル..."/>
 		<separator/>
-		<item id="ID_LIBRARY_FOLDER_FILE_PROPERTIES" text="ファイルプロパティ(_P)"/>
+		<item id="ID_LIBRARY_FOLDER_FILE_PROPERTIES" text="ファイルプロパティ"/>
 	</menu>
 	<menu name="CLibraryTree.Virtual.Basic">
-		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="アルバムを再生(_P)"/>
-		<item id="ID_LIBRARY_FOLDER_DELETE" text="削除(_D)"/>
+		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="アルバムを再生"/>
+		<item id="ID_LIBRARY_FOLDER_DELETE" text="削除"/>
 		<separator/>
-		<item id="ID_LIBRARY_FOLDER_FILE_PROPERTIES" text="ファイルプロパティ(_F)"/>
-		<item id="ID_LIBRARY_FOLDER_PROPERTIES" text="アルバムプロパティ(_A)"/>
+		<item id="ID_LIBRARY_FOLDER_FILE_PROPERTIES" text="ファイルプロパティ"/>
+		<item id="ID_LIBRARY_FOLDER_PROPERTIES" text="アルバムプロパティ"/>
 	</menu>
 	<menu name="CLibraryTree.Virtual">
-		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="アルバムを再生(_P)"/>
-		<item id="ID_LIBRARY_FOLDER_DELETE" text="削除(_D)"/>
+		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="アルバムを再生"/>
+		<item id="ID_LIBRARY_FOLDER_DELETE" text="削除"/>
 		<separator/>
-		<item id="ID_LIBRARY_REBUILD" text="再構成(_R)"/>
-		<item id="ID_LIBRARY_EXPORT_COLLECTION" text="コレクションをエクスポート(_E)..."/>
+		<item id="ID_LIBRARY_REBUILD" text="再構成"/>
+		<item id="ID_LIBRARY_EXPORT_COLLECTION" text="コレクションをエクスポート..."/>
 		<separator/>
-		<item id="ID_LIBRARY_FOLDER_NEW" text="新規フォルダ(_N)..."/>
+		<item id="ID_LIBRARY_FOLDER_NEW" text="新規フォルダ..."/>
 		<separator/>
-		<item id="ID_LIBRARY_FOLDER_FILE_PROPERTIES" text="ファイルプロパティ(_F)"/>
-		<item id="ID_LIBRARY_FOLDER_PROPERTIES" text="アルバムプロパティ(_A)"/>
+		<item id="ID_LIBRARY_FOLDER_FILE_PROPERTIES" text="ファイルプロパティ"/>
+		<item id="ID_LIBRARY_FOLDER_PROPERTIES" text="アルバムプロパティ"/>
 	</menu>
 	<!-- LIBRARY VIEWS -->
 	<menu name="CLibraryTileView">
-		<item id="ID_LIBRARY_ALBUM_OPEN" text="開く(_O)"/>
-		<item id="ID_LIBRARY_ALBUM_DELETE" text="削除(_D)"/>
+		<item id="ID_LIBRARY_ALBUM_OPEN" text="開く"/>
+		<item id="ID_LIBRARY_ALBUM_DELETE" text="削除"/>
 		<separator/>
-		<item id="ID_LIBRARY_ALBUM_PROPERTIES" text="プロパティ(_P)"/>
+		<item id="ID_LIBRARY_ALBUM_PROPERTIES" text="プロパティ"/>
 	</menu>
 	<menu name="CLibraryFileView.Basic">
-		<item id="ID_LIBRARY_LAUNCH" text="開く・再生(_O)"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="再生リストに追加(_A)"/>
-		<item id="ID_LIBRARY_DELETE" text="削除(_D)"/>
+		<item id="ID_LIBRARY_LAUNCH" text="開く・再生"/>
+		<item id="ID_LIBRARY_ENQUEUE" text="再生リストに追加"/>
+		<item id="ID_LIBRARY_DELETE" text="削除"/>
 		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="共有(_S)"/>
+		<item id="ID_LIBRARY_SHARED_FILE" text="共有"/>
 		<separator/>
-		<menu text="構成(_R)">
-			<item id="ID_LIBRARY_RENAME" text="ファイル名変更(_R)"/>
-			<item id="ID_LIBRARY_COPY" text="ファイルをコピー(_C)..."/>
-			<item id="ID_LIBRARY_MOVE" text="ファイルを移動(_M)..."/>
+		<menu text="構成">
+			<item id="ID_LIBRARY_RENAME" text="ファイル名変更"/>
+			<item id="ID_LIBRARY_COPY" text="ファイルをコピー..."/>
+			<item id="ID_LIBRARY_MOVE" text="ファイルを移動..."/>
 		</menu>
-		<menu text="検索対象(_E)">
+		<menu text="検索対象">
 			<item id="ID_SEARCH_FOR_THIS" text="このファイル"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="似たファイル"/>
 			<separator/>
@@ -1245,34 +1245,34 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="同じアルバムの曲"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="同じシリーズのエピソード"/>
 		</menu>
-		<menu text="ウェブサービス(_W)">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Bitzi Ticketを表示(_B)"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="メタデータをダウンロード(_D)"/>
+		<menu text="ウェブサービス">
+			<item id="ID_LIBRARY_BITZI_WEB" text="Bitzi Ticketを表示"/>
+			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="メタデータをダウンロード"/>
 			<separator/>
 			<item id="ID_LIBRARY_URI" text="_URI"/>
 		</menu>
 		<separator/>
-		<item id="ID_LIBRARY_PROPERTIES" text="プロパティ(_P)"/>
+		<item id="ID_LIBRARY_PROPERTIES" text="プロパティ"/>
 	</menu>
 	<menu name="CLibraryFileView">
-		<item id="ID_LIBRARY_LAUNCH" text="開く・再生(_O)"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="再生リストに追加(_Y)"/>
-		<item id="ID_LIBRARY_DELETE" text="削除(_D)"/>
+		<item id="ID_LIBRARY_LAUNCH" text="開く・再生"/>
+		<item id="ID_LIBRARY_ENQUEUE" text="再生リストに追加"/>
+		<item id="ID_LIBRARY_DELETE" text="削除"/>
 		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="共有(_S)"/>
+		<item id="ID_LIBRARY_SHARED_FILE" text="共有"/>
 		<separator/>
 		<item id="ID_LIBRARY_URI" text="_URI"/>
 		<item id="ID_LIBRARY_CREATETORRENT" text=".torrentファイルを作成"/>
 		<item id="ID_LIBRARY_LAUNCH_FOLDER" text="Open _Folder"/>
 		<separator/>
-		<menu text="構成(_R)">
-			<item id="ID_LIBRARY_UNLINK" text="ファイルを削除(_F)"/>
+		<menu text="構成">
+			<item id="ID_LIBRARY_UNLINK" text="ファイルを削除"/>
 			<separator/>
-			<item id="ID_LIBRARY_RENAME" text="ファイル名変更(_R)"/>
-			<item id="ID_LIBRARY_COPY" text="ファイルをコピー(_C)..."/>
-			<item id="ID_LIBRARY_MOVE" text="ファイルを移動(_M)..."/>
+			<item id="ID_LIBRARY_RENAME" text="ファイル名変更"/>
+			<item id="ID_LIBRARY_COPY" text="ファイルをコピー..."/>
+			<item id="ID_LIBRARY_MOVE" text="ファイルを移動..."/>
 		</menu>
-		<menu text="検索対象(_E)">
+		<menu text="検索対象">
 			<item id="ID_SEARCH_FOR_THIS" text="このファイル"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="似たファイル"/>
 			<separator/>
@@ -1280,162 +1280,162 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="同じアルバムの曲"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="同じシリーズのエピソード"/>
 		</menu>
-		<menu text="ウェブサービス(_W)">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Bitzi Ticketを表示(_B)"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="メタデータを取得(_A)"/>
+		<menu text="ウェブサービス">
+			<item id="ID_LIBRARY_BITZI_WEB" text="Bitzi Ticketを表示"/>
+			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="メタデータを取得"/>
 		</menu>
 		<menu text="_Metadata">
 			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
-			<item id="ID_LIBRARY_REBUILD_ANSI" text="メタデータをローカライズ(_L)"/>
-			<item id="ID_LIBRARY_COLUMNS" text="カラム選択(_C)..."/>
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="メタデータをローカライズ"/>
+			<item id="ID_LIBRARY_COLUMNS" text="カラム選択..."/>
 		</menu>
 		<separator/>
 		<item id="ID_SHELL_MENU" text="Windows Men_u"/>
-		<item id="ID_LIBRARY_PROPERTIES" text="プロパティ(_P)"/>
+		<item id="ID_LIBRARY_PROPERTIES" text="プロパティ"/>
 	</menu>
 	<!-- MEDIA WINDOW -->
 	<menu name="CMediaFrame.Basic">
-		<item id="ID_MEDIA_PLAY" text="再生(_P)"/>
-		<item id="ID_MEDIA_PAUSE" text="一時停止(_U)"/>
-		<item id="ID_MEDIA_STOP" text="停止(_S)"/>
+		<item id="ID_MEDIA_PLAY" text="再生"/>
+		<item id="ID_MEDIA_PAUSE" text="一時停止"/>
+		<item id="ID_MEDIA_STOP" text="停止"/>
 		<separator/>
-		<item id="ID_MEDIA_OPEN" text="メディアファイルを開く(_O)..."/>
+		<item id="ID_MEDIA_OPEN" text="メディアファイルを開く..."/>
 		<separator/>
 		<menu text="再生リスト">
-			<item id="ID_MEDIA_PREVIOUS" text="前へ(_V)"/>
-			<item id="ID_MEDIA_NEXT" text="次へ(_N)"/>
-			<item id="ID_MEDIA_RANDOM" text="ランダム(_R)"/>
-			<item id="ID_MEDIA_REPEAT" text="繰り返し(_E)"/>
+			<item id="ID_MEDIA_PREVIOUS" text="前へ"/>
+			<item id="ID_MEDIA_NEXT" text="次へ"/>
+			<item id="ID_MEDIA_RANDOM" text="ランダム"/>
+			<item id="ID_MEDIA_REPEAT" text="繰り返し"/>
 			<separator/>
-			<item id="ID_MEDIA_PLAYLIST" text="再生リストを表示(_P)"/>
+			<item id="ID_MEDIA_PLAYLIST" text="再生リストを表示"/>
 		</menu>
-		<menu text="ビデオサイズ(_Z)">
-			<item id="ID_MEDIA_SIZE_ONE" text="元のサイズ(_O)"/>
-			<item id="ID_MEDIA_SIZE_TWO" text="ダブルサイズ(_D)"/>
-			<item id="ID_MEDIA_SIZE_HALF" text="トリプルサイズ(_T)"/>
-			<item id="ID_MEDIA_SIZE_FILL" text="最大(_L)"/>
-			<item id="ID_MEDIA_SIZE_DISTORT" text="ウィンドウに合わせる(_F)"/>
+		<menu text="ビデオサイズ">
+			<item id="ID_MEDIA_SIZE_ONE" text="元のサイズ"/>
+			<item id="ID_MEDIA_SIZE_TWO" text="ダブルサイズ"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="トリプルサイズ"/>
+			<item id="ID_MEDIA_SIZE_FILL" text="最大"/>
+			<item id="ID_MEDIA_SIZE_DISTORT" text="ウィンドウに合わせる"/>
 			<separator/>
-			<item id="ID_MEDIA_ASPECT_DEFAULT" text="デフォルトアスペクト比(_A)"/>
+			<item id="ID_MEDIA_ASPECT_DEFAULT" text="デフォルトアスペクト比"/>
 			<item id="ID_MEDIA_ASPECT_4_3" text="4:3 [TV] (_4)"/>
-			<item id="ID_MEDIA_ASPECT_16_9" text="16:9 [映画] (_1)"/>
+			<item id="ID_MEDIA_ASPECT_16_9" text="16:9 [映画]"/>
 			<separator/>
-			<item id="ID_MEDIA_FULLSCREEN" text="フルスクリーン(_F)"/>
+			<item id="ID_MEDIA_FULLSCREEN" text="フルスクリーン"/>
 		</menu>
 		<menu text="設定">
-			<item id="ID_MEDIA_VIS" text="視覚効果を選択(_V)..."/>
+			<item id="ID_MEDIA_VIS" text="視覚効果を選択..."/>
 			<separator/>
-			<item id="ID_MEDIA_PLAYLIST" text="再生リストを表示(_P)"/>
-			<item id="ID_MEDIA_STATUS" text="ステータスラインを表示(_S)"/>
+			<item id="ID_MEDIA_PLAYLIST" text="再生リストを表示"/>
+			<item id="ID_MEDIA_STATUS" text="ステータスラインを表示"/>
 			<separator/>
-			<item id="ID_MEDIA_SETTINGS" text="メディア設定(_M)..."/>
+			<item id="ID_MEDIA_SETTINGS" text="メディア設定..."/>
 		</menu>
 	</menu>
 	<menu name="CMediaFrame">
-		<item id="ID_MEDIA_PLAY" text="再生(_P)"/>
-		<item id="ID_MEDIA_PAUSE" text="一時停止(_U)"/>
-		<item id="ID_MEDIA_STOP" text="停止(_S)"/>
+		<item id="ID_MEDIA_PLAY" text="再生"/>
+		<item id="ID_MEDIA_PAUSE" text="一時停止"/>
+		<item id="ID_MEDIA_STOP" text="停止"/>
 		<separator/>
-		<item id="ID_MEDIA_OPEN" text="メディアファイルを開く(_O)..."/>
-		<item id="ID_MEDIA_CLOSE" text="ファイルを閉じる(_C)..."/>
+		<item id="ID_MEDIA_OPEN" text="メディアファイルを開く..."/>
+		<item id="ID_MEDIA_CLOSE" text="ファイルを閉じる..."/>
 		<separator/>
 		<menu text="再生リスト">
-			<item id="ID_MEDIA_PREVIOUS" text="前へ(_V)"/>
-			<item id="ID_MEDIA_NEXT" text="次へ(_N)"/>
-			<item id="ID_MEDIA_RANDOM" text="ランダム(_R)"/>
-			<item id="ID_MEDIA_REPEAT" text="繰り返し(_E)"/>
+			<item id="ID_MEDIA_PREVIOUS" text="前へ"/>
+			<item id="ID_MEDIA_NEXT" text="次へ"/>
+			<item id="ID_MEDIA_RANDOM" text="ランダム"/>
+			<item id="ID_MEDIA_REPEAT" text="繰り返し"/>
 			<separator/>
-			<item id="ID_MEDIA_PLAYLIST" text="再生リストを表示(_P)"/>
+			<item id="ID_MEDIA_PLAYLIST" text="再生リストを表示"/>
 		</menu>
-		<menu text="ビデオサイズ(_Z)">
-			<item id="ID_MEDIA_SIZE_ONE" text="元のサイズ(_O)"/>
-			<item id="ID_MEDIA_SIZE_TWO" text="ダブルサイズ(_D)"/>
-			<item id="ID_MEDIA_SIZE_HALF" text="トリプルサイズ(_T)"/>
-			<item id="ID_MEDIA_SIZE_FILL" text="最大(_L)"/>
-			<item id="ID_MEDIA_SIZE_DISTORT" text="ウィンドウに合わせる(_F)"/>
+		<menu text="ビデオサイズ">
+			<item id="ID_MEDIA_SIZE_ONE" text="元のサイズ"/>
+			<item id="ID_MEDIA_SIZE_TWO" text="ダブルサイズ"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="トリプルサイズ"/>
+			<item id="ID_MEDIA_SIZE_FILL" text="最大"/>
+			<item id="ID_MEDIA_SIZE_DISTORT" text="ウィンドウに合わせる"/>
 			<separator/>
-			<item id="ID_MEDIA_ASPECT_DEFAULT" text="デフォルトアスペクト比(_A)"/>
-			<item id="ID_MEDIA_ASPECT_4_3" text="4:3 [TV] (_4)"/>
-			<item id="ID_MEDIA_ASPECT_16_9" text="16:9 [映画] (_1)"/>
+			<item id="ID_MEDIA_ASPECT_DEFAULT" text="デフォルトアスペクト比"/>
+			<item id="ID_MEDIA_ASPECT_4_3" text="4:3 [TV]"/>
+			<item id="ID_MEDIA_ASPECT_16_9" text="16:9 [映画]"/>
 			<separator/>
-			<item id="ID_MEDIA_FULLSCREEN" text="フルスクリーン(_F)"/>
+			<item id="ID_MEDIA_FULLSCREEN" text="フルスクリーン"/>
 		</menu>
 		<menu text="設定">
-			<item id="ID_MEDIA_VIS" text="視覚効果を選択(_V)..."/>
+			<item id="ID_MEDIA_VIS" text="視覚効果を選択..."/>
 			<separator/>
-			<item id="ID_MEDIA_PLAYLIST" text="再生リストを表示(_P)"/>
-			<item id="ID_MEDIA_STATUS" text="ステータスラインを表示(_S)"/>
+			<item id="ID_MEDIA_PLAYLIST" text="再生リストを表示"/>
+			<item id="ID_MEDIA_STATUS" text="ステータスラインを表示"/>
 			<separator/>
-			<item id="ID_MEDIA_SETTINGS" text="メディア設定(_M)..."/>
+			<item id="ID_MEDIA_SETTINGS" text="メディア設定..."/>
 		</menu>
 	</menu>
 	<menu name="CMediaFrame.Zoom">
-		<item id="ID_MEDIA_SIZE_ONE" text="元のサイズ(_O)"/>
-		<item id="ID_MEDIA_SIZE_TWO" text="ダブルサイズ(_D)"/>
-		<item id="ID_MEDIA_SIZE_HALF" text="トリプルサイズ(_T)"/>
-		<item id="ID_MEDIA_SIZE_FILL" text="最大(_L)"/>
-		<item id="ID_MEDIA_SIZE_DISTORT" text="ウィンドウに合わせる(_F)"/>
+		<item id="ID_MEDIA_SIZE_ONE" text="元のサイズ"/>
+		<item id="ID_MEDIA_SIZE_TWO" text="ダブルサイズ"/>
+		<item id="ID_MEDIA_SIZE_HALF" text="トリプルサイズ"/>
+		<item id="ID_MEDIA_SIZE_FILL" text="最大"/>
+		<item id="ID_MEDIA_SIZE_DISTORT" text="ウィンドウに合わせる"/>
 		<separator/>
-		<item id="ID_MEDIA_ASPECT_DEFAULT" text="デフォルトアスペクト比(_A)"/>
+		<item id="ID_MEDIA_ASPECT_DEFAULT" text="デフォルトアスペクト比"/>
 		<item id="ID_MEDIA_ASPECT_4_3" text="4:3 [TV] (_4)"/>
-		<item id="ID_MEDIA_ASPECT_16_9" text="16:9 [映画] (_1)"/>
+		<item id="ID_MEDIA_ASPECT_16_9" text="16:9 [映画]"/>
 	</menu>
 	<menu name="CMediaList">
-		<item id="ID_MEDIA_SELECT" text="再生(_P)"/>
+		<item id="ID_MEDIA_SELECT" text="再生"/>
 		<item id="ID_MEDIA_RATE" text="Ra_te File..."/>
 		<item id="ID_MEDIA_PROPERTIES" text="_Properties..."/>
 		<separator/>
-		<item id="ID_MEDIA_ADD" text="ファイル追加(_A)..."/>
-		<item id="ID_MEDIA_ADD_FOLDER" text="フォルダ追加(_F)..."/>
-		<item id="ID_MEDIA_REMOVE" text="削除(_R)"/>
+		<item id="ID_MEDIA_ADD" text="ファイル追加..."/>
+		<item id="ID_MEDIA_ADD_FOLDER" text="フォルダ追加..."/>
+		<item id="ID_MEDIA_REMOVE" text="削除"/>
 		<separator/>
 		<item id="ID_MEDIA_RANDOM" text="ランダムモード"/>
 		<item id="ID_MEDIA_REPEAT" text="繰り返しモード"/>
 		<separator/>
-		<item id="ID_MEDIA_OPEN" text="再生リストを開く(_O)..."/>
-		<item id="ID_MEDIA_SAVE" text="再生リストを保存(_S)..."/>
-		<item id="ID_MEDIA_EXPORT_COLLECTION" text="コレクションをエクスポート(_X)..."/>
-		<item id="ID_MEDIA_CLEAR" text="再生リストをクリア(_C)..."/>
+		<item id="ID_MEDIA_OPEN" text="再生リストを開く..."/>
+		<item id="ID_MEDIA_SAVE" text="再生リストを保存..."/>
+		<item id="ID_MEDIA_EXPORT_COLLECTION" text="コレクションをエクスポート..."/>
+		<item id="ID_MEDIA_CLEAR" text="再生リストをクリア..."/>
 		<separator/>
-		<item id="ID_MEDIA_PLAYLIST" text="再生リストを表示(_Y)..."/>
+		<item id="ID_MEDIA_PLAYLIST" text="再生リストを表示..."/>
 	</menu>
 	<!-- SYSTEM WINDOW -->
 	<menu name="CSystemWnd">
-		<menu id="ID_SYSTEM_VERBOSE" text="冗長モード(_V)">
+		<menu id="ID_SYSTEM_VERBOSE" text="冗長モード">
 			<item id="ID_SYSTEM_VERBOSE_ERROR" text="_Error"/>
 			<item id="ID_SYSTEM_VERBOSE_WARNING" text="_Warning"/>
 			<item id="ID_SYSTEM_VERBOSE_NOTICE" text="_Notice"/>
 			<item id="ID_SYSTEM_VERBOSE_INFO" text="_Info"/>
 			<item id="ID_SYSTEM_VERBOSE_DEBUG" text="_Debug"/>
 		</menu>
-		<item id="ID_SYSTEM_TIMESTAMP" text="タイムスタンプ(_T)"/>
+		<item id="ID_SYSTEM_TIMESTAMP" text="タイムスタンプ"/>
 		<separator/>
 		<item id="ID_SYSTEM_COPY" text="_Copy" shortcut="Ctrl+C"/>
 		<separator/>
-		<item id="ID_SYSTEM_CLEAR" text="バッファをクリア(_B)"/>
+		<item id="ID_SYSTEM_CLEAR" text="バッファをクリア"/>
 	</menu>
 	<!-- NEIGHBOURS WINDOW -->
 	<menu name="CNeighboursWnd.Basic">
-		<item id="ID_BROWSE_LAUNCH" text="参照(_B)"/>
-		<item id="ID_NEIGHBOURS_CHAT" text="チャット(_C)"/>
+		<item id="ID_BROWSE_LAUNCH" text="参照"/>
+		<item id="ID_NEIGHBOURS_CHAT" text="チャット"/>
 		<separator/>
-		<item id="ID_NEIGHBOURS_DISCONNECT" text="切断(_D)"/>
+		<item id="ID_NEIGHBOURS_DISCONNECT" text="切断"/>
 		<separator/>
-		<item id="ID_NEIGHBOURS_URI" text="URIをコピー(_U)"/>
+		<item id="ID_NEIGHBOURS_URI" text="URIをコピー"/>
 	</menu>
 	<menu name="CNeighboursWnd">
-		<item id="ID_BROWSE_LAUNCH" text="参照(_B)"/>
-		<item id="ID_NEIGHBOURS_CHAT" text="チャット(_C)"/>
-		<item id="ID_SECURITY_BAN" text="BANする(_A)"/>
+		<item id="ID_BROWSE_LAUNCH" text="参照"/>
+		<item id="ID_NEIGHBOURS_CHAT" text="チャット"/>
+		<item id="ID_SECURITY_BAN" text="BANする"/>
 		<separator/>
-		<item id="ID_NEIGHBOURS_DISCONNECT" text="切断(_D)"/>
+		<item id="ID_NEIGHBOURS_DISCONNECT" text="切断"/>
 		<separator/>
-		<item id="ID_NEIGHBOURS_URI" text="URIをコピー(_U)"/>
+		<item id="ID_NEIGHBOURS_URI" text="URIをコピー"/>
 		<separator/>
-		<menu text="ネットワーク(_N)">
-			<item id="ID_NETWORK_CONNECT" text="接続(_C)"/>
-			<item id="ID_NETWORK_DISCONNECT" text="切断(_D)"/>
+		<menu text="ネットワーク">
+			<item id="ID_NETWORK_CONNECT" text="接続"/>
+			<item id="ID_NETWORK_DISCONNECT" text="切断"/>
 			<separator/>
 			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
 			<item id="ID_NETWORK_G1" text="_Gnutella"/>
@@ -1445,96 +1445,97 @@
 			<separator/>
 			<item id="ID_VIEW_DISCOVERY" text="ディスカバリ"/>
 			<item id="ID_VIEW_HOSTS" text="ホストキャッシュ"/>
+			<item id="ID_VIEW_SECURITY" text="セキュリティ"/>
 		</menu>
-		<menu text="モニタ(_M)">
-			<item id="ID_NEIGHBOURS_VIEW_ALL" text="全ての転送を表示(_A)"/>
-			<item id="ID_NEIGHBOURS_VIEW_INCOMING" text="ダウンロード転送を表示(_I)"/>
-			<item id="ID_NEIGHBOURS_VIEW_OUTGOING" text="アップロード転送を表示(_O)"/>
+		<menu text="モニタ">
+			<item id="ID_NEIGHBOURS_VIEW_ALL" text="全ての転送を表示"/>
+			<item id="ID_NEIGHBOURS_VIEW_INCOMING" text="ダウンロード転送を表示"/>
+			<item id="ID_NEIGHBOURS_VIEW_OUTGOING" text="アップロード転送を表示"/>
 		</menu>
 	</menu>
 	<!-- SEARCH MONITOR WINDOW -->
 	<menu name="CSearchMonitorWnd">
-		<item id="ID_HITMONITOR_SEARCH" text="これを検索(_S)"/>
+		<item id="ID_HITMONITOR_SEARCH" text="これを検索"/>
 		<separator/>
-		<item id="ID_SEARCHMONITOR_PAUSE" text="表示を一時停止(_P)"/>
-		<item id="ID_SEARCHMONITOR_CLEAR" text="バッファをクリア(_C)"/>
+		<item id="ID_SEARCHMONITOR_PAUSE" text="表示を一時停止"/>
+		<item id="ID_SEARCHMONITOR_CLEAR" text="バッファをクリア"/>
 	</menu>
 	<!-- GRAPH/TRAFFIC WINDOW -->
 	<menu name="CTrafficWnd">
-		<item id="ID_TRAFFIC_SETUP" text="グラフを選択(_S)..."/>
+		<item id="ID_TRAFFIC_SETUP" text="グラフを選択..."/>
 		<separator/>
-		<item id="ID_TRAFFIC_GRID" text="グリッド線(_G)"/>
-		<item id="ID_TRAFFIC_AXIS" text="軸(_A)"/>
-		<item id="ID_TRAFFIC_LEGEND" text="説明表示(_L)"/>
+		<item id="ID_TRAFFIC_GRID" text="グリッド線"/>
+		<item id="ID_TRAFFIC_AXIS" text="軸"/>
+		<item id="ID_TRAFFIC_LEGEND" text="説明表示"/>
 		<separator/>
-		<item id="ID_TRAFFIC_CLEAR" text="クリア(_C)"/>
+		<item id="ID_TRAFFIC_CLEAR" text="クリア"/>
 		<separator/>
-		<item id="ID_TRAFFIC_WINDOW" text="新規ウィンドウ(_N)"/>
+		<item id="ID_TRAFFIC_WINDOW" text="新規ウィンドウ"/>
 	</menu>
 	<!-- SECURITY WINDOW -->
 	<menu name="CSecurityWnd">
-		<item id="ID_SECURITY_ADD" text="規則を追加(_A)..."/>
+		<item id="ID_SECURITY_ADD" text="規則を追加..."/>
 		<separator/>
-		<item id="ID_SECURITY_REMOVE" text="削除(_R)"/>
-		<item id="ID_SECURITY_RESET" text="リセット(_T)"/>
+		<item id="ID_SECURITY_REMOVE" text="削除"/>
+		<item id="ID_SECURITY_RESET" text="リセット"/>
 		<separator/>
-		<item id="ID_SECURITY_MOVE_UP" text="上に移動(_U)"/>
-		<item id="ID_SECURITY_MOVE_DOWN" text="下に移動(_D)"/>
+		<item id="ID_SECURITY_MOVE_UP" text="上に移動"/>
+		<item id="ID_SECURITY_MOVE_DOWN" text="下に移動"/>
 		<separator/>
-		<item id="ID_SECURITY_IMPORT" text="インポート(_I)..."/>
-		<item id="ID_SECURITY_EXPORT" text="エクスポート(_X)..."/>
+		<item id="ID_SECURITY_IMPORT" text="インポート..."/>
+		<item id="ID_SECURITY_EXPORT" text="エクスポート..."/>
 		<separator/>
-		<menu text="基本方針(_O)">
-			<item id="ID_SECURITY_POLICY_ACCEPT" text="受理(_A)"/>
-			<item id="ID_SECURITY_POLICY_DENY" text="拒否(_D)"/>
+		<menu text="基本方針">
+			<item id="ID_SECURITY_POLICY_ACCEPT" text="受理"/>
+			<item id="ID_SECURITY_POLICY_DENY" text="拒否"/>
 		</menu>
 		<separator/>
-		<item id="ID_SECURITY_EDIT" text="プロパティ(_P)"/>
+		<item id="ID_SECURITY_EDIT" text="プロパティ"/>
 	</menu>
 	<!-- DISCOVERY SERVICES WINDOW -->
 	<menu name="CDiscoveryWnd">
-		<item id="ID_DISCOVERY_ADD" text="サービスを追加(_A)..."/>
+		<item id="ID_DISCOVERY_ADD" text="サービスを追加..."/>
 		<separator/>
-		<item id="ID_DISCOVERY_EDIT" text="プロパティ(_P)"/>
-		<item id="ID_DISCOVERY_REMOVE" text="削除(_R)"/>
+		<item id="ID_DISCOVERY_EDIT" text="プロパティ"/>
+		<item id="ID_DISCOVERY_REMOVE" text="削除"/>
 		<separator/>
-		<item id="ID_DISCOVERY_QUERY" text="すぐに問い合わせる(_Q)"/>
-		<item id="ID_DISCOVERY_ADVERTISE" text="公募する(_D)"/>
-		<item id="ID_DISCOVERY_BROWSE" text="統計を参照(_S)"/>
+		<item id="ID_DISCOVERY_QUERY" text="すぐに問い合わせる"/>
+		<item id="ID_DISCOVERY_ADVERTISE" text="公募する"/>
+		<item id="ID_DISCOVERY_BROWSE" text="統計を参照"/>
 		<separator/>
-		<item id="ID_DISCOVERY_GNUTELLA" text="ブートストラップを表示(_B)"/>
-		<item id="ID_DISCOVERY_WEBCACHE" text="GWebCacheを表示(_G)"/>
-		<item id="ID_DISCOVERY_SERVERLIST" text="Server.metを表示(_V)"/>
+		<item id="ID_DISCOVERY_GNUTELLA" text="ブートストラップを表示"/>
+		<item id="ID_DISCOVERY_WEBCACHE" text="GWebCacheを表示"/>
+		<item id="ID_DISCOVERY_SERVERLIST" text="Server.metを表示"/>
 		<item id="ID_DISCOVERY_BLOCKED" text="ブロックを表示"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
 	<menu name="CPrivateChatWnd">
-		<item id="ID_CHAT_CONNECT" text="接続(_C)"/>
-		<item id="ID_CHAT_DISCONNECT" text="切断(_D)"/>
+		<item id="ID_CHAT_CONNECT" text="接続"/>
+		<item id="ID_CHAT_DISCONNECT" text="切断"/>
 		<separator/>
-		<item id="ID_CHAT_BROWSE" text="参照(_B)"/>
-		<!--item id="ID_CHAT_SEND_FILE" text="ファイルを送信(_S)..."-->
-		<item id="ID_CHAT_PRIORITY" text="認証優先順位(_P)"/>
+		<item id="ID_CHAT_BROWSE" text="参照"/>
+		<!--item id="ID_CHAT_SEND_FILE" text="ファイルを送信..."-->
+		<item id="ID_CHAT_PRIORITY" text="認証優先順位"/>
 		<separator/>
 		<menu text="_Format">
-			<item id="ID_CHAT_BOLD" text="ボールド(_B)"/>
-			<item id="ID_CHAT_ITALIC" text="イタリック(_I)"/>
-			<item id="ID_CHAT_UNDERLINE" text="アンダーライン(_U)"/>
-			<item id="ID_CHAT_COLOR" text="色(_C)"/>
-			<item id="ID_CHAT_EMOTICONS" text="絵文字(_E)"/>
+			<item id="ID_CHAT_BOLD" text="ボールド"/>
+			<item id="ID_CHAT_ITALIC" text="イタリック"/>
+			<item id="ID_CHAT_UNDERLINE" text="アンダーライン"/>
+			<item id="ID_CHAT_COLOR" text="色"/>
+			<item id="ID_CHAT_EMOTICONS" text="絵文字"/>
 		</menu>
 		<separator/>
-		<item id="ID_CHAT_TIMESTAMP" text="タイムスタンプ(_T)"/>
-		<item id="ID_CHAT_CLEAR" text="ウィンドウをクリア(_L)"/>
+		<item id="ID_CHAT_TIMESTAMP" text="タイムスタンプ"/>
+		<item id="ID_CHAT_CLEAR" text="ウィンドウをクリア"/>
 	</menu>
 	<!-- PLUGIN MENUS -->
 	<menu name="ImageViewer_Context">
-		<item id="PluginID_ImageViewer_BestFit" text="自動(_B)"/>
-		<item id="PluginID_ImageViewer_FullSize" text="原寸大(_A)"/>
+		<item id="PluginID_ImageViewer_BestFit" text="自動"/>
+		<item id="PluginID_ImageViewer_FullSize" text="原寸大"/>
 		<separator/>
-		<item id="PluginID_ImageViewer_Refresh" text="更新(_R)"/>
+		<item id="PluginID_ImageViewer_Refresh" text="更新"/>
 		<separator/>
-		<item id="PluginID_ImageViewer_Close" text="閉じる(_C)"/>
+		<item id="PluginID_ImageViewer_Close" text="閉じる"/>
 	</menu>
 </menus>
 <!-- Documents -->

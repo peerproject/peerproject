@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Greek Skin File -->
 
-<!-- Translation based on default-en.xml r90 -->
+<!-- Translation based on default-en.xml r100 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1515,6 +1515,7 @@
 			<separator/>
 			<item id="ID_VIEW_DISCOVERY" text="Ανα_κάλυψη"/>
 			<item id="ID_VIEW_HOSTS" text="H_ost Cache"/>
+			<item id="ID_VIEW_SECURITY" text="Ασ_φάλεια"/>
 		</menu>
 		<menu text="_Εποπτεία">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="Προβολή _Όλων"/>
