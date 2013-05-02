@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Simplified) Skin File -->
 
-<!-- Translation based on default-en.xml r90 --> <!-- (Shareaza r6092) -->
+<!-- Translation based on default-en.xml r100 --> <!-- (Shareaza r6092) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -326,7 +326,7 @@
 		<separator/>
 		<button id="ID_MEDIA_FULLSCREEN"/>
 		<button id="ID_MEDIA_ZOOM"/>
-		<button id="ID_MEDIA_VIS"/>
+		<button id="ID_MEDIA_SETTINGS"/>
 		<rightAlign/>
 		<button id="ID_MEDIA_PREVIOUS"/>
 		<button id="ID_MEDIA_NEXT"/>
@@ -463,20 +463,20 @@
 <menus>
 	<!-- TAB BAR POPUP MENUS -->
 	<menu name="CTabBar">
-		<item id="ID_MOVETAB_LEFT" text="左移(_L)"/>
-		<item id="ID_MOVETAB_RIGHT" text="右移(_R)"/>
+		<item id="ID_MOVETAB_LEFT" text="左移"/>
+		<item id="ID_MOVETAB_RIGHT" text="右移"/>
 		<separator/>
-		<item id="ID_CHILD_CLOSE" text="关闭窗口(_C)"/>
+		<item id="ID_CHILD_CLOSE" text="关闭窗口"/>
 	</menu>
 	<menu name="CTabBar.Child">
-		<item id="ID_MOVETAB_LEFT" text="左移(_L)"/>
-		<item id="ID_MOVETAB_RIGHT" text="右移(_R)"/>
+		<item id="ID_MOVETAB_LEFT" text="左移"/>
+		<item id="ID_MOVETAB_RIGHT" text="右移"/>
 		<separator/>
-		<item id="ID_CHILD_MAXIMISE" text="全屏(_F)"/>
-		<item id="ID_CHILD_RESTORE" text="重置(_R)"/>
-		<item id="ID_CHILD_MINIMISE" text="最小化(_M)"/>
+		<item id="ID_CHILD_MAXIMISE" text="全屏"/>
+		<item id="ID_CHILD_RESTORE" text="重置"/>
+		<item id="ID_CHILD_MINIMISE" text="最小化"/>
 		<separator/>
-		<item id="ID_CHILD_CLOSE" text="关闭窗口(_C)"/>
+		<item id="ID_CHILD_CLOSE" text="关闭窗口"/>
 	</menu>
 	<!-- TRAY MENU -->
 	<menu name="CMainWnd.Tray">
@@ -499,9 +499,9 @@
 	<menu name="CMainWnd.DropMenu" type="bar">
 		<menu text="&#160; 菜单 &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="设置... &#160; "/>
-			<menu text="网络(_N)">
-				<item id="ID_NETWORK_CONNECT" text="连接(_C)" shortcut="Ctrl+G"/>
-				<item id="ID_NETWORK_DISCONNECT" text="断开(_D)"/>
+			<menu text="网络">
+				<item id="ID_NETWORK_CONNECT" text="连接" shortcut="Ctrl+G"/>
+				<item id="ID_NETWORK_DISCONNECT" text="断开"/>
 				<separator/>
 				<item id="ID_NETWORK_G2" text="连接到 Gnutella_2"/>
 				<item id="ID_NETWORK_G1" text="连接到 _Gnutella"/>
@@ -509,85 +509,85 @@
 				<item id="ID_NETWORK_DC" text="连接到 _DC++"/>
 				<item id="ID_NETWORK_BT" text="连接到 _BitTorrent"/>
 				<separator/>
-				<item id="ID_NETWORK_CONNECT_TO" text="连接到(_T)..." shortcut="Ctrl+T"/>
-				<item id="ID_NETWORK_BROWSE_TO" text="浏览主机(_B)..."/>
+				<item id="ID_NETWORK_CONNECT_TO" text="连接到..." shortcut="Ctrl+T"/>
+				<item id="ID_NETWORK_BROWSE_TO" text="浏览主机..."/>
 				<separator/>
-				<item id="ID_NETWORK_AUTO_CLOSE" text="传送后关闭(_A)"/>
-				<item id="ID_NETWORK_EXIT" text="退出(_X)"/>
+				<item id="ID_NETWORK_AUTO_CLOSE" text="传送后关闭"/>
+				<item id="ID_NETWORK_EXIT" text="退出"/>
 			</menu>
-			<menu text="工具(_T)">
-				<item id="ID_LIBRARY_FOLDERS" text="共享文件(_F)..."/>
+			<menu text="工具">
+				<item id="ID_LIBRARY_FOLDERS" text="共享文件..."/>
 				<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Open Downloads Folder"/>
 				<separator/>
-				<item id="ID_TOOLS_DOWNLOAD" text="下载文件/Torrent(_D)..."/>
+				<item id="ID_TOOLS_DOWNLOAD" text="下载文件/Torrent..."/>
 				<item id="ID_TOOLS_CREATETORRENT" text="_Create New .Torrent..."/>
 				<separator/>
-				<item id="ID_TOOLS_LANGUAGE" text="选择语言(_L)..."/>
-				<item id="ID_TOOLS_SKIN" text="选择皮肤(_K)..."/>
+				<item id="ID_TOOLS_LANGUAGE" text="选择语言..."/>
+				<item id="ID_TOOLS_SKIN" text="选择皮肤..."/>
 				<separator/>
-				<item id="ID_TOOLS_PROFILE" text="编辑个人资料(_P)..."/>
-				<item id="ID_TOOLS_WIZARD" text="快速启动向导(_W)..."/>
+				<item id="ID_TOOLS_PROFILE" text="编辑个人资料..."/>
+				<item id="ID_TOOLS_WIZARD" text="快速启动向导..."/>
 				<separator/>
-				<item id="ID_TOOLS_SETTINGS" text="PeerProject 设置(_S)..."/>
+				<item id="ID_TOOLS_SETTINGS" text="PeerProject 设置..."/>
 			</menu>
-			<menu text="视图(_V)">
-				<item id="ID_TAB_HOME" text="首页(_H)" shortcut="Ctrl+H"/>
-				<item id="ID_VIEW_NEIGHBOURS" text="邻居(_E)" shortcut="Ctrl+F11"/>
-				<item id="ID_VIEW_SYSTEM" text="系统(_Y)" shortcut="F11"/>
-				<item id="ID_VIEW_DOWNLOADS" text="下载(_D)" shortcut="F3"/>
-				<item id="ID_VIEW_UPLOADS" text="上传(_U)" shortcut="F4"/>
-				<item id="ID_VIEW_LIBRARY" text="收藏(_L)" shortcut="F5"/>
-				<item id="ID_VIEW_MEDIA" text="媒体(_M)" shortcut="F6"/>
+			<menu text="视图">
+				<item id="ID_TAB_HOME" text="首页" shortcut="Ctrl+H"/>
+				<item id="ID_VIEW_NEIGHBOURS" text="邻居" shortcut="Ctrl+F11"/>
+				<item id="ID_VIEW_SYSTEM" text="系统" shortcut="F11"/>
+				<item id="ID_VIEW_DOWNLOADS" text="下载" shortcut="F3"/>
+				<item id="ID_VIEW_UPLOADS" text="上传" shortcut="F4"/>
+				<item id="ID_VIEW_LIBRARY" text="收藏" shortcut="F5"/>
+				<item id="ID_VIEW_MEDIA" text="媒体" shortcut="F6"/>
 				<separator/>
-				<item id="ID_VIEW_SECURITY" text="安全(_C)" shortcut="F7"/>
-				<item id="ID_VIEW_HOSTS" text="主机缓存(_O)" shortcut="F8"/>
-				<item id="ID_VIEW_DISCOVERY" text="探索(_V)" shortcut="F9"/>
-				<item id="ID_VIEW_TRAFFIC" text="图表(_G)" shortcut="F10"/>
+				<item id="ID_VIEW_SECURITY" text="安全" shortcut="F7"/>
+				<item id="ID_VIEW_HOSTS" text="主机缓存" shortcut="F8"/>
+				<item id="ID_VIEW_DISCOVERY" text="探索" shortcut="F9"/>
+				<item id="ID_VIEW_TRAFFIC" text="图表" shortcut="F10"/>
 				<separator/>
-				<item id="ID_VIEW_PACKETS" text="数据包转储(_P)" shortcut="Ctrl+F1"/>
-				<item id="ID_VIEW_SEARCH_MONITOR" text="搜索监视器(_A)" shortcut="Ctrl+F2"/>
-				<item id="ID_VIEW_RESULTS_MONITOR" text="命中监视器(_I)" shortcut="Ctrl+F3"/>
-				<item id="ID_TAB_SEARCH" text="搜索(_S)" shortcut="Ctrl+S"/>
+				<item id="ID_VIEW_PACKETS" text="数据包转储" shortcut="Ctrl+F1"/>
+				<item id="ID_VIEW_SEARCH_MONITOR" text="搜索监视器" shortcut="Ctrl+F2"/>
+				<item id="ID_VIEW_RESULTS_MONITOR" text="命中监视器" shortcut="Ctrl+F3"/>
+				<item id="ID_TAB_SEARCH" text="搜索" shortcut="Ctrl+S"/>
 			</menu>
-			<menu text="窗口(_W)">
-				<item id="ID_VIEW_BASIC" text="普通模式(_O)"/>
-				<item id="ID_VIEW_TABBED" text="标签模式(_A)"/>
-				<item id="ID_VIEW_WINDOWED" text="视窗模式(_W)"/>
+			<menu text="窗口">
+				<item id="ID_VIEW_BASIC" text="普通模式"/>
+				<item id="ID_VIEW_TABBED" text="标签模式"/>
+				<item id="ID_VIEW_WINDOWED" text="视窗模式"/>
 				<separator/>
-				<item id="ID_WINDOW_NAVBAR" text="显示导航栏(_N)"/>
-				<item id="ID_WINDOW_TOOLBAR" text="显示工具栏(_T)"/>
+				<item id="ID_WINDOW_NAVBAR" text="显示导航栏"/>
+				<item id="ID_WINDOW_TOOLBAR" text="显示工具栏"/>
 				<separator/>
-				<item id="ID_WINDOW_TABBAR" text="显示标签栏(_B)"/>
-				<item id="ID_WINDOW_MONITOR" text="显示监视器(_M)"/>
-				<item id="ID_WINDOW_REMOTE" text="显示遥控器(_R)"/>
+				<item id="ID_WINDOW_TABBAR" text="显示标签栏"/>
+				<item id="ID_WINDOW_MONITOR" text="显示监视器"/>
+				<item id="ID_WINDOW_REMOTE" text="显示遥控器"/>
 			</menu>
-			<menu text="帮助(_H)">
-				<item id="ID_HELP_FAQ" text="PeerProject 常见问题(_F)"/>
+			<menu text="帮助">
+				<item id="ID_HELP_FAQ" text="PeerProject 常见问题"/>
 				<separator/>
-				<menu text="指南(_G)">
-					<item id="ID_HELP_GUIDE" text="PeerProject 用户指南(_U)"/>
-					<item id="ID_HELP_ROUTER" text="路由器帮助(_R)"/>
-					<item id="ID_HELP_SECURITY" text="安全帮助(_C)"/>
-					<item id="ID_HELP_CODEC" text="解码器帮助(_C)"/>
+				<menu text="指南">
+					<item id="ID_HELP_GUIDE" text="PeerProject 用户指南"/>
+					<item id="ID_HELP_ROUTER" text="路由器帮助"/>
+					<item id="ID_HELP_SECURITY" text="安全帮助"/>
+					<item id="ID_HELP_CODEC" text="解码器帮助"/>
 				</menu>
 				<separator/>
-				<menu text="网站(_W)">
-					<item id="ID_HELP_FORUMS" text="PeerProject 论坛(_F)"/>
+				<menu text="网站">
+					<item id="ID_HELP_FORUMS" text="PeerProject 论坛"/>
 					<!-- <item id="ID_HELP_UPDATE" text="最新消息"/>
 					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 					<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
 				</menu>
-				<item id="ID_HELP_HOMEPAGE" text="PeerProject site(_S)"/>
+				<item id="ID_HELP_HOMEPAGE" text="PeerProject site"/>
 				<separator/>
-				<item id="ID_HELP_ABOUT" text="关于 PeerProject(_A)..."/>
+				<item id="ID_HELP_ABOUT" text="关于 PeerProject..."/>
 			</menu>
 			<item id="ID_NETWORK_EXIT" text="退出"/>
 		</menu>
 	</menu>
 	<menu name="CMainWnd.Tabbed" type="bar">
-		<menu text="网络(_N)">
-			<item id="ID_NETWORK_CONNECT" text="连接(_C)" shortcut="Ctrl+G"/>
-			<item id="ID_NETWORK_DISCONNECT" text="断开(_D)"/>
+		<menu text="网络">
+			<item id="ID_NETWORK_CONNECT" text="连接" shortcut="Ctrl+G"/>
+			<item id="ID_NETWORK_DISCONNECT" text="断开"/>
 			<separator/>
 			<item id="ID_NETWORK_G2" text="连接到 Gnutella_2"/>
 			<item id="ID_NETWORK_G1" text="连接到 _Gnutella"/>
@@ -595,84 +595,84 @@
 			<item id="ID_NETWORK_DC" text="连接到 _DDC++"/>
 			<item id="ID_NETWORK_BT" text="连接到 _DBitTorrent"/>
 			<separator/>
-			<item id="ID_NETWORK_CONNECT_TO" text="连接到(_T)..." shortcut="Ctrl+T"/>
-			<item id="ID_NETWORK_BROWSE_TO" text="浏览主机(_B)..."/>
+			<item id="ID_NETWORK_CONNECT_TO" text="连接到..." shortcut="Ctrl+T"/>
+			<item id="ID_NETWORK_BROWSE_TO" text="浏览主机..."/>
 			<separator/>
-			<item id="ID_NETWORK_AUTO_CLOSE" text="传送后关闭(_A)"/>
-			<item id="ID_NETWORK_EXIT" text="退出(_X)"/>
+			<item id="ID_NETWORK_AUTO_CLOSE" text="传送后关闭"/>
+			<item id="ID_NETWORK_EXIT" text="退出"/>
 		</menu>
-		<menu text="视图(_V)">
-			<item id="ID_TAB_HOME" text="首页(_H)"/>
-			<item id="ID_TAB_LIBRARY" text="收藏(_L)"/>
-			<item id="ID_TAB_MEDIA" text="媒体播放器(_M)"/>
-			<item id="ID_TAB_SEARCH" text="搜索(_S)"/>
-			<item id="ID_TAB_TRANSFERS" text="传送(_T)"/>
-			<item id="ID_TAB_NETWORK" text="网络(_N)"/>
+		<menu text="视图">
+			<item id="ID_TAB_HOME" text="首页"/>
+			<item id="ID_TAB_LIBRARY" text="收藏"/>
+			<item id="ID_TAB_MEDIA" text="媒体播放器"/>
+			<item id="ID_TAB_SEARCH" text="搜索"/>
+			<item id="ID_TAB_TRANSFERS" text="传送"/>
+			<item id="ID_TAB_NETWORK" text="网络"/>
 			<separator/>
-			<item id="ID_VIEW_SECURITY" text="安全(_C)"/>
-			<item id="ID_VIEW_HOSTS" text="主机缓存(_O)"/>
+			<item id="ID_VIEW_SECURITY" text="安全"/>
+			<item id="ID_VIEW_HOSTS" text="主机缓存"/>
 			<separator/>
-			<menu text="高级(_D)">
-				<item id="ID_VIEW_SYSTEM" text="系统(_Y)" shortcut="F11"/>
-				<item id="ID_VIEW_NEIGHBOURS" text="邻居(_E)" shortcut="Ctrl+F11"/>
-				<item id="ID_VIEW_DOWNLOADS" text="下载(_D)" shortcut="F3"/>
-				<item id="ID_VIEW_UPLOADS" text="上传(_U)" shortcut="F4"/>
-				<item id="ID_VIEW_LIBRARY" text="收藏(_L)" shortcut="F5"/>
-				<item id="ID_VIEW_MEDIA" text="媒体(_M)" shortcut="F6"/>
+			<menu text="高级">
+				<item id="ID_VIEW_SYSTEM" text="系统" shortcut="F11"/>
+				<item id="ID_VIEW_NEIGHBOURS" text="邻居" shortcut="Ctrl+F11"/>
+				<item id="ID_VIEW_DOWNLOADS" text="下载" shortcut="F3"/>
+				<item id="ID_VIEW_UPLOADS" text="上传" shortcut="F4"/>
+				<item id="ID_VIEW_LIBRARY" text="收藏" shortcut="F5"/>
+				<item id="ID_VIEW_MEDIA" text="媒体" shortcut="F6"/>
 				<separator/>
-				<item id="ID_VIEW_SECURITY" text="安全(_C)" shortcut="F7"/>
-				<item id="ID_VIEW_HOSTS" text="主机缓存(_O)" shortcut="F8"/>
-				<item id="ID_VIEW_DISCOVERY" text="探索(_V)" shortcut="F9"/>
-				<item id="ID_VIEW_TRAFFIC" text="图表(_G)" shortcut="F10"/>
+				<item id="ID_VIEW_SECURITY" text="安全" shortcut="F7"/>
+				<item id="ID_VIEW_HOSTS" text="主机缓存" shortcut="F8"/>
+				<item id="ID_VIEW_DISCOVERY" text="探索" shortcut="F9"/>
+				<item id="ID_VIEW_TRAFFIC" text="图表" shortcut="F10"/>
 				<separator/>
-				<item id="ID_VIEW_PACKETS" text="数据包转储(_P)" shortcut="Ctrl+F1"/>
-				<item id="ID_VIEW_SEARCH_MONITOR" text="搜索监视器(_A)" shortcut="Ctrl+F2"/>
-				<item id="ID_VIEW_RESULTS_MONITOR" text="命中监视器(_I)" shortcut="Ctrl+F3"/>
+				<item id="ID_VIEW_PACKETS" text="数据包转储" shortcut="Ctrl+F1"/>
+				<item id="ID_VIEW_SEARCH_MONITOR" text="搜索监视器" shortcut="Ctrl+F2"/>
+				<item id="ID_VIEW_RESULTS_MONITOR" text="命中监视器" shortcut="Ctrl+F3"/>
 			</menu>
 			<separator/>
-			<item id="ID_VIEW_BASIC" text="普通模式(_O)"/>
-			<item id="ID_VIEW_TABBED" text="标签模式(_A)"/>
-			<item id="ID_VIEW_WINDOWED" text="视窗模式(_W)"/>
+			<item id="ID_VIEW_BASIC" text="普通模式"/>
+			<item id="ID_VIEW_TABBED" text="标签模式"/>
+			<item id="ID_VIEW_WINDOWED" text="视窗模式"/>
 		</menu>
-		<menu text="工具(_T)">
-			<item id="ID_LIBRARY_FOLDERS" text="共享文件(_F)..."/>
-			<item id="ID_TOOLS_DOWNLOAD" text="下载文件/Torrent(_D)..."/>
+		<menu text="工具">
+			<item id="ID_LIBRARY_FOLDERS" text="共享文件..."/>
+			<item id="ID_TOOLS_DOWNLOAD" text="下载文件/Torrent..."/>
 			<separator/>
-			<item id="ID_TOOLS_SKIN" text="选择皮肤(_K)..."/>
-			<item id="ID_TOOLS_LANGUAGE" text="选择语言(_L)..."/>
+			<item id="ID_TOOLS_SKIN" text="选择皮肤..."/>
+			<item id="ID_TOOLS_LANGUAGE" text="选择语言..."/>
 			<separator/>
-			<item id="ID_TOOLS_PROFILE" text="编辑个人资料(_P)..."/>
-			<item id="ID_TOOLS_WIZARD" text="快速启动向导(_W)..."/>
+			<item id="ID_TOOLS_PROFILE" text="编辑个人资料..."/>
+			<item id="ID_TOOLS_WIZARD" text="快速启动向导..."/>
 			<separator/>
-			<item id="ID_TOOLS_SETTINGS" text="PeerProject 设置(_S)..."/>
+			<item id="ID_TOOLS_SETTINGS" text="PeerProject 设置..."/>
 		</menu>
-		<menu text="窗口(_W)">
-			<item id="ID_WINDOW_NAVBAR" text="显示导航栏(_N)"/>
-			<item id="ID_WINDOW_TOOLBAR" text="显示工具栏(_T)"/>
-			<item id="ID_WINDOW_TABBAR" text="显示标签栏(_B)"/>
-			<item id="ID_WINDOW_MONITOR" text="显示监视器(_M)"/>
-			<item id="ID_WINDOW_REMOTE" text="显示遥控器(_R)"/>
+		<menu text="窗口">
+			<item id="ID_WINDOW_NAVBAR" text="显示导航栏"/>
+			<item id="ID_WINDOW_TOOLBAR" text="显示工具栏"/>
+			<item id="ID_WINDOW_TABBAR" text="显示标签栏"/>
+			<item id="ID_WINDOW_MONITOR" text="显示监视器"/>
+			<item id="ID_WINDOW_REMOTE" text="显示遥控器"/>
 		</menu>
-		<menu text="帮助(_H)">
-			<item id="ID_HELP_FAQ" text="PeerProject 常见问题(_F)"/>
+		<menu text="帮助">
+			<item id="ID_HELP_FAQ" text="PeerProject 常见问题"/>
 			<separator/>
-			<menu text="指南(_G)">
-				<item id="ID_HELP_GUIDE" text="PeerProject 用户指南(_U)"/>
-				<item id="ID_HELP_ROUTER" text="路由器帮助(_R)"/>
-				<item id="ID_HELP_SECURITY" text="安全帮助(_C)"/>
-				<item id="ID_HELP_CODEC" text="解码器帮助(_C)"/>
+			<menu text="指南">
+				<item id="ID_HELP_GUIDE" text="PeerProject 用户指南"/>
+				<item id="ID_HELP_ROUTER" text="路由器帮助"/>
+				<item id="ID_HELP_SECURITY" text="安全帮助"/>
+				<item id="ID_HELP_CODEC" text="解码器帮助"/>
 			</menu>
 			<separator/>
-			<menu text="网站(_W)">
-				<item id="ID_HELP_HOMEPAGE" text="PeerProject site(_S)"/>
+			<menu text="网站">
+				<item id="ID_HELP_HOMEPAGE" text="PeerProject site"/>
 				<separator/>
-				<item id="ID_HELP_FORUMS" text="PeerProject 论坛(_F)"/>
+				<item id="ID_HELP_FORUMS" text="PeerProject 论坛"/>
 				<!-- <item id="ID_HELP_UPDATE" text="最新消息"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
 			</menu>
 			<separator/>
-			<item id="ID_HELP_ABOUT" text="关于 PeerProject(_A)..."/>
+			<item id="ID_HELP_ABOUT" text="关于 PeerProject..."/>
 		</menu>
 	</menu>
 	<menu name="CMainWnd.Basic" type="bar">
@@ -684,7 +684,7 @@
 			<item id="ID_NETWORK_ED2K" text="连接到 edonkey"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="传送后退出"/>
-			<item id="ID_NETWORK_EXIT" text="退出 (_X)"/>
+			<item id="ID_NETWORK_EXIT" text="退出 "/>
 		</menu>
 		<menu text="视图 ">
 			<item id="ID_TAB_HOME" text="首页"/>
@@ -742,14 +742,14 @@
 		</menu>
 	</menu>
 	<menu name="CMainWnd.Windowed" type="bar">
-		<menu text="网络(_N)">
-			<item id="ID_NETWORK_SEARCH" text="新建搜索(_S)..." shortcut="Ctrl+S"/>
+		<menu text="网络">
+			<item id="ID_NETWORK_SEARCH" text="新建搜索..." shortcut="Ctrl+S"/>
 			<separator/>
-			<item id="ID_NETWORK_CONNECT" text="连接(_C)" shortcut="Ctrl+G"/>
-			<item id="ID_NETWORK_DISCONNECT" text="断开(_D)"/>
+			<item id="ID_NETWORK_CONNECT" text="连接" shortcut="Ctrl+G"/>
+			<item id="ID_NETWORK_DISCONNECT" text="断开"/>
 			<separator/>
-			<item id="ID_NETWORK_CONNECT_TO" text="连接到(_T)..." shortcut="Ctrl+T"/>
-			<item id="ID_NETWORK_BROWSE_TO" text="浏览主机(_B)..."/>
+			<item id="ID_NETWORK_CONNECT_TO" text="连接到..." shortcut="Ctrl+T"/>
+			<item id="ID_NETWORK_BROWSE_TO" text="浏览主机..."/>
 			<separator/>
 			<item id="ID_NETWORK_G2" text="连接到 Gnutella_2"/>
 			<item id="ID_NETWORK_G1" text="连接到 _Gnutella"/>
@@ -757,206 +757,206 @@
 			<item id="ID_NETWORK_DC" text="连接到 _DC++"/>
 			<item id="ID_NETWORK_BT" text="连接到 _BitTorrent"/>
 			<separator/>
-			<item id="ID_NETWORK_AUTO_CLOSE" text="传送后关闭(_A)"/>
-			<item id="ID_NETWORK_EXIT" text="退出(_X)"/>
+			<item id="ID_NETWORK_AUTO_CLOSE" text="传送后关闭"/>
+			<item id="ID_NETWORK_EXIT" text="退出"/>
 		</menu>
-		<menu text="视图(_V)">
-			<item id="ID_VIEW_SYSTEM" text="系统(_S)" shortcut="F11"/>
-			<item id="ID_VIEW_NEIGHBOURS" text="邻居(_N)" shortcut="Ctrl+F11"/>
-			<item id="ID_VIEW_DOWNLOADS" text="下载(_D)" shortcut="F3"/>
-			<item id="ID_VIEW_UPLOADS" text="上传(_U)" shortcut="F4"/>
-			<item id="ID_VIEW_LIBRARY" text="收藏(_L)" shortcut="F5"/>
-			<item id="ID_VIEW_MEDIA" text="媒体(_M)" shortcut="F6"/>
+		<menu text="视图">
+			<item id="ID_VIEW_SYSTEM" text="系统" shortcut="F11"/>
+			<item id="ID_VIEW_NEIGHBOURS" text="邻居" shortcut="Ctrl+F11"/>
+			<item id="ID_VIEW_DOWNLOADS" text="下载" shortcut="F3"/>
+			<item id="ID_VIEW_UPLOADS" text="上传" shortcut="F4"/>
+			<item id="ID_VIEW_LIBRARY" text="收藏" shortcut="F5"/>
+			<item id="ID_VIEW_MEDIA" text="媒体" shortcut="F6"/>
 			<separator/>
-			<item id="ID_VIEW_SECURITY" text="安全(_C)" shortcut="F7"/>
-			<item id="ID_VIEW_HOSTS" text="主机缓存(_O)" shortcut="F8"/>
-			<item id="ID_VIEW_DISCOVERY" text="探索(_V)" shortcut="F9"/>
-			<item id="ID_VIEW_TRAFFIC" text="图表(_G)" shortcut="F10"/>
+			<item id="ID_VIEW_SECURITY" text="安全" shortcut="F7"/>
+			<item id="ID_VIEW_HOSTS" text="主机缓存" shortcut="F8"/>
+			<item id="ID_VIEW_DISCOVERY" text="探索" shortcut="F9"/>
+			<item id="ID_VIEW_TRAFFIC" text="图表" shortcut="F10"/>
 			<separator/>
-			<item id="ID_VIEW_PACKETS" text="数据包转储(_P)" shortcut="Ctrl+F1"/>
-			<item id="ID_VIEW_SEARCH_MONITOR" text="搜索监视器(_A)" shortcut="Ctrl+F2"/>
-			<item id="ID_VIEW_RESULTS_MONITOR" text="命中监视器(_I)" shortcut="Ctrl+F3"/>
+			<item id="ID_VIEW_PACKETS" text="数据包转储" shortcut="Ctrl+F1"/>
+			<item id="ID_VIEW_SEARCH_MONITOR" text="搜索监视器" shortcut="Ctrl+F2"/>
+			<item id="ID_VIEW_RESULTS_MONITOR" text="命中监视器" shortcut="Ctrl+F3"/>
 			<separator/>
 			<item id="ID_VIEW_BASIC" text="正常模式"/>
 			<item id="ID_VIEW_TABBED" text="标签模式"/>
 			<item id="ID_VIEW_WINDOWED" text="窗口模式"/>
 		</menu>
-		<menu text="工具(_T)">
-			<item id="ID_LIBRARY_FOLDERS" text="共享文件(_F)..."/>
-			<item id="ID_TOOLS_DOWNLOAD" text="下载文件/Torrent(_D)..."/>
+		<menu text="工具">
+			<item id="ID_LIBRARY_FOLDERS" text="共享文件..."/>
+			<item id="ID_TOOLS_DOWNLOAD" text="下载文件/Torrent..."/>
 			<separator/>
-			<item id="ID_TOOLS_SKIN" text="选择皮肤(_K)..."/>
-			<item id="ID_TOOLS_LANGUAGE" text="选择语言(_L)..."/>
+			<item id="ID_TOOLS_SKIN" text="选择皮肤..."/>
+			<item id="ID_TOOLS_LANGUAGE" text="选择语言..."/>
 			<separator/>
-			<item id="ID_TOOLS_PROFILE" text="编辑个人资料(_P)..."/>
+			<item id="ID_TOOLS_PROFILE" text="编辑个人资料..."/>
 			<separator/>
-			<item id="ID_TOOLS_WIZARD" text="快速启动向导(_W)..."/>
-			<item id="ID_TOOLS_SETTINGS" text="PeerProject 设置(_S)..."/>
+			<item id="ID_TOOLS_WIZARD" text="快速启动向导..."/>
+			<item id="ID_TOOLS_SETTINGS" text="PeerProject 设置..."/>
 		</menu>
-		<menu text="窗口(_W)">
-			<item id="ID_WINDOW_CASCADE" text="全屏(_F)"/>
-			<item id="ID_WINDOW_TILE_HORZ" text="横向平铺(_H)"/>
-			<item id="ID_WINDOW_TILE_VERT" text="纵向平铺(_V)"/>
+		<menu text="窗口">
+			<item id="ID_WINDOW_CASCADE" text="全屏"/>
+			<item id="ID_WINDOW_TILE_HORZ" text="横向平铺"/>
+			<item id="ID_WINDOW_TILE_VERT" text="纵向平铺"/>
 			<separator/>
-			<item id="ID_WINDOW_NAVBAR" text="显示导航栏(_N)"/>
-			<item id="ID_WINDOW_TOOLBAR" text="显示工具栏(_T)"/>
-			<item id="ID_WINDOW_TABBAR" text="显示标签栏(_B)"/>
-			<item id="ID_WINDOW_MONITOR" text="显示监视器(_M)"/>
-			<item id="ID_WINDOW_REMOTE" text="显示遥控器(_R)"/>
+			<item id="ID_WINDOW_NAVBAR" text="显示导航栏"/>
+			<item id="ID_WINDOW_TOOLBAR" text="显示工具栏"/>
+			<item id="ID_WINDOW_TABBAR" text="显示标签栏"/>
+			<item id="ID_WINDOW_MONITOR" text="显示监视器"/>
+			<item id="ID_WINDOW_REMOTE" text="显示遥控器"/>
 		</menu>
-		<menu text="帮助(_H)">
-			<item id="ID_HELP_FAQ" text="PeerProject 常见问题(_F)"/>
+		<menu text="帮助">
+			<item id="ID_HELP_FAQ" text="PeerProject 常见问题"/>
 			<separator/>
-			<menu text="指南(_G)">
-				<item id="ID_HELP_GUIDE" text="PeerProject 用户指南(_U)"/>
-				<item id="ID_HELP_ROUTER" text="路由器帮助(_R)"/>
-				<item id="ID_HELP_SECURITY" text="安全帮助(_C)"/>
-				<item id="ID_HELP_CODEC" text="解码器帮助(_C)"/>
+			<menu text="指南">
+				<item id="ID_HELP_GUIDE" text="PeerProject 用户指南"/>
+				<item id="ID_HELP_ROUTER" text="路由器帮助"/>
+				<item id="ID_HELP_SECURITY" text="安全帮助"/>
+				<item id="ID_HELP_CODEC" text="解码器帮助"/>
 			</menu>
 			<separator/>
-			<menu text="网站(_W)">
-				<item id="ID_HELP_HOMEPAGE" text="PeerProject site(_S)"/>
+			<menu text="网站">
+				<item id="ID_HELP_HOMEPAGE" text="PeerProject site"/>
 				<separator/>
-				<item id="ID_HELP_FORUMS" text="PeerProject 论坛(_F)"/>
+				<item id="ID_HELP_FORUMS" text="PeerProject 论坛"/>
 				<!-- <item id="ID_HELP_UPDATE" text="最新消息"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
 			</menu>
 			<separator/>
-			<item id="ID_HELP_ABOUT" text="关于 PeerProject(_A)..."/>
+			<item id="ID_HELP_ABOUT" text="关于 PeerProject..."/>
 		</menu>
 	</menu>
 	<!-- VIEW POPUP -->
 	<menu name="CMainWnd.View.Basic">
-		<item id="ID_TAB_HOME" text="首页(_H)"/>
-		<item id="ID_TAB_LIBRARY" text="收藏(_L)"/>
-		<item id="ID_TAB_MEDIA" text="媒体(_M)"/>
-		<item id="ID_TAB_SEARCH" text="搜索(_S)"/>
-		<item id="ID_TAB_TRANSFERS" text="下载(_D)"/>
+		<item id="ID_TAB_HOME" text="首页"/>
+		<item id="ID_TAB_LIBRARY" text="收藏"/>
+		<item id="ID_TAB_MEDIA" text="媒体"/>
+		<item id="ID_TAB_SEARCH" text="搜索"/>
+		<item id="ID_TAB_TRANSFERS" text="下载"/>
 		<separator/>
-		<menu text="高级(_A)">
-			<item id="ID_VIEW_NEIGHBOURS" text="邻居(_N)"/>
-			<item id="ID_VIEW_UPLOADS" text="上传(_U)"/>
-			<item id="ID_VIEW_SECURITY" text="安全(_S)"/>
-			<item id="ID_VIEW_HOSTS" text="主机缓存(_H)"/>
+		<menu text="高级">
+			<item id="ID_VIEW_NEIGHBOURS" text="邻居"/>
+			<item id="ID_VIEW_UPLOADS" text="上传"/>
+			<item id="ID_VIEW_SECURITY" text="安全"/>
+			<item id="ID_VIEW_HOSTS" text="主机缓存"/>
 		</menu>
 	</menu>
 	<menu name="CMainWnd.View.Tabbed">
-		<item id="ID_TAB_HOME" text="首页(_H)"/>
-		<item id="ID_TAB_LIBRARY" text="收藏(_L)"/>
-		<item id="ID_TAB_MEDIA" text="媒体(_M)"/>
-		<item id="ID_TAB_SEARCH" text="搜索(_S)"/>
-		<item id="ID_TAB_TRANSFERS" text="传送(_T)"/>
-		<item id="ID_TAB_NETWORK" text="网络(_N)"/>
+		<item id="ID_TAB_HOME" text="首页"/>
+		<item id="ID_TAB_LIBRARY" text="收藏"/>
+		<item id="ID_TAB_MEDIA" text="媒体"/>
+		<item id="ID_TAB_SEARCH" text="搜索"/>
+		<item id="ID_TAB_TRANSFERS" text="传送"/>
+		<item id="ID_TAB_NETWORK" text="网络"/>
 		<separator/>
-		<item id="ID_VIEW_SECURITY" text="安全(_C)"/>
-		<item id="ID_VIEW_SCHEDULER" text="计划任务(_R)"/>
-		<item id="ID_VIEW_HOSTS" text="主机缓存(_H)"/>
-		<item id="ID_VIEW_DISCOVERY" text="探索(_V)"/>
-		<item id="ID_VIEW_TRAFFIC" text="图表(_G)"/>
+		<item id="ID_VIEW_SECURITY" text="安全"/>
+		<item id="ID_VIEW_SCHEDULER" text="计划任务"/>
+		<item id="ID_VIEW_HOSTS" text="主机缓存"/>
+		<item id="ID_VIEW_DISCOVERY" text="探索"/>
+		<item id="ID_VIEW_TRAFFIC" text="图表"/>
 		<separator/>
-		<item id="ID_VIEW_PACKETS" text="数据包转储(_P)"/>
-		<item id="ID_VIEW_SEARCH_MONITOR" text="搜索监视器(_A)"/>
-		<item id="ID_VIEW_RESULTS_MONITOR" text="命中监视器(_I)"/>
+		<item id="ID_VIEW_PACKETS" text="数据包转储"/>
+		<item id="ID_VIEW_SEARCH_MONITOR" text="搜索监视器"/>
+		<item id="ID_VIEW_RESULTS_MONITOR" text="命中监视器"/>
 	</menu>
 	<menu name="CMainWnd.View.Windowed">
-		<item id="ID_NETWORK_SEARCH" text="新建搜索(_S)..."/>
+		<item id="ID_NETWORK_SEARCH" text="新建搜索..."/>
 		<separator/>
-		<item id="ID_VIEW_SYSTEM" text="系统(_Y)"/>
-		<item id="ID_VIEW_NEIGHBOURS" text="邻居(_E)"/>
-		<item id="ID_VIEW_DOWNLOADS" text="下载(_D)"/>
-		<item id="ID_VIEW_UPLOADS" text="上传(_U)"/>
-		<item id="ID_VIEW_LIBRARY" text="收藏(_L)"/>
-		<item id="ID_VIEW_MEDIA" text="媒体播放器(_M)"/>
+		<item id="ID_VIEW_SYSTEM" text="系统"/>
+		<item id="ID_VIEW_NEIGHBOURS" text="邻居"/>
+		<item id="ID_VIEW_DOWNLOADS" text="下载"/>
+		<item id="ID_VIEW_UPLOADS" text="上传"/>
+		<item id="ID_VIEW_LIBRARY" text="收藏"/>
+		<item id="ID_VIEW_MEDIA" text="媒体播放器"/>
 		<separator/>
-		<item id="ID_VIEW_SECURITY" text="安全(_C)"/>
-		<item id="ID_VIEW_HOSTS" text="主机缓存(_H)"/>
-		<item id="ID_VIEW_DISCOVERY" text="探索(_V)"/>
-		<item id="ID_VIEW_TRAFFIC" text="图表(_G)"/>
+		<item id="ID_VIEW_SECURITY" text="安全"/>
+		<item id="ID_VIEW_HOSTS" text="主机缓存"/>
+		<item id="ID_VIEW_DISCOVERY" text="探索"/>
+		<item id="ID_VIEW_TRAFFIC" text="图表"/>
 		<separator/>
-		<item id="ID_VIEW_PACKETS" text="数据包转储(_P)"/>
-		<item id="ID_VIEW_SEARCH_MONITOR" text="搜索监视器(_A)"/>
-		<item id="ID_VIEW_RESULTS_MONITOR" text="命中监视器(_I)"/>
+		<item id="ID_VIEW_PACKETS" text="数据包转储"/>
+		<item id="ID_VIEW_SEARCH_MONITOR" text="搜索监视器"/>
+		<item id="ID_VIEW_RESULTS_MONITOR" text="命中监视器"/>
 	</menu>
 	<!-- HOME MENU -->
 	<menu name="CHomeWnd.Basic">
-		<item id="ID_TAB_HOME" text="首页(_H)"/>
-		<item id="ID_TAB_LIBRARY" text="收藏(_L)"/>
-		<item id="ID_TAB_MEDIA" text="媒体(_M)"/>
-		<item id="ID_TAB_SEARCH" text="搜索(_S)"/>
-		<item id="ID_TAB_TRANSFERS" text="下载(_D)"/>
+		<item id="ID_TAB_HOME" text="首页"/>
+		<item id="ID_TAB_LIBRARY" text="收藏"/>
+		<item id="ID_TAB_MEDIA" text="媒体"/>
+		<item id="ID_TAB_SEARCH" text="搜索"/>
+		<item id="ID_TAB_TRANSFERS" text="下载"/>
 		<separator/>
-		<menu text="高级(_A)">
-			<item id="ID_VIEW_NEIGHBOURS" text="邻居(_N)"/>
-			<item id="ID_VIEW_UPLOADS" text="上传(_U)"/>
-			<item id="ID_VIEW_SECURITY" text="安全(_S)"/>
-			<item id="ID_VIEW_HOSTS" text="主机缓存(_H)"/>
+		<menu text="高级">
+			<item id="ID_VIEW_NEIGHBOURS" text="邻居"/>
+			<item id="ID_VIEW_UPLOADS" text="上传"/>
+			<item id="ID_VIEW_SECURITY" text="安全"/>
+			<item id="ID_VIEW_HOSTS" text="主机缓存"/>
 		</menu>
 	</menu>
 	<menu name="CHomeWnd.Tabbed">
-		<item id="ID_TAB_HOME" text="首页(_H)"/>
-		<item id="ID_TAB_LIBRARY" text="收藏(_L)"/>
-		<item id="ID_TAB_MEDIA" text="媒体(_M)"/>
-		<item id="ID_TAB_SEARCH" text="搜索(_S)"/>
-		<item id="ID_TAB_TRANSFERS" text="传送(_T)"/>
-		<item id="ID_TAB_NETWORK" text="网络(_N)"/>
+		<item id="ID_TAB_HOME" text="首页"/>
+		<item id="ID_TAB_LIBRARY" text="收藏"/>
+		<item id="ID_TAB_MEDIA" text="媒体"/>
+		<item id="ID_TAB_SEARCH" text="搜索"/>
+		<item id="ID_TAB_TRANSFERS" text="传送"/>
+		<item id="ID_TAB_NETWORK" text="网络"/>
 		<separator/>
-		<item id="ID_VIEW_SECURITY" text="安全(_C)"/>
-		<item id="ID_VIEW_HOSTS" text="主机缓存(_H)"/>
-		<item id="ID_VIEW_DISCOVERY" text="探索(_V)"/>
-		<item id="ID_VIEW_TRAFFIC" text="图表(_G)"/>
+		<item id="ID_VIEW_SECURITY" text="安全"/>
+		<item id="ID_VIEW_HOSTS" text="主机缓存"/>
+		<item id="ID_VIEW_DISCOVERY" text="探索"/>
+		<item id="ID_VIEW_TRAFFIC" text="图表"/>
 		<separator/>
-		<item id="ID_VIEW_PACKETS" text="数据包转储(_P)"/>
-		<item id="ID_VIEW_SEARCH_MONITOR" text="搜索监视器(_A)"/>
-		<item id="ID_VIEW_RESULTS_MONITOR" text="命中监视器(_I)"/>
+		<item id="ID_VIEW_PACKETS" text="数据包转储"/>
+		<item id="ID_VIEW_SEARCH_MONITOR" text="搜索监视器"/>
+		<item id="ID_VIEW_RESULTS_MONITOR" text="命中监视器"/>
 	</menu>
 	<!-- HOST CACHE WINDOW -->
 	<menu name="CHostCacheWnd">
-		<item id="ID_HOSTCACHE_CONNECT" text="立即连接(_C)"/>
-		<item id="ID_HOSTCACHE_DISCONNECT" text="断开(_D)"/>
-		<item id="ID_HOSTCACHE_PRIORITY" text="优先服务器(_P)"/>
+		<item id="ID_HOSTCACHE_CONNECT" text="立即连接"/>
+		<item id="ID_HOSTCACHE_DISCONNECT" text="断开"/>
+		<item id="ID_HOSTCACHE_PRIORITY" text="优先服务器"/>
 		<separator/>
-		<item id="ID_HOSTCACHE_REMOVE" text="移除主机(_S)"/>
+		<item id="ID_HOSTCACHE_REMOVE" text="移除主机"/>
 		<separator/>
-		<menu text="过滤器(_F)">
-			<item id="ID_HOSTCACHE_G2_HORIZON" text="Gnutella2 群(_U)"/>
-			<item id="ID_HOSTCACHE_G2_CACHE" text="Gnutella2 缓存(_2)"/>
-			<item id="ID_HOSTCACHE_G1_CACHE" text="Gnutella1 缓存(_1)"/>
-			<item id="ID_HOSTCACHE_ED2K_CACHE" text="eDonkey 服务器(_E)"/>
+		<menu text="过滤器">
+			<item id="ID_HOSTCACHE_G2_HORIZON" text="Gnutella2 群"/>
+			<item id="ID_HOSTCACHE_G2_CACHE" text="Gnutella2 缓存"/>
+			<item id="ID_HOSTCACHE_G1_CACHE" text="Gnutella1 缓存"/>
+			<item id="ID_HOSTCACHE_ED2K_CACHE" text="eDonkey 服务器"/>
 		</menu>
 		<separator/>
-		<item id="ID_HOSTCACHE_IMPORT" text="导入 MET 文件(_I)..."/>
+		<item id="ID_HOSTCACHE_IMPORT" text="导入 MET 文件..."/>
 		<item id="ID_HOSTCACHE_FILE_DOWNLOAD" text="下载 MET..."/>
 	</menu>
 	<!-- SEARCH WINDOW -->
 	<menu name="CSearchWnd.Basic">
-		<item id="ID_SEARCH_DOWNLOAD" text="下载(_D)"/>
+		<item id="ID_SEARCH_DOWNLOAD" text="下载"/>
 		<separator/>
-		<item id="ID_BROWSE_LAUNCH" text="浏览用户(_B)"/>
-		<item id="ID_SEARCH_CHAT" text="与用户聊天(_C)"/>
+		<item id="ID_BROWSE_LAUNCH" text="浏览用户"/>
+		<item id="ID_SEARCH_CHAT" text="与用户聊天"/>
 		<separator/>
-		<menu text="搜索(_S)">
+		<menu text="搜索">
 			<item id="ID_SEARCH_FOR_SIMILAR" text="相似文件"/>
 			<separator/>
 			<item id="ID_SEARCH_FOR_ARTIST" text="同一艺术家的音乐"/>
 			<item id="ID_SEARCH_FOR_ALBUM" text="同一专辑的音乐"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="同一系列的情节"/>
 		</menu>
-		<menu text="网页服务(_W)">
-			<item id="ID_LIBRARY_BITZI_WEB" text="查看 Bitzi 标签(_B)"/>
-			<item id="ID_SEARCH_URI" text="复制 URI(_U)..."/>
+		<menu text="网页服务">
+			<item id="ID_LIBRARY_BITZI_WEB" text="查看 Bitzi 标签"/>
+			<item id="ID_SEARCH_URI" text="复制 URI..."/>
 		</menu>
 	</menu>
 	<menu name="CSearchWnd">
-		<item id="ID_SEARCH_DOWNLOAD" text="下载(_D)"/>
+		<item id="ID_SEARCH_DOWNLOAD" text="下载"/>
 		<item id="ID_SEARCH_DOWNLOADNOW" text="立即下载"/>
-		<item id="ID_SEARCH_URI" text="复制 URI(_U)"/>
+		<item id="ID_SEARCH_URI" text="复制 URI"/>
 		<separator/>
-		<item id="ID_BROWSE_LAUNCH" text="浏览用户(_W)"/>
-		<item id="ID_SEARCH_CHAT" text="与用户聊天(_C)"/>
-		<item id="ID_SECURITY_BAN" text="禁止用户(_B)"/>
+		<item id="ID_BROWSE_LAUNCH" text="浏览用户"/>
+		<item id="ID_SEARCH_CHAT" text="与用户聊天"/>
+		<item id="ID_SECURITY_BAN" text="禁止用户"/>
 		<separator/>
-		<menu text="搜索(_S)">
+		<menu text="搜索">
 			<item id="ID_SEARCH_FOR_THIS" text="此文件"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="相似文件"/>
 			<separator/>
@@ -964,43 +964,43 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="同一专辑的音乐"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="同一系列的情节"/>
 		</menu>
-		<menu text="网页服务(_W)">
-			<item id="ID_LIBRARY_BITZI_WEB" text="查看 Bitzi 标签(_B)"/>
+		<menu text="网页服务">
+			<item id="ID_LIBRARY_BITZI_WEB" text="查看 Bitzi 标签"/>
 		</menu>
 		<separator/>
-		<item id="ID_SEARCH_FILTER" text="过滤结果(_F)..."/>
-		<item id="ID_SEARCH_FILTER_REMOVE" text="移除过滤器(_R)"/>
-		<item id="ID_SEARCH_CLEAR" text="清除结果(_L)"/>
+		<item id="ID_SEARCH_FILTER" text="过滤结果..."/>
+		<item id="ID_SEARCH_FILTER_REMOVE" text="移除过滤器"/>
+		<item id="ID_SEARCH_CLEAR" text="清除结果"/>
 		<separator/>
-		<item id="ID_SEARCH_COLUMNS" text="编辑列(_O)..."/>
+		<item id="ID_SEARCH_COLUMNS" text="编辑列..."/>
 	</menu>
 	<!-- BROWSE HOST WINDOW -->
 	<menu name="CBrowseHostWnd.Basic">
-		<item id="ID_SEARCH_DOWNLOAD" text="下载(_D)"/>
-		<item id="ID_SEARCH_DOWNLOADNOW" text="立即下载(_N)"/>
+		<item id="ID_SEARCH_DOWNLOAD" text="下载"/>
+		<item id="ID_SEARCH_DOWNLOADNOW" text="立即下载"/>
 		<separator/>
-		<item id="ID_SEARCH_CHAT" text="与用户聊天(_C)"/>
+		<item id="ID_SEARCH_CHAT" text="与用户聊天"/>
 		<separator/>
-		<menu text="搜索(_S)">
+		<menu text="搜索">
 			<item id="ID_SEARCH_FOR_SIMILAR" text="相似文件"/>
 			<separator/>
 			<item id="ID_SEARCH_FOR_ARTIST" text="同一艺术家的音乐"/>
 			<item id="ID_SEARCH_FOR_ALBUM" text="同一专辑的音乐"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="同一系列的情节"/>
 		</menu>
-		<menu text="网页文件信息(_W)">
-			<item id="ID_LIBRARY_BITZI_WEB" text="查看 Bitzi 标签(_B)"/>
-			<item id="ID_SEARCH_URI" text="复制 URI(_U)..."/>
+		<menu text="网页文件信息">
+			<item id="ID_LIBRARY_BITZI_WEB" text="查看 Bitzi 标签"/>
+			<item id="ID_SEARCH_URI" text="复制 URI..."/>
 		</menu>
 	</menu>
 	<menu name="CBrowseHostWnd">
-		<item id="ID_SEARCH_DOWNLOAD" text="下载(_D)"/>
-		<item id="ID_SEARCH_DOWNLOADNOW" text="立即下载(_N)"/>
-		<item id="ID_SEARCH_URI" text="复制 URI(_U)"/>
+		<item id="ID_SEARCH_DOWNLOAD" text="下载"/>
+		<item id="ID_SEARCH_DOWNLOADNOW" text="立即下载"/>
+		<item id="ID_SEARCH_URI" text="复制 URI"/>
 		<separator/>
-		<item id="ID_SEARCH_CHAT" text="与用户聊天(_C)"/>
+		<item id="ID_SEARCH_CHAT" text="与用户聊天"/>
 		<separator/>
-		<menu text="搜索(_S)">
+		<menu text="搜索">
 			<item id="ID_SEARCH_FOR_THIS" text="此文件"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="相似文件"/>
 			<separator/>
@@ -1008,24 +1008,24 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="同一专辑的音乐"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="同一系列的情节"/>
 		</menu>
-		<menu text="网页服务(_W)">
-			<item id="ID_LIBRARY_BITZI_WEB" text="查看 Bitzi 标签(_B)"/>
+		<menu text="网页服务">
+			<item id="ID_LIBRARY_BITZI_WEB" text="查看 Bitzi 标签"/>
 		</menu>
 		<separator/>
-		<item id="ID_SEARCH_FILTER" text="过滤结果(_F)..."/>
-		<item id="ID_SEARCH_FILTER_REMOVE" text="移除过滤器(_E)"/>
+		<item id="ID_SEARCH_FILTER" text="过滤结果..."/>
+		<item id="ID_SEARCH_FILTER_REMOVE" text="移除过滤器"/>
 		<separator/>
-		<item id="ID_SEARCH_COLUMNS" text="编辑列(_O)..."/>
+		<item id="ID_SEARCH_COLUMNS" text="编辑列..."/>
 	</menu>
 	<!-- HIT MONITOR WINDOW -->
 	<menu name="CHitMonitorWnd">
-		<item id="ID_SEARCH_DOWNLOAD" text="下载(_D)"/>
-		<item id="ID_SEARCH_URI" text="复制 URI(_U)"/>
+		<item id="ID_SEARCH_DOWNLOAD" text="下载"/>
+		<item id="ID_SEARCH_URI" text="复制 URI"/>
 		<separator/>
-		<item id="ID_BROWSE_LAUNCH" text="浏览用户(_B)"/>
-		<item id="ID_SEARCH_CHAT" text="与用户聊天(_C)"/>
+		<item id="ID_BROWSE_LAUNCH" text="浏览用户"/>
+		<item id="ID_SEARCH_CHAT" text="与用户聊天"/>
 		<separator/>
-		<menu text="搜索(_S)">
+		<menu text="搜索">
 			<item id="ID_SEARCH_FOR_THIS" text="此文件"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="相似文件"/>
 			<separator/>
@@ -1033,164 +1033,164 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="同一专辑的音乐"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="同一系列的情节"/>
 		</menu>
-		<menu text="网页服务(_W)">
-			<item id="ID_LIBRARY_BITZI_WEB" text="查看 Bitzi 标签(_B)"/>
+		<menu text="网页服务">
+			<item id="ID_LIBRARY_BITZI_WEB" text="查看 Bitzi 标签"/>
 		</menu>
 		<separator/>
-		<item id="ID_SEARCH_FILTER" text="过滤结果(_F)..."/>
-		<item id="ID_SEARCH_FILTER_REMOVE" text="移除过滤器(_R)"/>
+		<item id="ID_SEARCH_FILTER" text="过滤结果..."/>
+		<item id="ID_SEARCH_FILTER_REMOVE" text="移除过滤器"/>
 		<separator/>
-		<item id="ID_HITMONITOR_PAUSE" text="暂停显示(_P)"/>
-		<item id="ID_HITMONITOR_CLEAR" text="清除显示(_L)"/>
+		<item id="ID_HITMONITOR_PAUSE" text="暂停显示"/>
+		<item id="ID_HITMONITOR_CLEAR" text="清除显示"/>
 		<separator/>
-		<item id="ID_SEARCH_COLUMNS" text="编辑列(_O)..."/>
+		<item id="ID_SEARCH_COLUMNS" text="编辑列..."/>
 	</menu>
 	<!-- DOWNLOADS WINDOW -->
 	<menu name="CDownloadsWnd.Download.Basic">
-		<item id="ID_DOWNLOADS_LAUNCH" text="预览(_P)"/>
+		<item id="ID_DOWNLOADS_LAUNCH" text="预览"/>
 		<separator/>
-		<item id="ID_DOWNLOADS_RESUME" text="续传(_R)"/>
-		<item id="ID_DOWNLOADS_PAUSE" text="暂停(_A)"/>
-		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="取消(_C)"/>
+		<item id="ID_DOWNLOADS_RESUME" text="续传"/>
+		<item id="ID_DOWNLOADS_PAUSE" text="暂停"/>
+		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="取消"/>
 		<separator/>
-		<item id="ID_DOWNLOADS_SOURCES" text="查找更多资源(_F)"/>
+		<item id="ID_DOWNLOADS_SOURCES" text="查找更多资源"/>
 		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="查看评价(_V)"/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="查看评价"/>
 		<separator/>
-		<item id="ID_DOWNLOADS_HELP" text="帮助(_H)..."/>
+		<item id="ID_DOWNLOADS_HELP" text="帮助..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Download">
-		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="预览副本(_V)"/>
-		<item id="ID_DOWNLOADS_LAUNCH" text="预览(_P)"/>
-		<item id="ID_DOWNLOADS_ENQUEUE" text="加入播放列表(_Y)"/>
+		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="预览副本"/>
+		<item id="ID_DOWNLOADS_LAUNCH" text="预览"/>
+		<item id="ID_DOWNLOADS_ENQUEUE" text="加入播放列表"/>
 		<separator/>
-		<item id="ID_DOWNLOADS_RESUME" text="续传(_R)"/>
-		<item id="ID_DOWNLOADS_PAUSE" text="暂停(_A)"/>
-		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="取消(_C)"/>
+		<item id="ID_DOWNLOADS_RESUME" text="续传"/>
+		<item id="ID_DOWNLOADS_PAUSE" text="暂停"/>
+		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="取消"/>
 		<separator/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="查看评价(_V)"/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="查看评价"/>
 		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
-		<item id="ID_DOWNLOADS_SOURCES" text="查找更多资源(_F)"/>
+		<item id="ID_DOWNLOADS_SOURCES" text="查找更多资源"/>
 		<separator/>
-		<menu text="高级(_A)">
-			<item id="ID_DOWNLOADS_SHARE" text="共享文件(_S)"/>
+		<menu text="高级">
+			<item id="ID_DOWNLOADS_SHARE" text="共享文件"/>
 			<separator/>
-			<item id="ID_DOWNLOADS_URI" text="复制 URI(_C)"/>
-			<item id="ID_DOWNLOADS_ADD_SOURCE" text="添加资源(_A)..."/>
-			<item id="ID_DOWNLOADS_MERGE" text="合并本地文件(_M)..."/>
+			<item id="ID_DOWNLOADS_URI" text="复制 URI"/>
+			<item id="ID_DOWNLOADS_ADD_SOURCE" text="添加资源..."/>
+			<item id="ID_DOWNLOADS_MERGE" text="合并本地文件..."/>
 			<separator/>
-			<item id="ID_DOWNLOADS_MONITOR" text="监视器(_W)"/>
+			<item id="ID_DOWNLOADS_MONITOR" text="监视器"/>
 		</menu>
-		<menu text="优先(_O)">
-			<item id="ID_DOWNLOADS_BOOST" text="忽略带宽限制(_I)"/>
+		<menu text="优先">
+			<item id="ID_DOWNLOADS_BOOST" text="忽略带宽限制"/>
 			<separator/>
-			<item id="ID_DOWNLOADS_MOVE_TOP" text="上移!(_T)" shortcut="Ctrl+Home"/>
-			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="下移!(_B)" shortcut="Ctrl+End"/>
-			<item id="ID_DOWNLOADS_MOVE_UP" text="上移(_U)" shortcut="Ctrl+Up"/>
-			<item id="ID_DOWNLOADS_MOVE_DOWN" text="下移(_D)" shortcut="Ctrl+Down"/>
+			<item id="ID_DOWNLOADS_MOVE_TOP" text="上移!" shortcut="Ctrl+Home"/>
+			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="下移!" shortcut="Ctrl+End"/>
+			<item id="ID_DOWNLOADS_MOVE_UP" text="上移" shortcut="Ctrl+Up"/>
+			<item id="ID_DOWNLOADS_MOVE_DOWN" text="下移" shortcut="Ctrl+Down"/>
 		</menu>
-		<item id="ID_DOWNLOADS_HELP" text="帮助(_H)..."/>
+		<item id="ID_DOWNLOADS_HELP" text="帮助..."/>
 		<separator/>
-		<item id="ID_DOWNLOADS_EDIT" text="高级编辑(_E)..."/>
+		<item id="ID_DOWNLOADS_EDIT" text="高级编辑..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Source">
-		<item id="ID_TRANSFERS_CONNECT" text="访问(_A)"/>
+		<item id="ID_TRANSFERS_CONNECT" text="访问"/>
 		<separator/>
-		<item id="ID_BROWSE_LAUNCH" text="浏览用户(_B)"/>
-		<item id="ID_TRANSFERS_CHAT" text="与用户聊天(_C)"/>
+		<item id="ID_BROWSE_LAUNCH" text="浏览用户"/>
+		<item id="ID_TRANSFERS_CHAT" text="与用户聊天"/>
 		<item id="ID_DOWNLOADS_URI" text="复制 P2P Link (_URI)"/>
 		<separator/>
-		<item id="ID_TRANSFERS_DISCONNECT" text="断开(_D)"/>
-		<item id="ID_TRANSFERS_FORGET" text="忽略(_F)"/>
+		<item id="ID_TRANSFERS_DISCONNECT" text="断开"/>
+		<item id="ID_TRANSFERS_FORGET" text="忽略"/>
 	</menu>
 	<menu name="CDownloadsWnd.Completed.Basic">
-		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="打开或播放(_O)"/>
-		<item id="ID_DOWNLOADS_ENQUEUE" text="加入播放列表(_A)"/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="清除(_C)"/>
+		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="打开或播放"/>
+		<item id="ID_DOWNLOADS_ENQUEUE" text="加入播放列表"/>
+		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="清除"/>
 		<separator/>
-		<item id="ID_DOWNLOADS_FILE_DELETE" text="删除文件(_D)"/>
+		<item id="ID_DOWNLOADS_FILE_DELETE" text="删除文件"/>
 	</menu>
 	<menu name="CDownloadsWnd.Completed">
-		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="打开或播放(_O)"/>
-		<item id="ID_DOWNLOADS_ENQUEUE" text="加入播放列表(_A)"/>
-		<item id="ID_DOWNLOADS_FOLDER" text="打开 Folder(_F)"/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="清除(_C)"/>
+		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="打开或播放"/>
+		<item id="ID_DOWNLOADS_ENQUEUE" text="加入播放列表"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="打开 Folder"/>
+		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="清除"/>
 		<separator/>
-		<item id="ID_DOWNLOADS_FILE_DELETE" text="删除文件(_D)"/>
-		<item id="ID_DOWNLOADS_RATE" text="文件评级(_R)..."/>
-		<item id="ID_DOWNLOADS_URI" text="复制 URI(_U)"/>
+		<item id="ID_DOWNLOADS_FILE_DELETE" text="删除文件"/>
+		<item id="ID_DOWNLOADS_RATE" text="文件评级..."/>
+		<item id="ID_DOWNLOADS_URI" text="复制 URI"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_EDIT" text="信息"/>
 	</menu>
 	<menu name="CDownloadsWnd.Seeding">
-		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="打开(_O)"/>
-		<item id="ID_DOWNLOADS_FOLDER" text="打开 Folder(_F)"/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="停止做种(_S)"/>
-		<item id="ID_DOWNLOADS_HELP" text="帮助(_H)..."/>
+		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="打开"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="打开 Folder"/>
+		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="停止做种"/>
+		<item id="ID_DOWNLOADS_HELP" text="帮助..."/>
 		<separator/>
-		<item id="ID_DOWNLOADS_EDIT" text="信息(_E)..."/>
+		<item id="ID_DOWNLOADS_EDIT" text="信息..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Default">
 		<item id="ID_TOOLS_DOWNLOAD" text="Start New Download"/>
 		<item id="ID_TOOLS_SEEDTORRENT" text="Seed New Torrent"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="清除完成文件"/>
 		<separator/>
-		<item id="ID_DOWNLOADS_HELP" text="帮助(_H)..."/>
+		<item id="ID_DOWNLOADS_HELP" text="帮助..."/>
 	</menu>
 	<menu name="CDownloadTabBar">
-		<item id="ID_DOWNLOAD_GROUP_OPEN" text="打开 Folder(_F)"/>
+		<item id="ID_DOWNLOAD_GROUP_OPEN" text="打开 Folder"/>
 		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_RESUME" text="全部续传(_E)"/>
-		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="全部暂停(_A)"/>
-		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="全部清除(_C)"/>
+		<item id="ID_DOWNLOAD_GROUP_RESUME" text="全部续传"/>
+		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="全部暂停"/>
+		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="全部清除"/>
 		<separator/> <!--
-		<item id="ID_DOWNLOAD_GROUP_SHOW" text="显示群组(_S)"/>
+		<item id="ID_DOWNLOAD_GROUP_SHOW" text="显示群组"/>
 		<separator/> -->
-		<item id="ID_DOWNLOAD_GROUP_MOVELEFT" text="移动组左(_L)"/>
-		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="移动组权(_R)"/>
-		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="移除群组(_G)"/>
-		<item id="ID_DOWNLOAD_GROUP_NEW" text="新建群组(_N)..."/>
+		<item id="ID_DOWNLOAD_GROUP_MOVELEFT" text="移动组左"/>
+		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="移动组权"/>
+		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="移除群组"/>
+		<item id="ID_DOWNLOAD_GROUP_NEW" text="新建群组..."/>
 		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="属性(_P)"/>
+		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="属性"/>
 	</menu>
 	<menu name="CDownloadsWnd.Filter">
-		<item id="ID_DOWNLOADS_FILTER_ALL" text="显示全部(_A)"/>
+		<item id="ID_DOWNLOADS_FILTER_ALL" text="显示全部"/>
 		<separator/>
-		<item id="ID_DOWNLOADS_FILTER_ACTIVE" text="显示活动的(_C)"/>
-		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="显示暂停的(_P)"/>
-		<item id="ID_DOWNLOADS_FILTER_QUEUED" text="显示等待的(_E)"/>
-		<item id="ID_DOWNLOADS_FILTER_SOURCES" text="显示无资源的(_N)"/>
-		<item id="ID_DOWNLOADS_FILTER_SEEDS" text="Seeds(_D)"/>
+		<item id="ID_DOWNLOADS_FILTER_ACTIVE" text="显示活动的"/>
+		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="显示暂停的"/>
+		<item id="ID_DOWNLOADS_FILTER_QUEUED" text="显示等待的"/>
+		<item id="ID_DOWNLOADS_FILTER_SOURCES" text="显示无资源的"/>
+		<item id="ID_DOWNLOADS_FILTER_SEEDS" text="Seeds"/>
 		<separator/>
-		<item id="ID_DOWNLOADS_SHOW_SOURCES" text="显示全部资源(_S)"/>
+		<item id="ID_DOWNLOADS_SHOW_SOURCES" text="显示全部资源"/>
 		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_SHOW" text="显示群组(_G)"/>
+		<item id="ID_DOWNLOAD_GROUP_SHOW" text="显示群组"/>
 	</menu>
 	<!-- UPLOADS WINDOW -->
 	<menu name="CUploadsWnd.Upload.Basic">
-		<item id="ID_BROWSE_LAUNCH" text="浏览用户(_B)"/>
-		<item id="ID_UPLOADS_CHAT" text="与用户聊天(_C)"/>
+		<item id="ID_BROWSE_LAUNCH" text="浏览用户"/>
+		<item id="ID_UPLOADS_CHAT" text="与用户聊天"/>
 		<separator/>
-		<item id="ID_UPLOADS_HELP" text="帮助(_H)..."/>
+		<item id="ID_UPLOADS_HELP" text="帮助..."/>
 	</menu>
 	<menu name="CUploadsWnd.Upload">
 		<item id="ID_UPLOADS_LAUNCH" text="显示 _Library"/>
-		<item id="ID_UPLOADS_FOLDER" text="打开 Folder(_F)"/>
+		<item id="ID_UPLOADS_FOLDER" text="打开 Folder"/>
 		<separator/>
-		<item id="ID_UPLOADS_CLEAR" text="清除(_C)"/>
-		<item id="ID_UPLOADS_START" text="立即开始(_S)"/>
-		<item id="ID_UPLOADS_PRIORITY" text="优先(_P)"/>
+		<item id="ID_UPLOADS_CLEAR" text="清除"/>
+		<item id="ID_UPLOADS_START" text="立即开始"/>
+		<item id="ID_UPLOADS_PRIORITY" text="优先"/>
 		<separator/>
-		<item id="ID_BROWSE_LAUNCH" text="浏览用户(_B)"/>
-		<item id="ID_UPLOADS_CHAT" text="与用户聊天(_C)"/>
-		<item id="ID_SECURITY_BAN" text="禁止用户(_A)"/>
+		<item id="ID_BROWSE_LAUNCH" text="浏览用户"/>
+		<item id="ID_UPLOADS_CHAT" text="与用户聊天"/>
+		<item id="ID_SECURITY_BAN" text="禁止用户"/>
 	</menu>
 	<menu name="CUploadsWnd.Default">
-		<item id="ID_LIBRARY_FOLDERS" text="共享文件(_S)..."/>
-		<item id="ID_UPLOADS_SETTINGS" text="队列设置(_Q)"/>
-		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="清除完成文件(_L)"/>
+		<item id="ID_LIBRARY_FOLDERS" text="共享文件..."/>
+		<item id="ID_UPLOADS_SETTINGS" text="队列设置"/>
+		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="清除完成文件"/>
 		<separator/>
-		<item id="ID_UPLOADS_HELP" text="帮助(_H)..."/>
+		<item id="ID_UPLOADS_HELP" text="帮助..."/>
 	</menu>
 	<menu name="CUploadsWnd.Filter">
 		<item id="ID_UPLOADS_FILTER_ALL" text="显示全部"/>
@@ -1200,67 +1200,67 @@
 		<item id="ID_UPLOADS_FILTER_TORRENT" text="显示 BitTorrent"/>
 		<item id="ID_UPLOADS_FILTER_HISTORY" text="显示历史"/>
 		<separator/>
-		<item id="ID_UPLOADS_AUTO_CLEAR" text="自动清除(_O)"/>
+		<item id="ID_UPLOADS_AUTO_CLEAR" text="自动清除"/>
 	</menu>
 	<!-- LIBRARY FRAME -->
 	<menu name="CLibraryTree.Physical.Basic">
-		<item id="ID_LIBRARY_SHARED_FOLDER" text="共享(_S)"/>
-		<item id="ID_LIBRARY_REMOVE" text="移除(_R)"/>
+		<item id="ID_LIBRARY_SHARED_FOLDER" text="共享"/>
+		<item id="ID_LIBRARY_REMOVE" text="移除"/>
 		<separator/>
 		<item id="ID_LIBRARY_FOLDERS" text="共享文件..."/>
 	</menu>
 	<menu name="CLibraryTree.Physical">
-		<item id="ID_LIBRARY_EXPLORE" text="浏览(_E)"/>
-		<item id="ID_LIBRARY_REMOVE" text="移除(_R)"/>
+		<item id="ID_LIBRARY_EXPLORE" text="浏览"/>
+		<item id="ID_LIBRARY_REMOVE" text="移除"/>
 		<separator/>
-		<item id="ID_LIBRARY_SHARED_FOLDER" text="共享(_S)"/>
+		<item id="ID_LIBRARY_SHARED_FOLDER" text="共享"/>
 		<separator/>
-		<item id="ID_LIBRARY_SCAN" text="扫描(_C)"/>
-		<item id="ID_LIBRARY_REBUILD" text="重建(_B)"/>
+		<item id="ID_LIBRARY_SCAN" text="扫描"/>
+		<item id="ID_LIBRARY_REBUILD" text="重建"/>
 		<item id="ID_LIBRARY_FOLDERS" text="共享文件..."/>
 		<separator/>
-		<item id="ID_LIBRARY_FOLDER_FILE_PROPERTIES" text="文件属性(_P)"/>
+		<item id="ID_LIBRARY_FOLDER_FILE_PROPERTIES" text="文件属性"/>
 	</menu>
 	<menu name="CLibraryTree.Virtual.Basic">
-		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="播放专辑(_P)"/>
-		<item id="ID_LIBRARY_FOLDER_DELETE" text="删除(_D)"/>
+		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="播放专辑"/>
+		<item id="ID_LIBRARY_FOLDER_DELETE" text="删除"/>
 		<separator/>
-		<item id="ID_LIBRARY_FOLDER_FILE_PROPERTIES" text="文件属性(_F)"/>
-		<item id="ID_LIBRARY_FOLDER_PROPERTIES" text="专辑属性(_A)"/>
+		<item id="ID_LIBRARY_FOLDER_FILE_PROPERTIES" text="文件属性"/>
+		<item id="ID_LIBRARY_FOLDER_PROPERTIES" text="专辑属性"/>
 	</menu>
 	<menu name="CLibraryTree.Virtual">
-		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="播放专辑(_P)"/>
-		<item id="ID_LIBRARY_FOLDER_DELETE" text="删除(_D)"/>
+		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="播放专辑"/>
+		<item id="ID_LIBRARY_FOLDER_DELETE" text="删除"/>
 		<separator/>
-		<item id="ID_LIBRARY_REBUILD" text="重建(_R)"/>
-		<item id="ID_LIBRARY_EXPORT_COLLECTION" text="导出收集(_E)..."/>
+		<item id="ID_LIBRARY_REBUILD" text="重建"/>
+		<item id="ID_LIBRARY_EXPORT_COLLECTION" text="导出收集..."/>
 		<separator/>
-		<item id="ID_LIBRARY_FOLDER_NEW" text="新建文件夹(_N)..."/>
+		<item id="ID_LIBRARY_FOLDER_NEW" text="新建文件夹..."/>
 		<separator/>
-		<item id="ID_LIBRARY_FOLDER_FILE_PROPERTIES" text="文件属性(_F)"/>
-		<item id="ID_LIBRARY_FOLDER_PROPERTIES" text="专辑属性(_A)"/>
+		<item id="ID_LIBRARY_FOLDER_FILE_PROPERTIES" text="文件属性"/>
+		<item id="ID_LIBRARY_FOLDER_PROPERTIES" text="专辑属性"/>
 	</menu>
 	<!-- LIBRARY VIEWS -->
 	<menu name="CLibraryTileView">
-		<item id="ID_LIBRARY_ALBUM_OPEN" text="打开(_O)"/>
-		<item id="ID_LIBRARY_ALBUM_DELETE" text="删除(_D)"/>
-		<item id="ID_LIBRARY_FOLDER_NEW" text="新建(_N)..."/>
+		<item id="ID_LIBRARY_ALBUM_OPEN" text="打开"/>
+		<item id="ID_LIBRARY_ALBUM_DELETE" text="删除"/>
+		<item id="ID_LIBRARY_FOLDER_NEW" text="新建..."/>
 		<separator/>
-		<item id="ID_LIBRARY_ALBUM_PROPERTIES" text="属性(_P)"/>
+		<item id="ID_LIBRARY_ALBUM_PROPERTIES" text="属性"/>
 	</menu>
 	<menu name="CLibraryFileView.Basic">
-		<item id="ID_LIBRARY_LAUNCH" text="打开或播放(_O)"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="加入播放列表(_A)"/>
-		<item id="ID_LIBRARY_DELETE" text="删除(_D)"/>
+		<item id="ID_LIBRARY_LAUNCH" text="打开或播放"/>
+		<item id="ID_LIBRARY_ENQUEUE" text="加入播放列表"/>
+		<item id="ID_LIBRARY_DELETE" text="删除"/>
 		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="共享(_S)"/>
+		<item id="ID_LIBRARY_SHARED_FILE" text="共享"/>
 		<separator/>
-		<menu text="类别(_R)">
-			<item id="ID_LIBRARY_RENAME" text="重命名(_R)"/>
-			<item id="ID_LIBRARY_COPY" text="复制文件(_C)..."/>
-			<item id="ID_LIBRARY_MOVE" text="移动文件(_M)..."/>
+		<menu text="类别">
+			<item id="ID_LIBRARY_RENAME" text="重命名"/>
+			<item id="ID_LIBRARY_COPY" text="复制文件..."/>
+			<item id="ID_LIBRARY_MOVE" text="移动文件..."/>
 		</menu>
-		<menu text="搜索(_E)">
+		<menu text="搜索">
 			<item id="ID_SEARCH_FOR_THIS" text="此文件"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="相似文件"/>
 			<separator/>
@@ -1268,34 +1268,34 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="同一专辑的音乐"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="同一系列的情节"/>
 		</menu>
-		<menu text="网页服务(_W)">
-			<item id="ID_LIBRARY_BITZI_WEB" text="查看 Bitzi 标签(_B)"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="下载元数据(_D)"/>
+		<menu text="网页服务">
+			<item id="ID_LIBRARY_BITZI_WEB" text="查看 Bitzi 标签"/>
+			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="下载元数据"/>
 			<separator/>
 			<item id="ID_LIBRARY_URI" text="_URI"/>
 		</menu>
 		<separator/>
-		<item id="ID_LIBRARY_PROPERTIES" text="属性(_P)"/>
+		<item id="ID_LIBRARY_PROPERTIES" text="属性"/>
 	</menu>
 	<menu name="CLibraryFileView">
-		<item id="ID_LIBRARY_LAUNCH" text="打开或播放(_O)"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="加入播放列表(_Y)"/>
-		<item id="ID_LIBRARY_DELETE" text="删除(_D)"/>
+		<item id="ID_LIBRARY_LAUNCH" text="打开或播放"/>
+		<item id="ID_LIBRARY_ENQUEUE" text="加入播放列表"/>
+		<item id="ID_LIBRARY_DELETE" text="删除"/>
 		<separator/>
-		<item id="ID_LIBRARY_SHARED_FILE" text="共享(_S)"/>
+		<item id="ID_LIBRARY_SHARED_FILE" text="共享"/>
 		<separator/>
 		<item id="ID_LIBRARY_URI" text="_URI"/>
 		<item id="ID_LIBRARY_CREATETORRENT" text="创建 .torrent 文件"/>
 		<item id="ID_LIBRARY_LAUNCH_FOLDER" text="Open _Folder"/>
 		<separator/>
-		<menu text="类别(_R)">
-			<item id="ID_LIBRARY_UNLINK" text="移除文件(_F)..."/>
+		<menu text="类别">
+			<item id="ID_LIBRARY_UNLINK" text="移除文件..."/>
 			<separator/>
-			<item id="ID_LIBRARY_RENAME" text="重命名(_R)"/>
-			<item id="ID_LIBRARY_MOVE" text="移动文件(_M)..."/>
-			<item id="ID_LIBRARY_COPY" text="复制文件(_C)..."/>
+			<item id="ID_LIBRARY_RENAME" text="重命名"/>
+			<item id="ID_LIBRARY_MOVE" text="移动文件..."/>
+			<item id="ID_LIBRARY_COPY" text="复制文件..."/>
 		</menu>
-		<menu text="搜索(_E)">
+		<menu text="搜索">
 			<item id="ID_SEARCH_FOR_THIS" text="此文件"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="相似文件"/>
 			<separator/>
@@ -1303,160 +1303,160 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="同一专辑的音乐"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="同一系列的情节"/>
 		</menu>
-		<menu text="网页服务(_W)">
-			<item id="ID_LIBRARY_BITZI_WEB" text="查看 Bitzi 标签(_B)"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="获取元数据(_A)"/>
+		<menu text="网页服务">
+			<item id="ID_LIBRARY_BITZI_WEB" text="查看 Bitzi 标签"/>
+			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="获取元数据"/>
 		</menu>
 		<menu text="_Metadata">
 			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
-			<item id="ID_LIBRARY_REFRESH_METADATA" text="刷新元数据(_R)"/>
+			<item id="ID_LIBRARY_REFRESH_METADATA" text="刷新元数据"/>
 			<item id="ID_LIBRARY_REBUILD_ANSI" text="本地化元数据"/>
-			<item id="ID_LIBRARY_COLUMNS" text="选择列(_C)..."/>
+			<item id="ID_LIBRARY_COLUMNS" text="选择列..."/>
 		</menu>
 		<separator/>
 		<item id="ID_SHELL_MENU" text="Windows Men_u"/>
-		<item id="ID_LIBRARY_PROPERTIES" text="属性(_P)"/>
+		<item id="ID_LIBRARY_PROPERTIES" text="属性"/>
 	</menu>
 	<!-- MEDIA WINDOW -->
 	<menu name="CMediaFrame.Basic">
-		<item id="ID_MEDIA_PLAY" text="播放(_P)"/>
-		<item id="ID_MEDIA_PAUSE" text="暂停(_U)"/>
-		<item id="ID_MEDIA_STOP" text="停止(_S)"/>
+		<item id="ID_MEDIA_PLAY" text="播放"/>
+		<item id="ID_MEDIA_PAUSE" text="暂停"/>
+		<item id="ID_MEDIA_STOP" text="停止"/>
 		<separator/>
-		<item id="ID_MEDIA_OPEN" text="打开媒体文件(_O)..."/>
+		<item id="ID_MEDIA_OPEN" text="打开媒体文件..."/>
 		<separator/>
 		<menu text="播放列表">
-			<item id="ID_MEDIA_PREVIOUS" text="上一个(_V)"/>
-			<item id="ID_MEDIA_NEXT" text="下一个(_N)"/>
-			<item id="ID_MEDIA_RANDOM" text="随机(_R)"/>
-			<item id="ID_MEDIA_REPEAT" text="重复(_E)"/>
+			<item id="ID_MEDIA_PREVIOUS" text="上一个"/>
+			<item id="ID_MEDIA_NEXT" text="下一个"/>
+			<item id="ID_MEDIA_RANDOM" text="随机"/>
+			<item id="ID_MEDIA_REPEAT" text="重复"/>
 			<separator/>
-			<item id="ID_MEDIA_PLAYLIST" text="显示播放列表(_P)"/>
+			<item id="ID_MEDIA_PLAYLIST" text="显示播放列表"/>
 		</menu>
-		<menu text="视频大小(_Z)">
-			<item id="ID_MEDIA_SIZE_ONE" text="原始大小(_O)"/>
-			<item id="ID_MEDIA_SIZE_TWO" text="双倍大小(_D)"/>
-			<item id="ID_MEDIA_SIZE_HALF" text="三倍大小(_T)"/>
-			<item id="ID_MEDIA_SIZE_FILL" text="最大化(_L)"/>
-			<item id="ID_MEDIA_SIZE_DISTORT" text="适合窗口(_W)"/>
+		<menu text="视频大小">
+			<item id="ID_MEDIA_SIZE_ONE" text="原始大小"/>
+			<item id="ID_MEDIA_SIZE_TWO" text="双倍大小"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="三倍大小"/>
+			<item id="ID_MEDIA_SIZE_FILL" text="最大化"/>
+			<item id="ID_MEDIA_SIZE_DISTORT" text="适合窗口"/>
 			<separator/>
-			<item id="ID_MEDIA_ASPECT_DEFAULT" text="默认比例(_A)"/>
+			<item id="ID_MEDIA_ASPECT_DEFAULT" text="默认比例"/>
 			<item id="ID_MEDIA_ASPECT_4_3" text="4:3 电视比例(_4)"/>
-			<item id="ID_MEDIA_ASPECT_16_9" text="16:9 电影比例(_1)"/>
+			<item id="ID_MEDIA_ASPECT_16_9" text="16:9 电影比例"/>
 			<separator/>
-			<item id="ID_MEDIA_FULLSCREEN" text="全屏(_F)"/>
+			<item id="ID_MEDIA_FULLSCREEN" text="全屏"/>
 		</menu>
 		<menu text="设置">
-			<item id="ID_MEDIA_VIS" text="选择可视化效果(_V)..."/>
+			<item id="ID_MEDIA_VIS" text="选择可视化效果..."/>
 			<separator/>
-			<item id="ID_MEDIA_PLAYLIST" text="显示播放列表(_P)"/>
-			<item id="ID_MEDIA_STATUS" text="显示状态条(_S)"/>
+			<item id="ID_MEDIA_PLAYLIST" text="显示播放列表"/>
+			<item id="ID_MEDIA_STATUS" text="显示状态条"/>
 			<separator/>
-			<item id="ID_MEDIA_SETTINGS" text="媒体设置(_M)..."/>
+			<item id="ID_MEDIA_SETTINGS" text="媒体设置..."/>
 		</menu>
 	</menu>
 	<menu name="CMediaFrame">
-		<item id="ID_MEDIA_PLAY" text="播放(_P)"/>
-		<item id="ID_MEDIA_PAUSE" text="暂停(_U)"/>
-		<item id="ID_MEDIA_STOP" text="停止(_S)"/>
+		<item id="ID_MEDIA_PLAY" text="播放"/>
+		<item id="ID_MEDIA_PAUSE" text="暂停"/>
+		<item id="ID_MEDIA_STOP" text="停止"/>
 		<separator/>
-		<item id="ID_MEDIA_OPEN" text="打开媒体文件(_O)..."/>
-		<item id="ID_MEDIA_CLOSE" text="关闭文件(_C)"/>
+		<item id="ID_MEDIA_OPEN" text="打开媒体文件..."/>
+		<item id="ID_MEDIA_CLOSE" text="关闭文件"/>
 		<separator/>
 		<menu text="播放列表">
-			<item id="ID_MEDIA_PREVIOUS" text="上一个(_V)"/>
-			<item id="ID_MEDIA_NEXT" text="下一个(_N)"/>
-			<item id="ID_MEDIA_RANDOM" text="随机(_R)"/>
-			<item id="ID_MEDIA_REPEAT" text="重复(_E)"/>
+			<item id="ID_MEDIA_PREVIOUS" text="上一个"/>
+			<item id="ID_MEDIA_NEXT" text="下一个"/>
+			<item id="ID_MEDIA_RANDOM" text="随机"/>
+			<item id="ID_MEDIA_REPEAT" text="重复"/>
 			<separator/>
-			<item id="ID_MEDIA_PLAYLIST" text="显示播放列表(_P)"/>
+			<item id="ID_MEDIA_PLAYLIST" text="显示播放列表"/>
 		</menu>
-		<menu text="视频大小(_Z)">
-			<item id="ID_MEDIA_SIZE_ONE" text="原始大小(_O)"/>
-			<item id="ID_MEDIA_SIZE_TWO" text="双倍大小(_D)"/>
-			<item id="ID_MEDIA_SIZE_HALF" text="三倍大小(_T)"/>
-			<item id="ID_MEDIA_SIZE_FILL" text="最大化(_L)"/>
-			<item id="ID_MEDIA_SIZE_DISTORT" text="适合窗口(_W)"/>
+		<menu text="视频大小">
+			<item id="ID_MEDIA_SIZE_ONE" text="原始大小"/>
+			<item id="ID_MEDIA_SIZE_TWO" text="双倍大小"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="三倍大小"/>
+			<item id="ID_MEDIA_SIZE_FILL" text="最大化"/>
+			<item id="ID_MEDIA_SIZE_DISTORT" text="适合窗口"/>
 			<separator/>
-			<item id="ID_MEDIA_ASPECT_DEFAULT" text="默认比例(_A)"/>
+			<item id="ID_MEDIA_ASPECT_DEFAULT" text="默认比例"/>
 			<item id="ID_MEDIA_ASPECT_4_3" text="4:3 电视比例(_4)"/>
-			<item id="ID_MEDIA_ASPECT_16_9" text="16:9 电影比例(_1)"/>
+			<item id="ID_MEDIA_ASPECT_16_9" text="16:9 电影比例"/>
 			<separator/>
-			<item id="ID_MEDIA_FULLSCREEN" text="全屏(_F)"/>
+			<item id="ID_MEDIA_FULLSCREEN" text="全屏"/>
 		</menu>
 		<menu text="设置">
-			<item id="ID_MEDIA_VIS" text="选择可视化效果(_V)..."/>
+			<item id="ID_MEDIA_VIS" text="选择可视化效果..."/>
 			<separator/>
-			<item id="ID_MEDIA_PLAYLIST" text="显示播放列表(_P)"/>
-			<item id="ID_MEDIA_STATUS" text="显示状态条(_S)..."/>
+			<item id="ID_MEDIA_PLAYLIST" text="显示播放列表"/>
+			<item id="ID_MEDIA_STATUS" text="显示状态条..."/>
 			<separator/>
-			<item id="ID_MEDIA_SETTINGS" text="媒体设置(_M)..."/>
+			<item id="ID_MEDIA_SETTINGS" text="媒体设置..."/>
 		</menu>
 	</menu>
 	<menu name="CMediaFrame.Zoom">
-		<item id="ID_MEDIA_SIZE_ONE" text="原始大小(_O)"/>
-		<item id="ID_MEDIA_SIZE_TWO" text="双倍大小(_D)"/>
-		<item id="ID_MEDIA_SIZE_HALF" text="三倍大小(_T)"/>
-		<item id="ID_MEDIA_SIZE_FILL" text="最大化(_L)"/>
-		<item id="ID_MEDIA_SIZE_DISTORT" text="适合窗口(_W)"/>
+		<item id="ID_MEDIA_SIZE_ONE" text="原始大小"/>
+		<item id="ID_MEDIA_SIZE_TWO" text="双倍大小"/>
+		<item id="ID_MEDIA_SIZE_HALF" text="三倍大小"/>
+		<item id="ID_MEDIA_SIZE_FILL" text="最大化"/>
+		<item id="ID_MEDIA_SIZE_DISTORT" text="适合窗口"/>
 		<separator/>
-		<item id="ID_MEDIA_ASPECT_DEFAULT" text="默认比例(_A)"/>
+		<item id="ID_MEDIA_ASPECT_DEFAULT" text="默认比例"/>
 		<item id="ID_MEDIA_ASPECT_4_3" text="4:3 电视比例(_4)"/>
-		<item id="ID_MEDIA_ASPECT_16_9" text="16:9 电影比例(_1)"/>
+		<item id="ID_MEDIA_ASPECT_16_9" text="16:9 电影比例"/>
 	</menu>
 	<menu name="CMediaList">
-		<item id="ID_MEDIA_SELECT" text="播放(_P)"/>
+		<item id="ID_MEDIA_SELECT" text="播放"/>
 		<separator/>
-		<item id="ID_MEDIA_ADD" text="添加文件(_A)..."/>
-		<item id="ID_MEDIA_ADD_FOLDER" text="添加文件夹(_F)..."/>
-		<item id="ID_MEDIA_REMOVE" text="移除(_R)"/>
+		<item id="ID_MEDIA_ADD" text="添加文件..."/>
+		<item id="ID_MEDIA_ADD_FOLDER" text="添加文件夹..."/>
+		<item id="ID_MEDIA_REMOVE" text="移除"/>
 		<separator/>
 		<item id="ID_MEDIA_RANDOM" text="随机模式"/>
 		<item id="ID_MEDIA_REPEAT" text="重复模式"/>
 		<separator/>
-		<item id="ID_MEDIA_OPEN" text="打开播放列表(_O)..."/>
-		<item id="ID_MEDIA_SAVE" text="保存播放列表(_S)..."/>
-		<item id="ID_MEDIA_EXPORT_COLLECTION" text="导出收集(_X)..."/>
-		<item id="ID_MEDIA_CLEAR" text="清除播放列表(_C)"/>
+		<item id="ID_MEDIA_OPEN" text="打开播放列表..."/>
+		<item id="ID_MEDIA_SAVE" text="保存播放列表..."/>
+		<item id="ID_MEDIA_EXPORT_COLLECTION" text="导出收集..."/>
+		<item id="ID_MEDIA_CLEAR" text="清除播放列表"/>
 		<separator/>
-		<item id="ID_MEDIA_PLAYLIST" text="显示播放列表(_Y)"/>
+		<item id="ID_MEDIA_PLAYLIST" text="显示播放列表"/>
 	</menu>
 	<!-- SYSTEM WINDOW -->
 	<menu name="CSystemWnd">
-		<menu id="ID_SYSTEM_VERBOSE" text="详细模式(_M)">
-			<item id="ID_SYSTEM_VERBOSE_ERROR" text="错误(_E)"/>
-			<item id="ID_SYSTEM_VERBOSE_WARNING" text="警告(_W)"/>
-			<item id="ID_SYSTEM_VERBOSE_NOTICE" text="注意(_N)"/>
-			<item id="ID_SYSTEM_VERBOSE_INFO" text="信息(_I)"/>
-			<item id="ID_SYSTEM_VERBOSE_DEBUG" text="调试(_D)"/>
+		<menu id="ID_SYSTEM_VERBOSE" text="详细模式">
+			<item id="ID_SYSTEM_VERBOSE_ERROR" text="错误"/>
+			<item id="ID_SYSTEM_VERBOSE_WARNING" text="警告"/>
+			<item id="ID_SYSTEM_VERBOSE_NOTICE" text="注意"/>
+			<item id="ID_SYSTEM_VERBOSE_INFO" text="信息"/>
+			<item id="ID_SYSTEM_VERBOSE_DEBUG" text="调试"/>
 		</menu>
-		<item id="ID_SYSTEM_TIMESTAMP" text="时间戳(_T)"/>
+		<item id="ID_SYSTEM_TIMESTAMP" text="时间戳"/>
 		<separator/>
 		<item id="ID_SYSTEM_COPY" text="复制" shortcut="Ctrl+C"/>
 		<separator/>
-		<item id="ID_SYSTEM_CLEAR" text="清除缓存(_B)"/>
+		<item id="ID_SYSTEM_CLEAR" text="清除缓存"/>
 	</menu>
 	<!-- NEIGHBOURS WINDOW -->
 	<menu name="CNeighboursWnd.Basic">
-		<item id="ID_BROWSE_LAUNCH" text="浏览用户(_B)"/>
-		<item id="ID_NEIGHBOURS_CHAT" text="与用户聊天(_C)"/>
+		<item id="ID_BROWSE_LAUNCH" text="浏览用户"/>
+		<item id="ID_NEIGHBOURS_CHAT" text="与用户聊天"/>
 		<separator/>
-		<item id="ID_NEIGHBOURS_DISCONNECT" text="断开(_D)"/>
+		<item id="ID_NEIGHBOURS_DISCONNECT" text="断开"/>
 		<separator/>
-		<item id="ID_NEIGHBOURS_URI" text="复制 URI(_U)"/>
+		<item id="ID_NEIGHBOURS_URI" text="复制 URI"/>
 	</menu>
 	<menu name="CNeighboursWnd">
-		<item id="ID_BROWSE_LAUNCH" text="浏览用户(_B)"/>
-		<item id="ID_NEIGHBOURS_CHAT" text="与用户聊天(_C)"/>
-		<item id="ID_SECURITY_BAN" text="禁止用户(_A)"/>
+		<item id="ID_BROWSE_LAUNCH" text="浏览用户"/>
+		<item id="ID_NEIGHBOURS_CHAT" text="与用户聊天"/>
+		<item id="ID_SECURITY_BAN" text="禁止用户"/>
 		<separator/>
-		<item id="ID_NEIGHBOURS_DISCONNECT" text="断开(_D)"/>
+		<item id="ID_NEIGHBOURS_DISCONNECT" text="断开"/>
 		<separator/>
-		<item id="ID_NEIGHBOURS_URI" text="复制 URI(_U)"/>
+		<item id="ID_NEIGHBOURS_URI" text="复制 URI"/>
 		<separator/>
-		<menu text="网络(_N)">
-			<item id="ID_NETWORK_CONNECT" text="连接(_C)"/>
-			<item id="ID_NETWORK_DISCONNECT" text="断开(_D)"/>
+		<menu text="网络">
+			<item id="ID_NETWORK_CONNECT" text="连接"/>
+			<item id="ID_NETWORK_DISCONNECT" text="断开"/>
 			<separator/>
 			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
 			<item id="ID_NETWORK_G1" text="_Gnutella"/>
@@ -1466,55 +1466,56 @@
 			<separator/>
 			<item id="ID_VIEW_DISCOVERY" text="发现服务"/>
 			<item id="ID_VIEW_HOSTS" text="主机缓存"/>
+			<item id="ID_VIEW_SECURITY" text="安全"/>
 		</menu>
-		<menu text="监视器(_M)">
-			<item id="ID_NEIGHBOURS_VIEW_ALL" text="查看全部通讯量(_A)"/>
-			<item id="ID_NEIGHBOURS_VIEW_INCOMING" text="查看传入通讯量(_I)"/>
-			<item id="ID_NEIGHBOURS_VIEW_OUTGOING" text="查看传出通讯量(_O)"/>
+		<menu text="监视器">
+			<item id="ID_NEIGHBOURS_VIEW_ALL" text="查看全部通讯量"/>
+			<item id="ID_NEIGHBOURS_VIEW_INCOMING" text="查看传入通讯量"/>
+			<item id="ID_NEIGHBOURS_VIEW_OUTGOING" text="查看传出通讯量"/>
 		</menu>
 	</menu>
 	<!-- SEARCH MONITOR WINDOW -->
 	<menu name="CSearchMonitorWnd">
-		<item id="ID_HITMONITOR_SEARCH" text="搜索(_S)"/>
+		<item id="ID_HITMONITOR_SEARCH" text="搜索"/>
 		<separator/>
-		<item id="ID_SEARCHMONITOR_PAUSE" text="暂停显示(_P)"/>
-		<item id="ID_SEARCHMONITOR_CLEAR" text="清除缓存(_C)"/>
+		<item id="ID_SEARCHMONITOR_PAUSE" text="暂停显示"/>
+		<item id="ID_SEARCHMONITOR_CLEAR" text="清除缓存"/>
 	</menu>
 	<!-- GRAPH/TRAFFIC WINDOW -->
 	<menu name="CTrafficWnd">
-		<item id="ID_TRAFFIC_SETUP" text="选择图表(_S)..."/>
+		<item id="ID_TRAFFIC_SETUP" text="选择图表..."/>
 		<separator/>
-		<item id="ID_TRAFFIC_GRID" text="网格线(_G)"/>
-		<item id="ID_TRAFFIC_AXIS" text="轴线(_A)"/>
-		<item id="ID_TRAFFIC_LEGEND" text="图例(_L)"/>
+		<item id="ID_TRAFFIC_GRID" text="网格线"/>
+		<item id="ID_TRAFFIC_AXIS" text="轴线"/>
+		<item id="ID_TRAFFIC_LEGEND" text="图例"/>
 		<separator/>
-		<item id="ID_TRAFFIC_CLEAR" text="清除(_C)"/>
+		<item id="ID_TRAFFIC_CLEAR" text="清除"/>
 		<separator/>
-		<item id="ID_TRAFFIC_WINDOW" text="新建窗口(_N)"/>
+		<item id="ID_TRAFFIC_WINDOW" text="新建窗口"/>
 	</menu>
 	<!-- SECURITY WINDOW -->
 	<menu name="CSecurityWnd">
-		<item id="ID_SECURITY_ADD" text="添加规则(_A)..."/>
+		<item id="ID_SECURITY_ADD" text="添加规则..."/>
 		<separator/>
-		<item id="ID_SECURITY_REMOVE" text="移除(_R)"/>
-		<item id="ID_SECURITY_RESET" text="重置(_T)"/>
+		<item id="ID_SECURITY_REMOVE" text="移除"/>
+		<item id="ID_SECURITY_RESET" text="重置"/>
 		<separator/>
-		<item id="ID_SECURITY_MOVE_UP" text="上移(_U)"/>
-		<item id="ID_SECURITY_MOVE_DOWN" text="下移(_D)"/>
+		<item id="ID_SECURITY_MOVE_UP" text="上移"/>
+		<item id="ID_SECURITY_MOVE_DOWN" text="下移"/>
 		<separator/>
-		<item id="ID_SECURITY_IMPORT" text="导入(_I)..."/>
-		<item id="ID_SECURITY_EXPORT" text="导出(_E)..."/>
+		<item id="ID_SECURITY_IMPORT" text="导入..."/>
+		<item id="ID_SECURITY_EXPORT" text="导出..."/>
 		<separator/>
-		<menu text="默认策略(_O)">
-			<item id="ID_SECURITY_POLICY_ACCEPT" text="接受(_A)"/>
-			<item id="ID_SECURITY_POLICY_DENY" text="拒绝(_D)"/>
+		<menu text="默认策略">
+			<item id="ID_SECURITY_POLICY_ACCEPT" text="接受"/>
+			<item id="ID_SECURITY_POLICY_DENY" text="拒绝"/>
 		</menu>
 		<separator/>
-		<item id="ID_SECURITY_EDIT" text="属性(_P)"/>
+		<item id="ID_SECURITY_EDIT" text="属性"/>
 	</menu>
 	<!-- SCHEDULER WINDOW -->
 	<menu name="CSchedulerWnd">
-		<item id="ID_SCHEDULER_ADD" text="添加规则(_A)..."/>
+		<item id="ID_SCHEDULER_ADD" text="添加规则..."/>
 		<separator/>
 		<item id="ID_SCHEDULER_EDIT" text="属性"/>
 		<item id="ID_SCHEDULER_REMOVE" text="移除"/>
@@ -1522,50 +1523,50 @@
 		<item id="ID_SCHEDULER_ACTIVATE" text="接受"/>
 		<item id="ID_SCHEDULER_DEACTIVATE" text="拒绝"/>
 		<separator/>
-		<item id="ID_SCHEDULER_IMPORT" text="导入(_I)..."/>
-		<item id="ID_SCHEDULER_EXPORT" text="导出(_E)..."/>
+		<item id="ID_SCHEDULER_IMPORT" text="导入..."/>
+		<item id="ID_SCHEDULER_EXPORT" text="导出..."/>
 		<separator/>
 		<item id="ID_SCHEDULER_REMOVE_ALL" text="移除 All"/>
 	</menu>
 	<!-- DISCOVERY SERVICES WINDOW -->
 	<menu name="CDiscoveryWnd">
-		<item id="ID_DISCOVERY_ADD" text="添加服务(_A)..."/>
+		<item id="ID_DISCOVERY_ADD" text="添加服务..."/>
 		<separator/>
-		<item id="ID_DISCOVERY_EDIT" text="属性(_P)"/>
-		<item id="ID_DISCOVERY_REMOVE" text="移除(_R)"/>
+		<item id="ID_DISCOVERY_EDIT" text="属性"/>
+		<item id="ID_DISCOVERY_REMOVE" text="移除"/>
 		<separator/>
-		<item id="ID_DISCOVERY_QUERY" text="查询(_Q)"/>
-		<item id="ID_DISCOVERY_ADVERTISE" text="公告(_D)"/>
-		<item id="ID_DISCOVERY_BROWSE" text="浏览统计信息(_S)"/>
+		<item id="ID_DISCOVERY_QUERY" text="查询"/>
+		<item id="ID_DISCOVERY_ADVERTISE" text="公告"/>
+		<item id="ID_DISCOVERY_BROWSE" text="浏览统计信息"/>
 		<separator/>
-		<item id="ID_DISCOVERY_GNUTELLA" text="显示引导程序(_B)"/>
-		<item id="ID_DISCOVERY_WEBCACHE" text="显示 G 网缓存(_G)"/>
-		<item id="ID_DISCOVERY_SERVERLIST" text="显示 eDonkey 服务器(_V)"/>
-		<item id="ID_DISCOVERY_BLOCKED" text="显示 被阻止(_K)"/>
+		<item id="ID_DISCOVERY_GNUTELLA" text="显示引导程序"/>
+		<item id="ID_DISCOVERY_WEBCACHE" text="显示 G 网缓存"/>
+		<item id="ID_DISCOVERY_SERVERLIST" text="显示 eDonkey 服务器"/>
+		<item id="ID_DISCOVERY_BLOCKED" text="显示 被阻止"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
 	<menu name="CPrivateChatWnd">
-		<item id="ID_CHAT_CONNECT" text="连接(_C)"/>
-		<item id="ID_CHAT_DISCONNECT" text="断开(_D)"/>
+		<item id="ID_CHAT_CONNECT" text="连接"/>
+		<item id="ID_CHAT_DISCONNECT" text="断开"/>
 		<separator/>
-		<item id="ID_CHAT_BROWSE" text="浏览用户(_B)"/>
-		<!--item id="ID_CHAT_SEND_FILE" text="发送文件(_S)..."-->
-		<item id="ID_CHAT_PRIORITY" text="准予优先权(_P)"/>
+		<item id="ID_CHAT_BROWSE" text="浏览用户"/>
+		<!--item id="ID_CHAT_SEND_FILE" text="发送文件..."-->
+		<item id="ID_CHAT_PRIORITY" text="准予优先权"/>
 		<separator/>
-		<menu text="格式(_F)">
-			<item id="ID_CHAT_BOLD" text="设为粗体(_B)"/>
-			<item id="ID_CHAT_ITALIC" text="设为斜体(_I)"/>
-			<item id="ID_CHAT_UNDERLINE" text="加下划线(_I)"/>
-			<item id="ID_CHAT_COLOR" text="设置颜色(_C)"/>
-			<item id="ID_CHAT_EMOTICONS" text="表情(_E)"/>
+		<menu text="格式">
+			<item id="ID_CHAT_BOLD" text="设为粗体"/>
+			<item id="ID_CHAT_ITALIC" text="设为斜体"/>
+			<item id="ID_CHAT_UNDERLINE" text="加下划线"/>
+			<item id="ID_CHAT_COLOR" text="设置颜色"/>
+			<item id="ID_CHAT_EMOTICONS" text="表情"/>
 		</menu>
 		<separator/>
-		<item id="ID_CHAT_TIMESTAMP" text="时间戳(_T)"/>
-		<item id="ID_CHAT_CLEAR" text="清除窗口(_L)"/>
+		<item id="ID_CHAT_TIMESTAMP" text="时间戳"/>
+		<item id="ID_CHAT_CLEAR" text="清除窗口"/>
 	</menu>
 	<!-- IRC WINDOW -->
 	<menu name="CIRCTabRClick">
-		<item id="ID_IRC_CLOSETAB" text="关闭(_C)"/>
+		<item id="ID_IRC_CLOSETAB" text="关闭"/>
 	</menu>
 	<menu name="CIRCUserList">
 		<item id="ID_IRC_WHOIS" text="是谁"/>
@@ -1578,16 +1579,16 @@
 		</menu>
 		<separator/>
 		<menu text="控制">
-			<item id="ID_IRC_IGNORE" text="忽略(_I)"/>
-			<item id="ID_IRC_UNIGNORE" text="取消忽略(_U)"/>
-			<item id="ID_IRC_OP" text="带帽(_O)"/>
-			<item id="ID_IRC_DEOP" text="摘帽(_D)"/>
-			<item id="ID_IRC_VOICE" text="私聊(_V)"/>
-			<item id="ID_IRC_DEVOICE" text="关闭私聊(_E)"/>
-			<item id="ID_IRC_KICK" text="踢出(_K)"/>
+			<item id="ID_IRC_IGNORE" text="忽略"/>
+			<item id="ID_IRC_UNIGNORE" text="取消忽略"/>
+			<item id="ID_IRC_OP" text="带帽"/>
+			<item id="ID_IRC_DEOP" text="摘帽"/>
+			<item id="ID_IRC_VOICE" text="私聊"/>
+			<item id="ID_IRC_DEVOICE" text="关闭私聊"/>
+			<item id="ID_IRC_KICK" text="踢出"/>
 			<item id="ID_IRC_KICKWHY" text="踢出 (为什么？)"/>
-			<item id="ID_IRC_BAN" text="屏蔽(_B)"/>
-			<item id="ID_IRC_UNBAN" text="取消屏蔽(_U)"/>
+			<item id="ID_IRC_BAN" text="屏蔽"/>
+			<item id="ID_IRC_UNBAN" text="取消屏蔽"/>
 			<item id="ID_IRC_BANKICK" text="踢出并屏蔽"/>
 			<item id="ID_IRC_BANKICKWHY" text="踢出并屏蔽 (为什么？)"/>
 		</menu>

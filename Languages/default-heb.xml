@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hebrew Skin File -->
 
-<!-- Translation based on default-en.xml r90 -->
+<!-- Translation based on default-en.xml r100 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -338,7 +338,7 @@ gap i newline
 		<separator/>
 		<button id="ID_MEDIA_FULLSCREEN"/>
 		<button id="ID_MEDIA_ZOOM"/>
-		<button id="ID_MEDIA_VIS"/>
+		<button id="ID_MEDIA_SETTINGS"/>
 		<rightAlign/>
 		<button id="ID_MEDIA_NEXT"/>
 		<button id="ID_MEDIA_PREVIOUS"/>
@@ -1535,6 +1535,7 @@ gap i newline
 			<separator/>
 			<item id="ID_VIEW_DISCOVERY" text="משאבי _חיבור"/>
 			<item id="ID_VIEW_HOSTS" text="_מטמון מארחים (הוסטים)"/>
+			<item id="ID_VIEW_SECURITY" text="_אבטחה"/>
 		</menu>
 		<menu text="‪מוניטור">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="‪הצג את כל תעבורת הרשת"/>

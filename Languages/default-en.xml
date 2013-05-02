@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default English Skin File -->
 
-<!-- Translation based on default-en.xml r90 -->
+<!-- Translation based on default-en.xml r100 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -338,7 +338,7 @@
 		<separator/>
 		<button id="ID_MEDIA_FULLSCREEN"/>
 		<button id="ID_MEDIA_ZOOM"/>
-		<button id="ID_MEDIA_VIS"/>
+		<button id="ID_MEDIA_SETTINGS"/>
 			<rightAlign/>
 		<button id="ID_MEDIA_PREVIOUS"/>
 		<button id="ID_MEDIA_NEXT"/>
@@ -630,6 +630,8 @@
 					<item id="ID_HELP_WEB_3" text="Slyck.com"/>
 					<item id="ID_HELP_WEB_1" text="ZeroPaid.com"/>
 					<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
+					<!--item id="ID_HELP_WEB_SKINS" text="PeerProject Skin Site"-->
+					<item id="ID_HELP_TEST" text="_Connection Test"/>
 				</menu>
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject.org"/>
 				<separator/>
@@ -738,11 +740,12 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_English Language Forum"/> <!--Localized-->
-				<item id="ID_HELP_WEB_SKINS" text="PeerProject S_kin Site"/>
-				<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/> <!--
+				<item id="ID_HELP_WEB_SKINS" text="PeerProject S_kin Site"/> <!--
+				<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/>
 				<item id="ID_HELP_UPDATE" text="Latest news"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<item id="ID_HELP_TEST" text="_Connection Test"/>
 			</menu>
 			<separator/> <!--
 			<item id="ID_HELP_VERSION_CHECK" text="Check for new _version"/>
@@ -815,7 +818,7 @@
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_English Language Forum"/> <!--Localized-->
 				<item id="ID_HELP_WEB_SKINS" text="PeerProject S_kin Site"/>
-				<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/>
+				<!--item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"-->
 			</menu>
 			<separator/> <!--
 			<item id="ID_HELP_VERSION_CHECK" text="Check for new _version"/>
@@ -916,11 +919,12 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_English Language Forum"/> <!--Localized-->
-				<item id="ID_HELP_WEB_SKINS" text="PeerProject S_kin Site"/>
-				<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/> <!--
+				<item id="ID_HELP_WEB_SKINS" text="PeerProject S_kin Site"/> <!--
+				<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/>
 				<item id="ID_HELP_UPDATE" text="Latest news"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<item id="ID_HELP_TEST" text="_Connection Test"/>
 			</menu>
 			<separator/> <!--
 			<item id="ID_HELP_VERSION_CHECK" text="Check for new _version"/>
@@ -1598,6 +1602,7 @@
 			<separator/>
 			<item id="ID_VIEW_DISCOVERY" text="Discovery _Services"/>
 			<item id="ID_VIEW_HOSTS" text="_Host/Server Cache"/>
+			<item id="ID_VIEW_SECURITY" text="Security _Filters"/>
 		</menu>
 		<menu text="_Monitor">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="View _Traffic Packets"/>
