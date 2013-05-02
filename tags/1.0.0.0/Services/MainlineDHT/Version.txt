@@ -1,0 +1,6 @@
+Mainline DHT  0.21  (July.2011)
+
+BitTorrent Kademlia implementation
+by Juliusz Chroboczek for Transmission.
+
+http://www.pps.jussieu.fr/~jch/software/bittorrent

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
+
+<manifest
+ name="SkinEight Remote"
+ author="SkinVista"
+ description="Windows 8 Style Media Remote"
+ link="http://PeerProject.org"
+ email="Contact(at)PeerProject.org"
+ license="Persistent Public Domain (PPD)"
+ platform="PeerProject 1.0"
+ path="SkinVista"
+ version="1.0"
+ type="Skin"
+/>
+
+<!-- Media Remote -->
+<windowskins>
+ <windowskin>
+ <image path="RemoteEight.png"/>
+ <target window="CRemoteWnd"/>
+ <region>
+  <shape type="rectangle" rect="0,1,412,85"/>
+  <shape type="rectangle" rect="5,0,26,1" combine="or"/>
+ </region>
+ <anchors>
+  <anchor name="StatusText"		rect="40,5,332,16"/>
+  <anchor name="MediaSeekTrack" 		rect="6,28,400,5"/>
+  <anchor name="MediaVolTrack"		rect="328,50,68,13"/>
+  <!--anchor name="MediaStatePlaying" 	rect=""-->
+  <!--anchor name="MediaStatePaused"	rect=""-->
+  <!--anchor name="MediaStateStopped" 	rect=""-->
+  <!--anchor name="ScalerTrack" 		rect=""-->
+  <!--anchor name="History" 		rect=""-->
+  <anchor name="_ID_MONITOR_CLOSE"	rect="376,2,31,20"/>
+  <anchor name="_ID_MEDIA_PLAY" 	rect="184,35,44,45"/>
+  <anchor name="_ID_MEDIA_PAUSE"		rect="184,35,44,45"/>
+  <anchor name="_ID_MEDIA_STOP" 		rect="100,45,25,25"/>
+  <anchor name="_ID_MEDIA_PREVIOUS"	rect="133,45,51,25"/>
+  <anchor name="_ID_MEDIA_NEXT" 		rect="228,45,51,25"/>
+  <anchor name="_ID_MEDIA_MUTE" 		rect="294,49,21,18"/>
+  <anchor name="_ID_MEDIA_RANDOM"		rect="26,50,16,15"/>
+  <anchor name="_ID_MEDIA_REPEAT"		rect="57,47,16,19"/>
+  <anchor name="_ID_MEDIA_ADD"		rect="5,1,21,23"/>
+ </anchors>
+ <parts>
+  <part name="Background" 		rect="0,0,412,85"/>
+  <part name="MediaSeekBar" 		rect="0,85,400,5"/>
+  <part name="MediaSeekTab" 		rect="388,85,12,5"/>
+  <part name="MediaVolBar"		rect="327,142,70,13"/>
+  <part name="MediaVolTab"		rect="388,142,12,13"/>
+  <!--part name="MediaStatePlaying"	rect=""-->
+  <!--part name="MediaStatePaused"	rect=""-->
+  <!--part name="MediaStateStopped"	rect=""-->
+  <!--part name="HistoryTx1"		rect=""-->
+  <!--part name="HistoryRx1"		rect=""-->
+  <!--part name="ScalerTab"		rect=""-->
+  <part name="_ID_MONITOR_CLOSE.Hover"	rect="0,115,31,20"/>
+  <part name="_ID_MONITOR_CLOSE.Down" 	rect="31,115,31,20"/>
+  <part name="_ID_MEDIA_PLAY.Up"		rect="184,35,44,45"/>
+  <part name="_ID_MEDIA_PLAY.Hover"	rect="250,115,44,45"/>
+  <part name="_ID_MEDIA_PLAY.Down"	rect="206,115,44,45"/>
+  <part name="_ID_MEDIA_PAUSE.Up"		rect="74,115,44,45"/>
+  <part name="_ID_MEDIA_PAUSE.Hover"	rect="118,115,44,45"/>
+  <part name="_ID_MEDIA_PAUSE.Down"	rect="162,115,44,45"/>
+  <part name="_ID_MEDIA_STOP.Hover"	rect="0,90,25,25"/>
+  <part name="_ID_MEDIA_STOP.Down"	rect="25,90,25,25"/>
+  <part name="_ID_MEDIA_STOP.Disabled"	rect="362,90,25,25"/>
+  <part name="_ID_MEDIA_PREVIOUS.Hover"	rect="102,90,51,25"/>
+  <part name="_ID_MEDIA_PREVIOUS.Down"	rect="154,90,51,25"/>
+  <part name="_ID_MEDIA_PREVIOUS.Disabled" rect="50,90,51,25"/>
+  <part name="_ID_MEDIA_NEXT.Hover"	rect="259,90,51,25"/>
+  <part name="_ID_MEDIA_NEXT.Down"	rect="207,90,51,25"/>
+  <part name="_ID_MEDIA_NEXT.Disabled"	rect="311,90,51,25"/>
+  <part name="_ID_MEDIA_MUTE.Checked" 	rect="390,94,21,18"/>
+  <part name="_ID_MEDIA_RANDOM.Checked"	rect="367,121,16,15"/>
+  <part name="_ID_MEDIA_REPEAT.Checked"	rect="392,118,16,19"/>
+  <part name="_ID_MEDIA_ADD.Hover"	rect="0,137,21,23"/>
+  <part name="_ID_MEDIA_ADD.Down" 	rect="21,137,21,23"/>
+ </parts>
+ <caption fontFace="Segoe UI" fontSize="13" fontWeight="Normal" color="000000" outlineColor="" />
+ </windowskin>
+</windowskins>
+</skin>
