@@ -193,6 +193,7 @@ ApplicationsFound=Následující aplikace pøistupují k souborùm, které je tøeba bìh
 ApplicationsFound2=Následující aplikace pøistupují k souborùm, které je tøeba bìhem instalace aktualizovat. Doporuèuje se povolit prùvodci instalací, aby tyto aplikace automaticky zavøel. Po dokonèení instalace se prùvodce instalací pokusí aplikace restartovat.
 CloseApplications=&Zavøít aplikace automaticky
 DontCloseApplications=&Nezavírat aplikace
+ErrorCloseApplications=Prùvodci instalací se nepodaøilo automaticky zavøít všechny aplikace. Døíve než budete pokraèovat, doporuèuje se zavøít veškeré aplikace pøistupující k souborùm, které je tøeba bìhem instalace aktualizovat.
 
 ; *** "Installing" wizard page
 WizardInstalling=Instalování

@@ -205,6 +205,7 @@ ApplicationsFound=Sledeæi programi koriste datoteke koje treba da ažurira instal
 ApplicationsFound2=Sledeæi programi koriste datoteke koje treba da ažurira instalacioni program. Preporuèuje se da dozvolite instalacionom programu da zatvori ove programe. Nakon što se instalacija završi, instalacioni program æe pokušati da ponovo pokrene zatvorene programe.
 CloseApplications=&Zatvori programe
 DontCloseApplications=&Ne zatvaraj programe
+ErrorCloseApplications=Ne mogu da zatvorim sve programe. Pre nego što nastavite, preporuèujemo vam da zatvorite sve programe koji koriste datoteke koje treba da ažurira instalacioni program.
 
 ; *** "Installing" wizard page
 WizardInstalling=Instaliranje

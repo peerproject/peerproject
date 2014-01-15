@@ -3,12 +3,12 @@
 
 <!-- PeerProject Default Estonian Skin File -->
 
-<!-- Translation based on default-en.xml r100 --> <!-- (Shareaza 2.2.2.9) -->
+<!-- Translation based on default-en.xml r102 --> <!-- (Shareaza 2.2.2.9) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
-<!-- however be sure to include only sections that are changed.  -->
+<!-- however be sure to include only sections that are changed:  -->
 <!-- Unedited English content limits compatibility & performance.-->
 <!-- Better to be concise than literal:  Please test visibility! -->
 
@@ -351,7 +351,7 @@
 	</toolbar>
 	<!-- IRC WINDOW -->
 	<toolbar name="CIRCFrame">
-		<button id="ID_IRC_SENDTEXT" text="Send" tip="Post Your Comments"/>
+		<button id="ID_IRC_SENDTEXT" text="Send" tip="Post Kommentaarid"/>
 		<separator/>
 		<button id="ID_IRC_CLOSETAB" text="Eemalda" tip="Exit Current Channel Window"/>
 		<rightAlign/>
@@ -918,7 +918,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Sama Seriaali Osasid"/>
 		</menu>
 		<menu text="_Weebiteenused">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Vaata _Bitzist"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Vaata _Bitprint"/>
 			<item id="ID_SEARCH_URI" text="Kopeeri _URI..."/>
 		</menu>
 	</menu>
@@ -940,7 +940,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Sama Seriaali Osasid"/>
 		</menu>
 		<menu text="_Weebiteenused">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Vaata _Bitzist"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Vaata _Bitprint"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Filtreeri tulemusi..."/>
@@ -964,7 +964,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Sama Seriaali Osasid"/>
 		</menu>
 		<menu text="_Weebi info">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Vaata _Bitzist"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Vaata _Bitprint"/>
 			<item id="ID_SEARCH_URI" text="Kopeeri _URI..."/>
 		</menu>
 	</menu>
@@ -984,7 +984,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Sama Seriaali Osasid"/>
 		</menu>
 		<menu text="_Weebiteenused">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Vaata _Bitzist"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Vaata _Bitprint"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Filtreeri Tulemusi..."/>
@@ -1009,7 +1009,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Sama Seriaali Osasid"/>
 		</menu>
 		<menu text="_Weebiteenused">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Vaata _Bitzist"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Vaata _Bitprint"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Filtreeri Tulemusi..."/>
@@ -1243,8 +1243,8 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Sama Seriaali Osasid"/>
 		</menu>
 		<menu text="_Weebiteenused">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Vaata _Bitzist"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Tõmba Andmebaas"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Vaata _Bitprint"/>
+			<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="_Tõmba Andmebaas"/>
 			<separator/>
 			<item id="ID_LIBRARY_URI" text="_URI"/>
 		</menu>
@@ -1278,8 +1278,8 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Sama Seriaali Osasid"/>
 		</menu>
 		<menu text="_Weebiteenused">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Vaata _Bitzist"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Tõmba Andmebaas"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Vaata _Bitprint"/>
+			<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="_Tõmba Andmebaas"/>
 		</menu>
 		<menu text="_Metadata">
 			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
@@ -2225,8 +2225,6 @@
 	<tip id="ID_HELP_WEB_2" message="Mine kodulehele"/>
 	<tip id="ID_HELP_WEB_3" message="Mine kodulehele"/>
 	<tip id="ID_HELP_WEB_4" message="Mine kodulehele"/>
-	<tip id="ID_HELP_WEB_5" message="Mine kodulehele"/>
-	<tip id="ID_HELP_WEB_6" message="Mine kodulehele"/>
 	<tip id="ID_HITMONITOR_CLEAR" message="Puhasta puhvri aken."/>
 	<tip id="ID_HITMONITOR_PAUSE" message="Peata jälgimine."/>
 	<tip id="ID_HITMONITOR_SEARCH" message="Otsi võrgust valitud terminit."/>
@@ -2244,8 +2242,8 @@
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="Kustuta valitud Albumi kaust."/>
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="Ava valitud Albumi kaust."/>
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="Vaata ja muuda valitud Albumi kausta omadusi..."/>
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Tõmba Bitzist™ valitud faili kohta andmebaas..."/>
-	<tip id="ID_LIBRARY_BITZI_WEB" message="Vaata Bitzi™ infot valitud faili kohta."/>
+	<tip id="ID_LIBRARY_BITPRINT_DOWNLOAD" message="Tõmba Bitprintst™ valitud faili kohta andmebaas..."/>
+	<tip id="ID_LIBRARY_BITPRINT_WEB" message="Vaata Bitprint infot valitud faili kohta."/>
 	<tip id="ID_LIBRARY_COLUMNS" message="Vali andmebaasi info, mida kuvada..."/>
 	<tip id="ID_LIBRARY_COPY" message="Kopeeri valitud failid raamatukogu teise kausta..."/>
 	<tip id="ID_LIBRARY_CREATETORRENT" message="Loo .torrent fail mida jagada."/>
@@ -2809,7 +2807,7 @@
 	<string id="20446" value="Fail &quot;%s&quot; ei läbimnud kinnitust ja ei pruugi olla see fail mida, sa tahtsid. Oled kindel, et tahad selle faili avada?"/>
 	<string id="20447" value="Kas tahad eemaldada &quot;ebaturvalisee&quot; osa, sellest failist?"/>
 	<string id="20448" value="Fail &quot;%s&quot; on alles segamini. Palun oota kuni fail koos on ja proovi siis uuesti."/>
-	<string id="20449" value="See võimalus kasutab teenuseid, mida pakub Bitzi.com failide tuvastamise ja jagamiste kohta.\n\nPeerProject võtab SHA1 koodi, valitud failide kohta Bitzi andmebaasist. Kui oled mures oma turvalisuse pärast, siis võid tutvuda Bitzi.com privaatsus poliitikaga.\n\nKas tahad jätkata?"/>
+	<string id="20449" value="See võimalus kasutab teenuseid, mida pakub peerproject.org/bitprint failide tuvastamise ja jagamiste kohta.\n\nPeerProject võtab SHA1 koodi, valitud failide kohta Bitprint andmebaasist. Kui oled mures oma turvalisuse pärast, siis võid tutvuda peerproject.org/bitprint privaatsus poliitikaga.\n\nKas tahad jätkata?"/>
 	<string id="20450" value="Valitud kausta alamkaust &quot;%s&quot; on juba sinu raamatukogus.nSelle kausta lisamine võib mõnede failide ümberjagamist mõjutada.\n\nKas soovid jätkata ?"/>
 	<string id="20451" value="Ühtegi faili ei mängi hetkel. Topeltklikk failil, et alustada meediafaili mängimist."/>
 	<string id="20452" value="Kõik Meedia Failid|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Playlistid|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Audio Failid|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Video Failid|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD Audio Tracks|*.cda|MIDI Failid|*.mid;*.rmi;*.midi|Kõik Failid|*.*||"/>
@@ -3642,7 +3640,7 @@
 		<control/>
 		<control caption="Locale:"/>
 		<control/>
-		<control caption="Comments:"/>
+		<control caption="Kommentaarid:"/>
 		<control/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="Teretulemast PeerProject (8/8)">
@@ -4070,13 +4068,13 @@
 		<control caption="_Pea minu valik meeles"/>
 		<control caption="Ava allalaadimise _jälgimise aken"/>
 	</dialog>
-	<dialog name="CBitziDownloadDlg" cookie="StStmsBuSySt" caption="Tõmban Andmebaasi...">
+	<dialog name="CBitprintDownloadDlg" cookie="StStmsBuSySt" caption="Tõmban Andmebaasi...">
 		<control/>
-		<control caption="PeerProject üritab tõmmata Bitzi andmebaasi..."/>
+		<control caption="PeerProject üritab tõmmata Bitprint andmebaasi..."/>
 		<control/>
 		<control caption="Tühista"/>
 		<control/>
-		<control caption="www.bitzi.com"/>
+		<control caption="peerproject.org/bitprint"/>
 	</dialog>
 	<dialog name="CFilePreviewDlg" cookie="StStStmsStBu" caption="Tark Eelvaade...">
 		<control/>
@@ -4209,7 +4207,7 @@
 		<control caption="Märkmed:"/>
 	</dialog>
 	<dialog name="CDownloadEditPage" cookie="StBuStStStStBuStEdEdEdSyBuEdBuEdBuEdBuEdBuEd" caption="Üldiselt">
-		<control caption="HOIATUS: See aken pakub täpsemat allalaadimiste andmete muutmise võimalust arenenud kasutajatele, mida valesti kasutades võib faili kasutuks muuta."/>
+		<control caption="Hoiatus: See aken pakub täpsemat allalaadimiste andmete muutmise võimalust arenenud kasutajatele, mida valesti kasutades võib faili kasutuks muuta."/>
 		<control caption="Nimi ja Suurus:"/>
 		<control caption="Faili Nimi:"/>
 		<control caption="Faili:"/>
@@ -4233,7 +4231,7 @@
 		<control/>
 	</dialog>
 	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="Tegevused">
-		<control caption="HOIATUS: See aken pakub täpsemat allalaadimiste andmete muutmise võimalust arenenud kasutajatele, mida valesti kasutades võib faili kasutuks muuta."/>
+		<control caption="Hoiutus: See aken pakub täpsemat allalaadimiste andmete muutmise võimalust arenenud kasutajatele, mida valesti kasutades võib faili kasutuks muuta."/>
 		<control caption="Unusta kõik teadaolevad allikad"/>
 		<control caption="Unusta praegune kinnituse seis ja kinnita uuesti"/>
 		<control caption="Eelda, et fail on 100% valmis ja kinnita"/>

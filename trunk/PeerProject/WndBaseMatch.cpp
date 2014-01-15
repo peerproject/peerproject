@@ -1,7 +1,7 @@
 //
 // WndBaseMatch.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -86,8 +86,8 @@ BEGIN_MESSAGE_MAP(CBaseMatchWnd, CPanelWnd)
 	ON_UPDATE_COMMAND_UI(ID_SEARCH_FILTER_REMOVE, OnUpdateSearchFilterRemove)
 	ON_COMMAND(ID_SEARCH_FILTER_REMOVE, OnSearchFilterRemove)
 	ON_COMMAND(ID_SEARCH_COLUMNS, OnSearchColumns)
-	ON_UPDATE_COMMAND_UI(ID_LIBRARY_BITZI_WEB, OnUpdateLibraryBitziWeb)
-	ON_COMMAND(ID_LIBRARY_BITZI_WEB, OnLibraryBitziWeb)
+	ON_UPDATE_COMMAND_UI(ID_LIBRARY_BITPRINT_WEB, OnUpdateLibraryBitprintWeb)
+	ON_COMMAND(ID_LIBRARY_BITPRINT_WEB, OnLibraryBitprintWeb)
 	ON_UPDATE_COMMAND_UI(ID_SECURITY_BAN, OnUpdateSecurityBan)
 	ON_COMMAND(ID_SECURITY_BAN, OnSecurityBan)
 	ON_UPDATE_COMMAND_UI(ID_HITMONITOR_SEARCH, OnUpdateHitMonitorSearch)
@@ -517,9 +517,9 @@ void CBaseMatchWnd::OnBrowseLaunch()
 	}
 }
 
-void CBaseMatchWnd::OnUpdateLibraryBitziWeb(CCmdUI* pCmdUI)
+void CBaseMatchWnd::OnUpdateLibraryBitprintWeb(CCmdUI* pCmdUI)
 {
-	if ( m_pMatches->GetSelectedCount() != 1 || Settings.WebServices.BitziWebView.IsEmpty() )
+	if ( m_pMatches->GetSelectedCount() != 1 || Settings.WebServices.BitprintWebView.IsEmpty() )
 		pCmdUI->Enable( FALSE );
 	else if ( CMatchFile* pFile = m_pMatches->GetSelectedFile() )
 		pCmdUI->Enable( TRUE );
@@ -527,12 +527,12 @@ void CBaseMatchWnd::OnUpdateLibraryBitziWeb(CCmdUI* pCmdUI)
 		pCmdUI->Enable( TRUE );
 }
 
-void CBaseMatchWnd::OnLibraryBitziWeb()
+void CBaseMatchWnd::OnLibraryBitprintWeb()
 {
-	if ( ! Settings.WebServices.BitziOkay )
+	if ( ! Settings.WebServices.BitprintOkay )
 	{
-		if ( MsgBox( IDS_LIBRARY_BITZI_MESSAGE, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
-		Settings.WebServices.BitziOkay = true;
+		if ( MsgBox( IDS_LIBRARY_BITPRINT_MESSAGE, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
+		Settings.WebServices.BitprintOkay = true;
 		Settings.Save();
 	}
 
@@ -585,7 +585,7 @@ void CBaseMatchWnd::OnLibraryBitziWeb()
 
 	if ( strURN.IsEmpty() ) return;
 
-	CString strURL = Settings.WebServices.BitziWebView;
+	CString strURL = Settings.WebServices.BitprintWebView;
 	strURL.Replace( _T("(URN)"), strURN );
 	ShellExecute( GetSafeHwnd(), _T("open"), strURL, NULL, NULL, SW_SHOWNORMAL );
 }

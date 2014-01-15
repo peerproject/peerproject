@@ -205,6 +205,7 @@ ApplicationsFound=The following applications are using files that need to be upd
 ApplicationsFound2=The following applications are using files that need to be updated by Setup. It is recommended that you allow Setup to automatically close these applications. After the installation has completed, Setup will attempt to restart the applications.
 CloseApplications=&Automatski zatvaranje programa
 DontCloseApplications=&Nemojte zatvaranje programa
+ErrorCloseApplications=Ne mogu zatvoriti sve programe. Prije nego nastavite, preporuèujemo da zatvorite sve programe koji koriste datoteke koje instalacijski program treba ažurirati.
 
 ; *** "Installing" wizard page
 WizardInstalling=Instaliram
@@ -329,6 +330,6 @@ UninstallProgram=Deinstaliraj %1
 LaunchProgram=Pokreni %1
 AssocFileExtension=Pridru&ži %1 sa %2 ekstenzijom datoteke
 AssocingFileExtension=Pridružujem %1 sa %2 ekstenzijom datoteke
-AutoStartProgramGroupDescription=Startup:
-AutoStartProgram=Automatski start %1
-AddonHostProgramNotFound=%1 could not be located in the folder you selected.%n%nDo you want to continue anyway?
+AutoStartProgramGroupDescription=Pokretanje:
+AutoStartProgram=Automatski pokreni %1
+AddonHostProgramNotFound=%1 se ne nalazi u navedenoj mapi.%n%nŽelite li svejedno nastaviti?

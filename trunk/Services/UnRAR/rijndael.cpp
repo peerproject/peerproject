@@ -1,13 +1,11 @@
-/**************************************************************************
- * This code is based on Szymon Stefanek AES implementation:              *
- * http://www.esat.kuleuven.ac.be/~rijmen/rijndael/rijndael-cpplib.tar.gz *
- *                                                                        *
- * Dynamic tables generation is based on the Brian Gladman work:          *
- * http://fp.gladman.plus.com/cryptography_technology/rijndael            *
- **************************************************************************/
+/***************************************************************************
+ * This code is based on public domain Szymon Stefanek AES implementation: *
+ * http://www.pragmaware.net/software/rijndael/index.php                   *
+ *                                                                         *
+ * Dynamic tables generation is based on the Brian Gladman work:           *
+ * http://fp.gladman.plus.com/cryptography_technology/rijndael             *
+ ***************************************************************************/
 #include "rar.hpp"
-
-const int uKeyLenInBytes=16, m_uRounds=10;
 
 static byte S[256],S5[256],rcon[30];
 static byte T1[256][4],T2[256][4],T3[256][4],T4[256][4];
@@ -66,21 +64,36 @@ Rijndael::Rijndael()
 }
 
 
-void Rijndael::init(Direction dir,const byte * key,byte * initVector)
+void Rijndael::Init(bool Encrypt,const byte *key,uint keyLen,const byte * initVector)
 {
-  m_direction = dir;
+  uint uKeyLenInBytes;
+  switch(keyLen)
+  {
+    case 128:
+      uKeyLenInBytes = 16;
+      m_uRounds = 10;
+      break;
+    case 192:
+      uKeyLenInBytes = 24;
+      m_uRounds = 12;
+      break;
+    case 256:
+      uKeyLenInBytes = 32;
+      m_uRounds = 14;
+      break;
+  }
 
   byte keyMatrix[_MAX_KEY_COLUMNS][4];
 
-  for(uint i = 0;i < uKeyLenInBytes;i++)
+  for(uint i = 0; i < uKeyLenInBytes; i++)
     keyMatrix[i >> 2][i & 3] = key[i];
 
-  for(int i = 0;i < MAX_IV_SIZE;i++)
+  for(int i = 0; i < MAX_IV_SIZE; i++)
     m_initVector[i] = initVector[i];
 
   keySched(keyMatrix);
 
-  if(m_direction == Decrypt)
+  if(!Encrypt)
     keyEncToDec();
 }
 
@@ -197,8 +210,8 @@ void Rijndael::keyEncToDec()
   for(int r = 1; r < m_uRounds; r++)
   {
     byte n_expandedKey[4][4];
-    for (int i=0;i<4;i++)
-      for (int j=0;j<4;j++)
+    for (int i = 0; i < 4; i++)
+      for (int j = 0; j < 4; j++)
       {
         byte *w=m_expandedKey[r][j];
         n_expandedKey[j][i]=U1[w[0]][i]^U2[w[1]][i]^U3[w[2]][i]^U4[w[3]][i];

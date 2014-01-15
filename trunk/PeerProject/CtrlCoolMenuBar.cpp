@@ -1,7 +1,7 @@
 //
 // CtrlCoolMenuBar.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -270,6 +270,9 @@ void CCoolMenuBarCtrl::ShiftMenu(int nOffset)
 
 void CCoolMenuBarCtrl::OnTimer(UINT_PTR nIDEvent)
 {
+	if ( theApp.m_bClosing )
+		return;
+
 	switch ( nIDEvent )
 	{
 	case 5:
@@ -285,6 +288,9 @@ void CCoolMenuBarCtrl::OnTimer(UINT_PTR nIDEvent)
 
 void CCoolMenuBarCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 {
+	if ( theApp.m_bClosing )
+		return;
+
 	CCoolBarItem* pHit = HitTest( point );
 
 	if ( pHit && pHit == m_pHot )
@@ -363,6 +369,9 @@ LRESULT CCoolMenuBarCtrl::MenuFilter(int nCode, WPARAM wParam, LPARAM lParam)
 
 BOOL CCoolMenuBarCtrl::OnMenuMessage(MSG* pMsg)
 {
+	if ( theApp.m_bClosing )
+		return FALSE;
+
 	switch ( pMsg->message )
 	{
 	case WM_MOUSEMOVE:

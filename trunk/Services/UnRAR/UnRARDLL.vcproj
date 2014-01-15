@@ -377,6 +377,10 @@
 				>
 			</File>
 			<File
+				RelativePath="blake2s.cpp"
+				>
+			</File>
+			<File
 				RelativePath="cmddata.cpp"
 				>
 			</File>
@@ -386,6 +390,10 @@
 			</File>
 			<File
 				RelativePath="crc.cpp"
+				>
+			</File>
+			<File
+				RelativePath="crypt.cpp"
 				>
 			</File>
 			<File
@@ -469,11 +477,15 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="isnt.cpp"
+				RelativePath="hash.cpp"
 				>
 			</File>
 			<File
-				RelativePath="list.cpp"
+				RelativePath="headers.cpp"
+				>
+			</File>
+			<File
+				RelativePath="isnt.cpp"
 				>
 			</File>
 			<File
@@ -486,6 +498,10 @@
 			</File>
 			<File
 				RelativePath="pathfn.cpp"
+				>
+			</File>
+			<File
+				RelativePath="qopen.cpp"
 				>
 			</File>
 			<File
@@ -553,7 +569,7 @@
 				>
 			</File>
 			<File
-				RelativePath="savepos.cpp"
+				RelativePath="rs16.cpp"
 				>
 			</File>
 			<File
@@ -566,6 +582,10 @@
 			</File>
 			<File
 				RelativePath="sha1.cpp"
+				>
+			</File>
+			<File
+				RelativePath="sha256.cpp"
 				>
 			</File>
 			<File
@@ -585,11 +605,11 @@
 				>
 			</File>
 			<File
-				RelativePath="timefn.cpp"
+				RelativePath="threadpool.cpp"
 				>
 			</File>
 			<File
-				RelativePath="ulinks.cpp"
+				RelativePath="timefn.cpp"
 				>
 			</File>
 			<File
@@ -696,10 +716,6 @@
 			</File>
 			<File
 				RelativePath="isnt.hpp"
-				>
-			</File>
-			<File
-				RelativePath="list.hpp"
 				>
 			</File>
 			<File

@@ -5,9 +5,12 @@ ___________________________
 0. This sourcecode package is self-contained, no setup required.  Only Microsoft Visual Studio is supported.
 
 
-1. Install Visual Studio 2012
-	- http://www.microsoft.com/visualstudio/11/en-us/downloads  (90day Trial)
-	- http://www.microsoft.com/en-us/download/details.aspx?id=38188  (Update 2)
+1. Install Visual Studio 2013
+	- http://www.visualstudio.com/downloads/download-visual-studio-vs  (90day Trial)
+
+   OR Install Visual Studio 2012
+	- http://www.microsoft.com/en-us/download/details.aspx?id=30678  (90day Trial)
+	- http://go.microsoft.com/?linkid=9821199  (Update 4)
 
    OR Install Visual Studio 2010
 	- http://www.microsoft.com/downloads/details.aspx?FamilyID=26bae65f-b0df-4081-ae6e-1d828993d4d0  (30/90day Trial)

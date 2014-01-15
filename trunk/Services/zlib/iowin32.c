@@ -182,6 +182,22 @@ uLong ZCALLBACK win32_write_file_func (voidpf opaque,voidpf stream,const void* b
     return ret;
 }
 
+static BOOL MySetFilePointerEx(HANDLE hFile, LARGE_INTEGER pos, LARGE_INTEGER *newPos,  DWORD dwMoveMethod)
+{
+    LONG lHigh = pos.HighPart;
+    DWORD dwNewPos = SetFilePointer(hFile, pos.LowPart, &lHigh, FILE_CURRENT);
+    BOOL fOk = TRUE;
+    if (dwNewPos == 0xFFFFFFFF)
+        if (GetLastError() != NO_ERROR)
+            fOk = FALSE;
+    if ((newPos != NULL) && (fOk))
+    {
+        newPos->LowPart = dwNewPos;
+        newPos->HighPart = lHigh;
+    }
+    return fOk;
+}
+
 long ZCALLBACK win32_tell_file_func (voidpf opaque,voidpf stream)
 {
     long ret=-1;
@@ -190,15 +206,17 @@ long ZCALLBACK win32_tell_file_func (voidpf opaque,voidpf stream)
         hFile = ((WIN32FILE_IOWIN*)stream) -> hf;
     if (hFile != NULL)
     {
-        DWORD dwSet = SetFilePointer(hFile, 0, NULL, FILE_CURRENT);
-        if (dwSet == INVALID_SET_FILE_POINTER)
+        LARGE_INTEGER pos;
+        pos.QuadPart = 0;
+
+        if (!MySetFilePointerEx(hFile, pos, &pos, FILE_CURRENT))
         {
             DWORD dwErr = GetLastError();
             ((WIN32FILE_IOWIN*)stream) -> error=(int)dwErr;
             ret = -1;
         }
         else
-            ret=(long)dwSet;
+            ret=(long)pos.LowPart;
     }
     return ret;
 }
@@ -212,17 +230,17 @@ ZPOS64_T ZCALLBACK win32_tell64_file_func (voidpf opaque, voidpf stream)
 
     if (hFile)
     {
-        LARGE_INTEGER li;
-        li.QuadPart = 0;
-        li.u.LowPart = SetFilePointer(hFile, li.u.LowPart, &li.u.HighPart, FILE_CURRENT);
-        if ( (li.LowPart == 0xFFFFFFFF) && (GetLastError() != NO_ERROR))
+        LARGE_INTEGER pos;
+        pos.QuadPart = 0;
+
+        if (!MySetFilePointerEx(hFile, pos, &pos, FILE_CURRENT))
         {
             DWORD dwErr = GetLastError();
             ((WIN32FILE_IOWIN*)stream) -> error=(int)dwErr;
             ret = (ZPOS64_T)-1;
         }
         else
-            ret=li.QuadPart;
+            ret=pos.QuadPart;
     }
     return ret;
 }
@@ -251,8 +269,9 @@ long ZCALLBACK win32_seek_file_func (voidpf opaque,voidpf stream,uLong offset,in
 
     if (hFile != NULL)
     {
-        DWORD dwSet = SetFilePointer(hFile, offset, NULL, dwMoveMethod);
-        if (dwSet == INVALID_SET_FILE_POINTER)
+        LARGE_INTEGER pos;
+        pos.QuadPart = offset;
+        if (!MySetFilePointerEx(hFile, pos, NULL, dwMoveMethod))
         {
             DWORD dwErr = GetLastError();
             ((WIN32FILE_IOWIN*)stream) -> error=(int)dwErr;
@@ -289,9 +308,9 @@ long ZCALLBACK win32_seek64_file_func (voidpf opaque, voidpf stream,ZPOS64_T off
 
     if (hFile)
     {
-        LARGE_INTEGER* li = (LARGE_INTEGER*)&offset;
-        DWORD dwSet = SetFilePointer(hFile, li->u.LowPart, &li->u.HighPart, dwMoveMethod);
-        if (dwSet == INVALID_SET_FILE_POINTER)
+        LARGE_INTEGER pos;
+        pos.QuadPart = offset;
+        if (!MySetFilePointerEx(hFile, pos, NULL, FILE_CURRENT))
         {
             DWORD dwErr = GetLastError();
             ((WIN32FILE_IOWIN*)stream) -> error=(int)dwErr;

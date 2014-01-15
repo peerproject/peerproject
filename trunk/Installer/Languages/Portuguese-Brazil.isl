@@ -209,6 +209,7 @@ ApplicationsFound=Os aplicativos a seguir estão usando arquivos que precisam ser
 ApplicationsFound2=Os aplicativos a seguir estão usando arquivos que precisam ser atualizados pelo Instalador. É recomendados que você permita ao Instalador fechar automaticamente estes aplicativos. Após a instalação ter sido completada, o Instalador tentará reiniciar os aplicativos.
 CloseApplications=&Automaticamente fechar os aplicativos
 DontCloseApplications=&Não fechar os aplicativos
+ErrorCloseApplications=O instalador foi incapaz de fechar automaticamente todos os aplicativos. É recomendado que você feche todos os aplicativos usando os arquivos que precisam ser atualizados pelo Instalador antes de continuar.
 
 ; *** "Installing" wizard page
 WizardInstalling=Instalando

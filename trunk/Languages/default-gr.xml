@@ -3,12 +3,12 @@
 
 <!-- PeerProject Default Greek Skin File -->
 
-<!-- Translation based on default-en.xml r100 -->
+<!-- Translation based on default-en.xml r102 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
-<!-- however be sure to include only sections that are changed.  -->
+<!-- however be sure to include only sections that are changed:  -->
 <!-- Unedited English content limits compatibility & performance.-->
 <!-- Better to be concise than literal:  Please test visibility! -->
 
@@ -351,7 +351,7 @@
 	-->
 	<!-- IRC WINDOW -->
 	<toolbar name="CIRCFrame">
-		<button id="ID_IRC_SENDTEXT" text="Συνομιλία" tip="Post Your Comments"/>
+		<button id="ID_IRC_SENDTEXT" text="Συνομιλία" tip="Post Σχόλια"/>
 		<separator/>
 		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
 		<rightAlign/>
@@ -583,7 +583,6 @@
 					<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
 					<item id="ID_HELP_FORUMS_LOCAL" text="PeerProject _Forums Ελληνικά"/>
 					<!-- <item id="ID_HELP_WEB_SKINS" text="Φ_λοιοί PeerProject"/>
-					<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/>
 					<item id="ID_HELP_UPDATE" text="Τελευταία νέα"/>
 					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 					<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
@@ -688,7 +687,6 @@
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="PeerProject _Forums Ελληνικά"/>
 				<!-- <item id="ID_HELP_WEB_SKINS" text="Φ_λοιοί PeerProject"/>
-				<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/>
 				<item id="ID_HELP_UPDATE" text="Τελευταία νέα"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
@@ -761,7 +759,6 @@
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="PeerProject _Forums Ελληνικά"/>
 				<!-- <item id="ID_HELP_WEB_SKINS" text="Φ_λοιοί PeerProject"/>
-				<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/>
 				<item id="ID_HELP_UPDATE" text="Τελευταία νέα"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
@@ -856,7 +853,6 @@
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums Ελληνικά"/>
 				<!-- <item id="ID_HELP_WEB_SKINS" text="Φ_λοιοί PeerProject"/>
-				<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/>
 				<item id="ID_HELP_UPDATE" text="Τελευταία νέα"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
@@ -989,7 +985,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="_Επεισόδια από την ίδια Σειρά"/>
 		</menu>
 		<menu text="_Υπηρεσίες Ιστού">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Προβολή _Bitzi Ticket"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Προβολή _Bitprint listing"/>
 			<item id="ID_SEARCH_URI" text="Αντι_γραφή URI..."/>
 		</menu>
 	</menu>
@@ -1011,7 +1007,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="_Επεισόδια από την ίδια Σειρά"/>
 		</menu>
 		<menu text="_Υπηρεσίες Ιστού">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Προβολή _Bitzi Ticket"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Προβολή _Bitprint listing"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Φιλτράρισμα Αποτελεσμάτων..."/>
@@ -1035,7 +1031,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="_Επεισόδια από την ίδια Σειρά"/>
 		</menu>
 		<menu text="Πληροφορίες για Web File">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Προβολή _Bitzi Ticket"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Προβολή _Bitprint listing"/>
 			<item id="ID_SEARCH_URI" text="Αντι_γραφή URI..."/>
 		</menu>
 	</menu>
@@ -1055,7 +1051,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="_Επεισόδια από την ίδια Σειρά"/>
 		</menu>
 		<menu text="_Υπηρεσίες Ιστού">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Προβολή _Bitzi Ticket"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Προβολή _Bitprint listing"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Φιλτράρισμα Αποτελεσμάτων..."/>
@@ -1080,7 +1076,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="_Επεισόδια από την ίδια Σειρά"/>
 		</menu>
 		<menu text="_Υπηρεσίες Ιστού">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Προβολή _Bitzi Ticket"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Προβολή _Bitprint listing"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Φιλτράρισμα Αποτελεσμάτων..."/>
@@ -1316,8 +1312,8 @@
 		<menu text="_Υπηρεσίες Ιστού">
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Ανανέωση Metadata"/>
 			<separator/>
-			<item id="ID_LIBRARY_BITZI_WEB" text="Προβολή _Bitzi Ticket"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Λήψη _Metadata"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Προβολή _Bitprint listing"/>
+			<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="Λήψη _Metadata"/>
 			<separator/>
 			<item id="ID_LIBRARY_URI" text="Get P2P Link (_URI)"/>
 		</menu>
@@ -1351,8 +1347,8 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="_Επεισόδια από την ίδια Σειρά"/>
 		</menu>
 		<menu text="_Yπηρεσίες web">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Προβολή _Bitzi Ticket"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Λήψη _Metadata"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Προβολή _Bitprint listing"/>
+			<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="Λήψη _Metadata"/>
 		</menu>
 		<menu text="_Metadata">
 			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
@@ -1636,7 +1632,7 @@
 		</menu>
 	</menu>
 	<menu name="WebServices.List.Menu">
-		<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Bitzi"/>
+		<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="_Bitprint"/>
 		<item id="ID_WEBSERVICES_MUSICBRAINZ" text="_MusicBrainz"/>
 		<!--item id="ID_WEBSERVICES_SHAREMONKEY" text="_ShareMonkey"-->
 	</menu>
@@ -2385,8 +2381,6 @@
 	<tip id="ID_HELP_WEB_2" message="Επίσκεψη σε αυτόν τον ιστότοπο."/>
 	<tip id="ID_HELP_WEB_3" message="Επίσκεψη σε αυτόν τον ιστότοπο."/>
 	<tip id="ID_HELP_WEB_4" message="Επίσκεψη σε αυτόν τον ιστότοπο."/>
-	<tip id="ID_HELP_WEB_5" message="Επίσκεψη σε αυτόν τον ιστότοπο."/>
-	<tip id="ID_HELP_WEB_6" message="Επίσκεψη σε αυτόν τον ιστότοπο."/>
 	<tip id="ID_HELP_DONATE" message="Εάν θέλετε, μπορείτε να κάνετε δωρεά στο νόμιμο «ταμείο» μας και να δείξετε την εκτίμηση σας."/>
 	<tip id="ID_HITMONITOR_CLEAR" message="Καθαρισμός buffer εποπτείας ευρέσεων."/>
 	<tip id="ID_HITMONITOR_PAUSE" message="Παύση εποπτείας ευρέσεων."/>
@@ -2405,8 +2399,8 @@
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="Διαγραφή επιλεγμένου album."/>
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="Άνοιγμα επιλεγμένου album."/>
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="Προβολή και επεξεργασία ιδιοτήτων επιλεγμένου album..."/>
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Λήψη metadata για τα επιλεγμένα αρχεία από το Bitzi™..."/>
-	<tip id="ID_LIBRARY_BITZI_WEB" message="Προβολή Bitzi™ ticket για το επιλεγμένο αρχείο."/>
+	<tip id="ID_LIBRARY_BITPRINT_DOWNLOAD" message="Λήψη metadata για τα επιλεγμένα αρχεία από το Bitprint..."/>
+	<tip id="ID_LIBRARY_BITPRINT_WEB" message="Προβολή Bitprint ticket για το επιλεγμένο αρχείο."/>
 	<tip id="ID_LIBRARY_COLUMNS" message="Επιλογή στηλών metadata που θα εμφανίζονται..."/>
 	<tip id="ID_LIBRARY_COPY" message="Αντιγραφή επιλεγμένων αρχείων σε άλλο φάκελο της Βιβλιοθήκης..."/>
 	<tip id="ID_LIBRARY_CREATETORRENT" message="Δημιουργία .torrent αυτού του αρχείου για αποστολή σε έναν ιστότοπο."/>
@@ -3005,7 +2999,7 @@
 	<string id="20446" value="Το αρχείο &quot;%s&quot; απέτυχε στη δοκιμή επαλήθευσης με hash και ίσως δεν είναι το αρχείο που σκοπεύατε να λάβετε! Θέλετε σίγουρα να το ανοίξετε;"/>
 	<string id="20447" value="Θέλετε να αφαιρέσετε την &quot;εν δυνάμει επικίνδυνη&quot; ιδιότητα από αυτό το αρχείο;"/>
 	<string id="20448" value="Το αρχείο &quot;%s&quot; ακόμη δεν έχει σαρωθεί. Παρακαλώ περιμένετε να τελειώσει και ξαναπροσπαθείστε."/>
-	<string id="20449" value="Αυτή η επιλογή χρησιμοποιεί υπηρεσίες παρεχόμενες από το Bitzi.com προς αναγνώριση και κοινοποίηση πληροφοριών για τα επιλεγμένα αρχεία.nnΤο PeerProject θα αποστείλει το SHA1 hash code για τα επιλεγμένα αρχεία, προκειμένου να ρωτήσει τη βάση δεδομένων του Bitzi. Αν ανησυχείται για την ιδιωτικότητά σας, συμβουλευτείτε την πολιτική ιδιωτικότητας του Bitzi.com.nnΘέλετε να συνεχίσετε;"/>
+	<string id="20449" value="Αυτή η επιλογή χρησιμοποιεί υπηρεσίες παρεχόμενες από το peerproject.org/bitprint προς αναγνώριση και κοινοποίηση πληροφοριών για τα επιλεγμένα αρχεία.nnΤο PeerProject θα αποστείλει το SHA1 hash code για τα επιλεγμένα αρχεία, προκειμένου να ρωτήσει τη βάση δεδομένων του Bitprint. Αν ανησυχείται για την ιδιωτικότητά σας, συμβουλευτείτε την πολιτική ιδιωτικότητας του peerproject.org/bitprint.nnΘέλετε να συνεχίσετε;"/>
 	<string id="20450" value="Ένας υποφάκελος του επιλεγμένου φακέλου &quot;%s&quot; είναι ήδη μέρος της Βιβλιοθήκης.nΠροσθέτοντας αυτόν τον φάκελο θα προκαλέσει επανασάρωση μερικών αρχείων.nnΘέλετε να συνεχίσετε;"/>
 	<string id="20451" value="Κανένα αρχείο υπό αναπαραγωγή. Για αναπαραγωγή, διπλό κλικ σε ένα αρχείο στη Βιβλιοθήκη."/>
 	<string id="20452" value="Όλα τα Αρχεία Πολυμέσων|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Λίστες|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Αρχεία Ήχου|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Αρχεία Video|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Κομμάτια CD Audio|*.cda|Αρχεία MIDI|*.mid;*.rmi;*.midi|Όλα τα Αρχεία|*.*||"/>
@@ -3892,9 +3886,9 @@
 		<control caption=" (διαλέξτε)| αγόρι| κορίτσι| άνδρας| γυναίκα"/>
 		<control caption="από:"/>
 		<control/>
-		<control caption="Locale:"/>
+		<control caption="Τοπικές:"/>
 		<control/>
-		<control caption="Comments:"/>
+		<control caption="Σχόλια:"/>
 		<control/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="Ολοκλήρωση Οδηγού Σύντομης Εκκίνησης (8/8)">
@@ -4323,13 +4317,13 @@
 		<control caption="_Απομνημόνευση επιλογής"/>
 		<control caption="Άνοιγμα παραθύρου _εποπτίας λήψης"/>
 	</dialog>
-	<dialog name="CBitziDownloadDlg" cookie="StStmsBuSySt" caption="Λήψη Metadata...">
+	<dialog name="CBitprintDownloadDlg" cookie="StStmsBuSySt" caption="Λήψη Metadata...">
 		<control/>
-		<control caption="Προσπάθεια λήψης metadata από Bitzi..."/>
+		<control caption="Προσπάθεια λήψης metadata από Bitprint..."/>
 		<control/>
 		<control caption="Άκυρο"/>
 		<control/>
-		<control caption="www.bitzi.com"/>
+		<control caption="peerproject.org/bitprint"/>
 	</dialog>
 	<dialog name="CFilePreviewDlg" cookie="StStStmsStBu" caption="Έξυπνη Προεπισκόπηση Λήψης...">
 		<control/>

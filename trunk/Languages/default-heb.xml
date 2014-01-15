@@ -3,12 +3,12 @@
 
 <!-- PeerProject Default Hebrew Skin File -->
 
-<!-- Translation based on default-en.xml r100 -->
+<!-- Translation based on default-en.xml r102 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
-<!-- however be sure to include only sections that are changed.  -->
+<!-- however be sure to include only sections that are changed:  -->
 <!-- Unedited English content limits compatibility & performance.-->
 <!-- Better to be concise than literal:  Please test visibility! -->
 
@@ -354,7 +354,7 @@ gap i newline
 	</toolbar>
 	<!-- IRC WINDOW -->
 	<toolbar name="CIRCFrame">
-		<button id="ID_IRC_SENDTEXT" text="Send" tip="Post Your Comments"/>
+		<button id="ID_IRC_SENDTEXT" text="Send" tip="Post הערות"/>
 		<separator/>
 		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
 		<rightAlign/>
@@ -1009,7 +1009,7 @@ gap i newline
 			<item id="ID_SEARCH_FOR_SERIES" text="‪פרקים באותה _סדרה"/>
 		</menu>
 		<menu text="‪שירותי רשת">
-			<item id="ID_LIBRARY_BITZI_WEB" text="‪Bitzi הראה כרטיס"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="‪Bitprint הראה כרטיס"/>
 			<item id="ID_SEARCH_URI" text="‪...URI העתק"/>
 		</menu>
 	</menu>
@@ -1031,7 +1031,7 @@ gap i newline
 			<item id="ID_SEARCH_FOR_SERIES" text="‪פרקים באותה סדרה"/>
 		</menu>
 		<menu text="‪שירותי רשת">
-			<item id="ID_LIBRARY_BITZI_WEB" text="‪Bitzi הראה כרטיס"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="‪Bitprint הראה כרטיס"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="‪...סנן תוצאות"/>
@@ -1055,7 +1055,7 @@ gap i newline
 			<item id="ID_SEARCH_FOR_SERIES" text="‪פרקים באותה סדרה"/>
 		</menu>
 		<menu text="‪_Web File Info">
-			<item id="ID_LIBRARY_BITZI_WEB" text="‪Bitzi הראה כרטיס"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="‪Bitprint הראה כרטיס"/>
 			<item id="ID_SEARCH_URI" text="‪...URI העתק"/>
 		</menu>
 	</menu>
@@ -1075,7 +1075,7 @@ gap i newline
 			<item id="ID_SEARCH_FOR_SERIES" text="‪פרקים באותה סדרה"/>
 		</menu>
 		<menu text="‪שירותי רשת">
-			<item id="ID_LIBRARY_BITZI_WEB" text="‪Bitzi הראה כרטיס"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="‪Bitprint הראה כרטיס"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="‪...סנן תוצאות"/>
@@ -1100,7 +1100,7 @@ gap i newline
 			<item id="ID_SEARCH_FOR_SERIES" text="‪פרקים באותה סדרה"/>
 		</menu>
 		<menu text="‪שירותי רשת">
-			<item id="ID_LIBRARY_BITZI_WEB" text="‪Bitzi הראה כרטיס"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="‪Bitprint הראה כרטיס"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="‪...סנן תוצאות"/>
@@ -1336,8 +1336,8 @@ gap i newline
 		<menu text="‪שירותי רשת">
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
 			<separator/>
-			<item id="ID_LIBRARY_BITZI_WEB" text="‪Bitzi הראה כרטיס"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="‪Metadata הורד"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="‪Bitprint הראה כרטיס"/>
+			<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="‪Metadata הורד"/>
 			<separator/>
 			<item id="ID_LIBRARY_URI" text="‪_URI"/>
 		</menu>
@@ -1371,8 +1371,8 @@ gap i newline
 			<item id="ID_SEARCH_FOR_SERIES" text="‪פרקים באותה סדרה"/>
 		</menu>
 		<menu text="‪שירותי רשת">
-			<item id="ID_LIBRARY_BITZI_WEB" text="‪Bitzi הראה כרטיס"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="‪Metadata קבל"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="‪Bitprint הראה כרטיס"/>
+			<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="‪Metadata קבל"/>
 		</menu>
 		<menu text="_Metadata">
 			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
@@ -1656,7 +1656,7 @@ gap i newline
 		</menu>
 	</menu>
 	<menu name="WebServices.List.Menu">
-		<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Bitzi"/>
+		<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="_Bitprint"/>
 		<item id="ID_WEBSERVICES_MUSICBRAINZ" text="_MusicBrainz"/>
 		<!--item id="ID_WEBSERVICES_SHAREMONKEY" text="_ShareMonkey"-->
 	</menu>
@@ -2242,8 +2242,6 @@ gap i newline
 	<tip id="ID_HELP_WEB_2" message="בקר את אתר זה"/>
 	<tip id="ID_HELP_WEB_3" message="בקר את אתר זה"/>
 	<tip id="ID_HELP_WEB_4" message="בקר את אתר זה"/>
-	<tip id="ID_HELP_WEB_5" message="בקר את אתר זה"/>
-	<tip id="ID_HELP_WEB_6" message="בקר את אתר זה"/>
 	<tip id="ID_HELP_DONATE" message="לבחירתך, תוכל לתרום לקופת ההגנה המשפטית ולהראות את הערכתך."/>
 	<tip id="ID_HITMONITOR_CLEAR" message="נקה את זיכרון התוצאות של המוניטור"/>
 	<tip id="ID_HITMONITOR_PAUSE" message="השהה את זיכרון התוצאות של המוניטור"/>
@@ -2262,8 +2260,8 @@ gap i newline
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="מחק את תיקיית האלבום הנבחרת"/>
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="פתח את תיקיית האלבום הנבחרת"/>
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="הצג וערוך מאפיינים של תיקיית האלבום הנבחרת"/>
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="הורד metadata לקובץ/ים הנבחר/ים מ-Bitzi™..."/>
-	<tip id="ID_LIBRARY_BITZI_WEB" message="הצג את כרטיס ה-Bitzi™ לקובץ הנבחר ברשת."/>
+	<tip id="ID_LIBRARY_BITPRINT_DOWNLOAD" message="הורד metadata לקובץ/ים הנבחר/ים מ-Bitprint..."/>
+	<tip id="ID_LIBRARY_BITPRINT_WEB" message="הצג את כרטיס ה-Bitprint לקובץ הנבחר ברשת."/>
 	<tip id="ID_LIBRARY_COLUMNS" message="בחר את עמודות המידע שתרצה להציג"/>
 	<tip id="ID_LIBRARY_COPY" message="העתק את הקצבים הנבחרים לתיקייה אחרת בספריה"/>
 	<tip id="ID_LIBRARY_CREATETORRENT" message="צור טורנט לקובץ זה בכדי להעלותו לאתר"/>
@@ -3412,7 +3410,7 @@ gap i newline
 		<control/>
 		<control caption="Locale:"/>
 		<control/>
-		<control caption="Comments:"/>
+		<control caption="הערות:"/>
 		<control/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="(8/8) ברוכים הבאים לשרזה">
@@ -3841,13 +3839,13 @@ gap i newline
 		<control caption="‪זכור את בחירתי בפעם הבאה"/>
 		<control caption="‪פתוח חלון מוניטור הורדות"/>
 	</dialog>
-	<dialog name="CBitziDownloadDlg" cookie="StStmsBuSySt" caption="...Metadata מוריד">
+	<dialog name="CBitprintDownloadDlg" cookie="StStmsBuSySt" caption="...Metadata מוריד">
 		<control/>
-		<control caption="...Bitzi-מ Metadata שרזה מנסה להוריד"/>
+		<control caption="...Bitprint-מ Metadata שרזה מנסה להוריד"/>
 		<control/>
 		<control caption="ביטול"/>
 		<control/>
-		<control caption="www.bitzi.com"/>
+		<control caption="peerproject.org/bitprint"/>
 	</dialog>
 	<dialog name="CFilePreviewDlg" cookie="StStStmsStBu" caption="...תצוגה מקדימה חכמה להורדה">
 		<control/>

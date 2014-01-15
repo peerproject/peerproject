@@ -1,7 +1,7 @@
 //
 // FileExecutor.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -29,11 +29,11 @@ public:
 	static BOOL		Execute(const CStringList& pList);
 	static BOOL		Enqueue(LPCTSTR pszFiles, LPCTSTR pszExt = NULL);
 	static BOOL		Enqueue(const CStringList& pList);
-//	static BOOL		ShowBitziTicket(DWORD nFile);	// Moved to WebServices
+//	static BOOL		ShowBitprintTicket(DWORD nFile);	// Moved to WebServices
 //	static BOOL		DisplayURL(LPCTSTR pszURL);
 
 protected:
-	// Is file a video, audio or image file?
+	// Is video, audio, or image file?
 	static void DetectFileType(LPCTSTR pszFile, LPCTSTR szType, bool& bVideo, bool& bAudio, bool& bImage);
 
 	// Extract custom mediaplayers from settings

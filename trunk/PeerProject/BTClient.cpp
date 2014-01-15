@@ -1,7 +1,7 @@
 //
 // BTClient.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -710,14 +710,18 @@ CString CBTClient::GetUserAgentAzureusStyle(LPBYTE pVendor, size_t nVendor)
 		Vendors[ L"CD" ] = L"CTorrent";	// "Enhanced"
 		Vendors[ L"CT" ] = L"CTorrent";
 		Vendors[ L"DE" ] = L"DelugeTorrent";
+		Vendors[ L"DP" ] = L"Propogate";
 		Vendors[ L"EB" ] = L"EBit";
 		Vendors[ L"ES" ] = L"Electric Sheep";
 		Vendors[ L"FC" ] = L"FileCroc";
 		Vendors[ L"FG" ] = L"FlashGet";	// vXX.XX
+		Vendors[ L"FT" ] = L"FoxTorrent";
 		Vendors[ L"GR" ] = L"GetRight";
+		Vendors[ L"GS" ] = L"GSTorrent";
 		Vendors[ L"HK" ] = L"Hekate";
 		Vendors[ L"HL" ] = L"Halite";
 		Vendors[ L"HN" ] = L"Hydranode";
+		Vendors[ L"KG" ] = L"KGet";
 		Vendors[ L"KT" ] = L"KTorrent";
 		Vendors[ L"LC" ] = L"Leechcraft";
 		Vendors[ L"LH" ] = L"LH-ABC";
@@ -731,6 +735,7 @@ CString CBTClient::GetUserAgentAzureusStyle(LPBYTE pVendor, size_t nVendor)
 		Vendors[ L"MO" ] = L"Mono Torrent";
 		Vendors[ L"MP" ] = L"MooPolice";
 		Vendors[ L"MT" ] = L"Moonlight";
+		Vendors[ L"NX" ] = L"NetTransport";
 		Vendors[ L"OS" ] = L"OneSwarm";
 		Vendors[ L"PC" ] = L"CacheLogic";
 		Vendors[ L"PD" ] = L"Pando";
@@ -743,6 +748,7 @@ CString CBTClient::GetUserAgentAzureusStyle(LPBYTE pVendor, size_t nVendor)
 		Vendors[ L"QT" ] = L"QT4";
 		Vendors[ L"RT" ] = L"Retriever";
 		Vendors[ L"SB" ] = L"SwiftBit";
+		Vendors[ L"SD" ] = L"Xunlei (SD)";
 		Vendors[ L"SM" ] = L"SoMud";
 		Vendors[ L"SN" ] = L"ShareNet";
 		Vendors[ L"SS" ] = L"Swarmscope";
@@ -755,8 +761,10 @@ CString CBTClient::GetUserAgentAzureusStyle(LPBYTE pVendor, size_t nVendor)
 		Vendors[ L"TS" ] = L"TorrentStorm";
 		Vendors[ L"TT" ] = L"TuoTu";
 		Vendors[ L"UL" ] = L"uLeecher";
-		Vendors[ L"UM" ] = L"\x00B5Torrent mac";
+		Vendors[ L"UM" ] = L"\x00B5Torrent Mac";
 		Vendors[ L"UT" ] = L"\x00B5Torrent";
+		Vendors[ L"VG" ] = L"Vagaa";
+		Vendors[ L"WT" ] = L"BitLet";
 		Vendors[ L"WY" ] = L"FireTorrent";
 		Vendors[ L"XC" ] = L"XC ";		// ?
 		Vendors[ L"XL" ] = L"Xunlei";
@@ -1404,7 +1412,6 @@ BOOL CBTClient::OnMetadataRequest(CBTPacket* pPacket)
 	return TRUE;
 }
 
-
 // uTorrent Peer-Exchange
 // The PEX message payload is a bencoded dictionary with three keys:
 //
@@ -1451,10 +1458,9 @@ void CBTClient::SendUtPex(DWORD tConnectedAfter)
 
 		if ( nFlagInBytePos == 0 )
 		{
-			DWORD nLength = nPeersCount / 4 + 1;
-			pAddedFlagsBuffer.EnsureBuffer( nLength );
-			pAddedFlagsBuffer.m_nLength = nLength;
-			pnFlagsByte = &pAddedFlagsBuffer.m_pBuffer[nLength - 1];
+			pAddedFlagsBuffer.EnsureBuffer( 1 );
+			pnFlagsByte = pAddedFlagsBuffer.GetDataEnd();
+			pAddedFlagsBuffer.m_nLength += 1;
 			*pnFlagsByte = 0;
 		}
 
@@ -1466,8 +1472,8 @@ void CBTClient::SendUtPex(DWORD tConnectedAfter)
 		CBTPacket* pResponse = CBTPacket::New( BT_PACKET_EXTENSION, m_nUtPexID );
 		CBENode* pRoot = pResponse->m_pNode.get();
 
-		pRoot->Add( BT_DICT_ADDED )->SetString( pAddedBuffer.m_pBuffer, pAddedBuffer.m_nLength );	// "added"
-		pRoot->Add( BT_DICT_ADDED_F )->SetString( pAddedFlagsBuffer.m_pBuffer, pAddedFlagsBuffer.m_nLength );	// "added.f"
+		pRoot->Add( BT_DICT_ADDED )->SetString( pAddedBuffer.GetData(), pAddedBuffer.GetCount() );	// "added"
+		pRoot->Add( BT_DICT_ADDED_F )->SetString( pAddedFlagsBuffer.GetData(), pAddedFlagsBuffer.GetCount() );	// "added.f"
 
 		Send( pResponse );
 	}

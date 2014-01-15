@@ -3,12 +3,12 @@
 
 <!-- PeerProject Default Italian Skin File -->
 
-<!-- Translation based on default-en.xml r100 -->
+<!-- Translation based on default-en.xml r102 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
-<!-- however be sure to include only sections that are changed.  -->
+<!-- however be sure to include only sections that are changed:  -->
 <!-- Unedited English content limits compatibility & performance.-->
 <!-- Better to be concise than literal:  Please test visibility! -->
 
@@ -342,7 +342,7 @@
 	</toolbar>
 	<!-- IRC WINDOW -->
 	<toolbar name="CIRCFrame">
-		<button id="ID_IRC_SENDTEXT" text="Send" tip="Post Your Comments"/>
+		<button id="ID_IRC_SENDTEXT" text="Send" tip="Post Commenti"/>
 		<separator/>
 		<button id="ID_IRC_CLOSETAB" text="Rimuovi" tip="Exit Current Channel Window"/>
 		<rightAlign/>
@@ -968,7 +968,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episodi della stessa serie"/>
 		</menu>
 		<menu text="Servizi web">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Visualizza la ricerca su Bitzi"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Visualizza la ricerca su Bitprint"/>
 			<item id="ID_SEARCH_URI" text="Copia URI..."/>
 		</menu>
 	</menu>
@@ -990,7 +990,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episodi della stessa serie"/>
 		</menu>
 		<menu text="Servizi web">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Visualizza la ricerca su Bitzi"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Visualizza la ricerca su Bitprint"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="Filtra i risultati..."/>
@@ -1014,7 +1014,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episodi della stessa serie"/>
 		</menu>
 		<menu text="Informazioni file sul web">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Visualizza la ricerca su Bitzi"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Visualizza la ricerca su Bitprint"/>
 			<item id="ID_SEARCH_URI" text="Copia URI..."/>
 		</menu>
 	</menu>
@@ -1034,7 +1034,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episodi della stessa serie"/>
 		</menu>
 		<menu text="Servizi web">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Visualizza la ricerca su Bitzi"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Visualizza la ricerca su Bitprint"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="Filtra i risultati..."/>
@@ -1059,7 +1059,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episodi della stessa serie"/>
 		</menu>
 		<menu text="Servizi web">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Visualizza la ricerca su Bitzi"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Visualizza la ricerca su Bitprint"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="Filtra i risultati..."/>
@@ -1293,8 +1293,8 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episodi della stessa serie"/>
 		</menu>
 		<menu text="Servizi web">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Visualizza la ricerca su Bitzi"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Scarica metadata"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Visualizza la ricerca su Bitprint"/>
+			<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="Scarica metadata"/>
 		</menu>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="Proprietà"/>
@@ -1326,8 +1326,8 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episodi della stessa serie"/>
 		</menu>
 		<menu text="Servizi web">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Visualizza la ricerca su _Bitzi"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Acquisisci metadata"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Visualizza la ricerca su _Bitprint"/>
+			<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="_Acquisisci metadata"/>
 		</menu>
 		<menu text="_Metadata">
 			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
@@ -1605,7 +1605,7 @@
 		</menu>
 	</menu>
 	<menu name="WebServices.List.Menu">
-		<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Bitzi"/>
+		<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="_Bitprint"/>
 		<item id="ID_WEBSERVICES_MUSICBRAINZ" text="_MusicBrainz"/>
 		<!--item id="ID_WEBSERVICES_SHAREMONKEY" text="_ShareMonkey"-->
 	</menu>
@@ -2364,10 +2364,8 @@
 	<tip id="ID_HELP_WEB_2" message="Visita questo sito web"/>
 	<tip id="ID_HELP_WEB_3" message="Visita questo sito web"/>
 	<tip id="ID_HELP_WEB_4" message="Visita questo sito web"/>
-	<tip id="ID_HELP_WEB_5" message="Visita questo sito web"/>
-	<tip id="ID_HELP_WEB_6" message="Visita questo sito web"/>
 	<tip id="ID_HELP_DONATE" message="Se lo desideri, puoi donarci dei fondi e dimostrare il tuo apprezzamento."/>
-	<tip id="ID_HELP_FAKESHAREAZA" message="Traduci FakePeerProject.com per saperne di più sui recenti avvenimenti."/>
+	<!--tip id="ID_HELP_FAKESHAREAZA" message="Traduci FakePeerProject.com per saperne di più sui recenti avvenimenti."-->
 	<tip id="ID_HITMONITOR_CLEAR" message="Pulisci la memoria del monitor dei file più richiesti."/>
 	<tip id="ID_HITMONITOR_PAUSE" message="Sospendi il monitor dei file più richiesti."/>
 	<tip id="ID_HITMONITOR_SEARCH" message="Cerca nella rete le parole selezionate."/>
@@ -2385,8 +2383,8 @@
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="Elimina la cartella album selezionata."/>
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="Apri la cartella album selezionata."/>
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="Visualizza e modifica le proprietà della cartella album selezionata..."/>
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Scarica i metadata dei file selezionati da Bitzi™..."/>
-	<tip id="ID_LIBRARY_BITZI_WEB" message="Visualizza la ricerca dei file selezionati su Bitzi™."/>
+	<tip id="ID_LIBRARY_BITPRINT_DOWNLOAD" message="Scarica i metadata dei file selezionati da Bitprint..."/>
+	<tip id="ID_LIBRARY_BITPRINT_WEB" message="Visualizza la ricerca dei file selezionati su Bitprint."/>
 	<tip id="ID_LIBRARY_COLUMNS" message="Seleziona le colonne metadata da mostrare..."/>
 	<tip id="ID_LIBRARY_COPY" message="Copia i file selezionati in un'altra cartella della libreria..."/>
 	<tip id="ID_LIBRARY_CREATETORRENT" message="Crea un .torrent per questo file da uplodare in un sito web."/>
@@ -2605,7 +2603,7 @@
 <!-- Tips displayed when mouse is moved over controls in the dialogs -->
 <controlTips>
 	<tip id="IDC_THROTTLE_MODE" message="Nella modalità Massimo la larghezza di banda non supererà il valore specificato. Nella modalità Medio oscillerà intorno al valore in entrambi i lati."/>
-	<tip id="IDC_SHARE_PARTIALS" message="Questa opzione non ha effetto sui download iniziati precedentemente, inoltre è ignorata se il file ha l'hash eDonkey e la rete eDonkey è abilitata o se è un torrent.{n}Tuttavia questa opzione non è ignorata se il download è in pausa.{n}{n}ATTENZIONE: Usa questa opzione soltanto in caso di reale necessità, se abusi dell'opzione puoi essere bannato."/>
+	<tip id="IDC_SHARE_PARTIALS" message="Questa opzione non ha effetto sui download iniziati precedentemente, inoltre è ignorata se il file ha l'hash eDonkey e la rete eDonkey è abilitata o se è un torrent.{n}Tuttavia questa opzione non è ignorata se il download è in pausa.{n}{n}Attenzione: Usa questa opzione soltanto in caso di reale necessità, se abusi dell'opzione puoi essere bannato."/>
 	<tip id="IDC_REGEXP" message="Inserisci espressioni regolari nella sintassi perl.{n}Le chiavi di ricerca possono essere specificate nella forma di &lt;n&gt;, dove n è un numero compreso da 1 a 9. Se vuoi porre tutte le parole chiave dopo le altre, usa questi &lt;_&gt; identificatori."/>
 </controlTips>
 <!-- Localized Strings -->
@@ -2851,7 +2849,7 @@
 	<string id="20290" value="L'host di download %s ha risposto con un differente, ma utile range (%I64i-%I64i) di &quot;%s&quot;."/>
 	<string id="20291" value="GIV sconosciuto da %s ricevuto."/>
 	<string id="20292" value="Risorsa %s (%s) per l'invio di parti corrotte di &quot;%s&quot; (%I64i-%I64i) bloccata."/>
-	<string id="20293" value="ATTENZIONE: Verifica fallita per il download di &quot;%s&quot;, potrebbe non essere il file che volevi scaricare."/>
+	<string id="20293" value="Attenzione: Verifica fallita per il download di &quot;%s&quot;, potrebbe non essere il file che volevi scaricare."/>
 	<string id="20294" value="Download di &quot;%s&quot; verificato con successo."/>
 	<string id="20295" value="L'host di download %s's versione di &quot;%s&quot; ha un differente SHA1, azione annullata."/>
 	<string id="20296" value="L'host di download %s ha risposto con un inutilizzabile byte range di &quot;%s&quot;, in attesa."/>
@@ -3001,7 +2999,7 @@
 	<string id="20446" value="Il file &quot;%s&quot; ha fallito il test di verifica dell'hash e potrebbe non essere il file che intendevi scaricare. Desideri aprirlo comunque?"/>
 	<string id="20447" value="Desideri rimuovere l'attributo &quot;potenzialmente non sicuro&quot; da questo file?"/>
 	<string id="20448" value="Il file &quot;%s&quot; non ha subito il processo di hash. Attendi che il file abbia subito il processo di hash, poi prova ancora."/>
-	<string id="20449" value="Questa opzione utilizza i servizi di Bitzi.com per il riconoscimento e la condivisione delle informazioni sui file selezionati.\n\nPeerProject trasmetterà il codice hash SHA1 per i file selezionati per poter effettuare richieste al database di Bitzi. Se non conosci le condizioni sulla privacy, consultale su Bitzi.com.\n\nDesideri continuare?"/>
+	<string id="20449" value="Questa opzione utilizza i servizi di peerproject.org/bitprint per il riconoscimento e la condivisione delle informazioni sui file selezionati.\n\nPeerProject trasmetterà il codice hash SHA1 per i file selezionati per poter effettuare richieste al database di Bitprint. Se non conosci le condizioni sulla privacy, consultale su peerproject.org/bitprint.\n\nDesideri continuare?"/>
 	<string id="20450" value="Una sottocartella della cartella selezionata &quot;%s&quot; è già parte della tua libreria.nAggiungere questa cartella causerà il re-hashing di alcuni file.\n\nVuoi continuare?"/>
 	<string id="20451" value="Nessun file in riproduzione. Fai doppio click su un file multimediale della tua libreria per riprodurlo."/>
 	<string id="20452" value="Tutti i file multimediali|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Playlist|*.asx;*.wax;*.m3u;*.wvx;*.wmx|File audio|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|File video|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Tracce CD audio|*.cda|File MIDI|*.mid;*.rmi;*.midi|Tutti i file|*.*||"/>
@@ -3860,7 +3858,7 @@
 		<control/>
 		<control caption="_Aggiungi..."/>
 		<control caption="_Rimuovi"/>
-		<control caption="ATTENZIONE: Distribuire opere soggette a copyright è un reato in molti paesi."/>
+		<control caption="Attenzione: Distribuire opere soggette a copyright è un reato in molti paesi."/>
 	</dialog>
 	<dialog name="CFolderScanDlg" cookie="StStStStStStBu" caption="Scansione cartella...">
 		<control/>
@@ -3892,7 +3890,7 @@
 		<control/>
 		<control caption="Locale:"/>
 		<control/>
-		<control caption="Comments:"/>
+		<control caption="Commenti:"/>
 		<control/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="Benvenuto su PeerProject (8/8)">
@@ -4322,13 +4320,13 @@
 		<control caption="_Utilizza questa scelta in futuro"/>
 		<control caption="Apri finestra _monitor del download"/>
 	</dialog>
-	<dialog name="CBitziDownloadDlg" cookie="StStmsBuSySt" caption="Trasferimento metadata...">
+	<dialog name="CBitprintDownloadDlg" cookie="StStmsBuSySt" caption="Trasferimento metadata...">
 		<control/>
-		<control caption="PeerProject sta tentando di scaricare i metadata da Bitzi..."/>
+		<control caption="PeerProject sta tentando di scaricare i metadata da Bitprint..."/>
 		<control/>
 		<control caption="Annulla"/>
 		<control/>
-		<control caption="www.bitzi.com"/>
+		<control caption="peerproject.org/bitprint"/>
 	</dialog>
 	<dialog name="CFilePreviewDlg" cookie="StStStmsStBu" caption="Anteprima download...">
 		<control/>
@@ -4461,7 +4459,7 @@
 		<control caption="Note:"/>
 	</dialog>
 	<dialog name="CDownloadEditPage" cookie="StBuStStStStBuStEdEdEdSyBuEdBuEdBuEdBuEdBuEd" caption="Generale">
-		<control caption="ATTENZIONE: Questa finestra fornisce funzionalità di modifica dei download avanzate per utenti esperti e se usata in modo errato può causare danni."/>
+		<control caption="Attenzione: Questa finestra fornisce funzionalità di modifica dei download avanzate per utenti esperti e se usata in modo errato può causare danni."/>
 		<control caption="Nome e dimensione:"/>
 		<control caption="Nome del file:"/>
 		<control caption="File:"/>
@@ -4485,7 +4483,7 @@
 		<control/>
 	</dialog>
 	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="Azioni">
-		<control caption="ATTENZIONE: Questa finestra fornisce funzionalità di modifica dei download avanzate per utenti esperti e se usata in modo errato può causare danni."/>
+		<control caption="Attenzione: Questa finestra fornisce funzionalità di modifica dei download avanzate per utenti esperti e se usata in modo errato può causare danni."/>
 		<control caption="Rimuovi tutte le fonti conosciute"/>
 		<control caption="Azzera stato di verifica attuale e verifica di nuovo"/>
 		<control caption="Simula il file completo al 100% e verifica di nuovo"/>

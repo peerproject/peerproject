@@ -15,8 +15,6 @@
 
 class Rijndael
 {
-  public:
-    enum Direction { Encrypt , Decrypt };
   private:
     void keySched(byte key[_MAX_KEY_COLUMNS][4]);
     void keyEncToDec();
@@ -24,12 +22,12 @@ class Rijndael
     void decrypt(const byte a[16], byte b[16]);
     void GenerateTables();
 
-    Direction m_direction;
+    int      m_uRounds;
     byte     m_initVector[MAX_IV_SIZE];
     byte     m_expandedKey[_MAX_ROUNDS+1][4][4];
   public:
     Rijndael();
-    void init(Direction dir,const byte *key,byte *initVector);
+    void Init(bool Encrypt,const byte *key,uint keyLen,const byte *initVector);
     size_t blockEncrypt(const byte *input, size_t inputLen, byte *outBuffer);
     size_t blockDecrypt(const byte *input, size_t inputLen, byte *outBuffer);
 };

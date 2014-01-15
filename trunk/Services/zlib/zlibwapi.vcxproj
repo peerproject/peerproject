@@ -257,7 +257,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="crc32.h" />
-    <ClInclude Include="crypt.h" />
     <ClInclude Include="deflate.h" />
     <ClInclude Include="gzguts.h" />
     <ClInclude Include="inffast.h" />

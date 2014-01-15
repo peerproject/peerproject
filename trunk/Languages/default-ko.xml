@@ -3,12 +3,12 @@
 
 <!-- PeerProject Korean Language Skin File -->
 
-<!-- Translation based on default-en.xml r100 --> <!--Machine Translated!-->
+<!-- Translation based on default-en.xml r102 --> <!--Machine Translated!-->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
-<!-- however be sure to include only sections that are changed.  -->
+<!-- however be sure to include only sections that are changed:  -->
 <!-- Unedited English content limits compatibility & performance.-->
 <!-- Better to be concise than literal:  Please test visibility! -->
 
@@ -355,7 +355,7 @@
 	</toolbar>
 	<!-- IRC WINDOW -->
 	<toolbar name="CIRCFrame">
-		<button id="ID_IRC_SENDTEXT" text="Send" tip="Post Your Comments"/>
+		<button id="ID_IRC_SENDTEXT" text="Send" tip="Post 댓글"/>
 		<separator/>
 		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
 			<rightAlign/>
@@ -592,10 +592,9 @@
 					<separator/>
 					<item id="ID_HELP_FORUMS" text="PeerProject 포럼"/>
 					<item id="ID_HELP_VERSION_CHECK" text="새 버전에 대한 확인"/>
-					<!-- <item id="ID_HELP_DONATE" text="기부 PeerProject로"/>
 					<item id="ID_HELP_WEB_SKINS" text="PeerProject 스킨 사이트"/>
-					<item id="ID_HELP_FAKESHAREAZA" text="가짜 FakeSharea_za.com"/>
-					<item id="ID_HELP_UPDATE" text="최신 뉴스"/>
+					<item id="ID_HELP_DONATE" text="기부 PeerProject로"/>
+					<!-- <item id="ID_HELP_UPDATE" text="최신 뉴스"/>
 					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 					<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
 				</menu>
@@ -701,8 +700,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject 포럼"/>
 				<item id="ID_HELP_WEB_SKINS" text="PeerProject스킨 사이트"/>
-				<item id="ID_HELP_FAKESHAREAZA" text="가짜 FakeSharea_za.com"/> <!--
-				<item id="ID_HELP_UPDATE" text="최신 뉴스"/>
+				<!-- <item id="ID_HELP_UPDATE" text="최신 뉴스"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
 			</menu>
@@ -774,8 +772,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject 포럼"/>
 				<item id="ID_HELP_WEB_SKINS" text="PeerProject 스킨 사이트"/>
-				<item id="ID_HELP_FAKESHAREAZA" text="가짜 FakeSharea_za.com"/> <!--
-				<item id="ID_HELP_UPDATE" text="최신 뉴스"/>
+				<!-- <item id="ID_HELP_UPDATE" text="최신 뉴스"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
 			</menu>
@@ -873,8 +870,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject 포럼"/>
 				<item id="ID_HELP_WEB_SKINS" text="PeerProject 스킨 사이트"/>
-				<item id="ID_HELP_FAKESHAREAZA" text="가짜 FakeSharea_za.com"/> <!--
-				<item id="ID_HELP_UPDATE" text="최신 뉴스"/>
+				<!-- <item id="ID_HELP_UPDATE" text="최신 뉴스"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
 			</menu>
@@ -1008,7 +1004,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episodes in the same Series"/>
 		</menu>
 		<menu text="_Web Services">
-			<item id="ID_LIBRARY_BITZI_WEB" text="View _Bitzi Ticket"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="View Bitprint listing"/>
 			<item id="ID_SEARCH_URI" text="Get P2P Link (_URI)"/>
 		</menu>
 	</menu>
@@ -1030,7 +1026,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episodes in the same Series"/>
 		</menu>
 		<menu text="_Web Services">
-			<item id="ID_LIBRARY_BITZI_WEB" text="View _Bitzi Ticket"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="View Bitprint listing"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Filter Results..."/>
@@ -1054,7 +1050,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episodes in the same Series"/>
 		</menu>
 		<menu text="_Web File Info">
-			<item id="ID_LIBRARY_BITZI_WEB" text="View _Bitzi Ticket"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="View Bitprint listing"/>
 			<item id="ID_SEARCH_URI" text="Get P2P Link (_URI)"/>
 		</menu>
 	</menu>
@@ -1074,7 +1070,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episodes in the same Series"/>
 		</menu>
 		<menu text="_Web Services">
-			<item id="ID_LIBRARY_BITZI_WEB" text="View _Bitzi Ticket"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="View Bitprint listing"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Filter Results..."/>
@@ -1099,7 +1095,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episodes in the same Series"/>
 		</menu>
 		<menu text="_Web Services">
-			<item id="ID_LIBRARY_BITZI_WEB" text="View _Bitzi Ticket"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="View Bitprint listing"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Filter Results..."/>
@@ -1366,8 +1362,8 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episodes in the same Series"/>
 		</menu>
 		<menu text="We_b Services">
-			<item id="ID_LIBRARY_BITZI_WEB" text="View _Bitzi Ticket"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="다운로드 메타"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="View Bitprint listing"/>
+			<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="다운로드 메타"/>
 		</menu>
 		<menu text="_Metadata"> <!--메타 데이터-->
 			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
@@ -2044,7 +2040,7 @@
 	<string id="20446" value="The file &quot;%s&quot; failed a hash verification test, and might not be the file you intended to download. Are you sure you want to open it?"/>
 	<string id="20447" value="Would you like to remove the &quot;potentially unsafe&quot; attribute from this file?"/>
 	<string id="20448" value="The file &quot;%s&quot; has not yet been hashed. Please wait for the file to be hashed, and then try again."/>
-	<string id="20449" value="This option uses services provided by Bitzi.com for recognising and sharing information about selected files.\n\nPeerProject will transmit the SHA1 hash code for the selected file(s) in order to query the Bitzi database. If you are concerned about privacy, you may wish to consult the Bitzi.com privacy policy.\n\nWould you like to proceed?"/>
+	<string id="20449" value="This option uses services provided by peerproject.org/bitprint for recognising and sharing information about selected files.\n\nPeerProject will transmit the SHA1 hash code for the selected file(s) in order to query the Bitprint database. If you are concerned about privacy, you may wish to consult the peerproject.org/bitprint privacy policy.\n\nWould you like to proceed?"/>
 	<string id="20450" value="A subfolder of the selected folder &quot;%s&quot; is already part of your library.nAdding this folder will cause re-hashing of some files.\n\nDo you want to continue ?"/>
 	<string id="20451" value="아니 파일을 재생합니다. 미디어를 클릭하여 라이브러리에서 파일을 재생할 수있습니다."/>
 	<string id="20452" value="All Media Files|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Playlists|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Audio Files|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Video Files|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD Audio Tracks|*.cda|MIDI Files|*.mid;*.rmi;*.midi|All Files|*.*||"/>
@@ -2805,7 +2801,7 @@
 		<control/>
 		<control caption="Locale:"/>
 		<control/>
-		<control caption="Comments:"/>
+		<control caption="댓글:"/>
 		<control/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="피어 프로젝트에 오신 것을 환영합니다 (8/8)">
@@ -2962,14 +2958,14 @@
 		<control/>
 		<control/>
 	</dialog>
-<!--	<dialog name="CFileCommentsPage" cookie="StStCoStEdEd" caption="Comments">
+	<dialog name="CFileCommentsPage" cookie="StStCoStEdEd" caption="댓글">
 		<control caption="My Rating"/>
 		<control caption="I rate this file:"/>
 		<control caption="(No Rating)|Fake/Corrupt/Misleading|Poor|Average|Good|Very Good|Excellent"/>
-		<control caption="My Review and Comments"/>
+		<control caption="My Review / 댓글"/>
 		<control/>
 		<control/>
-	</dialog> -->
+	</dialog>
 <!--	<dialog name="CFileSharingPage" cookie="EdStBuBuBuStCo" caption="Sharing">
 		<control/>
 		<control caption="Simple Sharing"/>
@@ -3160,13 +3156,13 @@
 		<control caption="Remember my selection next time"/>
 		<control caption="Open a download monitor window"/>
 	</dialog>
-	<dialog name="CBitziDownloadDlg" cookie="StStmsBuSySt" caption="Downloading Metadata...">
+	<dialog name="CBitprintDownloadDlg" cookie="StStmsBuSySt" caption="Downloading Metadata...">
 		<control/>
-		<control caption="PeerProject is attempting to download metadata from Bitzi..."/>
+		<control caption="PeerProject is attempting to download metadata from Bitprint..."/>
 		<control/>
 		<control caption="취소"/>
 		<control/>
-		<control caption="www.bitzi.com"/>
+		<control caption="peerproject.org/bitprint"/>
 	</dialog>
 	<dialog name="CFilePreviewDlg" cookie="StStStmsStBu" caption="Smart Download Preview...">
 		<control/>
@@ -3292,7 +3288,7 @@
 		<control caption="이름:"/>
 		<control caption="Created:"/>
 		<control caption="By:"/>
-		<control caption="Comments:"/>
+		<control caption="댓글:"/>
 		<control caption="Transfers:"/>
 		<control caption="Start new download transfers:"/>
 		<control caption="Total Uploaded:"/>

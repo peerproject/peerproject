@@ -3,12 +3,12 @@
 
 <!-- PeerProject Default Japanese Skin File -->
 
-<!-- Translation based on default-en.xml r100 --> <!-- (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r102 --> <!-- (Shareaza 2.2.0.2) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
-<!-- however be sure to include only sections that are changed.  -->
+<!-- however be sure to include only sections that are changed:  -->
 <!-- Unedited English content limits compatibility & performance.-->
 <!-- Better to be concise than literal:  Please test visibility! -->
 
@@ -349,7 +349,7 @@
 	</toolbar>
 	<!-- IRC WINDOW -->
 	<toolbar name="CIRCFrame">
-		<button id="ID_IRC_SENDTEXT" text="チャット" tip="Post Your Comments"/>
+		<button id="ID_IRC_SENDTEXT" text="チャット" tip="Post コメント"/>
 		<separator/>
 		<button id="ID_IRC_CLOSETAB" text="削除" tip="Exit Current Channel Window"/>
 		<rightAlign/>
@@ -921,7 +921,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="同じシリーズのエピソード"/>
 		</menu>
 		<menu text="ウェブサービス">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Bitzi Ticketを表示"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Bitprint Ticketを表示"/>
 			<item id="ID_SEARCH_URI" text="URIをコピー..."/>
 		</menu>
 	</menu>
@@ -943,7 +943,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="同じシリーズのエピソード"/>
 		</menu>
 		<menu text="ウェブサービス">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Bitzi Ticketを表示"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Bitprint Ticketを表示"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="フィルタ結果..."/>
@@ -967,7 +967,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="同じシリーズのエピソード"/>
 		</menu>
 		<menu text="ウェブファイル情報">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Bitzi Ticketを表示"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Bitprint Ticketを表示"/>
 			<item id="ID_SEARCH_URI" text="URIをコピー..."/>
 		</menu>
 	</menu>
@@ -987,7 +987,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="同じシリーズのエピソード"/>
 		</menu>
 		<menu text="ウェブサービス">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Bitzi Ticketを表示"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Bitprint Ticketを表示"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="フィルタ結果..."/>
@@ -1012,7 +1012,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="同じシリーズのエピソード"/>
 		</menu>
 		<menu text="ウェブサービス">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Bitzi Ticketを表示"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Bitprint Ticketを表示"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="フィルタ結果..."/>
@@ -1246,8 +1246,8 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="同じシリーズのエピソード"/>
 		</menu>
 		<menu text="ウェブサービス">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Bitzi Ticketを表示"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="メタデータをダウンロード"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Bitprint Ticketを表示"/>
+			<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="メタデータをダウンロード"/>
 			<separator/>
 			<item id="ID_LIBRARY_URI" text="_URI"/>
 		</menu>
@@ -1281,8 +1281,8 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="同じシリーズのエピソード"/>
 		</menu>
 		<menu text="ウェブサービス">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Bitzi Ticketを表示"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="メタデータを取得"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Bitprint Ticketを表示"/>
+			<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="メタデータを取得"/>
 		</menu>
 		<menu text="_Metadata">
 			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
@@ -2251,8 +2251,6 @@
 	<tip id="ID_HELP_WEB_2" message="このウェブサイトを訪問します"/>
 	<tip id="ID_HELP_WEB_3" message="このウェブサイトを訪問します"/>
 	<tip id="ID_HELP_WEB_4" message="このウェブサイトを訪問します"/>
-	<tip id="ID_HELP_WEB_5" message="このウェブサイトを訪問します"/>
-	<tip id="ID_HELP_WEB_6" message="このウェブサイトを訪問します"/>
 	<tip id="ID_HITMONITOR_CLEAR" message="ヒットモニタのバッファをクリアします"/>
 	<tip id="ID_HITMONITOR_PAUSE" message="ヒットモニタを一時停止します"/>
 	<tip id="ID_HITMONITOR_SEARCH" message="ネットワークで選択した項目を検索します"/>
@@ -2270,8 +2268,8 @@
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="選択したアルバムフォルダを削除します"/>
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="選択したアルバムフォルダを開きます"/>
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="選択したアルバムフォルダのプロパティを表示・編集します..."/>
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Bitzi™から選択したファイル用のメタデータをダウンロードします..."/>
-	<tip id="ID_LIBRARY_BITZI_WEB" message="ウェブ上で選択したファイル用のBitzi™ ticketを表示します"/>
+	<tip id="ID_LIBRARY_BITPRINT_DOWNLOAD" message="Bitprintから選択したファイル用のメタデータをダウンロードします..."/>
+	<tip id="ID_LIBRARY_BITPRINT_WEB" message="ウェブ上で選択したファイル用のBitprint ticketを表示します"/>
 	<tip id="ID_LIBRARY_COLUMNS" message="表示するメタデータカラムを選択します..."/>
 	<tip id="ID_LIBRARY_COPY" message="選択したファイルを別のライブラリフォルダにコピーします..."/>
 	<tip id="ID_LIBRARY_CREATETORRENT" message="ウェブサイトへアップロードするための.torrentファイルを作成します"/>
@@ -2848,7 +2846,7 @@
 	<string id="20446" value="ファイル &quot;%s&quot; はハッシュ検証テストに失敗しました。 これはあなたが要求したファイルではない可能性があります。 ファイルを開いて宜しいですか?"/>
 	<string id="20447" value="このファイルから&quot;潜在的に危険のある&quot;属性を取り除きますか?"/>
 	<string id="20448" value="ファイル &quot;%s&quot; はまだハッシュされていません。 ファイルがハッシュされるまで待ってから再試行して下さい"/>
-	<string id="20449" value="このオプション選択されたファイルに関する識別・共有情報が提供されるBitzi.comのサービスを使用します\n\nPeerProjectは選択したファイルのためにBitziデータベースにSHA1ハッシュコードを送信して問い合わせます。 プライバシーが心配ならBitzi.comプライバシーポリシーを参照できます\n\n続けて宜しいですか?"/>
+	<string id="20449" value="このオプション選択されたファイルに関する識別・共有情報が提供されるpeerproject.org/bitprintのサービスを使用します\n\nPeerProjectは選択したファイルのためにBitprintデータベースにSHA1ハッシュコードを送信して問い合わせます。 プライバシーが心配ならpeerproject.org/bitprintプライバシーポリシーを参照できます\n\n続けて宜しいですか?"/>
 	<string id="20450" value="選択したフォルダ &quot;%s&quot; のサブフォルダが既にライブラリ内に存在します。nこのフォルダを追加すればいくつかのファイルを再ハッシュする可能性があります。\n\nこのまま続けて宜しいですか?"/>
 	<string id="20451" value="再生中のファイルはありません。 ライブラリ内のメディアファイルをダブルクリックすれば再生できます"/>
 	<string id="20452" value="全てのメディアファイル|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|再生リスト|*.asx;*.wax;*.m3u;*.wvx;*.wmx|オーディオファイル|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|ビデオファイル|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CDオーディオトラック|*.cda|MIDIファイル|*.mid;*.rmi;*.midi|全てのファイル|*.*||"/>
@@ -3689,7 +3687,7 @@
 		<control/>
 		<control caption="Locale:"/>
 		<control/>
-		<control caption="Comments:"/>
+		<control caption="コメント:"/>
 		<control/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="PeerProjectへようこそ (8/8)">
@@ -4118,13 +4116,13 @@
 		<control caption="この選択を記憶(_R)"/>
 		<control caption="ﾀﾞｳﾝﾛｰﾄﾞﾓﾆﾀｳｨﾝﾄﾞｳを開く(_M)"/>
 	</dialog>
-	<dialog name="CBitziDownloadDlg" cookie="StStmsBuSySt" caption="メタデータをダウンロード中...">
+	<dialog name="CBitprintDownloadDlg" cookie="StStmsBuSySt" caption="メタデータをダウンロード中...">
 		<control/>
-		<control caption="PeerProjectはBitziからメタデータのダウンロードしようとしています..."/>
+		<control caption="PeerProjectはBitprintからメタデータのダウンロードしようとしています..."/>
 		<control/>
 		<control caption="キャンセル"/>
 		<control/>
-		<control caption="www.bitzi.com"/>
+		<control caption="peerproject.org/bitprint"/>
 	</dialog>
 	<dialog name="CFilePreviewDlg" cookie="StStStmsStBu" caption="ダウンロードプレビュー...">
 		<control/>

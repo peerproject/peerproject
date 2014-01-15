@@ -1,7 +1,7 @@
 //
 // PageFinished.cpp
 //
-// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2012
+// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2014
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
@@ -29,11 +29,7 @@
 #include "PageSingle.h"
 #include "PageExpert.h"
 #include "PageWelcome.h"
-#ifdef _PORTABLE
-#include "Portable\TorrentBuilder.h"
-#else
 #include "TorrentBuilder.h"
-#endif
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -44,7 +40,6 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNCREATE(CFinishedPage, CWizardPage)
 
 BEGIN_MESSAGE_MAP(CFinishedPage, CWizardPage)
-	//{{AFX_MSG_MAP(CFinishedPage)
 	ON_BN_CLICKED(IDC_ABORT, OnAbort)
 	ON_BN_CLICKED(IDC_TORRENT_COPY, OnTorrentCopy)
 	ON_BN_CLICKED(IDC_TORRENT_OPEN, OnTorrentOpen)
@@ -52,7 +47,6 @@ BEGIN_MESSAGE_MAP(CFinishedPage, CWizardPage)
 	ON_WM_XBUTTONDOWN()
 	ON_WM_TIMER()
 	ON_WM_HSCROLL()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -75,7 +69,6 @@ void CFinishedPage::DoDataExchange(CDataExchange* pDX)
 {
 	CWizardPage::DoDataExchange(pDX);
 
-	//{{AFX_DATA_MAP(CFinishedPage)
 	DDX_Control(pDX, IDC_ABORT, m_wndAbort);
 	DDX_Control(pDX, IDC_TORRENT_NAME, m_wndTorrentName);
 	DDX_Control(pDX, IDC_TORRENT_COPY, m_wndTorrentCopy);
@@ -89,7 +82,6 @@ void CFinishedPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_FILE_NAME, m_wndFileName);
 	DDX_Control(pDX, IDC_DONE_2, m_wndDone2);
 	DDX_Control(pDX, IDC_DONE_1, m_wndDone1);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -129,6 +121,8 @@ void CFinishedPage::Start()
 
 	GET_PAGE( CCommentPage, pComment );
 	m_pBuilder->SetComment( pComment->m_sComment );
+//	m_pBuilder->SetSource( pComment->m_sSource );
+	m_pBuilder->SetPrivate( pComment->m_bPrivate );
 
 	GET_PAGE( CWelcomePage, pWelcome );
 

@@ -3,12 +3,12 @@
 
 <!-- PeerProject Default Albanian Skin File -->
 
-<!-- Translation based on default-en.xml r100 -->
+<!-- Translation based on default-en.xml r102 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
-<!-- however be sure to include only sections that are changed.  -->
+<!-- however be sure to include only sections that are changed:  -->
 <!-- Unedited English content limits compatibility & performance.-->
 <!-- Better to be concise than literal:  Please test visibility! -->
 
@@ -341,7 +341,7 @@
 	</toolbar>
 	<!-- IRC WINDOW -->
 	<toolbar name="CIRCFrame">
-		<button id="ID_IRC_SENDTEXT" text="Bisedo" tip="Post Your Comments"/>
+		<button id="ID_IRC_SENDTEXT" text="Bisedo" tip="Post Komente"/>
 		<separator/>
 		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
 		<rightAlign/>
@@ -974,7 +974,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Episode nga i njëjti Serial"/>
 		</menu>
 		<menu text="Shërbime _Rrjeti">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Shiko Biletën _Bitzi"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Shiko Biletën _Bitprint"/>
 			<item id="ID_SEARCH_URI" text="Kopjo _URIn..."/>
 		</menu>
 	</menu>
@@ -996,7 +996,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Episode nga i njëjti Serial"/>
 		</menu>
 		<menu text="Shërbime _Rrjeti">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Shiko Biletën _Bitzi"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Shiko Biletën _Bitprint"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Filtro Rezultatet..."/>
@@ -1020,7 +1020,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Episode nga i njëjti Serial"/>
 		</menu>
 		<menu text="Info mbi Skedën në _Rrjet">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Shiko Biletën _Bitzi"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Shiko Biletën _Bitprint"/>
 			<item id="ID_SEARCH_URI" text="Kopjo _URIn..."/>
 		</menu>
 	</menu>
@@ -1040,7 +1040,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Episode nga i njëjti Serial"/>
 		</menu>
 		<menu text="Shërbime _Rrjeti">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Shiko Biletën _Bitzi"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Shiko Biletën _Bitprint"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Filtro Rezultatet..."/>
@@ -1065,7 +1065,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Episode nga i njëjti Serial"/>
 		</menu>
 		<menu text="Shërbime _Rrjeti">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Shiko Biletën _Bitzi"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Shiko Biletën _Bitprint"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Filtro Rezultatet..."/>
@@ -1302,8 +1302,8 @@
 		<menu text="Shërbime _Rrjeti">
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Rifresko Metadata"/>
 			<separator/>
-			<item id="ID_LIBRARY_BITZI_WEB" text="Shiko Biletën _Bitzi"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Shkarko Metadatat"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Shiko Biletën _Bitprint"/>
+			<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="_Shkarko Metadatat"/>
 			<separator/>
 			<item id="ID_LIBRARY_URI" text="Kopjo _URI-n"/>
 		</menu>
@@ -1337,8 +1337,8 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Episode nga i njëjti Serial"/>
 		</menu>
 		<menu text="Shërbime _Rrjeti">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Shiko Biletën _Bitzi"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Përfto Metadatat"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Shiko Biletën _Bitprint"/>
+			<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="_Përfto Metadatat"/>
 		</menu>
 		<menu text="_Metadatat">
 			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
@@ -1625,7 +1625,7 @@
 		</menu>
 	</menu>
 	<menu name="WebServices.List.Menu">
-		<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Bitzi"/>
+		<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="_Bitprint"/>
 		<item id="ID_WEBSERVICES_MUSICBRAINZ" text="_MusicBrainz"/>
 		<!--item id="ID_WEBSERVICES_SHAREMONKEY" text="_ShareMonkey"-->
 	</menu>
@@ -2373,10 +2373,8 @@
 	<tip id="ID_HELP_WEB_2" message="Viziton truallin"/>
 	<tip id="ID_HELP_WEB_3" message="Viziton truallin"/>
 	<tip id="ID_HELP_WEB_4" message="Viziton truallin"/>
-	<tip id="ID_HELP_WEB_5" message="Viziton truallin"/>
-	<tip id="ID_HELP_WEB_6" message="Viziton truallin"/>
 	<tip id="ID_HELP_DONATE" message="Nëse doni, mund të kontribuoni te fondi ynë i ligjshëm dhe të tregoni falënderimin tuaj."/>
-	<tip id="ID_HELP_FAKESHAREAZA" message="Përkthe FakeShareaza.com që të mësosh më shumë për ngjarjet e fundit."/>
+	<!--tip id="ID_HELP_FAKESHAREAZA" message="Përkthe FakeShareaza.com që të mësosh më shumë për ngjarjet e fundit."-->
 	<tip id="ID_HITMONITOR_CLEAR" message="Pastron zbutësin e monitorimit të hiteve."/>
 	<tip id="ID_HITMONITOR_PAUSE" message="Pushon monitorimin e hiteve."/>
 	<tip id="ID_HITMONITOR_SEARCH" message="Kërkon në rrjet për termin e zgjedhur."/>
@@ -2394,8 +2392,8 @@
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="Fshin dosjen e zgjedhur me albume."/>
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="Hap dosjen e zgjedhur me albume."/>
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="Tregon dhe editon vetitë e dosjes së zgjedhur me albume..."/>
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Shkarkon metadatat për skedën e zgjedhur me Bitzi™..."/>
-	<tip id="ID_LIBRARY_BITZI_WEB" message="Tregon biletën Bitzi™ në rrjet për skedën e zgjedhur."/>
+	<tip id="ID_LIBRARY_BITPRINT_DOWNLOAD" message="Shkarkon metadatat për skedën e zgjedhur me Bitprint..."/>
+	<tip id="ID_LIBRARY_BITPRINT_WEB" message="Tregon biletën Bitprint në rrjet për skedën e zgjedhur."/>
 	<tip id="ID_LIBRARY_COLUMNS" message="Zgjedh kolonat me metadatat që do të shfaqen..."/>
 	<tip id="ID_LIBRARY_COPY" message="Kopjon skedën e zgjedhur në një dosje tjetër në librari..."/>
 	<tip id="ID_LIBRARY_CREATETORRENT" message="Krijon një .torrent për skedën që ajo të ngarkohet në truall."/>
@@ -3601,7 +3599,7 @@
 		<control/>
 		<control caption="Locale:"/>
 		<control/>
-		<control caption="Comments:"/>
+		<control caption="Komente:"/>
 		<control/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="Mirë se erdhe te PeerProject (8/8)">
@@ -4030,13 +4028,13 @@
 		<control caption="_Mbaje mend këtë zgjedhjen"/>
 		<control caption="_Monitoro shkarkimin"/>
 	</dialog>
-	<dialog name="CBitziDownloadDlg" cookie="StStmsBuSySt" caption="Po shkarkoj Metadatat...">
+	<dialog name="CBitprintDownloadDlg" cookie="StStmsBuSySt" caption="Po shkarkoj Metadatat...">
 		<control/>
-		<control caption="PeerProject orvatet të shkarkojë metadatat me Bitzi..."/>
+		<control caption="PeerProject orvatet të shkarkojë metadatat me Bitprint..."/>
 		<control/>
 		<control caption="Anulo"/>
 		<control/>
-		<control caption="www.bitzi.com"/>
+		<control caption="peerproject.org/bitprint"/>
 	</dialog>
 	<dialog name="CFilePreviewDlg" cookie="StStStmsStBu" caption="Parashikim i Shkarkimit Inteligjent...">
 		<control/>

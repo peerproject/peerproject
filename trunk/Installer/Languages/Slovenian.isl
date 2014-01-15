@@ -191,6 +191,7 @@ WizardPreparing=Pripravljam za namestitev
 PreparingDesc=Namestitveni program je pripravljen za namestitev programa [name] v vaš raèunalnik.
 PreviousInstallNotCompleted=Namestitev ali odstranitev prejšnjega programa ni bila konèana. Da bi jo dokonèali, morate raèunalnik znova zagnati.%n%nPo ponovnem zagonu raèunalnika znova zaženite namestitveni program, da boste konèali namestitev programa [name].
 CannotContinue=Namestitveni program ne more nadaljevati. Pritisnite Preklièi za izhod.
+ErrorCloseApplications=Namestitvenemu programu ni uspelo samodejno zapreti vseh programov. Priporoèljivo je, da pred nadaljevanjem zaprete vse programe, ki uporabljajo datoteke, katere mora namestitev posodobiti.
 
 ; *** "Installing" wizard page
 ApplicationsFound=Naslednji programi uporabljajo datoteke, ki jih mora namestitveni program posodobiti. Priporoèljivo je, da namestitvenemu programu dovolite, da te programe konèa.

@@ -3,12 +3,12 @@
 
 <!-- PeerProject Default Brazilian Portuguese Skin File -->
 
-<!-- Translation based on default-en.xml r100 -->
+<!-- Translation based on default-en.xml r102 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
-<!-- however be sure to include only sections that are changed.  -->
+<!-- however be sure to include only sections that are changed:  -->
 <!-- Unedited English content limits compatibility & performance.-->
 <!-- Better to be concise than literal:  Please test visibility! -->
 
@@ -345,7 +345,7 @@
 	</toolbar>
 	<!-- IRC WINDOW -->
 	<toolbar name="CIRCFrame">
-		<button id="ID_IRC_SENDTEXT" text="Conversar" tip="Post Your Comments"/>
+		<button id="ID_IRC_SENDTEXT" text="Conversar" tip="Post Comentários"/>
 		<separator/>
 		<button id="ID_IRC_CLOSETAB" text="Fechar" tip="Exit Current Channel Window"/>
 		<rightAlign/>
@@ -700,7 +700,6 @@
 				<item id="ID_HELP_VERSION_CHECK" text="Procurar nova _versão"/>
 				<!-- <item id="ID_HELP_DONATE" text="_Doar para o Projeto PeerProject."/>
 				<item id="ID_HELP_WEB_SKINS" text="PeerProject S_kins"/>
-				<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
 			</menu>
@@ -998,7 +997,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episódios da mesma Série"/>
 		</menu>
 		<menu text="_Serviços da Rede">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Ver o _Ticket do Bitzi"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Ver o _Ticket do Bitprint"/>
 			<item id="ID_SEARCH_URI" text="Copiar _URI..."/>
 		</menu>
 	</menu>
@@ -1020,7 +1019,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episódios da mesma Série"/>
 		</menu>
 		<menu text="_Serviços da Rede">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Ver o _Ticket do Bitzi"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Ver o _Ticket do Bitprint"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Filtrar Resultados..."/>
@@ -1044,7 +1043,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episódios da mesma Série"/>
 		</menu>
 		<menu text="_Info do Arquivo na Rede">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Ver o _Ticket do Bitzi"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Ver o _Ticket do Bitprint"/>
 			<item id="ID_SEARCH_URI" text="Copiar _URI..."/>
 		</menu>
 	</menu>
@@ -1064,7 +1063,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episódios da mesma Série"/>
 		</menu>
 		<menu text="_Serviços da Rede">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Ver o _Ticket do Bitzi"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Ver o _Ticket do Bitprint"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Filtrar Resultados..."/>
@@ -1089,7 +1088,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episódios da mesma Série"/>
 		</menu>
 		<menu text="_Serviços da Rede">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Ver o _Ticket do Bitzi"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Ver o _Ticket do Bitprint"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Filtrar Resultados..."/>
@@ -1323,8 +1322,8 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episódios da mesma Série"/>
 		</menu>
 		<menu text="_Serviços da Rede">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Ver o _Ticket do Bitzi"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Baixar Metadata"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Ver o _Ticket do Bitprint"/>
+			<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="_Baixar Metadata"/>
 		</menu>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Propriedades"/>
@@ -1356,8 +1355,8 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episódios da mesma Série"/>
 		</menu>
 		<menu text="_Serviços da Rede">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Ver o _Ticket do Bitzi"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Baixar Metadata"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Ver o _Ticket do Bitprint"/>
+			<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="_Baixar Metadata"/>
 		</menu>
 		<menu text="_Metadata">
 			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
@@ -1644,7 +1643,7 @@
 		</menu>
 	</menu>
 	<menu name="WebServices.List.Menu">
-		<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Bitzi"/>
+		<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="_Bitprint"/>
 		<item id="ID_WEBSERVICES_MUSICBRAINZ" text="_MusicBrainz"/>
 		<!--item id="ID_WEBSERVICES_SHAREMONKEY" text="_ShareMonkey"-->
 	</menu>
@@ -2398,10 +2397,8 @@
 	<tip id="ID_HELP_WEB_2" message="Visite este site"/>
 	<tip id="ID_HELP_WEB_3" message="Visite este site"/>
 	<tip id="ID_HELP_WEB_4" message="Visite este site"/>
-	<tip id="ID_HELP_WEB_5" message="Visite este site"/>
-	<tip id="ID_HELP_WEB_6" message="Visite este site"/>
 	<tip id="ID_HELP_DONATE" message="Se você quiser, você pode doar para o nosso fundo legal e mostrar a sua apreciação."/>
-	<tip id="ID_HELP_FAKESHAREAZA" message="Traduzir o FakeShareaza.com para aprender mais sobre os eventos recentes."/>
+	<!--tip id="ID_HELP_FAKESHAREAZA" message="Traduzir o FakeShareaza.com para aprender mais sobre os eventos recentes."-->
 	<tip id="ID_HITMONITOR_CLEAR" message="Limpar o buffer do monitor de acerto."/>
 	<tip id="ID_HITMONITOR_PAUSE" message="Pausar a monitoração de acerto."/>
 	<tip id="ID_HITMONITOR_SEARCH" message="Procurar na rede o termo selecionado."/>
@@ -2419,8 +2416,8 @@
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="Apagar a pasta do álbum selecionada."/>
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="Abrir a pasta do álbum selecionada."/>
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="Ver e editar as propriedades da pasta do álbum selecionada..."/>
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Baixar metadata para o(s) arquivo(s) selecionado(s) do Bitzi™..."/>
-	<tip id="ID_LIBRARY_BITZI_WEB" message="Ver na rede o ticket Bitzi™ do arquivo selecionado."/>
+	<tip id="ID_LIBRARY_BITPRINT_DOWNLOAD" message="Baixar metadata para o(s) arquivo(s) selecionado(s) do Bitprint..."/>
+	<tip id="ID_LIBRARY_BITPRINT_WEB" message="Ver na rede o ticket Bitprint do arquivo selecionado."/>
 	<tip id="ID_LIBRARY_COLUMNS" message="Selecionar as colunas de metadata a serem exibidas..."/>
 	<tip id="ID_LIBRARY_COPY" message="Copiar os arquivos selecionados para outra pasta na biblioteca..."/>
 	<tip id="ID_LIBRARY_CREATETORRENT" message="Criar um .torrent para este arquivo para fazer upload para um site."/>
@@ -3033,7 +3030,7 @@
 	<string id="20446" value="O arquivo &quot;%s&quot; falhou no teste de verificação de hash, e pode não ser o arquivo que você pretendia baixar. Você tem certeza que você quer abrí-lo?"/>
 	<string id="20447" value="Você gostaria de remover o atributo de &quot;potencialmente inseguro&quot; deste arquivo?"/>
 	<string id="20448" value="O arquivo &quot;%s&quot; ainda não possui informação de hash. Por favr espere que o arquivo tenha um hash, e então tente novamente."/>
-	<string id="20449" value="Esta opção usa os serviços providenciados pelo Bitzi.com para identificação e compartilhamento sobre os arquivos selecionados.\n\nO PeerProject enviará o código de hash SHA1 para o(s) arquivo(s) selecionado(s) de modo a pesquisar o banco de dados do Bitzi. Se você está preocupado com sua privacidade, você pode desejar consultar a política de privacidade do Bitzi.com.\n\nVocê gostaria de prosseguir?"/>
+	<string id="20449" value="Esta opção usa os serviços providenciados pelo peerproject.org/bitprint para identificação e compartilhamento sobre os arquivos selecionados.\n\nO PeerProject enviará o código de hash SHA1 para o(s) arquivo(s) selecionado(s) de modo a pesquisar o banco de dados do Bitprint. Se você está preocupado com sua privacidade, você pode desejar consultar a política de privacidade do peerproject.org/bitprint.\n\nVocê gostaria de prosseguir?"/>
 	<string id="20450" value="Uma sub-pasta do diretório selecionado &quot;%s&quot; já é parte da sua biblioteca.\nAdicionar esta pasta causará o re-hashing de alguns arquivos.\n\nVocê quer continuar ?"/>
 	<string id="20451" value="Não há arquivo tocando. Clique duas vezes num arquivo de mídia na sua biblioteca para tocá-lo."/>
 	<string id="20452" value="Todos os Arquivos de Mídia|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Playlists|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Arquivos de Áudio|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Arquivos de Vídeo|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Faixas de Áudio de CD|*.cda|Arquivos MIDI|*.mid;*.rmi;*.midi|Todos os Arquivos|*.*||"/>
@@ -3939,7 +3936,7 @@
 		<control/>
 		<control caption="Locale:"/>
 		<control/>
-		<control caption="Comments:"/>
+		<control caption="Comentários:"/>
 		<control/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="Bem Vindo ao PeerProject &#160;(8/8)">
@@ -4368,13 +4365,13 @@
 		<control caption="_Lembrar minha seleção da próxima vez"/>
 		<control caption="Abrir uma janela do _monitor de downloads"/>
 	</dialog>
-	<dialog name="CBitziDownloadDlg" cookie="StStmsBuSySt" caption="Baixando Metadata...">
+	<dialog name="CBitprintDownloadDlg" cookie="StStmsBuSySt" caption="Baixando Metadata...">
 		<control/>
-		<control caption="O PeerProject está tentando baixar o metadata do Bitzi..."/>
+		<control caption="O PeerProject está tentando baixar o metadata do Bitprint..."/>
 		<control/>
 		<control caption="Cancelar"/>
 		<control/>
-		<control caption="www.bitzi.com"/>
+		<control caption="peerproject.org/bitprint"/>
 	</dialog>
 	<dialog name="CFilePreviewDlg" cookie="StStStmsStBu" caption="Prévia Inteligente do Download...">
 		<control/>

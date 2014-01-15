@@ -7,8 +7,8 @@
 ; Note: Do not add periods (.), where added automatically.
 
 [LangOptions]
-; The following three entries are very important. Be sure to read
-; and understand the '[LangOptions] section' topic in the help file.
+; The following three entries are very important. Be sure to read and
+; understand the '[LangOptions] section' topic in the help file.
 LanguageName=Espa<00F1>ol (Mexico)
 LanguageID=$080A
 LanguageCodePage=1252
@@ -107,7 +107,7 @@ WelcomeLabel2=Está a punto de instalar [name/ver] en su computadora.%n%nEs recom
 
 ; *** "Password" wizard page
 WizardPassword=Contraseña
-PasswordLabel1=Esta instalación está protegida por contraseña
+PasswordLabel1=Esta instalación está protegida por contraseña.
 PasswordLabel3=Por favor ingrese la contraseña y presione "Siguiente" para continuar. Esta es sensible a mayúsculas y minúsculas
 PasswordEditLabel=&Contraseña:
 IncorrectPassword=La contraseña que escribió no es correcta. Por favor inténtelo de nuevo
@@ -181,7 +181,7 @@ SelectStartMenuFolderLabel3=El programa de instalación creará los accesos direct
 SelectStartMenuFolderBrowseLabel=Para continuar presione "Siguiente" Si desea seleccionar una carpeta distinta presione "Navegar"
 MustEnterGroupName=Debe escribir un nombre de carpeta
 GroupNameTooLong=El nombre de carpeta o de ruta es demasiado largo
-InvalidGroupName=El nombre de la carpeta no es válido
+InvalidGroupName=El nombre de la carpeta no es válido.
 BadGroupName=El nombre de la carpeta no puede tener ninguno de los siguientes caracteres:%n%n%1
 NoProgramGroupCheck2=&No crear carpeta en el Menú "Inicio"
 
@@ -189,7 +189,7 @@ NoProgramGroupCheck2=&No crear carpeta en el Menú "Inicio"
 WizardReady=Listo para instalar
 ReadyLabel1=El programa está listo para iniciar la instalación de [name] en su computadora
 ReadyLabel2a=Presiona "Instalar" para continuar o "Atrás" para revisar o cambiar cualquier parámetro
-ReadyLabel2b=Presiona "Instalar" para continuar con la instalación
+ReadyLabel2b=Presiona "Instalar" para continuar con la instalación.
 ReadyMemoUserInfo=Información del usuario:
 ReadyMemoDir=Ubicación del destino:
 ReadyMemoType=Tipo de instalación:
@@ -206,6 +206,7 @@ ApplicationsFound=Las siguientes aplicaciones están usando archivos que necesita
 ApplicationsFound2=Las siguientes aplicaciones están usando archivos que necesitan ser actualizados por el programa de instalación. Se recomienda que permita al programa de instalación cerrar automáticamente estas aplicaciones. Al completarse la instalación, el programa de instalación intentará reiniciar las aplicaciones.
 CloseApplications=&Cerrar automáticamente las aplicaciones
 DontCloseApplications=&No cerrar las aplicaciones
+ErrorCloseApplications=El programa de instalación no pudo cerrar de forma automática todas las aplicaciones. Se recomienda que, antes de continuar, cierre todas las aplicaciones que utilicen archivos que necesitan ser actualizados por el programa de instalación.
 
 ; *** "Installing" wizard page
 WizardInstalling=Instalando

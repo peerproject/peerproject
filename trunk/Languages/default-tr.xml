@@ -3,12 +3,12 @@
 
 <!-- PeerProject Default Turkish Skin File -->
 
-<!-- Translation based on default-en.xml r100 -->
+<!-- Translation based on default-en.xml r102 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
-<!-- however be sure to include only sections that are changed.  -->
+<!-- however be sure to include only sections that are changed:  -->
 <!-- Unedited English content limits compatibility & performance.-->
 <!-- Better to be concise than literal:  Please test visibility! -->
 
@@ -344,7 +344,7 @@
 	</toolbar>
 	<!-- IRC WINDOW -->
 	<toolbar name="CIRCFrame">
-		<button id="ID_IRC_SENDTEXT" text="Sohbet" tip="Post Your Comments"/>
+		<button id="ID_IRC_SENDTEXT" text="Sohbet" tip="Post Yorumlar"/>
 		<separator/>
 		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
 		<rightAlign/>
@@ -959,7 +959,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Aynı _Seriden Bölümler"/>
 		</menu>
 		<menu text="_Web Servisleri">
-			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi Etiketi Göster"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="_Bitprint Etiketi Göster"/>
 			<item id="ID_SEARCH_URI" text="Kopyala _URI..."/>
 		</menu>
 	</menu>
@@ -981,7 +981,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Aynı _Seriden Bölümler"/>
 		</menu>
 		<menu text="_Web Servisleri">
-			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi Etiketi Göster"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="_Bitprint Etiketi Göster"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Filtre Sonuçları..."/>
@@ -1005,7 +1005,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Aynı _Seriden Bölümler"/>
 		</menu>
 		<menu text="_Web Dosya Bilgisi">
-			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi Etiketi Göster"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="_Bitprint Etiketi Göster"/>
 			<item id="ID_SEARCH_URI" text="Kopyala _URI..."/>
 		</menu>
 	</menu>
@@ -1025,7 +1025,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Aynı _Seriden Bölümler"/>
 		</menu>
 		<menu text="_Web Servisleri">
-			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi Etiketi Göster"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="_Bitprint Etiketi Göster"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Filtre Sonuçları..."/>
@@ -1050,7 +1050,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Aynı _Seriden Bölümler"/>
 		</menu>
 		<menu text="_Web Servisleri">
-			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi Etiketi Göster"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="_Bitprint Etiketi Göster"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Filtre Sonuçları..."/>
@@ -1284,8 +1284,8 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Aynı _Seriden Bölümler"/>
 		</menu>
 		<menu text="_Web Servisleri">
-			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi Etiketi Göster"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Veri İndir"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="_Bitprint Etiketi Göster"/>
+			<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="_Veri İndir"/>
 		</menu>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="Ö_zellikler"/>
@@ -1317,8 +1317,8 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Aynı _Seriden Bölümler"/>
 		</menu>
 		<menu text="_Web Servisleri">
-			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi Etiketi Göster"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Veri Edinmek"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="_Bitprint Etiketi Göster"/>
+			<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="_Veri Edinmek"/>
 		</menu>
 		<menu text="_Meta Verileri">
 			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
@@ -1602,7 +1602,7 @@
 		</menu>
 	</menu>
 	<menu name="WebServices.List.Menu">
-		<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Bitzi"/>
+		<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="_Bitprint"/>
 		<item id="ID_WEBSERVICES_MUSICBRAINZ" text="_MusicBrainz"/>
 		<!--item id="ID_WEBSERVICES_SHAREMONKEY" text="_ShareMonkey"-->
 	</menu>
@@ -2314,8 +2314,6 @@
 	<tip id="ID_HELP_WEB_2" message="Web sitesini ziyaret et"/>
 	<tip id="ID_HELP_WEB_3" message="Web sitesini ziyaret et"/>
 	<tip id="ID_HELP_WEB_4" message="Web sitesini ziyaret et"/>
-	<tip id="ID_HELP_WEB_5" message="Web sitesini ziyaret et"/>
-	<tip id="ID_HELP_WEB_6" message="Web sitesini ziyaret et"/>
 	<tip id="ID_HELP_DONATE" message="Eğer isterseniz, projeye bağışta bulunarak PeerProject'yı beğendiğinizi gösterebilirsiniz"/>
 	<tip id="ID_HITMONITOR_CLEAR" message="Ulaşılan denetleme belleğini temizle."/>
 	<tip id="ID_HITMONITOR_PAUSE" message="Ulaşılan denetlemeleri duraklat."/>
@@ -2334,8 +2332,8 @@
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="Seçilmiş albüm klasörlerini sil."/>
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="Seçilmiş albüm klasörlerini aç."/>
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="Seçilmiş albüm klasörlerinin özelliklerini göster ve yayınla..."/>
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Bitzi™'den seçilmiş dosya verilerini indir..."/>
-	<tip id="ID_LIBRARY_BITZI_WEB" message="Seçilmiş dosyanın Bitzi™ etiketini web'de göster"/>
+	<tip id="ID_LIBRARY_BITPRINT_DOWNLOAD" message="Bitprint'den seçilmiş dosya verilerini indir..."/>
+	<tip id="ID_LIBRARY_BITPRINT_WEB" message="Seçilmiş dosyanın Bitprint etiketini web'de göster"/>
 	<tip id="ID_LIBRARY_COLUMNS" message="Seçilmiş veri sütunlarını görüntüle..."/>
 	<tip id="ID_LIBRARY_COPY" message="Seçilmiş klasörleri, başka bir kütüphane klasörüne kopyala..."/>
 	<tip id="ID_LIBRARY_CREATETORRENT" message="Websitesinden bu dosyanın aktarımı için bir .torrent oluştur."/>
@@ -2944,7 +2942,7 @@
 	<string id="20446" value="&quot;%s&quot; dosyası bir hash test doğrulamasını başaramadı ve indirmeyi tasarladığın dosya olmayabilir. Bunu açmak istediğinden emin misin?"/>
 	<string id="20447" value="Bu dosyadan &quot;gizlilik ve tehlikeli&quot; özniteliklerini kaldırmak istiyor musunuz?"/>
 	<string id="20448" value="&quot;%s&quot; dosyası henüz taranmadı. Lütfen dosyanın taranması için bekleyin ve sonra tekrar deneyin."/>
-	<string id="20449" value="Bu seçeneklerle seçilen dosyada onaylanan ve paylaşılan bilgi için Bitzi.com tarafından sağlanan servisler kullanılır.\n\nPeerProject Bitzi veritabanı sorgu düzeninde seçilen dosyalar için SHA1 hash kod gönderecek. Eğer gizlilikle ilgileniyorsan Bitzi.com gizlilik politikasını danışmak isteyebilirsin.\n\nİlerlemek istiyor musun?"/>
+	<string id="20449" value="Bu seçeneklerle seçilen dosyada onaylanan ve paylaşılan bilgi için peerproject.org/bitprint tarafından sağlanan servisler kullanılır.\n\nPeerProject Bitprint veritabanı sorgu düzeninde seçilen dosyalar için SHA1 hash kod gönderecek. Eğer gizlilikle ilgileniyorsan peerproject.org/bitprint gizlilik politikasını danışmak isteyebilirsin.\n\nİlerlemek istiyor musun?"/>
 	<string id="20450" value="Seçilen klasör &quot;%s&quot; klasörünün alt klasörü, zaten kütüphanenizin parçasıdır.\nEklenen bu klasör bazı dosyaların bozulmasına neden olacaktır.\n\nDevam etmek istiyor musunuz ?"/>
 	<string id="20451" value="Oynayacak dosya yok. Kütüphanenizdeki bir ortam dosyasını oynatmak için çift-tıklın."/>
 	<string id="20452" value="Tüm ortam dosyaları|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Oynatma Listeleri|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Ses Dosyaları|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Video Dosyaları|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD Ses Trackleri|*.cda|MIDI Dosyalar|*.mid;*.rmi;*.midi|Tüm Dosyalar|*.*||"/>
@@ -3835,7 +3833,7 @@
 		<control/>
 		<control caption="Locale:"/>
 		<control/>
-		<control caption="Comments:"/>
+		<control caption="Yorumlar:"/>
 		<control/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="PeerProject'ya Hoşgeldiniz (8/8)">
@@ -4264,13 +4262,13 @@
 		<control caption="_Seçimimi Hatırla"/>
 		<control caption="İndirme Penceresi Aç"/>
 	</dialog>
-	<dialog name="CBitziDownloadDlg" cookie="StStmsBuSySt" caption="Veri İndirmesi...">
+	<dialog name="CBitprintDownloadDlg" cookie="StStmsBuSySt" caption="Veri İndirmesi...">
 		<control/>
-		<control caption="PeerProject Bitzi den veri indirmeye çalışıyor ..."/>
+		<control caption="PeerProject Bitprint den veri indirmeye çalışıyor ..."/>
 		<control/>
 		<control caption="İptal"/>
 		<control/>
-		<control caption="www.bitzi.com"/>
+		<control caption="peerproject.org/bitprint"/>
 	</dialog>
 	<dialog name="CFilePreviewDlg" cookie="StStStmsStBu" caption="Akıllı İndirim Önizleme...">
 		<control/>

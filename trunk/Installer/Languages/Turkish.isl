@@ -208,6 +208,7 @@ ApplicationsFound=Aþaðýdaki uygulamalar, Kur tarafýndan güncelleþtirilmesi gerek
 ApplicationsFound2=Aþaðýdaki uygulamalar, Kur tarafýndan güncelleþtirilmesi gereken dosyalarý kullanýyor. Kur tarafýndan, bu uygulamalarýn otomatik kapatýlmasýna izin vermenizi öneririz. Yükleme tamamlandýktan sonra, Kur uygulamalarý yeniden baþlatmaya çalýþacaktýr.
 CloseApplications=&Uygulamalarý otomatik kapat
 DontCloseApplications=Uygulamalarý &kapatma
+ErrorCloseApplications=Kurulum otomatik olarak tüm programlarý kapatmakta baþarýsýz oldu. Devam etmeden önce Kurulum tarafýndan güncellenmesi gereken dosyalarý kullanan uygulamalarý kapatmanýz önerilir.
 
 ; *** "Kuruluyor" sihirbaz
 WizardInstalling=Kuruluyor
@@ -316,6 +317,9 @@ StatusUninstalling=%1 Kaldýrýlýyor...
 ; *** Shutdown block reasons
 ShutdownBlockReasonInstallingApp=%1 kuruluyor.
 ShutdownBlockReasonUninstallingApp=%1 kaldýrýlýyor.
+
+; The custom messages below aren't used by Setup itself,
+; but if you make use of them in your scripts, you'll want to translate them.
 
 [CustomMessages]
 

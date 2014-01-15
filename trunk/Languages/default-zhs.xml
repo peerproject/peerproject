@@ -3,12 +3,12 @@
 
 <!-- PeerProject Default Chinese (Simplified) Skin File -->
 
-<!-- Translation based on default-en.xml r100 --> <!-- (Shareaza r6092) -->
+<!-- Translation based on default-en.xml r102 --> <!-- (Shareaza r6092) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
-<!-- however be sure to include only sections that are changed.  -->
+<!-- however be sure to include only sections that are changed:  -->
 <!-- Unedited English content limits compatibility & performance.-->
 <!-- Better to be concise than literal:  Please test visibility! -->
 
@@ -342,7 +342,7 @@
 	</toolbar>
 	<!-- IRC WINDOW -->
 	<toolbar name="CIRCFrame">
-		<button id="ID_IRC_SENDTEXT" text="发送" tip="Post Your Comments"/>
+		<button id="ID_IRC_SENDTEXT" text="发送" tip="Post 注释"/>
 		<separator/>
 		<button id="ID_IRC_CLOSETAB" text="关闭" tip="Exit Current Channel Window"/>
 		<rightAlign/>
@@ -943,7 +943,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="同一系列的情节"/>
 		</menu>
 		<menu text="网页服务">
-			<item id="ID_LIBRARY_BITZI_WEB" text="查看 Bitzi 标签"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="查看 Bitprint 标签"/>
 			<item id="ID_SEARCH_URI" text="复制 URI..."/>
 		</menu>
 	</menu>
@@ -965,7 +965,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="同一系列的情节"/>
 		</menu>
 		<menu text="网页服务">
-			<item id="ID_LIBRARY_BITZI_WEB" text="查看 Bitzi 标签"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="查看 Bitprint 标签"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="过滤结果..."/>
@@ -989,7 +989,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="同一系列的情节"/>
 		</menu>
 		<menu text="网页文件信息">
-			<item id="ID_LIBRARY_BITZI_WEB" text="查看 Bitzi 标签"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="查看 Bitprint 标签"/>
 			<item id="ID_SEARCH_URI" text="复制 URI..."/>
 		</menu>
 	</menu>
@@ -1009,7 +1009,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="同一系列的情节"/>
 		</menu>
 		<menu text="网页服务">
-			<item id="ID_LIBRARY_BITZI_WEB" text="查看 Bitzi 标签"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="查看 Bitprint 标签"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="过滤结果..."/>
@@ -1034,7 +1034,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="同一系列的情节"/>
 		</menu>
 		<menu text="网页服务">
-			<item id="ID_LIBRARY_BITZI_WEB" text="查看 Bitzi 标签"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="查看 Bitprint 标签"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="过滤结果..."/>
@@ -1269,8 +1269,8 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="同一系列的情节"/>
 		</menu>
 		<menu text="网页服务">
-			<item id="ID_LIBRARY_BITZI_WEB" text="查看 Bitzi 标签"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="下载元数据"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="查看 Bitprint 标签"/>
+			<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="下载元数据"/>
 			<separator/>
 			<item id="ID_LIBRARY_URI" text="_URI"/>
 		</menu>
@@ -1304,8 +1304,8 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="同一系列的情节"/>
 		</menu>
 		<menu text="网页服务">
-			<item id="ID_LIBRARY_BITZI_WEB" text="查看 Bitzi 标签"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="获取元数据"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="查看 Bitprint 标签"/>
+			<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="获取元数据"/>
 		</menu>
 		<menu text="_Metadata">
 			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
@@ -2281,8 +2281,6 @@
 	<tip id="ID_HELP_WEB_2" message="访问此网站"/>
 	<tip id="ID_HELP_WEB_3" message="访问此网站"/>
 	<tip id="ID_HELP_WEB_4" message="访问此网站"/>
-	<tip id="ID_HELP_WEB_5" message="访问此网站"/>
-	<tip id="ID_HELP_WEB_6" message="访问此网站"/>
 	<tip id="ID_HITMONITOR_CLEAR" message="清除命中监视器缓存。"/>
 	<tip id="ID_HITMONITOR_PAUSE" message="暂停命中监视器。"/>
 	<tip id="ID_HITMONITOR_SEARCH" message="在网络上搜索选定的条件。"/>
@@ -2300,8 +2298,8 @@
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="删除选定的专辑文件夹。"/>
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="打开选定的专辑文件夹。"/>
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="查看或编辑选定专辑文件夹的属性..."/>
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="从 Bitzi™ 下载选定文件的元数据..."/>
-	<tip id="ID_LIBRARY_BITZI_WEB" message="查看选定文件在网络上的 Bitzi™。"/>
+	<tip id="ID_LIBRARY_BITPRINT_DOWNLOAD" message="从 Bitprint 下载选定文件的元数据..."/>
+	<tip id="ID_LIBRARY_BITPRINT_WEB" message="查看选定文件在网络上的 Bitprint。"/>
 	<tip id="ID_LIBRARY_COLUMNS" message="选择显示元数据列设置..."/>
 	<tip id="ID_LIBRARY_COPY" message="将选定的文件复制到收藏中其它的文件夹..."/>
 	<tip id="ID_LIBRARY_CREATETORRENT" message="为此文件创建一个 .torrent 文件以上传至网页。"/>
@@ -2873,7 +2871,7 @@
 	<string id="20446" value="此文件 &quot;%s&quot; 未通过 Hash 确认测试，有可能不是您计划要下载的文件。确定要打开吗？"/>
 	<string id="20447" value="确定要移除 &quot;可能不安全&quot; 的文件吗？"/>
 	<string id="20448" value="文件 &quot;%s&quot; 未被 Hash。请等待文件被 Hash，稍后再试。"/>
-	<string id="20449" value="识别和共享选定文件的功能由 Bitzi.com 提供。\n\n为了到 Bitzi 数据库进行查询，PeerProject 自动转换成 SHA1 Hash。如果涉及隐私，您可能需要查看 Bitzi.com 的隐私申明。\n\n您确定继续吗？"/>
+	<string id="20449" value="识别和共享选定文件的功能由 peerproject.org/bitprint 提供。\n\n为了到 Bitprint 数据库进行查询，PeerProject 自动转换成 SHA1 Hash。如果涉及隐私，您可能需要查看 peerproject.org/bitprint 的隐私申明。\n\n您确定继续吗？"/>
 	<string id="20450" value="选定文件夹的子目录 &quot;%s&quot; 已经是您收藏的一部分。\n添加此文件夹将导致重新 Hash 某些文件。\n\n您希望继续吗？"/>
 	<string id="20451" value="没有文件被播放。请在您的收藏中双击媒体文件进行播放。"/>
 	<string id="20452" value="所有媒体文件|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|播放列表文件|*.asx;*.wax;*.m3u;*.wvx;*.wmx|音频文件|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|视频文件|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD 音轨|*.cda|MIDI 文件|*.mid;*.rmi;*.midi|所有文件|*.*||"/>
@@ -3729,7 +3727,7 @@
 		<control/>
 		<control caption="Locale:"/>
 		<control/>
-		<control caption="Comments:"/>
+		<control caption="注释:"/>
 		<control/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="欢迎使用 PeerProject (8/8)">
@@ -4158,13 +4156,13 @@
 		<control caption="记住我的选择(_R)"/>
 		<control caption="打开下载监视器窗口(_M)"/>
 	</dialog>
-	<dialog name="CBitziDownloadDlg" cookie="StStmsBuSySt" caption="下载元数据...">
+	<dialog name="CBitprintDownloadDlg" cookie="StStmsBuSySt" caption="下载元数据...">
 		<control/>
-		<control caption="PeerProject 正从 Bitzi 尝试下载元数据..."/>
+		<control caption="PeerProject 正从 Bitprint 尝试下载元数据..."/>
 		<control/>
 		<control caption="取消"/>
 		<control/>
-		<control caption="bitzi.com"/>
+		<control caption="peerproject.org/bitprint"/>
 	</dialog>
 	<dialog name="CFilePreviewDlg" cookie="StStStmsStBu" caption="智能下载预览...">
 		<control/>

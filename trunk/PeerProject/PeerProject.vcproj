@@ -432,7 +432,7 @@
 				>
 			</File>
 			<File
-				RelativePath="BitziDownloader.cpp"
+				RelativePath="BitprintDownloader.cpp"
 				>
 			</File>
 			<File
@@ -2079,7 +2079,7 @@
 					>
 				</File>
 				<File
-					RelativePath="DlgBitziDownload.cpp"
+					RelativePath="DlgBitprintDownload.cpp"
 					>
 				</File>
 				<File
@@ -2713,7 +2713,7 @@
 				>
 			</File>
 			<File
-				RelativePath="BitziDownloader.h"
+				RelativePath="BitprintDownloader.h"
 				>
 			</File>
 			<File
@@ -3848,7 +3848,7 @@
 					>
 				</File>
 				<File
-					RelativePath="DlgBitziDownload.h"
+					RelativePath="DlgBitprintDownload.h"
 					>
 				</File>
 				<File

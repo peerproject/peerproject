@@ -3,12 +3,12 @@
 
 <!-- PeerProject Default Finnish Skin File -->
 
-<!-- Translation based on default-en.xml r100 --> <!-- (Shareaza 2.1.3.7) -->
+<!-- Translation based on default-en.xml r102 --> <!-- (Shareaza 2.1.3.7) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
-<!-- however be sure to include only sections that are changed.  -->
+<!-- however be sure to include only sections that are changed:  -->
 <!-- Unedited English content limits compatibility & performance.-->
 <!-- Better to be concise than literal:  Please test visibility! -->
 
@@ -896,7 +896,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Jaksoja samasta Sarjasta"/>
 		</menu>
 		<menu text="_Web Palvelut">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Näytä _Bitzi Ticket"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Näytä _Bitprint listing"/>
 			<item id="ID_SEARCH_URI" text="Kopioi _URI..."/>
 		</menu>
 	</menu>
@@ -918,7 +918,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Jaksoja samasta Sarjasta"/>
 		</menu>
 		<menu text="_Web Palvelut">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Näytä _Bitzi Ticket"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Näytä _Bitprint listing"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Suodata Tuloksia..."/>
@@ -942,7 +942,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Jaksoja samasta Sarjasta"/>
 		</menu>
 		<menu text="_Web Tiedosto Informaatio">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Näytä _Bitzi Ticket"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Näytä _Bitprint listing"/>
 			<item id="ID_SEARCH_URI" text="Kopioi _URI..."/>
 		</menu>
 	</menu>
@@ -962,7 +962,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Jaksoja samasta Sarjasta"/>
 		</menu>
 		<menu text="_Web Palvelut">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Näytä _Bitzi Ticket"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Näytä _Bitprint listing"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Suodata Tuloksia..."/>
@@ -987,7 +987,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Jaksoja samasta Sarjasta"/>
 		</menu>
 		<menu text="_Web Palvelut">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Näytä _Bitzi Ticket"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Näytä _Bitprint listing"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Suodata Tuloksia..."/>
@@ -1228,8 +1228,8 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Jaksoja samasta Sarjasta"/>
 		</menu>
 		<menu text="_Web Palvelut">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Näytä _Bitzi Ticket"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Lataa Metadata"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Näytä _Bitprint listing"/>
+			<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="_Lataa Metadata"/>
 			<separator/>
 			<item id="ID_LIBRARY_URI" text="_URI"/>
 		</menu>
@@ -1263,8 +1263,8 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Jaksoja samasta Sarjasta"/>
 		</menu>
 		<menu text="_Web Palvelut">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Näytä _Bitzi Ticket"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Hanki Metadata"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Näytä _Bitprint listing"/>
+			<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="_Hanki Metadata"/>
 		</menu>
 		<menu text="_Metadata">
 			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>

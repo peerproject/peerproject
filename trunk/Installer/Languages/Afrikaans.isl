@@ -46,12 +46,12 @@ LastErrorMessage=%1.%n%nFout %2: %3
 SetupFileMissing=Die lêer %1 word vermis in die installasiegids. Korrigeer die fout of verkry 'n nuwe weergawe van die program.
 SetupFileCorrupt=Die installasie lêers is korrup. Verkry 'n nuwe weergawe van die program.
 SetupFileCorruptOrWrongVer=Die installasielêers is korrup, of onversoenbaar met hierdie weergawe van Installeerder. Korrigeer die problem of verkry 'n nuwe weergawe van die program.
-InvalidParameter=An invalid parameter was passed on the command line:%n%n%1
-SetupAlreadyRunning=Installasie loop reeds.
-WindowsVersionNotSupported=This program does not support the version of Windows your computer is running.
-WindowsServicePackRequired=This program requires %1 Service Pack %2 or later.
-NotOnThisPlatform=Hierdie program sal nie loop op %1 nie.
-OnlyOnThisPlatform=Hierdie program moet geloop word op %1.
+InvalidParameter='n Ongeldige parameter is deurgegee op die opdraglyn:%n%n%1
+SetupAlreadyRunning=Installasie reeds aktief.
+WindowsVersionNotSupported=Hierdie program ondersteun nie die Windows-weergawe op u rekenaar nie.
+WindowsServicePackRequired=Hierdie program benodig %1 Service Pack %2 of nuwer.
+NotOnThisPlatform=Hierdie program sal nie uitvoer op %1 nie.
+OnlyOnThisPlatform=Hierdie program moet uitgevoer word op %1.
 OnlyOnTheseArchitectures=Hierdie program kan net geïnstalleer word op weergawes van Windows ontwerp vir die volgende verwerkerargitekture:%n%n%1
 MissingWOW64APIs=Die weergawe van Windows wat u gebruik, sluit nie die funksionaliteit in wat die Installeerder vereis vir 'n 64-bis-installasie nie. Om hierdie probleem te korrigeer, installeer asb. Service Pack %1.
 WinVersionTooLowError=Hierdie program vereis %1 weergawe %2 of nuwer.
@@ -80,7 +80,7 @@ ButtonNext=&Volgende >
 ButtonInstall=&Installeer
 ButtonOK=Aanvaar
 ButtonCancel=Kanselleer
-ButtonYes=Ja
+ButtonYes=&Ja
 ButtonYesToAll=Ja vir &Almal
 ButtonNo=&Nee
 ButtonNoToAll=N&ee vir Almal
@@ -201,10 +201,11 @@ WizardPreparing=Voorbereiding om te Installeer
 PreparingDesc=Die installeerder is besig om voor te berei om [name] op u rekenaar te installeer.
 PreviousInstallNotCompleted=Die installasie/verwydering van 'n vorige program is nie voltooi nie. U moet u rekenaar restart om daardie installasie te voltooi.%n%nNadat u die rekenaar restart het, kan u die instaleerder weer uitvoer om die installasie van [name] te voltooi.
 CannotContinue=Die installeerder kan nie voortgaan nie. Kliek asb. Kanselleer om dit te verlaat.
-ApplicationsFound=The following applications are using files that need to be updated by Setup. It is recommended that you allow Setup to automatically close these applications.
-ApplicationsFound2=The following applications are using files that need to be updated by Setup. It is recommended that you allow Setup to automatically close these applications. After the installation has completed, Setup will attempt to restart the applications.
+ApplicationsFound=Die volgende programme gebruik tans lêers wat deur die installeerder opgedateer moet word. Dit word aanbeveel dat u die installeerder toelaat om die programme outomaties toe te maak.
+ApplicationsFound2=Die volgende programme gebruik tans lêers wat deur die installeerder opgedateer moet word. Dit word aanbeveel dat u die installeerder toelaat om hierdie programme outomaties toe te maak. Na afloop van die installasie, sal die installeerder probeer om die programme te herbegin.
 CloseApplications=&Sluit outomaties die aansoeke
 DontCloseApplications=&Moenie naby die aansoeke
+ErrorCloseApplications=Die Installeerder kon nie al die programme outomaties sluit nie. Dit word aanbeveel dat u al die programme toemaak wat lêers bevat wat opdateer moet word voor u aangaan.
 
 ; *** "Installing" wizard page
 WizardInstalling=Besig om te Installeer
@@ -218,8 +219,8 @@ ClickFinish=Kliek Voltooi om die installeerder te verlaat.
 FinishedRestartLabel=Om die installasie van [name] te voltooi, moet u rekenaar restart word. Wil u die rekenaar nou restart?
 FinishedRestartMessage=Om die [name] installasie te voltooi, moet u rekenaar restart word.%n%nWil u die rekenaar nou restart?
 ShowReadmeCheck=Ja, ek wil die README-lêer sien
-YesRadio=&Ja, restart die rekenaar nou
-NoRadio=&Nee, ek sal die rekenaar later restart
+YesRadio=&Ja, herbegin die rekenaar nou
+NoRadio=&Nee, ek sal die rekenaar later herbegin
 ; used for example as 'Run MyProg.exe'
 RunEntryExec=Voer %1 uit
 ; used for example as 'View Readme.txt'
@@ -286,7 +287,7 @@ ErrorRegisterTypeLib=Onmoontlik om die biblioteek tipe te registreer: %1
 
 ; *** Post-installation errors
 ErrorOpeningReadme='n Fout het voorgekom terwyl die README-lêer oopgemaak is.
-ErrorRestartingComputer=Die installeerder kon nie die rekenaar restart nie. Doen dit asb. self.
+ErrorRestartingComputer=Die installeerder kon nie die rekenaar herbegin nie. Doen dit asb. self.
 
 ; *** Uninstaller messages
 UninstallNotFound=Leêr "%1" bestaan nie. Kan nie installeer nie.
@@ -330,4 +331,4 @@ AssocFileExtension=&Assosieer %1 met die %2 lêeruitbreiding
 AssocingFileExtension=Assosieer %1 met die %2 lêeruitbreiding...
 AutoStartProgramGroupDescription=Startup:
 AutoStartProgram=Outomaties begin %1
-AddonHostProgramNotFound=%1 could not be located in the folder you selected.%n%nDo you want to continue anyway?
+AddonHostProgramNotFound=%1 kon nie gevind word in die vouer wat u gekies het nie.%n%nWil u voortgaan ten spyte daarvan?

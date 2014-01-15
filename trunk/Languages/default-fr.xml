@@ -3,12 +3,12 @@
 
 <!-- PeerProject Default French Skin File -->
 
-<!-- Translation based on default-en.xml r100 -->
+<!-- Translation based on default-en.xml r102 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
-<!-- however be sure to include only sections that are changed.  -->
+<!-- however be sure to include only sections that are changed:  -->
 <!-- Unedited English content limits compatibility & performance.-->
 <!-- Better to be concise than literal:  Please test visibility! -->
 
@@ -432,7 +432,7 @@
 	</toolbar>
 	<!-- IRC WINDOW -->
 	<toolbar name="CIRCFrame">
-		<button id="ID_IRC_SENDTEXT" text="Discuter" tip="Post Your Comments"/>
+		<button id="ID_IRC_SENDTEXT" text="Discuter" tip="Post Commentaires"/>
 		<separator/>
 		<button id="ID_IRC_CLOSETAB" text="Fermer" tip="Exit Current Channel Window"/>
 		<rightAlign/>
@@ -1026,7 +1026,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Épisodes de la même sér_ie"/>
 		</menu>
 		<menu text="Services _Web">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Voir le billet _Bitzi"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Voir le billet _Bitprint"/>
 			<item id="ID_SEARCH_URI" text="_Copier l'URI..."/>
 		</menu>
 	</menu>
@@ -1051,7 +1051,7 @@
 			<item id="ID_VIEW_RESULTS_MONITOR" text="_Hit Monitor"/>
 		</menu>
 		<menu text="Services _Web">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Voir le billet _Bitzi"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Voir le billet _Bitprint"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Filtrer les résultats..."/>
@@ -1076,7 +1076,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Épisodes de la même sér_ie"/>
 		</menu>
 		<menu text="Info _Web sur le fichier">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Voir le billet _Bitzi"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Voir le billet _Bitprint"/>
 			<item id="ID_SEARCH_URI" text="_Copier l'URI..."/>
 		</menu>
 	</menu>
@@ -1096,7 +1096,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Épisodes de la même sér_ie"/>
 		</menu>
 		<menu text="Services _Web">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Voir le billet _Bitzi"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Voir le billet _Bitprint"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Filtrer les résultats..."/>
@@ -1121,7 +1121,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Épisodes de la même sér_ie"/>
 		</menu>
 		<menu text="Services _Web">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Voir le billet _Bitzi"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Voir le billet _Bitprint"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Filtrer les résultats..."/>
@@ -1359,8 +1359,8 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Épisodes de la même sér_ie"/>
 		</menu>
 		<menu text="Services _Web">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Voir le billet _Bitzi"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Télécharger les méta_données"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Voir le billet _Bitprint"/>
+			<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="Télécharger les méta_données"/>
 			<separator/>
 			<item id="ID_LIBRARY_URI" text="P2P _URI"/>
 		</menu>
@@ -1394,8 +1394,8 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Épisodes de la même sér_ie"/>
 		</menu>
 		<menu text="Services _Web">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Voir le billet _Bitzi"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Télécharger les méta_données"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Voir le billet _Bitprint"/>
+			<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="Télécharger les méta_données"/>
 		</menu>
 		<menu text="_Metadata">
 			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
@@ -1687,7 +1687,7 @@
 	</menu>
 	<!-- WEBSERVICES -->
 	<menu name="WebServices.List.Menu">
-		<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Bitzi"/>
+		<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="_Bitprint"/>
 		<item id="ID_WEBSERVICES_MUSICBRAINZ" text="_MusicBrainz"/>
 		<item id="ID_WEBSERVICES_SHAREMONKEY" text="_ShareMonkey"/>
 	</menu>
@@ -2448,8 +2448,6 @@
 	<tip id="ID_HELP_WEB_2" message="Visiter ce site web"/>
 	<tip id="ID_HELP_WEB_3" message="Visiter ce site web"/>
 	<tip id="ID_HELP_WEB_4" message="Visiter ce site web"/>
-	<tip id="ID_HELP_WEB_5" message="Visiter ce site web"/>
-	<tip id="ID_HELP_WEB_6" message="Visiter ce site web"/>
 	<tip id="ID_HELP_DONATE" message="Si vous le voulez, vous pouvez faire un don à notre fonds de défense juridique et montrer votre soutien."/>
 	<tip id="ID_HITMONITOR_CLEAR" message="Nettoyer le tampon du moniteur d'accès."/>
 	<tip id="ID_HITMONITOR_PAUSE" message="Mettre en pause le moniteur d'accès."/>
@@ -2468,8 +2466,8 @@
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="Supprimer le dossier &#171;&#160;album&#160;&#187; sélectionné."/>
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="Ouvrir le dossier &#171;&#160;album&#160;&#187; sélectionné."/>
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="Voir et modifier les propriétés du dossier &#171;&#160;album&#160;&#187; sélectionné."/>
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Télécharger les métadonnées depuis Bitzi™ pour cette sélection de fichiers..."/>
-	<tip id="ID_LIBRARY_BITZI_WEB" message="Voir le billet Bitzi™ sur le web pour le fichier sélectionné."/>
+	<tip id="ID_LIBRARY_BITPRINT_DOWNLOAD" message="Télécharger les métadonnées depuis Bitprint pour cette sélection de fichiers..."/>
+	<tip id="ID_LIBRARY_BITPRINT_WEB" message="Voir le billet Bitprint sur le web pour le fichier sélectionné."/>
 	<tip id="ID_LIBRARY_COLUMNS" message="Sélectionner les colonnes de métadonnées à afficher..."/>
 	<tip id="ID_LIBRARY_COPY" message="Copier vers un autre dossier de la bibliothèque cette sélection de fichiers..."/>
 	<tip id="ID_LIBRARY_CREATETORRENT" message="Créer un .torrent à envoyer à un site web pour ce fichier."/>
@@ -3079,7 +3077,7 @@
 	<string id="20446" value="Le fichier « %s » a échoué au test de hachage, il est possible que ce ne soit pas le fichier que vous aviez l'intention de télécharger. Voulez-vous vraiment l'ouvrir ?"/>
 	<string id="20447" value="Souhaitez-vous retirer l'attribut « potentiellement corrompu » attribué à ce fichier ?"/>
 	<string id="20448" value="Ce fichier « %s » n'a pas encore été haché. Prière d'attendre que le fichier soit haché et réessayer."/>
-	<string id="20449" value="Cette option utilise les services de Bitzi.com pour la reconnaissance et le partage de l'information sur les fichiers sélectionnés.\n\nPeerProject va transmettre le code SHA1 de ce(s) fichier(s) pour interroger la base de donnée de Bitzi. Si vous êtes préoccupé par votre vie privée, consultez la politique de confidentialité de Bitzi.com.\n\nVoulez-vous continuer ?"/>
+	<string id="20449" value="Cette option utilise les services de peerproject.org/bitprint pour la reconnaissance et le partage de l'information sur les fichiers sélectionnés.\n\nPeerProject va transmettre le code SHA1 de ce(s) fichier(s) pour interroger la base de donnée de Bitprint. Si vous êtes préoccupé par votre vie privée, consultez la politique de confidentialité de peerproject.org/bitprint.\n\nVoulez-vous continuer ?"/>
 	<string id="20450" value="Un sous-dossier du dossier sélectionné « %s » fait déjà partie de votre bibliothèque.nL'ajout ce dossier entraînera le re-hachage de certains fichiers.\n\nVoulez-vous continuer ?"/>
 	<string id="20451" value="Aucun fichier en lecture. Double-cliquez un fichier média dans votre bibliothèque pour le lire."/>
 	<string id="20452" value="Fichiers multimédia|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Playlists|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Fichiers Audio|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Fichiers Video|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Pistes CD Audio|*.cda|Fichiers MIDI|*.mid;*.rmi;*.midi|Tous|*.*||"/>
@@ -3968,9 +3966,9 @@
 		<control caption="&#160;(choisir)| un homme| une femme| un garçon| une fille"/>
 		<control caption="résidant à :"/>
 		<control/>
-		<control caption="Locale:"/>
+		<control caption="Locale :"/>
 		<control/>
-		<control caption="Comments:"/>
+		<control caption="Commentaires :"/>
 		<control/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="PeerProject vous souhaite la bienvenue &#160;(8/8)">
@@ -4400,13 +4398,13 @@
 		<control caption="Se _rappeler de cette sélection"/>
 		<control caption="Nouvelle fenêtre de téléchargement"/>
 	</dialog>
-	<dialog name="CBitziDownloadDlg" cookie="StStmsBuSySt" caption="Téléchargement des metadonnées...">
+	<dialog name="CBitprintDownloadDlg" cookie="StStmsBuSySt" caption="Téléchargement des metadonnées...">
 		<control/>
-		<control caption="PeerProject essaye de télécharger les métadonnées à partir de Bitzi..."/>
+		<control caption="PeerProject essaye de télécharger les métadonnées à partir de Bitprint..."/>
 		<control/>
 		<control caption="Annuler"/>
 		<control/>
-		<control caption="www.bitzi.com"/>
+		<control caption="peerproject.org/bitprint"/>
 	</dialog>
 	<dialog name="CFilePreviewDlg" cookie="StStStmsStBu" caption="Prévisualisation du téléchargement...">
 		<control/>

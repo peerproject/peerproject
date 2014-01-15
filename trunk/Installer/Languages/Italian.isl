@@ -209,6 +209,7 @@ ApplicationsFound=Le seguenti applicazioni stanno usando file che devono essere 
 ApplicationsFound2=Le seguenti applicazioni stanno usando file che devono essere aggiornati dall'installazione. Si consiglia di permettere al processo di chiudere automaticamente queste applicazioni. Al completamento dell'installazione, il processo tenterà di riavviare le applicazioni.
 CloseApplications=Chiudi &automaticamente le applicazioni
 DontCloseApplications=&Non chiudere le applicazioni
+ErrorCloseApplications=L'installazione non è riuscita a chiudere automaticamente tutte le applicazioni. Si raccomanda di chiudere tutte le applicazioni che usano file che devono essere aggiornati durante l'installazione prima di proseguire.
 
 ; *** "Installing" wizard page
 WizardInstalling=Installazione in corso

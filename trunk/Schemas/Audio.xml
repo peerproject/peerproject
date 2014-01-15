@@ -1266,7 +1266,7 @@
 			<title language="zht">CDDB Disc ID</title>
 		</member>
 	</members>
-	<bitziImport testExists="rdf:rdf/rdf:Description/bz:audioBitrate">
+	<bitprintImport testExists="rdf:rdf/rdf:Description/bz:audioBitrate">
 		<mapping from="rdf:rdf/rdf:Description/mm:duration" to="seconds" factor="0.001"/>
 		<mapping from="rdf:rdf/rdf:Description/bz:audioBitrate" to="bitrate"/>
 		<mapping from="rdf:rdf/rdf:Description/bz:audioSamplerate" to="sampleRate"/>
@@ -1276,7 +1276,7 @@
 		<mapping from="rdf:rdf/rdf:Description/dc:description/bz:albumName" to="album"/>
 		<mapping from="rdf:rdf/rdf:Description/dc:description/mm:trackNum" to="track"/>
 		<mapping from="rdf:rdf/rdf:Description/dc:description/dc:date" to="year"/>
-	</bitziImport>
+	</bitprintImport>
 	<typeFilter>
 		<type extension="aac"/>
 		<type extension="aif"/>

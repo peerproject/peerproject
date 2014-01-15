@@ -1,7 +1,7 @@
 //
 // DlgFileCopy.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -304,7 +304,7 @@ void CFileCopyDlg::OnRun()
 	//	CString strFile = strPath + _T("\\") + strName;
 	//	if ( strFile == strCurrent )
 	//	{
-	//		strCurrent.Format( LoadString( IDS_LIBRARY_BITZI_HASHED ), strName );
+	//		strCurrent.Format( LoadString( IDS_LIBRARY_BITPRINT_HASHED ), strName );
 	//		theApp.Message( MSG_NOTICE, strCurrent );
 	//		m_wndFileName.SetWindowText( LoadString( IDS_STATUS_FILEERROR ) );
 	//	}
@@ -380,10 +380,8 @@ bool CFileCopyDlg::CheckTarget(const CString& strTarget)
 	if ( DeleteFileEx( strTarget, TRUE, FALSE, FALSE ) )
 		return true;
 
-	CString strError = GetErrorString();
-
 	strMessage.Format( LoadString( IDS_LIBRARY_DELETE_FAIL ), strTarget );
-	strMessage += _T("\r\n\r\n") + strError;
+	strMessage += _T("\r\n\r\n") + GetErrorString();
 
 	MsgBox( strMessage, MB_ICONEXCLAMATION );
 

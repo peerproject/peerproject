@@ -199,6 +199,7 @@ ApplicationsFound=Наступні програми використовують файли, які повинні бути оновл
 ApplicationsFound2=Наступні програми використовують файли, які повинні бути оновлені програмою встановлення. Рекомендується дозволили програмі встановлення автоматично закрити ці програми. Після завершення встановлення, програма встановлення спробує знову запустити їх.
 CloseApplications=&Автоматично закрити програми
 DontCloseApplications=&Не закривати програми
+ErrorCloseApplications=Setup was unable to automatically close all applications. It is recommended that you close all applications using files that need to be updated by Setup before continuing.
 
 ; *** "Installing" wizard page
 WizardInstalling=Встановлення

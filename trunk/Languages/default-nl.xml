@@ -3,12 +3,12 @@
 
 <!-- PeerProject Default Dutch Skin File -->
 
-<!-- Translation based on default-en.xml r100 -->
+<!-- Translation based on default-en.xml r102 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
-<!-- however be sure to include only sections that are changed.  -->
+<!-- however be sure to include only sections that are changed:  -->
 <!-- Unedited English content limits compatibility & performance.-->
 <!-- Better to be concise than literal:  Please test visibility! -->
 
@@ -16,7 +16,7 @@
 <manifest
 	name="Nederlands"
 	author="Jan-Willem Koornwinder (Thurstydog)"
-	updatedBy="ceceboy, Neglacio"
+	updatedBy="ceceboy, Neglacio, RoestVrijStaal, Han"
 	description="PeerProject Default Dutch Skin File"
 	link="http://peerproject.org"
 	email="Neglacio@live.nl"
@@ -156,7 +156,7 @@
 		<button id="ID_DOWNLOADS_RESUME" text="Hervatten"/>
 		<button id="ID_DOWNLOADS_PAUSE" text="Pauzeren"/>
 		<separator/>
-		<button id="ID_DOWNLOADS_EDIT" text="Informatie"/>
+		<button id="ID_DOWNLOADS_EDIT" text="Eigenschappen"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Monitor tonen"/>
 		<rightAlign/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Wis voltooide bestanden"/>
@@ -345,7 +345,7 @@
 	</toolbar>
 	 <!-- IRC WINDOW -->
 	<toolbar name="CIRCFrame">
-		<button id="ID_IRC_SENDTEXT" text="Chatten" tip="Post Your Comments"/>
+		<button id="ID_IRC_SENDTEXT" text="Chatten" tip="Post Commentaar"/>
 		<separator/>
 		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
 		<rightAlign/>
@@ -545,7 +545,7 @@
 				<item id="ID_TOOLS_LANGUAGE" text="Een _taal kiezen..."/>
 				<item id="ID_TOOLS_SKIN" text="Een _skin kiezen..."/>
 				<separator/>
-				<item id="ID_TOOLS_PROFILE" text="Mijn _profiel aanpassen..."/>
+				<item id="ID_TOOLS_PROFILE" text="_Profiel aanpassen..."/>
 				<item id="ID_TOOLS_WIZARD" text="SnelStart _wizard..."/>
 				<separator/>
 				<item id="ID_TOOLS_SETTINGS" text="PeerProject _instellingen..."/>
@@ -665,7 +665,7 @@
 			<item id="ID_TOOLS_SKIN" text="Een _skin kiezen..."/>
 			<item id="ID_TOOLS_LANGUAGE" text="Een _taal kiezen..."/>
 			<separator/>
-			<item id="ID_TOOLS_PROFILE" text="Mijn _profiel aanpassen..."/>
+			<item id="ID_TOOLS_PROFILE" text="_Profiel aanpassen..."/>
 			<item id="ID_TOOLS_WIZARD" text="SnelStart _wizard..."/>
 			<separator/>
 			<item id="ID_TOOLS_SETTINGS" text="PeerProject _instellingen..."/>
@@ -982,7 +982,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Afleveringen uit dezelfde _serie"/>
 		</menu>
 		<menu text="_Internetdiensten">
-			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi Ticket bekijken"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="_Bitprint listing bekijken"/>
 			<item id="ID_SEARCH_URI" text="_URI kopiëren..."/>
 		</menu>
 	</menu>
@@ -1004,7 +1004,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Afleveringen uit dezelfde _serie"/>
 		</menu>
 		<menu text="_Internetdiensten">
-			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi Ticket bekijken"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="_Bitprint listing bekijken"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="Resultaten _filteren..."/>
@@ -1028,7 +1028,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Afleveringen uit dezelfde _serie"/>
 		</menu>
 		<menu text="_Internetdiensten">
-			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi Ticket bekijken"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="_Bitprint listing bekijken"/>
 			<item id="ID_SEARCH_URI" text="_URI kopiëren..."/>
 		</menu>
 	</menu>
@@ -1048,7 +1048,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Afleveringen uit dezelfde _serie"/>
 		</menu>
 		<menu text="_Internetdiensten">
-			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi Ticket bekijken"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="_Bitprint listing bekijken"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="Resultaten _filteren..."/>
@@ -1073,7 +1073,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Afleveringen uit dezelfde _serie"/>
 		</menu>
 		<menu text="_Internetdiensten">
-			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi Ticket bekijken"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="_Bitprint listing bekijken"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="Resultaten _filteren..."/>
@@ -1093,7 +1093,7 @@
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="_Afbreken"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SOURCES" text="Meer bronnen _zoeken"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="_Remote Voorvertoning"/>
 		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Bekijk commentaar"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="_Help..."/>
@@ -1108,7 +1108,7 @@
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Af_breken"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Bekijk commentaar"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="-Remote Voorvertoning"/>
 		<item id="ID_DOWNLOADS_SOURCES" text="Meer bronnen _zoeken"/>
 		<separator/>
 		<menu text="Uit_gebreid">
@@ -1307,8 +1307,8 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Afleveringen uit dezelfde _serie"/>
 		</menu>
 		<menu text="_Internetdiensten">
-			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi Ticket bekijken"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Metadata _downloaden"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="_Bitprint listing bekijken"/>
+			<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="Metadata _downloaden"/>
 		</menu>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Eigenschappen"/>
@@ -1340,12 +1340,12 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Afleveringen uit dezelfde _serie"/>
 		</menu>
 		<menu text="_Internetdiensten">
-			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi Ticket bekijken"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Metadata downloaden"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="_Bitprint listing bekijken"/>
+			<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="_Metadata downloaden"/>
 		</menu>
 		<menu text="_Metadata">
-			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
-			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh metadata"/>
+			<item id="ID_LIBRARY_REBUILD_FILE" text="_Opnieuw berekenen"/>
+			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Vernieuw metadata"/>
 			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokaliseer metadata"/>
 			<item id="ID_LIBRARY_COLUMNS" text="_Kolommen uitkiezen..."/>
 		</menu>
@@ -1622,7 +1622,7 @@
 	</menu>
 	<!-- WEBSERVICES -->
 	<menu name="WebServices.List.Menu">
-		<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Bitzi"/>
+		<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="_Bitprint"/>
 		<item id="ID_WEBSERVICES_MUSICBRAINZ" text="_MusicBrainz"/>
 		<!--item id="ID_WEBSERVICES_SHAREMONKEY" text="_ShareMonkey"-->
 	</menu>
@@ -1654,7 +1654,7 @@
 			<icon res="136" width="32" height="32" target="command:ID_NETWORK_CONNECT"/><gap size="8"/>
 			<heading align="middle">Verbinding Maken</heading>
 			<newline gap="8" indent="42"/>
-			<text>Welcome bij PeerProject.</text>
+			<text>Welcom bij PeerProject.</text>
 			<newline gap="8" indent="42"/>
 			<text>Je bent momenteel niet verbonden met één van de peer-to-peer netwerken. &#160;</text>
 			<link target="command:ID_NETWORK_CONNECT">Klik hier om te starten!</link>
@@ -1737,7 +1737,7 @@
 		<newline gap="8"/>
 		<icon res="182" width="16" height="16" target="command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="command:ID_HELP_FAQ" align="middle">Help</link><gap size="6"/>
-		<text align="middle">- PeerProject's gebruikerhandleiding en FAQ, o </text>
+		<text align="middle">- PeerProject's gebruikershandleiding en FAQ, o </text>
 		<link target="command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
 		<icon res="201" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
@@ -1748,7 +1748,7 @@
 			<icon res="120" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">Besturing via Internet is Ingeschakeld</heading>
 			<newline gap="8" indent="42"/>
-			<text>PeerProject's Web Interface is ingeschakeld. Bedien PeerProject met je browser via:</text>
+			<text>PeerProject's afstandsbediening is ingeschakeld. Bedien PeerProject met je browser via:</text>
 			<newline gap="6"/>
 			<link id="RemoteAccessURL1"/>
 			<text>&#160;- of -&#160;</text>
@@ -2038,11 +2038,11 @@
 		<text>Je kunt dit commando ook gebruiken om help informatie te krijgen over een download. Selecteer
 		simpelweg een download en kies dit commando nogmaals.</text>
 	</document>
-		<document name="DownloadHelp.Seeding">
-			<text format="b">Deze Torrent is aan het Seeden</text>
-			<newline gap="8"/>
-			<text>Shareaza heeft deze complete download geverifieerd, en is het actief aan het
-			verspreiden met andere downloaders via BitTorrent. Verspreid het alstublieft ten miste 100% </text>
+	<document name="DownloadHelp.Seeding">
+		<text format="b">Deze Torrent is aan het Seeden</text>
+		<newline gap="8"/>
+		<text>Shareaza heeft deze complete download geverifieerd, en is het actief aan het
+		verspreiden met andere downloaders via BitTorrent. Verspreid het alstublieft ten miste 100% </text>
 	</document>
 	<document name="DownloadHelp.Completed">
 		<text format="b">Download is voltooid</text>
@@ -2329,7 +2329,7 @@
 	<tip id="ID_DOWNLOADS_CLEAR_INCOMPLETE" message="Beëindig de geselecteerde onvolledige downloads."/>
 	<tip id="ID_DOWNLOADS_CLEAR_PAUSED" message="De gepauzeerde downloads wissen."/>
 	<tip id="ID_DOWNLOADS_URI" message="Kopieër het URI voor het geselecteerde bestand."/>
-	<tip id="ID_DOWNLOADS_EDIT" message="Toon de geadvanceerde download eigenschappen..."/>
+	<tip id="ID_DOWNLOADS_EDIT" message="Toon de geavanceerde download eigenschappen..."/>
 	<tip id="ID_DOWNLOADS_ENQUEUE" message="Voeg de geselecteerde downloads toe aan je afspeellijst."/>
 	<tip id="ID_DOWNLOADS_FILE_DELETE" message="Verwijder de geselecteerde voltooide bestanden."/>
 	<tip id="ID_DOWNLOADS_FILTER_ACTIVE" message="Laat alle actieve downloads zien."/>
@@ -2347,7 +2347,7 @@
 	<tip id="ID_DOWNLOADS_MOVE_UP" message="Geef de geselecteerde downloads een hogere voorkeur."/>
 	<tip id="ID_DOWNLOADS_PAUSE" message="De geselecteerde downloads pauzeren."/>
 	<tip id="ID_DOWNLOADS_RATE" message="Beoordeel de geselecteerde download."/>
-	<tip id="ID_DOWNLOADS_REMOTE_PREVIEW" message="Download preview image for the selected download."/>
+	<tip id="ID_DOWNLOADS_REMOTE_PREVIEW" message="Download voorvertoning image de geselecteerde download."/>
 	<tip id="ID_DOWNLOADS_RESUME" message="De geselecteerde downloads hervatten."/>
 	<tip id="ID_DOWNLOADS_SETTINGS" message="De downloadinstellingen aanpassen..."/>
 	<tip id="ID_DOWNLOADS_SHARE" message="Deel dit gedeeltelijk gedownloade bestand met andere gebruikers."/>
@@ -2371,8 +2371,6 @@
 	<tip id="ID_HELP_WEB_2" message="Bezoek deze website"/>
 	<tip id="ID_HELP_WEB_3" message="Bezoek deze website"/>
 	<tip id="ID_HELP_WEB_4" message="Bezoek deze website"/>
-	<tip id="ID_HELP_WEB_5" message="Bezoek deze website"/>
-	<tip id="ID_HELP_WEB_6" message="Bezoek deze website"/>
 	<tip id="ID_HITMONITOR_CLEAR" message="De buffer van de hit monitor wissen."/>
 	<tip id="ID_HITMONITOR_PAUSE" message="Pauzeer het meekijken naar hits."/>
 	<tip id="ID_HITMONITOR_SEARCH" message="Op het netwerk zoeken naar de geselecteerde term."/>
@@ -2390,8 +2388,8 @@
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="Verwijder het geselecteerde album."/>
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="Open het geselecteerde album."/>
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="Toon en wijzig de eigenschappen van het geselecteerde album..."/>
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Download metadata voor de geselecteerde bestand(en) vanaf Bitzi™..."/>
-	<tip id="ID_LIBRARY_BITZI_WEB" message="Toon het Bitzi™ ticket voor het geselecteerde bestand op het internet."/>
+	<tip id="ID_LIBRARY_BITPRINT_DOWNLOAD" message="Download metadata voor de geselecteerde bestand(en) vanaf Bitprint..."/>
+	<tip id="ID_LIBRARY_BITPRINT_WEB" message="Toon het Bitprint ticket voor het geselecteerde bestand op het internet."/>
 	<tip id="ID_LIBRARY_COLUMNS" message="Selecteer de te tonen metadata kolommen..."/>
 	<tip id="ID_LIBRARY_COPY" message="Kopieër de geselecteerde bestanden naar een andere map van je bibliotheek..."/>
 	<tip id="ID_LIBRARY_CREATETORRENT" message="Maak een torrent voor dit bestand om het te uploaden naar een website."/>
@@ -2480,7 +2478,7 @@
 	<tip id="ID_NEIGHBOURS_VIEW_INCOMING" message="Een nieuw pakket dump venster openen om binnenkomend verkeer van deze bron te controleren."/>
 	<tip id="ID_NEIGHBOURS_VIEW_OUTGOING" message="Een nieuw pakket dump venster openen om uitgaand verkeer naar deze bron te controleren."/>
 	<tip id="ID_NETWORK_AUTO_CLOSE" message="PeerProject automatisch afsluiten als het dataverkeer afgerond is."/>
-	<tip id="ID_NETWORK_BROWSE_TO" message="Doorzoek een gebruiker, om zijn profiel en gedeelde bestanden te bekijken..."/>
+	<tip id="ID_NETWORK_BROWSE_TO" message="Bekijk een gebruiker, om zijn profiel en gedeelde bestanden te bekijken..."/>
 	<tip id="ID_NETWORK_CONNECT" message="Verbinden met het netwerk."/>
 	<tip id="ID_NETWORK_CONNECT_TO" message="Zelf verbinding maken met een gastheer..."/>
 	<tip id="ID_NETWORK_DISCONNECT" message="De verbinding met het netwerk verbreken."/>
@@ -2529,7 +2527,7 @@
 	<tip id="ID_SCHEDULER_EXPORT" message="Exporteer de geselecteerde beveiligingsregels naar een bestand..."/>
 	<tip id="ID_SCHEDULER_IMPORT" message="Importeer beveiligingsregels vanuit een bestand..."/>
 	<tip id="ID_SCHEDULER_REMOVE" message="Verwijder de geselecteerde downloads uit de lijst."/>
-	<tip id="ID_SCHEDULER_REMOVE_ALL" message="Delete all scheduled tasks."/>
+	<tip id="ID_SCHEDULER_REMOVE_ALL" message="Alle geplande taken verwijderen."/>
 	<tip id="ID_SYSTEM_CLEAR" message="Het statuslog wissen."/>
 	<tip id="ID_SYSTEM_TIMESTAMP" message="Geef elke regel een tijdstempel."/>
 	<tip id="ID_SYSTEM_VERBOSE" message="Een uitgebreider logboek weergeven van de systeemactiviteiten."/>
@@ -2609,7 +2607,7 @@
 <controlTips>
 	<tip id="IDC_THROTTLE_MODE" message="In de maximale modus, zal de uploadsnelheid de ingevulde waarde nooit voorbijgaan. Wanneer de modus Ongeveer is, zal de uploadsnelheid rond de ingevulde snelheid schommelen.."/>
 	<tip id="IDC_REGEXP" message="Voer regiere expressies in in perl syntaxis.{n}De zoek woorden kunnen worden gespecificeerd in een voor van &lt;n&gt;, waar n is het aantal tussen 1 en 9. Als je alle zoekwoorden achter elkaar wilt, gebruik &lt;_&gt; opmaak."/>
-	<tip id="IDC_SHARE_PARTIALS" message="Deze instelling heeft geen effect op reeds gestarte downloads, bestanden waarvan men de eDonkeyhash weet en op torrents.{n}Maar toch wordt deze instelling gerespecteerd als je download gepauzeerd is.{n}{n}WAARSCHUWING: Gebruik deze optie alleen als het echt nodig is. Misbruik hiervan kan ervoor zorgen dat u wordt uitgesloten."/>
+	<tip id="IDC_SHARE_PARTIALS" message="Deze instelling heeft geen effect op reeds gestarte downloads, bestanden waarvan men de eDonkeyhash weet en op torrents.{n}Maar toch wordt deze instelling gerespecteerd als je download gepauzeerd is.{n}{n}Waarschuwing: Gebruik deze optie alleen als het echt nodig is. Misbruik hiervan kan ervoor zorgen dat u wordt uitgesloten."/>
 </controlTips>
 <!-- Localized Strings -->
 <strings>
@@ -2865,7 +2863,7 @@
 	<string id="20290" value="Downloadgastheer %s heeft geantwoord met een ander, maar bruikbaar bereik (%I64i-%I64i) van &quot;%s&quot;."/>
 	<string id="20291" value="Een onnodige pushverbinding is ontvangen van %s."/>
 	<string id="20292" value="Bron %s (%s) is geweigerd voor het sturen van corrupte delen van &quot;%s&quot; (%I64i-%I64i)."/>
-	<string id="20293" value="WAARSCHUWING: Het controleren van download &quot;%s&quot; is mislukt, het is mogelijk niet het bestand dat je van plan was om te downloaden."/>
+	<string id="20293" value="Waarschuwing: Het controleren van download &quot;%s&quot; is mislukt, het is mogelijk niet het bestand dat je van plan was om te downloaden."/>
 	<string id="20294" value="De download &quot;%s&quot; is succesvol gecontroleerd."/>
 	<string id="20295" value="Downloadgastheer %s's versie van &quot;%s&quot; heeft een andere URN, geannuleerd."/>
 	<string id="20296" value="Downloadgastheer %s heeft geantwoord met een onbruikbare byte-bereik van &quot;%s&quot;, in afwachting."/>
@@ -3007,14 +3005,14 @@
 	<string id="20446" value="De hashcontroletest voor het bestand &quot;%s&quot; is mislukt. Het is mogelijk niet het bestand dat je eigenlijk wilde downloaden. Weet je zeker dat je het wilt openen?"/>
 	<string id="20447" value="Wil je de eigenschap &quot;mogelijk onveilig&quot; van dit bestand verwijderen?"/>
 	<string id="20448" value="Het bestand &quot;%s&quot; is nog niet gehasht. Wacht alsjeblieft even totdat het bestand gehasht is en probeer het dan nog een keer."/>
-	<string id="20449" value="Deze optie gebruikt diensten die zijn verstrekt door Bitzi.com voor het herkennen en delen van informatie over de geselecteerde bestanden.\n\nPeerProject geeft de SHA1 hash-code door voor de geselecteerde bestand(en) om de Bitzi gegevensbank op te vragen. Als je je zorgen maakt over privacy, kun je de privacypolis van Bitzi.com raadplegen.\n\nWil je verdergaan?"/>
+	<string id="20449" value="Deze optie gebruikt diensten die zijn verstrekt door peerproject.org/bitprint voor het herkennen en delen van informatie over de geselecteerde bestanden.\n\nPeerProject geeft de SHA1 hash-code door voor de geselecteerde bestand(en) om de Bitprint gegevensbank op te vragen. Als je je zorgen maakt over privacy, kun je de privacypolis van peerproject.org/bitprint raadplegen.\n\nWil je verdergaan?"/>
 	<string id="20450" value="De complete en incomplete mappen mogen niet dezelfde zijn"/>
 	<string id="20451" value="Er is geen bestand aan het afspelen. Dubbelklik op een mediabestand uit je bibliotheek om het af te spelen."/>
 	<string id="20452" value="Alle mediabestanden|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Afspeellijsten|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Audiobestanden|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Videobestanden|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD audiobestanden|*.cda|MIDI bestanden|*.mid;*.rmi;*.midi|Alle bestanden|*.*||"/>
 	<string id="20453" value="Niet mogelijk om mediabestand &quot;%s&quot; te laden"/>
 	<string id="20454" value="Het bestand is misschien beschadigd, of je hebt de noodzakelijke codecs niet om het af te spelen."/>
 	<string id="20455" value="Een deel van dit bestand kon niet worden afgespeeld, je moet misschien extra codecs downloaden."/>
-	<string id="20456" value="AFSPEELLIJST:"/>
+	<string id="20456" value="Afspeellijst:"/>
 	<string id="20457" value="PeerProject kon de MediaServices plugin niet opstarten. Installeer PeerProject alsjeblieft opnieuw en kijk na of je de benodigde mediacodecs en outputdrivers hebt geïnstalleerd."/>
 	<string id="20458" value="PeerProject Media Speler"/>
 	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
@@ -3493,7 +3491,7 @@
 		<control/>
 		<control caption="Gebruikersnaam:"/>
 		<control/>
-		<control caption="Alternatieve pseudoniem:"/>
+		<control caption="Bijnaam:"/>
 		<control/>
 		<control caption="Echte naam:"/>
 		<control/>
@@ -3598,13 +3596,13 @@
 		<control caption="_Wissen"/>
 		<control caption="(Aanpassingen werken meteen)"/>
 	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Web Interface">
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Toegang vanaf afstand">
 		<control caption="_Inschakelen:"/>
-		<control caption="PeerProject's Web Interface inschakelen:"/>
+		<control caption="PeerProject's afstandsbediening inschakelen:"/>
 		<control/>
 		<control caption="_Gegevens:"/>
-		<control caption="Kies een schuilnaam:"/>
-		<control caption="Kies een wachtwoord:"/>
+		<control caption="Kies pseudoniem:"/>
+		<control caption="Kies wachtwoord:"/>
 		<control/>
 		<control/>
 		<control caption="Handleiding:"/>
@@ -3704,10 +3702,10 @@
 		<control caption="_Download verbindingen:"/>
 		<control/>
 		<control/>
-		<control caption="torrents tegelijkertijd"/>
+		<control caption="Torrents tegelijkertijd"/>
 		<control/>
 		<control/>
-		<control caption="cliënt verbindingen"/>
+		<control caption="Cliënt verbindingen"/>
 		<control caption="Schakel BitTorrent DHT"/>
 		<control caption="Verkies torrent bronnen"/>
 		<control caption="_EndGame:"/>
@@ -3769,14 +3767,14 @@
 		<control/>
 		<control caption="_Ingangscriteria:"/>
 		<control caption="Alleen gedeeltelijke bestanden"/>
-		<control caption="Shared Library files only"/>
-		<control caption="Both partial and library files"/>
+		<control caption="Alleen gedeelde bestanden"/>
+		<control caption="Gedeeltelijke en gedeelde bestanden"/>
 		<control caption="Minimale bestandsgrootte:"/>
 		<control/>
 		<control caption="Maximale bestandsgrootte:"/>
 		<control/>
 		<control caption="Gemarkeerd als:"/>
-		<control caption="Popular|Release"/>
+		<control caption="Populair|Release"/>
 		<control caption="Gelijk aan bestand:"/>
 		<control/>
 		<control caption="Protocollen:"/>
@@ -3889,7 +3887,7 @@
 	</dialog>
 	<dialog name="CWizardProfilePage" cookie="StStEdStCoCoStCoStCoStEd" caption="Welkom bij PeerProject (7/8)">
 		<control caption="PeerProject wordt een veel vriendelijkere plek als iedereen een paar basisgegevens over zichzelf zou opgeven."/>
-		<control caption="Mijn schuilnaam is:"/>
+		<control caption="Ik gebruik als naam:"/>
 		<control/>
 		<control caption="en ik ben een:"/>
 		<control caption="&#160;(kies)"/>
@@ -3898,7 +3896,7 @@
 		<control/>
 		<control caption="Locale:"/>
 		<control/>
-		<control caption="Comments:"/>
+		<control caption="Commentaar:"/>
 		<control/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="Welkom bij PeerProject (8/8)">
@@ -3916,7 +3914,7 @@
 		<control/>
 		<control caption="Sluiten"/>
 	</dialog>
-	<dialog name="CProfileManagerDlg" cookie="SyBuBuBu" caption="Mijn profiel aanpassen">
+	<dialog name="CProfileManagerDlg" cookie="SyBuBuBu" caption="Profiel aanpassen">
 		<control/>
 		<control caption="OK"/>
 		<control caption="Annuleren"/>
@@ -3925,7 +3923,7 @@
 	</dialog>
 	<dialog name="CIdentityProfilePage" cookie="BuStStEdEdEdBuStStCoCoBuStBuBu" caption="Identiteit">
 		<control caption="_Naam:"/>
-		<control caption="Schuilnaam:"/>
+		<control caption="Pseudoniem:"/>
 		<control caption="Echte naam:"/>
 		<control/>
 		<control/>
@@ -3969,7 +3967,7 @@
 		<control caption="_E-mailadressen:"/>
 		<control caption="Eerste:"/>
 		<control/>
-		<control caption="_Instant messaging:"/>
+		<control caption="_IM:"/>
 		<control caption="PeerProject.org:"/>
 		<control/>
 		<control caption="Facebook:"/>
@@ -4015,15 +4013,15 @@
 		<control caption="Info:"/>
 		<control caption="Gnutella gebruikers worden geïdentificeerd aan de hand van een globaal unieke ID en een corresponderend publiek en privaat sleutelpaar. Normaal gesproken is het niet nodig om een nieuwe ID te genereren, PeerProject voorziet echter in deze optie voor gevorderde gebruikers."/>
 	</dialog>
-	<dialog name="CLanguageDlg" cookie="" caption="Een taal kiezen...">
+	<dialog name="CLanguageDlg" cookie="" caption="Taal kiezen">
 	</dialog>
-	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="Verbinden met|Gastheer bekijken|Chat with User">
-		<control caption="Een nieuwe verbinding met deze gastheer of server aanmaken:|Deze gastheer bekijken:|Message this user:"/>
+	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="Verbinden met|Gastheer bekijken|Chat met Gebruiker">
+		<control caption="Een nieuwe verbinding met deze gastheer of server aanmaken:|Deze gastheer bekijken:|Chatten met deze gebruiker:"/>
 		<control/>
 		<control/>
 		<control caption="Netwerk_protocol:"/>
 		<control/>
-		<control caption="Ultrapeer _Ooderdrukken"/>
+		<control caption="Ultrapeer _Onderdrukken"/>
 		<control caption="Verbinden"/>
 		<control caption="Annuleren"/>
 	</dialog>
@@ -4327,13 +4325,13 @@
 		<control caption="_Onthoudt mijn keuze"/>
 		<control caption="Open een _monitor venster"/>
 	</dialog>
-	<dialog name="CBitziDownloadDlg" cookie="StStmsBuSySt" caption="Bezig met het downloaden van metadata...">
+	<dialog name="CBitprintDownloadDlg" cookie="StStmsBuSySt" caption="Bezig met het downloaden van metadata...">
 		<control/>
-		<control caption="PeerProject probeert metadata te downloaden van Bitzi..."/>
+		<control caption="PeerProject probeert metadata te downloaden van Bitprint..."/>
 		<control/>
 		<control caption="Annuleren"/>
 		<control/>
-		<control caption="www.bitzi.com"/>
+		<control caption="peerproject.org/bitprint"/>
 	</dialog>
 	<dialog name="CFilePreviewDlg" cookie="StStStmsStBu" caption="Downloadvoorvertoning">
 		<control/>
@@ -4462,11 +4460,11 @@
 		<control caption="Commentaar:"/>
 		<control caption="Overdrachten:"/>
 		<control caption="Start nieuwe download verplaatsingen:"/>
-		<control caption="Total Uploaded:"/>
+		<control caption="Totaal Upload:"/>
 		<control caption="Notes:"/>
 	</dialog>
 	<dialog name="CDownloadEditPage" cookie="StBuStStStStBuStEdEdEdSyBuEdBuEdBuEdBuEdBuEd" caption="Uitgebreid">
-		<control caption="WAARSCHUWING: De hier weergegeven opties zijn alleen voor gevorderde gebruikers. Bij incorrect gebruik is de kans op datacorruptie zeer groot."/>
+		<control caption="Waarschuwing: De hier weergegeven opties zijn alleen voor gevorderde gebruikers. Bij incorrect gebruik is de kans op datacorruptie zeer groot."/>
 		<control caption="Bestandsnaam en bestandsgrootte:"/>
 		<control caption="Bestandsnaam:"/>
 		<control caption="Bestands:"/>
@@ -4490,7 +4488,7 @@
 		<control/>
 	</dialog>
 	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="Acties">
-		<control caption="WAARSCHUWING: De hier weergegeven opties zijn alleen voor gevorderde gebruikers. Bij incorrect gebruik is de kans op datacorruptie zeer groot."/>
+		<control caption="Waarschuwing: De hier weergegeven opties zijn alleen voor gevorderde gebruikers. Bij incorrect gebruik is de kans op datacorruptie zeer groot."/>
 		<control caption="Vergeet alle bekende bronnen"/>
 		<control caption="Vergeet de huidige controlestatus (en controleer opnieuw)"/>
 		<control caption="Veronderstel bestand is 100% voltooid en controleer opnieuw"/>
@@ -4539,7 +4537,7 @@
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Metadata lokalisatie">
 		<control caption="Selecteer hercodeermethode"/>
 		<control caption="Arabisch|Baltisch|Centraal Europees|Chinees (vereenvoudigd)|Chinees (traditioneel)|Cyrillic|Grieks|Hebreeuws|Japans|Koreaans|Thais|Turks|Vietnamees"/>
-		<control caption="Preview:"/>
+		<control caption="Voorvertonen:"/>
 		<control/>
 		<control/>
 		<control/>
@@ -4554,18 +4552,18 @@
 		<control caption="Annuleren"/>
 		<control/>
 	</dialog>
-	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Reason Why">
+	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Naam kanaal|Reden">
 		<control/>
 		<control caption="OK"/>
 		<control caption="Annuleren"/>
-		<control caption="Add a channel name:|Enter kick/ban reason:"/>
+		<control caption="Voer een kanaal naam in:|Vul kick/ban reden in:"/>
 	</dialog>
 	<dialog name="CDownloadReviewDlg" cookie="BuSyEd" caption="Downloadcommentaar">
 		<control caption="OK"/>
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CHelpDlg" cookie="BuAf" caption="PeerProject help">
+	<dialog name="CHelpDlg" cookie="BuAf" caption="PeerProject hulp">
 		<control caption="Sluiten"/>
 		<control/>
 	</dialog>

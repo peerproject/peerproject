@@ -3,12 +3,12 @@
 
 <!-- PeerProject Arabic Language Skin File -->
 
-<!-- Translation based on default-en.xml r100 -->
+<!-- Translation based on default-en.xml r102 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
-<!-- however be sure to include only sections that are changed.  -->
+<!-- however be sure to include only sections that are changed:  -->
 <!-- Unedited English content limits compatibility & performance.-->
 <!-- Better to be concise than literal:  Please test visibility! -->
 
@@ -342,7 +342,7 @@
 	</toolbar>
 	<!--نافذة الجوار-->
 	<toolbar name="CIRCFrame">
-		<button id="ID_IRC_SENDTEXT" text="Send" tip="Post Your Comments"/>
+		<button id="ID_IRC_SENDTEXT" text="Send" tip="تعليقات"/>
 		<separator/>
 		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
 		<rightAlign />
@@ -566,7 +566,7 @@
 					<item id="ID_HELP_FORUMS" text="_منتديات PeerProject" />
 					<separator />
 					<item id="ID_HELP_UPDATE" text="آخر الأخبار"/>
-				 	<!-- <item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
+					<!-- <item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 					<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
 				</menu>
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject.org" />
@@ -667,7 +667,7 @@
 				<separator />
 				<item id="ID_HELP_FORUMS" text="_منتديات PeerProject" />
 				<item id="ID_HELP_UPDATE" text="آخر الأخبار"/>
-			 	<!-- <item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
+				<!-- <item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
 			</menu>
 			<separator/>
@@ -958,7 +958,7 @@
 		<item id="ID_SEARCH_FOR_SERIES" text="الأحداث في نفس السلسلة" />
 	</menu>
 	<menu text="_خدمات الانترنت">
-		<item id="ID_LIBRARY_BITZI_WEB" text="عرض ب_طافة Bitzi" />
+		<item id="ID_LIBRARY_BITPRINT_WEB" text="عرض ب_طافة Bitprint" />
 		<item id="ID_SEARCH_URI" text="نسخ ا_لرابط..." />
 	</menu>
 	</menu>
@@ -980,7 +980,7 @@
 		<item id="ID_SEARCH_FOR_SERIES" text="الأحداث في نفس السلسلة" />
 	</menu>
 	<menu text="_خدمات الانترنت">
-		<item id="ID_LIBRARY_BITZI_WEB" text="Bitzi عرض ب_طافة" />
+		<item id="ID_LIBRARY_BITPRINT_WEB" text="Bitprint عرض ب_طافة" />
 	</menu>
 	<separator />
 	<item id="ID_SEARCH_FILTER" text="_فرز النتائج..." />
@@ -1004,7 +1004,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="الأحداث في نفس السلسلة" />
 		</menu>
 		<menu text="_معلومات ملف ويب">
-			<item id="ID_LIBRARY_BITZI_WEB" text="عرض ب_طافة Bitzi" />
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="عرض ب_طافة Bitprint" />
 			<item id="ID_SEARCH_URI" text="نسخ ا_لرابط..." />
 		</menu>
 	</menu>
@@ -1024,7 +1024,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="الأحداث في نفس السلسلة" />
 		</menu>
 		<menu text="_خدمات الانترنت">
-			<item id="ID_LIBRARY_BITZI_WEB" text="عرض ب_طافة Bitzi" />
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="عرض ب_طافة Bitprint" />
 		</menu>
 		<separator />
 		<item id="ID_SEARCH_FILTER" text="_فرز النتائج..." />
@@ -1049,7 +1049,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="الأحداث في نفس السلسلة" />
 		</menu>
 		<menu text="_خدمات الانترنت">
-			<item id="ID_LIBRARY_BITZI_WEB" text="عرض ب_طافة Bitzi" />
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="عرض ب_طافة Bitprint" />
 		</menu>
 		<separator />
 		<item id="ID_SEARCH_FILTER" text="_فرز النتائج..." />
@@ -1282,8 +1282,8 @@
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata" />
 			<item id="ID_LIBRARY_REBUILD_ANSI" text="_توطين ملف تعريف" />
 			<separator />
-			<item id="ID_LIBRARY_BITZI_WEB" text="Bitzi عرض ب_طافة" />
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_تحميل ملف تعريف" />
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Bitprint عرض ب_طافة" />
+			<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="_تحميل ملف تعريف" />
 			<separator />
 			<item id="ID_LIBRARY_URI" text="_URI" />
 		</menu>
@@ -1322,8 +1322,8 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="الأحداث في نفس السلسلة" />
 		</menu>
 		<menu text="_خدمات الانترنت">
-			<item id="ID_LIBRARY_BITZI_WEB" text="عرض ب_طافة Bitzi" />
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_طلب ملف تعريف" />
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="عرض ب_طافة Bitprint" />
+			<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="_طلب ملف تعريف" />
 		</menu>
 		<menu text="_Metadata">
 			<item id="ID_LIBRARY_REBUILD_ANSI" text="_توطين ملف تعريف" />
@@ -2325,10 +2325,8 @@
 	<tip id="ID_HELP_WEB_2" message="زيارة هذا الموقع" />
 	<tip id="ID_HELP_WEB_3" message="زيارة هذا الموقع" />
 	<tip id="ID_HELP_WEB_4" message="زيارة هذا الموقع" />
-	<tip id="ID_HELP_WEB_5" message="زيارة هذا الموقع" />
-	<tip id="ID_HELP_WEB_6" message="زيارة هذا الموقع" />
 	<tip id="ID_HELP_DONATE" message="إذا كنت تريد ، يمكنك أن تتبرع إلى حسابنا القانوني و تبدي لنا تقديرك" />
-	<tip id="ID_HELP_FAKESHAREAZA" message="ترجمة FakeShareaza.com لمعرفة المزيد حول الأحداث الأخيرة" />
+	<!--tip id="ID_HELP_FAKESHAREAZA" message="ترجمة FakeShareaza.com لمعرفة المزيد حول الأحداث الأخيرة" -->
 	<tip id="ID_HITMONITOR_CLEAR" message="مسح المخزون المؤقت لمراقب ضربات" />
 	<tip id="ID_HITMONITOR_PAUSE" message="إيقاف مراقبة الضربات مؤقتا" />
 	<tip id="ID_HITMONITOR_SEARCH" message="البحث في الشبكة عن المادة المحددة" />
@@ -2346,8 +2344,8 @@
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="حذف مجلد الألبوم المحدد" />
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="فتح مجلد الألبوم المحدد" />
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="عرض و تحرير الخصائص لمجلد الألبوم المحدد..." />
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="تحميل بيانات التعريف للملف المحدد من Bitzi™..." />
-	<tip id="ID_LIBRARY_BITZI_WEB" message="عرض بطاقة Bitzi™ للملف المحدد على الشبكة" />
+	<tip id="ID_LIBRARY_BITPRINT_DOWNLOAD" message="تحميل بيانات التعريف للملف المحدد من Bitprint..." />
+	<tip id="ID_LIBRARY_BITPRINT_WEB" message="عرض بطاقة Bitprint للملف المحدد على الشبكة" />
 	<tip id="ID_LIBRARY_COLUMNS" message="تحديد أعمدة بيانات التعريف للعرض..." />
 	<tip id="ID_LIBRARY_COPY" message="إنسخ الملفات المحددة إلى مجلد مكتبة آخر..." />
 	<tip id="ID_LIBRARY_CREATETORRENT" message="إنشاء .torrent لهذا الملف لرفعه إلى أي موقع على الشبكة" />
@@ -3357,7 +3355,7 @@
 		<control/>
 		<control caption="Locale:"/>
 		<control/>
-		<control caption="Comments:"/>
+		<control caption="تعليقات:"/>
 		<control/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="(8/8) _ PeerProject مرحبا بكم في">
@@ -3785,13 +3783,13 @@
 		<control caption="_تذكر اختياري في المرة القادمة" />
 		<control caption="شاشة التحميل _افتح نافذة " />
 	</dialog>
-	<dialog name="CBitziDownloadDlg" cookie="StStmsBuSySt" caption="Downloading Metadata...">
+	<dialog name="CBitprintDownloadDlg" cookie="StStmsBuSySt" caption="Downloading Metadata...">
 		<control />
-		<control caption="PeerProject is attempting to download metadata from Bitzi..." />
+		<control caption="PeerProject is attempting to download metadata from Bitprint..." />
 		<control />
 		<control caption="إلغاء الأمر" />
 		<control />
-		<control caption="www.bitzi.com" />
+		<control caption="peerproject.org/bitprint" />
 	</dialog>
 	<dialog name="CFilePreviewDlg" cookie="StStStmsStBu" caption="Smart Download Preview...">
 		<control />

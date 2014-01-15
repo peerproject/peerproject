@@ -1,7 +1,7 @@
 //
 // BENode.cpp
 //
-// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008
+// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008,2014
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
@@ -24,9 +24,13 @@
 #include "BENode.h"
 #include "Buffer.h"
 
+#ifdef _PORTABLE
+#include "Portable\SHA1.h"
+#endif
+
 #ifdef _DEBUG
 #undef THIS_FILE
-static char THIS_FILE[]=__FILE__;
+static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif
 
@@ -36,9 +40,9 @@ static char THIS_FILE[]=__FILE__;
 
 CBENode::CBENode()
 {
-	m_nType		= beNull;
-	m_pValue	= NULL;
-	m_nValue	= 0;
+	m_nType  = beNull;
+	m_pValue = NULL;
+	m_nValue = 0;
 }
 
 CBENode::~CBENode()
@@ -75,9 +79,9 @@ void CBENode::Clear()
 		}
 	}
 
-	m_nType		= beNull;
-	m_pValue	= NULL;
-	m_nValue	= 0;
+	m_nType  = beNull;
+	m_pValue = NULL;
+	m_nValue = 0;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -88,9 +92,9 @@ CBENode* CBENode::Add(const LPBYTE pKey, size_t nKey)
 	switch ( m_nType )
 	{
 	case beNull:
-		m_nType		= ( pKey != NULL && nKey > 0 ) ? beDict : beList;
-		m_pValue	= NULL;
-		m_nValue	= 0;
+		m_nType  = ( pKey != NULL && nKey > 0 ) ? beDict : beList;
+		m_pValue = NULL;
+		m_nValue = 0;
 		break;
 	case beList:
 		ASSERT( pKey == NULL && nKey == 0 );
@@ -192,6 +196,20 @@ CBENode* CBENode::GetNode(const LPBYTE pKey, int nKey) const
 //////////////////////////////////////////////////////////////////////
 // CBENode SHA1 computation
 
+#ifdef _PORTABLE
+CHashSHA1 CBENode::GetSHA1() const
+{
+	ASSERT( this != NULL );
+
+	CBuffer pBuffer;
+	Encode( &pBuffer );
+
+	CSHA1 pDigest;
+	pDigest.Add( pBuffer.m_pBuffer, pBuffer.m_nLength );
+	pDigest.Finish();
+	return pDigest;
+}
+#else // Use HashLib
 CSHA CBENode::GetSHA1() const
 {
 	ASSERT( this != NULL );
@@ -204,6 +222,7 @@ CSHA CBENode::GetSHA1() const
 	pSHA.Finish();
 	return pSHA;
 }
+#endif
 
 //////////////////////////////////////////////////////////////////////
 // CBENode encoding

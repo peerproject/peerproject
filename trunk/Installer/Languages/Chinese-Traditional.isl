@@ -202,6 +202,7 @@ ApplicationsFound=安装向导需要更新被下列应用程序占用的文件。建议你允许自动关闭这
 ApplicationsFound2=安装向导需要更新被下列应用程序占用的文件。建议你允许自动关闭这些应用程序。安装完成后，安装向导会尝试重新启动这些应用程序。
 CloseApplications=自动关闭应用程序(&A)
 DontCloseApplications=不自动关闭应用程序(&D)
+ErrorCloseApplications=Setup was unable to automatically close all applications. It is recommended that you close all applications using files that need to be updated by Setup before continuing.
 
 ; *** "Installing" wizard page
 WizardInstalling=タ杆

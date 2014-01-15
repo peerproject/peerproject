@@ -1028,34 +1028,34 @@ bool CLibraryBuilderInternals::ScanMP3Frame(CXMLElement* pXML, HANDLE hFile, DWO
 
 bool CLibraryBuilderInternals::ReadVersion(DWORD nIndex, LPCTSTR pszPath)
 {
-	DWORD dwSize = GetFileVersionInfoSize( (LPTSTR)pszPath, &dwSize );
-	if ( dwSize <= 152 )
-		return false;
-
-	auto_array< BYTE > pBuffer( new BYTE[ dwSize ] );
-
-	if ( ! GetFileVersionInfo( (LPTSTR)pszPath, NULL, dwSize, pBuffer.get() ) )
-		return false;
-
-	DWORD nLangId = GetBestLanguageId( pBuffer.get() );
-
 	auto_ptr< CXMLElement > pXML( new CXMLElement( NULL, _T("application") ) );
+	if ( ! pXML.get() )
+		return false;
 
-	pXML->AddAttribute( _T("os"), _T("Windows") );
+	if ( DWORD dwSize = GetFileVersionInfoSize( (LPTSTR)pszPath, &dwSize ) )
+	{
+		pXML->AddAttribute( _T("os"), _T("Windows") );
 
-	bool bOur = false;
-	bOur |= CopyVersionField( pXML.get(), _T("title"), pBuffer.get(), _T("ProductName"), nLangId );
-			CopyVersionField( pXML.get(), _T("version"), pBuffer.get(), _T("ProductVersion"), nLangId, true );
-	bOur |= CopyVersionField( pXML.get(), _T("fileDescription"), pBuffer.get(), _T("FileDescription"), nLangId );
-			CopyVersionField( pXML.get(), _T("fileVersion"), pBuffer.get(), _T("FileVersion"), nLangId, true );
-	bOur |= CopyVersionField( pXML.get(), _T("originalFileName"), pBuffer.get(), _T("OriginalFilename"), nLangId );
-	bOur |= CopyVersionField( pXML.get(), _T("company"), pBuffer.get(), _T("CompanyName"), nLangId );
-	bOur |= CopyVersionField( pXML.get(), _T("copyright"), pBuffer.get(), _T("LegalCopyright"), nLangId );
-	bOur |= CopyVersionField( pXML.get(), _T("comments"), pBuffer.get(), _T("comments"), nLangId );
+		auto_array< BYTE > pBuffer( new BYTE[ dwSize ] );
+		if ( pBuffer.get() && GetFileVersionInfo( (LPTSTR)pszPath, NULL, dwSize, pBuffer.get() ) )
+		{
+			const DWORD nLangId = GetBestLanguageId( pBuffer.get() );
 
-	//LPCTSTR pszExt = PathFindExtension( pszPath );
-	//if ( bOur && pszExt && _tcscmp( pszExt, L".exe" ) == 0 /*&& ValidateManifest( pszPath )*/ )
-	//	// ToDo: mark the file as validated OR otherwise submit corrupted OR delete metadata?
+			bool bOur = false;
+			bOur |= CopyVersionField( pXML.get(), _T("title"), pBuffer.get(), _T("ProductName"), nLangId );
+					CopyVersionField( pXML.get(), _T("version"), pBuffer.get(), _T("ProductVersion"), nLangId, true );
+			bOur |= CopyVersionField( pXML.get(), _T("fileDescription"), pBuffer.get(), _T("FileDescription"), nLangId );
+					CopyVersionField( pXML.get(), _T("fileVersion"), pBuffer.get(), _T("FileVersion"), nLangId, true );
+			bOur |= CopyVersionField( pXML.get(), _T("originalFileName"), pBuffer.get(), _T("OriginalFilename"), nLangId );
+			bOur |= CopyVersionField( pXML.get(), _T("company"), pBuffer.get(), _T("CompanyName"), nLangId );
+			bOur |= CopyVersionField( pXML.get(), _T("copyright"), pBuffer.get(), _T("LegalCopyright"), nLangId );
+			bOur |= CopyVersionField( pXML.get(), _T("comments"), pBuffer.get(), _T("comments"), nLangId );
+
+			//LPCTSTR pszExt = PathFindExtension( pszPath );
+			//if ( bOur && pszExt && _tcscmp( pszExt, L".exe" ) == 0 /*&& ValidateManifest( pszPath )*/ )
+			//	// ToDo: mark the file as validated OR otherwise submit corrupted OR delete metadata?
+		}
+	}
 
 	LibraryBuilder.SubmitMetadata( nIndex, CSchema::uriApplication, pXML.release() );
 
@@ -1063,8 +1063,7 @@ bool CLibraryBuilderInternals::ReadVersion(DWORD nIndex, LPCTSTR pszPath)
 }
 
 // Return true if word "PeerProject" was found
-bool CLibraryBuilderInternals::CopyVersionField(CXMLElement* pXML, LPCTSTR pszAttribute, BYTE* pBuffer,
-												LPCTSTR pszKey, DWORD nLangId, bool bCommaToDot)
+bool CLibraryBuilderInternals::CopyVersionField(CXMLElement* pXML, LPCTSTR pszAttribute, BYTE* pBuffer, LPCTSTR pszKey, DWORD nLangId, bool bCommaToDot)
 {
 	CString strValue = GetVersionKey( pBuffer, pszKey, nLangId );
 
@@ -1072,12 +1071,7 @@ bool CLibraryBuilderInternals::CopyVersionField(CXMLElement* pXML, LPCTSTR pszAt
 		return false;
 
 	if ( bCommaToDot )
-	{
-		for ( int nPos = -1 ; ( nPos = strValue.Find( _T(", ") ) ) >= 0 ; )
-		{
-			strValue = strValue.Left( nPos ) + '.' + strValue.Mid( nPos + 2 );
-		}
-	}
+		strValue.Replace( _T(", "), _T(".") );
 
 	pXML->AddAttribute( pszAttribute, strValue );
 
@@ -1095,8 +1089,7 @@ bool CLibraryBuilderInternals::CopyVersionField(CXMLElement* pXML, LPCTSTR pszAt
 
 CString CLibraryBuilderInternals::GetVersionKey(BYTE* pBuffer, LPCTSTR pszKey, DWORD nLangId)
 {
-	CString strKey, strValue;
-
+	CString strKey;
 	strKey.Format( L"\\StringFileInfo\\%04x%04x\\", nLangId & 0x0000FFFF, ( nLangId & 0xFFFF0000 ) >> 16 );
 	strKey += pszKey;
 
@@ -1104,9 +1097,9 @@ CString CLibraryBuilderInternals::GetVersionKey(BYTE* pBuffer, LPCTSTR pszKey, D
 	DWORD dwSize = 0;
 
 	if ( ! VerQueryValue( pBuffer, (LPTSTR)(LPCTSTR)strKey, (void**)&pValue, (UINT*)&dwSize ) )
-		return strValue;
+		return CString();
 
-	strValue = (LPCTSTR)pValue;
+	CString strValue = (LPCTSTR)pValue;
 
 	return strValue.Trim();
 }

@@ -1,4 +1,4 @@
-UnRAR 4.20.0 (4.2.4.0)	June.2012
+UnRAR 5.0.14	Dec.2013
 
 NoCrypt-only DLL source from
 www.rarlab.com/rar_add.htm

@@ -1,7 +1,7 @@
 //
 // StdAfx.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -82,6 +82,7 @@
 #pragma warning ( disable : 4625 )		// (Level 4)	'derived class' : copy constructor could not be generated because a base class copy constructor is inaccessible
 #pragma warning ( disable : 4626 )		// (Level 4)	'derived class' : assignment operator could not be generated because a base class assignment operator is inaccessible
 #pragma warning ( disable : 4710 )		// (Level 4)	'function' : function not inlined
+#pragma warning ( disable : 4770 )		// (Level 4)	partially validated enum used as index (VS2013+)
 #pragma warning ( disable : 4820 )		// (Level 4)	'bytes' bytes padding added after construct 'member_name'
 
 #define _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES 1
@@ -176,13 +177,13 @@
 // If header is not found, install latest Windows SDK from microsoft.com
 // (Vista SDK 6.0 or later -previously XP Platform SDK)
 
-#include <netfw.h>
-#include <upnp.h>
-#include <natupnp.h>
-#include <iphlpapi.h>
-#include <MsiQuery.h>
-#include <MsiDefs.h>
-#include <Powrprof.h>		// Power policy applicator
+#include <netfw.h>			// Windows Firewall interfaces
+#include <upnp.h>			// Control Point API
+#include <natupnp.h>		// NAT UPnP interfaces
+#include <iphlpapi.h>		// IP Stack
+#include <MsiQuery.h>		// Windows Installer
+#include <MsiDefs.h>		// Windows Installer
+#include <powrprof.h>		// Power policy applicator
 
 // (Windows SDK 7.0 or later, do not assume VS2008)
 #if defined(_MSC_VER) && (_MSC_VER >= 1600)
@@ -302,6 +303,7 @@
 
 #include <zlib/zlib.h>
 
+#define BZ_NO_STDIO
 #include <Bzlib/Bzlib.h>
 
 #include "MinMax.hpp"

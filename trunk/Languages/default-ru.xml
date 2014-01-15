@@ -3,12 +3,12 @@
 
 <!-- PeerProject Default Russian Skin File -->
 
-<!-- Translation based on default-en.xml r100 -->
+<!-- Translation based on default-en.xml r102 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
-<!-- however be sure to include only sections that are changed.  -->
+<!-- however be sure to include only sections that are changed:  -->
 <!-- Unedited English content limits compatibility & performance.-->
 <!-- Better to be concise than literal:  Please test visibility! -->
 
@@ -346,7 +346,7 @@
 	</toolbar>
 	<!-- IRC WINDOW -->
 	<toolbar name="CIRCFrame">
-		<button id="ID_IRC_SENDTEXT" text="Чат" tip="Post Your Comments"/>
+		<button id="ID_IRC_SENDTEXT" text="Чат" tip="Post Комментарии"/>
 		<separator/>
 		<button id="ID_IRC_CLOSETAB" text="Закрыть" tip="Exit Current Channel Window"/>
 		<rightAlign/>
@@ -387,8 +387,8 @@
 		<button id="ID_SECURITY_EDIT" text="Редактировать правило"/>
 		<button id="ID_SECURITY_REMOVE" text="Удалить правило"/>
 		<separator/>
-		<button id="ID_SECURITY_MOVE_UP" text="Move Up"/>
-		<button id="ID_SECURITY_MOVE_DOWN" text="Move Down"/>
+		<button id="ID_SECURITY_MOVE_UP" text="вверх"/>
+		<button id="ID_SECURITY_MOVE_DOWN" text="спускать"/>
 			<rightAlign/>
 		<button id="ID_SECURITY_RESET" text="Reset Hits"/>
 		<button id="ID_SECURITY_IMPORT" text="Импорт"/>
@@ -1002,7 +1002,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Серии из этого же сериала"/>
 		</menu>
 		<menu text="_Сервис">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Посмотреть _Bitzi этикетку"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Посмотреть _Bitprint этикетку"/>
 			<item id="ID_SEARCH_URI" text="Копировать _ссылку..."/>
 		</menu>
 	</menu>
@@ -1024,7 +1024,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Серии из этого же сериала"/>
 		</menu>
 		<menu text="_Сервис">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Посмотреть _Bitzi этикетку"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Посмотреть _Bitprint этикетку"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Фильтровать результаты..."/>
@@ -1048,7 +1048,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Серии из этого же сериала"/>
 		</menu>
 		<menu text="_Сервис">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Посмотреть _Bitzi этикетку"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Посмотреть _Bitprint этикетку"/>
 			<item id="ID_SEARCH_URI" text="Копировать _ссылку..."/>
 		</menu>
 	</menu>
@@ -1068,7 +1068,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Серии этого же сериала"/>
 		</menu>
 		<menu text="_Сервис">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Посмотреть _Bitzi этикетку"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Посмотреть _Bitprint этикетку"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Фильтровать результаты..."/>
@@ -1093,7 +1093,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Серии этого же сериала"/>
 		</menu>
 		<menu text="_Сервис">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Посмотреть _Bitzi этикетку"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Посмотреть _Bitprint этикетку"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Фильтровать найденое..."/>
@@ -1327,8 +1327,8 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Серии из этого же сериала"/>
 		</menu>
 		<menu text="_Сервис">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Посмотреть _Bitzi этикетку"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Загрузить метаданные"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Посмотреть _Bitprint этикетку"/>
+			<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="_Загрузить метаданные"/>
 		</menu>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Свойства"/>
@@ -1360,8 +1360,8 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Серии из этого же сериала"/>
 		</menu>
 		<menu text="_Сервис">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Посмотреть _Bitzi этикетку"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Загрузить метаданные"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Посмотреть _Bitprint этикетку"/>
+			<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="_Загрузить метаданные"/>
 		</menu>
 		<menu text="_Mетаданные">
 			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
@@ -1654,7 +1654,7 @@
 		</menu>
 	</menu>
 	<menu name="WebServices.List.Menu">
-		<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Bitzi"/>
+		<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="_Bitprint"/>
 		<item id="ID_WEBSERVICES_MUSICBRAINZ" text="_MusicBrainz"/>
 		<!--item id="ID_WEBSERVICES_SHAREMONKEY" text="_ShareMonkey"-->
 	</menu>
@@ -2395,10 +2395,7 @@
 	<tip id="ID_HELP_WEB_2" message="Посетить этот сайт"/>
 	<tip id="ID_HELP_WEB_3" message="Посетить этот сайт"/>
 	<tip id="ID_HELP_WEB_4" message="Посетить этот сайт"/>
-	<tip id="ID_HELP_WEB_5" message="Посетить этот сайт"/>
-	<tip id="ID_HELP_WEB_6" message="Посетить этот сайт"/>
 	<tip id="ID_HELP_DONATE" message="Вы можете пожертвовать немного средств для развития этой программы."/>
-	<tip id="ID_HELP_FAKESHAREAZA" message="Translate FakeShareaza.com to learn more about recent events."/>
 	<tip id="ID_HITMONITOR_CLEAR" message="Очистить буфер монитора хитов."/>
 	<tip id="ID_HITMONITOR_PAUSE" message="Приостановить вывод в монитор хитов."/>
 	<tip id="ID_HITMONITOR_SEARCH" message="Искать в сети указанную фразу."/>
@@ -2416,8 +2413,8 @@
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="Удалить помеченную папку альбома."/>
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="Открыть помеченную папку альбома."/>
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="Просмотр и правка свойств помеченной папки альбома..."/>
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Загрузить мета данные для помеченного файла(ов) с Bitzi™..."/>
-	<tip id="ID_LIBRARY_BITZI_WEB" message="Просмотреть Bitzi™ этикетку помеченного файла в Интернете."/>
+	<tip id="ID_LIBRARY_BITPRINT_DOWNLOAD" message="Загрузить мета данные для помеченного файла(ов) с Bitprint..."/>
+	<tip id="ID_LIBRARY_BITPRINT_WEB" message="Просмотреть Bitprint этикетку помеченного файла в Интернете."/>
 	<tip id="ID_LIBRARY_COLUMNS" message="Выбрать колонки мета данных для показа..."/>
 	<tip id="ID_LIBRARY_COPY" message="Копировать помеченные файлы в другую папку хранилища..."/>
 	<tip id="ID_LIBRARY_CREATETORRENT" message="Создать .torrent для этого файла,чтобы поместить на веб сайт."/>
@@ -3033,7 +3030,7 @@
 	<string id="20446" value="Файл «%s» не прошел проверку хеш-теста и он может быть не тем файлом, который Вы намеревались загрузить. Уверены, что хотите его открыть?"/>
 	<string id="20447" value="Хотите ли Вы удалить атрибут «потенциально небезопасен» с этого файла?"/>
 	<string id="20448" value="Файл «%s» ещё не имеет хеша. Подождите пока хеширование будет закончено и попробуйте снова."/>
-	<string id="20449" value="Эта опция использует службу, предоставленную Bitzi.com для получения и обмена информацией о помеченных файлах.\n\nPeerProject перешлет SHA1 хеш код помеченного файла(ов) для того, чтобы запросить базу данных Bitzi. Если Вы заинтересованы в секретности, наверное, Вы захотите познакомиться с политикой конфиденциальности Bitzi.com.\n\nХотите ли продолжать?"/>
+	<string id="20449" value="Эта опция использует службу, предоставленную peerproject.org/bitprint для получения и обмена информацией о помеченных файлах.\n\nPeerProject перешлет SHA1 хеш код помеченного файла(ов) для того, чтобы запросить базу данных Bitprint. Если Вы заинтересованы в секретности, наверное, Вы захотите познакомиться с политикой конфиденциальности peerproject.org/bitprint.\n\nХотите ли продолжать?"/>
 	<string id="20450" value="Подпапка выбранной папки «%s» уже находится в Вашем хранилище.\nЕсли Вы добавите эту папку, хеши некоторых файлов будут перерасчитанны заново.\n\nУверены, что хотите продолжить?"/>
 	<string id="20451" value="Нет воспроизводимых файлов. Щелкните дважды на медиа файле в Вашем хранилище для его проигрывания."/>
 	<string id="20452" value="Все медиа файлы|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Списки воспроизв.|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Аудио файлы|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Видео файлы|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD аудио трэки|*.cda|MIDI файлы|*.mid;*.rmi;*.midi|Все файлы|*.*||"/>
@@ -3925,7 +3922,7 @@
 		<control/>
 		<control caption="Locale:"/>
 		<control/>
-		<control caption="Comments:"/>
+		<control caption="Комментарии:"/>
 		<control/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="Добро пожаловать в PeerProject (8/8)">
@@ -4354,13 +4351,13 @@
 		<control caption="Запомнить мой _выбор"/>
 		<control caption="Открыть окно _Монитора"/>
 	</dialog>
-	<dialog name="CBitziDownloadDlg" cookie="StStmsBuSySt" caption="Загрузка мета данных...">
+	<dialog name="CBitprintDownloadDlg" cookie="StStmsBuSySt" caption="Загрузка мета данных...">
 		<control/>
-		<control caption="PeerProject пытается загрузить мета данные с Bitzi..."/>
+		<control caption="PeerProject пытается загрузить мета данные с Bitprint..."/>
 		<control/>
 		<control caption="Отмена"/>
 		<control/>
-		<control caption="www.bitzi.com"/>
+		<control caption="peerproject.org/bitprint"/>
 	</dialog>
 	<dialog name="CFilePreviewDlg" cookie="StStStmsStBu" caption="Просмотр копии загрузки...">
 		<control/>

@@ -21,6 +21,9 @@
     <ClCompile Include="arcread.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="blake2s.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="cmddata.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -28,6 +31,21 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="crc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="crypt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="crypt1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="crypt2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="crypt3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="crypt5.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="dll.cpp">
@@ -66,6 +84,12 @@
     <ClCompile Include="global.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="hash.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="headers.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="isnt.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -81,6 +105,9 @@
     <ClCompile Include="pathfn.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="qopen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="rar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -88,9 +115,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="rarvm.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="rarvmtbl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="rawread.cpp">
@@ -102,13 +126,19 @@
     <ClCompile Include="recvol.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="recvol3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="recvol5.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="rijndael.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="rs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="savepos.cpp">
+    <ClCompile Include="rs16.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="scantree.cpp">
@@ -118,6 +148,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="sha1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sha256.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="smallfn.cpp">
@@ -132,16 +165,34 @@
     <ClCompile Include="system.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="timefn.cpp">
+    <ClCompile Include="threadmisc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ulinks.cpp">
+    <ClCompile Include="threadpool.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="timefn.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="unicode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="unpack.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="unpack30.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="unpack50.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="unpack50frag.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="unpack50mt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="unpackinline.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="volume.cpp">
@@ -156,6 +207,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="array.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="blake2s.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="cmddata.hpp">
@@ -215,10 +269,10 @@
     <ClInclude Include="isnt.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="list.hpp">
+    <ClInclude Include="log.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="log.hpp">
+    <ClInclude Include="list.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="match.hpp">
@@ -234,6 +288,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="pathfn.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qopen.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="rardefs.hpp">
@@ -266,16 +323,19 @@
     <ClInclude Include="rs.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="rs16.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="savepos.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="scantree.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="secpassword.hpp">
+    <ClInclude Include="sha1.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="sha1.hpp">
+    <ClInclude Include="sha256.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="smallfn.hpp">
@@ -291,6 +351,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="system.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="threadpool.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="timefn.hpp">
