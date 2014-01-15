@@ -1,7 +1,7 @@
 //
 // PageTracker.h
 //
-// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008,2012
+// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008,2012-2014
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
@@ -37,33 +37,26 @@ public:
 
 // Dialog Data
 public:
-	//{{AFX_DATA(CTrackerPage)
-
 	CComboBox	m_wndTracker;
 	CComboBox	m_wndTracker2;
 	CString 	m_sTracker;
 	CString 	m_sTracker2;
-	//}}AFX_DATA
 
 protected:
 	void	SaveTrackers();
 
 // Overrides
 protected:
-	//{{AFX_VIRTUAL(CTrackerPage)
+	virtual BOOL OnInitDialog();
 	virtual BOOL OnSetActive();
 	virtual LRESULT OnWizardBack();
 	virtual LRESULT OnWizardNext();
-	virtual BOOL OnInitDialog();
 	virtual void DoDataExchange(CDataExchange* pDX);
-	//}}AFX_VIRTUAL
 
 // Implementation
 protected:
-	//{{AFX_MSG(CTrackerPage)
 	afx_msg void OnClearTrackers();
 	afx_msg void OnXButtonDown(UINT nFlags, UINT nButton, CPoint point);
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

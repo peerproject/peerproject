@@ -1,7 +1,7 @@
 //
 // Schema.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -21,8 +21,8 @@
 class CSchema;
 class CSchemaMember;
 class CSchemaChild;
+class CSchemaBitprint;
 class CXMLElement;
-class CSchemaBitzi;
 
 typedef const CSchema* CSchemaPtr;
 
@@ -48,9 +48,9 @@ public:
 	CList< CString >		m_pExtends;
 	CList< CSchemaMember* >	m_pMembers;
 	CList< CSchemaChild* >	m_pContains;
-	CList< CSchemaBitzi* >	m_pBitziMap;
+	CList< CSchemaBitprint* >	m_pBitprintMap;
 	CString		m_sDefaultColumns;
-	CString		m_sBitziTest;
+	CString		m_sBitprintTest;
 	CString		m_sLibraryView;
 	CString		m_sHeaderTitle;
 	CString		m_sHeaderSubtitle;
@@ -102,7 +102,7 @@ protected:
 	void			LoadDescriptorTypeFilter(CXMLElement* pElement);
 	void			LoadDescriptorExtends(CXMLElement* pElement);
 	void			LoadDescriptorContains(CXMLElement* pElement);
-	void			LoadDescriptorBitziImport(CXMLElement* pElement);
+	void			LoadDescriptorBitprintImport(CXMLElement* pElement);
 	void			LoadDescriptorHeaderContent(CXMLElement* pElement);
 	void			LoadDescriptorViewContent(CXMLElement* pElement);
 	BOOL			LoadIcon();
@@ -189,7 +189,7 @@ private:
 };
 
 
-class CSchemaBitzi
+class CSchemaBitprint
 {
 public:
 	CString		m_sFrom;

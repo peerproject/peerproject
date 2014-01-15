@@ -1151,7 +1151,7 @@
 			<title language="zht">連結</title>
 		</member>
 	</members>
-	<bitziImport testExists="rdf:rdf/rdf:Description/bz:videoWidth">
+	<bitprintImport testExists="rdf:rdf/rdf:Description/bz:videoWidth">
 		<mapping from="rdf:rdf/rdf:Description/mm:duration" to="minutes" factor="0.000016667"/>
 		<mapping from="rdf:rdf/rdf:Description/bz:videoWidth" to="width"/>
 		<mapping from="rdf:rdf/rdf:Description/bz:videoHeight" to="height"/>
@@ -1160,7 +1160,7 @@
 		<mapping from="rdf:rdf/rdf:Description/dc:description/dc:title" to="title"/>
 		<mapping from="rdf:rdf/rdf:Description/dc:description/dc:date" to="year"/>
 		<mapping from="rdf:rdf/rdf:Description/dcterms:rightsHolder/" to="copyright"/>
-	</bitziImport>
+	</bitprintImport>
 	<typeFilter>
 		<type extension="3gp"/>
 		<type extension="3gpp"/>

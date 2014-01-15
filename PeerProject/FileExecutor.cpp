@@ -1,7 +1,7 @@
 //
 // FileExecutor.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -552,11 +552,11 @@ BOOL CFileExecutor::Enqueue(const CStringList& pList)
 }
 
 //////////////////////////////////////////////////////////////////////
-// CFileExecutor show Bitzi ticket
+// CFileExecutor show Bitprint listing
 //
 // Note: Moved to new WebServices class
 //
-//BOOL CFileExecutor::ShowBitziTicket(DWORD nIndex)
+//BOOL CFileExecutor::ShowBitprintTicket(DWORD nIndex)
 
 //////////////////////////////////////////////////////////////////////
 // CFileExecutor display a URL
@@ -585,13 +585,11 @@ BOOL CFileExecutor::Enqueue(const CStringList& pList)
 //		CT2A pszCommand( (LPCTSTR)strCommand );
 //
 //		DdeClientTransaction( (LPBYTE)pszCommand, pszCommand, hConv, 0, 0, XTYP_EXECUTE, 4000, NULL );
-//
 //		DdeDisconnect( hConv );
 //	}
 //
 //	DdeFreeStringHandle( hInstance, hszTopic );
 //	DdeFreeStringHandle( hInstance, hszService );
-//
 //	DdeUninitialize( hInstance );
 //
 //	return bSuccess;

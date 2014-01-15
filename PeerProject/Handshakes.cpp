@@ -1,7 +1,7 @@
 //
 // Handshakes.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -126,26 +126,24 @@ BOOL CHandshakes::Listen()
 			(SOCKADDR*)&saListen,	// Our Internet IP address, the one we want to listen on, and how big it is
 			sizeof( saListen )
 			) == 0;					// If bind succeeds, it returns 0, and bBound becomes true
-		if ( bBound ) break;		// We're done trying to bind, leave the loop
+		if ( bBound )
+			break;					// We're done trying to bind, leave the loop
 
 		// Record that we weren't able to listen on this port
 		theApp.Message( MSG_ERROR, IDS_NETWORK_CANT_LISTEN, (LPCTSTR)CString( inet_ntoa( saListen.sin_addr ) ), htons( saListen.sin_port ) );
 
-		// If this is not our first attempt
-		if ( nAttempt )
+		if ( ! nAttempt )
 		{
-			if ( Network.m_bUPnPPortsForwarded != TRI_TRUE )
-			{
-				int nPort = Network.RandomPort();
-				Network.m_pHost.sin_port = saListen.sin_port = htons( u_short( nPort ) );
-			}
-		}
-		else // This is still our first time here in this loop
-		{
-			// We set s_addr to INADDR_ANY, which allows it to be any IP address,
-			// since we don’t really care about the IP address if we are just telling
-			// WinSock which port we want our side of the connection to be.
+			// This is still our first time here in this loop
+			// Set s_addr to INADDR_ANY, which allows it to be any IP address,
+			// since we don’t really care about the IP address if we are just
+			// telling WinSock which port we want our side of the connection to be.
 			saListen.sin_addr.s_addr = INADDR_ANY;
+		}
+		else if ( Network.m_bUPnPPortsForwarded != TRI_TRUE )
+		{
+			int nPort = Network.RandomPort();
+			Network.m_pHost.sin_port = saListen.sin_port = htons( u_short( nPort ) );
 		}
 	}
 
@@ -328,6 +326,13 @@ BOOL CHandshakes::AcceptConnection()
 	SOCKET hSocket = CNetwork::AcceptSocket( m_hSocket, &pHost, AcceptCheck );
 	if ( hSocket == INVALID_SOCKET )
 		return FALSE;
+
+	// ToDo:?
+	// Disables the Nagle algorithm for send coalescing
+	//setsockopt( hSocket, IPPROTO_TCP, TCP_NODELAY, "\x01", 1 );
+
+	// Allows the socket to be bound to an address that is already in use
+	//setsockopt( m_hSocket, SOL_SOCKET, SO_REUSEADDR, "\x01", 1 );
 
 	Network.AcquireLocalAddress( hSocket );
 

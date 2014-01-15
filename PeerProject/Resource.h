@@ -237,7 +237,7 @@
 #define IDD_MEDIA_VIS                       635
 #define IDD_NEW_SEARCH                      636
 #define IDD_PLUGIN_EXT_SETUP                638
-#define IDD_BITZI_DOWNLOAD                  639
+#define IDD_BITPRINT_DOWNLOAD               639
 #define IDD_CLOSE_MODE                      640
 #define IDD_CODEPAGES                       641
 #define IDD_QUEUE_PROPERTIES                642
@@ -875,10 +875,10 @@
 #define IDS_PRIORITY_NORMAL                 20072
 #define IDS_PRIORITY_HIGH                   20074
 #define IDS_BETA_EXPIRED                    20080
-#define IDS_BITZI_CLOSE                     20081
-#define IDS_BITZI_FINISHED                  20082
-#define IDS_BITZI_REQUESTING                20083
-#define IDS_BITZI_SUCCESS                   20084
+#define IDS_BITPRINT_CLOSE                  20081
+#define IDS_BITPRINT_FINISHED               20082
+#define IDS_BITPRINT_REQUESTING             20083
+#define IDS_BITPRINT_SUCCESS                20084
 #define IDS_BROWSE_CLOSED                   20100
 #define IDS_BROWSE_BAD_RESPONSE             20101
 #define IDS_BROWSE_CANT_CONNECT             20102
@@ -1208,8 +1208,8 @@
 #define IDS_LIBRARY_URI_EXPORT              20445
 #define IDS_LIBRARY_VERIFY_FAIL             20446
 #define IDS_LIBRARY_VERIFY_FIX              20447
-#define IDS_LIBRARY_BITZI_HASHED            20448
-#define IDS_LIBRARY_BITZI_MESSAGE           20449
+#define IDS_LIBRARY_BITPRINT_HASHED         20448
+#define IDS_LIBRARY_BITPRINT_MESSAGE        20449
 #define IDS_LIBRARY_SUBFOLDER_IN_LIBRARY    20450
 #define IDS_MEDIA_EMPTY                     20451
 #define IDS_MEDIA_FILTER                    20452
@@ -1710,9 +1710,8 @@
 #define ID_HELP_WEB_2                       40122
 #define ID_HELP_WEB_3                       40123
 #define ID_HELP_WEB_4                       40124
-#define ID_HELP_WEB_5                       40125
-#define ID_HELP_WEB_6                       40126
-#define ID_HELP_WEB_SKINS                   40127
+#define ID_HELP_WEB_BITPRINT                40125
+#define ID_HELP_WEB_SKINS                   40126
 #define ID_HELP_WARNINGS                    40128
 #define ID_HELP_STARTPAGE                   40129
 #define ID_HOSTCACHE_CONNECT                40130
@@ -1763,8 +1762,8 @@
 #define ID_LIBRARY_ALBUM_OPEN               40200
 #define ID_LIBRARY_ALBUM_DELETE             40201
 #define ID_LIBRARY_ALBUM_PROPERTIES         40202
-#define ID_LIBRARY_BITZI_DOWNLOAD           40203
-#define ID_LIBRARY_BITZI_WEB                40204
+#define ID_LIBRARY_BITPRINT_DOWNLOAD        40203
+#define ID_LIBRARY_BITPRINT_WEB             40204
 #define ID_LIBRARY_COLUMNS                  40205
 #define ID_LIBRARY_CREATETORRENT            40206
 #define ID_LIBRARY_EXPORT_COLLECTION        40207

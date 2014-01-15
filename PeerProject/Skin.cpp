@@ -1,7 +1,7 @@
 //
 // Skin.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -142,8 +142,7 @@ void CSkin::CreateDefault()
 //	CoolInterface.CopyIcon( ID_HELP_FAQ, ID_HELP_WEB_2 );
 //	CoolInterface.CopyIcon( ID_HELP_FAQ, ID_HELP_WEB_3 );
 //	CoolInterface.CopyIcon( ID_HELP_FAQ, ID_HELP_WEB_4 );
-//	CoolInterface.CopyIcon( ID_HELP_FAQ, ID_HELP_WEB_5 );
-//	CoolInterface.CopyIcon( ID_HELP_FAQ, ID_HELP_WEB_6 );
+//	CoolInterface.CopyIcon( ID_HELP_FAQ, ID_HELP_WEB_BITPRINT );
 //	CoolInterface.CopyIcon( ID_HELP_FAQ, ID_HELP_WEB_SKINS );
 }
 

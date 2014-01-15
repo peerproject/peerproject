@@ -250,9 +250,8 @@
 	<resource code="40122" id="ID_HELP_WEB_2"/>
 	<resource code="40123" id="ID_HELP_WEB_3"/>
 	<resource code="40124" id="ID_HELP_WEB_4"/>
-	<resource code="40125" id="ID_HELP_WEB_5"/>
-	<resource code="40126" id="ID_HELP_WEB_6"/>
-	<resource code="40127" id="ID_HELP_WEB_SKINS"/>
+	<resource code="40125" id="ID_HELP_WEB_BITPRINT"/>
+	<resource code="40126" id="ID_HELP_WEB_SKINS"/>
 	<resource code="40128" id="ID_HELP_WARNINGS"/>
 	<resource code="40129" id="ID_HELP_STARTPAGE"/>
 	<resource code="40130" id="ID_HOSTCACHE_CONNECT"/>
@@ -303,8 +302,8 @@
 	<resource code="40200" id="ID_LIBRARY_ALBUM_OPEN"/>
 	<resource code="40201" id="ID_LIBRARY_ALBUM_DELETE"/>
 	<resource code="40202" id="ID_LIBRARY_ALBUM_PROPERTIES"/>
-	<resource code="40203" id="ID_LIBRARY_BITZI_DOWNLOAD"/>
-	<resource code="40204" id="ID_LIBRARY_BITZI_WEB"/>
+	<resource code="40203" id="ID_LIBRARY_BITPRINT_DOWNLOAD"/>
+	<resource code="40204" id="ID_LIBRARY_BITPRINT_WEB"/>
 	<resource code="40205" id="ID_LIBRARY_COLUMNS"/>
 	<resource code="40206" id="ID_LIBRARY_CREATETORRENT"/>
 	<resource code="40207" id="ID_LIBRARY_EXPORT_COLLECTION"/>

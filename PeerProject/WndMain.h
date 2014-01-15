@@ -1,7 +1,7 @@
 //
 // WndMain.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -180,8 +180,7 @@ protected:
 	afx_msg void OnHelpWeb2();
 	afx_msg void OnHelpWeb3();
 	afx_msg void OnHelpWeb4();
-	afx_msg void OnHelpWeb5();
-	afx_msg void OnHelpWeb6();
+	afx_msg void OnHelpWebBitprint();
 	afx_msg void OnHelpWebSkins();
 	afx_msg void OnHelpStartpage();
 	afx_msg void OnHelpConnectiontest();
@@ -289,7 +288,7 @@ protected:
 	afx_msg LRESULT OnMenuChar(UINT nChar, UINT nFlags, CMenu* pMenu);
 	afx_msg LRESULT OnSanityCheck(WPARAM wParam, LPARAM lParam);
 	afx_msg LRESULT OnNowUploading(WPARAM wParam, LPARAM lParam);
-	afx_msg UINT OnPowerBroadcast(UINT nPowerEvent, UINT nEventData);
+	afx_msg UINT OnPowerBroadcast(UINT nPowerEvent, LPARAM lParam);
 	afx_msg BOOL OnCopyData(CWnd* pWnd, COPYDATASTRUCT* pCopyDataStruct);	// Windows scheduler not implemented
 
 	DECLARE_MESSAGE_MAP()

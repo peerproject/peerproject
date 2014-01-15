@@ -13,8 +13,8 @@
 
    Condition of use and distribution are the same than zlib :
 
-  This software is provided 'as-is', without any express or implied
-  warranty.  In no event will the authors be held liable for any damages
+  This software is provided 'as-is', without any express or implied warranty.
+  In no event will the authors be held liable for any damages
   arising from the use of this software.
 
   Permission is granted to anyone to use this software for any purpose,
@@ -36,7 +36,7 @@
 /* for more info about .ZIP format, see
       http://www.info-zip.org/pub/infozip/doc/
    PkWare has also a specification at :
-      ftp://ftp.pkware.com/probdesc.zip
+      http://www.pkware.com/documents/casestudies/APPNOTE.TXT
 */
 
 #ifndef _zip12_H
@@ -174,9 +174,9 @@ extern int ZEXPORT zipOpenNewFileInZip64 OF((zipFile file,
   filename : the filename in zip (if NULL, '-' without quote will be used
   *zipfi contain supplemental information
   if extrafield_local!=NULL and size_extrafield_local>0, extrafield_local
-    contains the extrafield data the the local header
+    contains the extrafield data the local header
   if extrafield_global!=NULL and size_extrafield_global>0, extrafield_global
-    contains the extrafield data the the local header
+    contains the extrafield data the local header
   if comment != NULL, comment contain the comment string
   method contain the compression method (0 for store, Z_DEFLATED for deflate)
   level contain the level of compression (can be Z_DEFAULT_COMPRESSION)

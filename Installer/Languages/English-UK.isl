@@ -121,7 +121,7 @@ InfoAfterClickLabel=When you are ready to continue with Setup, click Next.
 WizardUserInfo=User Information
 UserInfoDesc=Please enter your information.
 UserInfoName=&User Name:
-UserInfoOrg=&Organization:
+UserInfoOrg=&Organisation:
 UserInfoSerial=&Serial Number:
 UserInfoNameRequired=You must enter a name.
 
@@ -196,6 +196,7 @@ ApplicationsFound=The following applications are using files that need to be upd
 ApplicationsFound2=The following applications are using files that need to be updated by Setup. It is recommended that you allow Setup to automatically close these applications. After the installation has completed, Setup will attempt to restart the applications.
 CloseApplications=&Automatically close the applications
 DontCloseApplications=&Do not close the applications
+ErrorCloseApplications=Setup was unable to automatically close all applications. It is recommended that you close all applications using files that need to be updated by Setup before continuing.
 
 ; *** "Installing" wizard page
 WizardInstalling=Installing
@@ -282,7 +283,7 @@ ErrorRestartingComputer=Setup was unable to restart the computer. Please do this
 ; *** Uninstaller messages
 UninstallNotFound=File "%1" does not exist. Cannot uninstall.
 UninstallOpenError=File "%1" could not be opened. Cannot uninstall
-UninstallUnsupportedVer=The uninstall log file "%1" is in a format not recognized by this version of the uninstaller. Cannot uninstall
+UninstallUnsupportedVer=The uninstall log file "%1" is in a format not recognised by this version of the uninstaller. Cannot uninstall
 UninstallUnknownEntry=An unknown entry (%1) was encountered in the uninstall log
 ConfirmUninstall=Are you sure you want to completely remove %1 and all of its components?
 UninstallOnlyOnWin64=This installation can only be uninstalled on 64-bit Windows.

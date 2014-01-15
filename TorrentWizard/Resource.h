@@ -42,6 +42,7 @@
 #define IDC_TOTAL_SIZE                  1024
 #define IDC_TITLE                       1025
 #define IDC_COMMENT                     1026
+#define IDC_PRIVATE                     1027
 #define IDC_AUTO_PIECE_SIZE             1028
 #define IDC_PIECE_SIZE                  1029
 #define IDC_TORRENT_SEED                1030

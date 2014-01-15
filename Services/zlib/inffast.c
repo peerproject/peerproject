@@ -38,7 +38,6 @@
    inflate execution time is spent in this routine.
 
    Entry assumptions:
-
         state->mode == LEN
         strm->avail_in >= 6
         strm->avail_out >= 258
@@ -46,7 +45,6 @@
         state->bits < 8
 
    On return, state->mode is one of:
-
         LEN -- ran out of enough output space or enough available input
         TYPE -- reached end of block code, inflate() to interpret next block
         BAD -- error in block data
@@ -69,8 +67,8 @@ z_streamp strm;
 unsigned start;         /* inflate()'s starting value for strm->avail_out */
 {
     struct inflate_state FAR *state;
-    unsigned char FAR *in;      /* local strm->next_in */
-    unsigned char FAR *last;    /* while in < last, enough input available */
+    z_const unsigned char FAR *in;      /* local strm->next_in */
+    z_const unsigned char FAR *last;    /* have enough input while in < last */
     unsigned char FAR *out;     /* local strm->next_out */
     unsigned char FAR *beg;     /* inflate()'s initial strm->next_out */
     unsigned char FAR *end;     /* while out < end, enough space available */

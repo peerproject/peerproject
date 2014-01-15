@@ -20,7 +20,6 @@
    Jan-2010 - back to unzip and minizip 1.0 name scheme, with compatibility layer
 */
 
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -39,6 +38,10 @@
 #   include <errno.h>
 #endif
 
+
+#ifndef NOCRYPT
+  #define NOCRYPT
+#endif
 
 #ifndef local
 #  define local static
@@ -94,8 +97,7 @@
 #  define DEF_MEM_LEVEL  MAX_MEM_LEVEL
 #endif
 #endif
-const char zip_copyright[] =
-   " zip 1.01 Copyright 1998-2004 Gilles Vollant - http://www.winimage.com/zLibDll";
+const char zip_copyright[] =" zip 1.01 Copyright 1998-2004 Gilles Vollant - http://www.winimage.com/zLibDll";
 
 
 #define SIZEDATA_INDATABLOCK (4096-(4*4))
@@ -157,7 +159,7 @@ typedef struct
     ZPOS64_T totalUncompressedData;
 #ifndef NOCRYPT
     unsigned long keys[3];     /* keys defining the pseudo-random sequence */
-    const unsigned long* pcrc_32_tab;
+    const z_crc_t* pcrc_32_tab;
     int crypt_header_size;
 #endif
 } curfile64_info;

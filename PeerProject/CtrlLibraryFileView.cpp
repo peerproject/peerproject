@@ -1,7 +1,7 @@
 //
 // CtrlLibraryFileView.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -36,7 +36,7 @@
 #include "DlgURLExport.h"
 #include "DlgDeleteFile.h"
 #include "DlgDecodeMetadata.h"
-#include "DlgBitziDownload.h"
+#include "DlgBitprintDownload.h"
 #include "WebServices.h"
 #include "RelatedSearch.h"
 #include "Transfers.h"
@@ -101,11 +101,11 @@ BEGIN_MESSAGE_MAP(CLibraryFileView, CLibraryView)
 	ON_COMMAND(ID_LIBRARY_REBUILD_FILE, OnLibraryRebuild)
 	ON_MESSAGE(WM_METADATA, OnServiceDone)
 
-	// Web Services 	ToDo: Move Bitzi/MusicBrainz out to CWebServices?
-	ON_UPDATE_COMMAND_UI(ID_LIBRARY_BITZI_WEB, OnUpdateLibraryBitziWeb)
-	ON_COMMAND(ID_LIBRARY_BITZI_WEB, OnLibraryBitziWeb)
-	ON_UPDATE_COMMAND_UI(ID_LIBRARY_BITZI_DOWNLOAD, OnUpdateLibraryBitziDownload)
-	ON_COMMAND(ID_LIBRARY_BITZI_DOWNLOAD, OnLibraryBitziDownload)
+	// Web Services 	ToDo: Move Bitprint/MusicBrainz out to CWebServices?
+	ON_UPDATE_COMMAND_UI(ID_LIBRARY_BITPRINT_WEB, OnUpdateLibraryBitprintWeb)
+	ON_COMMAND(ID_LIBRARY_BITPRINT_WEB, OnLibraryBitprintWeb)
+	ON_UPDATE_COMMAND_UI(ID_LIBRARY_BITPRINT_DOWNLOAD, OnUpdateLibraryBitprintDownload)
+	ON_COMMAND(ID_LIBRARY_BITPRINT_DOWNLOAD, OnLibraryBitprintDownload)
 	ON_UPDATE_COMMAND_UI(ID_WEBSERVICES_MUSICBRAINZ, OnUpdateMusicBrainzLookup)
 	ON_COMMAND(ID_WEBSERVICES_MUSICBRAINZ, OnMusicBrainzLookup)
 	ON_UPDATE_COMMAND_UI(ID_MUSICBRAINZ_MATCHES, OnUpdateMusicBrainzMatches)
@@ -858,7 +858,7 @@ void CLibraryFileView::OnSearchForSeries()
 /////////////////////////////////////////////////////////////////////
 // Web Services Handling
 
-// ToDo: Move below Bitzi/MusicBrainz to WebServices?
+// ToDo: Move below Bitprint/MusicBrainz to WebServices?
 
 void CLibraryFileView::ClearServicePages()
 {
@@ -876,14 +876,14 @@ void CLibraryFileView::ClearServicePages()
 
 
 /////////////////////////////////////////////////////////////////////
-// Bitzi Ticket Services
+// Bitprint listing Services
 
-void CLibraryFileView::OnUpdateLibraryBitziWeb(CCmdUI* pCmdUI)
+void CLibraryFileView::OnUpdateLibraryBitprintWeb(CCmdUI* pCmdUI)
 {
-	pCmdUI->Enable( ! m_bGhostFolder && GetSelectedCount() == 1 && Settings.WebServices.BitziWebSubmit.GetLength() );
+	pCmdUI->Enable( ! m_bGhostFolder && GetSelectedCount() == 1 && Settings.WebServices.BitprintWebSubmit.GetLength() );
 }
 
-void CLibraryFileView::OnLibraryBitziWeb()
+void CLibraryFileView::OnLibraryBitprintWeb()
 {
 	CSingleLock pLock( &Library.m_pSection, TRUE );
 
@@ -891,27 +891,27 @@ void CLibraryFileView::OnLibraryBitziWeb()
 	{
 		DWORD nIndex = pFile->m_nIndex;
 		pLock.Unlock();
-		CWebServices::ShowBitziTicket( nIndex );
+		CWebServices::ShowBitprintTicket( nIndex );
 	}
 }
 
-void CLibraryFileView::OnUpdateLibraryBitziDownload(CCmdUI* pCmdUI)
+void CLibraryFileView::OnUpdateLibraryBitprintDownload(CCmdUI* pCmdUI)
 {
-	pCmdUI->Enable( ! m_bGhostFolder && ! m_bRequestingService && GetSelectedCount() && Settings.WebServices.BitziXML.GetLength() );
+	pCmdUI->Enable( ! m_bGhostFolder && ! m_bRequestingService && GetSelectedCount() && Settings.WebServices.BitprintXML.GetLength() );
 }
 
-void CLibraryFileView::OnLibraryBitziDownload()
+void CLibraryFileView::OnLibraryBitprintDownload()
 {
 	GetFrame()->SetDynamicBar( NULL );
 
-	if ( ! Settings.WebServices.BitziOkay )
+	if ( ! Settings.WebServices.BitprintOkay )
 	{
-		if ( MsgBox( IDS_LIBRARY_BITZI_MESSAGE, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
-		Settings.WebServices.BitziOkay = true;
+		if ( MsgBox( IDS_LIBRARY_BITPRINT_MESSAGE, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
+		Settings.WebServices.BitprintOkay = true;
 		Settings.Save();
 	}
 
-	CBitziDownloadDlg dlg;
+	CBitprintDownloadDlg dlg;
 
 	CSingleLock pLock( &Library.m_pSection, TRUE );
 

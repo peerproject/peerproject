@@ -1,7 +1,7 @@
 //
 // PageExpert.cpp
 //
-// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2012
+// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2014
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
@@ -28,11 +28,7 @@
 #include "PageComment.h"
 #include "PageOutput.h"
 #include "PageFinished.h"
-#ifdef _PORTABLE
-#include "Portable\TorrentBuilder.h"
-#else
 #include "TorrentBuilder.h"
-#endif
 
 
 #ifdef _DEBUG
@@ -44,7 +40,6 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNCREATE(CExpertPage, CWizardPage)
 
 BEGIN_MESSAGE_MAP(CExpertPage, CWizardPage)
-	//{{AFX_MSG_MAP(CExpertPage)
 	ON_NOTIFY(LVN_ITEMCHANGED, IDC_FILE_LIST, OnItemChangedFileList)
 	ON_BN_CLICKED(IDC_BROWSE_FOLDER, OnBrowseFolder)
 	ON_BN_CLICKED(IDC_ADD_FOLDER, OnAddFolder)
@@ -52,7 +47,6 @@ BEGIN_MESSAGE_MAP(CExpertPage, CWizardPage)
 	ON_BN_CLICKED(IDC_REMOVE_FILE, OnRemoveFile)
 	ON_WM_XBUTTONDOWN()
 	ON_WM_DROPFILES()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -62,8 +56,6 @@ END_MESSAGE_MAP()
 CExpertPage::CExpertPage() : CWizardPage(CExpertPage::IDD)
 	, m_hImageList	( NULL )
 {
-	//{{AFX_DATA_INIT(CExpertPage)
-	//}}AFX_DATA_INIT
 }
 
 //CExpertPage::~CExpertPage()
@@ -73,7 +65,7 @@ CExpertPage::CExpertPage() : CWizardPage(CExpertPage::IDD)
 void CExpertPage::DoDataExchange(CDataExchange* pDX)
 {
 	CWizardPage::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CExpertPage)
+
 	DDX_Control(pDX, IDC_FILE_LIST, m_wndList);
 	DDX_Control(pDX, IDC_FOLDER, m_wndFolders);
 //	DDX_Control(pDX, IDC_TORRENT_NAME, m_wndName);
@@ -86,7 +78,7 @@ void CExpertPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_TORRENT_NAME, m_sName);
 	DDX_Text(pDX, IDC_COMMENT, m_sComment);
 	DDX_Text(pDX, IDC_FILECOUNT, m_sFileCount);
-	//}}AFX_DATA_MAP
+	DDX_Check(pDX, IDC_PRIVATE, m_bPrivate);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -139,6 +131,7 @@ BOOL CExpertPage::OnInitDialog()
 
 	m_sTracker = theApp.GetProfileString( _T("Trackers"), _T("Last") );
 
+	m_bPrivate = theApp.GetProfileInt( _T("Comments"), _T("Private"), FALSE );
 
 	UpdateData( FALSE );
 	return TRUE;
@@ -223,6 +216,8 @@ LRESULT CExpertPage::OnWizardNext()
 	}
 
 	theApp.WriteProfileString( _T("Trackers"), _T("Last"), m_sTracker );
+
+	theApp.WriteProfileInt( _T("Comments"), _T("Private"), m_bPrivate );
 
 	// Output
 

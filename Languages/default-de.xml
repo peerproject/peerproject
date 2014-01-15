@@ -3,12 +3,12 @@
 
 <!-- PeerProject Default German Skin File -->
 
-<!-- Translation based on default-en.xml r100 -->
+<!-- Translation based on default-en.xml r102 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
-<!-- however be sure to include only sections that are changed.  -->
+<!-- however be sure to include only sections that are changed:  -->
 <!-- Unedited English content limits compatibility & performance.-->
 <!-- Better to be concise than literal:  Please test visibility! -->
 
@@ -349,7 +349,7 @@
 	</toolbar>
 	<!-- IRC WINDOW -->
 	<toolbar name="CIRCFrame">
-		<button id="ID_IRC_SENDTEXT" text="Send" tip="Post Your Comments"/>
+		<button id="ID_IRC_SENDTEXT" text="Send" tip="Post Kommentare"/>
 		<separator/>
 		<button id="ID_IRC_CLOSETAB" text="Schließen" tip="Exit Current Channel Window"/>
 		<rightAlign/>
@@ -1014,7 +1014,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Folgen der gleichen Serie"/>
 		</menu>
 		<menu text="_Web Dienste">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Bitzi-_Ticket anzeigen"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Bitprint-_Ticket anzeigen"/>
 			<item id="ID_SEARCH_URI" text="_URI kopieren..."/>
 		</menu>
 	</menu>
@@ -1039,7 +1039,7 @@
 			<item id="ID_VIEW_RESULTS_MONITOR" text="_Treffermonitor"/>
 		</menu>
 		<menu text="_Web Dienste">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Bitzi-_Ticket anzeigen"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Bitprint-_Ticket anzeigen"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="Ergebnisse _filtern..."/>
@@ -1063,7 +1063,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Folg_en der gleichen Serie"/>
 		</menu>
 		<menu text="_Web Datei Info">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Bitzi-_Ticket anzeigen"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Bitprint-_Ticket anzeigen"/>
 			<item id="ID_SEARCH_URI" text="_URI kopieren..."/>
 		</menu>
 	</menu>
@@ -1083,7 +1083,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Folg_en der gleichen Serie"/>
 		</menu>
 		<menu text="_Web Dienste">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Bitzi-_Ticket anzeigen"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Bitprint-_Ticket anzeigen"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="Ergebnisse _filtern..."/>
@@ -1108,7 +1108,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Folg_en der gleichen Serie"/>
 		</menu>
 		<menu text="_Web Dienste">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Bitzi-_Ticket anzeigen"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Bitprint-_Ticket anzeigen"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="Ergebnisse _filtern..."/>
@@ -1345,8 +1345,8 @@
 		<menu text="_Web Dienste">
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
 			<separator/>
-			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi-Ticket anzeigen"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Meta_daten suchen"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="_Bitprint-Ticket anzeigen"/>
+			<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="Meta_daten suchen"/>
 			<separator/>
 			<item id="ID_LIBRARY_URI" text="_URI kopieren"/>
 		</menu>
@@ -1380,8 +1380,8 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Folg_en der gleichen Serie"/>
 		</menu>
 		<menu text="_Web Dienste">
-			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi-Ticket anzeigen"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Met_adaten suchen"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="_Bitprint-Ticket anzeigen"/>
+			<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="Met_adaten suchen"/>
 		</menu>
 		<menu text="_Metadaten">
 			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
@@ -1661,7 +1661,7 @@
 		</menu>
 	</menu>
 	<menu name="WebServices.List.Menu">
-		<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Bitzi"/>
+		<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="_Bitprint"/>
 		<item id="ID_WEBSERVICES_MUSICBRAINZ" text="_MusicBrainz"/>
 		<!--item id="ID_WEBSERVICES_SHAREMONKEY" text="_ShareMonkey"-->
 	</menu>
@@ -2428,8 +2428,6 @@
 	<tip id="ID_HELP_WEB_2" message="Webseite2 besuchen"/>
 	<tip id="ID_HELP_WEB_3" message="Webseite3 besuchen"/>
 	<tip id="ID_HELP_WEB_4" message="Webseite4 besuchen"/>
-	<tip id="ID_HELP_WEB_5" message="Webseite5 besuchen"/>
-	<tip id="ID_HELP_WEB_6" message="Webseite6 besuchen"/>
 	<tip id="ID_HELP_DONATE" message="Wenn Sie möchten, können Sie für unsere gerichtlichen Geldmittel spenden und um Ihre Wertschätzung zu zeigen."/>
 	<tip id="ID_HITMONITOR_CLEAR" message="Den Treffermonitor-Puffer leeren." tip="Puffer leeren"/>
 	<tip id="ID_HITMONITOR_PAUSE" message="Den Treffermonitor anhalten." tip="Anzeige anhalten"/>
@@ -2448,8 +2446,8 @@
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="Das markierte Album löschen."/>
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="Das Album öffnen."/>
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="Die Eigenschaften des markierten Albums anzeigen und bearbeiten..."/>
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Metadaten für die markierte(n) Datei(en) von Bitzi™ herunterladen..." tip="Metadaten suchen"/>
-	<tip id="ID_LIBRARY_BITZI_WEB" message="Das Bitzi™-Ticket für die markierte Datei im Browser anzeigen." tip="Bitzi-Ticket anzeigen"/>
+	<tip id="ID_LIBRARY_BITPRINT_DOWNLOAD" message="Metadaten für die markierte(n) Datei(en) von Bitprint herunterladen..." tip="Metadaten suchen"/>
+	<tip id="ID_LIBRARY_BITPRINT_WEB" message="Das Bitprint-Ticket für die markierte Datei im Browser anzeigen." tip="Bitprint-Ticket anzeigen"/>
 	<tip id="ID_LIBRARY_COLUMNS" message="Spalten zum Anzeigen der Metadaten auswählen..." tip="Spalten auswählen..."/>
 	<tip id="ID_LIBRARY_COPY" message="Die markierten Dateien in einen anderen Ordner kopieren..." tip="Dateien kopieren..."/>
 	<tip id="ID_LIBRARY_CREATETORRENT" message="Einen .torrent für diese Datei erstellen, um sie auf eine Webseite hochzuladen."/>
@@ -3055,7 +3053,7 @@
 	<string id="20446" value="Die Datei &quot;%s&quot; hat die Hash-Überprüfung nicht bestanden und ist möglicherweise nicht die Datei, die Sie herunterladen wollten. Sind Sie sicher, dass Sie die Datei öffnen möchten?"/>
 	<string id="20447" value="Wollen sie das &quot;potenziell unsicher&quot;-Atribut von dieser Datei entfernen?"/>
 	<string id="20448" value="Die Datei &quot;%s&quot; wurde noch nicht gehasht. Bitte warten Sie bis die Datei gehasht wurde und versuchen Sie es später erneut."/>
-	<string id="20449" value="Diese Option benutzt Dienste, die von Bitzi.com zur Verfügung gestellt werden, um Information über Dateien zu sammeln und zugänglich zu machen.\n\nPeerProjekt wird den SHA1-Hashwert für die ausgewählte(n) Datei(en) übertragen, um die Bitzi-Datenbank abzufragen.nWenn Sie sich Sorgen um ihre Privatsphäre machen, können Sie die &quot;Bitzi.com privacy policy&quot; lesen.\n\nWollen Sie fortfahren?"/>
+	<string id="20449" value="Diese Option benutzt Dienste, die von peerproject.org/bitprint zur Verfügung gestellt werden, um Information über Dateien zu sammeln und zugänglich zu machen.\n\nPeerProjekt wird den SHA1-Hashwert für die ausgewählte(n) Datei(en) übertragen, um die Bitprint-Datenbank abzufragen.nWenn Sie sich Sorgen um ihre Privatsphäre machen, können Sie die &quot;peerproject.org/bitprint privacy policy&quot; lesen.\n\nWollen Sie fortfahren?"/>
 	<string id="20450" value="Ein Unterordner des ausgewählten Ordners &quot;%s&quot; befindet sich schon in ihrer Bibliothek.nDas Hinzufügen dieses Ordners hat zur Folge, dass einige Dateien neu verifiziert werden müssen.\n\nMöchten Sie fortfahren?"/>
 	<string id="20451" value="Es wird keine Datei wiedergegeben. Doppelklicken Sie eine Datei in Ihrer Bibliothek an, um sie abzuspielen."/>
 	<string id="20452" value="Alle Multimedia Dateien|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Wiedergabelisten|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Audio Dateien|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;|Video Dateien|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.ogm;*.wmv|CD Audio Tracks|*.cda|MIDI Dateien|*.mid;*.rmi;*.midi|Alle Dateien|*.*||"/>
@@ -3694,8 +3692,8 @@
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Gnutella2-Netzwerk:"/>
-		<control caption="Heute zu G2 verbinden"/>
-		<control caption="Immer zu G2 verbinden"/>
+		<control caption="Heute mit G2 verbinden"/>
+		<control caption="Immer mit G2 verbinden"/>
 		<control caption="Modus:"/>
 		<control caption="Optimal|Leaf|Hub"/>
 		<control caption="G_2-Verbindungen:"/>
@@ -3709,8 +3707,8 @@
 		<control/>
 		<control/>
 		<control caption="Gnutella-Netzwerk:"/>
-		<control caption="Heute zu Gnutella verbinden"/>
-		<control caption="Immer zu Gnutella verbinden"/>
+		<control caption="Heute mit Gnutella verbinden"/>
+		<control caption="Immer mit Gnutella verbinden"/>
 		<control caption="Modus:"/>
 		<control caption="Optimal|Leaf|Ultrapeer"/>
 		<control caption="G_1-Verbindungen:"/>
@@ -3730,8 +3728,8 @@
 	</dialog>
 	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuStEdmsStBuBuStEdmsStBuBuBuSt" caption="eDonkey">
 		<control caption="_eDonkey-Netzwerk:"/>
-		<control caption="Heute zu eD2k verbinden"/>
-		<control caption="Immer zu eD2k verbinden"/>
+		<control caption="Heute mit eD2k verbinden"/>
+		<control caption="Immer mit eD2k verbinden"/>
 		<control caption="Client-_Verbindungen:"/>
 		<control caption="Mit maximal"/>
 		<control/>
@@ -3750,8 +3748,8 @@
 	</dialog>
 	<dialog name="CDCSettingsPage" cookie="BuBuBuBuStEdmsStBuStBuBuSt" caption="DC++">
 		<control caption="_DC++-Netzwerk:"/>
-		<control caption="Heute zu DC++ verbinden"/>
-		<control caption="Immer zu DC++ verbinden"/>
+		<control caption="Heute mit DC++ verbinden"/>
+		<control caption="Immer mit DC++ verbinden"/>
 		<control caption="_Hubs:"/>
 		<control caption="Connect by default to:"/>
 		<control/>
@@ -3901,29 +3899,29 @@
 	</dialog>
 	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="Willkommen bei PeerProjekt &#160;(3/8)">
 		<control caption="PeerProjekt ist ein Allround-File-Sharing-Programm, das auf mehrere P2P-Netzwerke gleichzeitig zugreifen kann. Hier können Sie einstellen, welche Netzwerke Sie verwenden möchten. Sie können später jederzeit andere Netzwerke auswählen."/>
-		<control caption="Zu Gnutella2 verbinden (Empfohlen)"/>
+		<control caption="Mit Gnutella2 verbinden (Empfohlen)"/>
 		<control caption="Das Gnutella2-Netzwerk ist das Hauptnetzwerk von PeerProjekt."/>
-		<control caption="Zu Gnutella1 verbinden"/>
+		<control caption="Mit Gnutella1 verbinden"/>
 		<control caption="Obwohl das ursprüngliche Gnutella-Netzwerk weniger Funktionen als Gnutella2 und weniger Dateien als eDonkey hat, bleibt es eine wertvolle Ressource."/>
-		<control caption="Zu eDonkey verbinden"/>
+		<control caption="Mit eDonkey verbinden"/>
 		<control caption="Das eDonkey-Netzwerk ist ein beliebtes serverbasiertes Netzwerk. Obwohl es nicht so viele Funktionen wie Gnutella2 bietet, findet man viele Dateien."/>
 		<control caption="PeerProjekt mit .torrent-Dateien verknüpfen."/>
 	</dialog>
 	<dialog name="CWizardFoldersPage" cookie="StStEdBuStEdBuStEdBuSt" caption="Willkommen bei PeerProjekt &#160;(4/8)">
-		<control caption="PeerProject ersten Downloads teilweise Dateien in einen privaten Ordner, dann bewegt sie, wenn nach Download Gruppen abgeschlossen."/>
+		<control caption="PeerProjekt speichert Ihre Downloads währed des Herunterladens in einem getrennten Ordner und verschiebt sie abgeschlossen."/>
 		<control caption="Unvollständige Dateien:"/>
 		<control/>
 		<control/>
 		<control caption="Downloadverzeichnis:"/>
 		<control/>
 		<control/>
-		<control caption=".Torrentsverzeichnis:"/>
+		<control caption=".torrent-Verzeichniss:"/>
 		<control/>
 		<control/>
 		<control caption="Gemeinsame Dateitypen werden zunächst Setup in Unterordnern, aber Gruppen können individuell gestaltet werden. Einfach Drag&apos;n&apos;Drop Dateien."/>
 	</dialog>
 	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Willkommen bei PeerProjekt &#160;(5/8)">
-		<control caption="P2P-Netzwerke sind nur so gut wie die Leute, die sie benutzen. Alle Dateien, die Sie herunterladen können, werden von anderen Benutzern freigegeben."/>
+		<control caption="P2P-Netzwerke sind nur so gut wie ihre Nutzer. Alle Dateien, die Sie herunterladen können, werden von anderen Benutzern freigegeben."/>
 		<control caption="Sie müssen keine Dateien freigeben, um PeerProjekt zu benutzen. Viele P2P-Programme benachteiligen jedoch Benutzer, die keine Dateien freigeben."/>
 		<control caption="Bitte geben Sie an, welche Ordner Sie freigeben möchten. Klicken Sie einfach auf &quot;Hinzufügen&quot;."/>
 		<control/>
@@ -3941,17 +3939,17 @@
 		<control caption="Schließen"/>
 	</dialog>
 	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="Willkommen bei PeerProjekt &#160;(6/8)">
-		<control caption="PeerProjekt bietet eine flexible Benutzeroberfläche. Sie können also wählen, was Ihnen am angenehmsten ist. Sie können diese Optionen jederzeit ändern."/>
+		<control caption="PeerProjekt bietet eine flexible Benutzeroberfläche. Sie können wählen, was Ihnen am angenehmsten ist. Sie können diese Optionen jederzeit ändern."/>
 		<control caption="Bitte wählen Sie eine Benutzeroberfläche:"/>
 		<control caption="Vereinfachter Modus"/>
 		<control caption="Power-Modus"/>
 		<control caption="Simple, einfach zu bedienende Menüs und Buttons."/>
 		<control caption="Der Power-Modus bietet viele zusätzliche Befehle, Fenster, usw."/>
-		<control caption="Einfache Download-Fortschrittsanzeigen verwenden."/>
+		<control caption="Einfache Download-Fortschrittsanzeigen verwenden"/>
 		<control caption="Versuchen Sie, Mischen mehrere Skins."/>
 	</dialog>
 	<dialog name="CWizardProfilePage" cookie="StStEdStCoCoStCoStCoStEd" caption="Willkommen bei PeerProjekt &#160;(7/8)">
-		<control caption="PeerProjekt ist ein viel freundlicherer Ort, wenn jeder ein paar Sachen über sich schreibt."/>
+		<control caption="PeerProject wird ein viel freundlicherer Ort, wenn jeder einige Dinge über sich äußert."/>
 		<control caption="Ich heiße:"/>
 		<control/>
 		<control caption="und ich bin:"/>
@@ -3959,17 +3957,17 @@
 		<control caption=" ( Bitte wählen )| Junge| Mädchen| Mann| Frau"/>
 		<control caption="aus:"/>
 		<control/>
-		<control caption="Locale:"/>
+		<control caption="in:"/>
 		<control/>
-		<control caption="Comments:"/>
+		<control caption="Kommentare:"/>
 		<control/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="Willkommen bei PeerProjekt &#160;(8/8)">
-		<control caption="Das war's. PeerProjekt wurde konfiguriert, um mit Ihrem Computer zu funktionieren."/>
-		<control caption="Wenn Sie ihre Einstellungen ändern möchten, können Sie diesen Assistenten aus dem &quot;Extras&quot;-Menü aufrufen."/>
+		<control caption="Das war's. PeerProjekt wurde konfiguriert, um auf Ihrem Computer zu funktionieren."/>
+		<control caption="Wenn Sie diesen Assistenten später erneut benötigen, können Sie ihn aus dem Menü &quot;Extras&quot; aufrufen."/>
 		<control caption="Klicken Sie auf &lt;Fertigstellen&gt;, um sich mit den gewünschten Netzwerken zu verbinden, um nach Dateien zu suchen und diese herunterladen."/>
 		<control caption="PeerProjekt starten, wenn Windows gestartet wird"/>
-		<control caption="Beim Start von PeerProjekt immer mit den gewählten Netzwerken verbinden"/>
+		<control caption="Beim Start von immer mit den gewählten Netzwerken verbinden"/>
 		<control caption="Genießen Sie PeerProjekt."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StBuBuEdBu" caption="eDonkey-Downloads importieren">
@@ -4390,13 +4388,13 @@
 		<control caption="Nicht mehr _fragen"/>
 		<control caption="Ein _Monitorfenster anzeigen"/>
 	</dialog>
-	<dialog name="CBitziDownloadDlg" cookie="StStmsBuSySt" caption="Metadaten herunterladen...">
+	<dialog name="CBitprintDownloadDlg" cookie="StStmsBuSySt" caption="Metadaten herunterladen...">
 		<control/>
-		<control caption="PeerProjekt versucht Metadaten von Bitzi herunterzuladen..."/>
+		<control caption="PeerProjekt versucht Metadaten von Bitprint herunterzuladen..."/>
 		<control/>
 		<control caption="Abbrechen"/>
 		<control/>
-		<control caption="www.bitzi.com"/>
+		<control caption="peerproject.org/bitprint"/>
 	</dialog>
 	<dialog name="CFilePreviewDlg" cookie="StStStmsStBu" caption="Vorschau...">
 		<control/>

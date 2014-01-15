@@ -3,12 +3,12 @@
 
 <!-- PeerProject Default Norwegian Skin File -->
 
-<!-- Translation based on default-en.xml r100 --> <!-- (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r102 --> <!-- (Shareaza 2.2.0.2) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
-<!-- however be sure to include only sections that are changed.  -->
+<!-- however be sure to include only sections that are changed:  -->
 <!-- Unedited English content limits compatibility & performance.-->
 <!-- Better to be concise than literal:  Please test visibility! -->
 
@@ -339,7 +339,7 @@
 	</toolbar>
 	<!-- IRC WINDOW -->
 	<toolbar name="CIRCFrame">
-		<button id="ID_IRC_SENDTEXT" text="Send" tip="Post Your Comments"/>
+		<button id="ID_IRC_SENDTEXT" text="Send" tip="Post Kommentarer"/>
 		<separator/>
 		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
 		<rightAlign/>
@@ -808,7 +808,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Episode fra samme serie"/>
 		</menu>
 		<menu text="_Web søk">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Søk med Bitzi Ticket"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Søk med Bitprint Ticket"/>
 			<item id="ID_SEARCH_URI" text="Kopier URI..."/>
 		</menu>
 	</menu>
@@ -830,7 +830,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Episode fra samme serie"/>
 		</menu>
 		<menu text="_Web søk">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Søk med Bitzi Ticket"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Søk med Bitprint Ticket"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="Filtrer resultat..."/>
@@ -854,7 +854,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Episode fra samme serie"/>
 		</menu>
 		<menu text="_Web fil Info">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Søk med Bitzi Ticket"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Søk med Bitprint Ticket"/>
 			<item id="ID_SEARCH_URI" text="Kopier URI..."/>
 		</menu>
 	</menu>
@@ -874,7 +874,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Episode fra samme serie"/>
 		</menu>
 		<menu text="_Web søk">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Søk med Bitzi Ticket"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Søk med Bitprint Ticket"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="Filtrer resultat..."/>
@@ -899,7 +899,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Episode fra samme serie"/>
 		</menu>
 		<menu text="_Nettjenester">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Søk med Bitzi Ticket"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Søk med Bitprint Ticket"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="Filtrer resultat..."/>
@@ -1133,8 +1133,8 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Episode fra samme serie"/>
 		</menu>
 		<menu text="_Webtjenester">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Søk med Bitzi Ticket"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Hent Metadata"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Søk med Bitprint Ticket"/>
+			<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="Hent Metadata"/>
 			<separator/>
 			<item id="ID_LIBRARY_URI" text="_URI"/>
 		</menu>
@@ -1168,8 +1168,8 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Episode fra samme serie"/>
 		</menu>
 		<menu text="Web søk">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Søk med Bitzi Ticket"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Hent metadata"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Søk med Bitprint Ticket"/>
+			<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="Hent metadata"/>
 		</menu>
 		<menu text="_Metadata">
 			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
@@ -2117,8 +2117,6 @@
 	<tip id="ID_HELP_WEB_2" message="Besøk denne nettsiden"/>
 	<tip id="ID_HELP_WEB_3" message="Besøk denne nettsiden"/>
 	<tip id="ID_HELP_WEB_4" message="Besøk denne nettsiden"/>
-	<tip id="ID_HELP_WEB_5" message="Besøk denne nettsiden"/>
-	<tip id="ID_HELP_WEB_6" message="Besøk denne nettsiden"/>
 	<tip id="ID_HITMONITOR_CLEAR" message="Oppdater treffmonitor-bufferen."/>
 	<tip id="ID_HITMONITOR_PAUSE" message="Sett treffmonitoren på pause."/>
 	<tip id="ID_HITMONITOR_SEARCH" message="Søk på nettverket etter valgte uttrykk."/>
@@ -2136,8 +2134,8 @@
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="Slett valgte mappe."/>
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="Åpne valgte mappe."/>
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="Vis og endre egenskapene til valgte mappe..."/>
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Last ned metadata for valgte fil(er) fra Bitzi™..."/>
-	<tip id="ID_LIBRARY_BITZI_WEB" message="Søk med Bitzi™ ticket for informasjon om valgte fil på nettet."/>
+	<tip id="ID_LIBRARY_BITPRINT_DOWNLOAD" message="Last ned metadata for valgte fil(er) fra Bitprint..."/>
+	<tip id="ID_LIBRARY_BITPRINT_WEB" message="Søk med Bitprint ticket for informasjon om valgte fil på nettet."/>
 	<tip id="ID_LIBRARY_COLUMNS" message="Velg hvilke metadata-kolonner som skal vises."/>
 	<tip id="ID_LIBRARY_COPY" message="Kopier valgte filer til en annen mappe..."/>
 	<tip id="ID_LIBRARY_CREATETORRENT" message="Lag en .torrent for denne filen."/>
@@ -2699,7 +2697,7 @@
 	<string id="20446" value="Filen &quot;%s&quot; klarte ikke hash godkjennings-testen, og det kan være at det ikke er den filen du er ute etter. Er du sikker på at du vil åpne den?"/>
 	<string id="20447" value="Vil du fjerne den &quot;potensielt usikkre&quot; egenskapen til denne filen?"/>
 	<string id="20448" value="Filen &quot;%s&quot; er ikke hashet. Vennligst vent til filen er hashet og prøv på nytt."/>
-	<string id="20449" value="Dette valget bruker Bitzi.com for å finne informasjon om valgte filer.\n\nPeerProject sender SHA1 hash koden til den valgte filen for å søke i Bitzi databasen. Hvis du er redd for å dele slik informasjon, kan du lese Bitzi.com's retningslinjer for personopplysninger.\n\nVil du fortsette?"/>
+	<string id="20449" value="Dette valget bruker peerproject.org/bitprint for å finne informasjon om valgte filer.\n\nPeerProject sender SHA1 hash koden til den valgte filen for å søke i Bitprint databasen. Hvis du er redd for å dele slik informasjon, kan du lese peerproject.org/bitprint's retningslinjer for personopplysninger.\n\nVil du fortsette?"/>
 	<string id="20450" value="Mappen for fullstendige filer og mappen for ufullstendige filer bør ikke være den samme"/>
 	<string id="20451" value="Det er ingen filer som spilles av. Dobbelt-klikk på en av dine filer for å spille av."/>
 	<string id="20452" value="Alle media filer|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Playlists|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Audio Files|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Video Filer|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD lyd Tracks|*.cda|MIDI filer|*.mid;*.rmi;*.midi|Alle filer|*.*||"/>
@@ -3533,7 +3531,7 @@
 		<control/>
 		<control caption="Locale:"/>
 		<control/>
-		<control caption="Comments:"/>
+		<control caption="Kommentarer:"/>
 		<control/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="Velkommen til PeerProject (8/8)">
@@ -3963,13 +3961,13 @@
 		<control caption="_Husk mitt valg neste gang"/>
 		<control caption="Åpne et nedlastings _monitor vindu"/>
 	</dialog>
-	<dialog name="CBitziDownloadDlg" cookie="StStmsBuSySt" caption="Laster ned metadata...">
+	<dialog name="CBitprintDownloadDlg" cookie="StStmsBuSySt" caption="Laster ned metadata...">
 		<control/>
-		<control caption="PeerProject prøver å laste ned metadata fra Bitzi..."/>
+		<control caption="PeerProject prøver å laste ned metadata fra Bitprint..."/>
 		<control/>
 		<control caption="Avbryt"/>
 		<control/>
-		<control caption="www.bitzi.com"/>
+		<control caption="peerproject.org/bitprint"/>
 	</dialog>
 	<dialog name="CFilePreviewDlg" cookie="StStStmsStBu" caption="Smart forhåndsvisning...">
 		<control/>

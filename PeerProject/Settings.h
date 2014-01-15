@@ -1,7 +1,7 @@
 //
 // Settings.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -208,11 +208,11 @@ public:
 
 	struct sWebServices
 	{
-		CString		BitziAgent;
-		CString		BitziWebView;
-		CString		BitziWebSubmit;
-		CString		BitziXML;
-		bool		BitziOkay;
+		CString		BitprintAgent;
+		CString		BitprintWebView;
+		CString		BitprintWebSubmit;
+		CString		BitprintXML;
+		bool		BitprintOkay;
 	//	bool		ShareMonkeyOkay;
 	//	bool		ShareMonkeySaveThumbnail;
 	//	CString		ShareMonkeyCid;			// Affiliate ID
@@ -252,7 +252,6 @@ public:
 	{
 		bool		EnablePlay;
 		bool		EnableEnqueue;
-		string_set	FileTypes;
 		bool		Repeat;
 		bool		Random;
 		MediaZoom	Zoom;
@@ -270,8 +269,9 @@ public:
 		CString		VisCLSID;
 		CString		VisPath;
 		DWORD		VisSize;
-		bool		ShortPaths;				// Some players differently handle unicode paths but they can launch files using 8.3 paths
+		bool		ShortPaths;				// Rarely set true, some players handle unicode paths differently but can launch files using 8.3 paths
 		string_set	ServicePath;			// Keeps track of external players, trailing asterisk indicates selected
+		string_set	FileTypes;
 	} MediaPlayer;
 
 	struct sWeb

@@ -3,12 +3,12 @@
 
 <!-- PeerProject Default Catalan Skin File -->
 
-<!-- Translation based on default-en.xml r100 -->
+<!-- Translation based on default-en.xml r102 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
-<!-- however be sure to include only sections that are changed.  -->
+<!-- however be sure to include only sections that are changed:  -->
 <!-- Unedited English content limits compatibility & performance.-->
 <!-- Better to be concise than literal:  Please test visibility! -->
 
@@ -344,7 +344,7 @@
 	</toolbar>
 	<!-- IRC WINDOW -->
 	<toolbar name="CIRCFrame">
-		<button id="ID_IRC_SENDTEXT" text="Send" tip="Post Your Comments"/>
+		<button id="ID_IRC_SENDTEXT" text="Send" tip="Post Comentaris"/>
 		<separator/>
 		<button id="ID_IRC_CLOSETAB" text="Cerrar" tip="Exit Current Channel Window"/>
 		<rightAlign/>
@@ -555,8 +555,7 @@
 				<separator/>
 				<menu text="_Llocs Web">
 					<item id="ID_HELP_FORUMS" text="Fòrums de _PeerProject"/>
-					<!-- <item id="ID_HELP_FAKESHAREAZA" text="FakeShareaza.com Info"/>
-					<item id="ID_HELP_UPDATE" text="Darreres Notícies"/>
+					<!-- <item id="ID_HELP_UPDATE" text="Darreres Notícies"/>
 					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 					<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
 				</menu>
@@ -956,7 +955,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Episodis d'aquesta sèrie"/>
 		</menu>
 		<menu text="Serveis _Web">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Veure tiquet _Bitzi"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Veure tiquet _Bitprint"/>
 			<item id="ID_SEARCH_URI" text="Copia _URI..."/>
 		</menu>
 	</menu>
@@ -978,7 +977,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Episodis d'aquesta sèrie"/>
 		</menu>
 		<menu text="_Serveis web">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Veure informe _Bitzi"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Veure informe _Bitprint"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Filtra resultats..."/>
@@ -1002,7 +1001,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Episodis d'aquesta sèrie"/>
 		</menu>
 		<menu text="Info d'arxiu via _Web">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Veure informe _Bitzi"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Veure informe _Bitprint"/>
 			<item id="ID_SEARCH_URI" text="Copia _URI..."/>
 		</menu>
 	</menu>
@@ -1022,7 +1021,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Episodis d'aquesta sèrie"/>
 		</menu>
 		<menu text="Serveis _web">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Informe _Bitzi"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Informe _Bitprint"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Filtra resultats..."/>
@@ -1047,7 +1046,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Episodis d'aquesta sèrie"/>
 		</menu>
 		<menu text="_Web">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Veure informe de _Bitzi"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Veure informe de _Bitprint"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Filtre de resultats..."/>
@@ -1276,8 +1275,8 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Episodis de les mateixes sèries"/>
 		</menu>
 		<menu text="_Web Services">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Informe _Bitzi"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Descarrega la metainformació"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Informe _Bitprint"/>
+			<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="_Descarrega la metainformació"/>
 			<separator/>
 			<item id="ID_LIBRARY_URI" text="_URI"/>
 		</menu>
@@ -1316,8 +1315,8 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Episodis de les mateixes sèries"/>
 		</menu>
 		<menu text="_Serveis web">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Informe _Bitzi"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Carrega la metainformació"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Informe _Bitprint"/>
+			<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="_Carrega la metainformació"/>
 		</menu>
 		<menu text="_Metainformació">
 			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
@@ -2300,8 +2299,6 @@
 	<tip id="ID_HELP_WEB_2" message="Visita aquest lloc web"/>
 	<tip id="ID_HELP_WEB_3" message="Visita aquest lloc web"/>
 	<tip id="ID_HELP_WEB_4" message="Visita aquest lloc web"/>
-	<tip id="ID_HELP_WEB_5" message="Visita aquest lloc web"/>
-	<tip id="ID_HELP_WEB_6" message="Visita aquest lloc web"/>
 	<tip id="ID_HITMONITOR_CLEAR" message="Esborra l'historial del monitor de hits."/>
 	<tip id="ID_HITMONITOR_PAUSE" message="Posa en pausa el monitor de hits."/>
 	<tip id="ID_HITMONITOR_SEARCH" message="Cerca a la xarxa el resultat seleccionat."/>
@@ -2319,8 +2316,8 @@
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="Esborra l'àlbum seleccionat."/>
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="Obre l'àlbum seleccionat."/>
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="Mostra o edita les propietats de l'àlbum seleccionat"/>
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Adquireix la metainformació des de Bitzi™..."/>
-	<tip id="ID_LIBRARY_BITZI_WEB" message="Mostra el resum de Bitzi™ a la web."/>
+	<tip id="ID_LIBRARY_BITPRINT_DOWNLOAD" message="Adquireix la metainformació des de Bitprint..."/>
+	<tip id="ID_LIBRARY_BITPRINT_WEB" message="Mostra el resum de Bitprint a la web."/>
 	<tip id="ID_LIBRARY_COLUMNS" message="Selecciona quines columnes de metainformació s'han de mostrar."/>
 	<tip id="ID_LIBRARY_COPY" message="Copia arxius a altra carpeta de col·lecció..."/>
 	<tip id="ID_LIBRARY_CREATETORRENT" message="Crea un .torrent per a aquest arxiu i puja-lo a un lloc web."/>
@@ -2910,7 +2907,7 @@
 	<string id="20446" value="L'arxiu %s ha fallat la verificació, i pot no ser el correcte. Estàs segur(a) d'obrir-lo?"/>
 	<string id="20447" value="Vols treure l'atribut &quot;potencialment insegur&quot; d'aquest arxiu?"/>
 	<string id="20448" value="l'arxiu %s no ha estat escanejat. Per favor, espera a que sigui escanejat i intenta-ho més tard."/>
-	<string id="20449" value="Aquesta opció utilitza un servei ofrerit per Bitzi, per a adquirir metainformació de l'arxiu.\n\nPeerProject enviarà una petita informació sobre la marca digital 'bitprint' de l'arxiu per a que Bitzi el pugui reconèixer. Si tens algun dubte sobre la privacitat d'aquest servei, visita bitzi.com per a més informació.\n\nVols continuar?"/>
+	<string id="20449" value="Aquesta opció utilitza un servei ofrerit per Bitprint, per a adquirir metainformació de l'arxiu.\n\nPeerProject enviarà una petita informació sobre la marca digital 'bitprint' de l'arxiu per a que Bitprint el pugui reconèixer. Si tens algun dubte sobre la privacitat d'aquest servei, visita peerproject.org/bitprint per a més informació.\n\nVols continuar?"/>
 	<string id="20450" value="Una subcarpeta de la carpeta seleccionada &quot;%s&quot; ja és actualment part de la col·lecció.nAfegir aquesta carpeta causarà una reverificació dels arxius.\n\nDe segur que dessitja continuar?"/>
 	<string id="20451" value="No hi ha cap arxiu reproduïnt-se. Fes doble clic a un arxiu de media en la teva biblioteca per a reproduir-lo."/>
 	<string id="20452" value="Tots els arxius de Media|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Playlists|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Audio Files|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Video Files|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD Audio Tracks|*.cda|MIDI Files|*.mid;*.rmi;*.midi|All Files|*.*||"/>
@@ -3757,7 +3754,7 @@
 		<control/>
 		<control caption="Locale:"/>
 		<control/>
-		<control caption="Comments:"/>
+		<control caption="Comentaris:"/>
 		<control/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="Benvingut a PeerProject (8/8)">
@@ -4186,13 +4183,13 @@
 		<control caption="_Recorda la selecció"/>
 		<control caption="Obre el _monitor de transferències"/>
 	</dialog>
-	<dialog name="CBitziDownloadDlg" cookie="StStmsBuSySt" caption="Descarregant metainformació...">
+	<dialog name="CBitprintDownloadDlg" cookie="StStmsBuSySt" caption="Descarregant metainformació...">
 		<control/>
-		<control caption="PeerProject està contactant amb Bitzi..."/>
+		<control caption="PeerProject està contactant amb Bitprint..."/>
 		<control/>
 		<control caption="Cancel·la"/>
 		<control/>
-		<control caption="www.bitzi.com"/>
+		<control caption="peerproject.org/bitprint"/>
 	</dialog>
 	<dialog name="CFilePreviewDlg" cookie="StStStmsStBu" caption="Vista prèvia intel·ligent...">
 		<control/>

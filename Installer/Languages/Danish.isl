@@ -207,6 +207,7 @@ ApplicationsFound=Følgende programmer bruger filer som skal opdateres. Det anbef
 ApplicationsFound2=Følgende programmer bruger filer som skal opdateres. Det anbefales at du giver installationsguiden lov til automatisk at lukke programmerne. Installationsguiden vil forsøge at genstarte programmerne når installationen er afsluttet.
 CloseApplications=&Luk programmerne automatisk
 DontCloseApplications=Luk &ikke programmerne
+ErrorCloseApplications=Installationsguiden kan ikke automatisk lukke alle programmerne. Det anbefales at du lukker alle programmer som bruger filer der skal opdateres, inden installationsguiden fortsætter.
 
 ; *** "Installing" wizard page
 WizardInstalling=Installerer

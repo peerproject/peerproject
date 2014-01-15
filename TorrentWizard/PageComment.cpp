@@ -1,7 +1,7 @@
 //
 // PageComment.cpp
 //
-// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008,2012
+// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008,2012-2014
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
@@ -32,9 +32,7 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNCREATE(CCommentPage, CWizardPage)
 
 BEGIN_MESSAGE_MAP(CCommentPage, CWizardPage)
-	//{{AFX_MSG_MAP(CCommentPage)
 	ON_WM_XBUTTONDOWN()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -43,8 +41,6 @@ END_MESSAGE_MAP()
 
 CCommentPage::CCommentPage() : CWizardPage(CCommentPage::IDD)
 {
-	//{{AFX_DATA_INIT(CCommentPage)
-	//}}AFX_DATA_INIT
 }
 
 //CCommentPage::~CCommentPage()
@@ -54,9 +50,10 @@ CCommentPage::CCommentPage() : CWizardPage(CCommentPage::IDD)
 void CCommentPage::DoDataExchange(CDataExchange* pDX)
 {
 	CWizardPage::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CCommentPage)
+
 	DDX_Text(pDX, IDC_COMMENT, m_sComment);
-	//}}AFX_DATA_MAP
+//	DDX_Text(pDX, IDC_SOURCE, m_sSource);
+	DDX_Check(pDX, IDC_PRIVATE, m_bPrivate);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -64,6 +61,19 @@ void CCommentPage::DoDataExchange(CDataExchange* pDX)
 
 void CCommentPage::OnReset()
 {
+}
+
+BOOL CCommentPage::OnInitDialog() 
+{
+	CWizardPage::OnInitDialog();
+
+	m_sComment = theApp.GetProfileString( _T("Comments"), _T("Comment") );
+//	m_sSource = theApp.GetProfileString( _T("Comments"), _T("Source") );
+	m_bPrivate = theApp.GetProfileInt( _T("Comments"), _T("Private"), FALSE );
+
+	UpdateData( FALSE );
+
+	return TRUE;
 }
 
 BOOL CCommentPage::OnSetActive()
@@ -85,11 +95,15 @@ BOOL CCommentPage::OnSetActive()
 
 LRESULT CCommentPage::OnWizardBack()
 {
+	SaveComments();
+
 	return IDD_TRACKER_PAGE;
 }
 
 LRESULT CCommentPage::OnWizardNext()
 {
+	SaveComments();
+
 	return IDD_OUTPUT_PAGE;
 }
 
@@ -99,4 +113,13 @@ void CCommentPage::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint /*point*/
 		GetSheet()->PressButton( PSBTN_BACK );
 	else if ( nButton == 2 )
 		GetSheet()->PressButton( PSBTN_NEXT );
+}
+
+void CCommentPage::SaveComments()
+{
+	UpdateData();
+
+	theApp.WriteProfileString( _T("Comments"), _T("Comment"), m_sComment );
+//	theApp.WriteProfileString( _T("Comments"), _T("Source"), m_sSource );
+	theApp.WriteProfileInt( _T("Comments"), _T("Private"), m_bPrivate );
 }

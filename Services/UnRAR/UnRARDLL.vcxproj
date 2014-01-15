@@ -29,19 +29,23 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v100</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v100</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>false</WholeProgramOptimization>
+    <PlatformToolset>v100</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v100</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -205,9 +209,11 @@
   <ItemGroup>
     <ClCompile Include="archive.cpp" />
     <ClCompile Include="arcread.cpp" />
+    <ClCompile Include="blake2s.cpp" />
     <ClCompile Include="cmddata.cpp" />
     <ClCompile Include="consio.cpp" />
     <ClCompile Include="crc.cpp" />
+    <ClCompile Include="crypt.cpp" />
     <ClCompile Include="dll.cpp" />
     <ClCompile Include="encname.cpp" />
     <ClCompile Include="errhnd.cpp" />
@@ -229,11 +235,13 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="hash.cpp" />
+    <ClCompile Include="headers.cpp" />
     <ClCompile Include="isnt.cpp" />
-    <ClCompile Include="list.cpp" />
     <ClCompile Include="match.cpp" />
     <ClCompile Include="options.cpp" />
     <ClCompile Include="pathfn.cpp" />
+    <ClCompile Include="qopen.cpp" />
     <ClCompile Include="rar.cpp" />
     <ClCompile Include="rarpch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -247,16 +255,17 @@
     <ClCompile Include="recvol.cpp" />
     <ClCompile Include="rijndael.cpp" />
     <ClCompile Include="rs.cpp" />
-    <ClCompile Include="savepos.cpp" />
+    <ClCompile Include="rs16.cpp" />
     <ClCompile Include="scantree.cpp" />
     <ClCompile Include="secpassword.cpp" />
     <ClCompile Include="sha1.cpp" />
+    <ClCompile Include="sha256.cpp" />
     <ClCompile Include="smallfn.cpp" />
     <ClCompile Include="strfn.cpp" />
     <ClCompile Include="strlist.cpp" />
     <ClCompile Include="system.cpp" />
+    <ClCompile Include="threadpool.cpp" />
     <ClCompile Include="timefn.cpp" />
-    <ClCompile Include="ulinks.cpp" />
     <ClCompile Include="unicode.cpp" />
     <ClCompile Include="unpack.cpp" />
     <ClCompile Include="volume.cpp" />
@@ -265,11 +274,13 @@
     <ClInclude Include="rar.hpp" />
     <ClInclude Include="archive.hpp" />
     <ClInclude Include="array.hpp" />
+    <ClInclude Include="blake2s.hpp" />
     <ClInclude Include="cmddata.hpp" />
     <ClInclude Include="coder.hpp" />
     <ClInclude Include="compress.hpp" />
     <ClInclude Include="consio.hpp" />
     <ClInclude Include="crc.hpp" />
+    <ClInclude Include="crcypt.hpp" />
     <ClInclude Include="dll.hpp" />
     <ClInclude Include="encname.hpp" />
     <ClInclude Include="errhnd.hpp" />
@@ -282,15 +293,17 @@
     <ClInclude Include="find.hpp" />
     <ClInclude Include="getbits.hpp" />
     <ClInclude Include="global.hpp" />
+    <ClInclude Include="hash.hpp" />
     <ClInclude Include="headers.hpp" />
     <ClInclude Include="isnt.hpp" />
-    <ClInclude Include="list.hpp" />
     <ClInclude Include="log.hpp" />
+    <ClInclude Include="list.hpp" />
     <ClInclude Include="match.hpp" />
     <ClInclude Include="model.hpp" />
     <ClInclude Include="options.hpp" />
     <ClInclude Include="os.hpp" />
     <ClInclude Include="pathfn.hpp" />
+    <ClInclude Include="qopen.hpp" />
     <ClInclude Include="rardefs.hpp" />
     <ClInclude Include="raros.hpp" />
     <ClInclude Include="rartypes.hpp" />
@@ -301,14 +314,17 @@
     <ClInclude Include="resource.hpp" />
     <ClInclude Include="rijndael.hpp" />
     <ClInclude Include="rs.hpp" />
+    <ClInclude Include="rs16.hpp" />
     <ClInclude Include="savepos.hpp" />
     <ClInclude Include="scantree.hpp" />
     <ClInclude Include="sha1.hpp" />
+    <ClInclude Include="sha256.hpp" />
     <ClInclude Include="smallfn.hpp" />
     <ClInclude Include="strfn.hpp" />
     <ClInclude Include="strlist.hpp" />
     <ClInclude Include="suballoc.hpp" />
     <ClInclude Include="system.hpp" />
+    <ClInclude Include="threadpool.hpp" />
     <ClInclude Include="timefn.hpp" />
     <ClInclude Include="ulinks.hpp" />
     <ClInclude Include="unicode.hpp" />

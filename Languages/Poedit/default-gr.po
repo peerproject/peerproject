@@ -844,8 +844,8 @@ msgstr ""
 msgid "P2PForums.com"
 msgstr ""
 
-#: cmainwnd.dropmenu;1;6;7;item;id_help_web_6
-msgid "Hypewise.DeviantArt.com"
+#: cmainwnd.dropmenu;1;6;7;item;id_help_web_skins
+msgid "peerproject.org/wiki/skins"
 msgstr ""
 
 #: cmainwnd.dropmenu;1;6;item;id_help_homepage
@@ -956,13 +956,9 @@ msgstr "Βοήθεια για _Codec"
 msgid "_PeerProject Site"
 msgstr "Ιστοσελίδα PeerProject"
 
-#: cmainwnd.tabbed;14;16;item;id_help_web_6 cmainwnd.basic;22;24;item;id_help_web_6 cmainwnd.windowed;30;32;item;id_help_web_6
+#: cmainwnd.tabbed;14;16;item;id_help_web_skins cmainwnd.basic;22;24;item;id_help_web_skins cmainwnd.windowed;30;32;item;id_help_web_skins
 msgid "PeerProject S_kin Site"
 msgstr "Φ_λοιοί PeerProject"
-
-#: cmainwnd.tabbed;14;16;item;id_help_fakeshareaza cmainwnd.basic;22;24;item;id_help_fakeshareaza cmainwnd.windowed;30;32;item;id_help_fakeshareaza
-msgid "FakeSharea_za.com"
-msgstr "FakeShareaza_.com"
 
 #: cmainwnd.basic;19;item;id_window_remote
 msgid "Media _Remote"
@@ -1088,8 +1084,8 @@ msgstr ""
 msgid "_Web Services"
 msgstr "_Οργάνωση"
 
-#: csearchwnd.basic;37;item;id_library_bitzi_web csearchwnd;39;item;id_library_bitzi_web cbrowsehostwnd.basic;41;item;id_library_bitzi_web cbrowsehostwnd;43;item;id_library_bitzi_web chitmonitorwnd;45;item;id_library_bitzi_web clibraryfileview.physical;52;item;id_library_bitzi_web clibraryfileview.virtual;58;item;id_library_bitzi_web
-msgid "View _Bitzi Ticket"
+#: csearchwnd.basic;37;item;id_library_bitprint_web csearchwnd;39;item;id_library_bitprint_web cbrowsehostwnd.basic;41;item;id_library_bitprint_web cbrowsehostwnd;43;item;id_library_bitprint_web chitmonitorwnd;45;item;id_library_bitprint_web clibraryfileview.physical;52;item;id_library_bitprint_web clibraryfileview.virtual;58;item;id_library_bitprint_web
+msgid "View Bitprint listing"
 msgstr ""
 
 #: csearchwnd;item;id_search_downloadnow cbrowsehostwnd.basic;item;id_search_downloadnow cbrowsehostwnd;item;id_search_downloadnow
@@ -1504,7 +1500,7 @@ msgstr "Ανα_ζήτηση Για"
 msgid "Remove _Files"
 msgstr ""
 
-#: clibraryfileview.physical;52;item;id_library_bitzi_download clibraryfileview.virtual;58;item;id_library_bitzi_download
+#: clibraryfileview.physical;52;item;id_library_bitprint_download clibraryfileview.virtual;58;item;id_library_bitprint_download
 msgid "_Download Metadata"
 msgstr ""
 
@@ -1964,9 +1960,9 @@ msgstr ""
 msgid "Kick+Ban (why?)"
 msgstr ""
 
-#: webservices.list.menu;item;id_library_bitzi_download
-msgid "_Bitzi"
-msgstr "_Bitzi"
+#: webservices.list.menu;item;id_library_bitprint_download
+msgid "_Bitprint"
+msgstr "_Bitprint"
 
 #: webservices.list.menu;item;id_webservices_musicbrainz
 msgid "_MusicBrainz"
@@ -3168,17 +3164,13 @@ msgstr "Έλεγχος για νέα και ενημερώσεις."
 msgid "Run the connection test."
 msgstr "Εκτέλεση της δοκιμής σύνδεσης."
 
-#: message;id_help_web_1 message;id_help_web_2 message;id_help_web_3 message;id_help_web_4 message;id_help_web_5 message;id_help_web_6
+#: message;id_help_web_1 message;id_help_web_2 message;id_help_web_3 message;id_help_web_4 message
 msgid "Visit this website"
 msgstr "Επίσκεψη σε αυτόν τον ιστότοπο."
 
 #: message;id_help_donate
 msgid "If you want, you can donate to our legal fund and show your appreciation."
 msgstr "Εάν θέλετε, μπορείτε να κάνετε δωρεά στο νόμιμο «ταμείο» μας και να δείξετε την εκτίμηση σας."
-
-#: message;id_help_fakeshareaza
-msgid "Translate FakeShareaza.com to learn more about recent events."
-msgstr ""
 
 #: message;id_hitmonitor_clear
 msgid "Clear the hit monitor buffer."
@@ -3252,13 +3244,13 @@ msgstr "Άνοιγμα επιλεγμένου album."
 msgid "View and edit the properties of the selected album folder..."
 msgstr "Προβολή και επεξεργασία ιδιοτήτων επιλεγμένου album..."
 
-#: message;id_library_bitzi_download
-msgid "Download metadata for selected files from Bitzi™..."
-msgstr "Λήψη metadata για τα επιλεγμένα αρχεία από το Bitzi™..."
+#: message;id_library_bitprint_download
+msgid "Download metadata for selected files from Bitprint..."
+msgstr "Λήψη metadata για τα επιλεγμένα αρχεία από το Bitprint..."
 
-#: message;id_library_bitzi_web
-msgid "View Bitzi™ ticket for the selected file on the web."
-msgstr "Προβολή Bitzi™ ticket για το επιλεγμένο αρχείο."
+#: message;id_library_bitprint_web
+msgid "View Bitprint ticket for the selected file on the web."
+msgstr "Προβολή Bitprint ticket για το επιλεγμένο αρχείο."
 
 #: message;id_library_columns message;id_search_columns
 msgid "Select metadata columns to be displayed..."
@@ -4204,7 +4196,7 @@ msgstr "Όχι"
 msgid "OK"
 msgstr "OK"
 
-#: string;20004 string;20470 csettingsheet;control;3 cqueuepropertiesdlg;control;38 cprofilemanagerdlg;control;3 cconnecttodlg;control;8 cnewsearchdlg;control;4 cfiltersearchdlg;control;30 csavefilterasdlg;control;3 cdiscoveryservicedlg;control;6 cdownloadmonitordlg;control;14 cfilecopydlg;control;8 cfolderpropertiesdlg;control;8 cgraphlistdlg;control;17 cgraphitemdlg;control;2 csecureruledlg;control;34 cscheduletaskdlg;control;2 cschemacolumnsdlg;control;4 csharemanagerdlg;control;6 curlcopydlg;control;6 curlexportdlg;control;10 curlactiondlg;control;12 cbitzidownloaddlg;control;4 cfilepreviewdlg;control;6 cexistingfiledlg;control;9 cclosemodedlg;control;6 cupdateserversdlg;control;5 cdeletefiledlg;control;5 ctorrentseeddlg;control;4 cdownloadgroupdlg;control;15 cmediavisdlg;control;6 cdecodemetadatadlg;control;9 cselectdialog;control;4 circinputdlg;control;3
+#: string;20004 string;20470 csettingsheet;control;3 cqueuepropertiesdlg;control;38 cprofilemanagerdlg;control;3 cconnecttodlg;control;8 cnewsearchdlg;control;4 cfiltersearchdlg;control;30 csavefilterasdlg;control;3 cdiscoveryservicedlg;control;6 cdownloadmonitordlg;control;14 cfilecopydlg;control;8 cfolderpropertiesdlg;control;8 cgraphlistdlg;control;17 cgraphitemdlg;control;2 csecureruledlg;control;34 cscheduletaskdlg;control;2 cschemacolumnsdlg;control;4 csharemanagerdlg;control;6 curlcopydlg;control;6 curlexportdlg;control;10 curlactiondlg;control;12 cbitprintdownloaddlg;control;4 cfilepreviewdlg;control;6 cexistingfiledlg;control;9 cclosemodedlg;control;6 cupdateserversdlg;control;5 cdeletefiledlg;control;5 ctorrentseeddlg;control;4 cdownloadgroupdlg;control;15 cmediavisdlg;control;6 cdecodemetadatadlg;control;9 cselectdialog;control;4 circinputdlg;control;3
 msgid "Cancel"
 msgstr "Άκυρο"
 
@@ -5701,8 +5693,8 @@ msgid "The file \"%s\" has not yet been hashed. Please wait for the file to be h
 msgstr "Το αρχείο \"%s\" ακόμη δεν έχει σαρωθεί. Παρακαλώ περιμένετε να τελειώσει και ξαναπροσπαθείστε."
 
 #: string;20449
-msgid "This option uses services provided by Bitzi.com for recognising and sharing information about selected files.\\n\\nPeerProject will transmit the SHA1 hash code for the selected files in order to query the Bitzi database. If you are concerned about privacy, you may wish to consult the Bitzi.com privacy policy.\\n\\nWould you like to proceed?"
-msgstr "Αυτή η επιλογή χρησιμοποιεί υπηρεσίες παρεχόμενες από το Bitzi.com προς αναγνώριση και κοινοποίηση πληροφοριών για τα επιλεγμένα αρχεία.nnΤο PeerProject θα αποστείλει το SHA1 hash code για τα επιλεγμένα αρχεία, προκειμένου να ρωτήσει τη βάση δεδομένων του Bitzi. Αν ανησυχείται για την ιδιωτικότητά σας, συμβουλευτείτε την πολιτική ιδιωτικότητας του Bitzi.com.nnΘέλετε να συνεχίσετε;"
+msgid "This option uses services provided by peerproject.org/bitprint for recognising and sharing information about selected files.\\n\\nPeerProject will transmit the SHA1 hash code for the selected files in order to query the Bitprint database. If you are concerned about privacy, you may wish to consult the peerproject.org/bitprint privacy policy.\\n\\nWould you like to proceed?"
+msgstr "Αυτή η επιλογή χρησιμοποιεί υπηρεσίες παρεχόμενες από το peerproject.org/bitprint προς αναγνώριση και κοινοποίηση πληροφοριών για τα επιλεγμένα αρχεία.nnΤο PeerProject θα αποστείλει το SHA1 hash code για τα επιλεγμένα αρχεία, προκειμένου να ρωτήσει τη βάση δεδομένων του Bitprint. Αν ανησυχείται για την ιδιωτικότητά σας, συμβουλευτείτε την πολιτική ιδιωτικότητας του peerproject.org/bitprint.nnΘέλετε να συνεχίσετε;"
 
 #: string;20450
 msgid "A subfolder of the selected folder \"%s\" is already part of your library.\\nAdding this folder will cause re-hashing of some files.\\n\\nDo you want to continue ?"
@@ -9028,17 +9020,17 @@ msgstr "_Απομνημόνευση επιλογής"
 msgid "Open download _monitor window"
 msgstr "Άνοιγμα παραθύρου _εποπτίας λήψης"
 
-#: dialog;cbitzidownloaddlg
+#: dialog;cBitprintdownloaddlg
 msgid "Downloading Metadata..."
 msgstr "Λήψη Metadata..."
 
-#: cbitzidownloaddlg;control;2
-msgid "PeerProject is attempting to download metadata from Bitzi™..."
-msgstr "Προσπάθεια λήψης metadata από Bitzi..."
+#: cbitprintdownloaddlg;control;2
+msgid "PeerProject is attempting to download metadata from Bitprint..."
+msgstr "Προσπάθεια λήψης metadata από Bitprint..."
 
-#: cbitzidownloaddlg;control;6
-msgid "www.bitzi.com"
-msgstr "www.bitzi.com"
+#: cbitprintdownloaddlg;control;6
+msgid "peerproject.org/bitprint"
+msgstr "peerproject.org/bitprint"
 
 #: dialog;cfilepreviewdlg
 msgid "Smart Download Preview..."

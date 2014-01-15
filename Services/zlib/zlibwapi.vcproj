@@ -625,10 +625,6 @@
 				>
 			</File>
 			<File
-				RelativePath="crypt.h"
-				>
-			</File>
-			<File
 				RelativePath="deflate.h"
 				>
 			</File>

@@ -1,7 +1,7 @@
 //
 // WndMain.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -184,8 +184,7 @@ BEGIN_MESSAGE_MAP(CMainWnd, CMDIFrameWnd)
 	ON_COMMAND(ID_HELP_WEB_2, OnHelpWeb2)
 	ON_COMMAND(ID_HELP_WEB_3, OnHelpWeb3)
 	ON_COMMAND(ID_HELP_WEB_4, OnHelpWeb4)
-	ON_COMMAND(ID_HELP_WEB_5, OnHelpWeb5)
-	ON_COMMAND(ID_HELP_WEB_6, OnHelpWeb6)
+	ON_COMMAND(ID_HELP_WEB_BITPRINT, OnHelpWebBitprint)
 	ON_COMMAND(ID_HELP_WEB_SKINS, OnHelpWebSkins)
 	ON_COMMAND(ID_HELP_FAQ, OnHelpFaq)
 	ON_COMMAND(ID_HELP_GUIDE, OnHelpGuide)
@@ -2862,19 +2861,11 @@ void CMainWnd::OnHelpWeb4()
 		NULL, NULL, SW_SHOWNORMAL );
 }
 
-void CMainWnd::OnHelpWeb5()
+void CMainWnd::OnHelpWebBitprint()
 {
 	const CString strWebSite( WEB_SITE );
 
-	ShellExecute( GetSafeHwnd(), _T("open"), strWebSite + _T("external/?link5"),
-		NULL, NULL, SW_SHOWNORMAL );
-}
-
-void CMainWnd::OnHelpWeb6()
-{
-	const CString strWebSite( WEB_SITE );
-
-	ShellExecute( GetSafeHwnd(), _T("open"), strWebSite + _T("external/?link6"),
+	ShellExecute( GetSafeHwnd(), _T("open"), strWebSite + _T("/bitprint"),
 		NULL, NULL, SW_SHOWNORMAL );
 }
 
@@ -3341,7 +3332,7 @@ void CMainWnd::ShowTrayPopup(const CString& sText, const CString& sTitle, DWORD 
 /////////////////////////////////////////////////////////////////////////////
 // System hibernation recovery
 
-UINT CMainWnd::OnPowerBroadcast(UINT nPowerEvent, UINT nEventData)
+UINT CMainWnd::OnPowerBroadcast(UINT nPowerEvent, LPARAM lParam)
 {
 	static bool bWasConnected = false;
 
@@ -3366,7 +3357,7 @@ UINT CMainWnd::OnPowerBroadcast(UINT nPowerEvent, UINT nEventData)
 		break;
 	}
 
-	return CMDIFrameWnd::OnPowerBroadcast( nPowerEvent, nEventData );
+	return CMDIFrameWnd::OnPowerBroadcast( nPowerEvent, lParam );
 }
 
 BOOL CMainWnd::OnCopyData(CWnd* /*pWnd*/, COPYDATASTRUCT* pCopyDataStruct)

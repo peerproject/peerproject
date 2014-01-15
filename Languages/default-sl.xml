@@ -3,12 +3,12 @@
 
 <!-- PeerProject Default Slovenian Skin File -->
 
-<!-- Translation based on default-en.xml r100 --> <!-- (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r102 --> <!-- (Shareaza 2.2.2.12) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
-<!-- however be sure to include only sections that are changed.  -->
+<!-- however be sure to include only sections that are changed:  -->
 <!-- Unedited English content limits compatibility & performance.-->
 <!-- Better to be concise than literal:  Please test visibility! -->
 
@@ -341,7 +341,7 @@
 	</toolbar>
 	<!-- IRC WINDOW -->
 	<toolbar name="CIRCFrame">
-		<button id="ID_IRC_SENDTEXT" text="Kramljanje" tip="Post Your Comments"/>
+		<button id="ID_IRC_SENDTEXT" text="Kramljanje" tip="Post Komentarji"/>
 		<separator/>
 		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
 		<rightAlign/>
@@ -901,7 +901,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Epizodah iste serije"/>
 		</menu>
 		<menu text="_Spletne storitve">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Poglej _Bitzi karto"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Poglej _Bitprint karto"/>
 			<item id="ID_SEARCH_URI" text="Kopiraj _URI..."/>
 		</menu>
 	</menu>
@@ -923,7 +923,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Epizodah iste serije"/>
 		</menu>
 		<menu text="_Spletne storitve">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Poglej _Bitzi karto"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Poglej _Bitprint karto"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Filtriraj rezultate..."/>
@@ -947,7 +947,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Epizodah iste serije"/>
 		</menu>
 		<menu text="_Informacije spletne datoteke">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Poglej _Bitzi karto"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Poglej _Bitprint karto"/>
 			<item id="ID_SEARCH_URI" text="Kopiraj _URI..."/>
 		</menu>
 	</menu>
@@ -967,7 +967,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Epizodah iste serije"/>
 		</menu>
 		<menu text="_Spletne storitve">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Poglej _Bitzi karto"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Poglej _Bitprint karto"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Filtriraj rezultate..."/>
@@ -992,7 +992,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Epizodah iste serije"/>
 		</menu>
 		<menu text="_Spletne storitve">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Poglej _Bitzi karto"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Poglej _Bitprint karto"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Filtriraj rezultate..."/>
@@ -1226,8 +1226,8 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Epizodah iste serije"/>
 		</menu>
 		<menu text="_Spletne storitve">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Poglej _Bitzi karto"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Prenesi metapodatke"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Poglej _Bitprint karto"/>
+			<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="_Prenesi metapodatke"/>
 			<separator/>
 			<item id="ID_LIBRARY_URI" text="_URI"/>
 		</menu>
@@ -1261,8 +1261,8 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Epizodah iste serije"/>
 		</menu>
 		<menu text="_Spletne storitve">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Poglej _Bitzi karto"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Dôbi metapodatke"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Poglej _Bitprint karto"/>
+			<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="_Dôbi metapodatke"/>
 		</menu>
 		<menu text="_Metapodatke">
 			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
@@ -2213,8 +2213,6 @@
 	<tip id="ID_HELP_WEB_2" message="Obisk tega spletišča"/>
 	<tip id="ID_HELP_WEB_3" message="Obisk tega spletišča"/>
 	<tip id="ID_HELP_WEB_4" message="Obisk tega spletišča"/>
-	<tip id="ID_HELP_WEB_5" message="Obisk tega spletišča"/>
-	<tip id="ID_HELP_WEB_6" message="Obisk tega spletišča"/>
 	<tip id="ID_HITMONITOR_CLEAR" message="Počisti medpomnilnik nadzornika zadetkov."/>
 	<tip id="ID_HITMONITOR_PAUSE" message="Premor nadzornika zadetkov."/>
 	<tip id="ID_HITMONITOR_SEARCH" message="Iskanje po omrežju po izbranem iskalnem pojmom."/>
@@ -2232,8 +2230,8 @@
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="Zbriši izbrano albumsko mapo."/>
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="Odpri izbrano albumsko mapo."/>
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="Poglej in uredi lastnosti izbranih albumskih map..."/>
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Prenesi metapodatke za izbrane datoteke od sistema Bitzi™..."/>
-	<tip id="ID_LIBRARY_BITZI_WEB" message="Ogled Bitzi™ kart za izbrane datoteke na spletu."/>
+	<tip id="ID_LIBRARY_BITPRINT_DOWNLOAD" message="Prenesi metapodatke za izbrane datoteke od sistema Bitprint..."/>
+	<tip id="ID_LIBRARY_BITPRINT_WEB" message="Ogled Bitprint kart za izbrane datoteke na spletu."/>
 	<tip id="ID_LIBRARY_COLUMNS" message="Izberi stolpce z metapodatki za prikaz..."/>
 	<tip id="ID_LIBRARY_COPY" message="Kopiranje izbranih datotek v drugo knjižnično mapo..."/>
 	<tip id="ID_LIBRARY_CREATETORRENT" message="Ustvari .torrent za to datoteko za naložitev (upload) na spletno stran."/>
@@ -2803,7 +2801,7 @@
 	<string id="20446" value="Datoteka &quot;%s&quot; je pogrnila na testu preverjanja izvlečka (hasha) in prav gotovo ni datoteka, ki ste jo nameravali prenesti. Ste prepričani, da jo želite odpreti?"/>
 	<string id="20447" value="Želite odstraniti &quot;potencialno nevarne&quot; atribute iz te datoteke?"/>
 	<string id="20448" value="Datoteka &quot;%s&quot; še ni bila zgoščena (hashed). Počakajte, da se postopek sgoščevanja (hashing) konča in nato poskusite znova."/>
-	<string id="20449" value="Ta možnost uporablja storitve, ki jih zagotavlja Bitzi.com za prepoznavanje in deljenje informacij o izbranih datotekah.\n\nPeerProject bo prenesla SHA1 izvleček (hash code) za izbrane datoteke z namenom poizvedbe po Bitzi podatkovni zbirki. Če ste zaskrbljeni glede zasebnosti, vam svetujemo, da si ogledate izjavo o varovanju zasebnosti na Bitzi.com.\n\nŽelite nadaljevati?"/>
+	<string id="20449" value="Ta možnost uporablja storitve, ki jih zagotavlja peerproject.org/bitprint za prepoznavanje in deljenje informacij o izbranih datotekah.\n\nPeerProject bo prenesla SHA1 izvleček (hash code) za izbrane datoteke z namenom poizvedbe po Bitprint podatkovni zbirki. Če ste zaskrbljeni glede zasebnosti, vam svetujemo, da si ogledate izjavo o varovanju zasebnosti na peerproject.org/bitprint.\n\nŽelite nadaljevati?"/>
 	<string id="20450" value="Podmapa izbrane mape &quot;%s&quot; je že del vaše knjižnice.\nČe boste dodali to mapo, boste povzročili sprožitev ponovnega zgoščevanja (re-hashing) nekaterih datotek.\n\nŽelite nadaljevati?"/>
 	<string id="20451" value="Trenutno se ne predvaja nobena datoteka. Dvokliknite na datoteko v svoji knjižnici za njeno predvajanje."/>
 	<string id="20452" value="Vse medijske datoteke|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Predvajalni seznami|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Zvočne datoteke|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Video datoteke|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Glasba na zgoščenki|*.cda|MIDI datoteke|*.mid;*.rmi;*.midi|Vse datoteke|*.*||"/>
@@ -3639,7 +3637,7 @@
 		<control/>
 		<control caption="Locale:"/>
 		<control/>
-		<control caption="Comments:"/>
+		<control caption="Komentarji:"/>
 		<control/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="Dobrodošli v PeerProject (8/8)">
@@ -4068,13 +4066,13 @@
 		<control caption="_Zapomni si moj izbor za naslednjič"/>
 		<control caption="Odpri _nadzorno okno za prenos"/>
 	</dialog>
-	<dialog name="CBitziDownloadDlg" cookie="StStmsBuSySt" caption="Prenašanje metapodatkov...">
+	<dialog name="CBitprintDownloadDlg" cookie="StStmsBuSySt" caption="Prenašanje metapodatkov...">
 		<control/>
-		<control caption="PeerProject poskuša prenesti metapodatke iz sistema Bitzi..."/>
+		<control caption="PeerProject poskuša prenesti metapodatke iz sistema Bitprint..."/>
 		<control/>
 		<control caption="Prekliči"/>
 		<control/>
-		<control caption="www.bitzi.com"/>
+		<control caption="peerproject.org/bitprint"/>
 	</dialog>
 	<dialog name="CFilePreviewDlg" cookie="StStStmsStBu" caption="Pametni predogled prenosa...">
 		<control/>

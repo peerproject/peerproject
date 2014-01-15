@@ -1,7 +1,7 @@
 //
 // BENode.h
 //
-// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008
+// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008, 2014
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
@@ -22,6 +22,9 @@
 #pragma once
 
 class CBuffer;
+#ifdef _PORTABLE
+class CHashSHA1;
+#endif
 
 class CBENode
 {
@@ -41,11 +44,15 @@ public:
 // Operations
 public:
 	void		Clear();
+	void		Encode(CBuffer* pBuffer) const;
 	CBENode*	Add(const LPBYTE pKey, size_t nKey);
 	CBENode*	GetNode(LPCSTR pszKey) const;
 	CBENode*	GetNode(const LPBYTE pKey, int nKey) const;
+#ifdef _PORTABLE
+	CHashSHA1	GetSHA1() const;
+#else
 	CSHA		GetSHA1() const;
-	void		Encode(CBuffer* pBuffer) const;
+#endif
 	static int __cdecl SortDict(const void * pA, const void * pB);
 
 // Inline
@@ -71,21 +78,22 @@ public:
 
 	inline CString GetString() const
 	{
-		CString str;
-		if ( m_nType != beString ) return str;
-		str = (LPCSTR)m_pValue;
+		if ( m_nType != beString ) return CString();
+
+		CString str = (LPCSTR)m_pValue;
 
 		int nLength = MultiByteToWideChar( CP_UTF8, MB_ERR_INVALID_CHARS, (LPCSTR)m_pValue, -1, NULL, 0 );
+
 		if ( nLength > 0 )
-			MultiByteToWideChar( CP_UTF8, 0, (LPCSTR)m_pValue, -1, str.GetBuffer( nLength ), nLength );
-		else
 		{
-			// Bad encoding
+			MultiByteToWideChar( CP_UTF8, 0, (LPCSTR)m_pValue, -1, str.GetBuffer( nLength ), nLength );
+			str.ReleaseBuffer();
+		}
+		else	// Bad encoding
+		{	
 			str.ReleaseBuffer();
 			str = _T("#ERROR#");
-		return str;
-	}
-		str.ReleaseBuffer();
+		}
 
 		return str;
 	}

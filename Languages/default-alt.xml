@@ -3,12 +3,12 @@
 
 <!-- PeerProject UK English Skin File -->
 
-<!-- Translation based on default-en.xml r100 -->
+<!-- Translation based on default-en.xml r102 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
-<!-- however be sure to include only sections that are changed.  -->
+<!-- however be sure to include only sections that are changed:  -->
 <!-- Unedited English content limits compatibility & performance.-->
 <!-- Better to be concise than literal:  Please test visibility! -->
 
@@ -118,7 +118,6 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
 				<item id="ID_HELP_WEB_SKINS" text="PeerProject S_kin Site"/> <!--
-		 		<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/>
 				<item id="ID_HELP_UPDATE" text="Latest news"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
@@ -227,7 +226,6 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
 				<item id="ID_HELP_WEB_SKINS" text="PeerProject S_kin Site"/> <!--
-				<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/>
 				<item id="ID_HELP_UPDATE" text="Latest news"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
@@ -330,8 +328,7 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
-			 	<!-- <item id="ID_HELP_WEB_SKINS" text="PeerProject S_kin Site"/>
-				<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/>
+				<!-- <item id="ID_HELP_WEB_SKINS" text="PeerProject S_kin Site"/>
 				<item id="ID_HELP_UPDATE" text="Latest news"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
@@ -423,8 +420,8 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episodes in the same Series"/>
 		</menu>
 		<menu text="_Web Services">
-			<item id="ID_LIBRARY_BITZI_WEB" text="View _Bitzi Ticket"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Download Metadata"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="View Bitprint listing"/>
+			<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="_Download Metadata"/>
 			<separator/>
 		</menu>
 		<menu text="_Metadata">

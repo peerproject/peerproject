@@ -1,7 +1,7 @@
 /* zlib.h -- interface of the 'zlib' general purpose compression library
-  version 1.2.7, May 2nd, 2012
+  version 1.2.8, April 28th, 2013
 
-  Copyright (C) 1995-2012 Jean-loup Gailly and Mark Adler
+  Copyright (C) 1995-2013 Jean-loup Gailly and Mark Adler
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -37,11 +37,11 @@
 extern "C" {
 #endif
 
-#define ZLIB_VERSION "1.2.7"
-#define ZLIB_VERNUM 0x1270
+#define ZLIB_VERSION "1.2.8"
+#define ZLIB_VERNUM 0x1280
 #define ZLIB_VER_MAJOR 1
 #define ZLIB_VER_MINOR 2
-#define ZLIB_VER_REVISION 7
+#define ZLIB_VER_REVISION 8
 #define ZLIB_VER_SUBREVISION 0
 
 /*
@@ -245,105 +245,9 @@ ZEXTERN int ZEXPORT deflateInit OF((z_streamp strm, int level));
 ZEXTERN int ZEXPORT deflate OF((z_streamp strm, int flush));
 /*
     deflate compresses as much data as possible, and stops when the input
-  buffer becomes empty or the output buffer becomes full.  It may introduce
-  some output latency (reading input without producing any output) except when
-  forced to flush.
+  buffer becomes empty or the output buffer becomes full.
 
-    The detailed semantics are as follows.  deflate performs one or both of the
-  following actions:
-
-  - Compress more input starting at next_in and update next_in and avail_in
-    accordingly.  If not all input can be processed (because there is not
-    enough room in the output buffer), next_in and avail_in are updated and
-    processing will resume at this point for the next call of deflate().
-
-  - Provide more output starting at next_out and update next_out and avail_out
-    accordingly.  This action is forced if the parameter flush is non zero.
-    Forcing flush frequently degrades the compression ratio, so this parameter
-    should be set only when necessary (in interactive applications).  Some
-    output may be provided even if flush is not set.
-
-    Before the call of deflate(), the application should ensure that at least
-  one of the actions is possible, by providing more input and/or consuming more
-  output, and updating avail_in or avail_out accordingly; avail_out should
-  never be zero before the call.  The application can consume the compressed
-  output when it wants, for example when the output buffer is full (avail_out
-  == 0), or after each call of deflate().  If deflate returns Z_OK and with
-  zero avail_out, it must be called again after making room in the output
-  buffer because there might be more output pending.
-
-    Normally the parameter flush is set to Z_NO_FLUSH, which allows deflate to
-  decide how much data to accumulate before producing output, in order to
-  maximize compression.
-
-    If the parameter flush is set to Z_SYNC_FLUSH, all pending output is
-  flushed to the output buffer and the output is aligned on a byte boundary,
-  so that the decompressor can get all input data available so far.
-  (In particular avail_in is zero after the call if enough output space has been
-  provided before the call.) Flushing may degrade compression for some
-  compression algorithms and so it should be used only when necessary.  This
-  completes the current deflate block and follows it with an empty stored block
-  that is three bits plus filler bits to the next byte, followed by four bytes
-  (00 00 ff ff).
-
-    If flush is set to Z_PARTIAL_FLUSH, all pending output is flushed to the
-  output buffer, but the output is not aligned to a byte boundary.  All of the
-  input data so far will be available to the decompressor, as for Z_SYNC_FLUSH.
-  This completes the current deflate block and follows it with an empty fixed
-  codes block that is 10 bits long.  This assures that enough bytes are output
-  in order for the decompressor to finish the block before the empty fixed code block.
-
-    If flush is set to Z_BLOCK, a deflate block is completed and emitted, as
-  for Z_SYNC_FLUSH, but the output is not aligned on a byte boundary, and up to
-  seven bits of the current block are held to be written as the next byte after
-  the next deflate block is completed.  In this case, the decompressor may not
-  be provided enough bits at this point in order to complete decompression of
-  the data provided so far to the compressor.  It may need to wait for the next
-  block to be emitted.  This is for advanced applications that need to control
-  the emission of deflate blocks.
-
-    If flush is set to Z_FULL_FLUSH, all output is flushed as with
-  Z_SYNC_FLUSH, and the compression state is reset so that decompression can
-  restart from this point if previous compressed data has been damaged or if
-  random access is desired.  Using Z_FULL_FLUSH too often can seriously degrade
-  compression.
-
-    If deflate returns with avail_out == 0, this function must be called again
-  with the same value of the flush parameter and more output space (updated
-  avail_out), until the flush is complete (deflate returns with non-zero
-  avail_out).  In the case of a Z_FULL_FLUSH or Z_SYNC_FLUSH, make sure that
-  avail_out is greater than six to avoid repeated flush markers due to
-  avail_out == 0 on return.
-
-    If the parameter flush is set to Z_FINISH, pending input is processed,
-  pending output is flushed and deflate returns with Z_STREAM_END if there was
-  enough output space; if deflate returns with Z_OK, this function must be
-  called again with Z_FINISH and more output space (updated avail_out) but no
-  more input data, until it returns with Z_STREAM_END or an error.  After
-  deflate has returned Z_STREAM_END, the only possible operations on the stream
-  are deflateReset or deflateEnd.
-
-    Z_FINISH can be used immediately after deflateInit if all the compression
-  is to be done in a single step.  In this case, avail_out must be at least the
-  value returned by deflateBound (see below).  If deflate does not return
-  Z_STREAM_END, then it must be called again as described above.
-
-    deflate() sets strm->adler to the adler32 checksum of all input read
-  so far (that is, total_in bytes).
-
-    deflate() may update strm->data_type if it can make a good guess about
-  the input data type (Z_BINARY or Z_TEXT).  In doubt, the data is considered
-  binary.  This field is only for information purposes and does not affect the
-  compression algorithm in any manner.
-
-    deflate() returns Z_OK if some progress has been made (more input
-  processed or more output produced), Z_STREAM_END if all input has been
-  consumed and all output has been produced (only when flush is set to
-  Z_FINISH), Z_STREAM_ERROR if the stream state was inconsistent (for example
-  if next_in or next_out was Z_NULL), Z_BUF_ERROR if no progress is possible
-  (for example avail_in or avail_out was zero).  Note that Z_BUF_ERROR is not
-  fatal, and deflate() can be called again with more input and more output
-  space to continue compressing.
+  (Additional Comments Removed)
 */
 
 
@@ -447,23 +351,29 @@ ZEXTERN int ZEXPORT inflate OF((z_streamp strm, int flush));
   error.  However if all decompression is to be performed in a single step (a
   single call of inflate), the parameter flush should be set to Z_FINISH.  In
   this case all pending input is processed and all pending output is flushed;
-  avail_out must be large enough to hold all the uncompressed data.  (The size
-  of the uncompressed data may have been saved by the compressor for this
-  purpose.) The next operation on this stream must be inflateEnd to deallocate
-  the decompression state.  The use of Z_FINISH is never required, but can be
-  used to inform inflate that a faster approach may be used for the single
-  inflate() call.
+  avail_out must be large enough to hold all of the uncompressed data for the
+  operation to complete.  (The size of the uncompressed data may have been
+  saved by the compressor for this purpose.) The use of Z_FINISH is not
+  required to perform an inflation in one step.  However it may be used to
+  inform inflate that a faster approach can be used for the single inflate()
+  call.  Z_FINISH also informs inflate to not maintain a sliding window if the
+  stream completes, which reduces inflate's memory footprint.  If the stream
+  does not complete, either because not all of the stream is provided or not
+  enough output space is provided, then a sliding window will be allocated and
+  inflate() can be called again to continue the operation as if Z_NO_FLUSH had
+  been used.
 
      In this implementation, inflate() always flushes as much output as
   possible to the output buffer, and always uses the faster approach on the
-  first call.  So the only effect of the flush parameter in this implementation
-  is on the return value of inflate(), as noted below, or when it returns early
-  because Z_BLOCK or Z_TREES is used.
+  first call.  So the effects of the flush parameter in this implementation are
+  on the return value of inflate() as noted below, when inflate() returns early
+  when Z_BLOCK or Z_TREES is used, and when inflate() avoids the allocation of
+  memory for a sliding window when Z_FINISH is used.
 
      If a preset dictionary is needed after this call (see inflateSetDictionary
-  below), inflate sets strm->adler to the adler32 checksum of the dictionary
+  below), inflate sets strm->adler to the Adler-32 checksum of the dictionary
   chosen by the compressor and returns Z_NEED_DICT; otherwise it sets
-  strm->adler to the adler32 checksum of all output produced so far (that is,
+  strm->adler to the Adler-32 checksum of all output produced so far (that is,
   total_out bytes) and returns Z_OK, Z_STREAM_END or an error code as described
   below.  At the end of the stream, inflate() checks that its computed adler32
   checksum is equal to that saved by the compressor and returns Z_STREAM_END
@@ -474,7 +384,9 @@ ZEXTERN int ZEXPORT inflate OF((z_streamp strm, int flush));
   initializing with inflateInit2().  Any information contained in the gzip
   header is not retained, so applications that need that information should
   instead use raw inflate, see inflateInit2() below, or inflateBack() and
-  perform their own processing of the gzip header and trailer.
+  perform their own processing of the gzip header and trailer.  When processing
+  gzip-wrapped deflate data, strm->adler32 is set to the CRC-32 of the output
+  producted so far.  The CRC-32 is checked against the gzip trailer.
 
     inflate() returns Z_OK if some progress has been made (more input processed
   or more output produced), Z_STREAM_END if the end of the compressed data has
@@ -609,8 +521,8 @@ ZEXTERN int ZEXPORT deflateSetDictionary OF((z_streamp strm,
      deflateSetDictionary returns Z_OK if success, or Z_STREAM_ERROR if a
    parameter is invalid (e.g.  dictionary being Z_NULL) or the stream state is
    inconsistent (for example if deflate has already been called for this stream
-   or if the compression method is bsort).  deflateSetDictionary does not
-   perform any compression: this will be done by deflate().
+   or if not at a block boundary for raw deflate).  deflateSetDictionary does
+   not perform any compression: this will be done by deflate().
 */
 
 ZEXTERN int ZEXPORT deflateCopy OF((z_streamp dest,
@@ -823,6 +735,21 @@ ZEXTERN int ZEXPORT inflateSetDictionary OF((z_streamp strm,
    perform any decompression: this will be done by subsequent calls of inflate().
 */
 
+ZEXTERN int ZEXPORT inflateGetDictionary OF((z_streamp strm,
+                                             Bytef *dictionary,
+                                             uInt  *dictLength));
+/*
+     Returns the sliding dictionary being maintained by inflate.  dictLength is
+   set to the number of bytes in the dictionary, and that many bytes are copied
+   to dictionary.  dictionary must have enough space, where 32768 bytes is
+   always enough.  If inflateGetDictionary() is called with dictionary equal to
+   Z_NULL, then only the dictionary length is returned, and nothing is copied.
+   Similary, if dictLength is Z_NULL, then it is not set.
+
+     inflateGetDictionary returns Z_OK on success, or Z_STREAM_ERROR if the
+   stream state is inconsistent.
+*/
+
 ZEXTERN int ZEXPORT inflateSync OF((z_streamp strm));
 /*
      Skips invalid compressed data until a possible full flush point (see above
@@ -830,7 +757,7 @@ ZEXTERN int ZEXPORT inflateSync OF((z_streamp strm));
    available input is skipped.  No output is provided.
 
      inflateSync searches for a 00 00 FF FF pattern in the compressed data.
-   All full flush points have this pattern, but not all occurences of this
+   All full flush points have this pattern, but not all occurrences of this
    pattern are full flush points.
 
      inflateSync returns Z_OK if a possible full flush point has been found,
@@ -983,12 +910,12 @@ ZEXTERN int ZEXPORT inflateBackInit OF((z_streamp strm, int windowBits,
      See inflateBack() for the usage of these routines.
 
      inflateBackInit will return Z_OK on success, Z_STREAM_ERROR if any of
-   the paramaters are invalid, Z_MEM_ERROR if the internal state could not be
+   the parameters are invalid, Z_MEM_ERROR if the internal state could not be
    allocated, or Z_VERSION_ERROR if the version of the library does not match
    the version of the header file.
 */
 
-typedef unsigned (*in_func) OF((void FAR *, unsigned char FAR * FAR *));
+typedef unsigned (*in_func) OF((void FAR *, z_const unsigned char FAR * FAR *));
 typedef int (*out_func) OF((void FAR *, unsigned char FAR *, unsigned));
 
 ZEXTERN int ZEXPORT inflateBack OF((z_streamp strm,
@@ -996,11 +923,12 @@ ZEXTERN int ZEXPORT inflateBack OF((z_streamp strm,
                                     out_func out, void FAR *out_desc));
 /*
      inflateBack() does a raw inflate with a single call using a call-back
-   interface for input and output.  This is more efficient than inflate() for
-   file i/o applications in that it avoids copying between the output and the
-   sliding window by simply making the window itself the output buffer.  This
-   function trusts the application to not change the output buffer passed by
-   the output function, at least until inflateBack() returns.
+   interface for input and output.  This is potentially more efficient than
+   inflate() for file i/o applications, in that it avoids copying between the
+   output and the sliding window by simply making the window itself the output
+   buffer.  inflate() can be faster on modern CPUs when used with large
+   buffers.  inflateBack() trusts the application to not change the output
+   buffer passed by the output function, at least until inflateBack() returns.
 
      inflateBackInit() must be called first to allocate the internal state
    and to initialize the state with the user-provided window buffer.
@@ -1171,8 +1099,9 @@ ZEXTERN int ZEXPORT uncompress OF((Bytef *dest,   uLongf *destLen,
      uncompress returns Z_OK if success, Z_MEM_ERROR if there was not
    enough memory, Z_BUF_ERROR if there was not enough room in the output
    buffer, or Z_DATA_ERROR if the input data was corrupted or incomplete.
+   In the case where there is not enough room, uncompress() will fill the
+   output buffer with the uncompressed data up to that point.
 */
-
 
                         /* gzip file access functions */
 
@@ -1193,13 +1122,28 @@ ZEXTERN gzFile ZEXPORT gzopen OF((const char *path, const char *mode));
    a strategy: 'f' for filtered data as in "wb6f", 'h' for Huffman-only
    compression as in "wb1h", 'R' for run-length encoding as in "wb1R", or 'F'
    for fixed code compression as in "wb9F".  (See the description of
-   deflateInit2 for more information about the strategy parameter.) Also "a"
-   can be used instead of "w" to request that the gzip stream that will be
-   written be appended to the file.  "+" will result in an error, since reading
-   and writing to the same gzip file is not supported.
+   deflateInit2 for more information about the strategy parameter.)  'T' will
+   request transparent writing or appending with no compression and not using
+   the gzip format.
+
+     "a" can be used instead of "w" to request that the gzip stream that will
+   be written be appended to the file.  "+" will result in an error, since
+   reading and writing to the same gzip file is not supported.  The addition of
+   "x" when writing will create the file exclusively, which fails if the file
+   already exists.  On systems that support it, the addition of "e" when
+   reading or writing will set the flag to close the file on an execve() call.
+
+     These functions, as well as gzip, will read and decode a sequence of gzip
+   streams in a file.  The append function of gzopen() can be used to create
+   such a file.  (Also see gzflush() for another way to do this.)  When
+   appending, gzopen does not test whether the file begins with a gzip stream,
+   nor does it look for the end of the gzip streams to begin appending.  gzopen
+   will simply append a gzip stream to the existing file.
 
      gzopen can be used to read a file which is not in gzip format; in this
-   case gzread will directly read from the file without decompression.
+   case gzread will directly read from the file without decompression.  When
+   reading, this will be detected automatically by looking for the magic two-
+   byte gzip header.
 
      gzopen returns NULL if the file could not be opened, if there was
    insufficient memory to allocate the gzFile state, or if an invalid mode was
@@ -1218,7 +1162,11 @@ ZEXTERN gzFile ZEXPORT gzdopen OF((int fd, const char *mode));
    descriptor fd, just like fclose(fdopen(fd, mode)) closes the file descriptor
    fd.  If you want to keep fd open, use fd = dup(fd_keep); gz = gzdopen(fd,
    mode);.  The duplicated descriptor should be saved to avoid a leak, since
-   gzdopen does not close fd if it fails.
+   gzdopen does not close fd if it fails.  If you are using fileno() to get the
+   file descriptor from a FILE *, then you will have to use dup() to avoid
+   double-close()ing the file descriptor.  Both gzclose() and fclose() will
+   close the associated file descriptor, so they need to have different file
+   descriptors.
 
      gzdopen returns NULL if there was insufficient memory to allocate the
    gzFile state, if an invalid mode was specified (an 'r', 'w', or 'a' was not
@@ -1255,13 +1203,25 @@ ZEXTERN int ZEXPORT gzsetparams OF((gzFile file, int level, int strategy));
 ZEXTERN int ZEXPORT gzread OF((gzFile file, voidp buf, unsigned len));
 /*
      Reads the given number of uncompressed bytes from the compressed file.  If
-   the input file was not in gzip format, gzread copies the given number of
-   bytes into the buffer.
+   the input file is not in gzip format, gzread copies the given number of
+   bytes into the buffer directly from the file.
 
      After reaching the end of a gzip stream in the input, gzread will continue
-   to read, looking for another gzip stream, or failing that, reading the rest
-   of the input file directly without decompression.  The entire input file
-   will be read if gzread is called until it returns less than the requested len.
+   to read, looking for another gzip stream.  Any number of gzip streams may be
+   concatenated in the input file, and will all be decompressed by gzread().
+   If something other than a gzip stream is encountered after a gzip stream,
+   that remaining trailing garbage is ignored (and no error is returned).
+
+     gzread can be used to read a gzip file that is being concurrently written.
+   Upon reaching the end of the input, gzread will return with the available
+   data.  If the error code returned by gzerror is Z_OK or Z_BUF_ERROR, then
+   gzclearerr can be used to clear the end of file indicator in order to permit
+   gzread to be tried again.  Z_OK indicates that a gzip stream was completed
+   on the last gzread.  Z_BUF_ERROR indicates that the input file ended in the
+   middle of a gzip stream.  Note that gzread does not return -1 in the event
+   of an incomplete gzip stream.  This error is deferred until gzclose(), which
+   will return Z_BUF_ERROR if the last gzread ended in the middle of a gzip
+   stream.  Alternatively, gzerror can be used before gzclose to detect this case.
 
      gzread returns the number of uncompressed bytes actually read, less than
    len for end of file, or -1 for error.
@@ -1320,7 +1280,8 @@ ZEXTERN int ZEXPORT gzputc OF((gzFile file, int c));
 ZEXTERN int ZEXPORT gzgetc OF((gzFile file));
 /*
      Reads one byte from the compressed file.  gzgetc returns this byte or -1
-   in case of end of file or error.
+   in case of end of file or error.  This is implemented as a macro for speed.
+   As such, it does not do all of the checking the other functions do.
 */
 
 ZEXTERN int ZEXPORT gzungetc OF((int c, gzFile file));
@@ -1416,9 +1377,7 @@ ZEXTERN int ZEXPORT gzeof OF((gzFile file));
 ZEXTERN int ZEXPORT gzdirect OF((gzFile file));
 /*
      Returns true (1) if file is being copied directly while reading, or false
-   (0) if file is a gzip stream being decompressed.  This state can change from
-   false to true while reading the input file if the end of a gzip stream is
-   reached, but is followed by data that is not another gzip stream.
+   (0) if file is a gzip stream being decompressed.
 
      If the input file is empty, gzdirect() will return true, since the input
    does not contain a gzip stream.
@@ -1427,6 +1386,13 @@ ZEXTERN int ZEXPORT gzdirect OF((gzFile file));
    cause buffers to be allocated to allow reading the file to determine if it
    is a gzip file.  Therefore if gzbuffer() is used, it should be called before
    gzdirect().
+
+     When writing, gzdirect() returns true (1) if transparent writing was
+   requested ("wT" for the gzopen() mode), or false (0) otherwise.  (Note:
+   gzdirect() is not needed when writing.  Transparent writing must be
+   explicitly requested, so the application already knows the answer.  When
+   linking statically, using gzdirect() will include all of the zlib code for
+   gzip file reading and decompression, which may not be desired.)
 */
 
 ZEXTERN int ZEXPORT    gzclose OF((gzFile file));
@@ -1438,7 +1404,8 @@ ZEXTERN int ZEXPORT    gzclose OF((gzFile file));
    must not be called more than once on the same allocation.
 
      gzclose will return Z_STREAM_ERROR if file is not valid, Z_ERRNO on a
-   file operation error, or Z_OK on success.
+   file operation error, Z_MEM_ERROR if out of memory, Z_BUF_ERROR if the
+   last read ended in the middle of a gzip stream, or Z_OK on success.
 */
 
 ZEXTERN int ZEXPORT gzclose_r OF((gzFile file));
@@ -1666,6 +1633,13 @@ ZEXTERN int            ZEXPORT deflateResetKeep OF((z_streamp));
 #if defined(_WIN32) && !defined(Z_SOLO)
 ZEXTERN gzFile         ZEXPORT gzopen_w OF((const wchar_t *path,
                                             const char *mode));
+#endif
+#if defined(STDC) || defined(Z_HAVE_STDARG_H)
+#  ifndef Z_SOLO
+ZEXTERN int            ZEXPORTVA gzvprintf Z_ARG((gzFile file,
+                                                  const char *format,
+                                                  va_list va));
+#  endif
 #endif
 
 #ifdef __cplusplus

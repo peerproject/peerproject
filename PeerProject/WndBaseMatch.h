@@ -1,7 +1,7 @@
 //
 // WndBaseMatch.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -100,8 +100,8 @@ protected:
 	afx_msg void OnUpdateSearchFilterRemove(CCmdUI* pCmdUI);
 	afx_msg void OnSearchFilterRemove();
 	afx_msg void OnSearchColumns();
-	afx_msg void OnUpdateLibraryBitziWeb(CCmdUI* pCmdUI);
-	afx_msg void OnLibraryBitziWeb();
+	afx_msg void OnUpdateLibraryBitprintWeb(CCmdUI* pCmdUI);
+	afx_msg void OnLibraryBitprintWeb();
 	afx_msg void OnUpdateSecurityBan(CCmdUI* pCmdUI);
 	afx_msg void OnSecurityBan();
 	afx_msg void OnUpdateHitMonitorSearch(CCmdUI* pCmdUI);

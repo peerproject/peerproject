@@ -1,7 +1,7 @@
 //
 // PageExpert.h
 //
-// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008,2012
+// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008,2012-2014
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
@@ -39,7 +39,6 @@ public:
 
 // Dialog Data
 public:
-	//{{AFX_DATA(CExpertPage)
 	QWORD 		m_nTotalSize;
 	CString 	m_sFileCount;
 	CString 	m_sName;
@@ -47,6 +46,8 @@ public:
 	CString 	m_sTracker;
 	CString 	m_sTracker2;
 	CString 	m_sComment;
+//	CString 	m_sSource;
+	BOOL		m_bPrivate;
 	CEdit		m_wndName;
 	CComboBox	m_wndFolders;
 	CComboBox	m_wndTracker;
@@ -54,7 +55,6 @@ public:
 	CButton 	m_wndRemove;
 	CListCtrl	m_wndList;
 	HIMAGELIST	m_hImageList;
-	//}}AFX_DATA
 
 // Operations
 protected:
@@ -63,7 +63,6 @@ protected:
 
 // Overrides
 public:
-	//{{AFX_VIRTUAL(CExpertPage)
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	virtual BOOL OnSetActive();
 	virtual LRESULT OnWizardBack();
@@ -72,11 +71,9 @@ public:
 protected:
 	virtual BOOL OnInitDialog();
 	virtual void DoDataExchange(CDataExchange* pDX);
-	//}}AFX_VIRTUAL
 
 // Implementation
 protected:
-	//{{AFX_MSG(CExpertPage)
 	afx_msg void OnDropFiles(HDROP hDropInfo);
 	afx_msg void OnXButtonDown(UINT nFlags, UINT nButton, CPoint point);
 	afx_msg void OnItemChangedFileList(NMHDR* pNMHDR, LRESULT* pResult);
@@ -84,9 +81,6 @@ protected:
 	afx_msg void OnAddFolder();
 	afx_msg void OnAddFile();
 	afx_msg void OnRemoveFile();
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };
-
-//{{AFX_INSERT_LOCATION}}

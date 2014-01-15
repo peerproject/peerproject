@@ -1,7 +1,7 @@
 //
 // LibraryBuilder.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -721,8 +721,8 @@ bool CLibraryBuilder::DetectVirtualID3v1(HANDLE hFile, QWORD& nOffset, QWORD& nL
 	if ( nLength <= 128 )
 		return false;
 
-	LONG nPosLow	= (LONG)( ( nOffset + nLength - 128 ) & 0xFFFFFFFF );
-	LONG nPosHigh	= (LONG)( ( nOffset + nLength - 128 ) >> 32 );
+	LONG nPosLow  = (LONG)( ( nOffset + nLength - 128 ) & 0xFFFFFFFF );
+	LONG nPosHigh = (LONG)( ( nOffset + nLength - 128 ) >> 32 );
 	SetFilePointer( hFile, nPosLow, &nPosHigh, FILE_BEGIN );
 
 	if ( ! ReadFile( hFile, &pInfo, sizeof( pInfo ), &nRead, NULL ) )
@@ -742,8 +742,8 @@ bool CLibraryBuilder::DetectVirtualID3v2(HANDLE hFile, QWORD& nOffset, QWORD& nL
 	ID3V2_HEADER pHeader = { 0 };
 	DWORD nRead;
 
-	LONG nPosLow	= (LONG)( ( nOffset ) & 0xFFFFFFFF );
-	LONG nPosHigh	= (LONG)( ( nOffset ) >> 32 );
+	LONG nPosLow  = (LONG)( nOffset & 0xFFFFFFFF );
+	LONG nPosHigh = (LONG)( nOffset >> 32 );
 	SetFilePointer( hFile, nPosLow, &nPosHigh, FILE_BEGIN );
 
 	if ( ! ReadFile( hFile, &pHeader, sizeof( pHeader ), &nRead, NULL ) )
@@ -774,8 +774,8 @@ bool CLibraryBuilder::DetectVirtualID3v2(HANDLE hFile, QWORD& nOffset, QWORD& nL
 	nLength -= nTagSize;
 
 	// Remove leading zeroes
-	nPosLow  = (LONG)( ( nOffset ) & 0xFFFFFFFF );
-	nPosHigh = (LONG)( ( nOffset ) >> 32 );
+	nPosLow  = (LONG)( nOffset & 0xFFFFFFFF );
+	nPosHigh = (LONG)( nOffset >> 32 );
 	SetFilePointer( hFile, nPosLow, &nPosHigh, FILE_BEGIN );
 	CHAR szByte;
 	while ( ReadFile( hFile, &szByte, 1, &nRead, NULL ) && nRead == 1 && szByte == '\0' )
@@ -791,8 +791,8 @@ bool CLibraryBuilder::DetectVirtualAPEHeader(HANDLE hFile, QWORD& nOffset, QWORD
 	APE_HEADER pHeader = {};
 	DWORD nRead;
 
-	LONG nPosLow  = (LONG)( ( nOffset ) & 0xFFFFFFFF );
-	LONG nPosHigh = (LONG)( ( nOffset ) >> 32 );
+	LONG nPosLow  = (LONG)( nOffset & 0xFFFFFFFF );
+	LONG nPosHigh = (LONG)( nOffset >> 32 );
 	SetFilePointer( hFile, nPosLow, &nPosHigh, FILE_BEGIN );
 
 	if ( ! ReadFile( hFile, &pHeader, sizeof( pHeader ), &nRead, NULL ) )
@@ -912,8 +912,8 @@ bool CLibraryBuilder::DetectVirtualLAME(HANDLE hFile, QWORD& nOffset, QWORD& nLe
 	BYTE nFrameHeader[4] = { 0 };
 	DWORD nRead;
 
-	LONG nPosLow	= (LONG)( ( nOffset ) & 0xFFFFFFFF );
-	LONG nPosHigh	= (LONG)( ( nOffset ) >> 32 );
+	LONG nPosLow  = (LONG)( nOffset & 0xFFFFFFFF );
+	LONG nPosHigh = (LONG)( nOffset >> 32 );
 	SetFilePointer( hFile, nPosLow, &nPosHigh, FILE_BEGIN );
 
 	if ( ! ReadFile( hFile, nFrameHeader, sizeof( nFrameHeader ), &nRead, NULL ) )
@@ -946,7 +946,7 @@ bool CLibraryBuilder::DetectVirtualLAME(HANDLE hFile, QWORD& nOffset, QWORD& nLe
 		nSampleRate = samplerate_table[ 2 ][ nSampleRateIndex ];
 	else
 		nSampleRate = samplerate_table[ nId ][ nSampleRateIndex ];
-	int nFrameSize = ( ( nId + 1 ) * 72000 * nBitrate ) / nSampleRate;
+	UINT nFrameSize = ( ( nId + 1 ) * 72000 * nBitrate ) / nSampleRate;
 	if ( nFrameSize > nLength )
 		return false;
 
@@ -970,8 +970,8 @@ bool CLibraryBuilder::DetectVirtualLAME(HANDLE hFile, QWORD& nOffset, QWORD& nLe
 		bChanged = true;
 		nLength -= nVbrHeaderOffset + sizeof( pFrame );
 		nOffset = nNewOffset.QuadPart + sizeof( pFrame );
-		nNewOffset.LowPart = (LONG)( ( nOffset ) & 0xFFFFFFFF );
-		nNewOffset.HighPart = (LONG)( ( nOffset ) >> 32 );
+		nNewOffset.LowPart  = (LONG)( nOffset & 0xFFFFFFFF );
+		nNewOffset.HighPart = (LONG)( nOffset >> 32 );
 		SetFilePointer( hFile, nNewOffset.LowPart, &(nNewOffset.HighPart), FILE_BEGIN );
 		CHAR szByte;
 		while ( ReadFile( hFile, &szByte, 1, &nRead, NULL ) && nRead == 1 && szByte == '\0' )
@@ -1004,7 +1004,7 @@ bool CLibraryBuilder::DetectVirtualLAME(HANDLE hFile, QWORD& nOffset, QWORD& nLe
 	// Strip off silence and incomplete frames from the end (hackish way)
 	for ( ; nFrameSize > 0 ; )
 	{
-		nNewOffset.LowPart = (LONG)( ( nOffset + nLength - nFrameSize ) & 0xFFFFFFFF );
+		nNewOffset.LowPart  = (LONG)( ( nOffset + nLength - nFrameSize ) & 0xFFFFFFFF );
 		nNewOffset.HighPart = (LONG)( ( nOffset + nLength - nFrameSize ) >> 32 );
 		nNewOffset.LowPart = SetFilePointer( hFile, nNewOffset.LowPart, &(nNewOffset.HighPart), FILE_BEGIN );
 		if ( nNewOffset.LowPart == INVALID_SET_FILE_POINTER && GetLastError() != NO_ERROR )
@@ -1027,40 +1027,39 @@ bool CLibraryBuilder::DetectVirtualLAME(HANDLE hFile, QWORD& nOffset, QWORD& nLe
 		nFrameHeader[ 3 ] = HIBYTE( nTestBytes );
 
 		// Get MPEG header data
-		nId = ( nFrameHeader[1] >> 3 ) & 1;
+		nId   = ( nFrameHeader[1] >> 3 ) & 1;
 		nMode = ( nFrameHeader[3] >> 6 ) & 3;
-		nVbrHeaderOffset = GetVbrHeaderOffset( nId, nMode );
+		nVbrHeaderOffset  = GetVbrHeaderOffset( nId, nMode );
 		QWORD nCurrOffset = nNewOffset.QuadPart + nVbrHeaderOffset;
-		nNewOffset.LowPart = (LONG)( ( nCurrOffset ) & 0xFFFFFFFF );
-		nNewOffset.HighPart = (LONG)( ( nCurrOffset ) >> 32 );
-		nNewOffset.LowPart = SetFilePointer( hFile, nNewOffset.LowPart, &(nNewOffset.HighPart), FILE_BEGIN );
+		nNewOffset.LowPart  = (LONG)( nCurrOffset & 0xFFFFFFFF );
+		nNewOffset.HighPart = (LONG)( nCurrOffset >> 32 );
+		nNewOffset.LowPart  = SetFilePointer( hFile, nNewOffset.LowPart, &(nNewOffset.HighPart), FILE_BEGIN );
 
 		if ( nNewOffset.LowPart == INVALID_SET_FILE_POINTER && GetLastError() != NO_ERROR )
 			break;
 
 		int nLen = sizeof( pFrame );
 		ZeroMemory( &pFrame, nLen );
-		if ( ! ReadFile( hFile, &pFrame, min( nLen, nFrameSize - nVbrHeaderOffset ), &nRead, NULL ) )
+		if ( ! ReadFile( hFile, &pFrame, min( (DWORD)nLen, nFrameSize - nVbrHeaderOffset ), &nRead, NULL ) )
 			break;
 
 		nLen--;
 		char* pszChars = (char*)&pFrame;
 		while ( nLen && pszChars[ nLen-- ] == pFrame.ClassID[ 0 ] );
 
-		if ( nLen == 0 )	// All bytes equal
-		{
-			bChanged = true;
-			nLength -= nFrameSize;
-			szTrail = pFrame.ClassID[ 0 ];
-		}
-		else
+		if ( nLen != 0 )
 			break;
+		
+		// All bytes equal
+		bChanged = true;
+		nLength -= nFrameSize;
+		szTrail = pFrame.ClassID[ 0 ];
 	}
 
 	// Remove trailing bytes
 	for ( ;; )
 	{
-		nNewOffset.LowPart = (LONG)( ( nOffset + nLength - 1 ) & 0xFFFFFFFF );
+		nNewOffset.LowPart  = (LONG)( ( nOffset + nLength - 1 ) & 0xFFFFFFFF );
 		nNewOffset.HighPart = (LONG)( ( nOffset + nLength - 1 ) >> 32 );
 		nNewOffset.LowPart = SetFilePointer( hFile, nNewOffset.LowPart, &(nNewOffset.HighPart), FILE_BEGIN );
 		if ( nNewOffset.LowPart == INVALID_SET_FILE_POINTER && GetLastError() != NO_ERROR )
@@ -1074,7 +1073,7 @@ bool CLibraryBuilder::DetectVirtualLAME(HANDLE hFile, QWORD& nOffset, QWORD& nLe
 	}
 
 	// Last LAME ID is one byte shorter (Bug? verify beta versions)
-	nNewOffset.LowPart = (LONG)( ( nOffset + nLength - 8 ) & 0xFFFFFFFF );
+	nNewOffset.LowPart  = (LONG)( ( nOffset + nLength - 8 ) & 0xFFFFFFFF );
 	nNewOffset.HighPart = (LONG)( ( nOffset + nLength - 8 ) >> 32 );
 	nNewOffset.LowPart = SetFilePointer( hFile, nNewOffset.LowPart, &(nNewOffset.HighPart), FILE_BEGIN );
 	if ( nNewOffset.LowPart == INVALID_SET_FILE_POINTER && GetLastError() != NO_ERROR )

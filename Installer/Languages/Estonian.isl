@@ -25,7 +25,6 @@ LanguageCodePage=0
 ;CopyrightFontName=Arial
 ;CopyrightFontSize=8
 
-
 [Messages]
 
 ; *** Application titles
@@ -201,13 +200,14 @@ ReadyMemoTasks=Lisaülesanded:
 
 ; *** "Preparing to Install" wizard page
 WizardPreparing=Paigaldamiseks valmistumine
-PreparingDesc=Paigaldaja valmistub paigaldama [name] sinu arvutisse.
-PreviousInstallNotCompleted=Eelmise programmi paigaldamine/kustutamine ei olnud lõpetanud. Te peate arvuti restartima ja lõpetama selle paigaldamise.%n%nPärast restarti käivitage [name] Paigaldaja uuesti.
-CannotContinue=Paigaldaja ei saa jätkata. Väljumiseks vajutage Loobu.
-ApplicationsFound=The following applications are using files that need to be updated by Setup. It is recommended that you allow Setup to automatically close these applications.
-ApplicationsFound2=The following applications are using files that need to be updated by Setup. It is recommended that you allow Setup to automatically close these applications. After the installation has completed, Setup will attempt to restart the applications.
-CloseApplications=&Automatically close the applications
-DontCloseApplications=&Do not close the applications
+PreparingDesc=Paigaldaja valmistub paigaldama [name]'i sinu arvutisse.
+PreviousInstallNotCompleted=Eelmise programmi paigaldamine/eemaldamine ei ole lõpetatud. Paigaldamise lõpetamiseks pead arvuti taaskäivitama.%n%nPärast taaskäivitust käivitage [name]'i paigaldaja uuesti, et lõpetada paigaldamine.
+CannotContinue=Paigaldaja ei saa jätkata. Väljumiseks vajuta palun Katkesta.
+ApplicationsFound=Järgnevad rakendused kasutavad faile, mida paigaldaja peab uuendama. Soovitatav on lubada paigaldajal need rakendused automaatselt sulgeda.
+ApplicationsFound2=Järgnevad rakendused kasutavad faile, mida paigaldaja peab uuendama. Soovitatav on lubada paigaldajal need rakendused automaatselt sulgeda. Pärasta paigaldamise lõpetamist üritab paigaldaja need rakendused taaskäivitada.
+CloseApplications=&Sulge rakendused automaatselt
+DontCloseApplications=Ära s&ulge rakendusi
+ErrorCloseApplications=Paigaldaja ei saanud kõiki rakendusi automaatselt sulgeda. Enne jätkamist on soovitatav sul sulgeda kõik rakendused, mis kasutavad faile, mida paigaldaja peab uuendama.
 
 ; *** "Installing" wizard page
 WizardInstalling=Paigaldamine
@@ -284,7 +284,7 @@ ErrorReplacingExistingFile=Olemasoleva faili asendamisel ilmnes viga:
 ErrorRestartReplace=Faili asendamine peale restarti ei õnnestunud:
 ErrorRenamingTemp=Faili nime muutmisel sihtkataloogis ilmnes viga:
 ErrorRegisterServer=Ei saa registreerida DLL/OCX: %1
-ErrorRegSvr32Failed=RegSvr32 luhtus with exit code %1
+ErrorRegSvr32Failed=RegSvr32 luhtus koodiga %1
 ErrorRegisterTypeLib=Võimatu registreerida library tüüpi: %1
 
 ; *** Post-installation errors
@@ -329,8 +329,8 @@ CreateQuickLaunchIcon=Loo &kiirkäivituse ikoon
 ProgramOnTheWeb=% veebis.
 UninstallProgram=Eemalda %1
 LaunchProgram=Käivita %1
-AssocFileExtension=&Seosta %1 faili %2 laiendiga.
-AssocingFileExtension=Seostan %1 faili %2 laiendiga...
-AutoStartProgramGroupDescription=Startup:
-AutoStartProgram=Automatically start %1
-AddonHostProgramNotFound=%1 could not be located in the folder you selected.%n%nDo you want to continue anyway?
+AssocFileExtension=&Seosta %1 %2 faililaiendiga
+AssocingFileExtension=Seostan %1 %2 faililaiendiga...
+AutoStartProgramGroupDescription=Käivitus:
+AutoStartProgram=Käivita %1 automaatselt
+AddonHostProgramNotFound=%1 ei asu sinu valitud kaustas.%n%nKas soovid sellegipoolest jätkata?

@@ -1,7 +1,7 @@
 //
 // ChatSession.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -845,7 +845,7 @@ BOOL CChatSession::OnCaptchaResult(CEDPacket* pPacket)
 
 BOOL CChatSession::ReadG1()
 {
-	ASSERT( m_nProtocol == PROTOCOL_G1 );
+	//ASSERT( m_nProtocol == PROTOCOL_G1 );
 
 	CString strLine;
 
@@ -906,7 +906,7 @@ void CChatSession::Send(CG2Packet* pPacket)
 
 BOOL CChatSession::ReadG2()
 {
-	ASSERT( m_nProtocol == PROTOCOL_G2 );
+	//ASSERT( m_nProtocol == PROTOCOL_G2 );
 
 	CLockedBuffer pInput( GetInput() );
 
@@ -1473,9 +1473,7 @@ void CChatSession::ClearMessages()
 //void CChatSession::PostOpenWindow()
 //{
 //	CQuickLock oLock( ChatCore.m_pSection );
-//
 //	if ( m_pWndPrivate != NULL ) return;
-//
 //	PostMainWndMessage( WM_OPENCHAT, (WPARAM)this );
 //}
 

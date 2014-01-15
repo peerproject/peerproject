@@ -844,8 +844,8 @@ msgstr ""
 msgid "P2PForums.com"
 msgstr ""
 
-#: cmainwnd.dropmenu;1;6;7;item;id_help_web_6
-msgid "Hypewise.DeviantArt.com"
+#: cmainwnd.dropmenu;1;6;7;item;id_help_web_skins
+msgid "peerproject.org/wiki/skins"
 msgstr ""
 
 #: cmainwnd.dropmenu;1;6;item;id_help_homepage
@@ -956,12 +956,8 @@ msgstr "Guida per _codec"
 msgid "_PeerProject Site"
 msgstr "Sito di _PeerProject"
 
-#: cmainwnd.tabbed;14;16;item;id_help_web_6 cmainwnd.basic;22;24;item;id_help_web_6 cmainwnd.windowed;30;32;item;id_help_web_6
+#: cmainwnd.tabbed;14;16;item;id_help_web_skins cmainwnd.basic;22;24;item;id_help_web_skins cmainwnd.windowed;30;32;item;id_help_web_skins
 msgid "PeerProject S_kin Site"
-msgstr ""
-
-#: cmainwnd.tabbed;14;16;item;id_help_fakeshareaza cmainwnd.basic;22;24;item;id_help_fakeshareaza cmainwnd.windowed;30;32;item;id_help_fakeshareaza
-msgid "FakeSharea_za.com"
 msgstr ""
 
 #: cmainwnd.basic;19;item;id_window_remote
@@ -1088,9 +1084,9 @@ msgstr "_Episodi della stessa serie"
 msgid "_Web Services"
 msgstr "Organizza"
 
-#: csearchwnd.basic;37;item;id_library_bitzi_web csearchwnd;39;item;id_library_bitzi_web cbrowsehostwnd.basic;41;item;id_library_bitzi_web cbrowsehostwnd;43;item;id_library_bitzi_web chitmonitorwnd;45;item;id_library_bitzi_web clibraryfileview.physical;52;item;id_library_bitzi_web clibraryfileview.virtual;58;item;id_library_bitzi_web
-msgid "View _Bitzi Ticket"
-msgstr "Visualizza la ricerca su Bitzi"
+#: csearchwnd.basic;37;item;id_library_bitprint_web csearchwnd;39;item;id_library_bitprint_web cbrowsehostwnd.basic;41;item;id_library_bitprint_web cbrowsehostwnd;43;item;id_library_bitprint_web chitmonitorwnd;45;item;id_library_bitprint_web clibraryfileview.physical;52;item;id_library_bitprint_web clibraryfileview.virtual;58;item;id_library_bitprint_web
+msgid "View Bitprint listing"
+msgstr "Visualizza la ricerca su Bitprint"
 
 #: csearchwnd;item;id_search_downloadnow cbrowsehostwnd.basic;item;id_search_downloadnow cbrowsehostwnd;item;id_search_downloadnow
 msgid "Download _Now"
@@ -1504,7 +1500,7 @@ msgstr "Cerca"
 msgid "Remove _Files"
 msgstr ""
 
-#: clibraryfileview.physical;52;item;id_library_bitzi_download clibraryfileview.virtual;58;item;id_library_bitzi_download
+#: clibraryfileview.physical;52;item;id_library_bitprint_download clibraryfileview.virtual;58;item;id_library_bitprint_download
 msgid "_Download Metadata"
 msgstr "_Acquisisci metadata"
 
@@ -1964,9 +1960,9 @@ msgstr ""
 msgid "Kick+Ban (why?)"
 msgstr ""
 
-#: webservices.list.menu;item;id_library_bitzi_download
-msgid "_Bitzi"
-msgstr "_Bitzi"
+#: webservices.list.menu;item;id_library_bitprint_download
+msgid "_Bitprint"
+msgstr "_Bitprint"
 
 #: webservices.list.menu;item;id_webservices_musicbrainz
 msgid "_MusicBrainz"
@@ -3168,7 +3164,7 @@ msgstr "Controlla notizie e aggiornamenti."
 msgid "Run the connection test."
 msgstr "Lancia il test della connessione."
 
-#: message;id_help_web_1 message;id_help_web_2 message;id_help_web_3 message;id_help_web_4 message;id_help_web_5 message;id_help_web_6
+#: message;id_help_web_1 message;id_help_web_2 message;id_help_web_3 message;id_help_web_4 message
 msgid "Visit this website"
 msgstr "Visita questo sito web"
 
@@ -3252,13 +3248,13 @@ msgstr "Apri la cartella album selezionata."
 msgid "View and edit the properties of the selected album folder..."
 msgstr "Visualizza e modifica le proprietà della cartella album selezionata..."
 
-#: message;id_library_bitzi_download
-msgid "Download metadata for selected files from Bitzi™..."
-msgstr "Scarica i metadata dei file selezionati da Bitzi™..."
+#: message;id_library_bitprint_download
+msgid "Download metadata for selected files from Bitprint..."
+msgstr "Scarica i metadata dei file selezionati da Bitprint..."
 
-#: message;id_library_bitzi_web
-msgid "View Bitzi™ ticket for the selected file on the web."
-msgstr "Visualizza la ricerca dei file selezionati su Bitzi™."
+#: message;id_library_bitprint_web
+msgid "View Bitprint ticket for the selected file on the web."
+msgstr "Visualizza la ricerca dei file selezionati su Bitprint."
 
 #: message;id_library_columns message;id_search_columns
 msgid "Select metadata columns to be displayed..."
@@ -4204,7 +4200,7 @@ msgstr "No"
 msgid "OK"
 msgstr "OK"
 
-#: string;20004 string;20470 csettingsheet;control;3 cqueuepropertiesdlg;control;38 cprofilemanagerdlg;control;3 cconnecttodlg;control;8 cnewsearchdlg;control;4 cfiltersearchdlg;control;30 csavefilterasdlg;control;3 cdiscoveryservicedlg;control;6 cdownloadmonitordlg;control;14 cfilecopydlg;control;8 cfolderpropertiesdlg;control;8 cgraphlistdlg;control;17 cgraphitemdlg;control;2 csecureruledlg;control;34 cscheduletaskdlg;control;2 cschemacolumnsdlg;control;4 csharemanagerdlg;control;6 curlcopydlg;control;6 curlexportdlg;control;10 curlactiondlg;control;12 cbitzidownloaddlg;control;4 cfilepreviewdlg;control;6 cexistingfiledlg;control;9 cclosemodedlg;control;6 cupdateserversdlg;control;5 cdeletefiledlg;control;5 ctorrentseeddlg;control;4 cdownloadgroupdlg;control;15 cmediavisdlg;control;6 cdecodemetadatadlg;control;9 cselectdialog;control;4 circinputdlg;control;3
+#: string;20004 string;20470 csettingsheet;control;3 cqueuepropertiesdlg;control;38 cprofilemanagerdlg;control;3 cconnecttodlg;control;8 cnewsearchdlg;control;4 cfiltersearchdlg;control;30 csavefilterasdlg;control;3 cdiscoveryservicedlg;control;6 cdownloadmonitordlg;control;14 cfilecopydlg;control;8 cfolderpropertiesdlg;control;8 cgraphlistdlg;control;17 cgraphitemdlg;control;2 csecureruledlg;control;34 cscheduletaskdlg;control;2 cschemacolumnsdlg;control;4 csharemanagerdlg;control;6 curlcopydlg;control;6 curlexportdlg;control;10 curlactiondlg;control;12 cbitprintdownloaddlg;control;4 cfilepreviewdlg;control;6 cexistingfiledlg;control;9 cclosemodedlg;control;6 cupdateserversdlg;control;5 cdeletefiledlg;control;5 ctorrentseeddlg;control;4 cdownloadgroupdlg;control;15 cmediavisdlg;control;6 cdecodemetadatadlg;control;9 cselectdialog;control;4 circinputdlg;control;3
 msgid "Cancel"
 msgstr "Annulla"
 
@@ -5701,8 +5697,8 @@ msgid "The file \"%s\" has not yet been hashed. Please wait for the file to be h
 msgstr "Il file \"%s\" non ha subito il processo di hash. Attendi che il file abbia subito il processo di hash, poi prova ancora."
 
 #: string;20449
-msgid "This option uses services provided by Bitzi.com for recognising and sharing information about selected files.\\n\\nPeerProject will transmit the SHA1 hash code for the selected files in order to query the Bitzi database. If you are concerned about privacy, you may wish to consult the Bitzi.com privacy policy.\\n\\nWould you like to proceed?"
-msgstr "Questa opzione utilizza i servizi di Bitzi.com per il riconoscimento e la condivisione delle informazioni sui file selezionati.\\n\\nPeerProject trasmetterà il codice hash SHA1 per i file selezionati per poter effettuare richieste al database di Bitzi. Se non conosci le condizioni sulla privacy, consultale su Bitzi.com.\\n\\nDesideri continuare?"
+msgid "This option uses services provided by peerproject.org/bitprint for recognising and sharing information about selected files.\\n\\nPeerProject will transmit the SHA1 hash code for the selected files in order to query the Bitprint database. If you are concerned about privacy, you may wish to consult the peerproject.org/bitprint privacy policy.\\n\\nWould you like to proceed?"
+msgstr "Questa opzione utilizza i servizi di peerproject.org/bitprint per il riconoscimento e la condivisione delle informazioni sui file selezionati.\\n\\nPeerProject trasmetterà il codice hash SHA1 per i file selezionati per poter effettuare richieste al database di Bitprint. Se non conosci le condizioni sulla privacy, consultale su peerproject.org/bitprint.\\n\\nDesideri continuare?"
 
 #: string;20450
 msgid "A subfolder of the selected folder \"%s\" is already part of your library.\\nAdding this folder will cause re-hashing of some files.\\n\\nDo you want to continue ?"
@@ -9028,17 +9024,17 @@ msgstr "_Utilizza questa scelta in futuro"
 msgid "Open download _monitor window"
 msgstr "Apri finestra _monitor del download"
 
-#: dialog;cbitzidownloaddlg
+#: dialog;cBitprintdownloaddlg
 msgid "Downloading Metadata..."
 msgstr "Trasferimento metadata..."
 
-#: cbitzidownloaddlg;control;2
-msgid "PeerProject is attempting to download metadata from Bitzi™..."
-msgstr "PeerProject sta tentando di scaricare i metadata da Bitzi..."
+#: cbitprintdownloaddlg;control;2
+msgid "PeerProject is attempting to download metadata from Bitprint..."
+msgstr "PeerProject sta tentando di scaricare i metadata da Bitprint..."
 
-#: cbitzidownloaddlg;control;6
-msgid "www.bitzi.com"
-msgstr "www.bitzi.com"
+#: cbitprintdownloaddlg;control;6
+msgid "peerproject.org/bitprint"
+msgstr "peerproject.org/bitprint"
 
 #: dialog;cfilepreviewdlg
 msgid "Smart Download Preview..."

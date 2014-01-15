@@ -4,12 +4,12 @@
 <!-- PeerProject Default Afrikaans Skin File -->
 <!-- Weergawe: 27 Oktober 2005 vir Shareaza 2.2.0.2 -->
 
-<!-- Translation based on default-en.xml r100 -->
+<!-- Translation based on default-en.xml r102 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
-<!-- however be sure to include only sections that are changed.  -->
+<!-- however be sure to include only sections that are changed:  -->
 <!-- Unedited English content limits compatibility & performance.-->
 <!-- Better to be concise than literal:  Please test visibility! -->
 
@@ -346,7 +346,7 @@
 	</toolbar>
 	<!-- IRC WINDOW -->
 	<toolbar name="CIRCFrame">
-		<button id="ID_IRC_SENDTEXT" text="Send" tip="Post Your Comments"/>
+		<button id="ID_IRC_SENDTEXT" text="Send" tip="Kommentaar"/>
 		<separator/>
 		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
 		<rightAlign/>
@@ -724,7 +724,6 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
 				<!-- <item id="ID_HELP_WEB_SKINS" text="PeerProject S_kin Site"/>
-				<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/>
 				<separator/>
 				<item id="ID_HELP_VERSION_CHECK" text="Check for new _version"/>
 				<item id="ID_HELP_DONATE" text="_Donate to PeerProject"/>
@@ -817,7 +816,6 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
 				<!-- <item id="ID_HELP_WEB_SKINS" text="PeerProject S_kin Site"/>
-				<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/>
 				<item id="ID_HELP_UPDATE" text="Jongste nuus"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
@@ -948,7 +946,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Episodes van dieselfde Reeks"/>
 		</menu>
 		<menu text="_Web Dienste">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Vertoon _Bitzi Ticket"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Vertoon _Bitprint listing"/>
 			<item id="ID_SEARCH_URI" text="Kopieer _URI..."/>
 		</menu>
 	</menu>
@@ -970,7 +968,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Episodes van dieselfde Reeks"/>
 		</menu>
 		<menu text="_Web Dienste">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Vertoon _Bitzi Ticket"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Vertoon _Bitprint listing"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Filtreer Resultate..."/>
@@ -994,7 +992,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Episodes van dieselfde Reeks"/>
 		</menu>
 		<menu text="_Weblêer Inligting">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Vertoon _Bitzi Ticket"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Vertoon _Bitprint listing"/>
 			<item id="ID_SEARCH_URI" text="Kopieer _URI..."/>
 		</menu>
 	</menu>
@@ -1014,7 +1012,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Episodes van dieselfde Reeks"/>
 		</menu>
 		<menu text="_Web Dienste">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Vertoon _Bitzi Ticket"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Vertoon _Bitprint listing"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Filtreer Resultate..."/>
@@ -1039,7 +1037,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Episodes van dieselfde Reeks"/>
 		</menu>
 		<menu text="_Web Dienste">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Vertoon _Bitzi Ticket"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Vertoon _Bitprint listing"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Filtreer Resultate..."/>
@@ -1275,8 +1273,8 @@
 		<menu text="_Web Dienste">
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
 			<separator/>
-			<item id="ID_LIBRARY_BITZI_WEB" text="Vertoon _Bitzi Ticket"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Laai Metadata Af"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Vertoon _Bitprint listing"/>
+			<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="_Laai Metadata Af"/>
 			<separator/>
 			<item id="ID_LIBRARY_URI" text="_URI"/>
 		</menu>
@@ -1310,8 +1308,8 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Episodes in dieselfde Reeks"/>
 		</menu>
 		<menu text="_Web Dienste">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Vertoon _Bitzi Ticket"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Laai Metadata Af"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Vertoon _Bitprint listing"/>
+			<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="_Laai Metadata Af"/>
 		</menu>
 		<menu text="_Metadata">
 			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
@@ -1586,7 +1584,7 @@
 		</menu>
 	</menu>
 	<menu name="WebServices.List.Menu">
-		<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Bitzi"/>
+		<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="_Bitprint"/>
 		<item id="ID_WEBSERVICES_MUSICBRAINZ" text="_MusicBrainz"/>
 		<!--item id="ID_WEBSERVICES_SHAREMONKEY" text="_ShareMonkey"-->
 	</menu>
@@ -2327,8 +2325,6 @@
 	<tip id="ID_HELP_WEB_2" message="Besoek hierdie webtuiste"/>
 	<tip id="ID_HELP_WEB_3" message="Besoek hierdie webtuiste"/>
 	<tip id="ID_HELP_WEB_4" message="Besoek hierdie webtuiste"/>
-	<tip id="ID_HELP_WEB_5" message="Besoek hierdie webtuiste"/>
-	<tip id="ID_HELP_WEB_6" message="Besoek hierdie webtuiste"/>
 	<tip id="ID_HELP_DONATE" message="If you want, you can donate to our legal fund and show your appreciation."/>
 	<tip id="ID_HITMONITOR_CLEAR" message="Maak die trefmonitor buffer skoon."/>
 	<tip id="ID_HITMONITOR_PAUSE" message="Vries die trefmonitor."/>
@@ -2347,8 +2343,8 @@
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="Skrap die geselekteerde albumgids."/>
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="Open die geselekteerde albumgids."/>
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="Vertoon of verander die kenmerke van die geselekteerde albumgids..."/>
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Laai metadata vir die geselekteerde lêer(s) af vanaf Bitzi™..."/>
-	<tip id="ID_LIBRARY_BITZI_WEB" message="Vertoon die Bitzi™ kaartjie vir die geselekteerde lêer op die web."/>
+	<tip id="ID_LIBRARY_BITPRINT_DOWNLOAD" message="Laai metadata vir die geselekteerde lêer(s) af vanaf Bitprint..."/>
+	<tip id="ID_LIBRARY_BITPRINT_WEB" message="Vertoon die Bitprint kaartjie vir die geselekteerde lêer op die web."/>
 	<tip id="ID_LIBRARY_COLUMNS" message="Selekteer metadata-kolomme om te vertoon..."/>
 	<tip id="ID_LIBRARY_COPY" message="Kopieer die geselekteerde lêers na 'n ander biblioteek gids..."/>
 	<tip id="ID_LIBRARY_CREATETORRENT" message="Skep 'n .torrent vir hierdie lêer vir oplaai na 'n webblad."/>
@@ -2937,7 +2933,7 @@
 	<string id="20446" value="Die lêer &quot;%s&quot; het 'n prosesserings-validasie toets gefaal en mag dalk nie die lêer wees wat jy wou aflaai nie. Is jy seker jy wil dit oopmaak?"/>
 	<string id="20447" value="Wil jy die &quot;moontlik skadelik&quot; eienskap van hierdie lêer verwyder?"/>
 	<string id="20448" value="Die lêer &quot;%s&quot; is nog nie geprosesseer nie. Wag asseblief vir die lêer om geprosesseer te word en probeer weer."/>
-	<string id="20449" value="Hierdie opsie gebruik dienste verskaf deur Bitzi.com vir herkenning en deel van inligting oor sekere lêers.\n\nPeerProject sal die SHA1 hash-kode vir die geselekteerde lêer(s) stuur sodat die Bitzi databasis geraadpleeg kan word. As jy bekommerd is oor privaatheid, kan jy gerus die Bitzi.com privaatheidsbeleid lees.\n\nWil jy voortgaan?"/>
+	<string id="20449" value="Hierdie opsie gebruik dienste verskaf deur peerproject.org/bitprint vir herkenning en deel van inligting oor sekere lêers.\n\nPeerProject sal die SHA1 hash-kode vir die geselekteerde lêer(s) stuur sodat die Bitprint databasis geraadpleeg kan word. As jy bekommerd is oor privaatheid, kan jy gerus die peerproject.org/bitprint privaatheidsbeleid lees.\n\nWil jy voortgaan?"/>
 	<string id="20450" value="'n Subgids van die geselekteerde gids &quot;%s&quot; is alreeds deel van jou biblioteek.\nDie byvoeging van hierdie gids sal die herprosessering van sommige lêers veroorsaak.\n\nIs jy seker jy wil voortgaan ?"/>
 	<string id="20451" value="Daar is geen lêers wat speel nie. Dubbelkliek 'n medialêer in jou biblioteek om dit te speel, of kliek op Open"/>
 	<string id="20452" value="Alle Media Lêers|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Medialyste|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Klanklêers|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Video Lêers|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD Klank Snitte|*.cda|MIDI Lêers|*.mid;*.rmi;*.midi|Alle Lêers|*.*||"/>
@@ -3778,7 +3774,7 @@
 		<control/>
 		<control caption="Locale:"/>
 		<control/>
-		<control caption="Comments:"/>
+		<control caption="Kommentaar:"/>
 		<control/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="Welkom by PeerProject (8/8)">
@@ -4207,13 +4203,13 @@
 		<control caption="_Onthou my keuse volgende keer"/>
 		<control caption="Open 'n aflaai_monitor venster"/>
 	</dialog>
-	<dialog name="CBitziDownloadDlg" cookie="StStmsBuSySt" caption="Laai Metadata Af...">
+	<dialog name="CBitprintDownloadDlg" cookie="StStmsBuSySt" caption="Laai Metadata Af...">
 		<control/>
-		<control caption="PeerProject probeer metadata aflaai vanaf Bitzi..."/>
+		<control caption="PeerProject probeer metadata aflaai vanaf Bitprint..."/>
 		<control/>
 		<control caption="Kanselleer"/>
 		<control/>
-		<control caption="www.bitzi.com"/>
+		<control caption="peerproject.org/bitprint"/>
 	</dialog>
 	<dialog name="CFilePreviewDlg" cookie="StStStmsStBu" caption="Slim Aflaai Voorskou...">
 		<control/>

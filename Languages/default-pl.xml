@@ -3,12 +3,12 @@
 
 <!-- PeerProject Default Polish Skin File -->
 
-<!-- Translation based on default-en.xml r100 --> <!-- (Shareaza 2.1.2.7) -->
+<!-- Translation based on default-en.xml r102 --> <!-- (Shareaza 2.1.2.7) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
-<!-- however be sure to include only sections that are changed.  -->
+<!-- however be sure to include only sections that are changed:  -->
 <!-- Unedited English content limits compatibility & performance.-->
 <!-- Better to be concise than literal:  Please test visibility! -->
 
@@ -340,7 +340,7 @@
 	</toolbar>
 	<!-- IRC WINDOW -->
 	<toolbar name="CIRCFrame">
-		<button id="ID_IRC_SENDTEXT" text="Rozmowa" tip="Post Your Comments"/>
+		<button id="ID_IRC_SENDTEXT" text="Rozmowa" tip="Post Komentarze"/>
 		<separator/>
 		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
 		<rightAlign/>
@@ -810,7 +810,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Odcinki tego serialu"/>
 		</menu>
 		<menu text="Usługi Web">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Zobacz Bitzi Ticket"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Zobacz Bitprint Ticket"/>
 			<item id="ID_SEARCH_URI" text="Kopiuj URI..."/>
 		</menu>
 	</menu>
@@ -832,7 +832,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Odcinki tego serialu"/>
 		</menu>
 		<menu text="Usługi Web">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Zobacz Bitzi Ticket"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Zobacz Bitprint Ticket"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="Filtruj wyniki..."/>
@@ -856,7 +856,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Odcinki tego serialu"/>
 		</menu>
 		<menu text="Usługi Web">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Zobacz Bitzi Ticket"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Zobacz Bitprint Ticket"/>
 			<item id="ID_SEARCH_URI" text="Kopiuj URI..."/>
 		</menu>
 	</menu>
@@ -876,7 +876,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Odcinki tego serialu"/>
 		</menu>
 		<menu text="Usługi Web">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Zobacz Bitzi Ticket"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Zobacz Bitprint Ticket"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="Filtruj wyniki..."/>
@@ -901,7 +901,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Odcinki tego serialu"/>
 		</menu>
 		<menu text="Usługi Web">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Zobacz Bitzi Ticket"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Zobacz Bitprint Ticket"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="Filtruj wyniki..."/>
@@ -1136,8 +1136,8 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Odcinki tego serialu"/>
 		</menu>
 		<menu text="Usługi web">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Zobacz Bitzi ticket"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Pobierz Metadane"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Zobacz Bitprint ticket"/>
+			<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="Pobierz Metadane"/>
 		</menu>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="Właściwości"/>
@@ -1169,8 +1169,8 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="Odcinki tego serialu"/>
 		</menu>
 		<menu text="Usługi web">
-			<item id="ID_LIBRARY_BITZI_WEB" text="Zobacz Bitzi ticket"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Pobierz Metadane"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="Zobacz Bitprint ticket"/>
+			<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="Pobierz Metadane"/>
 		</menu>
 		<menu text="_Metadane">
 			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
@@ -2111,8 +2111,6 @@
 	<tip id="ID_HELP_WEB_2" message="Odwiedź tą stronę"/>
 	<tip id="ID_HELP_WEB_3" message="Odwiedź tą stronę"/>
 	<tip id="ID_HELP_WEB_4" message="Odwiedź tą stronę"/>
-	<tip id="ID_HELP_WEB_5" message="Odwiedź tą stronę"/>
-	<tip id="ID_HELP_WEB_6" message="Odwiedź tą stronę"/>
 	<tip id="ID_HITMONITOR_CLEAR" message="Wyczyść bufor monitora trafień."/>
 	<tip id="ID_HITMONITOR_PAUSE" message="Zatrzymaj monitorowanie trafień."/>
 	<tip id="ID_HITMONITOR_SEARCH" message="Przeszukaj sieć dla zaznaczonego wyrażenia."/>
@@ -2130,8 +2128,8 @@
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="Usuń zaznaczony folder albumu."/>
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="Otwórz zaznaczony folder albumu."/>
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="Pokaż i edytuj właściwości zaznaczonego folderu albumu..."/>
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Pobierz metadane dla zaznaczonego(ych) pliku(ów) od Bitzi™..."/>
-	<tip id="ID_LIBRARY_BITZI_WEB" message="Pokaż bilet Bitzi™ dla zaznaczonego pliku."/>
+	<tip id="ID_LIBRARY_BITPRINT_DOWNLOAD" message="Pobierz metadane dla zaznaczonego(ych) pliku(ów) od Bitprint..."/>
+	<tip id="ID_LIBRARY_BITPRINT_WEB" message="Pokaż bilet Bitprint dla zaznaczonego pliku."/>
 	<tip id="ID_LIBRARY_COLUMNS" message="Wybierz kolumny metadanych do wyświetlenia..."/>
 	<tip id="ID_LIBRARY_COPY" message="Skopiuj zaznaczony plik do innego folderu zasobów..."/>
 	<tip id="ID_LIBRARY_CREATETORRENT" message="Stwórz plik .torrent dla tego pliku do wysłania na stronę internetową."/>
@@ -3408,7 +3406,7 @@
 		<control/>
 		<control caption="Locale:"/>
 		<control/>
-		<control caption="Comments:"/>
+		<control caption="Komentarze:"/>
 		<control/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="Witaj w PeerProjecte (8/8)">
@@ -3837,13 +3835,13 @@
 		<control caption="Zapamiętaj mój wybór"/>
 		<control caption="Otwórz okno monitora pobierań"/>
 	</dialog>
-	<dialog name="CBitziDownloadDlg" cookie="StStmsBuSySt" caption="Pobieranie Metadanych...">
+	<dialog name="CBitprintDownloadDlg" cookie="StStmsBuSySt" caption="Pobieranie Metadanych...">
 		<control/>
-		<control caption="PeerProject próbuje pobrać metadane z Bitzi..."/>
+		<control caption="PeerProject próbuje pobrać metadane z Bitprint..."/>
 		<control/>
 		<control caption="Anuluj"/>
 		<control/>
-		<control caption="www.bitzi.com"/>
+		<control caption="peerproject.org/bitprint"/>
 	</dialog>
 	<dialog name="CFilePreviewDlg" cookie="StStStmsStBu" caption="Inteligentny Podgląd Pobierania...">
 		<control/>

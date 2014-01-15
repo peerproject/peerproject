@@ -212,6 +212,7 @@ ApplicationsFound=A következõ alkalmazások olyan fájlokat használnak, amelyeket 
 ApplicationsFound2=A következõ alkalmazások olyan fájlokat használnak, amelyeket a Telepítõnek frissíteni kell. Ajánlott, hogy engedélyezze a Telepítõnek ezen alkalmazások automatikus bezárását. A telepítés befejezése után a Telepítõ megkísérli az alkalmazások újraindítását.
 CloseApplications=&Alkalmazások automatikus bezárása
 DontCloseApplications=&Ne zárja be az alkalmazásokat
+ErrorCloseApplications=A Telepítõ nem tudott minden alkalmazást automatikusan bezárni. A folytatás elõtt ajánlott minden, a Telepítõ által frissítendõ fájlokat használó alkalmazást bezárni.
 
 ; *** "Installing" wizard page
 WizardInstalling=Telepítés állapota

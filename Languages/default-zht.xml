@@ -3,12 +3,12 @@
 
 <!-- PeerProject Default Chinese (Traditional) Skin File -->
 
-<!-- Translation based on default-en.xml r100 --> <!-- (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r102 --> <!-- (Shareaza 2.2.2.12) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
-<!-- however be sure to include only sections that are changed.  -->
+<!-- however be sure to include only sections that are changed:  -->
 <!-- Unedited English content limits compatibility & performance.-->
 <!-- Better to be concise than literal:  Please test visibility! -->
 
@@ -342,7 +342,7 @@
 	</toolbar>
 	<!-- IRC WINDOW -->
 	<toolbar name="CIRCFrame">
-		<button id="ID_IRC_SENDTEXT" text="發送" tip="Post Your Comments"/>
+		<button id="ID_IRC_SENDTEXT" text="發送" tip="Post 意見"/>
 		<separator/>
 		<button id="ID_IRC_CLOSETAB" text="关闭" tip="Exit Current Channel Window"/>
 		<rightAlign/>
@@ -946,7 +946,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="同一個系列的 Episodes"/>
 		</menu>
 		<menu text="網際網路服務">
-			<item id="ID_LIBRARY_BITZI_WEB" text="檢視 Bitzi 標籤"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="檢視 Bitprint 標籤"/>
 			<item id="ID_SEARCH_URI" text="複製 URI..."/>
 		</menu>
 	</menu>
@@ -968,7 +968,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="同一個系列的 Episodes"/>
 		</menu>
 		<menu text="網際網路服務">
-			<item id="ID_LIBRARY_BITZI_WEB" text="檢視 Bitzi 標籤"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="檢視 Bitprint 標籤"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="過濾搜尋結果..."/>
@@ -992,7 +992,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="同一個系列的 Episodes"/>
 		</menu>
 		<menu text="網際網路檔案資訊">
-			<item id="ID_LIBRARY_BITZI_WEB" text="檢視 Bitzi 標籤"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="檢視 Bitprint 標籤"/>
 			<item id="ID_SEARCH_URI" text="複製 URI..."/>
 		</menu>
 	</menu>
@@ -1012,7 +1012,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="同一個系列的 Episodes"/>
 		</menu>
 		<menu text="網際網路">
-			<item id="ID_LIBRARY_BITZI_WEB" text="檢視 Bitzi 標籤"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="檢視 Bitprint 標籤"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="過濾搜尋結果..."/>
@@ -1037,7 +1037,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="同一個系列的episode"/>
 		</menu>
 		<menu text="網際網路服務">
-			<item id="ID_LIBRARY_BITZI_WEB" text="檢視 Bitzi 標籤"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="檢視 Bitprint 標籤"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="過濾搜尋結果..."/>
@@ -1273,8 +1273,8 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="同一個系列的 Episodes"/>
 		</menu>
 		<menu text="網際網路服務">
-			<item id="ID_LIBRARY_BITZI_WEB" text="檢視 Bitzi 標籤"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="下載解釋資料"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="檢視 Bitprint 標籤"/>
+			<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="下載解釋資料"/>
 			<separator/>
 			<item id="ID_LIBRARY_URI" text="_URI"/>
 		</menu>
@@ -1308,8 +1308,8 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="同一個系列的 Episodes"/>
 		</menu>
 		<menu text="網際網路服務">
-			<item id="ID_LIBRARY_BITZI_WEB" text="檢視 Bitzi 標籤"/>
-			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="取得解釋資料"/>
+			<item id="ID_LIBRARY_BITPRINT_WEB" text="檢視 Bitprint 標籤"/>
+			<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="取得解釋資料"/>
 		</menu>
 		<menu text="_Metadata">
 			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
@@ -2221,8 +2221,6 @@
 	<tip id="ID_HELP_WEB_2" message="瀏覽這個網站"/>
 	<tip id="ID_HELP_WEB_3" message="瀏覽這個網站"/>
 	<tip id="ID_HELP_WEB_4" message="瀏覽這個網站"/>
-	<tip id="ID_HELP_WEB_5" message="瀏覽這個網站"/>
-	<tip id="ID_HELP_WEB_6" message="瀏覽這個網站"/>
 	<tip id="ID_HITMONITOR_CLEAR" message="清除 搜尋回應監視器 的緩衝."/>
 	<tip id="ID_HITMONITOR_PAUSE" message="暫停 搜尋回應監視器."/>
 	<tip id="ID_HITMONITOR_SEARCH" message="以選擇的詞句搜尋網路"/>
@@ -2240,8 +2238,8 @@
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="刪除選擇的專輯資料夾."/>
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="開啟選擇的專輯資料夾."/>
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="檢視與編輯選擇的專輯資料夾的屬性..."/>
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="正在從 Bitzi™ 為選擇的檔案下載解釋資料..."/>
-	<tip id="ID_LIBRARY_BITZI_WEB" message="View the Bitzi™ ticket for the selected file on the web."/>
+	<tip id="ID_LIBRARY_BITPRINT_DOWNLOAD" message="正在從 Bitprint 為選擇的檔案下載解釋資料..."/>
+	<tip id="ID_LIBRARY_BITPRINT_WEB" message="View the Bitprint ticket for the selected file on the web."/>
 	<tip id="ID_LIBRARY_COLUMNS" message="選擇要顯示的解釋資料欄位..."/>
 	<tip id="ID_LIBRARY_COPY" message="複製選擇的檔案至另一個收藏資料夾..."/>
 	<tip id="ID_LIBRARY_CREATETORRENT" message="為這個檔案建立 torrent 檔以上傳至網站."/>
@@ -3655,7 +3653,7 @@
 		<control/>
 		<control caption="Locale:"/>
 		<control/>
-		<control caption="Comments:"/>
+		<control caption="意見:"/>
 		<control/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuSt" caption="歡迎使用 PeerProject (8/8)">
@@ -4084,13 +4082,13 @@
 		<control caption="下次記住我的選擇"/>
 		<control caption="開啟一個下載監控視窗"/>
 	</dialog>
-	<dialog name="CBitziDownloadDlg" cookie="StStmsBuSySt" caption="正在下載解釋資料...">
+	<dialog name="CBitprintDownloadDlg" cookie="StStmsBuSySt" caption="正在下載解釋資料...">
 		<control/>
-		<control caption="PeerProject 正在嘗試從 Bitzi 下載解釋資料..."/>
+		<control caption="PeerProject 正在嘗試從 Bitprint 下載解釋資料..."/>
 		<control/>
 		<control caption="取消"/>
 		<control/>
-		<control caption="www.bitzi.com"/>
+		<control caption="peerproject.org/bitprint"/>
 	</dialog>
 	<dialog name="CFilePreviewDlg" cookie="StStStmsStBu" caption="智慧型下載預覽...">
 		<control/>

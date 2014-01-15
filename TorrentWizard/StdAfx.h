@@ -1,7 +1,7 @@
 //
 // StdAfx.h
 //
-// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2012
+// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2014
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
@@ -51,7 +51,7 @@
 #include <shlobj.h> 		// Shell objects
 #include <shlwapi.h>		// Shell win api
 
-#include <Augment\auto_ptr.hpp>		// (Dependencies moved to file)
+#include <Augment\auto_ptr.hpp>		// (Services) (Dependencies moved to file)
 #include <Augment\auto_array.hpp>
 
 #ifndef _PORTABLE

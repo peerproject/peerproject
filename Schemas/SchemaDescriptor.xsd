@@ -8,7 +8,7 @@
 				<element name="title" type="string" minOccurs="0" maxOccurs="1"/>
 				<element name="extends" type="extendsType" minOccurs="0" maxOccurs="1"/>
 				<element name="memberDisplay" type="memberDisplayType" minOccurs="0" maxOccurs="1"/>
-				<element name="bitziImport" type="bitziImportType" minOccurs="0" maxOccurs="1"/>
+				<element name="bitprintImport" type="bitprintImportType" minOccurs="0" maxOccurs="1"/>
 				<element name="typeFilter" type="typeFilterType" minOccurs="0" maxOccurs="1"/>
 			</all>
 		</complexType>
@@ -45,7 +45,7 @@
 		</sequence>
 	</complexType>
 
-	<complexType name="bitziImportType">
+	<complexType name="bitprintImportType">
 		<attribute name="testExists" type="string" use="required"/>
 		<sequence>
 			<element name="mapping" minOccurs="0" maxOccurs="unbounded">

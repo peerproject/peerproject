@@ -97,8 +97,6 @@ void CCommandlinePage::Start()
 	if ( m_pBuilder ) delete m_pBuilder;
 	m_pBuilder = new CTorrentBuilder();
 
-	CString sFolder;
-
 	CString strFile = theApp.m_sCommandLineSourceFile;
 
 	if ( LPCTSTR pszSlash = _tcsrchr( strFile, '\\' ) )
@@ -119,7 +117,6 @@ void CCommandlinePage::Start()
 
 	SetTimer( 1, 200, NULL );
 	PostMessage( WM_TIMER, 1 );
-
 
 	m_wndDone1.ShowWindow( SW_HIDE );
 	m_wndDone2.ShowWindow( SW_HIDE );
@@ -189,7 +186,6 @@ void CCommandlinePage::OnTimer(UINT_PTR nIDEvent)
 	m_wndSpeed.ShowWindow( SW_HIDE );
 
 	m_wndTorrentName.SetWindowText( m_sDestinationFile );
-
 
 	if ( bFinished )
 	{

@@ -1,7 +1,7 @@
 //
 // Schema.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -151,14 +151,14 @@ void CSchema::Clear()
 		delete m_pContains.GetNext( pos );
 	}
 
-	for ( POSITION pos = m_pBitziMap.GetHeadPosition() ; pos ; )
+	for ( POSITION pos = m_pBitprintMap.GetHeadPosition() ; pos ; )
 	{
-		delete m_pBitziMap.GetNext( pos );
+		delete m_pBitprintMap.GetNext( pos );
 	}
 
 	m_pMembers.RemoveAll();
 	m_pContains.RemoveAll();
-	m_pBitziMap.RemoveAll();
+	m_pBitprintMap.RemoveAll();
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -405,9 +405,9 @@ BOOL CSchema::LoadDescriptor(LPCTSTR pszFile)
 		{
 			LoadDescriptorTypeFilter( pElement );
 		}
-		else if ( pElement->IsNamed( _T("bitziImport") ) )
+		else if ( pElement->IsNamed( _T("BitprintImport") ) )
 		{
-			LoadDescriptorBitziImport( pElement );
+			LoadDescriptorBitprintImport( pElement );
 		}
 		else if ( pElement->IsNamed( _T("images") ) )
 		{
@@ -541,19 +541,19 @@ void CSchema::LoadDescriptorTypeFilter(CXMLElement* pElement)
 	}
 }
 
-void CSchema::LoadDescriptorBitziImport(CXMLElement* pElement)
+void CSchema::LoadDescriptorBitprintImport(CXMLElement* pElement)
 {
-	m_sBitziTest = pElement->GetAttributeValue( _T("testExists"), NULL );
+	m_sBitprintTest = pElement->GetAttributeValue( _T("testExists"), NULL );
 
 	for ( POSITION pos = pElement->GetElementIterator() ; pos ; )
 	{
-		CXMLElement* pBitzi = pElement->GetNextElement( pos );
+		CXMLElement* pBitprint = pElement->GetNextElement( pos );
 
-		if ( pBitzi->GetName().CompareNoCase( _T("mapping") ) == 0 )
+		if ( pBitprint->GetName().CompareNoCase( _T("mapping") ) == 0 )
 		{
-			CSchemaBitzi* pMap = new CSchemaBitzi();
-			pMap->Load( pBitzi );
-			m_pBitziMap.AddTail( pMap );
+			CSchemaBitprint* pMap = new CSchemaBitprint();
+			pMap->Load( pBitprint );
+			m_pBitprintMap.AddTail( pMap );
 		}
 	}
 }
@@ -827,9 +827,9 @@ void CSchema::ResolveTokens(CString& str, CXMLElement* pXML) const
 }
 
 //////////////////////////////////////////////////////////////////////
-// CSchemaBitzi Bitzi Map
+// CSchemaBitprint Bitprint Map
 
-BOOL CSchemaBitzi::Load(CXMLElement* pXML)
+BOOL CSchemaBitprint::Load(CXMLElement* pXML)
 {
 	m_sFrom	= pXML->GetAttributeValue( _T("from"), NULL );
 	m_sTo	= pXML->GetAttributeValue( _T("to"), NULL );

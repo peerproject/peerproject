@@ -1,7 +1,7 @@
 //
 // PageComment.h
 //
-// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008,2012
+// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008,2012-2014
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
@@ -37,26 +37,27 @@ public:
 
 // Dialog Data
 public:
-	//{{AFX_DATA(CCommentPage)
 	CString	m_sComment;
-	//}}AFX_DATA
+//	CString	m_sSource;
+	BOOL	m_bPrivate;
+
+// Operations
+protected:
+	void SaveComments();
 
 // Overrides
-public:
-	//{{AFX_VIRTUAL(CCommentPage)
+protected:
+	virtual BOOL OnInitDialog();
 	virtual void OnReset();
 	virtual BOOL OnSetActive();
 	virtual LRESULT OnWizardBack();
 	virtual LRESULT OnWizardNext();
-protected:
+
 	virtual void DoDataExchange(CDataExchange* pDX);
-	//}}AFX_VIRTUAL
 
 // Implementation
 protected:
-	//{{AFX_MSG(CCommentPage)
 	afx_msg void OnXButtonDown(UINT nFlags, UINT nButton, CPoint point);
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

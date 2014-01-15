@@ -1,7 +1,7 @@
 //
 // WebServices.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2011-2012
+// This file is part of PeerProject (peerproject.org) © 2011-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -17,7 +17,7 @@
 //
 
 // Note: Consolidated library external web service interfaces
-// (Bitzi Ticket, MusicBrainz, legacy ShareMonkey)
+// (Bitprint listing, MusicBrainz, legacy ShareMonkey)
 // Moved from CtrlLibraryFileView, CFileExecutor
 
 
@@ -32,7 +32,7 @@
 #include "SchemaCache.h"
 #include "SharedFile.h"
 #include "Library.h"
-#include "DlgBitziDownload.h"
+#include "DlgBitprintDownload.h"
 //#include "ShareMonkeyData.h"
 
 #ifdef _DEBUG
@@ -43,10 +43,10 @@ static char THIS_FILE[] = __FILE__;
 
 // Move from CLibraryFileView?
 //BEGIN_MESSAGE_MAP(CWebServices)
-//	ON_UPDATE_COMMAND_UI(ID_LIBRARY_BITZI_WEB, OnUpdateLibraryBitziWeb)
-//	ON_COMMAND(ID_LIBRARY_BITZI_WEB, OnLibraryBitziWeb)
-//	ON_UPDATE_COMMAND_UI(ID_LIBRARY_BITZI_DOWNLOAD, OnUpdateLibraryBitziDownload)
-//	ON_COMMAND(ID_LIBRARY_BITZI_DOWNLOAD, OnLibraryBitziDownload)
+//	ON_UPDATE_COMMAND_UI(ID_LIBRARY_BITPRINT_WEB, OnUpdateLibraryBitprintWeb)
+//	ON_COMMAND(ID_LIBRARY_BITPRINT_WEB, OnLibraryBitprintWeb)
+//	ON_UPDATE_COMMAND_UI(ID_LIBRARY_BITPRINT_DOWNLOAD, OnUpdateLibraryBitprintDownload)
+//	ON_COMMAND(ID_LIBRARY_BITPRINT_DOWNLOAD, OnLibraryBitprintDownload)
 //	ON_UPDATE_COMMAND_UI(ID_WEBSERVICES_MUSICBRAINZ, OnUpdateMusicBrainzLookup)
 //	ON_COMMAND(ID_WEBSERVICES_MUSICBRAINZ, OnMusicBrainzLookup)
 //	ON_UPDATE_COMMAND_UI(ID_MUSICBRAINZ_MATCHES, OnUpdateMusicBrainzMatches)
@@ -96,17 +96,17 @@ static char THIS_FILE[] = __FILE__;
 
 
 /////////////////////////////////////////////////////////////////////
-// BitziTicket Services
+// BitprintTicket Services
 
-//void CWebServices::OnUpdateLibraryBitziWeb(CCmdUI* pCmdUI)
+//void CWebServices::OnUpdateLibraryBitprintWeb(CCmdUI* pCmdUI)
 //{
 //	if ( m_bGhostFolder )
 //		pCmdUI->Enable( FALSE );
 //	else
-//		pCmdUI->Enable( GetSelectedCount() == 1 && ! Settings.WebServices.BitziWebSubmit.IsEmpty() );
+//		pCmdUI->Enable( GetSelectedCount() == 1 && ! Settings.WebServices.BitprintWebSubmit.IsEmpty() );
 //}
 
-//void CWebServices::OnLibraryBitziWeb()
+//void CWebServices::OnLibraryBitprintWeb()
 //{
 //	CSingleLock pLock( &Library.m_pSection, TRUE );
 //
@@ -114,33 +114,33 @@ static char THIS_FILE[] = __FILE__;
 //	{
 //		DWORD nIndex = pFile->m_nIndex;
 //		pLock.Unlock();
-//		ShowBitziTicket( nIndex );
+//		ShowBitprintTicket( nIndex );
 //	}
 //}
 
-//void CWebServices::OnUpdateLibraryBitziDownload(CCmdUI* pCmdUI)
+//void CWebServices::OnUpdateLibraryBitprintDownload(CCmdUI* pCmdUI)
 //{
 //	if ( m_bGhostFolder || m_bRequestingService )
 //		pCmdUI->Enable( FALSE );
 //	else
-//		pCmdUI->Enable( GetSelectedCount() > 0 && ! Settings.WebServices.BitziXML.IsEmpty() );
+//		pCmdUI->Enable( GetSelectedCount() > 0 && ! Settings.WebServices.BitprintXML.IsEmpty() );
 //}
 
-//void WebServices::OnLibraryBitziDownload()
+//void WebServices::OnLibraryBitprintDownload()
 //{
 //	GetFrame()->SetDynamicBar( NULL );
 //
-//	if ( ! Settings.WebServices.BitziOkay )
+//	if ( ! Settings.WebServices.BitprintOkay )
 //	{
 //		CString strFormat;
-//		Skin.LoadString( strFormat, IDS_LIBRARY_BITZI_MESSAGE );
+//		Skin.LoadString( strFormat, IDS_LIBRARY_BITPRINT_MESSAGE );
 //		if ( MsgBox( strFormat, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
-//		Settings.WebServices.BitziOkay = true;
+//		Settings.WebServices.BitprintOkay = true;
 //		Settings.Save();
 //	}
 //
 //	CSingleLock pLock( &Library.m_pSection, TRUE );
-//	CBitziDownloadDlg dlg;
+//	CBitprintDownloadDlg dlg;
 //
 //	POSITION posSel = StartSelectedFileLoop();
 //	while ( CLibraryFile* pFile = GetNextSelectedFile( posSel ) )
@@ -569,17 +569,17 @@ static char THIS_FILE[] = __FILE__;
 
 
 //////////////////////////////////////////////////////////////////////
-// CWebServices show Bitzi ticket	(Format URL)
+// CWebServices show Bitprint listing	(Format URL)
 //
 // Note: Moved from CFileExecutor
 
-BOOL CWebServices::ShowBitziTicket(DWORD nIndex)
+BOOL CWebServices::ShowBitprintTicket(DWORD nIndex)
 {
-	if ( ! Settings.WebServices.BitziOkay )
+	if ( ! Settings.WebServices.BitprintOkay )
 	{
-		if ( MsgBox( IDS_LIBRARY_BITZI_MESSAGE, MB_ICONQUESTION|MB_YESNO ) != IDYES )
+		if ( MsgBox( IDS_LIBRARY_BITPRINT_MESSAGE, MB_ICONQUESTION|MB_YESNO ) != IDYES )
 			return FALSE;
-		Settings.WebServices.BitziOkay = true;
+		Settings.WebServices.BitprintOkay = true;
 		Settings.Save();
 	}
 
@@ -591,18 +591,18 @@ BOOL CWebServices::ShowBitziTicket(DWORD nIndex)
 	if ( ! pFile->m_oSHA1 || ! pFile->m_oTiger || ! pFile->m_oED2K )
 	{
 		CString strMessage;
-		strMessage.Format( LoadString( IDS_LIBRARY_BITZI_HASHED ), (LPCTSTR)pFile->m_sName );
+		strMessage.Format( LoadString( IDS_LIBRARY_BITPRINT_HASHED ), (LPCTSTR)pFile->m_sName );
 		pLock.Unlock();
 		MsgBox( strMessage, MB_ICONINFORMATION );
 		return FALSE;
 	}
 
-	CString str, strURL = Settings.WebServices.BitziWebView;
+	CString str, strURL = Settings.WebServices.BitprintWebView;
 
 	CFile hFile;
 	if ( hFile.Open( pFile->GetPath(), CFile::modeRead|CFile::shareDenyNone ) )
 	{
-		strURL = Settings.WebServices.BitziWebSubmit;
+		strURL = Settings.WebServices.BitprintWebSubmit;
 
 		if ( hFile.GetLength() > 0 )
 		{
@@ -701,7 +701,7 @@ BOOL CWebServices::ShowBitziTicket(DWORD nIndex)
 				}
 				else if ( strExt == _T("MP3") || strExt == _T("OGG") || strExt == _T("WAV") )
 				{
-					// ToDo: Read WAV information in FileExecutor.cpp, bitzi submit is already ready
+					// ToDo: Read WAV information in FileExecutor.cpp, Bitprint submit is already ready
 					if ( str == _T("bitrate") )
 					{
 						if ( strExt == _T("MP3") )
@@ -730,7 +730,7 @@ BOOL CWebServices::ShowBitziTicket(DWORD nIndex)
 							nAudioTag++;
 						}
 					}
-					// ToDo: Read sampleSize of WAV in FileExecutor.cpp, bitzi submit is already ready
+					// ToDo: Read sampleSize of WAV in FileExecutor.cpp, Bitprint submit is already ready
 					else if ( str == _T("sampleSize") )
 					{
 						nTemp = _ttoi( strReplace );
@@ -899,7 +899,7 @@ BOOL CWebServices::ShowBitziTicket(DWORD nIndex)
 				}
 				else if ( str == _T("bitrate") )
 				{
-					// ToDo: Read video's bitrate in FileExecutor.cpp, bitzi submit is already ready
+					// ToDo: Read video's bitrate in FileExecutor.cpp, Bitprint submit is already ready
 					nTemp = _ttoi( strReplace );
 					strReplace.Format( _T("%d"), nTemp );
 

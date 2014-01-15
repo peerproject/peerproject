@@ -578,6 +578,7 @@
 		<type extension="iso"/>
 		<type extension="jar"/>
 		<type extension="msi"/>
+		<type extension="msu"/>
 		<type extension="ppa"/>
 		<type extension="psk"/>
 		<type extension="sks"/>
@@ -587,6 +588,7 @@
 		<type keyword="installer"/>
 		<type keyword="setup"/>
 		<type keyword="win32"/>
+		<type keyword="_x64"/>
 	</typeFilter>
 
 </schemaDescriptor>

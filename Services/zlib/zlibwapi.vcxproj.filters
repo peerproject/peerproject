@@ -102,9 +102,6 @@
     <ClInclude Include="crc32.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="crypt.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="deflate.h">
       <Filter>Header Files</Filter>
     </ClInclude>

@@ -1,7 +1,7 @@
 //
 // TorrentBuilder.h
 //
-// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008
+// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008,2014
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
@@ -21,6 +21,11 @@
 
 #pragma once
 
+#ifdef _PORTABLE
+#include "Portable\SHA1.h"
+#include "Portable\ED2K.h"
+#include "Portable\MD4.h"
+#endif
 
 class CTorrentBuilder : public CWinThread
 {
@@ -41,6 +46,8 @@ public:
 	BOOL	AddTrackerURL(LPCTSTR pszURL);
 	BOOL	AddTrackerURL2(LPCTSTR pszURL);
 	BOOL	SetComment(LPCTSTR pszComment);
+//	BOOL	SetSource(LPCTSTR pszSource);
+	BOOL	SetPrivate(BOOL bPrivate);
 public:
 	BOOL	Start();
 	void	Stop();
@@ -68,27 +75,44 @@ protected:
 	CString				m_sTracker;
 	CString				m_sTracker2;
 	CString				m_sComment;
+//	CString				m_sSource;
+	BOOL				m_bPrivate;
 	CStringList			m_pFiles;
 	CString				m_sThisFile;
 	QWORD				m_nTotalSize;
 	QWORD				m_nTotalPos;
-	BOOL				m_bSHA1;		// Enable SHA1 creation
-	BOOL				m_bED2K;		// Enable MD4 creation
-	BOOL				m_bMD5;			// Enable MD5 creation
-	CSHA				m_oDataSHA1;	// Total SHA1
-	CED2K				m_oDataED2K;	// Total MD4
-	CMD5				m_oDataMD5;		// Total MD5
 	QWORD*				m_pFileSize;
-	CSHA*				m_pFileSHA1;	// SHA1 per file
-	CED2K*				m_pFileED2K;	// MD4 per file
-	CMD5*				m_pFileMD5;		// MD5 per file
-	CSHA*				m_pPieceSHA1;	// BitTorrent SHA1 per piece
-	CSHA				m_oPieceSHA1;	// BitTorrent piece SHA1 (temporary)
 	DWORD				m_nPieceSize;
 	DWORD				m_nPieceCount;
 	DWORD				m_nPiecePos;
 	DWORD				m_nPieceUsed;
 	BOOL				m_bAutoPieces;
+
+	BOOL				m_bSHA1;		// Enable SHA1 creation
+	BOOL				m_bED2K;		// Enable MD4 creation
+	BOOL				m_bMD5;			// Enable MD5 creation
+#ifdef _PORTABLE
+	CHashSHA1			m_pDataSHA1;
+	CHashMD4			m_pDataED2K;
+	CHashSHA1*			m_pFileSHA1;
+	CHashMD4*			m_pFileED2K;
+	CHashSHA1*			m_pPieceSHA1;
+	CSHA1*				m_phPieceSHA1;
+	CSHA1*				m_phFullSHA1;
+	CSHA1*				m_phFileSHA1;
+	CED2K*				m_phFullED2K;
+	CED2K*				m_phFileED2K;
+#else // Use HashLib
+	CSHA				m_oDataSHA1;	// Total SHA1
+	CED2K				m_oDataED2K;	// Total MD4
+	CMD5				m_oDataMD5;		// Total MD5
+	CSHA*				m_pFileSHA1;	// SHA1 per file
+	CED2K*				m_pFileED2K;	// MD4 per file
+	CMD5*				m_pFileMD5;		// MD5 per file
+	CSHA*				m_pPieceSHA1;	// BitTorrent SHA1 per piece
+	CSHA				m_oPieceSHA1;	// BitTorrent piece SHA1 (temporary)
+#endif
+
 	BYTE*				m_pBuffer;
 	DWORD				m_nBuffer;
 
