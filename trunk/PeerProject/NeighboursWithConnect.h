@@ -1,7 +1,7 @@
 //
 // NeighboursWithConnect.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -17,7 +17,7 @@
 //
 
 // Determine our hub or leaf role, count connections for each, and make new ones or close them to have the right number
-// http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CNeighboursWithConnect
+// http://shareaza.sourceforge.net/mediawiki/index.php/Developers.Code.CNeighboursWithConnect
 // http://peerproject.org/shareazawiki/Developers.Code.CNeighboursWithConnect.html
 
 #pragma once

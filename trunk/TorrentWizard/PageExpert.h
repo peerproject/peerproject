@@ -44,22 +44,24 @@ public:
 	CString 	m_sName;
 	CString 	m_sFolder;
 	CString 	m_sTracker;
-	CString 	m_sTracker2;
 	CString 	m_sComment;
 //	CString 	m_sSource;
 	BOOL		m_bPrivate;
 	CEdit		m_wndName;
 	CComboBox	m_wndFolders;
 	CComboBox	m_wndTracker;
-	CComboBox	m_wndTracker2;
-	CButton 	m_wndRemove;
+	CButton 	m_wndRemoveFile;
+	CButton 	m_wndRemoveTracker;
 	CListCtrl	m_wndList;
+	CListBox	m_wndTrackers;
 	HIMAGELIST	m_hImageList;
 
 // Operations
 protected:
 	void	AddFile(LPCTSTR pszFile);
 	void	AddFolder(LPCTSTR pszPath, int nRecursive);
+	void	GetTrackerHistory();
+	void	SetTrackerHistory();
 
 // Overrides
 public:
@@ -81,6 +83,9 @@ protected:
 	afx_msg void OnAddFolder();
 	afx_msg void OnAddFile();
 	afx_msg void OnRemoveFile();
+	afx_msg void OnAddTracker();
+	afx_msg void OnRemoveTracker();
+	afx_msg void OnSelectTracker();
 
 	DECLARE_MESSAGE_MAP()
 };

@@ -17,7 +17,7 @@
 //
 
 // CZLib makes it easier to use the zlib compression library
-// http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CZLib
+// http://shareaza.sourceforge.net/mediawiki/index.php/Developers.Code.CZLib
 // http://peerproject.org/shareazawiki/Developers.Code.CZLib.html
 
 #pragma once

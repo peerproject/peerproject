@@ -17,9 +17,9 @@
 #include <boost/type_traits/is_reference.hpp>
 #include <boost/type_traits/is_convertible.hpp>
 #include <boost/type_traits/is_array.hpp>
-#ifdef __GNUC__
-#include <boost/type_traits/is_function.hpp>
-#endif
+//#ifdef __GNUC__
+//#include <boost/type_traits/is_function.hpp>
+//#endif
 #include <boost/type_traits/config.hpp>
 #if defined(BOOST_TT_HAS_CONFORMING_IS_CLASS_IMPLEMENTATION)
 #  include <boost/type_traits/is_class.hpp>
@@ -144,9 +144,9 @@ template <typename T> struct is_enum_impl
 #endif
 
 #if BOOST_WORKAROUND(__BORLANDC__, < 0x600)
-    typedef ::boost::detail::is_enum_helper<
-          ::boost::detail::is_enum_impl<T>::selector
-        > se_t;
+//  typedef ::boost::detail::is_enum_helper<
+//        ::boost::detail::is_enum_impl<T>::selector
+//      > se_t;
 #else
     typedef ::boost::detail::is_enum_helper<selector> se_t;
 #endif

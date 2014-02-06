@@ -1,7 +1,7 @@
 //
 // PacketBuffer.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -17,7 +17,7 @@
 //
 
 // CG1PacketBuffer holds arrays of packets to send, organized by their type
-// http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CG1PacketBuffer
+// http://shareaza.sourceforge.net/mediawiki/index.php/Developers.Code.CG1PacketBuffer
 // http://peerproject.org/shareazawiki/Developers.Code.CG1PacketBuffer.html
 
 #include "StdAfx.h"

@@ -1,7 +1,7 @@
 //
 // Firewall.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -17,7 +17,7 @@
 //
 
 // CFirewall wraps Windows COM components to change Windows Firewall settings, and talk UPnP to a NAT router
-// http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CFirewall
+// http://shareaza.sourceforge.net/mediawiki/index.php/Developers.Code.CFirewall
 //
 // Include headers from the Windows SDK
 

@@ -1,7 +1,7 @@
 //
 // dht.c :	Implementation of Mainline BitTorrent DHT v0.21
 //
-// This file is part of PeerProject (peerproject.org) © 2010-2012
+// This file is part of PeerProject (peerproject.org) © 2010-2014
 // Copyright (c) 2009-2011 by Juliusz Chroboczek
 //
 // Permission is hereby granted, free of charge, to any person obtaining
@@ -34,6 +34,7 @@
 #define _GNU_SOURCE
 
 #ifdef _MSC_VER
+#pragma warning ( disable : 4702 )		// Unreachable code
 #ifndef _CRT_SECURE_NO_WARNINGS
 #define _CRT_SECURE_NO_WARNINGS
 #endif
@@ -87,7 +88,6 @@ extern const char *inet_ntop(int, const void *, char *, socklen_t);
 //set_nonblocking(int fd, int nonblocking)
 //{
 //    int rc;
-//
 //    unsigned long mode = !!nonblocking;
 //    rc = ioctlsocket(fd, FIONBIO, &mode);
 //    if(rc != 0)
@@ -162,7 +162,7 @@ gettimeofday(struct timeval64 *tv, struct timezone *tz)
 
 #endif // _MSC_VER
 
-#else  // No WIN_32
+#else  // No WIN32
 
 static int
 set_nonblocking(int fd, int nonblocking)
@@ -179,7 +179,7 @@ set_nonblocking(int fd, int nonblocking)
     return 0;
 }
 
-#endif // WIN_32
+#endif // WIN32
 
 /* We set sin_family to 0 to mark unused slots. */
 #if AF_INET == 0 || AF_INET6 == 0
@@ -395,39 +395,40 @@ static int token_bucket_tokens;
 
 #ifdef DHT_DEBUG
 
-FILE *dht_debug = NULL;
+//FILE *dht_debug = NULL;
 
-#ifdef __GNUC__
-    __attribute__ ((format (printf, 1, 2)))
-#endif
-static void
-debugf(const char *format, ...)
-{
-    va_list args;
-    va_start(args, format);
-    if(dht_debug)
-        vfprintf(dht_debug, format, args);
-    va_end(args);
-    fflush(dht_debug);
-}
+//#ifdef __GNUC__
+//    __attribute__ ((format (printf, 1, 2)))
+//#endif
 
-static void
-debug_printable(const unsigned char *buf, int buflen)
-{
-    int i;
-    if(dht_debug) {
-        for(i = 0; i < buflen; i++)
-            putc(buf[i] >= 32 && buf[i] <= 126 ? buf[i] : '.', dht_debug);
-    }
-}
+//static void
+//debugf(const char *format, ...)
+//{
+//    va_list args;
+//    va_start(args, format);
+//    if(dht_debug)
+//        vfprintf(dht_debug, format, args);
+//    va_end(args);
+//    fflush(dht_debug);
+//}
 
-static void
-print_hex(FILE *f, const unsigned char *buf, int buflen)
-{
-    int i;
-    for(i = 0; i < buflen; i++)
-        fprintf(f, "%02x", buf[i]);
-}
+//static void
+//debug_printable(const unsigned char *buf, int buflen)
+//{
+//    int i;
+//    if(dht_debug) {
+//        for(i = 0; i < buflen; i++)
+//            putc(buf[i] >= 32 && buf[i] <= 126 ? buf[i] : '.', dht_debug);
+//    }
+//}
+
+//static void
+//print_hex(FILE *f, const unsigned char *buf, int buflen)
+//{
+//    int i;
+//    for(i = 0; i < buflen; i++)
+//        fprintf(f, "%02x", buf[i]);
+//}
 
 #else
 
@@ -1870,8 +1871,7 @@ neighbourhood_maintenance(int af)
     }
 
     if(q) {
-        /* Since our node-id is the same in both DHTs, it's probably
-           profitable to query both families. */
+        /* Since our node-id is the same in both DHTs, it's probably profitable to query both families. */
         int want = (dht_socket >= 0 && dht_socket6 >= 0) ? (((dht_socket >= 0) ? WANT4 : 0) | ((dht_socket6 >= 0) ? WANT6 : 0)) : -1;
         n = random_node(q);
         if(n) {
@@ -2294,8 +2294,8 @@ dht_get_nodes(struct sockaddr_in *sin, unsigned char* id, int *num,
 
     i = 0;
 
-    /* For restoring to work without discarding too many nodes, the list
-       must start with the contents of our bucket. */
+    /* For restoring to work without discarding too many nodes,
+       the list must start with the contents of our bucket. */
     b = find_bucket(myid, AF_INET);
     if(b == NULL)
         goto no_ipv4;
@@ -2539,9 +2539,8 @@ send_nodes_peers(const struct sockaddr *sa, int salen,
     }
 
     if(st && st->numpeers > 0) {
-        /* We treat the storage as a circular list, and serve a randomly
-           chosen slice.  In order to make sure we fit within 1024 octets,
-           we limit ourselves to 50 peers. */
+        /* We treat the storage as a circular list, and serve a randomly chosen slice.
+           In order to make sure we fit within 1024 octets, we limit ourselves to 50 peers. */
 
         len = af == AF_INET ? 4 : 16;
         j0 = random() % st->numpeers;
@@ -2622,7 +2621,7 @@ insert_closest_node(unsigned char *nodes, int numnodes,
     } else {
         abort();
         return -1;
-   }
+    }
 
     return numnodes;
 }
@@ -2730,8 +2729,7 @@ send_announce_peer(const struct sockaddr *sa, int salen,
     COPY(buf, i, myid, 20, 512);
     rc = snprintf(buf + i, 512 - i, "9:info_hash20:"); INC(i, rc, 512);
     COPY(buf, i, infohash, 20, 512);
-    rc = snprintf(buf + i, 512 - i, "4:porti%ue5:token%d:", (unsigned)port,
-                  token_len);
+    rc = snprintf(buf + i, 512 - i, "4:porti%ue5:token%d:", (unsigned)port, token_len);
     INC(i, rc, 512);
     COPY(buf, i, token, token_len, 512);
     rc = snprintf(buf + i, 512 - i, "e1:q13:announce_peer1:t%d:", tid_len);

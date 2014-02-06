@@ -137,6 +137,14 @@ BOOL CTorrentBuilder::AddFile(LPCTSTR pszPath)
 	return TRUE;
 }
 
+BOOL CTorrentBuilder::AddTracker(LPCTSTR pszURL)
+{
+	CSingleLock pLock( &m_pSection, TRUE );
+	if ( m_bActive ) return FALSE;
+	m_pTrackers.AddTail( pszURL );
+	return TRUE;
+}
+
 BOOL CTorrentBuilder::AddTrackerURL(LPCTSTR pszURL)
 {
 	CSingleLock pLock( &m_pSection, TRUE );
@@ -616,13 +624,31 @@ BOOL CTorrentBuilder::WriteOutput()
 
 	// Keys in sorted order (ToDo: Alphabetical sort?)
 
+	const int nTrackerCount = (int)m_pTrackers.GetCount();
+
 	if ( m_sTracker.GetLength() > 15 )
 		pRoot.Add( "announce" )->SetString( m_sTracker );
 	else if ( m_sTracker2.GetLength() > 15 )
 		pRoot.Add( "announce" )->SetString( m_sTracker2 );
+	else if ( nTrackerCount )
+		pRoot.Add( "announce" )->SetString( m_pTrackers.GetHead() );
 
-	// Rough implementation.  ToDo: Cleanup for more trackers
-	if ( m_sTracker2.GetLength() > 15 && m_sTracker2 != m_sTracker )
+	if ( nTrackerCount > 1 ) // Expert
+	{
+		CBENode* pAnnounceList = pRoot.Add( "announce-list" );
+		{
+			BYTE* pBuffer = NULL;		// Quick List Workaround
+
+			CBENode* pList = pAnnounceList->Add( pBuffer, 1 );
+			{
+				for ( POSITION pos = m_pTrackers.GetHeadPosition() ; pos ; )
+				{
+					pList->Add( pBuffer, 2 )->SetString( m_pFiles.GetNext( pos ) );
+				}
+			}
+		}
+	}
+	else if ( m_sTracker2.GetLength() > 15 && m_sTracker2 != m_sTracker )
 	{
 		CBENode* pAnnounceList = pRoot.Add( "announce-list" );
 		{

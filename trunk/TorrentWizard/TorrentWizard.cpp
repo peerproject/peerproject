@@ -1,7 +1,7 @@
 //
 // TorrentWizard.cpp
 //
-// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2012
+// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2014
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
@@ -55,10 +55,10 @@ CTorrentWizardApp::CTorrentWizardApp()
 
 void CTorrentWizardApp::OnHelp()
 {
-	CWinApp::OnHelp();
-//	ShellExecute( NULL, NULL, _T("http://peerproject.org/torrentwizard/") +
-//		static_cast< CWizardPage* >( m_pSheet->GetActivePage() )->m_sHelp,
-//		NULL, NULL, SW_SHOWNORMAL );
+//	CWinApp::OnHelp();
+	ShellExecute( NULL, NULL, _T("http://peerproject.org/wiki/torrentwizard/"),
+	//	+ static_cast< CWizardPage* >( m_pSheet->GetActivePage() )->GetWindowText(),
+		NULL, NULL, SW_SHOWNORMAL );
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -74,9 +74,9 @@ BOOL CTorrentWizardApp::InitInstance()
 	cmdInfo.GetOption( _T("tracker"), m_sCommandLineTracker );
 	cmdInfo.GetOption( _T("comment"), m_sCommandLineComment );
 
-	if( ! m_sCommandLineSourceFile.IsEmpty() &&
-		! m_sCommandLineDestination.IsEmpty() &&
-		! m_sCommandLineTracker.IsEmpty() )
+	if ( ! m_sCommandLineSourceFile.IsEmpty() &&
+		 ! m_sCommandLineDestination.IsEmpty() &&
+		 ! m_sCommandLineTracker.IsEmpty() )
 	{
 		if ( m_sCommandLineComment.IsEmpty() )
 			m_sCommandLineComment = _T("http://peerproject.org/");
@@ -147,7 +147,7 @@ void CTorrentWizardApp::InitEnvironment()
 	TCHAR szPath[260];
 	DWORD dwSize = 0;
 
-	m_nVersion[0] = m_nVersion[1] = m_nVersion[2] = m_nVersion[3] = 0;
+	m_nVersion[0] = m_nVersion[1] = m_nVersion[2] = 0;
 
 	if ( GetModuleFileName( NULL, szPath, 260 ) )
 	{
@@ -168,15 +168,15 @@ void CTorrentWizardApp::InitEnvironment()
 				m_nVersion[0] = (WORD)( pTable->dwFileVersionMS >> 16 );
 				m_nVersion[1] = (WORD)( pTable->dwFileVersionMS & 0xFFFF );
 				m_nVersion[2] = (WORD)( pTable->dwFileVersionLS >> 16 );
-				m_nVersion[3] = (WORD)( pTable->dwFileVersionLS & 0xFFFF );
+			//	m_nVersion[3] = (WORD)( pTable->dwFileVersionLS & 0xFFFF );
 			}
 		}
 
 		delete [] pBuffer;
 	}
 
-	m_sVersion.Format( _T("%i.%i.%i.%i"),
-		m_nVersion[0], m_nVersion[1], m_nVersion[2], m_nVersion[3] );
+	m_sVersion.Format( _T("%i.%i.%i"),
+		m_nVersion[0], m_nVersion[1], m_nVersion[2] );
 
 	// Obsolete:
 	//OSVERSIONINFO pVersion;
@@ -194,23 +194,27 @@ void CTorrentWizardApp::InitResources()
 	OSVERSIONINFO pVersion;
 	pVersion.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
 	GetVersionEx( &pVersion );
-	const BOOL bVista = pVersion.dwMajorVersion > 5;
+	LPCTSTR pszFont = pVersion.dwMajorVersion > 5 ? _T("Segoe UI") : _T("Tahoma");
 
-	m_fntNormal.CreateFont( -11, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
-		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
-		DEFAULT_PITCH|FF_DONTCARE, ( bVista ? _T("Segoe UI") : _T("Tahoma") ) );
+	HDC hDC = GetDC( NULL );
+	const int nSize = -MulDiv( 11, GetDeviceCaps( hDC, LOGPIXELSY ), 96 );	// DPI-aware
+	ReleaseDC( NULL, hDC );
 
-	m_fntBold.CreateFont( -11, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
+	m_fntNormal.CreateFont( nSize, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
-		DEFAULT_PITCH|FF_DONTCARE, ( bVista ? _T("Segoe UI") : _T("Tahoma") ) );
+		DEFAULT_PITCH|FF_DONTCARE, pszFont );
 
-	m_fntLine.CreateFont( -11, 0, 0, 0, FW_NORMAL, FALSE, TRUE, FALSE,
+	m_fntBold.CreateFont( nSize, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
-		DEFAULT_PITCH|FF_DONTCARE, ( bVista ? _T("Segoe UI") : _T("Tahoma") ) );
+		DEFAULT_PITCH|FF_DONTCARE, pszFont );
 
-	m_fntTiny.CreateFont( -8, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
+	m_fntLine.CreateFont( nSize, 0, 0, 0, FW_NORMAL, FALSE, TRUE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
-		DEFAULT_PITCH|FF_DONTCARE, ( bVista ? _T("Segoe UI") : _T("Tahoma") ) );
+		DEFAULT_PITCH|FF_DONTCARE, pszFont );
+
+	m_fntTiny.CreateFont( nSize + 3, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
+		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
+		DEFAULT_PITCH|FF_DONTCARE, pszFont );
 
 	srand( GetTickCount() );
 }

@@ -17,14 +17,14 @@
 #include <boost/mpl/aux_/config/msvc.hpp>
 #include <boost/mpl/aux_/config/workaround.hpp>
 
-#if    !defined(BOOST_MPL_CFG_NO_DEPENDENT_ARRAY_TYPES) \
-    && !defined(BOOST_MPL_PREPROCESSING_MODE) \
-    && ( BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x610)) \
-        || BOOST_WORKAROUND(BOOST_MSVC, <= 1300) \
-        )
-
-#   define BOOST_MPL_CFG_NO_DEPENDENT_ARRAY_TYPES
-
-#endif
+//#if    !defined(BOOST_MPL_CFG_NO_DEPENDENT_ARRAY_TYPES) \
+//  && !defined(BOOST_MPL_PREPROCESSING_MODE) \
+//  && ( BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x610)) \
+//      || BOOST_WORKAROUND(BOOST_MSVC, <= 1300) \
+//      )
+//
+//# define BOOST_MPL_CFG_NO_DEPENDENT_ARRAY_TYPES
+//
+//#endif
 
 #endif // BOOST_MPL_AUX_CONFIG_ARRAYS_HPP_INCLUDED

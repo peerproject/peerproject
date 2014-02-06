@@ -72,8 +72,8 @@ public:
 	inline void SetInt(QWORD nValue)
 	{
 		Clear();
-		m_nType		= beInt;
-		m_nValue	= nValue;
+		m_nType  = beInt;
+		m_nValue = nValue;
 	}
 
 	inline CString GetString() const
@@ -90,7 +90,7 @@ public:
 			str.ReleaseBuffer();
 		}
 		else	// Bad encoding
-		{	
+		{
 			str.ReleaseBuffer();
 			str = _T("#ERROR#");
 		}
@@ -128,9 +128,9 @@ public:
 	inline void SetString(LPCVOID pString, size_t nLength, BOOL bNull = FALSE)
 	{
 		Clear();
-		m_nType		= beString;
-		m_nValue	= (QWORD)nLength;
-		m_pValue	= new BYTE[ nLength + ( bNull ? 1 : 0 ) ];
+		m_nType  = beString;
+		m_nValue = (QWORD)nLength;
+		m_pValue = new BYTE[ nLength + ( bNull ? 1 : 0 ) ];
 		CopyMemory( m_pValue, pString, nLength + ( bNull ? 1 : 0 ) );
 	}
 

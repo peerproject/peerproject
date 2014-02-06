@@ -32,11 +32,11 @@
 
 // Borland-specific bug, visit_each() silently fails to produce code
 
-#if defined(__BORLANDC__)
-#  define BOOST_BIND_VISIT_EACH boost::visit_each
-#else
+//#if defined(__BORLANDC__)
+//#  define BOOST_BIND_VISIT_EACH boost::visit_each
+//#else
 #  define BOOST_BIND_VISIT_EACH visit_each
-#endif
+//#endif
 
 #include <boost/bind/storage.hpp>
 

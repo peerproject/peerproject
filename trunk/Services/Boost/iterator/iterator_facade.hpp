@@ -65,16 +65,16 @@ namespace boost
     >
     struct enable_if_interoperable
 #if BOOST_WORKAROUND(BOOST_MSVC, <= 1300)
-    {
-        typedef typename mpl::if_<
-            mpl::or_<
-                is_convertible<Facade1, Facade2>
-              , is_convertible<Facade2, Facade1>
-            >
-          , Return
-          , int[3]
-        >::type type;
-    };
+//  {
+//      typedef typename mpl::if_<
+//          mpl::or_<
+//              is_convertible<Facade1, Facade2>
+//            , is_convertible<Facade2, Facade1>
+//          >
+//        , Return
+//        , int[3]
+//      >::type type;
+//  };
 #else
       : ::boost::iterators::enable_if<
            mpl::or_<
@@ -87,8 +87,7 @@ namespace boost
 #endif
 
     //
-    // Generates associated types for an iterator_facade with the
-    // given parameters.
+    // Generates associated types for an iterator_facade with the given parameters.
     //
     template <
         class ValueParam
@@ -133,8 +132,7 @@ namespace boost
     // for all iterators into the same sequence (like many input
     // iterators) need help with their postfix ++: the referenced
     // value must be read and stored away before the increment occurs
-    // so that *a++ yields the originally referenced element and not
-    // the next one.
+    // so that *a++ yields the originally referenced element and not the next one.
     template <class Iterator>
     class postfix_increment_proxy
     {
@@ -291,7 +289,7 @@ namespace boost
 
     // operator->() needs special support for input iterators to strictly meet the
     // standard's requirements. If *i is not a reference type, we must still
-    // produce a lvalue to which a pointer can be formed.  We do that by
+    // produce an lvalue to which a pointer can be formed.  We do that by
     // returning a proxy object containing an instance of the reference object.
     template <class Reference, class Pointer>
     struct operator_arrow_dispatch // proxy references
@@ -406,11 +404,11 @@ namespace boost
 # ifdef BOOST_NO_ONE_WAY_ITERATOR_INTEROP
           iterator_difference<I1>
 # elif BOOST_WORKAROUND(BOOST_MSVC, < 1300)
-          mpl::if_<
-              is_convertible<I2,I1>
-            , typename I1::difference_type
-            , typename I2::difference_type
-          >
+//        mpl::if_<
+//            is_convertible<I2,I1>
+//          , typename I1::difference_type
+//          , typename I2::difference_type
+//        >
 # else
           mpl::eval_if<
               is_convertible<I2,I1>

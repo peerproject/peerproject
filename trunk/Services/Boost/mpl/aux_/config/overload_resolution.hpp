@@ -16,14 +16,14 @@
 
 #include <boost/mpl/aux_/config/workaround.hpp>
 
-#if    !defined(BOOST_MPL_CFG_BROKEN_OVERLOAD_RESOLUTION) \
-    && !defined(BOOST_MPL_PREPROCESSING_MODE) \
-    && (   BOOST_WORKAROUND(__BORLANDC__, < 0x590) \
-        || BOOST_WORKAROUND(__MWERKS__, < 0x3001) \
-        )
-
-#   define BOOST_MPL_CFG_BROKEN_OVERLOAD_RESOLUTION
-
-#endif
+//#if    !defined(BOOST_MPL_CFG_BROKEN_OVERLOAD_RESOLUTION) \
+//  && !defined(BOOST_MPL_PREPROCESSING_MODE) \
+//  && (   BOOST_WORKAROUND(__BORLANDC__, < 0x590) \
+//      || BOOST_WORKAROUND(__MWERKS__, < 0x3001) \
+//      )
+//
+//#   define BOOST_MPL_CFG_BROKEN_OVERLOAD_RESOLUTION
+//
+//#endif
 
 #endif // BOOST_MPL_AUX_CONFIG_OVERLOAD_RESOLUTION_HPP_INCLUDED

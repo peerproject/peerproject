@@ -45,6 +45,10 @@ BEGIN_MESSAGE_MAP(CExpertPage, CWizardPage)
 	ON_BN_CLICKED(IDC_ADD_FOLDER, OnAddFolder)
 	ON_BN_CLICKED(IDC_ADD_FILE, OnAddFile)
 	ON_BN_CLICKED(IDC_REMOVE_FILE, OnRemoveFile)
+	ON_BN_CLICKED(IDC_ADD, OnAddTracker)
+	ON_BN_CLICKED(IDC_REMOVE, OnRemoveTracker)
+	ON_LBN_SELCHANGE(IDC_TRACKER2, OnSelectTracker)
+//	ON_CBN_EDITCHANGE(IDC_TRACKER, OnUpdateTracker)
 	ON_WM_XBUTTONDOWN()
 	ON_WM_DROPFILES()
 END_MESSAGE_MAP()
@@ -68,12 +72,11 @@ void CExpertPage::DoDataExchange(CDataExchange* pDX)
 
 	DDX_Control(pDX, IDC_FILE_LIST, m_wndList);
 	DDX_Control(pDX, IDC_FOLDER, m_wndFolders);
-//	DDX_Control(pDX, IDC_TORRENT_NAME, m_wndName);
-	DDX_Control(pDX, IDC_REMOVE_FILE, m_wndRemove);
+	DDX_Control(pDX, IDC_TRACKER2, m_wndTrackers);
+	DDX_Control(pDX, IDC_REMOVE_FILE, m_wndRemoveFile);
+	DDX_Control(pDX, IDC_REMOVE, m_wndRemoveTracker);
 	DDX_Control(pDX, IDC_TRACKER, m_wndTracker);
-	DDX_Control(pDX, IDC_TRACKER2, m_wndTracker2);
 	DDX_CBString(pDX, IDC_TRACKER, m_sTracker);
-	DDX_CBString(pDX, IDC_TRACKER2, m_sTracker2);
 	DDX_CBString(pDX, IDC_FOLDER, m_sFolder);
 	DDX_Text(pDX, IDC_TORRENT_NAME, m_sName);
 	DDX_Text(pDX, IDC_COMMENT, m_sComment);
@@ -95,7 +98,6 @@ BOOL CExpertPage::OnInitDialog()
 	m_sName = _T("");
 	m_sFolder = _T("");
 	m_sTracker = _T("");
-	m_sTracker2 = _T("");
 	m_sComment = _T("");
 
 	CRect rc;
@@ -116,18 +118,7 @@ BOOL CExpertPage::OnInitDialog()
 			m_wndFolders.AddString( strURL );
 	}
 
-	nCount = theApp.GetProfileInt( _T("Trackers"), _T("Count"), 0 );
-	for ( int nItem = 0 ; nItem < nCount ; nItem++ )
-	{
-		CString strName, strURL;
-		strName.Format( _T("%.3i.URL"), nItem + 1 );
-		strURL = theApp.GetProfileString( _T("Trackers"), strName );
-		if ( ! strURL.IsEmpty() )
-		{
-			m_wndTracker.AddString( strURL );
-			m_wndTracker2.AddString( strURL );
-		}
-	}
+	GetTrackerHistory();
 
 	m_sTracker = theApp.GetProfileString( _T("Trackers"), _T("Last") );
 
@@ -143,25 +134,26 @@ void CExpertPage::OnReset()
 
 BOOL CExpertPage::OnSetActive()
 {
-	m_wndRemove.EnableWindow( m_wndList.GetSelectedCount() > 0 );
+	theApp.WriteProfileInt( _T(""), _T("Expert"), TRUE );
+	m_wndRemoveFile.EnableWindow( m_wndList.GetSelectedCount() );
+	m_wndRemoveTracker.EnableWindow( m_wndTrackers.GetSelCount() );
 	SetWizardButtons( PSWIZB_BACK | PSWIZB_NEXT );
 	return CWizardPage::OnSetActive();
 }
 
 LRESULT CExpertPage::OnWizardBack()
 {
+	theApp.WriteProfileInt( _T(""), _T("Expert"), FALSE );
+
+	if ( m_wndTrackers.GetCount() > 0 )
+		SetTrackerHistory();
+
 	return IDD_WELCOME_PAGE;
 }
 
 LRESULT CExpertPage::OnWizardNext()
 {
 	UpdateData();
-
-	if ( m_wndList.GetItemCount() == 0 )
-	{
-		AfxMessageBox( IDS_PACKAGE_NEED_FILES, MB_ICONEXCLAMATION );
-		return -1;
-	}
 
 	if ( m_sName.IsEmpty() )
 	{
@@ -177,45 +169,43 @@ LRESULT CExpertPage::OnWizardNext()
 		return -1;
 	}
 
-	// Trackers:
-
-	if ( m_sTracker.Find( _T("http") ) != 0 || m_sTracker.GetLength() < 16 )
+	if ( m_wndList.GetItemCount() == 0 )
 	{
-		if ( IDYES != AfxMessageBox( IDS_TRACKER_NEED_URL, MB_ICONQUESTION|MB_YESNO ) )
+		AfxMessageBox( IDS_PACKAGE_NEED_FILES, MB_ICONEXCLAMATION );
+		return -1;
+	}
+
+	BOOL bTrackerList = m_wndTrackers.GetCount() > 0;
+
+	if ( ! bTrackerList )
+	{
+		OnAddTracker();
+		bTrackerList = m_wndTrackers.GetCount() == 1;
+		if ( ! bTrackerList &&
+			 IDYES != AfxMessageBox( IDS_TRACKER_NEED_URL, MB_ICONQUESTION|MB_YESNO ) )
 		{
 			m_wndTracker.SetFocus();
 			return -1;
 		}
 	}
 
-	if ( m_sTracker.GetLength() > 15 &&
-		m_wndTracker.FindStringExact( -1, m_sTracker ) < 0 )
-	{
-		m_wndTracker.AddString( m_sTracker );	// Populate Combo-box
-		m_wndTracker2.AddString( m_sTracker );
+	// Trackers:
 
-		CString strName;
-		int nCount = theApp.GetProfileInt( _T("Trackers"), _T("Count"), 0 );
-		strName.Format( _T("%.3i.URL"), ++nCount );
-		theApp.WriteProfileInt( _T("Trackers"), _T("Count"), nCount );
-		theApp.WriteProfileString( _T("Trackers"), strName, m_sTracker );
+	if ( m_sTracker.GetLength() > 15 && m_sTracker.Find( _T("://") ) > 2 )
+	{
+		theApp.WriteProfileString( _T("Trackers"), _T("Last"), m_sTracker );
+	}
+	else if ( bTrackerList )
+	{
+		CString str;
+		m_wndTrackers.GetText( 0, str );
+		theApp.WriteProfileString( _T("Trackers"), _T("Last"), str );
 	}
 
-	if ( m_sTracker2.Find( _T("http") ) == 0 &&
-		m_sTracker2.GetLength() > 15 &&
-		m_wndTracker2.FindStringExact( -1,m_sTracker2 ) < 0 )
-	{
-		m_wndTracker.AddString( m_sTracker2 );
-		m_wndTracker2.AddString( m_sTracker2 );
+	if ( bTrackerList )
+		SetTrackerHistory();
 
-		CString strName;
-		int nCount = theApp.GetProfileInt( _T("Trackers"), _T("Count"), 0 );
-		strName.Format( _T("%.3i.URL"), ++nCount );
-		theApp.WriteProfileInt( _T("Trackers"), _T("Count"), nCount );
-		theApp.WriteProfileString( _T("Trackers"), strName, m_sTracker );
-	}
-
-	theApp.WriteProfileString( _T("Trackers"), _T("Last"), m_sTracker );
+	m_wndTracker.AddString( m_sTracker );	// Populate Combo-box
 
 	theApp.WriteProfileInt( _T("Comments"), _T("Private"), m_bPrivate );
 
@@ -241,23 +231,9 @@ LRESULT CExpertPage::OnWizardNext()
 		}
 	}
 
-	if ( m_sName.Find( _T(".torrent") ) < 0 &&
-		 m_sName.Find( _T(".TORRENT") ) < 0 &&
-		 m_sName.Find( _T(".Torrent") ) < 0 )
-	{
-		UINT nResp = AfxMessageBox( IDS_OUTPUT_EXTENSION, MB_ICONQUESTION|MB_YESNOCANCEL );
-
-		if ( nResp == IDYES )
-		{
-			m_sName += _T(".torrent");
-			UpdateData( FALSE );
-		}
-		else if ( nResp != IDNO )
-		{
-			m_wndName.SetFocus();
-			return -1;
-		}
-	}
+	if ( m_sName.Right( 8 ).CompareNoCase( _T(".torrent") ) != 0 )
+		m_sName += _T(".torrent");
+		// UINT nResp = AfxMessageBox( IDS_OUTPUT_EXTENSION, MB_ICONQUESTION|MB_YESNOCANCEL );
 
 	CString strPath = m_sFolder + '\\' + m_sName;
 
@@ -289,7 +265,6 @@ LRESULT CExpertPage::OnWizardNext()
 	pOutput->m_sFolder = m_sFolder;
 	GET_PAGE( CTrackerPage, pTracker );
 	pTracker->m_sTracker = m_sTracker;
-	pTracker->m_sTracker2 = m_sTracker2;
 	GET_PAGE( CCommentPage, pComment );
 	pComment->m_sComment = m_sComment;
 
@@ -348,7 +323,7 @@ void CExpertPage::OnItemChangedFileList(NMHDR* /*pNMHDR*/, LRESULT* pResult)
 {
 	//NM_LISTVIEW* pNMListView = (NM_LISTVIEW*)pNMHDR;	// For reference
 
-	m_wndRemove.EnableWindow( m_wndList.GetSelectedCount() > 0 );
+	m_wndRemoveFile.EnableWindow( m_wndList.GetSelectedCount() > 0 );
 
 	*pResult = 0;
 }
@@ -357,15 +332,15 @@ void CExpertPage::OnDropFiles( HDROP hDropInfo )
 {
 	UpdateData();
 
-	CString sFilename;
+	CString strFilename;
 
 	const int nFiles = DragQueryFile( hDropInfo, (UINT)-1, NULL, 0 );
 	for ( int i = 0 ; i < nFiles ; i++ )
 	{
-		LPWSTR pszFile = sFilename.GetBuffer( _MAX_PATH );
+		LPWSTR pszFile = strFilename.GetBuffer( _MAX_PATH );
 		DragQueryFile( hDropInfo, i, pszFile, _MAX_PATH );
 
-		if ( PathIsDirectory( sFilename ) )
+		if ( PathIsDirectory( strFilename ) )
 			AddFolder( (LPCTSTR)pszFile, 2 );
 		else
 			AddFile( (LPCTSTR)pszFile );
@@ -525,11 +500,11 @@ void CExpertPage::AddFile(LPCTSTR pszFile)
 	const int nItem = m_wndList.InsertItem( LVIF_TEXT|LVIF_IMAGE, m_wndList.GetItemCount(),
 		pszFile, 0, 0, pInfo.iIcon, NULL );
 
-	CString sBytes;
-	sBytes.Format( _T("%i"), nSize );
+	CString strBytes;
+	strBytes.Format( _T("%i"), nSize );
 
 	m_wndList.SetItemText( nItem, 1, SmartSize( nSize ) );
-	m_wndList.SetItemText( nItem, 2, sBytes );
+	m_wndList.SetItemText( nItem, 2, strBytes );
 
 	m_nTotalSize += nSize;
 	m_sFileCount.Format( _T("%i Files,  %s"), m_wndList.GetItemCount(), SmartSize( m_nTotalSize ) );
@@ -553,7 +528,7 @@ void CExpertPage::AddFolder(LPCTSTR pszPath, int nRecursive)
 		{
 			if ( pFind.cFileName[0] == '.' ||
 				 pFind.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN )
-				 continue;
+				continue;
 
 			strPath.Format( _T("%s\\%s"), pszPath, pFind.cFileName );
 
@@ -581,5 +556,87 @@ void CExpertPage::AddFolder(LPCTSTR pszPath, int nRecursive)
 		while ( FindNextFile( hSearch, &pFind ) );
 
 		FindClose( hSearch );
+	}
+}
+
+void CExpertPage::OnAddTracker()
+{
+	CString str;
+	m_wndTracker.GetWindowText( str );
+	str.Trim();
+
+	if ( str.GetLength() < 16 ||
+		m_wndTrackers.GetCount() > 20 ||
+		m_wndTrackers.FindStringExact( -1, str ) >= 0 ||
+		( str.Left( 6 ).CompareNoCase( _T("udp://") ) != 0 &&
+		  str.Left( 7 ).CompareNoCase( _T("http://") ) != 0 &&
+		  str.Left( 8 ).CompareNoCase( _T("https://") ) != 0 ) )
+		return;
+
+	if ( str.Right( 9 ).CompareNoCase( _T("/announce") ) != 0 &&
+		 IDYES != AfxMessageBox( IDS_TRACKER_NEED_ANNOUNCE, MB_ICONQUESTION|MB_YESNO ) )
+		return;
+
+	m_wndTrackers.AddString( str );
+}
+
+void CExpertPage::OnRemoveTracker()
+{
+	int nItem = m_wndTrackers.GetCurSel();
+	if ( nItem >= 0 ) m_wndTrackers.DeleteString( nItem );
+	m_wndRemoveTracker.EnableWindow( m_wndTrackers.GetSelCount() );
+}
+
+void CExpertPage::OnSelectTracker()
+{
+	m_wndRemoveTracker.EnableWindow( m_wndTrackers.GetSelCount() );
+}
+
+void CExpertPage::GetTrackerHistory()
+{
+	int nCount = theApp.GetProfileInt( _T("Trackers"), _T("Count"), 0 );
+	for ( int nItem = 0 ; nItem < nCount ; nItem++ )
+	{
+		CString strName, strURL;
+		strName.Format( _T("%.3i.URL"), nItem + 1 );
+		strURL = theApp.GetProfileString( _T("Trackers"), strName );
+		if ( ! strURL.IsEmpty() )
+			m_wndTracker.AddString( strURL );
+	}
+	if ( ! m_wndTracker.GetCount() )
+		 m_wndTracker.AddString( _T("udp://tracker.openbittorrent.com:80/announce") );
+}
+
+void CExpertPage::SetTrackerHistory()
+{
+	CString str;
+	CStringList	pList;
+
+	int nCount = m_wndTrackers.GetCount();
+	if ( ! nCount ) return;
+
+	for ( int nIndex = 0 ; nIndex < nCount ; nIndex++ )
+	{
+		m_wndTrackers.GetText( nIndex, str );
+		pList.AddTail( str );
+	}
+
+	nCount = theApp.GetProfileInt( _T("Trackers"), _T("Count"), 0 );
+
+	for ( int nIndex = 1 ; nIndex <= nCount ; nIndex++ )
+	{
+		str.Format( _T("%.3i.URL"), nIndex );
+		str = theApp.GetProfileString( _T("Trackers"), str );
+		if ( ! pList.Find( str ) )
+			pList.AddTail( str );
+	}
+
+	nCount = 1;
+	theApp.WriteProfileInt( _T("Trackers"), _T("Count"), (int)pList.GetCount() );
+
+	for ( POSITION pos = pList.GetHeadPosition() ; pos ; nCount++ )
+	{
+		str.Format( _T("%.3i.URL"), nCount );
+		theApp.WriteProfileString( _T("Trackers"), str, pList.GetNext( pos ) );
 	}
 }

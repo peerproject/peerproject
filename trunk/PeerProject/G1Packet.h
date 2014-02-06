@@ -1,7 +1,7 @@
 //
 // G1Packet.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -17,7 +17,7 @@
 //
 
 // CG1Packet represents a Gnutella packet, and CG1PacketPool keeps lists of them
-// http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CG1Packet
+// http://shareaza.sourceforge.net/mediawiki/index.php/Developers.Code.CG1Packet
 // http://peerproject.org/shareazawiki/Developers.Code.CG1Packet.html
 
 #pragma once
@@ -254,7 +254,7 @@ inline void CG1Packet::CG1PacketPool::FreePoolImpl(CPacket* pPacket)
 #define G1_PACKET_HIT_SEP		0x1C	// Query hit extension separator
 
 // Known GGEP Extension Blocks table:
-// http://gnutella-specs.rakjar.de/index.php/Known_GGEP_Extension_Blocks
+// http://peerproject.org/limewirewiki/Known_GGEP_Extension_Blocks.html
 // http://limewire.negatis.com/index.php?title=Known_GGEP_Extension_Blocks
 
 // Browse Host (no value)

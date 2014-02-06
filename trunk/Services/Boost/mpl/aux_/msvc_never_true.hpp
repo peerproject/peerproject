@@ -17,18 +17,18 @@
 #include <boost/mpl/aux_/config/msvc.hpp>
 #include <boost/mpl/aux_/config/workaround.hpp>
 
-#if BOOST_WORKAROUND(BOOST_MSVC, <= 1300)
-
-namespace boost { namespace mpl { namespace aux {
-
-template< typename T >
-struct msvc_never_true
-{
-    enum { value = false };
-};
-
-}}}
-
-#endif // BOOST_MSVC
+//#if BOOST_WORKAROUND(BOOST_MSVC, <= 1300)
+//
+//namespace boost { namespace mpl { namespace aux {
+//
+//template< typename T >
+//struct msvc_never_true
+//{
+//  enum { value = false };
+//};
+//
+//}}}
+//
+//#endif // BOOST_MSVC
 
 #endif // BOOST_MPL_AUX_MSVC_NEVER_TRUE_HPP_INCLUDED

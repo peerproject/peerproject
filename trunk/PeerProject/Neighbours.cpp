@@ -1,7 +1,7 @@
 //
 // Neighbours.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -17,7 +17,7 @@
 //
 
 // Complete the CNeighbours inheritance column, calling Close on each neighbour when the program exits
-// http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CNeighbours
+// http://shareaza.sourceforge.net/mediawiki/index.php/Developers.Code.CNeighbours
 // http://peerproject.org/shareazawiki/Developers.Code.CNeighbours.html
 
 #include "StdAfx.h"

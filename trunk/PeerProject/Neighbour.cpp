@@ -1,7 +1,7 @@
 //
 // Neighbour.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -17,7 +17,7 @@
 //
 
 // CNeighbour is in the middle of the CConnection inheritance tree, adding compression and a bunch of member variables
-// http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CNeighbour
+// http://shareaza.sourceforge.net/mediawiki/index.php/Developers.Code.CNeighbour
 // http://peerproject.org/shareazawiki/Developers.Code.CNeighbour.html
 
 #include "StdAfx.h"

@@ -1,7 +1,7 @@
 //
 // Buffer.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -17,7 +17,7 @@
 //
 
 // CBuffer holds some memory, and takes care of allocating and freeing it itself
-// http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CBuffer
+// http://shareaza.sourceforge.net/mediawiki/index.php/Developers.Code.CBuffer
 // http://peerproject.org/shareazawiki/Developers.Code.CBuffer.html
 
 #include "StdAfx.h"

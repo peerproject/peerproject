@@ -1,7 +1,7 @@
 //
 // WizardSheet.cpp
 //
-// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2012
+// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2014
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
@@ -31,7 +31,7 @@ static char THIS_FILE[] = __FILE__;
 
 #define PAGE_COLOR		RGB( 255, 255, 255 )	// White areas
 //#define BANNER_SIZE	50	// m_nBannerHeight
-#define MENU_SIZE		48
+//#define MENU_SIZE		48	// m_nMenuHeight
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -40,7 +40,6 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNAMIC(CWizardSheet, CPropertySheet)
 
 BEGIN_MESSAGE_MAP(CWizardSheet, CPropertySheet)
-	//{{AFX_MSG_MAP(CWizardSheet)
 	ON_WM_PAINT()
 	ON_WM_SIZE()
 //	ON_WM_ERASEBKGND()
@@ -48,7 +47,6 @@ BEGIN_MESSAGE_MAP(CWizardSheet, CPropertySheet)
 	ON_WM_LBUTTONUP()
 	ON_WM_NCLBUTTONUP()
 	ON_WM_XBUTTONDOWN()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -60,7 +58,10 @@ CWizardSheet::CWizardSheet(CWnd *pParentWnd, UINT iSelectPage)
 	BITMAP bm;
 	m_bmHeader.LoadBitmap( IDB_BANNER );
 	m_bmHeader.GetBitmap( &bm );
+	m_bmHeader.SetBitmapDimension( bm.bmWidth, bm.bmHeight );
 	m_nBannerHeight = bm.bmHeight;
+
+	m_nMenuHeight = MulDiv( 46, GetDeviceCaps( *GetDesktopWindow()->GetDC(), LOGPIXELSY ), 96 );	// DPI-aware
 
 	m_psh.dwFlags &= ~PSP_HASHELP;
 	Construct( _T(""), pParentWnd, iSelectPage );
@@ -76,7 +77,8 @@ CWizardSheet::CWizardSheet(CWnd *pParentWnd, UINT iSelectPage)
 
 CWizardPage* CWizardSheet::GetPage(CRuntimeClass* pClass)
 {
-	for ( int nPage = 0 ; nPage < GetPageCount() ; nPage++ )
+	const int nCount = GetPageCount();
+	for ( int nPage = 0 ; nPage < nCount ; nPage++ )
 	{
 		CWizardPage* pPage = (CWizardPage*)CPropertySheet::GetPage( nPage );
 		ASSERT_KINDOF(CWizardPage, pPage);
@@ -88,7 +90,8 @@ CWizardPage* CWizardSheet::GetPage(CRuntimeClass* pClass)
 
 void CWizardSheet::DoReset()
 {
-	for ( int nPage = 0 ; nPage < GetPageCount() ; nPage++ )
+	const int nCount = GetPageCount();
+	for ( int nPage = 0 ; nPage < nCount ; nPage++ )
 	{
 		CWizardPage* pPage = (CWizardPage*)CPropertySheet::GetPage( nPage );
 		ASSERT_KINDOF(CWizardPage, pPage);
@@ -114,30 +117,30 @@ BOOL CWizardSheet::OnInitDialog()
 	ScreenToClient( &rc );
 	const UINT nWidth = rc.Width();
 
+	// Set Cancel
+	GetDlgItem( 2 )->GetWindowRect( &rc );
+	ScreenToClient( &rc );
+	rc.OffsetRect( rc.Height() - 3 - rc.left, -1 );
+	GetDlgItem( 2 )->MoveWindow( &rc );
+	GetDlgItem( 2 )->SetWindowText( _T("E&xit") );
+
 	// Set Back
 	GetDlgItem( 0x3023 )->GetWindowRect( &rc );
 	ScreenToClient( &rc );
-	rc.OffsetRect( 16 - rc.left, -1 );
+	rc.OffsetRect( nWidth - rc.left - rc.Width() - rc.Width() - rc.Height() - 10, -1 );
 	GetDlgItem( 0x3023 )->MoveWindow( &rc );
 
 	// Set Next
 	GetDlgItem( 0x3024 )->GetWindowRect( &rc );
 	ScreenToClient( &rc );
-	rc.OffsetRect( 26 + rc.Width() - rc.left, -1 );
+	rc.OffsetRect( nWidth - rc.left - rc.Width() - rc.Height() - 3, -1 );
 	GetDlgItem( 0x3024 )->MoveWindow( &rc );
 	GetDlgItem( 0x3025 )->MoveWindow( &rc );	// Ready button
-
-	// Set Cancel
-	GetDlgItem( 2 )->GetWindowRect( &rc );
-	ScreenToClient( &rc );
-	rc.OffsetRect( nWidth - 20 - rc.Width() - rc.left, -1 );
-	GetDlgItem( 2 )->MoveWindow( &rc );
-	GetDlgItem( 2 )->SetWindowText( _T("E&xit") );
 
 	// Set Help
 	//GetDlgItem( 0x0009 )->GetWindowRect( &rc );
 	//ScreenToClient( &rc );
-	//rc.OffsetRect( 414 - rc.left - 84, -1 );
+	//rc.OffsetRect( 18 - rc.left + rc.Width() + 8, -1 );
 	//GetDlgItem( 0x0009 )->MoveWindow( &rc );
 
 	if ( GetDlgItem( 0x0009 ) ) GetDlgItem( 0x0009 )->ShowWindow( SW_HIDE );
@@ -189,8 +192,8 @@ void CWizardSheet::OnSize(UINT nType, int cx, int cy)
 	{
 		GetClientRect( &m_rcPage );
 
-		m_rcPage.top += m_nBannerHeight + 1;
-		m_rcPage.bottom -= MENU_SIZE;
+		m_rcPage.top += m_nBannerHeight;
+		m_rcPage.bottom -= m_nMenuHeight;
 
 		pWnd->SetWindowPos( NULL, m_rcPage.left, m_rcPage.top, m_rcPage.Width(), m_rcPage.Height(), SWP_NOSIZE );
 	}
@@ -206,21 +209,30 @@ void CWizardSheet::OnPaint()
 	// Banner
 	CRect rcHeader = rc;
 	rcHeader.bottom = rcHeader.top + m_nBannerHeight;
+	//rc.top += m_nBannerHeight;
+
+	const int nWidth = rc.Width();
+	const int nImageSize = m_bmHeader.GetBitmapDimension().cx;
 
 	CDC mdc;
 	mdc.CreateCompatibleDC( &dc );
 	CBitmap* pOldBitmap = (CBitmap*)mdc.SelectObject( &m_bmHeader );
-	dc.BitBlt( rcHeader.left, rcHeader.top, rcHeader.Width(), m_nBannerHeight, &mdc, 0, 0, SRCCOPY );
+	dc.BitBlt( rcHeader.left, rcHeader.top, nWidth, m_nBannerHeight, &mdc, 0, 0, SRCCOPY );
+	if ( nImageSize < nWidth )
+	{
+		for ( int nOffset = nImageSize ; nOffset < nWidth ; nOffset += 2 )
+			dc.BitBlt( nOffset, rcHeader.top, 2, m_nBannerHeight, &mdc, nImageSize - 2, 0, SRCCOPY );
+	}
 	mdc.SelectObject( pOldBitmap );
 	mdc.DeleteDC();
 
 	// Bevels
-	dc.Draw3dRect( 0, m_nBannerHeight, rc.Width() + 1, 1,
-		RGB( 128, 128, 128 ), RGB( 128, 128, 128 ) );
-	dc.Draw3dRect( 0, rc.bottom - MENU_SIZE, rc.Width() + 1, 2,
-		RGB( 128, 128, 128 ), RGB( 255, 255, 255 ) );
+	//dc.Draw3dRect( 0, m_nBannerHeight, rc.Width() + 1, 1,
+	//	RGB( 128, 128, 128 ), RGB( 128, 128, 128 ) );
+	dc.Draw3dRect( 0, rc.bottom - m_nMenuHeight, nWidth + 1, 2,
+		RGB( 140, 140, 140 ), RGB( 254, 254, 254 ) );
 
-	rc.top = rc.bottom - MENU_SIZE + 2;
+	rc.top = rc.bottom - m_nMenuHeight + 2;
 
 	// Version Text
 	CFont* pOldFont = (CFont*)dc.SelectObject( &theApp.m_fntTiny );
@@ -242,16 +254,18 @@ void CWizardSheet::OnPaint()
 BOOL CWizardSheet::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 {
 	CPoint pt;
-	CRect rc;
-
 	GetCursorPos( &pt );
-	GetClientRect( &rc );
 	ScreenToClient( &pt );
 
-	if ( rc.PtInRect( pt ) && pt.y < m_nBannerHeight )
+	if ( pt.y < m_nBannerHeight )
 	{
-		SetCursor( theApp.LoadCursor( IDC_HAND ) );
-		return TRUE;
+		CRect rc;
+		GetClientRect( &rc );
+		if ( rc.PtInRect( pt ) )
+		{
+			SetCursor( theApp.LoadCursor( IDC_HAND ) );
+			return TRUE;
+		}
 	}
 
 	return CPropertySheet::OnSetCursor( pWnd, nHitTest, message );
@@ -265,7 +279,7 @@ void CWizardSheet::OnLButtonUp(UINT /*nFlags*/, CPoint point)
 
 void CWizardSheet::OnNcLButtonUp(UINT nHitTest, CPoint /*point*/)
 {
-	// Broken Minimize Button Workaround.  ToDo: Fix properly & Remove this
+	// Broken Minimize Button Workaround. (Still requires double-click?)  ToDo: Fix properly & Remove this
 	if ( nHitTest == HTCLOSE )
 		PostMessage( WM_SYSCOMMAND, SC_CLOSE );
 	else if ( nHitTest == HTMINBUTTON )
@@ -287,11 +301,9 @@ void CWizardSheet::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint /*point*/
 IMPLEMENT_DYNCREATE(CWizardPage, CPropertyPage)
 
 BEGIN_MESSAGE_MAP(CWizardPage, CPropertyPage)
-	//{{AFX_MSG_MAP(CWizardPage)
 	ON_WM_SIZE()
 	ON_WM_CTLCOLOR()
 	ON_MESSAGE(WM_PRESSBUTTON, OnPressButton)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -376,7 +388,7 @@ void CWizardPage::StaticReplace(LPCTSTR pszSearch, LPCTSTR pszReplace)
 		CString strText;
 		pChild->GetWindowText( strText );
 
-		for (;;)
+		for ( ;; )
 		{
 			int nPos = strText.Find( pszSearch );
 			if ( nPos < 0 ) break;

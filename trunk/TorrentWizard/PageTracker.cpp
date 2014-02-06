@@ -1,7 +1,7 @@
 //
 // PageTracker.cpp
 //
-// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2012
+// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2014
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
@@ -33,10 +33,8 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNCREATE(CTrackerPage, CWizardPage)
 
 BEGIN_MESSAGE_MAP(CTrackerPage, CWizardPage)
-	//{{AFX_MSG_MAP(CTrackerPage)
 	ON_BN_CLICKED(IDC_CLEAR_TRACKERS, &CTrackerPage::OnClearTrackers)
 	ON_WM_XBUTTONDOWN()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -54,12 +52,10 @@ CTrackerPage::CTrackerPage() : CWizardPage(CTrackerPage::IDD)
 void CTrackerPage::DoDataExchange(CDataExchange* pDX)
 {
 	CWizardPage::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CTrackerPage)
 	DDX_Control(pDX, IDC_TRACKER, m_wndTracker);
 	DDX_CBString(pDX, IDC_TRACKER, m_sTracker);
 	DDX_Control(pDX, IDC_TRACKER2, m_wndTracker2);
 	DDX_CBString(pDX, IDC_TRACKER2, m_sTracker2);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -85,7 +81,7 @@ BOOL CTrackerPage::OnInitDialog()
 
 	m_sTracker = theApp.GetProfileString( _T("Trackers"), _T("Last") );
 	if ( m_sTracker.GetLength() < 14 )
-		m_sTracker = _T("udp://tracker.openbittorrent.com:80");
+		m_sTracker = _T("udp://tracker.openbittorrent.com:80/announce");
 	UpdateData( FALSE );
 
 	return TRUE;
@@ -134,9 +130,20 @@ LRESULT CTrackerPage::OnWizardNext()
 	UpdateData( TRUE );
 
 	if ( m_sTracker.GetLength() < 16 ||
-		( m_sTracker.Find( _T("http:") ) != 0 && m_sTracker.Find( _T("udp:") ) != 0 ) )
+		( m_sTracker.Left( 6 ).CompareNoCase( _T("udp://") ) != 0 &&
+		  m_sTracker.Left( 7 ).CompareNoCase( _T("http://") ) != 0 &&
+		  m_sTracker.Left( 8 ).CompareNoCase( _T("https://") ) != 0 ) )
 	{
 		if ( IDYES != AfxMessageBox( IDS_TRACKER_NEED_URL, MB_ICONQUESTION|MB_YESNO ) )
+		{
+			m_wndTracker.SetFocus();
+			return -1;
+		}
+	}
+
+	if ( m_sTracker.Right( 9 ).CompareNoCase( _T("/announce") ) != 0 )
+	{
+		if ( IDYES != AfxMessageBox( IDS_TRACKER_NEED_ANNOUNCE, MB_ICONQUESTION|MB_YESNO ) )
 		{
 			m_wndTracker.SetFocus();
 			return -1;

@@ -1,7 +1,7 @@
 //
 // SWFPlugin.cpp : Implementation of DLL Exports.
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Nikolay Raspopov, 2005.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -21,18 +21,18 @@
 
 #include "stdafx.h"
 #include "Resource.h"
-#include "SWFPlugin.h"
+#include "SWFPlugin.h"	// Generated
 
 class CSWFPluginModule : public CAtlDllModuleT< CSWFPluginModule >
 {
 public :
-	CSWFPluginModule ()
+	CSWFPluginModule()
 	{
-		InitializeCriticalSection (&_CS);
+		InitializeCriticalSection(&_CS);
 	}
-	virtual ~CSWFPluginModule ()
+	virtual ~CSWFPluginModule()
 	{
-		DeleteCriticalSection (&_CS);
+		DeleteCriticalSection(&_CS);
 	}
 	DECLARE_LIBID(LIBID_SWFPluginLib)
 	DECLARE_REGISTRY_APPID_RESOURCEID(IDR_SWFPLUGIN, "{6BC193A0-817A-4E64-BDB2-F7193DE36342}")
@@ -44,7 +44,7 @@ CRITICAL_SECTION	_CS;
 
 extern "C" BOOL WINAPI DllMain(HINSTANCE /*hInstance*/, DWORD dwReason, LPVOID lpReserved)
 {
-	return _AtlModule.DllMain(dwReason, lpReserved); 
+	return _AtlModule.DllMain( dwReason, lpReserved );
 }
 
 STDAPI DllCanUnloadNow(void)
@@ -54,7 +54,7 @@ STDAPI DllCanUnloadNow(void)
 
 STDAPI DllGetClassObject(REFCLSID rclsid, REFIID riid, LPVOID* ppv)
 {
-	return _AtlModule.DllGetClassObject(rclsid, riid, ppv);
+	return _AtlModule.DllGetClassObject( rclsid, riid, ppv );
 }
 
 STDAPI DllRegisterServer(void)
@@ -72,13 +72,8 @@ STDAPI DllInstall(BOOL bInstall, LPCWSTR pszCmdLine)
 	HRESULT hr = E_FAIL;
 	static const wchar_t szUserSwitch[] = L"user";
 
-	if ( pszCmdLine != NULL )
-	{
-#if defined(_MSC_VER) && (_MSC_VER >= 1500)	// No VS2005
-		if ( _wcsnicmp(pszCmdLine, szUserSwitch, _countof(szUserSwitch)) == 0 )
-			AtlSetPerUserRegistration(true);
-#endif
-	}
+	if ( pszCmdLine && _wcsnicmp(pszCmdLine, szUserSwitch, _countof(szUserSwitch)) == 0 )
+		AtlSetPerUserRegistration(true);	// VS2008+
 
 	if ( bInstall )
 	{
@@ -87,7 +82,9 @@ STDAPI DllInstall(BOOL bInstall, LPCWSTR pszCmdLine)
 			DllUnregisterServer();
 	}
 	else
+	{
 		hr = DllUnregisterServer();
+	}
 
 	return hr;
 }

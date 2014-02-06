@@ -16,11 +16,11 @@ namespace boost {
 // "std:: is visible globally" hack it uses.  Use
 // BOOST_ITERATOR_CATEGORY to write code that's portable to older GCCs.
 
-# if BOOST_WORKAROUND(__GNUC__, <= 2)
-#  define BOOST_ITERATOR_CATEGORY iterator_category_
-# else
+//# if BOOST_WORKAROUND(__GNUC__, <= 2)
+//#  define BOOST_ITERATOR_CATEGORY iterator_category_
+//# else
 #  define BOOST_ITERATOR_CATEGORY iterator_category
-# endif
+//# endif
 
 
 template <class Iterator>

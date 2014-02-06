@@ -411,9 +411,9 @@ public:
 
             compressed_pair() : base() {}
             compressed_pair(first_param_type x, second_param_type y) : base(x, y) {}
-#if !(defined(__SUNPRO_CC) && (__SUNPRO_CC <= 0x530))
+//#if !(defined(__SUNPRO_CC) && (__SUNPRO_CC <= 0x530))
    explicit
-#endif
+//#endif
       compressed_pair(first_param_type x) : base(x) {}
 
    first_reference       first()       {return base::first();}
@@ -440,4 +440,3 @@ swap(compressed_pair<T1, T2>& x, compressed_pair<T1, T2>& y)
 #endif
 
 #endif // BOOST_DETAIL_COMPRESSED_PAIR_HPP
-

@@ -5,10 +5,11 @@
 
 #ifndef UUID_274DA366004E11DCB1DDFE2E56D89593
 #define UUID_274DA366004E11DCB1DDFE2E56D89593
+//#if (__GNUC__*100+__GNUC_MINOR__>301) && !defined(BOOST_EXCEPTION_ENABLE_WARNINGS)
+//#pragma GCC system_header
+//#endif
 #if defined(_MSC_VER) && !defined(BOOST_EXCEPTION_ENABLE_WARNINGS)
 #pragma warning(push,1)
-//#elif defined(__GNUC__) && !defined(BOOST_EXCEPTION_ENABLE_WARNINGS)
-//#pragma GCC system_header
 #endif
 
 namespace
@@ -131,17 +132,17 @@ boost
             }
         };
 
-#if defined(__GNUC__)
-# if (__GNUC__ == 4 && __GNUC_MINOR__ >= 1) || (__GNUC__ > 4)
-#  pragma GCC visibility push (default)
-# endif
-#endif
+//#if defined(__GNUC__)
+//# if (__GNUC__ == 4 && __GNUC_MINOR__ >= 1) || (__GNUC__ > 4)
+//#  pragma GCC visibility push (default)
+//# endif
+//#endif
     class exception;
-#if defined(__GNUC__)
-# if (__GNUC__ == 4 && __GNUC_MINOR__ >= 1) || (__GNUC__ > 4)
-#  pragma GCC visibility pop
-# endif
-#endif
+//#if defined(__GNUC__)
+//# if (__GNUC__ == 4 && __GNUC_MINOR__ >= 1) || (__GNUC__ > 4)
+//#  pragma GCC visibility pop
+//# endif
+//#endif
 
     template <class T>
     class shared_ptr;
@@ -198,11 +199,11 @@ boost
         E const & set_info( E const &, throw_line const & );
         }
 
-#if defined(__GNUC__)
-# if (__GNUC__ == 4 && __GNUC_MINOR__ >= 1) || (__GNUC__ > 4)
-#  pragma GCC visibility push (default)
-# endif
-#endif
+//#if defined(__GNUC__)
+//# if (__GNUC__ == 4 && __GNUC_MINOR__ >= 1) || (__GNUC__ > 4)
+//#  pragma GCC visibility push (default)
+//# endif
+//#endif
     class
     exception
         {
@@ -215,17 +216,17 @@ boost
             {
             }
 
-#ifdef __HP_aCC
-        //On HP aCC, this protected copy constructor prevents throwing boost::exception.
-        //On all other platforms, the same effect is achieved by the pure virtual destructor.
-        exception( exception const & x ) throw():
-            data_(x.data_),
-            throw_function_(x.throw_function_),
-            throw_file_(x.throw_file_),
-            throw_line_(x.throw_line_)
-            {
-            }
-#endif
+//#ifdef __HP_aCC
+//      //On HP aCC, this protected copy constructor prevents throwing boost::exception.
+//      //On all other platforms, the same effect is achieved by the pure virtual destructor.
+//      exception( exception const & x ) throw():
+//          data_(x.data_),
+//          throw_function_(x.throw_function_),
+//          throw_file_(x.throw_file_),
+//          throw_line_(x.throw_line_)
+//          {
+//          }
+//#endif
 
         virtual ~exception() throw()
 #ifndef __HP_aCC
@@ -234,7 +235,7 @@ boost
             ;
 
 #if (defined(__MWERKS__) && __MWERKS__<=0x3207) || (defined(_MSC_VER) && _MSC_VER<=1310)
-        public:
+//      public:
 #else
         private:
 
@@ -264,11 +265,11 @@ boost
         mutable char const * throw_file_;
         mutable int throw_line_;
         };
-#if defined(__GNUC__)
-# if (__GNUC__ == 4 && __GNUC_MINOR__ >= 1) || (__GNUC__ > 4)
-#  pragma GCC visibility pop
-# endif
-#endif
+//#if defined(__GNUC__)
+//# if (__GNUC__ == 4 && __GNUC_MINOR__ >= 1) || (__GNUC__ > 4)
+//#  pragma GCC visibility pop
+//# endif
+//#endif
 
     inline
     exception::
@@ -309,6 +310,11 @@ boost
     namespace
     exception_detail
         {
+//#if defined(__GNUC__)
+//# if (__GNUC__ == 4 && __GNUC_MINOR__ >= 1) || (__GNUC__ > 4)
+//#  pragma GCC visibility push (default)
+//# endif
+//#endif
         template <class T>
         struct
         error_info_injector:
@@ -325,6 +331,11 @@ boost
                 {
                 }
             };
+//#if defined(__GNUC__)
+//# if (__GNUC__ == 4 && __GNUC_MINOR__ >= 1) || (__GNUC__ > 4)
+//#  pragma GCC visibility pop
+//# endif
+//#endif
 
         struct large_size { char c[256]; };
         large_size dispatch_boost_exception( exception const * );
@@ -372,6 +383,11 @@ boost
     namespace
     exception_detail
         {
+//#if defined(__GNUC__)
+//# if (__GNUC__ == 4 && __GNUC_MINOR__ >= 1) || (__GNUC__ > 4)
+//#  pragma GCC visibility push (default)
+//# endif
+//#endif
         class
         clone_base
             {
@@ -385,6 +401,11 @@ boost
                 {
                 }
             };
+//#if defined(__GNUC__)
+//# if (__GNUC__ == 4 && __GNUC_MINOR__ >= 1) || (__GNUC__ > 4)
+//#  pragma GCC visibility pop
+//# endif
+//#endif
 
         inline
         void

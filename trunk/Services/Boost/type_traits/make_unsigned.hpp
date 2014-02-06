@@ -72,7 +72,15 @@ struct make_unsigned_imp
                      is_same<t_no_cv, long>,
                      unsigned long,
 #if defined(BOOST_HAS_LONG_LONG)
+#ifdef BOOST_HAS_INT128
+                     typename mpl::if_c<
+                        sizeof(t_no_cv) == sizeof(boost::ulong_long_type),
+                        boost::ulong_long_type,
+                        boost::uint128_type
+                     >::type
+#else
                      boost::ulong_long_type
+#endif
 #elif defined(BOOST_HAS_MS_INT64)
                      unsigned __int64
 #else
@@ -96,7 +104,15 @@ struct make_unsigned_imp
                      sizeof(t_no_cv) == sizeof(unsigned long),
                      unsigned long,
 #if defined(BOOST_HAS_LONG_LONG)
+#ifdef BOOST_HAS_INT128
+                     typename mpl::if_c<
+                        sizeof(t_no_cv) == sizeof(boost::ulong_long_type),
+                        boost::ulong_long_type,
+                        boost::uint128_type
+                     >::type
+#else
                      boost::ulong_long_type
+#endif
 #elif defined(BOOST_HAS_MS_INT64)
                      unsigned __int64
 #else
@@ -134,4 +150,3 @@ BOOST_TT_AUX_TYPE_TRAIT_DEF1(make_unsigned,T,typename boost::detail::make_unsign
 #include <boost/type_traits/detail/type_trait_undef.hpp>
 
 #endif // BOOST_TT_ADD_REFERENCE_HPP_INCLUDED
-

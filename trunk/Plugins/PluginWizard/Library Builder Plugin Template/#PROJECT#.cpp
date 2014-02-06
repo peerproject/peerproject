@@ -34,41 +34,41 @@ CModule _AtlModule;
 
 extern "C" BOOL WINAPI DllMain(HINSTANCE /*hInstance*/, DWORD dwReason, LPVOID lpReserved)
 {
-	return _AtlModule.DllMain( dwReason, lpReserved ); 
+	return _AtlModule.DllMain( dwReason, lpReserved );
 }
 
+// Determine whether the DLL can be unloaded by OLE
 STDAPI DllCanUnloadNow(void)
 {
 	return _AtlModule.DllCanUnloadNow();
 }
 
+// Return a class factory to create an object of the requested type
 STDAPI DllGetClassObject(REFCLSID rclsid, REFIID riid, LPVOID* ppv)
 {
 	return _AtlModule.DllGetClassObject( rclsid, riid, ppv );
 }
 
+// Add entries to the system registry
 STDAPI DllRegisterServer(void)
 {
 	return _AtlModule.DllRegisterServer();
 }
 
+// Remove entries from the system registry
 STDAPI DllUnregisterServer(void)
 {
 	return _AtlModule.DllUnregisterServer();
 }
 
+// Add/Remove entries to the system registry per user
 STDAPI DllInstall(BOOL bInstall, LPCWSTR pszCmdLine)
 {
 	HRESULT hr = E_FAIL;
 	static const wchar_t szUserSwitch[] = L"user";
 
-	if ( pszCmdLine != NULL )
-	{
-#if defined(_MSC_VER) && (_MSC_VER >= 1500)	// No VS2005
-		if ( _wcsnicmp(pszCmdLine, szUserSwitch, _countof(szUserSwitch)) == 0 )
-			AtlSetPerUserRegistration(true);
-#endif
-	}
+	if ( pszCmdLine && _wcsnicmp(pszCmdLine, szUserSwitch, _countof(szUserSwitch)) == 0 )
+		AtlSetPerUserRegistration(true);	// VS2008+
 
 	if ( bInstall )
 	{
@@ -77,7 +77,9 @@ STDAPI DllInstall(BOOL bInstall, LPCWSTR pszCmdLine)
 			DllUnregisterServer();
 	}
 	else
+	{
 		hr = DllUnregisterServer();
+	}
 
 	return hr;
 }

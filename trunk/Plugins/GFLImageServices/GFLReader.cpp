@@ -1,7 +1,7 @@
 //
 // GFLReader.cpp : Implementation of CGFLReader
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Nikolay Raspopov, 2005.
 //
 // GFL Library, GFL SDK and XnView
@@ -25,22 +25,23 @@
 #include "stdafx.h"
 #include "GFLReader.h"
 
-HRESULT CGFLReader::FinalConstruct () throw()
+HRESULT CGFLReader::FinalConstruct() throw()
 {
 	return CoCreateFreeThreadedMarshaler( GetControllingUnknown(), &m_pUnkMarshaler.p );
 }
 
-void CGFLReader::FinalRelease () throw()
+void CGFLReader::FinalRelease() throw()
 {
 	m_pUnkMarshaler.Release();
 }
 
-HRESULT BitmapToSafeArray( SAFEARRAY** const ppImage, const IMAGESERVICEDATA* const pParams,
+HRESULT BitmapToSafeArray ( SAFEARRAY** const ppImage, const IMAGESERVICEDATA* const pParams,
 	const GFL_BITMAP* hGflBitmap ) throw ()
 {
 	HRESULT hr = E_OUTOFMEMORY;
 	ULONG line_size = ( ( pParams->nWidth * pParams->nComponents ) + 3 ) & ( -4 );
 	ULONG total_size = line_size * pParams->nHeight;
+
 	*ppImage = SafeArrayCreateVector( VT_UI1, 0, total_size );
 	if ( *ppImage )
 	{
@@ -60,6 +61,7 @@ HRESULT BitmapToSafeArray( SAFEARRAY** const ppImage, const IMAGESERVICEDATA* co
 	}
 	else
 		ATLTRACE( "SafeArrayCreateVector error: Out of memory\n" );
+
 	return hr;
 }
 
@@ -68,7 +70,7 @@ STDMETHODIMP CGFLReader::LoadFromFile (
 	/* [in,out] */ IMAGESERVICEDATA* pParams,
 	/* [out] */ SAFEARRAY** ppImage )
 {
-	ATLTRACE( "LoadFromFile (\"%s\", 0x%08x, 0x%08x)\n", CW2A( (LPCWSTR)sFile ), pParams, ppImage );
+	ATLTRACE( "CGFLReader::LoadFromFile (\"%s\", 0x%08x, 0x%08x)\n", (LPCSTR)CW2A( (LPCWSTR)sFile ), pParams, ppImage );
 
 	if ( ! pParams || ! ppImage )
 	{
@@ -84,12 +86,12 @@ STDMETHODIMP CGFLReader::LoadFromFile (
 	GFL_FILE_INFORMATION inf = { 0 };
 	WCHAR pszPath[MAX_PATH] = { 0 };
 
-	GFL_ERROR err = gflGetFileInformation( CW2A(sFile), -1, &inf );
+	GFL_ERROR err = gflGetFileInformationW( (LPCWSTR)sFile, -1, &inf );
 
 	if ( err != GFL_NO_ERROR )
 	{
-		if ( GetShortPathNameW( sFile, pszPath, MAX_PATH ) )
-			err = gflGetFileInformation( CW2A(pszPath), -1, &inf );
+		if ( GetShortPathNameW( (LPCWSTR)sFile, pszPath, MAX_PATH ) )
+			err = gflGetFileInformationW( pszPath, -1, &inf );
 		else
 			err = GFL_ERROR_FILE_OPEN;
 	}
@@ -120,13 +122,13 @@ STDMETHODIMP CGFLReader::LoadFromFile (
 	else
 	{
 		hr = E_FAIL;
-		ATLTRACE( "gflGetFileInformation error: %s\n", gflGetErrorString( err ) );
+		ATLTRACE( "gflGetFileInformationW error: %s\n", gflGetErrorString( err ) );
 	}
 
 	if ( hGflBitmap )
 		gflFreeBitmap( hGflBitmap );
 
-	if ( FAILED (hr) && *ppImage )
+	if ( FAILED( hr ) && *ppImage )
 	{
 		SafeArrayDestroy( *ppImage );
 		*ppImage = NULL;
@@ -153,7 +155,7 @@ STDMETHODIMP CGFLReader::LoadFromMemory (
 	LONG nSource = 0;
 	HRESULT hr = SafeArrayGetUBound( pMemory, 1, &nSource );
 	nSource++;
-	if ( SUCCEEDED (hr) )
+	if ( SUCCEEDED( hr ) )
 	{
 		BYTE* pSource = NULL;
 		hr = SafeArrayAccessData( pMemory, (void**) &pSource );
@@ -161,9 +163,9 @@ STDMETHODIMP CGFLReader::LoadFromMemory (
 		{
 			// Loading image
 			GFL_FILE_INFORMATION inf;
-			ZeroMemory (&inf, sizeof( inf ));
+			ZeroMemory( &inf, sizeof( inf ) );
 			GFL_ERROR err = gflGetFileInformationFromMemory( pSource, nSource, -1, &inf );
-			if (err == GFL_NO_ERROR)
+			if ( err == GFL_NO_ERROR )
 			{
 				pParams->nHeight = inf.Height;
 				pParams->nWidth = inf.Width;
@@ -202,7 +204,7 @@ STDMETHODIMP CGFLReader::LoadFromMemory (
 	if ( hGflBitmap )
 		gflFreeBitmap( hGflBitmap );
 
-	if ( FAILED (hr) && *ppImage )
+	if ( FAILED( hr ) && *ppImage )
 	{
 		SafeArrayDestroy( *ppImage );
 		*ppImage = NULL;
@@ -224,32 +226,33 @@ STDMETHODIMP CGFLReader::SaveToFile (
 		return E_POINTER;
 	}
 
-	CString ext( sFile );
-	int dot = ext.ReverseFind( '.' );
-	if ( dot != -1 )
-		ext = ext.Mid( dot + 1 );
-
 	LONG nSource = 0;
 	HRESULT hr = SafeArrayGetUBound( pImage, 1, &nSource );
-	nSource++;
-	if ( SUCCEEDED (hr) )
+	if ( SUCCEEDED( hr ) )
 	{
 		BYTE* pSource = NULL;
-		hr = SafeArrayAccessData (pImage, (void**) &pSource);
+		hr = SafeArrayAccessData( pImage, (void**) &pSource );
 		if ( SUCCEEDED( hr ) )
 		{
 			hr = E_OUTOFMEMORY;
-			GFL_BITMAP* hGflBitmap = gflAllockBitmapEx (
+			GFL_BITMAP* hGflBitmap = gflAllockBitmapEx(
 				( pParams->nComponents == 4 ) ? GFL_RGBA : GFL_RGB,
-				pParams->nWidth, pParams->nHeight, 8, 4, NULL);
+				pParams->nWidth, pParams->nHeight, 8, 4, NULL );
 			if ( hGflBitmap )
 			{
-				ATLASSERT( nSource == ( ( ( pParams->nWidth * pParams->nComponents) + 3 ) & ( -4 ) ) * pParams->nHeight );
+				ATLASSERT( nSource == ( ( ( pParams->nWidth * pParams->nComponents ) + 3 ) & ( -4 ) ) * pParams->nHeight );
+
+				nSource++;
+				CString ext( sFile );
+				int nDot = ext.ReverseFind( '.' );
+				if ( nDot > 0 )
+					ext = ext.Mid( nDot + 1 );
+
 				CopyMemory( hGflBitmap->Data, pSource, nSource );
 				GFL_SAVE_PARAMS params = {};
 				gflGetDefaultSaveParams( &params );
 				params.FormatIndex = GetFormatIndexByExt( ext );
-				params.Quality = (GFL_INT16) pParams->nQuality;
+				params.Quality = (GFL_INT16)pParams->nQuality;
 				hr = SAFEgflSaveBitmap( sFile, hGflBitmap, &params );
 				gflFreeBitmap( hGflBitmap );
 			}
@@ -275,16 +278,11 @@ STDMETHODIMP CGFLReader::SaveToMemory (
 
 	*ppMemory = NULL;
 
-	CString ext (sType);
-	int dot = ext.ReverseFind( '.' );
-	if ( dot != -1 )
-		ext = ext.Mid( dot + 1 );
-
 	LONG nSource = 0;
 	HRESULT hr = SafeArrayGetUBound( pImage, 1, &nSource );
-	nSource++;
 	if ( SUCCEEDED( hr ) )
 	{
+		nSource++;
 		BYTE* pSource = NULL;
 		hr = SafeArrayAccessData( pImage, (void**) &pSource );
 		if ( SUCCEEDED( hr ) )
@@ -296,11 +294,17 @@ STDMETHODIMP CGFLReader::SaveToMemory (
 			if ( hGflBitmap )
 			{
 				ATLASSERT( nSource == ( ( ( pParams->nWidth * pParams->nComponents ) + 3 ) & (-4) ) * pParams->nHeight );
+
+				CString ext( sType );
+				int nDot = ext.ReverseFind( '.' );
+				if ( nDot != -1 )
+					ext = ext.Mid( nDot + 1 );
+
 				CopyMemory( hGflBitmap->Data, pSource, nSource );
 				GFL_SAVE_PARAMS params;
 				gflGetDefaultSaveParams( &params );
 				params.FormatIndex = GetFormatIndexByExt( ext );
-				params.Quality = (GFL_INT16) pParams->nQuality;
+				params.Quality = (GFL_INT16)pParams->nQuality;
 				GFL_UINT8* data = NULL;
 				GFL_UINT32 size = 0;
 				hr = SAFEgflSaveBitmapIntoMemory( &data, &size, hGflBitmap, &params );

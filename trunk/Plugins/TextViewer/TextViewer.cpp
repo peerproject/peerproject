@@ -1,7 +1,7 @@
 //
 // TextViewer.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2010
+// This file is part of PeerProject (peerproject.org) © 2010-2014
 // TextViewer plugin is released under the Persistent Public Domain license.
 //
 // This code may be treated as Public Domain, provided:
@@ -52,13 +52,8 @@ STDAPI DllInstall(BOOL bInstall, LPCWSTR pszCmdLine)
 	HRESULT hr = E_FAIL;
 	static const wchar_t szUserSwitch[] = L"user";
 
-	if ( pszCmdLine != NULL )
-	{
-#if defined(_MSC_VER) && (_MSC_VER >= 1500)	// No VS2005
-		if ( _wcsnicmp(pszCmdLine, szUserSwitch, _countof(szUserSwitch)) == 0 )
-			AtlSetPerUserRegistration(true);
-#endif
-	}
+	if ( pszCmdLine && _wcsnicmp(pszCmdLine, szUserSwitch, _countof(szUserSwitch)) == 0 )
+		AtlSetPerUserRegistration(true);	// VS2008+
 
 	if ( bInstall )
 	{
@@ -67,7 +62,9 @@ STDAPI DllInstall(BOOL bInstall, LPCWSTR pszCmdLine)
 			DllUnregisterServer();
 	}
 	else
+	{
 		hr = DllUnregisterServer();
+	}
 
 	return hr;
 }

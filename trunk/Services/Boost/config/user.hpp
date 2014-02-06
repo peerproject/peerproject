@@ -37,8 +37,7 @@
 // define this to disable all config options,
 // excluding the user config.  Use if your
 // setup is fully ISO compliant, and has no
-// useful extensions, or for autoconf generated
-// setups:
+// useful extensions, or for autoconf generated setups:
 // #define BOOST_NO_CONFIG
 
 // define this to make the config "optimistic"
@@ -57,8 +56,8 @@
 // #define BOOST_ASSERT_CONFIG
 
 
-// define if you want to disable threading support, even
-// when available:
+// define if you want to disable threading support,
+// even when available:
 // #define BOOST_DISABLE_THREADS
 
 // define when you want to disable Win32 specific features

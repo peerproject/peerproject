@@ -70,6 +70,7 @@ void CFinishedPage::DoDataExchange(CDataExchange* pDX)
 	CWizardPage::DoDataExchange(pDX);
 
 	DDX_Control(pDX, IDC_ABORT, m_wndAbort);
+	DDX_Control(pDX, IDC_FILE_NAME, m_wndFileName);
 	DDX_Control(pDX, IDC_TORRENT_NAME, m_wndTorrentName);
 	DDX_Control(pDX, IDC_TORRENT_COPY, m_wndTorrentCopy);
 	DDX_Control(pDX, IDC_TORRENT_OPEN, m_wndTorrentOpen);
@@ -79,9 +80,8 @@ void CFinishedPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_SPEED_SLOW, m_wndSpeedSlow);
 	DDX_Control(pDX, IDC_SPEED_FAST, m_wndSpeedFast);
 	DDX_Control(pDX, IDC_PROGRESS, m_wndProgress);
-	DDX_Control(pDX, IDC_FILE_NAME, m_wndFileName);
-	DDX_Control(pDX, IDC_DONE_2, m_wndDone2);
-	DDX_Control(pDX, IDC_DONE_1, m_wndDone1);
+	DDX_Control(pDX, IDC_DONE_TEXT1, m_wndDone1);
+	DDX_Control(pDX, IDC_DONE_TEXT2, m_wndDone2);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -117,7 +117,12 @@ void CFinishedPage::Start()
 
 	GET_PAGE( CTrackerPage, pTracker );
 	m_pBuilder->AddTrackerURL( pTracker->m_sTracker );
-	m_pBuilder->AddTrackerURL2( pTracker->m_sTracker2 );
+	if ( pTracker->m_sTracker2.GetLength() > 15 &&
+		 pTracker->m_sTracker != pTracker->m_sTracker2 )
+	{
+		m_pBuilder->AddTracker( pTracker->m_sTracker );
+		m_pBuilder->AddTracker( pTracker->m_sTracker2 );
+	}
 
 	GET_PAGE( CCommentPage, pComment );
 	m_pBuilder->SetComment( pComment->m_sComment );
@@ -129,6 +134,7 @@ void CFinishedPage::Start()
 	if ( pWelcome->m_nType == 0 )
 	{
 		GET_PAGE( CSinglePage, pSingle );
+
 		m_pBuilder->AddFile( pSingle->m_sFileName );
 	}
 	else if ( pWelcome->m_nType == 1 )
@@ -140,13 +146,24 @@ void CFinishedPage::Start()
 			m_pBuilder->AddFile( pPackage->m_wndList.GetItemText( nFile, 0 ) );
 		}
 	}
-	else
+	else // ( pWelcome->m_nType == 2 )
 	{
 		GET_PAGE( CExpertPage, pExpert );
 
-		for ( int nFile = 0 ; nFile < pExpert->m_wndList.GetItemCount() ; nFile++ )
+		int nCount = pExpert->m_wndList.GetItemCount();
+
+		for ( int nFile = 0 ; nFile < nCount ; nFile++ )
 		{
 			m_pBuilder->AddFile( pExpert->m_wndList.GetItemText( nFile, 0 ) );
+		}
+
+		nCount = pExpert->m_wndTrackers.GetCount();
+
+		for ( int nIndex = 0 ; nIndex < nCount ; nIndex++ )
+		{
+			CString str;
+			pExpert->m_wndTrackers.GetText( nIndex, str );
+			m_pBuilder->AddTracker( str );
 		}
 	}
 

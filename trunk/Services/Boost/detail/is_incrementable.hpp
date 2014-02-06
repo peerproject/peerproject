@@ -36,17 +36,17 @@ namespace is_incrementable_
   // This is a last-resort operator++ for when none other is found
 # if BOOST_WORKAROUND(__GNUC__, == 4) && __GNUC_MINOR__ == 0 && __GNUC_PATCHLEVEL__ == 2
 
-}
-
-namespace is_incrementable_2
-{
-  is_incrementable_::tag operator++(is_incrementable_::any const&);
-  is_incrementable_::tag operator++(is_incrementable_::any const&,int);
-}
-using namespace is_incrementable_2;
-
-namespace is_incrementable_
-{
+//}
+//
+//namespace is_incrementable_2
+//{
+//  is_incrementable_::tag operator++(is_incrementable_::any const&);
+//  is_incrementable_::tag operator++(is_incrementable_::any const&,int);
+//}
+//using namespace is_incrementable_2;
+//
+//namespace is_incrementable_
+//{
 
 # else
 

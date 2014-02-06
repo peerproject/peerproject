@@ -1,7 +1,7 @@
 //
 // Builder.cpp : Implementation of CBuilder
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions Copyright Nikolay Raspopov, 2005-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -21,9 +21,11 @@
 
 #include "stdafx.h"
 #include "Builder.h"
-#include <strsafe.h>
+//#include <strsafe.h>
 
-STDMETHODIMP CBuilder::Process(/*[in]*/ BSTR sFile, /*[in]*/ ISXMLElement* pXML)
+STDMETHODIMP CBuilder::Process(
+	/*[in]*/ BSTR sFile,
+	/*[in]*/ ISXMLElement* pXML)
 {
 	HRESULT hr = E_FAIL;
 	__try
@@ -39,34 +41,34 @@ STDMETHODIMP CBuilder::Process(/*[in]*/ BSTR sFile, /*[in]*/ ISXMLElement* pXML)
 
 HRESULT CBuilder::SafeProcess(BSTR sFile, ISXMLElement* pXML)
 {
-	CString tmp;
-
 	if ( ! pXML )
 		return E_POINTER;
+
+	CString tmp;
 
 	CComPtr <ISXMLElements> pISXMLRootElements;
 	HRESULT hr = pXML->get_Elements(&pISXMLRootElements);
 	if ( FAILED( hr ) )
 		return hr;
 	CComPtr <ISXMLElement> pXMLRootElement;
-	hr = pISXMLRootElements->Create (CComBSTR ("videos"), &pXMLRootElement);
+	hr = pISXMLRootElements->Create(CComBSTR("videos"), &pXMLRootElement);
 	if ( FAILED( hr ) )
 		return hr;
 	CComPtr <ISXMLAttributes> pISXMLRootAttributes;
 	hr = pXMLRootElement->get_Attributes(&pISXMLRootAttributes);
 	if ( FAILED( hr ) )
 		return hr;
-	pISXMLRootAttributes->Add (CComBSTR ("xmlns:xsi"),
-		CComBSTR ("http://www.w3.org/2001/XMLSchema-instance"));
-	pISXMLRootAttributes->Add (CComBSTR ("xsi:noNamespaceSchemaLocation"),
-		CComBSTR ("http://www.limewire.com/schemas/video.xsd"));
+	pISXMLRootAttributes->Add(CComBSTR("xmlns:xsi"),
+		CComBSTR("http://www.w3.org/2001/XMLSchema-instance"));
+	pISXMLRootAttributes->Add(CComBSTR("xsi:noNamespaceSchemaLocation"),
+		CComBSTR("http://www.limewire.com/schemas/video.xsd"));
 
 	CComPtr <ISXMLElements> pISXMLElements;
 	hr = pXMLRootElement->get_Elements(&pISXMLElements);
 	if ( FAILED( hr ) )
 		return hr;
 	CComPtr <ISXMLElement> pXMLElement;
-	hr = pISXMLElements->Create (CComBSTR ("video"), &pXMLElement);
+	hr = pISXMLElements->Create(CComBSTR("video"), &pXMLElement);
 	if ( FAILED( hr ) )
 		return hr;
 	CComPtr <ISXMLAttributes> pISXMLAttributes;
@@ -84,20 +86,20 @@ HRESULT CBuilder::SafeProcess(BSTR sFile, ISXMLElement* pXML)
 		{
 			long lStreams = 0;
 			bool bFound = false;
-			hr = pDet->get_OutputStreams (&lStreams);
+			hr = pDet->get_OutputStreams(&lStreams);
 			if ( SUCCEEDED( hr ) )
 			{
 				AM_MEDIA_TYPE mt = {};
 				for (long i = 0; i < lStreams; i++)
 				{
-					hr = pDet->put_CurrentStream (i);
+					hr = pDet->put_CurrentStream(i);
 					if ( SUCCEEDED( hr ) )
 					{
 						GUID major_type = {};
-						hr = pDet->get_StreamType (&major_type);
+						hr = pDet->get_StreamType(&major_type);
 						if ( major_type == MEDIATYPE_Video )
 						{
-							hr = pDet->get_StreamMediaType (&mt);
+							hr = pDet->get_StreamMediaType(&mt);
 							if ( SUCCEEDED( hr ) &&
 								mt.formattype == FORMAT_VideoInfo &&
 								mt.cbFormat >= sizeof(VIDEOINFOHEADER) &&
@@ -106,94 +108,117 @@ HRESULT CBuilder::SafeProcess(BSTR sFile, ISXMLElement* pXML)
 								bFound = true;
 								break;
 							}
-							if ( !bFound )
+							if ( ! bFound )
 							{
 								if (mt.cbFormat != 0)
-									CoTaskMemFree (mt.pbFormat);
+									CoTaskMemFree(mt.pbFormat);
 								if (mt.pUnk != NULL)
 									mt.pUnk->Release();
 								ZeroMemory( &mt, sizeof(AM_MEDIA_TYPE) );
 							}
 						}
+						//else if ( major_type == MEDIATYPE_Audio )
 					}
 				}
-				if (bFound)
+
+				if ( bFound )
 				{
-					VIDEOINFOHEADER *pVih = (VIDEOINFOHEADER*)mt.pbFormat;
-					CString codec;
-					if (mt.subtype == MEDIASUBTYPE_Y41P)
+					// ToDo: Get proper codec info - http://msdn.microsoft.com/en-us/library/windows/desktop/dd373477.aspx
+
+					const VIDEOINFOHEADER *pVih = (const VIDEOINFOHEADER*)mt.pbFormat;
+
+					CString strCodec;
+
+					if ( mt.subtype == MEDIASUBTYPE_MPEG1Video )
 					{
-						codec = _T("MPEG");
+						strCodec = _T("MPEG");
 					}
-					else if (
-						mt.subtype.Data2 == 0x0000 &&
-						mt.subtype.Data3 == 0x0010 &&
-						mt.subtype.Data4[0] == 0x80 &&
-						mt.subtype.Data4[1] == 0x00 &&
-						mt.subtype.Data4[2] == 0x00 &&
-						mt.subtype.Data4[3] == 0xAA &&
-						mt.subtype.Data4[4] == 0x00 &&
-						mt.subtype.Data4[5] == 0x38 &&
-						mt.subtype.Data4[6] == 0x9B &&
-						mt.subtype.Data4[7] == 0x71)
+					else if ( mt.subtype != MEDIASUBTYPE_None )
 					{
-						codec.Format(_T("%c%c%c%c"),
-							LOBYTE (LOWORD (mt.subtype.Data1)),
-							HIBYTE (LOWORD (mt.subtype.Data1)),
-							LOBYTE (HIWORD (mt.subtype.Data1)),
-							HIBYTE (HIWORD (mt.subtype.Data1)));
-					}
-					else if (mt.subtype == MEDIASUBTYPE_RGB1)
-					{
-						codec = _T("RGB1");
-					}
-					else if (mt.subtype == MEDIASUBTYPE_RGB4)
-					{
-						codec = _T("RGB4");
-					}
-					else if (mt.subtype == MEDIASUBTYPE_RGB8)
-					{
-						codec = _T("RGB8");
-					}
-					else if (mt.subtype == MEDIASUBTYPE_RGB565)
-					{
-						codec = _T("RGB565");
-					}
-					else if (mt.subtype == MEDIASUBTYPE_RGB555)
-					{
-						codec = _T("RGB555");
-					}
-					else if (mt.subtype == MEDIASUBTYPE_RGB24)
-					{
-						codec = _T("RGB24");
-					}
-					else if (mt.subtype == MEDIASUBTYPE_RGB32)
-					{
-						codec = _T("RGB32");
-					}
-					else
-					{
-#ifdef _DEBUG
-						LPWSTR clsid = NULL;
-						if (SUCCEEDED (StringFromCLSID (mt.subtype, &clsid)))
-						{
-							ATLTRACE( "Video format: %s\n", clsid);
-							CoTaskMemFree (clsid);
-						}
-#endif // _DEBUG
-						codec = _T("Unknown");
+						strCodec.Format(_T("%c%c%c%c"),
+							LOBYTE(LOWORD(mt.subtype.Data1)),
+							HIBYTE(LOWORD(mt.subtype.Data1)),
+							LOBYTE(HIWORD(mt.subtype.Data1)),
+							HIBYTE(HIWORD(mt.subtype.Data1)));
 					}
 
-					pISXMLAttributes->Add(CComBSTR ("codec"), CComBSTR (codec));
+//					// Video Format (Not a codec)
+//					if (mt.subtype == MEDIASUBTYPE_Y41P)
+//					{
+//						strCodec = _T("MPEG");
+//					}
+//					else if (
+//						mt.subtype.Data2 == 0x0000 &&
+//						mt.subtype.Data3 == 0x0010 &&
+//						mt.subtype.Data4[0] == 0x80 &&
+//						mt.subtype.Data4[1] == 0x00 &&
+//						mt.subtype.Data4[2] == 0x00 &&
+//						mt.subtype.Data4[3] == 0xAA &&
+//						mt.subtype.Data4[4] == 0x00 &&
+//						mt.subtype.Data4[5] == 0x38 &&
+//						mt.subtype.Data4[6] == 0x9B &&
+//						mt.subtype.Data4[7] == 0x71)
+//					{
+//						strCodec.Format(_T("%c%c%c%c"),
+//							LOBYTE (LOWORD (mt.subtype.Data1)),
+//							HIBYTE (LOWORD (mt.subtype.Data1)),
+//							LOBYTE (HIWORD (mt.subtype.Data1)),
+//							HIBYTE (HIWORD (mt.subtype.Data1)));
+//					}
+//					else if (mt.subtype == MEDIASUBTYPE_RGB1)
+//					{
+//						strCodec = _T("RGB1");
+//					}
+//					else if (mt.subtype == MEDIASUBTYPE_RGB4)
+//					{
+//						strCodec = _T("RGB4");
+//					}
+//					else if (mt.subtype == MEDIASUBTYPE_RGB8)
+//					{
+//						strCodec = _T("RGB8");
+//					}
+//					else if (mt.subtype == MEDIASUBTYPE_RGB565)
+//					{
+//						strCodec = _T("RGB565");
+//					}
+//					else if (mt.subtype == MEDIASUBTYPE_RGB555)
+//					{
+//						strCodec = _T("RGB555");
+//					}
+//					else if (mt.subtype == MEDIASUBTYPE_RGB24)
+//					{
+//						strCodec = _T("RGB24");
+//					}
+//					else if (mt.subtype == MEDIASUBTYPE_RGB32)
+//					{
+//						strCodec = _T("RGB32");
+//					}
+//					else
+//					{
+//#ifdef _DEBUG
+//						LPWSTR clsid = NULL;
+//						if (SUCCEEDED(StringFromCLSID(mt.subtype, &clsid)))
+//						{
+//							ATLTRACE( "Video format: %s\n", CW2A( clsid ) );
+//							CoTaskMemFree(clsid);
+//						}
+//#endif // _DEBUG
+//						codec = _T("Unknown");
+//					}
 
-					int nWidth = pVih->bmiHeader.biWidth;
+					if (strCodec.GetLength() == 4)
+						pISXMLAttributes->Add(CComBSTR("codec"), CComBSTR(strCodec));
+
+					int nWidth  = pVih->bmiHeader.biWidth;
 					int nHeight = pVih->bmiHeader.biHeight;
 					if (nHeight < 0)
 						nHeight = -nHeight;
+					if (nHeight > 4400)
+						nHeight = 0;
 					tmp.Format (_T("%lu"), nWidth);
-					pISXMLAttributes->Add(CComBSTR ("width"), CComBSTR (tmp));
+					pISXMLAttributes->Add(CComBSTR("width"), CComBSTR(tmp));
 					tmp.Format (_T("%lu"), nHeight);
-					pISXMLAttributes->Add(CComBSTR ("height"), CComBSTR (tmp));
+					pISXMLAttributes->Add(CComBSTR("height"), CComBSTR(tmp));
 
 					if ( mt.cbFormat )
 						CoTaskMemFree( mt.pbFormat );
@@ -202,7 +227,7 @@ HRESULT CBuilder::SafeProcess(BSTR sFile, ISXMLElement* pXML)
 				}
 
 				double total_time = 0.0;
-				hr = pDet->get_StreamLength (&total_time);
+				hr = pDet->get_StreamLength(&total_time);
 				if ( SUCCEEDED( hr ) )
 				{
 					if ( total_time != .0 )
@@ -210,12 +235,12 @@ HRESULT CBuilder::SafeProcess(BSTR sFile, ISXMLElement* pXML)
 						StringCbPrintf( tmp.GetBuffer( 32 ), 32 * sizeof( TCHAR ),
 							_T("%.3f"), total_time / 60.0 );
 						tmp.ReleaseBuffer();
-						pISXMLAttributes->Add(CComBSTR ("minutes"), CComBSTR (tmp));
+						pISXMLAttributes->Add(CComBSTR("minutes"), CComBSTR(tmp));
 					}
 				}
 
 				double fps = 0.0;
-				hr = pDet->get_FrameRate (&fps);
+				hr = pDet->get_FrameRate(&fps);
 				if ( SUCCEEDED( hr ) )
 				{
 					if ( fps != .0 )
@@ -223,7 +248,7 @@ HRESULT CBuilder::SafeProcess(BSTR sFile, ISXMLElement* pXML)
 						StringCbPrintf( tmp.GetBuffer( 32 ), 32 * sizeof( TCHAR ),
 							_T("%.2f"), fps );
 						tmp.ReleaseBuffer();
-						pISXMLAttributes->Add(CComBSTR ("frameRate"), CComBSTR (tmp));
+						pISXMLAttributes->Add(CComBSTR("frameRate"), CComBSTR(tmp));
 					}
 				}
 				return S_OK;

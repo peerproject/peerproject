@@ -1,7 +1,7 @@
 //
 // Image.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008,2014
 // Original author Michael Stokes released portions into the public domain.
 // You are free to redistribute and modify this page without any restrictions.
 //
@@ -56,25 +56,18 @@ void CImage::Clear()
 BOOL CImage::EnsureRGB(COLORREF crFill)
 {
 	if ( m_nWidth == 0 || m_nHeight == 0 || m_nComponents == 0 )
-	{
 		return FALSE;
-	}
-	else if ( m_nComponents == 3 )
-	{
+
+	if ( m_nComponents == 3 )
 		return TRUE;
-	}
-	else if ( m_nComponents == 1 )
-	{
-		return MonoToRGB();
-	}
-	else if ( m_nComponents == 4 )
-	{
+
+	if ( m_nComponents == 4 )
 		return AlphaToRGB( crFill );
-	}
-	else
-	{
-		return FALSE;
-	}
+
+	if ( m_nComponents == 1 )
+		return MonoToRGB();
+
+	return FALSE;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -284,28 +277,27 @@ HBITMAP CImage::Resample(int nNewWidth, int nNewHeight)
 BOOL CImage::Load(LPCTSTR pszPath)
 {
 	// Clear any previous image
-
 	Clear();
 
-	// Open the file
+	// Support long paths
+	CString strSafePath = pszPath;
+	if ( strSafePath.GetLength() > MAX_PATH )
+		strSafePath = _T("\\\\?\\") + strSafePath;
 
-	HANDLE hFile = CreateFile( pszPath, GENERIC_READ, FILE_SHARE_READ|FILE_SHARE_WRITE,
+	// Open the file
+	HANDLE hFile = CreateFile( strSafePath, GENERIC_READ, FILE_SHARE_READ|FILE_SHARE_WRITE|FILE_SHARE_DELETE,
 		NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL );
 
 	// Make sure it worked
-
 	if ( hFile == INVALID_HANDLE_VALUE ) return FALSE;
 
 	// Get the file length
-
 	DWORD nLength = GetFileSize( hFile, NULL );
 
 	// Try to load the PeerProject ImageService for this file type
-
 	IImageServicePlugin* pService = LoadService( pszPath );
 
 	// Make sure it worked
-
 	if ( pService == NULL )
 	{
 		CloseHandle( hFile );
@@ -313,34 +305,25 @@ BOOL CImage::Load(LPCTSTR pszPath)
 	}
 
 	// Setup the IMAGESERVICEDATA structure
-
-	IMAGESERVICEDATA pParams;
-	ZeroMemory( &pParams, sizeof(pParams) );
-
-	pParams.cbSize		= sizeof(pParams);
-	pParams.nFlags		= IMAGESERVICE_PARTIAL_IN;	// Partial images okay
+	IMAGESERVICEDATA pParams = {};
+	pParams.cbSize = sizeof(pParams);
+	pParams.nFlags = IMAGESERVICE_PARTIAL_IN;	// Partial images okay
 
 	// Ask the ImageService to load from file handle
-
 	SAFEARRAY* pArray = NULL;
-	BSTR sFile = SysAllocString (CT2CW (pszPath));
-	HRESULT hr = pService->LoadFromFile( sFile, &pParams, &pArray );
-	SysFreeString (sFile);
-
+	HRESULT hr = pService->LoadFromFile( CComBSTR( strSafePath ), &pParams, &pArray );
+	
 	// Check the result
-
 	if ( hr == E_NOTIMPL )
 	{
-		// ImageService does not support loading from file.  This is allowed, but inconvenient for us.  It
-		// must support loading from memory, so we'll do that instead.
+		// ImageService does not support loading from file.  This is allowed, but inconvenient for us.
+		// It must support loading from memory, so we'll do that instead.
 
 		// If an output was created, get rid of it (technically it shouldn't have happened, but anyway)
-
 		if ( pArray != NULL ) SafeArrayDestroy( pArray );
 		pArray = NULL;
 
 		// Create a file mapping for the file
-
 		HANDLE hMap = CreateFileMapping( hFile, NULL, PAGE_READONLY, 0, 0, NULL );
 
 		if ( hMap != INVALID_HANDLE_VALUE )
@@ -348,13 +331,11 @@ BOOL CImage::Load(LPCTSTR pszPath)
 			DWORD nPosition = SetFilePointer( hFile, 0, NULL, FILE_CURRENT );
 
 			// Map a view of the whole file
-
 			if ( LPCVOID pBuffer = MapViewOfFile( hMap, FILE_MAP_READ, 0, nPosition, nLength ) )
 			{
 				SAFEARRAY* pInput;
 
 				// Create a safearray of the appropriate size
-
 				if ( SUCCEEDED( SafeArrayAllocDescriptor( 1, &pInput ) ) && pInput != NULL )
 				{
 					pInput->cbElements = 1;
@@ -363,7 +344,6 @@ BOOL CImage::Load(LPCTSTR pszPath)
 					SafeArrayAllocData( pInput );
 
 					// Load the data directly into the safearray
-
 					LPBYTE pTarget;
 					if ( SUCCEEDED( SafeArrayAccessData( pInput, (void HUGEP* FAR*)&pTarget ) ) )
 					{
@@ -375,9 +355,8 @@ BOOL CImage::Load(LPCTSTR pszPath)
 					LPCTSTR pszType = _tcsrchr( pszPath, '.' );
 					if ( pszType == NULL ) return FALSE;
 
-					BSTR bstrType = SysAllocString ( CT2CW( pszType ) );
-					hr = pService->LoadFromMemory( bstrType, pInput, &pParams, &pArray );
-					SysFreeString( bstrType );
+					hr = pService->LoadFromMemory( CComBSTR( pszType ), pInput, &pParams, &pArray );
+
 					SafeArrayDestroy( pInput );
 				}
 
@@ -389,12 +368,10 @@ BOOL CImage::Load(LPCTSTR pszPath)
 	}
 
 	// Release the ImageService and close the file
-
 	pService->Release();
 	CloseHandle( hFile );
 
 	// Make sure the load (whichever one was used), worked
-
 	if ( FAILED(hr) )
 	{
 		// Get rid of the output if there was one
@@ -403,26 +380,22 @@ BOOL CImage::Load(LPCTSTR pszPath)
 	}
 
 	// Retreive attributes from the IMAGESERVICELOAD structure
-
 	m_nWidth		= pParams.nWidth;
 	m_nHeight		= pParams.nHeight;
 	m_nComponents	= pParams.nComponents;
 	m_bPartial		= 0 != ( pParams.nFlags & IMAGESERVICE_PARTIAL_OUT );
 
 	// Get the size of the output data
-
 	LONG nArray = 0;
 	SafeArrayGetUBound( pArray, 1, &nArray );
 	nArray++;
 
 	// Calculate the expected size (rows must be 32-bit aligned)
-
 	LONG nFullSize = pParams.nWidth * pParams.nComponents;
 	while ( nFullSize & 3 ) nFullSize++;
 	nFullSize *= pParams.nHeight;
 
 	// Make sure the size is what we expected
-
 	if ( nArray != nFullSize )
 	{
 		SafeArrayDestroy( pArray );
@@ -430,11 +403,9 @@ BOOL CImage::Load(LPCTSTR pszPath)
 	}
 
 	// Allocate memory for the image
-
 	m_pImage = new BYTE[ nArray ];
 
 	// Copy to our memory and destroy the safearray
-
 	LPBYTE pData;
 	SafeArrayAccessData( pArray, (VOID**)&pData );
 	CopyMemory( m_pImage, pData, nArray );
@@ -451,6 +422,8 @@ IImageServicePlugin* CImage::LoadService(LPCTSTR pszFile)
 {
 	LPCTSTR pszType = _tcsrchr( pszFile, '.' );
 	if ( ! pszType ) return NULL;
+	if ( lstrcmpi( pszType, _T(".partial") ) == 0 )
+		pszType = _T(".jpg");
 
 	ULONG dwCLSID = 128;
 	TCHAR szCLSID[128];
@@ -458,12 +431,10 @@ IImageServicePlugin* CImage::LoadService(LPCTSTR pszFile)
 	CRegKey pKey;
 
 	if ( pKey.Open( HKEY_CURRENT_USER,
-		_T("SOFTWARE\\PeerProject\\PeerProject\\Plugins\\ImageService") ) != ERROR_SUCCESS )
+		 _T("SOFTWARE\\PeerProject\\PeerProject\\Plugins\\ImageService") ) != ERROR_SUCCESS )
 		return NULL;
 
-	bool bPartial = lstrcmpi( pszType, _T(".partial") ) == 0;
-	if ( pKey.QueryStringValue( ( bPartial ? _T(".jpg") : pszType ), szCLSID, &dwCLSID )
-		!= ERROR_SUCCESS )
+	if ( pKey.QueryStringValue( pszType, szCLSID, &dwCLSID ) != ERROR_SUCCESS )
 		return NULL;
 
 	pKey.Close();
@@ -476,5 +447,5 @@ IImageServicePlugin* CImage::LoadService(LPCTSTR pszFile)
 	HRESULT hResult = CoCreateInstance( pCLSID, NULL, CLSCTX_ALL,
 		IID_IImageServicePlugin, (void**)&pService );
 
-	return SUCCEEDED(hResult) ? pService : NULL;
+	return SUCCEEDED( hResult ) ? pService : NULL;
 }

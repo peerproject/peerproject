@@ -1,7 +1,7 @@
 //
 // PageWelcome.cpp
 //
-// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008,2012
+// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008,2012-2014
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
@@ -32,10 +32,8 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNCREATE(CWelcomePage, CWizardPage)
 
 BEGIN_MESSAGE_MAP(CWelcomePage, CWizardPage)
-	//{{AFX_MSG_MAP(CWelcomePage)
 	//ON_BN_CLICKED(IDC_EXPERT_MODE, OnExpertMode)
 	ON_WM_XBUTTONDOWN()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -44,9 +42,7 @@ END_MESSAGE_MAP()
 
 CWelcomePage::CWelcomePage() : CWizardPage(CWelcomePage::IDD)
 {
-	//{{AFX_DATA_INIT(CWelcomePage)
 	m_nType = theApp.GetProfileInt( _T(""), _T("Mode"), 0 );
-	//}}AFX_DATA_INIT
 }
 
 //CWelcomePage::~CWelcomePage()
@@ -56,9 +52,8 @@ CWelcomePage::CWelcomePage() : CWizardPage(CWelcomePage::IDD)
 void CWelcomePage::DoDataExchange(CDataExchange* pDX)
 {
 	CWizardPage::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CWelcomePage)
+
 	DDX_Radio(pDX, IDC_TYPE_SINGLE, m_nType);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -84,6 +79,9 @@ BOOL CWelcomePage::OnSetActive()
 
 	UpdateData( FALSE );
 
+	if ( m_nType == 2 && theApp.GetProfileInt( _T(""), _T("Expert"), FALSE ) == TRUE )
+		Next();
+
 	return CWizardPage::OnSetActive();
 }
 
@@ -98,6 +96,8 @@ LRESULT CWelcomePage::OnWizardNext()
 	UpdateData();
 
 	theApp.WriteProfileInt( _T(""), _T("Mode"), m_nType );
+	if ( m_nType == 2 )
+		theApp.WriteProfileInt( _T(""), _T("Expert"), TRUE );
 
 	if ( m_nType == 0 )
 		return IDD_SINGLE_PAGE;
@@ -109,12 +109,3 @@ LRESULT CWelcomePage::OnWizardNext()
 	return -1;
 	//	AfxMessageBox( IDS_WELCOME_NEED_TYPE, MB_ICONEXCLAMATION );
 }
-
-//LRESULT CWelcomePage::OnExpertMode()
-//{
-//	UpdateData();
-//
-//	m_nType = 2;
-//
-//	return IDD_EXPERT_PAGE;
-//}

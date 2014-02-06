@@ -11,8 +11,7 @@
 // The implementation is based on an implementation by Daniel Wallin, at
 // "http://aspn.activestate.com/ASPN/Mail/Message/Attachments/boost/
 // 400DC271.1060903@student.umu.se/move_ptr.hpp". The current was adapted
-// by Jonathan Turkanis to incorporating ideas of Howard Hinnant and
-// Rani Sharoni.
+// by Jonathan Turkanis to incorporating ideas of Howard Hinnant and Rani Sharoni.
 
 #ifndef BOOST_STATIC_MOVE_PTR_HPP_INCLUDED
 #define BOOST_STATIC_MOVE_PTR_HPP_INCLUDED
@@ -66,7 +65,7 @@ public:
         }
 
 #if BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x564))
-    static_move_ptr( const move_ptrs::move_source<static_move_ptr<T,Deleter> >& src )
+//  static_move_ptr( const move_ptrs::move_source<static_move_ptr<T,Deleter> >& src )
 #else
     static_move_ptr( const move_ptrs::move_source<static_move_ptr>& src )
 #endif
