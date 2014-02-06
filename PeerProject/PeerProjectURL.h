@@ -1,7 +1,7 @@
 //
 // PeerProjectURL.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -82,8 +82,8 @@ protected:
 											// ServerMet:	// peerproject:[//]meturl:{url}
 											// URL:			// peerproject:[//]url:{nested_url}
 	BOOL	ParsePeerProject(LPCTSTR pszURL);
-	BOOL	ParsePeerProjectHost(LPCTSTR pszURL, BOOL bBrowse = FALSE);
 	BOOL	ParsePeerProjectFile(LPCTSTR pszURL);
+	BOOL	ParsePeerProjectHost(LPCTSTR pszURL, BOOL bBrowse = FALSE, PROTOCOLID nProtocol = PROTOCOL_G2);
 	BOOL	ParseDiscovery(LPCTSTR pszURL, int nType);
 	BOOL	ParseDonkey(LPCTSTR pszURL);					// ed2k://|file|{name}|{size}|{md4_hash}|/	ed2k://|server|{address}|{port}|/	ed2k://|search|{query}|/
 	BOOL	ParseDonkeyFile(LPCTSTR pszURL);

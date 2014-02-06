@@ -1,7 +1,7 @@
 //
 // SharedFile.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -148,7 +148,7 @@ CString CLibraryFile::GetFolder() const
 CString CLibraryFile::GetPath() const
 {
 	if ( m_pFolder )
-		return m_pFolder->m_sPath + '\\' + m_sName;
+		return m_pFolder->m_sPath + _T('\\') + m_sName;
 
 	return m_sName;
 }
@@ -278,10 +278,7 @@ void CLibraryFile::SetShared(bool bShared, bool bOverride)
 		bNewShare = TRI_FALSE;
 
 	// Don't share private torrents
-	if ( m_pSchema != NULL &&
-		m_pSchema->CheckURI( CSchema::uriBitTorrent ) &&
-		m_pMetadata != NULL &&
-		m_pMetadata->GetAttributeValue( L"privateflag", L"true" ).CompareNoCase( L"true" ) == 0 )
+	if ( IsPrivateTorrent() )
 		bNewShare = TRI_FALSE;
 
 	bool bFolderShared = ! m_pFolder || m_pFolder->IsShared();
@@ -303,9 +300,9 @@ void CLibraryFile::SetShared(bool bShared, bool bOverride)
 
 bool CLibraryFile::IsPrivateTorrent() const
 {
-	return ( m_pSchema && m_pMetadata &&
+	return m_pSchema && m_pMetadata &&
 		m_pSchema->CheckURI( CSchema::uriBitTorrent ) &&
-		m_pMetadata->GetAttributeValue( _T("privateflag"), _T("true") ).CompareNoCase( _T("true") ) == 0 );
+		m_pMetadata->GetAttributeValue( _T("privateflag"), _T("false") ).Compare( _T("true") ) == 0;		// Set "true" in LibraryBuilderInternals if "private=1"
 }
 
 DWORD CLibraryFile::GetCreationTime()
@@ -1032,14 +1029,15 @@ void CLibraryFile::Serialize(CArchive& ar, int nVersion)
 //////////////////////////////////////////////////////////////////////
 // CLibraryFile threaded scan
 
-BOOL CLibraryFile::ThreadScan(CSingleLock& pLock, DWORD nScanCookie, QWORD nSize, FILETIME* pTime/*, LPCTSTR pszMetaData*/)
+BOOL CLibraryFile::ThreadScan(DWORD nScanCookie, QWORD nSize, FILETIME* pTime/*, LPCTSTR pszMetaData*/)
 {
+	ASSUME_LOCK( Library.m_pSection );
 	ASSERT( m_pFolder );	// No ghosts
 
 	m_nScanCookie = nScanCookie;
 
 	// If file is already in library but hashing was delayed, hash it again
-	if ( m_nSize == nSize || CompareFileTime( &m_pTime, pTime ) == 0 )
+	if ( m_nSize == nSize && CompareFileTime( &m_pTime, pTime ) == 0 )
 	{
 		if ( m_nIndex && ! IsHashed() )
 			LibraryBuilder.Add( this );
@@ -1049,8 +1047,6 @@ BOOL CLibraryFile::ThreadScan(CSingleLock& pLock, DWORD nScanCookie, QWORD nSize
 
 		return m_bMetadataModified;
 	}
-
-	pLock.Lock();
 
 	Library.RemoveFile( this );
 
@@ -1063,8 +1059,6 @@ BOOL CLibraryFile::ThreadScan(CSingleLock& pLock, DWORD nScanCookie, QWORD nSize
 	m_oED2K.clear();
 
 	Library.AddFile( this );
-
-	pLock.Unlock();
 
 	m_nUpdateCookie++;
 

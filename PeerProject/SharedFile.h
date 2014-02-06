@@ -1,7 +1,7 @@
 //
 // SharedFile.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -166,7 +166,7 @@ protected:
 	DWORD			m_tCreateTime;		// Cached network wide file creation time (seconds, as time())
 
 	void			Serialize(CArchive& ar, int nVersion);
-	BOOL			ThreadScan(CSingleLock& pLock, DWORD nScanCookie, QWORD nSize, FILETIME* pTime/*, LPCTSTR pszMetaData*/);
+	BOOL			ThreadScan(DWORD nScanCookie, QWORD nSize, FILETIME* pTime/*, LPCTSTR pszMetaData*/);
 	void			OnDelete(BOOL bDeleteGhost = FALSE, TRISTATE bCreateGhost = TRI_UNKNOWN);
 	void			Ghost();
 
@@ -217,12 +217,12 @@ public:
 
 // Attributes
 public:
-	CString		m_sURL;					// The URL
-	FILETIME	m_pTime;				// Time last seen
+	CString		m_sURL;
+	FILETIME	m_pTime;	// Last seen
 
 // Operations
 public:
-	void	Serialize(CArchive& ar, int nVersion);
-	void	Freshen(FILETIME* pTime = NULL);
-	BOOL	IsExpired(FILETIME& tNow);
+	void		Serialize(CArchive& ar, int nVersion);
+	void		Freshen(FILETIME* pTime = NULL);
+	BOOL		IsExpired(FILETIME& tNow);
 };

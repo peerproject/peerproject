@@ -1,7 +1,7 @@
 //
 // DlgURLCopy.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -18,14 +18,16 @@
 
 #include "StdAfx.h"
 #include "PeerProject.h"
-#include "PeerProjectFile.h"
 #include "DlgURLCopy.h"
 #include "Transfer.h"
+#include "Transfers.h"	// Lock
 #include "Network.h"
 #include "Colors.h"
 
+#include "Library.h"
 #include "Download.h"	// &tr=
 #include "Downloads.h"
+//#include "PeerProjectFile.h"	// In Header
 
 
 #ifdef _DEBUG
@@ -66,7 +68,7 @@ void CURLCopyDlg::DoDataExchange(CDataExchange* pDX)
 void CURLCopyDlg::Add(const CPeerProjectFile* pFile)
 {
 	ASSERT( pFile != NULL );
-	m_pFile = pFile;
+	m_pFile = *pFile;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -78,96 +80,179 @@ BOOL CURLCopyDlg::OnInitDialog()
 
 	SkinMe( L"CURLCopyDlg", IDI_WEB_URL );
 
-	m_wndIncludeSelf.ShowWindow( ( Network.IsListening() && m_pFile->m_sURL.IsEmpty() ) ? SW_SHOW : SW_HIDE );
+	m_wndIncludeSelf.ShowWindow( ( Network.IsListening() && m_pFile.m_sURL.IsEmpty() ) ? SW_SHOW : SW_HIDE );
 
 	OnIncludeSelf();
 
 	return TRUE;
 }
 
+void CURLCopyDlg::Resolve(CPeerProjectFile& pFile, CString& sTracker)
+{
+	// Use contents of .torrent-file instead of file itself
+	if ( ! pFile.m_sPath.IsEmpty() && _tcsicmp( PathFindExtension( pFile.m_sName ), _T(".torrent") ) == 0 )
+	{
+		CBTInfo pTorrent;
+		if ( pTorrent.LoadTorrentFile( pFile.m_sPath + _T("\\") + pFile.m_sName ) )
+		{
+			pFile = pTorrent;
+
+			// Get trackers
+			const int nCount = pTorrent.GetTrackerCount();
+			for ( int i = 0 ; i < nCount ; ++i )
+			{
+				if ( sTracker.GetLength() ) sTracker += _T("&");
+				sTracker += _T("tr=") + URLEncode( pTorrent.GetTrackerAddress( i ) );
+			}
+		}
+	}
+
+	if ( ! ( pFile.m_oBTH ) )
+		return;
+
+	CSingleLock pTransfersLock( &Transfers.m_pSection, FALSE );
+	if ( pTransfersLock.Lock( 1000 ) )
+	{
+		if ( const CDownload* pDownload = Downloads.FindByBTH( pFile.m_oBTH ) )
+		{
+			// Refill missed hashes
+			if ( ! pFile.m_oSHA1 && pDownload->m_oSHA1 )
+				pFile.m_oSHA1 = pDownload->m_oSHA1;
+			if ( ! pFile.m_oTiger && pDownload->m_oTiger )
+				pFile.m_oTiger = pDownload->m_oTiger;
+			if ( ! pFile.m_oED2K && pDownload->m_oED2K )
+				pFile.m_oED2K = pDownload->m_oED2K;
+			if ( ! pFile.m_oMD5 && pDownload->m_oMD5 )
+				pFile.m_oMD5 = pDownload->m_oMD5;
+
+			// Get trackers
+			if ( sTracker.IsEmpty() && pDownload->IsTorrent() )
+			{
+				const int nCount = pDownload->m_pTorrent.GetTrackerCount();
+				for ( int i = 0 ; i < nCount ; ++i )
+				{
+					// ToDo: Verify live tracker?
+					if ( sTracker.GetLength() ) sTracker += _T("&");
+					sTracker += _T("tr=") + URLEncode( pDownload->m_pTorrent.GetTrackerAddress( i ) );
+				}
+			}
+		}
+		pTransfersLock.Unlock();
+	}
+
+	CSingleLock pLibraryLock( &Library.m_pSection, FALSE );
+	if ( pLibraryLock.Lock( 1000 ) )
+	{
+		if ( const CLibraryFile* pLibraryFile = LibraryMaps.LookupFileByHash( &pFile ) )
+		{
+			// Refill missed hashes
+			if ( ! pFile.m_oSHA1 && pLibraryFile->m_oSHA1 )
+				pFile.m_oSHA1 = pLibraryFile->m_oSHA1;
+			if ( ! pFile.m_oTiger && pLibraryFile->m_oTiger )
+				pFile.m_oTiger = pLibraryFile->m_oTiger;
+			if ( ! pFile.m_oED2K && pLibraryFile->m_oED2K )
+				pFile.m_oED2K = pLibraryFile->m_oED2K;
+			if ( ! pFile.m_oMD5 && pLibraryFile->m_oMD5 )
+				pFile.m_oMD5 = pLibraryFile->m_oMD5;
+		}
+		pLibraryLock.Unlock();
+	}
+}
+
+CString CURLCopyDlg::CreateMagnet(CPeerProjectFile& pFile)
+{
+	CString strURN, strTracker;
+
+	Resolve( pFile, strTracker );
+
+	if ( pFile.m_oTiger && pFile.m_oSHA1 )
+		strURN = _T("xt=urn:bitprint:") + pFile.m_oSHA1.toString() + _T('.') + pFile.m_oTiger.toString();
+	else if ( pFile.m_oSHA1 )
+		strURN = _T("xt=") + pFile.m_oSHA1.toUrn();
+	else if ( pFile.m_oTiger )
+		strURN = _T("xt=") + pFile.m_oTiger.toUrn();
+
+	if ( pFile.m_oED2K )
+	{
+		if ( ! strURN.IsEmpty() ) strURN += _T("&");
+		strURN += _T("xt=") + pFile.m_oED2K.toUrn();
+	}
+
+	if ( pFile.m_oMD5 && ! pFile.m_oTiger && ! pFile.m_oSHA1 && ! pFile.m_oED2K )
+	{
+		if ( ! strURN.IsEmpty() ) strURN += _T("&");
+		strURN += _T("xt=") + pFile.m_oMD5.toUrn();
+	}
+
+	if ( pFile.m_oBTH )
+	{
+		if ( ! strURN.IsEmpty() ) strURN += _T("&");
+		strURN += _T("xt=") + pFile.m_oBTH.toUrn();
+	}
+
+	CString strMagnet = strURN;
+
+	if ( pFile.m_nSize != 0 && pFile.m_nSize != SIZE_UNKNOWN )
+	{
+		if ( ! strMagnet.IsEmpty() ) strMagnet += _T("&");
+		strMagnet.AppendFormat( _T("xl=%I64u"), pFile.m_nSize );
+	}
+
+	if ( ! pFile.m_sName.IsEmpty() )
+	{
+		if ( ! strMagnet.IsEmpty() ) strMagnet += _T("&");
+		if ( ! strURN.IsEmpty() )
+			strMagnet += _T("dn=");
+		else
+			strMagnet += _T("kt=");
+		strMagnet += URLEncode( pFile.m_sName );
+	}
+
+	if ( ! strTracker.IsEmpty() )
+	{
+		if ( strMagnet.GetLength() ) strMagnet += _T("&");
+		strMagnet += strTracker;
+	}
+
+	strMagnet = _T("magnet:?") + strMagnet;
+
+	return strMagnet;
+}
+
 void CURLCopyDlg::OnIncludeSelf()
 {
 	UpdateData();
 
-	const BOOL bIncludeSelf = m_wndIncludeSelf.GetCheck();
+	const BOOL bIncludeSelf = ( m_wndIncludeSelf.GetCheck() == BST_CHECKED );
 
-	CString strURN, strIncludeSelfURN, strTemp;
+	m_sMagnet = CreateMagnet( m_pFile );
 
-	if ( m_pFile->m_oTiger && m_pFile->m_oSHA1 )
-		strURN = _T("xt=urn:bitprint:") + m_pFile->m_oSHA1.toString() + '.' + m_pFile->m_oTiger.toString();
-	else if ( m_pFile->m_oSHA1 )
-		strURN = _T("xt=") + m_pFile->m_oSHA1.toUrn();
-	else if ( m_pFile->m_oTiger )
-		strURN = _T("xt=") + m_pFile->m_oTiger.toUrn();
+	CString strSelf;
+	if ( bIncludeSelf )
+		strSelf = m_pFile.GetURL( Network.m_pHost.sin_addr, htons( Network.m_pHost.sin_port ) );
 
-	if ( m_pFile->m_oED2K )
-	{
-		strTemp = _T("xt=") + m_pFile->m_oED2K.toUrn();
-		if ( ! strURN.IsEmpty() ) strURN += _T("&");
-		strURN += strTemp;
-	}
-
-	BOOL bAddTracker( FALSE );
-	if ( m_pFile->m_oBTH && strURN.IsEmpty() )	// BitTorrent Magnet
-	{
-		strURN = _T("xt=") + m_pFile->m_oBTH.toUrn();
-		bAddTracker = TRUE;
-	}
-
-	m_sMagnet = strURN;
-
-	if ( m_pFile->m_nSize != 0 && m_pFile->m_nSize != SIZE_UNKNOWN )
-	{
-		CString strSize;
-		strSize.Format( _T("xl=%I64u"), m_pFile->m_nSize );
-
-		if ( ! m_sMagnet.IsEmpty() ) m_sMagnet += _T("&");
-		m_sMagnet += strSize;
-	}
-
-	if ( ! m_pFile->m_sName.IsEmpty() )
-	{
-		CString strName = URLEncode( m_pFile->m_sName );
-
-		if ( ! m_sMagnet.IsEmpty() ) m_sMagnet += _T("&");
-		m_sMagnet += ( strURN.IsEmpty() ? _T("kt=") : _T("dn=") ) + strName;
-	}
-
-	m_sMagnet = _T("magnet:?") + m_sMagnet;
-
-	if ( bAddTracker )
-	{
-		if ( CDownload* pDownload = Downloads.FindByBTH( m_pFile->m_oBTH ) )
-		{
-			strTemp = URLEncode( (LPCTSTR)pDownload->m_pTorrent.GetTrackerAddress() );
-			if ( strTemp.GetLength() > 24 )
-				m_sMagnet += _T("&tr=") + strTemp;
-		}
-	}
-
-	CString strSelf = bIncludeSelf ? m_pFile->GetURL( Network.m_pHost.sin_addr, htons( Network.m_pHost.sin_port ) ) : _T("");
-
-	if ( bIncludeSelf && ! strSelf.IsEmpty() )
+	if ( ! strSelf.IsEmpty() )	// bIncludeSelf
 		m_sMagnet += _T("&xs=") + URLEncode( strSelf );
-	else if ( ! m_pFile->m_sURL.IsEmpty() )
-		m_sMagnet += _T("&xs=") + URLEncode( m_pFile->m_sURL );
+	else if ( ! m_pFile.m_sURL.IsEmpty() )
+		m_sMagnet += _T("&xs=") + URLEncode( m_pFile.m_sURL );
 
-	if ( m_pFile->m_oSHA1 )
+	if ( m_pFile.m_oSHA1 )
 	{
-		m_sGnutella.Format( _T("gnutella://%s/"), (LPCTSTR)m_pFile->m_oSHA1.toUrn() );
+		m_sGnutella.Format( _T("gnutella://%s/"), (LPCTSTR)m_pFile.m_oSHA1.toUrn() );
 
-		if ( ! m_pFile->m_sName.IsEmpty() )
-			m_sGnutella += URLEncode( m_pFile->m_sName ) + _T("/");
+		if ( ! m_pFile.m_sName.IsEmpty() )
+			m_sGnutella += URLEncode( m_pFile.m_sName ) + _T("/");
 	}
 
-	if ( m_pFile->m_oED2K &&
-		( m_pFile->m_nSize != 0 && m_pFile->m_nSize != SIZE_UNKNOWN ) &&
-		! m_pFile->m_sName.IsEmpty() )
+	if ( m_pFile.m_oED2K &&
+		 m_pFile.m_nSize != 0 &&
+		 m_pFile.m_nSize != SIZE_UNKNOWN &&
+		! m_pFile.m_sName.IsEmpty() )
 	{
 		m_sED2K.Format( _T("ed2k://|file|%s|%I64u|%s|/"),
-			(LPCTSTR)URLEncode( m_pFile->m_sName ),
-			m_pFile->m_nSize,
-			(LPCTSTR)m_pFile->m_oED2K.toString() );
+			(LPCTSTR)URLEncode( m_pFile.m_sName ),
+			m_pFile.m_nSize,
+			(LPCTSTR)m_pFile.m_oED2K.toString() );
 
 		if ( bIncludeSelf )
 			m_sED2K += _T("|sources,") + HostToString( &Network.m_pHost ) + _T("|/");
@@ -176,11 +261,16 @@ void CURLCopyDlg::OnIncludeSelf()
 			//strURL.Format( _T("%s:%i"), (LPCTSTR)CString( inet_ntoa( Network.m_pHost.sin_addr ) ), htons( Network.m_pHost.sin_port ) );
 			//m_sED2K += _T("|sources,") + strURL + _T("|/");
 	}
+	else
+	{
+		m_sED2K.Empty();
+	}
+
 
 	if ( bIncludeSelf )
 		m_sHost = strSelf;
-	else if ( ! m_pFile->m_sURL.IsEmpty() )
-		m_sHost = m_pFile->m_sURL;
+	else if ( ! m_pFile.m_sURL.IsEmpty() )
+		m_sHost = m_pFile.m_sURL;
 	else
 		m_sHost.Empty();
 
@@ -237,6 +327,8 @@ BOOL CURLCopyDlg::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 
 	return CSkinDialog::OnSetCursor( pWnd, nHitTest, message );
 }
+
+// Use theApp.SetClipboard( string )
 
 void CURLCopyDlg::OnStnClickedUrlHost()
 {

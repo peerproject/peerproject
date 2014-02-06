@@ -1,7 +1,7 @@
 //
 // DlgURLAction.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -230,6 +230,9 @@ BOOL CURLActionDlg::OnInitDialog()
 		if ( m_pURL->m_nAction == CPeerProjectURL::uriDownload )
 		{
 			m_wndDownload.SetFocus();
+
+			if ( m_pURL->m_nProtocol != PROTOCOL_BT  )
+				m_wndSearch.EnableWindow( FALSE );
 		}
 		else if ( m_pURL->m_nAction == CPeerProjectURL::uriSearch )
 		{

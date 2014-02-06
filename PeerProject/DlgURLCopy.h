@@ -1,7 +1,7 @@
 //
 // DlgURLCopy.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -19,8 +19,7 @@
 #pragma once
 
 #include "DlgSkinDialog.h"
-
-class CPeerProjectFile;
+#include "PeerProjectFile.h"
 
 
 class CURLCopyDlg : public CSkinDialog
@@ -32,18 +31,23 @@ public:
 
 	enum { IDD = IDD_URL_COPY };
 
+protected:
+	CPeerProjectFile m_pFile;
+	CButton			m_wndIncludeSelf;
+	CStatic			m_wndMessage;
+	CString			m_sHost;
+	CString			m_sMagnet;
+	CString			m_sGnutella;
+	CString			m_sED2K;
+
 public:
-	void		Add(const CPeerProjectFile* pFile);
+	void			Add(const CPeerProjectFile* pFile);
+
+	// Gather more information about file (including trackers list)
+	static void Resolve(CPeerProjectFile& pFile, CString& sTracker);
+	static CString CreateMagnet(CPeerProjectFile& pFile);
 
 protected:
-	const CPeerProjectFile*		m_pFile;
-	CButton		m_wndIncludeSelf;
-	CStatic		m_wndMessage;
-	CString		m_sHost;
-	CString		m_sMagnet;
-	CString		m_sGnutella;
-	CString		m_sED2K;
-
 	virtual void DoDataExchange(CDataExchange* pDX);
 	virtual BOOL OnInitDialog();
 

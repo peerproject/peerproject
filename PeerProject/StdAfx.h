@@ -85,15 +85,6 @@
 #pragma warning ( disable : 4770 )		// (Level 4)	partially validated enum used as index (VS2013+)
 #pragma warning ( disable : 4820 )		// (Level 4)	'bytes' bytes padding added after construct 'member_name'
 
-#define _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES 1
-#define _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES_COUNT 1
-#ifndef _SCL_SECURE_NO_WARNINGS
-#define _SCL_SECURE_NO_WARNINGS
-#endif
-
-#define _AFX_NO_MFC_CONTROLS_IN_DIALOGS		// Smaller filesize VS2012+
-
-
 // For detecting Memory Leaks
 #ifdef _DEBUG
 #define _CRTDBG_MAP_ALLOC
@@ -127,14 +118,23 @@
 #define NTDDK_VERSION	NTDDI_VERSION	// winioctl.h
 
 #define VC_EXTRALEAN
+#define SECURITY_WIN32
+
+#define _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES 1
+#define _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES_COUNT 1
+#ifndef _SCL_SECURE_NO_WARNINGS
+#define _SCL_SECURE_NO_WARNINGS
+#endif
 
 #define _ATL_NO_COM_SUPPORT
 #define _ATL_CSTRING_EXPLICIT_CONSTRUCTORS
 
+#define _AFX_NO_MFC_CONTROLS_IN_DIALOGS		// Smaller filesize VS2012+
+
 #define BOOST_USE_WINDOWS_H
 #define BOOST_DISABLE_ASSERTS
 
-#pragma warning( push, 0 )	// Suppress Microsoft warnings
+#pragma warning ( push, 0 )	// Suppress Microsoft warnings
 
 //
 // MFC
@@ -191,20 +191,8 @@
 #include <propvarutil.h>	// InitPropVariantFromString (For CreateShellLink)	Requires XP sp2
 #endif
 
-// Intrinsics  (Workaround for Microsoft double declaration in legacy Visual Studio 2005)
-#if defined(_MSC_VER) && (_MSC_VER < 1500)
-	#define _interlockedbittestandset _ms_set
-	#define _interlockedbittestandreset _ms_reset
-	#define _interlockedbittestandset64 _ms_set64
-	#define _interlockedbittestandreset64 _ms_reset64
-	#include <intrin.h>
-	#undef _interlockedbittestandset
-	#undef _interlockedbittestandreset
-	#undef _interlockedbittestandset64
-	#undef _interlockedbittestandreset64
-#else
-	#include <intrin.h>
-#endif
+// Intrinsics
+#include <intrin.h>
 
 
 //
@@ -245,22 +233,15 @@
 //
 // TR1 (std::tr1::)
 //
+// VS2008 SP1 for tr1, VS2012 for std
 // ToDo: See Shareaza r8451 for some tr1 implementation
 
-//#if defined(_MSC_VER) && (_MSC_FULL_VER > 150030000)	// _HAS_TR1		// VS2008 SP1 for tr1, VS2012 for std
-  //#include <array>
-  //#include <memory>
-  //#include <regex>					// In RegExp.cpp
-  //#include <type_traits>				// In MinMax.hpp
-  //#include <unordered_map>
-//#else	// Boost fallback
-  //#include <Boost/tr1/array.hpp>
-  //#include <Boost/tr1/memory.hpp>
-  //#include <Boost/tr1/regex.hpp>
-  //#include <Boost/tr1/type_traits.hpp>
-  //#include <Boost/tr1/unordered_map.hpp>
-  //#include <Boost/tr1/utility.hpp>
-//#endif
+// _HAS_TR1
+//#include <array>							// In HashDescriptors.hpp
+//#include <memory>
+//#include <regex>							// In RegExp.cpp
+//#include <type_traits>					// In MinMax.hpp
+//#include <unordered_map>
 
 
 //
@@ -272,7 +253,8 @@
 	#define BOOST_MEM_FN_ENABLE_STDCALL 1
 #endif
 
-#define BOOST_MPL_CFG_NO_FULL_LAMBDA_SUPPORT	// Allows fewer include files
+#define BOOST_NO_MEMBER_TEMPLATES				// Require fewer include files
+#define BOOST_MPL_CFG_NO_FULL_LAMBDA_SUPPORT	// Require fewer include files
 #define BOOST_TYPEOF_EMULATION_UNSUPPORTED	// VS2008
 
 #include <Boost/bind.hpp>					// For LiveList & UPnPFinder
@@ -280,7 +262,7 @@
 #include <Boost/ptr_container/ptr_list.hpp>	// For CtrlLibraryTileView
 
 //#include <Boost/array.hpp>				// Was Hashes/HashDescriptors.hpp (TR1)
-//#include <Boost/type_traits.hpp>			// In MinMax.hpp
+//#include <Boost/type_traits.hpp>			// Was MinMax.hpp
 //#include <Boost/checked_delete.hpp>		// In Augment/auto_ptr.hpp
 //#include <Boost/utility.hpp>				// ?
 
@@ -309,10 +291,10 @@
 #include "MinMax.hpp"
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1500) && (_MSC_VER < 1600)		// Work-around for VC9 (VS2008) where
-	#pragma warning( pop )					// a (pop) is ifdef'd out in stdio.h
+	#pragma warning ( pop )					// a (pop) is ifdef'd out in stdio.h
 #endif
 
-#pragma warning( pop )						// Restore warnings
+#pragma warning ( pop )						// Restore warnings
 
 #include <Augment/Augment.hpp>
 using augment::implicit_cast;

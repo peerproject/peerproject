@@ -1,7 +1,7 @@
 //
 // DlgURLExport.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -20,6 +20,7 @@
 #include "Settings.h"
 #include "PeerProject.h"
 #include "DlgURLExport.h"
+#include "DlgURLCopy.h"
 #include "Library.h"
 #include "SharedFile.h"
 #include "SharedFolder.h"
@@ -31,6 +32,37 @@
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif	// Debug
+
+static const LPCTSTR pszPresets[] =
+{
+	_T("[Magnet]"),
+	_T("[LinkED2K]"),
+	_T("<a href=\"[MagnetURI]\">[Name]</a><br>"),
+	_T("<a href=\"[LinkED2K]\">[Name]</a><br>")
+};
+
+static const LPCTSTR pszTokens[] =
+{
+	_T("[TIGER]"),		// 0
+	_T("[SHA1]"),		// 1
+	_T("[MD5]"),		// 2
+	_T("[ED2K]"),		// 3
+	_T("[BTH]"),		// 4
+	_T("[Name]"),		// 5
+	_T("[NameURI]"),	// 6
+	_T("[FileBase]"),	// 7
+	_T("[FileExt]"),	// 8
+	_T("[Size]"),		// 9
+	_T("[ByteSize]"),	// 10
+	_T("[Path]"),		// 11
+	_T("[LocalHost]"),	// 12
+	_T("[LocalPort]"),	// 13
+	_T("[Link]"),		// 14
+	_T("[LinkURI]"),	// 15
+	_T("[Magnet]"),		// 16
+	_T("[MagnetURI]"),	// 17
+	_T("[LinkED2K]")	// 18
+};
 
 IMPLEMENT_DYNAMIC(CURLExportDlg, CSkinDialog)
 
@@ -80,7 +112,7 @@ BOOL CURLExportDlg::OnInitDialog()
 
 	m_sFormat = Settings.Library.URLExportFormat;
 
-	if ( m_sFormat.IsEmpty() )
+	if ( m_sFormat.GetLength() < 6 )
 		m_sFormat = _T("<a href=\"magnet:?xt=urn:bitprint:[SHA1].[TIGER]&amp;xt=urn:ed2khash:[ED2K]&amp;xt=urn:md5:[MD5]&amp;xl=[ByteSize]&amp;dn=[NameURI]\">[Name]</a><br>");
 
 	UpdateData( FALSE );
@@ -91,7 +123,7 @@ BOOL CURLExportDlg::OnInitDialog()
 void CURLExportDlg::Add(const CPeerProjectFile* pFile)
 {
 	ASSERT( pFile != NULL );
-	m_pFiles.AddTail( pFile );
+	m_pFiles.AddTail( *pFile );
 }
 
 void CURLExportDlg::OnKillFocusUrlPreset()
@@ -103,15 +135,7 @@ void CURLExportDlg::OnCloseUpUrlToken()
 {
 	int nToken = m_wndToken.GetCurSel();
 	m_wndToken.SetCurSel( -1 );
-	if ( nToken < 0 || nToken > 15 ) return;
-
-	LPCTSTR pszTokens[] =
-	{
-		_T("[TIGER]"), _T("[SHA1]"), _T("[MD5]"), _T("[ED2K]"), _T("[BTH]"),
-		_T("[Name]"), _T("[NameURI]"), _T("[FileBase]"), _T("[FileExt]"),
-		_T("[Size]"), _T("[ByteSize]"), _T("[Path]"), _T("[LocalHost]"),
-		_T("[LocalPort]"), _T("[Link]"), _T("[LinkURI]")
-	};
+	if ( nToken < 0 || nToken >= _countof( pszTokens ) ) return;
 
 	m_wndFormat.ReplaceSel( pszTokens[ nToken ] );
 	m_wndFormat.SetFocus();
@@ -120,15 +144,7 @@ void CURLExportDlg::OnCloseUpUrlToken()
 void CURLExportDlg::OnSelChangeUrlPreset()
 {
 	int nPreset = m_wndPreset.GetCurSel();
-	if ( nPreset < 0 || nPreset > 3 ) return;
-
-	LPCTSTR pszPresets[] =
-	{
-		_T("magnet:?xt=urn:bitprint:[SHA1].[TIGER]&xt=urn:ed2khash:[ED2K]&xt=urn:md5:[MD5]&xl=[ByteSize]&dn=[NameURI]"),
-		_T("ed2k://|file|[NameURI]|[ByteSize]|[ED2K]|/"),
-		_T("<a href=\"magnet:?xt=urn:bitprint:[SHA1].[TIGER]&amp;xt=urn:ed2khash:[ED2K]&amp;xt=urn:md5:[MD5]&amp;xl=[ByteSize]&amp;dn=[NameURI]\">[Name]</a><br>"),
-		_T("<a href=\"ed2k://|file|[NameURI]|[ByteSize]|[ED2K]|/\">[Name]</a><br>"),
-	};
+	if ( nPreset < 0 || nPreset >= _countof( pszPresets ) ) return;
 
 	m_wndFormat.SetWindowText( pszPresets[ nPreset ] );
 }
@@ -139,7 +155,8 @@ void CURLExportDlg::OnSave()
 
 	if ( m_sFormat.IsEmpty() ) return;
 
-	theApp.WriteProfileString( _T("Library"), _T("URLExportFormat"), m_sFormat );
+//	theApp.WriteProfileString( _T("Library"), _T("URLExportFormat"), m_sFormat );
+	Settings.Library.URLExportFormat = m_sFormat;
 
 	LPCTSTR pszExt = ( m_sFormat.Find( '<' ) >= 0 ) ? _T("htm") : _T("txt");
 	LPCTSTR pszFilter = ( m_sFormat.Find( '<' ) >= 0 ) ?
@@ -213,38 +230,40 @@ void CURLExportDlg::OnCopy()
 	EndDialog( IDOK );
 }
 
-void CURLExportDlg::MakeURL(const CPeerProjectFile* pFile, CString& strLine)
+void CURLExportDlg::MakeURL(CPeerProjectFile pFile, CString& strLine)
 {
-	CString strItem;
+	CString strMagnet = CURLCopyDlg::CreateMagnet( pFile );
+	strLine.Replace( _T("[Magnet]"), strMagnet );
 
-	strLine.Replace( _T("[Name]"), pFile->m_sName );
-	strLine.Replace( _T("[NameURI]"), URLEncode( pFile->m_sName ) );
+	strMagnet.Replace( _T("&"), _T("&amp;") );
+	strLine.Replace( _T("[MagnetURI]"), strMagnet );
 
-	if ( ! pFile->m_sURL.IsEmpty() )
+	CString strED2K;
+	if ( pFile.m_oED2K &&
+		pFile.m_nSize != 0 && pFile.m_nSize != SIZE_UNKNOWN &&
+		pFile.m_sName.GetLength() )
 	{
-		strLine.Replace( _T("[Link]"), pFile->m_sURL );
-		strLine.Replace( _T("[LinkURI]"), URLEncode( pFile->m_sURL ) );
+		strED2K.Format( _T("ed2k://|file|%s|%I64u|%s|/"),
+			(LPCTSTR)URLEncode( pFile.m_sName ),
+			pFile.m_nSize,
+			(LPCTSTR)pFile.m_oED2K.toString() );
 	}
-	else
-	{
-		strLine.Replace( _T("[Link]"), _T("") );
-		strLine.Replace( _T("[LinkURI]"), _T("") );
-	}
+	strLine.Replace( _T("[LinkED2K]"), strED2K );
 
-	if ( ! pFile->m_sPath.IsEmpty() )
-	{
-		strLine.Replace( _T("[Path]"), pFile->m_sPath );
-	}
-	else
-	{
-		strLine.Replace( _T("[Path]"), _T("") );
-	}
+	strLine.Replace( _T("[Name]"), pFile.m_sName );
+	strLine.Replace( _T("[NameURI]"), URLEncode( pFile.m_sName ) );
 
-	if ( pFile->m_nSize != 0 && pFile->m_nSize != SIZE_UNKNOWN )
+	strLine.Replace( _T("[Link]"), pFile.m_sURL );
+	strLine.Replace( _T("[LinkURI]"), URLEncode( pFile.m_sURL ) );
+
+	strLine.Replace( _T("[Path]"), pFile.m_sPath );
+
+	if ( pFile.m_nSize != 0 && pFile.m_nSize != SIZE_UNKNOWN )
 	{
-		strLine.Replace( _T("[Size]"), Settings.SmartVolume( pFile->m_nSize ) );
-		strItem.Format( _T("%I64u"), pFile->m_nSize );
+		CString strItem;
+		strItem.Format( _T("%I64u"), pFile.m_nSize );
 		strLine.Replace( _T("[ByteSize]"), strItem );
+		strLine.Replace( _T("[Size]"), Settings.SmartVolume( pFile.m_nSize ) );
 	}
 	else
 	{
@@ -252,33 +271,27 @@ void CURLExportDlg::MakeURL(const CPeerProjectFile* pFile, CString& strLine)
 		strLine.Replace( _T("[ByteSize]"), _T("") );
 	}
 
-	strItem = pFile->m_oTiger.toString();
-	strLine.Replace( _T("[TIGER]"), strItem );
-	strItem = pFile->m_oSHA1.toString();
-	strLine.Replace( _T("[SHA1]"), strItem );
-	strItem = pFile->m_oMD5.toString();
-	strLine.Replace( _T("[MD5]"), strItem );
-	strItem = pFile->m_oED2K.toString();
-	strLine.Replace( _T("[ED2K]"), strItem );
-	strItem = pFile->m_oBTH.toString();
-	strLine.Replace( _T("[BTH]"), strItem );
+	strLine.Replace( _T("[TIGER]"),	pFile.m_oTiger.toString() );
+	strLine.Replace( _T("[SHA1]"),	pFile.m_oSHA1.toString() );
+	strLine.Replace( _T("[MD5]"),	pFile.m_oMD5.toString() );
+	strLine.Replace( _T("[ED2K]"),	pFile.m_oED2K.toString() );
+	strLine.Replace( _T("[BTH]"),	pFile.m_oBTH.toString() );
 
-	const int nDot = pFile->m_sName.ReverseFind( '.' );
-
+	const int nDot = pFile.m_sName.ReverseFind( _T('.') );
 	if ( nDot > 0 )
 	{
-		strLine.Replace( _T("[FileBase]"), pFile->m_sName.Left( nDot ) );
-		strLine.Replace( _T("[FileExt]"), pFile->m_sName.Mid( nDot + 1 ) );
+		strLine.Replace( _T("[FileBase]"), pFile.m_sName.Left( nDot ) );
+		strLine.Replace( _T("[FileExt]"), pFile.m_sName.Mid( nDot + 1 ) );
 	}
 	else
 	{
-		strLine.Replace( _T("[FileBase]"), pFile->m_sName );
+		strLine.Replace( _T("[FileBase]"), pFile.m_sName );
 		strLine.Replace( _T("[FileExt]"), _T("") );
 	}
 
 	if ( Network.IsListening() )
 	{
-		strItem = inet_ntoa( Network.m_pHost.sin_addr );
+		CString strItem = CString( inet_ntoa( Network.m_pHost.sin_addr ) );
 		strLine.Replace( _T("[LocalHost]"), strItem );
 		strItem.Format( _T("%lu"), htons( Network.m_pHost.sin_port ) );
 		strLine.Replace( _T("[LocalPort]"), strItem );

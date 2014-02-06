@@ -1,7 +1,7 @@
 //
 // CtrlLibraryFrame.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -183,6 +183,8 @@ int CLibraryFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndTree.Create( this );
 	m_wndHeader.Create( this );
 	m_wndViewTip.Create( this, &Settings.Interface.TipLibrary );
+
+	Update( TRUE );
 
 	return 0;
 }

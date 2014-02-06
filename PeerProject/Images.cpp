@@ -1,7 +1,7 @@
 //
 // Images.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2010-2012
+// This file is part of PeerProject (peerproject.org) © 2010-2014
 // All work here is original and released as-is under Persistent Public Domain [PPD]
 //
 
@@ -1457,7 +1457,8 @@ BOOL CImages::DrawButtonState(CDC* pDC, const CRect rc, const int nResource)
 			DrawButtonMap( pDC, rc, &m_bmButtonMapSelect, STATE_DEFAULT, TRUE );
 	case IMAGE_SELECTEDGREY:
 		return DrawButton( pDC, rc, &m_bmSelectedGrey ) ||
-			DrawButtonMap( pDC, rc, &m_bmButtonMapSelect, STATE_DEFAULT+1, TRUE );
+			DrawButtonMap( pDC, rc, &m_bmButtonMapSelect, STATE_DEFAULT+1, TRUE ) ||
+			DrawButton( pDC, rc, &m_bmSelected );
 	case IMAGE_MENUSELECTED:
 		return DrawButton( pDC, rc, &m_bmMenuSelected, &m_bmMenuSelectedEdge, TRUE ) ||
 			DrawButtonMap( pDC, rc, &m_bmButtonMapMenuselect, STATE_HOVER, TRUE );

@@ -1,7 +1,7 @@
 //
 // UploadTransferBT.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -235,8 +235,14 @@ BOOL CUploadTransferBT::OnRequest(CBTPacket* pPacket)
 	if ( m_nState == upsReady )
 	{
 		m_nState = upsRequest;
+
 		AllocateBaseFile();
-		theApp.Message( MSG_NOTICE, IDS_UPLOAD_FILE, (LPCTSTR)m_sName, (LPCTSTR)m_sAddress );
+
+		if ( m_pBaseFile->m_nRequests++ == 0 )
+		{
+			theApp.Message( MSG_NOTICE, IDS_UPLOAD_FILE, (LPCTSTR)m_sName, (LPCTSTR)m_sAddress );
+			PostMainWndMessage( WM_NOWUPLOADING, 0, (LPARAM)new CString( m_pBaseFile->m_sPath ) );
+		}
 	}
 
 	return ServeRequests();
@@ -246,9 +252,9 @@ BOOL CUploadTransferBT::OnCancel(CBTPacket* pPacket)
 {
 	if ( pPacket->GetRemaining() < 4 * 3 ) return TRUE;
 
-	QWORD nIndex	= pPacket->ReadLongBE();
-	QWORD nOffset	= pPacket->ReadLongBE();
-	QWORD nLength	= pPacket->ReadLongBE();
+	QWORD nIndex  = pPacket->ReadLongBE();
+	QWORD nOffset = pPacket->ReadLongBE();
+	QWORD nLength = pPacket->ReadLongBE();
 
 	nOffset += nIndex * m_pDownload->m_pTorrent.m_nBlockSize;
 

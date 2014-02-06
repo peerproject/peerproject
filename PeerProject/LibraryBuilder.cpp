@@ -39,6 +39,9 @@ static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif	// Debug
 
+#define FRESH_FILE_DELAY	50000000ui64	// 5 Seconds
+
+
 CLibraryBuilder LibraryBuilder;
 
 CFileHash::CFileHash(QWORD nFileSize)
@@ -94,28 +97,31 @@ CLibraryBuilder::CLibraryBuilder()
 	QueryPerformanceCounter( &m_nLastCall );
 }
 
-CLibraryBuilder::~CLibraryBuilder()
-{
-}
+//CLibraryBuilder::~CLibraryBuilder()
+//{
+//}
 
 //////////////////////////////////////////////////////////////////////
 // CLibraryBuilder add and remove
 
-bool CLibraryBuilder::Add(CLibraryFile* pFile)
+bool CLibraryBuilder::Add(const CLibraryFile* pFile)
 {
-	ASSERT( pFile->m_nIndex );
+	if ( ! pFile->IsReadable() || m_bBusy )
+		return false;
 
-	if ( pFile->IsReadable() && ! m_bBusy )
+	const DWORD nIndex = pFile->m_nIndex;
+	const CString strPath = pFile->GetPath();
+
 	{
 		CQuickLock pLock( m_pSection );
 
 		// Check queue
-		if ( std::find( m_pFiles.begin(), m_pFiles.end(), pFile->m_nIndex ) == m_pFiles.end() )
+		if ( std::find( m_pFiles.begin(), m_pFiles.end(), nIndex ) == m_pFiles.end() )
 		{
 			// Check current file
-			if ( m_sPath.CompareNoCase( pFile->GetPath() ) )
+			if ( m_sPath.CompareNoCase( strPath ) != 0 )
 			{
-				m_pFiles.push_back( pFile->m_nIndex );
+				m_pFiles.push_back( nIndex );
 
 				BeginThread( "LibraryBuilder", m_bPriority ?
 					THREAD_PRIORITY_BELOW_NORMAL : THREAD_PRIORITY_IDLE );
@@ -124,6 +130,7 @@ bool CLibraryBuilder::Add(CLibraryFile* pFile)
 			}
 		}
 	}
+
 	return false;
 }
 
@@ -138,13 +145,15 @@ void CLibraryBuilder::Remove(DWORD nIndex)
 		m_pFiles.erase( i );
 }
 
-void CLibraryBuilder::Remove(CLibraryFile* pFile)
+void CLibraryBuilder::Remove(const CLibraryFile* pFile)
 {
+	const CString sPath = pFile->GetPath();
+
 	// Remove file from queue
 	Remove( pFile->m_nIndex );
 
 	// Remove currently hashing file
-	if ( ! GetCurrent().CompareNoCase( pFile->GetPath() ) && ! m_bSkip )
+	if ( ! GetCurrent().CompareNoCase( sPath ) && ! m_bSkip )
 	{
 		m_bSkip = true;
 
@@ -236,8 +245,7 @@ void CLibraryBuilder::Skip(DWORD nIndex)
 
 		FILETIME ftCurrentTime;
 		GetSystemTimeAsFileTime( &ftCurrentTime );
-		fi.nNextAccessTime = MAKEQWORD( ftCurrentTime.dwLowDateTime,
-			ftCurrentTime.dwHighDateTime ) + 50000000;	// + 5 sec
+		fi.nNextAccessTime = MAKEQWORD( ftCurrentTime.dwLowDateTime, ftCurrentTime.dwHighDateTime ) + FRESH_FILE_DELAY;	// + 5 sec
 
 		m_pFiles.push_back( fi );
 	}
@@ -246,13 +254,17 @@ void CLibraryBuilder::Skip(DWORD nIndex)
 //////////////////////////////////////////////////////////////////////
 // CLibraryBuilder get best file to hash
 
-DWORD CLibraryBuilder::GetNextFileToHash(CString& sPath)
+DWORD CLibraryBuilder::GetNextFileToHash()
 {
 	DWORD nIndex = 0;
-	sPath.Empty();
+	CString sPath;
+
+	FILETIME ftCurrentTime;
+	GetSystemTimeAsFileTime( &ftCurrentTime );
+	const QWORD nCurrentTime = MAKEQWORD( ftCurrentTime.dwLowDateTime, ftCurrentTime.dwHighDateTime );
 
 	CSingleLock oLock( &m_pSection );
-	if ( oLock.Lock( 100 ) )
+	if ( oLock.Lock( 200 ) )
 	{
 		if ( m_pFiles.empty() )
 		{
@@ -262,9 +274,7 @@ DWORD CLibraryBuilder::GetNextFileToHash(CString& sPath)
 		else
 		{
 			// Get next candidate
-			FILETIME ftCurrentTime;
-			GetSystemTimeAsFileTime( &ftCurrentTime );
-			QWORD nCurrentTime = MAKEQWORD( ftCurrentTime.dwLowDateTime, ftCurrentTime.dwHighDateTime );
+			nIndex = m_pFiles.front().nIndex;
 			for ( CFileInfoList::iterator i = m_pFiles.begin() ; i != m_pFiles.end() ; i++ )
 			{
 				if ( (*i).nNextAccessTime < nCurrentTime )
@@ -282,7 +292,7 @@ DWORD CLibraryBuilder::GetNextFileToHash(CString& sPath)
 		CSingleLock oLibraryLock( &Library.m_pSection );
 		if ( oLibraryLock.Lock( 100 ) )
 		{
-			CLibraryFile* pFile = LibraryMaps.LookupFile( nIndex );
+			const CLibraryFile* pFile = LibraryMaps.LookupFile( nIndex );
 			if ( pFile )
 				sPath = pFile->GetPath();
 
@@ -310,6 +320,18 @@ DWORD CLibraryBuilder::GetNextFileToHash(CString& sPath)
 					Remove( nIndex );
 					nIndex = 0;
 				}
+				else
+				{
+					const QWORD nLastWriteTime = MAKEQWORD( wfad.ftLastWriteTime.dwLowDateTime, wfad.ftLastWriteTime.dwHighDateTime );
+					const QWORD nCreationTime  = MAKEQWORD( wfad.ftCreationTime.dwLowDateTime, wfad.ftCreationTime.dwHighDateTime );
+					if ( ( nLastWriteTime < nCurrentTime && nCurrentTime - nLastWriteTime < FRESH_FILE_DELAY ) ||
+						 ( nCreationTime  < nCurrentTime && nCurrentTime - nCreationTime  < FRESH_FILE_DELAY ) )	// 5 seconds
+					{
+						// Skip fresh file
+						Skip( nIndex );
+						nIndex = 0;
+					}
+				}
 			}
 			else
 			{
@@ -323,6 +345,9 @@ DWORD CLibraryBuilder::GetNextFileToHash(CString& sPath)
 			}
 		}
 	}
+
+	if ( oLock.Lock( 2000 ) )
+		m_sPath = sPath;
 
 	return nIndex;
 }
@@ -379,43 +404,37 @@ void CLibraryBuilder::OnRun()
 			continue;
 		}
 
-		CString strPath;
-		const DWORD nIndex = GetNextFileToHash( strPath );
-		if ( ! nIndex )
+		const DWORD nIndex = GetNextFileToHash();	// Sets m_sPath
+		if ( ! nIndex || m_sPath.GetLength() < 8 )
 			continue;
 
-		{
-			CQuickLock pLock( m_pSection );
-			m_sPath = strPath;
-		}
-
-		HANDLE hFile = CreateFile( SafePath( strPath ), GENERIC_READ,
+		HANDLE hFile = CreateFile( SafePath( m_sPath ), GENERIC_READ,
 			FILE_SHARE_READ | FILE_SHARE_DELETE, NULL,
 			OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, NULL );
-		VERIFY_FILE_ACCESS( hFile, strPath )
+		VERIFY_FILE_ACCESS( hFile, m_sPath )
 		if ( hFile != INVALID_HANDLE_VALUE )
 		{
-			theApp.Message( MSG_DEBUG, _T("Hashing: %s"), (LPCTSTR)strPath );
+			theApp.Message( MSG_DEBUG, _T("Hashing: %s"), (LPCTSTR)m_sPath );
 
 			// ToDo: We need MD5 hash of the audio file without tags
-			if ( HashFile( strPath, hFile ) )
+			if ( HashFile( m_sPath, hFile ) )
 			{
 				nAttempts = 0;
 				SetFilePointer( hFile, 0, NULL, FILE_BEGIN );
 
 				try
 				{
-					ExtractMetadata( nIndex, strPath, hFile );
+					ExtractMetadata( nIndex, m_sPath, hFile );
 				}
 				catch ( CException* pException )
 				{
 					pException->Delete();
 				}
 
-				ExtractPluginMetadata( nIndex, strPath );
+				ExtractPluginMetadata( nIndex, m_sPath );
 
-				CThumbCache::Delete( strPath );
-				CThumbCache::Cache( strPath );
+				CThumbCache::Delete( m_sPath );
+				CThumbCache::Cache( m_sPath );
 
 				// Done
 				Remove( nIndex );
@@ -1049,7 +1068,7 @@ bool CLibraryBuilder::DetectVirtualLAME(HANDLE hFile, QWORD& nOffset, QWORD& nLe
 
 		if ( nLen != 0 )
 			break;
-		
+
 		// All bytes equal
 		bChanged = true;
 		nLength -= nFrameSize;

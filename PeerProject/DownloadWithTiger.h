@@ -1,7 +1,7 @@
 //
 // DownloadWithTiger.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -50,7 +50,7 @@ private:
 	QWORD		m_nVerifyLength;
 	DWORD		m_tVerifyLast;
 
-	mutable CCriticalSection	m_pTigerSection;
+	mutable CMutexEx			m_pTigerSection;
 
 	mutable Fragments::List		m_oWFLCache;			// Wanted fragment list cache
 	mutable QWORD				m_nWFLCookie;			// Wanted fragment list cookie

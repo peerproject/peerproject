@@ -1,7 +1,7 @@
 //
 // UploadTransfer.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -30,6 +30,7 @@
 #include "SharedFile.h"
 #include "Download.h"
 #include "Downloads.h"
+#include "Transfers.h"	// Lock
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -97,6 +98,8 @@ void CUploadTransfer::Remove(BOOL bMessage)
 
 void CUploadTransfer::Close(UINT nError)
 {
+	ASSUME_LOCK( Transfers.m_pSection );
+
 	if ( m_nState == upsNull ) return;
 	m_nState = upsNull;
 
@@ -148,7 +151,8 @@ BOOL CUploadTransfer::OnRename(LPCTSTR pszSource, LPCTSTR pszTarget)
 	{
 		// Reopen file
 		m_sPath = pszTarget;
-		if ( OpenFile() ) return TRUE;
+		if ( OpenFile() )
+			return TRUE;
 
 		theApp.Message( MSG_ERROR, IDS_UPLOAD_DELETED, (LPCTSTR)m_sName, (LPCTSTR)m_sAddress );
 		Close();

@@ -1,7 +1,7 @@
 //
 // Downloads.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -213,14 +213,15 @@ CDownload* CDownloads::Add(CMatchFile* pFile, BOOL bAddToHead)
 	if ( pDownload == NULL && pFile->m_oMD5 )
 		pDownload = FindByMD5( pFile->m_oMD5 );
 
-	if ( pDownload && ! pDownload->IsSeeding() )
+	if ( pDownload )
 	{
-		pDownload->AddSourceHit( pFile, FALSE );
-
-		theApp.Message( MSG_NOTICE, IDS_DOWNLOAD_ALREADY, (LPCTSTR)pDownload->GetDisplayName() );	// pFile->m_sName
+		if ( ! pDownload->IsSeeding() )
+			pDownload->AddSourceHit( pFile, FALSE );
 
 		//if ( pDownload->IsPaused() )
 		//	pDownload->Resume();
+
+		theApp.Message( MSG_NOTICE, IDS_DOWNLOAD_ALREADY, (LPCTSTR)pDownload->GetDisplayName() );	// pFile->m_sName
 	}
 	else // New Download
 	{
@@ -273,9 +274,13 @@ CDownload* CDownloads::Add(const CPeerProjectURL& oURL, BOOL bAddToHead)
 	if ( pDownload == NULL && oURL.m_oMD5 )
 		pDownload = FindByMD5( oURL.m_oMD5 );
 
-	if ( pDownload && ! pDownload->IsSeeding() )
+	if ( pDownload )
 	{
-		pDownload->AddSourceHit( oURL, FALSE );
+		if ( ! pDownload->IsSeeding() )
+			pDownload->AddSourceHit( oURL, FALSE );
+
+		//if ( pDownload->IsPaused() )
+		//	pDownload->Resume();
 
 		theApp.Message( MSG_NOTICE, IDS_DOWNLOAD_ALREADY, (LPCTSTR)pDownload->GetDisplayName() );
 	}

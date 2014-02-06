@@ -1,7 +1,7 @@
 //
 // AlbumFolder.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -232,6 +232,8 @@ CAlbumFolder* CAlbumFolder::FindCollection(const Hashes::Sha1Hash& oSHA1)
 
 CAlbumFolder* CAlbumFolder::FindFolder(const Hashes::Guid& oGUID)
 {
+	ASSUME_LOCK( Library.m_pSection );
+
 	if ( m_oGUID == oGUID )
 		return this;	// Its me!
 
@@ -273,6 +275,7 @@ bool CAlbumFolder::OnFolderDelete(CAlbumFolder* pFolder)
 void CAlbumFolder::AddFile(CLibraryFile* pFile)
 {
 	ASSUME_LOCK( Library.m_pSection );
+	ASSERT_VALID( pFile );
 
 	if ( pFile == NULL ) return;
 
@@ -410,7 +413,10 @@ void CAlbumFolder::OnFileDelete(CLibraryFile* pFile, BOOL bDeleteGhost)
 
 const CAlbumFolder* CAlbumFolder::FindFile(const CLibraryFile* pFile) const
 {
-	if ( m_pFiles.Find( const_cast< CLibraryFile* >( pFile ) ) != NULL ) return this;
+	ASSUME_LOCK( Library.m_pSection );
+
+	if ( m_pFiles.Find( const_cast< CLibraryFile* >( pFile ) ) != NULL )
+		return this;
 
 	POSITION pos = GetFolderIterator();
 	const CAlbumFolder* pFirst = pos ? GetNextFolder( pos ) : NULL;
@@ -492,7 +498,8 @@ BOOL CAlbumFolder::SetMetadata(CXMLElement* pXML)
 		m_sSchemaURI.Empty();
 	}
 
-	if ( pXML == NULL ) return TRUE;
+	if ( pXML == NULL )
+		return TRUE;
 
 	m_sSchemaURI	= pXML->GetAttributeValue( CXMLAttribute::schemaName );
 	m_pSchema		= SchemaCache.Get( m_sSchemaURI );
@@ -1152,6 +1159,8 @@ BOOL CAlbumFolder::OrganiseFile(CLibraryFile* pFile)
 
 void CAlbumFolder::Serialize(CArchive& ar, int nVersion)
 {
+	ASSUME_LOCK( Library.m_pSection );
+
 	if ( ar.IsStoring() )
 	{
 		ar << m_sSchemaURI;

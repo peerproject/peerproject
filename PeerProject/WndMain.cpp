@@ -307,13 +307,6 @@ CMainWnd::CMainWnd()
 	m_pTray.cbSize				= sizeof( NOTIFYICONDATA );
 	m_pTray.uVersion			= NOTIFYICON_VERSION;	// NOTIFYICON_VERSION_4;
 	m_pTray.uCallbackMessage	= WM_TRAY;
-
-	theApp.m_pMainWnd = this;
-
-	// Bypass CMDIFrameWnd::LoadFrame
-	VERIFY( CFrameWnd::LoadFrame( IDR_MAINFRAME, WS_OVERLAPPEDWINDOW ) );
-
-	theApp.m_pSafeWnd = this;
 }
 
 BOOL CMainWnd::Create(LPCTSTR lpszClassName, LPCTSTR lpszWindowName, DWORD dwStyle,
@@ -3332,7 +3325,11 @@ void CMainWnd::ShowTrayPopup(const CString& sText, const CString& sTitle, DWORD 
 /////////////////////////////////////////////////////////////////////////////
 // System hibernation recovery
 
+#if _MSC_VER < 1800
+UINT CMainWnd::OnPowerBroadcast(UINT nPowerEvent, UINT nEventData)
+#else
 UINT CMainWnd::OnPowerBroadcast(UINT nPowerEvent, LPARAM lParam)
+#endif
 {
 	static bool bWasConnected = false;
 
@@ -3357,7 +3354,11 @@ UINT CMainWnd::OnPowerBroadcast(UINT nPowerEvent, LPARAM lParam)
 		break;
 	}
 
+#if _MSC_VER < 1800
+	return CMDIFrameWnd::OnPowerBroadcast( nPowerEvent, nEventData );
+#else
 	return CMDIFrameWnd::OnPowerBroadcast( nPowerEvent, lParam );
+#endif
 }
 
 BOOL CMainWnd::OnCopyData(CWnd* /*pWnd*/, COPYDATASTRUCT* pCopyDataStruct)

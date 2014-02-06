@@ -1,7 +1,7 @@
 //
 // WndBrowseHost.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -153,6 +153,7 @@ void CBrowseHostWnd::OnSize(UINT nType, int cx, int cy)
 	CPanelWnd::OnSize( nType, cx, cy );
 
 	if ( ! m_wndHeader ) return;	// Initial Load Debug Assert Workaround
+	if ( ! ::IsWindow( m_wndToolBar.GetSafeHwnd() ) ) return;
 
 	CRect rc;
 	GetClientRect( &rc );
@@ -160,10 +161,14 @@ void CBrowseHostWnd::OnSize(UINT nType, int cx, int cy)
 	rc.top += Settings.Skin.HeaderbarHeight;
 	rc.bottom -= Settings.Skin.ToolbarHeight;
 
-	m_wndHeader.SetWindowPos( NULL, rc.left, 0, rc.Width(), rc.top, SWP_NOZORDER );
-	m_wndToolBar.SetWindowPos( NULL, rc.left, rc.bottom, rc.Width(), Settings.Skin.ToolbarHeight, SWP_NOZORDER );
-	m_wndProfile.SetWindowPos( NULL, rc.left, rc.top, rc.Width(), rc.Height(), SWP_NOZORDER );
-	m_wndFrame.SetWindowPos( NULL, rc.left, rc.top, rc.Width(), rc.Height(), SWP_NOZORDER );
+	//if ( ::IsWindow( m_wndHeader.GetSafeHwnd() ) )
+		m_wndHeader.SetWindowPos( NULL, rc.left, 0, rc.Width(), rc.top, SWP_NOZORDER );
+	//if ( ::IsWindow( m_wndToolBar.GetSafeHwnd() ) )
+		m_wndToolBar.SetWindowPos( NULL, rc.left, rc.bottom, rc.Width(), Settings.Skin.ToolbarHeight, SWP_NOZORDER );
+	//if ( ::IsWindow( m_wndProfile.GetSafeHwnd() ) )
+		m_wndProfile.SetWindowPos( NULL, rc.left, rc.top, rc.Width(), rc.Height(), SWP_NOZORDER );
+	//if ( ::IsWindow( m_wndFrame.GetSafeHwnd() ) )
+		m_wndFrame.SetWindowPos( NULL, rc.left, rc.top, rc.Width(), rc.Height(), SWP_NOZORDER );
 }
 
 void CBrowseHostWnd::OnContextMenu(CWnd* pWnd, CPoint point)

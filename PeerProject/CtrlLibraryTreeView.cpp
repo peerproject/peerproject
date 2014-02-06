@@ -1,7 +1,7 @@
 //
 // CtrlLibraryTreeView.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -291,6 +291,11 @@ BOOL CLibraryTreeView::Select(CLibraryTreeItem* pItem, TRISTATE bSelect, BOOL bI
 
 	if ( pItem->m_bSelected )
 	{
+		for ( CLibraryTreeItem* pRootItem = pItem->parent() ; pRootItem ; pRootItem = pRootItem->parent() )
+		{
+			Expand( pRootItem, TRI_TRUE, FALSE );
+		}
+
 		if ( m_bVirtual )
 			m_pFocusObject[ 1 ] = pItem ? pItem->m_pVirtual : NULL;
 		else

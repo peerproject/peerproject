@@ -288,8 +288,12 @@ protected:
 	afx_msg LRESULT OnMenuChar(UINT nChar, UINT nFlags, CMenu* pMenu);
 	afx_msg LRESULT OnSanityCheck(WPARAM wParam, LPARAM lParam);
 	afx_msg LRESULT OnNowUploading(WPARAM wParam, LPARAM lParam);
-	afx_msg UINT OnPowerBroadcast(UINT nPowerEvent, LPARAM lParam);
 	afx_msg BOOL OnCopyData(CWnd* pWnd, COPYDATASTRUCT* pCopyDataStruct);	// Windows scheduler not implemented
+#if _MSC_VER < 1800
+	afx_msg UINT OnPowerBroadcast(UINT nPowerEvent, UINT nEventData);
+#else
+	afx_msg UINT OnPowerBroadcast(UINT nPowerEvent, LPARAM lParam);
+#endif
 
 	DECLARE_MESSAGE_MAP()
 	DECLARE_DROP()

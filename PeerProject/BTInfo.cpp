@@ -1,7 +1,7 @@
 //
 // BTInfo.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -1226,10 +1226,23 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 
 			if ( const CBENode* pSHA1 = pFile->GetNode( "sha1" ) )
 			{
-				if ( ! pSHA1->IsType( CBENode::beString ) ||
-					   pSHA1->m_nValue != Hashes::Sha1Hash::byteCount ) return FALSE;
-				pBTFile->m_oSHA1 =
-					*static_cast< Hashes::Sha1Hash::RawStorage* >( pSHA1->m_pValue );
+				if ( ! pSHA1->IsType( CBENode::beString ) )
+					return FALSE;
+
+				if ( pSHA1->m_nValue == Hashes::Sha1Hash::byteCount )
+				{
+					pBTFile->m_oSHA1 = *static_cast< Hashes::Sha1Hash::RawStorage* >( pSHA1->m_pValue );
+				}
+				else if ( pSHA1->m_nValue == Hashes::Sha1Hash::byteCount * 2 )
+				{
+					CStringA tmp;
+					tmp.Append( (const char*)pSHA1->m_pValue, (int)pSHA1->m_nValue );
+					pBTFile->m_oSHA1.fromString( CA2W( tmp ) );
+				}
+				else
+				{
+					return FALSE;
+				}
 			}
 
 			if ( const CBENode* pED2K = pFile->GetNode( "ed2k" ) )

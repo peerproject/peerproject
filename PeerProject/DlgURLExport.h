@@ -1,7 +1,7 @@
 //
 // DlgURLExport.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -30,7 +30,7 @@ public:
 
 	enum { IDD = IDD_URL_EXPORT };
 
-public:
+protected:
 	CProgressCtrl	m_wndProgress;
 	CButton			m_wndSave;
 	CButton			m_wndCopy;
@@ -40,13 +40,13 @@ public:
 	CStatic			m_wndMessage;
 	CString			m_sFormat;
 
+	CList< CPeerProjectFile >	m_pFiles;
+
+public:
 	void		Add(const CPeerProjectFile* pFile);
+	static void	MakeURL(CPeerProjectFile pFile, CString& strLine);
 
 protected:
-	CList< const CPeerProjectFile* >	m_pFiles;
-
-	void		MakeURL(const CPeerProjectFile* pFile, CString& strLine);
-
 	virtual void DoDataExchange(CDataExchange* pDX);
 	virtual BOOL OnInitDialog();
 	afx_msg void OnCloseUpUrlToken();

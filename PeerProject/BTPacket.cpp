@@ -1,7 +1,7 @@
 //
 // BTPacket.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -312,6 +312,9 @@ void CDHT::OnEvent(void* /*closure*/, int evt, const unsigned char* info_hash, c
 	case DHT_EVENT_REPLY:
 		if ( data_len == sizeof( SOCKADDR_IN ) )
 		{
+			// Assume UDP is stable
+			Datagrams.SetStable();
+
 			const SOCKADDR_IN* pHost = (const SOCKADDR_IN*)data;
 
 			CQuickLock oLock( HostCache.BitTorrent.m_pSection );
@@ -735,15 +738,11 @@ BOOL CBTPacket::OnPacket(const SOCKADDR_IN* pHost)
 //
 //		const CBENode* pPeers = pResponse->GetNode( BT_DICT_VALUES );		// "values"
 //		if ( pPeers && pPeers->IsType( CBENode::beList) )
-//		{
-//			// ToDo: Handle "values" ?
-//		}
+//			;	// ToDo: Handle "values" ?
 //
 //		const CBENode* pNodes = pResponse->GetNode( BT_DICT_NODES );		// "nodes"
 //		if ( pNodes && pNodes->IsType( CBENode::beString ) )
-//		{
-//			// ToDo: Handle "nodes" ?
-//		}
+//			;	// ToDo: Handle "nodes" ?
 //
 //		return TRUE;
 //	}
@@ -762,14 +761,14 @@ BOOL CBTPacket::OnPacket(const SOCKADDR_IN* pHost)
 
 //BOOL CBTPacket::OnPing(const SOCKADDR_IN* pHost)
 //{
-//	CBENode* pTransID = m_pNode->GetNode( BT_DICT_TRANSACT_ID );			// "t"
+//	const CBENode* pTransID = m_pNode->GetNode( BT_DICT_TRANSACT_ID );			// "t"
 //
-//	CBENode* pQueryData = m_pNode->GetNode( BT_DICT_DATA );					// "a"
+//	const CBENode* pQueryData = m_pNode->GetNode( BT_DICT_DATA );				// "a"
 //	if ( ! pQueryData || ! pQueryData->IsType( CBENode::beDict ) )
 //		return FALSE;
 //
 //	Hashes::BtGuid oNodeGUID;
-//	CBENode* pNodeID = pQueryData->GetNode( BT_DICT_ID );					// "id"
+//	const CBENode* pNodeID = pQueryData->GetNode( BT_DICT_ID );					// "id"
 //	if ( ! pNodeID || ! pNodeID->GetString( oNodeGUID ) )
 //		return FALSE;
 //
@@ -780,7 +779,6 @@ BOOL CBTPacket::OnPacket(const SOCKADDR_IN* pHost)
 //		{
 //			pCache->m_oBtGUID = oNodeGUID;
 //			pCache->m_sDescription = oNodeGUID.toString();
-//
 //			HostCache.BitTorrent.m_nCookie++;
 //		}
 //	}
