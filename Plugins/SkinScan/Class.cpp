@@ -54,7 +54,9 @@ protected:
 	unzFile hArchive;
 };
 
-STDMETHODIMP CSkinScan::Process(/*[in]*/ BSTR sFile, /*[in]*/ ISXMLElement* pXML)
+STDMETHODIMP CSkinScan::Process(
+	/*[in]*/ BSTR sFile,
+	/*[in]*/ ISXMLElement* pXML)
 {
 	if ( ! pXML )
 		return E_POINTER;

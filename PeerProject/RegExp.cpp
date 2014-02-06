@@ -1,7 +1,7 @@
 //
 // RegExp.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2010-2012
+// This file is part of PeerProject (peerproject.org) © 2010-2014
 // Portions copyright Shareaza Development Team, 2008-2010.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -31,11 +31,8 @@
 #include <tchar.h>
 //#include <string>	// In StdAfx.h
 
-#if defined(_MSC_VER) && (_MSC_FULL_VER > 150030000)	// _HAS_TR1		// VS2008 SP1 for tr1, VS2012 for std
+//#if defined(_MSC_VER) && (_MSC_FULL_VER > 150030000)	// _HAS_TR1		// VS2008 SP1 for tr1, VS2012 for std
 #include <regex>
-#else	// Boost fallback
-#include <Boost/tr1/regex.hpp>
-#endif
 
 #ifdef _DEBUG
 #undef THIS_FILE

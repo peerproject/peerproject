@@ -1,7 +1,7 @@
 //
 // ZLib.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -17,7 +17,7 @@
 //
 
 // CZLib makes it easier to use the zlib compression library
-// http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CZLib
+// http://shareaza.sourceforge.net/mediawiki/index.php/Developers.Code.CZLib
 // http://peerproject.org/shareazawiki/Developers.Code.CZLib.html
 
 #include "StdAfx.h"

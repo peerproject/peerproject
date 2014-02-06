@@ -43,6 +43,7 @@ public:
 	void	SetPieceSize(int nPieceIndex);
 	void	Enable(BOOL bSHA1, BOOL bED2K, BOOL bMD5);
 	BOOL	AddFile(LPCTSTR pszPath);
+	BOOL	AddTracker(LPCTSTR pszURL);
 	BOOL	AddTrackerURL(LPCTSTR pszURL);
 	BOOL	AddTrackerURL2(LPCTSTR pszURL);
 	BOOL	SetComment(LPCTSTR pszComment);
@@ -69,14 +70,15 @@ protected:
 	BOOL				m_bActive;
 	BOOL				m_bFinished;
 	BOOL				m_bAbort;
+	BOOL				m_bPrivate;
 	CString				m_sMessage;
 	CString				m_sName;
 	CString				m_sOutput;
 	CString				m_sTracker;
 	CString				m_sTracker2;
+	CStringList			m_pTrackers;
 	CString				m_sComment;
 //	CString				m_sSource;
-	BOOL				m_bPrivate;
 	CStringList			m_pFiles;
 	CString				m_sThisFile;
 	QWORD				m_nTotalSize;

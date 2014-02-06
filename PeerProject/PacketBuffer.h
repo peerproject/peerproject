@@ -1,7 +1,7 @@
 //
 // PacketBuffer.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -17,14 +17,15 @@
 //
 
 // CG1PacketBuffer holds arrays of packets to send, organized by their type
-// http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CG1PacketBuffer
+// http://shareaza.sourceforge.net/mediawiki/index.php/Developers.Code.CG1PacketBuffer
 // http://peerproject.org/shareazawiki/Developers.Code.CG1PacketBuffer.html
 
 #pragma once
 
-class CG1Packet;
 class CBuffer;
+class CG1Packet;
 class CG1PacketBufferType;
+
 
 // Holds 9 arrays of 64 Gnutella packets each, one array for each packet type, like ping or pong
 class CG1PacketBuffer
@@ -32,31 +33,32 @@ class CG1PacketBuffer
 
 public:
 	// Make a new set of arrays, and delete this set
-	CG1PacketBuffer(CBuffer* pBuffer); // Takes a buffer to write packets to instead of putting them in the arrays
+	CG1PacketBuffer(CBuffer* pBuffer);	// Takes a buffer to write packets to instead of putting them in the arrays
 	virtual ~CG1PacketBuffer();
 
 public:
 	// Total counts of packets in the arrays
-	int m_nTotal;   // The number of packets Add added without overwriting any
-	int m_nDropped; // The number of packets Add overwrote
+	int m_nTotal;   // Number of packets Add added without overwriting any
+	int m_nDropped; // Number of packets Add overwrote
 
 protected:
 	// The buffer where we can write packets directly, instead of putting them in arrays
 	CBuffer* m_pBuffer;
 
 	// Arrays of packets, one for each type
-	int                  m_nCycle;   // The type of packet to send next, like 1 ping array, 2 pong array, and so on
-	int                  m_nIterate; // The number of packets of this type we've recently sent
 	CG1PacketBufferType* m_pType;    // An array of 9 pointers to arrays of 64 packets each, one array for each packet type
+	int                  m_nCycle;   // The type of packet to send next, like 1 ping array, 2 pong array, and so on
+	int                  m_nIterate; // Number of packets of this type we've recently sent
 
 public:
-	// Add a packet, and clear them all
-	void Add(CG1Packet* pPacket, BOOL bBuffered = TRUE); // Add a packet to the array of its type
-	void Clear();                                        // Clear all the packets from all the arrays
+	// Add a packet to its array, and clear them all
+	void Add(CG1Packet* pPacket, BOOL bBuffered = TRUE);
+	void Clear();
 
 	// Get a packet to send, it chooses one added recently, not expired, and keeps the type mixed up
 	CG1Packet* GetPacketToSend(DWORD dwExpire = 0);
 };
+
 
 // Holds an array of 64 pointers to packets to send, all of one type, and the time each expires 1 minute after they were added
 class CG1PacketBufferType

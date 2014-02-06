@@ -96,9 +96,9 @@ BOOST_TT_AUX_TYPE_TRAIT_DEF1(add_reference,T,typename boost::detail::add_referen
 
 // agurt, 07/mar/03: workaround Borland's ill-formed sensitivity to an additional
 // level of indirection, here
-#if BOOST_WORKAROUND(__BORLANDC__, < 0x600)
-BOOST_TT_AUX_TYPE_TRAIT_PARTIAL_SPEC1_1(typename T,add_reference,T&,T&)
-#endif
+//#if BOOST_WORKAROUND(__BORLANDC__, < 0x600)
+//BOOST_TT_AUX_TYPE_TRAIT_PARTIAL_SPEC1_1(typename T,add_reference,T&,T&)
+//#endif
 
 } // namespace boost
 

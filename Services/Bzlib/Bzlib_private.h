@@ -22,8 +22,8 @@
 #pragma warning( disable: 4244 )  /* conversion from 'Int32' to 'UChar' */
 #pragma warning( disable: 4267 )  /* conversion from 'size_t' to 'Int32' */
 
-#ifdef WIN64			/* Only Win32 builds fail with this ? */
-#define BZ_NO_STDIO		/* Currently Need Buffer Only (For DC++, No .bz2 Files) */
+#ifndef BZ_NO_STDIO			/* Win32 builds fail unless .def file is edited */
+#define BZ_NO_STDIO			/* Currently Need Buffer Only (For DC++, No .bz2 Files) */
 #endif
 
 #ifndef _BZLIB_PRIVATE_H

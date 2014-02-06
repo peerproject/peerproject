@@ -17,7 +17,7 @@
 //
 
 // CPacket represents a packet on a peer-to-peer network, and CPacketPool keeps lists of them
-// http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CPacket
+// http://shareaza.sourceforge.net/mediawiki/index.php/Developers.Code.CPacket
 // http://peerproject.org/shareazawiki/Developers.Code.CPacket.html
 
 #include "StdAfx.h"
@@ -205,7 +205,7 @@ CString CPacket::ReadString(UINT cp, DWORD nMaximum)
 // Reads those up to the next null terminator as text
 CString CPacket::ReadStringASCII(DWORD nMaximum)
 {
-	return ReadString(CP_ACP, nMaximum);
+	return ReadString( CP_ACP, nMaximum );
 }
 
 // Takes text, and true to also write a null terminator
@@ -468,6 +468,7 @@ void CPacket::SmartDump(const SOCKADDR_IN* pAddress, BOOL bUDP, BOOL bOutgoing, 
 //	// Always return false (do)
 //	return FALSE;
 //}
+
 
 //////////////////////////////////////////////////////////////////////
 // CPacketPool construction

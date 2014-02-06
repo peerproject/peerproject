@@ -41,9 +41,8 @@ struct input_output_iterator_tag
     // Using inheritance for only input_iterator_tag helps to avoid
     // ambiguities when a stdlib implementation dispatches on a
     // function which is overloaded on both input_iterator_tag and
-    // output_iterator_tag, as STLPort does, in its __valid_range
-    // function.  I claim it's better to avoid the ambiguity in these
-    // cases.
+    // output_iterator_tag, as STLPort does, in its __valid_range function.
+    // I claim it's better to avoid the ambiguity in these cases.
     operator std::output_iterator_tag() const
     {
         return std::output_iterator_tag();
@@ -129,10 +128,9 @@ struct is_iterator_traversal
 {};
 
 //
-// A composite iterator_category tag convertible to Category (a pure
-// old-style category) and Traversal (a pure traversal tag).
-// Traversal must be a strict increase of the traversal power given by
-// Category.
+// A composite iterator_category tag convertible to Category
+// (a pure old-style category) and Traversal (a pure traversal tag).
+// Traversal must be a strict increase of the traversal power given by Category.
 //
 template <class Category, class Traversal>
 struct iterator_category_with_traversal

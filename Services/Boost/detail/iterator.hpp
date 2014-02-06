@@ -22,28 +22,7 @@
 // See http://www.boost.org for most recent version including documentation.
 
 // Revision History
-// 04 Mar 2001 - More attempted fixes for Intel C++ (David Abrahams)
-// 03 Mar 2001 - Put all implementation into namespace
-//               boost::detail::iterator_traits_. Some progress made on fixes
-//               for Intel compiler. (David Abrahams)
-// 02 Mar 2001 - Changed BOOST_MSVC to BOOST_MSVC_STD_ITERATOR in a few places. (Jeremy Siek)
-// 19 Feb 2001 - Improved workarounds for stock MSVC6; use yes_type and
-//               no_type from type_traits.hpp; stopped trying to remove_cv
-//               before detecting is_pointer, in honor of the new type_traits
-//               semantics. (David Abrahams)
-// 13 Feb 2001 - Make it work with nearly all standard-conforming iterators
-//               under raw VC6. The one category remaining which will fail is
-//               that of iterators derived from std::iterator but not
-//               boost::iterator and which redefine difference_type.
-// 11 Feb 2001 - Clean away code which can never be used (David Abrahams)
-// 09 Feb 2001 - Always have a definition for each traits member, even if it
-//               can't be properly deduced. These will be incomplete types in
-//               some cases (undefined<void>), but it helps suppress MSVC errors
-//               elsewhere (David Abrahams)
-// 07 Feb 2001 - Support for more of the traits members where possible, making
-//               this useful as a replacement for std::iterator_traits<T> when
-//               used as a default template parameter.
-// 06 Feb 2001 - Removed useless #includes of standard library headers (David Abrahams)
+// Feb-Mar 2001 - (Removed)(David Abrahams)
 
 #ifndef ITERATOR_DWA122600_HPP_
 # define ITERATOR_DWA122600_HPP_
@@ -58,15 +37,15 @@
 // Also, whether debugging is enabled or not, there is a broken specialization
 // of std::iterator<output_iterator_tag,void,void,void,void> which has no
 // typedefs but iterator_category.
-# if defined(__SGI_STL_PORT)
-
-#  if (__SGI_STL_PORT <= 0x410) && !defined(__STL_CLASS_PARTIAL_SPECIALIZATION) && defined(__STL_DEBUG)
-#   define BOOST_BAD_CONTAINER_ITERATOR_CATEGORY_TYPEDEF
-#  endif
-
-#  define BOOST_BAD_OUTPUT_ITERATOR_SPECIALIZATION
-
-# endif // STLPort <= 4.1b4 && no partial specialization
+//# if defined(__SGI_STL_PORT)
+//
+//#  if (__SGI_STL_PORT <= 0x410) && !defined(__STL_CLASS_PARTIAL_SPECIALIZATION) && defined(__STL_DEBUG)
+//#   define BOOST_BAD_CONTAINER_ITERATOR_CATEGORY_TYPEDEF
+//#  endif
+//
+//#  define BOOST_BAD_OUTPUT_ITERATOR_SPECIALIZATION
+//
+//# endif // STLPort <= 4.1b4 && no partial specialization
 
 # if !defined(BOOST_NO_STD_ITERATOR_TRAITS)             \
   && !defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION) \
@@ -290,7 +269,6 @@ struct pointer_value_type
     >
 {
 };
-
 
 template<class P>
 struct pointer_reference

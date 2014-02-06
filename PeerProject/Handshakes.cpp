@@ -17,7 +17,7 @@
 //
 
 // CHandshakes listens for remote computers that want to connect to us
-// http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CHandshakes
+// http://shareaza.sourceforge.net/mediawiki/index.php/Developers.Code.CHandshakes
 // http://peerproject.org/shareazawiki/Developers.Code.CHandshakes.html
 
 #include "StdAfx.h"

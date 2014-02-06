@@ -1,7 +1,7 @@
 //
 // NeighboursWithG1.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -17,7 +17,7 @@
 //
 
 // Adds the ping route and pong caches to the CNeighbours object, and methods to route Gnutella ping and pong packets
-// http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CNeighboursWithG1
+// http://shareaza.sourceforge.net/mediawiki/index.php/Developers.Code.CNeighboursWithG1
 // http://peerproject.org/shareazawiki/Developers.Code.CNeighboursWithG1.html
 
 #include "StdAfx.h"

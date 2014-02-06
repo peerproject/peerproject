@@ -1,7 +1,7 @@
 //
 // Class.cpp : Implementation of CClass (7z)
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -159,7 +159,9 @@ protected:
 	HANDLE pFile;
 };
 
-STDMETHODIMP C7ZipBuilder::Process(/*[in]*/ BSTR sFile, /*[in]*/ ISXMLElement* pXML)
+STDMETHODIMP C7ZipBuilder::Process(
+	/*[in]*/ BSTR sFile,
+	/*[in]*/ ISXMLElement* pXML)
 {
 	if ( ! pXML )
 		return E_POINTER;
@@ -171,21 +173,21 @@ STDMETHODIMP C7ZipBuilder::Process(/*[in]*/ BSTR sFile, /*[in]*/ ISXMLElement* p
 	HRESULT hr = pXML->get_Elements(&pISXMLRootElements);
 	if ( FAILED( hr ) ) return hr;
 	CComPtr <ISXMLElement> pXMLRootElement;
-	hr = pISXMLRootElements->Create (CComBSTR ("archives"), &pXMLRootElement);
+	hr = pISXMLRootElements->Create(CComBSTR("archives"), &pXMLRootElement);
 	if ( FAILED( hr ) ) return hr;
 	CComPtr <ISXMLAttributes> pISXMLRootAttributes;
 	hr = pXMLRootElement->get_Attributes(&pISXMLRootAttributes);
 	if ( FAILED( hr ) ) return hr;
-	pISXMLRootAttributes->Add (CComBSTR ("xmlns:xsi"),
-		CComBSTR ("http://www.w3.org/2001/XMLSchema-instance"));
-	pISXMLRootAttributes->Add (CComBSTR ("xsi:noNamespaceSchemaLocation"),
-		CComBSTR ("http://www.shareaza.com/schemas/archive.xsd"));
+	pISXMLRootAttributes->Add(CComBSTR("xmlns:xsi"),
+		CComBSTR("http://www.w3.org/2001/XMLSchema-instance"));
+	pISXMLRootAttributes->Add(CComBSTR("xsi:noNamespaceSchemaLocation"),
+		CComBSTR("http://www.shareaza.com/schemas/archive.xsd"));
 
 	CComPtr <ISXMLElements> pISXMLElements;
 	hr = pXMLRootElement->get_Elements(&pISXMLElements);
 	if ( FAILED( hr ) ) return hr;
 	CComPtr <ISXMLElement> pXMLElement;
-	hr = pISXMLElements->Create (CComBSTR ("archive"), &pXMLElement);
+	hr = pISXMLElements->Create(CComBSTR("archive"), &pXMLElement);
 	if ( FAILED( hr ) ) return hr;
 	CComPtr <ISXMLAttributes> pISXMLAttributes;
 	hr = pXMLElement->get_Attributes(&pISXMLAttributes);

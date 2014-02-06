@@ -131,13 +131,13 @@ namespace detail
   {
   };
 
-# if BOOST_WORKAROUND(BOOST_MSVC, < 1300)
-  template <>
-  struct pure_traversal_tag<int>
-  {
-      typedef int type;
-  };
-# endif
+//# if BOOST_WORKAROUND(BOOST_MSVC, < 1300)
+//  template <>
+//  struct pure_traversal_tag<int>
+//  {
+//      typedef int type;
+//  };
+//# endif
 
 } // namespace detail
 

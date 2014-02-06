@@ -17,13 +17,13 @@
 #include <boost/mpl/aux_/config/workaround.hpp>
 #include <boost/config.hpp>
 
-#if    !defined(BOOST_MPL_CFG_NO_NONTYPE_TEMPLATE_PARTIAL_SPEC) \
-    && !defined(BOOST_MPL_PREPROCESSING_MODE) \
-    && BOOST_WORKAROUND(__BORLANDC__, < 0x582)
-
-#   define BOOST_MPL_CFG_NO_NONTYPE_TEMPLATE_PARTIAL_SPEC
-
-#endif
+//#if    !defined(BOOST_MPL_CFG_NO_NONTYPE_TEMPLATE_PARTIAL_SPEC) \
+//  && !defined(BOOST_MPL_PREPROCESSING_MODE) \
+//  && BOOST_WORKAROUND(__BORLANDC__, < 0x582)
+//
+//# define BOOST_MPL_CFG_NO_NONTYPE_TEMPLATE_PARTIAL_SPEC
+//
+//#endif
 
 // BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION is defined in <boost/config.hpp>
 

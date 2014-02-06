@@ -13,13 +13,13 @@
 #define BOOST_PLATFORM "Win32"
 
 //  Get the information about the MinGW runtime, i.e. __MINGW32_*VERSION.
-#if defined(__MINGW32__)
-#  include <_mingw.h>
-#endif
+//#if defined(__MINGW32__)
+//#  include <_mingw.h>
+//#endif
 
-#if defined(__GNUC__) && !defined(BOOST_NO_SWPRINTF)
-#  define BOOST_NO_SWPRINTF
-#endif
+//#if defined(__GNUC__) && !defined(BOOST_NO_SWPRINTF)
+//#  define BOOST_NO_SWPRINTF
+//#endif
 
 //  Default defines for BOOST_SYMBOL_EXPORT and BOOST_SYMBOL_IMPORT
 //  If a compiler doesn't support __declspec(dllexport)/__declspec(dllimport),
@@ -31,18 +31,20 @@
 #  define BOOST_SYMBOL_IMPORT __declspec(dllimport)
 #endif
 
-#if defined(__MINGW32__) && ((__MINGW32_MAJOR_VERSION > 2) || ((__MINGW32_MAJOR_VERSION == 2) && (__MINGW32_MINOR_VERSION >= 0)))
-#  define BOOST_HAS_STDINT_H
-#  define __STDC_LIMIT_MACROS
-#  define BOOST_HAS_DIRENT_H
-#  define BOOST_HAS_UNISTD_H
-#endif
+//#if defined(__MINGW32__) && ((__MINGW32_MAJOR_VERSION > 2) || ((__MINGW32_MAJOR_VERSION == 2) && (__MINGW32_MINOR_VERSION >= 0)))
+//#  define BOOST_HAS_STDINT_H
+//#  ifndef __STDC_LIMIT_MACROS
+//#     define __STDC_LIMIT_MACROS
+//#  endif
+//#  define BOOST_HAS_DIRENT_H
+//#  define BOOST_HAS_UNISTD_H
+//#endif
 
-#if defined(__MINGW32__) && (__GNUC__ >= 4)
-#  define BOOST_HAS_EXPM1
-#  define BOOST_HAS_LOG1P
-#  define BOOST_HAS_GETTIMEOFDAY
-#endif
+//#if defined(__MINGW32__) && (__GNUC__ >= 4)
+//#  define BOOST_HAS_EXPM1
+//#  define BOOST_HAS_LOG1P
+//#  define BOOST_HAS_GETTIMEOFDAY
+//#endif
 //
 // Win32 will normally be using native Win32 threads,
 // but there is a pthread library avaliable as an option,

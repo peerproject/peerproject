@@ -21,10 +21,10 @@
 namespace boost {
 namespace detail {
 #else
-#include <boost/type_traits/detail/yes_no_type.hpp>
-namespace boost {
-namespace type_traits {
-namespace gcc8503 {
+//#include <boost/type_traits/detail/yes_no_type.hpp>
+//namespace boost {
+//namespace type_traits {
+//namespace gcc8503 {
 #endif
 
 template <typename T> struct cv_traits_imp {};
@@ -62,8 +62,8 @@ struct cv_traits_imp<const volatile T*>
 };
 
 //#if BOOST_WORKAROUND(__GNUC__,== 3) && BOOST_WORKAROUND(__GNUC_MINOR__, <= 2)
-// We have to exclude function pointers
-// (see http://gcc.gnu.org/bugzilla/show_bug.cgi?8503)
+//// We have to exclude function pointers
+//// (see http://gcc.gnu.org/bugzilla/show_bug.cgi?8503)
 //yes_type mini_funcptr_tester(...);
 //no_type  mini_funcptr_tester(const volatile void*);
 //
@@ -72,17 +72,17 @@ struct cv_traits_imp<const volatile T*>
 //
 //namespace detail {
 //
-// Use the implementation above for non function pointers
+//// Use the implementation above for non function pointers
 //template <typename T, unsigned Select
 //  = (unsigned)sizeof(::boost::type_traits::gcc8503::mini_funcptr_tester((T)0)) >
 //struct cv_traits_imp : public ::boost::type_traits::gcc8503::cv_traits_imp<T> { };
 //
-// Functions are never cv-qualified
+//// Functions are never cv-qualified
 //template <typename T> struct cv_traits_imp<T*,1>
 //{
-//    BOOST_STATIC_CONSTANT(bool, is_const = false);
-//    BOOST_STATIC_CONSTANT(bool, is_volatile = false);
-//    typedef T unqualified_type;
+//  BOOST_STATIC_CONSTANT(bool, is_const = false);
+//  BOOST_STATIC_CONSTANT(bool, is_volatile = false);
+//  typedef T unqualified_type;
 //};
 //
 //#endif

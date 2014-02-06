@@ -1,7 +1,7 @@
 //
 // ShakeNeighbour.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -17,7 +17,7 @@
 //
 
 // CShakeNeighbour reads and sends handshake headers to negotiate the Gnutella or Gnutella2 handshake
-// http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CShakeNeighbour
+// http://shareaza.sourceforge.net/mediawiki/index.php/Developers.Code.CShakeNeighbour
 // http://peerproject.org/shareazawiki/Developers.Code.CShakeNeighbour.html
 // http://peerproject.org/shareazawiki/Developers.Code.CShakeNeighbour.Running.html
 
@@ -315,8 +315,6 @@ void CShakeNeighbour::SendMinimalHeaders()
 // Sends Gnutella headers to the other computer
 void CShakeNeighbour::SendPublicHeaders()
 {
-	CString strHeader;
-
 	SendMinimalHeaders();
 
 	// ToDo: We may not use standard language codes
@@ -361,6 +359,8 @@ void CShakeNeighbour::SendPublicHeaders()
 
 		Write( _P("X-Dynamic-Querying: 0.1\r\n") );
 		Write( _P("X-Ext-Probes: 0.1\r\n") );
+
+		CString strHeader;
 
 		strHeader.Format( _T("X-Degree: %u\r\n"), Settings.Gnutella1.NumPeers );
 		Write( strHeader );
@@ -491,12 +491,12 @@ void CShakeNeighbour::SendHostHeaders(LPCSTR pszMessage, size_t nLength)
 	{
 		// The remote computer accepts Gnutella2 packets, sends them, or is PeerProject too
 
+		CString strHosts;
 		int nCount = Settings.Gnutella2.HostCount;					// Set max length of list
 
 		CQuickLock oLock( HostCache.Gnutella2.m_pSection );
 
 		// Loop through the Gnutella2 host cache from newest to oldest
-		CString strHosts;
 		for ( CHostCacheIterator i = HostCache.Gnutella2.Begin() ;
 			i != HostCache.Gnutella2.End() && nCount > 0 ; ++i )
 		{
@@ -522,12 +522,12 @@ void CShakeNeighbour::SendHostHeaders(LPCSTR pszMessage, size_t nLength)
 	{
 		// This computer is running Gnutella
 
+		CString strHosts;
 		int nCount = Settings.Gnutella1.HostCount;					// Set max length of list
 
 		CQuickLock oLock( HostCache.Gnutella1.m_pSection );
 
 		// Loop through the Gnutella host cache from newest to oldest
-		CString strHosts;
 		for ( CHostCacheIterator i = HostCache.Gnutella1.Begin() ;
 			i != HostCache.Gnutella1.End() && nCount > 0 ; ++i )
 		{
@@ -552,7 +552,8 @@ void CShakeNeighbour::SendHostHeaders(LPCSTR pszMessage, size_t nLength)
 	}
 
 	// If this method started the handshake with a message line, end it with the blank line
-	if ( pszMessage ) Write( _P("\r\n") );	// Sends a blank line, marking the end of the handshake
+	if ( pszMessage )
+		Write( _P("\r\n") );	// Sends a blank line, marking the end of the handshake
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -604,25 +605,25 @@ BOOL CShakeNeighbour::ReadResponse()
 			m_nState = nrsHandshake2;	// We're reading the initial header group the remote computer has sent
 		}
 	}
-	else if ( strLine == _T("GNUTELLA CONNECT/0.4") && ! m_bInitiated )
+	else if ( ! m_bInitiated && strLine == _T("GNUTELLA CONNECT/0.4") )
 	{
 		// Obsolete: Remote computer connected to us, and wants to talk with the old 0.4 protocol
 		// Gnutella 0.4 is too old for us, close the connection
 		DelayClose( IDS_HANDSHAKE_SURPLUS );	// Send the buffer then close the socket, citing the reason the connection didn't work out
 		return FALSE;							// Tell the method that called this one to stop calling us
 	}
-	else if ( strLine.GetLength() > 17 && strLine.Left( 17 ) == _T("GNUTELLA CONNECT/") && ! m_bInitiated )
+	else if ( ! m_bInitiated && StartsWith( strLine, _PT("GNUTELLA CONNECT/") ) )
 	{
 		// The remote computer connected to us, and wants to talk Gnutella
 		// We're reading the initial header group the remote computer has sent
 		m_nState = nrsHandshake2;
 	}
-	else if ( strLine.GetLength() > 21 && strLine.Left( 21 ) == _T("SHAREAZABETA CONNECT/") && ! m_bInitiated )
-	{
-		// The remote computer connected to us, and said "SHAREAZABETA CONNECT/"
-		// We're reading the initial header group the remote computer has sent
-		m_nState = nrsHandshake2;
-	}
+//	else if ( ! m_bInitiated && StartsWith( strLine, _PT("SHAREAZABETA CONNECT/") ) )
+//	{
+//		// The remote computer connected to us, and said "SHAREAZABETA CONNECT/"
+//		// We're reading the initial header group the remote computer has sent
+//		m_nState = nrsHandshake2;
+//	}
 	else	// Remote computer said something else that we aren't expecting here
 	{
 		Close( IDS_HANDSHAKE_FAIL );
@@ -684,6 +685,7 @@ BOOL CShakeNeighbour::OnHeaderLine(CString& strHeader, CString& strValue)
 		Text[ L"x-try-ultrapeers" ]		= 'U';
 		Text[ L"x-hostname" ]			= 'N';
 
+		// http://peerproject.org/limewirewiki/Known_Gnutella_Connection_Headers.html
 		// http://limewire.negatis.com/index.php?title=Known_Gnutella_Connection_Headers
 		//Text[ L"uptime" ]				= 'x';
 		//Text[ L"x-live-since" ]		= 'x';
@@ -695,6 +697,7 @@ BOOL CShakeNeighbour::OnHeaderLine(CString& strHeader, CString& strValue)
 		//Text[ L"x-bye-packet" ]		= 'x';
 		//Text[ L"x-try" ]				= 'x';
 
+		// http://peerproject.org/limewirewiki/Communicating_Network_Topology_Information.html
 		// http://limewire.negatis.com/index.php?title=Communicating_Network_Topology_Information
 		//Text[ L"crawler" ]			= 'w';
 		//Text[ L"leaves" ]				= '#';

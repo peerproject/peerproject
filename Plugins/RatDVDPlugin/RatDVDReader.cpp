@@ -1,7 +1,7 @@
 //
 // RatDVDReader.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions Copyright Shareaza Development Team, 2002-2006.
 // Originally Created by:	Rolandas Rudomanskis
 //
@@ -68,13 +68,11 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID lpRes
 	return _AtlModule.DllMain( dwReason, lpReserved );
 }
 
-// Used to determine whether the DLL can be unloaded by OLE
 STDAPI DllCanUnloadNow(void)
 {
 	return ( _AtlModule.GetLockCount() == 0 ) ? S_OK : S_FALSE;
 }
 
-// DllRegisterServer - Adds entries to the system registry
 STDAPI DllRegisterServer(void)
 {
 	LPWSTR  pwszModule;
@@ -84,22 +82,18 @@ STDAPI DllRegisterServer(void)
 		return E_UNEXPECTED;
 
 	// Registers object, typelib and all interfaces in typelib
-	HRESULT hr = _AtlModule.DllRegisterServer();
-
-	return hr;
+	return _AtlModule.DllRegisterServer();
 }
 
-// DllUnregisterServer - Removes entries from the system registry
 STDAPI DllUnregisterServer(void)
 {
 	LPWSTR  pwszModule;
-	HRESULT hr;
-	//If we can't find the path to the DLL, we can't unregister...
+
+	// If we can't find the path to the DLL, we can't unregister...
 	if ( ! FGetModuleFileName( v_hModule, &pwszModule) )
 		return E_UNEXPECTED;
 
-	hr = _AtlModule.DllUnregisterServer();
-	return hr;
+	return _AtlModule.DllUnregisterServer();
 }
 
 STDAPI DllInstall(BOOL bInstall, LPCWSTR pszCmdLine)
@@ -107,13 +101,8 @@ STDAPI DllInstall(BOOL bInstall, LPCWSTR pszCmdLine)
 	HRESULT hr = E_FAIL;
 	static const wchar_t szUserSwitch[] = L"user";
 
-	if ( pszCmdLine != NULL )
-	{
-#if defined(_MSC_VER) && (_MSC_VER >= 1500)	// No VS2005
-		if ( _wcsnicmp(pszCmdLine, szUserSwitch, _countof(szUserSwitch)) == 0 )
-			AtlSetPerUserRegistration(true);
-#endif
-	}
+	if ( pszCmdLine && _wcsnicmp(pszCmdLine, szUserSwitch, _countof(szUserSwitch)) == 0 )
+		AtlSetPerUserRegistration(true);	// VS2008+
 
 	if ( bInstall )
 	{
@@ -122,11 +111,12 @@ STDAPI DllInstall(BOOL bInstall, LPCWSTR pszCmdLine)
 			DllUnregisterServer();
 	}
 	else
+	{
 		hr = DllUnregisterServer();
+	}
 
 	return hr;
 }
-
 
 HRESULT CRatDVDReaderModule::DllGetClassObject(REFCLSID rclsid, REFIID /*riid*/, LPVOID* ppv)
 {

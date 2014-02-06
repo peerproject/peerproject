@@ -1,5 +1,6 @@
 
-//  (C) Copyright Dave Abrahams, Steve Cleary, Beman Dawes, Howard Hinnant & John Maddock 2000.
+//  (C) Copyright Dave Abrahams, Steve Cleary, Beman Dawes,
+//  Howard Hinnant & John Maddock 2000.
 //  Use, modification and distribution are subject to the Boost Software License,
 //  Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt).
@@ -96,22 +97,22 @@ template <typename T>
 struct is_member_function_pointer_impl<T&> : public false_type{};
 #endif
 
-//#else // Borland C++
-//
-//template <typename T>
-//struct is_member_function_pointer_impl
-//{
-//   static T* m_t;
-//   BOOST_STATIC_CONSTANT(
-//              bool, value =
-//               (1 == sizeof(type_traits::is_mem_fun_pointer_tester(m_t))) );
-//};
-//
-//template <typename T>
-//struct is_member_function_pointer_impl<T&>
-//{
-//   BOOST_STATIC_CONSTANT(bool, value = false);
-//};
+#else // Borland C++
+
+template <typename T>
+struct is_member_function_pointer_impl
+{
+   static T* m_t;
+   BOOST_STATIC_CONSTANT(
+              bool, value =
+               (1 == sizeof(type_traits::is_mem_fun_pointer_tester(m_t))) );
+};
+
+template <typename T>
+struct is_member_function_pointer_impl<T&>
+{
+   BOOST_STATIC_CONSTANT(bool, value = false);
+};
 
 #endif
 

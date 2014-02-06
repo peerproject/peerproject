@@ -25,12 +25,10 @@ namespace boost
     template< class T >
     inline T* new_clone( const T& r )
     {
-        //
         // @remark: if you get a compile-error here,
         //          it is most likely because you did not
-        //          define new_clone( const T& ) in the namespace
-        //          of T.
-        //
+        //          define new_clone( const T& ) in the namespace of T.
+
         T* res = new T( r );
         BOOST_ASSERT( typeid(r) == typeid(*res) &&
                       "Default new_clone() sliced object!" );
@@ -43,12 +41,10 @@ namespace boost
         return r ? new_clone( *r ) : 0;
     }
 
-    //
     // @remark: to make new_clone() work
     //          with scope_ptr/shared_ptr ect.
     //          simply overload for those types
     //          in the appropriate namespace.
-    //
 
     template< class T >
     inline void delete_clone( const T* r )

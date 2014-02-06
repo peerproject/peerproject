@@ -1,7 +1,7 @@
 //
 // NeighboursBase.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -17,7 +17,7 @@
 //
 
 // Keeps a list of CNeighbour objects, with methods to go through them, add and remove them, and count them
-// http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CNeighboursBase
+// http://shareaza.sourceforge.net/mediawiki/index.php/Developers.Code.CNeighboursBase
 // http://peerproject.org/shareazawiki/Developers.Code.CNeighboursBase.html
 
 #pragma once

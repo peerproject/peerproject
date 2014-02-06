@@ -1,5 +1,6 @@
 
-//  (C) Copyright Dave Abrahams, Steve Cleary, Beman Dawes, Howard Hinnant and John Maddock 2000.
+//  (C) Copyright Dave Abrahams, Steve Cleary, Beman Dawes,
+//      Howard Hinnant and John Maddock 2000.
 //  (C) Copyright Mat Marcus, Jesse Jones and Adobe Systems Inc 2001
 
 //  Use, modification and distribution are subject to the Boost Software License,
@@ -25,9 +26,9 @@
 
 #ifndef BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 #   include <boost/type_traits/detail/cv_traits_impl.hpp>
-#   if BOOST_WORKAROUND(BOOST_MSVC, < 1400)
-#       include <boost/type_traits/remove_bounds.hpp>
-#   endif
+//#   if BOOST_WORKAROUND(BOOST_MSVC, < 1400)
+//#       include <boost/type_traits/remove_bounds.hpp>
+//#   endif
 #else
 #   include <boost/type_traits/is_reference.hpp>
 #   include <boost/type_traits/is_array.hpp>
@@ -44,13 +45,13 @@ namespace detail{
 template <class T>
 struct is_volatile_rval_filter
 {
-#if BOOST_WORKAROUND(BOOST_MSVC, < 1400)
-   BOOST_STATIC_CONSTANT(bool, value = ::boost::detail::cv_traits_imp<typename boost::remove_bounds<T>::type*>::is_volatile);
-#else
+//#if BOOST_WORKAROUND(BOOST_MSVC, < 1400)
+// BOOST_STATIC_CONSTANT(bool, value = ::boost::detail::cv_traits_imp<typename boost::remove_bounds<T>::type*>::is_volatile);
+//#else
    BOOST_STATIC_CONSTANT(bool, value = ::boost::detail::cv_traits_imp<T*>::is_volatile);
-#endif
+//#endif
 };
-#ifndef BOOST_NO_RVALUE_REFERENCES
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
 //
 // We can't filter out rvalue_references at the same level as
 // references or we get ambiguities from msvc:

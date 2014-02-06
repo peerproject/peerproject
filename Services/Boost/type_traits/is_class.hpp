@@ -1,5 +1,5 @@
-
-//  (C) Copyright Dave Abrahams, Steve Cleary, Beman Dawes, Howard Hinnant & John Maddock 2000-2003.
+//  (C) Copyright Dave Abrahams, Steve Cleary, Beman Dawes,
+//  Howard Hinnant & John Maddock 2000-2003.
 //  Use, modification and distribution are subject to the Boost Software License,
 //  Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt).
@@ -28,9 +28,9 @@
 
 #endif // BOOST_IS_CLASS
 
-#ifdef __EDG_VERSION__
-#   include <boost/type_traits/remove_cv.hpp>
-#endif
+//#ifdef __EDG_VERSION__
+//#   include <boost/type_traits/remove_cv.hpp>
+//#endif
 
 // should be the last #include
 #include <boost/type_traits/detail/bool_trait_def.hpp>
@@ -126,8 +126,8 @@ struct is_class_impl
 } // namespace detail
 
 # ifdef __EDG_VERSION__
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(
-   is_class,T, boost::detail::is_class_impl<typename boost::remove_cv<T>::type>::value)
+//BOOST_TT_AUX_BOOL_TRAIT_DEF1(
+//   is_class,T, boost::detail::is_class_impl<typename boost::remove_cv<T>::type>::value)
 # else
 BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_class,T,::boost::detail::is_class_impl<T>::value)
 # endif

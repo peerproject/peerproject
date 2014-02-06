@@ -17,8 +17,7 @@
 #include <boost/mpl/aux_/config/msvc.hpp>
 #include <boost/mpl/aux_/config/workaround.hpp>
 
-// MSVC 6.5 ICE-s on the code as simple as this (see "aux_/nttp_decl.hpp"
-// for a workaround):
+// MSVC 6.5 ICE-s on the code as simple as this (see "aux_/nttp_decl.hpp" for a workaround):
 //
 //    namespace std {
 //    template< typename Char > struct string;
@@ -30,12 +29,12 @@
 //    template< int > struct arg;
 //    }}
 
-#if    !defined(BOOST_MPL_CFG_NTTP_BUG) \
-    && !defined(BOOST_MPL_PREPROCESSING_MODE) \
-    && BOOST_WORKAROUND(BOOST_MSVC, < 1300)
-
-#   define BOOST_MPL_CFG_NTTP_BUG
-
-#endif
+//#if    !defined(BOOST_MPL_CFG_NTTP_BUG) \
+//  && !defined(BOOST_MPL_PREPROCESSING_MODE) \
+//  && BOOST_WORKAROUND(BOOST_MSVC, < 1300)
+//
+//# define BOOST_MPL_CFG_NTTP_BUG
+//
+//#endif
 
 #endif // BOOST_MPL_AUX_CONFIG_NTTP_HPP_INCLUDED

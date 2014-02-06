@@ -1,7 +1,7 @@
 //
 // Handshake.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -17,7 +17,7 @@
 //
 
 // CHandshake figures out what the remote computer wants from the first 7 bytes it sends us
-// http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CHandshake
+// http://shareaza.sourceforge.net/mediawiki/index.php/Developers.Code.CHandshake
 // http://peerproject.org/shareazawiki/Developers.Code.CHandshake.html
 
 #include "StdAfx.h"

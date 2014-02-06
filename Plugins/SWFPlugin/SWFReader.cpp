@@ -1,7 +1,7 @@
 //
 // SWFReader.cpp : Implementation of CSWFReader
 //
-// This file is part of PeerProject (peerproject.org) © 2008,2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Copyright (c) Nikolay Raspopov, 2005-2008.
 //
 // GFL Library, GFL SDK and XnView
@@ -119,12 +119,12 @@ DWORD WINAPI LoadSWF (void* filename)
 			CMainWindow wndMain;
 			if (wndMain.Create (NULL, &rc, NULL, WS_POPUP)) {
 				CComPtr <IUnknown> pControl;
-				hr = CreateSWF (wndMain.m_hWnd, &pControl);
-				if (SUCCEEDED (hr)) {
-					hr = OleRun (pControl);
+				hr = CreateSWF(wndMain.m_hWnd, &pControl);
+				if (SUCCEEDED(hr)) {
+					hr = OleRun(pControl);
 					if (SUCCEEDED (hr)) {
 						CComPtr <IDispatch> pIDispatch;
-						hr = pControl->QueryInterface (IID_IDispatch, (void**) &pIDispatch);
+						hr = pControl->QueryInterface(IID_IDispatch, (void**) &pIDispatch);
 						if (SUCCEEDED (hr)) {
 							// void LoadMovie (dwLayer, bstrFilename);
 							VARIANT varArg [2];
@@ -133,22 +133,22 @@ DWORD WINAPI LoadSWF (void* filename)
 							varArg [1].lVal = 0;
 							VariantInit (&varArg [0]);
 							varArg [0].vt = VT_BSTR;
-							varArg [0].bstrVal = SysAllocString ((LPCWSTR) filename);
+							varArg [0].bstrVal = SysAllocString((LPCWSTR)filename);
 							DISPPARAMS dispparams;
 							memset(&dispparams, 0, sizeof dispparams);
 							dispparams.rgvarg = varArg;
 							dispparams.cArgs = 2;
 							VARIANT varResult;
-							VariantInit (&varResult);
+							VariantInit(&varResult);
 							UINT nArgErr = (UINT) -1;
 							hr = pIDispatch->Invoke (0x8e, IID_NULL, 0, DISPATCH_METHOD,
 								&dispparams, &varResult, NULL, &nArgErr);
-							for (LONG state = -1; SUCCEEDED (hr) && state != 4 &&
+							for (LONG state = -1; SUCCEEDED(hr) && state != 4 &&
 								( GetTickCount() - dwBegin ) < 20000; ) {
-								// long get_ReadyState ()
+								// long get_ReadyState()
 								dispparams.cArgs = 0;
-								VariantInit (&varResult);
-								hr = pIDispatch->Invoke (DISPID_READYSTATE, IID_NULL, 0, DISPATCH_PROPERTYGET,
+								VariantInit(&varResult);
+								hr = pIDispatch->Invoke(DISPID_READYSTATE, IID_NULL, 0, DISPATCH_PROPERTYGET,
 									&dispparams, &varResult, NULL, NULL);
 								if (varResult.lVal != state) {
 									state = varResult.lVal;
@@ -168,18 +168,18 @@ DWORD WINAPI LoadSWF (void* filename)
 										case 4:
 											// long get_TotalFrames ()
 											dispparams.cArgs = 0;
-											VariantInit (&varResult);
-											hr = pIDispatch->Invoke (0x7c, IID_NULL, 0, DISPATCH_PROPERTYGET,
+											VariantInit(&varResult);
+											hr = pIDispatch->Invoke(0x7c, IID_NULL, 0, DISPATCH_PROPERTYGET,
 												&dispparams, &varResult, NULL, NULL);
 											ATLTRACE( "Complete. Frames: %d\n", varResult.lVal);
-											// void GotoFrame (dwFrameNumber)
-											VariantInit (&varArg [0]);
+											// void GotoFrame(dwFrameNumber)
+											VariantInit(&varArg [0]);
 											varArg [0].vt = VT_I4;
-											varArg [0].lVal = min (varResult.lVal, 2);
+											varArg [0].lVal = min(varResult.lVal, 2);
 											dispparams.cArgs = 1;
-											VariantInit (&varResult);
+											VariantInit(&varResult);
 											nArgErr = (UINT) -1;
-											hr = pIDispatch->Invoke (0x7f, IID_NULL, 0, DISPATCH_METHOD,
+											hr = pIDispatch->Invoke(0x7f, IID_NULL, 0, DISPATCH_METHOD,
 												&dispparams, &varResult, NULL, &nArgErr);
 											break;
 										default:
@@ -194,35 +194,35 @@ DWORD WINAPI LoadSWF (void* filename)
 								_Data->hBitmap = NULL;
 								ZeroMemory (&_Data->bmiHeader, sizeof (_Data->bmiHeader));
 								_Data->bmiHeader.biSize = sizeof (BITMAPINFOHEADER);
-								HDC hDC = GetDC (NULL);
+								HDC hDC = GetDC(NULL);
 								HDC hMemDC = CreateCompatibleDC (hDC);
 								_Data->hBitmap = CreateCompatibleBitmap (hDC, cx, cy);
-								HBITMAP hOldBitmap = (HBITMAP) SelectObject (hMemDC, _Data->hBitmap);
+								HBITMAP hOldBitmap = (HBITMAP)SelectObject(hMemDC, _Data->hBitmap);
 								RECT rcMem = {0, 0, cx, cy};
-								hr = OleDraw (pControl, DVASPECT_CONTENT, hMemDC, &rcMem);
-								SelectObject (hMemDC, hOldBitmap);
-								DeleteDC (hMemDC);
-								GetDIBits (hDC, _Data->hBitmap, 0, 0, NULL,
+								hr = OleDraw(pControl, DVASPECT_CONTENT, hMemDC, &rcMem);
+								SelectObject(hMemDC, hOldBitmap);
+								DeleteDC(hMemDC);
+								GetDIBits(hDC, _Data->hBitmap, 0, 0, NULL,
 									(BITMAPINFO*) &_Data->bmiHeader, DIB_RGB_COLORS);
 								_Data->bmiHeader.biCompression = BI_RGB;
 								_Data->bmiHeader.biXPelsPerMeter = 72;
 								_Data->bmiHeader.biYPelsPerMeter = 72;
-								ReleaseDC (NULL, hDC);
+								ReleaseDC(NULL, hDC);
 							}
 						}
 					}
 				}
-				wndMain.DestroyWindow ();
+				wndMain.DestroyWindow();
 			}
-			AtlAxWinTerm ();
+			AtlAxWinTerm();
 		}
-		CoUninitialize ();
+		CoUninitialize();
 	}
-	if (FAILED (hr)) {
+	if (FAILED(hr)) {
 		ATLTRACE( "LoadSWF failed: 0x%08x\n", hr);
 		if (_Data) {
 			if (_Data->hBitmap)
-				DeleteObject (_Data->hBitmap);
+				DeleteObject(_Data->hBitmap);
 			delete _Data;
 			_Data = NULL;
 		}
@@ -242,14 +242,14 @@ STDMETHODIMP CSWFReader::LoadFromFile (
 
 	*ppImage = NULL;
 
-	EnterCriticalSection (&_CS);
+	EnterCriticalSection(&_CS);
 
 	HRESULT hr = E_FAIL;
 
-	// Changing threading model
-	HANDLE hThread = CreateThread (NULL, 0, LoadSWF, (LPVOID) sFile, 0, NULL);
-	WaitForSingleObject (hThread, INFINITE);
-	CloseHandle (hThread);
+	// Changing threading model		// (HANDLE)_beginthreadex
+	HANDLE hThread = CreateThread(NULL, 0, LoadSWF, (LPVOID)sFile, 0, NULL);
+	WaitForSingleObject(hThread, INFINITE);
+	CloseHandle(hThread);
 
 	if (_Data) {
 		switch (_Data->bmiHeader.biBitCount) {
@@ -269,35 +269,37 @@ STDMETHODIMP CSWFReader::LoadFromFile (
 			ULONG line_size = ((pParams->nWidth * pParams->nComponents) + 3) & (-4);
 			ULONG total_size = line_size * pParams->nHeight;
 			hr = E_OUTOFMEMORY;
-			*ppImage = SafeArrayCreateVector (VT_UI1, 0, total_size);
+			*ppImage = SafeArrayCreateVector(VT_UI1, 0, total_size);
 			if (*ppImage) {
 				char* pDest = NULL;
-				hr = SafeArrayAccessData (*ppImage, (void**) &pDest);
-				if (SUCCEEDED (hr)) {
+				hr = SafeArrayAccessData(*ppImage, (void**) &pDest);
+				if (SUCCEEDED(hr)) {
 					HDC hDC = GetDC (NULL);
-					GetDIBits (hDC, _Data->hBitmap, 0, pParams->nHeight, pDest,
+					GetDIBits(hDC, _Data->hBitmap, 0, pParams->nHeight, pDest,
 						(BITMAPINFO*) &_Data->bmiHeader, DIB_RGB_COLORS);
-					ReleaseDC (NULL, hDC);
-					BGRA_DU2RGBA_UD (pDest, pParams->nWidth, pParams->nHeight,
-						pParams->nComponents);
-					SafeArrayUnaccessData (*ppImage);
+					ReleaseDC(NULL, hDC);
+					BGRA_DU2RGBA_UD(pDest, pParams->nWidth, pParams->nHeight, pParams->nComponents);
+					SafeArrayUnaccessData(*ppImage);
 				}
 			}
 		}
 		if (_Data->hBitmap)
-			DeleteObject (_Data->hBitmap);
+			DeleteObject(_Data->hBitmap);
 		delete _Data;
 		_Data = NULL;
 	}
 
-	LeaveCriticalSection (&_CS);
+	LeaveCriticalSection(&_CS);
 
-	if (FAILED (hr) && *ppImage) {
-		SafeArrayDestroy (*ppImage);
+	if (FAILED(hr) && *ppImage) {
+		SafeArrayDestroy(*ppImage);
 		*ppImage = NULL;
 	}
 	return hr;
 }
+
+#pragma warning ( push )
+#pragma warning ( disable : 4127 )	// conditional expression is constant
 
 STDMETHODIMP CSWFReader::LoadFromMemory (
 	/*[in]*/ BSTR /*sType*/,
@@ -306,6 +308,7 @@ STDMETHODIMP CSWFReader::LoadFromMemory (
 	/*[out]*/ SAFEARRAY** /*ppImage*/)
 {
 	ATLTRACENOTIMPL( "SWFPlugin::LoadFromMemory" );
+//	return E_NOTIMPL;
 }
 
 STDMETHODIMP CSWFReader::SaveToFile (
@@ -314,6 +317,7 @@ STDMETHODIMP CSWFReader::SaveToFile (
 	/*[in]*/ SAFEARRAY* /*pImage*/)
 {
 	ATLTRACENOTIMPL( "SWFPlugin::SaveToFile" );
+//	return E_NOTIMPL;
 }
 
 STDMETHODIMP CSWFReader::SaveToMemory (
@@ -323,4 +327,7 @@ STDMETHODIMP CSWFReader::SaveToMemory (
 	/*[in]*/ SAFEARRAY* /*pImage*/)
 {
 	ATLTRACENOTIMPL( "SWFPlugin::SaveToMemory" );
+//	return E_NOTIMPL;
 }
+
+#pragma warning( pop )

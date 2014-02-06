@@ -55,11 +55,11 @@ private:
     T* t_;
 };
 
-# if defined( __BORLANDC__ ) && BOOST_WORKAROUND( __BORLANDC__, BOOST_TESTED_AT(0x581) )
-#  define BOOST_REF_CONST
-# else
+//# if defined( __BORLANDC__ ) && BOOST_WORKAROUND( __BORLANDC__, BOOST_TESTED_AT(0x581) )
+//#  define BOOST_REF_CONST
+//# else
 #  define BOOST_REF_CONST const
-# endif
+//# endif
 
 template<class T> inline reference_wrapper<T> BOOST_REF_CONST ref(T & t)
 {

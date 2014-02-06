@@ -1,7 +1,7 @@
 //
 // G1Neighbour.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -17,7 +17,7 @@
 //
 
 // A CG1Neighbour object represents a remote computer running Gnutella software with which we are exchanging Gnutella packets
-// http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CG1Neighbour
+// http://shareaza.sourceforge.net/mediawiki/index.php/Developers.Code.CG1Neighbour
 // http://peerproject.org/shareazawiki/Developers.Code.CG1Neighbour.html
 
 #pragma once

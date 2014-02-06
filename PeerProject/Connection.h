@@ -1,7 +1,7 @@
 //
 // Connection.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -17,7 +17,7 @@
 //
 
 // CConnection holds a socket used to communicate with a remote computer, and is the root of a big inheritance tree
-// http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CConnection
+// http://shareaza.sourceforge.net/mediawiki/index.php/Developers.Code.CConnection
 // http://peerproject.org/shareazawiki/Developers.Code.CConnection.html
 
 #pragma once

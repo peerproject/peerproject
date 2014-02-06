@@ -23,7 +23,7 @@
 #include "Class.h"
 
 STDMETHODIMP C#PROJECT#::Process (
-	/* [in] */ HANDLE /* hFile */,
+	/* [in] */ HANDLE /*hFile*/,
 	/* [in] */ BSTR sFile,
 	/* [in] */ ISXMLElement* pXML)
 {
@@ -36,24 +36,24 @@ STDMETHODIMP C#PROJECT#::Process (
 	if ( FAILED( hr ) )
 		return hr;
 	CComPtr <ISXMLElement> pXMLRootElement;
-	hr = pISXMLRootElements->Create (CComBSTR ("videos"), &pXMLRootElement);
+	hr = pISXMLRootElements->Create(CComBSTR("videos"), &pXMLRootElement);
 	if ( FAILED( hr ) )
 		return hr;
 	CComPtr <ISXMLAttributes> pISXMLRootAttributes;
 	hr = pXMLRootElement->get_Attributes(&pISXMLRootAttributes);
 	if ( FAILED( hr ) )
 		return hr;
-	pISXMLRootAttributes->Add (CComBSTR ("xmlns:xsi"),
-		CComBSTR ("http://www.w3.org/2001/XMLSchema-instance"));
-	pISXMLRootAttributes->Add (CComBSTR ("xsi:noNamespaceSchemaLocation"),
-		CComBSTR ("http://www.limewire.com/schemas/video.xsd"));
+	pISXMLRootAttributes->Add(CComBSTR("xmlns:xsi"),
+		CComBSTR("http://www.w3.org/2001/XMLSchema-instance"));
+	pISXMLRootAttributes->Add (CComBSTR("xsi:noNamespaceSchemaLocation"),
+		CComBSTR("http://www.limewire.com/schemas/video.xsd"));
 
 	CComPtr <ISXMLElements> pISXMLElements;
 	hr = pXMLRootElement->get_Elements(&pISXMLElements);
 	if ( FAILED( hr ) )
 		return hr;
 	CComPtr <ISXMLElement> pXMLElement;
-	hr = pISXMLElements->Create (CComBSTR ("video"), &pXMLElement);
+	hr = pISXMLElements->Create(CComBSTR("video"), &pXMLElement);
 	if ( FAILED( hr ) )
 		return hr;
 	CComPtr <ISXMLAttributes> pISXMLAttributes;
@@ -61,8 +61,8 @@ STDMETHODIMP C#PROJECT#::Process (
 	if ( FAILED( hr ) )
 		return hr;
 
-	pISXMLAttributes->Add (CComBSTR ("width"), CComBSTR ("320"));
-	pISXMLAttributes->Add (CComBSTR ("height"), CComBSTR ("240"));
+	pISXMLAttributes->Add(CComBSTR("width"), CComBSTR("320"));
+	pISXMLAttributes->Add(CComBSTR("height"), CComBSTR("240"));
 */
 	ATLTRACENOTIMPL ("C#PROJECT#::Process");
 }

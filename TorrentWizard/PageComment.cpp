@@ -63,7 +63,7 @@ void CCommentPage::OnReset()
 {
 }
 
-BOOL CCommentPage::OnInitDialog() 
+BOOL CCommentPage::OnInitDialog()
 {
 	CWizardPage::OnInitDialog();
 

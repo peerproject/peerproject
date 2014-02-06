@@ -1,10 +1,10 @@
 # /* **************************************************************************
 #  *                                                                          *
-#  *     (C) Copyright Paul Mensonides 2002-2011.
-#  *     (C) Copyright Edward Diener 2011.
-#  *     Distributed under the Boost Software License, Version 1.0.
-#  *     (See accompanying file LICENSE_1_0.txt or copy at
-#  *     http://www.boost.org/LICENSE_1_0.txt)
+#  *     (C) Copyright Paul Mensonides 2002-2011.                             *
+#  *     (C) Copyright Edward Diener 2011.                                    *
+#  *     Distributed under the Boost Software License, Version 1.0.           *
+#  *     (See accompanying file LICENSE_1_0.txt or copy at                    *
+#  *     http://www.boost.org/LICENSE_1_0.txt)                                *
 #  *                                                                          *
 #  ************************************************************************** */
 #
@@ -27,24 +27,24 @@
 # ifndef BOOST_PP_CONFIG_FLAGS
 #    if defined(__GCCXML__)
 #        define BOOST_PP_CONFIG_FLAGS() (BOOST_PP_CONFIG_STRICT())
-#    elif defined(__WAVE__)
-#        define BOOST_PP_CONFIG_FLAGS() (BOOST_PP_CONFIG_STRICT())
-#    elif defined(__MWERKS__) && __MWERKS__ >= 0x3200
-#        define BOOST_PP_CONFIG_FLAGS() (BOOST_PP_CONFIG_STRICT())
-#    elif defined(__EDG__) || defined(__EDG_VERSION__)
-#        if defined(_MSC_VER) && __EDG_VERSION__ >= 308
-#            define BOOST_PP_CONFIG_FLAGS() (BOOST_PP_CONFIG_MSVC())
-#        else
-#            define BOOST_PP_CONFIG_FLAGS() (BOOST_PP_CONFIG_EDG() | BOOST_PP_CONFIG_STRICT())
-#        endif
-#    elif defined(__MWERKS__)
-#        define BOOST_PP_CONFIG_FLAGS() (BOOST_PP_CONFIG_MWCC())
-#    elif defined(__DMC__)
-#        define BOOST_PP_CONFIG_FLAGS() (BOOST_PP_CONFIG_DMC())
-#    elif defined(__BORLANDC__) && __BORLANDC__ >= 0x581
-#        define BOOST_PP_CONFIG_FLAGS() (BOOST_PP_CONFIG_STRICT())
-#    elif defined(__BORLANDC__) || defined(__IBMC__) || defined(__IBMCPP__) || defined(__SUNPRO_CC)
-#        define BOOST_PP_CONFIG_FLAGS() (BOOST_PP_CONFIG_BCC())
+//#  elif defined(__WAVE__)
+//#      define BOOST_PP_CONFIG_FLAGS() (BOOST_PP_CONFIG_STRICT())
+//#  elif defined(__MWERKS__) && __MWERKS__ >= 0x3200
+//#      define BOOST_PP_CONFIG_FLAGS() (BOOST_PP_CONFIG_STRICT())
+//#  elif defined(__EDG__) || defined(__EDG_VERSION__)
+//#      if defined(_MSC_VER) && __EDG_VERSION__ >= 308
+//#          define BOOST_PP_CONFIG_FLAGS() (BOOST_PP_CONFIG_MSVC())
+//#      else
+//#          define BOOST_PP_CONFIG_FLAGS() (BOOST_PP_CONFIG_EDG() | BOOST_PP_CONFIG_STRICT())
+//#      endif
+//#  elif defined(__MWERKS__)
+//#      define BOOST_PP_CONFIG_FLAGS() (BOOST_PP_CONFIG_MWCC())
+//#  elif defined(__DMC__)
+//#      define BOOST_PP_CONFIG_FLAGS() (BOOST_PP_CONFIG_DMC())
+//#  elif defined(__BORLANDC__) && __BORLANDC__ >= 0x581
+//#      define BOOST_PP_CONFIG_FLAGS() (BOOST_PP_CONFIG_STRICT())
+//#  elif defined(__BORLANDC__) || defined(__IBMC__) || defined(__IBMCPP__) || defined(__SUNPRO_CC)
+//#      define BOOST_PP_CONFIG_FLAGS() (BOOST_PP_CONFIG_BCC())
 #    elif defined(_MSC_VER)
 #        define BOOST_PP_CONFIG_FLAGS() (BOOST_PP_CONFIG_MSVC())
 #    else

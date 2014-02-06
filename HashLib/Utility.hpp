@@ -1,7 +1,7 @@
 //
 // Utility.hpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions Copyright Shareaza Development Team, 2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -23,31 +23,8 @@
 
 //#include <stdlib.h>
 
-// Intrinsics  (Workaround for Microsoft double declaration in legacy Visual Studio 2005)
-#if defined(_MSC_VER) && (_MSC_VER < 1500)
-	#define _interlockedbittestandset _ms_set
-	#define _interlockedbittestandreset _ms_reset
-	#define _interlockedbittestandset64 _ms_set64
-	#define _interlockedbittestandreset64 _ms_reset64
-	#include <intrin.h>
-	#undef _interlockedbittestandset
-	#undef _interlockedbittestandreset
-	#undef _interlockedbittestandset64
-	#undef _interlockedbittestandreset64
-#else
-	#include <intrin.h>
-#endif
-
-// Alternate Boost platform independent integer types:
-// #include <boost/cstdint.hpp>
-// typedef boost::int8_t int8;
-// typedef boost::int16_t int16;
-// typedef boost::int32_t int32;
-// typedef boost::int64_t int64;
-// typedef boost::uint8_t uint8;
-// typedef boost::uint16_t uint16;
-// typedef boost::uint32_t uint32;
-// typedef boost::uint64_t uint64;
+// Intrinsics  (No VS2005 Workaround)
+#include <intrin.h>
 
 // Signed/unsigned integer types:
 typedef char int8;

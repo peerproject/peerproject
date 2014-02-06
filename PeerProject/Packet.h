@@ -1,7 +1,7 @@
 //
 // Packet.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -17,7 +17,7 @@
 //
 
 // CPacket represents a packet on a peer-to-peer network, and CPacketPool keeps lists of them
-// http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CPacket
+// http://shareaza.sourceforge.net/mediawiki/index.php/Developers.Code.CPacket
 // http://peerproject.org/shareazawiki/Developers.Code.CPacket.html
 
 #pragma once
@@ -450,6 +450,7 @@ private:
 	CPacket(const CPacket&);
 	CPacket& operator=(const CPacket&);
 };
+
 
 // Allocates and holds array of 256 packets so we can grab a packet to use it quickly
 class CPacketPool
