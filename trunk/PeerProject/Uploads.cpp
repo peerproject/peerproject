@@ -1,7 +1,7 @@
 //
 // Uploads.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -64,6 +64,8 @@ CUploads::~CUploads()
 
 void CUploads::Clear(BOOL bMessage)
 {
+	CQuickLock oTransfersLock( Transfers.m_pSection );
+
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
 		GetNext( pos )->Remove( bMessage );

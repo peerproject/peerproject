@@ -1,7 +1,7 @@
 //
 // PeerProject.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -557,7 +557,25 @@ BOOL CPeerProjectApp::InitInstance()
 	SplashStep( L"GUI" );
 		if ( m_cmdInfo.m_bTray )
 			WriteProfileInt( _T("Windows"), _T("CMainWnd.ShowCmd"), 0 );
-		new CMainWnd();
+		TRY
+		{
+			m_pMainWnd = new CMainWnd();
+			// Bypass CMDIFrameWnd::LoadFrame
+			if ( m_pMainWnd && ((CMainWnd*)m_pMainWnd)->CFrameWnd::LoadFrame( IDR_MAINFRAME, WS_OVERLAPPEDWINDOW ) )
+				m_pSafeWnd = m_pMainWnd;
+		}
+		CATCH_ALL(e)
+		{
+			// Out of resources
+		}
+		END_CATCH_ALL
+		if ( ! m_pSafeWnd )
+		{
+			SplashAbort();
+			AfxMessageBox( _T("Failed to initialize GUI."), MB_ICONHAND | MB_OK );
+			return FALSE;
+		}
+
 		CoolMenu.EnableHook();
 		if ( m_cmdInfo.m_bTray )
 		{
@@ -581,9 +599,11 @@ BOOL CPeerProjectApp::InitInstance()
 
 	m_bLive = true;
 
+//	afxMemDF = allocMemDF | delayFreeMemDF | checkAlwaysMemDF;
+
 	ProcessShellCommand( m_cmdInfo );
 
-//	afxMemDF = allocMemDF | delayFreeMemDF | checkAlwaysMemDF;
+	Settings.Save();
 
 	return TRUE;
 }

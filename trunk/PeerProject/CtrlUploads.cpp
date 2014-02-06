@@ -1,7 +1,7 @@
 //
 // CtrlUploads.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -220,11 +220,12 @@ BOOL CUploadsCtrl::LoadColumnState()
 
 void CUploadsCtrl::SelectTo(int nIndex)
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
-
 	BOOL bShift		= GetAsyncKeyState( VK_SHIFT ) & 0x8000;
 	BOOL bControl	= GetAsyncKeyState( VK_CONTROL ) & 0x8000;
 	BOOL bRight		= GetAsyncKeyState( VK_RBUTTON ) & 0x8000;
+
+	CSingleLock pLock( &Transfers.m_pSection, FALSE );
+	if ( ! pLock.Lock( 1000 ) ) return;
 
 	if ( ! bShift && ! bControl && ! bRight && m_pDeselect == NULL ) DeselectAll();
 
@@ -604,21 +605,19 @@ CUploadFile* CUploadsCtrl::GetNextFile(CUploadQueue* pQueue, POSITION& pos, int*
 	{
 		CUploadTransfer* pTransfer = pQueue->GetNextActive( pos );
 
-		if ( pos == NULL )
+		if ( pos == NULL && ( Settings.Uploads.FilterMask & ULF_QUEUED ) )
 		{
-			if ( Settings.Uploads.FilterMask & ULF_QUEUED )
-			{
-				if ( pQueue->GetQueuedCount() > 0 )
-					pos = (POSITION)1;
-			}
+			if ( pQueue->GetQueuedCount() > 0 )
+				pos = (POSITION)1;
 		}
 
-		if ( pnPosition != NULL ) *pnPosition = 0;
+		if ( pnPosition != NULL )
+			*pnPosition = 0;
 		return pTransfer->m_pBaseFile;
 	}
 	else
 	{
-		DWORD nPos = (DWORD_PTR)pos;
+		DWORD_PTR nPos = (DWORD_PTR)pos;
 		CUploadTransfer* pTransfer = pQueue->GetQueuedAt( nPos - 1 );
 		if ( pnPosition != NULL )
 			*pnPosition = static_cast< int >( nPos );
@@ -712,19 +711,8 @@ void CUploadsCtrl::OnSize(UINT nType, int cx, int cy)
 
 void CUploadsCtrl::OnPaint()
 {
-	CRect rcClient, rcItem;
 	CPaintDC dc( this );
-
-	CSingleLock pTransfersLock( &Transfers.m_pSection, FALSE );
-	if ( ! pTransfersLock.Lock( 250 ) )
-		return;
-
-	CSingleLock pUploadQueuesLock( &UploadQueues.m_pSection, FALSE );
-	if ( ! pUploadQueuesLock.Lock( 250 ) )
-		return;
-
-	if ( Settings.General.LanguageRTL )
-		dc.SetTextAlign( TA_RTLREADING );
+	CRect rcClient, rcItem;
 
 	GetClientRect( &rcClient );
 	rcClient.top += HEADER_HEIGHT;
@@ -736,8 +724,19 @@ void CUploadsCtrl::OnPaint()
 	int nScroll = GetScrollPos( SB_VERT );
 	int nIndex = 0;
 
+	CSingleLock pTransfersLock( &Transfers.m_pSection, FALSE );
+	if ( ! pTransfersLock.Lock( 250 ) )
+		return;
+
+	CSingleLock pUploadQueuesLock( &UploadQueues.m_pSection, FALSE );
+	if ( ! pUploadQueuesLock.Lock( 200 ) )
+		return;
+
+	if ( Settings.General.LanguageRTL )
+		dc.SetTextAlign( TA_RTLREADING );
+
 	CFont* pfOld = (CFont*)dc.SelectObject( &CoolInterface.m_fntNormal );
-	BOOL bFocus = ( GetFocus() == this );
+	const BOOL bFocus = ( GetFocus() == this );
 
 	for ( POSITION posQueue = GetQueueIterator() ; posQueue && rcItem.top < rcClient.bottom ; )
 	{
@@ -809,13 +808,9 @@ void CUploadsCtrl::PaintQueue(CDC& dc, const CRect& rcRow, CUploadQueue* pQueue,
 
 	// Skinnable Selection Highlight
 	BOOL bSelectmark = FALSE;
-	if ( bSelected && Images.m_bmSelected.m_hObject )
+	if ( bSelected &&
+		 Images.DrawButtonState( &dc, &rcRow, GetFocus() == this ? IMAGE_SELECTED : IMAGE_SELECTEDGREY ) )
 	{
-		CRect rcDraw = rcRow;	// non-const
-		if ( Images.m_bmSelectedGrey.m_hObject && GetFocus() != this )
-			CoolInterface.DrawWatermark( &dc, &rcDraw, &Images.m_bmSelectedGrey );
-		else
-			CoolInterface.DrawWatermark( &dc, &rcDraw, &Images.m_bmSelected );
 		bSelectmark = TRUE;
 	}
 	else
@@ -981,7 +976,7 @@ void CUploadsCtrl::PaintQueue(CDC& dc, const CRect& rcRow, CUploadQueue* pQueue,
 
 void CUploadsCtrl::PaintFile(CDC& dc, const CRect& rcRow, CUploadQueue* /*pQueue*/, CUploadFile* pFile, int nPosition, BOOL bFocus)
 {
-	//ASSUME_LOCK( Transfers.m_pSection );
+	ASSUME_LOCK( Transfers.m_pSection );
 
 	const BOOL bSelected = pFile->m_bSelected;
 	//const BOOL bFocus = bSelected && ( GetFocus() == this );
@@ -1022,11 +1017,6 @@ void CUploadsCtrl::PaintFile(CDC& dc, const CRect& rcRow, CUploadQueue* /*pQueue
 
 	int nTextLeft = rcRow.right, nTextRight = rcRow.left;
 
-	// Crude torrent icon workaround fix
-	const BOOL bMultifile = pTransfer->m_nProtocol == PROTOCOL_BT &&
-		( pFile->m_sName.ReverseFind( '.' ) < 1 ||
-		( pFile->m_sName.ReverseFind( '.' ) < pFile->m_sName.GetLength() - 5 ) );
-
 	HDITEM pColumn = {};
 	pColumn.mask = HDI_FORMAT | HDI_LPARAM;
 
@@ -1054,9 +1044,14 @@ void CUploadsCtrl::PaintFile(CDC& dc, const CRect& rcRow, CUploadQueue* /*pQueue
 				dc.FillSolidRect( rcCell.left, rcCell.top + 16, 16, rcCell.Height() - 16, crLeftMargin );
 
 			{
-				int nIcon = ShellIcons.Get( bMultifile ? _T(".torrent") :
-					( lstrcmpi( PathFindExtension( pFile->m_sPath ), _T(".partial") ) ?
-					pFile->m_sPath : pFile->m_sName ), 16 );
+				CString strExt = PathFindExtension( pFile->m_sPath );
+				if ( strExt.Compare( _T(".partial") ) == 0 )
+					strExt = PathFindExtension( pFile->m_sName );
+				if ( pTransfer->m_nProtocol == PROTOCOL_BT &&
+					 ( strExt.IsEmpty() || strExt.GetLength() > 9 ) )
+					strExt = _T(".torrent");	// Multifile workaround
+
+				int nIcon = ShellIcons.Get( strExt, 16 );
 				ShellIcons.Draw( &dc, nIcon, 16, rcCell.left, rcCell.top, crBack, bSelected );
 			}
 

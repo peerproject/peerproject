@@ -1,7 +1,7 @@
 //
 // G1Packet.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -190,7 +190,7 @@ void CG1Packet::CacheHash()
 //	// Hash the data, writing the hash under pHash, and report success
 //	CSHA pSHA;											// Make a local CSHA object which will compute the hash
 //	pSHA.Add( &m_oGUID[ 0 ], Hashes::Guid::byteCount ); // Start by hashing the GUID of the packet
-//	pSHA.Add( &m_nType, sizeof( m_nType ) );				// Then throw in the type byte
+//	pSHA.Add( &m_nType, sizeof( m_nType ) );			// Then throw in the type byte
 //	pSHA.Add( m_pBuffer, nLength );						// After that, hash the bytes of the packet
 //	pSHA.Finish();										// Tell the object that is all
 //	pSHA.GetHash( &oHash[ 0 ] );						// Have the object write the hash under pHash
@@ -242,7 +242,7 @@ void CG1Packet::ToBuffer(CBuffer* pBuffer, bool /*bTCP*/) const
 
 	// Add the Gnutella packet header and packet payload to the buffer
 	pBuffer->Add( &pHeader, sizeof( pHeader ) );	// First, copy the bytes of the Gnutella packet header structure we made right here
-	pBuffer->Add( m_pBuffer, m_nLength );		// This packet object's buffer is the payload, copy that in after the header
+	pBuffer->Add( m_pBuffer, m_nLength );			// This packet object's buffer is the payload, copy that in after the header
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -254,7 +254,7 @@ void CG1Packet::ToBuffer(CBuffer* pBuffer, bool /*bTCP*/) const
 void CG1Packet::Debug(LPCTSTR pszReason) const
 {
 	CString strOutput;
-	strOutput.Format( L"[G1] %s Type: %s [%i/%i]", pszReason, GetType(), m_nTTL, m_nHops );
+	strOutput.Format( L"[G1] %s Type: %s [%u/%u]", pszReason, GetType(), m_nTTL, m_nHops );
 	CPacket::Debug( strOutput );
 }
 #endif	// Deubg
@@ -273,7 +273,7 @@ int CG1Packet::GGEPReadCachedHosts(const CGGEPBlock& pGGEP)
 			WORD nPort = 0;
 			pIPPs->Read( (void*)&nAddress, 4 );
 			pIPPs->Read( (void*)&nPort, 2 );
-			DEBUG_ONLY( theApp.Message( MSG_DEBUG, _T("[G1] Got host %s:%i"), (LPCTSTR)CString( inet_ntoa( *(IN_ADDR*)&nAddress ) ), nPort ) );
+			DEBUG_ONLY( theApp.Message( MSG_DEBUG, _T("[G1] Got host %s:%u"), (LPCTSTR)CString( inet_ntoa( *(IN_ADDR*)&nAddress ) ), nPort ) );
 			CHostCacheHostPtr pCachedHost = HostCache.Gnutella1.Add( (IN_ADDR*)&nAddress, nPort );
 			if ( pCachedHost ) nCount++;
 		}
@@ -293,7 +293,7 @@ int CG1Packet::GGEPReadCachedHosts(const CGGEPBlock& pGGEP)
 				WORD nPort = 0;
 				pGDNAs->Read( (void*)&nAddress, 4 );
 				pGDNAs->Read( (void*)&nPort, 2 );
-				DEBUG_ONLY( theApp.Message( MSG_DEBUG, _T("Got GDNA host %s:%i"), (LPCTSTR)CString( inet_ntoa( *(IN_ADDR*)&nAddress ) ), nPort ) );
+				DEBUG_ONLY( theApp.Message( MSG_DEBUG, _T("Got GDNA host %s:%u"), (LPCTSTR)CString( inet_ntoa( *(IN_ADDR*)&nAddress ) ), nPort ) );
 				CHostCacheHostPtr pCachedHost = HostCache.Gnutella1.Add( (IN_ADDR*)&nAddress, nPort );
 				if ( pCachedHost ) nCount++;
 				HostCache.G1DNA.Add( (IN_ADDR*)&nAddress, nPort, 0, _T("GDNA") );

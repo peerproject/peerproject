@@ -1,7 +1,7 @@
 //
 // LibraryBuilder.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -49,24 +49,24 @@ class CLibraryBuilder :
 {
 public:
 	CLibraryBuilder();
-	virtual ~CLibraryBuilder();
+//	virtual ~CLibraryBuilder();
 
 public:
-	bool		m_bBusy;						// Something "IsMoving"
+	bool		m_bBusy;							// Something "IsMoving"
 
-	bool		Add(CLibraryFile* pFile);		// Add file to list
-	void		Remove(DWORD nIndex);			// Remove file from list
-	void		Remove(LPCTSTR szPath);			// Remove file from list
-	void		Remove(CLibraryFile* pFile);	// Remove file from list
-	void		RequestPriority(LPCTSTR pszPath); // Place file to the begin of list
-	void		Skip(DWORD nIndex);				// Move file to the end of list
+	bool		Add(const CLibraryFile* pFile);		// Add file to list
+	void		Remove(const CLibraryFile* pFile);	// Remove file from list
+	void		Remove(LPCTSTR szPath);				// Remove file from list
+	void		Remove(DWORD nIndex);				// Remove file from list
+	void		RequestPriority(LPCTSTR pszPath);	// Place file to the begin of list
+	void		Skip(DWORD nIndex);					// Move file to the end of list
 	void		StopThread();
 	void		BoostPriority(bool bPriority);
 	bool		GetBoostPriority() const;
 
-	CString		GetCurrent() const;				// Hashing filename
-	size_t		GetRemaining() const;			// Hashing queue size
-	float		GetProgress() const;			// Hashing file progress (0..100%)
+	CString		GetCurrent() const;					// Hashing filename
+	size_t		GetRemaining() const;				// Hashing queue size
+	float		GetProgress() const;				// Hashing file progress (0..100%)
 
 	int			SubmitMetadata(DWORD nIndex, LPCTSTR pszSchemaURI, CXMLElement* pXML);
 	bool		SubmitCorrupted(DWORD nIndex);
@@ -108,8 +108,8 @@ private:
 	volatile bool	m_bSkip;					// Request to skip hashing file
 
 	// Get next file from list doing all possible tests
-	// Returns 0 if no file available, sets m_bThread = false if no files left.
-	DWORD		GetNextFileToHash(CString& sPath);
+	// Returns 0 if no file available, sets m_sPath to current file and m_bThread to false if no files left.
+	DWORD		GetNextFileToHash();			// Sets m_sPath
 	void		OnRun();
 	bool		HashFile(LPCTSTR szPath, HANDLE hFile);
 	bool		DetectVirtualFile(LPCTSTR szPath, HANDLE hFile, QWORD& nOffset, QWORD& nLength);

@@ -1,7 +1,7 @@
 //
 // PeerProjectURL.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -353,9 +353,9 @@ BOOL CPeerProjectURL::ParseRoot(LPCTSTR pszURL, BOOL bResolve)
 //	else if ( ! _tcsnicmp( pszURL, _T("dchub://"), 8 ) )			// dchub://1.2.3.4:411
 //	{
 //		SkipSlashes( pszURL, 8 );
-//		m_nPort = protocolPorts[ PROTOCOL_DC ];
-//		m_nProtocol	= PROTOCOL_DC;
-//		return ParsePeerProjectHost( pszURL, FALSE );
+//	//	m_nProtocol	= PROTOCOL_DC;
+//	//	m_nPort = protocolPorts[ PROTOCOL_DC ];
+//		return ParsePeerProjectHost( pszURL, FALSE, PROTOCOL_DC );
 //	}
 //	else if ( ! _tcsnicmp( pszURL, _T("dcfile://"), 8 ) )
 //	{
@@ -591,11 +591,9 @@ BOOL CPeerProjectURL::ParseDCHub(LPCTSTR pszURL, BOOL bResolve)
 	if ( nSlash == -1 || nSlash == strURL.GetLength() - 1 )		// || strURL.IsEmpty()
 	{
 		m_sAddress.Empty();
-		m_nPort = protocolPorts[ PROTOCOL_DC ];
-		if ( ! ParsePeerProjectHost( pszURL ) )
-			return FALSE;
-		m_nProtocol = PROTOCOL_DC;
-		return TRUE;
+	//	m_nProtocol = PROTOCOL_DC;
+	//	m_nPort = protocolPorts[ PROTOCOL_DC ];
+		return ParsePeerProjectHost( pszURL, FALSE, PROTOCOL_DC );
 	}
 
 	// Full version (file URL)
@@ -921,12 +919,12 @@ BOOL CPeerProjectURL::ParsePeerProject(LPCTSTR pszURL)
 		return ParseDiscovery( pszURL, CDiscoveryService::dsGnutella );
 	if ( _tcsnicmp( pszURL, _T("btnode:"), 7 ) == 0 )
 	{
-		m_nPort = protocolPorts[ PROTOCOL_BT ];
-		if ( ParsePeerProjectHost( SkipSlashes( pszURL, 7 ) ) )
+		if ( ParsePeerProjectHost( SkipSlashes( pszURL, 7 ), FALSE, PROTOCOL_BT ) )
 		{
 			m_sAddress.Format( _T("%s:%u"), m_sName, m_nPort );
-			m_nProtocol = PROTOCOL_BT;
-			m_nAction = uriHost;
+		//	m_nPort = protocolPorts[ PROTOCOL_BT ];
+		//	m_nProtocol = PROTOCOL_BT;
+		//	m_nAction = uriHost;
 			return TRUE;
 		}
 		return FALSE;
@@ -958,13 +956,14 @@ BOOL CPeerProjectURL::ParsePeerProject(LPCTSTR pszURL)
 //////////////////////////////////////////////////////////////////////
 // CPeerProjectURL parse PeerProject host URL
 
-BOOL CPeerProjectURL::ParsePeerProjectHost(LPCTSTR pszURL, BOOL bBrowse)
+BOOL CPeerProjectURL::ParsePeerProjectHost(LPCTSTR pszURL, BOOL bBrowse, PROTOCOLID nProtocol /*PROTOCOL_G2*/)
 {
 	m_nAction = bBrowse ? uriBrowse : uriHost;
 
 	m_sName = pszURL;
 	m_sName = m_sName.SpanExcluding( _T("/\\") );
-	m_nPort = protocolPorts[ PROTOCOL_G2 ];
+	m_nPort = protocolPorts[ nProtocol ];
+	m_nProtocol = nProtocol;
 
 	int nPos = m_sName.Find( ':' );
 	if ( nPos >= 0 )
@@ -983,7 +982,7 @@ BOOL CPeerProjectURL::ParsePeerProjectHost(LPCTSTR pszURL, BOOL bBrowse)
 
 	m_sName.Trim();
 
-	return m_sName.GetLength();
+	return ! m_sName.IsEmpty();
 }
 
 //////////////////////////////////////////////////////////////////////

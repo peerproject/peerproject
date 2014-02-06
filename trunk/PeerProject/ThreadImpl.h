@@ -1,7 +1,7 @@
 //
 // ThreadImpl.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -29,9 +29,11 @@ public:
 		: m_bCompleted	( false )
 		, m_bThread 	( false )
 		, m_hThread 	( NULL )
+	//	, m_bCancelled	( FALSE )
 	//	, m_pCancel		( FALSE, TRUE )
 	{
 	}
+
 	virtual ~CThreadImpl()
 	{
 		CloseThread();
@@ -41,8 +43,9 @@ private:
 	volatile bool	m_bCompleted;	// TRUE - thread runs at least once
 	volatile bool	m_bThread;		// TRUE - enable thread; FALSE - terminate thread.
 	volatile HANDLE m_hThread;		// Thread handle
-//	CEvent			m_pCancel;		// Thread cancel event (signaled if abort requested)
 	CEvent			m_pWakeup;		// Thread wakeup event (optional)
+//	CEvent			m_pCancel;		// Thread cancel event (signaled if abort requested)
+//	volatile LONG	m_bCancelled;	// Thread is canceling
 
 	static UINT ThreadStart(LPVOID pParam)
 	{
@@ -76,12 +79,27 @@ public:
 	{
 		Exit();		// Ask thread for exit
 		Wakeup();	// Wakeup thread if any
-		::CloseThread( (HANDLE*)&m_hThread, dwTimeout );
+		//if ( ! InterlockedCompareExchange( &m_bCancelled, TRUE, FALSE ) )
+		//{
+		//	if ( m_nThreadID != GetCurrentThreadId() )
+		//	{
+				::CloseThread( (HANDLE*)&m_hThread, dwTimeout );
+				m_hThread = NULL;
+		//	}
+		//	InterlockedExchange( &m_bCancelled, FALSE );
+		//}
 	}
 
 	inline void Wait() throw()
 	{
-		::CloseThread( (HANDLE*)&m_hThread, INFINITE );
+		//if ( ! InterlockedCompareExchange( &m_bCancelled, TRUE, FALSE ) )
+		//{
+		//	if ( m_nThreadID != GetCurrentThreadId() )
+		//	{
+				::CloseThread( (HANDLE*)&m_hThread, INFINITE );
+		//	}
+		//	InterlockedExchange( &m_bCancelled, FALSE );
+		//}
 	}
 
 	inline bool Wakeup() throw()

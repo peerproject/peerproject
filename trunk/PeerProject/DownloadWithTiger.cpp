@@ -1,7 +1,7 @@
 //
 // DownloadWithTiger.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -393,7 +393,9 @@ CED2K* CDownloadWithTiger::GetHashset()
 
 void CDownloadWithTiger::RunValidation()
 {
-	CQuickLock oLock( m_pTigerSection );
+	CSingleLock oLock( &m_pTigerSection );
+	if ( ! oLock.Lock( 50 ) )
+		return;
 
 	if ( m_pTigerBlock == NULL && m_pHashsetBlock == NULL && m_pTorrentBlock == NULL )
 		return;
@@ -415,8 +417,6 @@ void CDownloadWithTiger::RunValidation()
 
 BOOL CDownloadWithTiger::FindNewValidationBlock(int nHash)
 {
-	CQuickLock oLock( m_pTigerSection );
-
 	DWORD nBlockCount;
 	QWORD nBlockSize;
 	BYTE* pBlockPtr;
@@ -556,8 +556,6 @@ BOOL CDownloadWithTiger::FindNewValidationBlock(int nHash)
 
 void CDownloadWithTiger::ContinueValidation()
 {
-	CQuickLock oLock( m_pTigerSection );
-
 	ASSERT( m_nVerifyHash > HASH_NULL );
 	ASSERT( m_nVerifyBlock < 0xFFFFFFFF );
 
@@ -592,8 +590,6 @@ void CDownloadWithTiger::ContinueValidation()
 
 void CDownloadWithTiger::FinishValidation()
 {
-	CQuickLock oLock( m_pTigerSection );
-
 	Fragments::List oCorrupted( m_nSize );
 
 	if ( m_nVerifyHash == HASH_TIGERTREE )
@@ -674,8 +670,6 @@ void CDownloadWithTiger::FinishValidation()
 
 void CDownloadWithTiger::SubtractHelper(Fragments::List& ppCorrupted, BYTE* pBlock, QWORD nBlock, QWORD nSize)
 {
-	CQuickLock oLock( m_pTigerSection );
-
 	QWORD nOffset = 0;
 
 	while ( nBlock-- && ! ppCorrupted.empty() )
@@ -689,8 +683,6 @@ void CDownloadWithTiger::SubtractHelper(Fragments::List& ppCorrupted, BYTE* pBlo
 
 Fragments::List CDownloadWithTiger::GetHashableFragmentList() const
 {
-	CQuickLock oLock( m_pTigerSection );
-
 	const Fragments::List oList = GetFullFragmentList();
 
 	if ( ! oList.missing() )

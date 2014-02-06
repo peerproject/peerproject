@@ -1,7 +1,7 @@
 //
 // BTTrackerRequest.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -482,6 +482,9 @@ void CBTTrackerRequest::OnRun()
 	if ( m_sURL.GetLength() < 14 )		// Need to verify m_sURL: Prior crash in CHttpRequest::OnRun()
 	{
 	//	ProcessUDP();	// No URL assume UDP?
+#ifdef _DEBUG	// Assert Workaround
+		if ( m_dwRef == 1 ) m_dwRef = 0;
+#endif
 		delete this;
 		return;
 	}

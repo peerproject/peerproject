@@ -1,7 +1,7 @@
 //
 // CtrlLibraryTreeView.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -95,13 +95,14 @@ public:
 	virtual BOOL Create(CWnd* pParentWnd);
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
 
-
 // Implementation
 protected:
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg void OnDestroy();
+	afx_msg void OnPaint();
+	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar = NULL);
-	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
-	afx_msg void OnPaint();
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
 	afx_msg BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
@@ -132,8 +133,6 @@ protected:
 	afx_msg void OnLibraryFolderMetadata();
 	afx_msg void OnUpdateLibraryFolderEnqueue(CCmdUI* pCmdUI);
 	afx_msg void OnLibraryFolderEnqueue();
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
-	afx_msg void OnDestroy();
 	afx_msg void OnUpdateLibraryFolderFileProperties(CCmdUI* pCmdUI);
 	afx_msg void OnLibraryFolderFileProperties();
 	afx_msg void OnUpdateLibraryRebuild(CCmdUI* pCmdUI);

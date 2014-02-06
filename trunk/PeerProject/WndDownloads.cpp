@@ -1,7 +1,7 @@
 //
 // WndDownloads.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -1464,43 +1464,30 @@ void CDownloadsWnd::OnUpdateDownloadsURI(CCmdUI* pCmdUI)
 
 void CDownloadsWnd::OnDownloadsURI()
 {
-	CSingleLock pLock( &Transfers.m_pSection );
+	CList< CPeerProjectFile > pList;
+
+	CSingleLock pLock( &Transfers.m_pSection, FALSE );
 	if ( ! pLock.Lock( 1000 ) ) return;
-	CList<CPeerProjectFile*> pList;
 
 	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
 	{
 		CDownload* pDownload = Downloads.GetNext( pos );
-		if ( pDownload->m_bSelected && Downloads.Check( pDownload ) &&
+
+		if ( pDownload->m_bSelected &&
+			 Downloads.Check( pDownload ) &&
 			( ! pDownload->m_sName.IsEmpty() || pDownload->m_oSHA1 || pDownload->m_oTiger || pDownload->m_oED2K || pDownload->m_oBTH || pDownload->m_oMD5 ) )
 		{
-			CPeerProjectFile* pFile = new CPeerProjectFile();
-			pFile->m_sName	= pDownload->m_sName;
-			pFile->m_oSHA1	= pDownload->m_oSHA1;
-			pFile->m_oTiger	= pDownload->m_oTiger;
-			pFile->m_oED2K	= pDownload->m_oED2K;
-			pFile->m_oBTH	= pDownload->m_oBTH;
-			pFile->m_oMD5	= pDownload->m_oMD5;
-			pFile->m_nSize	= pDownload->m_nSize;
-
-			pList.AddTail( pFile );
+			pList.AddTail( *pDownload );
 		}
 
 		for ( POSITION posSource = pDownload->GetIterator() ; posSource ; )
 		{
-			CDownloadSource* pSource = pDownload->GetNext( posSource );
+			const CDownloadSource* pSource = pDownload->GetNext( posSource );
+
 			if ( pSource->m_bSelected )
 			{
-				CPeerProjectFile* pFile = new CPeerProjectFile();
-				pFile->m_sName	= pDownload->m_sName;
-				pFile->m_oSHA1	= pDownload->m_oSHA1;
-				pFile->m_oTiger	= pDownload->m_oTiger;
-				pFile->m_oED2K	= pDownload->m_oED2K;
-				pFile->m_oBTH	= pDownload->m_oBTH;
-				pFile->m_oMD5	= pDownload->m_oMD5;
-				pFile->m_nSize	= pDownload->m_nSize;
-				pFile->m_sURL	= pSource->m_sURL;
-
+				CPeerProjectFile pFile = *pDownload;
+				pFile.m_sURL = pSource->m_sURL;
 				pList.AddTail( pFile );
 			}
 		}
@@ -1515,15 +1502,11 @@ void CDownloadsWnd::OnDownloadsURI()
 
 	for ( POSITION pos = pList.GetHeadPosition() ; pos ; )
 	{
-		CPeerProjectFile* pFile = pList.GetNext( pos );
+		dlg.Add( &pList.GetNext( pos ) );
 
-		dlg.Add( pFile );
-		dlg.DoModal();
-
-		delete pFile;
 	}
 
-	pList.RemoveAll();
+	dlg.DoModal();
 }
 
 void CDownloadsWnd::OnUpdateDownloadsShare(CCmdUI* pCmdUI)

@@ -1,7 +1,7 @@
 //
 // WndSearchMonitor.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -27,31 +27,24 @@ class CSearchMonitorWnd : public CPanelWnd
 {
 	DECLARE_SERIAL(CSearchMonitorWnd)
 
-// Construction
 public:
 	CSearchMonitorWnd();
 //	virtual ~CSearchMonitorWnd();
 
-// Attributes
 protected:
-	CListCtrl		m_wndList;
-	CImageList		m_gdiImageList;
-	CLiveListSizer	m_pSizer;
-	BOOL			m_bPaused;
+	CListCtrl			m_wndList;
+	CImageList			m_gdiImageList;
+	CLiveListSizer		m_pSizer;
+	BOOL				m_bPaused;
 
 	CList< CLiveItem* >	m_pQueue;
-	CCriticalSection	m_pSection;
+	CMutexEx			m_pSection;
 
-// Overrides
-public:
-	//{{AFX_VIRTUAL(CSearchMonitorWnd)
-	virtual void	OnQuerySearch(const CQuerySearch* pSearch);
-	virtual void	OnSkinChange();
-	//}}AFX_VIRTUAL
-
-// Implementation
 protected:
-	//{{AFX_MSG(CSearchMonitorWnd)
+	virtual void OnQuerySearch(const CQuerySearch* pSearch);
+	virtual void OnSkinChange();
+
+protected:
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
 	afx_msg void OnSize(UINT nType, int cx, int cy);
@@ -68,7 +61,6 @@ protected:
 	afx_msg void OnDblClkList(NMHDR* pNotifyStruct, LRESULT *pResult);
 	afx_msg void OnCustomDrawList(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };
