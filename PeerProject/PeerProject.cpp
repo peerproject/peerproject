@@ -1934,7 +1934,7 @@ BOOL CPeerProjectApp::InternalURI(LPCTSTR pszURI)
 
 	CString strURI( pszURI );
 //	const int nBreak = strURI.FindOneOf( _T(":") ) + 1;
-	strURI = strURI.Left( 20 ).MakeLower();					// Most chars needed to determine protocol or command
+//	strURI = strURI.Left( 24 ).MakeLower();					// Most chars needed to determine protocol or command
 
 	if ( ! StartsWith( strURI, _PT("command:") ) )			// Assume external URL if not internal command
 	{
@@ -1967,11 +1967,10 @@ BOOL CPeerProjectApp::InternalURI(LPCTSTR pszURI)
 			StartsWith( strURI, _PT("sig2dat:") ) )
 		{
 			ShellExecute( pMainWnd->GetSafeHwnd(), _T("open"), pszURI, NULL, NULL, SW_SHOWNORMAL );
-
 			return TRUE;
 		}
 
-		theApp.Message( MSG_ERROR, _T("Unknown link URI:  ") + strURI );
+		theApp.Message( MSG_ERROR, _T("Unknown link URI:  %s"), pszURI );
 		return FALSE;
 	}
 
@@ -1999,7 +1998,7 @@ BOOL CPeerProjectApp::InternalURI(LPCTSTR pszURI)
 	}
 	else if ( _tcsnicmp( strURI, _PT("command:copy:") ) == 0 )		// Clipboard "command:copy:<text>"
 	{
-		strURI = CString( pszURI ).Mid( 13 );
+		strURI = CString( pszURI + 13 );
 		SetClipboard( strURI, TRUE );
 		return TRUE;
 	}
@@ -2033,7 +2032,7 @@ BOOL CPeerProjectApp::InternalURI(LPCTSTR pszURI)
 
 	//else if ( _tcsnicmp( strURI, _PT("page:") ) == 0 )			// "page:CSettingsPage" defined locally in PageSettingsRich
 
-	theApp.Message( MSG_ERROR, _T("Unknown internal command:  ") + CString( pszURI ) );
+	theApp.Message( MSG_ERROR, _T("Unknown internal command:  %s"), pszURI );
 	//ASSERT( FALSE );
 	return FALSE;
 }
@@ -2746,6 +2745,26 @@ CDatabase* CPeerProjectApp::GetDatabase(int nType) const
 		/*nType == DB_DEFAULT ?*/ _T("PeerProject.db3") ) );
 }
 
+#undef SafeLock
+
+BOOL SafeLock(CSingleLock& pLock, LPCTSTR pszDebug, LPCTSTR /*pszUnused*/)
+{
+	//static LPCTSTR pszLast;	ToDo: Better Tracking?
+	if ( pLock.IsLocked() )
+	{
+		pLock.Unlock();
+		Sleep( 0 );
+	}
+	if ( pLock.Lock( Settings.General.LockTimeout ) )
+		return TRUE;
+#ifdef _DEBUG
+	theApp.Message( MSG_INFO|MSG_TRAY, IDS_LOCK_TIMEOUT, pszDebug );
+#else
+	theApp.Message( MSG_DEBUG, IDS_LOCK_TIMEOUT, pszDebug );
+#endif
+	return FALSE;
+}
+
 CString SafeFilename(CString strName, bool bPath)
 {
 	// Restore spaces
@@ -3168,7 +3187,7 @@ bool ResourceRequest(const CString& strPath, CBuffer& pResponse, CString& sHeade
 						pResponse.m_nLength = nSize;
 					}
 
-					sHeader.Format( _T("Content-Type: %s\r\n"), WebResources[ i ].szContentType);
+					sHeader.Format( _T("Content-Type: %s\r\n"), WebResources[ i ].szContentType );
 					ret = true;
 				}
 				FreeResource( hMemory );

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Swedish Skin File -->
 
-<!-- Translation based on default-en.xml r102 -->
+<!-- Translation based on default-en.xml r104 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -549,8 +549,7 @@
 					<item id="ID_HELP_DONATE" text="_Donera till PeerProject projektet."/>
 					<item id="ID_HELP_VERSION_CHECK" text="Leta efter ny version"/>
 					<!-- <item id="ID_HELP_UPDATE" text="Senaste nyheter"/>
-					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-					<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 				</menu>
 				<separator/>
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProjects hemsida"/>
@@ -649,8 +648,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forum"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Senaste nyheter"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_VERSION_CHECK" text="Leta efter ny version"/>
@@ -719,8 +717,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forum"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Senaste _nyheter"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_VERSION_CHECK" text="_Leta efter nya versioner"/>
@@ -811,8 +808,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forum"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Senaste nyheter"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_VERSION_CHECK" text="Leta efter ny _version"/>
@@ -3261,9 +3257,9 @@
 	<string id="20874" value="URL:"/>
 	<string id="20875" value="Ospecifierad"/>
 	<string id="20880" value="Redigera min profil"/>
-	<string id="20881" value="%u filer valt. Är du säker?"/>
-	<string id="20882" value="Ingen URN tillgänglig"/>
-	<string id="20883" value="Värdtjänsten för UPnP-enheter körs inte. Tjänsten är nödvöndig för installationen.\nDu behöver ställa in automatisk uppstart för tjänsten."/>
+	<string id="20882" value="%u filer valt. Är du säker?"/>
+	<string id="20883" value="Ingen URN tillgänglig"/>
+	<string id="20884" value="Värdtjänsten för UPnP-enheter körs inte. Tjänsten är nödvöndig för installationen.\nDu behöver ställa in automatisk uppstart för tjänsten."/>
 	<string id="20885" value="Vid vyändring stängs alla öppna fönster. Vill du ändra vy nu?"/>
 	<string id="20886" value="Att ändra gränssnittets riktning kräver omstart.\n\nAvsluta nu?"/>
 	<string id="20890" value="Välkommen till PeerProject"/>
@@ -3366,16 +3362,6 @@
 		<control caption="_Välj insticksprogram…"/>
 		<control caption="Varning: En extern mediahanterare hindrar automatiskt samtliga insticksprogram för media och visualisering."/>
 	</dialog>
-	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Gemenskap">
-		<control caption="Min _profil:"/>
-		<control caption="Du kan använda Gnutellas användarprofil för att dela med dig av information om dig själv, intressen och rekommenderade filer och webbplatser med andra."/>
-		<control caption="Redigera min profil"/>
-		<control caption="_Chat:"/>
-		<control caption="Tillåt P2P chat med kompatibla klienter"/>
-		<control caption="Till åt chat på samtliga nätverk"/>
-		<control caption="Filtrera spam från chatmeddelanden"/>
-		<control caption="Censurera chatten"/>
-	</dialog>
 	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdmsStStEdmsCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStCoStEdStEd" caption="Chat">
 		<control caption="Klient_alternativ:"/>
 		<control caption="Visa den integrerade chatten"/>
@@ -3419,6 +3405,28 @@
 		<control/>
 		<control caption="On-connect"/>
 		<control/>
+	</dialog>
+	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Gemenskap">
+		<control caption="Min _profil:"/>
+		<control caption="Du kan använda Gnutellas användarprofil för att dela med dig av information om dig själv, intressen och rekommenderade filer och webbplatser med andra."/>
+		<control caption="Redigera min profil"/>
+		<control caption="_Chat:"/>
+		<control caption="Tillåt P2P chat med kompatibla klienter"/>
+		<control caption="Till åt chat på samtliga nätverk"/>
+		<control caption="Filtrera spam från chatmeddelanden"/>
+		<control caption="Censurera chatten"/>
+	</dialog>
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Fjärråtkomst">
+		<control caption="_Aktivera:"/>
+		<control caption="Aktivera PeerProjects fjärråtkomst:"/>
+		<control/>
+		<control caption="_Inloggning:"/>
+		<control caption="Användarnamn:"/>
+		<control caption="Lösenord:"/>
+		<control/>
+		<control/>
+		<control caption="Hjälp:"/>
+		<control caption="PeerProjects fjärråtkomst tillåter dig att lämna PeerProject igång på din PC och kontrollera det med en webbläsare. Du måste kunna acceptera inkommande anslutningar för att använda denna funktion (d.v.s. en ordentligt anpassad router eller dylikt)."/>
 	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Webb">
 		<control caption="_Hantering av P2P-länkar:"/>
@@ -3506,25 +3514,13 @@
 		<control caption="Begränsning:"/>
 		<control/>
 		<control caption="Läge:"/>
-		<control caption="Maximalt|Normalt"/>
+		<control caption="Normalt|Maximalt"/>
 		<control caption="_Köer:"/>
 		<control/>
 		<control caption="_Ny…"/>
 		<control caption="_Redigera…"/>
 		<control caption="_Radera"/>
 		<control caption="(ändringar genomförs direkt)"/>
-	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Fjärråtkomst">
-		<control caption="_Aktivera:"/>
-		<control caption="Aktivera PeerProjects fjärråtkomst:"/>
-		<control/>
-		<control caption="_Inloggning:"/>
-		<control caption="Användarnamn:"/>
-		<control caption="Lösenord:"/>
-		<control/>
-		<control/>
-		<control caption="Hjälp:"/>
-		<control caption="PeerProjects fjärråtkomst tillåter dig att lämna PeerProject igång på din PC och kontrollera det med en webbläsare. Du måste kunna acceptera inkommande anslutningar för att använda denna funktion (d.v.s. en ordentligt anpassad router eller dylikt)."/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="Nätverk">
 		<control caption="PeerProject är ett en mångsidig fildelningsapplikation som kan komma åt många fildelningsnätverk på samma gång. På denna sida kan du välja vilka nätverk du vill ansluta till och justera specifika inställningar för varje nätverk."/>

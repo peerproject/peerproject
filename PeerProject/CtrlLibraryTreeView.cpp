@@ -1618,14 +1618,17 @@ void CLibraryTreeView::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 	else
 	{
 		CStringList oFiles;
+
+		CSingleLock pLock( &Library.m_pSection );
+		if ( ! SafeLock( pLock ) ) return;
+
+		for ( CLibraryTreeItem* pItem = m_pSelFirst ; pItem ; pItem = pItem->m_pSelNext )
 		{
-			CSingleLock pLock( &Library.m_pSection, TRUE );
-			for ( CLibraryTreeItem* pItem = m_pSelFirst ; pItem ; pItem = pItem->m_pSelNext )
-			{
-				if ( LibraryFolders.CheckFolder( pItem->m_pPhysical, TRUE ) )
-					oFiles.AddTail( pItem->m_pPhysical->m_sPath );
-			}
+			if ( LibraryFolders.CheckFolder( pItem->m_pPhysical, TRUE ) )
+				oFiles.AddTail( pItem->m_pPhysical->m_sPath );
 		}
+
+		pLock.Unlock();
 
 		Skin.TrackPopupMenu( _T("CLibraryTree.Physical"), point, ID_LIBRARY_EXPLORE, oFiles );
 	}
@@ -1680,7 +1683,9 @@ void CLibraryTreeView::OnLibraryExplore()
 {
 	if ( m_bVirtual || m_nSelected != 1 || m_pSelFirst == NULL ) return;
 
-	CSingleLock pLock( &Library.m_pSection, TRUE );
+	CSingleLock pLock( &Library.m_pSection );
+	if ( ! SafeLock( pLock ) ) return;
+
 	if ( ! LibraryFolders.CheckFolder( m_pSelFirst->m_pPhysical, TRUE ) ) return;
 	CString strPath = m_pSelFirst->m_pPhysical->m_sPath;
 	pLock.Unlock();
@@ -1696,7 +1701,8 @@ void CLibraryTreeView::OnUpdateLibraryScan(CCmdUI* pCmdUI)
 
 void CLibraryTreeView::OnLibraryScan()
 {
-	CSingleLock pLock( &Library.m_pSection, TRUE );
+	CSingleLock pLock( &Library.m_pSection );
+	if ( ! SafeLock( pLock ) ) return;
 
 	for ( CLibraryTreeItem* pItem = m_pSelFirst ; pItem ; pItem = pItem->m_pSelNext )
 	{
@@ -1779,7 +1785,8 @@ void CLibraryTreeView::OnUpdateLibraryRemove(CCmdUI* pCmdUI)
 
 void CLibraryTreeView::OnLibraryRemove()
 {
-	CSingleLock pLock( &Library.m_pSection, TRUE );
+	CSingleLock pLock( &Library.m_pSection );
+	if ( ! SafeLock( pLock ) ) return;
 
 	for ( CLibraryTreeItem* pItem = m_pSelFirst ; pItem ; pItem = pItem->m_pSelNext )
 	{
@@ -2004,7 +2011,9 @@ void CLibraryTreeView::OnUpdateLibraryFolderFileProperties(CCmdUI* pCmdUI)
 
 void CLibraryTreeView::OnLibraryFolderFileProperties()
 {
-	CSingleLock pLock( &Library.m_pSection, TRUE );
+	CSingleLock pLock( &Library.m_pSection );
+	if ( ! SafeLock( pLock ) ) return;
+
 	CLibraryListPtr pList( new CLibraryList() );
 
 	for ( CLibraryTreeItem* pItem = m_pSelFirst ; pItem ; pItem = pItem->m_pSelNext )

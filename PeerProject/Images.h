@@ -1,7 +1,7 @@
 //
 // Images.h
 //
-// This file is part of PeerProject (peerproject.org) © 2010-2012
+// This file is part of PeerProject (peerproject.org) © 2010-2014
 // All work here is original and released as-is under Persistent Public Domain [PPD]
 //
 
@@ -12,7 +12,6 @@
 
 class CImages
 {
-// Construction
 //public:
 //	CImages();
 //	~CImages();

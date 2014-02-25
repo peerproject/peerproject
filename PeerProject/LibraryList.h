@@ -1,7 +1,7 @@
 //
 // LibraryList.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -67,11 +67,9 @@ public:
 protected:
 	virtual ~CLibraryList();
 
-// Attributes
 protected:
 	CList < CLibraryListItem, CLibraryListItem > m_List;
 
-// Operations
 public:
 	inline INT_PTR GetCount() const
 	{

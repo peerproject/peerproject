@@ -396,9 +396,17 @@ BOOL CG1Neighbour::SendPing(const Hashes::Guid& oGUID)
 // Responds to it with a pong packet (Always returns true)
 BOOL CG1Neighbour::OnPing(CG1Packet* pPacket)
 {
-	CSingleLock pLock( &Network.m_pSection, TRUE );
-
 	Statistics.Current.Gnutella1.PingsReceived++;
+
+	CSingleLock pLock( &Network.m_pSection );
+
+	if ( ! SafeLock( pLock ) )
+	{
+		// Overloaded
+		Statistics.Current.Gnutella1.Dropped++;
+		m_nDropCount++;
+		return TRUE;
+	}
 
 	if ( ! Neighbours.AddPingRoute( pPacket->m_oGUID, this ) )
 	{
@@ -613,13 +621,18 @@ BOOL CG1Neighbour::OnPing(CG1Packet* pPacket)
 //////////////////////////////////////////////////////////////////////
 // CG1Neighbour PONG packet handlers
 
-// Takes a pointer to the bytes of a pong packet from the remote computer, and reads information from it
-// Always returns true
+// Takes a pointer to the bytes of a pong packet from the remote computer, and reads information from it (Always returns true)
 BOOL CG1Neighbour::OnPong(CG1Packet* pPacket)
 {
-	CSingleLock pLock( &Network.m_pSection, TRUE );
-
 	Statistics.Current.Gnutella1.PongsReceived++;
+
+	CSingleLock pLock( &Network.m_pSection );
+	if ( ! SafeLock( pLock ) )
+	{
+		Statistics.Current.Gnutella1.Dropped++;
+		m_nDropCount++;
+		return TRUE;
+	}
 
 	if ( pPacket->m_nLength < 14 )
 	{

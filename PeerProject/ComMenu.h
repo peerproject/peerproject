@@ -1,7 +1,7 @@
 //
 // ComMenu.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -20,18 +20,15 @@
 
 class CComMenu : public CComObject
 {
-// Construction
 public:
 	CComMenu(HMENU hMenu, UINT nPosition = 0xFFFFFFFF);
 	virtual ~CComMenu();
 
-// Attributes
 public:
 	HMENU	m_hParent;
 	HMENU	m_hMenu;
 	UINT	m_nPosition;
 
-// Operations
 public:
 	static ISMenu*	Wrap(HMENU hMenu, UINT nPosition = 0xFFFFFFFF);
 
@@ -66,13 +63,6 @@ protected:
 	END_INTERFACE_PART(EnumVARIANT)
 
 	DECLARE_INTERFACE_MAP()
-
-// Implementation
-//protected:
-	//{{AFX_MSG(CComMenu)
-	//}}AFX_MSG
-	//{{AFX_VIRTUAL(CComMenu)
-	//}}AFX_VIRTUAL
 
 	//DECLARE_MESSAGE_MAP()
 };

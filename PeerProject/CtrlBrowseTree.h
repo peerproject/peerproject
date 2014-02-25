@@ -1,7 +1,7 @@
 //
 // CtrlBrowseTree.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -29,12 +29,10 @@ class CBrowseTreeCtrl : public CWnd
 {
 	DECLARE_DYNAMIC(CBrowseTreeCtrl)
 
-// Construction
 public:
 	CBrowseTreeCtrl();
 	virtual ~CBrowseTreeCtrl();
 
-// Attributes
 protected:
 	CCriticalSection	m_csRoot;
 	CBrowseTreeItem*	m_pRoot;
@@ -47,7 +45,6 @@ protected:
 	CBrowseTreeItem*	m_pFocus;
 	DWORD				m_nCleanCookie;
 
-// Operations
 public:
 	virtual BOOL		Create(CWnd* pParentWnd);
 	void				Clear(BOOL bGUI = TRUE);
@@ -80,7 +77,6 @@ public:
 		return &m_csRoot;
 	}
 
-// Implementation
 protected:
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnPaint();
@@ -101,12 +97,10 @@ protected:
 
 class CBrowseTreeItem : public CObject
 {
-// Construction
 public:
 	CBrowseTreeItem(CBrowseTreeItem* pParent = NULL);
 	virtual ~CBrowseTreeItem();
 
-// Attributes
 public:
 	CBrowseTreeItem*	m_pParent;
 	CBrowseTreeItem**	m_pList;
@@ -130,7 +124,6 @@ public:
 	DWORD*				m_pFiles;
 	DWORD				m_nFiles;
 
-// Operations
 public:
 	CBrowseTreeItem*	Add(LPCTSTR pszName);
 	CBrowseTreeItem*	Add(CBrowseTreeItem* pNewItem);

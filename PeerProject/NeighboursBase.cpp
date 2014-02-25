@@ -56,8 +56,7 @@ CNeighboursBase::~CNeighboursBase()
 // CNeighboursBase list access
 
 // Call to get a POSITION you can use with GetNextAssoc to loop through the contents of m_pUniques
-// Calls GetStartPosition on the MFC CMapPtrToPtr collection class
-// Returns a POSITION value, or null if the map is empty
+// Calls GetStartPosition on the MFC CMapPtrToPtr collection class, returns null if empty
 POSITION CNeighboursBase::GetIterator() const
 {
 	ASSUME_LOCK( Network.m_pSection );
@@ -138,25 +137,25 @@ CNeighbour* CNeighboursBase::GetNewest(PROTOCOLID nProtocol, int nState, int nNo
 // Counts the number of neighbours in the list that match these criteria, pass -1 to count them all
 DWORD CNeighboursBase::GetCount(PROTOCOLID nProtocol, int nState, int nNodeType) const
 {
+	CSingleLock pLock( &Network.m_pSection );
+	if ( ! pLock.Lock( 100 ) )
+		return 0;
+
 	DWORD nCount = 0;
 
-	CSingleLock pLock( &Network.m_pSection, FALSE );
-	if ( pLock.Lock( 200 ) )
+	for ( POSITION pos = GetIterator() ; pos ; )
 	{
-		for ( POSITION pos = GetIterator() ; pos ; )
-		{
-			CNeighbour* pNeighbour = GetNext( pos );
+		CNeighbour* pNeighbour = GetNext( pos );
 
-			// If this neighbour has the protocol we are looking for, or nProtocl is negative to count them all
-			if ( nProtocol == PROTOCOL_ANY || nProtocol == pNeighbour->m_nProtocol )
+		// If this neighbour has the protocol we are looking for, or nProtocl is negative to count them all
+		if ( nProtocol == PROTOCOL_ANY || nProtocol == pNeighbour->m_nProtocol )
+		{
+			// If this neighbour is currently in the state we are looking for, or nState is negative to count them all
+			if ( nState < 0 || nState == pNeighbour->m_nState )
 			{
-				// If this neighbour is currently in the state we are looking for, or nState is negative to count them all
-				if ( nState < 0 || nState == pNeighbour->m_nState )
-				{
-					// If this neighbour is in the ultra or leaf role we are looking for, or nNodeType is null to count them all
-					if ( nNodeType < 0 || nNodeType == pNeighbour->m_nNodeType )
-						nCount++;
-				}
+				// If this neighbour is in the ultra or leaf role we are looking for, or nNodeType is null to count them all
+				if ( nNodeType < 0 || nNodeType == pNeighbour->m_nNodeType )
+					nCount++;
 			}
 		}
 	}
@@ -222,16 +221,20 @@ void CNeighboursBase::Close()
 // Calls DoRun on neighbours in the list, and totals statistics from them
 void CNeighboursBase::OnRun()
 {
+	// Spend here no more than 100 ms at once
+	const DWORD nStop = GetTickCount() + 100;
+
 	// Have the loop test each neighbour's run cookie count against the next number
 	m_nRunCookie++;			// The first time this runs, it will take the value from 5 to 6
 	bool bUpdated = true;	// Indicate if stats were updated
 
 	// Loop until all updates have been processed
-	while ( bUpdated )
+	while ( bUpdated && GetTickCount() < nStop )
 	{
 		// Make sure this thread is the only one accessing the network object
 		CSingleLock pLock( &Network.m_pSection );
-		if ( ! pLock.Lock( 150 ) ) continue;
+		if ( ! pLock.Lock( 100 ) )
+			continue;
 
 		// Indicate if stats were updated
 		bUpdated = false;

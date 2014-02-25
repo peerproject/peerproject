@@ -1,7 +1,7 @@
 //
 // CtrlHomePanel.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -708,18 +708,20 @@ void CHomeLibraryBox::OnLButtonUp(UINT nFlags, CPoint point)
 
 	if ( Item* pItem = HitTest( point ) )
 	{
-		CSingleLock oLock( &Library.m_pSection, TRUE );
+		CSingleLock pLock( &Library.m_pSection );
+		if ( ! SafeLock( pLock ) ) return;
+
 		if ( CLibraryFile* pFile = Library.LookupFile( pItem->m_nIndex ) )
 		{
 			if ( pFile->IsAvailable() )
 			{
 				CString strPath = pFile->GetPath();
-				oLock.Unlock();
+				pLock.Unlock();
 				CFileExecutor::Execute( strPath );
 			}
 			else
 			{
-				oLock.Unlock();
+				pLock.Unlock();
 			}
 			m_pHover = NULL;
 			KillTimer( 2 );
@@ -1180,7 +1182,7 @@ void CHomeDownloadsBox::OnTimer(UINT_PTR nIDEvent)
 BOOL CHomeDownloadsBox::ExecuteDownload(CDownload* pDownload)
 {
 	CSingleLock pLock( &Transfers.m_pSection );
-	if ( ! pLock.Lock( 1000 ) ) return FALSE;
+	if ( ! SafeLock( pLock ) ) return FALSE;
 	if ( ! Downloads.Check( pDownload ) ) return FALSE;
 
 	if ( ! pDownload->Launch( -1, &pLock, FALSE ) )

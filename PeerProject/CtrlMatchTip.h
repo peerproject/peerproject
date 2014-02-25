@@ -1,7 +1,7 @@
 //
 // CtrlMatchTip.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -29,7 +29,6 @@ class CMatchTipCtrl : public CCoolTipCtrl
 {
 	DECLARE_DYNAMIC(CMatchTipCtrl)
 
-// Construction
 public:
 	CMatchTipCtrl();
 //	virtual ~CMatchTipCtrl();
@@ -37,7 +36,6 @@ public:
 public:
 	void		Show(CMatchFile* pFile, CQueryHit* pHit);
 
-// Attributes
 protected:
 	CMatchFile*	m_pFile;
 	CQueryHit*	m_pHit;
@@ -66,7 +64,6 @@ protected:
 	int 		m_nKeyWidth;
 	int 		m_nRating;
 
-// Operations
 protected:
 	void		LoadFromFile();
 	void		LoadFromHit();

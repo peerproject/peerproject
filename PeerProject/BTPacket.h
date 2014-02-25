@@ -1,7 +1,7 @@
 //
 // BTPacket.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -125,12 +125,10 @@ const LPCSTR BT_DICT_VENDOR			= "v";					// Client name and version (as utf-8 st
 
 class CBTPacket : public CPacket
 {
-// Construction
 protected:
 	CBTPacket();
 	virtual ~CBTPacket();
 
-// Attributes
 public:
 	BYTE				m_nType;
 	BYTE				m_nExtension;	// Extension type if packet type is a BT_PACKET_EXTENSION
@@ -224,6 +222,7 @@ class CDHT
 public:
 	CDHT();
 
+public:
 	void Connect();			// Initialize DHT library and load initial hosts
 	void Disconnect();		// Save hosts from DHT library to host cache and shutdown
 	void Search(const Hashes::BtHash& oBTH, bool bAnnounce = true);	// Search for hash (and announce if needed)

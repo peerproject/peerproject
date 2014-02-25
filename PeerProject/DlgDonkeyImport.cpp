@@ -1,7 +1,7 @@
 //
 // DlgDonkeyImport.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -45,6 +45,7 @@ CDonkeyImportDlg::CDonkeyImportDlg(CWnd* pParent /*=NULL*/)
 void CDonkeyImportDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CSkinDialog::DoDataExchange(pDX);
+
 	DDX_Control(pDX, IDC_CLOSE, m_wndClose);
 	DDX_Control(pDX, IDCANCEL, m_wndCancel);
 	DDX_Control(pDX, IDC_IMPORT, m_wndImport);
@@ -88,7 +89,7 @@ void CDonkeyImportDlg::OnCancel()
 
 void CDonkeyImportDlg::OnTimer(UINT_PTR /*nIDEvent*/)
 {
-	if ( ! m_pImporter.IsRunning() )
+	if ( ! m_pImporter.IsThreadAlive() )
 	{
 		KillTimer( 1 );
 		m_wndCancel.EnableWindow( FALSE );

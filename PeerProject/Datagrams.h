@@ -1,7 +1,7 @@
 //
 // Datagrams.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -56,12 +56,10 @@ class CPacket;
 
 class CDatagrams
 {
-// Construction
 public:
 	CDatagrams();
 	~CDatagrams();
 
-// Attributes
 public:
 	DWORD			m_nInBandwidth;
 	DWORD			m_nInFrags;
@@ -103,7 +101,6 @@ private:
 	// CDatagrams processes one packet at once only. Maximum UDP size 64KB.
 	BYTE		m_pReadBuffer[ 65536 ];
 
-// Operations
 public:
 	BOOL	Listen();
 	void	Disconnect();

@@ -25,12 +25,10 @@
 // A buffer of memory that takes care of allocating and freeing itself, and has methods for compression and encoding
 class CBuffer
 {
-// Construction
 public:
 	CBuffer();
 	~CBuffer();
 
-// Attributes
 public:
 	// Memory pointers and byte counts
 	CBuffer*	m_pNext;		// A pointer to the next CBuffer object, letting them be linked together in a list
@@ -50,7 +48,6 @@ public:
 	inline BYTE* GetDataEnd() const { return m_pBuffer + m_nLength; }	// Return a pointer to the end of the data in the buffer
 	inline DWORD GetBufferFree() const { return m_nBuffer - m_nLength; } // Return the unused #bytes in the buffer
 
-// Operations
 public:
 	void	Add(const void* pData, const size_t nLength); //throw();				// Add data to the end of the buffer
 	void	Insert(const DWORD nOffset, const void* pData, const size_t nLength);	// Insert the data into the buffer

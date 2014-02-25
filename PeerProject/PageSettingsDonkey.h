@@ -1,7 +1,7 @@
 //
 // PageSettingsDonkey.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -25,16 +25,13 @@ class CDonkeySettingsPage : public CSettingsPage
 {
 	DECLARE_DYNCREATE(CDonkeySettingsPage)
 
-// Construction
 public:
 	CDonkeySettingsPage();
 	virtual ~CDonkeySettingsPage();
 
 	enum { IDD = IDD_SETTINGS_DONKEY };
 
-// Dialog Data
 public:
-	//{{AFX_DATA(CDonkeySettingsPage)
 	CSpinButtonCtrl	m_wndLinksSpin;
 	CSpinButtonCtrl	m_wndResultsSpin;
 	CEdit	m_wndResults;
@@ -45,26 +42,18 @@ public:
 	BOOL	m_bEnabled;
 	BOOL	m_bEnableAlways;
 	BOOL	m_bLearnServers;
-	//}}AFX_DATA
 
-// Overrides
 public:
-	//{{AFX_VIRTUAL(CDonkeySettingsPage)
-	public:
 	virtual void OnOK();
 	virtual BOOL OnSetActive();
-	protected:
-	virtual void DoDataExchange(CDataExchange* pDX);
-	//}}AFX_VIRTUAL
-
-// Implementation
 protected:
-	//{{AFX_MSG(CDonkeySettingsPage)
+	virtual void DoDataExchange(CDataExchange* pDX);
+
+protected:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnDiscoveryGo();
 	afx_msg void OnServerWalk();
 	afx_msg void OnEnable();
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

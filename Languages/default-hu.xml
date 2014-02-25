@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hungarian Skin File -->
 
-<!-- Translation based on default-en.xml r102 -->
+<!-- Translation based on default-en.xml r104 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -568,7 +568,6 @@
 				<menu text="_Weboldalak">
 					<item id="ID_HELP_WEB_3" text="Slyck.com"/>
 					<item id="ID_HELP_WEB_1" text="ZeroPaid.com"/>
-					<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
 				</menu>
 			-->
 				<item id="ID_HELP_HOMEPAGE" text="PeerProject.org"/>
@@ -667,8 +666,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject hivatalos _fórum"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Latest news"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/> <!--
 			<item id="ID_HELP_VERSION_CHECK" text="_Frissítések keresése"/>
@@ -737,8 +735,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject hivatalos _fórum"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Latest news"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/> <!--
 			<item id="ID_HELP_VERSION_CHECK" text="_Frissítések keresése"/>
@@ -829,8 +826,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject hivatalos _fórum"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Latest news"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/> <!--
 			<item id="ID_HELP_VERSION_CHECK" text="_Frissítések keresése"/>
@@ -2302,9 +2298,9 @@
 	<tip id="ID_HELP_SECURITY" message="Veszélyes programok elleni védekezés."/>
 	<tip id="ID_HELP_UPDATE" message="Frissítések és új hírek ellenőrzése."/>
 	<tip id="ID_HELP_TEST" message="Kapcsolódási teszt lefuttatása."/>
-	<tip id="ID_HELP_WEB_1" message="Ellátogat a Zeropaid.com-ra."/>
-	<tip id="ID_HELP_WEB_2" message="Ellátogat a P2PForums.com-ra."/>
-	<tip id="ID_HELP_WEB_3" message="Ellátogat a Slyck.com-ra."/>
+	<tip id="ID_HELP_WEB_1" message="Látogassa meg"/>
+	<tip id="ID_HELP_WEB_2" message="Látogassa meg"/>
+	<tip id="ID_HELP_WEB_3" message="Látogassa meg"/>
 	<tip id="ID_HELP_WEB_4" message="Látogassa meg"/>
 	<tip id="ID_HELP_DONATE" message="Ha szeretne nekünk adományt küldeni, akkor azt itt legálisan megteheti."/>
 	<tip id="ID_HITMONITOR_CLEAR" message="Törli az összes találati bejegyzést."/>
@@ -3261,9 +3257,9 @@
 	<string id="20874" value="URL:"/>
 	<string id="20875" value="Nincs meghatározva"/>
 	<string id="20880" value="Saját adatlap szerkesztése"/>
-	<string id="20881" value="%u fájlok kép kiválasztva. Biztos vagy benne?"/>
-	<string id="20882" value="Nincs elérhető URN"/>
-	<string id="20883" value="Az UPnP szolgáltatás nem fut. Ez a szolgáltatás szükséges a beállításokhoz.nÁllítsa be, hogy automatikusan el tudjon indulni."/>
+	<string id="20882" value="%u fájlok kép kiválasztva. Biztos vagy benne?"/>
+	<string id="20883" value="Nincs elérhető URN"/>
+	<string id="20884" value="Az UPnP szolgáltatás nem fut. Ez a szolgáltatás szükséges a beállításokhoz.nÁllítsa be, hogy automatikusan el tudjon indulni."/>
 	<string id="20885" value="A kinézet megváltoztatása bezár minden megnyitott ablakot. Most akarja megvátoztatni?"/>
 	<string id="20886" value="A szövegirány megváltoztatásához újra kell indítani a programot. \nEzt kézzel kell megtennie. Be akarja most zárni a PeerProject?"/>
 	<string id="20890" value="Üdvözlöm a PeerProject"/>
@@ -3366,16 +3362,6 @@
 		<control caption="_Plugin kiválasztása..."/>
 		<control caption="Figyelem: külső médialejátszó használatakor az összes belső plugin és képi megjelenítő kikapcsol."/>
 	</dialog>
-	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Közösség">
-		<control caption="Saját adatla_p"/>
-		<control caption="Az adatlap segítségével információkat közölhet magáról, ami az egész hálózaton elérhető lesz."/>
-		<control caption="Adatlap szerkesztése"/>
-		<control caption="_Csevegés"/>
-		<control caption="Csevegés engedélyezése az arra alkalmas kliensekkel"/>
-		<control caption="Csevegés engedélyezése az összes hálózaton"/>
-		<control caption="Kéretlen üzenetek kiszűrése"/>
-		<control caption="Trágár szövegek kiszűrése"/>
-	</dialog>
 	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdmsStStEdmsCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStCoStEdStEd" caption="Csevegés">
 		<control caption="_Kliens beállítások"/>
 		<control caption="Csevegés intergrálása"/>
@@ -3419,6 +3405,28 @@
 		<control/>
 		<control caption="On-connect"/>
 		<control/>
+	</dialog>
+	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Közösség">
+		<control caption="Saját adatla_p"/>
+		<control caption="Az adatlap segítségével információkat közölhet magáról, ami az egész hálózaton elérhető lesz."/>
+		<control caption="Adatlap szerkesztése"/>
+		<control caption="_Csevegés"/>
+		<control caption="Csevegés engedélyezése az arra alkalmas kliensekkel"/>
+		<control caption="Csevegés engedélyezése az összes hálózaton"/>
+		<control caption="Kéretlen üzenetek kiszűrése"/>
+		<control caption="Trágár szövegek kiszűrése"/>
+	</dialog>
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Távoli elérés">
+		<control caption="_Engedélyezés"/>
+		<control caption="Távoli használat engedélyezése"/>
+		<control caption="..."/>
+		<control caption="_Belépési adatok"/>
+		<control caption="Felhasználó neve:"/>
+		<control caption="Felhasználó jelszava:"/>
+		<control/>
+		<control/>
+		<control caption="Súgó:"/>
+		<control caption="Ezzel a szolgáltatással egy webböngészőn keresztül távolról is irányíthatja a PeerProject. Ehhez azonban a PeerProject futtató gépnek tudnia kell fogadni a bejövő kapcsolatokat."/>
 	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
 		<control caption="_P2P linkek"/>
@@ -3506,25 +3514,13 @@
 		<control caption="Korlátozás:"/>
 		<control/>
 		<control caption="Mód:"/>
-		<control caption="Maximum|Átlagos"/>
+		<control caption="Átlagos|Maximum"/>
 		<control caption="S_orok"/>
 		<control/>
 		<control caption="Ú_j..."/>
 		<control caption="_Módosít..."/>
 		<control caption="_Törlés"/>
 		<control caption="A változások azonnal életbe lépnek."/>
-	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Távoli elérés">
-		<control caption="_Engedélyezés"/>
-		<control caption="Távoli használat engedélyezése"/>
-		<control caption="..."/>
-		<control caption="_Belépési adatok"/>
-		<control caption="Felhasználó neve:"/>
-		<control caption="Felhasználó jelszava:"/>
-		<control/>
-		<control/>
-		<control caption="Súgó:"/>
-		<control caption="Ezzel a szolgáltatással egy webböngészőn keresztül távolról is irányíthatja a PeerProject. Ehhez azonban a PeerProject futtató gépnek tudnia kell fogadni a bejövő kapcsolatokat."/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="Hálózatok">
 		<control caption="A PeerProject egy fájlmegosztó program, amely egyszerre több p2p hálózathoz is tud csatlakozni. Ezen az oldalon beállíthatja, hogy melyik hálózathoz akar kapcsolódni."/>

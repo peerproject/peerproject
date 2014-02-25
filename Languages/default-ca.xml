@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Catalan Skin File -->
 
-<!-- Translation based on default-en.xml r102 -->
+<!-- Translation based on default-en.xml r104 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -556,8 +556,7 @@
 				<menu text="_Llocs Web">
 					<item id="ID_HELP_FORUMS" text="Fòrums de _PeerProject"/>
 					<!-- <item id="ID_HELP_UPDATE" text="Darreres Notícies"/>
-					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-					<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 				</menu>
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<separator/>
@@ -661,8 +660,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="Fòrums de _PeerProject"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Darreres Notícies"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_Quant a PeerProject..."/>
@@ -731,8 +729,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="Fòrums de _PeerProject"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Darreres notícies"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_Quant a PeerProject..."/>
@@ -824,8 +821,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="Fòrums del _PeerProject"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Darreres notícies"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_Quant a PeerProject..."/>
@@ -3243,9 +3239,9 @@
 	<string id="20874" value="URL:"/>
 	<string id="20875" value="No "/>
 	<string id="20880" value="Edita el meu perfil"/>
-	<string id="20881" value="%u Arxius seleccionats. Estàs segur?"/>
-	<string id="20882" value="No hi ha URN disponible"/>
-	<string id="20883" value="El servei UPnP Device Host Service no està sent executat. Aquest servei està re requerit per la instal·lació.\nHas de configurar el llançament d'aquest servei del Windows al mode automàtic."/>
+	<string id="20882" value="%u Arxius seleccionats. Estàs segur?"/>
+	<string id="20883" value="No hi ha URN disponible"/>
+	<string id="20884" value="El servei UPnP Device Host Service no està sent executat. Aquest servei està re requerit per la instal·lació.\nHas de configurar el llançament d'aquest servei del Windows al mode automàtic."/>
 	<string id="20885" value="El canvi de vista tancarà totes les finestres que tens obertes. Vols canviar ara?"/>
 	<string id="20886" value="El canvi de direcció de la interfície requereix un reinici de l'aplicació.\nols sortir ara?"/>
 	<string id="20890" value="Benvingut/uda a PeerProject"/>
@@ -3349,6 +3345,7 @@
 		<control caption="_Selecciona component..."/>
 		<control caption="Advertència: Triar un manejador de multimèdia extern deshabilitarà tots els efectes de so i les visualitzacions d'aquest programa."/>
 	</dialog>
+	<!--Missing dialog name="CIRCSettingsPage"-->
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Comunitat">
 		<control caption="El meu _perfil:"/>
 		<control caption="El perfil de PeerProject serveix per a compartir informació teva, els teus interessos, els teus arxius i pàgines web favorites."/>
@@ -3359,7 +3356,18 @@
 		<control caption="Filtra els missatges de xat per a spam"/>
 		<control caption="Censura coses obscenes al xat"/>
 	</dialog>
-	<!--Missing dialog name="CIRCSettingsPage"-->
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Accès Remot">
+		<control caption="_Habilita:"/>
+		<control caption="Habilita l'accès remot de PeerProject:"/>
+		<control/>
+		<control caption="_Credencials:"/>
+		<control caption="Tria un usuari:"/>
+		<control caption="Tria un mot de pas:"/>
+		<control/>
+		<control/>
+		<control caption="Ajuda:"/>
+		<control caption="L'accès remot de PeerProject et permet deixar PeerProject executant-se al teu PC, i controlar-lo usant un navegador. Necessitaràs acceptar connexions entrants per a usar aquesta característica (ex: Configurar el teu router, etc)."/>
+	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
 		<control caption="Controla enllaços avançats:"/>
 		<control caption="Usa PeerProject per a obrir aquests enllaços:"/>
@@ -3446,25 +3454,13 @@
 		<control caption="Límit:"/>
 		<control/>
 		<control caption="Mode:"/>
-		<control caption="Màxim|Mitjana"/>
+		<control caption="Mitjana|Màxim"/>
 		<control caption="_Cues:"/>
 		<control/>
 		<control caption="_Nova..."/>
 		<control caption="_Edita..."/>
 		<control caption="_Esborra"/>
 		<control caption="(Els canvis són inmmediats)"/>
-	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Accès Remot">
-		<control caption="_Habilita:"/>
-		<control caption="Habilita l'accès remot de PeerProject:"/>
-		<control/>
-		<control caption="_Credencials:"/>
-		<control caption="Tria un usuari:"/>
-		<control caption="Tria un mot de pas:"/>
-		<control/>
-		<control/>
-		<control caption="Ajuda:"/>
-		<control caption="L'accès remot de PeerProject et permet deixar PeerProject executant-se al teu PC, i controlar-lo usant un navegador. Necessitaràs acceptar connexions entrants per a usar aquesta característica (ex: Configurar el teu router, etc)."/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="Xarxes">
 		<control caption="PeerProject té l'habilitat d'accedir a vàries xarxes de compartició d'arxius. En aquesta pàgina es poden seleccionar les xarxes que seràn usadas i ajustar les configuracions de les mateixes."/>

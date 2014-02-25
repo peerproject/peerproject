@@ -1,7 +1,7 @@
 //
 // G2Packet.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -249,6 +249,8 @@ BOOL CG2Packet::ReadPacket(G2_PACKET& nType, DWORD& nLength, BOOL* pbCompound)
 	else if ( nFlags & G2_FLAG_COMPOUND )
 		SkipCompound( nLength );
 
+	ASSERT( nLength <= m_nLength );
+
 	return TRUE;
 }
 
@@ -379,10 +381,7 @@ void CG2Packet::WriteString(LPCTSTR pszString, BOOL bNull)
 
 	CStringA strUTF8 = UTF8Encode( pszString, (int)_tcslen( pszString ) );
 
-	if ( bNull )
-		Write( (LPCSTR)strUTF8, strUTF8.GetLength() + 1 );
-	else
-		Write( (LPCSTR)strUTF8, strUTF8.GetLength() );
+	Write( (LPCSTR)strUTF8, (DWORD)( strUTF8.GetLength() + bNull ) );
 }
 
 void CG2Packet::WriteString(LPCSTR pszString, BOOL bNull)
@@ -393,7 +392,7 @@ void CG2Packet::WriteString(LPCSTR pszString, BOOL bNull)
 		return;
 	}
 
-	Write( pszString, static_cast< int >( strlen(pszString) + ( bNull ? 1 : 0 ) ) );
+	Write( pszString, (DWORD)( strlen(pszString) + bNull ) );
 }
 
 int CG2Packet::GetStringLen(LPCTSTR pszString) const
@@ -757,7 +756,7 @@ BOOL CG2Packet::OnQuery(const SOCKADDR_IN* pHost)
 	{
 		if ( ! pSearch || ! pSearch->m_bUDP )
 		{
-			DEBUG_ONLY( Debug( ! pSearch->m_bUDP ? _T("G2 Firewalled Query.") : _T("G2 Malformed Query.") ) );
+			DEBUG_ONLY( Debug( ( pSearch && ! pSearch->m_bUDP ) ? _T("G2 Firewalled Query.") : _T("G2 Malformed Query.") ) );
 			theApp.Message( MSG_WARNING, IDS_PROTOCOL_BAD_QUERY, _T("G2"), (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ) );
 		}
 		Statistics.Current.Gnutella2.Dropped++;
@@ -1192,71 +1191,76 @@ BOOL CG2Packet::OnCrawlRequest(const SOCKADDR_IN* pHost)
 		pPacket->WriteLongBE( nGPS );
 	}
 
-	for ( POSITION pos = Neighbours.GetIterator() ; pos ; )
+	CSingleLock pLock( &Network.m_pSection );
+	if ( SafeLock( pLock ) )
 	{
-		CNeighbour* pNeighbour = Neighbours.GetNext( pos );
-		if ( pNeighbour->m_nState < nrsConnected ) continue;
-
-		int nExtraLen = 0;
-		strNick.Empty();
-		nGPS = 0;
-
-		if ( pNeighbour->m_nProtocol == PROTOCOL_G2 )
+		for ( POSITION pos = Neighbours.GetIterator() ; pos ; )
 		{
-			if ( CGProfile* pProfile = ((CG2Neighbour*)pNeighbour)->m_pProfile )
+			CNeighbour* pNeighbour = Neighbours.GetNext( pos );
+			if ( pNeighbour->m_nState < nrsConnected ) continue;
+
+			int nExtraLen = 0;
+			strNick.Empty();
+			nGPS = 0;
+
+			if ( pNeighbour->m_nProtocol == PROTOCOL_G2 )
 			{
-				if ( bWantNames )
-					strNick = pProfile->GetNick().Left( 255 );	// Trim if over 255 characters
+				if ( CGProfile* pProfile = ((CG2Neighbour*)pNeighbour)->m_pProfile )
+				{
+					if ( bWantNames )
+						strNick = pProfile->GetNick().Left( 255 );	// Trim if over 255 characters
 
-				if ( bWantGPS )
-					nGPS = pProfile->GetPackedGPS();
+					if ( bWantGPS )
+						nGPS = pProfile->GetPackedGPS();
 
+					if ( ! strNick.IsEmpty() )
+						nExtraLen += 6 + pPacket->GetStringLen( strNick );
+					if ( nGPS )
+						nExtraLen += 9;
+				}
+			}
+
+			if ( pNeighbour->m_nProtocol == PROTOCOL_G2 &&
+				 pNeighbour->m_nNodeType != ntLeaf )
+			{
+				pPacket->WritePacket( G2_PACKET_NEIGHBOUR_HUB, 16 + nExtraLen, TRUE );
+
+				pPacket->WritePacket( G2_PACKET_NODE_ADDRESS, 6 );
+				pPacket->WriteLongLE( pNeighbour->m_pHost.sin_addr.S_un.S_addr );
+				pPacket->WriteShortBE( htons( pNeighbour->m_pHost.sin_port ) );
+
+				pPacket->WritePacket( G2_PACKET_HUB_STATUS, 2 );
+				pPacket->WriteShortBE( (WORD)((CG2Neighbour*)pNeighbour)->m_nLeafCount );
+			}
+			else if ( pNeighbour->m_nNodeType == ntLeaf && bWantLeaves )
+			{
+				pPacket->WritePacket( G2_PACKET_NEIGHBOUR_LEAF, 10 + nExtraLen, TRUE );
+
+				pPacket->WritePacket( G2_PACKET_NODE_ADDRESS, 6 );
+				pPacket->WriteLongLE( pNeighbour->m_pHost.sin_addr.S_un.S_addr );
+				pPacket->WriteShortBE( htons( pNeighbour->m_pHost.sin_port ) );
+			}
+			else
+			{
+				nExtraLen = 0;
+			}
+
+			if ( nExtraLen > 0 )
+			{
 				if ( ! strNick.IsEmpty() )
-					nExtraLen += 6 + pPacket->GetStringLen( strNick );
+				{
+					pPacket->WritePacket( G2_PACKET_NAME, pPacket->GetStringLen( strNick ) );
+					pPacket->WriteString( strNick, FALSE );
+				}
+
 				if ( nGPS )
-					nExtraLen += 9;
+				{
+					pPacket->WritePacket( G2_PACKET_GPS, 4 );
+					pPacket->WriteLongBE( nGPS );
+				}
 			}
 		}
-
-		if ( pNeighbour->m_nProtocol == PROTOCOL_G2 &&
-			 pNeighbour->m_nNodeType != ntLeaf )
-		{
-			pPacket->WritePacket( G2_PACKET_NEIGHBOUR_HUB, 16 + nExtraLen, TRUE );
-
-			pPacket->WritePacket( G2_PACKET_NODE_ADDRESS, 6 );
-			pPacket->WriteLongLE( pNeighbour->m_pHost.sin_addr.S_un.S_addr );
-			pPacket->WriteShortBE( htons( pNeighbour->m_pHost.sin_port ) );
-
-			pPacket->WritePacket( G2_PACKET_HUB_STATUS, 2 );
-			pPacket->WriteShortBE( (WORD)((CG2Neighbour*)pNeighbour)->m_nLeafCount );
-		}
-		else if ( pNeighbour->m_nNodeType == ntLeaf && bWantLeaves )
-		{
-			pPacket->WritePacket( G2_PACKET_NEIGHBOUR_LEAF, 10 + nExtraLen, TRUE );
-
-			pPacket->WritePacket( G2_PACKET_NODE_ADDRESS, 6 );
-			pPacket->WriteLongLE( pNeighbour->m_pHost.sin_addr.S_un.S_addr );
-			pPacket->WriteShortBE( htons( pNeighbour->m_pHost.sin_port ) );
-		}
-		else
-		{
-			nExtraLen = 0;
-		}
-
-		if ( nExtraLen > 0 )
-		{
-			if ( ! strNick.IsEmpty() )
-			{
-				pPacket->WritePacket( G2_PACKET_NAME, pPacket->GetStringLen( strNick ) );
-				pPacket->WriteString( strNick, FALSE );
-			}
-
-			if ( nGPS )
-			{
-				pPacket->WritePacket( G2_PACKET_GPS, 4 );
-				pPacket->WriteLongBE( nGPS );
-			}
-		}
+		pLock.Unlock();
 	}
 
 	Datagrams.Send( pHost, pPacket );
@@ -1421,36 +1425,41 @@ BOOL CG2Packet::OnKHLR(const SOCKADDR_IN* pHost)
 
 	//	DWORD nBase = m_nPosition;
 
-	for ( POSITION pos = Neighbours.GetIterator() ; pos ; )
+	CSingleLock pLock( &Network.m_pSection );
+	if ( SafeLock( pLock ) )
 	{
-		CG2Neighbour* pNeighbour = (CG2Neighbour*)Neighbours.GetNext( pos );
-
-		if ( pNeighbour->m_nProtocol == PROTOCOL_G2 &&
-			 pNeighbour->m_nState == nrsConnected &&
-			 pNeighbour->m_nNodeType != ntLeaf &&
-			! Network.IsSelfIP( pNeighbour->m_pHost.sin_addr ) )
+		for ( POSITION pos = Neighbours.GetIterator() ; pos ; )
 		{
-			if ( pNeighbour->m_pVendor && pNeighbour->m_pVendor->m_sCode.GetLength() == 4 )
-			{
-				pKHLA->WritePacket( G2_PACKET_NEIGHBOUR_HUB, 16 + 6, TRUE );// 4
-				pKHLA->WritePacket( G2_PACKET_HUB_STATUS, 4 );				// 4
-				pKHLA->WriteShortBE( (WORD)pNeighbour->m_nLeafCount );		// 2
-				pKHLA->WriteShortBE( (WORD)pNeighbour->m_nLeafLimit );		// 2
-				pKHLA->WritePacket( G2_PACKET_VENDOR, 4 );					// 3
-				pKHLA->WriteString( pNeighbour->m_pVendor->m_sCode );		// 5
-			}
-			else
-			{
-				pKHLA->WritePacket( G2_PACKET_NEIGHBOUR_HUB, 9 + 6, TRUE );	// 4
-				pKHLA->WritePacket( G2_PACKET_HUB_STATUS, 4 );				// 4
-				pKHLA->WriteShortBE( (WORD)pNeighbour->m_nLeafCount );		// 2
-				pKHLA->WriteShortBE( (WORD)pNeighbour->m_nLeafLimit );		// 2
-				pKHLA->WriteByte( 0 );										// 1
-			}
+			CG2Neighbour* pNeighbour = (CG2Neighbour*)Neighbours.GetNext( pos );
 
-			pKHLA->WriteLongLE( pNeighbour->m_pHost.sin_addr.S_un.S_addr );	// 4
-			pKHLA->WriteShortBE( htons( pNeighbour->m_pHost.sin_port ) );	// 2
+			if ( pNeighbour->m_nProtocol == PROTOCOL_G2 &&
+				 pNeighbour->m_nState == nrsConnected &&
+				 pNeighbour->m_nNodeType != ntLeaf &&
+				! Network.IsSelfIP( pNeighbour->m_pHost.sin_addr ) )
+			{
+				if ( pNeighbour->m_pVendor && pNeighbour->m_pVendor->m_sCode.GetLength() == 4 )
+				{
+					pKHLA->WritePacket( G2_PACKET_NEIGHBOUR_HUB, 16 + 6, TRUE );// 4
+					pKHLA->WritePacket( G2_PACKET_HUB_STATUS, 4 );				// 4
+					pKHLA->WriteShortBE( (WORD)pNeighbour->m_nLeafCount );		// 2
+					pKHLA->WriteShortBE( (WORD)pNeighbour->m_nLeafLimit );		// 2
+					pKHLA->WritePacket( G2_PACKET_VENDOR, 4 );					// 3
+					pKHLA->WriteString( pNeighbour->m_pVendor->m_sCode );		// 5
+				}
+				else
+				{
+					pKHLA->WritePacket( G2_PACKET_NEIGHBOUR_HUB, 9 + 6, TRUE );	// 4
+					pKHLA->WritePacket( G2_PACKET_HUB_STATUS, 4 );				// 4
+					pKHLA->WriteShortBE( (WORD)pNeighbour->m_nLeafCount );		// 2
+					pKHLA->WriteShortBE( (WORD)pNeighbour->m_nLeafLimit );		// 2
+					pKHLA->WriteByte( 0 );										// 1
+				}
+
+				pKHLA->WriteLongLE( pNeighbour->m_pHost.sin_addr.S_un.S_addr );	// 4
+				pKHLA->WriteShortBE( htons( pNeighbour->m_pHost.sin_port ) );	// 2
+			}
 		}
+		pLock.Unlock();
 	}
 
 	int nCount = Settings.Gnutella2.KHLHubCount;

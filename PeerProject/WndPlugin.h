@@ -1,7 +1,7 @@
 //
 // WndPlugin.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -25,7 +25,6 @@ class CPluginWnd : public CPanelWnd
 {
 	DECLARE_DYNCREATE(CPluginWnd)
 
-// Construction
 public:
 	CPluginWnd(LPCTSTR pszName = _T(""), IPluginWindowOwner* pOwner = NULL);
 	virtual ~CPluginWnd();
@@ -33,30 +32,22 @@ public:
 public:
 	CComPtr< IPluginWindowOwner > m_pOwner;
 
-// Attributes
 protected:
-	CString				m_sName;
-	UINT*				m_pHandled;
-	DWORD				m_nHandled;
-	CCoolBarCtrl*		m_pToolbar;
-	int					m_nToolbar;
-	BOOL				m_bAccel;
+	CString			m_sName;
+	UINT*			m_pHandled;
+	DWORD			m_nHandled;
+	CCoolBarCtrl*	m_pToolbar;
+	int				m_nToolbar;
+	BOOL			m_bAccel;
 
-// Operations
 	virtual void	OnSkinChange();
 	virtual HRESULT	GetGenericView(IGenericView** ppView);
 
-// Overrides
-	//{{AFX_VIRTUAL(CPluginWnd)
 	virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam);
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
-	//}}AFX_VIRTUAL
 
-// Implementation
-	//{{AFX_MSG(CPluginWnd)
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnSize(UINT nType, int cx, int cy);
-	//}}AFX_MSG
 
 // IPluginWindow
 	BEGIN_INTERFACE_PART(PluginWindow, IPluginWindow)

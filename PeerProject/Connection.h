@@ -29,12 +29,10 @@
 // A socket connection to a remote computer on the Internet running peer-to-peer software
 class CConnection
 {
-// Construction
 protected:
 	CConnection(PROTOCOLID nProtocol = PROTOCOL_ANY);
 	virtual ~CConnection();
 
-// Attributes
 public:
 	SOCKADDR_IN	m_pHost;			// The remote computer's IP address in Windows Sockets format
 	CString		m_sAddress;			// The same IP address in a string like "1.2.3.4"
@@ -78,7 +76,6 @@ public:
 		return CLockedBuffer( m_pOutput, m_pOutputSection );
 	}
 
-// Operations
 public:
 	// Exchange data with the other computer, measure bandwidth, and work with headers
 	BOOL DoRun();				// Communicate with the other computer, reading and writing everything we can right now
@@ -246,7 +243,6 @@ public:
 		}
 	}
 
-// Overrides
 public:
 	// Make a connection, accept a connection, copy a connection, and close a connection
 	virtual BOOL ConnectTo(const SOCKADDR_IN* pHost);			// Connect to an IP address and port number
@@ -265,12 +261,11 @@ public:
 	virtual BOOL OnHeadersComplete();	// (do) just returns true
 	virtual BOOL OnHeaderLine(CString& strHeader, CString& strValue);	// Processes a single line from the headers
 
-// Statics
 public:
 	// Hard-coded settings for the bandwidth transfer meter
 	static const DWORD	METER_SECOND	= 1000ul;						// 1000 milliseconds is 1 second
 	static const DWORD	METER_MINIMUM	= METER_SECOND / 10ul;			// Granuality of bandwidth meter, 1/10th of a second
-	static const DWORD	METER_LENGTH	= 60ul;							// Number of slots in the bandwidth meter
+	static const DWORD	METER_LENGTH	= 100ul;						// Number of slots in the bandwidth meter
 	static const DWORD	METER_PERIOD	= METER_MINIMUM * METER_LENGTH;	// The time that the bandwidth meter keeps information for
 
 	// Keep track of how fast we are reading or writing bytes to a socket
@@ -280,9 +275,9 @@ public:
 		DWORD*	pLimit;		// Points to a DWORD that holds the limit for this bandwidth meter
 
 		// Transfer statistics
-		DWORD	nTotal;		// The total number of bytes read or written
-		DWORD	tLast;		// The time the last read or write happened
-		DWORD	nMeasure;	// The average speed in bytes per second over the last METER_PERIOD
+		DWORD	nTotal;		// Total number of bytes read or written
+		DWORD	tLast;		// Time the last read or write happened
+		DWORD	nMeasure;	// Average speed in bytes per second over the last METER_PERIOD
 
 		// The arrays of byte counts and times
 		DWORD			pHistory[METER_LENGTH];	// Records of a number of bytes transferred
@@ -291,10 +286,10 @@ public:
 		DWORD			tLastSlot;				// When we started using this time slot
 		mutable DWORD	tLastLimit;				// When we last calculated the limit
 
-		void	Add(const DWORD nBytes, const DWORD tNow);					// Add to History and Time arrays
-		DWORD	CalculateLimit (DWORD tNow, bool bOut = false, bool bMaxMode = true) const;	// Work out the limit
-		DWORD	CalculateUsage (DWORD tTime ) const;						// Work out the meter usage from a given time over 30sec   (optimal for time periods more than METER_LENGTH / 2)
-		DWORD	CalculateUsage (DWORD tTime, bool bShortPeriod ) const;		// Work out the meter usage from a given time under 30sec  (optimal for time periods less than METER_LENGTH / 2)
+		void	Add(const DWORD nBytes, const DWORD tNow);				// Add to History and Time arrays
+		DWORD	CalculateLimit(DWORD tNow, DWORD nBandwidthScale, bool bMaxMode = false) const;	// Work out the limit
+		DWORD	CalculateUsage(DWORD tTime ) const;						// Work out the meter usage from a given time over 30sec   (optimal for time periods more than METER_LENGTH / 2)
+		DWORD	CalculateUsage(DWORD tTime, bool bShortPeriod ) const;	// Work out the meter usage from a given time under 30sec  (optimal for time periods less than METER_LENGTH / 2)
 	} TCPBandwidthMeter;
 
 	// Structures to control bandwidth in each direction

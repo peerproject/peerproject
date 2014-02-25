@@ -1577,10 +1577,11 @@
 #define IDS_URL_URL                         20874
 #define IDS_URL_UNSPECIFIED                 20875
 #define IDS_USER_PROFILE                    20880
-#define IDS_TOO_MANY_FILES                  20881
-#define IDS_NO_URN_AVAILABLE                20882
-#define IDS_UPNP_SERVICES_ERROR             20883
-//#define IDS_SHAREMONKEY_MESSAGE           20884
+#define IDS_LOCK_TIMEOUT                    20881
+#define IDS_TOO_MANY_FILES                  20882
+#define IDS_NO_URN_AVAILABLE                20883
+#define IDS_UPNP_SERVICES_ERROR             20884
+//#define IDS_SHAREMONKEY_MESSAGE           20888
 #define IDS_VIEW_MODE_CONFIRM               20885
 #define IDS_WARNING_RTL                     20886
 #define IDS_WIZARD                          20890

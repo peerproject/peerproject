@@ -1,7 +1,7 @@
 //
 // DownloadWithSources.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -26,6 +26,7 @@ class CMatchFile;
 class CPeerProjectURL;
 class CXMLElement;
 
+
 class CFailedSource
 {
 public:
@@ -47,14 +48,13 @@ public:
 	bool	m_bOffline;
 };
 
+
 class CDownloadWithSources : public CDownloadBase
 {
-// Construction
 protected:
 	CDownloadWithSources();
 	virtual ~CDownloadWithSources();
 
-// Attributes
 private:
 	CList< CDownloadSource* >	m_pSources;		// Download sources
 	CList< CFailedSource* >	m_pFailedSources;	// Failed source with a timestamp when added
@@ -66,7 +66,6 @@ private:
 	int				m_nHTTPSourceCount;
 	int				m_nFTPSourceCount;
 
-// Operations
 public:
 	CXMLElement*	m_pXML;
 
@@ -105,7 +104,6 @@ public:
 
 	bool			HasMetadata() const;
 
-// Implementation
 protected:
 	BOOL			AddSource(const CPeerProjectFile* pHit, BOOL bForce = FALSE);
 	BOOL			AddSourceInternal(CDownloadSource* pSource);

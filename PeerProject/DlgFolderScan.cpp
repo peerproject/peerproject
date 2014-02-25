@@ -1,7 +1,7 @@
 //
 // DlgFolderScan.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -60,7 +60,7 @@ CFolderScanDlg::~CFolderScanDlg()
 	if ( m_pDialog )
 	{
 		CSingleLock pLock( &Library.m_pSection );
-		if ( pLock.Lock( 3000 ) )
+		if ( pLock.Lock( 5000 ) || SafeLock( pLock ) )
 			m_pDialog = NULL;
 	}
 }
@@ -107,8 +107,8 @@ void CFolderScanDlg::OnCancel()
 	if ( m_pDialog )
 	{
 		CSingleLock pLock( &Library.m_pSection );
-		pLock.Lock( 800 );
-		m_pDialog = NULL;
+		if ( SafeLock( pLock ) )
+			m_pDialog = NULL;
 	}
 
 	CSkinDialog::OnCancel();

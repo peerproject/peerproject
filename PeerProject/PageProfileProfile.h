@@ -1,7 +1,7 @@
 //
 // PageProfileProfile.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -27,16 +27,13 @@ class CProfileProfilePage : public CSettingsPage
 {
 	DECLARE_DYNCREATE(CProfileProfilePage)
 
-// Construction
 public:
 	CProfileProfilePage();
 	virtual ~CProfileProfilePage();
 
 	enum { IDD = IDD_PROFILE_PROFILE };
 
-// Dialog Data
 public:
-	//{{AFX_DATA(CProfileProfilePage)
 	CButton 	m_wndInterestAdd;
 	CButton 	m_wndInterestRemove;
 	CListBox	m_wndInterestList;
@@ -50,25 +47,19 @@ public:
 	CString 	m_sLocLongitude;
 	CString 	m_sAge;
 	CString 	m_sGender;
-	//}}AFX_DATA
 
 	CWorldGPS*	m_pWorld;
 
 private:
 	int 		LoadDefaultInterests();
 
-// Overrides
 public:
-	//{{AFX_VIRTUAL(CProfileProfilePage)
 	protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
 	virtual void OnOK();
 	virtual BOOL OnInitDialog();
-	//}}AFX_VIRTUAL
 
-// Implementation
 protected:
-	//{{AFX_MSG(CProfileProfilePage)
 	afx_msg void OnSelChangeCountry();
 	afx_msg void OnSelChangeCity();
 	afx_msg void OnSelChangeInterestList();
@@ -76,7 +67,6 @@ protected:
 	afx_msg void OnEditChangeInterestAll();
 	afx_msg void OnInterestAdd();
 	afx_msg void OnInterestRemove();
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

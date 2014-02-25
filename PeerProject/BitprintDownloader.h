@@ -28,12 +28,10 @@ class CBitprintDownloadDlg;
 class CBitprintDownloader :
 	public CThreadImpl
 {
-// Construction
 public:
 	CBitprintDownloader();
 	virtual ~CBitprintDownloader();
 
-// Attributes
 protected:
 	CList< DWORD, DWORD > m_pFiles;
 	CCriticalSection	m_pSection;
@@ -53,7 +51,6 @@ protected:
 	CString			m_sResponse;
 	CXMLElement*	m_pXML;
 
-// Operations
 public:
 	void			AddFile(DWORD nIndex);
 	INT_PTR			GetFileCount();

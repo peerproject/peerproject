@@ -29,7 +29,7 @@ static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif	// Debug
 
-#define SMART_VERSION	1000	// 1.0.0.0 (60)
+#define SMART_VERSION	1000	// 1.0.0.0 (60)		(ToDo: Use INTERNAL_VERSION?)
 
 #define KiloByte		( 1024 )
 #define MegaByte		( KiloByte * 1024 )
@@ -107,6 +107,7 @@ void CSettings::Load()
 	Add( _T("Settings"), _T("LanguageDefault"), &General.LanguageDefault, true );
 	Add( _T("Settings"), _T("LastSettingsPage"), &General.LastSettingsPage, NULL, true );
 	Add( _T("Settings"), _T("LastSettingsIndex"), &General.LastSettingsIndex, 0 );
+	Add( _T("Settings"), _T("LockTimeout"), &General.LockTimeout, 2000, 1, 1, 30000, _T(" ms") );
 	Add( _T("Settings"), _T("RatesInBytes"), &General.RatesInBytes, true );
 	Add( _T("Settings"), _T("RatesUnit"), &General.RatesUnit, 0, 1, 0, 3 );
 	Add( _T("Settings"), _T("Running"), &General.Running, false, true );
@@ -588,6 +589,7 @@ void CSettings::Load()
 	Add( _T("Uploads"), _T("FreeBandwidthFactor"), &Uploads.FreeBandwidthFactor, 8, 1, 0, 99, _T("%") );
 	Add( _T("Uploads"), _T("FreeBandwidthValue"), &Uploads.FreeBandwidthValue, 20*128, 128, 0, 4096, _T(" Kb/s") );
 	Add( _T("Uploads"), _T("HubUnshare"), &Uploads.HubUnshare, true );
+	Add( _T("Uploads"), _T("History"), &Uploads.History, 30, 1, 1, 500, _T(" Max") );
 	Add( _T("Uploads"), _T("MaxPerHost"), &Uploads.MaxPerHost, 2, 1, 1, 64 );
 	Add( _T("Uploads"), _T("PreviewQuality"), &Uploads.PreviewQuality, 80, 1, 5, 100, _T("%") );
 	Add( _T("Uploads"), _T("PreviewTransfers"), &Uploads.PreviewTransfers, 3, 1, 1, 64 );
@@ -600,7 +602,7 @@ void CSettings::Load()
 	Add( _T("Uploads"), _T("SharePartials"), &Uploads.SharePartials, true );
 	Add( _T("Uploads"), _T("SharePreviews"), &Uploads.SharePreviews, true );
 	Add( _T("Uploads"), _T("ShareTiger"), &Uploads.ShareTiger, true );
-	Add( _T("Uploads"), _T("ThrottleMode"), &Uploads.ThrottleMode, true );
+	Add( _T("Uploads"), _T("ThrottleMode"), &Uploads.ThrottleMode, false );
 
 	Add( _T("IRC"), _T("Colors[0]"), &IRC.Colors[0], RGB(254,254,252) );	// ID_COLOR_CHATWINDOW
 	Add( _T("IRC"), _T("Colors[1]"), &IRC.Colors[1], RGB(0,0,0) );			// ID_COLOR_TEXT
@@ -793,7 +795,7 @@ void CSettings::Load()
 	if ( Live.FirstRun )
 		OnChangeConnectionSpeed();	// This helps if the QuickStart Wizard is skipped.
 
-	Save();
+//	Save();
 }
 
 void CSettings::Save(BOOL bShutdown)

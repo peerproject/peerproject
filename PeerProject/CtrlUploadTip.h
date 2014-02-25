@@ -1,7 +1,7 @@
 //
 // CtrlUploadTip.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -43,7 +43,6 @@ public:
 		ShowImpl( bChanged );
 	}
 
-// Attributes
 protected:
 	CUploadFile*		m_pUploadFile;
 	CLineGraph*			m_pGraph;
@@ -54,7 +53,6 @@ protected:
 	CArray< CString >	m_pHeaderName;
 	CArray< CString >	m_pHeaderValue;
 
-// Operations
 protected:
 	void DrawProgressBar(CDC* pDC, CPoint* pPoint, CUploadFile* pFile);
 
@@ -64,16 +62,8 @@ protected:
 	virtual void OnCalcSize(CDC* pDC);
 	virtual void OnPaint(CDC* pDC);
 
-// Overrides
-//public:
-	//{{AFX_VIRTUAL(CUploadTipCtrl)
-	//}}AFX_VIRTUAL
-
-// Implementation
 protected:
-	//{{AFX_MSG(CUploadTipCtrl)
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

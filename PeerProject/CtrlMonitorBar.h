@@ -1,7 +1,7 @@
 //
 // CtrlMonitorBar.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -23,12 +23,10 @@ class CGraphItem;
 
 class CMonitorBarCtrl : public CControlBar
 {
-// Construction
 public:
 	CMonitorBarCtrl();
 	virtual ~CMonitorBarCtrl();
 
-// Attributes
 public:
 	CControlBar*	m_pSnapBar[2];
 	CGraphItem*		m_pTxItem;
@@ -47,12 +45,10 @@ protected:
 	HICON			m_hTabOut;
 	HICON			m_hUpDown;
 
-// Operations
 public:
 	BOOL			Create(CWnd* pParentWnd, DWORD dwStyle, UINT nID);
 	void			OnSkinChange();
 
-// Overrides
 protected:
 	void			PaintHistory(CDC* pDC, CRect* prc);
 	void			PaintCurrent(CDC* pDC, CRect* prc, CGraphItem* pItem, DWORD nMaximum);
@@ -63,7 +59,6 @@ protected:
 	virtual void	OnUpdateCmdUI(CFrameWnd* /*pTarget*/, BOOL /*bDisableIfNoHandler*/) {};
 	virtual INT_PTR OnToolHitTest(CPoint point, TOOLINFO* pTI) const;
 
-// Message Map
 protected:
 	afx_msg int 	OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void	OnDestroy();

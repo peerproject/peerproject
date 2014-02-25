@@ -1,7 +1,7 @@
 //
 // QueryHashMaster.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -25,18 +25,15 @@ class CQueryHashGroup;
 
 class CQueryHashMaster : public CQueryHashTable
 {
-// Construction
 public:
 	CQueryHashMaster();
 	virtual ~CQueryHashMaster();
 
-// Attributes
 protected:
 	CList< CQueryHashGroup* > m_pGroups;
 	int			m_nPerGroup;
 	BOOL		m_bValid;
 
-// Operations
 public:
 	void		Create();
 	void		Add(CQueryHashTable* pTable);

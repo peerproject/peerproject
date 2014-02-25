@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Albanian Skin File -->
 
-<!-- Translation based on default-en.xml r102 -->
+<!-- Translation based on default-en.xml r104 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -592,8 +592,7 @@
 					<item id="ID_HELP_FORUMS" text="_Forumet e PeerProject-s"/>
 					<separator/>
 					<!-- <item id="ID_HELP_UPDATE" text="Latest news"/>
-					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-					<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 				</menu>
 				<item id="ID_HELP_HOMEPAGE" text="Trualli i _PeerProject-s"/>
 				<separator/>
@@ -691,8 +690,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="_Forumet e PeerProject-s"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Latest news"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_Info të PeerProject-s..."/>
@@ -758,8 +756,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="_Forumet e PeerProject-s"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Latest news"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_Info të PeerProject-s..."/>
@@ -848,8 +845,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="_Forumet e PeerProject-s"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Lajme të Reja"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_Info të PeerProject-s..."/>
@@ -3051,9 +3047,9 @@
 	<string id="20874" value="URLi:"/>
 	<string id="20875" value="I pacaktuar"/>
 	<string id="20880" value="Edito Profilin Tim"/>
-	<string id="20881" value="%u skedës e zgjedhur. A jeni i sigurt?"/>
-	<string id="20882" value="Asnjë URN me vlerë"/>
-	<string id="20883" value="UPnP Device Host Service is not running. This service is required to perform the setup.\nYou need to set the startup type of the service to automatic."/>
+	<string id="20882" value="%u skedës e zgjedhur. A jeni i sigurt?"/>
+	<string id="20883" value="Asnjë URN me vlerë"/>
+	<string id="20884" value="UPnP Device Host Service is not running. This service is required to perform the setup.\nYou need to set the startup type of the service to automatic."/>
 	<string id="20885" value="Ndryshimi i pamjes do i mbyllë gjithë dritaret e hapura. A jeni i sigurt për këtë?"/>
 	<string id="20886" value="Ndryshimi i drejtimit të ndërfaqes kërkon rinisje.\n\nA doni të dilni?"/>
 	<string id="20890" value="Mirë se erdhe te PeerProject"/>
@@ -3153,16 +3149,6 @@
 		<control caption="_Zgjidhi Prizat..."/>
 		<control caption="Kujdes: Nëse zgjidhet një Trajtues i jashtëm i Medias do të çaktivizohen automatikisht gjithë Prizat e Medias dhe të Vegimit."/>
 	</dialog>
-	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Komuniteti">
-		<control caption="_Profili Im:"/>
-		<control caption="Profili si Përdorues i Gnutella-s mund të përdoret që të ndani me të tjerët informacione rreth vetes, interesave dhe skedave/trojeve që rekomandoni."/>
-		<control caption="Edito Profilin Tim"/>
-		<control caption="_Chat:"/>
-		<control caption="Lejo chat-in pikë më pikë me klientët e pajtueshëm"/>
-		<control caption="Lejo chat-in në të gjitha rrjetet"/>
-		<control caption="Filtro mesazhet me spame"/>
-		<control caption="Censuro blasfeminë në chat"/>
-	</dialog>
 	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdmsStStEdmsCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStCoStEdStEd" caption="Chat">
 		<control caption="_Mundësitë e Klientit:"/>
 		<control caption="Trego intregimin e chat-it"/>
@@ -3204,6 +3190,28 @@
 		<control/>
 		<control caption="On-connect"/>
 		<control/>
+	</dialog>
+	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Komuniteti">
+		<control caption="_Profili Im:"/>
+		<control caption="Profili si Përdorues i Gnutella-s mund të përdoret që të ndani me të tjerët informacione rreth vetes, interesave dhe skedave/trojeve që rekomandoni."/>
+		<control caption="Edito Profilin Tim"/>
+		<control caption="_Chat:"/>
+		<control caption="Lejo chat-in pikë më pikë me klientët e pajtueshëm"/>
+		<control caption="Lejo chat-in në të gjitha rrjetet"/>
+		<control caption="Filtro mesazhet me spame"/>
+		<control caption="Censuro blasfeminë në chat"/>
+	</dialog>
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Largësi">
+		<control caption="_Aktivizo:"/>
+		<control caption="Lejo Hyrjen në Largësi të PeerProject-s:"/>
+		<control/>
+		<control caption="_Kredencialet:"/>
+		<control caption="Përdoruesi:"/>
+		<control caption="Fjalëkalimi:"/>
+		<control/>
+		<control/>
+		<control caption="Ndihmë:"/>
+		<control caption="Hyrja në Largësi bën që PeerProject të lihet të veprojë në PC e të kontrollohet me një shfletues rrjeti të jashtëm. Që kjo veçori të përdoret, duhet të jeni i aftë të pranoni lidhjet hyrëse (d.m.th. konfiguroni routerin si duhet etj.)."/>
 	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Rrjeti">
 		<control caption="Trajtimi i Linkeve _Pikë më Pikë:"/>
@@ -3291,25 +3299,13 @@
 		<control caption="Kufiri:"/>
 		<control/>
 		<control caption="Mënyra:"/>
-		<control caption="Maksimale|Mesatare"/>
+		<control caption="Mesatare|Maksimale"/>
 		<control caption="_Radhë:"/>
 		<control/>
 		<control caption="E _re..."/>
 		<control caption="_Edito..."/>
 		<control caption="_Fshije"/>
 		<control caption="(ndryshimet kanë efekt menjëherë)"/>
-	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Largësi">
-		<control caption="_Aktivizo:"/>
-		<control caption="Lejo Hyrjen në Largësi të PeerProject-s:"/>
-		<control/>
-		<control caption="_Kredencialet:"/>
-		<control caption="Përdoruesi:"/>
-		<control caption="Fjalëkalimi:"/>
-		<control/>
-		<control/>
-		<control caption="Ndihmë:"/>
-		<control caption="Hyrja në Largësi bën që PeerProject të lihet të veprojë në PC e të kontrollohet me një shfletues rrjeti të jashtëm. Që kjo veçori të përdoret, duhet të jeni i aftë të pranoni lidhjet hyrëse (d.m.th. konfiguroni routerin si duhet etj.)."/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="Rrjeti">
 		<control caption="PeerProject është një aplikim skedëshpërndarës me synim të përgjithshëm hapjen e sa më shumë rrjeteve P2P në një kohë. Në këtë faqe mund të zgjidhni rrjetet P2P te të cilat doni të lidheni, pastaj mund të rregulloni kuadrot e caktuar për secilin rrjet."/>

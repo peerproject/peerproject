@@ -1,7 +1,7 @@
 //
 // BTClient.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -29,12 +29,10 @@ class CUploadTransferBT;
 
 class CBTClient : public CTransfer
 {
-// Construction
 public:
 	CBTClient();
 	virtual ~CBTClient();
 
-// Attributes
 public:
 	Hashes::BtGuid		m_oGUID;
 	CUploadTransferBT*	m_pUploadTransfer;
@@ -58,7 +56,6 @@ protected:
 	CString				m_sLtTexTrackers;
 	QWORD				m_nSrcExchangeID;
 
-// Operations
 public:
 	static CString	GetUserAgentAzureusStyle(LPBYTE pVendor, size_t nVendor = 6);
 	CString			GetUserAgentOtherStyle(LPBYTE pVendor, CString* strNick);

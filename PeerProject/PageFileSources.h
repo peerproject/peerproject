@@ -1,7 +1,7 @@
 //
 // PageFileSources.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -27,44 +27,33 @@ class CFileSourcesPage : public CFilePropertiesPage
 {
 	DECLARE_DYNCREATE(CFileSourcesPage)
 
-// Construction
 public:
 	CFileSourcesPage();
 	virtual ~CFileSourcesPage();
 
 	enum { IDD = IDD_FILE_SOURCES };
 
-// Dialog Data
 public:
-	//{{AFX_DATA(CFileSourcesPage)
 	CButton	m_wndRemove;
 	CButton	m_wndNew;
 	CListCtrl	m_wndList;
 	CString	m_sSource;
-	//}}AFX_DATA
 
 private:
 	CImageList	m_gdiImageList;
 
 	void AddSource(CSharedSource* pSource);
 
-// Overrides
-public:
-	//{{AFX_VIRTUAL(CFileSourcesPage)
-	protected:
-	virtual void DoDataExchange(CDataExchange* pDX);
-	//}}AFX_VIRTUAL
-
-// Implementation
 protected:
-	//{{AFX_MSG(CFileSourcesPage)
+	virtual void DoDataExchange(CDataExchange* pDX);
+
+protected:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnItemChangedFileSources(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnChangeFileSource();
 	afx_msg void OnSourceRemove();
 	afx_msg void OnSourceNew();
 	afx_msg void OnDblClk(NMHDR *pNMHDR, LRESULT *pResult);
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

@@ -1,7 +1,7 @@
 //
 // VersionChecker.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -25,12 +25,10 @@ class CLibraryFile;
 
 class CVersionChecker : public CThreadImpl
 {
-// Construction
 public:
 	CVersionChecker();
 	virtual ~CVersionChecker();
 
-// Attributes
 public:
 	CString		m_sMessage;
 	CString		m_sUpgradePath;
@@ -40,7 +38,6 @@ protected:
 	CHttpRequest m_pRequest;
 	bool		m_bVerbose;
 
-// Operations
 public:
 	BOOL		Start();
 	void		Stop();

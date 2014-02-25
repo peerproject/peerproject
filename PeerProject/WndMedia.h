@@ -1,7 +1,7 @@
 //
 // WndMedia.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -27,16 +27,13 @@ class CMediaWnd : public CPanelWnd
 {
 	DECLARE_SERIAL(CMediaWnd)
 
-// Construction
 public:
 	CMediaWnd();
 	virtual ~CMediaWnd();
 
-// Attributes
 protected:
 	CMediaFrame	m_wndFrame;
 
-// Operations
 public:
 	static CMediaWnd* GetMediaWindow(BOOL bToggle = FALSE, BOOL bFocus = TRUE);		// Open Media Player window
 
@@ -45,21 +42,16 @@ public:
 	virtual void OnFileDelete(LPCTSTR pszFile);
 	virtual BOOL IsPlaying();
 
-// Overrides
 public:
-	//{{AFX_VIRTUAL(CMediaWnd)
 	virtual void OnSkinChange();
 	virtual BOOL OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO* pHandlerInfo);
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
-	//}}AFX_VIRTUAL
 
-// Implementation
 protected:
-	//{{AFX_MSG(CMediaWnd)
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
-	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnPaint();
+	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
 	afx_msg BOOL OnNcActivate(BOOL bActive);
 
@@ -69,7 +61,6 @@ protected:
 	afx_msg LRESULT OnDisplayChange(WPARAM wParam, LPARAM lParam);
 	afx_msg LRESULT OnEnqueueFile(WPARAM wParam, LPARAM lParam);
 	afx_msg LRESULT OnPlayFile(WPARAM wParam, LPARAM lParam);
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 	DECLARE_DROP()

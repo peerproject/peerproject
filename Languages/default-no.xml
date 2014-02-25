@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Norwegian Skin File -->
 
-<!-- Translation based on default-en.xml r102 --> <!-- (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r104 --> <!-- (Shareaza 2.2.0.2) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -533,8 +533,7 @@
 					<item id="ID_HELP_FORUMS" text="PeerProject forum"/>
 					<separator/>
 					<!-- <item id="ID_HELP_UPDATE" text="Siste nytt"/>
-					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-					<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
+					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 				</menu>
 				<item id="ID_HELP_HOMEPAGE" text="PeerProject site"/>
 				<separator/>
@@ -599,8 +598,7 @@
 			<menu text="Nettsider">
 				<item id="ID_HELP_FORUMS" text="PeerProject forum"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Siste nytt"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<item id="ID_HELP_HOMEPAGE" text="PeerProject site"/>
 			<separator/>
@@ -685,8 +683,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject forum"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Siste nytt"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="Om PeerProject..."/>
@@ -3023,8 +3020,8 @@
 	<string id="20874" value="URL:"/>
 	<string id="20875" value="Ikke spesifisert"/>
 	<string id="20880" value="Endre min profil"/>
-	<string id="20881" value="%u filer valgt. Er du sikker?"/>
-	<string id="20882" value="URN ikke tilgjengelig"/>
+	<string id="20882" value="%u filer valgt. Er du sikker?"/>
+	<string id="20883" value="URN ikke tilgjengelig"/>
 	<string id="20885" value="Når du endrer utseende vil alle åpne vinduer lukkes. Vil du endre nå?"/>
 	<string id="20886" value="Forandring av grensesnittets retning krever omstart.\n\nAvslutte nå?"/>
 	<string id="20890" value="Velkommen til PeerProject"/>
@@ -3126,6 +3123,7 @@
 		<control caption="_Velg plugin..."/>
 		<control caption="Note: Choosing an external Media Handler will disable Media/Visualization Plugins."/>
 	</dialog>
+	<!--Missing dialog name="CIRCSettingsPage"-->
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Min profil">
 		<control caption="Min profil:"/>
 		<control caption="Du kan bruke din Gnutella brukerprofil til å dele informasjon om deg selv, dine interesser og anbefale filer og web-sider med andre."/>
@@ -3136,7 +3134,18 @@
 		<control caption="Filtrer chat-meldinger for spam"/>
 		<control caption="Sensurer krenkende meldinger i chat"/>
 	</dialog>
-	<!--Missing dialog name="CIRCSettingsPage"-->
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Fjernkonsoll">
+		<control caption="Skru på:"/>
+		<control caption="Skru på PeerProject fjernkonsoll:"/>
+		<control/>
+		<control caption="Bruker:"/>
+		<control caption="Velg brukernavn:"/>
+		<control caption="Velg passord:"/>
+		<control/>
+		<control/>
+		<control caption="Hjelp:"/>
+		<control caption="PeerProject fjernkonsoll gir deg muligheten til å kjøre og kontrollere PeerProject gjennom internettleseren din. Du må kunne motta innkommende tilkoblinger for å bruke konsollen (sjekk oppsettet på routeren/brannmuren)."/>
+	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Internett">
 		<control caption="_Bruk av peer to peer linker:"/>
 		<control caption="Bruk PeerProject til å åpne denne typen linker:"/>
@@ -3223,25 +3232,13 @@
 		<control caption="Grense:"/>
 		<control/>
 		<control caption="Modus:"/>
-		<control caption="Maksimalt|Gjennomsnittlig"/>
+		<control caption="Gjennomsnittlig|Maksimalt"/>
 		<control caption="Køer:"/>
 		<control/>
 		<control caption="_Ny..."/>
 		<control caption="_Endre..."/>
 		<control caption="_Slett"/>
 		<control caption="(endringene skjer umiddelbart)"/>
-	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Fjernkonsoll">
-		<control caption="Skru på:"/>
-		<control caption="Skru på PeerProject fjernkonsoll:"/>
-		<control/>
-		<control caption="Bruker:"/>
-		<control caption="Velg brukernavn:"/>
-		<control caption="Velg passord:"/>
-		<control/>
-		<control/>
-		<control caption="Hjelp:"/>
-		<control caption="PeerProject fjernkonsoll gir deg muligheten til å kjøre og kontrollere PeerProject gjennom internettleseren din. Du må kunne motta innkommende tilkoblinger for å bruke konsollen (sjekk oppsettet på routeren/brannmuren)."/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="Nettverk">
 		<control caption="PeerProject er et fildelingsprogram som kan koble seg opp mot mange P2P-nettverk på en gang. På denne siden kan du velge hvilke P2P-nettverk du vil koble deg til, og justere innstillingene for hvert nettverk."/>

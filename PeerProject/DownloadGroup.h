@@ -1,7 +1,7 @@
 //
 // DownloadGroup.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -23,12 +23,10 @@ class CDownload;
 
 class CDownloadGroup
 {
-// Construction
 public:
 	CDownloadGroup(const LPCTSTR szName = NULL, const BOOL bTemporary = FALSE);
 	virtual ~CDownloadGroup();
 
-// Attributes
 protected:
 	CList< CDownload* >	m_pDownloads;		// List of linked downloads
 	TRISTATE			m_bTemporary;		// Temporary group:
@@ -45,7 +43,6 @@ public:
 	BOOL				m_bRemoteSelected;	// Active(selected) group for Remote Interface
 	//BOOL				m_bTorrent;			// Filter BitTorrent downloads (Obsolete, Schema is detected)
 
-// Operations
 public:
 	void		Add(CDownload* pDownload);
 	void		Remove(CDownload* pDownload);

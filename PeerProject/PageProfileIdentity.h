@@ -1,7 +1,7 @@
 //
 // PageProfileIdentity.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -25,16 +25,13 @@ class CIdentityProfilePage : public CSettingsPage
 {
 	DECLARE_DYNCREATE(CIdentityProfilePage)
 
-// Construction
 public:
 	CIdentityProfilePage();
 	virtual ~CIdentityProfilePage();
 
 	enum { IDD = IDD_PROFILE_IDENTITY };
 
-// Dialog Data
 public:
-	//{{AFX_DATA(CIdentityProfilePage)
 	CComboBox	m_wndAge;
 	CString	m_sAge;
 	CString	m_sGender;
@@ -42,23 +39,16 @@ public:
 	CString	m_sFirst;
 	CString	m_sLast;
 	BOOL	m_bBrowseUser;
-	//}}AFX_DATA
 
 protected:
 	void GetGenderTranslations(CString& pMale, CString& pFemale);
 
-// Overrides
 protected:
-	//{{AFX_VIRTUAL(CIdentityProfilePage)
 	virtual void DoDataExchange(CDataExchange* pDX);
 	virtual void OnOK();
-	//}}AFX_VIRTUAL
 
-// Implementation
 protected:
-	//{{AFX_MSG(CIdentityProfilePage)
 	virtual BOOL OnInitDialog();
-	//}}AFX_MSG
 
 	//DECLARE_MESSAGE_MAP()
 };

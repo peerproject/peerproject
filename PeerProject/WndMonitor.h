@@ -1,7 +1,7 @@
 //
 // WndMonitor.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -29,7 +29,6 @@ class CRemoteWnd : public CWnd
 {
 	DECLARE_DYNAMIC(CRemoteWnd)
 
-// Construction
 public:
 	CRemoteWnd();
 	virtual ~CRemoteWnd();
@@ -59,7 +58,6 @@ protected:
 		virtual void Execute(CFrameWnd* pTarget);
 	};
 
-// Operations
 public:
 	BOOL		Create(CMonitorBarCtrl* pMonitor);
 	BOOL		IsVisible();
@@ -82,7 +80,6 @@ protected:
 	void		TrackSeek();
 	void		TrackVol();
 
-// Attributes
 protected:
 	static LPCTSTR		m_hClass;
 	CMonitorBarCtrl*	m_pMonitor;
@@ -143,9 +140,8 @@ protected:
 	BOOL				m_bsMediaStates[2][3];
 	CRect				m_rcsMediaStates[2][3];
 
-// Message Map
 protected:
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
 	afx_msg void OnWindowPosChanging(WINDOWPOS FAR* lpwndpos);
 	afx_msg LRESULT OnIdleUpdateCmdUI(WPARAM wParam, LPARAM lParam);

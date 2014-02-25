@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Slovenian Skin File -->
 
-<!-- Translation based on default-en.xml r102 --> <!-- (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r104 --> <!-- (Shareaza 2.2.2.12) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -534,8 +534,7 @@
 					<item id="ID_HELP_FORUMS" text="PeerProject _forumi"/>
 					<separator/>
 					<!-- <item id="ID_HELP_UPDATE" text="Latest news"/>
-					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-					<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 				</menu>
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<separator/>
@@ -628,8 +627,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _forumi"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Latest news"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="PeerProject _vizitka"/>
@@ -693,8 +691,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _forumi"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Latest news"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="PeerProject _vizitka"/>
@@ -778,8 +775,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _forumi"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Latest news"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="PeerProject _vizitka"/>
@@ -3129,8 +3125,8 @@
 	<string id="20874" value="URL:"/>
 	<string id="20875" value="Nedoločen"/>
 	<string id="20880" value="Uredi moj profil"/>
-	<string id="20881" value="%u izbranih datotek. Ali ste prepričani?"/>
-	<string id="20882" value="URN ni na voljo"/>
+	<string id="20882" value="%u izbranih datotek. Ali ste prepričani?"/>
+	<string id="20883" value="URN ni na voljo"/>
 	<string id="20885" value="Spreminjanje pogleda bo zaprlo morebitna okna, ki jim imate odprte. Želite spremeniti takoj?"/>
 	<string id="20886" value="Sprememba smeri vmesnika zahteva ponovni zagon.\n\nŽelite končati program?"/>
 	<string id="20890" value="Dobrodošli v PeerProject"/>
@@ -3232,6 +3228,7 @@
 		<control caption="_Izberi vtičnik..."/>
 		<control caption="Note: Choosing an external Media Handler will disable Media/Visualization Plugins."/>
 	</dialog>
+	<!--Missing dialog name="CIRCSettingsPage"-->
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Družba">
 		<control caption="Moj _Profil:"/>
 		<control caption="Uporabljate lahko vaš Gnutella uporabniški profil za prikaz vaših informacij drugim kot npr. interesi, priporočene datoteke, spletne strani itd."/>
@@ -3242,7 +3239,18 @@
 		<control caption="Filtriraj e-slamo (spam) v klepetalniških sporočilih"/>
 		<control caption="Cenzuriraj psovke v klepetalnici"/>
 	</dialog>
-	<!--Missing dialog name="CIRCSettingsPage"-->
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Oddaljen dostop">
+		<control caption="_Omogoči:"/>
+		<control caption="Omogoči oddaljen dostop do programa PeerProject:"/>
+		<control/>
+		<control caption="_Uporabniški dostop:"/>
+		<control caption="Uporabniško ime:"/>
+		<control caption="Geslo:"/>
+		<control/>
+		<control/>
+		<control caption="Pomoč:"/>
+		<control caption="PeerProject oddaljen dostop vam omogoča, da z zagnanim programom upravljate oddaljeno s pomočjo spletnega brskalnika. Za to boste morali najprej dovoliti vhodne povezave (npr. ustrezno nastavljen usmerjevalnik in požarni zid, itd.)."/>
+	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Splet">
 		<control caption="_P2P obdelava povezav:"/>
 		<control caption="Uporabi PeerProject za odpiranje naslednjih vrst povezav:"/>
@@ -3329,25 +3337,13 @@
 		<control caption="Omejitev:"/>
 		<control/>
 		<control caption="Način:"/>
-		<control caption="Maksimum|Povprečje"/>
+		<control caption="Povprečje|Maksimum"/>
 		<control caption="_Čakalne vrste:"/>
 		<control/>
 		<control caption="_Nova..."/>
 		<control caption="_Uredi..."/>
 		<control caption="_Briši"/>
 		<control caption="(spremembe pridejo v veljavo takoj)"/>
-	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Oddaljen dostop">
-		<control caption="_Omogoči:"/>
-		<control caption="Omogoči oddaljen dostop do programa PeerProject:"/>
-		<control/>
-		<control caption="_Uporabniški dostop:"/>
-		<control caption="Uporabniško ime:"/>
-		<control caption="Geslo:"/>
-		<control/>
-		<control/>
-		<control caption="Pomoč:"/>
-		<control caption="PeerProject oddaljen dostop vam omogoča, da z zagnanim programom upravljate oddaljeno s pomočjo spletnega brskalnika. Za to boste morali najprej dovoliti vhodne povezave (npr. ustrezno nastavljen usmerjevalnik in požarni zid, itd.)."/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="Omrežja">
 		<control caption="PeerProject je večnamenski program za deljenje datotek, ki lahko hkrati dostopa do več P2P omrežij na enkrat. Na tej strani lahko izberete na katera P2P omrežja se želite povezati ter uredite nastavitve za vsako posamezno omrežje."/>

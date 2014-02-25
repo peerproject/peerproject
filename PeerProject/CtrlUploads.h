@@ -1,7 +1,7 @@
 //
 // CtrlUploads.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -36,11 +36,9 @@ class CUploadsCtrl : public CWnd
 {
 	DECLARE_DYNAMIC(CUploadsCtrl)
 
-// Construction
 public:
 	CUploadsCtrl();
 
-// Operations
 public:
 	BOOL		Create(CWnd* pParentWnd, UINT nID);
 	BOOL		Update();
@@ -59,7 +57,6 @@ protected:
 
 	friend class CUploadsWnd;
 
-// Attributes
 protected:
 	CHeaderCtrl			m_wndHeader;
 	CUploadTipCtrl		m_wndTip;
@@ -74,23 +71,22 @@ public:
 	static POSITION			GetFileIterator(CUploadQueue* pQueue);
 	static CUploadFile*		GetNextFile(CUploadQueue* pQueue, POSITION& pos, int* pnPosition = NULL);
 
-// Implementation
 public:
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
-	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnPaint();
+	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar = NULL);
 	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar = NULL);
 	afx_msg BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
-	afx_msg void OnChangeHeader(NMHDR* pNotifyStruct, LRESULT* pResult);
+	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
 	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
-	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
+	afx_msg void OnChangeHeader(NMHDR* pNotifyStruct, LRESULT* pResult);
 	afx_msg void OnSetFocus(CWnd* pOldWnd);
 	afx_msg void OnKillFocus(CWnd* pNewWnd);
 	afx_msg UINT OnGetDlgCode();

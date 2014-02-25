@@ -1,7 +1,7 @@
 //
 // RouteCache.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -23,7 +23,6 @@ class CNeighbour;
 
 class CRouteCacheItem
 {
-// Attributes
 public:
 	CRouteCacheItem();
 
@@ -37,12 +36,10 @@ public:
 
 class CRouteCacheTable
 {
-// Construction
 public:
 	CRouteCacheTable();
 	virtual ~CRouteCacheTable();
 
-// Attributes
 protected:
 	CRouteCacheItem*	m_pHash[1024];
 	CRouteCacheItem*	m_pFree;
@@ -52,7 +49,6 @@ protected:
 	DWORD				m_tFirst;
 	DWORD				m_tLast;
 
-// Operations
 public:
 	CRouteCacheItem*	Find(const Hashes::Guid& oGUID);
 	CRouteCacheItem*	Add(const Hashes::Guid& oGUID, const CNeighbour* pNeighbour, const SOCKADDR_IN* pEndpoint, DWORD nTime = 0);
@@ -70,19 +66,16 @@ public:
 
 class CRouteCache
 {
-// Construction
 public:
 	CRouteCache();
 	virtual ~CRouteCache();
 
-// Attributes
 protected:
 	DWORD				m_nSeconds;
 	CRouteCacheTable	m_pTable[2];
 	CRouteCacheTable*	m_pRecent;
 	CRouteCacheTable*	m_pHistory;
 
-// Operations
 public:
 	void		SetDuration(DWORD nSeconds);
 	BOOL		Add(const Hashes::Guid& oGUID, const CNeighbour* pNeighbour);

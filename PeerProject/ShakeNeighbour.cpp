@@ -63,9 +63,10 @@ CShakeNeighbour::CShakeNeighbour() : CNeighbour( PROTOCOL_NULL )
 {
 }
 
+// Delete this CShakeNeighbour object
 CShakeNeighbour::~CShakeNeighbour()
 {
-	// Delete this CShakeNeighbour object. This virtual method will be redefined by a class that inherits from CShakeNeighbour
+	// This virtual method will be redefined by a class that inherits from CShakeNeighbour
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -179,8 +180,7 @@ void CShakeNeighbour::Close(UINT nError)
 // CShakeNeighbour connection event
 
 // CConnection::DoRun calls this when it has just opened a socket to a remote computer
-// Sends the remote computer our first big block of Gnutella headers
-// Always returns true
+// Sends the remote computer our first big block of Gnutella headers, always returns true
 BOOL CShakeNeighbour::OnConnected()
 {
 	if ( ! IsOutputExist() ) return FALSE;
@@ -568,7 +568,7 @@ BOOL CShakeNeighbour::ReadResponse()
 	if ( ! Read( strLine ) ) return TRUE;	// The line is still arriving, return true to try this method again
 	if ( strLine.GetLength() > HTTP_HEADER_MAX_LINE ) strLine = _T("#LINE_TOO_LONG#");	// Make sure the line isn't too long
 
-	if ( m_bInitiated ) theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, _T("%s >> HANDSHAKE: %s"), (LPCTSTR)m_sAddress, (LPCTSTR)strLine );	// Report handshake lines
+	theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, _T("%s >> HANDSHAKE: %s"), (LPCTSTR)m_sAddress, (LPCTSTR)strLine );	// Report handshake lines
 
 	// If we initiated the connection to the remote computer, and now it's responding with "GNUTELLA OK"
 	if ( m_bInitiated && strLine == _T("GNUTELLA OK") )
@@ -584,15 +584,14 @@ BOOL CShakeNeighbour::ReadResponse()
 		if ( strLine != _T("GNUTELLA/0.6 200 OK") ) 	// It does not say "200 OK" after that
 		{
 			// Clip out just the part that says why we were rejected, document it, and set the state to rejected
-			strLine = strLine.Mid( 13 );
+			strLine = strLine.Mid( 13, 3 );
 			m_nState = nrsRejected;		// Set the neighbour state in this CShakeNeighbour object to rejected
-			if ( strLine == _T("503 Not Good Leaf") ||
-				 strLine == _T("503 We're Leaves") ||
-				 strLine == _T("503 Service unavailable") ||
-				 strLine == _T("503 Shielded leaf node") )
-			{
+			if ( strLine == _T("503") )
 				m_bDelayClose = TRUE;
-			}
+				// "503 Not Good Leaf"
+				// "503 We're Leaves"
+				// "503 Service unavailable"
+				// "503 Shielded leaf node"
 		}
 		else if ( ! m_bInitiated )		// It does say "200 OK", and the remote computer contacted us
 		{
@@ -612,13 +611,13 @@ BOOL CShakeNeighbour::ReadResponse()
 		DelayClose( IDS_HANDSHAKE_SURPLUS );	// Send the buffer then close the socket, citing the reason the connection didn't work out
 		return FALSE;							// Tell the method that called this one to stop calling us
 	}
-	else if ( ! m_bInitiated && StartsWith( strLine, _PT("GNUTELLA CONNECT/") ) )
+	else if ( ! m_bInitiated && ::StartsWith( strLine, _PT("GNUTELLA CONNECT/") ) )
 	{
 		// The remote computer connected to us, and wants to talk Gnutella
 		// We're reading the initial header group the remote computer has sent
 		m_nState = nrsHandshake2;
 	}
-//	else if ( ! m_bInitiated && StartsWith( strLine, _PT("SHAREAZABETA CONNECT/") ) )
+//	else if ( ! m_bInitiated && ::StartsWith( strLine, _PT("SHAREAZABETA CONNECT/") ) )
 //	{
 //		// The remote computer connected to us, and said "SHAREAZABETA CONNECT/"
 //		// We're reading the initial header group the remote computer has sent
@@ -1467,6 +1466,8 @@ BOOL CShakeNeighbour::OnHeadersCompleteG1()
 // Creates a new GC1Neighbour or CG2Neighbour object based on this one, and deletes this one
 void CShakeNeighbour::OnHandshakeComplete()
 {
+	m_bAutoDelete = FALSE;
+
 	// Remove this CShakeNeighbour object from the list of them the neighbours object keeps
 	Neighbours.Remove( this );
 

@@ -1,7 +1,7 @@
 //
 // LibraryFolders.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -35,12 +35,10 @@ class CLibraryFolders : public CComObject
 {
 	DECLARE_DYNAMIC(CLibraryFolders)
 
-// Construction
 public:
 	CLibraryFolders();
 	virtual ~CLibraryFolders();
 
-// Attributes
 protected:
 	CList< CLibraryFolder* > m_pFolders;
 	CAlbumFolder*	m_pAlbumRoot;
@@ -73,7 +71,6 @@ public:
 	BOOL			OnFileDelete(CLibraryFile* pFile, BOOL bDeleteGhost = FALSE);	// Remove file from all albums and folders
 	void			ClearGhosts();				// Remove all ghost files
 	DWORD			GetGhostCount() const;		// Get total amount of ghost files
-
 
 // Core
 protected:

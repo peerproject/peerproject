@@ -1,7 +1,7 @@
 //
 // Library.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -369,14 +369,14 @@ BOOL CLibrary::Load()
 	CFile pFileDat, pFileBak;
 	FILETIME pFileDatTime = { 0, 0 }, pFileBakTime = { 0, 0 };
 
-	CSingleLock pLock( &m_pSection, TRUE );
-
 	BOOL bFileDat = pFileDat.Open( Settings.General.DataPath + _T("Library.dat"), CFile::modeRead ) && SafeReadTime( pFileDat, &pFileDatTime );
 	BOOL bFileBak = pFileBak.Open( Settings.General.DataPath + _T("Library.bak"), CFile::modeRead ) && SafeReadTime( pFileBak, &pFileBakTime );
 
 	// Try legacy format fallback
 	if ( ! bFileDat && ! bFileBak )
 		bFileDat = pFileDat.Open( Settings.General.DataPath + _T("Library1.dat"), CFile::modeRead ) && SafeReadTime( pFileDat, &pFileDatTime );
+
+	CSingleLock pLock( &m_pSection, TRUE );
 
 	if ( bFileDat && bFileBak )
 	{

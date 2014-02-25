@@ -1,7 +1,7 @@
 //
 // BENode.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -24,12 +24,10 @@ typedef const BYTE *LPCBYTE;
 
 class CBENode
 {
-// Construction
 public:
 	CBENode();
 	~CBENode();
 
-// Attributes
 public:
 	int			m_nType;
 	LPVOID		m_pValue;
@@ -41,7 +39,6 @@ public:
 
 	enum { beNull, beString, beInt, beList, beDict };
 
-// Operations
 public:
 	void		Clear();
 	CBENode*	Add(LPCBYTE pKey, size_t nKey);

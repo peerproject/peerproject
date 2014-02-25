@@ -1,7 +1,7 @@
 //
 // LocalSearch.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -996,8 +996,8 @@ CG2Packet* CLocalSearch::CreatePacketG2()
 		pPacket->WritePacket( G2_PACKET_PEER_FIREWALLED, 0 );
 
 	{
-		CSingleLock pNetLock( &Network.m_pSection );
-		if ( pNetLock.Lock( 50 ) )
+		CSingleLock pNetworkLock( &Network.m_pSection );
+		if ( pNetworkLock.Lock( 50 ) )
 		{
 			for ( POSITION pos = Neighbours.GetIterator() ; pos ; )
 			{
@@ -1011,7 +1011,6 @@ CG2Packet* CLocalSearch::CreatePacketG2()
 					pPacket->WriteShortBE( htons( pNeighbour->m_pHost.sin_port ) );
 				}
 			}
-			pNetLock.Unlock();
 		}
 	}
 

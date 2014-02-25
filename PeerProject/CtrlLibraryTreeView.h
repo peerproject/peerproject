@@ -30,12 +30,10 @@ class CLibraryTreeView : public CWnd
 {
 	DECLARE_DYNAMIC(CLibraryTreeView)
 
-// Construction
 public:
 	CLibraryTreeView();
 	virtual ~CLibraryTreeView();
 
-// Attributes
 private:
 	CLibraryTreeItem*	m_pRoot;
 	size_t				m_nTotal;
@@ -54,7 +52,6 @@ private:
 	CFolderTipCtrl		m_wndFolderTip;
 	CAlbumTipCtrl		m_wndAlbumTip;
 
-// Operations
 public:
 	BOOL				Expand(CLibraryTreeItem* pItem, TRISTATE bExpand = TRI_TRUE, BOOL bInvalidate = TRUE);
 	BOOL				Select(CLibraryTreeItem* pItem, TRISTATE bSelect = TRI_TRUE, BOOL bInvalidate = TRUE);
@@ -90,12 +87,10 @@ protected:
 	BOOL				Update(CLibraryFolder* pFolder, CLibraryTreeItem* pItem, CLibraryTreeItem* pParent, BOOL bVisible, BOOL bShared, DWORD nCleanCookie, DWORD nSelectCookie, BOOL bRecurse);
 	BOOL				Update(CAlbumFolder* pFolder, CLibraryTreeItem* pItem, CLibraryTreeItem* pParent, BOOL bVisible, DWORD nCleanCookie, DWORD nSelectCookie);
 
-// Overrides
 public:
 	virtual BOOL Create(CWnd* pParentWnd);
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
 
-// Implementation
 protected:
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();

@@ -1,7 +1,7 @@
 //
 // UPnPFinder.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -25,9 +25,9 @@ typedef CComPtr< IUPnPService > ServicePointer;
 CString translateUPnPResult(HRESULT hr);
 HRESULT UPnPMessage(HRESULT hr);
 
+
 class CUPnPFinder
 {
-// Construction
 public:
 	CUPnPFinder();
 	~CUPnPFinder();
@@ -56,7 +56,6 @@ public:
 		return m_bAsyncFindRunning;
 	}
 
-// Implementation
 private:
 	static FinderPointer CreateFinderInstance() throw();
 
@@ -134,12 +133,12 @@ public:
 private:
 	CUPnPFinder& m_instance;
 
-// Implementation
 private:
 	HRESULT __stdcall DeviceAdded(LONG nFindData, IUPnPDevice* pDevice);
 	HRESULT __stdcall DeviceRemoved(LONG nFindData, BSTR bsUDN);
 	HRESULT __stdcall SearchComplete(LONG nFindData);
 };
+
 
 // Service Callback
 class CServiceCallback
@@ -153,7 +152,6 @@ public:
 private:
 	CUPnPFinder& m_instance;
 
-// Implementation
 private:
 	HRESULT __stdcall StateVariableChanged(IUPnPService* pService, LPCWSTR pszStateVarName, VARIANT varValue);
 	HRESULT __stdcall ServiceInstanceDied(IUPnPService* pService);

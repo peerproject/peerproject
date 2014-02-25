@@ -1,7 +1,7 @@
 //
 // CtrlSharedFolder.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -23,12 +23,10 @@ class CLibraryFolder;
 
 class CLibraryFolderCtrl : public CTreeCtrl
 {
-// Construction
 public:
 	CLibraryFolderCtrl();
 	virtual ~CLibraryFolderCtrl();
 
-// Attributes
 protected:
 	HTREEITEM	m_hRoot;
 	HTREEITEM	m_hFirstSelected;
@@ -36,7 +34,6 @@ protected:
 	BOOL		m_bMultiSelect;
 	BOOL		m_bSaveExpand;
 
-// Operations
 public:
 	void		SetMultiSelect(BOOL bMultiSelect);
 	void		SetSaveExpand(BOOL bSaveExpand);
@@ -54,26 +51,20 @@ protected:
 	HTREEITEM	GetNextSelectedItem(HTREEITEM hItem) const;
 	void		NotifySelectionChanged();
 
-// Overrides
 public:
-	//{{AFX_VIRTUAL(CLibraryFolderCtrl)
 	virtual BOOL Create(DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID);
-	//}}AFX_VIRTUAL
 
-// Implementation
 protected:
-	//{{AFX_MSG(CLibraryFolderCtrl)
-	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
+	afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnItemExpanded(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnSelChanged(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnCustomDraw(NMHDR* pNMHDR, LRESULT* pResult);
-	afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnNcPaint();
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

@@ -1,7 +1,7 @@
 //
 // XML.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -108,8 +108,6 @@ BOOL CXMLNode::ParseIdentifier(LPCTSTR& pszBase, CString& strIdentifier)
 	return TRUE;
 }
 
-// (Note StringToValue/ValueToString moved to Strings Escape/Unescape)
-
 //////////////////////////////////////////////////////////////////////
 // CXMLNode serialize
 
@@ -180,6 +178,7 @@ void CXMLNode::UniformString(CString& str)
 CXMLElement::CXMLElement(CXMLElement* pParent, LPCTSTR pszName) : CXMLNode( pParent, pszName )
 {
 	m_nNode = xmlElement;
+	m_bOrdered = TRUE;		// Retain Attribute inserton order (workaround)
 }
 
 CXMLElement::~CXMLElement()
@@ -219,13 +218,13 @@ CXMLElement* CXMLElement::Clone(CXMLElement* pParent) const
 
 		pClone->m_pAttributes.SetAt( strNameLower, pAttribute );
 
-		if ( ! pClone->m_pAttributesInsertion.Find( strNameLower ) )
+		if ( m_bOrdered && ! pClone->m_pAttributesInsertion.Find( strNameLower ) )
 			pClone->m_pAttributesInsertion.AddTail( strNameLower );		// Track output order workaround
 	}
 
 	for ( POSITION pos = GetElementIterator() ; pos ; )
 	{
-		CXMLElement* pElement = GetNextElement( pos );
+		const CXMLElement* pElement = GetNextElement( pos );
 		pClone->m_pElements.AddTail( pElement->Clone( pClone ) );
 	}
 
@@ -317,7 +316,7 @@ CString CXMLElement::ToString(BOOL bHeader, BOOL bNewline, BOOL bEncoding, TRIST
 
 void CXMLElement::ToString(CString& strXML, BOOL bNewline) const
 {
-	// strXML += '<' + m_sName; Optimzed:
+	// strXML += '<' + m_sName; Optimized:
 	strXML.AppendChar( _T('<') );
 	strXML.Append( m_sName );
 
@@ -473,7 +472,7 @@ BOOL CXMLElement::ParseString(LPCTSTR& strXML)
 
 		m_pAttributes.SetAt( strNameLower, pAttribute );
 
-		if ( ! m_pAttributesInsertion.Find( strNameLower ) )
+		if ( m_bOrdered && ! m_pAttributesInsertion.Find( strNameLower ) )
 			m_pAttributesInsertion.AddTail( strNameLower );		// Track output order workaround
 	}
 
@@ -572,7 +571,10 @@ CXMLElement* CXMLElement::FromBytes(BYTE* pByte, DWORD nByte, BOOL bHeader)
 	else
 	{
 		if ( nByte >= 3 && pByte[0] == 0xEF && pByte[1] == 0xBB && pByte[2] == 0xBF )
-			pByte += 3; nByte -= 3;
+		{
+			pByte += 3;
+			nByte -= 3;
+		}
 
 		strXML = UTF8Decode( (LPCSTR)pByte, nByte );
 	}
@@ -788,7 +790,7 @@ void CXMLElement::Serialize(CArchive& ar)
 
 			m_pAttributes.SetAt( strNameLower, pAttribute );
 
-			if ( ! m_pAttributesInsertion.Find( strNameLower ) )
+			if ( m_bOrdered && ! m_pAttributesInsertion.Find( strNameLower ) )
 				m_pAttributesInsertion.AddTail( strNameLower );		// Track output order workaround
 		}
 
@@ -840,7 +842,7 @@ CXMLAttribute* CXMLElement::AddAttribute(LPCTSTR pszName, LPCTSTR pszValue)
 
 		m_pAttributes.SetAt( strNameLower, pAttribute );
 
-		if ( ! m_pAttributesInsertion.Find( strNameLower ) )
+		if ( m_bOrdered && ! m_pAttributesInsertion.Find( strNameLower ) )
 			m_pAttributesInsertion.AddTail( strNameLower );		// Track output order workaround
 	}
 
@@ -868,7 +870,7 @@ CXMLAttribute* CXMLElement::AddAttribute(CXMLAttribute* pAttribute)
 	if ( m_pAttributes.Lookup( strNameLower, pExisting ) )
 		delete pExisting;
 
-	if ( ! m_pAttributesInsertion.Find( strNameLower ) )
+	if ( m_bOrdered && ! m_pAttributesInsertion.Find( strNameLower ) )
 		m_pAttributesInsertion.AddTail( strNameLower );		// Track output order workaround
 
 	m_pAttributes.SetAt( strNameLower, pAttribute );

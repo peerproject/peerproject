@@ -1,7 +1,7 @@
 //
 // WizardInterfacePage.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -25,40 +25,30 @@ class CWizardInterfacePage : public CWizardPage
 {
 	DECLARE_DYNCREATE(CWizardInterfacePage)
 
-// Construction
 public:
 	CWizardInterfacePage();
 	virtual ~CWizardInterfacePage();
 
 	enum { IDD = IDD_WIZARD_INTERFACE };
 
-// Dialog Data
 public:
-	//{{AFX_DATA(CWizardInterfacePage)
 	CStatic	m_wndDescriptionExpert;
 	CStatic	m_wndDescriptionBasic;
 	CButton	m_wndInterfaceExpert;
 	CButton	m_wndInterfaceBasic;
 	BOOL	m_bSimpleDownloadBars;
 	int		m_bExpert;
-	//}}AFX_DATA
 
-// Overrides
 public:
-	//{{AFX_VIRTUAL(CWizardInterfacePage)
 	virtual BOOL OnSetActive();
 	virtual LRESULT OnWizardNext();
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
-	//}}AFX_VIRTUAL
 
-// Implementation
 protected:
-	//{{AFX_MSG(CWizardInterfacePage)
 	virtual BOOL OnInitDialog();
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnXButtonDown(UINT nFlags, UINT nButton, CPoint point);
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

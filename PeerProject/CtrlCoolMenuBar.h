@@ -1,7 +1,7 @@
 //
 // CtrlCoolMenuBar.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -23,18 +23,15 @@
 
 class CCoolMenuBarCtrl : public CCoolBarCtrl
 {
-// Construction
 public:
 	CCoolMenuBarCtrl();
 	virtual ~CCoolMenuBarCtrl();
 
-// Attributes
 protected:
 	CPoint			m_pMouse;
 	HMENU			m_hMenu;
 	CCoolBarItem*	m_pSelect;
 
-// Operations
 public:
 	void	SetMenu(HMENU hMenu);
 	void	OpenMenuBar();
@@ -46,11 +43,8 @@ protected:
 	void	ShiftMenu(int nOffset);
 	BOOL	OnMenuMessage(MSG* pMsg);
 
-// Overrides
 public:
-	//{{AFX_VIRTUAL(CCoolMenuBarCtrl)
 	virtual void OnUpdateCmdUI(CFrameWnd* pTarget, BOOL bDisableIfNoHndler);
-	//}}AFX_VIRTUAL
 
 // Statics
 protected:
@@ -58,11 +52,9 @@ protected:
 	static CCoolMenuBarCtrl*	m_pMenuBar;
 	static HHOOK				m_hMsgHook;
 
-// Implementation
 protected:
-	//{{AFX_MSG(CCoolMenuBarCtrl)
-	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnMeasureItem(int nIDCtl, LPMEASUREITEMSTRUCT lpMeasureItemStruct);
 	afx_msg void OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct);
 	afx_msg void OnInitMenuPopup(CMenu* pPopupMenu, UINT nIndex, BOOL bSysMenu);
@@ -70,7 +62,6 @@ protected:
 	afx_msg void OnEnterIdle(UINT nWhy, CWnd* pWho);
 	afx_msg void OnEnterMenuLoop(BOOL bIsTrackPopupMenu);
 	afx_msg void OnExitMenuLoop(BOOL bIsTrackPopupMenu);
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

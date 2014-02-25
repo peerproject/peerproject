@@ -1,7 +1,7 @@
 //
 // PageSettingsSkins.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -25,16 +25,13 @@ class CSkinsSettingsPage : public CSettingsPage
 {
 	DECLARE_DYNCREATE(CSkinsSettingsPage)
 
-// Construction
 public:
 	CSkinsSettingsPage();
 	virtual ~CSkinsSettingsPage();
 
 	enum { IDD = IDD_SETTINGS_SKINS };
 
-// Attributes
 public:
-	//{{AFX_DATA(CSkinsSettingsPage)
 	CListCtrl	m_wndList;
 	CButton 	m_wndDelete;
 	CStatic 	m_wndName;
@@ -43,25 +40,18 @@ public:
 
 	CImageList	m_gdiImageList;
 	int			m_nSelected;
-	//}}AFX_DATA
 
-// Operations
 public:
 	void	EnumerateSkins(LPCTSTR pszPath = NULL);
 	BOOL	AddSkin(LPCTSTR pszPath, LPCTSTR pszName);
 	void	CheckDependencies(CString sPaths);
 
-// Overrides
 public:
-	//{{AFX_VIRTUAL(CSkinsSettingsPage)
 	virtual void OnOK();
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
-	//}}AFX_VIRTUAL
 
-// Implementation
 protected:
-	//{{AFX_MSG(CSkinsSettingsPage)
 	virtual BOOL OnInitDialog();
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
@@ -71,7 +61,6 @@ protected:
 	afx_msg void OnSkinsBrowse();
 	afx_msg void OnSkinsWeb();
 	afx_msg void OnSkinsDelete();
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

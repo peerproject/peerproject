@@ -1,7 +1,7 @@
 //
 // DlgProgressBar.h
 //
-// This file is part of PeerProject (peerproject.org) © 2009-2010
+// This file is part of PeerProject (peerproject.org) © 2009-2014
 // Portions copyright Shareaza Development Team, 2009.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -25,14 +25,12 @@ class CProgressBarDlg : public CSkinDialog
 {
 	DECLARE_DYNAMIC(CProgressBarDlg)
 
-// Construction
 public:
 	CProgressBarDlg(CWnd* pParent = NULL);
 	virtual ~CProgressBarDlg();
 
 	enum { IDD = IDD_PROGRESSBAR };
 
-// Attributes
 private:
 	CString			m_sAction;
 	CString			m_sEvent;
@@ -41,7 +39,6 @@ private:
 	CString			m_sSubEvent;
 	CProgressCtrl	m_oSubEventProgress;
 
-// Operations
 public:
 	void	SetActionText(const CString& strText);
 	void	SetEventText(const CString& strText);
@@ -58,7 +55,6 @@ public:
 	void	StepSubEvent();
 	void	StepSubEvent(int nPos);
 
-// Overrides
 protected:
 	virtual void	DoDataExchange(CDataExchange* pDX);
 	virtual BOOL	OnInitDialog();

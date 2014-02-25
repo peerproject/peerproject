@@ -1,7 +1,7 @@
 //
 // HubHorizon.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -33,18 +33,15 @@ public:
 
 class CHubHorizonGroup
 {
-// Construction
 public:
 	CHubHorizonGroup();
 	virtual ~CHubHorizonGroup();
 
-// Attributes
 protected:
 	CHubHorizonHub**	m_pList;
 	DWORD				m_nCount;
 	DWORD				m_nBuffer;
 
-// Operations
 public:
 	void		Add(IN_ADDR* pAddress, WORD nPort);
 	void		Clear();
@@ -53,12 +50,10 @@ public:
 
 class CHubHorizonPool
 {
-// Construction
 public:
 	CHubHorizonPool();
 	virtual ~CHubHorizonPool();
 
-// Attributes
 protected:
 	CHubHorizonHub*		m_pBuffer;
 	DWORD				m_nBuffer;
@@ -66,7 +61,6 @@ protected:
 	CHubHorizonHub*		m_pActive;
 	DWORD				m_nActive;
 
-// Operations
 public:
 	void				Setup();
 	void				Clear();

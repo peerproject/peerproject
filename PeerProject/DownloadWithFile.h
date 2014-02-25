@@ -1,7 +1,7 @@
 //
 // DownloadWithFile.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -24,12 +24,10 @@
 
 class CDownloadWithFile : public CDownloadWithTransfers
 {
-// Construction
 protected:
 	CDownloadWithFile();
 	virtual ~CDownloadWithFile();
 
-// Attributes
 public:
 	TRISTATE		m_bVerify;				// Verify status (TRI_TRUE verified, TRI_FALSE failed, TRI_UNKNOWN not yet)
 	DWORD			m_tReceived;
@@ -38,7 +36,6 @@ private:
 	DWORD			m_nFileError;			// Last file/disk error
 	CString			m_sFileError;			// More info about error
 
-// Operations
 public:
 	float			GetProgress() const;
 	QWORD			GetVolumeComplete() const;

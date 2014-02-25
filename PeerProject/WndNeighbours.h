@@ -1,7 +1,7 @@
 //
 // WndNeighbours.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -28,11 +28,9 @@ class CNeighboursWnd : public CPanelWnd
 {
 	DECLARE_SERIAL(CNeighboursWnd)
 
-// Construction
 public:
 	CNeighboursWnd();
 
-// Attributes
 protected:
 	CCoolBarCtrl		m_wndToolBar;
 	CTipListCtrl		m_wndList;
@@ -41,7 +39,6 @@ protected:
 	CImageList			m_gdiImageList;
 //	DWORD				m_tLastUpdate;	// Using static
 
-// Operations
 public:
 	void		Update();
 	void		OpenPacketWnd(BOOL bIncoming, BOOL bOutgoing);
@@ -49,17 +46,12 @@ public:
 	CNeighbour*	GetItem(int nItem);
 	UINT		GetSelectedCount() const;
 
-// Overrides
 public:
-	//{{AFX_VIRTUAL(CNeighboursWnd)
 	virtual void OnSkinChange();
 	virtual BOOL OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO* pHandlerInfo);
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
-	//}}AFX_VIRTUAL
 
-// Implementation
 protected:
-	//{{AFX_MSG(CNeighboursWnd)
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
@@ -85,7 +77,6 @@ protected:
 	afx_msg void OnNeighboursCopy();
 	afx_msg void OnNeighboursSettings();
 	afx_msg void OnActivate(UINT nState, CWnd* pWndOther, BOOL bMinimized);
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

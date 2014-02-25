@@ -17,7 +17,7 @@
 //
 
 // CFirewall wraps Windows COM components to change Windows Firewall settings, and talk UPnP to a NAT router
-// http://shareaza.sourceforge.net/mediawiki/index.php/Developers.Code.CFirewall
+// http://shareaza.sourceforge.net/mediawiki/index.php/Developers.Code.CFirewall (Missing)
 //
 // Include headers from the Windows SDK
 
@@ -34,7 +34,6 @@ public:
 	~CFirewall();
 
 public:
-
 	// Windows Firewall COM interfaces accessed with the object
 	CComPtr< INetFwMgr >					FwManager;
 	CComPtr< INetFwPolicy >					Policy;
@@ -50,8 +49,8 @@ public:
 
 	// UPnP COM interfaces (Obsolete)
 	//CComPtr< IUPnPNAT >					Nat;
-	//CComPtr< IStaticPortMappingCollection > Collection;
 	//CComPtr< IStaticPortMapping >			Mapping;
+	//CComPtr< IStaticPortMappingCollection > Collection;
 
 	// Examples controlling Windows Firewall
 	//
@@ -64,14 +63,14 @@ public:
 
 	// Windows Firewall Methods
 	BOOL Init();															// Initialization, access the Windows Firewall COM objects
-	BOOL AddProgram( const CString& path, const CString& name );			// Add a program to the list with a checked box
-	BOOL RemoveProgram( const CString& path );								// Add a program to the list with a checked box
-	BOOL SetupService( NET_FW_SERVICE_TYPE service );						// Check a box for a service on the Windows Firewall exceptions list
-	BOOL SetupProgram( const CString& path, const CString& name, BOOL bRemove = FALSE);	// List a program and check its box
-	BOOL EnableService( NET_FW_SERVICE_TYPE service );						// Check the box for a service
-	BOOL EnableProgram( const CString& path );								// Check the box for a program
-	BOOL IsServiceEnabled( NET_FW_SERVICE_TYPE service, BOOL* enabled );	// Determine if a service is checked
-	BOOL IsProgramEnabled( const CString& path, BOOL* enabled );			// Determine if a listed program is checked
-	BOOL IsProgramListed( const CString& path, BOOL* listed );				// Determine if a program is on the exceptions list
+	BOOL AddProgram(const CString& path, const CString& name);				// Add a program to the list with a checked box
+	BOOL RemoveProgram(const CString& path);								// Add a program to the list with a checked box
+	BOOL SetupService(NET_FW_SERVICE_TYPE service);							// Check a box for a service on the Windows Firewall exceptions list
+	BOOL SetupProgram(const CString& path, const CString& name, BOOL bRemove = FALSE);	// List a program and check its box
+	BOOL EnableService(NET_FW_SERVICE_TYPE service);						// Check the box for a service
+	BOOL EnableProgram(const CString& path);								// Check the box for a program
+	BOOL IsServiceEnabled(NET_FW_SERVICE_TYPE service, BOOL* enabled);		// Determine if a service is checked
+	BOOL IsProgramEnabled(const CString& path, BOOL* enabled);				// Determine if a listed program is checked
+	BOOL IsProgramListed(const CString& path, BOOL* listed);				// Determine if a program is on the exceptions list
 	BOOL AreExceptionsAllowed() const;										// Find out if the system is in no-exceptions mode
 };

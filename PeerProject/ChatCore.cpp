@@ -1,7 +1,7 @@
 //
 // ChatCore.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -73,32 +73,26 @@ BOOL CChatCore::Check(CChatSession* pSession) const
 
 BOOL CChatCore::OnAccept(CConnection* pConnection)
 {
+	CSingleLock pLock( &m_pSection );
+	if ( ! pLock.Lock( 100 ) )
+		return TRUE;	// Try later
+
 	if ( ! Settings.Community.ChatEnable || ! MyProfile.IsValid() )
 	{
 		theApp.Message( MSG_ERROR, _T("Rejecting incoming connection from %s, chat disabled."), (LPCTSTR)pConnection->m_sAddress );
-
 		pConnection->Write( _P("CHAT/0.2 503 Unavailable\r\n\r\n") );
 		pConnection->LogOutgoing();
 		pConnection->DelayClose( IDS_CONNECTION_CLOSED );
 		return TRUE;
 	}
 
-	CSingleLock pLock( &m_pSection );
-	if ( pLock.Lock( 250 ) )
+	if ( CChatSession* pSession = new CChatSession( PROTOCOL_NULL ) )
 	{
-		if ( CChatSession* pSession = new CChatSession( PROTOCOL_NULL ) )
-		{
-			pSession->AttachTo( pConnection );
-			return FALSE;
-		}
-		pLock.Unlock();
+		pSession->AttachTo( pConnection );
+		return FALSE;
 	}
 
-	theApp.Message( MSG_ERROR, _T("Rejecting %s connection from %s, network core overloaded."), _T("chat"), (LPCTSTR)pConnection->m_sAddress );
-
-	pConnection->Write( _P("CHAT/0.2 503 Busy\r\n\r\n") );
-	pConnection->LogOutgoing();
-	pConnection->DelayClose( IDS_CONNECTION_CLOSED );
+	// Out of memory
 	return TRUE;
 }
 
@@ -275,7 +269,6 @@ void CChatCore::StartThread()
 
 	BeginThread( "ChatCore" );
 }
-
 
 //////////////////////////////////////////////////////////////////////
 // CChatCore thread run

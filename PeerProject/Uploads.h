@@ -1,7 +1,7 @@
 //
 // Uploads.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -26,12 +26,10 @@ class CPeerProjectFile;
 
 class CUploads
 {
-// Construction
 public:
 	CUploads();
 	~CUploads();
 
-// Attributes
 public:
 	DWORD		m_nCount;			// Active count
 	DWORD		m_nBandwidth;		// Total speed
@@ -41,7 +39,6 @@ public:
 protected:
 	CList< CUploadTransfer* >	m_pList;
 
-// Operations
 public:
 	void		Clear(BOOL bMessage = TRUE);
 	DWORD		GetCount(CUploadTransfer* pExcept, int nState = -1) const;

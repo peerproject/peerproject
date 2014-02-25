@@ -20,6 +20,9 @@
 #include "Settings.h"
 #include "PeerProject.h"
 #include "WndDownloads.h"
+//#include "CtrlDownloads.h"		// Header
+//#include "CtrlDownloadTabBar.h"	// Header
+//#include "WndPanel.h"				// Header
 
 #include "Transfers.h"
 #include "Downloads.h"
@@ -449,7 +452,7 @@ void CDownloadsWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 	m_tSel = 0;
 
 	CSingleLock pLock( &Transfers.m_pSection );
-	if ( ! pLock.Lock( 1000 ) ) return;
+	if ( ! SafeLock( pLock ) ) return;
 
 	CDownload* pDownload;
 	CDownloadSource* pSource;
@@ -504,26 +507,8 @@ BOOL CDownloadsWnd::PreTranslateMessage(MSG* pMsg)
 		case VK_ESCAPE:
 			if ( ! m_pDragList )	// Clear selections, when not dragging
 			{
-				CSingleLock pLock( &Transfers.m_pSection );
-				if ( pLock.Lock( 500 ) )
-				{
-					for ( POSITION pos = Downloads.GetIterator() ; pos ; )
-					{
-						CDownload* pDownload = Downloads.GetNext( pos );
-						pDownload->m_bSelected = FALSE;
-
-						if ( pDownload->m_bExpanded )
-						{
-							for ( POSITION posSource = pDownload->GetIterator() ; posSource ; )
-							{
-								CDownloadSource* pSource = pDownload->GetNext( posSource );
-								pSource->m_bSelected = FALSE;
-							}
-						}
-					}
-					pLock.Unlock();
-					Update();
-				}
+				m_wndDownloads.DeselectAll();
+				Update();
 			}
 			break;
 
@@ -564,7 +549,7 @@ BOOL CDownloadsWnd::PreTranslateMessage(MSG* pMsg)
 void CDownloadsWnd::Select(CDownload* pSelect)
 {
 	CSingleLock pLock( &Transfers.m_pSection );
-	if ( ! pLock.Lock( 500 ) ) return;
+	if ( ! SafeLock( pLock ) ) return;
 	if ( ! pSelect ) return;	// Folder?
 
 	DWORD nIndex = 0;
@@ -772,7 +757,8 @@ void CDownloadsWnd::OnUpdateDownloadsResume(CCmdUI* pCmdUI)
 
 void CDownloadsWnd::OnDownloadsResume()
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! SafeLock( pLock ) ) return;
 
 	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
 	{
@@ -782,6 +768,7 @@ void CDownloadsWnd::OnDownloadsResume()
 			pDownload->Resume();
 	}
 
+	pLock.Unlock();
 	Update();
 }
 
@@ -795,7 +782,8 @@ void CDownloadsWnd::OnUpdateDownloadsPause(CCmdUI* pCmdUI)
 
 void CDownloadsWnd::OnDownloadsPause()
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! SafeLock( pLock ) ) return;
 
 	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
 	{
@@ -806,6 +794,7 @@ void CDownloadsWnd::OnDownloadsPause()
 		}
 	}
 
+	pLock.Unlock();
 	Update();
 }
 
@@ -818,32 +807,28 @@ void CDownloadsWnd::OnUpdateDownloadsClear(CCmdUI* pCmdUI)
 void CDownloadsWnd::OnDownloadsClear()
 {
 	CSingleLock pLock( &Transfers.m_pSection );
-	if ( ! pLock.Lock( 2000 ) ) return;
+	if ( ! SafeLock( pLock ) ) return;
 
 	// Delete-key handling only
 
 	CList<CDownload*> pList;
-
-	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
-	{
-		CDownload* pDownload = Downloads.GetNext( pos );
-		if ( ! pDownload->m_bSelected ) continue;
-
-		pDownload->m_bClearing = TRUE;		// Mark for removal (may take awhile)
-		pList.AddTail( pDownload );
-	}
+	m_wndDownloads.GetSelectedList( pList, TRUE );
 
 	pLock.Unlock();
 
-	m_wndDownloads.Update();
-
 	// If no downloads selected then process selected sources
 	if ( pList.IsEmpty() )
+	{
 		OnTransfersForget();
+		return;
+	}
+
+	m_wndDownloads.Update();
 
 	while ( ! pList.IsEmpty() )
 	{
-		pLock.Lock();
+		if ( ! SafeLock( pLock ) ) break;
+
 		CDownload* pDownload = pList.RemoveHead();
 
 		if ( Downloads.Check( pDownload ) && ! pDownload->IsTasking() )
@@ -888,6 +873,7 @@ void CDownloadsWnd::OnDownloadsClear()
 		}
 	}
 
+	pLock.Unlock();
 	Update();
 }
 
@@ -903,61 +889,54 @@ void CDownloadsWnd::OnUpdateDownloadsClearIncomplete(CCmdUI *pCmdUI)
 void CDownloadsWnd::OnDownloadsClearIncomplete()
 {
 	CSingleLock pLock( &Transfers.m_pSection );
-	if ( ! pLock.Lock( 2000 ) ) return;
+	if ( ! SafeLock( pLock ) ) return;
 
 	CList<CDownload*> pList;
-
-	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
-	{
-		CDownload* pDownload = Downloads.GetNext( pos );
-		if ( ! pDownload->m_bSelected || pDownload->IsCompleted() || pDownload->IsSeeding() )
-			continue;
-
-		pDownload->m_bClearing = TRUE;	// Indicate marked for deletion (may take awhile)
-		pList.AddTail( pDownload );
-	}
+	if ( ! m_wndDownloads.GetSelectedList( pList, TRUE ) )
+		return;
 
 	pLock.Unlock();				// Break if above takes too long
 	m_wndDownloads.Update();	// Show Clearing status
 
 	while ( ! pList.IsEmpty() )
 	{
-		pLock.Lock();
+		if ( ! SafeLock( pLock ) ) continue;
+
 		CDownload* pDownload = pList.RemoveHead();
 		if ( ! Downloads.Check( pDownload ) )
 			continue;
 
-		if ( ! pDownload->IsCompleted() && ! pDownload->IsPreviewVisible() )
+		if ( pDownload->IsCompleted() || pDownload->IsSeeding() || pDownload->IsPreviewVisible() )
+			continue;
+
+		if ( pDownload->IsStarted() )
 		{
-			if ( pDownload->IsStarted() )
+			CDeleteFileDlg dlg;
+			dlg.m_sName = pDownload->m_sName;
+			const BOOL bShared = pDownload->IsShared();
+
+			pLock.Unlock();
+			if ( dlg.DoModal() != IDOK )
 			{
-				CDeleteFileDlg dlg;
-				dlg.m_sName = pDownload->m_sName;
-				const BOOL bShared = pDownload->IsShared();
-
-				pLock.Unlock();
-				if ( dlg.DoModal() != IDOK )
+				pDownload->m_bClearing = FALSE;
+				while ( ! pList.IsEmpty() )
 				{
+					pDownload = pList.RemoveHead();
 					pDownload->m_bClearing = FALSE;
-					while ( ! pList.IsEmpty() )
-					{
-						pDownload = pList.RemoveHead();
-						pDownload->m_bClearing = FALSE;
-					}
-					break;
 				}
-				pLock.Lock();
-
-				if ( Downloads.Check( pDownload ) )
-					dlg.Create( pDownload, bShared );
+				break;
 			}
+			pLock.Lock();
 
-			if ( Downloads.Check( pDownload ) && ! pDownload->IsTasking() )
-				pDownload->Remove();
+			if ( Downloads.Check( pDownload ) )
+				dlg.Create( pDownload, bShared );
 		}
-		pLock.Unlock();
+
+		if ( Downloads.Check( pDownload ) && ! pDownload->IsTasking() )
+			pDownload->Remove();
 	}
 
+	pLock.Unlock();
 	Update();
 }
 
@@ -971,39 +950,33 @@ void CDownloadsWnd::OnUpdateDownloadsClearComplete(CCmdUI *pCmdUI)
 
 void CDownloadsWnd::OnDownloadsClearComplete()
 {
-	CList<CDownload*> pList;
-	CDownload* pDownload;
-
 	CWaitCursor pCursor;
 
 	CSingleLock pLock( &Transfers.m_pSection );
-	if ( ! pLock.Lock( 800 ) ) return;
+	if ( ! SafeLock( pLock ) ) return;
 
-	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
-	{
-		pDownload = Downloads.GetNext( pos );
-		if ( pDownload->m_bSelected && pDownload->IsCompleted() && ! pDownload->IsTasking() && ! pDownload->IsPreviewVisible() )
-		{
-			pDownload->m_bClearing = TRUE;	// Indicate marked for removal (may take awhile)
-			pList.AddTail( pDownload );
-			if ( theApp.KeepAlive() )
-				m_wndDownloads.Update();
-		}
-	}
+	CList<CDownload*> pList;
+	if ( ! m_wndDownloads.GetSelectedList( pList, TRUE ) )
+		return;
 
 	pLock.Unlock();
 	m_wndDownloads.Update();
 
+	CDownload* pDownload;
 	while ( ! pList.IsEmpty() )
 	{
-		pLock.Lock();
+		if ( ! SafeLock( pLock ) )
+			continue;
 		pDownload = pList.RemoveHead();
+		if ( ! pDownload->IsCompleted() || pDownload->IsTasking() || pDownload->IsPreviewVisible() )
+			continue;
 		pDownload->Remove();
 		pLock.Unlock();
 		if ( theApp.KeepAlive() )
 			m_wndDownloads.Update();
 	}
 
+	pLock.Unlock();
 	Update();
 }
 
@@ -1016,7 +989,8 @@ void CDownloadsWnd::OnUpdateDownloadsViewReviews(CCmdUI* pCmdUI)
 
 void CDownloadsWnd::OnDownloadsViewReviews()
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! SafeLock( pLock ) ) return;
 
 	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
 	{
@@ -1062,7 +1036,8 @@ void CDownloadsWnd::OnUpdateDownloadsRemotePreview(CCmdUI* pCmdUI)
 
 void CDownloadsWnd::OnDownloadsRemotePreview()
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! SafeLock( pLock ) ) return;
 
 	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
 	{
@@ -1136,18 +1111,17 @@ void CDownloadsWnd::OnUpdateDownloadsLaunch(CCmdUI* pCmdUI)
 
 void CDownloadsWnd::OnDownloadsLaunch()
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
-	CList<CDownload*> pList;
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! SafeLock( pLock ) ) return;
 
-	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
-	{
-		CDownload* pDownload = Downloads.GetNext( pos );
-		if ( pDownload->m_bSelected )
-			pList.AddTail( pDownload );
-	}
+	CList<CDownload*> pList;
+	if ( ! m_wndDownloads.GetSelectedList( pList ) )
+		return;
 
 	while ( ! pList.IsEmpty() )
 	{
+		if ( ! SafeLock( pLock ) ) return;
+
 		CDownload* pDownload = pList.RemoveHead();
 
 		if ( Downloads.Check( pDownload ) )
@@ -1182,18 +1156,15 @@ void CDownloadsWnd::OnUpdateDownloadsLaunchCopy(CCmdUI* pCmdUI)
 void CDownloadsWnd::OnDownloadsLaunchCopy()
 {
 	CSingleLock pLock( &Transfers.m_pSection );
-	if ( ! pLock.Lock( 800 ) ) return;
+	if ( ! SafeLock( pLock ) ) return;
 
 	CList<CDownload*> pList;
-
-	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
-	{
-		CDownload* pDownload = Downloads.GetNext( pos );
-		if ( pDownload->m_bSelected ) pList.AddTail( pDownload );
-	}
+	if ( ! m_wndDownloads.GetSelectedList( pList ) )
+		return;
 
 	while ( ! pList.IsEmpty() )
 	{
+		if ( ! SafeLock( pLock ) ) return;
 		CDownload* pDownload = pList.RemoveHead();
 
 		if ( Downloads.Check( pDownload ) )
@@ -1215,15 +1186,11 @@ void CDownloadsWnd::OnUpdateDownloadsEnqueue(CCmdUI* pCmdUI)
 void CDownloadsWnd::OnDownloadsEnqueue()
 {
 	CSingleLock pLock( &Transfers.m_pSection );
-	if ( ! pLock.Lock( 800 ) ) return;
+	if ( ! SafeLock( pLock ) ) return;
 
 	CList<CDownload*> pList;
-
-	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
-	{
-		CDownload* pDownload = Downloads.GetNext( pos );
-		if ( pDownload->m_bSelected ) pList.AddTail( pDownload );
-	}
+	if ( ! m_wndDownloads.GetSelectedList( pList ) )
+		return;
 
 	while ( ! pList.IsEmpty() )
 	{
@@ -1246,37 +1213,39 @@ void CDownloadsWnd::OnUpdateDownloadsSources(CCmdUI* pCmdUI)
 void CDownloadsWnd::OnDownloadsSources()
 {
 	int nCount = 0;
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! SafeLock( pLock ) ) return;
 
 	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
 	{
 		CDownload* pDownload = Downloads.GetNext( pos );
 
-		if ( pDownload->m_bSelected )
+		if ( ! pDownload->m_bSelected )
+			continue;
+
+		if ( pDownload->IsMoving() )
+			continue;
+
+		nCount++;						// Simultaneous FMS operations count
+		m_nMoreSourcesLimiter--;		// Overall (Network use) check.
+		if ( m_nMoreSourcesLimiter >= 0 )
 		{
-			if ( ! pDownload->IsMoving() )
-			{
-				nCount++;						// Simultaneous FMS operations count
-				m_nMoreSourcesLimiter--;		// Overall (Network use) check.
-				if ( m_nMoreSourcesLimiter >= 0 )
-				{
-					pDownload->FindMoreSources();
-				}
-				else
-				{
-					// Warn user
-					theApp.Message( MSG_DEBUG, _T("Find more sources unable to start due to excessive network traffic") );
-					// Prevent ed2k bans, client drops, etc.
-					m_tMoreSourcesTimer = GetTickCount();
-					if ( m_nMoreSourcesLimiter < -30 ) m_nMoreSourcesLimiter = -30;
-				}
-			}
+			pDownload->FindMoreSources();
+		}
+		else
+		{
+			// Warn user
+			theApp.Message( MSG_DEBUG, _T("Find more sources unable to start due to excessive network traffic") );
+			// Prevent ed2k bans, client drops, etc.
+			m_tMoreSourcesTimer = GetTickCount();
+			if ( m_nMoreSourcesLimiter < -30 ) m_nMoreSourcesLimiter = -30;
 		}
 
 		// Also only allow 3 FMS operations at once to avoid being blacklisted
 		if ( nCount >= 3 ) break;
 	}
 
+	pLock.Unlock();
 	Update();
 }
 
@@ -1288,18 +1257,17 @@ void CDownloadsWnd::OnUpdateDownloadsAddSource(CCmdUI* pCmdUI)
 
 void CDownloadsWnd::OnDownloadsAddSource()
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
-	CList<CDownload*> pList;
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! SafeLock( pLock ) ) return;
 
-	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
-	{
-		CDownload* pDownload = Downloads.GetNext( pos );
-		if ( pDownload->m_bSelected )
-			pList.AddTail( pDownload );
-	}
+	CList<CDownload*> pList;
+	if ( ! m_wndDownloads.GetSelectedList( pList ) )
+		return;
 
 	while ( ! pList.IsEmpty() )
 	{
+		if ( ! SafeLock( pLock ) ) continue;
+
 		CDownload* pDownload = pList.RemoveHead();
 
 		if ( Downloads.Check( pDownload ) && ! pDownload->IsCompleted() && ! pDownload->IsMoving() )
@@ -1319,6 +1287,7 @@ void CDownloadsWnd::OnDownloadsAddSource()
 		}
 	}
 
+	pLock.Unlock();
 	Update();
 }
 
@@ -1333,7 +1302,7 @@ void CDownloadsWnd::OnDownloadsMergeLocal()
 	CDownload* pDownload = NULL;
 
 	CSingleLock pLock( &Transfers.m_pSection );
-	if ( ! pLock.Lock( 300 ) ) return;
+	if ( ! SafeLock( pLock ) ) return;
 
 	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
 	{
@@ -1376,7 +1345,7 @@ void CDownloadsWnd::OnDownloadsMergeLocal()
 		if ( dlgSelectFile.DoModal() != IDOK )
 			return;
 
-		if ( ! pLock.Lock( 500 ) )
+		if ( ! SafeLock( pLock ) )
 			return;
 
 		if ( ! Downloads.Check( pDownload ) || pDownload->IsTasking() )
@@ -1409,7 +1378,7 @@ void CDownloadsWnd::OnDownloadsMergeLocal()
 		if ( dlgSelectFile.DoModal() != IDOK )
 			return;
 
-		if ( ! pLock.Lock( 500 ) )
+		if ( ! SafeLock( pLock ) )
 			return;
 
 		if ( ! Downloads.Check( pDownload ) || pDownload->IsTasking() )
@@ -1423,7 +1392,6 @@ void CDownloadsWnd::OnDownloadsMergeLocal()
 	}
 
 	pLock.Unlock();
-
 	Update();
 }
 
@@ -1442,7 +1410,8 @@ void CDownloadsWnd::OnUpdateDownloadsBoost(CCmdUI* pCmdUI)
 
 void CDownloadsWnd::OnDownloadsBoost()
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! SafeLock( pLock ) ) return;
 
 	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
 	{
@@ -1453,6 +1422,7 @@ void CDownloadsWnd::OnDownloadsBoost()
 		}
 	}
 
+	pLock.Unlock();
 	Update();
 }
 
@@ -1467,7 +1437,7 @@ void CDownloadsWnd::OnDownloadsURI()
 	CList< CPeerProjectFile > pList;
 
 	CSingleLock pLock( &Transfers.m_pSection, FALSE );
-	if ( ! pLock.Lock( 1000 ) ) return;
+	if ( ! SafeLock( pLock ) ) return;
 
 	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
 	{
@@ -1495,7 +1465,7 @@ void CDownloadsWnd::OnDownloadsURI()
 
 	pLock.Unlock();
 
-	if ( pList.GetCount() < 1 )
+	if ( pList.IsEmpty() )
 		return;
 
 	CURLCopyDlg dlg;
@@ -1503,7 +1473,6 @@ void CDownloadsWnd::OnDownloadsURI()
 	for ( POSITION pos = pList.GetHeadPosition() ; pos ; )
 	{
 		dlg.Add( &pList.GetNext( pos ) );
-
 	}
 
 	dlg.DoModal();
@@ -1518,7 +1487,8 @@ void CDownloadsWnd::OnUpdateDownloadsShare(CCmdUI* pCmdUI)
 
 void CDownloadsWnd::OnDownloadsShare()
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! SafeLock( pLock ) ) return;
 
 	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
 	{
@@ -1528,6 +1498,7 @@ void CDownloadsWnd::OnDownloadsShare()
 			pDownload->Share( ! pDownload->IsShared() );
 	}
 
+	pLock.Unlock();
 	Update();
 }
 
@@ -1541,20 +1512,17 @@ void CDownloadsWnd::OnUpdateDownloadsMonitor(CCmdUI* pCmdUI)
 
 void CDownloadsWnd::OnDownloadsMonitor()
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
-	CList<CDownload*> pList;
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! SafeLock( pLock ) ) return;
 
-	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
-	{
-		CDownload* pDownload = Downloads.GetNext( pos );
-		if ( pDownload->m_bSelected )
-			pList.AddTail( pDownload );
-	}
+	CList<CDownload*> pList;
+	if ( ! m_wndDownloads.GetSelectedList( pList ) )
+		return;
 
 	while ( ! pList.IsEmpty() )
 	{
+		if ( ! SafeLock( pLock ) ) continue;
 		CDownload* pDownload = pList.RemoveHead();
-
 		if ( Downloads.Check( pDownload ) && ! pDownload->IsMoving() )
 			pDownload->ShowMonitor( &pLock );
 	}
@@ -1569,7 +1537,7 @@ void CDownloadsWnd::OnUpdateDownloadsEdit(CCmdUI *pCmdUI)
 void CDownloadsWnd::OnDownloadsEdit()
 {
 	CSingleLock pLock( &Transfers.m_pSection );
-	if ( ! pLock.Lock( 500 ) ) return;
+	if ( ! SafeLock( pLock ) ) return;
 
 	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
 	{
@@ -1584,7 +1552,7 @@ void CDownloadsWnd::OnDownloadsEdit()
 		if ( ! pDownload->IsCompleted() || pDownload->IsSeeding() )
 		{
 			CDownloadSheet dlg( pLock, pDownload );
-			dlg.DoModal();
+			dlg.DoModal();		// Note: Requires lock
 			break;
 		}
 
@@ -1606,6 +1574,7 @@ void CDownloadsWnd::OnDownloadsEdit()
 		}
 	}
 
+	pLock.Unlock();
 	Update();
 }
 
@@ -1644,7 +1613,8 @@ void CDownloadsWnd::OnUpdateTransfersConnect(CCmdUI* pCmdUI)
 
 void CDownloadsWnd::OnTransfersConnect()
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! SafeLock( pLock ) ) return;
 
 	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
 	{
@@ -1663,27 +1633,25 @@ void CDownloadsWnd::OnTransfersConnect()
 			if ( pSource->m_bSelected && pSource->IsIdle()
 				&& pSource->m_nProtocol != PROTOCOL_ED2K )
 			{
-				if ( pSource->m_nProtocol != PROTOCOL_ED2K )
+				if ( pDownload->IsPaused() )
+					pDownload->Resume();	// Workaround duplicate
+
+				pSource->m_pDownload->Resume();
+
+				if ( pSource->m_bPushOnly )
 				{
-					if ( pDownload->IsPaused() )
-						pDownload->Resume();	// Workaround duplicate
-
-					pSource->m_pDownload->Resume();
-
-					if ( pSource->m_bPushOnly )
-					{
-						pSource->PushRequest();
-					}
-					else
-					{
-						CDownloadTransfer* pTransfer = pSource->CreateTransfer();
-						if ( pTransfer ) pTransfer->Initiate();
-					}
+					pSource->PushRequest();
+				}
+				else
+				{
+					CDownloadTransfer* pTransfer = pSource->CreateTransfer();
+					if ( pTransfer ) pTransfer->Initiate();
 				}
 			}
 		}
 	}
 
+	pLock.Unlock();
 	Update();
 }
 
@@ -1695,7 +1663,8 @@ void CDownloadsWnd::OnUpdateTransfersDisconnect(CCmdUI* pCmdUI)
 
 void CDownloadsWnd::OnTransfersDisconnect()
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! pLock.Lock( 5000 ) && ! SafeLock( pLock ) ) return;
 
 	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
 	{
@@ -1710,6 +1679,7 @@ void CDownloadsWnd::OnTransfersDisconnect()
 		}
 	}
 
+	pLock.Unlock();
 	Update();
 }
 
@@ -1721,7 +1691,8 @@ void CDownloadsWnd::OnUpdateTransfersForget(CCmdUI* pCmdUI)
 
 void CDownloadsWnd::OnTransfersForget()
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! SafeLock( pLock ) ) return;
 
 	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
 	{
@@ -1736,6 +1707,7 @@ void CDownloadsWnd::OnTransfersForget()
 		}
 	}
 
+	pLock.Unlock();
 	Update();
 }
 
@@ -1747,7 +1719,8 @@ void CDownloadsWnd::OnUpdateTransfersChat(CCmdUI* pCmdUI)
 
 void CDownloadsWnd::OnTransfersChat()
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! SafeLock( pLock ) ) return;
 
 	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
 	{
@@ -1780,7 +1753,8 @@ void CDownloadsWnd::OnUpdateBrowseLaunch(CCmdUI* pCmdUI)
 
 void CDownloadsWnd::OnBrowseLaunch()
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! SafeLock( pLock ) ) return;
 
 	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
 	{
@@ -1813,10 +1787,12 @@ void CDownloadsWnd::OnUpdateDownloadsFolder(CCmdUI* pCmdUI)
 void CDownloadsWnd::OnDownloadsFolder()
 {
 	CSingleLock pLock( &Transfers.m_pSection );
-	if ( ! pLock.Lock( 500 ) ) return;
+	if ( ! SafeLock( pLock ) ) return;
 
 	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
 	{
+		if ( ! SafeLock( pLock ) ) return;
+
 		CDownload* pDownload = Downloads.GetNext( pos );
 		if ( ! pDownload->m_bSelected || ! ( pDownload->IsCompleted() || pDownload->IsSeeding() ) )
 			continue;
@@ -1840,8 +1816,6 @@ void CDownloadsWnd::OnDownloadsFolder()
 			if ( PathIsDirectory( strPath ) )
 				ShellExecute( GetSafeHwnd(), _T("open"), strPath, NULL, NULL, SW_SHOWNORMAL );
 		}
-
-		if ( ! pLock.Lock( 500 ) ) return;
 	}
 }
 
@@ -1859,7 +1833,7 @@ void CDownloadsWnd::OnDownloadsFileDelete()
 	CStringList pList, pFolderList;
 
 	CSingleLock pLock( &Transfers.m_pSection );
-	if ( ! pLock.Lock( 800 ) ) return;
+	if ( ! SafeLock( pLock ) ) return;
 
 	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
 	{
@@ -1921,7 +1895,9 @@ void CDownloadsWnd::OnDownloadsRate()
 {
 	CFilePropertiesSheet dlg;
 
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! SafeLock( pLock ) ) return;
+
 	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
 	{
 		CDownload* pDownload = Downloads.GetNext( pos );
@@ -1936,6 +1912,7 @@ void CDownloadsWnd::OnDownloadsRate()
 			}
 		}
 	}
+
 	pLock.Unlock();
 
 	dlg.DoModal( 2 );
@@ -1956,8 +1933,12 @@ void CDownloadsWnd::OnDownloadsShowSources()
 
 void CDownloadsWnd::OnDownloadsClearCompleted()
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! SafeLock( pLock ) ) return;
+
 	Downloads.ClearCompleted();
+
+	pLock.Unlock();
 	Update();
 }
 
@@ -2077,7 +2058,9 @@ void CDownloadsWnd::OnDownloadGroupShow()
 
 void CDownloadsWnd::OnDownloadsHelp()
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! SafeLock( pLock ) ) return;
+
 	CDownload* pDownload = NULL;
 
 	for ( POSITION pos = Downloads.GetIterator() ; pos ; )

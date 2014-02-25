@@ -225,7 +225,7 @@ void CUploadsCtrl::SelectTo(int nIndex)
 	BOOL bRight		= GetAsyncKeyState( VK_RBUTTON ) & 0x8000;
 
 	CSingleLock pLock( &Transfers.m_pSection, FALSE );
-	if ( ! pLock.Lock( 1000 ) ) return;
+	if ( ! SafeLock( pLock ) ) return;
 
 	if ( ! bShift && ! bControl && ! bRight && m_pDeselect == NULL ) DeselectAll();
 
@@ -415,7 +415,7 @@ BOOL CUploadsCtrl::GetAt(int nSelect, CUploadQueue** ppQueue, CUploadFile** ppFi
 	if ( ppFile != NULL ) *ppFile = NULL;
 
 	CSingleLock pLock( &UploadQueues.m_pSection, FALSE );
-	if ( ! pLock.Lock( 500 ) )
+	if ( ! SafeLock( pLock ) )
 		return FALSE;
 
 	for ( POSITION posQueue = GetQueueIterator() ; posQueue ; )
@@ -897,7 +897,7 @@ void CUploadsCtrl::PaintQueue(CDC& dc, const CRect& rcRow, CUploadQueue* pQueue,
 
 		case UPLOAD_COLUMN_SIZE:
 			if ( pQueue == UploadQueues.m_pTorrentQueue )
-				strText.Format( _T("%u/%u"), pQueue->m_nMinTransfers, pQueue->m_nMaxTransfers );	//No. Clients was loaded into these variables
+				strText.Format( _T("%u/%u"), pQueue->m_nMinTransfers, pQueue->m_nMaxTransfers );	// No. Clients was loaded into these variables
 			else if ( pQueue != UploadQueues.m_pHistoryQueue )
 				strText.Format( _T("%u/%u"), pQueue->GetTransferCount(), pQueue->GetQueuedCount() );
 			break;
@@ -1045,10 +1045,12 @@ void CUploadsCtrl::PaintFile(CDC& dc, const CRect& rcRow, CUploadQueue* /*pQueue
 
 			{
 				CString strExt = PathFindExtension( pFile->m_sPath );
-				if ( strExt.Compare( _T(".partial") ) == 0 )
+				if ( pTransfer->m_nProtocol == PROTOCOL_BT ||
+					 strExt.Compare( _T(".partial") ) == 0 )
 					strExt = PathFindExtension( pFile->m_sName );
+
 				if ( pTransfer->m_nProtocol == PROTOCOL_BT &&
-					 ( strExt.IsEmpty() || strExt.GetLength() > 9 ) )
+					( strExt.IsEmpty() || strExt.GetLength() > 9 || ! IsValidExtension( strExt ) ) )
 					strExt = _T(".torrent");	// Multifile workaround
 
 				int nIcon = ShellIcons.Get( strExt, 16 );
@@ -1328,11 +1330,13 @@ void CUploadsCtrl::OnChangeHeader(NMHDR* /*pNotifyStruct*/, LRESULT* /*pResult*/
 
 void CUploadsCtrl::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
 	CUploadFile* pFile;
 	CUploadQueue* pQueue;
 
 	m_wndTip.Hide();
+
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! SafeLock( pLock ) ) return;
 
 	switch ( nChar )
 	{
@@ -1464,78 +1468,61 @@ void CUploadsCtrl::OnLButtonDblClk(UINT nFlags, CPoint point)
 	SetFocus();
 
 	CSingleLock pLock( &Transfers.m_pSection, FALSE );
-	if ( ! pLock.Lock( 500 ) ) return;
-
-	if ( HitTest( point, &pQueue, &pFile, NULL, &rcItem ) )
+	if ( SafeLock( pLock ) )
 	{
-		int nTitleStarts = GetExpandableColumnX();
-		if ( pQueue != NULL && point.x > nTitleStarts && point.x <= nTitleStarts + rcItem.left + 16 )
+		if ( HitTest( point, &pQueue, &pFile, NULL, &rcItem ) )
 		{
-			pQueue->m_bExpanded = ! pQueue->m_bExpanded;
-
-			if ( ! pQueue->m_bExpanded )
+			if ( pQueue != NULL )
 			{
-				for ( POSITION posActive = pQueue->GetActiveIterator() ; posActive ; )
+				pLock.Unlock();
+
+				int nTitleStarts = GetExpandableColumnX();
+				if ( point.x > nTitleStarts && point.x <= nTitleStarts + rcItem.left + 16 )
 				{
-					CUploadTransfer* pTransfer = pQueue->GetNextActive( posActive );
-					if ( pTransfer->m_pBaseFile != NULL )
-						pTransfer->m_pBaseFile->m_bSelected = FALSE;
+					pQueue->m_bExpanded = ! pQueue->m_bExpanded;
+
+					if ( ! pQueue->m_bExpanded )
+					{
+						if ( pLock.Lock( 500 ) )
+						{
+							for ( POSITION posActive = pQueue->GetActiveIterator() ; posActive ; )
+							{
+								CUploadTransfer* pTransfer = pQueue->GetNextActive( posActive );
+								if ( pTransfer->m_pBaseFile != NULL )
+									pTransfer->m_pBaseFile->m_bSelected = FALSE;
+							}
+
+							for ( DWORD nPos = 0 ; nPos < pQueue->GetQueuedCount() ; nPos ++ )
+							{
+								CUploadTransfer* pTransfer = (CUploadTransfer*)pQueue->GetQueuedAt( nPos );
+								if ( pTransfer->m_pBaseFile != NULL )
+									pTransfer->m_pBaseFile->m_bSelected = FALSE;
+							}
+
+							pLock.Unlock();
+						}					
+					}
+
+					Update();
+
+					return;
 				}
 
-				for ( DWORD nPos = 0 ; nPos < pQueue->GetQueuedCount() ; nPos ++ )
-				{
-					CUploadTransfer* pTransfer = (CUploadTransfer*)pQueue->GetQueuedAt( nPos );
-					if ( pTransfer->m_pBaseFile != NULL )
-						pTransfer->m_pBaseFile->m_bSelected = FALSE;
-				}
+				GetOwner()->PostMessage( WM_TIMER, 5 );
+				GetOwner()->PostMessage( WM_COMMAND, ID_UPLOADS_SETTINGS );
 			}
+			else if ( pFile != NULL )
+			{
+				GetOwner()->PostMessage( WM_TIMER, 5 );
+				GetOwner()->PostMessage( WM_COMMAND, ID_UPLOADS_LAUNCH );
+			}
+		}
 
-			Update();
-		}
-		else if ( pQueue != NULL )
-		{
-			GetOwner()->PostMessage( WM_TIMER, 5 );
-			GetOwner()->PostMessage( WM_COMMAND, ID_UPLOADS_SETTINGS );
-		}
-		else if ( pFile != NULL )
-		{
-			GetOwner()->PostMessage( WM_TIMER, 5 );
-			GetOwner()->PostMessage( WM_COMMAND, ID_UPLOADS_LAUNCH );
-		}
+		if ( pLock.IsLocked() )
+			pLock.Unlock();
 	}
 
 	CWnd::OnLButtonDblClk( nFlags, point );
-}
-
-void CUploadsCtrl::OnMouseMove(UINT nFlags, CPoint point)
-{
-	CWnd::OnMouseMove( nFlags, point );
-
-	if ( ( nFlags & ( MK_LBUTTON|MK_RBUTTON) ) == 0 )
-	{
-		CUploadFile* pFile;
-		CRect rcItem;
-
-		CSingleLock pLock( &Transfers.m_pSection, FALSE );
-		if ( ! pLock.Lock( 500 ) ) return;
-
-		if ( HitTest( point, NULL, &pFile, NULL, &rcItem ) )
-		{
-			// Tick Hoverstates
-			if ( point.x < rcItem.left + 18 )
-			{
-				CRect rcRefresh( 1, rcItem.top - 32, 18, rcItem.bottom + 32 );
-				RedrawWindow(rcRefresh);
-			}
-			if ( pFile != NULL )
-			{
-				m_wndTip.Show( pFile );
-				return;
-			}
-		}
-	}
-
-	m_wndTip.Hide();
 }
 
 void CUploadsCtrl::OnLButtonUp(UINT nFlags, CPoint point)
@@ -1558,6 +1545,39 @@ void CUploadsCtrl::OnRButtonUp(UINT nFlags, CPoint point)
 	}
 
 	CWnd::OnRButtonUp( nFlags, point );
+}
+
+void CUploadsCtrl::OnMouseMove(UINT nFlags, CPoint point)
+{
+	CWnd::OnMouseMove( nFlags, point );
+
+	if ( ( nFlags & ( MK_LBUTTON|MK_RBUTTON ) ) == 0 )
+	{
+		CUploadFile* pFile;
+		CRect rcItem;
+
+		CSingleLock pLock( &Transfers.m_pSection, FALSE );
+		if ( pLock.Lock( 500 ) )
+		{
+			if ( HitTest( point, NULL, &pFile, NULL, &rcItem ) )
+			{
+				pLock.Unlock();
+				// Tick Hoverstates
+				if ( point.x < rcItem.left + 18 )
+				{
+					CRect rcRefresh( 1, rcItem.top - 32, 18, rcItem.bottom + 32 );
+					RedrawWindow(rcRefresh);
+				}
+				else if ( pFile != NULL )
+				{
+					m_wndTip.Show( pFile );
+					return;
+				}
+			}
+		}
+	}
+
+	m_wndTip.Hide();
 }
 
 void CUploadsCtrl::OnSetFocus(CWnd* pOldWnd)

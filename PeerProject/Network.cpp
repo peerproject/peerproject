@@ -1,7 +1,7 @@
 //
 // Network.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -376,14 +376,16 @@ BOOL CNetwork::Connect(BOOL bAutoConnect)
 
 void CNetwork::Disconnect()
 {
-	CSingleLock pLock( &m_pSection, TRUE );
+	CSingleLock pLock( &m_pSection );
+	if ( pLock.Lock( 20000 ) )			// 20 sec Exit lockup release
+	{
+		if ( ! m_bConnected ) return;	// IsConnected()
 
-	if ( ! IsConnected() ) return;
+		m_bAutoConnect = FALSE;
+		m_tStartedConnecting = 0;
 
-	m_bAutoConnect = FALSE;
-	m_tStartedConnecting = 0;
-
-	pLock.Unlock();
+		pLock.Unlock();
+	}
 
 	theApp.Message( MSG_INFO, _T("") );
 	theApp.Message( MSG_NOTICE, IDS_NETWORK_DISCONNECTING );
@@ -940,6 +942,9 @@ BOOL CNetwork::GetNodeRoute(const Hashes::Guid& oGUID, CNeighbour** ppNeighbour,
 
 	if ( NodeRoute->Lookup( oGUID, ppNeighbour, pEndpoint ) ) return TRUE;
 	if ( ppNeighbour == NULL ) return FALSE;
+
+	CSingleLock pLock( &m_pSection );
+	if ( ! SafeLock( pLock ) ) return FALSE;
 
 	for ( POSITION pos = Neighbours.GetIterator() ; pos ; )
 	{

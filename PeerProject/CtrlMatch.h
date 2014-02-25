@@ -1,7 +1,7 @@
 //
 // CtrlMatch.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -28,7 +28,6 @@ class CQueryHit;
 
 class CMatchCtrl : public CWnd
 {
-// Construction
 public:
 	CMatchCtrl();
 	virtual ~CMatchCtrl();
@@ -37,17 +36,17 @@ public:
 	friend class CSearchWnd;
 	friend class CBrowseFrameCtrl;
 
-// Attributes
 public:
 	CMatchList*		m_pMatches;
 	LPCTSTR			m_sType;
 	CSchemaPtr		m_pSchema;
 	CList< CSchemaMember* > m_pColumns;
+
 protected:
 	CHeaderCtrl		m_wndHeader;
 	CMatchTipCtrl	m_wndTip;
 	CImageList		m_pStars;
-protected:
+
 	DWORD			m_nTopIndex;
 	DWORD			m_nHitIndex;
 	DWORD			m_nBottomIndex;
@@ -65,7 +64,6 @@ protected:
 	CMatchFile*		m_pLastSelectedFile;
 	CQueryHit*		m_pLastSelectedHit;
 
-// Operations
 public:
 	void	Update();
 	void	DestructiveUpdate();
@@ -97,29 +95,27 @@ protected:
 	void	DoDelete();
 	void	DoExpand(BOOL bExpand);
 
-// Overrides
 public:
 	virtual BOOL Create(CMatchList* pMatches, CWnd* pParentWnd);
 	virtual void OnSkinChange();
 
-// Implementation
 public:
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
-	afx_msg void OnSize(UINT nType, int cx, int cy);
-	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 	afx_msg void OnPaint();
+	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
+	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar = NULL);
 	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar = NULL);
-	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
-	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
 	afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
-	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
 	afx_msg BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
+	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnChangeHeader(NMHDR* pNotifyStruct, LRESULT* pResult);
 	afx_msg void OnClickHeader(NMHDR* pNotifyStruct, LRESULT* pResult);

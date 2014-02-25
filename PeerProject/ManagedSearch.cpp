@@ -1,7 +1,7 @@
 //
 // ManagedSearch.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -227,9 +227,15 @@ BOOL CManagedSearch::ExecuteNeighbours(const DWORD tTicks, const DWORD tSecs)
 {
 	ASSUME_LOCK( SearchManager.m_pSection );
 
+	CSingleLock pLock( &Network.m_pSection );
+	if ( ! SafeLock( pLock ) )
+		return FALSE;
+
 	int nCount = 0;
 	for ( POSITION pos = Neighbours.GetIterator() ; pos ; )
 	{
+		if ( ! SafeLock( pLock ) ) continue;
+
 		CNeighbour* pNeighbour = Neighbours.GetNext( pos );
 		const DWORD& nAddress = pNeighbour->m_pHost.sin_addr.S_un.S_addr;
 
@@ -243,15 +249,15 @@ BOOL CManagedSearch::ExecuteNeighbours(const DWORD tTicks, const DWORD tSecs)
 
 		// Request more ed2k results (if appropriate)
 			 // If we've queried this neighbour 'recently'
+			 // and we've waited a little while to ensure search is still active
 			 // and it's an ed2k server and has more results
 			 // and this search is the one with results waiting
-			 // and we've waited a little while to ensure search is still active
 		if ( m_bAllowED2K &&
 			 pNeighbour->m_nProtocol == PROTOCOL_ED2K &&
 			 tSecs - pNeighbour->m_tLastQuery < 86400 &&	// 1 day
+			 m_tMoreResults + 10000 < tTicks &&
 			 pNeighbour->m_oMoreResultsGUID &&
-			 IsEqualGUID( pNeighbour->m_oMoreResultsGUID ) &&
-			 m_tMoreResults + 10000 < tTicks )
+			 IsEqualGUID( pNeighbour->m_oMoreResultsGUID ) )
 		{
 			// Request more results
 			pNeighbour->Send( CEDPacket::New( ED2K_C2S_MORERESULTS ) );
@@ -265,6 +271,8 @@ BOOL CManagedSearch::ExecuteNeighbours(const DWORD tTicks, const DWORD tSecs)
 			theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("Asking ed2k neighbour for additional search results") );
 			continue;
 		}
+
+		pLock.Unlock();
 
 		// Check enabled networks, and do not hammer neighbours for search results
 		switch ( pNeighbour->m_nProtocol )
@@ -522,21 +530,25 @@ BOOL CManagedSearch::ExecuteG2Mesh(const DWORD /*tTicks*/, const DWORD tSecs)
 			}
 			else
 			{
-				// Otherwise, we need to find a neighbour G2 hub who has acked this query already
-				for ( POSITION pos = Neighbours.GetIterator() ; pos ; pCacheHub = NULL )
+				CSingleLock pLock( &Network.m_pSection );
+				if ( SafeLock( pLock ) )
 				{
-					pCacheHub = Neighbours.GetNext( pos );
-					DWORD nTemp;
-
-					if ( m_pNodes.Lookup( pCacheHub->m_pHost.sin_addr.s_addr, nTemp ) )
+					// Otherwise, we need to find a neighbour G2 hub who has acked this query already
+					for ( POSITION pos = Neighbours.GetIterator() ; pos ; pCacheHub = NULL )
 					{
-						if ( pCacheHub->m_nProtocol == PROTOCOL_G2 &&
-							 pCacheHub->m_nNodeType == ntHub )
+						pCacheHub = Neighbours.GetNext( pos );
+
+						DWORD nTemp;
+						if ( m_pNodes.Lookup( pCacheHub->m_pHost.sin_addr.s_addr, nTemp ) )
 						{
-							pReceiver = &pCacheHub->m_pHost;
-							if ( ! ((CG2Neighbour*)pCacheHub)->m_bCachedKeys )
-								pCacheHub = NULL;
-							break;
+							if ( pCacheHub->m_nProtocol == PROTOCOL_G2 &&
+								 pCacheHub->m_nNodeType == ntHub )
+							{
+								pReceiver = &pCacheHub->m_pHost;
+								if ( ! ((CG2Neighbour*)pCacheHub)->m_bCachedKeys )
+									pCacheHub = NULL;
+								break;
+							}
 						}
 					}
 				}

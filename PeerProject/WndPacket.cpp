@@ -1,7 +1,7 @@
 //
 // WndPacket.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -146,8 +146,7 @@ int CPacketWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CPanelWnd::OnCreate( lpCreateStruct ) == -1 ) return -1;
 
-	m_wndList.Create( WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_CHILD | WS_VISIBLE |
-		LVS_AUTOARRANGE | LVS_REPORT | LVS_SHOWSELALWAYS,
+	m_wndList.Create( WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_CHILD | WS_VISIBLE | LVS_AUTOARRANGE | LVS_REPORT | LVS_SHOWSELALWAYS,
 		rectDefault, this, IDC_PACKETS );
 	m_pSizer.Attach( &m_wndList );
 
@@ -313,12 +312,12 @@ void CPacketWnd::SmartDump(const CPacket* pPacket, const SOCKADDR_IN* pAddress, 
 	CString strNow;
 	strNow.Format( _T("%0.2i:%0.2i:%0.2i"),
 		pNow.GetHour(), pNow.GetMinute(), pNow.GetSecond() );
-	const CString sAddress( inet_ntoa( pAddress->sin_addr ) );
-	const CString sProtocol( protocolAbbr[ pPacket->m_nProtocol ] );
+	const CString strAddress( inet_ntoa( pAddress->sin_addr ) );
+	const CString strProtocol( protocolAbbr[ pPacket->m_nProtocol ] );
 
 	pItem->Set( COL_TIME,	strNow );
-	pItem->Set( COL_ADDRESS, bUDP ? _T("(") + sAddress + _T(")") : sAddress );
-	pItem->Set( COL_PROTOCOL, sProtocol + ( bUDP ? _T(" UDP") : _T(" TCP") ) );
+	pItem->Set( COL_ADDRESS, bUDP ? _T("(") + strAddress + _T(")") : strAddress );
+	pItem->Set( COL_PROTOCOL, strProtocol + ( bUDP ? _T(" UDP") : _T(" TCP") ) );
 	pItem->Set( COL_TYPE,	pPacket->GetType() );
 	pItem->Set( COL_HEX,	pPacket->ToHex() );
 	pItem->Set( COL_ASCII,	pPacket->ToASCII() );
@@ -415,7 +414,8 @@ void CPacketWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 {
 	CMenu pMenu, pHosts[2], pTypesG1, pTypesG2, pTypesED, pTypesDC, pTypesBT;
 
-	CSingleLock pLock( &Network.m_pSection, TRUE );
+	CSingleLock pLock( &Network.m_pSection );
+	if ( ! SafeLock( pLock) ) return;
 
 	for ( int nGroup = 0 ; nGroup < 2 ; nGroup++ )
 	{
@@ -452,6 +452,8 @@ void CPacketWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 		pTypesG2.AppendMenu( MF_STRING|( m_bTypeG2[ nType ] ? MF_CHECKED : 0 ), ID_BASE_G2 + nType, CString( tmp ) );
 	}
 
+	pLock.Unlock();
+
 // ToDo: Filter packet types for other networks
 //	pTypesED.CreatePopupMenu();
 //	pTypesED.AppendMenu( MF_STRING|( m_bTypeED ? MF_CHECKED : 0 ), ID_BASE_ED2K, LoadString( IDS_GENERAL_ALL ) );
@@ -483,8 +485,6 @@ void CPacketWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 
 	m_pCoolMenu = new CCoolMenu();
 	m_pCoolMenu->AddMenu( &pMenu, TRUE );
-
-	pLock.Unlock();
 
 	m_pCoolMenu->SetWatermark( Skin.GetWatermark( _T("CCoolMenu") ) );
 
@@ -589,11 +589,9 @@ void CPacketWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 	{
 		*pModify = 0;
 	}
-	else
+	else if ( SafeLock( pLock ) )
 	{
-		pLock.Lock();
 		nCmd -= 2;
-
 		for ( POSITION pos = Neighbours.GetIterator() ; pos ; nCmd-- )
 		{
 			CNeighbour* pNeighbour = Neighbours.GetNext( pos );
@@ -603,6 +601,7 @@ void CPacketWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 				break;
 			}
 		}
+		pLock.Unlock();
 	}
 
 	Invalidate();

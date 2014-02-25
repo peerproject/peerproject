@@ -48,6 +48,7 @@ CFileCopyDlg::CFileCopyDlg(CWnd* pParent, BOOL bMove)
 	, m_nFileProg	( 0 )
 	, m_nCookie 	( 0 )
 	, m_bCancel		( FALSE )
+	, m_bCompleted	( false )
 {
 }
 
@@ -121,7 +122,7 @@ BOOL CFileCopyDlg::OnInitDialog()
 
 void CFileCopyDlg::OnTimer(UINT_PTR /*nIDEvent*/)
 {
-	if ( IsThreadCompleted() )
+	if ( m_bCompleted )
 	{
 		StopOperation();
 		PostMessage( WM_COMMAND, IDCANCEL );
@@ -200,6 +201,7 @@ void CFileCopyDlg::StartOperation()
 	m_wndProgress.SetPos( 0 );
 
 	m_bCancel = FALSE;
+	m_bCompleted = false;
 	BeginThread( "DlgFileCopy" );
 }
 
@@ -209,10 +211,10 @@ void CFileCopyDlg::StopOperation()
 
 	CWaitCursor pCursor;
 
+	m_bCancel = TRUE;
 	CloseThread();
 
-	//m_wndCancel.SetWindowText( _T("&Close") );
-	m_wndCancel.SetWindowText( LoadString( IDS_GENERAL_CLOSE ) );
+	m_wndCancel.SetWindowText( LoadString( IDS_GENERAL_CLOSE ) );	// _T("&Close")
 	m_wndProgress.EnableWindow( FALSE );
 }
 
@@ -314,6 +316,8 @@ void CFileCopyDlg::OnRun()
 	//		ProcessFile( strName, strPath, bMetaData );
 	//	}
 	}
+
+	m_bCompleted = true;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -349,7 +353,8 @@ bool CFileCopyDlg::ProcessFile(const CString& strName, const CString& strPath)
 				return false;
 			}
 		}
-		CloseHandle( hFile );
+		else
+			CloseHandle( hFile );
 	}
 
 	// Copy/Move the file

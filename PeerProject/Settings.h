@@ -28,14 +28,13 @@ enum
 
 class CSettingsItem;
 
+
 class CSettings
 {
-// Construction
 public:
 	CSettings();
 	virtual ~CSettings();
 
-// Attributes
 public:
 
 	struct sGeneral
@@ -61,6 +60,7 @@ public:
 		bool		HashIntegrity;
 		bool		RatesInBytes;			// Show speeds in bits or Bytes per second
 		DWORD		RatesUnit;				// Units that rates are to be displayed in (B/KB/MB)
+		DWORD		LockTimeout;			// Timeout release for overloaded lock attempts
 		DWORD		LastSettingsIndex;		// Top item index of Advanced Settings list
 		CString		LastSettingsPage;		// Last selected Settings dialog page
 		CString		Language;
@@ -624,6 +624,7 @@ public:
 		bool		HubUnshare;
 		bool		AutoClear;				// Remove completed uploads
 		DWORD		ClearDelay;				// Delay between auto-clears
+		DWORD		History;				// Completed uploads display count
 		DWORD		FilterMask;
 		DWORD		RewardQueuePercentage;	// The percentage of each reward queue reserved for uploaders
 	} Uploads;
@@ -848,7 +849,6 @@ protected:
 	typedef std::map< CString, Item* > CSettingsMap;
 	CSettingsMap m_pSettingsTable;
 
-// Operations
 public:
 	void	Load();
 	void	Save(BOOL bShutdown = FALSE);
@@ -896,7 +896,7 @@ public:
 	BOOL	CheckStartup();
 	void	SetStartup(BOOL bStartup);
 
-	void    ClearSearches();	// Delete search history
+	void	ClearSearches();	// Delete search history
 
 protected:
 	void	SmartUpgrade();

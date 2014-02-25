@@ -61,32 +61,32 @@
 			var span = null;
 
 			if(document.getElementById) span = document.getElementById(id);
-			if(!span) { alert("Your version of Internet Explorer is too old, please update it."); document.body.innerHTML = ""; return; }
+			if(!span) { alert("Your browser version is unsupported. Please check Internet Explorer."); document.body.innerHTML = ""; return; }
 
 			var sState = window.external.detect( sBitprint );
 			if ( sState == "Complete" )
 			{
-				span.innerHTML = "<a href='javascript:doPlay(\"" + sBitprint + "\")' title='$1$'>$1$</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-				span.innerHTML += "<a href='javascript:doEnqueue(\"" + sBitprint + "\")' title='$10$'>$10$</a>";
+				span.innerHTML  = "<a href='javascript:doPlay(\"" + sBitprint + "\")' title='$1$'>$1$</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+				span.innerHTML += "<a href='javascript:doEnqueue(\"" + sBitprint + "\")' title='$2$'>$2$</a>";
 			}
 			else if ( sState == "0.00%" )
 			{
-				span.innerHTML = "$2$";
+				span.innerHTML = "$3$";
 			}
 			else if ( sState.indexOf( "%" ) >= 0 )
 			{
 				var nBarSize = 100;
 				var nBarUsed = Math.round( parseFloat( sState ) / 100 * nBarSize );
-				span.innerHTML = "<img src='images\/bar_on.gif' width='" + nBarUsed + "' height='12' alt='" + sState + "'/><img src='images\/bar_off.gif' width='" + ( nBarSize - nBarUsed ) + "' height='12' alt='" + sState + "'/>";
+				span.innerHTML = "<img src='Images\/bar_on.gif' width='" + nBarUsed + "' height='12' alt='" + sState + "'/><img src='images\/bar_off.gif' width='" + ( nBarSize - nBarUsed ) + "' height='12' alt='" + sState + "'/>";
 			}
 			else
 			{
-				span.innerHTML = "<a class='DLLink' href='javascript:doDownload(\"" + sBitprint + "," + sEd2kHash + "," + sMD5 + "," + nSize + "," + sName + "\")' title='$3$'>$3$</a>";
+				span.innerHTML = "<a class='DLLink' href='javascript:doDownload(\"" + sBitprint + "," + sEd2kHash + "," + sMD5 + "," + nSize + "," + sName + "\")' title='$4$'>$4$</a>";
 			}
 		}
 		else
 		{
-			document.writeln( "<a class='DLLink' href=\"magnet:?xt=" + sBitprint + "&xt=" + sEd2kHash + "&xt=" + sMD5 + "&xl=" + nSize + "&dn=" + sName + "\" title='$3$'>$3$</a>" );
+			document.writeln( "<a class='DLLink' href=\"magnet:?xt=" + sBitprint + "&xt=" + sEd2kHash + "&xt=" + sMD5 + "&xl=" + nSize + "&dn=" + sName + "\" title='$4$'>$4$</a>" );
 		}
 	}
 -->
@@ -98,8 +98,8 @@
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 	<tbody>
 		<tr>
-			<td style="background-image: url('images/bg.png');" align="left" valign="top"><a href="http://peerproject.org/?id=download"><img src="images/Top.png" width="601" height="50" border="0" alt="PeerProject P2P"/></a></td>
-			<td style="background: url('images/TopRepeat.png') repeat-x;" width="100%">&nbsp;</td>
+			<td style="background-image: url('Images/bg.png');" align="left" valign="top"><a href="http://peerproject.org/?id=download"><img src="images/Top.png" width="601" height="50" border="0" alt="PeerProject P2P"/></a></td>
+			<td style="background: url('Images/TopRepeat.png') repeat-x;" width="100%">&nbsp;</td>
 		</tr>
 		<tr>
 			<td align="left" valign="top" bgcolor="#EEEEEE" colspan="2">
@@ -107,14 +107,14 @@
 				<table width="100%" border="0" cellspacing="0" cellpadding="10" style="border-bottom: 1px solid #999999;">
 					<tr>
 						<td colspan="2" style="padding: 0px; padding-top: 10px; padding-left: 10px;">
-							<span class="nfo">$4$</span>
+							<span class="nfo">$10$</span>
 						</td>
 					</tr>
 					<tr>
 						<td width="50px" align="left" valign="middle" style="padding-top: 2px;">
-							<img src="images/res.gif" width="23" height="23" alt="$5$"/>
+							<img src="Images/res.gif" width="23" height="23" alt="$11$"/>
 						</td>
-						<td width="100%" style="padding-left: 5px; padding-top: 0px;">$5$</td>
+						<td width="100%" style="padding-left: 5px; padding-top: 0px;">$11$</td>
 					</tr>
 				</table>
 
@@ -128,9 +128,9 @@
 
 				<table width="100%" border="0" cellspacing="0" cellpadding="15">
 					<tbody>
-<!-- Start data from oddfile.tpl and evenfile.tpl -->
+<!-- Start data from oddfile.tpl & evenfile.tpl -->
 $data$
-<!-- End data from oddfile.tpl and evenfile.tpl -->
+<!-- End data from oddfile.tpl & evenfile.tpl -->
 
 						<tr>
 							<td width="173"></td>
@@ -138,7 +138,7 @@ $data$
 								<br/>
 								<span class="nfo">
 									<strong>
-										<a href="javascript:doDownloadAll()" title="$11$">$11$</a>
+										<a href="javascript:doDownloadAll()" title="$5$">$5$</a>
 									</strong>
 								</span>
 							</td>
@@ -153,7 +153,7 @@ $data$
 						<tr>
 							<td align="left" valign="top">
 								<span class="release">
-										<a>release information</a>
+									<a>release information</a>
 								</span>
 								<a>
 									<br/>
@@ -228,8 +228,7 @@ $data$
 		else
 		{
 			resetVars();
-
-			setUpdateTimer();				// Resume the auto-update of the page
+			setUpdateTimer();							// Resume the auto-update of the page
 		}
 	}
 
@@ -240,7 +239,7 @@ $data$
 		else if( document.getElementsByTagName )
 			links = document.getElementsByTagName("a");
 		else
-			{ alert("The version of your browser is too old, please update it."); return; }
+			{ alert("Your browser version is unsupported."); return; }
 
 		if( update_timer ) clearInterval(update_timer);	// Stop the auto-update of the page (It will be resumed at the end of the process)
 		update_timer = null;

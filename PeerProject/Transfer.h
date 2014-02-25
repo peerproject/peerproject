@@ -1,7 +1,7 @@
 //
 // Transfer.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -25,12 +25,10 @@ class CBuffer;
 
 class CTransfer abstract : public CConnection
 {
-// Construction
 public:
 	CTransfer(PROTOCOLID nProtocol = PROTOCOL_ANY);
 	virtual ~CTransfer();
 
-// Attributes
 public:
 	SOCKADDR_IN			m_pServer;			// Reference server (ED2K, DC++)
 	CString				m_sRemoteNick;		// Remote user nick
@@ -46,7 +44,6 @@ public:
 	DWORD				m_nBandwidth;		// Bandwidth allocated
 	DWORD				m_tRequest;			// The time a request was sent
 
-// Operations
 public:
 	virtual BOOL	ConnectTo(const IN_ADDR* pAddress, WORD nPort);
 	virtual void	AttachTo(CConnection* pConnection);

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Dutch Skin File -->
 
-<!-- Translation based on default-en.xml r102 -->
+<!-- Translation based on default-en.xml r104 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -594,9 +594,7 @@
 					<item id="ID_HELP_FORUMS" text="PeerProject _forums"/>
 					<item id="ID_HELP_FORUMS_LOCAL" text="_Nederlands forum"/>
 					<!-- <item id="ID_HELP_UPDATE" text="Laatste nieuws"/>
-					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-					<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
-					<item id="ID_HELP_VERSION_CHECK" text="Check voor een beschikbare update"/>
+					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->					<item id="ID_HELP_VERSION_CHECK" text="Check voor een beschikbare update"/>
 				</menu>
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<separator/>
@@ -695,9 +693,7 @@
 				<item id="ID_HELP_FORUMS" text="PeerProject _forums"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_Nederlands forum"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Laatste nieuws"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
-				<item id="ID_HELP_VERSION_CHECK" text="Check voor een beschikbare update"/>
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->				<item id="ID_HELP_VERSION_CHECK" text="Check voor een beschikbare update"/>
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_Over PeerProject..."/>
@@ -764,9 +760,7 @@
 				<item id="ID_HELP_FORUMS" text="PeerProject _forums"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_Nederlands forum"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Laatste nieuws"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
-				<item id="ID_HELP_VERSION_CHECK" text="Check voor een beschikbare update"/>
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->				<item id="ID_HELP_VERSION_CHECK" text="Check voor een beschikbare update"/>
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_Over PeerProject..."/>
@@ -855,8 +849,7 @@
 				<item id="ID_HELP_FORUMS" text="PeerProject _forums"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_Nederlands forum"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Laatste nieuws"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 				<item id="ID_HELP_VERSION_CHECK" text="Check voor een beschikbare update"/>
 			</menu>
 			<separator/>
@@ -3340,9 +3333,9 @@
 	<string id="20874" value="URL:"/>
 	<string id="20875" value="Niet gespecificeerd"/>
 	<string id="20880" value="Mijn profiel aanpassen"/>
-	<string id="20881" value="%u bestanden geselecteerd. Ben je zeker?"/>
-	<string id="20882" value="Geen URN beschikbaar"/>
-	<string id="20883" value="UPnP Device Host Service is not running. This service is required to perform the setup.\nYou need to set the startup type of the service to automatic."/>
+	<string id="20882" value="%u bestanden geselecteerd. Ben je zeker?"/>
+	<string id="20883" value="Geen URN beschikbaar"/>
+	<string id="20884" value="UPnP Device Host Service is not running. This service is required to perform the setup.\nYou need to set the startup type of the service to automatic."/>
 	<string id="20885" value="Als je van stijl verandert, worden alle geopende vensters gesloten. Wil je nu veranderen?"/>
 	<string id="20886" value="Veranderen van leesrichting vereist het heropstarten van PeerProject.\n\nNu afsluiten?"/>
 	<string id="20890" value="Welkom bij PeerProject"/>
@@ -3448,16 +3441,6 @@
 		<control caption="_Selecteer Plugin..."/>
 		<control caption="Opgepast: Een externe Mediaspeler kiezen zal alle Media en Visualisate Plugins uitschakelen."/>
 	</dialog>
-	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Gemeenschap">
-		<control caption="Gnutella gebruikersprofiel:"/>
-		<control caption="Je kunt je profiel gebruiken om informatie met anderen uit te wisselen over jezelf, je interesses en favoriete bestanden en internetsites."/>
-		<control caption="Profiel aanpassen"/>
-		<control caption="_Chatten:"/>
-		<control caption="P2P chatten mogelijk maken met passende cliënten"/>
-		<control caption="Chatten mogelijk maken op alle netwerken"/>
-		<control caption="Filter chatberichten op spam"/>
-		<control caption="Verberg scheldwoorden in chatberichten"/>
-	</dialog>
 	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdmsStStEdmsCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStCoStEdStEd" caption="IRC/Chat">
 		<control caption="Client _Opties:"/>
 		<control caption="Toon de chat integratie"/>
@@ -3501,6 +3484,28 @@
 		<control/>
 		<control caption="On-connect"/>
 		<control/>
+	</dialog>
+	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Gemeenschap">
+		<control caption="Gnutella gebruikersprofiel:"/>
+		<control caption="Je kunt je profiel gebruiken om informatie met anderen uit te wisselen over jezelf, je interesses en favoriete bestanden en internetsites."/>
+		<control caption="Profiel aanpassen"/>
+		<control caption="_Chatten:"/>
+		<control caption="P2P chatten mogelijk maken met passende cliënten"/>
+		<control caption="Chatten mogelijk maken op alle netwerken"/>
+		<control caption="Filter chatberichten op spam"/>
+		<control caption="Verberg scheldwoorden in chatberichten"/>
+	</dialog>
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Toegang vanaf afstand">
+		<control caption="_Inschakelen:"/>
+		<control caption="PeerProject's afstandsbediening inschakelen:"/>
+		<control/>
+		<control caption="_Gegevens:"/>
+		<control caption="Kies pseudoniem:"/>
+		<control caption="Kies wachtwoord:"/>
+		<control/>
+		<control/>
+		<control caption="Handleiding:"/>
+		<control caption="PeerProject's Web Interface maakt het mogelijk om PeerProject op je PC te laten draaien, en het op afstand te bedienen via een browser. Je moet wel binnenkomende verbindingen kunnen ontvangen om gebruik te kunnen maken van deze functie zoals een goed ingestelde router."/>
 	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Internet">
 		<control caption="_Peer-To-Peer Snelkoppelingsverwerker:"/>
@@ -3588,25 +3593,13 @@
 		<control caption="Limiet:"/>
 		<control/>
 		<control caption="Modus:"/>
-		<control caption="Maximaal|Ongeveer"/>
+		<control caption="Ongeveer|Maximaal/Streng"/>
 		<control caption="_Wachtrijen:"/>
 		<control/>
 		<control caption="_Nieuw"/>
 		<control caption="_Bewerken"/>
 		<control caption="_Wissen"/>
 		<control caption="(Aanpassingen werken meteen)"/>
-	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Toegang vanaf afstand">
-		<control caption="_Inschakelen:"/>
-		<control caption="PeerProject's afstandsbediening inschakelen:"/>
-		<control/>
-		<control caption="_Gegevens:"/>
-		<control caption="Kies pseudoniem:"/>
-		<control caption="Kies wachtwoord:"/>
-		<control/>
-		<control/>
-		<control caption="Handleiding:"/>
-		<control caption="PeerProject's Web Interface maakt het mogelijk om PeerProject op je PC te laten draaien, en het op afstand te bedienen via een browser. Je moet wel binnenkomende verbindingen kunnen ontvangen om gebruik te kunnen maken van deze functie zoals een goed ingestelde router."/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="Netwerken">
 		<control caption="PeerProject kan met meerdere P2P netwerken tegelijkertijd verbinden. Je kunt hier selecteren met welke P2P netwerken je verbinding wilt maken en vervolgens voor elk netwerk de specifieke instellingen aanpassen."/>

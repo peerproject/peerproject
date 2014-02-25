@@ -1,7 +1,7 @@
 //
 // DownloadTransferED2K.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -25,12 +25,10 @@ class CEDPacket;
 
 class CDownloadTransferED2K : public CDownloadTransfer
 {
-// Construction
 public:
 	CDownloadTransferED2K(CDownloadSource* pSource);
 	virtual ~CDownloadTransferED2K();
 
-// Attributes
 public:
 	CEDClient*		m_pClient;
 	bool			m_bUDP;
@@ -46,7 +44,6 @@ protected:
 	QWORD			m_nInflateRead;
 	QWORD			m_nInflateWritten;
 
-// Operations
 public:
 	BOOL	OnRunEx(DWORD tNow);
 	BOOL	OnFileReqAnswer(CEDPacket* pPacket);

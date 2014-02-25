@@ -791,7 +791,7 @@ void CLibraryFolder::OnFileRename(CLibraryFile* pFile)
 }
 
 //////////////////////////////////////////////////////////////////////
-// CLibraryFolders maintain physical folder
+// CLibraryFolders maintain physical folder (desktop.ini)
 
 void CLibraryFolder::Maintain(BOOL bAdd)
 {
@@ -801,72 +801,102 @@ void CLibraryFolder::Maintain(BOOL bAdd)
 	if ( theApp.m_nWinVer < WIN_XP ) return;	// Not Win2K icons?
 #endif
 
-	CString strDesktopINI( m_sPath + _T("\\desktop.ini") );
-	DWORD dwDesktopINIAttr = GetFileAttributes( strDesktopINI );
-	const BOOL bExists = ( dwDesktopINIAttr != INVALID_FILE_ATTRIBUTES );
-
-	// Check if this is our desktop.ini
-	CString strPath;
-	if ( bExists )
-	{
-		GetPrivateProfileString( _T(".ShellClassInfo"), _T("IconFile"), _T(""),
-			strPath.GetBuffer( MAX_PATH ), MAX_PATH, strDesktopINI );
-		strPath.ReleaseBuffer();
-		if ( strPath.IsEmpty() )
-			GetPrivateProfileString( _T(".ShellClassInfo"), _T("IconResource"), _T(""),
-				strPath.GetBuffer( MAX_PATH ), MAX_PATH, strDesktopINI );
-		strPath.ReleaseBuffer();
-		strPath.MakeLower();
-	}
-	const BOOL bOur = ( strPath.Find( _T("peerproject") ) > 1 );
-
 	if ( ! Settings.Library.UseCustomFolders )
 		bAdd = FALSE;
 
-	if ( bAdd && ( bOur || ! bExists ) )
+	CString strDesktopINI( m_sPath + _T("\\desktop.ini") );
+	DWORD dwDesktopINIAttr = GetFileAttributes( strDesktopINI );
+
+	CString strIconResource;
+	CString strInfoTip = LoadString( IDS_FOLDER_TIP );
+	CString strIconIndex = _T("0");
+	CString strIconFile = Settings.General.Path + ( theApp.m_nWinVer >= WIN_VISTA ?
+		_T("\\Schemas\\WindowsFolder.ico") : _T("\\Schemas\\WindowsFolder.Safe.ico") );
+	if ( ! PathFileExists( strIconFile ) )
 	{
-		// Remove Hidden and System attributes
-		BOOL bChanged = FALSE;
-		if ( bExists && ( dwDesktopINIAttr & ( FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM ) ) )
-			bChanged = SetFileAttributes( strDesktopINI, dwDesktopINIAttr & ~( FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM ) );
-
-		CString strIconFile = Settings.General.Path + ( theApp.m_nWinVer >= WIN_VISTA ?
-			_T("\\Schemas\\WindowsFolder.ico") : _T("\\Schemas\\WindowsFolder.Safe.ico") );
-		if ( PathFileExists( strIconFile ) )
-		{
-			WritePrivateProfileString( _T(".ShellClassInfo"), _T("ConfirmFileOp"), _T("0"), strDesktopINI );
-			WritePrivateProfileString( _T(".ShellClassInfo"), _T("InfoTip"), LoadString( IDS_FOLDER_TIP ), strDesktopINI );
-			WritePrivateProfileString( _T(".ShellClassInfo"), _T("IconFile"), strIconFile, strDesktopINI );
-			WritePrivateProfileString( _T(".ShellClassInfo"), _T("IconIndex"), _T("0"), strDesktopINI );
-		}
-		else
-		{
-			strIconFile = Skin.GetImagePath( IDI_COLLECTION );
-			//CString strIconIndex( _T("0") );
-			//int nPos = strIconFile.ReverseFind( _T(',') );
-			//if ( nPos != -1 && nPos > strIconFile.ReverseFind( _T('\\') ) )
-			//{
-			//	strIconIndex = strIconFile.Mid( nPos + 1 );
-			//	strIconFile  = strIconFile.Left( nPos );
-			//}
-			WritePrivateProfileString( _T(".ShellClassInfo"), _T("ConfirmFileOp"), _T("0"), strDesktopINI );
-			WritePrivateProfileString( _T(".ShellClassInfo"), _T("InfoTip"), LoadString( IDS_FOLDER_TIP ), strDesktopINI );
-			WritePrivateProfileString( _T(".ShellClassInfo"), _T("IconResource"), strIconFile, strDesktopINI );
-		}
-
-		if ( bChanged )
-			SetFileAttributes( strDesktopINI, dwDesktopINIAttr | ( FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM ) );
-
-		PathMakeSystemFolder( m_sPath );
+		strIconResource = Skin.GetImagePath( IDI_COLLECTION );
+		int nPos = strIconResource.ReverseFind( _T(',') );
+		strIconIndex = strIconResource.Mid( nPos + 1 );
+		strIconFile  = strIconResource.Left( nPos );
 	}
-	else if ( bOur )
+
+	// Check if file exists, is our desktop.ini, and requires changes
+	if ( dwDesktopINIAttr == INVALID_FILE_ATTRIBUTES )
 	{
-		PathUnmakeSystemFolder( m_sPath );
+		if ( ! bAdd )
+			return;
 
-		SetFileAttributes( strDesktopINI, dwDesktopINIAttr & ~( FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM ) );
-
-		DeleteFileEx( strDesktopINI, FALSE, FALSE, FALSE );
+		// New Unicode File
+		CFile file;
+		WORD wMark = 0xfeff;
+		if ( file.Open( strDesktopINI, CFile::modeCreate | CFile::modeWrite ) )
+		{
+			file.Write( &wMark, 2 );
+			file.Close();
+		}
 	}
+	else
+	{
+		CString strIconFileGet;
+		GetPrivateProfileString( _T(".ShellClassInfo"), _T("IconFile"), _T(""),
+			strIconFileGet.GetBuffer( MAX_PATH ), MAX_PATH, strDesktopINI );
+		strIconFileGet.ReleaseBuffer();
+		strIconFileGet.Trim();
+
+		if ( ! strIconFileGet.IsEmpty() &&
+			 ! StartsWith( strIconFileGet, Settings.General.Path ) &&
+			 strIconFileGet.Find( _T("PeerProject") ) == -1 )
+			return;		// Not ours, no action required (ToDo: Handle Shareaza?)
+
+		if ( ! bAdd )
+		{
+			PathUnmakeSystemFolder( m_sPath );
+			SetFileAttributes( strDesktopINI, dwDesktopINIAttr & ~( FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM | FILE_ATTRIBUTE_READONLY ) );
+			DeleteFileEx( strDesktopINI, FALSE, FALSE, FALSE );
+			return;
+		}
+
+		CString strInfoTipGet, strIconIndexGet, strIconResourceGet;
+
+		GetPrivateProfileString( _T(".ShellClassInfo"), _T("IconIndex"), _T(""),
+			strIconIndexGet.GetBuffer( MAX_PATH ), MAX_PATH, strDesktopINI );
+		strIconIndexGet.ReleaseBuffer();
+		strIconIndexGet.Trim();
+
+		GetPrivateProfileString( _T(".ShellClassInfo"), _T("InfoTip"), _T(""),
+			strInfoTipGet.GetBuffer( MAX_PATH ), MAX_PATH, strDesktopINI );
+		strInfoTipGet.ReleaseBuffer();
+		strInfoTipGet.Trim();
+
+		GetPrivateProfileString( _T(".ShellClassInfo"), _T("IconResource"), _T(""),
+			strIconResourceGet.GetBuffer( MAX_PATH ), MAX_PATH, strDesktopINI );
+		strIconResourceGet.ReleaseBuffer();
+		strIconResourceGet.Trim();
+
+		if ( ! strIconResourceGet.IsEmpty() && ! StartsWith( strIconResourceGet, Settings.General.Path ) )
+			return;		// Not ours?
+
+		if ( strInfoTip.Compare( strInfoTipGet ) == 0 &&
+			 strIconFile.Compare( strIconFileGet ) == 0 &&
+			 strIconIndex.Compare( strIconIndexGet ) == 0 &&
+			 strIconResource.Compare( strIconResourceGet ) == 0 )
+			return;		// No action required
+
+		// Remove Hidden and System attributes temporarily
+		if ( ( dwDesktopINIAttr & ( FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM ) ) )
+			SetFileAttributes( strDesktopINI, dwDesktopINIAttr & ~( FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM ) );
+	}
+
+	WritePrivateProfileString( _T(".ShellClassInfo"), _T("ConfirmFileOp"), _T("0"), strDesktopINI );
+	WritePrivateProfileString( _T(".ShellClassInfo"), _T("InfoTip"), strInfoTip, strDesktopINI );
+	WritePrivateProfileString( _T(".ShellClassInfo"), _T("IconFile"), strIconFile, strDesktopINI );
+	WritePrivateProfileString( _T(".ShellClassInfo"), _T("IconIndex"), strIconIndex, strDesktopINI );
+	if ( ! strIconResource.IsEmpty() )
+		WritePrivateProfileString( _T(".ShellClassInfo"), _T("IconResource"), strIconResource, strDesktopINI );
+
+	SetFileAttributes( strDesktopINI, dwDesktopINIAttr | ( FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM ) );
+
+	PathMakeSystemFolder( m_sPath );
 }
 
 //////////////////////////////////////////////////////////////////////

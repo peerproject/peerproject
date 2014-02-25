@@ -1,7 +1,7 @@
 //
 // EDClients.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -26,7 +26,6 @@ class CEDPacket;
 
 class CEDClients
 {
-// Construction
 public:
 	CEDClients();
 	virtual ~CEDClients();
@@ -35,9 +34,9 @@ private:
 	CEDClients(const CEDClients&);				// Declaration only
 	CEDClients& operator=(const CEDClients&);	// Declaration only
 
-// Attributes
 public:
 	mutable CMutex	m_pSection;		// EDClients Guard
+
 private:
 	CEDClient*		m_pFirst;
 	CEDClient*		m_pLast;
@@ -49,7 +48,6 @@ private:
 	DWORD			m_nLastServerKey;
 	BOOL			m_bAllServersDone;
 
-// Operations
 public:
 	void			Add(CEDClient* pClient);
 	void			Remove(CEDClient* pClient);

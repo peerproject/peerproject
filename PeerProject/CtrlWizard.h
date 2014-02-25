@@ -1,7 +1,7 @@
 //
 // CtrlWizard.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -18,9 +18,10 @@
 
 #pragma once
 
-#include "AlbumFolder.h"
-
 class CXMLElement;
+class CAlbumFolder;
+class CLibraryFile;
+
 
 class CWizardCtrl : public CWnd
 {
@@ -29,67 +30,61 @@ class CWizardCtrl : public CWnd
 public:
 	CWizardCtrl();
 	virtual ~CWizardCtrl();
-friend class CCollectionExportDlg;
 
-// Attributes
 public:
+	virtual BOOL Create(DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID, LPCTSTR pszXMLPath, const CAlbumFolder* pFolder);
+
+public:
+	CString m_sMainFilePath;
+	CString m_sEvenFilePath;
+	CString m_sOddFilePath;
+
+	CArray< CString > m_pFileDocs;	// All documents for each file
+	CArray< CString > m_pFilePaths;	// All file paths
+	CArray< CString > m_pImagePaths;
+	CArray< CString > m_pTemplatePaths;
+	CMap< CString, const CString&, CString, const CString& > m_pItems;
+
+protected:
 	int		m_nCaptionWidth;
 	int		m_nItemHeight;
 	BOOL	m_bShowBorder;
 	BOOL	m_bValid;
-	CString	m_sXMLPath;
-	CString	m_sMainFilePath;
-	CString	m_sEvenFilePath;
-	CString	m_sOddFilePath;
 	CString	m_sEvenFile;
 	CString	m_sOddFile;
-	CMap< CString, const CString&, CString, CString& >	m_pItems;
-
-protected:
-	CAlbumFolder*		m_pFolder;
-	CArray< CWnd* >		m_pControls;	// Holds all controls
-	CArray< CString >	m_pCaptions;	// All label texts
-	CArray< CString >	m_pFileDocs;	// All documents for each file
-	CArray< CString >	m_pTemplatePaths;
-	CArray< CString >	m_pImagePaths;
 	int		m_nScroll;
 
-// Operations
+	CArray< CWnd* >   m_pControls;	// Holds all controls
+	CArray< CString > m_pCaptions;	// All label texts
+
+public:
+	size_t	GetSize() const { return m_pControls.GetSize(); }
+	BOOL	IsValid() const { return m_bValid; }
+	BOOL	OnTab();
+
 protected:
 	void	Layout();
+	void	Clear();
+	void	ScrollBy(int nDelta);
 	void	SetFocusTo(CWnd* pCtrl);
 	BOOL	CollectFiles(CXMLElement* pBase);
 	BOOL	CollectImages(CXMLElement* pBase);
-	BOOL	MakeControls(CXMLElement* pBase, std::vector< CLibraryFile* > pList);
+	BOOL	MakeControls(const CString& sXMLPath, CXMLElement* pBase, std::vector< const CLibraryFile* > pList);
+	void	MakeAll(const CString& sXMLPath, const CAlbumFolder* pFolder);
 	BOOL	PrepareDoc(CLibraryFile* pFile, LPCTSTR pszTemplate = _T("") );
 
-public:
-	void	ScrollBy(int nDelta);
-	BOOL	OnTab();
-	void	Clear();
-
-// Overrides
-public:
-	//{{AFX_VIRTUAL(CWizardCtrl)
-	virtual BOOL Create(DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID, LPCTSTR pszXMLPath, CAlbumFolder* pFolder);
 protected:
 	virtual BOOL OnCommand(WPARAM wParam, LPARAM lParam);
-	//}}AFX_VIRTUAL
 
-// Implementation
 protected:
-	//{{AFX_MSG(CWizardCtrl)
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnPaint();
 	afx_msg void OnNcPaint();
 	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
-	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnSetFocus(CWnd* pOldWnd);
-	afx_msg void OnShowWindow(BOOL bShow, UINT nStatus);
 	afx_msg void OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
-public:
 	afx_msg void OnBtnPress();
 	afx_msg void OnDestroy();
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

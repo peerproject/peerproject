@@ -1,7 +1,7 @@
 //
 // WndUploads.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -200,14 +200,14 @@ void CUploadsWnd::OnTimer(UINT_PTR nIDEvent)
 		{
 			CUploadTransfer* pUpload = Uploads.GetNext( pos );
 
-			if ( pUpload->m_nState == upsNull )
-			{
-				if ( ( tNow > pUpload->m_tConnected + Settings.Uploads.ClearDelay ) &&
-					 ( Settings.Uploads.AutoClear || pUpload->m_nUploaded == 0 || nCount > 30 ) )
-					pUpload->Remove( FALSE );
-				else
-					nCount++;
-			}
+			if ( pUpload->m_nState != upsNull )
+				continue;
+
+			if ( ( tNow > pUpload->m_tConnected + Settings.Uploads.ClearDelay ) &&
+				 ( Settings.Uploads.AutoClear || pUpload->m_nUploaded == 0 || nCount > Settings.Uploads.History ) )
+				pUpload->Remove( FALSE );
+			else
+				nCount++;
 		}
 		return;
 	}
@@ -392,18 +392,21 @@ void CUploadsWnd::OnUpdateUploadsDisconnect(CCmdUI* pCmdUI)
 
 void CUploadsWnd::OnUploadsDisconnect()
 {
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! SafeLock( pLock) ) return;
+
 	CList<CUploadFile*> pList;
-
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
-
 	for ( POSITION pos = UploadFiles.GetIterator() ; pos ; )
 	{
 		CUploadFile* pFile = UploadFiles.GetNext( pos );
-		if ( IsSelected( pFile ) ) pList.AddTail( pFile );
+		if ( IsSelected( pFile ) )
+			pList.AddTail( pFile );
 	}
 
 	while ( ! pList.IsEmpty() )
 	{
+		if ( ! SafeLock( pLock) ) continue;
+
 		CUploadFile* pFile = pList.RemoveHead();
 
 		if ( UploadFiles.Check( pFile ) && pFile->GetActive() != NULL )
@@ -417,11 +420,11 @@ void CUploadsWnd::OnUploadsDisconnect()
 				strMessage.Format( strFormat, (LPCTSTR)pUpload->m_sName );
 				pLock.Unlock();
 				INT_PTR nResp = MsgBox( strMessage, MB_ICONQUESTION|MB_YESNOCANCEL|MB_DEFBUTTON2 );
-				pLock.Lock();
 				if ( nResp == IDCANCEL )
 					break;
 				if ( nResp != IDYES || ! Uploads.Check( pUpload ) )
 					continue;
+				pLock.Lock();
 			}
 
 			pUpload->Close( TRUE );
@@ -506,9 +509,10 @@ void CUploadsWnd::OnUpdateUploadsClear(CCmdUI* pCmdUI)
 
 void CUploadsWnd::OnUploadsClear()
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
-	CList<CUploadFile*> pList;
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! SafeLock( pLock) ) return;
 
+	CList<CUploadFile*> pList;
 	for ( POSITION pos = UploadFiles.GetIterator() ; pos ; )
 	{
 		CUploadFile* pFile = UploadFiles.GetNext( pos );
@@ -551,10 +555,10 @@ void CUploadsWnd::OnUpdateUploadsLaunch(CCmdUI* pCmdUI)
 
 void CUploadsWnd::OnUploadsLaunch()
 {
-	CSingleLock pTransfersLock( &Transfers.m_pSection );
-	if ( ! pTransfersLock.Lock( 500 ) ) return;
-
 	const BOOL bShift = ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 );
+
+	CSingleLock pTransfersLock( &Transfers.m_pSection );
+	if ( ! SafeLock( pTransfersLock ) ) return;
 
 	CList<CUploadFile*> pList;
 
@@ -569,34 +573,67 @@ void CUploadsWnd::OnUploadsLaunch()
 
 	while ( ! pList.IsEmpty() )
 	{
-		pTransfersLock.Lock();
 		CUploadFile* pFile = pList.RemoveHead();
 
-		if ( pFile->m_sPath.IsEmpty() )		// Multifile torrent always opens folder?  (ToDo: Update this path assumption when fixed elsewhere)
+		// Multifile torrent always opens folder
+		if ( pFile->m_sPath.IsEmpty() )				// ToDo: Update this path assumption when fixed elsewhere
 		{
 			const CString strPath = Settings.Downloads.TorrentPath + _T("\\") + pFile->m_sName;		// Try default multifile torrent folder  (Need better detection)
-			pTransfersLock.Unlock();
 			if ( PathIsDirectory( strPath ) )
 				ShellExecute( GetSafeHwnd(), _T("open"), strPath, NULL, NULL, SW_SHOWNORMAL );
+			continue;
 		}
-		else if ( ! bShift )				// Show in Library by default
-		{
-			CPeerProjectFile oFile = *pFile;
-			pTransfersLock.Unlock();
 
-			CSingleLock pLibraryLock( &Library.m_pSection, TRUE );
+		// Launch directly with Shift key
+		if ( bShift && SafeLock( pTransfersLock ) )
+		{
+			if ( UploadFiles.Check( pFile ) )
+			{
+				pTransfersLock.Unlock();
+				CFileExecutor::Execute( pFile->m_sPath );
+				continue;
+			}
+			pTransfersLock.Unlock();
+		}
+
+		CPeerProjectFile& oFile = *pFile;
+
+		// Show in Library by default
+		CSingleLock pLibraryLock( &Library.m_pSection );
+		if ( SafeLock( pLibraryLock ) )
+		{
 			if ( CLibraryFile* pLibFile = LibraryMaps.LookupFileByHash( &oFile ) )
 			{
 				if ( CLibraryWnd* pLibrary = CLibraryWnd::GetLibraryWindow() )		// (CLibraryWnd*)( pMainWnd->m_pWindows.Open( RUNTIME_CLASS(CLibraryWnd) ) ) )
 				{
-					pLibrary->Display( pLibFile );
+					if ( pLibrary->Display( pLibFile ) )
+						continue;
 				}
 			}
+			pLibraryLock.Unlock();
 		}
-		else if ( UploadFiles.Check( pFile ) )	// Launch directly with Shift key
+
+		// Show in Downloads as fallback (torrents)
+		if ( SafeLock( pTransfersLock ) )
 		{
-			pTransfersLock.Unlock();
-			CFileExecutor::Execute( pFile->m_sPath );
+			if ( CDownload* pDownload = Downloads.FindByPath( oFile.m_sPath ) )
+			{
+				pTransfersLock.Unlock();
+				if ( CMainWnd* pMainWnd = (CMainWnd*)AfxGetMainWnd() )
+				{
+					if ( CDownloadsWnd* pDownWnd = (CDownloadsWnd*)pMainWnd->m_pWindows.Find( RUNTIME_CLASS(CDownloadsWnd) ) )
+					{
+						pDownWnd->Select( pDownload );
+
+						pMainWnd->PostMessage( WM_COMMAND, ID_VIEW_DOWNLOADS );
+						pMainWnd->PostMessage( WM_SYSCOMMAND, SC_RESTORE );
+
+						continue;
+					}
+				}
+			}
+			else
+				pTransfersLock.Unlock();
 		}
 	}
 }
@@ -610,6 +647,7 @@ void CUploadsWnd::OnUpdateUploadsFolder(CCmdUI* pCmdUI)
 void CUploadsWnd::OnUploadsFolder()
 {
 	CQuickLock oLock( UploadQueues.m_pSection );
+
 	for ( POSITION pos = UploadFiles.GetIterator() ; pos ; )
 	{
 		CUploadFile* pFile = UploadFiles.GetNext( pos );
@@ -744,6 +782,7 @@ void CUploadsWnd::OnBrowseLaunch()
 void CUploadsWnd::OnUploadsClearCompleted()
 {
 	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	if ( ! SafeLock( pLock ) ) return;
 
 	for ( POSITION pos = Uploads.GetIterator() ; pos ; )
 	{
@@ -751,6 +790,7 @@ void CUploadsWnd::OnUploadsClearCompleted()
 		if ( pUpload->m_nState == upsNull ) pUpload->Remove( FALSE );
 	}
 
+	pLock.Unlock();
 	m_wndUploads.Update();
 }
 

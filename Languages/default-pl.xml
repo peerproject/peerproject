@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Polish Skin File -->
 
-<!-- Translation based on default-en.xml r102 --> <!-- (Shareaza 2.1.2.7) -->
+<!-- Translation based on default-en.xml r104 --> <!-- (Shareaza 2.1.2.7) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -534,8 +534,7 @@
 					<item id="ID_HELP_FORUMS" text="Forum PeerProject"/>
 					<separator/>
 					<!-- <item id="ID_HELP_UPDATE" text="Latest news"/>
-					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-					<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
+					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 				</menu>
 				<item id="ID_HELP_HOMEPAGE" text="PeerProject site"/>
 				<separator/>
@@ -602,8 +601,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="Forum PeerProject"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Latest news"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="O programie..."/>
@@ -687,8 +685,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="Forum PeerProject"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Najświeższe wiadomości"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="O PeerProject..."/>
@@ -2854,9 +2851,9 @@
 	<string id="20874" value="URL:"/>
 	<string id="20875" value="Nieokreślony"/>
 	<string id="20880" value="Edytuj mój profil"/>
-	<string id="20881" value="%u wybranych plików. Czy na pewno?"/>
-	<string id="20882" value="No URN available"/>
-	<string id="20883" value="Usługa UPnP Device Host nie funkcjonuje. Ta usługa jest konieczna do wykonania ustawień.\nTrzeba ustawić sposób uruchomienia usługi na automatyczny."/>
+	<string id="20882" value="%u wybranych plików. Czy na pewno?"/>
+	<string id="20883" value="No URN available"/>
+	<string id="20884" value="Usługa UPnP Device Host nie funkcjonuje. Ta usługa jest konieczna do wykonania ustawień.\nTrzeba ustawić sposób uruchomienia usługi na automatyczny."/>
 	<string id="20885" value="Zmiana widoku spowoduje zamknięcie wszystkich okien. Czy chciałbyś zrobić to teraz?"/>
 	<string id="20886" value="Changing interface direction requires restart.\n\nExit now?"/>
 	<string id="20890" value="Witaj w PeerProjecte"/>
@@ -2958,16 +2955,6 @@
 		<control caption="Wybierz wtyczkę..."/>
 		<control caption="Ostrzeżenie: Wybranie zewnętrzngo Media Handler (wtyczki mediów) spowoduje automatycznie wyłączenie wszystkich wtyczek mediów i wizualizacji."/>
 	</dialog>
-	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Społeczność">
-		<control caption="Mój profil:"/>
-		<control caption="Możesz użyć profilu użytkownika Gnutelli aby udostępnić innym informacje o sobie, swoich zainteresowaniach, rekomendowanych plikach i stronach internetowych."/>
-		<control caption="Edytuj mój profil"/>
-		<control caption="Rozmowy:"/>
-		<control caption="Włącz rozmowy peer to peer z kompatybilnymi klientami"/>
-		<control caption="Włącz rozmowy we wszystkich sieciach (gdzie to jest możliwe)"/>
-		<control caption="Filtruj wiadomości ze spamu"/>
-		<control caption="Cenzuruj wulgaryzmy w rozmowie"/>
-	</dialog>
 	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdmsStStEdmsCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStCoStEdStEd" caption="Czat">
 		<control caption="Opcje klienta:"/>
 		<control caption="Pokaż integrację czata"/>
@@ -3011,6 +2998,28 @@
 		<control/>
 		<control caption="On-connect"/>
 		<control/>
+	</dialog>
+	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Społeczność">
+		<control caption="Mój profil:"/>
+		<control caption="Możesz użyć profilu użytkownika Gnutelli aby udostępnić innym informacje o sobie, swoich zainteresowaniach, rekomendowanych plikach i stronach internetowych."/>
+		<control caption="Edytuj mój profil"/>
+		<control caption="Rozmowy:"/>
+		<control caption="Włącz rozmowy peer to peer z kompatybilnymi klientami"/>
+		<control caption="Włącz rozmowy we wszystkich sieciach (gdzie to jest możliwe)"/>
+		<control caption="Filtruj wiadomości ze spamu"/>
+		<control caption="Cenzuruj wulgaryzmy w rozmowie"/>
+	</dialog>
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Zdalny dostęp">
+		<control caption="Włącz:"/>
+		<control caption="Włącz zdalny dostęp do PeerProjecty:"/>
+		<control/>
+		<control caption="Szczegóły:"/>
+		<control caption="Wybierz nazwę użytkownika:"/>
+		<control caption="Wybierz hasło:"/>
+		<control/>
+		<control/>
+		<control caption="Pomoc:"/>
+		<control caption="Zdalny dostęp do PeerProjecty pozwala ci na zostawienie włączonej PeerProjecty na Twoim komputerze i zdalne sterowanie nią za pomocą przeglądarki internetowej. Aby używać tej funkcji musisz być w stanie przyjmować połączenia przychodzące (np. właściwie skonfigurowany router, itp.)."/>
 	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="WWW">
 		<control caption="Obsługa linków_Peer to Peer:"/>
@@ -3098,25 +3107,13 @@
 		<control caption="Limit:"/>
 		<control/>
 		<control caption="Tryb:"/>
-		<control caption="Maksymalnie|Średnio"/>
+		<control caption="Średnio|Maksymalnie"/>
 		<control caption="Kolejki:"/>
 		<control/>
 		<control caption="Nowa..."/>
 		<control caption="Edytuj..."/>
 		<control caption="Usuń"/>
 		<control caption="(zmiany dają efekt natychmiastowy)"/>
-	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Zdalny dostęp">
-		<control caption="Włącz:"/>
-		<control caption="Włącz zdalny dostęp do PeerProjecty:"/>
-		<control/>
-		<control caption="Szczegóły:"/>
-		<control caption="Wybierz nazwę użytkownika:"/>
-		<control caption="Wybierz hasło:"/>
-		<control/>
-		<control/>
-		<control caption="Pomoc:"/>
-		<control caption="Zdalny dostęp do PeerProjecty pozwala ci na zostawienie włączonej PeerProjecty na Twoim komputerze i zdalne sterowanie nią za pomocą przeglądarki internetowej. Aby używać tej funkcji musisz być w stanie przyjmować połączenia przychodzące (np. właściwie skonfigurowany router, itp.)."/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="Sieci">
 		<control caption="PeerProject jest aplikacją współdzielącą (udostępniajacą) pliki do ogólnego użytku, która może się połączyć jednocześnie z wieloma sieciami P2P. W tej sekcji wybierasz, do jakich sieci chcesz się włączyć i dostosujesz ustawienia charakterystyczne dla każdej z nich."/>

@@ -1,7 +1,7 @@
 //
 // DlgDownloadReviews.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -28,14 +28,12 @@ class CDownloadReviewDlg : public CSkinDialog
 {
 	DECLARE_DYNAMIC(CDownloadReviewDlg)
 
-// Construction
 public:
 	CDownloadReviewDlg(CWnd* pParent = NULL, CDownload* pDownload = NULL);
 	virtual ~CDownloadReviewDlg();
 
 	enum { IDD = IDD_DOWNLOAD_REVIEWS };
 
-// Dialog Data
 public:
 	CDragListCtrl	m_wndReviews;
 	CString	m_sReviewFileName;
@@ -43,7 +41,6 @@ public:
 
 	CDownload* m_pDownload;
 
-// Implementation
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
 	virtual BOOL OnInitDialog();

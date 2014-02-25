@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default German Skin File -->
 
-<!-- Translation based on default-en.xml r102 -->
+<!-- Translation based on default-en.xml r104 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -601,8 +601,7 @@
 					<item id="ID_HELP_FORUMS" text="PeerProjekt-_Forums"/>
 					<item id="ID_HELP_FORUMS_LOCAL" text="_Deutsch Forum"/>
 					<!-- <separator/>
-					<item id="ID_HELP_WEB_1" text="File Sharing Portal"/>
-					<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+					<item id="ID_HELP_WEB_1" text="File Sharing Portal"/> -->
 				</menu>
 				<separator/> <!--
 				<item id="ID_HELP_VERSION_CHECK" text="Nach _Update suchen"/>
@@ -708,8 +707,7 @@
 				<item id="ID_HELP_FORUMS" text="PeerProjekt-_Forums"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_Deutsch Forum"/>
 				<!-- <separator/>
-				<item id="ID_HELP_WEB_1" text="File Sharing Portal"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<item id="ID_HELP_WEB_1" text="File Sharing Portal"/> -->
 			</menu>
 			<separator/> <!--
 			<item id="ID_HELP_VERSION_CHECK" text="Nach _Update suchen"/>
@@ -781,8 +779,7 @@
 				<item id="ID_HELP_FORUMS" text="PeerProjekt-_Forums"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_Deutsch Forum"/>
 				<!-- <separator/>
-				<item id="ID_HELP_WEB_1" text="File Sharing Portal"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<item id="ID_HELP_WEB_1" text="File Sharing Portal"/> -->
 			</menu>
 			<separator/> <!--
 			<item id="ID_HELP_VERSION_CHECK" text="Auf neuere _Version prüfen"/>
@@ -877,8 +874,7 @@
 				<item id="ID_HELP_FORUMS" text="PeerProjekt-_Forum"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_Deutsch Forum"/>
 				<!-- <separator/>
-				<item id="ID_HELP_WEB_1" text="File Sharing Portal"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<item id="ID_HELP_WEB_1" text="File Sharing Portal"/> -->
 			</menu>
 			<separator/> <!--
 			<item id="ID_HELP_VERSION_CHECK" text="Nach _Update suchen"/>
@@ -900,9 +896,7 @@
 			<item id="ID_VIEW_UPLOADS" text="_Uploads"/>
 			<item id="ID_VIEW_HOSTS" text="_Host-Cache"/>
 			<item id="ID_VIEW_SECURITY" text="_Sicherheit"/>
-			<item id="ID_VIEW_SCHEDULER" text="_Zeitplan"/>
-
-		</menu>
+			<item id="ID_VIEW_SCHEDULER" text="_Zeitplan"/>		</menu>
 	</menu>
 	<menu name="CMainWnd.View.Tabbed">
 		<item id="ID_TAB_HOME" text="_Home"/>
@@ -3405,9 +3399,9 @@
 	<string id="20874" value="URL:"/>
 	<string id="20875" value="Undefiniert"/>
 	<string id="20880" value="Mein Profil bearbeiten"/>
-	<string id="20881" value="%u Dateien ausgewählt. Sind Sie sicher?"/>
-	<string id="20882" value="Keine URN verfügbar."/>
-	<string id="20883" value="SSDP-Host-Service ist nicht gestartet. Dieser Dienst wird benötigt, um die Installation durchzuführen.\nEs ist erforderlich, dass das Merkmal dieses Dienstes auf Automatisch eingestellt ist."/>
+	<string id="20882" value="%u Dateien ausgewählt. Sind Sie sicher?"/>
+	<string id="20883" value="Keine URN verfügbar."/>
+	<string id="20884" value="SSDP-Host-Service ist nicht gestartet. Dieser Dienst wird benötigt, um die Installation durchzuführen.\nEs ist erforderlich, dass das Merkmal dieses Dienstes auf Automatisch eingestellt ist."/>
 	<string id="20885" value="Das Wechseln der Ansicht schließt alle offenen Fenster. Wollen Sie die Ansicht jetzt wechseln?"/>
 	<string id="20886" value="Der Wechsel der Schreibrichtung erfordert einen Neustart.\nJetzt beenden?"/>
 	<string id="20890" value="Willkommen bei PeerProjekt"/>
@@ -3511,16 +3505,6 @@
 		<control caption="Plugin _wählen..."/>
 		<control caption="Wenn Sie ihre Medien durch einen externen Player verwalten lassen, deaktiviert dies automatisch alle Medien- und Visualisierungsplugins"/>
 	</dialog>
-	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Community">
-		<control caption="Mein _Profil:"/>
-		<control caption="Sie können das Profil benutzen, um Informationen über Sie selbst, Internetlinks und empfohlene Dateien für Andere zugänglich zu machen."/>
-		<control caption="Profil bearbeiten"/>
-		<control caption="_Chat:"/>
-		<control caption="Chat mit Gnutella-Clients aktivieren"/>
-		<control caption="Chat mit eDonkey-Clients aktivieren"/>
-		<control caption="Spamnachrichten im Chat filtern"/>
-		<control caption="Vulgäre Sprache im Chat filtern"/>
-	</dialog>
 	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdmsStStEdmsCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStCoStEdStEd" caption="IRC Chat">
 		<control caption="IRC _Optionen:"/>
 		<control caption="Zeige IRC im Menü an"/>
@@ -3564,6 +3548,28 @@
 		<control/>
 		<control caption="On-connect"/>
 		<control/>
+	</dialog>
+	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Community">
+		<control caption="Mein _Profil:"/>
+		<control caption="Sie können das Profil benutzen, um Informationen über Sie selbst, Internetlinks und empfohlene Dateien für Andere zugänglich zu machen."/>
+		<control caption="Profil bearbeiten"/>
+		<control caption="_Chat:"/>
+		<control caption="Chat mit Gnutella-Clients aktivieren"/>
+		<control caption="Chat mit eDonkey-Clients aktivieren"/>
+		<control caption="Spamnachrichten im Chat filtern"/>
+		<control caption="Vulgäre Sprache im Chat filtern"/>
+	</dialog>
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Remote-Access">
+		<control caption="_Aktivieren:"/>
+		<control caption="Remote-Access aktivieren:"/>
+		<control caption="..."/>
+		<control caption="_Zugangsdaten:"/>
+		<control caption="Benutzername:"/>
+		<control caption="Passwort:"/>
+		<control/>
+		<control/>
+		<control caption="Hilfe:"/>
+		<control caption="PeerProjekt's Remote-Access erlaubt es Ihnen, PeerProjekt auf ihrem PC laufen zu lassen und es über einen Webbrowser zu bedienen. Sie müssen eingehende Verbindungen akzeptieren können, um diese Funktion zu benutzen. (Korrekt konfigurierter Router, usw.)"/>
 	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
 		<control caption="_Peer-to-Peer-Links:"/>
@@ -3651,25 +3657,13 @@
 		<control caption="Limit:"/>
 		<control/>
 		<control caption="Modus:"/>
-		<control caption="Maximum|Durchschnitt"/>
+		<control caption="Durchschnitt|Maximum"/>
 		<control caption="_Warteschlangen:"/>
 		<control/>
 		<control caption="_Neu..."/>
 		<control caption="B_earbeiten"/>
 		<control caption="_Löschen"/>
 		<control caption="Änderungen treten sofort in Kraft"/>
-	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Remote-Access">
-		<control caption="_Aktivieren:"/>
-		<control caption="Remote-Access aktivieren:"/>
-		<control caption="..."/>
-		<control caption="_Zugangsdaten:"/>
-		<control caption="Benutzername:"/>
-		<control caption="Passwort:"/>
-		<control/>
-		<control/>
-		<control caption="Hilfe:"/>
-		<control caption="PeerProjekt's Remote-Access erlaubt es Ihnen, PeerProjekt auf ihrem PC laufen zu lassen und es über einen Webbrowser zu bedienen. Sie müssen eingehende Verbindungen akzeptieren können, um diese Funktion zu benutzen. (Korrekt konfigurierter Router, usw.)"/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="Netzwerke">
 		<control caption="PeerProjekt ist ein Allround-File-Sharing-Programm, das auf mehrere P2P-Netzwerke gleichzeitig zugreifen kann. Hier können Sie einstellen, welche Netzwerke Sie verwenden möchten und können netzwerkspezifische Einstellungen vornehmen."/>

@@ -1,7 +1,7 @@
 //
 // QuerySearch.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -38,19 +38,17 @@ class CQuerySearch : public CPeerProjectFile
 {
 	DECLARE_DYNAMIC(CQuerySearch)
 
-// Construction
 public:
 	CQuerySearch(BOOL bGUID = TRUE);
 protected:
 	virtual ~CQuerySearch();
 
-// Attributes
 public:
 	bool				m_bAutostart;	// Autostart search (default true)
 	Hashes::Guid		m_oGUID;		// G1,G2: Search ID
 	CString				m_sSearch;		// search string, transformed by lowercase table
 	CString				m_sKeywords;	// search keywords (stems, minus words, split asian phrase etc.)
-	CString				m_sPosKeywords;	// Positive keywords ( no minus, no quotes basically for Gnutella1 Query)
+	CString				m_sPosKeywords;	// Positive keywords (no minus, no quotes basically for Gnutella1 Query)
 	CString				m_sG2Keywords;	// Query string for G2, containing Positive keywords and Minus Prefixed negative keywords.
 	CSchemaPtr			m_pSchema;		// G1,G2,ED2K: Metadata schema
 	CXMLElement*		m_pXML;			// G1,G2,ED2K: Metadata
@@ -139,7 +137,6 @@ private:
 	BOOL					ReadG2Packet(CG2Packet* pPacket, const SOCKADDR_IN* pEndpoint = NULL);
 	BOOL					ReadDCPacket(CDCPacket* pPacket, const SOCKADDR_IN* pEndpoint = NULL);
 
-// Operations
 public:
 	BOOL					Match(LPCTSTR pszFilename, LPCTSTR pszSchemaURI, const CXMLElement* pXML, const CPeerProjectFile* pFile ) const;
 	TRISTATE				MatchMetadata(LPCTSTR pszSchemaURI, const CXMLElement* pXML) const;

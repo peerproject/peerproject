@@ -1,7 +1,7 @@
 //
 // DownloadTransfer.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -29,12 +29,10 @@ typedef std::pair< QWORD, QWORD > blockPair;
 
 class CDownloadTransfer abstract : public CTransfer
 {
-// Construction
 public:
 	CDownloadTransfer(CDownloadSource* pSource, PROTOCOLID nProtocol);
 	virtual ~CDownloadTransfer();
 
-// Attributes
 public:
 	CDownloadTransfer*	m_pDlPrev;
 	CDownloadTransfer*	m_pDlNext;
@@ -53,7 +51,6 @@ protected:
 	BYTE*				m_pAvailable;
 	CTimeAverage< DWORD, 2000 >	m_AverageSpeed;
 
-// Operations
 public:
 	void				SetState(int nState);
 	CDownload*			GetDownload() const;	// Get owner download
@@ -66,7 +63,6 @@ private:
 	void				CheckPart(QWORD* nPart, QWORD nPartBlock, QWORD* nRange, QWORD& nRangeBlock, QWORD* nBestRange) const;
 	void				CheckRange(QWORD* nRange, QWORD* nBestRange) const;
 
-// Overides
 public:
 	virtual BOOL	Initiate() = 0;
 	virtual void	Close(TRISTATE bKeepSource, DWORD nRetryAfter = 0);

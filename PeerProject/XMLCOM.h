@@ -1,7 +1,7 @@
 //
 // XMLCOM.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -32,11 +32,9 @@ public:
 	CXMLCOM(CXMLNode* pNode = NULL);
 	virtual ~CXMLCOM();
 
-// Attributes
 public:
 	CXMLNode*	m_pNode;
 
-// Operations
 public:
 	static IUnknown*	Wrap(CXMLNode* pNode, REFIID pIID);
 	static CXMLElement*	Unwrap(ISXMLElement* pInterface);
@@ -106,6 +104,7 @@ public:
 
 };
 
+
 class CXMLCOMCol : public CComObject
 {
 	DECLARE_DYNCREATE(CXMLCOMCol)
@@ -114,11 +113,9 @@ public:
 	CXMLCOMCol(CXMLElement* pElement = NULL);
 	virtual ~CXMLCOMCol();
 
-// Attributes
 public:
 	CXMLElement*	m_pElement;
 
-// Operations
 public:
 	static ISXMLElements*	WrapElements(CXMLElement* pElement);
 	static ISXMLAttributes*	WrapAttributes(CXMLElement* pElement);

@@ -25,12 +25,10 @@ class CDownloadTransfer;
 
 class CDownloadWithTiger : public CDownloadWithTorrent
 {
-// Construction
 protected:
 	CDownloadWithTiger();
 	virtual ~CDownloadWithTiger();
 
-// Attributes
 private:
 	CTigerTree	m_pTigerTree;
 	BYTE*		m_pTigerBlock;
@@ -55,7 +53,6 @@ private:
 	mutable Fragments::List		m_oWFLCache;			// Wanted fragment list cache
 	mutable QWORD				m_nWFLCookie;			// Wanted fragment list cookie
 
-// Operations
 public:
 	CTigerTree*	GetTigerTree();
 	BOOL		SetTigerTree(BYTE* pTiger, DWORD nTiger, BOOL bLevel1 = FALSE);

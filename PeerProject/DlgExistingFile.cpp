@@ -1,7 +1,7 @@
 //
 // DlgExistingFile.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -19,12 +19,15 @@
 #include "StdAfx.h"
 #include "Settings.h"
 #include "PeerProject.h"
-#include "Library.h"
-#include "SharedFile.h"
 #include "DlgExistingFile.h"
+#include "SharedFile.h"
+#include "Library.h"
+#include "Downloads.h"
+#include "Transfers.h"	// Lock
 #include "Colors.h"
 #include "WndMain.h"
 #include "WndLibrary.h"
+#include "WndDownloads.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -60,8 +63,8 @@ END_MESSAGE_MAP()
 
 CExistingFileDlg::Action CExistingFileDlg::CheckExisting(const CPeerProjectFile* pFile)
 {
-	CSingleLock pLock( &Library.m_pSection );
-	if ( ! pLock.Lock( 1000 ) )
+	CSingleLock pLibraryLock( &Library.m_pSection );
+	if ( ! SafeLock( pLibraryLock ) )
 		return Download;
 
 	CLibraryFile* pLibFile = LibraryMaps.LookupFileByHash( pFile );
@@ -72,19 +75,45 @@ CExistingFileDlg::Action CExistingFileDlg::CheckExisting(const CPeerProjectFile*
 
 	CExistingFileDlg dlg( pLibFile );
 
-	pLock.Unlock();
+	pLibraryLock.Unlock();
 
 	dlg.DoModal();
 
 	if ( dlg.m_nAction == 0 )
 	{
+		// Handle mutifile torrents
+		if ( pFile->m_oBTH )
+		{
+			CSingleLock pTransfersLock( &Transfers.m_pSection );
+			if ( SafeLock( pTransfersLock ) )
+			{
+				if ( CDownload* pDownload = Downloads.FindByBTH( pFile->m_oBTH ) )
+				{
+					if ( CMainWnd* pMainWnd = (CMainWnd*)AfxGetMainWnd() )
+					{
+						if ( CDownloadsWnd* pDownWnd = (CDownloadsWnd*)pMainWnd->m_pWindows.Find( RUNTIME_CLASS(CDownloadsWnd) ) )
+						{
+							pDownWnd->Select( pDownload );
+							pTransfersLock.Unlock();
+
+							pMainWnd->PostMessage( WM_COMMAND, ID_VIEW_DOWNLOADS );
+							pMainWnd->PostMessage( WM_SYSCOMMAND, SC_RESTORE );
+
+							return dlg.GetResult();
+						}
+					}
+				}
+			}
+		}
+
 		if ( CLibraryWnd* pLibrary = CLibraryWnd::GetLibraryWindow() )
 		{
-			pLock.Lock();
-			if ( CLibraryFile* pLibFile1 = Library.LookupFile( nIndex ) )
-				pLibrary->Display( pLibFile1 );
-
-			pLock.Unlock();
+			if ( SafeLock( pLibraryLock ) )
+			{
+				if ( CLibraryFile* pLibFileLookup = Library.LookupFile( nIndex ) )
+					pLibrary->Display( pLibFileLookup );
+				pLibraryLock.Unlock();
+			}
 		}
 	}
 

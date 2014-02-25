@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Turkish Skin File -->
 
-<!-- Translation based on default-en.xml r102 -->
+<!-- Translation based on default-en.xml r104 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -567,7 +567,6 @@
 				<menu text="_Web Siteleri">
 					<item id="ID_HELP_WEB_3" text="Slyck.com"/>
 					<item id="ID_HELP_WEB_1" text="ZeroPaid.com"/>
-					<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
 				</menu>
 			-->
 				<item id="ID_HELP_HOMEPAGE" text="PeerProject.org"/>
@@ -666,8 +665,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forumları"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Son Haberler"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/> <!--
 			<item id="ID_HELP_VERSION_CHECK" text="Güncellemeleri _Kontrol Et"/>
@@ -736,8 +734,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forumları"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Son Haberler"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/> <!--
 			<item id="ID_HELP_VERSION_CHECK" text="Güncellemeleri _Kontrol Et"/>
@@ -828,8 +825,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forumları"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Son Haberler"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/> <!--
 			<item id="ID_HELP_VERSION_CHECK" text="Güncellemeleri Kontrol Et"/>
@@ -3278,9 +3274,9 @@
 	<string id="20874" value="URL:"/>
 	<string id="20875" value="Açıklanmayan"/>
 	<string id="20880" value="Profilimi Düzenle"/>
-	<string id="20881" value="%u Dosyalar seçildi. Emin misiniz?"/>
-	<string id="20882" value="URN kullanılamaz"/>
-	<string id="20883" value="UPnP Cihazları Host Servisi etkin değildir. Bu hizmet cihazların kurulumu için gereklidir.\nHizmetin başlama biçimini automatiğe ayarlamanız gerekmektedir.utomatic."/>
+	<string id="20882" value="%u Dosyalar seçildi. Emin misiniz?"/>
+	<string id="20883" value="URN kullanılamaz"/>
+	<string id="20884" value="UPnP Cihazları Host Servisi etkin değildir. Bu hizmet cihazların kurulumu için gereklidir.\nHizmetin başlama biçimini automatiğe ayarlamanız gerekmektedir.utomatic."/>
 	<string id="20885" value="Görüntü Değiştirme açıldığında pencereler kapanacaktır. Şimdi değiştirmek ister misin?"/>
 	<string id="20886" value="Arayüz yönetimi değiştirildiğinde yeniden başlama gerekir.\n\nŞimdi çık?"/>
 	<string id="20890" value="PeerProject'ya Hoşgeldiniz"/>
@@ -3385,16 +3381,6 @@
 		<control caption="Eklenti _Seç..."/>
 		<control caption="Uyarı: Başka bir medya oynatıcısı seçmeniz tüm medya ve görüntüleme eklentilerini etkisizleştirir."/>
 	</dialog>
-	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Camia">
-		<control caption="_Profilim:"/>
-		<control caption="Kendi bilgilerinizi, hobilerinizi, önerilen dosyaları ve websitelerini paylaşmak için Gnutella Kullanıcı Profili kullanabilirsiniz."/>
-		<control caption="Profilimi Düzenle"/>
-		<control caption="_Sohbet:"/>
-		<control caption="Uyumlu istemcilerle eşli sohbete olanak ver"/>
-		<control caption="Tüm ağda sohbet olanağı ver"/>
-		<control caption="Spam için sohbet mesajlarını filtrele"/>
-		<control caption="Saygısızlıkları sansürle"/>
-	</dialog>
 	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdmsStStEdmsCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStCoStEdStEd" caption="Sohbet">
 		<control caption="İstemci _Seçenekleri :"/>
 		<control caption="Sohbet Bütünleşmesini Göster"/>
@@ -3438,6 +3424,28 @@
 		<control/>
 		<control caption="on-connect"/>
 		<control/>
+	</dialog>
+	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Camia">
+		<control caption="_Profilim:"/>
+		<control caption="Kendi bilgilerinizi, hobilerinizi, önerilen dosyaları ve websitelerini paylaşmak için Gnutella Kullanıcı Profili kullanabilirsiniz."/>
+		<control caption="Profilimi Düzenle"/>
+		<control caption="_Sohbet:"/>
+		<control caption="Uyumlu istemcilerle eşli sohbete olanak ver"/>
+		<control caption="Tüm ağda sohbet olanağı ver"/>
+		<control caption="Spam için sohbet mesajlarını filtrele"/>
+		<control caption="Saygısızlıkları sansürle"/>
+	</dialog>
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Uzaktan Erişim">
+		<control caption="_Olanak Ver:"/>
+		<control caption="PeerProject Uzaktan Erişime olanak ver:"/>
+		<control/>
+		<control caption="_Güven Belgesi:"/>
+		<control caption="Kullanıcı Adı Seçin:"/>
+		<control caption="Şifre Seçiniz:"/>
+		<control/>
+		<control/>
+		<control caption="Yardım:"/>
+		<control caption="PeerProject Uzaktan Erişim PC'nizde çalışan PeerProject'dan ayrılmanıza ve uzaktaki web tarayıcısını kontrol etmenize izin verir. Gelen bağlantıları kabul etmek için bu özellikleri kullanmaya ihtiyaç duyacaksınız (i.e. düzgün yönlendirme yapılandırması, vb)."/>
 	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
 		<control caption="E_şli bağlantı kullanılıyor:"/>
@@ -3525,25 +3533,13 @@
 		<control caption="Limit:"/>
 		<control/>
 		<control caption="Mod:"/>
-		<control caption="Maksimum|Ortalama"/>
+		<control caption="Ortalama|Maksimum/Sıkı"/>
 		<control caption="Sı_ralar:"/>
 		<control/>
 		<control caption="_Yeni..."/>
 		<control caption="_Düzenle..."/>
 		<control caption="Si_l"/>
 		<control caption="Değişimler hemen yürürlüğe girecek"/>
-	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Uzaktan Erişim">
-		<control caption="_Olanak Ver:"/>
-		<control caption="PeerProject Uzaktan Erişime olanak ver:"/>
-		<control/>
-		<control caption="_Güven Belgesi:"/>
-		<control caption="Kullanıcı Adı Seçin:"/>
-		<control caption="Şifre Seçiniz:"/>
-		<control/>
-		<control/>
-		<control caption="Yardım:"/>
-		<control caption="PeerProject Uzaktan Erişim PC'nizde çalışan PeerProject'dan ayrılmanıza ve uzaktaki web tarayıcısını kontrol etmenize izin verir. Gelen bağlantıları kabul etmek için bu özellikleri kullanmaya ihtiyaç duyacaksınız (i.e. düzgün yönlendirme yapılandırması, vb)."/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="Ağlar">
 		<control caption="PeerProject aynı zamanda birçok P2P ağa erişebilen genel bir amaç dosya paylaşımı uygulamasıdır. Bu sayfada bağlamayı istediğiniz P2P ağları seçebilirsiniz, ve sonra her ağ için belirli ayarları ayarlayabilirsiniz."/>

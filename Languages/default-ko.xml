@@ -3,7 +3,7 @@
 
 <!-- PeerProject Korean Language Skin File -->
 
-<!-- Translation based on default-en.xml r102 --> <!--Machine Translated!-->
+<!-- Translation based on default-en.xml r104 --> <!--Machine Translated!-->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -15,7 +15,7 @@
 <!-- Manifest -->
 <manifest
 	name="한국어"
-	author="PeerProject Development Team"
+	author="PeerProject.org"
 	description="PeerProject Korean Language Skin File"
 	link="http://peerproject.org"
 	email="Contact(at)PeerProject.org"
@@ -593,10 +593,9 @@
 					<item id="ID_HELP_FORUMS" text="PeerProject 포럼"/>
 					<item id="ID_HELP_VERSION_CHECK" text="새 버전에 대한 확인"/>
 					<item id="ID_HELP_WEB_SKINS" text="PeerProject 스킨 사이트"/>
-					<item id="ID_HELP_DONATE" text="기부 PeerProject로"/>
+					<item id="ID_HELP_DONATE" text="기부 PeerProject 로"/>
 					<!-- <item id="ID_HELP_UPDATE" text="최신 뉴스"/>
-					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-					<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 				</menu>
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject 사이트 항목"/>
 				<separator/>
@@ -701,8 +700,7 @@
 				<item id="ID_HELP_FORUMS" text="PeerProject 포럼"/>
 				<item id="ID_HELP_WEB_SKINS" text="PeerProject스킨 사이트"/>
 				<!-- <item id="ID_HELP_UPDATE" text="최신 뉴스"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/> <!--
 			<item id="ID_HELP_VERSION_CHECK" text="새 버전에 대한 확인"/>
@@ -736,7 +734,7 @@
 				<item id="ID_VIEW_UPLOADS" text="업로드"/>
 				<separator/>
 				<item id="ID_VIEW_SECURITY" text="보안 항목"/>
-				<item id="ID_VIEW_SCHEDULER" text="Schedue_r"/>
+				<item id="ID_VIEW_SCHEDULER" text="Scheduler"/>
 				<item id="ID_VIEW_HOSTS" text="호스트 캐시"/>
 				<item id="ID_VIEW_DISCOVERY" text="디스커버"/>
 			</menu>
@@ -773,8 +771,7 @@
 				<item id="ID_HELP_FORUMS" text="PeerProject 포럼"/>
 				<item id="ID_HELP_WEB_SKINS" text="PeerProject 스킨 사이트"/>
 				<!-- <item id="ID_HELP_UPDATE" text="최신 뉴스"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/> <!--
 			<item id="ID_HELP_VERSION_CHECK" text="새 버전에 대한 확인"/>
@@ -871,8 +868,7 @@
 				<item id="ID_HELP_FORUMS" text="PeerProject 포럼"/>
 				<item id="ID_HELP_WEB_SKINS" text="PeerProject 스킨 사이트"/>
 				<!-- <item id="ID_HELP_UPDATE" text="최신 뉴스"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/> <!--
 			<item id="ID_HELP_VERSION_CHECK" text="새 버전에 대한 확인"/>
@@ -2375,7 +2371,7 @@
 	<string id="20874" value="URL:"/>
 	<string id="20875" value="지정되지 않음"/>
 	<string id="20880" value="내 프로필 수정"/>
-	<string id="20881" value="%u 파일을 선택했습니다. 당신은 확실한가요?"/>
+	<string id="20882" value="%u 파일을 선택했습니다. 당신은 확실한가요?"/>
 	<string id="20890" value="에 오신 것을 환영합니다 PeerProject (피어 프로젝트)."/>
 	<!-- Missing Warning Messages -->
 	<!-- Missing Wizard Strings -->
@@ -2467,16 +2463,6 @@
 		<control caption="Select Plugin..."/>
 		<control caption="Note: Choosing an external Media Handler will disable Media/Visualization Plugins."/>
 	</dialog>
-	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="커뮤니티">
-		<control caption="My Profile:"/>
-		<control caption="You can use your Gnutella User Profile to share information about yourself, your interests and recommended files and websites with others."/>
-		<control caption="Edit My Profile"/>
-		<control caption="Chat:"/>
-		<control caption="Enable peer to peer chat with compatible clients"/>
-		<control caption="Enable chat on all protocols where possible"/>
-		<control caption="Filter chat messages for spam"/>
-		<control caption="Censor profanity in chat"/>
-	</dialog>
 	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdmsStStEdmsCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStCoStEdStEd" caption="채팅 IRC">
 		<control caption="Client Options:"/>
 		<control caption="Show chat integration"/>
@@ -2520,6 +2506,28 @@
 		<control/>
 		<control caption="Run command on connect"/>
 		<control/>
+	</dialog>
+	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="커뮤니티">
+		<control caption="My Profile:"/>
+		<control caption="You can use your Gnutella User Profile to share information about yourself, your interests and recommended files and websites with others."/>
+		<control caption="Edit My Profile"/>
+		<control caption="Chat:"/>
+		<control caption="Enable peer to peer chat with compatible clients"/>
+		<control caption="Enable chat on all protocols where possible"/>
+		<control caption="Filter chat messages for spam"/>
+		<control caption="Censor profanity in chat"/>
+	</dialog>
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="원격 액세스">
+		<control caption="Activation:"/>
+		<control caption="원격 웹 액세스 활성화:"/>
+		<control/>
+		<control caption="Credentials:"/>
+		<control caption="Choose a Username:"/>
+		<control caption="Choose a Password:"/>
+		<control/>
+		<control/>
+		<control caption="도움:"/>
+		<control caption="PeerProject Remote Access allows you to leave PeerProject running on your PC, and control it remotely using a web browser. You will need to be able to accept incoming connections to use this feature. (Ensure port-forwarding.)"/>
 	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="웹 링크">
 		<control caption="Peer to Peer Link Handling:"/>
@@ -2588,7 +2596,7 @@
 		<control caption="Maximum Queue Length:"/>
 		<control/>
 		<control/>
-		<control caption="Only download and upload to networks which are connected."/>
+		<control caption="만 다운로드와 연결되어있는 네트워크에 업로드 할 수 있습니다."/>
 	</dialog>
 	<dialog name="CUploadsSettingsPage" cookie="BuBuBuBuBuStEdmsBuCoBuBuBuStCoStCoBuSyBuBuBuSt" caption="업로드">
 		<control caption="옵션:"/>
@@ -2603,29 +2611,17 @@
 		<control/>
 		<control caption="+"/>
 		<control caption="-"/>
-		<control caption="Bandwidth:"/>
-		<control caption="Limit:"/>
+		<control caption="대역폭:"/>
+		<control caption="한도:"/>
 		<control/>
-		<control caption="Mode:"/>
-		<control caption="Maximum|Average"/>
-		<control caption="Queues:"/>
+		<control caption="모드:"/>
+		<control caption="평균|최고 (엄격한)"/>
+		<control caption="큐:"/>
 		<control/>
-		<control caption="New..."/>
-		<control caption="Edit..."/>
-		<control caption="Delete"/>
-		<control caption="(changes take effect immediately)"/>
-	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="원격 액세스">
-		<control caption="Activation:"/>
-		<control caption="원격 웹 액세스 활성화:"/>
-		<control/>
-		<control caption="Credentials:"/>
-		<control caption="Choose a Username:"/>
-		<control caption="Choose a Password:"/>
-		<control/>
-		<control/>
-		<control caption="도움:"/>
-		<control caption="PeerProject Remote Access allows you to leave PeerProject running on your PC, and control it remotely using a web browser. You will need to be able to accept incoming connections to use this feature. (Ensure port-forwarding.)"/>
+		<control caption="새로운..."/>
+		<control caption="편집..."/>
+		<control caption="삭제"/>
+		<control caption="(변경 사항은 즉시 적용)"/>
 	</dialog>
 	<!-- MISSING DIALOG PAGES -->
 	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdStBuBuBu" caption="테마">
@@ -2635,19 +2631,19 @@
 		<control/>
 		<control caption="Author:"/>
 		<control/>
-		<control caption="Description:"/>
+		<control caption="기술:"/>
 		<control/>
-		<control caption="*Select multiple skins to mix"/>
-		<control caption="Delete"/>
-		<control caption="Install..."/>
-		<control caption="Get More"/>
+		<control caption="*혼합하는 여러 스킨을 선택합니다"/>
+		<control caption="삭제"/>
+		<control caption="설치..."/>
+		<control caption="좀 더"/>
 	</dialog>
 	<dialog name="CPluginsSettingsPage" cookie="SyBuStStStEdBuBu" caption="플러그인">
 		<control/>
 		<control caption="러그인 정보:"/>
 		<control caption="이름:"/>
 		<control/>
-		<control caption="Description:"/>
+		<control caption="기술:"/>
 		<control/>
 		<control caption="Setup..."/>
 		<control caption="Get More"/>

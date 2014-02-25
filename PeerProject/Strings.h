@@ -1,7 +1,7 @@
 //
 // Strings.h
 //
-// This file is part of PeerProject (peerproject.org) © 2010-2012
+// This file is part of PeerProject (peerproject.org) © 2010-2014
 // Portions copyright Shareaza Development Team, 2010.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -61,6 +61,7 @@ bool IsCharacter(WCHAR nChar);
 bool IsHiragana(WCHAR nChar);
 bool IsKatakana(WCHAR nChar);
 bool IsKanji(WCHAR nChar);
+bool IsNumber(LPCTSTR pszString, size_t nStart = 0, size_t nLength = 0);
 bool IsWord(LPCTSTR pszString, size_t nStart, size_t nLength);
 void IsType(LPCTSTR pszString, size_t nStart, size_t nLength, bool& bWord, bool& bDigit, bool& bMix);
 
@@ -99,11 +100,17 @@ void Split(const CString& strSource, TCHAR cDelimiter, CStringArray& pAddIt, BOO
 // StartsWith("Hello world", _PT("hello")) is true
 BOOL StartsWith(const CString& strInput, LPCTSTR pszText, size_t nLen = 0);
 
+// EndsWith("Hello world", _PT(" world")) is true
+BOOL EndsWith(const CString& strInput, LPCTSTR pszText, size_t nLen = 0);
+
 // Load all text from file (Unicode-compatible)
 CString LoadFile(LPCTSTR pszPath);
 
 // Replaces a substring with another (case-insensitive)
 BOOL ReplaceNoCase(CString& sInStr, LPCTSTR pszOldStr, LPCTSTR pszNewStr);
+
+// Quick file extension formatting check
+BOOL IsValidExtension(LPCTSTR pszName);
 
 // IsValidIP("1.2.3.4:0000") is true
 //BOOL IsValidIP(const CString& sInput);

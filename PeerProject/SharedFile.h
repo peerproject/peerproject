@@ -119,13 +119,13 @@ public:
 	CString			GetAlternateSources(CList< CString >* pState, int nMaximum, PROTOCOLID nProtocol);
 	BOOL			OnVerifyDownload(const CLibraryRecent* pRecent);
 
-	// Adds file data to string array using template. Supported template variables:
-	// $meta:name$		- file name
+	// Adds file data to string array using template. Supported row template variables:
+	// $meta:name$		- filename
 	// $meta:comments$	- file comments
-	// $meta:hours$		- hours as decimal from file metadata "minutes" or "seconds" field
-	// $meta:minutes$	- minutes as decimal from file metadata "minutes" or "seconds" field
-	// $meta:seconds$	- seconds as  decimal from file metadata "minutes" or "seconds" field
-	// $meta:time$		- time as string "hours:minutes:seconds" from file metadata "minutes" or "seconds" field
+	// $meta:hours$		- hours as decimal   (from file metadata "minutes" or "seconds" field)
+	// $meta:minutes$	- minutes as decimal (from file metadata "minutes" or "seconds" field)
+	// $meta:seconds$	- seconds as decimal (from file metadata "minutes" or "seconds" field)
+	// $meta:time$		- time as string "hours:minutes:seconds" (from file metadata "minutes" or "seconds" field)
 	// $meta:track$		- track as decimal
 	// $meta:*$			- other file metadata fields as is
 	// $meta:sizebytes$	- file size in bytes
@@ -137,11 +137,11 @@ public:
 	// $meta:ed2khash$	- file ED2K hash
 	// $meta:ed2k$		- file ED2K link (ed2k://|file|)
 	// $meta:md5$		- file MD5 hash
-	// $meta:btih$		- file BitTorrnet info hash
+	// $meta:btih$		- file BitTorrent info hash
 	// $meta:magnet$	- file magnet-link
 	// $meta:number$	- file number in string array
-	// Unknown variables will be replaced by "N/A" string.
-	BOOL			PrepareDoc(LPCTSTR pszTemplate, CArray< CString >& oDocs);
+	// Unknown variables will be replaced by "--" string.
+	BOOL			PrepareDoc(LPCTSTR pszTemplate, CArray< CString >& oDocs) const;
 
 	inline CString GetNameLC() const
 	{
@@ -211,16 +211,13 @@ typedef CMap< CString, const CString&, CLibraryFile*, CLibraryFile* > CFileMap;
 
 class CSharedSource
 {
-// Construction
 public:
 	CSharedSource(LPCTSTR pszURL = NULL, FILETIME* pTime = NULL);
 
-// Attributes
 public:
 	CString		m_sURL;
 	FILETIME	m_pTime;	// Last seen
 
-// Operations
 public:
 	void		Serialize(CArchive& ar, int nVersion);
 	void		Freshen(FILETIME* pTime = NULL);

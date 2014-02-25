@@ -1,7 +1,7 @@
 //
 // LiveListSizer.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -20,12 +20,10 @@
 
 class CLiveListSizer
 {
-// Construction
 public:
 	CLiveListSizer(CListCtrl* pCtrl = NULL);
 	virtual ~CLiveListSizer();
 
-// Attributes
 protected:
 	CListCtrl*	m_pCtrl;
 	int			m_nWidth;
@@ -33,7 +31,6 @@ protected:
 	int*		m_pWidth;
 	float*		m_pTake;
 
-// Operations
 public:
 	void	Attach(CListCtrl* pCtrl, BOOL bScale = FALSE);
 	void	Detach();

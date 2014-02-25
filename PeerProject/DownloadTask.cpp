@@ -1,7 +1,7 @@
 //
 // DownloadTask.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -619,38 +619,33 @@ CBuffer* CDownloadTask::IsPreviewAnswerValid() const
 		return NULL;
 	}
 
-	CString strURN = m_pRequest->GetHeader( L"X-Previewed-URN" );
-
+	const CString strURN = m_pRequest->GetHeader( L"X-Previewed-URN" );
 	if ( ! strURN.IsEmpty() )
 	{
 		Hashes::Sha1Hash oSHA1;
-		bool bValid = true;
 
 		if ( m_pDownload )
 		{
 			if ( oSHA1.fromUrn( strURN ) && validAndUnequal( oSHA1, m_pDownload->m_oSHA1 ) )
-				bValid = false;
+			{
+				theApp.Message( MSG_DEBUG, L"Preview failed: Wrong URN." );
+				return NULL;
+			}
 		}
 		else
 		{
-			CSingleLock oLock( &Library.m_pSection, TRUE );
-			CLibraryFile* pFile = LibraryMaps.LookupFileBySHA1( oSHA1 );
-			if ( pFile == NULL )
-				bValid = false;
-			oLock.Unlock();
-		}
-		if ( ! bValid )
-		{
-			theApp.Message( MSG_DEBUG, L"Preview failed: wrong URN." );
-			return NULL;
+			if ( ! LibraryMaps.LookupFileBySHA1( oSHA1 ) )
+			{
+				theApp.Message( MSG_DEBUG, L"Preview failed: Not Found." );
+				return NULL;
+			}
 		}
 	}
 
-	CString strMIME = m_pRequest->GetHeader( L"Content-Type" );
-
+	const CString strMIME = m_pRequest->GetHeader( L"Content-Type" );
 	if ( strMIME.CompareNoCase( L"image/jpeg" ) != 0 )
 	{
-		theApp.Message( MSG_DEBUG, L"Preview failed: unacceptable content type." );
+		theApp.Message( MSG_DEBUG, L"Preview failed: Unacceptable content type." );
 		return NULL;
 	}
 

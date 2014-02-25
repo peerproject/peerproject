@@ -1,7 +1,7 @@
 //
 // PeerProjectThread.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -23,7 +23,7 @@
 	#define MS_VC_EXCEPTION	0x406D1388
 	#define ALMOST_INFINITE	INFINITE
 #else // Release
-	#define ALMOST_INFINITE	15000	// 15s Thread Timeout
+	#define ALMOST_INFINITE	20000	// 20s Thread Timeout
 #endif
 
 
@@ -68,6 +68,6 @@ void SetThreadName(DWORD dwThreadID, LPCSTR szThreadName);
 
 HANDLE BeginThread(LPCSTR pszName, AFX_THREADPROC pfnThreadProc,
 				   LPVOID pParam, int nPriority = THREAD_PRIORITY_NORMAL, UINT nStackSize = 0,
-				   DWORD dwCreateFlags = 0, LPSECURITY_ATTRIBUTES lpSecurityAttrs = NULL);
+				   DWORD dwCreateFlags = 0, LPSECURITY_ATTRIBUTES lpSecurityAttrs = NULL, DWORD* pnThreadID = NULL);
 
-void CloseThread(HANDLE* phThread, DWORD dwTimeout = ALMOST_INFINITE);
+void CloseThread(HANDLE hThread, DWORD dwTimeout = ALMOST_INFINITE);

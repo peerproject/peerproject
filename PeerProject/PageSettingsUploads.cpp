@@ -1,7 +1,7 @@
 //
 // PageSettingsUploads.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -42,10 +42,10 @@ BEGIN_MESSAGE_MAP(CUploadsSettingsPage, CSettingsPage)
 	ON_CBN_EDITCHANGE(IDC_AGENT_LIST, OnEditChangeAgentList)
 	ON_BN_CLICKED(IDC_AGENT_ADD, OnAgentAdd)
 	ON_BN_CLICKED(IDC_AGENT_REMOVE, OnAgentRemove)
-	ON_NOTIFY(LVN_ITEMCHANGED, IDC_QUEUES, OnItemChangedQueues)
 	ON_BN_CLICKED(IDC_QUEUE_NEW, OnQueueNew)
 	ON_BN_CLICKED(IDC_QUEUE_EDIT, OnQueueEdit)
 	ON_BN_CLICKED(IDC_QUEUE_DELETE, OnQueueDelete)
+	ON_NOTIFY(LVN_ITEMCHANGED, IDC_QUEUES, OnItemChangedQueues)
 	ON_NOTIFY(NM_DBLCLK, IDC_QUEUES, OnDblClkQueues)
 	ON_NOTIFY(LVN_DRAGDROP, IDC_QUEUES, OnQueueDrop)
 	ON_WM_SHOWWINDOW()
@@ -117,11 +117,11 @@ BOOL CUploadsSettingsPage::OnInitDialog()
 	//CLiveList::Sort( &m_wndQueues, 4, FALSE );	// Repeat workaround
 
 	m_nMaxPerHost		= Settings.Uploads.MaxPerHost;
-	m_bHubUnshare		= Settings.Uploads.HubUnshare;
-	m_bSharePartials	= Settings.Uploads.SharePartials;
-	m_bSharePreviews	= Settings.Uploads.SharePreviews;
-	m_bThrottleMode		= Settings.Uploads.ThrottleMode;
-	m_bFairUseMode		= Settings.Uploads.FairUseMode;
+	m_bHubUnshare		= Settings.Uploads.HubUnshare == true;
+	m_bSharePartials	= Settings.Uploads.SharePartials == true;
+	m_bSharePreviews	= Settings.Uploads.SharePreviews == true;
+	m_bThrottleMode		= Settings.Uploads.ThrottleMode == true;
+	m_bFairUseMode		= Settings.Uploads.FairUseMode == true;
 
 	Settings.SetRange( &Settings.Uploads.MaxPerHost, m_wndMaxPerHost );
 
@@ -306,6 +306,7 @@ void CUploadsSettingsPage::OnQueueDelete()
 void CUploadsSettingsPage::OnQueueDrop(NMHDR* pNMHDR, LRESULT* pResult)
 {
 	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+
 	NM_LISTVIEW* pNM = (NM_LISTVIEW*)pNMHDR;
 
 	CUploadQueue* pTarget = NULL;

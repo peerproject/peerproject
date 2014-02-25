@@ -1,7 +1,7 @@
 //
 // WizardWelcomePage.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -25,17 +25,12 @@ class CWizardWelcomePage : public CWizardPage
 {
 	DECLARE_DYNCREATE(CWizardWelcomePage)
 
-// Construction
 public:
 	CWizardWelcomePage();
 	virtual ~CWizardWelcomePage();
 
 	enum { IDD = IDD_WIZARD_WELCOME };
 
-// Dialog Data
-//public:
-
-// Implementation
 protected:
 	virtual BOOL OnSetActive();
 	virtual void DoDataExchange(CDataExchange* pDX);

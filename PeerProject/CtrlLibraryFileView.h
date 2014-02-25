@@ -28,12 +28,10 @@ class CLibraryFileView : public CLibraryView
 {
 	DECLARE_DYNAMIC(CLibraryFileView)
 
-// Construction
 public:
 	CLibraryFileView();
 	virtual ~CLibraryFileView();
 
-// Attributes
 protected:
 	BOOL				m_bEditing;
 	BOOL				m_bRequestingService;
@@ -41,7 +39,6 @@ protected:
 	CList<CMetaList*>	m_pServiceDataPages;
 	BOOL				m_bServiceFailed;
 
-// Overrides
 protected:
 	void				CheckDynamicBar();
 	void				ClearServicePages();
@@ -52,11 +49,10 @@ protected:
 public:
 	virtual BOOL		PreTranslateMessage(MSG* pMsg);
 
-// Implementation
 protected:
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
-	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
+	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
 	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
 	afx_msg void OnUpdateLibraryLaunch(CCmdUI* pCmdUI);
 	afx_msg void OnLibraryLaunch();

@@ -332,8 +332,8 @@ BYTE* CPacket::WriteGetPointer(DWORD nLength, DWORD nOffset)
 // Ask this packet what type it is
 CString	CPacket::GetType() const	// Saying const indicates this method doesn't change the values of any member variables
 {
-	// This is just a CPacket, not a G1Packet which would have a type
-	return CString();				// Return blank
+	// Return blank: this is just a CPacket, not a G1Packet which would have a type
+	return CString();
 }
 
 // Express all the bytes of the packet as base 16 digits separated by spaces, like "08 C0 12 AF"
@@ -345,7 +345,7 @@ CString CPacket::ToHex() const
 
 	// Make a string and open it to write the characters in it directly, for speed
 	CString strDump;
-	LPTSTR pszDump = strDump.GetBuffer( nLength * 3 );	// Each byte will become 3 characters
+	LPTSTR pszDump = strDump.GetBuffer( nLength * 3 + 4 );	// Each byte will become 3 characters
 
 	// Loop i down each byte in the packet
 	for ( DWORD i = 0 ; i < nLength ; i++ )
@@ -363,9 +363,9 @@ CString CPacket::ToHex() const
 
 	if ( nLength < m_nLength )
 	{
-		*pszDump++ = '.';
-		*pszDump++ = '.';
-		*pszDump++ = '.';
+		*pszDump++ = L'.';
+		*pszDump++ = L'.';
+		*pszDump++ = L'.';
 	}
 
 	// Write a null terminator beyond the characters we wrote, close direct memory access to the string, and return it
@@ -383,7 +383,7 @@ CString CPacket::ToASCII() const
 
 	// Make a string and get direct access to its memory buffer
 	CString strDump;
-	LPTSTR pszDump = strDump.GetBuffer( nLength + 4 );	// We'll write a character for each byte, and 1 more for the null terminator
+	LPTSTR pszDump = strDump.GetBuffer( nLength + 4 );		// Write a character for each byte, and 1 more for the null terminator
 
 	// Loop i down each byte in the packet
 	for ( DWORD i = 0 ; i < nLength ; i++ )
@@ -392,14 +392,14 @@ CString CPacket::ToASCII() const
 		int nChar = m_pBuffer[i];
 
 		// If the byte is 32 or greater, read it as an ASCII character and copy that character into the string
-		*pszDump++ = TCHAR( nChar >= 32 ? nChar : '.' ); 	// If it's 0-31, copy in a period instead
+		*pszDump++ = TCHAR( nChar >= 32 ? nChar : '.' ); 	// For 0-31, copy in a period instead
 	}
 
 	if ( nLength < m_nLength )
 	{
-		*pszDump++ = '.';
-		*pszDump++ = '.';
-		*pszDump++ = '.';
+		*pszDump++ = L'.';
+		*pszDump++ = L'.';
+		*pszDump++ = L'.';
 	}
 
 	// Write a null terminator beyond the characters we wrote, close direct memory access to the string, and return it
@@ -415,10 +415,14 @@ CString CPacket::ToASCII() const
 #ifdef _DEBUG
 void CPacket::Debug(LPCTSTR pszReason) const
 {
-	if ( m_nLength )
-		theApp.Message( MSG_DEBUG, _T("%s Size: %u bytes ASCII: %s HEX: %s"), pszReason, m_nLength, (LPCTSTR)ToASCII(), (LPCTSTR)ToHex() );
-	else
+	// For Testing:
+	//const CString strASCII = ToASCII();
+	//const CString strHex = ToHex();
+
+	if ( ! m_nLength )
 		theApp.Message( MSG_DEBUG, _T("%s No Size."), pszReason );
+	else	// Note: Heap corruption detected here (for unknown ED2K Hello)
+		theApp.Message( MSG_DEBUG, _T("%s Size: %u bytes ASCII: %s HEX: %s"), pszReason, m_nLength, (LPCTSTR)ToASCII(), (LPCTSTR)ToHex() );
 }
 #endif	// Debug
 

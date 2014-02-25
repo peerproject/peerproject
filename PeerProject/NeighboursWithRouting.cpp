@@ -64,15 +64,17 @@ void CNeighboursWithRouting::Connect()
 // Returns the number of neighbours that got the packet
 int CNeighboursWithRouting::Broadcast(CPacket* pPacket, CNeighbour* pExcept, BOOL bGGEP)
 {
-	// Count how many neighbours we will send this packet to
-	int nCount = 0;
-	bool bSend = true;
-
 	if ( ! Settings.Gnutella1.EnableGGEP && bGGEP )
 		return 0;
 
 	// Have this thread get exclusive access to the network object (do)
-	CSingleLock pLock( &Network.m_pSection, TRUE );
+	CSingleLock pLock( &Network.m_pSection );
+	if ( ! pLock.Lock( 150 ) )
+		return 0;
+
+	// Count how many neighbours we will send this packet to
+	int nCount = 0;
+	bool bSend = true;
 
 	// Loop through each neighbour in the list
 	for ( POSITION pos = GetIterator() ; pos ; )

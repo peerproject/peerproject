@@ -1,7 +1,7 @@
 //
 // CtrlTaskPanel.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -28,7 +28,6 @@ class CTaskPanel : public CWnd
 public:
 	CTaskPanel();
 
-// Attributes
 protected:
 	CList< CTaskBox* >	m_pBoxes;
 	CTaskBox*	m_pStretch;
@@ -38,7 +37,6 @@ protected:
 //	int			m_nCurve;
 	BOOL		m_bLayout;
 
-// Operations
 public:
 	CTaskBox*	AddBox(CTaskBox* pBox, POSITION posBefore = NULL);
 	POSITION	GetBoxIterator() const;
@@ -55,20 +53,14 @@ public:
 protected:
 	void		Layout(CRect& rcClient);
 
-// Overrides
 public:
-	//{{AFX_VIRTUAL(CTaskPanel)
 	virtual BOOL Create(LPCTSTR lpszWindowName, DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID);
-	//}}AFX_VIRTUAL
 
-// Implementation
 protected:
-	//{{AFX_MSG(CTaskPanel)
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnPaint();
 	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 
@@ -118,7 +110,6 @@ protected:
 	virtual void OnExpanded(BOOL bOpen);
 
 protected:
-	//{{AFX_MSG(CTaskBox)
 	afx_msg void OnPaint();
 	afx_msg void OnNcPaint();
 	afx_msg BOOL OnNcActivate(BOOL bActive);
@@ -129,7 +120,6 @@ protected:
 	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
 	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 

@@ -1,7 +1,7 @@
 //
 // Security.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -508,34 +508,32 @@ BOOL CSecurity::IsDenied(const IN_ADDR* pAddress)
 
 	const DWORD tNow = static_cast< DWORD >( time( NULL ) );
 
+	CQuickLock oLock( m_pSection );
+
+	for ( POSITION pos = GetIterator() ; pos ; )
 	{
-		CQuickLock oLock( m_pSection );
+		POSITION posLast = pos;
+		CSecureRule* pRule = GetNext( pos );
 
-		for ( POSITION pos = GetIterator() ; pos ; )
+		if ( pRule->IsExpired( tNow ) )
 		{
-			POSITION posLast = pos;
-			CSecureRule* pRule = GetNext( pos );
+			m_pRules.RemoveAt( posLast );
+			delete pRule;
+			continue;
+		}
 
-			if ( pRule->IsExpired( tNow ) )
-			{
-				m_pRules.RemoveAt( posLast );
-				delete pRule;
-				continue;
-			}
+		if ( pRule->Match( pAddress ) )
+		{
+			pRule->m_nToday ++;
+			pRule->m_nEver ++;
 
-			if ( pRule->Match( pAddress ) )
-			{
-				pRule->m_nToday ++;
-				pRule->m_nEver ++;
+			// Add 5 min penalty for early access
+			if ( pRule->m_nExpire > CSecureRule::srSession &&
+				 pRule->m_nExpire < tNow + 300 )
+				pRule->m_nExpire = tNow + 300;
 
-				// Add 5 min penalty for early access
-				if ( pRule->m_nExpire > CSecureRule::srSession &&
-					pRule->m_nExpire < tNow + 300 )
-					pRule->m_nExpire = tNow + 300;
-
-				if ( pRule->m_nAction == CSecureRule::srDeny )   return TRUE;
-				if ( pRule->m_nAction == CSecureRule::srAccept ) return FALSE;
-			}
+			if ( pRule->m_nAction == CSecureRule::srDeny )   return TRUE;
+			if ( pRule->m_nAction == CSecureRule::srAccept ) return FALSE;
 		}
 	}
 
@@ -1689,7 +1687,8 @@ CListLoader::CListLoader()
 
 CListLoader::~CListLoader()
 {
-	CloseThread();
+	if ( IsThreadAlive() )
+		CloseThread();
 }
 
 //void CListLoader::Cancel(CSecureRule* pRule)
@@ -1720,12 +1719,13 @@ void CListLoader::AddList(CSecureRule* pRule)
 	if ( ! m_pQueue.Find( pRule ) )
 		m_pQueue.AddTail( pRule );
 
-	if ( ! IsThreadEnabled() )
+	if ( ! IsThreadAlive() )
 		BeginThread( "ListLoader" );
 }
 
 void CListLoader::OnRun()
 {
+	BOOL bUpdate = FALSE;
 	while ( IsThreadEnabled() && m_pQueue.GetCount() )
 	{
 		CSecureRule* pRule = m_pQueue.GetHead();
@@ -1879,8 +1879,8 @@ void CListLoader::OnRun()
 
 			if ( pRule )
 				pRule->m_sComment.Format( strCommentBase, nCount );		// Final update
-
-			PostMainWndMessage( WM_SANITY_CHECK );
+			if ( nCount )
+				bUpdate = TRUE;
 //TIMER_STOP
 		}
 		catch ( CException* pException )
@@ -1893,18 +1893,15 @@ void CListLoader::OnRun()
 		m_pQueue.RemoveHead();	// Done
 	}
 
-	Exit();
-	Wakeup();
+	if ( ! IsThreadEnabled() )
+		return;
 
-	Sleep( 5000 );
-
-	// Recheck
-	if ( ! m_pQueue.GetCount() )	//  && IsThreadEnabled()
+	if ( bUpdate )
 	{
 		CQuickLock oLock( Security.m_pSection );
-
 		Security.m_Cache.clear();
-
 		PostMainWndMessage( WM_SANITY_CHECK );
 	}
+
+	CloseThread();
 }

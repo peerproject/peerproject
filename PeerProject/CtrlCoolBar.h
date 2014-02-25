@@ -1,7 +1,7 @@
 //
 // CtrlCoolBar.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -27,12 +27,10 @@ class CCoolBarCtrl : public CControlBar
 {
 	DECLARE_DYNAMIC(CCoolBarCtrl)
 
-// Construction
 public:
 	CCoolBarCtrl();
 	virtual ~CCoolBarCtrl();
 
-// Attributes
 protected:
 	CList< CCoolBarItem* >	m_pItems;
 	CBitmap			m_bmImage;
@@ -55,7 +53,6 @@ protected:
 	BOOL			m_bRecalc;
 	BOOL			m_bDropEnabled;
 
-// Operations
 public:
 	inline void		EnableDrop() { m_bDropEnabled = TRUE; }
 	void			SetSize(int nHeight, BOOL bStretch);
@@ -82,7 +79,6 @@ protected:
 	CCoolBarItem*	HitTest(const CPoint& point, CRect* pItemRect = NULL, BOOL bSeparators = FALSE) const;
 	void			SmartMove(CWnd* pCtrl, CRect* pRect);
 
-// Overrides
 public:
 	virtual BOOL Create(CWnd* pParentWnd, DWORD dwStyle = WS_CHILD|WS_VISIBLE|CBRS_TOP, UINT nID = AFX_IDW_TOOLBAR);
 	virtual CSize CalcFixedLayout(BOOL bStretch, BOOL bHorz);
@@ -94,7 +90,6 @@ public:
 protected:
 	virtual BOOL OnCommand(WPARAM wParam, LPARAM lParam);
 
-// Implementation
 protected:
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
@@ -116,13 +111,11 @@ protected:
 
 class CCoolBarItem : public CCmdUI
 {
-// Construction
 public:
 	CCoolBarItem(CCoolBarCtrl* pBar, UINT nID = ID_SEPARATOR, int nImage = -1);
 	CCoolBarItem(CCoolBarCtrl* pBar, CCoolBarItem* pCopy);
 	virtual ~CCoolBarItem();
 
-// Attributes
 public:
 	CString		m_sText;
 	CString		m_sTip;
@@ -145,7 +138,6 @@ protected:
 	void		Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuGray, BOOL bTransparent);
 	void		DrawText(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuGray, BOOL bTransparent);
 
-// Operations
 public:
 	static CCoolBarItem* FromCmdUI(CCmdUI* pUI);
 

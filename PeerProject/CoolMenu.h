@@ -1,7 +1,7 @@
 //
 // CoolMenu.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -31,12 +31,10 @@ struct __declspec(uuid("bcfce0a0-ec17-11d0-8d10-00a0c90f2719")) IContextMenu3;
 
 class CCoolMenu
 {
-// Construction
 public:
 	CCoolMenu();
 	virtual ~CCoolMenu();
 
-// Operations
 public:
 	void		Clear();
 	BOOL		AddMenu(CMenu* pMenu, BOOL bChild = FALSE);
@@ -58,7 +56,6 @@ protected:
 	void		DrawMenuText(CDC* pDC, CRect* pRect, const CString& strText);
 	void		DrawWatermark(CDC* pDC, CRect* pRect, int nOffX, int nOffY);
 
-// Attributes
 protected:
 	// Note: CMap< DWORD_PTR, DWORD_PTR, ...> causes a conversion to DWORD warning within CMap.
 	// DWORD_PTR& seems to solve the problem.  ToDo: this should be reinvestigated.

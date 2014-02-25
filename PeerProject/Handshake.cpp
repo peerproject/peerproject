@@ -251,6 +251,12 @@ BOOL CHandshake::OnRead()
 		return TRUE;		// Keep trying to sort the handshake
 	}
 
+	if ( StartsWith( _P("GNUTELLA") ) )		// Gnutella handshake
+		return Neighbours.OnAccept( this );
+
+	if ( StartsWith( _P("CHAT") ) )			// Chat
+		return ChatCore.OnAccept( this );
+
 	// Record this handshake line as an application message
 	theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, _T("%s >> HANDSHAKE: %s"), (LPCTSTR)m_sAddress, (LPCTSTR)strLine );
 
@@ -260,20 +266,18 @@ BOOL CHandshake::OnRead()
 		 StartsWith( _P("HEAD ") ) )
 		return Uploads.OnAccept( this );
 
-	if ( StartsWith( _P("GNUTELLA") ) )		// Gnutella handshake
-		return Neighbours.OnAccept( this );
-
 	if ( StartsWith( _P("PUSH ") ) )		// Gnutella2-style push
 		return OnAcceptPush();
 
 	if ( StartsWith( _P("GIV ") ) ) 		// Gnutella giv
 		return OnAcceptGive();
 
-	if ( StartsWith( _P("CHAT") ) )			// Chat
-		return ChatCore.OnAccept( this );
-
 	// The first header starts with something else, report that we couldn't figure out the handshake
 	theApp.Message( MSG_ERROR, IDS_HANDSHAKE_FAIL, (LPCTSTR)m_sAddress );
+#ifdef _DEBUG
+	theApp.Message( MSG_INFO, _T("%s Bad Handshake: %c%c%c%c (0x%x 0x%x 0x%x 0x%x) (%i)"), (LPCTSTR)m_sAddress,
+		PeekAt( 0 ), PeekAt( 1 ), PeekAt( 2 ), PeekAt( 3 ), PeekAt( 0 ), PeekAt( 1 ), PeekAt( 2 ), PeekAt( 3 ), strLine.GetLength() );
+#endif
 
 	return FALSE;		// Done sorting the handshake
 }

@@ -1,7 +1,7 @@
 //
 // Download.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -841,10 +841,14 @@ BOOL CDownload::Save(BOOL bFlush)
 	if ( m_bSeeding && ! Settings.BitTorrent.AutoSeed )
 		return TRUE;
 
-	DeleteFileEx( LPCTSTR( m_sPath + _T(".sav") ), FALSE, FALSE, FALSE );
+	const CString strPathSav = m_sPath + _T(".sav");
+	const LPCTSTR pszPath = m_sPath;
+	const LPCTSTR pszPathSav = strPathSav;
+
+	DeleteFileEx( pszPathSav, FALSE, FALSE, FALSE );
 
 	CFile pFile;
-	if ( ! pFile.Open( LPCTSTR( m_sPath + _T(".sav") ),		// Create temp .pd.sav
+	if ( ! pFile.Open( pszPathSav,		// Create temp .pd.sav
 		CFile::modeReadWrite|CFile::modeCreate|CFile::osWriteThrough ) )
 		return FALSE;
 
@@ -880,19 +884,20 @@ BOOL CDownload::Save(BOOL bFlush)
 		return FALSE;
 	}
 
+	pTransfersLock.Unlock();
+
 	// .pd file should now start with characters PD:  (Legacy SDL in Shareaza .sd)
 	if ( szID[0] == 'P' && szID[1] == 'D' && szID[2] == ':' )
 	{
 		// Rename temp .pd.sav file to .pd
-		if ( ::MoveFileEx( LPCTSTR( m_sPath + _T(".sav") ), LPCTSTR( m_sPath ),
+		if ( ::MoveFileEx( pszPathSav, pszPath,
 				MOVEFILE_REPLACE_EXISTING | MOVEFILE_WRITE_THROUGH ) )
 			return TRUE;	// Done
-
 		ASSERT( FALSE );
 	}
 	else // Bad file header?
 	{
-		DeleteFileEx( LPCTSTR( m_sPath + _T(".sav") ), FALSE, FALSE, FALSE );
+		DeleteFileEx( pszPathSav, FALSE, FALSE, FALSE );
 		ASSERT( FALSE );
 	}
 

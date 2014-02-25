@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Spanish (International) Skin File -->
 
-<!-- Translation based on default-en.xml r102 -->
+<!-- Translation based on default-en.xml r104 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -313,7 +313,7 @@
 		<button id="ID_MEDIA_PREVIOUS" text="Anterior"/>
 		<button id="ID_MEDIA_NEXT" text="Siguiente"/>
 		<separator/>
-		<button id="ID_MEDIA_PLAYLIST" text="Lista del reproductor"/>
+		<button id="ID_MEDIA_PLAYLIST" text="Lista"/>
 	</toolbar>
 	<toolbar name="CMediaFrame">
 		<button id="ID_MEDIA_PLAY" text="Reproducir &#160;"/>
@@ -336,7 +336,7 @@
 		<button id="ID_MEDIA_PREVIOUS"/>
 		<button id="ID_MEDIA_NEXT"/>
 		<separator/>
-		<button id="ID_MEDIA_PLAYLIST" text="Lista del reproductor"/>
+		<button id="ID_MEDIA_PLAYLIST" text="Lista"/>
 	</toolbar>
 	<toolbar name="CMediaList">
 		<button id="ID_MEDIA_ADD"/>
@@ -364,8 +364,6 @@
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
-		<button id="ID_NETWORK_DC" text="DC++"/>
-		<button id="ID_NETWORK_BT" text="BitTorrent"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Configurar..."/>
 	</toolbar>
@@ -378,6 +376,8 @@
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
+		<button id="ID_NETWORK_DC" text="DC++"/>
+		<button id="ID_NETWORK_BT" text="BitTorrent"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Configurar..."/>
 	</toolbar>
@@ -571,7 +571,6 @@
 				<menu text="_Enlaces">
 					<item id="ID_HELP_WEB_3" text="Slyck.com"/>
 					<item id="ID_HELP_WEB_1" text="ZeroPaid.com"/>
-					<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
 				</menu>
 			-->
 				<item id="ID_HELP_HOMEPAGE" text="PeerProject.org"/>
@@ -610,6 +609,7 @@
 			<item id="ID_TAB_IRC" text="_IRC"/>
 			<separator/>
 			<item id="ID_VIEW_SECURITY" text="_Seguridad"/>
+			<item id="ID_VIEW_SCHEDULER" text="_Programador"/>
 			<item id="ID_VIEW_HOSTS" text="_Caché de Hosts"/>
 			<separator/>
 			<menu text="A_dvanced">
@@ -673,8 +673,7 @@
 				<item id="ID_HELP_FORUMS" text="Foros de _PeerProject"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="Foro en Español"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Últimas Noticias"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_Acerca de PeerProject..."/>
@@ -835,8 +834,7 @@
 				<item id="ID_HELP_FORUMS" text="Foros de _PeerProject"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="Foro en Español"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Últimas Noticias"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_Acerca de PeerProject..."/>
@@ -1431,10 +1429,10 @@
 		<item id="ID_MEDIA_RANDOM" text="Modo al Azar"/>
 		<item id="ID_MEDIA_REPEAT" text="Modo de repetición"/>
 		<separator/>
-		<item id="ID_MEDIA_OPEN" text="_Abrir lista de reproducción..."/>
-		<item id="ID_MEDIA_SAVE" text="_Guardar lista de reproducción..."/>
-		<item id="ID_MEDIA_EXPORT_COLLECTION" text="E_xportar Coleccin..."/>
-		<item id="ID_MEDIA_CLEAR" text="_Limpiar lista de reproducción"/>
+		<item id="ID_MEDIA_OPEN" text="_Abrir lista..."/>
+		<item id="ID_MEDIA_SAVE" text="_Guardar lista..."/>
+		<item id="ID_MEDIA_EXPORT_COLLECTION" text="E_xportar Colección..."/>
+		<item id="ID_MEDIA_CLEAR" text="_Limpiar lista"/>
 		<separator/>
 		<item id="ID_MEDIA_PLAYLIST" text="Mostrar _Lista"/>
 	</menu>
@@ -1848,7 +1846,7 @@
 			</group>
 			<link id="DownloadsNone" target="command:ID_VIEW_DOWNLOADS">Ir a Descargas</link>
 			<link id="DownloadsOne" target="command:ID_VIEW_DOWNLOADS" format="bu">1 descarga</link>
-			<link id="DownloadsMany" target="command:ID_VIEW_DOWNLOADS" format="bu">%i dscargas</link>
+			<link id="DownloadsMany" target="command:ID_VIEW_DOWNLOADS" format="bu">%i descargas</link>
 			<newline gap="4"/>
 			<text id="DownloadedNone">No archivos (</text>
 			<text id="DownloadedOne">1 archivo (</text>
@@ -2068,7 +2066,7 @@
 		<newline gap="8"/>
 		<text>Esta descarga está en progreso. Si está bajando demásiado lento,
 		puedes tratar de buscar en la red más fuentes usando el comando </text>
-		<text format="b">Buscar Más Fuentes. </text><text>  Si la velocidad no incrementa y no mejora puede ser que los usuarios
+		<text format="b">Buscar Más Fuentes. </text><text> Si la velocidad no incrementa y no mejora puede ser que los usuarios
 		de los que estas descargando el archivo tienen una velocidad de subida muy baja. La velocidad de descarga mejora con el tiempo.</text>
 	</document>
 	<document name="DownloadHelp.Pending">
@@ -3007,7 +3005,7 @@
 	<string id="20471" value="Abrir"/>
 	<string id="20472" value="Completado"/>
 	<string id="20473" value="Tiempo estimado para que la descarga termine:"/>
-	<string id="20474" value="Nmero de análisis:"/>
+	<string id="20474" value="Número de análisis:"/>
 	<string id="20475" value="Número de Fuentes:"/>
 	<string id="20476" value="No hay fuentes"/>
 	<string id="20477" value="%i dias y %i horas"/>
@@ -3022,7 +3020,7 @@
 	<string id="20490" value="Múltiple"/>
 	<string id="20491" value="Valores Multiple"/>
 	<string id="20494" value="No ha sido especificada su ubicación en su perfil.\n\nPara otros usuarios podría ser interesante saber donde eres, para crear un mejor sentido de comunidad.\n\n¿Estás seguro(a) de continuar sin especificar tu ubicación?"/>
-	<string id="20495" value="No se ha especificado un nick(nombre real/inventado con que figuras en la conexión) en su perfil."/>
+	<string id="20495" value="No se ha especificado un nick (nombre real/inventado con que figuras en la conexión) en su perfil."/>
 	<string id="20496" value="No has seleccionado tu edad y sexo. ¿Estas seguro que deseas continuar sin incluirlo?"/>
 	<string id="20499" value="Nueva Carpeta"/>
 	<string id="20500" value="Haz click en Conectar, para empezar."/>
@@ -3228,6 +3226,7 @@
 	<string id="20773" value="de tu librería"/>
 	<string id="20774" value="N/A"/>
 	<string id="20775" value="Siguiente en Línea"/>
+	<string id="20776" value="(No Hay Hashset)"/>
 	<string id="20777" value="Fuente Parcial (%.2f%% disponible)"/>
 	<string id="20778" value="%i slots de subida, %i esperando en cola"/>
 	<string id="20780" value="Tamaño"/>
@@ -3239,7 +3238,6 @@
 	<string id="20786" value="%lu hoy, %lu total"/>
 	<string id="20787" value="Archivos totales:"/>
 	<string id="20788" value="Volumen total:"/>
-	<string id="20789" value=" (No Hay Hashset)"/>
 	<string id="20789" value="Subida:"/>
 	<string id="20790" value="Tipo"/>
 	<string id="20791" value="No confiado"/>
@@ -3322,9 +3320,9 @@
 	<string id="20874" value="URL:"/>
 	<string id="20875" value="No (inespecífico)"/>
 	<string id="20880" value="Editar Mi Perfil"/>
-	<string id="20881" value="%u Archivos seleccionados. ¿Esta seguro?"/>
-	<string id="20882" value="No hay URN disponible"/>
-	<string id="20883" value="El servicio de red para Dispositivo UPnP no está ejecutado. Este servicio es requerido completar la configuración.\nNecesitas completar el inicio del servicio como automático."/>
+	<string id="20882" value="%u Archivos seleccionados. ¿Esta seguro?"/>
+	<string id="20883" value="No hay URN disponible"/>
+	<string id="20884" value="El servicio de red para Dispositivo UPnP no está ejecutado. Este servicio es requerido completar la configuración.\nNecesitas completar el inicio del servicio como automático."/>
 	<string id="20885" value="Cambiado de vista va a cerrar todas las ventanas que tienes abiertas. ¿Deseas cambiar ahora?"/>
 	<string id="20886" value="Cambiando la dirección de interface requiere reiniciar.\n\n¿Salir ahora?"/>
 	<string id="20890" value="Bienvenido a PeerProject"/>
@@ -3340,6 +3338,7 @@
 	<!-- string value="Información Torrent"-->
 	<!-- string value="El tracker no responde, reintentando otra vez (%i of %i)"-->
 	<!-- string value="El archivo &quot;%s&quot; ya está en Colección. ¿Quieres descagarlo de todos modos?"-->
+	<!-- string value="Por favor seleccione el tipo de conexión antes de continuar."-->
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
@@ -3427,16 +3426,6 @@
 		<control caption="_Seleccionar Plugin..."/>
 		<control caption="Nota: Seleccionar un programa de medios externo va a automaticamente deshabilitar todos los Plugins de Visualización y de Medios"/>
 	</dialog>
-	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Comunidad">
-		<control caption="Mi _Perfil:"/>
-		<control caption="El perfil de PeerProject sirve para compartir información acerca de ti, tus intereses, y hasta mencionar tus archivos y paginas web favoritas."/>
-		<control caption="Editar Mi perfil"/>
-		<control caption="_Chat:"/>
-		<control caption="Habilitar función de chat con clientes compatibles"/>
-		<control caption="Habilitar chat en todas las redes"/>
-		<control caption="Filtrar mensajes de chat para spam"/>
-		<control caption="Censurar cosas obscenas en chat"/>
-	</dialog>
 	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdmsStStEdmsCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStCoStEdStEd" caption="IRC">
 		<control caption="_Opciones de Cliente:"/>
 		<control caption="Mostrar ventana de chat IRC"/>
@@ -3480,6 +3469,28 @@
 		<control/>
 		<control caption="Comando ejecutar en la conexión"/>
 		<control/>
+	</dialog>
+	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Comunidad">
+		<control caption="Mi _Perfil:"/>
+		<control caption="El perfil de PeerProject sirve para compartir información acerca de ti, tus intereses, y hasta mencionar tus archivos y paginas web favoritas."/>
+		<control caption="Editar Mi perfil"/>
+		<control caption="_Chat:"/>
+		<control caption="Habilitar función de chat con clientes compatibles"/>
+		<control caption="Habilitar chat en todas las redes"/>
+		<control caption="Filtrar mensajes de chat para spam"/>
+		<control caption="Censurar cosas obscenas en chat"/>
+	</dialog>
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Acceso Remoto">
+		<control caption="_Habilitar:"/>
+		<control caption="Habilitar Acceso Remoto de PeerProject:"/>
+		<control caption="..."/>
+		<control caption="_Credenciales:"/>
+		<control caption="Escoge un usuario:"/>
+		<control caption="Escoge una contraseña:"/>
+		<control/>
+		<control/>
+		<control caption="Ayuda:"/>
+		<control caption="El Acceso Remoto de PeerProject te permite dejar PeerProject corriendo en tu PC, y controlarlo usando un navegador. Vas a necesitar habilitar aceptar conexiones entrantes para usar esta característica (Ej: Configurar tu router, etc)."/>
 	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
 		<control caption="Manejar enlaces avanzados:"/>
@@ -3567,25 +3578,13 @@
 		<control caption="Límite:"/>
 		<control/>
 		<control caption="Modo:"/>
-		<control caption="Máximo|Media"/>
+		<control caption="Media|Máximo/Estricto"/>
 		<control caption="_Colas:"/>
 		<control/>
 		<control caption="_Nueva..."/>
 		<control caption="_Editar..."/>
 		<control caption="_Borrar"/>
 		<control caption="(Los cambios son inmediatos)"/>
-	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Acceso Remoto">
-		<control caption="_Habilitar:"/>
-		<control caption="Habilitar Acceso Remoto de PeerProject:"/>
-		<control caption="..."/>
-		<control caption="_Credenciales:"/>
-		<control caption="Escoge un usuario:"/>
-		<control caption="Escoge una contraseña:"/>
-		<control/>
-		<control/>
-		<control caption="Ayuda:"/>
-		<control caption="El Acceso Remoto de PeerProject te permite dejar PeerProject corriendo en tu PC, y controlarlo usando un navegador. Vas a necesitar habilitar aceptar conexiones entrantes para usar esta característica (Ej: Configurar tu router, etc)."/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="Redes">
 		<control caption="PeerProject tiene la habilidad de acceder varias redes de compartimiento de archivos. En esta página se pueden seleccionar las redes que serán usadas, y ajustar las configuraciones de las mismás."/>
@@ -3720,7 +3719,7 @@
 		<control/>
 		<control caption="Información de componentes (plugins):"/>
 		<control caption="Nombre:"/>
-		<control/>
+		<control caption="..."/>
 		<control caption="Descripcion:"/>
 		<control/>
 		<control caption="Configurar..."/>

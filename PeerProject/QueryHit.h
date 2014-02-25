@@ -1,7 +1,7 @@
 //
 // QueryHit.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -32,13 +32,11 @@ class CDCPacket;
 
 class CQueryHit : public CPeerProjectFile
 {
-// Construction
 public:
 	CQueryHit(PROTOCOLID nProtocol, const Hashes::Guid& oSearchID = Hashes::Guid());
 	CQueryHit(const CQueryHit& pHit);
 	virtual ~CQueryHit();
 
-// Attributes
 public:
 	CQueryHit*		m_pNext;
 	Hashes::Guid	m_oSearchID;
@@ -94,7 +92,6 @@ public:
 protected:
 	static CXMLElement*	ReadXML(CG1Packet* pPacket, int nSize);
 
-// Operations
 public:
 	CQueryHit&	operator=(const CQueryHit& pOther);
 	void		Delete();

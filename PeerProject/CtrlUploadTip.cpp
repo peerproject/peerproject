@@ -1,7 +1,7 @@
 //
 // CtrlUploadTip.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -169,6 +169,7 @@ void CUploadTipCtrl::OnPaint(CDC* pDC)
 
 	if ( ! m_pUploadFile || ! UploadFiles.Check( m_pUploadFile ) )
 	{
+		pLock.Unlock();
 		Hide();
 		return;
 	}
@@ -292,6 +293,8 @@ void CUploadTipCtrl::OnPaint(CDC* pDC)
 	DrawProgressBar( pDC, &pt, m_pUploadFile );
 	pt.y += TIP_GAP;
 
+	pLock.Unlock();
+
 	// Graph Bar
 	CRect rc( pt.x, pt.y, m_sz.cx, pt.y + TIP_GRAPHHEIGHT );
 	pDC->Draw3dRect( &rc, Colors.m_crTipBorder, Colors.m_crTipBorder );
@@ -341,6 +344,7 @@ void CUploadTipCtrl::OnTimer(UINT_PTR nIDEvent)
 
 	if ( ! m_pUploadFile || ! UploadFiles.Check( m_pUploadFile ) )
 	{
+		pLock.Unlock();
 		Hide();
 		return;
 	}
@@ -368,12 +372,12 @@ void CUploadTipCtrl::OnTimer(UINT_PTR nIDEvent)
 		// Update torrent Seeds/Peers asynchronously, Scrape if needed
 		if ( nIDEvent == 2 && pUpload->m_nProtocol == PROTOCOL_BT && m_sSeedsPeers.IsEmpty() )
 		{
-			pLock.Lock();
-			if ( CDownload* pDownload = Downloads.FindByBTH( m_pUploadFile->GetActive()->m_oBTH ) )		// Transfers lock required
+			if ( pLock.Lock( 100 ) )
 			{
+				CDownload* pDownload = Downloads.FindByBTH( m_pUploadFile->GetActive()->m_oBTH );		// Transfers lock required
 				pLock.Unlock();
-				if ( pDownload->m_pTorrent.ScrapeTracker() )	// No transfers lock allowed
-					m_sSeedsPeers.Format( _T("   ( %i seeds %i peers )"),	// ToDo: Translation ?
+				if ( pDownload && pDownload->m_pTorrent.ScrapeTracker() )		// No transfers lock allowed
+					m_sSeedsPeers.Format( _T("   ( %i seeds %i peers )"),		// ToDo: Translation ?
 						pDownload->m_pTorrent.m_nTrackerSeeds, pDownload->m_pTorrent.m_nTrackerPeers );
 			}
 		}

@@ -1,7 +1,7 @@
 //
 // DlgIrcInput.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2005.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -19,7 +19,6 @@
 #pragma once
 
 #include "DlgSkinDialog.h"
-// CIrcInputDlg dialog
 
 class CIrcInputDlg : public CSkinDialog
 {
@@ -29,7 +28,6 @@ public:
 
 	enum { IDD = IDD_IRC_INPUTBOX };
 
-// Dialog Data
 public:
 	int			m_nCaptionIndex;
 	BOOL		m_bKickOnly;
@@ -39,15 +37,9 @@ public:
 
 	void OnOK();
 
-// Overrides
 protected:
-	//{{AFX_VIRTUAL(CIrcInputDlg)
 	virtual void DoDataExchange(CDataExchange* pDX);
-	//}}AFX_VIRTUAL
 
-// Implementation
 protected:
-	//{{AFX_MSG(CIrcInputDlg)
 	virtual BOOL OnInitDialog();
-	//}}AFX_MSG
 };

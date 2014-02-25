@@ -672,7 +672,6 @@ void CMainWnd::OnEndSession(BOOL bEnding)
 	if ( bEnding )
 	{
 		AfxOleSetUserCtrl( TRUE );		// Keep from randomly shutting down
-
 		SendMessage( WM_CLOSE );
 	}
 
@@ -1267,12 +1266,9 @@ LRESULT CMainWnd::OnSkinChanged(WPARAM /*wParam*/, LPARAM /*lParam*/)
 
 	m_wndRemoteWnd.OnSkinChange();
 	m_wndMonitorBar.OnSkinChange();
-	if ( Settings.Toolbars.ShowMonitor )
-	{
-		// Quick workaround to show a monitor bar when skin or GUI mode is changed
-		if ( ! m_wndMonitorBar.IsVisible() && Settings.General.GUIMode != GUI_WINDOWED )
-			PostMessage( WM_COMMAND, ID_WINDOW_MONITOR );
-	}
+	// Quick workaround to show a monitor bar when skin or GUI mode is changed
+	if ( Settings.Toolbars.ShowMonitor && ! m_wndMonitorBar.IsVisible() && Settings.General.GUIMode != GUI_WINDOWED )
+		PostMessage( WM_COMMAND, ID_WINDOW_MONITOR );
 
 	SetWindowPos( NULL, 0, 0, 0, 0, SWP_NOMOVE|SWP_NOSIZE|SWP_NOACTIVATE|SWP_NOZORDER|SWP_FRAMECHANGED|SWP_DRAWFRAME );
 
@@ -1384,7 +1380,8 @@ LRESULT CMainWnd::OnVersionCheck(WPARAM wParam, LPARAM /*lParam*/)
 		}
 		else
 		{
-			ShowTrayPopup( LoadString( IDS_UPGRADE_NO_NEW ) );
+			theApp.Message( MSG_INFO, IDS_UPGRADE_NO_NEW );
+			//ShowTrayPopup( LoadString( IDS_UPGRADE_NO_NEW ) );
 
 			if ( VersionChecker.IsVerbose() )
 				MsgBox( IDS_UPGRADE_NO_NEW, MB_ICONINFORMATION );

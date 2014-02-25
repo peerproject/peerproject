@@ -1,7 +1,7 @@
 //
 // CtrlMatch.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -1520,7 +1520,6 @@ BOOL CMatchCtrl::GetItemRect(CMatchFile* pFindFile, CQueryHit* pFindHit, CRect* 
 
 void CMatchCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 {
-	CSingleLock pLock( &m_pMatches->m_pSection, TRUE );
 	CMatchFile* pFile;
 	CQueryHit* pHit;
 	DWORD nIndex;
@@ -1529,6 +1528,9 @@ void CMatchCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 	SetFocus();
 	SetCapture();
 	m_wndTip.Hide();
+
+	CSingleLock pLock( &m_pMatches->m_pSection );
+	if ( ! SafeLock( pLock ) ) return;
 
 	HitTest( point, &pFile, &pHit, &nIndex, &rcItem );
 
@@ -1956,6 +1958,8 @@ void CMatchCtrl::DoExpand(BOOL bExpand)
 		bChanged |= pFile->Expand( bExpand );
 	}
 
+	pLock.Unlock();
+
 	m_wndTip.Hide();
 	if ( bChanged ) NotifySelection();
 	Update();
@@ -1963,7 +1967,8 @@ void CMatchCtrl::DoExpand(BOOL bExpand)
 
 void CMatchCtrl::SelectAll()
 {
-	CSingleLock pLock( &m_pMatches->m_pSection, TRUE );
+	CSingleLock pLock( &m_pMatches->m_pSection );
+	if ( ! SafeLock( pLock ) ) return;
 
 	BOOL bChanged = m_pMatches->ClearSelection();
 
@@ -1983,6 +1988,8 @@ void CMatchCtrl::SelectAll()
 			}
 		}
 	}
+
+	pLock.Unlock();
 
 	m_wndTip.Hide();
 	if ( bChanged ) NotifySelection();

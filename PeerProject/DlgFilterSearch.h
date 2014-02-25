@@ -1,7 +1,7 @@
 //
 // DlgFilterSearch.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -25,13 +25,11 @@ class CResultFilters;
 
 class CFilterSearchDlg : public CSkinDialog
 {
-// Construction
 public:
 	CFilterSearchDlg(CWnd* pParent = NULL, CMatchList* pList = NULL);
 
 	enum { IDD = IDD_FILTER_SEARCH };
 
-// Dialog Data
 public:
 	CSpinButtonCtrl	m_wndSources;
 	CString	m_sFilter;
@@ -48,13 +46,12 @@ public:
 	int		m_nSources;
 	CString	m_sMaxSize;
 	CString	m_sMinSize;
-	BOOL    m_bDefault;
+	BOOL	m_bDefault;
 	BOOL	m_bRegExp;
 
 	CMatchList*	m_pMatches;
 	CResultFilters * m_pResultFilters;
 
-// Implementation
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
 

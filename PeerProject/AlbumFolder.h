@@ -1,7 +1,7 @@
 //
 // AlbumFolder.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -29,12 +29,10 @@ class CXMLElement;
 
 class CAlbumFolder
 {
-// Construction
 public:
 	CAlbumFolder(CAlbumFolder* pParent = NULL, LPCTSTR pszSchemaURI = NULL, LPCTSTR pszName = NULL, BOOL bAutoDelete = FALSE);
 	virtual ~CAlbumFolder();
 
-// Attributes
 public:
 	CString					m_sSchemaURI;
 	CSchemaPtr				m_pSchema;
@@ -55,7 +53,6 @@ protected:
 	CList< CLibraryFile* >	m_pFiles;
 	CCollectionFile*		m_pCollection;
 
-// Operations
 public:
 	void			AddFolder(CAlbumFolder* pFolder);
 	CAlbumFolder*	AddFolder(LPCTSTR pszSchemaURI = NULL, LPCTSTR pszName = NULL, BOOL bAutoDelete = FALSE);

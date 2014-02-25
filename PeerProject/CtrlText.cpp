@@ -1,7 +1,7 @@
 //
 // CtrlText.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -39,11 +39,11 @@ BEGIN_MESSAGE_MAP(CTextCtrl, CWnd)
 	ON_WM_ERASEBKGND()
 	ON_WM_PAINT()
 	ON_WM_SIZE()
-	ON_WM_VSCROLL()
 	ON_WM_KEYDOWN()
 	ON_WM_LBUTTONDOWN()
 	ON_WM_RBUTTONDOWN()
 	ON_WM_MOUSEWHEEL()
+	ON_WM_VSCROLL()
 END_MESSAGE_MAP()
 
 #define LINE_BUFFER_LIMIT		4096
@@ -157,7 +157,7 @@ void CTextCtrl::Clear(BOOL bInvalidate)
 void CTextCtrl::UpdateScroll(BOOL bFull)
 {
 	SCROLLINFO si = {};
-	si.cbSize = sizeof( si );
+	si.cbSize	= sizeof( si );
 	si.fMask	= SIF_POS;
 	si.nPos		= m_nPosition;
 
@@ -272,6 +272,7 @@ void CTextCtrl::OnPaint()
 	for ( INT_PTR nLine = m_pLines.GetSize() - 1 ; nLine >= 0 && rcLine.bottom > 0 ; nLine-- )
 	{
 		CTextLine* pLine = m_pLines.GetAt( nLine );
+		const WORD nType = pLine->m_nType & MSG_SEVERITY_MASK;
 		if ( pLine->m_bSelected && Images.m_bmSelected.m_hObject )	// Skinned
 		{
 			CRect rcPaint( rcLine );
@@ -280,17 +281,14 @@ void CTextCtrl::OnPaint()
 				rcPaint.top -= ( pLine->m_nLine - 1 ) * m_nHeight;
 			dc.SetBkMode( TRANSPARENT );
 			CoolInterface.DrawWatermark( &dc, &rcPaint, &Images.m_bmSelected, FALSE ); 	// No overdraw
-			WORD nType = pLine->m_nType & MSG_SEVERITY_MASK;
-			dc.SetTextColor( nType > 2 ? Colors.m_crHighlight : m_crText[ nType ] );
+			dc.SetTextColor( m_crText[ nType == 2 ? Colors.m_crHiText : nType ] );
 			pLine->Paint( &dc, &rcLine, TRUE );
 			dc.SetBkMode( OPAQUE );
 		}
 		else // Default
 		{
-			dc.SetTextColor( pLine->m_bSelected ?
-				Colors.m_crHiText : m_crText[ pLine->m_nType & MSG_SEVERITY_MASK ] );
-			dc.SetBkColor( pLine->m_bSelected ?
-				Colors.m_crHighlight : Colors.m_crWindow );	 // ToDo: Fix m_crBackground[ ( pLine->m_nType & MSG_FACILITY_MASK ) >> 8 ]
+			dc.SetTextColor( pLine->m_bSelected ? Colors.m_crHiText : m_crText[ nType ] );
+			dc.SetBkColor( pLine->m_bSelected ? Colors.m_crHighlight : Colors.m_crWindow );	 // ToDo: Fix m_crBackground[ ( pLine->m_nType & MSG_FACILITY_MASK ) >> 8 ]
 			pLine->Paint( &dc, &rcLine );
 		}
 	}
@@ -314,8 +312,7 @@ int CTextCtrl::HitTest(const CPoint& pt) const
 		GetClientRect( &rcClient );
 		CRect rcLine( rcClient );
 		rcLine.bottom += ( m_nTotal - m_nPosition ) * m_nHeight;
-		for ( int nLine = m_pLines.GetCount() - 1 ;
-			nLine >= 0 && rcLine.bottom > rcClient.top ; nLine-- )
+		for ( int nLine = m_pLines.GetCount() - 1 ; nLine >= 0 && rcLine.bottom > rcClient.top ; nLine-- )
 		{
 			CTextLine* pLine = m_pLines.GetAt( nLine );
 			rcLine.top = rcLine.bottom - pLine->m_nLine * m_nHeight;
@@ -383,11 +380,11 @@ void CTextCtrl::OnSkinChange()
 
 void CTextCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 {
-	CQuickLock pLock( m_pSection );
-
 	SetFocus();
 
-	int nLine = HitTest( point );
+	CQuickLock pLock( m_pSection );
+
+	const int nLine = HitTest( point );
 	if ( nLine != -1 )
 	{
 		CTextLine* pLine = m_pLines.GetAt( nLine );
@@ -437,8 +434,6 @@ void CTextCtrl::OnRButtonDown(UINT /*nFlags*/, CPoint point)
 
 void CTextCtrl::OnKeyDown(UINT nChar, UINT /*nRepCnt*/, UINT /*nFlags*/)
 {
-	CQuickLock pLock( m_pSection );
-
 	if ( GetKeyState( VK_CONTROL ) < 0 )
 	{
 		switch ( nChar )
@@ -452,19 +447,23 @@ void CTextCtrl::OnKeyDown(UINT nChar, UINT /*nRepCnt*/, UINT /*nFlags*/)
 
 		// Ctrl+A = Select all
 		case 'A':
-			for ( int i = 0 ; i < m_pLines.GetCount() ; i++ )
 			{
-				CTextLine* pLineTemp = m_pLines.GetAt( i );
-				pLineTemp->m_bSelected = TRUE;
+				CQuickLock pLock( m_pSection );
+				for ( int i = 0 ; i < m_pLines.GetCount() ; i++ )
+				{
+					CTextLine* pLineTemp = m_pLines.GetAt( i );
+					pLineTemp->m_bSelected = TRUE;
+				}
 			}
 			InvalidateRect( NULL );
 			break;
 		}
 	}
 
-	// Esc = Unselect all
 	if ( nChar == VK_ESCAPE )
 	{
+		// Esc = Unselect all
+		CQuickLock pLock( m_pSection );
 		for ( int i = 0, nCount = m_pLines.GetCount() ; i < nCount ; i++ )
 		{
 			CTextLine* pLineTemp = m_pLines.GetAt( i );
@@ -489,16 +488,19 @@ BOOL CTextCtrl::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 		nScroll = zDelta / WHEEL_DELTA * ( si.nPage - 1 );
 	}
 
-	CQuickLock pLock( m_pSection );
+	{
+		CQuickLock pLock( m_pSection );
 
-	m_nPosition -= nScroll;
-	m_nPosition = max( 0, min( m_nTotal, m_nPosition ) );
+		m_nPosition -= nScroll;
+		m_nPosition = max( 0, min( m_nTotal, m_nPosition ) );
+	}
 
 	UpdateScroll();
 	Invalidate();
 
 	return CWnd::OnMouseWheel(nFlags, zDelta, pt);
 }
+
 
 /////////////////////////////////////////////////////////////////////////////
 // CTextLine construction

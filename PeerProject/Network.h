@@ -1,7 +1,7 @@
 //
 // Network.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -38,13 +38,14 @@ enum	// Used from CNetwork::IsFirewalled
 	CHECK_BOTH, CHECK_TCP, CHECK_UDP, CHECK_IP
 };
 
-enum // AsyncResolver command
+enum	// AsyncResolver command
 {
 	RESOLVE_ONLY,				// Resolve and update host cache
 	RESOLVE_CONNECT_ULTRAPEER,	// Resolve, update host cache and connect as ultrapeer
 	RESOLVE_CONNECT,			// Resolve, update host cache and connect
 	RESOLVE_DISCOVERY			// Resolve and update discovery services
 };
+
 
 class CNetwork : public CComObject, public CThreadImpl
 {
@@ -54,7 +55,6 @@ public:
 	CNetwork();
 	~CNetwork();
 
-// Attributes
 public:
 	CAutoPtr< CRouteCache >	NodeRoute;
 	CAutoPtr< CRouteCache >	QueryRoute;
@@ -173,7 +173,6 @@ protected:
 	void		MapPorts(); 	// Create TCP/UDP port mappings
 	void		DeletePorts();	// Remove TCP/UDP port mappings
 
-// Operations
 public:
 	BOOL		Init(); 		// Initialize network: Windows Sockets, Windows Firewall, UPnP NAT.
 	void		Clear();		// Shutdown network

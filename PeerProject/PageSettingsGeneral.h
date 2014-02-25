@@ -1,7 +1,7 @@
 //
 // PageSettingsGeneral.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -25,16 +25,13 @@ class CGeneralSettingsPage : public CSettingsPage
 {
 	DECLARE_DYNCREATE(CGeneralSettingsPage)
 
-// Construction
 public:
 	CGeneralSettingsPage();
 	virtual ~CGeneralSettingsPage();
 
 	enum { IDD = IDD_SETTINGS_GENERAL };
 
-// Dialog Data
 public:
-	//{{AFX_DATA(CGeneralSettingsPage)
 	BOOL	m_bAutoConnect;
 	BOOL	m_bStartup;
 	BOOL	m_bPromptURLs;
@@ -49,33 +46,26 @@ public:
 	int		m_nCloseMode;
 	int		m_bTrayMinimise;
 	int		m_nRatesInBytes;
+	DWORD	m_nTipDelay;
 	CSpinButtonCtrl	m_wndTipSpin;
 	CListCtrl	m_wndTips;
 	CSliderCtrl	m_wndTipAlpha;
 	CComboBox	m_wndCloseMode;
 	CComboBox	m_wndTrayMinimise;
-	DWORD	m_nTipDelay;
-	//}}AFX_DATA
+
 
 protected:
 	void Add(LPCTSTR pszName, BOOL bState);
 
-// Overrides
 public:
-	//{{AFX_VIRTUAL(CGeneralSettingsPage)
-	public:
 	virtual void OnOK();
-	protected:
-	virtual void DoDataExchange(CDataExchange* pDX);
-	//}}AFX_VIRTUAL
-
-// Implementation
 protected:
-	//{{AFX_MSG(CGeneralSettingsPage)
+	virtual void DoDataExchange(CDataExchange* pDX);
+
+protected:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnDropdownCloseMode();
 	afx_msg void OnDropdownTrayMinimise();
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

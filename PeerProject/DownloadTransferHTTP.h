@@ -1,7 +1,7 @@
 //
 // DownloadTransferHTTP.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -23,12 +23,10 @@
 
 class CDownloadTransferHTTP : public CDownloadTransfer
 {
-// Construction
 public:
 	CDownloadTransferHTTP(CDownloadSource* pSource);
 	virtual ~CDownloadTransferHTTP();
 
-// Attributes
 protected:
 	DWORD			m_nRequests;
 	DWORD			m_tContent;
@@ -65,7 +63,6 @@ protected:
 	ChunkState		m_ChunkState;
 	QWORD			m_nChunkLength;
 
-// Operations
 public:
 	virtual BOOL	Initiate();
 	virtual void	AttachTo(CConnection* pConnection);

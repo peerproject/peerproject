@@ -1,7 +1,7 @@
 //
 // GraphBase.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -21,19 +21,16 @@
 
 class CGraphBase
 {
-// Construction
 public:
 	CGraphBase();
 	virtual ~CGraphBase();
 
-// Attributes
 protected:
 	CDC			m_pDC;
 	CBitmap		m_pImage;
 	HBITMAP		m_hOldImage;
 	CSize		m_szImage;
 
-// Operations
 public:
 	virtual void	CreateDefaults();
 	virtual void	Serialize(CArchive& ar);

@@ -1,7 +1,7 @@
 //
 // DownloadGroups.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -24,12 +24,10 @@ class CDownloadGroup;
 
 class CDownloadGroups
 {
-// Construction
 public:
 	CDownloadGroups();
 	virtual ~CDownloadGroups();
 
-// Attributes
 public:
 	CCriticalSection	m_pSection;
 protected:
@@ -39,7 +37,6 @@ protected:
 	int					m_nSaveCookie;
 	int					m_nGroupCookie;
 
-// Operations
 public:
 	CDownloadGroup*		GetSuperGroup();
 	CDownloadGroup*		Add(LPCTSTR pszName = NULL, BOOL bTemporary = FALSE, BOOL bUseExisting = FALSE);

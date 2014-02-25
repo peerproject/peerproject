@@ -1,7 +1,7 @@
 //
 // BTInfo.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -29,7 +29,6 @@ class CBENode;
 
 class CBTInfo : public CPeerProjectFile
 {
-// Construction
 public:
 	CBTInfo();
 	CBTInfo(const CBTInfo& oSource);
@@ -97,7 +96,6 @@ public:
 		friend class CBTInfo;
 	};
 
-// Attributes
 public:
 	CStringList	m_sURLs;				// Add sources from torrents - DWK
 	CStringList	m_oNodes;				// DHT nodes list
@@ -131,7 +129,6 @@ private:
 
 	BOOL		CheckFiles();
 
-// Operations
 public:
 	void		Clear();
 	void		Serialize(CArchive& ar);

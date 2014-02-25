@@ -1,7 +1,7 @@
 //
 // VersionChecker.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -300,9 +300,9 @@ BOOL CVersionChecker::CheckUpgradeHash(const CLibraryFile* pFile)
 			pFile = LibraryMaps.LookupFileByHash( &oFilter, FALSE, TRUE );
 
 		if ( pFile &&
-			validAndEqual( pFile->m_oSHA1, oFilter.m_oSHA1 ) &&
 			 pFile->m_nSize == oFilter.m_nSize &&
-			_tcsicmp( PathFindExtension( pFile->GetPath() ), _T(".exe") ) == 0 )
+			 validAndEqual( pFile->m_oSHA1, oFilter.m_oSHA1 ) &&
+			 EndsWith( pFile->GetPath(), _PT(".exe") ) )	//_tcsicmp( PathFindExtension( pFile->GetPath() ), _T(".exe") ) == 0 )
 		{
 			m_sUpgradePath = pFile->GetPath();
 			PostMainWndMessage( WM_VERSIONCHECK, VC_UPGRADE );

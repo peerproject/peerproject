@@ -321,7 +321,8 @@ void CLibraryFileView::OnUpdateLibraryLaunchFolder(CCmdUI* pCmdUI)
 
 void CLibraryFileView::OnLibraryLaunchFolder()
 {
-	CSingleLock pLock( &Library.m_pSection, TRUE );
+	CSingleLock pLock( &Library.m_pSection );
+	if ( ! SafeLock( pLock ) ) return;
 
 	POSITION posSel = StartSelectedFileLoop();
 	while ( CLibraryFile* pFile = GetNextSelectedFile( posSel ) )
@@ -341,7 +342,8 @@ void CLibraryFileView::OnUpdateLibraryURL(CCmdUI* pCmdUI)
 
 void CLibraryFileView::OnLibraryURL()
 {
-	CSingleLock pLock( &Library.m_pSection, TRUE );
+	CSingleLock pLock( &Library.m_pSection );
+	if ( ! SafeLock( pLock ) ) return;
 
 	if ( GetSelectedCount() == 1 )
 	{
@@ -379,8 +381,10 @@ void CLibraryFileView::OnUpdateLibraryMove(CCmdUI* pCmdUI)
 
 void CLibraryFileView::OnLibraryMove()
 {
-	CSingleLock pLock( &Library.m_pSection, TRUE );
 	CFileCopyDlg dlg( NULL, TRUE );
+
+	CSingleLock pLock( &Library.m_pSection );
+	if ( ! SafeLock( pLock ) ) return;
 
 	POSITION posSel = StartSelectedFileLoop();
 	while ( CLibraryFile* pFile = GetNextSelectedFile( posSel ) )
@@ -400,8 +404,10 @@ void CLibraryFileView::OnUpdateLibraryCopy(CCmdUI* pCmdUI)
 
 void CLibraryFileView::OnLibraryCopy()
 {
-	CSingleLock pLock( &Library.m_pSection, TRUE );
 	CFileCopyDlg dlg( NULL, FALSE );
+
+	CSingleLock pLock( &Library.m_pSection, TRUE );
+	if ( ! SafeLock( pLock ) ) return;
 
 	POSITION posSel = StartSelectedFileLoop();
 	while ( CLibraryFile* pFile = GetNextSelectedFile( posSel ) )
@@ -421,7 +427,6 @@ void CLibraryFileView::OnUpdateLibraryDelete(CCmdUI* pCmdUI)
 
 void CLibraryFileView::OnLibraryDelete()
 {
-	CSingleLock pTransfersLock( &Transfers.m_pSection, TRUE );	// Can clear uploads and downloads
 	CSingleLock pLibraryLock( &Library.m_pSection, TRUE );
 
 	CLibraryListPtr pList( new CLibraryList() );
@@ -431,6 +436,11 @@ void CLibraryFileView::OnLibraryDelete()
 	{
 		pList->AddTail( pFile );
 	}
+
+	pLibraryLock.Unlock();
+	CSingleLock pTransfersLock( &Transfers.m_pSection );	// Can clear uploads and downloads
+	if ( ! SafeLock( pTransfersLock ) ) return;
+	if ( ! SafeLock( pLibraryLock ) ) return;
 
 	while ( ! pList->IsEmpty() )
 	{
@@ -452,10 +462,10 @@ void CLibraryFileView::OnLibraryDelete()
 		else
 		{
 			CDeleteFileDlg dlg( this );
-			dlg.m_sName	= pFile->m_sName;
+			dlg.m_sName = pFile->m_sName;
 			dlg.m_sComments = pFile->m_sComments;
 			dlg.m_nRateValue = pFile->m_nRating;
-			dlg.m_bAll	= pList->GetCount() > 1;
+			dlg.m_bAll = pList->GetCount() > 1;
 
 			pLibraryLock.Unlock();
 			pTransfersLock.Unlock();
@@ -1090,6 +1100,7 @@ void CLibraryFileView::OnMusicBrainzAlbums()
 		{
 			if ( CXMLAttribute* pAttribute = pFile->m_pMetadata->GetAttribute( L"mbartistid" ) )
 			{
+				pLock.Unlock();
 				CString mbartistid = pAttribute->GetValue();
 				if ( ! mbartistid.IsEmpty() )
 					ShellExecute( GetSafeHwnd(), _T("open"), L"http://musicbrainz.org/artist/" + mbartistid, NULL, NULL, SW_SHOWNORMAL );

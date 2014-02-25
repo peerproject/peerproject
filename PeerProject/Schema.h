@@ -30,12 +30,10 @@ typedef const CSchema* CSchemaPtr;
 
 class CSchema
 {
-// Construction
 public:
 	CSchema();
 	virtual ~CSchema();
 
-// Attributes
 public:
 	int			m_nType;
 	CString		m_sTitle;
@@ -65,7 +63,6 @@ public:
 	enum { stFile, stFolder };
 	enum { saDefault, saAdvanced, saSystem, saMax };
 
-// Operations
 public:
 	void			Clear();
 	BOOL			Load(LPCTSTR pszName);

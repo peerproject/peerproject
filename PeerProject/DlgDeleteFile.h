@@ -1,7 +1,7 @@
 //
 // DlgDeleteFile.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -29,14 +29,12 @@ class CDeleteFileDlg : public CSkinDialog
 {
 	DECLARE_DYNAMIC(CDeleteFileDlg)
 
-// Construction
 public:
 	CDeleteFileDlg(CWnd* pParent = NULL);
 	virtual ~CDeleteFileDlg();
 
 	enum { IDD = IDD_DELETE_FILE };
 
-// Members
 public:
 	BOOL	m_bAll;
 	CStatic m_wndName;
@@ -50,18 +48,16 @@ private:
 	CButton m_wndOK;
 	CEdit	m_wndComments;
 	CButton m_wndAll;
-	CComboBox m_wndOptions;
 	int 	m_nOption;
+	CComboBox m_wndOptions;
 	CComboBox m_wndRating;
 	BOOL	m_bCreateGhost;
 	CStatic m_wndPrompt;
 
-// Operations
 public:
 	void	Apply(CLibraryFile* pFile);
 	void	Create(CDownload* pDownload, BOOL bShare);
 
-// Implementation
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
 	virtual BOOL OnInitDialog();

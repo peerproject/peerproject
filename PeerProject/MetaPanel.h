@@ -1,7 +1,7 @@
 //
 // MetaPanel.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -23,12 +23,10 @@
 
 class CMetaPanel : public CMetaList
 {
-// Construction
 public:
 	CMetaPanel();
 	virtual ~CMetaPanel();
 
-// Operations
 public:
 	int		Layout(CDC* pDC, int nWidth);
 	void	Paint(CDC* pDC, const CRect* prcArea);
@@ -42,7 +40,6 @@ public:
 	CMetaPanel*		m_pChild;
 	CString			m_sThumbnailURL;
 
-// Attributes
 public:
 	int		m_nHeight;
 

@@ -1,7 +1,7 @@
 //
 // PageFileComments.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -25,38 +25,27 @@ class CFileCommentsPage : public CFilePropertiesPage
 {
 	DECLARE_DYNCREATE(CFileCommentsPage)
 
-// Construction
 public:
 	CFileCommentsPage();
 	virtual ~CFileCommentsPage();
 
 	enum { IDD = IDD_FILE_COMMENTS };
 
-// Dialog Data
 public:
-	//{{AFX_DATA(CFileCommentsPage)
 	CEdit	m_wndComments;
 	CString	m_sComments;
-	CComboBox	m_wndRating;
+	CComboBox m_wndRating;
 	int		m_nRating;
-	//}}AFX_DATA
 
-// Overrides
 public:
-	//{{AFX_VIRTUAL(CFileCommentsPage)
-	public:
 	virtual void OnOK();
-	protected:
-	virtual void DoDataExchange(CDataExchange* pDX);
-	//}}AFX_VIRTUAL
-
-// Implementation
 protected:
-	//{{AFX_MSG(CFileCommentsPage)
+	virtual void DoDataExchange(CDataExchange* pDX);
+
+protected:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnMeasureItem(int nIDCtl, LPMEASUREITEMSTRUCT lpMeasureItemStruct);
 	afx_msg void OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct);
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

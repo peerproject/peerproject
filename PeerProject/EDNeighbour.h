@@ -1,7 +1,7 @@
 //
 // EDNeighbour.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -26,12 +26,10 @@ class CDownload;
 
 class CEDNeighbour : public CNeighbour
 {
-// Construction
 public:
 	CEDNeighbour();
 	virtual ~CEDNeighbour();
 
-// Attributes
 public:
 	DWORD		m_nClientID;
 	DWORD		m_nUserCount;
@@ -42,7 +40,6 @@ public:
 	DWORD		m_nFilesSent;
 	CList< Hashes::Guid > m_pQueries;
 
-// Operations
 public:
 	BOOL	SendSharedDownload(CDownload* pDownload);
 	DWORD	GetID() const;
@@ -60,7 +57,6 @@ private:
 	void	SendSharedFiles();
 	bool	IsGoodSize(QWORD nFileSize) const;		// Acceptable file for current ed2k-server
 
-// Overrides
 public:
 	virtual BOOL	ConnectTo(const IN_ADDR* pAddress, WORD nPort, BOOL bAutomatic);
 	virtual BOOL	Send(CPacket* pPacket, BOOL bRelease = TRUE, BOOL bBuffered = FALSE);

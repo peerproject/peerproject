@@ -1,7 +1,7 @@
 //
 // CtrlBrowseProfile.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -31,12 +31,10 @@ class CG2Packet;
 
 class CBrowseProfileCtrl : public CWnd
 {
-// Construction
 public:
 	CBrowseProfileCtrl();
 	virtual ~CBrowseProfileCtrl();
 
-// Attributes
 protected:
 	CCriticalSection	m_pSection;
 	CRichViewCtrl		m_wndDoc1;
@@ -66,7 +64,6 @@ protected:
 
 	CImageFile			m_imgHead;
 
-// Operations
 public:
 	void	Serialize(CArchive& ar, int nVersion);	// BROWSER_SER_VERSION
 	void	OnSkinChange();
@@ -77,22 +74,16 @@ protected:
 	void	UpdateDocument2(CHostBrowser* pBrowser);
 	void	LoadDefaultHead();
 
-// Overrides
 public:
-	//{{AFX_VIRTUAL(CBrowseProfileCtrl)
 	virtual BOOL Create(CWnd* pParentWnd);
-	//}}AFX_VIRTUAL
 
-// Implementation
 protected:
-	//{{AFX_MSG(CBrowseProfileCtrl)
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
 	afx_msg void OnPaint();
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnClickView(NMHDR* pNotify, LRESULT *pResult);
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

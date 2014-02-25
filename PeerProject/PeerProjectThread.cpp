@@ -1,7 +1,7 @@
 //
 // PeerProjectThread.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -104,6 +104,9 @@ void CAppThread::Add(CAppThread* pThread, LPCSTR pszName)
 
 void CAppThread::Remove(HANDLE hThread)
 {
+	if ( ! hThread )
+		return;
+
 	CSingleLock oLock( &m_ThreadMapSection, TRUE );
 
 	CThreadTag tag = { 0 };
@@ -119,7 +122,7 @@ void CAppThread::Remove(HANDLE hThread)
 
 void CAppThread::Terminate(HANDLE hThread)
 {
-	// Very dangerous function produces 100% urecoverable TLS leaks/deadlocks
+	// Very dangerous function produces 100% unrecoverable TLS leaks/deadlocks
 	if ( TerminateThread( hThread, 0 ) )
 	{
 		CSingleLock oLock( &m_ThreadMapSection, TRUE );
@@ -178,38 +181,44 @@ void SetThreadName(DWORD dwThreadID, LPCSTR szThreadName)
 
 HANDLE BeginThread(LPCSTR pszName, AFX_THREADPROC pfnThreadProc,
 	LPVOID pParam, int nPriority, UINT nStackSize, DWORD dwCreateFlags,
-	LPSECURITY_ATTRIBUTES lpSecurityAttrs)
+	LPSECURITY_ATTRIBUTES lpSecurityAttrs, DWORD* pnThreadID)
 {
 	CAppThread* pThread = new CAppThread( pfnThreadProc, pParam );
 	ASSERT_VALID( pThread );
 	if ( pThread )
-		return pThread->CreateThread( pszName, nPriority, dwCreateFlags, nStackSize, lpSecurityAttrs );
+	{
+		HANDLE hThread = pThread->CreateThread( pszName, nPriority, dwCreateFlags, nStackSize, lpSecurityAttrs );
+		if ( pnThreadID )
+			*pnThreadID = pThread->m_nThreadID;
+		return hThread;
+	}
 	return NULL;
 }
 
-void CloseThread(HANDLE* phThread, DWORD dwTimeout)
+void CloseThread(HANDLE hThread, DWORD dwTimeout)
 {
 	__try
 	{
-		if ( *phThread )
+		if ( hThread )
 		{
 			__try
 			{
-				::SetThreadPriority( *phThread, THREAD_PRIORITY_NORMAL );
+				::SetThreadPriority( hThread, THREAD_PRIORITY_NORMAL );
 
-				while ( *phThread )
+				DWORD dwExitCode;
+				while( GetExitCodeThread( hThread, &dwExitCode ) && dwExitCode == STILL_ACTIVE )
 				{
+					::SetThreadPriority( hThread, THREAD_PRIORITY_NORMAL );
+
 					SafeMessageLoop();
 
-					DWORD res = MsgWaitForMultipleObjects( 1, phThread,
-						FALSE, dwTimeout, QS_ALLINPUT | QS_ALLPOSTMESSAGE );
+					DWORD res = MsgWaitForMultipleObjects( 1, &hThread, FALSE, dwTimeout, QS_ALLINPUT | QS_ALLPOSTMESSAGE );
 					if ( res == WAIT_OBJECT_0 + 1 )
-						continue;		// Handle messages
-
-					// Handle signaled state or errors...
+						continue;	// Handle messages
 					if ( res == WAIT_TIMEOUT )
-						CAppThread::Terminate( *phThread );
+						CAppThread::Terminate( hThread );	// Timeout
 
+					// Handle signaled state or errors
 					break;
 				}
 			}
@@ -218,9 +227,7 @@ void CloseThread(HANDLE* phThread, DWORD dwTimeout)
 				// Thread already ended
 			}
 
-			CAppThread::Remove( *phThread );
-
-			*phThread = NULL;
+			CAppThread::Remove( hThread );
 		}
 	}
 	__except( EXCEPTION_EXECUTE_HANDLER )

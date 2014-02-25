@@ -25,14 +25,12 @@ class CBTInfo;
 
 class CPeerProjectURL : public CPeerProjectFile
 {
-// Construction
 public:
 	CPeerProjectURL(LPCTSTR pszURL = NULL);
 	CPeerProjectURL(CBTInfo* pTorrent);
 	CPeerProjectURL(const CPeerProjectURL& pURL);
 	virtual ~CPeerProjectURL();
 
-// Attributes
 public:
 	enum URI_TYPE
 	{
@@ -59,7 +57,6 @@ public:
 	CAutoPtr< CBTInfo >	m_pTorrent;
 	Hashes::BtGuid	m_oBTC;
 
-// Operations
 public:
 	BOOL	Parse(const CString& sText, CList< CString >& pURLs, BOOL bResolve = FALSE);	// Parse URL list
 	BOOL	Parse(LPCTSTR pszURL, BOOL bResolve = TRUE);	// Parse single URL

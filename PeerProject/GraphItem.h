@@ -1,7 +1,7 @@
 //
 // GraphItem.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -29,12 +29,10 @@ typedef struct
 
 class CGraphItem
 {
-// Construction
 public:
 	CGraphItem(DWORD nCode = 0, float nMultiplier = 1.0f, COLORREF nColor = RGB(255,255,255));
 	~CGraphItem();
 
-// Attributes
 public:
 	COLORREF	m_nColor;
 	DWORD		m_nCode;
@@ -51,7 +49,6 @@ public:
 
 	static const GRAPHITEM	m_pItemDesc[];
 
-// Operations
 public:
 	void		Clear();
 	void		SetCode(DWORD nCode);

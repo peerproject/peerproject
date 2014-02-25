@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Czech Skin File -->
 
-<!-- Translation based on default-en.xml r102 --> <!-- (Shareaza 2.2.5.7) -->
+<!-- Translation based on default-en.xml r104 --> <!-- (Shareaza 2.2.5.7) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -545,8 +545,7 @@
 					<item id="ID_HELP_FORUMS" text="Diskus_e PeerProject"/>
 					<separator/>
 					<!-- <item id="ID_HELP_UPDATE" text="Poslední novinky"/>
-					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-					<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
+					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>	-->
 				</menu>
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<separator/>
@@ -645,8 +644,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="Diskus_e PeerProject"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Poslední novinky"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>	-->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="O progr_amu PeerProject..."/>
@@ -715,8 +713,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="Diskus_e PeerProject"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Poslední novinky"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="O progr_amu PeerProject..."/>
@@ -804,8 +801,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="Diskus_e PeerProject"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Poslední novinky"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="O progr_amu PeerProject..."/>
@@ -3225,9 +3221,9 @@
 	<string id="20874" value="URL:"/>
 	<string id="20875" value="Nespecifikované"/>
 	<string id="20880" value="Upravit vlastní profil"/>
-	<string id="20881" value="%u vybraných souborů. Jste si jisti?"/>
-	<string id="20882" value="Žadné URN není dostupné"/>
-	<string id="20883" value="Služba UPnP zařízení není spuštěna. Tato služba je nutná pro nastavení zařízení.\nNastavte typ spouštění této služby na automatický."/>
+	<string id="20882" value="%u vybraných souborů. Jste si jisti?"/>
+	<string id="20883" value="Žadné URN není dostupné"/>
+	<string id="20884" value="Služba UPnP zařízení není spuštěna. Tato služba je nutná pro nastavení zařízení.\nNastavte typ spouštění této služby na automatický."/>
 	<string id="20885" value="Změna prohlížeče musí zavřít všechna okna které máte otevřená. Chcete pokračovat"/>
 	<string id="20886" value="Změna směru vyžaduje restart.\nBudete muset spustit PeerProject ručně. Ukončit?"/>
 	<string id="20890" value="Vítejte v PeerProject"/>
@@ -3330,6 +3326,7 @@
 		<control caption="_Vybrat vizualizaci..."/>
 		<control caption="Pozor: Pokud je vybraný externí přehrávač multimédii nebudou dostupné rozšíření a vizualiazace PeerProject."/>
 	</dialog>
+	<!--Missing dialog name="CIRCSettingsPage"-->
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Komunita">
 		<control caption="Můj _profil:"/>
 		<control caption="Můžete použít profil uživatele Gnutella ke sdělení informací o vás a vašich zájmech, a k doporučení zajímavých souborů a webových stránek."/>
@@ -3340,7 +3337,18 @@
 		<control caption="Filtrovat zprávy chatu na spam"/>
 		<control caption="Cenzurovat vulgárnost v chatu"/>
 	</dialog>
-	<!--Missing dialog name="CIRCSettingsPage"-->
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Vzdálený přístup">
+		<control caption="_Povolit přístup:"/>
+		<control caption="Povolit vzdálený přístup k PeerProject:"/>
+		<control/>
+		<control caption="_Osobní data:"/>
+		<control caption="Zadejte login:"/>
+		<control caption="Zadejte heslo:"/>
+		<control/>
+		<control/>
+		<control caption="Nápověda:"/>
+		<control caption="Pokud zrovna nejste u svého počítače, mužete PeerProject ovládat vzdáleně po internetu. Abyste mohli používat tuto možnost a přijímat příchozí spojení, musíte především správně nastavit router (směrovač), dále musíte nastavit heslo a povolit vzdálený přístup."/>
+	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
 		<control caption="Odkazy _Peer to Peer (P2P):"/>
 		<control caption="Použít PeerProject k otevření těchto odkazů:"/>
@@ -3427,25 +3435,13 @@
 		<control caption="Limit:"/>
 		<control/>
 		<control caption="Režim:"/>
-		<control caption="Maximálně|Průměrně"/>
+		<control caption="Průměrně|Maximálně"/>
 		<control caption="_Fronty:"/>
 		<control/>
 		<control caption="_Nový..."/>
 		<control caption="_Upravit..."/>
 		<control caption="_Vymazat"/>
 		<control caption="(změny mají okamžitý účinek)"/>
-	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Vzdálený přístup">
-		<control caption="_Povolit přístup:"/>
-		<control caption="Povolit vzdálený přístup k PeerProject:"/>
-		<control/>
-		<control caption="_Osobní data:"/>
-		<control caption="Zadejte login:"/>
-		<control caption="Zadejte heslo:"/>
-		<control/>
-		<control/>
-		<control caption="Nápověda:"/>
-		<control caption="Pokud zrovna nejste u svého počítače, mužete PeerProject ovládat vzdáleně po internetu. Abyste mohli používat tuto možnost a přijímat příchozí spojení, musíte především správně nastavit router (směrovač), dále musíte nastavit heslo a povolit vzdálený přístup."/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="Sítě">
 		<control caption="PeerProject je aplikace pro víceúčelové sdílení souborů, která může zároveň zpřístupnit více P2P sítí. Na této kartě si můžete vybrat kterou síť P2P chcete připojit, a pak nastavit specifické nastavení pro každou síť."/>

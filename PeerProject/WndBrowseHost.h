@@ -1,7 +1,7 @@
 //
 // WndBrowseHost.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -30,11 +30,11 @@ class CG2Packet;
 // History:
 // 2 - Added CHostBrowser::m_sNick (ryo-oh-ki) (Shareaza 2.5.4.0)
 
+
 class CBrowseHostWnd : public CBaseMatchWnd
 {
 	DECLARE_DYNCREATE(CBrowseHostWnd)
 
-// Construction
 public:
 	CBrowseHostWnd(PROTOCOLID nProtocol = PROTOCOL_ANY, SOCKADDR_IN* pHost = NULL, BOOL bMustPush = FALSE, const Hashes::Guid& pClientID = Hashes::Guid(), const CString& sNick = CString());
 	virtual ~CBrowseHostWnd();
@@ -42,7 +42,6 @@ public:
 public:
 	inline CHostBrowser* GetBrowser() const { return m_pBrowser; }
 
-// Attributes
 protected:
 	CHostBrowser*		m_pBrowser;
 	CBrowseHeaderCtrl	m_wndHeader;
@@ -51,7 +50,6 @@ protected:
 	BOOL				m_bOnFiles;
 	BOOL				m_bAutoBrowse;
 
-// Operations
 public:
 	void			Serialize(CArchive& ar, int nVersion = BROWSER_SER_VERSION);
 	virtual void	OnSkinChange();
@@ -66,12 +64,11 @@ public:
 
 	virtual BOOL	OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO* pHandlerInfo);
 
-// Implementation
 protected:
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
-	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
 	afx_msg void OnSize(UINT nType, int cx, int cy);
+	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
 	afx_msg void OnUpdateBrowseHostStop(CCmdUI* pCmdUI);
 	afx_msg void OnBrowseHostStop();
 	afx_msg void OnBrowseHostRefresh();

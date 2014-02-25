@@ -1,7 +1,7 @@
 //
 // DownloadWithExtras.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -24,17 +24,15 @@ class CDownloadMonitorDlg;
 class CFilePreviewDlg;
 class CDownloadTask;
 
-// CDownloadReview stores a review of a download. It can be either a G2 review,
-// copied from the search, or an ed2k review received during download.
+
+// CDownloadReview stores a review of a download. Can be a G2 review, copied from the search, or an ed2k review received during download.
 class CDownloadReview
 {
-// Construction
 public:
 	CDownloadReview();
 	CDownloadReview(in_addr *pIP, int nUserPicture, int nRating, LPCTSTR pszUserName, LPCTSTR pszComment);
 	~CDownloadReview();
 
-// Attributes
 public:
 	in_addr				m_pUserIP;			// To prevent duplicate reviews
 	int					m_nUserPicture;		// Picture to display. 2 = G2, 3 = ED2K
@@ -45,7 +43,6 @@ public:
 	CDownloadReview*	m_pNext;			// Next review in list (or NULL for the last)
 	CDownloadReview*	m_pPrev;			// PRevious review in list (or NULL for the first)
 
-// Operations
 	void Serialize(CArchive& ar, int nVersion);
 
 	friend class		CDownloadWithExtras;
@@ -54,12 +51,10 @@ public:
 
 class CDownloadWithExtras : public CDownloadWithSearch
 {
-// Construction
 protected:
 	CDownloadWithExtras();
 	virtual ~CDownloadWithExtras();
 
-// Attributes
 private:
 	CList< CString >	m_pPreviews;
 	CFilePreviewDlg*	m_pPreviewWnd;
@@ -74,7 +69,6 @@ public:
 	BOOL				m_bRemotePreviewCapable;
 	BOOL				m_bWaitingPreview;	// The remote preview request was sent
 
-// Operations
 public:
 	BOOL		GotPreview() const;
 	BOOL		CanPreview(DWORD nIndex);

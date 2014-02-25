@@ -1,7 +1,7 @@
 //
 // G2Packet.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -206,17 +206,14 @@ const G2_PACKET G2_PACKET_HASHED_KEYWORD	= MAKE_G2_PACKET( 'H', 'K', 'E', 'Y',  
 
 class CG2Packet : public CPacket
 {
-// Construction
 protected:
 	CG2Packet();
 	virtual ~CG2Packet();
 
-// Attributes
 public:
 	G2_PACKET	m_nType;
 	BOOL		m_bCompound;
 
-// Operations
 public:
 	void	WritePacket(CG2Packet* pPacket);
 	void	WritePacket(G2_PACKET nType, DWORD nLength, BOOL bCompound = FALSE);
@@ -269,7 +266,6 @@ protected:
 
 	static CG2PacketPool POOL;
 
-// Construction
 public:
 	inline static CG2Packet* New(G2_PACKET nType = G2_PACKET_NULL, BOOL bCompound = FALSE)
 	{

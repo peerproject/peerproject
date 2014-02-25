@@ -1,7 +1,7 @@
 //
 // LibraryBuilderInternals.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -23,21 +23,17 @@ class CXMLElement;
 
 class CLibraryBuilderInternals
 {
-// Construction
 //public:
 //	CLibraryBuilderInternals();
 //	virtual ~CLibraryBuilderInternals()=0;
 
-// Attributes
 private:
 	static LPCTSTR	pszID3Genre[];
 
-// Operations
 public:
 	int			LookupID3v1Genre(const CString& strGenre) const;
 	bool		ExtractMetadata(DWORD nIndex, const CString& strPath, HANDLE hFile);
 
-// Implementation
 private:
 	// ID3v1 and ID3v2 and MP3
 	bool		ReadID3v1(DWORD nIndex, HANDLE hFile);

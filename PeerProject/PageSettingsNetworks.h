@@ -1,7 +1,7 @@
 //
 // PageSettingsNetworks.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -25,16 +25,13 @@ class CNetworksSettingsPage : public CSettingsPage
 {
 	DECLARE_DYNCREATE(CNetworksSettingsPage)
 
-// Construction
 public:
 	CNetworksSettingsPage();
 	virtual ~CNetworksSettingsPage();
 
 	enum { IDD = IDD_SETTINGS_NETWORKS };
 
-// Dialog Data
 public:
-	//{{AFX_DATA(CNetworksSettingsPage)
 	CStatic	m_wndG2Setup;
 	CStatic	m_wndG1Setup;
 	CStatic	m_wndEDSetup;
@@ -43,24 +40,17 @@ public:
 	BOOL	m_bG1Enable;
 	BOOL	m_bEDEnable;
 	BOOL	m_bDCEnable;
-	//}}AFX_DATA
 
 	void	Update();
 
-// Overrides
 public:
-	//{{AFX_VIRTUAL(CNetworksSettingsPage)
-	public:
 	virtual BOOL OnSetActive();
 	virtual BOOL OnApply();
 	virtual void OnOK();
-	protected:
-	virtual void DoDataExchange(CDataExchange* pDX);
-	//}}AFX_VIRTUAL
-
-// Implementation
 protected:
-	//{{AFX_MSG(CNetworksSettingsPage)
+	virtual void DoDataExchange(CDataExchange* pDX);
+
+protected:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnG2Enable();
 	afx_msg void OnG1Enable();
@@ -69,7 +59,6 @@ protected:
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

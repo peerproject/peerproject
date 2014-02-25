@@ -1,7 +1,7 @@
 //
 // DlgDownload.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -126,7 +126,7 @@ void CDownloadDlg::OnTorrentFile()
 			return;
 
 		CSingleLock pTransfersLock( &Transfers.m_pSection );
-		if ( pTransfersLock.Lock( 2000 ) )
+		if ( SafeLock( pTransfersLock ) )
 		{
 			if ( Downloads.Check( m_pDownload ) )
 				m_pDownload->SetTorrent( &pInfo );

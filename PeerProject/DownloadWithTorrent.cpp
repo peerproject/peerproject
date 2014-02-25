@@ -1,7 +1,7 @@
 //
 // DownloadWithTorrent.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -239,8 +239,8 @@ void CDownloadWithTorrent::Serialize(CArchive& ar, int nVersion)
 		//
 		//	// Create a bunch of new empty files
 		//	ClearFile();	// Close old files
-		//	CComPtr< CFragmentedFile > pFragFile = GetFile();
-		//	if ( ! pFragFile )
+		//	auto_ptr< CFragmentedFile > pFragFile = GetFile();
+		//	if ( ! pFragFile.get() )
 		//		AfxThrowMemoryException();
 		//	if ( ! pFragFile->Open( m_pTorrent, ! IsSeeding() ) )
 		//		AfxThrowFileException( CFileException::genericException );
@@ -436,7 +436,8 @@ bool CDownloadWithTorrent::RunTorrent(DWORD tNow)
 
 				if ( pDownload && pDownload->GetVolumeRemaining() == m_nSize )	// First load only
 				{
-					if ( CComPtr< CFragmentedFile > pFragFile = pDownload->GetFile() )
+					auto_ptr< CFragmentedFile > pFragFile( pDownload->GetFile() );
+					if ( pFragFile.get() )
 					{
 						const DWORD nCount = pFragFile->GetCount();
 

@@ -1,7 +1,7 @@
 //
 // EDPartImporter.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -35,11 +35,6 @@ static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif	// Debug
 
-IMPLEMENT_DYNAMIC(CEDPartImporter, CAppThread)
-
-//BEGIN_MESSAGE_MAP(CEDPartImporter, CAppThread)
-//END_MESSAGE_MAP()
-
 
 /////////////////////////////////////////////////////////////////////////////
 // CEDPartImporter construction
@@ -47,7 +42,6 @@ IMPLEMENT_DYNAMIC(CEDPartImporter, CAppThread)
 CEDPartImporter::CEDPartImporter()
 	: m_pTextCtrl ( NULL )
 {
-	m_bAutoDelete = FALSE;
 }
 
 CEDPartImporter::~CEDPartImporter()
@@ -59,45 +53,39 @@ CEDPartImporter::~CEDPartImporter()
 
 void CEDPartImporter::AddFolder(LPCTSTR pszFolder)
 {
-	if ( m_pTextCtrl != NULL ) return;
 	m_pFolders.AddTail( pszFolder );
 }
 
 void CEDPartImporter::Start(CEdit* pCtrl)
 {
 	ASSERT( pCtrl != NULL );
+
+	if ( IsThreadAlive() )
+		return;
+
 	m_pTextCtrl = pCtrl;
-	CreateThread( "ED Part Importer" );
+
+	BeginThread( "ED Part Importer" );
 }
 
 void CEDPartImporter::Stop()
 {
-	if ( m_pTextCtrl == NULL ) return;
 	m_pTextCtrl = NULL;
-	WaitForSingleObject( m_hThread, INFINITE );
-}
 
-BOOL CEDPartImporter::IsRunning()
-{
-	if ( m_hThread == NULL ) return FALSE;
-	DWORD nCode = 0;
-	if ( ! GetExitCodeThread( m_hThread, &nCode ) ) return FALSE;
-	return nCode == STILL_ACTIVE;
+	CloseThread();
 }
 
 /////////////////////////////////////////////////////////////////////////////
 // CEDPartImporter run
 
-int CEDPartImporter::Run()
+void CEDPartImporter::OnRun()
 {
-	BOOL bCOM = SUCCEEDED( OleInitialize( NULL ) );
-
 	Message( IDS_ED2K_EPI_START );
 	m_nCount = 0;
 
 	CreateDirectory( Settings.Downloads.IncompletePath );
 
-	for ( POSITION pos = m_pFolders.GetHeadPosition() ; pos && m_pTextCtrl != NULL ; )
+	for ( POSITION pos = m_pFolders.GetHeadPosition() ; pos && IsThreadEnabled() ; )
 	{
 		ImportFolder( m_pFolders.GetNext( pos ) );
 	}
@@ -106,11 +94,6 @@ int CEDPartImporter::Run()
 
 	if ( m_nCount )
 		Downloads.Save();
-
-	if ( bCOM )
-		OleUninitialize();
-
-	return 0;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -130,10 +113,12 @@ void CEDPartImporter::ImportFolder(LPCTSTR pszPath)
 
 	do
 	{
-		if ( m_pTextCtrl == NULL ) break;
+		if ( ! IsThreadEnabled() )
+			break;
 
-		if ( pFind.cFileName[0] == '.' ) continue;
-		if ( ( pFind.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY ) ) continue;
+		if ( pFind.cFileName[0] == '.' ||
+		   ( pFind.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY ) )
+			continue;
 
 		strPath = pFind.cFileName;
 		int nPos = strPath.Find( _T(".part.met") );
@@ -237,6 +222,9 @@ BOOL CEDPartImporter::ImportFile(LPCTSTR pszPath, LPCTSTR pszFile)
 
 	while ( nCount-- )
 	{
+		if ( ! IsThreadEnabled() )
+			return FALSE;
+
 		CEDTag pTag;
 		if ( ! pTag.Read( &pFile ) )
 			return FALSE;
@@ -273,9 +261,6 @@ BOOL CEDPartImporter::ImportFile(LPCTSTR pszPath, LPCTSTR pszFile)
 				pGapStop.SetAt( nPart, pTag.m_nValue );
 			}
 		}
-
-		if ( m_pTextCtrl == NULL )
-			return FALSE;
 	}
 
 	if ( strName.IsEmpty() || nSize == SIZE_UNKNOWN || nSize == 0 || pGapStart.IsEmpty() )
@@ -285,6 +270,9 @@ BOOL CEDPartImporter::ImportFile(LPCTSTR pszPath, LPCTSTR pszFile)
 	Fragments::List oGaps( nSize );
 	for ( int nGap = 0 ; nGap < pGapIndex.GetSize() ; nGap++ )
 	{
+		if ( ! IsThreadEnabled() )
+			return FALSE;
+
 		int nPart = pGapIndex.GetAt( nGap );
 		QWORD nStart, nStop;
 		if ( ! pGapStart.Lookup( nPart, nStart ) )

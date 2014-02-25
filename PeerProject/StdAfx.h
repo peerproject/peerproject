@@ -87,7 +87,10 @@
 
 // For detecting Memory Leaks
 #ifdef _DEBUG
-#define _CRTDBG_MAP_ALLOC
+//#define _CRTDBG_MAP_ALLOC
+//#define _CRTDBG_ALLOC_MEM_DF			// Extra debug memory allocation
+//#define _CRTDBG_CHECK_ALWAYS_DF		// Check every allocation/deallocation (slow)
+//#define _CRTDBG_LEAK_CHECK_DF			// Check any unfreed memory at exit
 #endif
 
 #endif	// 1
@@ -430,7 +433,7 @@ typedef struct _ICONDIRENTRY
 	BYTE	bWidth; 		// Width, in pixels, of the image
 	BYTE	bHeight;		// Height, in pixels, of the image
 	BYTE	bColorCount;	// Number of colors in image (0 if >=8bpp)
-	BYTE	bReserved;		// Reserved ( must be 0)
+	BYTE	bReserved;		// Reserved (must be 0)
 	WORD	wPlanes;		// Color Planes
 	WORD	wBitCount;		// Bits per pixel
 	DWORD	dwBytesInRes;	// How many bytes in this resource?
@@ -440,10 +443,10 @@ typedef struct _ICONDIRENTRY
 typedef struct _GRPICONDIRENTRY
 {
 	BYTE	bWidth;			// Width, in pixels, of the image
-	BYTE	bHeight;			// Height, in pixels, of the image
+	BYTE	bHeight;		// Height, in pixels, of the image
 	BYTE	bColorCount;	// Number of colors in image (0 if >=8bpp)
 	BYTE	bReserved;		// Reserved
-	WORD	wPlanes;			// Color Planes
+	WORD	wPlanes;		// Color Planes
 	WORD	wBitCount;		// Bits per pixel
 	DWORD	dwBytesInRes;	// How many bytes in this resource?
 	WORD	nID; 			// the ID
@@ -604,6 +607,7 @@ private:
 	static void operator delete[](void*);
 	// Note VS2010 disregard false warning 4986 (unrelated)
 };
+
 
 template< class T >
 class CGuarded
@@ -787,10 +791,10 @@ typedef std::set < CString > string_set;
 
 inline UINT ReadArchive(CArchive& ar, void* lpBuf, const UINT nMax)
 {
-	UINT nReaded = ar.Read( lpBuf, nMax );
-	if ( nReaded != nMax )
+	UINT nRead = ar.Read( lpBuf, nMax );
+	if ( nRead != nMax )
 		AfxThrowArchiveException( CArchiveException::endOfFile );
-	return nReaded;
+	return nRead;
 }
 
 // GetMicroCount function retrieves the number of microseconds elapsed since the application started.

@@ -1,7 +1,7 @@
 //
 // WndSettingsSheet.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -28,12 +28,10 @@ class CSettingsSheet : public CSkinDialog
 {
 	DECLARE_DYNAMIC(CSettingsSheet)
 
-// Construction
 public:
 	CSettingsSheet(CWnd* pParent = NULL, UINT nCaptionID = 0);
 	virtual ~CSettingsSheet();
 
-// Attributes
 protected:
 	CArray< CSettingsPage* > m_pPages;
 	CSettingsPage*	m_pPage;
@@ -49,7 +47,6 @@ protected:
 	CString			m_sCaption;
 	int				m_nButtonHeight;
 
-// Operations
 public:
 	virtual BOOL	SkinMe(LPCTSTR pszSkin = NULL, UINT nIcon = 0, BOOL bLanguage = TRUE);
 
@@ -70,7 +67,6 @@ protected:
 	void			BuildTree();
 	BOOL			CreatePage(CSettingsPage* pPage);
 
-// Implementation
 protected:
 	virtual void	DoPaint(CDC& dc);
 	virtual void	DoDataExchange(CDataExchange* pDX);

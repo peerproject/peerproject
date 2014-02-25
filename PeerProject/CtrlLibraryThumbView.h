@@ -1,7 +1,7 @@
 //
 // CtrlLibraryThumbView.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -31,11 +31,9 @@ class CLibraryThumbView :
 {
 	DECLARE_DYNCREATE(CLibraryThumbView)
 
-// Construction
 public:
 	CLibraryThumbView();
 
-// Attributes
 protected:
 	CCriticalSection	m_pSection;
 	DWORD				m_nInvalidate;
@@ -52,7 +50,6 @@ protected:
 	BOOL				m_bDrag;
 	CPoint				m_ptDrag;
 
-// Operations
 public:
 	virtual void		Update();
 	virtual void		SelectAll();
@@ -81,15 +78,10 @@ protected:
 protected:
 	static int SortList(LPCVOID pA, LPCVOID pB);
 
-// Overrides
 protected:
-	//{{AFX_VIRTUAL(CLibraryThumbView)
 	virtual BOOL Create(CWnd* pParentWnd);
-	//}}AFX_VIRTUAL
 
-// Implementation
 protected:
-	//{{AFX_MSG(CLibraryThumbView)
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
 	afx_msg void OnPaint();
@@ -104,7 +96,6 @@ protected:
 	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg UINT OnGetDlgCode();
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };
@@ -112,12 +103,10 @@ protected:
 
 class CLibraryThumbItem
 {
-// Construction
 public:
 	CLibraryThumbItem(CLibraryFile* pFile);
 	virtual ~CLibraryThumbItem();
 
-// Attributes
 public:
 	DWORD	m_nIndex;
 	DWORD	m_nCookie;
@@ -131,7 +120,6 @@ public:
 
 	enum { thumbWaiting, thumbValid, thumbError };
 
-// Operations
 public:
 	BOOL	Update(CLibraryFile* pFile);
 	void	Paint(CDC* pDC, const CRect& rcBlock);

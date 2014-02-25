@@ -1,7 +1,7 @@
 //
 // PageFileGeneral.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -25,16 +25,13 @@ class CFileGeneralPage : public CFilePropertiesPage
 {
 	DECLARE_DYNCREATE(CFileGeneralPage)
 
-// Construction
 public:
 	CFileGeneralPage();
 	virtual ~CFileGeneralPage();
 
 	enum { IDD = IDD_FILE_GENERAL };
 
-// Dialog Data
 public:
-	//{{AFX_DATA(CFileGeneralPage)
 	CString	m_sSHA1;
 	CString	m_sTiger;
 	CString	m_sType;
@@ -44,21 +41,14 @@ public:
 	CString	m_sIndex;
 	CString	m_sMD5;
 	CString	m_sED2K;
-	//}}AFX_DATA
 
-// Overrides
 public:
-	//{{AFX_VIRTUAL(CFileGeneralPage)
 	virtual void OnOK();
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
-	//}}AFX_VIRTUAL
 
-// Implementation
 protected:
-	//{{AFX_MSG(CFileGeneralPage)
 	virtual BOOL OnInitDialog();
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

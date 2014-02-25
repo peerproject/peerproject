@@ -1,7 +1,7 @@
 //
 // PageSettingsGnutella.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -25,16 +25,13 @@ class CGnutellaSettingsPage : public CSettingsPage
 {
 	DECLARE_DYNCREATE(CGnutellaSettingsPage)
 
-// Construction
 public:
 	CGnutellaSettingsPage();
 	virtual ~CGnutellaSettingsPage();
 
 	enum { IDD = IDD_SETTINGS_GNUTELLA };
 
-// Dialog Data
 public:
-	//{{AFX_DATA(CGnutellaSettingsPage)
 	CSpinButtonCtrl	m_wndG2Peers;
 	CSpinButtonCtrl	m_wndG2Leafs;
 	CSpinButtonCtrl	m_wndG2Hubs;
@@ -57,25 +54,18 @@ public:
 	BOOL	m_bDeflateLeaf2Hub;
 	BOOL	m_bDeflateHub2Leaf;
 	BOOL	m_bAgent;
-	//}}AFX_DATA
 
-// Overrides
 public:
-	//{{AFX_VIRTUAL(CGnutellaSettingsPage)
 	virtual BOOL OnSetActive();
 	virtual void OnOK();
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
-	//}}AFX_VIRTUAL
 
-// Implementation
 protected:
-	//{{AFX_MSG(CGnutellaSettingsPage)
 	virtual BOOL OnInitDialog();
 	afx_msg void OnG2Today();
 	afx_msg void OnG1Today();
 	afx_msg void OnG2Always();
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

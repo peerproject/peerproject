@@ -1,7 +1,7 @@
 //
 // CtrlMediaFrame.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -62,12 +62,10 @@ class CMediaFrame : public CWnd
 {
 	DECLARE_DYNAMIC(CMediaFrame)
 
-// Construction
 public:
 	CMediaFrame();
 	virtual ~CMediaFrame();
 
-// Operations
 public:
 	void	OnSkinChange();
 	void	OnUpdateCmdUI();
@@ -113,7 +111,6 @@ private:
 	void	UpdateNowPlaying(BOOL bEmpty = FALSE);
 	BOOL	IsDisplayMeta(CMetaItem* pItem);
 
-// Attributes
 protected:
 	IMediaPlayer*	m_pPlayer;		// CComQIPtr< IMediaPlayer > (Shareaza r8522 for .exe)
 	MediaState		m_nState;
@@ -164,13 +161,11 @@ protected:
 private:
 	CString			m_sNowPlaying;
 
-// Overrides
 public:
 	virtual BOOL Create(CWnd* pParentWnd);
 	virtual BOOL OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO* pHandlerInfo);
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
 
-// Implementation
 protected:
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();

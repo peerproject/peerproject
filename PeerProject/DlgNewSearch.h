@@ -1,7 +1,7 @@
 //
 // DlgNewSearch.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -44,16 +44,13 @@ protected:
 	CSchemaCombo	m_wndSchemas;
 	CComboBox		m_wndSearch;
 
-// Attributes
 private:
 	CSchemaCtrl		m_wndSchema;
 	BOOL			m_bLocal;
 	BOOL			m_bAgain;
 	CQuerySearchPtr m_pSearch;
 
-// Implementation
 protected:
-	//{{AFX_MSG(CNewSearchDlg)
 	virtual void DoDataExchange(CDataExchange* pDX);
 	virtual BOOL OnInitDialog();
 	virtual void OnOK();
@@ -63,7 +60,6 @@ protected:
 	afx_msg void OnSelChangeSchemas();
 	afx_msg void OnCloseUpSchemas();
 	afx_msg void OnChangeSearch();
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

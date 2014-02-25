@@ -236,6 +236,7 @@ CXMLElement* CLibraryFile::CreateXML(CXMLElement* pRoot, BOOL bSharedOnly, XmlTy
 			{
 				if ( CXMLElement* pMetadata = pFile->AddElement( _T("metadata") ) )
 				{
+					m_pMetadata->m_bOrdered = FALSE;	// Workaround
 					pMetadata->AddAttribute( _T("xmlns:s"), m_pSchema->GetURI() );
 					pMetadata->AddElement( m_pMetadata->Prefix( _T("s:") ) );
 				}
@@ -1223,7 +1224,7 @@ BOOL CLibraryFile::OnVerifyDownload(const CLibraryRecent* pRecent)
 
 // PrepareDoc is used for collections "multi-filepicker" item processing.
 
-BOOL CLibraryFile::PrepareDoc(LPCTSTR pszTemplate, CArray< CString >& oDocs)
+BOOL CLibraryFile::PrepareDoc(LPCTSTR pszTemplate, CArray< CString >& oDocs) const
 {
 	ASSUME_LOCK( Library.m_pSection );
 
@@ -1232,10 +1233,10 @@ BOOL CLibraryFile::PrepareDoc(LPCTSTR pszTemplate, CArray< CString >& oDocs)
 	if ( m_pMetadata && m_pSchema )
 	{
 		// Should be all meta data replacement
-		CXMLElement* pMetadata = m_pMetadata;
+		const CXMLElement* pMetadata = m_pMetadata;
 		for ( POSITION pos = pMetadata->GetAttributeIterator() ; pos ; )
 		{
-			CXMLNode* pNode = pMetadata->GetNextAttribute( pos );
+			const CXMLNode* pNode = pMetadata->GetNextAttribute( pos );
 			CString str = pNode->GetName();
 			CString strReplace = pNode->GetValue();
 			if ( str == _T("seconds") || str == _T("minutes") )
@@ -1358,11 +1359,11 @@ BOOL CLibraryFile::PrepareDoc(LPCTSTR pszTemplate, CArray< CString >& oDocs)
 	strNumber.Format( _T("%d"), oDocs.GetCount() + 1 );
 	ReplaceNoCase( strDoc, _T("$meta:number$"), strNumber );
 
-	// Replace all "$meta:xxx$" which were left in the file to "N/A"
+	// Replace all "$meta:xxx$" which were left in the file to "--"
 	while ( LPCTSTR szStart = StrStrI( strDoc, _T("$meta:") ) )
 	{
 		if ( LPCTSTR szEnd = StrChr( szStart + 6, _T('$') ) )
-			strDoc.Replace( CString( szStart, szEnd - szStart + 1 ), _T("N/A") );
+			strDoc.Replace( CString( szStart, szEnd - szStart + 1 ), _T("--") );
 		else
 			break;
 	}
