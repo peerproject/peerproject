@@ -1,7 +1,7 @@
 //
 // WndChild.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -56,7 +56,6 @@ protected:
 	CSkinWindow*	m_pSkin;
 	UINT			m_nResID;
 
-// Operations
 public:
 	CMainWnd*		GetMainWnd();
 	CWindowManager*	GetManager();
@@ -92,7 +91,6 @@ protected:
 	virtual BOOL	PreTranslateMessage(MSG* pMsg);
 	virtual BOOL	OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO* pHandlerInfo);
 
-	//{{AFX_MSG(CChildWnd)
 	afx_msg int 	OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void	OnDestroy();
 	afx_msg BOOL	OnEraseBkgnd(CDC* pDC);
@@ -110,7 +108,6 @@ protected:
 	afx_msg void	OnNcRButtonUp(UINT nHitTest, CPoint point);
 	afx_msg BOOL	OnHelpInfo(HELPINFO* pHelpInfo);
 	afx_msg LRESULT	OnSetText(WPARAM wParam, LPARAM lParam);
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

@@ -1,7 +1,7 @@
 //
 // UploadQueue.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -23,12 +23,10 @@ class CUploadTransfer;
 
 class CUploadQueue
 {
-// Construction
 public:
 	CUploadQueue();
 	virtual ~CUploadQueue();
 
-// Attributes
 protected:
 	CList< CUploadTransfer* >	m_pActive;
 	CArray< CUploadTransfer* >	m_pQueued;
@@ -58,7 +56,6 @@ public:
 
 	enum		{ ulqNull = 0, ulqPartial = 1, ulqLibrary = 2, ulqBoth = 3 };
 
-// Operations
 public:
 	CString		GetCriteriaString() const;
 	void		Serialize(CArchive& ar, int nVersion);

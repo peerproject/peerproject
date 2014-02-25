@@ -1,7 +1,7 @@
 //
 // PageTorrentFiles.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -141,8 +141,8 @@ void CTorrentFilesPage::OnShowWindow(BOOL bShow, UINT /*nStatus*/)
 	CDownload* pDownload = ((CDownloadSheet*)GetParent())->GetDownload();
 	ASSERT( pDownload && pDownload->IsTorrent() );
 
-	CComPtr< CFragmentedFile > pFragFile = pDownload->GetFile();
-	if ( ! pFragFile ) return;
+	auto_ptr< CFragmentedFile > pFragFile( pDownload->GetFile() );
+	if ( ! pFragFile.get() ) return;
 
 	const DWORD nCount = pFragFile->GetCount();
 
@@ -228,22 +228,22 @@ void CTorrentFilesPage::OnCheckbox(NMHDR* pNMHDR, LRESULT* pResult)
 	NM_LISTVIEW* pNMListView = (NM_LISTVIEW*)pNMHDR;
 	*pResult = 0;
 
-	BOOL bPrevState = (BOOL)( ( ( pNMListView->uOldState & LVIS_STATEIMAGEMASK) >> 12 ) - 1 );
+	BOOL bPrevState	= (BOOL)( ( ( pNMListView->uOldState & LVIS_STATEIMAGEMASK ) >> 12 ) - 1 );
 	if ( bPrevState < 0 ) return;		// No previous state at startup
 
-	BOOL bChecked = (BOOL)( ( ( pNMListView->uNewState & LVIS_STATEIMAGEMASK ) >> 12 ) - 1 );
+	BOOL bChecked	= (BOOL)( ( ( pNMListView->uNewState & LVIS_STATEIMAGEMASK ) >> 12 ) - 1 );
 	if ( bChecked < 0 ) return;			// Non-checkbox notifications
 
 	if ( bChecked == bPrevState ) return;	// No change
 
-	CSingleLock oLock( &Transfers.m_pSection );
-	if ( ! oLock.Lock( 500 ) ) return;
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! pLock.Lock( 500 ) ) return;
 
 	CDownload* pDownload = ((CDownloadSheet*)GetParent())->GetDownload();
 	if ( ! pDownload ) return;			// Invalid download
 
-	CComPtr< CFragmentedFile > pFragFile = pDownload->GetFile();
-	if ( ! pFragFile ) return;
+	auto_ptr< CFragmentedFile > pFragFile( pDownload->GetFile() );
+	if ( ! pFragFile.get() ) return;
 
 	int nIndex = _wtoi( m_wndFiles.GetItemText( pNMListView->iItem, COL_INDEX ) );
 
@@ -269,7 +269,7 @@ void CTorrentFilesPage::OnCheckbox(NMHDR* pNMHDR, LRESULT* pResult)
 		}
 	}
 
-	oLock.Unlock();
+	pLock.Unlock();
 
 	// Multiple highlighted items group handling
 	if ( m_wndFiles.GetItemState( pNMListView->iItem, LVIS_SELECTED ) )
@@ -332,7 +332,8 @@ BOOL CTorrentFilesPage::OnApply()
 //	CSingleLock oLock( &Transfers.m_pSection, TRUE );
 //	CDownload* pDownload = ((CDownloadSheet*)GetParent())->m_pDownload;
 //	if ( ! Downloads.Check( pDownload ) || ! pDownload->IsTorrent() ) return FALSE;
-//	if ( CComPtr< CFragmentedFile > pFragFile = pDownload->GetFile() )
+//	auto_ptr< CFragmentedFile > pFragFile = pDownload->GetFile();
+//	if ( pFragFile.get() )
 //		for ( DWORD i = 0 ; i < pFragFile->GetCount() ; ++i )
 //			pFragFile->SetPriority( i, m_wndFiles.GetColumnData( i, COL_INDEX ) );
 
@@ -345,8 +346,8 @@ void CTorrentFilesPage::UpdateCount()
 	if ( ! oLock.Lock( 200 ) ) return;
 
 	CDownload* pDownload = ((CDownloadSheet*)GetParent())->GetDownload();
-	CComPtr< CFragmentedFile > pFragFile = pDownload->GetFile();
-	if ( ! pDownload ) return;
+	auto_ptr< CFragmentedFile > pFragFile( pDownload->GetFile() );
+	if ( ! pFragFile.get() ) return;
 
 	oLock.Unlock();
 
@@ -386,48 +387,49 @@ void CTorrentFilesPage::Update()
 	CDownload* pDownload = ((CDownloadSheet*)GetParent())->GetDownload();
 	if ( ! pDownload ) return;		// Invalid download
 
-	if ( CComPtr< CFragmentedFile > pFragFile = pDownload->GetFile() )
+	auto_ptr< CFragmentedFile > pFragFile( pDownload->GetFile() );
+	if ( ! pFragFile.get() )
+		return;
+
+	CString strCompleted;
+	int nIndex;
+	int nPaddingItem = 0;
+
+	int nItem = -1;
+	while ( ( nItem = m_wndFiles.GetNextItem( nItem, 0 ) ) > -1 )
 	{
-		CString strCompleted;
-		int nIndex;
-		int nPaddingItem = 0;
-
-		int nItem = -1;
-		while ( ( nItem = m_wndFiles.GetNextItem( nItem, 0 ) ) > -1 )
+		nIndex = _wtoi( m_wndFiles.GetItemText( nItem, COL_INDEX ) );
+		if ( nIndex < 0 )	// __padding_file_ group
 		{
-			nIndex = _wtoi( m_wndFiles.GetItemText( nItem, COL_INDEX ) );
-			if ( nIndex < 0 )	// __padding_file_ group
-			{
-				nPaddingItem = nItem;
+			nPaddingItem = nItem;
+			continue;
+		}
+
+		strCompleted.Format( _T("%.2f%%"), pFragFile->GetProgress( nIndex ) );
+		m_wndFiles.SetItemText( nItem, COL_STATUS, strCompleted );
+	}
+
+	if ( nPaddingItem )		// Rare __padding_file_ group special handling
+	{
+		const int nCount = pFragFile->GetCount();
+		int nPaddingCount = 0;
+		float fPaddingStatus = 0.000;
+		CString strText;
+
+		for ( int i = 0 ; i < nCount ; i++ )
+		{
+			strText = pFragFile->GetName( i );
+			strText = strText.Mid( strText.Find( '\\' ) + 1 );
+			if ( strText.GetAt( 0 ) != _T('_') || _tcscmp( strText.Left( 18 ), _T("_____padding_file_") ) != 0 )
 				continue;
-			}
 
-			strCompleted.Format( _T("%.2f%%"), pFragFile->GetProgress( nIndex ) );
-			m_wndFiles.SetItemText( nItem, COL_STATUS, strCompleted );
+			fPaddingStatus += pFragFile->GetProgress( i );
+			nPaddingCount++;
 		}
 
-		if ( nPaddingItem )		// Rare __padding_file_ group special handling
-		{
-			const int nCount = pFragFile->GetCount();
-			int nPaddingCount = 0;
-			float fPaddingStatus = 0.000;
-			CString strText;
-
-			for ( int i = 0 ; i < nCount ; i++ )
-			{
-				strText = pFragFile->GetName( i );
-				strText = strText.Mid( strText.Find( '\\' ) + 1 );
-				if ( strText.GetAt( 0 ) != _T('_') || _tcscmp( strText.Left( 18 ), _T("_____padding_file_") ) != 0 )
-					continue;
-
-				fPaddingStatus += pFragFile->GetProgress( i );
-				nPaddingCount++;
-			}
-
-			if ( ! nPaddingCount ) return;
-			strCompleted.Format( _T("%.2f%%"), fPaddingStatus / nPaddingCount );
-			m_wndFiles.SetItemText( nPaddingItem, COL_STATUS, strCompleted );
-		}
+		if ( ! nPaddingCount ) return;
+		strCompleted.Format( _T("%.2f%%"), fPaddingStatus / nPaddingCount );
+		m_wndFiles.SetItemText( nPaddingItem, COL_STATUS, strCompleted );
 	}
 }
 

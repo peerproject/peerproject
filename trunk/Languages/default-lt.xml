@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Lithuanian Skin File -->
 
-<!-- Translation based on default-en.xml r102 -->
+<!-- Translation based on default-en.xml r104 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -580,7 +580,8 @@
 			<item id="ID_HELP_GUIDE" text="„PeerProject“ naudotojo vadovas"/>
 			<item id="ID_HELP_FORUMS" text="„PeerProject“ forumai"/>
 			<item id="ID_HELP_FORUMS_LOCAL" text="Lietuvių forumai"/>
-<!--
+			<separator/>
+		<!--
 			<menu text="SkinVista žinynas">
 				<menu text="Jei meniu juosta rodoma neteisingai --"/>
 				<menu text="Pasirinkite meniu: Langas: Rodyti naršymo juostą"/>
@@ -588,13 +589,11 @@
 				<menu text="(Nutempkite į šalį prieš padedant į viršų)"/>
 				<menu text="Perkraukite sąsają, jei reikia pašalinti defektus: Ctrl+Shift+Z"/>
 			</menu>
-			<separator/>
 			<menu text="Tinkl_alapiai">
 				<item id="ID_HELP_WEB_3" text="Slyck.com"/>
 				<item id="ID_HELP_WEB_1" text="ZeroPaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
 			</menu>
--->
+		-->
 			<item id="ID_HELP_HOMEPAGE" text="PeerProject.org"/>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="Apie „PeerProject“..."/>
@@ -692,8 +691,7 @@
 				<item id="ID_HELP_FORUMS" text="„PeerProject“ _forumai"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="Lietuvių forumai"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Paskutinės naujienos"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_VERSION_CHECK" text="Tikrinti naujesnės _versijos"/>
@@ -763,8 +761,7 @@
 				<item id="ID_HELP_FORUMS" text="„PeerProject“ _forumai"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="Lietuvių forumai"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Paskutinės naujienos"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_VERSION_CHECK" text="Tikrinti naujesnės _versijos"/>
@@ -856,8 +853,7 @@
 				<item id="ID_HELP_FORUMS" text="„PeerProject“ _forumai"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="Lietuvių forumai"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Paskutinės naujienos"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_VERSION_CHECK" text="Tikrinti naujesnės _versijos"/>
@@ -2144,9 +2140,7 @@
 		<text>Čia rodomos eilės ir išsiuntimai. Jūs galite išskleisti kiekvienos eilės medį,
 		paspaudę „+“ ženklelį iš kairės, ir galite filtruoti sąrašą, naudodamiesi įrankių juostos
 		mygtuku, esančiu dešinėje pusėje.</text>
-	</document>
-
-	<!-- General help documents -->
+	</document>	<!-- General help documents -->
 	<document name="GeneralHelp.DiskSpace">
 		<text format="b">Diske trūksta vietos</text>
 		<newline gap="8"/>
@@ -3334,9 +3328,9 @@
 	<string id="20874" value="URL adr.:"/>
 	<string id="20875" value="Nenurodyta"/>
 	<string id="20880" value="Taisyti savo profilį"/>
-	<string id="20881" value="%u failai eiga. Ar tikrai?"/>
-	<string id="20882" value="Nėra universalių šaltinių vardų."/>
-	<string id="20883" value="UPnP Device Host tarnyba neveikia. Ši tarnyba yra reikalinga derinimo atlikimui.\nJums reikėtų nustatyti šios tarnybos startavimo tipą į automatinį."/>
+	<string id="20882" value="%u failai eiga. Ar tikrai?"/>
+	<string id="20883" value="Nėra universalių šaltinių vardų."/>
+	<string id="20884" value="UPnP Device Host tarnyba neveikia. Ši tarnyba yra reikalinga derinimo atlikimui.\nJums reikėtų nustatyti šios tarnybos startavimo tipą į automatinį."/>
 	<string id="20885" value="Pakeitus peržiūros būdą, visi atverti langai bus uždaryti. Ar norite keisti tuoj pat?"/>
 	<string id="20886" value="Sąsajos krypties pakeitimui reikalinga startuoti iš naujo. \nJums reikės paleisti „PeerProject“ programą rankiniu būdu. Ar baigti darbą dabar?"/>
 	<string id="20890" value="Sveiki! Čia „PeerProject“"/>
@@ -3439,16 +3433,6 @@
 		<control caption="Pasirinkti _papildinį..."/>
 		<control caption="Įspėjimas: Pasirinkus išorinę grotuvo programą, bus atjungti medija ir muzikos vaizdo papildiniai."/>
 	</dialog>
-	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Bendrija">
-		<control caption="Mano _profilis:"/>
-		<control caption="Jūs galite naudoti savo Gnutella naudotojo profilį dalinantis su kitais informacija apie save, savo interesus ir rekomenduotinus failus bei tinklalapius."/>
-		<control caption="Taisyti profilį"/>
-		<control caption="Po_kalbiai:"/>
-		<control caption="Įgalinti lygiaverčio tarptinklinio ryšio pakalbius su suderinamais klientais"/>
-		<control caption="Įgalinti pokalbius visuose tinkluose"/>
-		<control caption="Filtruoti pokalbio tekstus nuo informacinių šiukšlių"/>
-		<control caption="Filtruoti nešvankybes pokalbiuose"/>
-	</dialog>
 	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdmsStStEdmsCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStCoStEdStEd" caption="Pokalbiai">
 		<control caption="_Kliento nuostatos:"/>
 		<control caption="Rodyti sąsajos integraciją"/>
@@ -3492,6 +3476,28 @@
 		<control/>
 		<control caption="On-connect"/>
 		<control/>
+	</dialog>
+	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Bendrija">
+		<control caption="Mano _profilis:"/>
+		<control caption="Jūs galite naudoti savo Gnutella naudotojo profilį dalinantis su kitais informacija apie save, savo interesus ir rekomenduotinus failus bei tinklalapius."/>
+		<control caption="Taisyti profilį"/>
+		<control caption="Po_kalbiai:"/>
+		<control caption="Įgalinti lygiaverčio tarptinklinio ryšio pakalbius su suderinamais klientais"/>
+		<control caption="Įgalinti pokalbius visuose tinkluose"/>
+		<control caption="Filtruoti pokalbio tekstus nuo informacinių šiukšlių"/>
+		<control caption="Filtruoti nešvankybes pokalbiuose"/>
+	</dialog>
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Nuotolinė prieiga">
+		<control caption="Įg_alinti:"/>
+		<control caption="Įgalinti nuotolinę prieigą prie „PeerProject“ programos"/>
+		<control/>
+		<control caption="Autentifikacijos _duomenys:"/>
+		<control caption="Naudotojo vardas:"/>
+		<control caption="Slaptažodis:"/>
+		<control/>
+		<control/>
+		<control caption="Pagalba:"/>
+		<control caption="„PeerProject“ nuotolinės prieigos funkcija leidžia jums, naudojantis naršykle, kontroliuoti nuotoliniu būdu „PeerProject“ programą, paliktą veikiančią savo kompiuteryje. Šios funkcijos naudojimuisi reikia, kad kompiuteris priimtų įeinančius susijungimus (t.y. teisingai suderintas maršrutizatorius ir t.t.)."/>
 	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Žiniatinklis">
 		<control caption="_Lygiaverčio tarptinklinio ryšio nuorodos:"/>
@@ -3579,25 +3585,13 @@
 		<control caption="Limitas:"/>
 		<control/>
 		<control caption="Veiksena:"/>
-		<control caption="Maksimali|Vidurkis"/>
+		<control caption="Vidurkis|Maksimali"/>
 		<control caption="_Eilės:"/>
 		<control/>
 		<control caption="_Nauja..."/>
 		<control caption="_Taisa..."/>
 		<control caption="Š_alinti"/>
 		<control caption="(pokyčiai įsigalioja tuoj pat)"/>
-	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Nuotolinė prieiga">
-		<control caption="Įg_alinti:"/>
-		<control caption="Įgalinti nuotolinę prieigą prie „PeerProject“ programos"/>
-		<control/>
-		<control caption="Autentifikacijos _duomenys:"/>
-		<control caption="Naudotojo vardas:"/>
-		<control caption="Slaptažodis:"/>
-		<control/>
-		<control/>
-		<control caption="Pagalba:"/>
-		<control caption="„PeerProject“ nuotolinės prieigos funkcija leidžia jums, naudojantis naršykle, kontroliuoti nuotoliniu būdu „PeerProject“ programą, paliktą veikiančią savo kompiuteryje. Šios funkcijos naudojimuisi reikia, kad kompiuteris priimtų įeinančius susijungimus (t.y. teisingai suderintas maršrutizatorius ir t.t.)."/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="Tinklai">
 		<control caption="„PeerProject“ - tai bendros paskirties failų apsikeitimo programa, kuri gali prisijungti prie kelių lygiaverčio tarptinklinio susijungimo (P2P) tinklų vienu metu. Čia Jūs galite pasirinkti, prie kurių P2P tinklų norite jungtis, o po to - derinti kiekvieną tinklą atskirai."/>

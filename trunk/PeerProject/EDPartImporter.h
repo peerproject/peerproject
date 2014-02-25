@@ -1,7 +1,7 @@
 //
 // EDPartImporter.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -18,12 +18,11 @@
 
 #pragma once
 
-#include "PeerProjectThread.h"
+#include "ThreadImpl.h"
 
-class CEDPartImporter : public CAppThread
+
+class CEDPartImporter : public CThreadImpl
 {
-	DECLARE_DYNAMIC(CEDPartImporter)
-
 public:
 	CEDPartImporter();
 	virtual ~CEDPartImporter();
@@ -32,19 +31,14 @@ public:
 	void	AddFolder(LPCTSTR pszFolder);
 	void	Start(CEdit* pCtrl);
 	void	Stop();
-	BOOL	IsRunning();
 
 protected:
-	CList< CString >	m_pFolders;
+	CList< CString > m_pFolders;
 	CEdit*	m_pTextCtrl;
 	int 	m_nCount;
 
 	void	ImportFolder(LPCTSTR pszPath);
 	BOOL	ImportFile(LPCTSTR pszPath, LPCTSTR pszFile);
-	BOOL	CopyFile(LPCTSTR pszSource, LPCTSTR pszTarget);
 	void	Message(UINT nMessageID, ...);
-
-	virtual int Run();
-
-	//DECLARE_MESSAGE_MAP()
+	void	OnRun();
 };

@@ -1,7 +1,7 @@
 //
 // CtrlFontCombo.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2005-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -27,12 +27,10 @@ class CFontCombo : public CComboBox
 {
 	DECLARE_DYNAMIC(CFontCombo)
 
-// Construction
 public:
 	CFontCombo();
 //	virtual ~CFontCombo();
 
-// Attributes
 public:
 	CString	m_sSelectedFont;
 protected:
@@ -40,7 +38,6 @@ protected:
 	CMapStringToPtr m_pFonts;
 	int 	m_nFontHeight;
 
-// Operations
 public:
 	void	Initialize();
 	void	SelectFont(const CString& strFontName);
@@ -59,12 +56,10 @@ protected:
 	virtual void PreSubclassWindow();
 	virtual void DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct);
 
-	//{{AFX_MSG(CFontCombo)
-	afx_msg void OnDropdown();
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
+	afx_msg void OnDropdown();
 	afx_msg LRESULT OnOcmDrawItem(WPARAM /*wParam*/, LPARAM lParam);
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

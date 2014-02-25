@@ -1,7 +1,7 @@
 //
 // SchemaChild.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -26,12 +26,10 @@ class CXMLElement;
 
 class CSchemaChild
 {
-// Construction
 public:
 	CSchemaChild(CSchemaPtr pSchema);
 	virtual ~CSchemaChild();
 
-// Attributes
 public:
 	CSchemaPtr	m_pSchema;
 	int			m_nType;
@@ -39,7 +37,6 @@ public:
 public:
 	CList< CSchemaChildMap* >	m_pMap;
 
-// Operations
 public:
 	BOOL		Load(CXMLElement* pXML);
 	void		Clear();
@@ -50,18 +47,15 @@ public:
 
 class CSchemaChildMap
 {
-// Construction
 public:
 	CSchemaChildMap();
 	virtual ~CSchemaChildMap();
 
-// Attributes
 public:
 	BOOL		m_bIdentity;
 	CString		m_sLocal;
 	CString		m_sRemote;
 
-// Operations
 public:
 	BOOL		Load(CXMLElement* pXML);
 };

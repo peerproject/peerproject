@@ -1,7 +1,7 @@
 //
 // PageProfileBio.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -25,31 +25,21 @@ class CBioProfilePage : public CSettingsPage
 {
 	DECLARE_DYNCREATE(CBioProfilePage)
 
-// Construction
 public:
 	CBioProfilePage();
 	virtual ~CBioProfilePage();
 
 	enum { IDD = IDD_PROFILE_BIO };
 
-// Dialog Data
 public:
-	//{{AFX_DATA(CBioProfilePage)
 	CEdit	m_wndText;
-	//}}AFX_DATA
 
-// Overrides
 protected:
-	//{{AFX_VIRTUAL(CBioProfilePage)
 	virtual void DoDataExchange(CDataExchange* pDX);
 	virtual void OnOK();
-	//}}AFX_VIRTUAL
 
-// Implementation
 protected:
-	//{{AFX_MSG(CBioProfilePage)
 	virtual BOOL OnInitDialog();
-	//}}AFX_MSG
 
 	//DECLARE_MESSAGE_MAP()
 };

@@ -1,7 +1,7 @@
 //
 // DlgHelp.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -34,24 +34,17 @@ public:
 
 	static BOOL Show(LPCTSTR pszName, CWnd* pParent = NULL);
 
-// Attributes
 protected:
 	CRichViewCtrl	m_wndView;
 	CRichDocument	m_pDocument;
 	CString			m_sDocument;
 
-// Overrides
 protected:
-	//{{AFX_VIRTUAL(CHelpDlg)
 	virtual void DoDataExchange(CDataExchange* pDX);
 	virtual BOOL OnInitDialog();
-	//}}AFX_VIRTUAL
 
-// Implementation
 protected:
-	//{{AFX_MSG(CHelpDlg)
 	afx_msg void OnClickView(NMHDR* pNotify, LRESULT *pResult);
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

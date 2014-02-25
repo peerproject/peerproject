@@ -1,7 +1,7 @@
 //
 // ComToolbar.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -24,17 +24,14 @@ class CCoolBarItem;
 
 class CComToolbar : public CComObject
 {
-// Construction
 public:
 	CComToolbar(CCoolBarCtrl* pBar, CCoolBarItem* pItem);
 	virtual ~CComToolbar();
 
-// Attributes
 public:
 	CCoolBarCtrl* m_pBar;
 	CCoolBarItem* m_pItem;
 
-// Operations
 public:
 	static ISToolbar*		Wrap(CCoolBarCtrl* pBar);
 	static ISToolbarItem*	Wrap(CCoolBarCtrl* pBar, CCoolBarItem* pItem);
@@ -74,13 +71,6 @@ protected:
 	END_INTERFACE_PART(EnumVARIANT)
 
 	DECLARE_INTERFACE_MAP()
-
-// Implementation
-//protected:
-	//{{AFX_MSG(CComToolbar)
-	//}}AFX_MSG
-	//{{AFX_VIRTUAL(CComToolbar)
-	//}}AFX_VIRTUAL
 
 	//DECLARE_MESSAGE_MAP()
 };

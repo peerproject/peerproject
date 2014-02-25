@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Russian Skin File -->
 
-<!-- Translation based on default-en.xml r102 -->
+<!-- Translation based on default-en.xml r104 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -596,8 +596,7 @@
 				<item id="ID_HELP_FORUMS" text="_Форумы PeerProject"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_Форумы Pусский"/>
 				<item id="ID_HELP_UPDATE" text="Последние новости"/> <!--
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 				</menu>	<!--
 				<item id="ID_HELP_VERSION_CHECK" text="Проверить новую _версию"/>
 				<item id="ID_HELP_DONATE" text="_Пожертвования"/>
@@ -701,8 +700,7 @@
 				<item id="ID_HELP_FORUMS" text="_Форумы PeerProject"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_Форумы Pусский"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Последние новости"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_VERSION_CHECK" text="Проверить новую _версию"/>
@@ -779,7 +777,6 @@
 			<item id="ID_HELP_DONATE" text="_Пожертвования"/>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_О PeerProject..."/>
-
 		</menu>
 	</menu>
 	<menu name="CMainWnd.Windowed" type="bar">
@@ -866,8 +863,7 @@
 				<item id="ID_HELP_FORUMS" text="_Форумы PeerProject"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_Форумы Pусский"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Последние новости"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_VERSION_CHECK" text="Проверить новую _версию"/>
@@ -3369,9 +3365,9 @@
 	<string id="20874" value="Ссылка:"/>
 	<string id="20875" value="Не указано"/>
 	<string id="20880" value="Профиль"/>
-	<string id="20881" value="%u выбранных файлов. Вы уверены?"/>
-	<string id="20882" value="Нет доступных ссылок"/>
-	<string id="20883" value="Служба «UPnP Device Host Service» не запущена. Эта служба необходима для настройки.\nВам нужно установить тип загрузки этой службы на автоматический."/>
+	<string id="20882" value="%u выбранных файлов. Вы уверены?"/>
+	<string id="20883" value="Нет доступных ссылок"/>
+	<string id="20884" value="Служба «UPnP Device Host Service» не запущена. Эта служба необходима для настройки.\nВам нужно установить тип загрузки этой службы на автоматический."/>
 	<string id="20885" value="При смене вида все открытые Вами окна будут закрыты. Хотите ли переключить сейчас?"/>
 	<string id="20886" value="Для смены направления интерфейса Вы должны вручную перезапустить PeerProject.\n\n?Выйти сейчас?"/>
 	<string id="20890" value="Добро пожаловать в PeerProject"/>
@@ -3474,16 +3470,6 @@
 		<control caption="Выбрать _модуль..."/>
 		<control caption="Внимание: Если выберите внешний менеджер мультимедии, все модули мультимедии и визуализации будут отключенны."/>
 	</dialog>
-	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Сообщество">
-		<control caption="Мой _профиль:"/>
-		<control caption="Используйте профиль пользователя Gnutella для обмена информацией о себе, своих интересах, ссылках на файлы и сайты, с другими."/>
-		<control caption="_Редактировать профиль"/>
-		<control caption="_Чат:"/>
-		<control caption="Разрешить P2P чат с совместимыми клиентами"/>
-		<control caption="Разрешить чат во всех сетях"/>
-		<control caption="Фильтровать текст чата от спама"/>
-		<control caption="Фильтровать нецензурные слова в чате"/>
-	</dialog>
 	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdmsStStEdmsCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStCoStEdStEd" caption="Чат">
 		<control caption="Настройки _чата:"/>
 		<control caption="Метки chat integration"/>
@@ -3527,6 +3513,28 @@
 		<control/>
 		<control caption="On-connect"/>
 		<control/>
+	</dialog>
+	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Сообщество">
+		<control caption="Мой _профиль:"/>
+		<control caption="Используйте профиль пользователя Gnutella для обмена информацией о себе, своих интересах, ссылках на файлы и сайты, с другими."/>
+		<control caption="_Редактировать профиль"/>
+		<control caption="_Чат:"/>
+		<control caption="Разрешить P2P чат с совместимыми клиентами"/>
+		<control caption="Разрешить чат во всех сетях"/>
+		<control caption="Фильтровать текст чата от спама"/>
+		<control caption="Фильтровать нецензурные слова в чате"/>
+	</dialog>
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Удалённый доступ">
+		<control caption="_Разрешение:"/>
+		<control caption="Разрешить удаленный доступ к PeerProject:"/>
+		<control caption="..."/>
+		<control caption="_Безопасность:"/>
+		<control caption="Введите имя:"/>
+		<control caption="Введите пароль:"/>
+		<control/>
+		<control/>
+		<control caption="Справка:"/>
+		<control caption="Удаленный доступ к PeerProject позволит Вам оставить PeerProject запущенной и контролировать её удаленно из веб браузера. Для использования этого Вам понадобится иметь возможность принимать входящие соединения (и правильно настроить брандмауэр)."/>
 	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Веб">
 		<control caption="Обработка _пиринговых (P2P) ссылок:"/>
@@ -3614,25 +3622,13 @@
 		<control caption="Лимит:"/>
 		<control/>
 		<control caption="Режим:"/>
-		<control caption="На максимум|Среднее"/>
+		<control caption="Среднее|На максимум"/>
 		<control caption="О_череди:"/>
 		<control/>
 		<control caption="_Новое..."/>
 		<control caption="_Правка..."/>
 		<control caption="_Удалить"/>
 		<control caption="(изменения применяются сразу)"/>
-	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Удалённый доступ">
-		<control caption="_Разрешение:"/>
-		<control caption="Разрешить удаленный доступ к PeerProject:"/>
-		<control caption="..."/>
-		<control caption="_Безопасность:"/>
-		<control caption="Введите имя:"/>
-		<control caption="Введите пароль:"/>
-		<control/>
-		<control/>
-		<control caption="Справка:"/>
-		<control caption="Удаленный доступ к PeerProject позволит Вам оставить PeerProject запущенной и контролировать её удаленно из веб браузера. Для использования этого Вам понадобится иметь возможность принимать входящие соединения (и правильно настроить брандмауэр)."/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="Сети">
 		<control caption="PeerProject - многоцелевая программа обмена файлами, с доступом ко многим P2P сетям одновременно. Здесь Вы можете выбрать, какие P2P сети Вы хотите использовать, и затем определить настройки для каждой из сетей."/>

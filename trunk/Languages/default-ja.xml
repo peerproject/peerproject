@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Japanese Skin File -->
 
-<!-- Translation based on default-en.xml r102 --> <!-- (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r104 --> <!-- (Shareaza 2.2.0.2) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -549,8 +549,7 @@
 					<item id="ID_HELP_FORUMS" text="PeerProjectフォーラム"/>
 					<separator/>
 					<!-- <item id="ID_HELP_UPDATE" text="最新ニュース"/>
-					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-					<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
+					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 				</menu>
 				<item id="ID_HELP_HOMEPAGE" text="PeerProject site"/>
 				<separator/>
@@ -643,8 +642,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProjectフォーラム"/>
 				<!-- <item id="ID_HELP_UPDATE" text="最新ニュース"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="PeerProjectについて..."/>
@@ -709,8 +707,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProjectフォーラム"/>
 				<!-- <item id="ID_HELP_UPDATE" text="最新ニュース"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="PeerProjectについて..."/>
@@ -797,8 +794,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProjectフォーラム"/>
 				<!-- <item id="ID_HELP_UPDATE" text="最新ニュース"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="PeerProjectについて..."/>
@@ -3177,9 +3173,9 @@
 	<string id="20874" value="URL:"/>
 	<string id="20875" value="不特定"/>
 	<string id="20880" value="プロフィールを編集"/>
-	<string id="20881" value="%u ファイルが選択されました。あなたはよろしいですか？"/>
-	<string id="20882" value="利用可能なURNがありません"/>
-	<string id="20883" value="UPnPデバイスホストサービスが実行されていません。 これはセットアップを行うために必ず必要になるサービスです。nこのサービスがWindowsのスタートアップで自動実行されるように設定しておかなければなりません。"/>
+	<string id="20882" value="%u ファイルが選択されました。あなたはよろしいですか？"/>
+	<string id="20883" value="利用可能なURNがありません"/>
+	<string id="20884" value="UPnPデバイスホストサービスが実行されていません。 これはセットアップを行うために必ず必要になるサービスです。nこのサービスがWindowsのスタートアップで自動実行されるように設定しておかなければなりません。"/>
 	<string id="20885" value="画面表示の変更は現在開いている全てのウィンドウを閉じます。今すぐ変更しますか?"/>
 	<string id="20886" value="インターフェースの変更を適用するにはPeerProjectの再起動が必要になります。\n\n今すぐPeerProjectを終了しますか?"/>
 	<string id="20890" value="PeerProjectへようこそ"/>
@@ -3282,6 +3278,7 @@
 		<control caption="プラグインを選択(_S)..."/>
 		<control caption="注意:外部のメディアプレーヤーを選択すると内臓のPeerProjectﾒﾃﾞｨｱﾌﾟﾚｰﾔｰ、オーディオ視覚プラグインは共に自動的に無効になります。"/>
 	</dialog>
+	<!--Missing dialog name="CIRCSettingsPage"-->
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="コミュニティ">
 		<control caption="プロフィール:"/>
 		<control caption="Gnutellaユーザプロフィールを共有することによって、あなたについての情報やあなたの興味、お勧めのファイルやウェブサイトを他の人に公開することができます"/>
@@ -3292,7 +3289,18 @@
 		<control caption="スパム用のチャットメッセージをフィルタリングする"/>
 		<control caption="差別・侮辱発言を監視する"/>
 	</dialog>
-	<!--Missing dialog name="CIRCSettingsPage"-->
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuStd" caption="リモートアクセス">
+		<control caption="有効:"/>
+		<control caption="PeerProjectリモートアクセスを有効にする:"/>
+		<control/>
+		<control caption="認証:"/>
+		<control caption="ユーザ名:"/>
+		<control caption="パスワード:"/>
+		<control/>
+		<control/>
+		<control caption="ガイド:"/>
+		<control caption="PeerProjectリモートアクセスはあなたがPCの前を離れていても、ウェブブラウザを使用してPeerProjectを遠隔操作することができるようにします。この機能を利用するには(ルータを適切に設定する等して)入力接続を受け付けることができるようにする必要があります"/>
+	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="ウェブ">
 		<control caption="ピア・ツー・ピアリンク処理:"/>
 		<control caption="これらの種類のリンクをPeerProjectを使って開く:"/>
@@ -3379,25 +3387,13 @@
 		<control caption="制限:"/>
 		<control/>
 		<control caption="モード:"/>
-		<control caption="最大|平均"/>
+		<control caption="平均|最大/厳しい"/>
 		<control caption="キュー:"/>
 		<control/>
 		<control caption="新規(_N)..."/>
 		<control caption="編集(_E)..."/>
 		<control caption="削除(_D)"/>
 		<control caption="(変更は即座に適用されます)"/>
-	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuStd" caption="リモートアクセス">
-		<control caption="有効:"/>
-		<control caption="PeerProjectリモートアクセスを有効にする:"/>
-		<control/>
-		<control caption="認証:"/>
-		<control caption="ユーザ名:"/>
-		<control caption="パスワード:"/>
-		<control/>
-		<control/>
-		<control caption="ガイド:"/>
-		<control caption="PeerProjectリモートアクセスはあなたがPCの前を離れていても、ウェブブラウザを使用してPeerProjectを遠隔操作することができるようにします。この機能を利用するには(ルータを適切に設定する等して)入力接続を受け付けることができるようにする必要があります"/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="ネットワーク">
 		<control caption="PeerProjectは複数のP2Pネットワークへ同時にアクセスできる汎用ファイル共有アプリケーションです。このページではあなたがどのP2Pネットワークに接続するかを選択し、それぞれのネットワーク固有の設定を行います。"/>

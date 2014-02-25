@@ -1,7 +1,7 @@
 //
 // CtrlHomePanel.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -31,7 +31,6 @@ class CHomeConnectionBox : public CRichTaskBox
 {
 	DECLARE_DYNAMIC(CHomeConnectionBox)
 
-// Construction
 public:
 	CHomeConnectionBox();
 	virtual ~CHomeConnectionBox();
@@ -55,7 +54,6 @@ class CHomeLibraryBox : public CRichTaskBox
 {
 	DECLARE_DYNAMIC(CHomeLibraryBox)
 
-// Construction
 public:
 	CHomeLibraryBox();
 	virtual ~CHomeLibraryBox();
@@ -90,9 +88,9 @@ public:
 	Item*	HitTest(const CPoint& point) const;
 
 protected:
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
-	afx_msg void OnSize(UINT nType, int cx, int cy);
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnPaint();
+	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
@@ -105,7 +103,6 @@ class CHomeDownloadsBox : public CRichTaskBox
 {
 	DECLARE_DYNAMIC(CHomeDownloadsBox)
 
-// Construction
 public:
 	CHomeDownloadsBox();
 	virtual ~CHomeDownloadsBox();
@@ -152,8 +149,8 @@ public:
 
 protected:
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
-	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnPaint();
+	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
@@ -166,7 +163,6 @@ class CHomeUploadsBox : public CRichTaskBox
 {
 	DECLARE_DYNAMIC(CHomeUploadsBox)
 
-// Construction
 public:
 	CHomeUploadsBox();
 	virtual ~CHomeUploadsBox();
@@ -186,8 +182,8 @@ protected:
 	CString			m_sTorrentsMany;
 
 public:
-	void		OnSkinChange();
-	void		Update();
+	void	OnSkinChange();
+	void	Update();
 
 protected:
 	DECLARE_MESSAGE_MAP()
@@ -198,7 +194,6 @@ class CHomePanel : public CTaskPanel
 {
 	DECLARE_DYNAMIC(CHomePanel)
 
-// Construction
 public:
 	CHomePanel();
 
@@ -214,7 +209,7 @@ public:
 	virtual BOOL Create(CWnd* pParentWnd);
 
 protected:
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 
 	DECLARE_MESSAGE_MAP()
 };

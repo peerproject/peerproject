@@ -1,7 +1,7 @@
 //
 // DownloadWithTransfers.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -24,21 +24,19 @@ class CConnection;
 class CEDClient;
 class CDownloadTransfer;
 
+
 class CDownloadWithTransfers : public CDownloadWithSources
 {
-// Construction
 protected:
 	CDownloadWithTransfers();
 	virtual ~CDownloadWithTransfers();
 
-// Attributes
 private:
 	CDownloadTransfer*	m_pTransferFirst;
 	CDownloadTransfer*	m_pTransferLast;
 	int					m_nTransferCount;
 	DWORD				m_tTransferStart;
 
-// Operations
 public:
 	bool		HasActiveTransfers() const;
 	DWORD		GetTransferCount() const;
@@ -62,5 +60,5 @@ public:
 	inline bool ValidTransfer(const IN_ADDR* pAddress, const CDownloadTransfer* pTransfer) const;
 	inline CDownloadTransfer* GetFirstTransfer() const { return m_pTransferFirst; }
 
-	friend class CDownloadTransfer; // AddTransfer && RemoveTransfer
+	friend class CDownloadTransfer;		// AddTransfer && RemoveTransfer
 };

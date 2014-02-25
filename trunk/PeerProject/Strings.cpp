@@ -1,7 +1,7 @@
 //
 // Strings.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2010-2012
+// This file is part of PeerProject (peerproject.org) © 2010-2014
 // Portions copyright Shareaza Development Team, 2010.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -59,6 +59,17 @@ bool IsKanji(const WCHAR nChar)
 		return ( nCharType & C3_IDEOGRAPH ) != 0;
 
 	return false;
+}
+
+bool IsNumber(LPCTSTR pszString, size_t nStart /*0*/, size_t nLength /*0*/)
+{
+	if ( ! nLength ) nLength--;
+	for ( pszString += nStart ; *pszString && nLength ; pszString++, nLength-- )
+	{
+		if ( ! _istdigit( *pszString ) )
+			return false;
+	}
+	return true;
 }
 
 bool IsWord(LPCTSTR pszString, size_t nStart, size_t nLength)
@@ -271,7 +282,6 @@ CStringW UTF8Decode(__in_bcount(nInput) LPCSTR psInput, __in int nInput)
 //		strWide.ReleaseBuffer( nWide );
 //		return strWide;
 //	}
-//
 //	// Try ANSI
 //	nWide = ::MultiByteToWideChar( CP_ACP, MB_ERR_INVALID_CHARS, psInput, nInput, NULL, 0 );
 //	if ( nWide > 0 )
@@ -280,7 +290,6 @@ CStringW UTF8Decode(__in_bcount(nInput) LPCSTR psInput, __in int nInput)
 //		strWide.ReleaseBuffer( nWide );
 //		return strWide;
 //	}
-//
 //	// As-is
 //	return CString( psInput, nInput );
 }
@@ -695,12 +704,32 @@ void Split(const CString& strSource, TCHAR cDelimiter, CStringArray& pAddIt, BOO
 
 BOOL StartsWith(const CString& strInput, LPCTSTR pszText, size_t nLen)
 {
+	if ( strInput[0] != *pszText && //*pszText < _T('A') ||
+	   ( strInput[0] & ~0x20 ) != *pszText && strInput[0] != ( *pszText & ~0x20 ) )		// Fast case-insensitive first char
+		return FALSE;
+
 	if ( nLen == 0 )
 		nLen = _tcslen( pszText );
 
 	return (size_t)strInput.GetLength() >= nLen &&
-		( strInput[0] == *pszText || ( strInput[0] & ~0x20 ) == pszText[0] || strInput[0] == ( pszText[0] & ~0x20 ) ) &&		// Fast case-insensitive char
 		_tcsnicmp( (LPCTSTR)strInput, pszText, nLen ) == 0;
+}
+
+BOOL EndsWith(const CString& strInput, LPCTSTR pszText, size_t nLen)
+{
+	if ( nLen == 0 )
+		nLen = _tcslen( pszText );
+
+	if ( (size_t)strInput.GetLength() < nLen )
+		return FALSE;
+
+	LPCTSTR pszTest = (LPCTSTR)strInput.Right( (int)nLen );
+
+	if ( *pszTest != *pszText && *pszText < _T('A') ||
+	   ( *pszTest & ~0x20 ) != *pszText && *pszTest != ( *pszText & ~0x20 ) )			// Fast case-insensitive first char
+		return FALSE;
+
+	return _tcsnicmp( pszTest, pszText, nLen ) == 0;
 }
 
 CString LoadFile(LPCTSTR pszPath)
@@ -732,6 +761,7 @@ CString LoadFile(LPCTSTR pszPath)
 		//delete [] pBuf;	// Obsolete
 		return strXML;
 	}
+
 	pFile.Close();
 
 	BYTE* pByte = pBuf;
@@ -1171,6 +1201,25 @@ CString Unescape(const TCHAR* __restrict pszXML, int nLength)
 	strValue.ReleaseBuffer( (int)( pszOut - pszValue ) );
 
 	return strValue;
+}
+
+BOOL IsValidExtension(LPCTSTR pszName)
+{
+//	const int nDot = sName.ReverseFind( _T('.') );
+//	return ( nDot > 0 && nDot > sName.GetLength() - 10 && sName.FindOneOf( _T(" -)]") ) < nDot );
+
+	BOOL bNum = TRUE;
+	const UINT nLen = (UINT)_tcslen( pszName );
+	for ( UINT nTest = 0 ; nTest < 12 && nTest <= nLen ; nTest++ )
+	{
+		TCHAR cChar = *(pszName + ( nLen - nTest ));
+		if ( bNum && cChar == _T('\0') ) continue;
+		if ( cChar == _T('.') ) return ! bNum;
+		if ( cChar < _T('0') || cChar == _T(']') ) break;
+		bNum = bNum && cChar <= _T('9');		//_istdigit( cChar );
+	}
+
+	return FALSE;
 }
 
 //BOOL IsValidIP(const CString& sInput)

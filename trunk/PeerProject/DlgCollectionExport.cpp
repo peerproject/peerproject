@@ -1,7 +1,7 @@
 //
 // DlgCollectionExport.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -27,6 +27,8 @@
 #include "SharedFile.h"
 #include "LiveList.h"
 #include "Colors.h"
+#include "ImageFile.h"
+#include "ThumbCache.h"
 #include "Schema.h"
 #include "XML.h"
 
@@ -46,6 +48,8 @@ enum {
 	COL_URL,
 	COL_EMAIL,
 	COL_INFO,
+	COL_FILENAME,
+	COL_THUMBS,
 	COL_LAST	// Count
 };
 
@@ -61,9 +65,13 @@ BEGIN_MESSAGE_MAP(CCollectionExportDlg, CSkinDialog)
 END_MESSAGE_MAP()
 
 
-CCollectionExportDlg::CCollectionExportDlg(CAlbumFolder* pFolder, CWnd* pParent) : CSkinDialog(CCollectionExportDlg::IDD, pParent)
+CCollectionExportDlg::CCollectionExportDlg(const CAlbumFolder* pFolder, CWnd* pParent)
+	: CSkinDialog(CCollectionExportDlg::IDD, pParent)
+	, m_pFolder		( pFolder )
+	, m_nSelected	( -1 )
+	, m_nStep		( 0 )
+	, m_bThumbnails	( FALSE )
 {
-	m_pFolder = pFolder;
 }
 
 CCollectionExportDlg::~CCollectionExportDlg()
@@ -73,6 +81,7 @@ CCollectionExportDlg::~CCollectionExportDlg()
 void CCollectionExportDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CSkinDialog::DoDataExchange( pDX );
+
 	DDX_Control(pDX, IDOK, m_wndOK);
 	DDX_Control(pDX, IDC_STATIC_AUTHOR, m_wndLblAuthor);
 	DDX_Control(pDX, IDC_STATIC_NAME, m_wndLblName);
@@ -97,7 +106,7 @@ BOOL CCollectionExportDlg::OnInitDialog()
 
 	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
 
-	// Show template name, author and version number columns, hide the rest info
+	// Show template name, author and version number columns, hide the rest (info)
 	m_wndList.InsertColumn( COL_NAME,	_T("Name"), LVCFMT_LEFT, 134, 0 );
 	m_wndList.InsertColumn( COL_AUTHOR,	_T("Author"), LVCFMT_LEFT, 114, 1 );
 	m_wndList.InsertColumn( COL_VERSION, _T("Version"), LVCFMT_LEFT, 32, 2 );
@@ -105,6 +114,8 @@ BOOL CCollectionExportDlg::OnInitDialog()
 	m_wndList.InsertColumn( COL_URL,	_T("URL"), LVCFMT_LEFT, 0, 4 );
 	m_wndList.InsertColumn( COL_EMAIL,	_T("Email"), LVCFMT_LEFT, 0, 5 );
 	m_wndList.InsertColumn( COL_INFO,	_T("Description"), LVCFMT_LEFT, 0, 6 );
+	m_wndList.InsertColumn( COL_FILENAME, _T("Filename"), LVCFMT_LEFT, 0, 7 );
+	m_wndList.InsertColumn( COL_THUMBS,	_T("Thumbnails"), LVCFMT_LEFT, 0, 8 );
 
 	m_wndList.SetExtendedStyle( LVS_EX_FULLROWSELECT );
 
@@ -175,7 +186,7 @@ void CCollectionExportDlg::EnumerateTemplates(LPCTSTR pszPath)
 	{
 		do
 		{
-			if ( pFind.cFileName[0] == '.' ) continue;
+			if ( pFind.cFileName[0] == _T('.') ) continue;
 
 			if ( pFind.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY )
 			{
@@ -227,7 +238,7 @@ BOOL CCollectionExportDlg::AddTemplate(LPCTSTR pszPath, LPCTSTR pszName)
 
 	strXML.Empty();
 
-	CXMLElement* pManifest = pXML->GetElementByName( _T("manifest") );
+	const CXMLElement* pManifest = pXML->GetElementByName( _T("manifest") );
 
 	if ( ! pXML->IsNamed( _T("template") ) || pManifest == NULL )
 	{
@@ -235,13 +246,15 @@ BOOL CCollectionExportDlg::AddTemplate(LPCTSTR pszPath, LPCTSTR pszName)
 		return FALSE;
 	}
 
-	CString strIcon		= pManifest->GetAttributeValue( _T("icon") );
 	CString strName		= pManifest->GetAttributeValue( _T("name"), pszName );
 	CString strAuthor	= pManifest->GetAttributeValue( _T("author"), _T("-") );
 	CString strVersion	= pManifest->GetAttributeValue( _T("version"), _T("-") );
+	CString strIcon		= pManifest->GetAttributeValue( _T("icon") );
 	CString strURL		= pManifest->GetAttributeValue( _T("link") );
 	CString strEmail	= pManifest->GetAttributeValue( _T("email") );
 	CString strDesc		= pManifest->GetAttributeValue( _T("description") );
+	CString strThumbs	= pManifest->GetAttributeValue( _T("thumbnails"), _T("false") );
+	CString strFilename	= pManifest->GetAttributeValue( _T("filename"), _T("index.htm") );
 
 	CString strPath;
 	strPath.Format( _T("%s%s"), pszPath ? pszPath : _T(""), pszName );
@@ -278,8 +291,8 @@ BOOL CCollectionExportDlg::AddTemplate(LPCTSTR pszPath, LPCTSTR pszName)
 	else
 		strURL.Empty();
 
-	if ( strEmail.Find( '@' ) < 1 )
-		strEmail.Empty();
+	//if ( strEmail.Find( '@' ) < 1 )
+	//	strEmail.Empty();
 
 	CLiveItem pItem( COL_LAST, 0 );
 
@@ -296,288 +309,325 @@ BOOL CCollectionExportDlg::AddTemplate(LPCTSTR pszPath, LPCTSTR pszName)
 	pItem.Set( COL_URL, 	strURL );
 	pItem.Set( COL_EMAIL,	strEmail );
 	pItem.Set( COL_INFO,	strDesc );
+	pItem.Set( COL_FILENAME, strFilename );
+	pItem.Set( COL_THUMBS,	strThumbs );
 
 	/*int nItem =*/ pItem.Add( &m_wndList, -1, COL_LAST );
 
 	return TRUE;
 }
 
+BOOL CCollectionExportDlg::Step1()
+{
+	// First wizard screen done
+	CWaitCursor pCursor;
+
+	// Change explanation and button captions
+	m_wndExplain.SetWindowText( m_sLblExplain2 );
+	m_wndOK.SetWindowText( m_sBtnExport );
+	m_wndDelete.SetWindowText( m_sBtnBack );
+
+	// Hide the first screen controls
+	m_wndList.ShowWindow( FALSE );
+	m_wndAuthor.ShowWindow( FALSE );
+	m_wndName.ShowWindow( FALSE );
+	m_wndDesc.ShowWindow( FALSE );
+	m_wndLblAuthor.ShowWindow( FALSE );
+	m_wndLblName.ShowWindow( FALSE );
+	m_wndLblDesc.ShowWindow( FALSE );
+	m_wndGroupBox.ShowWindow( FALSE );
+	if ( m_wndWizard.GetSize() )	// We already viewed the second screen
+	{
+		m_wndWizard.ShowWindow( SW_SHOW );
+		if ( ! m_wndWizard.IsValid() )
+			m_wndOK.EnableWindow( FALSE );
+		return TRUE;
+	}
+
+	// Find position of wizard control
+	CRect rcReference1, rcReference2, rcNew;
+	m_wndList.GetWindowRect( &rcReference1 );
+	ScreenToClient( &rcReference1 );
+	m_wndGroupBox.GetWindowRect( &rcReference2 );
+	ScreenToClient( &rcReference2 );
+	rcNew.left	= rcReference1.left;
+	rcNew.top	= rcReference1.top;
+	rcNew.bottom = rcReference1.bottom;
+	rcNew.right	= rcReference2.right;
+
+	int nItem = m_wndList.GetNextItem( -1, LVNI_SELECTED );
+	m_sXMLPath = Settings.General.Path + _T("\\Templates\\") + m_wndList.GetItemText( nItem, COL_PATH );
+	m_sNewFilename = m_wndList.GetItemText( nItem, COL_FILENAME );
+	m_bThumbnails = m_wndList.GetItemText( nItem, COL_THUMBS ).CompareNoCase( _T("true") ) == 0;
+
+	if ( ! m_wndWizard )
+	{
+		CSingleLock pLock( &Library.m_pSection, TRUE );
+		m_wndWizard.Create( WS_CHILD|WS_VISIBLE|WS_BORDER|WS_TABSTOP, rcNew, this, IDC_WIZARD, m_sXMLPath, m_pFolder );
+	}
+	else
+	{
+		m_wndWizard.ShowWindow( TRUE );
+	}
+
+	if ( ! m_wndWizard.IsValid() )
+		m_wndOK.EnableWindow( FALSE );
+
+	return TRUE;
+}
+
+BOOL CCollectionExportDlg::Step2()
+{
+	// Second wizard screen done (Processing)
+	CWaitCursor pCursor;
+
+	const CString strPath = BrowseForFolder( _T("Select folder for output:") );
+	if ( strPath.IsEmpty() )
+		return FALSE;	// No folder selected
+
+	CString strTitle;
+	CStringA strXMLUTF8;
+
+	{
+		CSingleLock pLock( &Library.m_pSection );
+		if ( ! SafeLock( pLock ) )
+			return ErrorMessage( _T("Library is currently busy.") );
+
+		if ( ! m_pFolder || ! m_pFolder->GetFileCount() )
+			return FALSE;	// Folder disappeared
+
+		CAutoPtr< CXMLElement > pXML( m_pFolder->CreateXML() );
+		if ( ! pXML )
+			return FALSE;	// Out of memory
+
+		strXMLUTF8 = UTF8Encode( pXML->ToString( TRUE, TRUE ) );
+		if ( strXMLUTF8.IsEmpty() )
+			return FALSE;	// Out of memory
+
+		strTitle = m_pFolder->m_sName;	// For $title$
+	}
+
+	const CString strFile = strPath + _T("\\Collection.xml");
+
+	CFile pFile;
+	if ( ! pFile.Open( strFile, CFile::modeWrite|CFile::modeCreate ) )
+		return ErrorMessage( _T("Failed to write file:"), strFile );	// File creation failed
+
+	try
+	{
+		pFile.Write( (LPCSTR)strXMLUTF8, strXMLUTF8.GetLength() );
+		pFile.Close();
+	}
+	catch ( CException* pException )
+	{
+		pFile.Abort();
+		pException->Delete();
+		return ErrorMessage( _T("Failed to write file:"), strFile );	// File write failed
+	}
+
+	for ( int nPosTpl = 0 ; nPosTpl < m_wndWizard.m_pTemplatePaths.GetSize() ; nPosTpl++ )
+	{
+		CString strTemplateName = m_wndWizard.m_pTemplatePaths.GetAt( nPosTpl );
+		if ( strTemplateName.CompareNoCase( m_wndWizard.m_sMainFilePath ) == 0 )
+			strTemplateName = m_sNewFilename;
+
+		if ( strTemplateName.CompareNoCase( m_wndWizard.m_sEvenFilePath ) == 0 ||
+			 strTemplateName.CompareNoCase( m_wndWizard.m_sOddFilePath ) == 0 )
+			continue;
+
+		const CString strNewFilePath = strPath + _T("\\") +
+				( m_sNewFilename.Compare( _T("index.htm") ) != 0 ? m_sNewFilename :
+				( strTemplateName.Left( strTemplateName.ReverseFind( _T('.') ) ) + _T(".htm") ) );
+
+		CString strSource = LoadFile( DirFromPath( m_sXMLPath ) + _T("\\") +
+			( strTemplateName.CompareNoCase( m_sNewFilename ) ? strTemplateName : m_wndWizard.m_sMainFilePath ) );
+
+		// Substitute item IDs with the values from wizard edit boxes.
+		// The phrase "Individual file replacement" --
+		// when each file has a unique id substitution.
+		for ( POSITION pos = m_wndWizard.m_pItems.GetStartPosition() ; pos != NULL ; )
+		{
+			CString strControlID, strMap;
+			m_wndWizard.m_pItems.GetNextAssoc( pos, strControlID, strMap );
+
+			int nPosVert = strMap.Find( _T('|') );
+			const UINT nFileID = _ttoi( (LPCTSTR)strMap.Left( nPosVert ) );		// File # (starting 0)
+			strMap = strMap.Mid( nPosVert + 1 );	// Remove first entry
+			nPosVert = strMap.Find( _T('|') );
+			const CString strReplaceID = _T("$") + strMap.Left( nPosVert ) + _T("$");	// Replacement ID from XML
+			strMap = strMap.Mid( nPosVert + 1 );
+			const UINT nControlID = _ttoi( (LPCTSTR)strControlID );
+
+			const CEdit* pEdit = (CEdit*)m_wndWizard.GetDlgItem( nControlID );
+			if ( ! pEdit || ! pEdit->IsKindOf( RUNTIME_CLASS( CEdit ) ) )
+				return ErrorMessage( _T("Control placed badly:"), strControlID );
+
+			CString strReplace;
+			pEdit->GetWindowText( strReplace );
+
+			if ( nFileID < (UINT)m_wndWizard.m_pFileDocs.GetSize() && strTemplateName.CompareNoCase( m_sNewFilename ) == 0 )
+			{
+				for ( int nPosDocs = 0 ; nPosDocs < m_wndWizard.m_pFileDocs.GetSize() ; )
+				{
+					CString strNewReplace = strReplace;
+
+					// Remove path when default file changed
+					if ( ! strMap.IsEmpty() && strReplace.Find( _T(':') ) != -1 )
+						strNewReplace = strReplace.Mid( strReplace.ReverseFind( _T('\\') ) + 1 );
+
+					// Ensure first char is not backslash (may be entered in XML)
+					//if ( ! strMap.IsEmpty() && strNewReplace[ 1 ] == _T('\\') )
+					//	strNewReplace = strNewReplace.Mid( 1 );
+
+					// Single filepicker is replaced everywhere
+					// e.g. various bullets may be identical
+					if ( strMap.IsEmpty() || strMap == "s" )
+					{
+						ReplaceNoCase( m_wndWizard.m_pFileDocs.GetAt( nPosDocs++ ), strReplaceID, strNewReplace );
+					}
+					else if ( strMap == "m" )	// Individual file doc replacement; multi-file picker
+					{
+						strNewReplace.Replace( _T('\\'), _T('/') );
+						ReplaceNoCase( m_wndWizard.m_pFileDocs.GetAt( nFileID ), strReplaceID, strNewReplace );
+					}
+
+					// Copy selected images
+					if ( ! strMap.IsEmpty() )
+					{
+						CString strTarget, strSourceFile;
+
+						// If default file left, add old value to target and destination, since it may contain a relative path.
+						if ( strReplace.Find( _T(':') ) == -1 )
+						{
+							strReplace.Replace( _T('/'), _T('\\') );
+							strTarget = strPath + _T('\\') + strReplace;
+							strSourceFile = DirFromPath( m_sXMLPath ) + _T('\\') + strReplace;
+						}
+						else
+						{
+							strTarget = strPath + _T('\\') + strNewReplace;
+							strSourceFile = strReplace;
+						}
+						// Check if destination file does not exists
+						if ( GetFileAttributes( strTarget ) == INVALID_FILE_ATTRIBUTES )
+						{
+							// Create dirs recursively
+							CreateDirectory( strTarget.Left( strTarget.ReverseFind( _T('\\') ) ) );
+							if ( ! CopyFile( strSourceFile, strTarget, TRUE ) )
+								return ErrorMessage( _T("Failed to write file to:"), strTarget );	// File disappeared
+						}
+					}
+
+					if ( strMap == "m" )
+						break;
+				} // For each even/odd file
+			}
+
+			// Ordinary template ignores individual file replacements
+			if ( ! strSource.IsEmpty() && strMap.IsEmpty() || strMap == "s" )
+				ReplaceNoCase( strSource, strReplaceID, strReplace );
+		} // For each wizard row
+
+		// Combine file docs and embed in "main" template
+		if ( strTemplateName.CompareNoCase( m_sNewFilename ) == 0 )
+		{
+			CString strResult;
+			for ( int nPosFileDocs = 0 ; nPosFileDocs < m_wndWizard.m_pFileDocs.GetSize() ; nPosFileDocs++ )
+			{
+				if ( m_bThumbnails )
+				{
+					// Create thumbnails for every file
+					CString strFilePath = m_wndWizard.m_pFilePaths.GetAt( nPosFileDocs );
+					CImageFile pImageFile;
+					if ( CThumbCache::Cache( strFilePath, &pImageFile ) )
+					{
+						CString strTarget;
+						strTarget.Format( _T("%s\\thumbs\\%d.jpg"), strPath, nPosFileDocs + 1 );
+						CreateDirectory( strTarget.Left( strTarget.ReverseFind( _T('\\') ) ) );
+						if ( ! pImageFile.SaveToFile( strTarget, 85 ) )
+							return ErrorMessage( _T("Failed to write file to:"), strTarget );	// File disappeared
+					}
+				}
+
+				strResult += m_wndWizard.m_pFileDocs.GetAt( nPosFileDocs );
+			}
+
+			ReplaceNoCase( strSource, _T("$data$"), strResult );
+			ReplaceNoCase( strSource, _T("$title$"), strTitle );	// Folder Name
+		}
+
+		const CStringA strSourceUTF8 = UTF8Encode( strSource );
+
+		// Output to file
+		CFile pNewFile;
+		if ( ! pNewFile.Open( strNewFilePath, CFile::modeWrite|CFile::modeCreate ) )
+			return ErrorMessage( _T("Failed to write file:"), strNewFilePath );
+
+		try
+		{
+			pNewFile.Write( (LPCSTR)strSourceUTF8, strSourceUTF8.GetLength() );
+			pNewFile.Close();
+		}
+		catch ( CException* pException )
+		{
+			// File write failed
+			pNewFile.Abort();
+			pException->Delete();
+			return ErrorMessage( _T("Failed to write file:"), strNewFilePath );
+		}
+	} // For each template file
+
+	// Copy all non-parsed files such as images, stylesheets etc.
+	for ( int nPosImg = 0 ; nPosImg < m_wndWizard.m_pImagePaths.GetSize() ; nPosImg++ )
+	{
+		const CString strFileName = m_wndWizard.m_pImagePaths.GetAt( nPosImg );
+		const CString strTarget = strPath + _T('\\') + strFileName;
+
+		// Destination file does not exist
+		if ( GetFileAttributes( strTarget ) == INVALID_FILE_ATTRIBUTES )
+		{
+			// Source file exists
+			CString strSource = DirFromPath( m_sXMLPath ) + _T('\\') + strFileName;
+			if ( GetFileAttributes( strSource ) != INVALID_FILE_ATTRIBUTES )
+			{
+				// Create dirs recursively
+				CreateDirectory( strTarget.Left( strTarget.ReverseFind( _T('\\') ) ) );
+				if ( ! CopyFile( strSource, strTarget, TRUE ) )
+					return ErrorMessage( _T("Failed to write file to:"), strTarget );
+			}
+		}
+	} // For Image/Resource
+
+	CSkinDialog::OnOK();
+
+	return TRUE;
+}
+
+BOOL CCollectionExportDlg::ErrorMessage(LPCTSTR pszError, LPCTSTR pszTarget /*NULL*/)
+{
+	// File unwriteable
+	CString strError = pszError;
+	if ( *pszTarget )
+		strError += (CString)_T("  ") + pszTarget;
+	theApp.Message( MSG_ERROR, _T("%s  %s"), pszError, pszTarget );
+	MsgBox( strError, MB_OK | MB_ICONERROR );
+	return FALSE;	// Always False (Failure)
+}
+
 void CCollectionExportDlg::OnOK()
 {
 	switch ( m_nStep )
 	{
-	case 1:	// The first wizard screen
-		{
-			// Change explanation and button captions
-			m_wndExplain.SetWindowText( m_sLblExplain2 );
-			m_wndOK.SetWindowText( m_sBtnExport );
-			m_wndDelete.SetWindowText( m_sBtnBack );
-
-			// Hide the first screen controls
-			m_wndList.ShowWindow( FALSE );
-			m_wndAuthor.ShowWindow( FALSE );
-			m_wndName.ShowWindow( FALSE );
-			m_wndDesc.ShowWindow( FALSE );
-			m_wndLblAuthor.ShowWindow( FALSE );
-			m_wndLblName.ShowWindow( FALSE );
-			m_wndLblDesc.ShowWindow( FALSE );
-			m_wndGroupBox.ShowWindow( FALSE );
-			if ( m_wndWizard.m_pControls.GetSize() )	// We already viewed the second screen
-			{
-				m_wndWizard.ShowWindow( SW_SHOW );
-				if ( ! m_wndWizard.m_bValid )
-					m_wndOK.EnableWindow( FALSE );
-				break;
-			}
-
-			// Find position of wizard control
-			CRect rcReference1, rcReference2, rcNew;
-			m_wndList.GetWindowRect( &rcReference1 );
-			ScreenToClient( &rcReference1 );
-			m_wndGroupBox.GetWindowRect( &rcReference2 );
-			ScreenToClient( &rcReference2 );
-			rcNew.left = rcReference1.left;
-			rcNew.top = rcReference1.top;
-			rcNew.bottom = rcReference1.bottom;
-			rcNew.right = rcReference2.right;
-			int nItem = m_wndList.GetNextItem( -1, LVNI_SELECTED );
-			CString strXML = Settings.General.Path + _T("\\Templates\\") + m_wndList.GetItemText( nItem, 3 );
-			if ( ! m_wndWizard )
-			{
-				CWaitCursor pCursor;
-				m_wndWizard.Create( WS_CHILD|WS_VISIBLE|WS_BORDER|WS_TABSTOP,
-					rcNew, this, IDC_WIZARD, strXML, m_pFolder );
-				pCursor.Restore();
-			}
-			else
-			{
-				m_wndWizard.ShowWindow( TRUE );
-			}
-
-			if ( ! m_wndWizard.m_bValid )
-				m_wndOK.EnableWindow( FALSE );
-		}
+	case 1:
+		if ( ! Step1() )
+			return;
 		break;
 
-	case 2:	// The second wizard screen
-		CString strPath = BrowseForFolder( _T("Select folder for output:") );
-		if ( strPath.IsEmpty() )
-		{
-			m_nStep--;	// Do not increment at the end of case
-			break;
-		}
-
-		CSingleLock pLock( &Library.m_pSection, TRUE );
-
-		if ( m_pFolder && m_pFolder->GetFileCount() )
-		{
-			CXMLElement* pXML = m_pFolder->CreateXML();
-			CString strXML = pXML->ToString( TRUE, TRUE );
-			delete pXML;
-
-			CString strFile = strPath + _T("\\Collection.xml");
-			CFile pFile;
-
-			if ( pFile.Open( strFile, CFile::modeWrite|CFile::modeCreate ) )
-			{
-				CStringA strXMLUTF8 = UTF8Encode( strXML );
-
-				pFile.Write( (LPCSTR)strXMLUTF8, strXMLUTF8.GetLength() );
-				pFile.Close();
-
-				int nPosTpl = 0;
-				while ( nPosTpl < m_wndWizard.m_pTemplatePaths.GetSize() )
-				{
-					CString strTemplateName, strSource, strNewFilePath;
-
-					strTemplateName = m_wndWizard.m_pTemplatePaths.GetAt( nPosTpl++ );
-					if ( strTemplateName == m_wndWizard.m_sMainFilePath )
-						strTemplateName = _T("index.htm");
-
-					if ( strTemplateName != m_wndWizard.m_sEvenFilePath &&
-							strTemplateName != m_wndWizard.m_sOddFilePath )
-					{
-						strNewFilePath = strPath + _T("\\") +
-							strTemplateName.Left( strTemplateName.ReverseFind( '.' ) ) + _T(".htm");
-
-						CString strTemplatePath;
-						if ( strTemplateName != "index.htm" )
-							strTemplatePath = DirFromPath( m_wndWizard.m_sXMLPath ) + _T("\\") + strTemplateName;
-						else
-							strTemplatePath = DirFromPath( m_wndWizard.m_sXMLPath ) + _T("\\") + m_wndWizard.m_sMainFilePath;
-
-						strSource = LoadFile( strTemplatePath );
-					}
-					else
-						continue;
-
-					// Substitute item IDs with the values from wizard edit boxes.
-					// The phrase "Individual file replacement" --
-					// when each file has a unique id substitution.
-					POSITION pos = m_wndWizard.m_pItems.GetStartPosition();
-					while ( pos != NULL )
-					{
-						CString strControlID, strMap, str, strReplaceID;
-						UINT nControlID, nFileID;
-
-						m_wndWizard.m_pItems.GetNextAssoc( pos, strControlID, strMap );
-						int nPosVert = strMap.Find('|');
-						str = strMap.Left( nPosVert );
-						nFileID = _ttoi( (LPCTSTR)str );		// File # starting 0
-						strMap = strMap.Mid( nPosVert + 1 );	// Remove first entry
-						nPosVert = strMap.Find('|');
-						strReplaceID = strMap.Left( nPosVert );	// Replacement ID from XML
-						str.Format( _T("$%s$"), strReplaceID );
-						strMap = strMap.Mid( nPosVert + 1 );
-						nControlID = _ttoi( (LPCTSTR)strControlID );
-
-						CEdit* pEdit = (CEdit*)m_wndWizard.GetDlgItem( nControlID );
-						CString strReplace;
-						if ( pEdit->IsKindOf( RUNTIME_CLASS( CEdit ) ) )
-						{
-							pEdit->GetWindowText( strReplace );
-						}
-						else // Something wrong
-						{
-							MsgBox( _T("BUG: Controls placed badly.") );
-							break;
-						}
-
-						if ( nFileID < (UINT)m_wndWizard.m_pFileDocs.GetSize() &&
-							strTemplateName == "index.htm" )
-						{
-							int nPosDocs = 0;
-							while ( nPosDocs < m_wndWizard.m_pFileDocs.GetSize() )
-							{
-								CString strNew, strNewReplace;
-
-								// Ensure that first char is not backslash (may be entered in XML)
-								//if ( ! strMap.IsEmpty() && strReplace.Left( 1 ) == '\\' )
-								//	strReplace = strReplace.Mid( 1 );
-
-								// Remove path when default file changed
-								if ( ! strMap.IsEmpty() && strReplace.Find(':') != -1 )
-									strNewReplace = strReplace.Mid( strReplace.ReverseFind('\\') + 1 );
-								else strNewReplace = strReplace;
-
-								// Single filepicker is replaced everywhere
-								// e.g. various bullets may be identical
-								if ( strMap.IsEmpty() || strMap == "s" )
-								{
-									ReplaceNoCase( m_wndWizard.m_pFileDocs.GetAt( nPosDocs++ ),
-										str, strNewReplace );
-								}
-								else if ( strMap == "m" )	// Individual file doc replacement; multi-file picker
-								{
-									strNewReplace.Replace( '\\', '/' );
-									ReplaceNoCase( m_wndWizard.m_pFileDocs.GetAt( nFileID ),
-										str, strNewReplace );
-								}
-								// Copy selected images
-								if ( ! strMap.IsEmpty() )
-								{
-									CString strTarget, strSourceFile;
-
-									// If default file left, add old value to target and destination, since it may contain a relative path.
-									if ( strReplace.Find(':') == -1 )
-									{
-										strReplace.Replace( '/', '\\' );
-										strTarget = strPath + _T('\\') + strReplace;
-										strSourceFile = DirFromPath( m_wndWizard.m_sXMLPath ) + _T('\\') + strReplace;
-									}
-									else
-									{
-										strTarget = strPath + _T('\\') + strNewReplace;
-										strSourceFile = strReplace;
-									}
-									// Check if destination file does not exists
-									if ( GetFileAttributes( strTarget ) == 0xFFFFFFFF )
-									{
-										// Create dirs recursively
-										CreateDirectory( strTarget.Left( strTarget.ReverseFind( _T('\\') ) ) );
-										if ( ! CopyFile( strSourceFile, strTarget, TRUE ) )
-											MsgBox( _T("ToDo: File disappeared: \n") + strReplace );
-									}
-								}
-								if ( strMap == "m" ) break;
-							} // While each even/odd file
-						}
-
-						// Ordinary template ignores individual file replacements
-						if ( ! strSource.IsEmpty() && strMap.IsEmpty() || strMap == "s" )
-							ReplaceNoCase( strSource, str, strReplace );
-					} // While each wizard row
-
-					// Combine file docs and embed in "main" template
-					if ( strTemplateName == "index.htm" )
-					{
-						CString strResult;
-						int nPosDocs2 = 0;
-						while ( nPosDocs2 < m_wndWizard.m_pFileDocs.GetSize() )
-							strResult += m_wndWizard.m_pFileDocs.GetAt( nPosDocs2++ );
-						ReplaceNoCase( strSource, _T("$data$"), strResult );
-						strResult.Empty();
-						strResult.ReleaseBuffer();
-					}
-
-					// Output to file
-					CFile pNewFile;
-					if ( pNewFile.Open( strNewFilePath, CFile::modeWrite|CFile::modeCreate ) )
-					{
-						CStringA strSourceUTF8 = UTF8Encode( strSource );
-
-						pNewFile.Write( (LPCSTR)strSourceUTF8, strSourceUTF8.GetLength() );
-						pNewFile.Close();
-
-						// Clean-up;
-						strSource.Empty();
-						strSource.ReleaseBuffer();
-					}
-				} // While each template file
-
-				// Copy all non-parsed files such as images, stylesheets etc.
-				int nPosImg = 0;
-				while ( nPosImg < m_wndWizard.m_pImagePaths.GetSize() )
-				{
-					CString strTarget, strFileName;
-					strFileName = m_wndWizard.m_pImagePaths.GetAt( nPosImg++ );
-					strTarget = strPath + _T('\\') + strFileName;
-
-					// Destination file does not exists
-					if ( GetFileAttributes( strTarget ) == 0xFFFFFFFF )
-					{
-						CString strSource;
-						strSource = DirFromPath( m_wndWizard.m_sXMLPath ) +
-								_T('\\') + strFileName;
-						// Source file exists
-						if ( GetFileAttributes( strSource ) != 0xFFFFFFFF )
-						{
-							// Create dirs recursively
-							CreateDirectory( strTarget.Left( strTarget.ReverseFind( _T('\\') ) ) );
-							if ( ! CopyFile( strSource, strTarget, TRUE ) )
-								MsgBox( _T("ToDo: Can't write to ") + strFile );
-						}
-					}
-				} // While Image
-
-				CSkinDialog::OnOK();
-			}
-			else
-			{
-				pLock.Unlock();
-				MsgBox( _T("ToDo: Can't write to ") + strFile );
-				m_nStep--;
-			}
-		}
-		else
-		{
-			pLock.Unlock();
-			MsgBox( _T("ToDo: Folder disappeared.") );
-			m_nStep--;
-		}
-		break;	// case 2:
+	case 2:
+		if ( ! Step2() )
+			return;
+		break;
 	}
-
 	m_nStep++;
 }
 
@@ -604,7 +654,7 @@ void CCollectionExportDlg::OnTemplatesDeleteOrBack()
 
 			DeleteFileEx( strPath, FALSE, TRUE, TRUE );
 
-			int nSlash = strPath.ReverseFind( '\\' );
+			int nSlash = strPath.ReverseFind( _T('\\') );
 			strPath = strPath.Left( nSlash ) + _T("\\*.xml");
 
 			WIN32_FIND_DATA pFind;
@@ -763,10 +813,10 @@ void CCollectionExportDlg::OnLButtonUp(UINT /*nFlags*/, CPoint point)
 {
 	if ( m_nSelected < 0 ) return;
 
-	ClientToScreen( &point );
-
 	CRect rc;
 	m_wndName.GetWindowRect( &rc );
+
+	ClientToScreen( &point );
 
 	if ( rc.PtInRect( point ) )
 	{
@@ -793,9 +843,9 @@ void CCollectionExportDlg::OnLButtonUp(UINT /*nFlags*/, CPoint point)
 
 BOOL CCollectionExportDlg::PreTranslateMessage(MSG* pMsg)
 {
-	if ( m_wndWizard && pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_TAB )
+	if ( pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_TAB )
 	{
-		if ( m_wndWizard.IsWindowVisible() && m_wndWizard.OnTab() )
+		if ( m_wndWizard && m_wndWizard.IsWindowVisible() && m_wndWizard.OnTab() )
 			return TRUE;	// ToDo: When template is invalid tab key does not work.
 	}
 
@@ -805,7 +855,7 @@ BOOL CCollectionExportDlg::PreTranslateMessage(MSG* pMsg)
 CString CCollectionExportDlg::DirFromPath(LPCTSTR szPath)
 {
 	CString strDir(szPath);
-	int nIndex( strDir.ReverseFind( '\\' ) );
+	int nIndex( strDir.ReverseFind( _T('\\') ) );
 
 	if ( nIndex != -1 )
 		strDir = strDir.Left( nIndex );

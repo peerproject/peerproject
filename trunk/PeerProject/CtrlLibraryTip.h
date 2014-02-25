@@ -1,7 +1,7 @@
 //
 // CtrlLibraryTip.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -51,7 +51,6 @@ public:
 		ShowImpl( bChanged );
 	}
 
-// Attributes
 protected:
 	CPeerProjectFile*	m_pFile;
 	DWORD				m_nFileIndex;
@@ -72,7 +71,6 @@ protected:
 	CBitmap				m_bmThumb;
 	DWORD				m_tHidden;
 
-// Operations
 	void		OnRun();
 	void		StopThread();
 
@@ -82,17 +80,9 @@ protected:
 	virtual void OnCalcSize(CDC* pDC);
 	virtual void OnPaint(CDC* pDC);
 
-// Overrides
-public:
-	//{{AFX_VIRTUAL(CLibraryTipCtrl)
-	//}}AFX_VIRTUAL
-
-// Implementation
 protected:
-	//{{AFX_MSG(CLibraryTipCtrl)
 	afx_msg void OnDestroy();
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

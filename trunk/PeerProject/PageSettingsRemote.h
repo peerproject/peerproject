@@ -1,7 +1,7 @@
 //
 // PageSettingsRemote.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -25,14 +25,12 @@ class CRemoteSettingsPage : public CSettingsPage
 {
 	DECLARE_DYNAMIC(CRemoteSettingsPage)
 
-// Construction
 public:
 	CRemoteSettingsPage();
 	virtual ~CRemoteSettingsPage();
 
 	enum { IDD = IDD_SETTINGS_REMOTE };
 
-// Attributes
 protected:
 	BOOL		m_bEnable;
 	CStatic		m_wndURL;
@@ -45,7 +43,6 @@ protected:
 	CString		m_sOldUsername;
 	CString		m_sOldPassword;
 
-// Implementation
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
 	virtual BOOL OnInitDialog();

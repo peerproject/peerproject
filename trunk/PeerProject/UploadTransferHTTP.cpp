@@ -1,7 +1,7 @@
 //
 // UploadTransferHTTP.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -460,45 +460,41 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 	{
 		LPCTSTR pszURN = (LPCTSTR)m_sRequest + 21;
 
-		CSingleLock oLock( &Library.m_pSection );
-		if ( oLock.Lock( 1000 ) )
-		{
-			if ( CLibraryFile* pShared = LibraryMaps.LookupFileByURN( pszURN, TRUE, TRUE ) )
-				return RequestPreview( pShared, oLock );
-		}
-		else
+		CSingleLock pLock( &Library.m_pSection );
+		if ( ! SafeLock( pLock ) )
 		{
 			theApp.Message( MSG_ERROR, _T("Refusing request from %s, Library is busy."), (LPCTSTR)m_sAddress );
 			SendResponse( IDR_HTML_BUSY );
 			return TRUE;
 		}
+
+		if ( CLibraryFile* pShared = LibraryMaps.LookupFileByURN( pszURN, TRUE, TRUE ) )
+			return RequestPreview( pShared, pLock );
 	}
 	else if ( ::StartsWith( m_sRequest, _PT("/gnutella/metadata/v1?urn:") ) && Settings.Uploads.ShareMetadata )
 	{
 		LPCTSTR pszURN = (LPCTSTR)m_sRequest + 22;
 
 		{
-			CSingleLock oLock( &Library.m_pSection );
-			if ( oLock.Lock( 1000 ) )
-			{
-				if ( CLibraryFile* pShared = LibraryMaps.LookupFileByURN( pszURN, TRUE, TRUE ) )
-				{
-					if ( pShared->m_pMetadata != NULL )
-					{
-						m_sName = pShared->m_sName;
-						if ( CXMLElement* pMetadata = pShared->m_pSchema->Instantiate( TRUE ) )
-						{
-							pMetadata->AddElement( pShared->m_pMetadata->Clone() );
-							return RequestMetadata( pMetadata );
-						}
-					}
-				}
-			}
-			else
+			CSingleLock pLock( &Library.m_pSection );
+			if ( ! SafeLock( pLock ) )
 			{
 				theApp.Message( MSG_ERROR, _T("Refusing request from %s, Library is busy."), (LPCTSTR)m_sAddress );
 				SendResponse( IDR_HTML_BUSY );
 				return TRUE;
+			}
+
+			if ( CLibraryFile* pShared = LibraryMaps.LookupFileByURN( pszURN, TRUE, TRUE ) )
+			{
+				if ( pShared->m_pMetadata != NULL )
+				{
+					m_sName = pShared->m_sName;
+					if ( CXMLElement* pMetadata = pShared->m_pSchema->Instantiate( TRUE ) )
+					{
+						pMetadata->AddElement( pShared->m_pMetadata->Clone() );
+						return RequestMetadata( pMetadata );
+					}
+				}
 			}
 		}
 
@@ -531,8 +527,8 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 		{
 			LPCTSTR pszURN = (LPCTSTR)m_sRequest + 13;
 
-			CSingleLock oLock( &Library.m_pSection );
-			if ( oLock.Lock( 1000 ) )
+			CSingleLock pLock( &Library.m_pSection );
+			if ( SafeLock( pLock ) )
 			{
 				if ( CLibraryFile* pFile = LibraryMaps.LookupFileByURN( pszURN, TRUE, TRUE ) )
 				{
@@ -571,8 +567,8 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 		LPCTSTR pszURN = (LPCTSTR)m_sRequest + 23;
 
 		{
-			CSingleLock oLock( &Library.m_pSection );
-			if ( ! oLock.Lock( 1000 ) )
+			CSingleLock pLock( &Library.m_pSection );
+			if ( ! SafeLock( pLock ) )
 			{
 				theApp.Message( MSG_ERROR, _T("Refusing request from %s, Library is busy."), (LPCTSTR)m_sAddress );
 				SendResponse( IDR_HTML_BUSY );
@@ -607,8 +603,8 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 		BOOL bHashset = ( _tcsistr( m_sRequest, _T("ed2k=1") ) != NULL );
 
 		{
-			CSingleLock oLock( &Library.m_pSection );
-			if ( ! oLock.Lock( 1000 ) )
+			CSingleLock pLock( &Library.m_pSection );
+			if ( ! SafeLock( pLock ) )
 			{
 				theApp.Message( MSG_ERROR, _T("Refusing request from %s, Library is busy."), (LPCTSTR)m_sAddress );
 				SendResponse( IDR_HTML_BUSY );
@@ -641,8 +637,8 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 		LPCTSTR pszURN = (LPCTSTR)m_sRequest + 13;
 
 		{
-			CSingleLock oLock( &Library.m_pSection );
-			if ( ! oLock.Lock( 1000 ) )
+			CSingleLock pLock( &Library.m_pSection );
+			if ( ! SafeLock( pLock ) )
 			{
 				theApp.Message( MSG_ERROR, _T("Refusing request from %s, Library is busy."), (LPCTSTR)m_sAddress );
 				SendResponse( IDR_HTML_BUSY );
@@ -650,7 +646,7 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 			}
 
 			if ( CLibraryFile* pShared = LibraryMaps.LookupFileByURN( pszURN, TRUE, TRUE ) )
-				return RequestSharedFile( pShared, oLock );
+				return RequestSharedFile( pShared, pLock );
 		}
 
 		CDownload* pDownload = Downloads.FindByURN( pszURN );
@@ -666,8 +662,8 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 			nChar > 0 && nChar < strFile.GetLength() - 1 );
 		strFile = strFile.Mid( nChar + 1 );
 
-		CSingleLock oLock( &Library.m_pSection );
-		if ( ! oLock.Lock( 1000 ) )
+		CSingleLock pLock( &Library.m_pSection );
+		if ( ! SafeLock( pLock ) )
 		{
 			theApp.Message( MSG_ERROR, _T("Refusing request from %s, Library is busy."), (LPCTSTR)m_sAddress );
 			SendResponse( IDR_HTML_BUSY );
@@ -684,14 +680,14 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 		if ( ! pFile )
 			pFile = LibraryMaps.LookupFileByName( strFile, m_nSize, TRUE, TRUE );
 		if ( pFile )
-			return RequestSharedFile( pFile, oLock );
+			return RequestSharedFile( pFile, pLock );
 	}
 	else
 	{
 		CString strFile = m_sRequest.Mid( 1 );
 
-		CSingleLock oLock( &Library.m_pSection );
-		if ( ! oLock.Lock( 1000 ) )
+		CSingleLock pLock( &Library.m_pSection );
+		if ( ! SafeLock( pLock ) )
 		{
 			theApp.Message( MSG_ERROR, _T("Refusing request from %s, Library is busy."), (LPCTSTR)m_sAddress );
 			SendResponse( IDR_HTML_BUSY );
@@ -699,7 +695,7 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 		}
 
 		if ( CLibraryFile* pFile = LibraryMaps.LookupFileByName( strFile, m_nSize, TRUE, TRUE ) )
-			return RequestSharedFile( pFile, oLock );
+			return RequestSharedFile( pFile, pLock );
 	}
 
 	if ( m_sName.IsEmpty() )

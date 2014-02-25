@@ -1,7 +1,7 @@
 //
 // CtrlWeb.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -25,12 +25,10 @@ class CWebCtrl : public CWnd
 {
 	DECLARE_DYNAMIC(CWebCtrl)
 
-// Construction
 public:
 	CWebCtrl();
 	virtual ~CWebCtrl();
 
-// Operations
 public:
 	BOOL	Create(DWORD dwStyle, CWnd* pParentWnd, UINT nID = AFX_IDW_PANE_FIRST);
 	void	EnableCoolMenu(BOOL bEnable = TRUE);
@@ -38,7 +36,6 @@ public:
 	void	SetExternal(IDispatch* pDispatch);
 	HRESULT	Navigate(LPCTSTR lpszURL, DWORD dwFlags = 0, LPCTSTR lpszTargetFrameName = NULL, LPCTSTR lpszHeaders = NULL, LPVOID lpvPostData = NULL, DWORD dwPostDataLen = 0);
 
-// Data Members
 protected:
 	CWnd					m_wndBrowser;
 	CComPtr<IWebBrowser2>	m_pBrowser;
@@ -62,7 +59,6 @@ protected:
 	virtual void BeforeNavigate2(LPDISPATCH pDispatch, VARIANT* pvURL, VARIANT* pvFlags, VARIANT* pvTargetFrameName, VARIANT* pvPostData, VARIANT* pvHeaders, VARIANT_BOOL* pvCancel);
 	virtual void OnNewWindow2(LPDISPATCH* ppDisp, VARIANT_BOOL* bCancel);
 
-// Message Map
 protected:
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);

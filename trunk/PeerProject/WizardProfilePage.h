@@ -1,7 +1,7 @@
 //
 // WizardProfilePage.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -27,16 +27,13 @@ class CWizardProfilePage : public CWizardPage
 {
 	DECLARE_DYNCREATE(CWizardProfilePage)
 
-// Construction
 public:
 	CWizardProfilePage();
 	virtual ~CWizardProfilePage();
 
 	enum { IDD = IDD_WIZARD_PROFILE };
 
-// Dialog Data
 public:
-	//{{AFX_DATA(CWizardProfilePage)
 	CString 	m_sNick;
 	CWorldGPS*	m_pWorld;
 	CString		m_sLocCity;
@@ -47,25 +44,18 @@ public:
 	int 		m_nAge;
 	int			m_nGender;
 	CEdit		m_wndComments;
-	//}}AFX_DATA
 
-// Overrides
 public:
-	//{{AFX_VIRTUAL(CWizardProfilePage)
 	virtual LRESULT OnWizardBack();
 	virtual LRESULT OnWizardNext();
 	virtual BOOL OnSetActive();
 protected:
 	virtual BOOL OnInitDialog();
 	virtual void DoDataExchange(CDataExchange* pDX);
-	//}}AFX_VIRTUAL
 
-// Implementation
 protected:
-	//{{AFX_MSG(CWizardProfilePage)
 	afx_msg void OnSelChangeCountry();
 	afx_msg void OnXButtonDown(UINT nFlags, UINT nButton, CPoint point);
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

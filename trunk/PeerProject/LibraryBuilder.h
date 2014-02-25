@@ -100,15 +100,15 @@ private:
 	CFileInfoList	m_pFiles;					// File list
 	CString			m_sPath;					// Hashing filename
 	bool			m_bPriority;				// Fast/Slow Hash Speed
-	float			m_nProgress;				// Hashing file progress (0.-100.0%)
+	float			m_nProgress;				// Hashing file progress (0. - 100.0%)
 	LARGE_INTEGER	m_nLastCall;				// (ticks)
 	LARGE_INTEGER	m_nFreq;					// (Hz)
 	QWORD			m_nReaded;					// (bytes)
 	__int64			m_nElapsed;					// (mks)
-	volatile bool	m_bSkip;					// Request to skip hashing file
+	CEvent			m_oSkip;					// Request to skip hashing file
 
 	// Get next file from list doing all possible tests
-	// Returns 0 if no file available, sets m_sPath to current file and m_bThread to false if no files left.
+	// Returns 0 if no file available, sets m_sPath to current file and sets thread cancel event if no files left.
 	DWORD		GetNextFileToHash();			// Sets m_sPath
 	void		OnRun();
 	bool		HashFile(LPCTSTR szPath, HANDLE hFile);
@@ -119,6 +119,8 @@ private:
 	bool		DetectVirtualAPEHeader(HANDLE hFile, QWORD& nOffset, QWORD& nLength);
 	bool		DetectVirtualAPEFooter(HANDLE hFile, QWORD& nOffset, QWORD& nLength);
 	bool		DetectVirtualLyrics(HANDLE hFile, QWORD& nOffset, QWORD& nLength);
+
+	inline bool	IsSkipped() { return WaitForSingleObject( m_oSkip, 0 ) != WAIT_TIMEOUT; }
 
 	inline int	GetVbrHeaderOffset(int nId, int nMode)
 	{

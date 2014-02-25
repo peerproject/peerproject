@@ -1,7 +1,7 @@
 //
 // PageProfileCertificate.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -25,36 +25,25 @@ class CCertificateProfilePage : public CSettingsPage
 {
 	DECLARE_DYNCREATE(CCertificateProfilePage)
 
-// Construction
 public:
 	CCertificateProfilePage();
 	virtual ~CCertificateProfilePage();
 
 	enum { IDD = IDD_PROFILE_CERTIFICATE };
 
-// Dialog Data
 public:
-	//{{AFX_DATA(CCertificateProfilePage)
 	CString	m_sGUID;
 	CString	m_sGUIDBT;
 //	CString	m_sTime;
-	//}}AFX_DATA
 
-// Overrides
 public:
-	//{{AFX_VIRTUAL(CCertificateProfilePage)
-	public:
 	virtual void OnOK();
-	protected:
+protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
 	virtual BOOL OnInitDialog();
-	//}}AFX_VIRTUAL
 
-// Implementation
 protected:
-	//{{AFX_MSG(CCertificateProfilePage)
 	afx_msg void OnGuidCreate();
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

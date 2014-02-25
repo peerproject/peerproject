@@ -1,7 +1,7 @@
 //
 // DlgDownloadMonitor.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -71,6 +71,7 @@ CDownloadMonitorDlg::CDownloadMonitorDlg(CDownload* pDownload)
 	: CSkinDialog( CDownloadMonitorDlg::IDD, NULL )
 	, m_pDownload	( pDownload )
 	, m_pGraph		( NULL )
+	, m_pItem		( NULL )
 	, m_bTray		( FALSE )
 	, m_bCompleted	( FALSE )
 {
@@ -183,7 +184,7 @@ BOOL CDownloadMonitorDlg::OnInitDialog()
 	{
 		m_sName = m_pDownload->m_sName;
 		m_wndFile.SetWindowText( m_sName );
-		if ( m_pDownload->IsTorrent() && ( m_pDownload->IsMultiFileTorrent() || m_sName.ReverseFind( _T('.') ) < 1 ) )
+		if ( m_pDownload->IsTorrent() && ( m_pDownload->IsMultiFileTorrent() || ! IsValidExtension( m_sName ) ) )
 			m_wndIcon.SetIcon( CoolInterface.ExtractIcon( IDI_MULTIFILE, FALSE, LVSIL_NORMAL ) );
 		else
 			m_wndIcon.SetIcon( ShellIcons.ExtractIcon( ShellIcons.Get( m_sName, 32 ), 32 ) );

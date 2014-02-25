@@ -1,7 +1,7 @@
 //
 // EDPacket.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -66,10 +66,9 @@ void CEDPacket::Reset()
 CString CEDPacket::ReadEDString(BOOL bUnicode)
 {
 	WORD nLen = ReadShortLE();
-	if ( bUnicode )
-		return ReadStringUTF8( nLen );
-
-	return ReadStringASCII( nLen );
+	return bUnicode ?
+		ReadStringUTF8( nLen ) :
+		ReadStringASCII( nLen );
 }
 
 void CEDPacket::WriteEDString(LPCTSTR psz, BOOL bUnicode)
@@ -398,16 +397,17 @@ CString CEDPacket::GetType() const
 	}
 
 	CString tmp;
-	tmp.Format( _T("0x%x"), int( m_nType ) );
+	tmp.Format( _T("0x%x"), (UINT)m_nType );
 	return tmp;
 }
 
 #ifdef _DEBUG
 void CEDPacket::Debug(LPCTSTR pszReason) const
 {
-	if ( m_nType == ED2K_C2C_SENDINGPART ) return;
-	if ( m_nType == ED2K_C2C_HASHSETANSWER ) return;
-	if ( m_nType == ED2K_C2C_COMPRESSEDPART ) return;
+	if ( m_nType == ED2K_C2C_SENDINGPART ||
+		 m_nType == ED2K_C2C_HASHSETANSWER ||
+		 m_nType == ED2K_C2C_COMPRESSEDPART )
+		return;
 
 	CString strOutput;
 	strOutput.Format( L"[ED2K] %s Proto: 0x%x Type: %s", pszReason, int( m_nEdProtocol ), (LPCTSTR)GetType() );

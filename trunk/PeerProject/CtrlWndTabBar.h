@@ -1,7 +1,7 @@
 //
 // CtrlWndTabBar.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -25,7 +25,6 @@ class CChildWnd;
 
 class CWndTabBar : public CControlBar
 {
-// Construction
 public:
 	CWndTabBar();
 	virtual ~CWndTabBar();
@@ -36,12 +35,10 @@ public:
 public:
 	class TabItem
 	{
-	// Construction
 	public:
 		TabItem(CChildWnd* pWnd, DWORD nCookie, LPCTSTR pszCaption);
 		virtual ~TabItem();
 
-	// Attributes
 	public:
 		HWND			m_hWnd;
 		CRuntimeClass*	m_pClass;
@@ -52,12 +49,10 @@ public:
 		BOOL			m_bAlert;
 		DWORD			m_nCookie;
 
-	// Operations
 	public:
 		void		Paint(CWndTabBar* pBar, CDC* pDC, CRect* pRect, BOOL bSelected, BOOL bHot, BOOL bTransparent);
 	};
 
-// Attributes
 protected:
 	CList< TabItem* > m_pItems;
 	TabItem*		m_pSelected;
@@ -76,7 +71,6 @@ protected:
 	CRect			m_rcMessage;
 	CBitmap			m_bmImage;
 
-// Operations
 public:
 	void			MoveLeft( TabItem* pItem );
 	void			MoveRight( TabItem* pItem );
@@ -91,32 +85,26 @@ protected:
 	TabItem*		HitTest(const CPoint& point, CRect* pItemRect = NULL) const;
 	int				ImageIndexForWindow(CWnd* pChild);
 
-// Overrides
 public:
-	//{{AFX_VIRTUAL(CWndTabBar)
 	virtual BOOL Create(CWnd* pParentWnd, DWORD dwStyle = WS_CHILD|WS_VISIBLE|CBRS_BOTTOM, UINT nID = AFX_IDW_STATUS_BAR);
 	virtual CSize CalcFixedLayout(BOOL bStretch, BOOL bHorz);
 	virtual INT_PTR OnToolHitTest(CPoint point, TOOLINFO* pTI) const;
 	virtual void OnUpdateCmdUI(CFrameWnd* pTarget, BOOL bDisableIfNoHndler);
 	virtual void DoPaint(CDC* pDC);
-	//}}AFX_VIRTUAL
 
-// Implementation
 protected:
-	//{{AFX_MSG(CWndTabBar)
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg void OnDestroy();
+	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
-	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
 	afx_msg void OnMButtonUp(UINT nFlags, CPoint point);
-	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
+	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
-	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
-	afx_msg void OnDestroy();
 	afx_msg void OnMeasureItem(int nIDCtl, LPMEASUREITEMSTRUCT lpMeasureItemStruct);
 	afx_msg void OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct);
 	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 	DECLARE_DROP()

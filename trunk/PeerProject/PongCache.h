@@ -1,7 +1,7 @@
 //
 // PongCache.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -25,12 +25,10 @@ class CG1Packet;
 
 class CPongCache
 {
-// Construction
 public:
 	CPongCache();
 	~CPongCache();
 
-// Operations
 public:
 	void		Clear();
 	void		ClearNeighbour(CNeighbour* pNeighbour);
@@ -42,7 +40,6 @@ public:
 //	POSITION	GetIterator() const;
 //	CPongItem*	GetNext(POSITION& pos) const;
 
-// Attributes
 protected:
 	CList< CPongItem* >	m_pCache;
 	DWORD		m_nTime;
@@ -51,12 +48,10 @@ protected:
 
 class CPongItem
 {
-// Construction
 public:
 	CPongItem(CNeighbour* pNeighbour, IN_ADDR* pAddress, WORD nPort, BYTE nHops, DWORD nFiles, DWORD nVolume);
 //	virtual ~CPongItem();
 
-// Attributes
 public:
 	CNeighbour*	m_pNeighbour;
 	IN_ADDR		m_pAddress;

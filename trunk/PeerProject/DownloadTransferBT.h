@@ -1,7 +1,7 @@
 //
 // DownloadTransferBT.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -26,12 +26,10 @@ class CBTPacket;
 
 class CDownloadTransferBT : public CDownloadTransfer
 {
-// Construction
 public:
 	CDownloadTransferBT(CDownloadSource* pSource, CBTClient* pClient);
 	virtual ~CDownloadTransferBT();
 
-// Attributes
 public:
 	CBTClient*		m_pClient;
 	BOOL			m_bChoked;
@@ -43,7 +41,6 @@ public:
 	DWORD			m_tSourceRequest;
 	Fragments::Queue m_oRequested;
 
-// Operations
 public:
 	BOOL			OnBitfield(CBTPacket* pPacket);
 	BOOL			OnHave(CBTPacket* pPacket);
@@ -55,7 +52,6 @@ public:
 protected:
 	void			ShowInterest();
 
-// Overides
 public:
 	virtual BOOL	Initiate();
 	virtual BOOL	OnRun();

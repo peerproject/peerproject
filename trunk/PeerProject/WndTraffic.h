@@ -1,7 +1,7 @@
 //
 // WndTraffic.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -27,37 +27,29 @@ class CTrafficWnd : public CChildWnd
 {
 	DECLARE_SERIAL(CTrafficWnd)
 
-// Construction
 public:
 	CTrafficWnd(DWORD nUnique = 0);
 	virtual ~CTrafficWnd();
 
-// Attributes
 public:
 	DWORD		m_nUnique;
 	CString		m_sName;
 	CGraphBase*	m_pGraph;
 
-// Operations
 protected:
 	void	FindFreeUnique();
 	BOOL	Serialize(BOOL bSave);
 	void	SetUpdateRate();
 	void	UpdateCaption();
 
-// Overrides
-public:
-	//{{AFX_VIRTUAL(CTrafficWnd)
-	//}}AFX_VIRTUAL
-
-// Implementation
 protected:
-	//{{AFX_MSG(CTrafficWnd)
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
 	afx_msg void OnPaint();
+	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
+	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
 	afx_msg void OnUpdateTrafficGrid(CCmdUI* pCmdUI);
 	afx_msg void OnTrafficGrid();
 	afx_msg void OnUpdateTrafficAxis(CCmdUI* pCmdUI);
@@ -66,10 +58,7 @@ protected:
 	afx_msg void OnTrafficLegend();
 	afx_msg void OnTrafficSetup();
 	afx_msg void OnTrafficClear();
-	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
 	afx_msg void OnTrafficWindow();
-	afx_msg void OnSize(UINT nType, int cx, int cy);
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

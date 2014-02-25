@@ -1,7 +1,7 @@
 //
 // DownloadSource.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -25,6 +25,7 @@
 
 class CQueryHit;
 class CEDClient;
+
 
 class CDownloadSource
 {
@@ -70,18 +71,15 @@ public:
 	BOOL				m_bReadContent;
 	BOOL				m_bClientExtended;		// Does the user support extended G2 functions? (We can use G2 chat, browse, etc...)
 	int					m_nGnutella;			// Gnutella functionality:
-												// 0 - Pure HTTP
-												// 1 - Pure G1
-												// 2 - Pure G2
-												// 3 - Mixed G1/G2
+												// 0: Pure HTTP, 1: Pure G1, 2: Pure G2, 3: Mixed G1/G2
 
 public:
 	int					m_nColor;
 	DWORD				m_nSortOrder;			// How should this source be sorted in the list?
 	DWORD				m_tAttempt;
 	BOOL				m_bKeep;				// Source keeped by NeverDrop == TRUE flag
-	int					m_nFailures;			// Failure count.
-	int					m_nBusyCount;			// Busy count. (used for incrementing RetryDelay)
+	int					m_nFailures;			// Failure count
+	int					m_nBusyCount;			// Busy count (for incrementing RetryDelay)
 	int					m_nRedirectionCount;
 	Fragments::List		m_oAvailable;
 	Fragments::List		m_oPastFragments;
@@ -91,7 +89,6 @@ public:
 	BOOL				m_bPreviewRequestSent;
 	BOOL				m_bMetaIgnore;			// Ignore metadata from this source (for example already got)
 
-// Operations
 public:
 	BOOL		ResolveURL();
 	void		Serialize(CArchive& ar, int nVersion);	// DOWNLOAD_SER_VERSION

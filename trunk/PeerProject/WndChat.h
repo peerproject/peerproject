@@ -1,7 +1,7 @@
 //
 // WndChat.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -85,7 +85,6 @@ class CChatWnd : public CChildWnd
 {
 	DECLARE_DYNAMIC(CChatWnd)
 
-// Construction
 public:
 	CChatWnd();
 	virtual ~CChatWnd();
@@ -126,20 +125,15 @@ protected:
 	void DeleteAllUsers();
 	BOOL DoSizeView();
 
-// Overrides
 public:
-	//{{AFX_VIRTUAL(CChatWnd)
 	virtual void OnSkinChange();
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	virtual void OnStatusMessage(int nFlags, const CString& sText);
 	virtual BOOL OnLocalMessage(bool bAction, const CString& sText) = 0;
 	virtual BOOL OnLocalCommand(const CString& sCommand, const CString& sArgs);
 	virtual BOOL OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO* pHandlerInfo);
-	//}}AFX_VIRTUAL
 
-// Implementation
 protected:
-	//{{AFX_MSG(CChatWnd)
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
 	afx_msg void OnPaint();
@@ -167,7 +161,6 @@ protected:
 	afx_msg LRESULT OnChatMessage(WPARAM wParam, LPARAM lParam);
 	afx_msg LRESULT OnChatAddUser(WPARAM wParam, LPARAM lParam);
 	afx_msg LRESULT OnChatDeleteUser(WPARAM wParam, LPARAM lParam);
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

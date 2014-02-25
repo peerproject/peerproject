@@ -1,7 +1,7 @@
 //
 // WndDiscovery.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -30,12 +30,10 @@ class CDiscoveryWnd : public CPanelWnd
 {
 	DECLARE_SERIAL(CDiscoveryWnd)
 
-// Construction
 public:
 	CDiscoveryWnd();
 	//virtual ~CDiscoveryWnd();
 
-// Attributes
 public:
 	CLiveListCtrl	m_wndList;
 	CLiveListSizer	m_pSizer;
@@ -46,21 +44,15 @@ public:
 	BOOL			m_bShowServerList;
 	BOOL			m_bShowBlocked;
 
-// Operations
 public:
 	CDiscoveryService* GetItem(int nItem);
 	void			Update();
 
-// Overrides
 protected:
-	//{{AFX_VIRTUAL(CDiscoveryWnd)
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	virtual void OnSkinChange();
-	//}}AFX_VIRTUAL
 
-// Implementation
 protected:
-	//{{AFX_MSG(CDiscoveryWnd)
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
 	afx_msg void OnSize(UINT nType, int cx, int cy);
@@ -88,7 +80,6 @@ protected:
 	afx_msg void OnUpdateDiscoveryBrowse(CCmdUI* pCmdUI);
 	afx_msg void OnDiscoveryBrowse();
 	afx_msg void OnCustomDrawList(NMHDR* pNMHDR, LRESULT* pResult);
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

@@ -1,7 +1,7 @@
 //
 // SaveFilterAsDlg.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -21,7 +21,6 @@
 #pragma once
 
 #include "DlgSkinDialog.h"
-// CSaveFilterAsDlg dialog
 
 class CSaveFilterAsDlg : public CSkinDialog
 {
@@ -31,20 +30,16 @@ public:
 
 	enum { IDD = IDD_FILTER_SAVE_AS };
 
-// Dialog Data
 public:
-	CString m_sName;	// The current filter name
+	CString m_sName;	// Current filter name
 
-// Implementation
 protected:
-	//{{AFX_MSG(CSaveFilterAsDlg)
 	virtual BOOL OnInitDialog();
 	virtual void DoDataExchange(CDataExchange* pDX);
-	//}}AFX_MSG
 
 public:
-	afx_msg void OnEnChangeName();
 	void OnOK();
+	afx_msg void OnEnChangeName();
 
 protected:
 	DECLARE_MESSAGE_MAP()

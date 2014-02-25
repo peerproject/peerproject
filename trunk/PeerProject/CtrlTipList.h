@@ -1,7 +1,7 @@
 //
 // CtrlTipList.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -32,23 +32,14 @@ public:
 public:
 	void	SetTip(CNeighbourTipCtrl* pTip);
 
-// Attributes
 protected:
 	CNeighbourTipCtrl*	m_pTip;
 
-// Overrides
-//public:
-	//{{AFX_VIRTUAL(CTipListCtrl)
-	//}}AFX_VIRTUAL
-
-// Implementation
 protected:
-	//{{AFX_MSG(CTipListCtrl)
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

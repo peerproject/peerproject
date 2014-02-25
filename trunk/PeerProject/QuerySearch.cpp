@@ -1,7 +1,7 @@
 //
 // QuerySearch.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -837,10 +837,7 @@ void CQuerySearch::ReadGGEP(CG1Packet* pPacket)
 				{
 				case GGEP_H_SHA1:
 					if ( pItemPos->m_nLength == 20 + 1 )
-					{
-						oSHA1 = reinterpret_cast< Hashes::Sha1Hash::RawStorage& >(
-							pItemPos->m_pBuffer[ 1 ] );
-					}
+						oSHA1 = reinterpret_cast< Hashes::Sha1Hash::RawStorage& >( pItemPos->m_pBuffer[ 1 ] );
 					else
 						theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got query packet with GGEP \"H\" type SH1 unknown size (%d bytes)"), pItemPos->m_nLength );
 					break;
@@ -848,10 +845,8 @@ void CQuerySearch::ReadGGEP(CG1Packet* pPacket)
 				case GGEP_H_BITPRINT:
 					if ( pItemPos->m_nLength == 24 + 20 + 1 )
 					{
-						oSHA1 = reinterpret_cast< Hashes::Sha1Hash::RawStorage& >(
-							pItemPos->m_pBuffer[ 1 ] );
-						oTiger = reinterpret_cast< Hashes::TigerHash::RawStorage& >(
-							pItemPos->m_pBuffer[ 21 ] );
+						oSHA1  = reinterpret_cast< Hashes::Sha1Hash::RawStorage& >( pItemPos->m_pBuffer[ 1 ] );
+						oTiger = reinterpret_cast< Hashes::TigerHash::RawStorage& >( pItemPos->m_pBuffer[ 21 ] );
 					}
 					else
 						theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got query packet with GGEP \"H\" type SH1+TTR unknown size (%d bytes)"), pItemPos->m_nLength );
@@ -859,20 +854,14 @@ void CQuerySearch::ReadGGEP(CG1Packet* pPacket)
 
 				case GGEP_H_MD5:
 					if ( pItemPos->m_nLength == 16 + 1 )
-					{
-						oMD5 = reinterpret_cast< Hashes::Md5Hash::RawStorage& >(
-							pItemPos->m_pBuffer[ 1 ] );
-					}
+						oMD5 = reinterpret_cast< Hashes::Md5Hash::RawStorage& >( pItemPos->m_pBuffer[ 1 ] );
 					else
 						theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got query packet with GGEP \"H\" type MD5 unknown size (%d bytes)"), pItemPos->m_nLength );
 					break;
 
 				case GGEP_H_MD4:
 					if ( pItemPos->m_nLength == 16 + 1 )
-					{
-						oED2K = reinterpret_cast< Hashes::Ed2kHash::RawStorage& >(
-							pItemPos->m_pBuffer[ 1 ] );
-					}
+						oED2K = reinterpret_cast< Hashes::Ed2kHash::RawStorage& >( pItemPos->m_pBuffer[ 1 ] );
 					else
 						theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got query packet with GGEP \"H\" type MD4 unknown size (%d bytes)"), pItemPos->m_nLength );
 					break;
@@ -888,12 +877,13 @@ void CQuerySearch::ReadGGEP(CG1Packet* pPacket)
 			else if ( pItemPos->IsNamed( GGEP_HEADER_URN ) )
 			{
 				CString strURN( _T("urn:") + pItemPos->ToString() );
-				if (      oSHA1.fromUrn(  strURN ) ) ;	// Got SHA1
-				else if ( oTiger.fromUrn( strURN ) ) ;	// Got Tiger
-				else if ( oED2K.fromUrn(  strURN ) ) ;	// Got ED2K
-				else if ( oMD5.fromUrn(   strURN ) ) ;	// Got MD5
-				else if ( oBTH.fromUrn(   strURN ) ) ;	// Got BTH base32
-				else if ( oBTH.fromUrn< Hashes::base16Encoding >( strURN ) ) ;	// Got BTH base16
+				if ( oSHA1.fromUrn( strURN ) ||		// Got SHA1
+					 oTiger.fromUrn( strURN ) ||	// Got Tiger
+					 oED2K.fromUrn( strURN ) ||		// Got ED2K
+					 oMD5.fromUrn( strURN ) ||		// Got MD5
+					 oBTH.fromUrn( strURN ) ||		// Got BTH base32
+					 oBTH.fromUrn< Hashes::base16Encoding >( strURN ) )		// Got BTH base16
+					;	// Do nothing more
 				else
 					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got query packet with GGEP \"u\" unknown URN: \"%s\" (%d bytes)"), strURN, pItemPos->m_nLength );
 			}
@@ -973,115 +963,122 @@ BOOL CQuerySearch::ReadG2Packet(CG2Packet* pPacket, const SOCKADDR_IN* pEndpoint
 	{
 		DWORD nOffset = pPacket->m_nPosition + nLength;
 
-		if ( nType == G2_PACKET_QKY && nLength >= 4 )
+		switch( nType )
 		{
-			if ( m_pEndpoint.sin_addr.S_un.S_addr == 0 && pEndpoint != NULL )
-				m_pEndpoint = *pEndpoint;
-			m_bUDP = ! Network.IsFirewalledAddress( &m_pEndpoint.sin_addr );
-
-			m_nKey = pPacket->ReadLongBE();
-			DWORD* pZero = (DWORD*)( pPacket->m_pBuffer + pPacket->m_nPosition - 4 );
-			*pZero = 0;
-		}
-		else if ( nType == G2_PACKET_UDP && nLength >= 6 )
-		{
-			m_pEndpoint.sin_addr.S_un.S_addr = pPacket->ReadLongLE();
-			m_pEndpoint.sin_port = htons( pPacket->ReadShortBE() );
-
-			if ( m_pEndpoint.sin_addr.S_un.S_addr == 0 && pEndpoint != NULL )
-				m_pEndpoint = *pEndpoint;
-			m_bUDP = ! Network.IsFirewalledAddress( &m_pEndpoint.sin_addr );
-			if ( m_bUDP ) m_pEndpoint.sin_family = PF_INET;
-
-			if ( nLength >= 10 )
+		case G2_PACKET_QKY:
+			if ( nLength >= 4 )
 			{
+				if ( m_pEndpoint.sin_addr.S_un.S_addr == 0 && pEndpoint != NULL )
+					m_pEndpoint = *pEndpoint;
+				m_bUDP = ! Network.IsFirewalledAddress( &m_pEndpoint.sin_addr );
+
 				m_nKey = pPacket->ReadLongBE();
 				DWORD* pZero = (DWORD*)( pPacket->m_pBuffer + pPacket->m_nPosition - 4 );
 				*pZero = 0;
 			}
-		}
-		else if ( nType == G2_PACKET_INTEREST )
-		{
-			m_bWantURL = m_bWantDN = m_bWantXML = m_bWantCOM = m_bWantPFS = FALSE;
+			break;
+		case G2_PACKET_UDP:
+			if ( nLength >= 6 )
+			{
+				m_pEndpoint.sin_addr.S_un.S_addr = pPacket->ReadLongLE();
+				m_pEndpoint.sin_port = htons( pPacket->ReadShortBE() );
 
+				if ( m_pEndpoint.sin_addr.S_un.S_addr == 0 && pEndpoint != NULL )
+					m_pEndpoint = *pEndpoint;
+				m_bUDP = ! Network.IsFirewalledAddress( &m_pEndpoint.sin_addr );
+				if ( m_bUDP ) m_pEndpoint.sin_family = PF_INET;
+
+				if ( nLength >= 10 )
+				{
+					m_nKey = pPacket->ReadLongBE();
+					DWORD* pZero = (DWORD*)( pPacket->m_pBuffer + pPacket->m_nPosition - 4 );
+					*pZero = 0;
+				}
+			}
+			break;
+		case G2_PACKET_INTEREST:
+			m_bWantURL = m_bWantDN = m_bWantXML = m_bWantCOM = m_bWantPFS = FALSE;
 			while ( nLength > 0 )
 			{
 				CString str = pPacket->ReadString( nLength );
 				nLength -= str.GetLength() + 1;
 
-				if ( str == _T("URL") )			m_bWantURL = TRUE;
+				if ( str.IsEmpty() ) break;
+				else if ( str == _T("URL") )	m_bWantURL = TRUE;
 				else if ( str == _T("DN") )		m_bWantDN  = TRUE;
 				else if ( str == _T("SZ") )		m_bWantDN  = TRUE;	// Hack
 				else if ( str == _T("MD") )		m_bWantXML = TRUE;
 				else if ( str == _T("COM") )	m_bWantCOM = TRUE;
 				else if ( str == _T("PFS") )	m_bWantPFS = TRUE;
+				else if ( str.GetLength() <= 4 )
+					theApp.Message( MSG_DEBUG, _T("Unkown G2 Interest Packet: %s"), (LPCTSTR)str );
 			}
-		}
-		else if ( nType == G2_PACKET_URN )
-		{
-			CString strURN = pPacket->ReadString( nLength );
-			if ( strURN.GetLength() + 1 >= (int)nLength )
-				return FALSE;
-			nLength -= strURN.GetLength() + 1;
+			break;
+		case G2_PACKET_URN:
+			{
+				CString strURN = pPacket->ReadString( nLength );
+				if ( strURN.GetLength() + 1 >= (int)nLength )
+					return FALSE;
+				nLength -= strURN.GetLength() + 1;
 
-			if ( nLength >= 20 && strURN == _T("sha1") )
-			{
-				pPacket->Read( m_oSHA1 );
+				if ( nLength >= 20 && strURN == _T("sha1") )
+				{
+					pPacket->Read( m_oSHA1 );
+				}
+				else if ( nLength >= 44 && ( strURN == _T("bp") || strURN == _T("bitprint") ) )
+				{
+					pPacket->Read( m_oSHA1 );
+					pPacket->Read( m_oTiger );
+				}
+				else if ( nLength >= 24 && ( strURN == _T("ttr") || strURN == _T("tree:tiger/") ) )
+				{
+					pPacket->Read( m_oTiger );
+				}
+				else if ( nLength >= 16 && strURN == _T("ed2k") )
+				{
+					pPacket->Read( m_oED2K );
+				}
+				else if ( nLength >= 20 && strURN == _T("btih") )
+				{
+					pPacket->Read( m_oBTH );
+				}
+				else if ( nLength >= 16 && strURN == _T("md5") )
+				{
+					pPacket->Read( m_oMD5 );
+				}
 			}
-			else if ( nLength >= 44 && ( strURN == _T("bp") || strURN == _T("bitprint") ) )
-			{
-				pPacket->Read( m_oSHA1 );
-				pPacket->Read( m_oTiger );
-			}
-			else if ( nLength >= 24 && ( strURN == _T("ttr") || strURN == _T("tree:tiger/") ) )
-			{
-				pPacket->Read( m_oTiger );
-			}
-			else if ( nLength >= 16 && strURN == _T("ed2k") )
-			{
-				pPacket->Read( m_oED2K );
-			}
-			else if ( nLength >= 20 && strURN == _T("btih") )
-			{
-				pPacket->Read( m_oBTH );
-			}
-			else if ( nLength >= 16 && strURN == _T("md5") )
-			{
-				pPacket->Read( m_oMD5 );
-			}
-		}
-		else if ( nType == G2_PACKET_DESCRIPTIVE_NAME )
-		{
+			break;
+		case  G2_PACKET_DESCRIPTIVE_NAME:
 			m_sSearch = pPacket->ReadString( nLength );
 			m_sKeywords = m_sSearch;
 			// These called from CheckValid at end of this function:
 			//ToLower( m_sKeywords );
 			//MakeKeywords( m_sKeywords, false );
-		}
-		else if ( nType == G2_PACKET_METADATA )
-		{
-			CString strXML = pPacket->ReadString( nLength );
-
-			m_pXML->Delete();
-			m_pXML = CXMLElement::FromString( strXML );
-			m_pSchema = NULL;
-
-			if ( m_pXML != NULL )
+			break;
+		case G2_PACKET_METADATA:
 			{
-				if ( CXMLAttribute *pURI = m_pXML->GetAttribute( CXMLAttribute::schemaName ) )
+				CString strXML = pPacket->ReadString( nLength );
+
+				m_pXML->Delete();
+				m_pXML = CXMLElement::FromString( strXML );
+				m_pSchema = NULL;
+
+				if ( m_pXML != NULL )
 				{
-					m_pSchema = SchemaCache.Get( pURI->GetValue() );
-				}
-				else if ( m_pSchema = SchemaCache.Guess( m_pXML->GetName() ) )
-				{
-					CXMLElement* pRoot = m_pSchema->Instantiate( TRUE );
-					pRoot->AddElement( m_pXML );
-					m_pXML = pRoot;
+					if ( CXMLAttribute *pURI = m_pXML->GetAttribute( CXMLAttribute::schemaName ) )
+					{
+						m_pSchema = SchemaCache.Get( pURI->GetValue() );
+					}
+					else if ( m_pSchema = SchemaCache.Guess( m_pXML->GetName() ) )
+					{
+						CXMLElement* pRoot = m_pSchema->Instantiate( TRUE );
+						pRoot->AddElement( m_pXML );
+						m_pXML = pRoot;
+					}
 				}
 			}
-		}
-		else if ( nType == G2_PACKET_SIZE_RESTRICTION )
-		{
+			break;
+		case G2_PACKET_SIZE_RESTRICTION:
 			if ( nLength == 8 )
 			{
 				m_nMinSize = pPacket->ReadLongBE();
@@ -1093,14 +1090,14 @@ BOOL CQuerySearch::ReadG2Packet(CG2Packet* pPacket, const SOCKADDR_IN* pEndpoint
 				m_nMinSize = pPacket->ReadInt64();
 				m_nMaxSize = pPacket->ReadInt64();
 			}
-		}
-		else if ( nType == G2_PACKET_G1 )
-		{
+			break;
+		case G2_PACKET_G1:
 			m_bAndG1 = TRUE;
-		}
-		else if ( nType == G2_PACKET_NAT_DESC )
-		{
+			break;
+		case G2_PACKET_NAT_DESC:
 			m_bFirewall = TRUE;
+			break;
+		//default:
 		}
 
 		pPacket->m_nPosition = nOffset;

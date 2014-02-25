@@ -1,7 +1,7 @@
 //
 // EDPacket.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -94,17 +94,14 @@ class CEDNeighbour;
 
 class CEDPacket : public CPacket
 {
-// Construction
 protected:
 	CEDPacket();
 	virtual ~CEDPacket();
 
-// Attributes
 public:
 	BYTE	m_nEdProtocol;
 	BYTE	m_nType;
 
-// Operations
 public:
 	CString				ReadEDString(BOOL bUnicode);
 	void				WriteEDString(LPCTSTR psz, BOOL bUnicode);
@@ -143,7 +140,6 @@ protected:
 
 	static CEDPacketPool POOL;
 
-// Construction
 public:
 	static CEDPacket* New(BYTE nType, BYTE nProtocol = ED2K_PROTOCOL_EDONKEY)
 	{
@@ -353,7 +349,6 @@ inline void CEDPacket::CEDPacketPool::FreePoolImpl(CPacket* pPacket)
 
 class CEDTag
 {
-// Construction
 public:
 	explicit CEDTag();
 	explicit CEDTag(const CEDTag&);
@@ -364,7 +359,6 @@ public:
 	explicit CEDTag(LPCTSTR pszKey, LPCTSTR pszValue);
 	CEDTag& operator=(const CEDTag& t);
 
-// Attributes
 public:
 	BYTE				m_nType;
 	BYTE				m_nKey;
@@ -373,7 +367,6 @@ public:
 	QWORD				m_nValue;	// ED2K_TAG_INT
 	Hashes::Ed2kHash	m_oValue;	// ED2K_TAG_HASH
 
-// Operations
 public:
 	void	Clear();
 	void	Write(CEDPacket* pPacket, BOOL bUnicode = FALSE, BOOL bSmallTags = FALSE);

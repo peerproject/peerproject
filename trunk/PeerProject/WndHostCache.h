@@ -1,7 +1,7 @@
 //
 // WndHostCache.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -34,7 +34,6 @@ public:
 	CHostCacheWnd();
 	//virtual ~CHostCacheWnd();
 
-// Attributes
 public:
 	PROTOCOLID		m_nMode;
 	BOOL			m_bAllowUpdates;
@@ -46,18 +45,15 @@ protected:
 	DWORD			m_nCookie;
 	DWORD			m_tLastUpdate;
 
-// Operations
 public:
 	void			Update(BOOL bForce = FALSE);
 	CHostCacheHost*	GetItem(int nItem);
 	virtual void	OnSkinChange();
 
-// Overrides
 protected:
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	virtual void RecalcLayout(BOOL bNotify = TRUE);
 
-// Implementation
 protected:
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnSize(UINT nType, int cx, int cy);

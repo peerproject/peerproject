@@ -1,7 +1,7 @@
 //
 // WndLibrary.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -29,17 +29,14 @@ class CLibraryWnd : public CPanelWnd
 {
 	DECLARE_SERIAL(CLibraryWnd)
 
-// Construction
 public:
 	CLibraryWnd();
 	virtual ~CLibraryWnd();
 
-// Attributes
 public:
-	CLibraryFrame		m_wndFrame;
-	DWORD				m_tLast;
+	CLibraryFrame	m_wndFrame;
+	DWORD			m_tLast;
 
-// Operations
 public:
 	static CLibraryWnd*	GetLibraryWindow(BOOL bToggle = FALSE, BOOL bFocus = TRUE);		// Open Library window
 
@@ -50,21 +47,15 @@ public:
 	virtual void OnSkinChange();
 	virtual HRESULT	GetGenericView(IGenericView** ppView);
 
-// Overrides
 public:
-	//{{AFX_VIRTUAL(CLibraryWnd)
 	virtual BOOL OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO* pHandlerInfo);
-	//}}AFX_VIRTUAL
 
-// Implementation
 protected:
-	//{{AFX_MSG(CLibraryWnd)
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnMDIActivate(BOOL bActivate, CWnd* pActivateWnd, CWnd* pDeactivateWnd);
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

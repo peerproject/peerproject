@@ -1,7 +1,7 @@
 //
 // Library.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -27,7 +27,7 @@ class CQuerySearch;
 class CLibraryFolder;
 class CAlbumFolder;
 
-#define LIBRARY_SER_VERSION		1000	// 29
+#define LIBRARY_SER_VERSION		1000	// 29	(ToDo: Use INTERNAL_VERSION?)
 // nVersion History:
 // 27 - Changed CLibraryFile metadata saving order (ryo-oh-ki)
 // 28 - Added CLibraryMaps m_pIndexMap, m_pNameMap and m_pPathMap counts (ryo-oh-ki)
@@ -40,12 +40,10 @@ class CLibrary :
 {
 	DECLARE_DYNAMIC(CLibrary)
 
-// Construction
 public:
 	CLibrary();
 	virtual ~CLibrary();
 
-// Attributes
 public:
 	mutable CMutexEx m_pSection;
 

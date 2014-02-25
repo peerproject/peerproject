@@ -1,7 +1,7 @@
 //
 // CtrlPrivateChatFrame.h"
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -28,34 +28,29 @@ class CPrivateChatFrame : public CChatFrame
 {
 	DECLARE_DYNAMIC(CPrivateChatFrame)
 
-// Construction
 public:
 	CPrivateChatFrame();
 	virtual ~CPrivateChatFrame();
 
-// Attributes
 public:
-	CString		m_sNick;
+	CString	m_sNick;
 
-// Operations
-public:
 	void	Initiate(const Hashes::Guid& oGUID, SOCKADDR_IN* pHost, BOOL bMustPush);
 	BOOL	Accept(CChatSession* pSession);
-public:
-	virtual void	OnLocalMessage(bool bAction, LPCTSTR pszText);
-	virtual void	OnLocalCommand(LPCTSTR pszCommand, LPCTSTR pszArgs);
-	virtual void	OnProfileReceived();
-	virtual void	OnRemoteMessage(BOOL bAction, LPCTSTR pszText);
 
-// Overrides
+public:
+	virtual void OnLocalMessage(bool bAction, LPCTSTR pszText);
+	virtual void OnLocalCommand(LPCTSTR pszCommand, LPCTSTR pszArgs);
+	virtual void OnProfileReceived();
+	virtual void OnRemoteMessage(BOOL bAction, LPCTSTR pszText);
+
 public:
 	virtual void OnSkinChange();
 
-// Implementation
 protected:
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
-	afx_msg void OnSize(UINT nType, int cx, int cy);
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnPaint();
+	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
 	afx_msg void OnUpdateChatBrowse(CCmdUI* pCmdUI);
 	afx_msg void OnChatBrowse();

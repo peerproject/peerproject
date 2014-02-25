@@ -1,7 +1,7 @@
 //
 // PeerProject.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -280,6 +280,10 @@ HBITMAP	CreateMirroredBitmap(HBITMAP hbmOrig);
 LRESULT CALLBACK KbdHook(int nCode, WPARAM wParam, LPARAM lParam);
 LRESULT CALLBACK MouseHook(int nCode, WPARAM wParam, LPARAM lParam);
 
+// Attempt lock/relock with release and debug after a few seconds
+BOOL	SafeLock(CSingleLock& pLock, LPCTSTR pszDebug = _T(""), LPCTSTR pszUnused = _T("") );
+#define SafeLock(lock) SafeLock( lock, LPCTSTR( _T(__FUNCTION__) ) )
+
 // Generate safe file name for file system (bPath == true - allow path i.e. "\" symbol)
 CString SafeFilename(CString strName, bool bPath = false);
 
@@ -391,6 +395,7 @@ const LPCTSTR RT_GZIP = _T("GZIP");
 #define WIN_VISTA_SP2			602				// 6.0.sp2
 #define WIN_7					610				// 6.1
 #define WIN_8					620				// 6.2
+#define WIN_8_1					630				// 6.3
 
 // Log severity (log level)
 #define MSG_SEVERITY_MASK		0x000f
@@ -450,13 +455,6 @@ const LPCTSTR RT_GZIP = _T("GZIP");
 //#define THUMB_STORE_SIZE		128				// Settings.Library.ThumbSize
 
 
-// Saved-State Serialization:
-#define INTERNAL_VERSION		1000
-// Version History:
-// 1000 - PeerProject 1.0 (unused)
-// ToDo: Integrate various _SER_VERs ?  (Upgrade awareness)
-
-
 // Network ID's:
 
 // Client's name
@@ -483,3 +481,10 @@ const LPCTSTR RT_GZIP = _T("GZIP");
 #define WEB_SITE				_T("http://PeerProject.org/")
 #define UPDATE_URL				_T("http://peerproject.sourceforge.net/update")
 #define REGISTRY_KEY			_T("Software\\PeerProject\\PeerProject")
+
+
+// Saved-State Serialization:
+#define INTERNAL_VERSION		1000
+// Version History:
+// 1000 - PeerProject 1.0 (unused)
+// ToDo: Integrate various _SER_VERs ?  (Upgrade awareness)

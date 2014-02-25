@@ -1,7 +1,7 @@
 //
 // UploadTransferED2K.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -26,12 +26,10 @@ class CEDPacket;
 
 class CUploadTransferED2K : public CUploadTransfer
 {
-// Construction
 public:
 	CUploadTransferED2K(CEDClient* pClient);
 	virtual ~CUploadTransferED2K();
 
-// Attributes
 public:
 	CEDClient*		m_pClient;					// The remote client.
 	int				m_nRanking;					// The last queue position the remote client was sent.
@@ -42,7 +40,6 @@ private:
 	Fragments::Queue m_oRequested;
 	Fragments::Queue m_oServed;
 
-// Operations
 public:
 	BOOL			Request(const Hashes::Ed2kHash& oED2K);
 	virtual void	Close(UINT nError = 0);

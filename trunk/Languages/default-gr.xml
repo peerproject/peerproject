@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Greek Skin File -->
 
-<!-- Translation based on default-en.xml r102 -->
+<!-- Translation based on default-en.xml r104 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -584,8 +584,7 @@
 					<item id="ID_HELP_FORUMS_LOCAL" text="PeerProject _Forums Ελληνικά"/>
 					<!-- <item id="ID_HELP_WEB_SKINS" text="Φ_λοιοί PeerProject"/>
 					<item id="ID_HELP_UPDATE" text="Τελευταία νέα"/>
-					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-					<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 				</menu>
 				<item id="ID_HELP_HOMEPAGE" text="_Ιστοσελίδα_PeerProject"/>
 				<separator/> <!--
@@ -688,8 +687,7 @@
 				<item id="ID_HELP_FORUMS_LOCAL" text="PeerProject _Forums Ελληνικά"/>
 				<!-- <item id="ID_HELP_WEB_SKINS" text="Φ_λοιοί PeerProject"/>
 				<item id="ID_HELP_UPDATE" text="Τελευταία νέα"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/> <!--
 			<item id="ID_HELP_VERSION_CHECK" text="_Έλεγχος για νέα έκδοση"/>
@@ -760,8 +758,7 @@
 				<item id="ID_HELP_FORUMS_LOCAL" text="PeerProject _Forums Ελληνικά"/>
 				<!-- <item id="ID_HELP_WEB_SKINS" text="Φ_λοιοί PeerProject"/>
 				<item id="ID_HELP_UPDATE" text="Τελευταία νέα"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/> <!--
 			<item id="ID_HELP_VERSION_CHECK" text="_Έλεγχος για νέα έκδοση"/>
@@ -854,8 +851,7 @@
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums Ελληνικά"/>
 				<!-- <item id="ID_HELP_WEB_SKINS" text="Φ_λοιοί PeerProject"/>
 				<item id="ID_HELP_UPDATE" text="Τελευταία νέα"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/> <!--
 			<item id="ID_HELP_VERSION_CHECK" text="_Έλεγχος για νέα έκδοση"/>
@@ -3335,9 +3331,9 @@
 	<string id="20874" value="URL:"/>
 	<string id="20875" value="Απροσδιόριστο"/>
 	<string id="20880" value="Επεξεργασία Προφίλ"/>
-	<string id="20881" value="%u Αρχεία επιλέξει. Είσαι σίγουρος;"/>
-	<string id="20882" value="Μη διαθέσιμο URN"/>
-	<string id="20883" value="Η υπηρεσία Host για συσκευές UPnP δεν τρέχει. Η υπηρεσία απαιτείται για την επίτευξη της ρύθμισης.nΧρειάζεται να θέσετε τον τύπο εκκίνησης της υπηρεσίας στο αυτόματο."/>
+	<string id="20882" value="%u Αρχεία επιλέξει. Είσαι σίγουρος;"/>
+	<string id="20883" value="Μη διαθέσιμο URN"/>
+	<string id="20884" value="Η υπηρεσία Host για συσκευές UPnP δεν τρέχει. Η υπηρεσία απαιτείται για την επίτευξη της ρύθμισης.nΧρειάζεται να θέσετε τον τύπο εκκίνησης της υπηρεσίας στο αυτόματο."/>
 	<string id="20885" value="Η αλλαγή της προβολής θα κλείσει ό,τι παράθυρα έχετε ανοιχτά. Θέλετε να γίνει τώρα;"/>
 	<string id="20886" value="Η αλλαγή της κατεύθυνσης χρειάζεται επανεκκίνηση.\n\nΈξοδος;"/>
 	<string id="20890" value="Καλώς ήρθατε στο PeerProject"/>
@@ -3440,16 +3436,6 @@
 		<control caption="_Επιλογή..."/>
 		<control caption="Προειδοποίηση: Η επιλογή εξωτερικού Χειρισμού Πολυμέσων αυτομάτως θα απενεργοποιήσει όλα τα Πρόσθετα (plugins) Πολυμέσων και Απεικόνισης."/>
 	</dialog>
-	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Κοινότητα">
-		<control caption="_Προφίλ:"/>
-		<control caption="Χρησιμοποιήστε το Προφίλ για να κοινοποιήσετε πληροφορίες για τον εαυτό σας και τα ενδιαφέροντά σας, και να συστήσετε αρχεία και ιστοσελίδες."/>
-		<control caption="Επεξεργασία Προφίλ"/>
-		<control caption="_Συνομιλία:"/>
-		<control caption="Ενεργοποίηση συνομιλίας peer-to-peer με συμβατά προγράμματα"/>
-		<control caption="Ενεργοποίηση συνομιλίας σε όλα τα δίκτυα"/>
-		<control caption="Φιλτράρισμα ενοχλητικών μηνυμάτων"/>
-		<control caption="Φιλτράρισμα αισχρόλογων"/>
-	</dialog>
 	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdmsStStEdmsCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStCoStEdStEd" caption="Συνομιλία">
 		<control caption="_Επιλογές Client:"/>
 		<control caption="Εμφάνιση ενσωμάτωσης συνομιλίας"/>
@@ -3493,6 +3479,28 @@
 		<control/>
 		<control caption="On-connect"/>
 		<control/>
+	</dialog>
+	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Κοινότητα">
+		<control caption="_Προφίλ:"/>
+		<control caption="Χρησιμοποιήστε το Προφίλ για να κοινοποιήσετε πληροφορίες για τον εαυτό σας και τα ενδιαφέροντά σας, και να συστήσετε αρχεία και ιστοσελίδες."/>
+		<control caption="Επεξεργασία Προφίλ"/>
+		<control caption="_Συνομιλία:"/>
+		<control caption="Ενεργοποίηση συνομιλίας peer-to-peer με συμβατά προγράμματα"/>
+		<control caption="Ενεργοποίηση συνομιλίας σε όλα τα δίκτυα"/>
+		<control caption="Φιλτράρισμα ενοχλητικών μηνυμάτων"/>
+		<control caption="Φιλτράρισμα αισχρόλογων"/>
+	</dialog>
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Απομακρυσμένη Πρόσβαση">
+		<control caption="_Ενεργοποίηση:"/>
+		<control caption="Ενεργοποίηση Απομακρυσμένης Πρόσβασης PeerProject:"/>
+		<control caption="..."/>
+		<control caption="_Στοιχεία Εισόδου:"/>
+		<control caption="Όνομα (Username):"/>
+		<control caption="Κωδικός (Password):"/>
+		<control/>
+		<control/>
+		<control caption="Περιγραφή:"/>
+		<control caption="Η Απομακρυσμένη Πρόσβαση επιτρέπει, κατά την εκτέλεση του PeerProject στον υπολογιστή σας, τον χειρισμό του από απομακρυσμένα προγράμματα περιήγησης. Για να χρησιμοποιήσετε αυτήν τη δυνατότητα, πρέπει να δέχεστε εισερχόμενες συνδέσεις (π.χ. κατάλληλα ρυθμισμένο router κτλ)."/>
 	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Ιστός">
 		<control caption="Χειρισμός _Συνδέσμων Peer to Peer:"/>
@@ -3580,25 +3588,13 @@
 		<control caption="Όριο:"/>
 		<control/>
 		<control caption="Λειτουργία:"/>
-		<control caption="Μέγιστου|Μέσου Όρου"/>
+		<control caption="Μέσου Όρου|Μέγιστου"/>
 		<control caption="_Ουρές:"/>
 		<control/>
 		<control caption="_Νέα..."/>
 		<control caption="_Αλλαγές..."/>
 		<control caption="_Διαγραφή"/>
 		<control caption="(Οι αλλαγές επιδρούν αμέσως!)"/>
-	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Απομακρυσμένη Πρόσβαση">
-		<control caption="_Ενεργοποίηση:"/>
-		<control caption="Ενεργοποίηση Απομακρυσμένης Πρόσβασης PeerProject:"/>
-		<control caption="..."/>
-		<control caption="_Στοιχεία Εισόδου:"/>
-		<control caption="Όνομα (Username):"/>
-		<control caption="Κωδικός (Password):"/>
-		<control/>
-		<control/>
-		<control caption="Περιγραφή:"/>
-		<control caption="Η Απομακρυσμένη Πρόσβαση επιτρέπει, κατά την εκτέλεση του PeerProject στον υπολογιστή σας, τον χειρισμό του από απομακρυσμένα προγράμματα περιήγησης. Για να χρησιμοποιήσετε αυτήν τη δυνατότητα, πρέπει να δέχεστε εισερχόμενες συνδέσεις (π.χ. κατάλληλα ρυθμισμένο router κτλ)."/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="Δίκτυα">
 		<control caption="Το PeerProject είναι ένα γενικού σκοπού πρόγραμμα ανταλλαγής αρχείων που συνδέεται σε πολλά P2P δίκτυα ταυτόχρονα. Σε αυτήν τη σελίδα μπορείτε να επιλέξετε σε ποια δίκτυα θέλετε να συνδέεστε και με τι ρυθμίσεις στο καθένα."/>

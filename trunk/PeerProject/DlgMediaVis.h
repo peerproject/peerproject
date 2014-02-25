@@ -1,7 +1,7 @@
 //
 // DlgMediaVis.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -27,43 +27,34 @@ class CMediaVisDlg : public CSkinDialog
 {
 	DECLARE_DYNAMIC(CMediaVisDlg)
 
-// Construction
 public:
 	CMediaVisDlg(CMediaFrame* pFrame);
 	virtual ~CMediaVisDlg();
 
 	enum { IDD = IDD_MEDIA_VIS };
 
-// Dialog Data
 public:
-	//{{AFX_DATA(CMediaVisDlg)
 	CButton 	m_wndSetup;
 	CListCtrl	m_wndList;
 	int 		m_nSize;
-	//}}AFX_DATA
 
-// Attributes
 protected:
 	CMediaFrame*	m_pFrame;
 	DWORD			m_nIcon;
 	HICON			m_hIcon;
 
-// Operations
 protected:
 	void	Enumerate();
 	void	AddPlugin(LPCTSTR pszName, LPCTSTR pszCLSID, LPCTSTR pszPath);
 	BOOL	EnumerateWrapped(LPCTSTR pszName, REFCLSID pCLSID, LPCTSTR pszCLSID);
 
-// Implementation
 protected:
-	//{{AFX_MSG(CMediaVisDlg)
 	virtual void DoDataExchange(CDataExchange* pDX);
 	virtual BOOL OnInitDialog();
 	virtual void OnOK();
 	afx_msg void OnDblClkPlugins(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnItemChangedPlugins(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnSetup();
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

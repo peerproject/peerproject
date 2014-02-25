@@ -1,7 +1,7 @@
 //
 // RichViewCtrl.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -37,7 +37,6 @@ public:
 	CRichViewCtrl();
 	virtual ~CRichViewCtrl();
 
-// Attributes
 protected:
 	CSyncObject*	m_pSyncRoot;
 	BOOL			m_bSelectable;
@@ -60,7 +59,6 @@ protected:
 	HCURSOR			m_hcText;
 	CBrush			m_pBrush;
 
-// Operations
 public:
 	void			SetSyncObject(CSyncObject* pSyncRoot);
 	void			SetSelectable(BOOL bSelectable);
@@ -87,16 +85,11 @@ protected:
 	virtual void	OnPaintComplete(CDC* /*pDC*/) {};
 	virtual void	OnVScrolled() {};
 
-// Overrides
 public:
-	//{{AFX_VIRTUAL(CRichViewCtrl)
 	virtual BOOL Create(DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID);
-	//}}AFX_VIRTUAL
 
-// Implementation
 protected:
-	//{{AFX_MSG(CRichViewCtrl)
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
 	afx_msg void OnPaint();
 	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
@@ -109,7 +102,6 @@ protected:
 	afx_msg BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
 	afx_msg void OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar = NULL);
 	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
-	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 
 	friend class CRichFragment;

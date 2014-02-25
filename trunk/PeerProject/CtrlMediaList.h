@@ -1,7 +1,7 @@
 //
 // CtrlMediaList.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -25,12 +25,10 @@ class CMediaListCtrl : public CListCtrl
 {
 	DECLARE_DYNAMIC(CMediaListCtrl)
 
-// Construction
 public:
 	CMediaListCtrl();
 	virtual ~CMediaListCtrl();
 
-// Attributes
 protected:
 	CLibraryTipCtrl	m_wndTip;
 	CImageList*	m_pDragImage;
@@ -39,7 +37,6 @@ protected:
 //	UINT		m_nSelectedCount;	// Using static
 //	DWORD		m_tLastUpdate;		// Using static
 
-// Operations
 public:
 	virtual BOOL Create(CWnd* pParentWnd, UINT nID);
 
@@ -65,9 +62,7 @@ protected:
 	BOOL	AreSelectedFilesInLibrary();
 	void	ShowFilePropertiesDlg(int nPage = 0 );
 
-// Implementation
 protected:
-	//{{AFX_MSG(CMediaListCtrl)
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
@@ -104,7 +99,6 @@ protected:
 	afx_msg void OnUpdateMediaCollection(CCmdUI* pCmdUI);
 	afx_msg void OnMediaCollection();
 	afx_msg void OnMediaAddFolder();
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

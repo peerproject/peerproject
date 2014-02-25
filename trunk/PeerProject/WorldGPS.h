@@ -1,7 +1,7 @@
 //
 // WorldGPS.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -25,35 +25,29 @@ class CXMLElement;
 
 class CWorldGPS
 {
-// Construction
 public:
 	CWorldGPS();
 	~CWorldGPS();
 
-// Attributes
 public:
 	CWorldCountry*	m_pCountry;
 	DWORD			m_nCountry;
 
-// Operations
 public:
 	BOOL		Load();
 	void		Clear();
 protected:
 	void		Serialize(CArchive& ar);
 	BOOL		LoadFrom(CXMLElement* pRoot);
-
-
 };
+
 
 class CWorldCountry
 {
-// Construction
 public:
 	CWorldCountry();
 	~CWorldCountry();
 
-// Attributes
 public:
 	CHAR		m_szID[2];
 	CString		m_sName;
@@ -61,26 +55,22 @@ public:
 	CWorldCity*	m_pCity;
 	DWORD		m_nCity;
 
-// Operations
 public:
 	void		Serialize(CArchive& ar);
 	BOOL		LoadFrom(CXMLElement* pRoot);
 	void		Clear();
-
 };
+
 
 class CWorldCity
 {
-// Attributes
 public:
 	CString		m_sName;
 	CString		m_sState;
 	float		m_nLatitude;
 	float		m_nLongitude;
 
-// Operations
 public:
 	void		Serialize(CArchive& ar);
 	BOOL		LoadFrom(CXMLElement* pRoot);
-
 };

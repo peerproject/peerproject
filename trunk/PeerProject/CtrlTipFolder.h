@@ -1,7 +1,7 @@
 //
 // CtrlTipFolder.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -39,7 +39,6 @@ public:
 		ShowImpl( bChanged );
 	}
 
-// Attributes
 protected:
 	CLibraryFolder* m_pLibraryFolder;
 	CString		m_sName;
@@ -48,21 +47,10 @@ protected:
 	CString		m_sVolume;
 	CString		m_sPercentage;
 
-// Operations
 public:
 	virtual BOOL OnPrepare();
 	virtual void OnCalcSize(CDC* pDC);
 	virtual void OnPaint(CDC* pDC);
-
-// Overrides
-//public:
-	//{{AFX_VIRTUAL(CFolderTipCtrl)
-	//}}AFX_VIRTUAL
-
-// Implementation
-//protected:
-	//{{AFX_MSG(CFolderTipCtrl)
-	//}}AFX_MSG
 
 	//DECLARE_MESSAGE_MAP()
 };

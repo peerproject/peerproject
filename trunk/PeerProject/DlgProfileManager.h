@@ -1,7 +1,7 @@
 //
 // DlgProfileManager.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -25,12 +25,10 @@ class CProfileManagerDlg : public CSettingsSheet
 {
 	DECLARE_DYNAMIC(CProfileManagerDlg)
 
-// Construction
 public:
 	CProfileManagerDlg(CWnd* pParent = NULL);
 	//virtual ~CProfileManagerDlg();
 
-// Operations
 public:
 	static BOOL	Run(LPCTSTR pszWindow = NULL);
 	INT_PTR		DoModal(LPCTSTR pszWindow = NULL);
@@ -39,18 +37,10 @@ protected:
 	void		AddPage(CSettingsPage* pPage);
 	void		AddGroup(CSettingsPage* pPage);
 
-// Overrides
-public:
-	//{{AFX_VIRTUAL(CProfileManagerDlg)
-	//}}AFX_VIRTUAL
-
-// Implementation
 protected:
-	//{{AFX_MSG(CProfileManagerDlg)
 	virtual BOOL OnInitDialog();
 	virtual void OnOK();
 	virtual void OnApply();
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

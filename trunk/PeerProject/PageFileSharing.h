@@ -1,7 +1,7 @@
 //
 // PageFileSharing.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -25,40 +25,30 @@ class CFileSharingPage : public CFilePropertiesPage
 {
 	DECLARE_DYNCREATE(CFileSharingPage)
 
-// Construction
 public:
 	CFileSharingPage();
 	virtual ~CFileSharingPage();
 
 	enum { IDD = IDD_FILE_SHARING };
 
-// Dialog Data
 public:
-	//{{AFX_DATA(CFileSharingPage)
 	//CListCtrl	m_wndNetworks;
 	CComboBox	m_wndTags;
 	CButton	m_wndShare;
 	int		m_bOverride;
 	BOOL	m_bShare;
 	CString	m_sTags;
-	//}}AFX_DATA
 
-// Overrides
 public:
-	//{{AFX_VIRTUAL(CFileSharingPage)
 	public:
 	virtual void OnOK();
 	protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
-	//}}AFX_VIRTUAL
 
-// Implementation
 protected:
-	//{{AFX_MSG(CFileSharingPage)
 	virtual BOOL OnInitDialog();
 	afx_msg void OnShareOverride0();
 	afx_msg void OnShareOverride1();
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

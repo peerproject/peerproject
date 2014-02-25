@@ -1,7 +1,7 @@
 //
 // CtrlLibraryTileView.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -24,7 +24,6 @@ class CAlbumFolder;
 
 class CLibraryTileItem
 {
-// Construction
 public:
 	CLibraryTileItem(CAlbumFolder* pFolder)
 	: m_pAlbum( pFolder ), m_nCookie( ~0ul ), m_bSelected()
@@ -32,7 +31,6 @@ public:
 		Update();
 	}
 
-// Attributes
 public:
 	CAlbumFolder*	m_pAlbum;
 	DWORD			m_nCookie;
@@ -44,7 +42,6 @@ public:
 	bool			m_bSelected;
 	bool			m_bCollection;
 
-// Operations
 public:
 	bool	Update();
 	void	Paint(CDC* pDC, const CRect& rcBlock, CDC* pMemDC, BOOL bFocus = FALSE);
@@ -55,11 +52,9 @@ private:
 
 class CLibraryTileView : public CLibraryView
 {
-// Construction
 public:
 	CLibraryTileView();
 
-// Attributes
 private:
 	typedef boost::ptr_list< CLibraryTileItem > Container;
 	typedef Container::iterator iterator;
@@ -93,7 +88,6 @@ private:
 	BOOL					m_bDrag;
 	CPoint					m_ptDrag;
 
-// Operations
 public:
 	virtual BOOL				CheckAvailable(CLibraryTreeItem* pSel);
 	virtual void				Update();
@@ -125,16 +119,11 @@ private:
 	virtual DWORD_PTR	HitTestIndex(const CPoint& point) const;
 	bool				GetItemRect(iterator pTile, CRect* pRect);
 
-// Overrides
 public:
-	//{{AFX_VIRTUAL(CLibraryTileView)
 	virtual BOOL Create(CWnd* pParentWnd);
-	//}}AFX_VIRTUAL
 
-// Implementation
 protected:
-	//{{AFX_MSG(CLibraryTileView)
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
 	afx_msg void OnPaint();
 	afx_msg void OnSize(UINT nType, int cx, int cy);
@@ -155,7 +144,6 @@ protected:
 	afx_msg void OnUpdateLibraryAlbumProperties(CCmdUI* pCmdUI);
 	afx_msg void OnLibraryAlbumProperties();
 	afx_msg UINT OnGetDlgCode();
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

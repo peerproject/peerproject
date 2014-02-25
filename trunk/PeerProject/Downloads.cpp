@@ -202,7 +202,7 @@ CDownload* CDownloads::Add(CMatchFile* pFile, BOOL bAddToHead)
 
 	CDownload* pDownload = NULL;
 
-	if ( pDownload == NULL && pFile->m_oSHA1 )
+	if ( pFile->m_oSHA1 )
 		pDownload = FindBySHA1( pFile->m_oSHA1 );
 	if ( pDownload == NULL && pFile->m_oTiger )
 		pDownload = FindByTiger( pFile->m_oTiger );
@@ -263,7 +263,7 @@ CDownload* CDownloads::Add(const CPeerProjectURL& oURL, BOOL bAddToHead)
 
 	CDownload* pDownload = NULL;
 
-	if ( /*pDownload == NULL &&*/ oURL.m_oSHA1 )
+	if ( oURL.m_oSHA1 )
 		pDownload = FindBySHA1( oURL.m_oSHA1 );
 	if ( pDownload == NULL && oURL.m_oTiger )
 		pDownload = FindByTiger( oURL.m_oTiger );
@@ -352,7 +352,7 @@ CDownload* CDownloads::Add(const CPeerProjectURL& oURL, BOOL bAddToHead)
 void CDownloads::PauseAll()
 {
 	CSingleLock pLock( &Transfers.m_pSection );
-	if ( ! pLock.Lock( 1000 ) ) return;
+	if ( ! SafeLock( pLock ) ) return;
 
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
@@ -362,7 +362,8 @@ void CDownloads::PauseAll()
 
 void CDownloads::ClearCompleted()
 {
-	CQuickLock pLock( Transfers.m_pSection );
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! SafeLock( pLock ) ) return;
 
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
@@ -375,7 +376,7 @@ void CDownloads::ClearCompleted()
 void CDownloads::ClearPaused()
 {
 	CSingleLock pLock( &Transfers.m_pSection );
-	if ( ! pLock.Lock( 1000 ) ) return;
+	if ( ! SafeLock( pLock ) ) return;
 
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
@@ -387,7 +388,8 @@ void CDownloads::ClearPaused()
 void CDownloads::Clear(bool bShutdown)
 {
 	CSingleLock pLock( &Transfers.m_pSection );
-	if ( ! pLock.Lock( 1000 ) ) return;
+	if ( ! SafeLock( pLock ) ) return;
+
 	m_bClosing = true;
 
 	for ( POSITION pos = GetIterator() ; pos ; )
@@ -401,7 +403,8 @@ void CDownloads::Clear(bool bShutdown)
 
 void CDownloads::CloseTransfers()
 {
-	CQuickLock pLock( Transfers.m_pSection );
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! pLock.Lock( 10000 ) ) return;	// Shutdown deadlock release
 
 	m_bClosing = true;
 
@@ -431,11 +434,8 @@ INT_PTR CDownloads::GetCount(BOOL bActiveOnly) const
 	{
 		CDownload* pDownload = GetNext( pos );
 
-		if ( ! pDownload->IsMoving() && ! pDownload->IsPaused() &&
-			 pDownload->GetEffectiveSourceCount() > 0 )
-		{
+		if ( ! pDownload->IsMoving() && ! pDownload->IsPaused() && pDownload->GetEffectiveSourceCount() > 0 )
 			nCount++;
-		}
 	}
 
 	return nCount;
@@ -468,12 +468,10 @@ int CDownloads::GetActiveTorrentCount() const
 	{
 		CDownload* pDownload = GetNext( pos );
 
-		if ( pDownload->IsDownloading() && pDownload->IsTorrent() &&
-			! pDownload->IsSeeding() && ! pDownload->IsCompleted() &&
-			! pDownload->IsMoving() && ! pDownload->IsPaused() )
-		{
+		if ( pDownload->IsTorrent() && pDownload->IsDownloading() &&
+			 ! pDownload->IsSeeding() && ! pDownload->IsCompleted() &&
+			 ! pDownload->IsPaused() && ! pDownload->IsMoving() )
 			nCount++;
-		}
 	}
 
 	return nCount;
@@ -614,6 +612,9 @@ CDownload* CDownloads::FindBySHA1(const Hashes::Sha1Hash& oSHA1, BOOL bSharedOnl
 {
 //	ASSUME_LOCK( Transfers.m_pSection );
 
+	if ( ! oSHA1 )
+		return NULL;
+
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
 		CDownload* pDownload = GetNext( pos );
@@ -631,6 +632,9 @@ CDownload* CDownloads::FindByTiger(const Hashes::TigerHash& oTiger, BOOL bShared
 {
 //	ASSUME_LOCK( Transfers.m_pSection );
 
+	if ( ! oTiger )
+		return NULL;
+
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
 		CDownload* pDownload = GetNext( pos );
@@ -647,6 +651,9 @@ CDownload* CDownloads::FindByTiger(const Hashes::TigerHash& oTiger, BOOL bShared
 CDownload* CDownloads::FindByED2K(const Hashes::Ed2kHash& oED2K, BOOL bSharedOnly) const
 {
 //	ASSUME_LOCK( Transfers.m_pSection );
+
+	if ( ! oED2K )
+		return NULL;
 
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
@@ -666,6 +673,9 @@ CDownload* CDownloads::FindByBTH(const Hashes::BtHash& oBTH, BOOL bSharedOnly) c
 {
 //	ASSUME_LOCK( Transfers.m_pSection );
 
+	if ( ! oBTH )
+		return NULL;
+
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
 		CDownload* pDownload = GetNext( pos );
@@ -682,6 +692,9 @@ CDownload* CDownloads::FindByBTH(const Hashes::BtHash& oBTH, BOOL bSharedOnly) c
 CDownload* CDownloads::FindByMD5(const Hashes::Md5Hash& oMD5, BOOL bSharedOnly) const
 {
 //	ASSUME_LOCK( Transfers.m_pSection );
+
+	if ( ! oMD5 )
+		return NULL;
 
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
@@ -1189,7 +1202,7 @@ BOOL CDownloads::OnDonkeyCallback(CEDClient* pClient, CDownloadSource* pExcept)
 void CDownloads::OnVerify(const CLibraryFile* pFile, TRISTATE bVerified)
 {
 	CSingleLock pLock( &Transfers.m_pSection );
-	if ( ! pLock.Lock( 500 ) ) return;
+	if ( ! SafeLock( pLock ) ) return;
 
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
@@ -1199,7 +1212,8 @@ void CDownloads::OnVerify(const CLibraryFile* pFile, TRISTATE bVerified)
 
 void CDownloads::OnRename(LPCTSTR pszSource, LPCTSTR /*pszTarget*/)
 {
-	CQuickLock oTransfersLock( Transfers.m_pSection );
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! SafeLock( pLock ) ) return;
 
 	if ( CDownload* pDownload = Downloads.FindByPath( pszSource ) )
 	{
@@ -1215,56 +1229,55 @@ void CDownloads::PreLoad()
 {
 	const CString strRoot = Settings.Downloads.IncompletePath + _T("\\");
 
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
-
-//	LoadFromCompoundFiles();						// Legacy Shareaza multifile torrents
+//	LoadFromCompoundFiles();											// Legacy Shareaza multifile torrents
 
 	WIN32_FIND_DATA pFind = {};
 	HANDLE hSearch = FindFirstFile( strRoot + _T("*.?d"), &pFind );		// .pd files + .sd Shareaza imports
-	if ( hSearch != INVALID_HANDLE_VALUE )
+	if ( hSearch == INVALID_HANDLE_VALUE ) return;
+
+	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+
+	do
 	{
-		do
+		CString strPath( strRoot );
+		strPath.Append( pFind.cFileName );
+
+		CDownload* pDownload = new CDownload();
+		if ( pDownload->Load( strPath ) )
 		{
-			CString strPath( strRoot );
-			strPath.Append( pFind.cFileName );
-
-			CDownload* pDownload = new CDownload();
-			if ( pDownload->Load( strPath ) )
+			if ( pDownload->IsSeeding() )
 			{
-				if ( pDownload->IsSeeding() )
+				if ( ! Settings.BitTorrent.AutoSeed )
 				{
-					if ( ! Settings.BitTorrent.AutoSeed )
-					{
-						MakeSafePath( strPath );
-						DeleteFileEx( strPath, FALSE, TRUE, TRUE );
-						DeleteFileEx( strPath + _T(".sav"), FALSE, FALSE, TRUE );
-						DeleteFileEx( strPath + _T(".png"), FALSE, FALSE, TRUE );
-						theApp.Message( MSG_NOTICE, IDS_DOWNLOAD_REMOVE, pDownload->m_sName );
-						continue;
-					}
-					pDownload->m_bComplete = true;
-					pDownload->m_bVerify = TRI_TRUE;
+					MakeSafePath( strPath );
+					DeleteFileEx( strPath, FALSE, TRUE, TRUE );
+					DeleteFileEx( strPath + _T(".sav"), FALSE, FALSE, TRUE );
+					DeleteFileEx( strPath + _T(".png"), FALSE, FALSE, TRUE );
+					theApp.Message( MSG_NOTICE, IDS_DOWNLOAD_REMOVE, pDownload->m_sName );
+					continue;
 				}
-				m_pList.AddTail( pDownload );
+				pDownload->m_bComplete = true;
+				pDownload->m_bVerify = TRI_TRUE;
 			}
-			else
-			{
-				// Remove orphaned .pd/.sd files at startup
-				MakeSafePath( strPath );
-				DeleteFileEx( strPath, FALSE, TRUE, TRUE );
-				DeleteFileEx( strPath + _T(".sav"), FALSE, FALSE, TRUE );
-				DeleteFileEx( strPath + _T(".png"), FALSE, FALSE, TRUE );
-			//	strPath = strRoot + _T("Preview ");
-			//	strPath.Append( pFind.cFileName );
-			//	DeleteFileEx( strPath, FALSE, FALSE, TRUE );
-				theApp.Message( MSG_ERROR, IDS_DOWNLOAD_REMOVE, ( pDownload->m_sName.IsEmpty() ? strPath : pDownload->m_sName ) );
-				delete pDownload;
-			}
+			m_pList.AddTail( pDownload );
 		}
-		while ( FindNextFile( hSearch, &pFind ) );
-
-		FindClose( hSearch );
+		else
+		{
+			// Remove orphaned .pd/.sd files at startup
+			MakeSafePath( strPath );
+			DeleteFileEx( strPath, FALSE, TRUE, TRUE );
+			DeleteFileEx( strPath + _T(".sav"), FALSE, FALSE, TRUE );
+			DeleteFileEx( strPath + _T(".png"), FALSE, FALSE, TRUE );
+		//	strPath = strRoot + _T("Preview ");
+		//	strPath.Append( pFind.cFileName );
+		//	DeleteFileEx( strPath, FALSE, FALSE, TRUE );
+			theApp.Message( MSG_ERROR, IDS_DOWNLOAD_REMOVE, ( pDownload->m_sName.IsEmpty() ? strPath : pDownload->m_sName ) );
+			delete pDownload;
+		}
 	}
+	while ( FindNextFile( hSearch, &pFind ) );
+
+	FindClose( hSearch );
 }
 
 void CDownloads::Load()

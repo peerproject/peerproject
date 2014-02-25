@@ -1,7 +1,7 @@
 //
 // PageSettingsIRC.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2005-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -27,14 +27,12 @@ class CIRCSettingsPage : public CSettingsPage
 {
 	DECLARE_DYNCREATE(CIRCSettingsPage)
 
-// Construction
 public:
 	CIRCSettingsPage();
 //	virtual ~CIRCSettingsPage();
 
 	enum { IDD = IDD_SETTINGS_IRC };
 
-// Dialog Data
 public:
 	CButton		m_wndColorBg;
 	CButton		m_wndColorText;
@@ -62,7 +60,6 @@ public:
 	CSpinButtonCtrl	m_wndFontSizeSpin;
 	CSpinButtonCtrl	m_wndFloodLimitSpin;
 
-// Overrides
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
 	virtual BOOL OnInitDialog();
@@ -72,7 +69,6 @@ public:
 	virtual void OnOK();
 	virtual BOOL OnApply();
 
-// Implementation
 protected:
 	afx_msg void OnClickIrcColorBg();
 	afx_msg void OnClickIrcColorText();

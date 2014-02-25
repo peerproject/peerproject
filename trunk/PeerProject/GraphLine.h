@@ -1,7 +1,7 @@
 //
 // GraphLine.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -25,12 +25,10 @@ class CGraphItem;
 
 class CLineGraph : public CGraphBase
 {
-// Construction
 public:
 	CLineGraph();
 	virtual ~CLineGraph();
 
-// Attributes
 public:
 	BOOL		m_bShowAxis;
 	BOOL		m_bShowGrid;
@@ -48,7 +46,6 @@ protected:
 	CList< CGraphItem* > m_pItems;
 	CPen		m_pGridPen;
 
-// Operations
 public:
 	void		AddItem(CGraphItem* pItem);
 	POSITION	GetItemIterator() const;

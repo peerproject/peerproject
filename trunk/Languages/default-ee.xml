@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Estonian Skin File -->
 
-<!-- Translation based on default-en.xml r102 --> <!-- (Shareaza 2.2.2.9) -->
+<!-- Translation based on default-en.xml r104 --> <!-- (Shareaza 2.2.2.9) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -546,7 +546,6 @@
 					<separator/>
 					<item id="ID_HELP_UPDATE" text="Latest news"/>
 					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-					<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
 				</menu>	-->
 				<item id="ID_HELP_FORUMS_LOCAL" text="PeerProject _Forums Eesti"/>
 				<separator/>
@@ -641,8 +640,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Latest news"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_PeerProjectst..."/>
@@ -708,8 +706,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Latest news"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_PeerProjectst..."/>
@@ -795,8 +792,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Latest news"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_PeerProjectst..."/>
@@ -3135,8 +3131,8 @@
 	<string id="20874" value="URL:"/>
 	<string id="20875" value="Täpsustamata"/>
 	<string id="20880" value="Muuda Minu Profiili"/>
-	<string id="20881" value="%u faili valitud. Oled sa kindel?"/>
-	<string id="20882" value="URN-i ei ole saadaval"/>
+	<string id="20882" value="%u faili valitud. Oled sa kindel?"/>
+	<string id="20883" value="URN-i ei ole saadaval"/>
 	<string id="20885" value="Vaadete muutmine sulgeb kõik avatud aknad. Kas soovid kohe muuta?"/>
 	<string id="20886" value="Kasutajaliidese suundade muutmine nõuab taaskäivitust.\n\nVälju nüüd?"/>
 	<string id="20890" value="Teretulemast PeerProjectsse"/>
@@ -3238,6 +3234,7 @@
 		<control caption="_Select Plugin..."/>
 		<control caption="Note: Choosing an external Meedia Handler will automatically disable all Meedia and Visualisation Plugins"/>
 	</dialog>
+	<!--Missing dialog name="CIRCSettingsPage"-->
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Kogukond">
 		<control caption="Minu _Profiil:"/>
 		<control caption="Sa saad kasutada Gnutella Kasutaja Profiili, et enda kohta informatsiooni, oma huvide, lemmikfailide ja weebilehtede kohta."/>
@@ -3248,7 +3245,18 @@
 		<control caption="Filtreeri Spämm"/>
 		<control caption="Praagi labased väljendid"/>
 	</dialog>
-	<!--Missing dialog name="CIRCSettingsPage"-->
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Kaugtöö">
+		<control caption="_Käivitus:"/>
+		<control caption="Võimalda PeerProject Kaugtöö:"/>
+		<control/>
+		<control caption="_Andmed:"/>
+		<control caption="Vali Kasutajanimi:"/>
+		<control caption="Vali Salasõna:"/>
+		<control/>
+		<control/>
+		<control caption="Abi:"/>
+		<control caption="PeerProject Kaugtöö laseb sul jätta PeerProject tööle ja kontrollida seda eemalt, kasutades weebibrauserit. Sa pead selle võimaluse kasutamiseks lubama sissetulevad ühendused (näiteks: seadistama ruuteri, jne.)."/>
+	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Weeb">
 		<control caption="_P2P linkide käsitlus:"/>
 		<control caption="Kasuta PeerProjectt, et avada seda tüüpi faile:"/>
@@ -3334,25 +3342,13 @@
 		<control caption="Piirang:"/>
 		<control/>
 		<control caption="Rešiim:"/>
-		<control caption="Maksimaalselt|Keskmiselt"/>
+		<control caption="Keskmiselt|Maksimaalselt"/>
 		<control caption="_Järjekorrad:"/>
 		<control/>
 		<control caption="_Uus..."/>
 		<control caption="_Muuda..."/>
 		<control caption="_Kustuta"/>
 		<control caption="(muutused toimivad kohe)"/>
-	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Kaugtöö">
-		<control caption="_Käivitus:"/>
-		<control caption="Võimalda PeerProject Kaugtöö:"/>
-		<control/>
-		<control caption="_Andmed:"/>
-		<control caption="Vali Kasutajanimi:"/>
-		<control caption="Vali Salasõna:"/>
-		<control/>
-		<control/>
-		<control caption="Abi:"/>
-		<control caption="PeerProject Kaugtöö laseb sul jätta PeerProject tööle ja kontrollida seda eemalt, kasutades weebibrauserit. Sa pead selle võimaluse kasutamiseks lubama sissetulevad ühendused (näiteks: seadistama ruuteri, jne.)."/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="Võrgud">
 		<control caption="PeerProject üldotstarbeline failijagamisprogramm, mis on suuteline ühenduma mitmesse P2P võrkku korraga. Sellel lehel saad sa valida, millistesse P2P võrkudesse sa tahad ühendada ja siis iga võrgustiku seadeid muuta."/>

@@ -1,7 +1,7 @@
 //
 // WindowManager.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -343,7 +343,9 @@ void CWindowManager::SetGUIMode(int nMode, BOOL bSaveState)
 	Close();
 
 	Settings.General.GUIMode = nMode;
-	Settings.Save();
+
+	if ( bSaveState )
+		Settings.Save();
 
 	LoadSearchWindows();
 	LoadBrowseHostWindows();
@@ -436,7 +438,7 @@ void CWindowManager::LoadWindowStates()
 	}
 
 	if ( Settings.General.GUIMode != GUI_WINDOWED )
-		Open( RUNTIME_CLASS(CHomeWnd) );
+		Open( RUNTIME_CLASS( CHomeWnd ) );
 }
 
 //////////////////////////////////////////////////////////////////////

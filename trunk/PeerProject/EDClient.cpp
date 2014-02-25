@@ -1,7 +1,7 @@
 //
 // EDClient.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -478,7 +478,6 @@ void CEDClient::OnRunEx(DWORD tNow)
 		if ( m_pUploadTransfer )
 			m_pUploadTransfer->OnRunEx( tNow );
 	}
-
 	// No connections to this client
 	else if ( ! IsValid() )
 	{
@@ -606,8 +605,8 @@ BOOL CEDClient::OnLoggedIn()
 
 CHostBrowser* CEDClient::GetBrowser() const
 {
-	CSingleLock pLock( &theApp.m_pSection, FALSE );
-	if ( ! pLock.Lock( 1000 ) ) return NULL;
+	CSingleLock pLock( &theApp.m_pSection );
+	if ( ! SafeLock( pLock ) ) return NULL;
 
 	if ( CMainWnd* pMainWnd = theApp.SafeMainWnd() )
 	{
@@ -994,14 +993,11 @@ BOOL CEDClient::OnHello(CEDPacket* pPacket)
 			break;
 		default:
 			if ( _tcsicmp( pTag.m_sKey, _T("pr") ) == 0 )
-			{
-				// No idea what this means. Probably from the eDonkey client. Detect eDonkeyHybrid client?
-			}
-			else
+				break;		// No idea what this means. Probably from the eDonkey client. Detect eDonkeyHybrid client?
 			{
 				CString str;
-				str.Format( _T("Unknown ED2K Hello packet from %s  (Opcode 0x%x:0x%x)"),
-					LPCTSTR( m_sAddress ), int( pTag.m_nKey ), int( pTag.m_nType ) );
+				str.Format( _T("Unknown ED2K Hello packet from %s  %s (Opcode 0x%x:0x%x)"),
+					(LPCTSTR)m_sAddress, (LPCTSTR)pTag.m_sKey, (UINT)pTag.m_nKey, (UINT)pTag.m_nType );
 				pPacket->Debug( str );
 			}
 #endif	// Debug
@@ -1041,7 +1037,7 @@ BOOL CEDClient::OnHello(CEDPacket* pPacket)
 	if ( pPacket->m_nType == ED2K_C2C_HELLO )
 	{
 		// If it's an eMule compatible client that has not already sent us extended details
-		if ( ( m_bEmule ) && ( ! m_nSoftwareVersion ) )
+		if ( m_bEmule && ( ! m_nSoftwareVersion ) )
 			SendEmuleInfo( ED2K_C2C_EMULEINFO );	// Send extended hello
 
 		// Send hello answer
@@ -1439,9 +1435,6 @@ void CEDClient::DetermineUserAgent()
 
 BOOL CEDClient::OnFileRequest(CEDPacket* pPacket)
 {
-	int nRating;
-	CString strComments;
-
 	if ( pPacket->GetRemaining() < Hashes::Ed2kHash::byteCount )
 	{
 		theApp.Message( MSG_ERROR, IDS_ED2K_CLIENT_BAD_PACKET, (LPCTSTR)m_sAddress, pPacket->m_nType );
@@ -1463,36 +1456,33 @@ BOOL CEDClient::OnFileRequest(CEDPacket* pPacket)
 		return TRUE;
 	}
 
-	CSingleLock oLock( &Library.m_pSection );
-	if ( oLock.Lock( 1000 ) )
+	if ( ! Settings.eDonkey.Enabled && Settings.Connection.RequireForTransfers )
+	{
+		pReply->m_nType = ED2K_C2C_FILENOTFOUND;
+		Send( pReply );
+		return TRUE;
+	}
+
+	CSingleLock pLock( &Library.m_pSection );
+	if ( SafeLock( pLock ) )
 	{
 		CLibraryFile* pFile = LibraryMaps.LookupFileByED2K( m_oUpED2K, TRUE, TRUE );
 		if ( ( pFile ) && ( UploadQueues.CanUpload( PROTOCOL_ED2K, pFile, TRUE ) ) )
 		{
-			if ( Settings.eDonkey.Enabled || ! Settings.Connection.RequireForTransfers )
-			{
-				// Create the reply packet
-				pReply->WriteEDString( pFile->m_sName, m_bEmUnicode );
-				// Get the comments/rating data
-				nRating = pFile->m_nRating;
-				strComments = pFile->m_sComments;
-				oLock.Unlock();
+			// Create the reply packet
+			pReply->WriteEDString( pFile->m_sName, m_bEmUnicode );
+			// Get the comments/rating data
+			int nRating = pFile->m_nRating;
+			CString strComments = pFile->m_sComments;
+			pLock.Unlock();
 
-				// Send reply
-				Send( pReply );
-				// Send comments / rating (if required)
-				SendCommentsPacket( nRating, strComments );
-			}
-			else
-			{
-				oLock.Unlock();
+			// Send reply and comments/rating (if required)
+			Send( pReply );
+			SendCommentsPacket( nRating, strComments );
 
-				pReply->m_nType = ED2K_C2C_FILENOTFOUND;
-				Send( pReply );
-			}
 			return TRUE;
 		}
-		oLock.Unlock();
+		pLock.Unlock();
 	}
 
 	if ( CDownload* pDownload = Downloads.FindByED2K( m_oUpED2K, TRUE ) )
@@ -1526,8 +1516,8 @@ BOOL CEDClient::OnFileStatusRequest(CEDPacket* pPacket)
 	pPacket->Read( m_oUpED2K );
 	pReply->Write( m_oUpED2K );
 
-	CSingleLock oLock( &Library.m_pSection );
-	if ( oLock.Lock( 1000 ) )
+	CSingleLock pLock( &Library.m_pSection );
+	if ( SafeLock( pLock ) )
 	{
 		if ( CLibraryFile* pFile = LibraryMaps.LookupFileByED2K( m_oUpED2K, TRUE, TRUE ) )
 		{
@@ -1538,13 +1528,14 @@ BOOL CEDClient::OnFileStatusRequest(CEDPacket* pPacket)
 			if ( ! CEDPacket::IsLowID( m_nClientID ) )
 				pFile->AddAlternateSource( GetSourceURL() );
 
-			oLock.Unlock();
+			pLock.Unlock();
 
 			Send( pReply );
 			return TRUE;
 		}
-		oLock.Unlock();
+		pLock.Unlock();
 	}
+
 	if ( CDownload* pDownload = Downloads.FindByED2K( m_oUpED2K, TRUE ) )
 	{
 		WritePartStatus( pReply, pDownload );
@@ -1586,19 +1577,19 @@ BOOL CEDClient::OnHashsetRequest(CEDPacket* pPacket)
 	BOOL bDelete = FALSE;
 	CString strName;
 
-	CSingleLock oLock( &Library.m_pSection );
-	if ( oLock.Lock( 1000 ) )
+	CSingleLock pLock( &Library.m_pSection );
+	if ( SafeLock( pLock ) )
 	{
 		if ( CLibraryFile* pFile = LibraryMaps.LookupFileByED2K( oHash, TRUE, TRUE ) )
 		{
 			strName  = pFile->m_sName;
 			pHashset = pFile->GetED2K();
 			bDelete  = TRUE;
-			oLock.Unlock();
+			pLock.Unlock();
 		}
 		else
 		{
-			oLock.Unlock();
+			pLock.Unlock();
 			if ( CDownload* pDownload = Downloads.FindByED2K( oHash, TRUE ) )
 			{
 				if ( ( pHashset = pDownload->GetHashset() ) != NULL )
@@ -1760,8 +1751,8 @@ BOOL CEDClient::OnAskSharedDirs(CEDPacket* /*pPacket*/)
 {
 	if ( Settings.Community.ServeFiles )
 	{
-		CSingleLock oLock( &Library.m_pSection );
-		if ( oLock.Lock( 1000 ) )
+		CSingleLock pLock( &Library.m_pSection );
+		if ( SafeLock( pLock ) )
 		{
 			CList< CString > oFolderPath;
 			CList< CLibraryFolder* > oFolders;
@@ -1781,7 +1772,7 @@ BOOL CEDClient::OnAskSharedDirs(CEDPacket* /*pPacket*/)
 					oFolders.AddTail( pFolder->GetNextFolder( pos ) );
 				}
 			}
-			oLock.Unlock();
+			pLock.Unlock();
 
 			if ( CEDPacket* pReply = CEDPacket::New( ED2K_C2C_ASKSHAREDDIRSANSWER ) )
 			{
@@ -1815,8 +1806,8 @@ BOOL CEDClient::OnViewSharedDir(CEDPacket* pPacket)
 
 	if ( Settings.Community.ServeFiles )
 	{
-		CSingleLock oLock( &Library.m_pSection );
-		if ( oLock.Lock( 1000 ) )
+		CSingleLock pLock( &Library.m_pSection );
+		if ( SafeLock( pLock ) )
 		{
 			CLibraryFolder* pFolder = LibraryFolders.GetFolderByName( strDir );
 			if ( pFolder && pFolder->IsShared() )
@@ -1826,11 +1817,8 @@ BOOL CEDClient::OnViewSharedDir(CEDPacket* pPacket)
 				for ( POSITION pos = pFolder->GetFileIterator() ; pos ; )
 				{
 					CLibraryFile* pFile = pFolder->GetNextFile( pos );
-
-					if ( ! pFile->IsShared() )
-						continue;
-
-					nCount++;
+					if ( pFile->IsShared() )
+						nCount++;
 				}
 
 				if ( CEDPacket* pReply = CEDPacket::New( ED2K_C2C_VIEWSHAREDDIRANSWER ) )
@@ -1972,7 +1960,7 @@ BOOL CEDClient::OnViewSharedDir(CEDPacket* pPacket)
 					//		CEDTag( ED2K_FT_FILERATING, nRating ).Write( pReply );
 					//}
 
-					oLock.Unlock();
+					pLock.Unlock();
 
 					Send( pReply );
 
@@ -2095,7 +2083,7 @@ BOOL CEDClient::OnAskSharedDirsDenied(CEDPacket* /*pPacket*/)
 }
 
 //////////////////////////////////////////////////////////////////////
-// CEDClient file preview request
+// CEDClient file preview request (Always returns true?)
 
 BOOL CEDClient::OnRequestPreview(CEDPacket* pPacket)
 {
@@ -2107,60 +2095,77 @@ BOOL CEDClient::OnRequestPreview(CEDPacket* pPacket)
 	if ( Security.IsDenied( &m_pHost.sin_addr ) ||
 		 Security.IsClientBanned( m_sUserAgent ) )  // Extra security check
 	{
-		theApp.Message( MSG_ERROR, _T("ED2K upload to %s blocked by security rules."), m_sAddress);
+		theApp.Message( MSG_ERROR, _T("ED2K upload to %s blocked by security rules."), (LPCTSTR)m_sAddress);
+		return TRUE;
+	}
+
+	if ( ! Settings.Uploads.SharePreviews )
+	{
+		theApp.Message( MSG_INFO, _T("ED2K preview request by %s blocked by user Settings."), (LPCTSTR)m_sAddress);
+		return TRUE;
+	}
+
+	if ( ! Network.IsConnected() || ( ! Settings.eDonkey.Enabled && Settings.Connection.RequireForTransfers ) )
+	{
+		theApp.Message( MSG_INFO, _T("ED2K preview request by %s blocked by disabled network."), (LPCTSTR)m_sAddress);
 		return TRUE;
 	}
 
 	Hashes::Ed2kHash oHash;
 	pPacket->Read( oHash );
 
-	CSingleLock oLock( &Library.m_pSection );
-	if ( ! oLock.Lock( 1000 ) )
+	CSingleLock pLock( &Library.m_pSection );
+	if ( ! SafeLock( pLock ) )
 		return TRUE;
 
 	CLibraryFile* pFile = LibraryMaps.LookupFileByED2K( oHash, TRUE, TRUE );
 
-	// We own this file and previews are enabled
-	if ( pFile && Settings.Uploads.SharePreviews )
+	if ( ! pFile )
 	{
-		if ( ! Network.IsConnected() || ( ! Settings.eDonkey.Enabled && Settings.Connection.RequireForTransfers ) )
-			return TRUE;
-
-		CEDPacket* pReply = CEDPacket::New( ED2K_C2C_PREVIEWANWSER, ED2K_PROTOCOL_EMULE );
-		pReply->Write( oHash );
-
-		CImageFile pImage;
-		if ( CThumbCache::Cache( pFile->GetPath(), &pImage, Settings.Uploads.DynamicPreviews ) )
-		{
-			theApp.Message( MSG_INFO, IDS_UPLOAD_PREVIEW_DYNAMIC, (LPCTSTR)pFile->m_sName, (LPCTSTR)m_sAddress );
-		}
-		else
-		{
-			theApp.Message( MSG_ERROR, IDS_UPLOAD_PREVIEW_EMPTY, (LPCTSTR)m_sAddress, (LPCTSTR)pFile->m_sName );
-			Send( pReply );
-			return TRUE;	// Not an image packet
-		}
-
-		BYTE* pBuffer = NULL;
-		DWORD nImageSize = 0;
-		const int nFrames = 1;
-
-		if ( ! pImage.SaveToMemory( _T(".png"), Settings.Uploads.PreviewQuality, &pBuffer, &nImageSize ) )
-		{
-			theApp.Message( MSG_ERROR, IDS_UPLOAD_PREVIEW_EMPTY, (LPCTSTR)m_sAddress, (LPCTSTR)pFile->m_sName );
-			Send( pReply );
-			return TRUE;	// Not an image packet
-		}
-
-		pReply->Write( (LPCVOID)&nFrames, 1 );	// We send only 1 frame
-		pReply->WriteLongLE( nImageSize );
-		pReply->Write( (LPCVOID)pBuffer, nImageSize );
-		delete [] pBuffer;
-
-		// Send reply
-		Send( pReply );
-		theApp.Message( MSG_NOTICE, IDS_UPLOAD_PREVIEW_SEND, (LPCTSTR)pFile->m_sName, (LPCTSTR)m_sAddress );
+		theApp.Message( MSG_INFO, _T("ED2K preview request by %s file not found."), (LPCTSTR)m_sAddress);
+		return TRUE;
 	}
+
+	// We own this file and previews are enabled
+
+	CEDPacket* pReply = CEDPacket::New( ED2K_C2C_PREVIEWANWSER, ED2K_PROTOCOL_EMULE );
+	pReply->Write( oHash );
+
+	LPCTSTR pszName = pFile->m_sName;
+
+	CImageFile pImage;
+	if ( CThumbCache::Cache( pFile->GetPath(), &pImage, Settings.Uploads.DynamicPreviews ) )
+	{
+		theApp.Message( MSG_INFO, IDS_UPLOAD_PREVIEW_DYNAMIC, pszName, (LPCTSTR)m_sAddress );
+	}
+	else
+	{
+		theApp.Message( MSG_ERROR, IDS_UPLOAD_PREVIEW_EMPTY, (LPCTSTR)m_sAddress, pszName );
+		Send( pReply );
+		return TRUE;	// Not an image packet
+	}
+
+	pLock.Unlock();
+
+	BYTE* pBuffer = NULL;
+	DWORD nImageSize = 0;
+	const int nFrames = 1;
+
+	if ( ! pImage.SaveToMemory( _T(".png"), Settings.Uploads.PreviewQuality, &pBuffer, &nImageSize ) )
+	{
+		theApp.Message( MSG_ERROR, IDS_UPLOAD_PREVIEW_EMPTY, (LPCTSTR)m_sAddress, pszName );
+		Send( pReply );
+		return TRUE;	// Not an image packet
+	}
+
+	pReply->Write( (LPCVOID)&nFrames, 1 );	// We send only 1 frame
+	pReply->WriteLongLE( nImageSize );
+	pReply->Write( (LPCVOID)pBuffer, nImageSize );
+	delete [] pBuffer;
+
+	// Send reply
+	Send( pReply );
+	theApp.Message( MSG_NOTICE, IDS_UPLOAD_PREVIEW_SEND, pszName, (LPCTSTR)m_sAddress );
 
 	return TRUE;
 }
@@ -2222,10 +2227,11 @@ BOOL CEDClient::OnPreviewAnswer(CEDPacket* pPacket)
 		}
 		else
 		{
-			CSingleLock oLock( &Library.m_pSection );
-			if ( oLock.Lock( 1000 ) )
+			CSingleLock pLock( &Library.m_pSection );
+			if ( SafeLock( pLock ) )
 			{
 				CLibraryFile* pFile = LibraryMaps.LookupFileByED2K( oHash );
+				pLock.Unlock();
 				if ( pFile == NULL )	// Likely spam
 					Security.Ban( &m_pHost.sin_addr, banWeek, FALSE );
 			}
@@ -2429,8 +2435,8 @@ BOOL CEDClient::OnUdpReask(CEDPacket* pPacket)
 
 BOOL CEDClient::OnUdpReaskAck(CEDPacket* pPacket)
 {
-	if ( pPacket->GetRemaining() < 2 ) return FALSE;
-	if ( m_pDownloadTransfer == NULL ) return FALSE;
+	if ( ! m_pDownloadTransfer || pPacket->GetRemaining() < 2 )
+		return FALSE;
 
 	int nRank = pPacket->ReadShortLE();
 	m_pDownloadTransfer->SetQueueRank( nRank );
@@ -2440,19 +2446,22 @@ BOOL CEDClient::OnUdpReaskAck(CEDPacket* pPacket)
 
 BOOL CEDClient::OnUdpQueueFull(CEDPacket* /*pPacket*/)
 {
-	if ( m_pDownloadTransfer )
-	{
-		if ( CDownloadSource* pSource = GetSource() )
-			pSource->m_tAttempt = GetTickCount() + Settings.eDonkey.ReAskTime * 1000;
-		m_pDownloadTransfer->Close( TRI_UNKNOWN );
-	}
+	if ( ! m_pDownloadTransfer )
+		return FALSE;
+
+	if ( CDownloadSource* pSource = GetSource() )
+		pSource->m_tAttempt = GetTickCount() + Settings.eDonkey.ReAskTime * 1000;
+	m_pDownloadTransfer->Close( TRI_UNKNOWN );
 
 	return TRUE;
 }
 
 BOOL CEDClient::OnUdpFileNotFound(CEDPacket* /*pPacket*/)
 {
-	if ( m_pDownloadTransfer )
-		m_pDownloadTransfer->Close( TRI_FALSE );
+	if ( ! m_pDownloadTransfer )
+		return FALSE;
+
+	m_pDownloadTransfer->Close( TRI_FALSE );
+
 	return TRUE;
 }

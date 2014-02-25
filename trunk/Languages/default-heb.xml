@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hebrew Skin File -->
 
-<!-- Translation based on default-en.xml r102 -->
+<!-- Translation based on default-en.xml r104 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -619,8 +619,7 @@ gap i newline
 					<item id="ID_HELP_VERSION_CHECK" text="_בדוק אם קיימות גרסאות חדשות"/>
 					<!-- <item id="ID_HELP_DONATE" text="_תרום לפרוייקט שרזה"/>
 					<item id="ID_HELP_UPDATE" text="‪חדשות אחרונות"/>
-					<item id="ID_HELP_WEB_1" text="‪Zeropaid.com"/>
-					<item id="ID_HELP_WEB_2" text="‪P2PForums.com"/> -->
+					<item id="ID_HELP_WEB_1" text="‪Zeropaid.com"/> -->
 				</menu>
 				<item id="ID_HELP_HOMEPAGE" text="‪_אתר הבית של שרזה"/>
 				<separator/>
@@ -717,8 +716,7 @@ gap i newline
 				<item id="ID_HELP_FORUMS" text="_פורומים של שרזה"/>
 				<separator/>
 				<!-- <item id="ID_HELP_UPDATE" text="‪חדשות אחרונות"/>
-				<item id="ID_HELP_WEB_1" text="‪Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="‪P2PForums.com"/> -->
+				<item id="ID_HELP_WEB_1" text="‪Zeropaid.com"/> -->
 			</menu>
 			<separator/> <!--
 			<item id="ID_HELP_VERSION_CHECK" text="_בדוק אם קיימות גרסאות חדשות"/>
@@ -787,8 +785,7 @@ gap i newline
 				<item id="ID_HELP_FORUMS" text="_פורומים של שרזה"/>
 				<separator/>
 				<!-- <item id="ID_HELP_UPDATE" text="‪חדשות אחרונות"/>
-				<item id="ID_HELP_WEB_1" text="‪Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="‪P2PForums.com"/> -->
+				<item id="ID_HELP_WEB_1" text="‪Zeropaid.com"/> -->
 			</menu>
 			<separator/> <!--
 			<item id="ID_HELP_VERSION_CHECK" text="_בדוק אם קיימות גרסאות חדשות"/>
@@ -878,8 +875,7 @@ gap i newline
 				<item id="ID_HELP_FORUMS" text="‪_פורומים של שרזה"/>
 				<separator/>
 				<!-- <item id="ID_HELP_UPDATE" text="‪חדשות אחרונות"/>
-				<item id="ID_HELP_WEB_1" text="‪Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="‪P2PForums.com"/> -->
+				<item id="ID_HELP_WEB_1" text="‪Zeropaid.com"/> -->
 			</menu>
 			<separator/> <!--
 			<item id="ID_HELP_VERSION_CHECK" text="_בדוק אם קיימות גרסאות חדשות"/>
@@ -2908,8 +2904,8 @@ gap i newline
 	<string id="20874" value="‪URL כתובת:"/>
 	<string id="20875" value="‪לא מוגדר"/>
 	<string id="20880" value="‪ערוך את הפרופיל שלי"/>
-	<string id="20881" value="קבצים שנבחרו. האם אתה בטוח? %u"/>
-	<string id="20882" value="‪זמין URN אין"/>
+	<string id="20882" value="קבצים שנבחרו. האם אתה בטוח? %u"/>
+	<string id="20883" value="‪זמין URN אין"/>
 	<string id="20885" value="‪שינוי התצוגה יסגור את כל החלונות הפתוחים, אתה רוצה לשנות את התצוגה כעת?"/>
 	<string id="20886" value=" שינוי הכיוון של ממשק מחייב הפעלה מחדש. \n\n צא עכשיו? \n\n\nChanging interface direction requires restart.\n\nExit now?"/>
 	<string id="20890" value="‪ברוכים הבאים לשרזה"/>
@@ -3005,6 +3001,7 @@ gap i newline
 		<control caption="...בחר תוסף"/>
 		<control caption="Note: Choosing an external Media Handler will disable Media/Visualization Plugins."/>
 	</dialog>
+	<!--dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdmsStStEdmsCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStCoStEdStEd" caption="חדר שיחה"-->
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="קהילה">
 		<control caption="הפרופיל שלי"/>
 		<control caption=".‏‏ניתן להשתמש בפרופיל המשתמש שלך בגנוטלה לשיתוף מידע אודות עצמך כמו תחביבים והקבצים המועדפים שלך עם משתמשים אחרים"/>
@@ -3015,7 +3012,18 @@ gap i newline
 		<control caption="...סינון הודעות זבל"/>
 		<control caption="צינזור חומר פוגעני בצ'אט"/>
 	</dialog>
-	<!--dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdmsStStEdmsCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStCoStEdStEd" caption="חדר שיחה"-->
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="גישה מרחוק">
+		<control caption=":אפשר"/>
+		<control caption=".אפשר גישה מרחוק לשרזה"/>
+		<control/>
+		<control caption=":פרטי חשבון"/>
+		<control caption=":בחר שם משתמש"/>
+		<control caption=":בחר סיסמא"/>
+		<control/>
+		<control/>
+		<control caption=":מדריך"/>
+		<control caption="אפשרות השליטה מרחוק של שרזה מאפשרת לך להשאיר את שרזה פועלת על המחשב, ולשלוט בה מרחוק בעזרת דפדפן האינטרנט, יהיה עלייך לדאוג שתוכל לקבל התקשרויות נכנסות - ראוטר מוגדר וכדומה"/>
+	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="רשת">
 		<control caption=":צורת השימוש בלינקים לתקשורת ישירה"/>
 		<control caption=":השתמש בשרזה לפתיחת סוגי הלינקים הבאים"/>
@@ -3109,18 +3117,6 @@ gap i newline
 		<control caption="...ערוך"/>
 		<control caption="מחק"/>
 		<control caption="(השינויים משפיעים מייד)"/>
-	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="גישה מרחוק">
-		<control caption=":אפשר"/>
-		<control caption=".אפשר גישה מרחוק לשרזה"/>
-		<control/>
-		<control caption=":פרטי חשבון"/>
-		<control caption=":בחר שם משתמש"/>
-		<control caption=":בחר סיסמא"/>
-		<control/>
-		<control/>
-		<control caption=":מדריך"/>
-		<control caption="אפשרות השליטה מרחוק של שרזה מאפשרת לך להשאיר את שרזה פועלת על המחשב, ולשלוט בה מרחוק בעזרת דפדפן האינטרנט, יהיה עלייך לדאוג שתוכל לקבל התקשרויות נכנסות - ראוטר מוגדר וכדומה"/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="רשתות">
 		<control caption="שרזה היא תוכנת שיתוף לשימוש כללי שמסוגלת לגשת למספר רשתות שיתוף קבצים בו זמנית. כאן אתה יכול לבחור לאילו רשתות תרצה לגשת ולקבוע הגדרות ספציפיות לכל רשת"/>

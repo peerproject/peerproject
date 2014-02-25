@@ -1,7 +1,7 @@
 //
 // Scheduler.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -53,13 +53,11 @@ enum DayOfWeek
 
 class CScheduleTask
 {
-// Construction
 public:
 	CScheduleTask(BOOL bCreate = TRUE);
 	CScheduleTask(const CScheduleTask& pItem);
 	virtual ~CScheduleTask();
 
-// Attributes
 public:
 	unsigned int	m_nDays;			// Will have a combination of DayOfWeek
 	unsigned int	m_nAction;			// Will have one of ScheduleTask values plus 0 as invalid state indicator
@@ -73,7 +71,6 @@ public:
 	int				m_nLimitUp;			// Upstream bandwidth limit
 	GUID			m_pGUID;			// GUID for each scheduled item
 
-// Operations
 public:
 	CXMLElement*	ToXML();
 	BOOL			FromXML(CXMLElement* pXML);
@@ -87,12 +84,10 @@ public:
 
 class CScheduler
 {
-// Construction
 public:
 	CScheduler();
 	virtual ~CScheduler();
 
-// Attributes
 public:
 	static LPCTSTR					xmlns;
 
@@ -102,7 +97,6 @@ public:
 protected:
 	CList< CScheduleTask* >			m_pScheduleTasks;
 
-// Operations
 public:
 
 	// To iterate through m_pScheduleItems

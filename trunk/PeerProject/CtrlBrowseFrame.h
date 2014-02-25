@@ -1,7 +1,7 @@
 //
 // CtrlBrowseFrame.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -32,12 +32,10 @@ class CBrowseFrameCtrl : public CWnd
 {
 	DECLARE_DYNAMIC(CBrowseFrameCtrl)
 
-// Construction
 public:
 	CBrowseFrameCtrl();
 	virtual ~CBrowseFrameCtrl();
 
-// Attributes
 protected:
 	CCoolBarCtrl		m_wndTreeTop;
 	CBrowseTreeCtrl		m_wndTree;
@@ -51,7 +49,6 @@ protected:
 	int					m_nTree;
 	CG2Packet*			m_pTree[2];
 
-// Operations
 public:
 	void			Serialize(CArchive& ar, int /*nVersion*/);	// BROWSER_SER_VERSION
 	virtual BOOL	Create(CWnd* pParentWnd, CMatchCtrl* pMatch);
@@ -64,7 +61,6 @@ protected:
 	BOOL			DoSizePanel();
 	void			SelectTree(CBrowseTreeItem* pItem, CQueryHit* pHit);
 
-// Implementation
 protected:
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();

@@ -1,7 +1,7 @@
 //
 // EDClient.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -30,13 +30,11 @@ class CUploadTransferED2K;
 
 class CEDClient : public CTransfer
 {
-// Construction
 public:
 	CEDClient();
 protected:
 	virtual ~CEDClient();
 
-// Attributes
 public:
 	CEDClient*	m_pEdPrev;
 	CEDClient*	m_pEdNext;
@@ -92,7 +90,6 @@ public:
 	BOOL		m_bOpenChat;
 	BOOL		m_bCommentSent;
 
-// Operations
 public:
 	BOOL	ConnectTo(DWORD nClientID, WORD nClientPort, IN_ADDR* pServerAddress, WORD nServerPort, const Hashes::Guid& oGUID);
 	BOOL	Equals(CEDClient* pClient);

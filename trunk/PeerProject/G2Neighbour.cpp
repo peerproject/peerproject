@@ -1,7 +1,7 @@
 //
 // G2Neighbour.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -166,9 +166,9 @@ BOOL CG2Neighbour::OnRun()
 
 	// We are unsure in our UDP capabilities therefore
 	// we perform limited "two hop" ping ourself using this neighbour
-	if ( Network.IsListening() && Network.IsFirewalled(CHECK_UDP) &&
-		m_nCountRelayPingOut < 3 &&
-		tNow >= m_tLastRelayPingOut + Settings.Gnutella2.PingRate )
+	if ( m_nCountRelayPingOut < 3 &&
+		 tNow >= m_tLastRelayPingOut + Settings.Gnutella2.PingRate &&
+		 Network.IsListening() && Network.IsFirewalled(CHECK_UDP) )
 	{
 		CG2Packet* pPing = CG2Packet::New( G2_PACKET_PING, TRUE );
 		pPing->WritePacket( G2_PACKET_UDP, 6 );
@@ -506,20 +506,25 @@ BOOL CG2Neighbour::OnPing(CG2Packet* pPacket, BOOL bTCP)
 
 		CArray< CG2Neighbour* > pG2Nodes;
 
-		for ( POSITION pos = Neighbours.GetIterator() ; pos ; )
+		CSingleLock pLock( &Network.m_pSection );
+		if ( SafeLock( pLock ) )
 		{
-			CNeighbour* pNeighbour = Neighbours.GetNext( pos );
-			if ( pNeighbour->m_nProtocol == PROTOCOL_G2 )
+			for ( POSITION pos = Neighbours.GetIterator() ; pos ; )
 			{
-				CG2Neighbour* pNeighbour2 = static_cast< CG2Neighbour* >( pNeighbour );
-				if ( pNeighbour2->m_nState == nrsConnected &&
-					 pNeighbour2 != this &&
-					 ! pNeighbour2->m_bFirewalled &&
-					 tNow - pNeighbour2->m_tLastRelayedPingOut >= Settings.Gnutella2.PingRate )
+				CNeighbour* pNeighbour = Neighbours.GetNext( pos );
+				if ( pNeighbour->m_nProtocol == PROTOCOL_G2 )
 				{
-					pG2Nodes.Add( pNeighbour2 );
+					CG2Neighbour* pNeighbour2 = static_cast< CG2Neighbour* >( pNeighbour );
+					if ( pNeighbour2->m_nState == nrsConnected &&
+						 pNeighbour2 != this &&
+						 ! pNeighbour2->m_bFirewalled &&
+						 tNow - pNeighbour2->m_tLastRelayedPingOut >= Settings.Gnutella2.PingRate )
+					{
+						pG2Nodes.Add( pNeighbour2 );
+					}
 				}
 			}
+			pLock.Unlock();
 		}
 
 		INT_PTR nCount( pG2Nodes.GetCount() );
@@ -590,18 +595,23 @@ CG2Packet* CG2Neighbour::CreateLNIPacket(CG2Neighbour* pOwner)
 
 	WORD nLeafs = 0;
 
-	for ( POSITION pos = Neighbours.GetIterator() ; pos ; )
+	CSingleLock pLock( &Network.m_pSection );
+	if ( SafeLock( pLock ) )
 	{
-		CNeighbour* pNeighbour = Neighbours.GetNext( pos );
-
-		if ( pNeighbour != pOwner &&
-			pNeighbour->m_nState == nrsConnected &&
-			pNeighbour->m_nNodeType == ntLeaf )
+		for ( POSITION pos = Neighbours.GetIterator() ; pos ; )
 		{
-			nMyFiles  += pNeighbour->m_nFileCount;
-			nMyVolume += pNeighbour->m_nFileVolume;
-			nLeafs++;
+			CNeighbour* pNeighbour = Neighbours.GetNext( pos );
+
+			if ( pNeighbour != pOwner &&
+				 pNeighbour->m_nState == nrsConnected &&
+				 pNeighbour->m_nNodeType == ntLeaf )
+			{
+				nMyFiles  += pNeighbour->m_nFileCount;
+				nMyVolume += pNeighbour->m_nFileVolume;
+				nLeafs++;
+			}
 		}
+		pLock.Unlock();
 	}
 
 	pPacket->WritePacket( G2_PACKET_NODE_ADDRESS, 6 );
@@ -741,37 +751,42 @@ CG2Packet* CG2Neighbour::CreateKHLPacket(CG2Neighbour* pOwner)
 	const DWORD tNow = static_cast< DWORD >( time( NULL ) );
 	//BOOL bIsHub = ( ! Neighbours.IsG2Leaf() ) && ( Neighbours.IsG2Hub() || Neighbours.IsG2HubCapable() );
 
-	for ( POSITION pos = Neighbours.GetIterator() ; pos ; )
+	CSingleLock pLock( &Network.m_pSection );
+	if ( SafeLock( pLock ) )
 	{
-		CG2Neighbour* pNeighbour = (CG2Neighbour*)Neighbours.GetNext( pos );
-
-		if ( pNeighbour != pOwner &&
-			pNeighbour->m_nProtocol == PROTOCOL_G2 &&
-			pNeighbour->m_nState == nrsConnected &&
-			pNeighbour->m_nNodeType != ntLeaf &&
-			! Network.IsSelfIP( pNeighbour->m_pHost.sin_addr ) )
+		for ( POSITION pos = Neighbours.GetIterator() ; pos ; )
 		{
-			if ( pNeighbour->m_pVendor && pNeighbour->m_pVendor->m_sCode.GetLength() == 4 )
-			{
-				pPacket->WritePacket( G2_PACKET_NEIGHBOUR_HUB, 16 + 6, TRUE );	// 4
-				pPacket->WritePacket( G2_PACKET_HUB_STATUS, 4 );				// 4
-				pPacket->WriteShortBE( (WORD)pNeighbour->m_nLeafCount );		// 2
-				pPacket->WriteShortBE( (WORD)pNeighbour->m_nLeafLimit );		// 2
-				pPacket->WritePacket( G2_PACKET_VENDOR, 4 );					// 3
-				pPacket->WriteString( pNeighbour->m_pVendor->m_sCode );			// 5
-			}
-			else
-			{
-				pPacket->WritePacket( G2_PACKET_NEIGHBOUR_HUB, 9 + 6, TRUE );	// 4
-				pPacket->WritePacket( G2_PACKET_HUB_STATUS, 4 );				// 4
-				pPacket->WriteShortBE( (WORD)pNeighbour->m_nLeafCount );		// 2
-				pPacket->WriteShortBE( (WORD)pNeighbour->m_nLeafLimit );		// 2
-				pPacket->WriteByte( 0 );										// 1
-			}
+			CG2Neighbour* pNeighbour = (CG2Neighbour*)Neighbours.GetNext( pos );
 
-			pPacket->WriteLongLE( pNeighbour->m_pHost.sin_addr.S_un.S_addr );	// 4
-			pPacket->WriteShortBE( htons( pNeighbour->m_pHost.sin_port ) );		// 2
+			if ( pNeighbour != pOwner &&
+				 pNeighbour->m_nProtocol == PROTOCOL_G2 &&
+				 pNeighbour->m_nState == nrsConnected &&
+				 pNeighbour->m_nNodeType != ntLeaf &&
+				! Network.IsSelfIP( pNeighbour->m_pHost.sin_addr ) )
+			{
+				if ( pNeighbour->m_pVendor && pNeighbour->m_pVendor->m_sCode.GetLength() == 4 )
+				{
+					pPacket->WritePacket( G2_PACKET_NEIGHBOUR_HUB, 16 + 6, TRUE );	// 4
+					pPacket->WritePacket( G2_PACKET_HUB_STATUS, 4 );				// 4
+					pPacket->WriteShortBE( (WORD)pNeighbour->m_nLeafCount );		// 2
+					pPacket->WriteShortBE( (WORD)pNeighbour->m_nLeafLimit );		// 2
+					pPacket->WritePacket( G2_PACKET_VENDOR, 4 );					// 3
+					pPacket->WriteString( pNeighbour->m_pVendor->m_sCode );			// 5
+				}
+				else
+				{
+					pPacket->WritePacket( G2_PACKET_NEIGHBOUR_HUB, 9 + 6, TRUE );	// 4
+					pPacket->WritePacket( G2_PACKET_HUB_STATUS, 4 );				// 4
+					pPacket->WriteShortBE( (WORD)pNeighbour->m_nLeafCount );		// 2
+					pPacket->WriteShortBE( (WORD)pNeighbour->m_nLeafLimit );		// 2
+					pPacket->WriteByte( 0 );										// 1
+				}
+
+				pPacket->WriteLongLE( pNeighbour->m_pHost.sin_addr.S_un.S_addr );	// 4
+				pPacket->WriteShortBE( htons( pNeighbour->m_pHost.sin_port ) );		// 2
+			}
 		}
+		pLock.Unlock();
 	}
 
 	pPacket->WritePacket( G2_PACKET_TIMESTAMP, 4 );
@@ -1017,15 +1032,19 @@ void CG2Neighbour::SendHAW()
 	Hashes::Guid oGUID;
 	Network.CreateID( oGUID );
 
-	for ( POSITION pos = Neighbours.GetIterator() ; pos ; )
+	CSingleLock pLock( &Network.m_pSection );
+	if ( SafeLock( pLock ) )
 	{
-		CNeighbour* pNeighbour = Neighbours.GetNext( pos );
-
-		if ( pNeighbour != this &&
-			 pNeighbour->m_nState == nrsConnected &&
-			 pNeighbour->m_nNodeType == ntLeaf )
+		for ( POSITION pos = Neighbours.GetIterator() ; pos ; )
 		{
-			nLeafs++;
+			CNeighbour* pNeighbour = Neighbours.GetNext( pos );
+
+			if ( pNeighbour != this &&
+				 pNeighbour->m_nState == nrsConnected &&
+				 pNeighbour->m_nNodeType == ntLeaf )
+			{
+				nLeafs++;
+			}
 		}
 	}
 

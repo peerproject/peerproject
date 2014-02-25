@@ -30,12 +30,10 @@ class CBaseMatchWnd : public CPanelWnd
 {
 	DECLARE_DYNCREATE(CBaseMatchWnd)
 
-// Construction
 public:
 	CBaseMatchWnd();
 	virtual ~CBaseMatchWnd();
 
-// Attributes
 public:
 	CMatchCtrl		m_wndList;
 	CCoolBarCtrl	m_wndToolBar;
@@ -52,7 +50,6 @@ protected:
 	DWORD			m_nCacheFiles;
 	DWORD			m_tModify;			// Last modify time (0 if not modified)
 
-// Operations
 public:
 	void			Serialize(CArchive& ar);
 
@@ -72,12 +69,12 @@ public:
 	virtual void	UpdateMessages(BOOL bActive = TRUE);
 	virtual HRESULT	GetGenericView(IGenericView** ppView);
 
-// Implementation
 protected:
 	virtual void	OnSkinChange();
 
 	void			OnDownload(BOOL bAddToHead = FALSE);
 
+protected:
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
 	afx_msg void OnSize(UINT nType, int cx, int cy);

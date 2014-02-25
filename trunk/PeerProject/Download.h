@@ -1,7 +1,7 @@
 //
 // Download.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -18,7 +18,7 @@
 
 #pragma once
 
-#define DOWNLOAD_SER_VERSION	1000	// 42+
+#define DOWNLOAD_SER_VERSION	1000	// 42+	(ToDo: Use INTERNAL_VERSION?)
 // nVersion History:
 // 30 - Shareaza 2.0 (2004)
 // 33 - added m_sSearchKeyword to CDownloadBase (CyberBob)
@@ -37,12 +37,10 @@
 
 class CDownload : public CDownloadWithExtras
 {
-// Construction
 public:
 	CDownload();
 	virtual ~CDownload();
 
-// Attributes
 public:
 	DWORD		m_nSerID;
 	BOOL		m_bExpanded;
@@ -61,7 +59,6 @@ private:
 	DWORD		m_tBegan;				// Time when this download began trying to download (Started searching, etc). 0 means not tried this session.
 	DWORD		m_tSaved;
 
-// Operations
 public:
 	void		Pause(BOOL bRealPause = TRUE);
 	void		Resume();
@@ -93,7 +90,6 @@ private:
 	void		OnMoved();
 //	void		SerializeOld(CArchive& ar, int nVersion);	// Legacy DOWNLOAD_SER_VERSION < 11 (2002), for reference only
 
-// Overrides
 public:
 	virtual bool IsPaused(bool bRealState = false) const;
 	virtual bool IsCompleted() const;

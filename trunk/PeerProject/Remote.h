@@ -1,7 +1,7 @@
 //
 // Remote.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -26,12 +26,10 @@ class CMatchFile;
 
 class CRemote : public CTransfer
 {
-// Construction
 public:
 	CRemote(CConnection* pConnection);
 	~CRemote();
 
-// Attributes
 protected:
 	CString				m_sHandshake;
 	CString				m_sRedirect;
@@ -41,7 +39,6 @@ protected:
 	CMap< CString, const CString&, CString, const CString& >	m_pKeys;
 	static CList<int>	m_pCookies;
 
-// Operations
 public:
 	virtual BOOL	OnRun();
 	virtual void	OnDropped();

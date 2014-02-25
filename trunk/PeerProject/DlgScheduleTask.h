@@ -1,7 +1,7 @@
 //
 // DlgScheduleItem.h
 //
-// This file is part of PeerProject (peerproject.org) © 2010
+// This file is part of PeerProject (peerproject.org) © 2010,2014
 // Portions copyright Shareaza Development Team, 2010.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -19,7 +19,7 @@
 #pragma once
 
 #include "DlgSkinDialog.h"
-//#include <afxdtctl.h>		// MFC date & time controls
+//#include <afxdtctl.h>		// MFC date/time controls
 
 class CScheduleTask;
 
@@ -29,7 +29,6 @@ class CScheduleTask;
 
 class CScheduleTaskDlg : public CSkinDialog
 {
-// Construction
 public:
 	CScheduleTaskDlg(CWnd* pParent = NULL, CScheduleTask* pSchTask = NULL);
 	virtual ~CScheduleTaskDlg();

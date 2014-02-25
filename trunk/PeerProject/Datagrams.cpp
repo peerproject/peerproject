@@ -430,8 +430,10 @@ BOOL CDatagrams::TryWrite()
 				nUsed += *pHistory;
 		}
 
-		nLimit = Settings.Connection.OutSpeed * 128;
-		if ( Settings.Bandwidth.UdpOut != 0 ) nLimit = Settings.Bandwidth.UdpOut;
+		if ( Settings.Bandwidth.UdpOut )
+			nLimit = Settings.Bandwidth.UdpOut;
+		else
+			nLimit = Settings.Connection.OutSpeed * 128;
 
 		if ( Settings.Live.BandwidthScaleOut < 100 )
 			nLimit = nLimit * Settings.Live.BandwidthScaleOut / 100;

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default French Skin File -->
 
-<!-- Translation based on default-en.xml r102 -->
+<!-- Translation based on default-en.xml r104 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -612,7 +612,6 @@
 				<menu text="_Sites Web">
 					<item id="ID_HELP_WEB_3" text="Slyck.com"/>
 					<item id="ID_HELP_WEB_1" text="ZeroPaid.com"/>
-					<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
 				</menu>
 			-->
 				<item id="ID_HELP_HOMEPAGE" text="PeerProject.org"/>
@@ -720,8 +719,7 @@
 				<item id="ID_HELP_FORUMS" text="_Forums de PeerProject"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_Forum de Français"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Dernières nouvelles"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/> <!--
 			<item id="ID_HELP_VERSION_CHECK" text="_Rechercher des mises à jour"/>
@@ -889,8 +887,7 @@
 				<item id="ID_HELP_FORUMS" text="_Forums de PeerProject"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_Forum de Français"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Dernières nouvelles"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/> <!--
 			<item id="ID_HELP_VERSION_CHECK" text="_Rechercher des mises à jour"/>
@@ -3415,9 +3412,9 @@
 	<string id="20874" value="URL :"/>
 	<string id="20875" value="Non spécifié"/>
 	<string id="20880" value="Éditer mon profil"/>
-	<string id="20881" value="%u Fichiers sélectionnés. Etes-vous sûr ?"/>
-	<string id="20882" value="Pas d'URN disponible"/>
-	<string id="20883" value="Le service UPnP n'est pas actif sur votre ordinateur.\nVeuillez régler le service pour qu'il démarre automatiquement (Windows Service Startup type)."/>
+	<string id="20882" value="%u Fichiers sélectionnés. Etes-vous sûr ?"/>
+	<string id="20883" value="Pas d'URN disponible"/>
+	<string id="20884" value="Le service UPnP n'est pas actif sur votre ordinateur.\nVeuillez régler le service pour qu'il démarre automatiquement (Windows Service Startup type)."/>
 	<string id="20885" value="Changer de vue fermera toutes les fenêtres ouvertes actuellement. Voulez-vous changer la vue maintenant ?"/>
 	<string id="20886" value="Changer la direction de l'interface exige un redémarrage.\n\nQuitter maintenant ?"/>
 	<string id="20890" value="PeerProject vous souhaite la bienvenue."/>
@@ -3520,17 +3517,7 @@
 		<control caption="_Sélectionner un Plugin..."/>
 		<control caption="Attention : L'utilisation d'un logiciel externe pour jouer les fichiers MultiMédia désactivera les extensions multimédia de PeerProject."/>
 	</dialog>
-	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Communauté">
-		<control caption="Mon _Profil :"/>
-		<control caption="Utiliser votre Profil Utilisateur Gnutella afin de vous faire connaître des autres utilisateurs, partager vos centres d'intérêt, vos fichiers recommandés, etc."/>
-		<control caption="Éditer Mon Profil"/>
-		<control caption="_Discussion :"/>
-		<control caption="Activer la discussion avec les clients P2P compatibles"/>
-		<control caption="Activer la discussion sur tous les réseaux"/>
-		<control caption="Filtrer le spam sur les messages de discussion"/>
-		<control caption="Censurer les grossièretés dans les discussions"/>
-	</dialog>
-		<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdmsStStEdmsCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStCoStEdStEd" caption="IRC">
+	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdmsStStEdmsCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStCoStEdStEd" caption="IRC">
 		<control caption="_Options du client :"/>
 		<control caption="Afficher l'horodateur"/>
 		<control caption="Montrer l'intégration IRC"/>
@@ -3573,6 +3560,28 @@
 		<control/>
 		<control caption="Commande exécuter dans le cadre"/>
 		<control/>
+	</dialog>
+	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Communauté">
+		<control caption="Mon _Profil :"/>
+		<control caption="Utiliser votre Profil Utilisateur Gnutella afin de vous faire connaître des autres utilisateurs, partager vos centres d'intérêt, vos fichiers recommandés, etc."/>
+		<control caption="Éditer Mon Profil"/>
+		<control caption="_Discussion :"/>
+		<control caption="Activer la discussion avec les clients P2P compatibles"/>
+		<control caption="Activer la discussion sur tous les réseaux"/>
+		<control caption="Filtrer le spam sur les messages de discussion"/>
+		<control caption="Censurer les grossièretés dans les discussions"/>
+	</dialog>
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Accès à distance">
+		<control caption="Activ_er :"/>
+		<control caption="Activer l'accès à distance PeerProject :"/>
+		<control caption="..."/>
+		<control caption="Compte utilisateur :"/>
+		<control caption="Nom d'utilisateur :"/>
+		<control caption="Mot de passe :"/>
+		<control/>
+		<control/>
+		<control caption="Aide:"/>
+		<control caption="L'accès à distance vous permet de laisser PeerProject en exécution sur votre PC, et de contrôler PeerProject à distance depuis n'importe quel autre ordinateur en utilisant un navigateur Internet. Vous devez pouvoir accepter les connexions entrantes (routeur, pare-feu, etc. correctement configurés)."/>
 	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
 		<control caption="_Prise en charge des liens P2P (URI) :"/>
@@ -3660,25 +3669,13 @@
 		<control caption="Limite :"/>
 		<control/>
 		<control caption="Mode :"/>
-		<control caption="Maximum|Moyenne"/>
+		<control caption="Moyenne|Maximum/Strict"/>
 		<control caption="_Files d'attentes :"/>
 		<control/>
 		<control caption="_Nouveau"/>
 		<control caption="_Éditer..."/>
 		<control caption="Supprimer"/>
 		<control caption="(Effet immédiat)"/>
-	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Accès à distance">
-		<control caption="Activ_er :"/>
-		<control caption="Activer l'accès à distance PeerProject :"/>
-		<control caption="..."/>
-		<control caption="Compte utilisateur :"/>
-		<control caption="Nom d'utilisateur :"/>
-		<control caption="Mot de passe :"/>
-		<control/>
-		<control/>
-		<control caption="Aide:"/>
-		<control caption="L'accès à distance vous permet de laisser PeerProject en exécution sur votre PC, et de contrôler PeerProject à distance depuis n'importe quel autre ordinateur en utilisant un navigateur Internet. Vous devez pouvoir accepter les connexions entrantes (routeur, pare-feu, etc. correctement configurés)."/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="Réseaux">
 		<control caption="PeerProject est un client P2P multi-réseaux. Il peut se connecter à plusieurs réseaux en même temps. Sur cette page, vous pouvez sélectionner à quels réseaux vous souhaitez vous connecter, puis paramétrer des réglages spécifiques pour chacun."/>

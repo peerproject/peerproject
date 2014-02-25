@@ -1351,38 +1351,8 @@ CXMLElement* CAlbumFolder::CreateXML() const
 			}
 		}
 
-	//	CXMLElement* pFileRoot = pContents->AddElement( _T("file") );
-	//
-	//	if ( pFile->m_oSHA1 && pFile->m_oTiger )
-	//		pFileRoot->AddElement( _T("id") )->SetValue(
-	//			_T("urn:bitprint:") + pFile->m_oSHA1.toString() + '.' + pFile->m_oTiger.toString() );
-	//	else if ( pFile->m_oSHA1 )
-	//		pFileRoot->AddElement( _T("id") )->SetValue( pFile->m_oSHA1.toUrn() );
-	//	else if ( pFile->m_oTiger )
-	//		pFileRoot->AddElement( _T("id") )->SetValue( pFile->m_oTiger.toUrn() );
-	//
-	//	if ( pFile->m_oMD5 )
-	//		pFileRoot->AddElement( _T("id") )->SetValue( pFile->m_oMD5.toUrn() );
-	//
-	//	if ( pFile->m_oED2K )
-	//		pFileRoot->AddElement( _T("id") )->SetValue( pFile->m_oED2K.toUrn() );
-	//
-	//	if ( pFile->m_oBTH )
-	//		pFileRoot->AddElement( _T("id") )->SetValue( pFile->m_oBTH.toUrn() );
-	//
-	//	CXMLElement* pDescription = pFileRoot->AddElement( _T("description") );
-	//	pDescription->AddElement( _T("name") )->SetValue( pFile->m_sName );
-	//
-	//	CString str;
-	//	str.Format( _T("%I64u"), pFile->GetSize() );
-	//	pDescription->AddElement( _T("size") )->SetValue( str );
-	//
-	//	if ( bMetadataAll && pFile->m_pMetadata && pFile->m_pSchema )
-	//	{
-	//		CXMLElement* pMetadata = pFileRoot->AddElement( _T("metadata") );
-	//		pMetadata->AddAttribute( _T("xmlns:s"), pFile->m_pSchema->GetURI() );
-	//		pMetadata->AddElement( CopyMetadata( pFile->m_pMetadata ) );
-	//	}
+		// Moved to SharedFile CreateXML:
+		//CXMLElement* pFileRoot = pContents->AddElement( _T("file") );
 	}
 
 	return pRoot;

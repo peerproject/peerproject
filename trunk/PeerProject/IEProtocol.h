@@ -1,7 +1,7 @@
 //
 // IEProtocol.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -29,24 +29,20 @@ class CIEProtocol : public CComObject
 {
 	DECLARE_DYNAMIC(CIEProtocol)
 
-// Construction
 public:
 	CIEProtocol();
 	virtual ~CIEProtocol();
 
-// Operations
 public:
 	BOOL		Create();
 	void		Close();
 	HRESULT		OnRequest(LPCTSTR pszURL, CBuffer& oBuffer, CString& sMimeType, BOOL bParseOnly);
 
-// Attributes
 protected:
 	static LPCWSTR					pszProtocols[];
 	CCriticalSection				m_pSection;
 	CComQIPtr< IInternetSession >	m_pSession;
 
-// Implementation
 protected:
 	// Loads file from zip-collection or simple collection itself
 	// p2p-col:[//]{URN|SHA1}/{relative path inside zip}
@@ -79,18 +75,15 @@ class CIEProtocolRequest : public CComObject
 {
 	DECLARE_DYNAMIC(CIEProtocolRequest)
 
-// Construction
 public:
 	CIEProtocolRequest();
 	virtual ~CIEProtocolRequest();
 
-// Attributes
 protected:
 	CComPtr<IInternetProtocolSink>	m_pSink;
 	CString							m_strMimeType;	// Data MIME type
 	CBuffer							m_oBuffer;		// Requested data
 
-// Implementation
 protected:
 	HRESULT		OnStart(LPCTSTR pszURL, IInternetProtocolSink* pSink, IInternetBindInfo* pBindInfo, DWORD dwFlags);
 	HRESULT		OnRead(void* pv, ULONG cb, ULONG* pcbRead);

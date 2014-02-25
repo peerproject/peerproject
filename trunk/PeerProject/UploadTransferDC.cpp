@@ -1,7 +1,7 @@
 //
 // UploadTransferDC.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2010-2012
+// This file is part of PeerProject (peerproject.org) © 2010-2014
 // Portions copyright Shareaza Development Team, 2010.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -259,8 +259,8 @@ BOOL CUploadTransferDC::OnUpload(const std::string& strType, const std::string& 
 			Hashes::TigerHash oTiger;
 			if ( oTiger.fromString( CA2W( strFilename.substr( 4 ).c_str() ) ) )
 			{
-				CSingleLock oLock( &Library.m_pSection );
-				if ( oLock.Lock( 1000 ) )
+				CSingleLock pLock( &Library.m_pSection );
+				if ( SafeLock( pLock ) )
 				{
 					if ( CLibraryFile* pFile = LibraryMaps.LookupFileByTiger( oTiger, TRUE, TRUE ) )
 					{
@@ -285,8 +285,8 @@ BOOL CUploadTransferDC::OnUpload(const std::string& strType, const std::string& 
 			Hashes::TigerHash oTiger;
 			if ( oTiger.fromString( CA2W( strFilename.substr( 4 ).c_str() ) ) )
 			{
-				CSingleLock oLock( &Library.m_pSection );
-				if ( oLock.Lock( 1000 ) )
+				CSingleLock pLock( &Library.m_pSection );
+				if ( SafeLock( pLock ) )
 				{
 					if ( CLibraryFile* pFile = LibraryMaps.LookupFileByTiger( oTiger, TRUE, TRUE ) )
 					{

@@ -24,18 +24,15 @@
 
 class CBitprintDownloadDlg : public CSkinDialog
 {
-// Construction
 public:
 	CBitprintDownloadDlg(CWnd* pParent = NULL);
 
 	enum { IDD = IDD_BITPRINT_DOWNLOAD };
 
-// Attributes
 protected:
 	CBitprintDownloader	m_pDownloader;
 	DWORD	m_nFailures;
 
-// Operations
 public:
 	void	AddFile(DWORD nIndex);
 	void	OnNextFile(DWORD nIndex);

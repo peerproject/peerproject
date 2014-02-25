@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Traditional) Skin File -->
 
-<!-- Translation based on default-en.xml r102 --> <!-- (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r104 --> <!-- (Shareaza 2.2.2.12) -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -575,8 +575,7 @@
 					<item id="ID_HELP_FORUMS" text="PeerProject 討論區"/>
 					<item id="ID_HELP_UPDATE" text="最新消息"/>
 					<!-- <separator/>
-					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-					<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 				</menu>
 				<item id="ID_HELP_HOMEPAGE" text="PeerProject site"/>
 				<separator/>
@@ -669,8 +668,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject 討論區"/>
 				<item id="ID_HELP_UPDATE" text="最新消息"/>
-				<!-- <item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<!-- <item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="關於 PeerProject..."/>
@@ -734,8 +732,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject 討論區"/>
 				<item id="ID_HELP_UPDATE" text="最新消息"/>
-				<!-- <item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<!-- <item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="關於 PeerProject..."/>
@@ -820,8 +817,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject 討論區"/>
 				<item id="ID_HELP_UPDATE" text="最新消息"/>
-				<!-- <item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<!-- <item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="關於 PeerProject..."/>
@@ -3142,9 +3138,9 @@
 	<string id="20874" value="URL:"/>
 	<string id="20875" value="沒有特別指定"/>
 	<string id="20880" value="編輯我的個人檔案"/>
-	<string id="20881" value="%u 張影像選擇。你肯定嗎？"/>
-	<string id="20882" value="沒有可用的 URN"/>
-	<string id="20883" value="UPnP Device Host 服务未运行.请重新设置该服务.\n您需要将该服务的启动类型设置为&quot;自动&quot;."/>
+	<string id="20882" value="%u 張影像選擇。你肯定嗎？"/>
+	<string id="20883" value="沒有可用的 URN"/>
+	<string id="20884" value="UPnP Device Host 服务未运行.请重新设置该服务.\n您需要将该服务的启动类型设置为&quot;自动&quot;."/>
 	<string id="20885" value="切換檢視方式將關閉任何已開啟的視窗. 您確定要切換嗎?"/>
 	<string id="20886" value="改變介面顯示方向需要重新啟動 PeerProject.\n\n現在要離開嗎?"/>
 	<string id="20890" value="歡迎使用 PeerProject"/>
@@ -3248,6 +3244,7 @@
 		<control caption="選擇外掛..."/>
 		<control caption="警告: 选择一个额外的媒体滤镜将自动禁用所有的媒体和可视化插件."/>
 	</dialog>
+	<!--Missing dialog name="CIRCSettingsPage"-->
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="社群">
 		<control caption="我的個人檔案:"/>
 		<control caption="您能夠使用 Gnutella 使用者個人檔案來分享關於自己的資料, 興趣與推薦的檔案以及網站."/>
@@ -3258,7 +3255,18 @@
 		<control caption="過濾垃圾訊息"/>
 		<control caption="聊天時過濾不雅字眼"/>
 	</dialog>
-	<!--Missing dialog name="CIRCSettingsPage"-->
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="遠端操控">
+		<control caption="啟用:"/>
+		<control caption="啟用 PeerProject 遠端操控:"/>
+		<control/>
+		<control caption="憑證:"/>
+		<control caption="選擇一個使用者名稱:"/>
+		<control caption="選擇一個密碼:"/>
+		<control/>
+		<control/>
+		<control caption="說明:"/>
+		<control caption="PeerProject 在您的電腦上運作時, 您可以從遠端使用瀏覽器操控它. 您的電腦必須能夠啟用輸入連線以使用這個功能(例: 正確設定的路由器...等等)."/>
+	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="網際網路">
 		<control caption="P2P 連結處理:"/>
 		<control caption="使用 PeerProject 開啟下列類型的連結:"/>
@@ -3345,25 +3353,13 @@
 		<control caption="上限:"/>
 		<control/>
 		<control caption="模式:"/>
-		<control caption="最大|平均"/>
+		<control caption="平均|最大 (嚴格)"/>
 		<control caption="排隊隊伍規則:"/>
 		<control/>
 		<control caption="新增..."/>
 		<control caption="編輯..."/>
 		<control caption="刪除"/>
 		<control caption="(變更即刻生效!)"/>
-	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="遠端操控">
-		<control caption="啟用:"/>
-		<control caption="啟用 PeerProject 遠端操控:"/>
-		<control/>
-		<control caption="憑證:"/>
-		<control caption="選擇一個使用者名稱:"/>
-		<control caption="選擇一個密碼:"/>
-		<control/>
-		<control/>
-		<control caption="說明:"/>
-		<control caption="PeerProject 在您的電腦上運作時, 您可以從遠端使用瀏覽器操控它. 您的電腦必須能夠啟用輸入連線以使用這個功能(例: 正確設定的路由器...等等)."/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="網路">
 		<control caption="PeerProject 為萬用檔案分享軟體, 可同時連線到多個 P2P 網路. 本頁可以選擇您要連線的 P2P 網路, 以及每個網路的專用設定."/>

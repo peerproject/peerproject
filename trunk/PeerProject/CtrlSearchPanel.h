@@ -1,7 +1,7 @@
 //
 // CtrlSearchPanel.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -25,16 +25,15 @@
 #include "CtrlIconButton.h"
 #include "ManagedSearch.h"
 
+
 class CSearchInputBox : public CTaskBox
 {
 	DECLARE_DYNAMIC(CSearchInputBox)
 
-// Construction
 public:
 	CSearchInputBox();
 	virtual ~CSearchInputBox();
 
-// Attributes
 public:
 	CAutocompleteEdit m_wndSearch;
 	CSchemaCombo	m_wndSchemas;
@@ -42,13 +41,10 @@ public:
 	CIconButtonCtrl	m_wndStop;
 	CIconButtonCtrl	m_wndPrefix;
 
-// Operations
 public:
 	void	OnSkinChange();
 
-// Implementation
 protected:
-	//{{AFX_MSG(CSearchInputBox)
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnPaint();
@@ -63,21 +59,19 @@ protected:
 	afx_msg void OnSearchPrefixED2K();
 	afx_msg void OnSearchPrefixBTH();
 	afx_msg void OnSearchPrefixMD5();
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };
+
 
 class CSearchAdvancedBox : public CTaskBox
 {
 	DECLARE_DYNAMIC(CSearchAdvancedBox)
 
-// Construction
 public:
 	CSearchAdvancedBox();
 	virtual ~CSearchAdvancedBox();
 
-// Attributes
 public:
 	CStatic		m_wndSizeMinMax;
 	CComboBox	m_wndSizeMin;
@@ -90,13 +84,10 @@ public:
 	COLORREF	m_crBack;
 	CImageList	m_gdiProtocols;
 
-// Operations
 public:
 	void		OnSkinChange();
 
-// Implementation
 protected:
-	//{{AFX_MSG(CSearchAdvancedBox)
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnPaint();
@@ -105,30 +96,25 @@ protected:
 	afx_msg void OnED2KClicked();
 	afx_msg void OnDCClicked();
 	afx_msg LRESULT OnCtlColorStatic(WPARAM, LPARAM);
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };
+
 
 class CSearchSchemaBox : public CTaskBox
 {
 	DECLARE_DYNAMIC(CSearchSchemaBox)
 
-// Construction
 public:
 	CSearchSchemaBox();
 	virtual ~CSearchSchemaBox();
 
-// Attributes
 public:
-	CSchemaCtrl		m_wndSchema;
+	CSchemaCtrl	m_wndSchema;
 
-// Implementation
 protected:
-	//{{AFX_MSG(CSearchSchemaBox)
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnSize(UINT nType, int cx, int cy);
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };
@@ -138,12 +124,10 @@ class CSearchResultsBox : public CTaskBox
 {
 	DECLARE_DYNAMIC(CSearchResultsBox)
 
-// Construction
 public:
 	CSearchResultsBox();
 	virtual ~CSearchResultsBox();
 
-// Attributes
 public:
 	BOOL	m_bActive;
 	DWORD	m_nHubs;
@@ -152,19 +136,16 @@ public:
 	DWORD	m_nHits;
 	DWORD	m_nBadHits;
 
-// Operations
 public:
 	void	Update(BOOL bSearching, DWORD nHubs, DWORD nLeaves, DWORD nFiles, DWORD nHits, DWORD nBadHits);
+
 protected:
-	static void DrawText(CDC* pDC, int nX, int nY, UINT nFlags, LPCTSTR pszText);
+	static void  DrawText(CDC* pDC, int nX, int nY, UINT nFlags, LPCTSTR pszText);
 
 	virtual void OnExpanded(BOOL bOpen);
 
-// Implementation
 protected:
-	//{{AFX_MSG(CSearchResultsBox)
 	afx_msg void OnPaint();
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };
@@ -174,11 +155,9 @@ class CSearchPanel : public CTaskPanel
 {
 	DECLARE_DYNAMIC(CSearchPanel)
 
-// Construction
 public:
 	CSearchPanel();
 
-// Attributes
 public:
 	BOOL				m_bSendSearch;
 	CSearchInputBox		m_boxSearch;
@@ -187,7 +166,6 @@ public:
 	CSearchResultsBox	m_boxResults;
 	BOOL				m_bAdvanced;
 
-// Operations
 public:
 	CSearchPtr	GetSearch();
 	void		SetSearchFocus();
@@ -199,18 +177,12 @@ public:
 	void		Enable();
 	void		Disable();
 
-// Overrides
 public:
-	//{{AFX_VIRTUAL(CSearchPanel)
 	virtual BOOL Create(CWnd* pParentWnd);
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
-	//}}AFX_VIRTUAL
 
-// Implementation
 protected:
-	//{{AFX_MSG(CSearchPanel)
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
-	//}}AFX_MSG
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 
 	DECLARE_MESSAGE_MAP()
 };

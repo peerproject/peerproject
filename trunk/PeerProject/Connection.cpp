@@ -99,9 +99,6 @@ void CConnection::AttachTo(CConnection* pConnection)
 		m_nProtocol		= pConnection->m_nProtocol;
 	m_nDelayCloseReason	= pConnection->m_nDelayCloseReason;
 
-	// Record the current time in the input and output TCP bandwidth meters
-	m_mInput.tLast = m_mOutput.tLast = GetTickCount();
-
 	// Invalidate the socket in the given connection object so it's just here now
 	pConnection->m_hSocket	= INVALID_SOCKET;
 
@@ -112,6 +109,9 @@ void CConnection::AttachTo(CConnection* pConnection)
 	// Zero the memory of the input and output TCPBandwidthMeter objects
 	ZeroMemory( &pConnection->m_mInput, sizeof( m_mInput ) );
 	ZeroMemory( &pConnection->m_mOutput, sizeof( m_mOutput ) );
+
+	// Record the current time in the input and output TCP bandwidth meters
+	m_mInput.tLast = m_mOutput.tLast = GetTickCount();
 }
 
 // Delete this CConnection object
@@ -491,7 +491,7 @@ BOOL CConnection::OnRead()
 		&& Settings.Live.BandwidthScaleIn <= 100 )	// And the bandwidth scale isn't at MAX
 	{
 		// Work out what the bandwidth limit is
-		nLimit = m_mInput.CalculateLimit( tNow );
+		nLimit = m_mInput.CalculateLimit( tNow, Settings.Live.BandwidthScaleIn );
 	}
 
 	// Read from the socket and record the # bytes read
@@ -533,7 +533,7 @@ BOOL CConnection::OnWrite()
 		&& Settings.Live.BandwidthScaleOut < 100 )	// And the bandwidth scale isn't at MAX
 	{
 		// Work out what the bandwidth limit is
-		nLimit = m_mOutput.CalculateLimit( tNow, true, Settings.Uploads.ThrottleMode == 0 );
+		nLimit = m_mOutput.CalculateLimit( tNow, Settings.Live.BandwidthScaleOut, Settings.Uploads.ThrottleMode );
 	}
 
 	// Read from the socket and record the # bytes sent
@@ -775,25 +775,26 @@ void CConnection::SendHTML(UINT nResourceID)
 // TCPBandwidthMeter Utility routines
 
 // Calculate the number of bytes available for use
-DWORD CConnection::TCPBandwidthMeter::CalculateLimit(DWORD tNow, bool bOut, bool bMaxMode ) const
+DWORD CConnection::TCPBandwidthMeter::CalculateLimit(DWORD tNow, DWORD nBandwidthScale, bool bMaxMode /*false*/ ) const
 {
 	DWORD tCutoff = tNow - METER_SECOND;			// Time period for bytes
 	if ( bMaxMode )
-		tCutoff += METER_MINIMUM;					// Adjust time period for Max mode
+		tCutoff += METER_MINIMUM;					// Adjust time period for Maximum mode limit (Default is Average)
 	DWORD nData = CalculateUsage( tCutoff, true );	// #bytes in the time period
 
 	// nLimit is the speed limit (bytes/second)
 	DWORD nLimit = *pLimit;							// Get the speed limit
-	if ( bOut && Settings.Live.BandwidthScaleOut < 100 )
-		nLimit = nLimit * Settings.Live.BandwidthScaleOut / 100;	// Adjust limit based on the scale percentage
-	else if ( ! bOut && Settings.Live.BandwidthScaleIn < 100 )		// The scale is turned down and we should use it
-		nLimit = nLimit * Settings.Live.BandwidthScaleIn / 100;		// Adjust limit based on the scale percentage
+
+	if ( nBandwidthScale < 100 )					// The scale is turned down and we should use it
+		nLimit = nLimit * nBandwidthScale / 100;	// Adjust limit based on the scale percentage
+	else if ( nBandwidthScale > 100 )
+		nLimit = 0xFFFFFFFF;						// Remove limit based on MAX scale
 
 	// nLimit - nData is the number of bytes still available for this time period
 	// Set nData to this, or 0 if we're over the limit
 	nData >= nLimit ? nData = 0 : nData = nLimit - nData;
 
-	// Is this running in max mode
+	// Is this running in Maximum mode (strict limit)
 	if ( bMaxMode )
 	{
 		// Adjust limit for the time elapsed since last time
@@ -804,18 +805,19 @@ DWORD CConnection::TCPBandwidthMeter::CalculateLimit(DWORD tNow, bool bOut, bool
 		// Return the smaller of the two
 		nLimit = min( nLimit, nData );
 	}
-	else
+	else // Average
 	{
 		// Set limit to the number of bytes still available for this time period
 		nLimit = nData;
 	}
+
 	tLastLimit = tNow;	// The time of this limit calculation
 
 	return nLimit;		// Return the new limit
 }
 
 // Count the #bytes used for a given time period (optimal for time periods more than METER_LENGTH / 2)
-DWORD CConnection::TCPBandwidthMeter::CalculateUsage(DWORD tTime ) const
+DWORD CConnection::TCPBandwidthMeter::CalculateUsage(DWORD tTime) const
 {
 	// Exit early if the last slot used is older than the time limit
 	if ( tLastSlot <= tTime ) return 0;

@@ -1,7 +1,7 @@
 //
 // UploadTransferED2K.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -83,20 +83,21 @@ BOOL CUploadTransferED2K::Request(const Hashes::Ed2kHash& oED2K)
 
 	Cleanup( ! bSame );
 
-	CSingleLock oLock( &Library.m_pSection );
-	BOOL bLocked = oLock.Lock( 1000 );
+	CSingleLock pLock( &Library.m_pSection );
+	BOOL bLocked = pLock.Lock( 1000 );
 	if ( CLibraryFile* pFile = ( bLocked ? LibraryMaps.LookupFileByED2K( oED2K, TRUE, TRUE ) : NULL ) )
 	{
 		// Send comments if necessary
 		if ( m_pClient ) m_pClient->SendCommentsPacket( pFile->m_nRating, pFile->m_sComments );
 
 		RequestComplete( pFile );
-		oLock.Unlock();
+		if ( bLocked )
+			pLock.Unlock();
 	}
 	else
 	{
 		if ( bLocked )
-			oLock.Unlock();
+			pLock.Unlock();
 
 		if ( CDownload* pFile = Downloads.FindByED2K( oED2K, TRUE ) )
 		{

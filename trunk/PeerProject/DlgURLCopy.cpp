@@ -90,7 +90,7 @@ BOOL CURLCopyDlg::OnInitDialog()
 void CURLCopyDlg::Resolve(CPeerProjectFile& pFile, CString& sTracker)
 {
 	// Use contents of .torrent-file instead of file itself
-	if ( ! pFile.m_sPath.IsEmpty() && _tcsicmp( PathFindExtension( pFile.m_sName ), _T(".torrent") ) == 0 )
+	if ( ! pFile.m_sPath.IsEmpty() && EndsWith( pFile.m_sName, _PT(".torrent") ) )		// _tcsicmp( PathFindExtension( pFile.m_sName ), _T(".torrent") ) == 0 )
 	{
 		CBTInfo pTorrent;
 		if ( pTorrent.LoadTorrentFile( pFile.m_sPath + _T("\\") + pFile.m_sName ) )
@@ -110,8 +110,8 @@ void CURLCopyDlg::Resolve(CPeerProjectFile& pFile, CString& sTracker)
 	if ( ! ( pFile.m_oBTH ) )
 		return;
 
-	CSingleLock pTransfersLock( &Transfers.m_pSection, FALSE );
-	if ( pTransfersLock.Lock( 1000 ) )
+	CSingleLock pTransfersLock( &Transfers.m_pSection );
+	if ( SafeLock( pTransfersLock ) )
 	{
 		if ( const CDownload* pDownload = Downloads.FindByBTH( pFile.m_oBTH ) )
 		{
@@ -140,8 +140,8 @@ void CURLCopyDlg::Resolve(CPeerProjectFile& pFile, CString& sTracker)
 		pTransfersLock.Unlock();
 	}
 
-	CSingleLock pLibraryLock( &Library.m_pSection, FALSE );
-	if ( pLibraryLock.Lock( 1000 ) )
+	CSingleLock pLibraryLock( &Library.m_pSection );
+	if ( SafeLock( pLibraryLock ) )
 	{
 		if ( const CLibraryFile* pLibraryFile = LibraryMaps.LookupFileByHash( &pFile ) )
 		{
@@ -265,7 +265,6 @@ void CURLCopyDlg::OnIncludeSelf()
 	{
 		m_sED2K.Empty();
 	}
-
 
 	if ( bIncludeSelf )
 		m_sHost = strSelf;

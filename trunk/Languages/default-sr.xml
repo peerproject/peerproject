@@ -3,7 +3,7 @@
 
 <!-- PeerProject/ПеерПројецт Default Serbian Skin File -->
 
-<!-- Translation based on default-en.xml r102 -->
+<!-- Translation based on default-en.xml r104 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -544,8 +544,7 @@
 					<item id="ID_HELP_FORUMS" text="PeerProject форуми"/>
 					<separator/>
 					<!-- <item id="ID_HELP_UPDATE" text="Novosti"/>
-					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-					<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
+					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 				</menu>
 				<item id="ID_HELP_HOMEPAGE" text="Сајт _PeerProject"/>
 				<separator/>
@@ -642,8 +641,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject форуми"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Novosti"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_O PeerProject..."/>
@@ -708,8 +706,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject форуми"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Novosti"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_O PeerProject..."/>
@@ -797,8 +794,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forum"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Novosti"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_O PeerProject..."/>
@@ -3041,8 +3037,8 @@
 	<string id="20874" value="URL:"/>
 	<string id="20875" value="Neodređeno"/>
 	<string id="20880" value="Promeni Moj Profil"/>
-	<string id="20881" value="Додадени фајлови: %u изабрана. Јесте ли сигурни?"/>
-	<string id="20882" value="Nema dostupnog URN-a"/>
+	<string id="20882" value="Додадени фајлови: %u изабрана. Јесте ли сигурни?"/>
+	<string id="20883" value="Nema dostupnog URN-a"/>
 	<string id="20885" value="Menjanje pogleda zatvara sve otvorene prozore. Želite li nastaviti s promenom pogleda?"/>
 	<string id="20886" value="Changing interface direction requires restart.\n\nExit now?"/>
 	<string id="20890" value="Dobrodošli u PeerProject"/>
@@ -3141,6 +3137,7 @@
 		<control caption="Odaberi Plugin..."/>
 		<control caption="Note: Choosing an external Media Handler will disable Media/Visualization Plugins."/>
 	</dialog>
+	<!--Missing dialog name="CIRCSettingsPage"-->
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Zajednica">
 		<control caption="Moj _Profil:"/>
 		<control caption="Možete koristiti vaš Gnutella Profil kako biste dali informacije o vama, šta vas zanima i koje datoteke i web stranice preporučujete"/>
@@ -3151,7 +3148,18 @@
 		<control caption="Filtriraj poruke koje sadrže smeće"/>
 		<control caption="Cenzuriši prostačenje"/>
 	</dialog>
-	<!--Missing dialog name="CIRCSettingsPage"-->
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Pristup na Daljinu">
+		<control caption="Omogući:"/>
+		<control caption="Omogući Daljinski Pristup PeerProject"/>
+		<control/>
+		<control caption="Uverenja:"/>
+		<control caption="Odaberi Ime:"/>
+		<control caption="Odaberi Lozinku:"/>
+		<control/>
+		<control/>
+		<control caption="Pomoć:"/>
+		<control caption="PeerProject pristup na daljinu vam omogućava da ostavite upaljen PC sa pokrenutom PeerProject, i njome upravljate sa druge lokacije. Da bi ste koristili ovu opciju morate biti u mogućnosti primati dolazeće veze(npr. podešen ruter, itd)."/>
+	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
 		<control caption="Upravljanje _Peer to Peer Linkovima:"/>
 		<control caption="Koristi PeerProject za otvaranje ovih vrsta linkova:"/>
@@ -3237,25 +3245,13 @@
 		<control caption="Ograničenje:"/>
 		<control/>
 		<control caption="Način:"/>
-		<control caption="Maksimalno|Srednje"/>
+		<control caption="Srednje|Maksimalno"/>
 		<control caption="_Queues:"/>
 		<control/>
 		<control caption="_Novi..."/>
 		<control caption="Prom_eni..."/>
 		<control caption="Obriši"/>
 		<control caption="(promene deluju odmah)"/>
-	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Pristup na Daljinu">
-		<control caption="Omogući:"/>
-		<control caption="Omogući Daljinski Pristup PeerProject"/>
-		<control/>
-		<control caption="Uverenja:"/>
-		<control caption="Odaberi Ime:"/>
-		<control caption="Odaberi Lozinku:"/>
-		<control/>
-		<control/>
-		<control caption="Pomoć:"/>
-		<control caption="PeerProject pristup na daljinu vam omogućava da ostavite upaljen PC sa pokrenutom PeerProject, i njome upravljate sa druge lokacije. Da bi ste koristili ovu opciju morate biti u mogućnosti primati dolazeće veze(npr. podešen ruter, itd)."/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="Mreže">
 		<control caption="PeerProject je program za deljenje i skidanje datoteka opšteg sadržaja, i može se istovremeno spojiti na više P2P mreža.Ovde možete odabrati kojim mrežama želite pristupiti, te podesiti svaku posebno."/>

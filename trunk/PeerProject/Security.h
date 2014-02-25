@@ -1,7 +1,7 @@
 //
 // Security.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -67,12 +67,10 @@ enum {
 
 class CSecurity
 {
-// Construction
 public:
 	CSecurity();
 	~CSecurity();
 
-// Attributes
 public:
 	mutable CCriticalSection	m_pSection;
 	BOOL						m_bDenyPolicy;
@@ -99,7 +97,6 @@ protected:
 	std::set< DWORD >			m_Cache;			// Known good addresses
 	CList< CSecureRule* >		m_pRules;
 
-// Operations
 public:
 	INT_PTR			GetCount() const;
 	POSITION		GetIterator() const;
@@ -154,21 +151,19 @@ protected:
 	friend class CListLoader;
 };
 
+
 // An adult filter class, used in searches, chat, etc
 class CAdultFilter
 {
-// Construction
 public:
 	CAdultFilter();
 	~CAdultFilter();
 
-// Attributes
 private:
 	LPTSTR		m_pszBlockedWords;					// Definitely adult content
 	LPTSTR		m_pszDubiousWords;					// Possibly adult content
 	LPTSTR		m_pszChildWords;					// Words related to child ponography
 
-// Operations
 public:
 	void		Load();
 	BOOL		Censor(CString& sText) const;		// Censor (hide) bad words from a string
@@ -180,43 +175,41 @@ private:
 	BOOL		IsFiltered(LPCTSTR) const;
 };
 
+
 // A message filter class for chat messages. (Spam protection)
 class CMessageFilter
 {
-// Construction
 public:
 	CMessageFilter();
 	~CMessageFilter();
 
-// Attributes
 private:
 	LPTSTR		m_pszED2KSpam;				// Known ED2K spam phrases
 	LPTSTR		m_pszFilteredPhrases;		// Known spam phrases
 
-// Operations
 public:
 	void		Load();
 	BOOL		IsED2KSpam( LPCTSTR );		// ED2K message spam filter (ED2K only, always on)
 	BOOL		IsFiltered( LPCTSTR );		// Chat message spam filter
 };
 
+
 // Async external blocklist handling (may take minutes)
 class CListLoader : public CThreadImpl
 {
-// Construction
 public:
 	CListLoader();
 	virtual ~CListLoader();
 
-// Attributes
 protected:
 //	CCriticalSection		m_pSection;
 	CList< CSecureRule* >	m_pQueue;
 
-// Operations
 public:
-	void		OnRun();
 	void		AddList(CSecureRule* pRule);
+
+protected:
+	void		OnRun();
 };
 
 extern CSecurity Security;

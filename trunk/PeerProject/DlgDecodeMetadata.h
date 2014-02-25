@@ -1,7 +1,7 @@
 //
 // DlgDecodeMetadata.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -23,13 +23,11 @@
 
 class CDecodeMetadataDlg : public CSkinDialog
 {
-// Construction
 public:
 	CDecodeMetadataDlg(CWnd* pParent = NULL);
 
 	enum { IDD = IDD_CODEPAGES };
 
-// Dialog Data
 public:
 	CButton		m_wndOK;
 	CComboBox	m_wndCodepages;
@@ -39,14 +37,13 @@ public:
 
 	CList<DWORD> m_pFiles;
 
-// Overrides
 protected:
 	int 		m_nMethod;
 
+protected:
 	static const unsigned codePages[];
 	virtual void DoDataExchange(CDataExchange* pDX);
 
-// Implementation
 public:
 	virtual BOOL OnInitDialog();
 	virtual void OnOK();

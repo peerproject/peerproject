@@ -1,7 +1,7 @@
 //
 // CoolInterface.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -20,12 +20,11 @@
 
 #include "Skin.h"
 
-//#define LVSIL_MID           50	// ToDo: 24x24 toolbar icons?
-#define LVSIL_BIG             100	// 48x48 icons
+//#define LVSIL_MID		50	// ToDo: Allow 24x24 toolbar icons?
+#define LVSIL_BIG		100	// 48x48 icons
 
 class CCoolInterface
 {
-// Construction
 public:
 	CCoolInterface();
 	virtual ~CCoolInterface();

@@ -1,7 +1,7 @@
 //
 // RichElement.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -25,14 +25,12 @@ class CRichViewCtrl;
 
 class CRichElement
 {
-// Construction
 public:
 	CRichElement(int nType = 0, LPCTSTR pszText = NULL, LPCTSTR pszLink = NULL, DWORD nFlags = 0, int nGroup = 0);
 	CRichElement(HBITMAP hBitmap, LPCTSTR pszLink = NULL, DWORD nFlags = 0, int nGroup = 0);
 	CRichElement(HICON hIcon, LPCTSTR pszLink = NULL, DWORD nFlags = 0, int nGroup = 0);
 	virtual ~CRichElement();
 
-// Attributes
 public:
 	CRichDocument*	m_pDocument;
 	int				m_nType;
@@ -44,7 +42,6 @@ public:
 	int				m_nImageIndex;
 	COLORREF		m_cColor;
 
-// Operations
 public:
 	void	Show(BOOL bShow = TRUE);
 	void	SetText(LPCTSTR pszText);

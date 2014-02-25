@@ -1,7 +1,7 @@
 //
 // DlgPluginExtSetup.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -22,12 +22,10 @@ class CPluginExtSetupDlg : public CDialog
 {
 	DECLARE_DYNAMIC(CPluginExtSetupDlg)
 
-// Construction
 public:
 	CPluginExtSetupDlg(CWnd* pParent = NULL, LPCTSTR pszExt = NULL );
 	virtual ~CPluginExtSetupDlg();
 
-// Members
 private:
 	enum { IDD = IDD_PLUGIN_EXT_SETUP };
 
@@ -37,19 +35,13 @@ private:
 	TRISTATE	m_bParentState;
 	BOOL		m_bRunning;
 
-// Overrides
 protected:
-	//{{AFX_VIRTUAL(CPluginExtSetupDlg)
 	virtual void DoDataExchange(CDataExchange* pDX);
-	//}}AFX_VIRTUAL
 
-// Implementation
 protected:
-	//{{AFX_MSG(CPluginExtSetupDlg)
 	virtual BOOL OnInitDialog();
 	afx_msg void OnChangingAssociations(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnOK();
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

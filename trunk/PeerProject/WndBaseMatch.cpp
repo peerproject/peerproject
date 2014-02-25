@@ -387,7 +387,7 @@ void CBaseMatchWnd::OnUpdateSearchURI(CCmdUI* pCmdUI)
 void CBaseMatchWnd::OnSearchURI()
 {
 	CSingleLock pLock( &m_pMatches->m_pSection );
-	if ( ! pLock.Lock( 500 ) ) return;
+	if ( ! SafeLock( pLock ) ) return;
 
 	INT_PTR nSelected = m_pMatches->m_pSelectedFiles.GetCount() +
 		m_pMatches->m_pSelectedHits.GetCount();

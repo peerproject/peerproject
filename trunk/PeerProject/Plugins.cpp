@@ -1,7 +1,7 @@
 //
 // Plugins.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -323,8 +323,8 @@ IUnknown* CPlugins::GetPlugin(LPCTSTR pszGroup, LPCTSTR pszType)
 	for ( int i = 0 ; ; ++i )
 	{
 		{
-			CSingleLock oLock( &m_pSection, FALSE );
-			if ( ! oLock.Lock( 500 ) ) return NULL;
+			CSingleLock pLock( &m_pSection );
+			if ( ! SafeLock( pLock ) ) return NULL;
 
 			CComPtr< IUnknown > pPlugin;
 			CPluginPtr* pGITPlugin = NULL;

@@ -1,7 +1,7 @@
 //
 // PageSettingsUploads.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -26,14 +26,12 @@ class CUploadsSettingsPage : public CSettingsPage
 {
 	DECLARE_DYNCREATE(CUploadsSettingsPage)
 
-// Construction
 public:
 	CUploadsSettingsPage();
 	virtual ~CUploadsSettingsPage();
 
 	enum { IDD = IDD_SETTINGS_UPLOADS };
 
-// Dialog Data
 public:
 	CSpinButtonCtrl	m_wndMaxPerHost;
 	CComboBox		m_wndAgentList;
@@ -52,20 +50,16 @@ public:
 	DWORD			m_nMaxPerHost;
 	CString			m_sBandwidthLimit;
 
-
-//
 public:
 	BOOL			m_bQueuesChanged;		// Have the queues been changed? (Rebuild hash table)
 	void			UpdateQueues();
 
-// Overrides
 public:
 	virtual void OnOK();
 	virtual BOOL OnSetActive();
 	virtual BOOL OnKillActive();
 	virtual void DoDataExchange(CDataExchange* pDX);
 
-// Implementation
 protected:
 	bool IsLimited(CString& strText) const;
 
@@ -74,10 +68,10 @@ protected:
 	afx_msg void OnEditChangeAgentList();
 	afx_msg void OnAgentAdd();
 	afx_msg void OnAgentRemove();
-	afx_msg void OnItemChangedQueues(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnQueueNew();
 	afx_msg void OnQueueEdit();
 	afx_msg void OnQueueDelete();
+	afx_msg void OnItemChangedQueues(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnDblClkQueues(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnQueueDrop(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnShowWindow(BOOL bShow, UINT nStatus);

@@ -1,7 +1,7 @@
 //
 // HttpRequest.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -23,15 +23,12 @@
 class CBuffer;
 
 
-class CHttpRequest :
-	public CThreadImpl
+class CHttpRequest : public CThreadImpl
 {
-// Constructions
 public:
 	CHttpRequest();
 	virtual ~CHttpRequest();
 
-// Operations
 public:
 	void		Clear();
 	CString		GetURL() const;

@@ -1,7 +1,7 @@
 //
 // ZIPFile.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -23,7 +23,6 @@ class CBuffer;
 
 class CZIPFile
 {
-// Construction
 public:
 	CZIPFile(HANDLE hAttach = INVALID_HANDLE_VALUE);
 	~CZIPFile();
@@ -49,14 +48,12 @@ public:
 		BOOL		PrepareToDecompress(LPVOID pStream);
 	};
 
-// Attributes
 protected:
 	BOOL	m_bAttach;
 	HANDLE	m_hFile;
 	File*	m_pFile;
 	int		m_nFile;
 
-// Operations
 public:
 	BOOL	Open(LPCTSTR pszFile);
 	BOOL	Attach(HANDLE hFile);
@@ -70,5 +67,4 @@ protected:
 	BOOL	LocateCentralDirectory();
 	BOOL	ParseCentralDirectory(BYTE* pDirectory, DWORD nDirectory);
 	BOOL	SeekToFile(File* pFile);
-
 };

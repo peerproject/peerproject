@@ -1,7 +1,7 @@
 //
 // LibraryFolders.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -524,9 +524,9 @@ CAlbumFolder* CLibraryFolders::GetCollection(const Hashes::Sha1Hash& oSHA1)
 BOOL CLibraryFolders::MountCollection(const Hashes::Sha1Hash& oSHA1, CCollectionFile* pCollection)
 {
 	CSingleLock pLock( &Library.m_pSection );
-	BOOL bSuccess = FALSE;
+	if ( ! SafeLock( pLock ) ) return FALSE;
 
-	if ( ! pLock.Lock( 500 ) ) return FALSE;
+	BOOL bSuccess = FALSE;
 
 	if ( pCollection->GetThisURI().GetLength() )
 		bSuccess |= m_pAlbumRoot->MountCollection( oSHA1, pCollection );

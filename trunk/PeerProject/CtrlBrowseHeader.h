@@ -1,7 +1,7 @@
 //
 // CtrlBrowseHeader.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -25,38 +25,30 @@ class CHostBrowser;
 
 class CBrowseHeaderCtrl : public CCoolBarCtrl
 {
-// Construction
 public:
 	CBrowseHeaderCtrl();
 	virtual ~CBrowseHeaderCtrl();
 
-// Attributes
 protected:
 	CString	m_sTitle;
 	CString	m_sIntro;
 	int		m_nIcon32;
 	int		m_nIcon48;
 
-// Operations
 public:
 	void	Update(CHostBrowser* pBrowser);
 	void	OnSkinChange();
+
 protected:
 	virtual void PrepareRect(CRect* pRect) const;
 	virtual void DoPaint(CDC* pDC, CRect& rcBar, BOOL bTransparent);
 
-// Overrides
 public:
-	//{{AFX_VIRTUAL(CBrowseHeaderCtrl)
 	virtual BOOL Create(CWnd* pParentWnd);
-	//}}AFX_VIRTUAL
 
-// Implementation
 protected:
-	//{{AFX_MSG(CBrowseHeaderCtrl)
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnSize(UINT nType, int cx, int cy);
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

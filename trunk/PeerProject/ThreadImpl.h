@@ -26,11 +26,11 @@ class CThreadImpl
 {
 public:
 	CThreadImpl()
-		: m_bCompleted	( false )
-		, m_bThread 	( false )
+		: m_pCancel		( FALSE, TRUE )
 		, m_hThread 	( NULL )
-	//	, m_bCancelled	( FALSE )
-	//	, m_pCancel		( FALSE, TRUE )
+		, m_nThreadID	( 0 )
+		, m_bCancelled	( FALSE )
+	//	, m_bCompleted	( false )
 	{
 	}
 
@@ -40,18 +40,18 @@ public:
 	}
 
 private:
-	volatile bool	m_bCompleted;	// TRUE - thread runs at least once
-	volatile bool	m_bThread;		// TRUE - enable thread; FALSE - terminate thread.
 	volatile HANDLE m_hThread;		// Thread handle
+	DWORD			m_nThreadID;	// Thread ID
 	CEvent			m_pWakeup;		// Thread wakeup event (optional)
-//	CEvent			m_pCancel;		// Thread cancel event (signaled if abort requested)
-//	volatile LONG	m_bCancelled;	// Thread is canceling
+	CEvent			m_pCancel;		// Thread cancel event (signaled if abort requested)
+	volatile LONG	m_bCancelled;	// Thread is canceling
+//	volatile bool	m_bCompleted;	// TRUE - thread runs at least once
 
 	static UINT ThreadStart(LPVOID pParam)
 	{
 		CThreadImpl* pThis = reinterpret_cast< CThreadImpl* >( pParam );
 		pThis->OnRun();
-		pThis->m_bCompleted = true;	// Set complete status
+	//	pThis->m_bCompleted = true;	// Set complete status
 		pThis->m_hThread = NULL;
 		return 0;
 	}
@@ -67,39 +67,38 @@ public:
 	{
 		if ( ! IsThreadAlive() )
 		{
-			m_bCompleted = false;		// Reset complete status
-	//		m_pCancel.ResetEvent();		// Enable thread run
-			m_bThread = true;			// Enable thread run
-			m_hThread = ::BeginThread( szName, ThreadStart, this, nPriority );
+		//	m_bCompleted = false;		// Reset complete status
+			m_pCancel.ResetEvent();		// Enable thread run
+			m_hThread = ::BeginThread( szName, ThreadStart, this, nPriority, 0, 0, NULL, &m_nThreadID );
 		}
 		return ( m_hThread != NULL );
 	}
 
 	inline void CloseThread(DWORD dwTimeout = ALMOST_INFINITE) throw()
 	{
-		Exit();		// Ask thread for exit
-		Wakeup();	// Wakeup thread if any
-		//if ( ! InterlockedCompareExchange( &m_bCancelled, TRUE, FALSE ) )
-		//{
-		//	if ( m_nThreadID != GetCurrentThreadId() )
-		//	{
-				::CloseThread( (HANDLE*)&m_hThread, dwTimeout );
+		m_pCancel.SetEvent();	// Ask thread for exit
+		m_pWakeup.SetEvent();	// Wakeup thread if any
+		if ( ! InterlockedCompareExchange( &m_bCancelled, TRUE, FALSE ) )
+		{
+			if ( m_nThreadID != GetCurrentThreadId() )
+			{
+				::CloseThread( m_hThread, dwTimeout );
 				m_hThread = NULL;
-		//	}
-		//	InterlockedExchange( &m_bCancelled, FALSE );
-		//}
+			}
+			InterlockedExchange( &m_bCancelled, FALSE );
+		}
 	}
 
 	inline void Wait() throw()
 	{
-		//if ( ! InterlockedCompareExchange( &m_bCancelled, TRUE, FALSE ) )
-		//{
-		//	if ( m_nThreadID != GetCurrentThreadId() )
-		//	{
-				::CloseThread( (HANDLE*)&m_hThread, INFINITE );
-		//	}
-		//	InterlockedExchange( &m_bCancelled, FALSE );
-		//}
+		if ( ! InterlockedCompareExchange( &m_bCancelled, TRUE, FALSE ) )
+		{
+			if ( m_nThreadID != GetCurrentThreadId() )
+			{
+				::CloseThread( m_hThread, INFINITE );
+			}
+			InterlockedExchange( &m_bCancelled, FALSE );
+		}
 	}
 
 	inline bool Wakeup() throw()
@@ -122,15 +121,9 @@ public:
 		return m_pWakeup;
 	}
 
-	inline bool IsThreadCompleted() const throw()
+	inline bool IsThreadEnabled( DWORD dwTimeout = 0 ) const throw()
 	{
-		return m_bCompleted;
-	}
-
-	inline bool IsThreadEnabled() const throw()		// DWORD dwTimeout = 0
-	{
-		return m_bThread;
-	//	return ( WaitForSingleObject( m_pCancel, dwTimeout ) == WAIT_TIMEOUT );
+		return ( WaitForSingleObject( m_pCancel, dwTimeout ) == WAIT_TIMEOUT );
 	}
 
 	inline bool IsThreadAlive() const throw()
@@ -140,8 +133,7 @@ public:
 
 	inline void Exit() throw()
 	{
-		m_bThread = false;
-	//	m_pCancel.SetEvent();
+		m_pCancel.SetEvent();
 	}
 
 	inline bool SetThreadPriority(int nPriority) throw()

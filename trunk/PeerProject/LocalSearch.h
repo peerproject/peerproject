@@ -1,7 +1,7 @@
 //
 // LocalSearch.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -35,7 +35,6 @@ class CDCPacket;
 
 class CLocalSearch
 {
-// Construction
 public:
 	CLocalSearch(CQuerySearch* pSearch, const CNeighbour* pNeighbour);
 	CLocalSearch(CQuerySearch* pSearch, PROTOCOLID nProtocol);
@@ -44,7 +43,6 @@ public:
 	SOCKADDR_IN		m_pEndpoint;	// Endpoint or neighbour address
 	BOOL			m_bUDP;			// Send packets via UDP or TCP
 
-// Attributes
 protected:
 	CQuerySearchPtr	m_pSearch;
 	CBuffer*		m_pBuffer;		// Save packets to this buffer instead
@@ -53,10 +51,9 @@ protected:
 
 	typedef CMap< CSchemaPtr, CSchemaPtr, CXMLElement*, CXMLElement* > CSchemaMap;
 
-// Operations
 public:
 	const CQuerySearch*		GetSearch() const{ return m_pSearch; }
-	// Search library files and active downloads ( -1 = use default limit, 0 = no limit)
+	// Search library files and active downloads (-1 = use default limit, 0 = no limit)
 	bool		Execute(INT_PTR nMaximum = -1, bool bPartial = true, bool bShared = true);
 
 protected:

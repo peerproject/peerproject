@@ -1,7 +1,7 @@
 //
 // FragmentedFile.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -103,9 +103,13 @@ ULONG CFragmentedFile::AddRef()
 
 ULONG CFragmentedFile::Release()
 {
+	if ( m_dwRef == 0 )
+		return 0;
+
 	ULONG ref_count = (ULONG)InterlockedDecrement( &m_dwRef );
 	if ( ref_count )
 		return ref_count;
+
 	delete this;
 	return 0;
 }

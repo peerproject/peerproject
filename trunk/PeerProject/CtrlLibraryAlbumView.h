@@ -1,7 +1,7 @@
 //
 // CtrlLibraryAlbumView.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -28,11 +28,9 @@ class CLibraryAlbumView : public CLibraryFileView
 {
 	DECLARE_DYNCREATE(CLibraryAlbumView)
 
-// Construction
 public:
 	CLibraryAlbumView();
 
-// Attributes
 public:
 	static COLORREF			m_crRows[2];
 
@@ -56,7 +54,6 @@ protected:
 	BOOL					m_bDrag;
 	CPoint					m_ptDrag;
 
-// Operations
 public:
 	virtual void		Update();
 	virtual void		SelectAll();
@@ -80,16 +77,11 @@ protected:
 
 	static int			SortList(LPCVOID pA, LPCVOID pB);
 
-// Overrides
 protected:
-	//{{AFX_VIRTUAL(CLibraryAlbumView)
 	virtual BOOL Create(CWnd* pParentWnd);
-	//}}AFX_VIRTUAL
 
-// Implementation
 protected:
-	//{{AFX_MSG(CLibraryAlbumView)
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
 	afx_msg void OnPaint();
 	afx_msg void OnSize(UINT nType, int cx, int cy);
@@ -102,21 +94,19 @@ protected:
 	afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
 	afx_msg UINT OnGetDlgCode();
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 
 	friend class CLibraryAlbumTrack;
 };
 
+
 class CLibraryAlbumTrack
 {
-// Construction
 public:
 	CLibraryAlbumTrack(CLibraryFile* pFile);
 	virtual ~CLibraryAlbumTrack();
 
-// Attributes
 public:
 	DWORD	m_nIndex;
 	DWORD	m_nCookie;
@@ -137,7 +127,6 @@ public:
 	BOOL	m_bComments;
 	int		m_nSetRating;
 
-// Operations
 public:
 	BOOL	Update(CLibraryFile* pFile);
 	void	Paint(CLibraryAlbumView* pView, CDC* pDC, const CRect& rcBlock, int nCount);

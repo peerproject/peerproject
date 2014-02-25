@@ -78,7 +78,7 @@ void CFileHash::CopyTo(CLibraryFile* pFile) const
 	pFile->m_oED2K.validate();
 
 	LibraryHashDB.StoreTiger( pFile->m_nIndex, const_cast< CTigerTree* >( &m_pTiger ) );
-	LibraryHashDB.StoreED2K( pFile->m_nIndex, const_cast< CED2K* >( &m_pED2K ) );
+	LibraryHashDB.StoreED2K(  pFile->m_nIndex, const_cast< CED2K* >( &m_pED2K ) );
 }
 
 
@@ -90,8 +90,8 @@ CLibraryBuilder::CLibraryBuilder()
 	, m_nReaded 	( 0 )
 	, m_nElapsed	( 0 )
 	, m_nProgress	( 0 )
-	, m_bSkip		( false )
 	, m_bBusy		( false )
+	, m_oSkip		( FALSE, TRUE, NULL, NULL )
 {
 	QueryPerformanceFrequency( &m_nFreq );
 	QueryPerformanceCounter( &m_nLastCall );
@@ -147,18 +147,24 @@ void CLibraryBuilder::Remove(DWORD nIndex)
 
 void CLibraryBuilder::Remove(const CLibraryFile* pFile)
 {
-	const CString sPath = pFile->GetPath();
+	const CString strPath = pFile->GetPath();
 
 	// Remove file from queue
 	Remove( pFile->m_nIndex );
 
 	// Remove currently hashing file
-	if ( ! GetCurrent().CompareNoCase( sPath ) && ! m_bSkip )
+	for ( ;; )
 	{
-		m_bSkip = true;
+		{
+			CQuickLock oLock( m_pSection );
 
-		while ( m_bSkip )
-			Sleep( 100 );
+			if ( m_nProgress == 100 || m_sPath.CompareNoCase( strPath ) != 0 )
+				break;
+
+			m_oSkip.SetEvent();
+		}
+
+		Sleep( 100 );
 	}
 }
 
@@ -167,22 +173,34 @@ void CLibraryBuilder::Remove(LPCTSTR szPath)
 	ASSERT( szPath );
 
 	DWORD nIndex = 0;
-	if ( GetRemaining() )
+
 	{
-		CQuickLock oLibraryLock( Library.m_pSection );
-		if ( CLibraryFile* pFile = LibraryMaps.LookupFileByPath( szPath ) )
-			nIndex = pFile->m_nIndex;
+		CSingleLock oLibraryLock( &Library.m_pSection );
+		if ( oLibraryLock.Lock( 500 ) )
+		{
+			if ( const CLibraryFile* pFile = LibraryMaps.LookupFileByPath( szPath ) )
+			{
+				nIndex = pFile->m_nIndex;
+			}
+		}
 	}
+
+	// Remove file from queue
 	if ( nIndex )
 		Remove( nIndex );
 
 	// Remove currently hashing file
-	if ( ! GetCurrent().CompareNoCase( szPath ) && ! m_bSkip )
+	for ( ;; )
 	{
-		m_bSkip = true;
+		{
+			CQuickLock oLock( m_pSection );
+			if ( m_nProgress == 100 || m_sPath.CompareNoCase( szPath ) != 0 )
+				break;
 
-		while ( m_bSkip )
-			Sleep( 100 );
+			m_oSkip.SetEvent();
+		}
+
+		Sleep( 100 );
 	}
 }
 
@@ -209,12 +227,18 @@ void CLibraryBuilder::RequestPriority(LPCTSTR pszPath)
 	ASSERT( pszPath );
 
 	DWORD nIndex = 0;
+
 	{
-		CQuickLock oLibraryLock( Library.m_pSection );
-		CLibraryFile* pFile = LibraryMaps.LookupFileByPath( pszPath );
-		if ( pFile )
-			nIndex = pFile->m_nIndex;
+		CSingleLock oLibraryLock( &Library.m_pSection );
+		if ( oLibraryLock.Lock( 200 ) )
+		{
+			if ( const CLibraryFile* pFile = LibraryMaps.LookupFileByPath( pszPath ) )
+			{
+				nIndex = pFile->m_nIndex;
+			}
+		}
 	}
+
 	if ( nIndex )
 	{
 		CQuickLock oLock( m_pSection );
@@ -222,7 +246,6 @@ void CLibraryBuilder::RequestPriority(LPCTSTR pszPath)
 		if ( i != m_pFiles.end() )
 		{
 			m_pFiles.erase( i );
-
 			m_pFiles.push_front( nIndex );
 		}
 	}
@@ -257,15 +280,15 @@ void CLibraryBuilder::Skip(DWORD nIndex)
 DWORD CLibraryBuilder::GetNextFileToHash()
 {
 	DWORD nIndex = 0;
-	CString sPath;
+	CString strPath;
 
 	FILETIME ftCurrentTime;
 	GetSystemTimeAsFileTime( &ftCurrentTime );
 	const QWORD nCurrentTime = MAKEQWORD( ftCurrentTime.dwLowDateTime, ftCurrentTime.dwHighDateTime );
 
-	CSingleLock oLock( &m_pSection );
-	if ( oLock.Lock( 200 ) )
 	{
+		CQuickLock oLock( m_pSection );
+
 		if ( m_pFiles.empty() )
 		{
 			// No files left
@@ -284,7 +307,6 @@ DWORD CLibraryBuilder::GetNextFileToHash()
 				}
 			}
 		}
-		oLock.Unlock();
 	}
 
 	if ( nIndex )
@@ -294,7 +316,7 @@ DWORD CLibraryBuilder::GetNextFileToHash()
 		{
 			const CLibraryFile* pFile = LibraryMaps.LookupFile( nIndex );
 			if ( pFile )
-				sPath = pFile->GetPath();
+				strPath = pFile->GetPath();
 
 			oLibraryLock.Unlock();
 
@@ -305,16 +327,16 @@ DWORD CLibraryBuilder::GetNextFileToHash()
 				nIndex = 0;
 			}
 		}
-		else	// Library locked
+		else	// Library lock
 			nIndex = 0;
 
 		if ( nIndex )
 		{
 			WIN32_FILE_ATTRIBUTE_DATA wfad;
-			if ( GetFileAttributesEx( sPath, GetFileExInfoStandard, &wfad ) )
+			if ( GetFileAttributesEx( strPath, GetFileExInfoStandard, &wfad ) )
 			{
-				int nSlash = sPath.ReverseFind( _T('\\') );
-				if ( CLibrary::IsBadFile( sPath.Mid( nSlash + 1 ), sPath.Left( nSlash ), wfad.dwFileAttributes ) )
+				int nSlash = strPath.ReverseFind( _T('\\') );
+				if ( CLibrary::IsBadFile( strPath.Mid( nSlash + 1 ), strPath.Left( nSlash ), wfad.dwFileAttributes ) )
 				{
 					// Remove bad file
 					Remove( nIndex );
@@ -346,8 +368,8 @@ DWORD CLibraryBuilder::GetNextFileToHash()
 		}
 	}
 
-	if ( oLock.Lock( 2000 ) )
-		m_sPath = sPath;
+	CQuickLock oLock( m_pSection );
+	m_sPath = strPath;
 
 	return nIndex;
 }
@@ -439,7 +461,7 @@ void CLibraryBuilder::OnRun()
 				// Done
 				Remove( nIndex );
 			}
-			else if ( ++nAttempts > 4 || m_bSkip )
+			else if ( ++nAttempts > 4 || IsSkipped() )
 			{
 				Remove( nIndex );
 				nAttempts = 0;
@@ -458,7 +480,7 @@ void CLibraryBuilder::OnRun()
 			{
 				Remove( nIndex );	// Fatal error
 			}
-			else if ( ++nAttempts > 4 || m_bSkip )
+			else if ( ++nAttempts > 4 || IsSkipped() )
 			{
 				Remove( nIndex );
 				nAttempts = 0;
@@ -473,7 +495,7 @@ void CLibraryBuilder::OnRun()
 			CQuickLock pLock( m_pSection );
 			m_sPath.Empty();
 			m_nProgress = 0;
-			m_bSkip = false;
+			m_oSkip.ResetEvent();
 		}
 	}
 }
@@ -513,7 +535,7 @@ bool CLibraryBuilder::HashFile(LPCTSTR szPath, HANDLE hFile)
 		m_nReaded = 0;
 	}
 
-	if ( theApp.m_bIsVistaOrNewer )
+	if ( theApp.m_bIsVistaOrNewer && ! m_bPriority )
 		::SetThreadPriority( GetCurrentThread(), THREAD_MODE_BACKGROUND_BEGIN );
 
 	void* pBuffer = VirtualAlloc( NULL, MAX_HASH_BUFFER_SIZE, MEM_COMMIT, PAGE_READWRITE );
@@ -530,7 +552,7 @@ bool CLibraryBuilder::HashFile(LPCTSTR szPath, HANDLE hFile)
 			m_nProgress = ( ( nFileSize - nLength ) * 100.00f ) / nFileSize;
 		}
 
-		if ( ! IsThreadEnabled() || m_bSkip )
+		if ( ! IsThreadEnabled() || IsSkipped() )
 			break;
 
 		// Exit loop on read error
@@ -580,7 +602,7 @@ bool CLibraryBuilder::HashFile(LPCTSTR szPath, HANDLE hFile)
 
 	{
 		CQuickLock pLock( m_pSection );
-		m_nProgress = 100ul;
+		m_nProgress = 100.;
 	}
 
 	VirtualFree( pBuffer, 0, MEM_RELEASE );
@@ -590,14 +612,12 @@ bool CLibraryBuilder::HashFile(LPCTSTR szPath, HANDLE hFile)
 
 	pFileHash->Finish();
 
-	CSingleLock oLibraryLock( &Library.m_pSection, FALSE );
-	while ( ! oLibraryLock.Lock( 100 ) )
+	CSingleLock pLibraryLock( &Library.m_pSection );
+	for ( int i = 0 ; ! pLibraryLock.Lock( 100 ) ; ++i )
 	{
-		if ( m_bSkip )
+		if ( i > 10 || IsSkipped() )
 			return false;
 	}
-
-	m_bSkip = true;
 
 	CLibraryFile* pFile = LibraryMaps.LookupFileByPath( szPath );
 	if ( ! pFile )
@@ -616,10 +636,13 @@ bool CLibraryBuilder::HashFile(LPCTSTR szPath, HANDLE hFile)
 	BOOL bHistory = FALSE;
 
 	// Get associated download, if any
-	CSingleLock oTransfersLock( &Transfers.m_pSection );
-	if ( oTransfersLock.Lock( 2000 ) )
+	CSingleLock pTransfersLock( &Transfers.m_pSection );
+	if ( SafeLock( pTransfersLock ) )
 	{
-		if ( const CDownload* pDownload = Downloads.FindByPath( szPath ) )
+		const CDownload* pDownload = Downloads.FindByPath( szPath );
+		pTransfersLock.Unlock();
+
+		if ( pDownload )
 		{
 			pFile->UpdateMetadata( pDownload );
 			LibraryHistory.Add( szPath, pDownload );
@@ -631,8 +654,6 @@ bool CLibraryBuilder::HashFile(LPCTSTR szPath, HANDLE hFile)
 				pFile->SetShared( false );
 			}
 		}
-
-		oTransfersLock.Unlock();
 	}
 
 	// Child pornography check
@@ -646,7 +667,7 @@ bool CLibraryBuilder::HashFile(LPCTSTR szPath, HANDLE hFile)
 
 	Library.AddFile( pFile );
 
-	oLibraryLock.Unlock();
+	pLibraryLock.Unlock();
 
 	if ( ! bHistory )
 		LibraryHistory.Add( szPath );
@@ -734,11 +755,11 @@ bool CLibraryBuilder::DetectVirtualFile(LPCTSTR szPath, HANDLE hFile, QWORD& nOf
 
 bool CLibraryBuilder::DetectVirtualID3v1(HANDLE hFile, QWORD& nOffset, QWORD& nLength)
 {
-	ID3V1 pInfo = { 0 };
-	DWORD nRead;
-
 	if ( nLength <= 128 )
 		return false;
+
+	ID3V1 pInfo = { 0 };
+	DWORD nRead;
 
 	LONG nPosLow  = (LONG)( ( nOffset + nLength - 128 ) & 0xFFFFFFFF );
 	LONG nPosHigh = (LONG)( ( nOffset + nLength - 128 ) >> 32 );

@@ -1,7 +1,7 @@
 //
 // CrawlSession.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -24,17 +24,14 @@ class CCrawlNode;
 
 class CCrawlSession
 {
-// Construction
 public:
 	CCrawlSession();
 	virtual ~CCrawlSession();
 
-// Attributes
 public:
 	BOOL		m_bActive;
 	CList< CCrawlNode*, CCrawlNode* > m_pNodes;
 
-// Operations
 public:
 	void		Clear();
 	void		Bootstrap();
@@ -54,12 +51,10 @@ protected:
 
 class CCrawlNode
 {
-// Construction
 public:
 	CCrawlNode();
 	virtual ~CCrawlNode();
 
-// Attributes
 public:
 	SOCKADDR_IN		m_pHost;
 	int				m_nType;
@@ -77,7 +72,6 @@ public:
 
 	enum { ntUnknown, ntHub, ntLeaf };
 
-// Operations
 public:
 	void	OnCrawl(CCrawlSession* pSession, CG2Packet* pPacket);
 protected:

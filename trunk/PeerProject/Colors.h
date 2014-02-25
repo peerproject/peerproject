@@ -1,7 +1,7 @@
 //
 // Colors.h
 //
-// This file is part of PeerProject (peerproject.org) © 2009-2012
+// This file is part of PeerProject (peerproject.org) © 2009-2014
 //
 // PeerProject is free software. You may redistribute and/or modify it
 // under the terms of the GNU Affero General Public License
@@ -23,7 +23,6 @@
 
 class CColors
 {
-// Construction
 public:
 	CColors();
 //	virtual ~CColors();

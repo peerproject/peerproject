@@ -1,7 +1,7 @@
 //
 // Remote.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -524,10 +524,11 @@ void CRemote::PageSearch()
 {
 	if ( CheckCookie() ) return;
 
-	CSingleLock pLock( &theApp.m_pSection );
-	if ( ! pLock.Lock( 1000 ) ) return;
 	CMainWnd* pMainWnd = static_cast< CMainWnd* >( theApp.m_pMainWnd );
 	if ( pMainWnd == NULL || ! pMainWnd->IsKindOf( RUNTIME_CLASS(CMainWnd) ) ) return;
+
+	CSingleLock pLock( &theApp.m_pSection );
+	if ( ! SafeLock( pLock ) ) return;
 
 	INT_PTR nSearchID = NULL;
 	INT_PTR nCloseID = NULL;
@@ -791,13 +792,13 @@ void CRemote::PageSearchRowColumn(int nColumnID, CMatchFile* pFile, LPCTSTR pszV
 
 void CRemote::PageNewSearch()
 {
-	CString strURI;
 	if ( CheckCookie() ) return;
 
-	CSingleLock pLock( &theApp.m_pSection );
-	if ( ! pLock.Lock( 1000 ) ) return;
 	CMainWnd* pMainWnd = (CMainWnd*)theApp.m_pMainWnd;
 	if ( pMainWnd == NULL || ! pMainWnd->IsKindOf( RUNTIME_CLASS(CMainWnd) ) ) return;
+
+	CSingleLock pLock( &theApp.m_pSection );
+	if ( ! SafeLock( pLock ) ) return;
 
 	const CString strSearch = GetKey( L"search" );
 	const CString strSchema = GetKey( L"schema" );
@@ -812,6 +813,7 @@ void CRemote::PageNewSearch()
 	pSearch->m_sSearch		= strSearch;
 	pSearch->m_pSchema		= SchemaCache.Get( strSchema );
 
+	CString strURI;
 	if ( pSearch->m_pSchema != NULL )
 		strURI = pSearch->m_pSchema->GetURI();
 
@@ -1089,7 +1091,7 @@ void CRemote::PageUploads()
 	if ( CheckCookie() ) return;
 
 	CSingleLock pLock( &UploadQueues.m_pSection, FALSE );
-	if ( ! pLock.Lock( 1000 ) )
+	if ( ! SafeLock( pLock ) )
 		return;
 
 	Prepare();
@@ -1215,7 +1217,7 @@ void CRemote::PageNetwork()
 	if ( CheckCookie() ) return;
 
 	CSingleLock pLock( &Network.m_pSection );
-	if ( ! pLock.Lock( 1000 ) ) return;
+	if ( ! SafeLock( pLock ) ) return;
 
 	DWORD nNeighbourID = 0;
 	_stscanf( GetKey( _T("drop") ), _T("%i"), &nNeighbourID );
@@ -1244,6 +1246,8 @@ void CRemote::PageNetwork()
 
 void CRemote::PageNetworkNetwork(int nID, bool* pbConnect, LPCTSTR pszName)
 {
+	CSingleLock pLock( &Network.m_pSection );
+
 	CString str;
 	str.Format( _T("%i"), nID );
 
@@ -1256,12 +1260,16 @@ void CRemote::PageNetworkNetwork(int nID, bool* pbConnect, LPCTSTR pszName)
 	{
 		*pbConnect = FALSE;
 
-		for ( POSITION pos = Neighbours.GetIterator() ; pos != NULL ; )
+		if ( SafeLock( pLock ) )
 		{
-			CNeighbour* pNeighbour = Neighbours.GetNext( pos );
-			if ( pNeighbour->m_nProtocol == PROTOCOL_NULL ||
-				 pNeighbour->m_nProtocol == nID )
-				pNeighbour->Close( IDS_CONNECTION_CLOSED );
+			for ( POSITION pos = Neighbours.GetIterator() ; pos != NULL ; )
+			{
+				CNeighbour* pNeighbour = Neighbours.GetNext( pos );
+				if ( pNeighbour->m_nProtocol == PROTOCOL_NULL ||
+					 pNeighbour->m_nProtocol == nID )
+					pNeighbour->Close( IDS_CONNECTION_CLOSED );
+			}
+			pLock.Unlock();
 		}
 	}
 
@@ -1269,6 +1277,8 @@ void CRemote::PageNetworkNetwork(int nID, bool* pbConnect, LPCTSTR pszName)
 	Add( _T("network_caption"), pszName );
 	if ( *pbConnect ) Add( _T("network_connected"), _T("true") );
 	Output( _T("networkNetStart") );
+
+	pLock.Lock();
 
 	for ( POSITION pos = Neighbours.GetIterator() ; pos != NULL ; )
 	{

@@ -1,7 +1,7 @@
 //
 // WndUploads.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -26,19 +26,16 @@ class CUploadsWnd : public CPanelWnd
 {
 	DECLARE_SERIAL(CUploadsWnd)
 
-// Construction
 public:
 	CUploadsWnd();
 	virtual ~CUploadsWnd();
 
-// Operations
 public:
 	virtual void	OnSkinChange();
 protected:
 	inline BOOL		IsSelected(CUploadFile* pFile);
 	void			Prepare();
 
-// Attributes
 public:
 	CUploadsCtrl	m_wndUploads;
 	CCoolBarCtrl	m_wndToolBar;
@@ -55,12 +52,10 @@ protected:
 	BOOL			m_bSelSourceAcceptConnections;
 	DWORD			m_nSelected;
 
-// Overrides
 public:
 	virtual BOOL OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO* pHandlerInfo);
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
 
-// Implementation
 protected:
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();

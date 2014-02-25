@@ -1,7 +1,7 @@
 //
 // QueryHashTable.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -29,12 +29,10 @@ class CXMLElement;
 
 class CQueryHashTable
 {
-// Construction
 public:
 	CQueryHashTable();
 	virtual ~CQueryHashTable();
 
-// Attributes
 public:
 	bool				m_bLive;
 	DWORD				m_nCookie;
@@ -55,7 +53,6 @@ protected:
 	// Split word to keywords (Katakana/Hiragana/Kanji helper)
 	static void		MakeKeywords(const CString& strWord, WORD nWordType, CStringList& oKeywords);
 
-// Operations
 public:
 	void	Create();
 	void	Clear();

@@ -1,7 +1,7 @@
 //
 // CtrlIRCFrame.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -155,6 +155,7 @@ public:
 	CArray< CIRCMessage > m_pMessages;
 };
 
+
 class CIRCTabCtrl : public CTabCtrl
 {
 	enum
@@ -165,7 +166,6 @@ class CIRCTabCtrl : public CTabCtrl
 		paintHotTrack = 0x4
 	};
 
-// Construction
 public:
 	CIRCTabCtrl();
 	virtual ~CIRCTabCtrl();
@@ -193,9 +193,9 @@ public:
 	DECLARE_MESSAGE_MAP()
 };
 
+
 class CIRCChannelList
 {
-// Operations
 public:
 	CIRCChannelList();
 
@@ -208,7 +208,6 @@ public:
 	int				GetIndexOfName(const CString& strName) const;
 	CString			GetDisplayOfIndex(int nIndex) const;
 	CString			GetNameOfIndex(int nIndex) const;
-// Attributes
 protected:
 	int				m_nCount;
 	int				m_nCountUserDefined;
@@ -217,17 +216,18 @@ protected:
 	CArray<BOOL>	m_bUserDefined;
 };
 
+
 class CIRCFrame : public CWnd
 {
 	DECLARE_DYNAMIC(CIRCFrame)
 
-// Construction
 public:
 	CIRCFrame();
 	virtual ~CIRCFrame();
 
 	static CIRCFrame*	g_pIrcFrame;
 
+public:
 	virtual BOOL	Create(CWnd* pParentWnd);
 	virtual BOOL	PreTranslateMessage(MSG* pMsg);
 
@@ -361,17 +361,18 @@ protected:
 		return strUser;
 	}
 
+protected:
 	virtual void OnLocalText(LPCTSTR pszText);
 	virtual void OnStatusMessage(LPCTSTR pszText, int nFlags);
 
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg void OnDestroy();
+	afx_msg void OnPaint();
+	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnRichCursorMove(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnRichClk(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnRichDblClk(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnClickTab(NMHDR* pNMHDR, LRESULT* pResult);
-	afx_msg void OnDestroy();
-	afx_msg void OnPaint();
-	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnIrcShowSettings();

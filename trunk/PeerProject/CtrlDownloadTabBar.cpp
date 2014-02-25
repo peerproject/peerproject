@@ -1,7 +1,7 @@
 //
 // CtrlDownloadTabBar.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -177,8 +177,8 @@ void CDownloadTabBar::UpdateStates(int nCookie)
 
 	for ( POSITION posNext = m_pItems.GetHeadPosition() ; posNext ; )
 	{
-		POSITION posThis	= posNext;
-		TabItem* pItem		= m_pItems.GetNext( posNext );
+		POSITION posThis = posNext;
+		TabItem* pItem = m_pItems.GetNext( posNext );
 
 		if ( DownloadGroups.Check( pItem->m_pGroup ) )
 		{
@@ -203,8 +203,8 @@ CDownloadTabBar::TabItem* CDownloadTabBar::HitTest(const CPoint& point, CRect* p
 	CalcInsideRect( rc, FALSE );
 
 	rc.left -= m_cyTopBorder;
-	rc.top -= m_cxLeftBorder;
-	rc.right += m_cyBottomBorder;
+	rc.top  -= m_cxLeftBorder;
+	rc.right  += m_cyBottomBorder;
 	rc.bottom += m_cxRightBorder;
 
 	CRect rcItem( rc.left + 3, rc.top + 1, 0, rc.bottom - 1 );
@@ -368,8 +368,8 @@ void CDownloadTabBar::OnTimer(UINT_PTR nIDEvent)
 		if ( ! rcWindow.PtInRect( point ) )
 		{
 			KillTimer( nIDEvent );
-			m_pHot		= NULL;
-			m_bTimer	= FALSE;
+			m_pHot   = NULL;
+			m_bTimer = FALSE;
 			Invalidate();
 		}
 	}
@@ -433,7 +433,6 @@ void CDownloadTabBar::OnRButtonUp(UINT /*nFlags*/, CPoint point)
 
 	ClientToScreen( &point );
 	Skin.TrackPopupMenu( _T("CDownloadTabBar"), point );
-//	return;
 
 //	CControlBar::OnRButtonUp( nFlags, point );
 }
@@ -571,7 +570,7 @@ void CDownloadTabBar::OnUpdateDownloadGroupMoveLeft(CCmdUI* pCmdUI)
 void CDownloadTabBar::OnDownloadGroupMoveLeft()
 {
 	CSingleLock pLock( &Transfers.m_pSection );
-	if ( ! pLock.Lock( 1000 ) ) return;
+	if ( ! SafeLock( pLock ) ) return;
 
 	DownloadGroups.MoveLeft( GetSelectedGroup() );
 	NotifySelection();
@@ -585,7 +584,7 @@ void CDownloadTabBar::OnUpdateDownloadGroupMoveRight(CCmdUI* pCmdUI)
 void CDownloadTabBar::OnDownloadGroupMoveRight()
 {
 	CSingleLock pLock( &Transfers.m_pSection );
-	if ( ! pLock.Lock( 1000 ) ) return;
+	if ( ! SafeLock( pLock ) ) return;
 
 	DownloadGroups.MoveRight( GetSelectedGroup() );
 	NotifySelection();
@@ -621,7 +620,9 @@ void CDownloadTabBar::OnUpdateDownloadGroupResume(CCmdUI* pCmdUI)
 
 void CDownloadTabBar::OnDownloadGroupResume()
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! SafeLock( pLock ) ) return;
+
 	CList< CDownload* > pDownloads;
 
 	GetSelectedDownloads( &pDownloads );
@@ -641,7 +642,9 @@ void CDownloadTabBar::OnUpdateDownloadGroupPause(CCmdUI* pCmdUI)
 
 void CDownloadTabBar::OnDownloadGroupPause()
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! SafeLock( pLock ) ) return;
+
 	CList< CDownload* > pDownloads;
 
 	GetSelectedDownloads( &pDownloads );
@@ -661,9 +664,7 @@ void CDownloadTabBar::OnUpdateDownloadGroupClear(CCmdUI* pCmdUI)
 
 void CDownloadTabBar::OnDownloadGroupClear()
 {
-	CString strMessage;
-	LoadString( strMessage, IDS_DOWNLOAD_CLEAR_GROUP );
-	if ( MsgBox( strMessage, MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 ) != IDYES ) return;
+	if ( MsgBox( IDS_DOWNLOAD_CLEAR_GROUP, MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 ) != IDYES ) return;
 
 	CSingleLock pLock( &Transfers.m_pSection, TRUE );
 	CList< CDownload* > pDownloads;

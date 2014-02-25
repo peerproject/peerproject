@@ -1,7 +1,7 @@
 //
 // MetaList.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -25,21 +25,19 @@ class CMetaItem;
 class CXMLElement;
 class CAlbumFolder;
 
+
 class CMetaList
 {
-// Construction
 public:
 	CMetaList();
 	virtual ~CMetaList();
 
-// Attributes
 protected:
 	CList< CMetaItem* >	m_pItems;
 	BOOL		m_bMusicBrainz;
 	CBitmap		m_bmMusicBrainz;
 	int			m_nHeight;
 
-// Operations
 public:
 	CMetaItem*	Add(LPCTSTR pszKey, LPCTSTR pszValue);
 	CMetaItem*	Find(LPCTSTR pszKey) const;
@@ -60,7 +58,7 @@ public:
 	void		Paint(CDC* pDC, const CRect* prcArea);
 	int			Layout(CDC* pDC, int nWidth);
 
-// Inline Operations
+// Inlines
 public:
 	inline POSITION GetIterator() const
 	{
@@ -93,11 +91,9 @@ public:
 
 class CMetaItem : public CRect
 {
-// Construction
 public:
 	CMetaItem(CSchemaMember* pMember = NULL);
 
-// Attributes
 public:
 	CSchemaMember*	m_pMember;
 	CMap< CString, const CString&, int, int > m_pVote;
@@ -110,7 +106,6 @@ public:
 	BOOL			m_bFullWidth;
 	int				m_nHeight;
 
-// Operations
 public:
 	BOOL			Combine(const CXMLElement* pXML);
 	void			Vote();

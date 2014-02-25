@@ -1,7 +1,7 @@
 //
 // CtrlMainTabBar.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -55,7 +55,6 @@ public:
 		virtual void	SetCheck(BOOL bCheck);
 	};
 
-// Attributes
 protected:
 	CList< TabItem* > m_pItems;
 	CSkinWindow*	m_pSkin;
@@ -66,7 +65,6 @@ protected:
 	CBitmap			m_bmSkin;
 	HBITMAP			m_hOldSkin;
 
-// Operations
 public:
 	BOOL			Create(CWnd* pParentWnd, DWORD dwStyle, UINT nID);
 	BOOL			HasLocalVersion();
@@ -82,17 +80,16 @@ public:
 		m_pSkin = NULL;
 	}
 
-// Implementation
 protected:
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
-	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
+	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
-	afx_msg void OnTimer(UINT_PTR nIDEvent);
+	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
 
 	DECLARE_MESSAGE_MAP()
 	DECLARE_DROP()

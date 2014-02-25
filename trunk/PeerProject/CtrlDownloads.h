@@ -1,7 +1,7 @@
 //
 // CtrlDownloads.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -28,11 +28,9 @@ class CDownloadsCtrl : public CWnd
 {
 	DECLARE_DYNAMIC(CDownloadsCtrl)
 
-// Construction
 public:
 	CDownloadsCtrl();
 
-// Operations
 public:
 	BOOL		Create(CWnd* pParentWnd, UINT nID);
 	BOOL		Update();
@@ -47,8 +45,9 @@ protected:
 	BOOL		LoadColumnState();
 	void		SelectTo(int nIndex);
 	void		BubbleSortDownloads(int nColumn);
-	void		DeselectAll(CDownload* pExcept1 = NULL, CDownloadSource* pExcept2 = NULL);
 	void		SelectAll(CDownload* pExcept1 = NULL, CDownloadSource* pExcept2 = NULL);
+	void		DeselectAll(CDownload* pExcept1 = NULL, CDownloadSource* pExcept2 = NULL);
+	BOOL		GetSelectedList(CList< CDownload* >& pList, BOOL bClearing = FALSE);
 	int 		GetSelectedCount();
 	void		MoveSelected(int nDelta);
 	void		MoveToTop();
@@ -66,7 +65,6 @@ public:
 
 	friend class CDownloadsWnd;
 
-// Attributes
 protected:
 	CHeaderCtrl			m_wndHeader;
 	CDownloadTipCtrl	m_wndTip;
@@ -83,7 +81,6 @@ protected:
 	BOOL				m_bShowSearching;
 	DWORD				m_tSwitchTimer;
 
-// Implementation
 public:
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();

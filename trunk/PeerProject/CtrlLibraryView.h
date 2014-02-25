@@ -1,7 +1,7 @@
 //
 // CtrlLibraryView.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -32,12 +32,10 @@ class CLibraryView : public CWnd
 {
 	DECLARE_DYNAMIC(CLibraryView)
 
-// Construction
 public:
 	CLibraryView();
 	virtual ~CLibraryView();
 
-// Attributes
 public:
 	UINT				m_nCommandID;
 	LPCTSTR				m_pszToolBar;
@@ -48,7 +46,6 @@ public:
 private:
 	CLibraryListPtr		m_pSelection;
 
-// Operations
 public:
 	inline CLibraryList* GetSelection() const
 	{
@@ -86,7 +83,6 @@ protected:
 	CLibraryFile*		GetNextSelectedFile(POSITION& posSel, BOOL bSharedOnly = FALSE, BOOL bAvailableOnly = TRUE) const;
 	CLibraryFile*		GetSelectedFile();
 
-// Implementation
 protected:
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();

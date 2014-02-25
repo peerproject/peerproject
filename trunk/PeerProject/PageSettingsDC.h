@@ -1,7 +1,7 @@
 //
 // PageSettingsDC.h
 //
-// This file is part of PeerProject (peerproject.org) © 2011-2012
+// This file is part of PeerProject (peerproject.org) © 2011-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -25,41 +25,30 @@ class CDCSettingsPage : public CSettingsPage
 {
 	DECLARE_DYNCREATE(CDCSettingsPage)
 
-// Construction
 public:
 	CDCSettingsPage();
 	virtual ~CDCSettingsPage();
 
 	enum { IDD = IDD_SETTINGS_DC };
 
-// Dialog Data
 public:
-	//{{AFX_DATA(CDCSettingsPage)
 	CButton	m_wndDiscoveryGo;
 	CSpinButtonCtrl	m_wndHubsSpin;
 	CEdit	m_wndHubs;
 	int 	m_nHubs;
 	BOOL	m_bEnabled;
 	BOOL	m_bEnableAlways;
-	//}}AFX_DATA
 
-// Overrides
 public:
-	//{{AFX_VIRTUAL(CDCSettingsPage)
-	public:
 	virtual void OnOK();
 	virtual BOOL OnSetActive();
-	protected:
-	virtual void DoDataExchange(CDataExchange* pDX);
-	//}}AFX_VIRTUAL
-
-// Implementation
 protected:
-	//{{AFX_MSG(CDCSettingsPage)
+	virtual void DoDataExchange(CDataExchange* pDX);
+
+protected:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnDiscoveryGo();
 	afx_msg void OnEnable();
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

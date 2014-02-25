@@ -1,7 +1,7 @@
 //
 // DlgSecureRule.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -25,16 +25,13 @@ class CSecureRule;
 
 class CSecureRuleDlg : public CSkinDialog
 {
-// Construction
 public:
 	CSecureRuleDlg(CWnd* pParent = NULL, CSecureRule* pRule = NULL);
 	virtual ~CSecureRuleDlg();
 
 	enum { IDD = IDD_SECURE_RULE };
 
-// Dialog Data
 public:
-	//{{AFX_DATA(CSecureRuleDlg)
 	CButton	m_wndGroupNetwork;
 	CButton	m_wndGroupContent;
 	CButton	m_wndGroupExternal;
@@ -62,7 +59,6 @@ public:
 	CString	m_sComment;
 	CString	m_sContent;
 	CString	m_sPath;
-	//}}AFX_DATA
 
 	CSecureRule*	m_pRule;
 	CToolTipCtrl	m_ToolTip;	// Netmask hint
@@ -71,23 +67,17 @@ public:
 	BOOL	GetClipboardAddress();
 	void	ShowGroup(CWnd* pWnd, BOOL bShow);
 
-// Overrides
 public:
-	//{{AFX_VIRTUAL(CSecureRuleDlg)
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
-	//}}AFX_VIRTUAL
 
-// Implementation
 protected:
-	//{{AFX_MSG(CSecureRuleDlg)
 	virtual BOOL OnInitDialog();
 	virtual void OnOK();
 	afx_msg void OnSelChangeRuleExpire();
 	afx_msg void OnSelChangeRuleType();
 	afx_msg void OnBrowse();
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

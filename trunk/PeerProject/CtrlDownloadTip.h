@@ -1,7 +1,7 @@
 //
 // CtrlDownloadTip.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -31,7 +31,6 @@ class CDownloadTipCtrl : public CCoolTipCtrl
 {
 	DECLARE_DYNAMIC(CDownloadTipCtrl)
 
-// Construction
 public:
 	CDownloadTipCtrl();
 	virtual ~CDownloadTipCtrl();
@@ -55,7 +54,6 @@ public:
 		ShowImpl( bChanged );
 	}
 
-// Attributes
 protected:
 	CDownload*			m_pDownload;
 	CDownloadSource*	m_pSource;
@@ -79,14 +77,7 @@ protected:
 	CGraphItem* 		m_pItem;
 	BOOL				m_bDrawGraph;		// Draw the download graph?
 
-// Operations
 protected:
-	virtual BOOL OnPrepare();
-	virtual void OnCalcSize(CDC* pDC);
-	virtual void OnShow();
-	virtual void OnHide();
-	virtual void OnPaint(CDC* pDC);
-
 	void OnCalcSize(CDC* pDC, CDownload* pDownload);
 	void OnCalcSize(CDC* pDC, CDownloadSource* pSource);
 	void OnPaint(CDC* pDC, CDownload* pDownload);
@@ -97,16 +88,15 @@ protected:
 	void DrawProgressBar(CDC* pDC, CPoint* pPoint, CDownload* pDownload);
 	void DrawProgressBar(CDC* pDC, CPoint* pPoint, CDownloadSource* pSource);
 
-// Overrides
-//public:
-	//{{AFX_VIRTUAL(CDownloadTipCtrl)
-	//}}AFX_VIRTUAL
-
-// Implementation
 protected:
-	//{{AFX_MSG(CDownloadTipCtrl)
+	virtual BOOL OnPrepare();
+	virtual void OnShow();
+	virtual void OnHide();
+	virtual void OnPaint(CDC* pDC);
+	virtual void OnCalcSize(CDC* pDC);
+
+protected:
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

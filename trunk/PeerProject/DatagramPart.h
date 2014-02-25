@@ -1,7 +1,7 @@
 //
 // DatagramPart.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -24,12 +24,10 @@ class CG2Packet;
 
 class CDatagramOut
 {
-// Construction
 public:
 	CDatagramOut();
 	~CDatagramOut();
 
-// Attributes
 public:
 	CDatagramOut*	m_pNextHash;
 	CDatagramOut**	m_pPrevHash;
@@ -51,7 +49,6 @@ protected:
 	BYTE			m_nLocked;
 	DWORD*			m_pLocked;
 
-// Operations
 public:
 	void	Create(const SOCKADDR_IN* pHost, const CG2Packet* pPacket, WORD nSequence, CBuffer* pBuffer, BOOL bAck);
 	BOOL	GetPacket(DWORD tNow, BYTE** ppPacket, DWORD* pnPacket, BOOL bResend);

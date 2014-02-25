@@ -1,7 +1,7 @@
 //
 // UploadTransferHTTP.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -29,12 +29,10 @@ class CED2K;
 
 class CUploadTransferHTTP : public CUploadTransfer
 {
-// Construction
 public:
 	CUploadTransferHTTP();
 	virtual ~CUploadTransferHTTP();
 
-// Attributes
 protected:
 	CString		m_sRequest;
 	BOOL		m_bHead;
@@ -64,7 +62,6 @@ protected:
 	CString		m_sLocations;
 	CString		m_sRanges;
 
-// Operations
 public:
 	virtual void	AttachTo(CConnection* pConnection);
 	inline BOOL 	IsBackwards() const { return m_bBackwards; }

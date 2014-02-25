@@ -113,7 +113,9 @@ CNeighbour* CNeighboursWithConnect::ConnectTo(
 
 	// Get this thread exclusive access to the network (do) while this method runs
 	// When control leaves the method, pLock will go out of scope and release access
-	CSingleLock pLock( &Network.m_pSection, TRUE );
+	CSingleLock pLock( &Network.m_pSection );
+	if ( ! pLock.Lock( 200 ) )
+		return NULL;
 
 	// If the list of connected computers already has this IP address
 	if ( Get( pAddress ) )
@@ -218,29 +220,23 @@ CNeighbour* CNeighboursWithConnect::ConnectTo(
 BOOL CNeighboursWithConnect::OnAccept(CConnection* pConnection)
 {
 	CSingleLock pLock( &Network.m_pSection );
-	if ( pLock.Lock( 300 ) )
+	if ( ! pLock.Lock( 150 ) )
+		return TRUE;	// Try again later
+
+	if ( Neighbours.Get( pConnection->m_pHost.sin_addr ) )
 	{
-		if ( Neighbours.Get( pConnection->m_pHost.sin_addr ) )
-		{
-			pConnection->Write( _P("GNUTELLA/0.6 503 Duplicate connection\r\n\r\n") );
-			pConnection->LogOutgoing();
-			pConnection->DelayClose( IDS_CONNECTION_ALREADY_REFUSE );
-			return TRUE;
-		}
-
-		if ( CShakeNeighbour* pNeighbour = new CShakeNeighbour() )
-		{
-			pNeighbour->AttachTo( pConnection );
-			return FALSE;
-		}
-		pLock.Unlock();
+		pConnection->Write( _P("GNUTELLA/0.6 503 Duplicate connection\r\n\r\n") );
+		pConnection->LogOutgoing();
+		pConnection->DelayClose( IDS_CONNECTION_ALREADY_REFUSE );
+		return TRUE;
 	}
-	else
-		theApp.Message( MSG_ERROR, _T("Rejecting %s connection from %s, network core overloaded."), _T("neighbour"), (LPCTSTR)pConnection->m_sAddress );
 
-	pConnection->Write( _P("GNUTELLA/0.6 503 Busy\r\n\r\n") );
-	pConnection->LogOutgoing();
-	pConnection->DelayClose( IDS_CONNECTION_CLOSED );
+	if ( CShakeNeighbour* pNeighbour = new CShakeNeighbour() )
+	{
+		pNeighbour->AttachTo( pConnection );
+		return FALSE;
+	}
+
 	return TRUE;
 }
 

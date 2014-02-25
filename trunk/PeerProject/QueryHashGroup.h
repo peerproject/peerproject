@@ -1,7 +1,7 @@
 //
 // QueryHashGroup.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -23,12 +23,10 @@ class CQueryHashTable;
 
 class CQueryHashGroup
 {
-// Construction
 public:
 	CQueryHashGroup(DWORD nHash = 0);
 	virtual ~CQueryHashGroup();
 
-// Attributes
 public:
 	BYTE*		m_pHash;
 	DWORD		m_nHash;
@@ -36,7 +34,6 @@ public:
 protected:
 	CList< CQueryHashTable* > m_pTables;
 
-// Operations
 public:
 	void	Add(CQueryHashTable* pTable);
 	void	Remove(CQueryHashTable* pTable);

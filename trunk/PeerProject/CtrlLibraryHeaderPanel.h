@@ -1,7 +1,7 @@
 //
 // CtrlLibraryHeaderPanel.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -25,12 +25,10 @@ class CAlbumFolder;
 
 class CLibraryHeaderPanel : public CWnd
 {
-// Construction
 public:
 	CLibraryHeaderPanel();
 	virtual ~CLibraryHeaderPanel();
 
-// Attributes
 protected:
 	int			m_nIcon32;
 	int			m_nIcon48;
@@ -46,7 +44,6 @@ protected:
 	HBITMAP		m_hBuffer;
 	CBitmap		m_bmWatermark;
 
-// Operations
 public:
 	int				Update();
 	void			OnSkinChange();
@@ -55,23 +52,17 @@ protected:
 	void			DoPaint(CDC* pDC, CRect& rcClient);
 	void			DrawText(CDC* pDC, int nX, int nY, LPCTSTR pszText);
 
-// Overrides
 public:
-	//{{AFX_VIRTUAL(CLibraryHeaderPanel)
 	virtual BOOL Create(CWnd* pParentWnd);
-	//}}AFX_VIRTUAL
 
-// Implementation
 protected:
-	//{{AFX_MSG(CLibraryHeaderPanel)
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
 	afx_msg void OnPaint();
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnXButtonDown(UINT nFlags, UINT nButton, CPoint point);
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

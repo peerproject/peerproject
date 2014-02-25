@@ -1,7 +1,7 @@
 //
 // DlgDownloadMonitor.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -27,14 +27,12 @@ class CGraphItem;
 
 class CDownloadMonitorDlg : public CSkinDialog
 {
-// Construction
 public:
 	CDownloadMonitorDlg(CDownload* pDownload);
 	virtual ~CDownloadMonitorDlg();
 
 	enum { IDD = IDD_DOWNLOAD_MONITOR };
 
-// Attributes
 public:
 	CDownload*		m_pDownload;
 	CString			m_sName;
@@ -61,9 +59,7 @@ public:
 	static void OnSkinChange(BOOL bSet);
 	static void CloseAll();
 
-// Dialog Data
 public:
-	//{{AFX_DATA(CDownloadMonitorDlg)
 	CStatic	m_wndVolume;
 	CStatic m_wndVolumeLabel;
 	CButton	m_wndAutoClose;
@@ -82,21 +78,15 @@ public:
 	CStatic	m_wndIcon;
 	CStatic	m_wndGraph;
 	CStatic	m_wndFile;
-	//}}AFX_DATA
 
-// Overrides
 protected:
-	//{{AFX_VIRTUAL(CDownloadMonitorDlg)
 	virtual void DoDataExchange(CDataExchange* pDX);
 	virtual void PostNcDestroy();
-	//}}AFX_VIRTUAL
 
-// Implementation
 protected:
-	//{{AFX_MSG(CDownloadMonitorDlg)
 	virtual BOOL OnInitDialog();
-	afx_msg void OnPaint();
 	afx_msg void OnDestroy();
+	afx_msg void OnPaint();
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnDownloadShow();
 	afx_msg void OnDownloadAction();
@@ -109,7 +99,6 @@ protected:
 	afx_msg void OnInitMenuPopup(CMenu* pPopupMenu, UINT nIndex, BOOL bSysMenu);
 	afx_msg LRESULT OnTray(WPARAM wParam, LPARAM lParam);
 	afx_msg BOOL OnNeedText(UINT nID, NMHDR* pTTT, LRESULT* pResult);
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

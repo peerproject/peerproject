@@ -1,7 +1,7 @@
 //
 // CtrlTipAlbum.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -39,7 +39,6 @@ public:
 		ShowImpl( bChanged );
 	}
 
-// Attributes
 protected:
 	CAlbumFolder*	m_pAlbumFolder;
 	CString			m_sName;
@@ -51,23 +50,12 @@ protected:
 	int				m_nKeyWidth;
 	COLORREF		m_crLight;
 
-// Operations
 protected:
 	void			DrawThumb(CDC* pDC, CRect& rcThumb);
 
 	virtual BOOL	OnPrepare();
 	virtual void	OnCalcSize(CDC* pDC);
 	virtual void	OnPaint(CDC* pDC);
-
-// Overrides
-//public:
-	//{{AFX_VIRTUAL(CAlbumTipCtrl)
-	//}}AFX_VIRTUAL
-
-// Implementation
-//protected:
-	//{{AFX_MSG(CAlbumTipCtrl)
-	//}}AFX_MSG
 
 	//DECLARE_MESSAGE_MAP()
 };

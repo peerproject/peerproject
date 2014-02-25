@@ -1,7 +1,7 @@
 //
 // DlgQueueProperties.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -25,15 +25,12 @@ class CUploadQueue;
 
 class CQueuePropertiesDlg : public CSkinDialog
 {
-// Construction
 public:
 	CQueuePropertiesDlg(CUploadQueue* pQueue, BOOL bEnable, CWnd* pParent = NULL);
 
 	enum { IDD = IDD_QUEUE_PROPERTIES };
 
-// Dialog Data
 public:
-	//{{AFX_DATA(CQueuePropertiesDlg)
 	CButton 		m_wndPartialOnly;
 	CButton 		m_wndLibraryOnly;
 	CButton			m_wndBoth;
@@ -72,19 +69,13 @@ public:
 
 	CImageList		m_gdiProtocols;
 	CUploadQueue*	m_pQueue;
-	//}}AFX_DATA
 
-// Overrides
 protected:
-	//{{AFX_VIRTUAL(CQueuePropertiesDlg)
 	virtual void DoDataExchange(CDataExchange* pDX);
 	virtual BOOL OnInitDialog();
 	virtual void OnOK();
-	//}}AFX_VIRTUAL
 
-// Implementation
 protected:
-	//{{AFX_MSG(CQueuePropertiesDlg)
 	afx_msg void OnMinimumCheck();
 	afx_msg void OnMaximumCheck();
 	afx_msg void OnProtocolsCheck();
@@ -96,9 +87,7 @@ protected:
 	afx_msg void OnPartialClicked();
 	afx_msg void OnLibraryClicked();
 	afx_msg void OnBothClicked();
-	//}}AFX_MSG
 
-	// Get the protcol checkbox
 	CButton* GetProtocolCheckbox()
 	{
 		return ((CButton*)GetDlgItem(IDC_PROTOCOLS_CHECK));

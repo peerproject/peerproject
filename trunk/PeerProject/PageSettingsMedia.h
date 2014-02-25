@@ -1,7 +1,7 @@
 //
 // PageSettingsMedia.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -25,14 +25,12 @@ class CMediaSettingsPage : public CSettingsPage
 {
 	DECLARE_DYNCREATE(CMediaSettingsPage)
 
-// Construction
 public:
 	CMediaSettingsPage();
 	virtual ~CMediaSettingsPage();
 
 	enum { IDD = IDD_SETTINGS_MEDIA };
 
-// Dialog Data
 public:
 	CButton		m_wndRemove;
 	CButton		m_wndAdd;
@@ -42,7 +40,6 @@ public:
 	BOOL		m_bEnablePlay;
 	BOOL		m_bEnableEnqueue;
 
-// Overrides
 protected:
 	void Update();
 

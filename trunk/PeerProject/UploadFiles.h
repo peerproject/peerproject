@@ -1,7 +1,7 @@
 //
 // UploadFiles.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -24,16 +24,13 @@ class CUploadTransfer;
 
 class CUploadFiles
 {
-// Construction
 public:
 	CUploadFiles();
 	virtual ~CUploadFiles();
 
-// Attributes
 protected:
 	CList< CUploadFile* >	m_pList;
 
-// Operations
 public:
 	void			Clear();
 	CUploadFile*	GetFile(CUploadTransfer* pUpload, const Hashes::Sha1Hash& oSHA1, LPCTSTR pszName, LPCTSTR pszPath, QWORD nSize);

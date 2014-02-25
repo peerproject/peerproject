@@ -1,7 +1,7 @@
 //
 // CtrlDownloadTabBar.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -24,7 +24,6 @@ class CDownloadGroup;
 
 class CDownloadTabBar : public CControlBar
 {
-// Construction
 public:
 	CDownloadTabBar();
 	virtual ~CDownloadTabBar();
@@ -33,12 +32,10 @@ public:
 public:
 	class TabItem
 	{
-	// Construction
 	public:
 		TabItem(CDownloadGroup* pGroup, int nCookie);
 		virtual ~TabItem();
 
-	// Attributes
 	public:
 		CDownloadGroup*	m_pGroup;
 		CString			m_sCaption;
@@ -47,14 +44,12 @@ public:
 		int				m_nCount;
 		BOOL			m_bSelected;
 
-	// Operations
 	public:
 		BOOL			Update(int nCookie);
 		BOOL			Select(BOOL bSelect);
 		void			Paint(CDownloadTabBar* pBar, CDC* pDC, CRect* pRect, BOOL bHot, BOOL bTransparent);
 	};
 
-// Attributes
 protected:
 	CList< TabItem* > m_pItems;
 	TabItem*		m_pHot;
@@ -67,7 +62,6 @@ protected:
 	CString			m_sMessage;
 	CBitmap			m_bmImage;
 
-// Operations
 public:
 	void			OnSkinChange();
 	void			Update(int nCookie);
@@ -84,7 +78,6 @@ protected:
 	void			GetSelectedDownloads(CList< CDownload* >* pDownloads);
 	void			NotifySelection();
 
-// Overrides
 public:
 	virtual BOOL	Create(CWnd* pParentWnd, DWORD dwStyle = WS_CHILD|WS_VISIBLE|CBRS_BOTTOM, UINT nID = AFX_IDW_STATUS_BAR);
 	virtual CSize	CalcFixedLayout(BOOL bStretch, BOOL bHorz);
@@ -92,7 +85,6 @@ public:
 	virtual void	OnUpdateCmdUI(CFrameWnd* /*pTarget*/, BOOL /*bDisableIfNoHndler*/) {};
 	virtual void	DoPaint(CDC* pDC);
 
-// Implementation
 protected:
 	afx_msg int 	OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void	OnTimer(UINT_PTR nIDEvent);

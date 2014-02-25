@@ -1,7 +1,7 @@
 //
 // DlgFileCopy.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -18,9 +18,9 @@
 
 #pragma once
 
+#include "ThreadImpl.h"
 #include "DlgSkinDialog.h"
 #include "CtrlSharedFolder.h"
-#include "ThreadImpl.h"
 
 class CLibraryFile;
 
@@ -52,6 +52,7 @@ protected:
 	DWORD				m_nCookie;
 	BOOL				m_bCancel;
 	int					m_nFileProg;
+	bool				m_bCompleted;
 
 public:
 	void		AddFile(CLibraryFile* pFile);
@@ -60,8 +61,8 @@ protected:
 	void		StartOperation();
 	void		StopOperation();
 	void		OnRun();
-	bool		ProcessFile(const CString& strName, const CString& strPath);
 	bool		CheckTarget(const CString& pszTarget);
+	bool		ProcessFile(const CString& strName, const CString& strPath);
 	bool		ProcessMove(const CString& strSource, const CString& strTarget);
 	bool		ProcessCopy(const CString& pszSource, const CString& pszTarget);
 

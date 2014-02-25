@@ -1,7 +1,7 @@
 //
 // DlgDeleteFile.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -39,8 +39,8 @@ IMPLEMENT_DYNAMIC(CDeleteFileDlg, CSkinDialog)
 
 BEGIN_MESSAGE_MAP(CDeleteFileDlg, CSkinDialog)
 	ON_WM_CTLCOLOR()
-	ON_WM_MEASUREITEM()
 	ON_WM_DRAWITEM()
+	ON_WM_MEASUREITEM()
 	ON_BN_CLICKED(IDC_DELETE_ALL, OnDeleteAll)
 	ON_BN_CLICKED(IDC_CREATE_GHOST, OnClickedCreateGhost)
 	ON_CBN_SELCHANGE(IDC_DELETE_OPTIONS, OnCbnChangeOptions)
@@ -180,12 +180,12 @@ void CDeleteFileDlg::Create(CDownload* pDownload, BOOL bShare)
 	if ( ! pDownload->m_oSHA1 && ! pDownload->m_oTiger && ! pDownload->m_oED2K &&
 		 ! pDownload->m_oBTH && ! pDownload->m_oMD5 ) return;
 
-	CSingleLock oLock( &Library.m_pSection );
-	if ( ! oLock.Lock( 500 ) ) return;
+	CSingleLock pLock( &Library.m_pSection );
+	if ( ! SafeLock( pLock ) ) return;
 
 	CLibraryFile* pFile = NULL;
 
-	if ( pFile == NULL && pDownload->m_oSHA1 )
+	if ( pDownload->m_oSHA1 )
 		pFile = LibraryMaps.LookupFileBySHA1( pDownload->m_oSHA1 );
 	if ( pFile == NULL && pDownload->m_oTiger )
 		pFile = LibraryMaps.LookupFileByTiger( pDownload->m_oTiger );

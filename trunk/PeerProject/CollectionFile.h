@@ -1,7 +1,7 @@
 //
 // CollectionFile.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -29,7 +29,6 @@ class CCollectionFile : public CComObject
 {
 	DECLARE_DYNAMIC(CCollectionFile)
 
-// Construction
 public:
 	CCollectionFile();
 	virtual ~CCollectionFile();
@@ -41,19 +40,16 @@ public:
 public:
 	class File : public CPeerProjectFile
 	{
-	// Construction
-	public:
+		public:
 		File(CCollectionFile* pParent);
 		virtual ~File();
 
-	// Attributes
-	public:
+		public:
 		CCollectionFile*	m_pParent;
 		CXMLElement*		m_pMetadata;
 	//	CString				m_sSource;		// ToDo: Use sources ?
 
-	// Operations
-	public:
+		public:
 		BOOL	Parse(CXMLElement* pXML);	// Load from XML
 		BOOL	Parse(CFile& pFile);		// Load from .emulecollection-file
 		BOOL	Parse(LPCTSTR szText);		// Load from text line
@@ -63,7 +59,6 @@ public:
 		BOOL	ApplyMetadata(CLibraryFile* pShared);
 	};
 
-// Attributes
 protected:
 	CList< File* >	m_pFiles;
 	CString			m_sTitle;
@@ -72,7 +67,6 @@ protected:
 	CXMLElement*	m_pMetadata;
 	CollectionType	m_nType;
 
-// Operations
 public:
 	BOOL		Open(LPCTSTR lpszFileName);
 	void		Close();

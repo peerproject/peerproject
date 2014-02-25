@@ -1,7 +1,7 @@
 //
 // Downloads.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -21,9 +21,9 @@
 class CDownload;
 class CDownloadSource;
 class CConnection;
-class CQueryHit;
 class CLibraryFile;
 class CMatchFile;
+class CQueryHit;
 class CPeerProjectURL;
 class CEDClient;
 class CBuffer;
@@ -34,12 +34,10 @@ class CDownloads
 public:
 	enum { dlPathNull, dlPathComplete, dlPathIncomplete };
 
-// Construction
 public:
 	CDownloads();
 	virtual ~CDownloads();
 
-// Attributes
 public:
 	DWORD			m_tBandwidthAtMax;			// Last time download bandwidth was all in use
 	DWORD			m_tBandwidthAtMaxED2K;		// Last time all ed2k bandwidth was used
@@ -61,7 +59,6 @@ private:
 	bool			m_bAllowMoreDownloads;
 	bool			m_bAllowMoreTransfers;
 
-// Operations
 public:
 	CDownload*	Add(BOOL bAddToHead = FALSE);
 	CDownload*	Add(CQueryHit* pHit, BOOL bAddToHead = FALSE);

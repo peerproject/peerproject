@@ -1,7 +1,7 @@
 //
 // ShellIcons.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -21,12 +21,10 @@
 
 class CShellIcons
 {
-// Construction
 public:
 	CShellIcons();
 //	virtual ~CShellIcons();
 
-// Operations
 public:
 	void	Clear();
 	int		Add(HICON hIcon, int nSize = 16);
@@ -70,7 +68,6 @@ public:
 //		}
 //	}
 
-// Attributes
 private:
 	typedef CMap< CString, const CString&, int, int > CIconMap;
 	typedef CMap< CString, const CString&, CString, const CString& > CStringMap;

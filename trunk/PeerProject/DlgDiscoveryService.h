@@ -1,7 +1,7 @@
 //
 // DlgDiscoveryService.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -25,39 +25,29 @@ class CDiscoveryService;
 
 class CDiscoveryServiceDlg : public CSkinDialog
 {
-// Construction
 public:
 	CDiscoveryServiceDlg(CWnd* pParent = NULL, CDiscoveryService* pService = NULL);
 	virtual ~CDiscoveryServiceDlg();
 
 	enum { IDD = IDD_DISCOVERY_SERVICE };
 
-// Dialog Data
 public:
-	//{{AFX_DATA(CDiscoveryServiceDlg)
 	CButton	m_wndOK;
 	CString	m_sAddress;
 	int		m_nType;
-	//}}AFX_DATA
 
 	CDiscoveryService* m_pService;
 	BOOL m_bNew;
 
-// Overrides
 public:
-	//{{AFX_VIRTUAL(CDiscoveryServiceDlg)
 	protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
-	//}}AFX_VIRTUAL
 
-// Implementation
 protected:
-	//{{AFX_MSG(CDiscoveryServiceDlg)
 	virtual void OnOK();
 	virtual BOOL OnInitDialog();
 	afx_msg void OnChangeAddress();
 	afx_msg void OnSelChangeServiceType();
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

@@ -1,7 +1,7 @@
 //
 // DlgDonkeyImport.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -24,15 +24,12 @@
 
 class CDonkeyImportDlg : public CSkinDialog
 {
-// Construction
 public:
 	CDonkeyImportDlg(CWnd* pParent = NULL);
 
 	enum { IDD = IDD_DONKEY_IMPORT };
 
-// Dialog Data
 public:
-	//{{AFX_DATA(CDonkeyImportDlg)
 	CButton	m_wndClose;
 	CButton	m_wndCancel;
 	CButton	m_wndImport;
@@ -40,24 +37,16 @@ public:
 
 	CString	m_sCancel;
 	CEDPartImporter	m_pImporter;
-	//}}AFX_DATA
 
-// Overrides
-public:
-	//{{AFX_VIRTUAL(CDonkeyImportDlg)
-	protected:
-	virtual void DoDataExchange(CDataExchange* pDX);
-	//}}AFX_VIRTUAL
-
-// Implementation
 protected:
-	//{{AFX_MSG(CDonkeyImportDlg)
+	virtual void DoDataExchange(CDataExchange* pDX);
+
+protected:
 	virtual BOOL OnInitDialog();
 	virtual void OnCancel();
 	afx_msg void OnClose();
 	afx_msg void OnImport();
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

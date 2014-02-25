@@ -1,7 +1,7 @@
 //
 // UploadTransferBT.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -27,12 +27,10 @@ class CBTPacket;
 
 class CUploadTransferBT : public CUploadTransfer
 {
-// Construction
 public:
 	CUploadTransferBT(CBTClient* pClient, CDownload* pDownload);
 	virtual ~CUploadTransferBT();
 
-// Attributes
 public:
 	CBTClient*		m_pClient;
 	CDownload*		m_pDownload;
@@ -45,7 +43,6 @@ private:
 	Fragments::Queue m_oRequested;
 	Fragments::Queue m_oServed;
 
-// Operations
 public:
 	void			SetChoke(BOOL bChoke);
 	virtual void	Close(UINT nError = 0);

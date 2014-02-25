@@ -1,7 +1,7 @@
 //
 // CtrlSchema.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -28,11 +28,9 @@ class CXMLElement;
 
 class CSchemaCtrl : public CWnd
 {
-// Construction
 public:
 	CSchemaCtrl();
 
-// Attributes
 public:
 	int				m_nCaptionWidth;
 	int				m_nItemHeight;
@@ -45,7 +43,6 @@ protected:
 	int				m_nScroll;
 	CString			m_sMultipleString;
 
-// Operations
 public:
 	void		SetSchema(CSchemaPtr pSchema, BOOL bPromptOnly = FALSE);
 	BOOL		UpdateData(CXMLElement* pBase, BOOL bSaveAndValidate);

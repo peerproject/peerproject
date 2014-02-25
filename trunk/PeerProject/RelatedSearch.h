@@ -1,7 +1,7 @@
 //
 // RelatedSearch.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -28,19 +28,16 @@ class CLibraryFile;
 
 class CRelatedSearch : public CPeerProjectFile
 {
-// Construction
 public:
 	CRelatedSearch(CMatchFile* pFile);
 	CRelatedSearch(CLibraryFile* pFile);
 	virtual ~CRelatedSearch();
 
-// Attributes
 public:
 	CSchemaPtr		m_pSchema;
 	CXMLElement*	m_pXML;
 	BOOL			m_bXML;
 
-// Operations
 public:
 	BOOL		CanSearchForThis();
 	BOOL		RunSearchForThis();

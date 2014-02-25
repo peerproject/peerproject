@@ -1,7 +1,7 @@
 //
 // DlgGraphList.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -27,27 +27,23 @@ class CGraphItem;
 
 class CGraphListDlg : public CSkinDialog
 {
-// Construction
 public:
 	CGraphListDlg(CWnd* pParent = NULL, CLineGraph* pGraph = NULL);
 
 	enum { IDD = IDD_GRAPH_LIST };
 
-// Dialog Data
 public:
-	//{{AFX_DATA(CGraphListDlg)
 	CButton	m_wndCancel;
 	CButton	m_wndOK;
 	CSpinButtonCtrl	m_wndSpeed;
 	CButton	m_wndRemove;
 	CButton	m_wndEdit;
-	CListCtrl	m_wndList;
+	CListCtrl m_wndList;
 	DWORD	m_nSpeed;
 	BOOL	m_bShowGrid;
 	BOOL	m_bShowAxis;
 	BOOL	m_bShowLegend;
 	CString	m_sName;
-	//}}AFX_DATA
 
 	CLineGraph*	m_pGraph;
 	CImageList	m_gdiImageList;
@@ -55,15 +51,10 @@ public:
 	CLiveItem*	PrepareItem(CGraphItem* pItem);
 	void		SetModified();
 
-// Overrides
 protected:
-	//{{AFX_VIRTUAL(CGraphListDlg)
 	virtual void DoDataExchange(CDataExchange* pDX);
-	//}}AFX_VIRTUAL
 
-// Implementation
 protected:
-	//{{AFX_MSG(CGraphListDlg)
 	virtual BOOL OnInitDialog();
 	virtual void OnOK();
 	afx_msg void OnItemChangedGraphItems(NMHDR* pNMHDR, LRESULT* pResult);
@@ -72,7 +63,6 @@ protected:
 	afx_msg void OnGraphRemove();
 	afx_msg void OnDblClkGraphItems(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnCustomDrawItems(NMHDR* pNMHDR, LRESULT* pResult);
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

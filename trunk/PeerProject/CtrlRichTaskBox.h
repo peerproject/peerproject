@@ -1,7 +1,7 @@
 //
 // CtrlRichTaskBox.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -25,36 +25,28 @@ class CRichTaskBox : public CTaskBox
 {
 	DECLARE_DYNAMIC(CRichTaskBox)
 
-// Construction
 public:
 	CRichTaskBox();
 	virtual ~CRichTaskBox();
 
-// Attributes
 protected:
 	CRichViewCtrl	m_wndView;
 	CRichDocument*	m_pDocument;
 	int				m_nWidth;
 
-// Operations
 public:
 	inline CRichViewCtrl& GetView() const { return (CRichViewCtrl&)m_wndView; }
+
 public:
 	void	SetDocument(CRichDocument* pDocument);
 	void	Update();
 
-// Overrides
 public:
-	//{{AFX_VIRTUAL(CRichTaskBox)
 	virtual BOOL Create(CTaskPanel* pPanel, LPCTSTR pszCaption = NULL, UINT nIDIcon = 0);
-	//}}AFX_VIRTUAL
 
-// Implementation
 protected:
-	//{{AFX_MSG(CRichTaskBox)
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnSize(UINT nType, int cx, int cy);
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

@@ -59,16 +59,16 @@ typedef enum NeighbourNodeEnum
 // Make the m_nPongNeeded buffer an array of 32 bytes
 const uchar PONG_NEEDED_BUFFER = 32;
 
+
 // Define the CNeighbour class to inherit from CConnection, picking up a socket and methods to connect it and read data through it
 class CNeighbour : public CConnection
 {
-// Construction
 protected:
 	CNeighbour(PROTOCOLID nProtocol);
 	CNeighbour(PROTOCOLID nProtocol, CNeighbour* pBase);
 	virtual ~CNeighbour();
 
-// Attributes: State
+// State
 public:
 	DWORD		m_nRunCookie;			// The number of times this neighbour has been run, CNeighboursBase::OnRun uses this to run each neighbour in the list once
 	NrsState	m_nState;				// Neighbour state, like connecting, handshake 1, 2, or 3, or rejected
@@ -78,7 +78,7 @@ public:
 	Hashes::Guid m_oMoreResultsGUID;	// GUID of the last search, used to get more results (do)
 	CString		m_sServerName;			// Server name, primarily for eD2K and DC++ hubs
 
-// Attributes: Capabilities
+// Capabilities
 public:
 	NrsNode		m_nNodeType;			// This connection is to a hub above us, ntHub, a leaf below us, ntLeaf, or a hub just like us, ntNode
 	BOOL		m_bAutomatic;
@@ -97,7 +97,7 @@ public:
 	BOOL		m_bExtProbes;			// "X-Ext-Probes: 0.1" (default: false)
 	CString 	m_sLocalePref;			// "X-Locale-Pref: en" ("" if not set) -UNUSED?
 
-// Attributes: Statistics
+// Statistics
 public:
 	DWORD		m_nInputCount;
 	DWORD		m_nOutputCount;
@@ -109,12 +109,12 @@ public:
 	DWORD		m_nFileCount; 			// The number of files the remote computer is sharing, according to the pong packet it sent us
 	DWORD		m_nFileVolume;			// The total size of all of those files, according to the same pong packet
 
-// Attributes: Query Hash Tables
+// Query Hash Tables
 public:
 	CQueryHashTable* m_pQueryTableRemote;
 	CQueryHashTable* m_pQueryTableLocal;
 
-// Attributes: Internals
+// Internals
 protected:
 	DWORD		m_tLastPacket;			// The time that we received the last packet
 	CBuffer*	m_pZInput;				// The remote computer is sending compressed data, we'll save it in m_pInput, and then decompress it to here
@@ -127,7 +127,6 @@ protected:
 	DWORD		m_tZOutput;				// The time that Zlib last compressed something
 	BOOL		m_bZInputEOS;			// Got End Of Stream while decompressing incoming data
 
-// Operations
 public:
 	DWORD		GetMaxTTL() const;		// Get maximum TTL which is safe for both sides
 	void		GetCompression(float& nInRate, float& nOutRate) const;	// Calculate average compression rate in either direction for this connection

@@ -1,7 +1,7 @@
 //
 // DlgHitColumns.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -25,44 +25,32 @@
 
 class CSchemaColumnsDlg : public CSkinDialog
 {
-// Construction
 public:
 	CSchemaColumnsDlg(CWnd* pParent = NULL);   // standard constructor
 
 	enum { IDD = IDD_SCHEMA_COLUMNS };
 
-// Dialog Data
 public:
-	//{{AFX_DATA(CSchemaColumnsDlg)
 	CListCtrl	m_wndColumns;
 	CSchemaCombo	m_wndSchemas;
-	//}}AFX_DATA
 
-// Attributes
 public:
 	CSchemaPtr	m_pSchema;
 	CList< CSchemaMember* >	m_pColumns;
 
-// Operations
 public:
 	static CMenu*	BuildColumnMenu(CSchemaPtr pSchema, CList< CSchemaMember* >* pColumns = NULL);
 	static BOOL		LoadColumns(CSchemaPtr pSchema, CList< CSchemaMember* >* pColumns);
 	static BOOL		SaveColumns(CSchemaPtr pSchema, CList< CSchemaMember* >* pColumns);
 	static BOOL		ToggleColumnHelper(CSchemaPtr pSchema, CList< CSchemaMember* >* pSource, CList< CSchemaMember* >* pTarget, UINT nToggleID, BOOL bSave = FALSE);
 
-// Overrides
 protected:
-	//{{AFX_VIRTUAL(CSchemaColumnsDlg)
 	virtual void DoDataExchange(CDataExchange* pDX);
-	//}}AFX_VIRTUAL
 
-// Implementation
 protected:
-	//{{AFX_MSG(CSchemaColumnsDlg)
 	virtual BOOL OnInitDialog();
-	afx_msg void OnSelChangeSchemas();
 	virtual void OnOK();
-	//}}AFX_MSG
+	afx_msg void OnSelChangeSchemas();
 
 	DECLARE_MESSAGE_MAP()
 };

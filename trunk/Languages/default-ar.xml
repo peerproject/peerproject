@@ -3,7 +3,7 @@
 
 <!-- PeerProject Arabic Language Skin File -->
 
-<!-- Translation based on default-en.xml r102 -->
+<!-- Translation based on default-en.xml r104 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -566,8 +566,7 @@
 					<item id="ID_HELP_FORUMS" text="_منتديات PeerProject" />
 					<separator />
 					<item id="ID_HELP_UPDATE" text="آخر الأخبار"/>
-					<!-- <item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-					<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+					<!-- <item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 				</menu>
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject.org" />
 				<separator/>
@@ -667,8 +666,7 @@
 				<separator />
 				<item id="ID_HELP_FORUMS" text="_منتديات PeerProject" />
 				<item id="ID_HELP_UPDATE" text="آخر الأخبار"/>
-				<!-- <item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<!-- <item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_معلومات عن PeerProject..."/>
@@ -737,8 +735,7 @@
 				<separator />
 				<item id="ID_HELP_FORUMS" text="_منتديات PeerProject" />
 				<!-- <item id="ID_HELP_UPDATE" text="آخر الأخبار"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator />
 			<item id="ID_HELP_ABOUT" text="_معلومات عن PeerProject ..." />
@@ -834,8 +831,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _منتديات"/>
 				<item id="ID_HELP_UPDATE" text="آخر الأخبار"/>
-				<!-- <item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<!-- <item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator />
 			<item id="ID_HELP_ABOUT" text="_معلومات عن PeerProject..." />
@@ -2811,7 +2807,7 @@
 	<string id="20874" value="الرابط:" />
 	<string id="20875" value="غير محدد" />
 	<string id="20880" value="تحرير وضعيتي" />
-	<string id="20881" value="الملفات المختارة. هل أنت متأكد؟ %u"/>
+	<string id="20882" value="الملفات المختارة. هل أنت متأكد؟ %u"/>
 	<string id="20886" value=" تغيير الاتجاه واجهة يتطلب إعادة التشغيل. \n\n الخروج الآن؟ \n\n\nChanging interface direction requires restart.\n\nExit now?"/>
 	<string id="20890" value="مرحبا بك مع PeerProject" />
 	<string id="20892" value="يرجى الانتظار: Updating eDonkey server list..." />
@@ -2906,16 +2902,6 @@
 		<control caption="_حدد الاضافات..." />
 		<control caption="تحذير : عند إختيار معالج وسائط خارجي سيتم التعطيل تلقائيا لجميع وظائف المرئيات الصوتية الإضافية" />
 	</dialog>
-	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="المجتمع">
-		<control caption="_:وضعيتي" />
-		<control caption="يمكنك إستخدام وضعية جي.نيوتيللا الخاصة بك للمشاركة بالمعلومات عن نفسك و اهتماماتك و توصياتك عن الملفات و المواقع التي تنصح بها الآخرين" />
-		<control caption="تحرير وضعيتي" />
-		<control caption="_:محادثة" />
-		<control caption="تمكين محادثة النظير إلى النظر مع العملاء المتوافقين" />
-		<control caption="تمكين المحادثة على جميع الشبكات" />
-		<control caption="فرز رسائل المحادثة من الرسائل العشوائية" />
-		<control caption="حساسية عبارات المحادثة" />
-	</dialog>
 	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdmsStStEdmsCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStCoStEdStEd" caption="محادثة">
 		<control caption="خيارات ال_تابع :" />
 		<control caption="إظهار تكامل المحادثة" />
@@ -2959,6 +2945,28 @@
 		<control />
 		<control caption="On-connect"/>
 		<control/>
+	</dialog>
+	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="المجتمع">
+		<control caption="_:وضعيتي" />
+		<control caption="يمكنك إستخدام وضعية جي.نيوتيللا الخاصة بك للمشاركة بالمعلومات عن نفسك و اهتماماتك و توصياتك عن الملفات و المواقع التي تنصح بها الآخرين" />
+		<control caption="تحرير وضعيتي" />
+		<control caption="_:محادثة" />
+		<control caption="تمكين محادثة النظير إلى النظر مع العملاء المتوافقين" />
+		<control caption="تمكين المحادثة على جميع الشبكات" />
+		<control caption="فرز رسائل المحادثة من الرسائل العشوائية" />
+		<control caption="حساسية عبارات المحادثة" />
+	</dialog>
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="الوصول البعيد">
+		<control caption="_:ممكن" />
+		<control caption=" :من التحكم عن بعد Shareaza تمكين" />
+		<control caption="الرابط" />
+		<control caption="الإ&amp;عتمادات:" />
+		<control caption="إختر إسم مستخدم:" />
+		<control />
+		<control />
+		<control caption="إختر كلمة مرور:" />
+		<control caption=":الدليل" />
+		<control caption="يسمح لك الوصول البعيد لشير-أزا بترك &quot;شير-أزا&quot; يعمل في كمبيوترك و من ثم التحكم فيه عن بعد عن طريق متصفح ويب . لكن يجب قبول الإتصالات الواردة لإستخدام هذه الميزة" />
 	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="ويب">
 		<control caption="معالجة رابط _نظير إلى نظر:" />
@@ -3053,18 +3061,6 @@
 		<control caption="_تحرير..." />
 		<control caption="_حذف" />
 		<control caption="(التغييرات تصبح سارية المفعول فورا)" />
-	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="الوصول البعيد">
-		<control caption="_:ممكن" />
-		<control caption=" :من التحكم عن بعد Shareaza تمكين" />
-		<control caption="الرابط" />
-		<control caption="الإ&amp;عتمادات:" />
-		<control caption="إختر إسم مستخدم:" />
-		<control />
-		<control />
-		<control caption="إختر كلمة مرور:" />
-		<control caption=":الدليل" />
-		<control caption="يسمح لك الوصول البعيد لشير-أزا بترك &quot;شير-أزا&quot; يعمل في كمبيوترك و من ثم التحكم فيه عن بعد عن طريق متصفح ويب . لكن يجب قبول الإتصالات الواردة لإستخدام هذه الميزة" />
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="الشبكات">
 		<control caption="شير-أزا هو تطبيق لمشاركة الملفات لأغراض عامة حيث يقوم بالدخول على العديد من شبكات &quot;النظير-إلى-النظير&quot; المختلفة في نفس الوقت . في هذه الصفحة يمكنك تحديد شبكات &quot;النظير-إلى-النظير&quot; المراد الإنصال بها و من ثم ضبط الإعدادات لكل شبكة" />
@@ -3279,9 +3275,7 @@
 		<control caption="للإتصال بالإنترنت PeerProject لأداء مثالي ، يجب إعداد" />
 		<control caption=":إختر نوع إتصال الإنترنت" />
 		<control caption=" |مودم طلب هاتفي| ISDN 128ك| DSL 768ك| DSL 1.5|مودم كيبل 3| DSL 4م| DSL2 8م| FIOS 10م| DSL2 12م| FIOS 15م| FIOS 20م| FIOS 25م| FIOS 30م| FIOS 50م| T1| T3| LAN| OC3" />
-		<control caption="Speedtest.net اختبار في"/>
-
-		<control caption=":أو إختر سرعة التحميل" />
+		<control caption="Speedtest.net اختبار في"/>		<control caption=":أو إختر سرعة التحميل" />
 		<control />
 		<control caption=":و سرعة الإرسال" />
 		<control />

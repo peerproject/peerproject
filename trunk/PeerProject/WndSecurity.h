@@ -1,7 +1,7 @@
 //
 // WndSecurity.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -31,7 +31,6 @@ public:
 	CSecurityWnd();
 	virtual ~CSecurityWnd();
 
-// Attributes
 protected:
 	CCoolBarCtrl	m_wndToolBar;
 	CListCtrl		m_wndList;
@@ -39,21 +38,15 @@ protected:
 	CImageList		m_gdiImageList;
 	DWORD			m_tLastUpdate;
 
-// Operations
 protected:
 	CSecureRule* GetItem(int nItem);
 	void		 Update(int nColumn = -1, BOOL bSort = TRUE);
 
-// Overrides
 protected:
-	//{{AFX_VIRTUAL(CSecurityWnd)
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	virtual void OnSkinChange();
-	//}}AFX_VIRTUAL
 
-// Implementation
 protected:
-	//{{AFX_MSG(CSecurityWnd)
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
 	afx_msg void OnSize(UINT nType, int cx, int cy);
@@ -80,7 +73,6 @@ protected:
 	afx_msg void OnUpdateSecurityExport(CCmdUI* pCmdUI);
 	afx_msg void OnSecurityExport();
 	afx_msg void OnSecurityImport();
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };

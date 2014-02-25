@@ -1,7 +1,7 @@
 //
 // WndDownloads.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -27,12 +27,10 @@ class CDownloadsWnd : public CPanelWnd
 {
 	DECLARE_SERIAL(CDownloadsWnd)
 
-// Construction
 public:
 	CDownloadsWnd();
 	virtual ~CDownloadsWnd();
 
-// Operations
 public:
 	void			Update();
 	void			Select(CDownload* pDownload);	// For DownloadMonitor "Show"
@@ -41,7 +39,6 @@ protected:
 	void			Prepare();
 	void			CancelDrag();
 
-// Attributes
 protected:
 	CDownloadsCtrl	m_wndDownloads;
 	CDownloadTabBar	m_wndTabBar;
@@ -88,13 +85,11 @@ protected:
 	BOOL			m_bSelHasName;
 	BOOL			m_bConnectOkay;
 
-// Overrides
 public:
 	virtual void OnSkinChange();
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	virtual BOOL OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO* pHandlerInfo);
 
-// Implementation
 protected:
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();

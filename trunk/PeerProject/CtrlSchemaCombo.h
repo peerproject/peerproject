@@ -1,7 +1,7 @@
 //
 // CtrlSchemaCombo.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -23,11 +23,9 @@
 
 class CSchemaCombo : public CComboBox
 {
-// Construction
 public:
 	CSchemaCombo();
 
-// Attributes
 public:
 	CString		m_sNoSchemaText;
 	int			m_nType;
@@ -37,7 +35,6 @@ protected:
 	WNDPROC		m_pWndProc;
 	CString		m_sPreDrop;
 
-// Operations
 public:
 	void		SetEmptyString(UINT nID);
 	void		Load(LPCTSTR pszSelectURI = NULL, int nType = 0, int nAvailability = 0, BOOL bReset = TRUE);
@@ -50,14 +47,12 @@ protected:
 	int			FindSchema(CSchemaPtr pSchema);
 	BOOL		OnClickItem(int nItem, BOOL bDown);
 
-// Overrides
 public:
 	virtual BOOL Create(DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID);
 	virtual void MeasureItem(LPMEASUREITEMSTRUCT lpMeasureItemStruct);
 	virtual void DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct);
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
 
-// Implementation
 protected:
 	afx_msg LRESULT OnCtlColorListBox(WPARAM wParam, LPARAM lParam);
 	afx_msg void OnDropDown();

@@ -1,7 +1,7 @@
 //
 // DlgTorrentSeed.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -283,7 +283,7 @@ BOOL CTorrentSeedDlg::LoadTorrent(CString strPath)
 		return FALSE;	// Try again with manual Dialog
 
 	CSingleLock pTransfersLock( &Transfers.m_pSection );	// For Asserts (Rare new .torrent crashfix elsewhere?)
-	if ( ! pTransfersLock.Lock( 2000 ) ) return FALSE;
+	if ( ! SafeLock( pTransfersLock ) ) return FALSE;
 
 	CDownload* pDownload = Downloads.FindByBTH( m_pInfo.m_oBTH );
 
@@ -300,7 +300,8 @@ BOOL CTorrentSeedDlg::LoadTorrent(CString strPath)
 		{
 			pTransfersLock.Unlock();
 			Network.Connect();
-			if ( ! pTransfersLock.Lock( 2000 ) ) return FALSE;
+			if ( ! SafeLock( pTransfersLock ) )
+				return FALSE;
 		}
 
 		CPeerProjectURL oURL( new CBTInfo( m_pInfo ) );
@@ -372,7 +373,7 @@ void CTorrentSeedDlg::OnRun()
 BOOL CTorrentSeedDlg::CreateDownload()
 {
 	CSingleLock pTransfersLock( &Transfers.m_pSection );
-	if ( pTransfersLock.Lock( 2000 ) )
+	if ( SafeLock( pTransfersLock ) )
 	{
 		if ( Downloads.FindByBTH( m_pInfo.m_oBTH ) )
 		{

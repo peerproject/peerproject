@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Italian Skin File -->
 
-<!-- Translation based on default-en.xml r102 -->
+<!-- Translation based on default-en.xml r104 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -580,15 +580,11 @@
 				<item id="ID_HELP_GUIDE" text="Guida di PeerProject"/>
 				<item id="ID_HELP_FORUMS" text="Forums di PeerProject"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_Forum di Italiano"/>
-			<!--
-				<menu text="Aiuto di SkinVista">
-					<menu text="Reload GUI: Cntrl+Shift+Z"></menu>
-				</menu>
 				<separator/>
+			<!--
 				<menu text="_Websites">
 					<item id="ID_HELP_WEB_3" text="Slyck.com"/>
 					<item id="ID_HELP_WEB_1" text="ZeroPaid.com"/>
-					<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
 				</menu>
 			-->
 				<item id="ID_HELP_HOMEPAGE" text="PeerProject.org"/>
@@ -688,8 +684,7 @@
 				<item id="ID_HELP_FORUMS" text="_Forum di PeerProject"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_Forum di Italiano"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Ultime notizie"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_Informazioni su PeerProject..."/>
@@ -844,8 +839,7 @@
 				<item id="ID_HELP_FORUMS" text="_Forums di PeerProject"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_Forum di Italiano"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Ultime notizie"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_Informazioni su PeerProject..."/>
@@ -3336,9 +3330,9 @@
 	<string id="20874" value="URL:"/>
 	<string id="20875" value="Non specificato"/>
 	<string id="20880" value="Modifica il Mio Profilo"/>
-	<string id="20881" value="%u File selezionate. Sei sicuro?"/>
-	<string id="20882" value="Nessuna URN disponibile"/>
-	<string id="20883" value="Il servizio Host di periferiche Plug and Play universali non è attivo. Questo servizio è richiesto per effettuare la configurazione.nDevi impostare il tipo di avvio del servizio su automatico."/>
+	<string id="20882" value="%u File selezionate. Sei sicuro?"/>
+	<string id="20883" value="Nessuna URN disponibile"/>
+	<string id="20884" value="Il servizio Host di periferiche Plug and Play universali non è attivo. Questo servizio è richiesto per effettuare la configurazione.nDevi impostare il tipo di avvio del servizio su automatico."/>
 	<string id="20885" value="Cambiando la visualizzazione qualsiasi finestra aperta si chiuderà. Desideri cambiare ora?"/>
 	<string id="20886" value="Cambiare la direzione dell'interfaccia richiede il riavvio di PeerProject.\n\nVuoi uscire ora?"/>
 	<string id="20890" value="Benvenuto su PeerProject"/>
@@ -3442,16 +3436,6 @@
 		<control caption="_Seleziona plugin..."/>
 		<control caption="Avvertimento: Scegliendo un media player esterno saranno automaticamente disabilitati tutti i plugin di visualizzazione e multimediali."/>
 	</dialog>
-	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Comunità">
-		<control caption="Il mio _profilo:"/>
-		<control caption="Puoi usare il profilo utente di Gnutella per condividere informazioni su di te, i tuoi interessi, i file preferiti e i siti web preferiti con altri."/>
-		<control caption="Modifica profilo"/>
-		<control caption="_Chat:"/>
-		<control caption="Abilita la chat peer to peer con client compatibili"/>
-		<control caption="Abilita la chat su tutte le reti"/>
-		<control caption="Filtra i messaggi chat dallo spam"/>
-		<control caption="Censura contenuti profani in chat"/>
-	</dialog>
 	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdmsStStEdmsCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStCoStEdStEd" caption="IRC">
 		<control caption="_Opzioni client:"/>
 		<control caption="Mostra integrazione chat"/>
@@ -3495,6 +3479,28 @@
 		<control/>
 		<control caption="A connessione"/>
 		<control/>
+	</dialog>
+	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Comunità">
+		<control caption="Il mio _profilo:"/>
+		<control caption="Puoi usare il profilo utente di Gnutella per condividere informazioni su di te, i tuoi interessi, i file preferiti e i siti web preferiti con altri."/>
+		<control caption="Modifica profilo"/>
+		<control caption="_Chat:"/>
+		<control caption="Abilita la chat peer to peer con client compatibili"/>
+		<control caption="Abilita la chat su tutte le reti"/>
+		<control caption="Filtra i messaggi chat dallo spam"/>
+		<control caption="Censura contenuti profani in chat"/>
+	</dialog>
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Accesso remoto">
+		<control caption="A_bilita:"/>
+		<control caption="Abilita l'accesso remoto di PeerProject:"/>
+		<control/>
+		<control caption="_Autenticazione:"/>
+		<control caption="Scegli un nome utente:"/>
+		<control caption="Scegli una password:"/>
+		<control/>
+		<control/>
+		<control caption="Aiuto:"/>
+		<control caption="L'accesso remoto di PeerProject ti permette di lasciare in esecuzione PeerProject sul tuo PC e controllarlo in remoto utilizzando un browser Internet. Sarà necessario essere abilitati ad accettare le connessioni in entrata per usare questa caratteristica (es. router configurato correttamente, ecc)."/>
 	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
 		<control caption="Gestione link _Peer to Peer:"/>
@@ -3582,25 +3588,13 @@
 		<control caption="Limite:"/>
 		<control/>
 		<control caption="Modo:"/>
-		<control caption="Massimo|Medio"/>
+		<control caption="Medio|Massimo/Rigoroso"/>
 		<control caption="_Code:"/>
 		<control/>
 		<control caption="_Nuovo..."/>
 		<control caption="_Modifica..."/>
 		<control caption="_Elimina"/>
 		<control caption="(modifiche con effetto immediato)"/>
-	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Accesso remoto">
-		<control caption="A_bilita:"/>
-		<control caption="Abilita l'accesso remoto di PeerProject:"/>
-		<control/>
-		<control caption="_Autenticazione:"/>
-		<control caption="Scegli un nome utente:"/>
-		<control caption="Scegli una password:"/>
-		<control/>
-		<control/>
-		<control caption="Aiuto:"/>
-		<control caption="L'accesso remoto di PeerProject ti permette di lasciare in esecuzione PeerProject sul tuo PC e controllarlo in remoto utilizzando un browser Internet. Sarà necessario essere abilitati ad accettare le connessioni in entrata per usare questa caratteristica (es. router configurato correttamente, ecc)."/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuStBuStBuSt" caption="Reti">
 		<control caption="PeerProject è un'applicazione generica per la condivisione dei file che può accedere a molte reti P2P nello stesso momento. In questa pagina puoi selezionare a quale reti P2P vuoi connetterti e configurare ciascuna rete."/>

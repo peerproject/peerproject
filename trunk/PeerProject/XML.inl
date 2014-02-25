@@ -1,7 +1,7 @@
 //
 // XML.inl
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -163,17 +163,21 @@ inline int CXMLElement::GetAttributeCount() const
 
 inline POSITION CXMLElement::GetAttributeIterator() const
 {
-	ASSERT( m_pAttributes.GetCount() == m_pAttributesInsertion.GetCount() );
-//	return m_pAttributes.GetStartPosition();				// Legacy unordered
-	return m_pAttributesInsertion.GetHeadPosition();		// Track output order workaround
+	//ASSERT( m_pAttributes.GetCount() == m_pAttributesInsertion.GetCount() );
+
+	return m_bOrdered ?
+		m_pAttributesInsertion.GetHeadPosition() :		// Track output order workaround	(Broken Collection creation)
+		m_pAttributes.GetStartPosition();				// Legacy unordered
 }
 
 inline CXMLAttribute* CXMLElement::GetNextAttribute(POSITION& pos) const
 {
 	CXMLAttribute* pAttribute = NULL;
 	CString strName;
-//	m_pAttributes.GetNextAssoc( pos, strName, pAttribute );						// Legacy unordered
-	m_pAttributes.Lookup( m_pAttributesInsertion.GetNext( pos ), pAttribute );	// Track output order workaround
+
+	m_bOrdered ?
+		m_pAttributes.Lookup( m_pAttributesInsertion.GetNext( pos ), pAttribute ) :	// Track output order workaround	(Broken Collection creation)
+		m_pAttributes.GetNextAssoc( pos, strName, pAttribute );						// Legacy unordered
 
 	return pAttribute;
 }

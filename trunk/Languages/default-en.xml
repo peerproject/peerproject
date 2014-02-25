@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default English Skin File -->
 
-<!-- Translation based on default-en.xml r102 -->
+<!-- Translation based on default-en.xml r104 -->
 <!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -626,13 +626,13 @@
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_English Language Forum"/> <!--Localized-->
 				<separator/>
+				<item id="ID_HELP_TEST" text="_Connection Test"/>
+				<!--
 				<menu text="_Websites">
 					<item id="ID_HELP_WEB_3" text="Slyck.com"/>
-					<item id="ID_HELP_WEB_1" text="ZeroPaid.com"/>
-					<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
-					<!--item id="ID_HELP_WEB_SKINS" text="PeerProject Skin Site"-->
-					<item id="ID_HELP_TEST" text="_Connection Test"/>
+					<item id="ID_HELP_WEB_SKINS" text="PeerProject Skin Site"/>
 				</menu>
+				-->
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject.org"/>
 				<separator/>
 				<item id="ID_HELP_ABOUT" text="_About PeerProject..."/>
@@ -742,8 +742,7 @@
 				<item id="ID_HELP_FORUMS_LOCAL" text="_English Language Forum"/> <!--Localized-->
 				<item id="ID_HELP_WEB_SKINS" text="PeerProject S_kin Site"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Latest news"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 				<item id="ID_HELP_TEST" text="_Connection Test"/>
 			</menu>
 			<separator/> <!--
@@ -780,7 +779,7 @@
 				<item id="ID_VIEW_UPLOADS" text="_Uploads"/>
 				<separator/>
 				<item id="ID_VIEW_SECURITY" text="Se_curity"/>
-				<item id="ID_VIEW_SCHEDULER" text="Schedue_r"/>
+				<item id="ID_VIEW_SCHEDULER" text="Schedule_r"/>
 				<item id="ID_VIEW_HOSTS" text="H_ost Cache"/>
 				<item id="ID_VIEW_DISCOVERY" text="Disco_very"/>
 			</menu>
@@ -919,8 +918,7 @@
 				<item id="ID_HELP_FORUMS_LOCAL" text="_English Language Forum"/> <!--Localized-->
 				<item id="ID_HELP_WEB_SKINS" text="PeerProject S_kin Site"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Latest news"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 				<item id="ID_HELP_TEST" text="_Connection Test"/>
 			</menu>
 			<separator/> <!--
@@ -3538,9 +3536,10 @@
 	<string id="20874" value="URL:"/>
 	<string id="20875" value="Unspecified"/>
 	<string id="20880" value="Edit My Profile"/>
-	<string id="20881" value="%u Files selected. Are you sure?"/>
-	<string id="20882" value="No URN available"/>
-	<string id="20883" value="UPnP Device Host Service is not running. This service is required to perform the setup.\nYou need to set the startup type of the service to automatic."/>
+	<string id="20881" value="Overloaded lock timeout in %s"/>
+	<string id="20882" value="%u Files selected. Are you sure?"/>
+	<string id="20883" value="No URN available"/>
+	<string id="20884" value="UPnP Device Host Service is not running. This service is required to perform the setup.\nYou need to set the startup type of the service to automatic."/>
 	<string id="20885" value="Changing view will close any windows you have open. Would you like to change now?"/>
 	<string id="20886" value="Changing interface direction requires restart.\n\nExit now?"/>
 	<string id="20890" value="Welcome to PeerProject"/>
@@ -3796,7 +3795,7 @@
 		<control caption="Limit:"/>
 		<control/>
 		<control caption="Mode:"/>
-		<control caption="Maximum|Average"/>
+		<control caption="Average|Maximum/Strict"/>
 		<control caption="_Queues:"/>
 		<control/>
 		<control caption="_New..."/>

@@ -1,7 +1,7 @@
 //
 // CtrlLibraryCollectionView.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -59,12 +59,10 @@ class CLibraryCollectionView : public CLibraryFileView
 {
 	DECLARE_DYNAMIC(CLibraryCollectionView)
 
-// Construction
 public:
 	CLibraryCollectionView();
 	virtual ~CLibraryCollectionView();
 
-// Attributes
 protected:
 	CWebCtrl*			m_pWebCtrl;
 	DWORD				m_nWebIndex;
@@ -74,7 +72,6 @@ protected:
 	TRISTATE			m_bTrusted;
 	BOOL				m_bLockdown;
 
-// Operations
 public:
 	virtual BOOL	CheckAvailable(CLibraryTreeItem* pSel);
 	virtual void	SelectAll() {}
@@ -84,7 +81,6 @@ protected:
 	virtual DWORD_PTR HitTestIndex(const CPoint& /*point*/) const { return 0; };
 	virtual BOOL Create(CWnd* pParentWnd);
 
-// Implementation
 protected:
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
