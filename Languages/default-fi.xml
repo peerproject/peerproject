@@ -4,7 +4,7 @@
 <!-- PeerProject Default Finnish Skin File -->
 
 <!-- Translation based on default-en.xml r102 --> <!-- (Shareaza 2.1.3.7) -->
-<!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+<!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
@@ -23,6 +23,7 @@
 	version="1.0.0.0"
 	type="Language"
 	language="fi"
+	priority="38"
 	prompt="Klikkaa tähän valitaksesi Suomen käyttökieleksi."
 />
 
@@ -381,6 +382,7 @@
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Lisää..."/>
 	</toolbar>
+	<!-- DISCOVERY SERVICES WINDOW Missing -->
 	<!-- HOST CACHE WINDOW -->
 	<toolbar name="CHostCacheWnd">
 		<button id="ID_HOSTCACHE_CONNECT" text="Yhdistä..."/>

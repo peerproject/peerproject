@@ -3,8 +3,8 @@
 
 <!-- PeerProject Default Catalan Skin File -->
 
-<!-- Translation based on default-en.xml r104 -->
-<!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+<!-- Translation based on default-en.xml r106 -->
+<!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
@@ -16,13 +16,14 @@
 <manifest
 	name="Català"
 	author="Daniel Olivares Giménez (iniciat per CATMidia.cat)"
-	updatedBy="Equip de traduccions de FeshoCAT (tradu.feshocat.cat)"
+	updatedBy="Equip de FeshoCAT (tradu.feshocat.cat)"
 	description="PeerProject Default Catalan Skin File"
 	link="http://tradu.feshocat.cat"
 	email="tradu(at)feshocat.cat"
 	version="1.0.0.0"
 	type="Language"
 	language="ca"
+	priority="10"
 	prompt="Selecciona ací per fer servir PeerProject en català."
 />
 
@@ -392,6 +393,7 @@
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Més..."/>
 	</toolbar>
+	<!-- DISCOVERY SERVICES WINDOW Missing -->
 	<!-- HOST CACHE WINDOW -->
 	<toolbar name="CHostCacheWnd">
 		<button id="ID_HOSTCACHE_CONNECT" text="Connectar a"/>
@@ -2441,7 +2443,7 @@
 	<tip id="ID_SECURITY_MOVE_DOWN" message="Mou aquesta regla cap avall en la llista de precedència."/>
 	<tip id="ID_SECURITY_MOVE_UP" message="Mou aquesta regla cap a dalt en la llista de precedència."/>
 	<tip id="ID_SECURITY_POLICY_ACCEPT" message="Canvia la política de seguretat per defecte a acceptar totes les connexions."/>
-	<tip id="ID_SECURITY_POLICY_DEny" message="Canvia la política de seguretat per defecte a denegar totes les connexions."/>
+	<tip id="ID_SECURITY_POLICY_DENY" message="Canvia la política de seguretat per defecte a denegar totes les connexions."/>
 	<tip id="ID_SECURITY_REMOVE" message="Esborra aquesta norma de seguretat."/>
 	<tip id="ID_SECURITY_RESET" message="Reinicia els compadors de les regles de seguretat seleccionades."/>
 	<tip id="ID_SCHEDULER_ADD" message="Afegeix una nova regla de scheduled."/>
@@ -3788,7 +3790,7 @@
 		<control caption="|Home|Dona"/>
 		<control/>
 		<control caption="Info:"/>
-		<control caption="{n}G2 (PeerProject / Shareaza)"/>
+		<control caption="{n}G2 (PeerProject/Shareaza)"/>
 		<control caption="_Aplica:"/>
 		<control caption="Permetre que altres explorin el meu perfil"/>
 	</dialog>

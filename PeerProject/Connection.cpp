@@ -354,6 +354,8 @@ void CConnection::DelayClose(UINT nError)
 // Return true if this worked, false if we've lost the connection
 BOOL CConnection::DoRun()
 {
+	// ToDo: Occasionally locks for a few seconds?
+
 	// If this socket is invalid, call OnRun and return the result (do)
 	if ( ! IsValid() )
 		return OnRun();
@@ -440,13 +442,13 @@ void CConnection::QueueRun()
 // Objects that inherit from CConnection have OnConnected methods that do things, unlike this one
 BOOL CConnection::OnConnected()
 {
-	return TRUE;	// Just return true?
+	return TRUE;	// Just return true
 }
 
 // Objects that inherit from CConnection have OnDropped methods that do things, unlike this one
 void CConnection::OnDropped()
 {
-	// Do nothing ?
+	// Do nothing here
 }
 
 // Objects that inherit from CConnection have OnRun methods that do things, unlike this one

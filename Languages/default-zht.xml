@@ -3,8 +3,8 @@
 
 <!-- PeerProject Default Chinese (Traditional) Skin File -->
 
-<!-- Translation based on default-en.xml r104 --> <!-- (Shareaza 2.2.2.12) -->
-<!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+<!-- Translation based on default-en.xml r106 --> <!-- (Shareaza 2.2.2.12) -->
+<!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
@@ -23,6 +23,7 @@
 	version="1.0.0.0"
 	type="Language"
 	language="zht"
+	priority="58"
 	prompt="設定繁體中文為預設語言"
 />
 
@@ -421,6 +422,7 @@
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<button id="ID_SEARCH_FILTER_RAW" text="更多..."/>
 	</toolbar>
+	<!-- DISCOVERY SERVICES WINDOW Missing -->
 	<!-- HOST CACHE WINDOW -->
 	<toolbar name="CHostCacheWnd">
 		<button id="ID_HOSTCACHE_CONNECT" text="連線至"/>

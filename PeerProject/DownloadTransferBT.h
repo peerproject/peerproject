@@ -38,8 +38,6 @@ public:
 	BOOL			m_bAvailable;
 	DWORD			m_nAvailable;
 	DWORD			m_tRunThrottle;
-	DWORD			m_tSourceRequest;
-	Fragments::Queue m_oRequested;
 
 public:
 	BOOL			OnBitfield(CBTPacket* pPacket);
@@ -60,7 +58,7 @@ public:
 	virtual void	Close(TRISTATE bKeepSource, DWORD nRetryAfter = 0);
 	virtual DWORD	GetMeasuredSpeed();
 	virtual CString	GetStateText(BOOL bLong);
-	virtual BOOL	SubtractRequested(Fragments::List& ppFragments);
+	virtual BOOL	SubtractRequested(Fragments::List& ppFragments) const;
 	virtual bool	UnrequestRange(QWORD nOffset, QWORD nLength);
 protected:
 	virtual bool	SendFragmentRequests();

@@ -1132,14 +1132,15 @@ BOOL CBTClient::OnBeHandshake(CBTPacket* pPacket)
 		if ( pNick->IsType( CBENode::beString ) )
 		{
 			if ( CDownloadSource* pSource = GetSource() )
+			{
 				pSource->m_sNick = pNick->GetString();
+			}
 		}
 	}
 
 	if ( const CBENode* pExchange = pRoot->GetNode( BT_DICT_SRC_EXCHANGE ) )		// "source-exchange"
 	{
 		m_nSrcExchangeID = (QWORD)pExchange->GetInt();
-		SendSourceRequest();														// BT_PACKET_SOURCE_REQUEST
 	}
 
 	theApp.Message( MSG_INFO, IDS_BT_CLIENT_EXTENDED, (LPCTSTR)m_sAddress, (LPCTSTR)m_sUserAgent );

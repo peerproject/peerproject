@@ -51,10 +51,14 @@ protected:
 	BYTE*				m_pAvailable;
 	CTimeAverage< DWORD, 2000 >	m_AverageSpeed;
 
+	DWORD				m_tSourceRequest;		// When source request was last sent (ms)
+	Fragments::Queue	m_oRequested;			// List of requested fragments (ED2K/BitTorrent)
+
 public:
-	void				SetState(int nState);
 	CDownload*			GetDownload() const;	// Get owner download
 	CDownloadSource*	GetSource() const;		// Get associated source
+	void				SetState(int nState);
+	void				DrawStateBar(CDC* pDC, CRect* prcBar, COLORREF crFill, BOOL bTop = FALSE) const;
 protected:
 	void				ChunkifyRequest(QWORD* pnOffset, QWORD* pnLength, DWORD nChunk, BOOL bVerifyLock) const;
 	bool				SelectFragment(const Fragments::List& oPossible, QWORD& nOffset, QWORD& nLength, bool bEndGame = false) const;
@@ -69,7 +73,7 @@ public:
 	virtual void	Boost(BOOL bBoost = TRUE);
 	virtual DWORD	GetAverageSpeed();
 	virtual DWORD	GetMeasuredSpeed();
-	virtual BOOL	SubtractRequested(Fragments::List& ppFragments) = 0;
+	virtual BOOL	SubtractRequested(Fragments::List& ppFragments) const = 0;
 	virtual bool	UnrequestRange(QWORD /*nOffset*/, QWORD /*nLength*/);
 	virtual CString	GetStateText(BOOL bLong);
 	virtual BOOL	OnRun();

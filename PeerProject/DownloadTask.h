@@ -1,7 +1,7 @@
 //
 // DownloadTask.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include "PeerProjectThread.h"
+#include "ThreadImpl.h"
 #include "FileFragments.hpp"
 
 class CDownload;
@@ -35,47 +35,40 @@ enum dtask
 };
 
 
-class CDownloadTask : public CAppThread
+class CDownloadTask : public CThreadImpl
 {
-	DECLARE_DYNAMIC(CDownloadTask)
-
-protected:
-	CDownloadTask(CDownload* pDownload, dtask nTask);
+public:
+	CDownloadTask(CDownload* pDownload);
 	virtual ~CDownloadTask();
 
 public:
 	float				m_fProgress;		// Progress of current operation (0-100%)
 
-	static void			Copy(CDownload* pDownload);
-	static void			PreviewRequest(CDownload* pDownload, LPCTSTR szURL);
-	static void			MergeFile(CDownload* pDownload, CList< CString >* pFiles, BOOL bValidation = TRUE, const Fragments::List* pGaps = NULL);
-	static void			MergeFile(CDownload* pDownload, LPCTSTR szPath, BOOL bValidation = TRUE, const Fragments::List* pGaps = NULL);
+	void				Allocate();
+	void				Copy();
+	void				PreviewRequest(LPCTSTR szURL);
+	void				MergeFile(CList< CString >* pFiles, BOOL bValidation = TRUE, const Fragments::List* pGaps = NULL);
+	void				MergeFile(LPCTSTR szPath, BOOL bValidation = TRUE, const Fragments::List* pGaps = NULL);
 
 	void				Abort();
-	bool				WasAborted() const;
 	bool				HasSucceeded() const;
 	DWORD				GetFileError() const;
 	dtask				GetTaskType() const;
 	CString				GetRequest() const;
 	float				GetProgress() const;	// Get progress of current operation (0-100%)
-	CBuffer*			IsPreviewAnswerValid() const;
+	CBuffer*			IsPreviewAnswerValid(const Hashes::Sha1Hash& oRequestedSHA1) const;
 
-protected:
-	dtask				m_nTask;
-	CHttpRequest*		m_pRequest;
-//	CString				m_sURL;				// Request URL
-	bool				m_bSuccess;
-	CString				m_sFilename;
-	CString				m_sDestination;
-	DWORD				m_nFileError;
-	QWORD				m_nSize;
-	CString				m_sURL;
+private:
+	CAutoPtr< CHttpRequest > m_pRequest;
 	CDownload*			m_pDownload;
+	dtask				m_nTask;
+	bool				m_bSuccess;
+	DWORD				m_nFileError;
+	CString				m_sDestination;
+//	CString				m_sURL;				// Request URL
 	CList< CString >	m_oMergeFiles;		// Source filename(s)
 	Fragments::List		m_oMergeGaps;		// Missed ranges in source file
 	BOOL				m_bMergeValidation;	// Run validation after merging
-	POSITION			m_posTorrentFile;	// Torrent file list current position
-	CEvent*				m_pEvent;
 
 	static DWORD CALLBACK CopyProgressRoutine(LARGE_INTEGER TotalFileSize,
 		LARGE_INTEGER TotalBytesTransferred, LARGE_INTEGER StreamSize,
@@ -83,9 +76,11 @@ protected:
 		DWORD dwCallbackReason, HANDLE hSourceFile, HANDLE hDestinationFile,
 		LPVOID lpData);
 
-	void				Construct(CDownload* pDownload);
+	void				Construct(dtask nTask);
+
+	void				OnRun();
 	void				RunPreviewRequest();
-//	void				RunAllocate();
+	void				RunAllocate();
 	void				RunCopy();
 	void				RunMerge();
 	void				RunMergeFile(CDownload* pDownload, LPCTSTR szFilename, BOOL bMergeValidation, const Fragments::List& oMissedGaps, float fProgress = 100.0f);
@@ -93,8 +88,4 @@ protected:
 //	BOOL				CopyFile(HANDLE hSource, LPCTSTR pszTarget, QWORD nLength);
 	BOOL				CopyFileToBatch(HANDLE hSource, QWORD nOffset, QWORD nLength, LPCTSTR pszPath);
 	BOOL				MakeBatchTorrent();
-
-	virtual int			Run();
-
-	//DECLARE_MESSAGE_MAP()
 };

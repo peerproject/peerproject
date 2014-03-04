@@ -1,7 +1,7 @@
 //
 // WndDiscovery.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -169,7 +169,7 @@ void CDiscoveryWnd::OnDestroy()
 
 void CDiscoveryWnd::Update()
 {
-	CSingleLock pLock( &Network.m_pSection, FALSE );
+	CSingleLock pLock( &Network.m_pSection );
 	if ( ! pLock.Lock( 250 ) )
 		return;
 
@@ -179,18 +179,20 @@ void CDiscoveryWnd::Update()
 
 		CLiveItem* pItem = NULL;
 
-		if ( pService->m_nType == CDiscoveryService::dsGnutella )
+		switch ( pService->m_nType )
 		{
+		case CDiscoveryService::dsGnutella:
 			if ( ! m_bShowGnutella ) continue;
 			pItem = m_wndList.Add( pService );
 			pItem->Set( COL_TYPE, _T("Bootstrap") );
 			pItem->SetImage( 0 );			// IDR_HOSTCACHEFRAME
-		}
-		else if ( pService->m_nType == CDiscoveryService::dsWebCache )
-		{
+			break;
+		case CDiscoveryService::dsWebCache:
 			if ( ! m_bShowWebCache ) continue;
 			pItem = m_wndList.Add( pService );
 			pItem->Set( COL_TYPE, _T("GWebCache") );
+			if ( ! pService->m_sPong.IsEmpty() && pService->m_bGnutella2 )
+				pItem->Set( COL_PONG, pService->m_sPong );
 			if ( pService->m_bGnutella2 && pService->m_bGnutella1 )
 				pItem->SetImage( 1 );		// IDR_DISCOVERYFRAME Full-colored
 			else if ( pService->m_bGnutella2 )
@@ -199,23 +201,20 @@ void CDiscoveryWnd::Update()
 				pItem->SetImage( 3 );		// IDI_DISCOVERY_GRAY
 			else
 				pItem->SetImage( 4 );		// Blank?
-		}
-		else if ( pService->m_nType == CDiscoveryService::dsServerList )
-		{
+			break;
+		case CDiscoveryService::dsServerList:
 			if ( ! m_bShowServerList ) continue;
 			pItem = m_wndList.Add( pService );
 			pItem->Set( COL_TYPE, pService->m_nProtocolID == PROTOCOL_DC ? _T("Hublist") : _T("Server.met") );
 			pItem->SetImage( 4 );			// IDI_WEB_URL
-		}
-		else if ( pService->m_nType == CDiscoveryService::dsBlocked )
-		{
+			break;
+		case CDiscoveryService::dsBlocked:
 			if ( ! m_bShowBlocked ) continue;
 			pItem = m_wndList.Add( pService );
 			pItem->Set( COL_TYPE, _T("Blocked") );	// ToDo: Translate?
 			pItem->SetImage( 5 );			// IDI_FIREWALLED
-		}
-		else
-		{
+			break;
+		default:
 			continue;
 		}
 
@@ -231,27 +230,23 @@ void CDiscoveryWnd::Update()
 			pItem->Set( COL_TIME, _T(" - ") );
 		}
 
-		if ( pService->m_nType != CDiscoveryService::dsBlocked )
+		if ( pService->m_nType == CDiscoveryService::dsBlocked )
+			continue;
+
+		pItem->Format( COL_ACCESSES, _T("%u"), pService->m_nAccesses );
+		pItem->Format( COL_FAILURES, _T("%u"), pService->m_nFailures );
+
+		if ( pService->m_tAccessed )
 		{
-			pItem->Format( COL_ACCESSES, _T("%u"), pService->m_nAccesses );
-			pItem->Format( COL_FAILURES, _T("%u"), pService->m_nFailures );
-
-			if ( pService->m_tAccessed )
-			{
-				pItem->Format( COL_HOSTS,		_T("%u"), pService->m_nHosts );
-				pItem->Format( COL_HOSTS_TOTAL,	_T("%u"), pService->m_nTotalHosts );
-				pItem->Format( COL_URLS,		_T("%u"), pService->m_nURLs );
-				pItem->Format( COL_URLS_TOTAL,	_T("%u"), pService->m_nTotalURLs );
-				pItem->Format( COL_UPDATES, 	_T("%u"), pService->m_nUpdates );
-
-				if ( ! pService->m_sPong.IsEmpty() &&
-					pService->m_nType == CDiscoveryService::dsWebCache && pService->m_bGnutella2 )
-				{
-					pItem->Set( COL_PONG, pService->m_sPong );
-				}
-			}
+			pItem->Format( COL_HOSTS,		_T("%u"), pService->m_nHosts );
+			pItem->Format( COL_HOSTS_TOTAL,	_T("%u"), pService->m_nTotalHosts );
+			pItem->Format( COL_URLS,		_T("%u"), pService->m_nURLs );
+			pItem->Format( COL_URLS_TOTAL,	_T("%u"), pService->m_nTotalURLs );
+			pItem->Format( COL_UPDATES, 	_T("%u"), pService->m_nUpdates );
 		}
 	}
+
+	pLock.Unlock();
 
 	m_wndList.Apply();
 }
@@ -346,7 +341,7 @@ void CDiscoveryWnd::OnUpdateDiscoveryQuery(CCmdUI* pCmdUI)
 
 void CDiscoveryWnd::OnDiscoveryQuery()
 {
-	CSingleLock pLock( &Network.m_pSection, FALSE );
+	CSingleLock pLock( &Network.m_pSection );
 	if ( ! pLock.Lock( 250 ) )
 		return;
 
@@ -367,7 +362,6 @@ void CDiscoveryWnd::OnDiscoveryQuery()
 void CDiscoveryWnd::OnUpdateDiscoveryAdvertise(CCmdUI* pCmdUI)
 {
 	CSingleLock pLock( &Network.m_pSection );
-
 	if ( pLock.Lock( 100 ) )
 	{
 		CDiscoveryService* pService = GetItem( m_wndList.GetNextItem( -1, LVIS_SELECTED ) );
@@ -381,8 +375,8 @@ void CDiscoveryWnd::OnUpdateDiscoveryAdvertise(CCmdUI* pCmdUI)
 
 void CDiscoveryWnd::OnDiscoveryAdvertise()
 {
-	CSingleLock pLock( &Network.m_pSection, FALSE );
-	if ( ! pLock.Lock( 250 ) ) return;
+	CSingleLock pLock( &Network.m_pSection );
+	if ( ! pLock.Lock( 500 ) ) return;
 
 	CDiscoveryService* pService = GetItem( m_wndList.GetNextItem( -1, LVIS_SELECTED ) );
 
@@ -397,8 +391,8 @@ void CDiscoveryWnd::OnUpdateDiscoveryBrowse(CCmdUI* pCmdUI)
 
 void CDiscoveryWnd::OnDiscoveryBrowse()
 {
-	CSingleLock pLock( &Network.m_pSection, FALSE );
-	if ( ! pLock.Lock( 250 ) ) return;
+	CSingleLock pLock( &Network.m_pSection );
+	if ( ! pLock.Lock( 500 ) ) return;
 
 	CDiscoveryService* pService = GetItem( m_wndList.GetNextItem( -1, LVIS_SELECTED ) );
 	CString strURL;
@@ -421,8 +415,8 @@ void CDiscoveryWnd::OnDiscoveryRemove()
 {
 	if ( m_wndList.GetSelectedCount() <= 0 ) return;
 
-	CSingleLock pLock( &Network.m_pSection, FALSE );
-	if ( ! pLock.Lock( 250 ) ) return;
+	CSingleLock pLock( &Network.m_pSection );
+	if ( ! pLock.Lock( 500 ) ) return;
 
 	for ( int nItem = -1 ; ( nItem = m_wndList.GetNextItem( nItem, LVIS_SELECTED ) ) >= 0 ; )
 	{
@@ -444,8 +438,8 @@ void CDiscoveryWnd::OnUpdateDiscoveryEdit(CCmdUI* pCmdUI)
 
 void CDiscoveryWnd::OnDiscoveryEdit()
 {
-	CSingleLock pLock( &Network.m_pSection, FALSE );
-	if ( ! pLock.Lock( 250 ) ) return;
+	CSingleLock pLock( &Network.m_pSection );
+	if ( ! pLock.Lock( 500 ) ) return;
 
 	CDiscoveryService* pService = GetItem( m_wndList.GetNextItem( -1, LVIS_SELECTED ) );
 	if ( ! pService ) return;

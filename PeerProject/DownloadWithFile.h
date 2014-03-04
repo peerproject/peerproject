@@ -37,7 +37,7 @@ private:
 	CString			m_sFileError;			// More info about error
 
 public:
-	float			GetProgress() const;
+	virtual float	GetProgress() const;
 	QWORD			GetVolumeComplete() const;
 	QWORD			GetVolumeRemaining() const;
 	DWORD			GetTimeRemaining() const;
@@ -70,13 +70,14 @@ public:
 	CString			GetPath(DWORD nIndex = 0) const;
 	CString			GetName(DWORD nIndex = 0) const;
 	QWORD			GetCompleted(DWORD nIndex) const;
-	int				SelectFile(CSingleLock* pLock) const;
+	int				SelectFile(CSingleLock* pLock = NULL) const;
 	DWORD			GetFileError() const;
 	const CString&	GetFileErrorString() const;
 	void			SetFileError(DWORD nFileError, LPCTSTR szFileError);
 	void			ClearFileError();
 	virtual bool	Rename(const CString& strName);		// Set download new name safely
 	DWORD			MoveFile(LPCTSTR pszDestination, LPPROGRESS_ROUTINE lpProgressRoutine = NULL, CDownloadTask* pTask = NULL);
+
 protected:
 	BOOL			OpenFile();		// Legacy (Crash workaround)
 	BOOL			Open();			// Open files of this download

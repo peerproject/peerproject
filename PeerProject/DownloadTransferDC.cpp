@@ -1,7 +1,7 @@
 //
 // DownloadTransferDC.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2010-2012
+// This file is part of PeerProject (peerproject.org) © 2010-2014
 // Portions copyright Shareaza Development Team, 2010.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -131,7 +131,7 @@ DWORD CDownloadTransferDC::GetMeasuredSpeed()
 	return m_pClient->m_mInput.nMeasure;
 }
 
-BOOL CDownloadTransferDC::SubtractRequested(Fragments::List& ppFragments)
+BOOL CDownloadTransferDC::SubtractRequested(Fragments::List& ppFragments) const
 {
 	if ( m_nOffset != SIZE_UNKNOWN && m_nLength != SIZE_UNKNOWN &&
 		( m_nState == dtsRequesting || m_nState == dtsDownloading ) )

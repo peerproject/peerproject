@@ -3,8 +3,8 @@
 
 <!-- PeerProject Default French Skin File -->
 
-<!-- Translation based on default-en.xml r104 -->
-<!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+<!-- Translation based on default-en.xml r106 -->
+<!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
@@ -23,6 +23,7 @@
 	version="1.0.0.0"
 	type="Language"
 	language="fr"
+	priority="14"
 	prompt="Cliquez ici pour utiliser PeerProject en Français."
 />
 
@@ -415,6 +416,23 @@
 		<rightAlign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filtrer :"/>
 		<control id="IDC_FILTER_BOX" width="100"/>
+	</toolbar>
+	<!-- DISCOVERY SERVICES WINDOW -->
+	<toolbar name="CDiscoveryWnd">
+		<button id="ID_DISCOVERY_ADD" text="Ajouter Service"/>
+		<separator/>
+		<button id="ID_DISCOVERY_EDIT" text="Modifier Service"/>
+		<button id="ID_DISCOVERY_REMOVE" text="Supprimer Service"/>
+		<separator/>
+		<button id="ID_DISCOVERY_QUERY" text="Interrogez"/>
+		<button id="ID_DISCOVERY_ADVERTISE" text="Afficher"/>
+		<separator/>
+		<button id="ID_DISCOVERY_BROWSE" text="Page Statistiques"/>
+			<rightAlign/>
+		<button id="ID_DISCOVERY_WEBCACHE" text="GWebCaches"/>
+		<button id="ID_DISCOVERY_GNUTELLA" text="Bootstraps"/>
+		<button id="ID_DISCOVERY_SERVERLIST" text="Server.met/Hublists"/>
+		<button id="ID_DISCOVERY_BLOCKED" text="Bloqué"/>
 	</toolbar>
 	<!-- HOST CACHE WINDOW -->
 	<toolbar name="CHostCacheWnd">

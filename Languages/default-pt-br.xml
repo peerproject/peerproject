@@ -3,8 +3,8 @@
 
 <!-- PeerProject Default Brazilian Portuguese Skin File -->
 
-<!-- Translation based on default-en.xml r104 -->
-<!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+<!-- Translation based on default-en.xml r106 -->
+<!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
@@ -23,6 +23,7 @@
 	version="1.0.0.0"
 	type="Language"
 	language="pt-br"
+	priority="4"
 	prompt="Clique aqui para traduzir o PeerProject para o português do Brasil."
 />
 
@@ -422,6 +423,23 @@
 		<label text="Filtro:" tip="Digite algumas palavras para filtrar os resultados com"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Mais..."/>
+	</toolbar>
+	<!-- DISCOVERY SERVICES WINDOW -->
+	<toolbar name="CDiscoveryWnd">
+		<button id="ID_DISCOVERY_ADD" text="Adicionar"/>
+		<separator/>
+		<button id="ID_DISCOVERY_EDIT" text="Editar"/>
+		<button id="ID_DISCOVERY_REMOVE" text="Remover"/>
+		<separator/>
+		<button id="ID_DISCOVERY_QUERY" text="Consulta"/>
+		<button id="ID_DISCOVERY_ADVERTISE" text="Anunciar"/>
+		<separator/>
+		<button id="ID_DISCOVERY_BROWSE" text="Estatísticas"/>
+			<rightAlign/>
+		<button id="ID_DISCOVERY_WEBCACHE" text="GWebCaches"/>
+		<button id="ID_DISCOVERY_GNUTELLA" text="Bootstraps"/>
+		<button id="ID_DISCOVERY_SERVERLIST" text="Server.met/Hublists"/>
+		<button id="ID_DISCOVERY_BLOCKED" text="Bloqueado"/>
 	</toolbar>
 	<!-- HOST CACHE WINDOW -->
 	<toolbar name="CHostCacheWnd">

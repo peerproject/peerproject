@@ -378,9 +378,9 @@ void CDownloadsWnd::OnTimer(UINT_PTR nIDEvent)
 	// Window Update event (2 second timer)
 	if ( nIDEvent == 2 && m_pDragList == NULL )
 	{
-		// Lock transfers section
+		// ToDo: Make intelligent, only lock if previews needed
 		CSingleLock pLock( &Transfers.m_pSection );
-		if ( pLock.Lock( 150 ) )
+		if ( pLock.Lock( 100 ) )
 		{
 			for ( POSITION pos = Downloads.GetIterator() ; pos ; )
 			{
@@ -1088,8 +1088,7 @@ void CDownloadsWnd::OnDownloadsRemotePreview()
 							(LPCTSTR)CString( inet_ntoa( pSource->m_pAddress ) ), pSource->m_nPort,
 							(LPCTSTR)pDownload->m_oSHA1.toUrn() );
 					}
-					CDownloadTask::PreviewRequest( pDownload, pSource->m_sPreview );
-					pDownload->m_bWaitingPreview = TRUE;
+					pDownload->PreviewRequest( pSource->m_sPreview );
 					pSource->m_bPreviewRequestSent = TRUE;
 					break;
 				}
@@ -1367,7 +1366,7 @@ void CDownloadsWnd::OnDownloadsMergeLocal()
 		}
 
 		if ( oFiles.GetCount() )
-			CDownloadTask::MergeFile( pDownload, &oFiles );
+			pDownload->MergeFile( &oFiles );
 	}
 	else	// Single File
 	{
@@ -1388,7 +1387,7 @@ void CDownloadsWnd::OnDownloadsMergeLocal()
 			return;
 		}
 
-		CDownloadTask::MergeFile( pDownload, dlgSelectFile.GetPathName() );
+		pDownload->MergeFile( dlgSelectFile.GetPathName() );
 	}
 
 	pLock.Unlock();

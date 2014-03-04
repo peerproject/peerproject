@@ -3,8 +3,8 @@
 
 <!-- PeerProject Default English Skin File -->
 
-<!-- Translation based on default-en.xml r104 -->
-<!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+<!-- Translation based on default-en.xml r106 -->
+<!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
@@ -24,6 +24,7 @@
 	type="Language"
 	language="en"
 	dir="ltr"
+	priority="0"
 	prompt="Click here to select English as your natural language."
 />
 

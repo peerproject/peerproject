@@ -1,7 +1,7 @@
 //
 // DownloadTransfer.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -25,6 +25,7 @@
 #include "Downloads.h"
 #include "Download.h"
 #include "FragmentedFile.h"
+#include "FragmentBar.h"
 #include "Transfers.h"
 #include "Network.h"
 #include "Buffer.h"
@@ -52,6 +53,7 @@ CDownloadTransfer::CDownloadTransfer(CDownloadSource* pSource, PROTOCOLID nProto
 	, m_pDownload		( pSource->m_pDownload )
 	, m_pSource			( pSource )
 	, m_pAvailable		( NULL )
+	, m_tSourceRequest	( 0ul )
 {
 	ASSUME_LOCK( Transfers.m_pSection );
 
@@ -64,6 +66,19 @@ CDownloadTransfer::~CDownloadTransfer()
 	ASSERT( m_pSource == NULL );
 
 	delete m_pAvailable;
+}
+
+void CDownloadTransfer::DrawStateBar(CDC* pDC, CRect* prcBar, COLORREF crFill, BOOL bTop) const
+{
+	CFragmentBar::DrawStateBar( pDC, prcBar, m_pDownload->m_nSize, m_nOffset, m_nLength, crFill, bTop );
+
+	if ( m_nProtocol == PROTOCOL_BT || m_nProtocol == PROTOCOL_ED2K )
+	{
+		for ( Fragments::Queue::const_iterator pItr = m_oRequested.begin() ; pItr != m_oRequested.end() ; ++pItr )
+		{
+			CFragmentBar::DrawStateBar( pDC, prcBar, m_pDownload->m_nSize, pItr->begin(), pItr->size(), crFill, bTop );
+		}
+	}
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -114,10 +129,7 @@ void CDownloadTransfer::Close(TRISTATE bKeepSource, DWORD nRetryAfter)
 
 void CDownloadTransfer::Boost(BOOL bBoost)
 {
-	if ( bBoost )
-		m_mInput.pLimit = m_mOutput.pLimit = NULL;
-	else
-		m_mInput.pLimit = m_mOutput.pLimit = &m_nBandwidth;		// Any value should be recalculated
+	m_mInput.pLimit = m_mOutput.pLimit = ( bBoost ? NULL : &m_nBandwidth );		// Any value should be recalculated
 }
 
 DWORD CDownloadTransfer::GetAverageSpeed()

@@ -1,7 +1,7 @@
 //
 // DownloadTransferFTP.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -248,15 +248,15 @@ BOOL CDownloadTransferFTP::StartNextFragment()
 //////////////////////////////////////////////////////////////////////
 // CDownloadTransferFTP subtract pending requests
 
-BOOL CDownloadTransferFTP::SubtractRequested(Fragments::List& ppFragments)
+BOOL CDownloadTransferFTP::SubtractRequested(Fragments::List& ppFragments) const
 {
-	if ( m_nOffset < SIZE_UNKNOWN && m_nLength < SIZE_UNKNOWN )
+	if ( m_nLength == SIZE_UNKNOWN || m_nOffset == SIZE_UNKNOWN )
+		return FALSE;
+
+	if ( m_nState == dtsRequesting || m_nState == dtsDownloading )
 	{
-		if ( m_nState == dtsRequesting || m_nState == dtsDownloading )
-		{
-			ppFragments.erase( Fragments::Fragment( m_nOffset, m_nOffset + m_nLength ) );
-			return TRUE;
-		}
+		ppFragments.erase( Fragments::Fragment( m_nOffset, m_nOffset + m_nLength ) );
+		return TRUE;
 	}
 
 	return FALSE;

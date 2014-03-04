@@ -4,8 +4,8 @@
 <!-- PeerProject Default Afrikaans Skin File -->
 <!-- Weergawe: 27 Oktober 2005 vir Shareaza 2.2.0.2 -->
 
-<!-- Translation based on default-en.xml r104 -->
-<!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+<!-- Translation based on default-en.xml r106 -->
+<!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
@@ -24,6 +24,7 @@
 	version="1.0.0.0"
 	type="Language"
 	language="af"
+	priority="60"
 	prompt="Kliek hier om Afrikaans as jou taal te kies."
 />
 
@@ -394,6 +395,7 @@
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Meer..."/>
 	</toolbar>
+	<!-- DISCOVERY SERVICES WINDOW Missing -->
 	<!-- HOST CACHE WINDOW -->
 	<toolbar name="CHostCacheWnd">
 		<button id="ID_HOSTCACHE_CONNECT" text="Konnekteer Aan"/>

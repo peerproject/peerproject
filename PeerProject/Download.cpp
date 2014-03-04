@@ -65,6 +65,7 @@ CDownload::CDownload()
 	, m_bShared		( Settings.Uploads.SharePartials )
 	, m_tSaved		( 0 )
 	, m_tBegan		( 0 )
+	, m_pTask		( this )
 {
 }
 
@@ -72,6 +73,60 @@ CDownload::~CDownload()
 {
 	AbortTask();
 	DownloadGroups.Unlink( this );
+}
+
+//////////////////////////////////////////////////////////////////////
+// CDownload check if a task is already running
+
+float CDownload::GetProgress() const
+{
+	return IsMoving() ? m_pTask.GetProgress() : CDownloadWithExtras::GetProgress();
+}
+
+bool CDownload::IsMoving() const
+{
+	return ( m_pTask.GetTaskType() == dtaskCopy );
+}
+
+bool CDownload::IsTasking() const
+{
+	return ( m_pTask.GetTaskType() != dtaskNone );
+}
+
+dtask CDownload::GetTaskType() const
+{
+	return m_pTask.GetTaskType();
+}
+
+void CDownload::AbortTask()
+{
+	m_pTask.Abort();
+}
+
+void CDownload::Allocate()
+{
+	m_pTask.Allocate();
+}
+
+void CDownload::Copy()
+{
+	m_pTask.Copy();
+}
+
+void CDownload::PreviewRequest(LPCTSTR szURL)
+{
+	m_pTask.PreviewRequest( szURL );
+	m_bWaitingPreview = TRUE;
+}
+
+void CDownload::MergeFile(CList< CString >* pFiles, BOOL bValidation, const Fragments::List* pGaps)
+{
+	m_pTask.MergeFile( pFiles, bValidation, pGaps );
+}
+
+void CDownload::MergeFile(LPCTSTR szPath, BOOL bValidation, const Fragments::List* pGaps)
+{
+	m_pTask.MergeFile( szPath, bValidation, pGaps );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -560,9 +615,9 @@ void CDownload::OnDownloaded()
 	if ( GetTaskType() == dtaskMergeFile || GetTaskType() == dtaskPreviewRequest )
 		AbortTask();
 
-	LibraryBuilder.m_bBusy = true;	// ToDo: Remove this?
+//	LibraryBuilder.m_bBusy = true;	// ?
 
-	CDownloadTask::Copy( this );
+	m_pTask.Copy();
 
 	Statistics.Current.Downloads.Files++;
 
@@ -570,36 +625,12 @@ void CDownload::OnDownloaded()
 }
 
 //////////////////////////////////////////////////////////////////////
-// CDownload task completion
-
-void CDownload::OnTaskComplete(const CDownloadTask* pTask)
-{
-	SetTask( NULL );
-
-	// Check if task was aborted
-	if ( pTask->WasAborted() )
-		return;
-
-	if ( pTask->GetTaskType() == dtaskPreviewRequest )
-	{
-		OnPreviewRequestComplete( pTask );
-	}
-	else if ( pTask->GetTaskType() == dtaskCopy )
-	{
-		LibraryBuilder.m_bBusy = false;
-
-		if ( ! pTask->HasSucceeded() )
-			SetFileError( pTask->GetFileError(), _T("") );
-		else
-			OnMoved();
-	}
-}
-
-//////////////////////////////////////////////////////////////////////
 // CDownload moved handler
 
 void CDownload::OnMoved()
 {
+	CSingleLock pTransfersLock( &Transfers.m_pSection, TRUE );
+
 	// Just completed torrent
 	if ( IsTorrent() && IsFullyVerified() )
 	{
@@ -625,14 +656,21 @@ void CDownload::OnMoved()
 	}
 
 	ASSERT( ! m_sPath.IsEmpty() );
-	DeleteFileEx( m_sPath + _T(".png"), FALSE, FALSE, TRUE );
-	DeleteFileEx( m_sPath + _T(".sav"), FALSE, FALSE, TRUE );
-	DeleteFileEx( m_sPath, FALSE, FALSE, TRUE );
+	const CString strPath = m_sPath;
 	m_sPath.Empty();
+
+	pTransfersLock.Unlock();
+
+	DeleteFileEx( strPath + _T(".png"), FALSE, FALSE, TRUE );
+	DeleteFileEx( strPath + _T(".sav"), FALSE, FALSE, TRUE );
+	DeleteFileEx( strPath, FALSE, FALSE, TRUE );
+
+	pTransfersLock.Lock();
 
 	// Download finalized, tracker notified, set flags that we completed
 	m_bComplete  = true;
 	m_tCompleted = GetTickCount();
+	//LibraryBuilder.m_bBusy = false;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -1047,7 +1085,7 @@ void CDownload::ForceComplete()
 	OnDownloaded();
 }
 
-BOOL CDownload::Launch(int nIndex, CSingleLock* pLock, BOOL bForceOriginal)
+BOOL CDownload::Launch(int nIndex, CSingleLock* pLock, BOOL bForceOriginal /*FALSE*/)
 {
 	if ( nIndex < 0 && IsCompleted() && ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) != 0 )
 	{
@@ -1067,7 +1105,7 @@ BOOL CDownload::Launch(int nIndex, CSingleLock* pLock, BOOL bForceOriginal)
 	BOOL bResult = TRUE;
 	const CString strPath = GetPath( nIndex );
 	const CString strName = GetName( nIndex );
-	const CString strExt = strName.Mid( strName.ReverseFind( '.' ) );
+	const CString strExt  = strName.Mid( strName.ReverseFind( '.' ) );
 
 	if ( IsCompleted() )
 	{

@@ -1,7 +1,7 @@
 //
 // PageDownloadActions.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -307,8 +307,7 @@ void CDownloadActionsPage::OnMergeAndVerify()
 	if ( ! strExt.IsEmpty() ) strExt = strExt.Mid( 1 );
 
 	CFileDialog dlgSelectFile( TRUE, strExt, strName,
-		OFN_HIDEREADONLY | OFN_FILEMUSTEXIST | OFN_PATHMUSTEXIST | OFN_NOCHANGEDIR |
-		OFN_ALLOWMULTISELECT, NULL, this );
+		OFN_HIDEREADONLY | OFN_FILEMUSTEXIST | OFN_PATHMUSTEXIST | OFN_NOCHANGEDIR | OFN_ALLOWMULTISELECT, NULL, this );
 
 	CAutoVectorPtr< TCHAR >szFiles( new TCHAR[ 2048 ] );
 	if ( ! szFiles )
@@ -345,7 +344,7 @@ void CDownloadActionsPage::OnMergeAndVerify()
 	}
 
 	if ( oFiles.GetCount() )
-		CDownloadTask::MergeFile( pDownload, &oFiles );
+		pDownload->MergeFile( &oFiles );
 }
 
 void CDownloadActionsPage::OnCancelDownload()

@@ -1,7 +1,7 @@
 //
 // DownloadSource.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -1010,48 +1010,7 @@ void CDownloadSource::Draw(CDC* pDC, CRect* prcBar, COLORREF crNatural)
 	ASSUME_LOCK( Transfers.m_pSection );
 
 	if ( ! IsIdle() )
-	{
-		//if ( m_pTransfer->m_nLength < SIZE_UNKNOWN )
-		//{
-			CFragmentBar::DrawStateBar( pDC, prcBar, m_pDownload->m_nSize,
-				m_pTransfer->m_nOffset, m_pTransfer->m_nLength,
-				Colors.m_crFragmentRequest, TRUE );
-		//}
-
-		switch ( GetTransferProtocol() )
-		{
-		case PROTOCOL_ED2K:
-			{
-				Fragments::Queue::const_iterator pItr
-					= static_cast< CDownloadTransferED2K* >( m_pTransfer )->m_oRequested.begin();
-				const Fragments::Queue::const_iterator pEnd
-					= static_cast< CDownloadTransferED2K* >( m_pTransfer )->m_oRequested.end();
-				for ( ; pItr != pEnd ; ++pItr )
-				{
-					CFragmentBar::DrawStateBar( pDC, prcBar, m_pDownload->m_nSize,
-						pItr->begin(), pItr->size(), Colors.m_crFragmentRequest, true );
-				}
-			}
-			break;
-
-		case PROTOCOL_BT:
-			{
-				Fragments::Queue::const_iterator pItr
-					= static_cast< CDownloadTransferBT* >( m_pTransfer )->m_oRequested.begin();
-				const Fragments::Queue::const_iterator pEnd
-					= static_cast< CDownloadTransferBT* >( m_pTransfer )->m_oRequested.end();
-				for ( ; pItr != pEnd ; ++pItr )
-				{
-					CFragmentBar::DrawStateBar( pDC, prcBar, m_pDownload->m_nSize,
-						pItr->begin(), pItr->size(), Colors.m_crFragmentRequest, true );
-				}
-			}
-			break;
-
-		//default:
-		//	;	// Do nothing more
-		}
-	}
+		m_pTransfer->DrawStateBar( pDC, prcBar, Colors.m_crFragmentRequest, TRUE );
 
 	Draw( pDC, prcBar );
 

@@ -1,7 +1,7 @@
 //
 // DownloadTransferED2K.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -48,7 +48,6 @@ CDownloadTransferED2K::CDownloadTransferED2K(CDownloadSource* pSource)
 	: CDownloadTransfer	( pSource, PROTOCOL_ED2K )
 	, m_pClient			( NULL )
 	, m_bHashset		( false )
-	, m_tSources		( 0ul )
 	, m_tRanking		( 0ul )
 	, m_bUDP			( false )
 	, m_pInflatePtr		( NULL )
@@ -699,12 +698,13 @@ BOOL CDownloadTransferED2K::SendPrimaryRequest()
 		Send( pPacket );
 	}
 
-	if ( m_pDownload->GetSourceCount() < Settings.Downloads.SourcesWanted &&	// We want more sources
-		 tNow > m_tSources && tNow > m_tSources + 30 * 60 * 1000 &&				// We have not asked for at least 30 minutes
-		 m_pClient->m_bEmule && Network.IsListening() )							// Remote client is eMule compatible and we are accepting packets
+	// ToDo: Add new option "SourceExchangePeriod" (default: 10 minutes) like BitTorrent
+	if ( tNow > m_tSourceRequest + 10 * 60 * 1000 &&		 					// We have not asked for at least 10 minutes
+		 m_pDownload->GetSourceCount() < Settings.Downloads.SourcesWanted &&	// We want more sources
+		 m_pClient->m_bEmule )													// Remote client is eMule compatible and we are accepting packets
 	{
 		// Set 'last asked for sources' time
-		m_tSources = tNow;
+		m_tSourceRequest = tNow;
 		// Send ed2k request for sources packet
 		pPacket = CEDPacket::New( ED2K_C2C_REQUESTSOURCES, ED2K_PROTOCOL_EMULE );
 		pPacket->Write( m_pDownload->m_oED2K );
@@ -781,7 +781,7 @@ bool CDownloadTransferED2K::SendFragmentRequests()
 
 	if ( ! m_pDownload->m_bTorrentEndgame )
 	{
-		for ( CDownloadTransfer* pTransfer = m_pDownload->GetFirstTransfer() ;
+		for ( const CDownloadTransfer* pTransfer = m_pDownload->GetFirstTransfer() ;
 			pTransfer && ! oPossible.empty() ; pTransfer = pTransfer->m_pDlNext )
 		{
 			pTransfer->SubtractRequested( oPossible );
@@ -932,19 +932,17 @@ void CDownloadTransferED2K::ClearRequests()
 //BOOL CDownloadTransferED2K::SelectFragment(const Fragments::List& oPossible, QWORD& nOffset, QWORD& nLength)
 //{
 //	Fragments::Fragment oSelection( selectBlock( oPossible, ED2K_PART_SIZE, m_pAvailable ) );
-//
 //	if ( oSelection.size() == 0 ) return FALSE;
 //
 //	nOffset = oSelection.begin();
 //	nLength = oSelection.size();
-//
 //	return TRUE;
 //}
 
 //////////////////////////////////////////////////////////////////////
 // CDownloadTransferED2K subtract requested fragments
 
-BOOL CDownloadTransferED2K::SubtractRequested(Fragments::List& ppFragments)
+BOOL CDownloadTransferED2K::SubtractRequested(Fragments::List& ppFragments) const
 {
 	if ( m_nState != dtsDownloading ) return FALSE;
 	ppFragments.erase( m_oRequested.begin(), m_oRequested.end() );

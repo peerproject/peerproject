@@ -1,7 +1,7 @@
 //
 // Transfers.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -184,14 +184,14 @@ void CTransfers::OnRunTransfers()
 		return;
 
 	// Overload protection: Spend no more than 300 ms here at once
-	const DWORD nBegin = GetTickCount();
-	CSingleLock oLock( &m_pSection, FALSE );
+	const DWORD tTimeout = GetTickCount() + 300;
+	CSingleLock oLock( &m_pSection );
 	if ( ! oLock.Lock( 250 ) )
 		return;
 
 	++m_nRunCookie;
 
-	while ( ! m_pList.IsEmpty() && GetTickCount() - nBegin < 300 && m_pList.GetHead()->m_nRunCookie != m_nRunCookie )
+	while ( ! m_pList.IsEmpty() && GetTickCount() < tTimeout && m_pList.GetHead()->m_nRunCookie != m_nRunCookie )
 	{
 		CTransfer* pTransfer = m_pList.RemoveHead();
 		m_pList.AddTail( pTransfer );
@@ -205,7 +205,7 @@ void CTransfers::OnCheckExit()
 	// Quick check to avoid locking
 	if ( m_pList.IsEmpty() )
 	{
-		CSingleLock oLock( &m_pSection, FALSE );
+		CSingleLock oLock( &m_pSection );
 		if ( oLock.Lock( 250 ) )
 		{
 			if ( m_pList.GetCount() == 0 &&

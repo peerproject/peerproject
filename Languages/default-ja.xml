@@ -3,8 +3,8 @@
 
 <!-- PeerProject Default Japanese Skin File -->
 
-<!-- Translation based on default-en.xml r104 --> <!-- (Shareaza 2.2.0.2) -->
-<!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+<!-- Translation based on default-en.xml r106 --> <!-- (Shareaza 2.2.0.2) -->
+<!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
@@ -23,6 +23,7 @@
 	version="1.0.0.0"
 	type="Language"
 	language="ja"
+	priority="50"
 	prompt="アプリケーションで日本語を使用したい場合はここをクリックして下さい"
 />
 
@@ -396,6 +397,7 @@
 		<button id="ID_SEARCH_FILTER_RAW" text="フィルタ:" tip="検索結果をフィルタリングしたい場合はここにフィルタ文字列を入力して下さい"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 	</toolbar>
+	<!-- DISCOVERY SERVICES WINDOW Missing -->
 	<!-- HOST CACHE WINDOW -->
 	<toolbar name="CHostCacheWnd">
 		<button id="ID_HOSTCACHE_CONNECT" text="接続"/>

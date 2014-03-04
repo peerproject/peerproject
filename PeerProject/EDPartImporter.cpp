@@ -344,12 +344,12 @@ BOOL CEDPartImporter::ImportFile(LPCTSTR pszPath, LPCTSTR pszFile)
 
 	Message( IDS_ED2K_EPI_COPY_START, (LPCTSTR)strPath, (LPCTSTR)pDownload->m_sPath );
 
-// ToDo: Alt?
+// Alt:
 //	CList < CString > oFiles;
 //	oFiles.AddHead( strPath );
-//	CDownloadTask::MergeFile( pDownload, &oFiles, FALSE, &oGaps );
+//	pDownload->( &oFiles, FALSE, &oGaps );
 
-	CDownloadTask::MergeFile( pDownload, strPath, FALSE, &oGaps );
+	pDownload->MergeFile( strPath, FALSE, &oGaps );
 
 	if ( ! bPaused )
 		pDownload->Resume();

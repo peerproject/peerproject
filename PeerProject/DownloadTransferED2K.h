@@ -31,11 +31,9 @@ public:
 
 public:
 	CEDClient*		m_pClient;
-	bool			m_bUDP;
-	bool			m_bHashset;
-	DWORD			m_tSources;			// When source request was last sent
 	DWORD			m_tRanking;			// When queue ranking was last received
-	Fragments::Queue m_oRequested;
+	bool			m_bHashset;
+	bool			m_bUDP;
 protected:
 	LPVOID			m_pInflatePtr;
 	CBuffer*		m_pInflateBuffer;
@@ -57,9 +55,9 @@ public:
 	BOOL	OnFinishUpload(CEDPacket* pPacket);
 	BOOL	OnSendingPart(CEDPacket* pPacket);
 	BOOL	OnCompressedPart(CEDPacket* pPacket);
-	void	SetQueueRank(int nRank);
 	BOOL	OnSendingPart64(CEDPacket* pPacket);		// 64bit Large file support
 	BOOL	OnCompressedPart64(CEDPacket* pPacket);
+	void	SetQueueRank(int nRank);
 protected:
 	void	Send(CEDPacket* pPacket, BOOL bRelease = TRUE);
 	BOOL	SendPrimaryRequest();
@@ -76,7 +74,7 @@ public:
 	virtual void	Close(TRISTATE bKeepSource, DWORD nRetryAfter = 0);
 	virtual void	Boost();
 	virtual DWORD	GetMeasuredSpeed();
-	virtual BOOL	SubtractRequested(Fragments::List& ppFragments);
+	virtual BOOL	SubtractRequested(Fragments::List& ppFragments) const;
 protected:
 	virtual bool	SendFragmentRequests();
 };

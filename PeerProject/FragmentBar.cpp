@@ -1,7 +1,7 @@
 //
 // FragmentBar.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -168,7 +168,7 @@ void CFragmentBar::DrawStateBar(CDC* pDC, CRect* prcBar, QWORD nTotal, QWORD nOf
 //////////////////////////////////////////////////////////////////////
 // CFragmentBar download
 
-void CFragmentBar::DrawDownload(CDC* pDC, CRect* prcBar, CDownload* pDownload, COLORREF crNatural)
+void CFragmentBar::DrawDownload(CDC* pDC, CRect* prcBar, const CDownload* pDownload, COLORREF crNatural)
 {
 	QWORD nvOffset, nvLength;
 	BOOL bvSuccess;
@@ -213,11 +213,10 @@ void CFragmentBar::DrawDownload(CDC* pDC, CRect* prcBar, CDownload* pDownload, C
 	}
 }
 
-void CFragmentBar::DrawDownloadSimple(CDC* pDC, CRect* prcBar, CDownload* pDownload, COLORREF crNatural)
+void CFragmentBar::DrawDownloadSimple(CDC* pDC, CRect* prcBar, const CDownload* pDownload, COLORREF crNatural)
 {
 	pDC->FillSolidRect( prcBar, crNatural );
-
-	DrawFragment( pDC, prcBar, pDownload->m_nSize,0, pDownload->GetVolumeComplete(),
+	DrawFragment( pDC, prcBar, pDownload->m_nSize, 0, pDownload->GetVolumeComplete(),
 		Colors.m_crFragmentComplete, FALSE );
 }
 
