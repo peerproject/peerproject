@@ -35,6 +35,7 @@
 
 #include "DownloadWithExtras.h"
 
+
 class CDownload : public CDownloadWithExtras
 {
 public:
@@ -59,6 +60,8 @@ private:
 	DWORD		m_tBegan;				// Time when this download began trying to download (Started searching, etc). 0 means not tried this session.
 	DWORD		m_tSaved;
 
+	CDownloadTask	m_pTask;
+
 public:
 	void		Pause(BOOL bRealPause = TRUE);
 	void		Resume();
@@ -72,7 +75,7 @@ public:
 	CString		GetDownloadSources() const;
 	CString		GetDownloadStatus() const;
 	int			GetClientStatus() const;
-	BOOL		Launch(int nIndex, CSingleLock* pLock, BOOL bForceOriginal);
+	BOOL		Launch(int nIndex, CSingleLock* pLock, BOOL bForceOriginal = FALSE);
 	BOOL		Enqueue(int nIndex, CSingleLock* pLock);
 	BOOL		Load(LPCTSTR pszPath);
 	BOOL		Save(BOOL bFlush = FALSE);
@@ -80,20 +83,31 @@ public:
 	BOOL		SeedTorrent();
 	BOOL		PrepareFile();
 	void		ForceComplete();
-	void		OnTaskComplete(const CDownloadTask* pTask);
 	void		OnRun();
+
+	void		Allocate();
+	void		Copy();
+	void		PreviewRequest( LPCTSTR szURL);
+	void		MergeFile(CList< CString >* pFiles, BOOL bValidation = TRUE, const Fragments::List* pGaps = NULL);
+	void		MergeFile(LPCTSTR szPath, BOOL bValidation = TRUE, const Fragments::List* pGaps = NULL);
+
 private:
 	void		StartTrying();
 	void		StopTrying();
+	void		AbortTask();
 	DWORD		GetStartTimer() const;
 	void		OnDownloaded();
-	void		OnMoved();
 //	void		SerializeOld(CArchive& ar, int nVersion);	// Legacy DOWNLOAD_SER_VERSION < 11 (2002), for reference only
 
 public:
+	virtual float GetProgress() const;	// Statistics
+	virtual dtask GetTaskType() const;	// Return currently running task
+	virtual bool IsTasking() const;		// Check if a task is already running
+	virtual bool IsTrying() const;		// Is the download currently trying to download?
 	virtual bool IsPaused(bool bRealState = false) const;
 	virtual bool IsCompleted() const;
-	virtual bool IsTrying() const;		// Is the download currently trying to download?
+	virtual bool IsMoving() const;
+	virtual void OnMoved();				// File was moved to the Library
 	virtual BOOL OnVerify(const CLibraryFile* pFile, TRISTATE bVerified);	// File was hashed and verified in the Library
 	virtual void Serialize(CArchive& ar, int nVersion); 	// DOWNLOAD_SER_VERSION
 

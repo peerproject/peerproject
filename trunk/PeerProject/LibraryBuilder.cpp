@@ -53,17 +53,17 @@ CFileHash::CFileHash(QWORD nFileSize)
 void CFileHash::Add(const void* pBuffer, DWORD nBlock)
 {
 	m_pSHA1.Add( pBuffer, nBlock );
-	m_pMD5.Add( pBuffer, nBlock );
 	m_pTiger.AddToFile( pBuffer, nBlock );
 	m_pED2K.AddToFile( pBuffer, nBlock );
+	m_pMD5.Add( pBuffer, nBlock );
 }
 
 void CFileHash::Finish()
 {
 	m_pSHA1.Finish();
-	m_pMD5.Finish();
 	m_pTiger.FinishFile();
 	m_pED2K.FinishFile();
+	m_pMD5.Finish();
 }
 
 void CFileHash::CopyTo(CLibraryFile* pFile) const
@@ -90,7 +90,7 @@ CLibraryBuilder::CLibraryBuilder()
 	, m_nReaded 	( 0 )
 	, m_nElapsed	( 0 )
 	, m_nProgress	( 0 )
-	, m_bBusy		( false )
+//	, m_bBusy		( false )
 	, m_oSkip		( FALSE, TRUE, NULL, NULL )
 {
 	QueryPerformanceFrequency( &m_nFreq );
@@ -106,7 +106,7 @@ CLibraryBuilder::CLibraryBuilder()
 
 bool CLibraryBuilder::Add(const CLibraryFile* pFile)
 {
-	if ( ! pFile->IsReadable() || m_bBusy )
+	if ( ! pFile->IsReadable() )	// || m_bBusy
 		return false;
 
 	const DWORD nIndex = pFile->m_nIndex;
@@ -311,18 +311,23 @@ DWORD CLibraryBuilder::GetNextFileToHash()
 
 	if ( nIndex )
 	{
+		DWORD nSize = 0;
 		CSingleLock oLibraryLock( &Library.m_pSection );
 		if ( oLibraryLock.Lock( 100 ) )
 		{
 			const CLibraryFile* pFile = LibraryMaps.LookupFile( nIndex );
 			if ( pFile )
+			{
 				strPath = pFile->GetPath();
+				if ( pFile->IsHashed() )
+					nSize = pFile->m_nSize;
+			}
 
 			oLibraryLock.Unlock();
 
 			if ( ! pFile )
 			{
-				// Unknown file
+				// Unknown/Redundant file
 				Remove( nIndex );
 				nIndex = 0;
 			}
@@ -339,6 +344,12 @@ DWORD CLibraryBuilder::GetNextFileToHash()
 				if ( CLibrary::IsBadFile( strPath.Mid( nSlash + 1 ), strPath.Left( nSlash ), wfad.dwFileAttributes ) )
 				{
 					// Remove bad file
+					Remove( nIndex );
+					nIndex = 0;
+				}
+				else if ( nSize && nSize == wfad.nFileSizeLow )
+				{
+					// Remove redundant file?  ASSERT?
 					Remove( nIndex );
 					nIndex = 0;
 				}
@@ -535,10 +546,11 @@ bool CLibraryBuilder::HashFile(LPCTSTR szPath, HANDLE hFile)
 		m_nReaded = 0;
 	}
 
+	void* pBuffer = VirtualAlloc( NULL, MAX_HASH_BUFFER_SIZE, MEM_COMMIT, PAGE_READWRITE );
+
 	if ( theApp.m_bIsVistaOrNewer && ! m_bPriority )
 		::SetThreadPriority( GetCurrentThread(), THREAD_MODE_BACKGROUND_BEGIN );
 
-	void* pBuffer = VirtualAlloc( NULL, MAX_HASH_BUFFER_SIZE, MEM_COMMIT, PAGE_READWRITE );
 	DWORD nBlock;
 	QWORD nLength = nFileSize;
 	while ( nLength )
@@ -573,8 +585,7 @@ bool CLibraryBuilder::HashFile(LPCTSTR szPath, HANDLE hFile)
 				Settings.Library.LowPriorityHashing );				// B/s
 			if ( nMaxSpeed && nSpeed > nMaxSpeed )
 			{
-				DWORD nDelay = (DWORD) ( ( ( ( nSpeed * m_nElapsed ) / nMaxSpeed ) -
-					m_nElapsed ) / 1000ull );	// ms
+				DWORD nDelay = (DWORD)( ( ( ( nSpeed * m_nElapsed ) / nMaxSpeed ) - m_nElapsed ) / 1000ull );	// ms
 				if ( nDelay > 1000 )
 					nDelay = 1000;	// 1 s
 				else if ( nDelay < 1 )
@@ -612,6 +623,17 @@ bool CLibraryBuilder::HashFile(LPCTSTR szPath, HANDLE hFile)
 
 	pFileHash->Finish();
 
+	// Get associated download, if any
+	CSingleLock pTransfersLock( &Transfers.m_pSection );
+	for ( int i = 0 ; ! pTransfersLock.Lock( 100 ) ; ++i )
+	{
+		if ( i > 10 || IsSkipped() )
+			return false;
+	}
+	const CDownload* pDownload = Downloads.FindByPath( szPath );
+	if ( ! pDownload )
+		pTransfersLock.Unlock();
+
 	CSingleLock pLibraryLock( &Library.m_pSection );
 	for ( int i = 0 ; ! pLibraryLock.Lock( 100 ) ; ++i )
 	{
@@ -631,35 +653,19 @@ bool CLibraryBuilder::HashFile(LPCTSTR szPath, HANDLE hFile)
 
 	pFileHash->CopyTo( pFile );
 
+	if ( pDownload )
+		pFile->UpdateMetadata( pDownload );
+
 	LibraryMaps.CullDeletedFiles( pFile );
+	LibraryHistory.Add( szPath, pDownload );
 
-	BOOL bHistory = FALSE;
-
-	// Get associated download, if any
-	CSingleLock pTransfersLock( &Transfers.m_pSection );
-	if ( SafeLock( pTransfersLock ) )
-	{
-		const CDownload* pDownload = Downloads.FindByPath( szPath );
-		pTransfersLock.Unlock();
-
-		if ( pDownload )
-		{
-			pFile->UpdateMetadata( pDownload );
-			LibraryHistory.Add( szPath, pDownload );
-			bHistory = TRUE;
-
-			if ( Security.IsDenied( (CPeerProjectFile*)pDownload ) )
-			{
-				pFile->m_bVerify = TRI_FALSE;
-				pFile->SetShared( false );
-			}
-		}
-	}
-
-	// Child pornography check
-	if ( Settings.Search.AdultFilter && pFile->IsShared() &&
+	// Security checks
+	if ( //pFile->IsShared() &&
+		( Security.IsDenied( pFile ) ||
+	//	 ! AntiVirus.Scan( pFile->GetPath() ) ||
+		( Settings.Search.AdultFilter &&
 		( AdultFilter.IsChildPornography( pFile->GetSearchName() ) ||
-		  AdultFilter.IsChildPornography( pFile->GetMetadataWords() ) ) )
+		  AdultFilter.IsChildPornography( pFile->GetMetadataWords() ) ) ) ) )
 	{
 		pFile->m_bVerify = TRI_FALSE;
 		pFile->SetShared( false );
@@ -669,8 +675,8 @@ bool CLibraryBuilder::HashFile(LPCTSTR szPath, HANDLE hFile)
 
 	pLibraryLock.Unlock();
 
-	if ( ! bHistory )
-		LibraryHistory.Add( szPath );
+	if ( pDownload )
+		pTransfersLock.Unlock();
 
 	Library.Update();
 

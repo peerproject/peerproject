@@ -55,13 +55,13 @@ protected:
 	BOOL		HitTest(const CPoint& point, CDownload** ppDownload, CDownloadSource** ppSource, int* pnIndex, RECT* prcItem);
 	BOOL		GetAt(int nSelect, CDownload** ppDownload, CDownloadSource** ppSource);
 	BOOL		GetRect(CDownload* pSelect, RECT* prcItem);
-	void		PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDownload, BOOL bFocus, BOOL bDrop);
-	void		PaintSource(CDC& dc, const CRect& rcRow, CDownload* pDownload, CDownloadSource* pSource, BOOL bFocus);
+	void		PaintDownload(CDC& dc, const CRect& rcRow, const CDownload* pDownload, BOOL bFocus, BOOL bDrop);
+	void		PaintSource(CDC& dc, const CRect& rcRow, const CDownload* pDownload, CDownloadSource* pSource, BOOL bFocus);
 	void		OnBeginDrag(CPoint ptAction);
 	CImageList*	CreateDragImage(CList< CDownload* >* pSel, const CPoint& ptMouse);
 public:
 	static bool	IsFiltered(const CDownload* pDownload);
-	static BOOL	IsExpandable(CDownload* pDownload);
+	static BOOL	IsExpandable(const CDownload* pDownload);
 
 	friend class CDownloadsWnd;
 

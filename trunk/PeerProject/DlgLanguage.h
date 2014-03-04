@@ -28,45 +28,47 @@ public:
 
 	enum { IDD = IDD_LANGUAGE };
 
-	CString			m_sLanguage;
-	bool			m_bLanguageRTL;
+	CString		m_sLanguage;
+	bool		m_bLanguageRTL;
 
 protected:
-	CArray< CString >	m_pPaths;
-	CArray< CString >	m_pTitles;
-	CArray< CString >	m_pGUIDirs;
-	CArray< CString >	m_pLangCodes;
-	CImageList		m_pImages;
-	int				m_nHover;
-	int				m_nDown;
-	BOOL			m_bKeyMode;
+	CArray< CString > m_pPaths;
+	CArray< CString > m_pTitles;
+	CArray< CString > m_pGUIDirs;
+	CArray< CString > m_pLangCodes;
+	CArray< UINT > m_pPriorities;
+	CImageList	m_pImages;
+	int			m_nHover;
+	int			m_nDown;
+	BOOL		m_bKeyMode;
 
-	CFont			m_fntNormal;
-	CFont			m_fntBold;
-	CFont			m_fntSmall;
-	HCURSOR			m_hArrow;
-	HCURSOR			m_hHand;
+	CFont		m_fntNormal;
+	CFont		m_fntBold;
+	CFont		m_fntSmall;
+	HCURSOR		m_hArrow;
+	HCURSOR		m_hHand;
 
 protected:
-	void	PaintItem(int nItem, CDC* pDC, CRect* pRect);
-	void	AddEnglishDefault();
-	void	Enumerate(LPCTSTR pszPath = NULL);
-	BOOL	AddSkin(LPCTSTR pszPath, LPCTSTR pszName);
-	void	Execute(int nItem);
+	void		PaintItem(int nItem, CDC* pDC, CRect* pRect);
+	void		Execute(int nItem);
+	void		Enumerate(LPCTSTR pszPath = NULL);
+	BOOL		AddSkin(LPCTSTR pszPath, LPCTSTR pszName);
+	void		AddEnglishDefault();
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	virtual BOOL OnInitDialog();
+
 	afx_msg void OnPaint();
 	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
-	afx_msg void OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar = NULL);
-	afx_msg BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
-	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
-	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
-	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
+	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
+	afx_msg BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
+	afx_msg void OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar = NULL);
 	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
 	afx_msg void OnDestroy();
 	afx_msg void OnClose();

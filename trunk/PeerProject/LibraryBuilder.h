@@ -52,7 +52,7 @@ public:
 //	virtual ~CLibraryBuilder();
 
 public:
-	bool		m_bBusy;							// Something "IsMoving"
+//	bool		m_bBusy;							// Something "IsMoving"
 
 	bool		Add(const CLibraryFile* pFile);		// Add file to list
 	void		Remove(const CLibraryFile* pFile);	// Remove file from list

@@ -1,7 +1,7 @@
 //
 // DownloadWithFile.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -134,7 +134,7 @@ QWORD CDownloadWithFile::GetCompleted(DWORD nIndex) const
 }
 
 // Select subfile (with user interaction)
-int CDownloadWithFile::SelectFile(CSingleLock* pLock) const
+int CDownloadWithFile::SelectFile(CSingleLock* pLock /*NULL*/) const
 {
 	return m_pFile.get() ? m_pFile->SelectFile( pLock ) : -1;
 }
@@ -505,7 +505,6 @@ QWORD CDownloadWithFile::InvalidateFileRange(QWORD nOffset, QWORD nLength)
 float CDownloadWithFile::GetProgress() const
 {
 	if ( m_nSize == 0 || m_nSize == SIZE_UNKNOWN ) return 0;
-	if ( IsMoving() ) return m_pTask->GetProgress();
 	const QWORD nComplete = GetVolumeComplete();
 	if ( m_nSize == nComplete ) return 100.0f;
 	return float( nComplete * 10000 / m_nSize ) / 100.0f;
@@ -844,12 +843,17 @@ BOOL CDownloadWithFile::SubmitData(QWORD nOffset, LPBYTE pData, QWORD nLength)
 	SetModified();
 	m_tReceived = GetTickCount();
 
-	if ( static_cast< CDownload* >( this )->IsTorrent() )	// Hack: Only do for BitTorrent.  ToDo: Fix bad inheritance
+	// Hack: Only do for BitTorrent.  ToDo: Fix bad inheritance
+	if ( static_cast< CDownload* >( this )->IsTorrent() )
 	{
-		for ( CDownloadTransfer* pTransfer = GetFirstTransfer() ; pTransfer ; pTransfer = pTransfer->m_pDlNext )
+		CSingleLock oLock( &Transfers.m_pSection );
+		if ( oLock.Lock( 500 ) )
 		{
-			if ( pTransfer->m_nProtocol == PROTOCOL_BT )
-				pTransfer->UnrequestRange( nOffset, nLength );
+			for ( CDownloadTransfer* pTransfer = GetFirstTransfer() ; pTransfer ; pTransfer = pTransfer->m_pDlNext )
+			{
+				if ( pTransfer->m_nProtocol == PROTOCOL_BT )
+					pTransfer->UnrequestRange( nOffset, nLength );
+			}
 		}
 	}
 
@@ -900,7 +904,6 @@ BOOL CDownloadWithFile::MakeComplete()
 //	}
 //
 //	CloseHandle( hFile );
-//
 //	return bSuccess;
 //}
 

@@ -1,7 +1,7 @@
 //
 // BTTrackerRequest.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -19,8 +19,9 @@
 #pragma once
 
 #include "Packet.h"
-#include "HttpRequest.h"
+#include "ThreadImpl.h"
 
+class CHttpRequest;
 class CBTTrackerRequest;
 class CBTTrackerPacket;
 class CBENode;
@@ -254,7 +255,7 @@ public:
 // BitTorrent tracker request
 //
 
-class CBTTrackerRequest
+class CBTTrackerRequest : public CThreadImpl
 {
 protected:
 	CBTTrackerRequest(CDownload* pDownload, BTTrackerEvent nEvent, DWORD nNumWant, CTrackerEvent* pOnTrackerEvent);
@@ -291,14 +292,14 @@ protected:
 	bool			m_bHTTP;				// HTTP = TRUE, UDP = FALSE.
 	CDownload*		m_pDownload;			// Handle of owner download
 	CString			m_sName;				// Name of download
-	CString			m_sURL;					// Tracker URL
+	CString			m_sURL;					// Tracker full URL
+	CString			m_sAddress;				// Tracker original URL
 	SOCKADDR_IN 	m_pHost;				// Resolved tracker address (UDP)
 	Hashes::BtHash	m_oBTH;					// BitTorrent Info Hash (Base32)
 	Hashes::BtGuid	m_pPeerID;				// PeerProject Peer ID
 	CAutoPtr< CHttpRequest > m_pRequest;	// HTTP request object
 	CTrackerEvent*	m_pOnTrackerEvent;		// Callback
 	BTTrackerEvent	m_nEvent;				// Tracker event (update, announce, etc.)
-	CEvent			m_pCancel;				// Cancel flag
 	QWORD			m_nConnectionID;		// UDP tracker connection ID
 	DWORD			m_nTransactionID;		// UDP tracker transaction ID
 	DWORD			m_nNumWant;				// Number of peers wanted
@@ -315,11 +316,8 @@ protected:
 	void			ProcessHTTP();
 	void			ProcessUDP();
 	void			Process(const CBENode* pRoot);
-	static UINT 	ThreadStart(LPVOID pParam);
-	void			OnRun();
 	void			OnTrackerEvent(bool bSuccess, LPCTSTR pszReason, LPCTSTR pszTip = NULL);
-
-	inline bool 	IsCanceled() const { return ( WaitForSingleObject( m_pCancel, 0 ) != WAIT_TIMEOUT ); }
+	void			OnRun();
 
 	friend class CBTTrackerRequests;
 

@@ -1,7 +1,7 @@
 //
 // DownloadTransferDC.h
 //
-// This file is part of PeerProject (peerproject.org) © 2011-2012
+// This file is part of PeerProject (peerproject.org) © 2011-2014
 // Portions copyright Shareaza Development Team, 2010.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -29,7 +29,7 @@ public:
 	virtual ~CDownloadTransferDC();
 
 public:
-	CDCClient*	m_pClient;		// Download owner
+	CDCClient*		m_pClient;		// Download owner
 
 	virtual void	AttachTo(CConnection* pConnection);
 	virtual BOOL	Initiate();
@@ -50,7 +50,7 @@ public:
 protected:
 	QWORD			m_nTigerLength;
 
-	virtual BOOL	SubtractRequested(Fragments::List& ppFragments);
+	virtual BOOL	SubtractRequested(Fragments::List& ppFragments) const;
 	BOOL			StartNextFragment();
 	BOOL			ReadContent();
 	BOOL			ReadTiger();

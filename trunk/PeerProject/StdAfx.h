@@ -55,6 +55,7 @@
 // Warnings that are normally ON by default
 #pragma warning ( disable : 4350 )		// (Level 1)	behavior change: 'member1' called instead of 'member2'
 #pragma warning ( disable : 4351 )		// (Level 1)	new behavior: elements of array 'array' will be default initialized
+#pragma warning ( disable : 4355 )		//				'this' : used in base member initializer list
 
 #pragma warning ( disable : 4244 )		// (Level 2)	'argument' : conversion from 'type1' to 'type2', possible loss of data
 
@@ -712,6 +713,7 @@ private:
 			: CMutex( bInitiallyOwn, lpszName, lpsaAttribute )
 			, m_nThreadId	( 0 )
 			, m_nEnterCount	( 0 )
+		//	, m_nLockTimer	( 0 )
 		{
 		}
 
@@ -719,6 +721,8 @@ private:
 		{
 			if ( CMutex::Lock( dwTimeout ) )
 			{
+			//	if ( m_nEnterCount == 0 )
+			//		m_nLockTimer = GetTickCount();
 				InterlockedIncrement( &m_nEnterCount );
 				InterlockedCompareExchange( &m_nThreadId, (LONG)GetCurrentThreadId(), 0 );
 				return TRUE;
@@ -730,11 +734,17 @@ private:
 		{
 			if ( m_nThreadId && InterlockedDecrement( &m_nEnterCount ) == 0 )
 				InterlockedExchange( &m_nThreadId, 0 );
+		//	if ( m_nEnterCount == 0 )
+		//	{
+		//		UINT nTimed = GetTickCount() - m_nLockTimer;
+		//		ASSERT( nTimed < 4000 );
+		//	}
 			return CMutex::Unlock();
 		}
 
 		volatile LONG m_nThreadId;		// Owner thread
 		volatile LONG m_nEnterCount;	// Re-enter counter
+	//	volatile LONG m_nLockTimer;		// Debugging only
 
 	private:
 		CMutexEx(const CMutexEx&);

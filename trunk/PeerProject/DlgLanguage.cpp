@@ -1,7 +1,7 @@
 //
 // DlgLanguage.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -35,12 +35,12 @@ BEGIN_MESSAGE_MAP(CLanguageDlg, CSkinDialog)
 	ON_WM_PAINT()
 	ON_WM_ERASEBKGND()
 	ON_WM_TIMER()
-	ON_WM_VSCROLL()
-	ON_WM_MOUSEWHEEL()
-	ON_WM_MOUSEMOVE()
+	ON_WM_KEYDOWN()
 	ON_WM_LBUTTONDOWN()
 	ON_WM_LBUTTONUP()
-	ON_WM_KEYDOWN()
+	ON_WM_MOUSEMOVE()
+	ON_WM_MOUSEWHEEL()
+	ON_WM_VSCROLL()
 	ON_WM_SETCURSOR()
 	ON_WM_DESTROY()
 	ON_WM_CLOSE()
@@ -218,6 +218,11 @@ void CLanguageDlg::PaintItem(int nItem, CDC* pDC, CRect* pRect)
 		pDC->Draw3dRect( &rc, Colors.m_crBorder, Colors.m_crBorder );
 		pDC->SetBkColor( crBack = ( bDown && bHover ? Colors.m_crBackCheckSel : Colors.m_crBackSel ) );
 	}
+	else if ( m_pLangCodes.GetAt( nItem ).CompareNoCase( Settings.General.Language ) == 0 )
+	{
+		pDC->Draw3dRect( &rc, Colors.m_crBorder, Colors.m_crBorder );
+		pDC->SetBkColor( crBack = Colors.m_crBackCheck );
+	}
 	else
 	{
 		pDC->Draw3dRect( &rc, Colors.m_crBackNormal, Colors.m_crBackNormal );
@@ -355,7 +360,7 @@ BOOL CLanguageDlg::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 		GetCursorPos( &pt );
 		ScreenToClient( &pt );
 
-		SetCursor( pt.y > Skin.m_nBanner && m_nHover - 2 < m_pGUIDirs.GetSize() ? m_hHand : m_hArrow );
+		SetCursor( pt.y > Skin.m_nBanner && ( m_nHover > 0 && m_nHover - 1 < m_pPaths.GetSize() ) ? m_hHand : m_hArrow );
 		return TRUE;
 	}
 
@@ -484,6 +489,9 @@ void CLanguageDlg::AddEnglishDefault()
 {
 	m_pPaths.Add( _T("") );
 	m_pTitles.Add( _T("English (Default)") );
+	m_pLangCodes.Add( _T("en") );
+	m_pGUIDirs.Add( _T("ltr") );
+	m_pPriorities.Add( 0 );
 	m_pImages.Add( theApp.LoadIcon( IDI_FLAG_ENGLISH ) );
 }
 
@@ -498,31 +506,30 @@ void CLanguageDlg::Enumerate(LPCTSTR pszPath)
 		(LPCTSTR)Settings.General.Path, pszPath ? pszPath : _T("") );
 
 	hSearch = FindFirstFile( strPath, &pFind );
+	if ( hSearch == INVALID_HANDLE_VALUE )
+		return;
 
-	if ( hSearch != INVALID_HANDLE_VALUE )
+	do
 	{
-		do
+		if ( pFind.cFileName[0] == '.' ) continue;
+
+		if ( pFind.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY )
 		{
-			if ( pFind.cFileName[0] == '.' ) continue;
+			strPath.Format( _T("%s%s\\"),
+				pszPath ? pszPath : _T(""), pFind.cFileName );
 
-			if ( pFind.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY )
-			{
-				strPath.Format( _T("%s%s\\"),
-					pszPath ? pszPath : _T(""), pFind.cFileName );
-
-				Enumerate( strPath );
-			}
-			else if (	_tcsistr( pFind.cFileName, _T(".xml") ) != NULL &&
-						_tcsicmp( pFind.cFileName, _T("Definitions.xml") ) &&
-						_tcsicmp( pFind.cFileName, _T("Default-en.xml") ) )
-			{
-				AddSkin( pszPath, pFind.cFileName );
-			}
+			Enumerate( strPath );
 		}
-		while ( FindNextFile( hSearch, &pFind ) );
-
-		FindClose( hSearch );
+		else if (	_tcsistr( pFind.cFileName, _T(".xml") ) != NULL &&
+					_tcsicmp( pFind.cFileName, _T("Definitions.xml") ) &&
+					_tcsicmp( pFind.cFileName, _T("Default-en.xml") ) )
+		{
+			AddSkin( pszPath, pFind.cFileName );
+		}
 	}
+	while ( FindNextFile( hSearch, &pFind ) );
+
+	FindClose( hSearch );
 }
 
 BOOL CLanguageDlg::AddSkin(LPCTSTR pszPath, LPCTSTR pszName)
@@ -606,7 +613,7 @@ BOOL CLanguageDlg::AddSkin(LPCTSTR pszPath, LPCTSTR pszName)
 	CXMLElement* pManifest = pXML->GetElementByName( _T("manifest") );
 
 	if ( ! pXML->IsNamed( _T("skin") ) || pManifest == NULL ||
-		 pManifest->GetAttributeValue( _T("type") ).CompareNoCase( _T("language") ) )
+		 pManifest->GetAttributeValue( _T("type") ).CompareNoCase( _T("language") ) != 0 )
 	{
 		delete pXML;
 		return FALSE;
@@ -616,17 +623,13 @@ BOOL CLanguageDlg::AddSkin(LPCTSTR pszPath, LPCTSTR pszName)
 	CString strIcon		= pManifest->GetAttributeValue( _T("icon") );
 	CString strLangCode = pManifest->GetAttributeValue( _T("language") );
 	CString strGUIDir	= pManifest->GetAttributeValue( _T("dir"), _T("ltr") );
+	CString strPriority	= pManifest->GetAttributeValue( _T("priority") );
 //	CString strPrompt	= pManifest->GetAttributeValue( _T("prompt") );		// Tip unused
 
 	delete pXML;
 
 	if ( pszPath ) strXML += pszPath;
 	strXML += pszName;
-
-	m_pPaths.Add( strXML );
-	m_pTitles.Add( strName );
-	m_pGUIDirs.Add( strGUIDir );
-	m_pLangCodes.Add( strLangCode );
 
 	if ( ! strIcon.IsEmpty() )
 	{
@@ -639,16 +642,39 @@ BOOL CLanguageDlg::AddSkin(LPCTSTR pszPath, LPCTSTR pszName)
 	}
 
 	HICON hIcon;
-
-	if ( ExtractIconEx( strIcon, 0, &hIcon, NULL, 1 ) != NULL && hIcon != NULL )
-	{
-		m_pImages.Add( hIcon );
-	}
-	else
-	{
+	if ( ExtractIconEx( strIcon, 0, &hIcon, NULL, 1 ) == NULL || ! hIcon )
 		hIcon = theApp.LoadIcon( IDR_MAINFRAME );
-		m_pImages.Add( hIcon );
+
+	UINT nPriority = 100;
+	if ( ! strPriority.IsEmpty() && _stscanf( strPriority, _T("%u"), &nPriority ) == 1 && nPriority )
+	{
+		for ( int nIndex = 1 ; nIndex < m_pPaths.GetSize() ; nIndex++ )
+		{
+			if ( m_pPriorities.GetAt( nIndex ) <= nPriority )
+				continue;
+
+			m_pPaths.InsertAt( nIndex, strXML );
+			m_pTitles.InsertAt( nIndex, strName );
+			m_pGUIDirs.InsertAt( nIndex, strGUIDir );
+			m_pLangCodes.InsertAt( nIndex, strLangCode );
+			m_pPriorities.InsertAt( nIndex, nPriority );
+
+			m_pImages.Add( hIcon );
+			for ( int nCount = m_pImages.GetImageCount() - 1 ; nCount > nIndex ; nCount-- )
+			{
+				m_pImages.Copy( nCount - 1, nCount, ILCF_SWAP );
+			}
+
+			return TRUE;
+		}
 	}
+
+	m_pPaths.Add( strXML );
+	m_pTitles.Add( strName );
+	m_pGUIDirs.Add( strGUIDir );
+	m_pLangCodes.Add( strLangCode );
+	m_pPriorities.Add( nPriority );
+	m_pImages.Add( hIcon );
 
 	return TRUE;
 }
@@ -656,10 +682,7 @@ BOOL CLanguageDlg::AddSkin(LPCTSTR pszPath, LPCTSTR pszName)
 void CLanguageDlg::Execute(int nSelected)
 {
 	// Don't try to process selections past the end of the list
-	if ( nSelected - 2 >= m_pGUIDirs.GetSize() ) return;
-
-	m_bLanguageRTL = ( nSelected > 1 ) &&
-		( m_pGUIDirs.GetAt( nSelected - 2 ) == _T("rtl") );
+	if ( nSelected - 1 >= m_pPaths.GetSize() ) return;
 
 	for ( int nItem = 0 ; nItem < m_pPaths.GetSize() ; nItem++ )
 	{
@@ -667,8 +690,11 @@ void CLanguageDlg::Execute(int nSelected)
 			( nSelected - 1 ) == nItem );
 	}
 
+	m_bLanguageRTL = ( nSelected > 1 ) &&
+		( m_pGUIDirs.GetAt( nSelected - 1 ) == _T("rtl") );
+
 	if ( nSelected > 1 )
-		m_sLanguage = m_pLangCodes.GetAt( nSelected - 2 );
+		m_sLanguage = m_pLangCodes.GetAt( nSelected - 1 );
 
 	//CString strLangCode = _T("en");
 	//if ( nSelected > 1 ) strLangCode = m_pLangCodes.GetAt( nSelected - 2 );

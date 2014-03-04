@@ -152,7 +152,7 @@ void CTorrentSeedDlg::OnDownload()
 			oLibraryLock.Unlock();
 
 			if ( oFiles.GetCount() )
-				CDownloadTask::MergeFile( pDownload, &oFiles );
+				pDownload->MergeFile( &oFiles );
 		}
 
 		if ( ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) == 0 && ! Network.IsWellConnected() )

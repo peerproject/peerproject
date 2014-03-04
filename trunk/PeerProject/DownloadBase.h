@@ -1,7 +1,7 @@
 //
 // DownloadBase.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -40,25 +40,20 @@ public:
 protected:
 	int				m_nCookie;
 	int				m_nSaveCookie;
-	CDownloadTask*	m_pTask;
 
 public:
 	void			SetModified();
 	bool			IsModified() const;
 
-	dtask			GetTaskType() const;
-	void			SetTask(CDownloadTask* pTask);
-	bool			CheckTask(CDownloadTask* pTask) const;
-	void			AbortTask();
-
 	virtual bool	Rename(const CString& strName) = 0;		// Set download new name safely (DownloadWithFile)
-	virtual bool	IsMoving() const;
-	virtual bool	IsTasking() const;	// Check if a task is already running
+	virtual dtask	GetTaskType() const = 0;
+	virtual bool	IsTasking() const = 0;		// Check if a task is already running
 	virtual bool	IsTrying() const = 0;
+	virtual bool	IsMoving() const = 0;
 	virtual bool	IsCompleted() const = 0;
 	virtual bool	IsPaused(bool bRealState = false) const = 0;
+	virtual void	OnMoved() = 0;
 	virtual BOOL	OnVerify(const CLibraryFile* pFile, TRISTATE bVerified) = 0;	// File was hashed and verified in the Library
-	virtual void	OnTaskComplete(const CDownloadTask* pTask) = 0;	// Task callback
 
 protected:
 	virtual void	Serialize(CArchive& ar, int nVersion);

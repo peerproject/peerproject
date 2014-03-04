@@ -3,8 +3,8 @@
 
 <!-- PeerProject Arabic Language Skin File -->
 
-<!-- Translation based on default-en.xml r104 -->
-<!-- http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+<!-- Translation based on default-en.xml r106 -->
+<!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,   -->
@@ -24,6 +24,7 @@
 	type="Language"
 	language="ar"
 	dir="rtl"
+	priority="46"
 	prompt="أنقر هنا لإختيار اللغة العربية كلغة طبيعية بالنسبة لك"
 />
 
@@ -390,6 +391,7 @@
 		<control id="IDC_FILTER_BOX" width="80" />
 		<button id="ID_SEARCH_FILTER_RAW" text="المزيد..." />
 	</toolbar>
+	<!-- DISCOVERY SERVICES WINDOW Missing-->
 	<!--نافذة مخزون المضيف المؤقت-->
 	<toolbar name="CHostCacheWnd">
 		<button id="ID_HOSTCACHE_CONNECT" text="الإتصال بـ" />

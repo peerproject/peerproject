@@ -303,9 +303,9 @@ BOOL CDownloadWithTiger::SetTigerTree(BYTE* pTiger, DWORD nTiger, BOOL bLevel1)
 		m_oTiger = oRoot;
 	}
 
-	m_nTigerSize	= m_pTigerTree.GetBlockLength();
-	m_nTigerBlock	= m_pTigerTree.GetBlockCount();
-	m_pTigerBlock	= new BYTE[ m_nTigerBlock ];
+	m_nTigerSize  = m_pTigerTree.GetBlockLength();
+	m_nTigerBlock = m_pTigerTree.GetBlockCount();
+	m_pTigerBlock = new BYTE[ m_nTigerBlock ];
 
 	ZeroMemory( m_pTigerBlock, sizeof( BYTE ) * m_nTigerBlock );
 
@@ -386,6 +386,186 @@ CED2K* CDownloadWithTiger::GetHashset()
 	CQuickLock oLock( m_pTigerSection );
 
 	return m_pHashset.IsAvailable() ? &m_pHashset : NULL;
+}
+
+bool CDownloadWithTiger::RunMergeFile(LPCTSTR szFilename, BOOL bMergeValidation, const Fragments::List& oMissedGaps, CDownloadTask* pTask, float fProgress)
+{
+	QWORD qwSourceSize = 0;		// qwSourceLength
+	QWORD qwSourceOffset = 0;	// Multifile torrents
+
+	const BOOL bShift = ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) != 0;
+
+//	HANDLE hSource = CreateFile( szFilename, GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_DELETE, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, NULL );
+
+	CAtlFile oSource;
+	oSource.Create( szFilename, GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_DELETE, OPEN_EXISTING );
+	VERIFY_FILE_ACCESS( oSource, szFilename )
+	if ( ! oSource )
+	{
+		// Source file open error
+		theApp.Message( MSG_ERROR, IDS_DOWNLOAD_FILE_OPEN_ERROR, szFilename );
+		return false;
+	}
+
+	oSource.GetSize( qwSourceSize );
+	if ( ! qwSourceSize )
+		return false;		// Empty source file
+
+	if ( bMergeValidation && ! IsTorrent() && NeedTigerTree() && NeedHashset() )
+	{
+	//	MsgBox( IDS_DOWNLOAD_EDIT_COMPLETE_NOHASH, MB_ICONEXCLAMATION );
+		DEBUG_ONLY( theApp.Message( MSG_DEBUG, IDS_DOWNLOAD_EDIT_COMPLETE_NOHASH ) );
+		return true;		// No hashsets
+	}
+
+	if ( ! static_cast< CDownload* >( this )->PrepareFile() )
+		return false;		// Destination file open error
+
+	Fragments::List oList( GetEmptyFragmentList() );
+	if ( ! oMissedGaps.empty() )
+	{
+		Fragments::List::const_iterator pItr = oMissedGaps.begin();
+		const Fragments::List::const_iterator pEnd = oMissedGaps.end();
+		for ( ; pItr != pEnd ; ++pItr )
+			oList.erase( *pItr );
+	}
+
+	if ( ! oList.size() )
+		return true;		// No available fragments
+
+	// Determine offset if needed
+	if ( IsMultiFileTorrent() )
+	{
+		const CString strSourceName = PathFindFileName( szFilename );
+		CString strTargetName;
+		QWORD qwOffset = 0;		// qwOffset
+		CBTInfo::CBTFile* pFile;
+		BOOL bFound = FALSE;
+
+		if ( bShift || ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) != 0 )		// Forced selection dialog
+		{
+			int nIndex = SelectFile();
+			if ( nIndex == 0 )
+			{
+				bFound = TRUE;
+			}
+			else if ( nIndex > 0 )
+			{
+				CBTInfo::CBTFile* pSelectFile = m_pTorrent.m_pFiles.GetAt( m_pTorrent.m_pFiles.FindIndex( nIndex ) );
+				for ( POSITION pos = m_pTorrent.m_pFiles.GetHeadPosition() ; pos ; )
+				{
+					pFile = m_pTorrent.m_pFiles.GetNext( pos );
+					if ( pFile->m_sPath == pSelectFile->m_sPath )
+					{
+						DEBUG_ONLY( theApp.Message( MSG_DEBUG, _T("Merge Selected File: ") + pFile->m_sPath ) );
+						qwSourceOffset = qwOffset;
+						bFound = TRUE;	// Avoid checks below
+						break;
+					}
+
+					qwOffset += pFile->m_nSize;
+				}
+			}
+		}
+
+		if ( ! bFound )		// No forced match, try filename
+		{
+			for ( POSITION pos = m_pTorrent.m_pFiles.GetHeadPosition() ; pos ; )
+			{
+				pFile = m_pTorrent.m_pFiles.GetNext( pos );
+				strTargetName = PathFindFileName( pFile->m_sPath );
+
+				if ( strTargetName.CompareNoCase( strSourceName ) == 0 )
+				{
+					DEBUG_ONLY( theApp.Message( MSG_DEBUG, _T("Merge Filename: ") + pFile->m_sPath ) );
+					qwSourceOffset = qwOffset;
+					bFound = TRUE;	// Avoid fallback check below
+					break;
+				}
+
+				qwOffset += pFile->m_nSize;
+			}
+		}
+
+		if ( ! bFound )		// No filename match, try exact size
+		{
+			qwOffset = 0;
+			for ( POSITION pos = m_pTorrent.m_pFiles.GetHeadPosition() ; pos ; )
+			{
+				pFile = m_pTorrent.m_pFiles.GetNext( pos );
+
+				if ( pFile->m_nSize == qwSourceSize )	// && strExt == PathFindExtension( pFile->m_sPath )
+				{
+					DEBUG_ONLY( theApp.Message( MSG_DEBUG, _T("Merge Filesize Fallback") ) );
+					qwSourceOffset = qwOffset;
+				//	bFound = TRUE;
+					break;
+				}
+
+				qwOffset += pFile->m_nSize;
+			}
+		}
+	}
+
+	const float fIncrement = fProgress / oList.size();
+
+	const DWORD nBufferLength = 256 * 1024;		// Was 65536?
+
+	// Read missing file fragments from selected file
+	CAutoVectorPtr< BYTE >pBuf( new BYTE [ nBufferLength ] );
+	if ( ! pBuf )
+		return false;
+
+	Fragments::List::const_iterator pItr = oList.begin();
+	const Fragments::List::const_iterator pEnd = oList.end();
+	for ( ; pItr != pEnd && pTask->IsThreadEnabled() ; ++pItr )
+	{
+		pTask->m_fProgress += fIncrement;		// Update tooltip
+
+		QWORD qwLength = pItr->end() - pItr->begin();
+		QWORD qwOffset = pItr->begin();
+
+		// Check for overlapped fragments
+		if ( qwOffset + qwLength <= qwSourceOffset ||
+			 qwSourceOffset + qwSourceSize <= qwOffset )
+			continue;	 // No overlaps
+
+		// Calculate overlapped range end offset
+		QWORD qwEnd = min( qwOffset + qwLength, qwSourceOffset + qwSourceSize );
+		// Calculate overlapped range start offset
+		qwOffset = max( qwOffset, qwSourceOffset );
+		// Calculate overlapped range length
+		qwLength = qwEnd - qwOffset;
+		// Calculate file offset if any
+		QWORD qwFileOffset = ( qwOffset > qwSourceOffset ) ? qwOffset - qwSourceOffset : 0;
+		if ( FAILED( oSource.Seek( qwFileOffset, FILE_BEGIN ) ) )
+			continue;
+
+		DWORD dwToRead;
+		while ( ( dwToRead = (DWORD)min( qwLength, (QWORD)nBufferLength ) ) != 0 && pTask->IsThreadEnabled() )
+		{
+			DWORD dwReaded = 0;
+			if ( SUCCEEDED( oSource.Read( pBuf, dwToRead, dwReaded ) ) && dwReaded )
+			{
+				SubmitData( qwOffset, pBuf, (QWORD)dwReaded );
+
+				qwOffset += (QWORD)dwReaded;
+				qwLength -= (QWORD)dwReaded;
+			}
+			else
+			{
+				// File error or end of file. Non-Fatal
+				break;
+			}
+		}
+
+		if ( bMergeValidation )
+			RunValidation();
+
+		SetModified();
+	}
+
+	return true;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -559,7 +739,7 @@ void CDownloadWithTiger::ContinueValidation()
 	ASSERT( m_nVerifyHash > HASH_NULL );
 	ASSERT( m_nVerifyBlock < 0xFFFFFFFF );
 
-	if ( ! OpenFile() )		// Legacy workaround for Open() magnet torrent crash
+	if ( ! OpenFile() )		// Legacy workaround for Open() magnet torrent crash (ToDo: Remove?)
 		return;
 
 	auto_array< BYTE > pChunk( new BYTE[ 256 * 1024ull ] );
@@ -772,6 +952,8 @@ BOOL CDownloadWithTiger::IsRangeUsefulEnough(CDownloadTransfer* pTransfer, QWORD
 
 Fragments::List CDownloadWithTiger::GetPossibleFragments(const Fragments::List& oAvailable, Fragments::Fragment& oLargest)
 {
+	ASSUME_LOCK( Transfers.m_pSection );
+
 	Fragments::List oPossible( oAvailable );
 
 	if ( oAvailable.empty() )
@@ -789,8 +971,7 @@ Fragments::List CDownloadWithTiger::GetPossibleFragments(const Fragments::List& 
 
 	oLargest = *oPossible.largest_range();
 
-	for ( CDownloadTransfer* pTransfer = GetFirstTransfer() ;
-		! oPossible.empty() && pTransfer ; pTransfer = pTransfer->m_pDlNext )
+	for ( const CDownloadTransfer* pTransfer = GetFirstTransfer() ; ! oPossible.empty() && pTransfer ; pTransfer = pTransfer->m_pDlNext )
 	{
 		pTransfer->SubtractRequested( oPossible );
 	}
@@ -807,8 +988,7 @@ BOOL CDownloadWithTiger::GetFragment(CDownloadTransfer* pTransfer)
 
 	Fragments::Fragment oLargest( SIZE_UNKNOWN, SIZE_UNKNOWN );
 
-	Fragments::List oPossible = GetPossibleFragments(
-		pTransfer->GetSource()->m_oAvailable, oLargest );
+	Fragments::List oPossible = GetPossibleFragments( pTransfer->GetSource()->m_oAvailable, oLargest );
 
 	if ( oLargest.begin() == SIZE_UNKNOWN )
 	{
