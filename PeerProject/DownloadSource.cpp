@@ -985,14 +985,7 @@ BOOL CDownloadSource::TouchedRange(QWORD nOffset, QWORD nLength) const
 }
 
 //////////////////////////////////////////////////////////////////////
-// CDownloadSource color
-
-int CDownloadSource::GetColor()
-{
-	if ( m_nColor >= 0 ) return m_nColor;
-	m_nColor = m_pDownload->GetSourceColor();
-	return m_nColor;
-}
+// CDownloadSource close transfer
 
 void CDownloadSource::Close(DWORD nRetryAfter)
 {
@@ -1003,6 +996,16 @@ void CDownloadSource::Close(DWORD nRetryAfter)
 		m_pTransfer->Close( TRI_TRUE, nRetryAfter );
 		ASSERT( m_pTransfer == NULL );
 	}
+}
+
+//////////////////////////////////////////////////////////////////////
+// CDownloadSource colors
+
+int CDownloadSource::GetColor()
+{
+	if ( m_nColor >= 0 ) return m_nColor;
+	m_nColor = m_pDownload->GetSourceColor();
+	return m_nColor;
 }
 
 void CDownloadSource::Draw(CDC* pDC, CRect* prcBar, COLORREF crNatural)

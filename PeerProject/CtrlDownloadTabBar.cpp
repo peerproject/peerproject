@@ -354,6 +354,23 @@ void CDownloadTabBar::OnMouseMove(UINT nFlags, CPoint point)
 	CControlBar::OnMouseMove( nFlags, point );
 }
 
+// Was BOOL CDownloadTabBar::DropShowTarget(CList< CDownload* >* /*pList*/, const CPoint& ptScreen)
+void CDownloadTabBar::OnMouseMoveDrag(const CPoint& ptScreen)
+{
+	CPoint ptLocal( ptScreen );
+	ScreenToClient( &ptLocal );
+
+	TabItem* pItem = HitTest( ptLocal );
+
+	if ( pItem != m_pHot )
+	{
+		m_pHot = pItem;
+		CImageList::DragShowNolock( FALSE );
+		RedrawWindow();
+		CImageList::DragShowNolock( TRUE );
+	}
+}
+
 void CDownloadTabBar::OnTimer(UINT_PTR nIDEvent)
 {
 	if ( nIDEvent == 1 )
@@ -383,16 +400,11 @@ void CDownloadTabBar::OnLButtonDown(UINT nFlags, CPoint point)
 	{
 		BOOL bShift		= ( nFlags & MK_SHIFT ) != 0;
 		BOOL bControl	= ( nFlags & MK_CONTROL ) != 0;
-		BOOL bChanged	= FALSE;
 
-		if ( bControl )
-			bChanged |= pHit->Select( ! pHit->m_bSelected );
-		else if ( bShift )
-			bChanged |= pHit->Select( TRUE );
-		else
-			bChanged |= Select( pHit );
-
-		if ( bChanged ) NotifySelection();
+		if ( ( bControl && pHit->Select( ! pHit->m_bSelected ) ) ||
+			 ( bShift && pHit->Select( TRUE ) ) ||
+			 Select( pHit ) )
+			NotifySelection();
 
 		return;
 	}
@@ -519,6 +531,7 @@ void CDownloadTabBar::GetSelectedDownloads(CList< CDownload* >* pDownloads)
 
 void CDownloadTabBar::NotifySelection()
 {
+//	GetOwner()->PostMessage( WM_KEYDOWN, VK_ESCAPE );	// Deselect all & update
 	Invalidate();
 	GetOwner()->PostMessage( WM_TIMER, 2 );
 }
@@ -528,10 +541,7 @@ void CDownloadTabBar::NotifySelection()
 
 void CDownloadTabBar::OnDownloadGroupNew()
 {
-	CString strCaption;
-	LoadString( strCaption, IDS_DOWNLOAD_NEW_GROUP );
-
-	CDownloadGroup* pGroup = DownloadGroups.Add( (LPCTSTR)strCaption );
+	CDownloadGroup* pGroup = DownloadGroups.Add( (LPCTSTR)LoadString( IDS_DOWNLOAD_NEW_GROUP ) );
 	NotifySelection();
 
 	CDownloadGroupDlg dlg( pGroup );
@@ -702,23 +712,7 @@ void CDownloadTabBar::OnDownloadGroupOpen()
 /////////////////////////////////////////////////////////////////////////////
 // CDownloadTabBar drag and drop
 
-BOOL CDownloadTabBar::DropShowTarget(CList< CDownload* >* /*pList*/, const CPoint& ptScreen)
-{
-	CPoint ptLocal( ptScreen );
-	ScreenToClient( &ptLocal );
-
-	TabItem* pItem = HitTest( ptLocal );
-
-	if ( pItem != m_pHot )
-	{
-		m_pHot = pItem;
-		CImageList::DragShowNolock( FALSE );
-		RedrawWindow();
-		CImageList::DragShowNolock( TRUE );
-	}
-
-	return pItem != NULL;
-}
+// BOOL CDownloadTabBar::DropShowTarget(CList< CDownload* >* /*pList*/, const CPoint& ptScreen) moved to OnMouseMoveDrag(pt)
 
 BOOL CDownloadTabBar::DropObjects(CList< CDownload* >* pList, const CPoint& ptScreen)
 {

@@ -19,9 +19,12 @@
 #pragma once
 
 #include "CtrlDownloadTip.h"
+#include "FileFragments.hpp"
 
 class CDownload;
 class CDownloadSource;
+class CDownloadDisplayData;
+class CSourceDisplayData;
 
 
 class CDownloadsCtrl : public CWnd
@@ -35,9 +38,9 @@ public:
 	BOOL		Create(CWnd* pParentWnd, UINT nID);
 	BOOL		Update();
 	BOOL		Update(int nGroupCookie);
-	BOOL		DropShowTarget(CList< CDownload* >* pSel, const CPoint& ptScreen);
-	BOOL		DropObjects(CList< CDownload* >* pSel, const CPoint& ptScreen);
 	int 		GetExpandableColumnX() const;
+	BOOL		DropObjects(CList< CDownload* >* pSel, const CPoint& ptScreen);
+	void		OnMouseMoveDrag(const CPoint& ptScreen);	// Was DropShowTarget(CList< CDownload* >* pSel, const CPoint& ptScreen)
 	void		OnSkinChange();
 protected:
 	void		InsertColumn(int nColumn, LPCTSTR pszCaption, int nFormat, int nWidth);
@@ -55,10 +58,11 @@ protected:
 	BOOL		HitTest(const CPoint& point, CDownload** ppDownload, CDownloadSource** ppSource, int* pnIndex, RECT* prcItem);
 	BOOL		GetAt(int nSelect, CDownload** ppDownload, CDownloadSource** ppSource);
 	BOOL		GetRect(CDownload* pSelect, RECT* prcItem);
-	void		PaintDownload(CDC& dc, const CRect& rcRow, const CDownload* pDownload, BOOL bFocus, BOOL bDrop);
-	void		PaintSource(CDC& dc, const CRect& rcRow, const CDownload* pDownload, CDownloadSource* pSource, BOOL bFocus);
+	void		PaintDownload(CDC& dc, const CRect& rcRow, const CDownloadDisplayData* pDownloadData, BOOL bFocus = FALSE);
+	void		PaintSource(CDC& dc, const CRect& rcRow, const CSourceDisplayData* pSourceData, BOOL bFocus = FALSE);
+	void		UpdateDownloadsData(BOOL bForce = FALSE);
 	void		OnBeginDrag(CPoint ptAction);
-	CImageList*	CreateDragImage(CList< CDownload* >* pSel, const CPoint& ptMouse);
+	CImageList*	CreateDragImage(CList< CDownload* >* pSel, const CPoint& ptMouse);	// ToDo: Remove List
 public:
 	static bool	IsFiltered(const CDownload* pDownload);
 	static BOOL	IsExpandable(const CDownload* pDownload);
@@ -71,15 +75,19 @@ protected:
 	CImageList			m_pProtocols;
 	int 				m_nGroupCookie;
 	int 				m_nFocus;
+	int 				m_nHover;			// Visible index
+//	CDownload*			m_pDragDrop;		// Use m_nHover
 	BOOL				m_bCreateDragImage;
-	CDownload*			m_pDragDrop;
-	BOOL				m_bDrag;
+	BOOL				m_bDragStart;
+	BOOL				m_bDragActive;
 	CPoint				m_ptDrag;
 	CDownload*			m_pDeselect1;
 	CDownloadSource*	m_pDeselect2;
 	BOOL*				m_pbSortAscending;
 	BOOL				m_bShowSearching;
-	DWORD				m_tSwitchTimer;
+//	DWORD				m_tSwitchTimer;		// Using static
+
+	CArray< CDownloadDisplayData > m_pDownloadsData;
 
 public:
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
@@ -106,6 +114,89 @@ public:
 protected:
 	DECLARE_MESSAGE_MAP()
 };
+
+
+struct VERIFYRANGE
+{
+	QWORD			nOffset;
+	QWORD			nLength;
+	BOOL			bSuccess;
+};
+
+class CSourceDisplayData
+{
+public:
+	CSourceDisplayData();
+	CSourceDisplayData(const CDownloadSource* pSource);
+	CSourceDisplayData& operator=(const CSourceDisplayData& pSource);
+
+public:
+	BOOL			bSelected;			// pSource->m_bSelected
+	DWORD			nProtocol;			// pSource->m_nProtocol
+	QWORD			nSize;				// pDownload->m_nSize
+	DWORD			nState;				// pSource->GetState()
+	CString			sState;				// pSource->GetState( FALSE )
+	DWORD			tAttempt;			// pSource->m_tAttempt
+	BOOL			bTrying;			// pSource->m_tAttempt && pDownload->IsTrying()
+	BOOL			bIdle;				// pSource->IsIdle()
+	BOOL			bPushOnly;			// pSource->m_bPushOnly		(ed2k)
+	QWORD			nDownloaded;		// pSource->GetDownloaded()
+	DWORD			nSpeed;				// pSource->GetMeasuredSpeed()
+	CString			sServer;			// pSource->m_sServer
+	DWORD			nAddress;			// pSource->m_pAddress.S_un.S_addr
+	CString			sAddress;			// CString( inet_ntoa( pSource->m_pAddress )	Or ed2k/dc: CString( inet_ntoa( pSource->m_pServerAddress )
+	CString			sAddressGet;		// pSource->GetAddress()
+	WORD			nServerPort;		// pSource->m_nServerPort
+	WORD			nPort;				// pSource->m_nPort
+	WORD			nPortGet;			// pSource->GetPort()
+	CString			sNick;				// pSource->m_sNick
+	CString			sCountry;			// pSource->m_sCountry
+	int				nColor;				// m_pDownload->GetSourceColor() index
+	BOOL			bReadContent;		// pSource->m_bReadContent
+	BOOL			bHasFragments;		// IsOnline() && HasUsefulRanges() || ! m_oPastFragments.empty()
+	BOOL			bTransferBackwards;	// m_pTransfer->m_bRecvBackwards
+	DWORD			nTransferLength;	// m_pTransfer->m_nLength
+	DWORD			nTransferOffset;	// m_pTransfer->m_nOffset
+	DWORD			nTransferPosition;	// m_pTransfer->m_nPosition
+	Fragments::List	oAvailable;			// pSource->m_oAvailable
+	Fragments::List	oPastFragments;		// pSource->m_oPastFragments
+};
+
+
+class CDownloadDisplayData
+{
+public:
+	CDownloadDisplayData();
+	CDownloadDisplayData(const CDownload* pDownload);
+	CDownloadDisplayData& operator=(const CDownloadDisplayData& pDownload);
+
+public:
+	QWORD			nSize;				// pDownload->m_nSize
+	CString			sName;				// pDownload->m_sName
+	CString			sDisplayName;		// pDownload->GetDisplayName()
+	BOOL			bSelected;			// pDownload->m_bSelected
+	BOOL			bExpanded;			// pDownload->m_bExpanded
+	BOOL			bExpandable;		// IsExpandable(pDownload)
+	BOOL			bTrying;			// pDownload->IsTrying()	(m_tBegan>0)
+	BOOL			bClearing;			// pDownload->m_bClearing
+	BOOL			bCompleted;			// pDownload->IsCompleted()
+	BOOL			bFailedVerify;		// pDownload->m_bVerify == TRI_FALSE
+	DWORD			nVolumeComplete;	// pDownload->GetVolumeComplete()		Or Seeding: pDownload->m_nTorrentUploaded
+	float			fProgress;			// pDownload->GetProgress()
+	float			fRatio;				// pDownload->GetRatio()	Seeding
+	UINT			nRating;			// pDownload->GetReviewAverage()		(pDownload->GetReviewCount())
+	DWORD			nAverageSpeed;		// pDownload->GetAverageSpeed()	DWORD
+	CString			sDownloadSources;	// pDownload->GetDownloadSources()
+	BOOL			bMultiFileTorrent;	// pDownload->IsMultiFileTorrent()
+	BOOL			bSeeding;			// pDownload->IsSeeding()
+	BOOL			bSearching;			// pDownload->IsSearching()
+	CString			sDownloadStatus;	// pDownload->GetDownloadStatus()
+	DWORD			nSourceCount;		// pDownload->GetSourceCount()
+	Fragments::List	oEmptyFragments;
+	CArray< VERIFYRANGE > pVerifyRanges; // pDownload->GetNextVerifyRange()
+	CArray< CSourceDisplayData > pSourcesData;
+};
+
 
 #define DLF_ACTIVE		0x01
 #define DLF_QUEUED		0x02
