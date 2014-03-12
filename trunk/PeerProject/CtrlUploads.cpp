@@ -1049,16 +1049,13 @@ void CUploadsCtrl::PaintFile(CDC& dc, const CRect& rcRow, CUploadQueue* /*pQueue
 
 			{
 				CString strExt = PathFindExtension( pFile->m_sPath );
-				if ( pTransfer->m_nProtocol == PROTOCOL_BT ||
-					 strExt.Compare( _T(".partial") ) == 0 )
+				if ( pTransfer->m_nProtocol == PROTOCOL_BT || strExt.Compare( _T(".partial") ) == 0 )
 					strExt = PathFindExtension( pFile->m_sName );
 
-				if ( pTransfer->m_nProtocol == PROTOCOL_BT &&
-					( strExt.IsEmpty() || strExt.GetLength() > 9 || ! IsValidExtension( strExt ) ) )
-					strExt = _T(".torrent");	// Multifile workaround
-
-				int nIcon = ShellIcons.Get( strExt, 16 );
-				ShellIcons.Draw( &dc, nIcon, 16, rcCell.left, rcCell.top, crBack, bSelected );
+				if ( pTransfer->m_nProtocol == PROTOCOL_BT && ( strExt.IsEmpty() || ! IsValidExtension( strExt ) ) )
+					CoolInterface.Draw( &dc, IDI_MULTIFILE, 16, rcCell.left, rcCell.top, crLeftMargin, bSelected );
+				else
+					ShellIcons.Draw( &dc, ShellIcons.Get( strExt, 16 ), 16, rcCell.left, rcCell.top, crLeftMargin, bSelected );
 			}
 
 			rcCell.left += 16;
@@ -1144,7 +1141,7 @@ void CUploadsCtrl::PaintFile(CDC& dc, const CRect& rcRow, CUploadQueue* /*pQueue
 			rcCell.left += 2;
 			if ( nFlagImage >= 0 )
 				Flags.Draw( nFlagImage, dc.GetSafeHdc(), rcCell.left, rcCell.top,
-					crBack, CLR_DEFAULT, bSelected ? ILD_SELECTED : ILD_NORMAL );
+					bSelectmark ? CLR_NONE : crBack, CLR_DEFAULT, bSelected ? ILD_SELECTED : ILD_NORMAL );
 			rcCell.left += 16;
 
 			strText = pTransfer->m_sCountry;
@@ -1562,22 +1559,31 @@ void CUploadsCtrl::OnMouseMove(UINT nFlags, CPoint point)
 
 	if ( ( nFlags & ( MK_LBUTTON|MK_RBUTTON ) ) == 0 )
 	{
-		CUploadFile* pFile;
-		CRect rcItem;
+		static int nLastY = 0;
+		if ( point.y == nLastY ) return;
+
+		if ( point.x < 18 )
+		{
+			// Tick Hoverstates
+			if ( point.y > nLastY )
+				RedrawWindow( CRect( 1, nLastY - 14, 16, point.y + 14 ) );
+			else if ( point.y < nLastY )
+				RedrawWindow( CRect( 1, point.y - 14, 16, nLastY + 14 ) );
+			nLastY = point.y;
+			m_wndTip.Hide();
+			return;
+		}
+
+		nLastY = point.y;
 
 		CSingleLock pLock( &Transfers.m_pSection );
-		if ( pLock.Lock( 200 ) )
+		if ( pLock.Lock( 50 ) )
 		{
+			CUploadFile* pFile;
+			CRect rcItem;
 			if ( HitTest( point, NULL, &pFile, NULL, &rcItem ) )
 			{
-				pLock.Unlock();
-				// Tick Hoverstates
-				if ( point.x < rcItem.left + 18 )
-				{
-					CRect rcRefresh( 1, rcItem.top - 32, 18, rcItem.bottom + 32 );
-					RedrawWindow( rcRefresh );
-				}
-				else if ( pFile != NULL )
+				if ( pFile != NULL )
 				{
 					m_wndTip.Show( pFile );
 					return;

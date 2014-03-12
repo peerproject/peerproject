@@ -286,6 +286,9 @@ CDownloadReview* CDownloadWithExtras::FindReview(int nRating, LPCTSTR pszName, L
 // Get the average rating of all reviews
 int CDownloadWithExtras::GetReviewAverage() const
 {
+	if ( ! m_nReviewCount )
+		return 0;
+
 	int nAverageRating = 0, nCount = 0;
 
 	CDownloadReview *pNext = NULL, *pReview = m_pReviewFirst;
@@ -301,11 +304,13 @@ int CDownloadWithExtras::GetReviewAverage() const
 		pReview = pNext;
 	}
 
-	if ( nCount ) nAverageRating /= nCount;
+	if ( ! nAverageRating )
+		nAverageRating = 3;		// There are reviews but no ratings, give an "average" rating for display purposes
+	else if ( nCount > 1 )
+		nAverageRating /= nCount;
 
 	return nAverageRating;
 }
-
 
 //////////////////////////////////////////////////////////////////////
 // CDownloadWithExtras monitor window

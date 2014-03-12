@@ -1,7 +1,7 @@
 //
 // DownloadWithSources.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -790,6 +790,7 @@ CString	CDownloadWithSources::GetTopFailedSources(int nMaximum, PROTOCOLID nProt
 
 	CString strSources, str;
 	CFailedSource* pResult = NULL;
+
 	CQuickLock pLock( Transfers.m_pSection );
 
 	for ( POSITION pos = m_pFailedSources.GetHeadPosition() ; pos ; )
@@ -821,6 +822,7 @@ CString	CDownloadWithSources::GetTopFailedSources(int nMaximum, PROTOCOLID nProt
 			}
 		}
 	}
+
 	return strSources;
 }
 
@@ -1130,21 +1132,23 @@ void CDownloadWithSources::SortSource(CDownloadSource* pSource)
 
 int CDownloadWithSources::GetSourceColor()
 {
-	CQuickLock pLock( Transfers.m_pSection );
-
 	BOOL bTaken[SRC_COLORS] = {};
 	unsigned int nFree = SRC_COLORS;
 
-	for ( POSITION posSource = GetIterator() ; posSource ; )
 	{
-		CDownloadSource* pSource = GetNext( posSource );
+		CQuickLock pLock( Transfers.m_pSection );
 
-		if ( pSource->m_nColor >= 0 )
+		for ( POSITION posSource = GetIterator() ; posSource ; )
 		{
-			if ( bTaken[ pSource->m_nColor ] == FALSE )
+			CDownloadSource* pSource = GetNext( posSource );
+
+			if ( pSource->m_nColor >= 0 )
 			{
-				bTaken[ pSource->m_nColor ] = TRUE;
-				nFree--;
+				if ( bTaken[ pSource->m_nColor ] == FALSE )
+				{
+					bTaken[ pSource->m_nColor ] = TRUE;
+					nFree--;
+				}
 			}
 		}
 	}
@@ -1206,7 +1210,7 @@ void CDownloadWithSources::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER
 			// Extract ed2k client ID from url (m_pAddress) because it wasn't saved
 			if ( ! pSource->m_nPort && _tcsnicmp( pSource->m_sURL, _T("ed2kftp://"), 10 ) == 0 )
 			{
-				CString strURL = pSource->m_sURL.Mid(10);
+				CString strURL = pSource->m_sURL.Mid( 10 );
 				if ( ! strURL.IsEmpty() )
 					_stscanf( strURL, _T("%lu"), &pSource->m_pAddress.S_un.S_addr );
 			}

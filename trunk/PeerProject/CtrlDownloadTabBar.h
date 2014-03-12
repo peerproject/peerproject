@@ -67,8 +67,8 @@ public:
 	void			Update(int nCookie);
 	BOOL			Select(TabItem* pHit = NULL);
 	TabItem*		HitTest(const CPoint& point, CRect* pItemRect = NULL) const;
-	BOOL			DropShowTarget(CList< CDownload* >* pList, const CPoint& ptScreen);
 	BOOL			DropObjects(CList< CDownload* >* pList, const CPoint& ptScreen);
+	void			OnMouseMoveDrag(const CPoint& ptScreen);	// Was DropShowTarget(CList< CDownload* >* pList, const CPoint& ptScreen)
 protected:
 	void			UpdateGroups(int nCookie);
 	void			UpdateStates(int nCookie);

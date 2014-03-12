@@ -141,7 +141,6 @@ BEGIN_MESSAGE_MAP(CDownloadsWnd, CPanelWnd)
 	ON_COMMAND(ID_DOWNLOADS_MOVE_TOP, OnDownloadsMoveTop)
 	ON_UPDATE_COMMAND_UI(ID_DOWNLOADS_MOVE_BOTTOM, OnUpdateDownloadsMove)
 	ON_COMMAND(ID_DOWNLOADS_MOVE_BOTTOM, OnDownloadsMoveBottom)
-	ON_COMMAND(ID_DOWNLOADS_SETTINGS, OnDownloadsSettings)
 	ON_UPDATE_COMMAND_UI(ID_DOWNLOADS_FILTER_ALL, OnUpdateDownloadsFilterAll)
 	ON_COMMAND(ID_DOWNLOADS_FILTER_ALL, OnDownloadsFilterAll)
 	ON_UPDATE_COMMAND_UI(ID_DOWNLOADS_FILTER_ACTIVE, OnUpdateDownloadsFilterActive)
@@ -162,14 +161,15 @@ BEGIN_MESSAGE_MAP(CDownloadsWnd, CPanelWnd)
 	ON_COMMAND(ID_DOWNLOADS_URI, OnDownloadsURI)
 	ON_UPDATE_COMMAND_UI(ID_DOWNLOAD_GROUP_SHOW, OnUpdateDownloadGroupShow)
 	ON_COMMAND(ID_DOWNLOAD_GROUP_SHOW, OnDownloadGroupShow)
-	ON_COMMAND(ID_DOWNLOADS_HELP, OnDownloadsHelp)
-	ON_COMMAND(ID_DOWNLOADS_FILTER_MENU, OnDownloadsFilterMenu)
 	ON_UPDATE_COMMAND_UI(ID_DOWNLOADS_CLEAR_INCOMPLETE, OnUpdateDownloadsClearIncomplete)
 	ON_COMMAND(ID_DOWNLOADS_CLEAR_INCOMPLETE, OnDownloadsClearIncomplete)
 	ON_UPDATE_COMMAND_UI(ID_DOWNLOADS_CLEAR_COMPLETE, OnUpdateDownloadsClearComplete)
 	ON_COMMAND(ID_DOWNLOADS_CLEAR_COMPLETE, OnDownloadsClearComplete)
 	ON_UPDATE_COMMAND_UI(ID_DOWNLOADS_EDIT, OnUpdateDownloadsEdit)
 	ON_COMMAND(ID_DOWNLOADS_EDIT, OnDownloadsEdit)
+	ON_COMMAND(ID_DOWNLOADS_HELP, OnDownloadsHelp)
+	ON_COMMAND(ID_DOWNLOADS_SETTINGS, OnDownloadsSettings)
+	ON_COMMAND(ID_DOWNLOADS_FILTER_MENU, OnDownloadsFilterMenu)
 	ON_WM_CAPTURECHANGED()
 END_MESSAGE_MAP()
 
@@ -322,6 +322,35 @@ void CDownloadsWnd::OnTimer(UINT_PTR nIDEvent)
 	if ( nIDEvent == 5 )
 		m_tSel = 0;
 
+	// Window Update event (2 second timer)
+	if ( nIDEvent == 2 && m_pDragList == NULL )
+	{
+		// ToDo: Make intelligent, only lock if previews needed
+		CSingleLock pLock( &Transfers.m_pSection );
+		if ( pLock.Lock( 100 ) )
+		{
+			for ( POSITION pos = Downloads.GetIterator() ; pos ; )
+			{
+				CDownload* pDownload = Downloads.GetNext( pos );
+				if ( ! pDownload->GotPreview() || ! pDownload->m_bWaitingPreview )
+					continue;
+
+				pDownload->m_bWaitingPreview = FALSE;
+				CString strPreview = pDownload->m_sPath + L".png";
+				pLock.Unlock();
+
+				CFileExecutor::Execute( strPreview );
+
+				break;	// Show next preview on next update
+			}
+			pLock.Unlock();
+		}
+
+		// Refresh the window if visible, or hasn't been updated in 10 seconds
+		if ( ( IsWindowVisible() && IsActive( FALSE ) ) || ( GetTickCount() > m_tLastUpdate + 10*1000 ) )
+			Update();
+	}
+
 	// Clear Completed event (10 second timer)
 	if ( nIDEvent == 4 )
 	{
@@ -373,35 +402,6 @@ void CDownloadsWnd::OnTimer(UINT_PTR nIDEvent)
 				}
 			}
 		}
-	}
-
-	// Window Update event (2 second timer)
-	if ( nIDEvent == 2 && m_pDragList == NULL )
-	{
-		// ToDo: Make intelligent, only lock if previews needed
-		CSingleLock pLock( &Transfers.m_pSection );
-		if ( pLock.Lock( 100 ) )
-		{
-			for ( POSITION pos = Downloads.GetIterator() ; pos ; )
-			{
-				CDownload* pDownload = Downloads.GetNext( pos );
-				if ( ! pDownload->GotPreview() || ! pDownload->m_bWaitingPreview )
-					continue;
-
-				pDownload->m_bWaitingPreview = FALSE;
-				CString strPreview = pDownload->m_sPath + L".png";
-				pLock.Unlock();
-
-				CFileExecutor::Execute( strPreview );
-
-				break;	// Show next preview on next update
-			}
-			pLock.Unlock();
-		}
-
-		// Refresh the window if visible, or hasn't been updated in 10 seconds
-		if ( ( IsWindowVisible() && IsActive( FALSE ) ) || ( ( GetTickCount() - m_tLastUpdate ) > 10*1000 ) )
-			Update();
 	}
 }
 
@@ -619,7 +619,7 @@ void CDownloadsWnd::Prepare()
 
 	m_bConnectOkay = FALSE;
 
-	CSingleLock pLock( &Transfers.m_pSection, FALSE );
+	CSingleLock pLock( &Transfers.m_pSection );
 	if ( ! pLock.Lock( Settings.Interface.RefreshRateUI ) )
 		return;
 
@@ -2164,8 +2164,9 @@ void CDownloadsWnd::OnMouseMove(UINT nFlags, CPoint point)
 	{
 		m_pDragImage->DragMove( point + m_pDragOffs );
 		ClientToScreen( &point );
-		m_wndTabBar.DropShowTarget( m_pDragList, point );
-		m_wndDownloads.DropShowTarget( m_pDragList, point );
+		if ( Settings.Downloads.ShowGroups )
+			m_wndTabBar.OnMouseMoveDrag( point );
+		m_wndDownloads.OnMouseMoveDrag( point );	// Was DropShowTarget( m_pDragList )
 	}
 
 	CPanelWnd::OnMouseMove( nFlags, point );

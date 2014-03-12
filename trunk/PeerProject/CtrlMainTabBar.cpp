@@ -1,7 +1,7 @@
 //
 // CtrlMainTabBar.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -95,12 +95,13 @@ void CMainTabBarCtrl::OnSkinChange()
 	if ( m_pItems.GetCount() == 0 )
 	{
 		m_pItems.AddTail( new TabItem( this, _T("_ID_TAB_HOME") ) );
-		m_pItems.AddTail( new TabItem( this, _T("_ID_TAB_SEARCH") ) );
 		m_pItems.AddTail( new TabItem( this, _T("_ID_TAB_TRANSFERS") ) );
 		m_pItems.AddTail( new TabItem( this, _T("_ID_TAB_NETWORK") ) );
 		m_pItems.AddTail( new TabItem( this, _T("_ID_TAB_LIBRARY") ) );
 		m_pItems.AddTail( new TabItem( this, _T("_ID_TAB_MEDIA") ) );
 		m_pItems.AddTail( new TabItem( this, _T("_ID_TAB_IRC") ) );
+		m_pItems.AddTail( new TabItem( this, _T("_ID_TAB_SEARCH") ) );
+	//	m_pItems.AddTail( new TabItem( this, _T("_ID_TAB_MENU") ) );	// ToDo:
 	}
 
 	if ( m_dcSkin.m_hDC )
@@ -133,8 +134,8 @@ void CMainTabBarCtrl::OnSkinChange()
 
 		for ( POSITION pos = m_pItems.GetHeadPosition() ; pos ; )
 		{
-			TabItem* pItem = m_pItems.GetNext( pos );
-			pItem->OnSkinChange( m_pSkin, &m_dcSkin, &m_bmSkin );
+			// TabItem* pItem
+			m_pItems.GetNext( pos )->OnSkinChange( m_pSkin, &m_dcSkin, &m_bmSkin );
 		}
 
 		m_hOldSkin = (HBITMAP)m_dcSkin.SelectObject( &m_bmSkin )->GetSafeHandle();
@@ -142,10 +143,8 @@ void CMainTabBarCtrl::OnSkinChange()
 
 	CMDIFrameWnd* pOwner = (CMDIFrameWnd*)GetOwner();
 
-	if ( pOwner != NULL && pOwner->IsKindOf( RUNTIME_CLASS(CMDIFrameWnd) ) )
-	{
-		if ( ! pOwner->IsIconic() ) pOwner->RecalcLayout();
-	}
+	if ( pOwner != NULL && pOwner->IsKindOf( RUNTIME_CLASS(CMDIFrameWnd) ) && ! pOwner->IsIconic() )
+		pOwner->RecalcLayout();
 }
 
 /////////////////////////////////////////////////////////////////////////////

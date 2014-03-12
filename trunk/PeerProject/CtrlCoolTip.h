@@ -1,7 +1,7 @@
 //
 // CtrlCoolTip.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -64,6 +64,10 @@ protected:
 	BOOL	WindowFromPointBelongsToOwner(const CPoint& point);
 	CLineGraph*	CreateLineGraph();
 
+public:
+	BOOL	IsVisible() const { return m_bVisible; }
+
+protected:
 	virtual BOOL OnPrepare();
 	virtual void OnCalcSize(CDC* pDC);
 	virtual void OnShow();
@@ -72,8 +76,8 @@ protected:
 
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
-	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 	afx_msg void OnPaint();
+	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
 	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
 	afx_msg void OnTimer(UINT_PTR nIDEvent);

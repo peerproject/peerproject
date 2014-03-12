@@ -20,6 +20,8 @@
 
 class CDownload;
 class CDownloadSource;
+class CDownloadDisplayData;
+class CSourceDisplayData;
 class CUpload;
 class CUploadFile;
 
@@ -29,11 +31,12 @@ class CFragmentBar
 public:
 	static void DrawFragment(CDC* pDC, CRect* prcCell, QWORD nTotal, QWORD nOffset, QWORD nLength, COLORREF crFill, BOOL b3D);
 	static void DrawStateBar(CDC* pDC, CRect* prcBar, QWORD nTotal, QWORD nOffset, QWORD nLength, COLORREF crFill, BOOL bTop = FALSE);
-	static void DrawDownloadSimple(CDC* pDC, CRect* prcBar, const CDownload* pDownload, COLORREF crNatural);
-	static void DrawDownload(CDC* pDC, CRect* prcBar, const CDownload* pDownload, COLORREF crNatural);
+//	static void DrawDownloadSimple(CDC* pDC, CRect* prcBar, QWORD nSize, QWORD nProgress, COLORREF crNatural);
+	static void DrawSource(CDC* pDC, CRect* prcBar, const CSourceDisplayData* pSourceData, COLORREF crNatural, BOOL bDrawEmpty = TRUE);
+	static void DrawDownload(CDC* pDC, CRect* prcBar, const CDownloadDisplayData* pDownloadData, COLORREF crNatural);
+	static void DrawDownload(CDC* pDC, CRect* prcBar, const CDownload* pDownload, COLORREF crNatural);	// Legacy locking method
 	static void DrawUpload(CDC* pDC, CRect* prcBar, CUploadFile* pFile, COLORREF crNatural);
 // DrawSource moved to DownloadSource:
 //	static void DrawSource(CDC* pDC, CRect* prcBar, CDownloadSource* pSource, COLORREF crNatural);
-//protected:
 //	static void DrawSourceImpl(CDC* pDC, CRect* prcBar, CDownloadSource* pSource);
 };
