@@ -531,7 +531,7 @@ void CDownloadTabBar::GetSelectedDownloads(CList< CDownload* >* pDownloads)
 
 void CDownloadTabBar::NotifySelection()
 {
-//	GetOwner()->PostMessage( WM_KEYDOWN, VK_ESCAPE );	// Deselect all & update
+//	GetOwner()->PostMessage( WM_KEYDOWN, VK_ESCAPE );	// Deselect all
 	Invalidate();
 	GetOwner()->PostMessage( WM_TIMER, 2 );
 }
@@ -832,15 +832,15 @@ void CDownloadTabBar::TabItem::Paint(CDownloadTabBar* pBar, CDC* pDC, CRect* pRe
 	rc.bottom++;
 
 	if ( bHot && m_bSelected )
-		bSkinned = Images.DrawButtonState( pDC, rc, DOWNLOADGROUP_PRESS );		// Active Hover
+		bSkinned = Images.DrawButtonState( pDC, &rc, DOWNLOADGROUP_PRESS );		// Active Hover
 	else if ( m_bSelected )
-		bSkinned = Images.DrawButtonState( pDC, rc, DOWNLOADGROUP_ACTIVE );		// Active Group
+		bSkinned = Images.DrawButtonState( pDC, &rc, DOWNLOADGROUP_ACTIVE );		// Active Group
 	else if ( bHot )
-		bSkinned = Images.DrawButtonState( pDC, rc, DOWNLOADGROUP_HOVER );		// Hover
+		bSkinned = Images.DrawButtonState( pDC, &rc, DOWNLOADGROUP_HOVER );		// Hover
 	else if ( m_bSelected && pBar->m_bMenuGray )
-		bSkinned = Images.DrawButtonState( pDC, rc, DOWNLOADGROUP_DISABLED );	// Greyed (Empty)
+		bSkinned = Images.DrawButtonState( pDC, &rc, DOWNLOADGROUP_DISABLED );	// Greyed (Empty)
 	else
-		bSkinned = Images.DrawButtonState( pDC, rc, DOWNLOADGROUP_DEFAULT ); 	// Available (Default)
+		bSkinned = Images.DrawButtonState( pDC, &rc, DOWNLOADGROUP_DEFAULT ); 	// Available (Default)
 
 	rc.bottom--;
 	rc.DeflateRect( 1, 1 );

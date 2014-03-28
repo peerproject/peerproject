@@ -401,13 +401,13 @@ int CG2Packet::GetStringLen(LPCTSTR pszString) const
 
 	int nLength = WideCharToMultiByte( CP_UTF8, 0, pszString, -1, NULL, 0, NULL, NULL );
 
-	return ( nLength > 0 ) ? ( nLength - 1 ) : 0;
+	return ( nLength > 1 ) ? ( nLength - 1 ) : 0;
 }
 
 //////////////////////////////////////////////////////////////////////
 // CG2Packet to buffer
 
-void CG2Packet::ToBuffer(CBuffer* pBuffer, bool /*bTCP*/) const
+void CG2Packet::ToBuffer(CBuffer* pBuffer, bool /*bTCP*/)
 {
 	ASSERT( G2_TYPE_LEN( m_nType ) > 0 );
 

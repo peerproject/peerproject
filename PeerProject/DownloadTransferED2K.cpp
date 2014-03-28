@@ -831,7 +831,7 @@ bool CDownloadTransferED2K::SendFragmentRequests()
 
 		if ( bI64Offset )
 		{
-			CEDPacket* pPacket = CEDPacket::New( ED2K_C2C_REQUESTPARTS, ED2K_PROTOCOL_EMULE );
+			CEDPacket* pPacket = CEDPacket::New( ED2K_C2C_REQUESTPARTS_I64, ED2K_PROTOCOL_EMULE );
 			pPacket->Write( m_pDownload->m_oED2K );
 
 			// This commented-out code is for BigEndian, only needed when ported to different platform.

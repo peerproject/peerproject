@@ -203,9 +203,10 @@ BOOL CDownloadTransferBT::OnRun()
 	if ( bShowInterest )
 	{
 		m_tRunThrottle = tNow;
-		ShowInterest();
 		if ( m_nState == dtsTorrent || m_nState == dtsRequesting || m_nState == dtsDownloading )
-			SendFragmentRequests();
+			SendFragmentRequests();			// Includes ShowInterest()
+		else
+			ShowInterest();
 	}
 
 	if ( ( tNow >= m_tSourceRequest + Settings.BitTorrent.SourceExchangePeriod * 60 * 1000 ) &&
@@ -232,7 +233,7 @@ BOOL CDownloadTransferBT::OnConnected()
 	m_sAddress	= m_pClient->m_sAddress;
 	UpdateCountry();
 
-	// not deleting source for source exchange.
+	// Not deleting source for source exchange.
 	if ( m_pDownload->IsCompleted() )
 	{
 		// This source is only here to push start torrent uploads. (We don't want to download)
@@ -263,8 +264,8 @@ BOOL CDownloadTransferBT::OnBitfield(CBTPacket* pPacket)
 {
 	ASSUME_LOCK( Transfers.m_pSection );
 
-	QWORD nBlockSize	= m_pDownload->m_pTorrent.m_nBlockSize;
-	DWORD nBlockCount	= m_pDownload->m_pTorrent.m_nBlockCount;
+	QWORD nBlockSize  = m_pDownload->m_pTorrent.m_nBlockSize;
+	DWORD nBlockCount = m_pDownload->m_pTorrent.m_nBlockCount;
 
 	m_pSource->m_oAvailable.clear();
 
@@ -366,8 +367,9 @@ void CDownloadTransferBT::ShowInterest()
 
 	BOOL bInterested = FALSE;
 
+	// Note: Maintain same code included in SendFragmentRequests()
 	// ToDo: Use an algorithm similar to CDownloadWithTiger::FindNext..,
-	// rather than relying on that algorithm to complete verifications here.
+	// rather than relying on that algorithm to complete verifications here. (GetWantedFragmentList)
 
 	// We can only be interested if we know what they have
 	if ( m_pAvailable )
@@ -379,7 +381,7 @@ void CDownloadTransferBT::ShowInterest()
 			return;
 		}
 
-		Fragments::List oList( m_pDownload->GetWantedFragmentList() );
+		Fragments::List oList( m_pDownload->GetWantedFragmentList() );		// Note: High CPU when active
 		Fragments::List::const_iterator pItr = oList.begin();
 		const Fragments::List::const_iterator pEnd = oList.end();
 		for ( ; ! bInterested && pItr != pEnd ; ++pItr )
@@ -463,7 +465,7 @@ bool CDownloadTransferBT::SendFragmentRequests()
 	ASSUME_LOCK( Transfers.m_pSection );
 
 	ASSERT( m_nState == dtsTorrent || m_nState == dtsRequesting || m_nState == dtsDownloading );
-	if ( m_bChoked || ! m_bInterested )
+	if ( m_bChoked )	// Note: m_bInterested set/checked below
 	{
 		if ( m_oRequested.empty() )
 			SetState( dtsTorrent );
@@ -482,12 +484,58 @@ bool CDownloadTransferBT::SendFragmentRequests()
 		return true;
 	}
 
-	QWORD nBlockSize = m_pDownload->m_pTorrent.m_nBlockSize;
+	const QWORD nBlockSize = m_pDownload->m_pTorrent.m_nBlockSize;
 	ASSERT( nBlockSize != 0 );
 	if ( ! nBlockSize )
 		return true;
 
-	Fragments::List oPossible( m_pDownload->GetWantedFragmentList() );
+	Fragments::List oPossible( m_pDownload->GetWantedFragmentList() );		// Note: High CPU when active
+
+	// Integrated ShowInterest():
+	{
+		BOOL bInterested = FALSE;
+
+		if ( m_pAvailable )
+		{
+			Fragments::List::const_iterator pItr = oPossible.begin();
+			const Fragments::List::const_iterator pEnd = oPossible.end();
+			for ( ; ! bInterested && pItr != pEnd ; ++pItr )
+			{
+				QWORD nBlock = pItr->begin() / nBlockSize;
+				QWORD nEnd = ( pItr->end() - 1 ) / nBlockSize;
+				for ( ; nBlock <= nEnd ; ++nBlock )
+				{
+					if ( m_pAvailable[ nBlock ] )
+					{
+						bInterested = TRUE;
+						break;
+					}
+				}
+			}
+		}
+
+		if ( bInterested != m_bInterested )
+		{
+			m_bInterested = bInterested;
+
+			if ( bInterested )
+			{
+				m_pClient->Interested();		// BT_PACKET_INTERESTED
+			}
+			else
+			{
+				m_pClient->NotInterested();		// BT_PACKET_NOT_INTERESTED
+				m_oRequested.clear();
+			}
+		}
+
+		if ( ! m_bInterested )
+		{
+			if ( m_oRequested.empty() )
+				SetState( dtsTorrent );
+			return true;
+		}
+	}
 
 	if ( ! m_pDownload->m_bTorrentEndgame )
 	{
@@ -609,9 +657,9 @@ BOOL CDownloadTransferBT::OnPiece(CBTPacket* pPacket)
 	if ( m_nState != dtsRequesting && m_nState != dtsDownloading ) return TRUE;
 
 	SetState( dtsDownloading );
-	DWORD nBlock	= pPacket->ReadLongBE();
-	QWORD nOffset	= pPacket->ReadLongBE();
-	QWORD nLength	= pPacket->GetRemaining();
+	DWORD nBlock  = pPacket->ReadLongBE();
+	QWORD nOffset = pPacket->ReadLongBE();
+	QWORD nLength = pPacket->GetRemaining();
 	nOffset += (QWORD)nBlock * m_pDownload->m_pTorrent.m_nBlockSize;
 	m_nDownloaded += nLength;
 	m_pDownload->m_nTorrentDownloaded += nLength;
@@ -624,9 +672,9 @@ BOOL CDownloadTransferBT::OnPiece(CBTPacket* pPacket)
 	if ( ! bSuccess )
 		TRACE( _T("[BT] Failed to submit data %I64u-%I64u to \"%s\".\n"), nOffset, nOffset + nLength, m_pDownload->m_sPath );
 
-	// ToDo: SendRequests and ShowInterest could be combined...
-	// SendRequests is probably going to tell us if we are interested or not
-	ShowInterest();
+	// Note: SendRequests and ShowInterest are combined...  (Both use high CPU GetWantedFragmentsList)
+	// SendRequests is also going to tell if we are interested or not
+	//ShowInterest();	// Integrated below
 	return SendFragmentRequests();
 }
 

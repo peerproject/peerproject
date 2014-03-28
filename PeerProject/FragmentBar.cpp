@@ -49,13 +49,7 @@ static char THIS_FILE[] = __FILE__;
 
 void CFragmentBar::DrawFragment(CDC* pDC, CRect* prcBar, QWORD nTotal, QWORD nOffset, QWORD nLength, COLORREF crFill, BOOL b3D)
 {
-	if ( nTotal == 0 || nLength == 0 )
-		return;
-
-	if ( nTotal == SIZE_UNKNOWN || nOffset == SIZE_UNKNOWN || nLength == SIZE_UNKNOWN )
-		return;
-
-	if ( nLength > nTotal - nOffset )
+	if ( nTotal == 0 || nLength == 0 || nTotal == SIZE_UNKNOWN || nOffset == SIZE_UNKNOWN || nLength == SIZE_UNKNOWN || nLength > nTotal - nOffset )
 		return;
 
 	if ( Settings.General.LanguageRTL )
@@ -93,7 +87,7 @@ void CFragmentBar::DrawFragment(CDC* pDC, CRect* prcBar, QWORD nTotal, QWORD nOf
 		pDC->FillSolidRect( &rcArea, crFill );
 	}
 
-	pDC->ExcludeClipRect( &rcArea );
+	pDC->ExcludeClipRect( &rcArea );		// ToDo: High CPU here?
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -101,10 +95,7 @@ void CFragmentBar::DrawFragment(CDC* pDC, CRect* prcBar, QWORD nTotal, QWORD nOf
 
 void CFragmentBar::DrawStateBar(CDC* pDC, CRect* prcBar, QWORD nTotal, QWORD nOffset, QWORD nLength, COLORREF crFill, BOOL bTop)
 {
-	if ( nTotal == 0 || nLength == 0 )
-		return;
-
-	if ( nTotal == SIZE_UNKNOWN || nOffset == SIZE_UNKNOWN || nLength == SIZE_UNKNOWN )
+	if ( nTotal == 0 || nLength == 0 || nTotal == SIZE_UNKNOWN || nOffset == SIZE_UNKNOWN || nLength == SIZE_UNKNOWN )
 		return;
 
 	ASSERT( nLength <= nTotal - nOffset );
@@ -289,7 +280,8 @@ void CFragmentBar::DrawSource(CDC* pDC, CRect* prcBar, const CSourceDisplayData*
 	{
 		Colors.m_crFragmentSource1, Colors.m_crFragmentSource2,
 		Colors.m_crFragmentSource3, Colors.m_crFragmentSource4,
-		Colors.m_crFragmentSource5, Colors.m_crFragmentSource6
+		Colors.m_crFragmentSource5, Colors.m_crFragmentSource6,
+		Colors.m_crFragmentSource7, Colors.m_crFragmentSource8
 	};
 
 	COLORREF crTransfer = pSourceData->bReadContent ? crFill[ pSourceData->nColor ] : Colors.m_crFragmentComplete;
@@ -312,27 +304,26 @@ void CFragmentBar::DrawSource(CDC* pDC, CRect* prcBar, const CSourceDisplayData*
 	}
 
 	Fragments::List::const_iterator pItr = pSourceData->oPastFragments.begin();
-	const Fragments::List::const_iterator pEnd = pSourceData->oPastFragments.end();
+	Fragments::List::const_iterator pEnd = pSourceData->oPastFragments.end();
 	for ( ; pItr != pEnd ; ++pItr )
 	{
 		CFragmentBar::DrawFragment( pDC, prcBar, pSourceData->nSize, pItr->begin(), pItr->size(), crTransfer, TRUE );
 	}
 
-//	if ( ! bDrawEmpty )
-//		return;
+	if ( ! bDrawEmpty )
+		return;
 
 	// Draw empty bar areas
 	if ( ! pSourceData->oAvailable.empty() )
 	{
-		Fragments::List::const_iterator pItr = pSourceData->oAvailable.begin();
-		const Fragments::List::const_iterator pEnd = pSourceData->oAvailable.end();
+		pItr = pSourceData->oAvailable.begin();
+		pEnd = pSourceData->oAvailable.end();
 		for ( ; pItr != pEnd ; ++pItr )
 		{
-			CFragmentBar::DrawFragment( pDC, prcBar, pSourceData->nSize,
-				pItr->begin(), pItr->size(), crNatural, FALSE );
+			CFragmentBar::DrawFragment( pDC, prcBar, pSourceData->nSize, pItr->begin(), pItr->size(), crNatural, FALSE );
 		}
 
-		if ( bDrawEmpty && ! Images.DrawButtonState( pDC, prcBar, IMAGE_PROGRESSBAR_NONE ) )
+		if ( ! Images.DrawButtonState( pDC, prcBar, IMAGE_PROGRESSBAR_NONE ) )
 			pDC->FillSolidRect( prcBar, Colors.m_crWindow );
 	}
 	else if ( pSourceData->bHasFragments )	// IsOnline() && HasUsefulRanges() || ! pSourceData->oPastFragments.empty()
@@ -340,7 +331,7 @@ void CFragmentBar::DrawSource(CDC* pDC, CRect* prcBar, const CSourceDisplayData*
 		if ( ! Images.DrawButtonState( pDC, prcBar, IMAGE_PROGRESSBAR_SHADED ) )
 			pDC->FillSolidRect( prcBar, crNatural );
 	}
-	else if ( bDrawEmpty )
+	else
 	{
 		if ( ! Images.DrawButtonState( pDC, prcBar, IMAGE_PROGRESSBAR_NONE ) )
 			pDC->FillSolidRect( prcBar, Colors.m_crWindow );
@@ -426,35 +417,28 @@ void CFragmentBar::DrawSource(CDC* pDC, CRect* prcBar, const CSourceDisplayData*
 //	static COLORREF crFill[] =
 //	{
 //		Colors.m_crFragmentSource1, Colors.m_crFragmentSource2, Colors.m_crFragmentSource3,
-//		Colors.m_crFragmentSource4, Colors.m_crFragmentSource5, Colors.m_crFragmentSource6
+//		Colors.m_crFragmentSource4, Colors.m_crFragmentSource5, Colors.m_crFragmentSource6,
+//		Colors.m_crFragmentSource7, Colors.m_crFragmentSource8
 //	};
 //
-//	COLORREF crTransfer;
-//
-//	if ( pSource->m_bReadContent )
-//		crTransfer = crFill[ pSource->GetColor() ];
-//	else
-//		crTransfer = Colors.m_crFragmentComplete;
-//
+//	COLORREF crTransfer = ? pSource->m_bReadContent : crFill[ pSource->GetColor() ] : Colors.m_crFragmentComplete;
 //	crTransfer = CColors::CalculateColor( crTransfer, Colors.m_crHighlight, 90 );
 //
-//	if ( pSource->m_pTransfer != NULL )
+//	if ( pSource->m_pTransfer != NULL &&
+//		 pSource->m_pTransfer->m_nState == dtsDownloading &&
+//		 pSource->m_pTransfer->m_nOffset < SIZE_UNKNOWN )
 //	{
-//		if ( pSource->m_pTransfer->m_nState == dtsDownloading &&
-//			 pSource->m_pTransfer->m_nOffset < SIZE_UNKNOWN )
+//		if ( pSource->m_pTransfer->m_bRecvBackwards )
 //		{
-//			if ( pSource->m_pTransfer->m_bRecvBackwards )
-//			{
-//				DrawFragment( pDC, prcBar, pSource->m_pDownload->m_nSize,
-//					pSource->m_pTransfer->m_nOffset + pSource->m_pTransfer->m_nLength - pSource->m_pTransfer->m_nPosition,
-//					pSource->m_pTransfer->m_nPosition, crTransfer, TRUE );
-//			}
-//			else
-//			{
-//				DrawFragment( pDC, prcBar, pSource->m_pDownload->m_nSize,
-//					pSource->m_pTransfer->m_nOffset,
-//					pSource->m_pTransfer->m_nPosition, crTransfer, TRUE );
-//			}
+//			DrawFragment( pDC, prcBar, pSource->m_pDownload->m_nSize,
+//				pSource->m_pTransfer->m_nOffset + pSource->m_pTransfer->m_nLength - pSource->m_pTransfer->m_nPosition,
+//				pSource->m_pTransfer->m_nPosition, crTransfer, TRUE );
+//		}
+//		else
+//		{
+//			DrawFragment( pDC, prcBar, pSource->m_pDownload->m_nSize,
+//				pSource->m_pTransfer->m_nOffset,
+//				pSource->m_pTransfer->m_nPosition, crTransfer, TRUE );
 //		}
 //	}
 //
@@ -478,8 +462,7 @@ void CFragmentBar::DrawUpload(CDC* pDC, CRect* prcBar, CUploadFile* pFile, COLOR
 	const Fragments::List::const_iterator pEnd = pFile->m_oFragments.end();
 	for ( ; pItr != pEnd ; ++pItr )
 	{
-		DrawFragment( pDC, prcBar, pFile->m_nSize, pItr->begin(), pItr->size(),
-			Colors.m_crFragmentComplete, true );
+		DrawFragment( pDC, prcBar, pFile->m_nSize, pItr->begin(), pItr->size(), Colors.m_crFragmentComplete, TRUE );
 	}
 
 	if ( pFile == pUpload->m_pBaseFile && pUpload->m_nLength != SIZE_UNKNOWN )

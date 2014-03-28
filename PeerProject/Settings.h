@@ -305,7 +305,7 @@ public:
 		DWORD		TimeoutTraffic;
 		DWORD		SendBuffer;
 		bool		RequireForTransfers;	// Only upload/download to connected networks
-		DWORD		ConnectThrottle;		// Delay between connection attempts. (Neighbour connections)
+		DWORD		ConnectThrottle;		// Delay between connection attempts to neighbors (milliseconds)
 		DWORD		FailurePenalty;			// Delay after connection failure (seconds, default = 300) (Neighbour connections)
 		DWORD		FailureLimit;			// Max allowed connection failures (default = 3) (Neighbour connections)
 		bool		DetectConnectionLoss;	// Detect loss of internet connection
@@ -378,7 +378,7 @@ public:
 		DWORD		RouteCache;				// Life time of node route (seconds)
 		DWORD		HostCacheSize;			// Number of hosts of each type in Host cache
 		DWORD		HostCacheView;
-		DWORD		ConnectThrottle;		// Delay between connection attempts for same host (milliseconds)
+		DWORD		ConnectThrottle;		// Delay between connection attempts for same host (seconds)
 		bool		SpecifyProtocol;		// Specify G1 or G2 when initiating a connection
 	} Gnutella;
 
@@ -458,7 +458,7 @@ public:
 		bool		EnableAlways;			// Do  eDonkey.EnableStartup ?
 		bool		ShowInterface;			// Allow hiding some UI features
 		bool		FastConnect;			// Try connecting to 2 servers to get online faster
-		bool		ForceHighID;			// Reconnect if low-id. (once only)
+		bool		ForceHighID;			// Reconnect if low-id
 		DWORD		NumServers;				// 1 Connection
 		DWORD		MaxLinks;				// Max ed2k client links
 		DWORD		MaxResults;

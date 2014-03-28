@@ -1128,11 +1128,11 @@ void CDownloadWithSources::SortSource(CDownloadSource* pSource)
 //////////////////////////////////////////////////////////////////////
 // CDownloadWithSources source color selector
 
-#define SRC_COLORS 6u
+#define SRC_COLORS 8u
 
 int CDownloadWithSources::GetSourceColor()
 {
-	BOOL bTaken[SRC_COLORS] = {};
+	BOOL bTaken[ SRC_COLORS ] = {};
 	unsigned int nFree = SRC_COLORS;
 
 	{

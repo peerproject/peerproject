@@ -227,7 +227,7 @@ CString CG1Packet::GetGUID() const
 
 // Takes a pointer to a buffer
 // Writes this Gnutella packet into it, composing a Gnutella packet header and then adding the payload from the packet's buffer
-void CG1Packet::ToBuffer(CBuffer* pBuffer, bool /*bTCP*/) const
+void CG1Packet::ToBuffer(CBuffer* pBuffer, bool /*bTCP*/)
 {
 	// Compose a Gnutella packet header with values from this CG1Packet object
 	GNUTELLAPACKET pHeader;						// Make a local GNUTELLAPACKET structure called pHeader

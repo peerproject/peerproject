@@ -50,7 +50,7 @@ protected:
 	DWORD*			m_pLocked;
 
 public:
-	void	Create(const SOCKADDR_IN* pHost, const CG2Packet* pPacket, WORD nSequence, CBuffer* pBuffer, BOOL bAck);
+	void	Create(const SOCKADDR_IN* pHost, CG2Packet* pPacket, WORD nSequence, CBuffer* pBuffer, BOOL bAck);
 	BOOL	GetPacket(DWORD tNow, BYTE** ppPacket, DWORD* pnPacket, BOOL bResend);
 	BOOL	Acknowledge(BYTE nPart);
 };

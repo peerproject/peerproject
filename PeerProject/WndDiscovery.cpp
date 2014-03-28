@@ -135,7 +135,7 @@ int CDiscoveryWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 //	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
 
 	m_wndList.InsertColumn( COL_ADDRESS,	_T("Address"),	LVCFMT_LEFT,	260, -1 );
-	m_wndList.InsertColumn( COL_TYPE,		_T("Type"), 	LVCFMT_CENTER,	80, 0 );
+	m_wndList.InsertColumn( COL_TYPE,		_T("Type"), 	LVCFMT_CENTER,	86, 0 );
 	m_wndList.InsertColumn( COL_TIME,		_T("Last Access"), LVCFMT_CENTER, 130, 1 );
 	m_wndList.InsertColumn( COL_HOSTS,		_T("Hosts"),	LVCFMT_CENTER,	50, 2 );
 	m_wndList.InsertColumn( COL_HOSTS_TOTAL, _T("Total Hosts"), LVCFMT_CENTER, 70, 3 );
@@ -190,9 +190,14 @@ void CDiscoveryWnd::Update()
 		case CDiscoveryService::dsWebCache:
 			if ( ! m_bShowWebCache ) continue;
 			pItem = m_wndList.Add( pService );
-			pItem->Set( COL_TYPE, _T("GWebCache") );
-			if ( ! pService->m_sPong.IsEmpty() && pService->m_bGnutella2 )
+			if ( pService->m_bGnutella2 && ! pService->m_sPong.IsEmpty() )
 				pItem->Set( COL_PONG, pService->m_sPong );
+			if ( pService->m_bGnutella2 && ! pService->m_bGnutella1 )
+				pItem->Set( COL_TYPE, _T("GWebCache2") );
+			else if ( pService->m_bGnutella1 && ! pService->m_bGnutella2 )
+				pItem->Set( COL_TYPE, _T("GWebCache1") );
+			else
+				pItem->Set( COL_TYPE, _T("GWebCache ") );
 			if ( pService->m_bGnutella2 && pService->m_bGnutella1 )
 				pItem->SetImage( 1 );		// IDR_DISCOVERYFRAME Full-colored
 			else if ( pService->m_bGnutella2 )
@@ -201,6 +206,7 @@ void CDiscoveryWnd::Update()
 				pItem->SetImage( 3 );		// IDI_DISCOVERY_GRAY
 			else
 				pItem->SetImage( 4 );		// Blank?
+
 			break;
 		case CDiscoveryService::dsServerList:
 			if ( ! m_bShowServerList ) continue;

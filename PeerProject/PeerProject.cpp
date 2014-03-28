@@ -413,7 +413,7 @@ BOOL CPeerProjectApp::InitInstance()
 
 	// Show Startup Splash Screen
 
-	const int nSplashSteps = ( m_cmdInfo.m_bNoSplash || ! m_cmdInfo.m_bShowSplash ) ? 0 : 20;
+	const int nSplashSteps = ( m_cmdInfo.m_bNoSplash || ! m_cmdInfo.m_bShowSplash ) ? 0 : 21;
 
 	SplashStep( L"Up", nSplashSteps, false );
 		if ( m_cmdInfo.m_nGUIMode != -1 )
@@ -519,12 +519,15 @@ BOOL CPeerProjectApp::InitInstance()
 		Library.Load();					// Lengthy if very large (~20s)
 	SplashStep( L"Downloads" );
 		Downloads.PreLoad();			// Very lengthy if many files (~1min)
+	SplashStep( L"Downloads Cleanup" );
+		Downloads.PurgeFiles();
+		Sleep( 50 );					// Allow some splash text visibility
 	SplashStep( L"Download Manager" );
 		Downloads.Load();
-		Sleep( 60 );					// Allow some splash text visibility
+		Sleep( 50 );					// Allow some splash text visibility
 	SplashStep( L"Upload Manager" );
 		UploadQueues.Load();
-		Sleep( 60 );					// Allow some splash text visibility
+		Sleep( 50 );					// Allow some splash text visibility
 
 	// Obsolete for reference & deletion
 	//if ( Settings.Connection.EnableFirewallException )
@@ -761,6 +764,12 @@ void CPeerProjectApp::SplashStep(LPCTSTR pszMessage, int nMax, bool bClosing)
 	TRACE( _T("Step: %s\n"), pszMessage ? pszMessage : _T("Done") );
 }
 
+void CPeerProjectApp::SplashUpdate(LPCTSTR pszMessage)
+{
+	if ( m_dlgSplash )
+		m_dlgSplash->Update( pszMessage );
+}
+
 void CPeerProjectApp::SplashAbort()
 {
 	if ( m_dlgSplash )
@@ -918,16 +927,16 @@ BOOL CPeerProjectApp::Register()
 
 	CPeerProjectURL::Register( TRUE, TRUE );
 
-	// See http://msdn.microsoft.com/en-us/gg465010 for TaskBar
-//	if ( theApp.m_nWinVer >= WIN_7 )
-//	{
-//#if defined(_MSC_VER) && (_MSC_VER >= 1600)
-//		// For VS2010:
-//		//	CJumpList oTasks;
-//		//	oTasks.ClearAllDestinations();
-//		//	oTasks.AddKnownCategory( KDC_RECENT );
-//		//	oTasks.AddTask( _T("peerproject:command:search"), _T(""), LoadString( IDS_SEARCH_TASK ) + _T("..."), theApp.m_strBinaryPath, - IDR_SEARCHFRAME );
-//		//	oTasks.AddTask( _T("peerproject:command:download"), _T(""), LoadString( IDS_DOWNLOAD_TASK ) + _T("..."), theApp.m_strBinaryPath, - IDR_DOWNLOADSFRAME );
+	// See http://msdn.microsoft.com/en-us/gg465010#_Toc243450447 for TaskBar
+	if ( theApp.m_nWinVer >= WIN_7 )
+	{
+#if defined(_MSC_VER) && (_MSC_VER >= 1600) && (NTDDI_VERSION >= NTDDI_WIN7)
+		// For VS2010+:
+		CJumpList oTasks = new JumpList();
+		oTasks.ClearAllDestinations();
+		oTasks.AddKnownCategory( KDC_RECENT );
+		oTasks.AddTask( _T("peerproject:command:search"), _T(""), LoadString( IDS_SEARCH_TASK ) + _T("..."), theApp.m_strBinaryPath, - IDR_SEARCHFRAME );
+		oTasks.AddTask( _T("peerproject:command:download"), _T(""), LoadString( IDS_DOWNLOAD_TASK ) + _T("..."), theApp.m_strBinaryPath, - IDR_DOWNLOADSFRAME );
 //#else
 //		// For VS2008:
 //		CComPtr< ICustomDestinationList > pList;
@@ -959,8 +968,8 @@ BOOL CPeerProjectApp::Register()
 //
 //			VERIFY( SUCCEEDED( pList->CommitList() ) );
 //		}
-//#endif
-//	}
+#endif
+	}
 
 	return CWinApp::Register();
 }
@@ -1002,6 +1011,23 @@ void CPeerProjectApp::AddToRecentFileList(LPCTSTR lpszPathName)
 		}
 	}
 #endif	// WinSDK 7.0+
+}
+
+BOOL CPeerProjectApp::DisplayFile(LPCTSTR lpszFileName)
+{
+	CSingleLock pLock( &Library.m_pSection );
+	if ( ! SafeLock( pLock ) ) return FALSE;
+
+	if ( CLibraryFile* pLibFile = LibraryMaps.LookupFileByPath( lpszFileName ) )
+	{
+		if ( CLibraryWnd* pLibrary = CLibraryWnd::GetLibraryWindow() )
+		{
+			pLibrary->Display( pLibFile );
+		}
+		return TRUE;
+	}
+
+	return FALSE;
 }
 
 CDocument* CPeerProjectApp::OpenDocumentFile(LPCTSTR lpszFileName)
@@ -1049,7 +1075,7 @@ BOOL CPeerProjectApp::Open(LPCTSTR lpszFileName, BOOL bTest /*FALSE*/)		// Note:
 	case 'l':	// .lnk
 		return bTest || OpenShellShortcut( lpszFileName );
 	case 'b':	// .xml.bz2 (DC++)
-		if ( _tcsicmp( lpszFileName + ( _tcslen( lpszFileName ) - 8 ), _T(".xml.bz2") ) == 0 )
+		if ( EndsWith( lpszFileName, _PT(".xml.bz2") ) )	// Was ( _tcsicmp( lpszFileName + ( _tcslen( lpszFileName ) - 8 ), _T(".xml.bz2") ) == 0 )
 		{
 			if ( bTest ) return TRUE;
 			if ( _tcsicmp( PathFindFileName( lpszFileName ), _T("hublist.xml.bz2") ) == 0 )
@@ -1552,7 +1578,7 @@ void CPeerProjectApp::InitResources()
 	srand( GetTickCount() );
 
 	m_hHookKbd   = SetWindowsHookEx( WH_KEYBOARD, (HOOKPROC)KbdHook, NULL, AfxGetThread()->m_nThreadID );
-	m_hHookMouse = SetWindowsHookEx( WH_MOUSE, (HOOKPROC)MouseHook, NULL, AfxGetThread()->m_nThreadID );
+	m_hHookMouse = SetWindowsHookEx( WH_MOUSE,  (HOOKPROC)MouseHook, NULL, AfxGetThread()->m_nThreadID );
 	m_nLastInput = (DWORD)time( NULL );
 
 	if ( SystemParametersInfo( SPI_GETWHEELSCROLLLINES, 0, &m_nMouseWheel, 0 ) )
@@ -1560,7 +1586,7 @@ void CPeerProjectApp::InitResources()
 		if ( m_nMouseWheel > 20 )			// Catch WHEEL_PAGESCROLL (UINT_MAX)
 			m_nMouseWheel = 20;				// ToDo: Better handling rare mouse wheel set to scroll by page?
 		else if ( m_nMouseWheel < 1 )
-			m_nMouseWheel = 3;				// Default lines set at initialization
+			m_nMouseWheel = 3;				// Default lines set at initialization	ToDo: User Setting?
 	}
 }
 

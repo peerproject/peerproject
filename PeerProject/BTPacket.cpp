@@ -445,7 +445,7 @@ bool CBTPacket::HasEncodedData() const
 //////////////////////////////////////////////////////////////////////
 // CBTPacket serialize
 
-void CBTPacket::ToBuffer(CBuffer* pBuffer, bool /*bTCP*/) const
+void CBTPacket::ToBuffer(CBuffer* pBuffer, bool /*bTCP*/)
 {
 	if ( m_nType == BT_PACKET_KEEPALIVE )
 	{
@@ -547,7 +547,7 @@ CBTPacket* CBTPacket::ReadBuffer(CBuffer* pBuffer)
 
 //////////////////////////////////////////////////////////////////////
 // CBTPacket debugging
-void CBTPacket::SmartDump(const SOCKADDR_IN* pAddress, BOOL bUDP, BOOL bOutgoing, DWORD_PTR nNeighbourUnique) const
+void CBTPacket::SmartDump(const SOCKADDR_IN* pAddress, BOOL bUDP, BOOL bOutgoing, DWORD_PTR nNeighbourUnique)
 {
 	switch ( m_nType )
 	{
@@ -565,46 +565,46 @@ CString CBTPacket::GetType() const
 	switch ( m_nType )
 	{
 	case BT_PACKET_CHOKE:
-		return _T("Choke");
+		return CString( _T("Choke") );
 	case BT_PACKET_UNCHOKE:
-		return _T("Unchoke");
+		return CString( _T("Unchoke") );
 	case BT_PACKET_INTERESTED:
-		return _T("Interested");
+		return CString( _T("Interested") );
 	case BT_PACKET_NOT_INTERESTED:
-		return _T("NotInterested");
+		return CString( _T("NotInterested") );
 	case BT_PACKET_HAVE:
-		return _T("Have");
+		return CString( _T("Have") );
 	case BT_PACKET_BITFIELD:
-		return _T("Bitfield");
+		return CString( _T("Bitfield") );
 	case BT_PACKET_REQUEST:
-		return _T("Request");
+		return CString( _T("Request") );
 	case BT_PACKET_PIECE:
-		return _T("Piece");
+		return CString( _T("Piece") );
 	case BT_PACKET_CANCEL:
-		return _T("Cancel");
+		return CString( _T("Cancel") );
 	case BT_PACKET_DHT_PORT:
-		return _T("DHT port");
+		return CString( _T("DHT port") );
 	case BT_PACKET_HANDSHAKE:
-		return _T("ExtHandshake");
+		return CString( _T("ExtHandshake") );
 	case BT_PACKET_SOURCE_REQUEST:
-		return _T("SrcRequest");
+		return CString( _T("SrcRequest") );
 	case BT_PACKET_SOURCE_RESPONSE:
-		return _T("SrcResponse");
+		return CString( _T("SrcResponse") );
 	case BT_PACKET_KEEPALIVE:
-		return _T("Keep-Alive");
+		return CString( _T("Keep-Alive") );
 	case BT_PACKET_EXTENSION:
 		switch ( m_nExtension )
 		{
 		case BT_EXTENSION_HANDSHAKE:
-			return _T("Handshake");
+			return CString( _T("Handshake") );
 		case BT_EXTENSION_NOP:
-			return _T("DHT");
+			return CString( _T("DHT") );
 	//	case BT_EXTENSION_UT_METADATA:
-	//		return _T("UT Metadata");
+	//		return CString( _T("UT Metadata") );
 	//	case BT_EXTENSION_UT_PEX:
-	//		return _T("UT PEX");
+	//		return CString( _T("UT PEX") );
 	//	case BT_EXTENSION_LT_TEX:
-	//		return _T("LT TEX");
+	//		return CString( _T("LT TEX") );
 		}
 		{
 			CString strType;

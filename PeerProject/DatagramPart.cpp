@@ -1,7 +1,7 @@
 //
 // DatagramPart.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -62,7 +62,7 @@ CDatagramOut::~CDatagramOut()
 //////////////////////////////////////////////////////////////////////
 // CDatagramOut create
 
-void CDatagramOut::Create(const SOCKADDR_IN* pHost, const CG2Packet* pPacket, WORD nSequence, CBuffer* pBuffer, BOOL bAck)
+void CDatagramOut::Create(const SOCKADDR_IN* pHost, CG2Packet* pPacket, WORD nSequence, CBuffer* pBuffer, BOOL bAck)
 {
 	ASSERT( m_pBuffer == NULL );
 

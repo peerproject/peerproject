@@ -1,7 +1,7 @@
 //
 // Colors.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2009-2012
+// This file is part of PeerProject (peerproject.org) © 2009-2014
 //
 // PeerProject is free software. You may redistribute and/or modify it
 // under the terms of the GNU Affero General Public License
@@ -203,10 +203,12 @@ void CColors::CalculateColors(BOOL bCustom)
 	m_crFragmentComplete		= RGB( 90, 240, 80 );
 	m_crFragmentSource1			= RGB( 0, 150, 255 );
 	m_crFragmentSource2			= RGB( 0, 150, 0 );
-	m_crFragmentSource3			= RGB( 255, 50, 0 );
+	m_crFragmentSource3			= RGB( 255, 100, 0 );
 	m_crFragmentSource4			= RGB( 255, 200, 0 );
 	m_crFragmentSource5			= RGB( 150, 150, 255 );
-	m_crFragmentSource6			= RGB( 204, 152, 0 );
+	m_crFragmentSource6			= RGB( 200, 150, 0 );
+	m_crFragmentSource7			= RGB( 0, 40, 240 );
+	m_crFragmentSource8			= RGB( 200, 190, 180 );
 	m_crFragmentPass			= RGB( 0, 220, 0 );
 	m_crFragmentFail			= RGB( 220, 0, 0 );
 	m_crFragmentRequest			= RGB( 255, 255, 0 );

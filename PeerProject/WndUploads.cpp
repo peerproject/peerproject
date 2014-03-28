@@ -262,11 +262,11 @@ void CUploadsWnd::OnMDIActivate(BOOL bActivate, CWnd* pActivateWnd, CWnd* pDeact
 		m_wndUploads.SetFocus();
 }
 
-BOOL CUploadsWnd::IsSelected(CUploadFile* pFile)
+BOOL CUploadsWnd::IsSelected(const CUploadFile* pFile) const
 {
 	if ( ! pFile->m_bSelected ) return FALSE;
 
-	if ( CUploadTransfer* pTransfer = pFile->GetActive() )
+	if ( const CUploadTransfer* pTransfer = pFile->GetActive() )
 	{
 		if ( pTransfer->m_nProtocol == PROTOCOL_BT )
 		{
@@ -602,7 +602,9 @@ void CUploadsWnd::OnUploadsLaunch()
 		CSingleLock pLibraryLock( &Library.m_pSection );
 		if ( SafeLock( pLibraryLock ) )
 		{
-			if ( CLibraryFile* pLibFile = LibraryMaps.LookupFileByHash( &oFile ) )
+			CLibraryFile* pLibFile = LibraryMaps.LookupFileByHash( &oFile );
+			if ( ! pLibFile ) pLibFile = LibraryMaps.LookupFileByPath( oFile.m_sPath );
+			if ( pLibFile )
 			{
 				if ( CLibraryWnd* pLibrary = CLibraryWnd::GetLibraryWindow() )		// (CLibraryWnd*)( pMainWnd->m_pWindows.Open( RUNTIME_CLASS(CLibraryWnd) ) ) )
 				{

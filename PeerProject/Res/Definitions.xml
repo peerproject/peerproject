@@ -144,6 +144,7 @@
 	<resource code="40006" id="ID_TAB_LIBRARY"/>
 	<resource code="40007" id="ID_TAB_MEDIA"/>
 	<resource code="40008" id="ID_TAB_IRC"/>
+	<resource code="40009" id="ID_TAB_MENU"/>
 	<resource code="40010" id="ID_BROWSE_FILES"/>
 	<resource code="40011" id="ID_BROWSE_LAUNCH"/>
 	<resource code="40012" id="ID_BROWSE_PROFILE"/>

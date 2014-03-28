@@ -173,7 +173,10 @@ CChildWnd* CWindowManager::Open(CRuntimeClass* pClass, BOOL bToggle, BOOL bFocus
 		pChild = static_cast< CChildWnd* >( pClass->CreateObject() );
 
 	if ( pChild && bFocus )
+	{
+		Sleep( 50 );
 		pChild->BringWindowToTop();
+	}
 
 	return pChild;
 }

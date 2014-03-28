@@ -1099,7 +1099,7 @@ FONT 8, "Tahoma"
 BEGIN
 	ICON			IDI_FILE,IDC_STATIC,7,10,20,20
 	LTEXT			"New files can be downloaded directly from Web and P2P links. \nSimply copy/paste the URI or URL link for the file into the box below. \n(http:, ftp:, ed2k:, magnet:, etc.)",IDC_STATIC,36,8,246,38
-	LTEXT			"A small .torrent file is used to begin most BitTorrent downloads.\nPaste the .torrent's direct link above, or select a local .torrent file.    (Use drag'n'drop at any time.)",IDC_STATIC,7,100,240,32
+	LTEXT			"A small .torrent file is used to begin most BitTorrent downloads.\nPaste the .torrent's direct link above, or select a local .torrent file.\n(Use drag'n'drop at any time.)",IDC_STATIC,7,100,232,32
 	EDITTEXT		IDC_URL,7,42,288,30,ES_MULTILINE|ES_AUTOVSCROLL
 	CONTROL			"",IDC_STATIC,"Static",SS_ETCHEDHORZ,7,96,290,4
 	PUSHBUTTON		"&Download",IDOK,172,76,60,14,WS_DISABLED
@@ -3572,14 +3572,15 @@ END
 
 STRINGTABLE
 BEGIN
-	ID_TAB_CONNECT				"Connect or disconnect from the network."
 	ID_TAB_HOME					"Return to the PeerProject start page. (home view)"
-	ID_TAB_IRC					"Show the IRC chatrooms window."
+	ID_TAB_TRANSFERS			"Manage all active downloads and uploads."
+	ID_TAB_NETWORK				"Manage your Network connections."
+	ID_TAB_CONNECT				"Connect or disconnect from the network."
 	ID_TAB_LIBRARY				"View your locally catalogued files."
 	ID_TAB_MEDIA				"Play audio/video files from your Library."
-	ID_TAB_NETWORK				"Manage your Network connections."
+	ID_TAB_IRC					"Show the IRC chatrooms window."
 	ID_TAB_SEARCH				"Start new network search for files to download"
-	ID_TAB_TRANSFERS			"Manage all active downloads and uploads."
+	ID_TAB_MENU					"Show the main menu."
 	ID_TOOLS_DOWNLOAD			"Start downloading a new file or BitTorrent torrent..."
 	ID_TOOLS_LANGUAGE			"Select the language you wish to use PeerProject in..."
 	ID_TOOLS_PROFILE			"Edit your user profile..."

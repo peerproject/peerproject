@@ -1,7 +1,7 @@
 //
 // DCPacket.h
 //
-// This file is part of PeerProject (peerproject.org) © 2010-2012
+// This file is part of PeerProject (peerproject.org) © 2010-2014
 // Portions copyright Shareaza Development Team, 2010.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -32,7 +32,7 @@ public:
 	virtual CString ToHex()   const;
 	virtual CString ToASCII() const;
 	virtual void Reset();
-	virtual void ToBuffer(CBuffer* pBuffer, bool bTCP = true) const;
+	virtual void ToBuffer(CBuffer* pBuffer, bool bTCP = true);
 	static	CDCPacket*	ReadBuffer(CBuffer* pBuffer);
 
 #ifdef _DEBUG

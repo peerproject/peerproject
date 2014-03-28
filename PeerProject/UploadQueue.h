@@ -30,6 +30,7 @@ public:
 protected:
 	CList< CUploadTransfer* >	m_pActive;
 	CArray< CUploadTransfer* >	m_pQueued;
+
 public:
 	int			m_nIndex;
 	CString		m_sName;
@@ -115,9 +116,9 @@ public:
 		return m_nCapacity <= GetQueuedCount();
 	}
 
-	inline bool IsActive(CUploadTransfer* const pUpload) const
+	inline bool IsActive(const CUploadTransfer* pUpload) const
 	{
-		return m_pActive.Find( pUpload ) != NULL;
+		return m_pActive.Find( (CUploadTransfer*)pUpload ) != NULL;
 	}
 
 	inline DWORD GetMeasuredSpeed() const

@@ -1,7 +1,7 @@
 //
 // WndLibrary.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -69,13 +69,27 @@ CLibraryWnd* CLibraryWnd::GetLibraryWindow(BOOL bToggle, BOOL bFocus)
 	return NULL;
 }
 
-BOOL CLibraryWnd::Display(CLibraryFile* pFile)
+BOOL CLibraryWnd::Display(const CLibraryFile* pFile)
 {
+	if ( ! theApp.SafeMainWnd() )
+		return FALSE;
+
+	theApp.SafeMainWnd()->OpenFromTray();
+
+	m_wndFrame.Update( TRUE );
+
 	return m_wndFrame.Display( pFile );
 }
 
-BOOL CLibraryWnd::Display(CAlbumFolder* pFolder)
+BOOL CLibraryWnd::Display(const CAlbumFolder* pFolder)
 {
+	if ( ! theApp.SafeMainWnd() )
+		return FALSE;
+
+	theApp.SafeMainWnd()->OpenFromTray();
+
+	m_wndFrame.Update( TRUE );
+
 	return m_wndFrame.Display( pFolder );
 }
 
@@ -172,9 +186,9 @@ HRESULT CLibraryWnd::GetGenericView(IGenericView** ppView)
 BOOL CLibraryWnd::OnCollection(LPCTSTR pszPath)
 {
 	CAlbumFolder* pFolder = NULL;
-	CString strMessage;
-	CCollectionFile pCollection;
 	CLibraryFolder* pLibFolder;
+	CCollectionFile pCollection;
+	CString strMessage;
 
 	if ( ! pCollection.Open( pszPath ) )	// Verify specified collection is valid
 	{

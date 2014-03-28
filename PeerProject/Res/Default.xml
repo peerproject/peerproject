@@ -605,7 +605,6 @@
 				<menu text="_Websites">
 					<item id="ID_HELP_WEB_3" text="Slyck.com"/>
 					<item id="ID_HELP_WEB_1" text="ZeroPaid.com"/>
-					<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
 					<item id="ID_HELP_WEB_SKINS" text="PeerProject Skin Site"/>
 					<item id="ID_HELP_TEST" text="_Connection Test"/>
 				</menu>
@@ -720,8 +719,7 @@
 				<item id="ID_HELP_WEB_SKINS" text="PeerProject S_kin Site"/> <!--
 				<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/>
 				<item id="ID_HELP_UPDATE" text="Latest news"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 				<item id="ID_HELP_TEST" text="_Connection Test"/>
 			</menu>
 			<separator/> <!--
@@ -758,7 +756,7 @@
 				<item id="ID_VIEW_UPLOADS" text="_Uploads"/>
 				<separator/>
 				<item id="ID_VIEW_SECURITY" text="Se_curity"/>
-				<item id="ID_VIEW_SCHEDULER" text="Schedue_r"/>
+				<item id="ID_VIEW_SCHEDULER" text="Schedule_r"/>
 				<item id="ID_VIEW_HOSTS" text="H_ost Cache"/>
 				<item id="ID_VIEW_DISCOVERY" text="Disco_very"/>
 			</menu>
@@ -900,8 +898,7 @@
 				<item id="ID_HELP_WEB_SKINS" text="PeerProject S_kin Site"/> <!--
 				<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/>
 				<item id="ID_HELP_UPDATE" text="Latest news"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 				<item id="ID_HELP_TEST" text="_Connection Test"/>
 			</menu>
 			<separator/> <!--

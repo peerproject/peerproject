@@ -374,9 +374,9 @@ BOOL CDownloadWithTiger::SetHashset(BYTE* pSource, DWORD nSource)
 
 	SetModified();
 
-	theApp.Message( MSG_INFO, IDS_DOWNLOAD_HASHSET_READY, GetDisplayName(), Settings.SmartVolume( ED2K_PART_SIZE ) );
+	theApp.Message( MSG_INFO, IDS_DOWNLOAD_HASHSET_READY, (LPCTSTR)GetDisplayName(), Settings.SmartVolume( ED2K_PART_SIZE ) );
 
-	Neighbours.SendDonkeyDownload( static_cast< CDownload * >( this ) );
+	Neighbours.SendDonkeyDownload( this );
 
 	return TRUE;
 }
@@ -863,7 +863,7 @@ void CDownloadWithTiger::SubtractHelper(Fragments::List& ppCorrupted, BYTE* pBlo
 
 Fragments::List CDownloadWithTiger::GetHashableFragmentList() const
 {
-	const Fragments::List oList = GetFullFragmentList();
+	const Fragments::List oList = GetFullFragmentList();		// High CPU when active
 
 	if ( ! oList.missing() )
 		return oList;
@@ -909,10 +909,10 @@ Fragments::List CDownloadWithTiger::GetWantedFragmentList() const
 {
 	CQuickLock oLock( m_pTigerSection );
 
-	QWORD nNow = GetVolumeComplete();
+	const QWORD nNow = GetVolumeComplete();
 	if ( nNow != m_nWFLCookie || nNow == 0 )
 	{
-		//m_nWFLCookie = nNow;	// ToDo: ?
+		m_nWFLCookie = nNow;
 		const Fragments::List oList = inverse( GetHashableFragmentList() );
 		m_oWFLCache = GetEmptyFragmentList();
 		m_oWFLCache.erase( oList.begin(), oList.end() );

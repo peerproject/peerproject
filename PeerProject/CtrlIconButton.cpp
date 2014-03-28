@@ -1,7 +1,7 @@
 //
 // CtrlIconButton.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -235,11 +235,11 @@ void CIconButtonCtrl::OnPaint()
 
 	if ( m_bDown && m_bCapture )		// Pressed
 	{
-		if ( ! bTextButton && Images.DrawButtonState( &dc, rc, ICONBUTTON_PRESS ) ) 	// IconButton.Press
+		if ( ! bTextButton && Images.DrawButtonState( &dc, &rc, ICONBUTTON_PRESS ) ) 	// IconButton.Press
 		{
 			bSkinned = TRUE;
 		}
-		else if ( Images.DrawButtonState( &dc, rc, RICHBUTTON_PRESS ) ) 				// RichButton.Press
+		else if ( Images.DrawButtonState( &dc, &rc, RICHBUTTON_PRESS ) ) 				// RichButton.Press
 		{
 			dc.SetBkMode( TRANSPARENT );
 			bSkinned = TRUE;
@@ -257,11 +257,11 @@ void CIconButtonCtrl::OnPaint()
 	}
 	else if ( m_bDown != m_bCapture )	// Hover  (or Unpressed)
 	{
-		if ( ! bTextButton && Images.DrawButtonState( &dc, rc, ICONBUTTON_HOVER ) ) 	// IconButton.Hover
+		if ( ! bTextButton && Images.DrawButtonState( &dc, &rc, ICONBUTTON_HOVER ) ) 	// IconButton.Hover
 		{
 			bSkinned = TRUE;
 		}
-		else if ( Images.DrawButtonState( &dc, rc, RICHBUTTON_HOVER ) )					// RichButton.Hover
+		else if ( Images.DrawButtonState( &dc, &rc, RICHBUTTON_HOVER ) )					// RichButton.Hover
 		{
 			dc.SetBkMode( TRANSPARENT );
 			bSkinned = TRUE;
@@ -294,11 +294,11 @@ void CIconButtonCtrl::OnPaint()
 	}
 	else if ( IsWindowEnabled() && GetFocus() == this ) 	// Button w/ Cursor Focus
 	{
-		if ( ! bTextButton && Images.DrawButtonState( &dc, rc, ICONBUTTON_ACTIVE ) )	// IconButton.Active
+		if ( ! bTextButton && Images.DrawButtonState( &dc, &rc, ICONBUTTON_ACTIVE ) )	// IconButton.Active
 		{
 			bSkinned = TRUE;
 		}
-		else if ( Images.DrawButtonState( &dc, rc, RICHBUTTON_ACTIVE ) )				// RichButton.Active
+		else if ( Images.DrawButtonState( &dc, &rc, RICHBUTTON_ACTIVE ) )				// RichButton.Active
 		{
 			dc.SetBkMode( TRANSPARENT );
 			bSkinned = TRUE;
@@ -316,11 +316,11 @@ void CIconButtonCtrl::OnPaint()
 	}
 	else if ( IsWindowEnabled() )	// Button Default w/o Focus
 	{
-		if ( ! bTextButton && Images.DrawButtonState( &dc, rc, ICONBUTTON_DEFAULT) )	// IconButton
+		if ( ! bTextButton && Images.DrawButtonState( &dc, &rc, ICONBUTTON_DEFAULT) )	// IconButton
 		{
 			bSkinned = TRUE;
 		}
-		else if ( Images.DrawButtonState( &dc, rc, RICHBUTTON_DEFAULT ) )				// RichButton
+		else if ( Images.DrawButtonState( &dc, &rc, RICHBUTTON_DEFAULT ) )				// RichButton
 		{
 			dc.SetBkMode( TRANSPARENT );
 			bSkinned = TRUE;
@@ -338,11 +338,11 @@ void CIconButtonCtrl::OnPaint()
 	}
 	else	// Disabled
 	{
-		if ( ! bTextButton && Images.DrawButtonState( &dc, rc, ICONBUTTON_DISABLED ) )	// IconButton.Disabled
+		if ( ! bTextButton && Images.DrawButtonState( &dc, &rc, ICONBUTTON_DISABLED ) )	// IconButton.Disabled
 		{
 			bSkinned = TRUE;
 		}
-		else if ( Images.DrawButtonState( &dc, rc, RICHBUTTON_DISABLED ) )				// RichButton.Disabled
+		else if ( Images.DrawButtonState( &dc, &rc, RICHBUTTON_DISABLED ) )				// RichButton.Disabled
 		{
 			dc.SetBkMode( TRANSPARENT );
 			bSkinned = TRUE;

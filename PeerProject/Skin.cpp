@@ -50,7 +50,7 @@ BOOL CSkin::m_bSkinChanging = FALSE;	// Static system state indicator (Active CM
 
 CSkin::CSkin()
 {
-	// Experimental values (?)
+	// Experimental values (ToDo:?)
 	m_pStrings.InitHashTable( 1531 );
 	m_pMenus.InitHashTable( 83 );
 	m_pToolbars.InitHashTable( 61 );
@@ -470,7 +470,7 @@ BOOL CSkin::LoadFromXML(CXMLElement* pXML, const CString& strPath)
 			if ( ! LoadOptions( pSub ) )
 				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed section"), _T("Options") );
 			break;
-		case 'v':	// navbar  (Shareaza import only)
+		case 'v':	// navbar  (Deprecated Shareaza import only)
 			if ( ! LoadNavBar( pSub ) )
 				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed section"), _T("NavBar (Deprecated)") );
 			break;
@@ -2127,6 +2127,8 @@ BOOL CSkin::LoadColorScheme(CXMLElement* pBase)
 	pColors.SetAt( _T("fragmentbar.source4"), &Colors.m_crFragmentSource4 );
 	pColors.SetAt( _T("fragmentbar.source5"), &Colors.m_crFragmentSource5 );
 	pColors.SetAt( _T("fragmentbar.source6"), &Colors.m_crFragmentSource6 );
+	pColors.SetAt( _T("fragmentbar.source5"), &Colors.m_crFragmentSource7 );
+	pColors.SetAt( _T("fragmentbar.source6"), &Colors.m_crFragmentSource8 );
 	pColors.SetAt( _T("fragmentbar.pass"), &Colors.m_crFragmentPass );
 	pColors.SetAt( _T("fragmentbar.fail"), &Colors.m_crFragmentFail );
 	pColors.SetAt( _T("fragmentbar.request"), &Colors.m_crFragmentRequest );
@@ -2158,7 +2160,7 @@ BOOL CSkin::LoadColorScheme(CXMLElement* pBase)
 	pColors.SetAt( _T("navbar.outline.hover"), &Colors.m_crNavBarOutlineHover );
 	pColors.SetAt( _T("navbar.outline.checked"), &Colors.m_crNavBarOutlineChecked );
 
-	// "system.base.xxx" colors trigger recalculating (needs review)
+	// "system.base.xxx" colors trigger recalculating (ToDo: Needs review)
 	BOOL bSystem  = FALSE;
 	BOOL bNonBase = FALSE;
 
@@ -2183,11 +2185,11 @@ BOOL CSkin::LoadColorScheme(CXMLElement* pBase)
 					_stscanf( strValue.Mid( 2, 2 ), _T("%x"), &nGreen );
 					_stscanf( strValue.Mid( 4, 2 ), _T("%x"), &nBlue );
 
-					if ( strName.Find( _T("system.") ) >= 0 )
+					if ( StartsWith( strName, _PT("system.") ) )
 					{
 						bSystem = TRUE;
 
-						if ( ! bNonBase && strName.Find( _T(".base.") ) < 0 )
+						if ( ! bNonBase && strName.Find( _T(".base."), 5 ) < 0 )
 						{
 							bNonBase = TRUE;
 							Colors.CalculateColors( TRUE );
@@ -2881,7 +2883,10 @@ COLORREF CSkin::GetColor(CString sColor)
 
 	const int nLength = sColor.GetLength();
 	if ( nLength < 6 || nLength > 14 )
-		return NULL;
+		return ( sColor.CompareNoCase( L"none" ) == 0 ) ? CLR_NONE : NULL;
+
+	if ( sColor == L"CLR_NONE" )
+		return CLR_NONE;
 
 	int nRed = 0, nGreen = 0, nBlue = 0;
 	if ( nLength == 6 &&
@@ -2895,9 +2900,6 @@ COLORREF CSkin::GetColor(CString sColor)
 	if ( _stscanf( (LPCTSTR)sColor, _T("%i, %i, %i"), &nRed, &nGreen, &nBlue ) == 3 &&
 		 nRed < 256 && nGreen < 256 && nBlue < 256 )
 		return RGB( nRed, nGreen, nBlue );
-
-	if ( sColor == L"CLR_NONE" )
-		return CLR_NONE;
 
 	return NULL;
 }

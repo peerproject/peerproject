@@ -67,7 +67,6 @@ public:
 	volatile bool	m_bConnected;				// Network has finished initializing and is connected
 	BOOL			m_bAutoConnect;
 	DWORD			m_tStartedConnecting;		// Time PeerProject started trying to connect
-	DWORD			m_tLastED2KServerHop;		// Last time ed2k server was changed
 	TRISTATE		m_bUPnPPortsForwarded;		// UPnP values are assigned when the discovery is complete
 
 protected:

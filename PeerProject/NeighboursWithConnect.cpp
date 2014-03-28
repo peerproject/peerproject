@@ -924,9 +924,11 @@ void CNeighboursWithConnect::Maintain()
 			else if ( pNeighbour->m_nNodeType != ntLeaf )
 			{
 				// This connection is to a hub above us, or a hub just like us:
-				// Count one more hub for this connection's protocol only if we've been connected for several seconds.
-				if ( tTimer > pNeighbour->m_tConnected + 8000 )
+				// Count one more hub for this connection's protocol if we've been connected for several seconds.
+				if ( pNeighbour->m_nProtocol == PROTOCOL_ED2K || pNeighbour->m_nProtocol == PROTOCOL_DC || tTimer > pNeighbour->m_tConnected + 8000 )
 					nCount[ pNeighbour->m_nProtocol ][ ntHub ]++;
+				else
+					nCount[ pNeighbour->m_nProtocol ][ ntNode ]++;
 			}
 			else
 			{
@@ -935,7 +937,7 @@ void CNeighboursWithConnect::Maintain()
 				nCount[ pNeighbour->m_nProtocol ][ ntLeaf ]++;
 			}
 		}
-		else if ( pNeighbour->m_nState < nrsConnected )
+		else //if ( pNeighbour->m_nState < nrsConnected )
 		{
 			// We're still going through the handshake with this remote computer
 			// Count one more connection in the 0 column for this protocol

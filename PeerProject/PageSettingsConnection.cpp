@@ -171,6 +171,7 @@ BOOL CConnectionSettingsPage::OnInitDialog()
 		CButton* pWnd = (CButton*)GetDlgItem( IDC_ENABLE_UPNP );
 		pWnd->EnableWindow( FALSE );
 	}
+
 	return TRUE;
 }
 
@@ -353,6 +354,7 @@ void CConnectionSettingsPage::OnShowWindow(BOOL bShow, UINT nStatus)
 		56, 128, 256, 384, 512, 640, 768, 1024, 1550, 2048, 3072,
 		4096, 5120, 8192, 10240, 12288, 24576, 45000, 102400, 155000
 	};
+
 	for ( int nSpeed = 0 ; nSpeed < sizeof( nSpeeds ) / sizeof( DWORD ) ; nSpeed++ )
 	{
 		CString strSpeed = Settings.SmartSpeed( nSpeeds[ nSpeed ], Kilobits );

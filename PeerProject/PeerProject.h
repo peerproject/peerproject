@@ -180,10 +180,11 @@ public:
 
 	void			ShowStartupText();
 	void			SplashStep(LPCTSTR pszMessage = NULL, int nMax = 0, bool bClosing = false);
+	void			SplashUpdate(LPCTSTR pszMessage = NULL);
 	void			SplashAbort();
 	BOOL			KeepAlive();
 
-	virtual CDocument* OpenDocumentFile(LPCTSTR lpszFileName);		// Open file or url. Returns NULL always.
+	virtual CDocument* OpenDocumentFile(LPCTSTR lpszFileName);		// Open file or url.  Always returns NULL.
 	BOOL			Open(LPCTSTR lpszFileName, BOOL bTest = FALSE);	// Open file or url (generic function)
 	BOOL			OpenShellShortcut(LPCTSTR lpszFileName);		// Open .lnk file
 	BOOL			OpenInternetShortcut(LPCTSTR lpszFileName);		// Open .url file
@@ -192,6 +193,7 @@ public:
 	BOOL			OpenImport(LPCTSTR lpszFileName);				// Open eMule/DC++ servers file   (.met, .dat, hublist.xml.bz2)
 	BOOL			OpenURL(LPCTSTR lpszFileName, BOOL bSilent = FALSE);	// Open url
 	BOOL			OpenPath(LPCTSTR lpszFileName);					// Open/Share folder
+	BOOL			DisplayFile(LPCTSTR lpszFileName);				// Show file in Library
 
 	CString			GetWindowsFolder() const;
 	CString			GetProgramFilesFolder() const;

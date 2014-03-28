@@ -223,9 +223,11 @@ BEGIN_MESSAGE_MAP(CMainWnd, CMDIFrameWnd)
 	ON_UPDATE_COMMAND_UI(ID_TAB_LIBRARY, OnUpdateTabLibrary)
 	ON_COMMAND(ID_TAB_LIBRARY, OnTabLibrary)
 	ON_UPDATE_COMMAND_UI(ID_TAB_TRANSFERS, OnUpdateTabTransfers)
-	ON_COMMAND(ID_TAB_IRC, OnTabIRC)
-	ON_UPDATE_COMMAND_UI(ID_TAB_IRC, OnUpdateTabIRC)
 	ON_COMMAND(ID_TAB_TRANSFERS, OnTabTransfers)
+	ON_UPDATE_COMMAND_UI(ID_TAB_IRC, OnUpdateTabIRC)
+	ON_COMMAND(ID_TAB_IRC, OnTabIRC)
+	ON_UPDATE_COMMAND_UI(ID_TAB_MENU, OnUpdateTabMenu)
+	ON_COMMAND(ID_TAB_IRC, OnTabMenu)
 	ON_UPDATE_COMMAND_UI(ID_VIEW_TABBED, OnUpdateViewTabbed)
 	ON_COMMAND(ID_VIEW_TABBED, OnViewTabbed)
 	ON_UPDATE_COMMAND_UI(ID_VIEW_WINDOWED, OnUpdateViewWindowed)
@@ -1783,9 +1785,7 @@ void CMainWnd::OnUpdateNetworkConnect(CCmdUI* pCmdUI)
 		pCmdUI->SetCheck( FALSE );
 	}
 
-	CString strText;
-	LoadString( strText, nTextID );
-	pCmdUI->SetText( strText );
+	pCmdUI->SetText( LoadString( nTextID ) );
 }
 
 void CMainWnd::OnNetworkConnect()
@@ -2140,7 +2140,6 @@ void CMainWnd::OnUpdateViewLibrary(CCmdUI* pCmdUI)
 void CMainWnd::OnViewLibrary()
 {
 	CLibraryWnd::GetLibraryWindow( TRUE );
-
 	OpenFromTray();
 }
 
@@ -2415,6 +2414,35 @@ void CMainWnd::OnTabIRC()
 	m_pWindows.Open( RUNTIME_CLASS(CIRCWnd) );
 	OpenFromTray();
 }
+
+void CMainWnd::OnUpdateTabMenu(CCmdUI* pCmdUI)
+{
+	// ToDo: Set pressed state
+	pCmdUI->SetCheck( FALSE );
+}
+
+void CMainWnd::OnTabMenu()
+{
+	if ( CMenu* pMenu = Skin.GetMenu( _T("CMainWnd.DropMenu") ) )
+	{
+		pMenu = pMenu->GetSubMenu( 0 );
+
+		CRect rcMenu;
+		m_wndTabBar.GetClientRect( rcMenu );
+
+		MENUITEMINFO pInfo = {};
+		pInfo.cbSize = sizeof( pInfo );
+		pInfo.fMask  = MIIM_STATE;
+		GetMenuItemInfo( pMenu->GetSafeHmenu(), ID_TOOLS_SETTINGS, FALSE, &pInfo );
+		pInfo.fState |= MFS_DEFAULT;
+		SetMenuItemInfo( pMenu->GetSafeHmenu(), ID_TOOLS_SETTINGS, FALSE, &pInfo );
+
+		pMenu->TrackPopupMenu( TPM_LEFTALIGN|TPM_TOPALIGN,
+		//	Settings.General.LanguageRTL ? rcWindow.right - rcMenu.left + rcWindow.left :
+			rcMenu.left, rcMenu.bottom, m_wndTabBar.GetParent(), NULL );
+	}
+}
+
 void CMainWnd::OnUpdateTabNetwork(CCmdUI* pCmdUI)
 {
 	CChildWnd* pChild = m_pWindows.GetActive();

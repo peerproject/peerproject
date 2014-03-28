@@ -828,13 +828,13 @@ void CWndTabBar::TabItem::Paint(CWndTabBar* pBar, CDC* pDC, CRect* pRect, BOOL b
 	rc.InflateRect( 1, 1 );
 
 	if ( bSelected && ( bHot || pBar->m_bMenuGray ) )
-		bSkinned = Images.DrawButtonState( pDC, rc, TASKBARBUTTON_PRESS );		// "CWndTabBar.Active.Hover"
+		bSkinned = Images.DrawButtonState( pDC, &rc, TASKBARBUTTON_PRESS );		// "CWndTabBar.Active.Hover"
 	else if ( bSelected )
-		bSkinned = Images.DrawButtonState( pDC, rc, TASKBARBUTTON_ACTIVE );		// "CWndTabBar.Active"
+		bSkinned = Images.DrawButtonState( pDC, &rc, TASKBARBUTTON_ACTIVE );		// "CWndTabBar.Active"
 	else if ( bHot )
-		bSkinned = Images.DrawButtonState( pDC, rc, TASKBARBUTTON_HOVER );		// "CWndTabBar.Hover"
+		bSkinned = Images.DrawButtonState( pDC, &rc, TASKBARBUTTON_HOVER );		// "CWndTabBar.Hover"
 	else
-		bSkinned = Images.DrawButtonState( pDC, rc, TASKBARBUTTON_DEFAULT );	// "CWndTabBar.Tab"
+		bSkinned = Images.DrawButtonState( pDC, &rc, TASKBARBUTTON_DEFAULT );	// "CWndTabBar.Tab"
 
 	rc.DeflateRect( 1, 1 );
 

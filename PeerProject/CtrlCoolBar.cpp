@@ -1,7 +1,7 @@
 //
 // CtrlCoolBar.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -829,7 +829,7 @@ void CCoolBarCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 
 	if ( m_bDragForward )
 		GetParent()->SendMessage( WM_LBUTTONDOWN, nFlags, MAKELONG( point.x, point.y ) );
-	else
+	else if ( ! m_pDockContext || m_pDockContext->m_pDC == NULL )	// Fix rare drag-crash
 		CControlBar::OnLButtonDown( nFlags, point );
 }
 
@@ -1097,7 +1097,7 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 	if ( m_nID == ID_SEPARATOR )
 	{
 		rc.InflateRect( 0, 2 );
-		if ( Images.DrawButtonState( pDC, rc, TOOLBAR_SEPARATOR ) )
+		if ( Images.DrawButtonState( pDC, &rc, TOOLBAR_SEPARATOR ) )
 			return;
 		rc.DeflateRect( 0, 2 );
 
@@ -1133,35 +1133,35 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 		if ( ! m_pBar->m_bGripper )		// Detect Standard Toolbar Button
 		{
 			if ( ! m_bEnabled )
-				bSkinned = Images.DrawButtonState( pDC, rc, TOOLBARBUTTON_DISABLED );	// "CCoolbar.Disabled"
+				bSkinned = Images.DrawButtonState( pDC, &rc, TOOLBARBUTTON_DISABLED );	// "CCoolbar.Disabled"
 			else if ( bDown )
-				bSkinned = Images.DrawButtonState( pDC, rc, TOOLBARBUTTON_PRESS );		// "CCoolbar.Down"
+				bSkinned = Images.DrawButtonState( pDC, &rc, TOOLBARBUTTON_PRESS );		// "CCoolbar.Down"
 			else if ( bHot )
-				bSkinned = Images.DrawButtonState( pDC, rc, TOOLBARBUTTON_HOVER );		// "CCoolbar.Hover"
+				bSkinned = Images.DrawButtonState( pDC, &rc, TOOLBARBUTTON_HOVER );		// "CCoolbar.Hover"
 			else if ( m_bChecked )
-				bSkinned = Images.DrawButtonState( pDC, rc, TOOLBARBUTTON_ACTIVE );		// "CCoolbar.Checked"
+				bSkinned = Images.DrawButtonState( pDC, &rc, TOOLBARBUTTON_ACTIVE );		// "CCoolbar.Checked"
 			else
-				bSkinned = Images.DrawButtonState( pDC, rc, TOOLBARBUTTON_DEFAULT );	// "CCoolbar.Up"
+				bSkinned = Images.DrawButtonState( pDC, &rc, TOOLBARBUTTON_DEFAULT );	// "CCoolbar.Up"
 		}
 		else if ( m_nImage > 0 ) 		// Windowed Mode Menu Icon
 		{
 			if ( bDown )
-				bSkinned = Images.DrawButtonState( pDC, rc, MENUBARBUTTON_PRESS );		// "CCoolMenuBar.Down"
+				bSkinned = Images.DrawButtonState( pDC, &rc, MENUBARBUTTON_PRESS );		// "CCoolMenuBar.Down"
 			else if ( bHot )
-				bSkinned = Images.DrawButtonState( pDC, rc, MENUBARBUTTON_HOVER );		// "CCoolMenuBar.Hover"
+				bSkinned = Images.DrawButtonState( pDC, &rc, MENUBARBUTTON_HOVER );		// "CCoolMenuBar.Hover"
 			else if ( m_bChecked )
-				bSkinned = Images.DrawButtonState( pDC, rc, MENUBARBUTTON_ACTIVE );		// "CCoolMenuBar.Checked"
+				bSkinned = Images.DrawButtonState( pDC, &rc, MENUBARBUTTON_ACTIVE );		// "CCoolMenuBar.Checked"
 			else
-				bSkinned = Images.DrawButtonState( pDC, rc, MENUBARBUTTON_DEFAULT );	// "CCoolMenuBar.Up"
+				bSkinned = Images.DrawButtonState( pDC, &rc, MENUBARBUTTON_DEFAULT );	// "CCoolMenuBar.Up"
 		}
 		else	// Menu Text
 		{
 			if ( bDown )
-				bSkinned = Images.DrawButtonState( pDC, rc, MENUBARITEM_PRESS );		// "CCoolMenuItem.Down"
+				bSkinned = Images.DrawButtonState( pDC, &rc, MENUBARITEM_PRESS );		// "CCoolMenuItem.Down"
 			else if ( bHot )
-				bSkinned = Images.DrawButtonState( pDC, rc, MENUBARITEM_HOVER );		// "CCoolMenuItem.Hover"
+				bSkinned = Images.DrawButtonState( pDC, &rc, MENUBARITEM_HOVER );		// "CCoolMenuItem.Hover"
 			else
-				bSkinned = Images.DrawButtonState( pDC, rc, MENUBARITEM_DEFAULT );		// "CCoolMenuItem.Up"
+				bSkinned = Images.DrawButtonState( pDC, &rc, MENUBARITEM_DEFAULT );		// "CCoolMenuItem.Up"
 		}
 
 		rc.DeflateRect( 0, 2 );

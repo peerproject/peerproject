@@ -123,11 +123,11 @@ public:
 	void		Load();
 	void		DeleteObjects();
 	BOOL		PreBlend(HBITMAP hButton);
-	BOOL		DrawButtonState(CDC* pDC, const CRect rc, const int nResource);
-	BOOL		DrawButtonMap(CDC* pDC, const CRect rc, CBitmap* bmButton, const int nState = 0, BOOL bRTL = FALSE);
-	BOOL		DrawButton(CDC* pDC, const CRect rc, CBitmap* bmButton, CBitmap* bmButtonEdge = NULL, BOOL bRTL = FALSE);
-	BOOL		DrawIconButton(CDC* pDC, CRect rc, CBitmap* bmButton);
-	BOOL		DrawImage(CDC* pDC, CRect* prc, CBitmap* bmImage, BOOL bRepeat = TRUE);
+	BOOL		DrawButtonState(CDC* pDC, const CRect* rc, const int nResource);
+	BOOL		DrawButtonMap(CDC* pDC, const CRect* rc, CBitmap* bmButton, const int nState = 0, BOOL bRTL = FALSE);
+	BOOL		DrawButton(CDC* pDC, const CRect* rc, CBitmap* bmButton, CBitmap* bmButtonEdge = NULL, BOOL bRTL = FALSE);
+	BOOL		DrawIconButton(CDC* pDC, const CRect* rc, CBitmap* bmButton);
+	BOOL		DrawImage(CDC* pDC, const CRect* prc, CBitmap* bmImage, BOOL bRepeat = TRUE);
 };
 
 extern CImages Images;
