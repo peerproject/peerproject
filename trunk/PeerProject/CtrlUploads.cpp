@@ -84,6 +84,7 @@ END_MESSAGE_MAP()
 
 CUploadsCtrl::CUploadsCtrl()
 	: m_nFocus		( 0 )
+	, m_nHover		( -1 )
 	, m_pDeselect	( NULL )
 {
 }
@@ -93,9 +94,8 @@ CUploadsCtrl::CUploadsCtrl()
 
 BOOL CUploadsCtrl::Create(CWnd* pParentWnd, UINT nID)
 {
-	CRect rc( 0, 0, 0, 0 );
 	return CWnd::CreateEx( WS_EX_CONTROLPARENT, NULL, _T("CUploadsCtrl"),
-		WS_CHILD | WS_CLIPSIBLINGS | WS_TABSTOP | WS_GROUP, rc, pParentWnd, nID );
+		WS_CHILD | WS_CLIPSIBLINGS | WS_TABSTOP | WS_GROUP, CRect( 0 ), pParentWnd, nID );
 }
 
 BOOL CUploadsCtrl::Update()
@@ -118,7 +118,9 @@ int CUploadsCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	m_wndTip.Create( this, &Settings.Interface.TipUploads );
 
-	InsertColumn( UPLOAD_COLUMN_TITLE, _T("Uploaded File"), LVCFMT_LEFT, 300 );
+	GetDesktopWindow()->GetWindowRect( &rect );
+
+	InsertColumn( UPLOAD_COLUMN_TITLE, _T("Uploaded File"), LVCFMT_LEFT, rect.Width() > 1600 ? 400 : 300 );
 	InsertColumn( UPLOAD_COLUMN_SIZE, _T("Size"), LVCFMT_CENTER, 64 );
 	InsertColumn( UPLOAD_COLUMN_PROGRESS, _T("Progress"), LVCFMT_CENTER, 100 );
 	InsertColumn( UPLOAD_COLUMN_TRANSFER, _T("Transfer"), LVCFMT_CENTER, 64 );
@@ -133,6 +135,7 @@ int CUploadsCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 //	CoolInterface.LoadIconsTo( m_gdiProtocols, protocolIDs );
 
 	m_nFocus	= 0;
+	m_nHover	= -1;
 	m_pDeselect	= NULL;
 
 	return 0;
@@ -636,11 +639,11 @@ CUploadFile* CUploadsCtrl::GetNextFile(CUploadQueue* pQueue, POSITION& pos, int*
 
 void CUploadsCtrl::OnSize(UINT nType, int cx, int cy)
 {
-	int nWidth = 0, nHeight = 0;
-	CRect rcClient;
-
 	if ( nType != 1982 ) CWnd::OnSize( nType, cx, cy );
 
+	int nWidth = 0, nHeight = 0;
+
+	CRect rcClient;
 	GetClientRect( &rcClient );
 
 	HDITEM pColumn = {};
@@ -660,7 +663,10 @@ void CUploadsCtrl::OnSize(UINT nType, int cx, int cy)
 	int nScroll = GetScrollPos( SB_HORZ );
 	m_wndHeader.SetWindowPos( NULL, -nScroll, 0, rcClient.right + nScroll, HEADER_HEIGHT, SWP_SHOWWINDOW );
 
-	CSingleLock pTransfersLock( &Transfers.m_pSection );		// For GetNextFile()
+	CSingleLock pTransfersLock( &Transfers.m_pSection );		// First, for GetNextFile()
+	if ( ! pTransfersLock.Lock( 500 ) )
+		return;
+
 	CSingleLock pUploadQueuesLock( &UploadQueues.m_pSection );
 	if ( ! pUploadQueuesLock.Lock( 250 ) )
 		return;
@@ -682,19 +688,16 @@ void CUploadsCtrl::OnSize(UINT nType, int cx, int cy)
 		if ( ! pQueue->m_bExpanded )
 			continue;
 
-		if ( ! pTransfersLock.Lock( 200 ) )
-			continue;
-
 		while ( posFile )
 		{
 			if ( GetNextFile( pQueue, posFile ) )
 				nHeight++;
 		}
 
-		pTransfersLock.Unlock();
 	}
 
 	pUploadQueuesLock.Unlock();
+	pTransfersLock.Unlock();
 
 	ZeroMemory( &pScroll, sizeof( pScroll ) );
 	pScroll.cbSize	= sizeof( pScroll );
@@ -812,8 +815,7 @@ void CUploadsCtrl::PaintQueue(CDC& dc, const CRect& rcRow, CUploadQueue* pQueue,
 
 	// Skinnable Selection Highlight
 	BOOL bSelectmark = FALSE;
-	if ( bSelected &&
-		 Images.DrawButtonState( &dc, &rcRow, GetFocus() == this ? IMAGE_SELECTED : IMAGE_SELECTEDGREY ) )
+	if ( bSelected && Images.DrawButtonState( &dc, &rcRow, GetFocus() == this ? IMAGE_SELECTED : IMAGE_SELECTEDGREY ) )
 	{
 		bSelectmark = TRUE;
 	}
@@ -860,7 +862,7 @@ void CUploadsCtrl::PaintQueue(CDC& dc, const CRect& rcRow, CUploadQueue* pQueue,
 				POINT ptHover;
 				GetCursorPos( &ptHover );
 				ScreenToClient( &ptHover );
-				RECT rcTick = { rcCell.left + 2, rcCell.top + 2, rcCell.left + 14, rcCell.bottom - 2 };
+				RECT rcTick = { rcCell.left + 1, rcCell.top + 1, rcCell.left + 15, rcCell.bottom - 1 };
 
 				if ( PtInRect( &rcTick, ptHover ) )
 					CoolInterface.Draw( &dc, pQueue->m_bExpanded ? IDI_CLOSETICK_HOVER : IDI_OPENTICK_HOVER, 16, rcCell.left, rcCell.top, crLeftMargin );
@@ -1557,31 +1559,40 @@ void CUploadsCtrl::OnMouseMove(UINT nFlags, CPoint point)
 {
 	CWnd::OnMouseMove( nFlags, point );
 
+	const int nIndex = int( point.y / Settings.Skin.RowSize );
+
 	if ( ( nFlags & ( MK_LBUTTON|MK_RBUTTON ) ) == 0 )
 	{
-		static int nLastY = 0;
-		if ( point.y == nLastY ) return;
+		if ( nIndex == m_nHover )
+		{
+			if ( point.x < 22 && point.x > 10 )
+				RedrawWindow( CRect( 1, ( nIndex * Settings.Skin.RowSize ) + 1, 16, ( nIndex * Settings.Skin.RowSize ) + ( Settings.Skin.RowSize - 1 ) ) );
+			return;
+		}
 
+		// Expandable Tick Hoverstates
 		if ( point.x < 18 )
 		{
-			// Tick Hoverstates
-			if ( point.y > nLastY )
-				RedrawWindow( CRect( 1, nLastY - 14, 16, point.y + 14 ) );
-			else if ( point.y < nLastY )
-				RedrawWindow( CRect( 1, point.y - 14, 16, nLastY + 14 ) );
-			nLastY = point.y;
+			CRect rcUpdate( 1, ( nIndex * Settings.Skin.RowSize ) + 1, 15, ( nIndex * Settings.Skin.RowSize ) + ( Settings.Skin.RowSize - 1 ) );
+			if ( m_nHover > nIndex )
+				rcUpdate.bottom = ( m_nHover * Settings.Skin.RowSize ) + ( Settings.Skin.RowSize - 1 );
+			else if ( m_nHover >= 0 )
+				rcUpdate.top = ( m_nHover * Settings.Skin.RowSize ) + 1;
+
+			m_nHover = nIndex;
+			RedrawWindow( rcUpdate );
+
 			m_wndTip.Hide();
 			return;
 		}
 
-		nLastY = point.y;
+		m_nHover = nIndex;
 
 		CSingleLock pLock( &Transfers.m_pSection );
 		if ( pLock.Lock( 50 ) )
 		{
 			CUploadFile* pFile;
-			CRect rcItem;
-			if ( HitTest( point, NULL, &pFile, NULL, &rcItem ) )
+			if ( HitTest( point, NULL, &pFile, NULL, NULL ) )
 			{
 				if ( pFile != NULL )
 				{
@@ -1592,6 +1603,7 @@ void CUploadsCtrl::OnMouseMove(UINT nFlags, CPoint point)
 		}
 	}
 
+	m_nHover = nIndex;
 	m_wndTip.Hide();
 }
 

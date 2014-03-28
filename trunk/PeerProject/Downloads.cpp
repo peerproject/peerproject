@@ -1202,7 +1202,7 @@ BOOL CDownloads::OnDonkeyCallback(CEDClient* pClient, CDownloadSource* pExcept)
 void CDownloads::OnVerify(const CLibraryFile* pFile, TRISTATE bVerified)
 {
 	CSingleLock pLock( &Transfers.m_pSection );
-	if ( ! SafeLock( pLock ) ) return;
+	if ( ! SafeLock( pLock ) ) return;	// Common...
 
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
@@ -1212,8 +1212,8 @@ void CDownloads::OnVerify(const CLibraryFile* pFile, TRISTATE bVerified)
 
 void CDownloads::OnRename(LPCTSTR pszSource, LPCTSTR /*pszTarget*/)
 {
-	CSingleLock pLock( &Transfers.m_pSection );
-	if ( ! SafeLock( pLock ) ) return;
+	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+//	if ( ! SafeLock( pLock ) ) return;
 
 	if ( CDownload* pDownload = Downloads.FindByPath( pszSource ) )
 	{
@@ -1234,6 +1234,8 @@ void CDownloads::PreLoad()
 	WIN32_FIND_DATA pFind = {};
 	HANDLE hSearch = FindFirstFile( strRoot + _T("*.?d"), &pFind );		// .pd files + .sd Shareaza imports
 	if ( hSearch == INVALID_HANDLE_VALUE ) return;
+	CString str;
+	UINT nCount = 0;
 
 	CSingleLock pLock( &Transfers.m_pSection, TRUE );
 
@@ -1249,28 +1251,26 @@ void CDownloads::PreLoad()
 			{
 				if ( ! Settings.BitTorrent.AutoSeed )
 				{
-					MakeSafePath( strPath );
-					DeleteFileEx( strPath, FALSE, TRUE, TRUE );
-					DeleteFileEx( strPath + _T(".sav"), FALSE, FALSE, TRUE );
-					DeleteFileEx( strPath + _T(".png"), FALSE, FALSE, TRUE );
+					m_pDelete.AddTail( SafePath( strPath ) );
+					m_pDelete.AddTail( SafePath( strPath + _T(".sav") ) );
+					m_pDelete.AddTail( SafePath( strPath + _T(".png") ) );
 					theApp.Message( MSG_NOTICE, IDS_DOWNLOAD_REMOVE, pDownload->m_sName );
+					delete pDownload;
 					continue;
 				}
 				pDownload->m_bComplete = true;
 				pDownload->m_bVerify = TRI_TRUE;
 			}
+			str.Format( _T("Downloads (%u)"), ++nCount );
+			theApp.SplashUpdate( str );
 			m_pList.AddTail( pDownload );
 		}
 		else
 		{
 			// Remove orphaned .pd/.sd files at startup
-			MakeSafePath( strPath );
-			DeleteFileEx( strPath, FALSE, TRUE, TRUE );
-			DeleteFileEx( strPath + _T(".sav"), FALSE, FALSE, TRUE );
-			DeleteFileEx( strPath + _T(".png"), FALSE, FALSE, TRUE );
-		//	strPath = strRoot + _T("Preview ");
-		//	strPath.Append( pFind.cFileName );
-		//	DeleteFileEx( strPath, FALSE, FALSE, TRUE );
+			m_pDelete.AddTail( SafePath( strPath ) );
+			m_pDelete.AddTail( SafePath( strPath + _T(".sav") ) );
+			m_pDelete.AddTail( SafePath( strPath + _T(".png") ) );
 			theApp.Message( MSG_ERROR, IDS_DOWNLOAD_REMOVE, ( pDownload->m_sName.IsEmpty() ? strPath : pDownload->m_sName ) );
 			delete pDownload;
 		}
@@ -1286,11 +1286,11 @@ void CDownloads::Load()
 	m_nLimitGeneric	= Settings.Bandwidth.Downloads;
 	m_nLimitDonkey	= Settings.Bandwidth.Downloads;
 
+//	PurgePreviews();	// Note: PurgeFiles() SplashStep
+
 	CSingleLock pLock( &Transfers.m_pSection, TRUE );
 
 	Save( FALSE );
-
-	PurgePreviews();
 
 	if ( ! DownloadGroups.Load() )
 		DownloadGroups.CreateDefault();
@@ -1313,9 +1313,9 @@ void CDownloads::Save(BOOL bForce)
 
 
 //////////////////////////////////////////////////////////////////////
-// CDownloads left over file purge operations
+// CDownloads left over file purge operations (Delete Queue)
 
-void CDownloads::PurgePreviews()
+void CDownloads::PurgeFiles()
 {
 	const CString strRoot = Settings.Downloads.IncompletePath + _T("\\");
 	const CString strPath = strRoot + _T("Preview *.*");		// Text defined in DlgFilePreview
@@ -1327,11 +1327,25 @@ void CDownloads::PurgePreviews()
 	do
 	{
 		if ( _tcsnicmp( pFind.cFileName, _PT("Preview ") ) == 0 )
-			DeleteFileEx( SafePath( strRoot + pFind.cFileName ), FALSE, FALSE, TRUE );
+			m_pDelete.AddTail( SafePath( strRoot + pFind.cFileName ) );
+		//	DeleteFileEx( SafePath( strRoot + pFind.cFileName ), FALSE, FALSE, TRUE );
 	}
 	while ( FindNextFile( hSearch, &pFind ) );
 
 	FindClose( hSearch );
+
+	if ( ! m_pDelete.GetSize() )
+		return;
+
+	UINT nCount = 0;
+	for ( CString strPath = m_pDelete.RemoveHead() ; ! strPath.IsEmpty() ; strPath = m_pDelete.GetSize() ? m_pDelete.RemoveHead() : L"" )
+	{
+		if ( DeleteFileEx( strPath, FALSE, TRUE, TRUE ) )
+			nCount++;
+	}
+
+	if ( nCount )
+		theApp.Message( MSG_INFO, _T("Deleted %u %s"), nCount, (LPCTSTR)LoadString( IDS_FILES ) );
 }
 
 

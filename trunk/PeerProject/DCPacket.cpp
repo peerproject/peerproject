@@ -1,7 +1,7 @@
 //
 // DCPacket.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2010-2012
+// This file is part of PeerProject (peerproject.org) © 2010-2014
 // Portions copyright Shareaza Development Team, 2010.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -149,7 +149,7 @@ void CDCPacket::Reset()
 	CPacket::Reset();
 }
 
-void CDCPacket::ToBuffer(CBuffer* pBuffer, bool /*bTCP*/) const
+void CDCPacket::ToBuffer(CBuffer* pBuffer, bool /*bTCP*/)
 {
 	ASSERT( m_pBuffer && m_nLength );
 

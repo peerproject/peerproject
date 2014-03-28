@@ -43,10 +43,6 @@ private:
 	int				m_nCount;
 	DWORD			m_tLastRun;
 	DWORD			m_tLastMaxClients;
-	DWORD			m_tLastServerStats;
-	in_addr			m_pLastServer;
-	DWORD			m_nLastServerKey;
-	BOOL			m_bAllServersDone;
 
 public:
 	void			Add(CEDClient* pClient);
@@ -68,9 +64,9 @@ public:
 protected:
 	CEDClient*		GetByID(DWORD nClientID, IN_ADDR* pServer, const Hashes::Guid& oGUID) const;
 	CEDClient*		GetByGUID(const Hashes::Guid& oGUID) const;
-	void			OnServerStatus(const SOCKADDR_IN* pHost, CEDPacket* pPacket);
-	void			RequestServerStatus(IN_ADDR* pHost, WORD nPort);
-	void			RunGlobalStatsRequests(DWORD tNow);
+
+	BOOL			OnServerStatus(const SOCKADDR_IN* pHost, CEDPacket* pPacket);		// Server status packet received
+	BOOL			OnServerSearchResult(const SOCKADDR_IN* pHost, CEDPacket* pPacket);	// Server search result packet received
 };
 
 extern CEDClients EDClients;

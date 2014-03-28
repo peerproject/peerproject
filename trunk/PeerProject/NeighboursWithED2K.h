@@ -1,7 +1,7 @@
 //
 // NeighboursWithED2K.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -21,22 +21,30 @@
 #include "NeighboursWithG2.h"
 
 class CEDNeighbour;
-class CDownload;
+class CDownloadWithTiger;
+
 
 // Add methods helpful for eDonkey2000 that use the list of connected neighbours
-class CNeighboursWithED2K : public CNeighboursWithG2 // Continue the inheritance column CNeighbours : CNeighboursWithConnect : Routing : ED2K : G2 : G1 : CNeighboursBase
+// Continue the inheritance column CNeighbours : CNeighboursWithConnect : Routing : ED2K : G2 : G1 : CNeighboursBase
+class CNeighboursWithED2K : public CNeighboursWithG2
 {
 protected:
-	CNeighboursWithED2K();							// Zero the memory of the sources arrays
+	CNeighboursWithED2K();
 	virtual ~CNeighboursWithED2K();
 
 public:
+	DWORD				m_tLastED2KServerHop;	// The last time the ed2k server was changed due low ID (ticks)
+	DWORD				m_nLowIDCount;			// Counts the amount of ed2k server low IDs we got (resets on high ID)
+
+public:
+	virtual void OnRun();
+
 	// Get an eDonkey2000 neighbour from the list that's through the handshake and has a client ID
 	CEDNeighbour* GetDonkeyServer() const;
 
 	// Do things to all the eDonkey2000 computers we're connected to
 	void CloseDonkeys();                           // Disconnect from all the eDonkey2000 computers we're connected to
-	void SendDonkeyDownload(CDownload* pDownload); // Tell all the connected eDonkey2000 computers about pDownload
+	void SendDonkeyDownload(const CDownloadWithTiger* pDownload);	// Tell all the connected eDonkey2000 computers about pDownload
 
 	// Send eDonkey2000 packets
 	BOOL PushDonkey(DWORD nClientID, const IN_ADDR& pServerAddress, WORD nServerPort); // Send a callback request packet
@@ -44,7 +52,9 @@ public:
 
 // Classes that inherit from this one can get to protected members, but unrelated classes can't
 protected:
+	void RunGlobalStatsRequests();
+
 	// Hash arrays used by FindDonkeySources
-	DWORD            m_tEDSources[256]; // 256 MD4 hashes
-	Hashes::Ed2kHash m_oEDSources[256];
+	DWORD				m_tEDSources[256]; 		// 256 MD4 hashes
+	Hashes::Ed2kHash	m_oEDSources[256];
 };

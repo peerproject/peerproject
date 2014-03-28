@@ -40,14 +40,13 @@ public:
 public:
 	static CLibraryWnd*	GetLibraryWindow(BOOL bToggle = FALSE, BOOL bFocus = TRUE);		// Open Library window
 
-	BOOL	Display(CLibraryFile* pFile);
-	BOOL	Display(CAlbumFolder* pFolder);
+	BOOL	Display(const CLibraryFile* pFile);
+	BOOL	Display(const CAlbumFolder* pFolder);
 	BOOL	OnCollection(LPCTSTR pszPath);
-public:
-	virtual void OnSkinChange();
-	virtual HRESULT	GetGenericView(IGenericView** ppView);
 
 public:
+	virtual HRESULT	GetGenericView(IGenericView** ppView);
+	virtual void OnSkinChange();
 	virtual BOOL OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO* pHandlerInfo);
 
 protected:

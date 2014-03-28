@@ -54,6 +54,10 @@ public:
 	DWORD m_nPosition;		// What byte we are on, this position index is remembered by the packet between calls to methods
 	BOOL  m_bBigEndian; 	// True if the bytes of the packet are in big endian format, which is the default
 
+	BOOL  m_bUDP;
+	BOOL  m_bOutgoing;
+	DWORD_PTR m_nNeighbourUnique;
+
 	// Set the position a given distance forwards from the start, or backwards from the end
 	enum { seekStart, seekEnd, seekCurrent };
 
@@ -62,7 +66,7 @@ public:
 	virtual void Reset();
 
 	// What is const = 0 (do)
-	virtual void ToBuffer(CBuffer* pBuffer, bool bTCP = true) const = 0;
+	virtual void ToBuffer(CBuffer* pBuffer, bool bTCP = true) = 0;
 
 public:
 	// Packet position and length
@@ -106,7 +110,7 @@ public:
 #endif
 
 	// Gives this packet and related objects to each window in the tab bar for them to process it
-	virtual void	SmartDump(const SOCKADDR_IN* pAddress, BOOL bUDP, BOOL bOutgoing, DWORD_PTR nNeighbourUnique = 0) const;
+	virtual void	SmartDump(const SOCKADDR_IN* pAddress, BOOL bUDP, BOOL bOutgoing, DWORD_PTR nNeighbourUnique = 0);
 
 	// Obsolete placeholders:
 	// Compute the SHA hash of the bytes of the packet

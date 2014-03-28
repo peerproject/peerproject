@@ -164,7 +164,7 @@ public:
 	CString					BuildRegExp(const CString& strPattern) const;
 
 private:
-	BOOL					WriteHashesToEDPacket(CEDPacket* pPacket, BOOL bUDP) const;
+	BOOL					WriteHashesToEDPacket(CEDPacket* pPacket, BOOL bUDP, BOOL bLargeFiles) const;
 
 // Utilities
 public:

@@ -133,13 +133,15 @@ int CDownloadsCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	CRect rect( 0, 0, 0, 0 );
 
 	if ( Settings.Downloads.SortColumns )
-		m_wndHeader.Create( WS_CHILD|HDS_BUTTONS|HDS_DRAGDROP|HDS_HOTTRACK|HDS_FULLDRAG, rect, this, AFX_IDW_PANE_FIRST );
+		m_wndHeader.Create( WS_CHILD|HDS_DRAGDROP|HDS_HOTTRACK|HDS_FULLDRAG|HDS_BUTTONS, rect, this, AFX_IDW_PANE_FIRST );
 	else
 		m_wndHeader.Create( WS_CHILD|HDS_DRAGDROP|HDS_HOTTRACK|HDS_FULLDRAG, rect, this, AFX_IDW_PANE_FIRST );
 
 	m_wndTip.Create( this, &Settings.Interface.TipDownloads );
 
-	InsertColumn( DOWNLOAD_COLUMN_TITLE, _T("Downloaded File"), LVCFMT_LEFT, 300 );
+	GetDesktopWindow()->GetWindowRect( &rect );
+
+	InsertColumn( DOWNLOAD_COLUMN_TITLE, _T("Downloaded File"), LVCFMT_LEFT, rect.Width() > 1600 ? 400 : 300 );
 	InsertColumn( DOWNLOAD_COLUMN_SIZE, _T("Size"), LVCFMT_CENTER, 64 );
 	InsertColumn( DOWNLOAD_COLUMN_PROGRESS, _T("Progress"), LVCFMT_CENTER, 100 );
 	InsertColumn( DOWNLOAD_COLUMN_DOWNLOADED, _T("Transfer"), LVCFMT_CENTER, 64 );
@@ -801,8 +803,8 @@ BOOL CDownloadsCtrl::DropObjects(CList< CDownload* >* pSel, const CPoint& ptScre
 	if ( pSel == NULL || ! rcClient.PtInRect( ptLocal ) ) return FALSE;
 
 	CSingleLock pLock( &Transfers.m_pSection, TRUE );
-	CDownload* pHit = NULL;
 
+	CDownload* pHit = NULL;
 	HitTest( ptLocal, &pHit, NULL, NULL, NULL );
 
 	for ( POSITION pos = pSel->GetHeadPosition() ; pos ; )
@@ -1107,7 +1109,7 @@ void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, const CDownloadD
 
 	// Skinnable Selection Highlight
 	BOOL bSelectmark = FALSE;
-	if ( bSelected && Images.DrawButtonState( &dc, rcRow, ( GetFocus() != this ? IMAGE_SELECTED : IMAGE_SELECTEDGREY ) ) )
+	if ( bSelected && Images.DrawButtonState( &dc, &rcRow, ( GetFocus() != this ? IMAGE_SELECTED : IMAGE_SELECTEDGREY ) ) )
 	{
 		// Was CoolInterface.DrawWatermark( &dc, &rcDraw, &Images.m_bmSelected );
 		bSelectmark = TRUE;
@@ -1185,14 +1187,18 @@ void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, const CDownloadD
 				dc.FillSolidRect( rcCell.left, rcCell.top + 16, 32, Settings.Skin.RowSize - 16, crLeftMargin );
 			if ( pDownloadData->bExpandable )
 			{
-				POINT ptHover;
-				GetCursorPos( &ptHover );
-				ScreenToClient( &ptHover );
-				RECT rcTick = { rcCell.left+2, rcCell.top+2, rcCell.left+14, rcCell.bottom-2 };
-				if ( PtInRect( &rcTick, ptHover ) )
-					CoolInterface.Draw( &dc, pDownloadData->bExpanded ? IDI_CLOSETICK_HOVER : IDI_OPENTICK_HOVER, 16, rcCell.left, rcCell.top, crLeftMargin );
+				BOOL bHover = m_nHover == int( rcCell.top / Settings.Skin.RowSize );
+				if ( bHover )
+				{
+					POINT ptHover;
+					GetCursorPos( &ptHover );
+					ScreenToClient( &ptHover );
+					bHover = ptHover.x < rcCell.left + 16 && ptHover.x > rcCell.left;
+				}
+				if ( pDownloadData->bExpanded )
+					CoolInterface.Draw( &dc, bHover ? IDI_CLOSETICK_HOVER : IDI_CLOSETICK, 16, rcCell.left, rcCell.top, crLeftMargin );
 				else
-					CoolInterface.Draw( &dc, pDownloadData->bExpanded ? IDI_CLOSETICK : IDI_OPENTICK, 16, rcCell.left, rcCell.top, crLeftMargin );
+					CoolInterface.Draw( &dc, bHover ? IDI_OPENTICK_HOVER : IDI_OPENTICK, 16, rcCell.left, rcCell.top, crLeftMargin );
 			}
 			else if ( bLeftMargin || ! bSelectmark )
 			{
@@ -1372,7 +1378,7 @@ void CDownloadsCtrl::PaintSource(CDC& dc, const CRect& rcRow, const CSourceDispl
 
 	// Skinnable Selection Highlight
 	BOOL bSelectmark = FALSE;
-	if ( bSelected && Images.DrawButtonState( &dc, rcRow, ( GetFocus() != this ? IMAGE_SELECTED : IMAGE_SELECTEDGREY ) ) )
+	if ( bSelected && Images.DrawButtonState( &dc, &rcRow, ( GetFocus() != this ? IMAGE_SELECTED : IMAGE_SELECTEDGREY ) ) )
 	{
 		// Was CoolInterface.DrawWatermark( &dc, &CRect( rcRow ), &Images.m_bmSelected );	// Non-const
 		bSelectmark = TRUE;
@@ -2247,16 +2253,25 @@ void CDownloadsCtrl::OnMouseMove(UINT nFlags, CPoint point)
 	if ( ( nFlags & ( MK_LBUTTON|MK_RBUTTON ) ) == 0 )
 	{
 		m_bDragActive = FALSE;
-		if ( nIndex == m_nHover ) return;
+		if ( nIndex == m_nHover )
+		{
+			if ( point.x < 22 && point.x > 10 )
+				RedrawWindow( CRect( 1, ( nIndex * Settings.Skin.RowSize ) + 1, 16, ( nIndex * Settings.Skin.RowSize ) + ( Settings.Skin.RowSize - 1 ) ) );
+			return;
+		}
 
+		// Expandable Tick Hoverstates
 		if ( point.x < 18 )
 		{
-			// Folder Tick Hoverstates
-			RedrawWindow( CRect( 1, nIndex * Settings.Skin.RowSize + 1, 16, nIndex * Settings.Skin.RowSize + 14 ) );
-			if ( m_nHover >= 0 )
-				RedrawWindow( CRect( 1, m_nHover * Settings.Skin.RowSize + 1, 16, m_nHover * Settings.Skin.RowSize + 14 ) );
+			CRect rcUpdate( 1, ( nIndex * Settings.Skin.RowSize ) + 1, 16, ( nIndex * Settings.Skin.RowSize ) + ( Settings.Skin.RowSize - 1 ) );
+			if ( m_nHover > nIndex )
+				rcUpdate.bottom = ( m_nHover * Settings.Skin.RowSize ) + ( Settings.Skin.RowSize - 1 );
+			else if ( m_nHover >= 0 )
+				rcUpdate.top = ( m_nHover * Settings.Skin.RowSize ) + 1;
 
 			m_nHover = nIndex;
+			RedrawWindow( rcUpdate );
+
 			m_wndTip.Hide();
 			return;
 		}
@@ -2317,19 +2332,15 @@ void CDownloadsCtrl::OnMouseMoveDrag(const CPoint& ptScreen)
 	CPoint ptLocal( ptScreen );
 	ScreenToClient( &ptLocal );
 
-	CRect rcClient;
-	GetClientRect( &rcClient );
+	const int nIndex = int( ptLocal.y / Settings.Skin.RowSize );
 
-	const int nIndex = rcClient.PtInRect( ptLocal ) ? int( ptLocal.y / Settings.Skin.RowSize ) : -1;
+	if ( nIndex == m_nHover )
+		return;
 
-	if ( m_nHover != nIndex )
-	{
-		m_nHover = nIndex;
-		CImageList::DragShowNolock( FALSE );
-	//	UpdateDownloadsData( TRUE );
-		RedrawWindow();
-		CImageList::DragShowNolock( TRUE );
-	}
+	m_nHover = nIndex;
+	CImageList::DragShowNolock( FALSE );
+	RedrawWindow();
+	CImageList::DragShowNolock( TRUE );
 
 // Obsolete:
 //	CSingleLock pLock( &Transfers.m_pSection, TRUE );

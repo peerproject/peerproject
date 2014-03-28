@@ -136,9 +136,9 @@ public:
 
 public:
 	virtual void		Reset();
-	virtual void		ToBuffer(CBuffer* pBuffer, bool bTCP = true) const;
+	virtual void		ToBuffer(CBuffer* pBuffer, bool bTCP = true);
 	static	CBTPacket*	ReadBuffer(CBuffer* pBuffer);
-	virtual void		SmartDump(const SOCKADDR_IN* pAddress, BOOL bUDP, BOOL bOutgoing, DWORD_PTR nNeighbourUnique = 0) const;
+	virtual void		SmartDump(const SOCKADDR_IN* pAddress, BOOL bUDP, BOOL bOutgoing, DWORD_PTR nNeighbourUnique = 0);
 	virtual CString		GetType() const;
 	virtual CString		ToHex()   const;
 	virtual CString		ToASCII() const;

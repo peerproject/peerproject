@@ -21,11 +21,13 @@
 // http://peerproject.org/shareazawiki/Developers.Code.CNeighboursWithED2K.html
 
 #include "StdAfx.h"
+#include "Settings.h"
 #include "PeerProject.h"
 #include "NeighboursWithED2K.h"
 #include "EDNeighbour.h"
 #include "EDPacket.h"
 #include "Datagrams.h"
+#include "HostCache.h"
 #include "Network.h"
 
 #ifdef _DEBUG
@@ -40,8 +42,10 @@ static char THIS_FILE[] = __FILE__;
 // CNeighboursWithED2K adds two arrays that need to be
 // filled with 0s when the program creates its CNeighbours object
 CNeighboursWithED2K::CNeighboursWithED2K()
-	: m_tEDSources()
-	, m_oEDSources()
+	: m_tEDSources			()
+	, m_oEDSources			()
+	, m_tLastED2KServerHop	( 0 )
+	, m_nLowIDCount			( 0 )
 {
 }
 
@@ -49,6 +53,48 @@ CNeighboursWithED2K::CNeighboursWithED2K()
 // CNeighbours inheritance column that needs to be cleaned up
 CNeighboursWithED2K::~CNeighboursWithED2K()
 {
+}
+
+void CNeighboursWithED2K::OnRun()
+{
+	CNeighboursWithG2::OnRun();
+
+	if ( Settings.eDonkey.Enabled && Settings.eDonkey.ServerWalk && Network.IsConnected() )
+		RunGlobalStatsRequests();
+}
+
+//////////////////////////////////////////////////////////////////////
+// CNeighboursWithED2K send/time out UDP global server status packets
+
+void CNeighboursWithED2K::RunGlobalStatsRequests()
+{
+	const DWORD tSecs = static_cast< DWORD >( time( NULL ) );
+
+	CQuickLock oLock( HostCache.eDonkey.m_pSection );
+
+	// Loop through servers in the host cache
+	for ( CHostCacheIterator i = HostCache.eDonkey.Begin() ; i != HostCache.eDonkey.End() ; ++i )
+	{
+		CHostCacheHostPtr pHost = (*i);
+
+		// Check if this server could be asked for stats
+		if ( pHost->CanQuery( tSecs ) && ( tSecs > pHost->m_tStats + Settings.eDonkey.StatsServerThrottle ) )
+		{
+			pHost->m_tStats = tSecs;
+			pHost->m_tAck = Network.IsFirewalled( CHECK_UDP ) ? 0 : GetTickCount();		// Don't count failures when UDP status is uncertain
+			pHost->m_nKeyValue = 0x55AA0000 + GetRandomNum( 0ui16, _UI16_MAX );
+			pHost->m_nUDPPort = pHost->m_nPort + 4;
+
+			theApp.Message( MSG_INFO, _T("Sending status request to eDonkey server %s:%u"), (LPCTSTR)CString( inet_ntoa( pHost->m_pAddress ) ), pHost->m_nUDPPort );
+
+			if ( CEDPacket* pPacket = CEDPacket::New( ED2K_C2SG_SERVERSTATUSREQUEST ) )
+			{
+				pPacket->WriteLongLE( pHost->m_nKeyValue );
+				Datagrams.Send( &pHost->m_pAddress, pHost->m_nUDPPort, pPacket );
+			}
+			return;
+		}
+	}
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -104,9 +150,10 @@ void CNeighboursWithED2K::CloseDonkeys()
 
 // Takes a pointer to a CDownload object (do)
 // Tells all the eDonkey2000 computers we're connected to about it
-void CNeighboursWithED2K::SendDonkeyDownload(CDownload* pDownload)
+void CNeighboursWithED2K::SendDonkeyDownload(const CDownloadWithTiger* pDownload)
 {
-	CSingleLock pLock( &Network.m_pSection, TRUE );
+	CSingleLock pLock( &Network.m_pSection );
+	if ( ! SafeLock( pLock ) ) return;
 
 	// Loop through the list of neighbours
 	for ( POSITION pos = GetIterator() ; pos ; )
@@ -192,7 +239,7 @@ BOOL CNeighboursWithED2K::FindDonkeySources(const Hashes::Ed2kHash& oED2K, IN_AD
 		if ( tNow < m_tEDSources[ nHash ] + 3600000 )
 			return FALSE;	// 1 hour
 	}
-	else	// The m_pEDSources array doesn't have pED2K at position nHash
+	else	// m_pEDSources array doesn't have pED2K at position nHash
 	{
 		// If that spot in the array was added in the last 15 seconds, don't do anything and return false
 		if ( tNow < m_tEDSources[ nHash ] + 15000 )

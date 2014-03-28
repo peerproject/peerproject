@@ -39,25 +39,26 @@ public:
 	virtual ~CDownloads();
 
 public:
-	DWORD			m_tBandwidthAtMax;			// Last time download bandwidth was all in use
-	DWORD			m_tBandwidthAtMaxED2K;		// Last time all ed2k bandwidth was used
-	DWORD			m_nTransfers;
-	DWORD			m_nBandwidth;
-	QWORD			m_nComplete;				// Last completed size of incomplete downloads (For Win7 Progress Bar)
-	QWORD			m_nTotal;					// Last expected size of incomplete downloads (For Win7 Progress Bar)
-	bool			m_bClosing;
+	DWORD		m_tBandwidthAtMax;			// Last time download bandwidth was all in use
+	DWORD		m_tBandwidthAtMaxED2K;		// Last time all ed2k bandwidth was used
+	DWORD		m_nTransfers;
+	DWORD		m_nBandwidth;
+	QWORD		m_nComplete;				// Last completed size of incomplete downloads (For Win7 Progress Bar)
+	QWORD		m_nTotal;					// Last expected size of incomplete downloads (For Win7 Progress Bar)
+	bool		m_bClosing;
 
 private:
 	CList< CDownload* >	m_pList;
+	CList< CString, const CString& > m_pDelete;
 	CMap< ULONG, ULONG, DWORD, DWORD > m_pHostLimits;
-	int				m_nRunCookie;
-	DWORD			m_tBandwidthLastCalc;		// Last time the bandwidth was calculated
-	DWORD			m_nLimitGeneric;
-	DWORD			m_nLimitDonkey;
-	DWORD			m_nTryingCount;
-	DWORD			m_nBTTryingCount;
-	bool			m_bAllowMoreDownloads;
-	bool			m_bAllowMoreTransfers;
+	int			m_nRunCookie;
+	DWORD		m_tBandwidthLastCalc;		// Last time the bandwidth was calculated
+	DWORD		m_nLimitGeneric;
+	DWORD		m_nLimitDonkey;
+	DWORD		m_nTryingCount;
+	DWORD		m_nBTTryingCount;
+	bool		m_bAllowMoreDownloads;
+	bool		m_bAllowMoreTransfers;
 
 public:
 	CDownload*	Add(BOOL bAddToHead = FALSE);
@@ -95,6 +96,7 @@ public:
 	void		PreLoad();
 	void		Load();
 	void		Save(BOOL bForce = TRUE);
+	void		PurgeFiles();	// Was PurgePreviews
 	void		OnRun();
 	BOOL		OnPush(const Hashes::Guid& oGUID, CConnection* pConnection);
 	bool		OnQueryHits(const CQueryHit* pHits);
@@ -120,7 +122,7 @@ private:
 	DWORD		GetBandwidth() const;
 	BOOL		Swap(CDownload* p1, CDownload* p2);
 	BOOL		OnDonkeyCallback(CEDClient* pClient, CDownloadSource* pExcept = NULL);
-	void		PurgePreviews();
+//	void		PurgePreviews();	// Use public PurgeFiles()
 
 // Legacy Shareaza multifile torrents:
 //	void		LoadFromCompoundFiles();

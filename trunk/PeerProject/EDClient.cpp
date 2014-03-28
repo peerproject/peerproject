@@ -315,7 +315,7 @@ void CEDClient::Send(CPacket* pPacket, BOOL bRelease)
 			pPacket->SmartDump( &m_pHost, FALSE, TRUE );
 
 			Write( pPacket );
-			OnWrite();
+			QueueRun();
 		}
 
 		if ( bRelease )
@@ -323,7 +323,7 @@ void CEDClient::Send(CPacket* pPacket, BOOL bRelease)
 	}
 	else if ( IsValid() )
 	{
-		OnWrite();
+		QueueRun();
 	}
 }
 
@@ -990,6 +990,12 @@ BOOL CEDClient::OnHello(CEDPacket* pPacket)
 		case ED2K_CT_BUDDYIP:
 		case ED2K_CT_BUDDYUDP:
 		case ED2K_CT_UNKNOWN3:
+		case ED2K_CT_EMULECOMPAT_OPTIONS:
+			break;
+		case ED2K_CT_LAN_PEER:
+		case ED2K_CT_SUPPORT_VCNT:
+			// easyMule
+			if ( ! m_nEmCompatible ) m_nEmCompatible = 8;
 			break;
 		default:
 			if ( _tcsicmp( pTag.m_sKey, _T("pr") ) == 0 )
@@ -1141,6 +1147,7 @@ BOOL CEDClient::OnEmuleInfo(CEDPacket* pPacket)
 			if ( pTag.m_nType == ED2K_TAG_INT ) m_nEmCompatible = (DWORD)pTag.m_nValue;
 			break;
 		case ED2K_ET_FEATURES:		// We don't use these
+		case ED2K_ET_OS_INFO:
 			break;
 		case ED2K_CT_MODVERSION:	// Some clients send this here
 			if ( m_nEmCompatible == ED2K_CLIENT_UNKNOWN )
@@ -1256,6 +1263,11 @@ void CEDClient::DetermineUserAgent()
 				( ( m_nSoftwareVersion >> 17 ) & 0x7F ), ( ( m_nSoftwareVersion >> 10 ) & 0x7F ),
 				( ( m_nSoftwareVersion >>  7 ) & 0x07 ) + 'a' );
 			break;
+		case 8:
+			m_sUserAgent.AppendFormat( _T("easyMule %u.%u%c"),
+				( ( m_nSoftwareVersion >> 17 ) & 0x7F ), ( ( m_nSoftwareVersion >> 10 ) & 0x7F ),
+				( ( m_nSoftwareVersion >>  7 ) & 0x07 ) + 'a' );
+			break;
 		case 10:
 			m_sUserAgent.Format( _T("MLdonkey %u.%u.%u"),
 				( ( m_nSoftwareVersion >> 17 ) &0x7F ), ( ( m_nSoftwareVersion >> 10 ) &0x7F ),
@@ -1282,7 +1294,7 @@ void CEDClient::DetermineUserAgent()
 				( ( m_nSoftwareVersion >> 17 ) &0x7F ), ( ( m_nSoftwareVersion >> 10 ) &0x7F ),
 				( ( m_nSoftwareVersion >>  7 ) &0x07 ), ( ( m_nSoftwareVersion ) &0x7F ) );
 			break;
-		case 80:		// PeerProject (Proposed)
+		case 80:		// PeerProject (Proposed 0x50)
 			if ( m_bEmAICH )
 			{
 				if ( m_sUserAgent.IsEmpty() )
@@ -1349,6 +1361,9 @@ void CEDClient::DetermineUserAgent()
 				}
 				m_sUserAgent = _T("Shareaza");
 				break;
+			case 8:
+				m_sUserAgent.Format( _T("easyMule v0.%u%u"), m_nEmVersion >> 4, m_nEmVersion & 15 );
+				break;
 			case 10:
 				m_sUserAgent.Format( _T("MLdonkey v0.%u%u"), m_nEmVersion >> 4, m_nEmVersion & 15 );
 				break;
@@ -1364,7 +1379,7 @@ void CEDClient::DetermineUserAgent()
 				}
 				m_sUserAgent = _T("Shareaza");
 				break;
-			case 80:		// PeerProject (Proposed)
+			case 80:		// PeerProject (Proposed 0x50)
 				if ( m_bEmAICH )	// Unsupported feature for fake detection (ToDo: support AICH, etc.)
 				{
 					if ( m_sUserAgent.IsEmpty() )

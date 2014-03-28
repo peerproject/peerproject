@@ -1051,7 +1051,8 @@ void CDownloadSource::Draw(CDC* pDC, CRect* prcBar)
 	{
 		Colors.m_crFragmentSource1, Colors.m_crFragmentSource2,
 		Colors.m_crFragmentSource3, Colors.m_crFragmentSource4,
-		Colors.m_crFragmentSource5, Colors.m_crFragmentSource6
+		Colors.m_crFragmentSource5, Colors.m_crFragmentSource6,
+		Colors.m_crFragmentSource7, Colors.m_crFragmentSource8
 	};
 
 	COLORREF crTransfer = m_bReadContent ? crFill[ GetColor() ] : Colors.m_crFragmentComplete;

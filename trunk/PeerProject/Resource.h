@@ -1605,6 +1605,7 @@
 #define ID_TAB_LIBRARY                      40006
 #define ID_TAB_MEDIA                        40007
 #define ID_TAB_IRC                          40008
+#define ID_TAB_MENU                         40009
 #define ID_BROWSE_FILES                     40010
 #define ID_BROWSE_LAUNCH                    40011
 #define ID_BROWSE_PROFILE                   40012

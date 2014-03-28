@@ -1501,8 +1501,8 @@ void CShakeNeighbour::OnHandshakeComplete()
 	if ( m_bDeflateAccept )
 		m_pZOutput = new CBuffer(); 		// Remote computer said "Accept-Encoding: deflate",  make a buffer for data to compress before sending
 
-	// Set socket option to use a ~2 KB buffer for sends
-	if ( Settings.Connection.SendBuffer )	// 2048 default
+	// Set socket option to use a ~8 KB buffer for sends
+	if ( Settings.Connection.SendBuffer )
 		setsockopt( m_hSocket, SOL_SOCKET, SO_SNDBUF, (char*)&Settings.Connection.SendBuffer, 4 );		// SendBuffer is a DWORD, occupying 4 bytes of memory (Was (LPSTR))
 
 	// Make a pointer for a new object that will be a copy of this one, but in a different place on the CConnection inheritance tree

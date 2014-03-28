@@ -43,6 +43,7 @@ typedef struct
 
 } GNUTELLAPACKET;
 
+
 // Each CG1Packet object represents a received or preparing to send Gnutella packet
 class CG1Packet : public CPacket	// Inherit from CPacket to get memory management, and methods to read/write ASCII text, bytes, and DWORDs
 {
@@ -76,7 +77,7 @@ public:
 	CString         GetGUID() const;				// Returns the packet's GUID encoded into text in base 16
 
 	virtual void	Reset();
-	virtual void    ToBuffer(CBuffer* pBuffer, bool bTCP = true) const; 	// Adds the Gnutella packet header and payload into the given CBuffer object
+	virtual void    ToBuffer(CBuffer* pBuffer, bool bTCP = true); 	// Adds the Gnutella packet header and payload into the given CBuffer object
 
 #ifdef _DEBUG
 	// Record information about the packet for debugging purposes

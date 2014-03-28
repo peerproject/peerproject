@@ -1,7 +1,7 @@
 //
 // HostCache.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -707,6 +707,17 @@ void CHostCacheList::PruneOldHosts(DWORD tNow)
 			}
 			break;
 
+		case PROTOCOL_ED2K:
+			if ( pHost->m_tAck && tNow > pHost->m_tAck + Settings.Connection.TimeoutHandshake )
+			{
+				pHost->m_tAck = 0;
+				pHost->m_tFailure = pHost->m_tStats;
+
+				m_nCookie++;
+				pHost->m_nFailures++;
+			}
+			break;
+
 		//default:
 		//	;
 		}
@@ -722,7 +733,6 @@ void CHostCacheList::PruneOldHosts(DWORD tNow)
 			++i;
 	}
 }
-
 
 //////////////////////////////////////////////////////////////////////
 // Remove several oldest hosts
@@ -760,7 +770,6 @@ void CHostCacheList::PruneHosts()
 
 	ASSERT( m_Hosts.size() == m_HostsTime.size() );
 }
-
 
 //////////////////////////////////////////////////////////////////////
 // CHostCacheList serialize
@@ -1462,6 +1471,9 @@ bool CHostCacheHost::Update(WORD nPort, DWORD tSeen, LPCTSTR pszVendor, DWORD nU
 	if ( nPort )
 		m_nUDPPort = m_nPort = nPort;
 
+	if ( m_nProtocol == PROTOCOL_ED2K && nPort )
+		m_nUDPPort += 4;
+
 	const DWORD tNow = static_cast< DWORD >( time( NULL ) );
 	if ( ! tSeen || tSeen > tNow )
 		tSeen = tNow;
@@ -1633,6 +1645,9 @@ bool CHostCacheHost::CanQuery(const DWORD tNow) const
 		// Must support ED2K
 		if ( ! Network.IsConnected() || ! Settings.eDonkey.Enabled ) return false;
 		if ( ! Settings.eDonkey.ServerWalk ) return false;
+
+		// Must not be waiting for an ack
+		if ( 0 != m_tAck ) return false;
 
 		// If haven't queried yet, its ok
 		if ( m_tQuery == 0 ) return true;

@@ -148,13 +148,13 @@ void CBTClient::Close(UINT nError)
 	if ( Settings.General.DebugBTSources )
 		theApp.Message( MSG_DEBUG, L"Deleting BT client: %s", m_sAddress );
 
-	if ( m_pUploadTransfer )
+	if ( m_pUploadTransfer != NULL )
 		m_pUploadTransfer->Close();
-	ASSERT( m_pUploadTransfer == NULL );
 
-	if ( m_pDownloadTransfer )
+	ASSERT( m_pUploadTransfer == NULL );
+	if ( m_pDownloadTransfer != NULL )
 	{
-		if ( ! m_pDownload || m_pDownload->IsCompleted() )
+		if ( m_pDownload == NULL || m_pDownload->IsCompleted() )
 			m_pDownloadTransfer->Close( TRI_FALSE );
 		else
 			m_pDownloadTransfer->Close( TRI_UNKNOWN );
@@ -688,6 +688,7 @@ CString CBTClient::GetUserAgentAzureusStyle(LPBYTE pVendor, size_t nVendor)
 	if ( ! pVendor ) return strUserAgent;
 
 	// Azureus style "-SSVVVV-"
+	// https://wiki.theory.org/BitTorrentSpecification#peer_id
 	static std::map < const CString, CString > Vendors;
 	if ( Vendors.empty() )
 	{
@@ -696,25 +697,26 @@ CString CBTClient::GetUserAgentAzureusStyle(LPBYTE pVendor, size_t nVendor)
 		Vendors[ L"AR" ] = L"Arctic";
 		Vendors[ L"AV" ] = L"Avicora";
 		Vendors[ L"AX" ] = L"BitPump";
-		Vendors[ L"AZ" ] = L"Azureus";	// +Frostwire/etc.
+		Vendors[ L"AZ" ] = L"Azureus";		// +Frostwire/etc.
+	//	Vendors[ L"BA" ] = L"BA";			// ?
 		Vendors[ L"BB" ] = L"BitBuddy";
 		Vendors[ L"BC" ] = L"BitComet";
 		Vendors[ L"BF" ] = L"Bitflu";
 		Vendors[ L"BG" ] = L"BTG";
-	//	Vendors[ L"BO" ] = L"BO ";		// ?
+	//	Vendors[ L"BO" ] = L"BO ";			// ?
 		Vendors[ L"bk" ] = L"BitKitten";
 		Vendors[ L"BR" ] = L"BitRocket";
 		Vendors[ L"BS" ] = L"BitSlave";
 		Vendors[ L"BX" ] = L"Bittorrent X";
 		Vendors[ L"CB" ] = L"ShareazaPlus";
-		Vendors[ L"CD" ] = L"CTorrent";	// "Enhanced"
+		Vendors[ L"CD" ] = L"CTorrent";		// "Enhanced"
 		Vendors[ L"CT" ] = L"CTorrent";
 		Vendors[ L"DE" ] = L"DelugeTorrent";
 		Vendors[ L"DP" ] = L"Propogate";
 		Vendors[ L"EB" ] = L"EBit";
 		Vendors[ L"ES" ] = L"Electric Sheep";
 		Vendors[ L"FC" ] = L"FileCroc";
-		Vendors[ L"FG" ] = L"FlashGet";	// vXX.XX
+		Vendors[ L"FG" ] = L"FlashGet";		// vXX.XX
 		Vendors[ L"FT" ] = L"FoxTorrent";
 		Vendors[ L"GR" ] = L"GetRight";
 		Vendors[ L"GS" ] = L"GSTorrent";
@@ -748,7 +750,7 @@ CString CBTClient::GetUserAgentAzureusStyle(LPBYTE pVendor, size_t nVendor)
 		Vendors[ L"QT" ] = L"QT4";
 		Vendors[ L"RT" ] = L"Retriever";
 		Vendors[ L"SB" ] = L"SwiftBit";
-		Vendors[ L"SD" ] = L"Xunlei (SD)";
+		Vendors[ L"SD" ] = L"Xunlei";
 		Vendors[ L"SM" ] = L"SoMud";
 		Vendors[ L"SN" ] = L"ShareNet";
 		Vendors[ L"SS" ] = L"Swarmscope";
@@ -756,6 +758,7 @@ CString CBTClient::GetUserAgentAzureusStyle(LPBYTE pVendor, size_t nVendor)
 		Vendors[ L"ST" ] = L"SymTorrent";
 		Vendors[ L"SZ" ] = L"Shareaza";
 		Vendors[ L"S~" ] = L"ShareazaBeta";
+		Vendors[ L"TL" ] = L"Tribler";
 		Vendors[ L"TN" ] = L"Torrent.NET";
 		Vendors[ L"TR" ] = L"Transmission";
 		Vendors[ L"TS" ] = L"TorrentStorm";
@@ -766,7 +769,7 @@ CString CBTClient::GetUserAgentAzureusStyle(LPBYTE pVendor, size_t nVendor)
 		Vendors[ L"VG" ] = L"Vagaa";
 		Vendors[ L"WT" ] = L"BitLet";
 		Vendors[ L"WY" ] = L"FireTorrent";
-		Vendors[ L"XC" ] = L"XC ";		// ?
+		Vendors[ L"XC" ] = L"XC ";			// ?
 		Vendors[ L"XL" ] = L"Xunlei";
 		Vendors[ L"XT" ] = L"XanTorrent";
 		Vendors[ L"XX" ] = L"xTorrent";

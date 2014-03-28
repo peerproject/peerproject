@@ -59,12 +59,6 @@ typedef struct
 
 #pragma pack()
 
-typedef struct
-{
-	DWORD	nType;
-	LPCTSTR	pszName;
-} ED2K_PACKET_DESC;
-
 #define	ED2K_VERSION					0x3D
 
 // Protocols
@@ -101,31 +95,28 @@ protected:
 public:
 	BYTE	m_nEdProtocol;
 	BYTE	m_nType;
+	BOOL	m_bDeflate;		// Deflate packet before sending
 
 public:
 	CString				ReadEDString(BOOL bUnicode);
 	void				WriteEDString(LPCTSTR psz, BOOL bUnicode);
 	CString				ReadLongEDString(BOOL bUnicode);
 	void				WriteLongEDString(LPCTSTR psz, BOOL bUnicode);
-	void				WriteFile(const CPeerProjectFile* pFile, QWORD nSize,
-							const CEDClient* pClient, const CEDNeighbour* pServer = NULL, bool bPartial = false);
+	void				WriteFile(const CPeerProjectFile* pFile, QWORD nSize, const CEDClient* pClient, const CEDNeighbour* pServer = NULL, bool bPartial = false);
 	BOOL				Deflate();
 	BOOL				Inflate();	// Unzip packet if any
 
 	virtual void		Reset();
-	virtual	void		ToBuffer(CBuffer* pBuffer, bool bTCP = true) const;
+	virtual	void		ToBuffer(CBuffer* pBuffer, bool bTCP = true);
 	static	CEDPacket*	ReadBuffer(CBuffer* pBuffer);
 	virtual CString		GetType() const;
+	virtual CString		ToASCII() const;
 
 #ifdef _DEBUG
 	virtual void		Debug(LPCTSTR pszReason) const;
 #endif
 
 	inline static bool IsLowID(DWORD nID) { return nID > 0 && nID < 16777216; }
-
-// Packet Types
-protected:
-	static ED2K_PACKET_DESC m_pszTypes[];
 
 // Packet Pool
 protected:
@@ -205,57 +196,64 @@ inline void CEDPacket::CEDPacketPool::FreePoolImpl(CPacket* pPacket)
 }
 
 // Client - Server, Local (TCP)
-#define ED2K_C2S_LOGINREQUEST			0x01
-#define ED2K_C2S_GETSERVERLIST			0x14
-#define	ED2K_C2S_OFFERFILES				0x15
-#define ED2K_C2S_SEARCHREQUEST			0x16
-#define ED2K_C2S_SEARCHUSER				0x1a
-#define ED2K_C2S_GETSOURCES				0x19
-#define ED2K_C2S_CALLBACKREQUEST		0x1C
-#define ED2K_C2S_MORERESULTS			0x21
-#define ED2K_S2C_REJECTED				0x05
-#define ED2K_S2C_SERVERMESSAGE			0x38
-#define ED2K_S2C_IDCHANGE				0x40
-#define ED2K_S2C_SERVERLIST				0x32
-#define ED2K_S2C_SEARCHRESULTS			0x33
-#define ED2K_S2C_FOUNDSOURCES			0x42
-#define	ED2K_S2C_SERVERSTATUS			0x34
-#define ED2K_S2C_SERVERIDENT			0x41
-#define ED2K_S2C_CALLBACKREQUESTED		0x35
+#define ED2K_C2S_LOGINREQUEST			0x01	// <HASH 16><ID 4><PORT 2><1 Tag_set{NICK,EMULEVER,PORT}>
+#define ED2K_C2S_GETSERVERLIST			0x14	// client -> server
+#define	ED2K_C2S_OFFERFILES				0x15	// <count 4>(<HASH 16><ID 4><PORT 2><1 Tag_set>)[count]
+#define ED2K_C2S_SEARCHREQUEST			0x16	// <Query_Tree>
+#define ED2K_C2S_SEARCHUSER				0x1a	// <Query_Tree>
+#define ED2K_C2S_GETSOURCES				0x19	// <HASH 16>
+#define ED2K_C2S_CALLBACKREQUEST		0x1C	// <ID 4>
+#define ED2K_C2S_MORERESULTS			0x21	//
+#define ED2K_S2C_REJECTED				0x05	//
+#define ED2K_S2C_SERVERMESSAGE			0x38	// <len 2><Message len>
+#define ED2K_S2C_IDCHANGE				0x40	// <NEW_ID 4><server_flags 4><primary_tcp_port 4 (unused)><client_IP_address 4>
+#define ED2K_S2C_SERVERLIST				0x32	// <count 1>(<IP 4><PORT 2>)[count] server -> client
+#define ED2K_S2C_SEARCHRESULTS			0x33	// <count 4>(<HASH 16><ID 4><PORT 2><1 Tag_set>)[count]
+#define ED2K_S2C_FOUNDSOURCES			0x42	// <HASH 16><count 1>(<ID 4><PORT 2>)[count]
+#define	ED2K_S2C_SERVERSTATUS			0x34	// <USER 4><FILES 4>
+#define ED2K_S2C_SERVERIDENT			0x41	// <HASH 16><IP 4><PORT 2>{1 TAG_SET}
+#define ED2K_S2C_CALLBACKREQUESTED		0x35	// <IP 4><PORT 2>
 
 // Client - Server, Global (UDP)
-#define ED2K_C2SG_SEARCHREQUEST3		0x90
-#define ED2K_C2SG_SEARCHREQUEST2		0x92
-#define ED2K_C2SG_GETSOURCES2			0x94
-#define ED2K_C2SG_SERVERSTATUSREQUEST	0x96
-#define	ED2K_S2CG_SERVERSTATUS			0x97
-#define ED2K_C2SG_SEARCHREQUEST			0x98
-#define ED2K_S2CG_SEARCHRESULT			0x99
-#define ED2K_C2SG_GETSOURCES			0x9A
-#define ED2K_S2CG_FOUNDSOURCES			0x9B
-#define ED2K_C2SG_CALLBACKREQUEST		0x9C
-#define ED2K_S2CG_CALLBACKFAIL			0x9E
+#define ED2K_C2SG_SEARCHREQUEST3		0x90	// <1 tag set><search_tree>
+#define ED2K_C2SG_SEARCHREQUEST2		0x92	// <search_tree>
+#define ED2K_C2SG_GETSOURCES2			0x94	// <HASH 16><FILESIZE 4>, largefiles only: <HASH 16><FILESIZE 4(0)><FILESIZE 8>
+#define ED2K_C2SG_SERVERSTATUSREQUEST	0x96	// <challenge 4>
+#define	ED2K_S2CG_SERVERSTATUS			0x97	// <challenge 4><USER 4><FILES 4>[<MAX_USERS 4>[<FILES_SOFT_LIMIT 4><FILES_HARD_LIMIT 4>[<UDP_FLAGS 4>[<LOW_ID_USERS 4>[<UDP_OBF_PORT 2><TCP_OBF_PORT 2><UDP_KEY 4>]]]]]
+#define ED2K_C2SG_SEARCHREQUEST			0x98	// <search_tree>
+#define ED2K_S2CG_SEARCHRESULT			0x99	// <HASH 16><IP 4><PORT 2><1 Tag_set>
+#define ED2K_C2SG_GETSOURCES			0x9A	// <HASH 16>
+#define ED2K_S2CG_FOUNDSOURCES			0x9B	// <HASH 16><count 1>(<ID 4><PORT 2>)[count]
+#define ED2K_C2SG_CALLBACKREQUEST		0x9C	// <IP 4><PORT 2><client_ID 4>
+#define ED2K_S2CG_CALLBACKFAIL			0x9E	// <ID 4>
+#define	ED2K_C2SG_LIST_REQ				0xA0	// <IP 4><PORT 2>
+#define ED2K_S2CG_LIST_RES				0xA1	// <count 1> (<ip 4><port 2>)[count]
+#define ED2K_C2SG_DESC_REQ				0xA2	// old: (null), new: <challenge 4>
+#define ED2K_S2CG_DESC_RES				0xA3	// old: <name_len 2><name name_len><desc_len 2 desc_en>, new: <challenge 4><taglist>
+#define ED2K_C2SG_LIST_REQ2				0xA4	//
+
+#define INV_SERV_DESC_LEN				0xF0FF	// Used as an 'invalid' string len for new ED2K_C2SG_DESC_REQ/ED2K_S2CG_DESC_RES
 
 // Client - Client, TCP
 #define ED2K_C2C_HELLO					0x01	// 0x10<HASH 16><ID 4><PORT 2><1 Tag_set>
-#define ED2K_C2C_HELLOANSWER			0x4C
-#define ED2K_C2C_FILEREQUEST			0x58
-#define ED2K_C2C_FILEREQANSWER			0x59
-#define ED2K_C2C_FILENOTFOUND			0x48
-#define ED2K_C2C_FILESTATUS				0x50
-#define ED2K_C2C_QUEUEREQUEST			0x54
-#define ED2K_C2C_QUEUERELEASE			0x56
-#define ED2K_C2C_QUEUERANK				0x5C
-#define ED2K_C2C_STARTUPLOAD			0x55
-#define ED2K_C2C_FINISHUPLOAD			0x57
-#define ED2K_C2C_REQUESTPARTS			0x47
-#define ED2K_C2C_SENDINGPART			0x46
-#define ED2K_C2C_FILESTATUSREQUEST		0x4F
-#define ED2K_C2C_HASHSETREQUEST			0x51
-#define ED2K_C2C_HASHSETANSWER			0x52
-#define ED2K_C2C_ASKSHAREDFILES			0x4A
-#define ED2K_C2C_ASKSHAREDFILESANSWER	0x4B
-#define ED2K_C2C_MESSAGE				0x4E
+#define ED2K_C2C_HELLOANSWER			0x4C	// <HASH 16><ID 4><PORT 2><1 Tag_set><SERVER_IP 4><SERVER_PORT 2>
+#define ED2K_C2C_FILEREQUEST			0x58	// <HASH 16>
+#define ED2K_C2C_FILEREQANSWER			0x59	// <HASH 16><len 2><NAME len>
+#define ED2K_C2C_FILENOTFOUND			0x48	// <HASH 16>
+#define ED2K_C2C_FILESTATUS				0x50	// <HASH 16><count 2><status(bit array) len:((count+7)/8)>
+#define ED2K_C2C_QUEUEREQUEST			0x54	// <HASH 16>
+#define ED2K_C2C_QUEUERELEASE			0x56	//
+#define ED2K_C2C_QUEUERANK				0x5C	// <wert  4> (slot index of the request)
+#define ED2K_C2C_STARTUPLOAD			0x55	//
+#define ED2K_C2C_FINISHUPLOAD			0x57	// No more file data available
+#define ED2K_C2C_REQUESTPARTS			0x47	// <HASH 16><von[3] 4*3><bis[3] 4*3>
+#define ED2K_C2C_SENDINGPART			0x46	// <HASH 16><von 4><bis 4><Daten len:(von-bis)>
+#define ED2K_C2C_FILESTATUSREQUEST		0x4F	// <HASH 16>
+#define ED2K_C2C_HASHSETREQUEST			0x51	// <HASH 16>
+#define ED2K_C2C_HASHSETANSWER			0x52	// <count 2><HASH[count] 16*count>
+#define ED2K_C2C_ASKSHAREDFILES			0x4A	//
+#define ED2K_C2C_ASKSHAREDFILESANSWER	0x4B	// <count 4>(<HASH 16><ID 4><PORT 2><1 Tag_set>)[count]
+#define ED2K_C2C_MESSAGE				0x4E	// <len 2><Message len>
 #define ED2K_C2C_CHANGECLIENTID			0x4D	// <New client ID 4><New server IP 4>
 #define ED2K_C2C_ASKSHAREDDIRS			0x5D	// (null)
 #define ED2K_C2C_ASKSHAREDDIRSANSWER	0x5F	// <count 4>(<len 2><Directory len>)[count]
@@ -263,7 +261,7 @@ inline void CEDPacket::CEDPacketPool::FreePoolImpl(CPacket* pPacket)
 #define ED2K_C2C_VIEWSHAREDDIRANSWER	0x60	// <len 2><Directory len><count 4>(<HASH 16><ID 4><PORT 2><1 Tag_set>)[count]
 #define ED2K_C2C_ASKSHAREDDIRSDENIED	0x61	// (null)
 
-// eMule Client - Client TCP
+// eMule Client - Client, TCP
 #define	ED2K_C2C_EMULEINFO				0x01	//
 #define	ED2K_C2C_EMULEINFOANSWER		0x02	//
 #define ED2K_C2C_COMPRESSEDPART			0x40	// <HASH 16><von 4><size 4><Daten len:size>
@@ -306,7 +304,7 @@ inline void CEDPacket::CEDPacketPool::FreePoolImpl(CPacket* pPacket)
 #define ED2K_C2C_HASHSETREQUEST2		0xB1	// <FileIdentifier><Options 1>
 #define ED2K_C2C_HASHSETANSWER2			0xB2	// <FileIdentifier><Options 1>[<HashSets> Options]
 
-// Client - Client, UDP
+// eMule Client - Client, UDP
 #define ED2K_C2C_UDP_REASKFILEPING		0x90	// <HASH 16>
 #define ED2K_C2C_UDP_REASKACK			0x91	// <RANG 2>
 #define ED2K_C2C_UDP_FILENOTFOUND		0x92	// (null)
@@ -336,6 +334,21 @@ inline void CEDPacket::CEDPacketPool::FreePoolImpl(CPacket* pPacket)
 #define ED2K_SERVER_TCP_64BITSIZE		0x00000100
 #define ED2K_SERVER_TCP_TCPOBFUSCATION	0x00000400
 
+inline CString GetED2KServerTCPFlags(DWORD nTCPFlags)
+{
+	CString strServerFlags;
+	strServerFlags.Format( _T( "0x%08x ->%s%s%s%s%s%s%s%s" ), nTCPFlags,
+		( ( nTCPFlags & ED2K_SERVER_TCP_DEFLATE )			? _T(" Deflate") : _T("") ),
+		( ( nTCPFlags & ED2K_SERVER_TCP_SMALLTAGS )			? _T(" NewTags") : _T("") ),
+		( ( nTCPFlags & ED2K_SERVER_TCP_UNICODE )			? _T(" Unicode") : _T("") ),
+		( ( nTCPFlags & ED2K_SERVER_TCP_GETSOURCES2 )		? _T(" GetSources2") : _T("") ),
+		( ( nTCPFlags & ED2K_SERVER_TCP_RELATEDSEARCH )		? _T(" RelatedSearch") : _T("") ),
+		( ( nTCPFlags & ED2K_SERVER_TCP_TYPETAGINTEGER )	? _T(" TypeTagInteger") : _T("") ),
+		( ( nTCPFlags & ED2K_SERVER_TCP_64BITSIZE )			? _T(" LargeFiles") : _T("") ),
+		( ( nTCPFlags & ED2K_SERVER_TCP_TCPOBFUSCATION )	? _T(" TcpObfscation") : _T("") ) );
+	return strServerFlags;
+}
+
 // Server UDP flags for ED2K_S2CG_SERVERSTATUS (server capabilities)
 #define	ED2K_SERVER_UDP_GETSOURCES		0x00000001
 #define	ED2K_SERVER_UDP_GETFILES		0x00000002
@@ -345,6 +358,21 @@ inline void CEDPacket::CEDPacketPool::FreePoolImpl(CPacket* pPacket)
 #define	ED2K_SERVER_UDP_64BITSIZE		0x00000100
 #define ED2K_SERVER_UDP_UDPOBFUSCATION	0x00000200
 #define ED2K_SERVER_UDP_TCPOBFUSCATION	0x00000400
+
+inline CString GetED2KServerUDPFlags(DWORD nUDPFlags)
+{
+	CString strServerFlags;
+	strServerFlags.Format( _T( "0x%08x -> %s%s%s%s%s%s%s%s" ), nUDPFlags,
+		( ( nUDPFlags & ED2K_SERVER_UDP_GETSOURCES )		? _T(" GetSources1") : _T("") ),
+		( ( nUDPFlags & ED2K_SERVER_UDP_GETFILES )			? _T(" GetFiles") : _T("") ),
+		( ( nUDPFlags & ED2K_SERVER_UDP_NEWTAGS )			? _T(" NewTags") : _T("") ),
+		( ( nUDPFlags & ED2K_SERVER_UDP_UNICODE )			? _T(" Unicode") : _T("") ),
+		( ( nUDPFlags & ED2K_SERVER_UDP_GETSOURCES2 )		? _T(" GetSources2") : _T("") ),
+		( ( nUDPFlags & ED2K_SERVER_UDP_64BITSIZE )			? _T(" LargeFiles") : _T("") ),
+		( ( nUDPFlags & ED2K_SERVER_UDP_UDPOBFUSCATION )	? _T(" UdpObfscation") : _T("") ),
+		( ( nUDPFlags & ED2K_SERVER_UDP_TCPOBFUSCATION )	? _T(" TcpObfscation") : _T("") ) );
+	return strServerFlags;
+}
 
 
 class CEDTag
@@ -372,6 +400,9 @@ public:
 	void	Write(CEDPacket* pPacket, BOOL bUnicode = FALSE, BOOL bSmallTags = FALSE);
 	BOOL	Read(CEDPacket* pPacket, BOOL bUnicode = FALSE);
 	BOOL	Read(CFile* pFile);
+
+	CString ToString() const;
+	static CString ToString(const BYTE* pData, DWORD nLength);
 
 // Inlines
 public:
@@ -414,7 +445,12 @@ public:
 #define	ED2K_CT_PORT				0x0F
 #define ED2K_CT_VERSION				0x11
 #define ED2K_CT_SERVER_FLAGS		0x20	// Tell server about compression, new tags, unicode
-#define ED2K_CT_MODVERSION			0x55	// MOD version
+#define ED2K_CT_MODVERSION			0x55	// <string>/<uint32> MOD version or number
+#define ED2K_CT_LAN_PEER			0xED	// <uint32> Local LAN IP (easyMule)
+#define ED2K_CT_SUPPORT_VCNT		0xEE	// <uint32> Equal to magic 0x1489e90c if supports NAT traverse (easyMule)
+#define ED2K_CT_EMULECOMPAT_OPTIONS	0xEF	// <uint32> Clients (aMule and Hydranode) options:
+											//  1 Operative System Info (ED2K_ET_OS_INFO)
+											//	1 Value-based-type int tags (experimental!)
 #define	ED2K_CT_UDPPORTS			0xF9	// Ports used for UDP (hi word - KAD port, low word - UDP port)
 #define	ED2K_CT_FEATUREVERSIONS		0xFA	// <uint32> Features 1:
 											//  3 AICH Version (0 = not supported)
@@ -434,7 +470,8 @@ public:
 #define	ED2K_CT_BUDDYUDP			0xFD	// BUDDY Port, Was ED2K_CT_UNKNOWN2 (hi word not used, low word is UDP port)
 #define	ED2K_CT_UNKNOWN3			0xFF
 #define	ED2K_CT_MOREFEATUREVERSIONS	0xFE	// <uint32> Features 2:
-											// 19 Reserved
+											// 18 Reserved
+											//  1 Supports new FileIdentifiers/MultipacketExt2
 											//  1 Direct UDP Callback. Direct callback is only possible if connected to kad, tcp firewalled and verified UDP open (for example on a full cone NAT)
 											//  1 Supports Captcha
 											//  1 Supports SourceExachnge2 Packets, ignores SX1 Packet Version
@@ -442,7 +479,7 @@ public:
 											//  1 Requests CryptLayer
 											//  1 Supports CryptLayer
 											//  1 Reserved (ModBit)
-											//  1 Ext Multipacket (Hash+Size instead of Hash)
+											//  1 Ext Multipacket (Hash+Size instead of Hash) - deprecated with FileIdentifiers/MultipacketExt2
 											//  1 Large Files (includes support for 64bit tags)
 											//  4 Kad Version - can only go up to version 15
 
@@ -511,6 +548,7 @@ public:
 #define ED2K_ET_L2HAC				0x3E	// L2HAC
 #define ED2K_ET_MOD_FEATURESET		0x54	// [Bloodymad Featureset]
 #define ED2K_ET_MOD_VERSION			0x55	// Mod ver Generic String
+#define ED2K_ET_OS_INFO				0x94	// <string> OS Information (aMule and Hydranode)
 #define ED2K_ET_MOD_PLUS			0x99	// To avoid conflicts with ET_TAROD_VERSION recognized by lugdunum srvers
 
 // Max files (Hash + Size) in a getsources packet

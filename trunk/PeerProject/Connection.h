@@ -143,7 +143,7 @@ public:
 		return m_pOutput->AddBuffer( pBuffer );
 	}
 
-	inline void Write(const CPacket* pPacket) throw()
+	inline void Write(CPacket* pPacket) throw()
 	{
 		CQuickLock oOutputLock( *m_pOutputSection );
 		CBuffer pBuffer;

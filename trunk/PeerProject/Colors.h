@@ -199,6 +199,8 @@ public:
 	COLORREF	m_crFragmentSource4;
 	COLORREF	m_crFragmentSource5;
 	COLORREF	m_crFragmentSource6;
+	COLORREF	m_crFragmentSource7;
+	COLORREF	m_crFragmentSource8;
 	COLORREF	m_crFragmentPass;
 	COLORREF	m_crFragmentFail;
 	COLORREF	m_crFragmentRequest;

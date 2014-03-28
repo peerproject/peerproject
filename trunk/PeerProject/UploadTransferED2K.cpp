@@ -150,14 +150,10 @@ void CUploadTransferED2K::Close(UINT nError)
 		return;
 	}
 
-	if ( m_pBaseFile != NULL && m_pClient->IsOnline() )
+	if ( m_nState == upsUploading || m_nState == upsQueued )
 	{
-		if ( m_nState == upsUploading || m_nState == upsQueued )
+		if ( m_pBaseFile != NULL && m_pClient->IsOnline() )
 			Send( CEDPacket::New( ED2K_C2C_FINISHUPLOAD ) );
-
-		CEDPacket* pPacket = CEDPacket::New( ED2K_C2C_FILENOTFOUND );
-		pPacket->Write( m_oED2K );
-		Send( pPacket );
 	}
 
 	Cleanup();
@@ -513,6 +509,7 @@ BOOL CUploadTransferED2K::ServeRequests()
 		}
 		else
 		{
+			Send( CEDPacket::New( ED2K_C2C_FINISHUPLOAD ) );
 			Cleanup();
 			Close();
 			return FALSE;
@@ -547,7 +544,7 @@ BOOL CUploadTransferED2K::StartNextRequest()
 	{
 		if ( ! Settings.eDonkey.Enabled && Settings.Connection.RequireForTransfers )
 		{
-			Send( CEDPacket::New( ED2K_C2C_FILENOTFOUND ) );
+			Send( CEDPacket::New( ED2K_C2C_FINISHUPLOAD ) );
 			Cleanup();
 			Close();
 			return FALSE;
@@ -562,10 +559,9 @@ BOOL CUploadTransferED2K::StartNextRequest()
 	}
 	else
 	{
-		Send( CEDPacket::New( ED2K_C2C_FINISHUPLOAD ) );
-		Cleanup();
-		Close( IDS_UPLOAD_DROPPED );
-		return FALSE;
+		m_nState = upsRequest;
+		m_tRequest = GetTickCount();
+		return TRUE;
 	}
 }
 
@@ -583,6 +579,9 @@ BOOL CUploadTransferED2K::DispatchNextChunk()
 	ASSERT( m_nPosition < m_nLength );
 
 	QWORD nPacket = m_nLength - m_nPosition;
+
+	Statistics.Current.Uploads.Volume += ( nPacket / 1024 );
+
 	if ( nPacket > 1024000 ) nPacket = 1024000;		// 1000 KB
 
 	while ( nPacket )
@@ -592,115 +591,99 @@ BOOL CUploadTransferED2K::DispatchNextChunk()
 		const bool bI64Offset = ( nOffset & 0xffffffff00000000 ) ||
 								( ( nOffset + nChunk ) & 0xffffffff00000000 );
 
-#if 0
-// ToDo: Why is this here but unused?
-//		// Use packet form
-//		if ( bI64Offset )
-//		{
-//			CEDPacket* pPacket = CEDPacket::New( ED2K_C2C_SENDINGPART_I64, ED2K_PROTOCOL_EMULE );
-//			if ( ! pPacket )
-//				return FALSE;	// Out of memory
-//
-//			pPacket->Write( m_oED2K );
-//			pPacket->WriteLongLE( nOffset & 0x00000000ffffffff );
-//			pPacket->WriteLongLE( ( nOffset & 0xffffffff00000000 ) >> 32);
-//			pPacket->WriteLongLE( ( nOffset + nChunk ) & 0x00000000ffffffff );
-//			pPacket->WriteLongLE( ( ( nOffset + nChunk ) & 0xffffffff00000000 ) >> 32);
-//
-//			// SetFilePointer( hFile, m_nFileBase + nOffset, NULL, FILE_BEGIN );
-//			// ReadFile( hFile, pPacket->WriteGetPointer( nChunk ), nChunk, &nChunk, NULL );
-//
-//			if ( ! ReadFile( m_nFileBase + nOffset, pPacket->GetWritePointer( nChunk ), nChunk, &nChunk ) || nChunk == 0 )
-//			{
-//				pPacket->Release();
-//				return FALSE;
-//			}
-//
-//			pPacket->m_nLength = sizeof( MD4 ) + 16 + nChunk;
-//
-//			Send( pPacket );
-//		}
-//		else
-//		{
-//			CEDPacket* pPacket = CEDPacket::New( ED2K_C2C_SENDINGPART );
-//			pPacket->Write( m_oED2K );
-//			pPacket->WriteLongLE( nOffset );
-//			pPacket->WriteLongLE( nOffset + nChunk );
-//
-//			// SetFilePointer( hFile, m_nFileBase + nOffset, NULL, FILE_BEGIN );
-//			// ReadFile( hFile, pPacket->WriteGetPointer( nChunk ), nChunk, &nChunk, NULL );
-//
-//			if ( ! ReadFile( m_nFileBase + nOffset, pPacket->GetWritePointer( nChunk ), nChunk, &nChunk ) || nChunk == 0 )
-//			{
-//				pPacket->Release();
-//				return FALSE;
-//			}
-//
-//			pPacket->m_nLength = sizeof( MD4 ) + 8 + nChunk;
-//
-//			Send( pPacket );
-//		}
-#else
-		// Raw write
-		CBuffer pBuffer;
+#if 1
+		// Use packet form
+		CEDPacket* pPacket;
 		if ( bI64Offset )
 		{
-			if ( ! pBuffer.EnsureBuffer( sizeof( ED2K_PART_HEADER_I64 ) + nChunk ) )
+			pPacket = CEDPacket::New( ED2K_C2C_SENDINGPART_I64, ED2K_PROTOCOL_EMULE );
+			if ( ! pPacket )
 				return FALSE;	// Out of memory
 
-			ED2K_PART_HEADER_I64* pHeader = (ED2K_PART_HEADER_I64*)( pBuffer.m_pBuffer + pBuffer.m_nLength );
-
-			// SetFilePointer( hFile, m_nFileBase + nOffset, NULL, FILE_BEGIN );
-			// ReadFile( hFile, &pHeader[1], nChunk, &nChunk, NULL );
-
-			if ( ! ReadFile( m_nFileBase + nOffset, &pHeader[1], nChunk, &nChunk ) || nChunk == 0 )
-				return FALSE;	// File error
-
-			pHeader->nProtocol	= ED2K_PROTOCOL_EMULE;
-			pHeader->nType		= ED2K_C2C_SENDINGPART_I64;
-			pHeader->nLength	= (DWORD)( 1 + m_oED2K.byteCount + 16 + nChunk );
-			CopyMemory( &*pHeader->pMD4.begin(), &*m_oED2K.begin(), m_oED2K.byteCount );
-			pHeader->nOffset1	= nOffset;
-			pHeader->nOffset2	= nOffset + nChunk;
-
-			pBuffer.m_nLength += (DWORD)( sizeof( ED2K_PART_HEADER_I64 ) + nChunk );
+			pPacket->Write( m_oED2K );
+			pPacket->WriteLongLE( nOffset & 0x00000000ffffffff );
+			pPacket->WriteLongLE( ( nOffset & 0xffffffff00000000 ) >> 32 );
+			pPacket->WriteLongLE( ( nOffset + nChunk ) & 0x00000000ffffffff );
+			pPacket->WriteLongLE( ( ( nOffset + nChunk ) & 0xffffffff00000000 ) >> 32 );
 		}
 		else
 		{
-			if ( ! pBuffer.EnsureBuffer( sizeof( ED2K_PART_HEADER ) + nChunk ) )
+			pPacket = CEDPacket::New( ED2K_C2C_SENDINGPART );
+			if ( ! pPacket )
 				return FALSE;	// Out of memory
 
-			ED2K_PART_HEADER* pHeader = (ED2K_PART_HEADER*)( pBuffer.m_pBuffer + pBuffer.m_nLength );
-
-			// SetFilePointer( hFile, m_nFileBase + nOffset, NULL, FILE_BEGIN );
-			// ReadFile( hFile, &pHeader[1], nChunk, &nChunk, NULL );
-
-			if ( ! ReadFile( m_nFileBase + nOffset, &pHeader[1], nChunk, &nChunk ) || nChunk == 0 )
-				return FALSE;	// File error
-
-			pHeader->nProtocol	= ED2K_PROTOCOL_EDONKEY;
-			pHeader->nType		= ED2K_C2C_SENDINGPART;
-			pHeader->nLength	= (DWORD)( 1 + m_oED2K.byteCount + 8 + nChunk );
-			CopyMemory( &*pHeader->pMD4.begin(), &*m_oED2K.begin(), m_oED2K.byteCount );
-			pHeader->nOffset1	= (DWORD)nOffset;
-			pHeader->nOffset2	= (DWORD)( nOffset + nChunk );
-
-			pBuffer.m_nLength += (DWORD)( sizeof( ED2K_PART_HEADER ) + nChunk );
+			pPacket->Write( m_oED2K );
+			pPacket->WriteLongLE( nOffset );
+			pPacket->WriteLongLE( nOffset + nChunk );
 		}
 
-		m_pClient->Write( &pBuffer );
+		if ( ! ReadFile( m_nFileBase + nOffset, pPacket->WriteGetPointer( nChunk ), nChunk, &nChunk ) || nChunk == 0 )
+		{
+			// File error
+			pPacket->Release();
+			return FALSE;
+		}
 
+		Send( pPacket );
+
+#else	// Unused:
+//		// Raw write
+//		CBuffer pBuffer;
+//		if ( bI64Offset )
+//		{
+//			if ( ! pBuffer.EnsureBuffer( sizeof( ED2K_PART_HEADER_I64 ) + nChunk ) )
+//				return FALSE;	// Out of memory
+//
+//			ED2K_PART_HEADER_I64* pHeader = (ED2K_PART_HEADER_I64*)( pBuffer.m_pBuffer + pBuffer.m_nLength );
+//
+//			// SetFilePointer( hFile, m_nFileBase + nOffset, NULL, FILE_BEGIN );
+//			// ReadFile( hFile, &pHeader[1], nChunk, &nChunk, NULL );
+//
+//			if ( ! ReadFile( m_nFileBase + nOffset, &pHeader[1], nChunk, &nChunk ) || nChunk == 0 )
+//				return FALSE;	// File error
+//
+//			pHeader->nProtocol	= ED2K_PROTOCOL_EMULE;
+//			pHeader->nType		= ED2K_C2C_SENDINGPART_I64;
+//			pHeader->nLength	= (DWORD)( 1 + m_oED2K.byteCount + 16 + nChunk );
+//			CopyMemory( &*pHeader->pMD4.begin(), &*m_oED2K.begin(), m_oED2K.byteCount );
+//			pHeader->nOffset1	= nOffset;
+//			pHeader->nOffset2	= nOffset + nChunk;
+//
+//			pBuffer.m_nLength += (DWORD)( sizeof( ED2K_PART_HEADER_I64 ) + nChunk );
+//		}
+//		else
+//		{
+//			if ( ! pBuffer.EnsureBuffer( sizeof( ED2K_PART_HEADER ) + nChunk ) )
+//				return FALSE;	// Out of memory
+//
+//			ED2K_PART_HEADER* pHeader = (ED2K_PART_HEADER*)( pBuffer.m_pBuffer + pBuffer.m_nLength );
+//
+//			// SetFilePointer( hFile, m_nFileBase + nOffset, NULL, FILE_BEGIN );
+//			// ReadFile( hFile, &pHeader[1], nChunk, &nChunk, NULL );
+//
+//			if ( ! ReadFile( m_nFileBase + nOffset, &pHeader[1], nChunk, &nChunk ) || nChunk == 0 )
+//				return FALSE;	// File error
+//
+//			pHeader->nProtocol	= ED2K_PROTOCOL_EDONKEY;
+//			pHeader->nType		= ED2K_C2C_SENDINGPART;
+//			pHeader->nLength	= (DWORD)( 1 + m_oED2K.byteCount + 8 + nChunk );
+//			CopyMemory( &*pHeader->pMD4.begin(), &*m_oED2K.begin(), m_oED2K.byteCount );
+//			pHeader->nOffset1	= (DWORD)nOffset;
+//			pHeader->nOffset2	= (DWORD)( nOffset + nChunk );
+//
+//			pBuffer.m_nLength += (DWORD)( sizeof( ED2K_PART_HEADER ) + nChunk );
+//		}
+//
+//		m_pClient->Write( &pBuffer );
 #endif // 0
 
 		nPacket -= nChunk;
 
 		m_nPosition += nChunk;
 		m_nUploaded += nChunk;
-
-		Statistics.Current.Uploads.Volume += ( nChunk / 1024 );
 	}
 
-	m_pClient->Send( NULL );
+	//m_pClient->Send( NULL );
 
 	return TRUE;
 }

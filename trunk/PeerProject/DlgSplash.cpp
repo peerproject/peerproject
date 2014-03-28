@@ -1,7 +1,7 @@
 //
 // DlgSplash.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -145,7 +145,16 @@ void CSplashDlg::Step(LPCTSTR pszText)
 	DoPaint( &dc );
 
 	if ( IsWindowVisible() )
-		Sleep( 60 );	// Allow brief text and progress bar movement  (Waste a second for the appearance of speed)
+		Sleep( 50 );	// Allow brief text and progress bar movement  (Waste a second for the appearance of speed)
+}
+
+void CSplashDlg::Update(LPCTSTR pszText /*NULL*/)
+{
+	m_sState.Format( m_bClosing ? _T("%s...") : _T("Starting %s..."), pszText );
+	SetWindowText( m_sState );
+
+	CClientDC dc( this );
+	DoPaint( &dc );
 }
 
 void CSplashDlg::Topmost()

@@ -493,7 +493,7 @@ Fragments::List CFragmentedFile::GetFullFragmentList() const
 	for ( ; pItr != pEnd ; ++pItr )
 	{
 		if ( (*pItr).m_nPriority != prUnwanted )
-			oList.insert( Fragments::Fragment( (*pItr).m_nOffset, (*pItr).m_nOffset + (*pItr).m_nSize ) );
+			oList.insert( Fragments::Fragment( (*pItr).m_nOffset, (*pItr).m_nOffset + (*pItr).m_nSize ) );		// High CPU when active
 	}
 
 	return oList;
@@ -509,8 +509,10 @@ Fragments::List CFragmentedFile::GetWantedFragmentList() const
 	// Exclude unwanted files
 	Fragments::List oList( m_oFList );
 	for ( CVirtualFile::const_iterator i = m_oFile.begin() ; i != m_oFile.end() ; ++i )
+	{
 		if ( (*i).m_nPriority == prUnwanted )
 			oList.erase( Fragments::Fragment( (*i).m_nOffset, (*i).m_nOffset + (*i).m_nSize ) );
+	}
 
 	return oList;
 }
@@ -633,7 +635,7 @@ DWORD CFragmentedFile::Move(DWORD nIndex, LPCTSTR pszDestination, LPPROGRESS_ROU
 
 		strPath = m_oFile[ nIndex ].m_sPath;
 		strName = m_oFile[ nIndex ].m_sName;
-		bSkip = m_oFile[ nIndex ].m_nPriority == prUnwanted;
+		bSkip	= m_oFile[ nIndex ].m_nPriority == prUnwanted;
 
 		// Close our handle
 		m_oFile[ nIndex ].Release();
@@ -650,7 +652,7 @@ DWORD CFragmentedFile::Move(DWORD nIndex, LPCTSTR pszDestination, LPPROGRESS_ROU
 		return ERROR_SUCCESS;		// Already moved
 
 	if ( bSkip )
-		theApp.Message( MSG_DEBUG, _T("Skipping \"%s\"..."), strPath );
+		theApp.Message( MSG_DEBUG, _T("Skipping \"%s\"..."), (LPCTSTR)strPath );
 	else
 		theApp.Message( MSG_DEBUG, _T("Moving \"%s\" to \"%s\"..."), (LPCTSTR)strPath, (LPCTSTR)strTarget.Left( strTarget.ReverseFind( _T('\\') ) + 1 ) );
 
@@ -674,12 +676,11 @@ DWORD CFragmentedFile::Move(DWORD nIndex, LPCTSTR pszDestination, LPPROGRESS_ROU
 		dwError = ::GetLastError();
 	}
 
-	if ( ! bSuccess )
-		theApp.Message( MSG_DEBUG, _T("Moving \"%s\" failed with error: %s"), (LPCTSTR)strPath, (LPCTSTR)GetErrorString( dwError ) );
-
 	// Set subfile new attributes
 	if ( bSuccess )
 		SetPath( nIndex, strTarget );
+	else
+		theApp.Message( MSG_DEBUG, _T("Moving \"%s\" failed with error: %s"), (LPCTSTR)strPath, (LPCTSTR)GetErrorString( dwError ) );
 
 	// ReEnable uploads
 	if ( ! bSkip )

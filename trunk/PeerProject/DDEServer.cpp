@@ -1,7 +1,7 @@
 //
 // DDEServer.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -237,7 +237,7 @@ BOOL CDDEServer::Execute(LPCTSTR pszTopic, LPCTSTR pszMessage)
 	if ( _tcscmp( pszTopic, _T("URL") ) == 0 )
 		return theApp.OpenURL( pszMessage );
 	if ( _tcscmp( pszTopic, _T("PEERFORMAT") ) == 0 )
-		return theApp.Open( pszMessage );
+		return theApp.DisplayFile( pszMessage ) || theApp.Open( pszMessage );
 
 	return FALSE;
 }

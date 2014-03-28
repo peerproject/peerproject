@@ -491,9 +491,13 @@ bool CSecurity::Complain(const IN_ADDR* pAddress, int nBanLength, int nExpire, i
 
 BOOL CSecurity::IsDenied(const IN_ADDR* pAddress)
 {
-	if ( m_Cache.count( *(DWORD*)pAddress ) )
-		return m_bDenyPolicy;
-		//theApp.Message( MSG_DEBUG, _T("Skipped Repeat IP Security Check  (%i Cached)"), m_Cache.size() );
+	{
+		CQuickLock oLock( m_pSection );
+
+		if ( m_Cache.count( *(DWORD*)pAddress ) )		// Rare crash if unlocked
+			return m_bDenyPolicy;
+			//theApp.Message( MSG_DEBUG, _T("Skipped Repeat IP Security Check  (%i Cached)"), m_Cache.size() );
+	}
 
 	if ( BYTE nIndex = GetAddressMap( *(DWORD*)pAddress ) )
 	{
@@ -1755,7 +1759,7 @@ void CListLoader::OnRun()
 			strPath = Settings.General.DataPath + strPath;
 
 		CFile pFile;
-		if ( ! pFile.Open( (LPCTSTR)strPath.GetBuffer(), CFile::modeRead ) )
+		if ( ! pFile.Open( (LPCTSTR)strPath, CFile::modeRead ) )		// .GetBuffer() ?
 		{
 			m_pQueue.RemoveHead();
 			continue;

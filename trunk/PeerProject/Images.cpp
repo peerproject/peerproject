@@ -1204,7 +1204,7 @@ BOOL CImages::PreBlend(HBITMAP hButton)
 	return TRUE;
 }
 
-BOOL CImages::DrawImage(CDC* pDC, CRect* prc, CBitmap* bmImage, BOOL bRepeat /*=TRUE*/)
+BOOL CImages::DrawImage(CDC* pDC, const CRect* prc, CBitmap* bmImage, BOOL bRepeat /*=TRUE*/)
 {
 	if ( ! bmImage->m_hObject || pDC == NULL || prc == NULL )
 		return FALSE;
@@ -1246,23 +1246,10 @@ BOOL CImages::DrawImage(CDC* pDC, CRect* prc, CBitmap* bmImage, BOOL bRepeat /*=
 	return TRUE;
 }
 
-BOOL CImages::DrawIconButton(CDC* pDC, CRect rc, CBitmap* bmButton)
+BOOL CImages::DrawIconButton(CDC* pDC, const CRect* rc, CBitmap* bmButton)
 {
 	if ( ! bmButton->m_hObject || pDC == NULL || rc == NULL )
 		return FALSE;
-
-	CSize szButton( bmButton->GetBitmapDimension() );
-	if ( szButton.cx > 16 && szButton.cy > 16 && szButton.cx < rc.Width() + 2 && szButton.cy < rc.Height() + 2 )
-	{
-		if ( ! m_bmDialog.m_hObject )
-			pDC->FillSolidRect( &rc, pDC->GetBkColor() );
-
-		// Set button rect to centered image size
-		rc.top += ( rc.Height() - szButton.cy ) / 2;
-		rc.left += ( rc.Width() - szButton.cx ) / 2;
-		rc.right = rc.left + szButton.cx;
-		rc.bottom = rc.top + szButton.cy;
-	}
 
 	CDC dcMark;
 	dcMark.CreateCompatibleDC( pDC );
@@ -1272,14 +1259,34 @@ BOOL CImages::DrawIconButton(CDC* pDC, CRect rc, CBitmap* bmButton)
 	CBitmap* pOld;
 	pOld = (CBitmap*)dcMark.SelectObject( bmButton );
 
-	for ( int nY = rc.top ; nY < rc.bottom ; nY += szButton.cy )
+	CSize szButton( bmButton->GetBitmapDimension() );
+	if ( szButton.cx > 16 && szButton.cy > 16 && szButton.cx < rc->Width() + 2 && szButton.cy < rc->Height() + 2 )
 	{
-		for ( int nX = rc.left ; nX < rc.right ; nX += szButton.cx )
+		if ( ! m_bmDialog.m_hObject )
+			pDC->FillSolidRect( rc, pDC->GetBkColor() );
+
+		// Set button rect to centered image size
+		CRect rcIcon( rc );
+		rcIcon.top += ( rcIcon.Height() - szButton.cy ) / 2;
+		rcIcon.left += ( rcIcon.Width() - szButton.cx ) / 2;
+		rcIcon.right = rcIcon.left + szButton.cx;
+		rcIcon.bottom = rcIcon.top + szButton.cy;
+
+		pDC->BitBlt( rcIcon.left, rcIcon.top,
+			szButton.cx, szButton.cy,
+			&dcMark, 0, 0, SRCCOPY );
+	}
+	else
+	{
+		for ( int nY = rc->top ; nY < rc->bottom ; nY += szButton.cy )
 		{
-			pDC->BitBlt( nX, nY,
-				min( szButton.cx, rc.right - nX ),
-				min( szButton.cy, rc.bottom - nY ),
-				&dcMark, 0, 0, SRCCOPY );
+			for ( int nX = rc->left ; nX < rc->right ; nX += szButton.cx )
+			{
+				pDC->BitBlt( nX, nY,
+					min( szButton.cx, rc->right - nX ),
+					min( szButton.cy, rc->bottom - nY ),
+					&dcMark, 0, 0, SRCCOPY );
+			}
 		}
 	}
 
@@ -1289,18 +1296,18 @@ BOOL CImages::DrawIconButton(CDC* pDC, CRect rc, CBitmap* bmButton)
 	return TRUE;
 }
 
-BOOL CImages::DrawButton(CDC* pDC, const CRect rc, CBitmap* bmButton, CBitmap* bmButtonEdge, BOOL bRTL)
+BOOL CImages::DrawButton(CDC* pDC, const CRect* rc, CBitmap* bmButton, CBitmap* bmButtonEdge, BOOL bRTL)
 {
 	if ( ! bmButton->m_hObject || pDC == NULL || rc == NULL )
 		return FALSE;
 
-	CDC dcMark;
-	dcMark.CreateCompatibleDC( pDC );
+	static CDC dcMark;
+	if ( ! dcMark.m_hDC )
+		dcMark.CreateCompatibleDC( pDC );
 	if ( Settings.General.LanguageRTL )
 		SetLayout( dcMark.m_hDC, bRTL ? LAYOUT_RTL : LAYOUT_BITMAPORIENTATIONPRESERVED );
 
-	CBitmap* pOld;
-	pOld = (CBitmap*)dcMark.SelectObject( bmButton );
+	CBitmap* pOld = (CBitmap*)dcMark.SelectObject( bmButton );
 
 	BLENDFUNCTION bf;				// Set now if needed
 	bf.BlendFlags = 0;				// Must be zero
@@ -1310,17 +1317,17 @@ BOOL CImages::DrawButton(CDC* pDC, const CRect rc, CBitmap* bmButton, CBitmap* b
 
 	const int nEdge = ( bmButtonEdge && bmButtonEdge->m_hObject ) ? bmButtonEdge->GetBitmapDimension().cx : 0;
 
-	if ( rc.Width() > nEdge )
+	if ( rc->Width() > nEdge )
 	{
 		BITMAP pInfo;
 		bmButton->GetBitmap( &pInfo );
 
-		for ( int nY = rc.top ; nY < rc.bottom ; nY += pInfo.bmHeight )
+		for ( int nY = rc->top ; nY < rc->bottom ; nY += pInfo.bmHeight )
 		{
-			for ( int nX = rc.left ; nX < rc.right - nEdge ; nX += pInfo.bmWidth )
+			for ( int nX = rc->left ; nX < rc->right - nEdge ; nX += pInfo.bmWidth )
 			{
-				const int nWidth  = min( pInfo.bmWidth, rc.right - nX - nEdge );
-				const int nHeight = min( pInfo.bmHeight, rc.bottom - nY ); 	// No repeat (+ 1 to allow 1px overdraw?)
+				const int nWidth  = min( pInfo.bmWidth, rc->right - nX - nEdge );
+				const int nHeight = min( pInfo.bmHeight, rc->bottom - nY ); 	// No repeat (+ 1 to allow 1px overdraw?)
 
 				if ( pInfo.bmBitsPixel == 32 )		// (Pre-multiplied for AlphaBlend Transparency)
 					pDC->AlphaBlend( nX, nY, nWidth, nHeight, &dcMark, 0, 0, nWidth, nHeight, bf );
@@ -1336,21 +1343,21 @@ BOOL CImages::DrawButton(CDC* pDC, const CRect rc, CBitmap* bmButton, CBitmap* b
 		bmButtonEdge->GetBitmap( &pInfo );
 		dcMark.SelectObject( bmButtonEdge );
 
-		const int nHeight = min( pInfo.bmHeight, rc.Height() ); 	// No repeat (+ 1 to allow 1px overdraw?)
+		const int nHeight = min( pInfo.bmHeight, rc->Height() ); 	// No repeat (+ 1 to allow 1px overdraw?)
 
 		if ( pInfo.bmBitsPixel == 32 )
-			pDC->AlphaBlend( rc.right - nEdge, rc.top, nEdge, nHeight, &dcMark, 0, 0, nEdge, nHeight, bf );
+			pDC->AlphaBlend( rc->right - nEdge, rc->top, nEdge, nHeight, &dcMark, 0, 0, nEdge, nHeight, bf );
 		else
-			pDC->BitBlt( rc.right - nEdge, rc.top, nEdge, nHeight, &dcMark, 0, 0, SRCCOPY );
+			pDC->BitBlt( rc->right - nEdge, rc->top, nEdge, nHeight, &dcMark, 0, 0, SRCCOPY );
 	}
 
 	dcMark.SelectObject( pOld );
-	dcMark.DeleteDC();
+//	dcMark.DeleteDC();
 
 	return TRUE;
 }
 
-BOOL CImages::DrawButtonMap(CDC* pDC, const CRect rc, CBitmap* bmButtonMap, const int nState, BOOL bRTL)
+BOOL CImages::DrawButtonMap(CDC* pDC, const CRect* rc, CBitmap* bmButtonMap, const int nState, BOOL bRTL)
 {
 	if ( ! bmButtonMap->m_hObject || pDC == NULL || rc == NULL )
 		return FALSE;
@@ -1398,14 +1405,14 @@ BOOL CImages::DrawButtonMap(CDC* pDC, const CRect rc, CBitmap* bmButtonMap, cons
 	bf.SourceConstantAlpha = 0xFF;	// Opaque (Bitmap alpha only)
 	bf.AlphaFormat = AC_SRC_ALPHA;	// Use bitmap alpha
 
-	if ( rc.Width() > nEdge )
+	if ( rc->Width() > nEdge )
 	{
-		for ( int nY = rc.top ; nY < rc.bottom ; nY += nSourceHeight )
+		for ( int nY = rc->top ; nY < rc->bottom ; nY += nSourceHeight )
 		{
-			for ( int nX = rc.left ; nX < rc.right - nEdge ; nX += nSourceWidth )
+			for ( int nX = rc->left ; nX < rc->right - nEdge ; nX += nSourceWidth )
 			{
-				const int nWidth  = min( nSourceWidth, rc.right - nX - nEdge );
-				const int nHeight = min( nSourceHeight, rc.bottom - nY ); 	// No repeat (+ 1 to allow 1px overdraw?)
+				const int nWidth  = min( nSourceWidth, rc->right - nX - nEdge );
+				const int nHeight = min( nSourceHeight, rc->bottom - nY ); 	// No repeat (+ 1 to allow 1px overdraw?)
 
 				if ( pInfo.bmBitsPixel == 32 )		// (Pre-multiplied for AlphaBlend Transparency)
 					pDC->AlphaBlend( nX, nY, nWidth, nHeight, &dcMark, 0, nPosition, nWidth, nHeight, bf );
@@ -1417,12 +1424,12 @@ BOOL CImages::DrawButtonMap(CDC* pDC, const CRect rc, CBitmap* bmButtonMap, cons
 
 	if ( nEdge > 0 )
 	{
-		const int nHeight = min( nSourceHeight, rc.Height() ); 	// No repeat (+ 1 to allow 1px overdraw?)
+		const int nHeight = min( nSourceHeight, rc->Height() ); 	// No repeat (+ 1 to allow 1px overdraw?)
 
 		if ( pInfo.bmBitsPixel == 32 )
-			pDC->AlphaBlend( rc.right - nEdge, rc.top, nEdge, nHeight, &dcMark, nSourceWidth, nPosition, nEdge, nHeight, bf );
+			pDC->AlphaBlend( rc->right - nEdge, rc->top, nEdge, nHeight, &dcMark, nSourceWidth, nPosition, nEdge, nHeight, bf );
 		else
-			pDC->BitBlt( rc.right - nEdge, rc.top, nEdge, nHeight, &dcMark, nSourceWidth, nPosition, SRCCOPY );
+			pDC->BitBlt( rc->right - nEdge, rc->top, nEdge, nHeight, &dcMark, nSourceWidth, nPosition, SRCCOPY );
 	}
 
 	dcMark.SelectObject( pOld );
@@ -1431,7 +1438,7 @@ BOOL CImages::DrawButtonMap(CDC* pDC, const CRect rc, CBitmap* bmButtonMap, cons
 	return TRUE;
 }
 
-BOOL CImages::DrawButtonState(CDC* pDC, const CRect rc, const int nResource)
+BOOL CImages::DrawButtonState(CDC* pDC, const CRect* rc, const int nResource)
 {
 	if ( pDC == NULL || rc == NULL )
 		return FALSE;

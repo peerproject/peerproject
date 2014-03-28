@@ -343,7 +343,7 @@ BOOL CTorrentFilesPage::OnApply()
 void CTorrentFilesPage::UpdateCount()
 {
 	CSingleLock oLock( &Transfers.m_pSection );
-	if ( ! oLock.Lock( 200 ) ) return;
+	if ( ! oLock.Lock( 250 ) ) return;
 
 	CDownload* pDownload = ((CDownloadSheet*)GetParent())->GetDownload();
 	auto_ptr< CFragmentedFile > pFragFile( pDownload->GetFile() );
@@ -355,8 +355,7 @@ void CTorrentFilesPage::UpdateCount()
 	{
 		DWORD nActiveCount = 0;
 		QWORD nActiveSize  = 0;
-		int nItem = -1;
-		while ( ( nItem = m_wndFiles.GetNextItem( nItem, 0 ) ) > -1 )
+		for ( int nItem = 0 ; nItem > -1 ; nItem = m_wndFiles.GetNextItem( nItem, 0 ) )
 		{
 			if ( ! m_wndFiles.GetCheck( nItem ) )
 				continue;

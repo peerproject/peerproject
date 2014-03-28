@@ -31,38 +31,39 @@ public:
 	virtual ~CUploadsWnd();
 
 public:
-	virtual void	OnSkinChange();
+	CUploadsCtrl m_wndUploads;
+	CCoolBarCtrl m_wndToolBar;
 protected:
-	inline BOOL		IsSelected(CUploadFile* pFile);
-	void			Prepare();
+	DWORD		 m_tLastUpdate;
+	DWORD		 m_tSel;
+	BOOL		 m_bSelFile;
+	BOOL		 m_bSelUpload;
+	BOOL		 m_bSelActive;
+	BOOL		 m_bSelQueued;
+	BOOL		 m_bSelChat;
+	BOOL		 m_bSelBrowse;
+	BOOL		 m_bSelPartial;
+	BOOL		 m_bSelSourceAcceptConnections;
+	DWORD		 m_nSelected;
+
+protected:
+	void		 Prepare();
+	inline BOOL	 IsSelected(const CUploadFile* pFile) const;
 
 public:
-	CUploadsCtrl	m_wndUploads;
-	CCoolBarCtrl	m_wndToolBar;
-protected:
-	DWORD			m_tLastUpdate;
-	DWORD			m_tSel;
-	BOOL			m_bSelFile;
-	BOOL			m_bSelUpload;
-	BOOL			m_bSelActive;
-	BOOL			m_bSelQueued;
-	BOOL			m_bSelChat;
-	BOOL			m_bSelBrowse;
-	BOOL			m_bSelPartial;
-	BOOL			m_bSelSourceAcceptConnections;
-	DWORD			m_nSelected;
-
-public:
-	virtual BOOL OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO* pHandlerInfo);
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
+	virtual BOOL OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO* pHandlerInfo);
+	virtual void OnSkinChange();
 
 protected:
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
-	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
 	afx_msg void OnMDIActivate(BOOL bActivate, CWnd* pActivateWnd, CWnd* pDeactivateWnd);
+	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
+	afx_msg void OnUploadsHelp();
+	afx_msg void OnUploadsSettings();
 	afx_msg void OnUpdateUploadsDisconnect(CCmdUI* pCmdUI);
 	afx_msg void OnUploadsDisconnect();
 	afx_msg void OnUpdateUploadsLaunch(CCmdUI* pCmdUI);
@@ -84,8 +85,6 @@ protected:
 	afx_msg void OnUploadsStart();
 	afx_msg void OnUpdateUploadsPriority(CCmdUI* pCmdUI);
 	afx_msg void OnUploadsPriority();
-	afx_msg void OnUploadsHelp();
-	afx_msg void OnUploadsSettings();
 	afx_msg void OnUpdateUploadsFilterAll(CCmdUI* pCmdUI);
 	afx_msg void OnUploadsFilterAll();
 	afx_msg void OnUpdateUploadsFilterActive(CCmdUI* pCmdUI);

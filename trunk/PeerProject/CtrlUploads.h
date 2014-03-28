@@ -20,14 +20,6 @@
 
 #include "CtrlUploadTip.h"
 
-#define ULF_ACTIVE		0x01
-#define ULF_QUEUED		0x02
-#define ULF_HISTORY		0x04
-#define ULF_TORRENT		0x08
-
-#define ULF_ALL			(ULF_ACTIVE|ULF_QUEUED|ULF_HISTORY|ULF_TORRENT)
-
-
 class CUploadFile;
 class CUploadQueue;
 
@@ -63,6 +55,7 @@ protected:
 	CUploadFile*		m_pDeselect;
 	CImageList			m_gdiProtocols;
 	int					m_nFocus;
+	int 				m_nHover;			// Visible index
 
 // Queue/File Abstractation Layer
 public:
@@ -94,3 +87,11 @@ public:
 protected:
 	DECLARE_MESSAGE_MAP()
 };
+
+
+#define ULF_ACTIVE		0x01
+#define ULF_QUEUED		0x02
+#define ULF_HISTORY		0x04
+#define ULF_TORRENT		0x08
+
+#define ULF_ALL			(ULF_ACTIVE|ULF_QUEUED|ULF_HISTORY|ULF_TORRENT)

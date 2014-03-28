@@ -210,7 +210,7 @@ void CWizardSheet::OnPaint()
 	GetClientRect( &rc );
 	//rc.bottom = Images.m_nBanner;
 
-	// ToDo: Use Images.DrawButtonState( &dc, rc, IMAGE_BANNER );
+	// ToDo: Use Images.DrawButtonState( &dc, &rc, IMAGE_BANNER );
 
 	CDC mdc;
 	mdc.CreateCompatibleDC( &dc );
