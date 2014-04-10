@@ -1,7 +1,7 @@
 //
 // CtrlLibraryDetailView.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -1003,16 +1003,13 @@ void CLibraryDetailView::OnContextMenu(CWnd* pWnd, CPoint point)
 	CMenu* pMenu = CSchemaColumnsDlg::BuildColumnMenu( m_pSchema, &m_pColumns );
 
 	pMenu->AppendMenu( MF_SEPARATOR, ID_SEPARATOR, (LPCTSTR)NULL );
-	CString strSchemas;
-	LoadString( strSchemas, IDS_SCHEMAS );
-	pMenu->AppendMenu( MF_STRING, ID_LIBRARY_COLUMNS, strSchemas + _T("...") );
+	pMenu->AppendMenu( MF_STRING, ID_LIBRARY_COLUMNS, LoadString( IDS_SCHEMAS ) + _T("...") );
 
 	m_pCoolMenu = new CCoolMenu();
 	m_pCoolMenu->AddMenu( pMenu, TRUE );
 	m_pCoolMenu->SetWatermark( Skin.GetWatermark( _T("CCoolMenu") ) );
 
-	UINT nCmd = pMenu->TrackPopupMenu( TPM_LEFTALIGN|TPM_LEFTBUTTON|TPM_RIGHTBUTTON|
-		TPM_RETURNCMD, point.x, point.y, this );
+	UINT nCmd = pMenu->TrackPopupMenu( TPM_LEFTALIGN|TPM_LEFTBUTTON|TPM_RIGHTBUTTON|TPM_RETURNCMD, point.x, point.y, this );
 
 	delete pMenu;
 	delete m_pCoolMenu;

@@ -1,7 +1,7 @@
 //
 // CtrlSearchPanel.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -480,7 +480,6 @@ int CSearchInputBox::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	if ( CTaskBox::OnCreate( lpCreateStruct ) == -1 ) return -1;
 
 	CRect rc( 0, 0, 0, 0 );
-	CString strCaption;
 
 	if ( ! m_wndSearch.Create( ES_AUTOHSCROLL | WS_TABSTOP | WS_GROUP, rc,
 		this, IDC_SEARCH, _T("Search"), _T("Search.%.2i") ) ) return -1;
@@ -491,7 +490,7 @@ int CSearchInputBox::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	if ( ! m_wndSchemas.Create( WS_TABSTOP, rc, this, IDC_SCHEMAS ) ) return -1;
 
-	m_wndSchemas.SetDroppedWidth( 200 );
+	//m_wndSchemas.SetDroppedWidth( 200 );	// RecalcDropWidth()
 	LoadString( m_wndSchemas.m_sNoSchemaText, IDS_SEARCH_PANEL_AFT );
 	m_wndSchemas.Load( Settings.Search.LastSchemaURI );
 

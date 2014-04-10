@@ -19,6 +19,7 @@
 #pragma once
 
 #include "DownloadTransfer.h"
+#include "zlib.h"
 
 class CEDClient;
 class CEDPacket;
@@ -35,7 +36,7 @@ public:
 	bool			m_bHashset;
 	bool			m_bUDP;
 protected:
-	LPVOID			m_pInflatePtr;
+	z_streamp		m_pInflatePtr;
 	CBuffer*		m_pInflateBuffer;
 	QWORD			m_nInflateOffset;
 	QWORD			m_nInflateLength;

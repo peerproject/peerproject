@@ -134,7 +134,7 @@ void CDownload::MergeFile(LPCTSTR szPath, BOOL bValidation, const Fragments::Lis
 
 void CDownload::Pause(BOOL bRealPause)
 {
-	if ( m_bPaused || m_bComplete && ! IsSeeding() )
+	if ( m_bPaused || ( m_bComplete && ! IsSeeding() ) || ( ! bRealPause && IsSeeding() ) )
 		return;
 
 	theApp.Message( MSG_NOTICE, IDS_DOWNLOAD_PAUSED, GetDisplayName() );

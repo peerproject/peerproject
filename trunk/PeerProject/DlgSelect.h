@@ -1,7 +1,7 @@
 //
 // DlgSelect.h
 //
-// This file is part of PeerProject (peerproject.org) © 2009-2010
+// This file is part of PeerProject (peerproject.org) © 2009-2014
 // Portions copyright Shareaza Development Team, 2009.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -69,5 +69,7 @@ protected:
 	virtual void OnCancel();
 	virtual void DoDataExchange(CDataExchange* pDX);
 
-	//DECLARE_MESSAGE_MAP()
+	afx_msg void OnCbnDropdownList();
+
+	DECLARE_MESSAGE_MAP()
 };

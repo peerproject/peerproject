@@ -1,7 +1,7 @@
 //
 // Scheduler.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007, 2010.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -170,7 +170,6 @@ CScheduleTask::CScheduleTask(BOOL bCreate)
 	, m_bExecuted		( false )
 	, m_bSpecificDays	( false )
 	, m_tScheduleDateTime ( 0 )
-	, m_sDescription	( "" )
 {
 	if ( bCreate )
 		CoCreateGuid( &m_pGUID );
@@ -711,7 +710,7 @@ void CScheduler::HangUpConnection()
 		while ( RasGetConnectStatus( lpRasConn[i].hrasconn, RasConStatus ) || loop > 10 )
 		{
 			// Loop until the connection handle is invalid, or 3 seconds have passed total
-			Sleep(300);
+			Sleep( 300 );
 			loop++;
 		}
 	}
@@ -755,9 +754,9 @@ bool CScheduler::SetShutdownRights()
 		return( FALSE );
 
 	// Get the LUID for the shutdown privilege.
-	LookupPrivilegeValue(NULL, SE_SHUTDOWN_NAME, &tkp.Privileges[0].Luid);
+	LookupPrivilegeValue( NULL, SE_SHUTDOWN_NAME, &tkp.Privileges[0].Luid );
 
-	tkp.PrivilegeCount = 1;  // One privilege to set
+	tkp.PrivilegeCount = 1;		// One privilege to set
 	tkp.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
 
 	// Get the shutdown privilege for this process.
@@ -831,6 +830,7 @@ LONGLONG CScheduler::GetHoursTo(unsigned int nTaskCombination)
 	CTime tNow = CTime::GetCurrentTime();
 
 	CQuickLock oLock( m_pSection );
+
 	while ( pos )
 	{
 		CScheduleTask *pSchTask = GetNext( pos );
@@ -871,7 +871,7 @@ CXMLElement* CScheduler::ToXML(BOOL bTasks)
 	CXMLElement* pXML = new CXMLElement( NULL, _T("scheduler") );
 	pXML->AddAttribute( _T("xmlns"), CScheduler::xmlns );
 
-	if ( bTasks)
+	if ( bTasks )
 	{
 		for ( POSITION pos = GetIterator() ; pos ; )
 		{

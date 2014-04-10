@@ -367,16 +367,23 @@ BOOL CPeerProjectApp::InitInstance()
 
 	if ( ! m_cmdInfo.m_bNoAlphaWarning && m_cmdInfo.m_bShowSplash )
 	{
+		CString strVersion = L".";
+#ifdef __REVISION__
+		strVersion = L", r" _T(__REVISION__) L".";
+#elif defined(_DEBUG)
+		COleDateTime tCompileTime;
+		tCompileTime.ParseDateTime( _T(__DATE__), LOCALE_NOUSEROVERRIDE, 1033 );
+		strVersion = tCompileTime.Format( _T(", %Y.%m.%d.") );
+#endif
+
 		if ( MsgBox(
 #ifdef _DEBUG
 			L"\nWARNING: This is a DEBUG TEST version of PeerProject p2p"
 #else
 			L"\nWARNING: This is a PRIVATE TEST version of PeerProject p2p"
 #endif
-#ifdef __REVISION__
-			L", r" _T(__REVISION__)
-#endif
-			L".\n\nNOT FOR GENERAL USE, it is intended for pre-release testing in controlled environments.  "
+			+ strVersion +
+			L"\n\nNOT FOR GENERAL USE, it is intended for pre-release testing in controlled environments.  "
 			L"It may stop running or display debug info.\n\n"
 			L"If you wish to simply use this software, then download the current\n"
 			L"stable release from PeerProject.org.  If you continue past this point,\n"
@@ -2256,29 +2263,32 @@ CString TimeToString(FILETIME* pTime)
 // Automatic dropdown list width adjustment (to fit translations)
 // Use in ON_CBN_DROPDOWN events
 
-void RecalcDropWidth(CComboBox* pWnd)
+void RecalcDropWidth(CComboBox* pWnd, int nMargin /*0*/)
 {
-	// Reset the dropped width
-	int nNumEntries = pWnd->GetCount();
 	int nWidth = 0;
+
+	CDC* pDC = pWnd->GetDC();
+	CFont* pOldFont = pDC->SelectObject( pWnd->GetFont() );
+
+	TEXTMETRIC tm;
+	pDC->GetTextMetrics( &tm );
+
 	CString str;
-
-	CClientDC dc( pWnd );
-	int nSave = dc.SaveDC();
-	dc.SelectObject( pWnd->GetFont() );
-
-	int nScrollWidth = GetSystemMetrics( SM_CXVSCROLL );
-	for ( int nEntry = 0 ; nEntry < nNumEntries ; nEntry++ )
+	const int nNumEntries = pWnd->GetCount();
+	for ( int nEntry = 0 ; nEntry < nNumEntries ; ++nEntry )
 	{
 		pWnd->GetLBText( nEntry, str );
-		int nLength = dc.GetTextExtent( str ).cx + nScrollWidth;
-		nWidth = max( nWidth, nLength );
+		int nLength = pDC->GetTextExtent( str ).cx;
+		if ( nLength > nWidth )
+			nWidth = nLength;
 	}
 
-	// Add margin space to the calculations
-	nWidth += dc.GetTextExtent( _T("0") ).cx;
+	pDC->SelectObject( pOldFont );
+	pWnd->ReleaseDC( pDC );
 
-	dc.RestoreDC( nSave );
+	// Add margin space to the calculations
+	nWidth += tm.tmAveCharWidth + ::GetSystemMetrics( SM_CXVSCROLL ) + ::GetSystemMetrics( SM_CXEDGE ) * 2 + nMargin;
+
 	pWnd->SetDroppedWidth( nWidth );
 }
 
@@ -2288,7 +2298,7 @@ BOOL LoadIcon(LPCTSTR szFilename, HICON* phSmallIcon, HICON* phLargeIcon, HICON*
 
 	if ( phSmallIcon ) *phSmallIcon = NULL;
 	if ( phLargeIcon ) *phLargeIcon = NULL;
-	if ( phHugeIcon )  *phHugeIcon = NULL;
+	if ( phHugeIcon )  *phHugeIcon  = NULL;
 
 	int nIndex = strIcon.ReverseFind( _T(',') );
 	if ( nIndex != -1 )

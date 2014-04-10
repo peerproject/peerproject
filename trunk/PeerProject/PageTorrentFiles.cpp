@@ -353,9 +353,10 @@ void CTorrentFilesPage::UpdateCount()
 
 	if ( pFragFile->GetCount() > 1 )
 	{
+		DWORD nTotalCount = m_wndFiles.GetItemCount();
 		DWORD nActiveCount = 0;
 		QWORD nActiveSize  = 0;
-		for ( int nItem = 0 ; nItem > -1 ; nItem = m_wndFiles.GetNextItem( nItem, 0 ) )
+		for ( int nItem = 0 ; nItem < nTotalCount ; nItem++ )
 		{
 			if ( ! m_wndFiles.GetCheck( nItem ) )
 				continue;

@@ -1,7 +1,7 @@
 //
 // WndSettingsPage.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -35,7 +35,7 @@ public:
 	CString			m_sCaption;		// Dialog caption
 	BOOL			m_bGroup;
 
-	BOOL			Create(CRect& rcPage, CWnd* pSheetWnd);
+	BOOL			Create(const CRect& rcPage, CWnd* pSheetWnd);
 	BOOL			LoadDefaultCaption();
 	CSettingsPage*	GetPage(CRuntimeClass* pClass) const;
 

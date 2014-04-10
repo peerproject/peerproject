@@ -491,7 +491,7 @@ void CLibraryFileView::OnLibraryDelete()
 
 void CLibraryFileView::OnUpdateLibraryCreateTorrent(CCmdUI* pCmdUI)
 {
-	pCmdUI->Enable( ! m_bGhostFolder && GetSelectedCount() < 2 && Settings.BitTorrent.TorrentCreatorPath.GetLength() > 6 );
+	pCmdUI->Enable( ! m_bGhostFolder && Settings.BitTorrent.TorrentCreatorPath.GetLength() > 6 && GetSelectedCount() < 2 );
 }
 
 void CLibraryFileView::OnLibraryCreateTorrent()
@@ -507,8 +507,11 @@ void CLibraryFileView::OnLibraryCreateTorrent()
 
 			if ( ! strPath.IsEmpty() )
 			{
-				CString strCommandLine = _T(" -sourcefile \"") + strPath + _T("\" -destination \"") +
-					Settings.Downloads.TorrentPath + _T("\" -tracker \"") + Settings.BitTorrent.DefaultTracker + _T("\"");
+				CString strCommandLine =
+					_T(" -sourcefile \"") + strPath +
+					_T("\" -destination \"") + Settings.Downloads.TorrentPath +
+					_T("\" -tracker \"") + Settings.BitTorrent.DefaultTracker +
+					_T("\"");
 
 				ShellExecute( GetSafeHwnd(), _T("open"), Settings.BitTorrent.TorrentCreatorPath, strCommandLine, NULL, SW_SHOWNORMAL );
 

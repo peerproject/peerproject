@@ -50,7 +50,7 @@ protected:
 	DWORD				m_tLastKeepAlive;
 	DWORD				m_tLastUtPex;
 	DWORD				m_nUtMetadataID;
-	DWORD				m_nUtMetadataSize;
+	QWORD				m_nUtMetadataSize;
 	QWORD				m_nUtPexID;
 	QWORD				m_nLtTexID;
 	CString				m_sLtTexTrackers;

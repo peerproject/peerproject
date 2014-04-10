@@ -1,7 +1,7 @@
 //
 // CtrlLibraryView.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -153,7 +153,7 @@ void CLibraryView::CacheSelection()
 {
 }
 
-CLibraryListItem CLibraryView::DropHitTest( const CPoint& /*point*/ )
+CLibraryListItem CLibraryView::DropHitTest(const CPoint& /*point*/) const
 {
 	return CLibraryListItem();
 }

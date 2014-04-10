@@ -95,6 +95,8 @@ BEGIN_MESSAGE_MAP(CLibraryTreeView, CWnd)
 	ON_COMMAND(ID_LIBRARY_REBUILD, OnLibraryRebuild)
 	ON_UPDATE_COMMAND_UI(ID_LIBRARY_EXPORT_COLLECTION, OnUpdateLibraryExportCollection)
 	ON_COMMAND(ID_LIBRARY_EXPORT_COLLECTION, OnLibraryExportCollection)
+	ON_UPDATE_COMMAND_UI(ID_LIBRARY_CREATETORRENT, OnUpdateLibraryCreateTorrent)
+	ON_COMMAND(ID_LIBRARY_CREATETORRENT, OnLibraryCreateTorrent)
 END_MESSAGE_MAP()
 
 //#define ITEM_HEIGHT 17	// Settings.Skin.RowSize
@@ -2059,6 +2061,44 @@ void CLibraryTreeView::OnLibraryExportCollection()
 
 	CCollectionExportDlg dlg( m_pSelFirst->m_pVirtual );
 	dlg.DoModal();
+}
+
+void CLibraryTreeView::OnUpdateLibraryCreateTorrent(CCmdUI* pCmdUI)
+{
+	pCmdUI->Enable( ! m_bVirtual &&
+		! Settings.BitTorrent.TorrentCreatorPath.IsEmpty() &&
+		GetSelectedCount() < 2 );
+}
+
+void CLibraryTreeView::OnLibraryCreateTorrent()
+{
+	CString strCommandLine;
+
+	CSingleLock pLock( &Library.m_pSection );
+	if ( SafeLock( pLock ) )
+	{
+		if ( CLibraryTreeItem* pItem = GetFirstSelected() )
+		{
+			CString strPath = pItem->m_pPhysical->m_sPath;
+			pLock.Unlock();
+
+			if ( ! strPath.IsEmpty() )
+			{
+				CString strCommandLine =
+					_T(" -sourcefile \"") + strPath +
+					_T("\" -destination \"") + Settings.Downloads.TorrentPath +
+					_T("\" -tracker \"" + Settings.BitTorrent.DefaultTracker +
+					_T("\"") );
+			}
+		}
+		else
+			pLock.Unlock();
+	}
+
+	ShellExecute( GetSafeHwnd(), _T("open"),
+		Settings.BitTorrent.TorrentCreatorPath, strCommandLine,
+		Settings.Downloads.TorrentPath,
+		SW_SHOWNORMAL );
 }
 
 /////////////////////////////////////////////////////////////////////////////

@@ -1805,8 +1805,10 @@
 #define ID_LIBRARY_SHARED_FOLDER            40243
 #define ID_LIBRARY_TREE_PHYSICAL            40244
 #define ID_LIBRARY_TREE_VIRTUAL             40245
-#define ID_LIBRARY_UNLINK                   40246
-#define ID_LIBRARY_URI                      40248
+#define ID_LIBRARY_CLEAR_HISTORY            40246
+#define ID_LIBRARY_CLEAR_HISTORY_ALL        40247
+#define ID_LIBRARY_UNLINK                   40248
+#define ID_LIBRARY_URI                      40249
 #define ID_LIBRARY_VIEW                     40250
 #define ID_LIBRARY_VIEW_ALBUM               40251
 #define ID_LIBRARY_VIEW_COLLECTION          40252

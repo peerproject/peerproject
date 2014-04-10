@@ -60,7 +60,7 @@ public:
 	virtual void				SelectAll() = 0;
 	virtual void				CacheSelection();
 	virtual CLibraryListItem	GetFolder() const;
-	virtual CLibraryListItem	DropHitTest(const CPoint& point);
+	virtual CLibraryListItem	DropHitTest(const CPoint& point) const;
 	virtual void				StartDragging(const CPoint& ptMouse);
 	virtual HBITMAP				CreateDragImage(const CPoint& ptMouse, CPoint& ptMiddle);
 	virtual DWORD_PTR			HitTestIndex(const CPoint& point) const = 0;

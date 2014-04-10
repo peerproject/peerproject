@@ -1,7 +1,7 @@
 //
 // WndSettingsSheet.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -137,6 +137,8 @@ BOOL CSettingsSheet::SetActivePage(CSettingsPage* pPage)
 
 	//ASSERT_KINDOF(CSettingsPage, pPage);
 
+	CWaitCursor wc;
+
 	if ( m_hWnd == NULL )
 	{
 		m_pFirst = pPage;
@@ -151,9 +153,18 @@ BOOL CSettingsSheet::SetActivePage(CSettingsPage* pPage)
 		m_pPage = NULL;
 	}
 
+	CRect rc( LISTWIDTH + LEFTMARGIN + LISTDIVIDER, 0, 0, 0 );
+	if ( GetDlgItem( IDC_BANNER ) )
+		rc.top	= Skin.m_nBanner + 1;
+	rc.right	= rc.left + m_szPages.cx;
+	rc.bottom	= rc.top  + m_szPages.cy;
+
+	InvalidateRect( &rc );
+	UpdateWindow();
+
 	if ( pPage )
 	{
-		if ( pPage->m_hWnd == NULL && ! CreatePage( pPage ) )
+		if ( pPage->m_hWnd == NULL && ! CreatePage( rc, pPage ) )
 			return FALSE;
 		if ( ! pPage->OnSetActive() )
 			return FALSE;
@@ -164,11 +175,6 @@ BOOL CSettingsSheet::SetActivePage(CSettingsPage* pPage)
 	if ( ! pPage )
 		return FALSE;
 
-	CRect rc( LISTWIDTH + LEFTMARGIN + LISTDIVIDER, 0, 0, 0 );
-	if ( GetDlgItem( IDC_BANNER ) )
-		rc.top	= Skin.m_nBanner + 1;
-	rc.right	= rc.left + m_szPages.cx;
-	rc.bottom	= rc.top  + m_szPages.cy;
 	m_pPage->MoveWindow( rc );
 
 	m_pPage->ShowWindow( SW_SHOW );
@@ -201,10 +207,10 @@ BOOL CSettingsSheet::SetActivePage(CSettingsPage* pPage)
 	return TRUE;
 }
 
-BOOL CSettingsSheet::SetActivePage(int nPage)
-{
-	return SetActivePage( GetPage( nPage ) );
-}
+//BOOL CSettingsSheet::SetActivePage(int nPage)
+//{
+//	return SetActivePage( GetPage( nPage ) );
+//}
 
 BOOL CSettingsSheet::IsModified() const
 {
@@ -359,12 +365,8 @@ BOOL CSettingsSheet::SkinMe(LPCTSTR pszSkin, UINT nIcon, BOOL bLanguage)
 	return CSkinDialog::SkinMe( pszSkin, nIcon, bLanguage );
 }
 
-BOOL CSettingsSheet::CreatePage(CSettingsPage* pPage)
+BOOL CSettingsSheet::CreatePage(const CRect& rc, CSettingsPage* pPage)
 {
-	CRect rc( LEFTMARGIN + LISTWIDTH + LISTDIVIDER, 0, 0, 0 );
-	rc.right	= rc.left + m_szPages.cx;
-	rc.bottom	= rc.top  + m_szPages.cy;
-
 	if ( ! pPage->Create( rc, this ) )
 		return FALSE;
 

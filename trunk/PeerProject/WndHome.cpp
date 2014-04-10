@@ -1,7 +1,7 @@
 //
 // WndHome.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -53,6 +53,9 @@ BEGIN_MESSAGE_MAP(CHomeWnd, CPanelWnd)
 	ON_WM_TIMER()
 	ON_WM_MDIACTIVATE()
 	ON_WM_CONTEXTMENU()
+	ON_UPDATE_COMMAND_UI(ID_LIBRARY_CLEAR_HISTORY, OnUpdateLibraryClear)
+	ON_COMMAND(ID_LIBRARY_CLEAR_HISTORY, OnLibraryClear)
+	ON_COMMAND(ID_LIBRARY_CLEAR_HISTORY_ALL, OnLibraryClearAll)
 	ON_NOTIFY(RVN_CLICK, IDC_HOME_VIEW, OnClickView)
 	ON_NOTIFY(RVN_CLICK, 1, OnClickView)
 END_MESSAGE_MAP()
@@ -108,14 +111,6 @@ void CHomeWnd::OnSize(UINT nType, int cx, int cy)
 	if ( m_wndView.m_hWnd )  m_wndView.SetWindowPos( NULL, Settings.Skin.SidebarWidth, 0, cx - Settings.Skin.SidebarWidth, cy, SWP_NOZORDER|SWP_SHOWWINDOW );
 }
 
-void CHomeWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
-{
-	if ( point.x == -1 && point.y == -1 )	// Keyboard fix
-		ClientToScreen( &point );
-
-	Skin.TrackPopupMenu( _T("CHomeWnd"), point );
-}
-
 void CHomeWnd::OnTimer(UINT_PTR nIDEvent)
 {
 	if ( nIDEvent == 2 || ( nIDEvent == 1 && IsActive() ) )
@@ -144,4 +139,47 @@ void CHomeWnd::OnClickView(NMHDR* pNotify, LRESULT* /*pResult*/)
 		theApp.InternalURI( pElement->m_sLink );
 
 	PostMessage( WM_TIMER, 2 );
+}
+
+void CHomeWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
+{
+	if ( point.x == -1 && point.y == -1 )	// Keyboard fix
+		ClientToScreen( &point );
+
+	Skin.TrackPopupMenu( _T("CHomeWnd"), point );
+}
+
+// Context menu command handlers for CtrlHomePanel:
+
+void CHomeWnd::OnUpdateLibraryClear(CCmdUI* pCmdUI)
+{
+	pCmdUI->Enable( m_wndPanel.m_boxLibrary.m_nIndex >= 0 );
+}
+
+void CHomeWnd::OnLibraryClear()
+{
+	if ( m_wndPanel.m_boxLibrary.m_nIndex < 0 ) return;
+
+	CSingleLock pLock( &Library.m_pSection );
+	if ( ! SafeLock( pLock ) ) return;
+
+	if ( CLibraryFile* pFile = Library.LookupFile( m_wndPanel.m_boxLibrary.m_nIndex ) )
+	{
+		LibraryHistory.OnFileDelete( pFile );
+		Library.Update();
+		pLock.Unlock();
+		m_wndPanel.m_boxLibrary.Invalidate();
+	}
+}
+
+void CHomeWnd::OnLibraryClearAll()
+{
+	CSingleLock pLock( &Library.m_pSection );
+	if ( ! SafeLock( pLock ) ) return;
+
+	//Settings.ClearSearches();
+	LibraryHistory.Clear();
+	Library.Update();
+	pLock.Unlock();
+	m_wndPanel.Invalidate();
 }

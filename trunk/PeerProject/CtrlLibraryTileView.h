@@ -19,19 +19,27 @@
 #pragma once
 
 #include "CtrlLibraryView.h"
+#include "LibraryFolders.h"
 
-class CAlbumFolder;
 
 class CLibraryTileItem
 {
 public:
 	CLibraryTileItem(CAlbumFolder* pFolder)
-	: m_pAlbum( pFolder ), m_nCookie( ~0ul ), m_bSelected()
+		: m_pAlbum		( pFolder )
+		, m_nCookie		( ~0ul )
+		, m_nIcon32		( -1 )
+		, m_nIcon48		( -1 )
+		, m_bSelected	( false )
+		, m_bCollection	( false )
 	{
 		Update();
 	}
 
 public:
+	bool			m_bSelected;
+
+protected:
 	CAlbumFolder*	m_pAlbum;
 	DWORD			m_nCookie;
 	CString			m_sTitle;
@@ -39,23 +47,27 @@ public:
 	CString			m_sSubtitle2;
 	int				m_nIcon32;
 	int				m_nIcon48;
-	bool			m_bSelected;
 	bool			m_bCollection;
 
 public:
-	bool	Update();
-	void	Paint(CDC* pDC, const CRect& rcBlock, CDC* pMemDC, BOOL bFocus = FALSE);
-private:
-	void	DrawText(CDC* pDC, const CRect* prcClip, int nX, int nY, const CString& strText, CRect* prcUnion = NULL, BOOL bSkinned = FALSE);
+	bool			Update();
+	void			Paint(CDC* pDC, const CRect& rcBlock, CDC* pMemDC, BOOL bFocus = FALSE);
+	CAlbumFolder*	GetAlbum() const	{ return LibraryFolders.CheckAlbum( m_pAlbum ) ? m_pAlbum : NULL; }
+	const CString&	GetTitle() const	{ return m_sTitle; }
+
+protected:
+	void			DrawText(CDC* pDC, const CRect* prcClip, int nX, int nY, const CString& strText, CRect* prcUnion = NULL, BOOL bSkinned = FALSE);
 };
 
 
 class CLibraryTileView : public CLibraryView
 {
+	DECLARE_DYNAMIC(CLibraryTileView)
+
 public:
 	CLibraryTileView();
 
-private:
+protected:
 	typedef boost::ptr_list< CLibraryTileItem > Container;
 	typedef Container::iterator iterator;
 	typedef Container::const_iterator const_iterator;
@@ -75,7 +87,6 @@ private:
 	bool empty() const { return m_oList.empty(); }
 	iterator erase(iterator item) { return m_oList.erase( item ); }
 
-	mutable CMutex			m_pSection;
 	CSize					m_szBlock;
 	int 					m_nColumns;
 	int 					m_nRows;
@@ -88,39 +99,38 @@ private:
 	BOOL					m_bDrag;
 	CPoint					m_ptDrag;
 
-public:
-	virtual BOOL				CheckAvailable(CLibraryTreeItem* pSel);
-	virtual void				Update();
-	virtual void				SelectAll();
-	virtual BOOL				Select(DWORD nObject);
-	virtual CLibraryListItem	DropHitTest(const CPoint& point);
-	virtual HBITMAP				CreateDragImage(const CPoint& ptMouse, CPoint& ptMiddle);
-private:
-	void				clear();
-//	int 				GetTileIndex(CLibraryTileItem* pTile) const;
-	bool				Select(iterator pTile, TRISTATE bSelect = TRI_TRUE);
-	bool				DeselectAll(iterator pTile);
-	bool				DeselectAll();
-	bool				SelectTo(iterator pTile);
-	void				SelectTo(int nDelta);
-	void				Highlight(iterator pTile);
+protected:
+	void					clear();
+//	int 					GetTileIndex(CLibraryTileItem* pTile) const;
+	BOOL					Select(iterator pTile, TRISTATE bSelect = TRI_TRUE);
+	BOOL					DeselectAll();
+	BOOL					DeselectAll(iterator pTile);
+	BOOL					SelectTo(iterator pTile);
+	void					SelectTo(int nDelta);
+	void					Highlight(iterator pTile);
+
+	virtual BOOL			Create(CWnd* pParentWnd);
+	virtual BOOL			CheckAvailable(CLibraryTreeItem* pSel);
+	virtual void			Update();
+	virtual void			SelectAll();
+	virtual BOOL			Select(DWORD nObject);
+	virtual CLibraryListItem DropHitTest(const CPoint& point) const;
+	virtual HBITMAP			CreateDragImage(const CPoint& ptMouse, CPoint& ptMiddle);
 
 	struct SortList : public std::binary_function<CLibraryTileItem, CLibraryTileItem, bool >
 	{
 		bool operator()(const CLibraryTileItem& lhs, const CLibraryTileItem& rhs) const
 		{
-			return _tcsicoll( lhs.m_sTitle, rhs.m_sTitle ) < 0;
+			return _tcsicoll( lhs.GetTitle(), rhs.GetTitle() ) < 0;
 		}
 	};
 	void				UpdateScroll();
 	void				ScrollBy(int nDelta);
 	void				ScrollTo(int nDelta);
 	iterator			HitTest(const CPoint& point);
+	const_iterator		HitTest(const CPoint& point) const;
 	virtual DWORD_PTR	HitTestIndex(const CPoint& point) const;
 	bool				GetItemRect(iterator pTile, CRect* pRect);
-
-public:
-	virtual BOOL Create(CWnd* pParentWnd);
 
 protected:
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
@@ -133,8 +143,8 @@ protected:
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
-	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
 	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
+	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
 	afx_msg void OnChar(UINT nChar, UINT nRepCnt, UINT nFlags);
 	afx_msg void OnUpdateLibraryAlbumOpen(CCmdUI* pCmdUI);

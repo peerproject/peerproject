@@ -859,14 +859,10 @@ CMenu* CSkin::GetMenu(LPCTSTR pszName) const
 	ASSERT( pszName != NULL );
 	CString strName( pszName );
 	CMenu* pMenu = NULL;
-	for ( int nModeTry = 0 ;
-		m_pszModeSuffix[ Settings.General.GUIMode ][ nModeTry ] ; nModeTry++ )
+	for ( int nModeTry = 0 ; m_pszModeSuffix[ Settings.General.GUIMode ][ nModeTry ] ; nModeTry++ )
 	{
-		if ( m_pMenus.Lookup( strName +
-			m_pszModeSuffix[ Settings.General.GUIMode ][ nModeTry ], pMenu ) )
-		{
+		if ( m_pMenus.Lookup( strName + m_pszModeSuffix[ Settings.General.GUIMode ][ nModeTry ], pMenu ) )
 			break;
-		}
 	}
 	ASSERT_VALID( pMenu );
 	ASSERT( pMenu->GetMenuItemCount() > 0 );
@@ -2608,8 +2604,7 @@ BOOL CSkin::LoadCommandBitmap(CXMLElement* pBase, const CString& strPath)
 //////////////////////////////////////////////////////////////////////
 // CSkin popup menu helper
 
-void CSkin::TrackPopupMenu(LPCTSTR pszMenu, const CPoint& point,
-	UINT nDefaultID, const CStringList& oFiles, CWnd* pWnd) const
+void CSkin::TrackPopupMenu(LPCTSTR pszMenu, const CPoint& point, UINT nDefaultID, const CStringList& oFiles /*Empty*/, CWnd* pWnd /*MainWnd*/) const
 {
 	CMenu* pPopup = GetMenu( pszMenu );
 	if ( pPopup == NULL )
@@ -2618,6 +2613,7 @@ void CSkin::TrackPopupMenu(LPCTSTR pszMenu, const CPoint& point,
 	if ( nDefaultID != 0 )
 		pPopup->SetDefaultItem( nDefaultID );
 
+	// Unskinned shell menu
 	if ( oFiles.GetCount() )
 	{
 		// Change ID_SHELL_MENU item to shell submenu
