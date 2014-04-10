@@ -827,8 +827,8 @@ void CMainWnd::OnContextMenu(CWnd* pWnd, CPoint point)
 			ClientToScreen( &point );
 
 		CMenu* pMenu = Skin.GetMenu( _T("CMainWnd.View") );
-		if ( pMenu == NULL ) return;
-		pMenu->TrackPopupMenu( TPM_LEFTALIGN|TPM_LEFTBUTTON|TPM_RIGHTBUTTON, point.x, point.y, this );
+		if ( pMenu != NULL )
+			pMenu->TrackPopupMenu( TPM_LEFTALIGN|TPM_LEFTBUTTON|TPM_RIGHTBUTTON, point.x, point.y, this );
 	}
 }
 

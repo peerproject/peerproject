@@ -62,18 +62,19 @@ END_MESSAGE_MAP()
 IMPLEMENT_DYNAMIC(CHomeLibraryBox, CRichTaskBox)
 BEGIN_MESSAGE_MAP(CHomeLibraryBox, CRichTaskBox)
 	ON_WM_CREATE()
-	ON_WM_SIZE()
 	ON_WM_PAINT()
+	ON_WM_SIZE()
+	ON_WM_TIMER()
 	ON_WM_SETCURSOR()
 	ON_WM_LBUTTONUP()
-	ON_WM_TIMER()
+	ON_WM_CONTEXTMENU()
 END_MESSAGE_MAP()
 
 IMPLEMENT_DYNAMIC(CHomeDownloadsBox, CRichTaskBox)
 BEGIN_MESSAGE_MAP(CHomeDownloadsBox, CRichTaskBox)
 	ON_WM_CREATE()
-	ON_WM_SIZE()
 	ON_WM_PAINT()
+	ON_WM_SIZE()
 	ON_WM_SETCURSOR()
 	ON_WM_LBUTTONUP()
 	ON_WM_TIMER()
@@ -377,6 +378,7 @@ CHomeLibraryBox::CHomeLibraryBox()
 	, m_pdLibraryHashRemaining	( NULL )
 	, m_hHand			( NULL )
 	, m_pHover			( NULL )
+	, m_nIndex			( -1 )
 {
 	SetPrimary( FALSE );
 }
@@ -730,6 +732,46 @@ void CHomeLibraryBox::OnLButtonUp(UINT nFlags, CPoint point)
 	}
 
 	CTaskBox::OnLButtonUp( nFlags, point );
+}
+
+void CHomeLibraryBox::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
+{
+	m_wndTip.Hide();
+
+//	if ( m_pHover )
+	{
+		m_nIndex = -1;
+		POINT pTest( point );
+		ScreenToClient( &pTest );
+		if ( Item* pItem = HitTest( pTest ) )
+		{
+			m_nIndex = pItem->m_nIndex;
+
+			// Test only. (Prefer context menu)
+			if ( ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) != 0 )
+			{
+				CSingleLock pLock( &Library.m_pSection );
+				if ( ! SafeLock( pLock ) ) return;
+
+				if ( CLibraryFile* pFile = Library.LookupFile( pItem->m_nIndex ) )
+				{
+					pLock.Unlock();
+					if ( MsgBox( L"Remove item from history?", MB_ICONQUESTION|MB_YESNO|MB_SETFOREGROUND, 0, NULL, 30 ) == IDYES )
+					{
+						LibraryHistory.OnFileDelete( pFile );
+						m_pHover = NULL;
+						KillTimer( 2 );
+						Invalidate();
+						return;
+					}
+				}
+			}
+		}
+
+		Skin.TrackPopupMenu( L"CLibraryHistoryPanel", point, ID_LIBRARY_CLEAR_HISTORY );
+
+		// Note command handlers in WndHome
+	}
 }
 
 void CHomeLibraryBox::OnTimer(UINT_PTR nIDEvent)

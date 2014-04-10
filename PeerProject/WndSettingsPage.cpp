@@ -1,7 +1,7 @@
 //
 // WndSettingsPage.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -96,7 +96,7 @@ BOOL CSettingsPage::LoadDefaultCaption()
 	return ! m_sCaption.IsEmpty();
 }
 
-BOOL CSettingsPage::Create(CRect& rcPage, CWnd* pSheetWnd)
+BOOL CSettingsPage::Create(const CRect& rcPage, CWnd* pSheetWnd)
 {
 	ASSERT_VALID(this);
 	ASSERT( m_lpszTemplateName != NULL );

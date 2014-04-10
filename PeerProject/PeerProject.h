@@ -267,7 +267,7 @@ BOOL	TimeFromString(LPCTSTR psz, FILETIME* pTime);
 CString	TimeToString(time_t tVal);
 CString	TimeToString(FILETIME* pTime);
 
-void	RecalcDropWidth(CComboBox* pWnd);
+void	RecalcDropWidth(CComboBox* pWnd, int nMargin = 0);
 // Load 16x16, 32x32, 48x48 icons from .ico, .exe, .dll files
 BOOL	LoadIcon(LPCTSTR szFilename, HICON* phSmallIcon, HICON* phLargeIcon, HICON* phHugeIcon, int nIcon = 0);
 // Load 16x16 icon from module pointed by its CLSID

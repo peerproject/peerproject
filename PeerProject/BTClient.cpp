@@ -1294,8 +1294,11 @@ BOOL CBTClient::OnExtendedHandshake(CBTPacket* pPacket)
 
 		if ( CBENode* pUtMetadataSize = pRoot->GetNode( BT_DICT_METADATA_SIZE ) )	// "metadata_size"
 		{
-			m_nUtMetadataSize = (QWORD)pUtMetadataSize->GetInt();
+			__int64 nMetadataSize = pUtMetadataSize->GetInt();
+			if ( nMetadataSize > 0 )	// Sanity check?
+				m_nUtMetadataSize = (QWORD)nMetadataSize;
 		}
+
 		if ( CBENode* pUtPex = pMetadata->GetNode( BT_DICT_UT_PEX ) )				// "ut_pex" Peer-exchange
 		{
 			QWORD nOldUtPexID = m_nUtPexID;
@@ -1311,6 +1314,7 @@ BOOL CBTClient::OnExtendedHandshake(CBTPacket* pPacket)
 		{
 			m_nLtTexID = (QWORD)pLtTex->GetInt();
 		}
+
 		if ( CBENode* pLtTexTrackers = pRoot->GetNode( BT_DICT_TRACKERS ) )
 		{
 			if ( m_nLtTexID )

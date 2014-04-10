@@ -83,6 +83,8 @@ protected:
 	CLibraryTipCtrl	m_wndTip;
 
 public:
+	int		m_nIndex;	// Context menu
+
 	void	OnSkinChange();
 	void	Update();
 	Item*	HitTest(const CPoint& point) const;
@@ -91,9 +93,10 @@ protected:
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnPaint();
 	afx_msg void OnSize(UINT nType, int cx, int cy);
+	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
-	afx_msg void OnTimer(UINT_PTR nIDEvent);
+	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
 
 	DECLARE_MESSAGE_MAP()
 };

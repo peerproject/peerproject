@@ -1,7 +1,7 @@
 //
 // DlgSelect.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2009-2010
+// This file is part of PeerProject (peerproject.org) © 2009-2014
 // Portions copyright Shareaza Development Team, 2009.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -30,9 +30,9 @@ static char THIS_FILE[] = __FILE__;
 
 IMPLEMENT_DYNAMIC(CSelectDialog, CSkinDialog)
 
-//BEGIN_MESSAGE_MAP(CSelectDialog, CSkinDialog)
-//END_MESSAGE_MAP()
-
+BEGIN_MESSAGE_MAP(CSelectDialog, CSkinDialog)
+	ON_CBN_DROPDOWN(IDC_FILE_LIST, &CSelectDialog::OnCbnDropdownList)
+END_MESSAGE_MAP()
 
 CSelectDialog::CSelectDialog(CWnd* pParent /*=NULL*/)
 	: CSkinDialog(CSelectDialog::IDD, pParent)
@@ -63,6 +63,7 @@ BOOL CSelectDialog::OnInitDialog()
 		if ( it.m_nData == m_nData )
 			select = index;
 	}
+
 	m_ListCtrl.SetCurSel( select );
 
 	return FALSE;
@@ -80,4 +81,9 @@ void CSelectDialog::OnCancel()
 	m_nData = m_ListCtrl.GetItemData( m_ListCtrl.GetCurSel() );
 
 	CSkinDialog::OnCancel();
+}
+
+void CSelectDialog::OnCbnDropdownList()
+{
+	RecalcDropWidth( &m_ListCtrl );
 }

@@ -134,6 +134,8 @@ protected:
 	afx_msg void OnLibraryRebuild();
 	afx_msg void OnUpdateLibraryExportCollection(CCmdUI *pCmdUI);
 	afx_msg void OnLibraryExportCollection();
+	afx_msg void OnUpdateLibraryCreateTorrent(CCmdUI* pCmdUI);
+	afx_msg void OnLibraryCreateTorrent();
 	afx_msg void OnSetFocus(CWnd* pOldWnd);
 	afx_msg UINT OnGetDlgCode();
 

@@ -1,7 +1,7 @@
 //
 // CtrlLibraryHistoryPanel.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -53,17 +53,23 @@ protected:
 
 	CArray< Item* >	m_pList;
 	Item*			m_pHover;
+	int				m_nIndex;
 	int				m_nColumns;
 	CLibraryTipCtrl	m_wndTip;
 
-	void	OnClickFile(DWORD nFile);
+	int			 GetIndex(CPoint point);
+	void		 OnClickFile(DWORD nFile);
 
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
 	afx_msg void OnPaint();
-	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
+	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
+	afx_msg void OnUpdateLibraryClear(CCmdUI* pCmdUI);
+	afx_msg void OnLibraryClear();
+	afx_msg void OnLibraryClearAll();
 
 	DECLARE_MESSAGE_MAP()
 };

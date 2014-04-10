@@ -39,8 +39,12 @@ BEGIN_MESSAGE_MAP(CLibraryHistoryPanel, CPanelCtrl)
 	ON_WM_DESTROY()
 	ON_WM_PAINT()
 	ON_WM_SETCURSOR()
-	ON_WM_LBUTTONUP()
 	ON_WM_LBUTTONDOWN()
+	ON_WM_LBUTTONUP()
+	ON_WM_CONTEXTMENU()
+	ON_UPDATE_COMMAND_UI(ID_LIBRARY_CLEAR_HISTORY, OnUpdateLibraryClear)
+	ON_COMMAND(ID_LIBRARY_CLEAR_HISTORY, OnLibraryClear)
+	ON_COMMAND(ID_LIBRARY_CLEAR_HISTORY_ALL, OnLibraryClearAll)
 END_MESSAGE_MAP()
 
 
@@ -48,6 +52,8 @@ END_MESSAGE_MAP()
 // CLibraryHistoryPanel construction
 
 CLibraryHistoryPanel::CLibraryHistoryPanel()
+	: m_nIndex	( -1 )
+	, m_nColumns( 1 )
 {
 }
 
@@ -265,23 +271,35 @@ void CLibraryHistoryPanel::OnPaint()
 	dc.FillSolidRect( &rcClient, Colors.m_crWindow );
 }
 
+int CLibraryHistoryPanel::GetIndex(CPoint point)
+{
+	CPoint pt( point.x, point.y + GetScrollPos( SB_VERT ) );
+
+	for ( int nItem = 0 ; nItem < m_pList.GetSize() ; nItem++ )
+	{
+		Item* pItem = m_pList.GetAt( nItem );
+		CRect rcTest = pItem->m_rect;
+		rcTest.left -= 20;	// Icon
+
+		if ( rcTest.PtInRect( pt ) )
+			return pItem->m_nIndex;
+	}
+
+	return -1;
+}
+
 BOOL CLibraryHistoryPanel::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 {
 	CPoint point;
 	GetCursorPos( &point );
 	ScreenToClient( &point );
-	point.y += GetScrollPos( SB_VERT );
 
-	for ( int nItem = 0 ; nItem < m_pList.GetSize() ; nItem++ )
+	int nIndex = GetIndex( point );
+	if ( nIndex >= 0 )
 	{
-		Item* pItem = m_pList.GetAt( nItem );
-
-		if ( pItem->m_rect.PtInRect( point ) )
-		{
-			m_wndTip.Show( pItem->m_nIndex );
-			SetCursor( AfxGetApp()->LoadCursor( IDC_HAND ) );
-			return TRUE;
-		}
+		m_wndTip.Show( nIndex );
+		SetCursor( AfxGetApp()->LoadCursor( IDC_HAND ) );
+		return TRUE;
 	}
 
 	m_wndTip.Hide();
@@ -293,17 +311,9 @@ void CLibraryHistoryPanel::OnLButtonUp(UINT nFlags, CPoint point)
 {
 	m_wndTip.Hide();
 
-	CPoint pt( point.x, point.y + GetScrollPos( SB_VERT ) );
-	for ( int nItem = 0 ; nItem < m_pList.GetSize() ; nItem++ )
-	{
-		Item* pItem = m_pList.GetAt( nItem );
-
-		if ( pItem->m_rect.PtInRect( pt ) )
-		{
-			OnClickFile( pItem->m_nIndex );
-			break;
-		}
-	}
+	int nIndex = GetIndex( point );
+	if ( nIndex >= 0 )
+		OnClickFile( nIndex );
 
 	CPanelCtrl::OnLButtonUp( nFlags, point );
 }
@@ -311,21 +321,61 @@ void CLibraryHistoryPanel::OnLButtonUp(UINT nFlags, CPoint point)
 void CLibraryHistoryPanel::OnLButtonDown(UINT /*nFlags*/, CPoint /*point*/)
 {
 	m_wndTip.Hide();
-
 	SetFocus();
 }
 
 void CLibraryHistoryPanel::OnClickFile(DWORD nFile)
 {
-	CQuickLock oLock( Library.m_pSection );
+	CSingleLock pLock( &Library.m_pSection );
+	if ( ! SafeLock( pLock ) ) return;
 
 	if ( CLibraryFile* pFile = Library.LookupFile( nFile ) )
 	{
 		if ( CLibraryFrame* pFrame = (CLibraryFrame*)GetParent() )
 		{
-			ASSERT_KINDOF(CLibraryFrame, pFrame);
+			ASSERT_KINDOF( CLibraryFrame, pFrame );
 
 			pFrame->Display( pFile );
 		}
 	}
+}
+
+void CLibraryHistoryPanel::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
+{
+	m_wndTip.Hide();
+
+	POINT pTest( point );
+	ScreenToClient( &pTest );
+	m_nIndex = GetIndex( pTest );
+
+	Skin.TrackPopupMenu( L"CLibraryHistoryPanel", point, ID_LIBRARY_CLEAR_HISTORY );
+}
+
+void CLibraryHistoryPanel::OnUpdateLibraryClear(CCmdUI* pCmdUI)
+{
+	pCmdUI->Enable( m_nIndex >= 0 );
+}
+
+void CLibraryHistoryPanel::OnLibraryClear()
+{
+	if ( m_nIndex < 0 ) return;
+
+	CSingleLock pLock( &Library.m_pSection );
+	if ( ! SafeLock( pLock ) ) return;
+
+	if ( CLibraryFile* pFile = Library.LookupFile( m_nIndex ) )
+	{
+		LibraryHistory.OnFileDelete( pFile );
+		Library.Update();
+	}
+}
+
+void CLibraryHistoryPanel::OnLibraryClearAll()
+{
+	CSingleLock pLock( &Library.m_pSection );
+	if ( ! SafeLock( pLock ) ) return;
+
+	//Settings.ClearSearches();
+	LibraryHistory.Clear();
+	Library.Update();
 }

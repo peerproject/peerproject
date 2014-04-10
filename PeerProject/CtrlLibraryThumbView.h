@@ -35,7 +35,6 @@ public:
 	CLibraryThumbView();
 
 protected:
-	CCriticalSection	m_pSection;
 	DWORD				m_nInvalidate;
 	int					m_nColumns;
 	int					m_nRows;
@@ -50,13 +49,6 @@ protected:
 	BOOL				m_bDrag;
 	CPoint				m_ptDrag;
 
-public:
-	virtual void		Update();
-	virtual void		SelectAll();
-	virtual BOOL		Select(DWORD nObject);
-	virtual DWORD_PTR	HitTestIndex(const CPoint& point) const;
-	virtual HBITMAP		CreateDragImage(const CPoint& ptMouse, CPoint& ptMiddle);
-
 protected:
 	void				Clear();
 	int					GetThumbIndex(CLibraryThumbItem* pThumb) const;
@@ -64,22 +56,24 @@ protected:
 	BOOL				DeselectAll(CLibraryThumbItem* pThumb = NULL);
 	BOOL				SelectTo(CLibraryThumbItem* pThumb);
 	void				SelectTo(int nDelta);
-
-	void				UpdateScroll();
 	void				ScrollBy(int nDelta);
 	void				ScrollTo(int nDelta);
+	void				UpdateScroll();
 	BOOL				GetItemRect(CLibraryThumbItem* pThumb, CRect* pRect);
 	CLibraryThumbItem*	HitTest(const CPoint& point) const;
-
 	void				StartThread();
 	void				StopThread();
 	void				OnRun();
 
-protected:
-	static int SortList(LPCVOID pA, LPCVOID pB);
+	static int			SortList(LPCVOID pA, LPCVOID pB);
 
 protected:
-	virtual BOOL Create(CWnd* pParentWnd);
+	virtual BOOL		Create(CWnd* pParentWnd);
+	virtual void		Update();
+	virtual void		SelectAll();
+	virtual BOOL		Select(DWORD nObject);
+	virtual DWORD_PTR	HitTestIndex(const CPoint& point) const;
+	virtual HBITMAP		CreateDragImage(const CPoint& ptMouse, CPoint& ptMiddle);
 
 protected:
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);

@@ -1,7 +1,7 @@
 //
 // CtrlLibraryThumbView.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -117,7 +117,7 @@ void CLibraryThumbView::OnDestroy()
 
 void CLibraryThumbView::Update()
 {
-	CSingleLock pLock( &m_pSection, TRUE );
+	CSingleLock pLock( &Library.m_pSection, TRUE );
 
 	CSchemaPtr pSchema	= SchemaCache.Get( Settings.Library.FilterURI );
 	DWORD nCookie		= GetFolderCookie();
@@ -525,7 +525,7 @@ void CLibraryThumbView::ScrollTo(int nPosition)
 
 void CLibraryThumbView::OnTimer(UINT_PTR /*nIDEvent*/)
 {
-	CSingleLock pLock( &m_pSection, TRUE );
+	CSingleLock pLock( &Library.m_pSection, TRUE );
 
 	if ( m_nInvalidate && ( GetAsyncKeyState( VK_LBUTTON ) & 0x8000 ) == 0 )
 	{
@@ -536,7 +536,7 @@ void CLibraryThumbView::OnTimer(UINT_PTR /*nIDEvent*/)
 
 void CLibraryThumbView::OnPaint()
 {
-	CSingleLock pLock( &m_pSection, TRUE );
+	CSingleLock pLock( &Library.m_pSection, TRUE );
 	CPaintDC dc( this );
 
 	CRect rcClient;
@@ -816,7 +816,7 @@ void CLibraryThumbView::StartThread()
 	if ( IsThreadAlive() )
 		return;
 
-	CSingleLock pLock( &m_pSection, TRUE );
+	CSingleLock pLock( &Library.m_pSection, TRUE );
 
 	CLibraryThumbItem** pList = m_pList;
 	int nCount = 0;

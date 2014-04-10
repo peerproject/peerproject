@@ -24,6 +24,7 @@ class CDownloadDisplayData;
 class CSourceDisplayData;
 class CUpload;
 class CUploadFile;
+class CUploadDisplayData;
 
 
 class CFragmentBar
@@ -35,8 +36,9 @@ public:
 	static void DrawSource(CDC* pDC, CRect* prcBar, const CSourceDisplayData* pSourceData, COLORREF crNatural, BOOL bDrawEmpty = TRUE);
 	static void DrawDownload(CDC* pDC, CRect* prcBar, const CDownloadDisplayData* pDownloadData, COLORREF crNatural);
 	static void DrawDownload(CDC* pDC, CRect* prcBar, const CDownload* pDownload, COLORREF crNatural);	// Legacy locking method
-	static void DrawUpload(CDC* pDC, CRect* prcBar, CUploadFile* pFile, COLORREF crNatural);
-// DrawSource moved to DownloadSource:
+	static void DrawUpload(CDC* pDC, CRect* prcBar, const CUploadDisplayData* pUploadData, COLORREF crNatural);
+	static void DrawUpload(CDC* pDC, CRect* prcBar, CUploadFile* pFile, COLORREF crNatural);			// Legacy locking method
+// Legacy DrawSource moved to DownloadSource:
 //	static void DrawSource(CDC* pDC, CRect* prcBar, CDownloadSource* pSource, COLORREF crNatural);
 //	static void DrawSourceImpl(CDC* pDC, CRect* prcBar, CDownloadSource* pSource);
 };

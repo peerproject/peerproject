@@ -1,7 +1,7 @@
 //
 // DlgDownloadGroup.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -83,7 +83,7 @@ BOOL CDownloadGroupDlg::OnInitDialog()
 
 	SkinMe( _T("CDownloadGroupDlg"), IDR_MAINFRAME );
 
-	m_wndSchemas.SetDroppedWidth( 200 );
+	//m_wndSchemas.SetDroppedWidth( 200 );	// RecalcDropWidth()
 	LoadString( m_wndSchemas.m_sNoSchemaText, IDS_SEARCH_PANEL_AFT );
 	m_wndSchemas.Load( m_pGroup->m_sSchemaURI );
 	m_sOldSchemaURI = m_pGroup->m_sSchemaURI;

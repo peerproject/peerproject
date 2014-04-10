@@ -59,13 +59,13 @@ public:
 	INT_PTR			GetPageCount() const;
 	CSettingsPage*	GetActivePage() const;
 	BOOL			SetActivePage(CSettingsPage* pPage);
-	BOOL			SetActivePage(int nPage);
+//	BOOL			SetActivePage(int nPage);
 	BOOL			IsModified() const;
 	void			SetModified(BOOL bChanged = TRUE);
 	INT_PTR			DoModal();
 protected:
 	void			BuildTree();
-	BOOL			CreatePage(CSettingsPage* pPage);
+	BOOL			CreatePage(const CRect& rc, CSettingsPage* pPage);
 
 protected:
 	virtual void	DoPaint(CDC& dc);

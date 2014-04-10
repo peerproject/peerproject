@@ -1,7 +1,7 @@
 //
 // HostBrowser.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -216,8 +216,7 @@ void CHostBrowser::Stop(BOOL bCompleted)
 	if ( m_nProtocol != PROTOCOL_ED2K && m_nProtocol != PROTOCOL_DC )
 		CTransfer::Close();
 
-	if ( m_pInflate )
-		GetInput()->InflateStreamCleanup( m_pInflate );
+	CBuffer::InflateStreamCleanup( m_pInflate );
 }
 
 BOOL CHostBrowser::IsBrowsing() const

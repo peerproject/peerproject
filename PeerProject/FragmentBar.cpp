@@ -36,6 +36,7 @@
 #include "UploadTransferED2K.h"
 #include "FragmentedFile.h"
 #include "CtrlDownloads.h"
+#include "CtrlUploads.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -166,37 +167,37 @@ void CFragmentBar::DrawDownload(CDC* pDC, CRect* prcBar, const CDownloadDisplayD
 	if ( Settings.Downloads.SimpleBar )
 	{
 		pDC->FillSolidRect( prcBar, crNatural );
-		DrawFragment( pDC, prcBar, pDownloadData->nSize, 0, pDownloadData->nVolumeComplete, Colors.m_crFragmentComplete, FALSE );
+		DrawFragment( pDC, prcBar, pDownloadData->m_nSize, 0, pDownloadData->m_nVolumeComplete, Colors.m_crFragmentComplete, FALSE );
 		return;
 	}
 
 	if ( Settings.Downloads.ShowPercent )
-		DrawStateBar( pDC, prcBar, pDownloadData->nSize, 0, pDownloadData->nVolumeComplete, Colors.m_crFragmentComplete, TRUE );
+		DrawStateBar( pDC, prcBar, pDownloadData->m_nSize, 0, pDownloadData->m_nVolumeComplete, Colors.m_crFragmentComplete, TRUE );
 
 	// pDownload->GetNextVerifyRange( nvOffset, nvLength, bvSuccess )
-	for ( UINT nRange = 0 ; nRange < pDownloadData->pVerifyRanges.GetUpperBound() ; nRange++ )
+	for ( UINT nRange = 0 ; nRange < pDownloadData->m_pVerifyRanges.GetUpperBound() ; nRange++ )
 	{
-		DrawStateBar( pDC, prcBar, pDownloadData->nSize,
-			pDownloadData->pVerifyRanges.GetAt( nRange ).nOffset, pDownloadData->pVerifyRanges.GetAt( nRange ).nLength,
-			pDownloadData->pVerifyRanges.GetAt( nRange ).bSuccess ? Colors.m_crFragmentPass : Colors.m_crFragmentFail );
+		DrawStateBar( pDC, prcBar, pDownloadData->m_nSize,
+			pDownloadData->m_pVerifyRanges.GetAt( nRange ).nOffset, pDownloadData->m_pVerifyRanges.GetAt( nRange ).nLength,
+			pDownloadData->m_pVerifyRanges.GetAt( nRange ).bSuccess ? Colors.m_crFragmentPass : Colors.m_crFragmentFail );
 	}
 
-	Fragments::List oList( pDownloadData->oEmptyFragments );
+	Fragments::List oList( pDownloadData->m_oEmptyFragments );
 	Fragments::List::const_iterator pItr = oList.begin();
 	const Fragments::List::const_iterator pEnd = oList.end();
 	for ( ; pItr != pEnd ; ++pItr )
 	{
-		DrawFragment( pDC, prcBar, pDownloadData->nSize, pItr->begin(), pItr->size(), crNatural, FALSE );
+		DrawFragment( pDC, prcBar, pDownloadData->m_nSize, pItr->begin(), pItr->size(), crNatural, FALSE );
 	}
 
-	for ( UINT nSource = 0 ; nSource < pDownloadData->nSourceCount ; nSource++ )
+	for ( UINT nSource = 0 ; nSource < pDownloadData->m_nSourceCount ; nSource++ )
 	{
 		// Note: Was pDownload->GetNext( posSource )->Draw( pDC, prcBar );
-		if ( ! (  pDownloadData->bCompleted || pDownloadData->bSeeding ) || ! pDownloadData->pSourcesData.GetAt( nSource ).oPastFragments.empty() )
-			DrawSource( pDC, prcBar, &pDownloadData->pSourcesData.GetAt( nSource ), crNatural, FALSE );
+		if ( ! (  pDownloadData->m_bCompleted || pDownloadData->m_bSeeding ) || ! pDownloadData->m_pSourcesData[ nSource ].m_oPastFragments.empty() )
+			DrawSource( pDC, prcBar, &pDownloadData->m_pSourcesData.GetAt( nSource ), crNatural, FALSE );
 	}
 
-	if ( pDownloadData->nVolumeComplete || pDownloadData->bSeeding )
+	if ( pDownloadData->m_nVolumeComplete || pDownloadData->m_bSeeding )
 	{
 		if ( ! Images.DrawButtonState( pDC, prcBar, IMAGE_PROGRESSBAR ) )
 			pDC->FillSolidRect( prcBar, Colors.m_crFragmentComplete );
@@ -261,17 +262,17 @@ void CFragmentBar::DrawDownload(CDC* pDC, CRect* prcBar, const CDownload* pDownl
 // New abstracted method:
 void CFragmentBar::DrawSource(CDC* pDC, CRect* prcBar, const CSourceDisplayData* pSourceData, COLORREF crNatural, BOOL bDrawEmpty /*TRUE*/)
 {
-	if ( ! pSourceData->bIdle )
+	if ( ! pSourceData->m_bIdle )
 	{
 		// Note moved from CDownloadTransfer::DrawStateBar
-		CFragmentBar::DrawStateBar( pDC, prcBar, pSourceData->nSize, pSourceData->nTransferOffset, pSourceData->nTransferLength, Colors.m_crFragmentRequest, TRUE );
+		CFragmentBar::DrawStateBar( pDC, prcBar, pSourceData->m_nSize, pSourceData->m_nTransferOffset, pSourceData->m_nTransferLength, Colors.m_crFragmentRequest, TRUE );
 
 	// ToDo:
-	//	if ( pSourceData->nProtocol == PROTOCOL_BT || pSourceData->nProtocol == PROTOCOL_ED2K )
+	//	if ( pSourceData->m_nProtocol == PROTOCOL_BT || pSourceData->m_nProtocol == PROTOCOL_ED2K )
 	//	{
 	//		for ( Fragments::Queue::const_iterator pItr = m_oRequested.begin() ; pItr != m_oRequested.end() ; ++pItr )
 	//		{
-	//			CFragmentBar::DrawStateBar( pDC, prcBar, pSourceData->nSize, pItr->begin(), pItr->size(), Colors.m_crFragmentRequest, TRUE );
+	//			CFragmentBar::DrawStateBar( pDC, prcBar, pSourceData->m_nSize, pItr->begin(), pItr->size(), Colors.m_crFragmentRequest, TRUE );
 	//		}
 	//	}
 	}
@@ -284,49 +285,45 @@ void CFragmentBar::DrawSource(CDC* pDC, CRect* prcBar, const CSourceDisplayData*
 		Colors.m_crFragmentSource7, Colors.m_crFragmentSource8
 	};
 
-	COLORREF crTransfer = pSourceData->bReadContent ? crFill[ pSourceData->nColor ] : Colors.m_crFragmentComplete;
+	COLORREF crTransfer = pSourceData->m_bReadContent ? crFill[ pSourceData->m_nColor ] : Colors.m_crFragmentComplete;
 	crTransfer = CColors::CalculateColor( crTransfer, Colors.m_crHighlight, 90 );
 
-	if ( ! pSourceData->bIdle && pSourceData->nState == dtsDownloading )	//&& m_pTransfer->m_nOffset < SIZE_UNKNOWN
+	if ( ! pSourceData->m_bIdle && pSourceData->m_nState == dtsDownloading )	//&& m_pTransfer->m_nOffset < SIZE_UNKNOWN
 	{
-		if ( pSourceData->bTransferBackwards )
+		if ( pSourceData->m_bTransferBackwards )
 		{
-			CFragmentBar::DrawFragment( pDC, prcBar, pSourceData->nSize,
-				pSourceData->nTransferOffset + pSourceData->nTransferLength - pSourceData->nTransferPosition,
-				pSourceData->nTransferPosition, crTransfer, TRUE );
+			CFragmentBar::DrawFragment( pDC, prcBar, pSourceData->m_nSize,
+				pSourceData->m_nTransferOffset + pSourceData->m_nTransferLength - pSourceData->m_nTransferPosition,
+				pSourceData->m_nTransferPosition, crTransfer, TRUE );
 		}
 		else
 		{
-			CFragmentBar::DrawFragment( pDC, prcBar, pSourceData->nSize,
-				pSourceData->nTransferOffset,
-				pSourceData->nTransferPosition, crTransfer, TRUE );
+			CFragmentBar::DrawFragment( pDC, prcBar, pSourceData->m_nSize,
+				pSourceData->m_nTransferOffset,
+				pSourceData->m_nTransferPosition, crTransfer, TRUE );
 		}
 	}
 
-	Fragments::List::const_iterator pItr = pSourceData->oPastFragments.begin();
-	Fragments::List::const_iterator pEnd = pSourceData->oPastFragments.end();
-	for ( ; pItr != pEnd ; ++pItr )
+	for ( Fragments::List::const_iterator pItr = pSourceData->m_oPastFragments.begin() ; pItr != pSourceData->m_oPastFragments.end() ; ++pItr )
 	{
-		CFragmentBar::DrawFragment( pDC, prcBar, pSourceData->nSize, pItr->begin(), pItr->size(), crTransfer, TRUE );
+		CFragmentBar::DrawFragment( pDC, prcBar, pSourceData->m_nSize, pItr->begin(), pItr->size(), crTransfer, TRUE );
 	}
 
 	if ( ! bDrawEmpty )
 		return;
 
 	// Draw empty bar areas
-	if ( ! pSourceData->oAvailable.empty() )
+	if ( ! pSourceData->m_oAvailable.empty() )
 	{
-		pItr = pSourceData->oAvailable.begin();
-		pEnd = pSourceData->oAvailable.end();
-		for ( ; pItr != pEnd ; ++pItr )
+		for ( Fragments::List::const_iterator pItr = pSourceData->m_oAvailable.begin() ; pItr != pSourceData->m_oAvailable.end() ; ++pItr )
 		{
-			CFragmentBar::DrawFragment( pDC, prcBar, pSourceData->nSize, pItr->begin(), pItr->size(), crNatural, FALSE );
+			CFragmentBar::DrawFragment( pDC, prcBar, pSourceData->m_nSize, pItr->begin(), pItr->size(), crNatural, FALSE );		// ToDo: Crash here?
 		}
 
 		if ( ! Images.DrawButtonState( pDC, prcBar, IMAGE_PROGRESSBAR_NONE ) )
 			pDC->FillSolidRect( prcBar, Colors.m_crWindow );
 	}
-	else if ( pSourceData->bHasFragments )	// IsOnline() && HasUsefulRanges() || ! pSourceData->oPastFragments.empty()
+	else if ( pSourceData->m_bHasFragments )	// IsOnline() && HasUsefulRanges() || ! pSourceData->m_oPastFragments.empty()
 	{
 		if ( ! Images.DrawButtonState( pDC, prcBar, IMAGE_PROGRESSBAR_SHADED ) )
 			pDC->FillSolidRect( prcBar, crNatural );
@@ -453,6 +450,54 @@ void CFragmentBar::DrawSource(CDC* pDC, CRect* prcBar, const CSourceDisplayData*
 //////////////////////////////////////////////////////////////////////
 // CFragmentBar upload
 
+// New abstracted method:
+void CFragmentBar::DrawUpload(CDC* pDC, CRect* prcBar, const CUploadDisplayData* pUploadData, COLORREF crNatural)
+{
+	Fragments::List::const_iterator pItr = pUploadData->m_oFragments.begin();
+	const Fragments::List::const_iterator pEnd = pUploadData->m_oFragments.end();
+	for ( ; pItr != pEnd ; ++pItr )
+	{
+		DrawFragment( pDC, prcBar, pUploadData->m_nSize, pItr->begin(), pItr->size(), Colors.m_crFragmentComplete, TRUE );
+	}
+
+	if ( pUploadData->m_bBaseFile && pUploadData->m_nLength != SIZE_UNKNOWN )
+	{
+		if ( pUploadData->m_nProtocol == PROTOCOL_HTTP && pUploadData->m_bBackwards )
+		{
+			DrawFragment( pDC, prcBar, pUploadData->m_nSize,
+				pUploadData->m_nOffset + pUploadData->m_nLength - pUploadData->m_nPosition,
+				pUploadData->m_nPosition, Colors.m_crFragmentComplete, TRUE );
+
+			DrawFragment( pDC, prcBar, pUploadData->m_nSize,
+				pUploadData->m_nOffset,
+				pUploadData->m_nLength - pUploadData->m_nPosition, crNatural, FALSE );
+		}
+		else
+		{
+			DrawFragment( pDC, prcBar, pUploadData->m_nSize,
+				pUploadData->m_nOffset, pUploadData->m_nPosition,
+				Colors.m_crFragmentComplete, TRUE );
+
+			DrawFragment( pDC, prcBar, pUploadData->m_nSize,
+				pUploadData->m_nOffset + pUploadData->m_nPosition,
+				pUploadData->m_nLength - pUploadData->m_nPosition, crNatural, FALSE );
+		}
+	}
+
+	// Empty Bar
+	if ( pUploadData->m_bBaseFile )
+	{
+		if ( ! Images.DrawButtonState( pDC, prcBar, IMAGE_PROGRESSBAR_SHADED ) )
+			pDC->FillSolidRect( prcBar, Colors.m_crFragmentShaded );
+	}
+	else // if ( pFile != pUpload->m_pBaseFile )
+	{
+		if ( ! Images.DrawButtonState( pDC, prcBar, IMAGE_PROGRESSBAR_NONE ) )
+			pDC->FillSolidRect( prcBar, crNatural );
+	}
+}
+
+// Legacy locking method:
 void CFragmentBar::DrawUpload(CDC* pDC, CRect* prcBar, CUploadFile* pFile, COLORREF crNatural)
 {
 	CUploadTransfer* pUpload = pFile->GetActive();

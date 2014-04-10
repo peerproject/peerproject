@@ -155,8 +155,7 @@ BOOL CDCNeighbour::OnRead()
 					{
 						// Got "End of Stream" so turn decompression off
 						m_bZInputEOS = FALSE;
-						if ( m_pZSInput )
-							m_pZInput->InflateStreamCleanup( m_pZSInput );
+						CBuffer::InflateStreamCleanup( m_pZSInput );
 						delete m_pZInput;
 						m_pZInput = NULL;
 					}

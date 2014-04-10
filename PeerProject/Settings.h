@@ -314,11 +314,12 @@ public:
 		bool		SlowConnect;			// Connect to one network at a time. Don't download while connecting. (XPsp2)
 		bool		EnableFirewallException;// Create Firewall exception at startup
 		bool		DeleteFirewallException;// Delete Firewall exception on shutdown
-		bool		EnableUPnP;
-		bool		DeleteUPnPPorts;		// Delete forwarded ports on shutdown (UPnP)
-		DWORD		UPnPRefreshTime;		// Refresh time of port mappings (UPnP)
-		bool		SkipWANPPPSetup;		// Skip WANPPPConn1 device setup (UPnP)
-		bool		SkipWANIPSetup;			// Skip WANIPConn1 device setup (UPnP)
+		bool		EnableUPnP;				// UPnP: Enable forwarded ports on startup
+		bool		DeleteUPnPPorts;		// UPnP: Delete forwarded ports on shutdown
+		DWORD		UPnPTimeout;			// UPnP: Maximum time for waiting on any device response (milliseconds)
+		DWORD		UPnPRefreshTime;		// UPnP: Refresh time of port mappings
+		bool		SkipWANPPPSetup;		// UPnP: Skip WANPPPConn1 device setup
+		bool		SkipWANIPSetup;			// UPnP: Skip WANIPConn1 device setup
 		DWORD		ZLibCompressionLevel;	// ZLib compression level: 0-9
 	} Connection;
 

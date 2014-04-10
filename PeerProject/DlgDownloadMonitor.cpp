@@ -269,6 +269,9 @@ void CDownloadMonitorDlg::OnTimer( UINT_PTR nIDEvent )
 
 	if ( nIDEvent == 1 )		// Rapid Refresh Graph
 	{
+		if ( m_pDownload->IsPaused() )
+			return;				// ToDo: Update once?
+
 		DWORD nSpeed = m_pDownload->GetMeasuredSpeed();
 		m_pItem->Add( nSpeed );
 		m_pGraph->m_nUpdates++;
@@ -276,11 +279,10 @@ void CDownloadMonitorDlg::OnTimer( UINT_PTR nIDEvent )
 
 		if ( nSpeed > 4000 && ! Settings.General.LanguageRTL )
 		{
-			CString strText, strOf;
-			LoadString( strOf, IDS_GENERAL_OF );
+			CString strText;
 			strText.Format( _T("%s %s %s  (%.2f%%)"),
 				Settings.SmartVolume( m_pDownload->GetVolumeComplete() ),
-				strOf,
+				LoadString( IDS_GENERAL_OF ),
 				Settings.SmartVolume( m_pDownload->m_nSize ),
 				m_pDownload->GetProgress() );
 
@@ -289,6 +291,9 @@ void CDownloadMonitorDlg::OnTimer( UINT_PTR nIDEvent )
 
 		CClientDC dc( this );
 		DoPaint( dc );
+
+		if ( m_bCompleted )
+			KillTimer( 1 );
 
 		return;
 	}
@@ -363,12 +368,10 @@ void CDownloadMonitorDlg::OnTimer( UINT_PTR nIDEvent )
 
 	if ( bCompleted )
 	{
-		LoadString( strText, IDS_MONITOR_COMPLETED_WORD );
-		if ( m_pDownload->IsTorrent() && m_pDownload->IsSeeding() )
-		{
-			LoadString( strAction, IDS_STATUS_SEEDING );
-			strText += _T("  (") + strAction + _T(")");
-		}
+		if ( m_pDownload->IsSeeding() )
+			strText += _T("  (") + LoadString( IDS_STATUS_SEEDING ) + _T(")");
+		else
+			LoadString( strText, IDS_MONITOR_COMPLETED_WORD );
 		LoadString( strAction, IDS_MONITOR_ACTION_OPEN );
 		Update( &m_wndAction, TRUE );
 	//	LoadString( strText, IDS_MONITOR_COMPLETED );
